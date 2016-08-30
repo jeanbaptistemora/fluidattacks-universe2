@@ -1,0 +1,23 @@
+<div class="page-head">
+    <ol class="breadcrumb">
+        <li><a href="#">Busqueda</a></li>
+        <li><a href="#">Eventualidades por proyecto</a></li>
+    </ol>
+</div>
+<div class="main-content">
+    <h3 class="text-center">
+        <div class="row">
+        <div class="col-md-4 col-md-offset-4">
+            <div class="input-group">
+                <input class="form-control text-center text-uppercase" ng-model="project" placeholder="Nombre del proyecto en Fluid">
+                <span class="input-group-btn">
+                    <button class="btn btn-primary" ng-click="searchEvntByName();" title="Ejecutar esta busqueda"><i class="glyphicon glyphicon-search"></i>&nbsp;</button>
+                </span>
+            </div>
+            <div class="text-muted" >
+                <small style="color: #F34444;">{{response}}</small>
+            </div>
+        </div>
+        </div>
+    </h3>
+</div>
