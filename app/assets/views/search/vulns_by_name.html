@@ -33,15 +33,92 @@
             width: 700px;
             margin: auto;
         }
+        .ver-modal{
+            width: 1000px !important;
+            margin: auto;
+        }
+        textarea{
+            resize: none;
+        }
+        .hide-detallado{
+            display: none;
+        }
+        .show-detallado{
+            display: block;
+        }
     </style>
+
+    <!-- START: MODAL AVANCE -->
     <script type="text/ng-template" id="avance.html">
         <div class="modal-header">
             <h3 class="modal-title" id="modal-title">Reporte de avance</h3>
         </div>
         <div class="modal-body" id="modal-body">
-            <ul>
+            <ul style="list-style: none;">
                 <li ng-repeat="r in rows"> - Hallazgos #{{r.id}}:&nbsp;[{{r.criticidad}}&nbsp;CVSS]&nbsp;{{r.hallazgo}}&nbsp;({{r.cardinalidad}})
             </ul>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-primary" type="button" ng-click="closeModalAvance()">OK</button>
+        </div>
+    </script>
+
+    <!-- START: MODAL VER -->
+    <script type="text/ng-template" id="ver.html">
+        <div class="modal-header">
+            
+        </div>
+        <div class="modal-body" id="modal-body">
+            <div class="row">
+                <div class="col-md-8">
+                    <div class="form-group">
+                        <label>Hallazgo</label>
+                        <input type="text" class="form-control" ng-model="vuln.hallazgo" disabled>
+                    </div>
+                </div> 
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>Analista</label>
+                        <input type="text" class="form-control" ng-model="vuln.analista" disabled>
+                    </div>
+                </div> 
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label>Cardinalidad</label>
+                        <input type="text" class="form-control" ng-model="vuln.cardinalidad" disabled>
+                    </div>
+                </div> 
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label>Criticidad</label>
+                        <input type="text" class="form-control" ng-model="vuln.criticidad" disabled>
+                    </div>
+                </div> 
+                <div class="col-md-{{cols}}">
+                    <div class="form-group">
+                        <label>Vulnerabilidad</label>
+                        <textarea class="form-control" id="email" rows="{{rows}}" disabled> {{vuln.vulnerabilidad}}</textarea>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label>Donde</label>
+                        <textarea class="form-control" id="email" disabled rows="{{rows}}"> {{vuln.donde}} </textarea>
+                    </div>
+                </div>
+                <div class="col-md-6" ng-class="esDetallado">
+                    <div class="form-group">
+                        <label>Riesgo</label>
+                        <textarea class="form-control" id="email" disabled rows="2"> {{vuln.riesgo}} </textarea>
+                    </div>
+                </div> 
+                <div class="col-md-6" ng-class="esDetallado">
+                    <div class="form-group">
+                        <label>Amenaza</label>
+                        <textarea class="form-control" id="email" disabled rows="2"> {{vuln.amenaza}} </textarea>
+                    </div>
+                </div>   
+            </div>    
         </div>
         <div class="modal-footer">
             <button class="btn btn-primary" type="button" ng-click="closeModalAvance()">OK</button>
@@ -54,7 +131,7 @@
             <h5 class="text-muted">Un momento porfavor, cargando...</h5>
         </div>
         <div class="col-md-10 col-md-offset-1" id="search_section">
-            <div class="table" id="toolbar">
+            <div class="row container">
                 <label><b>HALLAZGOS</b></label>
                 <label id="total_hallazgos"></label> &nbsp;&nbsp;&nbsp;
                 <label><b>CARDINALIDAD</b></label> 
@@ -66,11 +143,32 @@
                     <td class="tab-tit">Total Cardinalidad</td>
                     <td id="total_cardinalidad"></td>
                     <td class="tab-tit">Tools</td>
-                    <td><button class="btn btn-primary" ng-click="openModalAvance();">AVANCE</button></td>
+                    <td><button class="btn btn-primary" ">AVANCE</button></td>
                 </tr>-->
+            </div>
+            <div class="btn-group"  id="toolbar">
+                <button type="button" 
+                        class="btn btn-default" 
+                        data-toggle="tooltip" 
+                        data-placement="top" 
+                        title="VER!"
+                        ng-click="openModalVer();">
+                    <i class="glyphicon glyphicon-eye-open"></i>
+                </button>
+                <button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="top" title="EDITAR!"><i class="glyphicon glyphicon-pencil"></i></button>
+                <button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="top" title="BORRAR!"><i class="glyphicon glyphicon-trash"></i></button>
+                <button type="button" 
+                        class="btn btn-default" 
+                        data-toggle="tooltip" 
+                        data-placement="top" 
+                        title="AVANCE!"
+                        ng-click="openModalAvance();">
+                    <i class="glyphicon glyphicon-bookmark"></i>
+                </button>
             </div>
             <table
                 id="vulnerabilities"
+                data-click-to-select="true"
                 data-classes="table table-hover table-striped"
                 data-striped="true"
                 data-pagination="true"
@@ -79,6 +177,7 @@
                 data-search="true">
                 <thead>
                     <tr style=""> 
+                        <th data-radio="true"></th>
                         <th data-field="id">ID</th>
                         <th data-field="hallazgo">Hallazgo</th>
                         <th data-field="criticidad"
