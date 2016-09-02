@@ -11,7 +11,9 @@ integrates.controller("searchController", function($scope,$uibModal, searchFacto
         $("#search_section").hide();
         $(".loader").hide();
     }
-
+    /*
+     *  Modal para ver un hallazgo 
+     */
     $scope.openModalVer = function(){
         var sel = $("#vulnerabilities").bootstrapTable('getSelections');
         if(sel.length == 0){
@@ -25,27 +27,23 @@ integrates.controller("searchController", function($scope,$uibModal, searchFacto
         }else{
             $scope.currentVulnerability = sel[0];
         }
-        //console.log($scope.currentVulnerability);
         var modalInstance = $uibModal.open({
             animation: true,
             templateUrl: 'ver.html',
             windowClass: 'ver-modal',
             controller: function($scope, $uibModalInstance, currentVulnerability){
                 $scope.vuln = currentVulnerability;
-                /*
-                if($scope.vuln.amenaza == undefined) $scope.vuln.amenaza = "";
-                if($scope.vuln.riesgo == undefined) $scope.vuln.riesgo = "";*/
                 if($scope.vuln.nivel == "General"){
                     $scope.esDetallado = "hide-detallado";
                     $scope.rows = "4";
                     $scope.cols = "12";
                 }else{
                     $scope.esDetallado = "show-detallado";  
-                    $scope.rows = "3";
+                    $scope.rows = "2";
                     $scope.cols = "6";
                 }
                 
-                $scope.closeModalAvance = function(){
+                $scope.closeModalVer = function(){
                     $uibModalInstance.dismiss('cancel');
                 }
             },
@@ -56,7 +54,9 @@ integrates.controller("searchController", function($scope,$uibModal, searchFacto
             }
         });
     };
-
+    /*
+     *  Modal para obtener el string del formulario de avance 
+     */
     $scope.openModalAvance = function(){
         var modalInstance = $uibModal.open({
             animation: true,
@@ -73,7 +73,77 @@ integrates.controller("searchController", function($scope,$uibModal, searchFacto
             }
         });
     };
+    /*
+     *  Modal para obtener el string del formulario de avance 
+     */
+    $scope.openModalEditar = function(){
+        var sel = $("#vulnerabilities").bootstrapTable('getSelections');
+        if(sel.length == 0){
+            $.gritter.add({
+                title: 'Error',
+                text: 'Debes seleccionar un hallazgo',
+                class_name: 'color warning',
+                    sticky: false,
+            });
+            return false;
+        }else{
+            $scope.currentVulnerability = sel[0];
+        }
+        
+        var modalInstance = $uibModal.open({
+            animation: true,
+            templateUrl: 'editar.html',
+            windowClass: 'ver-modal',
+            controller: function($scope, $uibModalInstance, currentVulnerability){
+                $scope.vuln = currentVulnerability;
+                if($scope.vuln.nivel == "General"){
+                    $scope.esDetallado = "hide-detallado";
+                    $scope.rows = "4";
+                    $scope.cols = "12";
+                }else{
+                    $scope.esDetallado = "show-detallado";  
+                    $scope.rows = "2";
+                    $scope.cols = "6";
+                }
+                $scope.okModalEditar = function(){
+                   console.log($scope.vuln);
+                }
 
+                $scope.closeModalEditar = function(){
+                    $uibModalInstance.dismiss('cancel');
+                }
+            },
+            resolve: {
+                currentVulnerability: function(){
+                    return $scope.currentVulnerability;
+                }
+            }
+        });
+    };
+    /*
+     *  Modal para obtener el string del formulario de avance 
+     */
+    $scope.openModalEliminar = function(){
+        var modalInstance = $uibModal.open({
+            animation: true,
+            templateUrl: 'eliminar.html',
+            windowClass: 'modal avance-modal',
+            controller: function($scope, $uibModalInstance){
+                $scope.cancelModalAvance = function(){
+                    $uibModalInstance.dismiss('cancel');
+                }
+                $scope.okModalAvance = function(){
+                    $uibModalInstance.dismiss('cancel');
+                }
+            },
+            resolve: {
+                ok: true
+            }
+        });
+    };
+    /*
+     *  Funcion para consultar hallazgos
+     */
     $scope.searchVulnByName = function(){
         var project = $scope.project;
         if (project !== undefined && project !== ""){

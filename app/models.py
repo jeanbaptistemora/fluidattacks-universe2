@@ -126,7 +126,8 @@ def get_vuln_by_name (project):
         'search_field_1': config["formstack"]["forms"]["get_vuln_by_name"]["fields"]["name"],
         'search_value_1': project
     }
-    req = requests.get(url, data= data,verify= False)
+    headers = config['headers']
+    req = requests.get(url, data= data,verify= False, headers= headers)
     return json.loads(req.text)
 
 def get_vuln_by_submission_id (id):
@@ -135,7 +136,8 @@ def get_vuln_by_submission_id (id):
         data = {
             'oauth_token': config["formstack"]["token"],
         }
-        req = requests.get(url, data= data ,verify= False)
+        headers = config['headers']
+        req = requests.get(url, data= data ,verify= False, headers= headers)
         sub = parse_formstack_vuln_req(json.loads(req.text)["data"],id)
         sleep(1)
         return sub
@@ -146,12 +148,14 @@ def get_vuln_by_submission_id (id):
 
 
 def one_login_auth(username, password):
+    url = config['onelogin']['url']
     data = {
         'username': username,
         'password': password,
         'api_key': config['onelogin']['api_key'],
         'app_id': config['onelogin']['app_id']
     }
-    req = requests.post(config['onelogin']['url'], data= data, headers= config['headers'])
+    headers = config['headers']
+    req = requests.post(url, data= data, headers= headers)
     result = json.loads(req.text)
     return result

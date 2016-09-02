@@ -25,6 +25,6 @@ integrates.config(function($stateProvider, $urlRouterProvider) {
             url: '/EventualitiesByName',
             templateUrl: 'assets/views/search/event_by_name.html',
             controller: 'searchController'        
-        });
+        })
         
 });
