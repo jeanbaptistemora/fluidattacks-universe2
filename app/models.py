@@ -6,7 +6,7 @@ from requests.packages.urllib3.exceptions import InsecureRequestWarning
 requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
 import json
 from time import sleep
-requests.adapters.DEFAULT_RETRIES = 5
+requests.adapters.DEFAULT_RETRIES = 10
 
 config = {
     'headers':{
@@ -141,11 +141,38 @@ def get_vuln_by_submission_id (id):
         sub = parse_formstack_vuln_req(json.loads(req.text)["data"],id)
         sleep(1)
         return sub
-    except ConnectionError:
+    except:
         print ("ERROR de conexion")
         return []
         
-
+def update_vuln_by_id(reinp):
+    fieldCtx = config["formstack"]["fields"]["vuln"]
+    #WRAP REQUEST POST PARAMS
+    id = reinp['vuln[id]']
+    files = {
+        "field_" + fieldCtx["donde"] : reinp['vuln[donde]'],
+        "field_" + fieldCtx["cardinalidad"] : reinp['vuln[cardinalidad]'],
+        "field_" + fieldCtx["criticidad"] : reinp['vuln[criticidad]'],
+        "field_" + fieldCtx["vulnerabilidad"] : reinp['vuln[vulnerabilidad]']
+    }
+    if "vuln[riesgo]" in reinp:
+        files["field_"+fieldCtx["riesgo"]] = reinp['vuln[riesgo]']
+    if "vuln[amenaza]" in reinp:
+        files["field_"+fieldCtx["amenaza"]] = reinp['vuln[amenaza]']
+    
+    #DEFINE URL
+    url = config["formstack"]["forms"]["get_submission_by_id"]["url"].replace(":id",id)
+    url+= "?oauth_token=" +config["formstack"]["token"]
+    headers = config['headers']
+    headers["cache-control"] = "no-chache"
+    headers["content-type"] = "application/x-www-form-urlencoded"
+    req = None
+    try:
+        req = requests.put(url, data= files, headers= headers, verify= False)
+    except:
+        req = None
+    finally:
+        return req
 
 def one_login_auth(username, password):
     url = config['onelogin']['url']

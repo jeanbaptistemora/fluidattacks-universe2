@@ -29,11 +29,12 @@ integrates.factory('searchFactory', function($q){
           }
           return deferred.promise
      	},
-        updateVulnByName: function(vuln){
+        updateVuln: function(vuln){
             var deferred = $q.defer();
             try {
                 $.ajax({
-                url: BASE.url + "get_vuln_by_date",
+                url: BASE.url + "update_vuln",
+                method: "POST",
                 data: {
                     vuln: vuln
                   },
@@ -41,7 +42,28 @@ integrates.factory('searchFactory', function($q){
                       deferred.resolve(response);
                   },
                   error: function (xhr, status) {
-                      self.ajaxError(xhr, status);
+                      deferred.resolve('error');
+                  }
+              });
+          } catch (e) {
+              console.log('There was an exception: ' + e.message);
+              deferred.resolve('exception');
+          }
+          return deferred.promise
+        },
+        deleteVuln: function(vuln){
+            var deferred = $q.defer();
+            try {
+                $.ajax({
+                url: BASE.url + "delete_vuln",
+                method: "POST",
+                data: {
+                    vuln: vuln
+                  },
+                  success: function (response) { 
+                      deferred.resolve(response);
+                  },
+                  error: function (xhr, status) {
                       deferred.resolve('error');
                   }
               });

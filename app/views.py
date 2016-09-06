@@ -4,6 +4,7 @@ from django.views.decorators.csrf import requires_csrf_token, csrf_exempt
 from django.template import Context, loader
 from . import models, response
 import os
+import json
 
 def index(request):
     c = {}
@@ -78,3 +79,19 @@ def get_evnt_by_name(request):
         else:
             return HttpResponse("TEST3")
         
+@csrf_exempt
+def update_vuln(request):
+    req = request.POST.dict();
+    res = models.update_vuln_by_id(req)
+    counter = 10
+    while(res == None and counter != 0):
+        res = models.update_vuln_by_id(req)
+        counter -= 1
+    if(res == None):
+        return JsonResponse(response.object([],'No hay conexion con formstack',True))
+    else:
+        res = json.loads(res.text)
+        if "success" in res:
+            return JsonResponse(response.object([],'Success',False))
+        else:
+            return JsonResponse(response.object([],'No se pudo actualizar formstack',True))

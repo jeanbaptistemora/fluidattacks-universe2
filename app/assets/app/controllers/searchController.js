@@ -5,6 +5,25 @@ integrates.vulnbynameFormatter = function(value, row, index){
                 '<button type="button" class="btn btn-warning"><i class="glyphicon glyphicon-trash"></i></button>' +
            '</div>';
 };
+integrates.calcCardinality = function(data){
+    var cardinalidad = 0; 
+    data.data.forEach(function(i){ cardinalidad+= parseInt(i.cardinalidad); });
+    $("#total_cardinalidad").html(cardinalidad);
+    $("#total_hallazgos").html(data.data.length);
+};
+integrates.updateVulnRow = function(row){
+    var data = $("#vulnerabilities").bootstrapTable("getData")
+    for(var i=0; i<data.length;i++){
+        if(data[i].id == row.id){
+            data[i] = row;
+            $("#vulnerabilities").bootstrapTable("destroy");
+            $("#vulnerabilities").bootstrapTable({data: data});
+            $("#vulnerabilities").bootstrapTable("refresh");
+            break;
+        }
+    }
+    integrates.calcCardinality({data: data});
+};
 integrates.controller("searchController", function($scope,$uibModal, searchFactory) {
 
     $scope.init = function(){
@@ -106,7 +125,25 @@ integrates.controller("searchController", function($scope,$uibModal, searchFacto
                     $scope.cols = "6";
                 }
                 $scope.okModalEditar = function(){
-                   console.log($scope.vuln);
+                   integrates.updateVulnRow($scope.vuln);
+                   searchFactory.updateVuln($scope.vuln).then(function(response){
+                        if(!response.error){
+                            $.gritter.add({
+                                title: 'Correcto!',
+                                text: 'Hallazgo actualizado',
+                                class_name: 'color success',
+                                sticky: false,
+                            });
+                            $uibModalInstance.dismiss('cancel');
+                        }else{
+                            $.gritter.add({
+                                title: 'Error!',
+                                text: response.message,
+                                class_name: 'color warning',
+                                sticky: false,
+                            });
+                        } 
+                   });
                 }
 
                 $scope.closeModalEditar = function(){
@@ -124,20 +161,45 @@ integrates.controller("searchController", function($scope,$uibModal, searchFacto
      *  Modal para obtener el string del formulario de avance 
      */
     $scope.openModalEliminar = function(){
+        var sel = $("#vulnerabilities").bootstrapTable('getSelections');
+        if(sel.length == 0){
+            $.gritter.add({
+                title: 'Error',
+                text: 'Debes seleccionar un hallazgo',
+                class_name: 'color warning',
+                    sticky: false,
+            });
+            return false;
+        }else{
+            $scope.currentVulnerability = sel[0];
+            $scope.currentVulnerability.justificacion = "";
+        }
         var modalInstance = $uibModal.open({
             animation: true,
             templateUrl: 'eliminar.html',
             windowClass: 'modal avance-modal',
-            controller: function($scope, $uibModalInstance){
-                $scope.cancelModalAvance = function(){
+            controller: function($scope, $uibModalInstance, currentVulnerability){
+                $scope.vuln = currentVulnerability;
+                $scope.closeModalEliminar = function(){
                     $uibModalInstance.dismiss('cancel');
                 }
-                $scope.okModalAvance = function(){
-                    $uibModalInstance.dismiss('cancel');
+                $scope.okModalEliminar = function(){
+                    //$uibModalInstance.dismiss('cancel');
+                    if(typeof $scope.vuln.justificacion != "string"
+                        || $scope.vuln.justificacion == ""){
+                        $.gritter.add({
+                            title: 'Error',
+                            text: 'Debes seleccionar una justificacion',
+                            class_name: 'color warning',
+                                sticky: false,
+                        });
+                    }
                 }
             },
             resolve: {
-                ok: true
+                currentVulnerability: function(){
+                    return $scope.currentVulnerability;
+                }
             }
         });
     };
@@ -157,18 +219,15 @@ integrates.controller("searchController", function($scope,$uibModal, searchFacto
             $(".loader").show();
             searchFactory.getVulnByName(project).then(function(data){
                 if(data.error == false){
-                    var cardinalidad = 0; 
-                    data.data.forEach(function(i){ cardinalidad+= parseInt(i.cardinalidad); });
                     
                     //CONFIGURACION DE TABLA
                     $("#vulnerabilities").bootstrapTable('destroy');
                     $("#vulnerabilities").bootstrapTable(data);
                     $("#vulnerabilities").bootstrapTable('refresh');
                     //MANEJO DEL UI
-                    $("#total_cardinalidad").html(cardinalidad);
-                    $("#total_hallazgos").html(data.data.length);
                     $("#search_section").show();
                     $('[data-toggle="tooltip"]').tooltip(); 
+                    integrates.calcCardinality(data);
                 }else{
                     if (data.message == "Project doesn't exist"){
                         $.gritter.add({

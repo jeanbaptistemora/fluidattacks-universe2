@@ -185,10 +185,30 @@
     <!-- START: MODAL ELIMINAR -->
     <script type="text/ng-template" id="eliminar.html">
         <div class="modal-header">
-            <h3 class="modal-title" id="modal-title"></h3>
+            <h3 class="modal-title" id="modal-title">Eliminar Hallazgo</h3>
         </div>
         <div class="modal-body" id="modal-body">
-            ¿Desea eliminar este hallazgo?
+            <div class="form-group">
+                    <label>Id</label>
+                    <input type="text" class="form-control" ng-model="vuln.id" disabled>
+                </div>
+                <div class="form-group">
+                    <label>Hallazgo</label>
+                    <input type="text" class="form-control" ng-model="vuln.hallazgo" disabled>
+                </div>
+                <div class="form-group">
+                    <label>Proyecto</label>
+                    <input type="text" class="form-control" ng-model="vuln.proyecto_fluid" ng-required="true" disabled>
+                </div>
+                <div class="form-group">
+                    <label>Justificacion</label>
+                    <select class="form-control" ng-model="vuln.justificacion" ng-required="true">
+                        <option value="Cambio de Evidencia" selected>Cambio de Evidencia</option>
+                        <option value="Por Modificación del Hallazgo">Por Modificación del Hallazgo</option>
+                        <option value="No es una Vulnerabilidad">No es una Vulnerabilidad</option>
+                        <option value="Está Duplicado">Está Duplicado</option>
+                    </select>
+                </div>
         </div>
         <div class="modal-footer">
             <button class="btn btn-warning" type="button" ng-click="closeModalEliminar()">Cerrar</button>
@@ -207,14 +227,6 @@
                 <label id="total_hallazgos"></label> &nbsp;&nbsp;&nbsp;
                 <label><b>CARDINALIDAD</b></label> 
                 <label id="total_cardinalidad"></label> &nbsp;&nbsp;&nbsp;
-                <!--<tr>
-                    <td class="tab-tit">Total Hallazgos</td>
-                    <td id="total_hallazgos"></td>
-                    <td class="tab-tit">Total Cardinalidad</td>
-                    <td id="total_cardinalidad"></td>
-                    <td class="tab-tit">Tools</td>
-                    <td><button class="btn btn-primary" ">AVANCE</button></td>
-                </tr>-->
             </div>
             <!-- START: toolbar -->
             <div class="btn-group"  id="toolbar">
@@ -249,6 +261,14 @@
                         title="AVANCE!"
                         ng-click="openModalAvance();">
                     <i class="glyphicon glyphicon-bookmark"></i>
+                </button>
+                <button type="button" 
+                        class="btn btn-default" 
+                        data-toggle="tooltip" 
+                        data-placement="top" 
+                        title="DESCARGAR DOCUMENTACION!"
+                        ng-click="openModalAvance();">
+                    <i class="glyphicon glyphicon-floppy-save"></i>
                 </button>
             </div>
             <table
