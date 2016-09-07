@@ -24,6 +24,18 @@ integrates.updateVulnRow = function(row){
     }
     integrates.calcCardinality({data: data});
 };
+integrates.deleteVulnRow = function(row){
+    var data = $("#vulnerabilities").bootstrapTable("getData")
+    var newData = [];
+    for(var i=0; i<data.length;i++){
+        if(data[i].id != row.id){
+            newData.append(row);
+        }
+    }
+    $("#vulnerabilities").bootstrapTable("destroy");
+    $("#vulnerabilities").bootstrapTable({data: newData});
+    $("#vulnerabilities").bootstrapTable("refresh");
+};
 integrates.controller("searchController", function($scope,$uibModal, searchFactory) {
 
     $scope.init = function(){
@@ -125,7 +137,6 @@ integrates.controller("searchController", function($scope,$uibModal, searchFacto
                     $scope.cols = "6";
                 }
                 $scope.okModalEditar = function(){
-                   integrates.updateVulnRow($scope.vuln);
                    searchFactory.updateVuln($scope.vuln).then(function(response){
                         if(!response.error){
                             $.gritter.add({
@@ -134,6 +145,7 @@ integrates.controller("searchController", function($scope,$uibModal, searchFacto
                                 class_name: 'color success',
                                 sticky: false,
                             });
+                            integrates.updateVulnRow($scope.vuln);
                             $uibModalInstance.dismiss('cancel');
                         }else{
                             $.gritter.add({
@@ -191,9 +203,30 @@ integrates.controller("searchController", function($scope,$uibModal, searchFacto
                             title: 'Error',
                             text: 'Debes seleccionar una justificacion',
                             class_name: 'color warning',
-                                sticky: false,
+                            sticky: false,
                         });
+                        return false;
                     }
+                    searchFactory.deleteVuln($scope.vuln).then(function(response){
+                        if(!response.error){
+                            $.gritter.add({
+                                title: 'Correcto!',
+                                text: 'Hallazgo actualizado',
+                                class_name: 'color success',
+                                sticky: false,
+                            });
+                            //integrates.deleteVulnRow($scope.vuln);
+                            $uibModalInstance.dismiss('cancel');
+                        }else{
+                            $.gritter.add({
+                                title: 'Error!',
+                                text: response.message,
+                                class_name: 'color warning',
+                                sticky: false,
+                            });
+                        } 
+                   });
+
                 }
             },
             resolve: {

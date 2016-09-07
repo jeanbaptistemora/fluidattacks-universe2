@@ -95,3 +95,10 @@ def update_vuln(request):
             return JsonResponse(response.object([],'Success',False))
         else:
             return JsonResponse(response.object([],'No se pudo actualizar formstack',True))
+
+@csrf_exempt
+def delete_vuln(request):
+    req = request.POST.dict();
+    req = request.POST.dict();
+    res = models.delete_vuln_by_id(req)
+    return JsonResponse(response.object([],'No se pudo actualizar formstack',False))

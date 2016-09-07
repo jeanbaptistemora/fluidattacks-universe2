@@ -11,5 +11,6 @@ urlpatterns = [
     url(r'^get_vuln_by_name/?\.*$', views.get_vuln_by_name, name='get_vuln_by_name'),
     url(r'^get_vuln_by_date/?\.*$', views.get_vuln_by_date, name='get_vuln_by_date'),
     url(r'^get_evnt_by_name/?\.*$', views.get_evnt_by_name, name='get_evnt_by_name'),
-    url(r'^update_vuln/?\.*$', views.update_vuln, name='update_vuln')
+    url(r'^update_vuln/?\.*$', views.update_vuln, name='update_vuln'),
+    url(r'^delete_vuln/?\.*$', views.delete_vuln, name='delete_vuln')    
 ] 

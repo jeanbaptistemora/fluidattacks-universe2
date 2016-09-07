@@ -23,6 +23,9 @@ config = {
             },
             'get_submission_by_id':{
                 'url' : 'https://www.formstack.com/api/v2/submission/:id.json'
+            },
+            'create_delete_registry':{
+                'url': 'https://www.formstack.com/api/v2/form/2388563/submission.json'
             }
         },
         'fields':{
@@ -53,6 +56,13 @@ config = {
                 'requisitos': "38254586",
                 'solucion_efecto': "38619077",
                 'tipo': "38392454",
+            },
+            'delete':{
+                'analista':'43112177',
+                'id':'43112343',
+                'hallazgo':'43112522',
+                'proyecto':'43112517',
+                'justificacion':'43112373' 
             }
         }
     },
@@ -173,6 +183,27 @@ def update_vuln_by_id(reinp):
         req = None
     finally:
         return req
+
+def delete_vuln_by_id(reinp):
+    analista = "glopez@fluid.la"
+    fieldCtx = config["formstack"]["fields"]["delete"]
+    url = config["formstack"]["forms"]["create_delete_registry"]
+    url+= "?oauth_token=" +config["formstack"]["token"]
+    data = {
+        "field_" + fieldCtx["analista"] : analista,
+        "field_" + fieldCtx["id"]: reinp['vuln[id]'],
+        "field_" + fieldCtx["hallazgo"]: reinp['vuln[hallazgo]'],
+        "field_" + fieldCtx["proyecto"]: reinp['vuln[proyecto_fluid]'],
+        "field_" + fieldCtx["justificacion"]: reinp['vuln[justificacion]']
+    }
+    headers = config["headers"]
+    register = None
+    while(register == None):
+        try:
+            register = requests.post(url,data= data, headers= headers)
+        except:
+            register = None
+    
 
 def one_login_auth(username, password):
     url = config['onelogin']['url']
