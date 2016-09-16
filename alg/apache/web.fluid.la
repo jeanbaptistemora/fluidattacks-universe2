@@ -1,0 +1,10 @@
+<VirtualHost *:80>
+        ServerName web.fluid.la
+        ServerAdmin webmaster@localhost
+        Options  +Indexes +Multiviews +FollowSymLinks
+        SSLProxyEngine on
+
+	# Main page
+	Redirect /	https://fluid.la/
+
+</VirtualHost>
