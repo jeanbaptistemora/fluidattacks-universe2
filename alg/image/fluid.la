@@ -1,0 +1,64 @@
+<VirtualHost *:80>
+        ServerName fluid.la
+        ServerAdmin webmaster@localhost
+        Options  +Indexes +Multiviews +FollowSymLinks
+        SSLProxyEngine on
+		RewriteEngine on
+
+##### Signatures #####
+	Redirect /signatures/ https://sites.google.com/a/fluidsignal.com/fluidsignal-group-webpage/signatures/
+
+##### Blog #####
+	Redirect /legal https://blog.fluid.la/legal	
+
+##### Moodle #####
+	Redirect /courses https://fluid.la/courses
+#################
+
+##### Formstack #####
+        Redirect /forms https://fluid.la/forms
+#################
+
+##### KB #####
+        Redirect /kb https://fluid.la/kb
+        Redirect /help https://fluid.la/help
+#################
+
+##### Blog #####
+        Redirect /blog https://fluid.la/blog
+#################
+
+##### Integrates #####
+		Redirect /integrates https://fluid.la/integrates
+		Redirect /integrates2 https://fluid.la/integrates2
+#################
+	
+##### Lineas de negocio #####
+        Redirect /consulting https://fluid.la/
+        Redirect /testing https://fluid.la/
+        Redirect /intelligence https://fluid.la/
+
+        RewriteCond %{REQUEST_URI}      !^/$
+        RewriteCond %{REQUEST_URI}      !^/clkn
+        RewriteRule ^/services/(.*)$    https://fluid.la/services/$1  [R]
+#################
+
+##### Main page #####
+	Redirect / https://fluid.la/
+#################
+	
+	ErrorLog /var/log/apache2/error.log
+	LogLevel warn
+	CustomLog /var/log/apache2/access.log combined
+    ProxyPreserveHost on
+
+	<IfModule mod_proxy.c>
+		ProxyRequests Off
+		<Proxy *>
+			Order allow,deny
+			Allow from all
+		</Proxy>
+		ProxyVia On
+	</IfModule>
+
+</VirtualHost>

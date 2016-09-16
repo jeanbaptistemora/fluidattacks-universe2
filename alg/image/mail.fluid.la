@@ -1,0 +1,7 @@
+<VirtualHost *:80>
+        ServerName mail.fluid.la
+        ServerAdmin webmaster@localhost
+        Options  +Indexes +Multiviews +FollowSymLinks
+	
+	Redirect / https://mail.google.com/a/fluid.la
+</VirtualHost>
