@@ -1,0 +1,30 @@
+---
+- name: Adding apache conf
+  template:
+    src=apache2.j2
+    dest="/etc/apache2/apache2.conf"
+    mode=0644
+
+- name: Adding mainsite virtual host
+  template:
+    src=fluid.la.j2
+    dest="/etc/apache2/sites-enabled/fluid.la"
+    mode=0644
+
+- name: Adding ssl virtual hosts
+  template:
+    src=defaultssl.j2
+    dest="/etc/apache2/sites-enabled/default-ssl"
+    mode=0644
+
+- name: ssl cert
+  template:
+    src=fluidla.crt.j2
+    dest="/etc/ssl/certs/fluidla.crt"
+    mode=0644
+
+- name: ssl chain cert
+  template:
+    src=fluidla.key.j2
+    dest="/etc/ssl/private/fluidla.key"
+    mode=0644

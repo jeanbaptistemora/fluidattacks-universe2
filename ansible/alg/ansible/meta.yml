@@ -1,0 +1,8 @@
+galaxy_info:
+  author: engineering@fluid.la
+  description: alg for FLUID web applications.
+  company: FLUID.
+
+  min_ansible_container_version: 0.3.0-pre
+
+  tags: []

@@ -1,0 +1,21 @@
+---
+- name: Install Apache2
+  apt: pkg=apache2 state=present
+
+- name: Enable Apache2 as service
+  service:
+    name=apache2
+    enabled=yes
+
+- name: Enable required modules
+  command:
+    a2enmod {{ item }}
+  with_items:
+   - rewrite
+   - ssl
+   - proxy_http
+   - substitute
+   - headers
+
+- name: Adding/removing Apache virtual hosts
+  include: vhost.yml
