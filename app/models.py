@@ -1,16 +1,15 @@
-from __future__ import unicode_literals
-
-from django.db import models
-import requests
-from requests.packages.urllib3.exceptions import InsecureRequestWarning
-requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
+"""Funciones para consumir la API de Onelogin y Formstack"""
 import json
 from time import sleep
+#from __future__ import unicode_literals
+import requests
+#from requests.packages.urllib3.exceptions import InsecureRequestWarning
 requests.adapters.DEFAULT_RETRIES = 10
 
-config = {
+CONFIG = {
     'headers':{
-        'User-agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/52.0.2743.116 Safari/537.36'
+        'User-agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36' +
+                      '(KHTML, like Gecko) Chrome/52.0.2743.116 Safari/537.36'
     },
     'formstack': {
         'token': 'aefb128ba610da7e8d9e0b6ff86d9d7a',
@@ -62,7 +61,7 @@ config = {
                 'id':'43112343',
                 'hallazgo':'43112522',
                 'proyecto':'43112517',
-                'justificacion':'43112373' 
+                'justificacion':'43112373'
             }
         }
     },
@@ -72,148 +71,180 @@ config = {
         'app_id': '476874'
     }
 }
-def parse_formstack_vuln_req(formstack_vuln,id):
+
+def parse_vulnreq(frmvuln, frmid):
+    """Convierte los indices numericos de formstack
+       a su respectivo nombre"""
     vuln = dict()
-    configCtx = config["formstack"]["fields"]["vuln"]
-    configPrj = config["formstack"]["fields"]["project"]
-    vuln["id"] = id
-    for i in formstack_vuln:
+    config_frm = CONFIG["formstack"]["fields"]
+    config_ctx = config_frm["vuln"]
+    config_prj = config_frm["project"]
+    vuln["id"] = frmid
+    for i in frmvuln:
         #DETALLES VULNERABILIDAD
-        if i["field"] == configCtx["hallazgo"]:
+        if i["field"] == config_ctx["hallazgo"]:
             vuln["hallazgo"] = i["value"]
-        if i["field"] == configCtx["codigo_cliente"]:
+        if i["field"] == config_ctx["codigo_cliente"]:
             vuln["codigo_cliente"] = i["value"]
-        if i["field"] == configCtx["probabilidad"]:
+        if i["field"] == config_ctx["probabilidad"]:
             vuln["probabilidad"] = i["value"]
-        if i["field"] == configCtx["severidad"]:
+        if i["field"] == config_ctx["severidad"]:
             vuln["severidad"] = i["value"]
-        if i["field"] == configCtx["nivel_riesgo"]:
+        if i["field"] == config_ctx["nivel_riesgo"]:
             vuln["nivel_riesgo"] = i["value"]
-        if i["field"] == configCtx["cardinalidad"]:
+        if i["field"] == config_ctx["cardinalidad"]:
             vuln["cardinalidad"] = i["value"]
-        if i["field"] == configCtx["donde"]:
+        if i["field"] == config_ctx["donde"]:
             vuln["donde"] = i["value"]
-        if i["field"] == configCtx["criticidad"]:
+        if i["field"] == config_ctx["criticidad"]:
             vuln["criticidad"] = i["value"]
-        if i["field"] == configCtx["vulnerabilidad"]:
+        if i["field"] == config_ctx["vulnerabilidad"]:
             vuln["vulnerabilidad"] = i["value"]
-        if i["field"] == configCtx["amenaza"]:
+        if i["field"] == config_ctx["amenaza"]:
             vuln["amenaza"] = i["value"]
-        if i["field"] == configCtx["componente_aplicativo"]:
+        if i["field"] == config_ctx["componente_aplicativo"]:
             vuln["componente_aplicativo"] = i["value"]
-        if i["field"] == configCtx["tipo_prueba"]:
+        if i["field"] == config_ctx["tipo_prueba"]:
             vuln["tipo_prueba"] = i["value"]
-        if i["field"] == configCtx["riesgo"]:
+        if i["field"] == config_ctx["riesgo"]:
             vuln["riesgo"] = i["value"]
-        if i["field"] == configCtx["requisitos"]:
+        if i["field"] == config_ctx["requisitos"]:
             vuln["requisitos"] = i["value"]
-        if i["field"] == configCtx["solucion_efecto"]:
+        if i["field"] == config_ctx["solucion_efecto"]:
             vuln["solucion_efecto"] = i["value"]
-        if i["field"] == configCtx["tipo"]:
+        if i["field"] == config_ctx["tipo"]:
             vuln["tipo"] = i["value"]
         #DETALLES PROYECTO
-        if i["field"] == configPrj["analista"]:
+        if i["field"] == config_prj["analista"]:
             vuln["analista"] = i["value"]
-        if i["field"] == configPrj["lider"]:
+        if i["field"] == config_prj["lider"]:
             vuln["lider"] = i["value"]
-        if i["field"] == configPrj["interesado"]:
+        if i["field"] == config_prj["interesado"]:
             vuln["interesado"] = i["value"]
-        if i["field"] == configPrj["proyecto_fluid"]:
+        if i["field"] == config_prj["proyecto_fluid"]:
             vuln["proyecto_fluid"] = i["value"]
-        if i["field"] == configPrj["proyecto_cliente"]:
+        if i["field"] == config_prj["proyecto_cliente"]:
             vuln["proyecto_cliente"] = i["value"]
-        if i["field"] == configPrj["contexto"]:
+        if i["field"] == config_prj["contexto"]:
             vuln["contexto"] = i["value"]
-        if i["field"] == configPrj["nivel"]:
+        if i["field"] == config_prj["nivel"]:
             vuln["nivel"] = i["value"]
     return vuln
-        
 
-def get_vuln_by_name (project):
-    url = config["formstack"]["forms"]["get_vuln_by_name"]["url"]
+def get_vuln_by_name(project):
+    """Obtiene todas las submission de un proyecto
+       desde la API de Formstack"""
+    url = CONFIG["formstack"]["forms"]["get_vuln_by_name"]["url"]
     data = {
-        'oauth_token': config["formstack"]["token"],
-        'search_field_1': config["formstack"]["forms"]["get_vuln_by_name"]["fields"]["name"],
+        'oauth_token': CONFIG["formstack"]["token"],
+        'search_field_1': CONFIG["formstack"]["forms"]["get_vuln_by_name"]["fields"]["name"],
         'search_value_1': project
     }
-    headers = config['headers']
-    req = requests.get(url, data= data,verify= False, headers= headers)
-    return json.loads(req.text)
-
-def get_vuln_by_submission_id (id):
+    result = False
     try:
-        url = config["formstack"]["forms"]["get_submission_by_id"]["url"].replace(":id",id)
+        result = requests.get(url, data=data, verify=False, headers=CONFIG['headers'])
+        result = json.loads(result.text)
+    except requests.exceptions.SSLError:
+        result = False #Formstack SSLError
+    except requests.exceptions.Timeout:
+        result = False #Formstack Connection timeout
+    except requests.exceptions.HTTPError:
+        result = False #Fail token
+    return result
+
+def get_vuln_by_submission_id(vuln_id):
+    """Obtiene los detalles del id de una submission
+       desde la API de formstack"""
+    result = dict()
+    try:
+        url = CONFIG["formstack"]["forms"]["get_submission_by_id"]["url"].replace(":id", vuln_id)
         data = {
-            'oauth_token': config["formstack"]["token"],
+            'oauth_token': CONFIG["formstack"]["token"],
         }
-        headers = config['headers']
-        req = requests.get(url, data= data ,verify= False, headers= headers)
-        sub = parse_formstack_vuln_req(json.loads(req.text)["data"],id)
+        form_req = requests.get(url, data=data, verify=False, headers=CONFIG['headers'])
+        result = parse_vulnreq(json.loads(form_req.text)["data"], vuln_id)
         sleep(1)
-        return sub
-    except:
-        print ("ERROR de conexion")
-        return []
-        
+    except requests.exceptions.SSLError:
+        result = dict() #Formstack SSLError
+    except requests.exceptions.Timeout:
+        result = dict() #Formstack Connection timeout
+    except requests.exceptions.HTTPError:
+        result = dict() #Fail token
+    if len(result) == 0:
+        return False
+    return result
+
+
 def update_vuln_by_id(reinp):
-    fieldCtx = config["formstack"]["fields"]["vuln"]
-    #WRAP REQUEST POST PARAMS
-    id = reinp['vuln[id]']
+    """Actualiza una submission de formstack usando su id"""
+    field_config = CONFIG["formstack"]["fields"]["vuln"]
+    print reinp
+    vuln_id = reinp['vuln[id]']
     files = {
-        "field_" + fieldCtx["donde"] : reinp['vuln[donde]'],
-        "field_" + fieldCtx["cardinalidad"] : reinp['vuln[cardinalidad]'],
-        "field_" + fieldCtx["criticidad"] : reinp['vuln[criticidad]'],
-        "field_" + fieldCtx["vulnerabilidad"] : reinp['vuln[vulnerabilidad]']
+        "field_" + field_config["donde"] : reinp['vuln[donde]'],
+        "field_" + field_config["cardinalidad"] : reinp['vuln[cardinalidad]'],
+        "field_" + field_config["criticidad"] : reinp['vuln[criticidad]'],
+        "field_" + field_config["vulnerabilidad"] : reinp['vuln[vulnerabilidad]'],
     }
     if "vuln[riesgo]" in reinp:
-        files["field_"+fieldCtx["riesgo"]] = reinp['vuln[riesgo]']
+        files["field_"+field_config["riesgo"]] = reinp['vuln[riesgo]']
     if "vuln[amenaza]" in reinp:
-        files["field_"+fieldCtx["amenaza"]] = reinp['vuln[amenaza]']
-    
-    #DEFINE URL
-    url = config["formstack"]["forms"]["get_submission_by_id"]["url"].replace(":id",id)
-    url+= "?oauth_token=" +config["formstack"]["token"]
-    headers = config['headers']
+        files["field_"+field_config["amenaza"]] = reinp['vuln[amenaza]']
+    result = {}
+    try:
+        url = CONFIG["formstack"]["forms"]["get_submission_by_id"]["url"].replace(":id", vuln_id)
+        url += "?oauth_token=" + CONFIG["formstack"]["token"]
+        headers = CONFIG['headers']
+        headers["cache-control"] = "no-chache"
+        headers["content-type"] = "application/x-www-form-urlencoded"
+        result = requests.put(url, data=files, headers=headers, verify=False)
+    except requests.exceptions.SSLError:
+        result = {} #Formstack SSLError
+    except requests.exceptions.Timeout:
+        result = {} #Formstack Connection timeout
+    except requests.exceptions.HTTPError:
+        result = {} #Fail token
+    return result
+
+def delete_vuln_by_id(reinp, analist):
+    """Elimina un hallazgo usando su ID y genera un log en formstack
+       con el nombre del analista
+       TODO: Cambiar la url para eliminar, agregar logger desde el servicio
+    """
+    field_config = CONFIG["formstack"]["fields"]["delete"]
+    url = CONFIG["formstack"]["forms"]["create_delete_registry"]["url"]
+    url = url + "?oauth_token=" + CONFIG["formstack"]["token"]
+    data = {
+        "field_" + field_config["analista"]: analist,
+        "field_" + field_config["id"]: reinp['vuln[id]'],
+        "field_" + field_config["hallazgo"]: reinp['vuln[hallazgo]'],
+        "field_" + field_config["proyecto"]: reinp['vuln[proyecto_fluid]'],
+        "field_" + field_config["justificacion"]: reinp['vuln[justificacion]']
+    }
+    data = {
+        "id" : reinp['vuln[id]']
+    }
+    headers = CONFIG['headers']
     headers["cache-control"] = "no-chache"
     headers["content-type"] = "application/x-www-form-urlencoded"
-    req = None
-    try:
-        req = requests.put(url, data= files, headers= headers, verify= False)
-    except:
-        req = None
-    finally:
-        return req
-
-def delete_vuln_by_id(reinp):
-    analista = "glopez@fluid.la"
-    fieldCtx = config["formstack"]["fields"]["delete"]
-    url = config["formstack"]["forms"]["create_delete_registry"]
-    url+= "?oauth_token=" +config["formstack"]["token"]
-    data = {
-        "field_" + fieldCtx["analista"] : analista,
-        "field_" + fieldCtx["id"]: reinp['vuln[id]'],
-        "field_" + fieldCtx["hallazgo"]: reinp['vuln[hallazgo]'],
-        "field_" + fieldCtx["proyecto"]: reinp['vuln[proyecto_fluid]'],
-        "field_" + fieldCtx["justificacion"]: reinp['vuln[justificacion]']
-    }
-    headers = config["headers"]
-    register = None
-    while(register == None):
-        try:
-            register = requests.post(url,data= data, headers= headers)
-        except:
-            register = None
-    
+    register = requests.delete(url, data=data, headers=headers)
+    print register
 
 def one_login_auth(username, password):
-    url = config['onelogin']['url']
+    """Consume la API de OneLogin para autenticar un usuario"""
+    url = CONFIG['onelogin']['url']
     data = {
         'username': username,
         'password': password,
-        'api_key': config['onelogin']['api_key'],
-        'app_id': config['onelogin']['app_id']
+        'api_key': CONFIG['onelogin']['api_key'],
+        'app_id': CONFIG['onelogin']['app_id']
     }
-    headers = config['headers']
-    req = requests.post(url, data= data, headers= headers)
-    result = json.loads(req.text)
+    result = False
+    try:
+        requests.post(url, data=data, headers=CONFIG['headers'])
+        result = True
+    except requests.exceptions.Timeout:
+        result = False #One login Connection timeout
+    except requests.exceptions.HTTPError:
+        result = False #Fail login
     return result
