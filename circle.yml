@@ -20,7 +20,7 @@ dependencies:
     - sudo apt-get update
     - pip install --upgrade pip setuptools
   override:
-    - sudo apt-get install docker-engine python python-pip libffi-dev libssl-dev python-dev git -y
+    - sudo apt-get install docker-engine python python-pip libffi-dev libssl-dev python-dev git
     - git clone https://github.com/ansible/ansible-container.git ansible-container
     - cd ansible-container
     - python setup.py install
