@@ -23,6 +23,7 @@ dependencies:
     - sudo apt-get install python-pip libffi-dev libssl-dev python-dev
     - git clone https://github.com/ansible/ansible-container.git ansible-container
     - cd ansible-container
+    - ls -la
     - python setup.py install
     - printf "[Service]\nExecStart=/usr/bin/docker daemon -H 0.0.0.0:2375\n" >> /etc/systemd/system/docker.service
     - sudo systemctl daemon-reload && sudo service docker restart
