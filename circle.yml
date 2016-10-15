@@ -12,8 +12,8 @@ machine:
 # version de python del sistema base de CI, se requiere por ansible-container.
   python:
     version: 2.7.10
-  environment:
-    DOCKER_HOST: tcp://localhost:2375
+#  environment:
+#    DOCKER_HOST: tcp://localhost:2375
 
 dependencies:
   pre:
@@ -36,6 +36,6 @@ dependencies:
 
 test:
   pre:
-     - cd alg && ansible-container build --roles-path ansible/alg/
-     - cd alg && ansible-container run &
-     - curl http://fluid.la
+     - sudo ls -la /var/run/docker.sock
+     - cd alg && sudo ansible-container build --roles-path ansible/alg/
+     - cd alg && sudo ansible-container run &
