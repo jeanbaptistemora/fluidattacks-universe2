@@ -59,45 +59,46 @@ def get_vuln_by_name(request):
                 return response.send(vulns, 'Success', False)
 
 @csrf_exempt
-def get_vuln_by_date(request):
-    "Obtiene la fecha min y max para consultar los hallazgos en ese rango"
-    from_date = request.GET.get('from', None)
-    to_date = request.GET.get('tp', None)
-    if not from_date or not to_date:
-        return response.send([], 'Empty fields', True)
-    else:
-        if from_date.strip() == "" or to_date.strip() == "":
-            return response.send([], 'Empty fields', True)
-        else:
-            return HttpResponse("TEST2")
-
-@csrf_exempt
 def get_evnt_by_name(request):
     """Obtiene las eventualidades con el nombre del proyecto"""
     project = request.GET.get('project', None)
     if not project:
-        return response.send([], 'Empty fields', True)
+        return response.send([], 'Campos vacios', True)
     else:
         if project.strip() == "":
-            return response.send([], 'Empty fields', True)
+            return response.send([], 'Campos vacios', True)
         else:
-            return HttpResponse("TEST3")
+            result = models.get_evnt_by_name(project)
+            if result:
+                if int(result["total"]) == 0:
+                    return response.send([], 'Este proyecto no tiene eventualidades', False)
+                else:
+                    ids, evtns = [], []
+                    for i in result["submissions"]: ids.append(i["id"])
+                    for j in ids:
+                        evtn = models.get_evnt_by_submission_id(j)
+                        evtns.append(evtn)
+                    return response.send(evtns, 'Success', False)
+            else:
+                return response.send([], 'Error!', True)
 
 @csrf_exempt
 def update_vuln(request):
     "Captura y procesa los parametros para actualizar un hallazgo"
     post_parms = request.POST.dict()
-    proj = "No enviado"
-    id = ""
+    action = ""
     if "vuln[proyecto_fluid]" not in post_parms:
+        return response.send([], 'Campos vacios', True)
+    elif "vuln[hallazgo]" not in post_parms:
         return response.send([], 'Campos vacios', True)
     elif "vuln[id]" not in post_parms:
         return response.send([], 'Campos vacios', True)
     else:
-        id = post_parms["vuln[id]"]
-        proj = post_parms["vuln[proyecto_fluid]"] + "["+id+"]"
+        action = "Actualizar hallazgo, " \
+            + post_parms["vuln[proyecto_fluid]"].upper() \
+            + " => " + post_parms["vuln[hallazgo]"] \
+            + "[" + post_parms["vuln[id]"] + "]"
     csrf = True
-    logging.info("TAREA: %s, USUARIO: %s", "Actualizando proyecto "+ proj, USER)
     if csrf == False:
         return response.send([], 'CSRF', True)
     else:
@@ -108,7 +109,7 @@ def update_vuln(request):
             if  hasattr(updated, 'text'):
                 res = json.loads(updated.text)
                 if "success" in res:
-                    logging.info("TAREA: %s, USUARIO: %s", "Actualizacion completada, PROYECTO: " + proj, USER)
+                    logging.info("TAREA: %s, USUARIO: %s", action, USER)
                     return response.send([], 'Success', False)
                 else:
                     return response.send([], 'No se pudo actualizar formstack', True)
@@ -120,11 +121,29 @@ def delete_vuln(request):
     """Captura y procesa el id de una eventualidad para eliminarla"""
     post_parms = request.POST.dict()
     csrf = True
-    if csrf == False:
+    for i in post_parms:
+        print i
+    if csrf is False:
         return response.send([], 'CSRF', True)
     else:
-        res = models.delete_vuln_by_id(post_parms, USER)
+        action = "Envio de campos vacios"
+        if "vuln[hallazgo]" not in post_parms:
+            return response.send([], 'Campos vacios', True)
+        elif "vuln[proyecto_fluid]" not in post_parms:
+            return response.send([], 'Campos vacios', True)
+        elif "vuln[justificacion]" not in post_parms:
+            return response.send([], 'Campos vacios', True)
+        elif "vuln[id]" not in post_parms:
+            return response.send([], 'Campos vacios', True)
+        else:
+            action = "Eliminar hallazgo, " \
+                + post_parms["vuln[justificacion]"] \
+                + " PROYECTO " + post_parms["vuln[proyecto_fluid]"].upper() \
+                + " => " + post_parms["vuln[hallazgo]"] \
+                + "[" + post_parms["vuln[id]"] + "]"       
+        res = models.delete_vuln_by_id(post_parms["vuln[id]"])
         if res:
+            logging.info("TAREA: %s, USUARIO: %s", action, USER)
             return response.send([], 'Eliminado correctamente!', False)
         else:
             return response.send([], 'No se pudo actualizar formstack', False)

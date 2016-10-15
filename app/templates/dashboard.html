@@ -48,10 +48,8 @@
           <ul class="sidebar-elements">
             <li class="parent"><a href="#"><i class="icon s7-search"></i><span>Busquedas</span></a>
               <ul class="sub-menu">
-                <li><a ui-sref="VulnerabilitiesByName">Hallazgos por proyecto</a>
-                </li>
                 <li>
-                  <a ui-sref="VulnerabilitiesByDate">Hallazgos por fecha</a>
+                  <a ui-sref="VulnerabilitiesByName">Hallazgos por proyecto</a>
                 </li>
                 <li>
                   <a ui-sref="EventualitiesByName">Eventualidades por proyecto</a>
@@ -138,8 +136,10 @@
     <script src="assets/bower_components/datepicker/dist/js/bootstrap-datepicker.min.js"></script>
     <script src="assets/bower_components/datepicker/dist/locales/bootstrap-datepicker.es.min.js"></script>
     <script src="assets/app/app.js"></script>
-    <script src="assets/app/models/searchFactory.js" type="text/javascript"></script>
-    <script src="assets/app/controllers/searchController.js" type="text/javascript"></script>
+    <script src="assets/app/models/findingFactory.js" type="text/javascript"></script>
+    <script src="assets/app/models/eventualityFactory.js" type="text/javascript"></script>
+    <script src="assets/app/controllers/findingController.js" type="text/javascript"></script>
+    <script src="assets/app/controllers/eventualityController.js" type="text/javascript"></script>
     <script type="text/javascript">
       $(document).ready(function(){
       	//initialize the javascript

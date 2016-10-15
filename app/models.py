@@ -20,6 +20,12 @@ CONFIG = {
                     'name' : '32201732'
                 }
             },
+            'get_evnt_by_name':{
+                'url': 'https://www.formstack.com/api/v2/form/1886931/submission.json',
+                'fields': {
+                    'name': '29042322'
+                }
+            },
             'get_submission_by_id':{
                 'url' : 'https://www.formstack.com/api/v2/submission/:id.json'
             },
@@ -56,12 +62,16 @@ CONFIG = {
                 'solucion_efecto': "38619077",
                 'tipo': "38392454",
             },
-            'delete':{
-                'analista':'43112177',
-                'id':'43112343',
-                'hallazgo':'43112522',
-                'proyecto':'43112517',
-                'justificacion':'43112373'
+            'evnt':{
+                'analista': "29042426",
+                'cliente': "29042288",
+                'proyecto_fluid': "29042322",
+                'proyecto_cliente': "39595967",
+                'tipo': "29042327",
+                'detalle': "29042402",
+                'fecha': "29042174",
+                'estado': "29062640",
+                'afectacion': "29042542"
             }
         }
     },
@@ -131,6 +141,36 @@ def parse_vulnreq(frmvuln, frmid):
             vuln["nivel"] = i["value"]
     return vuln
 
+def parse_evntreq(frmevnt, frmid):
+    """Convierte los indices numericos de formstack
+       a su respectivo nombre      
+    """
+    evnt = dict()
+    config_frm = CONFIG["formstack"]["fields"]
+    config_ctx = config_frm["evnt"]
+    evnt["id"] = frmid
+    for i in frmevnt:
+        #DETALLES VULNERABILIDAD
+        if i["field"] == config_ctx["analista"]:
+            evnt["analista"] = i["value"]
+        if i["field"] == config_ctx["cliente"]:
+            evnt["cliente"] = i["value"]
+        if i["field"] == config_ctx["proyecto_fluid"]:
+            evnt["proyecto_fluid"] = i["value"]
+        if i["field"] == config_ctx["tipo"]:
+            evnt["tipo"] = i["value"]
+        if i["field"] == config_ctx["detalle"]:
+            evnt["detalle"] = i["value"]
+        if i["field"] == config_ctx["proyecto_cliente"]:
+            evnt["proyecto_cliente"] = i["value"]
+        if i["field"] == config_ctx["fecha"]:
+            evnt["fecha"] = i["value"]
+        if i["field"] == config_ctx["estado"]:
+            evnt["estado"] = i["value"]
+        if i["field"] == config_ctx["afectacion"]:
+            evnt["afectacion"] = i["value"]
+    return evnt
+            
 def get_vuln_by_name(project):
     """Obtiene todas las submission de un proyecto
        desde la API de Formstack"""
@@ -150,6 +190,27 @@ def get_vuln_by_name(project):
         result = False #Formstack Connection timeout
     except requests.exceptions.HTTPError:
         result = False #Fail token
+    return result
+
+def get_evnt_by_name(project):
+    """Obtiene todas las eventualidades de un proyecto
+       desde la API de Formstack"""
+    url = CONFIG["formstack"]["forms"]["get_evnt_by_name"]["url"]
+    data = {
+        'oauth_token': CONFIG["formstack"]["token"],
+        'search_field_1': CONFIG["formstack"]["forms"]["get_evnt_by_name"]["fields"]["name"],
+        'search_value_1': project
+    }
+    result = None
+    try:
+        result = requests.get(url, data=data, verify=False, headers=CONFIG['headers'])
+        result = json.loads(result.text)
+    except requests.exceptions.SSLError:
+        result = None #Formstack SSLError
+    except requests.exceptions.Timeout:
+        result = None #Formstack Connection timeout
+    except requests.exceptions.HTTPError:
+        result = None #Fail token
     return result
 
 def get_vuln_by_submission_id(vuln_id):
@@ -174,6 +235,26 @@ def get_vuln_by_submission_id(vuln_id):
         return False
     return result
 
+def get_evnt_by_submission_id(evnt_id):
+    """Obtiene los detalles del id de una submission
+       desde la API de formstack"""
+    result = None
+    try:
+        url = CONFIG["formstack"]["forms"]["get_submission_by_id"]["url"].replace(":id", evnt_id)
+        data = {
+            'oauth_token': CONFIG["formstack"]["token"],
+        }
+        form_req = requests.get(url, data=data, verify=False, headers=CONFIG['headers'])
+        result = parse_evntreq(json.loads(form_req.text)["data"], evnt_id)
+    except requests.exceptions.SSLError:
+        result = None #Formstack SSLError
+    except requests.exceptions.Timeout:
+        result = None #Formstack Connection timeout
+    except requests.exceptions.HTTPError:
+        result = None #Fail token
+    if len(result) == 0:
+        return False
+    return result
 
 def update_vuln_by_id(reinp):
     """Actualiza una submission de formstack usando su id"""
@@ -206,29 +287,29 @@ def update_vuln_by_id(reinp):
         result = {} #Fail token
     return result
 
-def delete_vuln_by_id(reinp, analist):
+def delete_vuln_by_id(frmid):
     """Elimina un hallazgo usando su ID y genera un log en formstack
        con el nombre del analista
        TODO: Cambiar la url para eliminar, agregar logger desde el servicio
     """
-    field_config = CONFIG["formstack"]["fields"]["delete"]
-    url = CONFIG["formstack"]["forms"]["create_delete_registry"]["url"]
-    url = url + "?oauth_token=" + CONFIG["formstack"]["token"]
-    data = {
-        "field_" + field_config["analista"]: analist,
-        "field_" + field_config["id"]: reinp['vuln[id]'],
-        "field_" + field_config["hallazgo"]: reinp['vuln[hallazgo]'],
-        "field_" + field_config["proyecto"]: reinp['vuln[proyecto_fluid]'],
-        "field_" + field_config["justificacion"]: reinp['vuln[justificacion]']
-    }
-    data = {
-        "id" : reinp['vuln[id]']
-    }
-    headers = CONFIG['headers']
-    headers["cache-control"] = "no-chache"
-    headers["content-type"] = "application/x-www-form-urlencoded"
-    register = requests.delete(url, data=data, headers=headers)
-    print register
+    result = None
+    try:
+        url = CONFIG["formstack"]["forms"]["get_submission_by_id"]["url"]
+        url = url.replace(":id",frmid) + "?oauth_token=" + CONFIG["formstack"]["token"]
+        data = {
+            "id" : frmid
+        }
+        headers = CONFIG['headers']
+        headers["cache-control"] = "no-chache"
+        headers["content-type"] = "application/x-www-form-urlencoded"
+        result = requests.delete(url, data=data, headers=headers)
+    except requests.exceptions.SSLError:
+        result = None #Formstack SSLError
+    except requests.exceptions.Timeout:
+        result = None #Formstack Connection timeout
+    except requests.exceptions.HTTPError:
+        result = None #Fail token
+    return result
 
 def one_login_auth(username, password):
     """Consume la API de OneLogin para autenticar un usuario"""
@@ -239,12 +320,12 @@ def one_login_auth(username, password):
         'api_key': CONFIG['onelogin']['api_key'],
         'app_id': CONFIG['onelogin']['app_id']
     }
-    result = False
+    result = None
     try:
         requests.post(url, data=data, headers=CONFIG['headers'])
         result = True
     except requests.exceptions.Timeout:
-        result = False #One login Connection timeout
+        result = None #One login Connection timeout
     except requests.exceptions.HTTPError:
-        result = False #Fail login
+        result = None #Fail login
     return result

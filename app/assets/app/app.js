@@ -14,17 +14,12 @@ integrates.config(function($stateProvider, $urlRouterProvider) {
         .state('VulnerabilitiesByName', {
             url: '/VulnerabilitiesByName',
             templateUrl: 'assets/views/search/vulns_by_name.html',
-            controller: 'searchController'  
-        })
-        .state('VulnerabilitiesByDate', {
-            url: '/VulnerabilitiesByDate',
-            templateUrl: 'assets/views/search/vulns_by_date.html',
-            controller: 'searchController'      
+            controller: 'findingController'  
         })
         .state('EventualitiesByName', {
             url: '/EventualitiesByName',
             templateUrl: 'assets/views/search/event_by_name.html',
-            controller: 'searchController'        
+            controller: 'eventualityController'        
         })
         
 });

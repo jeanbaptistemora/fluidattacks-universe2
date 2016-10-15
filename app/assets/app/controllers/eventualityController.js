@@ -1,15 +1,13 @@
-integrates.vulnbynameFormatter = function(value, row, index){
-    return '<div class="btn-group">' +
-                '<button type="button" class="btn btn-default btnVer" ng-click="openModalVer('+index+')"><i class="glyphicon glyphicon-eye-open"></i></button>' +
-                '<button type="button" class="btn btn-primary"><i class="glyphicon glyphicon-pencil"></i></button>' +
-                '<button type="button" class="btn btn-warning"><i class="glyphicon glyphicon-trash"></i></button>' +
-           '</div>';
+integrates.afectacionFormatter = function(value, row, index){
+    if (value.trim() == "")
+        return "0";
+    return value;
 };
-integrates.calcCardinality = function(data){
+integrates.evntTotalize = function(data){
     var cardinalidad = 0; 
-    data.data.forEach(function(i){ cardinalidad+= parseInt(i.cardinalidad); });
-    $("#total_cardinalidad").html(cardinalidad);
-    $("#total_hallazgos").html(data.data.length);
+    //data.data.forEach(function(i){ cardinalidad+= parseInt(i.cardinalidad); });
+    //$("#total_cardinalidad").html(cardinalidad);
+    $("#total_eventualidades").html(data.data.length);
 };
 integrates.updateVulnRow = function(row){
     var data = $("#vulnerabilities").bootstrapTable("getData")
@@ -24,7 +22,9 @@ integrates.updateVulnRow = function(row){
     }
     integrates.calcCardinality({data: data});
 };
+
 integrates.deleteVulnRow = function(row){
+    alert(1);
     var data = $("#vulnerabilities").bootstrapTable("getData")
     var newData = [];
     for(var i=0; i<data.length;i++){
@@ -32,11 +32,12 @@ integrates.deleteVulnRow = function(row){
             newData.append(row);
         }
     }
+    console.log(newData);
     $("#vulnerabilities").bootstrapTable("destroy");
     $("#vulnerabilities").bootstrapTable({data: newData});
     $("#vulnerabilities").bootstrapTable("refresh");
 };
-integrates.controller("searchController", function($scope,$uibModal, searchFactory) {
+integrates.controller("eventualityController", function($scope,$uibModal, eventualityFactory) {
 
     $scope.init = function(){
         $("#search_section").hide();
@@ -46,11 +47,11 @@ integrates.controller("searchController", function($scope,$uibModal, searchFacto
      *  Modal para ver un hallazgo 
      */
     $scope.openModalVer = function(){
-        var sel = $("#vulnerabilities").bootstrapTable('getSelections');
+        var sel = $("#eventualities").bootstrapTable('getSelections');
         if(sel.length == 0){
             $.gritter.add({
                 title: 'Error',
-                text: 'Debes seleccionar un hallazgo',
+                text: 'Debes seleccionar una eventualidad',
                 class_name: 'color warning',
                     sticky: false,
             });
@@ -137,7 +138,7 @@ integrates.controller("searchController", function($scope,$uibModal, searchFacto
                     $scope.cols = "6";
                 }
                 $scope.okModalEditar = function(){
-                   searchFactory.updateVuln($scope.vuln).then(function(response){
+                   findingFactory.updateVuln($scope.vuln).then(function(response){
                         if(!response.error){
                             $.gritter.add({
                                 title: 'Correcto!',
@@ -207,7 +208,7 @@ integrates.controller("searchController", function($scope,$uibModal, searchFacto
                         });
                         return false;
                     }
-                    searchFactory.deleteVuln($scope.vuln).then(function(response){
+                    findingFactory.deleteVuln($scope.vuln).then(function(response){
                         if(!response.error){
                             $.gritter.add({
                                 title: 'Correcto!',
@@ -215,7 +216,7 @@ integrates.controller("searchController", function($scope,$uibModal, searchFacto
                                 class_name: 'color success',
                                 sticky: false,
                             });
-                            //integrates.deleteVulnRow($scope.vuln);
+                            integrates.deleteVulnRow($scope.vuln);
                             $uibModalInstance.dismiss('cancel');
                         }else{
                             $.gritter.add({
@@ -237,9 +238,9 @@ integrates.controller("searchController", function($scope,$uibModal, searchFacto
         });
     };
     /*
-     *  Funcion para consultar hallazgos
+     * Buscar eventualidades de un proyecto por su nombre
      */
-    $scope.searchVulnByName = function(){
+    $scope.searchEvntByName = function(){
         var project = $scope.project;
         if (project !== undefined && project !== ""){
             $scope.response = "";
@@ -250,34 +251,24 @@ integrates.controller("searchController", function($scope,$uibModal, searchFacto
                     sticky: false,
             });
             $(".loader").show();
-            searchFactory.getVulnByName(project).then(function(data){
-                if(data.error == false){
-                    
+            eventualityFactory.getEvntByName(project).then(function(data){
+                if(!data.error){
                     //CONFIGURACION DE TABLA
-                    $("#vulnerabilities").bootstrapTable('destroy');
-                    $("#vulnerabilities").bootstrapTable(data);
-                    $("#vulnerabilities").bootstrapTable('refresh');
+                    $("#eventualities").bootstrapTable('destroy');
+                    $("#eventualities").bootstrapTable(data);
+                    $("#eventualities").bootstrapTable('refresh');
                     //MANEJO DEL UI
                     $("#search_section").show();
                     $('[data-toggle="tooltip"]').tooltip(); 
-                    integrates.calcCardinality(data);
+                    integrates.evntTotalize(data);
                 }else{
-                    if (data.message == "Project doesn't exist"){
-                        $.gritter.add({
-                            title: 'Error',
-                            text: 'El proyecto no existe...',
-                            class_name: 'color warning',
-                            sticky: false,
-                        });
-                    }else{
-                        $.gritter.add({
-                            title: 'Error',
-                            text: e.message,
-                            class_name: 'color warning',
-                            sticky: false,
-                        });
-                        $scope.searchVulnByName();
-                    }
+                     $.gritter.add({
+                        title: 'Error',
+                        text: 'El proyecto no existe...',
+                        class_name: 'color warning',
+                        sticky: false,
+                    });
+                    $scope.searchEvntByName();
                 }
             }).catch(function(fallback) {
                 $.gritter.add({
@@ -286,8 +277,8 @@ integrates.controller("searchController", function($scope,$uibModal, searchFacto
                     class_name: 'color warning',
                     sticky: false,
                 });
-                $scope.searchVulnByName();
-            });;
+                $scope.searchEvntByName();
+            });
         }else{
             $scope.response = "El nombre es obligatorio";
         }
@@ -296,24 +287,10 @@ integrates.controller("searchController", function($scope,$uibModal, searchFacto
     document.onkeypress = function(ev){ 
         if(ev.keyCode === 13){
             if($('#project').is(':focus')){
-                $scope.searchVulnByName();
+                $scope.searchEvntByName();
             }        
         }
     }
-
-    $scope.searchVulnByDate = function(){
-
-    };
-
-    $scope.searchEvntByName = function(){
-        var project = $scope.project;
-        if (project !== undefined && project !== ""){
-            $scope.response = "";
-            searchFactory.getEvntByName(project);
-        }else{
-            $scope.response = "El nombre es obligatorio";
-        }
-    };
 
     $scope.init();
 });
