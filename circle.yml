@@ -18,7 +18,8 @@ machine:
 dependencies:
   pre:
     - sudo apt-get update
-    - pip install ansible
+    - pip install --upgrade pip setuptools
+    - pip install ansible-container
   override:
 #    - sudo apt-get install python-pip libffi-dev libssl-dev python-dev
 #    - git clone https://github.com/ansible/ansible-container.git ansible-container
