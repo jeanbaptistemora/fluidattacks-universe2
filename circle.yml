@@ -19,10 +19,11 @@ dependencies:
   pre:
     - sudo apt-get update
   override:
-    - sudo apt-get install python-pip libffi-dev libssl-dev python-dev
-    - git clone https://github.com/ansible/ansible-container.git ansible-container
-    - pip install -U setuptools
-    - cd ansible-container && sudo python setup.py install
+#    - sudo apt-get install python-pip libffi-dev libssl-dev python-dev
+#    - git clone https://github.com/ansible/ansible-container.git ansible-container
+#    - pip install -U setuptools
+#    - cd ansible-container && sudo python setup.py install
+    - sudo pip install ansible-container
     - printf "[Service]\nExecStart=/usr/bin/docker daemon -H 0.0.0.0:2375\n" >> /etc/systemd/system/docker.service
     - sudo systemctl daemon-reload && sudo service docker restart
   post:
