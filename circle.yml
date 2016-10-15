@@ -12,15 +12,15 @@ machine:
 # version de python del sistema base de CI, se requiere por ansible-container.
   python:
     version: 2.7.10
-#  environment:
-#    DOCKER_HOST: tcp://localhost:2375
+  environment:
+    DOCKER_HOST: tcp://localhost:2375
 
 dependencies:
   pre:
     - sudo apt-get update
-    - pip install --upgrade pip setuptools
-    - pip install ansible-container
-#  override:
+    - sudo pip install --upgrade pip setuptools
+    - sudo pip install ansible-container
+  override:
 #    - sudo apt-get install python-pip libffi-dev libssl-dev python-dev
 #    - git clone https://github.com/ansible/ansible-container.git ansible-container
 #    - pip install -U setuptools
@@ -28,14 +28,11 @@ dependencies:
 #    - sudo pip install ansible-container
 #    - sudo rintf "[Service]\nExecStart=/usr/bin/docker daemon -H 0.0.0.0:2375\n" >> /etc/systemd/system/docker.service
 #    - sudo systemctl daemon-reload && sudo service docker restart
-#  post:
-#    - cd alg && ansible-container build --roles-path ansible/alg/
-#    - cd alg && ansible-container run &
 
 # Antes de este punto todo es cacheable.  Pendiente investigar como.
 
 test:
   pre:
-     - sudo ls -la /var/run/docker.sock
-     - cd alg && sudo ansible-container build --roles-path ansible/alg/
-     - cd alg && sudo ansible-container run &
+    - cd alg && ls && sudo ansible-container build --roles-path ansible/alg/
+    - cd alg && sudo ansible-container run &
+
