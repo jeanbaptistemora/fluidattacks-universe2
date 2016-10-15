@@ -1,0 +1,38 @@
+#
+# Archivo de configuracion del servicio de integración continua.
+#
+
+machine:
+  pre:
+# Este parche se requiere para que docker soporte especificación de IPs
+    - curl -sSL https://s3.amazonaws.com/circle-downloads/install-circleci-docker.sh | bash -s -- 1.10.0
+  timezone: America/Bogota
+  services:
+    - docker
+# version de python del sistema base de CI, se requiere por ansible-container.
+  python:
+    version: 2.7.10
+  environment:
+    DOCKER_HOST: tcp://localhost:2375
+
+dependencies:
+  pre:
+    - sudo apt-get update
+    - sudo pip install --upgrade pip setuptools
+    - sudo pip install ansible-container
+  override:
+#    - sudo apt-get install python-pip libffi-dev libssl-dev python-dev
+#    - git clone https://github.com/ansible/ansible-container.git ansible-container
+#    - pip install -U setuptools
+#    - cd ansible-container && sudo python setup.py install
+#    - sudo pip install ansible-container
+#    - sudo rintf "[Service]\nExecStart=/usr/bin/docker daemon -H 0.0.0.0:2375\n" >> /etc/systemd/system/docker.service
+#    - sudo systemctl daemon-reload && sudo service docker restart
+
+# Antes de este punto todo es cacheable.  Pendiente investigar como.
+
+test:
+  pre:
+    - cd alg && ls && sudo ansible-container build --roles-path ansible/alg/
+    - cd alg && sudo ansible-container run &
+
