@@ -26,8 +26,8 @@ dependencies:
 #    - pip install -U setuptools
 #    - cd ansible-container && sudo python setup.py install
 #    - sudo pip install ansible-container
-    - sudo rintf "[Service]\nExecStart=/usr/bin/docker daemon -H 0.0.0.0:2375\n" >> /etc/systemd/system/docker.service
-    - sudo systemctl daemon-reload && sudo service docker restart
+#    - sudo rintf "[Service]\nExecStart=/usr/bin/docker daemon -H 0.0.0.0:2375\n" >> /etc/systemd/system/docker.service
+#    - sudo systemctl daemon-reload && sudo service docker restart
   post:
     - cd alg && ansible-container build --roles-path ansible/alg/
     - cd alg && ansible-container run &
