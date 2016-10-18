@@ -17,7 +17,7 @@ export SERVICE="alg"
 echo "---### Compilando contenedor."
 
 # construir la imagen
-docker build -t "$PROJECT_DIR"
+docker build -t alg "$PROJECT_DIR"
 
 # Mensaje de inicio
 echo "---### Iniciando contenedor."

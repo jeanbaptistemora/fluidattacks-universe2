@@ -20,6 +20,7 @@ dependencies:
   override:
     - sudo apt-get install ansible curl
   post:
+    - git rev-parse --show-toplevel
     - sh start.sh
     - ansible-playbook ansible/main.yml
 
