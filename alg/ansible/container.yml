@@ -1,8 +1,0 @@
-version: "1"
-services:
-  alg:                         
-    image: "debian:jessie"          
-    ports:
-      - "80:80"
-      - "443:443"
-    command: ["/usr/sbin/apache2ctl", "-D", "FOREGROUND"]
