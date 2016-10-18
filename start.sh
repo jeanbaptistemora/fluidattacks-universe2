@@ -54,4 +54,3 @@ else
   echo "Contenedor ya inicio, reutilizando contenedor."
 fi
 
-# Configurar variables Ansible

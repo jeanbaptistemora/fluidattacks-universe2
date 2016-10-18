@@ -22,8 +22,7 @@ dependencies:
   post:
     - git rev-parse --show-toplevel
     - sh start.sh
-    - ansible container -m ping
-    - ansible-playbook main.yml
+    - sh smoke.sh
 
 # Antes de este punto todo es cacheable.  Pendiente investigar como.
 
