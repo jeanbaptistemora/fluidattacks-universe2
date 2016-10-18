@@ -1,0 +1,5 @@
+- name: Execute ALG role
+  hosts: container
+  roles:
+    - name: Install alg
+      role: alg

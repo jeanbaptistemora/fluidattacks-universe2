@@ -5,6 +5,4 @@
 
 # Ansible Variables
 ansible_user = alg
-#ansible_ssh_pass = linux
-#ansible_port = 22000
 ansible_ssh_common_args = -F "{{ lookup('env', 'HOME') }}/.ssh/config.facont"
