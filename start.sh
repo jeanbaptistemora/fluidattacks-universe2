@@ -10,7 +10,7 @@ set -e
 
 # Setup (ansible)
 export PROJECT_DIR=$(git rev-parse --show-toplevel)
-export ANSIBLE_HOSTS="$PROJECT_DIR"/config/hosts
+export ANSIBLE_HOSTS="$PROJECT_DIR"
 export SERVICE="alg"
 
 # Mensaje de inicio
