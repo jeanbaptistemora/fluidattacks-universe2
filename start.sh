@@ -19,6 +19,9 @@ echo "---### Compilando contenedor."
 # construir la imagen
 docker build -t alg "$PROJECT_DIR"
 
+# Verificacion existencia imagenes
+docker images 
+
 # Mensaje de inicio
 echo "---### Iniciando contenedor."
 
