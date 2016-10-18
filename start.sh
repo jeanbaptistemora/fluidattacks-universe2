@@ -12,6 +12,7 @@ set -e
 export PROJECT_DIR=$(git rev-parse --show-toplevel)
 export ANSIBLE_HOSTS="$PROJECT_DIR"
 export SERVICE="alg"
+export IP=127.0.0.1
 
 # Mensaje de inicio
 echo "---### Compilando contenedor."
@@ -26,7 +27,7 @@ docker images
 echo "---### Iniciando contenedor."
 
 # iniciar contenedor si no ha iniciado
-#if [ -z $(docker ps -q -f name="$SERVICE") ]; then
+if [ -z $(docker ps -q -f name="$SERVICE") ]; then
 
 #  echo "Contenedor no ha iniciado, iniciando contenedor..."	 
 
@@ -46,9 +47,9 @@ echo "---### Iniciando contenedor."
 		-e SSH_KEY="$(cat ~/.ssh/facont_id_rsa.pub)" \
 		alg
 
-  echo "Esperando que el puerto 22 de SSH este abierto."
-  until nc -z $IP 22; do : sleep 0.2; done
-  echo "Puerto SSH (22) abierto en contenedor."
+  echo "Esperando que el puerto 22000 de SSH este abierto."
+  until nc -z $IP 22000; do : sleep 5; done
+  echo "Puerto SSH (22000) abierto en contenedor."
 else
   echo "Contenedor ya inicio, reutilizando contenedor."
 fi
