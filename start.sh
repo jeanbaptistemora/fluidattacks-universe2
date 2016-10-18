@@ -39,7 +39,7 @@ echo "---### Iniciando contenedor."
 		--hostname="$SERVICE" \
         -p 22000:22 \
         -p 443:443 \
-        -p 80:80
+        -p 80:80 \
 		-e SSH_KEY="$(cat ~/.ssh/facont_id_rsa.pub)" \
 		alg
 
