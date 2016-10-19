@@ -4,5 +4,4 @@
 [container:vars]
 
 # Ansible Variables
-ansible_user = alg
 ansible_ssh_common_args = -F "{{ lookup('env', 'HOME') }}/.ssh/config.facont"

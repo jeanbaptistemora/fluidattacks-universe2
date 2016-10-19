@@ -10,7 +10,6 @@ set -e
 
 # Setup (ansible)
 export PROJECT_DIR=$(git rev-parse --show-toplevel)
-export ANSIBLE_HOSTS="$PROJECT_DIR"/config/hosts
 export SERVICE="alg"
 export IP=127.0.0.1
 

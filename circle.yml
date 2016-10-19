@@ -20,8 +20,8 @@ dependencies:
   override:
     - sudo apt-get install ansible curl
   post:
-    - git rev-parse --show-toplevel
     - sh start.sh
+    - ls -la /root/.ssh/
     - sh smoke.sh
 
 # Antes de este punto todo es cacheable.  Pendiente investigar como.

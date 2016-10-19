@@ -42,4 +42,7 @@ sed -i "s/UsePAM yes/UsePAM no/" /etc/ssh/sshd_config
 # Iniciando servidor ssh
 exec /usr/sbin/sshd -D -e -f /etc/ssh/sshd_config
 
+# Configurando archivo hosts
+cat config/hosts >> /etc/ansible/hosts
+
 # Basado en: https://hub.docker.com/r/krlmlr/debian-ssh/
