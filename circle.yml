@@ -9,11 +9,12 @@ machine:
   timezone: America/Bogota
   services:
     - docker
+  environment:
+    VERBOSE: 1  
 # version de python del sistema base de CI, se requiere por ansible-container.
   python:
     version: 2.7.10
-environment:
- VERBOSE: 1
+
 
 dependencies:
   pre:
