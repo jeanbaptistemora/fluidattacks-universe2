@@ -1,7 +1,0 @@
-[container]
-127.0.0.1:22000
-
-[container:vars]
-
-# Ansible Variables
-ansible_ssh_common_args = -F "{{ lookup('env', 'HOME') }}/.ssh/config.facont"

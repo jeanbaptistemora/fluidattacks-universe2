@@ -13,5 +13,5 @@ guessed_pass = guessed123
 nonpass_user = nonpass
 
 # Ansible Variables
-ansible_user = alg
+ansible_user = root
 ansible_ssh_common_args = -F "{{ lookup('env', 'HOME') }}/.ssh/config.facont"

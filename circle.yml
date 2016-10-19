@@ -9,8 +9,6 @@ machine:
   timezone: America/Bogota
   services:
     - docker
-  environment:
-    VERBOSE: 1  
 # version de python del sistema base de CI, se requiere por ansible-container.
   python:
     version: 2.7.10
@@ -23,14 +21,14 @@ dependencies:
   override:
     - sudo apt-get install ansible curl
   post:
-    - sudo sh start.sh
-    - sudo ls -la /root/.ssh/
+    - ansible --version
+    - container/build.sh
+    - container/start.sh
     - docker ps
-    - sudo sh smokessh.sh
-    - sudo sh smoke.sh
+    - container/smoke.sh
 
 # Antes de este punto todo es cacheable.  Pendiente investigar como.
 
 test:
   pre:
-    - curl http://localhost
+    - ansible container -i provision/hosts -m ping

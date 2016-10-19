@@ -5,7 +5,7 @@ export PROJECT_DIR=$(git rev-parse --show-toplevel)
 export NET_IP="172.30.216.0/16"
 export NET_NAME="fluidasserts"
 export SERVICE="alg"
-export IP="172.30.216.100"
+export IP="127.0.0.1"
 
 # Setup (ansible)
 export ANSIBLE_HOSTS="$PROJECT_DIR"/provision/hosts

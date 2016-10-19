@@ -29,12 +29,13 @@ if [ -z $(docker ps -q -f name="$SERVICE") ]; then
 		--name="$SERVICE" \
 		--hostname="$SERVICE" \
 		--publish-all \
+		-p 22000:22 \
 		-e SSH_KEY="$(cat ~/.ssh/facont_id_rsa.pub)" \
 		fluidsignal/fluidserves:"$SERVICE"
 
-  echo "Esperando que el puerto 22 de SSH este abierto."
-  until nc -z $IP 22; do : sleep 0.2; done
-  echo "Puerto SSH (22) abierto en contenedor."
+  echo "Esperando que el puerto 22000 de SSH este abierto."
+  until nc -z $IP 22000; do : sleep 0.2; done
+  echo "Puerto SSH (22000) abierto en contenedor."
 else
   echo "Contenedor ya inicio, reutilizando contenedor."
 fi

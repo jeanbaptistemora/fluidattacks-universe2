@@ -15,7 +15,7 @@ set -e
 source $(git rev-parse --show-toplevel)/env.sh
 
 # Probando conexion SSH
-ssh ${VERBOSE:+-vvv} -F ~/.ssh/config.facont "$IP" -l nonpriv \
+ssh -p22000 ${VERBOSE:+-vvv} -F ~/.ssh/config.facont "$IP" -l nonpriv \
     echo "Conexión SSH como usuario nonpriv al contenedor esta funcionando"
-ssh ${VERBOSE:+-vvv} -F ~/.ssh/config.facont "$IP" -l root \
+ssh -p22000 ${VERBOSE:+-vvv} -F ~/.ssh/config.facont "$IP" -l root \
     echo "Conexión SSH como usuario root al contenedor esta funcionando"
