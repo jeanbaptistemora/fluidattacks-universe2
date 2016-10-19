@@ -1,7 +1,7 @@
 #!/bin/bash
 
-# Exportar variables
-#export ANSIBLE_HOSTS="$PROJECT_DIR"/config/hosts
+# Definir lista de hosts
+cat config/hosts >> /etc/ansible/hosts
 
 # Probar configuracion ansible 
 ansible container -m ping -vvvv

@@ -20,8 +20,9 @@ dependencies:
   override:
     - sudo apt-get install ansible curl
   post:
-    - sh start.sh
+    - sudo sh start.sh
     - sudo ls -la /root/.ssh/
+    - docker ps
     - sudo sh smoke.sh
 
 # Antes de este punto todo es cacheable.  Pendiente investigar como.
