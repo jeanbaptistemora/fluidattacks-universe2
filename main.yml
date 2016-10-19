@@ -1,5 +1,75 @@
-- name: Execute ALG role
-  hosts: container
-  roles:
-    - name: Install alg
-      role: alg
+---
+- hosts: container
+
+  become: yes
+
+  tasks:
+   - name: include default step variables
+     include_vars: ansible/templates/key.yml
+
+   - name: Install Apache2
+     apt: pkg=apache2 state=present
+
+   - name: Enable Apache2 as service
+     service:
+       name=apache2
+       enabled=yes
+
+   - name: Enable required modules
+     command:
+       a2enmod {{ item }}
+     with_items:
+       - rewrite
+       - ssl
+       - proxy_http
+       - substitute
+       - headers
+     notify:
+       - restart apache2
+
+   - name: Adding apache conf
+     template:
+      src=ansible/templates/apache2.j2
+      dest="/etc/apache2/apache2.conf"
+      mode=0644
+
+   - name: Adding mainsite virtual host
+     template:
+      src=ansible/templates/000-default.j2
+      dest="/etc/apache2/sites-enabled/000-default.conf"
+      mode=0644
+
+   - name: Adding mainsite virtual host
+     template:
+      src=ansible/templates/fluid.la.j2
+      dest="/etc/apache2/sites-enabled/fluid.la"
+      mode=0644
+
+   - name: Adding ssl virtual hosts
+     template:
+      src=ansible/templates/defaultssl.j2
+      dest="/etc/apache2/sites-enabled/default-ssl"
+      mode=0644
+
+   - name: make sure SSL certificate is installed
+     copy:
+      content: '{{ ssl_cert }}'
+      dest: /etc/ssl/certs/fluidla.crt
+      owner: root
+      group: root
+      mode: 0644
+ 
+   - name: make sure SSL private key is installed
+     copy:
+      content: '{{ ssl_key }}'
+      dest: /etc/ssl/private/fluidla.key
+      owner: root
+      group: root
+      mode: 0600
+     notify:
+       - restart apache2
+
+  handlers:
+   - name: restart apache2
+     service: name=apache2 state=restarted
+

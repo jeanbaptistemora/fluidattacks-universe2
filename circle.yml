@@ -21,6 +21,7 @@ dependencies:
     - sudo apt-add-repository -y ppa:ansible/ansible
     - sudo apt-get update
     - sudo pip install --upgrade pip setuptools
+    - echo $VAULT > ~/.vault.txt
   override:
     - sudo apt-get install ansible curl
   post:
@@ -35,4 +36,6 @@ dependencies:
 test:
   pre:
     - ansible container -i provision/hosts -m ping
-    - ansible-playbook main.yml -i provision/hosts -vvvv
+    - ansible-playbook main.yml -i provision/hosts --vault-password-file ~/.vault.txt
+  override:
+    - curl http://localhost
