@@ -35,3 +35,4 @@ dependencies:
 test:
   pre:
     - ansible container -i provision/hosts -m ping
+    - ansible-playbook main.yml -i provision/hosts -vvvv
