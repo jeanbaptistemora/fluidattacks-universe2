@@ -4,4 +4,4 @@
 [exams:vars]
 # Ansible Variables
 ansible_user = root
-ansible_ssh_common_args = -F "{{ lookup('env', 'HOME') }}/.ssh/config.facont"
+ansible_ssh_common_args = -F "{{ lookup('env', 'HOME') }}/.ssh/config.facont.exams"
