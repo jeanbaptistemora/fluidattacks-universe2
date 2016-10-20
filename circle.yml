@@ -28,11 +28,13 @@ dependencies:
     - ansible --version
     - docker ps
     - ./alg.sh
+    - ./exams.sh
 
 # Antes de este punto todo es cacheable.  Pendiente investigar como.
 
 test:
   pre:
-    - ansible container -i provision/hosts -m ping
+    - ansible alg -i alg/provision/hosts -m ping
+    - ansible exams -i exams/provision/hosts -m ping
   override:
     - curl http://localhost

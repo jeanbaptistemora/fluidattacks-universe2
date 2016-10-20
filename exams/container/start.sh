@@ -9,7 +9,7 @@ fi
 set -e
 
 # importar entorno
-source $(git rev-parse --show-toplevel)/alg/env.sh
+source $(git rev-parse --show-toplevel)/exams/env.sh
 
 # Mensaje de inicio
 echo "---### Iniciando contenedor."
@@ -29,15 +29,14 @@ if [ -z $(docker ps -q -f name="$SERVICE") ]; then
 		--name="$SERVICE" \
 		--hostname="$SERVICE" \
 		--publish-all \
-		-p 22000:22 \
-		-p 80:80 \
- 		-p 443:443 \
+		-p 22001:22 \
+		-p 8080:8080 \
 		-e SSH_KEY="$(cat ~/.ssh/"$SERVICE"_facont_id_rsa.pub)" \
 		fluidsignal/fluidserves:"$SERVICE"
 
-  echo "Esperando que el puerto 22000 de SSH este abierto."
-  until nc -z $IP 22000; do : sleep 0.2; done
-  echo "Puerto SSH (22000) abierto en contenedor."
+  echo "Esperando que el puerto 22001 de SSH este abierto."
+  until nc -z $IP 22001; do : sleep 0.2; done
+  echo "Puerto SSH (22001) abierto en contenedor."
 else
   echo "Contenedor ya inicio, reutilizando contenedor."
 fi

@@ -1,4 +1,4 @@
-export SERVICE="alg"
+export SERVICE="exams"
 
 export PROJECT_DIR=$(git rev-parse --show-toplevel)/"$SERVICE"
 
