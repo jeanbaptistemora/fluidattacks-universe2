@@ -27,7 +27,7 @@ dependencies:
   post:
     - ansible --version
     - docker ps
-    - alg.sh
+    - ./alg.sh
 
 # Antes de este punto todo es cacheable.  Pendiente investigar como.
 
