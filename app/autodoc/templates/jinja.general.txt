@@ -1,0 +1,12 @@
+= Documentacion Proyecto {{proyecto}}
+
+== {{hallazgo}}
+
+=== Vulnerabilidad
+{{vulnerabilidad}}
+
+=== Donde
+{{donde}}
+
+=== Recomendacion
+{{solucion}}

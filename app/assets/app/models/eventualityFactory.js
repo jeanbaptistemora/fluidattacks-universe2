@@ -28,6 +28,35 @@ integrates.factory('eventualityFactory', function($q){
               deferred.resolve('exception');
           }
           return deferred.promise
+        },
+        updateEvnt: function(vuln){
+            var deferred = $q.defer();
+            try {
+                $.ajax({
+                url: BASE.url + "update_evnt",
+                method: "POST",
+                data: {
+                    vuln: vuln
+                  },
+                  success: function (response) { 
+                      deferred.resolve(response);
+                  },
+                  error: function (xhr, status) {
+                      $(".loader").hide();
+                      console.log(xhr);
+                      if(xhr.status == 500){
+                        deferred.resolve({
+                            error: true, 
+                            message: "Formstack error"
+                        });
+                      }
+                  }
+              });
+          } catch (e) {
+              console.log('There was an exception: ' + e.message);
+              deferred.resolve('exception');
+          }
+          return deferred.promise
         }
     }
 });

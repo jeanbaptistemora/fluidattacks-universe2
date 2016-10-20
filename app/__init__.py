@@ -2,15 +2,17 @@
     Configuracion de logs para Integrates
 """
 import logging
-"""
+
 logging.basicConfig(
-    filename='logs/integrates.log',
+    filename='logs/error.err',
     format='%(levelname)s: %(asctime)s %(message)s',
-    level=logging.INFO
+    level=logging.DEBUG
 )
+
 #Deshabilitar la informacion de SSLV3
-logging.getLogger("urllib3").setLevel(logging.WARNING)
-logging.getLogger("requests").setLevel(logging.WARNING)
+#logging.getLogger("urllib3").setLevel(logging.WARNING)
+#logging.getLogger("requests").setLevel(logging.WARNING)
+
 """
 def get_logger(    
         LOG_FORMAT     = '%(asctime)s 12s %(levelname)-8s %(message)s',
@@ -43,3 +45,4 @@ def get_logger(
 logging.getLogger("urllib3").setLevel(logging.WARNING)
 logging.getLogger("requests").setLevel(logging.WARNING)
 logging = get_logger()
+"""

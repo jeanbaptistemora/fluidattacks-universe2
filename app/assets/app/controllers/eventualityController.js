@@ -7,38 +7,33 @@ integrates.evntTotalize = function(data){
     var cardinalidad = 0; 
     //data.data.forEach(function(i){ cardinalidad+= parseInt(i.cardinalidad); });
     //$("#total_cardinalidad").html(cardinalidad);
+    var afectacion = 0;
+    for(var i = 0; i< data.data.length;i++){
+        auxAfectacion = 0;
+        if (data.data[i].afectacion != ""){
+            auxAfectacion += parseInt(data.data[i].afectacion);
+        }
+        afectacion+=auxAfectacion;
+    }
     $("#total_eventualidades").html(data.data.length);
+    $("#total_afectacion").html(afectacion);
 };
 integrates.updateVulnRow = function(row){
-    var data = $("#vulnerabilities").bootstrapTable("getData")
-    for(var i=0; i<data.length;i++){
+    var data = $("#eventualities").bootstrapTable("getData")
+    for(var i=0; i< data.length;i++){
         if(data[i].id == row.id){
             data[i] = row;
-            $("#vulnerabilities").bootstrapTable("destroy");
-            $("#vulnerabilities").bootstrapTable({data: data});
-            $("#vulnerabilities").bootstrapTable("refresh");
+            $("#eventualities").bootstrapTable("destroy");
+            $("#eventualities").bootstrapTable({data: data});
+            $("#eventualities").bootstrapTable("refresh");
             break;
         }
     }
-    integrates.calcCardinality({data: data});
+    integrates.evntTotalize({data: data});
 };
 
-integrates.deleteVulnRow = function(row){
-    alert(1);
-    var data = $("#vulnerabilities").bootstrapTable("getData")
-    var newData = [];
-    for(var i=0; i<data.length;i++){
-        if(data[i].id != row.id){
-            newData.append(row);
-        }
-    }
-    console.log(newData);
-    $("#vulnerabilities").bootstrapTable("destroy");
-    $("#vulnerabilities").bootstrapTable({data: newData});
-    $("#vulnerabilities").bootstrapTable("refresh");
-};
+
 integrates.controller("eventualityController", function($scope,$uibModal, eventualityFactory) {
-
     $scope.init = function(){
         $("#search_section").hide();
         $(".loader").hide();
@@ -57,45 +52,39 @@ integrates.controller("eventualityController", function($scope,$uibModal, eventu
             });
             return false;
         }else{
-            $scope.currentVulnerability = sel[0];
+            $scope.currentEventuality = sel[0];
         }
         var modalInstance = $uibModal.open({
             animation: true,
             templateUrl: 'ver.html',
             windowClass: 'ver-modal',
-            controller: function($scope, $uibModalInstance, currentVulnerability){
-                $scope.vuln = currentVulnerability;
-                if($scope.vuln.nivel == "General"){
-                    $scope.esDetallado = "hide-detallado";
-                    $scope.rows = "4";
-                    $scope.cols = "12";
-                }else{
-                    $scope.esDetallado = "show-detallado";  
-                    $scope.rows = "2";
-                    $scope.cols = "6";
+            controller: function($scope, $uibModalInstance, currentEventuality){
+                if (currentEventuality.afectacion == ""){
+                    currentEventuality.afectacion = "0";
                 }
-                
+                $scope.evnt = currentEventuality;
+                $scope.evnt.afectacion = parseInt(currentEventuality.afectacion);
                 $scope.closeModalVer = function(){
                     $uibModalInstance.dismiss('cancel');
                 }
             },
             resolve: {
-                currentVulnerability: function(){
-                    return $scope.currentVulnerability;
+                currentEventuality: function(){
+                    return $scope.currentEventuality;
                 }
             }
         });
     };
     /*
-     *  Modal para obtener el string del formulario de avance 
+     *  Modal para obtener el string del resumen de eventualidades 
      */
     $scope.openModalAvance = function(){
         var modalInstance = $uibModal.open({
             animation: true,
             templateUrl: 'avance.html',
-            windowClass: 'modal avance-modal',
+            windowClass: 'modal avance-modal',  
             controller: function($scope, $uibModalInstance){
-                $scope.rows = $("#vulnerabilities").bootstrapTable('getData');
+                $scope.rows = $("#eventualities").bootstrapTable('getData');
                 $scope.closeModalAvance = function(){
                     $uibModalInstance.dismiss('cancel');
                 }
@@ -109,44 +98,60 @@ integrates.controller("eventualityController", function($scope,$uibModal, eventu
      *  Modal para obtener el string del formulario de avance 
      */
     $scope.openModalEditar = function(){
-        var sel = $("#vulnerabilities").bootstrapTable('getSelections');
+        var sel = $("#eventualities").bootstrapTable('getSelections');
         if(sel.length == 0){
             $.gritter.add({
                 title: 'Error',
-                text: 'Debes seleccionar un hallazgo',
+                text: 'Debes seleccionar una eventualidad',
                 class_name: 'color warning',
-                    sticky: false,
+                sticky: false,
             });
             return false;
         }else{
-            $scope.currentVulnerability = sel[0];
+            $scope.currentEventuality = sel[0];
         }
         
         var modalInstance = $uibModal.open({
             animation: true,
             templateUrl: 'editar.html',
             windowClass: 'ver-modal',
-            controller: function($scope, $uibModalInstance, currentVulnerability){
-                $scope.vuln = currentVulnerability;
-                if($scope.vuln.nivel == "General"){
-                    $scope.esDetallado = "hide-detallado";
-                    $scope.rows = "4";
-                    $scope.cols = "12";
-                }else{
-                    $scope.esDetallado = "show-detallado";  
-                    $scope.rows = "2";
-                    $scope.cols = "6";
+            controller: function($scope, $uibModalInstance, currentEventuality){
+                if (currentEventuality.afectacion == ""){
+                    currentEventuality.afectacion = "0";
                 }
+                $scope.evnt = currentEventuality;
+                $scope.evnt.afectacion = parseInt(currentEventuality.afectacion);
+
                 $scope.okModalEditar = function(){
-                   findingFactory.updateVuln($scope.vuln).then(function(response){
+                   submit = false;
+                   console.log($scope.evnt);
+                   try{
+                       if($scope.evnt.afectacion == undefined){
+                           throw "negativo";
+                       }
+                       submit = true;
+                   }catch(e){
+                       $.gritter.add({
+                            title: 'Correcto!',
+                            text: 'La afectacion debe ser un numero positivo o cero',
+                            class_name: 'color warning',
+                            sticky: false,
+                       });
+                   }finally{
+                       if(submit == false){
+                           return false;
+                       }
+                   }
+
+                   eventualityFactory.updateEvnt($scope.evnt).then(function(response){
                         if(!response.error){
                             $.gritter.add({
                                 title: 'Correcto!',
-                                text: 'Hallazgo actualizado',
+                                text: 'Eventualidad actualizada',
                                 class_name: 'color success',
                                 sticky: false,
                             });
-                            integrates.updateVulnRow($scope.vuln);
+                            integrates.updateEvnt($scope.evnt);
                             $uibModalInstance.dismiss('cancel');
                         }else{
                             $.gritter.add({
@@ -164,75 +169,8 @@ integrates.controller("eventualityController", function($scope,$uibModal, eventu
                 }
             },
             resolve: {
-                currentVulnerability: function(){
-                    return $scope.currentVulnerability;
-                }
-            }
-        });
-    };
-    /*
-     *  Modal para obtener el string del formulario de avance 
-     */
-    $scope.openModalEliminar = function(){
-        var sel = $("#vulnerabilities").bootstrapTable('getSelections');
-        if(sel.length == 0){
-            $.gritter.add({
-                title: 'Error',
-                text: 'Debes seleccionar un hallazgo',
-                class_name: 'color warning',
-                    sticky: false,
-            });
-            return false;
-        }else{
-            $scope.currentVulnerability = sel[0];
-            $scope.currentVulnerability.justificacion = "";
-        }
-        var modalInstance = $uibModal.open({
-            animation: true,
-            templateUrl: 'eliminar.html',
-            windowClass: 'modal avance-modal',
-            controller: function($scope, $uibModalInstance, currentVulnerability){
-                $scope.vuln = currentVulnerability;
-                $scope.closeModalEliminar = function(){
-                    $uibModalInstance.dismiss('cancel');
-                }
-                $scope.okModalEliminar = function(){
-                    //$uibModalInstance.dismiss('cancel');
-                    if(typeof $scope.vuln.justificacion != "string"
-                        || $scope.vuln.justificacion == ""){
-                        $.gritter.add({
-                            title: 'Error',
-                            text: 'Debes seleccionar una justificacion',
-                            class_name: 'color warning',
-                            sticky: false,
-                        });
-                        return false;
-                    }
-                    findingFactory.deleteVuln($scope.vuln).then(function(response){
-                        if(!response.error){
-                            $.gritter.add({
-                                title: 'Correcto!',
-                                text: 'Hallazgo actualizado',
-                                class_name: 'color success',
-                                sticky: false,
-                            });
-                            integrates.deleteVulnRow($scope.vuln);
-                            $uibModalInstance.dismiss('cancel');
-                        }else{
-                            $.gritter.add({
-                                title: 'Error!',
-                                text: response.message,
-                                class_name: 'color warning',
-                                sticky: false,
-                            });
-                        } 
-                   });
-
-                }
-            },
-            resolve: {
-                currentVulnerability: function(){
-                    return $scope.currentVulnerability;
+                currentEventuality: function(){
+                    return $scope.currentEventuality;
                 }
             }
         });

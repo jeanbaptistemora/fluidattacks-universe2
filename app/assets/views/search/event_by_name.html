@@ -51,11 +51,11 @@
     <!-- START: MODAL AVANCE -->
     <script type="text/ng-template" id="avance.html">
         <div class="modal-header">
-            <h3 class="modal-title" id="modal-title">Reporte de avance</h3>
+            <h3 class="modal-title" id="modal-title">Resumen eventualidades</h3>
         </div>
         <div class="modal-body" id="modal-body">
             <ul style="list-style: none;">
-                <li ng-repeat="r in rows"> - Hallazgos #{{r.id}}:&nbsp;[{{r.criticidad}}&nbsp;CVSS]&nbsp;{{r.hallazgo}}&nbsp;({{r.cardinalidad}})
+                <li ng-repeat="r in rows"> #{{r.id}}&nbsp;{{r.tipo}}&nbsp;[{{r.fecha}}] ({{ (r.afectacion == "")?"Pendiente":r.afectacion }})
             </ul>
         </div>
         <div class="modal-footer">
@@ -69,50 +69,50 @@
             <div class="row">
                 <div class="col-md-8">
                     <div class="form-group">
-                        <label>Hallazgo</label>
-                        <input type="text" class="form-control" ng-model="vuln.hallazgo" disabled>
+                        <label>Tipo</label>
+                        <input type="text" class="form-control" ng-model="evnt.tipo" disabled>
                     </div>
                 </div> 
                 <div class="col-md-4">
                     <div class="form-group">
                         <label>Analista</label>
-                        <input type="text" class="form-control" ng-model="vuln.analista" disabled>
+                        <input type="text" class="form-control" ng-model="evnt.analista" disabled>
                     </div>
                 </div> 
-                <div class="col-md-3">
+                <div class="col-md-4">
                     <div class="form-group">
-                        <label>Cardinalidad</label>
-                        <input type="text" class="form-control" ng-model="vuln.cardinalidad" disabled>
+                        <label>Proyecto Fluid</label>
+                        <input type="text" class="form-control" ng-model="evnt.proyecto_fluid" disabled>
                     </div>
                 </div> 
-                <div class="col-md-3">
+                <div class="col-md-4">
                     <div class="form-group">
-                        <label>Criticidad</label>
-                        <input type="text" class="form-control" ng-model="vuln.criticidad" disabled>
+                        <label>Proyecto Cliente</label>
+                        <input type="text" class="form-control" ng-model="evnt.proyecto_cliente" disabled>
                     </div>
                 </div> 
-                <div class="col-md-{{cols}}">
+                <div class="col-md-4">
                     <div class="form-group">
-                        <label>Vulnerabilidad</label>
-                        <textarea class="form-control" id="email" rows="{{rows}}" disabled> {{vuln.vulnerabilidad}}</textarea>
+                        <label>Cliente</label>
+                        <input type="text" class="form-control" ng-model="evnt.cliente" disabled>
                     </div>
                 </div>
                 <div class="col-md-12">
                     <div class="form-group">
-                        <label>Donde</label>
-                        <textarea class="form-control" id="email" disabled rows="{{rows}}"> {{vuln.donde}} </textarea>
+                        <label>Detalle</label>
+                        <textarea class="form-control" id="email" disabled> {{evnt.detalle}} </textarea>
                     </div>
                 </div>
                 <div class="col-md-6" ng-class="esDetallado">
                     <div class="form-group">
-                        <label>Riesgo</label>
-                        <textarea class="form-control" id="email" disabled rows="2"> {{vuln.riesgo}} </textarea>
+                        <label>Fecha</label>
+                        <input type="text" class="form-control" ng-model="evnt.fecha" disabled>
                     </div>
                 </div> 
                 <div class="col-md-6" ng-class="esDetallado">
                     <div class="form-group">
-                        <label>Amenaza</label>
-                        <textarea class="form-control" id="email" disabled rows="2"> {{vuln.amenaza}} </textarea>
+                        <label>Afectacion</label>
+                        <input type="number" class="form-control" ng-model="evnt.afectacion" disabled>
                     </div>
                 </div>   
             </div>    
@@ -128,50 +128,50 @@
             <div class="row">
                 <div class="col-md-8">
                     <div class="form-group">
-                        <label>Hallazgo</label>
-                        <input type="text" class="form-control" ng-model="vuln.hallazgo" disabled>
+                        <label>Tipo</label>
+                        <input type="text" class="form-control" ng-model="evnt.tipo" disabled>
                     </div>
                 </div> 
                 <div class="col-md-4">
                     <div class="form-group">
                         <label>Analista</label>
-                        <input type="text" class="form-control" ng-model="vuln.analista" disabled>
+                        <input type="text" class="form-control" ng-model="evnt.analista" disabled>
                     </div>
                 </div> 
-                <div class="col-md-3">
+                <div class="col-md-4">
                     <div class="form-group">
-                        <label>Cardinalidad</label>
-                        <input type="text" class="form-control" ng-model="vuln.cardinalidad">
+                        <label>Proyecto Fluid</label>
+                        <input type="text" class="form-control" ng-model="evnt.proyecto_fluid" disabled>
                     </div>
                 </div> 
-                <div class="col-md-3">
+                <div class="col-md-4">
                     <div class="form-group">
-                        <label>Criticidad</label>
-                        <input type="text" class="form-control" ng-model="vuln.criticidad">
+                        <label>Proyecto Cliente</label>
+                        <input type="text" class="form-control" ng-model="evnt.proyecto_cliente" disabled>
                     </div>
                 </div> 
-                <div class="col-md-{{cols}}">
+                <div class="col-md-4">
                     <div class="form-group">
-                        <label>Vulnerabilidad</label>
-                        <textarea class="form-control" id="email" rows="{{rows}}"> {{vuln.vulnerabilidad}}</textarea>
+                        <label>Cliente</label>
+                        <input type="text" class="form-control" ng-model="evnt.cliente" disabled>
                     </div>
                 </div>
                 <div class="col-md-12">
                     <div class="form-group">
-                        <label>Donde</label>
-                        <textarea class="form-control" id="email" rows="{{rows}}"> {{vuln.donde}} </textarea>
+                        <label>Detalle</label>
+                        <textarea class="form-control" id="email" disabled> {{evnt.detalle}} </textarea>
                     </div>
                 </div>
                 <div class="col-md-6" ng-class="esDetallado">
                     <div class="form-group">
-                        <label>Riesgo</label>
-                        <textarea class="form-control" id="email" rows="2"> {{vuln.riesgo}} </textarea>
+                        <label>Fecha</label>
+                        <input type="text" class="form-control" ng-model="evnt.fecha" disabled>
                     </div>
                 </div> 
                 <div class="col-md-6" ng-class="esDetallado">
                     <div class="form-group">
-                        <label>Amenaza</label>
-                        <textarea class="form-control" id="email" rows="2"> {{vuln.amenaza}} </textarea>
+                        <label>Afectacion</label>
+                        <input type="number" class="form-control" ng-model="evnt.afectacion" min="0">
                     </div>
                 </div>   
             </div>    
@@ -182,40 +182,6 @@
         </div>
     </script>
 
-    <!-- START: MODAL ELIMINAR -->
-    <script type="text/ng-template" id="eliminar.html">
-        <div class="modal-header">
-            <h3 class="modal-title" id="modal-title">Eliminar Hallazgo</h3>
-        </div>
-        <div class="modal-body" id="modal-body">
-            <div class="form-group">
-                    <label>Id</label>
-                    <input type="text" class="form-control" ng-model="vuln.id" disabled>
-                </div>
-                <div class="form-group">
-                    <label>Hallazgo</label>
-                    <input type="text" class="form-control" ng-model="vuln.hallazgo" disabled>
-                </div>
-                <div class="form-group">
-                    <label>Proyecto</label>
-                    <input type="text" class="form-control" ng-model="vuln.proyecto_fluid" ng-required="true" disabled>
-                </div>
-                <div class="form-group">
-                    <label>Justificacion</label>
-                    <select class="form-control" ng-model="vuln.justificacion" ng-required="true">
-                        <option value="Cambio de Evidencia" selected>Cambio de Evidencia</option>
-                        <option value="Por Modificación del Hallazgo">Por Modificación del Hallazgo</option>
-                        <option value="No es una Vulnerabilidad">No es una Vulnerabilidad</option>
-                        <option value="Está Duplicado">Está Duplicado</option>
-                    </select>
-                </div>
-        </div>
-        <div class="modal-footer">
-            <button class="btn btn-warning" type="button" ng-click="closeModalEliminar()">Cerrar</button>
-            <button class="btn btn-primary" type="button" ng-click="okModalEliminar()">Eliminar</button>
-        </div>
-    </script>
-
     <div class="row">
         <div class="col-md-12 text-center loader">
             <img src="assets/img/loading.gif" style="margin-top: 25px;" width="90" heigth="90">
@@ -223,10 +189,10 @@
         </div>
         <div class="col-md-10 col-md-offset-1" id="search_section">
             <div class="row container">
-                <label><b>EVENTUALIDADES</b></label>
+                <label><b>EVENTUALIDADES</b></label>&nbsp;&nbsp;&nbsp;
                 <label id="total_eventualidades"></label> &nbsp;&nbsp;&nbsp;
-                <label><b>AFECTACION TOTAL</b></label> 
-                <label id="total_afectacion"></label> &nbsp;&nbsp;&nbsp; 0
+                <label><b>AFECTACION TOTAL</b></label> &nbsp;&nbsp;&nbsp;
+                <label id="total_afectacion"></label> &nbsp;&nbsp;&nbsp; 
             </div>
             <!-- START: toolbar -->
             <div class="btn-group"  id="toolbar">
@@ -250,25 +216,9 @@
                         class="btn btn-default" 
                         data-toggle="tooltip" 
                         data-placement="top" 
-                        title="ELIMINAR!"
-                        ng-click="openModalEliminar();">
-                    <i class="glyphicon glyphicon-trash"></i>
-                </button>
-                <button type="button" 
-                        class="btn btn-default" 
-                        data-toggle="tooltip" 
-                        data-placement="top" 
-                        title="AVANCE!"
+                        title="RESUMEN!"
                         ng-click="openModalAvance();">
                     <i class="glyphicon glyphicon-bookmark"></i>
-                </button>
-                <button type="button" 
-                        class="btn btn-default" 
-                        data-toggle="tooltip" 
-                        data-placement="top" 
-                        title="DESCARGAR DOCUMENTACION!"
-                        ng-click="openModalAvance();">
-                    <i class="glyphicon glyphicon-floppy-save"></i>
                 </button>
             </div>
             <table
@@ -284,7 +234,7 @@
                     <tr style=""> 
                         <th data-radio="true"></th>
                         <th data-field="id">ID</th>
-                        <th data-field="proyecto_fluid">Proyecto</th>
+                        <!--<th data-field="proyecto_fluid">Proyecto</th>-->
                         <th data-field="fecha"
                             data-sortable="true">Fecha</th>
                         <th data-field="tipo">Tipo</th>

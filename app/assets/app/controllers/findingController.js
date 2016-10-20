@@ -294,7 +294,76 @@ integrates.controller("findingController", function($scope,$uibModal, findingFac
             $scope.response = "El nombre es obligatorio";
         }
     };
-
+    /*
+     * Exporta la tabla de hallazgos a csv
+     */
+    $scope.printTable = function(){
+        var json = $("#vulnerabilities").bootstrapTable("getData");
+        json = JSON.parse(JSON.stringify(json));
+        var header = Object.keys(json[0])
+        var csv = json.map(
+            row => header.map(
+                fieldName => JSON.stringify(row[fieldName] || '')
+            )
+            .join(',')
+        );
+        console.log(csv);
+        csv.unshift(header.join(','));
+        csv = csv.join('\r\n');
+        download(csv, "export.csv", "text/csv");
+    };
+    /*
+     * Envia los datos para generar la documentación automatica
+     */
+    $scope.generateDoc = function(){
+        var json = $("#vulnerabilities").bootstrapTable("getData");
+        var project = $scope.project;
+        generateDoc = false;
+        try{
+            generateDoc = true;
+            json = JSON.stringify(JSON.parse(JSON.stringify(json))); //remove indices
+            if (json == undefined) throw "error";
+            if (json == [] || json == {}) throw "error";
+            if(project.trim() == "") throw "error";
+        }catch(e){
+            generateDoc = false;
+        }
+        if(generateDoc){
+            findingFactory.generateDoc(project, json).then(function(data){
+                if(data.error == false){
+                    console.log(data);
+                    $.gritter.add({
+                        title: 'Correcto',
+                        text: e.message,
+                        class_name: 'color success',
+                        sticky: false,
+                    });
+                }else{
+                    $.gritter.add({
+                        title: 'Error',
+                        text: 'Opps...',
+                        class_name: 'color warning',
+                        sticky: false,
+                    });
+                }
+            }).catch(function(fallback) {
+                $.gritter.add({
+                    title: 'Consultando',
+                    text: 'Error de formstack...',
+                    class_name: 'color warning',
+                    sticky: false,
+                });
+                //$scope.searchVulnByName();
+            });
+        }else{
+            $.gritter.add({
+                title: 'Error',
+                text: 'Deben existir hallazgos y un nombre valido de proyecto',
+                class_name: 'color warning',
+                sticky: false,
+            });
+        }
+    };
     document.onkeypress = function(ev){ 
         if(ev.keyCode === 13){
             if($('#project').is(':focus')){

@@ -21,5 +21,21 @@ integrates.config(function($stateProvider, $urlRouterProvider) {
             templateUrl: 'assets/views/search/event_by_name.html',
             controller: 'eventualityController'        
         })
+        .state('AnalystForms',{
+            url: '/AnaylistForms',
+            templateUrl: 'assets/views/forms/analyst.html'
+        })
+        .state('ProductionForms',{
+            url: '/ProductionForms',
+            templateUrl: 'assets/views/forms/production.html'
+        })
+        .state('TalentForms',{
+            url: '/TalentForms',
+            templateUrl: 'assets/views/forms/talent.html'
+        })
+        .state('AuxilioForm',{
+            url: '/AuxilioForm',
+            templateUrl: 'assets/views/forms/auxilio.html'
+        })
         
 });

@@ -276,7 +276,7 @@ def update_vuln_by_id(reinp):
         url = CONFIG["formstack"]["forms"]["get_submission_by_id"]["url"].replace(":id", vuln_id)
         url += "?oauth_token=" + CONFIG["formstack"]["token"]
         headers = CONFIG['headers']
-        headers["cache-control"] = "no-chache"
+        headers["cache-control"] = "no-cache"
         headers["content-type"] = "application/x-www-form-urlencoded"
         result = requests.put(url, data=files, headers=headers, verify=False)
     except requests.exceptions.SSLError:
@@ -285,6 +285,31 @@ def update_vuln_by_id(reinp):
         result = {} #Formstack Connection timeout
     except requests.exceptions.HTTPError:
         result = {} #Fail token
+    return result
+
+def update_evnt_by_id(reinp):
+    """Actualiza una eventualidad de formstack usando su id"""
+    field_config = CONFIG["formstack"]["fields"]["evnt"]
+    print reinp
+    vuln_id = reinp['vuln[id]']
+    files = {
+        "field_" + field_config["afectacion"] : reinp['vuln[afectacion]'],
+        "field_" + field_config["estado"] : "Tratada"
+    }
+    result = None
+    try:
+        url = CONFIG["formstack"]["forms"]["get_submission_by_id"]["url"].replace(":id", vuln_id)
+        url += "?oauth_token=" + CONFIG["formstack"]["token"]
+        headers = CONFIG['headers']
+        headers["cache-control"] = "no-cache"
+        headers["content-type"] = "application/x-www-form-urlencoded"
+        result = requests.put(url, data=files, headers=headers, verify=False)
+    except requests.exceptions.SSLError:
+        result = None #Formstack SSLError
+    except requests.exceptions.Timeout:
+        result = None #Formstack Connection timeout
+    except requests.exceptions.HTTPError:
+        result = None #Fail token
     return result
 
 def delete_vuln_by_id(frmid):

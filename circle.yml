@@ -1,0 +1,32 @@
+#
+# Archivo de configuracion del servicio de integración continua.
+#
+
+machine:
+  pre:
+# Este parche se requiere para que docker soporte especificación de IPs
+  timezone: 
+    - America/Bogota
+  services:
+
+    - docker
+# version de python del sistema base de CI, se requiere por ansible-container.
+  python:
+    version: 2.7.10
+
+dependencies:
+  pre:
+    - sudo pip install --upgrade pip setuptools
+    - sudo apt-get update
+    - sudo apt-get install ruby-full asciidoctor
+    - sudo pip install django requests pylint jinja2 pyyaml
+    - sudo gem install asciidoctor-pdf --pre
+  override:
+    - sudo apt-get install scons
+  post:
+
+# Antes de este punto todo es cacheable.  Pendiente investigar como.
+
+test:
+  pre:
+    - curl http://localhost

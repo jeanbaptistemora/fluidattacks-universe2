@@ -261,14 +261,21 @@
                         title="AVANCE!"
                         ng-click="openModalAvance();">
                     <i class="glyphicon glyphicon-bookmark"></i>
+                <button type="button" 
+                        class="btn btn-default" 
+                        data-toggle="tooltip" 
+                        data-placement="top" 
+                        title="EXPORTAR CSV!"
+                        ng-click="printTable();">
+                    <i class="glyphicon glyphicon-floppy-save"></i>
                 </button>
                 <button type="button" 
                         class="btn btn-default" 
                         data-toggle="tooltip" 
                         data-placement="top" 
-                        title="DESCARGAR DOCUMENTACION!"
-                        ng-click="openModalAvance();">
-                    <i class="glyphicon glyphicon-floppy-save"></i>
+                        title="DOCUMENTACION AUTOMATICA!"
+                        ng-click="generateDoc();">
+                    <i class="glyphicon glyphicon-star"></i>
                 </button>
             </div>
             <table
@@ -284,11 +291,15 @@
                     <tr style=""> 
                         <th data-radio="true"></th>
                         <th data-field="id">ID</th>
-                        <th data-field="hallazgo">Hallazgo</th>
+                        <th data-field="hallazgo"
+                            data-width="100">Hallazgo</th>
+                        <th data-field="vulnerabilidad" style="display:none;">Vulnerabilidad</th>
                         <th data-field="criticidad"
-                            data-sortable="true">Criticidad</th>
+                            data-sortable="true"
+                            data-width="30">Criticidad</th>
                         <th data-field="cardinalidad"
-                            data-sortable="true">Cardinalidad</th>
+                            data-sortable="true"
+                            data-width="30">Cardinalidad</th>
                     </tr>
                 </thead>
             </table>
