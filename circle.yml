@@ -26,16 +26,13 @@ dependencies:
     - sudo apt-get install ansible curl
   post:
     - ansible --version
-    - container/build.sh
-    - container/start.sh
     - docker ps
-    - container/smoke.sh
+    - alg.sh
 
 # Antes de este punto todo es cacheable.  Pendiente investigar como.
 
 test:
   pre:
     - ansible container -i provision/hosts -m ping
-    - ansible-playbook main.yml -i provision/hosts --vault-password-file ~/.vault.txt
   override:
     - curl http://localhost
