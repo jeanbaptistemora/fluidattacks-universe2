@@ -36,5 +36,3 @@ test:
   pre:
     - ansible alg -i alg/provision/hosts -m ping
     - ansible exams -i exams/provision/hosts -m ping
-  override:
-    - curl http://localhost
