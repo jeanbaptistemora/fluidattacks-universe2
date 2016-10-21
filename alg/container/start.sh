@@ -9,7 +9,7 @@ fi
 set -e
 
 # importar entorno
-source $(git rev-parse --show-toplevel)/env.sh
+source $(git rev-parse --show-toplevel)/alg/env.sh
 
 # Mensaje de inicio
 echo "---### Iniciando contenedor."
@@ -21,8 +21,8 @@ if [ -z $(docker ps -q -f name="$SERVICE") ]; then
   # Crear dinamicamente claves de acceso al contenedor
   # La ruta de configuración SSH tambien esta parametrizado en test/setup/hosts
   mkdir -p ~/.ssh/
-  cp "$PROJECT_DIR"/provision/ssh_config ~/.ssh/config.facont
-  echo -e "y\n" | ssh-keygen -b 2048 -t rsa -f ~/.ssh/facont_id_rsa -q -N ""
+  cp "$PROJECT_DIR"/provision/ssh_config ~/.ssh/config.facont."$SERVICE"
+  echo -e "y\n" | ssh-keygen -b 2048 -t rsa -f ~/.ssh/"$SERVICE"_facont_id_rsa -q -N ""
 
   docker run \
 		--detach \
@@ -32,7 +32,7 @@ if [ -z $(docker ps -q -f name="$SERVICE") ]; then
 		-p 22000:22 \
 		-p 80:80 \
  		-p 443:443 \
-		-e SSH_KEY="$(cat ~/.ssh/facont_id_rsa.pub)" \
+		-e SSH_KEY="$(cat ~/.ssh/"$SERVICE"_facont_id_rsa.pub)" \
 		fluidsignal/fluidserves:"$SERVICE"
 
   echo "Esperando que el puerto 22000 de SSH este abierto."

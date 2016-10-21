@@ -2,6 +2,6 @@ Host 127.0.0.1
   StrictHostKeyChecking no
   UserKnownHostsFile /dev/null
   PasswordAuthentication no
-  IdentityFile ~/.ssh/facont_id_rsa
+  IdentityFile ~/.ssh/exams_facont_id_rsa
   IdentitiesOnly yes
   LogLevel ERROR

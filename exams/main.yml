@@ -1,0 +1,32 @@
+---
+- hosts: exams
+
+  become: yes
+
+  tasks:
+   - name: include default step variables
+     include_vars: ansible/templates/key.yml
+
+   - name: Install Dependencies
+     apt: pkg= {{ item }} state=present
+     with_items:
+       - apache2
+       - php5
+       - php5-gd
+       - php5-xmlrpc
+       - php5-intl
+       - php5-mysql
+       - php5-curl
+       - curl
+
+   - name: Enable Apache2 as service
+     service:
+       name=apache2
+       enabled=yes
+
+- name: Getting Moodle
+  git: repo=git://git.moodle.org/moodle.git version="MOODLE_31_STABLE" dest="/var/www/html" accept_hostkey=yes
+
+  handlers:
+   - name: restart apache2
+     service: name=apache2 state=restarted

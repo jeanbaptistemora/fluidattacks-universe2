@@ -1,5 +1,5 @@
 ---
-- hosts: container
+- hosts: alg
 
   become: yes
 

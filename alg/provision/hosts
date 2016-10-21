@@ -1,0 +1,7 @@
+[alg]
+127.0.0.1:22000
+
+[alg:vars]
+# Ansible Variables
+ansible_user = root
+ansible_ssh_common_args = -F "{{ lookup('env', 'HOME') }}/.ssh/config.facont.alg"

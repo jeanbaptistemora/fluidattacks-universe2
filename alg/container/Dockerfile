@@ -15,9 +15,6 @@ RUN apt-get update \
                openssh-server \
     && mkdir -p /var/run/sshd
 
-# Expone el puerto del servicio en cuestion
-EXPOSE 22
-
 # Copia los archivos que harán parte de la imagen
 COPY entry.sh /
 

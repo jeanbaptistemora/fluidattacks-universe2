@@ -1,10 +1,8 @@
+export SERVICE="exams"
 
-export PROJECT_DIR=$(git rev-parse --show-toplevel)
+export PROJECT_DIR=$(git rev-parse --show-toplevel)/"$SERVICE"
 
 # Container (docker)
-export NET_IP="172.30.216.0/16"
-export NET_NAME="fluidasserts"
-export SERVICE="alg"
 export IP="127.0.0.1"
 
 # Setup (ansible)

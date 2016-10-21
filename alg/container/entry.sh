@@ -15,31 +15,15 @@ if [ -z "${SSH_KEY}" ]; then
   exit -1
 fi
 
-# Creando el usuario no privilegiado
-USER=nonpriv
-echo "Creando usuario no privilegiado $USER"
-useradd "$USER"
-passwd -d "$USER"
-usermod -s /bin/bash "$USER"
-mkdir /home/"$USER"
-
 # Almancenando claves publicas y definiendo permisos requeridos
-for DIR in /root /home/"$USER"; do
-  echo "Adicionando clave publica SSH a $DIR"
-  mkdir -p "$DIR"/.ssh
-  chmod go-rwx "$DIR"/.ssh
-  echo "$SSH_KEY" > "$DIR"/.ssh/authorized_keys
-  chmod go-rw "$DIR"/.ssh/authorized_keys
-done
-
-# Confirmando permisos en archivos del usuario no privilegiado
-chown -R "$USER":"$USER" /home/"$USER"/
-
-# Otorgandole permisos de SUDO a $USER sin clave para ansible --become
-echo "$USER ALL=(ALL) NOPASSWD: ALL" > /etc/sudoers.d/"$USER"
+  echo "Adicionando clave publica SSH a /root"
+  mkdir -p ~/.ssh
+  chmod go-rwx ~/.ssh
+  echo "$SSH_KEY" > ~/.ssh/authorized_keys
+  chmod go-rw ~/.ssh/authorized_keys
 
 # Imprimiendo banner de inicio del server
-echo "FLUIDAsserts - Docker Ansible Base server (SSH, Python, SUDO)"
+echo "FLUID-serves Docker Ansible Base server"
 
 # Configurando conexión SSH para Ansible (en CI falla con PAM)
 sed -i "s/UsePAM yes/UsePAM no/" /etc/ssh/sshd_config
