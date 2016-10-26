@@ -47,6 +47,9 @@
    - name: Actualizar password de usuario root en MySQL
      mysql_user: name=root host=localhost password={{ db_pwd_root }}
 
+   - name: Establecer permisos
+     file: path=/var/www/html state=directory owner=www-data group=www-data mode=0755 recurse=yes
+
    - name: Descargando Moodle
      git: repo=git://git.moodle.org/moodle.git dest="/var/www/html" version=MOODLE_31_STABLE
 
@@ -56,7 +59,7 @@
    - name: Instalar Moodle
      command: /usr/bin/php install.php --non-interactive --wwwroot=http://{{ db_host }}/ --dataroot=/var/www/moodledata --dbhost={{ db_host }} --dbuser={{ db_username }} --dbpass={{ db_password }} --fullname="FLUID Courses" --shortname="Moodle" --adminpass={{ admin_password }} --agree-license chdir=/var/www/html/admin/cli creates=/var/www/html/config.php
 
-   - name: Establecer permisos
+   - name: Actualizar permisos
      file: path=/var/www/html state=directory owner=www-data group=www-data mode=0755 recurse=yes
 
    - name: Descargar tema para Moodle
