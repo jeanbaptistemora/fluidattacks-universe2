@@ -36,3 +36,4 @@ test:
     - ansible exams -i exams/provision/hosts -m ping
   override:
     - curl http://localhost
+    - curl http://localhost:8080/admin/index.php
