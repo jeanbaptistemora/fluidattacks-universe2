@@ -57,7 +57,7 @@
      file: path=/var/www/moodledata state=directory owner=www-data group=www-data mode=0777 recurse=yes
 
    - name: Instalar Moodle
-     command: /usr/bin/php install.php --non-interactive --wwwroot=http://{{ db_host }}/ --dataroot=/var/www/moodledata --dbhost={{ db_host }} --dbuser={{ db_username }} --dbpass={{ db_password }} --fullname="FLUID Courses" --shortname="Moodle" --adminpass={{ admin_password }} --agree-license chdir=/var/www/html/admin/cli creates=/var/www/html/config.php
+     command: /usr/bin/php install.php --non-interactive --wwwroot="http://{{ moodle_host }}:8080" --dataroot=/var/www/moodledata --dbhost={{ db_host }} --dbuser={{ db_username }} --dbpass={{ db_password }} --fullname="FLUID Courses" --shortname="Moodle" --adminpass={{ admin_password }} --agree-license chdir=/var/www/html/admin/cli creates=/var/www/html/config.php
 
    - name: Actualizar permisos
      file: path=/var/www/html state=directory owner=www-data group=www-data mode=0755 recurse=yes
@@ -67,6 +67,9 @@
 
    - name: Copiar tema en la ruta indicada
      unarchive: src=/tmp/theme_eduhub_moodle31_2016090100.zip dest=/var/www/html/theme copy=no
+
+   - name: Configurar cron
+     cron: name="Moodle" job="/usr/bin/php /var/www/html/admin/cli/cron.php >/dev/null" 
 
   handlers:
    - name: restart apache2
