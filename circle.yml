@@ -25,8 +25,6 @@ dependencies:
   override:
     - sudo apt-get install ansible curl
   post:
-    - ansible --version
-    - docker ps
     - ./alg.sh
     - ./exams.sh
 

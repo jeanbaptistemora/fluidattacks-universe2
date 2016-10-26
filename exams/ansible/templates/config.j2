@@ -6,7 +6,7 @@ $CFG = new stdClass();
 
 $CFG->dbtype    = 'mysqli';
 $CFG->dblibrary = 'native';
-$CFG->dbhost    = 127.0.0.1;
+$CFG->dbhost    = 'localhost';
 $CFG->dbname    = "{{ db_name }}";
 $CFG->dbuser    = "{{ db_username }}";
 $CFG->dbpass    = "{{ db_password }}";
@@ -17,7 +17,7 @@ $CFG->dboptions = array (
   'dbsocket' => '',
 );
 
-$CFG->wwwroot   = 'http://localhost:8080';
+$CFG->wwwroot   = 'http://localhost';
 $CFG->dataroot  = '/var/www/moodledata';
 $CFG->admin     = 'admin';
 
