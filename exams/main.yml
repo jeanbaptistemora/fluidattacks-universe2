@@ -4,11 +4,11 @@
   become: yes
 
   tasks:
-   - name: include default step variables
+   - name: Inlcuir variables (Vault)
      include_vars: ansible/templates/vars.yml
 
    - name: Instalar paquetes necesarios
-     apt: name="{{ item }}" 
+     apt: name="{{ item }}"
      with_items:
        - apache2
        - php5
@@ -30,6 +30,21 @@
      with_items:
        - apache2
        - mysql
+
+   - name: Crear DB para moodle
+     mysql_db: name="{{ db_name }}" state="present"
+
+   - name: Crear usuario moodle y asignar permisos
+     mysql_user: name="{{ db_username }}" password="{{ db_password }}" priv="{{ db_name }}.*:ALL"
+
+   - name: Remover base de datos de prueba
+     mysql_db: name=test state=absent
+
+   - name: Remover conexiones anonimas MySQL
+     mysql_user: name='' host=localhost state=absent
+
+   - name: Actualizar password de usuario root en MySQL
+     mysql_user: name=root host=localhost password={{ db_pwd_root }}
 
    - name: Descargando Moodle
      git: repo=git://git.moodle.org/moodle.git dest="/var/www/html" version=MOODLE_31_STABLE
