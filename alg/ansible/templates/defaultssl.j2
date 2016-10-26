@@ -6,8 +6,8 @@
 	ServerAdmin webmaster@localhost
 
     # Moodle
-	ProxyPass /courses http://courses.fluid.la/courses 
-        ProxyPassReverse /courses http://courses.fluid.la/courses
+	ProxyPass /courses http://fluid.la:8080
+        ProxyPassReverse /courses http://fluid.la:8080
 
 	# Favicon KB
 	Substitute "s|type=\"image/x-icon\".*href=\".*|type=\"image/x-icon\" href=\"https://app.knowledgeowl.com/app/image/id/54f110f97cb829fd677b23d4/n/favicon_fluid.png\">|i"
@@ -27,19 +27,8 @@
         ProxyPass /integrates http://fluidintegrates.us-east-1.elasticbeanstalk.com
         ProxyPassReverse /integrates http://fluidintegrates.us-east-1.elasticbeanstalk.com
 
-        #Integrates2
-        RewriteEngine on
-        RewriteRule ^/integrates2/(.*)$             http://fluid.la:8000/$1  [P]
-        RewriteRule ^/assets/(.*)$	http://fluid.la:8000/assets/$1 [P]
-	ProxyPass /integrates2 http://fluid.la:8000/
-        ProxyPassReverse /integrates2 http://fluid.la:8000/
-	ProxyPass /assets http://fluid.la:8000/assets/
-        ProxyPassReverse /assets http://fluid.la:8000/assets/
-
-
-
     # KB - Knowledgeowl
-		Header edit Location ^http://kb.fluid.la(.*)$ https://fluid.la$1
+	Header edit Location ^http://kb.fluid.la(.*)$ https://fluid.la$1
         Header edit Set-Cookie kb.fluid.la fluid.la
         ProxyPass /kb http://kb.fluid.la/help/readerlogin
         ProxyPassReverse /kb http://kb.fluid.la/help/readerlogin

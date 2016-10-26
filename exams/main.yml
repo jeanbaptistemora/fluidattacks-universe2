@@ -21,6 +21,7 @@
        - git
        - mysql-server
        - python-mysqldb
+       - unzip
 
    - name: Retirar index
      file: path=/var/www/html/index.html state=absent
@@ -49,14 +50,20 @@
    - name: Descargando Moodle
      git: repo=git://git.moodle.org/moodle.git dest="/var/www/html" version=MOODLE_31_STABLE
 
-   - name: Establecer permisos 
-     file: path=/var/www/html state=directory owner=www-data group=www-data mode=0755 recurse=yes
-
    - name: Crear directorio para los datos de Moodle 
      file: path=/var/www/moodledata state=directory owner=www-data group=www-data mode=0777 recurse=yes
 
-   - name: Configure Moodle
-     template: src=ansible/templates/config.j2 dest="/var/www/html/config.php"
+   - name: Instalar Moodle
+     command: /usr/bin/php install.php --non-interactive --wwwroot=http://{{ db_host }}/ --dataroot=/var/www/moodledata --dbhost={{ db_host }} --dbuser={{ db_username }} --dbpass={{ db_password }} --fullname="FLUID Courses" --shortname="Moodle" --adminpass={{ admin_password }} --agree-license chdir=/var/www/html/admin/cli creates=/var/www/html/config.php
+
+   - name: Establecer permisos
+     file: path=/var/www/html state=directory owner=www-data group=www-data mode=0755 recurse=yes
+
+   - name: Descargar tema para Moodle
+     get_url: url=https://moodle.org/plugins/download.php/12122/theme_eduhub_moodle31_2016090100.zip dest=/tmp
+
+   - name: Copiar tema en la ruta indicada
+     unarchive: src=/tmp/theme_eduhub_moodle31_2016090100.zip dest=/var/www/html/theme copy=no
 
   handlers:
    - name: restart apache2
