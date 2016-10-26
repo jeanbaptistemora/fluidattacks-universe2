@@ -5,10 +5,10 @@
 
   tasks:
    - name: include default step variables
-     include_vars: ansible/templates/key.yml
+     include_vars: ansible/templates/vars.yml
 
-   - name: Install Dependencies
-     apt: pkg= {{ item }} state=present
+   - name: Instalar paquetes necesarios
+     apt: name="{{ item }}" 
      with_items:
        - apache2
        - php5
@@ -18,14 +18,30 @@
        - php5-mysql
        - php5-curl
        - curl
+       - git
+       - mysql-server
+       - python-mysqldb
 
-   - name: Enable Apache2 as service
-     service:
-       name=apache2
-       enabled=yes
+   - name: Retirar index
+     file: path=/var/www/html/index.html state=absent
 
-- name: Getting Moodle
-  git: repo=git://git.moodle.org/moodle.git version="MOODLE_31_STABLE" dest="/var/www/html" accept_hostkey=yes
+   - name: Habilitar servicios
+     service: name="{{ item }}" state=started enabled=yes
+     with_items:
+       - apache2
+       - mysql
+
+   - name: Descargando Moodle
+     git: repo=git://git.moodle.org/moodle.git dest="/var/www/html" version=MOODLE_31_STABLE
+
+   - name: Establecer permisos 
+     file: path=/var/www/html state=directory owner=www-data group=www-data mode=0755 recurse=yes
+
+   - name: Crear directorio para los datos de Moodle 
+     file: path=/var/www/moodledata state=directory owner=www-data group=www-data mode=0777 recurse=yes
+
+   - name: Configure Moodle
+     template: src=ansible/templates/config.j2 dest="/var/www/html/config.php"
 
   handlers:
    - name: restart apache2

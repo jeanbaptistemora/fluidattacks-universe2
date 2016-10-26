@@ -1,7 +1,7 @@
 #!/bin/bash
 
-docker stop alg
-docker rm alg
-rm -f ~/.ssh/config.facont
-rm -f ~/.ssh/facont_id_rsa*
+docker stop exams
+docker rm exams
+rm -f ~/.ssh/config.facont.exams
+rm -f ~/.ssh/exams_facont_id_rsa*
 

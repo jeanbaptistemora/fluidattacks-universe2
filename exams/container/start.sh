@@ -30,7 +30,7 @@ if [ -z $(docker ps -q -f name="$SERVICE") ]; then
 		--hostname="$SERVICE" \
 		--publish-all \
 		-p 22001:22 \
-		-p 8080:8080 \
+		-p 8080:80 \
 		-e SSH_KEY="$(cat ~/.ssh/"$SERVICE"_facont_id_rsa.pub)" \
 		fluidsignal/fluidserves:"$SERVICE"
 
