@@ -36,4 +36,4 @@ test:
     - ansible exams -i exams/provision/hosts -m ping
   override:
     - curl http://localhost
-    - curl http://localhosto:8080
+    - curl http://localhost:8080
