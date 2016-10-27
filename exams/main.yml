@@ -71,7 +71,7 @@
      unarchive: src=/tmp/theme_eduhub_moodle31_2016090100.zip dest=/var/www/html/theme copy=no
 
    - name: Configurar cron
-     cron: name="Moodle" job="/usr/bin/php" "/var/www/html/admin/cli/cron.php >/dev/null" 
+     cron: name="Moodle" job="/usr/bin/php /var/www/html/admin/cli/cron.php >/dev/null" 
 
   handlers:
    - name: restart apache2
