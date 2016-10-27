@@ -1,0 +1,10 @@
+---
+- hosts: exams
+
+  become: yes
+
+  tasks:
+
+   - name: Configurar cron
+     cron: name="Moodle" job="/usr/bin/php /var/www/html/admin/cli/cron.php >/dev/null" state=present
+

@@ -22,6 +22,7 @@
        - mysql-server
        - python-mysqldb
        - unzip
+       - cron
 
    - name: Retirar index
      file: path=/var/www/html/index.html state=absent
@@ -31,6 +32,7 @@
      with_items:
        - apache2
        - mysql
+       - cron
 
    - name: Crear DB para moodle
      mysql_db: name="{{ db_name }}" state="present"
