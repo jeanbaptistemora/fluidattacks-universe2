@@ -24,6 +24,9 @@
        - unzip
        - cron
 
+   - name: Instalar paquetes necesarios 2da parte
+     apt: name=python-boto
+
    - name: Retirar index
      file: path=/var/www/html/index.html state=absent
 
@@ -35,39 +38,40 @@
        - cron
 
    - name: Obtener BD de S3
-     s3: aws_access_key={{aws_access_key}} aws_secret_key={{aws_secret_key}} bucket={{ s3bucket }} src=/exams/moodle.sql dest=/tmp/moodle.sql mode=get
+     s3: aws_access_key={{aws_access_key}} aws_secret_key={{aws_secret_key}} bucket={{ s3bucket }} object=exams/moodle.sql dest=/tmp/moodle.sql mode=get
 
-   - name: Crear DB para moodle
-     mysql_db: name=moodle state=import target=/tmp/moodle.sql
+#   - name: Crear DB para moodle
+#     mysql_db: name=moodle state=import target=/tmp/moodle.sql
      #mysql_db: name="{{ db_name }}" state="present"
 
-   - name: Crear usuario moodle y asignar permisos
-     mysql_user: name="{{ db_username }}" password="{{ db_password }}" priv="{{ db_name }}.*:ALL"
+#   - name: Crear usuario moodle y asignar permisos
+#     mysql_user: name="{{ db_username }}" password="{{ db_password }}" priv="{{ db_name }}.*:ALL"
 
-   - name: Remover base de datos de prueba
-     mysql_db: name=test state=absent
+#   - name: Remover base de datos de prueba
+#     mysql_db: name=test state=absent
 
-   - name: Remover conexiones anonimas MySQL
-     mysql_user: name='' host=localhost state=absent
+#   - name: Remover conexiones anonimas MySQL
+#     mysql_user: name='' host=localhost state=absent
 
-   - name: Actualizar password de usuario root en MySQL
-     mysql_user: name=root host=localhost password={{ db_pwd_root }}
+#   - name: Actualizar password de usuario root en MySQL
+#     mysql_user: name=root host=localhost password={{ db_pwd_root }}
 
-   - name: Establecer permisos
-     file: path=/var/www/html state=directory owner=www-data group=www-data mode=0755 recurse=yes
+#   - name: Establecer permisos
+#     file: path=/var/www/html state=directory owner=www-data group=www-data mode=0755 recurse=yes
 
-   - name: Descargando Moodle
-     git: repo=git://git.moodle.org/moodle.git dest="/var/www/html" version=MOODLE_31_STABLE
+#   - name: Descargando Moodle
+#     git: repo=git://git.moodle.org/moodle.git dest="/var/www/html" version=MOODLE_31_STABLE
 
    - name: Crear directorio para los datos de Moodle 
      file: path=/var/www/moodledata state=directory owner=www-data group=www-data mode=0777 recurse=yes
 
-   - name: Instalar Moodle
-     command: /usr/bin/php install.php --non-interactive --wwwroot={{ moodle_host }} --dataroot=/var/www/moodledata --dbhost={{ db_host }} --dbuser={{ db_username }} --dbpass={{ db_password }} --fullname="FLUID Courses" --shortname="Moodle" --adminpass={{ admin_password }} --agree-license chdir=/var/www/html/admin/cli 
+#   - name: Instalar Moodle
+#     command: /usr/bin/php install.php --non-interactive --wwwroot={{ moodle_host }} --dataroot=/var/www/moodledata --dbhost={{ db_host }} --dbuser={{ db_username }} --dbpass={{ db_password }} --fullname="FLUID Courses" --shortname="Moodle" --adminpass={{ admin_password }} --agree-license chdir=/var/www/html/admin/cli 
      #creates=/var/www/html/config.php
 
-   - name: Copiar config.php
-     copy: src=exams/ansible/templates/config.php dest=/var/www/html/config.php owner=www-data group=www-data mode=0644
+   - name: Agregar config.php
+     template: src=ansible/templates/config.j2 dest="/var/www/html/config.php" mode=0644
+
 
    - name: Actualizar permisos
      file: path=/var/www/html state=directory owner=www-data group=www-data mode=0755 recurse=yes
