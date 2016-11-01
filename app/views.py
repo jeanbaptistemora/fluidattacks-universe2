@@ -1,7 +1,9 @@
 """ Vistas y servicios para FluidIntegrates """
-import json,re
+import json,re,os
 from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
+from django.http import HttpResponse
+import docs
 from . import models, util
 
 USER = "glopez@fluid.la"
@@ -33,7 +35,25 @@ def login(request):
             return util.response([], 'Wrong! Username/Password', True)
 
 @csrf_exempt
-def generate_auto_doc(request):
+def export_auto_doc(request):
+    "Captura y devuelve el pdf de un proyecto"
+    project = request.GET.get('project', "")
+    filename = "app/autodoc/results/:proj.pdf".replace(":proj",project)
+    try:
+        if not re.search("^[a-zA-Z0-9]+$",project):
+            raise ValueError("Nombre de proyecto incorrecto")
+        elif not os.path.isfile(filename):
+            raise ValueError("Documentacion no generada")
+        else:
+            with open(filename, 'r') as pdf:
+                response = HttpResponse(pdf.read(), content_type='application/pdf')
+                response['Content-Disposition'] = 'inline;filename='+project+'.pdf'
+                return response
+    except ValueError as e:
+        return HttpResponse(e.message)
+
+@csrf_exempt
+def generate_pdf(request):
     "Genera la documentacion automatica"
     project = request.POST.get('project', None)
     data = request.POST.get('data', None)
@@ -50,16 +70,26 @@ def generate_auto_doc(request):
             data = json.loads(data)
     except ValueError:
         exeq = None
-    finally:
-        if not exeq:
-            return util.response([], 'Error procesando parametros!', True)
-        else:
-            print project
-            print data
-            util.create_template(project, data)
+    if not exeq:
+        return util.response([], 'Error procesando parametros!', True)
+    else:
+        created = util.create_template(project, data)
+        if created is True:
             return util.response([], 'Success!', False)
-    
+        else:
+            return util.response([], 'Error!', True)
 
+@csrf_exempt
+def generate_xls(request):
+    "Genera la documentacion automatica en excel"
+    project = request.POST.get('project', "")
+    data = request.POST.get('data', None)
+    if util.is_json(data) and util.is_name(project):
+        if len(json.loads(data)) >= 1:
+            docs.generate_doc_xls(project, json.loads(data))
+            return util.response([], 'Success!', False)
+    return util.response([], 'Error!', True)
+    
 @csrf_exempt
 def get_vuln_by_name(request):
     "Captura y procesa el nombre de un proyecto para devolver los hallazgos"

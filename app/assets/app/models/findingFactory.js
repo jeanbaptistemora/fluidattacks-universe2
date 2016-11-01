@@ -33,7 +33,7 @@ integrates.factory('findingFactory', function($q){
           var deferred = $q.defer();
           try {
               $.ajax({
-                  url: BASE.url + "generate_auto_doc",
+                  url: BASE.url + "generate_xls",
                   method: "POST",
                   data: {
                     project: project,

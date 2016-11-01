@@ -300,6 +300,10 @@ integrates.controller("findingController", function($scope,$uibModal, findingFac
     $scope.printTable = function(){
         var json = $("#vulnerabilities").bootstrapTable("getData");
         json = JSON.parse(JSON.stringify(json));
+        for (var i=0; i<json.length; i++){
+            json[i]["hallazgo"] = json[i]["hallazgo"] + "\n\n\n\n\n\n\n\n\n";
+            json[i]["vulnerabilidad"] = json[i]["vulnerabilidad"] + "\n\n\n\n\n\n\n\n\n";
+        }
         var header = Object.keys(json[0])
         var csv = json.map(
             row => header.map(
@@ -334,7 +338,7 @@ integrates.controller("findingController", function($scope,$uibModal, findingFac
                     console.log(data);
                     $.gritter.add({
                         title: 'Correcto',
-                        text: e.message,
+                        text: data.message,
                         class_name: 'color success',
                         sticky: false,
                     });
@@ -364,6 +368,15 @@ integrates.controller("findingController", function($scope,$uibModal, findingFac
             });
         }
     };
+    /*
+     * Descarga la documentacion automatica
+     */
+    $scope.downloadDoc = function(){
+        downLink = document.createElement("a");
+        downLink.target = "_blank";
+        downLink.href = "export_auto_doc?project=" + $scope.project;
+        downLink.click();
+    };
     document.onkeypress = function(ev){ 
         if(ev.keyCode === 13){
             if($('#project').is(':focus')){
@@ -374,3 +387,5 @@ integrates.controller("findingController", function($scope,$uibModal, findingFac
 
     $scope.init();
 });
+
+

@@ -6168,3 +6168,1751 @@ Traceback (most recent call last):
   File "/home/glopez/Apps/fluid-integrates/app/util.py", line 60, in create_template
     sleep(10) #sleep 10 seconds, max time for generate adoc file
 NameError: global name 'sleep' is not defined
+DEBUG: 2016-10-21 15:11:26,481 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+DEBUG: 2016-10-21 15:11:26,522 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+INFO: 2016-10-21 15:11:26,537 Starting new HTTPS connection (1): www.formstack.com
+DEBUG: 2016-10-21 15:11:28,035 "GET /api/v2/form/1998500/submission.json HTTP/1.1" 200 666
+DEBUG: 2016-10-21 15:11:28,039 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+DEBUG: 2016-10-21 15:11:28,040 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+INFO: 2016-10-21 15:11:28,041 Starting new HTTPS connection (1): www.formstack.com
+DEBUG: 2016-10-21 15:11:28,518 "GET /api/v2/submission/267582894.json HTTP/1.1" 200 1873
+DEBUG: 2016-10-21 15:11:29,527 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+DEBUG: 2016-10-21 15:11:29,527 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+INFO: 2016-10-21 15:11:29,528 Starting new HTTPS connection (1): www.formstack.com
+DEBUG: 2016-10-21 15:11:30,361 "GET /api/v2/submission/267873890.json HTTP/1.1" 200 1879
+WARNING: 2016-10-21 15:31:40,699 Not Found: /public_auto_doc
+WARNING: 2016-10-21 15:31:40,924 Not Found: /favicon.ico
+WARNING: 2016-10-21 15:32:23,567 Not Found: /public_auto_doc
+WARNING: 2016-10-21 15:32:52,202 Not Found: /public_auto_doc
+WARNING: 2016-10-21 15:32:53,265 Not Found: /public_auto_doc
+ERROR: 2016-10-21 15:33:08,904 Internal Server Error: /export_auto_doc
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/django/core/handlers/exception.py", line 39, in inner
+    response = get_response(request)
+  File "/usr/local/lib/python2.7/dist-packages/django/core/handlers/base.py", line 187, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/usr/local/lib/python2.7/dist-packages/django/core/handlers/base.py", line 185, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/django/views/decorators/csrf.py", line 58, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "/home/glopez/Apps/fluid-integrates/app/views.py", line 48, in export_auto_doc
+    response = HttpResponse(pdf.read(), mimetype='application/pdf')
+  File "/usr/local/lib/python2.7/dist-packages/django/http/response.py", line 291, in __init__
+    super(HttpResponse, self).__init__(*args, **kwargs)
+TypeError: __init__() got an unexpected keyword argument 'mimetype'
+ERROR: 2016-10-21 15:43:24,569 Internal Server Error: /export_auto_doc
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/django/core/handlers/exception.py", line 39, in inner
+    response = get_response(request)
+  File "/usr/local/lib/python2.7/dist-packages/django/core/handlers/base.py", line 198, in _get_response
+    "returned None instead." % (callback.__module__, view_name)
+ValueError: The view app.views.export_auto_doc didn't return an HttpResponse object. It returned None instead.
+DEBUG: 2016-10-21 16:03:57,275 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+DEBUG: 2016-10-21 16:03:57,275 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+INFO: 2016-10-21 16:03:57,279 Starting new HTTPS connection (1): www.formstack.com
+ERROR: 2016-10-21 16:03:57,468 Internal Server Error: /get_vuln_by_name
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/django/core/handlers/exception.py", line 39, in inner
+    response = get_response(request)
+  File "/usr/local/lib/python2.7/dist-packages/django/core/handlers/base.py", line 187, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/usr/local/lib/python2.7/dist-packages/django/core/handlers/base.py", line 185, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/django/views/decorators/csrf.py", line 58, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "/home/glopez/Apps/fluid-integrates/app/views.py", line 93, in get_vuln_by_name
+    result = models.get_vuln_by_name(project)["submissions"]
+  File "/home/glopez/Apps/fluid-integrates/app/models.py", line 185, in get_vuln_by_name
+    result = requests.get(url, data=data, verify=False, headers=CONFIG['headers'])
+  File "/usr/lib/python2.7/dist-packages/requests/api.py", line 67, in get
+    return request('get', url, params=params, **kwargs)
+  File "/usr/lib/python2.7/dist-packages/requests/api.py", line 53, in request
+    return session.request(method=method, url=url, **kwargs)
+  File "/usr/lib/python2.7/dist-packages/requests/sessions.py", line 468, in request
+    resp = self.send(prep, **send_kwargs)
+  File "/usr/lib/python2.7/dist-packages/requests/sessions.py", line 576, in send
+    r = adapter.send(request, **kwargs)
+  File "/usr/lib/python2.7/dist-packages/requests/adapters.py", line 437, in send
+    raise ConnectionError(e, request=request)
+ConnectionError: HTTPSConnectionPool(host='www.formstack.com', port=443): Max retries exceeded with url: /api/v2/form/1998500/submission.json (Caused by NewConnectionError('<requests.packages.urllib3.connection.VerifiedHTTPSConnection object at 0x7f60246c3910>: Failed to establish a new connection: [Errno -2] Name or service not known',))
+DEBUG: 2016-10-21 16:03:57,533 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+DEBUG: 2016-10-21 16:03:57,533 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+INFO: 2016-10-21 16:03:57,534 Starting new HTTPS connection (1): www.formstack.com
+DEBUG: 2016-10-21 16:03:58,897 "GET /api/v2/form/1998500/submission.json HTTP/1.1" 200 666
+DEBUG: 2016-10-21 16:03:58,901 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+DEBUG: 2016-10-21 16:03:58,901 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+INFO: 2016-10-21 16:03:58,902 Starting new HTTPS connection (1): www.formstack.com
+DEBUG: 2016-10-21 16:03:59,613 "GET /api/v2/submission/267582894.json HTTP/1.1" 200 1873
+DEBUG: 2016-10-21 16:04:00,620 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+DEBUG: 2016-10-21 16:04:00,620 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+INFO: 2016-10-21 16:04:00,621 Starting new HTTPS connection (1): www.formstack.com
+DEBUG: 2016-10-21 16:04:01,354 "GET /api/v2/submission/267873890.json HTTP/1.1" 200 1879
+DEBUG: 2016-10-21 16:04:55,119 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+DEBUG: 2016-10-21 16:04:55,119 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+INFO: 2016-10-21 16:04:55,120 Starting new HTTPS connection (1): www.formstack.com
+ERROR: 2016-10-21 16:04:55,217 Internal Server Error: /get_vuln_by_name
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/django/core/handlers/exception.py", line 39, in inner
+    response = get_response(request)
+  File "/usr/local/lib/python2.7/dist-packages/django/core/handlers/base.py", line 187, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/usr/local/lib/python2.7/dist-packages/django/core/handlers/base.py", line 185, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/django/views/decorators/csrf.py", line 58, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "/home/glopez/Apps/fluid-integrates/app/views.py", line 93, in get_vuln_by_name
+    result = models.get_vuln_by_name(project)["submissions"]
+  File "/home/glopez/Apps/fluid-integrates/app/models.py", line 185, in get_vuln_by_name
+    result = requests.get(url, data=data, verify=False, headers=CONFIG['headers'])
+  File "/usr/lib/python2.7/dist-packages/requests/api.py", line 67, in get
+    return request('get', url, params=params, **kwargs)
+  File "/usr/lib/python2.7/dist-packages/requests/api.py", line 53, in request
+    return session.request(method=method, url=url, **kwargs)
+  File "/usr/lib/python2.7/dist-packages/requests/sessions.py", line 468, in request
+    resp = self.send(prep, **send_kwargs)
+  File "/usr/lib/python2.7/dist-packages/requests/sessions.py", line 576, in send
+    r = adapter.send(request, **kwargs)
+  File "/usr/lib/python2.7/dist-packages/requests/adapters.py", line 437, in send
+    raise ConnectionError(e, request=request)
+ConnectionError: HTTPSConnectionPool(host='www.formstack.com', port=443): Max retries exceeded with url: /api/v2/form/1998500/submission.json (Caused by NewConnectionError('<requests.packages.urllib3.connection.VerifiedHTTPSConnection object at 0x7f602468b250>: Failed to establish a new connection: [Errno -2] Name or service not known',))
+DEBUG: 2016-10-21 16:04:55,277 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+DEBUG: 2016-10-21 16:04:55,277 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+INFO: 2016-10-21 16:04:55,278 Starting new HTTPS connection (1): www.formstack.com
+DEBUG: 2016-10-21 16:04:55,784 "GET /api/v2/form/1998500/submission.json HTTP/1.1" 200 666
+DEBUG: 2016-10-21 16:04:55,788 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+DEBUG: 2016-10-21 16:04:55,788 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+INFO: 2016-10-21 16:04:55,789 Starting new HTTPS connection (1): www.formstack.com
+DEBUG: 2016-10-21 16:04:56,343 "GET /api/v2/submission/267582894.json HTTP/1.1" 200 1873
+DEBUG: 2016-10-21 16:04:57,348 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+DEBUG: 2016-10-21 16:04:57,348 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+INFO: 2016-10-21 16:04:57,349 Starting new HTTPS connection (1): www.formstack.com
+DEBUG: 2016-10-21 16:04:57,835 "GET /api/v2/submission/267873890.json HTTP/1.1" 200 1879
+DEBUG: 2016-10-21 16:47:11,667 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+DEBUG: 2016-10-21 16:47:11,668 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+INFO: 2016-10-21 16:47:11,672 Starting new HTTPS connection (1): www.formstack.com
+DEBUG: 2016-10-21 16:47:13,220 "GET /api/v2/form/1998500/submission.json HTTP/1.1" 200 457
+DEBUG: 2016-10-21 16:47:13,223 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+DEBUG: 2016-10-21 16:47:13,224 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+INFO: 2016-10-21 16:47:13,225 Starting new HTTPS connection (1): www.formstack.com
+DEBUG: 2016-10-21 16:47:13,835 "GET /api/v2/submission/276208530.json HTTP/1.1" 200 1726
+DEBUG: 2016-10-21 16:47:14,845 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+DEBUG: 2016-10-21 16:47:14,845 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+INFO: 2016-10-21 16:47:14,848 Starting new HTTPS connection (1): www.formstack.com
+DEBUG: 2016-10-21 16:47:15,405 "GET /api/v2/submission/276219620.json HTTP/1.1" 200 1656
+DEBUG: 2016-10-21 16:47:16,412 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+DEBUG: 2016-10-21 16:47:16,412 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+INFO: 2016-10-21 16:47:16,413 Starting new HTTPS connection (1): www.formstack.com
+DEBUG: 2016-10-21 16:47:17,520 "GET /api/v2/submission/276223505.json HTTP/1.1" 200 1719
+DEBUG: 2016-10-21 16:47:18,526 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+DEBUG: 2016-10-21 16:47:18,526 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+INFO: 2016-10-21 16:47:18,527 Starting new HTTPS connection (1): www.formstack.com
+DEBUG: 2016-10-21 16:47:19,261 "GET /api/v2/submission/276326777.json HTTP/1.1" 200 1981
+DEBUG: 2016-10-21 16:47:20,266 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+DEBUG: 2016-10-21 16:47:20,267 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+INFO: 2016-10-21 16:47:20,268 Starting new HTTPS connection (1): www.formstack.com
+DEBUG: 2016-10-21 16:47:20,977 "GET /api/v2/submission/276364225.json HTTP/1.1" 200 1702
+DEBUG: 2016-10-21 16:47:21,982 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+DEBUG: 2016-10-21 16:47:21,983 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+INFO: 2016-10-21 16:47:21,984 Starting new HTTPS connection (1): www.formstack.com
+DEBUG: 2016-10-21 16:47:23,010 "GET /api/v2/submission/276373933.json HTTP/1.1" 200 1833
+DEBUG: 2016-10-21 16:47:24,015 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+DEBUG: 2016-10-21 16:47:24,016 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+INFO: 2016-10-21 16:47:24,017 Starting new HTTPS connection (1): www.formstack.com
+DEBUG: 2016-10-21 16:47:25,443 "GET /api/v2/submission/277232276.json HTTP/1.1" 200 1693
+DEBUG: 2016-10-21 16:47:26,451 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+DEBUG: 2016-10-21 16:47:26,452 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+INFO: 2016-10-21 16:47:26,455 Starting new HTTPS connection (1): www.formstack.com
+DEBUG: 2016-10-21 16:47:27,421 "GET /api/v2/submission/277244800.json HTTP/1.1" 200 1707
+DEBUG: 2016-10-21 16:47:28,427 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+DEBUG: 2016-10-21 16:47:28,427 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+INFO: 2016-10-21 16:47:28,429 Starting new HTTPS connection (1): www.formstack.com
+DEBUG: 2016-10-21 16:47:28,998 "GET /api/v2/submission/277266014.json HTTP/1.1" 200 1688
+DEBUG: 2016-10-21 16:47:30,004 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+DEBUG: 2016-10-21 16:47:30,004 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+INFO: 2016-10-21 16:47:30,006 Starting new HTTPS connection (1): www.formstack.com
+DEBUG: 2016-10-21 16:47:30,559 "GET /api/v2/submission/277489610.json HTTP/1.1" 200 1812
+DEBUG: 2016-10-21 17:06:26,887 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+DEBUG: 2016-10-21 17:06:26,888 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+INFO: 2016-10-21 17:06:26,892 Starting new HTTPS connection (1): www.formstack.com
+DEBUG: 2016-10-21 17:06:27,634 "GET /api/v2/form/1998500/submission.json HTTP/1.1" 200 873
+DEBUG: 2016-10-21 17:06:27,643 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+DEBUG: 2016-10-21 17:06:27,643 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+INFO: 2016-10-21 17:06:27,646 Starting new HTTPS connection (1): www.formstack.com
+DEBUG: 2016-10-21 17:06:28,392 "GET /api/v2/submission/268229931.json HTTP/1.1" 200 1923
+DEBUG: 2016-10-21 17:06:29,397 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+DEBUG: 2016-10-21 17:06:29,397 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+INFO: 2016-10-21 17:06:29,399 Starting new HTTPS connection (1): www.formstack.com
+DEBUG: 2016-10-21 17:06:30,160 "GET /api/v2/submission/268949400.json HTTP/1.1" 200 1604
+DEBUG: 2016-10-21 17:06:31,166 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+DEBUG: 2016-10-21 17:06:31,167 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+INFO: 2016-10-21 17:06:31,168 Starting new HTTPS connection (1): www.formstack.com
+DEBUG: 2016-10-21 17:06:31,877 "GET /api/v2/submission/268979626.json HTTP/1.1" 200 1633
+DEBUG: 2016-10-21 17:06:32,882 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+DEBUG: 2016-10-21 17:06:32,882 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+INFO: 2016-10-21 17:06:32,884 Starting new HTTPS connection (1): www.formstack.com
+DEBUG: 2016-10-21 17:06:33,450 "GET /api/v2/submission/269006954.json HTTP/1.1" 200 1516
+DEBUG: 2016-10-21 17:06:34,456 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+DEBUG: 2016-10-21 17:06:34,456 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+INFO: 2016-10-21 17:06:34,457 Starting new HTTPS connection (1): www.formstack.com
+DEBUG: 2016-10-21 17:06:35,154 "GET /api/v2/submission/269112857.json HTTP/1.1" 200 1899
+DEBUG: 2016-10-21 17:06:36,160 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+DEBUG: 2016-10-21 17:06:36,160 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+INFO: 2016-10-21 17:06:36,162 Starting new HTTPS connection (1): www.formstack.com
+DEBUG: 2016-10-21 17:06:36,890 "GET /api/v2/submission/269116277.json HTTP/1.1" 200 1686
+DEBUG: 2016-10-21 17:06:37,895 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+DEBUG: 2016-10-21 17:06:37,895 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+INFO: 2016-10-21 17:06:37,897 Starting new HTTPS connection (1): www.formstack.com
+DEBUG: 2016-10-21 17:06:38,433 "GET /api/v2/submission/269118903.json HTTP/1.1" 200 1715
+DEBUG: 2016-10-21 17:06:39,440 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+DEBUG: 2016-10-21 17:06:39,440 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+INFO: 2016-10-21 17:06:39,442 Starting new HTTPS connection (1): www.formstack.com
+DEBUG: 2016-10-21 17:06:39,967 "GET /api/v2/submission/269123577.json HTTP/1.1" 200 1993
+DEBUG: 2016-10-21 17:06:40,973 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+DEBUG: 2016-10-21 17:06:40,973 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+INFO: 2016-10-21 17:06:40,974 Starting new HTTPS connection (1): www.formstack.com
+DEBUG: 2016-10-21 17:06:41,606 "GET /api/v2/submission/269156014.json HTTP/1.1" 200 2631
+DEBUG: 2016-10-21 17:06:42,612 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+DEBUG: 2016-10-21 17:06:42,613 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+INFO: 2016-10-21 17:06:42,614 Starting new HTTPS connection (1): www.formstack.com
+DEBUG: 2016-10-21 17:06:43,244 "GET /api/v2/submission/269191382.json HTTP/1.1" 200 1572
+DEBUG: 2016-10-21 17:06:44,249 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+DEBUG: 2016-10-21 17:06:44,249 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+INFO: 2016-10-21 17:06:44,251 Starting new HTTPS connection (1): www.formstack.com
+DEBUG: 2016-10-21 17:06:44,883 "GET /api/v2/submission/269197195.json HTTP/1.1" 200 1547
+DEBUG: 2016-10-21 17:06:45,894 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+DEBUG: 2016-10-21 17:06:45,894 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+INFO: 2016-10-21 17:06:45,896 Starting new HTTPS connection (1): www.formstack.com
+DEBUG: 2016-10-21 17:06:46,623 "GET /api/v2/submission/269380700.json HTTP/1.1" 200 1478
+DEBUG: 2016-10-21 17:06:47,629 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+DEBUG: 2016-10-21 17:06:47,629 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+INFO: 2016-10-21 17:06:47,630 Starting new HTTPS connection (1): www.formstack.com
+DEBUG: 2016-10-21 17:06:48,160 "GET /api/v2/submission/269901709.json HTTP/1.1" 200 1717
+DEBUG: 2016-10-21 17:06:49,169 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+DEBUG: 2016-10-21 17:06:49,170 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+INFO: 2016-10-21 17:06:49,171 Starting new HTTPS connection (1): www.formstack.com
+DEBUG: 2016-10-21 17:06:49,900 "GET /api/v2/submission/269923824.json HTTP/1.1" 200 1888
+DEBUG: 2016-10-21 17:06:50,906 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+DEBUG: 2016-10-21 17:06:50,906 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+INFO: 2016-10-21 17:06:50,907 Starting new HTTPS connection (1): www.formstack.com
+DEBUG: 2016-10-21 17:06:51,472 "GET /api/v2/submission/269994403.json HTTP/1.1" 200 1563
+DEBUG: 2016-10-21 17:06:52,480 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+DEBUG: 2016-10-21 17:06:52,480 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+INFO: 2016-10-21 17:06:52,483 Starting new HTTPS connection (1): www.formstack.com
+DEBUG: 2016-10-21 17:06:53,003 "GET /api/v2/submission/269996338.json HTTP/1.1" 200 1621
+DEBUG: 2016-10-21 17:06:54,009 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+DEBUG: 2016-10-21 17:06:54,009 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+INFO: 2016-10-21 17:06:54,011 Starting new HTTPS connection (1): www.formstack.com
+DEBUG: 2016-10-21 17:06:54,588 "GET /api/v2/submission/270352987.json HTTP/1.1" 200 1819
+DEBUG: 2016-10-21 17:06:55,595 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+DEBUG: 2016-10-21 17:06:55,595 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+INFO: 2016-10-21 17:06:55,597 Starting new HTTPS connection (1): www.formstack.com
+DEBUG: 2016-10-21 17:06:56,250 "GET /api/v2/submission/270488023.json HTTP/1.1" 200 1771
+DEBUG: 2016-10-21 17:06:57,260 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+DEBUG: 2016-10-21 17:06:57,261 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+INFO: 2016-10-21 17:06:57,262 Starting new HTTPS connection (1): www.formstack.com
+DEBUG: 2016-10-21 17:06:57,726 "GET /api/v2/submission/270500409.json HTTP/1.1" 200 1616
+DEBUG: 2016-10-21 17:06:58,732 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+DEBUG: 2016-10-21 17:06:58,732 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+INFO: 2016-10-21 17:06:58,734 Starting new HTTPS connection (1): www.formstack.com
+DEBUG: 2016-10-21 17:06:59,283 "GET /api/v2/submission/270550906.json HTTP/1.1" 200 1623
+DEBUG: 2016-10-21 17:07:00,291 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+DEBUG: 2016-10-21 17:07:00,291 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+INFO: 2016-10-21 17:07:00,293 Starting new HTTPS connection (1): www.formstack.com
+DEBUG: 2016-10-21 17:07:01,102 "GET /api/v2/submission/270712050.json HTTP/1.1" 200 1711
+DEBUG: 2016-10-21 17:07:02,107 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+DEBUG: 2016-10-21 17:07:02,107 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+INFO: 2016-10-21 17:07:02,108 Starting new HTTPS connection (1): www.formstack.com
+DEBUG: 2016-10-21 17:07:02,725 "GET /api/v2/submission/270720231.json HTTP/1.1" 200 1562
+ERROR: 2016-10-21 17:07:11,509 Internal Server Error: /generate_auto_doc
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/django/core/handlers/exception.py", line 39, in inner
+    response = get_response(request)
+  File "/usr/local/lib/python2.7/dist-packages/django/core/handlers/base.py", line 187, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/usr/local/lib/python2.7/dist-packages/django/core/handlers/base.py", line 185, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/django/views/decorators/csrf.py", line 58, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "/home/glopez/Apps/fluid-integrates/app/views.py", line 75, in generate_auto_doc
+    created = util.create_template(project, data)
+  File "/home/glopez/Apps/fluid-integrates/app/util.py", line 57, in create_template
+    amenaza = i["amenaza"].encode('ascii', 'ignore'),
+KeyError: 'amenaza'
+ERROR: 2016-10-21 17:07:25,556 Internal Server Error: /generate_auto_doc
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/django/core/handlers/exception.py", line 39, in inner
+    response = get_response(request)
+  File "/usr/local/lib/python2.7/dist-packages/django/core/handlers/base.py", line 187, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/usr/local/lib/python2.7/dist-packages/django/core/handlers/base.py", line 185, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/django/views/decorators/csrf.py", line 58, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "/home/glopez/Apps/fluid-integrates/app/views.py", line 75, in generate_auto_doc
+    created = util.create_template(project, data)
+  File "/home/glopez/Apps/fluid-integrates/app/util.py", line 57, in create_template
+    amenaza = i["amenaza"].encode('ascii', 'ignore'),
+KeyError: 'amenaza'
+ERROR: 2016-10-21 17:25:22,062 Internal Server Error: /generate_auto_doc
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/django/core/handlers/exception.py", line 39, in inner
+    response = get_response(request)
+  File "/usr/local/lib/python2.7/dist-packages/django/core/handlers/base.py", line 187, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/usr/local/lib/python2.7/dist-packages/django/core/handlers/base.py", line 185, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/django/views/decorators/csrf.py", line 58, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "/home/glopez/Apps/fluid-integrates/app/views.py", line 75, in generate_auto_doc
+    created = util.create_template(project, data)
+  File "/home/glopez/Apps/fluid-integrates/app/util.py", line 57, in create_template
+    amenaza = i["amenaza"].encode('ascii', 'ignore'),
+KeyError: 'amenaza'
+ERROR: 2016-10-21 17:25:22,245 Internal Server Error: /generate_auto_doc
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/django/core/handlers/exception.py", line 39, in inner
+    response = get_response(request)
+  File "/usr/local/lib/python2.7/dist-packages/django/core/handlers/base.py", line 187, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/usr/local/lib/python2.7/dist-packages/django/core/handlers/base.py", line 185, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/django/views/decorators/csrf.py", line 58, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "/home/glopez/Apps/fluid-integrates/app/views.py", line 75, in generate_auto_doc
+    created = util.create_template(project, data)
+  File "/home/glopez/Apps/fluid-integrates/app/util.py", line 57, in create_template
+    amenaza = i["amenaza"].encode('ascii', 'ignore'),
+KeyError: 'amenaza'
+ERROR: 2016-10-21 17:25:42,013 Internal Server Error: /generate_auto_doc
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/django/core/handlers/exception.py", line 39, in inner
+    response = get_response(request)
+  File "/usr/local/lib/python2.7/dist-packages/django/core/handlers/base.py", line 187, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/usr/local/lib/python2.7/dist-packages/django/core/handlers/base.py", line 185, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/django/views/decorators/csrf.py", line 58, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "/home/glopez/Apps/fluid-integrates/app/views.py", line 75, in generate_auto_doc
+    created = util.create_template(project, data)
+  File "/home/glopez/Apps/fluid-integrates/app/util.py", line 57, in create_template
+    amenaza = i["amenaza"].encode('ascii', 'ignore'),
+KeyError: 'amenaza'
+ERROR: 2016-10-21 17:26:30,821 Internal Server Error: /generate_auto_doc
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/django/core/handlers/exception.py", line 39, in inner
+    response = get_response(request)
+  File "/usr/local/lib/python2.7/dist-packages/django/core/handlers/base.py", line 187, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/usr/local/lib/python2.7/dist-packages/django/core/handlers/base.py", line 185, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/django/views/decorators/csrf.py", line 58, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "/home/glopez/Apps/fluid-integrates/app/views.py", line 75, in generate_auto_doc
+    created = util.create_template(project, data)
+  File "/home/glopez/Apps/fluid-integrates/app/util.py", line 57, in create_template
+    amenaza = i["amenaza"].encode('ascii', 'ignore'),
+KeyError: 'amenaza'
+DEBUG: 2016-10-21 17:29:11,561 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+DEBUG: 2016-10-21 17:29:11,561 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+INFO: 2016-10-21 17:29:11,565 Starting new HTTPS connection (1): www.formstack.com
+ERROR: 2016-10-21 17:29:11,765 Internal Server Error: /get_vuln_by_name
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/django/core/handlers/exception.py", line 39, in inner
+    response = get_response(request)
+  File "/usr/local/lib/python2.7/dist-packages/django/core/handlers/base.py", line 187, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/usr/local/lib/python2.7/dist-packages/django/core/handlers/base.py", line 185, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/django/views/decorators/csrf.py", line 58, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "/home/glopez/Apps/fluid-integrates/app/views.py", line 93, in get_vuln_by_name
+    result = models.get_vuln_by_name(project)["submissions"]
+  File "/home/glopez/Apps/fluid-integrates/app/models.py", line 185, in get_vuln_by_name
+    result = requests.get(url, data=data, verify=False, headers=CONFIG['headers'])
+  File "/usr/lib/python2.7/dist-packages/requests/api.py", line 67, in get
+    return request('get', url, params=params, **kwargs)
+  File "/usr/lib/python2.7/dist-packages/requests/api.py", line 53, in request
+    return session.request(method=method, url=url, **kwargs)
+  File "/usr/lib/python2.7/dist-packages/requests/sessions.py", line 468, in request
+    resp = self.send(prep, **send_kwargs)
+  File "/usr/lib/python2.7/dist-packages/requests/sessions.py", line 576, in send
+    r = adapter.send(request, **kwargs)
+  File "/usr/lib/python2.7/dist-packages/requests/adapters.py", line 437, in send
+    raise ConnectionError(e, request=request)
+ConnectionError: HTTPSConnectionPool(host='www.formstack.com', port=443): Max retries exceeded with url: /api/v2/form/1998500/submission.json (Caused by NewConnectionError('<requests.packages.urllib3.connection.VerifiedHTTPSConnection object at 0x7fde40551f90>: Failed to establish a new connection: [Errno -2] Name or service not known',))
+DEBUG: 2016-10-21 17:29:11,812 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+DEBUG: 2016-10-21 17:29:11,812 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+INFO: 2016-10-21 17:29:11,814 Starting new HTTPS connection (1): www.formstack.com
+DEBUG: 2016-10-21 17:29:12,574 "GET /api/v2/form/1998500/submission.json HTTP/1.1" 200 378
+DEBUG: 2016-10-21 17:29:12,581 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+DEBUG: 2016-10-21 17:29:12,581 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+INFO: 2016-10-21 17:29:12,582 Starting new HTTPS connection (1): www.formstack.com
+DEBUG: 2016-10-21 17:29:13,290 "GET /api/v2/submission/280456154.json HTTP/1.1" 200 1674
+DEBUG: 2016-10-21 17:29:14,296 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+DEBUG: 2016-10-21 17:29:14,296 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+INFO: 2016-10-21 17:29:14,298 Starting new HTTPS connection (1): www.formstack.com
+DEBUG: 2016-10-21 17:29:15,065 "GET /api/v2/submission/280458985.json HTTP/1.1" 200 1562
+DEBUG: 2016-10-21 17:29:16,069 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+DEBUG: 2016-10-21 17:29:16,069 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+INFO: 2016-10-21 17:29:16,071 Starting new HTTPS connection (1): www.formstack.com
+DEBUG: 2016-10-21 17:29:16,772 "GET /api/v2/submission/280460873.json HTTP/1.1" 200 1756
+DEBUG: 2016-10-21 17:29:17,782 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+DEBUG: 2016-10-21 17:29:17,782 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+INFO: 2016-10-21 17:29:17,784 Starting new HTTPS connection (1): www.formstack.com
+DEBUG: 2016-10-21 17:29:18,550 "GET /api/v2/submission/280538370.json HTTP/1.1" 200 1620
+DEBUG: 2016-10-21 17:29:19,557 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+DEBUG: 2016-10-21 17:29:19,557 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+INFO: 2016-10-21 17:29:19,559 Starting new HTTPS connection (1): www.formstack.com
+DEBUG: 2016-10-21 17:29:20,239 "GET /api/v2/submission/281969380.json HTTP/1.1" 200 1552
+DEBUG: 2016-10-21 21:29:56,244 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+DEBUG: 2016-10-21 21:29:56,244 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+INFO: 2016-10-21 21:29:56,246 Starting new HTTPS connection (1): www.formstack.com
+DEBUG: 2016-10-21 21:30:02,964 "GET /api/v2/form/1998500/submission.json HTTP/1.1" 200 376
+DEBUG: 2016-10-21 21:30:02,967 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+DEBUG: 2016-10-21 21:30:02,968 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+INFO: 2016-10-21 21:30:02,969 Starting new HTTPS connection (1): www.formstack.com
+DEBUG: 2016-10-21 21:30:14,418 "GET /api/v2/submission/280456154.json HTTP/1.1" 200 1674
+DEBUG: 2016-10-21 21:30:15,424 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+DEBUG: 2016-10-21 21:30:15,424 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+INFO: 2016-10-21 21:30:15,426 Starting new HTTPS connection (1): www.formstack.com
+DEBUG: 2016-10-21 21:30:17,178 "GET /api/v2/submission/280458985.json HTTP/1.1" 200 1562
+DEBUG: 2016-10-21 21:30:18,183 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+DEBUG: 2016-10-21 21:30:18,184 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+INFO: 2016-10-21 21:30:18,185 Starting new HTTPS connection (1): www.formstack.com
+DEBUG: 2016-10-21 21:30:23,918 "GET /api/v2/submission/280460873.json HTTP/1.1" 200 1756
+DEBUG: 2016-10-21 21:30:24,923 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+DEBUG: 2016-10-21 21:30:24,924 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+INFO: 2016-10-21 21:30:24,926 Starting new HTTPS connection (1): www.formstack.com
+DEBUG: 2016-10-21 21:30:25,543 "GET /api/v2/submission/280538370.json HTTP/1.1" 200 1620
+DEBUG: 2016-10-21 21:30:26,548 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+DEBUG: 2016-10-21 21:30:26,549 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+INFO: 2016-10-21 21:30:26,553 Starting new HTTPS connection (1): www.formstack.com
+DEBUG: 2016-10-21 21:30:27,072 "GET /api/v2/submission/281969380.json HTTP/1.1" 200 1552
+DEBUG: 2016-10-24 13:55:15,283 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+DEBUG: 2016-10-24 13:55:15,322 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+INFO: 2016-10-24 13:55:15,385 Starting new HTTPS connection (1): www.formstack.com
+DEBUG: 2016-10-24 13:55:16,274 "GET /api/v2/form/1998500/submission.json HTTP/1.1" 200 666
+DEBUG: 2016-10-24 13:55:16,278 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+DEBUG: 2016-10-24 13:55:16,278 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+INFO: 2016-10-24 13:55:16,279 Starting new HTTPS connection (1): www.formstack.com
+DEBUG: 2016-10-24 13:55:16,926 "GET /api/v2/submission/267582894.json HTTP/1.1" 200 1873
+DEBUG: 2016-10-24 13:55:17,931 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+DEBUG: 2016-10-24 13:55:17,932 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+INFO: 2016-10-24 13:55:17,934 Starting new HTTPS connection (1): www.formstack.com
+DEBUG: 2016-10-24 13:55:18,514 "GET /api/v2/submission/267873890.json HTTP/1.1" 200 1879
+DEBUG: 2016-10-27 17:49:16,237 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+DEBUG: 2016-10-27 17:49:16,278 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+INFO: 2016-10-27 17:49:16,305 Starting new HTTPS connection (1): www.formstack.com
+DEBUG: 2016-10-27 17:49:17,026 "GET /api/v2/form/1998500/submission.json HTTP/1.1" 200 739
+DEBUG: 2016-10-27 17:49:17,031 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+DEBUG: 2016-10-27 17:49:17,032 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+INFO: 2016-10-27 17:49:17,032 Starting new HTTPS connection (1): www.formstack.com
+DEBUG: 2016-10-27 17:49:17,742 "GET /api/v2/submission/271712881.json HTTP/1.1" 200 1725
+DEBUG: 2016-10-27 17:49:18,749 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+DEBUG: 2016-10-27 17:49:18,750 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+INFO: 2016-10-27 17:49:18,751 Starting new HTTPS connection (1): www.formstack.com
+DEBUG: 2016-10-27 17:49:19,586 "GET /api/v2/submission/271948231.json HTTP/1.1" 200 1663
+DEBUG: 2016-10-27 17:49:20,591 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+DEBUG: 2016-10-27 17:49:20,591 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+INFO: 2016-10-27 17:49:20,592 Starting new HTTPS connection (1): www.formstack.com
+DEBUG: 2016-10-27 17:49:21,160 "GET /api/v2/submission/271949181.json HTTP/1.1" 200 1533
+DEBUG: 2016-10-27 17:49:22,165 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+DEBUG: 2016-10-27 17:49:22,165 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+INFO: 2016-10-27 17:49:22,166 Starting new HTTPS connection (1): www.formstack.com
+DEBUG: 2016-10-27 17:49:22,964 "GET /api/v2/submission/271969290.json HTTP/1.1" 200 1648
+DEBUG: 2016-10-27 17:49:23,970 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+DEBUG: 2016-10-27 17:49:23,970 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+INFO: 2016-10-27 17:49:23,971 Starting new HTTPS connection (1): www.formstack.com
+DEBUG: 2016-10-27 17:49:24,599 "GET /api/v2/submission/271987024.json HTTP/1.1" 200 1447
+DEBUG: 2016-10-27 17:49:25,605 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+DEBUG: 2016-10-27 17:49:25,605 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+INFO: 2016-10-27 17:49:25,606 Starting new HTTPS connection (1): www.formstack.com
+DEBUG: 2016-10-27 17:49:26,139 "GET /api/v2/submission/271988665.json HTTP/1.1" 200 1722
+DEBUG: 2016-10-27 17:49:27,144 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+DEBUG: 2016-10-27 17:49:27,145 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+INFO: 2016-10-27 17:49:27,146 Starting new HTTPS connection (1): www.formstack.com
+DEBUG: 2016-10-27 17:49:27,777 "GET /api/v2/submission/273860059.json HTTP/1.1" 200 1625
+DEBUG: 2016-10-27 17:49:28,782 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+DEBUG: 2016-10-27 17:49:28,783 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+INFO: 2016-10-27 17:49:28,786 Starting new HTTPS connection (1): www.formstack.com
+DEBUG: 2016-10-27 17:49:29,313 "GET /api/v2/submission/273863539.json HTTP/1.1" 200 1559
+DEBUG: 2016-10-27 17:49:30,318 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+DEBUG: 2016-10-27 17:49:30,319 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+INFO: 2016-10-27 17:49:30,320 Starting new HTTPS connection (1): www.formstack.com
+DEBUG: 2016-10-27 17:49:30,811 "GET /api/v2/submission/273870563.json HTTP/1.1" 200 1613
+DEBUG: 2016-10-27 17:49:31,816 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+DEBUG: 2016-10-27 17:49:31,816 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+INFO: 2016-10-27 17:49:31,817 Starting new HTTPS connection (1): www.formstack.com
+DEBUG: 2016-10-27 17:49:32,327 "GET /api/v2/submission/273873756.json HTTP/1.1" 200 1577
+DEBUG: 2016-10-27 17:49:33,332 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+DEBUG: 2016-10-27 17:49:33,332 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+INFO: 2016-10-27 17:49:33,333 Starting new HTTPS connection (1): www.formstack.com
+DEBUG: 2016-10-27 17:49:33,820 "GET /api/v2/submission/273876554.json HTTP/1.1" 200 1527
+DEBUG: 2016-10-27 17:49:34,825 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+DEBUG: 2016-10-27 17:49:34,826 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+INFO: 2016-10-27 17:49:34,827 Starting new HTTPS connection (1): www.formstack.com
+DEBUG: 2016-10-27 17:49:35,458 "GET /api/v2/submission/273931730.json HTTP/1.1" 200 1495
+DEBUG: 2016-10-27 17:49:36,468 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+DEBUG: 2016-10-27 17:49:36,468 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+INFO: 2016-10-27 17:49:36,469 Starting new HTTPS connection (1): www.formstack.com
+DEBUG: 2016-10-27 17:49:36,998 "GET /api/v2/submission/273946683.json HTTP/1.1" 200 1787
+DEBUG: 2016-10-27 17:49:38,004 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+DEBUG: 2016-10-27 17:49:38,004 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+INFO: 2016-10-27 17:49:38,007 Starting new HTTPS connection (1): www.formstack.com
+DEBUG: 2016-10-27 17:49:38,402 "GET /api/v2/submission/273956598.json HTTP/1.1" 200 1579
+DEBUG: 2016-10-27 17:49:39,406 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+DEBUG: 2016-10-27 17:49:39,407 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+INFO: 2016-10-27 17:49:39,408 Starting new HTTPS connection (1): www.formstack.com
+DEBUG: 2016-10-27 17:49:39,800 "GET /api/v2/submission/273958530.json HTTP/1.1" 200 1462
+DEBUG: 2016-10-27 17:49:40,806 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+DEBUG: 2016-10-27 17:49:40,806 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+INFO: 2016-10-27 17:49:40,808 Starting new HTTPS connection (1): www.formstack.com
+DEBUG: 2016-10-27 17:49:41,199 "GET /api/v2/submission/282618161.json HTTP/1.1" 200 1600
+DEBUG: 2016-10-27 17:49:42,205 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+DEBUG: 2016-10-27 17:49:42,206 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+INFO: 2016-10-27 17:49:42,208 Starting new HTTPS connection (1): www.formstack.com
+DEBUG: 2016-10-27 17:49:42,784 "GET /api/v2/submission/282620251.json HTTP/1.1" 200 1482
+DEBUG: 2016-10-27 17:49:43,789 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+DEBUG: 2016-10-27 17:49:43,789 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+INFO: 2016-10-27 17:49:43,790 Starting new HTTPS connection (1): www.formstack.com
+DEBUG: 2016-10-27 17:49:44,303 "GET /api/v2/submission/282654749.json HTTP/1.1" 200 1604
+DEBUG: 2016-10-27 17:49:45,308 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+DEBUG: 2016-10-27 17:49:45,308 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+INFO: 2016-10-27 17:49:45,310 Starting new HTTPS connection (1): www.formstack.com
+DEBUG: 2016-10-27 17:49:45,800 "GET /api/v2/submission/282763506.json HTTP/1.1" 200 1796
+DEBUG: 2016-10-27 17:49:46,805 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+DEBUG: 2016-10-27 17:49:46,805 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+INFO: 2016-10-27 17:49:46,806 Starting new HTTPS connection (1): www.formstack.com
+DEBUG: 2016-10-27 17:49:47,349 "GET /api/v2/submission/282770166.json HTTP/1.1" 200 1696
+DEBUG: 2016-10-27 17:49:48,354 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+DEBUG: 2016-10-27 17:49:48,355 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+INFO: 2016-10-27 17:49:48,356 Starting new HTTPS connection (1): www.formstack.com
+DEBUG: 2016-10-27 17:49:48,900 "GET /api/v2/submission/282979683.json HTTP/1.1" 200 1706
+DEBUG: 2016-10-27 17:56:01,038 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+DEBUG: 2016-10-27 17:56:01,039 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+INFO: 2016-10-27 17:56:01,040 Starting new HTTPS connection (1): www.formstack.com
+DEBUG: 2016-10-27 17:56:01,714 "GET /api/v2/form/1886931/submission.json HTTP/1.1" 200 965
+DEBUG: 2016-10-27 17:56:01,717 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+DEBUG: 2016-10-27 17:56:01,717 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+INFO: 2016-10-27 17:56:01,717 Starting new HTTPS connection (1): www.formstack.com
+DEBUG: 2016-10-27 17:56:02,329 "GET /api/v2/submission/266743307.json HTTP/1.1" 200 655
+DEBUG: 2016-10-27 17:56:02,333 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+DEBUG: 2016-10-27 17:56:02,334 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+INFO: 2016-10-27 17:56:02,335 Starting new HTTPS connection (1): www.formstack.com
+DEBUG: 2016-10-27 17:56:03,250 "GET /api/v2/submission/270244527.json HTTP/1.1" 200 581
+DEBUG: 2016-10-27 17:56:03,253 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+DEBUG: 2016-10-27 17:56:03,253 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+INFO: 2016-10-27 17:56:03,254 Starting new HTTPS connection (1): www.formstack.com
+DEBUG: 2016-10-27 17:56:04,275 "GET /api/v2/submission/272874414.json HTTP/1.1" 200 574
+DEBUG: 2016-10-27 17:56:19,174 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+DEBUG: 2016-10-27 17:56:19,174 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+INFO: 2016-10-27 17:56:19,176 Starting new HTTPS connection (1): www.formstack.com
+DEBUG: 2016-10-27 17:56:19,727 "PUT /api/v2/submission/270244527.json?oauth_token=aefb128ba610da7e8d9e0b6ff86d9d7a HTTP/1.1" 200 32
+DEBUG: 2016-10-27 17:56:38,401 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+DEBUG: 2016-10-27 17:56:38,401 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+INFO: 2016-10-27 17:56:38,402 Starting new HTTPS connection (1): www.formstack.com
+DEBUG: 2016-10-27 17:56:38,991 "PUT /api/v2/submission/272874414.json?oauth_token=aefb128ba610da7e8d9e0b6ff86d9d7a HTTP/1.1" 200 32
+DEBUG: 2016-10-27 17:56:42,571 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+DEBUG: 2016-10-27 17:56:42,571 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+INFO: 2016-10-27 17:56:42,573 Starting new HTTPS connection (1): www.formstack.com
+DEBUG: 2016-10-27 17:56:43,166 "GET /api/v2/form/1886931/submission.json HTTP/1.1" 200 965
+DEBUG: 2016-10-27 17:56:43,169 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+DEBUG: 2016-10-27 17:56:43,170 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+INFO: 2016-10-27 17:56:43,171 Starting new HTTPS connection (1): www.formstack.com
+DEBUG: 2016-10-27 17:56:43,670 "GET /api/v2/submission/266743307.json HTTP/1.1" 200 655
+DEBUG: 2016-10-27 17:56:43,673 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+DEBUG: 2016-10-27 17:56:43,673 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+INFO: 2016-10-27 17:56:43,674 Starting new HTTPS connection (1): www.formstack.com
+DEBUG: 2016-10-27 17:56:44,316 "GET /api/v2/submission/270244527.json HTTP/1.1" 200 579
+DEBUG: 2016-10-27 17:56:44,320 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+DEBUG: 2016-10-27 17:56:44,320 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+INFO: 2016-10-27 17:56:44,320 Starting new HTTPS connection (1): www.formstack.com
+DEBUG: 2016-10-27 17:56:44,931 "GET /api/v2/submission/272874414.json HTTP/1.1" 200 573
+DEBUG: 2016-10-27 17:57:17,336 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+DEBUG: 2016-10-27 17:57:17,336 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+INFO: 2016-10-27 17:57:17,339 Starting new HTTPS connection (1): www.formstack.com
+DEBUG: 2016-10-27 17:57:17,903 "GET /api/v2/form/1886931/submission.json HTTP/1.1" 200 662
+DEBUG: 2016-10-27 17:57:17,906 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+DEBUG: 2016-10-27 17:57:17,906 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+INFO: 2016-10-27 17:57:17,907 Starting new HTTPS connection (1): www.formstack.com
+DEBUG: 2016-10-27 17:57:18,617 "GET /api/v2/submission/267458412.json HTTP/1.1" 200 952
+DEBUG: 2016-10-27 17:57:18,623 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+DEBUG: 2016-10-27 17:57:18,623 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+INFO: 2016-10-27 17:57:18,624 Starting new HTTPS connection (1): www.formstack.com
+DEBUG: 2016-10-27 17:57:19,169 "GET /api/v2/submission/267612896.json HTTP/1.1" 200 992
+DEBUG: 2016-10-27 17:57:38,060 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+DEBUG: 2016-10-27 17:57:38,061 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+INFO: 2016-10-27 17:57:38,061 Starting new HTTPS connection (1): www.formstack.com
+DEBUG: 2016-10-27 17:57:38,588 "PUT /api/v2/submission/267458412.json?oauth_token=aefb128ba610da7e8d9e0b6ff86d9d7a HTTP/1.1" 200 32
+DEBUG: 2016-10-27 17:58:06,613 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+DEBUG: 2016-10-27 17:58:06,614 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+INFO: 2016-10-27 17:58:06,614 Starting new HTTPS connection (1): www.formstack.com
+ERROR: 2016-10-27 17:58:06,735 Internal Server Error: /update_evnt
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/django/core/handlers/exception.py", line 39, in inner
+    response = get_response(request)
+  File "/usr/local/lib/python2.7/dist-packages/django/core/handlers/base.py", line 187, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/usr/local/lib/python2.7/dist-packages/django/core/handlers/base.py", line 185, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/django/views/decorators/csrf.py", line 58, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "/home/glopez/Apps/fluid-integrates/app/views.py", line 163, in update_evnt
+    updated = models.update_evnt_by_id(post_parms)
+  File "/home/glopez/Apps/fluid-integrates/app/models.py", line 306, in update_evnt_by_id
+    result = requests.put(url, data=files, headers=headers, verify=False)
+  File "/usr/lib/python2.7/dist-packages/requests/api.py", line 120, in put
+    return request('put', url, data=data, **kwargs)
+  File "/usr/lib/python2.7/dist-packages/requests/api.py", line 53, in request
+    return session.request(method=method, url=url, **kwargs)
+  File "/usr/lib/python2.7/dist-packages/requests/sessions.py", line 468, in request
+    resp = self.send(prep, **send_kwargs)
+  File "/usr/lib/python2.7/dist-packages/requests/sessions.py", line 576, in send
+    r = adapter.send(request, **kwargs)
+  File "/usr/lib/python2.7/dist-packages/requests/adapters.py", line 437, in send
+    raise ConnectionError(e, request=request)
+ConnectionError: HTTPSConnectionPool(host='www.formstack.com', port=443): Max retries exceeded with url: /api/v2/submission/267612896.json?oauth_token=aefb128ba610da7e8d9e0b6ff86d9d7a (Caused by NewConnectionError('<requests.packages.urllib3.connection.VerifiedHTTPSConnection object at 0x7f17706aa950>: Failed to establish a new connection: [Errno -2] Name or service not known',))
+DEBUG: 2016-10-27 17:58:08,776 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+DEBUG: 2016-10-27 17:58:08,776 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+INFO: 2016-10-27 17:58:08,778 Starting new HTTPS connection (1): www.formstack.com
+ERROR: 2016-10-27 17:58:08,869 Internal Server Error: /update_evnt
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/django/core/handlers/exception.py", line 39, in inner
+    response = get_response(request)
+  File "/usr/local/lib/python2.7/dist-packages/django/core/handlers/base.py", line 187, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/usr/local/lib/python2.7/dist-packages/django/core/handlers/base.py", line 185, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/django/views/decorators/csrf.py", line 58, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "/home/glopez/Apps/fluid-integrates/app/views.py", line 163, in update_evnt
+    updated = models.update_evnt_by_id(post_parms)
+  File "/home/glopez/Apps/fluid-integrates/app/models.py", line 306, in update_evnt_by_id
+    result = requests.put(url, data=files, headers=headers, verify=False)
+  File "/usr/lib/python2.7/dist-packages/requests/api.py", line 120, in put
+    return request('put', url, data=data, **kwargs)
+  File "/usr/lib/python2.7/dist-packages/requests/api.py", line 53, in request
+    return session.request(method=method, url=url, **kwargs)
+  File "/usr/lib/python2.7/dist-packages/requests/sessions.py", line 468, in request
+    resp = self.send(prep, **send_kwargs)
+  File "/usr/lib/python2.7/dist-packages/requests/sessions.py", line 576, in send
+    r = adapter.send(request, **kwargs)
+  File "/usr/lib/python2.7/dist-packages/requests/adapters.py", line 437, in send
+    raise ConnectionError(e, request=request)
+ConnectionError: HTTPSConnectionPool(host='www.formstack.com', port=443): Max retries exceeded with url: /api/v2/submission/267612896.json?oauth_token=aefb128ba610da7e8d9e0b6ff86d9d7a (Caused by NewConnectionError('<requests.packages.urllib3.connection.VerifiedHTTPSConnection object at 0x7f1770697650>: Failed to establish a new connection: [Errno -2] Name or service not known',))
+DEBUG: 2016-10-27 17:58:10,961 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+DEBUG: 2016-10-27 17:58:10,962 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+INFO: 2016-10-27 17:58:10,964 Starting new HTTPS connection (1): www.formstack.com
+ERROR: 2016-10-27 17:58:11,012 Internal Server Error: /update_evnt
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/django/core/handlers/exception.py", line 39, in inner
+    response = get_response(request)
+  File "/usr/local/lib/python2.7/dist-packages/django/core/handlers/base.py", line 187, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/usr/local/lib/python2.7/dist-packages/django/core/handlers/base.py", line 185, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/django/views/decorators/csrf.py", line 58, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "/home/glopez/Apps/fluid-integrates/app/views.py", line 163, in update_evnt
+    updated = models.update_evnt_by_id(post_parms)
+  File "/home/glopez/Apps/fluid-integrates/app/models.py", line 306, in update_evnt_by_id
+    result = requests.put(url, data=files, headers=headers, verify=False)
+  File "/usr/lib/python2.7/dist-packages/requests/api.py", line 120, in put
+    return request('put', url, data=data, **kwargs)
+  File "/usr/lib/python2.7/dist-packages/requests/api.py", line 53, in request
+    return session.request(method=method, url=url, **kwargs)
+  File "/usr/lib/python2.7/dist-packages/requests/sessions.py", line 468, in request
+    resp = self.send(prep, **send_kwargs)
+  File "/usr/lib/python2.7/dist-packages/requests/sessions.py", line 576, in send
+    r = adapter.send(request, **kwargs)
+  File "/usr/lib/python2.7/dist-packages/requests/adapters.py", line 437, in send
+    raise ConnectionError(e, request=request)
+ConnectionError: HTTPSConnectionPool(host='www.formstack.com', port=443): Max retries exceeded with url: /api/v2/submission/267612896.json?oauth_token=aefb128ba610da7e8d9e0b6ff86d9d7a (Caused by NewConnectionError('<requests.packages.urllib3.connection.VerifiedHTTPSConnection object at 0x7f177090a210>: Failed to establish a new connection: [Errno -2] Name or service not known',))
+DEBUG: 2016-10-27 17:58:12,102 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+DEBUG: 2016-10-27 17:58:12,102 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+INFO: 2016-10-27 17:58:12,103 Starting new HTTPS connection (1): www.formstack.com
+DEBUG: 2016-10-27 17:58:12,556 "PUT /api/v2/submission/267612896.json?oauth_token=aefb128ba610da7e8d9e0b6ff86d9d7a HTTP/1.1" 200 32
+DEBUG: 2016-10-27 17:58:21,858 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+DEBUG: 2016-10-27 17:58:21,859 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+INFO: 2016-10-27 17:58:21,860 Starting new HTTPS connection (1): www.formstack.com
+DEBUG: 2016-10-27 17:58:22,351 "GET /api/v2/form/1886931/submission.json HTTP/1.1" 200 662
+DEBUG: 2016-10-27 17:58:22,354 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+DEBUG: 2016-10-27 17:58:22,355 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+INFO: 2016-10-27 17:58:22,355 Starting new HTTPS connection (1): www.formstack.com
+DEBUG: 2016-10-27 17:58:22,991 "GET /api/v2/submission/267458412.json HTTP/1.1" 200 951
+DEBUG: 2016-10-27 17:58:22,994 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+DEBUG: 2016-10-27 17:58:22,994 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+INFO: 2016-10-27 17:58:22,995 Starting new HTTPS connection (1): www.formstack.com
+DEBUG: 2016-10-27 17:58:23,539 "GET /api/v2/submission/267612896.json HTTP/1.1" 200 991
+DEBUG: 2016-10-27 17:58:28,593 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+DEBUG: 2016-10-27 17:58:28,593 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+INFO: 2016-10-27 17:58:28,595 Starting new HTTPS connection (1): www.formstack.com
+DEBUG: 2016-10-27 17:58:29,071 "GET /api/v2/form/1886931/submission.json HTTP/1.1" 200 672
+DEBUG: 2016-10-27 17:58:29,075 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+DEBUG: 2016-10-27 17:58:29,075 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+INFO: 2016-10-27 17:58:29,076 Starting new HTTPS connection (1): www.formstack.com
+DEBUG: 2016-10-27 17:58:29,647 "GET /api/v2/submission/268147168.json HTTP/1.1" 200 959
+DEBUG: 2016-10-27 17:58:29,650 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+DEBUG: 2016-10-27 17:58:29,650 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+INFO: 2016-10-27 17:58:29,651 Starting new HTTPS connection (1): www.formstack.com
+DEBUG: 2016-10-27 17:58:30,183 "GET /api/v2/submission/269968862.json HTTP/1.1" 200 581
+DEBUG: 2016-10-27 17:59:13,140 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+DEBUG: 2016-10-27 17:59:13,140 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+INFO: 2016-10-27 17:59:13,144 Starting new HTTPS connection (1): www.formstack.com
+ERROR: 2016-10-27 17:59:13,206 Internal Server Error: /get_evnt_by_name
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/django/core/handlers/exception.py", line 39, in inner
+    response = get_response(request)
+  File "/usr/local/lib/python2.7/dist-packages/django/core/handlers/base.py", line 187, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/usr/local/lib/python2.7/dist-packages/django/core/handlers/base.py", line 185, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/django/views/decorators/csrf.py", line 58, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "/home/glopez/Apps/fluid-integrates/app/views.py", line 117, in get_evnt_by_name
+    result = models.get_evnt_by_name(project)
+  File "/home/glopez/Apps/fluid-integrates/app/models.py", line 206, in get_evnt_by_name
+    result = requests.get(url, data=data, verify=False, headers=CONFIG['headers'])
+  File "/usr/lib/python2.7/dist-packages/requests/api.py", line 67, in get
+    return request('get', url, params=params, **kwargs)
+  File "/usr/lib/python2.7/dist-packages/requests/api.py", line 53, in request
+    return session.request(method=method, url=url, **kwargs)
+  File "/usr/lib/python2.7/dist-packages/requests/sessions.py", line 468, in request
+    resp = self.send(prep, **send_kwargs)
+  File "/usr/lib/python2.7/dist-packages/requests/sessions.py", line 576, in send
+    r = adapter.send(request, **kwargs)
+  File "/usr/lib/python2.7/dist-packages/requests/adapters.py", line 437, in send
+    raise ConnectionError(e, request=request)
+ConnectionError: HTTPSConnectionPool(host='www.formstack.com', port=443): Max retries exceeded with url: /api/v2/form/1886931/submission.json (Caused by NewConnectionError('<requests.packages.urllib3.connection.VerifiedHTTPSConnection object at 0x7f1770905590>: Failed to establish a new connection: [Errno -2] Name or service not known',))
+DEBUG: 2016-10-27 17:59:13,241 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+DEBUG: 2016-10-27 17:59:13,242 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+INFO: 2016-10-27 17:59:13,243 Starting new HTTPS connection (1): www.formstack.com
+ERROR: 2016-10-27 17:59:13,287 Internal Server Error: /get_evnt_by_name
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/django/core/handlers/exception.py", line 39, in inner
+    response = get_response(request)
+  File "/usr/local/lib/python2.7/dist-packages/django/core/handlers/base.py", line 187, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/usr/local/lib/python2.7/dist-packages/django/core/handlers/base.py", line 185, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/django/views/decorators/csrf.py", line 58, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "/home/glopez/Apps/fluid-integrates/app/views.py", line 117, in get_evnt_by_name
+    result = models.get_evnt_by_name(project)
+  File "/home/glopez/Apps/fluid-integrates/app/models.py", line 206, in get_evnt_by_name
+    result = requests.get(url, data=data, verify=False, headers=CONFIG['headers'])
+  File "/usr/lib/python2.7/dist-packages/requests/api.py", line 67, in get
+    return request('get', url, params=params, **kwargs)
+  File "/usr/lib/python2.7/dist-packages/requests/api.py", line 53, in request
+    return session.request(method=method, url=url, **kwargs)
+  File "/usr/lib/python2.7/dist-packages/requests/sessions.py", line 468, in request
+    resp = self.send(prep, **send_kwargs)
+  File "/usr/lib/python2.7/dist-packages/requests/sessions.py", line 576, in send
+    r = adapter.send(request, **kwargs)
+  File "/usr/lib/python2.7/dist-packages/requests/adapters.py", line 437, in send
+    raise ConnectionError(e, request=request)
+ConnectionError: HTTPSConnectionPool(host='www.formstack.com', port=443): Max retries exceeded with url: /api/v2/form/1886931/submission.json (Caused by NewConnectionError('<requests.packages.urllib3.connection.VerifiedHTTPSConnection object at 0x7f17706a34d0>: Failed to establish a new connection: [Errno -2] Name or service not known',))
+DEBUG: 2016-10-27 17:59:13,323 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+DEBUG: 2016-10-27 17:59:13,323 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+INFO: 2016-10-27 17:59:13,325 Starting new HTTPS connection (1): www.formstack.com
+ERROR: 2016-10-27 17:59:13,367 Internal Server Error: /get_evnt_by_name
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/django/core/handlers/exception.py", line 39, in inner
+    response = get_response(request)
+  File "/usr/local/lib/python2.7/dist-packages/django/core/handlers/base.py", line 187, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/usr/local/lib/python2.7/dist-packages/django/core/handlers/base.py", line 185, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/django/views/decorators/csrf.py", line 58, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "/home/glopez/Apps/fluid-integrates/app/views.py", line 117, in get_evnt_by_name
+    result = models.get_evnt_by_name(project)
+  File "/home/glopez/Apps/fluid-integrates/app/models.py", line 206, in get_evnt_by_name
+    result = requests.get(url, data=data, verify=False, headers=CONFIG['headers'])
+  File "/usr/lib/python2.7/dist-packages/requests/api.py", line 67, in get
+    return request('get', url, params=params, **kwargs)
+  File "/usr/lib/python2.7/dist-packages/requests/api.py", line 53, in request
+    return session.request(method=method, url=url, **kwargs)
+  File "/usr/lib/python2.7/dist-packages/requests/sessions.py", line 468, in request
+    resp = self.send(prep, **send_kwargs)
+  File "/usr/lib/python2.7/dist-packages/requests/sessions.py", line 576, in send
+    r = adapter.send(request, **kwargs)
+  File "/usr/lib/python2.7/dist-packages/requests/adapters.py", line 437, in send
+    raise ConnectionError(e, request=request)
+ConnectionError: HTTPSConnectionPool(host='www.formstack.com', port=443): Max retries exceeded with url: /api/v2/form/1886931/submission.json (Caused by NewConnectionError('<requests.packages.urllib3.connection.VerifiedHTTPSConnection object at 0x7f17708ffb90>: Failed to establish a new connection: [Errno -2] Name or service not known',))
+DEBUG: 2016-10-27 17:59:13,402 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+DEBUG: 2016-10-27 17:59:13,402 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+INFO: 2016-10-27 17:59:13,403 Starting new HTTPS connection (1): www.formstack.com
+ERROR: 2016-10-27 17:59:13,471 Internal Server Error: /get_evnt_by_name
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/django/core/handlers/exception.py", line 39, in inner
+    response = get_response(request)
+  File "/usr/local/lib/python2.7/dist-packages/django/core/handlers/base.py", line 187, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/usr/local/lib/python2.7/dist-packages/django/core/handlers/base.py", line 185, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/django/views/decorators/csrf.py", line 58, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "/home/glopez/Apps/fluid-integrates/app/views.py", line 117, in get_evnt_by_name
+    result = models.get_evnt_by_name(project)
+  File "/home/glopez/Apps/fluid-integrates/app/models.py", line 206, in get_evnt_by_name
+    result = requests.get(url, data=data, verify=False, headers=CONFIG['headers'])
+  File "/usr/lib/python2.7/dist-packages/requests/api.py", line 67, in get
+    return request('get', url, params=params, **kwargs)
+  File "/usr/lib/python2.7/dist-packages/requests/api.py", line 53, in request
+    return session.request(method=method, url=url, **kwargs)
+  File "/usr/lib/python2.7/dist-packages/requests/sessions.py", line 468, in request
+    resp = self.send(prep, **send_kwargs)
+  File "/usr/lib/python2.7/dist-packages/requests/sessions.py", line 576, in send
+    r = adapter.send(request, **kwargs)
+  File "/usr/lib/python2.7/dist-packages/requests/adapters.py", line 437, in send
+    raise ConnectionError(e, request=request)
+ConnectionError: HTTPSConnectionPool(host='www.formstack.com', port=443): Max retries exceeded with url: /api/v2/form/1886931/submission.json (Caused by NewConnectionError('<requests.packages.urllib3.connection.VerifiedHTTPSConnection object at 0x7f177073bed0>: Failed to establish a new connection: [Errno -2] Name or service not known',))
+DEBUG: 2016-10-27 17:59:13,515 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+DEBUG: 2016-10-27 17:59:13,515 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+INFO: 2016-10-27 17:59:13,516 Starting new HTTPS connection (1): www.formstack.com
+DEBUG: 2016-10-27 17:59:14,023 "GET /api/v2/form/1886931/submission.json HTTP/1.1" 200 969
+DEBUG: 2016-10-27 17:59:14,026 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+DEBUG: 2016-10-27 17:59:14,027 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+INFO: 2016-10-27 17:59:14,028 Starting new HTTPS connection (1): www.formstack.com
+DEBUG: 2016-10-27 17:59:14,845 "GET /api/v2/submission/268792204.json HTTP/1.1" 200 578
+DEBUG: 2016-10-27 17:59:14,849 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+DEBUG: 2016-10-27 17:59:14,849 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+INFO: 2016-10-27 17:59:14,850 Starting new HTTPS connection (1): www.formstack.com
+DEBUG: 2016-10-27 17:59:15,383 "GET /api/v2/submission/268792713.json HTTP/1.1" 200 585
+DEBUG: 2016-10-27 17:59:15,386 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+DEBUG: 2016-10-27 17:59:15,387 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+INFO: 2016-10-27 17:59:15,387 Starting new HTTPS connection (1): www.formstack.com
+DEBUG: 2016-10-27 17:59:15,968 "GET /api/v2/submission/268906430.json HTTP/1.1" 200 593
+DEBUG: 2016-10-27 17:59:58,401 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+DEBUG: 2016-10-27 17:59:58,401 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+INFO: 2016-10-27 17:59:58,402 Starting new HTTPS connection (1): www.formstack.com
+DEBUG: 2016-10-27 17:59:58,888 "PUT /api/v2/submission/268792204.json?oauth_token=aefb128ba610da7e8d9e0b6ff86d9d7a HTTP/1.1" 200 32
+DEBUG: 2016-10-27 18:00:09,166 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+DEBUG: 2016-10-27 18:00:09,167 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+INFO: 2016-10-27 18:00:09,167 Starting new HTTPS connection (1): www.formstack.com
+DEBUG: 2016-10-27 18:00:09,664 "PUT /api/v2/submission/268792713.json?oauth_token=aefb128ba610da7e8d9e0b6ff86d9d7a HTTP/1.1" 200 32
+DEBUG: 2016-10-27 18:00:21,900 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+DEBUG: 2016-10-27 18:00:21,901 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+INFO: 2016-10-27 18:00:21,901 Starting new HTTPS connection (1): www.formstack.com
+DEBUG: 2016-10-27 18:00:22,099 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+DEBUG: 2016-10-27 18:00:22,099 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+INFO: 2016-10-27 18:00:22,100 Starting new HTTPS connection (1): www.formstack.com
+DEBUG: 2016-10-27 18:00:22,455 "PUT /api/v2/submission/268906430.json?oauth_token=aefb128ba610da7e8d9e0b6ff86d9d7a HTTP/1.1" 200 32
+DEBUG: 2016-10-27 18:00:22,489 "PUT /api/v2/submission/268906430.json?oauth_token=aefb128ba610da7e8d9e0b6ff86d9d7a HTTP/1.1" 200 32
+DEBUG: 2016-10-27 18:00:35,914 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+DEBUG: 2016-10-27 18:00:35,914 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+INFO: 2016-10-27 18:00:35,915 Starting new HTTPS connection (1): www.formstack.com
+DEBUG: 2016-10-27 18:00:36,560 "GET /api/v2/form/1886931/submission.json HTTP/1.1" 200 375
+DEBUG: 2016-10-27 18:00:36,566 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+DEBUG: 2016-10-27 18:00:36,566 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+INFO: 2016-10-27 18:00:36,568 Starting new HTTPS connection (1): www.formstack.com
+DEBUG: 2016-10-27 18:00:37,101 "GET /api/v2/submission/274302757.json HTTP/1.1" 200 555
+DEBUG: 2016-10-27 18:00:50,976 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+DEBUG: 2016-10-27 18:00:50,976 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+INFO: 2016-10-27 18:00:50,977 Starting new HTTPS connection (1): www.formstack.com
+DEBUG: 2016-10-27 18:00:51,410 "PUT /api/v2/submission/274302757.json?oauth_token=aefb128ba610da7e8d9e0b6ff86d9d7a HTTP/1.1" 200 32
+DEBUG: 2016-10-27 18:00:56,469 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+DEBUG: 2016-10-27 18:00:56,470 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+INFO: 2016-10-27 18:00:56,470 Starting new HTTPS connection (1): www.formstack.com
+DEBUG: 2016-10-27 18:00:56,937 "GET /api/v2/form/1886931/submission.json HTTP/1.1" 200 375
+DEBUG: 2016-10-27 18:00:56,941 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+DEBUG: 2016-10-27 18:00:56,942 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+INFO: 2016-10-27 18:00:56,942 Starting new HTTPS connection (1): www.formstack.com
+DEBUG: 2016-10-27 18:00:57,482 "GET /api/v2/submission/274302757.json HTTP/1.1" 200 554
+DEBUG: 2016-10-27 18:01:07,853 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+DEBUG: 2016-10-27 18:01:07,854 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+INFO: 2016-10-27 18:01:07,857 Starting new HTTPS connection (1): www.formstack.com
+DEBUG: 2016-10-27 18:01:08,611 "GET /api/v2/form/1886931/submission.json HTTP/1.1" 200 366
+DEBUG: 2016-10-27 18:01:08,614 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+DEBUG: 2016-10-27 18:01:08,614 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+INFO: 2016-10-27 18:01:08,615 Starting new HTTPS connection (1): www.formstack.com
+DEBUG: 2016-10-27 18:01:09,187 "GET /api/v2/submission/277431271.json HTTP/1.1" 200 933
+DEBUG: 2016-10-27 18:01:31,178 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+DEBUG: 2016-10-27 18:01:31,179 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+INFO: 2016-10-27 18:01:31,180 Starting new HTTPS connection (1): www.formstack.com
+DEBUG: 2016-10-27 18:01:31,719 "PUT /api/v2/submission/277431271.json?oauth_token=aefb128ba610da7e8d9e0b6ff86d9d7a HTTP/1.1" 200 32
+DEBUG: 2016-10-27 18:01:41,499 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+DEBUG: 2016-10-27 18:01:41,499 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+INFO: 2016-10-27 18:01:41,500 Starting new HTTPS connection (1): www.formstack.com
+ERROR: 2016-10-27 18:01:41,537 Internal Server Error: /get_evnt_by_name
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/django/core/handlers/exception.py", line 39, in inner
+    response = get_response(request)
+  File "/usr/local/lib/python2.7/dist-packages/django/core/handlers/base.py", line 187, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/usr/local/lib/python2.7/dist-packages/django/core/handlers/base.py", line 185, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/django/views/decorators/csrf.py", line 58, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "/home/glopez/Apps/fluid-integrates/app/views.py", line 117, in get_evnt_by_name
+    result = models.get_evnt_by_name(project)
+  File "/home/glopez/Apps/fluid-integrates/app/models.py", line 206, in get_evnt_by_name
+    result = requests.get(url, data=data, verify=False, headers=CONFIG['headers'])
+  File "/usr/lib/python2.7/dist-packages/requests/api.py", line 67, in get
+    return request('get', url, params=params, **kwargs)
+  File "/usr/lib/python2.7/dist-packages/requests/api.py", line 53, in request
+    return session.request(method=method, url=url, **kwargs)
+  File "/usr/lib/python2.7/dist-packages/requests/sessions.py", line 468, in request
+    resp = self.send(prep, **send_kwargs)
+  File "/usr/lib/python2.7/dist-packages/requests/sessions.py", line 576, in send
+    r = adapter.send(request, **kwargs)
+  File "/usr/lib/python2.7/dist-packages/requests/adapters.py", line 437, in send
+    raise ConnectionError(e, request=request)
+ConnectionError: HTTPSConnectionPool(host='www.formstack.com', port=443): Max retries exceeded with url: /api/v2/form/1886931/submission.json (Caused by NewConnectionError('<requests.packages.urllib3.connection.VerifiedHTTPSConnection object at 0x7f1770905410>: Failed to establish a new connection: [Errno -2] Name or service not known',))
+DEBUG: 2016-10-27 18:01:41,589 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+DEBUG: 2016-10-27 18:01:41,589 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+INFO: 2016-10-27 18:01:41,590 Starting new HTTPS connection (1): www.formstack.com
+DEBUG: 2016-10-27 18:01:42,195 "GET /api/v2/form/1886931/submission.json HTTP/1.1" 200 666
+DEBUG: 2016-10-27 18:01:42,205 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+DEBUG: 2016-10-27 18:01:42,205 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+INFO: 2016-10-27 18:01:42,207 Starting new HTTPS connection (1): www.formstack.com
+DEBUG: 2016-10-27 18:01:42,780 "GET /api/v2/submission/277477860.json HTTP/1.1" 200 716
+DEBUG: 2016-10-27 18:01:42,783 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+DEBUG: 2016-10-27 18:01:42,784 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+INFO: 2016-10-27 18:01:42,784 Starting new HTTPS connection (1): www.formstack.com
+DEBUG: 2016-10-27 18:01:43,268 "GET /api/v2/submission/277478515.json HTTP/1.1" 200 975
+DEBUG: 2016-10-27 18:01:46,803 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+DEBUG: 2016-10-27 18:01:46,803 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+INFO: 2016-10-27 18:01:46,804 Starting new HTTPS connection (1): www.formstack.com
+DEBUG: 2016-10-27 18:01:47,317 "GET /api/v2/form/1886931/submission.json HTTP/1.1" 200 666
+DEBUG: 2016-10-27 18:01:47,320 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+DEBUG: 2016-10-27 18:01:47,320 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+INFO: 2016-10-27 18:01:47,321 Starting new HTTPS connection (1): www.formstack.com
+DEBUG: 2016-10-27 18:01:47,880 "GET /api/v2/submission/277477860.json HTTP/1.1" 200 716
+DEBUG: 2016-10-27 18:01:47,883 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+DEBUG: 2016-10-27 18:01:47,884 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+INFO: 2016-10-27 18:01:47,884 Starting new HTTPS connection (1): www.formstack.com
+DEBUG: 2016-10-27 18:01:48,373 "GET /api/v2/submission/277478515.json HTTP/1.1" 200 975
+DEBUG: 2016-10-27 18:02:13,841 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+DEBUG: 2016-10-27 18:02:13,842 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+INFO: 2016-10-27 18:02:13,842 Starting new HTTPS connection (1): www.formstack.com
+ERROR: 2016-10-27 18:02:13,919 Internal Server Error: /update_evnt
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/django/core/handlers/exception.py", line 39, in inner
+    response = get_response(request)
+  File "/usr/local/lib/python2.7/dist-packages/django/core/handlers/base.py", line 187, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/usr/local/lib/python2.7/dist-packages/django/core/handlers/base.py", line 185, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/django/views/decorators/csrf.py", line 58, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "/home/glopez/Apps/fluid-integrates/app/views.py", line 163, in update_evnt
+    updated = models.update_evnt_by_id(post_parms)
+  File "/home/glopez/Apps/fluid-integrates/app/models.py", line 306, in update_evnt_by_id
+    result = requests.put(url, data=files, headers=headers, verify=False)
+  File "/usr/lib/python2.7/dist-packages/requests/api.py", line 120, in put
+    return request('put', url, data=data, **kwargs)
+  File "/usr/lib/python2.7/dist-packages/requests/api.py", line 53, in request
+    return session.request(method=method, url=url, **kwargs)
+  File "/usr/lib/python2.7/dist-packages/requests/sessions.py", line 468, in request
+    resp = self.send(prep, **send_kwargs)
+  File "/usr/lib/python2.7/dist-packages/requests/sessions.py", line 576, in send
+    r = adapter.send(request, **kwargs)
+  File "/usr/lib/python2.7/dist-packages/requests/adapters.py", line 437, in send
+    raise ConnectionError(e, request=request)
+ConnectionError: HTTPSConnectionPool(host='www.formstack.com', port=443): Max retries exceeded with url: /api/v2/submission/277477860.json?oauth_token=aefb128ba610da7e8d9e0b6ff86d9d7a (Caused by NewConnectionError('<requests.packages.urllib3.connection.VerifiedHTTPSConnection object at 0x7f17706a3c50>: Failed to establish a new connection: [Errno -2] Name or service not known',))
+DEBUG: 2016-10-27 18:02:15,627 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+DEBUG: 2016-10-27 18:02:15,627 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+INFO: 2016-10-27 18:02:15,630 Starting new HTTPS connection (1): www.formstack.com
+DEBUG: 2016-10-27 18:02:16,196 "PUT /api/v2/submission/277477860.json?oauth_token=aefb128ba610da7e8d9e0b6ff86d9d7a HTTP/1.1" 200 32
+ERROR: 2016-10-27 18:02:16,202 Internal Server Error: /update_evnt
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/django/core/handlers/exception.py", line 39, in inner
+    response = get_response(request)
+  File "/usr/local/lib/python2.7/dist-packages/django/core/handlers/base.py", line 187, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/usr/local/lib/python2.7/dist-packages/django/core/handlers/base.py", line 185, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/django/views/decorators/csrf.py", line 58, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "/home/glopez/Apps/fluid-integrates/app/views.py", line 166, in update_evnt
+    util.traceability(action, USER)
+  File "/home/glopez/Apps/fluid-integrates/app/util.py", line 23, in traceability
+    f.write(logmsg)
+UnicodeEncodeError: 'ascii' codec can't encode character u'\xf3' in position 104: ordinal not in range(128)
+DEBUG: 2016-10-27 18:02:34,553 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+DEBUG: 2016-10-27 18:02:34,553 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+INFO: 2016-10-27 18:02:34,554 Starting new HTTPS connection (1): www.formstack.com
+DEBUG: 2016-10-27 18:02:35,121 "PUT /api/v2/submission/277477860.json?oauth_token=aefb128ba610da7e8d9e0b6ff86d9d7a HTTP/1.1" 200 32
+ERROR: 2016-10-27 18:02:35,124 Internal Server Error: /update_evnt
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/django/core/handlers/exception.py", line 39, in inner
+    response = get_response(request)
+  File "/usr/local/lib/python2.7/dist-packages/django/core/handlers/base.py", line 187, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/usr/local/lib/python2.7/dist-packages/django/core/handlers/base.py", line 185, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/django/views/decorators/csrf.py", line 58, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "/home/glopez/Apps/fluid-integrates/app/views.py", line 166, in update_evnt
+    util.traceability(action, USER)
+  File "/home/glopez/Apps/fluid-integrates/app/util.py", line 23, in traceability
+    f.write(logmsg)
+UnicodeEncodeError: 'ascii' codec can't encode character u'\xf3' in position 104: ordinal not in range(128)
+DEBUG: 2016-10-27 18:02:36,418 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+DEBUG: 2016-10-27 18:02:36,418 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+INFO: 2016-10-27 18:02:36,420 Starting new HTTPS connection (1): www.formstack.com
+ERROR: 2016-10-27 18:02:36,471 Internal Server Error: /update_evnt
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/django/core/handlers/exception.py", line 39, in inner
+    response = get_response(request)
+  File "/usr/local/lib/python2.7/dist-packages/django/core/handlers/base.py", line 187, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/usr/local/lib/python2.7/dist-packages/django/core/handlers/base.py", line 185, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/django/views/decorators/csrf.py", line 58, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "/home/glopez/Apps/fluid-integrates/app/views.py", line 163, in update_evnt
+    updated = models.update_evnt_by_id(post_parms)
+  File "/home/glopez/Apps/fluid-integrates/app/models.py", line 306, in update_evnt_by_id
+    result = requests.put(url, data=files, headers=headers, verify=False)
+  File "/usr/lib/python2.7/dist-packages/requests/api.py", line 120, in put
+    return request('put', url, data=data, **kwargs)
+  File "/usr/lib/python2.7/dist-packages/requests/api.py", line 53, in request
+    return session.request(method=method, url=url, **kwargs)
+  File "/usr/lib/python2.7/dist-packages/requests/sessions.py", line 468, in request
+    resp = self.send(prep, **send_kwargs)
+  File "/usr/lib/python2.7/dist-packages/requests/sessions.py", line 576, in send
+    r = adapter.send(request, **kwargs)
+  File "/usr/lib/python2.7/dist-packages/requests/adapters.py", line 437, in send
+    raise ConnectionError(e, request=request)
+ConnectionError: HTTPSConnectionPool(host='www.formstack.com', port=443): Max retries exceeded with url: /api/v2/submission/277477860.json?oauth_token=aefb128ba610da7e8d9e0b6ff86d9d7a (Caused by NewConnectionError('<requests.packages.urllib3.connection.VerifiedHTTPSConnection object at 0x7f177090f0d0>: Failed to establish a new connection: [Errno -2] Name or service not known',))
+DEBUG: 2016-10-27 18:02:37,054 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+DEBUG: 2016-10-27 18:02:37,054 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+INFO: 2016-10-27 18:02:37,055 Starting new HTTPS connection (1): www.formstack.com
+DEBUG: 2016-10-27 18:02:37,536 "PUT /api/v2/submission/277477860.json?oauth_token=aefb128ba610da7e8d9e0b6ff86d9d7a HTTP/1.1" 200 32
+ERROR: 2016-10-27 18:02:37,539 Internal Server Error: /update_evnt
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/django/core/handlers/exception.py", line 39, in inner
+    response = get_response(request)
+  File "/usr/local/lib/python2.7/dist-packages/django/core/handlers/base.py", line 187, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/usr/local/lib/python2.7/dist-packages/django/core/handlers/base.py", line 185, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/django/views/decorators/csrf.py", line 58, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "/home/glopez/Apps/fluid-integrates/app/views.py", line 166, in update_evnt
+    util.traceability(action, USER)
+  File "/home/glopez/Apps/fluid-integrates/app/util.py", line 23, in traceability
+    f.write(logmsg)
+UnicodeEncodeError: 'ascii' codec can't encode character u'\xf3' in position 104: ordinal not in range(128)
+DEBUG: 2016-10-27 18:02:38,124 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+DEBUG: 2016-10-27 18:02:38,124 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+INFO: 2016-10-27 18:02:38,125 Starting new HTTPS connection (1): www.formstack.com
+DEBUG: 2016-10-27 18:02:38,523 "PUT /api/v2/submission/277477860.json?oauth_token=aefb128ba610da7e8d9e0b6ff86d9d7a HTTP/1.1" 200 32
+ERROR: 2016-10-27 18:02:38,527 Internal Server Error: /update_evnt
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/django/core/handlers/exception.py", line 39, in inner
+    response = get_response(request)
+  File "/usr/local/lib/python2.7/dist-packages/django/core/handlers/base.py", line 187, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/usr/local/lib/python2.7/dist-packages/django/core/handlers/base.py", line 185, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/django/views/decorators/csrf.py", line 58, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "/home/glopez/Apps/fluid-integrates/app/views.py", line 166, in update_evnt
+    util.traceability(action, USER)
+  File "/home/glopez/Apps/fluid-integrates/app/util.py", line 23, in traceability
+    f.write(logmsg)
+UnicodeEncodeError: 'ascii' codec can't encode character u'\xf3' in position 104: ordinal not in range(128)
+DEBUG: 2016-10-27 18:02:39,104 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+DEBUG: 2016-10-27 18:02:39,105 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+INFO: 2016-10-27 18:02:39,106 Starting new HTTPS connection (1): www.formstack.com
+DEBUG: 2016-10-27 18:02:39,497 "PUT /api/v2/submission/277477860.json?oauth_token=aefb128ba610da7e8d9e0b6ff86d9d7a HTTP/1.1" 200 32
+ERROR: 2016-10-27 18:02:39,500 Internal Server Error: /update_evnt
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/django/core/handlers/exception.py", line 39, in inner
+    response = get_response(request)
+  File "/usr/local/lib/python2.7/dist-packages/django/core/handlers/base.py", line 187, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/usr/local/lib/python2.7/dist-packages/django/core/handlers/base.py", line 185, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/django/views/decorators/csrf.py", line 58, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "/home/glopez/Apps/fluid-integrates/app/views.py", line 166, in update_evnt
+    util.traceability(action, USER)
+  File "/home/glopez/Apps/fluid-integrates/app/util.py", line 23, in traceability
+    f.write(logmsg)
+UnicodeEncodeError: 'ascii' codec can't encode character u'\xf3' in position 104: ordinal not in range(128)
+DEBUG: 2016-10-27 18:02:45,764 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+DEBUG: 2016-10-27 18:02:45,764 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+INFO: 2016-10-27 18:02:45,766 Starting new HTTPS connection (1): www.formstack.com
+DEBUG: 2016-10-27 18:02:46,404 "PUT /api/v2/submission/277477860.json?oauth_token=aefb128ba610da7e8d9e0b6ff86d9d7a HTTP/1.1" 200 32
+ERROR: 2016-10-27 18:02:46,408 Internal Server Error: /update_evnt
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/django/core/handlers/exception.py", line 39, in inner
+    response = get_response(request)
+  File "/usr/local/lib/python2.7/dist-packages/django/core/handlers/base.py", line 187, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/usr/local/lib/python2.7/dist-packages/django/core/handlers/base.py", line 185, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/django/views/decorators/csrf.py", line 58, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "/home/glopez/Apps/fluid-integrates/app/views.py", line 166, in update_evnt
+    util.traceability(action, USER)
+  File "/home/glopez/Apps/fluid-integrates/app/util.py", line 23, in traceability
+    f.write(logmsg)
+UnicodeEncodeError: 'ascii' codec can't encode character u'\xf3' in position 104: ordinal not in range(128)
+DEBUG: 2016-10-27 18:02:47,134 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+DEBUG: 2016-10-27 18:02:47,134 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+INFO: 2016-10-27 18:02:47,135 Starting new HTTPS connection (1): www.formstack.com
+DEBUG: 2016-10-27 18:02:47,698 "PUT /api/v2/submission/277477860.json?oauth_token=aefb128ba610da7e8d9e0b6ff86d9d7a HTTP/1.1" 200 32
+ERROR: 2016-10-27 18:02:47,703 Internal Server Error: /update_evnt
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/django/core/handlers/exception.py", line 39, in inner
+    response = get_response(request)
+  File "/usr/local/lib/python2.7/dist-packages/django/core/handlers/base.py", line 187, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/usr/local/lib/python2.7/dist-packages/django/core/handlers/base.py", line 185, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/django/views/decorators/csrf.py", line 58, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "/home/glopez/Apps/fluid-integrates/app/views.py", line 166, in update_evnt
+    util.traceability(action, USER)
+  File "/home/glopez/Apps/fluid-integrates/app/util.py", line 23, in traceability
+    f.write(logmsg)
+UnicodeEncodeError: 'ascii' codec can't encode character u'\xf3' in position 104: ordinal not in range(128)
+DEBUG: 2016-10-27 18:02:48,390 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+DEBUG: 2016-10-27 18:02:48,391 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+INFO: 2016-10-27 18:02:48,391 Starting new HTTPS connection (1): www.formstack.com
+DEBUG: 2016-10-27 18:02:48,908 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+DEBUG: 2016-10-27 18:02:48,908 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+INFO: 2016-10-27 18:02:48,909 Starting new HTTPS connection (1): www.formstack.com
+DEBUG: 2016-10-27 18:02:48,913 "PUT /api/v2/submission/277477860.json?oauth_token=aefb128ba610da7e8d9e0b6ff86d9d7a HTTP/1.1" 200 32
+ERROR: 2016-10-27 18:02:48,916 Internal Server Error: /update_evnt
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/django/core/handlers/exception.py", line 39, in inner
+    response = get_response(request)
+  File "/usr/local/lib/python2.7/dist-packages/django/core/handlers/base.py", line 187, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/usr/local/lib/python2.7/dist-packages/django/core/handlers/base.py", line 185, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/django/views/decorators/csrf.py", line 58, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "/home/glopez/Apps/fluid-integrates/app/views.py", line 166, in update_evnt
+    util.traceability(action, USER)
+  File "/home/glopez/Apps/fluid-integrates/app/util.py", line 23, in traceability
+    f.write(logmsg)
+UnicodeEncodeError: 'ascii' codec can't encode character u'\xf3' in position 104: ordinal not in range(128)
+DEBUG: 2016-10-27 18:02:49,478 "PUT /api/v2/submission/277477860.json?oauth_token=aefb128ba610da7e8d9e0b6ff86d9d7a HTTP/1.1" 200 32
+ERROR: 2016-10-27 18:02:49,481 Internal Server Error: /update_evnt
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/django/core/handlers/exception.py", line 39, in inner
+    response = get_response(request)
+  File "/usr/local/lib/python2.7/dist-packages/django/core/handlers/base.py", line 187, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/usr/local/lib/python2.7/dist-packages/django/core/handlers/base.py", line 185, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/django/views/decorators/csrf.py", line 58, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "/home/glopez/Apps/fluid-integrates/app/views.py", line 166, in update_evnt
+    util.traceability(action, USER)
+  File "/home/glopez/Apps/fluid-integrates/app/util.py", line 23, in traceability
+    f.write(logmsg)
+UnicodeEncodeError: 'ascii' codec can't encode character u'\xf3' in position 104: ordinal not in range(128)
+DEBUG: 2016-10-27 18:02:49,572 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+DEBUG: 2016-10-27 18:02:49,572 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+INFO: 2016-10-27 18:02:49,573 Starting new HTTPS connection (1): www.formstack.com
+DEBUG: 2016-10-27 18:02:50,128 "PUT /api/v2/submission/277477860.json?oauth_token=aefb128ba610da7e8d9e0b6ff86d9d7a HTTP/1.1" 200 32
+ERROR: 2016-10-27 18:02:50,133 Internal Server Error: /update_evnt
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/django/core/handlers/exception.py", line 39, in inner
+    response = get_response(request)
+  File "/usr/local/lib/python2.7/dist-packages/django/core/handlers/base.py", line 187, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/usr/local/lib/python2.7/dist-packages/django/core/handlers/base.py", line 185, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/django/views/decorators/csrf.py", line 58, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "/home/glopez/Apps/fluid-integrates/app/views.py", line 166, in update_evnt
+    util.traceability(action, USER)
+  File "/home/glopez/Apps/fluid-integrates/app/util.py", line 23, in traceability
+    f.write(logmsg)
+UnicodeEncodeError: 'ascii' codec can't encode character u'\xf3' in position 104: ordinal not in range(128)
+DEBUG: 2016-10-27 18:02:50,224 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+DEBUG: 2016-10-27 18:02:50,225 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+INFO: 2016-10-27 18:02:50,225 Starting new HTTPS connection (1): www.formstack.com
+DEBUG: 2016-10-27 18:02:50,867 "PUT /api/v2/submission/277477860.json?oauth_token=aefb128ba610da7e8d9e0b6ff86d9d7a HTTP/1.1" 200 32
+ERROR: 2016-10-27 18:02:50,871 Internal Server Error: /update_evnt
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/django/core/handlers/exception.py", line 39, in inner
+    response = get_response(request)
+  File "/usr/local/lib/python2.7/dist-packages/django/core/handlers/base.py", line 187, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/usr/local/lib/python2.7/dist-packages/django/core/handlers/base.py", line 185, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/django/views/decorators/csrf.py", line 58, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "/home/glopez/Apps/fluid-integrates/app/views.py", line 166, in update_evnt
+    util.traceability(action, USER)
+  File "/home/glopez/Apps/fluid-integrates/app/util.py", line 23, in traceability
+    f.write(logmsg)
+UnicodeEncodeError: 'ascii' codec can't encode character u'\xf3' in position 104: ordinal not in range(128)
+DEBUG: 2016-10-27 18:02:50,905 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+DEBUG: 2016-10-27 18:02:50,905 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+INFO: 2016-10-27 18:02:50,906 Starting new HTTPS connection (1): www.formstack.com
+DEBUG: 2016-10-27 18:02:51,080 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+DEBUG: 2016-10-27 18:02:51,081 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+INFO: 2016-10-27 18:02:51,082 Starting new HTTPS connection (1): www.formstack.com
+DEBUG: 2016-10-27 18:02:51,220 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+DEBUG: 2016-10-27 18:02:51,220 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+INFO: 2016-10-27 18:02:51,221 Starting new HTTPS connection (1): www.formstack.com
+DEBUG: 2016-10-27 18:02:51,371 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+DEBUG: 2016-10-27 18:02:51,371 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+INFO: 2016-10-27 18:02:51,372 Starting new HTTPS connection (1): www.formstack.com
+DEBUG: 2016-10-27 18:02:51,460 "PUT /api/v2/submission/277477860.json?oauth_token=aefb128ba610da7e8d9e0b6ff86d9d7a HTTP/1.1" 200 32
+ERROR: 2016-10-27 18:02:51,464 Internal Server Error: /update_evnt
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/django/core/handlers/exception.py", line 39, in inner
+    response = get_response(request)
+  File "/usr/local/lib/python2.7/dist-packages/django/core/handlers/base.py", line 187, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/usr/local/lib/python2.7/dist-packages/django/core/handlers/base.py", line 185, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/django/views/decorators/csrf.py", line 58, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "/home/glopez/Apps/fluid-integrates/app/views.py", line 166, in update_evnt
+    util.traceability(action, USER)
+  File "/home/glopez/Apps/fluid-integrates/app/util.py", line 23, in traceability
+    f.write(logmsg)
+UnicodeEncodeError: 'ascii' codec can't encode character u'\xf3' in position 104: ordinal not in range(128)
+DEBUG: 2016-10-27 18:02:51,508 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+DEBUG: 2016-10-27 18:02:51,508 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+INFO: 2016-10-27 18:02:51,509 Starting new HTTPS connection (1): www.formstack.com
+DEBUG: 2016-10-27 18:02:51,537 "PUT /api/v2/submission/277477860.json?oauth_token=aefb128ba610da7e8d9e0b6ff86d9d7a HTTP/1.1" 200 32
+ERROR: 2016-10-27 18:02:51,540 Internal Server Error: /update_evnt
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/django/core/handlers/exception.py", line 39, in inner
+    response = get_response(request)
+  File "/usr/local/lib/python2.7/dist-packages/django/core/handlers/base.py", line 187, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/usr/local/lib/python2.7/dist-packages/django/core/handlers/base.py", line 185, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/django/views/decorators/csrf.py", line 58, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "/home/glopez/Apps/fluid-integrates/app/views.py", line 166, in update_evnt
+    util.traceability(action, USER)
+  File "/home/glopez/Apps/fluid-integrates/app/util.py", line 23, in traceability
+    f.write(logmsg)
+UnicodeEncodeError: 'ascii' codec can't encode character u'\xf3' in position 104: ordinal not in range(128)
+DEBUG: 2016-10-27 18:02:51,621 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+DEBUG: 2016-10-27 18:02:51,622 "PUT /api/v2/submission/277477860.json?oauth_token=aefb128ba610da7e8d9e0b6ff86d9d7a HTTP/1.1" 200 32
+DEBUG: 2016-10-27 18:02:51,622 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+INFO: 2016-10-27 18:02:51,628 Starting new HTTPS connection (1): www.formstack.com
+ERROR: 2016-10-27 18:02:51,627 Internal Server Error: /update_evnt
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/django/core/handlers/exception.py", line 39, in inner
+    response = get_response(request)
+  File "/usr/local/lib/python2.7/dist-packages/django/core/handlers/base.py", line 187, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/usr/local/lib/python2.7/dist-packages/django/core/handlers/base.py", line 185, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/django/views/decorators/csrf.py", line 58, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "/home/glopez/Apps/fluid-integrates/app/views.py", line 166, in update_evnt
+    util.traceability(action, USER)
+  File "/home/glopez/Apps/fluid-integrates/app/util.py", line 23, in traceability
+    f.write(logmsg)
+UnicodeEncodeError: 'ascii' codec can't encode character u'\xf3' in position 104: ordinal not in range(128)
+DEBUG: 2016-10-27 18:02:51,830 "PUT /api/v2/submission/277477860.json?oauth_token=aefb128ba610da7e8d9e0b6ff86d9d7a HTTP/1.1" 200 32
+ERROR: 2016-10-27 18:02:51,834 Internal Server Error: /update_evnt
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/django/core/handlers/exception.py", line 39, in inner
+    response = get_response(request)
+  File "/usr/local/lib/python2.7/dist-packages/django/core/handlers/base.py", line 187, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/usr/local/lib/python2.7/dist-packages/django/core/handlers/base.py", line 185, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/django/views/decorators/csrf.py", line 58, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "/home/glopez/Apps/fluid-integrates/app/views.py", line 166, in update_evnt
+    util.traceability(action, USER)
+  File "/home/glopez/Apps/fluid-integrates/app/util.py", line 23, in traceability
+    f.write(logmsg)
+UnicodeEncodeError: 'ascii' codec can't encode character u'\xf3' in position 104: ordinal not in range(128)
+DEBUG: 2016-10-27 18:02:51,858 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+DEBUG: 2016-10-27 18:02:51,859 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+INFO: 2016-10-27 18:02:51,860 Starting new HTTPS connection (1): www.formstack.com
+DEBUG: 2016-10-27 18:02:51,896 "PUT /api/v2/submission/277477860.json?oauth_token=aefb128ba610da7e8d9e0b6ff86d9d7a HTTP/1.1" 200 32
+ERROR: 2016-10-27 18:02:51,901 Internal Server Error: /update_evnt
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/django/core/handlers/exception.py", line 39, in inner
+    response = get_response(request)
+  File "/usr/local/lib/python2.7/dist-packages/django/core/handlers/base.py", line 187, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/usr/local/lib/python2.7/dist-packages/django/core/handlers/base.py", line 185, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/django/views/decorators/csrf.py", line 58, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "/home/glopez/Apps/fluid-integrates/app/views.py", line 166, in update_evnt
+    util.traceability(action, USER)
+  File "/home/glopez/Apps/fluid-integrates/app/util.py", line 23, in traceability
+    f.write(logmsg)
+UnicodeEncodeError: 'ascii' codec can't encode character u'\xf3' in position 104: ordinal not in range(128)
+DEBUG: 2016-10-27 18:02:52,070 "PUT /api/v2/submission/277477860.json?oauth_token=aefb128ba610da7e8d9e0b6ff86d9d7a HTTP/1.1" 200 32
+ERROR: 2016-10-27 18:02:52,073 Internal Server Error: /update_evnt
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/django/core/handlers/exception.py", line 39, in inner
+    response = get_response(request)
+  File "/usr/local/lib/python2.7/dist-packages/django/core/handlers/base.py", line 187, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/usr/local/lib/python2.7/dist-packages/django/core/handlers/base.py", line 185, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/django/views/decorators/csrf.py", line 58, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "/home/glopez/Apps/fluid-integrates/app/views.py", line 166, in update_evnt
+    util.traceability(action, USER)
+  File "/home/glopez/Apps/fluid-integrates/app/util.py", line 23, in traceability
+    f.write(logmsg)
+UnicodeEncodeError: 'ascii' codec can't encode character u'\xf3' in position 104: ordinal not in range(128)
+DEBUG: 2016-10-27 18:02:52,342 "PUT /api/v2/submission/277477860.json?oauth_token=aefb128ba610da7e8d9e0b6ff86d9d7a HTTP/1.1" 200 32
+ERROR: 2016-10-27 18:02:52,345 Internal Server Error: /update_evnt
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/django/core/handlers/exception.py", line 39, in inner
+    response = get_response(request)
+  File "/usr/local/lib/python2.7/dist-packages/django/core/handlers/base.py", line 187, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/usr/local/lib/python2.7/dist-packages/django/core/handlers/base.py", line 185, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/django/views/decorators/csrf.py", line 58, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "/home/glopez/Apps/fluid-integrates/app/views.py", line 166, in update_evnt
+    util.traceability(action, USER)
+  File "/home/glopez/Apps/fluid-integrates/app/util.py", line 23, in traceability
+    f.write(logmsg)
+UnicodeEncodeError: 'ascii' codec can't encode character u'\xf3' in position 104: ordinal not in range(128)
+DEBUG: 2016-10-27 18:03:15,376 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+DEBUG: 2016-10-27 18:03:15,376 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+INFO: 2016-10-27 18:03:15,377 Starting new HTTPS connection (1): www.formstack.com
+DEBUG: 2016-10-27 18:03:15,962 "PUT /api/v2/submission/277477860.json?oauth_token=aefb128ba610da7e8d9e0b6ff86d9d7a HTTP/1.1" 200 32
+ERROR: 2016-10-27 18:03:15,965 Internal Server Error: /update_evnt
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/django/core/handlers/exception.py", line 39, in inner
+    response = get_response(request)
+  File "/usr/local/lib/python2.7/dist-packages/django/core/handlers/base.py", line 187, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/usr/local/lib/python2.7/dist-packages/django/core/handlers/base.py", line 185, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/django/views/decorators/csrf.py", line 58, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "/home/glopez/Apps/fluid-integrates/app/views.py", line 166, in update_evnt
+    util.traceability(action, USER)
+  File "/home/glopez/Apps/fluid-integrates/app/util.py", line 23, in traceability
+    f.write(logmsg)
+UnicodeEncodeError: 'ascii' codec can't encode character u'\xf3' in position 104: ordinal not in range(128)
+DEBUG: 2016-10-27 18:03:41,054 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+DEBUG: 2016-10-27 18:03:41,054 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+INFO: 2016-10-27 18:03:41,055 Starting new HTTPS connection (1): www.formstack.com
+DEBUG: 2016-10-27 18:03:41,525 "PUT /api/v2/submission/277478515.json?oauth_token=aefb128ba610da7e8d9e0b6ff86d9d7a HTTP/1.1" 200 32
+DEBUG: 2016-10-27 20:47:32,319 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+DEBUG: 2016-10-27 20:47:32,428 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+INFO: 2016-10-27 20:47:32,429 Starting new HTTPS connection (1): www.formstack.com
+ERROR: 2016-10-27 20:47:32,656 Internal Server Error: /get_evnt_by_name
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/django/core/handlers/exception.py", line 39, in inner
+    response = get_response(request)
+  File "/usr/local/lib/python2.7/dist-packages/django/core/handlers/base.py", line 187, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/usr/local/lib/python2.7/dist-packages/django/core/handlers/base.py", line 185, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/django/views/decorators/csrf.py", line 58, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "/home/glopez/Apps/fluid-integrates/app/views.py", line 117, in get_evnt_by_name
+    result = models.get_evnt_by_name(project)
+  File "/home/glopez/Apps/fluid-integrates/app/models.py", line 206, in get_evnt_by_name
+    result = requests.get(url, data=data, verify=False, headers=CONFIG['headers'])
+  File "/usr/lib/python2.7/dist-packages/requests/api.py", line 67, in get
+    return request('get', url, params=params, **kwargs)
+  File "/usr/lib/python2.7/dist-packages/requests/api.py", line 53, in request
+    return session.request(method=method, url=url, **kwargs)
+  File "/usr/lib/python2.7/dist-packages/requests/sessions.py", line 468, in request
+    resp = self.send(prep, **send_kwargs)
+  File "/usr/lib/python2.7/dist-packages/requests/sessions.py", line 576, in send
+    r = adapter.send(request, **kwargs)
+  File "/usr/lib/python2.7/dist-packages/requests/adapters.py", line 437, in send
+    raise ConnectionError(e, request=request)
+ConnectionError: HTTPSConnectionPool(host='www.formstack.com', port=443): Max retries exceeded with url: /api/v2/form/1886931/submission.json (Caused by NewConnectionError('<requests.packages.urllib3.connection.VerifiedHTTPSConnection object at 0x7f1770905fd0>: Failed to establish a new connection: [Errno -2] Name or service not known',))
+DEBUG: 2016-10-27 20:47:32,812 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+DEBUG: 2016-10-27 20:47:32,813 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+INFO: 2016-10-27 20:47:32,814 Starting new HTTPS connection (1): www.formstack.com
+DEBUG: 2016-10-27 20:47:34,239 "GET /api/v2/form/1886931/submission.json HTTP/1.1" 200 986
+DEBUG: 2016-10-27 20:47:34,243 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+DEBUG: 2016-10-27 20:47:34,243 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+INFO: 2016-10-27 20:47:34,244 Starting new HTTPS connection (1): www.formstack.com
+DEBUG: 2016-10-27 20:47:35,007 "GET /api/v2/submission/282813447.json HTTP/1.1" 200 640
+DEBUG: 2016-10-27 20:47:35,010 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+DEBUG: 2016-10-27 20:47:35,010 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+INFO: 2016-10-27 20:47:35,011 Starting new HTTPS connection (1): www.formstack.com
+DEBUG: 2016-10-27 20:47:35,571 "GET /api/v2/submission/282985336.json HTTP/1.1" 200 872
+DEBUG: 2016-10-27 20:47:35,574 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+DEBUG: 2016-10-27 20:47:35,574 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+INFO: 2016-10-27 20:47:35,575 Starting new HTTPS connection (1): www.formstack.com
+DEBUG: 2016-10-27 20:47:36,097 "GET /api/v2/submission/282987461.json HTTP/1.1" 200 690
+DEBUG: 2016-10-27 20:48:02,182 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+DEBUG: 2016-10-27 20:48:02,183 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+INFO: 2016-10-27 20:48:02,184 Starting new HTTPS connection (1): www.formstack.com
+DEBUG: 2016-10-27 20:48:02,809 "GET /api/v2/form/1886931/submission.json HTTP/1.1" 200 986
+DEBUG: 2016-10-27 20:48:02,812 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+DEBUG: 2016-10-27 20:48:02,812 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+INFO: 2016-10-27 20:48:02,813 Starting new HTTPS connection (1): www.formstack.com
+DEBUG: 2016-10-27 20:48:03,420 "GET /api/v2/submission/282813447.json HTTP/1.1" 200 640
+DEBUG: 2016-10-27 20:48:03,423 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+DEBUG: 2016-10-27 20:48:03,423 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+INFO: 2016-10-27 20:48:03,424 Starting new HTTPS connection (1): www.formstack.com
+DEBUG: 2016-10-27 20:48:04,040 "GET /api/v2/submission/282985336.json HTTP/1.1" 200 872
+DEBUG: 2016-10-27 20:48:04,043 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+DEBUG: 2016-10-27 20:48:04,043 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+INFO: 2016-10-27 20:48:04,044 Starting new HTTPS connection (1): www.formstack.com
+DEBUG: 2016-10-27 20:48:04,652 "GET /api/v2/submission/282987461.json HTTP/1.1" 200 690
+DEBUG: 2016-10-31 14:35:40,710 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+DEBUG: 2016-10-31 14:35:40,742 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+INFO: 2016-10-31 14:35:40,764 Starting new HTTPS connection (1): www.formstack.com
+DEBUG: 2016-10-31 14:35:41,842 "GET /api/v2/form/1998500/submission.json HTTP/1.1" 200 378
+DEBUG: 2016-10-31 14:35:41,845 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+DEBUG: 2016-10-31 14:35:41,845 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+INFO: 2016-10-31 14:35:41,846 Starting new HTTPS connection (1): www.formstack.com
+DEBUG: 2016-10-31 14:35:42,568 "GET /api/v2/submission/283259483.json HTTP/1.1" 200 1807
+DEBUG: 2016-10-31 14:35:43,574 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+DEBUG: 2016-10-31 14:35:43,574 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+INFO: 2016-10-31 14:35:43,575 Starting new HTTPS connection (1): www.formstack.com
+DEBUG: 2016-10-31 14:35:44,104 "GET /api/v2/submission/283264756.json HTTP/1.1" 200 1869
+DEBUG: 2016-10-31 14:35:45,110 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+DEBUG: 2016-10-31 14:35:45,110 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+INFO: 2016-10-31 14:35:45,112 Starting new HTTPS connection (1): www.formstack.com
+DEBUG: 2016-10-31 14:35:45,743 "GET /api/v2/submission/283266544.json HTTP/1.1" 200 1779
+DEBUG: 2016-10-31 14:35:46,748 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+DEBUG: 2016-10-31 14:35:46,748 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+INFO: 2016-10-31 14:35:46,750 Starting new HTTPS connection (1): www.formstack.com
+DEBUG: 2016-10-31 14:35:47,381 "GET /api/v2/submission/283267740.json HTTP/1.1" 200 2132
+DEBUG: 2016-10-31 14:35:48,386 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+DEBUG: 2016-10-31 14:35:48,387 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+INFO: 2016-10-31 14:35:48,388 Starting new HTTPS connection (1): www.formstack.com
+DEBUG: 2016-10-31 14:35:48,917 "GET /api/v2/submission/283269213.json HTTP/1.1" 200 1814
+DEBUG: 2016-10-31 14:35:49,921 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+DEBUG: 2016-10-31 14:35:49,922 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+INFO: 2016-10-31 14:35:49,923 Starting new HTTPS connection (1): www.formstack.com
+DEBUG: 2016-10-31 14:35:50,453 "GET /api/v2/submission/283270880.json HTTP/1.1" 200 2047
+DEBUG: 2016-10-31 14:35:51,458 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+DEBUG: 2016-10-31 14:35:51,459 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+INFO: 2016-10-31 14:35:51,460 Starting new HTTPS connection (1): www.formstack.com
+DEBUG: 2016-10-31 14:35:51,989 "GET /api/v2/submission/283275223.json HTTP/1.1" 200 1890
+DEBUG: 2016-10-31 14:35:52,995 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+DEBUG: 2016-10-31 14:35:52,995 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+INFO: 2016-10-31 14:35:52,996 Starting new HTTPS connection (1): www.formstack.com
+DEBUG: 2016-10-31 14:35:53,525 "GET /api/v2/submission/283276886.json HTTP/1.1" 200 2122
+WARNING: 2016-10-31 14:36:51,793 Not Found: /favicon.ico
+DEBUG: 2016-10-31 20:54:14,891 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+DEBUG: 2016-10-31 20:54:14,930 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+INFO: 2016-10-31 20:54:14,985 Starting new HTTPS connection (1): www.formstack.com
+DEBUG: 2016-10-31 20:54:16,466 "GET /api/v2/form/1998500/submission.json HTTP/1.1" 200 666
+DEBUG: 2016-10-31 20:54:16,470 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+DEBUG: 2016-10-31 20:54:16,470 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+INFO: 2016-10-31 20:54:16,471 Starting new HTTPS connection (1): www.formstack.com
+DEBUG: 2016-10-31 20:54:17,034 "GET /api/v2/submission/267582894.json HTTP/1.1" 200 1873
+DEBUG: 2016-10-31 20:54:18,042 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+DEBUG: 2016-10-31 20:54:18,043 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+INFO: 2016-10-31 20:54:18,045 Starting new HTTPS connection (1): www.formstack.com
+DEBUG: 2016-10-31 20:54:18,616 "GET /api/v2/submission/267873890.json HTTP/1.1" 200 1879
+DEBUG: 2016-10-31 20:55:10,723 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+DEBUG: 2016-10-31 20:55:10,724 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+INFO: 2016-10-31 20:55:10,726 Starting new HTTPS connection (1): www.formstack.com
+DEBUG: 2016-10-31 20:55:11,399 "GET /api/v2/form/1998500/submission.json HTTP/1.1" 200 666
+DEBUG: 2016-10-31 20:55:11,403 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+DEBUG: 2016-10-31 20:55:11,404 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+INFO: 2016-10-31 20:55:11,404 Starting new HTTPS connection (1): www.formstack.com
+DEBUG: 2016-10-31 20:55:11,967 "GET /api/v2/submission/267582894.json HTTP/1.1" 200 1873
+DEBUG: 2016-10-31 20:55:12,975 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+DEBUG: 2016-10-31 20:55:12,975 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+INFO: 2016-10-31 20:55:12,976 Starting new HTTPS connection (1): www.formstack.com
+DEBUG: 2016-10-31 20:55:13,708 "GET /api/v2/submission/267873890.json HTTP/1.1" 200 1879
+DEBUG: 2016-10-31 20:55:50,585 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+DEBUG: 2016-10-31 20:55:50,585 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+INFO: 2016-10-31 20:55:50,587 Starting new HTTPS connection (1): www.formstack.com
+DEBUG: 2016-10-31 20:55:51,444 "GET /api/v2/form/1998500/submission.json HTTP/1.1" 200 666
+DEBUG: 2016-10-31 20:55:51,448 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+DEBUG: 2016-10-31 20:55:51,448 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+INFO: 2016-10-31 20:55:51,449 Starting new HTTPS connection (1): www.formstack.com
+DEBUG: 2016-10-31 20:55:52,104 "GET /api/v2/submission/267582894.json HTTP/1.1" 200 1873
+DEBUG: 2016-10-31 20:55:53,110 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+DEBUG: 2016-10-31 20:55:53,110 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+INFO: 2016-10-31 20:55:53,112 Starting new HTTPS connection (1): www.formstack.com
+DEBUG: 2016-10-31 20:55:53,850 "GET /api/v2/submission/267873890.json HTTP/1.1" 200 1879
+DEBUG: 2016-11-01 14:56:04,601 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+DEBUG: 2016-11-01 14:56:04,623 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+INFO: 2016-11-01 14:56:04,645 Starting new HTTPS connection (1): www.formstack.com
+ERROR: 2016-11-01 14:56:04,901 Internal Server Error: /get_vuln_by_name
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/django/core/handlers/exception.py", line 39, in inner
+    response = get_response(request)
+  File "/usr/local/lib/python2.7/dist-packages/django/core/handlers/base.py", line 187, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/usr/local/lib/python2.7/dist-packages/django/core/handlers/base.py", line 185, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/django/views/decorators/csrf.py", line 58, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "/home/glopez/Apps/fluid-integrates/app/views.py", line 103, in get_vuln_by_name
+    result = models.get_vuln_by_name(project)["submissions"]
+  File "/home/glopez/Apps/fluid-integrates/app/models.py", line 185, in get_vuln_by_name
+    result = requests.get(url, data=data, verify=False, headers=CONFIG['headers'])
+  File "/usr/lib/python2.7/dist-packages/requests/api.py", line 67, in get
+    return request('get', url, params=params, **kwargs)
+  File "/usr/lib/python2.7/dist-packages/requests/api.py", line 53, in request
+    return session.request(method=method, url=url, **kwargs)
+  File "/usr/lib/python2.7/dist-packages/requests/sessions.py", line 468, in request
+    resp = self.send(prep, **send_kwargs)
+  File "/usr/lib/python2.7/dist-packages/requests/sessions.py", line 576, in send
+    r = adapter.send(request, **kwargs)
+  File "/usr/lib/python2.7/dist-packages/requests/adapters.py", line 437, in send
+    raise ConnectionError(e, request=request)
+ConnectionError: HTTPSConnectionPool(host='www.formstack.com', port=443): Max retries exceeded with url: /api/v2/form/1998500/submission.json (Caused by NewConnectionError('<requests.packages.urllib3.connection.VerifiedHTTPSConnection object at 0x7fb497999050>: Failed to establish a new connection: [Errno -2] Name or service not known',))
+DEBUG: 2016-11-01 14:56:05,013 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+DEBUG: 2016-11-01 14:56:05,013 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+INFO: 2016-11-01 14:56:05,014 Starting new HTTPS connection (1): www.formstack.com
+DEBUG: 2016-11-01 14:56:06,642 "GET /api/v2/form/1998500/submission.json HTTP/1.1" 200 666
+DEBUG: 2016-11-01 14:56:06,646 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+DEBUG: 2016-11-01 14:56:06,646 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+INFO: 2016-11-01 14:56:06,647 Starting new HTTPS connection (1): www.formstack.com
+DEBUG: 2016-11-01 14:56:07,461 "GET /api/v2/submission/267582894.json HTTP/1.1" 200 1873
+DEBUG: 2016-11-01 14:56:08,466 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+DEBUG: 2016-11-01 14:56:08,467 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+INFO: 2016-11-01 14:56:08,470 Starting new HTTPS connection (1): www.formstack.com
+DEBUG: 2016-11-01 14:56:09,099 "GET /api/v2/submission/267873890.json HTTP/1.1" 200 1879
+DEBUG: 2016-11-01 14:57:07,276 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+DEBUG: 2016-11-01 14:57:07,276 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+INFO: 2016-11-01 14:57:07,277 Starting new HTTPS connection (1): www.formstack.com
+DEBUG: 2016-11-01 14:57:07,932 "GET /api/v2/form/1998500/submission.json HTTP/1.1" 200 666
+DEBUG: 2016-11-01 14:57:07,935 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+DEBUG: 2016-11-01 14:57:07,935 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+INFO: 2016-11-01 14:57:07,936 Starting new HTTPS connection (1): www.formstack.com
+DEBUG: 2016-11-01 14:57:08,491 "GET /api/v2/submission/267582894.json HTTP/1.1" 200 1873
+DEBUG: 2016-11-01 14:57:09,498 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+DEBUG: 2016-11-01 14:57:09,498 Converted retries value: 0 -> Retry(total=0, connect=None, read=None, redirect=None)
+INFO: 2016-11-01 14:57:09,500 Starting new HTTPS connection (1): www.formstack.com
+DEBUG: 2016-11-01 14:57:10,110 "GET /api/v2/submission/267873890.json HTTP/1.1" 200 1879
+ERROR: 2016-11-01 14:59:23,291 Internal Server Error: /generate_xls
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/django/core/handlers/exception.py", line 39, in inner
+    response = get_response(request)
+  File "/usr/local/lib/python2.7/dist-packages/django/core/handlers/base.py", line 187, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/usr/local/lib/python2.7/dist-packages/django/core/handlers/base.py", line 185, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/django/views/decorators/csrf.py", line 58, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "/home/glopez/Apps/fluid-integrates/app/views.py", line 88, in generate_xls
+    docs.generate_doc_xls(project, data)
+  File "/home/glopez/Apps/fluid-integrates/app/docs.py", line 89, in generate_doc_xls
+    if "detallado" not in data[0]["detallado"]:
+TypeError: string indices must be integers
+ERROR: 2016-11-01 15:02:09,319 Internal Server Error: /generate_xls
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/django/core/handlers/exception.py", line 39, in inner
+    response = get_response(request)
+  File "/usr/local/lib/python2.7/dist-packages/django/core/handlers/base.py", line 187, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/usr/local/lib/python2.7/dist-packages/django/core/handlers/base.py", line 185, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/django/views/decorators/csrf.py", line 58, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "/home/glopez/Apps/fluid-integrates/app/views.py", line 88, in generate_xls
+    docs.generate_doc_xls(project, data)
+  File "/home/glopez/Apps/fluid-integrates/app/docs.py", line 89, in generate_doc_xls
+    print data[0]["detallado"]
+TypeError: string indices must be integers
+ERROR: 2016-11-01 15:10:58,346 Internal Server Error: /generate_xls
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/django/core/handlers/exception.py", line 39, in inner
+    response = get_response(request)
+  File "/usr/local/lib/python2.7/dist-packages/django/core/handlers/base.py", line 187, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/usr/local/lib/python2.7/dist-packages/django/core/handlers/base.py", line 185, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/django/views/decorators/csrf.py", line 58, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "/home/glopez/Apps/fluid-integrates/app/views.py", line 89, in generate_xls
+    docs.generate_doc_xls(project, json.loads(data))
+  File "/home/glopez/Apps/fluid-integrates/app/docs.py", line 92, in generate_doc_xls
+    tech_report = load_workbook(filename=config['xls'][proy_type])
+  File "/usr/local/lib/python2.7/dist-packages/openpyxl/reader/excel.py", line 152, in load_workbook
+    archive = _validate_archive(filename)
+  File "/usr/local/lib/python2.7/dist-packages/openpyxl/reader/excel.py", line 115, in _validate_archive
+    archive = ZipFile(filename, 'r', ZIP_DEFLATED)
+  File "/usr/lib/python2.7/zipfile.py", line 756, in __init__
+    self.fp = open(file, modeDict[mode])
+IOError: [Errno 2] No such file or directory: 'templates/bancolombia.xlsx'
+ERROR: 2016-11-01 15:13:38,080 Internal Server Error: /generate_xls
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/django/core/handlers/exception.py", line 39, in inner
+    response = get_response(request)
+  File "/usr/local/lib/python2.7/dist-packages/django/core/handlers/base.py", line 187, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/usr/local/lib/python2.7/dist-packages/django/core/handlers/base.py", line 185, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/django/views/decorators/csrf.py", line 58, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "/home/glopez/Apps/fluid-integrates/app/views.py", line 89, in generate_xls
+    docs.generate_doc_xls(project, json.loads(data))
+  File "/home/glopez/Apps/fluid-integrates/app/docs.py", line 93, in generate_doc_xls
+    print config['dir'] + config[proy_type]
+KeyError: 'detallado'
+ERROR: 2016-11-01 15:14:54,003 Internal Server Error: /generate_xls
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/django/core/handlers/exception.py", line 39, in inner
+    response = get_response(request)
+  File "/usr/local/lib/python2.7/dist-packages/django/core/handlers/base.py", line 187, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/usr/local/lib/python2.7/dist-packages/django/core/handlers/base.py", line 185, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/django/views/decorators/csrf.py", line 58, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "/home/glopez/Apps/fluid-integrates/app/views.py", line 89, in generate_xls
+    docs.generate_doc_xls(project, json.loads(data))
+  File "/home/glopez/Apps/fluid-integrates/app/docs.py", line 93, in generate_doc_xls
+    tech_report = load_workbook(filename=workbook_path)
+  File "/usr/local/lib/python2.7/dist-packages/openpyxl/reader/excel.py", line 152, in load_workbook
+    archive = _validate_archive(filename)
+  File "/usr/local/lib/python2.7/dist-packages/openpyxl/reader/excel.py", line 115, in _validate_archive
+    archive = ZipFile(filename, 'r', ZIP_DEFLATED)
+  File "/usr/lib/python2.7/zipfile.py", line 756, in __init__
+    self.fp = open(file, modeDict[mode])
+IOError: [Errno 2] No such file or directory: '/home/glopez/Apps/fluid-integrates/app/templates/bancolombia.xlsx'
+ERROR: 2016-11-01 16:19:58,276 Internal Server Error: /generate_xls
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/django/core/handlers/exception.py", line 39, in inner
+    response = get_response(request)
+  File "/usr/local/lib/python2.7/dist-packages/django/core/handlers/base.py", line 187, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/usr/local/lib/python2.7/dist-packages/django/core/handlers/base.py", line 185, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/django/views/decorators/csrf.py", line 58, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "/home/glopez/Apps/fluid-integrates/app/views.py", line 89, in generate_xls
+    docs.generate_doc_xls(project, json.loads(data))
+  File "/home/glopez/Apps/fluid-integrates/app/docs.py", line 125, in generate_doc_xls
+    tech_report.save(filename=save_report_name)
+  File "/usr/local/lib/python2.7/dist-packages/openpyxl/workbook/workbook.py", line 339, in save
+    save_workbook(self, filename)
+  File "/usr/local/lib/python2.7/dist-packages/openpyxl/writer/excel.py", line 268, in save_workbook
+    writer.save(filename)
+  File "/usr/local/lib/python2.7/dist-packages/openpyxl/writer/excel.py", line 250, in save
+    self.write_data()
+  File "/usr/local/lib/python2.7/dist-packages/openpyxl/writer/excel.py", line 87, in write_data
+    write_string_table(self.workbook.shared_strings))
+  File "/usr/local/lib/python2.7/dist-packages/openpyxl/writer/strings.py", line 23, in write_string_table
+    text.text = key
+  File "src/lxml/lxml.etree.pyx", line 1031, in lxml.etree._Element.text.__set__ (src/lxml/lxml.etree.c:55347)
+  File "src/lxml/apihelpers.pxi", line 711, in lxml.etree._setNodeText (src/lxml/lxml.etree.c:24667)
+  File "src/lxml/apihelpers.pxi", line 699, in lxml.etree._createTextNode (src/lxml/lxml.etree.c:24516)
+  File "src/lxml/apihelpers.pxi", line 1437, in lxml.etree._utf8 (src/lxml/lxml.etree.c:32414)
+TypeError: Argument must be bytes or unicode, got 'float'
+ERROR: 2016-11-01 16:21:11,995 Internal Server Error: /generate_xls
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/django/core/handlers/exception.py", line 39, in inner
+    response = get_response(request)
+  File "/usr/local/lib/python2.7/dist-packages/django/core/handlers/base.py", line 187, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/usr/local/lib/python2.7/dist-packages/django/core/handlers/base.py", line 185, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/django/views/decorators/csrf.py", line 58, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "/home/glopez/Apps/fluid-integrates/app/views.py", line 89, in generate_xls
+    docs.generate_doc_xls(project, json.loads(data))
+  File "/home/glopez/Apps/fluid-integrates/app/docs.py", line 126, in generate_doc_xls
+    tech_report.save(filename=save_report_name)
+  File "/usr/local/lib/python2.7/dist-packages/openpyxl/workbook/workbook.py", line 339, in save
+    save_workbook(self, filename)
+  File "/usr/local/lib/python2.7/dist-packages/openpyxl/writer/excel.py", line 268, in save_workbook
+    writer.save(filename)
+  File "/usr/local/lib/python2.7/dist-packages/openpyxl/writer/excel.py", line 250, in save
+    self.write_data()
+  File "/usr/local/lib/python2.7/dist-packages/openpyxl/writer/excel.py", line 87, in write_data
+    write_string_table(self.workbook.shared_strings))
+  File "/usr/local/lib/python2.7/dist-packages/openpyxl/writer/strings.py", line 23, in write_string_table
+    text.text = key
+  File "src/lxml/lxml.etree.pyx", line 1031, in lxml.etree._Element.text.__set__ (src/lxml/lxml.etree.c:55347)
+  File "src/lxml/apihelpers.pxi", line 711, in lxml.etree._setNodeText (src/lxml/lxml.etree.c:24667)
+  File "src/lxml/apihelpers.pxi", line 699, in lxml.etree._createTextNode (src/lxml/lxml.etree.c:24516)
+  File "src/lxml/apihelpers.pxi", line 1437, in lxml.etree._utf8 (src/lxml/lxml.etree.c:32414)
+TypeError: Argument must be bytes or unicode, got 'float'
+ERROR: 2016-11-01 16:25:33,188 Internal Server Error: /generate_xls
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/django/core/handlers/exception.py", line 39, in inner
+    response = get_response(request)
+  File "/usr/local/lib/python2.7/dist-packages/django/core/handlers/base.py", line 187, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/usr/local/lib/python2.7/dist-packages/django/core/handlers/base.py", line 185, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/django/views/decorators/csrf.py", line 58, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "/home/glopez/Apps/fluid-integrates/app/views.py", line 89, in generate_xls
+    docs.generate_doc_xls(project, json.loads(data))
+  File "/home/glopez/Apps/fluid-integrates/app/docs.py", line 134, in generate_doc_xls
+    tech_report.save(filename=save_report_name)
+  File "/usr/local/lib/python2.7/dist-packages/openpyxl/workbook/workbook.py", line 339, in save
+    save_workbook(self, filename)
+  File "/usr/local/lib/python2.7/dist-packages/openpyxl/writer/excel.py", line 268, in save_workbook
+    writer.save(filename)
+  File "/usr/local/lib/python2.7/dist-packages/openpyxl/writer/excel.py", line 250, in save
+    self.write_data()
+  File "/usr/local/lib/python2.7/dist-packages/openpyxl/writer/excel.py", line 87, in write_data
+    write_string_table(self.workbook.shared_strings))
+  File "/usr/local/lib/python2.7/dist-packages/openpyxl/writer/strings.py", line 23, in write_string_table
+    text.text = key
+  File "src/lxml/lxml.etree.pyx", line 1031, in lxml.etree._Element.text.__set__ (src/lxml/lxml.etree.c:55347)
+  File "src/lxml/apihelpers.pxi", line 711, in lxml.etree._setNodeText (src/lxml/lxml.etree.c:24667)
+  File "src/lxml/apihelpers.pxi", line 699, in lxml.etree._createTextNode (src/lxml/lxml.etree.c:24516)
+  File "src/lxml/apihelpers.pxi", line 1437, in lxml.etree._utf8 (src/lxml/lxml.etree.c:32414)
+TypeError: Argument must be bytes or unicode, got 'float'
+ERROR: 2016-11-01 16:27:28,527 Internal Server Error: /generate_xls
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/django/core/handlers/exception.py", line 39, in inner
+    response = get_response(request)
+  File "/usr/local/lib/python2.7/dist-packages/django/core/handlers/base.py", line 187, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/usr/local/lib/python2.7/dist-packages/django/core/handlers/base.py", line 185, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/django/views/decorators/csrf.py", line 58, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "/home/glopez/Apps/fluid-integrates/app/views.py", line 89, in generate_xls
+    docs.generate_doc_xls(project, json.loads(data))
+  File "/home/glopez/Apps/fluid-integrates/app/docs.py", line 123, in generate_doc_xls
+    write_number(finding_sheet, row, 8,i["criticidad"])
+  File "/home/glopez/Apps/fluid-integrates/app/docs.py", line 98, in write_number
+    temp_cell.style.number_format.format_code = '0.00E+00'
+AttributeError: 'str' object has no attribute 'number_format'
+ERROR: 2016-11-01 16:34:10,215 Internal Server Error: /generate_xls
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/django/core/handlers/exception.py", line 39, in inner
+    response = get_response(request)
+  File "/usr/local/lib/python2.7/dist-packages/django/core/handlers/base.py", line 187, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/usr/local/lib/python2.7/dist-packages/django/core/handlers/base.py", line 185, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/django/views/decorators/csrf.py", line 58, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "/home/glopez/Apps/fluid-integrates/app/views.py", line 89, in generate_xls
+    docs.generate_doc_xls(project, json.loads(data))
+  File "/home/glopez/Apps/fluid-integrates/app/docs.py", line 121, in generate_doc_xls
+    write_number(finding_sheet, row, 8,i["criticidad"])
+  File "/home/glopez/Apps/fluid-integrates/app/docs.py", line 98, in write_number
+    temp_cell.style.number_format = '0.00E+00'
+AttributeError: 'str' object has no attribute 'number_format'
+ERROR: 2016-11-01 16:48:26,181 Internal Server Error: /generate_xls
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/django/core/handlers/exception.py", line 39, in inner
+    response = get_response(request)
+  File "/usr/local/lib/python2.7/dist-packages/django/core/handlers/base.py", line 187, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/usr/local/lib/python2.7/dist-packages/django/core/handlers/base.py", line 185, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/django/views/decorators/csrf.py", line 58, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "/home/glopez/Apps/fluid-integrates/app/views.py", line 89, in generate_xls
+    docs.generate_doc_xls(project, json.loads(data))
+  File "/home/glopez/Apps/fluid-integrates/app/docs.py", line 121, in generate_doc_xls
+    write_number(finding_sheet, row, 8,"+" + i["criticidad"])
+  File "/home/glopez/Apps/fluid-integrates/app/docs.py", line 98, in write_number
+    temp_cell.guess_types = False
+AttributeError: can't set attribute

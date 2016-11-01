@@ -19,7 +19,7 @@ dependencies:
     - sudo pip install --upgrade pip setuptools
     - sudo apt-get update
     - sudo apt-get install ruby-full asciidoctor
-    - sudo pip install django requests pylint jinja2 pyyaml
+    - sudo pip install django requests pylint jinja2 pyyaml openpyxl
     - sudo gem install asciidoctor-pdf --pre
   override:
     - sudo apt-get install scons
