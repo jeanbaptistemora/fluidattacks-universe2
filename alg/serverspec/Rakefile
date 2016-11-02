@@ -1,7 +1,7 @@
 require 'rake'
 require 'rspec/core/rake_task'
 
-$host       = ENV['host']
+$host       = '127.0.0.1'
 $modulelist = ENV['modulelist']
 
 task :spec => "spec:#{$host}"
@@ -10,7 +10,7 @@ namespace :spec do
   desc "Running serverspec on host #{$host}"
   RSpec::Core::RakeTask.new($host) do |t|
     ENV['TARGET_HOST'] = $host
-    t.pattern = 'spec/{' + properties[key][:roles].join(',') + '}/*_spec.rb'
+    t.pattern = 'spec/*_spec.rb'
     t.fail_on_error = false
   end
-
+end

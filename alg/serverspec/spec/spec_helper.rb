@@ -4,11 +4,12 @@ require 'pathname'
 require 'bundler/setup'
 
 RSpec.configure do |config|
-  set :host,  ENV['TARGET_HOST']
-    set :ssh_options, :user => 'root', :port => 22000, :paranoid => false, :verbose => :error, :host_key => 'ssh-rsa', :keys => '~/.ssh/config.facont.alg'
+  set :host,  '127.0.0.1'
+  set :ssh_options, :user => 'root', :port => 22000, :verbose => :warn, :host_key => 'ssh-rsa', :keys => '/root/.ssh/alg_facont_id_rsa'
   set :backend, :ssh
   set :request_pty, true
 end
+
 set :env, :LANG => 'C', :LC_MESSAGES => 'C'
 set :path, '/sbin:/usr/local/sbin:$PATH'
 
