@@ -32,9 +32,6 @@ dependencies:
     - cd alg/serverspec && bundle install
 
 test:
-  pre:
-    - ansible alg -i alg/provision/hosts -m ping
-    - ansible exams -i exams/provision/hosts -m ping
   override:
     - curl http://localhost
     - curl http://localhost:8080/admin/index.php
