@@ -12,6 +12,8 @@ machine:
 # version de python del sistema base de CI, se requiere por ansible-container.
   python:
     version: 2.7.10
+  ruby:
+    version: 2.3.1
 
 
 dependencies:
@@ -27,13 +29,11 @@ dependencies:
   post:
     - ./alg.sh
     - ./exams.sh
-
-# Antes de este punto todo es cacheable.  Pendiente investigar como.
+    - bundle install
 
 test:
-  pre:
-    - ansible alg -i alg/provision/hosts -m ping
-    - ansible exams -i exams/provision/hosts -m ping
   override:
     - curl http://localhost
     - curl http://localhost:8080/admin/index.php
+    - cd exams/serverspec && bundle exec rake spec 
+    - cd alg/serverspec && bundle exec rake spec
