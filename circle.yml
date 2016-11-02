@@ -29,7 +29,7 @@ dependencies:
   post:
     - ./alg.sh
     - ./exams.sh
-    - cd alg/serverspec && bundle install
+    - bundle install
 
 test:
   override:

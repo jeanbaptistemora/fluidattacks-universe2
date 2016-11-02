@@ -71,7 +71,7 @@
      unarchive: src=/tmp/moodledata.tar dest=/var/www/moodledata copy=no
 
    - name: Instalar Moodle
-     command: /usr/bin/php install.php --non-interactive --wwwroot={{ moodle_host }} --dataroot=/var/www/moodledata --dbhost={{ db_host }} --dbuser={{ db_username }} --dbpass={{ db_password }} --fullname="FLUID Courses" --shortname="Moodle" --adminpass={{ admin_password }} --agree-license chdir=/var/www/html/admin/cli 
+     command: /usr/bin/php install.php --non-interactive --skip-database --agree-license chdir=/var/www/html/admin/cli 
 
    - name: Agregar config.php
      template: src=ansible/templates/config.j2 dest="/var/www/html/config.php" mode=0644
