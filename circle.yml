@@ -37,4 +37,6 @@ test:
   override:
     - curl http://localhost
     - curl http://localhost:8080/admin/index.php
-#    - bundle exec rake spec
+    - cd exams/serverspec && bundle exec rake spec -F ~/.ssh/config.facont.exams
+    - cd alg/serverspec && bundle exec rake spec -F ~/.ssh/config.facont.alg
+
