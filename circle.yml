@@ -37,4 +37,4 @@ test:
   override:
     - curl http://localhost
     - curl http://localhost:8080/admin/index.php
-    - bundle exec rake spec
+#    - bundle exec rake spec
