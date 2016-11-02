@@ -30,7 +30,6 @@ dependencies:
     - ./alg.sh
     - ./exams.sh
     - cd alg/serverspec && bundle install
-    - cd exams/serverspec && bundle install
 
 test:
   pre:
@@ -39,6 +38,5 @@ test:
   override:
     - curl http://localhost
     - curl http://localhost:8080/admin/index.php
-    - cd exams/serverspec && bundle exec rake spec -F ~/.ssh/config.facont.exams
-    - cd alg/serverspec && bundle exec rake spec -F ~/.ssh/config.facont.alg
-
+    - cd exams/serverspec && bundle exec rake spec 
+    - cd alg/serverspec && bundle exec rake spec
