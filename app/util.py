@@ -57,11 +57,26 @@ def ord_asc_by_criticidad(data):
             fc = float(data[i]["criticidad"])
             sc = float(data[j]["criticidad"])
             if (fc < sc):
-                aux = sc
-                sc = fc
-                fc = aux     
+                aux = data[i]
+                data[i] = data[j]
+                data[j] = aux    
     return data
  
+def extract_reqs(req_vect):
+    """ Extrar all req identifiers with format REQ.XXXX"""
+    try:
+        reqs = re.findall("REQ\\.\\d{3,4}", req_vect)
+        reqs = [ x.replace("REQ.","") for x in reqs ]
+        return "|".join(reqs)
+    except ValueError:
+        return ""
+    
+def extract_metric(metric_str):
+    try:
+        return metric_str.split("|")[1].strip().split(":")[0].strip()
+    except ValueError:
+        return ""
+
 config = {
     'dir': path.dirname(path.dirname(path.abspath(__file__))),
     'trim_blocks': True,

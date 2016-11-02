@@ -61,6 +61,21 @@ CONFIG = {
                 'requisitos': "38254586",
                 'solucion_efecto': "38619077",
                 'tipo': "38392454",
+                #2016-nov-2 Agregado para documentacion automatica
+                #2016-nov-2 Calificacion CVS
+                'categoria': "46956845",
+                'escenario': "38692215",
+                'ambito': "38254691",
+                'vector_acceso': "38529247",
+                'complejidad_acceso': "38529248",
+                'autenticacion': "38529249",
+                'impacto_confidencialidad': "38529250",
+                'impacto_integridad': "38529251",
+                'impacto_disponibilidad': "38529252",
+                'explotabilidad': "38529253",
+                'nivel_resolucion': "38529254",
+                'nivel_confianza': "38529255",
+                'evidencia': "32202896"
             },
             'evnt':{
                 'analista': "29042426",
@@ -139,6 +154,34 @@ def parse_vulnreq(frmvuln, frmid):
             vuln["contexto"] = i["value"]
         if i["field"] == config_prj["nivel"]:
             vuln["nivel"] = i["value"]
+        #2016-nov-2 Agregado para documentacion automatica
+        #2016-nov-2 Calificacion CVS
+        if i["field"] == config_ctx["vector_acceso"]:
+            vuln["vector_acceso"] = i["value"]
+        if i["field"] == config_ctx["complejidad_acceso"]:
+            vuln["complejidad_acceso"] = i["value"]
+        if i["field"] == config_ctx["autenticacion"]:
+            vuln["autenticacion"] = i["value"]
+        if i["field"] == config_ctx["impacto_confidencialidad"]:
+            vuln["impacto_confidencialidad"] = i["value"]
+        if i["field"] == config_ctx["impacto_integridad"]:
+            vuln["impacto_integridad"] = i["value"]
+        if i["field"] == config_ctx["impacto_disponibilidad"]:
+            vuln["impacto_disponibilidad"] = i["value"]
+        if i["field"] == config_ctx["explotabilidad"]:
+            vuln["explotabilidad"] = i["value"]
+        if i["field"] == config_ctx["nivel_resolucion"]:
+            vuln["nivel_resolucion"] = i["value"]
+        if i["field"] == config_ctx["nivel_confianza"]:
+            vuln["nivel_confianza"] = i["value"]
+        if i["field"] == config_ctx["evidencia"]:
+            vuln["evidencia"] = i["value"]
+        if i["field"] == config_ctx["escenario"]:
+            vuln["escenario"] = i["value"]
+        if i["field"] == config_ctx["ambito"]:
+            vuln["ambito"] = i["value"]
+        if i["field"] == config_ctx["categoria"]:
+            vuln["categoria"] = i["value"]
     return vuln
 
 def parse_evntreq(frmevnt, frmid):

@@ -6,7 +6,8 @@ integrates.factory('findingFactory', function($q){
               $.ajax({
                   url: BASE.url + "get_vuln_by_name",
                   data: {
-                    project: project
+                    project: project,
+                    _: Math.random()
                   },
                   success: function (response) { 
                       $(".loader").hide();
@@ -32,8 +33,9 @@ integrates.factory('findingFactory', function($q){
         generateDoc: function(project,json){
           var deferred = $q.defer();
           try {
+              console.log(json);
               $.ajax({
-                  url: BASE.url + "generate_xls",
+                  url: BASE.url + "generate_xls?_"+Math.random(),
                   method: "POST",
                   data: {
                     project: project,

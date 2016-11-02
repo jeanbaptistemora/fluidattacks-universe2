@@ -8,7 +8,7 @@
 from openpyxl import load_workbook
 from jinja2 import Environment, FileSystemLoader
 from os import path
-import codecs, util
+import codecs, util, re
 
 config = {
     'dir': path.dirname(path.dirname(path.abspath(__file__))),
@@ -20,39 +20,7 @@ config = {
     'xls': {
         'general': '/app/templates/fluid.xlsx',
         'detallado': '/app/templates/bancolombia.xlsx',
-        'first_row': 3
-    },
-    'columns': {
-        'fluid_hallazgos': {
-            'titulo': 2,
-            'vulnerabilidad': 3,
-            'donde': 4,
-            'requisitos': 5,
-            'metricas': 7,
-            'criticidad': 8,
-            'cardinalidad': 9,
-            'evidencia': 10,
-            'solucion_efectos': 11,
-            'instructivo_solucion': 12,
-            'requisitos': 13,
-            'amenaza':14,
-            'riesgos':15
-        },
-        'bank_hallazgos': {
-            'titulo': 2,
-            'vulnerabilidad': 3,
-            'donde': 4,
-            'requisitos': 5,
-            'metricas': 7,
-            'criticidad': 8,
-            'cardinalidad': 9,
-            'evidencia': 10,
-            'solucion_efectos': 11,
-            'instructivo_solucion': 12,
-            'requisitos': 13,
-            'amenaza':14,
-            'riesgos':15
-        }
+        'first_row': 3,
     }
 }
 
@@ -107,7 +75,9 @@ def generate_doc_xls(project, data):
     save_report_name = config['dir']+"/app/autodoc/results/" + project + ".xlsx"
     tech_report = load_workbook(filename=workbook_name)
     finding_sheet = tech_report["Hallazgos"]
+    qc_sheet = tech_report["MatrizQC"]
     row = config["xls"]["first_row"]
+    qc_row = config["xls"]["first_row"]
     data = util.ord_asc_by_criticidad(data)
     for i in data:
         # Columna Titulo (2)
@@ -116,6 +86,33 @@ def generate_doc_xls(project, data):
         write_to_cell(finding_sheet, row, 3, i["vulnerabilidad"])
         # Columna Vulnerabilidad (4)
         write_to_cell(finding_sheet, row, 4, i["donde"])
+        # Columna Requisitos (5)
+        write_to_cell(finding_sheet, row, 5, i["requisitos"])
+        # Columna Metricas (7)
+        # Fix Autodoc formulario Bajo a Baja 
+        vector_acceso = util.extract_metric(i["vector_acceso"])
+        complejidad_acceso = util.extract_metric(i["complejidad_acceso"])
+        # Fix Autodoc formulario Bajo a Baja 
+        if complejidad_acceso == "Bajo":
+            complejidad_acceso = "Baja"
+        elif complejidad_acceso == "Alto":
+            complejidad_acceso = "Alta"
+        autenticacion = util.extract_metric(i["autenticacion"])
+        impacto_confidencialidad = util.extract_metric(i["impacto_confidencialidad"])
+        impacto_integridad = util.extract_metric(i["impacto_integridad"])
+        impacto_disponibilidad = util.extract_metric(i["impacto_disponibilidad"])
+        explotabilidad = util.extract_metric(i["explotabilidad"])
+        nivel_resolucion = util.extract_metric(i["nivel_resolucion"])
+        nivel_confianza = util.extract_metric(i["nivel_confianza"])
+        write_number(finding_sheet, row, 7, vector_acceso)
+        write_number(finding_sheet, row+1, 7, complejidad_acceso)
+        write_number(finding_sheet, row+2, 7, autenticacion)
+        write_number(finding_sheet, row+3, 7, impacto_confidencialidad)
+        write_number(finding_sheet, row+4, 7, impacto_integridad)
+        write_number(finding_sheet, row+5, 7, impacto_disponibilidad)
+        write_number(finding_sheet, row+6, 7, explotabilidad)
+        write_number(finding_sheet, row+7, 7, nivel_resolucion)
+        write_number(finding_sheet, row+8, 7, nivel_confianza)
         # Columna Criticidad (8)
         write_number(finding_sheet, row, 8, float(i["criticidad"]))
         # Columna Cardinalidad (9)
@@ -127,31 +124,58 @@ def generate_doc_xls(project, data):
         # Columna Instructivo (12)
         write_to_cell(finding_sheet, row, 12, "Soluciones/"+ i["hallazgo"])
         # Columna Ids Requisitos (13)
-        write_number(finding_sheet, row, 13, ".(0144)")
+        reqs = util.extract_reqs(i["requisitos"])
+        write_number(finding_sheet, row, 13 , ".*(" + reqs + ")")
         # Datos si es detallado
         if proy_type == "detallado":
             # Columna Amenaza (14)
-            write_to_cell(finding_sheet, row, 14, i["amenaza"])
+            write_to_cell(finding_sheet, qc_row, 14, i["amenaza"])
             # Columna Riesgo (15)
-            write_to_cell(finding_sheet, row, 15, i["riesgo"])
+            write_to_cell(finding_sheet, qc_row, 15, i["riesgo"])
+            # Escribir en QC todos los campos
+            # Columna Tipo de prueba (5)
+            write_number(qc_sheet, qc_row, 5, i["tipo_prueba"])
+            # Columna Componente aplicativo (6)
+            # Columna ID Requisitos (8)
+            write_number(qc_sheet, qc_row, 8, reqs) 
+            # Columna Fabrica de testing (10)
+            write_number(qc_sheet, qc_row, 10, "Fluid")
+            # Columna Detectador por (11)
+            write_number(qc_sheet, qc_row, 11, i["analista"])
+            # Columna escenario (10)
+            write_number(qc_sheet, qc_row, 10, "Fluid")
+            # Columna Detectador por (11)
+            write_number(qc_sheet, qc_row, 11, i["analista"])
+            # Columna Detectado ciclo (12)
+            # Columna Escenario (13)
+            # FIX por modificacion de formstack
+            try:
+                escenario = i["escenario"]
+            except KeyError: 
+                escenario = ""
+            write_number(qc_sheet, qc_row, 13, escenario)
+            # Columna Hallazgo (14)
+            write_number(qc_sheet, qc_row, 14, i["hallazgo"])
+            # Columna Ambito (17)
+            write_number(qc_sheet, qc_row, 17, i["ambito"]) 
+            # Columna Categoria Bancolombia (18) 
+            # FIX por modificacion de formstack
+            try:
+                categoria = i["categoria"]
+            except KeyError: 
+                categoria = ""
+            write_number(qc_sheet, qc_row, 18, categoria)
+            # Columna Amenaza (19)
+            write_number(qc_sheet, qc_row, 19, i["amenaza"])
+            # Columna Tipo Reporte (20)
+            write_number(qc_sheet, qc_row, 20, "Hallazgo")
+            # Columna Naturaleza (21)
+            write_number(qc_sheet, qc_row, 21, "Seguridad")
+            # Columna Probabilidad (26)
+            write_number(qc_sheet, qc_row, 26, i["probabilidad"])
+            # Columna Severidad (27)
+            write_number(qc_sheet, qc_row, 27, i["severidad"])
+            qc_row = qc_row + 1
+        print i["evidencia"]
         row = row + 10
-        print i["vulnerabilidad"]
     tech_report.save(filename=save_report_name)
-    """
-    
-    hallazgos_sheet["B3"] = "TEST HALLAZGO"
-    hallazgos_sheet["C3"] = "Esto es una prueba"
-    hallazgos_sheet["D3"] = "DONDE ALEX\nDONDE CHETO"
-    hallazgos_sheet["M3"] = ".*(0056)"
-    cell = hallazgos_sheet.cell(row=13, column=2)
-    cell.set_explicit_value(value="=1+1",data_type=cell.TYPE_FORMULA)
-    tech_report.save(filename = TECH_REPORT_PROJECT)
-    print tech_report.sheetnames
-    print "DONEEE!" 
-    """
-
-def detailed_autodoc():
-    return "detailed"
-
-def general_autodoc():
-    return "general"
