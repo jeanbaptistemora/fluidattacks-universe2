@@ -1,15 +1,28 @@
-/*
- * @description: Controlador y servicio para autenticacion en FLUIDIntegrates
+/**
+ * @file login.js
  */
-
+/*
+ *  Seleccion de rutas absolutas para el direccionamiento
+ *  de integrates
+ */
 var BASE = { production: "/integrates/",
              development: "/" };
 BASE.url = BASE.development;
 //definicion de modulos
 var integrates = angular.module("FluidIntegrates", []); 
-
+/**
+ * Crea el controlador de la funcionalidad de autenticacion
+ * @name loginController 
+ * @param {Object} $scope 
+ * @param {integrates.loginFactory} loginFactory 
+ * @return {undefined}
+ */
 integrates.controller("loginController", function($scope){
-
+    /**
+     * Autentica a un usuario
+     * @function login
+     * @return {undefined}
+     */
     $scope.login = function(){
         var username = $scope.username;
         var password = $scope.password;

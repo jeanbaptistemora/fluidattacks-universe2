@@ -137,3 +137,7 @@ STATICFILES_DIRS = (
     os.path.join(PROJECT_ROOT, '../app/assets'),
 )
 
+import sys  
+
+reload(sys)  
+sys.setdefaultencoding('utf8')

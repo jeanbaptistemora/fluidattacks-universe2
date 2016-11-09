@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 """ Vistas y servicios para FluidIntegrates """
 
 import os
@@ -20,7 +21,7 @@ def index(request):
 def dashboard(request):
     "Vista de panel de control para usuarios autenticados"
     if not util.is_authenticated(request):
-        return redirect("/index")
+        return HttpResponse('Unauthorized', status=401)
     parameters = {
         'username': request.session["username"]
     }
@@ -50,7 +51,7 @@ def login(request):
 
 # Documentacion automatica
 @csrf_exempt
-@require_http_methods(["POST"])
+@require_http_methods(["GET"])
 def export_autodoc(request):
     "Captura y devuelve el pdf de un proyecto"
     content_type = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
@@ -70,7 +71,7 @@ def export_autodoc(request):
     return HttpResponse(message)
 
 @csrf_exempt
-@require_http_methods(["GET"])
+@require_http_methods(["POST"])
 def generate_autodoc(request):
     "Genera la documentacion automatica en excel"
     if not util.is_authenticated(request):
@@ -165,7 +166,7 @@ def update_evnt(request):
             + " [" + post_parms["vuln[id]"] + "]"
     updated = models.update_evnt_by_id(post_parms)
     if updated:
-        util.traceability(action, USER)
+        util.traceability(action.encode('utf-8'), USER.encode('utf-8'))
         return util.response([], 'Actualizado correctamente', False)
     else:
         return util.response([], 'No se pudo actualizar formstack', True)
@@ -177,6 +178,8 @@ def update_vuln(request):
         return HttpResponse('Unauthorized', status=401)
     post_parms = request.POST.dict()
     action = ""
+    for i,k in post_parms.items():
+        post_parms[i] = k.encode('utf8')
     if "vuln[proyecto_fluid]" not in post_parms \
         or "vuln[hallazgo]" not in post_parms \
         or "vuln[id]" not in post_parms:
@@ -188,7 +191,7 @@ def update_vuln(request):
             + "[" + post_parms["vuln[id]"] + "]"
     res = models.update_vuln_by_id(post_parms)
     if res:
-        util.traceability(action, USER)
+        util.traceability(action, request.session["username"])
         return util.response([], 'Actualizado correctamente!', False)
     else:
         return util.response([], 'No se pudo actualizar formstack', True)
@@ -199,27 +202,24 @@ def delete_vuln(request):
     if not util.is_authenticated(request):
         return HttpResponse('Unauthorized', status=401)
     post_parms = request.POST.dict()
-    csrf = True
-    for i in post_parms:
-        print i
-    if csrf is False:
-        return util.response([], 'CSRF', True)
+    for i,k in post_parms.items():
+        post_parms[i] = k.encode('utf8')
+    action = "Envio de campos vacios"
+    if "vuln[hallazgo]" not in post_parms \
+        or "vuln[proyecto_fluid]" not in post_parms \
+        or "vuln[justificacion]" not in post_parms \
+        or "vuln[id]" not in post_parms:
+        return util.response([], 'Campos vacios', True)
     else:
-        action = "Envio de campos vacios"
-        if "vuln[hallazgo]" not in post_parms \
-            or "vuln[proyecto_fluid]" not in post_parms \
-            or "vuln[justificacion]" not in post_parms \
-            or "vuln[id]" not in post_parms:
-            return util.response([], 'Campos vacios', True)
-        else:
-            action = "Eliminar hallazgo, " \
-                + post_parms["vuln[justificacion]"] \
-                + " PROYECTO " + post_parms["vuln[proyecto_fluid]"].upper() \
-                + " => " + post_parms["vuln[hallazgo]"] \
-                + "[" + post_parms["vuln[id]"] + "]"
+        action = "Eliminar hallazgo, " \
+            + post_parms["vuln[justificacion]"] \
+            + " PROYECTO " + post_parms["vuln[proyecto_fluid]"].upper() \
+            + " => " + post_parms["vuln[hallazgo]"] \
+            + "[" + post_parms["vuln[id]"] + "]"
         res = models.delete_vuln_by_id(post_parms["vuln[id]"])
         if res:
-            util.traceability(action, USER)
+            util.traceability(action, request.session["username"])
             return util.response([], 'Eliminado correctamente!', False)
         else:
             return util.response([], 'No se pudo actualizar formstack', True)
+        

@@ -1,5 +1,22 @@
+/**
+ * @file eventualityFactory.js
+ * @author engineering@fluid.la
+ */
+/**
+ * Crea el factory de la funcionalidad de eventualidades
+ * @name  
+ * @param {Object} $q 
+ * @return {undefined}
+ */
 integrates.factory('eventualityFactory', function($q){
     return {
+        /**
+         * Obtiene los submission de una eventualidad
+         * @function getEvntByName
+         * @param {String} project
+         * @member integrates.eventualityFactory
+         * @return {Object}
+         */
         getEvntByName: function(project){
           var deferred = $q.defer();
           try {
@@ -32,6 +49,13 @@ integrates.factory('eventualityFactory', function($q){
           }
           return deferred.promise
         },
+        /**
+         * Actualiza una eventualidad
+         * @function updateEvnt
+         * @param {Object} vuln
+         * @member integrates.eventualityFactory
+         * @return {Object}
+         */
         updateEvnt: function(vuln){
             var deferred = $q.defer();
             try {
@@ -59,8 +83,17 @@ integrates.factory('eventualityFactory', function($q){
           } catch (e) {
               if(e.status == 401){
                   location = "/index";
+              }else if(e.status == 500){
+                  deferred.resolve({
+                    error: undefined, 
+                    message: "Error de formstack"
+                  });
+              }else{
+                  deferred.resolve({
+                    error: undefined, 
+                    message: "Error desconocido"
+                  });
               }
-              deferred.resolve('exception');
           }
           return deferred.promise
         }

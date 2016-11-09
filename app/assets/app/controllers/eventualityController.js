@@ -1,12 +1,29 @@
+/**
+ * @file eventualityController.js
+ * @author engineering@fluid.la
+ */
+/**
+ * Cambia el formato de una de las columnas de la tabla de eventualidades
+ * @function afectacionFormatter
+ * @param {String} value
+ * @param {Object} row
+ * @param {Number} index 
+ * @return {String}
+ */
 integrates.afectacionFormatter = function(value, row, index){
-    if (value.trim() == "")
-        return "0";
+    if(value !== undefined)
+        if (value.trim() == "")
+            return "0";
     return value;
 };
+/**
+ * Calcula la afectacion total para el label resumen
+ * @function evntTotalize
+ * @param {Object} data 
+ * @return {undefined}
+ */
 integrates.evntTotalize = function(data){
     var cardinalidad = 0; 
-    //data.data.forEach(function(i){ cardinalidad+= parseInt(i.cardinalidad); });
-    //$("#total_cardinalidad").html(cardinalidad);
     var afectacion = 0;
     for(var i = 0; i< data.data.length;i++){
         auxAfectacion = 0;
@@ -18,28 +35,38 @@ integrates.evntTotalize = function(data){
     $("#total_eventualidades").html(data.data.length);
     $("#total_afectacion").html(afectacion);
 };
-integrates.updateVulnRow = function(row){
-    var data = $("#eventualities").bootstrapTable("getData")
-    for(var i=0; i< data.length;i++){
-        if(data[i].id == row.id){
-            data[i] = row;
-            $("#eventualities").bootstrapTable("destroy");
-            $("#eventualities").bootstrapTable({data: data});
-            $("#eventualities").bootstrapTable("refresh");
-            break;
-        }
-    }
-    integrates.evntTotalize({data: data});
-};
-
-
-integrates.controller("eventualityController", function($scope,$uibModal, eventualityFactory) {
+/**
+ * Crea el controlador de la funcionalidad de eventualidades
+ * @name eventualityController 
+ * @param {Object} $scope 
+ * @param {Object} $uibModal
+ * @param {integrates.eventualityFactory} eventualityFactory 
+ * @return {undefined}
+ */
+integrates.controller("eventualityController", function($scope, $uibModal, eventualityFactory) {
+    /**
+     * Inicializa las variables del controlador de eventualidades
+     * @function init
+     * @member integrates.eventualityController
+     * @return {undefined}
+     */
     $scope.init = function(){
         $("#search_section").hide();
         $(".loader").hide();
+        document.onkeypress = function(ev){ //asignar funcion a la tecla Enter
+            if(ev.keyCode === 13){
+                if($('#project').is(':focus')){
+                    $scope.searchEvntByName();
+                }        
+            }
+        }
+
     }
-    /*
-     *  Modal para ver un hallazgo 
+    /**
+     * Despliega la modal de ver eventualidad
+     * @function openModalVer
+     * @member integrates.eventualityController
+     * @return {undefined}
      */
     $scope.openModalVer = function(){
         var sel = $("#eventualities").bootstrapTable('getSelections');
@@ -75,8 +102,11 @@ integrates.controller("eventualityController", function($scope,$uibModal, eventu
             }
         });
     };
-    /*
-     *  Modal para obtener el string del resumen de eventualidades 
+    /**
+     * Despliega la modal de ver resumen de eventualidades
+     * @function openModalAvance
+     * @member integrates.eventualityController
+     * @return {undefined}
      */
     $scope.openModalAvance = function(){
         var modalInstance = $uibModal.open({
@@ -94,8 +124,11 @@ integrates.controller("eventualityController", function($scope,$uibModal, eventu
             }
         });
     };
-    /*
-     *  Modal para obtener el string del formulario de avance 
+    /**
+     * Despliega la modal de editar eventualidades
+     * @function openModalEditar
+     * @member integrates.eventualityController
+     * @return {undefined}
      */
     $scope.openModalEditar = function(){
         var sel = $("#eventualities").bootstrapTable('getSelections');
@@ -142,7 +175,6 @@ integrates.controller("eventualityController", function($scope,$uibModal, eventu
                            return false;
                        }
                    }
-
                    eventualityFactory.updateEvnt($scope.evnt).then(function(response){
                         if(!response.error){
                             $.gritter.add({
@@ -175,8 +207,11 @@ integrates.controller("eventualityController", function($scope,$uibModal, eventu
             }
         });
     };
-    /*
-     * Buscar eventualidades de un proyecto por su nombre
+    /**
+     * Busca las eventualidades por nombre de proyecto
+     * @function searchEvntByName
+     * @member integrates.findingController
+     * @return {undefined}
      */
     $scope.searchEvntByName = function(){
         var project = $scope.project;
@@ -186,9 +221,10 @@ integrates.controller("eventualityController", function($scope,$uibModal, eventu
                 title: 'Consultando',
                 text: 'Un momento porfavor...',
                 class_name: 'color info',
-                    sticky: false,
+                sticky: false,
             });
             $(".loader").show();
+            $scope.maxRecursiveCall = 5;
             eventualityFactory.getEvntByName(project).then(function(data){
                 if(!data.error){
                     //CONFIGURACION DE TABLA
@@ -215,20 +251,23 @@ integrates.controller("eventualityController", function($scope,$uibModal, eventu
                     class_name: 'color warning',
                     sticky: false,
                 });
-                $scope.searchEvntByName();
+                if($scope.maxRecursiveCall > 0){
+                    console.log("ENTRE");
+                    $scope.maxRecursiveCall = $scope.maxRecursiveCall - 1;
+                    $scope.searchEvntByName();
+                }else{
+                    $.gritter.add({
+                        title: 'Consultando',
+                        text: 'No se tuvo acceso a formstack...',
+                        class_name: 'color warning',
+                        sticky: false,
+                    });
+                }
             });
         }else{
             $scope.response = "El nombre es obligatorio";
         }
     };
-
-    document.onkeypress = function(ev){ 
-        if(ev.keyCode === 13){
-            if($('#project').is(':focus')){
-                $scope.searchEvntByName();
-            }        
-        }
-    }
 
     $scope.init();
 });

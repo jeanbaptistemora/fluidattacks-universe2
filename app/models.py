@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 """Funciones para consumir la API de Onelogin y Formstack"""
 import json
 from time import sleep
@@ -302,7 +303,6 @@ def get_evnt_by_submission_id(evnt_id):
 def update_vuln_by_id(reinp):
     """Actualiza una submission de formstack usando su id"""
     field_config = CONFIG["formstack"]["fields"]["vuln"]
-    print reinp
     vuln_id = reinp['vuln[id]']
     files = {
         "field_" + field_config["donde"] : reinp['vuln[donde]'],
@@ -392,7 +392,7 @@ def one_login_auth(username, password):
     }
     result = None
     try:
-        req = requests.post(url, data=data, headers=CONFIG['headers'])
+        req = requests.post(url, data=data, verify=False, headers=CONFIG['headers'])
         if req.status_code == 401:
             result = None
         elif req.status_code == 200:

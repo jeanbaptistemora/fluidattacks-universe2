@@ -1,21 +1,32 @@
-integrates.vulnbynameFormatter = function(value, row, index){
-    return '<div class="btn-group">' +
-                '<button type="button" class="btn btn-default btnVer" ng-click="openModalVer('+index+')"><i class="glyphicon glyphicon-eye-open"></i></button>' +
-                '<button type="button" class="btn btn-primary"><i class="glyphicon glyphicon-pencil"></i></button>' +
-                '<button type="button" class="btn btn-warning"><i class="glyphicon glyphicon-trash"></i></button>' +
-           '</div>';
-};
+/**
+ * @file findingController.js
+ * @author engineering@fluid.la
+ */
+/**
+ * Calcula la cardinalidad para el label resumen
+ * @function calcCardinality
+ * @param {Object} data 
+ * @return {undefined}
+ */
 integrates.calcCardinality = function(data){
-    var cardinalidad = 0; 
-    data.data.forEach(function(i){ cardinalidad+= parseInt(i.cardinalidad); });
+    var cardinalidad = 0;
+    data.data.forEach(function(i){
+        cardinalidad += parseInt(i.cardinalidad);
+    });
     $("#total_cardinalidad").html(cardinalidad);
     $("#total_hallazgos").html(data.data.length);
 };
+/**
+ * Actualiza una fila de la tabla de hallazgos segun la respuesta de la modal
+ * @function updateVulnRow
+ * @param {Object} row 
+ * @return {undefined}
+ */
 integrates.updateVulnRow = function(row){
-    var data = $("#vulnerabilities").bootstrapTable("getData")
+    var data = $("#vulnerabilities").bootstrapTable("getData");
     for(var i=0; i<data.length;i++){
         if(data[i].id == row.id){
-            data[i] = row;
+            data[i] = row
             $("#vulnerabilities").bootstrapTable("destroy");
             $("#vulnerabilities").bootstrapTable({data: data});
             $("#vulnerabilities").bootstrapTable("refresh");
@@ -24,9 +35,13 @@ integrates.updateVulnRow = function(row){
     }
     integrates.calcCardinality({data: data});
 };
-
+/**
+ * Elimina una fila de la tabla de hallazgos segun la respuesta de la modal
+ * @function deleteVulnRow
+ * @param {Object} row 
+ * @return {undefined}
+ */
 integrates.deleteVulnRow = function(row){
-    alert(1);
     var data = $("#vulnerabilities").bootstrapTable("getData")
     var newData = [];
     for(var i=0; i<data.length;i++){
@@ -34,19 +49,41 @@ integrates.deleteVulnRow = function(row){
             newData.append(row);
         }
     }
-    console.log(newData);
     $("#vulnerabilities").bootstrapTable("destroy");
     $("#vulnerabilities").bootstrapTable({data: newData});
     $("#vulnerabilities").bootstrapTable("refresh");
 };
+/**
+ * Crea el controlador de la funcionalidad de vulnerabilidades
+ * @name findingController 
+ * @param {Object} $scope 
+ * @param {Object} $uibModal
+ * @param {integrates.findingFactory} findingFactory 
+ * @return {undefined}
+ */
 integrates.controller("findingController", function($scope, $uibModal, findingFactory) {
-
+    /**
+     * Inicializa las variables del controlador de hallazgos
+     * @function init
+     * @member integrates.findingController
+     * @return {undefined}
+     */
     $scope.init = function(){
         $("#search_section").hide();
         $(".loader").hide();
+        document.onkeypress = function(ev){ //asignar funcion a la tecla Enter
+            if(ev.keyCode === 13){
+                if($('#project').is(':focus')){
+                    $scope.searchVulnByName();
+                }        
+            }
+        }
     }
-    /*
-     *  Modal para ver un hallazgo 
+    /**
+     * Despliega la modal de ver hallazgo
+     * @function openModalVer
+     * @member integrates.findingController
+     * @return {undefined}
      */
     $scope.openModalVer = function(){
         var sel = $("#vulnerabilities").bootstrapTable('getSelections');
@@ -88,8 +125,11 @@ integrates.controller("findingController", function($scope, $uibModal, findingFa
             }
         });
     };
-    /*
-     *  Modal para obtener el string del formulario de avance 
+    /**
+     * Despliega la modal de ver avance
+     * @function openModalAvance
+     * @member integrates.findingController
+     * @return {undefined}
      */
     $scope.openModalAvance = function(){
         var modalInstance = $uibModal.open({
@@ -107,8 +147,11 @@ integrates.controller("findingController", function($scope, $uibModal, findingFa
             }
         });
     };
-    /*
-     *  Modal para obtener el string del formulario de avance 
+    /**
+     * Despliega la modal de ver editar hallazgo
+     * @function openModalEditar
+     * @member integrates.findingController
+     * @return {undefined}
      */
     $scope.openModalEditar = function(){
         var sel = $("#vulnerabilities").bootstrapTable('getSelections');
@@ -123,7 +166,6 @@ integrates.controller("findingController", function($scope, $uibModal, findingFa
         }else{
             $scope.currentVulnerability = sel[0];
         }
-        
         var modalInstance = $uibModal.open({
             animation: true,
             templateUrl: 'editar.html',
@@ -160,7 +202,6 @@ integrates.controller("findingController", function($scope, $uibModal, findingFa
                         } 
                    });
                 }
-
                 $scope.closeModalEditar = function(){
                     $uibModalInstance.dismiss('cancel');
                 }
@@ -172,8 +213,11 @@ integrates.controller("findingController", function($scope, $uibModal, findingFa
             }
         });
     };
-    /*
-     *  Modal para obtener el string del formulario de avance 
+    /**
+     * Despliega la modal de ver eliminar hallazgo
+     * @function openModalEliminar
+     * @member integrates.findingController
+     * @return {undefined}
      */
     $scope.openModalEliminar = function(){
         var sel = $("#vulnerabilities").bootstrapTable('getSelections');
@@ -199,7 +243,6 @@ integrates.controller("findingController", function($scope, $uibModal, findingFa
                     $uibModalInstance.dismiss('cancel');
                 }
                 $scope.okModalEliminar = function(){
-                    //$uibModalInstance.dismiss('cancel');
                     if(typeof $scope.vuln.justificacion != "string"
                         || $scope.vuln.justificacion == ""){
                         $.gritter.add({
@@ -229,7 +272,6 @@ integrates.controller("findingController", function($scope, $uibModal, findingFa
                             });
                         } 
                    });
-
                 }
             },
             resolve: {
@@ -239,8 +281,11 @@ integrates.controller("findingController", function($scope, $uibModal, findingFa
             }
         });
     };
-    /*
-     *  Funcion para consultar hallazgos
+    /**
+     * Busca las vulnerabilidades por nombre de proyecto
+     * @function searchVulnByName
+     * @member integrates.findingController
+     * @return {undefined}
      */
     $scope.searchVulnByName = function(){
         var project = $scope.project;
@@ -294,8 +339,11 @@ integrates.controller("findingController", function($scope, $uibModal, findingFa
             $scope.response = "El nombre es obligatorio";
         }
     };
-    /*
-     * Envia los datos para generar la documentación automatica
+    /**
+     * Genera la documentacion automatica
+     * @function generateDoc
+     * @member integrates.findingController
+     * @return {undefined}
      */
     $scope.generateDoc = function(){
         var json = $("#vulnerabilities").bootstrapTable("getData");
@@ -326,7 +374,6 @@ integrates.controller("findingController", function($scope, $uibModal, findingFa
                     class_name: 'color warning',
                     sticky: false,
                 });
-                //$scope.searchVulnByName();
             });
         }else{
             $.gritter.add({
@@ -337,8 +384,11 @@ integrates.controller("findingController", function($scope, $uibModal, findingFa
             });
         }
     };
-    /*
+    /**
      * Descarga la documentacion automatica
+     * @function downloadDoc
+     * @member integrates.findingController
+     * @return {undefined}
      */
     $scope.downloadDoc = function(){
         downLink = document.createElement("a");
@@ -346,14 +396,7 @@ integrates.controller("findingController", function($scope, $uibModal, findingFa
         downLink.href = "export_autodoc?project=" + $scope.project;
         downLink.click();
     };
-    document.onkeypress = function(ev){ 
-        if(ev.keyCode === 13){
-            if($('#project').is(':focus')){
-                $scope.searchVulnByName();
-            }        
-        }
-    }
-
+    /* Invoca la configuracion inicial del controlador */
     $scope.init();
 });
 

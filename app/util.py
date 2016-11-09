@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 """
     Funciones de utilidad para FluidIntegrates
 """
@@ -31,9 +32,9 @@ def traceability(msg, user):
     base = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
     try:
         filename = base + "/logs/integrates.log"
-        logmsg = str(datetime.datetime.now()) + "," + user+ "," + msg
+        logmsg = str(datetime.datetime.now()) + "," + user+ "," + msg.encode('utf8')
         file_obj = open(filename, 'w')
-        file_obj.write(logmsg)
+        file_obj.write(logmsg.encode('utf8'))
         file_obj.close()
     except (OSError, IOError) as expt:
         print "ERROR CON EL LOG " + expt.message()
