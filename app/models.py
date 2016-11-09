@@ -186,7 +186,7 @@ def parse_vulnreq(frmvuln, frmid):
 
 def parse_evntreq(frmevnt, frmid):
     """Convierte los indices numericos de formstack
-       a su respectivo nombre      
+       a su respectivo nombre
     """
     evnt = dict()
     config_frm = CONFIG["formstack"]["fields"]
@@ -213,7 +213,7 @@ def parse_evntreq(frmevnt, frmid):
         if i["field"] == config_ctx["afectacion"]:
             evnt["afectacion"] = i["value"]
     return evnt
-            
+
 def get_vuln_by_name(project):
     """Obtiene todas las submission de un proyecto
        desde la API de Formstack"""
@@ -314,7 +314,7 @@ def update_vuln_by_id(reinp):
         files["field_"+field_config["riesgo"]] = reinp['vuln[riesgo]']
     if "vuln[amenaza]" in reinp:
         files["field_"+field_config["amenaza"]] = reinp['vuln[amenaza]']
-    result = {}
+    result = None
     try:
         url = CONFIG["formstack"]["forms"]["get_submission_by_id"]["url"].replace(":id", vuln_id)
         url += "?oauth_token=" + CONFIG["formstack"]["token"]
@@ -323,11 +323,11 @@ def update_vuln_by_id(reinp):
         headers["content-type"] = "application/x-www-form-urlencoded"
         result = requests.put(url, data=files, headers=headers, verify=False)
     except requests.exceptions.SSLError:
-        result = {} #Formstack SSLError
+        result = None #Formstack SSLError
     except requests.exceptions.Timeout:
-        result = {} #Formstack Connection timeout
+        result = None #Formstack Connection timeout
     except requests.exceptions.HTTPError:
-        result = {} #Fail token
+        result = None #Fail token
     return result
 
 def update_evnt_by_id(reinp):
@@ -363,7 +363,9 @@ def delete_vuln_by_id(frmid):
     result = None
     try:
         url = CONFIG["formstack"]["forms"]["get_submission_by_id"]["url"]
-        url = url.replace(":id",frmid) + "?oauth_token=" + CONFIG["formstack"]["token"]
+        url = url.replace(":id", frmid) \
+            + "?oauth_token=" \
+            + CONFIG["formstack"]["token"]
         data = {
             "id" : frmid
         }
@@ -390,8 +392,11 @@ def one_login_auth(username, password):
     }
     result = None
     try:
-        requests.post(url, data=data, headers=CONFIG['headers'])
-        result = True
+        req = requests.post(url, data=data, headers=CONFIG['headers'])
+        if req.status_code == 401:
+            result = None
+        elif req.status_code == 200:
+            result = True
     except requests.exceptions.Timeout:
         result = None #One login Connection timeout
     except requests.exceptions.HTTPError:

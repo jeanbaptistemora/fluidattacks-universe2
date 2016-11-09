@@ -1,7 +1,10 @@
 """ Vistas y servicios para FluidIntegrates """
-import json,re,os
-from django.shortcuts import render
-from django.views.decorators.csrf import csrf_exempt
+
+import os
+import json
+from django.shortcuts import render, redirect
+from django.views.decorators.csrf import csrf_exempt, csrf_protect
+from django.views.decorators.http import require_http_methods
 from django.http import HttpResponse
 import docs
 from . import models, util
@@ -16,83 +19,75 @@ def index(request):
 @csrf_exempt
 def dashboard(request):
     "Vista de panel de control para usuarios autenticados"
-    parameters = {}
+    if not util.is_authenticated(request):
+        return redirect("/index")
+    parameters = {
+        'username': request.session["username"]
+    }
     return render(request, "dashboard.html", parameters)
 
 @csrf_exempt
+def logout(request):
+    "Cierra la sesion activa de un usuario"
+    request.session["username"] = None
+    return redirect("/index")
+
+@csrf_exempt
+@require_http_methods(["POST"])
 def login(request):
     "Captura los parametros para la autenticacion"
-    username = request.POST.get('username', None)
-    password = request.POST.get('password', None)
+    username = request.POST.get('user', None)
+    password = request.POST.get('pass', None)
     if not username or not password:
-        return util.response([], 'Empty fields', True)
+        return util.response([], 'Usuario/Clave son obligatorios', True)
     else:
-        result = models.one_login_auth(username, password)
-        if result["status"]["type"] == "success":
+        auth = models.one_login_auth(username, password)
+        if auth:
             request.session['username'] = username
-            return util.response([], 'Success', False)
+            return util.response([], 'Bienvenido '+username, False)
         else:
-            return util.response([], 'Wrong! Username/Password', True)
+            return util.response([], 'Usuario/Clave incorrectos', True)
 
+# Documentacion automatica
 @csrf_exempt
-def export_auto_doc(request):
+@require_http_methods(["POST"])
+def export_autodoc(request):
     "Captura y devuelve el pdf de un proyecto"
-    project = request.GET.get('project', "")
-    filename = "app/autodoc/results/:proj.pdf".replace(":proj",project)
+    content_type = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+    message = "Documentacion no generada"
+    if not util.is_authenticated(request):
+        return HttpResponse('Unauthorized', status=401)
     try:
-        if not re.search("^[a-zA-Z0-9]+$",project):
-            raise ValueError("Nombre de proyecto incorrecto")
-        elif not os.path.isfile(filename):
-            raise ValueError("Documentacion no generada")
-        else:
+        project = request.GET.get('project', "")
+        filename = "app/autodoc/results/:proj.xlsx".replace(":proj", project)
+        if util.is_name(project) and os.path.isfile(filename):
             with open(filename, 'r') as pdf:
-                response = HttpResponse(pdf.read(), content_type='application/pdf')
-                response['Content-Disposition'] = 'inline;filename='+project+'.pdf'
+                response = HttpResponse(pdf.read(), content_type=content_type)
+                response['Content-Disposition'] = 'inline;filename='+project+'.xlsx'
                 return response
-    except ValueError as e:
-        return HttpResponse(e.message)
+    except ValueError as expt:
+        return HttpResponse(expt.message)
+    return HttpResponse(message)
 
 @csrf_exempt
-def generate_pdf(request):
-    "Genera la documentacion automatica"
-    project = request.POST.get('project', None)
-    data = request.POST.get('data', None)
-    exeq = None
-    try:
-        exeq = True
-        if not project or not data:
-            raise ValueError("")
-        elif project.strip() == "":
-            raise ValueError("")
-        elif not re.search("^[a-zA-Z0-9]+$",project):
-            raise ValueError("")
-        else:
-            data = json.loads(data)
-    except ValueError:
-        exeq = None
-    if not exeq:
-        return util.response([], 'Error procesando parametros!', True)
-    else:
-        created = util.create_template(project, data)
-        if created is True:
-            return util.response([], 'Success!', False)
-        else:
-            return util.response([], 'Error!', True)
-
-@csrf_exempt
-def generate_xls(request):
+@require_http_methods(["GET"])
+def generate_autodoc(request):
     "Genera la documentacion automatica en excel"
+    if not util.is_authenticated(request):
+        return HttpResponse('Unauthorized', status=401)
     project = request.POST.get('project', "")
     data = request.POST.get('data', None)
     if util.is_json(data) and util.is_name(project):
         if len(json.loads(data)) >= 1:
             docs.generate_doc_xls(project, json.loads(data))
-            return util.response([], 'Success!', False)
-    return util.response([], 'Error!', True)
-    
+            return util.response([], 'Documentacion generada correctamente!', False)
+    return util.response([], 'Error...', True)
+
 @csrf_exempt
 def get_vuln_by_name(request):
     "Captura y procesa el nombre de un proyecto para devolver los hallazgos"
+    if not util.is_authenticated(request):
+        return HttpResponse('Unauthorized', status=401)
     project = request.GET.get('project', None)
     if not project:
         return util.response([], 'Empty fields', True)
@@ -117,6 +112,8 @@ def get_vuln_by_name(request):
 @csrf_exempt
 def get_evnt_by_name(request):
     """Obtiene las eventualidades con el nombre del proyecto"""
+    if not util.is_authenticated(request):
+        return HttpResponse('Unauthorized', status=401)
     project = request.GET.get('project', None)
     if not project:
         return util.response([], 'Campos vacios', True)
@@ -131,7 +128,8 @@ def get_evnt_by_name(request):
                     return util.response([], 'Este proyecto no tiene eventualidades', False)
                 else:
                     ids, evtns = [], []
-                    for i in result["submissions"]: ids.append(i["id"])
+                    for i in result["submissions"]:
+                        ids.append(i["id"])
                     for j in ids:
                         evtn = models.get_evnt_by_submission_id(j)
                         evtns.append(evtn)
@@ -139,18 +137,17 @@ def get_evnt_by_name(request):
             else:
                 return util.response([], 'Error!', True)
 
-@csrf_exempt
+@csrf_protect
 def update_evnt(request):
     "Captura y procesa los parametros para actualizar una eventualidad"
+    if not util.is_authenticated(request):
+        return HttpResponse('Unauthorized', status=401)
     post_parms = request.POST.dict()
     action = ""
-    if "vuln[proyecto_fluid]" not in post_parms:
-        return util.response([], 'Campos vacios', True)
-    elif "vuln[tipo]" not in post_parms:
-        return util.response([], 'Campos vacios', True)
-    elif "vuln[id]" not in post_parms:
-        return util.response([], 'Campos vacios', True)
-    elif "vuln[afectacion]" not in post_parms:
+    if "vuln[proyecto_fluid]" not in post_parms \
+        or "vuln[tipo]" not in post_parms \
+        or "vuln[id]" not in post_parms \
+        or "vuln[afectacion]" not in post_parms:
         return util.response([], 'Campos vacios', True)
     else:
         validate = False
@@ -161,61 +158,46 @@ def update_evnt(request):
         except SyntaxError:
             validate = False
         if not validate:
-            return util.response([], 'Afectacion negativa', True)         
+            return util.response([], 'Afectacion negativa', True)
         action = "Actualizar eventualidad del proyecto " \
             + post_parms["vuln[proyecto_fluid]"] \
             + " de tipo '" + post_parms["vuln[tipo]"] + "' con afectacion ("+ str(afect)+")" \
             + " [" + post_parms["vuln[id]"] + "]"
-    csrf = True
-    if csrf == False:
-        return util.response([], 'CSRF', True)
+    updated = models.update_evnt_by_id(post_parms)
+    if updated:
+        util.traceability(action, USER)
+        return util.response([], 'Actualizado correctamente', False)
     else:
-        print action
-        updated = models.update_evnt_by_id(post_parms)
-        if updated:
-            print updated.text
-            util.traceability(action, USER)
-            return util.response([], 'Actualizado correctamente', False)
-        else:
-            return util.response([], 'No se pudo actualizar formstack', True)
+        return util.response([], 'No se pudo actualizar formstack', True)
 
-@csrf_exempt
+@csrf_protect
 def update_vuln(request):
     "Captura y procesa los parametros para actualizar un hallazgo"
+    if not util.is_authenticated(request):
+        return HttpResponse('Unauthorized', status=401)
     post_parms = request.POST.dict()
     action = ""
-    if "vuln[proyecto_fluid]" not in post_parms:
-        return util.response([], 'Campos vacios', True)
-    elif "vuln[hallazgo]" not in post_parms:
-        return util.response([], 'Campos vacios', True)
-    elif "vuln[id]" not in post_parms:
+    if "vuln[proyecto_fluid]" not in post_parms \
+        or "vuln[hallazgo]" not in post_parms \
+        or "vuln[id]" not in post_parms:
         return util.response([], 'Campos vacios', True)
     else:
         action = "Actualizar hallazgo, " \
             + post_parms["vuln[proyecto_fluid]"].upper() \
             + " => " + post_parms["vuln[hallazgo]"] \
             + "[" + post_parms["vuln[id]"] + "]"
-    csrf = True
-    if csrf == False:
-        return util.response([], 'CSRF', True)
+    res = models.update_vuln_by_id(post_parms)
+    if res:
+        util.traceability(action, USER)
+        return util.response([], 'Actualizado correctamente!', False)
     else:
-        updated = models.update_vuln_by_id(post_parms)
-        if updated == {}:
-            return util.response([], 'Hubo un error', True)
-        else:
-            if  hasattr(updated, 'text'):
-                res = json.loads(updated.text)
-                if "success" in res:
-                    util.traceability(action, USER)
-                    return util.response([], 'Success', False)
-                else:
-                    return util.response([], 'No se pudo actualizar formstack', True)
-            else:
-                return util.response([], 'No se pudo actualizar formstack', True)
+        return util.response([], 'No se pudo actualizar formstack', True)
 
-@csrf_exempt
+@csrf_protect
 def delete_vuln(request):
     """Captura y procesa el id de una eventualidad para eliminarla"""
+    if not util.is_authenticated(request):
+        return HttpResponse('Unauthorized', status=401)
     post_parms = request.POST.dict()
     csrf = True
     for i in post_parms:
@@ -224,23 +206,20 @@ def delete_vuln(request):
         return util.response([], 'CSRF', True)
     else:
         action = "Envio de campos vacios"
-        if "vuln[hallazgo]" not in post_parms:
-            return util.response([], 'Campos vacios', True)
-        elif "vuln[proyecto_fluid]" not in post_parms:
-            return util.response([], 'Campos vacios', True)
-        elif "vuln[justificacion]" not in post_parms:
-            return util.response([], 'Campos vacios', True)
-        elif "vuln[id]" not in post_parms:
+        if "vuln[hallazgo]" not in post_parms \
+            or "vuln[proyecto_fluid]" not in post_parms \
+            or "vuln[justificacion]" not in post_parms \
+            or "vuln[id]" not in post_parms:
             return util.response([], 'Campos vacios', True)
         else:
             action = "Eliminar hallazgo, " \
                 + post_parms["vuln[justificacion]"] \
                 + " PROYECTO " + post_parms["vuln[proyecto_fluid]"].upper() \
                 + " => " + post_parms["vuln[hallazgo]"] \
-                + "[" + post_parms["vuln[id]"] + "]"       
+                + "[" + post_parms["vuln[id]"] + "]"
         res = models.delete_vuln_by_id(post_parms["vuln[id]"])
         if res:
             util.traceability(action, USER)
             return util.response([], 'Eliminado correctamente!', False)
         else:
-            return util.response([], 'No se pudo actualizar formstack', False)
+            return util.response([], 'No se pudo actualizar formstack', True)

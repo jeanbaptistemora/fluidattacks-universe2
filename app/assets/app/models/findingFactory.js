@@ -15,17 +15,20 @@ integrates.factory('findingFactory', function($q){
                   },
                   error: function (xhr, status) {   
                       $(".loader").hide();
-                      console.log(xhr);
                       if(xhr.status == 500){
                         deferred.resolve({
                             error: null, 
-                            message: "Formstack error"
+                            message: "Error de formstack"
                         });
-                      }                 
+                      }else if(xhr.status == 401){
+                         location = "/index"; 
+                      }               
                   }
               });
           } catch (e) {
-              console.log('There was an exception: ' + e.message);
+              if(e.status == 401){
+                  location = "/index";
+              }
               deferred.resolve('exception');
           }
           return deferred.promise
@@ -35,7 +38,7 @@ integrates.factory('findingFactory', function($q){
           try {
               console.log(json);
               $.ajax({
-                  url: BASE.url + "generate_xls?_"+Math.random(),
+                  url: BASE.url + "generate_autodoc?_"+Math.random(),
                   method: "POST",
                   data: {
                     project: project,
@@ -47,12 +50,13 @@ integrates.factory('findingFactory', function($q){
                   },
                   error: function (xhr, status) {   
                       $(".loader").hide();
-                      console.log(xhr);
                       if(xhr.status == 500){
                         deferred.resolve({
                             error: null, 
-                            message: "Service error"
+                            message: "Error de formstack"
                         });
+                      }else if(xhr.status == 401){
+                         location = "/index"; 
                       }                 
                   }
               });
@@ -75,11 +79,21 @@ integrates.factory('findingFactory', function($q){
                       deferred.resolve(response);
                   },
                   error: function (xhr, status) {
-                      deferred.resolve('error');
+                      $(".loader").hide();
+                      if(xhr.status == 500){
+                        deferred.resolve({
+                            error: null, 
+                            message: "Error de formstack"
+                        });
+                      }else if(xhr.status == 401){
+                         location = "/index"; 
+                      }    
                   }
               });
           } catch (e) {
-              console.log('There was an exception: ' + e.message);
+              if(e.status == 401){
+                  location = "/index";
+              }
               deferred.resolve('exception');
           }
           return deferred.promise
@@ -97,11 +111,21 @@ integrates.factory('findingFactory', function($q){
                       deferred.resolve(response);
                   },
                   error: function (xhr, status) {
-                      deferred.resolve('error');
+                      $(".loader").hide();
+                      if(xhr.status == 500){
+                        deferred.resolve({
+                            error: null, 
+                            message: "Error de formstack"
+                        });
+                      }else if(xhr.status == 401){
+                         location = "/index"; 
+                      }    
                   }
               });
           } catch (e) {
-              console.log('There was an exception: ' + e.message);
+              if(e.status == 401){
+                  location = "/index";
+              }
               deferred.resolve('exception');
           }
           return deferred.promise

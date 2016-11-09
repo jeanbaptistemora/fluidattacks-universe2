@@ -39,7 +39,7 @@ integrates.deleteVulnRow = function(row){
     $("#vulnerabilities").bootstrapTable({data: newData});
     $("#vulnerabilities").bootstrapTable("refresh");
 };
-integrates.controller("findingController", function($scope,$uibModal, findingFactory) {
+integrates.controller("findingController", function($scope, $uibModal, findingFactory) {
 
     $scope.init = function(){
         $("#search_section").hide();
@@ -295,28 +295,6 @@ integrates.controller("findingController", function($scope,$uibModal, findingFac
         }
     };
     /*
-     * Exporta la tabla de hallazgos a csv
-     */
-    $scope.printTable = function(){
-        var json = $("#vulnerabilities").bootstrapTable("getData");
-        json = JSON.parse(JSON.stringify(json));
-        for (var i=0; i<json.length; i++){
-            json[i]["hallazgo"] = json[i]["hallazgo"] + "\n\n\n\n\n\n\n\n\n";
-            json[i]["vulnerabilidad"] = json[i]["vulnerabilidad"] + "\n\n\n\n\n\n\n\n\n";
-        }
-        var header = Object.keys(json[0])
-        var csv = json.map(
-            row => header.map(
-                fieldName => JSON.stringify(row[fieldName] || '')
-            )
-            .join(',')
-        );
-        console.log(csv);
-        csv.unshift(header.join(','));
-        csv = csv.join('\r\n');
-        download(csv, "export.csv", "text/csv");
-    };
-    /*
      * Envia los datos para generar la documentación automatica
      */
     $scope.generateDoc = function(){
@@ -334,22 +312,13 @@ integrates.controller("findingController", function($scope,$uibModal, findingFac
         }
         if(generateDoc){
             findingFactory.generateDoc(project, json).then(function(data){
-                if(data.error == false){
-                    console.log(data);
-                    $.gritter.add({
-                        title: 'Correcto',
-                        text: data.message,
-                        class_name: 'color success',
-                        sticky: false,
-                    });
-                }else{
-                    $.gritter.add({
-                        title: 'Error',
-                        text: 'Opps...',
-                        class_name: 'color warning',
-                        sticky: false,
-                    });
-                }
+                var color = (data.error == false)?"success":"warning";
+                $.gritter.add({
+                    title: '',
+                    text: data.message,
+                    class_name: 'color ' + color,
+                    sticky: false,
+                });
             }).catch(function(fallback) {
                 $.gritter.add({
                     title: 'Consultando',
@@ -374,7 +343,7 @@ integrates.controller("findingController", function($scope,$uibModal, findingFac
     $scope.downloadDoc = function(){
         downLink = document.createElement("a");
         downLink.target = "_blank";
-        downLink.href = "export_auto_doc?project=" + $scope.project;
+        downLink.href = "export_autodoc?project=" + $scope.project;
         downLink.click();
     };
     document.onkeypress = function(ev){ 

@@ -60,7 +60,7 @@ def write_to_cell(current_sheet, row, col, value, formula=False):
     else:
         temp_cell.set_explicit_value(value=value, data_type=temp_cell.TYPE_FORMULA)
 
-def write_number(current_sheet, row, col, value, formula=False):
+def write_cell(current_sheet, row, col, value, formula=False):
     """ Asigna un valor a una celda discriminando si es de tipo formula """
     temp_cell = current_sheet.cell(row=row, column=col)
     temp_cell.value = value
@@ -97,6 +97,8 @@ def generate_doc_xls(project, data):
             complejidad_acceso = "Baja"
         elif complejidad_acceso == "Alto":
             complejidad_acceso = "Alta"
+        elif complejidad_acceso == "Medio":
+            complejidad_acceso = "Media"
         autenticacion = util.extract_metric(i["autenticacion"])
         impacto_confidencialidad = util.extract_metric(i["impacto_confidencialidad"])
         impacto_integridad = util.extract_metric(i["impacto_integridad"])
@@ -104,48 +106,58 @@ def generate_doc_xls(project, data):
         explotabilidad = util.extract_metric(i["explotabilidad"])
         nivel_resolucion = util.extract_metric(i["nivel_resolucion"])
         nivel_confianza = util.extract_metric(i["nivel_confianza"])
-        write_number(finding_sheet, row, 7, vector_acceso)
-        write_number(finding_sheet, row+1, 7, complejidad_acceso)
-        write_number(finding_sheet, row+2, 7, autenticacion)
-        write_number(finding_sheet, row+3, 7, impacto_confidencialidad)
-        write_number(finding_sheet, row+4, 7, impacto_integridad)
-        write_number(finding_sheet, row+5, 7, impacto_disponibilidad)
-        write_number(finding_sheet, row+6, 7, explotabilidad)
-        write_number(finding_sheet, row+7, 7, nivel_resolucion)
-        write_number(finding_sheet, row+8, 7, nivel_confianza)
+
+        """
+            TODO: 
+                - Crear formulario para cambiar nombre de proyecto en bancolombia pedido
+                - Extraer campos para documentar la QC
+                - Verificar como insertar imagenes con ascii doctor
+                - Verificar como descargar archivos de formstack
+                - Diseñar formato para evidencias en formstack
+                - Refactoring y linting
+        """
+        write_cell(finding_sheet, row, 7, vector_acceso)
+        write_cell(finding_sheet, row+1, 7, complejidad_acceso)
+        write_cell(finding_sheet, row+2, 7, autenticacion)
+        write_cell(finding_sheet, row+3, 7, impacto_confidencialidad)
+        write_cell(finding_sheet, row+4, 7, impacto_integridad)
+        write_cell(finding_sheet, row+5, 7, impacto_disponibilidad)
+        write_cell(finding_sheet, row+6, 7, explotabilidad)
+        write_cell(finding_sheet, row+7, 7, nivel_resolucion)
+        write_cell(finding_sheet, row+8, 7, nivel_confianza)
         # Columna Criticidad (8)
-        write_number(finding_sheet, row, 8, float(i["criticidad"]))
+        write_cell(finding_sheet, row, 8, "")
         # Columna Cardinalidad (9)
-        write_number(finding_sheet, row, 9, int(i["cardinalidad"]))
+        write_cell(finding_sheet, row, 9, int(i["cardinalidad"]))
         # Columna Evidencia (10)
-        write_to_cell(finding_sheet, row, 10, "Evidencias/" + i["hallazgo"])
+        write_cell(finding_sheet, row, 10, "Evidencias/" + i["hallazgo"])
         # Columna Solucion efecto (11)
-        write_to_cell(finding_sheet, row, 11, i["solucion_efecto"])
+        write_cell(finding_sheet, row, 11, i["solucion_efecto"])
         # Columna Instructivo (12)
-        write_to_cell(finding_sheet, row, 12, "Soluciones/"+ i["hallazgo"])
+        write_cell(finding_sheet, row, 12, "Soluciones/"+ i["hallazgo"])
         # Columna Ids Requisitos (13)
         reqs = util.extract_reqs(i["requisitos"])
-        write_number(finding_sheet, row, 13 , ".*(" + reqs + ")")
+        write_cell(finding_sheet, row, 13 , ".*(" + reqs + ")")
         # Datos si es detallado
         if proy_type == "detallado":
             # Columna Amenaza (14)
-            write_to_cell(finding_sheet, qc_row, 14, i["amenaza"])
+            write_cell(finding_sheet, qc_row, 14, i["amenaza"])
             # Columna Riesgo (15)
-            write_to_cell(finding_sheet, qc_row, 15, i["riesgo"])
+            write_cell(finding_sheet, qc_row, 15, i["riesgo"])
             # Escribir en QC todos los campos
             # Columna Tipo de prueba (5)
-            write_number(qc_sheet, qc_row, 5, i["tipo_prueba"])
+            write_cell(qc_sheet, qc_row, 5, i["tipo_prueba"])
             # Columna Componente aplicativo (6)
             # Columna ID Requisitos (8)
-            write_number(qc_sheet, qc_row, 8, reqs) 
+            write_cell(qc_sheet, qc_row, 8, reqs) 
             # Columna Fabrica de testing (10)
-            write_number(qc_sheet, qc_row, 10, "Fluid")
+            write_cell(qc_sheet, qc_row, 10, "Fluid")
             # Columna Detectador por (11)
-            write_number(qc_sheet, qc_row, 11, i["analista"])
+            write_cell(qc_sheet, qc_row, 11, i["analista"])
             # Columna escenario (10)
-            write_number(qc_sheet, qc_row, 10, "Fluid")
+            write_cell(qc_sheet, qc_row, 10, "Fluid")
             # Columna Detectador por (11)
-            write_number(qc_sheet, qc_row, 11, i["analista"])
+            write_cell(qc_sheet, qc_row, 11, i["analista"])
             # Columna Detectado ciclo (12)
             # Columna Escenario (13)
             # FIX por modificacion de formstack
@@ -153,28 +165,28 @@ def generate_doc_xls(project, data):
                 escenario = i["escenario"]
             except KeyError: 
                 escenario = ""
-            write_number(qc_sheet, qc_row, 13, escenario)
+            write_cell(qc_sheet, qc_row, 13, escenario)
             # Columna Hallazgo (14)
-            write_number(qc_sheet, qc_row, 14, i["hallazgo"])
+            write_cell(qc_sheet, qc_row, 14, i["hallazgo"])
             # Columna Ambito (17)
-            write_number(qc_sheet, qc_row, 17, i["ambito"]) 
+            write_cell(qc_sheet, qc_row, 17, i["ambito"]) 
             # Columna Categoria Bancolombia (18) 
             # FIX por modificacion de formstack
             try:
                 categoria = i["categoria"]
             except KeyError: 
                 categoria = ""
-            write_number(qc_sheet, qc_row, 18, categoria)
+            write_cell(qc_sheet, qc_row, 18, categoria)
             # Columna Amenaza (19)
-            write_number(qc_sheet, qc_row, 19, i["amenaza"])
+            write_cell(qc_sheet, qc_row, 19, i["amenaza"])
             # Columna Tipo Reporte (20)
-            write_number(qc_sheet, qc_row, 20, "Hallazgo")
+            write_cell(qc_sheet, qc_row, 20, "Hallazgo")
             # Columna Naturaleza (21)
-            write_number(qc_sheet, qc_row, 21, "Seguridad")
+            write_cell(qc_sheet, qc_row, 21, "Seguridad")
             # Columna Probabilidad (26)
-            write_number(qc_sheet, qc_row, 26, i["probabilidad"])
+            write_cell(qc_sheet, qc_row, 26, i["probabilidad"])
             # Columna Severidad (27)
-            write_number(qc_sheet, qc_row, 27, i["severidad"])
+            write_cell(qc_sheet, qc_row, 27, i["severidad"])
             qc_row = qc_row + 1
         print i["evidencia"]
         row = row + 10

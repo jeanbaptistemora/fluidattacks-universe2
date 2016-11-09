@@ -14,17 +14,20 @@ integrates.factory('eventualityFactory', function($q){
                   },
                   error: function (xhr, status) {
                       $(".loader").hide();
-                      console.log(xhr);
                       if(xhr.status == 500){
                         deferred.resolve({
-                            error: true, 
-                            message: "Formstack error"
+                            error: null, 
+                            message: "Error de formstack"
                         });
-                      }     
+                      }else if(xhr.status == 401){
+                         location = "/index"; 
+                      }    
                   }
               });
           } catch (e) {
-              console.log('There was an exception: ' + e.message);
+              if(e.status == 401){
+                  location = "/index";
+              }
               deferred.resolve('exception');
           }
           return deferred.promise
@@ -43,17 +46,20 @@ integrates.factory('eventualityFactory', function($q){
                   },
                   error: function (xhr, status) {
                       $(".loader").hide();
-                      console.log(xhr);
                       if(xhr.status == 500){
                         deferred.resolve({
-                            error: true, 
-                            message: "Formstack error"
+                            error: null, 
+                            message: "Error de formstack"
                         });
-                      }
+                      }else if(xhr.status == 401){
+                         location = "/index"; 
+                      }    
                   }
               });
           } catch (e) {
-              console.log('There was an exception: ' + e.message);
+              if(e.status == 401){
+                  location = "/index";
+              }
               deferred.resolve('exception');
           }
           return deferred.promise

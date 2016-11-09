@@ -1,3 +1,6 @@
 *.pyc
 *.log
 *.err
+*.adoc
+*.pdf
+*.xlsx
