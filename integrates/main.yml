@@ -1,0 +1,38 @@
+---
+- hosts: integrates
+
+  become: yes
+
+  tasks:
+   - name: include default step variables
+     include_vars: ansible/templates/vars.yml
+
+   - name: Instalar paquetes necesarios
+     apt: name="{{ item }}"
+     with_items:
+       - git
+       - python-pip
+       - nginx
+
+   - name: Instalar dependencias pip
+     pip: name="{{ item }}"
+     with_items:
+       - django
+       - jinja2
+       - pyyaml
+       - openpyxl
+
+   - name: Crear directorio para clonar repositorio
+     file: path=/root/integrates/ state=directory
+
+   - name: Agregar netrc
+     template: src=ansible/templates/netrc.j2 dest="/root/.netrc" mode=0600
+
+   - name: Clonar repositorio integrates
+     git: repo=https://jrestrepoatfluid@bitbucket.org/fluidsignal/fluid-integrates.git dest="/root/integrates" 
+
+   - name: Retirar git conf
+     file: path=/root/.netrc state=absent
+
+#   - name: Correr servidor
+#     command: /root/integrates/manage.py runserver
