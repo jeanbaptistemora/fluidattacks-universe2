@@ -96,7 +96,6 @@ def get_vuln_by_name(request):
         if project.strip() == "":
             return util.response([], 'Empty fields', True)
         else:
-            util.traceability("Consultando proyecto "+ project, USER)
             result = models.get_vuln_by_name(project)["submissions"]
             if len(result) == 0:
                 return util.response([], 'Project doesn\'t exist', True)
@@ -166,7 +165,7 @@ def update_evnt(request):
             + " [" + post_parms["vuln[id]"] + "]"
     updated = models.update_evnt_by_id(post_parms)
     if updated:
-        util.traceability(action.encode('utf-8'), USER.encode('utf-8'))
+        util.traceability(action.encode('utf-8'), request.session["username"])
         return util.response([], 'Actualizado correctamente', False)
     else:
         return util.response([], 'No se pudo actualizar formstack', True)

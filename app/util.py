@@ -33,7 +33,7 @@ def traceability(msg, user):
     try:
         filename = base + "/logs/integrates.log"
         logmsg = str(datetime.datetime.now()) + "," + user+ "," + msg.encode('utf8')
-        file_obj = open(filename, 'w')
+        file_obj = open(filename, 'a')
         file_obj.write(logmsg.encode('utf8'))
         file_obj.close()
     except (OSError, IOError) as expt:

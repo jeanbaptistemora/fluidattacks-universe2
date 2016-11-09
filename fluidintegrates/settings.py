@@ -70,7 +70,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'fluidintegrates.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/1.10/ref/settings/#databases
 
@@ -137,7 +136,3 @@ STATICFILES_DIRS = (
     os.path.join(PROJECT_ROOT, '../app/assets'),
 )
 
-import sys  
-
-reload(sys)  
-sys.setdefaultencoding('utf8')
