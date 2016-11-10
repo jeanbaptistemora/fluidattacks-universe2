@@ -34,5 +34,29 @@
    - name: Retirar git conf
      file: path=/root/.netrc state=absent
 
-#   - name: Correr servidor
+   - name: Crear directorio para logs
+     file: path=/root/logs state=directory
+
+   - name: Crear error log
+     file: path=/root/logs/error.err state=touch
+
+   - name: Crear error log
+     file: path=/root/logs/integrates.log state=touch
+
+   - name: Agregar script de inicio
+     template:
+      src=ansible/templates/init.sh
+      dest="/root/init.sh"
+      mode=0755
+
+   - name: Correr servidor
+     command: /root/init.sh
+
+#   - name: Correr servidor parte1
+#     command: /root/integrates/manage.py makemigrations
+
+#   - name: Correr servidor parte2
+#     command: /root/integrates/manage.py migrate
+
+#   - name: Correr servidor parte3
 #     command: /root/integrates/manage.py runserver

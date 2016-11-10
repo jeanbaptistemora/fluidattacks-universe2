@@ -29,6 +29,7 @@ dependencies:
   post:
     - ./alg.sh
     - ./exams.sh
+    - ./integrates.sh
     - bundle install
 
 test:
