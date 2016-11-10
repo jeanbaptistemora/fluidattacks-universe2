@@ -8,7 +8,8 @@
      include_vars: ansible/templates/vars.yml
 
    - name: Instalar paquetes necesarios
-     apt: name="{{ item }}"
+     apt: 
+       name: "{{ item }}"
      with_items:
        - apache2
        - php5
@@ -28,67 +29,134 @@
      apt: name=python-boto
 
    - name: Retirar index
-     file: path=/var/www/html/index.html state=absent
+     file: 
+       path: "/var/www/html/index.html" 
+       state: absent
 
    - name: Habilitar servicios
-     service: name="{{ item }}" state=started enabled=yes
+     service: 
+       name: "{{ item }}" 
+       state: started 
+       enabled: yes
      with_items:
        - apache2
        - mysql
        - cron
 
    - name: Obtener BD de S3
-     s3: aws_access_key={{aws_access_key}} aws_secret_key={{aws_secret_key}} bucket={{ s3bucket }} object=exams/moodle.sql dest=/tmp/moodle.sql mode=get
+     s3:
+       aws_access_key: "{{aws_access_key}}"
+       aws_secret_key: "{{aws_secret_key}}" 
+       bucket: "{{ s3bucket }}" 
+       object: "exams/{{ db_name }}.sql" 
+       dest: "/tmp/{{ db_name }}.sql" 
+       mode: get
 
    - name: Crear DB para moodle
-     mysql_db: name=moodle state=import target=/tmp/moodle.sql
+     mysql_db: 
+       name: "{{ db_name }}"
+       state: import 
+       target: "/tmp/{{ db_name }}.sql"
 
    - name: Crear usuario moodle y asignar permisos
-     mysql_user: name="{{ db_username }}" password="{{ db_password }}" priv="{{ db_name }}.*:ALL"
+     mysql_user: 
+       name: "{{ db_username }}" 
+       password: "{{ db_password }}" 
+       priv: "{{ db_name }}.*:ALL"
 
    - name: Remover base de datos de prueba
-     mysql_db: name=test state=absent
+     mysql_db: 
+       name: "test" 
+       state: absent
 
    - name: Remover conexiones anonimas MySQL
-     mysql_user: name='' host=localhost state=absent
+     mysql_user: 
+       name: '' 
+       host: "localhost" 
+       state: absent
 
    - name: Actualizar password de usuario root en MySQL
-     mysql_user: name=root host=localhost password={{ db_pwd_root }}
+     mysql_user: 
+       name: "root"
+       host: "localhost"
+       password: "{{ db_pwd_root }}"
 
    - name: Establecer permisos
-     file: path=/var/www/html state=directory owner=www-data group=www-data mode=0755 recurse=yes
+     file: 
+       path: "/var/www/html" 
+       state: directory 
+       owner: "www-data" 
+       group: "www-data" 
+       mode: "0755" 
+       recurse: yes
 
    - name: Descargando Moodle
-     git: repo=git://git.moodle.org/moodle.git dest="/var/www/html" version=MOODLE_31_STABLE
+     git: 
+       repo: "git://git.moodle.org/moodle.git" 
+       dest: "/var/www/html" 
+       version: "MOODLE_31_STABLE"
 
    - name: Crear directorio para los datos de Moodle 
-     file: path=/var/www/moodledata state=directory owner=www-data group=www-data mode=0777 recurse=yes
+     file: 
+       path: "/var/www/moodledata" 
+       state: directory 
+       owner: "www-data" 
+       group: "www-data" 
+       mode: "0777" 
+       recurse: yes
 
    - name: Obtener moodledata s3
-     s3: aws_access_key={{aws_access_key}} aws_secret_key={{aws_secret_key}} bucket={{ s3bucket }} object=exams/moodledata.tar dest=/tmp/moodledata.tar mode=get
+     s3: 
+       aws_access_key: "{{aws_access_key}}"
+       aws_secret_key: "{{aws_secret_key}}" 
+       bucket: "{{ s3bucket }}" 
+       object: "exams/moodledata.tar"
+       dest: "/tmp/moodledata.tar" 
+       mode: get
    
    - name: Copiar moodledata al directorio
-     unarchive: src=/tmp/moodledata.tar dest=/var/www/moodledata copy=no
+     unarchive: 
+       src: "/tmp/moodledata.tar" 
+       dest: "/var/www/moodledata" 
+       copy: no
 
    - name: Instalar Moodle
      command: /usr/bin/php install.php --non-interactive --wwwroot={{ moodle_host }} --dataroot=/var/www/moodledata --dbhost={{ db_host }} --dbuser={{ db_username }} --dbpass={{ db_password }} --fullname="FLUID Courses" --shortname="Moodle" --adminpass={{ admin_password }} --skip-database --agree-license chdir=/var/www/html/admin/cli
 
 
    - name: Agregar config.php
-     template: src=ansible/templates/config.j2 dest="/var/www/html/config.php" mode=0644
+     template: 
+       src: "ansible/templates/config.j2" 
+       dest: "/var/www/html/config.php" 
+       mode: "0644"
 
    - name: Actualizar permisos
-     file: path=/var/www/html state=directory owner=www-data group=www-data mode=0755 recurse=yes
+     file: 
+       path: "/var/www/html" 
+       state: directory 
+       owner: "www-data" 
+       group: "www-data" 
+       mode: "0755" 
+       recurse: yes
 
    - name: Descargar tema para Moodle
-     get_url: url=https://moodle.org/plugins/download.php/12122/theme_eduhub_moodle31_2016090100.zip dest=/tmp
+     get_url: 
+       url: "https://moodle.org/plugins/download.php/12122/theme_eduhub_moodle31_2016090100.zip" 
+       dest: "/tmp"
 
    - name: Copiar tema en la ruta indicada
-     unarchive: src=/tmp/theme_eduhub_moodle31_2016090100.zip dest=/var/www/html/theme copy=no
+     unarchive: 
+       src: "/tmp/theme_eduhub_moodle31_2016090100.zip" 
+       dest: "/var/www/html/theme" 
+       copy: no
 
    - name: Configurar cron
-     cron: name="Moodle" job="/usr/bin/php /var/www/html/admin/cli/cron.php >/dev/null" 
+     cron: 
+       name: "Moodle" 
+       job: "/usr/bin/php /var/www/html/admin/cli/cron.php >/dev/null" 
 
   handlers:
    - name: restart apache2
-     service: name=apache2 state=restarted
+     service: 
+       name: "apache2" 
+       state: "restarted"
