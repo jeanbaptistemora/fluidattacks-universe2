@@ -1,0 +1,7 @@
+[integrates]
+127.0.0.1:22002
+
+[integrates:vars]
+# Ansible Variables
+ansible_user = root
+ansible_ssh_common_args = -F "{{ lookup('env', 'HOME') }}/.ssh/config.facont.integrates"

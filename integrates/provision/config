@@ -1,0 +1,17 @@
+# cargada si esta establecida la variable ANSIBLE_CONFIG
+# scripts que hagan uso de tox.ini y env.sh ya la tienen definida
+
+[defaults]
+
+# Evita la generacion de archivos .retry en todo el repositorio cuando no se
+# puede establer conexion con el contenedor
+retry_files_enabled = False
+
+# Permite generar durante la compilacion un analisis de rendimiento de cada una
+# de las tareas que se ejecutan
+callback_whitelist  = profile_tasks
+
+[ssh_connection]
+
+# Permite que la conexion mediante SSH sea mas agil
+pipelining = True

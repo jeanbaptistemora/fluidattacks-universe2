@@ -17,5 +17,22 @@ describe file('/var/lib/mysql/moodle') do
 end
 
 describe command('mysql -e "select version();"') do
-  its(:stdout) { should ="ERROR 1045 (28000): Access denied for user 'root'@'localhost' (using password: NO)" } 
+  its(:stdout) { should contain "Access denied" }
 end
+
+describe user('exams') do
+  it {should exist }
+end
+
+describe cron do
+  it { should have_entry '"/usr/bin/php /var/www/html/admin/cli/cron.php >/dev/null"' }
+end
+
+describe service('apache2') do
+  it { should be_enabled }
+end
+
+describe service('mysql-server') do
+  it { should be_enabled }
+end
+
