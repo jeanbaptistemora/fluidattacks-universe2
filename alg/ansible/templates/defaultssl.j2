@@ -1,9 +1,13 @@
 <IfModule mod_ssl.c>
-<VirtualHost *:443>
+<VirtualHost *:{{ https_port }}>
     ServerName fluid.la
     Options  +Indexes +Multiviews +FollowSymLinks
 
-	ServerAdmin webmaster@localhost
+	ServerAdmin {{ server_admin }}
+
+    # Sitemap
+	ProxyPass /sitemap.xml	https://s3.amazonaws.com/fluidserves/sitemap/sitemap.xml
+	ProxyPassReverse /sitemap.xml  https://s3.amazonaws.com/fluidserves/sitemap/sitemap.xml
 
     # Moodle
 	ProxyPass /courses http://fluid.la:8080
@@ -14,9 +18,9 @@
 	Substitute "s|<a href=\"//kb.fluid.la/help/article/link/|<a href=\"//fluid.la/help/article/link/|i"
         
     # Lineas de negocio
-        Redirect /consulting https://fluid.la/
-        Redirect /testing https://fluid.la/
-        Redirect /intelligence https://fluid.la/
+        Redirect /consulting {{ mainsite }}
+        Redirect /testing {{ mainsite }}
+        Redirect /intelligence {{ mainsite }}
 
     # Formstack
         ProxyPass /forms https://fluidsignal.formstack.com/forms
@@ -46,13 +50,14 @@
 
     #Pagina WEB
         RewriteEngine on
-        RewriteRule ^/es(.*)$           http://web.fluid.la/es$1        [P]
-        RewriteRule ^/$         http://web.fluid.la/en/landing/ [P]
-        RewriteRule ^/clkn/(.*)$                http://web.fluid.la/clkn/$1     [P]
-        RewriteRule ^/en(.*)$           http://web.fluid.la/en$1        [P]
-        ProxyPassReverse /es http://web.fluid.la/es
-        ProxyPassReverse /en http://web.fluid.la/en
-        ProxyPassReverse / https://fluid.la/en/landing/
+        RewriteRule ^/es(.*)$           {{ landing }}es$1        [P]
+        RewriteRule ^/$         {{ landing }}en/landing/ [P]
+        RewriteRule ^/clkn/(.*)$                {{ landing }}clkn/$1     [P]
+        RewriteRule ^/en(.*)$           {{ landing }}en$1        [P]
+        ProxyPassReverse /es {{ landing }}es
+        ProxyPassReverse /en {{ landing }}en
+        ProxyPassReverse / {{ landing }}en/landing/
+	ErrorDocument 404 {{ error_page }}
 
     # Configuración SSL
 	SSLEngine on

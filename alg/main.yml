@@ -4,8 +4,11 @@
   become: yes
 
   tasks:
-   - name: Incluir variables
+   - name: Incluir llaves de cifrado
      include_vars: ansible/templates/key.yml
+
+   - name: Incluir variables de configuracion
+     include_vars: ansible/templates/vars.yml
 
    - name: Instalar Apache
      apt: 

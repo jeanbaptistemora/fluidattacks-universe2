@@ -1,9 +1,8 @@
-<VirtualHost *:80>
+<VirtualHost *:{{ http_port }}>
         ServerName www.fluid.la
-        ServerAdmin technology@fluid.la
+        ServerAdmin {{ server_admin }}
         Options  +Indexes +Multiviews +FollowSymLinks
-        Redirect / https://fluid.la
+        Redirect / {{ mainsite }}
         ErrorLog /var/log/apache2/error.log
         CustomLog /var/log/apache2/access.log combined
 </VirtualHost>
-
