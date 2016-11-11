@@ -47,6 +47,13 @@
       dest: "/etc/apache2/sites-enabled/fluid.la"
       mode: "0644"
 
+   - name: Creando www.fluid.la
+     template:
+      src: "ansible/templates/www.fluid.la.j2"
+      dest: "/etc/apache2/sites-enabled/www.fluid.la"
+      mode: "0644"
+
+
    - name: Creando sitio ssl
      template:
       src: "ansible/templates/defaultssl.j2"

@@ -1,8 +1,8 @@
-VirtualHost *:80>
-        ServerName fluid.la
+<VirtualHost *:80>
+        ServerName www.fluid.la
         ServerAdmin technology@fluid.la
         Options  +Indexes +Multiviews +FollowSymLinks
-        Redirect / https://fluid.la/
+        Redirect / https://fluid.la
         ErrorLog /var/log/apache2/error.log
         CustomLog /var/log/apache2/access.log combined
 </VirtualHost>

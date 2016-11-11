@@ -43,13 +43,16 @@
 	ErrorLog /var/log/apache2/error.log
 	LogLevel warn
 	CustomLog /var/log/apache2/ssl_access.log combined
-   	
-	RewriteRule ^/services(.*)$		http://web.fluid.la/$1	[P]
-	RewriteRule ^/$		http://web.fluid.la/	[P]
-	RewriteRule ^/clkn/(.*)$		http://web.fluid.la/clkn/$1	[P]
-	ProxyPass / http://web.fluid.la/
-        ProxyPassReverse /services http://web.fluid.la
-        ProxyPassReverse / http://web.fluid.la/
+
+    #Pagina WEB
+        RewriteEngine on
+        RewriteRule ^/es(.*)$           http://web.fluid.la/es$1        [P]
+        RewriteRule ^/$         http://web.fluid.la/en/landing/ [P]
+        RewriteRule ^/clkn/(.*)$                http://web.fluid.la/clkn/$1     [P]
+        RewriteRule ^/en(.*)$           http://web.fluid.la/en$1        [P]
+        ProxyPassReverse /es http://web.fluid.la/es
+        ProxyPassReverse /en http://web.fluid.la/en
+        ProxyPassReverse / https://fluid.la/en/landing/
 
     # Configuración SSL
 	SSLEngine on
