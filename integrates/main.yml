@@ -28,14 +28,14 @@
        - openpyxl
 
    - name: Crear directorio para clonar repositorio
-     file: 
+     file:
        path: "/root/integrates/"
        state: directory
 
    - name: Agregar netrc
-     template: 
-       src: "ansible/templates/netrc.j2" 
-       dest: "/root/.netrc" 
+     template:
+       src: "ansible/templates/netrc.j2"
+       dest: "/root/.netrc"
        mode: "0600"
 
    - name: Clonar repositorio integrates
@@ -46,17 +46,17 @@
 
    - name: Retirar git conf
      file:
-       path: "/root/.netrc" 
+       path: "/root/.netrc"
        state: absent
 
 #   - name: Crear directorio para logs
 #     file:
-#       path: "/root/logs" 
+#       path: "/root/logs"
 #       state: directory
 
 #   - name: Crear error log
 #     file:
-#       path: "/root/logs/error.err" 
+#       path: "/root/logs/error.err"
 #       state: touch
 
 #   - name: Crear error log
