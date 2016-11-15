@@ -12,15 +12,11 @@
 
    - name: Instalar Apache
      apt:
-       pkg: "apache2"
-       state: present
-
-   - name: Habilitar Apache como servicio
-     service:
-       name: "apache2"
-       state: started
-       enabled: yes
-       register: instalado
+      pkg: "apache2"
+      state: installed
+     register: apacheinstalled
+     notify:
+       - iniciar apache2
 
    - name: Habilitar modulos necesarios de Apache
      command:
@@ -33,7 +29,7 @@
        - headers
      notify:
        - reiniciar apache2
-     when: instalado.success
+     when: apacheinstalled
 
 
    - name: Creando configuración Apache
@@ -90,4 +86,9 @@
      service:
        name: "apache2"
        state: "restarted"
+
+   - name: iniciar apache2
+     service:
+       name: "apache2"
+       state: started
 
