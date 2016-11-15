@@ -195,7 +195,7 @@ def update_vuln(request):
     else:
         return util.response([], 'No se pudo actualizar formstack', True)
 
-@csrf_protect
+@csrf_exempt
 def delete_vuln(request):
     """Captura y procesa el id de una eventualidad para eliminarla"""
     if not util.is_authenticated(request):
