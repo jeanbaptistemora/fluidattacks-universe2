@@ -16,7 +16,11 @@
     # Favicon KB
 	Substitute "s|type=\"image/x-icon\".*href=\".*|type=\"image/x-icon\" href=\"https://app.knowledgeowl.com/app/image/id/54f110f97cb829fd677b23d4/n/favicon_fluid.png\">|i"
 	Substitute "s|<a href=\"//kb.fluid.la/help/article/link/|<a href=\"//fluid.la/help/article/link/|i"
-        
+
+   # Blog
+        Substitute "s|<ul id=\"menu-menu-superior\" class=\"main-navigation-menu\">|<img src=\"https://fluidsignal.files.wordpress.com/2015/02/fluid-footer.png\" width=215 height=41 class=\"logo-fluid\" /><ul id=\"menu-menu-superior\" class=\"main-navigation-menu\">|i"
+        Substitute "s|<nav id=\"footer-links\" class=\"footer-navigation navigation clearfix\" role=\"navigation\">|<img src=\"https://fluidsignal.files.wordpress.com/2015/02/fluid-footer.png\" width=215 height=41 class=\"logo-fluid-footer\" /><nav id=\"footer-links\" class=\"footer-navigation navigation clearfix\" role=\"navigation\">|i"
+       
     # Lineas de negocio
         Redirect /consulting {{ mainsite }}
         Redirect /testing {{ mainsite }}
