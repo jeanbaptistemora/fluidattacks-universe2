@@ -11,8 +11,8 @@
      include_vars: ansible/templates/vars.yml
 
    - name: Instalar Apache
-     apt: 
-       pkg: "apache2" 
+     apt:
+       pkg: "apache2"
        state: present
 
    - name: Habilitar Apache como servicio
@@ -70,7 +70,7 @@
       owner: root
       group: root
       mode: 0644
- 
+
    - name: Instalando llave privada ssl
      copy:
       content: '{{ ssl_key }}'
@@ -83,7 +83,7 @@
 
   handlers:
    - name: reiniciar apache2
-     service: 
-       name: "apache2" 
+     service:
+       name: "apache2"
        state: "restarted"
 
