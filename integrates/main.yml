@@ -8,7 +8,7 @@
      include_vars: ansible/templates/vars.yml
 
    - name: Instalar paquetes necesarios
-     apt: 
+     apt:
        name: "{{ item }}"
      with_items:
        - git
@@ -16,7 +16,7 @@
        - nginx
 
    - name: Instalar dependencias pip
-     pip: 
+     pip:
        name: "{{ item }}"
      with_items:
        - django
@@ -30,10 +30,10 @@
    - name: Agregar netrc
      template: src=ansible/templates/netrc.j2 dest="/root/.netrc" mode=0600
 
-   - name: Clonar repositorio integrates
-     git: 
-       repo: "https://jrestrepoatfluid@bitbucket.org/fluidsignal/fluid-integrates.git" 
-       dest: "/root/integrates" 
+#   - name: Clonar repositorio integrates
+#     git:
+#       repo: "https://jrestrepoatfluid@bitbucket.org/fluidsignal/fluid-integrates.git"
+#       dest: "/root/integrates"
 
    - name: Retirar git conf
      file: path=/root/.netrc state=absent
@@ -53,6 +53,6 @@
       dest="/root/init.sh"
       mode=0755
 
-   - name: Correr servidor
-     command: /root/init.sh
+#   - name: Correr servidor
+#     command: /root/init.sh
 

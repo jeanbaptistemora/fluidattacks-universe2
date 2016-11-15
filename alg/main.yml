@@ -18,7 +18,9 @@
    - name: Habilitar Apache como servicio
      service:
        name: "apache2"
+       state: started
        enabled: yes
+       register: instalado
 
    - name: Habilitar modulos necesarios de Apache
      command:
@@ -31,6 +33,8 @@
        - headers
      notify:
        - reiniciar apache2
+     when: instalado.success
+
 
    - name: Creando configuración Apache
      template:
