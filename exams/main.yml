@@ -117,7 +117,7 @@
    - name: Copiar moodledata al directorio
      unarchive:
        src: "/tmp/moodledata.tar"
-       dest: "/var/www/moodledata"
+       dest: "/"
        copy: no
 
    - name: Instalar Moodle
@@ -149,6 +149,12 @@
        src: "/tmp/theme_eduhub_moodle31_2016090100.zip"
        dest: "/var/www/html/theme"
        copy: no
+
+   - name: Descargando secureexambrowser
+     git:
+       repo: "git://github.com/moodleou/moodle-quizaccess_safeexambrowser.git"
+       dest: "/var/www/html/mod/quiz/accessrule/safeexambrowser"
+       version: "master"
 
    - name: Configurar cron
      cron:

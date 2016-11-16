@@ -63,7 +63,9 @@
         RewriteRule ^/en(.*)$           {{ landing }}en$1        [P]
         ProxyPassReverse /es {{ landing }}es
         ProxyPassReverse /en {{ landing }}en
-        ProxyPassReverse / {{ landing }}en/landing/
+	ProxyPassReverse /services http://www.fluid.la/services
+	ProxyPass / http://www.fluid.la/en/landing
+        ProxyPassReverse / https://fluid.la/en/landing/
 	ErrorDocument 404 {{ error_page }}
 
     # Configuración SSL
