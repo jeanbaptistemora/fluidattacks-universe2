@@ -53,8 +53,11 @@
 	CustomLog /var/log/apache2/ssl_access.log combined
 
     #Pagina WEB
+        Header edit Link www.fluid.la fluid.la
+        Substitute "s|window.ub.page.url = \"https://www.fluid.la/en/landing/\"|window.ub.page.url = \"https://fluid.la/en/landing/\"|i"
         RewriteEngine on
         RewriteRule ^/es(.*)$           {{ landing }}es$1        [P]
+        RewriteRule ^/services/permanent-hacking                {{ landing }}services/permanent-hacking/ [P]
         RewriteRule ^/$         {{ landing }}en/landing/ [P]
         RewriteRule ^/clkn/(.*)$                {{ landing }}clkn/$1     [P]
         RewriteRule ^/en(.*)$           {{ landing }}en$1        [P]

@@ -6,4 +6,4 @@ https_port: 443
 server_admin: technology@fluid.la
 error_page: https://fluid.la/en/error
 servername: localhost
-landing: http://web.fluid.la/
+landing: http://www.fluid.la/
