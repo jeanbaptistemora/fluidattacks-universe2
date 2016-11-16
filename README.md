@@ -12,6 +12,12 @@ Servidores en Producción:
   * Exams: Plataforma online para la realización de cursos y examenes. Su uso principal es la realización del examen de conocimientos en el proceso de selección.
   * Integrates: Servidor para la publicación del servicio FLUID integrates.
 
+Requisitos para lanzar el ambiente:
+------------
+
+  * Ansible 2.2
+  * Docker
+
 Cosas por hacer:
 ------------
 
