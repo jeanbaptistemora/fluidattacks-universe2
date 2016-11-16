@@ -4,18 +4,19 @@
   become: yes
 
   tasks:
-   - name: Incluir variables
+   - name: Incluir llaves de cifrado
      include_vars: ansible/templates/key.yml
 
-   - name: Instalar Apache
-     apt: 
-       pkg: "apache2" 
-       state: present
+   - name: Incluir variables de configuracion
+     include_vars: ansible/templates/vars.yml
 
-   - name: Habilitar Apache como servicio
-     service:
-       name: "apache2"
-       enabled: yes
+   - name: Instalar Apache
+     apt:
+      pkg: "apache2"
+      state: installed
+     register: apacheinstalled
+     notify:
+       - iniciar apache2
 
    - name: Habilitar modulos necesarios de Apache
      command:
@@ -28,6 +29,8 @@
        - headers
      notify:
        - reiniciar apache2
+     when: apacheinstalled
+
 
    - name: Creando configuración Apache
      template:
@@ -67,7 +70,7 @@
       owner: root
       group: root
       mode: 0644
- 
+
    - name: Instalando llave privada ssl
      copy:
       content: '{{ ssl_key }}'
@@ -80,7 +83,12 @@
 
   handlers:
    - name: reiniciar apache2
-     service: 
-       name: "apache2" 
+     service:
+       name: "apache2"
        state: "restarted"
+
+   - name: iniciar apache2
+     service:
+       name: "apache2"
+       state: started
 

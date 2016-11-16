@@ -23,9 +23,13 @@ dependencies:
     - sudo apt-add-repository -y ppa:ansible/ansible
     - sudo apt-get update
     - sudo pip install --upgrade pip setuptools
+    - pip install ansible-lint
     - echo $VAULT > ~/.vault.txt
   override:
     - sudo apt-get install ansible curl
+    - ansible-lint alg/main.yml
+    - ansible-lint exams/main.yml
+    - ansible-lint integrates/main.yml
   post:
     - ./alg.sh
     - ./exams.sh
