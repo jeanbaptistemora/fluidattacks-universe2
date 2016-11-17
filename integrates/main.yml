@@ -5,7 +5,7 @@
 
   tasks:
    - name: include default step variables
-     include_vars: ansible/templates/vars.yml
+     include_vars: vars/vars.yml
 
    - name: Instalar paquetes necesarios
      apt:
@@ -17,6 +17,7 @@
        - python-pip
        - apache2
        - libapache2-mod-wsgi
+       - python-setuptools
 
    - name: Instalar dependencias pip
      pip:
@@ -34,14 +35,19 @@
 
    - name: Agregar netrc
      template:
-       src: "ansible/templates/netrc.j2"
+       src: "vars/netrc.j2"
        dest: "/root/.netrc"
        mode: "0600"
+
+   - name: Remover archivo index
+     file:
+       path: "/var/www/index.html"
+       state: absent
 
    - name: Clonar repositorio integrates
      git:
        repo: "https://jrestrepoatfluid@bitbucket.org/fluidsignal/fluid-integrates.git"
-       dest: "/root/integrates"
+       dest: "/var/www/integrates"
        version: "master"
 
    - name: Retirar git conf
@@ -49,27 +55,17 @@
        path: "/root/.netrc"
        state: absent
 
-#   - name: Crear directorio para logs
-#     file:
-#       path: "/root/logs"
-#       state: directory
+   - name: Creando sitio web
+     template:
+      src: "vars/default.j2"
+      dest: "/etc/apache2/sites-available/000-default.conf"
+      mode: "0644"
+     notify:
+       - reiniciar apache2
 
-#   - name: Crear error log
-#     file:
-#       path: "/root/logs/error.err"
-#       state: touch
-
-#   - name: Crear error log
-#     file:
-#       path: "/root/logs/integrates.log"
-#       state: touch
-
-#   - name: Agregar script de inicio
-#     template:
-#       src: "ansible/templates/init.sh"
-#       dest: "/root/init.sh"
-#       mode: "0755"
-
-#   - name: Correr servidor
-#     command: /root/init.sh
+  handlers:
+   - name: reiniciar apache2
+     service:
+       name: "apache2"
+       state: "restarted"
 

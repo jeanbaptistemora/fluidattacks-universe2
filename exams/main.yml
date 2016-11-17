@@ -5,7 +5,7 @@
 
   tasks:
    - name: Inlcuir variables (Vault)
-     include_vars: ansible/templates/vars.yml
+     include_vars: vars/vars.yml
 
    - name: Instalar paquetes necesarios
      apt:
@@ -126,7 +126,7 @@
 
    - name: Agregar config.php
      template:
-       src: "ansible/templates/config.j2"
+       src: "vars/config.j2"
        dest: "/var/www/html/config.php"
        mode: "0644"
 
