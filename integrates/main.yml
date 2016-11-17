@@ -28,11 +28,6 @@
        - pyyaml
        - openpyxl
 
-   - name: Crear directorio para clonar repositorio
-     file:
-       path: "/root/integrates/"
-       state: directory
-
    - name: Agregar netrc
      template:
        src: "vars/netrc.j2"
@@ -41,13 +36,13 @@
 
    - name: Remover archivo index
      file:
-       path: "/var/www/index.html"
+       path: "/var/www/html"
        state: absent
 
    - name: Clonar repositorio integrates
      git:
        repo: "https://jrestrepoatfluid@bitbucket.org/fluidsignal/fluid-integrates.git"
-       dest: "/var/www/integrates"
+       dest: "/var/www/fluidintegrates"
        version: "master"
 
    - name: Retirar git conf
@@ -68,4 +63,3 @@
      service:
        name: "apache2"
        state: "restarted"
-

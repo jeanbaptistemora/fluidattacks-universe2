@@ -2,10 +2,9 @@
 	ServerName integrates.fluid.la
 	ServerAdmin engineering@fluid.la
 
-	DocumentRoot /var/www/integrates/fluid-integrates
-	WSGIScriptAlias / /var/www/integrates/fluid-integrates/fluid-integrates/wsgi.py
+	DocumentRoot /var/www/fluidintegrates/fluidintegrates
+	WSGIScriptAlias / /var/www/fluidintegrates/fluidintegrates/wsgi.py
 	
 	ErrorLog /var/log/apache2/error.log
 	CustomLog /var/log/apache2/custom.log combined
-	WSGIPythonPath /var/www/fluid-integrates
 </VirtualHost>

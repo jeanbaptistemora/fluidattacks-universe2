@@ -9,7 +9,7 @@ fi
 set -e
 
 # importar entorno
-source $(git rev-parse --show-toplevel)/integrates/env.sh
+source $(git rev-parse --show-toplevel)/integrates/vars/env.sh
 
 # Mensaje de inicio
 echo "---### Iniciando contenedor."
