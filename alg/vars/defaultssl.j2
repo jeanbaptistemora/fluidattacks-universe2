@@ -54,18 +54,18 @@
 
     #Pagina WEB
         Header edit Link www.fluid.la fluid.la
-        Substitute "s|window.ub.page.url = \"https://www.fluid.la/en/landing/\"|window.ub.page.url = \"https://fluid.la/en/landing/\"|i"
+        Substitute "s|window.ub.page.url = \"https://www.fluid.la/\"|window.ub.page.url = \"https://fluid.la/\"|i"
         RewriteEngine on
         RewriteRule ^/es(.*)$           {{ landing }}es$1        [P]
         RewriteRule ^/services/permanent-hacking                {{ landing }}services/permanent-hacking/ [P]
-        RewriteRule ^/$         {{ landing }}en/landing/ [P]
+        RewriteRule ^/$         {{ landing }} [P]
         RewriteRule ^/clkn/(.*)$                {{ landing }}clkn/$1     [P]
         RewriteRule ^/en(.*)$           {{ landing }}en$1        [P]
         ProxyPassReverse /es {{ landing }}es
         ProxyPassReverse /en {{ landing }}en
 	ProxyPassReverse /services http://www.fluid.la/services
-	ProxyPass / http://www.fluid.la/en/landing
-        ProxyPassReverse / https://fluid.la/en/landing/
+	ProxyPass / http://www.fluid.la/
+	ProxyPassReverse / https://fluid.la/
 	ErrorDocument 404 {{ error_page }}
 
     # Configuración SSL
