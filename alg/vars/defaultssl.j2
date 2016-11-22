@@ -62,8 +62,7 @@
         ProxyPassReverse /es {{ landing }}es
         ProxyPassReverse /en {{ landing }}en
         ProxyPassReverse /services {{ landing }}services
-        ProxyPass / {{ mainsite }}
-        ProxyPassReverse / {{ mainsite }}
+        ProxyPassReverse / {{ landing }}
         ErrorDocument 404 {{ error_page }}
 
     # Configuración SSL
