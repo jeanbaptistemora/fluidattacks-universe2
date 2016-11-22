@@ -9,7 +9,7 @@ describe port(80) do
 end
 
 describe command('ls /etc/apache2/sites-enabled') do
-  its(:stdout) { should eq "000-default.conf  default-ssl  fluid.la  www.fluid.la\n"}
+  its(:stdout) { should eq "000-default.conf  default-ssl  fluid.la  www.fluid.la  www.fluidsignal.com\n"}
 end
 
 describe command("lsb_release -d") do
