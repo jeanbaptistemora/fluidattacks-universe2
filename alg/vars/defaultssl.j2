@@ -48,13 +48,11 @@
 	AddOutputFilterByType INFLATE;SUBSTITUTE;DEFLATE text/html text/plain text/xml
 	Substitute "s|http://|https://|i"
         
-	ErrorLog /var/log/apache2/error.log
-	LogLevel warn
-	CustomLog /var/log/apache2/ssl_access.log combined
+        ErrorLog {{ error_log }}
+        CustomLog {{ custom_log }} combined
+	LogLevel {{ log_level }}
 
     #Pagina WEB
-        Header edit Link www.fluid.la fluid.la
-        Substitute "s|window.ub.page.url = \"https://www.fluid.la/\"|window.ub.page.url = \"https://fluid.la/\"|i"
         RewriteEngine on
         RewriteRule ^/es(.*)$           {{ landing }}es$1        [P]
         RewriteRule ^/services/permanent-hacking                {{ landing }}services/permanent-hacking/ [P]
@@ -63,10 +61,10 @@
         RewriteRule ^/en(.*)$           {{ landing }}en$1        [P]
         ProxyPassReverse /es {{ landing }}es
         ProxyPassReverse /en {{ landing }}en
-	ProxyPassReverse /services http://www.fluid.la/services
-	ProxyPass / http://www.fluid.la/
-	ProxyPassReverse / https://fluid.la/
-	ErrorDocument 404 {{ error_page }}
+        ProxyPassReverse /services {{ landing }}services
+        ProxyPass / {{ mainsite }}
+        ProxyPassReverse / {{ mainsite }}
+        ErrorDocument 404 {{ error_page }}
 
     # Configuración SSL
 	SSLEngine on
