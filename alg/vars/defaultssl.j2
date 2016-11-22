@@ -4,6 +4,7 @@
     Options  +Indexes +Multiviews +FollowSymLinks
 
 	ServerAdmin {{ server_admin }}
+	proxyErrorOverride on	
 
     # Sitemap
 	ProxyPass /sitemap.xml	https://s3.amazonaws.com/fluidserves/sitemap/sitemap.xml
@@ -48,20 +49,22 @@
 	AddOutputFilterByType INFLATE;SUBSTITUTE;DEFLATE text/html text/plain text/xml
 	Substitute "s|http://|https://|i"
         
-	ErrorLog /var/log/apache2/error.log
-	LogLevel warn
-	CustomLog /var/log/apache2/ssl_access.log combined
+        ErrorLog {{ error_log }}
+        CustomLog {{ custom_log }} combined
+	LogLevel {{ log_level }}
 
     #Pagina WEB
         RewriteEngine on
         RewriteRule ^/es(.*)$           {{ landing }}es$1        [P]
-        RewriteRule ^/$         {{ landing }}en/landing/ [P]
+        RewriteRule ^/services/permanent-hacking                {{ landing }}services/permanent-hacking/ [P]
+        RewriteRule ^/$         {{ landing }} [P]
         RewriteRule ^/clkn/(.*)$                {{ landing }}clkn/$1     [P]
         RewriteRule ^/en(.*)$           {{ landing }}en$1        [P]
         ProxyPassReverse /es {{ landing }}es
         ProxyPassReverse /en {{ landing }}en
-        ProxyPassReverse / {{ landing }}en/landing/
-	ErrorDocument 404 {{ error_page }}
+        ProxyPassReverse /services {{ landing }}services
+        ProxyPassReverse / {{ landing }}
+        ErrorDocument 404 {{ error_page }}
 
     # Configuración SSL
 	SSLEngine on

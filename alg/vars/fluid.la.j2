@@ -3,7 +3,7 @@
         ServerAdmin {{ server_admin }}
         Options  +Indexes +Multiviews +FollowSymLinks
         Redirect / {{ mainsite }}
-        ErrorLog /var/log/apache2/error.log
-        CustomLog /var/log/apache2/access.log combined
+        ErrorLog {{ error_log }}
+        CustomLog {{ custom_log }} combined
 </VirtualHost>
 

@@ -5,10 +5,10 @@
 
   tasks:
    - name: Incluir llaves de cifrado
-     include_vars: ansible/templates/key.yml
+     include_vars: vars/key.yml
 
    - name: Incluir variables de configuracion
-     include_vars: ansible/templates/vars.yml
+     include_vars: vars/vars.yml
 
    - name: Instalar Apache
      apt:
@@ -34,32 +34,37 @@
 
    - name: Creando configuración Apache
      template:
-      src: "ansible/templates/apache2.j2"
+      src: "vars/apache2.j2"
       dest: "/etc/apache2/apache2.conf"
       mode: "0644"
 
    - name: Creando sitio por defecto
      template:
-      src: "ansible/templates/000-default.j2"
+      src: "vars/000-default.j2"
       dest: "/etc/apache2/sites-enabled/000-default.conf"
       mode: "0644"
 
    - name: Creando fluid.la
      template:
-      src: "ansible/templates/fluid.la.j2"
+      src: "vars/fluid.la.j2"
       dest: "/etc/apache2/sites-enabled/fluid.la"
       mode: "0644"
 
    - name: Creando www.fluid.la
      template:
-      src: "ansible/templates/www.fluid.la.j2"
+      src: "vars/www.fluid.la.j2"
       dest: "/etc/apache2/sites-enabled/www.fluid.la"
       mode: "0644"
 
+   - name: Creando www.fluidsignal.com
+     template:
+      src: "vars/www.fluidsignal.com.j2"
+      dest: "/etc/apache2/sites-enabled/www.fluidsignal.com"
+      mode: "0644"
 
    - name: Creando sitio ssl
      template:
-      src: "ansible/templates/defaultssl.j2"
+      src: "vars/defaultssl.j2"
       dest: "/etc/apache2/sites-enabled/default-ssl"
       mode: "0644"
 

@@ -2,6 +2,7 @@ require 'serverspec'
 require 'net/ssh'
 require 'pathname'
 require 'bundler/setup'
+require 'serverspec_extended_types'
 
 RSpec.configure do |config|
   set :host,  '127.0.0.1'
