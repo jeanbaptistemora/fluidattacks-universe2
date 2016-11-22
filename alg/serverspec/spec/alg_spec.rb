@@ -39,4 +39,3 @@ describe file ('/etc/apache2/sites-enabled/default-ssl') do
   it {should contain 'SSLProxyEngine on'}
 end
 
-

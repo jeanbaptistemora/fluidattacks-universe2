@@ -4,6 +4,7 @@
     Options  +Indexes +Multiviews +FollowSymLinks
 
 	ServerAdmin {{ server_admin }}
+	proxyErrorOverride on	
 
     # Sitemap
 	ProxyPass /sitemap.xml	https://s3.amazonaws.com/fluidserves/sitemap/sitemap.xml
