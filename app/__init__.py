@@ -4,7 +4,7 @@
 import logging
 
 logging.basicConfig(
-    filename='logs/error.err',
+    filename='/var/www/fluid-integrates/logs/error.err',
     format='%(levelname)s: %(asctime)s %(message)s',
     level=logging.DEBUG
 )

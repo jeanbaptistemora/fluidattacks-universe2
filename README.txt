@@ -1,3 +1,26 @@
-./manage.py makemigrations
-./manage.py migrate
-./manage.py runserver
+1)
+sudo apt install git python python-pip apache2 libapache2-mod-wsgi libapache2-mod-wsgi-py3
+sudo pip install django requests openpyxl jinja2
+2)
+cd /var/www && sudo git clone https://glopezfluid@bitbucket.org/fluidsignal/fluid-integrates.git
+cd fluid-integrates && sudo mkdir logs && touch /var/www/fluid-integrates/logs/error.err && touch /var/www/fluid-integrates/logs/integrates.log && sudo chmod 777 -R logs && ./manage.py makemigrations && ./manage.py migrate && sudo ./manage.py runserver
+verificar que /var/www/fluid-integrates/fluidintegrates/apache/override.py {agregar [ip , 'localhost', '127.0.0.1']}
+sudo chown www-data:www-data /var/www/fluid-integrates
+3)
+nano /etc/apache2/sites-available/000-default.conf
+<VirtualHost *:80>
+    WSGIScriptAlias / /var/www/fluid-integrates/fluidintegrates/apache/wsgi.py
+	ServerAdmin glopez@fluid.la
+	Alias /assets/ /var/www/fluid-integrates/app/assets/
+    <Directory "/var/www/fluid-integrates/fluidintegrates/apache/">
+		Require all granted
+    </Directory>
+	<Directory "/assets/">
+		Require all granted
+	</Directory>
+	ErrorLog ${APACHE_LOG_DIR}/error.log
+	CustomLog ${APACHE_LOG_DIR}/access.log combined
+	#Headers
+</VirtualHost>
+
+

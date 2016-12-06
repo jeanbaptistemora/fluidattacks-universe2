@@ -25,7 +25,7 @@ SECRET_KEY = 'oxz^4@97nkz*#490#(-5wtt8go=$pfaybg@is8se+et!$6r%x7'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["192.168.0.12", "localhost", "127.0.0.1","fluid.la"]
 
 
 # Application definition
@@ -77,7 +77,7 @@ WSGI_APPLICATION = 'fluidintegrates.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'NAME': '/var/www/fluid-integrates/db.sqlite3',
     }
 }
 

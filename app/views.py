@@ -6,6 +6,7 @@ import json
 from django.shortcuts import render, redirect
 from django.views.decorators.csrf import csrf_exempt, csrf_protect
 from django.views.decorators.http import require_http_methods
+from django.views.decorators.debug import sensitive_post_parameters
 from django.http import HttpResponse
 import docs
 from . import models, util
@@ -45,7 +46,7 @@ def login(request):
         auth = models.one_login_auth(username, password)
         if auth:
             request.session['username'] = username
-            return util.response([], 'Bienvenido '+username, False)
+            return util.response([], 'Bienvenido ' + username, False)
         else:
             return util.response([], 'Usuario/Clave incorrectos', True)
 
