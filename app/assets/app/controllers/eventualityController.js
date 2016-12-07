@@ -207,6 +207,10 @@ integrates.controller("eventualityController", function($scope, $uibModal, event
             }
         });
     };
+    $scope.category = "Name";
+    $scope.setCategory = function(category){
+        $scope.category = category;
+    }
     /**
      * Busca las eventualidades por nombre de proyecto
      * @function searchEvntByName
@@ -215,7 +219,11 @@ integrates.controller("eventualityController", function($scope, $uibModal, event
      */
     $scope.searchEvntByName = function(){
         var project = $scope.project;
-        if (project !== undefined && project !== ""){
+        var category = $scope.category;
+        if (project !== undefined 
+            && project !== ""
+            && category !== undefined
+            && category !== ""){
             $scope.response = "";
             $.gritter.add({
                 title: 'Consultando',
@@ -225,7 +233,7 @@ integrates.controller("eventualityController", function($scope, $uibModal, event
             });
             $(".loader").show();
             $scope.maxRecursiveCall = 5;
-            eventualityFactory.getEvntByName(project).then(function(data){
+            eventualityFactory.getEvntByName(project, category).then(function(data){
                 if(!data.error){
                     //CONFIGURACION DE TABLA
                     $("#eventualities").bootstrapTable('destroy');
@@ -238,11 +246,10 @@ integrates.controller("eventualityController", function($scope, $uibModal, event
                 }else{
                      $.gritter.add({
                         title: 'Error',
-                        text: 'El proyecto no existe...',
+                        text: data.message,
                         class_name: 'color warning',
                         sticky: false,
                     });
-                    $scope.searchEvntByName();
                 }
             }).catch(function(fallback) {
                 $.gritter.add({

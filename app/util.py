@@ -32,9 +32,9 @@ def traceability(msg, user):
     base = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
     try:
         filename = base + "/logs/integrates.log"
-        logmsg = str(datetime.datetime.now()) + "," + user+ "," + msg.encode('utf8')
+        logmsg = str(datetime.datetime.now()) + "," + user+ "," + msg
         file_obj = open(filename, 'a')
-        file_obj.write(logmsg.encode('utf8'))
+        file_obj.write(logmsg)
         file_obj.close()
     except (OSError, IOError) as expt:
         print "ERROR CON EL LOG " + expt.message()
@@ -49,6 +49,21 @@ def is_name(name):
         elif name.strip() == "":
             raise ValueError("")
         elif not re.search("^[a-zA-Z0-9]+$", name):
+            raise ValueError("")
+    except ValueError:
+        valid = False
+    return valid
+
+def is_numeric(name):
+    """ Verifica que un parametro tenga el formato
+        de numero adecuado """
+    valid = True
+    try:
+        if not name:
+            raise ValueError("")
+        elif name.strip() == "":
+            raise ValueError("")
+        elif not re.search("^[0-9]+$", name):
             raise ValueError("")
     except ValueError:
         valid = False

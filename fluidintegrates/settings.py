@@ -133,6 +133,14 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     "django.core.context_processors.media",
     'django.core.context_processors.static',
 )
+
 STATICFILES_DIRS = (
     os.path.join(PROJECT_ROOT, '../app/assets'),
 )
+
+#Session 
+SESSION_EXPIRE_AT_BROWSER_CLOSE = True
+SESSION_COOKIE_HTTPONLY = True
+SESSION_COOKIE_NAME = "Integratesv3"
+#SESSION_COOKIE_SECURE = True
+SESSION_COOKIE_AGE = 40*60

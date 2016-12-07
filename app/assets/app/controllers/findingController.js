@@ -53,6 +53,13 @@ integrates.deleteVulnRow = function(row){
     $("#vulnerabilities").bootstrapTable({data: newData});
     $("#vulnerabilities").bootstrapTable("refresh");
 };
+integrates.vuln_formatter = function(value, row, index){
+    str = "<div class='btn-group'>" 
+        + "<a class='btn btn-default' href='dashboard#/vuln/read/?id=nid' target='_blank'><i class='glyphicon glyphicon-eye-open'></i></a>"
+        + "<a class='btn btn-default' href='dashboard#/vuln/update/?id=nid' target='_blank'><i class='glyphicon glyphicon-pencil'></i></a>"
+        + "<a class='btn btn-default' href='dashboard#/vuln/delete/?id=nid' target='_blank'><i class='glyphicon glyphicon-trash'></i></a></div>";
+    return str.replace(/nid/g,row.id);
+}
 /**
  * Crea el controlador de la funcionalidad de vulnerabilidades
  * @name findingController 
@@ -148,72 +155,6 @@ integrates.controller("findingController", function($scope, $uibModal, findingFa
         });
     };
     /**
-     * Despliega la modal de ver editar hallazgo
-     * @function openModalEditar
-     * @member integrates.findingController
-     * @return {undefined}
-     */
-    $scope.openModalEditar = function(){
-        var sel = $("#vulnerabilities").bootstrapTable('getSelections');
-        if(sel.length == 0){
-            $.gritter.add({
-                title: 'Error',
-                text: 'Debes seleccionar un hallazgo',
-                class_name: 'color warning',
-                    sticky: false,
-            });
-            return false;
-        }else{
-            $scope.currentVulnerability = sel[0];
-        }
-        var modalInstance = $uibModal.open({
-            animation: true,
-            templateUrl: 'editar.html',
-            windowClass: 'ver-modal',
-            controller: function($scope, $uibModalInstance, currentVulnerability){
-                $scope.vuln = currentVulnerability;
-                if($scope.vuln.nivel == "General"){
-                    $scope.esDetallado = "hide-detallado";
-                    $scope.rows = "4";
-                    $scope.cols = "12";
-                }else{
-                    $scope.esDetallado = "show-detallado";  
-                    $scope.rows = "2";
-                    $scope.cols = "6";
-                }
-                $scope.okModalEditar = function(){
-                   findingFactory.updateVuln($scope.vuln).then(function(response){
-                        if(!response.error){
-                            $.gritter.add({
-                                title: 'Correcto!',
-                                text: 'Hallazgo actualizado',
-                                class_name: 'color success',
-                                sticky: false,
-                            });
-                            integrates.updateVulnRow($scope.vuln);
-                            $uibModalInstance.dismiss('cancel');
-                        }else{
-                            $.gritter.add({
-                                title: 'Error!',
-                                text: response.message,
-                                class_name: 'color warning',
-                                sticky: false,
-                            });
-                        } 
-                   });
-                }
-                $scope.closeModalEditar = function(){
-                    $uibModalInstance.dismiss('cancel');
-                }
-            },
-            resolve: {
-                currentVulnerability: function(){
-                    return $scope.currentVulnerability;
-                }
-            }
-        });
-    };
-    /**
      * Despliega la modal de ver eliminar hallazgo
      * @function openModalEliminar
      * @member integrates.findingController
@@ -289,16 +230,18 @@ integrates.controller("findingController", function($scope, $uibModal, findingFa
      */
     $scope.searchVulnByName = function(){
         var project = $scope.project;
-        if (project !== undefined && project !== ""){
+        var filter = $scope.filtro;
+        if (project !== undefined 
+            && project !== ""){
             $scope.response = "";
             $.gritter.add({
                 title: 'Consultando',
                 text: 'Un momento porfavor...',
                 class_name: 'color info',
-                    sticky: false,
+                sticky: false,
             });
             $(".loader").show();
-            findingFactory.getVulnByName(project).then(function(data){
+            findingFactory.getVulnByName(project, filter).then(function(data){
                 if(data.error == false){
                     //CONFIGURACION DE TABLA
                     $("#vulnerabilities").bootstrapTable('destroy');
@@ -363,10 +306,17 @@ integrates.controller("findingController", function($scope, $uibModal, findingFa
                 var color = (data.error == false)?"success":"warning";
                 $.gritter.add({
                     title: '',
-                    text: data.message,
+                    text: data.message + " Descargando..",
                     class_name: 'color ' + color,
                     sticky: false,
                 });
+                download = function(){
+                    downLink = document.createElement("a");
+                    downLink.target = "_blank";
+                    downLink.href = "export_autodoc?project=" + $scope.project;
+                    downLink.click();
+                };
+                setTimeout('download();',3000);
             }).catch(function(fallback) {
                 $.gritter.add({
                     title: 'Consultando',
@@ -401,3 +351,216 @@ integrates.controller("findingController", function($scope, $uibModal, findingFa
 });
 
 
+integrates.controller("findingUpdateController", function($scope, $uibModal, findingFactory, $stateParams) {
+    $("#search_section").hide();
+    var id = $stateParams.id;
+    $scope.vuln = {};
+    if(id !== undefined){
+        id = id.replace(/[^0-9]+/g, "?");
+        if(id.indexOf("?") > -1) window.close();
+        $scope.id = id;
+        findingFactory.getVulnById(id).then(function(response){
+            if(!response.error){
+                if(response.data == undefined) window.close();
+                $.gritter.add({
+                    title: 'Correcto!',
+                    text: 'Hallazgo cargado',
+                    class_name: 'color success',
+                    sticky: false,
+                });
+                $("#search_section").fadeIn(200);
+                var data = response.data;
+                try{
+                    data.cardinalidad = parseInt(data.cardinalidad);
+                    data.criticidad = parseFloat(data.criticidad);
+                }catch(e){
+                    data.cardinalidad = 0;
+                    data.criticidad = 0;
+                }
+                $scope.vuln = data;
+                if($scope.vuln.nivel == "General"){
+                    $scope.esDetallado = "hide-detallado";
+                }else{
+                    $scope.esDetallado = "show-detallado";  
+                }
+            }else{
+                $.gritter.add({
+                    title: 'Error!',
+                    text: response.message,
+                    class_name: 'color warning',
+                    sticky: false,
+                });
+            } 
+        });
+    }else{
+        window.close();
+    }
+    /**
+     * Despliega la modal de ver editar hallazgo
+     * @function openModalEditar
+     * @member integrates.findingController
+     * @return {undefined}
+     */
+    $scope.openModal = function(){
+        
+        var modalInstance = $uibModal.open({
+            animation: true,
+            templateUrl: 'editar.html',
+            windowClass: 'ver-modal',
+            controller: function($scope, $uibModalInstance, currentVulnerability){
+                $scope.okModal = function(){
+                   $scope.vuln = currentVulnerability; 
+                   findingFactory.updateVuln($scope.vuln).then(function(response){
+                        if(!response.error){
+                            $.gritter.add({
+                                title: 'Correcto!',
+                                text: 'Hallazgo actualizado',
+                                class_name: 'color success',
+                                sticky: false,
+                            });
+                            $uibModalInstance.dismiss('cancel');
+                        }else{
+                            $.gritter.add({
+                                title: 'Error!',
+                                text: response.message,
+                                class_name: 'color warning',
+                                sticky: false,
+                            });
+                        } 
+                   });
+                }
+                $scope.closeModal = function(){
+                    $uibModalInstance.dismiss('cancel');
+                }
+            },
+            resolve: {
+                currentVulnerability: function(){
+                    return $scope.vuln;
+                }
+            }
+        });
+    };
+});
+integrates.controller("findingDeleteController", function($scope, $uibModal, findingFactory, $stateParams) {
+    $("#search_section").hide();
+    var id = $stateParams.id;
+    $scope.vuln = {};
+    if(id !== undefined){
+        id = id.replace(/[^0-9]+/g, "?");
+        if(id.indexOf("?") > -1) window.close();
+        $scope.id = id;
+        findingFactory.getVulnById(id).then(function(response){
+            if(!response.error){
+                if(response.data == undefined) window.close();
+                $.gritter.add({
+                    title: 'Correcto!',
+                    text: 'Hallazgo cargado',
+                    class_name: 'color success',
+                    sticky: false,
+                });
+                $("#search_section").fadeIn(200);
+                var data = response.data;
+                $scope.vuln = data;
+            }else{
+                $.gritter.add({
+                    title: 'Error!',
+                    text: response.message,
+                    class_name: 'color warning',
+                    sticky: false,
+                });
+            } 
+        });
+    }else{
+        window.close();
+    }
+    /**
+     * Despliega la modal de ver eliminar hallazgo
+     * @function openModal
+     * @member integrates.findingDeleteController
+     * @return {undefined}
+     */
+    $scope.openModal = function(){
+        if(!$scope.vuln.justificacion){
+            $.gritter.add({
+                title: 'Error!',
+                text: "Debes ingresar una justificacion!",
+                class_name: 'color warning',
+                sticky: false,
+            });
+            return false;
+        }
+        var modalInstance = $uibModal.open({
+            animation: true,
+            templateUrl: 'editar.html',
+            windowClass: 'modal',
+            controller: function($scope, $uibModalInstance, currentVulnerability){
+                $scope.okModal = function(){
+                   $scope.vuln = currentVulnerability; 
+                   findingFactory.updateVuln($scope.vuln).then(function(response){
+                        if(!response.error){
+                            $.gritter.add({
+                                title: 'Correcto!',
+                                text: 'Hallazgo actualizado',
+                                class_name: 'color success',
+                                sticky: false,
+                            });
+                            $uibModalInstance.dismiss('cancel');
+                        }else{
+                            $.gritter.add({
+                                title: 'Error!',
+                                text: response.message,
+                                class_name: 'color warning',
+                                sticky: false,
+                            });
+                        } 
+                   });
+                }
+                $scope.closeModal = function(){
+                    $uibModalInstance.dismiss('cancel');
+                }
+            },
+            resolve: {
+                currentVulnerability: function(){
+                    return $scope.vuln;
+                }
+            }
+        });
+    };
+});
+integrates.controller("findingReadController", function($scope, findingFactory, $stateParams) {
+    $("#search_section").hide();
+    var id = $stateParams.id;
+    $scope.vuln = {};
+    if(id !== undefined){
+        id = id.replace(/[^0-9]+/g, "");
+        $scope.id = id;
+        findingFactory.getVulnById(id).then(function(response){
+            if(!response.error){
+                if(response.data == undefined) window.close();
+                $.gritter.add({
+                    title: 'Correcto!',
+                    text: 'Hallazgo cargado',
+                    class_name: 'color success',
+                    sticky: false,
+                });
+                $("#search_section").fadeIn(200);
+                var data = response.data;
+                $scope.vuln = data;
+                if($scope.vuln.nivel == "General"){
+                    $scope.esDetallado = "hide-detallado";
+                }else{
+                    $scope.esDetallado = "show-detallado";  
+                }
+            }else{
+                $.gritter.add({
+                    title: 'Error!',
+                    text: response.message,
+                    class_name: 'color warning',
+                    sticky: false,
+                });
+            } 
+        });
+    }else{
+        window.close();
+    }
+});

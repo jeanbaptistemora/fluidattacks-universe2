@@ -11,8 +11,6 @@ from django.http import HttpResponse
 import docs
 from . import models, util
 
-USER = "glopez@fluid.la"
-
 def index(request):
     "Vista de login para usuarios no autenticados"
     parameters = {}
@@ -22,7 +20,7 @@ def index(request):
 def dashboard(request):
     "Vista de panel de control para usuarios autenticados"
     if not util.is_authenticated(request):
-        return HttpResponse('Unauthorized', status=401)
+        return HttpResponse('Unauthorized <script>location = "/index"; </script>', status=401)
     parameters = {
         'username': request.session["username"]
     }
@@ -61,7 +59,7 @@ def export_autodoc(request):
         return HttpResponse('Unauthorized', status=401)
     try:
         project = request.GET.get('project', "")
-        filename = "app/autodoc/results/:proj.xlsx".replace(":proj", project)
+        filename = "/var/www/fluid-integrates/app/autodoc/results/:proj.xlsx".replace(":proj", project)
         if util.is_name(project) and os.path.isfile(filename):
             with open(filename, 'r') as pdf:
                 response = HttpResponse(pdf.read(), content_type=content_type)
@@ -89,8 +87,9 @@ def generate_autodoc(request):
 def get_vuln_by_name(request):
     "Captura y procesa el nombre de un proyecto para devolver los hallazgos"
     if not util.is_authenticated(request):
-        return HttpResponse('Unauthorized', status=401)
+        return HttpResponse('Unauthorized <script>location = "/index"; </script>', status=401)
     project = request.GET.get('project', None)
+    filtr = request.GET.get('filter', None)
     if not project:
         return util.response([], 'Empty fields', True)
     else:
@@ -106,9 +105,23 @@ def get_vuln_by_name(request):
                 for i in result:
                     ids.append(i["id"])
                 for j in ids:
-                    vuln = models.get_vuln_by_submission_id(j)
-                    vulns.append(vuln)
+                    vuln = models.get_vuln_by_submission_id(j)              
+                    if not filtr:
+                        vulns.append(vuln)
+                    elif filtr.encode("utf8") == vuln["tipo_prueba"].encode("utf8"):
+                        vulns.append(vuln)
                 return util.response(vulns, 'Success', False)
+
+@csrf_exempt
+def get_vuln_by_id(request):
+    if not util.is_authenticated(request):
+        return HttpResponse('Unauthorized <script>location = "/index"; </script>', status=401)
+    project_id = request.POST.get('id', None)
+    if util.is_numeric(project_id):
+        vuln = models.get_vuln_by_submission_id(project_id)
+        return util.response(vuln, 'Success', False)
+    else:
+        return util.response([], 'Empty fields', True)
 
 @csrf_exempt
 def get_evnt_by_name(request):
@@ -116,27 +129,41 @@ def get_evnt_by_name(request):
     if not util.is_authenticated(request):
         return HttpResponse('Unauthorized', status=401)
     project = request.GET.get('project', None)
+    category = request.GET.get('category', None)
+    if not category:
+        category = "Name"
     if not project:
         return util.response([], 'Campos vacios', True)
     else:
         if project.strip() == "":
             return util.response([], 'Campos vacios', True)
         else:
-            util.traceability("Consultando eventualidades de proyecto "+ project, USER)
-            result = models.get_evnt_by_name(project)
-            if result:
-                if int(result["total"]) == 0:
-                    return util.response([], 'Este proyecto no tiene eventualidades', False)
+            if category == "Name":
+                result = models.get_evnt_by_name(project)
+                if result:
+                    if int(result["total"]) == 0:
+                        return util.response([], 'Este proyecto no tiene eventualidades', False)
+                    else:
+                        ids, evtns = [], []
+                        for i in result["submissions"]:
+                            ids.append(i["id"])
+                        for j in ids:
+                            evtn = models.get_evnt_by_submission_id(j)
+                            evtns.append(evtn)
+                        return util.response(evtns, 'Success', False)
                 else:
-                    ids, evtns = [], []
-                    for i in result["submissions"]:
-                        ids.append(i["id"])
-                    for j in ids:
-                        evtn = models.get_evnt_by_submission_id(j)
-                        evtns.append(evtn)
-                    return util.response(evtns, 'Success', False)
+                    return util.response([], 'Error!', True)
             else:
-                return util.response([], 'Error!', True)
+                if util.is_numeric(project):
+                    evtns = []
+                    evtn = models.get_evnt_by_submission_id(project)
+                    if evtn:
+                        evtns.append(evtn)
+                        return util.response(evtns, 'Success', False)
+                    else:
+                        return util.response([], 'Error!', True)
+                else:
+                    return util.response([], 'Debes ingresar un ID numerico!', True)
 
 @csrf_protect
 def update_evnt(request):
@@ -171,7 +198,7 @@ def update_evnt(request):
     else:
         return util.response([], 'No se pudo actualizar formstack', True)
 
-@csrf_protect
+@csrf_exempt
 def update_vuln(request):
     "Captura y procesa los parametros para actualizar un hallazgo"
     if not util.is_authenticated(request):
@@ -191,7 +218,7 @@ def update_vuln(request):
             + "[" + post_parms["vuln[id]"] + "]"
     res = models.update_vuln_by_id(post_parms)
     if res:
-        util.traceability(action, request.session["username"])
+        #util.traceability(action.encode('ascii', 'ignore'), request.session["username"])
         return util.response([], 'Actualizado correctamente!', False)
     else:
         return util.response([], 'No se pudo actualizar formstack', True)
@@ -218,7 +245,7 @@ def delete_vuln(request):
             + "[" + post_parms["vuln[id]"] + "]"
         res = models.delete_vuln_by_id(post_parms["vuln[id]"])
         if res:
-            util.traceability(action, request.session["username"])
+            #util.traceability(action, request.session["username"])
             return util.response([], 'Eliminado correctamente!', False)
         else:
             return util.response([], 'No se pudo actualizar formstack', True)

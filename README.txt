@@ -4,6 +4,7 @@ sudo pip install django requests openpyxl jinja2
 2)
 cd /var/www && sudo git clone https://glopezfluid@bitbucket.org/fluidsignal/fluid-integrates.git
 cd fluid-integrates && sudo mkdir logs && touch /var/www/fluid-integrates/logs/error.err && touch /var/www/fluid-integrates/logs/integrates.log && sudo chmod 777 -R logs && ./manage.py makemigrations && ./manage.py migrate && sudo ./manage.py runserver
+sudo mkdir /var/www/fluid-integrates/app/autodoc/results && sudo chown www-data:www-data /var/www/fluid-integrates/app/autodoc/results
 verificar que /var/www/fluid-integrates/fluidintegrates/apache/override.py {agregar [ip , 'localhost', '127.0.0.1']}
 sudo chown www-data:www-data /var/www/fluid-integrates
 3)

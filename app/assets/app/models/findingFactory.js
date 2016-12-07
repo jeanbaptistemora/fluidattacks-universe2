@@ -17,13 +17,55 @@ integrates.factory('findingFactory', function($q){
          * @member integrates.findingFactory
          * @return {Object}
          */
-        getVulnByName: function(project){
+        getVulnByName: function(project, filter){
           var deferred = $q.defer();
           try {
               $.ajax({
                   url: BASE.url + "get_vuln_by_name",
                   data: {
                     project: project,
+                    filter: filter,
+                    _: Math.random()
+                  },
+                  success: function (response) { 
+                      $(".loader").hide();
+                      deferred.resolve(response);
+                  },
+                  error: function (xhr, status) {   
+                      $(".loader").hide();
+                      if(xhr.status == 500){
+                        deferred.resolve({
+                            error: null, 
+                            message: "Error de formstack"
+                        });
+                      }else if(xhr.status == 401){
+                         location = "/index"; 
+                      }               
+                  }
+              });
+          } catch (e) {
+              if(e.status == 401){
+                  location = "/index";
+              }
+              deferred.resolve('exception');
+          }
+          return deferred.promise
+     	},
+         /**
+         * Invoca el servicio para tener los hallazgos de un proyecto por id
+         * @function getVulnById
+         * @param {String} id
+         * @member integrates.findingFactory
+         * @return {Object}
+         */
+        getVulnById: function(id){
+          var deferred = $q.defer();
+          try {
+              $.ajax({
+                  url: BASE.url + "get_vuln_by_id",
+                  method: "POST",
+                  data: {
+                    id: id,
                     _: Math.random()
                   },
                   success: function (response) { 

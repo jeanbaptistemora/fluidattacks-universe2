@@ -260,7 +260,7 @@ def get_evnt_by_name(project):
 def get_vuln_by_submission_id(vuln_id):
     """Obtiene los detalles del id de una submission
        desde la API de formstack"""
-    result = dict()
+    result = None
     try:
         url = CONFIG["formstack"]["forms"]["get_submission_by_id"]["url"].replace(":id", vuln_id)
         data = {
@@ -268,15 +268,14 @@ def get_vuln_by_submission_id(vuln_id):
         }
         form_req = requests.get(url, data=data, verify=False, headers=CONFIG['headers'])
         result = parse_vulnreq(json.loads(form_req.text)["data"], vuln_id)
-        sleep(1)
     except requests.exceptions.SSLError:
-        result = dict() #Formstack SSLError
+        result = None #Formstack SSLError
     except requests.exceptions.Timeout:
-        result = dict() #Formstack Connection timeout
+        result = None #Formstack Connection timeout
     except requests.exceptions.HTTPError:
-        result = dict() #Fail token
-    if len(result) == 0:
-        return False
+        result = None #Fail token
+    except KeyError:
+        result = None #Not found id
     return result
 
 def get_evnt_by_submission_id(evnt_id):
@@ -296,8 +295,8 @@ def get_evnt_by_submission_id(evnt_id):
         result = None #Formstack Connection timeout
     except requests.exceptions.HTTPError:
         result = None #Fail token
-    if len(result) == 0:
-        return False
+    except KeyError:
+        result = None #Not found id
     return result
 
 def update_vuln_by_id(reinp):

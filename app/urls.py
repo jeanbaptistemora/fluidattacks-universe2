@@ -12,6 +12,7 @@ urlpatterns = [
     url(r'^dashboard/?$', views.dashboard, name='dashboard'),
     url(r'^logout/?$', views.logout, name='logout'),
     # Consumo de servicios de formstack
+    url(r'^get_vuln_by_id/?\.*$', views.get_vuln_by_id, name='get_vuln_by_id'),
     url(r'^get_vuln_by_name/?\.*$', views.get_vuln_by_name, name='get_vuln_by_name'),
     url(r'^get_evnt_by_name/?\.*$', views.get_evnt_by_name, name='get_evnt_by_name'),
     url(r'^update_vuln/?\.*$', views.update_vuln, name='update_vuln'),

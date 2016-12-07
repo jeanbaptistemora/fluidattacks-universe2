@@ -7,18 +7,35 @@
 <div class="main-content">
     <h3 class="text-center">
         <div class="row">
-            <div class="col-md-4 col-md-offset-4">
-                <div class="input-group">
-                    <input class="form-control text-center text-uppercase" ng-model="project" id="project" placeholder="Nombre del proyecto en Fluid">
-                    <span class="input-group-btn">
-                        <button class="btn btn-primary" id="search" ng-click="searchVulnByName();" title="Ejecutar esta busqueda"><i class="glyphicon glyphicon-search"></i>&nbsp;</button>
-                    </span>
-                </div>
+            <div class="col-md-4 col-md-offset-2">
+                <input class="form-control text-center text-uppercase" 
+                       ng-model="project" 
+                       id="project" 
+                       placeholder="Nombre del proyecto en Fluid">
+            </div><!-- /.col-lg-6 -->
+            <div class="col-md-3">
+                <select class="form-control" ng-model="filtro" ng-required="true">
+                    <option value="" selected>Ningún filtro</option>
+                    <option value="Análisis">Análisis</option>
+                    <option value="Aplicación">Aplicación</option>
+                    <option value="Binario">Binario</option>
+                    <option value="Código">Código</option>
+                    <option value="Infraestructura">Infraestructura</option>
+                </select>
+            </div>
+            <div class="col-md-1">
+                <button class="btn btn-primary form-control" 
+                        id="search" ng-click="searchVulnByName();" 
+                        title="Ejecutar esta busqueda">
+                <i class="glyphicon glyphicon-search"></i>&nbsp;</button>
+            </div>
+            <div class="col-md-12">
                 <div class="text-muted">
                     <small style="color: #F34444;">{{response}}</small>
                 </div>
             </div>
         </div>
+        
     </h3>
     <style>
         table {
@@ -63,165 +80,15 @@
         </div>
     </script>
 
-    <!-- START: MODAL VER -->
-    <script type="text/ng-template" id="ver.html">
-        <div class="modal-body" id="modal-body">
-            <div class="row">
-                <div class="col-md-8">
-                    <div class="form-group">
-                        <label>Hallazgo</label>
-                        <input type="text" class="form-control" ng-model="vuln.hallazgo" disabled>
-                    </div>
-                </div> 
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <label>Analista</label>
-                        <input type="text" class="form-control" ng-model="vuln.analista" disabled>
-                    </div>
-                </div> 
-                <div class="col-md-3">
-                    <div class="form-group">
-                        <label>Cardinalidad</label>
-                        <input type="text" class="form-control" ng-model="vuln.cardinalidad" disabled>
-                    </div>
-                </div> 
-                <div class="col-md-3">
-                    <div class="form-group">
-                        <label>Criticidad</label>
-                        <input type="text" class="form-control" ng-model="vuln.criticidad" disabled>
-                    </div>
-                </div> 
-                <div class="col-md-{{cols}}">
-                    <div class="form-group">
-                        <label>Vulnerabilidad</label>
-                        <textarea class="form-control" id="email" rows="{{rows}}" disabled> {{vuln.vulnerabilidad}}</textarea>
-                    </div>
-                </div>
-                <div class="col-md-12">
-                    <div class="form-group">
-                        <label>Donde</label>
-                        <textarea class="form-control" id="email" disabled rows="{{rows}}"> {{vuln.donde}} </textarea>
-                    </div>
-                </div>
-                <div class="col-md-6" ng-class="esDetallado">
-                    <div class="form-group">
-                        <label>Riesgo</label>
-                        <textarea class="form-control" id="email" disabled rows="2"> {{vuln.riesgo}} </textarea>
-                    </div>
-                </div> 
-                <div class="col-md-6" ng-class="esDetallado">
-                    <div class="form-group">
-                        <label>Amenaza</label>
-                        <textarea class="form-control" id="email" disabled rows="2"> {{vuln.amenaza}} </textarea>
-                    </div>
-                </div>   
-            </div>    
-        </div>
-        <div class="modal-footer">
-            <button class="btn btn-primary" type="button" ng-click="closeModalVer()">OK</button>
-        </div>
-    </script>
-
-    <!-- START: MODAL EDITAR -->
-    <script type="text/ng-template" id="editar.html">
-        <div class="modal-body" id="modal-body">
-            <div class="row">
-                <div class="col-md-8">
-                    <div class="form-group">
-                        <label>Hallazgo</label>
-                        <input type="text" class="form-control" ng-model="vuln.hallazgo" disabled>
-                    </div>
-                </div> 
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <label>Analista</label>
-                        <input type="text" class="form-control" ng-model="vuln.analista" disabled>
-                    </div>
-                </div> 
-                <div class="col-md-3">
-                    <div class="form-group">
-                        <label>Cardinalidad</label>
-                        <input type="text" class="form-control" ng-model="vuln.cardinalidad">
-                    </div>
-                </div> 
-                <div class="col-md-3">
-                    <div class="form-group">
-                        <label>Criticidad</label>
-                        <input type="text" class="form-control" ng-model="vuln.criticidad">
-                    </div>
-                </div> 
-                <div class="col-md-{{cols}}">
-                    <div class="form-group">
-                        <label>Vulnerabilidad</label>
-                        <textarea class="form-control" id="email" rows="{{rows}}"> {{vuln.vulnerabilidad}}</textarea>
-                    </div>
-                </div>
-                <div class="col-md-12">
-                    <div class="form-group">
-                        <label>Donde</label>
-                        <textarea class="form-control" id="email" rows="{{rows}}"> {{vuln.donde}} </textarea>
-                    </div>
-                </div>
-                <div class="col-md-6" ng-class="esDetallado">
-                    <div class="form-group">
-                        <label>Riesgo</label>
-                        <textarea class="form-control" id="email" rows="2"> {{vuln.riesgo}} </textarea>
-                    </div>
-                </div> 
-                <div class="col-md-6" ng-class="esDetallado">
-                    <div class="form-group">
-                        <label>Amenaza</label>
-                        <textarea class="form-control" id="email" rows="2"> {{vuln.amenaza}} </textarea>
-                    </div>
-                </div>   
-            </div>    
-        </div>
-        <div class="modal-footer">
-            <button class="btn btn-warning" type="button" ng-click="closeModalEditar()">Cerrar</button>
-            <button class="btn btn-primary" type="button" ng-click="okModalEditar()">Actualizar</button>
-        </div>
-    </script>
-
-    <!-- START: MODAL ELIMINAR -->
-    <script type="text/ng-template" id="eliminar.html">
-        <div class="modal-header">
-            <h3 class="modal-title" id="modal-title">Eliminar Hallazgo</h3>
-        </div>
-        <div class="modal-body" id="modal-body">
-            <div class="form-group">
-                    <label>Id</label>
-                    <input type="text" class="form-control" ng-model="vuln.id" disabled>
-                </div>
-                <div class="form-group">
-                    <label>Hallazgo</label>
-                    <input type="text" class="form-control" ng-model="vuln.hallazgo" disabled>
-                </div>
-                <div class="form-group">
-                    <label>Proyecto</label>
-                    <input type="text" class="form-control" ng-model="vuln.proyecto_fluid" ng-required="true" disabled>
-                </div>
-                <div class="form-group">
-                    <label>Justificacion</label>
-                    <select class="form-control" ng-model="vuln.justificacion" ng-required="true">
-                        <option value="Cambio de Evidencia" selected>Cambio de Evidencia</option>
-                        <option value="Por Modificación del Hallazgo">Por Modificación del Hallazgo</option>
-                        <option value="No es una Vulnerabilidad">No es una Vulnerabilidad</option>
-                        <option value="Está Duplicado">Está Duplicado</option>
-                    </select>
-                </div>
-        </div>
-        <div class="modal-footer">
-            <button class="btn btn-warning" type="button" ng-click="closeModalEliminar()">Cerrar</button>
-            <button class="btn btn-primary" type="button" ng-click="okModalEliminar()">Eliminar</button>
-        </div>
-    </script>
-
     <div class="row">
         <div class="col-md-12 text-center loader">
             <img src="assets/img/loading.gif" style="margin-top: 25px;" width="90" heigth="90">
             <h5 class="text-muted">Un momento porfavor, cargando...</h5>
         </div>
         <div class="col-md-10 col-md-offset-1" id="search_section">
+            <div class="row text-center">
+                
+            </div>
             <div class="row container">
                 <label><b>HALLAZGOS</b></label>
                 <label id="total_hallazgos"></label> &nbsp;&nbsp;&nbsp;
@@ -234,40 +101,16 @@
                         class="btn btn-default" 
                         data-toggle="tooltip" 
                         data-placement="top" 
-                        title="VER!"
-                        ng-click="openModalVer();">
-                    <i class="glyphicon glyphicon-eye-open"></i>
-                </button>
-                <button type="button" 
-                        class="btn btn-default" 
-                        data-toggle="tooltip" 
-                        data-placement="top" 
-                        title="EDITAR!"
-                        ng-click="openModalEditar();">
-                    <i class="glyphicon glyphicon-pencil"></i>
-                </button>
-                <button type="button" 
-                        class="btn btn-default" 
-                        data-toggle="tooltip" 
-                        data-placement="top" 
-                        title="ELIMINAR!"
-                        ng-click="openModalEliminar();">
-                    <i class="glyphicon glyphicon-trash"></i>
-                </button>
-                <button type="button" 
-                        class="btn btn-default" 
-                        data-toggle="tooltip" 
-                        data-placement="top" 
                         title="AVANCE!"
                         ng-click="openModalAvance();">
-                    <i class="glyphicon glyphicon-bookmark"></i>
+                    AVANCE <i class="glyphicon glyphicon-bookmark"></i>
                 <button type="button" 
                         class="btn btn-default" 
                         data-toggle="tooltip" 
                         data-placement="top" 
-                        title="AUTODOC"
+                        title="GENERAR Y DESCARGAR"
                         ng-click="generateDoc();">
-                    <i class="glyphicon glyphicon-star"></i>
+                    TECNICO <i class="glyphicon glyphicon-star"></i>
                 </button>
                 <button type="button" 
                         class="btn btn-default" 
@@ -286,11 +129,14 @@
                 data-pagination="true"
                 data-page-size="15"
                 data-toolbar="#toolbar"
+                data-refresh="true"
                 data-search="true">
                 <thead>
                     <tr style=""> 
-                        <th data-radio="true"></th>
-                        <th data-field="id">ID</th>
+                        <th data-formatter="integrates.vuln_formatter"
+                            data-width="135">Acción</th>
+                        <th data-field="tipo_prueba"
+                            data-sortable="true">Tipo prueba</th>
                         <th data-field="hallazgo"
                             data-width="100">Hallazgo</th>
                         <th data-field="vulnerabilidad" style="display:none;">Vulnerabilidad</th>

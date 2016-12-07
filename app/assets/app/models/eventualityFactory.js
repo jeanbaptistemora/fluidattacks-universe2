@@ -17,13 +17,14 @@ integrates.factory('eventualityFactory', function($q){
          * @member integrates.eventualityFactory
          * @return {Object}
          */
-        getEvntByName: function(project){
+        getEvntByName: function(project, category){
           var deferred = $q.defer();
           try {
               $.ajax({
                   url: BASE.url + "get_evnt_by_name",
                   data: {
-                    project: project
+                    project: project,
+                    category: category
                   },
                   success: function (response) { 
                       $(".loader").hide();
