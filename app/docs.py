@@ -139,11 +139,11 @@ def generate_doc_xls(project, data):
         reqs = util.extract_reqs(i["requisitos"])
         write_cell(finding_sheet, row, 13 , ".*(" + reqs + ")")
         # Datos si es detallado
-        if proy_type == "detallado":
+        if i["tipo"] == "Detallado":
             # Columna Amenaza (14)
-            write_cell(finding_sheet, qc_row, 14, i["amenaza"])
+            write_cell(finding_sheet, row, 14, i["amenaza"])
             # Columna Riesgo (15)
-            write_cell(finding_sheet, qc_row, 15, i["riesgo"])
+            write_cell(finding_sheet, row, 15, i["riesgo"])
             # Escribir en QC todos los campos
             # Columna Tipo de prueba (5)
             write_cell(qc_sheet, qc_row, 5, i["tipo_prueba"])

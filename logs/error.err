@@ -24506,3 +24506,70 @@ DEBUG: 2016-12-07 23:17:56,813 "GET /api/v2/submission/267582894.json HTTP/1.1" 
 INFO: 2016-12-07 23:17:56,820 Starting new HTTPS connection (1): www.formstack.com
 DEBUG: 2016-12-07 23:17:57,253 Setting read timeout to None
 DEBUG: 2016-12-07 23:17:57,429 "GET /api/v2/submission/267873890.json HTTP/1.1" 200 1843
+INFO: 2016-12-08 19:41:47,289 Starting new HTTPS connection (1): api.onelogin.com
+DEBUG: 2016-12-08 19:41:48,068 Setting read timeout to None
+DEBUG: 2016-12-08 19:41:48,581 "POST /api/v3/saml/assertion HTTP/1.1" 200 5724
+INFO: 2016-12-08 19:43:54,469 Starting new HTTPS connection (1): www.formstack.com
+DEBUG: 2016-12-08 19:43:54,840 Setting read timeout to None
+DEBUG: 2016-12-08 19:43:56,001 "GET /api/v2/form/1998500/submission.json HTTP/1.1" 200 666
+INFO: 2016-12-08 19:43:56,007 Starting new HTTPS connection (1): www.formstack.com
+DEBUG: 2016-12-08 19:43:56,479 Setting read timeout to None
+DEBUG: 2016-12-08 19:43:56,684 "GET /api/v2/submission/267582894.json HTTP/1.1" 200 1881
+INFO: 2016-12-08 19:43:56,692 Starting new HTTPS connection (1): www.formstack.com
+DEBUG: 2016-12-08 19:43:57,094 Setting read timeout to None
+DEBUG: 2016-12-08 19:43:57,298 "GET /api/v2/submission/267873890.json HTTP/1.1" 200 1843
+INFO: 2016-12-08 20:02:11,220 Starting new HTTPS connection (1): www.formstack.com
+DEBUG: 2016-12-08 20:02:11,860 Setting read timeout to None
+DEBUG: 2016-12-08 20:02:12,064 "GET /api/v2/form/1998500/submission.json HTTP/1.1" 200 666
+INFO: 2016-12-08 20:02:12,071 Starting new HTTPS connection (1): www.formstack.com
+DEBUG: 2016-12-08 20:02:12,474 Setting read timeout to None
+DEBUG: 2016-12-08 20:02:12,678 "GET /api/v2/submission/267582894.json HTTP/1.1" 200 1881
+INFO: 2016-12-08 20:02:12,685 Starting new HTTPS connection (1): www.formstack.com
+DEBUG: 2016-12-08 20:02:13,088 Setting read timeout to None
+DEBUG: 2016-12-08 20:02:13,293 "GET /api/v2/submission/267873890.json HTTP/1.1" 200 1843
+ERROR: 2016-12-08 20:13:07,176 Internal Server Error: /generate_autodoc
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/django/core/handlers/exception.py", line 39, in inner
+    response = get_response(request)
+  File "/usr/local/lib/python2.7/dist-packages/django/core/handlers/base.py", line 187, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/usr/local/lib/python2.7/dist-packages/django/core/handlers/base.py", line 185, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/django/views/decorators/csrf.py", line 58, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/django/views/decorators/http.py", line 40, in inner
+    return func(request, *args, **kwargs)
+  File "/var/www/fluid-integrates/app/views.py", line 82, in generate_autodoc
+    docs.generate_doc_xls(project, json.loads(data))
+  File "/var/www/fluid-integrates/app/docs.py", line 145, in generate_doc_xls
+    print i["amenaza"]
+UnicodeEncodeError: 'ascii' codec can't encode character u'\xf3' in position 36: ordinal not in range(128)
+ERROR: 2016-12-08 20:14:19,870 Internal Server Error: /generate_autodoc
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/django/core/handlers/exception.py", line 39, in inner
+    response = get_response(request)
+  File "/usr/local/lib/python2.7/dist-packages/django/core/handlers/base.py", line 187, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/usr/local/lib/python2.7/dist-packages/django/core/handlers/base.py", line 185, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/django/views/decorators/csrf.py", line 58, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/django/views/decorators/http.py", line 40, in inner
+    return func(request, *args, **kwargs)
+  File "/var/www/fluid-integrates/app/views.py", line 82, in generate_autodoc
+    docs.generate_doc_xls(project, json.loads(data))
+  File "/var/www/fluid-integrates/app/docs.py", line 145, in generate_doc_xls
+    print i["amenaza"]
+UnicodeEncodeError: 'ascii' codec can't encode character u'\xf3' in position 36: ordinal not in range(128)
+INFO: 2016-12-09 13:50:34,324 Starting new HTTPS connection (1): api.onelogin.com
+DEBUG: 2016-12-09 13:50:34,899 Setting read timeout to None
+DEBUG: 2016-12-09 13:50:35,318 "POST /api/v3/saml/assertion HTTP/1.1" 200 5724
+INFO: 2016-12-09 13:50:53,877 Starting new HTTPS connection (1): www.formstack.com
+DEBUG: 2016-12-09 13:50:54,530 Setting read timeout to None
+DEBUG: 2016-12-09 13:50:55,617 "GET /api/v2/form/1998500/submission.json HTTP/1.1" 200 666
+INFO: 2016-12-09 13:50:55,626 Starting new HTTPS connection (1): www.formstack.com
+DEBUG: 2016-12-09 13:50:56,132 Setting read timeout to None
+DEBUG: 2016-12-09 13:50:56,270 "GET /api/v2/submission/267582894.json HTTP/1.1" 200 1881
+INFO: 2016-12-09 13:50:56,278 Starting new HTTPS connection (1): www.formstack.com
+DEBUG: 2016-12-09 13:51:06,715 Setting read timeout to None
+DEBUG: 2016-12-09 13:51:06,920 "GET /api/v2/submission/267873890.json HTTP/1.1" 200 1843
