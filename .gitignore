@@ -2,3 +2,4 @@ app/autodoc/results/*.*
 *.xlsx
 *.err
 *.log
+*.pyc
