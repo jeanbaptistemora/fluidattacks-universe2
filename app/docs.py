@@ -24,6 +24,89 @@ config = {
     }
 }
 
+from pptx import Presentation
+
+class IE_bancolombia:
+	
+    presentation = None
+    critical_finding_slide = 3
+    moderate_finding_slide = 11
+    tolerable_finding_slide = 26
+    finding_positions = None
+    project_name = ""
+    project_data = None
+
+    def __init__(self, project, data):
+        self.project_name = project
+        self.project_data = data
+        self.presentation = Presentation("/var/www/fluid-integrates/app/autodoc/templates/bancolombia.pptx")
+        self.finding_positions = dict()
+        self.finding_positions["solucion"] = (0,0)
+        self.finding_positions["riesgo"] = (1,0)
+        self.finding_positions["amenaza"] = (2,0)
+        self.finding_positions["descripcion"] = (3,0)
+        self.finding_positions["donde"] = (4,0)
+        self.finding_positions["cardinalidad"] = (6,1)
+        self.finding_positions["hallazgo"] = (7,0)
+        self.finding_positions["categoria"] = (7,1)
+        self.finding_positions["criticidad"] = (9,1)
+        self.generate_doc_pptx()
+		
+    def get_slide(self, criticality):
+        try:
+            criticality = float(criticality.replace(",","."))
+        except ValueError:
+            criticality = 0
+        except TypeError:
+            criticality = 0
+        if criticality == 0:
+            return None
+        else:
+            if criticality > 7: #Critical
+                slide = self.presentation.slides[self.critical_finding_slide]
+                self.critical_finding_slide += 1
+            elif criticality > 4 and criticality <= 6.9: #Moderated
+                slide = self.presentation.slides[self.moderate_finding_slide]
+                self.moderate_finding_slide += 1
+            else:
+                slide = self.presentation.slides[self.tolerable_finding_slide]
+                self.tolerable_finding_slide += 1
+                return slide
+
+    def fill_slide(self, finding):
+        try:
+            slide = get_slide(finding["criticidad"])
+            shape, paragraph = self.finding_positions["solucion"]
+            slide.shapes[shape].text_frame.paragraphs[paragraph].runs[0].text = finding["solucion"]
+            shape, paragraph = self.finding_positions["riesgo"]
+            slide.shapes[shape].text_frame.paragraphs[paragraph].runs[0].text = finding["riesgo"]
+            shape, paragraph = self.finding_positions["amenaza"]
+            slide.shapes[shape].text_frame.paragraphs[paragraph].runs[0].text = finding["amenaza"]
+            shape, paragraph = self.finding_positions["descripcion"]
+            slide.shapes[shape].text_frame.paragraphs[paragraph].runs[0].text = finding["descripcion"]
+            shape, paragraph = self.finding_positions["donde"]
+            if len(finding["donde"]) > 200:
+                finding["donde"] = finding["donde"][0:200]
+            slide.shapes[shape].text_frame.paragraphs[paragraph].runs[0].text = finding["donde"]
+            shape, paragraph = self.finding_positions["cardinalidad"]
+            slide.shapes[shape].text_frame.paragraphs[paragraph].runs[0].text = finding["cardinalidad"]
+            shape, paragraph = self.finding_positions["hallazgo"]
+            slide.shapes[shape].text_frame.paragraphs[paragraph].runs[0].text = finding["hallazgo"]
+            shape, paragraph = self.finding_positions["categoria"]
+            slide.shapes[shape].text_frame.paragraphs[paragraph].runs[0].text = finding["categoria"]
+            shape, paragraph = self.finding_positions["criticidad"]
+            slide.shapes[shape].text_frame.paragraphs[paragraph].runs[0].text = finding["criticidad"]
+        except:
+            return None
+		
+    def generate_doc_pptx(self):
+        for finding in self.project_data:
+            self.fill_slide(finding)
+        self.save()
+
+    def save(self):
+        self.presentation.save("/var/www/fluid-integrates/app/autodoc/results/"+ self.project_name + ".pptx")
+
 def create_template(project_name, project_data):
     """Convierte un json en un template de jinja"""
     result_name = 'results/:name.txt'.replace(":name", project_name)
@@ -126,7 +209,7 @@ def generate_doc_xls(project, data):
         write_cell(finding_sheet, row+7, 7, nivel_resolucion)
         write_cell(finding_sheet, row+8, 7, nivel_confianza)
         # Columna Criticidad (8)
-        write_cell(finding_sheet, row, 8, "")
+        write_cell(finding_sheet, row, 8, i["criticidad"])
         # Columna Cardinalidad (9)
         write_cell(finding_sheet, row, 9, int(i["cardinalidad"]))
         # Columna Evidencia (10)

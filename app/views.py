@@ -80,6 +80,7 @@ def generate_autodoc(request):
     if util.is_json(data) and util.is_name(project):
         if len(json.loads(data)) >= 1:
             docs.generate_doc_xls(project, json.loads(data))
+            docs.IE_bancolombia(project, data)
             return util.response([], 'Documentacion generada correctamente!', False)
     return util.response([], 'Error...', True)
 
