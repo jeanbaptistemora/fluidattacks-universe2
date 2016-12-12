@@ -41,10 +41,10 @@ class IE_bancolombia:
         self.project_data = data
         self.presentation = Presentation("/var/www/fluid-integrates/app/autodoc/templates/bancolombia.pptx")
         self.finding_positions = dict()
-        self.finding_positions["solucion"] = (0,0)
+        self.finding_positions["solucion_efecto"] = (0,0)
         self.finding_positions["riesgo"] = (1,0)
         self.finding_positions["amenaza"] = (2,0)
-        self.finding_positions["descripcion"] = (3,0)
+        self.finding_positions["vulnerabilidad"] = (3,0)
         self.finding_positions["donde"] = (4,0)
         self.finding_positions["cardinalidad"] = (6,1)
         self.finding_positions["hallazgo"] = (7,0)
@@ -62,31 +62,36 @@ class IE_bancolombia:
         if criticality == 0:
             return None
         else:
+            slide = None
             if criticality > 7: #Critical
                 slide = self.presentation.slides[self.critical_finding_slide]
-                self.critical_finding_slide += 1
+                self.critical_finding_slide = self.critical_finding_slide + 1
             elif criticality > 4 and criticality <= 6.9: #Moderated
                 slide = self.presentation.slides[self.moderate_finding_slide]
-                self.moderate_finding_slide += 1
+                self.moderate_finding_slide = self.moderate_finding_slide + 1
             else:
                 slide = self.presentation.slides[self.tolerable_finding_slide]
-                self.tolerable_finding_slide += 1
-                return slide
+                self.tolerable_finding_slide = self.tolerable_finding_slide + 1
+            print str(self.tolerable_finding_slide)
+            return slide
 
     def fill_slide(self, finding):
         try:
-            slide = get_slide(finding["criticidad"])
-            shape, paragraph = self.finding_positions["solucion"]
-            slide.shapes[shape].text_frame.paragraphs[paragraph].runs[0].text = finding["solucion"]
+            slide = self.get_slide(finding["criticidad"])
+            print str(finding["criticidad"])
+            print slide
+            shape, paragraph = self.finding_positions["solucion_efecto"]
+            slide.shapes[shape].text_frame.paragraphs[paragraph].runs[0].text = finding["solucion_efecto"]
             shape, paragraph = self.finding_positions["riesgo"]
             slide.shapes[shape].text_frame.paragraphs[paragraph].runs[0].text = finding["riesgo"]
             shape, paragraph = self.finding_positions["amenaza"]
             slide.shapes[shape].text_frame.paragraphs[paragraph].runs[0].text = finding["amenaza"]
-            shape, paragraph = self.finding_positions["descripcion"]
-            slide.shapes[shape].text_frame.paragraphs[paragraph].runs[0].text = finding["descripcion"]
+            shape, paragraph = self.finding_positions["vulnerabilidad"]
+            slide.shapes[shape].text_frame.paragraphs[paragraph].runs[0].text = finding["vulnerabilidad"]
             shape, paragraph = self.finding_positions["donde"]
             if len(finding["donde"]) > 200:
                 finding["donde"] = finding["donde"][0:200]
+            finding["donde"] = finding["donde"].replace("\r", "").replace("\n","; ")
             slide.shapes[shape].text_frame.paragraphs[paragraph].runs[0].text = finding["donde"]
             shape, paragraph = self.finding_positions["cardinalidad"]
             slide.shapes[shape].text_frame.paragraphs[paragraph].runs[0].text = finding["cardinalidad"]
@@ -96,7 +101,8 @@ class IE_bancolombia:
             slide.shapes[shape].text_frame.paragraphs[paragraph].runs[0].text = finding["categoria"]
             shape, paragraph = self.finding_positions["criticidad"]
             slide.shapes[shape].text_frame.paragraphs[paragraph].runs[0].text = finding["criticidad"]
-        except:
+        except Exception, e:
+            print str(e)
             return None
 		
     def generate_doc_pptx(self):
@@ -271,6 +277,5 @@ def generate_doc_xls(project, data):
             # Columna Severidad (27)
             write_cell(qc_sheet, qc_row, 27, i["severidad"])
             qc_row = qc_row + 1
-        print i["evidencia"]
         row = row + 10
     tech_report.save(filename=save_report_name)

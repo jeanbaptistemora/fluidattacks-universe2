@@ -79,7 +79,22 @@
             <button class="btn btn-primary" type="button" ng-click="closeModalAvance()">OK</button>
         </div>
     </script>
-
+    <!-- START: MODAL Vincular -->
+    <script type="text/ng-template" id="vincular.html">
+        <div class="modal-header">
+            <h3 class="modal-title" id="modal-title">Vinculación Proyecto-pedido</h3>
+        </div>
+        <div class="modal-body" id="modal-body">
+            <label>Proyecto</label>
+            <input type="text" ng-model="project" class="form-control" disabled />
+            <label>Pedido</label>
+            <input type="number" ng-model="order" class="form-control"/>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-warning" type="button" ng-click="closeModal()">Cerrar</button>
+            <button class="btn btn-primary" type="button" ng-click="okModal()">Confirmar</button>
+        </div>
+    </script>
     <div class="row">
         <div class="col-md-12 text-center loader">
             <img src="assets/img/loading.gif" style="margin-top: 25px;" width="90" heigth="90">
@@ -110,15 +125,14 @@
                         data-placement="top" 
                         title="GENERAR Y DESCARGAR"
                         ng-click="generateDoc();">
-                    TECNICO <i class="glyphicon glyphicon-star"></i>
-                </button>
+                    DOCUMENTACIÓN <i class="glyphicon glyphicon-star"></i>
                 <button type="button" 
                         class="btn btn-default" 
                         data-toggle="tooltip" 
                         data-placement="top" 
-                        title="DESCARGAR"
-                        ng-click="downloadDoc();">
-                    <i class="glyphicon glyphicon-cloud-download"></i>
+                        title="ASIGNAR ID!"
+                        ng-click="openModalVincular();">
+                    RELACIONAR <i class="glyphicon glyphicon-link"></i>
                 </button>
             </div>
             <table

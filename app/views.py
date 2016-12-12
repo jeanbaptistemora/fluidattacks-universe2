@@ -80,7 +80,7 @@ def generate_autodoc(request):
     if util.is_json(data) and util.is_name(project):
         if len(json.loads(data)) >= 1:
             docs.generate_doc_xls(project, json.loads(data))
-            docs.IE_bancolombia(project, data)
+            docs.IE_bancolombia(project, json.loads(data))
             return util.response([], 'Documentacion generada correctamente!', False)
     return util.response([], 'Error...', True)
 
@@ -209,20 +209,34 @@ def update_vuln(request):
     for i,k in post_parms.items():
         post_parms[i] = k.encode('utf8')
     if "vuln[proyecto_fluid]" not in post_parms \
+        or "vuln[nivel]" not in post_parms \
         or "vuln[hallazgo]" not in post_parms \
+        or "vuln[vulnerabilidad]" not in post_parms \
+        or "vuln[donde]" not in post_parms \
+        or "vuln[cardinalidad]" not in post_parms \
+        or "vuln[criticidad]" not in post_parms \
+        or "vuln[amenaza]" not in post_parms \
         or "vuln[id]" not in post_parms:
         return util.response([], 'Campos vacios', True)
     else:
-        action = "Actualizar hallazgo, " \
-            + post_parms["vuln[proyecto_fluid]"].upper() \
-            + " => " + post_parms["vuln[hallazgo]"] \
-            + "[" + post_parms["vuln[id]"] + "]"
-    res = models.update_vuln_by_id(post_parms)
-    if res:
-        #util.traceability(action.encode('ascii', 'ignore'), request.session["username"])
-        return util.response([], 'Actualizado correctamente!', False)
-    else:
-        return util.response([], 'No se pudo actualizar formstack', True)
+        nivel = post_parms["vuln[nivel]"]
+        execute = False
+        if nivel == "General":
+            if "vuln[vector_ataque]" in post_parms \
+                and "vuln[sistema_comprometido]" in post_parms \
+                execute = True
+        else if nivel == "Detallado":
+            if "vuln[riesgo]" in post_parms 
+                execute = True
+        else:
+            execute = False
+        if execute is False:
+            return util.response([], 'Campos vacios', True)
+        res = models.update_vuln_by_id(post_parms)
+        if res:
+            return util.response([], 'Actualizado correctamente!', False)
+        else:
+            return util.response([], 'No se pudo actualizar formstack', True)
 
 @csrf_exempt
 def delete_vuln(request):
@@ -251,3 +265,46 @@ def delete_vuln(request):
         else:
             return util.response([], 'No se pudo actualizar formstack', True)
         
+@csrf_exempt
+@require_http_methods(["GET"])
+def get_order (request):
+    """ Obtiene de formstack el id de pedido relacionado con un proyecto """
+    if not util.is_authenticated(request):
+        return HttpResponse('Unauthorized <script>location = "/index"; </script>', status=401)
+    project_name = request.GET.get('project', None)
+    if util.is_name(project_name):
+        order_id = models.get_order(project_name)
+        if "submissions" in order_id:
+            if len(order_id["submissions"]) == 1:
+                return util.response(order_id["submissions"][0]["id"], 'Consulta exitosa!', False)
+            elif len(order_id["submissions"]) == 0: 
+                return util.response("0", 'No se ha asignado un pedido!', False)
+            else:
+                return util.response([], 'Este proyecto tiene varios IDs', True)
+        else:
+            return util.response([], 'No se pudo consultar formstack', True)
+    else:
+        return util.response([], 'Campos vacios', True)
+
+@csrf_exempt
+@require_http_methods(["POST"])
+def update_order_id (request):
+    """ Actualiza el nombre de proyecto del id de pedido relacionado """
+    if not util.is_authenticated(request):
+        return HttpResponse('Unauthorized <script>location = "/index"; </script>', status=401)
+    project_name = request.POST.get('project', None)
+    order_id = request.POST.get('id', None)
+    if not util.is_name(project_name):
+        return util.response([], 'Campos vacios', True)
+    if not util.is_numeric(order_id): 
+        return util.response([], 'Campos vacios', True)
+    updated = models.update_order_id(project_name, order_id)
+    if updated is None:
+        return util.response([], 'No se pudo actualizar formstack', True)
+    elif updated.status_code == 404:
+        return util.response([], 'Ese pedido no existe', True)
+    else:
+        return util.response([], 'Actualizado correctamente!', False)
+        
+    
+    

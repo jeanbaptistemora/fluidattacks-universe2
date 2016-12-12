@@ -93,6 +93,47 @@ integrates.factory('findingFactory', function($q){
           return deferred.promise
      	},
         /**
+         * Invoca el servicio para tener el id de un proyecto
+         * @function getIdByProject
+         * @param {String} project
+         * @member integrates.findingFactory
+         * @return {Object}
+         */
+        getIdByProject: function(project){
+          var deferred = $q.defer();
+          try {
+              $.ajax({
+                  url: BASE.url + "get_order",
+                  method: "GET",
+                  data: {
+                    project: project,
+                    _: Math.random()
+                  },
+                  success: function (response) { 
+                      $(".loader").hide();
+                      deferred.resolve(response);
+                  },
+                  error: function (xhr, status) {   
+                      $(".loader").hide();
+                      if(xhr.status == 500){
+                        deferred.resolve({
+                            error: null, 
+                            message: "Error de formstack"
+                        });
+                      }else if(xhr.status == 401){
+                         location = "/index"; 
+                      }               
+                  }
+              });
+          } catch (e) {
+              if(e.status == 401){
+                  location = "/index";
+              }
+              deferred.resolve('exception');
+          }
+          return deferred.promise
+     	},
+        /**
          * Invoca el servicio para crear el proceso que genera 
          * la documentacion de un proyecto
          * @function generateDoc
@@ -210,6 +251,56 @@ integrates.factory('findingFactory', function($q){
                   location = "/index";
               }
               deferred.resolve('exception');
+          }
+          return deferred.promise
+        },
+        /**
+         * Actualiza un pedido con su respectivo proyecto
+         * @function updateOrderID
+         * @param {Integer} id
+         * @param {String} project
+         * @member integrates.findingFactory
+         * @return {Object}
+         */
+        updateOrderID: function(id, project){
+            var deferred = $q.defer();
+            try {
+                $.ajax({
+                    url: BASE.url + "update_order_id",
+                    method: "POST",
+                    data: {
+                        project: project,
+                        id: id
+                    },
+                    success: function (response) { 
+                        deferred.resolve(response);
+                    },
+                    error: function (xhr, status) {
+                        $(".loader").hide();
+                        if(xhr.status == 500){
+                            deferred.resolve({
+                                error: null, 
+                                message: "Error de formstack"
+                            });
+                        }else if(xhr.status == 401){
+                            location = "/index"; 
+                        }    
+                    }
+                });
+          } catch (e) {
+              if(e.status == 401){
+                  location = "/index";
+              }else if(e.status == 500){
+                  deferred.resolve({
+                    error: undefined, 
+                    message: "Error de formstack"
+                  });
+              }else{
+                  deferred.resolve({
+                    error: undefined, 
+                    message: "Error desconocido"
+                  });
+              }
           }
           return deferred.promise
         }

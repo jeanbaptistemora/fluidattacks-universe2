@@ -18,6 +18,8 @@ urlpatterns = [
     url(r'^update_vuln/?\.*$', views.update_vuln, name='update_vuln'),
     url(r'^update_evnt/?\.*$', views.update_evnt, name='update_evnt'),
     url(r'^delete_vuln/?\.*$', views.delete_vuln, name='delete_vuln'),
+    url(r'^get_order/?\.*$', views.get_order, name='get_order'),
+    url(r'^update_order_id/?\.*$', views.update_order_id, name='update_order_id'),
     # Documentacion automatica
     url(r'^generate_autodoc/?$', views.generate_autodoc, name='generate_autodoc'),
     url(r'^export_autodoc/?$', views.export_autodoc, name='export_autodoc')

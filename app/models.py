@@ -30,11 +30,20 @@ CONFIG = {
             'get_submission_by_id':{
                 'url' : 'https://www.formstack.com/api/v2/submission/:id.json'
             },
+            'get_order':{
+                'url': 'https://www.formstack.com/api/v2/form/1925068/submission.json',
+                'fields': {
+                    'name': '48092369'
+                }
+            },
             'create_delete_registry':{
                 'url': 'https://www.formstack.com/api/v2/form/2388563/submission.json'
             }
         },
         'fields':{
+            'order':{
+                'proyecto_fluid': '48092369'
+            },
             'project':{
                 'analista': "32201744",
                 'lider': "38193323",
@@ -76,7 +85,11 @@ CONFIG = {
                 'explotabilidad': "38529253",
                 'nivel_resolucion': "38529254",
                 'nivel_confianza': "38529255",
-                'evidencia': "32202896"
+                'evidencia': "32202896",
+                #2016-dic-12 Agregado para documentacion automatica
+                #2016-dic-12 Campos para generar IE Fluid
+                'sistema_comprometido': "48092123",
+                'vector_ataque': "48092088"
             },
             'evnt':{
                 'analista': "29042426",
@@ -140,6 +153,10 @@ def parse_vulnreq(frmvuln, frmid):
             vuln["solucion_efecto"] = i["value"]
         if i["field"] == config_ctx["tipo"]:
             vuln["tipo"] = i["value"]
+        if i["field"] == config_ctx["sistema_comprometido"]:
+            vuln["sistema_comprometido"] = i["value"]
+        if i["field"] == config_ctx["vector_ataque"]:
+            vuln["vector_ataque"] = i["value"]
         #DETALLES PROYECTO
         if i["field"] == config_prj["analista"]:
             vuln["analista"] = i["value"]
@@ -332,7 +349,6 @@ def update_vuln_by_id(reinp):
 def update_evnt_by_id(reinp):
     """Actualiza una eventualidad de formstack usando su id"""
     field_config = CONFIG["formstack"]["fields"]["evnt"]
-    print reinp
     vuln_id = reinp['vuln[id]']
     files = {
         "field_" + field_config["afectacion"] : reinp['vuln[afectacion]'],
@@ -400,4 +416,49 @@ def one_login_auth(username, password):
         result = None #One login Connection timeout
     except requests.exceptions.HTTPError:
         result = None #Fail login
+    return result
+
+def get_order(project):
+    """Obtiene el ID de pedido relacionado a un proyecto
+       desde la API de Formstack"""
+    url = CONFIG["formstack"]["forms"]["get_order"]["url"]
+    data = {
+        'oauth_token': CONFIG["formstack"]["token"],
+        'search_field_1': CONFIG["formstack"]["forms"]["get_order"]["fields"]["name"],
+        'search_value_1': project
+    }
+    result = None
+    try:
+        result = requests.get(url, data=data, verify=False, headers=CONFIG['headers'])
+        result = json.loads(result.text)
+    except requests.exceptions.SSLError:
+        result = None #Formstack SSLError
+    except requests.exceptions.Timeout:
+        result = None #Formstack Connection timeout
+    except requests.exceptions.HTTPError:
+        result = None #Fail token
+    return result
+
+def update_order_id(project, order_id):
+    """ Actualiza el nombre de proyecto en un pedido de formstack """
+    field_config = CONFIG["formstack"]["fields"]["order"]
+    files = {
+        "field_" + field_config["proyecto_fluid"] : project
+    }
+    result = None
+    try:
+        url = CONFIG["formstack"]["forms"]["get_submission_by_id"]["url"].replace(":id", order_id)
+        url += "?oauth_token=" + CONFIG["formstack"]["token"]
+        headers = CONFIG['headers']
+        headers["cache-control"] = "no-cache"
+        headers["content-type"] = "application/x-www-form-urlencoded"
+        result = requests.put(url, data=files, headers=headers, verify=False)
+        print result.status_code
+        print result
+    except requests.exceptions.SSLError:
+        result = None #Formstack SSLError
+    except requests.exceptions.Timeout:
+        result = None #Formstack Connection timeout
+    except requests.exceptions.HTTPError:
+        result = None #Fail token
     return result

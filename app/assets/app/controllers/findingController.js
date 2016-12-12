@@ -87,52 +87,6 @@ integrates.controller("findingController", function($scope, $uibModal, findingFa
         }
     }
     /**
-     * Despliega la modal de ver hallazgo
-     * @function openModalVer
-     * @member integrates.findingController
-     * @return {undefined}
-     */
-    $scope.openModalVer = function(){
-        var sel = $("#vulnerabilities").bootstrapTable('getSelections');
-        if(sel.length == 0){
-            $.gritter.add({
-                title: 'Error',
-                text: 'Debes seleccionar un hallazgo',
-                class_name: 'color warning',
-                    sticky: false,
-            });
-            return false;
-        }else{
-            $scope.currentVulnerability = sel[0];
-        }
-        var modalInstance = $uibModal.open({
-            animation: true,
-            templateUrl: 'ver.html',
-            windowClass: 'ver-modal',
-            controller: function($scope, $uibModalInstance, currentVulnerability){
-                $scope.vuln = currentVulnerability;
-                if($scope.vuln.nivel == "General"){
-                    $scope.esDetallado = "hide-detallado";
-                    $scope.rows = "4";
-                    $scope.cols = "12";
-                }else{
-                    $scope.esDetallado = "show-detallado";  
-                    $scope.rows = "2";
-                    $scope.cols = "6";
-                }
-                
-                $scope.closeModalVer = function(){
-                    $uibModalInstance.dismiss('cancel');
-                }
-            },
-            resolve: {
-                currentVulnerability: function(){
-                    return $scope.currentVulnerability;
-                }
-            }
-        });
-    };
-    /**
      * Despliega la modal de ver avance
      * @function openModalAvance
      * @member integrates.findingController
@@ -155,54 +109,67 @@ integrates.controller("findingController", function($scope, $uibModal, findingFa
         });
     };
     /**
-     * Despliega la modal de ver eliminar hallazgo
-     * @function openModalEliminar
+     * Despliega la modal de vincular id y proyecto
+     * @function openModalVincular
      * @member integrates.findingController
      * @return {undefined}
      */
-    $scope.openModalEliminar = function(){
-        var sel = $("#vulnerabilities").bootstrapTable('getSelections');
-        if(sel.length == 0){
-            $.gritter.add({
-                title: 'Error',
-                text: 'Debes seleccionar un hallazgo',
-                class_name: 'color warning',
-                    sticky: false,
-            });
-            return false;
-        }else{
-            $scope.currentVulnerability = sel[0];
-            $scope.currentVulnerability.justificacion = "";
-        }
+    $scope.openModalVincular = function(){
+        var project = $scope.project;
         var modalInstance = $uibModal.open({
             animation: true,
-            templateUrl: 'eliminar.html',
+            templateUrl: 'vincular.html',
             windowClass: 'modal avance-modal',
-            controller: function($scope, $uibModalInstance, currentVulnerability){
-                $scope.vuln = currentVulnerability;
-                $scope.closeModalEliminar = function(){
-                    $uibModalInstance.dismiss('cancel');
-                }
-                $scope.okModalEliminar = function(){
-                    if(typeof $scope.vuln.justificacion != "string"
-                        || $scope.vuln.justificacion == ""){
+            controller: function($scope, $uibModalInstance, currentProject){
+                $scope.project = currentProject;
+                findingFactory.getIdByProject($scope.project).then(function(response){
+                    if(!response.error){
+                        $.gritter.add({
+                            title: 'Correcto',
+                            text: response.message,
+                            class_name: 'color success',
+                            sticky: false,
+                        });
+                        try{
+                            $scope.order = parseInt(response.data);
+                        }catch(e){
+                            $scope.order = 0;
+                            return false;
+                        }
+                    }else{
                         $.gritter.add({
                             title: 'Error',
-                            text: 'Debes seleccionar una justificacion',
+                            text: response.message,
                             class_name: 'color warning',
                             sticky: false,
                         });
                         return false;
                     }
-                    findingFactory.deleteVuln($scope.vuln).then(function(response){
+                });
+                $scope.closeModal = function(){
+                    $uibModalInstance.dismiss('cancel');
+                }
+                $scope.okModal = function(){
+                    if($scope.order == 0 
+                        || $scope.order.toString().length < 9
+                        || typeof $scope.project != "string"
+                        || $scope.project.trim() == ""){
+                        $.gritter.add({
+                            title: 'Error',
+                            text: 'Debes escribir un ID y un proyecto',
+                            class_name: 'color warning',
+                            sticky: false,
+                        });
+                        return false;
+                    }
+                    findingFactory.updateOrderID($scope.order, $scope.project).then(function(response){
                         if(!response.error){
                             $.gritter.add({
-                                title: 'Correcto!',
-                                text: 'Hallazgo actualizado',
+                                title: 'Correcto',
+                                text: response.message,
                                 class_name: 'color success',
                                 sticky: false,
                             });
-                            integrates.deleteVulnRow($scope.vuln);
                             $uibModalInstance.dismiss('cancel');
                         }else{
                             $.gritter.add({
@@ -216,8 +183,8 @@ integrates.controller("findingController", function($scope, $uibModal, findingFa
                 }
             },
             resolve: {
-                currentVulnerability: function(){
-                    return $scope.currentVulnerability;
+                currentProject: function(){
+                    return $scope.project.toUpperCase();
                 }
             }
         });
@@ -380,8 +347,10 @@ integrates.controller("findingUpdateController", function($scope, $uibModal, fin
                 $scope.vuln = data;
                 if($scope.vuln.nivel == "General"){
                     $scope.esDetallado = "hide-detallado";
+                    $scope.esGeneral = "show-detallado";
                 }else{
                     $scope.esDetallado = "show-detallado";  
+                    $scope.esGeneral = "hide-detallado";  
                 }
             }else{
                 $.gritter.add({
@@ -491,20 +460,21 @@ integrates.controller("findingDeleteController", function($scope, $uibModal, fin
         }
         var modalInstance = $uibModal.open({
             animation: true,
-            templateUrl: 'editar.html',
+            templateUrl: 'eliminar.html',
             windowClass: 'modal',
             controller: function($scope, $uibModalInstance, currentVulnerability){
                 $scope.okModal = function(){
                    $scope.vuln = currentVulnerability; 
-                   findingFactory.updateVuln($scope.vuln).then(function(response){
+                   findingFactory.deleteVuln($scope.vuln).then(function(response){
                         if(!response.error){
                             $.gritter.add({
                                 title: 'Correcto!',
-                                text: 'Hallazgo actualizado',
+                                text: 'Hallazgo eliminado, la ventana se cerrara en 5 segundos',
                                 class_name: 'color success',
                                 sticky: false,
                             });
                             $uibModalInstance.dismiss('cancel');
+                            setTimeout('window.close();',5000);
                         }else{
                             $.gritter.add({
                                 title: 'Error!',
@@ -548,8 +518,10 @@ integrates.controller("findingReadController", function($scope, findingFactory, 
                 $scope.vuln = data;
                 if($scope.vuln.nivel == "General"){
                     $scope.esDetallado = "hide-detallado";
+                    $scope.esGeneral = "show-detallado";
                 }else{
                     $scope.esDetallado = "show-detallado";  
+                    $scope.esGeneral = "hide-detallado";  
                 }
             }else{
                 $.gritter.add({
