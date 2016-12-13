@@ -10,6 +10,7 @@ from django.views.decorators.debug import sensitive_post_parameters
 from django.http import HttpResponse
 import docs
 from . import models, util
+from autodoc import IE
 
 def index(request):
     "Vista de login para usuarios no autenticados"
@@ -80,7 +81,7 @@ def generate_autodoc(request):
     if util.is_json(data) and util.is_name(project):
         if len(json.loads(data)) >= 1:
             docs.generate_doc_xls(project, json.loads(data))
-            docs.IE_bancolombia(project, json.loads(data))
+            IE.Bancolombia(project, json.loads(data))
             return util.response([], 'Documentacion generada correctamente!', False)
     return util.response([], 'Error...', True)
 
@@ -106,11 +107,12 @@ def get_vuln_by_name(request):
                 for i in result:
                     ids.append(i["id"])
                 for j in ids:
-                    vuln = models.get_vuln_by_submission_id(j)              
+                    vuln = models.get_vuln_by_submission_id(j)             
                     if not filtr:
                         vulns.append(vuln)
-                    elif filtr.encode("utf8") == vuln["tipo_prueba"].encode("utf8"):
-                        vulns.append(vuln)
+                    elif "tipo_prueba" in vuln:
+                        if filtr.encode("utf8") == vuln["tipo_prueba"].encode("utf8"):
+                            vulns.append(vuln)
                 return util.response(vulns, 'Success', False)
 
 @csrf_exempt
@@ -223,14 +225,14 @@ def update_vuln(request):
         execute = False
         if nivel == "General":
             if "vuln[vector_ataque]" in post_parms \
-                and "vuln[sistema_comprometido]" in post_parms \
+                and "vuln[sistema_comprometido]" in post_parms:
                 execute = True
-        else if nivel == "Detallado":
-            if "vuln[riesgo]" in post_parms 
+        elif nivel == "Detallado":
+            if "vuln[riesgo]" in post_parms:
                 execute = True
         else:
             execute = False
-        if execute is False:
+        if not execute:
             return util.response([], 'Campos vacios', True)
         res = models.update_vuln_by_id(post_parms)
         if res:

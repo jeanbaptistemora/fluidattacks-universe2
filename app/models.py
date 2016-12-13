@@ -316,20 +316,22 @@ def get_evnt_by_submission_id(evnt_id):
         result = None #Not found id
     return result
 
-def update_vuln_by_id(reinp):
+def update_vuln_by_id(data):
     """Actualiza una submission de formstack usando su id"""
     field_config = CONFIG["formstack"]["fields"]["vuln"]
-    vuln_id = reinp['vuln[id]']
+    vuln_id = data['vuln[id]']
     files = {
-        "field_" + field_config["donde"] : reinp['vuln[donde]'],
-        "field_" + field_config["cardinalidad"] : reinp['vuln[cardinalidad]'],
-        "field_" + field_config["criticidad"] : reinp['vuln[criticidad]'],
-        "field_" + field_config["vulnerabilidad"] : reinp['vuln[vulnerabilidad]'],
+        "field_" + field_config["donde"] : data['vuln[donde]'],
+        "field_" + field_config["cardinalidad"] : data['vuln[cardinalidad]'],
+        "field_" + field_config["criticidad"] : data['vuln[criticidad]'],
+        "field_" + field_config["vulnerabilidad"] : data['vuln[vulnerabilidad]'],
+        "field_" + field_config["amenaza"] : data['vuln[amenaza]'],
     }
-    if "vuln[riesgo]" in reinp:
-        files["field_"+field_config["riesgo"]] = reinp['vuln[riesgo]']
-    if "vuln[amenaza]" in reinp:
-        files["field_"+field_config["amenaza"]] = reinp['vuln[amenaza]']
+    if data["vuln[nivel]"] == "General":
+        files["field_"+field_config["vector_ataque"]] = data['vuln[vector_ataque]']
+        files["field_"+field_config["sistema_comprometido"]] = data['vuln[sistema_comprometido]']
+    else:
+        files["field_"+field_config["riesgo"]] = data['vuln[riesgo]']
     result = None
     try:
         url = CONFIG["formstack"]["forms"]["get_submission_by_id"]["url"].replace(":id", vuln_id)

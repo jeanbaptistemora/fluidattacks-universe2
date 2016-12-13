@@ -142,10 +142,9 @@ integrates.factory('findingFactory', function($q){
          * @member integrates.findingFactory
          * @return {Object}
          */
-        generateDoc: function(project,json){
+        generateDoc: function(project, json){
           var deferred = $q.defer();
           try {
-              console.log(json);
               $.ajax({
                   url: BASE.url + "generate_autodoc?_"+Math.random(),
                   method: "POST",

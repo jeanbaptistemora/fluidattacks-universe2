@@ -98,7 +98,17 @@ integrates.controller("findingController", function($scope, $uibModal, findingFa
             templateUrl: 'avance.html',
             windowClass: 'modal avance-modal',
             controller: function($scope, $uibModalInstance){
-                $scope.rows = $("#vulnerabilities").bootstrapTable('getData');
+                var data = $("#vulnerabilities").bootstrapTable('getData');
+                for(i=0; i < data.length-1; i++){
+                    for(j=i+1; j < data.length; j++){
+                        if(parseFloat(data[i].criticidad) < parseFloat(data[j].criticidad)){
+                            aux = data[i];
+                            data[i] = data[j];
+                            data[j] = aux;
+                        }
+                    }
+                }
+                $scope.rows = data;
                 $scope.closeModalAvance = function(){
                     $uibModalInstance.dismiss('cancel');
                 }
@@ -256,10 +266,20 @@ integrates.controller("findingController", function($scope, $uibModal, findingFa
      * @return {undefined}
      */
     $scope.generateDoc = function(){
-        var json = $("#vulnerabilities").bootstrapTable("getData");
+        var data = $("#vulnerabilities").bootstrapTable('getData');
+        for(i=0; i < data.length-1; i++){
+            for(j=i+1; j < data.length; j++){
+                if(parseFloat(data[i].criticidad) < parseFloat(data[j].criticidad)){
+                    aux = data[i];
+                    data[i] = data[j];
+                    data[j] = aux;
+                }
+            }
+        }
         var project = $scope.project;
         generateDoc = false;
         try{
+            json = data;
             generateDoc = true;
             json = JSON.stringify(JSON.parse(JSON.stringify(json))); //remove indices
             if (json == undefined) throw "error";
