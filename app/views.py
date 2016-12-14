@@ -8,7 +8,6 @@ from django.views.decorators.csrf import csrf_exempt, csrf_protect
 from django.views.decorators.http import require_http_methods
 from django.views.decorators.debug import sensitive_post_parameters
 from django.http import HttpResponse
-import docs
 from . import models, util
 from autodoc import IE, IT
 
@@ -54,19 +53,37 @@ def login(request):
 @require_http_methods(["GET"])
 def export_autodoc(request):
     "Captura y devuelve el pdf de un proyecto"
-    content_type = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
-    message = "Documentacion no generada"
+    detail = {
+        "IT": {
+            "content_type": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+            "content_disposition": "inline;filename=:P.xlsx",
+            "path": "/var/www/fluid-integrates/app/autodoc/results/:P.xlsx"
+        },
+        "IE": {
+            "content_type": "application/vnd.openxmlformats-officedocument.presentationml.presentation" ,
+            "content_disposition": "inline;filename=:P.pptx",
+            "path": "/var/www/fluid-integrates/app/autodoc/results/:P.pptx"
+        }
+    }
     if not util.is_authenticated(request):
         return HttpResponse('Unauthorized', status=401)
     try:
+        kind = request.GET.get("format", "").strip()
         project = request.GET.get('project', "")
-        filename = "/var/www/fluid-integrates/app/autodoc/results/:proj.xlsx".replace(":proj", project)
-        if util.is_name(project) and os.path.isfile(filename):
-            with open(filename, 'r') as pdf:
-                response = HttpResponse(pdf.read(), content_type=content_type)
-                response['Content-Disposition'] = 'inline;filename='+project+'.xlsx'
-                return response
+        if kind != "IE" != kind != "IT":
+            raise Exception('Este evento de seguridad sera registrado')
+        filename = detail[kind]["path"].replace(":P",project)
+        if not util.is_name(project):
+            raise Exception('Este evento de seguridad sera registrado')
+        if not os.path.isfile(filename):
+            raise Exception('La documentacion no ha sido generada')
+        with open(filename, 'r') as document:
+            response = HttpResponse(document.read(), content_type=detail[kind]["content_type"])
+            response['Content-Disposition'] = detail[kind]["content_disposition"].replace(":P",project)
+        return response
     except ValueError as expt:
+        return HttpResponse(expt.message)
+    except Exception as expt:
         return HttpResponse(expt.message)
     return HttpResponse(message)
 
@@ -261,11 +278,6 @@ def delete_vuln(request):
         or "vuln[id]" not in post_parms:
         return util.response([], 'Campos vacios', True)
     else:
-        action = "Eliminar hallazgo, " \
-            + post_parms["vuln[justificacion]"] \
-            + " PROYECTO " + post_parms["vuln[proyecto_fluid]"].upper() \
-            + " => " + post_parms["vuln[hallazgo]"] \
-            + "[" + post_parms["vuln[id]"] + "]"
         res = models.delete_vuln_by_id(post_parms["vuln[id]"])
         if res:
             #util.traceability(action, request.session["username"])

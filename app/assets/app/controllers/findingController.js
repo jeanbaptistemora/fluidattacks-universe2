@@ -200,6 +200,37 @@ integrates.controller("findingController", function($scope, $uibModal, findingFa
         });
     };
     /**
+     * Despliega la modal con las funciones de documentacion
+     * @function openModalAutodoc
+     * @member integrates.findingController
+     * @return {undefined}
+     */
+    $scope.openModalAutodoc = function(){
+        var project = $scope.project;
+        var modalInstance = $uibModal.open({
+            animation: true,
+            templateUrl: 'autodoc.html',
+            windowClass: 'modal avance-modal',
+            controller: function($scope, $uibModalInstance, currentProject){
+                $scope.project = currentProject;
+                $scope.downloadDoc = function(kind){
+                    alert(kind);
+                }
+                $scope.generateDoc = function(kind){
+                    alert(kind);
+                }
+                $scope.closeModal = function(){
+                    $uibModalInstance.dismiss('cancel');
+                }
+            },
+            resolve: {
+                currentProject: function(){
+                    return $scope.project.toLowerCase();
+                }
+            }
+        });
+    };
+    /**
      * Busca las vulnerabilidades por nombre de proyecto
      * @function searchVulnByName
      * @member integrates.findingController

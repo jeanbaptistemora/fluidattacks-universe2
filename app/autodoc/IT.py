@@ -1,9 +1,12 @@
+# -*- coding: utf-8 -*-
 """ 
     Modulo del AutodocIntegrates para generar
     las presentaciones automaticas xlsx de un
     proyecto en:
     - Fluid 
     - Bancolombia
+    TODO: Verificar como arreglar openpyxl hay un error cuando los nombres
+    de los sheet exceden 31 caracteres
 """
 from openpyxl import load_workbook
 import re

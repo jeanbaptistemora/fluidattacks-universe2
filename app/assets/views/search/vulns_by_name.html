@@ -82,7 +82,7 @@
     <!-- START: MODAL Vincular -->
     <script type="text/ng-template" id="vincular.html">
         <div class="modal-header">
-            <h3 class="modal-title" id="modal-title">Vinculación Proyecto-pedido</h3>
+            <h3 class="modal-title" id="modal-title">Relación Proyecto y Pedido</h3>
         </div>
         <div class="modal-body" id="modal-body">
             <label>Proyecto</label>
@@ -93,6 +93,45 @@
         <div class="modal-footer">
             <button class="btn btn-warning" type="button" ng-click="closeModal()">Cerrar</button>
             <button class="btn btn-primary" type="button" ng-click="okModal()">Confirmar</button>
+        </div>
+    </script>
+    <!-- START: MODAL Autodoc -->
+    <script type="text/ng-template" id="autodoc.html">
+        <div class="modal-header">
+            <h3 class="modal-title" id="modal-title">Documentación Automatica</h3>
+        </div>
+        <div class="modal-body" id="modal-body">
+            <div class="row">
+                <div class="col-md-6">
+                    <button class="btn btn-primary btn-block" ng-click="generateDoc('IT')">
+                        Generar Informe Técnico
+                        <i class="glyphicon glyphicon-wrench"></i>
+                    </button>
+                </div>
+                <div class="col-md-6">
+                    <button class="btn btn-primary btn-block" ng-click="generateDoc('IE')">
+                        Generar Informe Ejecutivo
+                        <i class="glyphicon glyphicon-wrench"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <button class="btn btn-success btn-block" ng-click="downloadDoc('IT')">
+                        Descargar Informe Técnico
+                        <i class="glyphicon glyphicon-circle-arrow-down"></i>
+                    </button>
+                </div>
+                <div class="col-md-6">
+                    <button class="btn btn-success btn-block" ng-click="downloadDoc('IE')">
+                        Descargar Ejecutivo
+                        <i class="glyphicon glyphicon-circle-arrow-down"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-warning" type="button" ng-click="closeModal()">Cerrar</button>
         </div>
     </script>
     <div class="row">
@@ -124,7 +163,7 @@
                         data-toggle="tooltip" 
                         data-placement="top" 
                         title="GENERAR Y DESCARGAR"
-                        ng-click="generateDoc();">
+                        ng-click="openModalAutodoc();">
                     DOCUMENTACIÓN <i class="glyphicon glyphicon-star"></i>
                 <button type="button" 
                         class="btn btn-default" 

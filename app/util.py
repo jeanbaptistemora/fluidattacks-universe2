@@ -91,20 +91,3 @@ def ord_asc_by_criticidad(data):
                 data[i] = data[j]
                 data[j] = aux
     return data
-
-def extract_reqs(req_vect):
-    """ Obtiene todos los identificadores con el formato REQ.XXXX"""
-    try:
-        reqs = re.findall("REQ\\.\\d{3,4}", req_vect)
-        reqs = [x.replace("REQ.", "") for x in reqs]
-        return "|".join(reqs)
-    except ValueError:
-        return ""
-
-def extract_metric(metric_str):
-    "Obtiene los valores de la cadena de texto con las \
-     metricas de calificacion de formstack"
-    try:
-        return metric_str.split("|")[1].strip().split(":")[0].strip()
-    except ValueError:
-        return ""

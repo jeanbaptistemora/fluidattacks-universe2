@@ -2,8 +2,7 @@
     Archivo para relacion de rutas entre consultas http y vistas de django
 """
 from django.conf.urls import url
-
-from . import views, errors
+from . import views
 urlpatterns = [
     url(r'^$', views.index, name='index'),
     # Procesamiento principal
