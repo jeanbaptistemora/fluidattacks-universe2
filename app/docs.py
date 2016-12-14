@@ -81,13 +81,13 @@ def generate_doc_xls(project, data):
     data = util.ord_asc_by_criticidad(data)
     for i in data:
         # Columna Titulo (2)
-        write_to_cell(finding_sheet, row, 2, i["hallazgo"])
+        write_cell(finding_sheet, row, 2, i["hallazgo"])
         # Columna Vulnerabilidad (3)
-        write_to_cell(finding_sheet, row, 3, i["vulnerabilidad"])
+        write_cell(finding_sheet, row, 3, i["vulnerabilidad"])
         # Columna Vulnerabilidad (4)
-        write_to_cell(finding_sheet, row, 4, i["donde"])
+        write_cell(finding_sheet, row, 4, i["donde"])
         # Columna Requisitos (5)
-        write_to_cell(finding_sheet, row, 5, i["requisitos"])
+        write_cell(finding_sheet, row, 5, i["requisitos"])
         # Columna Metricas (7)
         # Fix Autodoc formulario Bajo a Baja 
         vector_acceso = util.extract_metric(i["vector_acceso"])
@@ -145,16 +145,14 @@ def generate_doc_xls(project, data):
             # Columna Riesgo (15)
             write_cell(finding_sheet, row, 15, i["riesgo"])
             # Escribir en QC todos los campos
+
+
             # Columna Tipo de prueba (5)
             write_cell(qc_sheet, qc_row, 5, i["tipo_prueba"])
             # Columna Componente aplicativo (6)
             # Columna ID Requisitos (8)
             write_cell(qc_sheet, qc_row, 8, reqs) 
             # Columna Fabrica de testing (10)
-            write_cell(qc_sheet, qc_row, 10, "Fluid")
-            # Columna Detectador por (11)
-            write_cell(qc_sheet, qc_row, 11, i["analista"])
-            # Columna escenario (10)
             write_cell(qc_sheet, qc_row, 10, "Fluid")
             # Columna Detectador por (11)
             write_cell(qc_sheet, qc_row, 11, i["analista"])

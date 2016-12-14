@@ -10,7 +10,7 @@ from django.views.decorators.debug import sensitive_post_parameters
 from django.http import HttpResponse
 import docs
 from . import models, util
-from autodoc import IE
+from autodoc import IE, IT
 
 def index(request):
     "Vista de login para usuarios no autenticados"
@@ -79,9 +79,15 @@ def generate_autodoc(request):
     project = request.POST.get('project', "")
     data = request.POST.get('data', None)
     if util.is_json(data) and util.is_name(project):
-        if len(json.loads(data)) >= 1:
-            docs.generate_doc_xls(project, json.loads(data))
-            IE.Bancolombia(project, json.loads(data))
+        findings = json.loads(data)
+        if len(findings) >= 1:
+            #docs.generate_doc_xls(project, findings)
+            if(findings[0]["tipo"] == "Detallado"):
+                IT.Bancolombia(project, findings)
+                IE.Bancolombia(project, findings)
+            else:
+                IT.Fluid(project, findings)
+                IE.Fluid(project, findings)
             return util.response([], 'Documentacion generada correctamente!', False)
     return util.response([], 'Error...', True)
 
