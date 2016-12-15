@@ -20,7 +20,7 @@ dependencies:
     - touch /var/www/fluid-integrates/logs/integrates.log
     - /var/www/fluid-integrates/manage.py makemigrations
     - /var/www/fluid-integrates/manage.py migrate
-	  - chown -R www-data:www-data /var/www/fluid-integrates
+    - chown -R www-data:www-data /var/www/fluid-integrates
     - cp config/000-default.conf /etc/apache2/sites-available/000-default.conf
 
 test:
