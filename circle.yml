@@ -3,7 +3,7 @@
 #
 machine:
   timezone: 
-    - America/Bogota
+    America/Bogota
   python:
     version: 2.7.10
 
