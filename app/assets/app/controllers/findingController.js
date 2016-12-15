@@ -16,43 +16,6 @@ integrates.calcCardinality = function(data){
     $("#total_cardinalidad").html(cardinalidad);
     $("#total_hallazgos").html(data.data.length);
 };
-/**
- * Actualiza una fila de la tabla de hallazgos segun la respuesta de la modal
- * @function updateVulnRow
- * @param {Object} row 
- * @return {undefined}
- */
-integrates.updateVulnRow = function(row){
-    var data = $("#vulnerabilities").bootstrapTable("getData");
-    for(var i=0; i<data.length;i++){
-        if(data[i].id == row.id){
-            data[i] = row
-            $("#vulnerabilities").bootstrapTable("destroy");
-            $("#vulnerabilities").bootstrapTable({data: data});
-            $("#vulnerabilities").bootstrapTable("refresh");
-            break;
-        }
-    }
-    integrates.calcCardinality({data: data});
-};
-/**
- * Elimina una fila de la tabla de hallazgos segun la respuesta de la modal
- * @function deleteVulnRow
- * @param {Object} row 
- * @return {undefined}
- */
-integrates.deleteVulnRow = function(row){
-    var data = $("#vulnerabilities").bootstrapTable("getData")
-    var newData = [];
-    for(var i=0; i<data.length;i++){
-        if(data[i].id != row.id){
-            newData.append(row);
-        }
-    }
-    $("#vulnerabilities").bootstrapTable("destroy");
-    $("#vulnerabilities").bootstrapTable({data: newData});
-    $("#vulnerabilities").bootstrapTable("refresh");
-};
 integrates.vuln_formatter = function(value, row, index){
     str = "<div class='btn-group'>" 
         + "<a class='btn btn-default' href='dashboard#/vuln/read/?id=nid' target='_blank'><i class='glyphicon glyphicon-eye-open'></i></a>"
@@ -213,12 +176,84 @@ integrates.controller("findingController", function($scope, $uibModal, findingFa
             windowClass: 'modal avance-modal',
             controller: function($scope, $uibModalInstance, currentProject){
                 $scope.project = currentProject;
+                /**
+                 * Descarga la documentacion automatica
+                 * @function downloadDoc
+                 * @param String kind
+                 * @member integrates.findingController.openModalAutodoc
+                 * @return {undefined}
+                 */
                 $scope.downloadDoc = function(kind){
-                    alert(kind);
+                    var url = "export_autodoc?project=" + $scope.project;
+                    url += "&format="+kind;
+                    downLink = document.createElement("a");
+                    downLink.target = "_blank";
+                    downLink.href = url;
+                    downLink.click();
                 }
+                /**
+                 * Genera la documentacion automatica
+                 * @function generateDoc
+                 * @member integrates.findingController.openModalAutodoc
+                 * @return {undefined}
+                 */
                 $scope.generateDoc = function(kind){
-                    alert(kind);
+                    if (kind == ""
+                        || kind == undefined) return false;
+                    var data = $("#vulnerabilities").bootstrapTable('getData');
+                    for(i=0; i < data.length-1; i++){
+                        for(j=i+1; j < data.length; j++){
+                            if(parseFloat(data[i].criticidad) < parseFloat(data[j].criticidad)){
+                                aux = data[i];
+                                data[i] = data[j];
+                                data[j] = aux;
+                            }
+                        }
+                    }
+                    var project = $scope.project;
+                    generateDoc = false;
+                    try{
+                        json = data;
+                        generateDoc = true;
+                        json = JSON.stringify(JSON.parse(JSON.stringify(json))); //remove indices
+                        if (json == undefined) throw "error";
+                        if (json == [] || json == {}) throw "error";
+                        if(project.trim() == "") throw "error";
+                    }catch(e){
+                        generateDoc = false;
+                    }
+                    if(generateDoc){
+                        findingFactory.generateDoc(project, json, kind).then(function(data){
+                            var color = (data.error == false)?"success":"warning";
+                            $.gritter.add({
+                                title: '',
+                                text: data.message,
+                                class_name: 'color ' + color,
+                                sticky: false,
+                            });
+                        }).catch(function(fallback) {
+                            $.gritter.add({
+                                title: 'Consultando',
+                                text: 'Error...',
+                                class_name: 'color warning',
+                                sticky: false,
+                            });
+                        });
+                    }else{
+                        $.gritter.add({
+                            title: 'Error',
+                            text: 'Deben existir hallazgos y un nombre valido de proyecto',
+                            class_name: 'color warning',
+                            sticky: false,
+                        });
+                    }
                 }
+                /**
+                 * Cierra la modal
+                 * @function closeModal
+                 * @member integrates.findingController.openModalAutodoc
+                 * @return {undefined}
+                 */
                 $scope.closeModal = function(){
                     $uibModalInstance.dismiss('cancel');
                 }
@@ -289,80 +324,6 @@ integrates.controller("findingController", function($scope, $uibModal, findingFa
         }else{
             $scope.response = "El nombre es obligatorio";
         }
-    };
-    /**
-     * Genera la documentacion automatica
-     * @function generateDoc
-     * @member integrates.findingController
-     * @return {undefined}
-     */
-    $scope.generateDoc = function(){
-        var data = $("#vulnerabilities").bootstrapTable('getData');
-        for(i=0; i < data.length-1; i++){
-            for(j=i+1; j < data.length; j++){
-                if(parseFloat(data[i].criticidad) < parseFloat(data[j].criticidad)){
-                    aux = data[i];
-                    data[i] = data[j];
-                    data[j] = aux;
-                }
-            }
-        }
-        var project = $scope.project;
-        generateDoc = false;
-        try{
-            json = data;
-            generateDoc = true;
-            json = JSON.stringify(JSON.parse(JSON.stringify(json))); //remove indices
-            if (json == undefined) throw "error";
-            if (json == [] || json == {}) throw "error";
-            if(project.trim() == "") throw "error";
-        }catch(e){
-            generateDoc = false;
-        }
-        if(generateDoc){
-            findingFactory.generateDoc(project, json).then(function(data){
-                var color = (data.error == false)?"success":"warning";
-                $.gritter.add({
-                    title: '',
-                    text: data.message + " Descargando..",
-                    class_name: 'color ' + color,
-                    sticky: false,
-                });
-                download = function(){
-                    downLink = document.createElement("a");
-                    downLink.target = "_blank";
-                    downLink.href = "export_autodoc?project=" + $scope.project;
-                    downLink.click();
-                };
-                setTimeout('download();',3000);
-            }).catch(function(fallback) {
-                $.gritter.add({
-                    title: 'Consultando',
-                    text: 'Error de formstack...',
-                    class_name: 'color warning',
-                    sticky: false,
-                });
-            });
-        }else{
-            $.gritter.add({
-                title: 'Error',
-                text: 'Deben existir hallazgos y un nombre valido de proyecto',
-                class_name: 'color warning',
-                sticky: false,
-            });
-        }
-    };
-    /**
-     * Descarga la documentacion automatica
-     * @function downloadDoc
-     * @member integrates.findingController
-     * @return {undefined}
-     */
-    $scope.downloadDoc = function(){
-        downLink = document.createElement("a");
-        downLink.target = "_blank";
-        downLink.href = "export_autodoc?project=" + $scope.project;
-        downLink.click();
     };
     /* Invoca la configuracion inicial del controlador */
     $scope.init();

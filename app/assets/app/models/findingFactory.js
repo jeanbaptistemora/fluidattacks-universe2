@@ -142,7 +142,7 @@ integrates.factory('findingFactory', function($q){
          * @member integrates.findingFactory
          * @return {Object}
          */
-        generateDoc: function(project, json){
+        generateDoc: function(project, json, format){
           var deferred = $q.defer();
           try {
               $.ajax({
@@ -150,7 +150,8 @@ integrates.factory('findingFactory', function($q){
                   method: "POST",
                   data: {
                     project: project,
-                    data: json
+                    data: json,
+                    format: format
                   },
                   success: function (response) { 
                       $(".loader").hide();

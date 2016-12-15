@@ -10,6 +10,7 @@ from django.views.decorators.debug import sensitive_post_parameters
 from django.http import HttpResponse
 from . import models, util
 from autodoc import IE, IT
+import time
 
 def index(request):
     "Vista de login para usuarios no autenticados"
@@ -91,21 +92,29 @@ def export_autodoc(request):
 @require_http_methods(["POST"])
 def generate_autodoc(request):
     "Genera la documentacion automatica en excel"
+    start_time = time.time()
     if not util.is_authenticated(request):
         return HttpResponse('Unauthorized', status=401)
     project = request.POST.get('project', "")
     data = request.POST.get('data', None)
+    kind = request.POST.get('format',"")
+    if kind != "IE" != kind != "IT":
+        util.response([], 'Error de parametrizacion', True)
     if util.is_json(data) and util.is_name(project):
         findings = json.loads(data)
         if len(findings) >= 1:
-            #docs.generate_doc_xls(project, findings)
-            if(findings[0]["tipo"] == "Detallado"):
-                IT.Bancolombia(project, findings)
-                IE.Bancolombia(project, findings)
+            if kind == "IE":
+                if(findings[0]["tipo"] == "Detallado"):
+                    IE.Bancolombia(project, findings)
+                else:
+                    IE.Fluid(project, findings)
             else:
-                IT.Fluid(project, findings)
-                IE.Fluid(project, findings)
-            return util.response([], 'Documentacion generada correctamente!', False)
+                if(findings[0]["tipo"] == "Detallado"):
+                    IT.Bancolombia(project, findings)
+                else:
+                    IT.Fluid(project, findings)
+            str_time = str("%s" % (time.time() - start_time))
+            return util.response([], 'Documentacion generada en ' + str("%.2f segundos" % float(str_time)), False)
     return util.response([], 'Error...', True)
 
 @csrf_exempt
