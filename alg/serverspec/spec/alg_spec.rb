@@ -12,6 +12,10 @@ describe command('ls /etc/apache2/sites-enabled') do
   its(:stdout) { should eq "000-default.conf  default-ssl  fluid.la  www.fluid.la  www.fluidsignal.com\n"}
 end
 
+describe command('curl -s https://localhost/forms/compras | grep "<title>"') do
+  its(:stdout) { should eq "    <title>Compras - Formstack</title>\n"}
+end
+
 describe command("lsb_release -d") do
   its(:stdout) { should contain /jessie/ }
 end

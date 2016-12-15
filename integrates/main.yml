@@ -17,16 +17,39 @@
        - python-pip
        - apache2
        - libapache2-mod-wsgi
+       - libtiff5-dev 
+       - libjpeg8-dev 
+       - zlib1g-dev 
+       - libfreetype6-dev 
+       - libapache2-mod-python
+
+   - name: Instalar paquetes necesarios
+     apt:
+       pkg: "{{ item }}"
+       state: installed
+     register: dependencias2
+     with_items:
+       - libapache2-mod-wsgi-py3
        - python-setuptools
+       - liblcms2-dev 
+       - libwebp-dev 
+       - tcl8.6-dev 
+       - tk8.6-dev 
+       - python-tk
+       - libxml2
+       - libxml2-dev 
+       - libxslt1-dev 
+       - python-dev
 
    - name: Instalar dependencias pip
      pip:
        name: "{{ item }}"
      with_items:
        - django
-       - jinja2
+       - python-pptx
        - pyyaml
        - openpyxl
+       - requests
 
    - name: Agregar netrc
      template:
@@ -42,7 +65,7 @@
    - name: Clonar repositorio integrates
      git:
        repo: "https://jrestrepoatfluid@bitbucket.org/fluidsignal/fluid-integrates.git"
-       dest: "/var/www/fluidintegrates"
+       dest: "/var/www/fluid-integrates"
        version: "master"
 
    - name: Retirar git conf

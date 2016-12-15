@@ -1,5 +1,5 @@
 # Imagen base del ultimo linux estable de Debian (jessie)
-FROM debian:jessie
+FROM ubuntu:14.04
 
 # Dudas sobre la imagen en cuestion
 MAINTAINER FLUID Engineering Team <engineering@fluid.la>

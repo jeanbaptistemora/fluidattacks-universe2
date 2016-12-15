@@ -13,10 +13,10 @@ sudo service docker start
 
 # Instalar Ansible en Ubuntu.
 sudo apt-get install software-properties-common -y
-sudo apt-add-repository ppa:ansible/ansible
+sudo apt-add-repository ppa:ansible/ansible -y
 sudo apt-get update
 sudo apt-get install ansible -y
 
-# Clonar repositorio e iniciar servidores
-#sudo apt-get install git
-#sudo cd ~ && git clone https://bitbucket.org/fluidsignal/fluid-serves.git
+# Iniciar servidores
+./alg.sh
+./exams.sh
