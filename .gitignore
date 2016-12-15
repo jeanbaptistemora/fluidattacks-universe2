@@ -1,4 +1,4 @@
 app/autodoc/results/*.*
-*.err
-*.log
+logs/*.err
+logs/*.log
 *.pyc
