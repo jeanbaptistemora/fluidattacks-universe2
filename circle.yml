@@ -1,21 +1,17 @@
 #
 # Archivo de configuracion del servicio de integración continua.
 #
-
 machine:
-  pre:
-# Este parche se requiere para que docker soporte especificación de IPs
   timezone: 
     - America/Bogota
-# version de python del sistema base de CI, se requiere por ansible-container.
   python:
     version: 2.7.10
 
 dependencies:
   pre:
-    - sudo pip install --upgrade pip setuptools
     - sudo apt-get update
     - sudo apt-get install apache2 git python python-pip libapache2-mod-wsgi libapache2-mod-python
+    - sudo pip install --upgrade pip setuptools
 	  - sudo apt-get install libtiff5-dev libjpeg8-dev zlib1g-dev libfreetype6-dev liblcms2-dev libwebp-dev tcl8.6-dev tk8.6-dev python-tk
 	  - sudo apt-get install libxml2-dev libxslt1-dev python-dev
     - touch /var/www/fluid-integrates/app/autodoc/results
@@ -26,9 +22,6 @@ dependencies:
 	  - /var/www/fluid-integrates/manage.py migrate
 	  - chown -R www-data:www-data /var/www/fluid-integrates
     - cp config/000-default.conf /etc/apache2/sites-available/000-default.conf
-  override:
-
-  post:
 
 test:
   pre:
