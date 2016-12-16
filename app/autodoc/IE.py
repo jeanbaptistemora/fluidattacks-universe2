@@ -2,7 +2,7 @@
     Modulo del AutodocIntegrates para generar
     las presentaciones automaticas pptx de un
     proyecto en:
-    - Fluid 
+    - Fluid
     - Bancolombia
 """
 #third party includes
@@ -181,7 +181,7 @@ class Fluid:
     template_path = "/var/www/fluid-integrates/app/autodoc/templates/fluid.pptx"
     result_path = "/var/www/fluid-integrates/app/autodoc/results/:project.pptx"
     critical_finding_slide = 1
-    moderate_finding_slide = 10
+    moderate_finding_slide = 9
     tolerable_finding_slide = 27
     MAX_CRITICAL_SLIDE = 10
     MAX_MODERATE_SLIDE = 27
