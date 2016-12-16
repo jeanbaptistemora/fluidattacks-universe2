@@ -15,8 +15,8 @@ dependencies:
     - sudo apt-get install libtiff5-dev libjpeg8-dev zlib1g-dev libfreetype6-dev liblcms2-dev libwebp-dev tcl8.6-dev tk8.6-dev python-tk
     - sudo apt-get install libxml2-dev libxslt1-dev python-dev
     - sudo cp -R /home/ubuntu/fluid-integrates/ /var/www/
-    - sudo /var/www/fluid-integrates/manage.py makemigrations
-    - sudo /var/www/fluid-integrates/manage.py migrate
+    - sudo python /var/www/fluid-integrates/manage.py makemigrations
+    - sudo python /var/www/fluid-integrates/manage.py migrate
     - sudo chown -R www-data:www-data /var/www/fluid-integrates
     - sudo cp config/000-default.conf /etc/apache2/sites-available/000-default.conf
 
