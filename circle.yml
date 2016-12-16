@@ -15,7 +15,7 @@ dependencies:
     - sudo apt-get install libtiff5-dev libjpeg8-dev zlib1g-dev libfreetype6-dev liblcms2-dev libwebp-dev tcl8.6-dev tk8.6-dev python-tk
     - sudo apt-get install libxml2-dev libxslt1-dev python-dev
     - mv fluid-integrates/ /var/www/
-    - touch /var/www/fluid-integrates/app/autodoc/results
+    - mkdir /var/www/fluid-integrates/app/autodoc/results
     - mkdir /var/www/fluid-integrates/logs
     - touch /var/www/fluid-integrates/logs/error.err
     - touch /var/www/fluid-integrates/logs/integrates.log
