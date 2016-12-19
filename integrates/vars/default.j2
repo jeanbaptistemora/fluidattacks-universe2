@@ -2,10 +2,10 @@
 	ServerName integrates.fluid.la
 	ServerAdmin engineering@fluid.la
 
-	DocumentRoot /var/www/fluid-integrates/fluidintegrates
-	WSGIScriptAlias / /var/www/fluid-integrates/fluidintegrates/apache/wsgi.py
-	Alias /assets/ /var/www/fluid-integrates/app/assets/
-	<Directory "/var/www/fluid-integrates/fluidintegrates/apache/">
+	DocumentRoot {{ documentroot }}/fluidintegrates
+	WSGIScriptAlias / {{ documentroot }}/fluidintegrates/apache/wsgi.py
+	Alias /assets/ {{ documentroot }}/app/assets/
+	<Directory "{{ documentroot }}/fluidintegrates/apache/">
 		Require all granted
 	</Directory>
 
