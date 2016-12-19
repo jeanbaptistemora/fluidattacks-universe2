@@ -21,7 +21,7 @@ integrates.factory('eventualityFactory', function($q){
           var deferred = $q.defer();
           try {
               $.ajax({
-                  url: BASE.url + "get_evnt_by_name",
+                  url: BASE.url + "get_eventualities",
                   data: {
                     project: project,
                     category: category
@@ -61,7 +61,7 @@ integrates.factory('eventualityFactory', function($q){
             var deferred = $q.defer();
             try {
                 $.ajax({
-                url: BASE.url + "update_evnt",
+                url: BASE.url + "update_eventuality",
                 method: "POST",
                 data: {
                     vuln: vuln

@@ -21,7 +21,7 @@ integrates.factory('findingFactory', function($q){
           var deferred = $q.defer();
           try {
               $.ajax({
-                  url: BASE.url + "get_vuln_by_name",
+                  url: BASE.url + "get_findings",
                   data: {
                     project: project,
                     filter: filter,
@@ -62,7 +62,7 @@ integrates.factory('findingFactory', function($q){
           var deferred = $q.defer();
           try {
               $.ajax({
-                  url: BASE.url + "get_vuln_by_id",
+                  url: BASE.url + "get_finding",
                   method: "POST",
                   data: {
                     id: id,
@@ -187,7 +187,7 @@ integrates.factory('findingFactory', function($q){
             var deferred = $q.defer();
             try {
                 $.ajax({
-                url: BASE.url + "update_vuln",
+                url: BASE.url + "update_finding",
                 method: "POST",
                 data: {
                     vuln: vuln
@@ -226,7 +226,7 @@ integrates.factory('findingFactory', function($q){
             var deferred = $q.defer();
             try {
                 $.ajax({
-                url: BASE.url + "delete_vuln",
+                url: BASE.url + "delete_finding",
                 method: "POST",
                 data: {
                     vuln: vuln
@@ -266,7 +266,7 @@ integrates.factory('findingFactory', function($q){
             var deferred = $q.defer();
             try {
                 $.ajax({
-                    url: BASE.url + "update_order_id",
+                    url: BASE.url + "update_order",
                     method: "POST",
                     data: {
                         project: project,

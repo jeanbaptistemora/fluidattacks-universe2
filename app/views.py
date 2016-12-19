@@ -9,6 +9,7 @@ from django.views.decorators.http import require_http_methods
 from django.views.decorators.debug import sensitive_post_parameters
 from django.http import HttpResponse
 from . import models, util
+from models import FormstackAPI, FormstackRequestMapper, OneLoginAPI
 from autodoc import IE, IT
 import time
 
@@ -42,8 +43,8 @@ def login(request):
     if not username or not password:
         return util.response([], 'Usuario/Clave son obligatorios', True)
     else:
-        auth = models.one_login_auth(username, password)
-        if auth:
+        API = OneLoginAPI(username, password)
+        if API.login():
             request.session['username'] = username
             return util.response([], 'Bienvenido ' + username, False)
         else:
@@ -118,7 +119,7 @@ def generate_autodoc(request):
     return util.response([], 'Error...', True)
 
 @csrf_exempt
-def get_vuln_by_name(request):
+def get_findings(request):
     "Captura y procesa el nombre de un proyecto para devolver los hallazgos"
     if not util.is_authenticated(request):
         return HttpResponse('Unauthorized <script>location = "/index"; </script>', status=401)
@@ -130,36 +131,39 @@ def get_vuln_by_name(request):
         if project.strip() == "":
             return util.response([], 'Empty fields', True)
         else:
-            result = models.get_vuln_by_name(project)["submissions"]
-            if len(result) == 0:
-                return util.response([], 'Project doesn\'t exist', True)
+            API = FormstackAPI()
+            finding_requests = API.get_findings(project)["submissions"]
+            if len(finding_requests) == 0:
+                return util.response([], 'El proyecto no existe', False)
             else:
-                ids = []
-                vulns = []
-                for i in result:
-                    ids.append(i["id"])
-                for j in ids:
-                    vuln = models.get_vuln_by_submission_id(j)             
+                findings = []
+                RMP = FormstackRequestMapper()
+                for finding in finding_requests:
+                    formstack_request = API.get_submission(finding["id"])
+                    finding_parsed = RMP.map_finding(formstack_request)  
                     if not filtr:
-                        vulns.append(vuln)
-                    elif "tipo_prueba" in vuln:
-                        if filtr.encode("utf8") == vuln["tipo_prueba"].encode("utf8"):
-                            vulns.append(vuln)
-                return util.response(vulns, 'Success', False)
+                        findings.append(finding_parsed)
+                    elif "tipo_prueba" in finding_parsed:
+                        if filtr.encode("utf8") == finding_parsed["tipo_prueba"].encode("utf8"):
+                            findings.append(finding_parsed)
+                return util.response(findings, 'Success', False)
 
 @csrf_exempt
-def get_vuln_by_id(request):
+def get_finding(request):
     if not util.is_authenticated(request):
         return HttpResponse('Unauthorized <script>location = "/index"; </script>', status=401)
     project_id = request.POST.get('id', None)
     if util.is_numeric(project_id):
-        vuln = models.get_vuln_by_submission_id(project_id)
-        return util.response(vuln, 'Success', False)
+        API = FormstackAPI()
+        RMP = FormstackRequestMapper()
+        formstack_request = API.get_submission(project_id)
+        finding = RMP.map_finding(formstack_request)
+        return util.response(finding, 'Success', False)
     else:
         return util.response([], 'Empty fields', True)
 
 @csrf_exempt
-def get_evnt_by_name(request):
+def get_eventualities(request):
     """Obtiene las eventualidades con el nombre del proyecto"""
     if not util.is_authenticated(request):
         return HttpResponse('Unauthorized', status=401)
@@ -173,136 +177,62 @@ def get_evnt_by_name(request):
         if project.strip() == "":
             return util.response([], 'Campos vacios', True)
         else:
+            API = FormstackAPI()
+            RMP = FormstackRequestMapper()
             if category == "Name":
-                result = models.get_evnt_by_name(project)
-                if result:
-                    if int(result["total"]) == 0:
+                eventuality_requests = API.get_eventualities(project)["submissions"]
+                if eventuality_requests:
+                    if len(eventuality_requests) == 0:
                         return util.response([], 'Este proyecto no tiene eventualidades', False)
                     else:
-                        ids, evtns = [], []
-                        for i in result["submissions"]:
-                            ids.append(i["id"])
-                        for j in ids:
-                            evtn = models.get_evnt_by_submission_id(j)
-                            evtns.append(evtn)
-                        return util.response(evtns, 'Success', False)
+                        eventualities = []
+                        for eventuality in eventuality_requests:
+                            eventuality_request = API.get_submission(eventuality["id"])
+                            eventuality_parsed = RMP.map_eventuality(eventuality_request)
+                            eventualities.append(eventuality_parsed)
+                        return util.response(eventualities, 'Correcto', False)
                 else:
                     return util.response([], 'Error!', True)
             else:
                 if util.is_numeric(project):
-                    evtns = []
-                    evtn = models.get_evnt_by_submission_id(project)
-                    if evtn:
-                        evtns.append(evtn)
-                        return util.response(evtns, 'Success', False)
-                    else:
-                        return util.response([], 'Error!', True)
+                    eventualities = []
+                    eventuality_request = API.get_submission(project)
+                    eventuality_parsed = RMP.map_eventuality(eventuality_request)
+                    eventualities.append(eventuality_parsed)
+                    return util.response(eventualities, 'Correcto', False)
                 else:
                     return util.response([], 'Debes ingresar un ID numerico!', True)
 
-@csrf_protect
-def update_evnt(request):
-    "Captura y procesa los parametros para actualizar una eventualidad"
-    if not util.is_authenticated(request):
-        return HttpResponse('Unauthorized', status=401)
-    post_parms = request.POST.dict()
-    action = ""
-    if "vuln[proyecto_fluid]" not in post_parms \
-        or "vuln[tipo]" not in post_parms \
-        or "vuln[id]" not in post_parms \
-        or "vuln[afectacion]" not in post_parms:
-        return util.response([], 'Campos vacios', True)
-    else:
-        validate = False
-        afect = 0
-        try:
-            afect = int(post_parms["vuln[afectacion]"])
-            validate = True
-        except SyntaxError:
-            validate = False
-        if not validate:
-            return util.response([], 'Afectacion negativa', True)
-        action = "Actualizar eventualidad del proyecto " \
-            + post_parms["vuln[proyecto_fluid]"] \
-            + " de tipo '" + post_parms["vuln[tipo]"] + "' con afectacion ("+ str(afect)+")" \
-            + " [" + post_parms["vuln[id]"] + "]"
-    updated = models.update_evnt_by_id(post_parms)
-    if updated:
-        util.traceability(action.encode('utf-8'), request.session["username"])
-        return util.response([], 'Actualizado correctamente', False)
-    else:
-        return util.response([], 'No se pudo actualizar formstack', True)
-
 @csrf_exempt
-def update_vuln(request):
-    "Captura y procesa los parametros para actualizar un hallazgo"
-    if not util.is_authenticated(request):
-        return HttpResponse('Unauthorized', status=401)
-    post_parms = request.POST.dict()
-    action = ""
-    for i,k in post_parms.items():
-        post_parms[i] = k.encode('utf8')
-    if "vuln[proyecto_fluid]" not in post_parms \
-        or "vuln[nivel]" not in post_parms \
-        or "vuln[hallazgo]" not in post_parms \
-        or "vuln[vulnerabilidad]" not in post_parms \
-        or "vuln[donde]" not in post_parms \
-        or "vuln[cardinalidad]" not in post_parms \
-        or "vuln[criticidad]" not in post_parms \
-        or "vuln[amenaza]" not in post_parms \
-        or "vuln[id]" not in post_parms:
-        return util.response([], 'Campos vacios', True)
-    else:
-        nivel = post_parms["vuln[nivel]"]
-        execute = False
-        if nivel == "General":
-            if "vuln[vector_ataque]" in post_parms \
-                and "vuln[sistema_comprometido]" in post_parms:
-                execute = True
-        elif nivel == "Detallado":
-            if "vuln[riesgo]" in post_parms:
-                execute = True
-        else:
-            execute = False
-        if not execute:
-            return util.response([], 'Campos vacios', True)
-        res = models.update_vuln_by_id(post_parms)
-        if res:
-            return util.response([], 'Actualizado correctamente!', False)
-        else:
-            return util.response([], 'No se pudo actualizar formstack', True)
-
-@csrf_exempt
-def delete_vuln(request):
+def delete_finding(request):
     """Captura y procesa el id de una eventualidad para eliminarla"""
     if not util.is_authenticated(request):
         return HttpResponse('Unauthorized', status=401)
     post_parms = request.POST.dict()
-    for i,k in post_parms.items():
-        post_parms[i] = k.encode('utf8')
-    action = "Envio de campos vacios"
     if "vuln[hallazgo]" not in post_parms \
         or "vuln[proyecto_fluid]" not in post_parms \
         or "vuln[justificacion]" not in post_parms \
         or "vuln[id]" not in post_parms:
         return util.response([], 'Campos vacios', True)
     else:
-        res = models.delete_vuln_by_id(post_parms["vuln[id]"])
+        API = FormstackAPI()
+        submission_id = post_parms["vuln[id]"]
+        res = API.delete_finding(submission_id)
         if res:
-            #util.traceability(action, request.session["username"])
             return util.response([], 'Eliminado correctamente!', False)
         else:
             return util.response([], 'No se pudo actualizar formstack', True)
         
 @csrf_exempt
 @require_http_methods(["GET"])
-def get_order (request):
+def get_order(request):
     """ Obtiene de formstack el id de pedido relacionado con un proyecto """
     if not util.is_authenticated(request):
         return HttpResponse('Unauthorized <script>location = "/index"; </script>', status=401)
     project_name = request.GET.get('project', None)
     if util.is_name(project_name):
-        order_id = models.get_order(project_name)
+        API = FormstackAPI()
+        order_id = API.get_order(project_name)
         if "submissions" in order_id:
             if len(order_id["submissions"]) == 1:
                 return util.response(order_id["submissions"][0]["id"], 'Consulta exitosa!', False)
@@ -317,7 +247,7 @@ def get_order (request):
 
 @csrf_exempt
 @require_http_methods(["POST"])
-def update_order_id (request):
+def update_order(request):
     """ Actualiza el nombre de proyecto del id de pedido relacionado """
     if not util.is_authenticated(request):
         return HttpResponse('Unauthorized <script>location = "/index"; </script>', status=401)
@@ -327,13 +257,78 @@ def update_order_id (request):
         return util.response([], 'Campos vacios', True)
     if not util.is_numeric(order_id): 
         return util.response([], 'Campos vacios', True)
-    updated = models.update_order_id(project_name, order_id)
+    API = FormstackAPI()
+    updated = API.update_order(project_name, order_id)
     if updated is None:
         return util.response([], 'No se pudo actualizar formstack', True)
-    elif updated.status_code == 404:
-        return util.response([], 'Ese pedido no existe', True)
     else:
-        return util.response([], 'Actualizado correctamente!', False)
-        
+        if "success" in updated:
+            return util.response([], 'Actualizado correctamente!', False)
+        else:
+            return util.response([], 'Algo ha ido mal', False)
+
+@csrf_exempt
+def update_eventuality(request):
+    "Captura y procesa los parametros para actualizar una eventualidad"
+    if not util.is_authenticated(request):
+        return HttpResponse('Unauthorized', status=401)
+    post_parms = request.POST.dict()
+    action = ""
+    if "vuln[proyecto_fluid]" not in post_parms \
+        != "vuln[id]" not in post_parms \
+        != "vuln[afectacion]" not in post_parms:
+        return util.response([], 'Campos vacios', True)
+    else:
+        validate = False
+        afect = 0
+        try:
+            afect = int(post_parms["vuln[afectacion]"])
+            validate = True
+        except SyntaxError:
+            validate = False
+        if not validate:
+            return util.response([], 'Afectacion negativa', True)
+    API = FormstackAPI()
+    submission_id = post_parms["vuln[id]"]
+    afectacion = post_parms["vuln[afectacion]"]
+    updated = API.update_eventuality(afectacion, submission_id)
+    print updated
+    if updated:
+        return util.response([], 'Actualizado correctamente', False)
+    else:
+        return util.response([], 'No se pudo actualizar formstack', True)
     
-    
+@csrf_exempt
+def update_finding(request):
+    "Captura y procesa los parametros para actualizar un hallazgo"
+    if not util.is_authenticated(request):
+        return HttpResponse('Unauthorized', status=401)
+    post_parms = request.POST.dict()
+    if "vuln[proyecto_fluid]" not in post_parms \
+        != "vuln[nivel]" not in post_parms \
+        != "vuln[hallazgo]" not in post_parms \
+        != "vuln[vulnerabilidad]" not in post_parms \
+        != "vuln[donde]" not in post_parms \
+        != "vuln[cardinalidad]" not in post_parms \
+        != "vuln[criticidad]" not in post_parms \
+        != "vuln[amenaza]" not in post_parms \
+        != "vuln[id]" not in post_parms:
+        return util.response([], 'Campos vacios', True)
+    else:
+        nivel = post_parms["vuln[nivel]"]
+        execute = False
+        if nivel == "General":
+            if "vuln[vector_ataque]" in post_parms \
+                and "vuln[sistema_comprometido]" in post_parms:
+                execute = True
+        else:
+            if "vuln[riesgo]" in post_parms:
+                execute = True
+        if not execute:
+            return util.response([], 'Campos vacios', True)
+        API = FormstackAPI()
+        updated = API.update_finding(post_parms)
+        if "success" in updated:
+            return util.response([], 'Actualizado correctamente!', False)
+        else:
+            return util.response([], 'No se pudo actualizar formstack', True)

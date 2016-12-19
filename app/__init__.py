@@ -1,6 +1,7 @@
 """
     Configuracion de logs para Integrates
 """
+"""
 import logging
 
 logging.basicConfig(
@@ -8,3 +9,4 @@ logging.basicConfig(
     format='%(levelname)s: %(asctime)s %(message)s',
     level=logging.DEBUG
 )
+"""

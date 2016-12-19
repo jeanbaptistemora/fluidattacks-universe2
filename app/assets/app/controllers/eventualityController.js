@@ -11,7 +11,7 @@
  * @return {String}
  */
 integrates.afectacionFormatter = function(value, row, index){
-    if(value !== undefined)
+    if(!isFinite(value))
         if (value.trim() == "")
             return "0";
     return value;
@@ -34,6 +34,29 @@ integrates.evntTotalize = function(data){
     }
     $("#total_eventualidades").html(data.data.length);
     $("#total_afectacion").html(afectacion);
+};
+/**
+ * Actualiza una fila de la tabla
+ * @function updateEvntRow
+ * @param {Object} data 
+ * @return {undefined}
+ */
+integrates.updateEvntRow = function(row){
+    var data = $("#eventualities").bootstrapTable("getData");
+    var newData = [];
+    for(var i=0; i< data.length;i++){
+        delete data[i][i.toString()];
+        if(data[i].id == row.id){
+            newData.push(row);
+        }else{
+            newData.push(data[i]);
+        }
+    }
+    console.log(newData);
+    $("#eventualities").bootstrapTable("destroy");
+    $("#eventualities").bootstrapTable({data: newData});
+     $("#eventualities").bootstrapTable("refresh");
+    integrates.evntTotalize({data: data});
 };
 /**
  * Crea el controlador de la funcionalidad de eventualidades
@@ -157,7 +180,6 @@ integrates.controller("eventualityController", function($scope, $uibModal, event
 
                 $scope.okModalEditar = function(){
                    submit = false;
-                   console.log($scope.evnt);
                    try{
                        if($scope.evnt.afectacion == undefined){
                            throw "negativo";
@@ -183,7 +205,7 @@ integrates.controller("eventualityController", function($scope, $uibModal, event
                                 class_name: 'color success',
                                 sticky: false,
                             });
-                            integrates.updateEvnt($scope.evnt);
+                            integrates.updateEvntRow($scope.evnt);
                             $uibModalInstance.dismiss('cancel');
                         }else{
                             $.gritter.add({

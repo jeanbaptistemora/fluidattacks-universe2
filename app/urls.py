@@ -11,14 +11,14 @@ urlpatterns = [
     url(r'^dashboard/?$', views.dashboard, name='dashboard'),
     url(r'^logout/?$', views.logout, name='logout'),
     # Consumo de servicios de formstack
-    url(r'^get_vuln_by_id/?\.*$', views.get_vuln_by_id, name='get_vuln_by_id'),
-    url(r'^get_vuln_by_name/?\.*$', views.get_vuln_by_name, name='get_vuln_by_name'),
-    url(r'^get_evnt_by_name/?\.*$', views.get_evnt_by_name, name='get_evnt_by_name'),
-    url(r'^update_vuln/?\.*$', views.update_vuln, name='update_vuln'),
-    url(r'^update_evnt/?\.*$', views.update_evnt, name='update_evnt'),
-    url(r'^delete_vuln/?\.*$', views.delete_vuln, name='delete_vuln'),
+    url(r'^get_finding/?\.*$', views.get_finding, name='get_finding'),
+    url(r'^get_findings/?\.*$', views.get_findings, name='get_findings'),
+    url(r'^get_eventualities/?\.*$', views.get_eventualities, name='get_eventualities'),
+    url(r'^update_finding/?\.*$', views.update_finding, name='update_finding'),
+    url(r'^update_eventuality/?\.*$', views.update_eventuality, name='update_eventuality'),
+    url(r'^delete_finding/?\.*$', views.delete_finding, name='delete_finding'),
     url(r'^get_order/?\.*$', views.get_order, name='get_order'),
-    url(r'^update_order_id/?\.*$', views.update_order_id, name='update_order_id'),
+    url(r'^update_order/?\.*$', views.update_order, name='update_order'),
     # Documentacion automatica
     url(r'^generate_autodoc/?$', views.generate_autodoc, name='generate_autodoc'),
     url(r'^export_autodoc/?$', views.export_autodoc, name='export_autodoc')

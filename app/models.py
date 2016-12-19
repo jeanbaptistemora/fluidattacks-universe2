@@ -6,493 +6,205 @@ from time import sleep
 #from __future__ import unicode_literals
 import requests
 from requests.exceptions import ConnectionError
+from retrying import retry
 #from requests.packages.urllib3.exceptions import InsecureRequestWarning
 requests.adapters.DEFAULT_RETRIES = 10
 
-CONFIG = {
-    'headers':{
-        'User-agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36' +
-                      '(KHTML, like Gecko) Chrome/52.0.2743.116 Safari/537.36'
-    },
-    'formstack': {
-        'token': 'aefb128ba610da7e8d9e0b6ff86d9d7a',
-        'forms':{
-            'get_vuln_by_name':{
-                'url': 'https://www.formstack.com/api/v2/form/1998500/submission.json',
-                'fields': {
-                    'name' : '32201732'
-                }
-            },
-            'get_evnt_by_name':{
-                'url': 'https://www.formstack.com/api/v2/form/1886931/submission.json',
-                'fields': {
-                    'name': '29042322'
-                }
-            },
-            'get_submission_by_id':{
-                'url' : 'https://www.formstack.com/api/v2/submission/:id.json'
-            },
-            'get_order':{
-                'url': 'https://www.formstack.com/api/v2/form/1925068/submission.json',
-                'fields': {
-                    'name': '48092369'
-                }
-            },
-            'create_delete_registry':{
-                'url': 'https://www.formstack.com/api/v2/form/2388563/submission.json'
-            }
-        },
-        'fields':{
-            'order':{
-                'proyecto_fluid': '48092369'
-            },
-            'project':{
-                'analista': "32201744",
-                'lider': "38193323",
-                'interesado': "38392409",
-                'proyecto_fluid': "32201732",
-                'proyecto_cliente': "38209122",
-                'tipo_prueba': "38254692",
-                'contexto': "38404474",
-                'nivel': "38392454"
-            },
-            'vuln':{
-                'hallazgo': "32201810",
-                'codigo_cliente': "38193365",
-                'probabilidad': "38193660",
-                'severidad': "38193659",
-                'nivel_riesgo': "38194645",
-                'cardinalidad': "38255025",
-                'donde': "38193357",
-                'criticidad': "38529256",
-                'vulnerabilidad': "32202728",
-                'amenaza': "38193361",
-                'componente_aplicativo': "38209122",
-                'tipo_prueba': "38254692",
-                'riesgo': "38193362",
-                'requisitos': "38254586",
-                'solucion_efecto': "38619077",
-                'tipo': "38392454",
-                #2016-nov-2 Agregado para documentacion automatica
-                #2016-nov-2 Calificacion CVS
-                'categoria': "46956845",
-                'escenario': "38692215",
-                'ambito': "38254691",
-                'vector_acceso': "38529247",
-                'complejidad_acceso': "38529248",
-                'autenticacion': "38529249",
-                'impacto_confidencialidad': "38529250",
-                'impacto_integridad': "38529251",
-                'impacto_disponibilidad': "38529252",
-                'explotabilidad': "38529253",
-                'nivel_resolucion': "38529254",
-                'nivel_confianza': "38529255",
-                'evidencia': "32202896",
-                #2016-dic-12 Agregado para documentacion automatica
-                #2016-dic-12 Campos para generar IE Fluid
-                'sistema_comprometido': "48092123",
-                'vector_ataque': "48092088"
-            },
-            'evnt':{
-                'analista': "29042426",
-                'cliente': "29042288",
-                'proyecto_fluid': "29042322",
-                'proyecto_cliente': "39595967",
-                'tipo': "29042327",
-                'detalle': "29042402",
-                'fecha': "29042174",
-                'estado': "29062640",
-                'afectacion': "29042542"
-            }
-        }
-    },
-    'onelogin': {
-        'url': 'https://api.onelogin.com/api/v3/saml/assertion',
-        'api_key': 'e5996692a9bf56a66f8d4542948c47ac7913c505',
-        'app_id': '476874'
-    }
-}
+class FormstackRequestMapper(object):
 
-def parse_vulnreq(frmvuln, frmid):
-    """Convierte los indices numericos de formstack
-       a su respectivo nombre"""
-    vuln = dict()
-    config_frm = CONFIG["formstack"]["fields"]
-    config_ctx = config_frm["vuln"]
-    config_prj = config_frm["project"]
-    vuln["id"] = frmid
-    for i in frmvuln:
-        #DETALLES VULNERABILIDAD
-        if i["field"] == config_ctx["hallazgo"]:
-            vuln["hallazgo"] = i["value"]
-        if i["field"] == config_ctx["codigo_cliente"]:
-            vuln["codigo_cliente"] = i["value"]
-        if i["field"] == config_ctx["probabilidad"]:
-            vuln["probabilidad"] = i["value"]
-        if i["field"] == config_ctx["severidad"]:
-            vuln["severidad"] = i["value"]
-        if i["field"] == config_ctx["nivel_riesgo"]:
-            vuln["nivel_riesgo"] = i["value"]
-        if i["field"] == config_ctx["cardinalidad"]:
-            vuln["cardinalidad"] = i["value"]
-        if i["field"] == config_ctx["donde"]:
-            vuln["donde"] = i["value"]
-        if i["field"] == config_ctx["criticidad"]:
-            vuln["criticidad"] = i["value"]
-        if i["field"] == config_ctx["vulnerabilidad"]:
-            vuln["vulnerabilidad"] = i["value"]
-        if i["field"] == config_ctx["amenaza"]:
-            vuln["amenaza"] = i["value"]
-        if i["field"] == config_ctx["componente_aplicativo"]:
-            vuln["componente_aplicativo"] = i["value"]
-        if i["field"] == config_ctx["tipo_prueba"]:
-            vuln["tipo_prueba"] = i["value"]
-        if i["field"] == config_ctx["riesgo"]:
-            vuln["riesgo"] = i["value"]
-        if i["field"] == config_ctx["requisitos"]:
-            vuln["requisitos"] = i["value"]
-        if i["field"] == config_ctx["solucion_efecto"]:
-            vuln["solucion_efecto"] = i["value"]
-        if i["field"] == config_ctx["tipo"]:
-            vuln["tipo"] = i["value"]
-        if i["field"] == config_ctx["sistema_comprometido"]:
-            vuln["sistema_comprometido"] = i["value"]
-        if i["field"] == config_ctx["vector_ataque"]:
-            vuln["vector_ataque"] = i["value"]
-        #DETALLES PROYECTO
-        if i["field"] == config_prj["analista"]:
-            vuln["analista"] = i["value"]
-        if i["field"] == config_prj["lider"]:
-            vuln["lider"] = i["value"]
-        if i["field"] == config_prj["interesado"]:
-            vuln["interesado"] = i["value"]
-        if i["field"] == config_prj["proyecto_fluid"]:
-            vuln["proyecto_fluid"] = i["value"]
-        if i["field"] == config_prj["proyecto_cliente"]:
-            vuln["proyecto_cliente"] = i["value"]
-        if i["field"] == config_prj["contexto"]:
-            vuln["contexto"] = i["value"]
-        if i["field"] == config_prj["nivel"]:
-            vuln["nivel"] = i["value"]
-        #2016-nov-2 Agregado para documentacion automatica
-        #2016-nov-2 Calificacion CVS
-        if i["field"] == config_ctx["vector_acceso"]:
-            vuln["vector_acceso"] = i["value"]
-        if i["field"] == config_ctx["complejidad_acceso"]:
-            vuln["complejidad_acceso"] = i["value"]
-        if i["field"] == config_ctx["autenticacion"]:
-            vuln["autenticacion"] = i["value"]
-        if i["field"] == config_ctx["impacto_confidencialidad"]:
-            vuln["impacto_confidencialidad"] = i["value"]
-        if i["field"] == config_ctx["impacto_integridad"]:
-            vuln["impacto_integridad"] = i["value"]
-        if i["field"] == config_ctx["impacto_disponibilidad"]:
-            vuln["impacto_disponibilidad"] = i["value"]
-        if i["field"] == config_ctx["explotabilidad"]:
-            vuln["explotabilidad"] = i["value"]
-        if i["field"] == config_ctx["nivel_resolucion"]:
-            vuln["nivel_resolucion"] = i["value"]
-        if i["field"] == config_ctx["nivel_confianza"]:
-            vuln["nivel_confianza"] = i["value"]
-        if i["field"] == config_ctx["evidencia"]:
-            vuln["evidencia"] = i["value"]
-        if i["field"] == config_ctx["escenario"]:
-            vuln["escenario"] = i["value"]
-        if i["field"] == config_ctx["ambito"]:
-            vuln["ambito"] = i["value"]
-        if i["field"] == config_ctx["categoria"]:
-            vuln["categoria"] = i["value"]
-    return vuln
+    PROJECT_ANALISTA = "32201744"
+    PROJECT_LIDER = "38193323"
+    PROJECT_INTERESADO = "38392409"
+    PROJECT_PROYECTO_FLUID = "32201732"
+    PROJECT_PROYECTO_CLIENTE = "38209122"
+    PROJECT_TIPO_PRUEBA = "38254692"
+    PROJECT_CONTEXTO = "38404474"
+    PROJECT_NIVEL = "38392454"
 
-def parse_evntreq(frmevnt, frmid):
-    """Convierte los indices numericos de formstack
-       a su respectivo nombre
-    """
-    evnt = dict()
-    config_frm = CONFIG["formstack"]["fields"]
-    config_ctx = config_frm["evnt"]
-    evnt["id"] = frmid
-    for i in frmevnt:
-        #DETALLES VULNERABILIDAD
-        if i["field"] == config_ctx["analista"]:
-            evnt["analista"] = i["value"]
-        if i["field"] == config_ctx["cliente"]:
-            evnt["cliente"] = i["value"]
-        if i["field"] == config_ctx["proyecto_fluid"]:
-            evnt["proyecto_fluid"] = i["value"]
-        if i["field"] == config_ctx["tipo"]:
-            evnt["tipo"] = i["value"]
-        if i["field"] == config_ctx["detalle"]:
-            evnt["detalle"] = i["value"]
-        if i["field"] == config_ctx["proyecto_cliente"]:
-            evnt["proyecto_cliente"] = i["value"]
-        if i["field"] == config_ctx["fecha"]:
-            evnt["fecha"] = i["value"]
-        if i["field"] == config_ctx["estado"]:
-            evnt["estado"] = i["value"]
-        if i["field"] == config_ctx["afectacion"]:
-            evnt["afectacion"] = i["value"]
-    return evnt
+    EVENTUALITY_ANALISTA = "29042426"
+    EVENTUALITY_CLIENTE = "29042288"
+    EVENTUALITY_PROYECTO_FLUID = "29042322"
+    EVENTUALITY_PROYECTO_CLIENTE = "39595967"
+    EVENTUALITY_TIPO = "29042327"
+    EVENTUALITY_DETALLE = "29042402"
+    EVENTUALITY_FECHA = "29042174"
+    EVENTUALITY_ESTADO = "29062640"
+    EVENTUALITY_AFECTACION = "29042542"
 
-def get_vuln_by_name(project):
-    """Obtiene todas las submission de un proyecto
-       desde la API de Formstack"""
-    url = CONFIG["formstack"]["forms"]["get_vuln_by_name"]["url"]
-    data = {
-        'oauth_token': CONFIG["formstack"]["token"],
-        'search_field_1': CONFIG["formstack"]["forms"]["get_vuln_by_name"]["fields"]["name"],
-        'search_value_1': project
-    }
-    result = False
-    try:
-        result = requests.get(url, data=data, verify=False, headers=CONFIG['headers'])
-        result = json.loads(result.text)
-    except requests.exceptions.SSLError:
-        result = False #Formstack SSLError
-    except requests.exceptions.Timeout:
-        result = False #Formstack Connection timeout
-    except requests.exceptions.HTTPError:
-        result = False #Fail token
-    return result
+    FINDING_HALLAZGO = "32201810"
+    FINDING_CODIGO_CLIENTE = "38193365"
+    FINDING_PROBABILIDAD = "38193660"
+    FINDING_SEVERIDAD = "38193659"
+    FINDING_NIVEL_RIESGO = "38194645"
+    FINDING_CARDINALIDAD = "38255025"
+    FINDING_DONDE = "38193357"
+    FINDING_CRITICIDAD = "38529256"
+    FINDING_VULNERABILIDAD = "32202728"
+    FINDING_AMENAZA = "38193361"
+    FINDING_COMPONENTE_APLICATIVO = "38209122"
+    FINDING_TIPO_PRUEBA = "38254692"
+    FINDING_RIESGO = "38193362"
+    FINDING_REQUISITOS = "38254586"
+    FINDING_SOLUCION_EFECTO = "38619077"
+    FINDING_TIPO = "38392454"
+    FINDING_CATEGORIA = "46956845"
+    FINDING_ESCENARIO = "38692215"
+    FINDING_AMBITO = "38254691"
+    FINDING_VECTOR_ACCESO = "38529247"
+    FINDING_COMPLEJIDAD_ACCESO = "38529248"
+    FINDING_AUTENTICACION = "38529249"
+    FINDING_IMPACTO_CONFIDENCIALIDAD = "38529250"
+    FINDING_IMPACTO_INTEGRIDAD = "38529251"
+    FINDING_IMPACTO_DISPONIBILIDAD = "38529252"
+    FINDING_EXPLOTABILIDAD = "38529253"
+    FINDING_NIVEL_RESOLUCION = "38529254"
+    FINDING_NIVEL_CONFIANZA = "38529255"
+    FINDING_EVIDENCIA = "32202896"
+    FINDING_SISTEMA_COMPROMETIDO = "48092123"
+    FINDING_VECTOR_ATAQUE = "48092088"
 
-def get_evnt_by_name(project):
-    """Obtiene todas las eventualidades de un proyecto
-       desde la API de Formstack"""
-    url = CONFIG["formstack"]["forms"]["get_evnt_by_name"]["url"]
-    data = {
-        'oauth_token': CONFIG["formstack"]["token"],
-        'search_field_1': CONFIG["formstack"]["forms"]["get_evnt_by_name"]["fields"]["name"],
-        'search_value_1': project
-    }
-    result = None
-    try:
-        result = requests.get(url, data=data, verify=False, headers=CONFIG['headers'])
-        result = json.loads(result.text)
-    except requests.exceptions.SSLError:
-        result = None #Formstack SSLError
-    except requests.exceptions.Timeout:
-        result = None #Formstack Connection timeout
-    except requests.exceptions.HTTPError:
-        result = None #Fail token
-    return result
+    def map_finding(self, finding_request):
+        " Convierte los campos de un JSON hallazgo de Formstack para manipularlos en integrates "
+        parsed = dict()
+        for finding in finding_request["data"]:
+            #DETALLES VULNERABILIDAD
+            if finding["field"] == self.FINDING_HALLAZGO:
+                parsed["hallazgo"] = finding["value"]
+            if finding["field"] == self.FINDING_CODIGO_CLIENTE:
+                parsed["codigo_cliente"] = finding["value"]
+            if finding["field"] == self.FINDING_PROBABILIDAD:
+                parsed["probabilidad"] = finding["value"]
+            if finding["field"] == self.FINDING_SEVERIDAD:
+                parsed["severidad"] = finding["value"]
+            if finding["field"] == self.FINDING_NIVEL_RIESGO:
+                parsed["nivel_riesgo"] = finding["value"]
+            if finding["field"] == self.FINDING_CARDINALIDAD:
+                parsed["cardinalidad"] = finding["value"]
+            if finding["field"] == self.FINDING_DONDE:
+                parsed["donde"] = finding["value"]
+            if finding["field"] == self.FINDING_CRITICIDAD:
+                parsed["criticidad"] = finding["value"]
+            if finding["field"] == self.FINDING_VULNERABILIDAD:
+                parsed["vulnerabilidad"] = finding["value"]
+            if finding["field"] == self.FINDING_AMENAZA:
+                parsed["amenaza"] = finding["value"]
+            if finding["field"] == self.FINDING_COMPONENTE_APLICATIVO:
+                parsed["componente_aplicativo"] = finding["value"]
+            if finding["field"] == self.FINDING_TIPO_PRUEBA:
+                parsed["tipo_prueba"] = finding["value"]
+            if finding["field"] == self.FINDING_RIESGO:
+                parsed["riesgo"] = finding["value"]
+            if finding["field"] == self.FINDING_REQUISITOS:
+                parsed["requisitos"] = finding["value"]
+            if finding["field"] == self.FINDING_SOLUCION_EFECTO:
+                parsed["solucion_efecto"] = finding["value"]
+            if finding["field"] == self.FINDING_TIPO:
+                parsed["tipo"] = finding["value"]
+            if finding["field"] == self.FINDING_SISTEMA_COMPROMETIDO:
+                parsed["sistema_comprometido"] = finding["value"]
+            if finding["field"] == self.FINDING_VECTOR_ATAQUE:
+                parsed["vector_ataque"] = finding["value"]
+            if finding["field"] == self.FINDING_VECTOR_ACCESO:
+                parsed["vector_acceso"] = finding["value"]
+            if finding["field"] == self.FINDING_COMPLEJIDAD_ACCESO:
+                parsed["complejidad_acceso"] = finding["value"]
+            if finding["field"] == self.FINDING_AUTENTICACION:
+                parsed["autenticacion"] = finding["value"]
+            if finding["field"] == self.FINDING_IMPACTO_CONFIDENCIALIDAD:
+                parsed["impacto_confidencialidad"] = finding["value"]
+            if finding["field"] == self.FINDING_IMPACTO_INTEGRIDAD:
+                parsed["impacto_integridad"] = finding["value"]
+            if finding["field"] == self.FINDING_IMPACTO_DISPONIBILIDAD:
+                parsed["impacto_disponibilidad"] = finding["value"]
+            if finding["field"] == self.FINDING_EXPLOTABILIDAD:
+                parsed["explotabilidad"] = finding["value"]
+            if finding["field"] == self.FINDING_NIVEL_RESOLUCION:
+                parsed["nivel_resolucion"] = finding["value"]
+            if finding["field"] == self.FINDING_NIVEL_CONFIANZA:
+                parsed["nivel_confianza"] = finding["value"]
+            if finding["field"] == self.FINDING_EVIDENCIA:
+                parsed["evidencia"] = finding["value"]
+            if finding["field"] == self.FINDING_ESCENARIO:
+                parsed["escenario"] = finding["value"]
+            if finding["field"] == self.FINDING_AMBITO:
+                parsed["ambito"] = finding["value"]
+            if finding["field"] == self.FINDING_CATEGORIA:
+                parsed["categoria"] = finding["value"]
+            #DETALLES PROYECTO
+            if finding["field"] == self.PROJECT_ANALISTA:
+                parsed["analista"] = finding["value"]
+            if finding["field"] == self.PROJECT_LIDER:
+                parsed["lider"] = finding["value"]
+            if finding["field"] == self.PROJECT_INTERESADO:
+                parsed["interesado"] = finding["value"]
+            if finding["field"] == self.PROJECT_PROYECTO_FLUID:
+                parsed["proyecto_fluid"] = finding["value"]
+            if finding["field"] == self.PROJECT_PROYECTO_CLIENTE:
+                parsed["proyecto_cliente"] = finding["value"]
+            if finding["field"] == self.PROJECT_CONTEXTO:
+                parsed["contexto"] = finding["value"]
+            if finding["field"] == self.PROJECT_NIVEL:
+                parsed["nivel"] = finding["value"]
+        parsed["id"] = finding_request["id"]
+        return parsed
+    
+    def map_eventuality(self, eventuality_request):
+        " Convierte los campos de un JSON eventualidad de Formstack para manipularlos en integrates "
+        parsed = dict()
+        for eventuality in eventuality_request["data"]:
+            if eventuality["field"] == self.EVENTUALITY_ANALISTA:
+                parsed["analista"] = eventuality["value"]
+            if eventuality["field"] == self.EVENTUALITY_CLIENTE:
+                parsed["cliente"] = eventuality["value"]
+            if eventuality["field"] == self.EVENTUALITY_PROYECTO_FLUID:
+                parsed["proyecto_fluid"] = eventuality["value"]
+            if eventuality["field"] == self.EVENTUALITY_PROYECTO_CLIENTE:
+                parsed["proyecto_cliente"] = eventuality["value"]
+            if eventuality["field"] == self.EVENTUALITY_TIPO:
+                parsed["tipo"] = eventuality["value"]
+            if eventuality["field"] == self.EVENTUALITY_DETALLE:
+                parsed["detalle"] = eventuality["value"]
+            if eventuality["field"] == self.EVENTUALITY_FECHA:
+                parsed["fecha"] = eventuality["value"]
+            if eventuality["field"] == self.EVENTUALITY_ESTADO:
+                parsed["estado"] = eventuality["value"]
+            if eventuality["field"] == self.EVENTUALITY_AFECTACION:
+                parsed["afectacion"] = eventuality["value"]
+        parsed["id"] = eventuality_request["id"]
+        return parsed
 
-def get_vuln_by_submission_id(vuln_id):
-    """Obtiene los detalles del id de una submission
-       desde la API de formstack"""
-    result = None
-    try:
-        url = CONFIG["formstack"]["forms"]["get_submission_by_id"]["url"].replace(":id", vuln_id)
-        data = {
-            'oauth_token': CONFIG["formstack"]["token"],
-        }
-        form_req = requests.get(url, data=data, verify=False, headers=CONFIG['headers'])
-        result = parse_vulnreq(json.loads(form_req.text)["data"], vuln_id)
-    except requests.exceptions.SSLError:
-        result = None #Formstack SSLError
-    except requests.exceptions.Timeout:
-        result = None #Formstack Connection timeout
-    except requests.exceptions.HTTPError:
-        result = None #Fail token
-    except KeyError:
-        result = None #Not found id
-    return result
+class FormstackAPI(object):
 
-def get_evnt_by_submission_id(evnt_id):
-    """Obtiene los detalles del id de una submission
-       desde la API de formstack"""
-    result = None
-    try:
-        url = CONFIG["formstack"]["forms"]["get_submission_by_id"]["url"].replace(":id", evnt_id)
-        data = {
-            'oauth_token': CONFIG["formstack"]["token"],
-        }
-        form_req = requests.get(url, data=data, verify=False, headers=CONFIG['headers'])
-        result = parse_evntreq(json.loads(form_req.text)["data"], evnt_id)
-    except requests.exceptions.SSLError:
-        result = None #Formstack SSLError
-    except requests.exceptions.Timeout:
-        result = None #Formstack Connection timeout
-    except requests.exceptions.HTTPError:
-        result = None #Fail token
-    except KeyError:
-        result = None #Not found id
-    return result
-
-def update_vuln_by_id(data):
-    """Actualiza una submission de formstack usando su id"""
-    field_config = CONFIG["formstack"]["fields"]["vuln"]
-    vuln_id = data['vuln[id]']
-    files = {
-        "field_" + field_config["donde"] : data['vuln[donde]'],
-        "field_" + field_config["cardinalidad"] : data['vuln[cardinalidad]'],
-        "field_" + field_config["criticidad"] : data['vuln[criticidad]'],
-        "field_" + field_config["vulnerabilidad"] : data['vuln[vulnerabilidad]'],
-        "field_" + field_config["amenaza"] : data['vuln[amenaza]'],
-    }
-    if data["vuln[nivel]"] == "General":
-        files["field_"+field_config["vector_ataque"]] = data['vuln[vector_ataque]']
-        files["field_"+field_config["sistema_comprometido"]] = data['vuln[sistema_comprometido]']
-    else:
-        files["field_"+field_config["riesgo"]] = data['vuln[riesgo]']
-    result = None
-    try:
-        url = CONFIG["formstack"]["forms"]["get_submission_by_id"]["url"].replace(":id", vuln_id)
-        url += "?oauth_token=" + CONFIG["formstack"]["token"]
-        headers = CONFIG['headers']
-        headers["cache-control"] = "no-cache"
-        headers["content-type"] = "application/x-www-form-urlencoded"
-        result = requests.put(url, data=files, headers=headers, verify=False)
-    except requests.exceptions.SSLError:
-        result = None #Formstack SSLError
-    except requests.exceptions.Timeout:
-        result = None #Formstack Connection timeout
-    except requests.exceptions.HTTPError:
-        result = None #Fail token
-    return result
-
-def update_evnt_by_id(reinp):
-    """Actualiza una eventualidad de formstack usando su id"""
-    field_config = CONFIG["formstack"]["fields"]["evnt"]
-    vuln_id = reinp['vuln[id]']
-    files = {
-        "field_" + field_config["afectacion"] : reinp['vuln[afectacion]'],
-        "field_" + field_config["estado"] : "Tratada"
-    }
-    result = None
-    try:
-        url = CONFIG["formstack"]["forms"]["get_submission_by_id"]["url"].replace(":id", vuln_id)
-        url += "?oauth_token=" + CONFIG["formstack"]["token"]
-        headers = CONFIG['headers']
-        headers["cache-control"] = "no-cache"
-        headers["content-type"] = "application/x-www-form-urlencoded"
-        result = requests.put(url, data=files, headers=headers, verify=False)
-    except requests.exceptions.SSLError:
-        result = None #Formstack SSLError
-    except requests.exceptions.Timeout:
-        result = None #Formstack Connection timeout
-    except requests.exceptions.HTTPError:
-        result = None #Fail token
-    return result
-
-def delete_vuln_by_id(frmid):
-    """Elimina un hallazgo usando su ID y genera un log en formstack
-       con el nombre del analista
-       TODO: Cambiar la url para eliminar, agregar logger desde el servicio
-    """
-    result = None
-    try:
-        url = CONFIG["formstack"]["forms"]["get_submission_by_id"]["url"]
-        url = url.replace(":id", frmid) \
-            + "?oauth_token=" \
-            + CONFIG["formstack"]["token"]
-        data = {
-            "id" : frmid
-        }
-        headers = CONFIG['headers']
-        headers["cache-control"] = "no-chache"
-        headers["content-type"] = "application/x-www-form-urlencoded"
-        result = requests.delete(url, data=data, headers=headers)
-    except requests.exceptions.SSLError:
-        result = None #Formstack SSLError
-    except requests.exceptions.Timeout:
-        result = None #Formstack Connection timeout
-    except requests.exceptions.HTTPError:
-        result = None #Fail token
-    return result
-
-def one_login_auth(username, password):
-    """Consume la API de OneLogin para autenticar un usuario"""
-    url = CONFIG['onelogin']['url']
-    data = {
-        'username': username,
-        'password': password,
-        'api_key': CONFIG['onelogin']['api_key'],
-        'app_id': CONFIG['onelogin']['app_id']
-    }
-    result = None
-    try:
-        req = requests.post(url, data=data, verify=False, headers=CONFIG['headers'])
-        if req.status_code == 401:
-            result = None
-        elif req.status_code == 200:
-            result = True
-    except requests.exceptions.Timeout:
-        result = None #One login Connection timeout
-    except requests.exceptions.HTTPError:
-        result = None #Fail login
-    return result
-
-def get_order(project):
-    """Obtiene el ID de pedido relacionado a un proyecto
-       desde la API de Formstack"""
-    url = CONFIG["formstack"]["forms"]["get_order"]["url"]
-    data = {
-        'oauth_token': CONFIG["formstack"]["token"],
-        'search_field_1': CONFIG["formstack"]["forms"]["get_order"]["fields"]["name"],
-        'search_value_1': project
-    }
-    result = None
-    try:
-        result = requests.get(url, data=data, verify=False, headers=CONFIG['headers'])
-        result = json.loads(result.text)
-    except requests.exceptions.SSLError:
-        result = None #Formstack SSLError
-    except requests.exceptions.Timeout:
-        result = None #Formstack Connection timeout
-    except requests.exceptions.HTTPError:
-        result = None #Fail token
-    return result
-
-def update_order_id(project, order_id):
-    """ Actualiza el nombre de proyecto en un pedido de formstack """
-    field_config = CONFIG["formstack"]["fields"]["order"]
-    files = {
-        "field_" + field_config["proyecto_fluid"] : project
-    }
-    result = None
-    try:
-        url = CONFIG["formstack"]["forms"]["get_submission_by_id"]["url"].replace(":id", order_id)
-        url += "?oauth_token=" + CONFIG["formstack"]["token"]
-        headers = CONFIG['headers']
-        headers["cache-control"] = "no-cache"
-        headers["content-type"] = "application/x-www-form-urlencoded"
-        result = requests.put(url, data=files, headers=headers, verify=False)
-        print result.status_code
-        print result
-    except requests.exceptions.SSLError:
-        result = None #Formstack SSLError
-    except requests.exceptions.Timeout:
-        result = None #Formstack Connection timeout
-    except requests.exceptions.HTTPError:
-        result = None #Fail token
-    return result
-
-class FormstackAPI():
-
-    HEADERS = None
+    headers_config = None
     TOKEN = "aefb128ba610da7e8d9e0b6ff86d9d7a"
 
     def __init__(self):
-        self.HEADERS = {
+        " Constructor "
+        self.headers_config = {
             'headers':{ 
                 'User-agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36' \
                     + '(KHTML, like Gecko) Chrome/52.0.2743.116 Safari/537.36'
             }
         }
-
+        
+    @retry(retry_on_exception=ConnectionError, stop_max_attempt_number=5)
     def request(self, method, url, data=None):
+        " Construye las peticiones usadas para consultar Formstack "
         executed_request = None
         try:
             if method != "GET":
-                self.HEADERS["cache-control"] = "no-cache"
-                self.HEADERS["content-type"] = "application/x-www-form-urlencoded"
-                url += "?oauth_token=:token".replace(":token",self.TOKEN)
+                self.headers_config["cache-control"] = "no-cache"
+                self.headers_config["content-type"] = "application/x-www-form-urlencoded"
+                url += "?oauth_token=:token".replace(":token", self.TOKEN)
             else:
                 if not data:
                     data = {"oauth_token": self.TOKEN}
                 else:
                     data["oauth_token"] = self.TOKEN
-            formstack_request = requests.request(method, url, data=data, headers=self.HEADERS)
+            formstack_request = requests.request(
+                method, url,
+                data=data, headers=self.headers_config
+            )
             executed_request = json.loads(formstack_request.text)
         except ConnectionError:
             executed_request = None #Fail connection
@@ -508,6 +220,18 @@ class FormstackAPI():
             executed_request = None
         return executed_request
 
+    def delete_finding(self, submission_id):
+        " Elimina una submission del formulario de hallazgos a partir de su id \
+          TODO: como probar un test que elimina datos, un metodo que \
+          recibe vars por post "
+        url = "https://www.formstack.com" 
+        url += "/api/v2/submission/:id.json"
+        url = url.replace(":id", submission_id)
+        data = {
+            "id" : submission_id
+        }
+        return self.request("DELETE", url, data=data)
+
     def get_submission(self, submission_id):
         " Obtiene un submission a partir de su ID "
         url = "https://www.formstack.com/api/v2/submission/:id.json"
@@ -520,10 +244,11 @@ class FormstackAPI():
         search_field = "32201732"
         data = {'search_field_1': search_field, 'search_value_1': project}
         return self.request("GET", url, data=data)
-    
+
     def get_eventualities(self, project):
         " Obtiene las eventualidades de un proyecto a partir del nombre de proyecto "
-        url = "https://www.formstack.com/api/v2/form/1886931/submission.json"
+        url = "https://www.formstack.com"
+        url += "/api/v2/form/1886931/submission.json"
         search_field = "29042322"
         data = {'search_field_1': search_field, 'search_value_1': project}
         return self.request("GET", url, data=data)
@@ -535,12 +260,88 @@ class FormstackAPI():
         data = {'search_field_1': search_field, 'search_value_1': project}
         return self.request("GET", url, data=data)
 
-    def delete_vulnerability(self, submission_id):
-        " Elimina una submission del formulario de hallazgos a partir de su id \
-          TODO: como probar un test que elimina datos, un metodo que recibe vars por post "
+    def update_eventuality(self, afectacion, submission_id):
+        " Actualiza una eventualidad en Formstack "
         url = "https://www.formstack.com/api/v2/submission/:id.json"
         url = url.replace(":id", submission_id)
+        field_afectacion = "field_29042542"
+        field_estado = "field_29062640"
         data = {
-            "id" : submission_id 
+            field_afectacion: afectacion,
+            field_estado: "Tratada"
         }
-        return self.request("DELETE", url, data=data)
+        return self.request("PUT", url, data=data)
+    
+    def update_finding(self, data_set, submission_id):
+        " Actualiza un hallazgo en formstack "
+        url = "https://www.formstack.com/api/v2/submission/:id.json"
+        url = url.replace(":id", submission_id)
+        field_donde = "field_38193357"
+        field_cardinalidad = "field_38255025"
+        field_criticidad = "field_38529256"
+        field_vulnerabilidad = "field_32202728"
+        field_amenaza = "field_38193361"
+        field_vector_ataque = "field_48092088"
+        field_sistema_comprometido = "field_48092123"
+        field_riesgo = "field_38193362"
+        data = {
+            field_donde: data_set['vuln[donde]'],
+            field_cardinalidad: data_set['vuln[cardinalidad]'],
+            field_criticidad: data_set['vuln[criticidad]'],
+            field_vulnerabilidad: data_set['vuln[vulnerabilidad]'],
+            field_amenaza: data_set['vuln[amenaza]'],
+        }
+        if data_set["vuln[nivel]"] == "General":
+            data[field_vector_ataque] = data_set['vuln[vector_ataque]']
+            data[field_sistema_comprometido] = data_set['vuln[sistema_comprometido]']
+        else:
+            data[field_riesgo] = data['vuln[riesgo]']
+        return self.request("PUT", url, data=data)
+
+    def update_order(self, project, submission_id):
+        " Actualiza la relacion pedido bancolombia y proyecto en Formstack "
+        url = "https://www.formstack.com/api/v2/submission/:id.json"
+        url = url.replace(":id", submission_id)
+        field_proyecto_fluid = "field_48092369"
+        data = {field_proyecto_fluid: project}
+        return self.request("PUT", url, data=data)
+
+class OneLoginAPI(object):
+    """ Wrap de la API de OneLogin """
+    
+    API_KEY = "e5996692a9bf56a66f8d4542948c47ac7913c505"
+    APP_ID = "476874"
+    headers_config = None
+    username = ""
+    password = ""
+
+    def __init__(self, username, password):
+        """ Constructor """
+        self.username = username
+        self.password = password
+        self.headers_config = {
+            'headers':{
+                'User-agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36' \
+                    + '(KHTML, like Gecko) Chrome/52.0.2743.116 Safari/537.36'
+            }
+        }
+
+    def login(self):
+        " Autentica un usuario utilizando la API de OneLogin "
+        url = "https://api.onelogin.com/api/v3/saml/assertion"
+        data = {
+            'username': self.username,
+            'password': self.password,
+            'api_key': self.API_KEY,
+            'app_id': self.APP_ID
+        }
+        result = False
+        try:
+            req = requests.post(url, data=data, verify=False, headers=self.headers_config)
+            if req.status_code == 200:
+                result = True
+        except requests.exceptions.Timeout:
+            result = False #One login Connection timeout
+        except requests.exceptions.HTTPError:
+            result = False #Fail login
+        return result

@@ -13,6 +13,7 @@ class FormstackAPITests(TestCase):
         self.assertIs("data" in request, True)
 
     def test_get_submission(self):
+        """ Prueba que se consulte correctamente una submission de formstack """
         API = FormstackAPI()
         submission_id = "293276999"
         request = API.get_submission(submission_id)
@@ -35,3 +36,24 @@ class FormstackAPITests(TestCase):
         project = "oka"
         request = API.get_order(project)
         self.assertIs("submissions" in request, True)
+
+    def test_update_order(sekf):
+        API = FormstackAPI()
+        project = "Bramley"
+        submission_id = "223360928"
+        request = API.get_order(project, submission_id)
+        self.assertIs("success" in request, True)
+
+    def test_update_eventuality(sekf):
+        API = FormstackAPI()
+        afectacion = "0"
+        submission_id = "244210431"
+        request = API.get_order(project, submission_id)
+        self.assertIs("success" in request, True)
+
+    def test_update_finding(sekf):
+        API = FormstackAPI()
+        afectacion = "0"
+        submission_id = "244210431"
+        request = API.get_order(project, submission_id)
+        self.assertIs("success" in request, True)
