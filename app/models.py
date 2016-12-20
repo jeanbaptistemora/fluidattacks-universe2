@@ -9,9 +9,10 @@ from requests.exceptions import ConnectionError
 from retrying import retry
 #from requests.packages.urllib3.exceptions import InsecureRequestWarning
 requests.adapters.DEFAULT_RETRIES = 10
+from .exceptions import APIConnectionException
 
 class FormstackRequestMapper(object):
-
+    """ Clase para cambiar los indices a nombres en un request """
     PROJECT_ANALISTA = "32201744"
     PROJECT_LIDER = "38193323"
     PROJECT_INTERESADO = "38392409"
@@ -64,7 +65,8 @@ class FormstackRequestMapper(object):
     FINDING_VECTOR_ATAQUE = "48092088"
 
     def map_finding(self, finding_request):
-        " Convierte los campos de un JSON hallazgo de Formstack para manipularlos en integrates "
+        """ Convierte los campos de un JSON hallazgo
+            de Formstack para manipularlos en integrates """
         parsed = dict()
         for finding in finding_request["data"]:
             #DETALLES VULNERABILIDAD
@@ -147,9 +149,10 @@ class FormstackRequestMapper(object):
                 parsed["nivel"] = finding["value"]
         parsed["id"] = finding_request["id"]
         return parsed
-    
+
     def map_eventuality(self, eventuality_request):
-        " Convierte los campos de un JSON eventualidad de Formstack para manipularlos en integrates "
+        """ Convierte los campos de un JSON eventualidad
+            de Formstack para manipularlos en integrates """
         parsed = dict()
         for eventuality in eventuality_request["data"]:
             if eventuality["field"] == self.EVENTUALITY_ANALISTA:
@@ -321,8 +324,9 @@ class OneLoginAPI(object):
         self.password = password
         self.headers_config = {
             'headers':{
-                'User-agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36' \
-                    + '(KHTML, like Gecko) Chrome/52.0.2743.116 Safari/537.36'
+                'User-agent': 'Mozilla/5.0 (X11; Linux x86_64) \
+                    AppleWebKit/537.36 (KHTML, like Gecko) \
+                    Chrome/52.0.2743.116 Safari/537.36'
             }
         }
 

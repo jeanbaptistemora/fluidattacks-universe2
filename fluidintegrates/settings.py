@@ -138,7 +138,7 @@ STATICFILES_DIRS = (
     os.path.join(PROJECT_ROOT, '../app/assets'),
 )
 
-#Session 
+#Session
 SESSION_EXPIRE_AT_BROWSER_CLOSE = True
 SESSION_COOKIE_HTTPONLY = True
 SESSION_COOKIE_NAME = "Integratesv3"

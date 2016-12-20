@@ -37,21 +37,21 @@ class FormstackAPITests(TestCase):
         request = API.get_order(project)
         self.assertIs("submissions" in request, True)
 
-    def test_update_order(sekf):
+    def test_update_order(self):
         API = FormstackAPI()
         project = "Bramley"
         submission_id = "223360928"
         request = API.get_order(project, submission_id)
         self.assertIs("success" in request, True)
 
-    def test_update_eventuality(sekf):
+    def test_update_eventuality(self):
         API = FormstackAPI()
         afectacion = "0"
         submission_id = "244210431"
         request = API.get_order(project, submission_id)
         self.assertIs("success" in request, True)
 
-    def test_update_finding(sekf):
+    def test_update_finding(self):
         API = FormstackAPI()
         afectacion = "0"
         submission_id = "244210431"

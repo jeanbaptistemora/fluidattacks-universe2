@@ -3,11 +3,13 @@
 """
 from django.conf.urls import url
 from . import views
+from . import services
+
 urlpatterns = [
     url(r'^$', views.index, name='index'),
     # Procesamiento principal
     url(r'^index/?$', views.index, name='index'),
-    url(r'^login/?$', views.login, name='login'),
+    url(r'^login/?$', services.login, name='login'),
     url(r'^dashboard/?$', views.dashboard, name='dashboard'),
     url(r'^logout/?$', views.logout, name='logout'),
     # Consumo de servicios de formstack

@@ -12,6 +12,7 @@ from . import models, util
 from models import FormstackAPI, FormstackRequestMapper, OneLoginAPI
 from autodoc import IE, IT
 import time
+from .mailer import Mailer
 
 def index(request):
     "Vista de login para usuarios no autenticados"
@@ -57,12 +58,14 @@ def export_autodoc(request):
     "Captura y devuelve el pdf de un proyecto"
     detail = {
         "IT": {
-            "content_type": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+            "content_type": "application/vnd.openxmlformats\
+                             -officedocument.spreadsheetml.sheet",
             "content_disposition": "inline;filename=:P.xlsx",
             "path": "/var/www/fluid-integrates/app/autodoc/results/:P.xlsx"
         },
         "IE": {
-            "content_type": "application/vnd.openxmlformats-officedocument.presentationml.presentation" ,
+            "content_type": "application/vnd.openxmlformats\
+                             -officedocument.presentationml.presentation" ,
             "content_disposition": "inline;filename=:P.pptx",
             "path": "/var/www/fluid-integrates/app/autodoc/results/:P.pptx"
         }
@@ -219,10 +222,17 @@ def delete_finding(request):
         submission_id = post_parms["vuln[id]"]
         res = API.delete_finding(submission_id)
         if res:
+            finding_id = post_parms["vuln[id]"]
+            finding = post_parms["vuln[hallazgo]"]
+            justify = post_parms["vuln[justificacion]"]
+            analyst = request.session["username"]
+            send_mail = Mailer()
+            send_mail.send_delete_finding(finding_id, finding, analyst, justify)
+            send_mail.close()
             return util.response([], 'Eliminado correctamente!', False)
         else:
             return util.response([], 'No se pudo actualizar formstack', True)
-        
+  
 @csrf_exempt
 @require_http_methods(["GET"])
 def get_order(request):

@@ -8,7 +8,6 @@ import datetime
 import json
 from django.http import JsonResponse
 
-
 def is_authenticated(request):
     """ Verifica si existe una sesion en el sistema"""
     if "username" in request.session:
