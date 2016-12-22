@@ -18,10 +18,10 @@ integrates.calcCardinality = function(data){
 };
 integrates.vuln_formatter = function(value, row, index){
     str = "<div class='btn-group'>" 
-        + "<a class='btn btn-default' href='dashboard#/vuln/read/?id=nid' target='_blank'><i class='glyphicon glyphicon-eye-open'></i></a>"
-        + "<a class='btn btn-default' href='dashboard#/vuln/update/?id=nid' target='_blank'><i class='glyphicon glyphicon-pencil'></i></a>"
-        + "<a class='btn btn-default' href='dashboard#/vuln/delete/?id=nid' target='_blank'><i class='glyphicon glyphicon-trash'></i></a></div>";
-    return str.replace(/nid/g,row.id);
+        + "<a class='btn btn-default' href=':basedashboard#/vuln/read/?id=nid' target='_blank'><i class='glyphicon glyphicon-eye-open'></i></a>"
+        + "<a class='btn btn-default' href=':basedashboard#/vuln/update/?id=nid' target='_blank'><i class='glyphicon glyphicon-pencil'></i></a>"
+        + "<a class='btn btn-default' href=':basedashboard#/vuln/delete/?id=nid' target='_blank'><i class='glyphicon glyphicon-trash'></i></a></div>";
+    return str.replace(/nid/g, row.id).replace(/:base/g, BASE.url);
 }
 /**
  * Crea el controlador de la funcionalidad de vulnerabilidades
@@ -196,7 +196,7 @@ integrates.controller("findingController", function($scope, $uibModal, findingFa
                  * @return {undefined}
                  */
                 $scope.downloadDoc = function(kind){
-                    var url = "export_autodoc?project=" + $scope.project;
+                    var url = BASE.url + "export_autodoc?project=" + $scope.project;
                     url += "&format="+kind;
                     downLink = document.createElement("a");
                     downLink.target = "_blank";
