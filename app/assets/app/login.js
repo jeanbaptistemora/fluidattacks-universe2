@@ -7,7 +7,9 @@
  */
 var BASE = { production: "/integrates/",
              development: "/" };
-BASE.url = BASE.development;
+BASE.url = BASE.production;
+if(location.pathname.indexOf("/integrates") == -1)
+    BASE.url = BASE.development;
 //definicion de modulos
 var integrates = angular.module("FluidIntegrates", []); 
 /**
@@ -59,7 +61,10 @@ integrates.controller("loginController", function($scope){
                     sticky: false,
                 }); 
                 if(color == "success"){
-                    setTimeout("location = '/dashboard';",2000);
+                    redirector = function(){
+                        location = BASE.url + "dashboard";
+                    }
+                    setTimeout(redirector,2000);
                 }
             })
         }
