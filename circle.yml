@@ -34,7 +34,6 @@ dependencies:
     - ./alg.sh
     - ./exams.sh
     - ./integrates.sh
-#    - ./test.sh
     - bundle install
 
 test:
