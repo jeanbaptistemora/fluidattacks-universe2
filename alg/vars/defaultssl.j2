@@ -32,8 +32,11 @@
         ProxyPassReverse /forms https://fluidsignal.formstack.com/forms
 
     #Integrates
-        ProxyPass /integrates http://fluidintegrates.us-east-1.elasticbeanstalk.com
-        ProxyPassReverse /integrates http://fluidintegrates.us-east-1.elasticbeanstalk.com
+        RewriteEngine on
+        RewriteRule ^/integrates(.*)$           http://fluid.la:8000/$1        [P]
+        ProxyPassReverse /integrates http://fluid.la:8000
+        RewriteRule ^/assets(.*)$           http://fluid.la:8000/assets$1        [P]
+        ProxyPassReverse /assets http://fluid.la:8000/assets
 
     # KB - Knowledgeowl
 	Header edit Location ^http://kb.fluid.la(.*)$ https://fluid.la$1
