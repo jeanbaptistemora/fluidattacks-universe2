@@ -39,7 +39,7 @@ class FormstackRequestMapper(object):
     FINDING_NIVEL_RIESGO = "38194645"
     FINDING_CARDINALIDAD = "38255025"
     FINDING_DONDE = "38193357"
-    FINDING_CRITICIDAD = "38529256"
+    FINDING_CRITICIDAD = "38531129"
     FINDING_VULNERABILIDAD = "32202728"
     FINDING_AMENAZA = "38193361"
     FINDING_COMPONENTE_APLICATIVO = "38209122"
@@ -280,25 +280,27 @@ class FormstackAPI(object):
         url = "https://www.formstack.com/api/v2/submission/:id.json"
         url = url.replace(":id", submission_id)
         field_donde = "field_38193357"
-        field_cardinalidad = "field_38255025"
+        field_cardinalidad = "field_38531129"
         field_criticidad = "field_38529256"
         field_vulnerabilidad = "field_32202728"
         field_amenaza = "field_38193361"
         field_vector_ataque = "field_48092088"
-        field_sistema_comprometido = "field_48092123"
+        field_sist_compro = "field_48092123"
         field_riesgo = "field_38193362"
+        field_requisitos = "field_38254586"
         data = {
             field_donde: data_set['vuln[donde]'],
             field_cardinalidad: data_set['vuln[cardinalidad]'],
             field_criticidad: data_set['vuln[criticidad]'],
             field_vulnerabilidad: data_set['vuln[vulnerabilidad]'],
             field_amenaza: data_set['vuln[amenaza]'],
+            field_requisitos: data_set['vuln[requisitos]']
         }
         if data_set["vuln[nivel]"] == "General":
             data[field_vector_ataque] = data_set['vuln[vector_ataque]']
-            data[field_sistema_comprometido] = data_set['vuln[sistema_comprometido]']
+            data[field_sist_compro] = data_set['vuln[sistema_comprometido]']
         else:
-            data[field_riesgo] = data['vuln[riesgo]']
+            data[field_riesgo] = data_set['vuln[riesgo]']
         return self.request("PUT", url, data=data)
 
     def update_order(self, project, submission_id):

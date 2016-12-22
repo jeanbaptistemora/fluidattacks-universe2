@@ -65,41 +65,48 @@
                 <div class="col-md-9">
                     <div class="form-group">
                         <label>Vulnerabilidad</label>
-                        <textarea class="form-control" id="email" rows="2" disabled> {{vuln.vulnerabilidad}}</textarea>
+                        <textarea class="form-control" id="email" rows="2" disabled>{{vuln.vulnerabilidad}}</textarea>
                     </div>
                 </div>
                 <div class="col-md-9">
                     <div class="form-group">
                         <label>Donde</label>
-                        <textarea class="form-control" id="email" disabled rows="4"> {{vuln.donde}} </textarea>
+                        <textarea class="form-control" id="email" disabled rows="4">{{vuln.donde}}</textarea>
                     </div>
                 </div>
                 <div class="col-md-4" ng-class="esGeneral">
                     <div class="form-group">
                         <label>Vectores de ataque</label>
-                        <textarea class="form-control" id="email" disabled rows="4"> {{vuln.vector_ataque}} </textarea>
+                        <textarea class="form-control" id="email" disabled rows="4">{{vuln.vector_ataque}}</textarea>
                     </div>
                 </div>
                 <div class="col-md-4 col-md-offset-1" ng-class="esGeneral">
                     <div class="form-group">
                         <label>Sistemas comprometidos</label>
-                        <textarea class="form-control" id="email" disabled rows="4"> {{vuln.sistema_comprometido}} </textarea>
+                        <textarea class="form-control" id="email" disabled rows="4">{{vuln.sistema_comprometido}}</textarea>
                     </div>
                 </div>
                 <div class="col-md-9" ng-class="esDetallado">
                     <div class="form-group">
                         <label>Riesgo</label>
-                        <textarea class="form-control" id="email" disabled rows="4"> {{vuln.riesgo}} </textarea>
+                        <textarea class="form-control" id="email" disabled rows="4">{{vuln.riesgo}}</textarea>
                     </div>
                 </div>
                 <div class="col-md-9">
                     <div class="form-group">
                         <label>Amenaza</label>
-                        <textarea class="form-control" id="email" disabled rows="4"> {{vuln.amenaza}} </textarea>
+                        <textarea class="form-control" id="email" disabled rows="4">{{vuln.amenaza}}</textarea>
+                    </div>
+                </div>
+                <div class="col-md-9">
+                    <div class="form-group">
+                        <label>Requisitos</label>
+                        <textarea class="form-control" id="email" disabled rows="4">{{vuln.requisitos}}</textarea>
                     </div>
                 </div>
                 <div class="col-md-9 text-center" style="margin-bottom: 10px;">
                     <button class="btn btn-warning" type="button" onclick="window.close();">Cerrar</button>
+                    <a class="btn btn-primary" type="button" href="/dashboard#/vuln/update/?id={{vuln.id}}" >Editar</a>
                 </div>
             </div>
         </div>

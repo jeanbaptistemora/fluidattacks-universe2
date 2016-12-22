@@ -322,6 +322,7 @@ def update_finding(request):
         != "vuln[cardinalidad]" not in post_parms \
         != "vuln[criticidad]" not in post_parms \
         != "vuln[amenaza]" not in post_parms \
+        != "vuln[requisitos]" not in post_parms \
         != "vuln[id]" not in post_parms:
         return util.response([], 'Campos vacios', True)
     else:
@@ -336,8 +337,9 @@ def update_finding(request):
                 execute = True
         if not execute:
             return util.response([], 'Campos vacios', True)
-        API = FormstackAPI()
-        updated = API.update_finding(post_parms)
+        formstack_api = FormstackAPI()
+        submission_id = post_parms["vuln[id]"]
+        updated = formstack_api.update_finding(post_parms, submission_id)
         if "success" in updated:
             return util.response([], 'Actualizado correctamente!', False)
         else:
