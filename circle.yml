@@ -20,7 +20,9 @@ dependencies:
     - sudo python /var/www/fluid-integrates/manage.py migrate
     - sudo chown -R www-data:www-data /var/www/fluid-integrates
     - sudo cp config/000-default.conf /etc/apache2/sites-available/000-default.conf
-
+  post:
+    - sudo service apache2 restart
+    - sudo /var/www/fluid-integrates/manage.py test
 test:
   pre:
     - curl http://localhost
