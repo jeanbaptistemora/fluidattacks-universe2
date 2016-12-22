@@ -46,7 +46,7 @@ integrates.controller("loginController", function($scope){
             });
         }else{
             $.ajax({
-                url: "login/",
+                url: BASE.url + "login/",
                 method: "POST",
                 data: {
                     user: username,
