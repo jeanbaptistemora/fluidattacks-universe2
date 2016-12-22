@@ -16,7 +16,7 @@ dependencies:
     - sudo apt-get install libxml2-dev libxslt1-dev python-dev
     - sudo pip install django requests openpyxl lxml python-pptx pyyaml decorators retrying
     - pwd
-    - sudo ln -s ../fluid-integrates/ /var/www/
+    - sudo ln -s /home/ubuntu/fluid-integrates/ /var/www/
     - sudo chown -R www-data:www-data /var/www/fluid-integrates
     - sudo cp config/000-default.conf /etc/apache2/sites-available/000-default.conf
   post:
