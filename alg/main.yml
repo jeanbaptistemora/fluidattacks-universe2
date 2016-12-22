@@ -12,11 +12,14 @@
 
    - name: Instalar Apache
      apt:
-      pkg: "apache2"
+      pkg: "{{ item }}"
       state: installed
      register: apacheinstalled
      notify:
        - iniciar apache2
+     with_items:
+       - apache2
+       - curl
 
    - name: Habilitar modulos necesarios de Apache
      command:
