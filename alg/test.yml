@@ -1,0 +1,15 @@
+---
+- hosts: alg
+
+  tasks:
+   - name: Instalar dependencias
+     apt:
+      pkg: "curl"
+      state: installed
+
+   - name: Creando www.fluidsignal.com
+     template:
+      src: "vars/hosts.j2"
+      dest: "/etc/hosts"
+      mode: "0644"
+

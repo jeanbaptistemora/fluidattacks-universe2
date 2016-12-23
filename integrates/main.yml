@@ -7,26 +7,50 @@
    - name: include default step variables
      include_vars: vars/vars.yml
 
-   - name: Instalar paquetes necesarios
+   - name: Instalar paquetes
      apt:
        pkg: "{{ item }}"
        state: installed
      register: dependencias
      with_items:
        - git
+       - python-dev
        - python-pip
        - apache2
-       - libapache2-mod-wsgi
        - python-setuptools
+       - python-tk
+
+   - name: Instalar librerias
+     apt:
+       pkg: "{{ item }}"
+       state: installed
+     register: dependencias2
+     with_items:
+       - liblcms2-dev
+       - libwebp-dev
+       - tcl8.6-dev
+       - tk8.6-dev
+       - libxml2
+       - libxml2-dev
+       - libxslt1-dev
+       - libapache2-mod-wsgi
+       - libtiff5-dev
+       - zlib1g-dev
+       - libfreetype6-dev
+       - libapache2-mod-python
 
    - name: Instalar dependencias pip
      pip:
        name: "{{ item }}"
      with_items:
        - django
-       - jinja2
+       - python-pptx
        - pyyaml
        - openpyxl
+       - requests
+       - lxml
+       - decorators
+       - retrying
 
    - name: Agregar netrc
      template:
@@ -42,8 +66,15 @@
    - name: Clonar repositorio integrates
      git:
        repo: "https://jrestrepoatfluid@bitbucket.org/fluidsignal/fluid-integrates.git"
-       dest: "/var/www/fluidintegrates"
+       dest: "/var/www/fluid-integrates"
        version: "master"
+
+   - name: Establecer permisos directorio
+     file:
+       path: "{{ documentroot }}"
+       owner: www-data
+       group: www-data
+       recurse: yes
 
    - name: Retirar git conf
      file:
