@@ -71,6 +71,11 @@
       dest: "/etc/apache2/sites-enabled/default-ssl"
       mode: "0644"
 
+   - name: Retirar index
+     file:
+       path: "/var/www/html/index.html"
+       state: absent
+
    - name: Instalando certificado digital
      copy:
       content: '{{ ssl_cert }}'

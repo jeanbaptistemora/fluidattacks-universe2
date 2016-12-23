@@ -43,3 +43,6 @@ describe file ('/etc/apache2/sites-enabled/default-ssl') do
   it {should contain 'SSLProxyEngine on'}
 end
 
+describe file('/var/www/html/index.html') do
+  it { should_not exist }
+end
