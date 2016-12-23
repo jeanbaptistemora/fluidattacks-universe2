@@ -340,7 +340,10 @@ def update_finding(request):
         formstack_api = FormstackAPI()
         submission_id = post_parms["vuln[id]"]
         updated = formstack_api.update_finding(post_parms, submission_id)
-        if "success" in updated:
-            return util.response([], 'Actualizado correctamente!', False)
-        else:
+        if not updated:
             return util.response([], 'No se pudo actualizar formstack', True)
+        else:
+            if "success" in updated:
+                return util.response([], 'Actualizado correctamente!', False)
+            else:
+                return util.response([], 'No se pudo actualizar formstack', True)
