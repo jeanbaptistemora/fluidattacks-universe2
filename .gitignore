@@ -5,3 +5,4 @@ app/autodoc/results/*.pptx
 logs/*.err
 logs/*.log
 *.pyc
+*.sqlite3
