@@ -38,7 +38,7 @@ integrates.controller("dashboardController", function($scope, $uibModal) {
                     $uibModalInstance.dismiss('cancel');
                 }
                 $scope.okModalLogout = function(){
-                    location = "/logout";
+                    location = BASE.url + "logout";
                 }
             },
             resolve: {

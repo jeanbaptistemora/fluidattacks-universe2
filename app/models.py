@@ -280,8 +280,8 @@ class FormstackAPI(object):
         url = "https://www.formstack.com/api/v2/submission/:id.json"
         url = url.replace(":id", submission_id)
         field_donde = "field_38193357"
-        field_cardinalidad = "field_38531129"
-        field_criticidad = "field_38529256"
+        field_cardinalidad = "field_38255025"
+        field_criticidad = "field_38531129"
         field_vulnerabilidad = "field_32202728"
         field_amenaza = "field_38193361"
         field_vector_ataque = "field_48092088"

@@ -90,7 +90,7 @@ class Bancolombia:
         self.assign_qc(self.COLQC_FABRICA, "Fluid")
         self.assign_qc(self.COLQC_DETECTADO_POR, finding["analista"])
         if "escenario" in finding:
-            self.assign_qc(self.ESCENARIO, finding["escenario"])
+            self.assign_qc(self.COLQC_ESCENARIO, finding["escenario"])
         self.assign_qc(self.COLQC_HALLAZGO, finding["hallazgo"])
         self.assign_qc(self.COLQC_AMBITO, finding["ambito"])
         if "categoria" in finding:
