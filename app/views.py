@@ -340,4 +340,3 @@ def update_finding(request):
             return util.response([], 'No se pudo actualizar formstack', True)
         else:
             return util.response([], 'Actualizado correctamente!', False)
-
