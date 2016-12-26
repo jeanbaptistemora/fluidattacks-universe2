@@ -269,13 +269,10 @@ def update_order(request):
         return util.response([], 'Campos vacios', True)
     API = FormstackAPI()
     updated = API.update_order(project_name, order_id)
-    if updated is None:
+    if not updated:
         return util.response([], 'No se pudo actualizar formstack', True)
     else:
-        if "success" in updated:
-            return util.response([], 'Actualizado correctamente!', False)
-        else:
-            return util.response([], 'Algo ha ido mal', False)
+        return util.response([], 'Actualizado correctamente!', False)
 
 @csrf_exempt
 def update_eventuality(request):
@@ -302,11 +299,10 @@ def update_eventuality(request):
     submission_id = post_parms["vuln[id]"]
     afectacion = post_parms["vuln[afectacion]"]
     updated = API.update_eventuality(afectacion, submission_id)
-    print updated
-    if updated:
-        return util.response([], 'Actualizado correctamente', False)
-    else:
+    if not updated:
         return util.response([], 'No se pudo actualizar formstack', True)
+    else:
+        return util.response([], 'Actualizado correctamente!', False)
     
 @csrf_exempt
 def update_finding(request):
@@ -343,7 +339,4 @@ def update_finding(request):
         if not updated:
             return util.response([], 'No se pudo actualizar formstack', True)
         else:
-            if "success" in updated:
-                return util.response([], 'Actualizado correctamente!', False)
-            else:
-                return util.response([], 'No se pudo actualizar formstack', True)
+            return util.response([], 'Actualizado correctamente!', False)
