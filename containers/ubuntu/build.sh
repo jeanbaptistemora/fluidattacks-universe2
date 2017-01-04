@@ -16,4 +16,4 @@ echo "---### Compilando contenedor."
 
 # construir la imagen
 docker build -t fluidsignal/fluidserves:"$SERVICE" \
-             containers/integrates
+             containers/ubuntu
