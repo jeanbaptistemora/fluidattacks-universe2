@@ -1,20 +1,18 @@
 #!/bin/bash
 
-# Construcción contenedor por defecto 
-containers/build.sh
+# Construcción contenedor por defecto
 
-# Inicio contenedor ALG
-servers/alg/scripts/start.sh
-ansible-playbook servers/alg/main.yml -i servers/alg/hosts --vault-password-file ~/.vault.txt
+CONTAINER_OS="debian ubuntu"
+SERVERS="alg exams integrates"
 
-# Inicio contenedor Exams
-servers/exams/scripts/start.sh
-ansible-playbook servers/exams/main.yml -i servers/exams/hosts --vault-password-file ~/.vault.txt
+# Crea los contenedores dependiendo el OS
+for os in ${CONTAINER_OS}; do
+    containers/${os}/build.sh
+done
 
-# Inicio contenedor Integrates
-containers/integrates/build.sh
-servers/integrates/scripts/start.sh
-ansible-playbook servers/integrates/main.yml -i servers/integrates/hosts --vault-password-file ~/.vault.txt
-
-
+# Construye los servers
+for server in ${SERVERS}; do
+    servers/${server}/scripts/start.sh
+    ansible-playbook servers/${server}/main.yml -i servers/${server}/hosts --vault-password-file ~/.vault.txt
+done
 
