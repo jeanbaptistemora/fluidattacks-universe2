@@ -42,3 +42,5 @@ test:
     - curl http://localhost:8080/admin/index.php
     - cd servers/exams/serverspec && bundle exec rake spec 
     - cd servers/alg/serverspec && bundle exec rake spec
+  post:
+    - python delete_instance.py
