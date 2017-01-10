@@ -32,15 +32,15 @@ dependencies:
     - ansible-lint servers/alg/main.yml
     - ansible-lint servers/exams/main.yml
     - ansible-lint servers/integrates/main.yml
-  post:
-    - ./start.sh
-    - bundle install
+#  post:
+#    - ./start.sh
+#    - bundle install
 
 test:
   override:
     - curl http://localhost
     - curl http://localhost:8080/admin/index.php
-    - cd servers/exams/serverspec && bundle exec rake spec 
-    - cd servers/alg/serverspec && bundle exec rake spec
+      #    - cd servers/exams/serverspec && bundle exec rake spec 
+      #    - cd servers/alg/serverspec && bundle exec rake spec
   post:
     - python delete_instance.py
