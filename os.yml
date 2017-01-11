@@ -1,0 +1,75 @@
+---
+- name: Installs docker host file for fluid-serves
+  hosts: container
+  become: yes
+  vars:
+    destdir: /tmp/fluid-serves
+    vault_pass: "{{ lookup('env','VAULT') }}"
+  tasks:
+    - name: Add vault password
+      lineinfile:
+          dest: /root/.vault.txt
+          line: "{{ vault_pass }}"
+          create: yes
+
+    - name: Add docker repo key
+      apt_key:
+          keyserver: p80.pool.sks-keyservers.net
+          id: 58118E89F3A912897C070ADBF76221572C52609D
+
+    - name: Add ansible repo key
+      apt_key:
+          keyserver: p80.pool.sks-keyservers.net
+          id: 93C4A3FD7BB9C367
+
+    - name: Add docker repo
+      apt_repository:
+          repo: deb https://apt.dockerproject.org/repo debian-jessie main
+          state: present
+
+    - name: Add ansible repo
+      apt_repository:
+          repo: deb http://ppa.launchpad.net/ansible/ansible/ubuntu trusty main
+          state: present
+
+    - name: Install dependencies
+      apt: name={{ item }} update_cache=yes cache_valid_time=3600
+      with_items:
+        - software-properties-common
+        - apt-transport-https
+        - ca-certificates
+        - sudo
+        - dnsutils
+        - docker-engine
+        - ansible
+        - ruby-bundler
+
+    - name: Copy files to docker host
+      synchronize:
+          src: "{{ item }}"
+          dest: "{{ destdir }}"
+          recursive: yes
+          compress: yes
+          rsync_opts:
+              - "--no-motd"
+              - "--exclude=.git"
+      with_items:
+      - containers
+      - servers
+      - start.sh
+      - Gemfile
+
+    - name: Fix perms
+      file: name={{ item }} mode=0755
+      with_items:
+      - "{{ destdir }}/start.sh"
+      - "{{ destdir }}/containers/debian/build.sh"
+      - "{{ destdir }}/containers/ubuntu/build.sh"
+      - "{{ destdir }}/servers/alg/scripts/start.sh"
+      - "{{ destdir }}/servers/exams/scripts/start.sh"
+      - "{{ destdir }}/servers/integrates/scripts/start.sh"
+
+    - name: Execute start.sh
+      command: "{{ destdir }}/start.sh"
+      args:
+          chdir: "{{ destdir }}"
