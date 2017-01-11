@@ -1,4 +1,4 @@
-Host 127.0.0.1
+Host *
   StrictHostKeyChecking no
   UserKnownHostsFile /dev/null
   PasswordAuthentication no
