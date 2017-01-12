@@ -4,4 +4,4 @@ __ip_address__
 
 # Ansible Variables
 ansible_user = aroldan
-ansible_ssh_common_args = -i /home/aroldan/.ssh/id_rsa
+ansible_ssh_common_args = -i /tmp/FLUIDServes_Dynamic.pem
