@@ -6,6 +6,11 @@
     destdir: /tmp/fluid-serves
     vault_pass: "{{ lookup('env','VAULT') }}"
   tasks:
+    - name: Wait for SSH become available on instance
+      wait_for:
+          port: 22
+          delay: 10
+
     - name: Add vault password
       lineinfile:
           dest: /root/.vault.txt
