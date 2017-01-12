@@ -33,13 +33,15 @@ dependencies:
     - ansible-lint servers/exams/main.yml
     - ansible-lint servers/integrates/main.yml
   post:
-    - ./start.sh
+      #- ./start.sh
+    - ./deploy.sh
+    - ansible-playbook -i docker_host os.yml
     - bundle install
 
 test:
   override:
-    - curl http://localhost
-    - curl http://localhost:8080/admin/index.php
+      #- curl http://localhost
+      #- curl http://localhost:8080/admin/index.php
     - cd servers/exams/serverspec && bundle exec rake spec 
     - cd servers/alg/serverspec && bundle exec rake spec
   post:

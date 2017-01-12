@@ -1,0 +1,7 @@
+[container]
+127.0.0.1
+[container:vars]
+
+# Ansible Variables
+ansible_user = aroldan
+ansible_ssh_common_args = -i /home/aroldan/.ssh/id_rsa
