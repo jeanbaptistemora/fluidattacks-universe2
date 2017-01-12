@@ -35,7 +35,7 @@ dependencies:
   post:
       #- ./start.sh
     - ./deploy.sh
-    - ansible-playbook -i docker_host os.yml
+    - ansible-playbook -i docker_host os.yml --vault-password-file ~/.vault.txt
     - bundle install
 
 test:
