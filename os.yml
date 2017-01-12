@@ -46,7 +46,6 @@
         - dnsutils
         - docker-engine
         - ansible
-        - ruby-bundler
 
     - name: Copy files to docker host
       synchronize:
