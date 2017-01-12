@@ -1,5 +1,5 @@
 [container]
-127.0.0.1
+__ip_address__
 [container:vars]
 
 # Ansible Variables
