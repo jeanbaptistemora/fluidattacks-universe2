@@ -48,14 +48,14 @@
         - ansible
 
     - name: Copy files to docker host
-      synchronize:
+      copy:
           src: "{{ item }}"
           dest: "{{ destdir }}"
-          recursive: yes
-          compress: yes
-          rsync_opts:
-              - "--no-motd"
-              - "--exclude=.git"
+          #recursive: yes
+          #compress: yes
+          #rsync_opts:
+          #    - "--no-motd"
+          #    - "--exclude=.git"
       with_items:
       - containers
       - servers
