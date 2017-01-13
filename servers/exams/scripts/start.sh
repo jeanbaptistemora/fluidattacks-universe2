@@ -9,7 +9,8 @@ fi
 set -e
 
 # importar entorno
-source $(git rev-parse --show-toplevel)/servers/exams/vars/env.sh
+#source $(git rev-parse --show-toplevel)/servers/exams/vars/env.sh
+source servers/exams/vars/env.sh
 
 # Mensaje de inicio
 echo "---### Iniciando contenedor."
