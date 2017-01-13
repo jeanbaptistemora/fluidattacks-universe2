@@ -40,9 +40,10 @@ dependencies:
 
 test:
   override:
+      - ./test_curl.sh
       #- curl http://localhost
       #- curl http://localhost:8080/admin/index.php
-    - cd servers/exams/serverspec && bundle exec rake spec 
-    - cd servers/alg/serverspec && bundle exec rake spec
+      #- cd servers/exams/serverspec && bundle exec rake spec 
+      #- cd servers/alg/serverspec && bundle exec rake spec
   post:
     - python delete_instance.py
