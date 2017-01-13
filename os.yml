@@ -67,7 +67,9 @@
       with_items:
       - "{{ destdir }}/start.sh"
       - "{{ destdir }}/containers/debian/build.sh"
+      - "{{ destdir }}/containers/debian/entry.sh"
       - "{{ destdir }}/containers/ubuntu/build.sh"
+      - "{{ destdir }}/containers/ubuntu/entry.sh"
       - "{{ destdir }}/servers/alg/scripts/start.sh"
       - "{{ destdir }}/servers/exams/scripts/start.sh"
       - "{{ destdir }}/servers/integrates/scripts/start.sh"
