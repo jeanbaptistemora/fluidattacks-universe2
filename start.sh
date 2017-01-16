@@ -15,4 +15,3 @@ for server in ${SERVERS}; do
     servers/${server}/scripts/start.sh
     ansible-playbook servers/${server}/main.yml -i servers/${server}/hosts --vault-password-file ~/.vault.txt
 done
-

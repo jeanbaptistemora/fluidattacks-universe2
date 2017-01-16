@@ -33,14 +33,17 @@ dependencies:
     - ansible-lint servers/exams/main.yml
     - ansible-lint servers/integrates/main.yml
   post:
-    - ./start.sh
+      #- ./start.sh
+    - ./deploy.sh
+    - ansible-playbook -i docker_host os.yml --vault-password-file ~/.vault.txt
     - bundle install
 
 test:
   override:
-    - curl http://localhost
-    - curl http://localhost:8080/admin/index.php
-    - cd servers/exams/serverspec && bundle exec rake spec 
-    - cd servers/alg/serverspec && bundle exec rake spec
+      - ./test_curl.sh
+      #- curl http://localhost
+      #- curl http://localhost:8080/admin/index.php
+      #- cd servers/exams/serverspec && bundle exec rake spec 
+      #- cd servers/alg/serverspec && bundle exec rake spec
   post:
     - python delete_instance.py

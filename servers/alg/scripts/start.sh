@@ -9,7 +9,7 @@ fi
 set -e
 
 # importar entorno
-source $(git rev-parse --show-toplevel)/servers/alg/vars/env.sh
+source servers/alg/vars/env.sh
 
 # Mensaje de inicio
 echo "---### Iniciando contenedor."
