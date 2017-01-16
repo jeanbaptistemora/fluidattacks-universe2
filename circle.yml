@@ -25,7 +25,7 @@ dependencies:
     - sudo pip install --upgrade pip setuptools
     - pip install ansible-lint
     - pip install boto3
-    - python create_instance.py
+    - python servers/host/scripts/create_instance.py
     - echo $VAULT > ~/.vault.txt
   override:
     - sudo apt-get install ansible curl
@@ -34,7 +34,6 @@ dependencies:
     - ansible-lint servers/integrates/main.yml
     - ansible-lint servers/host/main.yml
   post:
-      #- ./start.sh
     - servers/host/scripts/deploy.sh
     - servers/host/scripts/start.sh
     - bundle install
@@ -47,4 +46,4 @@ test:
       #- cd servers/exams/serverspec && bundle exec rake spec 
       #- cd servers/alg/serverspec && bundle exec rake spec
   post:
-    - python delete_instance.py
+    - python servers/host/scripts/delete_instance.py
