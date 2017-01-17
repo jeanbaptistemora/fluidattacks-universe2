@@ -7,12 +7,12 @@
 	proxyErrorOverride on	
 
     # Sitemap
-	ProxyPass /sitemap.xml	https://s3.amazonaws.com/fluidserves/sitemap/sitemap.xml
+    RewriteRule ^/sitemap.xml$                https://s3.amazonaws.com/fluidserves/sitemap/sitemap.xml     [P,L]
 	ProxyPassReverse /sitemap.xml  https://s3.amazonaws.com/fluidserves/sitemap/sitemap.xml
 
     # Moodle
-	ProxyPass /courses http://fluid.la:8080
-        ProxyPassReverse /courses http://fluid.la:8080
+    RewriteRule ^/courses(.*)                http://fluid.la:8080$1     [P,L]
+    ProxyPassReverse /courses http://fluid.la:8080
 
     # Favicon KB
 	Substitute "s|type=\"image/x-icon\".*href=\".*|type=\"image/x-icon\" href=\"https://app.knowledgeowl.com/app/image/id/54f110f97cb829fd677b23d4/n/favicon_fluid.png\">|i"
@@ -28,26 +28,26 @@
         Redirect /intelligence {{ mainsite }}
 
     # Formstack
-        ProxyPass /forms https://fluidsignal.formstack.com/forms
+        RewriteRule ^/forms(.*)                https://fluidsignal.formstack.com/forms$1     [P,L]
         ProxyPassReverse /forms https://fluidsignal.formstack.com/forms
 
     #Integrates
         RewriteEngine on
-        RewriteRule ^/integrates(.*)$           http://fluid.la:8000/$1        [P]
+        RewriteRule ^/integrates(.*)$           http://fluid.la:8000/$1        [P,L]
         ProxyPassReverse /integrates http://fluid.la:8000
-        RewriteRule ^/assets(.*)$           http://fluid.la:8000/assets$1        [P]
+        RewriteRule ^/assets(.*)$           http://fluid.la:8000/assets$1        [P,L]
         ProxyPassReverse /assets http://fluid.la:8000/assets
 
     # KB - Knowledgeowl
 	Header edit Location ^http://kb.fluid.la(.*)$ https://fluid.la$1
         Header edit Set-Cookie kb.fluid.la fluid.la
-        ProxyPass /kb http://kb.fluid.la/help/readerlogin
+        RewriteRule ^/kb$           http://kb.fluid.la/help/readerlogin        [P,L]
         ProxyPassReverse /kb http://kb.fluid.la/help/readerlogin
-        ProxyPass /help http://kb.fluid.la/help
+        RewriteRule ^/help(.*)           http://kb.fluid.la/help$1        [P,L]
         ProxyPassReverse /help http://kb.fluid.la/help
 	
     # Blog
-        ProxyPass /blog https://blog.fluid.la
+        RewriteRule ^/blog(.*)           https://blog.fluid.la$1        [P,L]
         ProxyPassReverse /blog https://blog.fluid.la
 	AddOutputFilterByType INFLATE;SUBSTITUTE;DEFLATE text/html text/plain text/xml
 	Substitute "s|http://|https://|i"
@@ -63,6 +63,7 @@
         RewriteRule ^/$         {{ landing }} [P]
         RewriteRule ^/clkn/(.*)$                {{ landing }}clkn/$1     [P]
         RewriteRule ^/en(.*)$           {{ landing }}en$1        [P]
+        RewriteRule ^/(.*)           http://{{ landing }}/$1        [P]
         ProxyPassReverse /es {{ landing }}es
         ProxyPassReverse /en {{ landing }}en
         ProxyPassReverse /services {{ landing }}services

@@ -23,5 +23,3 @@ Cosas por hacer:
 
   * Cambiar en innodb de la base de datos MySQL del servidor exams a Barracuda, para mejor soporte con Moodle.
   * Mantener sincronizada la db en algun repositorio, para nuevas implementaciones.
-  * Crear script para autoconfigurar el servidor host.
-

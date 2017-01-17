@@ -25,25 +25,25 @@ dependencies:
     - sudo pip install --upgrade pip setuptools
     - pip install ansible-lint
     - pip install boto3
-    - python create_instance.py
+    - python servers/host/scripts/create_instance.py
     - echo $VAULT > ~/.vault.txt
   override:
     - sudo apt-get install ansible curl
     - ansible-lint servers/alg/main.yml
     - ansible-lint servers/exams/main.yml
     - ansible-lint servers/integrates/main.yml
+    - ansible-lint servers/host/main.yml
   post:
-      #- ./start.sh
-    - ./deploy.sh
-    - ansible-playbook -i docker_host os.yml --vault-password-file ~/.vault.txt
+    - servers/host/scripts/deploy.sh
+    - servers/host/scripts/start.sh
     - bundle install
 
 test:
   override:
-      - ./test_curl.sh
+      #- ./test_curl.sh
       #- curl http://localhost
       #- curl http://localhost:8080/admin/index.php
       #- cd servers/exams/serverspec && bundle exec rake spec 
       #- cd servers/alg/serverspec && bundle exec rake spec
   post:
-    - python delete_instance.py
+    - python servers/host/scripts/delete_instance.py

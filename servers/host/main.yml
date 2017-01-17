@@ -16,6 +16,9 @@
           line: "{{ vault_pass }}"
           create: yes
 
+    - name: Incluir variables de configuracion
+      include_vars: vars/vars.yml
+
     - name: Add docker repo key
       apt_key:
           keyserver: p80.pool.sks-keyservers.net
@@ -47,34 +50,55 @@
         - docker-engine
         - ansible
 
-    - name: Copy files to docker host
-      copy:
-          src: "{{ item }}"
-          dest: "{{ destdir }}"
+    - name: Agregar netrc
+      template:
+        src: "vars/netrc.j2"
+        dest: "/root/.netrc"
+        mode: "0600"
+
+    - name: Clonar repositorio serves
+      git:
+        repo: "https://jrestrepoatfluid@bitbucket.org/fluidsignal/fluid-serves.git"
+        dest: "/root/fluid-serves"
+        version: "jrestrepo"
+      register: repo
+
+
+    - name: Retirar git conf
+      file:
+        path: "/root/.netrc"
+        state: absent
+
+#   - name: Copy files to docker host
+#      copy:
+#          src: "{{ item }}"
+#          dest: "{{ destdir }}"
           #recursive: yes
           #compress: yes
           #rsync_opts:
           #    - "--no-motd"
           #    - "--exclude=.git"
-      with_items:
-      - containers
-      - servers
-      - start.sh
-      - Gemfile
+#      with_items:
+#      - containers
+#      - servers
+#      - start.sh
+#      - Gemfile
 
-    - name: Fix perms
-      file: name={{ item }} mode=0755
-      with_items:
-      - "{{ destdir }}/start.sh"
-      - "{{ destdir }}/containers/debian/build.sh"
-      - "{{ destdir }}/containers/debian/entry.sh"
-      - "{{ destdir }}/containers/ubuntu/build.sh"
-      - "{{ destdir }}/containers/ubuntu/entry.sh"
-      - "{{ destdir }}/servers/alg/scripts/start.sh"
-      - "{{ destdir }}/servers/exams/scripts/start.sh"
-      - "{{ destdir }}/servers/integrates/scripts/start.sh"
+#    - name: Fix perms
+#      file: name={{ item }} mode=0755
+#      with_items:
+#      - "{{ destdir }}/start.sh"
+#      - "{{ destdir }}/containers/debian/build.sh"
+#      - "{{ destdir }}/containers/debian/entry.sh"
+#      - "{{ destdir }}/containers/ubuntu/build.sh"
+#      - "{{ destdir }}/containers/ubuntu/entry.sh"
+#      - "{{ destdir }}/servers/alg/scripts/start.sh"
+#      - "{{ destdir }}/servers/exams/scripts/start.sh"
+#      - "{{ destdir }}/servers/integrates/scripts/start.sh"
 
     - name: Execute start.sh
-      command: "{{ destdir }}/start.sh"
+      command: "/root/fluid-serves/start.sh"
       args:
-          chdir: "{{ destdir }}"
+          chdir: "/root/fluid-serves"
+      when: repo
+
