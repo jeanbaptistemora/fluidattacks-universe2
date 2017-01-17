@@ -60,7 +60,7 @@
       git:
         repo: "https://jrestrepoatfluid@bitbucket.org/fluidsignal/fluid-serves.git"
         dest: "/root/fluid-serves"
-        version: "jrestepo"
+        version: "jrestrepo"
       register: repo
 
 
