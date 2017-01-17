@@ -10,7 +10,7 @@ set -e
 
 # importar entorno
 #source $(git rev-parse --show-toplevel)/servers/integrates/vars/env.sh
-source /tmp/fluid-serves/servers/integrates/vars/env.sh
+source servers/integrates/vars/env.sh
 
 # Mensaje de inicio
 echo "---### Compilando contenedor."
