@@ -3,10 +3,6 @@
 """Modulo para creación de los registros DNS en Route53.
 """
 
-# standard imports
-import os
-import sys
-
 # 3rd party imports
 import boto3
 
@@ -14,10 +10,11 @@ import boto3
 # none
 
 IP_ADDRESS_FILE = '/tmp/instance_ip.txt'
+HOST_ZONE_ID = 'ZE6FC3YSG85FX'
 
-def upsert_ip():
+def upsert_ip():A
 	client = boto3.client('route53')
-	hostedZoneId = 'ZE6FC3YSG85FX'
+	hostedZoneId = HOST_ZONE_ID
 
 	with open(IP_ADDRESS_FILE) as ip_fd:
 		ip = ip_fd.read().rstrip()
