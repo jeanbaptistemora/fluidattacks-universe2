@@ -23,8 +23,6 @@ dependencies:
     - sudo apt-get update
     - sudo pip install --upgrade pip setuptools
     - pip install ansible-lint
-    - pip install boto3
-    - python servers/host/scripts/create_instance.py
     - echo $VAULT > ~/.vault.txt
   override:
     - sudo apt-get install ansible curl
@@ -37,5 +35,5 @@ dependencies:
     - bundle install
 test:
   override:
-      - cd servers/exams/serverspec && bundle exec rake spec 
-      - cd servers/alg/serverspec && bundle exec rake spec
+    - cd servers/exams/serverspec && bundle exec rake spec 
+    - cd servers/alg/serverspec && bundle exec rake spec
