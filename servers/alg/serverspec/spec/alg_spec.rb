@@ -33,11 +33,11 @@ describe user('root') do
 end
 
 describe file ('/etc/apache2/sites-enabled/default-ssl') do
-  it {should contain 'ProxyPass /blog'}
-  it {should contain 'ProxyPass /sitemap.xml'}
-  it {should contain 'ProxyPass /courses'}
-  it {should contain 'ProxyPass /forms'}
-  it {should contain 'ProxyPass /kb'}
+  it {should contain 'ProxyPassReverse /blog'}
+  it {should contain 'ProxyPassReverse /sitemap.xml'}
+  it {should contain 'ProxyPassReverse /courses'}
+  it {should contain 'ProxyPassReverse /forms'}
+  it {should contain 'ProxyPassReverse /kb'}
   it {should contain 'ProxyPassReverse /es'}
   it {should contain 'ProxyPassReverse /en'}
   it {should contain 'SSLProxyEngine on'}
