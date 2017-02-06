@@ -31,7 +31,7 @@ dependencies:
     - ansible-lint servers/integrates/main.yml
     - ansible-lint servers/host/main.yml
   post:
-    - ./start_circle.sh
+    - ./start.sh
     - bundle install
 test:
   override:
