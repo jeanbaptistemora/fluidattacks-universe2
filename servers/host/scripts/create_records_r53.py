@@ -8,7 +8,7 @@ import boto3
 # none
 
 IP_ADDRESS_FILE = '/tmp/instance_ip.txt'
-HOST_ZONE_ID = 'ZE6FC3YSG85FX'
+HOST_ZONE_ID = 'Z97LJOL6ETZND'
 
 def upsert_ip():
     client = boto3.client('route53')
@@ -21,7 +21,7 @@ def upsert_ip():
                 {
                  'Action': 'UPSERT',
                  'ResourceRecordSet': {
-                     'Name': 'prueba.fluid.com.co',
+                     'Name': 'prueba.fluid.la',
                      'Type': 'A',
                      'TTL': 300,
                      'ResourceRecords': [

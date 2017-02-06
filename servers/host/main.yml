@@ -63,42 +63,13 @@
         version: "master"
       register: repo
 
-
     - name: Retirar git conf
       file:
         path: "/root/.netrc"
         state: absent
-
-#   - name: Copy files to docker host
-#      copy:
-#          src: "{{ item }}"
-#          dest: "{{ destdir }}"
-          #recursive: yes
-          #compress: yes
-          #rsync_opts:
-          #    - "--no-motd"
-          #    - "--exclude=.git"
-#      with_items:
-#      - containers
-#      - servers
-#      - start.sh
-#      - Gemfile
-
-#    - name: Fix perms
-#      file: name={{ item }} mode=0755
-#      with_items:
-#      - "{{ destdir }}/start.sh"
-#      - "{{ destdir }}/containers/debian/build.sh"
-#      - "{{ destdir }}/containers/debian/entry.sh"
-#      - "{{ destdir }}/containers/ubuntu/build.sh"
-#      - "{{ destdir }}/containers/ubuntu/entry.sh"
-#      - "{{ destdir }}/servers/alg/scripts/start.sh"
-#      - "{{ destdir }}/servers/exams/scripts/start.sh"
-#      - "{{ destdir }}/servers/integrates/scripts/start.sh"
 
     - name: Execute start.sh
       command: "/root/fluid-serves/start.sh"
       args:
           chdir: "/root/fluid-serves"
       when: repo
-
