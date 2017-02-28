@@ -46,3 +46,8 @@ end
 describe file('/var/www/html/index.html') do
   it { should_not exist }
 end
+
+describe file ('/etc/apache2/apache2.conf') do
+  it {should contain 'ServerTokens ProductOnly'}
+  it {should contain 'ServerSignature Off'}
+end
