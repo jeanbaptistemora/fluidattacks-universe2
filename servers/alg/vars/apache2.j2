@@ -63,3 +63,6 @@ ErrorDocument 403 {{ error_page }}
 Include /etc/apache2/sites-enabled/
 #
 ServerName {{ servername }} 
+# Disable insecure headers
+ServerTokens ProductOnly
+ServerSignature Off
