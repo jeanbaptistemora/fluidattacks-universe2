@@ -2,7 +2,8 @@ from fluidasserts.service import http
 from fluidasserts.service import http_ssl
 from fluidasserts.service import moddns
 
-server = '127.0.0.1'
+#server = '127.0.0.1'
+server = 'fluid.la'
 http.is_version_visible(server)
 http_ssl.is_cert_inactive(server)
 http_ssl.is_cert_validity_lifespan_unsafe(server)
