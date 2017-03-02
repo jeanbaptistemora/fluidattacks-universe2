@@ -61,6 +61,8 @@ CustomLog {{ custom_log }} vhost_combined
 ErrorDocument 403 {{ error_page }}
 #
 Include /etc/apache2/sites-enabled/
+# Disable insecure protocols
+SSLProtocol all -TLSv1 -SSLv2 -SSLv3
 #
 ServerName {{ servername }} 
 # Disable insecure headers

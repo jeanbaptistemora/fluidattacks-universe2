@@ -11,7 +11,7 @@ machine:
     - docker
 # version de python del sistema base de CI, se requiere por ansible-container.
   python:
-    version: 2.7.10
+   version: 2.7.10
   ruby:
     version: 2.3.1
 
