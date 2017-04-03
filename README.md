@@ -29,3 +29,4 @@ Cosas por hacer:
 
   * Cambiar en innodb de la base de datos MySQL del servidor exams a Barracuda, para mejor soporte con Moodle.
   * Mantener sincronizada la db en algun repositorio, para nuevas implementaciones.
+  * Probar soporte CI 2.0.
