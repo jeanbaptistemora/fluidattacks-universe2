@@ -17,16 +17,16 @@ jobs:
           command: curl -sSL https://s3.amazonaws.com/circle-downloads/install-circleci-docker.sh | bash -s -- 1.10.0
       - run:
           name: Install dependencies
-          command: sudo apt-get update && sudo apt-get install software-properties-common &&   &&  && echo $VAULT > ~/.vault.txt
+          command:  apt-get update &&  apt-get install software-properties-common &&   &&  && echo $VAULT > ~/.vault.txt
       - run:
           name: add ansible repo
-          command: sudo apt-add-repository -y ppa:ansible/ansible && sudo apt-get update
+          command:  apt-add-repository -y ppa:ansible/ansible &&  apt-get update
       - run:
           name: pip installations
-          command: sudo pip install --upgrade pip setuptools && pip install ansible-lint
+          command:  pip install --upgrade pip setuptools && pip install ansible-lint
       - run:
           name: Install ansible
-          command: sudo apt-get install ansible curl
+          command:  apt-get install ansible curl
 
       - run:
           name: Ansible lints
