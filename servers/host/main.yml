@@ -56,8 +56,8 @@
         dest: "/root/.netrc"
         mode: "0600"
 
-    - name: copy .vault.txt
-      command: cp  /home/admin/.vault.txt /root/.vault.txt
+  #  - name: copy .vault.txt
+  #    command: cp  /home/admin/.vault.txt /root/.vault.txt
 
     - name: View if exist .vault.txt
       local_action: stat path="/root/.vault.txt"
