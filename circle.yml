@@ -34,7 +34,7 @@ jobs:
 
       - run:
           name: Install dependencies
-          command:  uname -a
+          command: apt-get install bash
       - run:
           name: Install dependencies
           command:  apt-get update &&  apt-get install -y software-properties-common  && echo $VAULT > ~/.vault.txt
