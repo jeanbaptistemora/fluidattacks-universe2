@@ -14,6 +14,6 @@ done
 for server in ${SERVERS}; do
     pwd
     ls -l servers/${server}/scripts
-    /root/fluid-serves/servers/${server}/scripts/start.sh
+    sh /root/fluid-serves/servers/${server}/scripts/start.sh
     ansible-playbook /root/fluid-serves/servers/${server}/main.yml -i /root/fluid-serves/servers/${server}/hosts --vault-password-file ~/.vault.txt
 done
