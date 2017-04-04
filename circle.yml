@@ -51,10 +51,6 @@ jobs:
 
       - run:
           name: Start
-          command: ls -l && ls -l servers/
-
-      - run:
-          name: Start
           command: ./start.sh && bundle install
 
       - run:
