@@ -8,6 +8,7 @@ jobs:
     docker:
       - image: ruby:2.3
       - image: python:2.7
+      - image: debian:jessie
 
     working_directory: /root/fluid-serves
     steps:
