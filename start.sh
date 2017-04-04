@@ -12,6 +12,6 @@ done
 
 # Construye los servers
 for server in ${SERVERS}; do
-    sh servers/${server}/scripts/start.sh
+    ./servers/${server}/scripts/start.sh
     ansible-playbook servers/${server}/main.yml -i servers/${server}/hosts --vault-password-file ~/.vault.txt
 done
