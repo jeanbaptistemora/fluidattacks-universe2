@@ -33,7 +33,7 @@ jobs:
 
       - run:
          name: Start docker
-         command: systemctl start docker
+         command: service start docker
       - run:
           name: Install dependencies
           command:  apt-get update &&  apt-get install -y software-properties-common  && echo $VAULT > ~/.vault.txt
