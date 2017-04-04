@@ -26,7 +26,9 @@ jobs:
             curl -L -o /tmp/docker-$VER.tgz https://get.docker.com/builds/Linux/x86_64/docker-$VER.tgz
             tar -xz -C /tmp -f /tmp/docker-$VER.tgz
             mv /tmp/docker/* /usr/bin
-
+      - run:
+          name: Starting docker daemon
+          command: nohup docker daemon -H tcp://0.0.0.0:2375 -H unix:///var/run/docker.sock && docker info
       - run:
           name: Install dependencies
           command:  apt-get update &&  apt-get install -y software-properties-common  && echo $VAULT > ~/.vault.txt
