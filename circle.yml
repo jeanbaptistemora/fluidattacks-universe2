@@ -18,13 +18,9 @@ jobs:
 
       # ... steps for building/testing app ...
 
-      #- setup_remote_docker   # (2)
+      - setup_remote_docker   # (2)
 
-      # use a primary image that already has Docker (recommended)
-      # or install it during a build like we do here
-      - run:
-          name: Install Docker client
-          command: curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add - && apt-get update && apt-get install docker-ee
+
       - run:
           name: Install dependencies
           command:  apt-get update &&  apt-get install -y software-properties-common  && echo $VAULT > ~/.vault.txt
