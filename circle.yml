@@ -49,10 +49,6 @@ jobs:
           name: Ansible lints
           command: ansible-lint servers/alg/main.yml && ansible-lint servers/exams/main.yml && ansible-lint servers/integrates/main.yml && ansible-lint servers/host/main.yml
 
-      -run:
-          name: Get git repository
-          command: apt-get install -y git && git clone https://jrestrepoatfluid@bitbucket.org/fluidsignal/fluid-serves.git  /root/fluid-serves
-
       - run:
           name: Start
           command: ./start.sh && bundle install
