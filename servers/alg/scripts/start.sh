@@ -9,7 +9,7 @@ fi
 set -e
 
 # importar entorno
-. /root/fluid-serves/servers/alg/vars/env.sh
+source servers/alg/vars/env.sh
 
 # Mensaje de inicio
 echo "---### Iniciando contenedor."
