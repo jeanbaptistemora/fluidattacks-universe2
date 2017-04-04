@@ -12,6 +12,6 @@ done
 
 # Construye los servers
 for server in ${SERVERS}; do
-    sh /root/fluid-serves/servers/${server}/scripts/start.sh
+    /root/fluid-serves/servers/${server}/scripts/start.sh
     ansible-playbook /root/fluid-serves/servers/${server}/main.yml -i /root/fluid-serves/servers/${server}/hosts --vault-password-file ~/.vault.txt
 done
