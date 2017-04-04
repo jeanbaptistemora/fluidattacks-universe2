@@ -12,12 +12,6 @@ done
 
 # Construye los servers
 for server in ${SERVERS}; do
-    echo "Ruta master"
-    pwd
-    echo "ls servers/${server}/vars"
-    ls -l /root/fluid-serves/servers/${server}/vars/
-    echo "ls servers/${server}/scripts"
-    ls -l /root/fluid-serves/servers/${server}/scripts
-    sh /root/fluid-serves/servers/${server}/scripts/start.sh
+    bash /root/fluid-serves/servers/${server}/scripts/start.sh
     ansible-playbook /root/fluid-serves/servers/${server}/main.yml -i /root/fluid-serves/servers/${server}/hosts --vault-password-file ~/.vault.txt
 done
