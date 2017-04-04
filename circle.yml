@@ -51,7 +51,7 @@ jobs:
 
       - run:
           name: Start
-          command: ls l- && ls -l servers/
+          command: ls -l && ls -l servers/
 
       - run:
           name: Start
