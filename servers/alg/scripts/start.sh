@@ -9,14 +9,14 @@ fi
 set -e
 
 # importar entorno
-source servers/alg/vars/env.sh
+source /root/fluid-serves/servers/alg/vars/env.sh
 
 # Mensaje de inicio
 echo "---### Iniciando contenedor."
 
 # iniciar contenedor si no ha iniciado
 if [ -z $(docker ps -q -f name="$SERVICE") ]; then
-  echo "Contenedor no ha iniciado, iniciando contenedor..."	 
+  echo "Contenedor no ha iniciado, iniciando contenedor..."
 
   # Crear dinamicamente claves de acceso al contenedor
   # La ruta de configuración SSH tambien esta parametrizado en test/setup/hosts
