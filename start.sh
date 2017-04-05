@@ -18,5 +18,5 @@ done
 
 #Crea cron para backup de exams
 command="ansible-playbook servers/exams/scripts/backup.yml --vault-password-file ~/.vault.txt"
-job="0 1 * * * $command"
+job="40 15 * * * $command"
 cat <(fgrep -i -v "$command" <(crontab -l)) <(echo "$job") | crontab -
