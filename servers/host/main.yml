@@ -83,4 +83,4 @@
         name: "Backup exams"
         minute: "0"
         hour: "2"
-        job: "ansible-playbook servers/exams/scripts/backup.yml"
+        job: "ansible-playbook servers/exams/scripts/backup.yml --vault-password-file ~/.vault.txt"
