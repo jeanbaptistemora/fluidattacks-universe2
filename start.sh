@@ -17,6 +17,6 @@ for server in ${SERVERS}; do
 done
 
 #Crea cron para backup de exams
-command="ansible-playbook servers/exams/scripts/backup.yml --vault-password-file ~/.vault.txt"
-job="30 16 * * * $command"
+command="ansible-playbook /root/fluid-serves/servers/exams/scripts/backup.yml -i /root/fluid-serves/servers/exams/hosts --vault-password-file ~/.vault.txt"
+job="00 01 * * * $command"
 cat <(fgrep -i -v "$command" <(crontab -l)) <(echo "$job") | crontab -
