@@ -1,0 +1,39 @@
+#
+# Archivo de configuracion del servicio de integración continua.
+#
+
+machine:
+  pre:
+# Este parche se requiere para que docker soporte especificación de IPs
+    - curl -sSL https://s3.amazonaws.com/circle-downloads/install-circleci-docker.sh | bash -s -- 1.10.0
+  timezone: America/Bogota
+  services:
+    - docker
+# version de python del sistema base de CI, se requiere por ansible-container.
+  python:
+   version: 2.7.10
+  ruby:
+    version: 2.3.1
+
+dependencies:
+  pre:
+    - sudo apt-get update
+    - sudo apt-get install software-properties-common
+    - sudo apt-add-repository -y ppa:ansible/ansible
+    - sudo apt-get update
+    - sudo pip install --upgrade pip setuptools
+    - pip install ansible-lint
+    - echo $VAULT > ~/.vault.txt
+  override:
+    - sudo apt-get install ansible curl
+    - ansible-lint servers/alg/main.yml
+    - ansible-lint servers/exams/main.yml
+    - ansible-lint servers/integrates/main.yml
+    - ansible-lint servers/host/main.yml
+  post:
+    - ./start.sh
+    - bundle install
+test:
+  override:
+    - cd servers/exams/serverspec && bundle exec rake spec 
+    - cd servers/alg/serverspec && bundle exec rake spec
