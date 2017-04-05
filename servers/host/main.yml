@@ -72,6 +72,9 @@
         path: "/root/.netrc"
         state: absent
 
+    - name: Change Timezone
+      command: "ln -sf /usr/share/zoneinfo/America/Bogota /etc/localtime"
+
     - name: Execute start.sh
       command: "/root/fluid-serves/start.sh"
       args:
