@@ -82,8 +82,8 @@
       when: repo
 
     - name: Cron de backup
-        cron:
-          name: "Backup exams"
-          minute: "0"
-          hour: "2"
-          job: "ansible-playbook servers/exams/scripts/backup.yml"
+      cron:
+        name: "Backup exams"
+        minute: "0"
+        hour: "2"
+        job: "ansible-playbook servers/exams/scripts/backup.yml"
