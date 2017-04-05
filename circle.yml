@@ -1,39 +1,36 @@
 #
 # Archivo de configuracion del servicio de integración continua.
 #
-
-machine:
-  pre:
-# Este parche se requiere para que docker soporte especificación de IPs
-    - curl -sSL https://s3.amazonaws.com/circle-downloads/install-circleci-docker.sh | bash -s -- 1.10.0
-  timezone: America/Bogota
-  services:
-    - docker
-# version de python del sistema base de CI, se requiere por ansible-container.
-  python:
-   version: 2.7.10
-  ruby:
-    version: 2.3.1
-
-dependencies:
-  pre:
-    - sudo apt-get update
-    - sudo apt-get install software-properties-common
-    - sudo apt-add-repository -y ppa:ansible/ansible
-    - sudo apt-get update
-    - sudo pip install --upgrade pip setuptools
-    - pip install ansible-lint
-    - echo $VAULT > ~/.vault.txt
-  override:
-    - sudo apt-get install ansible curl
-    - ansible-lint servers/alg/main.yml
-    - ansible-lint servers/exams/main.yml
-    - ansible-lint servers/integrates/main.yml
-    - ansible-lint servers/host/main.yml
-  post:
-    - ./start.sh
-    - bundle install
-test:
-  override:
-    - cd servers/exams/serverspec && bundle exec rake spec 
-    - cd servers/alg/serverspec && bundle exec rake spec
+version: 2
+jobs:
+  build:
+    working_directory: /tmp/fluid-serves
+    machine: true
+    evironment:
+      - USER: root 
+    steps:
+      - checkout
+      - run:
+          name: Install dependencies
+          command:  sudo apt-get update &&  sudo apt-get install -y software-properties-common  && sudo echo $VAULT > ~/.vault.txt
+      - run:
+          name: add ansible repo
+          command:  sudo echo "deb http://ppa.launchpad.net/ansible/ansible/ubuntu trusty main" | sudo tee -a /etc/apt/sources.list &&  sudo apt-get update
+      - run:
+          name: pip installations
+          command:  sudo apt-get install -y python-dev python-pip && sudo pip install --upgrade pip setuptools && sudo pip install ansible-lint
+      - run:
+          name: Install ansible
+          command:  sudo apt-get install -y --force-yes ansible
+      - run:
+          name: Ansible lints
+          command: ansible-lint servers/alg/main.yml && ansible-lint servers/exams/main.yml && ansible-lint servers/integrates/main.yml && ansible-lint servers/host/main.yml
+      - run:
+          name: Start
+          command: ./start.sh && bundle install
+      - run:
+          name: Make exams tests
+          command: cd servers/exams/serverspec && bundle exec rake spec
+      - run:
+          name: Make alg tests
+          command: cd servers/alg/serverspec && bundle exec rake spec
