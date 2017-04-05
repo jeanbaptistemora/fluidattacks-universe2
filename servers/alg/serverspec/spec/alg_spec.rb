@@ -1,9 +1,5 @@
 require 'spec_helper'
 
-describe port(80) do
-  it { should be_listening }
-end
-
 describe command('ls /etc/apache2/sites-enabled') do
   its(:stdout) { should eq "000-default.conf  default-ssl  fluid.la  www.fluid.la  www.fluidsignal.com\n"}
 end
