@@ -6,6 +6,8 @@ jobs:
   build:
     working_directory: /tmp/fluid-serves
     machine: true
+    evironment:
+      - USER: root 
     steps:
       - checkout
       - run:
