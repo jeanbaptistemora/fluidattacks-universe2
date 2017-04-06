@@ -56,11 +56,15 @@
         dest: "/root/.netrc"
         mode: "0600"
 
+    - name: View if exist .vault.txt
+      local_action: stat path="/root/.vault.txt"
+      register: result
+
     - name: Clonar repositorio serves
       git:
         repo: "https://jrestrepoatfluid@bitbucket.org/fluidsignal/fluid-serves.git"
         dest: "/root/fluid-serves"
-        version: "master"
+        version: "jarmas"
       register: repo
 
     - name: Retirar git conf

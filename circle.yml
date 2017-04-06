@@ -1,13 +1,14 @@
 #
 # Archivo de configuracion del servicio de integración continua.
 #
+
 version: 2
 jobs:
   build:
     working_directory: /tmp/fluid-serves
     machine: true
     evironment:
-      - USER: root 
+      - USER: root
     steps:
       - checkout
       - run:

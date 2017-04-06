@@ -18,6 +18,7 @@ Requisitos para lanzar el ambiente:
 
   * Python
   * Boto3
+  * Troposphere
 
 Instrucciones para lanzar el ambiente:
 ------------
