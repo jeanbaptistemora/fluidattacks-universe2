@@ -122,12 +122,12 @@
 
    - name: Instalar Moodle
      command: >
-       /usr/bin/php install.php --non-interactive --wwwroot={{ moodle_host }}
-       --dataroot=/var/www/moodledata --dbhost={{ db_host }}
-       --dbuser={{ db_username }} --dbpass={{ db_password }}
-       --fullname="FLUID Courses" --shortname="Moodle" --adminpass=
-       {{ admin_password }} --skip-database --agree-license
-       chdir=/var/www/html/admin/cli
+      /usr/bin/php install.php --non-interactive --wwwroot={{ moodle_host }}
+      --dataroot=/var/www/moodledata --dbhost={{ db_host }}
+      --dbuser={{ db_username }} --dbpass={{ db_password }}
+      --fullname="FLUID Courses" --shortname="Moodle"
+      --adminpass={{ admin_password }} --skip-database --agree-license
+      chdir=/var/www/html/admin/cli
      when: dependencias
 
    - name: Agregar config.php
