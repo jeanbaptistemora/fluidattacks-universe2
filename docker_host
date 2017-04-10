@@ -1,7 +1,7 @@
 [container]
-34.205.211.73
+34.205.80.88
 [container:vars]
 
 # Ansible Variables
-ansible_user = admin 
+ansible_user = admin
 ansible_ssh_common_args = -i /tmp/FLUIDServes_Dynamic.pem

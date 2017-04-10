@@ -9,17 +9,22 @@ import boto3
 # none
 HOSTED_ZONE_ID = '/tmp/hosted-zones.txt'
 HOSTED_ZONES = ["fluidsignaltest.com", "fluidtest.la", "fluidsignaltest.co"]
+
+
 def create_zone():
+
     with open(HOSTED_ZONE_ID, 'a') as hosted_fd:
         for zone in HOSTED_ZONES:
             client = boto3.client('route53')
             response = client.create_hosted_zone(
                 Name=zone,
-                CallerReference='Creacion'+ zone + time.strftime("%H:%M:%S"),
+                CallerReference='Creacion' + zone + time.strftime("%H:%M:%S"),
                 HostedZoneConfig={
                     'PrivateZone': False
                 },
             )
         hosted_id = response['HostedZone']['Id'].split('/')[2]
         hosted_fd.write(hosted_id)
+
+
 create_zone()

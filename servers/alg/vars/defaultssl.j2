@@ -4,7 +4,7 @@
     Options  +Indexes +Multiviews +FollowSymLinks
 
 	ServerAdmin {{ server_admin }}
-	proxyErrorOverride on	
+	proxyErrorOverride on
 
     # Sitemap
     RewriteRule ^/sitemap.xml$                https://s3.amazonaws.com/fluidserves/sitemap/sitemap.xml     [P,L]
@@ -21,7 +21,7 @@
    # Blog
         Substitute "s|<ul id=\"menu-menu-superior\" class=\"main-navigation-menu\">|<img src=\"https://fluidsignal.files.wordpress.com/2015/02/fluid-footer.png\" width=215 height=41 class=\"logo-fluid\" /><ul id=\"menu-menu-superior\" class=\"main-navigation-menu\">|i"
         Substitute "s|<nav id=\"footer-links\" class=\"footer-navigation navigation clearfix\" role=\"navigation\">|<img src=\"https://fluidsignal.files.wordpress.com/2015/02/fluid-footer.png\" width=215 height=41 class=\"logo-fluid-footer\" /><nav id=\"footer-links\" class=\"footer-navigation navigation clearfix\" role=\"navigation\">|i"
-       
+
     # Lineas de negocio
         Redirect /consulting {{ mainsite }}
         Redirect /testing {{ mainsite }}
@@ -45,13 +45,13 @@
         ProxyPassReverse /kb http://kb.fluid.la/help/readerlogin
         RewriteRule ^/help(.*)           http://kb.fluid.la/help$1        [P,L]
         ProxyPassReverse /help http://kb.fluid.la/help
-	
+
     # Blog
         RewriteRule ^/blog(.*)           https://blog.fluid.la$1        [P,L]
         ProxyPassReverse /blog https://blog.fluid.la
 	AddOutputFilterByType INFLATE;SUBSTITUTE;DEFLATE text/html text/plain text/xml
 	Substitute "s|http://|https://|i"
-        
+
         ErrorLog {{ error_log }}
         CustomLog {{ custom_log }} combined
 	LogLevel {{ log_level }}
@@ -89,4 +89,3 @@
 
 </VirtualHost>
 </IfModule>
-

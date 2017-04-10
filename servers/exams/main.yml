@@ -1,7 +1,7 @@
 ---
 - hosts: exams
 
-  become: yes
+  become: "yes"
 
   tasks:
    - name: Inlcuir variables (Vault)
@@ -9,160 +9,166 @@
 
    - name: Instalar paquetes necesarios
      apt:
-       pkg: "{{ item }}"
-       state: installed
+      pkg: "{{ item }}"
+      state: installed
      register: dependencias
      with_items:
-       - apache2
-       - php5
-       - php5-gd
-       - php5-xmlrpc
-       - php5-intl
-       - php5-mysql
-       - php5-curl
-       - curl
-       - git
-       - mysql-server
-       - python-mysqldb
-       - unzip
-       - cron
-       - python-boto
+      - apache2
+      - php5
+      - php5-gd
+      - php5-xmlrpc
+      - php5-intl
+      - php5-mysql
+      - php5-curl
+      - curl
+      - git
+      - mysql-server
+      - python-mysqldb
+      - unzip
+      - cron
+      - python-boto
 
    - name: Retirar index
      file:
-       path: "/var/www/html/index.html"
-       state: absent
+      path: "/var/www/html/index.html"
+      state: absent
 
    - name: Habilitar servicios
      service:
-       name: "{{ item }}"
-       state: started
-       enabled: yes
+      name: "{{ item }}"
+      state: started
+      enabled: "yes"
      with_items:
-       - apache2
-       - mysql
-       - cron
+      - apache2
+      - mysql
+      - cron
 
    - name: Obtener BD de S3
      s3:
-       aws_access_key: "{{aws_access_key}}"
-       aws_secret_key: "{{aws_secret_key}}"
-       bucket: "{{ s3bucket }}"
-       object: "exams/{{ db_name }}.sql"
-       dest: "/tmp/{{ db_name }}.sql"
-       mode: get
+      aws_access_key: "{{aws_access_key}}"
+      aws_secret_key: "{{aws_secret_key}}"
+      bucket: "{{ s3bucket }}"
+      object: "exams/{{ db_name }}.sql"
+      dest: "/tmp/{{ db_name }}.sql"
+      mode: get
 
    - name: Crear DB para moodle
      mysql_db:
-       name: "{{ db_name }}"
-       state: import
-       target: "/tmp/{{ db_name }}.sql"
+      name: "{{ db_name }}"
+      state: import
+      target: "/tmp/{{ db_name }}.sql"
 
    - name: Crear usuario moodle y asignar permisos
      mysql_user:
-       name: "{{ db_username }}"
-       password: "{{ db_password }}"
-       priv: "{{ db_name }}.*:ALL"
+      name: "{{ db_username }}"
+      password: "{{ db_password }}"
+      priv: "{{ db_name }}.*:ALL"
 
    - name: Remover base de datos de prueba
      mysql_db:
-       name: "test"
-       state: absent
+      name: "test"
+      state: absent
 
    - name: Remover conexiones anonimas MySQL
      mysql_user:
-       name: ''
-       host: "localhost"
-       state: absent
+      name: ''
+      host: "localhost"
+      state: absent
 
    - name: Actualizar password de usuario root en MySQL
      mysql_user:
-       name: "root"
-       host: "localhost"
-       password: "{{ db_pwd_root }}"
+      name: "root"
+      host: "localhost"
+      password: "{{ db_pwd_root }}"
 
    - name: Establecer permisos
      file:
-       path: "/var/www/html"
-       state: directory
-       owner: "www-data"
-       group: "www-data"
-       mode: "0755"
-       recurse: yes
+      path: "/var/www/html"
+      state: directory
+      owner: "www-data"
+      group: "www-data"
+      mode: "0755"
+      recurse: "yes"
 
    - name: Descargando Moodle
      git:
-       repo: "git://git.moodle.org/moodle.git"
-       dest: "/var/www/html"
-       version: "MOODLE_31_STABLE"
+      repo: "git://git.moodle.org/moodle.git"
+      dest: "/var/www/html"
+      version: "MOODLE_31_STABLE"
 
    - name: Crear directorio para los datos de Moodle
      file:
-       path: "/var/www/moodledata"
-       state: directory
-       owner: "www-data"
-       group: "www-data"
-       mode: "0777"
-       recurse: yes
+      path: "/var/www/moodledata"
+      state: directory
+      owner: "www-data"
+      group: "www-data"
+      mode: "0777"
+      recurse: "yes"
 
    - name: Obtener moodledata s3
      s3:
-       aws_access_key: "{{aws_access_key}}"
-       aws_secret_key: "{{aws_secret_key}}"
-       bucket: "{{ s3bucket }}"
-       object: "exams/moodledata.tar"
-       dest: "/tmp/moodledata.tar"
-       mode: get
+      aws_access_key: "{{aws_access_key}}"
+      aws_secret_key: "{{aws_secret_key}}"
+      bucket: "{{ s3bucket }}"
+      object: "exams/moodledata.tar"
+      dest: "/tmp/moodledata.tar"
+      mode: get
 
    - name: Copiar moodledata al directorio
      unarchive:
-       src: "/tmp/moodledata.tar"
-       dest: "/"
-       copy: no
+      src: "/tmp/moodledata.tar"
+      dest: "/"
+      copy: "no"
 
    - name: Instalar Moodle
-     command: /usr/bin/php install.php --non-interactive --wwwroot={{ moodle_host }} --dataroot=/var/www/moodledata --dbhost={{ db_host }} --dbuser={{ db_username }} --dbpass={{ db_password }} --fullname="FLUID Courses" --shortname="Moodle" --adminpass={{ admin_password }} --skip-database --agree-license chdir=/var/www/html/admin/cli
+     command: >
+      /usr/bin/php install.php --non-interactive --wwwroot={{ moodle_host }}
+      --dataroot=/var/www/moodledata --dbhost={{ db_host }}
+      --dbuser={{ db_username }} --dbpass={{ db_password }}
+      --fullname="FLUID Courses" --shortname="Moodle"
+      --adminpass={{ admin_password }} --skip-database --agree-license
+      chdir=/var/www/html/admin/cli
      when: dependencias
 
    - name: Agregar config.php
      template:
-       src: "vars/config.j2"
-       dest: "/var/www/html/config.php"
-       mode: "0644"
+      src: "vars/config.j2"
+      dest: "/var/www/html/config.php"
+      mode: "0644"
 
    - name: Actualizar permisos
      file:
-       path: "/var/www/html"
-       state: directory
-       owner: "www-data"
-       group: "www-data"
-       mode: "0755"
-       recurse: yes
+      path: "/var/www/html"
+      state: directory
+      owner: "www-data"
+      group: "www-data"
+      mode: "0755"
+      recurse: "yes"
 
    - name: Descargar tema para Moodle
      get_url:
-       url: "https://moodle.org/plugins/download.php/12122/theme_eduhub_moodle31_2016090100.zip"
-       dest: "/tmp"
+      url: "https://moodle.org/plugins/download.php/12122/theme_eduhub_moodle31_2016090100.zip"
+      dest: "/tmp"
 
    - name: Copiar tema en la ruta indicada
      unarchive:
-       src: "/tmp/theme_eduhub_moodle31_2016090100.zip"
-       dest: "/var/www/html/theme"
-       copy: no
+      src: "/tmp/theme_eduhub_moodle31_2016090100.zip"
+      dest: "/var/www/html/theme"
+      copy: "no"
 
    - name: Descargando secureexambrowser
      git:
-       repo: "git://github.com/moodleou/moodle-quizaccess_safeexambrowser.git"
-       dest: "/var/www/html/mod/quiz/accessrule/safeexambrowser"
-       version: "master"
+      repo: "git://github.com/moodleou/moodle-quizaccess_safeexambrowser.git"
+      dest: "/var/www/html/mod/quiz/accessrule/safeexambrowser"
+      version: "master"
 
    - name: Configurar cron
      cron:
-       name: "Moodle"
-       job: "/usr/bin/php /var/www/html/admin/cli/cron.php >/dev/null"
+      name: "Moodle"
+      job: "/usr/bin/php /var/www/html/admin/cli/cron.php >/dev/null"
 
   handlers:
    - name: restart apache2
      service:
-       name: "apache2"
-       state: "restarted"
+      name: "apache2"
+      state: "restarted"

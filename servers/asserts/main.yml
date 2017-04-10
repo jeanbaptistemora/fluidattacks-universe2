@@ -1,7 +1,7 @@
 ---
 - hosts: asserts
 
-  become: yes
+  become: "yes"
 
   tasks:
    - name: include default step variables
@@ -9,44 +9,45 @@
 
    - name: Instalar paquetes
      apt:
-       pkg: "{{ item }}"
-       state: installed
+      pkg: "{{ item }}"
+      state: installed
      register: dependencias
      with_items:
-       - git
-       - python3-dev
-       - python3-pip
-       - python3-setuptools
+      - git
+      - python3-dev
+      - python3-pip
+      - python3-setuptools
 
-#   - name: Instalar dependencias pip
-#     pip:
-#       name: "{{ item }}"
-#     with_items:
-#       - configobj
-#       - PyPDF2
-#       - requests
-#       - requests-oauthlib
-#       - cryptography
-#       - ldap3
-#       - paramiko
-#       - pywinrm
-#       - beautifulsoup4
-#       - lxml
-#       - dnspython
+      # - name: Instalar dependencias pip
+      #   pip:
+      #     name: "{{ item }}"
+      #   with_items:
+      #     - configobj
+      #     - PyPDF2
+      #     - requests
+      #     - requests-oauthlib
+      #     - cryptography
+      #     - ldap3
+      #     - paramiko
+      #     - pywinrm
+      #     - beautifulsoup4
+      #     - lxml
+      #     - dnspython
 
    - name: Agregar netrc
      template:
-       src: "vars/netrc.j2"
-       dest: "/root/.netrc"
-       mode: "0600"
+      src: "vars/netrc.j2"
+      dest: "/root/.netrc"
+      mode: "0600"
 
    - name: Clonar repositorio asserts
      git:
-       repo: "https://jrestrepoatfluid@bitbucket.org/fluidsignal/fluid-asserts.git"
-       dest: "/root/fluid-asserts"
-       version: "master"
+      repo: >
+        "https://jrestrepoatfluid@bitbucket.org/fluidsignal/fluid-asserts.git"
+      dest: "/root/fluid-asserts"
+      version: "master"
 
    - name: Retirar git conf
      file:
-       path: "/root/.netrc"
-       state: absent
+      path: "/root/.netrc"
+      state: absent
