@@ -147,9 +147,7 @@
 
    - name: Descargar tema para Moodle
      get_url:
-      url: >-
-        "https://moodle.org/plugins/download.php/12122/theme_eduhub_moodle31\
-        _2016090100.zip"
+      url: "https://goo.gl/XnDgOG"
       dest: "/tmp"
 
    - name: Copiar tema en la ruta indicada
