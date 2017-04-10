@@ -16,7 +16,7 @@ describe service('apache2') do
   it { should be_enabled }
 end
 
-describe user('root') do 
+describe user('root') do
   it {should exist }
 end
 
