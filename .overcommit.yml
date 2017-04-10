@@ -237,6 +237,11 @@ PreCommit:
     include:
       - '**/*.yaml'
       - '**/*.yml'
+    exclude:
+      -servers/alg/vars/key.yml
+      -servers/exams/main.yml
+      -servers/exams/vars/vars.yml
+      -servers/integrates/vars/vars.yml
 
   YamlSyntax:
     enabled: true
