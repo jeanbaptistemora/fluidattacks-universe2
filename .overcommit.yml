@@ -1,3 +1,4 @@
+---
 # Use this file to configure the Overcommit hooks you wish to use. This will
 # extend the default configuration defined in:
 # https://github.com/brigade/overcommit/blob/master/config/default.yml

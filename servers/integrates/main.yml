@@ -1,7 +1,7 @@
 ---
 - hosts: integrates
 
-  become: yes
+  become: "yes"
 
   tasks:
    - name: include default step variables
@@ -9,77 +9,78 @@
 
    - name: Instalar paquetes
      apt:
-       pkg: "{{ item }}"
-       state: installed
+      pkg: "{{ item }}"
+      state: installed
      register: dependencias
      with_items:
-       - git
-       - python-dev
-       - python-pip
-       - apache2
-       - python-setuptools
-       - python-tk
+      - git
+      - python-dev
+      - python-pip
+      - apache2
+      - python-setuptools
+      - python-tk
 
    - name: Instalar librerias
      apt:
-       pkg: "{{ item }}"
-       state: installed
+      pkg: "{{ item }}"
+      state: installed
      register: dependencias2
      with_items:
-       - liblcms2-dev
-       - libwebp-dev
-       - tcl8.6-dev
-       - tk8.6-dev
-       - libxml2
-       - libxml2-dev
-       - libxslt1-dev
-       - libapache2-mod-wsgi
-       - libtiff5-dev
-       - zlib1g-dev
-       - libfreetype6-dev
-       - libapache2-mod-python
+      - liblcms2-dev
+      - libwebp-dev
+      - tcl8.6-dev
+      - tk8.6-dev
+      - libxml2
+      - libxml2-dev
+      - libxslt1-dev
+      - libapache2-mod-wsgi
+      - libtiff5-dev
+      - zlib1g-dev
+      - libfreetype6-dev
+      - libapache2-mod-python
 
    - name: Instalar dependencias pip
      pip:
-       name: "{{ item }}"
+      name: "{{ item }}"
      with_items:
-       - django
-       - python-pptx
-       - pyyaml
-       - openpyxl
-       - requests
-       - lxml
-       - decorators
-       - retrying
+      - django
+      - python-pptx
+      - pyyaml
+      - openpyxl
+      - requests
+      - lxml
+      - decorators
+      - retrying
 
    - name: Agregar netrc
      template:
-       src: "vars/netrc.j2"
-       dest: "/root/.netrc"
-       mode: "0600"
+      src: "vars/netrc.j2"
+      dest: "/root/.netrc"
+      mode: "0600"
 
    - name: Remover archivo index
      file:
-       path: "/var/www/html"
-       state: absent
+      path: "/var/www/html"
+      state: absent
 
    - name: Clonar repositorio integrates
      git:
-       repo: "https://jrestrepoatfluid@bitbucket.org/fluidsignal/fluid-integrates.git"
-       dest: "/var/www/fluid-integrates"
-       version: "master"
+      repo: >
+       "https://jrestrepoatfluid@bitbucket.org/fluidsignal/fluid-integrates.git"
+      dest: "/var/www/fluid-integrates"
+      version: "master"
 
    - name: Establecer permisos directorio
      file:
-       path: "{{ documentroot }}"
-       owner: www-data
-       group: www-data
-       recurse: yes
+      path: "{{ documentroot }}"
+      owner: www-data
+      group: www-data
+      recurse: "yes"
 
    - name: Retirar git conf
      file:
-       path: "/root/.netrc"
-       state: absent
+      path: "/root/.netrc"
+      state: absent
 
    - name: Creando sitio web
      template:
@@ -87,10 +88,10 @@
       dest: "/etc/apache2/sites-available/000-default.conf"
       mode: "0644"
      notify:
-       - reiniciar apache2
+      - reiniciar apache2
 
   handlers:
    - name: reiniciar apache2
      service:
-       name: "apache2"
-       state: "restarted"
+      name: "apache2"
+      state: "restarted"

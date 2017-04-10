@@ -1,7 +1,7 @@
 #
 # Archivo de configuracion del servicio de integración continua.
 #
-
+---
 version: 2
 jobs:
   build:
@@ -12,20 +12,40 @@ jobs:
     steps:
       - checkout
       - run:
+          name: Update
+          command: sudo apt-get update
+      - run:
           name: Install dependencies
-          command:  sudo apt-get update &&  sudo apt-get install -y software-properties-common  && sudo echo $VAULT > ~/.vault.txt
+          command: sudo apt-get install -y software-properties-common
+      - run:
+          name: Vault file
+          command: sudo echo $VAULT > ~/.vault.txt
       - run:
           name: add ansible repo
-          command:  sudo echo "deb http://ppa.launchpad.net/ansible/ansible/ubuntu trusty main" | sudo tee -a /etc/apt/sources.list &&  sudo apt-get update
+          command: >
+                sudo echo "deb http://ppa.launchpad.net/ansible/ansible/ubuntu
+                trusty main" | sudo tee -a /etc/apt/sources.list &&  sudo
+                apt-get update
       - run:
           name: pip installations
-          command:  sudo apt-get install -y python-dev python-pip && sudo pip install --upgrade pip setuptools && sudo pip install ansible-lint
+          command: >
+                sudo apt-get install -y python-dev python-pip && sudo
+                pip install --upgrade pip setuptools && sudo pip install
+                ansible-lint && sudo pip install pep257 pep8 pyflakes pylint
+                flake8 yamllint
       - run:
           name: Install ansible
-          command:  sudo apt-get install -y --force-yes ansible
+          command: sudo apt-get install -y --force-yes ansible
       - run:
           name: Ansible lints
-          command: ansible-lint servers/alg/main.yml && ansible-lint servers/exams/main.yml && ansible-lint servers/integrates/main.yml && ansible-lint servers/host/main.yml
+          command: >
+                ansible-lint servers/alg/main.yml && ansible-lint
+                servers/exams/main.yml && ansible-lint
+                servers/integrates/main.yml && ansible-lint
+                servers/host/main.yml
+      - run:
+          name: Overcommit
+          command: overcommit --sign && overcommit --run
       - run:
           name: Start
           command: ./start.sh && bundle install

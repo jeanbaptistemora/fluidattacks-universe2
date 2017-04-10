@@ -14,9 +14,9 @@ MaxKeepAliveRequests 100
 KeepAliveTimeout 15
 #
 <IfModule mpm_prefork_module>
-    StartServers         20 
-    MinSpareServers      10 
-    MaxSpareServers      50 
+    StartServers         20
+    MinSpareServers      10
+    MaxSpareServers      50
     ServerLimit		 4096
     MaxClients           1024
     MaxRequestsPerChild  0
@@ -26,7 +26,7 @@ KeepAliveTimeout 15
     StartServers          2
     MaxClients           30
     MinSpareThreads      15
-    MaxSpareThreads      45 
+    MaxSpareThreads      45
     ThreadsPerChild      25
     MaxRequestsPerChild   0
 </IfModule>
@@ -64,7 +64,7 @@ Include /etc/apache2/sites-enabled/
 # Disable insecure protocols
 SSLProtocol all -TLSv1 -SSLv2 -SSLv3
 #
-ServerName {{ servername }} 
+ServerName {{ servername }}
 # Disable insecure headers
 ServerTokens ProductOnly
 ServerSignature Off

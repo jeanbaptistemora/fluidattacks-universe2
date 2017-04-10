@@ -10,7 +10,9 @@ import boto3
 IP_ADDRESS_FILE = '/tmp/instance_ip.txt'
 HOST_ZONE_ID = 'Z97LJOL6ETZND'
 
+
 def upsert_ip():
+
     client = boto3.client('route53')
     with open(IP_ADDRESS_FILE) as ip_fd:
         IP_ADDRESS = ip_fd.read().rstrip()
@@ -30,8 +32,10 @@ def upsert_ip():
                          },
                      ],
                  }
-            },
+                 },
             ]
         },
     )
+
+
 upsert_ip()
