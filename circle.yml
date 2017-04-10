@@ -16,7 +16,9 @@ jobs:
           command: sudo apt-get update
       - run:
           name: Install dependencies
-          command: sudo apt-get install -y software-properties-common
+          command: >
+           sudo apt-get install -y software-properties-common &&
+           gem install overcommit
       - run:
           name: Vault file
           command: sudo echo $VAULT > ~/.vault.txt
