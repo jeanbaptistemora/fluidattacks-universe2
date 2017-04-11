@@ -181,7 +181,7 @@ PreCommit:
     include: '**/*.py'
 
   Pep8:
-    enabled: false
+    enabled: true
     description: 'Analyze with pep8'
     required_executable: 'pep8'
     install_command: 'pip install pep8'

@@ -2,7 +2,7 @@
 
 # Creación instancia AWS
 
-python servers/host/scripts/create_instance2.py
+servers/host/scripts/create_infrastructure.sh
 
 # Configuracion servidor
 
