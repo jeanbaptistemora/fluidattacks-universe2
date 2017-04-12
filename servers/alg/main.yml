@@ -28,7 +28,11 @@
       - gcc
 
    - name: Upgrade setuptools
-     command: pip install -U pip setuptools
+     pip:
+       name: "{{ item }}"
+     extra_args: --upgrade
+     with_items:
+      - setuptools
 
    - name: Instalar dependencias pip
      pip:
