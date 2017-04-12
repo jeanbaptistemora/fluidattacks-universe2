@@ -22,6 +22,7 @@
       - curl
       - python-pip
       - python-dev
+      - gcc
 
    - name: Instalar dependencias pip
      pip:
