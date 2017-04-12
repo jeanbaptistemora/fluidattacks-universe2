@@ -24,11 +24,14 @@
       - python-dev
       - libffi-dev
       - libssl-dev
+      - g++
+      - gcc
 
    - name: Instalar dependencias pip
      pip:
       name: "{{ item }}"
      with_items:
+      - setuptools
       - fluidasserts
 
    - name: Ejecutar asserts
