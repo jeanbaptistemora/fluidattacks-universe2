@@ -30,8 +30,9 @@
    - name: Upgrade setuptools
      pip:
        name: "{{ item }}"
-     extra_args: --upgrade
+       extra_args: -U --force
      with_items:
+      - pip
       - setuptools
 
    - name: Instalar dependencias pip
