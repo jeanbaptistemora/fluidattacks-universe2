@@ -113,6 +113,12 @@ class CFEC2Creator():
                     Value=GetAtt(ec2_instance, "PublicIp"),
                     ),
                 Output(
+                    "SecGroupID",
+                    Description="ID of the secgroup of the newly created EC2 "
+                    "instance",
+                    Value=GetAtt(self.securityGroup, "GroupId"),
+                    ),
+                Output(
                     "PrivateIP",
                     Description="Private IP address of the newly created EC2 "
                     "instance",

@@ -81,13 +81,37 @@ def verify_creation(client, stackid, type):
             time.sleep(1)
 
     if type == 0:
-        instance_id = consult["Stacks"][0]["Outputs"][0]["OutputValue"]
-        ip_address = consult["Stacks"][0]["Outputs"][2]["OutputValue"]
+
+        instance_id = consult["Stacks"][0]["Outputs"][1]["OutputValue"]
+        ip_address = consult["Stacks"][0]["Outputs"][3]["OutputValue"]
+        groupid = consult["Stacks"][0]["Outputs"][0]["OutputValue"]
+
+        add_security_group_roules(groupid, ip_address)
 
         with open(INSTANCE_ID_FILE, 'w') as instance_fd:
             instance_fd.write(instance_id)
         with open(IP_ADDRESS_FILE, 'w') as ip_fd:
             ip_fd.write(ip_address)
+
+
+def add_security_group_roules(groupid, ipadd):
+
+    ec2 = boto3.resource('ec2',
+                         region_name=REGION_NAME,)
+
+    security_group = ec2.SecurityGroup(groupid)
+    security_group.authorize_ingress(
+            IpProtocol='tcp',
+            FromPort=8080,
+            ToPort=8080,
+            CidrIp=str(ipadd)+"/32"
+        )
+    security_group.authorize_ingress(
+            IpProtocol='tcp',
+            FromPort=8000,
+            ToPort=8000,
+            CidrIp=str(ipadd)+"/32"
+        )
 
 
 '''Funcion que elimina Stack en CF

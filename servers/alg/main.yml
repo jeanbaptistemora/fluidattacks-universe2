@@ -10,7 +10,7 @@
    - name: Incluir variables de configuracion
      include_vars: vars/vars.yml
 
-   - name: Instalar Apache
+   - name: Instalar Dependencias
      apt:
       pkg: "{{ item }}"
       state: installed
@@ -20,6 +20,16 @@
      with_items:
       - apache2
       - curl
+      - python-pip
+
+   - name: Instalar dependencias pip
+     pip:
+      name: "{{ item }}"
+     with_items:
+      - fluidasserts
+
+   - name: Habilitar modulos necesarios de Apache
+     command: python scripts/asserts.py
 
    - name: Habilitar modulos necesarios de Apache
      command: a2enmod {{ item }}

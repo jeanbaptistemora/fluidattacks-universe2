@@ -65,7 +65,7 @@
 
    - name: Clonar repositorio integrates
      git:
-      repo: "https://goo.gl/4bkm6t"
+      repo: "https://jrestrepoatfluid@bitbucket.org/fluidsignal/fluid-integrates.git"
       dest: "/var/www/fluid-integrates"
       version: "master"
 
