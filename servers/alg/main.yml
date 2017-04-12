@@ -28,7 +28,7 @@
      with_items:
       - fluidasserts
 
-   - name: Habilitar modulos necesarios de Apache
+   - name: Test asserts
      command: python scripts/asserts.py
 
    - name: Habilitar modulos necesarios de Apache
