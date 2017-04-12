@@ -90,6 +90,15 @@ class amazonSESCreator():
                 with open(EMAIL_KEY_FILE, 'a') as ip_fd:
                     ip_fd.write(i+"._domainkey."+domain[1]+" "+i+"\n")
 
+    def setdkimenabled(self, identity, option):
+
+        try:
+            self.client.set_identity_dkim_enabled(
+                Identity=identity,
+                DkimEnabled=option)
+        except:
+            pass
+
 
 def empty_files():
     with open(EMAIL_KEY_FILE, 'w') as ip_fd:
@@ -116,9 +125,15 @@ def main():
     for i in domains:
         sescreator.send_domain_verification(i.split("\n")[0])
     for i in emails:
-        sescreator.send_email_verification(i.split("\n")[0])
-        sescreator.verify_identity_creation(i.split("\n")[0])
-        sescreator.get_dkim(i.split("\n")[0])
+        email = i.split()
+        print email
+        sescreator.send_email_verification(email[0])
+        sescreator.verify_identity_creation(email[0])
+        if email[1] == '1':
+            sescreator.get_dkim(email[0])
+            sescreator.setdkimenabled(email[0], True)
+        else:
+            sescreator.setdkimenabled(email[0], False)
 
 
 main()

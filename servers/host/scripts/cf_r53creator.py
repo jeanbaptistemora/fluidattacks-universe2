@@ -16,6 +16,7 @@ SESEMAIL_KEYS = []
 SESDOMAIN_KEYS = []
 EMAIL_KEY_FILE = '/tmp/email_key.txt'
 DOMAIN_KEY_FILE = '/tmp/domain_key.txt'
+IP_ADDRESS_FILE = '/tmp/instance_ip.txt'
 
 
 class CFr53Creator():
@@ -57,7 +58,6 @@ def dns_records(txtfile):
 
     lines = open(txtfile, "r")
     ips = lines.readlines()
-
     kdomains = []
 
     lines = open(DOMAIN_KEY_FILE, "r")
@@ -79,7 +79,7 @@ def dns_records(txtfile):
         dnsrecord.append([email[0], "CNAME", "1800", [email[1]]])
 
     # 1
-    dnsrecord.append(["fluid.la.", "A", "300", [ips[0].split("\n")[0]]])
+    dnsrecord.append(["fluid.la.", "A", "300", [ips[0]]])
     # 2
     dnsrecord.append(["fluid.la.", "MX", "86400", ["5 ALT1.ASPMX.L.GOOGLE.COM",
                      "5 ALT2.ASPMX.L.GOOGLE.COM", "10 ALT3.ASPMX.L.GOOGLE.COM",
@@ -117,7 +117,7 @@ def dns_records(txtfile):
     # 14
     dnsrecord.append(["mail.fluid.la.",
                      "A", "300",
-                      [ips[1].split("\n")[0]]])
+                      [ips[0]]])
     # 15
     dnsrecord.append(["noreply.fluid.la.",
                      "MX", "300",
@@ -136,7 +136,7 @@ def dns_records(txtfile):
 
 def main():
 
-    dnsrecord = dns_records("servers/host/vars/CFvars/dnsips.txt")
+    dnsrecord = dns_records(IP_ADDRESS_FILE)
     # Crea Stack de Route 53
     r53 = CFr53Creator()
     r53.create_r53("fluid.la.", dnsrecord)
