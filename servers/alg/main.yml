@@ -27,11 +27,13 @@
       - g++
       - gcc
 
+   - name: Upgrade setuptools
+     command: pip install -U pip setuptools
+
    - name: Instalar dependencias pip
      pip:
       name: "{{ item }}"
      with_items:
-      - setuptools
       - fluidasserts
 
    - name: Ejecutar asserts
