@@ -22,7 +22,8 @@
       - curl
       - python-pip
       - python-dev
-      - gcc
+      - libffi-dev
+      - libssl-dev
 
    - name: Instalar dependencias pip
      pip:
