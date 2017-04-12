@@ -1,36 +1,25 @@
 ---
 - hosts: alg
 
-  become: "yes"
+  become: yes
 
   tasks:
-   - name: Incluir llaves de cifrado
-     include_vars: vars/key.yml
-
    - name: Incluir llaves de cifrado
      include_vars: vars/key.yml
 
    - name: Incluir variables de configuracion
      include_vars: vars/vars.yml
 
-   - name: Instalar Dependencias
+   - name: Instalar Apache
      apt:
       pkg: "{{ item }}"
       state: installed
      register: apacheinstalled
      notify:
-      - iniciar apache2
+       - iniciar apache2
      with_items:
-      - apache2
-      - curl
-      - python-pip
-
-   - name: Instalar dependencias pip
-     pip:
-      name: "{{ item }}"
-     with_items:
-      - fluidasserts
-
+       - apache2
+       - curl
    - name: Habilitar modulos necesarios de Apache
      command: a2enmod {{ item }}
      with_items:
