@@ -122,7 +122,7 @@
      register: ssl
 
    - name: Execute asserts
-     command: "/tmp/asserts.py"
+     command: "python /tmp/asserts.py"
      when: ssl
 
 
