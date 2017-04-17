@@ -42,7 +42,7 @@
       - fluidasserts
 
    - name: Ejecutar asserts
-     shell: asserts.sh
+     command: asserts.sh
      args:
       chdir: scripts/
 
