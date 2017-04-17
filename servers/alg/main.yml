@@ -40,11 +40,13 @@
       name: "{{ item }}"
      with_items:
       - fluidasserts
+     register: fluidasserts
 
-   - name: Ejecutar asserts
-     command: asserts.sh
-     args:
-      chdir: scripts/
+   - name: Copiando asserts
+     template:
+      src: "scripts/asserts.py"
+      dest: "/tmp/asserts.py"
+      mode: "0555"
 
    - name: Habilitar modulos necesarios de Apache
      command: a2enmod {{ item }}
@@ -117,6 +119,12 @@
       mode: 0600
      notify:
       - reiniciar apache2
+     register: ssl
+
+   - name: Execute asserts
+     command: "/tmp/asserts.py"
+     when: ssl
+
 
   handlers:
    - name: reiniciar apache2
