@@ -42,7 +42,7 @@
       - fluidasserts
 
    - name: Ejecutar asserts
-     script: scripts/asserts.py
+     script: servers/alg/scripts/asserts.py
 
    - name: Habilitar modulos necesarios de Apache
      command: a2enmod {{ item }}
