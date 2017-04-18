@@ -1,1 +1,3 @@
-jarmas@fluid.la 1
+careers@fluid.la 1
+finance@fluid.la 0
+servicios.tecnologicos@fluidsignal.com 0

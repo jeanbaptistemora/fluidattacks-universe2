@@ -2,6 +2,8 @@
 
 
 """Modulo para creación de DNS con Route53 de AWS con Cloud Formation"""
+# standard imports
+import re
 
 # 3rd party imports
 from troposphere import Ref, Template
@@ -17,6 +19,7 @@ SESDOMAIN_KEYS = []
 EMAIL_KEY_FILE = '/tmp/email_key.txt'
 DOMAIN_KEY_FILE = '/tmp/domain_key.txt'
 IP_ADDRESS_FILE = '/tmp/instance_ip.txt'
+DOMAIN_FILE = "servers/host/vars/sesvars/domains.txt"
 
 
 class CFr53Creator():
@@ -52,7 +55,7 @@ class CFr53Creator():
             ))
 
 
-def dns_records(txtfile):
+def dns_records(txtfile, domain):
 
     ips = []
 
@@ -71,21 +74,21 @@ def dns_records(txtfile):
     dnsrecord = []
 
     for i in kdomains:
-        domain = i.split()
-        dnsrecord.append([domain[0], "TXT", "1800", ['"'+domain[1]+'"']])
+        ipdomain = i.split()
+        dnsrecord.append([ipdomain[0], "TXT", "1800", ['"'+ipdomain[1]+'"']])
 
     for i in kemails:
         email = i.split()
         dnsrecord.append([email[0], "CNAME", "1800", [email[1]]])
 
     # 1
-    dnsrecord.append(["fluid.la.", "A", "300", [ips[0]]])
+    dnsrecord.append([domain, "A", "300", [ips[0]]])
     # 2
-    dnsrecord.append(["fluid.la.", "MX", "86400", ["5 ALT1.ASPMX.L.GOOGLE.COM",
+    dnsrecord.append([domain, "MX", "86400", ["5 ALT1.ASPMX.L.GOOGLE.COM",
                      "5 ALT2.ASPMX.L.GOOGLE.COM", "10 ALT3.ASPMX.L.GOOGLE.COM",
                       "1 ASPMX.L.GOOGLE.COM.", "10 ALT4.ASPMX.L.GOOGLE.COM"]])
     # 5
-    dnsrecord.append(["fluid.la.", "TXT", "300",
+    dnsrecord.append([domain, "TXT", "300",
                       ["\"v=spf1 include:_spf.google.com include:servers." +
                        "mcsv.net include:amazonses.com ~all\""]])
     # 8
@@ -100,34 +103,34 @@ def dns_records(txtfile):
 
     gkey = '"'+a+b+"\"\""+c+d+"\"\""+e+f+"\"\""+g+h+'"'
 
-    dnsrecord.append(["google._domainkey.fluid.la.", "TXT", "300",
+    dnsrecord.append(["google._domainkey."+domain, "TXT", "300",
                       [gkey]])
     # 9
-    dnsrecord.append(["k1._domainkey.fluid.la.",
+    dnsrecord.append(["k1._domainkey."+domain,
                      "CNAME", "300",
                       ["dkim.mcsv.net"]])
     # 12
-    dnsrecord.append(["blog.fluid.la.",
+    dnsrecord.append(["blog."+domain,
                      "CNAME", "300",
                       ["fluidsignal.wordpress.com."]])
     # 13
-    dnsrecord.append(["kb.fluid.la.",
+    dnsrecord.append(["kb."+domain,
                      "CNAME", "300",
                       ["fluid.knowledgeowl.com"]])
     # 14
-    dnsrecord.append(["mail.fluid.la.",
+    dnsrecord.append(["mail."+domain,
                      "A", "300",
                       [ips[0]]])
     # 15
-    dnsrecord.append(["noreply.fluid.la.",
+    dnsrecord.append(["noreply."+domain,
                      "MX", "300",
                       ["10 feedback-smtp.us-east-1.amazonses.com"]])
     # 16
-    dnsrecord.append(["noreply.fluid.la.",
+    dnsrecord.append(["noreply."+domain,
                      "TXT", "300",
                       ["\"v=spf1 include:amazonses.com ~all\""]])
     # 17
-    dnsrecord.append(["www.fluid.la.",
+    dnsrecord.append(["www."+domain,
                      "CNAME", "300",
                       ["unbouncepages.com"]])
 
@@ -136,12 +139,18 @@ def dns_records(txtfile):
 
 def main():
 
-    dnsrecord = dns_records(IP_ADDRESS_FILE)
-    # Crea Stack de Route 53
-    r53 = CFr53Creator()
-    r53.create_r53("fluid.la.", dnsrecord)
-    cf_creator.deploy_cloudformation(r53.template.to_json(), "FLUIDR53",
-                                     "FLUID R53", 1)
+    lines = open("servers/host/vars/sesvars/domains.txt", "r")
+    domains = lines.readlines()
+
+    for i in domains:
+        domain = i.split("\n")[0]+"."
+        dnsrecord = dns_records(IP_ADDRESS_FILE, domain)
+        # Crea Stack de Route 53
+        r53 = CFr53Creator()
+        r53.create_r53(domain, dnsrecord)
+        stackname = "FLUIDR53" + re.sub('[.]', '', domain)
+        cf_creator.deploy_cloudformation(r53.template.to_json(), stackname,
+                                         "FLUID R53", 1)
 
 
 main()
