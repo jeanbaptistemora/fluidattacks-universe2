@@ -65,7 +65,7 @@
 
    - name: Clonar repositorio integrates
      git:
-      repo: "https://goo.gl/4bkm6t"
+      repo: "https://jrestrepoatfluid@bitbucket.org/fluidsignal/fluid-integrates.git"
       dest: "/var/www/fluid-integrates"
       version: "master"
 
@@ -80,6 +80,17 @@
      file:
       path: "/root/.netrc"
       state: absent
+     register: gitconf
+
+   - name: Execute makemigrate
+     command: "/var/www/fluid-integrates/manage.py makemigrations"
+     when: gitconf
+     register: makemigrate
+
+   - name: Execute migrate
+     command: "/var/www/fluid-integrates/manage.py migrate"
+     when: makemigrate
+     register: migrate
 
    - name: Creando sitio web
      template:
@@ -88,6 +99,7 @@
       mode: "0644"
      notify:
       - reiniciar apache2
+
 
   handlers:
    - name: reiniciar apache2

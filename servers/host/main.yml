@@ -62,8 +62,7 @@
 
     - name: Clonar repositorio serves
       git:
-        repo: >
-          "https://jrestrepoatfluid@bitbucket.org/fluidsignal/fluid-serves.git"
+        repo: "https://jrestrepoatfluid@bitbucket.org/fluidsignal/fluid-serves.git"
         dest: "/root/fluid-serves"
         version: "master"
       register: repo
