@@ -1,6 +1,6 @@
 from fluidasserts.service import http
 from fluidasserts.service import ssl
-from fluidasserts.service import dns
+# from fluidasserts.service import dns
 
 url = 'https://fluid.la'
 http.is_header_x_asp_net_version_missing(url)
@@ -32,13 +32,13 @@ ssl.is_pfs_disabled(server)
 ssl.is_sslv3_enabled(server)
 ssl.is_tlsv1_enabled(server)
 
-dns.has_cache_poison(server, 'ns-79.awsdns-09.com.')
-dns.has_recursion('ns-79.awsdns-09.com.')
-
-server = 'smtp.gmail.com'
-ssl.is_cert_cn_not_equal_to_site(server, port=993)
-ssl.is_cert_inactive(server, port=993)
-ssl.is_cert_validity_lifespan_unsafe(server, port=993)
-ssl.is_pfs_disabled(server, port=993)
-ssl.is_sslv3_enabled(server, port=993)
-ssl.is_tlsv1_enabled(server, port=993)
+# dns.has_cache_poison(server, 'ns-79.awsdns-09.com.')
+# dns.has_recursion('ns-79.awsdns-09.com.')
+#
+# server = 'smtp.gmail.com'
+# ssl.is_cert_cn_not_equal_to_site(server, port=993)
+# ssl.is_cert_inactive(server, port=993)
+# ssl.is_cert_validity_lifespan_unsafe(server, port=993)
+# ssl.is_pfs_disabled(server, port=993)
+# ssl.is_sslv3_enabled(server, port=993)
+# ssl.is_tlsv1_enabled(server, port=993)
