@@ -25,7 +25,8 @@ IMAGE_ID = "ami-49e5cb5e"
 INSTANCE_TYPE = "t2.small"
 REGION_NAME = 'us-east-1'
 STACK_NAME = 'FLUIDServesDynamicTest'
-
+# In GB
+INSTANCE_DISK = "20"
 
 INSTANCE_ID_FILE = '/tmp/instance_id.txt'
 IP_ADDRESS_FILE = '/tmp/instance_ip.txt'
@@ -80,6 +81,14 @@ class CFEC2Creator():
                     ec2.NetworkInterfaceProperty(
                         NetworkInterfaceId=Ref(eth0),
                         DeviceIndex="0",
+                        ),
+                    ],
+            BlockDeviceMappings=[
+                ec2.BlockDeviceMapping(
+                    DeviceName="/dev/xvda",
+                    Ebs=ec2.EBSBlockDevice(
+                        VolumeSize=INSTANCE_DISK
+                            )
                         ),
                     ],
             Tags=Tags(Name=INSTANCE,)
