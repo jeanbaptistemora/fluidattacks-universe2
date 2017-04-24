@@ -26,7 +26,7 @@ INSTANCE_TYPE = "t2.small"
 REGION_NAME = 'us-east-1'
 STACK_NAME = 'FLUIDServesDynamicTest'
 # In GB
-INSTANCE_DISK = "20"
+INSTANCE_DISK = "100"
 
 INSTANCE_ID_FILE = '/tmp/instance_id.txt'
 IP_ADDRESS_FILE = '/tmp/instance_ip.txt'
