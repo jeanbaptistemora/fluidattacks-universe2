@@ -62,7 +62,7 @@
         RewriteRule ^/services/permanent-hacking                {{ landing }}services/permanent-hacking/ [P]
         RewriteRule ^/$         {{ landing }} [P]
         RewriteRule ^/clkn/(.*)$                {{ landing }}clkn/$1     [P]
-        RewriteRule ^/fsg/(.*)$                {{ landing }}fsg/$1     [P]
+        RewriteRule ^fsg(.*)$                {{ landing }}fsg$1     [P]
         RewriteRule ^/en(.*)$           {{ landing }}en$1        [P]
         RewriteRule ^/(.*)           http://{{ landing }}/$1        [P]
         ProxyPassReverse /es {{ landing }}es
