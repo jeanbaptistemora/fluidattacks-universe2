@@ -31,10 +31,10 @@ jobs:
       - run:
           name: pip installations
           command: >
-                sudo apt-get install -y python-dev python-pip && sudo
-                pip install --upgrade pip setuptools && sudo pip install
-                ansible-lint && sudo pip install pep257 pep8 pyflakes pylint
-                flake8 yamllint
+                sudo apt-get install -y python-dev python-pip libffi-dev
+                libssl-dev g++ gcc && sudo pip install --upgrade --force pip
+                setuptools && sudo pip install fluidasserts ansible-lint &&
+                sudo pip install pep257 pep8 pyflakes pylint flake8 yamllint
       - run:
           name: Install ansible
           command: sudo apt-get install -y --force-yes ansible
