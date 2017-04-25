@@ -60,3 +60,6 @@ jobs:
       - run:
           name: Make aws tests
           command: cd servers/host/serverspec && bundle exec rake spec
+      - run:
+          name: Run asserts
+          command: python asserts.py
