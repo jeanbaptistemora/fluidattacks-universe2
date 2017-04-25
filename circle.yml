@@ -36,11 +36,6 @@ jobs:
                 install ansible-lint && sudo pip install pep257 pep8
                 pyflakes pylint flake8 yamllint
       - run:
-          name: Install FLUIDAsserts
-          command: >
-                sudo apt-get install -y libffi-dev libssl-dev g++ gcc &&
-                sudo pip install fluidasserts
-      - run:
           name: Install ansible
           command: sudo apt-get install -y --force-yes ansible
       - run:
@@ -65,6 +60,11 @@ jobs:
       - run:
           name: Make aws tests
           command: cd servers/host/serverspec && bundle exec rake spec
+      - run:
+          name: Install FLUIDAsserts
+          command: >
+                sudo apt-get install -y libffi-dev libssl-dev g++ gcc &&
+                sudo pip install fluidasserts
       - run:
           name: Run asserts
           command: python asserts.py
