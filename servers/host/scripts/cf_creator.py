@@ -15,6 +15,8 @@ KEYNAME = "FLUIDServes_Dynamic"
 REGION_NAME = 'us-east-1'
 INSTANCE_ID_FILE = '/tmp/instance_id.txt'
 IP_ADDRESS_FILE = '/tmp/instance_ip.txt'
+VPC_IDS_FILE = 'servers/host/vars/CFvars/vpc_ids.txt'
+DB_FILE = 'servers/host/vars/CFvars/db_params.txt'
 
 '''Funcion que crea el Stack en CF
    Input> CF JSON, nombre del stack, nombre de instancia, tipo de stack
@@ -34,7 +36,7 @@ def deploy_cloudformation(jsonO, stackname, name, type):
             StackName=stackname,
             TemplateBody=str(jsonO),
             DisableRollback=False,
-            TimeoutInMinutes=10,
+            TimeoutInMinutes=40,
             ResourceTypes=[
                 'AWS::*',
                 ],
@@ -82,16 +84,41 @@ def verify_creation(client, stackid, type):
 
     if type == 0:
 
-        instance_id = consult["Stacks"][0]["Outputs"][1]["OutputValue"]
-        ip_address = consult["Stacks"][0]["Outputs"][3]["OutputValue"]
-        groupid = consult["Stacks"][0]["Outputs"][0]["OutputValue"]
-
+        instance_id = consult["Stacks"][0]["Outputs"][0]["OutputValue"]
+        ip_address = consult["Stacks"][0]["Outputs"][2]["OutputValue"]
+        vpcs = open(VPC_IDS_FILE, "r")
+        groupid = vpcs.split()[1]
         add_security_group_roules(groupid, ip_address)
-
         with open(INSTANCE_ID_FILE, 'w') as instance_fd:
             instance_fd.write(instance_id)
         with open(IP_ADDRESS_FILE, 'w') as ip_fd:
             ip_fd.write(ip_address)
+
+    elif type == 2:
+        groupid = consult["Stacks"][0]["Outputs"][0]["OutputValue"]
+        ec2 = boto3.resource('ec2',
+                             region_name=REGION_NAME,)
+        security_group = ec2.SecurityGroup(groupid)
+        vpcid = security_group.vpc_id
+        vpc = ec2.Vpc(vpcid)
+        subnet_iterator = vpc.subnets.all()
+        vpc.modify_attribute(
+                            EnableDnsSupport={
+                                'Value': True
+                            }
+                        )
+        subnets = []
+        for i in subnet_iterator:
+            subnets.append(i.subnet_id)
+        subnetid = subnets[0]
+        with open(VPC_IDS_FILE, 'w') as vpc_fd:
+            vpc_fd.write(vpcid+" "+groupid+" "+subnetid)
+
+    elif type == 3:
+        address = consult["Stacks"][0]["Outputs"][0]["OutputValue"]
+        port = consult["Stacks"][0]["Outputs"][1]["OutputValue"]
+        with open(DB_FILE, 'w') as db_fd:
+            db_fd.write(address+" "+port)
 
 
 def add_security_group_roules(groupid, ipadd):
@@ -124,9 +151,7 @@ def delete_stackcf(stackname):
     client = boto3.client('cloudformation',
                           region_name=REGION_NAME,)
 
-    response = client.delete_stack(StackName=stackname)
-
-    print response
+    client.delete_stack(StackName=stackname)
 
 
 '''Funcion que actualiza el Stack en CF
