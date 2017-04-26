@@ -9,8 +9,9 @@ python servers/host/scripts/cf_vpccreator.py
 # Crea la bd RDS
 python servers/host/scripts/cf_rdscreator.py
 
-# # Crea el DNS de Route53 y los registros de DNS
-# python servers/host/scripts/cf_r53creator.py
+# Configura la BD de exams
+ansible-playbook servers/host/scripts/dbdump.yml --vault-password-file ~/.vault.txt
+
 #
 # # Crea los Buckets S3
 # python servers/host/scripts/cf_s3creator.py

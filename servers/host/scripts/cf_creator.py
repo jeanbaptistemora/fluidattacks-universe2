@@ -121,6 +121,12 @@ def verify_creation(client, stackid, type):
             db_fd.write(address+" "+port)
 
 
+def config_bd_vars(address, port):
+    text = "---\ndb_host:"+address+"\n"
+    with open("vars/vars1.yml", 'w') as db_fd:
+        db_fd.write(text)
+
+
 def add_security_group_roules(groupid, ipadd):
 
     ec2 = boto3.resource('ec2',

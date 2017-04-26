@@ -64,7 +64,7 @@ jobs:
           name: Install FLUIDAsserts
           command: >
                 sudo apt-get install -y libffi-dev libssl-dev g++ gcc &&
-                sudo pip install fluidasserts
+                pip install fluidasserts
       - run:
           name: Run asserts
           command: python asserts.py

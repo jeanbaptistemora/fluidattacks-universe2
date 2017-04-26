@@ -5,6 +5,7 @@
 Cloud Formation
 """
 
+import os
 # 3rd party imports
 from troposphere import GetAtt,  Output
 from troposphere import Ref, Tags, Template
@@ -20,7 +21,7 @@ IMAGE_ID = "ami-49e5cb5e"
 DB_TYPE = "db.m1.small"
 REGION_NAME = 'us-east-1'
 VPC_IDS_FILE = 'servers/host/vars/CFvars/vpc_ids.txt'
-DBData_FILE = '$HOME/.dbdata.txt'
+DBData_FILE = '.dbdata.txt'
 
 # In GB
 BD_DISK = "5"
@@ -91,10 +92,11 @@ class CFRDSCreator():
 def main():
 
     creator = CFRDSCreator()
-    dbdata = open(DBData_FILE, "r").readlines()
-    name = dbdata.split()[0]
-    username = dbdata.split()[1]
-    passwd = dbdata.split()[2]
+    filepath = os.path.join(os.path.expanduser('~'), DBData_FILE)
+    dbdata = open(filepath, "r").readlines()
+    name = dbdata[0].split()[0]
+    username = dbdata[0].split()[1]
+    passwd = dbdata[0].split()[2]
     creator.create_rds(name, username, passwd)
     cf_creator.deploy_cloudformation(creator.template.to_json(),
                                      "FLUIDServesRDS",
