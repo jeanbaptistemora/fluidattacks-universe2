@@ -11,7 +11,7 @@
  */
 integrates.refreshIframe = function(id){
     var url = "http://thehackernews.com/";
-    if(id == "blog") url = "https://blog.fluid.la/";
+    if(id == "blog") url = "https://fluid.la/blog";
     $("#"+id).attr("src",url);
 }
 /**
