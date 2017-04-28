@@ -2,6 +2,4 @@ InboundHTTPNetworkAclEntry 100 6 80 80 false allow 0.0.0.0/0
 InboundHTTPSNetworkAclEntry 101 6 443 443 false allow 0.0.0.0/0
 InboundSSHNetworkAclEntry 102 6 22 22 false allow 0.0.0.0/0
 InboundResponsePortsNetworkAclEntry 103 6 65535 1024 false allow 0.0.0.0/0
-OutBoundHTTPNetworkAclEntry 100 6 80 80 true allow 0.0.0.0/0
-OutBoundHTTPSNetworkAclEntry 101 6 443 443 true allow 0.0.0.0/0
-OutBoundResponsePortsNetworkAclEntry 102 6 65535 1024 true allow 0.0.0.0/0
+OutBoundALLNetworkAclEntry 100 6 65535 1 true allow 0.0.0.0/0
