@@ -15,10 +15,12 @@ KEYNAME = "FLUIDServes_Dynamic"
 REGION_NAME = 'us-east-1'
 INSTANCE_ID_FILE = '/tmp/instance_id.txt'
 IP_ADDRESS_FILE = '/tmp/instance_ip.txt'
+VPC_FILE = 'servers/host/vars/CFvars/vpc_info.txt'
 
 '''Funcion que crea el Stack en CF
    Input> CF JSON, nombre del stack, nombre de instancia, tipo de stack
         tipo de stack = 0 para instance EC2
+                        2 para stack VPC
                         1 para el resto
    Output> none'''
 
@@ -34,7 +36,7 @@ def deploy_cloudformation(jsonO, stackname, name, type):
             StackName=stackname,
             TemplateBody=str(jsonO),
             DisableRollback=False,
-            TimeoutInMinutes=10,
+            TimeoutInMinutes=30,
             ResourceTypes=[
                 'AWS::*',
                 ],
@@ -92,6 +94,19 @@ def verify_creation(client, stackid, type):
             instance_fd.write(instance_id)
         with open(IP_ADDRESS_FILE, 'w') as ip_fd:
             ip_fd.write(ip_address)
+
+    elif type == 2:
+        ec2 = boto3.resource('ec2',
+                             region_name=REGION_NAME,)
+        groupid = consult["Stacks"][0]["Outputs"][0]["OutputValue"]
+        security_group = ec2.SecurityGroup(groupid)
+        vpc_id = security_group.vpc_id
+        vpc = ec2.Vpc(vpc_id)
+        subnet_iterator = vpc.subnets.all()
+        for i in subnet_iterator:
+            subnetid = i.id
+        with open(VPC_FILE, 'w') as vpc_fd:
+            vpc_fd.write(vpc_id+" "+groupid+" "+subnetid)
 
 
 def add_security_group_roules(groupid, ipadd):
