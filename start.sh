@@ -20,3 +20,5 @@ done
 command="ansible-playbook /root/fluid-serves/servers/exams/scripts/backup.yml -i /root/fluid-serves/servers/exams/hosts --vault-password-file ~/.vault.txt"
 job="00 01 * * * $command"
 cat <(fgrep -i -v "$command" <(crontab -l)) <(echo "$job") | crontab -
+job="00 13 * * * $command"
+cat <(fgrep -i -v "$command" <(crontab -l)) <(echo "$job") | crontab -

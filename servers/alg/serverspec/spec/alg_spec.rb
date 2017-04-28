@@ -26,8 +26,6 @@ describe file ('/etc/apache2/sites-enabled/default-ssl') do
   it {should contain 'ProxyPassReverse /courses'}
   it {should contain 'ProxyPassReverse /forms'}
   it {should contain 'ProxyPassReverse /kb'}
-  it {should contain 'ProxyPassReverse /es'}
-  it {should contain 'ProxyPassReverse /en'}
   it {should contain 'SSLProxyEngine on'}
 end
 
