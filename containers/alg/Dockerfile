@@ -6,9 +6,8 @@ MAINTAINER FLUID Engineering Team <engineering@fluid.la>
 
 ENV DEBIAN_FRONTEND noninteractive      # instalación no interactiva
 
-RUN apt-get update && apt-get install -y software-properties-common
-RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 93C4A3FD7BB9C367
-RUN add-apt-repository ppa:ansible/ansible
+RUN apt-get update && apt-get install -y software-properties-common sudo
+RUN sudo echo "deb http://ppa.launchpad.net/ansible/ansible/ubuntu trusty main" | sudo tee -a /etc/apt/sources.list
 
 # Instala SSH, Python y SUDO para administracion por Ansible
 RUN apt-get update \
@@ -56,7 +55,7 @@ RUN rm /var/www/html/index.html
 
 ADD main.yml /root/
 ADD vars /root/
-ADD $HOME/.vault.txt /root/
+ADD ~/.vault.txt /root/
 
 WORKDIR /root
 RUN ansible-playbook main.yml --vault-password-file .vault.txt
