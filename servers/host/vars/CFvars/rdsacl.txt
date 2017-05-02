@@ -1,0 +1,2 @@
+InboundHTTPNetworkAclEntry 100 6 3306 3306 false allow 0.0.0.0/0
+OutBoundALLNetworkAclEntry 100 6 65535 1 true allow 0.0.0.0/0
