@@ -12,4 +12,6 @@ set -e
 echo "---### Compilando contenedor."
 
 # construir la imagen
+cp ~/.vault.txt containers/alg/
 docker build -t fluidsignal/fluidservesalg:latest containers/alg
+rm containers/alg/.vault.txt
