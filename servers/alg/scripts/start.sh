@@ -38,4 +38,4 @@ if [ -z $(docker ps -q -f name="$SERVICE") ]; then
 #   echo "Puerto SSH (22000) abierto en contenedor."
 # else
 #   echo "Contenedor ya inicio, reutilizando contenedor."
-# fi
+fi

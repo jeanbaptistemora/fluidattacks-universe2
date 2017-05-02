@@ -8,6 +8,7 @@ SERVERS="exams integrates"
 
 # Crea los contenedores dependiendo el OS
 for os in ${CONTAINER_OS}; do
+    echo "Building "${os}
     containers/${os}/build.sh
 done
 
