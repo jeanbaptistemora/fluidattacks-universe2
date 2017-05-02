@@ -26,7 +26,7 @@ RUN apt-get update \
                gcc
 
 # Install any needed packages specified in requirements.txt
-RUN pip install -r -U --force requirements.txt
+RUN pip install -r -U --force pip setuptools
 
 # Habilitar modulos necesarios de Apache
 RUN a2enmod rewrite ssl proxy_http substitute headers
