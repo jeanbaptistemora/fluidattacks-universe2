@@ -7,7 +7,8 @@ MAINTAINER FLUID Engineering Team <engineering@fluid.la>
 ENV DEBIAN_FRONTEND noninteractive      # instalación no interactiva
 
 RUN apt-get update && apt-get install -y software-properties-common
-RUN apt-add-repository ppa:ansible/ansible
+RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 93C4A3FD7BB9C367
+RUN add-apt-repository ppa:ansible/ansible
 
 # Instala SSH, Python y SUDO para administracion por Ansible
 RUN apt-get update \
