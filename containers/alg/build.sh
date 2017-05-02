@@ -12,4 +12,4 @@ set -e
 echo "---### Compilando contenedor."
 
 # construir la imagen
-docker build -t fluidsignal/fluidservesalg:latest containers/debian
+docker build -t fluidsignal/fluidservesalg:latest containers/alg
