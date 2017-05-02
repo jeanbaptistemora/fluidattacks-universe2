@@ -33,6 +33,8 @@ def dashboard(request):
 def logout(request):
     "Cierra la sesion activa de un usuario"
     request.session["username"] = None
+    request.session["company"] = None
+    request.session["role"] = None
     return redirect("/index")
 
 @csrf_exempt
