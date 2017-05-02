@@ -38,7 +38,7 @@ class FormstackAPITests(TestCase):
     def test_get_order(self):
         """ Obtiene el pedido de un nombre de proyecto """
         api_frms = FormstackAPI()
-        project = "oka"
+        project = "Hayes"
         request = api_frms.get_order(project)
         self.assertIs("submissions" in request, True)
 
@@ -46,7 +46,7 @@ class FormstackAPITests(TestCase):
         """ Actualiza un pedido en Formstack """
         api_frms = FormstackAPI()
         project = "Bramley"
-        submission_id = "223360928"
+        submission_id = "244210431"
         request = api_frms.update_order(project, submission_id)
         self.assertIs("success" in request, True)
 
