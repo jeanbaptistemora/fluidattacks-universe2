@@ -12,7 +12,7 @@ RUN sudo echo "deb http://ppa.launchpad.net/ansible/ansible/ubuntu trusty main" 
 # Instala SSH, Python y SUDO para administracion por Ansible
 RUN apt-get update \
     && apt-get upgrade -y \
-    && apt-get install -y \
+    && apt-get install -y --force-yes\
                sudo \
                python \
                apache2 \
