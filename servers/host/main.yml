@@ -64,7 +64,7 @@
       git:
         repo: "https://jrestrepoatfluid@bitbucket.org/fluidsignal/fluid-serves.git"
         dest: "/root/fluid-serves"
-        version: "master"
+        version: "jarmas"
       register: repo
 
     - name: Retirar git conf
