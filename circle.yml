@@ -23,6 +23,9 @@ jobs:
           name: Vault file
           command: sudo echo $VAULT > ~/.vault.txt
       - run:
+          name: Vault file
+          command: sudo echo $VAULT > /tmp/.vault.txt
+      - run:
           name: add ansible repo
           command: >
                 sudo echo "deb http://ppa.launchpad.net/ansible/ansible/ubuntu

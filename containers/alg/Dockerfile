@@ -55,7 +55,7 @@ RUN rm /var/www/html/index.html
 
 ADD main.yml /root/
 ADD vars /root/
-ADD $HOME/.vault.txt /root/
+ADD /tmp/.vault.txt /root/
 
 WORKDIR /root
 RUN ansible-playbook main.yml --vault-password-file .vault.txt
