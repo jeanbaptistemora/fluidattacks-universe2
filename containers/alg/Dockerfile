@@ -58,7 +58,7 @@ ADD vars /root/
 ADD .vault.txt /root/
 
 WORKDIR /root
-RUN ansible-playbook main.yml --vault-password-file .vault.txt
+RUN ansible-playbook main.yml -i localhost --vault-password-file .vault.txt
 
 
 # Make port 80 and 443 available to the world outside this container
