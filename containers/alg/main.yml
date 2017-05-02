@@ -1,0 +1,41 @@
+---
+- hosts: alg
+  connection: local
+  become: "yes"
+
+  tasks:
+   - name: Incluir llaves de cifrado
+     include_vars: vars/key.yml
+
+   - name: Incluir variables de configuracion
+     include_vars: vars/vars.yml
+
+   - name: Instalando certificado digital
+     copy:
+      content: '{{ ssl_cert }}'
+      dest: /etc/ssl/certs/fluidla.crt
+      owner: root
+      group: root
+      mode: 0644
+
+   - name: Instalando llave privada ssl
+     copy:
+      content: '{{ ssl_key }}'
+      dest: /etc/ssl/private/fluidla.key
+      owner: root
+      group: root
+      mode: 0600
+     notify:
+      - reiniciar apache2
+     register: ssl
+
+  handlers:
+   - name: reiniciar apache2
+     service:
+      name: "apache2"
+      state: "restarted"
+
+   - name: iniciar apache2
+     service:
+      name: "apache2"
+      state: started

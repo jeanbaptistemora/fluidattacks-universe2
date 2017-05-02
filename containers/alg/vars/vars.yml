@@ -1,0 +1,12 @@
+---
+# Archivo de variables para ALG.
+mainsite: https://fluid.la/
+http_port: 80
+https_port: 443
+server_admin: technology@fluid.la
+error_page: https://fluid.la/en/error
+servername: fluid.la
+landing: http://www.fluid.la/
+error_log: /var/log/apache2/error.log
+custom_log: /var/log/apache2/access.log
+log_level: warn

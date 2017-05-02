@@ -1,0 +1,85 @@
+<IfModule mod_ssl.c>
+<VirtualHost *:{{ https_port }}>
+    ServerName fluid.la
+    Options  +Indexes +Multiviews +FollowSymLinks
+
+	ServerAdmin {{ server_admin }}
+	proxyErrorOverride on
+
+    # Sitemap
+    RewriteRule ^/sitemap.xml$                https://s3.amazonaws.com/fluidserves/sitemap/sitemap.xml     [P,L]
+	ProxyPassReverse /sitemap.xml  https://s3.amazonaws.com/fluidserves/sitemap/sitemap.xml
+
+    # Moodle
+    RewriteRule ^/courses(.*)                http://fluid.la:8080$1     [P,L]
+    ProxyPassReverse /courses http://fluid.la:8080
+
+    # Favicon KB
+	Substitute "s|type=\"image/x-icon\".*href=\".*|type=\"image/x-icon\" href=\"https://app.knowledgeowl.com/app/image/id/54f110f97cb829fd677b23d4/n/favicon_fluid.png\">|i"
+	Substitute "s|<a href=\"//kb.fluid.la/help/article/link/|<a href=\"//fluid.la/help/article/link/|i"
+
+   # Blog
+        Substitute "s|<ul id=\"menu-menu-superior\" class=\"main-navigation-menu\">|<img src=\"https://fluidsignal.files.wordpress.com/2015/02/fluid-footer.png\" width=215 height=41 class=\"logo-fluid\" /><ul id=\"menu-menu-superior\" class=\"main-navigation-menu\">|i"
+        Substitute "s|<nav id=\"footer-links\" class=\"footer-navigation navigation clearfix\" role=\"navigation\">|<img src=\"https://fluidsignal.files.wordpress.com/2015/02/fluid-footer.png\" width=215 height=41 class=\"logo-fluid-footer\" /><nav id=\"footer-links\" class=\"footer-navigation navigation clearfix\" role=\"navigation\">|i"
+
+    # Lineas de negocio
+        Redirect /consulting {{ mainsite }}
+        Redirect /testing {{ mainsite }}
+        Redirect /intelligence {{ mainsite }}
+
+    # Formstack
+        RewriteRule ^/forms(.*)                https://fluidsignal.formstack.com/forms$1     [P,L]
+        ProxyPassReverse /forms https://fluidsignal.formstack.com/forms
+
+    #Integrates
+        RewriteEngine on
+        RewriteRule ^/integrates(.*)$           http://fluid.la:8000/$1        [P,L]
+        ProxyPassReverse /integrates http://fluid.la:8000
+        RewriteRule ^/assets(.*)$           http://fluid.la:8000/assets$1        [P,L]
+        ProxyPassReverse /assets http://fluid.la:8000/assets
+
+    # KB - Knowledgeowl
+	Header edit Location ^http://kb.fluid.la(.*)$ https://fluid.la$1
+        Header edit Set-Cookie kb.fluid.la fluid.la
+        RewriteRule ^/kb$           http://kb.fluid.la/help/readerlogin        [P,L]
+        ProxyPassReverse /kb http://kb.fluid.la/help/readerlogin
+        RewriteRule ^/help(.*)           http://kb.fluid.la/help$1        [P,L]
+        ProxyPassReverse /help http://kb.fluid.la/help
+
+    # Blog
+        RewriteRule ^/blog(.*)           https://blog.fluid.la$1        [P,L]
+        ProxyPassReverse /blog https://blog.fluid.la
+	AddOutputFilterByType INFLATE;SUBSTITUTE;DEFLATE text/html text/plain text/xml
+	Substitute "s|http://|https://|i"
+
+        ErrorLog {{ error_log }}
+        CustomLog {{ custom_log }} combined
+	LogLevel {{ log_level }}
+
+    #Pagina WEB
+        RewriteEngine on
+        RewriteRule ^/services/permanent-hacking                {{ landing }}services/permanent-hacking/ [P]
+        RewriteRule ^/$         {{ landing }} [P]
+        RewriteRule ^/(.*)           {{ landing }}/$1        [P]
+        ProxyPassReverse / {{ landing }}
+        ErrorDocument 404 {{ error_page }}
+
+    # Configuración SSL
+	SSLEngine on
+	SSLProxyEngine on
+	SSLCertificateFile    /etc/ssl/certs/fluidla.crt
+	SSLCertificateKeyFile /etc/ssl/private/fluidla.key
+
+	<FilesMatch "\.(cgi|shtml|phtml|php)$">
+		SSLOptions +StdEnvVars
+	</FilesMatch>
+	<Directory /usr/lib/cgi-bin>
+		SSLOptions +StdEnvVars
+	</Directory>
+
+	BrowserMatch ".*MSIE.*" \
+	nokeepalive ssl-unclean-shutdown \
+	downgrade-1.0 force-response-1.0
+
+</VirtualHost>
+</IfModule>
