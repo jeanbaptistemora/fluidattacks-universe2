@@ -1,6 +1,6 @@
 ---
 - hosts: integrates
-  connection: local
+
   become: "yes"
 
   tasks:
