@@ -30,7 +30,8 @@ if [ -z $(docker ps -q -f name="$SERVICE") ]; then
     --name="$SERVICE" \
     -p 80:80 \
     -p 443:443 \
-    fluidsignal/fluidservesalg:latest
+    fluidsignal/fluidservesalg:latest \
+    tail -f /dev/null
   # docker run \
 	# 	--detach \
 	# 	--name="$SERVICE" \
