@@ -68,7 +68,7 @@ RUN rm /var/www/html/index.html
 ADD main.yml /root/
 
 # Agrega las variables
-ADD vars /root/
+ADD vars* /root/vars
 
 # Agrega el vault
 ADD .vault.txt /root/
