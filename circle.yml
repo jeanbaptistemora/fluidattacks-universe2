@@ -15,7 +15,8 @@ dependencies:
     - sudo apt-get install libtiff5-dev libjpeg8-dev zlib1g-dev libfreetype6-dev liblcms2-dev libwebp-dev tcl8.6-dev tk8.6-dev python-tk
     - sudo apt-get install libxml2-dev libxslt1-dev python-dev
     - sudo pip install -U django requests openpyxl lxml python-pptx pyyaml decorators retrying urllib3 fluidasserts
-    - sudo ln -s /home/ubuntu/fluid-integrates/ /var/www/
+      #- sudo ln -s /home/ubuntu/fluid-integrates/ /var/www/
+    - sudo cp -a /home/ubuntu/fluid-integrates/ /var/www/
     - sudo chown -R www-data:www-data /var/www/fluid-integrates
     - sudo cp config/000-default.conf /etc/apache2/sites-available/000-default.conf
     - sudo a2ensite 000-default.conf
