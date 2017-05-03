@@ -48,7 +48,7 @@
       aws_access_key: "{{aws_access_key}}"
       aws_secret_key: "{{aws_secret_key}}"
       bucket: "{{ s3bucket }}"
-      object: "exams/{{ db_name }}.sql"
+      object: "serves/exams/{{ db_name }}.sql"
       dest: "/tmp/{{ db_name }}.sql"
       mode: get
 
@@ -110,7 +110,7 @@
       aws_access_key: "{{aws_access_key}}"
       aws_secret_key: "{{aws_secret_key}}"
       bucket: "{{ s3bucket }}"
-      object: "exams/moodledata.tar"
+      object: "serves/exams/moodledata.tar"
       dest: "/tmp/moodledata.tar"
       mode: get
 

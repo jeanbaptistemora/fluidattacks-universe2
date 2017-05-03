@@ -5,9 +5,12 @@
 """
 
 # 3rd party imports
-from troposphere import Output
+from troposphere import Output, Join
 from troposphere import Ref, Template
-from troposphere.s3 import Bucket
+from troposphere.s3 import Bucket, BucketPolicy
+import awacs
+import awacs.s3
+import awacs.aws
 import cf_creator
 
 # GLOBAL VARIABLES
@@ -21,7 +24,51 @@ class CFBucketCreator():
 
         self.template = Template()
 
-    def create_bucket(self, name):
+    def create_policy(self, bucket):
+
+        self.template.add_resource(BucketPolicy(
+                    'IPPolicy',
+                    Bucket=Ref(bucket),
+                    PolicyDocument=awacs.aws.Policy(
+                        Id='FLUIDIPpolicy',
+                        Version='2012-10-17',
+                        Statement=[
+                            awacs.aws.Statement(
+                                Action=[awacs.aws.Action("s3", "*")],
+                                Condition=awacs.aws.Condition(
+                                    awacs.aws.IpAddress(
+                                                        {"aws:SourceIp":
+                                                         "190.156.227.69/32"}
+                                    )
+                                ),
+                                Effect=awacs.aws.Allow,
+                                Principal=awacs.aws.Principal(
+                                                        awacs.aws.Everybody),
+                                Resource=[Join('', [awacs.s3.ARN(''),
+                                          Ref(bucket), '/*'])],
+                                Sid='IPAllow'
+                            ),
+                            awacs.aws.Statement(
+                                Action=[awacs.aws.Action("s3", "*")],
+                                Condition=awacs.aws.Condition(
+                                    awacs.aws.IpAddress(
+                                                    {"aws:SourceIp":
+                                                     "181.55.92.84/32"}
+                                    )
+                                ),
+                                Effect=awacs.aws.Allow,
+                                Principal=awacs.aws.Principal(
+                                                        awacs.aws.Everybody),
+                                Resource=[Join('', [awacs.s3.ARN(''),
+                                          Ref(bucket), '/*'])],
+                                Sid='IPAllow'
+                            ),
+                        ]
+                    )
+                    )
+                    )
+
+    def create_bucket(self, name, policy):
 
         bucket = self.template.add_resource(
             Bucket(
@@ -36,19 +83,18 @@ class CFBucketCreator():
             Description="Name of S3 bucket"
             ))
 
+        if policy:
+            self.create_policy(bucket)
+
 
 def main():
 
     # Crea Stack de Bucket S3
     s3creator = CFBucketCreator()
-    s3creator.create_bucket("fluidserves")
+    s3creator.create_bucket("fluidpersistent", False)
     cf_creator.deploy_cloudformation(s3creator.template.to_json(),
-                                     "FLUIDS3Serves", "FLUID Serves S3", 1)
-
-    s3creator = CFBucketCreator()
-    s3creator.create_bucket("fluidstores")
-    cf_creator.deploy_cloudformation(s3creator.template.to_json(),
-                                     "FLUIDS3Stores", "FLUID Stores S3", 1)
+                                     "FLUIDS3Persistent",
+                                     "FLUID Persistent S3", 1)
 
 
 main()
