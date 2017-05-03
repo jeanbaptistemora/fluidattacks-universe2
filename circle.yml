@@ -17,9 +17,9 @@ dependencies:
     - sudo pip install -U django requests openpyxl lxml python-pptx pyyaml decorators retrying urllib3 fluidasserts
       #- sudo ln -s /home/ubuntu/fluid-integrates/ /var/www/
     - sudo cp -a /home/ubuntu/fluid-integrates/ /var/www/
-    - sudo chown -R www-data:www-data /var/www/fluid-integrates
     - sudo python /var/www/fluid-integrates/manage.py makemigrations
     - sudo python /var/www/fluid-integrates/manage.py migrate 
+    - sudo chown -R www-data:www-data /var/www/fluid-integrates
     - sudo cp config/000-default.conf /etc/apache2/sites-available/000-default.conf
     - sudo a2ensite 000-default.conf
   post:
