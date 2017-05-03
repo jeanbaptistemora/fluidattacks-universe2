@@ -16,11 +16,53 @@ RUN sudo echo "deb http://ppa.launchpad.net/ansible/ansible/ubuntu trusty main" 
 RUN apt-get update \
     && apt-get upgrade -y \
     && apt-get install -y --force-yes\
-               ansible
+               sudo \
+               python \
+               apache2 \
+               ansible \
+               curl \
+               python-pip \
+               python-dev \
+               libffi-dev \
+               libssl-dev \
+               g++ \
+               gcc
+
+# Instala req de pip
+RUN pip install -U --force pip setuptools
+
+# Habilitar modulos necesarios de Apache
+RUN a2enmod rewrite ssl proxy_http substitute headers
+
+# Creando configuración Apache
+ADD vars/apache2.j2 /etc/apache2/apache2.conf
+RUN chmod 0644 etc/apache2/apache2.conf
+
+# Creando sitio por defecto
+ADD vars/000-default.j2 /etc/apache2/sites-enabled/000-default.conf
+RUN chmod 0644 etc/apache2/sites-enabled/000-default.conf
+
+# Creando fluid.la
+ADD vars/fluid.la.j2 /etc/apache2/sites-enabled/fluid.la
+RUN chmod 0644 /etc/apache2/sites-enabled/fluid.la
+
+# Creando www.fluid.la
+ADD vars/www.fluid.la.j2 /etc/apache2/sites-enabled/www.fluid.la
+RUN chmod 0644 /etc/apache2/sites-enabled/www.fluid.la
+
+# Creando www.fluidsignal.com
+ADD vars/www.fluidsignal.com.j2 /etc/apache2/sites-enabled/www.fluidsignal.com
+RUN chmod 0644 /etc/apache2/sites-enabled/www.fluidsignal.com
+
+# Creando sitio ssl
+ADD vars/defaultssl.j2 /etc/apache2/sites-enabled/default-ssl
+RUN chmod 0644 /etc/apache2/sites-enabled/default-ssl
 
 # Agrega configuracion a hosts
 ADD vars/hosts.j2 /etc/hosts
 
+# Retirar index
+RUN rm /var/www/html/index.html
 
 # Agrega el playbook
 ADD main.yml /root/
@@ -32,7 +74,7 @@ ADD vars* /root/vars
 ADD .vault.txt /root/
 
 # Cambia al directorio root
-WORKDIR /root/
+WORKDIR /root
 
 # Ejecuta el ansible
 RUN ansible-playbook main.yml --vault-password-file .vault.txt
