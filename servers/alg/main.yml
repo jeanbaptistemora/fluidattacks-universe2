@@ -1,6 +1,6 @@
 ---
 - hosts: alg
-
+  connection: local
   become: "yes"
 
   tasks:
@@ -82,6 +82,12 @@
      template:
       src: "vars/defaultssl.j2"
       dest: "/etc/apache2/sites-enabled/default-ssl"
+      mode: "0644"
+
+   - name: Creando hosts
+     template:
+      src: "vars/hosts.j2"
+      dest: "/etc/hosts"
       mode: "0644"
 
    - name: Retirar index

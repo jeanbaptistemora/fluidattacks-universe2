@@ -2,17 +2,13 @@
 
 # Construcción contenedor por defecto
 
-CONTAINER_OS="debian ubuntu alg"
-#SERVERS="alg exams integrates"
-SERVERS="exams integrates"
+CONTAINER_OS="debian ubuntu"
+SERVERS="alg exams integrates"
 
 # Crea los contenedores dependiendo el OS
 for os in ${CONTAINER_OS}; do
-    echo "Building "${os}
     containers/${os}/build.sh
 done
-
-servers/alg/scripts/start.sh
 
 # Construye los servers
 for server in ${SERVERS}; do
