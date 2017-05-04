@@ -1,9 +1,5 @@
 require 'spec_helper'
 
-describe file('/var/lib/mysql') do
-  it { should be_directory }
-end
-
 describe file('/var/lib/mysql/moodle') do
   it { should be_directory }
 end
@@ -14,10 +10,6 @@ end
 
 describe file('/var/www/html') do
   it { should be_mode 755 }
-end
-
-describe command('mysql -e "select version();"') do
-  its(:stdout) { should contain "Access denied" }
 end
 
 describe cron do
@@ -31,4 +23,3 @@ end
 describe service('mysql') do
   it { should be_enabled }
 end
-
