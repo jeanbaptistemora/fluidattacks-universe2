@@ -12,6 +12,7 @@ urlpatterns = [
     url(r'^login/?$', services.login, name='login'),
     url(r'^dashboard/?$', views.dashboard, name='dashboard'),
     url(r'^logout/?$', views.logout, name='logout'),
+    url(r'^oauth/', include('social_django.urls', namespace='social')),
     # Consumo de servicios de formstack
     url(r'^get_finding/?\.*$', views.get_finding, name='get_finding'),
     url(r'^get_findings/?\.*$', views.get_findings, name='get_findings'),
