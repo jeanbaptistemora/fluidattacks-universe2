@@ -119,7 +119,7 @@
       src: "/tmp/moodledata.tar"
       dest: "/"
       copy: "no"
-      register: moodledata
+     register: moodledata
 
    - name: Hacer que Apache pueda conectarse fuera
      command: setsebool httpd_can_network_connect=1 httpd_can_network_connect_db=1
