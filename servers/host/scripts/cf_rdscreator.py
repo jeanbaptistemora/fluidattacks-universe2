@@ -35,14 +35,27 @@ class CFRDSCreator():
         self.template = Template()
         self.ref_stack_id = Ref('AWS::StackId')
         self.ref_region = Ref('AWS::Region')
-        self.VPC = self.create_vpc(self.template, iprangev, namev)
+        self.VPC = self.create_vpc(self.template, "172.35.0.0/16", namev)
 
         self.Subnet = self.create_subnet(self.template, self.VPC,
-                                         ipranges, names, REGION_NAME+'a')
+                                         "172.35.1.0/24", names,
+                                         REGION_NAME+'a')
 
         self.BDSubnet = self.create_subnet(self.template, self.VPC,
-                                           "192.168.100.64/26", "RDS",
+                                           "172.35.2.0/24", "RDS1",
                                            REGION_NAME+'b')
+
+        self.BDSubnet1 = self.create_subnet(self.template, self.VPC,
+                                            "172.35.3.0/24", "RDS2",
+                                            REGION_NAME+'c')
+
+        self.BDSubnet2 = self.create_subnet(self.template, self.VPC,
+                                            "172.35.4.0/24", "RDS3",
+                                            REGION_NAME+'d')
+
+        self.BDSubnet3 = self.create_subnet(self.template, self.VPC,
+                                            "172.35.5.0/24", "RDS4",
+                                            REGION_NAME+'e')
 
         self.InterGTW = self.create_intergtw(self.template,
                                              self.VPC, namegtw)
@@ -63,7 +76,10 @@ class CFRDSCreator():
                                     DBSubnetGroupDescription="Grupo de subnet \
                                     de Exams RDS",
                                     SubnetIds=[Ref(self.Subnet),
-                                               Ref(self.BDSubnet), ],
+                                               Ref(self.BDSubnet),
+                                               Ref(self.BDSubnet1),
+                                               Ref(self.BDSubnet2),
+                                               Ref(self.BDSubnet3)],
                                     )
         mydbsubnetgroup = self.template.add_resource(subnetgroup)
 
@@ -259,7 +275,7 @@ def main():
     passwd = dbdata[0].split()[2]
     creator.create_rds(name, username, passwd)
     cf_creator.deploy_cloudformation(creator.template.to_json(),
-                                     "FLUIDServesRDS",
+                                     "FLUIDServesRDS2",
                                      "FLUIDServes RDS", 3)
 
 
