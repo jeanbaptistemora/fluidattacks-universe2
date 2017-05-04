@@ -11,6 +11,7 @@ urlpatterns = [
     url(r'^index/?$', views.index, name='index'),
     url(r'^login/?$', services.login, name='login'),
     url(r'^dashboard/?$', views.dashboard, name='dashboard'),
+    url(r'^registration/?$', views.registration, name='registration'),
     url(r'^oauth/', include('social_django.urls', namespace='social')),
     url(r'^logout/?$', views.logout, name='logout'),
     # Consumo de servicios de formstack

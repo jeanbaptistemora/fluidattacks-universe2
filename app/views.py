@@ -20,9 +20,22 @@ def index(request):
     return render(request, "index.html", parameters)
 
 @csrf_exempt
+def registration(request):
+    "Vista de registro para usuarios autenticados"
+    parameters = {}
+    if not util.is_authenticated(request): 
+        return HttpResponse('Unauthorized <script>location = "/index"; </script>', status=401)
+    parameters = {
+        'username': request.session["username"]
+    }
+    if util.is_registered(request):
+        return render(request, "dashboard.html", parameters)
+    return render(request, "registration.html", parameters)
+
+@csrf_exempt
 def dashboard(request):
     "Vista de panel de control para usuarios autenticados"
-    if not util.is_authenticated(request):
+    if not util.is_authorized(request):
         return HttpResponse('Unauthorized <script>location = "/index"; </script>', status=401)
     parameters = {
         'username': request.session["username"]
@@ -32,10 +45,10 @@ def dashboard(request):
 @csrf_exempt
 def logout(request):
     "Cierra la sesion activa de un usuario"
-    request.session["username"] = None
-    request.session["company"] = None
-    request.session["role"] = None
-    request.session["registered"] = None
+    del(request.session["username"])
+    del(request.session["company"])
+    del(request.session["role"])
+    del(request.session["registered"])
     return redirect("/index")
 
 @csrf_exempt
@@ -73,7 +86,7 @@ def export_autodoc(request):
             "path": "/var/www/fluid-integrates/app/autodoc/results/:P.pptx"
         }
     }
-    if not util.is_authenticated(request):
+    if not util.is_authorized(request):
         return HttpResponse('Unauthorized', status=401)
     try:
         kind = request.GET.get("format", "").strip()
@@ -100,7 +113,7 @@ def export_autodoc(request):
 def generate_autodoc(request):
     "Genera la documentacion automatica en excel"
     start_time = time.time()
-    if not util.is_authenticated(request):
+    if not util.is_authorized(request):
         return HttpResponse('Unauthorized', status=401)
     project = request.POST.get('project', "")
     data = request.POST.get('data', None)
@@ -127,7 +140,7 @@ def generate_autodoc(request):
 @csrf_exempt
 def get_findings(request):
     "Captura y procesa el nombre de un proyecto para devolver los hallazgos"
-    if not util.is_authenticated(request):
+    if not util.is_authorized(request):
         return HttpResponse('Unauthorized <script>location = "/index"; </script>', status=401)
     project = request.GET.get('project', None)
     filtr = request.GET.get('filter', None)
@@ -156,7 +169,7 @@ def get_findings(request):
 
 @csrf_exempt
 def get_finding(request):
-    if not util.is_authenticated(request):
+    if not util.is_authorized(request):
         return HttpResponse('Unauthorized <script>location = "/index"; </script>', status=401)
     project_id = request.POST.get('id', None)
     if util.is_numeric(project_id):
@@ -171,7 +184,7 @@ def get_finding(request):
 @csrf_exempt
 def get_eventualities(request):
     """Obtiene las eventualidades con el nombre del proyecto"""
-    if not util.is_authenticated(request):
+    if not util.is_authorized(request):
         return HttpResponse('Unauthorized', status=401)
     project = request.GET.get('project', None)
     category = request.GET.get('category', None)
@@ -212,7 +225,7 @@ def get_eventualities(request):
 @csrf_exempt
 def delete_finding(request):
     """Captura y procesa el id de una eventualidad para eliminarla"""
-    if not util.is_authenticated(request):
+    if not util.is_authorized(request):
         return HttpResponse('Unauthorized', status=401)
     post_parms = request.POST.dict()
     if "vuln[hallazgo]" not in post_parms \
@@ -240,7 +253,7 @@ def delete_finding(request):
 @require_http_methods(["GET"])
 def get_order(request):
     """ Obtiene de formstack el id de pedido relacionado con un proyecto """
-    if not util.is_authenticated(request):
+    if not util.is_authorized(request):
         return HttpResponse('Unauthorized <script>location = "/index"; </script>', status=401)
     project_name = request.GET.get('project', None)
     if util.is_name(project_name):
@@ -262,7 +275,7 @@ def get_order(request):
 @require_http_methods(["POST"])
 def update_order(request):
     """ Actualiza el nombre de proyecto del id de pedido relacionado """
-    if not util.is_authenticated(request):
+    if not util.is_authorized(request):
         return HttpResponse('Unauthorized <script>location = "/index"; </script>', status=401)
     project_name = request.POST.get('project', None)
     order_id = request.POST.get('id', None)
@@ -280,7 +293,7 @@ def update_order(request):
 @csrf_exempt
 def update_eventuality(request):
     "Captura y procesa los parametros para actualizar una eventualidad"
-    if not util.is_authenticated(request):
+    if not util.is_authorized(request):
         return HttpResponse('Unauthorized', status=401)
     post_parms = request.POST.dict()
     action = ""
@@ -310,7 +323,7 @@ def update_eventuality(request):
 @csrf_exempt
 def update_finding(request):
     "Captura y procesa los parametros para actualizar un hallazgo"
-    if not util.is_authenticated(request):
+    if not util.is_authorized(request):
         return HttpResponse('Unauthorized', status=401)
     post_parms = request.POST.dict()
     if "vuln[proyecto_fluid]" not in post_parms \
