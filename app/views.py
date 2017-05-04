@@ -35,6 +35,7 @@ def logout(request):
     request.session["username"] = None
     request.session["company"] = None
     request.session["role"] = None
+    request.session["registered"] = None
     return redirect("/index")
 
 @csrf_exempt

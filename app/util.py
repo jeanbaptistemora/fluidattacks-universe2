@@ -11,7 +11,7 @@ from django.http import JsonResponse
 def is_authenticated(request):
     """ Verifica si existe una sesion en el sistema"""
     if "username" in request.session:
-        if request.session["username"] is None:
+        if request.session["username"] is None or not request.session.has_key("registered"):
             return False
         return True
     return False

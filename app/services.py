@@ -24,12 +24,14 @@ def login(request):
             test_company = 'Bancolombia'
             test_role = 'admin'
             if username == test_user and password == test_pass:
-                pass
+                request.session['username'] = username
+                request.session['company'] = test_company
+                request.session['role'] = test_role
+                request.session['registered'] = "True"
             else:
                 fmanager.error(100)
     except (SecureParamsException, LogicException) as expt:
         return util.response([], str(expt), True)
     request.session['username'] = username
-    request.session['company'] = test_company
-    request.session['role'] = test_role
+    request.session['registered'] = "True"
     return util.response([], 'Bienvenido ' + username, False)
