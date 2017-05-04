@@ -48,6 +48,12 @@
                     <div class="form-group login-submit">
                       <button data-dismiss="modal" type="submit" class="btn btn-primary btn-lg" id="btn-login" ng-click="login()">Log me in</button>
                     </div>
+		    <div>
+			    <a href="{% url 'social:begin' 'facebook' %}?username={{ value }}">Login with Facebook</a>
+		    </div>
+		    <div>
+			    <a href="{% url 'social:begin' 'twitter' %}?username={{ value }}">Login with Twitter</a>
+		    </div>
                   </div>
                 </form>
               </div>

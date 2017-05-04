@@ -1,7 +1,7 @@
 """
     Archivo para relacion de rutas entre consultas http y vistas de django
 """
-from django.conf.urls import url
+from django.conf.urls import url, include
 from . import views
 from . import services
 
@@ -11,8 +11,8 @@ urlpatterns = [
     url(r'^index/?$', views.index, name='index'),
     url(r'^login/?$', services.login, name='login'),
     url(r'^dashboard/?$', views.dashboard, name='dashboard'),
-    url(r'^logout/?$', views.logout, name='logout'),
     url(r'^oauth/', include('social_django.urls', namespace='social')),
+    url(r'^logout/?$', views.logout, name='logout'),
     # Consumo de servicios de formstack
     url(r'^get_finding/?\.*$', views.get_finding, name='get_finding'),
     url(r'^get_findings/?\.*$', views.get_findings, name='get_findings'),
