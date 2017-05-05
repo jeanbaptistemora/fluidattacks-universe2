@@ -27,7 +27,6 @@
       - unzip
       - cron
       - python-boto
-      - policycoreutils
 
    - name: Retirar index
      file:
