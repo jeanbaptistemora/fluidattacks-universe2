@@ -71,7 +71,7 @@ class FormstackAPITests(TestCase):
         self.assertIs(http_session.is_auth, True)
 
     def get_integrates_cookies(self):
-        """Log in to integrastes and return valid cookie."""
+        """Log in to integrates and return valid cookie."""
         login_url = 'http://localhost/login'
         http_session = http_helper.HTTPSession(login_url)
 
@@ -83,3 +83,13 @@ class FormstackAPITests(TestCase):
         if not http_session.is_auth:
             return {}
         return http_session.cookies
+
+    def search_project(self):
+        """Perform a project search in integrates."""
+        
+        url = 'http://localhost/get_findings?project=HAYES'
+        cookies = self.get_integrates_cookies()
+        success_text = 'Se generan sentencias SQL'
+        http_session = http_helper.HTTPSession(url, cookies=cookies)
+        self.assertIs(success_text in http_session.response.text, True)
+
