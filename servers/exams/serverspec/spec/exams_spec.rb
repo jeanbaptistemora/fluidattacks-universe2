@@ -1,9 +1,5 @@
 require 'spec_helper'
 
-describe file('/var/lib/mysql/moodle') do
-  it { should be_directory }
-end
-
 describe file('/var/www/moodledata') do
   it { should be_directory }
 end
