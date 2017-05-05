@@ -64,7 +64,7 @@ class FormstackAPITests(TestCase):
         login_url = 'http://localhost/login'
         http_session = http_helper.HTTPSession(login_url)
 
-        http_session.data = 'user=customer%40bancolombia.com.co&pass=uso4Suzi'
+        http_session.data = 'user=customer%40bancolombia.com.co&pass=yaech2saiFooh5Ahz4yaig5al'
 
         successful_text = 'Bienvenido customer@bancolombia'
         http_session.formauth_by_response(successful_text)
