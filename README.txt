@@ -1,6 +1,6 @@
 1)
-apt remove apache2 && apt purge apache2 
-sudo apt install git python python-pip apache2 libapache2-mod-python libapache2-mod-wsgi libapache2-mod-wsgi-py3
+sudo apt purge apache2 
+sudo apt install git python python-pip apache2 libapache2-mod-wsgi libapache2-mod-wsgi-py3
 pip install --upgrade pip
 #opcional para python-pptx
 sudo apt install libtiff5-dev libjpeg8-dev zlib1g-dev libfreetype6-dev liblcms2-dev libwebp-dev tcl8.6-dev tk8.6-dev python-tk
@@ -15,7 +15,7 @@ sudo chown www-data:www-data /var/www/fluid-integrates
 nano /etc/apache2/sites-available/000-default.conf
 <VirtualHost *:80>
     WSGIScriptAlias / /var/www/fluid-integrates/fluidintegrates/apache/wsgi.py
-	ServerAdmin glopez@fluid.la
+	ServerAdmin engineering@fluid.la
 	Alias /assets/ /var/www/fluid-integrates/app/assets/
     <Directory "/var/www/fluid-integrates/fluidintegrates/apache/">
 		Require all granted

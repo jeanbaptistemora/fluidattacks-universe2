@@ -178,18 +178,14 @@ class FormstackRequestMapper(object):
 
 class FormstackAPI(object):
 
-    headers_config = None
+    headers_config = {}
     TOKEN = "aefb128ba610da7e8d9e0b6ff86d9d7a"
 
     def __init__(self):
         " Constructor "
-        self.headers_config = {
-            'headers':{ 
-                'User-agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36' \
-                    + '(KHTML, like Gecko) Chrome/52.0.2743.116 Safari/537.36'
-            }
-        }
-        
+        self.headers_config['User-Agent'] = 'Mozilla/5.0 (X11; Linux x86_64) \
+AppleWebKit/537.36 (KHTML, like Gecko) FLUIDIntegrates/1.0'
+
     @retry(retry_on_exception=ConnectionError, stop_max_attempt_number=5)
     def request(self, method, url, data=None):
         " Construye las peticiones usadas para consultar Formstack "
@@ -258,7 +254,8 @@ class FormstackAPI(object):
 
     def get_order(self, project):
         " Obtiene un pedido bancolombia a partir del nombre de proyecto "
-        url = "https://www.formstack.com/api/v2/form/1925068/submission.json"
+        #url = "https://www.formstack.com/api/v2/form/1925068/submission.json"
+        url = "https://www.formstack.com/api/v2/form/1893765/submission.json"
         search_field = "48092369"
         data = {'search_field_1': search_field, 'search_value_1': project}
         return self.request("GET", url, data=data)
@@ -316,7 +313,7 @@ class OneLoginAPI(object):
     
     API_KEY = "e5996692a9bf56a66f8d4542948c47ac7913c505"
     APP_ID = "476874"
-    headers_config = None
+    headers_config = {} 
     username = ""
     password = ""
 
@@ -324,13 +321,8 @@ class OneLoginAPI(object):
         """ Constructor """
         self.username = username
         self.password = password
-        self.headers_config = {
-            'headers':{
-                'User-agent': 'Mozilla/5.0 (X11; Linux x86_64) \
-                    AppleWebKit/537.36 (KHTML, like Gecko) \
-                    Chrome/52.0.2743.116 Safari/537.36'
-            }
-        }
+        self.headers_config['User-Agent'] = 'Mozilla/5.0 (X11; Linux x86_64) \
+AppleWebKit/537.36 (KHTML, like Gecko) FLUIDIntegrates/1.0'
 
     def login(self):
         " Autentica un usuario utilizando la API de OneLogin "

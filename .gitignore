@@ -2,7 +2,6 @@ app/autodoc/results/*.xlsx
 app/autodoc/results/*.pptx
 !app/autodoc/templates/*.pptx
 !app/autodoc/templates/*.xlsx
-logs/*.err
-logs/*.log
+logs
 *.pyc
 *.sqlite3
