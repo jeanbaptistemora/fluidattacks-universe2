@@ -45,10 +45,14 @@ def dashboard(request):
 @csrf_exempt
 def logout(request):
     "Cierra la sesion activa de un usuario"
+
     del(request.session["username"])
-    del(request.session["company"])
-    del(request.session["role"])
-    del(request.session["registered"])
+    try:
+        del(request.session["company"])
+        del(request.session["role"])
+        del(request.session["registered"])
+    except:
+        pass
     return redirect("/index")
 
 @csrf_exempt
