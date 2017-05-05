@@ -20,7 +20,7 @@ def login(request):
         if not OneLoginAPI(username, password).login():
             # FIXME: This is only for testing purposes
             test_user = 'customer@bancolombia.com.co'
-            test_pass = 'uso4Suzi'
+            test_pass = 'yaech2saiFooh5Ahz4yaig5al'
             test_company = 'Bancolombia'
             test_role = 'admin'
             if username == test_user and password == test_pass:
