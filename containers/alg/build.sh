@@ -11,7 +11,7 @@ set -e
 SERVER="alg"
 
 # Mensaje de inicio
-echo "---### Compilando contenedor."
+echo "---### [${SERVER$}] Compilando contenedor."
 
 # construir la imagen
 cp ~/.vault.txt containers/${SERVER}/

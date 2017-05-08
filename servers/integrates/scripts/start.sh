@@ -13,7 +13,7 @@ set -e
 source servers/integrates/vars/env.sh
 
 # Mensaje de inicio
-echo "---### Iniciando contenedor."
+echo "---### [$SERVICE] Iniciando contenedor."
 
 # iniciar contenedor si no ha iniciado
 if [ -z $(docker ps -q -f name="$SERVICE") ]; then
