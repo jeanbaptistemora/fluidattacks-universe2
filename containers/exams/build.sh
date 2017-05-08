@@ -11,7 +11,7 @@ set -e
 SERVER="exams"
 
 # Mensaje de inicio
-echo "---### [${SERVER$}] Compilando contenedor."
+echo "---### [${SERVER}] Compilando contenedor."
 
 # construir la imagen
 cp ~/.vault.txt containers/${SERVER}/
