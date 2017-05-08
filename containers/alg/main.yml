@@ -1,5 +1,6 @@
 ---
 - hosts: alg
+  connection: local
 
   become: "yes"
 

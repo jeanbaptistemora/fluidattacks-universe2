@@ -1,5 +1,6 @@
 ---
 - hosts: exams
+  connection: local
 
   become: "yes"
 
