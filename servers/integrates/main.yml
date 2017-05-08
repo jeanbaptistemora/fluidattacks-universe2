@@ -93,6 +93,10 @@
      when: makemigrate
      register: migrate
 
+   - name: Quitar mod python
+     command: "a2dismod python"
+     when: migrate
+
    - name: Cambiar permisos
      file:
       path: /var/www/fluid-integrates/db.sqlite3
