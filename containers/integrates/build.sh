@@ -8,13 +8,12 @@ fi
 # Salir inmediatamente si algun comando retorna diferente de cero.
 set -e
 
-# importar entorno
-#source $(git rev-parse --show-toplevel)/servers/integrates/vars/env.sh
-source servers/integrates/vars/env.sh
+SERVER="integrates"
 
 # Mensaje de inicio
 echo "---### Compilando contenedor."
 
 # construir la imagen
-docker build -t fluidsignal/fluidserves:"$SERVICE" \
-             containers/ubuntu
+cp ~/.vault.txt containers/${SERVER}/
+docker build -t fluidsignal/fluidserves${SERVER}:latest containers/${SERVER}
+rm containers/${SERVER}/.vault.txt
