@@ -9,10 +9,12 @@ from django.views.decorators.http import require_http_methods
 from django.views.decorators.debug import sensitive_post_parameters
 from django.http import HttpResponse
 from . import models, util
+from .decorators import authenticate, authorize
 from models import FormstackAPI, FormstackRequestMapper, OneLoginAPI
 from autodoc import IE, IT
 import time
 from .mailer import Mailer
+
 
 def index(request):
     "Vista de login para usuarios no autenticados"
@@ -20,6 +22,7 @@ def index(request):
     return render(request, "index.html", parameters)
 
 @csrf_exempt
+@authenticate
 def registration(request):
     "Vista de registro para usuarios autenticados"
     parameters = {}
@@ -33,12 +36,12 @@ def registration(request):
     return render(request, "registration.html", parameters)
 
 @csrf_exempt
+@authorize(['admin','customer'])
 def dashboard(request):
     "Vista de panel de control para usuarios autenticados"
-    if not util.is_authorized(request):
-        return HttpResponse('Unauthorized <script>location = "/index"; </script>', status=401)
     parameters = {
-        'username': request.session["username"]
+        'username': request.session["username"],
+        'role': request.session["role"]
     }
     return render(request, "dashboard.html", parameters)
 
@@ -57,6 +60,7 @@ def logout(request):
 
 @csrf_exempt
 @require_http_methods(["POST"])
+@authenticate
 def login(request):
     "Captura los parametros para la autenticacion"
     username = request.POST.get('user', None)
@@ -74,6 +78,7 @@ def login(request):
 # Documentacion automatica
 @csrf_exempt
 @require_http_methods(["GET"])
+@authorize(['admin'])
 def export_autodoc(request):
     "Captura y devuelve el pdf de un proyecto"
     detail = {
@@ -90,8 +95,6 @@ def export_autodoc(request):
             "path": "/var/www/fluid-integrates/app/autodoc/results/:P.pptx"
         }
     }
-    if not util.is_authorized(request):
-        return HttpResponse('Unauthorized', status=401)
     try:
         kind = request.GET.get("format", "").strip()
         project = request.GET.get('project', "")
@@ -114,11 +117,10 @@ def export_autodoc(request):
 
 @csrf_exempt
 @require_http_methods(["POST"])
+@authorize(['admin'])
 def generate_autodoc(request):
     "Genera la documentacion automatica en excel"
     start_time = time.time()
-    if not util.is_authorized(request):
-        return HttpResponse('Unauthorized', status=401)
     project = request.POST.get('project', "")
     data = request.POST.get('data', None)
     kind = request.POST.get('format',"")
@@ -142,10 +144,9 @@ def generate_autodoc(request):
     return util.response([], 'Error...', True)
 
 @csrf_exempt
+@authorize(['admin','customer'])
 def get_findings(request):
     "Captura y procesa el nombre de un proyecto para devolver los hallazgos"
-    if not util.is_authorized(request):
-        return HttpResponse('Unauthorized <script>location = "/index"; </script>', status=401)
     project = request.GET.get('project', None)
     filtr = request.GET.get('filter', None)
     if not project:
@@ -172,9 +173,8 @@ def get_findings(request):
                 return util.response(findings, 'Success', False)
 
 @csrf_exempt
+@authorize(['admin','customer'])
 def get_finding(request):
-    if not util.is_authorized(request):
-        return HttpResponse('Unauthorized <script>location = "/index"; </script>', status=401)
     project_id = request.POST.get('id', None)
     if util.is_numeric(project_id):
         API = FormstackAPI()
@@ -186,10 +186,9 @@ def get_finding(request):
         return util.response([], 'Empty fields', True)
 
 @csrf_exempt
+@authorize(['admin'])
 def get_eventualities(request):
     """Obtiene las eventualidades con el nombre del proyecto"""
-    if not util.is_authorized(request):
-        return HttpResponse('Unauthorized', status=401)
     project = request.GET.get('project', None)
     category = request.GET.get('category', None)
     if not category:
@@ -227,10 +226,9 @@ def get_eventualities(request):
                     return util.response([], 'Debes ingresar un ID numerico!', True)
 
 @csrf_exempt
+@authorize(['admin'])
 def delete_finding(request):
     """Captura y procesa el id de una eventualidad para eliminarla"""
-    if not util.is_authorized(request):
-        return HttpResponse('Unauthorized', status=401)
     post_parms = request.POST.dict()
     if "vuln[hallazgo]" not in post_parms \
         or "vuln[proyecto_fluid]" not in post_parms \
@@ -255,10 +253,9 @@ def delete_finding(request):
   
 @csrf_exempt
 @require_http_methods(["GET"])
+@authorize(['admin'])
 def get_order(request):
     """ Obtiene de formstack el id de pedido relacionado con un proyecto """
-    if not util.is_authorized(request):
-        return HttpResponse('Unauthorized <script>location = "/index"; </script>', status=401)
     project_name = request.GET.get('project', None)
     if util.is_name(project_name):
         API = FormstackAPI()
@@ -277,10 +274,9 @@ def get_order(request):
 
 @csrf_exempt
 @require_http_methods(["POST"])
+@authorize(['admin'])
 def update_order(request):
     """ Actualiza el nombre de proyecto del id de pedido relacionado """
-    if not util.is_authorized(request):
-        return HttpResponse('Unauthorized <script>location = "/index"; </script>', status=401)
     project_name = request.POST.get('project', None)
     order_id = request.POST.get('id', None)
     if not util.is_name(project_name):
@@ -295,10 +291,9 @@ def update_order(request):
         return util.response([], 'Actualizado correctamente!', False)
 
 @csrf_exempt
+@authorize(['admin'])
 def update_eventuality(request):
     "Captura y procesa los parametros para actualizar una eventualidad"
-    if not util.is_authorized(request):
-        return HttpResponse('Unauthorized', status=401)
     post_parms = request.POST.dict()
     action = ""
     if "vuln[proyecto_fluid]" not in post_parms \
@@ -325,10 +320,9 @@ def update_eventuality(request):
         return util.response([], 'Actualizado correctamente!', False)
     
 @csrf_exempt
+@authorize(['admin'])
 def update_finding(request):
     "Captura y procesa los parametros para actualizar un hallazgo"
-    if not util.is_authorized(request):
-        return HttpResponse('Unauthorized', status=401)
     post_parms = request.POST.dict()
     if "vuln[proyecto_fluid]" not in post_parms \
         != "vuln[nivel]" not in post_parms \
