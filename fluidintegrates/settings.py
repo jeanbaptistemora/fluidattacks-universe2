@@ -158,6 +158,19 @@ SESSION_COOKIE_NAME = "Integratesv3"
 SESSION_COOKIE_AGE = 40*60
 
 # Social
+SOCIAL_AUTH_PIPELINE = (
+    'social_core.pipeline.social_auth.social_details',
+    'social_core.pipeline.social_auth.social_uid',
+    'social_core.pipeline.social_auth.auth_allowed',
+    'social_core.pipeline.social_auth.social_user',
+    'social_core.pipeline.user.get_username',
+    'social_core.pipeline.social_auth.associate_by_email',
+    'social_core.pipeline.user.create_user',
+    'social_core.pipeline.social_auth.associate_user',
+    'social_core.pipeline.social_auth.load_extra_data',
+    'social_core.pipeline.user.user_details',
+)
+
 LOGIN_URL = 'login'
 LOGOUT_URL = 'logout'
 LOGIN_REDIRECT_URL = 'registration'
@@ -165,9 +178,14 @@ FIELDS_STORED_IN_SESSION = ['username']
 
 SOCIAL_AUTH_FACEBOOK_KEY = '726001610940359'
 SOCIAL_AUTH_FACEBOOK_SECRET = '524fada3c3ca5adgb279da535da1d863'
+SOCIAL_AUTH_FACEBOOK_SCOPE = ['email']
 
 SOCIAL_AUTH_TWITTER_KEY = 'qhAxMXTOjEnTCSGCHn8Rz9TIg'
 SOCIAL_AUTH_TWITTER_SECRET = 'f4mWMboCK86MR06XcA6z1a5bLFpZCIAzxLdQuM4yod08B57oLp'
+SOCIAL_AUTH_TWITTER_SCOPE = ['email']
+SOCIAL_AUTH_TWITTER_PROFILE_EXTRA_PARAMS = {
+        'fields': 'email'
+        }
 
 SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = '65328559770-aatq8b00rvk05qn2h523hn328drt9ehc.apps.googleusercontent.com'
 SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = 'gvd_U6HtBlyKsSynPpz6LRd-'
