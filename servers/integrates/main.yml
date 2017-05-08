@@ -51,6 +51,7 @@
       - lxml
       - decorators
       - retrying
+      - social-auth-app-django
 
    - name: Agregar netrc
      template:

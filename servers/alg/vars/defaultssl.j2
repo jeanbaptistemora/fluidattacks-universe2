@@ -37,6 +37,10 @@
         ProxyPassReverse /integrates http://fluid.la:8000
         RewriteRule ^/assets(.*)$           http://fluid.la:8000/assets$1        [P,L]
         ProxyPassReverse /assets http://fluid.la:8000/assets
+        RewriteRule ^/oauth(.*)$           http://fluid.la:8000/oauth$1        [P,L]
+        ProxyPassReverse /oauth http://fluid.la:8000/oauth
+        RewriteRule ^/index(.*)$           http://fluid.la:8000/index$1        [P,L]
+        ProxyPassReverse /index http://fluid.la:8000/index
 
     # KB - Knowledgeowl
 	Header edit Location ^http://kb.fluid.la(.*)$ https://fluid.la$1
