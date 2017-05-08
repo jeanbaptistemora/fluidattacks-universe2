@@ -31,7 +31,7 @@ if [ -z $(docker ps -q -f name="$SERVICE") ]; then
 		-p 22002:22 \
 		-p 8000:80 \
 		-e SSH_KEY="$(cat ~/.ssh/"$SERVICE"_facont_id_rsa.pub)" \
-		fluidsignal/fluidserves:"$SERVICE"
+		fluidsignal/fluidserves:latest
 
   echo "Esperando que el puerto 22002 de SSH este abierto."
   until nc -z $IP 22002; do : sleep 0.2; done
