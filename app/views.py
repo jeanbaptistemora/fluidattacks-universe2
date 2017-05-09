@@ -26,14 +26,10 @@ def index(request):
 @authenticate
 def registration(request):
     "Vista de registro para usuarios autenticados"
-    parameters = {}
-    if not util.is_authenticated(request): 
-        return HttpResponse('Unauthorized <script>location = "/index"; </script>', status=401)
     parameters = {
-        'username': request.session["username"]
+        'username': request.session["username"],
+        'is_registered': request.session["registered"],
     }
-    if util.is_registered(request):
-        return render(request, "dashboard.html", parameters)
     return render(request, "registration.html", parameters)
 
 @csrf_exempt
