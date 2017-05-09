@@ -26,7 +26,7 @@ def authorize(roles):
                 "registered" not in request.session or \
                 request.session['role'] not in roles:
                     if 'any' not in roles:
-                        return HttpResponse('<script>alert("No tiene permisos para esto"; location = "/index"; </script>', status=401)
+                        return HttpResponse('<script>alert("No tiene permisos para esto"); location = "/index"; </script>', status=401)
             return func(*args, **kwargs)
         return authorize_and_call
     return wrapper
