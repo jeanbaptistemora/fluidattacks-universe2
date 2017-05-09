@@ -68,7 +68,7 @@ class FormstackAPITests(TestCase):
 
         http_session.data = \
             'user=customer%40bancolombia.com.co&\
-            pass=yaech2saiFooh5Ahz4yaig5al'
+pass=yaech2saiFooh5Ahz4yaig5al'
 
         successful_text = 'Bienvenido customer@bancolombia'
         http_session.formauth_by_response(successful_text)
@@ -81,7 +81,7 @@ class FormstackAPITests(TestCase):
 
         http_session.data = \
             'user=customer%40bancolombia.com.co&\
-            pass=yaech2saiFooh5Ahz4yaig5al'
+pass=yaech2saiFooh5Ahz4yaig5al'
 
         successful_text = 'Bienvenido customer@bancolombia'
         http_session.formauth_by_response(successful_text)
