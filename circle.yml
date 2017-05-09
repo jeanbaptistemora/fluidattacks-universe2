@@ -51,15 +51,7 @@ jobs:
       - run:
           name: Start
           command: ./start.sh && bundle install
-      - run:
-          name: Make exams tests
-          command: cd servers/exams/serverspec && bundle exec rake spec
-      - run:
-          name: Make alg tests
-          command: cd servers/alg/serverspec && bundle exec rake spec
-      - run:
-          name: Make aws tests
-          command: cd servers/host/serverspec && bundle exec rake spec
+
       - run:
           name: Install FLUIDAsserts
           command: >

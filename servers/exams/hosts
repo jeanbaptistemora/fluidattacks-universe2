@@ -1,7 +1,0 @@
-[exams]
-127.0.0.1:22001
-
-[exams:vars]
-# Ansible Variables
-ansible_user = root
-ansible_ssh_common_args = -F "{{ lookup('env', 'HOME') }}/.ssh/config.facont.exams"

@@ -17,7 +17,7 @@ import cf_creator
 # GLOBAL VARIABLES
 KEYNAME = "FLUIDServes_Dynamic"
 INSTANCE = "FLUIDServesInstance"
-IMAGE_ID = "ami-49e5cb5e"
+IMAGE_ID = "ami-ad593cbb"
 INSTANCE_TYPE = "t2.small"
 REGION_NAME = 'us-east-1'
 STACK_NAME = 'FLUIDServesDynamicTest'

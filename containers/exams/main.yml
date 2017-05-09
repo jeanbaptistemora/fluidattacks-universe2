@@ -1,5 +1,5 @@
 ---
-- hosts: exams
+- hosts: localhost
 
   become: "yes"
 
