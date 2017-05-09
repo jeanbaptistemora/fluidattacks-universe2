@@ -2,6 +2,7 @@
 - name: Installs docker host file for fluid-serves
   hosts: container
   become: "yes"
+
   vars:
     destdir: /tmp/fluid-serves
     vault_pass: "{{ lookup('env','VAULT') }}"
@@ -19,42 +20,16 @@
     - name: Incluir variables de configuracion
       include_vars: vars/vars.yml
 
-    - name: Add docker repo key
-      apt_key:
-        keyserver: p80.pool.sks-keyservers.net
-        id: 58118E89F3A912897C070ADBF76221572C52609D
-
-    - name: Add ansible repo key
-      apt_key:
-        keyserver: p80.pool.sks-keyservers.net
-        id: 93C4A3FD7BB9C367
-
-    - name: Add docker repo
-      apt_repository:
-        repo: deb https://apt.dockerproject.org/repo debian-jessie main
-        state: present
-
-    - name: Add ansible repo
-      apt_repository:
-        repo: deb http://ppa.launchpad.net/ansible/ansible/ubuntu trusty main
-        state: present
-
-    - name: Install dependencies
-      apt: name={{ item }} update_cache=yes cache_valid_time=3600
-      with_items:
-        - software-properties-common
-        - apt-transport-https
-        - ca-certificates
-        - sudo
-        - dnsutils
-        - docker-engine
-        - ansible
-
     - name: Agregar netrc
       template:
         src: "vars/netrc.j2"
         dest: "/root/.netrc"
         mode: "0600"
+      register: confvars
+
+    - name: Copy vault
+      command: cp /home/core/.vault.txt /root/
+      when: confvars
 
     - name: View if exist .vault.txt
       local_action: stat path="/root/.vault.txt"
@@ -64,7 +39,7 @@
       git:
         repo: "https://jrestrepoatfluid@bitbucket.org/fluidsignal/fluid-serves.git"
         dest: "/root/fluid-serves"
-        version: "jarmas"
+        version: "master"
       register: repo
 
     - name: Retirar git conf

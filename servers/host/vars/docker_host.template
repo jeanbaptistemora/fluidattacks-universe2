@@ -3,5 +3,6 @@ __ip_address__
 [container:vars]
 
 # Ansible Variables
-ansible_user = admin
+ansible_user = core
+ansible_python_interpreter="/opt/bin/python"
 ansible_ssh_common_args = -i /tmp/FLUIDServes_Dynamic.pem
