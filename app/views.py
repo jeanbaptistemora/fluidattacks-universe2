@@ -14,6 +14,7 @@ from models import FormstackAPI, FormstackRequestMapper, OneLoginAPI
 from autodoc import IE, IT
 import time
 from .mailer import Mailer
+from .services import has_access_to_project
 
 
 def index(request):
@@ -81,6 +82,12 @@ def login(request):
 @authorize(['admin'])
 def export_autodoc(request):
     "Captura y devuelve el pdf de un proyecto"
+    project = request.GET.get('project', "")
+    username = request.session['username']
+    
+    if not has_access_to_project(username, project):
+        return HttpResponse('<script>alert("No tiene permisos para esto"; location = "/index"; </script>', status=401)
+    
     detail = {
         "IT": {
             "content_type": "application/vnd.openxmlformats\
@@ -97,7 +104,6 @@ def export_autodoc(request):
     }
     try:
         kind = request.GET.get("format", "").strip()
-        project = request.GET.get('project', "")
         if kind != "IE" != kind != "IT":
             raise Exception('Este evento de seguridad sera registrado')
         filename = detail[kind]["path"].replace(":P",project)
@@ -120,8 +126,13 @@ def export_autodoc(request):
 @authorize(['admin'])
 def generate_autodoc(request):
     "Genera la documentacion automatica en excel"
-    start_time = time.time()
     project = request.POST.get('project', "")
+    username = request.session['username']
+
+    if not has_access_to_project(username, project):
+        return HttpResponse('<script>alert("No tiene permisos para esto"; location = "/index"; </script>', status=401)
+
+    start_time = time.time()
     data = request.POST.get('data', None)
     kind = request.POST.get('format',"")
     if kind != "IE" != kind != "IT":
@@ -148,6 +159,11 @@ def generate_autodoc(request):
 def get_findings(request):
     "Captura y procesa el nombre de un proyecto para devolver los hallazgos"
     project = request.GET.get('project', None)
+    username = request.session['username']
+    
+    if not has_access_to_project(username, project):
+        return HttpResponse('<script>alert("No tiene permisos para esto"; location = "/index"; </script>', status=401)
+
     filtr = request.GET.get('filter', None)
     if not project:
         return util.response([], 'Empty fields', True)
@@ -172,6 +188,7 @@ def get_findings(request):
                             findings.append(finding_parsed)
                 return util.response(findings, 'Success', False)
 
+# FIXME: Need to add access control to this function
 @csrf_exempt
 @authorize(['admin','customer'])
 def get_finding(request):
@@ -190,6 +207,11 @@ def get_finding(request):
 def get_eventualities(request):
     """Obtiene las eventualidades con el nombre del proyecto"""
     project = request.GET.get('project', None)
+    username = request.session['username']
+    
+    if not has_access_to_project(username, project):
+        return HttpResponse('<script>alert("No tiene permisos para esto"; location = "/index"; </script>', status=401)
+
     category = request.GET.get('category', None)
     if not category:
         category = "Name"
@@ -225,6 +247,7 @@ def get_eventualities(request):
                 else:
                     return util.response([], 'Debes ingresar un ID numerico!', True)
 
+# FIXME: Need to add access control to this function
 @csrf_exempt
 @authorize(['admin'])
 def delete_finding(request):
@@ -257,6 +280,11 @@ def delete_finding(request):
 def get_order(request):
     """ Obtiene de formstack el id de pedido relacionado con un proyecto """
     project_name = request.GET.get('project', None)
+    username = request.session['username']
+    
+    if not has_access_to_project(username, project):
+        return HttpResponse('<script>alert("No tiene permisos para esto"; location = "/index"; </script>', status=401)
+
     if util.is_name(project_name):
         API = FormstackAPI()
         order_id = API.get_order(project_name)
@@ -278,6 +306,11 @@ def get_order(request):
 def update_order(request):
     """ Actualiza el nombre de proyecto del id de pedido relacionado """
     project_name = request.POST.get('project', None)
+    username = request.session['username']
+    
+    if not has_access_to_project(username, project):
+        return HttpResponse('<script>alert("No tiene permisos para esto"; location = "/index"; </script>', status=401)
+
     order_id = request.POST.get('id', None)
     if not util.is_name(project_name):
         return util.response([], 'Campos vacios', True)
@@ -290,6 +323,7 @@ def update_order(request):
     else:
         return util.response([], 'Actualizado correctamente!', False)
 
+# FIXME: Need to add access control to this function
 @csrf_exempt
 @authorize(['admin'])
 def update_eventuality(request):
@@ -318,7 +352,8 @@ def update_eventuality(request):
         return util.response([], 'No se pudo actualizar formstack', True)
     else:
         return util.response([], 'Actualizado correctamente!', False)
-    
+
+# FIXME: Need to add access control to this function
 @csrf_exempt
 @authorize(['admin'])
 def update_finding(request):
