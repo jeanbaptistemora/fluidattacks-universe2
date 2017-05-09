@@ -13,8 +13,8 @@ dependencies:
     - sudo apt-get install apache2 git python python-pip libapache2-mod-wsgi libapache2-mod-python curl
     - sudo pip install --upgrade pip setuptools
     - sudo apt-get install libtiff5-dev libjpeg8-dev zlib1g-dev libfreetype6-dev liblcms2-dev libwebp-dev tcl8.6-dev tk8.6-dev python-tk
-    - sudo apt-get install libxml2-dev libxslt1-dev python-dev
-    - sudo pip install -U django requests openpyxl lxml python-pptx pyyaml decorators retrying urllib3 fluidasserts social-auth-app-django pylint pylint-django prospector
+    - sudo apt-get install libxml2-dev libxslt1-dev python-dev libmysqlclient-dev
+    - sudo pip install -U django requests openpyxl lxml python-pptx pyyaml decorators retrying urllib3 fluidasserts social-auth-app-django pylint pylint-django prospector mysqlclient
     - sudo cp -a /home/ubuntu/fluid-integrates/ /var/www/
     - cat /var/www/fluid-integrates/config/db-schema.sql | mysql -uroot -p${MYSQLPASS} -h fluidservesexams.cgsvzmr33idc.us-east-1.rds.amazonaws.com
     - sudo python /var/www/fluid-integrates/manage.py makemigrations

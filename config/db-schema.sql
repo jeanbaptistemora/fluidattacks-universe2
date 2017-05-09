@@ -23,4 +23,3 @@ CREATE TABLE IF NOT EXISTS projects (
     user_id INT NOT NULL,
     project varchar(255) NOT NULL
 ) ENGINE=INNODB;
-
