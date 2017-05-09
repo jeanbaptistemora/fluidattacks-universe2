@@ -80,8 +80,15 @@ WSGI_APPLICATION = 'fluidintegrates.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': '/var/www/fluid-integrates/db.sqlite3',
+        'ENGINE': 'django.db.backends.mysql', 
+        'NAME': 'django',
+        'USER': 'root',
+        'PASSWORD': '9O32032;E5q]VIj',
+        'HOST': 'fluidservesexams.cgsvzmr33idc.us-east-1.rds.amazonaws.com', 
+        'PORT': '3306',
+        'OPTIONS': {
+            'sql_mode': 'STRICT_TRANS_TABLES',
+        }
     }
 }
 

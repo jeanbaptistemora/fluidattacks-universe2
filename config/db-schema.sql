@@ -1,8 +1,9 @@
-CREATE DATABASE if not exists fluidintegrates;
+CREATE DATABASE IF NOT EXISTS django CHARACTER SET utf8 COLLATE utf8_bin;
+CREATE DATABASE IF NOT EXISTS fluidintegrates;
 
 USE fluidintegrates;
 
-CREATE TABLE users (
+CREATE TABLE IF NOT EXISTS users (
     id INT NOT NULL AUTO_INCREMENT,
     username varchar(255) DEFAULT NULL,
     registered char(1) DEFAULT 'N',
@@ -13,12 +14,12 @@ CREATE TABLE users (
     PRIMARY KEY (id)
 ) ENGINE=INNODB;
 
-CREATE TABLE roles (
+CREATE TABLE IF NOT EXISTS roles (
     user_id INT NOT NULL,
     role varchar(255) NOT NULL
 ) ENGINE=INNODB;
 
-CREATE TABLE projects (
+CREATE TABLE IF NOT EXISTS projects (
     user_id INT NOT NULL,
     project varchar(255) NOT NULL
 ) ENGINE=INNODB;
