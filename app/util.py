@@ -25,7 +25,7 @@ def traceability(msg, user):
     base = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
     try:
         filename = base + "/logs/integrates.log"
-        logmsg = str(datetime.datetime.now()) + "," + user+ "," + msg
+        logmsg = str(datetime.datetime.now()) + "," + user + "," + msg
         file_obj = open(filename, 'a')
         file_obj.write(logmsg)
         file_obj.close()

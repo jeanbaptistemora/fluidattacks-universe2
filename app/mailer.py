@@ -26,11 +26,12 @@ class Mailer(object):
             timeout=self.timeout
         )
 
-
     def __tpl_delete_finding(self):
         """Funcion que retorna el formato HTML del correo
             que se envia al eliminar un hallazgo."""
-        return """From: :from\r\nTo: :to\r\nSubject: :subject\r\nMIME-Version: 1.0\r\nContent-type: text/html\r\n
+        return
+        """From: :from\r\nTo: :to\r\nSubject: :subject\r\n\
+MIME-Version: 1.0\r\nContent-type: text/html\r\n
             <style>
             table{ border: 1px solid black; }
             table td { border: 1px solid black; }
@@ -40,7 +41,12 @@ class Mailer(object):
             }
             </style>
             <center>
-                <img style="display:block;margin-left:auto;margin-right:auto" src="https://ci6.googleusercontent.com/proxy/HJaEHh-IlU0dbE9CAWZM3HEw2VbTv3pwU6iexhsj2xVXA52mdscUyw7uOazWCLj0uIgL18f0sMBb6Fb3J4vog_r40RZmQJE7mMwgWFKoOtifj7SboWOF2w9ajySTF5XO9eHjrcw=s0-d-e1-ft#https://s3.amazonaws.com/files.formstack.com/public/600135/image_customLogo.png" alt="customLogo.png" class="CToWUd">
+                <img style="display:block;margin-left:\
+auto;margin-right:auto" src="https://ci6.googleusercontent.com/proxy/\
+HJaEHh-IlU0dbE9CAWZM3HEw2VbTv3pwU6iexhsj2xVXA52mdscUyw7uOazWCLj0uIgL18f\
+0sMBb6Fb3J4vog_r40RZmQJE7mMwgWFKoOtifj7SboWOF2w9ajySTF5XO9eHjrcw=s0-d-\
+e1-ft#https://s3.amazonaws.com/files.formstack.com/public/600135/\
+image_customLogo.png" alt="customLogo.png" class="CToWUd">
                 <hr/>
                 <div style="text-align: left;">
                     <b>Analista: </b> :analista <br>
@@ -55,7 +61,6 @@ class Mailer(object):
                 <p>Enviado a traves de <b>FluidIntegrates </b> :time </p>
             </center>
         """
-
 
     def send_delete_finding(self, finding_id, finding, analyst, justify):
         """Funcion que envia un email cuando se elimina un hallazgo."""
@@ -74,7 +79,6 @@ class Mailer(object):
         self.server.ehlo()
         self.server.login(self.username, self.password)
         self.server.sendmail(self.default_from, self.default_to, tpl_mail)
-
 
     def close(self):
         """Funcion para cerrar la conexion ocn el servidor SMTP."""

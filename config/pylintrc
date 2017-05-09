@@ -7,8 +7,8 @@
 # pygtk.require().
 # TODO(ralvarez): preferiblemente establecido desde tasks.py context
 # http://stackoverflow.com/questions/1899436/pylint-unable-to-import-error-how-to-set-pythonpath
-init-hook='import sys; \
-           sys.path.append('build/virtual/py34/lib/python3.4/site-packages/')
+#init-hook='import sys; \
+#           sys.path.append('build/virtual/py34/lib/python3.4/site-packages/')
 
 # Add files or directories to the blacklist. They should be base names, not
 # paths.
@@ -23,10 +23,10 @@ persistent=yes
 
 # List of plugins (as comma separated values of python modules names) to load,
 # usually to register additional checkers.
-load-plugins=
+load-plugins=pylint_django
 
 # Use multiple processes to speed up Pylint.
-jobs=1
+jobs=2
 
 # Allow loading of arbitrary C extensions. Extensions are imported into the
 # active Python interpreter and may run arbitrary code.

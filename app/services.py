@@ -8,6 +8,7 @@ from .exceptions import SecureParamsException
 from .exceptions import LogicException
 from .models import OneLoginAPI
 
+
 @csrf_exempt
 @require_http_methods(["POST"])
 def login(request):
@@ -39,17 +40,21 @@ def login(request):
         return util.response([], str(expt), True)
     return util.response([], 'Bienvenido ' + username, False)
 
+
 def get_company(user):
     """Obtiene la compania a la que pertenece el usuario."""
     return 'FLUID'
+
 
 def get_role(user):
     """Obtiene el rol que que tiene el usuario."""
     return 'admin'
 
+
 def is_registered(user):
     """Verifica si el usuario esta registrado."""
     return 'True'
+
 
 def has_access_to_project(user, projectname):
     """Verifica si el usuario tiene acceso al proyecto en cuestion."""

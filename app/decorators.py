@@ -6,6 +6,7 @@
 import functools
 from django.http import HttpResponse
 
+
 def authenticate(func):
     @functools.wraps(func)
     def authenticate_and_call(*args, **kwargs):
@@ -25,7 +26,7 @@ def authorize(roles):
             request = args[0]
             if "username" not in request.session or \
                 "registered" not in request.session or \
-                request.session['role'] not in roles:
+                    request.session['role'] not in roles:
                     if 'any' not in roles:
                         return HttpResponse('<script>\
 alert("No tiene permisos para esto"); location = "/index"; </script>',

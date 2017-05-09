@@ -35,7 +35,7 @@ def registration(request):
 
 
 @csrf_exempt
-@authorize(['admin','customer'])
+@authorize(['admin', 'customer'])
 def dashboard(request):
     "Vista de panel de control para usuarios autenticados"
     parameters = {
@@ -88,7 +88,8 @@ def export_autodoc(request):
     username = request.session['username']
 
     if not has_access_to_project(username, project):
-        return HttpResponse('<script>alert("No tiene permisos para esto"; location = "/index"; </script>', status=401)
+        return HttpResponse('<script>alert("No tiene permisos para \
+esto"; location = "/index"; </script>', status=401)
 
     detail = {
         "IT": {
@@ -99,7 +100,7 @@ def export_autodoc(request):
         },
         "IE": {
             "content_type": "application/vnd.openxmlformats\
-                             -officedocument.presentationml.presentation" ,
+                            -officedocument.presentationml.presentation",
             "content_disposition": "inline;filename=:P.pptx",
             "path": "/var/www/fluid-integrates/app/autodoc/results/:P.pptx"
         }
@@ -108,20 +109,23 @@ def export_autodoc(request):
         kind = request.GET.get("format", "").strip()
         if kind != "IE" != kind != "IT":
             raise Exception('Este evento de seguridad sera registrado')
-        filename = detail[kind]["path"].replace(":P",project)
+        filename = detail[kind]["path"].replace(":P", project)
         if not util.is_name(project):
             raise Exception('Este evento de seguridad sera registrado')
         if not os.path.isfile(filename):
             raise Exception('La documentacion no ha sido generada')
         with open(filename, 'r') as document:
-            response = HttpResponse(document.read(), content_type=detail[kind]["content_type"])
-            response['Content-Disposition'] = detail[kind]["content_disposition"].replace(":P",project)
+            response = HttpResponse(document.read(),
+                                    content_type=detail[kind]["content_type"])
+            response['Content-Disposition'] = \
+                detail[kind]["content_disposition"].replace(":P", project)
         return response
     except ValueError as expt:
         return HttpResponse(expt.message)
     except Exception as expt:
         return HttpResponse(expt.message)
     return HttpResponse(message)
+
 
 @csrf_exempt
 @require_http_methods(["POST"])
@@ -132,11 +136,12 @@ def generate_autodoc(request):
     username = request.session['username']
 
     if not has_access_to_project(username, project):
-        return HttpResponse('<script>alert("No tiene permisos para esto"; location = "/index"; </script>', status=401)
+        return HttpResponse('<script>alert("No tiene permisos para \
+esto"; location = "/index"; </script>', status=401)
 
     start_time = time.time()
     data = request.POST.get('data', None)
-    kind = request.POST.get('format',"")
+    kind = request.POST.get('format', "")
     if kind != "IE" != kind != "IT":
         util.response([], 'Error de parametrizacion', True)
     if util.is_json(data) and util.is_name(project):
@@ -153,18 +158,23 @@ def generate_autodoc(request):
                 else:
                     IT.Fluid(project, findings)
             str_time = str("%s" % (time.time() - start_time))
-            return util.response([], 'Documentacion generada en ' + str("%.2f segundos" % float(str_time)), False)
+            return util.response([], 'Documentacion generada en ' +
+                                 str("%.2f segundos" %
+                                     float(str_time)), False)
     return util.response([], 'Error...', True)
 
+
 @csrf_exempt
-@authorize(['admin','customer'])
+@authorize(['admin', 'customer'])
 def get_findings(request):
-    "Captura y procesa el nombre de un proyecto para devolver los hallazgos"
+    """Captura y procesa el nombre de un proyecto para devolver
+    los hallazgos."""
     project = request.GET.get('project', None)
     username = request.session['username']
 
     if not has_access_to_project(username, project):
-        return HttpResponse('<script>alert("No tiene permisos para esto"; location = "/index"; </script>', status=401)
+        return HttpResponse('<script>alert("No tiene permisos para \
+esto"; location = "/index"; </script>', status=401)
 
     filtr = request.GET.get('filter', None)
     if not project:
@@ -186,13 +196,15 @@ def get_findings(request):
                     if not filtr:
                         findings.append(finding_parsed)
                     elif "tipo_prueba" in finding_parsed:
-                        if filtr.encode("utf8") == finding_parsed["tipo_prueba"].encode("utf8"):
-                            findings.append(finding_parsed)
+                        if filtr.encode("utf8") == \
+                                finding_parsed["tipo_prueba"].encode("utf8"):
+                                findings.append(finding_parsed)
                 return util.response(findings, 'Success', False)
+
 
 # FIXME: Need to add access control to this function
 @csrf_exempt
-@authorize(['admin','customer'])
+@authorize(['admin', 'customer'])
 def get_finding(request):
     project_id = request.POST.get('id', None)
     if util.is_numeric(project_id):
@@ -204,15 +216,17 @@ def get_finding(request):
     else:
         return util.response([], 'Empty fields', True)
 
+
 @csrf_exempt
 @authorize(['admin'])
 def get_eventualities(request):
-    """Obtiene las eventualidades con el nombre del proyecto"""
+    """Obtiene las eventualidades con el nombre del proyecto."""
     project = request.GET.get('project', None)
     username = request.session['username']
 
     if not has_access_to_project(username, project):
-        return HttpResponse('<script>alert("No tiene permisos para esto"; location = "/index"; </script>', status=401)
+        return HttpResponse('<script>alert("No tiene permisos para \
+esto"; location = "/index"; </script>', status=401)
 
     category = request.GET.get('category', None)
     if not category:
@@ -226,15 +240,20 @@ def get_eventualities(request):
             API = FormstackAPI()
             RMP = FormstackRequestMapper()
             if category == "Name":
-                eventuality_requests = API.get_eventualities(project)["submissions"]
+                eventuality_requests = \
+                    API.get_eventualities(project)["submissions"]
                 if eventuality_requests:
                     if len(eventuality_requests) == 0:
-                        return util.response([], 'Este proyecto no tiene eventualidades', False)
+                        return util.response([],
+                                             'Este proyecto no tiene \
+eventualidades', False)
                     else:
                         eventualities = []
                         for eventuality in eventuality_requests:
-                            eventuality_request = API.get_submission(eventuality["id"])
-                            eventuality_parsed = RMP.map_eventuality(eventuality_request)
+                            eventuality_request = \
+                                API.get_submission(eventuality["id"])
+                            eventuality_parsed = \
+                                RMP.map_eventuality(eventuality_request)
                             eventualities.append(eventuality_parsed)
                         return util.response(eventualities, 'Correcto', False)
                 else:
@@ -243,11 +262,14 @@ def get_eventualities(request):
                 if util.is_numeric(project):
                     eventualities = []
                     eventuality_request = API.get_submission(project)
-                    eventuality_parsed = RMP.map_eventuality(eventuality_request)
+                    eventuality_parsed = \
+                        RMP.map_eventuality(eventuality_request)
                     eventualities.append(eventuality_parsed)
                     return util.response(eventualities, 'Correcto', False)
                 else:
-                    return util.response([], 'Debes ingresar un ID numerico!', True)
+                    return util.response([], 'Debes ingresar un ID \
+numerico!', True)
+
 
 # FIXME: Need to add access control to this function
 @csrf_exempt
@@ -258,8 +280,8 @@ def delete_finding(request):
     if "vuln[hallazgo]" not in post_parms \
         or "vuln[proyecto_fluid]" not in post_parms \
         or "vuln[justificacion]" not in post_parms \
-        or "vuln[id]" not in post_parms:
-        return util.response([], 'Campos vacios', True)
+            or "vuln[id]" not in post_parms:
+            return util.response([], 'Campos vacios', True)
     else:
         API = FormstackAPI()
         submission_id = post_parms["vuln[id]"]
@@ -276,6 +298,7 @@ def delete_finding(request):
         else:
             return util.response([], 'No se pudo actualizar formstack', True)
 
+
 @csrf_exempt
 @require_http_methods(["GET"])
 @authorize(['admin'])
@@ -285,14 +308,16 @@ def get_order(request):
     username = request.session['username']
 
     if not has_access_to_project(username, project):
-        return HttpResponse('<script>alert("No tiene permisos para esto"; location = "/index"; </script>', status=401)
+        return HttpResponse('<script>alert("No tiene permisos para \
+esto"; location = "/index"; </script>', status=401)
 
     if util.is_name(project_name):
         API = FormstackAPI()
         order_id = API.get_order(project_name)
         if "submissions" in order_id:
             if len(order_id["submissions"]) == 1:
-                return util.response(order_id["submissions"][0]["id"], 'Consulta exitosa!', False)
+                return util.response(order_id["submissions"][0]["id"],
+                                     'Consulta exitosa!', False)
             elif len(order_id["submissions"]) == 0:
                 return util.response("0", 'No se ha asignado un pedido!', False)
             else:
@@ -301,6 +326,7 @@ def get_order(request):
             return util.response([], 'No se pudo consultar formstack', True)
     else:
         return util.response([], 'Campos vacios', True)
+
 
 @csrf_exempt
 @require_http_methods(["POST"])
@@ -311,7 +337,8 @@ def update_order(request):
     username = request.session['username']
 
     if not has_access_to_project(username, project):
-        return HttpResponse('<script>alert("No tiene permisos para esto"; location = "/index"; </script>', status=401)
+        return HttpResponse('<script>alert("No tiene permisos para \
+esto"; location = "/index"; </script>', status=401)
 
     order_id = request.POST.get('id', None)
     if not util.is_name(project_name):
@@ -325,6 +352,7 @@ def update_order(request):
     else:
         return util.response([], 'Actualizado correctamente!', False)
 
+
 # FIXME: Need to add access control to this function
 @csrf_exempt
 @authorize(['admin'])
@@ -334,8 +362,8 @@ def update_eventuality(request):
     action = ""
     if "vuln[proyecto_fluid]" not in post_parms \
         != "vuln[id]" not in post_parms \
-        != "vuln[afectacion]" not in post_parms:
-        return util.response([], 'Campos vacios', True)
+            != "vuln[afectacion]" not in post_parms:
+            return util.response([], 'Campos vacios', True)
     else:
         validate = False
         afect = 0
@@ -355,6 +383,7 @@ def update_eventuality(request):
     else:
         return util.response([], 'Actualizado correctamente!', False)
 
+
 # FIXME: Need to add access control to this function
 @csrf_exempt
 @authorize(['admin'])
@@ -370,15 +399,15 @@ def update_finding(request):
         != "vuln[criticidad]" not in post_parms \
         != "vuln[amenaza]" not in post_parms \
         != "vuln[requisitos]" not in post_parms \
-        != "vuln[id]" not in post_parms:
-        return util.response([], 'Campos vacios', True)
+            != "vuln[id]" not in post_parms:
+            return util.response([], 'Campos vacios', True)
     else:
         nivel = post_parms["vuln[nivel]"]
         execute = False
         if nivel == "General":
             if "vuln[vector_ataque]" in post_parms \
-                and "vuln[sistema_comprometido]" in post_parms:
-                execute = True
+                    and "vuln[sistema_comprometido]" in post_parms:
+                    execute = True
         else:
             if "vuln[riesgo]" in post_parms:
                 execute = True
