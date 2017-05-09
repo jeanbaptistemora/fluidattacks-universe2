@@ -9,7 +9,16 @@ CREATE TABLE users (
     first_name varchar(255) DEFAULT NULL,
     email varchar(255) NOT NULL,
     company varchar(255) NOT NULL,
-    role varchar(20) NOT NULL,
-    projects varchar(255) NOT NULL,
     PRIMARY KEY (id)
 ) ENGINE=INNODB;
+
+CREATE TABLE roles (
+    user_id INT NOT NULL,
+    role varchar(255) NOT NULL,
+) ENGINE=INNODB;
+
+CREATE TABLE projects (
+    user_id INT NOT NULL,
+    project varchar(255) NOT NULL,
+) ENGINE=INNODB;
+
