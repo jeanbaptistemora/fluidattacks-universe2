@@ -17,6 +17,7 @@ def response(data, message, error):
     response_data['error'] = error
     return JsonResponse(response_data)
 
+
 def traceability(msg, user):
     """ Funcion para llevar un log de acciones personalizadas \
         independientes de logging """
@@ -24,12 +25,13 @@ def traceability(msg, user):
     base = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
     try:
         filename = base + "/logs/integrates.log"
-        logmsg = str(datetime.datetime.now()) + "," + user+ "," + msg
+        logmsg = str(datetime.datetime.now()) + "," + user + "," + msg
         file_obj = open(filename, 'a')
         file_obj.write(logmsg)
         file_obj.close()
     except (OSError, IOError) as expt:
         print "ERROR CON EL LOG " + expt.message()
+
 
 def is_name(name):
     """ Verifica que un parametro tenga el formato
@@ -46,6 +48,7 @@ def is_name(name):
         valid = False
     return valid
 
+
 def is_numeric(name):
     """ Verifica que un parametro tenga el formato
         de numero adecuado """
@@ -61,6 +64,7 @@ def is_numeric(name):
         valid = False
     return valid
 
+
 def is_json(data):
     """ Verifica si el parametro dado es un json """
     valid = True
@@ -71,6 +75,7 @@ def is_json(data):
     except TypeError:
         valid = False
     return valid
+
 
 def ord_asc_by_criticidad(data):
     """ Ordena los hallazgos por criticidad """

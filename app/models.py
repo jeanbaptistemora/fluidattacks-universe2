@@ -1,18 +1,17 @@
 # -*- coding: utf-8 -*-
-"""Funciones para consumir la API de Onelogin y Formstack"""
+"""Funciones para consumir la API de Onelogin y Formstack."""
 
 import json
-from time import sleep
-#from __future__ import unicode_literals
 import requests
 from requests.exceptions import ConnectionError
 from retrying import retry
-#from requests.packages.urllib3.exceptions import InsecureRequestWarning
+
 requests.adapters.DEFAULT_RETRIES = 10
-from .exceptions import APIConnectionException
+
 
 class FormstackRequestMapper(object):
-    """ Clase para cambiar los indices a nombres en un request """
+    """Clase para cambiar los indices a nombres en un request."""
+
     PROJECT_ANALISTA = "32201744"
     PROJECT_LIDER = "38193323"
     PROJECT_INTERESADO = "38392409"
@@ -64,12 +63,13 @@ class FormstackRequestMapper(object):
     FINDING_SISTEMA_COMPROMETIDO = "48092123"
     FINDING_VECTOR_ATAQUE = "48092088"
 
-    def map_finding(self, finding_request):
-        """ Convierte los campos de un JSON hallazgo
-            de Formstack para manipularlos en integrates """
+    # pylint: disable=R0915
+    def map_finding(self, finding_request): # noqa
+        """Convierte los campos de un JSON hallazgo
+           de Formstack para manipularlos en integrates."""
         parsed = dict()
         for finding in finding_request["data"]:
-            #DETALLES VULNERABILIDAD
+            # DETALLES VULNERABILIDAD
             if finding["field"] == self.FINDING_HALLAZGO:
                 parsed["hallazgo"] = finding["value"]
             if finding["field"] == self.FINDING_CODIGO_CLIENTE:
@@ -132,7 +132,7 @@ class FormstackRequestMapper(object):
                 parsed["ambito"] = finding["value"]
             if finding["field"] == self.FINDING_CATEGORIA:
                 parsed["categoria"] = finding["value"]
-            #DETALLES PROYECTO
+            # DETALLES PROYECTO
             if finding["field"] == self.PROJECT_ANALISTA:
                 parsed["analista"] = finding["value"]
             if finding["field"] == self.PROJECT_LIDER:
@@ -151,8 +151,8 @@ class FormstackRequestMapper(object):
         return parsed
 
     def map_eventuality(self, eventuality_request):
-        """ Convierte los campos de un JSON eventualidad
-            de Formstack para manipularlos en integrates """
+        """Convierte los campos de un JSON eventualidad
+           de Formstack para manipularlos en integrates."""
         parsed = dict()
         for eventuality in eventuality_request["data"]:
             if eventuality["field"] == self.EVENTUALITY_ANALISTA:
@@ -176,25 +176,28 @@ class FormstackRequestMapper(object):
         parsed["id"] = eventuality_request["id"]
         return parsed
 
+
 class FormstackAPI(object):
 
     headers_config = {}
     TOKEN = "aefb128ba610da7e8d9e0b6ff86d9d7a"
 
     def __init__(self):
-        " Constructor "
+        """Constructor."""
         self.headers_config['User-Agent'] = 'Mozilla/5.0 (X11; Linux x86_64) \
 AppleWebKit/537.36 (KHTML, like Gecko) FLUIDIntegrates/1.0'
 
     @retry(retry_on_exception=ConnectionError, stop_max_attempt_number=5)
     def request(self, method, url, data=None):
-        " Construye las peticiones usadas para consultar Formstack "
+        """Construye las peticiones usadas para consultar Formstack."""
         executed_request = None
         try:
             if method != "GET":
                 self.headers_config["cache-control"] = "no-cache"
-                self.headers_config["content-type"] = "application/x-www-form-urlencoded"
-                url += "?oauth_token=:token".replace(":token", self.TOKEN)
+                self.headers_config["content-type"] = \
+                    "application/x-www-form-urlencoded"
+                url += "?oauth_token=:token".replace(":token",
+                                                     self.TOKEN)
             else:
                 if not data:
                     data = {"oauth_token": self.TOKEN}
@@ -205,47 +208,57 @@ AppleWebKit/537.36 (KHTML, like Gecko) FLUIDIntegrates/1.0'
                 data=data, headers=self.headers_config
             )
             executed_request = json.loads(formstack_request.text)
-        except ConnectionError:
-            executed_request = None #Fail connection
+        # Formstack SSLError
         except requests.exceptions.SSLError:
-            executed_request = None #Formstack SSLError
-        except requests.exceptions.Timeout:
-            executed_request = None #Formstack Connection timeout
-        except requests.exceptions.HTTPError:
-            executed_request = None #Fail token
-        except ValueError: #Fail json format
             executed_request = None
-        except TypeError: #Fail json
+        # Formstack Connection timeout
+        except requests.exceptions.Timeout:
+            executed_request = None
+        # Fail token
+        except requests.exceptions.HTTPError:
+            executed_request = None
+        # Fail connection
+        except ConnectionError:
+            executed_request = None
+        # Fail json format
+        except ValueError:
+            executed_request = None
+        # Fail json
+        except TypeError:
             executed_request = None
         return executed_request
 
     def delete_finding(self, submission_id):
-        " Elimina una submission del formulario de hallazgos a partir de su id \
-          TODO: como probar un test que elimina datos, un metodo que \
-          recibe vars por post "
-        url = "https://www.formstack.com" 
+        """Elimina una submission del formulario de hallazgos a partir
+        de su id.
+        TODO: como probar un test que elimina datos, un metodo que
+        recibe vars por post."""
+
+        url = "https://www.formstack.com"
         url += "/api/v2/submission/:id.json"
         url = url.replace(":id", submission_id)
         data = {
-            "id" : submission_id
+            "id": submission_id
         }
         return self.request("DELETE", url, data=data)
 
     def get_submission(self, submission_id):
-        " Obtiene un submission a partir de su ID "
+        """Obtiene un submission a partir de su ID."""
         url = "https://www.formstack.com/api/v2/submission/:id.json"
         url = url.replace(":id", submission_id)
         return self.request("GET", url)
 
     def get_findings(self, project):
-        " Obtiene los hallazgos de un proyecto a partir del nombre de proyecto "
+        """Obtiene los hallazgos de un proyecto a partir del nombre
+        de proyecto."""
         url = "https://www.formstack.com/api/v2/form/1998500/submission.json"
         search_field = "32201732"
         data = {'search_field_1': search_field, 'search_value_1': project}
         return self.request("GET", url, data=data)
 
     def get_eventualities(self, project):
-        " Obtiene las eventualidades de un proyecto a partir del nombre de proyecto "
+        """Obtiene las eventualidades de un proyecto a partir del
+        nombre de proyecto."""
         url = "https://www.formstack.com"
         url += "/api/v2/form/1886931/submission.json"
         search_field = "29042322"
@@ -253,15 +266,15 @@ AppleWebKit/537.36 (KHTML, like Gecko) FLUIDIntegrates/1.0'
         return self.request("GET", url, data=data)
 
     def get_order(self, project):
-        " Obtiene un pedido bancolombia a partir del nombre de proyecto "
-        #url = "https://www.formstack.com/api/v2/form/1925068/submission.json"
+        """Obtiene un pedido bancolombia a partir del nombre de
+        proyecto."""
         url = "https://www.formstack.com/api/v2/form/1893765/submission.json"
         search_field = "48092369"
         data = {'search_field_1': search_field, 'search_value_1': project}
         return self.request("GET", url, data=data)
 
     def update_eventuality(self, afectacion, submission_id):
-        " Actualiza una eventualidad en Formstack "
+        """Actualiza una eventualidad en Formstack."""
         url = "https://www.formstack.com/api/v2/submission/:id.json"
         url = url.replace(":id", submission_id)
         field_afectacion = "field_29042542"
@@ -271,9 +284,9 @@ AppleWebKit/537.36 (KHTML, like Gecko) FLUIDIntegrates/1.0'
             field_estado: "Tratada"
         }
         return self.request("PUT", url, data=data)
-    
+
     def update_finding(self, data_set, submission_id):
-        " Actualiza un hallazgo en formstack "
+        """Actualiza un hallazgo en formstack."""
         url = "https://www.formstack.com/api/v2/submission/:id.json"
         url = url.replace(":id", submission_id)
         field_donde = "field_38193357"
@@ -301,19 +314,21 @@ AppleWebKit/537.36 (KHTML, like Gecko) FLUIDIntegrates/1.0'
         return self.request("PUT", url, data=data)
 
     def update_order(self, project, submission_id):
-        " Actualiza la relacion pedido bancolombia y proyecto en Formstack "
+        """Actualiza la relacion pedido bancolombia y proyecto en
+        Formstack."""
         url = "https://www.formstack.com/api/v2/submission/:id.json"
         url = url.replace(":id", submission_id)
         field_proyecto_fluid = "field_48092369"
         data = {field_proyecto_fluid: project}
         return self.request("PUT", url, data=data)
 
+
 class OneLoginAPI(object):
     """ Wrap de la API de OneLogin """
-    
+
     API_KEY = "e5996692a9bf56a66f8d4542948c47ac7913c505"
     APP_ID = "476874"
-    headers_config = {} 
+    headers_config = {}
     username = ""
     password = ""
 
@@ -321,8 +336,9 @@ class OneLoginAPI(object):
         """ Constructor """
         self.username = username
         self.password = password
-        self.headers_config['User-Agent'] = 'Mozilla/5.0 (X11; Linux x86_64) \
-AppleWebKit/537.36 (KHTML, like Gecko) FLUIDIntegrates/1.0'
+        self.headers_config['User-Agent'] = 'Mozilla/5.0 (X11;\
+Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) \
+FLUIDIntegrates/1.0'
 
     def login(self):
         " Autentica un usuario utilizando la API de OneLogin "
@@ -335,11 +351,14 @@ AppleWebKit/537.36 (KHTML, like Gecko) FLUIDIntegrates/1.0'
         }
         result = False
         try:
-            req = requests.post(url, data=data, verify=False, headers=self.headers_config)
+            req = requests.post(url, data=data, verify=False,
+                                headers=self.headers_config)
             if req.status_code == 200:
                 result = True
+        # One login Connection timeout
         except requests.exceptions.Timeout:
-            result = False #One login Connection timeout
+            result = False
+        # Fail login
         except requests.exceptions.HTTPError:
-            result = False #Fail login
+            result = False
         return result

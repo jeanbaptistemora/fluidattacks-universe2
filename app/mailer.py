@@ -6,8 +6,9 @@
 import smtplib
 from datetime import datetime
 
+
 class Mailer(object):
-    """ Clase para enviar mensajes con Amazon """
+    """Clase para enviar mensajes con Amazon."""
 
     username = "AKIAIQNZKJDOZ55ASI7A"
     password = "AjzVXsdm2NTVcSUVuX1V057SlExFcMdx+tqTWvJSOnGU"
@@ -26,35 +27,42 @@ class Mailer(object):
         )
 
     def __tpl_delete_finding(self):
-        """ Funcion que retorna el formato HTML del correo
-            que se envia al eliminar un hallazgo """
-        return """From: :from\r\nTo: :to\r\nSubject: :subject\r\nMIME-Version: 1.0\r\nContent-type: text/html\r\n
-			<style>
-			table{ border: 1px solid black; }
-			table td { border: 1px solid black; }
-			table.no-spacing { 
-			  border-spacing:0; 
-			  border-collapse: collapse;
-			}
-			</style>
-			<center>
-				<img style="display:block;margin-left:auto;margin-right:auto" src="https://ci6.googleusercontent.com/proxy/HJaEHh-IlU0dbE9CAWZM3HEw2VbTv3pwU6iexhsj2xVXA52mdscUyw7uOazWCLj0uIgL18f0sMBb6Fb3J4vog_r40RZmQJE7mMwgWFKoOtifj7SboWOF2w9ajySTF5XO9eHjrcw=s0-d-e1-ft#https://s3.amazonaws.com/files.formstack.com/public/600135/image_customLogo.png" alt="customLogo.png" class="CToWUd">
-				<hr/>
-				<div style="text-align: left;">
-					<b>Analista: </b> :analista <br>
-					<b>Hallazgo: </b> :hallazgo <br>
-					<b>ID: </b> :id <br>
-					<b>Justificacion: </b> :justificacion <br>
-				</div>
-			</center>
+        """Funcion que retorna el formato HTML del correo
+            que se envia al eliminar un hallazgo."""
+        return """From: :from\r\nTo: :to\r\nSubject: :subject\r\n\
+MIME-Version: 1.0\r\nContent-type: text/html\r\n
+            <style>
+            table{ border: 1px solid black; }
+            table td { border: 1px solid black; }
+            table.no-spacing {
+              border-spacing:0;
+              border-collapse: collapse;
+            }
+            </style>
+            <center>
+                <img style="display:block;margin-left:\
+auto;margin-right:auto" src="https://ci6.googleusercontent.com/proxy/\
+HJaEHh-IlU0dbE9CAWZM3HEw2VbTv3pwU6iexhsj2xVXA52mdscUyw7uOazWCLj0uIgL18f\
+0sMBb6Fb3J4vog_r40RZmQJE7mMwgWFKoOtifj7SboWOF2w9ajySTF5XO9eHjrcw=s0-d-\
+e1-ft#https://s3.amazonaws.com/files.formstack.com/public/600135/\
+image_customLogo.png" alt="customLogo.png" class="CToWUd">
+                <hr/>
+                <div style="text-align: left;">
+                    <b>Analista: </b> :analista <br>
+                    <b>Hallazgo: </b> :hallazgo <br>
+                    <b>ID: </b> :id <br>
+                    <b>Justificacion: </b> :justificacion <br>
+                </div>
+            </center>
 
-			<center>
-				<hr/>
-				<p>Enviado a traves de <b>FluidIntegrates </b> :time </p>
-			</center>
-		"""
+            <center>
+                <hr/>
+                <p>Enviado a traves de <b>FluidIntegrates </b> :time </p>
+            </center>
+        """
+
     def send_delete_finding(self, finding_id, finding, analyst, justify):
-        """ Funcion para enviar un email cuando se elimina un hallazgo """
+        """Funcion que envia un email cuando se elimina un hallazgo."""
         title_mail = "El hallazgo #:id ha sido eliminado"
         title_mail = title_mail.replace(":id", finding_id)
         tpl_mail = self.__tpl_delete_finding()
@@ -72,5 +80,5 @@ class Mailer(object):
         self.server.sendmail(self.default_from, self.default_to, tpl_mail)
 
     def close(self):
-        """ Funcion para cerrar la conexion ocn el servidor SMTP """
+        """Funcion para cerrar la conexion ocn el servidor SMTP."""
         self.server.quit()

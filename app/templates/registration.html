@@ -33,7 +33,11 @@
               </div>
               <div class="panel-body">
 		  <p>Hello {{ user.email }}!</p>
- 		  <p>You are not a registered user</p>
+		  {% if is_registered == 'True' %}
+		  	<script>location = "/dashboard"</script>
+		  {% else %}
+	 		  <p>You are not a registered user</p>
+		  {% endif %}
               </div>
             </div>
           </div>

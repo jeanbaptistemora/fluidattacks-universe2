@@ -49,13 +49,13 @@
                       <button data-dismiss="modal" type="submit" class="btn btn-primary btn-lg" id="btn-login" ng-click="login()">Log me in</button>
                     </div>
 		    <div>
-			    <a href="{% url 'social:begin' 'google-oauth2' %}?username={{ value }}">Login with Google</a>
+			    <a href="{% url 'social:begin' 'google-oauth2' %}?username={{ value }}&registered={{ value }}&role={{ value }}">Login with Google</a>
 		    </div>
 		    <div>
-			    <a href="{% url 'social:begin' 'twitter' %}?username={{ value }}">Login with Twitter</a>
+			    <a href="{% url 'social:begin' 'twitter' %}?username={{ value }}&registered={{ value }}&role={{ value }}">Login with Twitter</a>
 		    </div>
 		    <div>
-			    <a href="{% url 'social:begin' 'facebook' %}?username={{ value }}">Login with Facebook</a>
+			    <a href="{% url 'social:begin' 'facebook' %}?username={{ value }}&registered={{ value }}&role={{ value }}">Login with Facebook</a>
 		    </div>
                   </div>
                 </form>
