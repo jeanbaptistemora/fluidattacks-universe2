@@ -38,11 +38,5 @@ RUN ansible-playbook main.yml --vault-password-file .vault.txt
 # Make port 80 and 443 available to the world outside this container
 EXPOSE 80
 
-# Copia los archivos que harán parte de la imagen
-COPY entry.sh /
-
-# Primer comando que se ejecutara
-ENTRYPOINT ["/entry.sh"]
-
 # Primer comando
 CMD /usr/sbin/apache2ctl -D FOREGROUND

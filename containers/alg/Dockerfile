@@ -39,11 +39,5 @@ RUN ansible-playbook main.yml --vault-password-file .vault.txt
 EXPOSE 80
 EXPOSE 443
 
-# Copia los archivos que harán parte de la imagen
-COPY entry.sh /
-
-# Primer comando que se ejecutara
-ENTRYPOINT ["/entry.sh"]
-
 # Primer comando
 CMD /usr/sbin/apache2ctl -D FOREGROUND
