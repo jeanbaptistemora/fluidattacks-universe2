@@ -22,7 +22,6 @@ def login(request):
             # FIXME: This is only for testing purposes
             test_user = 'customer@bancolombia.com.co'
             test_pass = 'yaech2saiFooh5Ahz4yaig5al'
-            test_company = 'Bancolombia'
             test_role = 'customer'
             if username == test_user and password == test_pass:
                 request.session['username'] = username
@@ -56,6 +55,6 @@ def is_registered(user):
     return 'True'
 
 
-def has_access_to_project(user, projectname):
+def has_access_to_project(user, project_name):
     """Verifica si el usuario tiene acceso al proyecto en cuestion."""
     return True

@@ -4,13 +4,12 @@
 import os
 import json
 from django.shortcuts import render, redirect
-from django.views.decorators.csrf import csrf_exempt, csrf_protect
+from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_http_methods
-from django.views.decorators.debug import sensitive_post_parameters
 from django.http import HttpResponse
-from . import models, util
+from . import util
 from .decorators import authenticate, authorize
-from models import FormstackAPI, FormstackRequestMapper, OneLoginAPI
+from .models import FormstackAPI, FormstackRequestMapper, OneLoginAPI
 from autodoc import IE, IT
 import time
 from .mailer import Mailer
@@ -55,7 +54,7 @@ def logout(request):
         del(request.session["company"])
         del(request.session["role"])
         del(request.session["registered"])
-    except:
+    except KeyError:
         pass
     return redirect("/index")
 
@@ -74,8 +73,7 @@ def login(request):
         if API.login():
             request.session['username'] = username
             return util.response([], 'Bienvenido ' + username, False)
-        else:
-            return util.response([], 'Usuario/Clave incorrectos', True)
+        return util.response([], 'Usuario/Clave incorrectos', True)
 
 
 # Documentacion automatica
@@ -124,7 +122,7 @@ esto"; location = "/index"; </script>', status=401)
         return HttpResponse(expt.message)
     except Exception as expt:
         return HttpResponse(expt.message)
-    return HttpResponse(message)
+    return HttpResponse(expt.message)
 
 
 @csrf_exempt
@@ -179,27 +177,24 @@ esto"; location = "/index"; </script>', status=401)
     filtr = request.GET.get('filter', None)
     if not project:
         return util.response([], 'Empty fields', True)
-    else:
-        if project.strip() == "":
-            return util.response([], 'Empty fields', True)
-        else:
-            API = FormstackAPI()
-            finding_requests = API.get_findings(project)["submissions"]
-            if len(finding_requests) == 0:
-                return util.response([], 'El proyecto no existe', False)
-            else:
-                findings = []
-                RMP = FormstackRequestMapper()
-                for finding in finding_requests:
-                    formstack_request = API.get_submission(finding["id"])
-                    finding_parsed = RMP.map_finding(formstack_request)
-                    if not filtr:
-                        findings.append(finding_parsed)
-                    elif "tipo_prueba" in finding_parsed:
-                        if filtr.encode("utf8") == \
-                                finding_parsed["tipo_prueba"].encode("utf8"):
-                                findings.append(finding_parsed)
-                return util.response(findings, 'Success', False)
+    if project.strip() == "":
+        return util.response([], 'Empty fields', True)
+    API = FormstackAPI()
+    finding_requests = API.get_findings(project)["submissions"]
+    if len(finding_requests) == 0:
+        return util.response([], 'El proyecto no existe', False)
+    findings = []
+    RMP = FormstackRequestMapper()
+    for finding in finding_requests:
+        formstack_request = API.get_submission(finding["id"])
+        finding_parsed = RMP.map_finding(formstack_request)
+        if not filtr:
+            findings.append(finding_parsed)
+        elif "tipo_prueba" in finding_parsed:
+            if filtr.encode("utf8") == \
+                    finding_parsed["tipo_prueba"].encode("utf8"):
+                findings.append(finding_parsed)
+    return util.response(findings, 'Success', False)
 
 
 # FIXME: Need to add access control to this function
@@ -213,8 +208,7 @@ def get_finding(request):
         formstack_request = API.get_submission(project_id)
         finding = RMP.map_finding(formstack_request)
         return util.response(finding, 'Success', False)
-    else:
-        return util.response([], 'Empty fields', True)
+    return util.response([], 'Empty fields', True)
 
 
 @csrf_exempt
@@ -247,17 +241,15 @@ esto"; location = "/index"; </script>', status=401)
                         return util.response([],
                                              'Este proyecto no tiene \
 eventualidades', False)
-                    else:
-                        eventualities = []
-                        for eventuality in eventuality_requests:
-                            eventuality_request = \
-                                API.get_submission(eventuality["id"])
-                            eventuality_parsed = \
-                                RMP.map_eventuality(eventuality_request)
-                            eventualities.append(eventuality_parsed)
-                        return util.response(eventualities, 'Correcto', False)
-                else:
-                    return util.response([], 'Error!', True)
+                    eventualities = []
+                    for eventuality in eventuality_requests:
+                        eventuality_request = \
+                            API.get_submission(eventuality["id"])
+                        eventuality_parsed = \
+                            RMP.map_eventuality(eventuality_request)
+                        eventualities.append(eventuality_parsed)
+                    return util.response(eventualities, 'Correcto', False)
+                return util.response([], 'Error!', True)
             else:
                 if util.is_numeric(project):
                     eventualities = []
@@ -266,8 +258,7 @@ eventualidades', False)
                         RMP.map_eventuality(eventuality_request)
                     eventualities.append(eventuality_parsed)
                     return util.response(eventualities, 'Correcto', False)
-                else:
-                    return util.response([], 'Debes ingresar un ID \
+                return util.response([], 'Debes ingresar un ID \
 numerico!', True)
 
 
@@ -281,7 +272,7 @@ def delete_finding(request):
         or "vuln[proyecto_fluid]" not in post_parms \
         or "vuln[justificacion]" not in post_parms \
             or "vuln[id]" not in post_parms:
-            return util.response([], 'Campos vacios', True)
+        return util.response([], 'Campos vacios', True)
     else:
         API = FormstackAPI()
         submission_id = post_parms["vuln[id]"]
@@ -295,8 +286,8 @@ def delete_finding(request):
             send_mail.send_delete_finding(finding_id, finding, analyst, justify)
             send_mail.close()
             return util.response([], 'Eliminado correctamente!', False)
-        else:
-            return util.response([], 'No se pudo actualizar formstack', True)
+        return util.response([], 'No se pudo actualizar formstack',
+                             True)
 
 
 @csrf_exempt
@@ -307,7 +298,7 @@ def get_order(request):
     project_name = request.GET.get('project', None)
     username = request.session['username']
 
-    if not has_access_to_project(username, project):
+    if not has_access_to_project(username, project_name):
         return HttpResponse('<script>alert("No tiene permisos para \
 esto"; location = "/index"; </script>', status=401)
 
@@ -319,13 +310,13 @@ esto"; location = "/index"; </script>', status=401)
                 return util.response(order_id["submissions"][0]["id"],
                                      'Consulta exitosa!', False)
             elif len(order_id["submissions"]) == 0:
-                return util.response("0", 'No se ha asignado un pedido!', False)
-            else:
-                return util.response([], 'Este proyecto tiene varios IDs', True)
-        else:
-            return util.response([], 'No se pudo consultar formstack', True)
-    else:
-        return util.response([], 'Campos vacios', True)
+                return util.response("0",
+                                     'No se ha asignado un pedido!',
+                                     False)
+            return util.response([], 'Este proyecto tiene varios IDs',
+                                 True)
+        return util.response([], 'No se pudo consultar formstack', True)
+    return util.response([], 'Campos vacios', True)
 
 
 @csrf_exempt
@@ -336,7 +327,7 @@ def update_order(request):
     project_name = request.POST.get('project', None)
     username = request.session['username']
 
-    if not has_access_to_project(username, project):
+    if not has_access_to_project(username, project_name):
         return HttpResponse('<script>alert("No tiene permisos para \
 esto"; location = "/index"; </script>', status=401)
 
@@ -348,9 +339,9 @@ esto"; location = "/index"; </script>', status=401)
     API = FormstackAPI()
     updated = API.update_order(project_name, order_id)
     if not updated:
-        return util.response([], 'No se pudo actualizar formstack', True)
-    else:
-        return util.response([], 'Actualizado correctamente!', False)
+        return util.response([], 'No se pudo actualizar formstack',
+                             True)
+    return util.response([], 'Actualizado correctamente!', False)
 
 
 # FIXME: Need to add access control to this function
@@ -359,18 +350,17 @@ esto"; location = "/index"; </script>', status=401)
 def update_eventuality(request):
     "Captura y procesa los parametros para actualizar una eventualidad"
     post_parms = request.POST.dict()
-    action = ""
+
     if "vuln[proyecto_fluid]" not in post_parms \
         != "vuln[id]" not in post_parms \
             != "vuln[afectacion]" not in post_parms:
-            return util.response([], 'Campos vacios', True)
+        return util.response([], 'Campos vacios', True)
     else:
         validate = False
-        afect = 0
         try:
-            afect = int(post_parms["vuln[afectacion]"])
+            int(post_parms["vuln[afectacion]"])
             validate = True
-        except SyntaxError:
+        except ValueError:
             validate = False
         if not validate:
             return util.response([], 'Afectacion negativa', True)
@@ -379,9 +369,9 @@ def update_eventuality(request):
     afectacion = post_parms["vuln[afectacion]"]
     updated = API.update_eventuality(afectacion, submission_id)
     if not updated:
-        return util.response([], 'No se pudo actualizar formstack', True)
-    else:
-        return util.response([], 'Actualizado correctamente!', False)
+        return util.response([], 'No se pudo actualizar formstack',
+                             True)
+    return util.response([], 'Actualizado correctamente!', False)
 
 
 # FIXME: Need to add access control to this function
@@ -400,14 +390,14 @@ def update_finding(request):
         != "vuln[amenaza]" not in post_parms \
         != "vuln[requisitos]" not in post_parms \
             != "vuln[id]" not in post_parms:
-            return util.response([], 'Campos vacios', True)
+        return util.response([], 'Campos vacios', True)
     else:
         nivel = post_parms["vuln[nivel]"]
         execute = False
         if nivel == "General":
             if "vuln[vector_ataque]" in post_parms \
                     and "vuln[sistema_comprometido]" in post_parms:
-                    execute = True
+                execute = True
         else:
             if "vuln[riesgo]" in post_parms:
                 execute = True
@@ -417,6 +407,6 @@ def update_finding(request):
         submission_id = post_parms["vuln[id]"]
         updated = formstack_api.update_finding(post_parms, submission_id)
         if not updated:
-            return util.response([], 'No se pudo actualizar formstack', True)
-        else:
-            return util.response([], 'Actualizado correctamente!', False)
+            return util.response([], 'No se pudo actualizar formstack',
+                                 True)
+        return util.response([], 'Actualizado correctamente!', False)

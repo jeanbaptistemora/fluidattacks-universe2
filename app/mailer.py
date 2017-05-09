@@ -29,8 +29,7 @@ class Mailer(object):
     def __tpl_delete_finding(self):
         """Funcion que retorna el formato HTML del correo
             que se envia al eliminar un hallazgo."""
-        return
-        """From: :from\r\nTo: :to\r\nSubject: :subject\r\n\
+        return """From: :from\r\nTo: :to\r\nSubject: :subject\r\n\
 MIME-Version: 1.0\r\nContent-type: text/html\r\n
             <style>
             table{ border: 1px solid black; }

@@ -30,7 +30,7 @@ class FilterManager(object):
         value = self.post(request, key_name, required)
         if value.strip() == "":
             raise LogicException()
-        elif not re.search("^[0-9]+$", name):
+        elif not re.search("^[0-9]+$", key_name):
             raise LogicException("")
 
     def get(self, request, key_name, required=True):

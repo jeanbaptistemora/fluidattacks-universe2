@@ -27,5 +27,5 @@ dependencies:
 test:
   override:
     - sudo python /var/www/fluid-integrates/manage.py test
-    - prospector --pylint-config-file config/pylintrc -u django app
-    - prospector --pylint-config-file config/pylintrc -u django fluidintegrates
+    - prospector -u django app
+    - prospector -u django fluidintegrates

@@ -2,11 +2,9 @@
 """Funciones para consumir la API de Onelogin y Formstack."""
 
 import json
-from time import sleep
 import requests
 from requests.exceptions import ConnectionError
 from retrying import retry
-from .exceptions import APIConnectionException
 
 requests.adapters.DEFAULT_RETRIES = 10
 
@@ -209,9 +207,6 @@ AppleWebKit/537.36 (KHTML, like Gecko) FLUIDIntegrates/1.0'
                 data=data, headers=self.headers_config
             )
             executed_request = json.loads(formstack_request.text)
-        # Fail connection
-        except ConnectionError:
-            executed_request = None
         # Formstack SSLError
         except requests.exceptions.SSLError:
             executed_request = None
@@ -220,6 +215,9 @@ AppleWebKit/537.36 (KHTML, like Gecko) FLUIDIntegrates/1.0'
             executed_request = None
         # Fail token
         except requests.exceptions.HTTPError:
+            executed_request = None
+        # Fail connection
+        except ConnectionError:
             executed_request = None
         # Fail json format
         except ValueError:
