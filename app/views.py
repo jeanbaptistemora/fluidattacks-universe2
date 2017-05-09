@@ -22,6 +22,7 @@ def index(request):
     parameters = {}
     return render(request, "index.html", parameters)
 
+
 @csrf_exempt
 @authenticate
 def registration(request):
@@ -31,6 +32,7 @@ def registration(request):
         'is_registered': request.session["registered"],
     }
     return render(request, "registration.html", parameters)
+
 
 @csrf_exempt
 @authorize(['admin','customer'])
@@ -42,7 +44,9 @@ def dashboard(request):
     }
     return render(request, "dashboard.html", parameters)
 
+
 @csrf_exempt
+@authenticate
 def logout(request):
     "Cierra la sesion activa de un usuario"
 
@@ -54,6 +58,7 @@ def logout(request):
     except:
         pass
     return redirect("/index")
+
 
 @csrf_exempt
 @require_http_methods(["POST"])
@@ -72,6 +77,7 @@ def login(request):
         else:
             return util.response([], 'Usuario/Clave incorrectos', True)
 
+
 # Documentacion automatica
 @csrf_exempt
 @require_http_methods(["GET"])
@@ -80,10 +86,10 @@ def export_autodoc(request):
     "Captura y devuelve el pdf de un proyecto"
     project = request.GET.get('project', "")
     username = request.session['username']
-    
+
     if not has_access_to_project(username, project):
         return HttpResponse('<script>alert("No tiene permisos para esto"; location = "/index"; </script>', status=401)
-    
+
     detail = {
         "IT": {
             "content_type": "application/vnd.openxmlformats\
@@ -156,7 +162,7 @@ def get_findings(request):
     "Captura y procesa el nombre de un proyecto para devolver los hallazgos"
     project = request.GET.get('project', None)
     username = request.session['username']
-    
+
     if not has_access_to_project(username, project):
         return HttpResponse('<script>alert("No tiene permisos para esto"; location = "/index"; </script>', status=401)
 
@@ -176,7 +182,7 @@ def get_findings(request):
                 RMP = FormstackRequestMapper()
                 for finding in finding_requests:
                     formstack_request = API.get_submission(finding["id"])
-                    finding_parsed = RMP.map_finding(formstack_request)  
+                    finding_parsed = RMP.map_finding(formstack_request)
                     if not filtr:
                         findings.append(finding_parsed)
                     elif "tipo_prueba" in finding_parsed:
@@ -204,7 +210,7 @@ def get_eventualities(request):
     """Obtiene las eventualidades con el nombre del proyecto"""
     project = request.GET.get('project', None)
     username = request.session['username']
-    
+
     if not has_access_to_project(username, project):
         return HttpResponse('<script>alert("No tiene permisos para esto"; location = "/index"; </script>', status=401)
 
@@ -269,7 +275,7 @@ def delete_finding(request):
             return util.response([], 'Eliminado correctamente!', False)
         else:
             return util.response([], 'No se pudo actualizar formstack', True)
-  
+
 @csrf_exempt
 @require_http_methods(["GET"])
 @authorize(['admin'])
@@ -277,7 +283,7 @@ def get_order(request):
     """ Obtiene de formstack el id de pedido relacionado con un proyecto """
     project_name = request.GET.get('project', None)
     username = request.session['username']
-    
+
     if not has_access_to_project(username, project):
         return HttpResponse('<script>alert("No tiene permisos para esto"; location = "/index"; </script>', status=401)
 
@@ -287,7 +293,7 @@ def get_order(request):
         if "submissions" in order_id:
             if len(order_id["submissions"]) == 1:
                 return util.response(order_id["submissions"][0]["id"], 'Consulta exitosa!', False)
-            elif len(order_id["submissions"]) == 0: 
+            elif len(order_id["submissions"]) == 0:
                 return util.response("0", 'No se ha asignado un pedido!', False)
             else:
                 return util.response([], 'Este proyecto tiene varios IDs', True)
@@ -303,14 +309,14 @@ def update_order(request):
     """ Actualiza el nombre de proyecto del id de pedido relacionado """
     project_name = request.POST.get('project', None)
     username = request.session['username']
-    
+
     if not has_access_to_project(username, project):
         return HttpResponse('<script>alert("No tiene permisos para esto"; location = "/index"; </script>', status=401)
 
     order_id = request.POST.get('id', None)
     if not util.is_name(project_name):
         return util.response([], 'Campos vacios', True)
-    if not util.is_numeric(order_id): 
+    if not util.is_numeric(order_id):
         return util.response([], 'Campos vacios', True)
     API = FormstackAPI()
     updated = API.update_order(project_name, order_id)

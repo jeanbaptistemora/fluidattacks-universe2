@@ -5,6 +5,7 @@ from .exceptions import SecureParamsException
 from .exceptions import LogicException
 import re
 
+
 class FilterManager(object):
     """ Clase para administrar las entradas HTTP de Integrates """
 
@@ -15,6 +16,7 @@ class FilterManager(object):
         if request.session["username"] is None:
             raise SecureAccessException()
 
+
     def post(self, request, key_name, required=True):
         """ Obtiene un parametro post validando si es obligatorio"""
         parameter = request.POST.get(key_name, "")
@@ -22,6 +24,7 @@ class FilterManager(object):
             if parameter == "":
                 raise SecureParamsException()
         return parameter
+
 
     def post_numeric(self, request, key_name, required=True):
         """ Verifica que un parametro tenga
@@ -32,6 +35,7 @@ class FilterManager(object):
         elif not re.search("^[0-9]+$", name):
             raise LogicException("")
 
+
     def get(self, request, key_name, required=True):
         """ Obtiene un parametro post validando si es obligatorio"""
         parameter = request.GET.get(key_name, "")
@@ -39,6 +43,7 @@ class FilterManager(object):
             if parameter == "":
                 raise SecureParamsException()
         return parameter
+
 
     def error(self, code):
         """ Invoca la excepcion de errores generales """
