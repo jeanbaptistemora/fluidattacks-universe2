@@ -1,5 +1,6 @@
 """Modulo de seguridad para FluidIntegrates."""
 
+# pylint: disable=E0402
 from .exceptions import SecureAccessException
 from .exceptions import SecureParamsException
 from .exceptions import LogicException

@@ -1,4 +1,4 @@
-""" 
+"""
     Modulo del AutodocIntegrates para generar
     las presentaciones automaticas pptx de un
     proyecto en:
@@ -8,8 +8,7 @@
 #third party includes
 from pptx import Presentation
 
-class Bancolombia:
-
+class Bancolombia(object):
     presentation = None
     template_path = "/var/www/fluid-integrates/app/autodoc/templates/bancolombia.pptx"
     result_path = "/var/www/fluid-integrates/app/autodoc/results/:project.pptx"
@@ -41,11 +40,11 @@ class Bancolombia:
         self.fill_findings_table(data)
         self.fill_results_table(data)
         self.generate_doc()
-		
+
     def get_slide(self, criticality):
-        """ 
+        """
             Retorna el siguiente slide a editar, dependiendo
-            de la criticidad del hallazgo 
+            de la criticidad del hallazgo
         """
         try:
             criticality = float(criticality.replace(",","."))
@@ -73,14 +72,14 @@ class Bancolombia:
 
     def fill_findings_table(self, findings):
         """ Llena la tabla de hallazgos resumen del IE Bancolombia"""
-        # rows = 2 - 6 vulnerabilidades, cols = v.riesgo c.tecnica nombre 
+        # rows = 2 - 6 vulnerabilidades, cols = v.riesgo c.tecnica nombre
         finding_table = self.presentation.slides[0].shapes[3].table
         tbl_len = len(findings)
         if len(findings) > 5:
             tbl_len = 5
         init_row = 2
         for i in range(0,tbl_len):
-            # 0 = v.riesgo 1 = c.tecnica 2 = nombre 
+            # 0 = v.riesgo 1 = c.tecnica 2 = nombre
             finding_table.rows[init_row].cells[0].text_frame.text = ""
             finding_table.rows[init_row].cells[1].text_frame.text = findings[i]["criticidad"]
             finding_table.rows[init_row].cells[2].text_frame.text = findings[i]["hallazgo"]
@@ -132,9 +131,9 @@ class Bancolombia:
         results_table.rows[4].cells[3].text_frame.text = str("%d" % int(o_crit + o_mode + o_tole))
 
     def fill_slide(self, finding):
-        """ 
+        """
             Asigna a cada figura de texto en el slide
-            El valor correspondiente segun el hallazgo 
+            El valor correspondiente segun el hallazgo
         """
         try:
             slide = self.get_slide(finding["criticidad"])
@@ -161,9 +160,9 @@ class Bancolombia:
             if "categoria" in finding:
                 shape, paragraph = self.finding_positions["categoria"]
                 slide.shapes[shape].text_frame.paragraphs[paragraph].runs[0].text = finding["categoria"]
-        except Exception, e:
+        except Exception:
             return None
-		
+
     def generate_doc(self):
         """ Llena cada slide a partir de un hallazgo """
         for finding in self.project_data:
@@ -174,8 +173,7 @@ class Bancolombia:
         """ Guarda el documento pptx creado con el nombre del proyecto """
         self.presentation.save(self.result_path.replace(":project",self.project_name))
 
-class Fluid:
-
+class Fluid(object):
     counter = 1
     presentation = None
     template_path = "/var/www/fluid-integrates/app/autodoc/templates/fluid.pptx"
@@ -205,15 +203,15 @@ class Fluid:
         self.finding_positions["amenaza"] = (3,0)
         self.finding_positions["sistema_comprometido"] = (17,0)
         self.finding_positions["solucion_efecto"] = (2,0)
-        self.finding_positions["requisitos"] = (6,0)	
+        self.finding_positions["requisitos"] = (6,0)
         self.fill_findings_table(data)
         self.fill_results_table(data)
         self.generate_doc()
-		
+
     def get_slide(self, criticality):
-        """ 
+        """
             Retorna el siguiente slide a editar, dependiendo
-            de la criticidad del hallazgo 
+            de la criticidad del hallazgo
         """
         try:
             criticality = float(criticality.replace(",","."))
@@ -240,7 +238,7 @@ class Fluid:
             return slide
     def fill_findings_table(self, findings):
         """ Llena la tabla de hallazgos resumen del IE Fluid"""
-        # rows = 2 - 6 vulnerabilidades, cols = criticidad, nombre 
+        # rows = 2 - 6 vulnerabilidades, cols = criticidad, nombre
         finding_table = self.presentation.slides[0].shapes[2].table
         tbl_len = len(findings)
         if len(findings) > 5:
@@ -295,11 +293,11 @@ class Fluid:
         results_table.rows[2].cells[3].text_frame.text = str("%d" % o_mode)
         results_table.rows[3].cells[3].text_frame.text = str("%d" % o_tole)
         results_table.rows[4].cells[3].text_frame.text = str("%d" % int(o_crit + o_mode + o_tole))
-        
+
     def fill_slide(self, finding):
-        """ 
+        """
             Asigna a cada figura de texto en el slide
-            El valor correspondiente segun el hallazgo 
+            El valor correspondiente segun el hallazgo
         """
         try:
             slide = self.get_slide(finding["criticidad"])
@@ -327,7 +325,7 @@ class Fluid:
             shape, paragraph = self.finding_positions["requisitos"]
             slide.shapes[shape].text_frame.paragraphs[paragraph].runs[0].text = finding["requisitos"]
             self.counter += 1
-        except Exception, e:
+        except Exception:
             return None
 
     def generate_doc(self):

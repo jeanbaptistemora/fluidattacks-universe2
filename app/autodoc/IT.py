@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
-""" 
+"""
     Modulo del AutodocIntegrates para generar
     las presentaciones automaticas xlsx de un
     proyecto en:
-    - Fluid 
+    - Fluid
     - Bancolombia
     TODO: Verificar como arreglar openpyxl hay un error cuando los nombres
     de los sheet exceden 31 caracteres
@@ -11,12 +11,11 @@
 from openpyxl import load_workbook
 import re
 
-class Bancolombia:
-
+class Bancolombia(object):
     workbook = None
     template_path = "/var/www/fluid-integrates/app/autodoc/templates/bancolombia.xlsx"
     result_path = "/var/www/fluid-integrates/app/autodoc/results/:project.xlsx"
-    current_sheet = None 
+    current_sheet = None
     project_name = ""
     project_data = None
     COL_HALLAZGO = 2
@@ -53,7 +52,7 @@ class Bancolombia:
 
     def __init__(self, project, data):
         self.workbook = load_workbook(filename=self.template_path)
-        self.project_name = project 
+        self.project_name = project
         self.project_data = data
         self.generate_doc()
         self.save()
@@ -108,8 +107,7 @@ class Bancolombia:
             return "Alta"
         elif complexity_access == "Medio":
             return "Media"
-        else: 
-            return ""
+        return ""
 
     def generate_doc(self):
         for finding in self.project_data:
@@ -119,15 +117,15 @@ class Bancolombia:
             self.qc_row += 1
 
     def select_finding_sheet(self):
-            self.current_sheet = self.workbook["Hallazgos"]
+        self.current_sheet = self.workbook["Hallazgos"]
 
     def select_qc_sheet(self):
-            self.current_sheet = self.workbook["MatrizQC"]
-            
+        self.current_sheet = self.workbook["MatrizQC"]
+
     def assign(self, col, value, inc = 0):
         """ Asigna un valor a una celda """
         self.current_sheet.cell(row= self.row + inc, column=col).value = value
-    
+
     def assign_qc(self, col, value, inc = 0):
         """ Asigna un valor a una celda """
         self.current_sheet.cell(row= self.qc_row + inc, column=col).value = value
@@ -153,12 +151,11 @@ class Bancolombia:
     def save(self):
         self.workbook.save(self.result_path.replace(":project",self.project_name))
 
-class Fluid:
-
+class Fluid(object):
     workbook = None
     template_path = "/var/www/fluid-integrates/app/autodoc/templates/fluid.xlsx"
     result_path = "/var/www/fluid-integrates/app/autodoc/results/:project.xlsx"
-    current_sheet = None 
+    current_sheet = None
     project_name = ""
     project_data = None
     COL_HALLAZGO = 2
@@ -176,7 +173,7 @@ class Fluid:
 
     def __init__(self, project, data):
         self.workbook = load_workbook(filename=self.template_path)
-        self.project_name = project 
+        self.project_name = project
         self.project_data = data
         self.generate_doc()
         self.save()
@@ -211,8 +208,8 @@ class Fluid:
             return "Alta"
         elif complexity_access == "Medio":
             return "Media"
-        else: 
-            return ""
+
+        return ""
 
     def generate_doc(self):
         for finding in self.project_data:
@@ -220,8 +217,8 @@ class Fluid:
             self.row += 10
 
     def select_finding_sheet(self):
-            self.current_sheet = self.workbook["Hallazgos"]
-            
+        self.current_sheet = self.workbook["Hallazgos"]
+
     def assign(self, col, value, inc = 0):
         """ Asigna un valor a una celda """
         self.current_sheet.cell(row=self.row + inc, column=col).value = value

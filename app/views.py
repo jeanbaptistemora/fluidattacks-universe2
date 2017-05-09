@@ -7,11 +7,13 @@ from django.shortcuts import render, redirect
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_http_methods
 from django.http import HttpResponse
+# pylint: disable=E0402
 from . import util
 from .decorators import authenticate, authorize
 from .models import FormstackAPI, FormstackRequestMapper, OneLoginAPI
 from autodoc import IE, IT
 import time
+# pylint: disable=E0402
 from .mailer import Mailer
 from .services import has_access_to_project
 
@@ -181,6 +183,7 @@ esto"; location = "/index"; </script>', status=401)
         return util.response([], 'Empty fields', True)
     API = FormstackAPI()
     finding_requests = API.get_findings(project)["submissions"]
+    # pylint: disable=C1801
     if len(finding_requests) == 0:
         return util.response([], 'El proyecto no existe', False)
     findings = []
@@ -237,6 +240,7 @@ esto"; location = "/index"; </script>', status=401)
                 eventuality_requests = \
                     API.get_eventualities(project)["submissions"]
                 if eventuality_requests:
+                    # pylint: disable=C1801
                     if len(eventuality_requests) == 0:
                         return util.response([],
                                              'Este proyecto no tiene \
@@ -306,9 +310,11 @@ esto"; location = "/index"; </script>', status=401)
         API = FormstackAPI()
         order_id = API.get_order(project_name)
         if "submissions" in order_id:
+            # pylint: disable=C1801
             if len(order_id["submissions"]) == 1:
                 return util.response(order_id["submissions"][0]["id"],
                                      'Consulta exitosa!', False)
+            # pylint: disable=C1801
             elif len(order_id["submissions"]) == 0:
                 return util.response("0",
                                      'No se ha asignado un pedido!',

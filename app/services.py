@@ -2,8 +2,10 @@
 
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_http_methods
+# pylint: disable=E0402
 from . import util
 from .filter import FilterManager
+# pylint: disable=E0402
 from .exceptions import SecureParamsException
 from .exceptions import LogicException
 from .models import OneLoginAPI
@@ -42,19 +44,23 @@ def login(request):
 
 def get_company(user):
     """Obtiene la compania a la que pertenece el usuario."""
-    return 'FLUID'
+    if user:
+        return 'FLUID'
 
 
 def get_role(user):
     """Obtiene el rol que que tiene el usuario."""
-    return 'admin'
+    if user:
+        return 'admin'
 
 
 def is_registered(user):
     """Verifica si el usuario esta registrado."""
-    return 'True'
+    if user:
+        return 'True'
 
 
 def has_access_to_project(user, project_name):
     """Verifica si el usuario tiene acceso al proyecto en cuestion."""
-    return True
+    if user and project_name:
+        return True

@@ -1,4 +1,5 @@
-from fluidintegrates.settings import *
+# pylint: disable=E0401
+from fluidintegrates.settings import * # noqa
 
 DEBUG = True
 

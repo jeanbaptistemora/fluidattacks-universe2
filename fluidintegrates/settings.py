@@ -20,7 +20,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/1.10/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'oxz^4@97nkz*#490#(-5wtt8go=$pfaybg@is8se+et!$6r%x7'
+SECRET_KEY = 'oxz^4@97nkz*#490#(-5wtt8go=$pfaybg@is8se+et!$6r%x7' # noqa
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -181,12 +181,12 @@ LOGIN_REDIRECT_URL = 'registration'
 FIELDS_STORED_IN_SESSION = ['username', 'registered', 'role']
 
 SOCIAL_AUTH_FACEBOOK_KEY = '726001610940359'
-SOCIAL_AUTH_FACEBOOK_SECRET = '524fada3c3ca5adgb279da535da1d863'
+SOCIAL_AUTH_FACEBOOK_SECRET = '524fada3c3ca5adgb279da535da1d863' # noqa
 SOCIAL_AUTH_FACEBOOK_SCOPE = ['email']
 
 SOCIAL_AUTH_TWITTER_KEY = 'qhAxMXTOjEnTCSGCHn8Rz9TIg'
 SOCIAL_AUTH_TWITTER_SECRET = \
-    'f4mWMboCK86MR06XcA6z1a5bLFpZCIAzxLdQuM4yod08B57oLp'
+    'f4mWMboCK86MR06XcA6z1a5bLFpZCIAzxLdQuM4yod08B57oLp' # noqa
 SOCIAL_AUTH_TWITTER_SCOPE = ['email']
 SOCIAL_AUTH_TWITTER_PROFILE_EXTRA_PARAMS = {
     'fields': 'email'
@@ -194,4 +194,4 @@ SOCIAL_AUTH_TWITTER_PROFILE_EXTRA_PARAMS = {
 
 SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = \
     '65328559770-aatq8b00rvk05qn2h523hn328drt9ehc.apps.googleusercontent.com'
-SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = 'gvd_U6HtBlyKsSynPpz6LRd-'
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = 'gvd_U6HtBlyKsSynPpz6LRd-' # noqa

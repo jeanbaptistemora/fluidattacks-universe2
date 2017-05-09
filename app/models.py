@@ -63,7 +63,8 @@ class FormstackRequestMapper(object):
     FINDING_SISTEMA_COMPROMETIDO = "48092123"
     FINDING_VECTOR_ATAQUE = "48092088"
 
-    def map_finding(self, finding_request):
+    # pylint: disable=R0915
+    def map_finding(self, finding_request): # noqa
         """Convierte los campos de un JSON hallazgo
            de Formstack para manipularlos en integrates."""
         parsed = dict()
