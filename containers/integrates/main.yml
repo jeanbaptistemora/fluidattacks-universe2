@@ -107,14 +107,6 @@
      command: "a2dismod python"
      when: migrate
 
-   - name: Cambiar permisos
-     file:
-      path: /var/www/fluid-integrates/db.sqlite3
-      owner: www-data
-      group: www-data
-      mode: 0775
-
-
    - name: Creando sitio web
      template:
       src: "vars/default.j2"
