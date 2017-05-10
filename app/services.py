@@ -9,6 +9,7 @@ from .filter import FilterManager
 from .exceptions import SecureParamsException
 from .exceptions import LogicException
 from .models import OneLoginAPI
+from .dao import integrates_dao
 
 
 @csrf_exempt
@@ -44,23 +45,20 @@ def login(request):
 
 def get_company(user):
     """Obtiene la compania a la que pertenece el usuario."""
-    if user:
-        return 'FLUID'
+    return integrates_dao.get_company_dao(user)
 
 
 def get_role(user):
     """Obtiene el rol que que tiene el usuario."""
-    if user:
-        return 'admin'
-
+    a = integrates_dao.get_role_dao(user)
+    print (a)
+    return a
 
 def is_registered(user):
     """Verifica si el usuario esta registrado."""
-    if user:
-        return 'True'
+    return integrates_dao.is_registered_dao(user)
 
 
 def has_access_to_project(user, project_name):
     """Verifica si el usuario tiene acceso al proyecto en cuestion."""
-    if user and project_name:
-        return True
+    return integrates_dao.has_access_to_project_dao(user, project_name)

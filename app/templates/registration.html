@@ -29,15 +29,15 @@
           <div class="login-container">
             <div class="panel panel-default">
               <div class="panel-heading">
-		  <h2>FLUIDIntegrates Registration</h2>
+          <h2>FLUIDIntegrates Registration</h2>
               </div>
               <div class="panel-body">
-		  <p>Hello {{ user.email }}!</p>
-		  {% if is_registered == 'True' %}
-		  	<script>location = "/dashboard"</script>
-		  {% else %}
-	 		  <p>You are not a registered user</p>
-		  {% endif %}
+          <p>Hello {{ user.email }}!</p>
+          {% if is_registered == '1' %}
+            <script>location = "/dashboard"</script>
+          {% else %}
+              <p>You are not a registered user</p>
+          {% endif %}
               </div>
             </div>
           </div>
@@ -55,10 +55,10 @@
     <script src="assets/app/login.js" type="text/javascript"></script>
     <script type="text/javascript">
       $(document).ready(function(){
-      	//initialize the javascript
-      	App.init();
+        //initialize the javascript
+        App.init();
       });
-      
+
     </script>
   </body>
 </html>
