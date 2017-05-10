@@ -1,5 +1,4 @@
 from django.db import connections
-from django.db import models
 from django.utils import timezone
 
 
@@ -65,6 +64,6 @@ def has_access_to_project_dao(email, project_name):
 
         query = 'SELECT * FROM projects WHERE id = "%s" and \
 project = "%s"'
-        cursor.execute(query, (email, project_name,))
+        cursor.execute(query, (user_id, project_name,))
         has_access = cursor.fetchone()
     return has_access

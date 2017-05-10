@@ -9,7 +9,6 @@ from .filter import FilterManager
 from .exceptions import SecureParamsException
 from .exceptions import LogicException
 from .models import OneLoginAPI
-from .dao import integrates_dao
 
 
 @csrf_exempt

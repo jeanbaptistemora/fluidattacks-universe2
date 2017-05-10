@@ -1,6 +1,7 @@
+# pylint: disable=E0402
 from ..dao import integrates_dao
 
-
+# pylint: disable=W0613
 def create_user(strategy, details, backend, user=None, *args, **kwargs):
     if user:
         print ("User %s is already on DB" % (user,))
