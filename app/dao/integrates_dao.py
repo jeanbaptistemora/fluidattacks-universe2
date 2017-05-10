@@ -34,6 +34,8 @@ def get_company_dao(email):
         query = 'SELECT company FROM users WHERE email = %s'
         cursor.execute(query, (email,))
         row = cursor.fetchone()
+    if row is None:
+        return "None"
     return row[0]
 
 
@@ -43,6 +45,8 @@ def get_role_dao(email):
         query = 'SELECT role FROM users WHERE email = %s'
         cursor.execute(query, (email,))
         row = cursor.fetchone()
+    if row is None:
+        return "None"
     return row[0]
 
 
