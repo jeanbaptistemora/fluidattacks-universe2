@@ -73,7 +73,6 @@ jobs:
             if [ "${CIRCLE_BRANCH}" == "jarmas" ];
               then sudo echo $VPC_INFO_TEST > \
               servers/host/vars/CFvars/vpc_info.txt && \
-              sudo apt-get install netcat-openbsd && \
-              sudo pip install --upgrade --force troposphere boto3 paramiko && \
+              pip install troposphere boto3 paramiko && \
               sh launch_prd.sh;
             fi
