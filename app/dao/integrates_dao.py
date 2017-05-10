@@ -56,6 +56,8 @@ def is_registered_dao(email):
         query = 'SELECT registered FROM users WHERE email = %s'
         cursor.execute(query, (email,))
         row = cursor.fetchone()
+    if row is None:
+        return '0'
     if row[0] == 1:
         return '1'
     return '0'
@@ -68,7 +70,7 @@ def has_access_to_project_dao(email, project_name):
         cursor.execute(query, (email,))
         user_id = cursor.fetchone()
 
-        query = 'SELECT * FROM projects WHERE id = %s and \
+        query = 'SELECT * FROM projects WHERE user_id = %s and \
 project = %s'
         cursor.execute(query, (user_id, project_name,))
         has_access = cursor.fetchone()
