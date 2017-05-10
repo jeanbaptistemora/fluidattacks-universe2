@@ -166,7 +166,7 @@ def main():
 
     # Crea Stack con EC2
     creator = CFEC2Creator()
-    stackname = "FLUIDServesDynamic" + time.strftime("%Y%m%d")
+    stackname = "FLUIDServesDynamic" + time.strftime("%Y%m%d%I%M")
     creator.create_ec2(KEYNAME, INSTANCE, IMAGE_ID, INSTANCE_TYPE)
     cf_creator.deploy_cloudformation(creator.template.to_json(),
                                      stackname,
