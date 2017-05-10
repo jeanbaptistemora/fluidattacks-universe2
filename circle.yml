@@ -26,9 +26,6 @@ jobs:
           name: IP file
           command: sudo echo $IP > /tmp/instance_ip.txt
       - run:
-          name: Key file
-          command: sudo echo $KEY > /tmp/FLUIDServes_Dynamic.pem
-      - run:
           name: add ansible repo
           command: >
                 sudo echo "deb http://ppa.launchpad.net/ansible/ansible/ubuntu
@@ -44,28 +41,28 @@ jobs:
       - run:
           name: Install ansible
           command: sudo apt-get install -y --force-yes ansible
-      - run:
-          name: Ansible lints
-          command: >
-                ansible-lint servers/alg/main.yml && ansible-lint
-                servers/exams/main.yml && ansible-lint
-                servers/integrates/main.yml && ansible-lint
-                servers/host/main.yml
-      - run:
-          name: Overcommit
-          command: overcommit --sign && overcommit --run
-      - run:
-          name: Start
-          command: ./start.sh && bundle install
-
-      - run:
-          name: Install FLUIDAsserts
-          command: >
-                sudo apt-get install -y libffi-dev libssl-dev g++ gcc &&
-                pip install fluidasserts
-      - run:
-          name: Run asserts
-          command: python asserts.py
+      # - run:
+      #     name: Ansible lints
+      #     command: >
+      #           ansible-lint servers/alg/main.yml && ansible-lint
+      #           servers/exams/main.yml && ansible-lint
+      #           servers/integrates/main.yml && ansible-lint
+      #           servers/host/main.yml
+      # - run:
+      #     name: Overcommit
+      #     command: overcommit --sign && overcommit --run
+      # - run:
+      #     name: Start
+      #     command: ./start.sh && bundle install
+      #
+      # - run:
+      #     name: Install FLUIDAsserts
+      #     command: >
+      #           sudo apt-get install -y libffi-dev libssl-dev g++ gcc &&
+      #           pip install fluidasserts
+      # - run:
+      #     name: Run asserts
+      #     command: python asserts.py
 
            # Deploy jarmas
       - deploy:
