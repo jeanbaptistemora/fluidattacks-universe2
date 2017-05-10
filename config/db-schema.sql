@@ -10,11 +10,11 @@ CREATE TABLE IF NOT EXISTS users (
     last_name varchar(64) COLLATE utf8_bin DEFAULT NULL,
     first_name varchar(64) COLLATE utf8_bin DEFAULT NULL,
     email varchar(254) COLLATE utf8_bin NOT NULL,
-    company varchar(254) NOT NULL,
+    company varchar(254),
     role varchar(32) NOT NULL,
     last_login datetime(6) DEFAULT NULL,
-    date_joined datetime(6) NOT NULL,
-    PRIMARY KEY (id)
+    date_joined datetime(6) DEFAULT NULL,
+    PRIMARY KEY (id, email)
 ) ENGINE=INNODB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 CREATE TABLE IF NOT EXISTS projects (
