@@ -1,5 +1,5 @@
 [container]
-52.5.0.142
+52.6.25.6
 [container:vars]
 
 # Ansible Variables
