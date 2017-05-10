@@ -1,25 +1,23 @@
 CREATE DATABASE IF NOT EXISTS django CHARACTER SET utf8 COLLATE utf8_bin;
-CREATE DATABASE IF NOT EXISTS fluidintegrates;
+CREATE DATABASE IF NOT EXISTS fluidintegrates CHARACTER SET utf8 COLLATE utf8_bin;
 
 USE fluidintegrates;
 
 CREATE TABLE IF NOT EXISTS users (
     id INT NOT NULL AUTO_INCREMENT,
-    username varchar(255) DEFAULT NULL,
-    registered char(1) DEFAULT 'N',
-    last_name varchar(255) DEFAULT NULL,
-    first_name varchar(255) DEFAULT NULL,
-    email varchar(255) NOT NULL,
-    company varchar(255) NOT NULL,
+    username varchar(64) COLLATE utf8_bin DEFAULT NULL,
+    registered tinyint(1) NOT NULL DEFAULT 0,
+    last_name varchar(64) COLLATE utf8_bin DEFAULT NULL,
+    first_name varchar(64) COLLATE utf8_bin DEFAULT NULL,
+    email varchar(254) COLLATE utf8_bin NOT NULL,
+    company varchar(254) NOT NULL,
+    role varchar(32) NOT NULL,
+    last_login datetime(6) DEFAULT NULL,
+    date_joined datetime(6) NOT NULL,
     PRIMARY KEY (id)
-) ENGINE=INNODB;
-
-CREATE TABLE IF NOT EXISTS roles (
-    user_id INT NOT NULL,
-    role varchar(255) NOT NULL
-) ENGINE=INNODB;
+) ENGINE=INNODB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 CREATE TABLE IF NOT EXISTS projects (
     user_id INT NOT NULL,
-    project varchar(255) NOT NULL
-) ENGINE=INNODB;
+    project varchar(64) COLLATE utf8_bin NOT NULL
+) ENGINE=INNODB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
