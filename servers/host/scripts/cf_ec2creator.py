@@ -168,7 +168,7 @@ def main():
 
     creator.create_ec2(KEYNAME, INSTANCE, IMAGE_ID, INSTANCE_TYPE)
     cf_creator.deploy_cloudformation(creator.template.to_json(),
-                                     "FLUIDServesDynamic",
+                                     "FLUIDServesDynamic2",
                                      "FLUIDServes Instance", 0)
 
 
