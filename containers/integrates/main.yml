@@ -38,6 +38,14 @@
       - zlib1g-dev
       - libfreetype6-dev
       - libapache2-mod-python
+      - libmysqlclient-dev
+
+   - name: Upgrade pip
+     pip:
+      name: "{{ item }}"
+      extra_args: -U --force
+     with_items:
+      - pip
 
    - name: Instalar dependencias pip
      pip:
@@ -52,6 +60,8 @@
       - decorators
       - retrying
       - social-auth-app-django
+      - prospector
+      - mysqlclient
 
    - name: Agregar netrc
      template:
@@ -96,14 +106,6 @@
    - name: Quitar mod python
      command: "a2dismod python"
      when: migrate
-
-   - name: Cambiar permisos
-     file:
-      path: /var/www/fluid-integrates/db.sqlite3
-      owner: www-data
-      group: www-data
-      mode: 0775
-
 
    - name: Creando sitio web
      template:
