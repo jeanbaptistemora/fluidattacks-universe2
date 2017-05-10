@@ -6,6 +6,7 @@ Cloud Formation
 """
 # standard imports
 import os
+import time
 # 3rd party imports
 from troposphere import GetAtt,  Output
 from troposphere import Ref, Tags, Template
@@ -165,10 +166,10 @@ def main():
 
     # Crea Stack con EC2
     creator = CFEC2Creator()
-
+    stackname = "FLUIDServesDynamic" + time.strftime("%Y%m%d")
     creator.create_ec2(KEYNAME, INSTANCE, IMAGE_ID, INSTANCE_TYPE)
     cf_creator.deploy_cloudformation(creator.template.to_json(),
-                                     "FLUIDServesDynamic2",
+                                     stackname,
                                      "FLUIDServes Instance", 0)
 
 
