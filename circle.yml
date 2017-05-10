@@ -72,5 +72,7 @@ jobs:
           command: |
             if [ "${CIRCLE_BRANCH}" == "jarmas" ];
               then sudo echo $VPC_INFO_TEST > \
-              servers/host/vars/CFvars/vpc_info.txt && sh launch_prd.sh;
+              servers/host/vars/CFvars/vpc_info.txt && \
+              sudo apt-get install netcat-openbsd && \
+              sh launch_prd.sh;
             fi
