@@ -38,6 +38,7 @@
       - zlib1g-dev
       - libfreetype6-dev
       - libapache2-mod-python
+      - libmysqlclient-dev
 
    - name: Instalar dependencias pip
      pip:
@@ -52,6 +53,8 @@
       - decorators
       - retrying
       - social-auth-app-django
+      - prospector
+      - mysqlclient
 
    - name: Agregar netrc
      template:
