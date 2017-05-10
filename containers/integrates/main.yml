@@ -40,6 +40,13 @@
       - libapache2-mod-python
       - libmysqlclient-dev
 
+   - name: Upgrade pip
+     pip:
+      name: "{{ item }}"
+      extra_args: -U --force
+     with_items:
+      - pip
+
    - name: Instalar dependencias pip
      pip:
       name: "{{ item }}"
