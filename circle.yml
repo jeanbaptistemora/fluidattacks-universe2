@@ -21,7 +21,9 @@ jobs:
            gem install overcommit
       - run:
           name: Vault file
-          command: sudo echo $VAULT > ~/.vault.txt
+          command: >
+              sudo echo $VAULT > ~/.vault.txt &&
+              sudo echo $VAULT > /root/.vault.txt
       - run:
           name: IP file
           command: sudo echo $IP > /tmp/instance_ip.txt
