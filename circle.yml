@@ -40,7 +40,7 @@ jobs:
                 sudo apt-get install -y python-dev python-pip && sudo
                 pip install --upgrade --force pip setuptools && sudo pip
                 install ansible-lint && sudo pip install pep257 pep8
-                pyflakes pylint flake8 yamllint
+                pyflakes pylint flake8 yamllint troposphere boto3 paramiko
       - run:
           name: Install ansible
           command: sudo apt-get install -y --force-yes ansible
@@ -67,10 +67,9 @@ jobs:
           name: Run asserts
           command: python asserts.py
 
-           # Deploy jarmas
-      - deploy:
-          command: |
-            if [ "${CIRCLE_BRANCH}" == "jarmas" ];
-              then sudo echo $VPC_INFO_TEST > \
-              servers/host/vars/CFvars/vpc_info.txt && sh launch_prd.sh;
-            fi
+    deployment:
+      testing:
+        branch: jarmas
+        commands:
+          - sudo echo $VPC_INFO_TEST > servers/host/vars/CFvars/vpc_info.txt
+          - ./launch_prd.sh
