@@ -14,7 +14,7 @@ def authenticate(func):
         if "username" in request.session:
             if request.session["username"] is None:
                 return HttpResponse('Unauthorized \
-<script>location = "/index"; </script>', status=401)
+<script>location = "/logout"; </script>', status=401)
         return func(*args, **kwargs)
     return authenticate_and_call
 
@@ -29,7 +29,8 @@ def authorize(roles):
                 request.session['role'] not in roles:
                 if 'any' not in roles:
                     return HttpResponse('<script>\
-alert("No tiene permisos para esto"); </script>')
+alert("No tiene permisos para esto"); \
+location = "/logout"; </script>', status=401)
             return func(*args, **kwargs)
         return authorize_and_call
     return wrapper

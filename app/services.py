@@ -60,4 +60,6 @@ def is_registered(user):
 
 def has_access_to_project(user, project_name):
     """Verifica si el usuario tiene acceso al proyecto en cuestion."""
+    if user.endswith('fluid.la'):
+        return True
     return integrates_dao.has_access_to_project_dao(user, project_name)
