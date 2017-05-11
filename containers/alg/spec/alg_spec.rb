@@ -1,7 +1,7 @@
 require 'spec_helper'
 require 'dockerspec/serverspec'
 
-describe docker_run('alg') do
+describe docker_run('fluidsignal/fluidservesalg:latest', family: 'debian') do
 
     describe command('ls /etc/apache2/sites-enabled') do
       its(:stdout) { should eq "000-default.conf  default-ssl  fluid.la  www.fluid.la  www.fluidsignal.com\n"}

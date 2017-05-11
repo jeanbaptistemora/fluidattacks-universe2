@@ -62,7 +62,11 @@ jobs:
           command: >
                 cp /tmp/.vault.txt containers/alg/ &&
                 cd containers/alg && bundle exec rake spec
-
+      - run:
+          name: Make exams tests
+          command: >
+                cp /tmp/.vault.txt containers/exams/ &&
+                cd containers/exams && bundle exec rake spec
       - run:
           name: Install FLUIDAsserts
           command: >
