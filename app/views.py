@@ -6,7 +6,7 @@ import json
 from django.shortcuts import render, redirect
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_http_methods
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponse
 # pylint: disable=E0402
 from . import util
 from .decorators import authenticate, authorize
@@ -88,7 +88,7 @@ def export_autodoc(request):
     username = request.session['username']
 
     if not has_access_to_project(username, project):
-        return HttpResponseRedirect('/dashboard')
+        return redirect('/dashboard')
 
     detail = {
         "IT": {
@@ -135,7 +135,7 @@ def generate_autodoc(request):
     username = request.session['username']
 
     if not has_access_to_project(username, project):
-        return HttpResponseRedirect('/dashboard')
+        return redirect('/dashboard')
 
     start_time = time.time()
     data = request.POST.get('data', None)
@@ -171,7 +171,7 @@ def get_findings(request):
     username = request.session['username']
 
     if not has_access_to_project(username, project):
-        return HttpResponseRedirect('/dashboard')
+        return redirect('/dashboard')
 
     filtr = request.GET.get('filter', None)
     if not project:
@@ -219,7 +219,7 @@ def get_eventualities(request):
     username = request.session['username']
 
     if not has_access_to_project(username, project):
-        return HttpResponseRedirect('/dashboard')
+        return redirect('/dashboard')
 
     category = request.GET.get('category', None)
     if not category:
@@ -299,7 +299,7 @@ def get_order(request):
     username = request.session['username']
 
     if not has_access_to_project(username, project_name):
-        return HttpResponseRedirect('/dashboard')
+        return redirect('/dashboard')
 
     if util.is_name(project_name):
         API = FormstackAPI()
@@ -329,7 +329,7 @@ def update_order(request):
     username = request.session['username']
 
     if not has_access_to_project(username, project_name):
-        return HttpResponseRedirect('/dashboard')
+        return redirect('/dashboard')
 
     order_id = request.POST.get('id', None)
     if not util.is_name(project_name):

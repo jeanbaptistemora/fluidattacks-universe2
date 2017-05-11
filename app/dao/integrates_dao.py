@@ -3,7 +3,7 @@ from django.utils import timezone
 
 
 def create_user_dao(username, first_name, last_name, email):
-    role = 'customer'
+    role = 'none'
     last_login = timezone.now()
     date_joined = last_login
 
