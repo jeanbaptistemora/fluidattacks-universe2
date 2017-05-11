@@ -1,7 +1,7 @@
 require 'spec_helper'
 
-describe docker_build('.', tag: 'fluidservesalg:latest') do
-  describe docker_run('alg') do
+describe docker_build('.', tag: 'fluidsignal/fluidservesalg:latest') do
+  describe docker_run('fluidsignal/fluidservesalg:latest') do
     case os[:family]
     when 'debian'
 
