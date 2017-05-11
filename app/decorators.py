@@ -25,7 +25,7 @@ def authorize(roles):
         def authorize_and_call(*args, **kwargs):
             request = args[0]
             if "username" not in request.session or \
-                "registered" not in request.session or \
+                request.session['registered'] != '1' or \
                 request.session['role'] not in roles:
                 if 'any' not in roles:
                     return HttpResponse('<script>\
