@@ -10,7 +10,7 @@ describe docker_run('alg') do
     end
 
     describe command("lsb_release -d") do
-      its(:stdout) { should contain /jessie/ }
+      its(:stdout) { should   contain /jessie/ }
     end
 
     describe package('apache2') do
@@ -42,4 +42,6 @@ describe docker_run('alg') do
       it {should contain 'ServerTokens ProductOnly'}
       it {should contain 'ServerSignature Off'}
     end
+
+  end
 end
