@@ -331,7 +331,7 @@ integrates.controller("findingController", function($scope, $uibModal, findingFa
                     class_name: 'color warning',
                     sticky: false,
                 });
-                $scope.searchVulnByName();
+                //$scope.searchVulnByName();
             });
         }else{
             $scope.response = "El nombre es obligatorio";
