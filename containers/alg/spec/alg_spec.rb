@@ -2,8 +2,9 @@ require 'spec_helper'
 require 'dockerspec/serverspec'
 
 set :docker_compose_container, :alg
-describe docker_build('.', tag: 'fluidsignal/fluidservesalg:latest') do
-  describe docker_run('fluidsignal/fluidservesalg:latest') do
+describe docker_build('.', tag: 'alg') do
+  describe docker_run('alg') do
+    set :docker_compose_container, :alg
     case os[:family]
     when 'debian'
 
