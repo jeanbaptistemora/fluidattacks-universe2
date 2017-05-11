@@ -41,7 +41,7 @@ def dashboard(request):
     "Vista de panel de control para usuarios autenticados"
     parameters = {
         'username': request.session["username"],
-        'role': request.session["role"]
+        'company': request.session["company"]
     }
     return render(request, "dashboard.html", parameters)
 
@@ -89,7 +89,7 @@ def export_autodoc(request):
 
     if not has_access_to_project(username, project):
         return HttpResponse('<script>alert("No tiene permisos para \
-esto"; location = "/index"; </script>', status=401)
+ver este proyecto");" </script>')
 
     detail = {
         "IT": {
@@ -137,7 +137,7 @@ def generate_autodoc(request):
 
     if not has_access_to_project(username, project):
         return HttpResponse('<script>alert("No tiene permisos para \
-esto"; location = "/index"; </script>', status=401)
+ver este proyecto");" </script>')
 
     start_time = time.time()
     data = request.POST.get('data', None)
@@ -174,7 +174,7 @@ def get_findings(request):
 
     if not has_access_to_project(username, project):
         return HttpResponse('<script>alert("No tiene permisos para \
-esto"; location = "/index"; </script>', status=401)
+ver este proyecto"); </script>')
 
     filtr = request.GET.get('filter', None)
     if not project:
@@ -223,7 +223,7 @@ def get_eventualities(request):
 
     if not has_access_to_project(username, project):
         return HttpResponse('<script>alert("No tiene permisos para \
-esto"; location = "/index"; </script>', status=401)
+ver este proyecto");" </script>')
 
     category = request.GET.get('category', None)
     if not category:
@@ -304,7 +304,7 @@ def get_order(request):
 
     if not has_access_to_project(username, project_name):
         return HttpResponse('<script>alert("No tiene permisos para \
-esto"; location = "/index"; </script>', status=401)
+ver este proyecto");" </script>')
 
     if util.is_name(project_name):
         API = FormstackAPI()
@@ -335,7 +335,7 @@ def update_order(request):
 
     if not has_access_to_project(username, project_name):
         return HttpResponse('<script>alert("No tiene permisos para \
-esto"; location = "/index"; </script>', status=401)
+ver este proyecto");" </script>')
 
     order_id = request.POST.get('id', None)
     if not util.is_name(project_name):
