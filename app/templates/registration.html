@@ -27,21 +27,20 @@
       <div class="am-content">
         <div class="main-content">
           <div class="login-container">
-		  <div class="panel panel-default">
-			                <div class="panel-heading"><img src="assets/img/logo.png" alt="logo"   class="logo-img"></div>
-
             <div class="panel panel-default">
-              <div class="panel-heading">
-		<span style="color: white;">	
-          <p>Hola {{ user.first_name }}!</p>
-          {% if is_registered == '1' %}
-            <script>location = "/dashboard"</script>
-          {% else %}
-              <p>No estás autorizado aun para ingresar.</p>
-          {% endif %}
-	  	</span>
-              </div>
-            </div>
+                <div class="panel-heading"><img src="assets/img/logo.png" alt="logo"   class="logo-img"></div>
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                    <span style="color: white;">
+                    <p>Hola {{ user.first_name }}!</p>
+                    {% if is_registered == '1' %}
+                        <script>location = "/dashboard"</script>
+                    {% else %}
+                        <p>No estás autorizado aun para ingresar.</p>
+                    {% endif %}
+                    </span>
+                    </div>
+                </div>
           </div>
       </div>
     </div>
