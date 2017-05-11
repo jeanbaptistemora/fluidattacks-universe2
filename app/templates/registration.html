@@ -33,11 +33,11 @@
             <div class="panel panel-default">
               <div class="panel-heading">
 		<span style="color: white;">	
-          <p>Hello {{ user.email }}!</p>
+          <p>Hola {{ user.first_name }}!</p>
           {% if is_registered == '1' %}
             <script>location = "/dashboard"</script>
           {% else %}
-              <p>You are not a registered user</p>
+              <p>No estás autorizado aun para ingresar.</p>
           {% endif %}
 	  	</span>
               </div>
