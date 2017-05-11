@@ -6,7 +6,7 @@ import json
 from django.shortcuts import render, redirect
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_http_methods
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 # pylint: disable=E0402
 from . import util
 from .decorators import authenticate, authorize
@@ -41,7 +41,7 @@ def dashboard(request):
     "Vista de panel de control para usuarios autenticados"
     parameters = {
         'username': request.session["username"],
-        'role': request.session["role"]
+        'company': request.session["company"]
     }
     return render(request, "dashboard.html", parameters)
 
@@ -88,8 +88,7 @@ def export_autodoc(request):
     username = request.session['username']
 
     if not has_access_to_project(username, project):
-        return HttpResponse('<script>alert("No tiene permisos para \
-esto"; location = "/index"; </script>', status=401)
+        return HttpResponseRedirect('/dashboard')
 
     detail = {
         "IT": {
@@ -136,8 +135,7 @@ def generate_autodoc(request):
     username = request.session['username']
 
     if not has_access_to_project(username, project):
-        return HttpResponse('<script>alert("No tiene permisos para \
-esto"; location = "/index"; </script>', status=401)
+        return HttpResponseRedirect('/dashboard')
 
     start_time = time.time()
     data = request.POST.get('data', None)
@@ -173,8 +171,7 @@ def get_findings(request):
     username = request.session['username']
 
     if not has_access_to_project(username, project):
-        return HttpResponse('<script>alert("No tiene permisos para \
-esto"; location = "/index"; </script>', status=401)
+        return HttpResponseRedirect('/dashboard')
 
     filtr = request.GET.get('filter', None)
     if not project:
@@ -222,8 +219,7 @@ def get_eventualities(request):
     username = request.session['username']
 
     if not has_access_to_project(username, project):
-        return HttpResponse('<script>alert("No tiene permisos para \
-esto"; location = "/index"; </script>', status=401)
+        return HttpResponseRedirect('/dashboard')
 
     category = request.GET.get('category', None)
     if not category:
@@ -303,8 +299,7 @@ def get_order(request):
     username = request.session['username']
 
     if not has_access_to_project(username, project_name):
-        return HttpResponse('<script>alert("No tiene permisos para \
-esto"; location = "/index"; </script>', status=401)
+        return HttpResponseRedirect('/dashboard')
 
     if util.is_name(project_name):
         API = FormstackAPI()
@@ -334,8 +329,7 @@ def update_order(request):
     username = request.session['username']
 
     if not has_access_to_project(username, project_name):
-        return HttpResponse('<script>alert("No tiene permisos para \
-esto"; location = "/index"; </script>', status=401)
+        return HttpResponseRedirect('/dashboard')
 
     order_id = request.POST.get('id', None)
     if not util.is_name(project_name):

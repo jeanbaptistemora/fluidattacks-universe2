@@ -11,6 +11,8 @@ https://docs.djangoproject.com/en/1.10/ref/settings/
 """
 
 import os
+import sys
+sys.path.append('/var/www/fluid-integrates')
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -80,11 +82,22 @@ WSGI_APPLICATION = 'fluidintegrates.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql', 
+        'ENGINE': 'django.db.backends.mysql',
         'NAME': 'django',
         'USER': 'root',
         'PASSWORD': '9O32032;E5q]VIj',
-        'HOST': 'fluidservesexams.cgsvzmr33idc.us-east-1.rds.amazonaws.com', 
+        'HOST': 'fluidservesexams.cgsvzmr33idc.us-east-1.rds.amazonaws.com',
+        'PORT': '3306',
+        'OPTIONS': {
+            'sql_mode': 'STRICT_TRANS_TABLES',
+        }
+    },
+    'integrates': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'fluidintegrates',
+        'USER': 'root',
+        'PASSWORD': '9O32032;E5q]VIj',
+        'HOST': 'fluidservesexams.cgsvzmr33idc.us-east-1.rds.amazonaws.com',
         'PORT': '3306',
         'OPTIONS': {
             'sql_mode': 'STRICT_TRANS_TABLES',
@@ -176,10 +189,12 @@ SOCIAL_AUTH_PIPELINE = (
     'social_core.pipeline.social_auth.social_user',
     'social_core.pipeline.user.get_username',
     'social_core.pipeline.social_auth.associate_by_email',
+    'app.pipeline.user.create_user',
     'social_core.pipeline.user.create_user',
     'social_core.pipeline.social_auth.associate_user',
     'social_core.pipeline.social_auth.load_extra_data',
     'social_core.pipeline.user.user_details',
+    'app.pipeline.user.check_registered',
 )
 
 LOGIN_URL = 'login'
