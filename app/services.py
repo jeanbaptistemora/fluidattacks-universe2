@@ -55,9 +55,9 @@ def get_role(user):
 
 def is_registered(user):
     """Verifica si el usuario esta registrado."""
+    return integrates_dao.is_registered_dao(user)
 
 
 def has_access_to_project(user, project_name):
     """Verifica si el usuario tiene acceso al proyecto en cuestion."""
-    #return integrates_dao.has_access_to_project_dao(user, project_name)
-    return True 
+    return integrates_dao.has_access_to_project_dao(user, project_name)
