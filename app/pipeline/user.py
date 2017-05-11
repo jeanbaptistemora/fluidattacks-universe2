@@ -11,7 +11,7 @@ def create_user(strategy, details, backend, user=None, *args, **kwargs):
     username = details['username']
     first_name = details['first_name']
     last_name = details['last_name']
-
+    email = details['email']
 
     integrates_dao.create_user_dao(username, first_name, last_name, email)
 
