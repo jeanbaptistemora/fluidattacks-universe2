@@ -1,5 +1,7 @@
 require 'spec_helper'
+require 'dockerspec/serverspec'
 
+set :docker_compose_container, :alg
 describe docker_build('.', tag: 'fluidsignal/fluidservesalg:latest') do
   describe docker_run('fluidsignal/fluidservesalg:latest') do
     case os[:family]
