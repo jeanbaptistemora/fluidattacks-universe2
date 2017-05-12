@@ -88,5 +88,6 @@ jobs:
               then sudo echo $VPC_INFO > \
               servers/host/vars/CFvars/vpc_info.txt && \
               pip install troposphere boto3 paramiko && \
-              sh launch_prd.sh && python servers/host/scripts/update_r53.py;
+              sh launch_prd.sh && python servers/host/scripts/update_r53.py \
+              && sh servers/host/scripts/copy_key.sh;
             fi
