@@ -21,7 +21,9 @@ jobs:
            gem install overcommit
       - run:
           name: Vault file
-          command: sudo echo $VAULT > ~/.vault.txt
+          command: >
+              sudo echo $VAULT > ~/.vault.txt &&
+              sudo echo $VAULT > /tmp/.vault.txt
       - run:
           name: add ansible repo
           command: >
@@ -41,16 +43,34 @@ jobs:
       - run:
           name: Ansible lints
           command: >
-                ansible-lint servers/alg/main.yml && ansible-lint
-                servers/exams/main.yml && ansible-lint
-                servers/integrates/main.yml && ansible-lint
-                servers/host/main.yml
+                ansible-lint containers/alg/main.yml && ansible-lint
+                containers/exams/main.yml && ansible-lint
+                containers/integrates/main.yml && ansible-lint
+                containers/host/main.yml
       - run:
           name: Overcommit
           command: overcommit --sign && overcommit --run
+
       - run:
-          name: Start
-          command: ./start.sh && bundle install
+          name: Bundle install
+          command: bundle install
+
+      - run:
+          name: Make alg tests
+          command: >
+                cp /tmp/.vault.txt containers/alg/ &&
+                cd containers/alg && bundle exec rspec
+      - run:
+          name: Make exams tests
+          command: >
+                cp /tmp/.vault.txt containers/exams/ &&
+                cd containers/exams && bundle exec rspec
+
+      - run:
+          name: Make integrates tests
+          command: >
+                cp /tmp/.vault.txt containers/integrates/ &&
+                cd containers/integrates && bundle exec rspec
 
       - run:
           name: Install FLUIDAsserts
@@ -60,3 +80,14 @@ jobs:
       - run:
           name: Run asserts
           command: python asserts.py
+
+           # Deploy jarmas
+      - deploy:
+          command: |
+            if [ "${CIRCLE_BRANCH}" == "master" ];
+              then sudo echo $VPC_INFO > \
+              servers/host/vars/CFvars/vpc_info.txt && \
+              pip install troposphere boto3 paramiko && \
+              sh launch_prd.sh && python servers/host/scripts/update_r53.py \
+              && sh servers/host/scripts/copy_key.sh;
+            fi
