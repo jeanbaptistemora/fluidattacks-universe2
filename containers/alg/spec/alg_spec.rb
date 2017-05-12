@@ -1,10 +1,16 @@
-require 'spec_helper'
+require 'dockerspec'
 require 'dockerspec/serverspec'
+require 'dockerspec/infrataster'
 
-describe docker_run('fluidsignal/fluidservesalg:latest', family: 'debian') do
+describe docker_build('.', tag: 'alg-test', rm: TRUE) do
+
+  it { should have_expose '80' }
+  it { should have_expose '443' }
+
+  describe docker_run('alg-test', family: :debian) do
 
     describe command('ls /etc/apache2/sites-enabled') do
-      its(:stdout) { should eq "000-default.conf  default-ssl  fluid.la  www.fluid.la  www.fluidsignal.com\n"}
+      its(:stdout) { should eq "000-default.conf\ndefault-ssl\nfluid.la\nwww.fluid.la\nwww.fluidsignal.com\n"}
     end
 
     describe command("lsb_release -d") do
@@ -41,4 +47,13 @@ describe docker_run('fluidsignal/fluidservesalg:latest', family: 'debian') do
       it {should contain 'ServerSignature Off'}
     end
 
+    describe server(described_container) do # Infrataster
+      describe http('http://localhost/') do
+        it 'responds content including "<a href="https://fluid.la/">here"' do
+          expect(response.body).to include '<a href="https://fluid.la/">here'
+        end
+      end
+    end
+
+  end
 end

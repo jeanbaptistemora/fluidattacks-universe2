@@ -25,9 +25,6 @@ jobs:
               sudo echo $VAULT > ~/.vault.txt &&
               sudo echo $VAULT > /tmp/.vault.txt
       - run:
-          name: IP file
-          command: sudo echo $IP > /tmp/instance_ip.txt
-      - run:
           name: add ansible repo
           command: >
                 sudo echo "deb http://ppa.launchpad.net/ansible/ansible/ubuntu
@@ -39,34 +36,42 @@ jobs:
                 sudo apt-get install -y python-dev python-pip && sudo
                 pip install --upgrade --force pip setuptools && sudo pip
                 install ansible-lint && sudo pip install pep257 pep8
-                pyflakes pylint flake8 yamllint troposphere boto3 paramiko
+                pyflakes pylint flake8 yamllint
       - run:
           name: Install ansible
           command: sudo apt-get install -y --force-yes ansible
       - run:
           name: Ansible lints
           command: >
-                ansible-lint servers/alg/main.yml && ansible-lint
-                servers/exams/main.yml && ansible-lint
-                servers/integrates/main.yml && ansible-lint
-                servers/host/main.yml
+                ansible-lint containers/alg/main.yml && ansible-lint
+                containers/exams/main.yml && ansible-lint
+                containers/integrates/main.yml && ansible-lint
+                containers/host/main.yml
       - run:
           name: Overcommit
           command: overcommit --sign && overcommit --run
+
       - run:
-          name: Start
-          command: ./start.sh && bundle install
+          name: Bundle install
+          command: bundle install
 
       - run:
           name: Make alg tests
           command: >
                 cp /tmp/.vault.txt containers/alg/ &&
-                cd containers/alg && bundle exec rake spec
+                cd containers/alg && bundle exec rspec
       - run:
           name: Make exams tests
           command: >
                 cp /tmp/.vault.txt containers/exams/ &&
-                cd containers/exams && bundle exec rake spec
+                cd containers/exams && bundle exec rspec
+
+      - run:
+          name: Make integrates tests
+          command: >
+                cp /tmp/.vault.txt containers/integrates/ &&
+                cd containers/integrates && bundle exec rspec
+
       - run:
           name: Install FLUIDAsserts
           command: >
@@ -79,9 +84,9 @@ jobs:
            # Deploy jarmas
       - deploy:
           command: |
-            if [ "${CIRCLE_BRANCH}" == "jarmas" ];
-              then sudo echo $VPC_INFO_TEST > \
+            if [ "${CIRCLE_BRANCH}" == "master" ];
+              then sudo echo $VPC_INFO > \
               servers/host/vars/CFvars/vpc_info.txt && \
               pip install troposphere boto3 paramiko && \
-              sh launch_prd.sh;
+              sh launch_prd.sh && python servers/host/scripts/update_r53.py;
             fi
