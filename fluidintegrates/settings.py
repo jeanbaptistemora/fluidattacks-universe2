@@ -167,9 +167,9 @@ STATICFILES_DIRS = (
 )
 
 AUTHENTICATION_BACKENDS = (
+    'social_core.backends.linkedin.LinkedinOAuth2',
     'social_core.backends.github.GithubOAuth2',
     'social_core.backends.twitter.TwitterOAuth',
-    'social_core.backends.facebook.FacebookOAuth2',
     'social_core.backends.google.GoogleOAuth2',
     'django.contrib.auth.backends.ModelBackend',
 )
@@ -197,22 +197,26 @@ SOCIAL_AUTH_PIPELINE = (
     'app.pipeline.user.check_registered',
 )
 
+FORCE_SCRIPT_NAME = '/integrates'
+
 LOGIN_URL = 'login'
 LOGOUT_URL = 'logout'
 LOGIN_REDIRECT_URL = 'registration'
+#AUTH_EXTRA_ARGUMENTS = {'redirect_uri': 'https://fluid.la/oauth/complete/google-oauth2/'}
+USE_X_FORWARDED_HOST = True
 
 
-SOCIAL_AUTH_SANITIZE_REDIRECTS = False
+# General parameteres
+SOCIAL_AUTH_SANITIZE_REDIRECTS = False 
+SOCIAL_AUTH_LOGIN_REDIRECT_URL = 'registration'
+SOCIAL_AUTH_NEW_USER_REDIRECT_URL = 'registration'
+SOCIAL_AUTH_DISCONNECT_REDIRECT_URL = 'https://fluid.la/integrates/index'
+SOCIAL_AUTH_INACTIVE_USER_URL = 'https://fluid.la/integrates/index'
+SOCIAL_AUTH_LOGIN_URL = 'https://fluid.la/integrates/index'
+SOCIAL_AUTH_LOGIN_ERROR_URL = 'https://fluid.la/integrates/index'
 
-SOCIAL_AUTH_LOGIN_REDIRECT_URL = '/registration'
-SOCIAL_AUTH_NEW_USER_REDIRECT_URL = '/registration'
-SOCIAL_AUTH_DISCONNECT_REDIRECT_URL = '/index'
-SOCIAL_AUTH_INACTIVE_USER_URL = '/index'
-SOCIAL_AUTH_LOGIN_URL = '/index'
-SOCIAL_AUTH_LOGIN_ERROR_URL = '/index'
 
-#FIELDS_STORED_IN_SESSION = ['username', 'registered', 'role']
-
+# Twitter integration
 SOCIAL_AUTH_TWITTER_KEY = 'qhAxMXTOjEnTCSGCHn8Rz9TIg'
 SOCIAL_AUTH_TWITTER_SECRET = \
     'f4mWMboCK86MR06XcA6z1a5bLFpZCIAzxLdQuM4yod08B57oLp' # noqa
@@ -221,6 +225,26 @@ SOCIAL_AUTH_TWITTER_PROFILE_EXTRA_PARAMS = {
     'fields': 'email'
 }
 
+# Google integration
 SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = \
     '65328559770-aatq8b00rvk05qn2h523hn328drt9ehc.apps.googleusercontent.com'
 SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = 'gvd_U6HtBlyKsSynPpz6LRd-' # noqa
+
+
+# Github integration
+SOCIAL_AUTH_GITHUB_KEY = 'a1b2c3d4'
+SOCIAL_AUTH_GITHUB_SECRET = 'e5f6g7h8i9'
+SOCIAL_AUTH_GITHUB_SCOPE = ['email']
+
+
+# LinkedIn integration
+SOCIAL_AUTH_LINKEDIN_KEY = '78y2twyikiy4rc'
+SOCIAL_AUTH_LINKEDIN_SECRET = 'UjAB4hvd6cQ3jFhe'
+SOCIAL_AUTH_LINKEDIN_OAUTH2_SCOPE = ['r_basicprofile', 'r_emailaddress']
+SOCIAL_AUTH_LINKEDIN_OAUTH2_FIELD_SELECTORS = ['email-address', 'headline', 'industry']
+SOCIAL_AUTH_LINKEDIN_OAUTH2_EXTRA_DATA = [('id', 'id'),
+                                   ('firstName', 'first_name'),
+                                   ('lastName', 'last_name'),
+                                   ('emailAddress', 'email_address'),
+                                   ('headline', 'headline'),
+                                   ('industry', 'industry')]
