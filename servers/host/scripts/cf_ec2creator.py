@@ -160,6 +160,12 @@ def create_key_pair():
     os.chmod(key_file, 0400)
 
 
+def save_stackname(stackname):
+    file_stack = '/tmp/stackname.txt'
+    with open(file_stack, 'w') as stack_fd:
+        stack_fd.write(stackname)
+
+
 def main():
 
     create_key_pair()
@@ -167,6 +173,7 @@ def main():
     # Crea Stack con EC2
     creator = CFEC2Creator()
     stackname = "FLUIDServesDynamic" + time.strftime("%Y%m%d%I%M")
+    save_stackname(stackname)
     creator.create_ec2(KEYNAME, INSTANCE, IMAGE_ID, INSTANCE_TYPE)
     cf_creator.deploy_cloudformation(creator.template.to_json(),
                                      stackname,
