@@ -81,7 +81,7 @@ jobs:
           name: Run asserts
           command: python asserts.py
 
-           # Deploy jarmas
+           # Deploy master
       - deploy:
           command: |
             if [ "${CIRCLE_BRANCH}" == "master" ];
@@ -89,5 +89,6 @@ jobs:
               servers/host/vars/CFvars/vpc_info.txt && \
               pip install troposphere boto3 paramiko && \
               sh launch_prd.sh && python servers/host/scripts/update_r53.py \
-              && sh servers/host/scripts/copy_key.sh;
+              && sh servers/host/scripts/copy_key.sh && \
+              python servers/host/scripts/delete_old.py;
             fi
