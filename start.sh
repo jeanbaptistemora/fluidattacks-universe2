@@ -4,12 +4,8 @@
 
 SERVERS="alg exams integrates"
 
-# Crea los contenedores dependiendo el OS
-for os in ${SERVERS}; do
-    containers/${os}/build.sh
-done
-
-# Construye los servers
+# Crea los contenedores dependiendo del server
 for server in ${SERVERS}; do
+    containers/${server}/build.sh
     servers/${server}/scripts/start.sh
 done
