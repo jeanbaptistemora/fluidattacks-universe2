@@ -1,0 +1,21 @@
+language: python
+
+cache:
+  pip: true
+  directories:
+    - build
+
+python:
+  - "2.7"
+
+sudo: required
+
+install:
+- pip install --upgrade pip
+- pip install -r requirements.txt
+
+before_script:
+- pelican-themes -i ./theme/elegant
+
+script:
+  - ./precommit.sh
