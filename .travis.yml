@@ -12,10 +12,6 @@ sudo: required
 
 install:
 - pip install --upgrade pip
-- pip install -r requirements.txt
-
-before_script:
-- pelican-themes -i ./theme/elegant
 
 script:
   - ./precommit.sh
