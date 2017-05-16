@@ -15,4 +15,4 @@ install:
 - pip install pre-commit gitinspector
 
 script:
- -no checker
+ pytest
