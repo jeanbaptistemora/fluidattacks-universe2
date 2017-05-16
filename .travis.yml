@@ -12,3 +12,7 @@ sudo: required
 
 install:
 - pip install --upgrade pip
+- pip install pre-commit gitinspector
+
+script:
+  - ./precommit.sh
