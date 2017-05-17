@@ -14,5 +14,5 @@ before_script:
 script:
 - make publish github
 env:  
-global:
- - secure: b4766bfd2a53c580fbb857c389aa498b6995c54b
+  global:
+  - secure: b4766bfd2a53c580fbb857c389aa498b6995c54b
