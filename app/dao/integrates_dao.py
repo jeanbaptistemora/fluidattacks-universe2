@@ -1,5 +1,18 @@
 from django.db import connections
 from django.utils import timezone
+from passlib.apps import custom_app_context as pwd_context
+
+
+def login(username, password):
+    """Autentica usuario."""
+    with connections['integrates'].cursor() as cursor:
+        query = \
+            'SELECT password FROM users WHERE email = %s'
+        cursor.execute(query, (username,))
+        row = cursor.fetchone()
+    if row is None:
+        return False
+    return pwd_context.verify(password, row[0])
 
 
 def create_user_dao(username, first_name, last_name, email):

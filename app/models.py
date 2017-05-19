@@ -5,6 +5,7 @@ import json
 import requests
 from requests.exceptions import ConnectionError
 from retrying import retry
+from .dao import integrates_dao
 
 requests.adapters.DEFAULT_RETRIES = 10
 
@@ -362,3 +363,15 @@ FLUIDIntegrates/1.0'
         except requests.exceptions.HTTPError:
             result = False
         return result
+
+
+class DBAPI(object):
+    """Clase para autenticar usando DB."""
+
+    def __init__(self, username, password):
+        """ Constructor """
+        self.username = username
+        self.password = password
+
+    def login(self):
+        return integrates_dao.login(self.username, self.password)
