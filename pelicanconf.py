@@ -31,5 +31,12 @@ SOCIAL = (('You can add links in your config file', '#'),
 
 DEFAULT_PAGINATION = 10
 
+# Plugins
+#PLUGIN_PATHS = 'plugins\pelican_plugins'
+#PLUGINS = ['asciidoc_reader']
+
+#theme
+THEME = "theme/pelican-clean-blog"
+
 # Uncomment following line if you want document-relative URLs when developing
 #RELATIVE_URLS = True
