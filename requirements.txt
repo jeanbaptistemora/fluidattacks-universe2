@@ -39,3 +39,7 @@ wheel>=0.24.0
 wsgiref>=0.1.2
 zope.interface>=4.0.5
 pelican-gist>=0.3
+fabric
+typogrify
+pillow
+webassets
