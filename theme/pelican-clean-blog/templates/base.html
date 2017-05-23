@@ -42,11 +42,11 @@
         {% endif %}
     {% endfor %}
         <!-- Bootstrap Core CSS -->
-        <link href="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/css/bootstrap.min.css" rel="stylesheet">
-
+        <link href="{{ SITEURL }}/theme/css/bootstrap.css" rel="stylesheet">
+	<link href="{{ SITEURL }}/theme/css/bootstrap.min.css" rel="stylesheet">
         <!-- Custom CSS -->
-        <link href="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/css/clean-blog.min.css" rel="stylesheet">
-
+        <link href="{{ SITEURL }}/theme/css/clean-blog.css" rel="stylesheet">
+	<link href="{{ SITEURL }}/theme/css/clean-blog.min.css" rel="stylesheet">
         <!-- Code highlight color scheme -->
         {% if COLOR_SCHEME_CSS %}
             <link href="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/css/code_blocks/{{ COLOR_SCHEME_CSS }}" rel="stylesheet">
@@ -100,49 +100,8 @@
 </head>
 
 <body>
-
     <!-- Navigation -->
-    <nav class="navbar navbar-default navbar-custom navbar-fixed-top">
-        <div class="container-fluid">
-            <!-- Brand and toggle get grouped for better mobile display -->
-            <div class="navbar-header page-scroll">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="{{ SITEURL }}/">{{ SITENAME }}</a>
-            </div>
-
-            <!-- Collect the nav links, forms, and other content for toggling -->
-            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                <ul class="nav navbar-nav navbar-right">
-                    {% for title, link in MENUITEMS %}
-                        <li><a href="{{ link }}">{{ title }}</a></li>
-                    {% endfor %}
-
-                    {% if DISPLAY_PAGES_ON_MENU %}
-                        {# FIXME: Simplify to 'for p in pages' when we are ready to drop support for Pelican < 3.7 #}
-                        {% for p in PAGES or pages %}
-                            <li{% if p == page %} class="active"{% endif %}><a href="{{ SITEURL }}/{{ p.url }}">{{ p.title }}</a></li>
-                        {% endfor %}
-                    {% else %}
-                        {% if DISPLAY_CATEGORIES_ON_MENU %}
-                            {% for cat, null in categories %}
-                                <li{% if cat == category %} class="active"{% endif %}><a href="{{ SITEURL }}/{{ cat.url }}">{{ cat }}</a></li>
-                            {% endfor %}
-                        {% endif %}
-                    {% endif %}
-                </ul>
-            </div>
-            <!-- /.navbar-collapse -->
-        </div>
-        <!-- /.container -->
-    </nav>
-
     {% block header %}{% endblock header %}
-
     <!-- Main Content -->
     <div class="container">
         <div class="row">
