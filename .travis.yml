@@ -1,28 +1,39 @@
 language: python
-
-cache:
-  pip: true
-  directories:
-  - build
-
 python:
 - '2.7'
-
-sudo: required
 
 branches:
   only:
   - master
 
+sudo: required
+
+addons:
+  apt:
+    packages:
+    - language-pack-es
+
 install:
 - pip install -r requirements.txt
-- pelican -s publishconf.py
-script:
-- make html
+- pip install webassets
+- sudo apt-get install asciidoc source-highlight
 
-after_script:
-- git config credential.helper "store --file=.git/credentials"
-- echo "https://${GH_TOKEN}:@github.com" > .git/credentials
-dd:
-  secure: MURxx5sbuUOBPtxtZKftnPNw8Ret61cn4VTtoWeIE2mgBBxmQKz150WR0PP5G9PwMvf9QVeK7v5PXHLMom+vhlgP72+2cs2h2XEvuIgsKfbVTtR3KcTbg/NXUVpGBBWEMudSwyzNIIjx6CxG2kzBFaOgt0osn1xll7ul41qpDxh6mPzzmCkEBKFC6iicbl/3mMX1BN+cRm7AXN1iuty/klWQsn9P5zqWoeir1sDPA3zi9ewzVHgviz8g2f1VilKNVktEgp4kX2V2rfAVmu8+KYSo84wFhkY27XuZvPIwwbIo+ptqVJD5sbEhowXbd5Ui9p+pI5CoOaAPH/f7iMHfSGR5pfJgQVUDQNmiLXqubGQUvdF17w3ZuAHg0lk/5qYH37V4nNpID7MLJ5N3HKMuAbL4jiobI8QDSpju98czVQmBeT7TLB6u5HF633g3ReqFYWOgzCSUhOxRKEKMmloTyg46ToJLaspl5d5lQOzSSJdz1jawwNIDFSclVog9yk8rbqJ32FTghVoWZwAqI/4zHLrrh2SboNTtGPPdYBjkDdahxye7LXsp8R64EEEkgwIGVlh5mLSKaVaGFFsKZrQXGoYqhWoxJn3ZSEQ5FdcsVerZ7IcG6RSNgVR7QdwYUHB/V9KEnq9dMUHPH6i4r1oWNi6mnpX/anQnl2qo2YylXkU=
-after_success: ./deploy.sh deploy
+script:
+- make publish
+env:
+  global:
+    secure: XiVAFwuBw/pdcW6rz7GO5Mv4RVCuh2Dyd96nnA6aQfqhxAgbRnBvI/M++tYbEjALMUsFcXONNkIknSLd/2s45BnirckBphqxvNw+py5OovD86PEo6YJr6KfKl9aCBk6LQAPl7adrFibQTin/qH6r31oRAlxen3gv0vKBiFHRYr1I/QoqT2VRlyLZBsmAozWy5/BN5vRvu6rgq162M7p0YFFQdQCKEyw8yS7kSd3gQUz9Bcb/3LEog39CoxKnjCi8ii7PTODrMnEp5ikduA1y0duXuyeHaHbPuR4beLqSPNAFNv9wxQYRET29rgdh2d8JET3KHlQF5LnGNTquQCZakoIMqFS9rYAZrOwYLN/1pK/mF697UqtU/6z3NpOXS3jInQutbW1qz50/gtXwZawzuXW7Cx2fNVpThFjFkvTR9lRGyI9ZK9IFSAC1g1rmP4nAbOqWfLoG3Zk+aEFRS3sQ9ClvT7+pEew78L056066oHwAjNSqdktojRKE+a5RmrHDJYXDaeivKJ4af83ywFkArC5MDUrmPm5Fnzuazaq9FFUYMgFjhj3t/ong7mBos8Me4n1dBbu+Xl22VZdIowQqS3LLnZaPM0yvFTmE2mCPlrZFLaiVfY/gL9SHjumx3rtDWDUF25jmSVaVdxvVz2NZqIz6EpbFjNLnMCjms0bbNOg=
+
+after_success:
+- git config --global user.email "travis@travis-ci.org"
+- git config --global user.name "Travis"
+- git config --global push.default simple
+- echo "Clone lordjhony.github.io..."
+- git clone --depth 1 https://${GH_TOKEN}@github.com/LordJhony/lordjhony.github.io.git > /dev/null
+- cd lordjhony.github.io
+- git rm -rf * > /dev/null
+- cp -r  ../output/* .
+- git add .
+- git status
+- git commit -m "Pushed by Travis CI"
+- git push --quiet
