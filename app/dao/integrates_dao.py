@@ -1,6 +1,8 @@
 from django.db import connections
 from django.utils import timezone
 from passlib.apps import custom_app_context as pwd_context
+import random
+import string
 
 
 def login(username, password):
@@ -19,14 +21,18 @@ def create_user_dao(username, first_name, last_name, email):
     role = 'none'
     last_login = timezone.now()
     date_joined = last_login
+    password = ''.join(random.choice(
+                       string.ascii_uppercase + string.digits)
+                       for _ in range(32))
 
     with connections['integrates'].cursor() as cursor:
         query = 'INSERT INTO users(username, first_name, last_name, \
-email, role, last_login, date_joined) VALUES (%s, %s, %s, %s, %s, %s, %s)'
+email, role, last_login, date_joined, password) \
+VALUES (%s, %s, %s, %s, %s, %s, %s, %s)'
         cursor.execute(query,
                        (username, first_name,
                         last_name, email, role,
-                        last_login, date_joined))
+                        last_login, date_joined, password))
         row = cursor.fetchone()
     return row
 
@@ -35,7 +41,7 @@ def update_user_login_dao(email):
     last_login = timezone.now()
 
     with connections['integrates'].cursor() as cursor:
-        query = 'UPDATE users SET last_login="%s" WHERE email = %s'
+        query = 'UPDATE users SET last_login=%s WHERE email = %s'
         cursor.execute(query, (last_login, email,))
         row = cursor.fetchone()
     return row
