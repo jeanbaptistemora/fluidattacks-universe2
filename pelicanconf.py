@@ -8,7 +8,7 @@ sys.setdefaultencoding("utf-8")
 
 AUTHOR = 'Fluid'
 SITENAME = 'Blog de Fluid'
-SITEURL = 'environ.get("PELICAN_SITEURL", "https://lordjhony.github.io")'
+SITEURL = 'https://lordjhony.github.io'
 
 PATH = 'content'
 
@@ -40,12 +40,14 @@ ARTICLE_URL = '{date:%Y}/{date:%m}/{date:%d}/{slug}.html'
 ARTICLE_SAVE_AS = '{date:%Y}/{date:%m}/{date:%d}/{slug}.html'
 
 # Plugins
-PLUGIN_PATH = 'pelican-plugins'
-PLUGINS = ['asciidoc_reader','assets','neighbors','share_post']
+PLUGIN_PATHS = 'pelican-plugins'
+PLUGINS = ['asciidoc_reader','assets','neighbors','share_post','related_posts','disqus_static']
+
+# Discus
+# DISQUS_SITENAME = 'lordjhony.disqus.com'
 
 # theme
 THEME = "theme/pelican-clean-blog"
-RELATIVE_URLS = True
 
 
 # Uncomment following line if you want document-relative URLs when developing
