@@ -95,7 +95,7 @@
     {% elif HEADER_COLOR %}
         <header class="intro-header" style="background-color: {{ HEADER_COLOR }}">
     {% else %}
-        <header class="intro-header" style="background-image: url('{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/post-bg.jpg')">
+        <header class="intro-header" onclick="window.location='{{ SITEURL }}';" style="background-image: url('{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/post-bg.jpg')">
     {% endif %}
         <div class="container">
             <div class="row">
@@ -105,11 +105,11 @@
                         {% if article.headline %}
                             <h3 class="subheading">{{ article.headline }}</h3>
                         {% endif %}
-                        <span class="meta">Posted by
+                        <span class="meta">
                             {% for author in article.authors %}
                                 <a href="{{ SITEURL }}/{{ author.url }}">{{ author }}</a>
-                            {% endfor %}
-                             on {{ article.locale_date }}
+                            {% endfor %}<br/>
+                             {{ article.locale_date }}
                         </span>
                         {% if article.modified %}
                             <span class="meta">Updated on {{ article.locale_modified }}</span>
@@ -128,6 +128,15 @@
     <article>
         {{ article.content }}
     </article>
+ 
+ <p><img src="/images/autores/{{article.writer}}.png" style="float: left" height="87" width="83">
+  <strong>
+    <span>{{article.name}}</span>
+  </strong><br>{{article.about1}}.
+  <br>{{article.about2}}.
+</p>
+		
+		
     <hr>
 {% if article.share_post and article.status != 'draft' %}
 <section>
@@ -142,8 +151,7 @@
         ❄
         <a href="{{article.share_post['google-plus']}}" target="_blank" title="Share on Google Plus"><img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/social-media/gplus.jpg"/></a>
     </p>
-</section>
-		
+</section>		
 {% endif %}
 <br /><br />
 <hr>
@@ -163,7 +171,7 @@
  <section>
         <div class="tags">
             <p>{% for tag in article.tags %}
-            <a href="{{ SITEURL }}/{{ tag.url }}">{{ tag | escape }}</a>
+            <a href="{{ SITEURL }}/{{ tag.url }}" style="background-color: #1b75bb; color: white;">{{ tag | escape }}</a>
             {% if not loop.last %}&nbsp;&nbsp;{% endif %}{% endfor %}</p>
         </div>
 </section>
@@ -173,14 +181,14 @@
  <tr>
  {% if article.prev_article %}
      <td width="600px" aligh="center">
-         <a href="{{ SITEURL }}/{{ article.prev_article.url}}">
+         <a href="{{ SITEURL }}/{{ article.prev_article.url}}" style= "background-color: #1d4f72; color: white;">
              {{ article.prev_article.title }}
          </a>
      </td>
  {% endif %}
  {% if article.next_article %}
      <td width="600px" aligh="center">
-         <a href="{{ SITEURL }}/{{ article.next_article.url}}">
+         <a href="{{ SITEURL }}/{{ article.next_article.url}}" style= "background-color: #1d4f72; color: white;">
              {{ article.next_article.title }}
          </a>
       </td>
@@ -190,7 +198,7 @@
 <br />
 {% if DISQUS_SITENAME and SITEURL and article.status != "draft" %}
         <div class="comments">
-            <h2>Comments !</h2>
+            <h3>Haz un comentario</h3>
             <div id="disqus_thread"></div>
             <script type="text/javascript">
                 var disqus_shortname = '{{ DISQUS_SITENAME }}';
