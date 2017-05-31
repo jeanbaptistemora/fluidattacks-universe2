@@ -19,15 +19,15 @@ install:
 - sudo apt-get install asciidoc source-highlight
 - sudo pip install awscli
 
-script:
-- make publish
-
+script: "pelican content/"
 deploy:
-  provider: s3
-  skip_cleanup: true
-  access_key_id: $AWS_ACCESS_KEY
-  secret_access_key: $AWS_SECRET_ACCESS_KEY  
-  bucket: blog2.fluid.la
-  local_dir: _site
-  acl: public_read
-  
+    provider: s3
+    access_key_id: $AWS_ACCESS_KEY # declared in Travis repo settings
+    secret_access_key: $AWS_SECRET_KEY
+    bucket: blog2.fluid.la
+    endpoint: blog2.fluid.la.s3-website-us-east-1.amazonaws.com
+    region: us-east-1
+    skip_cleanup: true
+    local-dir: output
+    acl: public_read
+    detect_encoding: true  
