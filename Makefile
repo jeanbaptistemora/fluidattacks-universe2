@@ -17,7 +17,8 @@ SSH_PORT=22
 SSH_USER=root
 SSH_TARGET_DIR=/var/www
 
-S3_BUCKET=blog2.fluid.la
+S3_BUCKET=s3://blog2.fluid.la
+s3cfg=~/.s3cfg
 
 CLOUDFILES_USERNAME=my_rackspace_username
 CLOUDFILES_API_KEY=my_rackspace_api_key
