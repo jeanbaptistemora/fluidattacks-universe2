@@ -17,23 +17,17 @@ install:
 - pip install -r requirements.txt
 - pip install webassets
 - sudo apt-get install asciidoc source-highlight
+- sudo pip install awscli
 
 script:
 - make publish
-env:
-  global:
-    secure: XiVAFwuBw/pdcW6rz7GO5Mv4RVCuh2Dyd96nnA6aQfqhxAgbRnBvI/M++tYbEjALMUsFcXONNkIknSLd/2s45BnirckBphqxvNw+py5OovD86PEo6YJr6KfKl9aCBk6LQAPl7adrFibQTin/qH6r31oRAlxen3gv0vKBiFHRYr1I/QoqT2VRlyLZBsmAozWy5/BN5vRvu6rgq162M7p0YFFQdQCKEyw8yS7kSd3gQUz9Bcb/3LEog39CoxKnjCi8ii7PTODrMnEp5ikduA1y0duXuyeHaHbPuR4beLqSPNAFNv9wxQYRET29rgdh2d8JET3KHlQF5LnGNTquQCZakoIMqFS9rYAZrOwYLN/1pK/mF697UqtU/6z3NpOXS3jInQutbW1qz50/gtXwZawzuXW7Cx2fNVpThFjFkvTR9lRGyI9ZK9IFSAC1g1rmP4nAbOqWfLoG3Zk+aEFRS3sQ9ClvT7+pEew78L056066oHwAjNSqdktojRKE+a5RmrHDJYXDaeivKJ4af83ywFkArC5MDUrmPm5Fnzuazaq9FFUYMgFjhj3t/ong7mBos8Me4n1dBbu+Xl22VZdIowQqS3LLnZaPM0yvFTmE2mCPlrZFLaiVfY/gL9SHjumx3rtDWDUF25jmSVaVdxvVz2NZqIz6EpbFjNLnMCjms0bbNOg=
 
-after_success:
-- git config --global user.email "travis@travis-ci.org"
-- git config --global user.name "Travis"
-- git config --global push.default simple
-- echo "Clone lordjhony.github.io..."
-- git clone --depth 1 https://${GH_TOKEN}@github.com/LordJhony/lordjhony.github.io.git > /dev/null
-- cd lordjhony.github.io
-- git rm -rf * > /dev/null
-- cp -r  ../output/* .
-- git add .
-- git status
-- git commit -m "Pushed by Travis CI"
-- git push --quiet
+deploy:
+  provider: s3
+  skip_cleanup: true
+  access_key_id: $AWS_ACCESS_KEY
+  secret_access_key: $AWS_SECRET_ACCESS_KEY  
+  bucket: blog2.fluid.la
+  local_dir: _site
+  acl: public_read
+  
