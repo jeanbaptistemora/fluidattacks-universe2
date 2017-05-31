@@ -29,5 +29,5 @@ deploy:
     region: us-east-1
     skip_cleanup: true
     local-dir: output
-    acl: public_read
+    acl: public_read_write
     detect_encoding: true  
