@@ -51,8 +51,8 @@ def dashboard(request):
 def logout(request):
     "Cierra la sesion activa de un usuario"
 
-    del(request.session["username"])
     try:
+        del(request.session["username"])
         del(request.session["company"])
         del(request.session["role"])
         del(request.session["registered"])
