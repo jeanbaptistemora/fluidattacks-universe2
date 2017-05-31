@@ -375,4 +375,7 @@ class DBAPI(object):
         self.password = password
 
     def login(self):
-        return integrates_dao.login(self.username, self.password)
+        if integrates_dao.login(self.username, self.password):
+            integrates_dao.update_user_login_dao(self.username)
+            return True
+        return False
