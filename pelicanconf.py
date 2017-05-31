@@ -8,7 +8,7 @@ sys.setdefaultencoding("utf-8")
 
 AUTHOR = 'Fluid'
 SITENAME = 'Blog de Fluid'
-SITEURL = 'https://lordjhony.github.io'
+SITEURL = 'http://blog2.fluid.la'
 
 PATH = 'content'
 
@@ -44,7 +44,7 @@ PLUGIN_PATHS = 'pelican-plugins'
 PLUGINS = ['asciidoc_reader','assets','neighbors','share_post','related_posts']
 
 # Discus
-DISQUS_SITENAME = 'lordjhony'
+DISQUS_SITENAME = 'fluid-blog'
 
 
 # theme
