@@ -23,7 +23,7 @@ script: "pelican content/"
 deploy:
     provider: s3
     access_key_id: $AWS_ACCESS_KEY # declared in Travis repo settings
-    secret_access_key: $AWS_SECRET_KEY
+    secret_access_key: $AWS_PRIVATE_KEY
     bucket: blog2.fluid.la
     endpoint: blog2.fluid.la.s3-website-us-east-1.amazonaws.com
     region: us-east-1
