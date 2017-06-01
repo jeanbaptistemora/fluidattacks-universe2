@@ -58,6 +58,8 @@
             <!-- CSS specified by the user -->
             <link href="{{ SITEURL }}/{{ CSS_OVERRIDE }}" rel="stylesheet">
         {% endif %}
+	<link rel="stylesheet" href="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/css/menu.css">
+        <script type="text/javascript" src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/js/menu.js"></script>
 
         <!-- Custom Fonts -->
         <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
@@ -101,7 +103,9 @@
 
 <body>
     <!-- Navigation -->
+	
     {% block header %}{% endblock header %}
+	
     <!-- Main Content -->
     <div class="container">
         <div class="row">
