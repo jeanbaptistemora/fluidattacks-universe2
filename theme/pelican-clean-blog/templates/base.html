@@ -59,6 +59,7 @@
             <link href="{{ SITEURL }}/{{ CSS_OVERRIDE }}" rel="stylesheet">
         {% endif %}
 	<link rel="stylesheet" href="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/css/menu.css">
+	<link rel="stylesheet" href="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/css/footer.css">
 	       
 
         <!-- Custom Fonts -->
@@ -113,30 +114,21 @@
                 {% block content %}{% endblock content %}
             </div>
         </div>
-    </div>
-
-    <hr>
-
-    <!-- Footer -->
-    <footer>
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">                    
-                        {% include 'footer.html' %}                    
-                </div>
-            </div>
-        </div>
-    </footer>
-
+    </div>   
+    <!-- Footer --> 
+	<br />
+	{% include 'footer.html' %}  
+	
     <!-- jQuery -->
     <script src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/js/jquery.min.js"></script>
 
     <!-- Bootstrap Core JavaScript -->
     <script src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/js/bootstrap.min.js"></script>
+    <!-- js barra de menu -->	
     <script src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/js/menu.js"></script> 
     {% if not DISABLE_CUSTOM_THEME_JAVASCRIPT %}
         <!-- Custom Theme JavaScript -->
-        <script src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/js/clean-blog.min.js"></script>
+      <script src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/js/clean-blog.min.js"></script>
     {% endif %}
 
     {% include 'analytics.html' %}
