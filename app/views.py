@@ -10,12 +10,13 @@ from django.http import HttpResponse
 # pylint: disable=E0402
 from . import util
 from .decorators import authenticate, authorize
-from .models import FormstackAPI, FormstackRequestMapper, OneLoginAPI
+from .models import FormstackAPI, FormstackRequestMapper
 from autodoc import IE, IT
 import time
 # pylint: disable=E0402
 from .mailer import Mailer
 from .services import has_access_to_project
+from .dao import integrates_dao
 
 
 def index(request):
@@ -43,6 +44,7 @@ def dashboard(request):
         'username': request.session["username"],
         'company': request.session["company"]
     }
+    integrates_dao.update_user_login_dao(request.session["username"])
     return render(request, "dashboard.html", parameters)
 
 
