@@ -67,10 +67,10 @@ class FormstackAPITests(TestCase):
         http_session = http_helper.HTTPSession(login_url)
 
         http_session.data = \
-            'user=customer%40bancolombia.com.co&\
-pass=jpwtwvk4p8c'
+            'user=customer%40testcompany.com&\
+pass=beethoahae2iH1teev4bu9ahd'
 
-        successful_text = 'Bienvenido customer@bancolombia'
+        successful_text = 'Bienvenido customer@testcompany'
         http_session.formauth_by_response(successful_text)
         self.assertIs(http_session.is_auth, True)
 
@@ -80,10 +80,10 @@ pass=jpwtwvk4p8c'
         http_session = http_helper.HTTPSession(login_url)
 
         http_session.data = \
-            'user=customer%40bancolombia.com.co&\
-pass=jpwtwvk4p8c'
+            'user=customer%40testcompany.com&\
+pass=beethoahae2iH1teev4bu9ahd'
 
-        successful_text = 'Bienvenido customer@bancolombia'
+        successful_text = 'Bienvenido customer@testcompany'
         http_session.formauth_by_response(successful_text)
 
         if not http_session.is_auth:

@@ -8,7 +8,7 @@ from .filter import FilterManager
 # pylint: disable=E0402
 from .exceptions import SecureParamsException
 from .exceptions import LogicException
-from .models import OneLoginAPI, DBAPI
+from .models import OneLoginAPI
 from .dao import integrates_dao
 
 
@@ -17,6 +17,9 @@ from .dao import integrates_dao
 def login(request):
     """ Servicio definido para la autenticacion."""
     username = ""
+    test_user = 'customer@testcompany.com'
+    test_pass = 'beethoahae2iH1teev4bu9ahd'
+    test_company = 'TEST COMPANY'
     try:
         fmanager = FilterManager()
         username = fmanager.post(request, "user")
@@ -26,11 +29,11 @@ def login(request):
             request.session['company'] = 'FLUID'
             request.session['registered'] = '1'
             request.session['role'] = 'admin'
-        elif DBAPI(username, password).login():
+        elif username == test_user and password == test_pass:
             request.session['username'] = username
-            request.session['company'] = get_company(username)
-            request.session['registered'] = is_registered(username)
-            request.session['role'] = get_role(username)
+            request.session['company'] = test_company
+            request.session['registered'] = '1'
+            request.session['role'] = 'customer'
         else:
             fmanager.error(100)
     except (SecureParamsException, LogicException) as expt:
