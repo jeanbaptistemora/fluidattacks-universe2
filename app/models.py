@@ -364,18 +364,3 @@ FLUIDIntegrates/1.0'
         except requests.exceptions.HTTPError:
             result = False
         return result
-
-
-class DBAPI(object):
-    """Clase para autenticar usando DB."""
-
-    def __init__(self, username, password):
-        """ Constructor """
-        self.username = username
-        self.password = password
-
-    def login(self):
-        if integrates_dao.login(self.username, self.password):
-            integrates_dao.update_user_login_dao(self.username)
-            return True
-        return False
