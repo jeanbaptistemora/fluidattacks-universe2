@@ -4,7 +4,6 @@ from ..dao import integrates_dao
 # pylint: disable=W0613
 def create_user(strategy, details, backend, user=None, *args, **kwargs):
     if user:
-        print ("User %s is already on DB" % (user,))
         integrates_dao.update_user_login_dao(user)
         return
 
@@ -13,7 +12,9 @@ def create_user(strategy, details, backend, user=None, *args, **kwargs):
     last_name = details['last_name']
     email = details['email']
 
-    integrates_dao.create_user_dao(username, first_name, last_name, email)
+    integrates_dao.create_user_dao(email, username=username,
+                                   first_name=first_name,
+                                   last_name=last_name)
 
 
 def check_registered(strategy, details, backend, *args, **kwargs):

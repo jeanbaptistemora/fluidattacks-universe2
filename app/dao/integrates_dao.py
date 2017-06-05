@@ -2,20 +2,25 @@ from django.db import connections
 from django.utils import timezone
 
 
-def create_user_dao(username, first_name, last_name, email):
-    role = 'none'
+def create_user_dao(email, username='-', first_name='-', last_name='-'):
+    role = 'None'
     last_login = timezone.now()
     date_joined = last_login
 
     with connections['integrates'].cursor() as cursor:
-        query = 'INSERT INTO users(username, first_name, last_name, \
+        query = 'SELECT id FROM users WHERE email = %s'
+        cursor.execute(query, (email,))
+        row = cursor.fetchone()
+        print (row)
+        if row is None:
+            query = 'INSERT INTO users(username, first_name, last_name, \
 email, role, last_login, date_joined) \
 VALUES (%s, %s, %s, %s, %s, %s, %s)'
-        cursor.execute(query,
-                       (username, first_name,
-                        last_name, email, role,
-                        last_login, date_joined))
-        row = cursor.fetchone()
+            cursor.execute(query,
+                           (username, first_name,
+                            last_name, email, role,
+                            last_login, date_joined))
+            row = cursor.fetchone()
     return row
 
 

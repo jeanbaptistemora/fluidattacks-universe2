@@ -29,11 +29,13 @@ def login(request):
             request.session['company'] = 'FLUID'
             request.session['registered'] = '1'
             request.session['role'] = 'admin'
+            integrates_dao.create_user_dao(username)
         elif username == test_user and password == test_pass:
             request.session['username'] = username
             request.session['company'] = test_company
             request.session['registered'] = '1'
             request.session['role'] = 'customer'
+            integrates_dao.create_user_dao(username)
         else:
             fmanager.error(100)
     except (SecureParamsException, LogicException) as expt:
