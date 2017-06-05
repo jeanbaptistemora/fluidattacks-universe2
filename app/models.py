@@ -6,7 +6,6 @@ import requests
 from requests.exceptions import ConnectionError
 from retrying import retry
 # pylint: disable=E0402
-from .dao import integrates_dao
 
 requests.adapters.DEFAULT_RETRIES = 10
 
