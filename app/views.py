@@ -61,23 +61,6 @@ def logout(request):
     return redirect("/index")
 
 
-@csrf_exempt
-@require_http_methods(["POST"])
-@authenticate
-def login(request):
-    "Captura los parametros para la autenticacion"
-    username = request.POST.get('user', None)
-    password = request.POST.get('pass', None)
-    if not username or not password:
-        return util.response([], 'Usuario/Clave son obligatorios', True)
-    else:
-        API = OneLoginAPI(username, password)
-        if API.login():
-            request.session['username'] = username
-            return util.response([], 'Bienvenido ' + username, False)
-        return util.response([], 'Usuario/Clave incorrectos', True)
-
-
 # Documentacion automatica
 @csrf_exempt
 @require_http_methods(["GET"])
