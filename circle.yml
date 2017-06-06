@@ -14,14 +14,21 @@ dependencies:
     - sudo pip install --upgrade pip setuptools
     - sudo apt-get install libtiff5-dev libjpeg8-dev zlib1g-dev libfreetype6-dev liblcms2-dev libwebp-dev tcl8.6-dev tk8.6-dev python-tk
     - sudo apt-get install libxml2-dev libxslt1-dev python-dev libmysqlclient-dev
-    - sudo pip install -U django requests openpyxl lxml python-pptx pyyaml decorators retrying urllib3 fluidasserts social-auth-app-django pylint pylint-django prospector mysqlclient
+    - sudo pip install -U django requests openpyxl lxml python-pptx pyyaml decorators retrying urllib3 fluidasserts social-auth-app-django pylint pylint-django prospector mysqlclient django-sslserver ansible
     - sudo cp -a /home/ubuntu/fluid-integrates/ /var/www/
     - cat /var/www/fluid-integrates/config/db-schema.sql | mysql -uroot -p${MYSQLPASS} -h fluidservesexams.cgsvzmr33idc.us-east-1.rds.amazonaws.com
     - sudo python /var/www/fluid-integrates/manage.py makemigrations
     - sudo python /var/www/fluid-integrates/manage.py migrate 
     - sudo chown -R www-data:www-data /var/www/fluid-integrates
-    - sudo cp config/000-default.conf /etc/apache2/sites-available/000-default.conf
-    - sudo a2ensite 000-default.conf
+    - sudo cp config/integrates-ssl.conf /etc/apache2/sites-available/integrates-ssl.conf
+    - sudo a2enmod ssl
+    - sudo echo $VAULT > ~/.vault.txt
+    - sudo cp config/fluidla.crt /etc/ssl/certs/fluidla.crt
+    - sudo cp config/fluidla.key /etc/ssl/private/fluidla.key
+    - sudo ansible-vault --vault-password-file ~/.vault.txt decrypt /etc/ssl/certs/fluidla.crt
+    - sudo ansible-vault --vault-password-file ~/.vault.txt decrypt /etc/ssl/private/fluidla.key
+    - sudo chmod 600 /etc/ssl/private/fluidla.key
+    - sudo a2ensite integrates-ssl.conf
   post:
     - sudo service apache2 restart
 test:

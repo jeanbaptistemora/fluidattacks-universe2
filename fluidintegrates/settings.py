@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'social_django',
+    'sslserver',
 ]
 
 MIDDLEWARE = [
@@ -178,7 +179,7 @@ AUTHENTICATION_BACKENDS = (
 SESSION_EXPIRE_AT_BROWSER_CLOSE = True
 SESSION_COOKIE_HTTPONLY = True
 SESSION_COOKIE_NAME = "Integratesv3"
-#SESSION_COOKIE_SECURE = True
+SESSION_COOKIE_SECURE = True
 SESSION_COOKIE_AGE = 40*60
 
 # Social
