@@ -65,6 +65,8 @@
       - social-auth-app-django
       - prospector
       - mysqlclient
+      - django-sslserver
+      - ansible
 
    - name: Agregar netrc
      template:
