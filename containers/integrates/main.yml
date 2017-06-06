@@ -116,9 +116,13 @@
 
    - name: Creando sitio web
      template:
-      src: "vars/default.j2"
-      dest: "/etc/apache2/sites-available/000-default.conf"
+      src: "vars/integrates-ssl.j2"
+      dest: "/etc/apache2/sites-available/integrates-ssl.conf"
       mode: "0644"
+
+   - name: Habilitar sitio integrates
+     command: "a2ensite integrates-ssl.conf"
+     when: migrate
 
    - name: Instalando certificado digital
      copy:
@@ -135,12 +139,6 @@
       owner: root
       group: root
       mode: 0600
-     notify:
-      - reiniciar apache2
-     register: ssl
-
-   - name: Enable integrates site
-     command: a2ensite integrates-ssl.conf
      notify:
       - reiniciar apache2
 
