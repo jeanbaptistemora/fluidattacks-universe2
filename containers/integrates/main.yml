@@ -4,6 +4,9 @@
   become: "yes"
 
   tasks:
+   - name: Incluir llaves de cifrado
+     include_vars: vars/key.yml
+
    - name: include default step variables
      include_vars: vars/vars.yml
 
@@ -107,14 +110,39 @@
      command: "a2dismod python"
      when: migrate
 
+   - name: Habilitar mod_ssl
+     command: "a2enmod ssl"
+     when: migrate
+
    - name: Creando sitio web
      template:
       src: "vars/default.j2"
       dest: "/etc/apache2/sites-available/000-default.conf"
       mode: "0644"
+
+   - name: Instalando certificado digital
+     copy:
+      content: '{{ ssl_cert }}'
+      dest: /etc/ssl/certs/fluidla.crt
+      owner: root
+      group: root
+      mode: 0644
+
+   - name: Instalando llave privada ssl
+     copy:
+      content: '{{ ssl_key }}'
+      dest: /etc/ssl/private/fluidla.key
+      owner: root
+      group: root
+      mode: 0600
      notify:
       - reiniciar apache2
+     register: ssl
 
+   - name: Enable integrates site
+     command: a2ensite integrates-ssl.conf
+     notify:
+      - reiniciar apache2
 
   handlers:
    - name: reiniciar apache2
