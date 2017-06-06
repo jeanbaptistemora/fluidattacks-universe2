@@ -83,3 +83,32 @@ project = %s'
     if has_access is not None:
         return True
     return False
+
+
+def register(email):
+    """Registra usuario en la DB."""
+    with connections['integrates'].cursor() as cursor:
+        query = 'UPDATE users SET registered=1 WHERE email = %s'
+        cursor.execute(query, (email,))
+        row = cursor.fetchone()
+    return row
+
+
+def assign_role(email, role):
+    """Asigna un rol a un usuario en la DB."""
+    if role != 'admin' and role != 'customer':
+        return
+    with connections['integrates'].cursor() as cursor:
+        query = 'UPDATE users SET role=%s WHERE email = %s'
+        cursor.execute(query, (role, email,))
+        row = cursor.fetchone()
+    return row
+
+
+def assign_company(email, company):
+    """Asigna una compania a un usuario en la DB."""
+    with connections['integrates'].cursor() as cursor:
+        query = 'UPDATE users SET company=%s WHERE email = %s'
+        cursor.execute(query, (company, email,))
+        row = cursor.fetchone()
+    return row
