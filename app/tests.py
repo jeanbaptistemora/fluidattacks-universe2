@@ -63,7 +63,7 @@ class FormstackAPITests(TestCase):
 
     def test_login(self):
         """Log in to integrates."""
-        login_url = 'http://localhost/login'
+        login_url = 'https://localhost/login'
         http_session = http_helper.HTTPSession(login_url)
 
         http_session.data = \
@@ -76,7 +76,7 @@ pass=beethoahae2iH1teev4bu9ahd'
 
     def get_integrates_cookies(self):
         """Log in to integrates and return valid cookie."""
-        login_url = 'http://localhost/login'
+        login_url = 'https://localhost/login'
         http_session = http_helper.HTTPSession(login_url)
 
         http_session.data = \
@@ -93,7 +93,7 @@ pass=beethoahae2iH1teev4bu9ahd'
     def search_project(self):
         """Perform a project search in integrates."""
 
-        url = 'http://localhost/get_findings?project=HAYES'
+        url = 'https://localhost/get_findings?project=HAYES'
         cookies = self.get_integrates_cookies()
         success_text = 'Se generan sentencias SQL'
         http_session = http_helper.HTTPSession(url, cookies=cookies)
