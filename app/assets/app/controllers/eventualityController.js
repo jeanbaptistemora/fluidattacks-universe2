@@ -11,6 +11,8 @@
  * @return {String}
  */
 integrates.afectacionFormatter = function(value, row, index){
+    if(value === undefined)
+        return "0"; //fix
     if(!isFinite(value))
         if (value.trim() == "")
             return "0";
@@ -52,7 +54,6 @@ integrates.updateEvntRow = function(row){
             newData.push(data[i]);
         }
     }
-    console.log(newData);
     $("#eventualities").bootstrapTable("destroy");
     $("#eventualities").bootstrapTable({data: newData});
      $("#eventualities").bootstrapTable("refresh");
@@ -265,6 +266,12 @@ integrates.controller("eventualityController", function($scope, $uibModal, event
                     $("#search_section").show();
                     $('[data-toggle="tooltip"]').tooltip(); 
                     integrates.evntTotalize(data);
+                    $.gritter.add({
+                        title: 'Consultando',
+                        text: data.message,
+                        class_name: 'color success',
+                        sticky: false,
+                    });
                 }else{
                      $.gritter.add({
                         title: 'Error',
@@ -281,7 +288,6 @@ integrates.controller("eventualityController", function($scope, $uibModal, event
                     sticky: false,
                 });
                 if($scope.maxRecursiveCall > 0){
-                    console.log("ENTRE");
                     $scope.maxRecursiveCall = $scope.maxRecursiveCall - 1;
                     $scope.searchEvntByName();
                 }else{

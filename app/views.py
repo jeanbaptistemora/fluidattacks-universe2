@@ -225,7 +225,7 @@ def get_eventualities(request):
                     if len(eventuality_requests) == 0:
                         return util.response([],
                                              'Este proyecto no tiene \
-eventualidades', False)
+eventualidades o no existe', False)
                     eventualities = []
                     for eventuality in eventuality_requests:
                         eventuality_request = \
@@ -234,7 +234,10 @@ eventualidades', False)
                             RMP.map_eventuality(eventuality_request)
                         eventualities.append(eventuality_parsed)
                     return util.response(eventualities, 'Correcto', False)
-                return util.response([], 'Error!', True)
+                else:
+                    return util.response([],
+                                         'Este proyecto no tiene \
+eventualidades o no existe', False)
             else:
                 if util.is_numeric(project):
                     eventualities = []

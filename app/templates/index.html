@@ -16,10 +16,21 @@
     <link rel="stylesheet" href="assets/amaretti/css/style.css" type="text/css"/>
     <link rel="stylesheet" type="text/css" href="assets/amaretti/lib/jquery.gritter/css/jquery.gritter.css"/>
     <link rel="stylesheet" type="text/css" href="assets/bower_components/bootstrap-table/dist/css/bootstrap-table.min.css"/>
+    <link rel="stylesheet" type="text/css" href="assets/bower_components/components-font-awesome/css/font-awesome.min.css"/>
     <link rel="icon" type="image/x-icon" href="assets/img/favicon.png">
     <style>
       .btb-header{
         background-color : #3D3C3C; color: white;
+      }
+      .google{
+        background-color: #CC0000;
+        border-color: #AA0000;
+        color: white !important;
+        height: 40px !important;
+      }
+      .twitter{
+        color: white !important;
+        height: 40px !important;
       }
     </style>
   </head>
@@ -36,12 +47,19 @@
                       ng-controller="loginController"
                       onsubmit="return false;">
                   <div class="login-form">
-                    <div>
-                        <a href="{% url 'social:begin' 'google-oauth2' %}?username={{ value }}"><img src="assets/img/google.png" width="340" height="60" alt="Sign in with Google"></a>
+                    <div class="row">
+                        <a class="btn btn-danger btn-block google"
+                           href="{% url 'social:begin' 'google-oauth2' %}?username={{ value }}&registered={{ value }}&role={{ value }}">
+                          <i class="fa fa-google-plus fa-2x pull-left" aria-hidden="true"></i>
+                          <label class="pull-right">Log in with Google</label>
+                        </a>
                     </div>
-                    <span></span>
-                    <div>
-                        <a href="{% url 'social:begin' 'twitter' %}?username={{ value }}"><img src="assets/img/twitter.png" width="340" height="60" alt="Sign in with Twitter"></a>
+                    <div class="row" style="margin-top: 25px;">
+                        <a class="btn btn-primary btn-block twitter"
+                           href="{% url 'social:begin' 'twitter' %}?username={{ value }}&registered={{ value }}&role={{ value }}">
+                          <i class="fa fa-twitter fa-2x pull-left" aria-hidden="true"></i>
+                          <label class="pull-right">&nbsp;&nbsp;Log in with Twitter</label>
+                        </a>
                     </div>
                   </div>
                 </form>
