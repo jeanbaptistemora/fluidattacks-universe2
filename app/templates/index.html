@@ -37,11 +37,11 @@
                       onsubmit="return false;">
                   <div class="login-form">
                     <div>
-                        <a href="{% url 'social:begin' 'google-oauth2' %}?username={{ value }}&registered={{ value }}&role={{ value }}"><img src="assets/img/google.png" width="340" height="60" alt="Sign in with Google"></a>
+                        <a href="{% url 'social:begin' 'google-oauth2' %}?username={{ value }}"><img src="assets/img/google.png" width="340" height="60" alt="Sign in with Google"></a>
                     </div>
                     <span></span>
                     <div>
-                        <a href="{% url 'social:begin' 'twitter' %}?username={{ value }}&registered={{ value }}&role={{ value }}"><img src="assets/img/twitter.png" width="340" height="60" alt="Sign in with Twitter"></a>
+                        <a href="{% url 'social:begin' 'twitter' %}?username={{ value }}"><img src="assets/img/twitter.png" width="340" height="60" alt="Sign in with Twitter"></a>
                     </div>
                   </div>
                 </form>
