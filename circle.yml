@@ -21,6 +21,7 @@ dependencies:
     - sudo python /var/www/fluid-integrates/manage.py migrate 
     - sudo chown -R www-data:www-data /var/www/fluid-integrates
     - sudo cp config/integrates-ssl.conf /etc/apache2/sites-available/integrates-ssl.conf
+    - sudo a2enmod ssl
     - sudo echo $VAULT > ~/.vault.txt
     - sudo cp config/fluidla.crt /etc/ssl/certs/fluidla.crt
     - sudo cp config/fluidla.key /etc/ssl/private/fluidla.key
