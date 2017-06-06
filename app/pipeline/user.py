@@ -1,11 +1,12 @@
 # pylint: disable=E0402
 from ..dao import integrates_dao
 
+FLUID_DOMAIN = '@fluid.la'
+
 # pylint: disable=W0613
 def create_user(strategy, details, backend, user=None, *args, **kwargs):
     if user:
         integrates_dao.update_user_login_dao(user)
-        return
 
     username = details['username']
     first_name = details['first_name']
@@ -16,6 +17,10 @@ def create_user(strategy, details, backend, user=None, *args, **kwargs):
                                    first_name=first_name,
                                    last_name=last_name)
 
+    if email.endswith(FLUID_DOMAIN):
+        integrates_dao.register(email)
+        integrates_dao.assign_role(email, 'admin')
+        integrates_dao.assign_company(email, 'FLUID')
 
 def check_registered(strategy, details, backend, *args, **kwargs):
     email = details['email']
