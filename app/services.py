@@ -28,7 +28,7 @@ def login(request):
             request.session['username'] = username
             request.session['company'] = 'FLUID'
             request.session['registered'] = '1'
-            request.session['role'] = 'admin'
+            request.session['role'] = 'analyst'
             integrates_dao.create_user_dao(username)
         elif username == test_user and password == test_pass:
             request.session['username'] = username

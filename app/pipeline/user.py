@@ -19,7 +19,7 @@ def create_user(strategy, details, backend, user=None, *args, **kwargs):
 
     if email.endswith(FLUID_DOMAIN):
         integrates_dao.register(email)
-        integrates_dao.assign_role(email, 'admin')
+        integrates_dao.assign_role(email, 'analyst')
         integrates_dao.assign_company(email, 'FLUID')
 
 def check_registered(strategy, details, backend, *args, **kwargs):

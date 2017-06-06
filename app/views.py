@@ -37,7 +37,7 @@ def registration(request):
 
 
 @csrf_exempt
-@authorize(['admin', 'customer'])
+@authorize(['analyst', 'customer'])
 def dashboard(request):
     "Vista de panel de control para usuarios autenticados"
     parameters = {
@@ -66,7 +66,7 @@ def logout(request):
 # Documentacion automatica
 @csrf_exempt
 @require_http_methods(["GET"])
-@authorize(['admin'])
+@authorize(['analyst'])
 def export_autodoc(request):
     "Captura y devuelve el pdf de un proyecto"
     project = request.GET.get('project', "")
@@ -113,7 +113,7 @@ def export_autodoc(request):
 
 @csrf_exempt
 @require_http_methods(["POST"])
-@authorize(['admin'])
+@authorize(['analyst'])
 def generate_autodoc(request):
     "Genera la documentacion automatica en excel"
     project = request.POST.get('project', "")
@@ -148,7 +148,7 @@ def generate_autodoc(request):
 
 
 @csrf_exempt
-@authorize(['admin', 'customer'])
+@authorize(['analyst', 'customer'])
 def get_findings(request):
     """Captura y procesa el nombre de un proyecto para devolver
     los hallazgos."""
@@ -184,7 +184,7 @@ def get_findings(request):
 
 # FIXME: Need to add access control to this function
 @csrf_exempt
-@authorize(['admin', 'customer'])
+@authorize(['analyst', 'customer'])
 def get_finding(request):
     project_id = request.POST.get('id', None)
     if util.is_numeric(project_id):
@@ -197,7 +197,7 @@ def get_finding(request):
 
 
 @csrf_exempt
-@authorize(['admin'])
+@authorize(['analyst'])
 def get_eventualities(request):
     """Obtiene las eventualidades con el nombre del proyecto."""
     project = request.GET.get('project', None)
@@ -249,7 +249,7 @@ numerico!', True)
 
 # FIXME: Need to add access control to this function
 @csrf_exempt
-@authorize(['admin'])
+@authorize(['analyst'])
 def delete_finding(request):
     """Captura y procesa el id de una eventualidad para eliminarla"""
     post_parms = request.POST.dict()
@@ -277,7 +277,7 @@ def delete_finding(request):
 
 @csrf_exempt
 @require_http_methods(["GET"])
-@authorize(['admin'])
+@authorize(['analyst'])
 def get_order(request):
     """ Obtiene de formstack el id de pedido relacionado con un proyecto """
     project_name = request.GET.get('project', None)
@@ -307,7 +307,7 @@ def get_order(request):
 
 @csrf_exempt
 @require_http_methods(["POST"])
-@authorize(['admin'])
+@authorize(['analyst'])
 def update_order(request):
     """ Actualiza el nombre de proyecto del id de pedido relacionado """
     project_name = request.POST.get('project', None)
@@ -331,7 +331,7 @@ def update_order(request):
 
 # FIXME: Need to add access control to this function
 @csrf_exempt
-@authorize(['admin'])
+@authorize(['analyst'])
 def update_eventuality(request):
     "Captura y procesa los parametros para actualizar una eventualidad"
     post_parms = request.POST.dict()
@@ -361,7 +361,7 @@ def update_eventuality(request):
 
 # FIXME: Need to add access control to this function
 @csrf_exempt
-@authorize(['admin'])
+@authorize(['analyst'])
 def update_finding(request):
     "Captura y procesa los parametros para actualizar un hallazgo"
     post_parms = request.POST.dict()
