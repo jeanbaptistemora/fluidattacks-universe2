@@ -21,11 +21,11 @@ dependencies:
     - sudo python /var/www/fluid-integrates/manage.py migrate 
     - sudo chown -R www-data:www-data /var/www/fluid-integrates
     - sudo cp config/integrates-ssl.conf /etc/apache2/sites-available/integrates-ssl.conf
-    - echo $VAULT > ~/.vault.txt
+    - sudo echo $VAULT > ~/.vault.txt
     - sudo cp config/fluidla.crt /etc/ssl/certs/fluidla.crt
     - sudo cp config/fluidla.key /etc/ssl/private/fluidla.key
-    - ansible-vault --vault-password-file ~/.vault.txt decrypt /etc/ssl/certs/fluidla.crt
-    - ansible-vault --vault-password-file ~/.vault.txt decrypt /etc/ssl/private/fluidla.key
+    - sudo ansible-vault --vault-password-file ~/.vault.txt decrypt /etc/ssl/certs/fluidla.crt
+    - sudo ansible-vault --vault-password-file ~/.vault.txt decrypt /etc/ssl/private/fluidla.key
     - sudo chmod 600 /etc/ssl/private/fluidla.key
     - sudo a2ensite integrates-ssl.conf
   post:
