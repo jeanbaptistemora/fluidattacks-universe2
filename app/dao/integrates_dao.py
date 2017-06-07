@@ -78,8 +78,9 @@ def has_access_to_project_dao(email, project_name):
 
         query = 'SELECT * FROM projects WHERE user_id = %s and \
 project = %s'
-        cursor.execute(query, (user_id, project_name,))
+        cursor.execute(query, (user_id[0], project_name,))
         has_access = cursor.fetchone()
+
     if has_access is not None:
         return True
     return False
