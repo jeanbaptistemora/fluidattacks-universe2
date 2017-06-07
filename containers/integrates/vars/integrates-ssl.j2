@@ -1,9 +1,9 @@
 <IfModule mod_ssl.c>
 <VirtualHost *:443>
-    WSGIScriptAlias / {{ documentroot }}/fluid-integrates/fluidintegrates/apache/wsgi.py
+    WSGIScriptAlias / {{ documentroot }}/fluidintegrates/apache/wsgi.py
 	ServerAdmin engineering@fluid.la
-	Alias /assets/ {{ documentroot }}/fluid-integrates/app/assets/
-    <Directory "{{ documentroot }}/fluid-integrates/fluidintegrates/apache/">
+	Alias /assets/ {{ documentroot }}/app/assets/
+    <Directory "{{ documentroot }}/fluidintegrates/apache/">
 		Require all granted
     </Directory>
 	<Directory "/assets/">
