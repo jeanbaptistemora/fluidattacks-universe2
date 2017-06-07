@@ -1,6 +1,7 @@
 require 'dockerspec'
 require 'dockerspec/serverspec'
 require 'dockerspec/infrataster'
+require 'serverspec_extended_types'
 
 describe docker_build('.', tag: 'integrates-test', rm: TRUE) do
 
