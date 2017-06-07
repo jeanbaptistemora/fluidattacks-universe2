@@ -18,11 +18,11 @@ describe docker_build('.', tag: 'integrates-test', rm: TRUE) do
       it { should be_enabled }
     end
 
-    describe file('/etc/apache2/sites-available/000-default.conf') do
+    describe file('/etc/apache2/sites-enabled/000-default.conf') do
         it { should exist }
     end
 
-    describe file('/etc/apache2/sites-available/integrates-ssl.conf') do
+    describe file('/etc/apache2/sites-enabled/integrates-ssl.conf') do
         it { should exist }
     end
 
