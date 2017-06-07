@@ -27,7 +27,7 @@ describe docker_build('.', tag: 'integrates-test', rm: TRUE) do
     end
 
     describe server(described_container) do # Infrataster
-      describe http_get(443, 'localhost', '/', protocol='https', bypass_ssl_verify=true) do
+      describe http('http://localhost') do
         it 'responds content including "Please log in to proceed"' do
           expect(response.body).to include 'Please log in to proceed'
         end
