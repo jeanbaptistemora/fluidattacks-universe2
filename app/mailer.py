@@ -10,10 +10,10 @@ from datetime import datetime
 class Mailer(object):
     """Clase para enviar mensajes con Amazon."""
 
-    username = "AKIAIQNZKJDOZ55ASI7A"
-    password = "AjzVXsdm2NTVcSUVuX1V057SlExFcMdx+tqTWvJSOnGU"
+    username = "integrates@mailgun.fluid.la"
+    password = "yI1ZcNljI4UAp72YF7vvJ460166T2t"
     server_port = "587"
-    server_name = "email-smtp.us-east-1.amazonaws.com"
+    server_name = "smtp.mailgun.org"
     timeout = 10
     default_to = "engineering@fluid.la"
     default_to_new_user = "aroldan@fluid.la, projects@fluid.la, \
