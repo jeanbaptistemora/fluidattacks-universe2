@@ -1,17 +1,25 @@
 # pylint: disable=E0402
 from ..dao import integrates_dao
+from ..mailer import Mailer
 
 FLUID_DOMAIN = '@fluid.la'
 
 # pylint: disable=W0613
 def create_user(strategy, details, backend, user=None, *args, **kwargs):
-    if user:
-        integrates_dao.update_user_login_dao(user)
-
     username = details['username']
     first_name = details['first_name']
     last_name = details['last_name']
     email = details['email']
+
+    if user:
+        integrates_dao.update_user_login_dao(user)
+    else:
+        send_mail = Mailer()
+        send_mail.send_new_user(
+            first_name.encode('ascii', 'ignore').decode('ascii'),
+            last_name.encode('ascii', 'ignore').decode('ascii'),
+            email)
+        send_mail.close()
 
     integrates_dao.create_user_dao(email, username=username,
                                    first_name=first_name,
