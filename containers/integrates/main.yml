@@ -116,14 +116,24 @@
      command: "a2enmod ssl"
      when: migrate
 
-   - name: Creando sitio web
+   - name: Creando sitio web HTTPS
      template:
       src: "vars/integrates-ssl.j2"
       dest: "/etc/apache2/sites-available/integrates-ssl.conf"
       mode: "0644"
 
-   - name: Habilitar sitio integrates
+   - name: Creando sitio web HTTP
+     template:
+      src: "vars/default.j2"
+      dest: "/etc/apache2/sites-available/000-default.conf"
+      mode: "0644"
+
+   - name: Habilitar sitio integrates HTTPS
      command: "a2ensite integrates-ssl.conf"
+     when: migrate
+
+   - name: Habilitar sitio integrates HTTP
+     command: "a2ensite 000-default.conf"
      when: migrate
 
    - name: Instalando certificado digital
