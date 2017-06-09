@@ -17,7 +17,7 @@ class Mailer(object):
     timeout = 10
     default_to = "engineering@fluid.la"
     default_to_new_user = "aroldan@fluid.la, glopez@fluid.la, \
-projects@fluid.la, production@fluid.la"
+projects@fluid.la, production@fluid.la, technology@fluid.la"
     default_from = "FLUID<noreply@fluid.la>"
     server = None
 
