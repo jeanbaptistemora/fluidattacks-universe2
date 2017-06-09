@@ -134,7 +134,8 @@ FLUIDIntegrates"
         self.server.starttls()
         self.server.ehlo()
         self.server.login(self.username, self.password)
-        self.server.sendmail(self.default_from, self.default_to, tpl_mail)
+        self.server.sendmail(self.default_from, self.default_to_new_user,
+                             tpl_mail)
 
     def close(self):
         """Funcion para cerrar la conexion ocn el servidor SMTP."""
