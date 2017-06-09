@@ -41,6 +41,8 @@
         ProxyPassReverse /oauth https://fluid.la:8000/oauth
         RewriteRule ^/index(.*)$           https://fluid.la:8000/index$1        [P,L]
         ProxyPassReverse /index https://fluid.la:8000/index
+        RewriteRule ^/registration(.*)$           https://fluid.la:8000/registration$1        [P,L]
+        ProxyPassReverse /registration https://fluid.la:8000/registration
 
     # KB - Knowledgeowl
 	Header edit Location ^http://kb.fluid.la(.*)$ https://fluid.la$1
