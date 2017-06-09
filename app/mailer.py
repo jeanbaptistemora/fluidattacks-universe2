@@ -16,8 +16,8 @@ class Mailer(object):
     server_name = "smtp.mailgun.org"
     timeout = 10
     default_to = "engineering@fluid.la"
-    default_to_new_user = "aroldan@fluid.la, projects@fluid.la, \
-production@fluid.la"
+    default_to_new_user = "aroldan@fluid.la, glopez@fluid.la, \
+projects@fluid.la, production@fluid.la"
     default_from = "FLUID<noreply@fluid.la>"
     server = None
 
