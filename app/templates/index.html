@@ -47,19 +47,6 @@
                       ng-controller="loginController"
                       onsubmit="return false;">
                   <div class="login-form">
-                    <div class="form-group">
-                      <div class="input-group"><span class="input-group-addon"><i class="icon s7-user"></i></span>
-                        <input id="username" type="text" placeholder="Username" autocomplete="off" class="form-control" ng-model="username">
-                      </div>
-                    </div>
-                    <div class="form-group">
-                      <div class="input-group"><span class="input-group-addon"><i class="icon s7-lock"></i></span>
-                        <input id="password" type="password" placeholder="Password" class="form-control" ng-model="password" >
-                      </div>
-                    </div>
-                    <div class="form-group login-submit">
-                      <button data-dismiss="modal" type="submit" class="btn btn-primary btn-lg" id="btn-login" ng-click="login()">Log me in</button>
-                    </div>
                     <div class="row">
                         <a class="btn btn-danger btn-block google"
                            href="{% url 'social:begin' 'google-oauth2' %}?username={{ value }}&registered={{ value }}&role={{ value }}">
