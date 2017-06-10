@@ -131,7 +131,7 @@
     </article>
  
  <p><img src="/images/autores/{{article.writer}}.png" style="float: left" height="87" width="83">
-  <strong>
+  <strong class="writer">
     <span>{{article.name}}</span>
   </strong><br>{{article.about1}}.
   <br>{{article.about2}}.
@@ -172,24 +172,24 @@
  <section>
         <div class="tags">
             <p>{% for tag in article.tags %}
-            <a href="{{ SITEURL }}/{{ tag.url }}" style="background-color: #1b75bb; color: white;">{{ tag | escape }}</a>
+            <a href="{{ SITEURL }}/{{ tag.url }}">{{ tag | escape }}</a>
             {% if not loop.last %}&nbsp;&nbsp;{% endif %}{% endfor %}</p>
         </div>
 </section>
 {% endif %}
 <br />
-<table>
+<table class="next">
  <tr>
  {% if article.prev_article %}
      <td width="600px" aligh="center">
-         <a href="{{ SITEURL }}/{{ article.prev_article.url}}" style= "background-color: #1d4f72; color: white;">
+         <a href="{{ SITEURL }}/{{ article.prev_article.url}}">
              {{ article.prev_article.title }}
          </a>
      </td>
  {% endif %}
  {% if article.next_article %}
      <td width="600px" aligh="center">
-         <a href="{{ SITEURL }}/{{ article.next_article.url}}" style= "background-color: #1d4f72; color: white;">
+         <a href="{{ SITEURL }}/{{ article.next_article.url}}">
              {{ article.next_article.title }}
          </a>
       </td>
