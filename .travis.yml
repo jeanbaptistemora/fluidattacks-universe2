@@ -15,9 +15,12 @@ addons:
 
 install:
 - pip install -r requirements.txt
+- pip install cssmin
 - pip install webassets
 - sudo apt-get install asciidoc source-highlight
 - sudo pip install awscli
+- sudo apt-get install ruby
+- gem install sass
 
 script: "pelican content/"
 deploy:
