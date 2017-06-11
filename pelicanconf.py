@@ -6,8 +6,8 @@ import sys
 reload(sys)
 sys.setdefaultencoding("utf-8")
 
-AUTHOR = 'Fluid'
-SITENAME = 'Blog de Fluid'
+AUTHOR = 'FLUID'
+SITENAME = 'Blog de FLUID'
 SITEURL = 'http://blog2.fluid.la'
 
 PATH = 'content'
