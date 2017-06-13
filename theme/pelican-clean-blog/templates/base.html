@@ -9,9 +9,8 @@
 	
         {% if GOOGLE_SITE_VERIFICATION %}
             <meta name="google-site-verification" content="{{ GOOGLE_SITE_VERIFICATION }}">
-        {% endif %}
-
-        <title>{% block title %}{{ SITENAME }}{% if SITESUBTITLE and SHOW_SITESUBTITLE_IN_HTML %} - {{ SITESUBTITLE }}{% endif %}{% endblock title %}</title>
+        {% endif %}        
+	<title>{% block title %}{{ SITENAME }}{% if SITESUBTITLE and SHOW_SITESUBTITLE_IN_HTML %} - {{ SITESUBTITLE }}{% endif %}{% endblock title %}</title>
         <link rel="shortcut icon" type="image/x-icon" href="https://secure.gravatar.com/blavatar/f82913ee12d603d8a6a348614916a1d9?s=32" sizes="16x16" />
         <link rel="icon" type="image/x-icon" href="https://secure.gravatar.com/blavatar/f82913ee12d603d8a6a348614916a1d9?s=32" sizes="16x16" />
         <link rel="apple-touch-icon-precomposed" href="https://secure.gravatar.com/blavatar/f82913ee12d603d8a6a348614916a1d9?s=114" />
@@ -67,7 +66,10 @@
 	{% endassets %}
 	{% assets filters="sass", output="static/css/footer.css", "css/footer.sass" %}
 	 <link rel="stylesheet" href="{{ SITEURL }}/{{ ASSET_URL }}">
-	{% endassets %}	       
+	{% endassets %}
+	{% assets filters="sass", output="static/css/image.css", "css/image.sass" %}
+	 <link rel="stylesheet" href="{{ SITEURL }}/{{ ASSET_URL }}">
+	{% endassets %}
 
         <!-- Custom Fonts -->
         <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
