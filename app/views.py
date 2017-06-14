@@ -84,13 +84,13 @@ def export_autodoc(request):
             "content_type": "application/vnd.openxmlformats\
                              -officedocument.spreadsheetml.sheet",
             "content_disposition": "inline;filename=:P.xlsx",
-            "path": "/var/www/fluid-integrates/app/autodoc/results/:P.xlsx"
+            "path": "/usr/src/app/app/autodoc/results/:P.xlsx"
         },
         "IE": {
             "content_type": "application/vnd.openxmlformats\
                             -officedocument.presentationml.presentation",
             "content_disposition": "inline;filename=:P.pptx",
-            "path": "/var/www/fluid-integrates/app/autodoc/results/:P.pptx"
+            "path": "/usr/src/app/app/autodoc/results/:P.pptx"
         }
     }
     try:
