@@ -2,8 +2,12 @@
 # Archivo de configuracion del servicio de integración continua.
 #
 machine:
+  pre:
+    - curl -sSL https://s3.amazonaws.com/circle-downloads/install-circleci-docker.sh | bash -s -- 1.10.0
   timezone: 
     America/Bogota
+  services:
+    - docker
   python:
     version: 2.7.11
 
@@ -14,7 +18,7 @@ dependencies:
     - sudo pip install --upgrade pip setuptools
     - sudo apt-get install libtiff5-dev libjpeg8-dev zlib1g-dev libfreetype6-dev liblcms2-dev libwebp-dev tcl8.6-dev tk8.6-dev python-tk
     - sudo apt-get install libxml2-dev libxslt1-dev python-dev libmysqlclient-dev
-    - sudo pip install -U django requests openpyxl lxml python-pptx pyyaml decorators retrying urllib3 fluidasserts social-auth-app-django pylint pylint-django prospector mysqlclient django-sslserver ansible
+    - sudo pip install -U -r requirements.txt
     - sudo cp -a /home/ubuntu/fluid-integrates/ /var/www/
     - cat /var/www/fluid-integrates/config/db-schema.sql | mysql -uroot -p${MYSQLPASS} -h fluidservesexams.cgsvzmr33idc.us-east-1.rds.amazonaws.com
     - sudo python /var/www/fluid-integrates/manage.py makemigrations
@@ -36,3 +40,9 @@ test:
     - sudo python /var/www/fluid-integrates/manage.py test
     - prospector -u django app
     - prospector -u django fluidintegrates
+    - sudo python deploy/asserts-checks.py
+
+  post:
+    - sudo docker build -t technologyatfluid/integrates:$CIRCLE_BRANCH .
+    - sudo docker -D login -u $DOCKER_USER -p $DOCKER_PASSWD -e $DOCKER_EMAIL
+    - sudo docker -D push technologyatfluid/integrates:$CIRCLE_BRANCH
