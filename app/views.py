@@ -35,12 +35,10 @@ def registration(request):
     try:
         if request.session["registered"] == '1':
             return redirect("/dashboard")
-        else:
-            return render(request, "registration.html", parameters)
-    except:
-        #unsession access
-        return redirect("/index")
-
+        return render(request, "registration.html", parameters)
+    except KeyError:
+        pass
+    return redirect("/index")
 
 @csrf_exempt
 @authorize(['analyst', 'customer'])
