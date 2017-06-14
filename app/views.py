@@ -30,15 +30,11 @@ def index(request):
 def registration(request):
     "Vista de registro para usuarios autenticados"
     parameters = {
-        'username': request.session["username"]
+        'username': request.session["username"],
+        'is_registered': request.session["registered"],
     }
-    try:
-        if request.session["registered"] == '1':
-            return redirect("/dashboard")
-        return render(request, "registration.html", parameters)
-    except KeyError:
-        pass
-    return redirect("/index")
+    return render(request, "registration.html", parameters)
+
 
 @csrf_exempt
 @authorize(['analyst', 'customer'])

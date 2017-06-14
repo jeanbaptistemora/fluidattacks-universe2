@@ -11,22 +11,7 @@ BASE.url = BASE.production;
 if(location.pathname.indexOf("/integrates") == -1)
     BASE.url = BASE.development;
 //definicion de modulos
-var integrates = angular.module("FluidIntegrates", ['pascalprecht.translate']); 
-
-integrates.config(['$translateProvider', function($translateProvider) {
-    var translations = {
-        'login_message': 'Please log in to proceed.',
-        'login_welcome': 'If you are a new user, you must call a FLUID representative to register.'
-    };
-    var traducciones = {
-        'login_message': 'Porfavor ingrese.',
-        'login_welcome': 'Si eres un usuario nuevo, debes llamar a tu representante de FLUID para registrarte'
-    };
-    $translateProvider
-    .translations('en', translations)
-    .translations('es', traducciones)
-    .preferredLanguage('en');
-}]);
+var integrates = angular.module("FluidIntegrates", []); 
 /**
  * Crea el controlador de la funcionalidad de autenticacion
  * @name loginController 
@@ -34,7 +19,7 @@ integrates.config(['$translateProvider', function($translateProvider) {
  * @param {integrates.loginFactory} loginFactory 
  * @return {undefined}
  */
-integrates.controller("loginController", function($scope, $translate){
+integrates.controller("loginController", function($scope){
     /**
      * Autentica a un usuario
      * @function login
@@ -83,10 +68,6 @@ integrates.controller("loginController", function($scope, $translate){
                 }
             })
         }
-    };
-
-    $scope.lang = function (langKey) {
-        $translate.use(langKey);
     };
 
 });
