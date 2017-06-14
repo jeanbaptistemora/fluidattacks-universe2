@@ -52,7 +52,6 @@ http.has_dirlisting('https://localhost/icons')
 http.is_sessionid_exposed(url)
 server = 'localhost'
 http.is_version_visible(server, port=80)
-http.is_version_visible(server, ssl=True, port=443)
 
 text = 'Log in with Google'
 http.has_not_text('https://localhost', text)
