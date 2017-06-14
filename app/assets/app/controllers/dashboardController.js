@@ -3,18 +3,6 @@
  * @author engineering@fluid.la
  */
 /**
- * Refresca el iframe cuando le dan click al boton
- * esto evita que se pierdan las progressBar de las
- * paginas embebidas
- * @function refreshIframe
- * @return {undefined}
- */
-integrates.refreshIframe = function(id){
-    var url = "http://thehackernews.com/";
-    if(id == "blog") url = "https://fluid.la/blog";
-    $("#"+id).attr("src",url);
-}
-/**
  * Crea el controlador de las funciones del dashboard
  * @name eventualityController 
  * @param {Object} $scope 

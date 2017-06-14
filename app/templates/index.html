@@ -40,7 +40,11 @@
         <div class="main-content">
           <div class="login-container">
             <div class="panel panel-default">
-              <div class="panel-heading"><img src="assets/img/logo.png" alt="logo"   class="logo-img"><span style="color: white;">Please log in to proceed.</span><span style="color: white;">If you are a new user, you must call a FLUID representative to register.</span></div>
+              <div class="panel-heading">
+                <img src="assets/img/logo.png" alt="logo"   class="logo-img">
+                <span style="color: white;">{% templatetag openvariable %} 'login_message' | translate {% templatetag closevariable %}</span>
+                <span style="color: white;">{% templatetag openvariable %} 'login_welcome' | translate {% templatetag closevariable %}</span>
+              </div>
               <div class="panel-body">
                 <form class="form-horizontal"
                       style="color: white;"
@@ -61,6 +65,10 @@
                           <label class="pull-right">&nbsp;&nbsp;Log in with Twitter</label>
                         </a>
                     </div>
+                    <div class="row text-center" style="margin-top:25px">
+                      <a ng-click="lang('es');"><img src="assets/img/spain.png" width="25" height="25"/></a>
+                      <a ng-click="lang('en');"><img src="assets/img/usa.png" width="25" height="25"/></a>
+                    </div>
                   </div>
                 </form>
               </div>
@@ -77,6 +85,7 @@
     <script src="assets/bower_components/angular/angular.min.js"></script>
     <script src="assets/bower_components/bootstrap-table/dist/js/bootstrap-table.min.js"></script>
     <script src="assets/bower_components/bootstrap-table/dist/js/bootstrap-table-es-AR.min.js"></script>
+    <script src="assets/bower_components/angular-translate/angular-translate.min.js"></script>
     <script src="assets/app/login.js" type="text/javascript"></script>
     <script type="text/javascript">
       $(document).ready(function(){
