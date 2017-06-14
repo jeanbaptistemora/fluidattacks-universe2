@@ -45,4 +45,4 @@ test:
   post:
     - sudo docker build -t technologyatfluid/integrates:$CIRCLE_BRANCH .
     - sudo docker -D login -u $DOCKER_USER -p $DOCKER_PASSWD -e $DOCKER_EMAIL
-    - sudo docker -D push technologyatfluid/integrates
+    - sudo docker -D push technologyatfluid/integrates:$CIRCLE_BRANCH
