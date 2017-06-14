@@ -27,10 +27,10 @@ dependencies:
     - sudo cp config/integrates-ssl.conf /etc/apache2/sites-available/integrates-ssl.conf
     - sudo a2enmod ssl
     - sudo echo $VAULT > ~/.vault.txt
+    - sudo ansible-vault --vault-password-file ~/.vault.txt decrypt config/fluidla.crt 
+    - sudo ansible-vault --vault-password-file ~/.vault.txt decrypt config/fluidla.key 
     - sudo cp config/fluidla.crt /etc/ssl/certs/fluidla.crt
     - sudo cp config/fluidla.key /etc/ssl/private/fluidla.key
-    - sudo ansible-vault --vault-password-file ~/.vault.txt decrypt /etc/ssl/certs/fluidla.crt
-    - sudo ansible-vault --vault-password-file ~/.vault.txt decrypt /etc/ssl/private/fluidla.key
     - sudo chmod 600 /etc/ssl/private/fluidla.key
     - sudo a2ensite integrates-ssl.conf
   post:
@@ -43,6 +43,8 @@ test:
     - sudo python deploy/asserts-checks.py
 
   post:
-    - sudo docker build -t technologyatfluid/integrates:$CIRCLE_BRANCH .
+          #- sudo docker build -t technologyatfluid/integrates:$CIRCLE_BRANCH .
+    - sudo docker build -t technologyatfluid/integrates:master .
     - sudo docker -D login -u $DOCKER_USER -p $DOCKER_PASSWD -e $DOCKER_EMAIL
-    - sudo docker -D push technologyatfluid/integrates:$CIRCLE_BRANCH
+      #- sudo docker -D push technologyatfluid/integrates:$CIRCLE_BRANCH
+    - sudo docker -D push technologyatfluid/integrates:master
