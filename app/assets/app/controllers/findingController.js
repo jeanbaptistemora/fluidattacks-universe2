@@ -31,7 +31,7 @@ integrates.vuln_formatter = function(value, row, index){
  * @param {integrates.findingFactory} findingFactory 
  * @return {undefined}
  */
-integrates.controller("findingController", function($scope, $uibModal, findingFactory) {
+integrates.controller("findingController", function($scope, $uibModal, $translate, $filter, findingFactory) {
     /**
      * Inicializa las variables del controlador de hallazgos
      * @function init
@@ -48,6 +48,16 @@ integrates.controller("findingController", function($scope, $uibModal, findingFa
                 }        
             }
         }
+        /*
+        $scope.$watch(
+			function(){
+				return $translate;
+			},
+			function(values){
+				$scope.searchplaceholder = $translate('filter_menu.search.placeholder');
+			}
+		);*/
+        $translate.use(localStorage['lang']);
     }
     /**
      * Despliega la modal de ver avance
@@ -295,6 +305,7 @@ integrates.controller("findingController", function($scope, $uibModal, findingFa
                 class_name: 'color info',
                 sticky: false,
             });
+            
             $(".loader").show();
             findingFactory.getVulnByName(project, filter).then(function(data){
                 if(data.error == false){

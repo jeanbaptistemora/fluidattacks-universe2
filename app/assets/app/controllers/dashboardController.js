@@ -9,7 +9,7 @@
  * @param {Object} $uibModal
  * @return {undefined}
  */
-integrates.controller("dashboardController", function($scope, $uibModal) {
+integrates.controller("dashboardController", function($scope, $uibModal, $translate) {
     /**
      * Redirecciona a un usuario para cerrar la sesion
      * @function logout
@@ -33,5 +33,19 @@ integrates.controller("dashboardController", function($scope, $uibModal) {
                 done: true
             }
         });
+    }
+    /**
+     * Redirecciona a un usuario para cerrar la sesion
+     * @function logout
+     * @member integrates.dashboardController
+     * @return {undefined}
+     */
+    $scope.changeLang = function(langKey){
+		if(localStorage['lang'] == "es"
+			|| localStorage['lang'] == "en"){
+			localStorage['lang'] = langKey;
+		}
+		$translate.use(localStorage['lang']);
+        //location.reload(); check for lang cookie
     }
 });

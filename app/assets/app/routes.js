@@ -1,4 +1,8 @@
 /**
+ * @file routes.js
+ * @author engineering@fluid.la
+ */
+/**
  * Establece la configuracion de las rutas para integrates
  * @config {AngularJS} 
  * @param {Object} $stateProvider

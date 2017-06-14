@@ -210,8 +210,8 @@ USE_X_FORWARDED_HOST = True
 
 SOCIAL_AUTH_LOGIN_REDIRECT_URL = 'https://fluid.la/integrates/registration'
 SOCIAL_AUTH_NEW_USER_REDIRECT_URL = 'https://fluid.la/integrates/registration'
-#SOCIAL_AUTH_LOGIN_REDIRECT_URL = '/registration'
-#SOCIAL_AUTH_NEW_USER_REDIRECT_URL = '/registration'
+SOCIAL_AUTH_LOGIN_REDIRECT_URL = '/registration'
+SOCIAL_AUTH_NEW_USER_REDIRECT_URL = '/registration'
 SOCIAL_AUTH_DISCONNECT_REDIRECT_URL = '/index'
 SOCIAL_AUTH_INACTIVE_USER_URL = '/index'
 SOCIAL_AUTH_LOGIN_URL = '/index'

@@ -76,17 +76,3 @@ if(location.pathname.indexOf("/integrates") == -1)
  */
 var integrates = angular.module("FluidIntegrates", ['ui.router','ui.bootstrap','pascalprecht.translate']);
 
-integrates.config(['$translateProvider', function($translateProvider) {
-    var translations = {
-        'login_message': 'Please log in to proceed.',
-        'login_welcome': 'If you are a new user, you must call a FLUID representative to register.'
-    };
-    var traducciones = {
-        'login_message': 'Porfavor ingrese.',
-        'login_welcome': 'Si eres un usuario nuevo, debes llamar a tu representante de FLUID para registrarte'
-    };
-    $translateProvider
-    .translations('en', translations)
-    .translations('es', traducciones)
-    .preferredLanguage('en');
-}]);
