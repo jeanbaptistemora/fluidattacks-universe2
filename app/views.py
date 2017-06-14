@@ -34,11 +34,11 @@ def registration(request):
     }
     try:
         if request.session["registered"] == '1':
-            return redirect("dashboard")
+            return redirect("/dashboard")
         return render(request, "registration.html", parameters)
     except KeyError:
         pass
-    return redirect("index")
+    return redirect("/index")
 
 @csrf_exempt
 @authorize(['analyst', 'customer'])
