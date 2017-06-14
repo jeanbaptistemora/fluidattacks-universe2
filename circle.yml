@@ -44,6 +44,6 @@ test:
   post:
     - if [[ $CIRCLE_BRANCH == "aroldan" ]]; then
         sudo docker build -t technologyatfluid/integrates .;
-        sudo docker -D login -u $DOCKER_USER -p $DOCKER_PASS -e $DOCKER_EMAIL;
+        sudo docker -D login -u $DOCKER_USER -p $DOCKER_PASSWD -e $DOCKER_EMAIL;
         sudo docker -D push technologyatfluid/integrates;
       fi
