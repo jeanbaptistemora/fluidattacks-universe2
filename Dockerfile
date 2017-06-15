@@ -26,7 +26,7 @@ ADD deploy/main.yml /root/
 ADD deploy/vars* /root/vars
 
 # Agrega el vault
-ADD .vault.txt /root/
+ADD ~/.vault.txt /root/
 
 # Cambia al directorio root
 WORKDIR /root/

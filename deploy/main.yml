@@ -82,7 +82,7 @@
    - name: Clonar repositorio integrates
      git:
       repo: "https://jrestrepoatfluid@bitbucket.org/fluidsignal/fluid-integrates.git"
-      dest: "/var/www/fluid-integrates"
+      dest: "/usr/src/app"
       version: "master"
 
    - name: Establecer permisos directorio
@@ -99,12 +99,12 @@
      register: gitconf
 
    - name: Execute makemigrate
-     command: "/var/www/fluid-integrates/manage.py makemigrations"
+     command: "/usr/src/app/manage.py makemigrations"
      when: gitconf
      register: makemigrate
 
    - name: Execute migrate
-     command: "/var/www/fluid-integrates/manage.py migrate"
+     command: "/usr/src/app/manage.py migrate"
      when: makemigrate
      register: migrate
 

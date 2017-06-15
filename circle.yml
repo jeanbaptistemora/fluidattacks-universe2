@@ -4,7 +4,7 @@
 machine:
   pre:
     - curl -sSL https://s3.amazonaws.com/circle-downloads/install-circleci-docker.sh | bash -s -- 1.10.0
-  timezone: 
+  timezone:
     America/Bogota
   services:
     - docker
@@ -22,13 +22,13 @@ dependencies:
     - sudo cp -a /home/ubuntu/fluid-integrates /usr/src/app
     - cat /usr/src/app/config/db-schema.sql | mysql -uroot -p${MYSQLPASS} -h fluidservesexams.cgsvzmr33idc.us-east-1.rds.amazonaws.com
     - sudo python /usr/src/app/manage.py makemigrations
-    - sudo python /usr/src/app/manage.py migrate 
+    - sudo python /usr/src/app/manage.py migrate
     - sudo chown -R www-data:www-data /usr/src/app
     - sudo cp config/integrates-ssl.conf /etc/apache2/sites-available/integrates-ssl.conf
     - sudo a2enmod ssl
     - sudo echo $VAULT > ~/.vault.txt
-    - sudo ansible-vault --vault-password-file ~/.vault.txt decrypt config/fluidla.crt 
-    - sudo ansible-vault --vault-password-file ~/.vault.txt decrypt config/fluidla.key 
+    - sudo ansible-vault --vault-password-file ~/.vault.txt decrypt config/fluidla.crt
+    - sudo ansible-vault --vault-password-file ~/.vault.txt decrypt config/fluidla.key
     - sudo cp config/fluidla.crt /etc/ssl/certs/fluidla.crt
     - sudo cp config/fluidla.key /etc/ssl/private/fluidla.key
     - sudo chmod 600 /etc/ssl/private/fluidla.key
@@ -41,7 +41,6 @@ test:
     - prospector -u django app
     - prospector -u django fluidintegrates
     - sudo python deploy/asserts-checks.py
-
   post:
     - sudo docker build -t technologyatfluid/integrates:$CIRCLE_BRANCH .
     - sudo docker -D login -u $DOCKER_USER -p $DOCKER_PASSWD -e $DOCKER_EMAIL
