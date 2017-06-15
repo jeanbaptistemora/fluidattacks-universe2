@@ -30,15 +30,11 @@ def index(request):
 def registration(request):
     "Vista de registro para usuarios autenticados"
     parameters = {
-        'username': request.session["username"]
+        'username': request.session["username"],
+        'is_registered': request.session["registered"],
     }
-    try:
-        if request.session["registered"] == '1':
-            return redirect("dashboard")
-        return render(request, "registration.html", parameters)
-    except KeyError:
-        pass
-    return redirect("index")
+    return render(request, "registration.html", parameters)
+
 
 @csrf_exempt
 @authorize(['analyst', 'customer'])
@@ -84,13 +80,13 @@ def export_autodoc(request):
             "content_type": "application/vnd.openxmlformats\
                              -officedocument.spreadsheetml.sheet",
             "content_disposition": "inline;filename=:P.xlsx",
-            "path": "/var/www/fluid-integrates/app/autodoc/results/:P.xlsx"
+            "path": "/usr/src/app/app/autodoc/results/:P.xlsx"
         },
         "IE": {
             "content_type": "application/vnd.openxmlformats\
                             -officedocument.presentationml.presentation",
             "content_disposition": "inline;filename=:P.pptx",
-            "path": "/var/www/fluid-integrates/app/autodoc/results/:P.pptx"
+            "path": "/usr/src/app/app/autodoc/results/:P.pptx"
         }
     }
     try:

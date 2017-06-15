@@ -74,19 +74,44 @@ if(location.pathname.indexOf("/integrates") == -1)
  * Crea integrates como una aplicacion de angular
  * @module {AngularJS} FluidIntegrates
  */
-var integrates = angular.module("FluidIntegrates", ['ui.router','ui.bootstrap','pascalprecht.translate']);
-
-integrates.config(['$translateProvider', function($translateProvider) {
-    var translations = {
-        'login_message': 'Please log in to proceed.',
-        'login_welcome': 'If you are a new user, you must call a FLUID representative to register.'
-    };
-    var traducciones = {
-        'login_message': 'Porfavor ingrese.',
-        'login_welcome': 'Si eres un usuario nuevo, debes llamar a tu representante de FLUID para registrarte'
-    };
-    $translateProvider
-    .translations('en', translations)
-    .translations('es', traducciones)
-    .preferredLanguage('en');
-}]);
+var integrates = angular.module("FluidIntegrates", ['ui.router','ui.bootstrap']); 
+/**
+ * Establece la configuracion de las rutas para integrates
+ * @config {AngularJS} 
+ * @param {Object} $stateProvider
+ * @param {Object} $urlRouterProvider
+ * @return {undefined}
+ */
+integrates.config(function($stateProvider, $urlRouterProvider) {
+    $urlRouterProvider.otherwise('home');
+    $stateProvider
+        .state('home', {
+            url: '/home',
+            templateUrl: 'assets/views/dashboard.html'
+        })
+        .state('VulnerabilitiesByName', {
+            url: '/VulnerabilitiesByName',
+            templateUrl: 'assets/views/search/vulns_by_name.html',
+            controller: 'findingController'  
+        })
+            .state('UpdateVuln', {
+                url: '/vuln/update/?id',
+                templateUrl: 'assets/views/search/vulns_update.html',
+                controller: 'findingUpdateController'  
+            })
+            .state('DeleteVuln', {
+                url: '/vuln/delete/?id',
+                templateUrl: 'assets/views/search/vulns_delete.html',
+                controller: 'findingDeleteController'  
+            })
+            .state('ReadVuln', {
+                url: '/vuln/read/?id',
+                templateUrl: 'assets/views/search/vulns_read.html',
+                controller: 'findingReadController'  
+            })
+        .state('EventualitiesByName', {
+            url: '/EventualitiesByName',
+            templateUrl: 'assets/views/search/event_by_name.html',
+            controller: 'eventualityController'        
+        })
+});

@@ -11,7 +11,7 @@ sys.path.append(workspace)
 sys.path.append(project)
 
 # Add the path to 3rd party django application and to django itself.
-sys.path.append('/var/www/fluid-integrates')
+sys.path.append('/usr/src/app')
 os.environ['DJANGO_SETTINGS_MODULE'] = 'fluidintegrates.apache.override'
 
 

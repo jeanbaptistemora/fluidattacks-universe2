@@ -11,7 +11,6 @@ def create_user_dao(email, username='-', first_name='-', last_name='-'):
         query = 'SELECT id FROM users WHERE email = %s'
         cursor.execute(query, (email,))
         row = cursor.fetchone()
-        print (row)
         if row is None:
             query = 'INSERT INTO users(username, first_name, last_name, \
 email, role, last_login, date_joined) \

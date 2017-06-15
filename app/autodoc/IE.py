@@ -10,8 +10,8 @@ from pptx import Presentation
 
 class Bancolombia(object):
     presentation = None
-    template_path = "/var/www/fluid-integrates/app/autodoc/templates/bancolombia.pptx"
-    result_path = "/var/www/fluid-integrates/app/autodoc/results/:project.pptx"
+    template_path = "/usr/src/app/app/autodoc/templates/bancolombia.pptx"
+    result_path = "/usr/src/app/app/autodoc/results/:project.pptx"
     critical_finding_slide = 1
     moderate_finding_slide = 10
     tolerable_finding_slide = 27
@@ -176,8 +176,8 @@ class Bancolombia(object):
 class Fluid(object):
     counter = 1
     presentation = None
-    template_path = "/var/www/fluid-integrates/app/autodoc/templates/fluid.pptx"
-    result_path = "/var/www/fluid-integrates/app/autodoc/results/:project.pptx"
+    template_path = "/usr/src/app/app/autodoc/templates/fluid.pptx"
+    result_path = "/usr/src/app/app/autodoc/results/:project.pptx"
     critical_finding_slide = 1
     moderate_finding_slide = 9
     tolerable_finding_slide = 27

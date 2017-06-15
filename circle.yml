@@ -4,7 +4,7 @@
 machine:
   pre:
     - curl -sSL https://s3.amazonaws.com/circle-downloads/install-circleci-docker.sh | bash -s -- 1.10.0
-  timezone: 
+  timezone:
     America/Bogota
   services:
     - docker
@@ -19,30 +19,30 @@ dependencies:
     - sudo apt-get install libtiff5-dev libjpeg8-dev zlib1g-dev libfreetype6-dev liblcms2-dev libwebp-dev tcl8.6-dev tk8.6-dev python-tk
     - sudo apt-get install libxml2-dev libxslt1-dev python-dev libmysqlclient-dev
     - sudo pip install -U -r requirements.txt
-    - sudo cp -a /home/ubuntu/fluid-integrates/ /var/www/
-    - cat /var/www/fluid-integrates/config/db-schema.sql | mysql -uroot -p${MYSQLPASS} -h fluidservesexams.cgsvzmr33idc.us-east-1.rds.amazonaws.com
-    - sudo python /var/www/fluid-integrates/manage.py makemigrations
-    - sudo python /var/www/fluid-integrates/manage.py migrate 
-    - sudo chown -R www-data:www-data /var/www/fluid-integrates
+    - sudo cp -a /home/ubuntu/fluid-integrates /usr/src/app
+    - cat /usr/src/app/config/db-schema.sql | mysql -uroot -p${MYSQLPASS} -h fluidservesexams.cgsvzmr33idc.us-east-1.rds.amazonaws.com
+    - sudo python /usr/src/app/manage.py makemigrations
+    - sudo python /usr/src/app/manage.py migrate
+    - sudo chown -R www-data:www-data /usr/src/app
     - sudo cp config/integrates-ssl.conf /etc/apache2/sites-available/integrates-ssl.conf
     - sudo a2enmod ssl
     - sudo echo $VAULT > ~/.vault.txt
+    - sudo cp ~/.vault.txt deploy/
+    - sudo ansible-vault --vault-password-file ~/.vault.txt decrypt config/fluidla.crt
+    - sudo ansible-vault --vault-password-file ~/.vault.txt decrypt config/fluidla.key
     - sudo cp config/fluidla.crt /etc/ssl/certs/fluidla.crt
     - sudo cp config/fluidla.key /etc/ssl/private/fluidla.key
-    - sudo ansible-vault --vault-password-file ~/.vault.txt decrypt /etc/ssl/certs/fluidla.crt
-    - sudo ansible-vault --vault-password-file ~/.vault.txt decrypt /etc/ssl/private/fluidla.key
     - sudo chmod 600 /etc/ssl/private/fluidla.key
     - sudo a2ensite integrates-ssl.conf
   post:
     - sudo service apache2 restart
+    - sudo docker build -t technologyatfluid/integrates:$CIRCLE_BRANCH .
+    - sudo docker -D login -u $DOCKER_USER -p $DOCKER_PASSWD -e $DOCKER_EMAIL
+    - sudo docker -D push technologyatfluid/integrates:$CIRCLE_BRANCH
 test:
   override:
-    - sudo python /var/www/fluid-integrates/manage.py test
+    - sudo python /usr/src/app/manage.py test
     - prospector -u django app
     - prospector -u django fluidintegrates
     - sudo python deploy/asserts-checks.py
 
-  post:
-    - sudo docker build -t technologyatfluid/integrates:$CIRCLE_BRANCH .
-    - sudo docker -D login -u $DOCKER_USER -p $DOCKER_PASSWD -e $DOCKER_EMAIL
-    - sudo docker -D push technologyatfluid/integrates:$CIRCLE_BRANCH
