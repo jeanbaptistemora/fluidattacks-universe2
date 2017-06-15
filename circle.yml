@@ -43,8 +43,6 @@ test:
     - sudo python deploy/asserts-checks.py
 
   post:
-          #- sudo docker build -t technologyatfluid/integrates:$CIRCLE_BRANCH .
-    - sudo docker build -t technologyatfluid/integrates:master .
+    - sudo docker build -t technologyatfluid/integrates:$CIRCLE_BRANCH .
     - sudo docker -D login -u $DOCKER_USER -p $DOCKER_PASSWD -e $DOCKER_EMAIL
-      #- sudo docker -D push technologyatfluid/integrates:$CIRCLE_BRANCH
-    - sudo docker -D push technologyatfluid/integrates:master
+    - sudo docker -D push technologyatfluid/integrates:$CIRCLE_BRANCH
