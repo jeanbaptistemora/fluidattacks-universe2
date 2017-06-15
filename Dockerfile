@@ -35,7 +35,6 @@ WORKDIR /root/
 RUN ansible-playbook main.yml --vault-password-file .vault.txt
 
 # Make port 80 and 443 available to the world outside this container
-EXPOSE 80
 EXPOSE 443
 
 # Primer comando
