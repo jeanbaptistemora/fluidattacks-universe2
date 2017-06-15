@@ -27,6 +27,7 @@ dependencies:
     - sudo cp config/integrates-ssl.conf /etc/apache2/sites-available/integrates-ssl.conf
     - sudo a2enmod ssl
     - sudo echo $VAULT > ~/.vault.txt
+    - sudo cp ~/.vault.txt deploy/
     - sudo ansible-vault --vault-password-file ~/.vault.txt decrypt config/fluidla.crt
     - sudo ansible-vault --vault-password-file ~/.vault.txt decrypt config/fluidla.key
     - sudo cp config/fluidla.crt /etc/ssl/certs/fluidla.crt
@@ -35,13 +36,13 @@ dependencies:
     - sudo a2ensite integrates-ssl.conf
   post:
     - sudo service apache2 restart
+    - sudo docker build -t technologyatfluid/integrates:$CIRCLE_BRANCH .
+    - sudo docker -D login -u $DOCKER_USER -p $DOCKER_PASSWD -e $DOCKER_EMAIL
+    - sudo docker -D push technologyatfluid/integrates:$CIRCLE_BRANCH
 test:
   override:
     - sudo python /usr/src/app/manage.py test
     - prospector -u django app
     - prospector -u django fluidintegrates
     - sudo python deploy/asserts-checks.py
-  post:
-    - sudo docker build -t technologyatfluid/integrates:$CIRCLE_BRANCH .
-    - sudo docker -D login -u $DOCKER_USER -p $DOCKER_PASSWD -e $DOCKER_EMAIL
-    - sudo docker -D push technologyatfluid/integrates:$CIRCLE_BRANCH
+
