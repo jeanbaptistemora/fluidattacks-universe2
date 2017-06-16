@@ -74,6 +74,8 @@ jobs:
 
       # Deploy master
       - deploy:
-          command: >
-                sudo docker -D login -u $DOCKER_USER -p $DOCKER_PASSWD -e $DOCKER_EMAIL && 
-                sudo docker -D push technologyatfluid/integrates:$CIRCLE_BRANCH
+          command: |
+            if [ "${CIRCLE_BRANCH}" == "master" ];
+              then sudo docker -D login -u $DOCKER_USER -p $DOCKER_PASSWD -e $DOCKER_EMAIL && \
+              sudo docker -D push technologyatfluid/integrates:$CIRCLE_BRANCH;
+            fi
