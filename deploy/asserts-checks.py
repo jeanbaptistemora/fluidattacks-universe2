@@ -15,7 +15,7 @@ from fluidasserts.service import ldap
 from fluidasserts.service import ftp
 
 
-url = 'https://localhost'
+url = 'https://localhost:8000'
 cookie.has_not_http_only(url, 'Integratesv3')
 cookie.has_not_secure(url, 'Integratesv3')
 
@@ -23,14 +23,15 @@ server = 'localhost'
 tcp.is_port_open(server, port=3389)
 
 site = 'localhost'
-ssl.is_cert_cn_not_equal_to_site(site, port=443)
-ssl.is_cert_inactive(site, port=443)
-ssl.is_cert_validity_lifespan_unsafe(site, port=443)
-ssl.is_pfs_disabled(site, port=443)
-ssl.is_sslv3_enabled(site, port=443)
-ssl.is_tlsv1_enabled(site, port=443)
+port = 8000
+ssl.is_cert_cn_not_equal_to_site(site, port)
+ssl.is_cert_inactive(site, port)
+ssl.is_cert_validity_lifespan_unsafe(site, port)
+ssl.is_pfs_disabled(site, port)
+ssl.is_sslv3_enabled(site, port)
+ssl.is_tlsv1_enabled(site, port)
 
-url = 'https://localhost'
+url = 'https://localhost:8000'
 http.is_header_x_asp_net_version_missing(url)
 http.is_header_access_control_allow_origin_missing(url)
 http.is_header_cache_control_missing(url)
@@ -51,9 +52,9 @@ http.has_put_method(url)
 http.has_dirlisting('https://localhost/icons')
 http.is_sessionid_exposed(url)
 server = 'localhost'
-http.is_version_visible(server, port=80)
+http.is_version_visible(server, port=8000)
 
 text = 'Log in with Google'
-http.has_not_text('https://localhost', text)
+http.has_not_text('https://localhost:8000', text)
 
-http.is_not_https_required('http://localhost')
+http.is_not_https_required('http://localhost:8000')
