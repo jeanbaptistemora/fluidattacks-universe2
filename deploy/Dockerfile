@@ -20,13 +20,13 @@ RUN apt-get update \
 
 
 # Agrega el playbook
-ADD deploy/main.yml /root/
+ADD main.yml /root/
 
 # Agrega las variables
-ADD deploy/vars* /root/vars
+ADD vars* /root/vars
 
 # Agrega el vault
-ADD deploy/.vault.txt /root/
+ADD .vault.txt /root/
 
 # Cambia al directorio root
 WORKDIR /root/
