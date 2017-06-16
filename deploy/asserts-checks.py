@@ -49,7 +49,7 @@ http.is_basic_auth_enabled(url)
 http.has_trace_method(url)
 http.has_delete_method(url)
 http.has_put_method(url)
-http.has_dirlisting('https://localhost/icons')
+http.has_dirlisting('https://localhost:8000/icons')
 http.is_sessionid_exposed(url)
 server = 'localhost'
 http.is_version_visible(server, port=8000)
