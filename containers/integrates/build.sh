@@ -15,5 +15,5 @@ echo "---### [${SERVER}] Compilando contenedor."
 
 # construir la imagen
 cp ~/.vault.txt containers/${SERVER}/
-docker build -t fluidsignal/fluidserves${SERVER}:latest containers/${SERVER}
+docker build -t technologyatfluid/${SERVER}:base containers/${SERVER}
 rm containers/${SERVER}/.vault.txt

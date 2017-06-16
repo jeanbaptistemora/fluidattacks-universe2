@@ -22,8 +22,8 @@ if [ -z $(docker ps -q -f name="$SERVICE") ]; then
   docker run \
 		--detach \
 		--name="$SERVICE" \
-		-p 8000:80 \
-		fluidsignal/fluidserves$SERVICE:latest
+		-p 8000:443 \
+		technologyatfluid/$SERVICE:base
 else
   echo "Contenedor ya inicio, reutilizando contenedor."
 fi
