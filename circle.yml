@@ -65,7 +65,7 @@ jobs:
                 pip install fluidasserts
 
       - run:
-	  name: Build container
+          name: Build container
           command: sudo deploy/build.sh
 
       - run:
