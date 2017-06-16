@@ -51,6 +51,10 @@ jobs:
           command: >
                 sudo apt-get install -y libffi-dev libssl-dev g++ gcc &&
                 pip install fluidasserts
+      - run:
+          name: Docker Login
+          command: >
+                sudo docker -D login -u $DOCKER_USER -p $DOCKER_PASSWD -e $DOCKER_EMAIL
 
       - run:
           name: Build container
