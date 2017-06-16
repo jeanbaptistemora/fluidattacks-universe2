@@ -40,23 +40,11 @@ jobs:
       - run:
           name: Install ansible
           command: sudo apt-get install -y --force-yes ansible
+
       - run:
           name: Ansible lints
           command: >
                 ansible-lint ansible-lint deploy/main.yml
-#      - run:
-#          name: Overcommit
-#          command: overcommit --sign && overcommit --run
-
-      - run:
-          name: Bundle install
-          command: bundle install
-
-      - run:
-          name: Make integrates tests
-          command: >
-                cp /tmp/.vault.txt deploy/ &&
-                cd deploy && bundle exec rspec
 
       - run:
           name: Install FLUIDAsserts
