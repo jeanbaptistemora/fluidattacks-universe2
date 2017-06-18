@@ -40,14 +40,24 @@
     </header>
 {% endblock header %}
 
-{% block content %}
-    {% for article in articles_page.object_list %}
+{% block content %} {% set var = 0 %}
+            <table>
+    {% for article in articles_page.object_list %} 
+            {% set var = var + loop.index %}
+            {% if var % 2 != 0 %}
+            <tr><td>            
         <div class="post-preview">
             <a href="{{ SITEURL }}/{{ article.url }}" rel="bookmark" title="Permalink to {{ article.title|striptags }}">
                 <h2 class="post-title">
                     {{ article.title }}
                 </h2>
             </a>
+            <img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/icon.png"/>
+            {% for author in article.authors %}
+             <a href="{{ SITEURL }}/{{ author.url }}">{{ author }}</a>
+            {% endfor %}
+             &nbsp;&nbsp;<img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/calendar.png"/>{{ article.locale_date }}
+             
             {% if SHOW_FULL_ARTICLE %}
                 {{ article.content }}
             {% else %}
@@ -59,14 +69,35 @@
                 {% endif %}
                 </p>
             {% endif %}
-            <p class="post-meta"><img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/icon.png"/>
+                     
+                </div></td>
+                {% else %}
+                <td><div class="post-preview">
+            <a href="{{ SITEURL }}/{{ article.url }}" rel="bookmark" title="Permalink to {{ article.title|striptags }}">
+                <h2 class="post-title">
+                    {{ article.title }}
+                </h2>
+            </a>
+             <img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/icon.png"/>
                 {% for author in article.authors %}
-                    <a href="{{ SITEURL }}/{{ author.url }}">{{ author }}</a>
+                  <a href="{{ SITEURL }}/{{ author.url }}">{{ author }}</a>
                 {% endfor %}
-                  &nbsp;&nbsp;<img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/calendar.png"/>{{ article.locale_date }}
-            </p>           
-        </div>
-    {% endfor %}
+                &nbsp;&nbsp;<img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/calendar.png"/>{{ article.locale_date }}            
+            {% if SHOW_FULL_ARTICLE %}
+                {{ article.content }}
+            {% else %}
+                <p class="article-summary">
+                {% if article.has_summary %}
+                    {{ article.summary }}
+                {% elif article.summary %}
+                    {{ article.summary|striptags|truncate(140) }}
+                {% endif %}
+                </p>
+            {% endif %}
+                     
+                    </div></td></tr>
+                {% endif %}
+                {% endfor %}</table>
 
     {% include "pagination.html" %}
 {% endblock content %}
