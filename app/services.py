@@ -8,7 +8,6 @@ from .filter import FilterManager
 # pylint: disable=E0402
 from .exceptions import SecureParamsException
 from .exceptions import LogicException
-from .models import OneLoginAPI
 from .dao import integrates_dao
 
 
@@ -24,13 +23,7 @@ def login(request):
         fmanager = FilterManager()
         username = fmanager.post(request, "user")
         password = fmanager.post(request, "pass")
-        if OneLoginAPI(username, password).login():
-            request.session['username'] = username
-            request.session['company'] = 'FLUID'
-            request.session['registered'] = '1'
-            request.session['role'] = 'analyst'
-            integrates_dao.create_user_dao(username)
-        elif username == test_user and password == test_pass:
+        if username == test_user and password == test_pass:
             request.session['username'] = username
             request.session['company'] = test_company
             request.session['registered'] = '1'
