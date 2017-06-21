@@ -71,6 +71,10 @@
     # Configuración SSL
 	SSLEngine on
 	SSLProxyEngine on
+        SSLProxyVerify none
+        SSLProxyCheckPeerCN off
+	SSLProxyCheckPeerName off
+	SSLProxyCheckPeerExpire off
 	SSLCertificateFile    /etc/ssl/certs/fluidla.crt
 	SSLCertificateKeyFile /etc/ssl/private/fluidla.key
 

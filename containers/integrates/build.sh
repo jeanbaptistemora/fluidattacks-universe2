@@ -14,6 +14,6 @@ SERVER="integrates"
 echo "---### [${SERVER}] Compilando contenedor."
 
 # construir la imagen
-cp ~/.vault.txt containers/${SERVER}/
-docker build -t technologyatfluid/${SERVER}:base containers/${SERVER}
-rm containers/${SERVER}/.vault.txt
+cp ~/.vault.txt .
+docker build -t technologyatfluid/${SERVER}:base .
+rm .vault.txt
