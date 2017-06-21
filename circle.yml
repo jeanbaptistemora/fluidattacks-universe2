@@ -67,10 +67,10 @@ jobs:
                 cd containers/exams && bundle exec rspec
 
       - run:
-          name: Make integrates tests
+          name: Build integrates container
           command: >
                 cp /tmp/.vault.txt containers/integrates/ &&
-                cd containers/integrates && bundle exec rspec
+                cd containers/integrates && containers/integrates/build.sh
 
       - run:
           name: Install FLUIDAsserts
@@ -80,12 +80,16 @@ jobs:
       - run:
           name: Run asserts
           command: python asserts.py
+      - run:
+          name: docker images
+          command: docker images
 
            # Deploy master
       - deploy:
           command: |
             if [ "${CIRCLE_BRANCH}" == "master" ];
-              then sudo echo $VPC_INFO > \
+              then sudo docker -D login -u $DOCKER_USER -p $DOCKER_PASSWD -e $DOCKER_EMAIL && \
+              sudo docker -D push technologyatfluid/integrates:$CIRCLE_BRANCH && sudo echo $VPC_INFO > \
               servers/host/vars/CFvars/vpc_info.txt && \
               pip install troposphere boto3 paramiko && \
               sh launch_prd.sh && python servers/host/scripts/update_r53.py \
