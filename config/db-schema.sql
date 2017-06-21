@@ -21,3 +21,9 @@ CREATE TABLE IF NOT EXISTS projects (
     user_id INT NOT NULL,
     project varchar(64) COLLATE utf8_bin NOT NULL
 ) ENGINE=INNODB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+CREATE TABLE IF NOT EXISTS findings (
+    project varchar(64) COLLATE utf8_bin NOT NULL,
+    amount INT NOT NULL,
+    PRIMARY KEY (project)
+) ENGINE=INNODB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
