@@ -27,9 +27,9 @@ jobs:
       - run:
           name: pip installations
           command: >
-                sudo apt-get install -y python-dev python-pip && sudo
-                pip install --upgrade --force pip setuptools && sudo pip
-                install ansible-lint && sudo pip install -U pep257 pep8
+                sudo apt-get install -y python-dev python-pip &&
+                pip install --upgrade --force pip setuptools && pip
+                install ansible-lint && pip install -U pep257 pep8
                 pyflakes pylint flake8 yamllint ansible prospector
 
       - run:
@@ -51,7 +51,6 @@ jobs:
       - run:
           name: Build container
           command: sudo deploy/build.sh
-
 
       - run:
           name: Install FLUIDAsserts
