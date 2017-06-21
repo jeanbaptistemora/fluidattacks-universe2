@@ -41,7 +41,7 @@ ARTICLE_SAVE_AS = '{date:%Y}/{date:%m}/{date:%d}/{slug}.html'
 
 # Plugins
 PLUGIN_PATHS = 'pelican-plugins'
-PLUGINS = ['asciidoc_reader','assets','neighbors','share_post','related_posts']
+PLUGINS = ['asciidoc_reader','assets','neighbors','share_post','related_posts','representative_image']
 
 # Discus
 DISQUS_SITENAME = 'fluid-blog'
