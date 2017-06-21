@@ -70,7 +70,7 @@ jobs:
           name: Build integrates container
           command: >
                 cp /tmp/.vault.txt containers/integrates/ &&
-                cd containers/integrates && containers/integrates/build.sh
+                containers/integrates/build.sh
 
       - run:
           name: Install FLUIDAsserts
