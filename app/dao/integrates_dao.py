@@ -55,6 +55,17 @@ def get_role_dao(email):
     return row[0]
 
 
+def get_registered_projects():
+    """Obtiene el rol que que tiene el usuario."""
+    with connections['integrates'].cursor() as cursor:
+        query = 'SELECT DISTINCT(project) FROM projects'
+        cursor.execute(query)
+        rows = cursor.fetchall()
+    if rows is None:
+        return "None"
+    return rows
+
+
 def is_registered_dao(email):
     """Verifica si el usuario esta registrado."""
     with connections['integrates'].cursor() as cursor:
@@ -77,7 +88,7 @@ def has_access_to_project_dao(email, project_name):
 
         query = 'SELECT * FROM projects WHERE user_id = %s and \
 project = %s'
-        cursor.execute(query, (user_id[0], project_name,))
+        cursor.execute(query, (user_id[0], project_name.lower(),))
         has_access = cursor.fetchone()
 
     if has_access is not None:
@@ -111,4 +122,40 @@ def assign_company(email, company):
         query = 'UPDATE users SET company=%s WHERE email = %s'
         cursor.execute(query, (company, email,))
         row = cursor.fetchone()
+    return row
+
+
+def get_project_users(project):
+    """Trae los usuarios interesados de un proyecto."""
+    with connections['integrates'].cursor() as cursor:
+        query = 'SELECT users.email FROM users LEFT JOIN projects \
+ON users.id = projects.user_id WHERE project=%s'
+        cursor.execute(query, (project,))
+        rows = cursor.fetchall()
+    return rows
+
+
+def get_findings_amount(project):
+    """Actualiza el numero de hallazgos en el proyecto."""
+    with connections['integrates'].cursor() as cursor:
+        query = 'SELECT amount FROM findings WHERE project = %s'
+        cursor.execute(query, (project,))
+        row = cursor.fetchone()
+    return row
+
+
+def update_findings_amount(project, amount):
+    """Actualiza el numero de hallazgos en el proyecto."""
+    with connections['integrates'].cursor() as cursor:
+        query = 'SELECT * FROM findings WHERE project = %s'
+        cursor.execute(query, (amount, project,))
+        row = cursor.fetchone()
+        if row is None:
+            query = 'INSERT INTO findings(project, amount) VALUES(%s, %s)'
+            cursor.execute(query, (project, amount,))
+            row = cursor.fetchone()
+        else:
+            query = 'UPDATE findings SET amount=%s WHERE project = %s'
+            cursor.execute(query, (amount, project,))
+            row = cursor.fetchone()
     return row
