@@ -89,7 +89,7 @@ jobs:
           command: |
             if [ "${CIRCLE_BRANCH}" == "master" ];
               then sudo docker -D login -u $DOCKER_USER -p $DOCKER_PASSWD -e $DOCKER_EMAIL && \
-              sudo docker -D push technologyatfluid/integrates:$CIRCLE_BRANCH && sudo echo $VPC_INFO > \
+              sudo docker -D push technologyatfluid/integrates:base && sudo echo $VPC_INFO > \
               servers/host/vars/CFvars/vpc_info.txt && \
               pip install troposphere boto3 paramiko && \
               sh launch_prd.sh && python servers/host/scripts/update_r53.py \
