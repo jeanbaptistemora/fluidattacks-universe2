@@ -51,12 +51,6 @@ jobs:
           command: sudo deploy/build.sh
 
       - run:
-          name: Install FLUIDAsserts
-          command: >
-                sudo apt-get install -y libffi-dev libssl-dev g++ gcc &&
-                pip install fluidasserts
-
-      - run:
           name: Run asserts
           command: python deploy/asserts-checks.py
 
