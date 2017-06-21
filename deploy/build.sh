@@ -9,7 +9,7 @@ fi
 set -e
 
 SERVER="integrates"
-export CIRCLE_BRANCH="${CIRCLE_BRANCH}"
+CIRCLE_BRANCH="${CIRCLE_BRANCH}"
 
 # Mensaje de inicio
 echo "---### [${SERVER}] Compilando contenedor."
