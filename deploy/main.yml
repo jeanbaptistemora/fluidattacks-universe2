@@ -109,6 +109,10 @@
      when: makemigrate
      register: migrate
 
+   - name: Add crontab jobs
+     command: "/usr/src/app/manage.py crontab add"
+     when: makemigrate
+
    - name: Quitar mod python
      command: "a2dismod python"
      when: migrate
