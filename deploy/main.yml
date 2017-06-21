@@ -67,6 +67,7 @@
       - mysqlclient
       - django-sslserver
       - ansible
+      - django-crontab
 
    - name: Agregar netrc
      template:

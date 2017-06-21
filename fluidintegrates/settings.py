@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'social_django',
     'sslserver',
+    'django_crontab',
 ]
 
 MIDDLEWARE = [
@@ -166,6 +167,11 @@ TEMPLATE_CONTEXT_PROCESSORS = (
 STATICFILES_DIRS = (
     os.path.join(PROJECT_ROOT, '../app/assets'),
 )
+
+CRONJOBS = [
+    ('*/5 * * * *', 'app.scheduler.get_new_findings')
+]
+
 
 AUTHENTICATION_BACKENDS = (
     'social_core.backends.github.GithubOAuth2',
