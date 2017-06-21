@@ -84,7 +84,7 @@
      git:
       repo: "https://jrestrepoatfluid@bitbucket.org/fluidsignal/fluid-integrates.git"
       dest: "/usr/src/app"
-      version: ${CIRCLE_BRANCH}
+      version: "{{ lookup('env','CIRCLE_BRANCH') }}"
 
    - name: Establecer permisos directorio
      file:
