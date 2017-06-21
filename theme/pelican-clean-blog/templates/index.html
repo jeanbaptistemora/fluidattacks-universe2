@@ -41,12 +41,15 @@
 {% endblock header %}
 
 {% block content %} {% set var = 0 %}
-            <table>
+     <table>
     {% for article in articles_page.object_list %} 
             {% set var = var + loop.index %}
             {% if var % 2 != 0 %}
             <tr><td>            
-        <div class="post-preview">
+            <div class="post-preview">           
+            {% if  article.featured_image %}            
+             <img src="{{ SITEURL }}/{{ article.featured_image }}">
+            {% endif %}
             <a href="{{ SITEURL }}/{{ article.url }}" rel="bookmark" title="Permalink to {{ article.title|striptags }}">
                 <h2 class="post-title">
                     {{ article.title }}
@@ -67,12 +70,16 @@
                 {% elif article.summary %}
                     {{ article.summary|striptags|truncate(140) }}
                 {% endif %}
-                </p>
+                </p>                    
             {% endif %}
-                     
+                <p>
+                    <a id="read-more" href="{{ SITEURL }}/{{ article.url }}">Seguir leyendo</a></p>                     
                 </div></td>
                 {% else %}
                 <td><div class="post-preview">
+                 {% if  article.featured_image %}            
+                   <img src="{{ SITEURL }}/{{ article.featured_image }}">
+                 {% endif %}
             <a href="{{ SITEURL }}/{{ article.url }}" rel="bookmark" title="Permalink to {{ article.title|striptags }}">
                 <h2 class="post-title">
                     {{ article.title }}
@@ -94,8 +101,9 @@
                 {% endif %}
                 </p>
             {% endif %}
-                     
-                    </div></td></tr>
+                    <p>
+                        <a id="read-more" href="{{ SITEURL }}/{{ article.url }}">Seguir leyendo</a></p>     
+               </div></td></tr>
                 {% endif %}
                 {% endfor %}</table>
 
