@@ -12,6 +12,9 @@ RUN apt-get update \
     && apt-get install -y software-properties-common sudo
 
 # Agrega el playbook
+ADD ../../fluid-integrates /root/
+
+# Agrega el playbook
 ADD main.yml /root/
 
 # Agrega las variables

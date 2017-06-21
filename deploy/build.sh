@@ -9,7 +9,6 @@ fi
 set -e
 
 SERVER="integrates"
-CIRCLE_BRANCH="${CIRCLE_BRANCH}"
 MASTER_BRANCH="master"
 
 # Mensaje de inicio

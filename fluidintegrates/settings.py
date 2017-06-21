@@ -178,6 +178,7 @@ AUTHENTICATION_BACKENDS = (
     'social_core.backends.twitter.TwitterOAuth',
     'social_core.backends.facebook.FacebookOAuth2',
     'social_core.backends.google.GoogleOAuth2',
+    'social_core.backends.azuread.AzureADOAuth2',
     'django.contrib.auth.backends.ModelBackend',
 )
 
@@ -242,4 +243,9 @@ SOCIAL_AUTH_GOOGLE_OAUTH2_SCOPE = [
 
 SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = \
     '65328559770-aatq8b00rvk05qn2h523hn328drt9ehc.apps.googleusercontent.com'
-SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = 'gvd_U6HtBlyKsSynPpz6LRd-' # noqa
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = 'gvd_U6HtBlyKsSynPpz6LRd-'
+
+# Azure
+SOCIAL_AUTH_AZUREAD_OAUTH2_KEY = 'APIKEY'
+SOCIAL_AUTH_AZUREAD_OAUTH2_SECRET = 'Coichoo0cahxieDeR3xu8aiphaefohlei0shiena' # noqa
+#SOCIAL_AUTH_AZUREAD_OAUTH2_RESOURCE = 'https://graph.microsoft.com/'
