@@ -6,14 +6,17 @@ MAINTAINER FLUID Engineering Team <engineering@fluid.la>
 
 ENV DEBIAN_FRONTEND noninteractive      # instalación no interactiva
 
+# Instalar software-properties y sudo
+RUN apt-get update && apt-get install -y software-properties-common sudo
+
+# Agregar ansible repo
+RUN sudo echo "deb http://ppa.launchpad.net/ansible/ansible/ubuntu trusty main" | sudo tee -a /etc/apt/sources.list
+
 # Instala dependencias
 RUN apt-get update \
     && apt-get upgrade -y \
     && apt-get install -y --force-yes\
-               ansible software-properties-common sudo
-
-# Agregar ansible repo
-RUN sudo echo "deb http://ppa.launchpad.net/ansible/ansible/ubuntu trusty main" | sudo tee -a /etc/apt/sources.list
+               ansible
 
 # Agrega el playbook
 ADD main.yml /root/
