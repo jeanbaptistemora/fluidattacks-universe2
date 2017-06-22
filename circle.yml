@@ -56,6 +56,11 @@ jobs:
           command: bundle install
 
       - run:
+          name: Make base tests
+          command: >
+                cd containers/base && bundle exec rspec
+
+      - run:
           name: Make alg tests
           command: >
                 cp /tmp/.vault.txt containers/alg/ &&
@@ -69,7 +74,6 @@ jobs:
       - run:
           name: Make integrates tests
           command: >
-                cp /tmp/.vault.txt containers/integrates/ &&
                 cd containers/integrates && bundle exec rspec
 
       - run:
