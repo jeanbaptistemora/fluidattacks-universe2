@@ -30,7 +30,7 @@ def traceability(msg, user):
         file_obj.write(logmsg)
         file_obj.close()
     except (OSError, IOError) as expt:
-        print "ERROR CON EL LOG " + expt.message()
+        print ("ERROR CON EL LOG " + expt.message())
 
 
 def is_name(name):

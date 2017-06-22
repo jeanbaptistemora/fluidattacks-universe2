@@ -11,7 +11,7 @@ from django.http import HttpResponse
 from . import util
 from .decorators import authenticate, authorize
 from .models import FormstackAPI, FormstackRequestMapper
-from autodoc import IE, IT
+from .autodoc import IE, IT
 import time
 # pylint: disable=E0402
 from .mailer import Mailer
