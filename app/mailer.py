@@ -174,7 +174,7 @@ FLUIDIntegrates"
 
     def send_new_finding(self, project, to):
         """Funcion que envia un email cuando hay un nuevo hallazgo."""
-        title_mail = "[:project] Nueva hallazgo reportado en FLUIDIntegrates"
+        title_mail = "[:project] Nuevo hallazgo reportado en FLUIDIntegrates"
         title_mail = title_mail.replace(":project", project.upper())
         tpl_mail = self.__tpl_new_finding()
         tpl_mail = tpl_mail.replace(":subject", title_mail)
