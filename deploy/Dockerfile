@@ -4,15 +4,15 @@ FROM technologyatfluid/integrates:base
 # Dudas sobre la imagen en cuestion
 MAINTAINER FLUID Engineering Team <engineering@fluid.la>
 
+ARG circle_branch
+
 ENV DEBIAN_FRONTEND noninteractive      # instalación no interactiva
+ENV CIRCLE_BRANCH=$circle_branch
 
 # Instala dependencias
 RUN apt-get update \
     && apt-get upgrade -y \
     && apt-get install -y software-properties-common sudo
-
-# Agrega el playbook
-ADD ../../fluid-integrates /root/
 
 # Agrega el playbook
 ADD main.yml /root/

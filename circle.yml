@@ -48,7 +48,7 @@ jobs:
 
       - run:
           name: Build container
-          command: sudo deploy/build.sh
+          command: sudo deploy/build.sh $CIRCLE_BRANCH
 
       - run:
           name: Run asserts
