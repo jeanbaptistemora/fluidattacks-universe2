@@ -141,7 +141,9 @@ def get_findings_amount(project):
         query = 'SELECT amount FROM findings WHERE project = %s'
         cursor.execute(query, (project,))
         row = cursor.fetchone()
-    return row
+    if row is None:
+        return 0
+    return row[0]
 
 
 def update_findings_amount(project, amount):

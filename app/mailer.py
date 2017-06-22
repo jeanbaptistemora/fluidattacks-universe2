@@ -61,6 +61,41 @@ image_customLogo.png" alt="customLogo.png" class="CToWUd">
             </center>
         """
 
+    def __tpl_new_finding(self):
+        """Funcion que retorna el formato HTML del correo
+            que se envia cuando un usuario nuevo trata de ingresar."""
+        return """From: :from\r\nTo: :to\r\nSubject: :subject\r\n\
+MIME-Version: 1.0\r\nContent-type: text/html\r\n
+            <style>
+            table{ border: 1px solid black; }
+            table td { border: 1px solid black; }
+            table.no-spacing {
+              border-spacing:0;
+              border-collapse: collapse;
+            }
+            </style>
+            <center>
+                <img style="display:block;margin-left:\
+auto;margin-right:auto" src="https://ci6.googleusercontent.com/proxy/\
+HJaEHh-IlU0dbE9CAWZM3HEw2VbTv3pwU6iexhsj2xVXA52mdscUyw7uOazWCLj0uIgL18f\
+0sMBb6Fb3J4vog_r40RZmQJE7mMwgWFKoOtifj7SboWOF2w9ajySTF5XO9eHjrcw=s0-d-\
+e1-ft#https://s3.amazonaws.com/files.formstack.com/public/600135/\
+image_customLogo.png" alt="customLogo.png" class="CToWUd">
+                <hr/>
+                <div style="text-align: left;">
+                    Se ha reportado un nuevo hallazgo para el proyecto\
+                    <b>:project</b>.<br><br>
+                    Ingrese a <a href="https://fluid.la/integrates">\
+                    FLUIDIntegrates</a> para revisarlo.<br>
+                </div>
+            </center>
+
+            <center>
+                <hr/>
+                <p>Enviado a traves de <b>FLUIDIntegrates </b> :time </p>
+            </center>
+        """
+
     def __tpl_delete_finding(self):
         """Funcion que retorna el formato HTML del correo
             que se envia al eliminar un hallazgo."""
@@ -115,7 +150,7 @@ image_customLogo.png" alt="customLogo.png" class="CToWUd">
         self.server.sendmail(self.default_from, self.default_to, tpl_mail)
 
     def send_new_user(self, first_name, last_name, email):
-        """Funcion que envia un email cuando se elimina un hallazgo."""
+        """Envia un email cuando se detecta un nuevo usuario."""
         title_mail = "Nueva solicitud de acceso por :email para \
 FLUIDIntegrates"
         title_mail = title_mail.replace(":email", email)
@@ -136,6 +171,21 @@ FLUIDIntegrates"
         self.server.login(self.username, self.password)
         self.server.sendmail(self.default_from, self.default_to_new_user,
                              tpl_mail)
+
+    def send_new_finding(self, project, to):
+        """Funcion que envia un email cuando hay un nuevo hallazgo."""
+        title_mail = "[:project] Nueva hallazgo reportado en FLUIDIntegrates"
+        title_mail = title_mail.replace(":project", project.upper())
+        tpl_mail = self.__tpl_new_finding()
+        tpl_mail = tpl_mail.replace(":subject", title_mail)
+        tpl_mail = tpl_mail.replace(":from", self.default_from)
+        tpl_mail = tpl_mail.replace(":to", to)
+        tpl_mail = tpl_mail.replace(":project", project.upper())
+        tpl_mail = tpl_mail.replace(":time", str(datetime.now()))
+        self.server.starttls()
+        self.server.ehlo()
+        self.server.login(self.username, self.password)
+        self.server.sendmail(self.default_from, to, tpl_mail)
 
     def close(self):
         """Funcion para cerrar la conexion ocn el servidor SMTP."""
