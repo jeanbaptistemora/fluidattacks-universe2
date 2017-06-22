@@ -65,7 +65,7 @@ jobs:
       - run:
           name: Make base image
           command: >
-                sudo containers/base/buid.sh
+                containers/base/build.sh
 
       - run:
           name: Make alg tests
