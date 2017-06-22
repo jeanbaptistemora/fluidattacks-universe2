@@ -66,11 +66,11 @@ jobs:
                 cp /tmp/.vault.txt containers/exams/ &&
                 cd containers/exams && bundle exec rspec
 
-#      - run:
-#          name: Build integrates container
-#          command: >
-#                cp /tmp/.vault.txt containers/integrates/ &&
-#                cd containers/integrates && sh build.sh
+      - run:
+          name: Make integrates tests
+          command: >
+                cp /tmp/.vault.txt containers/integrates/ &&
+                cd containers/integrates && bundle exec rspec
 
       - run:
           name: Install FLUIDAsserts
@@ -88,8 +88,10 @@ jobs:
       - deploy:
           command: |
             if [ "${CIRCLE_BRANCH}" == "master" ];
-              then sudo aws ecr get-login >> login.sh && sh login.sh &&
-              sudo docker -D push 205810638802.dkr.ecr.us-east-1.amazonaws.com/serves:alg &&
-              sudo docker -D push 205810638802.dkr.ecr.us-east-1.amazonaws.com/serves:exams &&
+              then sudo aws configure set aws_access_key_id $AWS_KEY_ID && \
+              sudo aws configure set aws_secret_access_key $AWS_SECRET_KEY && \
+              sudo aws ecr get-login >> login.sh && sh login.sh && \
+              sudo docker -D push 205810638802.dkr.ecr.us-east-1.amazonaws.com/serves:alg && \
+              sudo docker -D push 205810638802.dkr.ecr.us-east-1.amazonaws.com/serves:exams && \
               sudo docker -D push 205810638802.dkr.ecr.us-east-1.amazonaws.com/integrates:base;
             fi
