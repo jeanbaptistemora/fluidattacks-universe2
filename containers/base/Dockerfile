@@ -1,5 +1,5 @@
 # Imagen base del ultimo linux estable de Debian (jessie)
-FROM 205810638802.dkr.ecr.us-east-1.amazonaws.com/serves:base
+FROM debian:jessie
 
 # Dudas sobre la imagen en cuestion
 MAINTAINER FLUID Engineering Team <engineering@fluid.la>
@@ -22,22 +22,8 @@ RUN apt-get update \
 # Agrega el playbook
 ADD main.yml /root/
 
-# Agrega las variables
-ADD vars* /root/vars
-
-# Agrega el vault
-ADD .vault.txt /root/
-
 # Cambia al directorio root
 WORKDIR /root/
 
 # Ejecuta el ansible
-RUN ansible-playbook main.yml --vault-password-file .vault.txt
-
-
-# Make port 80 and 443 available to the world outside this container
-EXPOSE 80
-EXPOSE 443
-
-# Primer comando
-CMD /usr/sbin/apache2ctl -D FOREGROUND
+RUN ansible-playbook main.yml

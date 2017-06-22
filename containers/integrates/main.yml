@@ -4,9 +4,6 @@
   become: "yes"
 
   tasks:
-   - name: include default step variables
-     include_vars: vars/vars.yml
-
    - name: Instalar paquetes
      apt:
       pkg: "{{ item }}"
