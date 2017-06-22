@@ -13,8 +13,6 @@ def get_new_findings():
         finding_requests = api.get_findings(project)["submissions"]
         new_findings = len(finding_requests)
         cur_findings = integrates_dao.get_findings_amount(project)
-        print cur_findings
-        print new_findings
         if new_findings != cur_findings:
             recipients = integrates_dao.get_project_users(project)
             print(recipients)
