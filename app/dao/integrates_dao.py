@@ -148,7 +148,7 @@ def update_findings_amount(project, amount):
     """Actualiza el numero de hallazgos en el proyecto."""
     with connections['integrates'].cursor() as cursor:
         query = 'SELECT * FROM findings WHERE project = %s'
-        cursor.execute(query, (amount, project,))
+        cursor.execute(query, (project,))
         row = cursor.fetchone()
         if row is None:
             query = 'INSERT INTO findings(project, amount) VALUES(%s, %s)'
