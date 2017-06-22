@@ -17,6 +17,7 @@ def get_new_findings():
         print new_findings
         if new_findings != cur_findings:
             recipients = integrates_dao.get_project_users(project)
+            print(recipients)
             # Send email
             to = 'engineering@fluid.la'
             send_mail = Mailer()
