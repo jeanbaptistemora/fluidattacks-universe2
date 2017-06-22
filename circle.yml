@@ -57,7 +57,7 @@ jobs:
 
       - run:
           name: Login FLUIDDocker Repo
-          command: > 
+          command: >
               sudo aws configure set aws_access_key_id $AWS_KEY_ID &&
               sudo aws configure set aws_secret_access_key $AWS_SECRET_KEY &&
               sudo aws ecr get-login >> login.sh && sudo sh login.sh && sudo rm login.sh
