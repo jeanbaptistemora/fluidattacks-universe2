@@ -63,7 +63,7 @@ jobs:
               sudo aws ecr get-login >> login.sh && sudo sh login.sh && sudo rm login.sh
 
       - run:
-          name: Make base image 
+          name: Make base image
           command: >
                 sudo containers/base/buid.sh
 
