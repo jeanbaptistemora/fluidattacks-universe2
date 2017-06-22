@@ -56,9 +56,16 @@ jobs:
           command: bundle install
 
       - run:
-          name: Make base tests
+          name: Login FLUIDDocker Repo
+          command: > 
+              sudo aws configure set aws_access_key_id $AWS_KEY_ID &&
+              sudo aws configure set aws_secret_access_key $AWS_SECRET_KEY &&
+              sudo aws ecr get-login >> login.sh && sudo sh login.sh && sudo rm login.sh
+
+      - run:
+          name: Make base image 
           command: >
-                cd containers/base && bundle exec rspec
+                sudo containers/base/buid.sh
 
       - run:
           name: Make alg tests
@@ -74,7 +81,7 @@ jobs:
       - run:
           name: Make integrates tests
           command: >
-                cd containers/integrates && bundle exec rspec
+                sudo containers/integrates/buid.sh
 
       - run:
           name: Install FLUIDAsserts
@@ -94,7 +101,7 @@ jobs:
             if [ "${CIRCLE_BRANCH}" == "master" ];
               then sudo aws configure set aws_access_key_id $AWS_KEY_ID && \
               sudo aws configure set aws_secret_access_key $AWS_SECRET_KEY && \
-              sudo aws ecr get-login >> login.sh && sh login.sh && \
+              sudo aws ecr get-login >> login.sh && sudo sh login.sh && \
               sudo docker -D push 205810638802.dkr.ecr.us-east-1.amazonaws.com/serves:alg && \
               sudo docker -D push 205810638802.dkr.ecr.us-east-1.amazonaws.com/serves:exams && \
               sudo docker -D push 205810638802.dkr.ecr.us-east-1.amazonaws.com/integrates:base;
