@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'social_django',
     'sslserver',
+    'django_crontab',
 ]
 
 MIDDLEWARE = [
@@ -167,11 +168,17 @@ STATICFILES_DIRS = (
     os.path.join(PROJECT_ROOT, '../app/assets'),
 )
 
+CRONJOBS = [
+    ('*/5 * * * *', 'app.scheduler.get_new_findings')
+]
+
+
 AUTHENTICATION_BACKENDS = (
     'social_core.backends.github.GithubOAuth2',
     'social_core.backends.twitter.TwitterOAuth',
     'social_core.backends.facebook.FacebookOAuth2',
     'social_core.backends.google.GoogleOAuth2',
+    'social_core.backends.azuread.AzureADOAuth2',
     'django.contrib.auth.backends.ModelBackend',
 )
 
@@ -237,3 +244,8 @@ SOCIAL_AUTH_GOOGLE_OAUTH2_SCOPE = [
 SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = \
     '65328559770-aatq8b00rvk05qn2h523hn328drt9ehc.apps.googleusercontent.com'
 SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = 'gvd_U6HtBlyKsSynPpz6LRd-' # noqa
+
+# Azure
+SOCIAL_AUTH_AZUREAD_OAUTH2_KEY = 'APIKEY'
+SOCIAL_AUTH_AZUREAD_OAUTH2_SECRET = 'Coichoo0cahxieDeR3xu8aiphaefohlei0shiena' # noqa
+#SOCIAL_AUTH_AZUREAD_OAUTH2_RESOURCE = 'https://graph.microsoft.com/'

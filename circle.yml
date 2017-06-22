@@ -17,40 +17,30 @@ jobs:
       - run:
           name: Install dependencies
           command: >
-           sudo apt-get install -y software-properties-common &&
            gem install overcommit
       - run:
           name: Vault file
           command: >
               sudo echo $VAULT > ~/.vault.txt &&
               sudo echo $VAULT > /tmp/.vault.txt
-      - run:
-          name: add ansible repo
-          command: >
-                sudo echo "deb http://ppa.launchpad.net/ansible/ansible/ubuntu
-                trusty main" | sudo tee -a /etc/apt/sources.list &&  sudo
-                apt-get update
+
       - run:
           name: pip installations
           command: >
-                sudo apt-get install -y python-dev python-pip && sudo
-                pip install --upgrade --force pip setuptools && sudo pip
-                install ansible-lint && sudo pip install pep257 pep8
-                pyflakes pylint flake8 yamllint
-      - run:
-          name: Install ansible
-          command: sudo apt-get install -y --force-yes ansible
+                sudo apt-get install -y python-dev python-pip &&
+                pip install --upgrade -r requirements.txt
 
       - run:
           name: Ansible lints
           command: >
-                ansible-lint ansible-lint deploy/main.yml
+                ansible-lint deploy/main.yml
 
       - run:
-          name: Install FLUIDAsserts
+          name: Run prospector
           command: >
-                sudo apt-get install -y libffi-dev libssl-dev g++ gcc &&
-                pip install fluidasserts
+                prospector -u django app &&
+                prospector -u django fluidintegrates
+
       - run:
           name: Docker Login
           command: >
@@ -58,7 +48,7 @@ jobs:
 
       - run:
           name: Build container
-          command: sudo deploy/build.sh
+          command: sudo deploy/build.sh $CIRCLE_BRANCH
 
       - run:
           name: Run asserts

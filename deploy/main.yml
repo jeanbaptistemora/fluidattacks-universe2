@@ -67,6 +67,7 @@
       - mysqlclient
       - django-sslserver
       - ansible
+      - django-crontab
 
    - name: Agregar netrc
      template:
@@ -83,7 +84,7 @@
      git:
       repo: "https://jrestrepoatfluid@bitbucket.org/fluidsignal/fluid-integrates.git"
       dest: "/usr/src/app"
-      version: "master"
+      version: "{{ lookup('env','CIRCLE_BRANCH') }}"
 
    - name: Establecer permisos directorio
      file:
@@ -107,6 +108,10 @@
      command: "/usr/src/app/manage.py migrate"
      when: makemigrate
      register: migrate
+
+   - name: Add crontab jobs
+     command: "/usr/src/app/manage.py crontab add"
+     when: makemigrate
 
    - name: Quitar mod python
      command: "a2dismod python"
