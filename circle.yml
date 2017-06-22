@@ -81,7 +81,7 @@ jobs:
       - run:
           name: Make integrates tests
           command: >
-                sudo containers/integrates/buid.sh
+                sudo containers/integrates/build.sh
 
       - run:
           name: Install FLUIDAsserts
