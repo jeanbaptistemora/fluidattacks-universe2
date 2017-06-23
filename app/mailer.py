@@ -84,10 +84,10 @@ e1-ft#https://s3.amazonaws.com/files.formstack.com/public/600135/\
 image_customLogo.png" alt="customLogo.png" class="CToWUd">
                 <hr/>
                 <div style="text-align: left;">
-                    Se ha encontrado :reason para el proyecto\
+                    Hola! Se ha encontrado :reason para el proyecto\
                     <b>:project</b>.<br><br>
-                    Por favor, ingrese a <a href="https://fluid.la/integrates">\
-                    FLUIDIntegrates</a> para revisarlo.<br>
+                    Por favor, ingresa a <a href="https://fluid.la/integrates">\
+                    FLUIDIntegrates</a> para revisar los detalles.<br>
                 </div>
             </center>
 
@@ -173,7 +173,8 @@ FLUIDIntegrates"
 
     def send_new_finding(self, project, to, reason):
         """Funcion que envia un email cuando hay un nuevo hallazgo."""
-        title_mail = "[:project] Hallazgos en FLUIDIntegrates"
+        title_mail = "[:project] Problemas de seguridad reportados en \
+FLUIDIntegrates"
         title_mail = title_mail.replace(":project", project.upper())
         tpl_mail = self.__tpl_new_finding()
         tpl_mail = tpl_mail.replace(":subject", title_mail)
