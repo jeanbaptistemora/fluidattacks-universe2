@@ -22,6 +22,11 @@ def replace(file_path, pattern, subst):
 for d in sys.path:
     full_path = d + '/social_core/backends/azuread.py'
     if os.path.exists(full_path):
-        replace(full_path, 'upn', 'email')
+        replace(full_path, "return response.get('upn')",
+                "return response.get('email') \
+if response.get('upn') is None else response.get('upn')")
+        replace(full_path, "'email': response.get('upn'),",
+                "response.get('email') if response.get('upn') is \
+None else response.get('upn')")
 
 
