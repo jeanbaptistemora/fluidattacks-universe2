@@ -14,6 +14,5 @@ SERVER="integrates"
 echo "---### [${SERVER}] Compilando contenedor."
 
 # construir la imagen
-cp ~/.vault.txt containers/${SERVER}/
-docker build -t fluidsignal/fluidserves${SERVER}:latest containers/${SERVER}
-rm containers/${SERVER}/.vault.txt
+docker build -t 205810638802.dkr.ecr.us-east-1.amazonaws.com/${SERVER}:base containers/${SERVER}
+

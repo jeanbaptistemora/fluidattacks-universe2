@@ -1,0 +1,28 @@
+---
+- hosts: localhost
+
+  become: "yes"
+
+  tasks:
+   - name: Instalar Dependencias
+     apt:
+      pkg: "{{ item }}"
+      state: installed
+     register: apacheinstalled
+     with_items:
+      - apache2
+      - curl
+      - python-pip
+      - python-dev
+      - libffi-dev
+      - libssl-dev
+      - g++
+      - gcc
+
+   - name: Upgrade setuptools
+     pip:
+      name: "{{ item }}"
+      extra_args: -U --force
+     with_items:
+      - pip
+      - setuptools

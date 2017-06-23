@@ -2,7 +2,7 @@
 
 # Construcción contenedor por defecto
 
-SERVERS="alg exams integrates"
+SERVERS="alg"
 
 # Crea los contenedores dependiendo del server
 for server in ${SERVERS}; do

@@ -56,6 +56,18 @@ jobs:
           command: bundle install
 
       - run:
+          name: Login FLUIDDocker Repo
+          command: >
+              sudo aws configure set aws_access_key_id $AWS_KEY_ID &&
+              sudo aws configure set aws_secret_access_key $AWS_SECRET_KEY &&
+              sudo aws ecr get-login --region us-east-1 >> login.sh && sudo sh login.sh && sudo rm login.sh
+
+      - run:
+          name: Make base image
+          command: >
+                containers/base/build.sh
+
+      - run:
           name: Make alg tests
           command: >
                 cp /tmp/.vault.txt containers/alg/ &&
@@ -69,8 +81,7 @@ jobs:
       - run:
           name: Make integrates tests
           command: >
-                cp /tmp/.vault.txt containers/integrates/ &&
-                cd containers/integrates && bundle exec rspec
+                sudo containers/integrates/build.sh
 
       - run:
           name: Install FLUIDAsserts
@@ -80,15 +91,18 @@ jobs:
       - run:
           name: Run asserts
           command: python asserts.py
+      - run:
+          name: docker images
+          command: docker images
 
            # Deploy master
       - deploy:
           command: |
             if [ "${CIRCLE_BRANCH}" == "master" ];
-              then sudo echo $VPC_INFO > \
-              servers/host/vars/CFvars/vpc_info.txt && \
-              pip install troposphere boto3 paramiko && \
-              sh launch_prd.sh && python servers/host/scripts/update_r53.py \
-              && sh servers/host/scripts/copy_key.sh && \
-              python servers/host/scripts/delete_old.py;
+              then sudo aws configure set aws_access_key_id $AWS_KEY_ID && \
+              sudo aws configure set aws_secret_access_key $AWS_SECRET_KEY && \
+              sudo aws ecr get-login --region us-east-1 >> login.sh && sudo sh login.sh && \
+              sudo docker -D push 205810638802.dkr.ecr.us-east-1.amazonaws.com/serves:alg && \
+              sudo docker -D push 205810638802.dkr.ecr.us-east-1.amazonaws.com/serves:exams && \
+              sudo docker -D push 205810638802.dkr.ecr.us-east-1.amazonaws.com/integrates:base;
             fi
