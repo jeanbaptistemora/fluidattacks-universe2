@@ -16,8 +16,9 @@ class Mailer(object):
     server_name = "smtp.mailgun.org"
     timeout = 10
     default_to = "engineering@fluid.la"
-    default_to_new_user = "aroldan@fluid.la, glopez@fluid.la, \
-projects@fluid.la, production@fluid.la, technology@fluid.la"
+    default_to_new_user = ["aroldan@fluid.la", "glopez@fluid.la",
+                           "projects@fluid.la", "production@fluid.la",
+                           "technology@fluid.la"]
     default_from = "FLUID<noreply@fluid.la>"
     server = None
 
@@ -83,9 +84,9 @@ e1-ft#https://s3.amazonaws.com/files.formstack.com/public/600135/\
 image_customLogo.png" alt="customLogo.png" class="CToWUd">
                 <hr/>
                 <div style="text-align: left;">
-                    Se ha reportado un nuevo hallazgo para el proyecto\
+                    Se ha encontrado :reason para el proyecto\
                     <b>:project</b>.<br><br>
-                    Ingrese a <a href="https://fluid.la/integrates">\
+                    Por favor, ingrese a <a href="https://fluid.la/integrates">\
                     FLUIDIntegrates</a> para revisarlo.<br>
                 </div>
             </center>
@@ -157,12 +158,10 @@ FLUIDIntegrates"
         tpl_mail = self.__tpl_new_user()
         tpl_mail = tpl_mail.replace(":subject", title_mail)
         tpl_mail = tpl_mail.replace(":from", self.default_from)
-        tpl_mail = tpl_mail.replace(":to", self.default_to_new_user)
-        tpl_mail = tpl_mail.replace(":first_name",
-                        first_name.encode('ascii',
+        tpl_mail = tpl_mail.replace(":to", ', '.join(self.default_to_new_user))
+        tpl_mail = tpl_mail.replace(":first_name", first_name.encode('ascii',
                                     'ignore').decode('ascii'))
-        tpl_mail = tpl_mail.replace(":last_name",
-                        last_name.encode('ascii',
+        tpl_mail = tpl_mail.replace(":last_name", last_name.encode('ascii',
                                     'ignore').decode('ascii'))
         tpl_mail = tpl_mail.replace(":email", email)
         tpl_mail = tpl_mail.replace(":time", str(datetime.now()))
@@ -172,15 +171,16 @@ FLUIDIntegrates"
         self.server.sendmail(self.default_from, self.default_to_new_user,
                              tpl_mail)
 
-    def send_new_finding(self, project, to):
+    def send_new_finding(self, project, to, reason):
         """Funcion que envia un email cuando hay un nuevo hallazgo."""
-        title_mail = "[:project] Nuevo hallazgo reportado en FLUIDIntegrates"
+        title_mail = "[:project] Hallazgos en FLUIDIntegrates"
         title_mail = title_mail.replace(":project", project.upper())
         tpl_mail = self.__tpl_new_finding()
         tpl_mail = tpl_mail.replace(":subject", title_mail)
         tpl_mail = tpl_mail.replace(":from", self.default_from)
-        tpl_mail = tpl_mail.replace(":to", to)
+        tpl_mail = tpl_mail.replace(":to", ', '.join(to))
         tpl_mail = tpl_mail.replace(":project", project.upper())
+        tpl_mail = tpl_mail.replace(":reason", reason)
         tpl_mail = tpl_mail.replace(":time", str(datetime.now()))
         self.server.starttls()
         self.server.ehlo()
