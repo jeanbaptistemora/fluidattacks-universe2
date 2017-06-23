@@ -42,6 +42,7 @@
       - libfreetype6-dev
       - libapache2-mod-python
       - libmysqlclient-dev
+      - cron
 
    - name: Upgrade pip
      pip:

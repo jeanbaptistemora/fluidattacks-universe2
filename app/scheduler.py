@@ -17,11 +17,11 @@ def get_new_findings():
             if new_findings > cur_findings:
                 delta = new_findings - cur_findings
                 if delta == 1:
-                    reason = str(delta) + ' nuevo hallazgo'
+                    reason = str(delta) + ' nuevo problema de seguridad '
                 else:
-                    reason = str(delta) + ' nuevos hallazgos'
+                    reason = str(delta) + ' nuevos problemas de seguridad'
             else:
-                reason = 'un cambio en los hallazgos'
+                reason = 'un cambio en las vulnerabilidades'
             recipients = integrates_dao.get_project_users(project)
             print(recipients)
             # Send email
