@@ -4,6 +4,12 @@
   become: "yes"
 
   tasks:
+   - name: Incluir llaves de cifrado
+     include_vars: vars/key.yml
+
+   - name: include default step variables
+     include_vars: vars/vars.yml
+
    - name: Instalar paquetes
      apt:
       pkg: "{{ item }}"
@@ -59,8 +65,91 @@
       - social-auth-app-django
       - prospector
       - mysqlclient
+      - django-sslserver
+      - ansible
 
    - name: Remover archivo index
      file:
       path: "/var/www/html"
       state: absent
+
+   - name: Clonar repositorio integrates
+     git:
+      repo: "https://jrestrepoatfluid@bitbucket.org/fluidsignal/fluid-integrates.git"
+      dest: "/var/www/fluid-integrates"
+      version: "master"
+
+   - name: Establecer permisos directorio
+     file:
+      path: "{{ documentroot }}"
+      owner: www-data
+      group: www-data
+      recurse: "yes"
+
+   - name: Retirar git conf
+     file:
+      path: "/root/.netrc"
+      state: absent
+     register: gitconf
+
+   - name: Execute makemigrate
+     command: "/var/www/fluid-integrates/manage.py makemigrations"
+     when: gitconf
+     register: makemigrate
+
+   - name: Execute migrate
+     command: "/var/www/fluid-integrates/manage.py migrate"
+     when: makemigrate
+     register: migrate
+
+   - name: Quitar mod python
+     command: "a2dismod python"
+     when: migrate
+
+   - name: Habilitar mod_ssl
+     command: "a2enmod ssl"
+     when: migrate
+
+   - name: Creando sitio web HTTPS
+     template:
+      src: "vars/integrates-ssl.j2"
+      dest: "/etc/apache2/sites-available/integrates-ssl.conf"
+      mode: "0644"
+
+   - name: Creando sitio web HTTP
+     template:
+      src: "vars/default.j2"
+      dest: "/etc/apache2/sites-available/000-default.conf"
+      mode: "0644"
+
+   - name: Habilitar sitio integrates HTTPS
+     command: "a2ensite integrates-ssl.conf"
+     when: migrate
+
+   - name: Habilitar sitio integrates HTTP
+     command: "a2ensite 000-default.conf"
+     when: migrate
+
+   - name: Instalando certificado digital
+     copy:
+      content: '{{ ssl_cert }}'
+      dest: /etc/ssl/certs/fluidla.crt
+      owner: root
+      group: root
+      mode: 0644
+
+   - name: Instalando llave privada ssl
+     copy:
+      content: '{{ ssl_key }}'
+      dest: /etc/ssl/private/fluidla.key
+      owner: root
+      group: root
+      mode: 0600
+     notify:
+      - reiniciar apache2
+
+  handlers:
+   - name: reiniciar apache2
+     service:
+      name: "apache2"
+      state: "restarted"
