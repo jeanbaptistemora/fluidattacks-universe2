@@ -16,6 +16,7 @@ RUN apt-get update \
 
 # Agrega el playbook
 ADD main.yml /root/
+ADD patch_socialauth.py /root/
 
 # Agrega las variables
 ADD vars* /root/vars
