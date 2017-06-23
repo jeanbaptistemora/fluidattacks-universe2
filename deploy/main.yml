@@ -71,8 +71,8 @@
       - django-crontab
      register: installed_deps
 
-   - name: Execute makemigrate
-     command: "/root/patch_socialauth.py"
+   - name: Patch social auth module
+     command: "python /root/patch_socialauth.py"
      when: installed_deps
 
    - name: Agregar netrc
