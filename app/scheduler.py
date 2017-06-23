@@ -16,7 +16,10 @@ def get_new_findings():
         if new_findings != cur_findings:
             if new_findings > cur_findings:
                 delta = new_findings - cur_findings
-                reason = str(delta) + ' nuevos hallazgos'
+                if delta == 1:
+                    reason = str(delta) + ' nuevo hallazgo'
+                else:
+                    reason = str(delta) + ' nuevos hallazgos'
             else:
                 reason = 'un cambio en los hallazgos'
             recipients = integrates_dao.get_project_users(project)
