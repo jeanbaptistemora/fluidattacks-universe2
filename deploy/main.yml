@@ -69,6 +69,11 @@
       - django-sslserver
       - ansible
       - django-crontab
+     register: installed_deps
+
+   - name: Patch social auth module
+     command: "python /root/patch_socialauth.py"
+     when: installed_deps
 
    - name: Agregar netrc
      template:
