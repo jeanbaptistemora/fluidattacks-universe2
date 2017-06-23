@@ -63,11 +63,6 @@ jobs:
               sudo aws ecr get-login --region us-east-1 >> login.sh && sudo sh login.sh && sudo rm login.sh
 
       - run:
-          name: Make base image
-          command: >
-                containers/base/build.sh
-
-      - run:
           name: Make alg tests
           command: >
                 cp /tmp/.vault.txt containers/alg/ &&
@@ -79,9 +74,9 @@ jobs:
                 cd containers/exams && bundle exec rspec
 
       - run:
-          name: Make integrates tests
+          name: Build images
           command: >
-                sudo containers/integrates/build.sh
+                sudo ./start.sh
 
       - run:
           name: Install FLUIDAsserts
@@ -98,7 +93,7 @@ jobs:
            # Deploy master
       - deploy:
           command: |
-            if [ "${CIRCLE_BRANCH}" == "master" ];
+            if [ "${CIRCLE_BRANCH}" == "jrestrepo" ];
               then sudo aws configure set aws_access_key_id $AWS_KEY_ID && \
               sudo aws configure set aws_secret_access_key $AWS_SECRET_KEY && \
               sudo aws ecr get-login --region us-east-1 >> login.sh && sudo sh login.sh && \
