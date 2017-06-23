@@ -56,16 +56,9 @@ jobs:
           command: bundle install
 
       - run:
-          name: Login FLUIDDocker Repo
+          name: Build base image
           command: >
-              sudo aws configure set aws_access_key_id $AWS_KEY_ID &&
-              sudo aws configure set aws_secret_access_key $AWS_SECRET_KEY &&
-              sudo aws ecr get-login --region us-east-1 >> login.sh && sudo sh login.sh && sudo rm login.sh
-
-      - run:
-          name: Make base image
-          command: >
-                containers/base/build.sh
+                sudo containers/base/build.sh
 
       - run:
           name: Make alg tests
@@ -79,9 +72,9 @@ jobs:
                 cd containers/exams && bundle exec rspec
 
       - run:
-          name: Make integrates tests
+          name: Build images
           command: >
-                sudo containers/integrates/build.sh
+                sudo ./start.sh
 
       - run:
           name: Install FLUIDAsserts
