@@ -29,25 +29,55 @@ p
   color: #194d73
   font-size: 18px
   font-style: bold
+  
+.related table
+  background-color: #fff
+  border-collapse: separate
+  border-spacing: 10px
+  tr td
+    border-top: none
+    padding: none
+    a
+      font-size: 15px
+      line-height: 20px
+      color: #1565a2
+      &:hover
+        color: #1d4f72
 
 .tags a
   background-color: #1b75bb
   color: white
   text-transform: uppercase
   text-decoration: none
-  font-size: 15px
+  font-size: 13px
+  padding: 0.2em 0.5em
+  float: left
+  margin: 0 2px 2px 0
   &:hover
     background-color: #1d4f72
     color: #ddd
     text-decoration: none
-
-.next tr td a
-  background-color: #1d4f72
-  color: white
-  &:hover
-    background-color: #1b75bb
-    color: #ddd
-    text-decoration: none
+    
+.next
+  border-collapse: collapse
+  tr td
+    width: 45%
+    font-size: 14px
+    padding: 0
+    border-top: none
+    a
+      background-color: #1d4f72
+      color: white
+      padding: 5px
+      &:hover
+        background-color: #1b75bb
+        color: #ddd
+        text-decoration: none
+  #next
+    text-align: right
+    
+#hrcoments
+  border-top: 3px solid #1d4f72
 
 h1, h2, h3, h4, h5, h6
   font-family: $letra
@@ -204,7 +234,7 @@ hr.small
     .subheading
       font-size: 30px
 
-.post-preview >
+.post-preview > 
   a
     color: #1d4f72
     &:hover, &:focus
