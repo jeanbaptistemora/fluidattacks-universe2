@@ -139,13 +139,11 @@
   <br>{{article.about2}}.
 </p>
 		
-		
-    <hr>
+<hr>
 {% if article.share_post and article.status != 'draft' %}
 <section>
     <p id="post-share-links">
-	<h4>Compártelo:</h4>
-	<br />
+	<h4>Compártelo:</h4>	
         <a href="{{article.share_post['linkedin']}}" target="_blank" title="Share on Linkedin"><img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/social-media/linkedin.jpg"/></a>
         ❄
         <a href="{{article.share_post['twitter']}}" target="_blank" title="Share on Twitter"><img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/social-media/twitter.jpg"/></a>
@@ -156,19 +154,20 @@
     </p>
 </section>		
 {% endif %}
-<br /><br />
 <hr>
- {% if article.related_posts %}
-<h4>Artículos relacionados</h4>
-<section>
-    <ul>
+ {% if article.related_posts %}		
+<h4>Relacionado</h4>
+<section class="related">
+    <table><tr>
     {% for related_post in article.related_posts %}
-        <li><a href="{{ SITEURL }}/{{ related_post.url }}">{{ related_post.title }}</a></li>
+        <td>	
+	  <img src="{{ SITEURL }}/{{ related_post.featured_image }}"> 
+	  <a href="{{ SITEURL }}/{{ related_post.url }}">{{ related_post.title }}</a>
+	</td>
     {% endfor %}
-    </ul>
+    </tr></table>
 </section>
 {% endif %}
-<br /><br />
 <hr>
  {% if article.tags %}
  <section>
@@ -183,22 +182,22 @@
 <table class="next">
  <tr>
  {% if article.prev_article %}
-     <td width="600px" aligh="center">
+     <td id="prev">
          <a href="{{ SITEURL }}/{{ article.prev_article.url}}">
              {{ article.prev_article.title }}
          </a>
      </td>
  {% endif %}
  {% if article.next_article %}
-     <td width="600px" aligh="center">
+     <td id="next">
          <a href="{{ SITEURL }}/{{ article.next_article.url}}">
              {{ article.next_article.title }}
          </a>
       </td>
  {% endif %}
 </table>
-<hr>
-<br />
+<br /><br />		
+<hr id="hrcoments">
 {% if DISQUS_SITENAME and SITEURL and article.status != "draft" %}
         <div class="comments">
             <h3>Haz un comentario</h3>
