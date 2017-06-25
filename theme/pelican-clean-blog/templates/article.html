@@ -99,7 +99,7 @@
     {% endif %}
     {% include "navigationbar.html" %} 
         <div class="container">
-            <div class="row">
+            <div class="row" id="rowart">
                 <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
                     <div class="post-heading">
                         <h1>{{ article.title }}</h1>
@@ -109,8 +109,8 @@
                         <span class="meta">
                             {% for author in article.authors %}
                                 <a href="{{ SITEURL }}/{{ author.url }}">{{ author }}</a>
-                            {% endfor %}<br/>
-                             {{ article.locale_date }}
+                            {% endfor %}<br/><span>
+				{{ article.locale_date }}</span>
                         </span>
                         {% if article.modified %}
                             <span class="meta">Updated on {{ article.locale_modified }}</span>
@@ -132,7 +132,7 @@
     </article>
 		
  
- <p><img src="/images/autores/{{article.writer}}.png" style="float: left" height="87" width="83">
+ <p><img id="imgwriter" src="/images/autores/{{article.writer}}.png">
   <strong class="writer">
     <span>{{article.name}}</span>
   </strong><br>{{article.about1}}.

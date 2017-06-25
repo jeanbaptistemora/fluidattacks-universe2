@@ -5,8 +5,7 @@
 
 .widget h2
   cursor: pointer
-  font-size: 18px
-  font-weight: bold
+  font-size: 18px  
   padding-bottom: 5px
   font-family: "Ubuntu",sans-serif
   a
@@ -16,13 +15,14 @@
     &:hover
       color: #ddd
 
-@media only screen and (max-width: 800px)
+@media only screen and (max-width: 768px)
   .widget_content
     display: none
   .active .widget_content
     display: inline
   .widget h2
     text-align: center
+    margin-top: 10%
   .active.widget h2:after
     content: "\2039"
     background: #ccc

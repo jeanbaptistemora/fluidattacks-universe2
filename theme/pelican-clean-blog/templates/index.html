@@ -45,7 +45,7 @@
     {% for article in articles_page.object_list %} 
             {% set var = var + loop.index %}
             {% if var % 2 != 0 %}
-            <tr><td>            
+            <tr><td class="tdview">            
             <div class="post-preview">           
             {% if  article.featured_image %}            
              <img src="{{ SITEURL }}/{{ article.featured_image }}">
@@ -55,11 +55,12 @@
                     {{ article.title }}
                 </h2>
             </a>
-            <img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/icon.png"/>
+            <img class="imgprev" src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/icon.png"/>
             {% for author in article.authors %}
              <a href="{{ SITEURL }}/{{ author.url }}">{{ author }}</a>
             {% endfor %}
-             &nbsp;&nbsp;<img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/calendar.png"/>{{ article.locale_date }}
+             &nbsp;&nbsp;<img class="imgprev" src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/calendar.png"/>
+                <span>{{ article.locale_date }}</span>
              
             {% if SHOW_FULL_ARTICLE %}
                 {{ article.content }}
@@ -72,11 +73,11 @@
                 {% endif %}
                 </p>                    
             {% endif %}
-                <p>
-                    <a id="read-more" href="{{ SITEURL }}/{{ article.url }}">Seguir leyendo</a></p>                     
+                <div class="divread">
+                    <a id="read-more" href="{{ SITEURL }}/{{ article.url }}">Seguir leyendo</a></div>                     
                 </div></td>
                 {% else %}
-                <td><div class="post-preview">
+                <td class="tdview"><div class="post-preview">
                  {% if  article.featured_image %}            
                    <img src="{{ SITEURL }}/{{ article.featured_image }}">
                  {% endif %}
@@ -85,11 +86,12 @@
                     {{ article.title }}
                 </h2>
             </a>
-             <img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/icon.png"/>
+             <img class="imgprev" src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/icon.png"/>
                 {% for author in article.authors %}
                   <a href="{{ SITEURL }}/{{ author.url }}">{{ author }}</a>
                 {% endfor %}
-                &nbsp;&nbsp;<img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/calendar.png"/>{{ article.locale_date }}            
+                &nbsp;&nbsp;<img class="imgprev" src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/calendar.png"/>
+                    <span>{{ article.locale_date }}</span>            
             {% if SHOW_FULL_ARTICLE %}
                 {{ article.content }}
             {% else %}
@@ -101,8 +103,8 @@
                 {% endif %}
                 </p>
             {% endif %}
-                    <p>
-                        <a id="read-more" href="{{ SITEURL }}/{{ article.url }}">Seguir leyendo</a></p>     
+                    <div class="divread">
+                        <a id="read-more" href="{{ SITEURL }}/{{ article.url }}">Seguir leyendo</a></div>     
                </div></td></tr>
                 {% endif %}
                 {% endfor %}</table>
