@@ -73,6 +73,9 @@
 	{% assets filters="sass", output="static/css/ethical.css", "css/ethical.sass" %}
 	 <link rel="stylesheet" href="{{ SITEURL }}/{{ ASSET_URL }}">
 	{% endassets %}
+	{% assets filters="sass", output="static/css/responsive.css", "css/responsive.sass" %}
+	 <link rel="stylesheet" href="{{ SITEURL }}/{{ ASSET_URL }}">
+	{% endassets %}
 
         <!-- Custom Fonts -->
         <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
@@ -121,10 +124,10 @@
     {% block header %}{% endblock header %}
 	
     <!-- Main Content -->
-    <div class="container">
+    <div class="container" id="contbody">
         <div class="row">
-            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-                {% block content %}{% endblock content %}
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">              
+                {% block content %}{% endblock content %}	      
             </div>
         </div>
     </div>   
