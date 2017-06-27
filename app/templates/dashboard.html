@@ -24,6 +24,9 @@
     mixpanel.people.set({
         "$email": "{{ request.user.email }}",
         "$last_login": new Date(),
+        "$first_name": "",
+        "$last_name": "",
+        "$Role": "{{ request.session.role }}",
         "$Organization": "{{ request.session.company }}",
     });
     mixpanel.track(
