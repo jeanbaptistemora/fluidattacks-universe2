@@ -163,6 +163,7 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     "django.core.context_processors.i18n",
     "django.core.context_processors.media",
     'django.core.context_processors.static',
+    'django.core.context_processors.request',
 )
 
 STATICFILES_DIRS = (
@@ -216,8 +217,9 @@ SOCIAL_AUTH_REDIRECT_IS_HTTPS = True
 SOCIAL_AUTH_USERNAME_IS_FULL_EMAIL = True
 USE_X_FORWARDED_HOST = True
 
-
+# django-analytical
 MIXPANEL_API_TOKEN = '7169d12bd6fe3ac4c46bd082a1964112'
+ANALYTICAL_AUTO_IDENTIFY = False
 
 SOCIAL_AUTH_LOGIN_REDIRECT_URL = 'https://fluid.la/integrates/registration'
 SOCIAL_AUTH_NEW_USER_REDIRECT_URL = 'https://fluid.la/integrates/registration'
