@@ -15,7 +15,7 @@
     {% endif %}
     {% include "navigationbar.html" %} 
         <div class="container">
-            <div class="row">
+            <div class="row" id="roweth">
                 <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
                     <div class="post-heading">
                         <h1>{{ page.title }}</h1>
@@ -27,9 +27,11 @@
 {% endblock header %}
 
 {% block content %}
+   <div id="divpage">         
     <article>
         {{ page.content }}  
         {% include 'ethical.html' %}
     </article>
+   </div>     
     
 {% endblock content %}
