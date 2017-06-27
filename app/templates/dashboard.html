@@ -20,9 +20,9 @@
     <link rel="stylesheet" href="assets/bower_components/angular-bootstrap/ui-bootstrap-csp.css" type="text/css">
     {% mixpanel %}
     <script>
-    mixpanel.identify("{{ request.user.email }}");
+    mixpanel.identify("{{ request.session.username }}");
     mixpanel.people.set({
-        "$email": "{{ request.user.email }}",
+        "$email": "{{ request.session.username }}",
         "$last_login": new Date(),
         "$first_name": "",
         "$last_name": "",
@@ -31,7 +31,7 @@
     });
     mixpanel.track(
         "Dashboard", {
-            "Email": "{{ request.user.email }}",
+            "Email": "{{ request.session.username }}",
         }
     );
     </script>

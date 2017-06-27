@@ -25,14 +25,14 @@
     </style>
     {% mixpanel %}
     <script>
-    mixpanel.identify("{{ request.user.email }}");
+    mixpanel.identify("{{ request.session.username }}");
     mixpanel.people.set({
-        "$email": "{{ request.user.email }}",
+        "$email": "{{ request.session.username }}",
         "$last_login": new Date(),
     });
     mixpanel.track(
         "Registration", {
-            "Email": "{{ request.user.email }}",
+            "Email": "{{ request.session.username }}",
         }
     );
     </script>
