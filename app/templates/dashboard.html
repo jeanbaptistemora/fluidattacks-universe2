@@ -19,6 +19,19 @@
     <link rel="stylesheet" href="assets/bower_components/bootstrap-table/dist/css/bootstrap-table.min.css" type="text/css"/>
     <link rel="stylesheet" href="assets/bower_components/angular-bootstrap/ui-bootstrap-csp.css" type="text/css">
     {% mixpanel %}
+    <script>
+    mixpanel.identify({{ request.user.email }})
+    mixpanel.people.set({
+        "$email": {{ request.user.email }},
+        "$last_login": new Date(),
+        "$Organization": {{ request.session.company }},
+    });
+    mixpanel.track(
+        "Dashboard", {
+            "Email": {{ request.user.email }},
+        })
+    );
+    </script>
   </head>
   <body ng-app="FluidIntegrates">
     <div class="am-wrapper">

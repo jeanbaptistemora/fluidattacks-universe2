@@ -24,6 +24,18 @@
       }
     </style>
     {% mixpanel %}
+    <script>
+    mixpanel.identify({{ request.user.email }})
+    mixpanel.people.set({
+        "$email": {{ request.user.email }},
+        "$last_login": new Date(),
+    });
+    mixpanel.track(
+        "Registration", {
+            "Email": {{ request.user.email }},
+        })
+    );
+    </script>
   </head>
   <body class="am-splash-screen" ng-app="FluidIntegrates">
     <div class="am-wrapper">

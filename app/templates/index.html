@@ -35,6 +35,11 @@
       }
     </style>
     {% mixpanel %}
+    <script>
+    mixpanel.track(
+    "Login"
+    );
+    </script>
   </head>
   <body class="am-splash-screen" ng-app="FluidIntegrates">
     <div class="am-wrapper am-login">
