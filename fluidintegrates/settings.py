@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'social_django',
     'sslserver',
     'django_crontab',
+    'analytical',
 ]
 
 MIDDLEWARE = [
@@ -214,6 +215,9 @@ SOCIAL_AUTH_SANITIZE_REDIRECTS = False
 SOCIAL_AUTH_REDIRECT_IS_HTTPS = True
 SOCIAL_AUTH_USERNAME_IS_FULL_EMAIL = True
 USE_X_FORWARDED_HOST = True
+
+
+MIXPANEL_API_TOKEN = '7169d12bd6fe3ac4c46bd082a1964112'
 
 SOCIAL_AUTH_LOGIN_REDIRECT_URL = 'https://fluid.la/integrates/registration'
 SOCIAL_AUTH_NEW_USER_REDIRECT_URL = 'https://fluid.la/integrates/registration'

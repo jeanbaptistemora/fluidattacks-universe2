@@ -1,3 +1,4 @@
+{% load mixpanel %}
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -22,6 +23,7 @@
         background-color : #3D3C3C; color: white;
       }
     </style>
+    {% mixpanel %}
   </head>
   <body class="am-splash-screen" ng-app="FluidIntegrates">
     <div class="am-wrapper">
@@ -73,7 +75,7 @@
                     {% if is_registered == '1' %}
                         <script>location = "dashboard"</script>
                     {% else %}
-                        <p>No estás autorizado aun para ingresar.</p>
+                        <p>No tienes autorización aun para ingresar. Comunícate con un representante de FLUID para el acceso.</p>
                     {% endif %}
                     </span>
                     </div>
