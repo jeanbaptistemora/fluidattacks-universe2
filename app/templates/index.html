@@ -1,3 +1,4 @@
+{% load mixpanel %}
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -7,7 +8,7 @@
     <meta name="author" content="">
     <meta name="google-signin-client_id" content="65328559770-aatq8b00rvk05qn2h523hn328drt9ehc.apps.googleusercontent.com">
     <link rel="shortcut icon" href="assets/amaretti/img/favicon.png">
-    <title>FlUID INTEGRATES v3.5</title>
+    <title>FlUIDIntegrates v3.5</title>
     <link rel="stylesheet" type="text/css" href="assets/amaretti/lib/stroke-7/style.css"/>
     <link rel="stylesheet" type="text/css" href="assets/amaretti/lib/jquery.nanoscroller/css/nanoscroller.css"/><!--[if lt IE 9]>
     <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
@@ -33,6 +34,7 @@
         height: 40px !important;
       }
     </style>
+    {% mixpanel %}
   </head>
   <body class="am-splash-screen" ng-app="FluidIntegrates">
     <div class="am-wrapper am-login">
@@ -40,11 +42,7 @@
         <div class="main-content">
           <div class="login-container">
             <div class="panel panel-default">
-              <div class="panel-heading">
-                <img src="assets/img/logo.png" alt="logo"   class="logo-img">
-                <span style="color: white;">{% templatetag openvariable %} 'login_message' | translate {% templatetag closevariable %}</span>
-                <span style="color: white;">{% templatetag openvariable %} 'login_welcome' | translate {% templatetag closevariable %}</span>
-              </div>
+              <div class="panel-heading"><img src="assets/img/logo.png" alt="logo"   class="logo-img"><span style="color: white;">Please log in to proceed.</span><span style="color: white;">If you are a new user, you must call a FLUID representative to register.</span></div>
               <div class="panel-body">
                 <form class="form-horizontal"
                       style="color: white;"
@@ -53,21 +51,17 @@
                   <div class="login-form">
                     <div class="row">
                         <a class="btn btn-danger btn-block google"
-                           href="{% url 'social:begin' 'google-oauth2' %}?username={{ value }}&registered={{ value }}&role={{ value }}">
+                           onclick="goLogin('google');">
                           <i class="fa fa-google-plus fa-2x pull-left" aria-hidden="true"></i>
                           <label class="pull-right">Log in with Google</label>
                         </a>
                     </div>
                     <div class="row" style="margin-top: 25px;">
                         <a class="btn btn-primary btn-block twitter"
-                           href="{% url 'social:begin' 'twitter' %}?username={{ value }}&registered={{ value }}&role={{ value }}">
-                          <i class="fa fa-twitter fa-2x pull-left" aria-hidden="true"></i>
-                          <label class="pull-right">&nbsp;&nbsp;Log in with Twitter</label>
+                           onclick="goLogin('azure');">
+                          <img src="assets/img/azure.png" class="fa fa-azure fa-2x pull-left" aria-hidden="true" height="25"></img>
+                          <label class="pull-right">&nbsp;&nbsp;Log in with Azure/Office365</label>
                         </a>
-                    </div>
-                    <div class="row text-center" style="margin-top:25px">
-                      <a ng-click="lang('es');"><img src="assets/img/spain.png" width="25" height="25"/></a>
-                      <a ng-click="lang('en');"><img src="assets/img/usa.png" width="25" height="25"/></a>
                     </div>
                   </div>
                 </form>
@@ -85,9 +79,19 @@
     <script src="assets/bower_components/angular/angular.min.js"></script>
     <script src="assets/bower_components/bootstrap-table/dist/js/bootstrap-table.min.js"></script>
     <script src="assets/bower_components/bootstrap-table/dist/js/bootstrap-table-es-AR.min.js"></script>
-    <script src="assets/bower_components/angular-translate/angular-translate.min.js"></script>
     <script src="assets/app/login.js" type="text/javascript"></script>
     <script type="text/javascript">
+      function goLogin(page){
+        if(page == "google"){
+            mixpanel.track("Login Google");
+            location = "{% url 'social:begin' 'google-oauth2' %}?username={{ value }}&registered={{ value }}&role={{ value }}";
+        }else if(page == "azure"){
+            mixpanel.track("Login Azure");
+            location = "{% url 'social:begin' 'azuread-oauth2' %}?username={{ value }}&registered={{ value }}&role={{ value }}";
+        }else{
+            window.close();
+        }
+      };
       $(document).ready(function(){
         //initialize the javascript
         App.init();

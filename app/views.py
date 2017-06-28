@@ -3,6 +3,7 @@
 
 import os
 import json
+import time
 from django.shortcuts import render, redirect
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_http_methods
@@ -11,8 +12,7 @@ from django.http import HttpResponse
 from . import util
 from .decorators import authenticate, authorize
 from .models import FormstackAPI, FormstackRequestMapper
-from autodoc import IE, IT
-import time
+from .autodoc import IE, IT
 # pylint: disable=E0402
 from .mailer import Mailer
 from .services import has_access_to_project
@@ -30,15 +30,11 @@ def index(request):
 def registration(request):
     "Vista de registro para usuarios autenticados"
     parameters = {
-        'username': request.session["username"]
+        'username': request.session["username"],
+        'is_registered': request.session["registered"],
     }
-    try:
-        if request.session["registered"] == '1':
-            return redirect("dashboard")
-        return render(request, "registration.html", parameters)
-    except KeyError:
-        pass
-    return redirect("index")
+    return render(request, "registration.html", parameters)
+
 
 @csrf_exempt
 @authorize(['analyst', 'customer'])
@@ -84,13 +80,13 @@ def export_autodoc(request):
             "content_type": "application/vnd.openxmlformats\
                              -officedocument.spreadsheetml.sheet",
             "content_disposition": "inline;filename=:P.xlsx",
-            "path": "/var/www/fluid-integrates/app/autodoc/results/:P.xlsx"
+            "path": "/usr/src/app/app/autodoc/results/:P.xlsx"
         },
         "IE": {
             "content_type": "application/vnd.openxmlformats\
                             -officedocument.presentationml.presentation",
             "content_disposition": "inline;filename=:P.pptx",
-            "path": "/var/www/fluid-integrates/app/autodoc/results/:P.pptx"
+            "path": "/usr/src/app/app/autodoc/results/:P.pptx"
         }
     }
     try:
@@ -167,16 +163,16 @@ def get_findings(request):
         return util.response([], 'Empty fields', True)
     if project.strip() == "":
         return util.response([], 'Empty fields', True)
-    API = FormstackAPI()
-    finding_requests = API.get_findings(project)["submissions"]
+    api = FormstackAPI()
+    finding_requests = api.get_findings(project)["submissions"]
     # pylint: disable=C1801
     if len(finding_requests) == 0:
         return util.response([], 'El proyecto no existe', False)
     findings = []
-    RMP = FormstackRequestMapper()
+    rmp = FormstackRequestMapper()
     for finding in finding_requests:
-        formstack_request = API.get_submission(finding["id"])
-        finding_parsed = RMP.map_finding(formstack_request)
+        formstack_request = api.get_submission(finding["id"])
+        finding_parsed = rmp.map_finding(formstack_request)
         if not filtr:
             findings.append(finding_parsed)
         elif "tipo_prueba" in finding_parsed:
@@ -192,10 +188,10 @@ def get_findings(request):
 def get_finding(request):
     project_id = request.POST.get('id', None)
     if util.is_numeric(project_id):
-        API = FormstackAPI()
-        RMP = FormstackRequestMapper()
-        formstack_request = API.get_submission(project_id)
-        finding = RMP.map_finding(formstack_request)
+        api = FormstackAPI()
+        rmp = FormstackRequestMapper()
+        formstack_request = api.get_submission(project_id)
+        finding = rmp.map_finding(formstack_request)
         return util.response(finding, 'Success', False)
     return util.response([], 'Empty fields', True)
 
@@ -219,11 +215,11 @@ def get_eventualities(request):
         if project.strip() == "":
             return util.response([], 'Campos vacios', True)
         else:
-            API = FormstackAPI()
-            RMP = FormstackRequestMapper()
+            api = FormstackAPI()
+            rmp = FormstackRequestMapper()
             if category == "Name":
                 eventuality_requests = \
-                    API.get_eventualities(project)["submissions"]
+                    api.get_eventualities(project)["submissions"]
                 if eventuality_requests:
                     # pylint: disable=C1801
                     if len(eventuality_requests) == 0:
@@ -233,9 +229,9 @@ eventualidades o no existe', False)
                     eventualities = []
                     for eventuality in eventuality_requests:
                         eventuality_request = \
-                            API.get_submission(eventuality["id"])
+                            api.get_submission(eventuality["id"])
                         eventuality_parsed = \
-                            RMP.map_eventuality(eventuality_request)
+                            rmp.map_eventuality(eventuality_request)
                         eventualities.append(eventuality_parsed)
                     return util.response(eventualities, 'Correcto', False)
                 else:
@@ -245,9 +241,9 @@ eventualidades o no existe', False)
             else:
                 if util.is_numeric(project):
                     eventualities = []
-                    eventuality_request = API.get_submission(project)
+                    eventuality_request = api.get_submission(project)
                     eventuality_parsed = \
-                        RMP.map_eventuality(eventuality_request)
+                        rmp.map_eventuality(eventuality_request)
                     eventualities.append(eventuality_parsed)
                     return util.response(eventualities, 'Correcto', False)
                 return util.response([], 'Debes ingresar un ID \
@@ -266,9 +262,9 @@ def delete_finding(request):
             or "vuln[id]" not in post_parms:
         return util.response([], 'Campos vacios', True)
     else:
-        API = FormstackAPI()
+        api = FormstackAPI()
         submission_id = post_parms["vuln[id]"]
-        res = API.delete_finding(submission_id)
+        res = api.delete_finding(submission_id)
         if res:
             finding_id = post_parms["vuln[id]"]
             finding = post_parms["vuln[hallazgo]"]
@@ -294,8 +290,8 @@ def get_order(request):
         return redirect('/dashboard')
 
     if util.is_name(project_name):
-        API = FormstackAPI()
-        order_id = API.get_order(project_name)
+        api = FormstackAPI()
+        order_id = api.get_order(project_name)
         if "submissions" in order_id:
             # pylint: disable=C1801
             if len(order_id["submissions"]) == 1:
@@ -328,8 +324,8 @@ def update_order(request):
         return util.response([], 'Campos vacios', True)
     if not util.is_numeric(order_id):
         return util.response([], 'Campos vacios', True)
-    API = FormstackAPI()
-    updated = API.update_order(project_name, order_id)
+    api = FormstackAPI()
+    updated = api.update_order(project_name, order_id)
     if not updated:
         return util.response([], 'No se pudo actualizar formstack',
                              True)
@@ -356,10 +352,10 @@ def update_eventuality(request):
             validate = False
         if not validate:
             return util.response([], 'Afectacion negativa', True)
-    API = FormstackAPI()
+    api = FormstackAPI()
     submission_id = post_parms["vuln[id]"]
     afectacion = post_parms["vuln[afectacion]"]
-    updated = API.update_eventuality(afectacion, submission_id)
+    updated = api.update_eventuality(afectacion, submission_id)
     if not updated:
         return util.response([], 'No se pudo actualizar formstack',
                              True)

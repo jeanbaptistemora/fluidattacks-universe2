@@ -13,8 +13,8 @@ import re
 
 class Bancolombia(object):
     workbook = None
-    template_path = "/var/www/fluid-integrates/app/autodoc/templates/bancolombia.xlsx"
-    result_path = "/var/www/fluid-integrates/app/autodoc/results/:project.xlsx"
+    template_path = "/usr/src/app/app/autodoc/templates/bancolombia.xlsx"
+    result_path = "/usr/src/app/app/autodoc/results/:project.xlsx"
     current_sheet = None
     project_name = ""
     project_data = None
@@ -153,8 +153,8 @@ class Bancolombia(object):
 
 class Fluid(object):
     workbook = None
-    template_path = "/var/www/fluid-integrates/app/autodoc/templates/fluid.xlsx"
-    result_path = "/var/www/fluid-integrates/app/autodoc/results/:project.xlsx"
+    template_path = "/usr/src/app/app/autodoc/templates/fluid.xlsx"
+    result_path = "/usr/src/app/app/autodoc/results/:project.xlsx"
     current_sheet = None
     project_name = ""
     project_data = None

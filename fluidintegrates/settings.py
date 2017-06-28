@@ -12,7 +12,7 @@ https://docs.djangoproject.com/en/1.10/ref/settings/
 
 import os
 import sys
-sys.path.append('/var/www/fluid-integrates')
+sys.path.append('/usr/src/app')
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -41,6 +41,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'social_django',
     'sslserver',
+    'django_crontab',
+    'analytical',
 ]
 
 MIDDLEWARE = [
@@ -161,17 +163,24 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     "django.core.context_processors.i18n",
     "django.core.context_processors.media",
     'django.core.context_processors.static',
+    'django.core.context_processors.request',
 )
 
 STATICFILES_DIRS = (
     os.path.join(PROJECT_ROOT, '../app/assets'),
 )
 
+CRONJOBS = [
+    ('*/5 * * * *', 'app.scheduler.get_new_findings')
+]
+
+
 AUTHENTICATION_BACKENDS = (
     'social_core.backends.github.GithubOAuth2',
     'social_core.backends.twitter.TwitterOAuth',
     'social_core.backends.facebook.FacebookOAuth2',
     'social_core.backends.google.GoogleOAuth2',
+    'social_core.backends.azuread.AzureADOAuth2',
     'django.contrib.auth.backends.ModelBackend',
 )
 
@@ -208,8 +217,12 @@ SOCIAL_AUTH_REDIRECT_IS_HTTPS = True
 SOCIAL_AUTH_USERNAME_IS_FULL_EMAIL = True
 USE_X_FORWARDED_HOST = True
 
-SOCIAL_AUTH_LOGIN_REDIRECT_URL = 'https://fluid.la/integrates/registration'
-SOCIAL_AUTH_NEW_USER_REDIRECT_URL = 'https://fluid.la/integrates/registration'
+# django-analytical
+MIXPANEL_API_TOKEN = '7169d12bd6fe3ac4c46bd082a1964112'
+ANALYTICAL_AUTO_IDENTIFY = False
+
+#SOCIAL_AUTH_LOGIN_REDIRECT_URL = 'https://fluid.la/integrates/registration'
+#SOCIAL_AUTH_NEW_USER_REDIRECT_URL = 'https://fluid.la/integrates/registration'
 SOCIAL_AUTH_LOGIN_REDIRECT_URL = '/registration'
 SOCIAL_AUTH_NEW_USER_REDIRECT_URL = '/registration'
 SOCIAL_AUTH_DISCONNECT_REDIRECT_URL = '/index'
@@ -237,3 +250,7 @@ SOCIAL_AUTH_GOOGLE_OAUTH2_SCOPE = [
 SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = \
     '65328559770-aatq8b00rvk05qn2h523hn328drt9ehc.apps.googleusercontent.com'
 SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = 'gvd_U6HtBlyKsSynPpz6LRd-' # noqa
+
+# Azure
+SOCIAL_AUTH_AZUREAD_OAUTH2_KEY = '02067417-b833-4a09-b9f0-63b5014cae85'
+SOCIAL_AUTH_AZUREAD_OAUTH2_SECRET = 'MTup1ltkeg8Gu5ksJtN19gRziTdKsmOui1zObUkuqt8=' # noqa
