@@ -28,6 +28,8 @@
     mixpanel.identify("{{ request.session.username }}");
     mixpanel.people.set({
         "$email": "{{ request.session.username }}",
+        "$first_name": "{{ request.session.first_name }}",
+        "$last_name": "{{ request.session.last_name }}",
         "$last_login": new Date(),
     });
     mixpanel.track(
@@ -83,12 +85,14 @@
                 <div class="panel panel-default">
                     <div class="panel-heading">
                     <span style="color: white;">
-                    <p>Hola {{ user.first_name }}!</p>
-                    {% if is_registered == '1' %}
-                        <script>location = "dashboard"</script>
-                    {% else %}
-                        <p>No tienes autorización aun para ingresar. Comunícate con un representante de FLUID para el acceso.</p>
-                    {% endif %}
+                        <br>
+                        <h1>Hola {{ user.first_name }}!</h1>
+                        <br>
+                        {% if is_registered == '1' %}
+                            <script>location = "dashboard"</script>
+                        {% else %}
+                            <p>No tienes autorización aun para ingresar. Comunícate con un representante de FLUID para el acceso.</p>
+                        {% endif %}
                     </span>
                     </div>
                 </div>
