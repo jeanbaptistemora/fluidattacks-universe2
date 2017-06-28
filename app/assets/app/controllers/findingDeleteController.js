@@ -7,14 +7,7 @@
  * @return {undefined}
  */
 integrates.controller("findingDeleteController", function($scope, $uibModal, findingFactory, $stateParams) {
-    $scope.init = function(){
-        mixpanel.track(
-        "DeleteFinding", {
-            "Email": userEmail,
-            "FindingID": $scope.id
-            }
-        );
-    };
+
     $("#search_section").hide();
     var id = $stateParams.id;
     $scope.vuln = {};

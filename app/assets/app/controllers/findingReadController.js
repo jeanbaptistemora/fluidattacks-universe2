@@ -10,7 +10,7 @@ integrates.controller("findingReadController", function($scope, findingFactory, 
     $("#search_section").hide();
     var id = $stateParams.id;
     $scope.vuln = {};
-    $scope.linkUpdate = BASE.url + "dashboard#/vuln/update/?id=" + id;
+    $scope.linkUpdate = BASE.url + "dashboard#!/vuln/update/?id=" + id;
     if(id !== undefined){
         id = id.replace(/[^0-9]+/g, "");
         $scope.id = id;

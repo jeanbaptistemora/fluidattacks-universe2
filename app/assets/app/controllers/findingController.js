@@ -18,9 +18,9 @@ integrates.calcCardinality = function(data){
 };
 integrates.vuln_formatter = function(value, row, index){
     str = "<div class='btn-group'>"
-        + "<a class='btn btn-default' href=':basedashboard#/vuln/read/?id=nid' target='_blank'><i class='glyphicon glyphicon-eye-open'></i></a>"
-        + "<a class='btn btn-default' href=':basedashboard#/vuln/update/?id=nid' target='_blank'><i class='glyphicon glyphicon-pencil'></i></a>"
-        + "<a class='btn btn-default' href=':basedashboard#/vuln/delete/?id=nid' target='_blank'><i class='glyphicon glyphicon-trash'></i></a></div>";
+        + "<a class='btn btn-default' href=':basedashboard#!/vuln/read/?id=nid' target='_blank'><i class='glyphicon glyphicon-eye-open'></i></a>"
+        + "<a class='btn btn-default' href=':basedashboard#!/vuln/update/?id=nid' target='_blank'><i class='glyphicon glyphicon-pencil'></i></a>"
+        + "<a class='btn btn-default' href=':basedashboard#!/vuln/delete/?id=nid' target='_blank'><i class='glyphicon glyphicon-trash'></i></a></div>";
     return str.replace(/nid/g, row.id).replace(/:base/g, BASE.url);
 }
 /**
