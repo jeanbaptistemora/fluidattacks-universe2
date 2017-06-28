@@ -43,7 +43,7 @@
       - libapache2-mod-python
       - libmysqlclient-dev
       - cron
-    notify: reiniciar cron
+     notify: reiniciar cron
 
    - name: Upgrade pip
      pip:
