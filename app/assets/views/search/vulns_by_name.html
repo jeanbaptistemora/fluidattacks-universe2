@@ -1,7 +1,7 @@
 <div class="page-head">
     <ol class="breadcrumb">
-        <li><a href="#">Busqueda</a></li>
-        <li><a href="#">Hallazgos por proyecto</a></li>
+        <li><a href="#">{{'breadcumbs.findings.page' | translate}}</a></li>
+        <li><a href="#">{{'breadcumbs.findings.function' | translate}}</a></li>
     </ol>
 </div>
 <div class="main-content">
@@ -11,16 +11,16 @@
                 <input class="form-control text-center text-uppercase" 
                        ng-model="project" 
                        id="project" 
-                       placeholder="Nombre del proyecto en Fluid">
+                       placeholder="{{'search_findings.filter_menu.search.placeholder' | translate}}">
             </div><!-- /.col-lg-6 -->
             <div class="col-md-3">
-                <select class="form-control" ng-model="filtro" ng-required="true">
-                    <option value="" selected>Ningún filtro</option>
-                    <option value="Análisis">Análisis</option>
-                    <option value="Aplicación">Aplicación</option>
-                    <option value="Binario">Binario</option>
-                    <option value="Código">Código</option>
-                    <option value="Infraestructura">Infraestructura</option>
+                <select class="form-control text-uppercase" ng-model="filtro" ng-required="true">
+                    <option value="" selected>{{'search_findings.filter_menu.filter_select.any' | translate}}</option>
+                    <option value="Análisis">{{'search_findings.filter_menu.filter_select.analysis' | translate}}</option>
+                    <option value="Aplicación">{{'search_findings.filter_menu.filter_select.application' | translate}}</option>
+                    <option value="Binario">{{'search_findings.filter_menu.filter_select.binary' | translate}}</option>
+                    <option value="Código">{{'search_findings.filter_menu.filter_select.code' | translate}}</option>
+                    <option value="Infraestructura">{{'search_findings.filter_menu.filter_select.infrastructure' | translate}}</option>
                 </select>
             </div>
             <div class="col-md-1">
@@ -144,9 +144,9 @@
                 
             </div>
             <div class="row container">
-                <label><b>HALLAZGOS</b></label>
+                <label><b>{{'search_findings.filter_labels.findings' | translate}}</b></label>
                 <label id="total_hallazgos"></label> &nbsp;&nbsp;&nbsp;
-                <label><b>CARDINALIDAD</b></label> 
+                <label><b>{{'search_findings.filter_labels.cardinalities' | translate}}</b></label> 
                 <label id="total_cardinalidad"></label> &nbsp;&nbsp;&nbsp;
             </div>
             <!-- START: toolbar -->
@@ -155,24 +155,26 @@
                         class="btn btn-default" 
                         data-toggle="tooltip" 
                         data-placement="top" 
-                        title="AVANCE!"
+                        title="{{'search_findings.filter_buttons.advance' | translate}}!"
                         ng-click="openModalAvance();">
-                    AVANCE <i class="glyphicon glyphicon-bookmark"></i>
+                    {{'search_findings.filter_buttons.advance' | translate}} <i class="glyphicon glyphicon-bookmark"></i>
+                </button>
                 <button type="button" 
                         class="btn btn-default" 
                         data-toggle="tooltip" 
                         data-placement="top" 
-                        title="GENERAR Y DESCARGAR"
+                        title="{{'search_findings.filter_buttons.documentation' | translate}}"
                         ng-click="openModalAutodoc();">
-                    DOCUMENTACIÓN <i class="glyphicon glyphicon-star"></i>
-                <button type="button" 
+                    {{'search_findings.filter_buttons.documentation' | translate}} <i class="glyphicon glyphicon-star"></i>
+                </button>
+                <!--<button type="button" Temporary disable
                         class="btn btn-default" 
                         data-toggle="tooltip" 
                         data-placement="top" 
                         title="ASIGNAR ID!"
                         ng-click="openModalVincular();">
                     RELACIONAR <i class="glyphicon glyphicon-link"></i>
-                </button>
+                </button>-->
             </div>
             <table
                 id="vulnerabilities"
@@ -187,18 +189,30 @@
                 <thead>
                     <tr style=""> 
                         <th data-formatter="integrates.vuln_formatter"
-                            data-width="135">Acción</th>
+                            data-width="135">
+							{{'search_findings.table.headings.action' | translate}}
+						</th>
                         <th data-field="tipo_prueba"
-                            data-sortable="true">Tipo prueba</th>
+                            data-sortable="true">
+							{{'search_findings.table.headings.type' | translate}}
+                        </th>
                         <th data-field="hallazgo"
-                            data-width="150">Hallazgo</th>
-                        <th data-field="vulnerabilidad" style="display:none;">Vulnerabilidad</th>
+                            data-width="150">
+                            {{'search_findings.table.headings.finding' | translate}}
+                        </th>
+                        <th data-field="vulnerabilidad" style="display:none;">
+							{{'search_findings.table.headings.vulnerability' | translate}}
+						</th>
                         <th data-field="criticidad"
                             data-sortable="true"
-                            data-width="20">Criticidad</th>
+                            data-width="20">
+                            {{'search_findings.table.headings.criticity' | translate}}
+                        </th>
                         <th data-field="cardinalidad"
                             data-sortable="true"
-                            data-width="20">Cardinalidad</th>
+                            data-width="20">
+                            {{'search_findings.table.headings.cardinality' | translate}}
+                        </th>
                     </tr>
                 </thead>
             </table>

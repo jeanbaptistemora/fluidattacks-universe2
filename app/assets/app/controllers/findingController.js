@@ -31,7 +31,7 @@ integrates.vuln_formatter = function(value, row, index){
  * @param {integrates.findingFactory} findingFactory
  * @return {undefined}
  */
-integrates.controller("findingController", function($scope, $uibModal, findingFactory) {
+integrates.controller("findingController", function($scope, $uibModal, $translate, $filter, findingFactory) {
     /**
      * Inicializa las variables del controlador de hallazgos
      * @function init
@@ -48,6 +48,7 @@ integrates.controller("findingController", function($scope, $uibModal, findingFa
                 }
             }
         }
+        $translate.use(localStorage['lang']);
     }
     /**
      * Despliega la modal de ver avance
@@ -295,6 +296,7 @@ integrates.controller("findingController", function($scope, $uibModal, findingFa
                 class_name: 'color info',
                 sticky: false,
             });
+            
             $(".loader").show();
             findingFactory.getVulnByName(project, filter).then(function(data){
                 if(data.error == false){
@@ -306,12 +308,7 @@ integrates.controller("findingController", function($scope, $uibModal, findingFa
                     $("#search_section").show();
                     $('[data-toggle="tooltip"]').tooltip();
                     integrates.calcCardinality(data);
-                    mixpanel.track(
-                        "SearchFinding", {
-                        "Email": userEmail,
-                        "Project": $scope.project
-                        }
-                    );
+                    mixPanelDashboard.trackSearchFinding($scope.project);
                 }else{
                     if (data.message == "Project doesn't exist"){
                         $.gritter.add({
