@@ -34,7 +34,7 @@ integrates.controller("findingDeleteController", function($scope, $uibModal, fin
                 $("#search_section").fadeIn(200);
                 var data = response.data;
                 $scope.vuln = data;
-                $scope.init();
+                mixPanelDashboard.trackDeleteFinding($scope.project);
             }else{
                 $.gritter.add({
                     title: 'Error!',

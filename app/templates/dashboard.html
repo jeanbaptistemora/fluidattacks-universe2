@@ -47,31 +47,30 @@
             <li><a ui-sref="home"><b>FLUIDIntegrates</b></a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right am-icons-nav">
-			  <li class="dropdown">
+			        <li class="dropdown">
                 <a href="" data-toggle="dropdown" role="button" aria-expanded="true" class="dropdown-toggle">
                   <span class="icon s7-flag"></span>
                 </a>
-                <!-- TODO: translations
                 <ul role="menu" class="dropdown-menu">
                   <li><a ng-click="changeLang('es');"> Español <img src="assets/img/spain.png" width="20" height="20"/></a></li>
                   <li><a ng-click="changeLang('en');"> English <img src="assets/img/usa.png" width="20" height="20"/></a></li>
-                </ul>-->
+                </ul>
               </li> 	
               <li class="dropdown">
                 <a href="" ng-click="logout();" data-toggle="dropdown" role="button" aria-expanded="false" class="dropdown-toggle">
                   <span class="icon s7-power"></span>
                 </a>
-                <!-- START: MODAL ELIMINAR -->
+                <!-- START: MODAL LOGOUT -->
                 <script type="text/ng-template" id="logout.html">
                     <div class="modal-header">
-                        <h3 class="modal-title" id="modal-title">Cerrar Sesión</h3>
+                        <h3 class="modal-title" id="modal-title">{% templatetag openvariable %}'logout.title'| translate{% templatetag closevariable %}</h3>
                     </div>
                     <div class="modal-body" id="modal-body">
-                        <p>Esta seguro de que desea salir?</p>
+                        <p>{% templatetag openvariable %}'logout.message'| translate{% templatetag closevariable %}</p>
                     </div>
                     <div class="modal-footer">
-                        <button class="btn btn-warning" type="button" ng-click="closeModalLogout()">No</button>
-                        <button class="btn btn-primary" type="button" ng-click="okModalLogout()">Si</button>
+                        <button class="btn btn-warning" type="button" ng-click="closeModalLogout()">{% templatetag openvariable %}'logout.cancel'| translate{% templatetag closevariable %}</button>
+                        <button class="btn btn-primary" type="button" ng-click="okModalLogout()">{% templatetag openvariable %}'logout.ok'| translate{% templatetag closevariable %}</button>
                     </div>
                 </script>
               </li>
@@ -118,11 +117,13 @@
       </nav>
     </div>
     {% csrf_token %}
-    <script src="assets/amaretti/lib/jquery/jquery.min.js" type="text/javascript"></script>
+    <script src="assets/bower_components/jquery/dist/jquery.min.js" type="text/javascript"></script>
     <script src="assets/amaretti/lib/jquery.nanoscroller/javascripts/jquery.nanoscroller.min.js" type="text/javascript"></script>
     <script src="assets/amaretti/js/main.js" type="text/javascript"></script>
     <script src="assets/amaretti/lib/bootstrap/dist/js/bootstrap.min.js" type="text/javascript"></script>
     <script src="assets/bower_components/angular/angular.min.js"></script>
+    <script src="assets/bower_components/angular-translate/angular-translate.min.js"></script>
+    <script src="assets/bower_components/angular-sanitize/angular-sanitize.min.js"></script>
     <script src="assets/amaretti/lib/jquery.gritter/js/jquery.gritter.js" type="text/javascript"></script>
     <script src="assets/bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
     <script src="assets/bower_components/bootstrap-table/dist/js/bootstrap-table.min.js"></script>
@@ -133,7 +134,7 @@
     <script src="assets/bower_components/datepicker/dist/locales/bootstrap-datepicker.es.min.js"></script>
     <script src="assets/bower_components/bootstrap-table/dist/js/bootstrap-table-export.js"></script>
     <script src="assets/bower_components/downloadjs/download.js"></script>
-    <script src="assets/bower_components/angular-translate/angular-translate.min.js"></script>
+    <script src="assets/app/mixPanelDashboard.js"></script>
     <script src="assets/app/app.js"></script>
     <script src="assets/app/translations.js"></script>
     <script src="assets/app/routes.js"></script>

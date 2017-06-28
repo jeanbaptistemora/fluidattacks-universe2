@@ -168,6 +168,7 @@ var App = (function () {
           if( !$.isXs() ){
             //If mouse is over sub menu attach an additional mouseleave event to submenu
             setTimeout(function(){
+              try{
               if( subMenu.filter(':hover') ){
                 subMenu.on('mouseleave',function(){
                   setTimeout(function(){
@@ -180,6 +181,9 @@ var App = (function () {
               }else{
                 subMenu.removeClass('visible');
                 _li.removeClass('open');
+              }
+              }catch(e){
+                
               }
             }, 300);
           }

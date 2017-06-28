@@ -48,15 +48,6 @@ integrates.controller("findingController", function($scope, $uibModal, $translat
                 }
             }
         }
-        /*
-        $scope.$watch(
-			function(){
-				return $translate;
-			},
-			function(values){
-				$scope.searchplaceholder = $translate('filter_menu.search.placeholder');
-			}
-		);*/
         $translate.use(localStorage['lang']);
     }
     /**
@@ -317,12 +308,7 @@ integrates.controller("findingController", function($scope, $uibModal, $translat
                     $("#search_section").show();
                     $('[data-toggle="tooltip"]').tooltip();
                     integrates.calcCardinality(data);
-                    mixpanel.track(
-                        "SearchFinding", {
-                        "Email": userEmail,
-                        "Project": $scope.project
-                        }
-                    );
+                    mixPanelDashboard.trackSearchFinding($scope.project);
                 }else{
                     if (data.message == "Project doesn't exist"){
                         $.gritter.add({

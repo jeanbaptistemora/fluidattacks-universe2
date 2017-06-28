@@ -7,14 +7,6 @@
  * @return {undefined}
  */
 integrates.controller("findingReadController", function($scope, findingFactory, $stateParams) {
-    $scope.init = function(){
-        mixpanel.track(
-        "ReadFinding", {
-            "Email": userEmail,
-            "FindingID": $scope.id
-            }
-        );
-    };
     $("#search_section").hide();
     var id = $stateParams.id;
     $scope.vuln = {};
@@ -24,7 +16,10 @@ integrates.controller("findingReadController", function($scope, findingFactory, 
         $scope.id = id;
         findingFactory.getVulnById(id).then(function(response){
             if(!response.error){
-                if(response.data == undefined) window.close();
+
+                if(response.data == undefined){
+                    console.log(response);
+                }
                 $.gritter.add({
                     title: 'Correcto!',
                     text: 'Hallazgo cargado',
@@ -40,7 +35,7 @@ integrates.controller("findingReadController", function($scope, findingFactory, 
                     $scope.esDetallado = "show-detallado";
                     $scope.esGeneral = "hide-detallado";
                 }
-                $scope.init();
+                mixPanelDashboard.trackSearchFinding($scope.id);
             }else{
                 $.gritter.add({
                     title: 'Error!',
@@ -51,6 +46,6 @@ integrates.controller("findingReadController", function($scope, findingFactory, 
             }
         });
     }else{
-        window.close();
+        //window.close();
     }
 });

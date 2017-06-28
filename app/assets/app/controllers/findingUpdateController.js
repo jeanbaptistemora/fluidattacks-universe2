@@ -8,15 +8,6 @@
  */
 integrates.controller("findingUpdateController", function($scope, $uibModal, findingFactory, $stateParams) {
 
-    $scope.init = function(){
-        mixpanel.track(
-        "UpdateFinding", {
-            "Email": userEmail,
-            "FindingID": $scope.id
-            }
-        );
-    };
-
     $("#search_section").hide();
     var id = $stateParams.id;
     $scope.vuln = {};
@@ -50,7 +41,7 @@ integrates.controller("findingUpdateController", function($scope, $uibModal, fin
                     $scope.esDetallado = "show-detallado";
                     $scope.esGeneral = "hide-detallado";
                 }
-                $scope.init();
+                mixPanelDashboard.trackUpdateFinding($scope.id);
             }else{
                 $.gritter.add({
                     title: 'Error!',

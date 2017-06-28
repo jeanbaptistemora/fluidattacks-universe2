@@ -3,14 +3,20 @@
  * @author engineering@fluid.la
  */
  /**
- * Establece la configuracion de las rutas para integrates
+ * Establece la configuracion de las traducciones de integrates
  * @config {AngularJS} 
- * @param {Object} $stateProvider
- * @param {Object} $urlRouterProvider
+ * @param {Object} $translateProvider
  * @return {undefined}
  */
 integrates.config(['$translateProvider', function($translateProvider) {
+	$translateProvider.useSanitizeValueStrategy('sanitize');
     var translations = {
+		'logout': {
+			'message': 'Are you sure?',
+			'title': 'Close Session',
+			'ok': 'Logout',
+			'cancel': 'Cancel'
+		},
 		'left_menu': {
 			'first': 'Search Findings',
 			'second': 'Search eventualities'
@@ -60,6 +66,12 @@ integrates.config(['$translateProvider', function($translateProvider) {
 		}
     };
     var traducciones = {
+		'logout': {
+			'message': 'Esta seguro de que desea salir?',
+			'title':'Cerrar Sesión',
+			'ok': 'Salir',
+			'cancel': 'Cancelar'
+		},
 		'left_menu': {
 			'first': 'Buscar Hallazgos',
 			'second': 'Buscar Eventualidades'
@@ -98,7 +110,7 @@ integrates.config(['$translateProvider', function($translateProvider) {
 			},	
 			'table':{
 				'headings':{
-					'action': 'Acción',
+					'action': 'Accion',
 					'type': 'Tipo prueba',
 					'finding': 'Hallazgo',
 					'vulnerability': 'Vulnerabilidad',

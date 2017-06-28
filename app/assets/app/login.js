@@ -11,7 +11,37 @@ BASE.url = BASE.production;
 if(location.pathname.indexOf("/integrates") == -1)
     BASE.url = BASE.development;
 //definicion de modulos
-var integrates = angular.module("FluidIntegrates", []); 
+var integrates = angular.module("FluidIntegrates", ['ngSanitize','pascalprecht.translate']); 
+
+integrates.config(['$translateProvider', function($translateProvider) {
+    var translations = {
+        'login_message': 'Please log in to proceed.',
+        'login_welcome': 'If you are a new user, you must call a FLUID representative to register.',
+        'button': {
+            'google': 'Log in with Google',
+            'azure': 'Log in with Azure/Office365'
+        }
+    };
+    var traducciones = {
+        'login_message': 'Porfavor ingrese.',
+        'login_welcome': 'Si eres un usuario nuevo, debes llamar a tu representante de FLUID para registrarte',
+        'button': {
+            'google': 'Ingresar con Google',
+            'azure': 'Ingresar con Azure/Office365'
+        }
+    };
+    $translateProvider.useSanitizeValueStrategy('sanitize');
+    $translateProvider
+    .translations('en', translations)
+    .translations('es', traducciones)
+    .preferredLanguage('en');
+}]);
+/*
+ * MixPanel localhost Fixer
+ */
+integrates.isProduction = function(){
+    return location.toString().indexOf("localhost:8000") == -1;
+};
 /**
  * Crea el controlador de la funcionalidad de autenticacion
  * @name loginController 
@@ -19,7 +49,7 @@ var integrates = angular.module("FluidIntegrates", []);
  * @param {integrates.loginFactory} loginFactory 
  * @return {undefined}
  */
-integrates.controller("loginController", function($scope){
+integrates.controller("loginController", function($scope, $translate){
     /**
      * Autentica a un usuario
      * @function login
@@ -69,5 +99,15 @@ integrates.controller("loginController", function($scope){
             })
         }
     };
+
+    $scope.lang = function (langKey) {
+        if(langKey == "es"
+			|| langKey == "en"){
+			localStorage['lang'] = langKey;
+		}
+		$translate.use(localStorage['lang']);
+    };
+
+    console.clear();
 
 });
