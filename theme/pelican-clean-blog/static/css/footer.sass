@@ -15,14 +15,24 @@
     &:hover
       color: #ddd
 
-@media only screen and (max-width: 768px)
+@media (max-width: 768px)
+  #rowfoot
+    display: inline-flex
+    margin-left: 20%
   .widget_content
     display: none
   .active .widget_content
     display: inline
   .widget h2
     text-align: center
-    margin-top: 10%
+    margin-top: 0%
   .active.widget h2:after
     content: "\2039"
     background: #ccc
+    
+@media (max-width: 480px)
+  #rowfoot
+    display: block
+    margin: auto
+    .widget
+      padding: 15px
