@@ -1,6 +1,25 @@
-@media only screen and (max-width: 768px)
+@media (min-width: 769px) and (max-width: 1200px)
   .intro-header
-    background-size: 100% 60%
+    background-size: 100% 100%
+    margin-bottom: 50px
+  .row
+    margin-right: -15px
+    margin-left: -15px
+    margin-bottom: 70px
+    table
+      border-collapse: separate
+      width: 100%
+      border-spacing: 20px 10px
+      tr
+        .tdview
+          height: 600px
+          width: 50%
+          margin-left: 1px
+
+@media (max-width: 768px)
+  .intro-header
+    background-size: 100% 100%
+    margin-bottom: 90px
     .post-heading
       padding: 0
       h1
@@ -14,13 +33,14 @@
   #roweth
     margin-bottom: -90%
   table
-    border-collapse: collapse
+    border-collapse: separate
+    border-spacing: 20px 10px
     width: 100%
     margin-top: -40px
     tr .tdview
-      height: 550px
-      width: 100%
-      display: block
+      height: 530px
+      width: 50%
+      display: table-cell
       margin-left: 1px
       .divread
         bottom: 30px
@@ -83,10 +103,31 @@
       ul
         margin-left: -15px
       #tblent
+        margin-top: 10px
         .trent
           display: none
         .ent2
           display: block
+          width: 100%
+          text-align: left
+          margin-left: 0px
         .tdent
           display: block
-    
+          width: 100%
+          margin-left: 0px
+          margin-top: -30px
+          text-align: justify
+          
+@media (max-width: 480px)
+  .intro-header 
+    background-size: 100% 60%
+    margin-bottom: 60px
+  table
+    border-collapse: collapse
+    margin-top: -40px
+    tr
+      .tdview
+        height: 530px
+        width: 95%
+        display: block
+        margin-left: 10px
