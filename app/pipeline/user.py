@@ -11,6 +11,10 @@ def create_user(strategy, details, backend, user=None, *args, **kwargs):
     last_name = details['last_name']
     email = details['email']
 
+    # Put details on session
+    strategy.session_set('first_name', first_name)
+    strategy.session_set('last_name', last_name)
+
     if user:
         integrates_dao.update_user_login_dao(user)
     else:

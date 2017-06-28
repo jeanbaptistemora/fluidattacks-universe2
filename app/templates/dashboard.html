@@ -24,8 +24,8 @@
     mixpanel.people.set({
         "$email": "{{ request.session.username }}",
         "$last_login": new Date(),
-        "$first_name": "",
-        "$last_name": "",
+        "$first_name": "{{ request.session.first_name }}",
+        "$last_name": "{{ request.session.last_name }}",
         "$Role": "{{ request.session.role }}",
         "$Organization": "{{ request.session.company }}",
     });
@@ -48,7 +48,7 @@
           </div><a href="#" class="am-toggle-right-sidebar"><span class="icon s7-menu2"></span></a><a href="#" data-toggle="collapse" data-target="#am-navbar-collapse" class="am-toggle-top-header-menu collapsed"><span class="icon s7-angle-down"></span></a>
           <div id="am-navbar-collapse" class="collapse navbar-collapse" ng-controller="dashboardController">
             <ul class="nav navbar-nav am-nav-right">
-            <li><a ui-sref="home"><b>FLUIDIntegrates</b> v3.5</a></li>
+            <li><a ui-sref="home"><b>FLUIDIntegrates</b></a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right am-icons-nav">
               <li class="dropdown">
