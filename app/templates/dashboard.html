@@ -29,11 +29,7 @@
         "$Role": "{{ request.session.role }}",
         "$Organization": "{{ request.session.company }}",
     });
-    mixpanel.track(
-        "Dashboard", {
-            "Email": "{{ request.session.username }}",
-        }
-    );
+    var userEmail = "{{ request.session.username }}";
     </script>
   </head>
   <body ng-app="FluidIntegrates">

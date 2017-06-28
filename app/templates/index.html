@@ -35,11 +35,6 @@
       }
     </style>
     {% mixpanel %}
-    <script>
-    mixpanel.track(
-    "Login"
-    );
-    </script>
   </head>
   <body class="am-splash-screen" ng-app="FluidIntegrates">
     <div class="am-wrapper am-login">
@@ -56,14 +51,14 @@
                   <div class="login-form">
                     <div class="row">
                         <a class="btn btn-danger btn-block google"
-                           href="{% url 'social:begin' 'google-oauth2' %}?username={{ value }}&registered={{ value }}&role={{ value }}">
+                           onclick="goLogin('google');">
                           <i class="fa fa-google-plus fa-2x pull-left" aria-hidden="true"></i>
                           <label class="pull-right">Log in with Google</label>
                         </a>
                     </div>
                     <div class="row" style="margin-top: 25px;">
                         <a class="btn btn-primary btn-block twitter"
-                           href="{% url 'social:begin' 'azuread-oauth2' %}?username={{ value }}&registered={{ value }}&role={{ value }}">
+                           onclick="goLogin('azure');">
                           <img src="assets/img/azure.png" class="fa fa-azure fa-2x pull-left" aria-hidden="true" height="25"></img>
                           <label class="pull-right">&nbsp;&nbsp;Log in with Azure/Office365</label>
                         </a>
@@ -86,6 +81,17 @@
     <script src="assets/bower_components/bootstrap-table/dist/js/bootstrap-table-es-AR.min.js"></script>
     <script src="assets/app/login.js" type="text/javascript"></script>
     <script type="text/javascript">
+      function goLogin(page){
+        if(page == "google"){
+            mixpanel.track("Login Google");
+            location = "{% url 'social:begin' 'google-oauth2' %}?username={{ value }}&registered={{ value }}&role={{ value }}";
+        }else if(page == "azure"){
+            mixpanel.track("Login Azure");
+            location = "{% url 'social:begin' 'azuread-oauth2' %}?username={{ value }}&registered={{ value }}&role={{ value }}";
+        }else{
+            window.close();
+        }
+      };
       $(document).ready(function(){
         //initialize the javascript
         App.init();

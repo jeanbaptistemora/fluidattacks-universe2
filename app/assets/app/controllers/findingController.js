@@ -5,7 +5,7 @@
 /**
  * Calcula la cardinalidad para el label resumen
  * @function calcCardinality
- * @param {Object} data 
+ * @param {Object} data
  * @return {undefined}
  */
 integrates.calcCardinality = function(data){
@@ -17,7 +17,7 @@ integrates.calcCardinality = function(data){
     $("#total_hallazgos").html(data.data.length);
 };
 integrates.vuln_formatter = function(value, row, index){
-    str = "<div class='btn-group'>" 
+    str = "<div class='btn-group'>"
         + "<a class='btn btn-default' href=':basedashboard#/vuln/read/?id=nid' target='_blank'><i class='glyphicon glyphicon-eye-open'></i></a>"
         + "<a class='btn btn-default' href=':basedashboard#/vuln/update/?id=nid' target='_blank'><i class='glyphicon glyphicon-pencil'></i></a>"
         + "<a class='btn btn-default' href=':basedashboard#/vuln/delete/?id=nid' target='_blank'><i class='glyphicon glyphicon-trash'></i></a></div>";
@@ -25,10 +25,10 @@ integrates.vuln_formatter = function(value, row, index){
 }
 /**
  * Crea el controlador de la funcionalidad de vulnerabilidades
- * @name findingController 
- * @param {Object} $scope 
+ * @name findingController
+ * @param {Object} $scope
  * @param {Object} $uibModal
- * @param {integrates.findingFactory} findingFactory 
+ * @param {integrates.findingFactory} findingFactory
  * @return {undefined}
  */
 integrates.controller("findingController", function($scope, $uibModal, findingFactory) {
@@ -45,7 +45,7 @@ integrates.controller("findingController", function($scope, $uibModal, findingFa
             if(ev.keyCode === 13){
                 if($('#project').is(':focus')){
                     $scope.searchVulnByName();
-                }        
+                }
             }
         }
     }
@@ -135,7 +135,7 @@ integrates.controller("findingController", function($scope, $uibModal, findingFa
                  * @return {undefined}
                  */
                 $scope.okModal = function(){
-                    if($scope.order == 0 
+                    if($scope.order == 0
                         || $scope.order.toString().length < 9
                         || typeof $scope.project != "string"
                         || $scope.project.trim() == ""){
@@ -163,7 +163,7 @@ integrates.controller("findingController", function($scope, $uibModal, findingFa
                                 class_name: 'color warning',
                                 sticky: false,
                             });
-                        } 
+                        }
                    });
                 }
             },
@@ -286,7 +286,7 @@ integrates.controller("findingController", function($scope, $uibModal, findingFa
     $scope.searchVulnByName = function(){
         var project = $scope.project;
         var filter = $scope.filtro;
-        if (project !== undefined 
+        if (project !== undefined
             && project !== ""){
             $scope.response = "";
             $.gritter.add({
@@ -304,8 +304,14 @@ integrates.controller("findingController", function($scope, $uibModal, findingFa
                     $("#vulnerabilities").bootstrapTable('refresh');
                     //MANEJO DEL UI
                     $("#search_section").show();
-                    $('[data-toggle="tooltip"]').tooltip(); 
+                    $('[data-toggle="tooltip"]').tooltip();
                     integrates.calcCardinality(data);
+                    mixpanel.track(
+                        "SearchFinding", {
+                        "Email": userEmail,
+                        "Project": $scope.project
+                        }
+                    );
                 }else{
                     if (data.message == "Project doesn't exist"){
                         $.gritter.add({

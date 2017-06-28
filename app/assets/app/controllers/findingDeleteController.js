@@ -1,12 +1,20 @@
 /**
  * Crea el controlador para la eliminación de vulnerabilidades por ID
- * @name findingDeleteController 
- * @param {Object} $scope 
+ * @name findingDeleteController
+ * @param {Object} $scope
  * @param {Object} $uibModal
- * @param {integrates.findingFactory} findingFactory 
+ * @param {integrates.findingFactory} findingFactory
  * @return {undefined}
  */
 integrates.controller("findingDeleteController", function($scope, $uibModal, findingFactory, $stateParams) {
+    $scope.init = function(){
+        mixpanel.track(
+        "DeleteFinding", {
+            "Email": userEmail,
+            "FindingID": $scope.id
+            }
+        );
+    };
     $("#search_section").hide();
     var id = $stateParams.id;
     $scope.vuln = {};
@@ -26,6 +34,7 @@ integrates.controller("findingDeleteController", function($scope, $uibModal, fin
                 $("#search_section").fadeIn(200);
                 var data = response.data;
                 $scope.vuln = data;
+                $scope.init();
             }else{
                 $.gritter.add({
                     title: 'Error!',
@@ -33,7 +42,7 @@ integrates.controller("findingDeleteController", function($scope, $uibModal, fin
                     class_name: 'color warning',
                     sticky: false,
                 });
-            } 
+            }
         });
     }else{
         window.close();
@@ -66,7 +75,7 @@ integrates.controller("findingDeleteController", function($scope, $uibModal, fin
                  * @return {undefined}
                  */
                 $scope.okModal = function(){
-                   $scope.vuln = currentVulnerability; 
+                   $scope.vuln = currentVulnerability;
                    findingFactory.deleteVuln($scope.vuln).then(function(response){
                         if(!response.error){
                             $.gritter.add({
@@ -84,7 +93,7 @@ integrates.controller("findingDeleteController", function($scope, $uibModal, fin
                                 class_name: 'color warning',
                                 sticky: false,
                             });
-                        } 
+                        }
                    });
                 }
                 /**

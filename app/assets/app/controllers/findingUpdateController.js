@@ -1,12 +1,22 @@
 /**
  * Crea el controlador para la actualización de vulnerabilidades por ID
- * @name findingUpdateController 
- * @param {Object} $scope 
+ * @name findingUpdateController
+ * @param {Object} $scope
  * @param {Object} $uibModal
- * @param {integrates.findingFactory} findingFactory 
+ * @param {integrates.findingFactory} findingFactory
  * @return {undefined}
  */
 integrates.controller("findingUpdateController", function($scope, $uibModal, findingFactory, $stateParams) {
+
+    $scope.init = function(){
+        mixpanel.track(
+        "UpdateFinding", {
+            "Email": userEmail,
+            "FindingID": $scope.id
+            }
+        );
+    };
+
     $("#search_section").hide();
     var id = $stateParams.id;
     $scope.vuln = {};
@@ -37,9 +47,10 @@ integrates.controller("findingUpdateController", function($scope, $uibModal, fin
                     $scope.esDetallado = "hide-detallado";
                     $scope.esGeneral = "show-detallado";
                 }else{
-                    $scope.esDetallado = "show-detallado";  
-                    $scope.esGeneral = "hide-detallado";  
+                    $scope.esDetallado = "show-detallado";
+                    $scope.esGeneral = "hide-detallado";
                 }
+                $scope.init();
             }else{
                 $.gritter.add({
                     title: 'Error!',
@@ -47,7 +58,7 @@ integrates.controller("findingUpdateController", function($scope, $uibModal, fin
                     class_name: 'color warning',
                     sticky: false,
                 });
-            } 
+            }
         });
     }else{
         window.close();
@@ -71,7 +82,7 @@ integrates.controller("findingUpdateController", function($scope, $uibModal, fin
                  * @return {undefined}
                  */
                 $scope.okModal = function(){
-                   $scope.vuln = currentVulnerability; 
+                   $scope.vuln = currentVulnerability;
                    findingFactory.updateVuln($scope.vuln).then(function(response){
                         if(!response.error){
                             $.gritter.add({
@@ -88,7 +99,7 @@ integrates.controller("findingUpdateController", function($scope, $uibModal, fin
                                 class_name: 'color warning',
                                 sticky: false,
                             });
-                        } 
+                        }
                    });
                 }
                 /**
@@ -108,4 +119,5 @@ integrates.controller("findingUpdateController", function($scope, $uibModal, fin
             }
         });
     };
+
 });

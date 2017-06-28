@@ -1,12 +1,20 @@
 /**
  * Crea el controlador para la lectura de vulnerabilidades por ID
- * @name findingReadController 
- * @param {Object} $scope 
+ * @name findingReadController
+ * @param {Object} $scope
  * @param {Object} $uibModal
- * @param {integrates.findingFactory} findingFactory 
+ * @param {integrates.findingFactory} findingFactory
  * @return {undefined}
  */
 integrates.controller("findingReadController", function($scope, findingFactory, $stateParams) {
+    $scope.init = function(){
+        mixpanel.track(
+        "ReadFinding", {
+            "Email": userEmail,
+            "FindingID": $scope.id
+            }
+        );
+    };
     $("#search_section").hide();
     var id = $stateParams.id;
     $scope.vuln = {};
@@ -29,9 +37,10 @@ integrates.controller("findingReadController", function($scope, findingFactory, 
                     $scope.esDetallado = "hide-detallado";
                     $scope.esGeneral = "show-detallado";
                 }else{
-                    $scope.esDetallado = "show-detallado";  
-                    $scope.esGeneral = "hide-detallado";  
+                    $scope.esDetallado = "show-detallado";
+                    $scope.esGeneral = "hide-detallado";
                 }
+                $scope.init();
             }else{
                 $.gritter.add({
                     title: 'Error!',
@@ -39,7 +48,7 @@ integrates.controller("findingReadController", function($scope, findingFactory, 
                     class_name: 'color warning',
                     sticky: false,
                 });
-            } 
+            }
         });
     }else{
         window.close();
