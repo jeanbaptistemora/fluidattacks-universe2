@@ -7,7 +7,7 @@
  * @function afectacionFormatter
  * @param {String} value
  * @param {Object} row
- * @param {Number} index 
+ * @param {Number} index
  * @return {String}
  */
 integrates.afectacionFormatter = function(value, row, index){
@@ -21,11 +21,11 @@ integrates.afectacionFormatter = function(value, row, index){
 /**
  * Calcula la afectacion total para el label resumen
  * @function evntTotalize
- * @param {Object} data 
+ * @param {Object} data
  * @return {undefined}
  */
 integrates.evntTotalize = function(data){
-    var cardinalidad = 0; 
+    var cardinalidad = 0;
     var afectacion = 0;
     for(var i = 0; i< data.data.length;i++){
         auxAfectacion = 0;
@@ -40,7 +40,7 @@ integrates.evntTotalize = function(data){
 /**
  * Actualiza una fila de la tabla
  * @function updateEvntRow
- * @param {Object} data 
+ * @param {Object} data
  * @return {undefined}
  */
 integrates.updateEvntRow = function(row){
@@ -61,10 +61,10 @@ integrates.updateEvntRow = function(row){
 };
 /**
  * Crea el controlador de la funcionalidad de eventualidades
- * @name eventualityController 
- * @param {Object} $scope 
+ * @name eventualityController
+ * @param {Object} $scope
  * @param {Object} $uibModal
- * @param {integrates.eventualityFactory} eventualityFactory 
+ * @param {integrates.eventualityFactory} eventualityFactory
  * @return {undefined}
  */
 integrates.controller("eventualityController", function($scope, $uibModal, eventualityFactory) {
@@ -81,9 +81,14 @@ integrates.controller("eventualityController", function($scope, $uibModal, event
             if(ev.keyCode === 13){
                 if($('#project').is(':focus')){
                     $scope.searchEvntByName();
-                }        
+                }
             }
         }
+        mixpanel.track(
+        "SearchEventuality", {
+            "Email": userEmail,
+            }
+        );
 
     }
     /**
@@ -136,7 +141,7 @@ integrates.controller("eventualityController", function($scope, $uibModal, event
         var modalInstance = $uibModal.open({
             animation: true,
             templateUrl: 'avance.html',
-            windowClass: 'modal avance-modal',  
+            windowClass: 'modal avance-modal',
             controller: function($scope, $uibModalInstance){
                 $scope.rows = $("#eventualities").bootstrapTable('getData');
                 $scope.closeModalAvance = function(){
@@ -167,7 +172,7 @@ integrates.controller("eventualityController", function($scope, $uibModal, event
         }else{
             $scope.currentEventuality = sel[0];
         }
-        
+
         var modalInstance = $uibModal.open({
             animation: true,
             templateUrl: 'editar.html',
@@ -215,7 +220,7 @@ integrates.controller("eventualityController", function($scope, $uibModal, event
                                 class_name: 'color warning',
                                 sticky: false,
                             });
-                        } 
+                        }
                    });
                 }
 
@@ -243,7 +248,7 @@ integrates.controller("eventualityController", function($scope, $uibModal, event
     $scope.searchEvntByName = function(){
         var project = $scope.project;
         var category = $scope.category;
-        if (project !== undefined 
+        if (project !== undefined
             && project !== ""
             && category !== undefined
             && category !== ""){
@@ -264,7 +269,7 @@ integrates.controller("eventualityController", function($scope, $uibModal, event
                     $("#eventualities").bootstrapTable('refresh');
                     //MANEJO DEL UI
                     $("#search_section").show();
-                    $('[data-toggle="tooltip"]').tooltip(); 
+                    $('[data-toggle="tooltip"]').tooltip();
                     integrates.evntTotalize(data);
                     $.gritter.add({
                         title: 'Consultando',
