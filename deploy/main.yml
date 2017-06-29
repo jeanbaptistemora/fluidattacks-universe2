@@ -43,6 +43,7 @@
       - libapache2-mod-python
       - libmysqlclient-dev
       - cron
+     notify: reiniciar cron
 
    - name: Upgrade pip
      pip:
@@ -170,4 +171,9 @@
    - name: reiniciar apache2
      service:
       name: "apache2"
+      state: "restarted"
+
+   - name: reiniciar cron
+     service:
+      name: "cron"
       state: "restarted"
