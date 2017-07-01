@@ -11,12 +11,14 @@
       width: 100%
       border-spacing: 20px 10px
       tr
-        .tdview
-          height: 600px
+        .tdview          
           width: 50%
           margin-left: 1px
+  .divarticle
+    table
+      border-collapse: collapse
 
-@media (max-width: 768px)
+@media (min-width: 481px) and (max-width: 768px)
   .intro-header
     background-size: 100% 100%
     margin-bottom: 90px
@@ -27,7 +29,7 @@
       .meta
         font-size: 14px
   .row
-    margin-bottom: 0
+    margin-bottom: 60px
   #rowart
     margin-bottom: -95%
   #roweth
@@ -37,8 +39,7 @@
     border-spacing: 20px 10px
     width: 100%
     margin-top: -40px
-    tr .tdview
-      height: 530px
+    tr .tdview      
       width: 50%
       display: table-cell
       margin-left: 1px
@@ -121,13 +122,27 @@
 @media (max-width: 480px)
   .intro-header 
     background-size: 100% 60%
-    margin-bottom: 60px
+    margin-bottom: 40px
+  .row
+    margin-bottom: 50px
   table
     border-collapse: collapse
     margin-top: -40px
     tr
-      .tdview
-        height: 530px
+      .tdview        
         width: 95%
         display: block
         margin-left: 10px
+  .post-preview
+    > a
+      > .post-title
+        font-size: 20px        
+      font-size: 14px
+    .imgprev
+      width: 15px
+    > span
+      font-size: 13px
+    .article-summary
+      font-size: 16px
+      margin-top: 10px
+      bottom: 55px
