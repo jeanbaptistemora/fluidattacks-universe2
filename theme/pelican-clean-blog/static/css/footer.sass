@@ -15,7 +15,9 @@
     &:hover
       color: #ddd
 
-@media (max-width: 768px)
+@media (min-width: 481px) and (max-width: 768px)
+  .footer
+    padding: 0
   #rowfoot
     display: inline-flex
     margin-left: 20%
@@ -24,15 +26,28 @@
   .active .widget_content
     display: inline
   .widget h2
-    text-align: center
-    margin-top: 0%
+    text-align: center    
+    font-size: 14px
+    line-height: 25px
+    font-weight: normal
+    color: #fff
+    margin-bottom: -10px
   .active.widget h2:after
     content: "\2039"
     background: #ccc
     
 @media (max-width: 480px)
+  .footer
+    display: grid
+    text-align: center
   #rowfoot
     display: block
     margin: auto
     .widget
       padding: 15px
+      h2
+        font-size: 14px
+        line-height: 25px
+        font-weight: normal
+        color: #fff
+        
