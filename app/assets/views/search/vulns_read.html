@@ -9,15 +9,15 @@
     textarea {
         resize: none;
     }
-    
+
     .main-content {
         background-color: white !important;
     }
-    
+
     .hide-detallado {
         display: none;
     }
-    
+
     .show-detallado {
         display: block;
     }
@@ -104,9 +104,14 @@
                         <textarea class="form-control" id="email" disabled rows="4">{{vuln.requisitos}}</textarea>
                     </div>
                 </div>
+                <script>
+                    if (userRole == "customer"){
+                        $('#edit_button').hide();
+                    }
+                </script>
                 <div class="col-md-9 text-center" style="margin-bottom: 10px;">
                     <button class="btn btn-warning" type="button" onclick="window.close();">Cerrar</button>
-                    <a class="btn btn-primary" type="button" href="{{linkUpdate}}" >Editar</a>
+                    <a id="edit_button" class="btn btn-primary" type="button" href="{{linkUpdate}}" >Editar</a>
                 </div>
             </div>
         </div>
