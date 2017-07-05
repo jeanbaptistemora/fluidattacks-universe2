@@ -17,10 +17,15 @@ integrates.calcCardinality = function(data){
     $("#total_hallazgos").html(data.data.length);
 };
 integrates.vuln_formatter = function(value, row, index){
-    str = "<div class='btn-group'>"
-        + "<a class='btn btn-default' href=':basedashboard#!/vuln/read/?id=nid' target='_blank'><i class='glyphicon glyphicon-eye-open'></i></a>"
-        + "<a class='btn btn-default' href=':basedashboard#!/vuln/update/?id=nid' target='_blank'><i class='glyphicon glyphicon-pencil'></i></a>"
-        + "<a class='btn btn-default' href=':basedashboard#!/vuln/delete/?id=nid' target='_blank'><i class='glyphicon glyphicon-trash'></i></a></div>";
+    if (userRole == "analyst"){
+        str = "<div class='btn-group'>"
+            + "<a class='btn btn-default' href=':basedashboard#!/vuln/read/?id=nid' target='_blank'><i class='glyphicon glyphicon-eye-open'></i></a>"
+            + "<a class='btn btn-default' href=':basedashboard#!/vuln/update/?id=nid' target='_blank'><i class='glyphicon glyphicon-pencil'></i></a>"
+            + "<a class='btn btn-default' href=':basedashboard#!/vuln/delete/?id=nid' target='_blank'><i class='glyphicon glyphicon-trash'></i></a></div>";
+    }else{
+        str = "<div class='btn-group'>"
+            + "<a class='btn btn-default' href=':basedashboard#!/vuln/read/?id=nid' target='_blank'><i class='glyphicon glyphicon-eye-open'></i></a>";
+    }
     return str.replace(/nid/g, row.id).replace(/:base/g, BASE.url);
 }
 /**
@@ -296,7 +301,7 @@ integrates.controller("findingController", function($scope, $uibModal, $translat
                 class_name: 'color info',
                 sticky: false,
             });
-            
+
             $(".loader").show();
             findingFactory.getVulnByName(project, filter).then(function(data){
                 if(data.error == false){
@@ -308,7 +313,6 @@ integrates.controller("findingController", function($scope, $uibModal, $translat
                     $("#search_section").show();
                     $('[data-toggle="tooltip"]').tooltip();
                     integrates.calcCardinality(data);
-                    mixPanelDashboard.trackSearchFinding($scope.project);
                 }else{
                     if (data.message == "Project doesn't exist"){
                         $.gritter.add({

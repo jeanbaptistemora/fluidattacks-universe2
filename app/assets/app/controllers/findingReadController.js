@@ -35,7 +35,7 @@ integrates.controller("findingReadController", function($scope, findingFactory, 
                     $scope.esDetallado = "show-detallado";
                     $scope.esGeneral = "hide-detallado";
                 }
-                mixPanelDashboard.trackSearchFinding($scope.id);
+                mixPanelDashboard.trackReadFinding($scope.id);
             }else{
                 $.gritter.add({
                     title: 'Error!',

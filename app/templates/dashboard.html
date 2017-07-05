@@ -30,6 +30,7 @@
         "$Organization": "{{ request.session.company }}",
     });
     var userEmail = "{{ request.session.username }}";
+    var userRole = "{{ request.session.role }}";
     </script>
   </head>
   <body ng-app="FluidIntegrates">
@@ -47,7 +48,7 @@
             <li><a ui-sref="home"><b>FLUIDIntegrates</b></a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right am-icons-nav">
-			        <li class="dropdown">
+                    <li class="dropdown">
                 <a href="" data-toggle="dropdown" role="button" aria-expanded="true" class="dropdown-toggle">
                   <span class="icon s7-flag"></span>
                 </a>
@@ -55,7 +56,7 @@
                   <li><a ng-click="changeLang('es');"> Español <img src="assets/img/spain.png" width="20" height="20"/></a></li>
                   <li><a ng-click="changeLang('en');"> English <img src="assets/img/usa.png" width="20" height="20"/></a></li>
                 </ul>
-              </li> 	
+              </li>
               <li class="dropdown">
                 <a href="" ng-click="logout();" data-toggle="dropdown" role="button" aria-expanded="false" class="dropdown-toggle">
                   <span class="icon s7-power"></span>

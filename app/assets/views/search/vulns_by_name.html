@@ -8,9 +8,9 @@
     <h3 class="text-center">
         <div class="row">
             <div class="col-md-4 col-md-offset-2">
-                <input class="form-control text-center text-uppercase" 
-                       ng-model="project" 
-                       id="project" 
+                <input class="form-control text-center text-uppercase"
+                       ng-model="project"
+                       id="project"
                        placeholder="{{'search_findings.filter_menu.search.placeholder' | translate}}">
             </div><!-- /.col-lg-6 -->
             <div class="col-md-3">
@@ -24,8 +24,8 @@
                 </select>
             </div>
             <div class="col-md-1">
-                <button class="btn btn-primary form-control" 
-                        id="search" ng-click="searchVulnByName();" 
+                <button class="btn btn-primary form-control"
+                        id="search" ng-click="searchVulnByName();"
                         title="Ejecutar esta busqueda">
                 <i class="glyphicon glyphicon-search"></i>&nbsp;</button>
             </div>
@@ -35,7 +35,7 @@
                 </div>
             </div>
         </div>
-        
+
     </h3>
     <style>
         table {
@@ -43,7 +43,7 @@
             color: #222;
         }
         th,.tab-tit {
-            background-color : #0A62AC !important; 
+            background-color : #0A62AC !important;
             color: white !important;
         }
         .avance-modal{
@@ -141,36 +141,43 @@
         </div>
         <div class="col-md-10 col-md-offset-1" id="search_section">
             <div class="row text-center">
-                
+
             </div>
             <div class="row container">
                 <label><b>{{'search_findings.filter_labels.findings' | translate}}</b></label>
                 <label id="total_hallazgos"></label> &nbsp;&nbsp;&nbsp;
-                <label><b>{{'search_findings.filter_labels.cardinalities' | translate}}</b></label> 
+                <label><b>{{'search_findings.filter_labels.cardinalities' | translate}}</b></label>
                 <label id="total_cardinalidad"></label> &nbsp;&nbsp;&nbsp;
             </div>
             <!-- START: toolbar -->
             <div class="btn-group"  id="toolbar">
-                <button type="button" 
-                        class="btn btn-default" 
-                        data-toggle="tooltip" 
-                        data-placement="top" 
+                <button type="button"
+                        class="btn btn-default"
+                        data-toggle="tooltip"
+                        data-placement="top"
                         title="{{'search_findings.filter_buttons.advance' | translate}}!"
                         ng-click="openModalAvance();">
                     {{'search_findings.filter_buttons.advance' | translate}} <i class="glyphicon glyphicon-bookmark"></i>
                 </button>
-                <button type="button" 
-                        class="btn btn-default" 
-                        data-toggle="tooltip" 
-                        data-placement="top" 
+                <script>
+                    if (userRole == "customer"){
+                        $('#document_button').hide();
+                    }
+                </script>
+                <button type="button"
+                        id="document_button"
+                        class="btn btn-default"
+                        data-toggle="tooltip"
+                        data-placement="top"
                         title="{{'search_findings.filter_buttons.documentation' | translate}}"
                         ng-click="openModalAutodoc();">
                     {{'search_findings.filter_buttons.documentation' | translate}} <i class="glyphicon glyphicon-star"></i>
                 </button>
+
                 <!--<button type="button" Temporary disable
-                        class="btn btn-default" 
-                        data-toggle="tooltip" 
-                        data-placement="top" 
+                        class="btn btn-default"
+                        data-toggle="tooltip"
+                        data-placement="top"
                         title="ASIGNAR ID!"
                         ng-click="openModalVincular();">
                     RELACIONAR <i class="glyphicon glyphicon-link"></i>
@@ -187,22 +194,22 @@
                 data-refresh="true"
                 data-search="true">
                 <thead>
-                    <tr style=""> 
+                    <tr style="">
                         <th data-formatter="integrates.vuln_formatter"
                             data-width="135">
-							{{'search_findings.table.headings.action' | translate}}
-						</th>
+                            {{'search_findings.table.headings.action' | translate}}
+                        </th>
                         <th data-field="tipo_prueba"
                             data-sortable="true">
-							{{'search_findings.table.headings.type' | translate}}
+                            {{'search_findings.table.headings.type' | translate}}
                         </th>
                         <th data-field="hallazgo"
                             data-width="150">
                             {{'search_findings.table.headings.finding' | translate}}
                         </th>
                         <th data-field="vulnerabilidad" style="display:none;">
-							{{'search_findings.table.headings.vulnerability' | translate}}
-						</th>
+                            {{'search_findings.table.headings.vulnerability' | translate}}
+                        </th>
                         <th data-field="criticidad"
                             data-sortable="true"
                             data-width="20">
@@ -217,5 +224,5 @@
                 </thead>
             </table>
         </div>
-    </div>    
+    </div>
 </div>
