@@ -296,7 +296,7 @@ integrates.controller("findingController", function($scope, $uibModal, $translat
                 class_name: 'color info',
                 sticky: false,
             });
-            
+
             $(".loader").show();
             findingFactory.getVulnByName(project, filter).then(function(data){
                 if(data.error == false){
@@ -308,7 +308,6 @@ integrates.controller("findingController", function($scope, $uibModal, $translat
                     $("#search_section").show();
                     $('[data-toggle="tooltip"]').tooltip();
                     integrates.calcCardinality(data);
-                    mixPanelDashboard.trackSearchFinding($scope.project);
                 }else{
                     if (data.message == "Project doesn't exist"){
                         $.gritter.add({
