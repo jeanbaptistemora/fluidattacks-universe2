@@ -97,5 +97,6 @@ jobs:
               sudo aws ecr get-login --region us-east-1 >> login.sh && sudo sh login.sh && \
               sudo docker -D push 205810638802.dkr.ecr.us-east-1.amazonaws.com/serves:alg && \
               sudo docker -D push 205810638802.dkr.ecr.us-east-1.amazonaws.com/serves:exams && \
+              sudo docker -D push 205810638802.dkr.ecr.us-east-1.amazonaws.com/serves:vpn && \
               sudo docker -D push 205810638802.dkr.ecr.us-east-1.amazonaws.com/integrates:base;
             fi

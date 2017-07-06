@@ -12,8 +12,20 @@ RUN apt-get update && apt-get upgrade -y && apt-get install -y software-properti
 # Agrega el playbook
 ADD main.yml /root/
 
+# Agrega las variables
+ADD vars* /root/vars
+
+# Agrega el vault
+ADD .vault.txt /root/
+
 # Cambia al directorio root
 WORKDIR /root/
 
 # Ejecuta el ansible
-RUN ansible-playbook main.yml
+RUN ansible-playbook main.yml --vault-password-file .vault.txt
+
+# Make port 1194 available to the world outside this container
+EXPOSE 443
+
+# Script de inicio
+CMD run

@@ -14,8 +14,21 @@
      register: openvpninstalled
      with_items:
       - openvpn
+      - iptables
 
-   - name: Creando sitio ssl
+   - name: Crear directorio de certificados
+     file:
+      path: /etc/openvpn/certs
+      state: directory
+      mode: 0644
+
+   - name: Creando start script
+     template:
+      src: "vars/run.j2"
+      dest: "/usr/local/sbin/run"
+      mode: "0755"
+
+   - name: Creando server conf
      template:
       src: "vars/serverconf.j2"
       dest: "/etc/openvpn/server.conf"
@@ -60,12 +73,3 @@
       owner: root
       group: root
       mode: 0600
-     notify:
-      - iniciar openvpn
-
-  handlers:
-
-   - name: iniciar openvpn
-     service:
-      name: "openvpn"
-      state: started
