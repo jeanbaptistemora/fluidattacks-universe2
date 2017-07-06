@@ -182,7 +182,6 @@ def get_findings(request):
     return util.response(findings, 'Success', False)
 
 
-# FIXME: Need to add access control to this function
 @csrf_exempt
 @authorize(['analyst', 'customer'])
 def get_finding(request):
@@ -192,6 +191,11 @@ def get_finding(request):
         rmp = FormstackRequestMapper()
         formstack_request = api.get_submission(project_id)
         finding = rmp.map_finding(formstack_request)
+
+        username = request.session['username']
+        if not has_access_to_project(username, finding['proyecto_fluid']):
+            return redirect('/dashboard')
+
         return util.response(finding, 'Success', False)
     return util.response([], 'Empty fields', True)
 
@@ -250,7 +254,6 @@ eventualidades o no existe', False)
 numerico!', True)
 
 
-# FIXME: Need to add access control to this function
 @csrf_exempt
 @authorize(['analyst'])
 def delete_finding(request):
@@ -263,7 +266,15 @@ def delete_finding(request):
         return util.response([], 'Campos vacios', True)
     else:
         api = FormstackAPI()
+        rmp = FormstackRequestMapper()
         submission_id = post_parms["vuln[id]"]
+        formstack_request = api.get_submission(submission_id)
+        finding = rmp.map_finding(formstack_request)
+
+        username = request.session['username']
+        if not has_access_to_project(username, finding['proyecto_fluid']):
+            return redirect('/dashboard')
+
         res = api.delete_finding(submission_id)
         if res:
             finding_id = post_parms["vuln[id]"]
@@ -362,7 +373,6 @@ def update_eventuality(request):
     return util.response([], 'Actualizado correctamente!', False)
 
 
-# FIXME: Need to add access control to this function
 @csrf_exempt
 @authorize(['analyst'])
 def update_finding(request):
@@ -393,6 +403,14 @@ def update_finding(request):
             return util.response([], 'Campos vacios', True)
         formstack_api = FormstackAPI()
         submission_id = post_parms["vuln[id]"]
+        rmp = FormstackRequestMapper()
+        formstack_request = formstack_api.get_submission(submission_id)
+        finding = rmp.map_finding(formstack_request)
+
+        username = request.session['username']
+        if not has_access_to_project(username, finding['proyecto_fluid']):
+            return redirect('/dashboard')
+
         updated = formstack_api.update_finding(post_parms, submission_id)
         if not updated:
             return util.response([], 'No se pudo actualizar formstack',

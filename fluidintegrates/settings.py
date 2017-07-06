@@ -25,9 +25,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'oxz^4@97nkz*#490#(-5wtt8go=$pfaybg@is8se+et!$6r%x7' # noqa
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = ["192.168.0.12", "localhost", "127.0.0.1", "fluid.la"]
+ALLOWED_HOSTS = ["192.168.0.26", "localhost", "127.0.0.1", "fluid.la"]
 
 
 # Application definition
