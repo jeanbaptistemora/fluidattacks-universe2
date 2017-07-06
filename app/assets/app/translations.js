@@ -68,7 +68,7 @@ integrates.config(['$translateProvider', function($translateProvider) {
     var traducciones = {
 		'logout': {
 			'message': 'Esta seguro de que desea salir?',
-			'title':'Cerrar Sesión',
+			'title':'Cerrar Sesion',
 			'ok': 'Salir',
 			'cancel': 'Cancelar'
 		},
