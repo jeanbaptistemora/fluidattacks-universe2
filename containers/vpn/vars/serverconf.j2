@@ -1,0 +1,25 @@
+port 443
+proto tcp-server
+dev tun443
+ca /etc/openvpn/certs/ca.crt
+cert /etc/openvpn/certs/vpn.fluid.la.crt
+key /etc/openvpn/certs/vpn.fluid.la.key
+dh /etc/openvpn/certs/dh4096.pem
+tls-auth /etc/openvpn/certs/ta.key 0
+server 192.168.255.0 255.255.255.128
+ifconfig-pool-persist ipp.txt
+push "redirect-gateway def1 bypass-dhcp"
+push "dhcp-option DNS 8.8.8.8"
+push "dhcp-option DNS 8.8.4.4"
+keepalive 1800 4000
+cipher DES-EDE3-CBC # Triple-DES
+comp-lzo
+max-clients 10
+user nobody
+group nogroup
+persist-key
+persist-tun
+log openvpn.log
+status openvpn-status.log
+verb 5
+mute 20

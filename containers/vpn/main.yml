@@ -1,0 +1,75 @@
+---
+- hosts: localhost
+
+  become: "yes"
+
+  tasks:
+   - name: Incluir llaves de cifrado
+     include_vars: vars/key.yml
+
+   - name: Instalar Dependencias
+     apt:
+      pkg: "{{ item }}"
+      state: installed
+     register: openvpninstalled
+     with_items:
+      - openvpn
+      - iptables
+
+   - name: Crear directorio de certificados
+     file:
+      path: /etc/openvpn/certs
+      state: directory
+      mode: 0644
+
+   - name: Creando start script
+     template:
+      src: "vars/run.j2"
+      dest: "/usr/local/sbin/run"
+      mode: "0755"
+
+   - name: Creando server conf
+     template:
+      src: "vars/serverconf.j2"
+      dest: "/etc/openvpn/server.conf"
+      mode: "0644"
+
+   - name: Instalando certificado CA
+     copy:
+      content: '{{ ca_crt }}'
+      dest: /etc/openvpn/certs/ca.crt
+      owner: root
+      group: root
+      mode: 0644
+
+   - name: Instalando certificado server
+     copy:
+      content: '{{ vpn_crt }}'
+      dest: /etc/openvpn/certs/vpn.fluid.la.crt
+      owner: root
+      group: root
+      mode: 0644
+
+   - name: Instalando certificado server
+     copy:
+      content: '{{ vpn_key }}'
+      dest: /etc/openvpn/certs/vpn.fluid.la.key
+      owner: root
+      group: root
+      mode: 0600
+
+   - name: Instalando certificado dh
+     copy:
+      content: '{{ dh_pem }}'
+      dest: /etc/openvpn/certs/dh4096.pem
+      owner: root
+      group: root
+      mode: 0644
+
+   - name: Instalando certificado tls
+     copy:
+      content: '{{ ta_key }}'
+      dest: /etc/openvpn/certs/ta.key
+      owner: root
+      group: root
+      mode: 0600

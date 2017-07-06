@@ -1,0 +1,15 @@
+#!/bin/sh
+set -e
+
+[ -d /dev/net ] ||
+    mkdir -p /dev/net
+[ -c /dev/net/tun ] ||
+    mknod /dev/net/tun c 10 200
+
+cd /etc/openvpn
+
+iptables -t nat -A POSTROUTING -s 192.168.255.0/24 -o eth0 -j MASQUERADE
+
+touch openvpn.log
+while true ; do openvpn server.conf ; done >> openvpn.log &
+tail -F *.log
