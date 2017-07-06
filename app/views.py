@@ -404,7 +404,7 @@ def update_finding(request):
         formstack_api = FormstackAPI()
         submission_id = post_parms["vuln[id]"]
         rmp = FormstackRequestMapper()
-        formstack_request = api.get_submission(submission_id)
+        formstack_request = formstack_api.get_submission(submission_id)
         finding = rmp.map_finding(formstack_request)
 
         username = request.session['username']
