@@ -24,7 +24,7 @@ WORKDIR /root/
 # Ejecuta el ansible
 RUN ansible-playbook main.yml --vault-password-file .vault.txt
 
-# Make port 1194 available to the world outside this container
+# Make port 443 available to the world outside this container
 EXPOSE 443
 
 # Script de inicio
