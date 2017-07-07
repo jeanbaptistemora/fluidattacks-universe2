@@ -7,8 +7,7 @@ key /etc/openvpn/certs/vpn.fluid.la.key
 dh /etc/openvpn/certs/dh4096.pem
 tls-auth /etc/openvpn/certs/ta.key 0
 server 192.168.255.0 255.255.255.128
-push "dhcp-option DNS 8.8.8.8"
-push "dhcp-option DNS 8.8.4.4"
+push "dhcp-option DNS 192.168.100.2"
 keepalive 10 60
 cipher DES-EDE3-CBC # Triple-DES
 persist-key
