@@ -16,8 +16,8 @@ from fluidasserts.service import ftp
 
 
 url = 'https://localhost:8000'
-cookie.has_not_http_only(url, 'Integratesv3')
-cookie.has_not_secure(url, 'Integratesv3')
+cookie.has_not_httponly_set('Integratesv3', url)
+cookie.has_not_secure_set('Integratesv3', url)
 
 server = 'localhost'
 tcp.is_port_open(server, port=3389)
@@ -57,4 +57,3 @@ http.is_version_visible(server, port=8000)
 text = 'Log in with Google'
 http.has_not_text('https://localhost:8000', text)
 
-http.is_not_https_required('http://localhost:8000')
