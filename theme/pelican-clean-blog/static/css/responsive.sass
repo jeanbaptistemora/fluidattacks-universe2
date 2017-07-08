@@ -7,7 +7,7 @@
     margin-left: -15px
     margin-bottom: 70px
     table
-      border-collapse: separate
+      border-collapse: collapse
       width: 100%
       border-spacing: 20px 10px
       tr
@@ -17,6 +17,18 @@
   .divarticle
     table
       border-collapse: collapse
+  .next
+    #prev
+      div
+        display: inline-block
+        background-color: #1d4f72
+        padding: 5px
+    #next
+      div
+        display: inline-block
+        background-color: #1d4f72
+        padding: 5px
+        margin-left: 40px          
 
 @media (min-width: 481px) and (max-width: 768px)
   .intro-header
@@ -31,7 +43,10 @@
   .row
     margin-bottom: 60px
   #rowart
-    margin-bottom: -95%
+    margin-bottom: -100%
+    .post-heading
+      margin-bottom: 500px
+      padding: 5%  
   #roweth
     margin-bottom: -90%
   table
@@ -59,10 +74,8 @@
       margin-top: 10px
       bottom: 55px
   #divarticle
-    margin-top: -10%
-    padding-left: 10px
-    padding-top: 10px
-    padding-right: 5px
+    margin-top: -3%    
+    padding-top: 10px    
     h2
       font-size: 24px
     ul
@@ -71,25 +84,33 @@
       float: none
   .related
     table
-      border-collapse: collapse
+      border-collapse: separate
       margin-top: 10px
       tr
         td
           display: block
-          margin: 10px
-          padding: 5px
+          margin: 10px          
           width: 95%
+  .next
+    #prev
+      div
+        display: inline-block
+        background-color: #1d4f72
+        padding: 5px
+    #next
+      div
+        display: inline-block
+        background-color: #1d4f72
+        padding: 5px        
   .tags
     margin: 5px
   .next
     margin-top: 10px
     background-color: #fff
     tr
-      td
-        display: block
-        width: 95%
-        margin: 5px
-        background-color: #1d4f72
+      td        
+        width: 45%
+        margin: 5px        
         padding: 10px
   #divpage
     margin-top: -35px
@@ -125,6 +146,16 @@
     margin-bottom: 40px
   .row
     margin-bottom: 50px
+  #rowart
+    margin-bottom: -100%
+    .post-heading
+      height: auto
+      margin-bottom: 450px
+      padding: 0
+    h1
+      font-size: 24px
+    span
+      font-size: 14px
   table
     border-collapse: collapse
     margin-top: -40px
@@ -146,3 +177,8 @@
       font-size: 16px
       margin-top: 10px
       bottom: 55px
+  #divarticle
+    margin-top: -20px
+    padding-left: 25px
+    padding-top: 10px
+    padding-right: 25px
