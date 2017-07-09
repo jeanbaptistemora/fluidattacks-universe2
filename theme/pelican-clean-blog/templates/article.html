@@ -95,7 +95,7 @@
     {% elif HEADER_COLOR %}
         <header class="intro-header" style="background-color: {{ HEADER_COLOR }}">
     {% else %}
-        <header class="intro-header" onclick="window.location='{{ SITEURL }}';" style="background-image: url('{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/post-bg.jpg')">
+        <header class="intro-header" id="intro-art" style="background-image: url('{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/post-bg.jpg')">
     {% endif %}
     {% include "navigationbar.html" %} 
         <div class="container">
@@ -179,20 +179,20 @@
 </section>
 {% endif %}
 <br />
-<table class="next">
+<table class="next" id="tblnext">
  <tr>
  {% if article.prev_article %}
      <td id="prev">
-         <a href="{{ SITEURL }}/{{ article.prev_article.url}}">
+        <div><a href="{{ SITEURL }}/{{ article.prev_article.url}}">
              {{ article.prev_article.title }}
-         </a>
+		</a></div>
      </td>
  {% endif %}
  {% if article.next_article %}
      <td id="next">
-         <a href="{{ SITEURL }}/{{ article.next_article.url}}">
+         <div><a href="{{ SITEURL }}/{{ article.next_article.url}}">
              {{ article.next_article.title }}
-         </a>
+		 </a></div>
       </td>
  {% endif %}
 </table>
