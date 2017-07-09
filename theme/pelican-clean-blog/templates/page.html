@@ -11,7 +11,7 @@
     {% elif HEADER_COLOR %}
         <header class="intro-header" style="background-color: {{ HEADER_COLOR }}">
     {% else %}
-        <header class="intro-header"  onclick="window.location='{{ SITEURL }}';" style="background-image: url('{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/page.jpg')">
+        <header class="intro-header" id="intro-eth" style="background-image: url('{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/page.jpg')">
     {% endif %}
     {% include "navigationbar.html" %} 
         <div class="container">

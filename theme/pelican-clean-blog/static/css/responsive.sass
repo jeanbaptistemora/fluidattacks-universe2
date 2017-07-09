@@ -2,22 +2,36 @@
   .intro-header
     background-size: 100% 100%
     margin-bottom: 50px
-  .row
-    margin-right: -15px
-    margin-left: -15px
+  .row    
     margin-bottom: 70px
     table
-      border-collapse: collapse
+      border-collapse: separate
       width: 100%
-      border-spacing: 20px 10px
+      border-spacing: 20px 30px
       tr
         .tdview          
           width: 50%
-          margin-left: 1px
+          margin-left: 1px           
+  #roweth
+    margin-top: -10%
+    .post-heading 
+      height: auto
+      h1
+        font-size: 45px
+        margin-left: 5px
+        margin-top: 20%
+  #rowfoot
+    margin-left: 10px
+    margin-right: 10px
+  .col-md-offset-1
+    margin-left: auto
+  .col-md-10
+    width: inherit
   .divarticle
     table
       border-collapse: collapse
-  .next
+  #tblnext
+    border-collapse: collapse
     #prev
       div
         display: inline-block
@@ -29,6 +43,10 @@
         background-color: #1d4f72
         padding: 5px
         margin-left: 40px          
+  #divpage
+    margin-top: 3%
+    margin-left: 0%
+    margin-right: 0%
 
 @media (min-width: 481px) and (max-width: 768px)
   .intro-header
@@ -48,10 +66,16 @@
       margin-bottom: 500px
       padding: 5%  
   #roweth
-    margin-bottom: -90%
+    margin-bottom: -100%  
+    .post-heading
+      padding: 5%
+      margin-bottom: 500px
+      h1
+        font-size: 34px
+        margin-top: 6%
   table
     border-collapse: separate
-    border-spacing: 20px 10px
+    border-spacing: 20px 20px
     width: 100%
     margin-top: -40px
     tr .tdview      
@@ -113,15 +137,11 @@
         margin: 5px        
         padding: 10px
   #divpage
-    margin-top: -35px
-    article
-      margin-left: 20px
-      margin-right: 20px
-      margin-top: -15px
-      padding: 0px
-      font-size: 16px
+    margin-top: -5px
+    article      
+      font-size: 17px
       h2
-        font-size: 24px
+        font-size: 26px
       ul
         margin-left: -15px
       #tblent
@@ -144,18 +164,30 @@
   .intro-header 
     background-size: 100% 60%
     margin-bottom: 40px
+  #intro-art
+    background-size: 100% 70%
+  #intro-eth
+    background-size: 100% 75%
   .row
     margin-bottom: 50px
   #rowart
     margin-bottom: -100%
     .post-heading
       height: auto
-      margin-bottom: 450px
+      margin-bottom: 430px
       padding: 0
     h1
       font-size: 24px
     span
       font-size: 14px
+  #roweth
+    margin-bottom: -100%
+    .post-heading
+      height: auto
+      margin-bottom: 530px
+      padding: 0
+      h1
+        font-size: 24px
   table
     border-collapse: collapse
     margin-top: -40px
@@ -178,7 +210,59 @@
       margin-top: 10px
       bottom: 55px
   #divarticle
-    margin-top: -20px
+    margin-top: -10px
     padding-left: 25px
     padding-top: 10px
     padding-right: 25px
+  .related 
+    table
+      border-collapse: collapse
+      margin-top: -10px
+      tr 
+        td
+          display: block
+          width: 95%
+          margin-top: 10px
+          margin-left: 10px
+          padding: 0
+  .next
+    margin-top: 40px
+    background-color: #fff
+    tr
+      td
+        background-color: #1d4f72
+        display: block
+        width: 95%
+        padding: 10px
+        margin-top: 0
+        margin-left: 0
+        margin-bottom: 10px
+  #divpage
+    margin-top: 0px
+    article
+      margin-left: 20px
+      margin-right: 20px
+      margin-top: 20px
+      padding: 0px
+      ul
+        margin-left: -15px
+      p
+        font-size: 16px
+      h2
+        font-size: 24px
+      #tblent
+        margin-top: 10px
+        .trent
+          display: none
+        .ent2
+          display: block
+          width: 100%
+          text-align: left
+          margin-left: 0px
+        .tdent
+          display: block
+          width: 100%
+          margin-left: 0px
+          margin-top: -30px
+          text-align: justify
+          font-size: 16px
