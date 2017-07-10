@@ -130,8 +130,9 @@
       name: "Moodle"
       job: "/usr/bin/php /var/www/html/admin/cli/cron.php >/dev/null"
 
-  handlers:
-   - name: restart apache2
-     service:
-      name: "apache2"
-      state: "restarted"
+   - name: Change Memory Limit
+     ini_file:
+      dest: /etc/php5/apache2/php.ini
+      section: PHP
+      option: memory_limit
+      value: 512M
