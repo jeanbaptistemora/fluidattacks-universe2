@@ -22,7 +22,6 @@
       - php5-curl
       - curl
       - git
-      - mysql-server
       - python-mysqldb
       - unzip
       - cron
@@ -40,7 +39,6 @@
       enabled: "yes"
      with_items:
       - apache2
-      - mysql
       - cron
 
    - name: Establecer permisos
@@ -135,4 +133,4 @@
       dest: /etc/php5/apache2/php.ini
       section: PHP
       option: memory_limit
-      value: 512M
+      value: 1024M

@@ -24,10 +24,6 @@ describe docker_build('.', tag: 'exams-test', rm: TRUE) do
         it { should be_enabled }
       end
 
-      describe service('mysql') do
-        it { should be_enabled }
-      end
-
       describe server(described_container) do # Infrataster
         describe http('http://localhost') do
           it 'responds content including "This page should automatically redirect."' do
