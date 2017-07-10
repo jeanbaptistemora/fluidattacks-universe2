@@ -109,29 +109,6 @@ DATABASES = {
 }
 
 
-# Password validation
-# https://docs.djangoproject.com/en/1.10/ref/settings/#auth-password-validators
-
-AUTH_PASSWORD_VALIDATORS = [
-    {
-        'NAME': 'django.contrib.auth.password_validation.\
-            UserAttributeSimilarityValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.\
-            MinimumLengthValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.\
-            CommonPasswordValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.\
-            NumericPasswordValidator',
-    },
-]
-
-
 # Internationalization
 # https://docs.djangoproject.com/en/1.10/topics/i18n/
 
@@ -174,11 +151,7 @@ CRONJOBS = [
     ('*/5 * * * *', 'app.scheduler.get_new_findings')
 ]
 
-
 AUTHENTICATION_BACKENDS = (
-    'social_core.backends.github.GithubOAuth2',
-    'social_core.backends.twitter.TwitterOAuth',
-    'social_core.backends.facebook.FacebookOAuth2',
     'social_core.backends.google.GoogleOAuth2',
     'social_core.backends.azuread.AzureADOAuth2',
     'django.contrib.auth.backends.ModelBackend',
@@ -230,9 +203,7 @@ SOCIAL_AUTH_INACTIVE_USER_URL = '/index'
 SOCIAL_AUTH_LOGIN_URL = '/index'
 SOCIAL_AUTH_LOGIN_ERROR_URL = '/index'
 
-#FIELDS_STORED_IN_SESSION = ['username', 'registered', 'role']
-
-# Google OAuth2 (google-oauth2)
+# Google OAuth2
 SOCIAL_AUTH_GOOGLE_OAUTH2_IGNORE_DEFAULT_SCOPE = True
 SOCIAL_AUTH_GOOGLE_OAUTH2_SCOPE = [
     'https://www.googleapis.com/auth/userinfo.email',
@@ -243,6 +214,6 @@ SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = \
     '65328559770-aatq8b00rvk05qn2h523hn328drt9ehc.apps.googleusercontent.com'
 SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = 'gvd_U6HtBlyKsSynPpz6LRd-' # noqa
 
-# Azure
+# Azure OAuth2
 SOCIAL_AUTH_AZUREAD_OAUTH2_KEY = '02067417-b833-4a09-b9f0-63b5014cae85'
 SOCIAL_AUTH_AZUREAD_OAUTH2_SECRET = 'MTup1ltkeg8Gu5ksJtN19gRziTdKsmOui1zObUkuqt8=' # noqa
