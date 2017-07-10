@@ -134,14 +134,6 @@ STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
 )
-TEMPLATE_CONTEXT_PROCESSORS = (
-    "django.core.context_processors.auth",
-    "django.core.context_processors.debug",
-    "django.core.context_processors.i18n",
-    "django.core.context_processors.media",
-    'django.core.context_processors.static',
-    'django.core.context_processors.request',
-)
 
 STATICFILES_DIRS = (
     os.path.join(PROJECT_ROOT, '../app/assets'),
