@@ -1,7 +1,5 @@
 from django.test import TestCase
 from app.models import FormstackAPI
-from fluidasserts.helper import http_helper
-from fluidasserts.service import http
 # Create your tests here.
 
 
