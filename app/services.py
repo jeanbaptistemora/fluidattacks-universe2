@@ -4,10 +4,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_http_methods
 # pylint: disable=E0402
 from . import util
-from .filter import FilterManager
 # pylint: disable=E0402
-from .exceptions import SecureParamsException
-from .exceptions import LogicException
 from .dao import integrates_dao
 
 
@@ -15,7 +12,7 @@ from .dao import integrates_dao
 @require_http_methods(["POST"])
 def login(request):
     """ Servicio definido para la autenticacion."""
-    username = ""
+    username = request.session['username']
     return util.response([], 'Bienvenido ' + username, False)
 
 
