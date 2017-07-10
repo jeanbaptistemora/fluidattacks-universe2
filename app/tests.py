@@ -1,7 +1,5 @@
 from django.test import TestCase
 from app.models import FormstackAPI
-from fluidasserts.helper import http_helper
-from fluidasserts.service import http
 # Create your tests here.
 
 
@@ -60,41 +58,3 @@ class FormstackAPITests(TestCase):
         submission_id = "244210431"
         request = api_frms.update_eventuality(afectacion, submission_id)
         self.assertIs("success" in request, True)
-
-    def test_login(self):
-        """Log in to integrates."""
-        login_url = 'https://localhost/login'
-        http_session = http_helper.HTTPSession(login_url)
-
-        http_session.data = \
-            'user=customer%40testcompany.com&\
-pass=beethoahae2iH1teev4bu9ahd'
-
-        successful_text = 'Bienvenido customer@testcompany'
-        http_session.formauth_by_response(successful_text)
-        self.assertIs(http_session.is_auth, True)
-
-    def get_integrates_cookies(self):
-        """Log in to integrates and return valid cookie."""
-        login_url = 'https://localhost/login'
-        http_session = http_helper.HTTPSession(login_url)
-
-        http_session.data = \
-            'user=customer%40testcompany.com&\
-pass=beethoahae2iH1teev4bu9ahd'
-
-        successful_text = 'Bienvenido customer@testcompany'
-        http_session.formauth_by_response(successful_text)
-
-        if not http_session.is_auth:
-            return {}
-        return http_session.cookies
-
-    def search_project(self):
-        """Perform a project search in integrates."""
-
-        url = 'https://localhost/get_findings?project=HAYES'
-        cookies = self.get_integrates_cookies()
-        success_text = 'Se generan sentencias SQL'
-        http_session = http_helper.HTTPSession(url, cookies=cookies)
-        self.assertIs(success_text in http_session.response.text, True)

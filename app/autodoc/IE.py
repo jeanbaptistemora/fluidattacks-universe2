@@ -11,7 +11,7 @@ from pptx import Presentation
 class Bancolombia(object):
     presentation = None
     template_path = "/usr/src/app/app/autodoc/templates/bancolombia.pptx"
-    result_path = "/usr/src/app/app/autodoc/results/:project.pptx"
+    result_path = "/usr/src/app/app/autodoc/results/:project_:username.pptx"
     critical_finding_slide = 1
     moderate_finding_slide = 10
     tolerable_finding_slide = 27
@@ -22,10 +22,11 @@ class Bancolombia(object):
     project_name = ""
     project_data = None
 
-    def __init__(self, project, data):
+    def __init__(self, project, data, request):
         """ Constructor """
         self.project_name = project
         self.project_data = data
+        self.username = request.session['username']
         self.presentation = Presentation(self.template_path)
         self.finding_positions = dict()
         self.finding_positions["solucion_efecto"] = (0,0)
@@ -177,7 +178,7 @@ class Fluid(object):
     counter = 1
     presentation = None
     template_path = "/usr/src/app/app/autodoc/templates/fluid.pptx"
-    result_path = "/usr/src/app/app/autodoc/results/:project.pptx"
+    result_path = "/usr/src/app/app/autodoc/results/:project_:username.pptx"
     critical_finding_slide = 1
     moderate_finding_slide = 9
     tolerable_finding_slide = 27
@@ -188,10 +189,11 @@ class Fluid(object):
     project_name = ""
     project_data = None
 
-    def __init__(self, project, data):
+    def __init__(self, project, data, request):
         """ Constructor"""
         self.project_name = project
         self.project_data = data
+        self.username = request.session['username']
         self.presentation = Presentation(self.template_path)
         self.finding_positions = dict()
         self.finding_positions["numero"] = (12,0)
@@ -336,4 +338,7 @@ class Fluid(object):
 
     def save(self):
         """ Guarda el documento pptx creado con el nombre del proyecto """
-        self.presentation.save(self.result_path.replace(":project",self.project_name))
+        file_name = self.result_path
+        file_name = file_name.replace(":project",self.project_name)
+        file_name = file_name.replace(":username",self.username)
+        self.presentation.save(file_name)

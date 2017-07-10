@@ -25,7 +25,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'oxz^4@97nkz*#490#(-5wtt8go=$pfaybg@is8se+et!$6r%x7' # noqa
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ["192.168.0.26", "localhost", "127.0.0.1", "fluid.la"]
 
@@ -109,29 +109,6 @@ DATABASES = {
 }
 
 
-# Password validation
-# https://docs.djangoproject.com/en/1.10/ref/settings/#auth-password-validators
-
-AUTH_PASSWORD_VALIDATORS = [
-    {
-        'NAME': 'django.contrib.auth.password_validation.\
-            UserAttributeSimilarityValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.\
-            MinimumLengthValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.\
-            CommonPasswordValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.\
-            NumericPasswordValidator',
-    },
-]
-
-
 # Internationalization
 # https://docs.djangoproject.com/en/1.10/topics/i18n/
 
@@ -157,14 +134,6 @@ STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
 )
-TEMPLATE_CONTEXT_PROCESSORS = (
-    "django.core.context_processors.auth",
-    "django.core.context_processors.debug",
-    "django.core.context_processors.i18n",
-    "django.core.context_processors.media",
-    'django.core.context_processors.static',
-    'django.core.context_processors.request',
-)
 
 STATICFILES_DIRS = (
     os.path.join(PROJECT_ROOT, '../app/assets'),
@@ -174,11 +143,7 @@ CRONJOBS = [
     ('*/5 * * * *', 'app.scheduler.get_new_findings')
 ]
 
-
 AUTHENTICATION_BACKENDS = (
-    'social_core.backends.github.GithubOAuth2',
-    'social_core.backends.twitter.TwitterOAuth',
-    'social_core.backends.facebook.FacebookOAuth2',
     'social_core.backends.google.GoogleOAuth2',
     'social_core.backends.azuread.AzureADOAuth2',
     'django.contrib.auth.backends.ModelBackend',
@@ -230,9 +195,7 @@ SOCIAL_AUTH_INACTIVE_USER_URL = '/index'
 SOCIAL_AUTH_LOGIN_URL = '/index'
 SOCIAL_AUTH_LOGIN_ERROR_URL = '/index'
 
-#FIELDS_STORED_IN_SESSION = ['username', 'registered', 'role']
-
-# Google OAuth2 (google-oauth2)
+# Google OAuth2
 SOCIAL_AUTH_GOOGLE_OAUTH2_IGNORE_DEFAULT_SCOPE = True
 SOCIAL_AUTH_GOOGLE_OAUTH2_SCOPE = [
     'https://www.googleapis.com/auth/userinfo.email',
@@ -243,6 +206,6 @@ SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = \
     '65328559770-aatq8b00rvk05qn2h523hn328drt9ehc.apps.googleusercontent.com'
 SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = 'gvd_U6HtBlyKsSynPpz6LRd-' # noqa
 
-# Azure
+# Azure OAuth2
 SOCIAL_AUTH_AZUREAD_OAUTH2_KEY = '02067417-b833-4a09-b9f0-63b5014cae85'
 SOCIAL_AUTH_AZUREAD_OAUTH2_SECRET = 'MTup1ltkeg8Gu5ksJtN19gRziTdKsmOui1zObUkuqt8=' # noqa
