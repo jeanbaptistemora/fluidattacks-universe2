@@ -6,15 +6,15 @@ from fluidasserts.service import dns
 
 url = 'https://fluid.la'
 text = 'in customers and users of the applications'
-http.generic_http_assert('https://fluid.la', text)
+http.has_text('https://fluid.la', text)
 text = 'Blog de FLUID | Expertos en Ethical Hacking - Pentesting'
-http.generic_http_assert('https://fluid.la/blog', text)
+http.has_text('https://fluid.la/blog', text)
 text = 'Sus datos han sido registrados y pronto nos comunicaremos con usted.'
-http.generic_http_assert('https://fluid.la/es/servicios/confirmacion/', text)
+http.has_text('https://fluid.la/es/servicios/confirmacion/', text)
 text = 'FLUID Courses'
-http.generic_http_assert('https://fluid.la/courses/', text)
+http.has_text('https://fluid.la/courses/', text)
 text = 'Please enter your user information.'
-http.generic_http_assert('https://fluid.la/integrates/', text)
+http.has_text('https://fluid.la/integrates/', text)
 http.is_header_x_asp_net_version_missing(url)
 http.is_header_access_control_allow_origin_missing(url)
 http.is_header_cache_control_missing(url)
