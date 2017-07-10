@@ -79,21 +79,23 @@ def export_autodoc(request):
         "IT": {
             "content_type": "application/vnd.openxmlformats\
                              -officedocument.spreadsheetml.sheet",
-            "content_disposition": "inline;filename=:P.xlsx",
-            "path": "/usr/src/app/app/autodoc/results/:P.xlsx"
+            "content_disposition": "inline;filename=:project.xlsx",
+            "path": "/usr/src/app/app/autodoc/results/:project_:username.xlsx"
         },
         "IE": {
             "content_type": "application/vnd.openxmlformats\
                             -officedocument.presentationml.presentation",
-            "content_disposition": "inline;filename=:P.pptx",
-            "path": "/usr/src/app/app/autodoc/results/:P.pptx"
+            "content_disposition": "inline;filename=:project.pptx",
+            "path": "/usr/src/app/app/autodoc/results/:project_:username.pptx"
         }
     }
     try:
         kind = request.GET.get("format", "").strip()
         if kind != "IE" != kind != "IT":
             raise Exception('Este evento de seguridad sera registrado')
-        filename = detail[kind]["path"].replace(":P", project)
+        filename = detail[kind]["path"]
+        filename = filename.replace(":project", project)
+        filename = filename.replace(":username", username)
         if not util.is_name(project):
             raise Exception('Este evento de seguridad sera registrado')
         if not os.path.isfile(filename):
@@ -101,8 +103,9 @@ def export_autodoc(request):
         with open(filename, 'r') as document:
             response = HttpResponse(document.read(),
                                     content_type=detail[kind]["content_type"])
-            response['Content-Disposition'] = \
-                detail[kind]["content_disposition"].replace(":P", project)
+            file_name = detail[kind]["content_disposition"]
+            file_name = file_name.replace(":project", project)
+            response['Content-Disposition'] = file_name
         return response
     except ValueError as expt:
         return HttpResponse(expt.message)
@@ -131,20 +134,30 @@ def generate_autodoc(request):
         findings = json.loads(data)
         if len(findings) >= 1:
             if kind == "IE":
-                if(findings[0]["tipo"] == "Detallado"):
-                    IE.Bancolombia(project, findings)
-                else:
-                    IE.Fluid(project, findings)
+                generate_autodoc_ie(request, project, findings)
             else:
-                if(findings[0]["tipo"] == "Detallado"):
-                    IT.Bancolombia(project, findings)
-                else:
-                    IT.Fluid(project, findings)
+                generate_autodoc_it(request, project, findings)
             str_time = str("%s" % (time.time() - start_time))
             return util.response([], 'Documentacion generada en ' +
                                  str("%.2f segundos" %
                                      float(str_time)), False)
     return util.response([], 'Error...', True)
+
+
+@authorize(['analyst'])
+def generate_autodoc_ie(request, project, findings):
+    if(findings[0]["tipo"] == "Detallado"):
+        IE.Bancolombia(project, findings, request)
+    else:
+        IE.Fluid(project, findings, request)
+
+
+@authorize(['analyst'])
+def generate_autodoc_it(request, project, findings):
+    if(findings[0]["tipo"] == "Detallado"):
+        IT.Bancolombia(project, findings, request)
+    else:
+        IT.Fluid(project, findings, request)
 
 
 @csrf_exempt
