@@ -54,6 +54,6 @@ http.is_sessionid_exposed(url)
 server = 'localhost'
 http.is_version_visible(server, port=8000)
 
-text = 'Log in with Google'
+text = 'Login Azure'
 http.has_not_text('https://localhost:8000', text)
 

@@ -16,23 +16,6 @@ from .dao import integrates_dao
 def login(request):
     """ Servicio definido para la autenticacion."""
     username = ""
-    test_user = 'customer@testcompany.com'
-    test_pass = 'beethoahae2iH1teev4bu9ahd'
-    test_company = 'TEST COMPANY'
-    try:
-        fmanager = FilterManager()
-        username = fmanager.post(request, "user")
-        password = fmanager.post(request, "pass")
-        if username == test_user and password == test_pass:
-            request.session['username'] = username
-            request.session['company'] = test_company
-            request.session['registered'] = '1'
-            request.session['role'] = 'customer'
-            integrates_dao.create_user_dao(username)
-        else:
-            fmanager.error(100)
-    except (SecureParamsException, LogicException) as expt:
-        return util.response([], str(expt), True)
     return util.response([], 'Bienvenido ' + username, False)
 
 

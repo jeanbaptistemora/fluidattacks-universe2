@@ -36,6 +36,11 @@ jobs:
                 ansible-lint deploy/main.yml
 
       - run:
+          name: Run Integrates tests
+          command: >
+                python manage.py test
+
+      - run:
           name: Run prospector
           command: >
                 prospector -u django app &&
