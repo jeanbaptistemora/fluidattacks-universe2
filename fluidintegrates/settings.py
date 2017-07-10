@@ -87,9 +87,9 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'django',
-        'USER': 'root',
-        'PASSWORD': '9O32032;E5q]VIj',
-        'HOST': 'fluidservesexams.cgsvzmr33idc.us-east-1.rds.amazonaws.com',
+        'USER': 'integrates',
+        'PASSWORD': 'we2xiong6Mohrooyai5iaXei6',
+        'HOST': 'fluidservesexams.cmjvwttsb0nk.us-east-1.rds.amazonaws.com',
         'PORT': '3306',
         'OPTIONS': {
             'sql_mode': 'STRICT_TRANS_TABLES',
@@ -98,9 +98,9 @@ DATABASES = {
     'integrates': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'fluidintegrates',
-        'USER': 'root',
-        'PASSWORD': '9O32032;E5q]VIj',
-        'HOST': 'fluidservesexams.cgsvzmr33idc.us-east-1.rds.amazonaws.com',
+        'USER': 'integrates',
+        'PASSWORD': 'we2xiong6Mohrooyai5iaXei6',
+        'HOST': 'fluidservesexams.cmjvwttsb0nk.us-east-1.rds.amazonaws.com',
         'PORT': '3306',
         'OPTIONS': {
             'sql_mode': 'STRICT_TRANS_TABLES',
