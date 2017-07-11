@@ -28,12 +28,12 @@ integrates.controller("findingReadController", function($scope, findingFactory, 
                 });
                 $("#search_section").fadeIn(200);
                 $scope.vuln = response.data;
-                if($scope.vuln.nivel == "General"){
-                    $scope.esDetallado = "hide-detallado";
-                    $scope.esGeneral = "show-detallado";
-                }else{
+                if($scope.vuln.nivel == "Detallado"){
                     $scope.esDetallado = "show-detallado";
                     $scope.esGeneral = "hide-detallado";
+                }else{
+                    $scope.esDetallado = "hide-detallado";
+                    $scope.esGeneral = "show-detallado";
                 }
                 mixPanelDashboard.trackReadFinding($scope.id);
             }else{

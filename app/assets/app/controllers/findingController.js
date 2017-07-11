@@ -204,10 +204,14 @@ integrates.controller("findingController", function($scope, $uibModal, $translat
                 $scope.downloadDoc = function(kind){
                     var url = BASE.url + "export_autodoc?project=" + $scope.project;
                     url += "&format="+kind;
-                    downLink = document.createElement("a");
-                    downLink.target = "_blank";
-                    downLink.href = url;
-                    downLink.click();
+                    if(navigator.userAgent.indexOf("Firefox") == -1){
+                        downLink = document.createElement("a");
+                        downLink.target = "_blank";
+                        downLink.href = url;
+                        downLink.click();
+                    }else{
+                        win = window.open(url, '__blank');
+                    }
                 }
                 /**
                  * Genera la documentacion automatica
