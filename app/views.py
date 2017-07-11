@@ -405,13 +405,13 @@ def update_finding(request):
     else:
         nivel = post_parms["vuln[nivel]"]
         execute = False
-        if nivel == "General":
-            if "vuln[vector_ataque]" in post_parms \
-                    and "vuln[sistema_comprometido]" in post_parms:
-                execute = True
-        else:
+        if nivel == "Detallado":
             if "vuln[riesgo]" in post_parms:
                 execute = True
+        else:
+            if "vuln[vector_ataque]" in post_parms \
+                    and "vuln[sistema_comprometido]" in post_parms:
+                execute = True            
         if not execute:
             return util.response([], 'Campos vacios', True)
         formstack_api = FormstackAPI()
