@@ -46,6 +46,13 @@ jobs:
                 prospector -u django app &&
                 prospector -u django fluidintegrates
 
+
+      - run:
+          name: Run settings check
+          command: >
+                grep ^SOCIAL_AUTH_LOGIN_REDIRECT_URL fluidintegrates/settings.py | grep -q fluid.la;
+                grep ^SOCIAL_AUTH_NEW_USER_REDIRECT_URL fluidintegrates/settings.py | grep -q fluid
+
       - run:
           name: Docker Login
           command: >
