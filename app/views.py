@@ -298,7 +298,7 @@ def delete_finding(request):
             send_mail.send_delete_finding(finding_id, finding, analyst, justify)
             send_mail.close()
             return util.response([], 'Eliminado correctamente!', False)
-        return util.response([], 'No se pudo actualizar formstack',
+        return util.response([], 'No se pudo actualizar',
                              True)
 
 
@@ -328,7 +328,7 @@ def get_order(request):
                                      False)
             return util.response([], 'Este proyecto tiene varios IDs',
                                  True)
-        return util.response([], 'No se pudo consultar formstack', True)
+        return util.response([], 'No se pudo consultar', True)
     return util.response([], 'Campos vacios', True)
 
 
@@ -351,7 +351,7 @@ def update_order(request):
     api = FormstackAPI()
     updated = api.update_order(project_name, order_id)
     if not updated:
-        return util.response([], 'No se pudo actualizar formstack',
+        return util.response([], 'No se pudo actualizar',
                              True)
     return util.response([], 'Actualizado correctamente!', False)
 
@@ -381,7 +381,7 @@ def update_eventuality(request):
     afectacion = post_parms["vuln[afectacion]"]
     updated = api.update_eventuality(afectacion, submission_id)
     if not updated:
-        return util.response([], 'No se pudo actualizar formstack',
+        return util.response([], 'No se pudo actualizar',
                              True)
     return util.response([], 'Actualizado correctamente!', False)
 
@@ -426,6 +426,6 @@ def update_finding(request):
 
         updated = formstack_api.update_finding(post_parms, submission_id)
         if not updated:
-            return util.response([], 'No se pudo actualizar formstack',
+            return util.response([], 'No se pudo actualizar',
                                  True)
         return util.response([], 'Actualizado correctamente!', False)

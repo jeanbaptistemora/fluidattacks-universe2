@@ -29,6 +29,9 @@
             <h5 class="text-muted">Un momento porfavor, cargando...</h5>
         </div>
         <div class="col-md-10 col-md-offset-2" id="search_section">
+            <div class="row container">
+                <p>Reportado en <b>{{vuln.timestamp}}</b> </p>
+            </div>
             <div class="row">
                 <div class="col-md-6">
                     <div class="form-group">
@@ -98,10 +101,16 @@
                         <textarea class="form-control" id="email" disabled rows="4">{{vuln.amenaza}}</textarea>
                     </div>
                 </div>
-                <div class="col-md-9">
+                <div class="col-md-4">
                     <div class="form-group">
                         <label>Requisitos</label>
                         <textarea class="form-control" id="email" disabled rows="4">{{vuln.requisitos}}</textarea>
+                    </div>
+                </div>
+                <div class="col-md-4 col-md-offset-1">
+                    <div class="form-group">
+                        <label>Recomendación</label>
+                        <textarea class="form-control" id="email" disabled rows="4">{{vuln.solucion_efecto}}</textarea>
                     </div>
                 </div>
                 <script>

@@ -8954,7 +8954,7 @@ button:focus {
     display: block;
   }
   .am-left-sidebar .am-logo {
-    background: url("../img/logo-full.png") no-repeat 15px center;
+    background: url("../../img/logo.png") no-repeat 15px center;
     height: 70px;
     background-color: #393838;
     border-bottom: 1px solid #353434;
@@ -8963,7 +8963,7 @@ button:focus {
 }
 @media (max-width: 767px) and (-webkit-min-device-pixel-ratio: 2), (-webkit-min-device-pixel-ratio: 2), (-o-min-device-pixel-ratio: 2/1), (min-resolution: 192dpi) {
   .am-left-sidebar .am-logo {
-    background-image: url("../img/logo-full-retina.png");
+    background-image: url("../../img/logo.png");
     background-size: 150px 39px;
   }
 }

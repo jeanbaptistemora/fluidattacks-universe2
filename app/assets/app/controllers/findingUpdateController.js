@@ -34,12 +34,12 @@ integrates.controller("findingUpdateController", function($scope, $uibModal, fin
                     data.criticidad = 0;
                 }
                 $scope.vuln = data;
-                if($scope.vuln.nivel == "General"){
-                    $scope.esDetallado = "hide-detallado";
-                    $scope.esGeneral = "show-detallado";
-                }else{
+                if($scope.vuln.nivel == "Detallado"){
                     $scope.esDetallado = "show-detallado";
                     $scope.esGeneral = "hide-detallado";
+                }else{
+                    $scope.esDetallado = "hide-detallado";
+                    $scope.esGeneral = "show-detallado";
                 }
                 mixPanelDashboard.trackUpdateFinding($scope.id);
             }else{

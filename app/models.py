@@ -149,6 +149,7 @@ class FormstackRequestMapper(object):
             if finding["field"] == self.PROJECT_NIVEL:
                 parsed["nivel"] = finding["value"]
         parsed["id"] = finding_request["id"]
+        parsed["timestamp"] = finding_request["timestamp"]
         return parsed
 
     def map_eventuality(self, eventuality_request):
