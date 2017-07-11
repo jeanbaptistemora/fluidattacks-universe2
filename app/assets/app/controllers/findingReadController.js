@@ -31,6 +31,23 @@ integrates.controller("findingReadController", function($scope, findingFactory, 
                 if($scope.vuln.nivel == "Detallado"){
                     $scope.esDetallado = "show-detallado";
                     $scope.esGeneral = "hide-detallado";
+                    try{
+                        var prob = $scope.vuln.probabilidad;
+                        var severidad = $scope.vuln.severidad;
+                        prob = prob.split("%")[0];
+                        prob = parseFloat(prob)/100.0;
+                        severidad = parseFloat(severidad);
+                        var vRiesgo = prob*severidad;   
+                        if(vRiesgo >= 3){
+                            $scope.vuln.vRiesgo = "Critico";
+                        }else if(vRiesgo >= 2 && vRiesgo < 3){
+                            $scope.vuln.vRiesgo = "Moderado";
+                        }else{
+                            $scope.vuln.vRiesgo = "Tolerable";
+                        }
+                    }catch(e){
+                        $scope.vuln.vRiesgo = "";
+                    }
                 }else{
                     $scope.esDetallado = "hide-detallado";
                     $scope.esGeneral = "show-detallado";

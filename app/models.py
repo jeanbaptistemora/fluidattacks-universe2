@@ -308,11 +308,11 @@ AppleWebKit/537.36 (KHTML, like Gecko) FLUIDIntegrates/1.0'
             field_amenaza: data_set['vuln[amenaza]'],
             field_requisitos: data_set['vuln[requisitos]']
         }
-        if data_set["vuln[nivel]"] == "General":
+        if data_set["vuln[nivel]"] == "Detallado":
+            data[field_riesgo] = data_set['vuln[riesgo]']
+        else:
             data[field_vector_ataque] = data_set['vuln[vector_ataque]']
             data[field_sist_compro] = data_set['vuln[sistema_comprometido]']
-        else:
-            data[field_riesgo] = data_set['vuln[riesgo]']
         return self.request("PUT", url, data=data)
 
     def update_order(self, project, submission_id):
