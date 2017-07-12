@@ -18,8 +18,8 @@ integrates.config(['$translateProvider', function($translateProvider) {
 			'cancel': 'Cancel'
 		},
 		'left_menu': {
-			'first': 'Search Findings',
-			'second': 'Search eventualities'
+			'first': 'Findings',
+			'second': 'Eventualities'
 		},
 		'breadcumbs': {
 			'findings': {
@@ -50,7 +50,7 @@ integrates.config(['$translateProvider', function($translateProvider) {
 				'cardinalities': 'Cardinalities'
 			},
 			'filter_buttons':{
-				'advance': 'Advance',
+				'advance': 'Progress',
 				'documentation': 'Documentation'
 			},	
 			'table':{
@@ -73,8 +73,8 @@ integrates.config(['$translateProvider', function($translateProvider) {
 			'cancel': 'Cancelar'
 		},
 		'left_menu': {
-			'first': 'Buscar Hallazgos',
-			'second': 'Buscar Eventualidades'
+			'first': 'Hallazgos',
+			'second': 'Eventualidades'
 		},
 		'breadcumbs': {
 			'findings': {
