@@ -96,7 +96,7 @@
         </div>
     </script>
     <!-- START: MODAL Autodoc -->
-    <script type="text/ng-template" id="autodoc.html">
+    <script type="text/ng-template" id="autodoc_analyst.html">
         <div class="modal-header">
             <h3 class="modal-title" id="modal-title">Documentación Automatica</h3>
         </div>
@@ -108,7 +108,7 @@
                         <i class="glyphicon glyphicon-wrench"></i>
                     </button>
                 </div>
-                <div class="col-md-6">
+                <div id="document_gen_ie_button" class="col-md-6">
                     <button class="btn btn-primary btn-block" ng-click="generateDoc('IE')">
                         Generar Informe Ejecutivo
                         <i class="glyphicon glyphicon-wrench"></i>
@@ -122,9 +122,36 @@
                         <i class="glyphicon glyphicon-circle-arrow-down"></i>
                     </button>
                 </div>
-                <div class="col-md-6">
+                <div id="document_down_ie_button" class="col-md-6">
                     <button class="btn btn-success btn-block" ng-click="downloadDoc('IE')">
                         Descargar Ejecutivo
+                        <i class="glyphicon glyphicon-circle-arrow-down"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-warning" type="button" ng-click="closeModal()">Cerrar</button>
+        </div>
+    </script>
+    <!-- START: MODAL Autodoc_customer -->
+    <script type="text/ng-template" id="autodoc_customer.html">
+        <div class="modal-header">
+            <h3 class="modal-title" id="modal-title">Documentación Automatica</h3>
+        </div>
+        <div class="modal-body" id="modal-body">
+            <div class="row">
+                <div class="col-md-6">
+                    <button class="btn btn-primary btn-block" ng-click="generateDoc('IT')">
+                        Generar Informe Técnico
+                        <i class="glyphicon glyphicon-wrench"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <button class="btn btn-success btn-block" ng-click="downloadDoc('IT')">
+                        Descargar Informe Técnico
                         <i class="glyphicon glyphicon-circle-arrow-down"></i>
                     </button>
                 </div>
@@ -159,11 +186,6 @@
                         ng-click="openModalAvance();">
                     {{'search_findings.filter_buttons.advance' | translate}} <i class="glyphicon glyphicon-bookmark"></i>
                 </button>
-                <script>
-                    if (userRole == "customer"){
-                        $('#document_button').hide();
-                    }
-                </script>
                 <button type="button"
                         id="document_button"
                         class="btn btn-default"
