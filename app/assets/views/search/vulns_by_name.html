@@ -178,7 +178,15 @@
             </div>
             <!-- START: toolbar -->
             <div class="btn-group"  id="toolbar">
+                <script>
+                $(document).ready(function() {
+                    if (userRole == "customer"){
+                        $('#progress_button').hide();
+                    }
+                });
+                </script>
                 <button type="button"
+                        id="progress_button"
                         class="btn btn-default"
                         data-toggle="tooltip"
                         data-placement="top"
