@@ -44,6 +44,7 @@ integrates.controller("findingController", function($scope, $uibModal, $translat
      * @return {undefined}
      */
     $scope.init = function(){
+        $scope.userRole = userRole;
         $("#search_section").hide();
         $(".loader").hide();
         document.onkeypress = function(ev){ //asignar funcion a la tecla Enter
@@ -188,9 +189,10 @@ integrates.controller("findingController", function($scope, $uibModal, $translat
      */
     $scope.openModalAutodoc = function(){
         var project = $scope.project;
+        var userRole = $scope.userRole;
         var modalInstance = $uibModal.open({
             animation: true,
-            templateUrl: 'autodoc.html',
+            templateUrl: 'autodoc_' + userRole + '.html',
             windowClass: 'modal avance-modal',
             controller: function($scope, $uibModalInstance, currentProject){
                 $scope.project = currentProject;
