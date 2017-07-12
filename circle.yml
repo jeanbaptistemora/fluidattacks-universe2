@@ -57,7 +57,8 @@ jobs:
 
   bundle_alg:
     working_directory: /tmp/fluid-serves
-    machine: true
+    docker:
+      - juancrestrepo/fluid:latest
     evironment:
       - USER: root
     steps:
@@ -77,7 +78,8 @@ jobs:
                 cd containers/alg && bundle exec rspec
   bundle_exams:
     working_directory: /tmp/fluid-serves
-    machine: true
+    docker:
+      - juancrestrepo/fluid:latest
     evironment:
       - USER: root
     steps:
@@ -97,7 +99,8 @@ jobs:
                 cd containers/exams && bundle exec rspec
   bundle_images:
     working_directory: /tmp/fluid-serves
-    machine: true
+    docker:
+      - juancrestrepo/fluid:latest
     evironment:
       - USER: root
     steps:
@@ -110,7 +113,7 @@ jobs:
       - run:
           name: Build images
           command: >
-                sudo ./start.sh
+                cd containers/vpn && RUN ansible-playbook main.yml --vault-password-file .vault.txt
       - run:
           name: Install FLUIDAsserts
           command: >
