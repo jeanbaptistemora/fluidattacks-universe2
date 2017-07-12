@@ -1,8 +1,13 @@
+<style>
+    .bg-critical{ background-color: #F12; }
+    .bg-moderate{ background-color: #F72; }
+    .bg-tolerable{ background-color: #FF2; }
+</style>
 <div class="page-head">
-    <h2>FIN.0043 Super Hallazgo</h2>
+    <h2>{{header.findingTitle}}</h2>
     <div class="row">
         <div class="col-md-2 col-sm-6 col-sm-6" style="margin-top: 5px;">
-            Tipo <span class="label label-default">Código</span>
+            Tipo <span class="label label-default">{{header.findingType}}</span>
         </div>
         <div class="col-md-2 col-sm-6 col-sm-6" style="margin-top: 5px;">
             Riesgo <span class="label label-default" 
@@ -10,10 +15,10 @@
         </div>
         <div class="col-md-2  col-sm-12"  style="margin-top: 5px;">
             Criticidad <span class="label label-default"
-                             style="background-color: #F72;">5.6 Moderado</span>
+                             style="{{header.findingValueColor}}">{{header.findingValue}} {{header.findingValueDescription}}</span>
         </div>
         <div class="col-md-2"  style="margin-top: 5px;">
-            Cardinalidad <span class="label label-default">8</span>
+            Cardinalidad <span class="label label-default">{{header.findingCount}}</span>
         </div>
         <div class="col-md-2"  style="margin-top: 5px;">
             Estado <span class="label label-warning"
@@ -48,22 +53,52 @@
                 </ul>
                 <div class="tab-content">
                     <div id="home" class="tab-pane cont active">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <label>Proyecto</label>
+                                <input type="text" ng-model="finding.proyecto_fluid" 
+                                                   class="form-control" disabled>
+                            </div>
+                            <div class="col-md-3">
+                                <label>Tipo prueba</label>
+                                <input type="text" ng-model="finding.tipo_prueba" 
+                                                   class="form-control" disabled>
+                            </div>
+                            <div class="col-md-6">
+                                <label>Titulo</label>
+                                <input type="text" ng-model="finding.hallazgo"
+                                                   class="form-control">
+                            </div>
+                            <div class="col-md-3">
+                                <label>Tipo de reporte</label>
+                                <input type="text" ng-model="finding.tipo"
+                                                   class="form-control">
+                            </div>
+                            <div class="col-md-3">
+                                <label>Vulnerabilidades</label>
+                                <input type="text" ng-model="finding.hallazgo"
+                                                   class="form-control">
+                            </div>
+                            <div class="col-md-3">
+                                <label>Actor</label>
+                                <input type="text" ng-model="finding.hallazgo"
+                                                   class="form-control">
+                            </div>
+                            <div class="col-md-3">
+                                <label>Escenario</label>
+                                <input type="text" ng-model="finding.escenario"
+                                                   class="form-control">
+                            </div>
+
+                        </div>
+                        <div class="row">
+                            
+                        </div>
                         <p> Consectetur adipisicing elit. Ad aperiam dolore veniam mollitia consectetur aut. Cumque sunt consequatur, officiis voluptatum quas atque magnam animi eaque facere cupiditate quos ad totam saepe porro nostrum tenetur. Assumenda esse quidem, sed vel dolore quisquam fuga culpa non, ducimus, impedit fugiat vero similique recusandae?</p>
                         <p> Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad aperiam dolore veniam mollitia consectetur aut. Cumque sunt consequatur, officiis voluptatum quas atque magnam animi eaque facere cupiditate quos ad totam saepe porro nostrum tenetur. Assumenda esse quidem, sed vel dolore quisquam fuga culpa non, ducimus, impedit fugiat vero similique recusandae?</p>
                     </div>
                     <div id="tracking" class="tab-pane cont">
-                        <div class="row">
-                            <div class="col-md-3">
-                                <p>Fecha</p>
-                                <input class="form-control" 
-                                       placeholder="dd/mm/yyyy" 
-                                       value="04/06/2017" disabled/>
-                            </div>
-                            <div class="col-md-9">
-                                <p>Comentario</p>
-                                <input class="form-control" 
-                                       value="Cierre1, pd:El ambiente ABC no estaba disponible" disabled/>
-                            </div>
+                        <!--<div class="row">
                             <div class="col-md-12">
                                 <p>Cardinalidad Abierta</p>
                                 <textarea class="form-control" rows="3" disabled>A</textarea>
@@ -77,10 +112,31 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-md-4 col-md-offset-4 col-sm-12 col-xs-12">
-                                <button class="btn btn-primary btn btn-block">Agregar Cambio</button>
+                            <div class="col-md-12">
+                                <ul class="timeline">
+                                    <li class="timeline-item">
+                                        <div class="timeline-date"><span>September 16, 2016</span></div>
+                                        <div class="timeline-content">
+                                            <div class="timeline-header">
+                                                <span class="timeline-time">4:34 PM</span><span class="timeline-autor">Penelope Thornton</span>
+                                                <p class="timeline-activity">Pellentesque imperdiet sit <a href="#">Amet nisl sed mattis</a>.</p>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class="timeline-item">
+                                        <div class="timeline-date"><span>September 13, 2016</span></div>
+                                        <div class="timeline-content">
+                                            <div class="timeline-header">
+                                                <span class="timeline-time">9:34 PM</span><span class="timeline-autor">Penelope Thornton</span>
+                                                <p class="timeline-activity">Pellentesque imperdiet sit <a href="#">Amet nisl sed mattis</a>.</p>
+                                            </div>
+                                        </div>
+                                    </li>
+            
+                                    <li class="timeline-item timeline-loadmore"><a href="#" class="load-more-btn">Load more</a></li>
+                                </ul>
                             </div>
-                        </div>
+                        </div>-->
                     </div>
                     <div id="explotation" class="tab-pane">
                         <p class="text-center">Explotación de la vulnerabilidad <br>
