@@ -66,7 +66,7 @@ def logout(request):
 # Documentacion automatica
 @csrf_exempt
 @require_http_methods(["GET"])
-@authorize(['analyst'])
+@authorize(['analyst','customer'])
 def export_autodoc(request):
     "Captura y devuelve el pdf de un proyecto"
     project = request.GET.get('project', "")
@@ -116,9 +116,9 @@ def export_autodoc(request):
 
 @csrf_exempt
 @require_http_methods(["POST"])
-@authorize(['analyst'])
+@authorize(['analyst','customer'])
 def generate_autodoc(request):
-    "Genera la documentacion automatica en excel"
+    "Genera la documentacion automatica"
     project = request.POST.get('project', "")
     username = request.session['username']
 
@@ -152,7 +152,7 @@ def generate_autodoc_ie(request, project, findings):
         IE.Fluid(project, findings, request)
 
 
-@authorize(['analyst'])
+@authorize(['analyst','customer'])
 def generate_autodoc_it(request, project, findings):
     if(findings[0]["tipo"] == "Detallado"):
         IT.Bancolombia(project, findings, request)
@@ -411,7 +411,7 @@ def update_finding(request):
         else:
             if "vuln[vector_ataque]" in post_parms \
                     and "vuln[sistema_comprometido]" in post_parms:
-                execute = True            
+                execute = True
         if not execute:
             return util.response([], 'Campos vacios', True)
         formstack_api = FormstackAPI()
