@@ -66,6 +66,11 @@ jobs:
           name: Bundle install
           command: bundle install
       - run:
+          name: Vault file
+          command: >
+              sudo echo $VAULT > ~/.vault.txt &&
+              sudo echo $VAULT > /tmp/.vault.txt
+      - run:
           name: Make alg tests
           command: >
                 cp /tmp/.vault.txt containers/alg/ &&
@@ -81,6 +86,11 @@ jobs:
           name: Bundle install
           command: bundle install
       - run:
+          name: Vault file
+          command: >
+              sudo echo $VAULT > ~/.vault.txt &&
+              sudo echo $VAULT > /tmp/.vault.txt
+      - run:
           name: Make exams tests
           command: >
                 cp /tmp/.vault.txt containers/exams/ &&
@@ -92,6 +102,11 @@ jobs:
       - USER: root
     steps:
       - checkout
+      - run:
+          name: Vault file
+          command: >
+              sudo echo $VAULT > ~/.vault.txt &&
+              sudo echo $VAULT > /tmp/.vault.txt
       - run:
           name: Build images
           command: >
