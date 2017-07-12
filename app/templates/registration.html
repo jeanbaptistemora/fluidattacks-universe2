@@ -33,7 +33,7 @@
         "$last_login": new Date(),
     });
     mixpanel.track(
-        "Registration", {
+        "Logged In", {
             "Email": "{{ request.session.username }}",
         }
     );
