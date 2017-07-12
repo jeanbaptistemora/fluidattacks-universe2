@@ -47,7 +47,7 @@ integrates.config(['$translateProvider', function($translateProvider) {
 			},
 			'filter_labels':{
 				'findings': 'Findings',
-				'cardinalities': 'Cardinalities'
+				'cardinalities': 'Vulnerabilities'
 			},
 			'filter_buttons':{
 				'advance': 'Progress',
@@ -90,10 +90,10 @@ integrates.config(['$translateProvider', function($translateProvider) {
 			'filter_menu':{
 				'filter_select':{
 					'any': 'Todos',
-					'analysis': 'Análisis',
+					'analysis': 'Analisis',
 					'application': 'Aplicacion',
 					'binary': 'Binario',
-					'code': 'Código',
+					'code': 'Codigo',
 					'infrastructure': 'Infrastructura'
 				},
 				'search':{
@@ -102,7 +102,7 @@ integrates.config(['$translateProvider', function($translateProvider) {
 			},
 			'filter_labels':{
 				'findings': 'Hallazgos',
-				'cardinalities': 'Cardinalidades'
+				'cardinalities': 'Vulnerabilidades'
 			},
 			'filter_buttons':{
 				'advance': 'Avance',
