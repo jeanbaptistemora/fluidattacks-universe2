@@ -52,9 +52,9 @@ class Bancolombia(object):
 
     def __init__(self, project, data, request):
         self.workbook = load_workbook(filename=self.template_path)
-        self.project_name = project
         self.project_data = data
         self.username = request.session['username']
+        self.project_name = project + "_" + self.username
         self.generate_doc()
         self.save()
 
@@ -155,7 +155,7 @@ class Bancolombia(object):
 class Fluid(object):
     workbook = None
     template_path = "/usr/src/app/app/autodoc/templates/fluid.xlsx"
-    result_path = "/usr/src/app/app/autodoc/results/:project_:username.xlsx"
+    result_path = "/usr/src/app/app/autodoc/results/:project.xlsx"
     current_sheet = None
     project_name = ""
     project_data = None
@@ -174,9 +174,9 @@ class Fluid(object):
 
     def __init__(self, project, data, request):
         self.workbook = load_workbook(filename=self.template_path)
-        self.project_name = project
         self.project_data = data
         self.username = request.session['username']
+        self.project_name = project + "_" + self.username
         self.generate_doc()
         self.save()
 

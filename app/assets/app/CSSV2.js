@@ -1,4 +1,38 @@
-var attackVector = [{
+var scenario = [{
+    name: "Anónimo desde Internet",
+},{
+    name: "Anónimo desde Intranet"
+},{
+    name: "Escaneo de Infraestructura"
+},{
+    name: "Extranet usuario no autorizado"
+},{
+    name: "Internet usuario autorizado"
+},{
+    name: "Internet usuario no autorizado"
+},{
+    name: "Intranet usuario autorizado"
+},{
+    name: "Intranet usuario no autorizado"
+}];
+
+var actor = [{
+    name: "​Cualquier persona en Internet",
+},{
+    name: "Cualquier cliente de la organización"
+},{
+    name: "Solo algunos clientes de la organización"
+},{
+    name: "Cualquier persona con acceso a la estación"
+},{
+    name: "Cualquier empleado de la organización"
+},{
+    name: "Solo algunos empleados"
+},{
+    name: "Solo un empleado"
+}];
+
+var accessVector = [{
     value: "0.646",
     name: "Red adyacente: Explotable desde el mismo segmento de red"
 }, {
@@ -101,4 +135,22 @@ var realiabilityLevel = [{
 }, {
     name: "Confirmado: La vulnerabilidad es reconocida por el fabricante",
     value: "1.000"
+}];
+
+var finding_type = [{
+    name: "Seguridad"
+}, {
+    name: "Higiene"
+}];
+
+var finging_test_type = [{
+    name: "Análisis"
+}, {
+    name: "Aplicación"
+}, {
+    name: "Binario"
+},{
+    name: "Código"
+},{
+    name: "Infraestructura"
 }];

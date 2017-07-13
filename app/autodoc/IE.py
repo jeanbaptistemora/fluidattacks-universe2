@@ -11,7 +11,7 @@ from pptx import Presentation
 class Bancolombia(object):
     presentation = None
     template_path = "/usr/src/app/app/autodoc/templates/bancolombia.pptx"
-    result_path = "/usr/src/app/app/autodoc/results/:project_:username.pptx"
+    result_path = "/usr/src/app/app/autodoc/results/:project.pptx"
     critical_finding_slide = 1
     moderate_finding_slide = 10
     tolerable_finding_slide = 27
@@ -24,9 +24,9 @@ class Bancolombia(object):
 
     def __init__(self, project, data, request):
         """ Constructor """
-        self.project_name = project
         self.project_data = data
         self.username = request.session['username']
+        self.project_name = project + "_" + self.username
         self.presentation = Presentation(self.template_path)
         self.finding_positions = dict()
         self.finding_positions["solucion_efecto"] = (0,0)
@@ -178,7 +178,7 @@ class Fluid(object):
     counter = 1
     presentation = None
     template_path = "/usr/src/app/app/autodoc/templates/fluid.pptx"
-    result_path = "/usr/src/app/app/autodoc/results/:project_:username.pptx"
+    result_path = "/usr/src/app/app/autodoc/results/:project.pptx"
     critical_finding_slide = 1
     moderate_finding_slide = 9
     tolerable_finding_slide = 27
@@ -191,9 +191,9 @@ class Fluid(object):
 
     def __init__(self, project, data, request):
         """ Constructor"""
-        self.project_name = project
         self.project_data = data
         self.username = request.session['username']
+        self.project_name = project + "_" + self.username
         self.presentation = Presentation(self.template_path)
         self.finding_positions = dict()
         self.finding_positions["numero"] = (12,0)

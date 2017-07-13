@@ -44,10 +44,12 @@ class FormstackRequestMapper(object):
     FINDING_AMENAZA = "38193361"
     FINDING_COMPONENTE_APLICATIVO = "38209122"
     FINDING_TIPO_PRUEBA = "38254692"
+    FINDING_TIPO_HALLAZGO = "54319180"
     FINDING_RIESGO = "38193362"
     FINDING_REQUISITOS = "38254586"
     FINDING_SOLUCION_EFECTO = "38619077"
     FINDING_TIPO = "38392454"
+    FINDING_ACTOR = "38606398"
     FINDING_CATEGORIA = "46956845"
     FINDING_ESCENARIO = "38692215"
     FINDING_AMBITO = "38254691"
@@ -133,6 +135,10 @@ class FormstackRequestMapper(object):
                 parsed["ambito"] = finding["value"]
             if finding["field"] == self.FINDING_CATEGORIA:
                 parsed["categoria"] = finding["value"]
+            if finding["field"] == self.FINDING_ACTOR:
+                parsed["actor"] = finding["value"]
+            if finding["field"] == self.FINDING_TIPO_HALLAZGO:
+                parsed["tipo_hallazgo"] = finding["value"]
             # DETALLES PROYECTO
             if finding["field"] == self.PROJECT_ANALISTA:
                 parsed["analista"] = finding["value"]

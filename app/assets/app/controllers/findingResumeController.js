@@ -45,6 +45,34 @@ integrates.controller("FindingResumeController", function($scope, $stateParams,
                 if(!response.error){
                     $scope.finding = response.data;
                     $scope.headerBuilding();
+                    if($scope.finding.nivel == "Detallado"){
+                        $scope.esDetallado = "show-detallado";
+                        $scope.esGeneral = "hide-detallado";
+                        try{
+                            var prob = $scope.finding.probabilidad;
+                            var severidad = $scope.finding.severidad;
+                            prob = prob.split("%")[0];
+                            prob = parseFloat(prob)/100.0;
+                            severidad = parseFloat(severidad);
+                            var vRiesgo = prob*severidad; 
+                            if(vRiesgo >= 3){
+                                $scope.finding.valor_riesgo = "Critico";
+                            }else if(vRiesgo >= 2 && vRiesgo < 3){
+                                $scope.finding.valor_riesgo = "Moderado";
+                            }else{
+                                $scope.finding.valor_riesgo = "Tolerable";
+                            }
+                        }catch(e){
+                            $scope.finding.valor_riesgo = "";
+                            console.log("excepcion" + e);
+                        }
+                    }else{
+                        $scope.esDetallado = "hide-detallado";
+                        $scope.esGeneral = "show-detallado";
+                    } 
+                    //$scope.finding.impacto_confidencialidad = $scope.finding.impacto_confidencialidad.split(" | ")[0];
+                    //$scope.finding.impacto_integridad = $scope.finding.impacto_integridad.split(" | ")[0];
+                    //$scope.finding.impacto_disponibilidad = $scope.finding.impacto_disponibilidad.split(" | ")[0];    
                 }else{
                     $.gritter.add({
                         title: 'Error!', text: response.message,
@@ -60,12 +88,31 @@ integrates.controller("FindingResumeController", function($scope, $stateParams,
         $scope.colors.moderate = "background-color: #f72;";  //orange
         $scope.colors.tolerable = "background-color: #ff2;"; //yellow
     };
+    /*
+     * Add CSSV2.js data to $scope lists
+     */
+    $scope.dropDownList = function(){
+        $scope.list = {};
+        $scope.list.finding_type = finding_type;
+        $scope.list.finding_test_type = finging_test_type;
+        $scope.list.actor = actor;
+        $scope.list.scenario = scenario;
+        $scope.list.accessVector = accessVector;
+        $scope.list.accessComplexity = accessComplexity;
+        $scope.list.authentication = authentication;
+        $scope.list.confidenciality = confidenciality;
+        $scope.list.integrity = integrity;
+        $scope.list.disponibility = disponibility;
+        $scope.list.explotability = explotability;
+        $scope.list.resolutionLevel = resolutionLevel;
+        $scope.list.realiabilityLevel = realiabilityLevel;
+    };
     $scope.init = function(){
         $scope.colorPalette();
         $scope.finding = {};
         $scope.finding.id = $stateParams.id;
         $scope.loadFindingByID($scope.finding.id);
-        $scope.list = {};
+        $scope.dropDownList();
     };
 
     $scope.init();
