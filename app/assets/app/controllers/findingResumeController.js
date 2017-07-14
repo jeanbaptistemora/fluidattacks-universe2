@@ -141,16 +141,17 @@ integrates.controller("FindingResumeController", function($scope, $stateParams,
             $("textarea").attr("disabled", true);
             $("select").attr("disabled", true);
             $("input").attr("disabled", true);
-            $scope.colsBack = "col-md-4";
-            $scope.colsUpdate = "col-md-4";
-            $scope.updateClass = "fl-visible";
+            $scope.colsBack = "col-md-4 col-md-offset-2";
+            $scope.colsEnable = "col-md-4";
+            $scope.enable = "fl-visible";
+            $scope.updateable = "fl-hidden";
         }else{
             $("textarea").attr("disabled", true);
             $("select").attr("disabled", true);
             $("input").attr("disabled", true);
             $scope.colsBack = "col-md-4 col-md-offset-4";
-            $scope.colsUpdate = "col-md-3";
-            $scope.updateClass = "fl-hidden";
+            $scope.enable = "fl-hidden";
+            $scope.updateable = "fl-hidden";
         }
         $("#proyecto_fluid").attr("disabled", true);
         $("#proyecto_cliente").attr("disabled", true);
@@ -165,6 +166,10 @@ integrates.controller("FindingResumeController", function($scope, $stateParams,
             $("select").attr("disabled", false);
             $("input").attr("disabled", false);
         }
+        $scope.colsBack = "col-md-4";
+        $scope.colsUpdateable = "col-md-4";
+        $scope.colsEnable = "col-md-4";
+        $scope.updateable = "fl-visible";
         $("#proyecto_fluid").attr("disabled", true);
         $("#proyecto_cliente").attr("disabled", true);
         $("#valor_riesgo").attr("disabled", true);
