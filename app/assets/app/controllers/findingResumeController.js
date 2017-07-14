@@ -154,10 +154,12 @@ integrates.controller("FindingResumeController", function($scope, $stateParams,
         }
         $("#proyecto_fluid").attr("disabled", true);
         $("#proyecto_cliente").attr("disabled", true);
-        $("#riesgo").attr("disabled", true);
+        $("#valor_riesgo").attr("disabled", true);
+        $("#cssv2base").attr("disabled", true);
+        $("#criticidad").attr("disabled", true);
     };
     $scope.updateFinding = function(){
-
+        console.log($scope.finding);
     };
     $scope.init = function(){
         $scope.colorPalette();

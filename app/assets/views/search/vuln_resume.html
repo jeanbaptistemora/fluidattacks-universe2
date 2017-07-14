@@ -139,7 +139,9 @@
                             <div class="col-md-3"  ng-class="esDetallado">
                                 <div class="form-group">
                                     <label>Valoración Riesgo</label>
-                                    <input type="text" class="form-control" ng-model="finding.valor_riesgo" disabled>
+                                    <input type="text" class="form-control" 
+                                           id="riesgo"
+                                           ng-model="finding.valor_riesgo" disabled>
                                 </div>
                             </div>
                             <div class="col-md-12" ng-class="esDetallado">
@@ -179,7 +181,6 @@
                             <div class="col-md-6" ng-class="esDetallado">
                                 <label>Riesgo</label>
                                 <textarea class="form-control no-resize"
-                                          id="riesgo"
                                           row="8">{{finding.riesgo}}</textarea>
                             </div>
                             <div class="col-md-6" ng-class="esGeneral">
@@ -302,12 +303,14 @@
                                 <label>CSSv2 Base</label>
                                 <input type="text"
                                        class="form-control"
+                                       id="cssv2base"
                                        ng-model="finding.cssv2base">
                             </div>
                             <div class="col-md-4">
                                 <label>CSSv2 Temporal</label>
                                 <input type="text"
                                        class="form-control"
+                                       id="criticidad"
                                        ng-model="finding.criticidad">
                             </div>
                             <div class="col-md-12">
@@ -319,7 +322,9 @@
                                 <button class="btn btn-default btn-block">Volver</button>
                             </div>
                             <div class="{{colsUpdate}}">
-                                <button class="btn btn-primary btn-block">Actualizar</button>
+                                <button class="btn btn-primary btn-block"
+                                        ng-class="updateClass"
+                                        ng-click="updateFinding()">Actualizar</button>
                             </div>
                         </div>
                     </div>
