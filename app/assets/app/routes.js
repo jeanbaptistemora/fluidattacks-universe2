@@ -16,10 +16,10 @@ integrates.config(function($stateProvider, $urlRouterProvider) {
             url: '/home',
             templateUrl: 'assets/views/dashboard.html'
         })
-        .state('AdvancedVulnResume', {
-            url: '/AdvancedResume',
-            templateUrl: 'assets/views/search/advanced_resume.html',
-            controller: 'advancedResume'  
+        .state('FindingResume', {
+            url: '/FindingResume/:id',
+            templateUrl: 'assets/views/search/vuln_resume.html',
+            controller: 'FindingResumeController'  
         })
         .state('VulnerabilitiesByName', {
             url: '/VulnerabilitiesByName',

@@ -47,7 +47,7 @@ integrates.config(['$translateProvider', function($translateProvider) {
 			},
 			'filter_labels':{
 				'findings': 'Findings',
-				'cardinalities': 'Cardinalities'
+				'cardinalities': 'Vulnerabilities'
 			},
 			'filter_buttons':{
 				'advance': 'Progress',
@@ -57,10 +57,10 @@ integrates.config(['$translateProvider', function($translateProvider) {
 				'headings':{
 					'action': 'Action',
 					'type': 'Type',
-					'finding': 'Finding',
-					'vulnerability': 'Vulnerability',
+					'finding': 'Title',
+					'vulnerability': 'Description',
 					'criticity': 'Criticity',
-					'cardinality': 'Cardinality'
+					'cardinality': 'Vulnerabilities'
 				}
 			}
 		}
@@ -90,10 +90,10 @@ integrates.config(['$translateProvider', function($translateProvider) {
 			'filter_menu':{
 				'filter_select':{
 					'any': 'Todos',
-					'analysis': 'Análisis',
+					'analysis': 'Analisis',
 					'application': 'Aplicacion',
 					'binary': 'Binario',
-					'code': 'Código',
+					'code': 'Codigo',
 					'infrastructure': 'Infrastructura'
 				},
 				'search':{
@@ -102,7 +102,7 @@ integrates.config(['$translateProvider', function($translateProvider) {
 			},
 			'filter_labels':{
 				'findings': 'Hallazgos',
-				'cardinalities': 'Cardinalidades'
+				'cardinalities': 'Vulnerabilidades'
 			},
 			'filter_buttons':{
 				'advance': 'Avance',
@@ -112,10 +112,10 @@ integrates.config(['$translateProvider', function($translateProvider) {
 				'headings':{
 					'action': 'Accion',
 					'type': 'Tipo prueba',
-					'finding': 'Hallazgo',
-					'vulnerability': 'Vulnerabilidad',
+					'finding': 'Titulo',
+					'vulnerability': 'Descripcion',
 					'criticity': 'Criticidad',
-					'cardinality': 'Cardinalidad'
+					'cardinality': 'Vulnerabilidades'
 				}
 			}
 		}
