@@ -138,11 +138,11 @@ integrates.controller("FindingResumeController", function($scope, $stateParams,
     };
     $scope.blockingUpdates = function(){
         if(userRole == "analyst"){
-            $("textarea").attr("disabled", false);
-            $("select").attr("disabled", false);
-            $("input").attr("disabled", false);
-            $scope.colsBack = "col-md-3 col-md-offset-3";
-            $scope.colsUpdate = "col-md-3";
+            $("textarea").attr("disabled", true);
+            $("select").attr("disabled", true);
+            $("input").attr("disabled", true);
+            $scope.colsBack = "col-md-4";
+            $scope.colsUpdate = "col-md-4";
             $scope.updateClass = "fl-visible";
         }else{
             $("textarea").attr("disabled", true);
@@ -158,9 +158,78 @@ integrates.controller("FindingResumeController", function($scope, $stateParams,
         $("#cssv2base").attr("disabled", true);
         $("#criticidad").attr("disabled", true);
     };
+    
+    $scope.enableUpdate = function(){
+        if(userRole == "analyst"){
+            $("textarea").attr("disabled", false);
+            $("select").attr("disabled", false);
+            $("input").attr("disabled", false);
+        }
+        $("#proyecto_fluid").attr("disabled", true);
+        $("#proyecto_cliente").attr("disabled", true);
+        $("#valor_riesgo").attr("disabled", true);
+        $("#cssv2base").attr("disabled", true);
+        $("#criticidad").attr("disabled", true);
+    }
+    /**
+     * Despliega la modal de ver editar hallazgo
+     * @function openModalEditar
+     * @member integrates.findingController
+     * @return {undefined}
+     */
     $scope.updateFinding = function(){
-        console.log($scope.finding);
-    };
+            var modalInstance = $uibModal.open({
+                animation: true,
+                templateUrl: 'update.html',
+                windowClass: 'ver-modal',
+                controller: function($scope, $uibModalInstance, currentVulnerability){
+                    /**
+                     * Confirma la actualizacion del hallazgo
+                     * @function okModal
+                     * @member integrates.findingUpdateController
+                     * @return {undefined}
+                     */
+                    $scope.okModal = function(){
+                        /*
+                        $scope.vuln = currentVulnerability;
+                        findingFactory.updateVuln($scope.vuln).then(function(response){
+                                if(!response.error){
+                                    $.gritter.add({
+                                        title: 'Correcto!',
+                                        text: 'Hallazgo actualizado',
+                                        class_name: 'color success',
+                                        sticky: false,
+                                    });
+                                    $uibModalInstance.dismiss('cancel');
+                                }else{
+                                    $.gritter.add({
+                                        title: 'Error!',
+                                        text: response.message,
+                                        class_name: 'color warning',
+                                        sticky: false,
+                                    });
+                                }
+                        });
+                        */
+                    }
+                    /**
+                     * Cierra la modal
+                     * @function closeModal
+                     * @member integrates.findingUpdateController
+                     * @return {undefined}
+                     */
+                    $scope.closeModal = function(){
+                        $uibModalInstance.dismiss('cancel');
+                    }
+                },
+                resolve: {
+                    currentVulnerability: function(){
+                        return $scope.vuln;
+                    }
+                }
+            });
+        };
+
     $scope.init = function(){
         $scope.colorPalette();
         $scope.finding = {};
