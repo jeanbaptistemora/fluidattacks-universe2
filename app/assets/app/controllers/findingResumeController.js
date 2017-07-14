@@ -16,7 +16,7 @@ integrates.controller("FindingResumeController", function($scope, $stateParams,
                                                           $uibModal, $translate,
                                                           ngNotify, findingFactory) {                                                            
     $scope.headerBuilding = function(){
-        console.log($scope.finding);
+        //console.log($scope.finding);
         $scope.header = {};
         $scope.header.findingTitle = $scope.finding.hallazgo;
         $scope.header.findingType = $scope.finding.tipo_prueba;
@@ -50,6 +50,7 @@ integrates.controller("FindingResumeController", function($scope, $stateParams,
                         title: 'Error!', text: response.message,
                         class_name: 'color warning', sticky: false,
                     });
+                    window.close();
                 }
             });
         }
@@ -58,7 +59,7 @@ integrates.controller("FindingResumeController", function($scope, $stateParams,
         $scope.colors = {};
         $scope.colors.critical = "background-color: #f12;";  //red
         $scope.colors.moderate = "background-color: #f72;";  //orange
-        $scope.colors.tolerable = "background-color: #ff2;"; //yellow
+        $scope.colors.tolerable = "background-color: #fd2;"; //yellow
     };                  
     $scope.calculteCSSv2 = function(){
         var ImpCon = parseFloat($scope.finding.impacto_confidencialidad.split(" | ")[0]);

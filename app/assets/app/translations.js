@@ -57,10 +57,10 @@ integrates.config(['$translateProvider', function($translateProvider) {
 				'headings':{
 					'action': 'Action',
 					'type': 'Type',
-					'finding': 'Finding',
-					'vulnerability': 'Vulnerability',
+					'finding': 'Title',
+					'vulnerability': 'Description',
 					'criticity': 'Criticity',
-					'cardinality': 'Cardinality'
+					'cardinality': 'Vulnerabilities'
 				}
 			}
 		}
@@ -112,10 +112,10 @@ integrates.config(['$translateProvider', function($translateProvider) {
 				'headings':{
 					'action': 'Accion',
 					'type': 'Tipo prueba',
-					'finding': 'Hallazgo',
-					'vulnerability': 'Vulnerabilidad',
+					'finding': 'Titulo',
+					'vulnerability': 'Descripcion',
 					'criticity': 'Criticidad',
-					'cardinality': 'Cardinalidad'
+					'cardinality': 'Vulnerabilidades'
 				}
 			}
 		}

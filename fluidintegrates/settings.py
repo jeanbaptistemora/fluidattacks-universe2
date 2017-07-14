@@ -186,10 +186,10 @@ USE_X_FORWARDED_HOST = True
 MIXPANEL_API_TOKEN = '7a7ceb75ff1eed29f976310933d1cc3e'
 ANALYTICAL_AUTO_IDENTIFY = False
 
-SOCIAL_AUTH_LOGIN_REDIRECT_URL = 'https://fluid.la/integrates/registration'
-SOCIAL_AUTH_NEW_USER_REDIRECT_URL = 'https://fluid.la/integrates/registration'
-#SOCIAL_AUTH_LOGIN_REDIRECT_URL     = '/registration'
-#SOCIAL_AUTH_NEW_USER_REDIRECT_URL = '/registration'
+#SOCIAL_AUTH_LOGIN_REDIRECT_URL = 'https://fluid.la/integrates/registration'
+#SOCIAL_AUTH_NEW_USER_REDIRECT_URL = 'https://fluid.la/integrates/registration'
+SOCIAL_AUTH_LOGIN_REDIRECT_URL     = '/registration'
+SOCIAL_AUTH_NEW_USER_REDIRECT_URL = '/registration'
 SOCIAL_AUTH_DISCONNECT_REDIRECT_URL = '/index'
 SOCIAL_AUTH_INACTIVE_USER_URL = '/index'
 SOCIAL_AUTH_LOGIN_URL = '/index'
