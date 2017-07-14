@@ -2,7 +2,9 @@
     .bg-critical{ background-color: #F12; }
     .bg-moderate{ background-color: #F72; }
     .bg-tolerable{ background-color: #FF2; }
-    .no-resize{ resize: none;}
+    .no-resize{ resize: none; height: 100px !important;}
+    .hide-detallado, .fl-hidden { display: none; }
+    .show-detallado, .fl-visible{ display: block;}
 </style>
 <div class="page-head">
     <h2>{{header.findingTitle}}</h2>
@@ -29,7 +31,7 @@
     <div class="row">
         <div class="col-md-12">
             <hr>
-            Fecha de reporte: <b>06/06/06 03:02:01</b>
+            Fecha de reporte: <b>{{finding.timestamp}}</b>
         </div>
     </div>
 </div>
@@ -58,11 +60,13 @@
                             <div class="col-md-3">
                                 <label>Proyecto Fluid</label>
                                 <input type="text" ng-model="finding.proyecto_fluid" 
+                                                   id="proyecto_fluid"
                                                    class="form-control" disabled>
                             </div>
                             <div class="col-md-3">
                                 <label>Proyecto Cliente</label>
                                 <input type="text" ng-model="finding.proyecto_cliente" 
+                                                   id="proyecto_cliente" 
                                                    class="form-control" disabled>
                             </div>
                             <div class="col-md-6">
@@ -101,14 +105,35 @@
                             </div>
                             <div class="col-md-4" ng-class="esDetallado">
                                 <div class="form-group">
+                                    <label>Categoria</label>
+                                    <select ng-model="finding.categoria"
+                                            class="form-control">
+                                        <option ng-repeat="item in list.categories" 
+                                                value="{{item.name}}">
+                                            {{item.name}}
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-3" ng-class="esDetallado">
+                                <div class="form-group">
                                     <label>Probabilidad</label>
-                                    <input type="text" class="form-control" ng-model="finding.probabilidad" disabled>
+                                    <select ng-model="finding.probabilidad"
+                                            ng-change="calculateSeveridad();"
+                                            class="form-control">
+                                        <option ng-repeat="item in list.probability" 
+                                                value="{{item.name}}">
+                                            {{item.name}}
+                                        </option>
+                                    </select>
                                 </div>
                             </div>
                             <div class="col-md-2" ng-class="esDetallado">
                                 <div class="form-group">
                                     <label>Severidad</label>
-                                    <input type="text" class="form-control" ng-model="finding.severidad" disabled>
+                                    <input type="text" class="form-control" 
+                                           ng-model="finding.severidad"
+                                           ng-blur="calculateSeveridad();">
                                 </div>
                             </div>
                             <div class="col-md-3"  ng-class="esDetallado">
@@ -117,18 +142,13 @@
                                     <input type="text" class="form-control" ng-model="finding.valor_riesgo" disabled>
                                 </div>
                             </div>
-                            <div class="col-md-12">
+                            <div class="col-md-12" ng-class="esDetallado">
                                 <hr>
                             </div>
                             <div class="col-md-6">
                                 <label>Descripcion</label>
                                 <textarea class="form-control no-resize"
-                                          row="8">{{finding.vulnerabilidad}}</textarea>
-                            </div>
-                            <div class="col-md-6">
-                                <label>Donde</label>
-                                <textarea class="form-control no-resize"
-                                          row="8">{{finding.donde}}</textarea>
+                                          ng-model="finding.vulnerabilidad">{{finding.vulnerabilidad}}</textarea>
                             </div>
                             <div class="col-md-6">
                                 <label>Amenaza</label>
@@ -136,19 +156,45 @@
                                           row="8">{{finding.amenaza}}</textarea>
                             </div>
                             <div class="col-md-6">
-                                <label>Riesgo</label>
-                                <textarea class="form-control no-resize"
-                                          row="8"></textarea>
+                                <label>Donde</label>
+                                <textarea class="form-control no-resize" style="height: 170px !important;"
+                                          >{{finding.donde}}</textarea>
                             </div>
+                            <div class="col-md-6">
+                                <label>Vulnerabilidades</label>
+                                <input class="form-control"
+                                       type="number" step="1" 
+                                       ng-model="finding.cardinalidad">
+                            </div>                           
                             <div class="col-md-6">
                                 <label>Requisito</label>
                                 <textarea class="form-control no-resize"
-                                          row="8"></textarea>
+                                          row="8">{{finding.requisitos}}</textarea>
                             </div>
                             <div class="col-md-6">
                                 <label>Recomendación</label>
                                 <textarea class="form-control no-resize"
-                                          row="8"></textarea>
+                                          row="8">{{finding.solucion_efecto}}</textarea>
+                            </div>
+                            <div class="col-md-6" ng-class="esDetallado">
+                                <label>Riesgo</label>
+                                <textarea class="form-control no-resize"
+                                          id="riesgo"
+                                          row="8">{{finding.riesgo}}</textarea>
+                            </div>
+                            <div class="col-md-6" ng-class="esGeneral">
+                                <div class="form-group">
+                                    <label>Vectores de ataque</label>
+                                    <textarea class="form-control no-resize" 
+                                              rows="8">{{finding.vector_ataque}}</textarea>
+                                </div>
+                            </div>
+                            <div class="col-md-6" ng-class="esGeneral">
+                                <div class="form-group">
+                                    <label>Sistemas comprometidos</label>
+                                    <textarea class="form-control no-resize"
+                                              rows="8">{{finding.sistema_comprometido}}</textarea>
+                                </div>
                             </div>
                             <div class="col-md-12">
                                 <hr>
@@ -156,6 +202,7 @@
                             <div class="col-md-4">
                                 <label>Vector de acceso</label>
                                 <select ng-model="finding.vector_acceso"
+                                        ng-change="calculteCSSv2();"
                                         class="form-control">
                                     <option ng-repeat="item in list.accessVector" 
                                             value="{{item.value + ' | ' + item.name}}">
@@ -166,6 +213,7 @@
                             <div class="col-md-4">
                                 <label>Complejidad de acceso</label>
                                 <select ng-model="finding.complejidad_acceso"
+                                        ng-change="calculteCSSv2();"
                                         class="form-control">
                                     <option ng-repeat="item in list.accessComplexity" 
                                             value="{{item.value + ' | ' + item.name}}">
@@ -176,6 +224,7 @@
                             <div class="col-md-4">
                                 <label>Autenticación</label>
                                 <select ng-model="finding.autenticacion"
+                                        ng-change="calculteCSSv2();"
                                         class="form-control">
                                     <option ng-repeat="item in list.authentication" 
                                             value="{{item.value + ' | ' + item.name}}">
@@ -186,6 +235,7 @@
                             <div class="col-md-4">
                                 <label>Impacto a la Confidencialidad</label>
                                 <select ng-model="finding.impacto_confidencialidad"
+                                        ng-change="calculteCSSv2();"
                                         class="form-control">
                                     <option ng-repeat="item in list.confidenciality" 
                                             value="{{item.value + ' | ' + item.name}}">
@@ -196,8 +246,9 @@
                             <div class="col-md-4">
                                 <label>Impacto a la Integridad</label>
                                 <select ng-model="finding.impacto_integridad"
+                                        ng-change="calculteCSSv2();"
                                         class="form-control">
-                                    <option ng-repeat="item in list.integrity" 
+                                    <option ng-repeat="item in list.integrity"
                                             value="{{item.value + ' | ' + item.name}}">
                                         {{item.name}}
                                     </option>
@@ -206,8 +257,9 @@
                             <div class="col-md-4">
                                 <label>Impacto a la disponibilidad</label>
                                 <select ng-model="finding.impacto_disponibilidad"
+                                        ng-change="calculteCSSv2();"
                                         class="form-control">
-                                    <option ng-repeat="item in list.disponibility" 
+                                    <option ng-repeat="item in list.availability" 
                                             value="{{item.value + ' | ' + item.name}}">
                                         {{item.name}}
                                     </option>
@@ -216,6 +268,7 @@
                             <div class="col-md-4">
                                 <label>Explotabilidad</label>
                                 <select ng-model="finding.explotabilidad"
+                                        ng-change="calculteCSSv2();"
                                         class="form-control">
                                     <option ng-repeat="item in list.explotability" 
                                             value="{{item.value + ' | ' + item.name}}">
@@ -226,6 +279,7 @@
                             <div class="col-md-4">
                                 <label>Nivel de resolución</label>
                                 <select ng-model="finding.nivel_resolucion"
+                                        ng-change="calculteCSSv2();"
                                         class="form-control">
                                     <option ng-repeat="item in list.resolutionLevel" 
                                             value="{{item.value + ' | ' + item.name}}">
@@ -236,6 +290,7 @@
                             <div class="col-md-4">
                                 <label>Nivel de confianza</label>
                                 <select ng-model="finding.nivel_confianza"
+                                        ng-change="calculteCSSv2();"
                                         class="form-control">
                                     <option ng-repeat="item in list.realiabilityLevel" 
                                             value="{{item.value + ' | ' + item.name}}">
@@ -244,22 +299,29 @@
                                 </select>
                             </div>
                             <div class="col-md-4">
-                                <label>CSSv2</label>
-                                <input type="text" class="form-control">
+                                <label>CSSv2 Base</label>
+                                <input type="text"
+                                       class="form-control"
+                                       ng-model="finding.cssv2base">
                             </div>
                             <div class="col-md-4">
                                 <label>CSSv2 Temporal</label>
-                                <input type="text" class="form-control">
+                                <input type="text"
+                                       class="form-control"
+                                       ng-model="finding.criticidad">
                             </div>
                             <div class="col-md-12">
                                 <hr>
                             </div>
                         </div>
                         <div class="row">
-                            
+                            <div class="{{colsBack}}">
+                                <button class="btn btn-default btn-block">Volver</button>
+                            </div>
+                            <div class="{{colsUpdate}}">
+                                <button class="btn btn-primary btn-block">Actualizar</button>
+                            </div>
                         </div>
-                        <p> Consectetur adipisicing elit. Ad aperiam dolore veniam mollitia consectetur aut. Cumque sunt consequatur, officiis voluptatum quas atque magnam animi eaque facere cupiditate quos ad totam saepe porro nostrum tenetur. Assumenda esse quidem, sed vel dolore quisquam fuga culpa non, ducimus, impedit fugiat vero similique recusandae?</p>
-                        <p> Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad aperiam dolore veniam mollitia consectetur aut. Cumque sunt consequatur, officiis voluptatum quas atque magnam animi eaque facere cupiditate quos ad totam saepe porro nostrum tenetur. Assumenda esse quidem, sed vel dolore quisquam fuga culpa non, ducimus, impedit fugiat vero similique recusandae?</p>
                     </div>
                     <div id="tracking" class="tab-pane cont">
                         <!--<div class="row">

@@ -9,11 +9,12 @@
  * @param {Object} $uibModal
  * @param {Object} $stateParams
  * @param {Object} $translate
+ * @param {Object} ngNotify
  * @return {undefined}
  */
 integrates.controller("FindingResumeController", function($scope, $stateParams,
                                                           $uibModal, $translate,
-                                                          findingFactory) {                                                            
+                                                          ngNotify, findingFactory) {                                                            
     $scope.headerBuilding = function(){
         console.log($scope.finding);
         $scope.header = {};
@@ -22,7 +23,6 @@ integrates.controller("FindingResumeController", function($scope, $stateParams,
         $scope.header.findingRisk = "";
         $scope.header.findingValue = $scope.finding.criticidad;
         var findingValue = parseFloat($scope.finding.criticidad);
-        console.log(parseFloat(findingValue));
         if(findingValue >= 7){
             $scope.header.findingValueDescription = " Alto";
             $scope.header.findingValueColor = $scope.colors.critical;
@@ -34,7 +34,6 @@ integrates.controller("FindingResumeController", function($scope, $stateParams,
             $scope.header.findingValueColor = $scope.colors.tolerable;
         }
         $scope.header.findingCount = $scope.finding.cardinalidad;
-        console.log($scope.header.findingValueDescription);
     };                                                           
     $scope.loadFindingByID = function(id){
         if(isNaN(id)){
@@ -45,34 +44,7 @@ integrates.controller("FindingResumeController", function($scope, $stateParams,
                 if(!response.error){
                     $scope.finding = response.data;
                     $scope.headerBuilding();
-                    if($scope.finding.nivel == "Detallado"){
-                        $scope.esDetallado = "show-detallado";
-                        $scope.esGeneral = "hide-detallado";
-                        try{
-                            var prob = $scope.finding.probabilidad;
-                            var severidad = $scope.finding.severidad;
-                            prob = prob.split("%")[0];
-                            prob = parseFloat(prob)/100.0;
-                            severidad = parseFloat(severidad);
-                            var vRiesgo = prob*severidad; 
-                            if(vRiesgo >= 3){
-                                $scope.finding.valor_riesgo = "Critico";
-                            }else if(vRiesgo >= 2 && vRiesgo < 3){
-                                $scope.finding.valor_riesgo = "Moderado";
-                            }else{
-                                $scope.finding.valor_riesgo = "Tolerable";
-                            }
-                        }catch(e){
-                            $scope.finding.valor_riesgo = "";
-                            console.log("excepcion" + e);
-                        }
-                    }else{
-                        $scope.esDetallado = "hide-detallado";
-                        $scope.esGeneral = "show-detallado";
-                    } 
-                    //$scope.finding.impacto_confidencialidad = $scope.finding.impacto_confidencialidad.split(" | ")[0];
-                    //$scope.finding.impacto_integridad = $scope.finding.impacto_integridad.split(" | ")[0];
-                    //$scope.finding.impacto_disponibilidad = $scope.finding.impacto_disponibilidad.split(" | ")[0];    
+                    $scope.informationTab();
                 }else{
                     $.gritter.add({
                         title: 'Error!', text: response.message,
@@ -87,14 +59,29 @@ integrates.controller("FindingResumeController", function($scope, $stateParams,
         $scope.colors.critical = "background-color: #f12;";  //red
         $scope.colors.moderate = "background-color: #f72;";  //orange
         $scope.colors.tolerable = "background-color: #ff2;"; //yellow
+    };                  
+    $scope.calculteCSSv2 = function(){
+        var ImpCon = parseFloat($scope.finding.impacto_confidencialidad.split(" | ")[0]);
+        var ImpInt = parseFloat($scope.finding.impacto_integridad.split(" | ")[0]);
+        var ImpDis = parseFloat($scope.finding.impacto_disponibilidad.split(" | ")[0]);
+        var AccCom = parseFloat($scope.finding.complejidad_acceso.split(" | ")[0]);
+        var AccVec = parseFloat($scope.finding.vector_acceso.split(" | ")[0]);
+        var Auth = parseFloat($scope.finding.autenticacion.split(" | ")[0]);
+        var Explo = parseFloat($scope.finding.explotabilidad.split(" | ")[0]);
+        var Resol = parseFloat($scope.finding.nivel_resolucion.split(" | ")[0]);
+        var Confi = parseFloat($scope.finding.nivel_confianza.split(" | ")[0]);
+        var BaseScore = (((0.6*(10.41*(1-(1-ImpCon)*(1-ImpInt)*(1-ImpDis))))+(0.4*(20*AccCom*Auth*AccVec))-1.5)*1.176);
+        Temporal = BaseScore * Explo * Resol * Confi;
+        CVSSGeneral = Temporal;
+        $scope.finding.cssv2base = BaseScore.toFixed(1);
+        $scope.finding.criticidad = Temporal.toFixed(1);
     };
-    /*
-     * Add CSSV2.js data to $scope lists
-     */
     $scope.dropDownList = function(){
         $scope.list = {};
         $scope.list.finding_type = finding_type;
         $scope.list.finding_test_type = finging_test_type;
+        $scope.list.categories = categories;
+        $scope.list.probability = probabilities;
         $scope.list.actor = actor;
         $scope.list.scenario = scenario;
         $scope.list.accessVector = accessVector;
@@ -102,17 +89,82 @@ integrates.controller("FindingResumeController", function($scope, $stateParams,
         $scope.list.authentication = authentication;
         $scope.list.confidenciality = confidenciality;
         $scope.list.integrity = integrity;
-        $scope.list.disponibility = disponibility;
+        $scope.list.availability = availability;
         $scope.list.explotability = explotability;
         $scope.list.resolutionLevel = resolutionLevel;
         $scope.list.realiabilityLevel = realiabilityLevel;
+    };
+    $scope.informationTab = function(){
+        $scope.dropDownList();
+        $scope.finding.cardinalidad = parseInt($scope.finding.cardinalidad);
+        $scope.finding.criticidad = parseFloat($scope.finding.criticidad);
+        $scope.calculteCSSv2();
+        if($scope.finding.nivel == "Detallado"){
+            $scope.esDetallado = "show-detallado";
+            $scope.esGeneral = "hide-detallado";
+            $scope.calculateSeveridad();
+        }else{
+            $scope.esDetallado = "hide-detallado";
+            $scope.esGeneral = "show-detallado";
+        }
+    };
+    $scope.calculateSeveridad = function(){
+        if(!isNaN($scope.finding.severidad)){
+            var severidad = parseFloat($scope.finding.severidad);
+            if (severidad < 0 || severidad > 5){
+                ngNotify.set("La severidad debe ser un numero de 0 a 5", "error");
+                return false;
+            }
+            try{
+                var prob = $scope.finding.probabilidad;
+                var severidad = $scope.finding.severidad;
+                prob = prob.split("%")[0];
+                prob = parseFloat(prob)/100.0;
+                severidad = parseFloat(severidad);
+                var vRiesgo = prob*severidad; 
+                if(vRiesgo >= 3){
+                    $scope.finding.valor_riesgo = "(:r) Critico".replace(":r", vRiesgo.toFixed(1));
+                }else if(vRiesgo >= 2 && vRiesgo < 3){
+                    $scope.finding.valor_riesgo = "(:r) Moderado".replace(":r", vRiesgo.toFixed(1));
+                }else{
+                    $scope.finding.valor_riesgo = "(:r) Tolerable".replace(":r", vRiesgo.toFixed(1));
+                }
+            }catch(e){
+                    $scope.finding.valor_riesgo = "";
+            }
+        }else{
+            ngNotify.set("La severidad debe ser un numero de 0 a 5", "error");
+        }
+    };
+    $scope.blockingUpdates = function(){
+        if(userRole == "analyst"){
+            $("textarea").attr("disabled", false);
+            $("select").attr("disabled", false);
+            $("input").attr("disabled", false);
+            $scope.colsBack = "col-md-3 col-md-offset-3";
+            $scope.colsUpdate = "col-md-3";
+            $scope.updateClass = "fl-visible";
+        }else{
+            $("textarea").attr("disabled", true);
+            $("select").attr("disabled", true);
+            $("input").attr("disabled", true);
+            $scope.colsBack = "col-md-4 col-md-offset-4";
+            $scope.colsUpdate = "col-md-3";
+            $scope.updateClass = "fl-hidden";
+        }
+        $("#proyecto_fluid").attr("disabled", true);
+        $("#proyecto_cliente").attr("disabled", true);
+        $("#riesgo").attr("disabled", true);
+    };
+    $scope.updateFinding = function(){
+
     };
     $scope.init = function(){
         $scope.colorPalette();
         $scope.finding = {};
         $scope.finding.id = $stateParams.id;
         $scope.loadFindingByID($scope.finding.id);
-        $scope.dropDownList();
+        $scope.blockingUpdates();
     };
 
     $scope.init();

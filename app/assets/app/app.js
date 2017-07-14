@@ -74,4 +74,4 @@ if(location.pathname.indexOf("/integrates") == -1)
  * Crea integrates como una aplicacion de angular
  * @module {AngularJS} FluidIntegrates
  */
-var integrates = angular.module("FluidIntegrates", ['ui.router','ui.bootstrap','pascalprecht.translate','ngSanitize']);
+var integrates = angular.module("FluidIntegrates", ['ui.router','ui.bootstrap','pascalprecht.translate','ngSanitize','ngNotify']);

@@ -16,6 +16,50 @@ var scenario = [{
     name: "Intranet usuario no autorizado"
 }];
 
+var categories = [{
+    name: "Actualizar y configurar las líneas base de seguridad de los componentes"
+},{
+    name: "Definir el modelo de autorización considerando el principio de mínimo privilegio",
+},{
+    name: "Desempeño",
+},{
+    name: "Eventualidad",
+},{
+    name: "Evitar exponer la información técnica de la aplicación, servidores y plataformas"
+},{
+    name: "Excluir datos sensibles del código fuente y del registro de eventos"
+},{
+    name: "Fortalecer controles en autenticación y manejo de sesión"
+},{
+    name: "Fortalecer controles en el procesamiento de archivos"
+},{
+    name: "Fortalecer la protección de datos almacenados relacionados con contraseñas o llaves criptográficas"
+},{
+    name: "Implementar controles para validar datos de entrada"
+},{
+    name: "Mantenibilidad"
+},{
+    name: "Registrar eventos para trazabilidad y auditoría"
+},{
+    name: "Utilizar protocolos de comunicación seguros"
+},{
+    name: "Validar la integridad de las transacciones en peticiones HTTP"
+}];
+
+var probabilities = [{
+    name: "100% Vulnerado Anteriormente",
+    value: 100
+},{
+    name:"75% Fácil de vulnerar",
+    value: 75
+},{
+    name:"50% Posible de vulnerar",
+    value: 50
+},{
+    name:"25% Difícil de vulnerar",
+    value: 25
+}];
+
 var actor = [{
     name: "​Cualquier persona en Internet",
 },{
@@ -87,7 +131,7 @@ var integrity = [{
     value: "0.660"
 }];
 
-var disponibility = [{
+var availability = [{
     name: "Ninguno: No se presenta ningún impacto",
     value: "0"
 }, {
