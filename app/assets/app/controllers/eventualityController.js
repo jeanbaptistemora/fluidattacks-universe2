@@ -288,7 +288,7 @@ integrates.controller("eventualityController", function($scope, $uibModal, event
             }).catch(function(fallback) {
                 $.gritter.add({
                     title: 'Consultando',
-                    text: 'Error de formstack...',
+                    text: 'Error interno cargando datos...',
                     class_name: 'color warning',
                     sticky: false,
                 });
