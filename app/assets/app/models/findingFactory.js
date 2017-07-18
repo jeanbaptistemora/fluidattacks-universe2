@@ -36,7 +36,7 @@ integrates.factory('findingFactory', function($q){
                       if(xhr.status == 500){
                         deferred.resolve({
                             error: null, 
-                            message: "Error de formstack"
+                            message: "Error interno cargando datos"
                         });
                       }else if(xhr.status == 401){
                          location = "/index"; 
@@ -77,7 +77,7 @@ integrates.factory('findingFactory', function($q){
                       if(xhr.status == 500){
                         deferred.resolve({
                             error: null, 
-                            message: "Error de formstack"
+                            message: "Error interno cargando datos"
                         });
                       }else if(xhr.status == 401){
                          location = "/index"; 
@@ -118,7 +118,7 @@ integrates.factory('findingFactory', function($q){
                       if(xhr.status == 500){
                         deferred.resolve({
                             error: null, 
-                            message: "Error de formstack"
+                            message: "Error interno cargando datos"
                         });
                       }else if(xhr.status == 401){
                          location = "/index"; 
@@ -162,7 +162,7 @@ integrates.factory('findingFactory', function($q){
                       if(xhr.status == 500){
                         deferred.resolve({
                             error: null, 
-                            message: "Error de formstack"
+                            message: "Error interno cargando datos"
                         });
                       }else if(xhr.status == 401){
                          location = "/index"; 
@@ -200,7 +200,7 @@ integrates.factory('findingFactory', function($q){
                       if(xhr.status == 500){
                         deferred.resolve({
                             error: null, 
-                            message: "Error de formstack"
+                            message: "Error interno cargando datos"
                         });
                       }else if(xhr.status == 401){
                          location = "/index"; 
@@ -239,7 +239,7 @@ integrates.factory('findingFactory', function($q){
                       if(xhr.status == 500){
                         deferred.resolve({
                             error: null, 
-                            message: "Error de formstack"
+                            message: "Error interno cargando datos"
                         });
                       }else if(xhr.status == 401){
                          location = "/index"; 
@@ -280,7 +280,7 @@ integrates.factory('findingFactory', function($q){
                         if(xhr.status == 500){
                             deferred.resolve({
                                 error: null, 
-                                message: "Error de formstack"
+                                message: "Error interno cargando datos"
                             });
                         }else if(xhr.status == 401){
                             location = "/index"; 
@@ -293,7 +293,7 @@ integrates.factory('findingFactory', function($q){
               }else if(e.status == 500){
                   deferred.resolve({
                     error: undefined, 
-                    message: "Error de formstack"
+                    message: "Error interno cargando datos"
                   });
               }else{
                   deferred.resolve({
