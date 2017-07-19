@@ -1,193 +1,30 @@
-"""
-    Modulo creado para enviar correos de notificacion
-    a traves de Integrates y Amazon
-"""
+import mandrill
 
-import smtplib
-from datetime import datetime
+API_KEY = 'Cr-4ch24lDQrapMEy2F3VQ'
 
 
-class Mailer(object):
-    """Clase para enviar mensajes con Amazon."""
+def __send_mail(template_name, email_to, context):
+    mandrill_client = mandrill.Mandrill(API_KEY)
+    message = {
+        'to': [],
+        'global_merge_vars': []
+    }
+    for em in email_to:
+        message['to'].append({'email': em})
 
-    username = "integrates@mailgun.fluid.la"
-    password = "yI1ZcNljI4UAp72YF7vvJ460166T2t"
-    server_port = "587"
-    server_name = "smtp.mailgun.org"
-    timeout = 10
-    default_to = "engineering@fluid.la"
-    default_to_new_user = ["aroldan@fluid.la", "glopez@fluid.la",
-                           "projects@fluid.la", "production@fluid.la",
-                           "technology@fluid.la"]
-    default_from = "FLUID<noreply@fluid.la>"
-    server = None
-
-    def __init__(self):
-        self.server = smtplib.SMTP(
-            host=self.server_name,
-            port=self.server_port,
-            timeout=self.timeout
+    for k, v in context.iteritems():
+        message['global_merge_vars'].append(
+            {'name': k, 'content': v}
         )
+    mandrill_client.messages.send_template(template_name, [], message)
 
-    def __tpl_new_user(self):
-        """Funcion que retorna el formato HTML del correo
-            que se envia cuando un usuario nuevo trata de ingresar."""
-        return """From: :from\r\nTo: :to\r\nSubject: :subject\r\n\
-MIME-Version: 1.0\r\nContent-type: text/html\r\n
-            <style>
-            table{ border: 1px solid black; }
-            table td { border: 1px solid black; }
-            table.no-spacing {
-              border-spacing:0;
-              border-collapse: collapse;
-            }
-            </style>
-            <center>
-                <img style="display:block;margin-left:\
-auto;margin-right:auto" src="https://ci6.googleusercontent.com/proxy/\
-HJaEHh-IlU0dbE9CAWZM3HEw2VbTv3pwU6iexhsj2xVXA52mdscUyw7uOazWCLj0uIgL18f\
-0sMBb6Fb3J4vog_r40RZmQJE7mMwgWFKoOtifj7SboWOF2w9ajySTF5XO9eHjrcw=s0-d-\
-e1-ft#https://s3.amazonaws.com/files.formstack.com/public/600135/\
-image_customLogo.png" alt="customLogo.png" class="CToWUd">
-                <hr/>
-                <div style="text-align: left;">
-                    La persona <b>:first_name :last_name</b> con correo\
-                    <b>:email</b> ha solicitado acceso.<br>
-                </div>
-            </center>
+def send_mail_new_finding(email_to, context):
+    __send_mail('newfindingintegrates', email_to, context=context)
 
-            <center>
-                <hr/>
-                <p>Enviado a traves de <b>FLUIDIntegrates </b> :time </p>
-            </center>
-        """
 
-    def __tpl_new_finding(self):
-        """Funcion que retorna el formato HTML del correo
-            que se envia cuando un usuario nuevo trata de ingresar."""
-        return """From: :from\r\nTo: :to\r\nSubject: :subject\r\n\
-MIME-Version: 1.0\r\nContent-type: text/html\r\n
-            <style>
-            table{ border: 1px solid black; }
-            table td { border: 1px solid black; }
-            table.no-spacing {
-              border-spacing:0;
-              border-collapse: collapse;
-            }
-            </style>
-            <center>
-                <img style="display:block;margin-left:\
-auto;margin-right:auto" src="https://ci6.googleusercontent.com/proxy/\
-HJaEHh-IlU0dbE9CAWZM3HEw2VbTv3pwU6iexhsj2xVXA52mdscUyw7uOazWCLj0uIgL18f\
-0sMBb6Fb3J4vog_r40RZmQJE7mMwgWFKoOtifj7SboWOF2w9ajySTF5XO9eHjrcw=s0-d-\
-e1-ft#https://s3.amazonaws.com/files.formstack.com/public/600135/\
-image_customLogo.png" alt="customLogo.png" class="CToWUd">
-                <hr/>
-                <div style="text-align: left;">
-                    Hola! Se ha encontrado :reason para el proyecto\
-                    <b>:project</b>.<br><br>
-                    Por favor, ingresa a <a href="https://fluid.la/integrates">\
-                    FLUIDIntegrates</a> para revisar los detalles.<br>
-                </div>
-            </center>
+def send_mail_new_user(email_to, context):
+    __send_mail('userfindingintegrates', email_to, context=context)
 
-            <center>
-                <hr/>
-                <p>Enviado a traves de <b>FLUIDIntegrates </b> :time </p>
-            </center>
-        """
 
-    def __tpl_delete_finding(self):
-        """Funcion que retorna el formato HTML del correo
-            que se envia al eliminar un hallazgo."""
-        return """From: :from\r\nTo: :to\r\nSubject: :subject\r\n\
-MIME-Version: 1.0\r\nContent-type: text/html\r\n
-            <style>
-            table{ border: 1px solid black; }
-            table td { border: 1px solid black; }
-            table.no-spacing {
-              border-spacing:0;
-              border-collapse: collapse;
-            }
-            </style>
-            <center>
-                <img style="display:block;margin-left:\
-auto;margin-right:auto" src="https://ci6.googleusercontent.com/proxy/\
-HJaEHh-IlU0dbE9CAWZM3HEw2VbTv3pwU6iexhsj2xVXA52mdscUyw7uOazWCLj0uIgL18f\
-0sMBb6Fb3J4vog_r40RZmQJE7mMwgWFKoOtifj7SboWOF2w9ajySTF5XO9eHjrcw=s0-d-\
-e1-ft#https://s3.amazonaws.com/files.formstack.com/public/600135/\
-image_customLogo.png" alt="customLogo.png" class="CToWUd">
-                <hr/>
-                <div style="text-align: left;">
-                    <b>Analista: </b> :analista <br>
-                    <b>Hallazgo: </b> :hallazgo <br>
-                    <b>ID: </b> :id <br>
-                    <b>Justificacion: </b> :justificacion <br>
-                </div>
-            </center>
-
-            <center>
-                <hr/>
-                <p>Enviado a traves de <b>FLUIDIntegrates </b> :time </p>
-            </center>
-        """
-
-    def send_delete_finding(self, finding_id, finding, analyst, justify):
-        """Funcion que envia un email cuando se elimina un hallazgo."""
-        title_mail = "El hallazgo #:id ha sido eliminado"
-        title_mail = title_mail.replace(":id", finding_id)
-        tpl_mail = self.__tpl_delete_finding()
-        tpl_mail = tpl_mail.replace(":subject", title_mail)
-        tpl_mail = tpl_mail.replace(":from", self.default_from)
-        tpl_mail = tpl_mail.replace(":to", self.default_to)
-        tpl_mail = tpl_mail.replace(":analista", analyst)
-        tpl_mail = tpl_mail.replace(":hallazgo", finding)
-        tpl_mail = tpl_mail.replace(":justificacion", justify)
-        tpl_mail = tpl_mail.replace(":id", finding_id)
-        tpl_mail = tpl_mail.replace(":time", str(datetime.now()))
-        self.server.starttls()
-        self.server.ehlo()
-        self.server.login(self.username, self.password)
-        self.server.sendmail(self.default_from, self.default_to, tpl_mail)
-
-    def send_new_user(self, first_name, last_name, email):
-        """Envia un email cuando se detecta un nuevo usuario."""
-        title_mail = "Nueva solicitud de acceso por :email para \
-FLUIDIntegrates"
-        title_mail = title_mail.replace(":email", email)
-        tpl_mail = self.__tpl_new_user()
-        tpl_mail = tpl_mail.replace(":subject", title_mail)
-        tpl_mail = tpl_mail.replace(":from", self.default_from)
-        tpl_mail = tpl_mail.replace(":to", ', '.join(self.default_to_new_user))
-        tpl_mail = tpl_mail.replace(":first_name", first_name.encode('ascii',
-                                    'ignore').decode('ascii'))
-        tpl_mail = tpl_mail.replace(":last_name", last_name.encode('ascii',
-                                    'ignore').decode('ascii'))
-        tpl_mail = tpl_mail.replace(":email", email)
-        tpl_mail = tpl_mail.replace(":time", str(datetime.now()))
-        self.server.starttls()
-        self.server.ehlo()
-        self.server.login(self.username, self.password)
-        self.server.sendmail(self.default_from, self.default_to_new_user,
-                             tpl_mail)
-
-    def send_new_finding(self, project, to, reason):
-        """Funcion que envia un email cuando hay un nuevo hallazgo."""
-        title_mail = "[:project] Problemas de seguridad reportados en \
-FLUIDIntegrates"
-        title_mail = title_mail.replace(":project", project.upper())
-        tpl_mail = self.__tpl_new_finding()
-        tpl_mail = tpl_mail.replace(":subject", title_mail)
-        tpl_mail = tpl_mail.replace(":from", self.default_from)
-        tpl_mail = tpl_mail.replace(":to", ', '.join(to))
-        tpl_mail = tpl_mail.replace(":project", project.upper())
-        tpl_mail = tpl_mail.replace(":reason", reason)
-        tpl_mail = tpl_mail.replace(":time", str(datetime.now()))
-        self.server.starttls()
-        self.server.ehlo()
-        self.server.login(self.username, self.password)
-        self.server.sendmail(self.default_from, to, tpl_mail)
-
-    def close(self):
-        """Funcion para cerrar la conexion ocn el servidor SMTP."""
-        self.server.quit()
+def send_mail_delete_finding(email_to, context):
+    __send_mail('deletefindingintegrates', email_to, context=context)
