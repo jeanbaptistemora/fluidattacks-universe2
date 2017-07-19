@@ -5,3 +5,6 @@ app/autodoc/results/*.pptx
 logs
 *.pyc
 *.sqlite3
+.bundle
+Gemfile.lock
+vendor
