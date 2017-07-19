@@ -25,6 +25,12 @@ def index(request):
     return render(request, "index.html", parameters)
 
 
+def error(request):
+    "Vista de error"
+    parameters = {}
+    return render(request, "HTTP500.html", parameters)
+
+
 @csrf_exempt
 @authenticate
 def registration(request):
@@ -35,7 +41,7 @@ def registration(request):
             'is_registered': request.session["registered"],
         }
     except KeyError:
-        return redirect('/index')
+        return redirect('/error')
     return render(request, "registration.html", parameters)
 
 
@@ -50,7 +56,7 @@ def dashboard(request):
         }
         integrates_dao.update_user_login_dao(request.session["username"])
     except KeyError:
-        return redirect('/index')
+        return redirect('/error')
     return render(request, "dashboard.html", parameters)
 
 
@@ -65,7 +71,7 @@ def logout(request):
         del(request.session["role"])
         del(request.session["registered"])
     except KeyError:
-        return redirect('/index')
+        return redirect('/error')
     return redirect("/index")
 
 

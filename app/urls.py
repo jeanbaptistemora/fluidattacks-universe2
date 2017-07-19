@@ -1,15 +1,25 @@
 """
     Archivo para relacion de rutas entre consultas http y vistas de django
 """
-from django.conf.urls import url, include
+
 # pylint: disable=E0402
 from . import views
 from . import services
+from django.conf.urls import url, include, handler400, handler403, handler404, handler500
+
+# pylint: disable=W0104
+handler400, handler403, handler404, handler500;
+
+handler400 = 'app.views.error'
+handler403 = 'app.views.error'
+handler404 = 'app.views.error'
+handler500 = 'app.views.error'
 
 urlpatterns = [
     url(r'^$', views.index, name='index'),
     # Procesamiento principal
     url(r'^index/?$', views.index, name='index'),
+    url(r'^error/?$', views.error, name='error'),
     url(r'^login/?$', services.login, name='login'),
     url(r'^logout/?$', views.logout, name='logout'),
     url(r'^dashboard/?$', views.dashboard, name='dashboard'),
