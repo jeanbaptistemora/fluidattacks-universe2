@@ -46,6 +46,10 @@ jobs:
                 prospector -u django app &&
                 prospector -u django fluidintegrates
 
+      - run:
+          name: Run SourceClear agent 
+          command: >
+                curl -sSL https://download.sourceclear.com/ci.sh | sh 
 
       - run:
           name: Run settings check
