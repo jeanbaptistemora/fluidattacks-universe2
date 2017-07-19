@@ -29,10 +29,13 @@ def index(request):
 @authenticate
 def registration(request):
     "Vista de registro para usuarios autenticados"
-    parameters = {
-        'username': request.session["username"],
-        'is_registered': request.session["registered"],
-    }
+    try:
+        parameters = {
+            'username': request.session["username"],
+            'is_registered': request.session["registered"],
+        }
+    except KeyError:
+        return redirect('/index')
     return render(request, "registration.html", parameters)
 
 
@@ -40,11 +43,14 @@ def registration(request):
 @authorize(['analyst', 'customer'])
 def dashboard(request):
     "Vista de panel de control para usuarios autenticados"
-    parameters = {
-        'username': request.session["username"],
-        'company': request.session["company"]
-    }
-    integrates_dao.update_user_login_dao(request.session["username"])
+    try:
+        parameters = {
+            'username': request.session["username"],
+            'company': request.session["company"]
+        }
+        integrates_dao.update_user_login_dao(request.session["username"])
+    except KeyError:
+        return redirect('/index')
     return render(request, "dashboard.html", parameters)
 
 
@@ -59,14 +65,14 @@ def logout(request):
         del(request.session["role"])
         del(request.session["registered"])
     except KeyError:
-        pass
+        return redirect('/index')
     return redirect("/index")
 
 
 # Documentacion automatica
 @csrf_exempt
 @require_http_methods(["GET"])
-@authorize(['analyst','customer'])
+@authorize(['analyst', 'customer'])
 def export_autodoc(request):
     "Captura y devuelve el pdf de un proyecto"
     project = request.GET.get('project', "")
@@ -116,7 +122,7 @@ def export_autodoc(request):
 
 @csrf_exempt
 @require_http_methods(["POST"])
-@authorize(['analyst','customer'])
+@authorize(['analyst', 'customer'])
 def generate_autodoc(request):
     "Genera la documentacion automatica"
     project = request.POST.get('project', "")
@@ -152,7 +158,7 @@ def generate_autodoc_ie(request, project, findings):
         IE.Fluid(project, findings, request)
 
 
-@authorize(['analyst','customer'])
+@authorize(['analyst', 'customer'])
 def generate_autodoc_it(request, project, findings):
     if(findings[0]["tipo"] == "Detallado"):
         IT.Bancolombia(project, findings, request)
