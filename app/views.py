@@ -25,10 +25,16 @@ def index(request):
     return render(request, "index.html", parameters)
 
 
-def error(request):
+def error500(request):
     "Vista de error"
     parameters = {}
     return render(request, "HTTP500.html", parameters)
+
+
+def error401(request):
+    "Vista de error"
+    parameters = {}
+    return render(request, "HTTP401.html", parameters)
 
 
 @csrf_exempt

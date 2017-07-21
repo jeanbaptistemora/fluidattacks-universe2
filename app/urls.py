@@ -10,10 +10,11 @@ from django.conf.urls import url, include, handler400, handler403, handler404, h
 # pylint: disable=W0104
 handler400, handler403, handler404, handler500;
 
-handler400 = 'app.views.error'
-handler403 = 'app.views.error'
-handler404 = 'app.views.error'
-handler500 = 'app.views.error'
+handler400 = 'app.views.error500'
+handler401 = 'app.views.error401'
+handler403 = 'app.views.error401'
+handler404 = 'app.views.error500'
+handler500 = 'app.views.error500'
 
 urlpatterns = [
     url(r'^$', views.index, name='index'),
