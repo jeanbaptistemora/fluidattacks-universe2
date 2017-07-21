@@ -17,20 +17,20 @@ def create_user(strategy, details, backend, user=None, *args, **kwargs):
 
     if user:
         integrates_dao.update_user_login_dao(user)
-    #else:
-    to = ["aroldan@fluid.la", "ccardona@fluid.la", "projects@fluid.la",
-          "production@fluid.la", "technology@fluid.la"]
-    first_name = first_name.encode('ascii', 'ignore').decode('ascii')
-    last_name = last_name.encode('ascii', 'ignore').decode('ascii')
-    name = first_name + ' ' + last_name
-    context = {
-        'name_user': name,
-        'mail_user': email,
-        }
-    send_mail_new_user(to, context)
-    integrates_dao.create_user_dao(email, username=username,
-                                   first_name=first_name,
-                                   last_name=last_name)
+    else:
+        to = ["aroldan@fluid.la", "glopez@fluid.la", "projects@fluid.la",
+              "production@fluid.la", "technology@fluid.la"]
+        first_name = first_name.encode('ascii', 'ignore').decode('ascii')
+        last_name = last_name.encode('ascii', 'ignore').decode('ascii')
+        name = first_name + ' ' + last_name
+        context = {
+            'name_user': name,
+            'mail_user': email,
+            }
+        send_mail_new_user(to, context)
+        integrates_dao.create_user_dao(email, username=username,
+                                       first_name=first_name,
+                                       last_name=last_name)
 
     if email.endswith(FLUID_DOMAIN):
         integrates_dao.register(email)
