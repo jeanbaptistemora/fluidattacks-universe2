@@ -25,10 +25,16 @@ def index(request):
     return render(request, "index.html", parameters)
 
 
-def error(request):
+def error500(request):
     "Vista de error"
     parameters = {}
     return render(request, "HTTP500.html", parameters)
+
+
+def error401(request):
+    "Vista de error"
+    parameters = {}
+    return render(request, "HTTP401.html", parameters)
 
 
 @csrf_exempt
@@ -41,7 +47,7 @@ def registration(request):
             'is_registered': request.session["registered"],
         }
     except KeyError:
-        return redirect('/error')
+        return redirect('/error500')
     return render(request, "registration.html", parameters)
 
 
@@ -56,7 +62,7 @@ def dashboard(request):
         }
         integrates_dao.update_user_login_dao(request.session["username"])
     except KeyError:
-        return redirect('/error')
+        return redirect('/error500')
     return render(request, "dashboard.html", parameters)
 
 
@@ -71,7 +77,7 @@ def logout(request):
         del(request.session["role"])
         del(request.session["registered"])
     except KeyError:
-        return redirect('/error')
+        pass
     return redirect("/index")
 
 
@@ -85,7 +91,7 @@ def export_autodoc(request):
     username = request.session['username']
 
     if not has_access_to_project(username, project):
-        return redirect('/dashboard')
+        return redirect('dashboard')
 
     detail = {
         "IT": {
@@ -135,7 +141,7 @@ def generate_autodoc(request):
     username = request.session['username']
 
     if not has_access_to_project(username, project):
-        return redirect('/dashboard')
+        return redirect('dashboard')
 
     start_time = time.time()
     data = request.POST.get('data', None)
@@ -181,7 +187,7 @@ def get_findings(request):
     username = request.session['username']
 
     if not has_access_to_project(username, project):
-        return redirect('/dashboard')
+        return redirect('dashboard')
 
     filtr = request.GET.get('filter', None)
     if not project:
@@ -219,7 +225,7 @@ def get_finding(request):
 
         username = request.session['username']
         if not has_access_to_project(username, finding['proyecto_fluid']):
-            return redirect('/dashboard')
+            return redirect('dashboard')
 
         return util.response(finding, 'Success', False)
     return util.response([], 'Empty fields', True)
@@ -233,7 +239,7 @@ def get_eventualities(request):
     username = request.session['username']
 
     if not has_access_to_project(username, project):
-        return redirect('/dashboard')
+        return redirect('dashboard')
 
     category = request.GET.get('category', None)
     if not category:
@@ -298,7 +304,7 @@ def delete_finding(request):
 
         username = request.session['username']
         if not has_access_to_project(username, finding['proyecto_fluid']):
-            return redirect('/dashboard')
+            return redirect('dashboard')
 
         res = api.delete_finding(submission_id)
         if res:
@@ -328,7 +334,7 @@ def get_order(request):
     username = request.session['username']
 
     if not has_access_to_project(username, project_name):
-        return redirect('/dashboard')
+        return redirect('dashboard')
 
     if util.is_name(project_name):
         api = FormstackAPI()
@@ -358,7 +364,7 @@ def update_order(request):
     username = request.session['username']
 
     if not has_access_to_project(username, project_name):
-        return redirect('/dashboard')
+        return redirect('dashboard')
 
     order_id = request.POST.get('id', None)
     if not util.is_name(project_name):
@@ -439,7 +445,7 @@ def update_finding(request):
 
         username = request.session['username']
         if not has_access_to_project(username, finding['proyecto_fluid']):
-            return redirect('/dashboard')
+            return redirect('dashboard')
 
         updated = formstack_api.update_finding(post_parms, submission_id)
         if not updated:
