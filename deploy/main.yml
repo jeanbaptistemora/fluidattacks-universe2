@@ -71,6 +71,7 @@
       - ansible
       - django-crontab
       - django-analytical
+      - mandrill
      register: installed_deps
 
    - name: Patch social auth module
