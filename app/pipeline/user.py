@@ -20,8 +20,6 @@ def create_user(strategy, details, backend, user=None, *args, **kwargs):
     else:
         to = ["aroldan@fluid.la", "glopez@fluid.la", "projects@fluid.la",
               "production@fluid.la", "technology@fluid.la"]
-        first_name = first_name.encode('ascii', 'ignore').decode('ascii')
-        last_name = last_name.encode('ascii', 'ignore').decode('ascii')
         name = first_name + ' ' + last_name
         context = {
             'name_user': name,
