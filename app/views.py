@@ -14,7 +14,7 @@ from .decorators import authenticate, authorize
 from .models import FormstackAPI, FormstackRequestMapper
 from .autodoc import IE, IT
 # pylint: disable=E0402
-from .mailer import Mailer
+from .mailer import send_mail_delete_finding
 from .services import has_access_to_project
 from .dao import integrates_dao
 
@@ -306,9 +306,14 @@ def delete_finding(request):
             finding = post_parms["vuln[hallazgo]"]
             justify = post_parms["vuln[justificacion]"]
             analyst = request.session["username"]
-            send_mail = Mailer()
-            send_mail.send_delete_finding(finding_id, finding, analyst, justify)
-            send_mail.close()
+            context = {
+                'mail_analista': analyst,
+                'name_finding': finding,
+                'id_finding': finding_id,
+                'description': justify,
+                }
+            to = ["engineering@fluid.la"]
+            send_mail_delete_finding(to, context)
             return util.response([], 'Eliminado correctamente!', False)
         return util.response([], 'No se pudo actualizar',
                              True)

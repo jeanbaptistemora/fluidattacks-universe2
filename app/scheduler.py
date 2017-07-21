@@ -3,7 +3,7 @@
 # pylint: disable=E0402
 from .dao import integrates_dao
 from .models import FormstackAPI
-from .mailer import Mailer
+from .mailer import send_mail_new_finding
 
 
 def get_new_findings():
@@ -16,17 +16,15 @@ def get_new_findings():
         if new_findings != cur_findings:
             if new_findings > cur_findings:
                 delta = new_findings - cur_findings
-                if delta == 1:
-                    reason = str(delta) + ' nuevo problema de seguridad '
-                else:
-                    reason = str(delta) + ' nuevos problemas de seguridad'
             else:
-                reason = 'un cambio en las vulnerabilidades'
+                delta = 0
             recipients = integrates_dao.get_project_users(project)
             print(recipients)
             # Send email
             to = ['engineering@fluid.la', 'projects@fluid.la']
-            send_mail = Mailer()
-            send_mail.send_new_finding(project[0], to, reason)
-            send_mail.close()
+            context = {
+                'cantidad': str(delta),
+                'proyecto': project[0],
+            }
+            send_mail_new_finding(to, context)
             integrates_dao.update_findings_amount(project[0], new_findings)
