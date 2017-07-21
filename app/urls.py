@@ -20,7 +20,8 @@ urlpatterns = [
     url(r'^$', views.index, name='index'),
     # Procesamiento principal
     url(r'^index/?$', views.index, name='index'),
-    url(r'^error/?$', views.error, name='error'),
+    url(r'^error500/?$', views.error500, name='error500'),
+    url(r'^error401/?$', views.error401, name='error401'),
     url(r'^login/?$', services.login, name='login'),
     url(r'^logout/?$', views.logout, name='logout'),
     url(r'^dashboard/?$', views.dashboard, name='dashboard'),
