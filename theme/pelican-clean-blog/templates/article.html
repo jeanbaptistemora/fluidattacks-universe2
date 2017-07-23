@@ -88,6 +88,7 @@
 
 {% block header %}
     <!-- Page Header -->
+    {% include "navigationbar.html" %}
     {% if article.header_cover %}
         <header class="intro-header" style="background-image: url('{{ article.header_cover }}')">
     {% elif HEADER_COVER %}
@@ -96,8 +97,7 @@
         <header class="intro-header" style="background-color: {{ HEADER_COLOR }}">
     {% else %}
         <header class="intro-header" id="intro-art" style="background-image: url('{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/post-bg.jpg')">
-    {% endif %}
-    {% include "navigationbar.html" %} 
+    {% endif %}     
         <div class="container" onclick="window.location = '{{ SITEURL }}'">
             <div class="row" id="rowart">
                 <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
