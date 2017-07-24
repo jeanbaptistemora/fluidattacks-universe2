@@ -5,6 +5,7 @@ import os
 import json
 import time
 from django.shortcuts import render, redirect
+from django.views.decorators.cache import never_cache
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_http_methods
 from django.http import HttpResponse
@@ -18,7 +19,7 @@ from .mailer import send_mail_delete_finding
 from .services import has_access_to_project
 from .dao import integrates_dao
 
-
+@never_cache
 def index(request):
     "Vista de login para usuarios no autenticados"
     parameters = {}
@@ -50,7 +51,7 @@ def registration(request):
         return redirect('/error500')
     return render(request, "registration.html", parameters)
 
-
+@never_cache
 @csrf_exempt
 @authorize(['analyst', 'customer'])
 def dashboard(request):
@@ -82,6 +83,7 @@ def logout(request):
 
 
 # Documentacion automatica
+@never_cache
 @csrf_exempt
 @require_http_methods(["GET"])
 @authorize(['analyst', 'customer'])
@@ -132,6 +134,7 @@ def export_autodoc(request):
     return HttpResponse(expt.message)
 
 
+@never_cache
 @csrf_exempt
 @require_http_methods(["POST"])
 @authorize(['analyst', 'customer'])
@@ -178,6 +181,7 @@ def generate_autodoc_it(request, project, findings):
         IT.Fluid(project, findings, request)
 
 
+@never_cache
 @csrf_exempt
 @authorize(['analyst', 'customer'])
 def get_findings(request):
@@ -213,6 +217,7 @@ def get_findings(request):
     return util.response(findings, 'Success', False)
 
 
+@never_cache
 @csrf_exempt
 @authorize(['analyst', 'customer'])
 def get_finding(request):
@@ -237,6 +242,7 @@ def get_finding(request):
     return util.response([], 'Empty fields', True)
 
 
+@never_cache
 @csrf_exempt
 @authorize(['analyst'])
 def get_eventualities(request):
