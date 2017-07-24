@@ -4,8 +4,8 @@
  */
 /**
  * Crea el factory de la funcionalidad de eventualidades
- * @name  
- * @param {Object} $q 
+ * @name
+ * @param {Object} $q
  * @return {undefined}
  */
 integrates.factory('eventualityFactory', function($q){
@@ -26,7 +26,7 @@ integrates.factory('eventualityFactory', function($q){
                     project: project,
                     category: category
                   },
-                  success: function (response) { 
+                  success: function (response) {
                       $(".loader").hide();
                       deferred.resolve(response);
                   },
@@ -34,17 +34,17 @@ integrates.factory('eventualityFactory', function($q){
                       $(".loader").hide();
                       if(xhr.status == 500){
                         deferred.resolve({
-                            error: null, 
+                            error: null,
                             message: "Error interno cargando datos"
                         });
                       }else if(xhr.status == 401){
-                         location = "/index"; 
-                      }    
+                         location = "error401";
+                      }
                   }
               });
           } catch (e) {
               if(e.status == 401){
-                  location = "/index";
+                  location = "error401";
               }
               deferred.resolve('exception');
           }
@@ -66,32 +66,32 @@ integrates.factory('eventualityFactory', function($q){
                 data: {
                     vuln: vuln
                   },
-                  success: function (response) { 
+                  success: function (response) {
                       deferred.resolve(response);
                   },
                   error: function (xhr, status) {
                       $(".loader").hide();
                       if(xhr.status == 500){
                         deferred.resolve({
-                            error: null, 
+                            error: null,
                             message: "Error interno cargando datos"
                         });
                       }else if(xhr.status == 401){
-                         location = "/index"; 
-                      }    
+                         location = "error401";
+                      }
                   }
               });
           } catch (e) {
               if(e.status == 401){
-                  location = "/index";
+                  location = "error401";
               }else if(e.status == 500){
                   deferred.resolve({
-                    error: undefined, 
+                    error: undefined,
                     message: "Error interno cargando datos"
                   });
               }else{
                   deferred.resolve({
-                    error: undefined, 
+                    error: undefined,
                     message: "Error desconocido"
                   });
               }

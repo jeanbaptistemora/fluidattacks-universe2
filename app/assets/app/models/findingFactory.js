@@ -4,8 +4,8 @@
  */
 /**
  * Crea el factory de la funcionalidad de hallazgos
- * @name findingFactory 
- * @param {Object} $q 
+ * @name findingFactory
+ * @param {Object} $q
  * @return {undefined}
  */
 integrates.factory('findingFactory', function($q){
@@ -27,30 +27,30 @@ integrates.factory('findingFactory', function($q){
                     filter: filter,
                     _: Math.random()
                   },
-                  success: function (response) { 
+                  success: function (response) {
                       $(".loader").hide();
                       deferred.resolve(response);
                   },
-                  error: function (xhr, status) {   
+                  error: function (xhr, status) {
                       $(".loader").hide();
                       if(xhr.status == 500){
                         deferred.resolve({
-                            error: null, 
+                            error: null,
                             message: "Error interno cargando datos"
                         });
                       }else if(xhr.status == 401){
-                         location = "/index"; 
-                      }               
+                         location = "error401";
+                      }
                   }
               });
           } catch (e) {
               if(e.status == 401){
-                  location = "/index";
+                  location = "error401";
               }
               deferred.resolve('exception');
           }
           return deferred.promise
-     	},
+        },
          /**
          * Invoca el servicio para tener los hallazgos de un proyecto por id
          * @function getVulnById
@@ -68,30 +68,30 @@ integrates.factory('findingFactory', function($q){
                     id: id,
                     _: Math.random()
                   },
-                  success: function (response) { 
+                  success: function (response) {
                       $(".loader").hide();
                       deferred.resolve(response);
                   },
-                  error: function (xhr, status) {   
+                  error: function (xhr, status) {
                       $(".loader").hide();
                       if(xhr.status == 500){
                         deferred.resolve({
-                            error: null, 
+                            error: null,
                             message: "Error interno cargando datos"
                         });
                       }else if(xhr.status == 401){
-                         location = "/index"; 
-                      }               
+                         location = "error401";
+                      }
                   }
               });
           } catch (e) {
               if(e.status == 401){
-                  location = "/index";
+                  location = "error401";
               }
               deferred.resolve('exception');
           }
           return deferred.promise
-     	},
+        },
         /**
          * Invoca el servicio para tener el id de un proyecto
          * @function getIdByProject
@@ -109,32 +109,32 @@ integrates.factory('findingFactory', function($q){
                     project: project,
                     _: Math.random()
                   },
-                  success: function (response) { 
+                  success: function (response) {
                       $(".loader").hide();
                       deferred.resolve(response);
                   },
-                  error: function (xhr, status) {   
+                  error: function (xhr, status) {
                       $(".loader").hide();
                       if(xhr.status == 500){
                         deferred.resolve({
-                            error: null, 
+                            error: null,
                             message: "Error interno cargando datos"
                         });
                       }else if(xhr.status == 401){
-                         location = "/index"; 
-                      }               
+                         location = "error401";
+                      }
                   }
               });
           } catch (e) {
               if(e.status == 401){
-                  location = "/index";
+                  location = "error401";
               }
               deferred.resolve('exception');
           }
           return deferred.promise
-     	},
+        },
         /**
-         * Invoca el servicio para crear el proceso que genera 
+         * Invoca el servicio para crear el proceso que genera
          * la documentacion de un proyecto
          * @function generateDoc
          * @param {String} project
@@ -153,20 +153,20 @@ integrates.factory('findingFactory', function($q){
                     data: json,
                     format: format
                   },
-                  success: function (response) { 
+                  success: function (response) {
                       $(".loader").hide();
                       deferred.resolve(response);
                   },
-                  error: function (xhr, status) {   
+                  error: function (xhr, status) {
                       $(".loader").hide();
                       if(xhr.status == 500){
                         deferred.resolve({
-                            error: null, 
+                            error: null,
                             message: "Error interno cargando datos"
                         });
                       }else if(xhr.status == 401){
-                         location = "/index"; 
-                      }                 
+                         location = "error401";
+                      }
                   }
               });
           } catch (e) {
@@ -174,7 +174,7 @@ integrates.factory('findingFactory', function($q){
               deferred.resolve('exception');
           }
           return deferred.promise
-     	},
+        },
         /**
          * Invoca el servicio para actualizar un hallazgo
          * @function updateVuln
@@ -192,24 +192,24 @@ integrates.factory('findingFactory', function($q){
                 data: {
                     vuln: vuln
                   },
-                  success: function (response) { 
+                  success: function (response) {
                       deferred.resolve(response);
                   },
                   error: function (xhr, status) {
                       $(".loader").hide();
                       if(xhr.status == 500){
                         deferred.resolve({
-                            error: null, 
+                            error: null,
                             message: "Error interno cargando datos"
                         });
                       }else if(xhr.status == 401){
-                         location = "/index"; 
-                      }    
+                         location = "error401";
+                      }
                   }
               });
           } catch (e) {
               if(e.status == 401){
-                  location = "/index";
+                  location = "error401";
               }
               deferred.resolve('exception');
           }
@@ -231,24 +231,24 @@ integrates.factory('findingFactory', function($q){
                 data: {
                     vuln: vuln
                   },
-                  success: function (response) { 
+                  success: function (response) {
                       deferred.resolve(response);
                   },
                   error: function (xhr, status) {
                       $(".loader").hide();
                       if(xhr.status == 500){
                         deferred.resolve({
-                            error: null, 
+                            error: null,
                             message: "Error interno cargando datos"
                         });
                       }else if(xhr.status == 401){
-                         location = "/index"; 
-                      }    
+                         location = "error401";
+                      }
                   }
               });
           } catch (e) {
               if(e.status == 401){
-                  location = "/index";
+                  location = "error401";
               }
               deferred.resolve('exception');
           }
@@ -272,32 +272,32 @@ integrates.factory('findingFactory', function($q){
                         project: project,
                         id: id
                     },
-                    success: function (response) { 
+                    success: function (response) {
                         deferred.resolve(response);
                     },
                     error: function (xhr, status) {
                         $(".loader").hide();
                         if(xhr.status == 500){
                             deferred.resolve({
-                                error: null, 
+                                error: null,
                                 message: "Error interno cargando datos"
                             });
                         }else if(xhr.status == 401){
-                            location = "/index"; 
-                        }    
+                            location = "error401";
+                        }
                     }
                 });
           } catch (e) {
               if(e.status == 401){
-                  location = "/index";
+                  location = "error401";
               }else if(e.status == 500){
                   deferred.resolve({
-                    error: undefined, 
+                    error: undefined,
                     message: "Error interno cargando datos"
                   });
               }else{
                   deferred.resolve({
-                    error: undefined, 
+                    error: undefined,
                     message: "Error desconocido"
                   });
               }
