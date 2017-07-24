@@ -24,7 +24,7 @@ def get_new_findings():
             to = ['engineering@fluid.la', 'projects@fluid.la']
             context = {
                 'cantidad': str(delta),
-                'proyecto': project[0],
+                'proyecto': project[0].upper(),
             }
             send_mail_new_finding(to, context)
             integrates_dao.update_findings_amount(project[0], new_findings)

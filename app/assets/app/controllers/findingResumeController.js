@@ -37,7 +37,7 @@ integrates.controller("FindingResumeController", function($scope, $stateParams,
 
         if($scope.header.findingState == "Abierto"){
             $scope.header.findingStateColor = $scope.colors.critical;
-        }else if($scope.header.findingState == "Parcial"){
+        }else if($scope.header.findingState == "Parcialmente cerrado"){
             $scope.header.findingStateColor = $scope.colors.moderate;
         }else{
             $scope.header.findingStateColor = $scope.colors.ok;
