@@ -313,9 +313,9 @@ AppleWebKit/537.36 (KHTML, like Gecko) FLUIDIntegrates/1.0'
                 if closing_parsed['abiertas'] == '0':
                     state = 'Cerrado'
                 if int(closing_parsed['abiertas']) > 0:
-                    state = 'Parcial'
+                    state = 'Parcialmente cerrado'
             else:
-                state = 'Parcial'
+                state = 'Parcialmente cerrado'
         closing_parsed['estado'] = state
         return closing_parsed
 
