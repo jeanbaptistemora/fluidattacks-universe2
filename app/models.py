@@ -66,10 +66,18 @@ class FormstackRequestMapper(object):
     FINDING_SISTEMA_COMPROMETIDO = "48092123"
     FINDING_VECTOR_ATAQUE = "48092088"
 
+    CLOSING_HALLAZGO = '39596063'
+    CLOSING_SOLICITADAS = '39596365'
+    CLOSING_VERIFICADAS = '47700230'
+    CLOSING_ABIERTAS = '39596368'
+    CLOSING_ABIERTAS_CUALES = '39596128'
+    CLOSING_CERRADAS = '39596370'
+    CLOSING_CERRADAS_CUALES = '39596202'
+
     # pylint: disable=R0915
-    def map_finding(self, finding_request): # noqa
+    def map_finding(self, finding_request):  # noqa
         """Convierte los campos de un JSON hallazgo
-           de Formstack para manipularlos en integrates."""
+        de Formstack para manipularlos en integrates."""
         parsed = dict()
         for finding in finding_request["data"]:
             # DETALLES VULNERABILIDAD
@@ -156,6 +164,30 @@ class FormstackRequestMapper(object):
                 parsed["nivel"] = finding["value"]
         parsed["id"] = finding_request["id"]
         parsed["timestamp"] = finding_request["timestamp"]
+        return parsed
+
+    def map_closing(self, closing_request):  # noqa
+        """Convierte los campos de un JSON cierre
+           de Formstack para manipularlos en integrates."""
+        parsed = dict()
+        for closing in closing_request["data"]:
+            # DETALLES CIERRE
+            if closing["field"] == self.CLOSING_HALLAZGO:
+                parsed["hallazgo"] = closing["value"]
+            if closing["field"] == self.CLOSING_SOLICITADAS:
+                parsed["solicitadas"] = closing["value"]
+            if closing["field"] == self.CLOSING_VERIFICADAS:
+                parsed["verificadas"] = closing["value"]
+            if closing["field"] == self.CLOSING_ABIERTAS:
+                parsed["abiertas"] = closing["value"]
+            if closing["field"] == self.CLOSING_ABIERTAS_CUALES:
+                parsed["abiertas_cuales"] = closing["value"]
+            if closing["field"] == self.CLOSING_CERRADAS:
+                parsed["cerradas"] = closing["value"]
+            if closing["field"] == self.CLOSING_CERRADAS_CUALES:
+                parsed["cerradas_cuales"] = closing["value"]
+        parsed["id"] = closing_request["id"]
+        parsed["timestamp"] = closing_request["timestamp"]
         return parsed
 
     def map_eventuality(self, eventuality_request):
@@ -261,6 +293,14 @@ AppleWebKit/537.36 (KHTML, like Gecko) FLUIDIntegrates/1.0'
         de proyecto."""
         url = "https://www.formstack.com/api/v2/form/1998500/submission.json"
         search_field = "32201732"
+        data = {'search_field_1': search_field, 'search_value_1': project}
+        return self.request("GET", url, data=data)
+
+    def get_closings(self, project):
+        """Obtiene los hallazgos de un proyecto a partir del nombre
+        de proyecto."""
+        url = "https://www.formstack.com/api/v2/form/2264008/submission.json"
+        search_field = "39596058"
         data = {'search_field_1': search_field, 'search_value_1': project}
         return self.request("GET", url, data=data)
 
