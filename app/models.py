@@ -66,6 +66,7 @@ class FormstackRequestMapper(object):
     FINDING_SISTEMA_COMPROMETIDO = "48092123"
     FINDING_VECTOR_ATAQUE = "48092088"
 
+    CLOSING_PROYECTO = '39596058'
     CLOSING_HALLAZGO = '39596063'
     CLOSING_VISIBLES = '47484630'
     CLOSING_SOLICITADAS = '39596365'
@@ -299,12 +300,37 @@ AppleWebKit/537.36 (KHTML, like Gecko) FLUIDIntegrates/1.0'
         data = {'search_field_1': search_field, 'search_value_1': project}
         return self.request("GET", url, data=data)
 
-    def get_closings(self, project):
+    def get_finding_state(self, submission_id):
+        """Obtiene el estado de un hallazgo."""
+        closings = self.get_closings_by_finding(submission_id)['submissions']
+        rmp = FormstackRequestMapper()
+        state = 'Abierto'
+        for closing in closings:
+            closing_json = self.get_submission(closing['id'])
+            closing_parsed = rmp.map_closing(closing_json)
+            if closing_parsed['visibles'] == closing_parsed['visibles']:
+                if closing_parsed['abiertas'] == '0':
+                    state = 'Cerrado'
+                if int(closing_parsed['abiertas']) > 0:
+                    state = 'Parcial'
+            else:
+                state = 'Parcial'
+        return state
+
+    def get_closings_by_project(self, project):
         """Obtiene los hallazgos de un proyecto a partir del nombre
         de proyecto."""
         url = "https://www.formstack.com/api/v2/form/2264008/submission.json"
         search_field = "39596058"
         data = {'search_field_1': search_field, 'search_value_1': project}
+        return self.request("GET", url, data=data)
+
+    def get_closings_by_finding(self, finding):
+        """Obtiene los hallazgos de un proyecto a partir del nombre
+        de proyecto."""
+        url = "https://www.formstack.com/api/v2/form/2264008/submission.json"
+        search_field = "39596063"
+        data = {'search_field_1': search_field, 'search_value_1': finding}
         return self.request("GET", url, data=data)
 
     def get_eventualities(self, project):
