@@ -216,17 +216,23 @@ def get_findings(request):
 @csrf_exempt
 @authorize(['analyst', 'customer'])
 def get_finding(request):
-    project_id = request.POST.get('id', None)
-    if util.is_numeric(project_id):
+    submission_id = request.POST.get('id', None)
+    if util.is_numeric(submission_id):
         api = FormstackAPI()
         rmp = FormstackRequestMapper()
-        formstack_request = api.get_submission(project_id)
+        formstack_request = api.get_submission(submission_id)
         finding = rmp.map_finding(formstack_request)
 
         username = request.session['username']
         if not has_access_to_project(username, finding['proyecto_fluid']):
             return redirect('dashboard')
 
+        state = api.get_finding_state(submission_id)
+        finding['estado'] = state['estado']
+        if 'abiertas' in state:
+            finding['cardinalidad'] = state['abiertas']
+        if 'abiertas_cuales' in state:
+            finding['donde'] = state['abiertas_cuales']
         return util.response(finding, 'Success', False)
     return util.response([], 'Empty fields', True)
 
