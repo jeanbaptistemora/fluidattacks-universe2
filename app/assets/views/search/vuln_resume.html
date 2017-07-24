@@ -13,7 +13,7 @@
             Tipo <span class="label label-default">{{header.findingType}}</span>
         </div>
         <!--<div class="col-md-2 col-sm-6 col-sm-6" style="margin-top: 5px;">
-            Riesgo <span class="label label-default" 
+            Riesgo <span class="label label-default"
                          style="background-color: #F12;">Alto</span>
         </div>-->
         <div class="col-md-2  col-sm-12"  style="margin-top: 5px;">
@@ -24,10 +24,10 @@
             Cardinalidad <span class="label label-default">{{header.findingCount}}</span>
         </div>
         <div class="col-md-2"  style="margin-top: 5px;">
-            Estado <span class="label label-warning"
-                         style="background-color: #F12;">Abierto</span>
+            Estado <span class="label label-default"
+                         style="{{header.findingStateColor}}">{{header.findingState}}</span>
         </div>
-    </div> 
+    </div>
     <div class="row">
         <div class="col-md-12">
             <hr>
@@ -59,14 +59,14 @@
                         <div class="row">
                             <div class="col-md-3">
                                 <label>Proyecto Fluid</label>
-                                <input type="text" ng-model="finding.proyecto_fluid" 
+                                <input type="text" ng-model="finding.proyecto_fluid"
                                                    id="proyecto_fluid"
                                                    class="form-control" disabled>
                             </div>
                             <div class="col-md-3">
                                 <label>Proyecto Cliente</label>
-                                <input type="text" ng-model="finding.proyecto_cliente" 
-                                                   id="proyecto_cliente" 
+                                <input type="text" ng-model="finding.proyecto_cliente"
+                                                   id="proyecto_cliente"
                                                    class="form-control" disabled>
                             </div>
                             <div class="col-md-6">
@@ -78,7 +78,7 @@
                                 <label>Tipo de prueba</label>
                                 <select ng-model="finding.tipo_prueba"
                                         class="form-control">
-                                    <option ng-repeat="item in list.finding_test_type" 
+                                    <option ng-repeat="item in list.finding_test_type"
                                             value="{{item.name}}">
                                         {{item.name}}
                                     </option>
@@ -88,7 +88,7 @@
                                 <label>Actor</label>
                                 <select ng-model="finding.actor"
                                         class="form-control">
-                                    <option ng-repeat="item in list.actor" 
+                                    <option ng-repeat="item in list.actor"
                                             value="{{item.name}}">{{item.name}}</option>
                                 </select>
                             </div>
@@ -96,7 +96,7 @@
                                 <label>Escenario</label>
                                 <select ng-model="finding.escenario"
                                         class="form-control">
-                                    <option ng-repeat="item in list.scenario" 
+                                    <option ng-repeat="item in list.scenario"
                                             value="{{item.name}}">{{item.name}}</option>
                                 </select>
                             </div>
@@ -108,7 +108,7 @@
                                     <label>Categoria</label>
                                     <select ng-model="finding.categoria"
                                             class="form-control">
-                                        <option ng-repeat="item in list.categories" 
+                                        <option ng-repeat="item in list.categories"
                                                 value="{{item.name}}">
                                             {{item.name}}
                                         </option>
@@ -121,7 +121,7 @@
                                     <select ng-model="finding.probabilidad"
                                             ng-change="calculateSeveridad();"
                                             class="form-control">
-                                        <option ng-repeat="item in list.probability" 
+                                        <option ng-repeat="item in list.probability"
                                                 value="{{item.name}}">
                                             {{item.name}}
                                         </option>
@@ -131,7 +131,7 @@
                             <div class="col-md-2" ng-class="esDetallado">
                                 <div class="form-group">
                                     <label>Severidad</label>
-                                    <input type="text" class="form-control" 
+                                    <input type="text" class="form-control"
                                            ng-model="finding.severidad"
                                            ng-blur="calculateSeveridad();">
                                 </div>
@@ -139,7 +139,7 @@
                             <div class="col-md-3"  ng-class="esDetallado">
                                 <div class="form-group">
                                     <label>Valoración Riesgo</label>
-                                    <input type="text" class="form-control" 
+                                    <input type="text" class="form-control"
                                            id="riesgo"
                                            ng-model="finding.valor_riesgo" disabled>
                                 </div>
@@ -165,9 +165,9 @@
                             <div class="col-md-6">
                                 <label>Vulnerabilidades</label>
                                 <input class="form-control"
-                                       type="number" step="1" 
+                                       type="number" step="1"
                                        ng-model="finding.cardinalidad">
-                            </div>                           
+                            </div>
                             <div class="col-md-6">
                                 <label>Requisito</label>
                                 <textarea class="form-control no-resize"
@@ -186,7 +186,7 @@
                             <div class="col-md-6" ng-class="esGeneral">
                                 <div class="form-group">
                                     <label>Vectores de ataque</label>
-                                    <textarea class="form-control no-resize" 
+                                    <textarea class="form-control no-resize"
                                               rows="8">{{finding.vector_ataque}}</textarea>
                                 </div>
                             </div>
@@ -205,7 +205,7 @@
                                 <select ng-model="finding.vector_acceso"
                                         ng-change="calculteCSSv2();"
                                         class="form-control">
-                                    <option ng-repeat="item in list.accessVector" 
+                                    <option ng-repeat="item in list.accessVector"
                                             value="{{item.value + ' | ' + item.name}}">
                                         {{item.name}}
                                     </option>
@@ -216,7 +216,7 @@
                                 <select ng-model="finding.complejidad_acceso"
                                         ng-change="calculteCSSv2();"
                                         class="form-control">
-                                    <option ng-repeat="item in list.accessComplexity" 
+                                    <option ng-repeat="item in list.accessComplexity"
                                             value="{{item.value + ' | ' + item.name}}">
                                         {{item.name}}
                                     </option>
@@ -227,7 +227,7 @@
                                 <select ng-model="finding.autenticacion"
                                         ng-change="calculteCSSv2();"
                                         class="form-control">
-                                    <option ng-repeat="item in list.authentication" 
+                                    <option ng-repeat="item in list.authentication"
                                             value="{{item.value + ' | ' + item.name}}">
                                             {{item.name}}
                                     </option>
@@ -238,7 +238,7 @@
                                 <select ng-model="finding.impacto_confidencialidad"
                                         ng-change="calculteCSSv2();"
                                         class="form-control">
-                                    <option ng-repeat="item in list.confidenciality" 
+                                    <option ng-repeat="item in list.confidenciality"
                                             value="{{item.value + ' | ' + item.name}}">
                                         {{item.name}}
                                     </option>
@@ -260,7 +260,7 @@
                                 <select ng-model="finding.impacto_disponibilidad"
                                         ng-change="calculteCSSv2();"
                                         class="form-control">
-                                    <option ng-repeat="item in list.availability" 
+                                    <option ng-repeat="item in list.availability"
                                             value="{{item.value + ' | ' + item.name}}">
                                         {{item.name}}
                                     </option>
@@ -271,7 +271,7 @@
                                 <select ng-model="finding.explotabilidad"
                                         ng-change="calculteCSSv2();"
                                         class="form-control">
-                                    <option ng-repeat="item in list.explotability" 
+                                    <option ng-repeat="item in list.explotability"
                                             value="{{item.value + ' | ' + item.name}}">
                                             {{item.name}}
                                     </option>
@@ -282,7 +282,7 @@
                                 <select ng-model="finding.nivel_resolucion"
                                         ng-change="calculteCSSv2();"
                                         class="form-control">
-                                    <option ng-repeat="item in list.resolutionLevel" 
+                                    <option ng-repeat="item in list.resolutionLevel"
                                             value="{{item.value + ' | ' + item.name}}">
                                         {{item.name}}
                                     </option>
@@ -293,7 +293,7 @@
                                 <select ng-model="finding.nivel_confianza"
                                         ng-change="calculteCSSv2();"
                                         class="form-control">
-                                    <option ng-repeat="item in list.realiabilityLevel" 
+                                    <option ng-repeat="item in list.realiabilityLevel"
                                             value="{{item.value + ' | ' + item.name}}">
                                         {{item.name}}
                                     </option>
@@ -369,7 +369,7 @@
                                             </div>
                                         </div>
                                     </li>
-            
+
                                     <li class="timeline-item timeline-loadmore"><a href="#" class="load-more-btn">Load more</a></li>
                                 </ul>
                             </div>

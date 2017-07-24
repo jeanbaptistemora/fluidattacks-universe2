@@ -227,7 +227,12 @@ def get_finding(request):
         if not has_access_to_project(username, finding['proyecto_fluid']):
             return redirect('dashboard')
 
-        api.get_finding_state(submission_id)
+        state = api.get_finding_state(submission_id)
+        finding['estado'] = state['estado']
+        if 'abiertas' in state:
+            finding['cardinalidad'] = state['abiertas']
+        if 'abiertas_cuales' in state:
+            finding['donde'] = state['abiertas_cuales']
         return util.response(finding, 'Success', False)
     return util.response([], 'Empty fields', True)
 

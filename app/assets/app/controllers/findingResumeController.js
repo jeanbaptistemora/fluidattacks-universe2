@@ -4,8 +4,8 @@
  */
 /**
  * Funciones para administrar el UI del resumen de un hallazgo
- * @name findingResumeController 
- * @param {Object} $scope 
+ * @name findingResumeController
+ * @param {Object} $scope
  * @param {Object} $uibModal
  * @param {Object} $stateParams
  * @param {Object} $translate
@@ -14,13 +14,14 @@
  */
 integrates.controller("FindingResumeController", function($scope, $stateParams,
                                                           $uibModal, $translate,
-                                                          ngNotify, findingFactory) {                                                            
+                                                          ngNotify, findingFactory) {
     $scope.headerBuilding = function(){
         //console.log($scope.finding);
         $scope.header = {};
         $scope.header.findingTitle = $scope.finding.hallazgo;
         $scope.header.findingType = $scope.finding.tipo_prueba;
         $scope.header.findingRisk = "";
+        $scope.header.findingState = $scope.finding.estado;
         $scope.header.findingValue = $scope.finding.criticidad;
         var findingValue = parseFloat($scope.finding.criticidad);
         if(findingValue >= 7){
@@ -33,8 +34,17 @@ integrates.controller("FindingResumeController", function($scope, $stateParams,
             $scope.header.findingValueDescription = " Tolerable";
             $scope.header.findingValueColor = $scope.colors.tolerable;
         }
+
+        if($scope.header.findingState == "Abierto"){
+            $scope.header.findingStateColor = $scope.colors.critical;
+        }else if($scope.header.findingState == "Parcial"){
+            $scope.header.findingStateColor = $scope.colors.moderate;
+        }else{
+            $scope.header.findingStateColor = $scope.colors.ok;
+        }
+
         $scope.header.findingCount = $scope.finding.cardinalidad;
-    };                                                           
+    };
     $scope.loadFindingByID = function(id){
         if(isNaN(id)){
            window.close();  //avoid fake paths or id
@@ -60,7 +70,8 @@ integrates.controller("FindingResumeController", function($scope, $stateParams,
         $scope.colors.critical = "background-color: #f12;";  //red
         $scope.colors.moderate = "background-color: #f72;";  //orange
         $scope.colors.tolerable = "background-color: #fd2;"; //yellow
-    };                  
+        $scope.colors.ok = "background-color: #008000;"; //green
+    };
     $scope.calculteCSSv2 = function(){
         var ImpCon = parseFloat($scope.finding.impacto_confidencialidad.split(" | ")[0]);
         var ImpInt = parseFloat($scope.finding.impacto_integridad.split(" | ")[0]);
@@ -122,7 +133,7 @@ integrates.controller("FindingResumeController", function($scope, $stateParams,
                 prob = prob.split("%")[0];
                 prob = parseFloat(prob)/100.0;
                 severidad = parseFloat(severidad);
-                var vRiesgo = prob*severidad; 
+                var vRiesgo = prob*severidad;
                 if(vRiesgo >= 3){
                     $scope.finding.valor_riesgo = "(:r) Critico".replace(":r", vRiesgo.toFixed(1));
                 }else if(vRiesgo >= 2 && vRiesgo < 3){
@@ -160,7 +171,7 @@ integrates.controller("FindingResumeController", function($scope, $stateParams,
         $("#cssv2base").attr("disabled", true);
         $("#criticidad").attr("disabled", true);
     };
-    
+
     $scope.enableUpdate = function(){
         if(userRole == "analyst"){
             $("textarea").attr("disabled", false);

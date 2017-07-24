@@ -305,6 +305,7 @@ AppleWebKit/537.36 (KHTML, like Gecko) FLUIDIntegrates/1.0'
         closings = self.get_closings_by_finding(submission_id)['submissions']
         rmp = FormstackRequestMapper()
         state = 'Abierto'
+        closing_parsed = dict()
         for closing in closings:
             closing_json = self.get_submission(closing['id'])
             closing_parsed = rmp.map_closing(closing_json)
@@ -315,7 +316,8 @@ AppleWebKit/537.36 (KHTML, like Gecko) FLUIDIntegrates/1.0'
                     state = 'Parcial'
             else:
                 state = 'Parcial'
-        return state
+        closing_parsed['estado'] = state
+        return closing_parsed
 
     def get_closings_by_project(self, project):
         """Obtiene los hallazgos de un proyecto a partir del nombre
