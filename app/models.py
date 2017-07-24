@@ -67,6 +67,7 @@ class FormstackRequestMapper(object):
     FINDING_VECTOR_ATAQUE = "48092088"
 
     CLOSING_HALLAZGO = '39596063'
+    CLOSING_VISIBLES = '47484630'
     CLOSING_SOLICITADAS = '39596365'
     CLOSING_VERIFICADAS = '47700230'
     CLOSING_ABIERTAS = '39596368'
@@ -174,6 +175,8 @@ class FormstackRequestMapper(object):
             # DETALLES CIERRE
             if closing["field"] == self.CLOSING_HALLAZGO:
                 parsed["hallazgo"] = closing["value"]
+            if closing["field"] == self.CLOSING_VISIBLES:
+                parsed["visibles"] = closing["value"]
             if closing["field"] == self.CLOSING_SOLICITADAS:
                 parsed["solicitadas"] = closing["value"]
             if closing["field"] == self.CLOSING_VERIFICADAS:
