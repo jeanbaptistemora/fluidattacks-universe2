@@ -120,7 +120,7 @@
 
    - name: Add crontab jobs
      command: "/usr/src/app/manage.py crontab add"
-     when: makemigrate
+     when: migrate
 
    - name: Quitar mod python
      command: "a2dismod python"
