@@ -22,6 +22,10 @@ def send_mail_new_finding(email_to, context):
     __send_mail('newfindingintegrates', email_to, context=context)
 
 
+def send_mail_change_finding(email_to, context):
+    __send_mail('changefindingintegrates', email_to, context=context)
+
+
 def send_mail_new_user(email_to, context):
     __send_mail('userfindingintegrates', email_to, context=context)
 
