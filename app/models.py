@@ -309,7 +309,7 @@ AppleWebKit/537.36 (KHTML, like Gecko) FLUIDIntegrates/1.0'
         for closing in closings:
             closing_json = self.get_submission(closing['id'])
             closing_parsed = rmp.map_closing(closing_json)
-            if closing_parsed['visibles'] == closing_parsed['visibles']:
+            if closing_parsed['visibles'] == closing_parsed['solicitadas']:
                 if closing_parsed['abiertas'] == '0':
                     state = 'Cerrado'
                 if int(closing_parsed['abiertas']) > 0:
