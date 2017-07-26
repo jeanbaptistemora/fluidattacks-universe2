@@ -22,6 +22,7 @@ integrates.controller("FindingResumeController", function($scope, $stateParams,
         $scope.header.findingType = $scope.finding.tipo_prueba;
         $scope.header.findingRisk = "";
         $scope.header.findingState = $scope.finding.estado;
+        $scope.header.findingID = $scope.finding.id;
         $scope.header.findingValue = $scope.finding.criticidad;
         var findingValue = parseFloat($scope.finding.criticidad);
         if(findingValue >= 7){
