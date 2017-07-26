@@ -74,6 +74,8 @@ jobs:
       - deploy:
           command: |
             if [ "${CIRCLE_BRANCH}" == "master" ];
-              then sudo docker -D login -u $DOCKER_USER -p $DOCKER_PASSWD -e $DOCKER_EMAIL && \
-              sudo docker -D push technologyatfluid/integrates:$CIRCLE_BRANCH;
+              then sudo aws configure set aws_access_key_id $AWS_KEY_ID && \
+              sudo aws configure set aws_secret_access_key $AWS_SECRET_KEY && \
+              sudo aws ecr get-login --region us-east-1 >> login.sh && sudo sh login.sh && \
+              sudo docker -D push 205810638802.dkr.ecr.us-east-1.amazonaws.com/integrates:master;
             fi
