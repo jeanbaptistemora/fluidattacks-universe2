@@ -140,7 +140,7 @@ STATICFILES_DIRS = (
 )
 
 CRONJOBS = [
-    ('*/5 * * * *', 'app.scheduler.get_new_findings')
+    ('0 8 * * *', 'app.scheduler.get_new_findings')
 ]
 
 AUTHENTICATION_BACKENDS = (

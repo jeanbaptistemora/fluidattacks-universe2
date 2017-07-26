@@ -46,14 +46,14 @@
               <span>Dashboard</span>
             </div>
             <a href="#" class="am-toggle-left-sidebar navbar-toggle collapsed"><span class="icon-bar"><span></span><span></span><span></span></span></a><a href="/integrates/dashboard" class="navbar-brand"></a>
-          </div><a href="#" class="am-toggle-right-sidebar"><span class="icon s7-menu2"></span></a><a href="#" data-toggle="collapse" data-target="#am-navbar-collapse" class="am-toggle-top-header-menu collapsed"><span class="icon s7-angle-down"></span></a>
+          </div><a href="#" class="am-toggle-right-sidebar" title="Perfil"><span class="icon s7-menu2"></span></a><a href="#" data-toggle="collapse" data-target="#am-navbar-collapse" class="am-toggle-top-header-menu collapsed"><span class="icon s7-angle-down"></span></a>
           <div id="am-navbar-collapse" class="collapse navbar-collapse" ng-controller="dashboardController">
             <ul class="nav navbar-nav am-nav-right">
             <li><a ui-sref="home"><b>FLUIDIntegrates</b></a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right am-icons-nav">
                     <li class="dropdown">
-                <a href="" data-toggle="dropdown" role="button" aria-expanded="true" class="dropdown-toggle">
+                <a href="" data-toggle="dropdown" role="button" aria-expanded="true" class="dropdown-toggle" title="Cambiar idioma">
                   <span class="icon s7-flag"></span>
                 </a>
                 <ul role="menu" class="dropdown-menu">
@@ -62,7 +62,7 @@
                 </ul>
               </li>
               <li class="dropdown">
-                <a href="" ng-click="logout();" data-toggle="dropdown" role="button" aria-expanded="false" class="dropdown-toggle">
+                <a href="" ng-click="logout();" data-toggle="dropdown" role="button" aria-expanded="false" class="dropdown-toggle" title="Salir">
                   <span class="icon s7-power"></span>
                 </a>
                 <!-- START: MODAL LOGOUT -->

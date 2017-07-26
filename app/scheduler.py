@@ -10,13 +10,15 @@ def get_new_findings():
     projects = integrates_dao.get_registered_projects()
     api = FormstackAPI()
     for project in projects:
-        # Send email parameters
-        recipients = integrates_dao.get_project_users(project)
-        to = [ x[0] for x in recipients ]
         finding_requests = api.get_findings(project)["submissions"]
         new_findings = len(finding_requests)
         cur_findings = integrates_dao.get_findings_amount(project)
         if new_findings != cur_findings:
+            # Send email parameters
+            recipients = integrates_dao.get_project_users(project)
+            to = [ x[0] for x in recipients ]
+            to.append('engineering@fluid.la')
+            to.append('projects@fluid.la')
             if new_findings > cur_findings:
                 delta = new_findings - cur_findings
                 context = {
