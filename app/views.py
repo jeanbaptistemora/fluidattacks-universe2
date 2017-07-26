@@ -208,6 +208,10 @@ def get_findings(request):
     for finding in finding_requests:
         formstack_request = api.get_submission(finding["id"])
         finding_parsed = rmp.map_finding(formstack_request)
+        state = api.get_finding_state(finding["id"])
+        finding_parsed['estado'] = state['estado']
+        if 'abiertas' in state:
+            finding_parsed['cardinalidad'] = state['abiertas']
         if not filtr:
             findings.append(finding_parsed)
         elif "tipo_prueba" in finding_parsed:
