@@ -115,7 +115,7 @@ integrates.config(['$translateProvider', function($translateProvider) {
                     'type': 'Tipo prueba',
                     'finding': 'Titulo',
                     'vulnerability': 'Descripcion',
-                    'criticity': 'Criticidad',
+                    'criticity': 'Puntaje CVSSv2',
                     'cardinality': 'Vulnerabilidades',
                     'state': 'Estado'
                 }
