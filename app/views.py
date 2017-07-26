@@ -218,6 +218,7 @@ def get_findings(request):
             if filtr.encode("utf8") == \
                     finding_parsed["tipo_prueba"].encode("utf8"):
                 findings.append(finding_parsed)
+    findings.reverse()
     return util.response(findings, 'Success', False)
 
 
