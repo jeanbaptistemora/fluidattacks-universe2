@@ -60,8 +60,8 @@ jobs:
       - run:
           name: Docker login
           command: >
-                sudo aws configure set aws_access_key_id $AWS_KEY_ID && \
-                sudo aws configure set aws_secret_access_key $AWS_SECRET_KEY && \
+                sudo aws configure set aws_access_key_id $AWS_KEY_ID &&
+                sudo aws configure set aws_secret_access_key $AWS_SECRET_KEY &&
                 sudo aws ecr get-login --region us-east-1 >> login.sh && sudo sh login.sh
 
       - run:
