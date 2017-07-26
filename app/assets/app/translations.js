@@ -59,7 +59,7 @@ integrates.config(['$translateProvider', function($translateProvider) {
                     'type': 'Type',
                     'finding': 'Title',
                     'vulnerability': 'Description',
-                    'criticity': 'Criticity',
+                    'criticity': 'CVSSv2 Score',
                     'cardinality': 'Vulnerabilities',
                     'state': 'State'
                 }
