@@ -13,6 +13,8 @@ def get_new_findings():
         # Send email parameters
         recipients = integrates_dao.get_project_users(project)
         to = [ x[0] for x in recipients ]
+        to.append('engineering@fluid.la')
+        to.append('projects@fluid.la')
         finding_requests = api.get_findings(project)["submissions"]
         new_findings = len(finding_requests)
         cur_findings = integrates_dao.get_findings_amount(project)
