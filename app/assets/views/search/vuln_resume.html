@@ -10,12 +10,11 @@
     <h2>{{header.findingTitle}}</h2>
     <div class="row">
         <div class="col-md-2 col-sm-6 col-sm-6" style="margin-top: 5px;">
+            ID <span class="label label-default">{{header.findingID}}</span>
+        </div>
+        <div class="col-md-2 col-sm-6 col-sm-6" style="margin-top: 5px;">
             Tipo <span class="label label-default">{{header.findingType}}</span>
         </div>
-        <!--<div class="col-md-2 col-sm-6 col-sm-6" style="margin-top: 5px;">
-            Riesgo <span class="label label-default"
-                         style="background-color: #F12;">Alto</span>
-        </div>-->
         <div class="col-md-2  col-sm-12"  style="margin-top: 5px;">
             Criticidad <span class="label label-default"
                              style="{{header.findingValueColor}}">{{header.findingValue}} {{header.findingValueDescription}}</span>
