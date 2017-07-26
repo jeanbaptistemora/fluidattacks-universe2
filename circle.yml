@@ -47,9 +47,9 @@ jobs:
                 prospector -u django fluidintegrates
 
       - run:
-          name: Run SourceClear agent 
+          name: Run SourceClear agent
           command: >
-                curl -sSL https://download.sourceclear.com/ci.sh | sh 
+                curl -sSL https://download.sourceclear.com/ci.sh | sh
 
       - run:
           name: Run settings check
@@ -58,9 +58,11 @@ jobs:
                 grep ^SOCIAL_AUTH_NEW_USER_REDIRECT_URL fluidintegrates/settings.py | grep -q fluid
 
       - run:
-          name: Docker Login
+          name: Docker login
           command: >
-                sudo docker -D login -u $DOCKER_USER -p $DOCKER_PASSWD -e $DOCKER_EMAIL
+                sudo aws configure set aws_access_key_id $AWS_KEY_ID && \
+                sudo aws configure set aws_secret_access_key $AWS_SECRET_KEY && \
+                sudo aws ecr get-login --region us-east-1 >> login.sh && sudo sh login.sh
 
       - run:
           name: Build container
