@@ -1,5 +1,12 @@
-<div class="page-head">
+<script type="text/javascript">
+  $(document).ready(function () {
+            var simpleText = "Último ingreso: " + lastLogin;
+            $("#lastLogin").text(simpleText);
+        });
+</script>
+<div class="page-head" onload="insertText()">
     <h2>Dashboard</h2>
+    <p id="lastLogin"></p>
     <ol class="breadcrumb">
         <li><a href="dashboard#/home">Home</a></li>
     </ol>

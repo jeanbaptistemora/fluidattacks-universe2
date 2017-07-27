@@ -38,6 +38,8 @@ def create_user(strategy, details, backend, user=None, *args, **kwargs):
 def check_registered(strategy, details, backend, *args, **kwargs):
     email = details['email']
     is_registered = integrates_dao.is_registered_dao(email)
+    last_login = integrates_dao.get_user_last_login_dao(email)
+    print (last_login)
     role = integrates_dao.get_role_dao(email)
     company = integrates_dao.get_company_dao(email)
 
@@ -45,3 +47,4 @@ def check_registered(strategy, details, backend, *args, **kwargs):
     strategy.session_set('registered', is_registered)
     strategy.session_set('role', role)
     strategy.session_set('company', company)
+    strategy.session_set('last_login', last_login)

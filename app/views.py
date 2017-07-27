@@ -59,7 +59,8 @@ def dashboard(request):
     try:
         parameters = {
             'username': request.session["username"],
-            'company': request.session["company"]
+            'company': request.session["company"],
+            'last_login': request.session["last_login"],
         }
         integrates_dao.update_user_login_dao(request.session["username"])
     except KeyError:
