@@ -334,6 +334,7 @@ def delete_finding(request):
                 'name_finding': finding,
                 'id_finding': finding_id,
                 'description': justify,
+                'project': finding['proyecto_fluid'],
                 }
             to = ["engineering@fluid.la"]
             send_mail_delete_finding(to, context)
