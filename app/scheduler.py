@@ -27,7 +27,8 @@ def get_new_findings():
                     formstack_request = api.get_submission(finding["id"])
                     finding_parsed = rmp.map_finding(formstack_request)
 
-                    context['findings'].append({'nombre_hallazgo': finding_parsed['hallazgo']})
+                    context['findings'].append({'nombre_hallazgo':
+                        finding_parsed['hallazgo']})
                 context['cantidad'] = str(delta)
                 context['proyecto'] = project[0].upper()
 

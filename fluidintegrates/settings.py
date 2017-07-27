@@ -122,6 +122,35 @@ USE_L10N = True
 
 USE_TZ = True
 
+# Logging
+LOGGING = {
+        'version': 1,
+        'disable_existing_loggers': False,
+        'filters': {
+            'require_debug_false': {
+                '()': 'django.utils.log.RequireDebugFalse'
+            }
+        },
+        'handlers': {
+            'console':{
+                'level': 'DEBUG',
+                'class': 'logging.StreamHandler'
+            },
+        },
+        'loggers': {
+            'django.request': {
+                'handlers': ['console'],
+                'level': 'ERROR',
+                'propagate': True,
+                },
+            'django_crontab.crontab': {
+                'handlers': ['console'],
+                'level': 'INFO'
+            },
+
+            }
+    }
+
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.10/howto/static-files/
