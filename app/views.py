@@ -326,12 +326,12 @@ def delete_finding(request):
         res = api.delete_finding(submission_id)
         if res:
             finding_id = post_parms["vuln[id]"]
-            finding = post_parms["vuln[hallazgo]"]
+            finding_name = post_parms["vuln[hallazgo]"]
             justify = post_parms["vuln[justificacion]"]
             analyst = request.session["username"]
             context = {
                 'mail_analista': analyst,
-                'name_finding': finding,
+                'name_finding': finding_name,
                 'id_finding': finding_id,
                 'description': justify,
                 'project': finding['proyecto_fluid'],
