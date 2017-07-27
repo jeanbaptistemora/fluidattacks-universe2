@@ -59,6 +59,10 @@ ErrorLog {{ error_log }}
 CustomLog {{ custom_log }} vhost_combined
 #
 ErrorDocument 403 {{ error_page }}
+ErrorDocument 401 {{ error401_page }}
+ErrorDocument 404 {{ error_page }}
+ErrorDocument 500 {{ error500_page }}
+
 #
 Include /etc/apache2/sites-enabled/
 # Disable insecure protocols
