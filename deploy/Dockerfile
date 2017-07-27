@@ -8,6 +8,8 @@ ARG circle_branch
 
 ENV DEBIAN_FRONTEND noninteractive      # instalación no interactiva
 ENV CIRCLE_BRANCH=$circle_branch
+ENV TZ=America/Bogota
+RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
 # Instala dependencias
 RUN apt-get update \
