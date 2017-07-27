@@ -33,6 +33,14 @@ def update_user_login_dao(email):
     return row
 
 
+def get_user_last_login_dao(email):
+    with connections['integrates'].cursor() as cursor:
+        query = 'SELECT last_login FROM users WHERE email = %s'
+        cursor.execute(query, (email,))
+        row = cursor.fetchone()
+    return unicode(row[0])
+
+
 def get_company_dao(email):
     """Obtiene la compania a la que pertenece el usuario."""
     with connections['integrates'].cursor() as cursor:
