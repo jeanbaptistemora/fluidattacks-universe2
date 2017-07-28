@@ -155,7 +155,7 @@ class FormstackRequestMapper(object):
                     value = int(finding["value"])
                     urlbase = 'https://cwe.mitre.org/data/definitions/:id.html'
                     parsed["cwe"] = urlbase.replace(':id', str(value))
-                except:
+                except ValueError:
                     parsed["cwe"] = 'None'
             # DETALLES PROYECTO
             if finding["field"] == self.PROJECT_ANALISTA:
