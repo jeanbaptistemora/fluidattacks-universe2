@@ -65,6 +65,7 @@ class FormstackRequestMapper(object):
     FINDING_EVIDENCIA = "32202896"
     FINDING_SISTEMA_COMPROMETIDO = "48092123"
     FINDING_VECTOR_ATAQUE = "48092088"
+    FINDING_CWE = "38899046"
 
     CLOSING_PROYECTO = '39596058'
     CLOSING_HALLAZGO = '39596063'
@@ -149,6 +150,13 @@ class FormstackRequestMapper(object):
                 parsed["actor"] = finding["value"]
             if finding["field"] == self.FINDING_TIPO_HALLAZGO:
                 parsed["tipo_hallazgo"] = finding["value"]
+            if finding["field"] == self.FINDING_CWE:
+                try:
+                    value = int(finding["value"])
+                    urlbase = 'https://cwe.mitre.org/data/definitions/:id.html'
+                    parsed["cwe"] = urlbase.replace(':id', str(value))
+                except:
+                    parsed["cwe"] = 'None'
             # DETALLES PROYECTO
             if finding["field"] == self.PROJECT_ANALISTA:
                 parsed["analista"] = finding["value"]
