@@ -70,13 +70,12 @@
 	{% assets filters="sass", output="static/css/article.css", "css/article.sass" %}
 	 <link rel="stylesheet" href="{{ SITEURL }}/{{ ASSET_URL }}">
 	{% endassets %}
-	{% assets filters="sass", output="static/css/ethical.css", "css/ethical.sass" %}
+	{% assets filters="sass", output="static/css/pages.css", "css/pages.sass" %}
 	 <link rel="stylesheet" href="{{ SITEURL }}/{{ ASSET_URL }}">
 	{% endassets %}
 	{% assets filters="sass", output="static/css/responsive.css", "css/responsive.sass" %}
 	 <link rel="stylesheet" href="{{ SITEURL }}/{{ ASSET_URL }}">
 	{% endassets %}
-
         <!-- Custom Fonts -->
         <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
         <link href='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
@@ -137,11 +136,10 @@
 	
     <!-- jQuery -->
     <script src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/js/jquery.min.js"></script>
-
     <!-- Bootstrap Core JavaScript -->
     <script src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/js/bootstrap.min.js"></script>
     <!-- js barra de menu -->	
-    <script src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/js/menu.js"></script> 
+    <script src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/js/menu.js"></script>    
     {% if not DISABLE_CUSTOM_THEME_JAVASCRIPT %}
         <!-- Custom Theme JavaScript -->
       <script src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/js/clean-blog.min.js"></script>
