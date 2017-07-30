@@ -31,7 +31,9 @@
         <h1>{{ page.title }}</h1>
         {{ page.content }}
         {% if page.eth %}
-          {% include 'location.html' %}
+          {% if page.location %}
+            {% include 'location.html' %}
+          {% endif %}
         {% else %}
           {% include 'ethical.html' %}
         {% endif %}
