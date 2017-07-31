@@ -10,7 +10,7 @@ describe docker_build('.', tag: 'alg-test', rm: TRUE) do
   describe docker_run('alg-test', family: :debian) do
 
     describe command('ls /etc/apache2/sites-enabled') do
-      its(:stdout) { should eq "000-default.conf\ndefault-ssl\nfluid.la\nwww.fluid.la\nwww.fluidsignal.com\n"}
+      its(:stdout) { should eq "000-default.conf\ndefault-ssl\nfluid.la\nwww.fluid.la\nfluidsignal.com\nfluidsignal.com.co\nfluidsignal.co\nfluid.com.co"}
     end
 
     describe command("lsb_release -d") do
