@@ -345,32 +345,29 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <p>Cardinalidad Abierta</p>
-                                <textarea class="form-control" rows="3" disabled>A</textarea>
+                                <textarea class="form-control" rows="3" disabled>{{finding.donde}}</textarea>
                             </div>
                             <div class="col-md-12">
                                 <p>Cardinalidad Cerrada</p>
-                                <textarea class="form-control" rows="3" disabled>B</textarea>
-                            </div>
-                            <div class="col-md-12">
-                                <p class="text-muted">Reportado por alguien@fluid.la el 04/05/2017 03:03:22</p>
+                                <textarea class="form-control" rows="3" disabled>{{finding.cerradas}}</textarea>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-md-12">
                                 <ul class="timeline">
                                     <li class="timeline-item">
-                                        <div class="timeline-date"><span>September 16, 2016</span></div>
+                                        <div class="timeline-date"><span>{{finding.timestamp}}</span></div>
                                         <div class="timeline-content">
                                             <div class="timeline-header">
-                                                <p class="timeline-activity">Pellentesque imperdiet sit <a href="#">Amet nisl sed mattis</a>.</p>
+                                                <p class="timeline-activity">Hallazgo reportado <a href="/FindingResume/{{finding.id}}">{{finding.id}}</a>.</p>
                                             </div>
                                         </div>
                                     </li>
                                     <li class="timeline-item">
-                                        <div class="timeline-date"><span>September 13, 2016</span></div>
+                                        <div class="timeline-date"><span>{{closing.timestamp}}</span></div>
                                         <div class="timeline-content">
                                             <div class="timeline-header">
-                                                <p class="timeline-activity">Pellentesque imperdiet sit <a href="#">Amet nisl sed mattis</a>.</p>
+                                                <p class="timeline-activity">Último cierre realizado.</p>
                                             </div>
                                         </div>
                                     </li>

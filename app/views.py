@@ -244,6 +244,12 @@ def get_finding(request):
             finding['cardinalidad'] = state['abiertas']
         if 'abiertas_cuales' in state:
             finding['donde'] = state['abiertas_cuales']
+        else:
+            if state['estado'] == 'Cerrado':
+                finding['donde'] = '-'
+        if 'cerradas_cuales' in state:
+            finding['cerradas'] = state['cerradas_cuales']
+
         return util.response(finding, 'Success', False)
     return util.response([], 'Empty fields', True)
 
