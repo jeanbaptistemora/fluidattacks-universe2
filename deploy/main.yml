@@ -167,11 +167,6 @@
      notify:
       - reiniciar apache2
 
-   - name: reiniciar cron
-     service:
-      name: "cron"
-      state: "restarted"
-
   handlers:
    - name: reiniciar apache2
      service:
