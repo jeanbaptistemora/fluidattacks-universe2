@@ -72,10 +72,28 @@
       dest: "/etc/apache2/sites-enabled/www.fluid.la"
       mode: "0644"
 
-   - name: Creando www.fluidsignal.com
+   - name: Creando fluidsignal.com
      template:
-      src: "vars/www.fluidsignal.com.j2"
-      dest: "/etc/apache2/sites-enabled/www.fluidsignal.com"
+      src: "vars/fluidsignal.com.j2"
+      dest: "/etc/apache2/sites-enabled/fluidsignal.com"
+      mode: "0644"
+
+   - name: Creando fluidsignal.co
+     template:
+      src: "vars/fluidsignal.co.j2"
+      dest: "/etc/apache2/sites-enabled/fluidsignal.co"
+      mode: "0644"
+
+   - name: Creando fluidsignal.com.co
+     template:
+      src: "vars/fluidsignal.com.co.j2"
+      dest: "/etc/apache2/sites-enabled/fluidsignal.com.co"
+      mode: "0644"
+
+   - name: Creando fluid.com.co
+     template:
+      src: "vars/fluid.com.co.j2"
+      dest: "/etc/apache2/sites-enabled/fluid.com.co"
       mode: "0644"
 
    - name: Creando sitio ssl

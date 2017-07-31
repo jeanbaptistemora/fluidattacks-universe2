@@ -1,5 +1,6 @@
 <VirtualHost *:{{ http_port }}>
-        ServerName www.fluidsignal.com
+        ServerName fluidsignal.co
+        ServerAlias *.fluidsignal.co
         ServerAdmin {{ server_admin }}
         Options  +Indexes +Multiviews +FollowSymLinks
         Redirect / {{ mainsite }}
