@@ -50,70 +50,32 @@ jobs:
       - run:
           name: Overcommit
           command: overcommit --sign && overcommit --run
-#      - run:
-#          name: Build base image
-#          command: >
-#                sudo containers/base/build.sh
 
-  bundle_alg:
-    working_directory: /tmp/fluid-serves
-    docker:
-      - juancrestrepo/fluid:latest
-    evironment:
-      - USER: root
-    steps:
-      - checkout
       - run:
           name: Bundle install
           command: bundle install
+
       - run:
-          name: Vault file
+          name: Build base image
           command: >
-              sudo echo $VAULT > ~/.vault.txt &&
-              sudo echo $VAULT > /tmp/.vault.txt
+                sudo containers/base/build.sh
+
       - run:
           name: Make alg tests
           command: >
                 cp /tmp/.vault.txt containers/alg/ &&
                 cd containers/alg && bundle exec rspec
-  bundle_exams:
-    working_directory: /tmp/fluid-serves
-    docker:
-      - juancrestrepo/fluid:latest
-    evironment:
-      - USER: root
-    steps:
-      - checkout
-      - run:
-          name: Bundle install
-          command: bundle install
-      - run:
-          name: Vault file
-          command: >
-              sudo echo $VAULT > ~/.vault.txt &&
-              sudo echo $VAULT > /tmp/.vault.txt
       - run:
           name: Make exams tests
           command: >
                 cp /tmp/.vault.txt containers/exams/ &&
                 cd containers/exams && bundle exec rspec
-  bundle_images:
-    working_directory: /tmp/fluid-serves
-    docker:
-      - juancrestrepo/fluid:latest
-    evironment:
-      - USER: root
-    steps:
-      - checkout
-      - run:
-          name: Vault file
-          command: >
-              sudo echo $VAULT > ~/.vault.txt &&
-              sudo echo $VAULT > /tmp/.vault.txt
+
       - run:
           name: Build images
           command: >
-                cd containers/vpn && RUN ansible-playbook main.yml --vault-password-file .vault.txt
+                sudo ./start.sh
+
       - run:
           name: Install FLUIDAsserts
           command: >
@@ -122,17 +84,12 @@ jobs:
       - run:
           name: Run asserts
           command: python asserts.py
+      - run:
+          name: docker images
+          command: docker images
 
            # Deploy master
-  deploy:
-    working_directory: /tmp/fluid-serves
-    machine: true
-    evironment:
-      - USER: root
-    steps:
-      - checkout
-      - run:
-          name: DeploY
+      - deploy:
           command: |
             if [ "${CIRCLE_BRANCH}" == "master" ];
               then sudo aws configure set aws_access_key_id $AWS_KEY_ID && \
@@ -143,22 +100,3 @@ jobs:
               sudo docker -D push 205810638802.dkr.ecr.us-east-1.amazonaws.com/serves:vpn && \
               sudo docker -D push 205810638802.dkr.ecr.us-east-1.amazonaws.com/integrates:base;
             fi
-workflows:
-  version: 2
-  build_accept_deploy:
-    jobs:
-      - build
-      - bundle_alg:
-          requires:
-            - build
-      - bundle_exams:
-          requires:
-            - build
-      - bundle_images:
-          requires:
-            - build
-      - deploy:
-          requires:
-            - bundle_alg
-            - bundle_exams
-            - bundle_images
