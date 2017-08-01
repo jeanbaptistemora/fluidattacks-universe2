@@ -69,6 +69,7 @@ class FormstackRequestMapper(object):
     FINDING_REVISION = "54856382"
 
     CLOSING_PROYECTO = '39596058'
+    CLOSING_CICLO = '50394892'
     CLOSING_HALLAZGO = '39596063'
     CLOSING_VISIBLES = '47484630'
     CLOSING_SOLICITADAS = '39596365'
@@ -201,6 +202,8 @@ class FormstackRequestMapper(object):
                 parsed["cerradas"] = closing["value"]
             if closing["field"] == self.CLOSING_CERRADAS_CUALES:
                 parsed["cerradas_cuales"] = closing["value"]
+            if closing["field"] == self.CLOSING_CICLO:
+                parsed["ciclo"] = closing["value"]
         parsed["id"] = closing_request["id"]
         parsed["timestamp"] = closing_request["timestamp"]
         return parsed
