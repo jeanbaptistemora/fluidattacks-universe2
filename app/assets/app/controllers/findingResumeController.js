@@ -18,6 +18,14 @@ integrates.controller("FindingResumeController", function($scope, $stateParams,
     $scope.headerBuilding = function(){
         //console.log($scope.finding);
         $scope.header = {};
+        var cierres = $scope.finding.cierres;
+        var cierresTmp = [];
+        for(var i = 0; i < cierres.length ; i++){
+            cierre = cierres[i];
+            cierre.position = i+1;
+            cierresTmp.push(cierre);
+        }
+        $scope.finding.cierres = cierresTmp;
         $scope.header.findingTitle = $scope.finding.hallazgo;
         $scope.header.findingType = $scope.finding.tipo_prueba;
         $scope.header.findingRisk = "";

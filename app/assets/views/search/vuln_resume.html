@@ -366,11 +366,11 @@
                                         </div>
                                     </li>
                                     <li class="timeline-item" ng-repeat="x in finding.cierres">
-                                        <div class="timeline-date"><span>{{x.timestamp}}</span></div>
+                                        <div class="timeline-date"><span>{{x.timestamp}} </span></div>
                                         <div class="timeline-content">
                                             <table class="table table-bordered table-responsive" style="max-width: 350px;">
                                                 <tr class="text-center">
-                                                    <td colspan="2"><b>Ciclo de cierre {{x.ciclo}}</b></td>
+                                                    <td colspan="2"><b>Ciclo de cierre {{x.position}}</b></td>
                                                 </tr>
                                                 <tr>
                                                     <td>Vulnerabilidades Abiertas</td>
@@ -383,8 +383,6 @@
                                             </table>
                                         </div>
                                     </li>
-
-                                    <li class="timeline-item timeline-loadmore"><a href="#" class="load-more-btn">Load more</a></li>
                                 </ul>
                             </div>
                         </div>
