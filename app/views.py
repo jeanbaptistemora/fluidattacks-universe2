@@ -252,7 +252,6 @@ def get_finding(request):
 
         closing_cicles = api.get_closings_by_finding(finding['id'])
         finding['cierres'] = [rmp.map_closing(api.get_submission(x['id'])) for x in closing_cicles['submissions']]
-        print finding
         return util.response(finding, 'Success', False)
     return util.response([], 'Empty fields', True)
 
