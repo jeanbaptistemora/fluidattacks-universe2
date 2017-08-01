@@ -44,14 +44,16 @@
                         <a href="#home" data-toggle="tab" aria-expanded="false">
                         <i class="icon s7-note2" ></i>&nbsp;Información</a>
                     </li>
-                    <!--<li class="" style="font-size:15px;">
+                    <li class="" style="font-size:15px;">
                         <a href="#tracking" data-toggle="tab" aria-expanded="true">
                         <i class="icon s7-graph1"></i>&nbsp;Tracking</a>
                     </li>
+                    <!--
                     <li style="font-size:15px;">
                         <a href="#explotation" data-toggle="tab">
                         <i class="icon s7-gleam"></i>&nbsp;Explotación</a>
-                    </li>-->
+                    </li>
+                    -->
                 </ul>
                 <div class="tab-content">
                     <div id="home" class="tab-pane cont active">
@@ -340,45 +342,52 @@
                         </div>
                     </div>
                     <div id="tracking" class="tab-pane cont">
-                        <!--<div class="row">
+                        <div class="row">
                             <div class="col-md-12">
-                                <p>Cardinalidad Abierta</p>
-                                <textarea class="form-control" rows="3" disabled>A</textarea>
+                                <p>Vulnerabilidades Abiertas</p>
+                                <textarea class="form-control" rows="4" disabled>{{finding.donde}}</textarea>
                             </div>
                             <div class="col-md-12">
-                                <p>Cardinalidad Cerrada</p>
-                                <textarea class="form-control" rows="3" disabled>B</textarea>
-                            </div>
-                            <div class="col-md-12">
-                                <p class="text-muted">Reportado por alguien@fluid.la el 04/05/2017 03:03:22</p>
+                                <p>Vulnerabilidades Cerradas</p>
+                                <textarea class="form-control" rows="4" disabled>{{finding.cerradas}}</textarea>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-md-12">
                                 <ul class="timeline">
-                                    <li class="timeline-item">
-                                        <div class="timeline-date"><span>September 16, 2016</span></div>
+                                    <li class="timeline-item text-left">
+                                        <div class="timeline-date"><span>{{finding.timestamp}}</span></div>
                                         <div class="timeline-content">
-                                            <div class="timeline-header">
-                                                <span class="timeline-time">4:34 PM</span><span class="timeline-autor">Penelope Thornton</span>
-                                                <p class="timeline-activity">Pellentesque imperdiet sit <a href="#">Amet nisl sed mattis</a>.</p>
-                                            </div>
+                                            <table class="table table-bordered table-responsive" style="max-width: 350px;">
+                                                <tr class="text-center">
+                                                    <td colspan="2"><b>Hallazgo reportado</b></td>
+                                                </tr>
+                                            </table>
                                         </div>
                                     </li>
-                                    <li class="timeline-item">
-                                        <div class="timeline-date"><span>September 13, 2016</span></div>
+                                    <li class="timeline-item" ng-repeat="x in finding.cierres">
+                                        <div class="timeline-date"><span>{{x.timestamp}}</span></div>
                                         <div class="timeline-content">
-                                            <div class="timeline-header">
-                                                <span class="timeline-time">9:34 PM</span><span class="timeline-autor">Penelope Thornton</span>
-                                                <p class="timeline-activity">Pellentesque imperdiet sit <a href="#">Amet nisl sed mattis</a>.</p>
-                                            </div>
+                                            <table class="table table-bordered table-responsive" style="max-width: 350px;">
+                                                <tr class="text-center">
+                                                    <td colspan="2"><b>Ciclo de cierre {{x.ciclo}}</b></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Vulnerabilidades Abiertas</td>
+                                                    <td>{{x.abiertas}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Vulnerabilidades Cerradas</td>
+                                                    <td>{{x.cerradas}}</td>
+                                                </tr>
+                                            </table>
                                         </div>
                                     </li>
 
                                     <li class="timeline-item timeline-loadmore"><a href="#" class="load-more-btn">Load more</a></li>
                                 </ul>
                             </div>
-                        </div>-->
+                        </div>
                     </div>
                     <div id="explotation" class="tab-pane">
                         <p class="text-center">Explotación de la vulnerabilidad <br>
