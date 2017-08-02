@@ -62,7 +62,12 @@ class FormstackRequestMapper(object):
     FINDING_EXPLOTABILIDAD = "38529253"
     FINDING_NIVEL_RESOLUCION = "38529254"
     FINDING_NIVEL_CONFIANZA = "38529255"
-    FINDING_EVIDENCIA = "32202896"
+    FINDING_EVIDENCIA1 = "32202896"
+    FINDING_EVIDENCIA1_DESCRIPCION = "53713106"
+    FINDING_EVIDENCIA2 = "53713035"
+    FINDING_EVIDENCIA2_DESCRIPCION = "53713149"
+    FINDING_EVIDENCIA3 = "53713045"
+    FINDING_EVIDENCIA3_DESCRIPCION = "53713153"
     FINDING_SISTEMA_COMPROMETIDO = "48092123"
     FINDING_VECTOR_ATAQUE = "48092088"
     FINDING_CWE = "38899046"
@@ -140,8 +145,18 @@ class FormstackRequestMapper(object):
                 parsed["nivel_resolucion"] = finding["value"]
             if finding["field"] == self.FINDING_NIVEL_CONFIANZA:
                 parsed["nivel_confianza"] = finding["value"]
-            if finding["field"] == self.FINDING_EVIDENCIA:
-                parsed["evidencia"] = finding["value"]
+            if finding["field"] == self.FINDING_EVIDENCIA1:
+                parsed["evidencia1"] = finding["value"]
+            if finding["field"] == self.FINDING_EVIDENCIA1_DESCRIPCION:
+                parsed["evidencia1_descripcion"] = finding["value"]
+            if finding["field"] == self.FINDING_EVIDENCIA2:
+                parsed["evidencia2"] = finding["value"]
+            if finding["field"] == self.FINDING_EVIDENCIA2_DESCRIPCION:
+                parsed["evidencia2_descripcion"] = finding["value"]
+            if finding["field"] == self.FINDING_EVIDENCIA3:
+                parsed["evidencia3"] = finding["value"]
+            if finding["field"] == self.FINDING_EVIDENCIA3_DESCRIPCION:
+                parsed["evidencia3_descripcion"] = finding["value"]
             if finding["field"] == self.FINDING_ESCENARIO:
                 parsed["escenario"] = finding["value"]
             if finding["field"] == self.FINDING_AMBITO:
