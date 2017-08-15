@@ -19,3 +19,5 @@ ansible-lint==3.4.13
 django-crontab==0.7.1
 django-analytical==2.2.2
 mandrill==1.0.57
+apiclient==1.0.2
+python-magic==0.4.13

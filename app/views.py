@@ -2,6 +2,7 @@
 """ Vistas y servicios para FluidIntegrates """
 
 import os
+import re
 import json
 import time
 from django.shortcuts import render, redirect
@@ -18,6 +19,7 @@ from .autodoc import IE, IT
 from .mailer import send_mail_delete_finding
 from .services import has_access_to_project
 from .dao import integrates_dao
+from .api.drive import DriveAPI
 
 @never_cache
 def index(request):
@@ -232,7 +234,7 @@ def get_finding(request):
         api = FormstackAPI()
         rmp = FormstackRequestMapper()
         formstack_request = api.get_submission(submission_id)
-        finding = rmp.map_finding(formstack_request)
+        finding = rmp.map_finding(formstack_request, request)
 
         username = request.session['username']
         if not has_access_to_project(username, finding['proyecto_fluid']):
@@ -351,61 +353,6 @@ def delete_finding(request):
         return util.response([], 'No se pudo actualizar',
                              True)
 
-
-@csrf_exempt
-@require_http_methods(["GET"])
-@authorize(['analyst'])
-def get_order(request):
-    """ Obtiene de formstack el id de pedido relacionado con un proyecto """
-    project_name = request.GET.get('project', None)
-    username = request.session['username']
-
-    if not has_access_to_project(username, project_name):
-        return redirect('dashboard')
-
-    if util.is_name(project_name):
-        api = FormstackAPI()
-        order_id = api.get_order(project_name)
-        if "submissions" in order_id:
-            # pylint: disable=C1801
-            if len(order_id["submissions"]) == 1:
-                return util.response(order_id["submissions"][0]["id"],
-                                     'Consulta exitosa!', False)
-            # pylint: disable=C1801
-            elif len(order_id["submissions"]) == 0:
-                return util.response("0",
-                                     'No se ha asignado un pedido!',
-                                     False)
-            return util.response([], 'Este proyecto tiene varios IDs',
-                                 True)
-        return util.response([], 'No se pudo consultar', True)
-    return util.response([], 'Campos vacios', True)
-
-
-@csrf_exempt
-@require_http_methods(["POST"])
-@authorize(['analyst'])
-def update_order(request):
-    """ Actualiza el nombre de proyecto del id de pedido relacionado """
-    project_name = request.POST.get('project', None)
-    username = request.session['username']
-
-    if not has_access_to_project(username, project_name):
-        return redirect('dashboard')
-
-    order_id = request.POST.get('id', None)
-    if not util.is_name(project_name):
-        return util.response([], 'Campos vacios', True)
-    if not util.is_numeric(order_id):
-        return util.response([], 'Campos vacios', True)
-    api = FormstackAPI()
-    updated = api.update_order(project_name, order_id)
-    if not updated:
-        return util.response([], 'No se pudo actualizar',
-                             True)
-    return util.response([], 'Actualizado correctamente!', False)
-
-
 # FIXME: Need to add access control to this function
 @csrf_exempt
 @authorize(['analyst'])
@@ -479,3 +426,22 @@ def update_finding(request):
             return util.response([], 'No se pudo actualizar',
                                  True)
         return util.response([], 'Actualizado correctamente!', False)
+
+@never_cache
+@csrf_exempt
+@authorize(['analyst', 'customer'])
+def get_evidence(request):
+    drive_id = request.GET.get('id', None)
+    if drive_id is None:
+        return HttpResponse("Error - ID de imagen no enviado", content_type="text/html")
+    else:
+        if not re.match("[a-zA-Z0-9]{20,}", drive_id):
+            return HttpResponse("Error - ID con formato incorrecto", content_type="text/html")
+        drive_api = DriveAPI(drive_id)
+        image = drive_api.FILE
+        if image is None:
+            return HttpResponse("Error - No se pudo descargar la imagen", content_type="text/html")
+        else:
+            filename = "/tmp/:id.png".replace(":id", drive_id)
+            with open(filename, "r") as file_obj:
+                return HttpResponse(file_obj.read(), content_type="image/png")

@@ -64,6 +64,7 @@ integrates.controller("FindingResumeController", function($scope, $stateParams,
                     $scope.finding = response.data;
                     $scope.headerBuilding();
                     $scope.informationTab();
+                    $scope.evidenceTab();
                 }else{
                     $.gritter.add({
                         title: 'Error!', text: response.message,
@@ -129,6 +130,59 @@ integrates.controller("FindingResumeController", function($scope, $stateParams,
             $scope.esGeneral = "show-detallado";
         }
     };
+    $scope.capitalizeFirstLetter = function(string) {
+        return string.charAt(0).toUpperCase() + string.slice(1);
+    }
+    $scope.evidenceTab = function(){
+        $scope.tab = {};
+        $scope.tab.evidences = [];
+        
+        if($scope.finding.desc_evidencia_1 !== undefined
+            && $scope.finding.ruta_evidencia_1 !== undefined){
+            $scope.tab.evidences.push({
+                "image": $scope.finding.ruta_evidencia_1,
+                "desc": $scope.capitalizeFirstLetter(
+                    $scope.finding.desc_evidencia_1
+                )
+            });
+        }
+        if($scope.finding.desc_evidencia_2 !== undefined
+            && $scope.finding.ruta_evidencia_2 !== undefined){
+            $scope.tab.evidences.push({
+                "image": $scope.finding.ruta_evidencia_2,
+                "desc": $scope.capitalizeFirstLetter(
+                    $scope.finding.desc_evidencia_2
+                )
+            });
+        }
+        if($scope.desc_evidencia_3 !== undefined
+            && $scope.ruta_evidencia_3 !== undefined){
+            $scope.tab.evidences.push({
+                "image": $scope.finding.ruta_evidencia_3,
+                "desc": $scope.capitalizeFirstLetter(
+                    $scope.finding.desc_evidencia_3
+                )
+            });
+        }
+        if($scope.finding.desc_evidencia_4 !== undefined
+            && $scope.finding.ruta_evidencia_4 !== undefined){
+            $scope.tab.evidences.push({
+                "image": $scope.finding.ruta_evidencia_4,
+                "desc": $scope.capitalizeFirstLetter(
+                    $scope.finding.desc_evidencia_4
+                )
+            });
+        }
+        if($scope.finding.desc_evidencia_5 !== undefined
+            && $scope.ruta_evidencia_5 !== undefined){
+            $scope.tab.evidences.push({
+                "image": $scope.finding.ruta_evidencia_5,
+                "desc": $scope.capitalizeFirstLetter(
+                    $scope.finding.desc_evidencia_5
+                )
+            });
+        }
+    }
     $scope.calculateSeveridad = function(){
         if(!isNaN($scope.finding.severidad)){
             var severidad = parseFloat($scope.finding.severidad);
@@ -254,8 +308,7 @@ integrates.controller("FindingResumeController", function($scope, $stateParams,
                     }
                 }
             });
-        };
-
+    };
     $scope.init = function(){
         $scope.colorPalette();
         $scope.finding = {};

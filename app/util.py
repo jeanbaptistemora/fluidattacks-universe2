@@ -88,3 +88,12 @@ def ord_asc_by_criticidad(data):
                 data[i] = data[j]
                 data[j] = aux
     return data
+
+def drive_url_filter(drive):
+    """ Obtiene el ID de la imagen de drive """
+    if(drive.find("id=") != -1):
+        new_url = drive.split("id=")[1]
+        if(new_url.find("&") != -1):
+            return new_url.split("&")[0]
+    return drive
+    
