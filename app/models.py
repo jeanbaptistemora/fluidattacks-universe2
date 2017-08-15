@@ -96,7 +96,7 @@ class FormstackRequestMapper(object):
         de Formstack para manipularlos en integrates."""
         parsed = dict()
         if sess_obj is not None:
-                sess_obj.session["drive_urls"] = []
+            sess_obj.session["drive_urls"] = []
         for finding in finding_request["data"]:
             # DETALLES VULNERABILIDAD
             if finding["field"] == self.FINDING_HALLAZGO:
