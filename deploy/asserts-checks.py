@@ -1,18 +1,9 @@
 #/usr/bin/python
 
-from fluidasserts.system import linux_generic
-from fluidasserts.system import windows_server_2008_plus
-from fluidasserts.format import string
 from fluidasserts.format import cookie
-from fluidasserts.format import html
-from fluidasserts.format import pdf
-from fluidasserts.service import smtp
-from fluidasserts.service import dns
 from fluidasserts.service import tcp
 from fluidasserts.service import http
 from fluidasserts.service import ssl
-from fluidasserts.service import ldap
-from fluidasserts.service import ftp
 
 
 url = 'https://localhost:8000'
@@ -56,4 +47,3 @@ http.is_version_visible(server, port=8000)
 
 text = 'Login Azure'
 http.has_not_text('https://localhost:8000', text)
-

@@ -12,7 +12,7 @@ integrates.controller("findingReadController", function($scope, findingFactory, 
     $scope.vuln = {};
     $scope.linkUpdate = BASE.url + "dashboard#!/vuln/update/?id=" + id;
     if(id !== undefined){
-        id = id.replace(/[^0-9]+/g, "");
+        id = id.replace(/[^0-9]+/g, "?");
         $scope.id = id;
         findingFactory.getVulnById(id).then(function(response){
             if(!response.error){
@@ -52,7 +52,7 @@ integrates.controller("findingReadController", function($scope, findingFactory, 
                     $scope.esDetallado = "hide-detallado";
                     $scope.esGeneral = "show-detallado";
                 }
-                mixPanelDashboard.trackReadFinding($scope.id);
+		mixPanelDashboard.trackReadFinding(id);
             }else{
                 $.gritter.add({
                     title: 'Error!',
