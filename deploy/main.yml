@@ -71,6 +71,11 @@
       - django-crontab
       - django-analytical
       - mandrill
+      - python-magic
+      - apiclient
+      - httplib2
+      - google-api-python-client
+      - oauth2client
      register: installed_deps
 
    - name: Patch social auth module

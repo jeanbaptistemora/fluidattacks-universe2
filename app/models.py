@@ -3,6 +3,7 @@
 
 import json
 import requests
+from util import drive_url_filter
 from requests.exceptions import ConnectionError
 from retrying import retry
 # pylint: disable=E0402
@@ -62,16 +63,21 @@ class FormstackRequestMapper(object):
     FINDING_EXPLOTABILIDAD = "38529253"
     FINDING_NIVEL_RESOLUCION = "38529254"
     FINDING_NIVEL_CONFIANZA = "38529255"
-    FINDING_EVIDENCIA1 = "32202896"
-    FINDING_EVIDENCIA1_DESCRIPCION = "53713106"
-    FINDING_EVIDENCIA2 = "53713035"
-    FINDING_EVIDENCIA2_DESCRIPCION = "53713149"
-    FINDING_EVIDENCIA3 = "53713045"
-    FINDING_EVIDENCIA3_DESCRIPCION = "53713153"
     FINDING_SISTEMA_COMPROMETIDO = "48092123"
     FINDING_VECTOR_ATAQUE = "48092088"
     FINDING_CWE = "38899046"
     FINDING_REVISION = "54856382"
+    FINDINT_DOC_TOTAL = "53714016"
+    FINDING_DOC_ACHV1 = "32202896"
+    FINDING_DOC_ACHV2 = "53713035"
+    FINDING_DOC_ACHV3 = "53713045"
+    FINDING_DOC_ACHV4 = "53714414"
+    FINDING_DOC_ACHV5 = "53714452"
+    FINDING_DOC_CMNT1 = "53713106"
+    FINDING_DOC_CMNT2 = "53713149"
+    FINDING_DOC_CMNT3 = "53713153"
+    FINDING_DOC_CMNT4 = "53714417"
+    FINDING_DOC_CMNT5 = "53714455"
 
     CLOSING_PROYECTO = '39596058'
     CLOSING_CICLO = '50394892'
@@ -85,10 +91,12 @@ class FormstackRequestMapper(object):
     CLOSING_CERRADAS_CUALES = '39596202'
 
     # pylint: disable=R0915
-    def map_finding(self, finding_request):  # noqa
+    def map_finding(self, finding_request, sess_obj = None):  # noqa
         """Convierte los campos de un JSON hallazgo
         de Formstack para manipularlos en integrates."""
         parsed = dict()
+        if sess_obj is not None:
+            sess_obj.session["drive_urls"] = []
         for finding in finding_request["data"]:
             # DETALLES VULNERABILIDAD
             if finding["field"] == self.FINDING_HALLAZGO:
@@ -145,18 +153,6 @@ class FormstackRequestMapper(object):
                 parsed["nivel_resolucion"] = finding["value"]
             if finding["field"] == self.FINDING_NIVEL_CONFIANZA:
                 parsed["nivel_confianza"] = finding["value"]
-            if finding["field"] == self.FINDING_EVIDENCIA1:
-                parsed["evidencia1"] = finding["value"]
-            if finding["field"] == self.FINDING_EVIDENCIA1_DESCRIPCION:
-                parsed["evidencia1_descripcion"] = finding["value"]
-            if finding["field"] == self.FINDING_EVIDENCIA2:
-                parsed["evidencia2"] = finding["value"]
-            if finding["field"] == self.FINDING_EVIDENCIA2_DESCRIPCION:
-                parsed["evidencia2_descripcion"] = finding["value"]
-            if finding["field"] == self.FINDING_EVIDENCIA3:
-                parsed["evidencia3"] = finding["value"]
-            if finding["field"] == self.FINDING_EVIDENCIA3_DESCRIPCION:
-                parsed["evidencia3_descripcion"] = finding["value"]
             if finding["field"] == self.FINDING_ESCENARIO:
                 parsed["escenario"] = finding["value"]
             if finding["field"] == self.FINDING_AMBITO:
@@ -191,6 +187,46 @@ class FormstackRequestMapper(object):
                 parsed["contexto"] = finding["value"]
             if finding["field"] == self.PROJECT_NIVEL:
                 parsed["nivel"] = finding["value"]
+            # DETALLES DE LAS EVIDENCIAS
+            if finding["field"] == self.FINDINT_DOC_TOTAL:
+                parsed["total_evidencias"] = finding["value"]
+            if finding["field"] == self.FINDING_DOC_ACHV1:
+                filtered_url = drive_url_filter(finding["value"])
+                parsed["ruta_evidencia_1"] = filtered_url
+                if sess_obj is not None: 
+                    sess_obj.session["drive_urls"].append(filtered_url)
+            if finding["field"] == self.FINDING_DOC_ACHV2:
+                filtered_url = drive_url_filter(finding["value"])
+                parsed["ruta_evidencia_2"] = filtered_url
+                if sess_obj is not None: 
+                    sess_obj.session["drive_urls"].append(filtered_url)
+            if finding["field"] == self.FINDING_DOC_ACHV3:
+                filtered_url = drive_url_filter(finding["value"])
+                parsed["ruta_evidencia_3"] = filtered_url
+                if sess_obj is not None: 
+                    sess_obj.session["drive_urls"].append(filtered_url)
+            if finding["field"] == self.FINDING_DOC_ACHV4:
+                filtered_url = drive_url_filter(finding["value"])
+                parsed["ruta_evidencia_4"] = filtered_url
+                if sess_obj is not None: 
+                    sess_obj.session["drive_urls"].append(filtered_url)
+            if finding["field"] == self.FINDING_DOC_ACHV5:
+                filtered_url = drive_url_filter(finding["value"])
+                parsed["ruta_evidencia_5"] = filtered_url
+                if sess_obj is not None: 
+                    sess_obj.session["drive_urls"].append(filtered_url)
+            if finding["field"] == self.FINDING_DOC_CMNT1:
+                parsed["desc_evidencia_1"] = finding["value"]
+            if finding["field"] == self.FINDING_DOC_CMNT2:
+                parsed["desc_evidencia_2"] = finding["value"]
+            if finding["field"] == self.FINDING_DOC_CMNT3:
+                parsed["desc_evidencia_3"] = finding["value"]
+            if finding["field"] == self.FINDING_DOC_CMNT4:
+                parsed["desc_evidencia_4"] = finding["value"]
+            if finding["field"] == self.FINDING_DOC_CMNT5:
+                parsed["desc_evidencia_5"] = finding["value"]
+
+
         parsed["id"] = finding_request["id"]
         parsed["timestamp"] = finding_request["timestamp"]
         return parsed

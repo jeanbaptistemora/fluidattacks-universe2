@@ -236,6 +236,14 @@ SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = \
     '65328559770-aatq8b00rvk05qn2h523hn328drt9ehc.apps.googleusercontent.com'
 SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = 'gvd_U6HtBlyKsSynPpz6LRd-' # noqa
 
+DRIVE_SCOPES = [
+    'https://www.googleapis.com/auth/drive.file',
+    'https://www.googleapis.com/auth/drive'
+]
+DRIVE_SECRET_FILE = "/usr/src/app/config/drive_client_secret.json" # noqa
+DRIVE_AUTHOR_FILE = "/usr/src/app/config/drive_authorization.json" # noqa
+DRIVE_APP_NAME = 'FLUIDIntegrates_Drive'
+
 # Azure OAuth2
 SOCIAL_AUTH_AZUREAD_OAUTH2_KEY = '02067417-b833-4a09-b9f0-63b5014cae85'
 SOCIAL_AUTH_AZUREAD_OAUTH2_SECRET = 'MTup1ltkeg8Gu5ksJtN19gRziTdKsmOui1zObUkuqt8=' # noqa
