@@ -240,8 +240,8 @@ DRIVE_SCOPES = [
     'https://www.googleapis.com/auth/drive.file',
     'https://www.googleapis.com/auth/drive'
 ]
-DRIVE_SECRET_FILE = "/usr/src/app/config/drive_client_secret.json"
-DRIVE_AUTHOR_FILE = "/usr/src/app/config/drive_authorization.json"
+DRIVE_SECRET_FILE = "/usr/src/app/config/drive_client_secret.json" # noqa
+DRIVE_AUTHOR_FILE = "/usr/src/app/config/drive_authorization.json" # noqa
 DRIVE_APP_NAME = 'FLUIDIntegrates_Drive'
 
 # Azure OAuth2
