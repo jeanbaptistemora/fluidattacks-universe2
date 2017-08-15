@@ -28,5 +28,3 @@ if response.get('upn') is None else response.get('upn')")
         replace(full_path, "'email': response.get('upn'),",
                 "'email': response.get('email') if response.get('upn') \
 is None else response.get('upn'),")
-
-

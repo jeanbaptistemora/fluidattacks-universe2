@@ -44,7 +44,8 @@ jobs:
           name: Run prospector
           command: >
                 prospector -u django app &&
-                prospector -u django fluidintegrates
+                prospector -u django fluidintegrates &&
+                prospector -u django deploy 
 
       - run:
           name: Run SourceClear agent
