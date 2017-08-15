@@ -89,99 +89,6 @@ integrates.controller("findingController", function($scope, $uibModal, $translat
         });
     };
     /**
-     * Despliega la modal de vincular id y proyecto
-     * @function openModalVincular
-     * @member integrates.findingController
-     * @return {undefined}
-     */
-    $scope.openModalVincular = function(){
-        var project = $scope.project;
-        var modalInstance = $uibModal.open({
-            animation: true,
-            templateUrl: 'vincular.html',
-            windowClass: 'modal avance-modal',
-            controller: function($scope, $uibModalInstance, currentProject){
-                $scope.project = currentProject;
-                findingFactory.getIdByProject($scope.project).then(function(response){
-                    if(!response.error){
-                        $.gritter.add({
-                            title: 'Correcto',
-                            text: response.message,
-                            class_name: 'color success',
-                            sticky: false,
-                        });
-                        try{
-                            $scope.order = parseInt(response.data);
-                        }catch(e){
-                            $scope.order = 0;
-                            return false;
-                        }
-                    }else{
-                        $.gritter.add({
-                            title: 'Error',
-                            text: response.message,
-                            class_name: 'color warning',
-                            sticky: false,
-                        });
-                        return false;
-                    }
-                });
-                /**
-                 * Cierra la modal
-                 * @function closeModal
-                 * @member integrates.findingController.openModalVincular
-                 * @return {undefined}
-                 */
-                $scope.closeModal = function(){
-                    $uibModalInstance.dismiss('cancel');
-                }
-                /**
-                 * Confirma la actualizacion de la vinculacion
-                 * @function okModal
-                 * @member integrates.findingController.openModalVincular
-                 * @return {undefined}
-                 */
-                $scope.okModal = function(){
-                    if($scope.order == 0
-                        || $scope.order.toString().length < 9
-                        || typeof $scope.project != "string"
-                        || $scope.project.trim() == ""){
-                        $.gritter.add({
-                            title: 'Error',
-                            text: 'Debes escribir un ID y un proyecto',
-                            class_name: 'color warning',
-                            sticky: false,
-                        });
-                        return false;
-                    }
-                    findingFactory.updateOrderID($scope.order, $scope.project).then(function(response){
-                        if(!response.error){
-                            $.gritter.add({
-                                title: 'Correcto',
-                                text: response.message,
-                                class_name: 'color success',
-                                sticky: false,
-                            });
-                            $uibModalInstance.dismiss('cancel');
-                        }else{
-                            $.gritter.add({
-                                title: 'Error!',
-                                text: response.message,
-                                class_name: 'color warning',
-                                sticky: false,
-                            });
-                        }
-                   });
-                }
-            },
-            resolve: {
-                currentProject: function(){
-                    return $scope.project.toUpperCase();
-                }
-            }
-        });
-    };
-    /**
      * Despliega la modal con las funciones de documentacion
      * @function openModalAutodoc
      * @member integrates.findingController
@@ -307,10 +214,11 @@ integrates.controller("findingController", function($scope, $uibModal, $translat
                 class_name: 'color info',
                 sticky: false,
             });
-
             $(".loader").show();
             findingFactory.getVulnByName(project, filter).then(function(data){
                 if(data.error == false){
+                    //Tracking Mixpanel
+                    mixPanelDashboard.trackSearchFinding(userEmail, project);
                     //CONFIGURACION DE TABLA
                     $("#vulnerabilities").bootstrapTable('destroy');
                     $("#vulnerabilities").bootstrapTable(data);

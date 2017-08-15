@@ -65,6 +65,8 @@ integrates.controller("FindingResumeController", function($scope, $stateParams,
                     $scope.headerBuilding();
                     $scope.informationTab();
                     $scope.evidenceTab();
+                    //Tracking mixpanel
+                    mixPanelDashboard.trackReadFinding(userEmail, $scope.finding.id);
                 }else{
                     $.gritter.add({
                         title: 'Error!', text: response.message,

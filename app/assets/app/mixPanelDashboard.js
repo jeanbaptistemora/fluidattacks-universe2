@@ -10,11 +10,18 @@ mixPanelDashboard = {};
  * MixPanel localhost Fixer
  */
 mixPanelDashboard.isProduction = function(){
-    return location.toString().indexOf("localhost:8000") == -1;
+    result = false;
+    try{
+        result = location.toString().indexOf("localhost:8000") != -1;
+    }catch(e){
+        result = false;
+    }finally{
+        return result;
+    }
 };
 
-mixPanelDashboard.trackSearchFinding = function(project){
-    //if(mixPanelDashboard.isProduction()) return false;
+mixPanelDashboard.trackSearchFinding = function(userEmail, project){
+    if(mixPanelDashboard.isProduction()) return false;
     mixpanel.track(
         "SearchFinding", {
             "Email": userEmail,
@@ -23,8 +30,8 @@ mixPanelDashboard.trackSearchFinding = function(project){
     );
 };
 
-mixPanelDashboard.trackReadFinding = function(id){
-    //if(mixPanelDashboard.isProduction()) return false;
+mixPanelDashboard.trackReadFinding = function(userEmail, id){
+    if(mixPanelDashboard.isProduction()) return false;
     mixpanel.track(
         "ReadFinding", {
             "Email": userEmail,
@@ -33,8 +40,8 @@ mixPanelDashboard.trackReadFinding = function(id){
     );
 };
 
-mixPanelDashboard.trackUpdateFinding = function(id){
-    //if(mixPanelDashboard.isProduction()) return false;
+mixPanelDashboard.trackUpdateFinding = function(userEmail, id){
+    if(mixPanelDashboard.isProduction()) return false;
     mixpanel.track(
         "UpdateFinding", {
             "Email": userEmail,
@@ -43,8 +50,8 @@ mixPanelDashboard.trackUpdateFinding = function(id){
     );
 };
 
-mixPanelDashboard.trackDeleteFinding = function(id){
-    //if(mixPanelDashboard.isProduction()) return false;
+mixPanelDashboard.trackDeleteFinding = function(userEmail, id){
+    if(mixPanelDashboard.isProduction()) return false;
     mixpanel.track(
         "DeleteFinding", {
             "Email": userEmail,
