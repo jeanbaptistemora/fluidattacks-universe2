@@ -45,12 +45,7 @@ jobs:
           command: >
                 prospector -u django app &&
                 prospector -u django fluidintegrates &&
-                prospector -u django deploy 
-
-      - run:
-          name: Run SourceClear agent
-          command: >
-                curl -sSL https://download.sourceclear.com/ci.sh | sh
+                prospector -u django deploy
 
       - run:
           name: Run settings check
