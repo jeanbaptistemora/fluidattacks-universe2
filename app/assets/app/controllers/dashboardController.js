@@ -48,5 +48,4 @@ integrates.controller("dashboardController", function($scope, $uibModal, $transl
 		$translate.use(localStorage['lang']);
         //location.reload(); check for lang cookie
     }
-    setTimeout('console.clear();', 200);
 });

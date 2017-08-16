@@ -1,263 +1,330 @@
 <div class="page-head">
-    <ol class="breadcrumb">
-        <li><a href="#">{{'breadcumbs.findings.page' | translate}}</a></li>
-        <li><a href="#">{{'breadcumbs.findings.function' | translate}}</a></li>
-    </ol>
-</div>
-<div class="main-content">
-    <h3 class="text-center">
+        <ol class="breadcrumb">
+            <li><a href="#">{{'breadcumbs.findings.page' | translate}}</a></li>
+            <li><a href="#">{{'breadcumbs.findings.function' | translate}}</a></li>
+        </ol>
+    </div>
+    <div class="main-content">
+        <h3 class="text-center">
+            <div class="row">
+                <div class="col-md-4 col-md-offset-2">
+                    <input class="form-control text-center text-uppercase"
+                           ng-model="project"
+                           id="project"
+                           placeholder="{{'search_findings.filter_menu.search.placeholder' | translate}}">
+                </div><!-- /.col-lg-6 -->
+                <div class="col-md-3">
+                    <select class="form-control text-uppercase" ng-model="filtro" ng-required="true">
+                        <option value="" selected>{{'search_findings.filter_menu.filter_select.any' | translate}}</option>
+                        <option value="Análisis">{{'search_findings.filter_menu.filter_select.analysis' | translate}}</option>
+                        <option value="Aplicación">{{'search_findings.filter_menu.filter_select.application' | translate}}</option>
+                        <option value="Binario">{{'search_findings.filter_menu.filter_select.binary' | translate}}</option>
+                        <option value="Código">{{'search_findings.filter_menu.filter_select.code' | translate}}</option>
+                        <option value="Infraestructura">{{'search_findings.filter_menu.filter_select.infrastructure' | translate}}</option>
+                    </select>
+                </div>
+                <div class="col-md-1">
+                    <button class="btn btn-primary form-control"
+                            id="search" ng-click="searchVulnByName();"
+                            title="Ejecutar esta busqueda">
+                    <i class="glyphicon glyphicon-search"></i>&nbsp;</button>
+                </div>
+                <div class="col-md-12">
+                    <div class="text-muted">
+                        <small style="color: #F34444;">{{response}}</small>
+                    </div>
+                </div>
+            </div>
+    
+        </h3>
+        <style>
+            table {
+                background-color: white;
+                color: #222;
+            }
+            th,.tab-tit {
+                background-color : #0A62AC !important;
+                color: white !important;
+            }
+            .avance-modal{
+                width: 700px;
+                margin: auto;
+            }
+            .ver-modal{
+                width: 1000px !important;
+                margin: auto;
+            }
+            textarea{
+                /*resize: none;*/
+            }
+            .hide-detallado{
+                display: none;
+            }
+            .show-detallado{
+                display: block;
+            }
+        </style>
+    
+        <!-- START: MODAL AVANCE -->
+        <script type="text/ng-template" id="avance.html">
+            <div class="modal-header">
+                <h3 class="modal-title" id="modal-title">Reporte de avance</h3>
+            </div>
+            <div class="modal-body" id="modal-body">
+                <ul style="list-style: none;">
+                    <li ng-repeat="r in rows"> - Hallazgos #{{r.id}}:&nbsp;[{{r.criticidad}}&nbsp;CVSS]&nbsp;{{r.hallazgo}}&nbsp;({{r.cardinalidad}})
+                </ul>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary" type="button" ng-click="closeModalAvance()">OK</button>
+            </div>
+        </script>
+        <!-- START: MODAL Autodoc -->
+        <script type="text/ng-template" id="autodoc_analyst.html">
+            <div class="modal-header">
+                <h3 class="modal-title" id="modal-title">Documentación Automatica</h3>
+            </div>
+            <div class="modal-body" id="modal-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <button class="btn btn-primary btn-block" ng-click="generateDoc('IT')">
+                            Generar Informe Técnico
+                            <i class="glyphicon glyphicon-wrench"></i>
+                        </button>
+                    </div>
+                    <div id="document_gen_ie_button" class="col-md-6">
+                        <button class="btn btn-primary btn-block" ng-click="generateDoc('IE')">
+                            Generar Informe Ejecutivo
+                            <i class="glyphicon glyphicon-wrench"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <button class="btn btn-success btn-block" ng-click="downloadDoc('IT')">
+                            Descargar Informe Técnico
+                            <i class="glyphicon glyphicon-circle-arrow-down"></i>
+                        </button>
+                    </div>
+                    <div id="document_down_ie_button" class="col-md-6">
+                        <button class="btn btn-success btn-block" ng-click="downloadDoc('IE')">
+                            Descargar Ejecutivo
+                            <i class="glyphicon glyphicon-circle-arrow-down"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-warning" type="button" ng-click="closeModal()">Cerrar</button>
+            </div>
+        </script>
+        <!-- START: MODAL Autodoc_customer -->
+        <script type="text/ng-template" id="autodoc_customer.html">
+            <div class="modal-header">
+                <h3 class="modal-title" id="modal-title">Documentación Automatica</h3>
+            </div>
+            <div class="modal-body" id="modal-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <button class="btn btn-primary btn-block" ng-click="generateDoc('IT')">
+                            Generar Informe Técnico
+                            <i class="glyphicon glyphicon-wrench"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <button class="btn btn-success btn-block" ng-click="downloadDoc('IT')">
+                            Descargar Informe Técnico
+                            <i class="glyphicon glyphicon-circle-arrow-down"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-warning" type="button" ng-click="closeModal()">Cerrar</button>
+            </div>
+        </script>
         <div class="row">
-            <div class="col-md-4 col-md-offset-2">
-                <input class="form-control text-center text-uppercase"
-                       ng-model="project"
-                       id="project"
-                       placeholder="{{'search_findings.filter_menu.search.placeholder' | translate}}">
-            </div><!-- /.col-lg-6 -->
-            <div class="col-md-3">
-                <select class="form-control text-uppercase" ng-model="filtro" ng-required="true">
-                    <option value="" selected>{{'search_findings.filter_menu.filter_select.any' | translate}}</option>
-                    <option value="Análisis">{{'search_findings.filter_menu.filter_select.analysis' | translate}}</option>
-                    <option value="Aplicación">{{'search_findings.filter_menu.filter_select.application' | translate}}</option>
-                    <option value="Binario">{{'search_findings.filter_menu.filter_select.binary' | translate}}</option>
-                    <option value="Código">{{'search_findings.filter_menu.filter_select.code' | translate}}</option>
-                    <option value="Infraestructura">{{'search_findings.filter_menu.filter_select.infrastructure' | translate}}</option>
-                </select>
+            <div class="col-md-12 text-center loader">
+                <img src="assets/img/loading.gif" style="margin-top: 25px;" width="90" heigth="90">
+                <h5 class="text-muted">Un momento porfavor, cargando...</h5>
             </div>
-            <div class="col-md-1">
-                <button class="btn btn-primary form-control"
-                        id="search" ng-click="searchVulnByName();"
-                        title="Ejecutar esta busqueda">
-                <i class="glyphicon glyphicon-search"></i>&nbsp;</button>
-            </div>
-            <div class="col-md-12">
-                <div class="text-muted">
-                    <small style="color: #F34444;">{{response}}</small>
+            <div class="col-md-12" id="search_section">
+                <div class="row">
+                    <div class="col-md-4 text-center">
+                        <h3>Criticidad por Hallazgo</h3>
+                        <div id="grapCriticality"
+                             style="width:250px; height:250px; margin: auto;"></div>
+                    </div>
+                    <div class="col-md-4 text-center">
+                        <h3>Criticidad por Distribución de Vulnerabilidades</h3>
+                        <div id="grapAmount"
+                             style="width:250px; height:250px; margin: auto;"></div>
+                    </div>
+                    <div class="col-md-4 text-center">
+                        <h3>Hallazgos por estado</h3>
+                        <div id="grapStatus"
+                             style="width:250px; height:250px; margin: auto;"></div>
+                    </div>
+                </div>
+                <div class="tab-container">
+                    <ul class="nav nav-tabs">
+                        <li class="active" style="font-size:15px;">
+                            <a href="#findings" data-toggle="tab" aria-expanded="false">
+                            <i class="icon s7-light" ></i>&nbsp;Hallazgos</a>
+                        </li>
+                        <li class="" style="font-size:15px;">
+                            <a href="#eventualities" data-toggle="tab" aria-expanded="true">
+                            <i class="icon s7-star"></i>&nbsp;Eventualidades</a>
+                        </li>
+                    </ul>
+                    <div class="tab-content">
+                        <div id="findings" class="tab-pane cont active">
+                        <div class="row container">
+                            <label><b>{{'search_findings.filter_labels.findings' | translate}}</b></label>
+                            <label id="total_hallazgos"></label> &nbsp;&nbsp;&nbsp;
+                            <label><b>{{'search_findings.filter_labels.cardinalities' | translate}}</b></label>
+                            <label id="total_cardinalidad"></label> &nbsp;&nbsp;&nbsp;
+                        </div>
+                        <!-- START: toolbar -->
+                        <div class="btn-group" id="toolbar">
+                            <script>
+                            $(document).ready(function() {
+                                if (userRole == "customer"){
+                                    $('#progress_button').hide();
+                                }
+                            });
+                            </script>
+                            <button type="button"
+                                    id="progress_button"
+                                    class="btn btn-default"
+                                    data-toggle="tooltip"
+                                    data-placement="top"
+                                    title="{{'search_findings.filter_buttons.advance' | translate}}!"
+                                    ng-click="openModalAvance();">
+                                {{'search_findings.filter_buttons.advance' | translate}} <i class="glyphicon glyphicon-bookmark"></i>
+                            </button>
+                            <button type="button"
+                                    id="document_button"
+                                    class="btn btn-default"
+                                    data-toggle="tooltip"
+                                    data-placement="top"
+                                    title="{{'search_findings.filter_buttons.documentation' | translate}}"
+                                    ng-click="openModalAutodoc();">
+                                {{'search_findings.filter_buttons.documentation' | translate}} <i class="glyphicon glyphicon-star"></i>
+                            </button>
+                        </div>
+                        <table
+                            id="vulnerabilities"
+                            data-click-to-select="true"
+                            data-classes="table table-hover table-striped"
+                            data-striped="true"
+                            data-pagination="true"
+                            data-page-size="15"
+                            data-toolbar="#toolbar"
+                            data-refresh="true"
+                            data-search="true">
+                            <thead>
+                                <tr style="">
+                                    <th data-formatter="integrates.vuln_formatter"
+                                        data-width="135">
+                                        {{'search_findings.table.headings.action' | translate}}
+                                    </th>
+                                    <th data-field="tipo_prueba"
+                                        data-sortable="true">
+                                        {{'search_findings.table.headings.type' | translate}}
+                                    </th>
+                                    <th data-field="hallazgo"
+                                        data-width="150">
+                                        {{'search_findings.table.headings.finding' | translate}}
+                                    </th>
+                                    <th data-field="vulnerabilidad" style="display:none;">
+                                        {{'search_findings.table.headings.vulnerability' | translate}}
+                                    </th>
+                                    <th data-field="criticidad"
+                                        data-sortable="true"
+                                        data-width="20">
+                                        {{'search_findings.table.headings.criticity' | translate}}
+                                    </th>
+                                    <th data-field="cardinalidad"
+                                        data-sortable="true"
+                                        data-width="20">
+                                        {{'search_findings.table.headings.cardinality' | translate}}
+                                    </th>
+                                    <th data-field="estado"
+                                        data-sortable="true"
+                                        data-width="20">
+                                        {{'search_findings.table.headings.state' | translate}}
+                                    </th>
+                                </tr>
+                            </thead>
+                        </table>
+                    </div>
+                    <div id="eventualities" class="tab-pane cont">
+                        <script type="text/ng-template" id="eventualityDetail.html">
+                            <div class="modal-body" id="modal-body">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label>Tipo</label>
+                                            <input type="text" class="form-control" ng-model="evt.tipo" disabled>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6" ng-class="esDetallado">
+                                        <div class="form-group">
+                                            <label>Fecha</label>
+                                            <input type="text" class="form-control" ng-model="evt.fecha" disabled>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6" ng-class="esDetallado">
+                                        <div class="form-group">
+                                            <label>Estado</label>
+                                            <input type="text" class="form-control" ng-model="evt.estado" disabled>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label>Detalle</label>
+                                            <textarea class="form-control" id="email" rows="6" disabled> {{evt.detalle}} </textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button class="btn btn-primary" type="button" ng-click="close()">OK</button>
+                            </div>
+                        </script>
+                        <div class="row">
+                            <!-- START: toolbar -->
+                            <div class="btn-group"  id="toolbar2">
+                                <p><b>Haz doble click para ver el detalle</b></p>
+                            </div>
+                            <div class="col-md-12">
+                                <table
+                                    id="tblEventualities"
+                                    data-classes="table table-hover table-striped"
+                                    data-striped="true"
+                                    data-pagination="true"
+                                    data-page-size="15"
+                                    data-toolbar="#toolbar2"
+                                    data-search="true">
+                                    <thead>
+                                        <tr>
+                                            <th data-field="id">ID</th>
+                                            <th data-field="fecha"
+                                                data-sortable="true">Fecha</th>
+                                            <th data-field="tipo">Tipo</th>
+                                            <th data-field="estado"
+                                                data-sortable="true">Estado</th>
+                                        </tr>
+                                    </thead>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
-
-    </h3>
-    <style>
-        table {
-            background-color: white;
-            color: #222;
-        }
-        th,.tab-tit {
-            background-color : #0A62AC !important;
-            color: white !important;
-        }
-        .avance-modal{
-            width: 700px;
-            margin: auto;
-        }
-        .ver-modal{
-            width: 1000px !important;
-            margin: auto;
-        }
-        textarea{
-            /*resize: none;*/
-        }
-        .hide-detallado{
-            display: none;
-        }
-        .show-detallado{
-            display: block;
-        }
-    </style>
-
-    <!-- START: MODAL AVANCE -->
-    <script type="text/ng-template" id="avance.html">
-        <div class="modal-header">
-            <h3 class="modal-title" id="modal-title">Reporte de avance</h3>
-        </div>
-        <div class="modal-body" id="modal-body">
-            <ul style="list-style: none;">
-                <li ng-repeat="r in rows"> - Hallazgos #{{r.id}}:&nbsp;[{{r.criticidad}}&nbsp;CVSS]&nbsp;{{r.hallazgo}}&nbsp;({{r.cardinalidad}})
-            </ul>
-        </div>
-        <div class="modal-footer">
-            <button class="btn btn-primary" type="button" ng-click="closeModalAvance()">OK</button>
-        </div>
-    </script>
-    <!-- START: MODAL Vincular -->
-    <script type="text/ng-template" id="vincular.html">
-        <div class="modal-header">
-            <h3 class="modal-title" id="modal-title">Relación Proyecto y Pedido</h3>
-        </div>
-        <div class="modal-body" id="modal-body">
-            <label>Proyecto</label>
-            <input type="text" ng-model="project" class="form-control" disabled />
-            <label>Pedido</label>
-            <input type="number" ng-model="order" class="form-control"/>
-        </div>
-        <div class="modal-footer">
-            <button class="btn btn-warning" type="button" ng-click="closeModal()">Cerrar</button>
-            <button class="btn btn-primary" type="button" ng-click="okModal()">Confirmar</button>
-        </div>
-    </script>
-    <!-- START: MODAL Autodoc -->
-    <script type="text/ng-template" id="autodoc_analyst.html">
-        <div class="modal-header">
-            <h3 class="modal-title" id="modal-title">Documentación Automatica</h3>
-        </div>
-        <div class="modal-body" id="modal-body">
-            <div class="row">
-                <div class="col-md-6">
-                    <button class="btn btn-primary btn-block" ng-click="generateDoc('IT')">
-                        Generar Informe Técnico
-                        <i class="glyphicon glyphicon-wrench"></i>
-                    </button>
-                </div>
-                <div id="document_gen_ie_button" class="col-md-6">
-                    <button class="btn btn-primary btn-block" ng-click="generateDoc('IE')">
-                        Generar Informe Ejecutivo
-                        <i class="glyphicon glyphicon-wrench"></i>
-                    </button>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-6">
-                    <button class="btn btn-success btn-block" ng-click="downloadDoc('IT')">
-                        Descargar Informe Técnico
-                        <i class="glyphicon glyphicon-circle-arrow-down"></i>
-                    </button>
-                </div>
-                <div id="document_down_ie_button" class="col-md-6">
-                    <button class="btn btn-success btn-block" ng-click="downloadDoc('IE')">
-                        Descargar Ejecutivo
-                        <i class="glyphicon glyphicon-circle-arrow-down"></i>
-                    </button>
-                </div>
-            </div>
-        </div>
-        <div class="modal-footer">
-            <button class="btn btn-warning" type="button" ng-click="closeModal()">Cerrar</button>
-        </div>
-    </script>
-    <!-- START: MODAL Autodoc_customer -->
-    <script type="text/ng-template" id="autodoc_customer.html">
-        <div class="modal-header">
-            <h3 class="modal-title" id="modal-title">Documentación Automatica</h3>
-        </div>
-        <div class="modal-body" id="modal-body">
-            <div class="row">
-                <div class="col-md-6">
-                    <button class="btn btn-primary btn-block" ng-click="generateDoc('IT')">
-                        Generar Informe Técnico
-                        <i class="glyphicon glyphicon-wrench"></i>
-                    </button>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-6">
-                    <button class="btn btn-success btn-block" ng-click="downloadDoc('IT')">
-                        Descargar Informe Técnico
-                        <i class="glyphicon glyphicon-circle-arrow-down"></i>
-                    </button>
-                </div>
-            </div>
-        </div>
-        <div class="modal-footer">
-            <button class="btn btn-warning" type="button" ng-click="closeModal()">Cerrar</button>
-        </div>
-    </script>
-    <div class="row">
-        <div class="col-md-12 text-center loader">
-            <img src="assets/img/loading.gif" style="margin-top: 25px;" width="90" heigth="90">
-            <h5 class="text-muted">Un momento porfavor, cargando...</h5>
-        </div>
-        <div class="col-md-12" id="search_section">
-            <div class="row text-center">
-
-            </div>
-            <div class="row container">
-                <label><b>{{'search_findings.filter_labels.findings' | translate}}</b></label>
-                <label id="total_hallazgos"></label> &nbsp;&nbsp;&nbsp;
-                <label><b>{{'search_findings.filter_labels.cardinalities' | translate}}</b></label>
-                <label id="total_cardinalidad"></label> &nbsp;&nbsp;&nbsp;
-            </div>
-            <!-- START: toolbar -->
-            <div class="btn-group"  id="toolbar">
-                <script>
-                $(document).ready(function() {
-                    if (userRole == "customer"){
-                        $('#progress_button').hide();
-                    }
-                });
-                </script>
-                <button type="button"
-                        id="progress_button"
-                        class="btn btn-default"
-                        data-toggle="tooltip"
-                        data-placement="top"
-                        title="{{'search_findings.filter_buttons.advance' | translate}}!"
-                        ng-click="openModalAvance();">
-                    {{'search_findings.filter_buttons.advance' | translate}} <i class="glyphicon glyphicon-bookmark"></i>
-                </button>
-                <button type="button"
-                        id="document_button"
-                        class="btn btn-default"
-                        data-toggle="tooltip"
-                        data-placement="top"
-                        title="{{'search_findings.filter_buttons.documentation' | translate}}"
-                        ng-click="openModalAutodoc();">
-                    {{'search_findings.filter_buttons.documentation' | translate}} <i class="glyphicon glyphicon-star"></i>
-                </button>
-
-                <!--<button type="button" Temporary disable
-                        class="btn btn-default"
-                        data-toggle="tooltip"
-                        data-placement="top"
-                        title="ASIGNAR ID!"
-                        ng-click="openModalVincular();">
-                    RELACIONAR <i class="glyphicon glyphicon-link"></i>
-                </button>-->
-            </div>
-            <table
-                id="vulnerabilities"
-                data-click-to-select="true"
-                data-classes="table table-hover table-striped"
-                data-striped="true"
-                data-pagination="true"
-                data-page-size="15"
-                data-toolbar="#toolbar"
-                data-refresh="true"
-                data-search="true">
-                <thead>
-                    <tr style="">
-                        <th data-formatter="integrates.vuln_formatter"
-                            data-width="135">
-                            {{'search_findings.table.headings.action' | translate}}
-                        </th>
-                        <th data-field="tipo_prueba"
-                            data-sortable="true">
-                            {{'search_findings.table.headings.type' | translate}}
-                        </th>
-                        <th data-field="hallazgo"
-                            data-width="150">
-                            {{'search_findings.table.headings.finding' | translate}}
-                        </th>
-                        <th data-field="vulnerabilidad" style="display:none;">
-                            {{'search_findings.table.headings.vulnerability' | translate}}
-                        </th>
-                        <th data-field="criticidad"
-                            data-sortable="true"
-                            data-width="20">
-                            {{'search_findings.table.headings.criticity' | translate}}
-                        </th>
-                        <th data-field="cardinalidad"
-                            data-sortable="true"
-                            data-width="20">
-                            {{'search_findings.table.headings.cardinality' | translate}}
-                        </th>
-                        <th data-field="estado"
-                            data-sortable="true"
-                            data-width="20">
-                            {{'search_findings.table.headings.state' | translate}}
-                        </th>
-                    </tr>
-                </thead>
-            </table>
         </div>
     </div>
-</div>
+    
