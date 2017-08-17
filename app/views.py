@@ -260,7 +260,7 @@ def get_finding(request):
 
 @never_cache
 @csrf_exempt
-@authorize(['analyst'])
+@authorize(['analyst', 'customer'])
 def get_eventualities(request):
     """Obtiene las eventualidades con el nombre del proyecto."""
     project = request.GET.get('project', None)
@@ -432,6 +432,10 @@ def update_finding(request):
 @authorize(['analyst', 'customer'])
 def get_evidence(request):
     drive_id = request.GET.get('id', None)
+
+    if drive_id not in request.session:
+        redirect('dashboard')
+
     if drive_id is None:
         return HttpResponse("Error - ID de imagen no enviado", content_type="text/html")
     else:
@@ -445,3 +449,4 @@ def get_evidence(request):
             filename = "/tmp/:id.png".replace(":id", drive_id)
             with open(filename, "r") as file_obj:
                 return HttpResponse(file_obj.read(), content_type="image/png")
+            os.unlink(filename)

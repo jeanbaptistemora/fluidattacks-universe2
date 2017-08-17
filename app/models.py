@@ -193,28 +193,28 @@ class FormstackRequestMapper(object):
             if finding["field"] == self.FINDING_DOC_ACHV1:
                 filtered_url = drive_url_filter(finding["value"])
                 parsed["ruta_evidencia_1"] = filtered_url
-                if sess_obj is not None: 
-                    sess_obj.session["drive_urls"].append(filtered_url)
+                if sess_obj is not None:
+                    sess_obj.session[filtered_url] = 1
             if finding["field"] == self.FINDING_DOC_ACHV2:
                 filtered_url = drive_url_filter(finding["value"])
                 parsed["ruta_evidencia_2"] = filtered_url
-                if sess_obj is not None: 
-                    sess_obj.session["drive_urls"].append(filtered_url)
+                if sess_obj is not None:
+                    sess_obj.session[filtered_url] = 1
             if finding["field"] == self.FINDING_DOC_ACHV3:
                 filtered_url = drive_url_filter(finding["value"])
                 parsed["ruta_evidencia_3"] = filtered_url
-                if sess_obj is not None: 
-                    sess_obj.session["drive_urls"].append(filtered_url)
+                if sess_obj is not None:
+                    sess_obj.session[filtered_url] = 1
             if finding["field"] == self.FINDING_DOC_ACHV4:
                 filtered_url = drive_url_filter(finding["value"])
                 parsed["ruta_evidencia_4"] = filtered_url
-                if sess_obj is not None: 
-                    sess_obj.session["drive_urls"].append(filtered_url)
+                if sess_obj is not None:
+                    sess_obj.session[filtered_url] = 1
             if finding["field"] == self.FINDING_DOC_ACHV5:
                 filtered_url = drive_url_filter(finding["value"])
                 parsed["ruta_evidencia_5"] = filtered_url
-                if sess_obj is not None: 
-                    sess_obj.session["drive_urls"].append(filtered_url)
+                if sess_obj is not None:
+                    sess_obj.session[filtered_url] = 1
             if finding["field"] == self.FINDING_DOC_CMNT1:
                 parsed["desc_evidencia_1"] = finding["value"]
             if finding["field"] == self.FINDING_DOC_CMNT2:

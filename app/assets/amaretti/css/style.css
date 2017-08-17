@@ -20100,3 +20100,6 @@ div.dataTables_wrapper div.dataTables_length label select {
 .quote .timeline-icon {
   background-color: #ef6262;
 }
+.table-hover tbody tr:hover > td {
+  cursor: pointer;
+}

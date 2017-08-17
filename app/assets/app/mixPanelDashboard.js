@@ -30,6 +30,16 @@ mixPanelDashboard.trackSearchFinding = function(userEmail, project){
     );
 };
 
+mixPanelDashboard.trackSearchEventuality = function(userEmail, project){
+    if(mixPanelDashboard.isProduction()) return false;
+    mixpanel.track(
+        "SearchEventuality", {
+            "Email": userEmail,
+            "Project": project
+        }
+    );
+};
+
 mixPanelDashboard.trackReadFinding = function(userEmail, id){
     if(mixPanelDashboard.isProduction()) return false;
     mixpanel.track(

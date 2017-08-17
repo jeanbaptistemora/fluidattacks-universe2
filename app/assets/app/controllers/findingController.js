@@ -36,7 +36,9 @@ integrates.vuln_formatter = function(value, row, index){
  * @param {integrates.findingFactory} findingFactory
  * @return {undefined}
  */
-integrates.controller("findingController", function($scope, $uibModal, $translate, $filter, findingFactory) {
+integrates.controller("findingController", function($scope, $uibModal, $translate, 
+                                                    $filter, findingFactory, eventualityFactory, 
+                                                    $timeout) {
     /**
      * Inicializa las variables del controlador de hallazgos
      * @function init
@@ -218,7 +220,11 @@ integrates.controller("findingController", function($scope, $uibModal, $translat
             findingFactory.getVulnByName(project, filter).then(function(data){
                 if(data.error == false){
                     //Tracking Mixpanel
+                    $scope.data = data.data;
                     mixPanelDashboard.trackSearchFinding(userEmail, project);
+                    $timeout($scope.criticalityPieChart, 200);
+                    $timeout($scope.amountPieChart, 200);
+                    $timeout($scope.statusPieChart, 200);
                     //CONFIGURACION DE TABLA
                     $("#vulnerabilities").bootstrapTable('destroy');
                     $("#vulnerabilities").bootstrapTable(data);
@@ -254,10 +260,150 @@ integrates.controller("findingController", function($scope, $uibModal, $translat
                 });
                 //$scope.searchVulnByName();
             });
+            category = "Name";
+            eventualityFactory.getEvntByName(project, category).then(function(data){
+                if(!data.error){
+                    mixPanelDashboard.trackSearchEventuality (userEmail, project);
+                    //CONFIGURACION DE TABLA
+                    $("#tblEventualities").bootstrapTable('destroy');
+                    $("#tblEventualities").bootstrapTable({
+                        data: data.data,
+                        onDblClickRow: function(row){
+                            var modalInstance = $uibModal.open({
+                                animation: true, templateUrl: 'eventualityDetail.html',
+                                resolve: { evt: row}, backdrop: false,
+                                controller: function($scope, $uibModalInstance, evt){
+                                    $scope.evt = evt;
+                                    $scope.close = function(){
+                                        $uibModalInstance.close();
+                                    }
+                                }
+                            });
+                        }
+                    });
+                    $("#tblEventualities").bootstrapTable('refresh');
+                    //MANEJO DEL UI
+                    $("#search_section").show();
+                    $('[data-toggle="tooltip"]').tooltip();
+                }else{
+                     $.gritter.add({
+                        title: 'Consultando Eventualidades',
+                        text: data.message,
+                        class_name: 'color warning',
+                        sticky: false,
+                    });
+                }
+            }).catch(function(fallback) {
+                $.gritter.add({
+                    title: 'Consultando',
+                    text: 'Error interno cargando datos...',
+                    class_name: 'color warning',
+                    sticky: false,
+                });
+            });
         }else{
             $scope.response = "El nombre es obligatorio";
         }
     };
+
+    $scope.criticalityPieChart = function(){
+        var currData = $scope.data;
+        var total = 0;
+        var high = 0;
+        var moderate = 0;
+        var low = 0;
+        currData.forEach(function(val, i){
+            cardinalidad = parseFloat(val.cardinalidad);
+            total += cardinalidad;
+            criticity = parseFloat(val.criticidad);
+            if(criticity >= 7){
+                high ++;
+            }else if(criticity >= 4 & criticity <= 6.9){
+                moderate ++;
+            }else{
+                low ++;
+            }
+        });
+        total = parseFloat(total);
+        highLabel = "Altos :n%".replace(":n", (high*100/total).toFixed(2).toString());
+        moderateLabel = "Moderados :n%".replace(":n", (moderate*100/total).toFixed(2).toString());
+        lowLabel = "Bajos :n%".replace(":n", (low*100/total).toFixed(2).toString());
+        $("#grapCriticality").empty();
+        Morris.Donut({
+            element: 'grapCriticality',
+            resize: true,
+            data: [
+              {label: highLabel, value: high, color: "#ff1a1a"},
+              {label: moderateLabel, value: moderate, color: "#ffbf00"},
+              {label: lowLabel, value: low, color: "#FFFF37"}
+            ]
+        });
+    }
+    $scope.amountPieChart = function(){
+        var currData = $scope.data;
+        var total = 0;
+        var high = 0;
+        var moderate = 0;
+        var low = 0;
+        currData.forEach(function(val, i){
+            cardinalidad = parseFloat(val.cardinalidad);
+            total += cardinalidad;
+            criticity = parseFloat(val.criticidad);
+            if(criticity >= 7){
+                high += cardinalidad;
+            }else if(criticity >= 4 & criticity <= 6.9){
+                moderate += cardinalidad;
+            }else{
+                low += cardinalidad;
+            }
+        });
+        total = parseFloat(total);
+        highLabel = "Altos :n%".replace(":n", (high*100/total).toFixed(2).toString());
+        moderateLabel = "Moderados :n%".replace(":n", (moderate*100/total).toFixed(2).toString());
+        lowLabel = "Bajos :n%".replace(":n", (low*100/total).toFixed(2).toString());
+        $("#grapAmount").empty();
+        Morris.Donut({
+            element: 'grapAmount',
+            resize: true,
+            data: [
+              {label: highLabel, value: high, color: "#ff1a1a"},
+              {label: moderateLabel, value: moderate, color: "#ffbf00"},
+              {label: lowLabel, value: low, color: "#FFFF37"}
+            ]
+        });
+    }
+    $scope.statusPieChart = function(){
+        var currData = $scope.data;
+        var total = 0;
+        var open = 0;
+        var partial = 0;
+        var close = 0;
+        currData.forEach(function(val, i){
+            estado = val.estado;
+            total ++;
+            if(estado == "Abierto"){
+                open++;
+            }else if(estado == "Cerrado"){
+                close++;
+            }else{
+                partial++;
+            }
+        });
+        total = parseFloat(total);
+        openLabel = "Abiertos :n%".replace(":n", (open*100/total).toFixed(2).toString());
+        partialLabel = "Parciales :n%".replace(":n", (partial*100/total).toFixed(2).toString());
+        closeLabel = "Cerrados :n%".replace(":n", (close*100/total).toFixed(2).toString());
+        $("#grapStatus").empty();
+        Morris.Donut({
+            element: 'grapStatus',
+            resize: true,
+            data: [
+              {label: openLabel, value: open, color: "#ff1a1a"},
+              {label: partialLabel, value: partial, color: "#ffbf00"},
+              {label: closeLabel, value: close, color: "#31c0be"}
+            ]
+        });
+    }
     /* Invoca la configuracion inicial del controlador */
     $scope.init();
 });

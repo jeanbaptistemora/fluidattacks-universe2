@@ -136,13 +136,14 @@ integrates.controller("FindingResumeController", function($scope, $stateParams,
         return string.charAt(0).toUpperCase() + string.slice(1);
     }
     $scope.evidenceTab = function(){
-        $scope.tab = {};
-        $scope.tab.evidences = [];
-        
+        $scope.tabEvidences = [];
+        var evidenceList = [];
+        var url_pre = BASE.url + "get_evidence?id=";
         if($scope.finding.desc_evidencia_1 !== undefined
             && $scope.finding.ruta_evidencia_1 !== undefined){
-            $scope.tab.evidences.push({
-                "image": $scope.finding.ruta_evidencia_1,
+            var url = url_pre + $scope.finding.ruta_evidencia_1;
+            evidenceList.push({
+                "url": url,
                 "desc": $scope.capitalizeFirstLetter(
                     $scope.finding.desc_evidencia_1
                 )
@@ -150,8 +151,9 @@ integrates.controller("FindingResumeController", function($scope, $stateParams,
         }
         if($scope.finding.desc_evidencia_2 !== undefined
             && $scope.finding.ruta_evidencia_2 !== undefined){
-            $scope.tab.evidences.push({
-                "image": $scope.finding.ruta_evidencia_2,
+            var url = url_pre + $scope.finding.ruta_evidencia_1;
+            evidenceList.push({
+                "url": url,
                 "desc": $scope.capitalizeFirstLetter(
                     $scope.finding.desc_evidencia_2
                 )
@@ -159,8 +161,9 @@ integrates.controller("FindingResumeController", function($scope, $stateParams,
         }
         if($scope.desc_evidencia_3 !== undefined
             && $scope.ruta_evidencia_3 !== undefined){
-            $scope.tab.evidences.push({
-                "image": $scope.finding.ruta_evidencia_3,
+            var url = url_pre + $scope.finding.ruta_evidencia_1;
+            evidenceList.push({
+                "url": url,
                 "desc": $scope.capitalizeFirstLetter(
                     $scope.finding.desc_evidencia_3
                 )
@@ -168,8 +171,9 @@ integrates.controller("FindingResumeController", function($scope, $stateParams,
         }
         if($scope.finding.desc_evidencia_4 !== undefined
             && $scope.finding.ruta_evidencia_4 !== undefined){
-            $scope.tab.evidences.push({
-                "image": $scope.finding.ruta_evidencia_4,
+            var url = url_pre + $scope.finding.ruta_evidencia_1;
+            evidenceList.push({
+                "url": url,
                 "desc": $scope.capitalizeFirstLetter(
                     $scope.finding.desc_evidencia_4
                 )
@@ -177,13 +181,15 @@ integrates.controller("FindingResumeController", function($scope, $stateParams,
         }
         if($scope.finding.desc_evidencia_5 !== undefined
             && $scope.ruta_evidencia_5 !== undefined){
-            $scope.tab.evidences.push({
-                "image": $scope.finding.ruta_evidencia_5,
+            var url = url_pre + $scope.finding.ruta_evidencia_1;
+            evidenceList.push({
+                "url": url,
                 "desc": $scope.capitalizeFirstLetter(
                     $scope.finding.desc_evidencia_5
                 )
             });
         }
+        $scope.tabEvidences = evidenceList;
     }
     $scope.calculateSeveridad = function(){
         if(!isNaN($scope.finding.severidad)){
