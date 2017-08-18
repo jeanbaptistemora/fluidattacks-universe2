@@ -362,7 +362,7 @@ AppleWebKit/537.36 (KHTML, like Gecko) FLUIDIntegrates/1.0'
         de proyecto."""
         url = "https://www.formstack.com/api/v2/form/1998500/submission.json"
         search_field = "32201732"
-        data = {'search_field_1': search_field, 'search_value_1': project}
+        data = {'search_field_1': search_field, 'search_value_1': project, 'per_page': 100}
         return self.request("GET", url, data=data)
 
     def get_finding_state(self, submission_id):
