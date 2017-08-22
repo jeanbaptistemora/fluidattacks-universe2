@@ -2,15 +2,15 @@
 
 {% block header %}
     <!-- Page Header -->
-    {% include "navigationbar.html" %} 
     <!-- Set your background image for this header on the line below. -->        
+    {% include "navigationbar.html" %}
     {% if HEADER_COVER %}
         <header class="intro-header" style="background-image: url('{{ HEADER_COVER }}')">
     {% elif HEADER_COLOR %}
         <header class="intro-header" style="background-color: {{ HEADER_COLOR }}">
     {% else %}
         <header class="intro-header" style="background-image: url('{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/fluid.png');" >
-    {% endif %}  
+    {% endif %}   
         <div class="container">
             <div class="row">
                 <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
@@ -40,9 +40,117 @@
     </header>
 {% endblock header %}
 
-{% block content %} {% set var = 0 %}
-     <table>
+{% block content %} {% set var = 0 %} {% set linea = 0 %}
+     <div id="divindex">
+         <table>
     {% for article in articles_page.object_list %} 
+            {% set var = var + loop.index %}              
+            {% if var % 3 != 0 %}   
+                {% set linea = linea + 1 %}
+                {% if linea == 0 %}
+                    {% set linea = linea + 1 %}
+                    <tr><td class="tdview">            
+                    <div class="post-preview">           
+                    {% if  article.featured_image %}            
+                        <img src="{{ SITEURL }}/{{ article.featured_image }}">
+                    {% endif %}
+                    <a href="{{ SITEURL }}/{{ article.url }}" rel="bookmark" title="Permalink to {{ article.title|striptags }}">
+                        <h2 class="post-title">
+                            {{ article.title }}
+                        </h2>
+                    </a>
+                    <img class="imgprev" src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/icon.png"/>
+                    {% for author in article.authors %}
+                        <a id="aautor" href="{{ SITEURL }}/{{ author.url }}">{{ author }}</a>
+                    {% endfor %}
+                    &nbsp;&nbsp;<img class="imgprev" src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/calendar.png"/>
+                    <span>{{ article.locale_date }}</span>             
+                    {% if SHOW_FULL_ARTICLE %}
+                        {{ article.content }}
+                    {% else %}
+                        <p class="article-summary">
+                        {% if article.has_summary %}
+                            {{ article.summary }}
+                        {% elif article.summary %}
+                            {{ article.summary|striptags|truncate(140) }}
+                        {% endif %}
+                        </p>                    
+                    {% endif %}
+                    <br /><br />
+                    <div class="divread">
+                        <a id="read-more" href="{{ SITEURL }}/{{ article.url }}">Seguir leyendo</a></div>                     
+                    </div></td>                    
+                {% else %}                        
+                    {% set linea = linea + loop.index %}
+                    <td class="tdview"><div class="post-preview">
+                    {% if  article.featured_image %}            
+                          <img src="{{ SITEURL }}/{{ article.featured_image }}">
+                    {% endif %}
+                    <a href="{{ SITEURL }}/{{ article.url }}" rel="bookmark" title="Permalink to {{ article.title|striptags }}">
+                        <h2 class="post-title">
+                            {{ article.title }}
+                        </h2>
+                    </a>
+                    <img class="imgprev" src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/icon.png"/>
+                    {% for author in article.authors %}
+                    <a id="aautor" href="{{ SITEURL }}/{{ author.url }}">{{ author }}</a>
+                    {% endfor %}
+                    &nbsp;&nbsp;<img class="imgprev" src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/calendar.png"/>
+                    <span>{{ article.locale_date }}</span>            
+                    {% if SHOW_FULL_ARTICLE %}
+                        {{ article.content }}
+                    {% else %}
+                         <p class="article-summary">
+                        {% if article.has_summary %}
+                            {{ article.summary }}
+                        {% elif article.summary %}
+                             {{ article.summary|striptags|truncate(140) }}
+                        {% endif %}
+                        </p>
+                    {% endif %}
+                    <br /><br />
+                    <div class="divread">
+                    <a id="read-more" href="{{ SITEURL }}/{{ article.url }}">Seguir leyendo</a></div>     
+                    </div></td>                    
+                {% endif %}
+            {% else %} 
+                <td class="tdview"><div class="post-preview">
+                {% if  article.featured_image %}            
+                      <img src="{{ SITEURL }}/{{ article.featured_image }}">
+                {% endif %}
+                <a href="{{ SITEURL }}/{{ article.url }}" rel="bookmark" title="Permalink to {{ article.title|striptags }}">
+                    <h2 class="post-title">
+                        {{ article.title }}
+                    </h2>
+                </a>
+                <img class="imgprev" src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/icon.png"/>
+                {% for author in article.authors %}
+                <a id="aautor" href="{{ SITEURL }}/{{ author.url }}">{{ author }}</a>
+                {% endfor %}
+                &nbsp;&nbsp;<img class="imgprev" src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/calendar.png"/>
+                <span>{{ article.locale_date }}</span>            
+                {% if SHOW_FULL_ARTICLE %}
+                    {{ article.content }}
+                {% else %}
+                     <p class="article-summary">
+                    {% if article.has_summary %}
+                        {{ article.summary }}
+                    {% elif article.summary %}
+                         {{ article.summary|striptags|truncate(140) }}
+                    {% endif %}
+                    </p>
+                {% endif %}
+                <br /><br />
+                <div class="divread">
+                <a id="read-more" href="{{ SITEURL }}/{{ article.url }}">Seguir leyendo</a></div>     
+                </div></td></tr>                
+         {% endif %}
+    {% endfor %}
+         </table></div>
+            
+        <div id="divindex2">
+          <table>
+            {% for article in articles_page.object_list %} 
             {% set var = var + loop.index %}
             {% if var % 2 != 0 %}
             <tr><td class="tdview">            
@@ -109,7 +217,8 @@
                         <a id="read-more" href="{{ SITEURL }}/{{ article.url }}">Seguir leyendo</a></div>     
                </div></td></tr>
                 {% endif %}
-                {% endfor %}</table>
-
+                {% endfor %}
+            </table></div>  
+            
     {% include "pagination.html" %}
 {% endblock content %}
