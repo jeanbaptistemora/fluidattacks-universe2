@@ -15,6 +15,25 @@ integrates.calcCardinality = function(data){
     });
     $("#total_cardinalidad").html(cardinalidad);
     $("#total_hallazgos").html(data.data.length);
+    var total_criticidad = 0;
+    data.data.forEach(function(i){    
+    	try{
+        	var ImpCon = parseFloat(i.impacto_confidencialidad.split(" | ")[0]);
+        	var ImpInt = parseFloat(i.impacto_integridad.split(" | ")[0]);
+        	var ImpDis = parseFloat(i.impacto_disponibilidad.split(" | ")[0]);
+        	var AccCom = parseFloat(i.complejidad_acceso.split(" | ")[0]);
+        	var AccVec = parseFloat(i.vector_acceso.split(" | ")[0]);
+        	var Auth = parseFloat(i.autenticacion.split(" | ")[0]);
+        	var Explo = parseFloat(i.explotabilidad.split(" | ")[0]);
+        	var Resol = parseFloat(i.nivel_resolucion.split(" | ")[0]);
+        	var Confi = parseFloat(i.nivel_confianza.split(" | ")[0]);
+        	var BaseScore = (((0.6*(10.41*(1-(1-ImpCon)*(1-ImpInt)*(1-ImpDis))))+(0.4*(20*AccCom*Auth*AccVec))-1.5)*1.176);
+        	total_criticidad += BaseScore * parseFloat(i.cardinalidad);
+    	}catch(e){
+    
+    	}
+    });
+    $("#total_criticidad").html(total_criticidad.toFixed(0));
 };
 integrates.vuln_formatter = function(value, row, index){
     if (userRole == "analyst"){
