@@ -428,6 +428,20 @@ def update_finding(request):
         return util.response([], 'Actualizado correctamente!', False)
 
 @never_cache
+@authorize(['analyst', 'customer'])
+def get_myprojects(request):
+    user = request.session["username"]
+    data_set = integrates_dao.get_projects_by_user(user)
+    json_data = []
+    if len(data_set) > 0:
+        for row in data_set:
+            json_data.append({
+                "project": row[0].upper(),
+                "company_project": row[1]
+            })
+    return util.response(json_data, 'Correcto!', False)
+
+@never_cache
 @csrf_exempt
 @authorize(['analyst', 'customer'])
 def get_evidence(request):

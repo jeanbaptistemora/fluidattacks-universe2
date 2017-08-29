@@ -20102,4 +20102,6 @@ div.dataTables_wrapper div.dataTables_length label select {
 }
 .table-hover tbody tr:hover > td {
   cursor: pointer;
+  background-color: #72E1F0;
+  color: black;
 }

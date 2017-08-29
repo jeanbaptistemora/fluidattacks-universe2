@@ -9,11 +9,13 @@
  * @param {Object} $uibModal
  * @return {undefined}
  */
-integrates.controller("dashboardController", function($scope, $uibModal, $translate) {
+integrates.controller("dashboardCtrl", function($scope, $uibModal, $timeout,
+                                                $state, $stateParams,
+                                                $translate, dashboardFtry) {
     /**
      * Redirecciona a un usuario para cerrar la sesion
      * @function logout
-     * @member integrates.dashboardController
+     * @member integrates.dashboardCtrl
      * @return {undefined}
      */
     $scope.logout = function(){
@@ -35,9 +37,16 @@ integrates.controller("dashboardController", function($scope, $uibModal, $transl
         });
     }
     /**
+     * Obtiene los proyectos asignados
+     * @function changeLang
+     * @member integrates.dashboardCtrl
+     * @return {undefined}
+     */
+
+    /**
      * Cambia el lenguaje del dashboard
      * @function changeLang
-     * @member integrates.dashboardController
+     * @member integrates.dashboardCtrl
      * @return {undefined}
      */
     $scope.changeLang = function(langKey){
@@ -48,4 +57,15 @@ integrates.controller("dashboardController", function($scope, $uibModal, $transl
 		$translate.use(localStorage['lang']);
         //location.reload(); check for lang cookie
     }
+    $scope.init = function(){
+        $("#myProjectsTbl").attr("data-url",BASE.url+"get_myprojects");
+        $("#myProjectsTbl").bootstrapTable({
+            onClickRow: function(row, elem){
+                $state.go("SearchProject", {project: row.project});
+            }
+        });
+        $("#myProjectsTbl").bootstrapTable("refresh");
+    };
+
+    $scope.init();
 });

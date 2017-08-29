@@ -11,9 +11,32 @@
         <li><a href="dashboard#/home">Home</a></li>
     </ol>
 </div>
+<style>
+    table { background-color: white; color: #222; }
+    th,.tab-tit { background-color : #0A62AC !important; color:white; }
+</style>
 <div class="main-content">
-    <h2 class="text-center"></h2>
-    <div class="container">
-        <h3><a href="https://fluid.la/blog" target="_blank">Blog Fluid</a></h3>
+    <h2 class="text-left">Proyectos</h2>
+    <div class="row">
+        
+        <div class="col-md-12 col-sm-12 col-xs-12">
+            <p>Para ver el detalle del proyecto debes hacer <b>click</b> en el nombre del proyecto</p>
+            <table id="myProjectsTbl" 
+                   data-url="get_myprojects"
+                   data-classes="table table-responsive table-hover table-striped"
+                   data-striped="true"
+                   data-pagination="true"
+                   data-page-size="15"
+                   data-toggle="true"
+                   data-toolbar="#toolbar"
+                   data-search="true">
+                <thead>
+                    <tr>
+                        <th data-field="project">Proyecto Fluid</th>
+                        <th data-field="company_project">Descripción</th>
+                    </tr>
+                </thead>
+            </table>
+        </div>
     </div>
 </div>
