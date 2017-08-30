@@ -55,16 +55,41 @@ integrates.controller("dashboardCtrl", function($scope, $uibModal, $timeout,
 			localStorage['lang'] = langKey;
 		}
 		$translate.use(localStorage['lang']);
-        //location.reload(); check for lang cookie
     }
-    $scope.init = function(){
-        $("#myProjectsTbl").attr("data-url",BASE.url+"get_myprojects");
+    $scope.initMyProjects = function(){
         $("#myProjectsTbl").bootstrapTable({
+            url: BASE.url+"get_myprojects",
             onClickRow: function(row, elem){
                 $state.go("SearchProject", {project: row.project});
             }
         });
         $("#myProjectsTbl").bootstrapTable("refresh");
+    };
+    $scope.initMyEventualities = function(){
+        $("#myEventsTbl").bootstrapTable({
+            url: BASE.url+"get_myevents",
+            onClickRow: function(row, elem){
+                var modalInstance = $uibModal.open({
+                    animation: true,
+                    templateUrl: 'ver.html',
+                    windowClass: 'modal avance-modal',
+                    controller: function($scope, data, $uibModalInstance){
+                        $scope.evnt = data;
+                        $scope.close = function(){
+                            $uibModalInstance.close();
+                        }
+                    },
+                    resolve: {
+                        data: row
+                    }
+                });
+            }
+        });
+        $("#myEventsTbl").bootstrapTable("refresh");
+    };
+    $scope.init = function(){
+        $scope.initMyProjects();
+        $scope.initMyEventualities();
     };
 
     $scope.init();

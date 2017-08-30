@@ -29,6 +29,7 @@ urlpatterns = [
     url(r'^oauth/', include('social_django.urls', namespace='social')),
     # Presentacion Dashboard 
     url(r'^get_myprojects/?\.*$', views.get_myprojects, name='get_myprojects'),
+    url(r'^get_myevents/?\.*$', views.get_myevents, name='get_myevents'),
     # Consumo de servicios de formstack
     url(r'^get_finding/?\.*$', views.get_finding, name='get_finding'),
     url(r'^get_findings/?\.*$', views.get_findings, name='get_findings'),

@@ -433,13 +433,33 @@ def get_myprojects(request):
     user = request.session["username"]
     data_set = integrates_dao.get_projects_by_user(user)
     json_data = []
-    if len(data_set) > 0:
-        for row in data_set:
-            json_data.append({
-                "project": row[0].upper(),
-                "company_project": row[1]
-            })
+    for row in data_set:
+        json_data.append({
+            "project": row[0].upper(),
+            "company_project": row[1]
+        })
     return util.response(json_data, 'Correcto!', False)
+
+def get_myevents(request):
+    user = request.session["username"]
+    projects = integrates_dao.get_projects_by_user(user)
+    api = FormstackAPI()
+    rmp = FormstackRequestMapper()
+    eventualities = []
+    print projects
+    for proj_obj in projects:
+        project = proj_obj[0]
+        eventuality_requests = \
+            api.get_eventualities(project)["submissions"]
+        if eventuality_requests:
+            for eventuality in eventuality_requests:
+                eventuality_request = \
+                    api.get_submission(eventuality["id"])
+                eventuality_parsed = \
+                    rmp.map_eventuality(eventuality_request)
+                if eventuality_parsed["estado"] == "Pendiente":
+                    eventualities.append(eventuality_parsed)
+    return util.response(eventualities, 'Correcto', False)
 
 @never_cache
 @csrf_exempt
