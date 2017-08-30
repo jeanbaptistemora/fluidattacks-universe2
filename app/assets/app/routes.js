@@ -14,12 +14,18 @@ integrates.config(function($stateProvider, $urlRouterProvider) {
     $stateProvider
         .state('home', {
             url: '/home',
-            templateUrl: 'assets/views/dashboard.html'
+            templateUrl: 'assets/views/dashboard.html',
+            controller: 'dashboardCtrl'
         })
         .state('FindingResume', {
             url: '/FindingResume/:id',
             templateUrl: 'assets/views/search/vuln_resume.html',
             controller: 'FindingResumeController'  
+        })
+        .state('SearchProject', {
+            url: '/SearchProject/:project',
+            templateUrl: 'assets/views/search/vulns_by_name.html',
+            controller: 'findingController'  
         })
         .state('VulnerabilitiesByName', {
             url: '/VulnerabilitiesByName',

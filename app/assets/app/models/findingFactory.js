@@ -18,38 +18,9 @@ integrates.factory('findingFactory', function($q){
          * @return {Object}
          */
         getVulnByName: function(project, filter){
-          var deferred = $q.defer();
-          try {
-              $.ajax({
-                  url: BASE.url + "get_findings",
-                  data: {
-                    project: project,
-                    filter: filter,
-                    _: Math.random()
-                  },
-                  success: function (response) {
-                      $(".loader").hide();
-                      deferred.resolve(response);
-                  },
-                  error: function (xhr, status) {
-                      $(".loader").hide();
-                      if(xhr.status == 500){
-                        deferred.resolve({
-                            error: null,
-                            message: "Error interno cargando datos"
-                        });
-                      }else if(xhr.status == 401){
-                         location = "error401";
-                      }
-                  }
-              });
-          } catch (e) {
-              if(e.status == 401){
-                  location = "error401";
-              }
-              deferred.resolve('exception');
-          }
-          return deferred.promise
+            return $xhr.get($q, BASE.url + "get_findings", {
+                project: project, filter: filter, _: Math.random()
+            });
         },
          /**
          * Invoca el servicio para tener los hallazgos de un proyecto por id

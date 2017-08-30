@@ -103,7 +103,6 @@ project = %s'
         return True
     return False
 
-
 def register(email):
     """Registra usuario en la DB."""
     with connections['integrates'].cursor() as cursor:
@@ -142,6 +141,15 @@ ON users.id = projects.user_id WHERE project=%s'
         rows = cursor.fetchall()
     return rows
 
+def get_projects_by_user(user_id):
+    """Trae los usuarios interesados de un proyecto."""
+    with connections['integrates'].cursor() as cursor:
+        query = "SELECT project, company_project FROM projects \
+        INNER JOIN users ON projects.user_id = users.id \
+        WHERE email=%s ORDER BY project ASC"
+        cursor.execute(query, (user_id,))
+        rows = cursor.fetchall()
+    return rows
 
 def get_findings_amount(project):
     """Actualiza el numero de hallazgos en el proyecto."""
