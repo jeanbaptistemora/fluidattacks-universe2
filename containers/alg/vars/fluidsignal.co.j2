@@ -3,7 +3,12 @@
         ServerAlias *.fluidsignal.co
         ServerAdmin {{ server_admin }}
         Options  +Indexes +Multiviews +FollowSymLinks
-        Redirect / {{ mainsite }}
+        RewriteEngine on
+        RewriteRule ^/services/permanent-hacking                {{ landing }}services/permanent-hacking/ [P]
+        RewriteRule ^/$         {{ landing }} [P]
+        RewriteRule ^/(.*)           {{ landing }}/$1        [P]
+        ProxyPassReverse / {{ landing }}
+        ErrorDocument 404 {{ error_page }}
         ErrorLog {{ error_log }}
         CustomLog {{ custom_log }} combined
 </VirtualHost>
