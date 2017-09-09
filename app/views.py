@@ -446,7 +446,6 @@ def get_myevents(request):
     api = FormstackAPI()
     rmp = FormstackRequestMapper()
     eventualities = []
-    print projects
     for proj_obj in projects:
         project = proj_obj[0]
         eventuality_requests = \
