@@ -50,8 +50,7 @@ jobs:
       - run:
           name: Run settings check
           command: >
-                grep ^SOCIAL_AUTH_LOGIN_REDIRECT_URL fluidintegrates/settings.py | grep -q fluid.la;
-                grep ^SOCIAL_AUTH_NEW_USER_REDIRECT_URL fluidintegrates/settings.py | grep -q fluid
+                grep ^DEBUG fluidintegrates/settings.py | grep -q False;
 
       - run:
           name: Docker login
