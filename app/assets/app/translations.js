@@ -39,7 +39,7 @@ integrates.config(['$translateProvider', function($translateProvider) {
                     'application': 'Application',
                     'binary': 'Binary',
                     'code': 'Code',
-                    'infrastructure': 'Infrastructure'
+                    'infrastructure': 'Infraestructure'
                 },
                 'search':{
                     'placeholder': 'Fluid project name'
