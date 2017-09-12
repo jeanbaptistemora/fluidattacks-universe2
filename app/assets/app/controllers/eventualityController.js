@@ -264,12 +264,13 @@ integrates.controller("eventualityController", function($scope, $uibModal, event
             eventualityFactory.getEvntByName(project, category).then(function(data){
                 if(!data.error){
                     //CONFIGURACION DE TABLA
-                    $("#tblEventualities").bootstrapTable('destroy');
-                    $("#tblEventualities").bootstrapTable(data);
-                    $("#tblEventualities").bootstrapTable('refresh');
+                    $("#eventualities").bootstrapTable('destroy');
+                    $("#eventualities").bootstrapTable(data);
+                    $("#eventualities").bootstrapTable('refresh');
                     //MANEJO DEL UI
                     $("#search_section").show();
                     $('[data-toggle="tooltip"]').tooltip();
+                    integrates.evntTotalize(data);
                     $.gritter.add({
                         title: 'Consultando',
                         text: data.message,

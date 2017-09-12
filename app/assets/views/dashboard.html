@@ -11,9 +11,96 @@
         <li><a href="dashboard#/home">Home</a></li>
     </ol>
 </div>
+<style>
+    table { background-color: white; color: #222; }
+    th,.tab-tit { background-color : #0A62AC !important; color:white; }
+</style>
 <div class="main-content">
-    <h2 class="text-center"></h2>
-    <div class="container">
-        <h3><a href="https://fluid.la/blog" target="_blank">Blog Fluid</a></h3>
+    <h2 class="text-left">Mis Proyectos</h2>
+    <div class="row">
+        <div class="col-md-12 col-sm-12 col-xs-12">
+            <p>Para ver el detalle del proyecto debes hacer <b>click</b> sobre el proyecto</p>
+            <table id="myProjectsTbl" 
+                   data-classes="table table-responsive table-hover table-striped"
+                   data-striped="true"
+                   data-pagination="true"
+                   data-page-size="15"
+                   data-toggle="true"
+                   data-refresh="true"
+                   data-search="true"
+                   data-toolbar="#toolbar"
+                   data-search="true">
+                <thead>
+                    <tr>
+                        <th data-field="project"
+                            data-sortable="true">Proyecto Fluid</th>
+                        <th data-field="company_project"
+                            data-sortable="true">Descripción</th>
+                    </tr>
+                </thead>
+            </table>
+        </div>
     </div>
+    <h2 class="text-left">Mis Eventualidades Abiertas</h2>
+    <div class="row">
+        <div class="col-md-12 col-sm-12 col-xs-12">
+            <p>Para ver el detalle de la eventualidad debes hacer <b>click</b> sobre la eventualidad</p>
+            <table id="myEventsTbl" 
+                   data-classes="table table-responsive table-hover table-striped"
+                   data-striped="true"
+                   data-pagination="true"
+                   data-page-size="15"
+                   data-toggle="true"
+                   data-refresh="true"
+                   data-search="true"
+                   data-toolbar="#toolbar"
+                   data-search="true">
+                <thead>
+                    <tr>
+                        <th data-field="id"
+                            data-sortable="true">ID</th>
+                        <th data-field="proyecto_fluid"
+                            data-sortable="true">Proyecto Fluid</th>
+                        <th data-field="fecha"
+                            data-sortable="true">Fecha</th>
+                        <th data-field="tipo"
+                            data-sortable="true">Tipo</th>
+                    </tr>
+                </thead>
+            </table>
+        </div>
+    </div>
+    <!-- START: MODAL VER -->
+    <script type="text/ng-template" id="ver.html">
+        <div class="modal-body" id="modal-body">
+            <div class="row">
+                <div class="col-md-12 text-center">
+                    <h2>{{evnt.proyecto_cliente}}</h2>
+                </div>
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label>Tipo</label>
+                        <input type="text" class="form-control" ng-model="evnt.tipo" disabled>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label>Fecha</label>
+                        <input type="text" class="form-control" ng-model="evnt.fecha" disabled>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label>Detalle</label>
+                        <textarea class="form-control" 
+                                  sryle="resize: none;" disabled> {{evnt.detalle}} </textarea>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-primary" type="button" ng-click="close()">CERRAR</button>
+        </div>
+    </script>
 </div>
