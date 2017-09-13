@@ -59,34 +59,42 @@
                             <div class="col-md-12 col-sm-12 col-xs-12">
                                 <table class="table table-responsive" style="font-size: 14px;">
                                     <tbody>
-                                        <tr class="text-left text-uppercase">
-                                            <td colspan="4">Información de la vulnerabilidad</td>
-                                        </tr>
                                         <tr>
                                             <td class="text-uppercase label-primary">
                                                 <b style="color:white;">Proyecto Fluid</b>
                                             </td>
-                                            <td class="text-left text-uppercase"><b>{{finding.proyecto_fluid}}</b></td> 
+                                            <td class="text-left text-uppercase" colspan="3"><b>{{finding.proyecto_fluid}}</b></td> 
+                                        </tr>    
+                                        <tr>
                                             <td class="text-uppercase label-primary">
                                                 <b style="color:white;">Proyecto Cliente</b>
                                             </td>
-                                            <td class="text-left"><b>{{finding.proyecto_cliente}}</b></td>                                              
+                                            <td class="text-left" colspan="3"><b>{{finding.proyecto_cliente}}</b></td>                                              
                                         </tr>
                                         <tr>
                                             <td class="text-uppercase label-primary">
                                                 <b style="color:white;">Tipo Prueba</b>
                                             </td>
-                                            <td class="text-left"><b>{{finding.tipo_prueba}}</b></td> 
+                                            <td class="text-left" colspan="3"><b>{{finding.tipo_prueba}}</b></td>                                          
+                                        </tr>
+                                        <tr class="text-left text-uppercase">
+                                            <td colspan="4">Información del hallazgo</td>
+                                        </tr>
+                                        <tr>
                                             <td class="text-uppercase label-primary">
-                                                <b style="color:white;">Actor</b>
+                                                <b style="color:white;">Título</b>
                                             </td>
-                                            <td class="text-left"><b>{{finding.actor}}</b></td>                                              
+                                            <td class="text-left" colspan="3"><b>{{finding.hallazgo}}</b></td>                                              
                                         </tr>
                                         <tr>
                                             <td class="text-uppercase label-primary">
                                                 <b style="color:white;">Escenario</b>
                                             </td>
-                                            <td class="text-left" colspan="3"><b>{{finding.escenario}}</b></td>                                                
+                                            <td class="text-left"><b>{{finding.escenario}}</b></td>                                                
+                                            <td class="text-uppercase label-primary">
+                                                <b style="color:white;">Actor</b>
+                                            </td>
+                                            <td class="text-left"><b>{{finding.actor}}</b></td>
                                         </tr>
                                         <tr ng-class="esDetallado">
                                             <td class="text-uppercase label-primary">
@@ -114,13 +122,7 @@
                                         </tr>
                                         <tr>
                                             <td class="text-uppercase label-primary">
-                                                <b style="color:white;">Titulo</b>
-                                            </td>
-                                            <td class="text-left" colspan="3"><b>{{finding.hallazgo}}</b></td>                                              
-                                        </tr>
-                                        <tr>
-                                            <td class="text-uppercase label-primary">
-                                                <b style="color:white;">Descripcion</b>
+                                                <b style="color:white;">Descripción</b>
                                             </td>
                                             <td class="text-left" colspan="3"><b>{{finding.vulnerabilidad}}</b></td>                                              
                                         </tr>
@@ -144,7 +146,7 @@
                                         </tr>
                                         <tr>
                                             <td class="text-uppercase label-primary">
-                                                <b style="color:white;">Donde</b>
+                                                <b style="color:white;">Dónde</b>
                                             </td>
                                             <td class="text-left" colspan="3">
                                                 <textarea class="form-control" rows="6">
@@ -187,7 +189,7 @@
                                         </tr>
                                         <tr>
                                             <td class="text-uppercase label-primary">
-                                                <b style="color:white;">Autenticacion</b>
+                                                <b style="color:white;">Autenticación</b>
                                             </td>
                                             <td class="text-left"><b>{{finding.autenticacion}}</b></td>                                              
                                             <td class="text-uppercase label-primary">
@@ -211,7 +213,7 @@
                                             </td>
                                             <td class="text-left"><b>{{finding.nivel_confianza}}</b></td>                                              
                                             <td class="text-uppercase label-primary">
-                                                <b style="color:white;">Nivel Resolucion</b>
+                                                <b style="color:white;">Nivel Resolución</b>
                                             </td>
                                             <td class="text-left"><b>{{finding.nivel_resolucion}}</b></td>                                              
                                         </tr>
