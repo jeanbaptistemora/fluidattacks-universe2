@@ -218,9 +218,6 @@ class FormstackRequestMapper(object):
                     sess_obj.session[filtered_url] = 1
             if finding["field"] == self.FINDING_ANIMATION:
                 filtered_url = drive_url_filter(finding["value"])
-                print finding["field"]
-                print finding["value"]
-                print filtered_url
                 parsed["animacion"] = filtered_url
                 if sess_obj is not None:
                     sess_obj.session[filtered_url] = 1
