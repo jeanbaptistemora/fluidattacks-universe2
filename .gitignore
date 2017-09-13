@@ -8,3 +8,4 @@ logs
 .bundle
 Gemfile.lock
 vendor
+config/drive_authorization.json

@@ -120,6 +120,7 @@ integrates.controller("FindingResumeController", function($scope, $stateParams,
     };
     $scope.informationTab = function(){
         $scope.dropDownList();
+        $scope.finding.registros = $scope.finding.registros.replace('\n',', ');
         $scope.finding.cardinalidad = parseInt($scope.finding.cardinalidad);
         $scope.finding.criticidad = parseFloat($scope.finding.criticidad);
         $scope.calculteCSSv2();
