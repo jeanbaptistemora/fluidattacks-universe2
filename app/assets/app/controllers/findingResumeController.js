@@ -62,6 +62,7 @@ integrates.controller("FindingResumeController", function($scope, $stateParams,
             req.then(function(response){
                 if(!response.error){
                     $scope.finding = response.data;
+                    $scope.evidenceTab();
                     $scope.headerBuilding();
                     $scope.informationTab();
                     $scope.evidenceTab();
@@ -144,7 +145,7 @@ integrates.controller("FindingResumeController", function($scope, $stateParams,
             var url = url_pre + $scope.finding.animacion;
             evidenceList.push({
                 "url": url,
-                "desc": 'Animación de explotación'
+                "desc": "Animación de explotación"
             });
         }
         if($scope.finding.desc_evidencia_1 !== undefined
