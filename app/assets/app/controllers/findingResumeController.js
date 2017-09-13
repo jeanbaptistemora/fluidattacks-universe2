@@ -151,7 +151,7 @@ integrates.controller("FindingResumeController", function($scope, $stateParams,
         }
         if($scope.finding.desc_evidencia_2 !== undefined
             && $scope.finding.ruta_evidencia_2 !== undefined){
-            var url = url_pre + $scope.finding.ruta_evidencia_1;
+            var url = url_pre + $scope.finding.ruta_evidencia_2;
             evidenceList.push({
                 "url": url,
                 "desc": $scope.capitalizeFirstLetter(
@@ -161,7 +161,7 @@ integrates.controller("FindingResumeController", function($scope, $stateParams,
         }
         if($scope.desc_evidencia_3 !== undefined
             && $scope.ruta_evidencia_3 !== undefined){
-            var url = url_pre + $scope.finding.ruta_evidencia_1;
+            var url = url_pre + $scope.finding.ruta_evidencia_3;
             evidenceList.push({
                 "url": url,
                 "desc": $scope.capitalizeFirstLetter(
@@ -171,7 +171,7 @@ integrates.controller("FindingResumeController", function($scope, $stateParams,
         }
         if($scope.finding.desc_evidencia_4 !== undefined
             && $scope.finding.ruta_evidencia_4 !== undefined){
-            var url = url_pre + $scope.finding.ruta_evidencia_1;
+            var url = url_pre + $scope.finding.ruta_evidencia_4;
             evidenceList.push({
                 "url": url,
                 "desc": $scope.capitalizeFirstLetter(
@@ -181,7 +181,7 @@ integrates.controller("FindingResumeController", function($scope, $stateParams,
         }
         if($scope.finding.desc_evidencia_5 !== undefined
             && $scope.ruta_evidencia_5 !== undefined){
-            var url = url_pre + $scope.finding.ruta_evidencia_1;
+            var url = url_pre + $scope.finding.ruta_evidencia_5;
             evidenceList.push({
                 "url": url,
                 "desc": $scope.capitalizeFirstLetter(
