@@ -20,6 +20,7 @@ from .mailer import send_mail_delete_finding
 from .services import has_access_to_project
 from .dao import integrates_dao
 from .api.drive import DriveAPI
+from magic import Magic
 
 @never_cache
 def index(request):
@@ -479,7 +480,13 @@ def get_evidence(request):
         if image is None:
             return HttpResponse("Error - No se pudo descargar la imagen", content_type="text/html")
         else:
-            filename = "/tmp/:id.png".replace(":id", drive_id)
-            with open(filename, "r") as file_obj:
-                return HttpResponse(file_obj.read(), content_type="image/png")
+            filename = "/tmp/:id.tmp".replace(":id", drive_id)
+            mime = Magic(mime=True)
+            mime_type = mime.from_file(filename)
+            if mime_type == "image/png":
+                with open(filename, "r") as file_obj:
+                    return HttpResponse(file_obj.read(), content_type="image/png")
+            elif mime_type == "image/gif":
+                with open(filename, "r") as file_obj:
+                    return HttpResponse(file_obj.read(), content_type="image/gif")
             os.unlink(filename)
