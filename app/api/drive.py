@@ -34,7 +34,7 @@ class DriveAPI(object):
 
     def download(self, drive_file_id = ""):
         """ Descarga los archivos de google drive en /tmp/ """
-        filename = "/tmp/:id.png".replace(":id", drive_file_id)
+        filename = "/tmp/:id.tmp".replace(":id", drive_file_id)
         credentials = self.get_credentials()
         http = credentials.authorize(httplib2.Http())
         file_id = drive_file_id
@@ -51,7 +51,7 @@ class DriveAPI(object):
         if done:
             mime = Magic(mime=True)
             mime_type = mime.from_file(filename)
-            if mime_type == "image/png": #Descarga de solo imagenes
+            if mime_type == "image/png" or mime_type == "image/gif": #Descarga de solo imagenes
                 return fh
         return None
 
