@@ -39,7 +39,6 @@ def check_registered(strategy, details, backend, *args, **kwargs):
     email = details['email']
     is_registered = integrates_dao.is_registered_dao(email)
     last_login = integrates_dao.get_user_last_login_dao(email)
-    print (last_login)
     role = integrates_dao.get_role_dao(email)
     company = integrates_dao.get_company_dao(email)
 

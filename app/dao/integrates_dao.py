@@ -38,6 +38,8 @@ def get_user_last_login_dao(email):
         query = 'SELECT last_login FROM users WHERE email = %s'
         cursor.execute(query, (email,))
         row = cursor.fetchone()
+    if row is None:
+        return '-'
     return unicode(row[0])
 
 
