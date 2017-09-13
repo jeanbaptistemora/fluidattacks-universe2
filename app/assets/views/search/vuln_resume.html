@@ -56,6 +56,187 @@
                 <div class="tab-content">
                     <div id="home" class="tab-pane cont active">
                         <div class="row">
+                            <div class="col-md-12 col-sm-12 col-xs-12">
+                                <table class="table table-responsive" style="font-size: 14px;">
+                                    <tbody>
+                                        <tr class="text-left text-uppercase">
+                                            <td colspan="4">Información de la vulnerabilidad</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="text-uppercase label-primary">
+                                                <b style="color:white;">Proyecto Fluid</b>
+                                            </td>
+                                            <td class="text-left text-uppercase"><b>{{finding.proyecto_fluid}}</b></td> 
+                                            <td class="text-uppercase label-primary">
+                                                <b style="color:white;">Proyecto Cliente</b>
+                                            </td>
+                                            <td class="text-left"><b>{{finding.proyecto_cliente}}</b></td>                                              
+                                        </tr>
+                                        <tr>
+                                            <td class="text-uppercase label-primary">
+                                                <b style="color:white;">Tipo Prueba</b>
+                                            </td>
+                                            <td class="text-left"><b>{{finding.tipo_prueba}}</b></td> 
+                                            <td class="text-uppercase label-primary">
+                                                <b style="color:white;">Actor</b>
+                                            </td>
+                                            <td class="text-left"><b>{{finding.actor}}</b></td>                                              
+                                        </tr>
+                                        <tr>
+                                            <td class="text-uppercase label-primary">
+                                                <b style="color:white;">Escenario</b>
+                                            </td>
+                                            <td class="text-left" colspan="3"><b>{{finding.escenario}}</b></td>                                                
+                                        </tr>
+                                        <tr ng-class="esDetallado">
+                                            <td class="text-uppercase label-primary">
+                                                <b style="color:white;">Categoria</b>
+                                            </td>
+                                            <td class="text-left" colspan="3"><b>{{finding.categoria}}</b></td>                                                
+                                        </tr>
+                                        <tr ng-class="esDetallado">
+                                            <td class="text-uppercase label-primary">
+                                                <b style="color:white;">Probabilidad</b>
+                                            </td>
+                                            <td class="text-left" colspan="3"><b>{{finding.probabilidad}}</b></td>                                                
+                                        </tr>
+                                        <tr ng-class="esDetallado">
+                                            <td class="text-uppercase label-primary">
+                                                <b style="color:white;">Severidad</b>
+                                            </td>
+                                            <td class="text-left" colspan="3"><b>{{finding.severidad}}</b></td>                                                
+                                        </tr>
+                                        <tr ng-class="esDetallado">
+                                            <td class="text-uppercase label-primary">
+                                                <b style="color:white;">Valor Riesgo</b>
+                                            </td>
+                                            <td class="text-left" colspan="3"><b>{{finding.valor_riesgo}}</b></td>                                                
+                                        </tr>
+                                        <tr>
+                                            <td class="text-uppercase label-primary">
+                                                <b style="color:white;">Titulo</b>
+                                            </td>
+                                            <td class="text-left" colspan="3"><b>{{finding.hallazgo}}</b></td>                                              
+                                        </tr>
+                                        <tr>
+                                            <td class="text-uppercase label-primary">
+                                                <b style="color:white;">Descripcion</b>
+                                            </td>
+                                            <td class="text-left" colspan="3"><b>{{finding.vulnerabilidad}}</b></td>                                              
+                                        </tr>
+                                        <tr>
+                                            <td class="text-uppercase label-primary">
+                                                <b style="color:white;">Requisito</b>
+                                            </td>
+                                            <td class="text-left" colspan="3"><b>{{finding.requisitos}}</b></td>                                              
+                                        </tr>
+                                        <tr>
+                                            <td class="text-uppercase label-primary">
+                                                <b style="color:white;">Amenaza</b>
+                                            </td>
+                                            <td class="text-left" colspan="3"><b>{{finding.amenaza}}</b></td>                                              
+                                        </tr>
+                                        <tr>
+                                            <td class="text-uppercase label-primary">
+                                                <b style="color:white;">Vulnerabilidades</b>
+                                            </td>
+                                            <td class="text-left" colspan="3"><b>{{finding.cardinalidad}}</b></td>                                              
+                                        </tr>
+                                        <tr>
+                                            <td class="text-uppercase label-primary">
+                                                <b style="color:white;">Donde</b>
+                                            </td>
+                                            <td class="text-left" colspan="3">
+                                                <textarea class="form-control" rows="6">
+                                                    {{finding.donde}}
+                                                </textarea>
+                                            </td> 
+                                        </tr>
+                                        <tr>
+                                            <td class="text-uppercase label-primary">
+                                                <b style="color:white;">Vectores de ataque</b>
+                                            </td>
+                                            <td class="text-left"><b>{{finding.vector_ataque}}</b></td>                                              
+                                            <td class="text-uppercase label-primary">
+                                                <b style="color:white;">Recomendación</b>
+                                            </td>
+                                            <td class="text-left"><b>{{finding.solucion_efecto}}</b></td>                                              
+                                        </tr>
+                                        <tr>
+                                            <td class="text-uppercase label-primary">
+                                                <b style="color:white;">Sistemas Comprometidos</b>
+                                            </td>
+                                            <td class="text-left"><b>{{finding.sistema_comprometido}}</b></td>                                              
+                                            <td class="text-uppercase label-primary">
+                                                <b style="color:white;">Debilidad</b>
+                                            </td>
+                                            <td class="text-left"><b>{{finding.cwe}}</b></td>                                              
+                                        </tr>
+                                        <tr class="text-left text-uppercase">
+                                            <td colspan="4">Calificación</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="text-uppercase label-primary">
+                                                <b style="color:white;">Vector de Acceso</b>
+                                            </td>
+                                            <td class="text-left"><b>{{finding.vector_acceso}}</b></td>                                              
+                                            <td class="text-uppercase label-primary">
+                                                <b style="color:white;">Impacto Confidencialidad</b>
+                                            </td>
+                                            <td class="text-left"><b>{{finding.impacto_confidencialidad}}</b></td>                                              
+                                        </tr>
+                                        <tr>
+                                            <td class="text-uppercase label-primary">
+                                                <b style="color:white;">Autenticacion</b>
+                                            </td>
+                                            <td class="text-left"><b>{{finding.autenticacion}}</b></td>                                              
+                                            <td class="text-uppercase label-primary">
+                                                <b style="color:white;">Impacto Integridad</b>
+                                            </td>
+                                            <td class="text-left"><b>{{finding.impacto_integridad}}</b></td>                                              
+                                        </tr>
+                                        <tr>
+                                            <td class="text-uppercase label-primary">
+                                                <b style="color:white;">Explotabilidad</b>
+                                            </td>
+                                            <td class="text-left"><b>{{finding.explotabilidad}}</b></td>                                              
+                                            <td class="text-uppercase label-primary">
+                                                <b style="color:white;">Impacto Disponibilidad</b>
+                                            </td>
+                                            <td class="text-left"><b>{{finding.impacto_disponibilidad}}</b></td>                                              
+                                        </tr>
+                                        <tr>
+                                            <td class="text-uppercase label-primary">
+                                                <b style="color:white;">Nivel Confianza</b>
+                                            </td>
+                                            <td class="text-left"><b>{{finding.nivel_confianza}}</b></td>                                              
+                                            <td class="text-uppercase label-primary">
+                                                <b style="color:white;">Nivel Resolucion</b>
+                                            </td>
+                                            <td class="text-left"><b>{{finding.impacto_disponibilidad}}</b></td>                                              
+                                        </tr>
+                                        <tr>
+                                            <td class="text-uppercase label-primary">
+                                                <b style="color:white;">Complejidad Acceso</b>
+                                            </td>
+                                            <td class="text-left" colspan="3"><b>{{finding.complejidad_acceso}}</b></td>                                              
+                                        </tr>
+                                        <tr>
+                                            <td class="text-uppercase label-primary">
+                                                <b style="color:white;">CSSv2 Base</b>
+                                            </td>
+                                            <td class="text-left"><b>{{finding.cssv2base}}</b></td>                                              
+                                            <td class="text-uppercase label-primary">
+                                                <b style="color:white;">CSSv2 Temporal</b>
+                                            </td>
+                                            <td class="text-left"><b>{{finding.criticidad}}</b></td>                                              
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <!-- Begin Update View -->
+                        <div class="row" style="display: none;">
                             <div class="col-md-3">
                                 <label>Proyecto Fluid</label>
                                 <input type="text" ng-model="finding.proyecto_fluid"
@@ -146,6 +327,9 @@
                             <div class="col-md-12" ng-class="esDetallado">
                                 <hr>
                             </div>
+                            <div class="col-md-12" ng-class="esDetallado">
+                                <hr>
+                            </div>
                             <div class="col-md-6">
                                 <label>Descripcion</label>
                                 <textarea class="form-control no-resize"
@@ -205,7 +389,7 @@
                             <div class="col-md-12">
                                 <hr>
                             </div>
-                            <div class="col-md-4">
+                            <div class="col-md-5">
                                 <label>Vector de acceso</label>
                                 <select ng-model="finding.vector_acceso"
                                         ng-change="calculteCSSv2();"
@@ -216,40 +400,8 @@
                                     </option>
                                 </select>
                             </div>
-                            <div class="col-md-4">
-                                <label>Complejidad de acceso</label>
-                                <select ng-model="finding.complejidad_acceso"
-                                        ng-change="calculteCSSv2();"
-                                        class="form-control">
-                                    <option ng-repeat="item in list.accessComplexity"
-                                            value="{{item.value + ' | ' + item.name}}">
-                                        {{item.name}}
-                                    </option>
-                                </select>
-                            </div>
-                            <div class="col-md-4">
-                                <label>Autenticación</label>
-                                <select ng-model="finding.autenticacion"
-                                        ng-change="calculteCSSv2();"
-                                        class="form-control">
-                                    <option ng-repeat="item in list.authentication"
-                                            value="{{item.value + ' | ' + item.name}}">
-                                            {{item.name}}
-                                    </option>
-                                </select>
-                            </div>
-                            <div class="col-md-4">
-                                <label>Impacto a la Confidencialidad</label>
-                                <select ng-model="finding.impacto_confidencialidad"
-                                        ng-change="calculteCSSv2();"
-                                        class="form-control">
-                                    <option ng-repeat="item in list.confidenciality"
-                                            value="{{item.value + ' | ' + item.name}}">
-                                        {{item.name}}
-                                    </option>
-                                </select>
-                            </div>
-                            <div class="col-md-4">
+                            
+                            <div class="col-md-7">
                                 <label>Impacto a la Integridad</label>
                                 <select ng-model="finding.impacto_integridad"
                                         ng-change="calculteCSSv2();"
@@ -260,29 +412,30 @@
                                     </option>
                                 </select>
                             </div>
-                            <div class="col-md-4">
-                                <label>Impacto a la disponibilidad</label>
-                                <select ng-model="finding.impacto_disponibilidad"
+                            <div class="col-md-5">
+                                <label>Autenticación</label>
+                                <select ng-model="finding.autenticacion"
                                         ng-change="calculteCSSv2();"
                                         class="form-control">
-                                    <option ng-repeat="item in list.availability"
-                                            value="{{item.value + ' | ' + item.name}}">
-                                        {{item.name}}
-                                    </option>
-                                </select>
-                            </div>
-                            <div class="col-md-4">
-                                <label>Explotabilidad</label>
-                                <select ng-model="finding.explotabilidad"
-                                        ng-change="calculteCSSv2();"
-                                        class="form-control">
-                                    <option ng-repeat="item in list.explotability"
+                                    <option ng-repeat="item in list.authentication"
                                             value="{{item.value + ' | ' + item.name}}">
                                             {{item.name}}
                                     </option>
                                 </select>
                             </div>
-                            <div class="col-md-4">
+                            <div class="col-md-7">
+                                <label>Impacto a la Confidencialidad</label>
+                                <select ng-model="finding.impacto_confidencialidad"
+                                        ng-change="calculteCSSv2();"
+                                        
+                                        class="form-control">
+                                    <option ng-repeat="item in list.confidenciality"
+                                            value="{{item.value + ' | ' + item.name}}">
+                                        {{item.name}}
+                                    </option>
+                                </select>
+                            </div>
+                            <div class="col-md-5">
                                 <label>Nivel de resolución</label>
                                 <select ng-model="finding.nivel_resolucion"
                                         ng-change="calculteCSSv2();"
@@ -293,7 +446,41 @@
                                     </option>
                                 </select>
                             </div>
-                            <div class="col-md-4">
+                            
+                            <div class="col-md-7">
+                                <label>Impacto a la disponibilidad</label>
+                                <select ng-model="finding.impacto_disponibilidad"
+                                        ng-change="calculteCSSv2();"
+                                        class="form-control">
+                                    <option ng-repeat="item in list.availability"
+                                            value="{{item.value + ' | ' + item.name}}">
+                                        {{item.name}}
+                                    </option>
+                                </select>
+                            </div>
+                            <div class="col-md-5">
+                                <label>Explotabilidad</label>
+                                <select ng-model="finding.explotabilidad"
+                                        ng-change="calculteCSSv2();"
+                                        class="form-control">
+                                    <option ng-repeat="item in list.explotability"
+                                            value="{{item.value + ' | ' + item.name}}">
+                                            {{item.name}}
+                                    </option>
+                                </select>
+                            </div>
+                            <div class="col-md-7">
+                                <label>Complejidad de acceso</label>
+                                <select ng-model="finding.complejidad_acceso"
+                                        ng-change="calculteCSSv2();"
+                                        class="form-control">
+                                    <option ng-repeat="item in list.accessComplexity"
+                                            value="{{item.value + ' | ' + item.name}}">
+                                        {{item.name}}
+                                    </option>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
                                 <label>Nivel de confianza</label>
                                 <select ng-model="finding.nivel_confianza"
                                         ng-change="calculteCSSv2();"
@@ -304,14 +491,14 @@
                                     </option>
                                 </select>
                             </div>
-                            <div class="col-md-4">
+                            <div class="col-md-3">
                                 <label>CSSv2 Base</label>
                                 <input type="text"
                                        class="form-control"
                                        id="cssv2base"
                                        ng-model="finding.cssv2base">
                             </div>
-                            <div class="col-md-4">
+                            <div class="col-md-3">
                                 <label>CSSv2 Temporal</label>
                                 <input type="text"
                                        class="form-control"
@@ -325,6 +512,7 @@
                         <div class="row">
                             <div class="{{colsBack}}">
                                 <button class="btn btn-default btn-block"
+                                        onclick="window.close();"
                                         ng-click="window.close();">Cerrar</button>
                             </div>
                             <div class="{{colsEnable}}">
