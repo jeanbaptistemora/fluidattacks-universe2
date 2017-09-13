@@ -71,7 +71,10 @@ class Bancolombia(object):
         self.assign(self.COL_INSTRUCTIVO, "Soluciones/"+ finding["hallazgo"])
         self.assign(self.COL_ID_REQUISITOS, self.extract_reqs(finding["requisitos"]))
         self.assign(self.COL_AMENAZA, finding["amenaza"])
-        self.assign(self.COL_RIESGO, finding["riesgo"])
+        try:
+            self.assign(self.COL_RIESGO, finding["riesgo"])
+        except KeyError:
+            self.assign(self.COL_RIESGO, '-')
         #Metricas
         self.assign(self.COL_METRICAS, self.extract_metric(finding["vector_acceso"]))
         self.assign(self.COL_METRICAS, self.fix_complexity_access(self.extract_metric(finding["complejidad_acceso"])), 1)
