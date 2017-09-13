@@ -12,6 +12,7 @@ from oauth2client.file import Storage
 from django.conf import settings
 
 from apiclient.http import MediaIoBaseDownload # pylint: disable=import-error
+from apiclient.http import HttpError # pylint: disable=import-error
 
 class DriveAPI(object):
     """ Clase para consumir la API de Google Drive """
@@ -43,7 +44,10 @@ class DriveAPI(object):
         downloader = MediaIoBaseDownload(fh, request)
         done = False
         while done is False:
-            done = downloader.next_chunk()
+            try:
+                done = downloader.next_chunk()
+            except HttpError:
+                pass
         if done:
             mime = Magic(mime=True)
             mime_type = mime.from_file(filename)

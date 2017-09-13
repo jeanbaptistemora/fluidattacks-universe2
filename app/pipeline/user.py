@@ -6,9 +6,9 @@ FLUID_DOMAIN = '@fluid.la'
 
 # pylint: disable=W0613
 def create_user(strategy, details, backend, user=None, *args, **kwargs):
-    username = details['username']
-    first_name = details['first_name']
-    last_name = details['last_name']
+    username = details['username'][:63]
+    first_name = details['first_name'][:29]
+    last_name = details['last_name'][:29]
     email = details['email']
 
     # Put details on session
@@ -39,7 +39,6 @@ def check_registered(strategy, details, backend, *args, **kwargs):
     email = details['email']
     is_registered = integrates_dao.is_registered_dao(email)
     last_login = integrates_dao.get_user_last_login_dao(email)
-    print (last_login)
     role = integrates_dao.get_role_dao(email)
     company = integrates_dao.get_company_dao(email)
 
