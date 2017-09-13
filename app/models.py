@@ -78,6 +78,7 @@ class FormstackRequestMapper(object):
     FINDING_DOC_CMNT3 = "53713153"
     FINDING_DOC_CMNT4 = "53714417"
     FINDING_DOC_CMNT5 = "53714455"
+    FINDING_ANIMATION = "38307272"
 
     CLOSING_PROYECTO = '39596058'
     CLOSING_CICLO = '50394892'
@@ -213,6 +214,14 @@ class FormstackRequestMapper(object):
             if finding["field"] == self.FINDING_DOC_ACHV5:
                 filtered_url = drive_url_filter(finding["value"])
                 parsed["ruta_evidencia_5"] = filtered_url
+                if sess_obj is not None:
+                    sess_obj.session[filtered_url] = 1
+            if finding["field"] == self.FINDING_ANIMATION:
+                filtered_url = drive_url_filter(finding["value"])
+                print finding["field"]
+                print finding["value"]
+                print filtered_url
+                parsed["animacion"] = filtered_url
                 if sess_obj is not None:
                     sess_obj.session[filtered_url] = 1
             if finding["field"] == self.FINDING_DOC_CMNT1:
