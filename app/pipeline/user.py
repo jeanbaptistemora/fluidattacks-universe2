@@ -6,9 +6,9 @@ FLUID_DOMAIN = '@fluid.la'
 
 # pylint: disable=W0613
 def create_user(strategy, details, backend, user=None, *args, **kwargs):
-    username = details['username']
-    first_name = details['first_name']
-    last_name = details['last_name']
+    username = details['username'][:63]
+    first_name = details['first_name'][:29]
+    last_name = details['last_name'][:29]
     email = details['email']
 
     # Put details on session
