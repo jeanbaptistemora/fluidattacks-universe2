@@ -79,6 +79,8 @@ class FormstackRequestMapper(object):
     FINDING_DOC_CMNT4 = "53714417"
     FINDING_DOC_CMNT5 = "53714455"
     FINDING_ANIMATION = "38307272"
+    FINDING_REG = "53609444"
+    FINDING_REG_NUM = "49412242"
 
     CLOSING_PROYECTO = '39596058'
     CLOSING_CICLO = '50394892'
@@ -231,8 +233,10 @@ class FormstackRequestMapper(object):
                 parsed["desc_evidencia_4"] = finding["value"]
             if finding["field"] == self.FINDING_DOC_CMNT5:
                 parsed["desc_evidencia_5"] = finding["value"]
-
-
+            if finding["field"] == self.FINDING_REG:
+                parsed["registros"] = finding["value"]
+            if finding["field"] == self.FINDING_REG_NUM:
+                parsed["registros_num"] = finding["value"]
         parsed["id"] = finding_request["id"]
         parsed["timestamp"] = finding_request["timestamp"]
         return parsed
