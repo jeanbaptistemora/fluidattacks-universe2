@@ -12,7 +12,7 @@ ENV TZ=America/Bogota
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
 # Instala dependencias
-RUN gpg --recv-key --keyserver pgp.mit.edu 93C4A3FD7BB9C367 \
+RUN gpg --recv-key --keyserver pgp.key-server.io 93C4A3FD7BB9C367 \
     && gpg --export --armor 93C4A3FD7BB9C367 | apt-key add -
 
 RUN apt-get update \
