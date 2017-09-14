@@ -70,6 +70,7 @@
       - ansible
       - django-crontab
       - django-analytical
+      - django-intercom
       - mandrill
       - python-magic
       - apiclient
