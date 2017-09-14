@@ -44,6 +44,11 @@
         RewriteRule ^/registration(.*)$           https://fluid.la:8000/registration$1        [P,L]
         ProxyPassReverse /registration https://fluid.la:8000/registration
 
+    #Chargify
+        RewriteRule ^/subscribe(.*)$           https://fluidsignal.chargify.com/subscribe/6j7253j3kqv6/continuos-security$1        [P,L]
+        ProxyPassReverse /subscribe https://fluidsignal.chargify.com/subscribe/6j7253j3kqv6/continuos-security
+
+
     # KB - Knowledgeowl
 	Header edit Location ^http://kb.fluid.la(.*)$ https://fluid.la$1
         Header edit Set-Cookie kb.fluid.la fluid.la
@@ -69,6 +74,8 @@
         RewriteRule ^/(.*)           {{ landing }}/$1        [P]
         ProxyPassReverse / {{ landing }}
         ErrorDocument 404 {{ error_page }}
+        ErrorDocument 500 https://fluid.la/integrates/error500
+        ErrorDocument 401 /errors/
 
     # Configuración SSL
 	SSLEngine on
