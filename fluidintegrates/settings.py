@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'sslserver',
     'django_crontab',
     'analytical',
+    'intercom',
 ]
 
 MIDDLEWARE = [
@@ -215,6 +216,14 @@ USE_X_FORWARDED_HOST = True
 # django-analytical
 MIXPANEL_API_TOKEN = '7a7ceb75ff1eed29f976310933d1cc3e'
 ANALYTICAL_AUTO_IDENTIFY = False
+
+# Intercom
+INTERCOM_APPID = "l4658g9m"
+INTERCOM_SECURE_KEY = "1OiHbIWhrTA_vjLmsciGFIbyBZxd0TB89w1GLYbE"
+INTERCOM_INCLUDE_USERID = False
+INTERCOM_CUSTOM_DATA_CLASSES = [
+    'app.pipeline.intercom_custom_data.IntercomCustomData',
+]
 
 if DEBUG:
     SOCIAL_AUTH_LOGIN_REDIRECT_URL     = '/registration'
