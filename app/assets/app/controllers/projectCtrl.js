@@ -15,7 +15,7 @@
 integrates.controller(
     "projectCtrl",
     function(
-        $scope, 
+        $scope, $location,
         $uibModal, $timeout,
         $state, $stateParams,
         $translate, projectFtry) {
@@ -27,7 +27,7 @@ integrates.controller(
             //Defaults para cambiar vistas
             $scope.view = {};
             $scope.view.project = false;
-            $scope.view.finding = true;
+            $scope.view.finding = false;
             //Parametros de ruta
             if(findingId !== undefined) $scope.findingId = findingId;
             if(project != undefined
@@ -37,12 +37,23 @@ integrates.controller(
             }
             //Inicializacion para consulta de hallazgos
             $scope.configColorPalette();
+            //Asigna el evento buscar al textbox search y tecla enter
+            $scope.configKeyboardView();
+            $scope.goUp();
             $scope.finding = {};
-            $scope.testFinding();
         };
-        $scope.esDetallado = true;
+        $scope.goUp = function(){
+            $('html, body').animate({ scrollTop: 0 }, 'fast');
+        };
+        $scope.goBack = function(){
+            $scope.view.project = true;
+            $scope.view.finding = false;
+            $scope.mainGraphcriticalityPieChart;
+            $scope.mainGraphamountPieChart;
+            $scope.mainGraphstatusPieChart;
+            $('html, body').animate({ scrollTop: $scope.currentScrollPosition }, 'fast');
+        };
         $scope.testFinding = function(){
-            
             $scope.finding = {
                 proyecto_fluid: "Integrates",
                 proyecto_cliente: "Integrates",
@@ -127,6 +138,9 @@ integrates.controller(
             });
             $("#total_criticidad").html(total_criticidad.toFixed(0));
         };
+        $scope.capitalizeFirstLetter = function(string) {
+            return string.charAt(0).toUpperCase() + string.slice(1);
+        }
         $scope.configColorPalette = function(){
             $scope.colors = {};
             $scope.colors.critical = "background-color: #f12;";  //red
@@ -181,14 +195,18 @@ integrates.controller(
         $scope.findingHeaderBuilding = function(){
             //console.log($scope.finding);
             $scope.header = {};
-            var cierres = $scope.finding.cierres;
-            var cierresTmp = [];
-            for(var i = 0; i < cierres.length ; i++){
-                cierre = cierres[i];
-                cierre.position = i+1;
-                cierresTmp.push(cierre);
+            try{
+                var cierres = $scope.finding.cierres;
+                var cierresTmp = [];
+                for(var i = 0; i < cierres.length ; i++){
+                    cierre = cierres[i];
+                    cierre.position = i+1;
+                    cierresTmp.push(cierre);
+                }
+                $scope.finding.cierres = cierresTmp;
+            }catch(e){
+                console.log($scope.finding.id + "No tiene cierres");
             }
-            $scope.finding.cierres = cierresTmp;
             $scope.header.findingTitle = $scope.finding.hallazgo;
             $scope.header.findingType = $scope.finding.tipo_prueba;
             $scope.header.findingRisk = "";
@@ -245,6 +263,69 @@ integrates.controller(
                 ngNotify.set("La severidad debe ser un numero de 0 a 5", "error");
             }
         };
+        $scope.findingEvidenceTab = function(){
+            $scope.tabEvidences = [];
+            var evidenceList = [];
+            var url_pre = BASE.url + "get_evidence?id=";
+            if($scope.finding.animacion !== undefined){
+                var url = url_pre + $scope.finding.animacion;
+                evidenceList.push({
+                    "url": url,
+                    "desc": 'Animación de explotación'
+                });
+            }
+            if($scope.finding.desc_evidencia_1 !== undefined
+                && $scope.finding.ruta_evidencia_1 !== undefined){
+                var url = url_pre + $scope.finding.ruta_evidencia_1;
+                evidenceList.push({
+                    "url": url,
+                    "desc": $scope.capitalizeFirstLetter(
+                        $scope.finding.desc_evidencia_1
+                    )
+                });
+            }
+            if($scope.finding.desc_evidencia_2 !== undefined
+                && $scope.finding.ruta_evidencia_2 !== undefined){
+                var url = url_pre + $scope.finding.ruta_evidencia_2;
+                evidenceList.push({
+                    "url": url,
+                    "desc": $scope.capitalizeFirstLetter(
+                        $scope.finding.desc_evidencia_2
+                    )
+                });
+            }
+            if($scope.desc_evidencia_3 !== undefined
+                && $scope.ruta_evidencia_3 !== undefined){
+                var url = url_pre + $scope.finding.ruta_evidencia_3;
+                evidenceList.push({
+                    "url": url,
+                    "desc": $scope.capitalizeFirstLetter(
+                        $scope.finding.desc_evidencia_3
+                    )
+                });
+            }
+            if($scope.finding.desc_evidencia_4 !== undefined
+                && $scope.finding.ruta_evidencia_4 !== undefined){
+                var url = url_pre + $scope.finding.ruta_evidencia_4;
+                evidenceList.push({
+                    "url": url,
+                    "desc": $scope.capitalizeFirstLetter(
+                        $scope.finding.desc_evidencia_4
+                    )
+                });
+            }
+            if($scope.finding.desc_evidencia_5 !== undefined
+                && $scope.ruta_evidencia_5 !== undefined){
+                var url = url_pre + $scope.finding.ruta_evidencia_5;
+                evidenceList.push({
+                    "url": url,
+                    "desc": $scope.capitalizeFirstLetter(
+                        $scope.finding.desc_evidencia_5
+                    )
+                });
+            }
+            $scope.tabEvidences = evidenceList;
+        }
         $scope.findingInformationTab = function(){
             $scope.findingDropDownList();
             $scope.finding.cardinalidad = parseInt($scope.finding.cardinalidad);
@@ -260,23 +341,24 @@ integrates.controller(
             }
         };
         $scope.loadFindingByID = function(id){
-            $msg.info("Buscando Hallazgo :)");
-            var req = projectFtry.FindingById(id);
-            req.then(function(response){
-                if(!response.error){
-                    $scope.finding = response.data;
-                    $scope.findingHeaderBuilding();
-                    $scope.view.project = false;
-                    $scope.view.finding = true;
-                    $scope.findingInformationTab();
-                    console.log(response.data);
-                    //$scope.evidenceTab();
-                    //Tracking mixpanel
-                    mixPanelDashboard.trackReadFinding(userEmail, $scope.finding.id);
-                }else{
-                    $msg.error("No encontramos el hallazgo!");
-                }
-            });
+            $scope.$apply();
+            var findingObj = $.grep($scope.data, function(e){ return e.id == id; });
+            console.log(findingObj);
+            console.log($scope.data);
+            if(findingObj.length == 0){
+                $msg.error("No encontramos el hallazgo!");
+                return false;
+            }else{
+                $scope.finding = findingObj[0];
+                $scope.findingHeaderBuilding();
+                $scope.view.project = false;
+                $scope.view.finding = true;
+                $scope.findingInformationTab();
+                $scope.findingEvidenceTab();
+                //Tracking mixpanel
+                mixPanelDashboard.trackReadFinding(userEmail, $scope.finding.id);
+                $timeout($scope.goUp, 200);
+            }
         };
         $scope.mainGraphamountPieChart = function(){
             var currData = $scope.data;
@@ -406,6 +488,7 @@ integrates.controller(
                         onClickRow: function(row, elem){
                             $scope.finding.id = row.id;
                             $scope.loadFindingByID($scope.finding.id);
+                            $scope.currentScrollPosition =  $(document).scrollTop();
                         }
                     });
                     $("#vulnerabilities").bootstrapTable('refresh');

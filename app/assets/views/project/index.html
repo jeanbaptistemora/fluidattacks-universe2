@@ -1,6 +1,6 @@
 <div class="page-head">
     <ol class="breadcrumb">
-        <li><a>Proyecto</a></li>
+        <li>Proyecto</li>
         <li><a class="text-uppercase">{{project}}</a></li>
     </ol>
     <div class="text-center">
@@ -28,7 +28,7 @@
     </div>
 </div>
 <!-- Start ProjectContent -->
-<div class="main-content" ng-show="view.project">
+<div class="main-content" ng-show="view.project" style="background-color: white;">
     <div class="row">
         <div class="col-md-12" id="search_section">
             <div class="row">
@@ -47,7 +47,7 @@
             </div>
             <div class="row">
                 <div class="tab-container">
-                    <ul class="nav nav-tabs">
+                        <ul class="nav pills-tabs nav-justified" style="background-color: white; border-bottom: 1px #eee solid;">
                         <li class="active" style="font-size:15px;">
                             <a href="#findings" data-toggle="tab" aria-expanded="false">
                                 <i class="icon s7-light"></i>&nbsp;Hallazgos
@@ -86,9 +86,13 @@
                                 </button>
                             </div>
                             <p>Haz <b>click</b> para ver mas detalles del hallazgo</p>
-                            <table id="vulnerabilities" data-click-to-select="true" data-classes="table table-hover table-striped" data-striped="true" data-pagination="true" data-page-size="15" data-toolbar="#toolbar" data-refresh="true" data-search="true">
+                            <table id="vulnerabilities" 
+                                   data-click-to-select="true" 
+                                   data-classes="table table-hover table-striped" 
+                                   data-striped="true" data-pagination="true" 
+                                   data-page-size="15" data-toolbar="#toolbar" data-refresh="true" data-search="true">
                                 <thead>
-                                    <tr>
+                                    <tr class="head-blue" style="background-color: #0361cc; color:white;">
                                         <th data-field="tipo_prueba" data-sortable="true">
                                             {{'search_findings.table.headings.type' | translate}}
                                         </th>
@@ -115,7 +119,7 @@
                             <div class="row">
                                 <!-- START: toolbar -->
                                 <div class="btn-group" id="toolbar2">
-                                    <p><b>Haz doble click para ver el detalle</b></p>
+                                    <p><b>Haz <b>click</b> para ver el detalle</b></p>
                                 </div>
                                 <div class="col-md-12">
                                     <table id="tblEventualities" data-classes="table table-hover table-striped" data-striped="true" data-pagination="true" data-page-size="15" data-toolbar="#toolbar2" data-search="true">
@@ -142,7 +146,7 @@
 <div class="main-content" ng-show="view.finding" style="background-color: white;">
     <div class="row">
         <div class="col-md-2 col-xs-12 col-sm-12">
-            <button class="btn btn-default btn-block">
+            <button class="btn btn-default btn-block" ng-click="goBack();">
                 <i class="icon s7-angle-left"></i> Volver
             </button>
         </div>
@@ -183,7 +187,7 @@
         <div class="col-md-2 col-sm-6 col-xs-6 text-right">Proyecto Fluid</div>
         <div class="col-md-2 col-sm-6 col-xs-6">{{finding.proyecto_fluid}}</div>
         <div class="col-md-2 col-sm-6 col-xs-6 text-right">Proyecto Cliente</div>
-        <div class="col-md-2 col-sm-6 col-xs-6">{{finding.proyecto_cliente}}</div>
+        <div class="col-md-6 col-sm-6 col-xs-6">{{finding.proyecto_cliente}}</div>
     </div>
     <div class="row" style="margin-top: 15px;">
         <div class="col-sm-12 col-md-12">
@@ -380,7 +384,7 @@
         </div>
         <div class="row">
             <div class="col-md-4 col-md-offset-4 col-sm-12 col-xs-12 text-center" style="margin-bottom: 15px !important;">
-                <button class="btn btn-default">
+                <button class="btn btn-default" ng-click="goBack();">
                     <i class="icon s7-angle-left"></i> Volver
                 </button>
             </div>
@@ -426,6 +430,8 @@
         text-align: justify;
         /*border-bottom: 0.5px #DDD solid;*/
     }
+    #vulnerabilities thead tr{ background-color: #337ab7; color:white;  }
+    #eventualities thead tr{ background-color: #337ab7; color:white;  }
     
 </style>
 <!-- End CommonStyles -->

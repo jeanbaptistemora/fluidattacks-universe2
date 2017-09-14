@@ -36,6 +36,9 @@
     var userEmail = "{{ request.session.username }}";
     var userRole = "{{ request.session.role }}";
     var lastLogin = "{{ request.session.last_login }}";
+    function goDash(){
+      location = BASE.url + "dashboard#/home";
+    }
     </script>
   </head>
   <body ng-app="FluidIntegrates">
@@ -46,7 +49,7 @@
             <div class="page-title">
               <span>Dashboard</span>
             </div>
-            <a href="#" class="am-toggle-left-sidebar navbar-toggle collapsed"><span class="icon-bar"><span></span><span></span><span></span></span></a><a href="/integrates/dashboard" class="navbar-brand"></a>
+            <a href="#" class="am-toggle-left-sidebar navbar-toggle collapsed"><span class="icon-bar"><span></span><span></span><span></span></span></a><a onclick="goDash();" class="navbar-brand"></a><style>.navbar-brand:hover{ cursor:pointer;}</style>
           </div><a href="#" class="am-toggle-right-sidebar" title="Perfil"><span class="icon s7-menu2"></span></a><a href="#" data-toggle="collapse" data-target="#am-navbar-collapse" class="am-toggle-top-header-menu collapsed"><span class="icon s7-angle-down"></span></a>
           <div id="am-navbar-collapse" class="collapse navbar-collapse" ng-controller="dashboardCtrl">
             <ul class="nav navbar-nav am-nav-right">

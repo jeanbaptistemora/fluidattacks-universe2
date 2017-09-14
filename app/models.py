@@ -295,7 +295,7 @@ class FormstackRequestMapper(object):
 class FormstackAPI(object):
 
     headers_config = {}
-    TOKEN = "7f7599e833e78a4f8c0420fe89948491"
+    TOKEN = "d6f75fd20d78ddb525f390114188471d"
 
     def __init__(self):
         """Constructor."""
