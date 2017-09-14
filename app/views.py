@@ -76,6 +76,7 @@ def dashboard(request):
 def logout(request):
     "Cierra la sesion activa de un usuario"
 
+    HttpResponse("<script>Intercom('shutdown');</script>")
     try:
         del(request.session["username"])
         del(request.session["company"])
