@@ -342,14 +342,21 @@ integrates.controller(
         };
         $scope.loadFindingByID = function(id){
             $scope.$apply();
-            var findingObj = $.grep($scope.data, function(e){ return e.id == id; });
+            var findingObj = undefined;
+            for(var i=0; i<$scope.data.length; i++){
+                var attach = $scope.data[i];
+                if(attach.id == id){
+                    findingObj = attach;
+                    break;
+                }
+            }
             console.log(findingObj);
             console.log($scope.data);
-            if(findingObj.length == 0){
+            if(findingObj.length != undefined){
                 $msg.error("No encontramos el hallazgo!");
                 return false;
             }else{
-                $scope.finding = findingObj[0];
+                $scope.finding = findingObj;
                 $scope.findingHeaderBuilding();
                 $scope.view.project = false;
                 $scope.view.finding = true;
@@ -486,8 +493,7 @@ integrates.controller(
                     $("#vulnerabilities").bootstrapTable({
                         data: $scope.data,
                         onClickRow: function(row, elem){
-                            $scope.finding.id = row.id;
-                            $scope.loadFindingByID($scope.finding.id);
+                            $scope.loadFindingByID(row.id);
                             $scope.currentScrollPosition =  $(document).scrollTop();
                         }
                     });
