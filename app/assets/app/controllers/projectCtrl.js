@@ -158,6 +158,55 @@ integrates.controller(
                 }
             };
         };
+        $scope.generateFullDoc = function(){
+            var project = $scope.project;
+            var data = $("#vulnerabilities").bootstrapTable('getData');
+            for(i=0; i < data.length-1; i++){
+                for(j=i+1; j < data.length; j++){
+                    if(parseFloat(data[i].criticidad) < parseFloat(data[j].criticidad)){
+                        aux = data[i];
+                        data[i] = data[j];
+                        data[j] = aux;
+                    }
+                }
+            }
+            var generateDoc = true;
+            try{
+                json = data;
+                generateDoc = true;
+                json = JSON.stringify(JSON.parse(JSON.stringify(json))); //remove indices
+                if (json == undefined) throw "error";
+                if (json == [] || json == {}) throw "error";
+                if(project.trim() == "") throw "error";
+            }catch(e){
+                generateDoc = false;
+            }
+            if(generateDoc == false) return false;
+            var req = projectFtry.ProjectDoc(project, json, "IT");
+            req.then(function(response){
+                if(!response.error){
+                    var url = BASE.url + "export_autodoc?project=" + $scope.project;
+                    url += "&format=IT";
+                    if(navigator.userAgent.indexOf("Firefox") == -1){
+                        $scope.downloadURL = url;
+                    }else{
+                        win = window.open(url, '__blank');
+                    }
+                }
+            });
+            $scope.downloadDoc();
+        };
+        $scope.downloadDoc = function(){
+            console.log($scope.downloadURL);
+            if($scope.downloadURL == undefined){
+                $timeout($scope.downloadDoc, 3000);
+            }else{
+                downLink = document.createElement("a");
+                downLink.target = "_blank";
+                downLink.href = $scope.downloadURL;
+                downLink.click();
+            }
+        }
         $scope.findingCalculateCSSv2 = function(){
             var ImpCon = parseFloat($scope.finding.impacto_confidencialidad.split(" | ")[0]);
             var ImpInt = parseFloat($scope.finding.impacto_integridad.split(" | ")[0]);
@@ -195,18 +244,14 @@ integrates.controller(
         $scope.findingHeaderBuilding = function(){
             //console.log($scope.finding);
             $scope.header = {};
-            try{
-                var cierres = $scope.finding.cierres;
-                var cierresTmp = [];
-                for(var i = 0; i < cierres.length ; i++){
-                    cierre = cierres[i];
-                    cierre.position = i+1;
-                    cierresTmp.push(cierre);
-                }
-                $scope.finding.cierres = cierresTmp;
-            }catch(e){
-                console.log($scope.finding.id + "No tiene cierres");
+            var cierres = $scope.finding.cierres;
+            var cierresTmp = [];
+            for(var i = 0; i < cierres.length ; i++){
+                cierre = cierres[i];
+                cierre.position = i+1;
+                cierresTmp.push(cierre);
             }
+            $scope.finding.cierres = cierresTmp;
             $scope.header.findingTitle = $scope.finding.hallazgo;
             $scope.header.findingType = $scope.finding.tipo_prueba;
             $scope.header.findingRisk = "";

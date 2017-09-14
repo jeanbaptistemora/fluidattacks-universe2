@@ -81,7 +81,7 @@
                                 <button type="button" id="progress_button" class="btn btn-default" data-toggle="tooltip" data-placement="top" title="{{'search_findings.filter_buttons.advance' | translate}}!" ng-click="openModalAvance();">
                                     {{'search_findings.filter_buttons.advance' | translate}} <i class="glyphicon glyphicon-bookmark"></i>
                                 </button>
-                                <button type="button" id="document_button" class="btn btn-default" data-toggle="tooltip" data-placement="top" title="{{'search_findings.filter_buttons.documentation' | translate}}" ng-click="openModalAutodoc();">
+                                <button type="button" id="document_button" class="btn btn-default" data-toggle="tooltip" data-placement="top" title="{{'search_findings.filter_buttons.documentation' | translate}}" ng-click="generateFullDoc();">
                                     {{'search_findings.filter_buttons.documentation' | translate}} <i class="glyphicon glyphicon-star"></i>
                                 </button>
                             </div>
@@ -366,9 +366,9 @@
                         <div class="row" ng-repeat="ev in tabEvidences">
                             <div class="col-md-6 text-center">
                                 <div mag-thumb="inner-inline" mag-flow="inline">
-                                    <img src="{{ev.url}}"
-                                        style="max-width:100%;" 
-                                        class="img-thumbnail img-responsive integrates-image"
+                                    <img ng-src="{{ev.url || ''}}"
+                                         style="max-width:100%;" 
+                                         class="img-thumbnail img-responsive integrates-image"
                                         width="600" height="600"/>
                                 </div>
                             </div>

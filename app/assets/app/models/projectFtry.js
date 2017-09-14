@@ -47,6 +47,20 @@ integrates.factory('projectFtry', function($q){
             return $xhr.post($q, BASE.url + "get_finding", {
                 id: id, _: Math.random()
             });
+        },
+        /**
+         * Invoca el servicio para tener el detalle de un hallazgo
+         * @function ProjectDoc
+         * @param {String} project
+         * @param {JSON} json
+         * @param {String} format
+         * @member integrates.projectFtry
+         * @return {Object}
+         */
+        ProjectDoc: function(project, json, format){
+            return $xhr.post($q, BASE.url + "generate_autodoc", {
+                project: project, data: json, format: format, _: Math.random()
+            });
         }
     }
 });
