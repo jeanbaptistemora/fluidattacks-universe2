@@ -1,0 +1,31 @@
+<div class="modal-body" id="modal-body">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="form-group">
+                <label>Tipo</label>
+                <input type="text" class="form-control" ng-model="evt.tipo" disabled>
+            </div>
+        </div>
+        <div class="col-md-6" ng-class="esDetallado">
+            <div class="form-group">
+                <label>Fecha</label>
+                <input type="text" class="form-control" ng-model="evt.fecha" disabled>
+            </div>
+        </div>
+        <div class="col-md-6" ng-class="esDetallado">
+            <div class="form-group">
+                <label>Estado</label>
+                <input type="text" class="form-control" ng-model="evt.estado" disabled>
+            </div>
+        </div>
+        <div class="col-md-12">
+            <div class="form-group">
+                <label>Detalle</label>
+                <textarea class="form-control" id="email" rows="6" disabled> {{evt.detalle}} </textarea>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-primary" type="button" ng-click="close()">OK</button>
+</div>

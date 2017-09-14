@@ -4,7 +4,7 @@
  */
 /**
  * Crea el controlador de las funciones del dashboard
- * @name eventualityController 
+ * @name dashboardController 
  * @param {Object} $scope 
  * @param {Object} $uibModal
  * @return {undefined}

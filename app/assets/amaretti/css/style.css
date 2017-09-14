@@ -10523,13 +10523,13 @@ button:focus {
   background: #7accbe;
 }
 .gritter-item-wrapper.info {
-  background: #8dcadf;
+  background: #525A5C;
 }
 .gritter-item-wrapper.warning {
   background: #ffc870;
 }
 .gritter-item-wrapper.danger {
-  background: #0A62AC;
+  background: #ed4b4b;
 }
 .gritter-item-wrapper.alt1 {
   background: #95d9f0;

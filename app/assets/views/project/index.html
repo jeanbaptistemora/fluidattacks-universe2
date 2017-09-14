@@ -1,0 +1,431 @@
+<div class="page-head">
+    <ol class="breadcrumb">
+        <li><a>Proyecto</a></li>
+        <li><a class="text-uppercase">{{project}}</a></li>
+    </ol>
+    <div class="text-center">
+        <!-- Start SearchBox -->
+        <div class="row">
+            <div class="col-md-4 col-md-offset-2">
+                <input class="form-control text-center text-uppercase" ng-model="project" id="project" placeholder="{{'search_findings.filter_menu.search.placeholder' | translate}}">
+            </div>
+            <div class="col-md-3">
+                <select class="form-control text-uppercase" ng-model="filter" ng-required="true">
+                    <option value="" selected>{{'search_findings.filter_menu.filter_select.any' | translate}}</option>
+                    <option value="Análisis">{{'search_findings.filter_menu.filter_select.analysis' | translate}}</option>
+                    <option value="Aplicación">{{'search_findings.filter_menu.filter_select.application' | translate}}</option>
+                    <option value="Binario">{{'search_findings.filter_menu.filter_select.binary' | translate}}</option>
+                    <option value="Código">{{'search_findings.filter_menu.filter_select.code' | translate}}</option>
+                    <option value="Infraestructura">{{'search_findings.filter_menu.filter_select.infrastructure' | translate}}</option>
+                </select>
+            </div>
+            <div class="col-md-1">
+                <button class="btn btn-primary form-control" id="search" ng-click="search();" title="Ejecutar esta busqueda">
+                    <i class="glyphicon glyphicon-search"></i>&nbsp;</button>
+            </div>
+        </div>
+        <!-- End SearchBox -->
+    </div>
+</div>
+<!-- Start ProjectContent -->
+<div class="main-content" ng-show="view.project">
+    <div class="row">
+        <div class="col-md-12" id="search_section">
+            <div class="row">
+                <div class="col-md-4 text-center">
+                    <h3>Criticidad por Hallazgo</h3>
+                    <div id="grapCriticality" style="width:250px; height:250px; margin: auto;"></div>
+                </div>
+                <div class="col-md-4 text-center">
+                    <h3>Criticidad por Distribución de Vulnerabilidades</h3>
+                    <div id="grapAmount" style="width:250px; height:250px; margin: auto;"></div>
+                </div>
+                <div class="col-md-4 text-center">
+                    <h3>Hallazgos por Estado</h3>
+                    <div id="grapStatus" style="width:250px; height:250px; margin: auto;"></div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="tab-container">
+                    <ul class="nav nav-tabs">
+                        <li class="active" style="font-size:15px;">
+                            <a href="#findings" data-toggle="tab" aria-expanded="false">
+                                <i class="icon s7-light"></i>&nbsp;Hallazgos
+                            </a>
+                        </li>
+                        <li class="" style="font-size:15px;">
+                            <a href="#eventualities" data-toggle="tab" aria-expanded="true">
+                                <i class="icon s7-star"></i>&nbsp;Eventualidades
+                            </a>
+                        </li>
+                    </ul>
+                    <div class="tab-content">
+                        <div id="findings" class="tab-pane cont active">
+                            <div class="row container">
+                                <label><b>{{'search_findings.filter_labels.findings' | translate}}</b></label>
+                                <label id="total_hallazgos"></label> &nbsp;&nbsp;&nbsp;
+                                <label><b>{{'search_findings.filter_labels.cardinalities' | translate}}</b></label>
+                                <label id="total_cardinalidad"></label> &nbsp;&nbsp;&nbsp;
+                                <label><b>Criticidad</b></label>
+                                <label id="total_criticidad"></label> &nbsp;&nbsp;&nbsp;
+                            </div>
+                            <!-- START: toolbar -->
+                            <div class="btn-group" id="toolbar">
+                                <script>
+                                    $(document).ready(function() {
+                                        if (userRole == "customer") {
+                                            $('#progress_button').hide();
+                                        }
+                                    });
+                                </script>
+                                <button type="button" id="progress_button" class="btn btn-default" data-toggle="tooltip" data-placement="top" title="{{'search_findings.filter_buttons.advance' | translate}}!" ng-click="openModalAvance();">
+                                    {{'search_findings.filter_buttons.advance' | translate}} <i class="glyphicon glyphicon-bookmark"></i>
+                                </button>
+                                <button type="button" id="document_button" class="btn btn-default" data-toggle="tooltip" data-placement="top" title="{{'search_findings.filter_buttons.documentation' | translate}}" ng-click="openModalAutodoc();">
+                                    {{'search_findings.filter_buttons.documentation' | translate}} <i class="glyphicon glyphicon-star"></i>
+                                </button>
+                            </div>
+                            <p>Haz <b>click</b> para ver mas detalles del hallazgo</p>
+                            <table id="vulnerabilities" data-click-to-select="true" data-classes="table table-hover table-striped" data-striped="true" data-pagination="true" data-page-size="15" data-toolbar="#toolbar" data-refresh="true" data-search="true">
+                                <thead>
+                                    <tr>
+                                        <th data-field="tipo_prueba" data-sortable="true">
+                                            {{'search_findings.table.headings.type' | translate}}
+                                        </th>
+                                        <th data-field="hallazgo" data-width="150">
+                                            {{'search_findings.table.headings.finding' | translate}}
+                                        </th>
+                                        <th data-field="vulnerabilidad" style="display:none;">
+                                            {{'search_findings.table.headings.vulnerability' | translate}}
+                                        </th>
+                                        <th data-field="criticidad" data-sortable="true" data-width="20">
+                                            {{'search_findings.table.headings.criticity' | translate}}
+                                        </th>
+                                        <th data-field="cardinalidad" data-sortable="true" data-width="20">
+                                            {{'search_findings.table.headings.cardinality' | translate}}
+                                        </th>
+                                        <th data-field="estado" data-sortable="true" data-width="20">
+                                            {{'search_findings.table.headings.state' | translate}}
+                                        </th>
+                                    </tr>
+                                </thead>
+                            </table>
+                        </div>
+                        <div id="eventualities" class="tab-pane cont">
+                            <div class="row">
+                                <!-- START: toolbar -->
+                                <div class="btn-group" id="toolbar2">
+                                    <p><b>Haz doble click para ver el detalle</b></p>
+                                </div>
+                                <div class="col-md-12">
+                                    <table id="tblEventualities" data-classes="table table-hover table-striped" data-striped="true" data-pagination="true" data-page-size="15" data-toolbar="#toolbar2" data-search="true">
+                                        <thead>
+                                            <tr>
+                                                <th data-field="id">ID</th>
+                                                <th data-field="fecha" data-sortable="true">Fecha</th>
+                                                <th data-field="tipo">Tipo</th>
+                                                <th data-field="estado" data-sortable="true">Estado</th>
+                                            </tr>
+                                        </thead>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End ProjectContent -->
+<!-- Start FindingContent -->
+<div class="main-content" ng-show="view.finding" style="background-color: white;">
+    <div class="row">
+        <div class="col-md-2 col-xs-12 col-sm-12">
+            <button class="btn btn-default btn-block">
+                <i class="icon s7-angle-left"></i> Volver
+            </button>
+        </div>
+        <div class="col-md-10 col-sm-12 col-sm-12 text-left">
+            <h2 style="margin-top:0px !important;">{{header.findingTitle}}</h2>
+        </div>
+        <div class="col-md-12 col-xs-12 col-sm-12">
+            <hr/>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-2 col-sm-6 col-xs-6 text-right">ID</div>
+        <div class="col-md-2 col-sm-6 col-xs-6"  style="padding-bottom: 10px;">
+            <span class="label label-default">{{header.findingID}}</span>
+        </div>
+        <div class="col-md-2 col-sm-6 col-xs-6 text-right">Tipo</div>
+        <div class="col-md-2 col-sm-6 col-xs-6"  style="padding-bottom: 10px;">
+            <span class="label label-default">{{header.findingType}}</span>
+        </div>
+        <div class="col-md-2 col-sm-6 col-xs-6 text-right">Criticidad</div>
+        <div class="col-md-2 col-sm-6 col-xs-6"  style="padding-bottom: 10px;">
+                <span class="label label-default" style="{{header.findingValueColor}}">{{header.findingValue}} {{header.findingValueDescription}}</span>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-2 col-sm-6 col-xs-6 text-right">Vulnerabilidades</div>
+        <div class="col-md-2 col-sm-6 col-xs-6"  style="padding-bottom: 10px;">
+            <span class="label label-default">{{header.findingCount}}</span>
+        </div>
+        <div class="col-md-2 col-sm-6 col-xs-6 text-right">Estado</div>
+        <div class="col-md-2 col-sm-6 col-xs-6"  style="padding-bottom: 10px;">
+            <span class="label label-default" style="{{header.findingStateColor}}">{{header.findingState}}</span>
+        </div>
+        <div class="col-md-2 col-sm-6 col-xs-6 text-right">Fecha Reporte</div>
+        <div class="col-md-2 col-sm-6 col-xs-6"  style="padding-bottom: 10px;">
+            <span class="label label-default control-label">{{finding.timestamp}}</span>
+        </div>
+        <div class="col-md-2 col-sm-6 col-xs-6 text-right">Proyecto Fluid</div>
+        <div class="col-md-2 col-sm-6 col-xs-6">{{finding.proyecto_fluid}}</div>
+        <div class="col-md-2 col-sm-6 col-xs-6 text-right">Proyecto Cliente</div>
+        <div class="col-md-2 col-sm-6 col-xs-6">{{finding.proyecto_cliente}}</div>
+    </div>
+    <div class="row" style="margin-top: 15px;">
+        <div class="col-sm-12 col-md-12">
+            <!-- Start Tab Set -->
+            <div class="tab-container">
+                <ul class="nav pills-tabs nav-justified" style="background-color: white; border-bottom: 1px #eee solid;">
+                    <li class="active" style="font-size:16px;">
+                        <a href="#info" data-toggle="tab" aria-expanded="false">
+                        <i class="icon s7-note2" ></i>&nbsp;Descripción</a>
+                    </li>
+                    <li class="" style="font-size:16px;">
+                        <a href="#cssv2" data-toggle="tab" aria-expanded="false">
+                        <i class="icon s7-calculator" ></i>&nbsp;CVSSv2</a>
+                    </li>
+                    <li class="" style="font-size:16px;">
+                        <a href="#tracking" data-toggle="tab" aria-expanded="true">
+                        <i class="icon s7-graph1"></i>&nbsp;Tracking</a>
+                    </li>
+                    <li style="font-size:16px;">
+                        <a href="#evidence" data-toggle="tab">
+                        <i class="icon s7-photo"></i>&nbsp;Evidencia</a>
+                    </li>
+                </ul>
+                <!-- Start Tabs -->
+                <div class="tab-content">
+                    <!-- Start Tab Info -->
+                    <div id="info" class="tab-pane cont active">
+                        <div class="row">
+                            <div class="col-md-12 col-sm-12 col-xs-12">
+                                <div class="row table-row">
+                                    <div class="col-md-3 col-xs-12 col-sm-12 table-head"><label><b>Título</b></label></div>
+                                    <div class="col-md-9 col-xs-12 col-sm-12 table-desc"><p>{{finding.hallazgo}}</p></div>
+                                </div>
+                                <div class="row table-row">
+                                    <div class="col-md-3 col-xs-12 col-sm-12 table-head"><label><b>Escenario</b></label></div>
+                                    <div class="col-md-3 col-xs-12 col-sm-12 table-desc"><p>{{finding.escenario}}</p></div>
+                                    <div class="col-md-3 col-xs-12 col-sm-12 table-head"><label><b>Actor</b></label></div>
+                                    <div class="col-md-3 col-xs-12 col-sm-12 table-desc"><p>{{finding.actor}}</p></div>
+                                </div>
+                                <div class="row table-row" ng-show="esDetallado">
+                                    <div class="col-md-3 col-xs-12 col-sm-12 table-head"><label><b>Categoría</b></label></div>
+                                    <div class="col-md-3 col-xs-12 col-sm-12 table-desc"><p>{{finding.categoria}}</p></div>
+                                    <div class="col-md-3 col-xs-12 col-sm-12 table-head"><label><b>Valor Riesgo</b></label></div>
+                                    <div class="col-md-3 col-xs-12 col-sm-12 table-desc"><p>{{finding.valor_riesgo}}</p></div>
+                                </div>
+                                <div class="row table-row" ng-show="esDetallado"> 
+                                    <div class="col-md-3 col-xs-12 col-sm-12 table-head"><label><b>Probabilidad</b></label></div>
+                                    <div class="col-md-3 col-xs-12 col-sm-12 table-desc"><p>{{finding.probabilidad}}</p></div>
+                                    <div class="col-md-3 col-xs-12 col-sm-12 table-head"><label><b>Severidad</b></label></div>
+                                    <div class="col-md-3 col-xs-12 col-sm-12 table-desc"><p>{{finding.severidad}}</p></div>
+                                </div>
+                                <div class="row table-row">
+                                    <div class="col-md-3 col-xs-12 col-sm-12 table-head"><label><b>Descripción</b></label></div>
+                                    <div class="col-md-9 col-xs-12 col-sm-12 table-desc"><p>{{finding.vulnerabilidad}}</p></div>
+                                </div>
+                                <div class="row table-row">
+                                    <div class="col-md-3 col-xs-12 col-sm-12 table-head"><label><b>Requisitos</b></label></div>
+                                    <div class="col-md-9 col-xs-12 col-sm-12 table-desc"><p>{{finding.requisitos}}</p></div>
+                                </div>
+                                <div class="row table-row">
+                                    <div class="col-md-3 col-xs-12 col-sm-12 table-head"><label><b>Dónde</b></label></div>
+                                    <div class="col-md-9 col-xs-12 col-sm-12 table-desc"><textarea class="form-control" rows="6" disabled style="margin-bottom: 5px;">{{finding.donde}}</textarea></div>
+                                </div>
+                                <div class="row table-row"> 
+                                    <div class="col-md-3 col-xs-12 col-sm-12 table-head"><label><b>Vectores de ataque</b></label></div>
+                                    <div class="col-md-3 col-xs-12 col-sm-12 table-desc"><p>{{finding.vector_ataque}}</p></div>
+                                    <div class="col-md-3 col-xs-12 col-sm-12 table-head"><label><b>Amenaza</b></label></div>
+                                    <div class="col-md-3 col-xs-12 col-sm-12 table-desc"><p>{{finding.amenaza}}</p></div>
+                                </div>
+                                <div class="row table-row"> 
+                                    <div class="col-md-3 col-xs-12 col-sm-12 table-head"><label><b>Recomendación</b></label></div>
+                                    <div class="col-md-3 col-xs-12 col-sm-12 table-desc"><p>{{finding.solucion_efecto}}</p></div>
+                                    <div class="col-md-3 col-xs-12 col-sm-12 table-head"><label><b>Sistemas Comprometidos</b></label></div>
+                                    <div class="col-md-3 col-xs-12 col-sm-12 table-desc"><p>{{finding.sistema_comprometido}}</p></div>
+                                </div>
+                                <div class="row table-row">
+                                    <div class="col-md-3 col-xs-12 col-sm-12 table-head"><label><b>Debilidad</b></label></div>
+                                    <div class="col-md-9 col-xs-12 col-sm-12 table-desc"><p>{{finding.cwe}}</p></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- End Tab Info -->
+                    <!-- Start Tab Cssv2 -->
+                    <div id="cssv2" class="tab-pane cont">
+                        <div class="row">
+                            <div class="col-md-12 col-sm-12 col-xs-12">
+                                <div class="row table-row"> 
+                                    <div class="col-md-3 col-xs-12 col-sm-12 table-head"><label><b>Vector de Acceso</b></label></div>
+                                    <div class="col-md-3 col-xs-12 col-sm-12 table-desc"><p>{{finding.vector_acceso}}</p></div>
+                                    <div class="col-md-3 col-xs-12 col-sm-12 table-head"><label><b>Impacto Confidencialidad</b></label></div>
+                                    <div class="col-md-3 col-xs-12 col-sm-12 table-desc"><p>{{finding.impacto_confidencialidad}}</p></div>
+                                </div>
+                                <div class="row table-row"> 
+                                    <div class="col-md-3 col-xs-12 col-sm-12 table-head"><label><b>Autenticación</b></label></div>
+                                    <div class="col-md-3 col-xs-12 col-sm-12 table-desc"><p>{{finding.autenticacion}}</p></div>
+                                    <div class="col-md-3 col-xs-12 col-sm-12 table-head"><label><b>Impacto Integridad</b></label></div>
+                                    <div class="col-md-3 col-xs-12 col-sm-12 table-desc"><p>{{finding.impacto_integridad}}</p></div>
+                                </div>
+                                <div class="row table-row"> 
+                                    <div class="col-md-3 col-xs-12 col-sm-12 table-head"><label><b>Explotabilidad</b></label></div>
+                                    <div class="col-md-3 col-xs-12 col-sm-12 table-desc"><p>{{finding.explotabilidad}}</p></div>
+                                    <div class="col-md-3 col-xs-12 col-sm-12 table-head"><label><b>Disponibilidad</b></label></div>
+                                    <div class="col-md-3 col-xs-12 col-sm-12 table-desc"><p>{{finding.impacto_disponibilidad}}</p></div>
+                                </div>
+                                <div class="row table-row"> 
+                                    <div class="col-md-3 col-xs-12 col-sm-12 table-head"><label><b>Nivel Confianza</b></label></div>
+                                    <div class="col-md-3 col-xs-12 col-sm-12 table-desc"><p>{{finding.nivel_confianza}}</p></div>
+                                    <div class="col-md-3 col-xs-12 col-sm-12 table-head"><label><b>Nivel Resolución</b></label></div>
+                                    <div class="col-md-3 col-xs-12 col-sm-12 table-desc"><p>{{finding.nivel_resolucion}}</p></div>
+                                </div>
+                                <div class="row table-row">
+                                    <div class="col-md-3 col-xs-12 col-sm-12 table-head"><label><b>Complejidad Acceso</b></label></div>
+                                    <div class="col-md-9 col-xs-12 col-sm-12 table-desc"><p>{{finding.nivel_confianza}}</p></div>
+                                </div>
+                                <div class="row table-row"> 
+                                    <div class="col-md-3 col-xs-12 col-sm-12 table-head"><label><b>CSSv2 Base</b></label></div>
+                                    <div class="col-md-3 col-xs-12 col-sm-12 table-desc"><p>{{finding.cssv2base}}</p></div>
+                                    <div class="col-md-3 col-xs-12 col-sm-12 table-head"><label><b>CSSv2 Temporal</b></label></div>
+                                    <div class="col-md-3 col-xs-12 col-sm-12 table-desc"><p>{{finding.criticidad}}</p></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- End Tab CSSv2 -->
+                    <!-- Start Tab Tracking -->
+                    <div id="tracking" class="tab-pane cont">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <p>Vulnerabilidades Abiertas</p>
+                                <textarea class="form-control" rows="4" disabled>{{finding.donde}}</textarea>
+                            </div>
+                            <div class="col-md-12">
+                                <p>Vulnerabilidades Cerradas</p>
+                                <textarea class="form-control" rows="4" disabled>{{finding.cerradas}}</textarea>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <ul class="timeline">
+                                    <li class="timeline-item text-left">
+                                        <div class="timeline-date"><span>{{finding.timestamp}}</span></div>
+                                        <div class="timeline-content">
+                                            <table class="table table-bordered table-responsive" style="max-width: 350px;">
+                                                <tr class="text-center">
+                                                    <td colspan="2"><b>Hallazgo reportado</b></td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                    </li>
+                                    <li class="timeline-item" ng-repeat="x in finding.cierres">
+                                        <div class="timeline-date"><span>{{x.timestamp}} </span></div>
+                                        <div class="timeline-content">
+                                            <table class="table table-bordered table-responsive" style="max-width: 350px;">
+                                                <tr class="text-center">
+                                                    <td colspan="2"><b>Ciclo de cierre {{x.position}}</b></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Vulnerabilidades Abiertas</td>
+                                                    <td>{{x.abiertas}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Vulnerabilidades Cerradas</td>
+                                                    <td>{{x.cerradas}}</td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- End Tab Tracking -->
+                    <!-- Start Tab Evidence -->
+                    <div id="evidence" class="tab-pane cont">
+                        <div class="row" ng-repeat="ev in tabEvidences">
+                            <div class="col-md-6 text-center">
+                                <div mag-thumb="inner-inline" mag-flow="inline">
+                                    <img src="{{ev.url}}"
+                                        style="max-width:100%;" 
+                                        class="img-thumbnail img-responsive integrates-image"
+                                        width="600" height="600"/>
+                                </div>
+                            </div>
+                            <div class="col-md-6">Detalle:<br><h3>{{ev.desc}}</h3></div>
+                            <div class="col-md-12"><hr></div>
+                        </div>
+                    </div>
+                    <!-- End Tab Evidence -->
+                </div>
+                <!-- End Tabs -->
+            </div>
+            <!--End Tab Set -->
+        </div>
+        <div class="row">
+            <div class="col-md-4 col-md-offset-4 col-sm-12 col-xs-12 text-center" style="margin-bottom: 15px !important;">
+                <button class="btn btn-default">
+                    <i class="icon s7-angle-left"></i> Volver
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End FindingContent -->
+
+<!-- Start CommonStyles -->
+<style>
+    .bg-critical{ background-color: #F12; }
+    .bg-moderate{ background-color: #F72; }
+    .bg-tolerable{ background-color: #FD2; }
+    .no-resize{ resize: none; height: 100px !important;}
+    .hide-detallado, .fl-hidden { display: none; }
+    .show-detallado, .fl-visible{ display: block;}
+    .pills-tabs > li.active > a,
+    .pills-tabs > li.active > a:hover,
+    .pills-tabs > li.active > a:focus{
+        background-color: #eee;
+        color: #777; 
+    }
+    .pills-tabs > li > a,
+    .pills-tabs > li > a:hover,
+    .pills-tabs > li > a:focus{
+        background-color: white;
+        color: #666; 
+    }
+    .table-head{
+        text-align: right;
+    }
+    @media (max-width: 768px) {
+        .table-head{
+            text-align: left;
+        }
+    }
+    .table-row{
+        margin-top: 15px;
+        font-size: 14px;
+    }
+    .table-desc{
+        color: #888;
+        text-align: justify;
+        /*border-bottom: 0.5px #DDD solid;*/
+    }
+    
+</style>
+<!-- End CommonStyles -->
