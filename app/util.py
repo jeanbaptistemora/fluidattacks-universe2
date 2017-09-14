@@ -6,6 +6,8 @@ import re
 import os
 import datetime
 import json
+import hmac
+import hashlib
 from django.http import JsonResponse
 
 
@@ -89,6 +91,7 @@ def ord_asc_by_criticidad(data):
                 data[j] = aux
     return data
 
+
 def drive_url_filter(drive):
     """ Obtiene el ID de la imagen de drive """
     if(drive.find("id=") != -1):
@@ -96,4 +99,11 @@ def drive_url_filter(drive):
         if(new_url.find("&") != -1):
             return new_url.split("&")[0]
     return drive
-    
+
+
+def get_hmac(request):
+    result = hmac.new(
+                'xuk7Un2cie5Aenej8joo2Xaefui1ai',
+                request.user.email,
+                digestmod=hashlib.sha256)
+    return result.hexdigest()
