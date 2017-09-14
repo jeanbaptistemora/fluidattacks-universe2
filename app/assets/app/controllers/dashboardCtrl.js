@@ -60,7 +60,7 @@ integrates.controller("dashboardCtrl", function($scope, $uibModal, $timeout,
         $("#myProjectsTbl").bootstrapTable({
             url: BASE.url+"get_myprojects",
             onClickRow: function(row, elem){
-                $state.go("SearchProject", {project: row.project});
+                $state.go("ProjectNamed", {project: row.project});
             }
         });
         $("#myProjectsTbl").bootstrapTable("refresh");

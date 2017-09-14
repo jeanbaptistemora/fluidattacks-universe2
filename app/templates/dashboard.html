@@ -1,4 +1,5 @@
 {% load mixpanel %}
+{% load intercom %}
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -182,7 +183,7 @@
         }
         else return null;
     };
-    </script>    
+    </script>
     <script src="assets/bower_components/angular-morris/build/module/angular-morris/angular-morris.min.js"></script>
     <script src="assets/bower_components/downloadjs/download.js"></script>
     <script src="assets/app/mixPanelDashboard.js"></script>
@@ -215,5 +216,6 @@
       });
 
     </script>
+{% intercom_tag %}
   </body>
 </html>
