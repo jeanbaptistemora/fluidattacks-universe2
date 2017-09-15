@@ -25,7 +25,6 @@ integrates.controller(
             var findingId = $stateParams.finding;
             $scope.userRole = userRole;
             //Control para alternar los campos editables
-            userRole = "analyst";
             $scope.onlyReadableTab1 = true;
             $scope.onlyReadableTab2 = true;
             $scope.isManager = userRole != "customer";
