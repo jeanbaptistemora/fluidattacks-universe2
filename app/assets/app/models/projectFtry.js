@@ -61,6 +61,19 @@ integrates.factory('projectFtry', function($q){
             return $xhr.post($q, BASE.url + "generate_autodoc", {
                 project: project, data: json, format: format, _: Math.random()
             });
+        },
+        /**
+         * Invoca el servicio para actualizar la seccion
+         * cssv2 de un hallazgo
+         * @function UpdateCSSv2
+         * @param {JSON} data
+         * @member integrates.projectFtry
+         * @return {Object}
+         */
+        UpdateCSSv2: function(data){
+            return $xhr.post($q, BASE.url + "update_cssv2", {
+                data: json, _: Math.random()
+            });
         }
     }
 });

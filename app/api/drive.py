@@ -57,9 +57,12 @@ class DriveAPI(object):
 
     def get_credentials(self):
         """ Obtiene las credenciales para autenticar la API """
-
+        
         store = Storage(self.CLIENT_AUTHOR_FILE)
         credentials = store.get()
+        print ("===============================================")
+        print (credentials)
+        print ("===============================================")
         if not credentials or credentials.invalid:
             flow = client.flow_from_clientsecrets(
                 self.CLIENT_SECRET_FILE, 

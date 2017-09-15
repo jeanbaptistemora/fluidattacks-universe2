@@ -217,25 +217,80 @@
                     <div id="info" class="tab-pane cont active">
                         <div class="row">
                             <div class="col-md-12 col-sm-12 col-xs-12">
+                                <div class="row table-row" ng-show="isManager && !onlyReadableTab1">
+                                    <div class="col-md-3 col-xs-12 col-sm-12 table-head"><label><b>Tipo Hallazgo</b></label></div>
+                                    <div class="col-md-9 col-xs-12 col-sm-12 table-desc">
+                                        <select ng-model="finding.nivel">
+                                            <option value="Detallado">Detallado</option>
+                                            <option value="General">General</option>
+                                        </select>
+                                    </div>
+                                </div>
                                 <div class="row table-row">
                                     <div class="col-md-3 col-xs-12 col-sm-12 table-head"><label><b>Título</b></label></div>
-                                    <div class="col-md-9 col-xs-12 col-sm-12 table-desc"><p>{{finding.hallazgo}}</p></div>
+                                    <div class="col-md-9 col-xs-12 col-sm-12 table-desc">
+                                        <p ng-show="onlyReadableTab1">{{finding.hallazgo}}</p>
+                                        <input type="text" class="form-control"
+                                               ng-show="!onlyReadableTab1"
+                                               ng-model="finding.hallazgo"/>
+                                    </div>
                                 </div>
                                 <div class="row table-row">
                                     <div class="col-md-3 col-xs-12 col-sm-12 table-head"><label><b>Escenario</b></label></div>
-                                    <div class="col-md-3 col-xs-12 col-sm-12 table-desc"><p>{{finding.escenario}}</p></div>
+                                    <div class="col-md-3 col-xs-12 col-sm-12 table-desc">
+                                        <p ng-show="onlyReadableTab1">{{finding.escenario}}</p>
+                                        <select ng-model="finding.escenario"
+                                                ng-show="!onlyReadableTab1"
+                                                class="form-control">
+                                            <option ng-repeat="item in list.scenario"
+                                                    value="{{item.name}}">{{item.name}}</option>
+                                        </select>
+                                    </div>
                                     <div class="col-md-3 col-xs-12 col-sm-12 table-head"><label><b>Actor</b></label></div>
-                                    <div class="col-md-3 col-xs-12 col-sm-12 table-desc"><p>{{finding.actor}}</p></div>
+                                    <div class="col-md-3 col-xs-12 col-sm-12 table-desc">
+                                        <p ng-show="onlyReadableTab1">{{finding.actor}}</p>
+                                        <select ng-model="finding.actor"
+                                                ng-show="!onlyReadableTab1"
+                                                class="form-control">
+                                            <option ng-repeat="item in list.actor"
+                                                    value="{{item.name}}">{{item.name}}</option>
+                                        </select>
+                                    </div>
                                 </div>
                                 <div class="row table-row" ng-show="esDetallado">
                                     <div class="col-md-3 col-xs-12 col-sm-12 table-head"><label><b>Categoría</b></label></div>
-                                    <div class="col-md-3 col-xs-12 col-sm-12 table-desc"><p>{{finding.categoria}}</p></div>
+                                    <div class="col-md-3 col-xs-12 col-sm-12 table-desc">
+                                        <p ng-show="onlyReadableTab1">{{finding.categoria}}</p>
+                                        <select ng-model="finding.categoria"
+                                                ng-show="!onlyReadableTab1"
+                                                class="form-control">
+                                            <option ng-repeat="item in list.categories"
+                                                    value="{{item.name}}">
+                                                {{item.name}}
+                                            </option>
+                                        </select>
+                                    </div>
                                     <div class="col-md-3 col-xs-12 col-sm-12 table-head"><label><b>Valor Riesgo</b></label></div>
-                                    <div class="col-md-3 col-xs-12 col-sm-12 table-desc"><p>{{finding.valor_riesgo}}</p></div>
+                                    <div class="col-md-3 col-xs-12 col-sm-12 table-desc">
+                                        <p ng-show="onlyReadableTab1">{{finding.valor_riesgo}}</p>
+                                        <input type="text" class="form-control"
+                                               ng-show="!onlyReadableTab1"
+                                               ng-model="finding.valor_riesgo"/>
+                                    </div>
                                 </div>
                                 <div class="row table-row" ng-show="esDetallado"> 
                                     <div class="col-md-3 col-xs-12 col-sm-12 table-head"><label><b>Probabilidad</b></label></div>
-                                    <div class="col-md-3 col-xs-12 col-sm-12 table-desc"><p>{{finding.probabilidad}}</p></div>
+                                    <div class="col-md-3 col-xs-12 col-sm-12 table-desc">
+                                        <p>{{finding.probabilidad}}</p>
+                                        <select ng-model="finding.probabilidad"
+                                                ng-change="calculateSeveridad();"
+                                                class="form-control">
+                                            <option ng-repeat="item in list.probability"
+                                                    value="{{item.name}}">
+                                                {{item.name}}
+                                            </option>
+                                        </select>
+                                    </div>
                                     <div class="col-md-3 col-xs-12 col-sm-12 table-head"><label><b>Severidad</b></label></div>
                                     <div class="col-md-3 col-xs-12 col-sm-12 table-desc"><p>{{finding.severidad}}</p></div>
                                 </div>
@@ -277,37 +332,155 @@
                             <div class="col-md-12 col-sm-12 col-xs-12">
                                 <div class="row table-row"> 
                                     <div class="col-md-3 col-xs-12 col-sm-12 table-head"><label><b>Vector de Acceso</b></label></div>
-                                    <div class="col-md-3 col-xs-12 col-sm-12 table-desc"><p>{{finding.vector_acceso}}</p></div>
+                                    <div class="col-md-9 col-xs-12 col-sm-12 table-desc">
+                                        <p ng-show="onlyReadableTab2">{{finding.vector_acceso}}</p>
+                                        <select ng-model="finding.vector_acceso"
+                                                ng-show="!onlyReadableTab2"
+                                                ng-change="findingCalculateCSSv2();"
+                                                class="form-control">
+                                            <option ng-repeat="item in list.accessVector"
+                                                    value="{{item.value + ' | ' + item.name}}">
+                                                {{item.name}}
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="row table-row"> 
                                     <div class="col-md-3 col-xs-12 col-sm-12 table-head"><label><b>Impacto Confidencialidad</b></label></div>
-                                    <div class="col-md-3 col-xs-12 col-sm-12 table-desc"><p>{{finding.impacto_confidencialidad}}</p></div>
+                                    <div class="col-md-9 col-xs-12 col-sm-12 table-desc">
+                                        <p ng-show="onlyReadableTab2">{{finding.impacto_confidencialidad}}</p>
+                                        <select ng-model="finding.impacto_confidencialidad"
+                                                ng-show="!onlyReadableTab2"
+                                                ng-change="findingCalculateCSSv2();"
+                                                class="form-control">
+                                            <option ng-repeat="item in list.confidenciality"
+                                                    value="{{item.value + ' | ' + item.name}}">
+                                                {{item.name}}
+                                            </option>
+                                        </select>
+                                    </div>
                                 </div>
                                 <div class="row table-row"> 
                                     <div class="col-md-3 col-xs-12 col-sm-12 table-head"><label><b>Autenticación</b></label></div>
-                                    <div class="col-md-3 col-xs-12 col-sm-12 table-desc"><p>{{finding.autenticacion}}</p></div>
+                                    <div class="col-md-9 col-xs-12 col-sm-12 table-desc">
+                                        <p ng-show="onlyReadableTab2">{{finding.autenticacion}}</p>
+                                        <select ng-model="finding.autenticacion"
+                                                ng-show="!onlyReadableTab2"
+                                                ng-change="findingCalculateCSSv2();"
+                                                class="form-control">
+                                            <option ng-repeat="item in list.authentication"
+                                                    value="{{item.value + ' | ' + item.name}}">
+                                                    {{item.name}}
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="row table-row"> 
                                     <div class="col-md-3 col-xs-12 col-sm-12 table-head"><label><b>Impacto Integridad</b></label></div>
-                                    <div class="col-md-3 col-xs-12 col-sm-12 table-desc"><p>{{finding.impacto_integridad}}</p></div>
+                                    <div class="col-md-9 col-xs-12 col-sm-12 table-desc">
+                                        <p ng-show="onlyReadableTab2">{{finding.impacto_integridad}}</p>
+                                        <select ng-model="finding.impacto_integridad"
+                                                ng-show="!onlyReadableTab2"
+                                                ng-change="findingCalculateCSSv2();"
+                                                class="form-control">
+                                            <option ng-repeat="item in list.integrity"
+                                                    value="{{item.value + ' | ' + item.name}}">
+                                                {{item.name}}
+                                            </option>
+                                        </select>
+                                    </div>
                                 </div>
                                 <div class="row table-row"> 
                                     <div class="col-md-3 col-xs-12 col-sm-12 table-head"><label><b>Explotabilidad</b></label></div>
-                                    <div class="col-md-3 col-xs-12 col-sm-12 table-desc"><p>{{finding.explotabilidad}}</p></div>
+                                    <div class="col-md-9 col-xs-12 col-sm-12 table-desc">
+                                        <p ng-show="onlyReadableTab2">{{finding.explotabilidad}}</p>
+                                        <select ng-model="finding.explotabilidad"
+                                                ng-show="!onlyReadableTab2"
+                                                ng-change="findingCalculateCSSv2();"
+                                                class="form-control">
+                                            <option ng-repeat="item in list.explotability"
+                                                    value="{{item.value + ' | ' + item.name}}">
+                                                    {{item.name}}
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="row table-row"> 
                                     <div class="col-md-3 col-xs-12 col-sm-12 table-head"><label><b>Disponibilidad</b></label></div>
-                                    <div class="col-md-3 col-xs-12 col-sm-12 table-desc"><p>{{finding.impacto_disponibilidad}}</p></div>
+                                    <div class="col-md-9 col-xs-12 col-sm-12 table-desc">
+                                        <p ng-show="onlyReadableTab2">{{finding.impacto_disponibilidad}}</p>
+                                        <select ng-model="finding.impacto_disponibilidad"
+                                                ng-show="!onlyReadableTab2"
+                                                ng-change="findingCalculateCSSv2();"
+                                                class="form-control">
+                                            <option ng-repeat="item in list.availability"
+                                                    value="{{item.value + ' | ' + item.name}}">
+                                                {{item.name}}
+                                            </option>
+                                        </select>
+                                    </div>
                                 </div>
                                 <div class="row table-row"> 
                                     <div class="col-md-3 col-xs-12 col-sm-12 table-head"><label><b>Nivel Confianza</b></label></div>
-                                    <div class="col-md-3 col-xs-12 col-sm-12 table-desc"><p>{{finding.nivel_confianza}}</p></div>
+                                    <div class="col-md-9 col-xs-12 col-sm-12 table-desc">
+                                        <p ng-show="onlyReadableTab2">{{finding.nivel_confianza}}</p>
+                                        <select ng-model="finding.nivel_confianza"
+                                                ng-show="!onlyReadableTab2"
+                                                ng-change="findingCalculateCSSv2();"
+                                                class="form-control">
+                                            <option ng-repeat="item in list.realiabilityLevel"
+                                                    value="{{item.value + ' | ' + item.name}}">
+                                                {{item.name}}
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="row table-row"> 
                                     <div class="col-md-3 col-xs-12 col-sm-12 table-head"><label><b>Nivel Resolución</b></label></div>
-                                    <div class="col-md-3 col-xs-12 col-sm-12 table-desc"><p>{{finding.nivel_resolucion}}</p></div>
+                                    <div class="col-md-9 col-xs-12 col-sm-12 table-desc">
+                                        <p ng-show="onlyReadableTab2">{{finding.nivel_resolucion}}</p>
+                                        <select ng-model="finding.nivel_resolucion"
+                                                ng-show="!onlyReadableTab2"
+                                                ng-change="findingCalculateCSSv2();"
+                                                class="form-control">
+                                            <option ng-repeat="item in list.resolutionLevel"
+                                                    value="{{item.value + ' | ' + item.name}}">
+                                                {{item.name}}
+                                            </option>
+                                        </select>   
+                                    </div>
                                 </div>
                                 <div class="row table-row">
                                     <div class="col-md-3 col-xs-12 col-sm-12 table-head"><label><b>Complejidad Acceso</b></label></div>
-                                    <div class="col-md-9 col-xs-12 col-sm-12 table-desc"><p>{{finding.nivel_confianza}}</p></div>
+                                    <div class="col-md-9 col-xs-12 col-sm-12 table-desc">
+                                        <p ng-show="onlyReadableTab2">{{finding.complejidad_acceso}}</p>
+                                        <select ng-model="finding.complejidad_acceso"
+                                                ng-show="!onlyReadableTab2"
+                                                ng-change="findingCalculateCSSv2();"
+                                                class="form-control">
+                                            <option ng-repeat="item in list.accessComplexity"
+                                                    value="{{item.value + ' | ' + item.name}}">
+                                                {{item.name}}
+                                            </option>
+                                        </select>
+                                    </div>
                                 </div>
                                 <div class="row table-row"> 
                                     <div class="col-md-3 col-xs-12 col-sm-12 table-head"><label><b>CSSv2 Base</b></label></div>
-                                    <div class="col-md-3 col-xs-12 col-sm-12 table-desc"><p>{{finding.cssv2base}}</p></div>
+                                    <div class="col-md-9 col-xs-12 col-sm-12 table-desc"><p>{{finding.cssv2base}}</p></div>
                                     <div class="col-md-3 col-xs-12 col-sm-12 table-head"><label><b>CSSv2 Temporal</b></label></div>
-                                    <div class="col-md-3 col-xs-12 col-sm-12 table-desc"><p>{{finding.criticidad}}</p></div>
+                                    <div class="col-md-9 col-xs-12 col-sm-12 table-desc"><p>{{finding.criticidad}}</p></div>
+                                </div>
+                                <div class="row table-row" ng-show="isManager">
+                                    <div class="col-md-4 col-md-offset-3 col-xs-12 col-sm-12">
+                                        <button class="btn btn-default btn-block"
+                                                ng-show="onlyReadableTab2"
+                                                ng-click="cssv2Editable();">Hacer Editable</button>
+                                    </div>
+                                    <div class="col-md-4 col-xs-12 col-sm-12">
+                                        <button class="btn btn-success btn-block"
+                                                ng-click="updateCSSv2();">Actualizar</button>
+                                    </div>
                                 </div>
                             </div>
                         </div>

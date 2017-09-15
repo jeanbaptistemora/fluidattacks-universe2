@@ -24,6 +24,11 @@ integrates.controller(
             var project = $stateParams.project;
             var findingId = $stateParams.finding;
             $scope.userRole = userRole;
+            //Control para alternar los campos editables
+            userRole = "analyst";
+            $scope.onlyReadableTab1 = true;
+            $scope.onlyReadableTab2 = true;
+            $scope.isManager = userRole != "customer";
             //Defaults para cambiar vistas
             $scope.view = {};
             $scope.view.project = false;
@@ -42,6 +47,9 @@ integrates.controller(
             $scope.goUp();
             $scope.finding = {};
         };
+        $scope.cssv2Editable = function(){
+            $scope.onlyReadableTab2 = false;
+        }
         $scope.goUp = function(){
             $('html, body').animate({ scrollTop: 0 }, 'fast');
         };
@@ -407,6 +415,14 @@ integrates.controller(
                 $scope.view.finding = true;
                 $scope.findingInformationTab();
                 $scope.findingEvidenceTab();
+                //Control de campos para tipos de hallazgo
+                $scope.esDetallado = false;
+                if($scope.finding.nivel == "Detallado"){
+                    $scope.esDetallado = true;
+                }
+                //Control de campos editables
+                $scope.onlyReadableTab1 = true;
+                $scope.onlyReadableTab2 = true;
                 //Tracking mixpanel
                 mixPanelDashboard.trackReadFinding(userEmail, $scope.finding.id);
                 $timeout($scope.goUp, 200);
@@ -519,75 +535,123 @@ integrates.controller(
                 $msg.warning("Busqueda vacia");
                 return false;
             }
-            $scope.view.project = false;
-            $scope.view.finding = false;
-            $msg.info("Buscando Proyecto :)");
-            var reqProject = projectFtry.projectByName(project, filter);
-            var reqEventualities = projectFtry.EventualityByName(project, "Name");
-            reqProject.then(function(response){
-                $scope.view.project = true;
-                if(!response.error){
-                    //Tracking Mixpanel
-                    $scope.data = response.data;
-                    mixPanelDashboard.trackSearchFinding(userEmail, project);
-                    $timeout($scope.mainGraphcriticalityPieChart, 200);
-                    $timeout($scope.mainGraphamountPieChart, 200);
-                    $timeout($scope.mainGraphstatusPieChart, 200);
-                    //CONFIGURACION DE TABLA
-                    $("#vulnerabilities").bootstrapTable('destroy');
-                    $("#vulnerabilities").bootstrapTable({
-                        data: $scope.data,
-                        onClickRow: function(row, elem){
-                            $scope.loadFindingByID(row.id);
-                            $scope.currentScrollPosition =  $(document).scrollTop();
+            if($stateParams.project != $scope.project){
+                $state.go("ProjectNamed", {project: $scope.project});
+            }else{
+                $scope.view.project = false;
+                $scope.view.finding = false;
+                $msg.info("Buscando Proyecto :)");
+                var reqProject = projectFtry.projectByName(project, filter);
+                var reqEventualities = projectFtry.EventualityByName(project, "Name");
+                reqProject.then(function(response){
+                    $scope.view.project = true;
+                    if(!response.error){
+                        //Tracking Mixpanel
+                        $scope.data = response.data;
+                        mixPanelDashboard.trackSearchFinding(userEmail, project);
+                        $timeout($scope.mainGraphcriticalityPieChart, 200);
+                        $timeout($scope.mainGraphamountPieChart, 200);
+                        $timeout($scope.mainGraphstatusPieChart, 200);
+                        //CONFIGURACION DE TABLA
+                        $("#vulnerabilities").bootstrapTable('destroy');
+                        $("#vulnerabilities").bootstrapTable({
+                            data: $scope.data,
+                            onClickRow: function(row, elem){
+                                $scope.loadFindingByID(row.id);
+                                $scope.currentScrollPosition =  $(document).scrollTop();
+                            }
+                        });
+                        $("#vulnerabilities").bootstrapTable('refresh');
+                        //MANEJO DEL UI
+                        $("#search_section").show();
+                        $('[data-toggle="tooltip"]').tooltip();
+                        $scope.calculateCardinality({data: $scope.data});
+                    
+                        if(finding !== undefined){
+                            $scope.finding.id = finding;
+                            $scope.loadFindingByID($scope.finding.id);
+                            $scope.view.project = false;
+                            $scope.view.finding = false;
                         }
-                    });
-                    $("#vulnerabilities").bootstrapTable('refresh');
-                    //MANEJO DEL UI
-                    $("#search_section").show();
-                    $('[data-toggle="tooltip"]').tooltip();
-                    $scope.calculateCardinality({data: $scope.data});
-                   
-                    if(finding !== undefined){
-                        $scope.finding.id = finding;
-                        $scope.loadFindingByID($scope.finding.id);
-                        $scope.view.project = false;
-                        $scope.view.finding = false;
+                    }else{
+                        $msg.error("No pudimos encontrarlo :(");
                     }
-                }else{
-                    $msg.error("No pudimos encontrarlo :(");
-                }
-            });
-            reqEventualities.then(function(response){
-                if(!response.error){
-                    mixPanelDashboard.trackSearchEventuality (userEmail, project);
-                    //CONFIGURACION DE TABLA
-                    $("#tblEventualities").bootstrapTable('destroy');
-                    $("#tblEventualities").bootstrapTable({
-                        data: response.data,
-                        onClickRow: function(row){
-                            var modalInstance = $uibModal.open({
-                                templateUrl: BASE.url + 'assets/views/project/eventualityMdl.html',
-                                animation: true, 
-                                resolve: { evt: row }, backdrop: false,
-                                controller: function($scope, $uibModalInstance, evt){
-                                    $scope.evt = evt;
-                                    $scope.close = function(){
-                                        $uibModalInstance.close();
+                });
+                reqEventualities.then(function(response){
+                    if(!response.error){
+                        mixPanelDashboard.trackSearchEventuality (userEmail, project);
+                        //CONFIGURACION DE TABLA
+                        $("#tblEventualities").bootstrapTable('destroy');
+                        $("#tblEventualities").bootstrapTable({
+                            data: response.data,
+                            onClickRow: function(row){
+                                var modalInstance = $uibModal.open({
+                                    templateUrl: BASE.url + 'assets/views/project/eventualityMdl.html',
+                                    animation: true, 
+                                    resolve: { evt: row }, backdrop: false,
+                                    controller: function($scope, $uibModalInstance, evt){
+                                        $scope.evt = evt;
+                                        $scope.close = function(){
+                                            $uibModalInstance.close();
+                                        }
                                     }
-                                }
-                            });
-                        }
-                    });
-                    $("#tblEventualities").bootstrapTable('refresh');
-                    //MANEJO DEL UI
-                    $("#search_section").show();
-                    $('[data-toggle="tooltip"]').tooltip();
-                }else{
+                                });
+                            }
+                        });
+                        $("#tblEventualities").bootstrapTable('refresh');
+                        //MANEJO DEL UI
+                        $("#search_section").show();
+                        $('[data-toggle="tooltip"]').tooltip();
+                    }else{
 
+                    }
+                });
+            }
+        };
+        $scope.updateCSSv2 = function(){
+            //Obtener datos de las listas
+            var cssv2Data = {
+                id: $scope.finding.id,
+                vector_acceso: $scope.finding.vector_acceso,
+                impacto_confidencialidad: $scope.finding.impacto_confidencialidad,
+                autenticacion: $scope.finding.autenticacion,
+                impacto_integridad: $scope.finding.impacto_integridad,
+                explotabilidad: $scope.finding.explotabilidad,
+                impacto_disponibilidad: $scope.finding.impacto_disponibilidad,
+                nivel_confianza: $scope.finding.nivel_confianza,
+                nivel_resolucion: $scope.finding.nivel_resolucion,
+                complejidad_acceso: $scope.finding.complejidad_acceso
+            };
+            //Recalcultar CSSV2
+            $scope.findingCalculateCSSv2();
+            cssv2Data.criticidad = $scope.finding.criticidad;
+            $msg.info("En desarrollo ;)");
+            return false;
+            //Instanciar modal de confirmacion
+            var modalInstance = $uibModal.open({
+                templateUrl: BASE.url + 'assets/views/project/confirmMdl.html',
+                animation: true, backdrop: false,
+                resolve: { updateData: cssv2Data },
+                controller: function($scope, $uibModalInstance, updateData){
+                    $scope.modalTitle = "Actualizar CSSv2";
+                    $scope.ok = function(){
+                        //Consumir el servicio
+                        var req = projectFtry.UpdateCSSv2(updateData);
+                        //Capturar la Promisse
+                        req.then(function(response){
+                            if(!response.error){
+                                $msg.success("Actualizado ;)");
+                            }else{
+                                $msg.error("Hay un error :(");
+                            }
+                        });
+                    };
+                    $scope.close = function(){
+                        $uibModalInstance.close();
+                    };
                 }
-            });
-        }
+            });            
+        };
         $scope.showProjectView = function(){
             $("#findingView").fadeOut(300);
             $("#projectView").fadeIn(300);
