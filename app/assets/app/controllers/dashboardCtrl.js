@@ -4,7 +4,7 @@
  */
 /**
  * Crea el controlador de las funciones del dashboard
- * @name eventualityController 
+ * @name dashboardController 
  * @param {Object} $scope 
  * @param {Object} $uibModal
  * @return {undefined}
@@ -60,7 +60,7 @@ integrates.controller("dashboardCtrl", function($scope, $uibModal, $timeout,
         $("#myProjectsTbl").bootstrapTable({
             url: BASE.url+"get_myprojects",
             onClickRow: function(row, elem){
-                $state.go("SearchProject", {project: row.project});
+                $state.go("ProjectNamed", {project: row.project});
             }
         });
         $("#myProjectsTbl").bootstrapTable("refresh");

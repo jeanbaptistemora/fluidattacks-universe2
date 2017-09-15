@@ -215,14 +215,24 @@ def get_findings(request):
         finding_parsed = rmp.map_finding(formstack_request)
         state = api.get_finding_state(finding["id"])
         finding_parsed['estado'] = state['estado']
+        closing_cicles = api.get_closings_by_finding(finding['id'])
+        finding_parsed['cierres'] = [rmp.map_closing(api.get_submission(x['id'])) for x in closing_cicles['submissions']]
         if 'abiertas' in state:
             finding_parsed['cardinalidad'] = state['abiertas']
+        if 'abiertas_cuales' in state:
+            finding_parsed['donde'] = state['abiertas_cuales']
+        else:
+            if state['estado'] == 'Cerrado':
+                finding_parsed['donde'] = '-'
+        if 'cerradas_cuales' in state:
+            finding_parsed['cerradas'] = state['cerradas_cuales']
         if not filtr:
             findings.append(finding_parsed)
         elif "tipo_prueba" in finding_parsed:
             if filtr.encode("utf8") == \
                     finding_parsed["tipo_prueba"].encode("utf8"):
                 findings.append(finding_parsed)
+        
     findings.reverse()
     return util.response(findings, 'Success', False)
 

@@ -3816,10 +3816,9 @@ fieldset[disabled] .btn-warning.active {
   background-color: #ffffff;
 }
 .btn-danger {
-  border-color: #ed4b4b;
   color: #ffffff;
-  background-color: #0A62AC;
-  border-color: #0A62AC;
+  background-color: #ed4b4b;
+  border-color: #ed4b4b;
 }
 .btn-danger:focus,
 .btn-danger.focus {
@@ -10523,13 +10522,13 @@ button:focus {
   background: #7accbe;
 }
 .gritter-item-wrapper.info {
-  background: #8dcadf;
+  background: #525A5C;
 }
 .gritter-item-wrapper.warning {
   background: #ffc870;
 }
 .gritter-item-wrapper.danger {
-  background: #0A62AC;
+  background: #ed4b4b;
 }
 .gritter-item-wrapper.alt1 {
   background: #95d9f0;

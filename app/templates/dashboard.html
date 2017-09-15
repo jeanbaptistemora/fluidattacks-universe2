@@ -37,6 +37,12 @@
     var userEmail = "{{ request.session.username }}";
     var userRole = "{{ request.session.role }}";
     var lastLogin = "{{ request.session.last_login }}";
+    function goDash(){
+      location = BASE.url + "dashboard#/home";
+    }
+    function goSearch(){
+      location = BASE.url + "dashboard#!/Project";
+    }
     </script>
   </head>
   <body ng-app="FluidIntegrates">
@@ -47,7 +53,7 @@
             <div class="page-title">
               <span>Dashboard</span>
             </div>
-            <a href="#" class="am-toggle-left-sidebar navbar-toggle collapsed"><span class="icon-bar"><span></span><span></span><span></span></span></a><a href="/integrates/dashboard" class="navbar-brand"></a>
+            <a href="#" class="am-toggle-left-sidebar navbar-toggle collapsed"><span class="icon-bar"><span></span><span></span><span></span></span></a><a onclick="goDash();" class="navbar-brand"></a><style>.navbar-brand:hover{ cursor:pointer;}</style>
           </div><a href="#" class="am-toggle-right-sidebar" title="Perfil"><span class="icon s7-menu2"></span></a><a href="#" data-toggle="collapse" data-target="#am-navbar-collapse" class="am-toggle-top-header-menu collapsed"><span class="icon s7-angle-down"></span></a>
           <div id="am-navbar-collapse" class="collapse navbar-collapse" ng-controller="dashboardCtrl">
             <ul class="nav navbar-nav am-nav-right">
@@ -93,10 +99,13 @@
                 $(document).ready(function() {
                     if (userRole == "customer"){
                         $('#event_button').hide();
+                        $('#project_button').hide();
                     }
                 });
             </script>
-            <li class="parent"><a ui-sref="VulnerabilitiesByName"><i class="icon s7-id"></i><span>{% templatetag openvariable %} 'left_menu.first' | translate {% templatetag closevariable %}</span></a></li>
+            <li class="parent"
+                 id="project_button" onclick="goSearch();"><a onclick="goSearch();">
+              <i class="icon s7-id"></i><span>{% templatetag openvariable %} 'left_menu.first' | translate {% templatetag closevariable %}</span></a></li>
             <li id="event_button" class="parent"><a ui-sref="EventualitiesByName"><i class="icon s7-way"></i><span>{% templatetag openvariable %} 'left_menu.second' | translate {% templatetag closevariable %}</span></a></li>
           </ul>
           <!--Sidebar bottom content-->
@@ -130,7 +139,12 @@
         </div>
       </nav>
     </div>
-
+    <div id="full_loader" style="margin: 0px; padding: 0px; position: fixed; right: 0px; top: 0px; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.5); z-index: 30001; opacity: 0.8; display:none;">
+      <p style="position: absolute; color: White; top: 50%; left: 45%; text-align:center;">  
+        <img src="assets/img/loading.gif" width="120" height="120"><br>
+        Powered By Fluid
+      </p>
+    </div>
     <script src="assets/amaretti/js/main.js" type="text/javascript"></script>
     <script src="assets/amaretti/lib/bootstrap/dist/js/bootstrap.min.js" type="text/javascript"></script>
     <script src="assets/bower_components/angular/angular.min.js"></script>
@@ -195,6 +209,10 @@
     <script src="assets/app/models/dashboardFtry.js" type="text/javascript"></script>
     <script src="assets/app/controllers/dashboardCtrl.js" type="text/javascript"></script>
     <!-- End Dashboard -->
+    <!-- Start Project -->
+    <script src="assets/app/models/projectFtry.js" type="text/javascript"></script>
+    <script src="assets/app/controllers/projectCtrl.js" type="text/javascript"></script>
+    <!-- End Project -->
     <script src="assets/app/controllers/findingResumeController.js" type="text/javascript"></script>
     {% csrf_token %}
     <script type="text/javascript">

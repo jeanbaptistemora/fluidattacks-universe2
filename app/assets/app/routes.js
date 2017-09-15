@@ -11,6 +11,7 @@
  */
 integrates.config(function($stateProvider, $urlRouterProvider) {
     $urlRouterProvider.otherwise('home');
+    
     $stateProvider
         .state('home', {
             url: '/home',
@@ -26,6 +27,21 @@ integrates.config(function($stateProvider, $urlRouterProvider) {
             url: '/SearchProject/:project',
             templateUrl: 'assets/views/search/vulns_by_name.html',
             controller: 'findingController'  
+        })
+        .state('ProjectSearch', {
+            url: '/Project',
+            templateUrl: 'assets/views/project/index.html',
+            controller: 'projectCtrl'  
+        })
+        .state('ProjectNamed', {
+            url: '/Project/:project',
+            templateUrl: 'assets/views/project/index.html',
+            controller: 'projectCtrl'  
+        })
+        .state('ProjectNameById', {
+            url: '/Project/:project/:finding',
+            templateUrl: 'assets/views/project/index.html',
+            controller: 'projectCtrl'  
         })
         .state('VulnerabilitiesByName', {
             url: '/VulnerabilitiesByName',
@@ -52,4 +68,11 @@ integrates.config(function($stateProvider, $urlRouterProvider) {
             templateUrl: 'assets/views/search/event_by_name.html',
             controller: 'eventualityController'        
         })
+});
+integrates.config(function($sceDelegateProvider) {
+    $sceDelegateProvider.resourceUrlWhitelist([
+      'self',
+      '/assets/views/project/eventualityMdl.html',
+      'https://fluid.la/**',
+    ]);
 });

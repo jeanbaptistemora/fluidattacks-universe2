@@ -27,3 +27,8 @@ var $xhr = new (class xhr {
     get($q, $url, $data = {}){ return this.request("get", $q, $url, $data) };
     post($q, $url, $data = {}){ return this.request("post", $q, $url, $data) };
 });
+//Overriding ajax
+$("#full_loader").hide();
+$( document ).ajaxStart(function() { $("#full_loader").show(); });
+$( document ).ajaxStop(function() { $("#full_loader").hide(); });
+$( document ).ajaxError(function() { $("#full_loader").hide(); });
