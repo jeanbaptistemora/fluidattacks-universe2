@@ -25,6 +25,7 @@ integrates.controller(
             var findingId = $stateParams.finding;
             $scope.userRole = userRole;
             //Control para alternar los campos editables
+            userRole = "analyst";
             $scope.onlyReadableTab1 = true;
             $scope.onlyReadableTab2 = true;
             $scope.isManager = userRole != "customer";
@@ -47,8 +48,29 @@ integrates.controller(
             $scope.finding = {};
         };
         $scope.cssv2Editable = function(){
-            $scope.onlyReadableTab2 = false;
-        }
+            if($scope.onlyReadableTab2 == false){
+                $scope.onlyReadableTab2 = true;
+            }else{
+                $scope.onlyReadableTab2 = false;
+            }
+        };
+        $scope.descriptionEditable = function(){
+            if($scope.onlyReadableTab1 == false){
+                $scope.onlyReadableTab1 = true;
+            }else{
+                $scope.onlyReadableTab1 = false;
+            }
+        };
+        $scope.detectNivel = function (){
+            $timeout(function(){
+                $scope.$apply();
+                if($scope.finding.nivel == "Detallado"){
+                    $scope.esDetallado = true;
+                }else{
+                    $scope.esDetallado = false;
+                }
+            },200);
+        };
         $scope.goUp = function(){
             $('html, body').animate({ scrollTop: 0 }, 'fast');
         };
@@ -291,7 +313,7 @@ integrates.controller(
             if(!isNaN($scope.finding.severidad)){
                 var severidad = parseFloat($scope.finding.severidad);
                 if (severidad < 0 || severidad > 5){
-                    ngNotify.set("La severidad debe ser un numero de 0 a 5", "error");
+                    $msg.error("La severidad debe ser un numero de 0 a 5", "error");
                     return false;
                 }
                 try{
@@ -308,11 +330,14 @@ integrates.controller(
                     }else{
                         $scope.finding.valor_riesgo = "(:r) Tolerable".replace(":r", vRiesgo.toFixed(1));
                     }
+                    return true;
                 }catch(e){
                         $scope.finding.valor_riesgo = "";
+                        return false;
                 }
             }else{
-                ngNotify.set("La severidad debe ser un numero de 0 a 5", "error");
+                $msg.error("La severidad debe ser un numero de 0 a 5", "error");
+                return false;
             }
         };
         $scope.findingEvidenceTab = function(){
@@ -621,7 +646,7 @@ integrates.controller(
                 nivel_resolucion: $scope.finding.nivel_resolucion,
                 complejidad_acceso: $scope.finding.complejidad_acceso
             };
-            //Recalcultar CSSV2
+            //Recalcular CSSV2
             $scope.findingCalculateCSSv2();
             cssv2Data.criticidad = $scope.finding.criticidad;
             $msg.info("En desarrollo ;)");
@@ -650,6 +675,92 @@ integrates.controller(
                     };
                 }
             });            
+        };
+        $scope.updateDescription = function(){
+            //Obtener datos
+            descData = {
+                id: $scope.finding.id,
+                nivel: $scope.finding.nivel,
+                hallazgo: $scope.finding.hallazgo,
+                escenario: $scope.finding.escenario,
+                actor: $scope.finding.actor,
+                categoria: $scope.finding.categoria,
+                valor_riesgo: $scope.finding.valor_riesgo,
+                probabilidad: $scope.finding.probabilidad,
+                severidad: $scope.finding.severidad,
+                vulnerabilidad: $scope.finding.vulnerabilidad,
+                requisitos: $scope.finding.requisitos,
+                donde: $scope.finding.donde,
+                vector_ataque: $scope.finding.vector_ataque,
+                amenaza: $scope.finding.amenaza,
+                solucion_efecto: $scope.finding.solucion_efecto,
+                sistema_comprometido: $scope.finding.sistema_comprometido,
+                cwe: $scope.finding.cwe,
+            };
+            $msg.info("En desarrollo ;)");
+            return false;
+            if(descData.nivel == "Detallado"){
+                //Recalcular Severidad
+                var choose = $scope.findingCalculateSeveridad();
+                if(!choose){
+                    $msg.error("Debes calcular correctamente la severidad");
+                    return false;
+                }
+            }
+            var modalInstance = $uibModal.open({
+                templateUrl: BASE.url + 'assets/views/project/confirmMdl.html',
+                animation: true, backdrop: false,
+                resolve: { updateData: descData },
+                controller: function($scope, $uibModalInstance, updateData){
+                    $scope.modalTitle = "Actualizar Descripción";
+                    $scope.ok = function(){
+                        //Consumir el servicio
+                        var req = projectFtry.UpdateDescription(updateData);
+                        //Capturar la Promisse
+                        req.then(function(response){
+                            if(!response.error){
+                                $msg.success("Actualizado ;)");
+                            }else{
+                                $msg.error("Hay un error :(");
+                            }
+                        });
+                    };
+                    $scope.close = function(){
+                        $uibModalInstance.close();
+                    };
+                }
+            });  
+        };
+        $scope.deleteFinding = function(){
+            //Obtener datos
+            descData = {
+                id: $scope.finding.id
+            };
+            $msg.info("En desarrollo ;)");
+            return false;
+            var modalInstance = $uibModal.open({
+                templateUrl: BASE.url + 'assets/views/project/confirmMdl.html',
+                animation: true, backdrop: false,
+                resolve: { updateData: descData },
+                controller: function($scope, $uibModalInstance, updateData){
+                    $scope.modalTitle = "Eliminar Hallazgo";
+                    $scope.ok = function(){
+                        //Consumir el servicio
+                        var req = projectFtry.DeleteFinding(updateData);
+                        //Capturar la Promisse
+                        req.then(function(response){
+                            if(!response.error){
+                                $msg.success("Actualizado ;)");
+                            }else{
+                                $msg.error("Hay un error :(");
+                            }
+                        });
+                    };
+                    $scope.close = function(){
+                        $uibModalInstance.close();
+                    };
+                }
+            });  
         };
         $scope.showProjectView = function(){
             $("#findingView").fadeOut(300);

@@ -150,8 +150,13 @@
                 <i class="icon s7-angle-left"></i> Volver
             </button>
         </div>
-        <div class="col-md-10 col-sm-12 col-sm-12 text-left">
+        <div class="col-md-8 col-sm-12 col-sm-12 text-left">
             <h2 style="margin-top:0px !important;">{{header.findingTitle}}</h2>
+        </div>
+        <div class="col-md-2 col-xs-12 col-sm-12">
+            <button class="btn btn-danger btn-block" ng-click="deleteFinding();">
+                <i class="icon s7-trash"></i> Eliminar
+            </button>
         </div>
         <div class="col-md-12 col-xs-12 col-sm-12">
             <hr/>
@@ -220,7 +225,11 @@
                                 <div class="row table-row" ng-show="isManager && !onlyReadableTab1">
                                     <div class="col-md-3 col-xs-12 col-sm-12 table-head"><label><b>Tipo Hallazgo</b></label></div>
                                     <div class="col-md-9 col-xs-12 col-sm-12 table-desc">
-                                        <select ng-model="finding.nivel">
+                                        <p ng-show="onlyReadableTab1">{{finding.nivel}}</p>
+                                        <select ng-model="finding.nivel"
+                                                ng-show="!onlyReadableTab1"
+                                                ng-change="detectNivel();"
+                                                class="form-control">
                                             <option value="Detallado">Detallado</option>
                                             <option value="General">General</option>
                                         </select>
@@ -275,15 +284,16 @@
                                         <p ng-show="onlyReadableTab1">{{finding.valor_riesgo}}</p>
                                         <input type="text" class="form-control"
                                                ng-show="!onlyReadableTab1"
-                                               ng-model="finding.valor_riesgo"/>
+                                               ng-model="finding.valor_riesgo" disabled/>
                                     </div>
                                 </div>
                                 <div class="row table-row" ng-show="esDetallado"> 
                                     <div class="col-md-3 col-xs-12 col-sm-12 table-head"><label><b>Probabilidad</b></label></div>
                                     <div class="col-md-3 col-xs-12 col-sm-12 table-desc">
-                                        <p>{{finding.probabilidad}}</p>
+                                        <p ng-show="onlyReadableTab1">{{finding.probabilidad}}</p>
                                         <select ng-model="finding.probabilidad"
-                                                ng-change="calculateSeveridad();"
+                                                ng-show="!onlyReadableTab1"
+                                                ng-change="findingCalculateSeveridad();"
                                                 class="form-control">
                                             <option ng-repeat="item in list.probability"
                                                     value="{{item.name}}">
@@ -292,35 +302,95 @@
                                         </select>
                                     </div>
                                     <div class="col-md-3 col-xs-12 col-sm-12 table-head"><label><b>Severidad</b></label></div>
-                                    <div class="col-md-3 col-xs-12 col-sm-12 table-desc"><p>{{finding.severidad}}</p></div>
+                                    <div class="col-md-3 col-xs-12 col-sm-12 table-desc">
+                                        <p ng-show="onlyReadableTab1">{{finding.severidad}}</p>
+                                        <input type="text" class="form-control"
+                                               ng-show="!onlyReadableTab1"
+                                               ng-model="finding.severidad"
+                                               ng-bind="finding.severidad"
+                                               ng-blur="calculateSeveridad();">
+                                    </div>
                                 </div>
                                 <div class="row table-row">
                                     <div class="col-md-3 col-xs-12 col-sm-12 table-head"><label><b>Descripción</b></label></div>
-                                    <div class="col-md-9 col-xs-12 col-sm-12 table-desc"><p>{{finding.vulnerabilidad}}</p></div>
+                                    <div class="col-md-9 col-xs-12 col-sm-12 table-desc">
+                                        <p ng-show="onlyReadableTab1">{{finding.vulnerabilidad}}</p>
+                                        <textarea class="form-control no-resize"
+                                                  ng-show="!onlyReadableTab1"
+                                                  ng-model="finding.vulnerabilidad">{{finding.vulnerabilidad}}</textarea>
+                                    </div>
                                 </div>
                                 <div class="row table-row">
                                     <div class="col-md-3 col-xs-12 col-sm-12 table-head"><label><b>Requisitos</b></label></div>
-                                    <div class="col-md-9 col-xs-12 col-sm-12 table-desc"><p>{{finding.requisitos}}</p></div>
+                                    <div class="col-md-9 col-xs-12 col-sm-12 table-desc">
+                                        <p ng-show="onlyReadableTab1">{{finding.requisitos}}</p>
+                                        <textarea class="form-control no-resize"
+                                                  ng-show="!onlyReadableTab1"
+                                                  ng-model="finding.requisitos">{{finding.requisitos}}</textarea>
+                                    </div>
                                 </div>
                                 <div class="row table-row">
                                     <div class="col-md-3 col-xs-12 col-sm-12 table-head"><label><b>Dónde</b></label></div>
-                                    <div class="col-md-9 col-xs-12 col-sm-12 table-desc"><textarea class="form-control" rows="6" disabled style="margin-bottom: 5px;">{{finding.donde}}</textarea></div>
+                                    <div class="col-md-9 col-xs-12 col-sm-12 table-desc">
+                                        <textarea class="form-control" rows="6" 
+                                                  ng-show="onlyReadableTab1"
+                                                  disabled style="margin-bottom: 5px;">{{finding.donde}}</textarea>
+                                        <textarea class="form-control" rows="6" style="margin-bottom: 5px;"
+                                                  ng-show="!onlyReadableTab1"
+                                                  ng-model="finding.donde">{{finding.donde}}</textarea>
+                                    </div>
                                 </div>
                                 <div class="row table-row"> 
                                     <div class="col-md-3 col-xs-12 col-sm-12 table-head"><label><b>Vectores de ataque</b></label></div>
-                                    <div class="col-md-3 col-xs-12 col-sm-12 table-desc"><p>{{finding.vector_ataque}}</p></div>
+                                    <div class="col-md-3 col-xs-12 col-sm-12 table-desc">
+                                        <p ng-show="onlyReadableTab1">{{finding.vector_ataque}}</p>
+                                        <textarea class="form-control no-resize"
+                                                  ng-show="!onlyReadableTab1"
+                                                  ng-model="finding.vector_ataque">{{finding.vector_ataque}}</textarea>
+                                    </div>
                                     <div class="col-md-3 col-xs-12 col-sm-12 table-head"><label><b>Amenaza</b></label></div>
-                                    <div class="col-md-3 col-xs-12 col-sm-12 table-desc"><p>{{finding.amenaza}}</p></div>
+                                    <div class="col-md-3 col-xs-12 col-sm-12 table-desc">
+                                        <p ng-show="onlyReadableTab1">{{finding.amenaza}}</p>
+                                        <textarea class="form-control no-resize"
+                                                  ng-show="!onlyReadableTab1"
+                                                  ng-model="finding.amenaza">{{finding.amenaza}}</textarea>
+                                    </div>
                                 </div>
                                 <div class="row table-row"> 
                                     <div class="col-md-3 col-xs-12 col-sm-12 table-head"><label><b>Recomendación</b></label></div>
-                                    <div class="col-md-3 col-xs-12 col-sm-12 table-desc"><p>{{finding.solucion_efecto}}</p></div>
+                                    <div class="col-md-3 col-xs-12 col-sm-12 table-desc">
+                                        <p ng-show="onlyReadableTab1">{{finding.solucion_efecto}}</p>
+                                        <textarea class="form-control no-resize"
+                                                  ng-show="!onlyReadableTab1"
+                                                  ng-model="finding.solucion_efecto">{{finding.solucion_efecto}}</textarea>
+                                    </div>
                                     <div class="col-md-3 col-xs-12 col-sm-12 table-head"><label><b>Sistemas Comprometidos</b></label></div>
-                                    <div class="col-md-3 col-xs-12 col-sm-12 table-desc"><p>{{finding.sistema_comprometido}}</p></div>
+                                    <div class="col-md-3 col-xs-12 col-sm-12 table-desc">
+                                        <p ng-show="onlyReadableTab1">{{finding.sistema_comprometido}}</p>
+                                        <textarea class="form-control no-resize"
+                                                  ng-show="!onlyReadableTab1"
+                                                  ng-model="finding.sistema_comprometido">{{finding.sistema_comprometido}}</textarea>
+                                    </div>
                                 </div>
                                 <div class="row table-row">
                                     <div class="col-md-3 col-xs-12 col-sm-12 table-head"><label><b>Debilidad</b></label></div>
-                                    <div class="col-md-9 col-xs-12 col-sm-12 table-desc"><p>{{finding.cwe}}</p></div>
+                                    <div class="col-md-9 col-xs-12 col-sm-12 table-desc">
+                                        <p ng-show="onlyReadableTab1">{{finding.cwe}}</p>
+                                        <input type="text" class="form-control"
+                                               ng-show="!onlyReadableTab1"
+                                               ng-model="finding.cwe">
+                                    </div>
+                                </div>
+                                <div class="row table-row" ng-show="isManager">
+                                    <div class="col-md-4 col-md-offset-3 col-xs-12 col-sm-12">
+                                        <button class="btn btn-default btn-block"
+                                                ng-click="descriptionEditable();">Hacer Editable</button>
+                                    </div>
+                                    <div class="col-md-4 col-xs-12 col-sm-12">
+                                        <button class="btn btn-success btn-block"
+                                                ng-show="!onlyReadableTab1"
+                                                ng-click="updateDescription();">Actualizar</button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -474,11 +544,11 @@
                                 <div class="row table-row" ng-show="isManager">
                                     <div class="col-md-4 col-md-offset-3 col-xs-12 col-sm-12">
                                         <button class="btn btn-default btn-block"
-                                                ng-show="onlyReadableTab2"
                                                 ng-click="cssv2Editable();">Hacer Editable</button>
                                     </div>
                                     <div class="col-md-4 col-xs-12 col-sm-12">
                                         <button class="btn btn-success btn-block"
+                                                ng-show="!onlyReadableTab2"
                                                 ng-click="updateCSSv2();">Actualizar</button>
                                     </div>
                                 </div>

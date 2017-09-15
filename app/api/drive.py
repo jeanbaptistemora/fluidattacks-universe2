@@ -51,7 +51,7 @@ class DriveAPI(object):
         if done:
             mime = Magic(mime=True)
             mime_type = mime.from_file(filename)
-            if mime_type == "image/png" or mime_type == "image/gif": #Descarga de solo imagenes
+            if mime_type == "image/png" or mime_type == "image/gif":
                 return fh
         return None
 
@@ -60,9 +60,6 @@ class DriveAPI(object):
         
         store = Storage(self.CLIENT_AUTHOR_FILE)
         credentials = store.get()
-        print ("===============================================")
-        print (credentials)
-        print ("===============================================")
         if not credentials or credentials.invalid:
             flow = client.flow_from_clientsecrets(
                 self.CLIENT_SECRET_FILE, 

@@ -74,6 +74,32 @@ integrates.factory('projectFtry', function($q){
             return $xhr.post($q, BASE.url + "update_cssv2", {
                 data: json, _: Math.random()
             });
+        },
+        /**
+         * Invoca el servicio para actualizar la seccion
+         * descriptiva de un hallazgo
+         * @function UpdateDescription
+         * @param {JSON} data
+         * @member integrates.projectFtry
+         * @return {Object}
+         */
+        UpdateDescription: function(data){
+            return $xhr.post($q, BASE.url + "update_desc", {
+                data: json, _: Math.random()
+            });
+        },
+        /**
+         * Invoca el servicio para actualizar la seccion
+         * descriptiva de un hallazgo
+         * @function DeleteFinding
+         * @param {JSON} data
+         * @member integrates.projectFtry
+         * @return {Object}
+         */
+        DeleteFinding: function(data){
+            return $xhr.post($q, BASE.url + "delete_finding", {
+                data: json, _: Math.random()
+            });
         }
     }
 });
