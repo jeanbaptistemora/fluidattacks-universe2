@@ -25,9 +25,9 @@ integrates.controller(
             var findingId = $stateParams.finding;
             $scope.userRole = userRole;
             //Control para alternar los campos editables
-            userRole = "analyst";
             $scope.onlyReadableTab1 = true;
             $scope.onlyReadableTab2 = true;
+            $scope.onlyReadableTab3 = true;
             $scope.isManager = userRole != "customer";
             //Defaults para cambiar vistas
             $scope.view = {};
@@ -59,6 +59,13 @@ integrates.controller(
                 $scope.onlyReadableTab1 = true;
             }else{
                 $scope.onlyReadableTab1 = false;
+            }
+        };
+        $scope.evidenceEditable = function(){
+            if($scope.onlyReadableTab3 == false){
+                $scope.onlyReadableTab3 = true;
+            }else{
+                $scope.onlyReadableTab3 = false;
             }
         };
         $scope.detectNivel = function (){
@@ -348,7 +355,8 @@ integrates.controller(
                 var url = url_pre + $scope.finding.animacion;
                 evidenceList.push({
                     "url": url,
-                    "desc": 'Animación de explotación'
+                    "desc": 'Animación de explotación',
+                    "ref": 0
                 });
             }
             if($scope.finding.desc_evidencia_1 !== undefined
@@ -358,7 +366,8 @@ integrates.controller(
                     "url": url,
                     "desc": $scope.capitalizeFirstLetter(
                         $scope.finding.desc_evidencia_1
-                    )
+                    ),
+                    "ref": 1
                 });
             }
             if($scope.finding.desc_evidencia_2 !== undefined
@@ -368,7 +377,8 @@ integrates.controller(
                     "url": url,
                     "desc": $scope.capitalizeFirstLetter(
                         $scope.finding.desc_evidencia_2
-                    )
+                    ),
+                    "ref": 2
                 });
             }
             if($scope.desc_evidencia_3 !== undefined
@@ -378,7 +388,8 @@ integrates.controller(
                     "url": url,
                     "desc": $scope.capitalizeFirstLetter(
                         $scope.finding.desc_evidencia_3
-                    )
+                    ),
+                    "ref": 3
                 });
             }
             if($scope.finding.desc_evidencia_4 !== undefined
@@ -388,7 +399,8 @@ integrates.controller(
                     "url": url,
                     "desc": $scope.capitalizeFirstLetter(
                         $scope.finding.desc_evidencia_4
-                    )
+                    ),
+                    "ref": 4
                 });
             }
             if($scope.finding.desc_evidencia_5 !== undefined
@@ -398,7 +410,8 @@ integrates.controller(
                     "url": url,
                     "desc": $scope.capitalizeFirstLetter(
                         $scope.finding.desc_evidencia_5
-                    )
+                    ),
+                    "ref": 5
                 });
             }
             $scope.tabEvidences = evidenceList;
@@ -761,6 +774,11 @@ integrates.controller(
                     };
                 }
             });  
+        };
+        $scope.updateEvidenceText = function(target){
+            console.log(target);
+            $msg.info("En desarrollo ;)");
+            return false;
         };
         $scope.showProjectView = function(){
             $("#findingView").fadeOut(300);
