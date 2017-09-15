@@ -153,7 +153,7 @@
         <div class="col-md-8 col-sm-12 col-sm-12 text-left">
             <h2 style="margin-top:0px !important;">{{header.findingTitle}}</h2>
         </div>
-        <div class="col-md-2 col-xs-12 col-sm-12">
+        <div class="col-md-2 col-xs-12 col-sm-12" ng-show="isManager">
             <button class="btn btn-danger btn-block" ng-click="deleteFinding();">
                 <i class="icon s7-trash"></i> Eliminar
             </button>
@@ -163,39 +163,44 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-md-2 col-sm-6 col-xs-6 text-right">ID</div>
-        <div class="col-md-2 col-sm-6 col-xs-6"  style="padding-bottom: 10px;">
-            <span class="label label-default">{{header.findingID}}</span>
-        </div>
-        <div class="col-md-2 col-sm-6 col-xs-6 text-right">Tipo</div>
-        <div class="col-md-2 col-sm-6 col-xs-6"  style="padding-bottom: 10px;">
-            <span class="label label-default">{{header.findingType}}</span>
-        </div>
-        <div class="col-md-2 col-sm-6 col-xs-6 text-right">Criticidad</div>
-        <div class="col-md-2 col-sm-6 col-xs-6"  style="padding-bottom: 10px;">
-                <span class="label label-default" style="{{header.findingValueColor}}">{{header.findingValue}} {{header.findingValueDescription}}</span>
-        </div>
+        
     </div>
     <div class="row">
-        <div class="col-md-2 col-sm-6 col-xs-6 text-right">Vulnerabilidades</div>
-        <div class="col-md-2 col-sm-6 col-xs-6"  style="padding-bottom: 10px;">
-            <span class="label label-default">{{header.findingCount}}</span>
-        </div>
-        <div class="col-md-2 col-sm-6 col-xs-6 text-right">Estado</div>
-        <div class="col-md-2 col-sm-6 col-xs-6"  style="padding-bottom: 10px;">
-            <span class="label label-default" style="{{header.findingStateColor}}">{{header.findingState}}</span>
-        </div>
-        <div class="col-md-2 col-sm-6 col-xs-6 text-right">Fecha Reporte</div>
-        <div class="col-md-2 col-sm-6 col-xs-6"  style="padding-bottom: 10px;">
-            <span class="label label-default control-label">{{finding.timestamp}}</span>
-        </div>
-        <div class="col-md-2 col-sm-6 col-xs-6 text-right">Proyecto Fluid</div>
-        <div class="col-md-2 col-sm-6 col-xs-6">{{finding.proyecto_fluid}}</div>
-        <div class="col-md-2 col-sm-6 col-xs-6 text-right">Proyecto Cliente</div>
-        <div class="col-md-6 col-sm-6 col-xs-6">{{finding.proyecto_cliente}}</div>
-    </div>
-    <div class="row" style="margin-top: 15px;">
         <div class="col-sm-12 col-md-12">
+            <div class="row">
+                <div class="col-md-2 col-sm-6 col-xs-6 text-right">ID</div>
+                <div class="col-md-2 col-sm-6 col-xs-6"  style="padding-bottom: 10px;">
+                    <span class="label label-default">{{header.findingID}}</span>
+                </div>
+                <div class="col-md-2 col-sm-6 col-xs-6 text-right">Tipo</div>
+                <div class="col-md-2 col-sm-6 col-xs-6"  style="padding-bottom: 10px;">
+                    <span class="label label-default">{{header.findingType}}</span>
+                </div>
+                <div class="col-md-2 col-sm-6 col-xs-6 text-right">Criticidad</div>
+                <div class="col-md-2 col-sm-6 col-xs-6"  style="padding-bottom: 10px;">
+                        <span class="label label-default" style="{{header.findingValueColor}}">{{header.findingValue}} {{header.findingValueDescription}}</span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-2 col-sm-6 col-xs-6 text-right">Vulnerabilidades</div>
+                <div class="col-md-2 col-sm-6 col-xs-6"  style="padding-bottom: 10px;">
+                    <span class="label label-default">{{header.findingCount}}</span>
+                </div>
+                <div class="col-md-2 col-sm-6 col-xs-6 text-right">Estado</div>
+                <div class="col-md-2 col-sm-6 col-xs-6"  style="padding-bottom: 10px;">
+                    <span class="label label-default" style="{{header.findingStateColor}}">{{header.findingState}}</span>
+                </div>
+                <div class="col-md-2 col-sm-6 col-xs-6 text-right">Fecha Reporte</div>
+                <div class="col-md-2 col-sm-6 col-xs-6"  style="padding-bottom: 10px;">
+                    <span class="label label-default control-label">{{finding.timestamp}}</span>
+                </div>
+                <div class="col-md-2 col-sm-6 col-xs-6 text-right">Proyecto Fluid</div>
+                <div class="col-md-2 col-sm-6 col-xs-6">{{finding.proyecto_fluid}}</div>
+                <div class="col-md-2 col-sm-6 col-xs-6 text-right">Proyecto Cliente</div>
+                <div class="col-md-6 col-sm-6 col-xs-6">{{finding.proyecto_cliente}}</div>
+            </div>
+        </div>
+        <div class="col-sm-12 col-md-12" style="margin-top:10px;">
             <!-- Start Tab Set -->
             <div class="tab-container">
                 <ul class="nav pills-tabs nav-justified" style="background-color: white; border-bottom: 1px #eee solid;">

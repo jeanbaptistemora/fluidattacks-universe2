@@ -40,6 +40,9 @@
     function goDash(){
       location = BASE.url + "dashboard#/home";
     }
+    function goSearch(){
+      location = BASE.url + "dashboard#!/Project";
+    }
     </script>
   </head>
   <body ng-app="FluidIntegrates">
@@ -96,10 +99,13 @@
                 $(document).ready(function() {
                     if (userRole == "customer"){
                         $('#event_button').hide();
+                        $('#project_button').hide();
                     }
                 });
             </script>
-            <li class="parent"><a ui-sref="VulnerabilitiesByName"><i class="icon s7-id"></i><span>{% templatetag openvariable %} 'left_menu.first' | translate {% templatetag closevariable %}</span></a></li>
+            <li class="parent"
+                 id="project_button" onclick="goSearch();"><a onclick="goSearch();">
+              <i class="icon s7-id"></i><span>{% templatetag openvariable %} 'left_menu.first' | translate {% templatetag closevariable %}</span></a></li>
             <li id="event_button" class="parent"><a ui-sref="EventualitiesByName"><i class="icon s7-way"></i><span>{% templatetag openvariable %} 'left_menu.second' | translate {% templatetag closevariable %}</span></a></li>
           </ul>
           <!--Sidebar bottom content-->
