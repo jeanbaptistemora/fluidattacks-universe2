@@ -6,7 +6,7 @@ https_port: 443
 server_admin: technology@fluid.la
 error_page: https://fluid.la/en/error
 error500_page: https://fluid.la/integrates/error500
-error401_page: https://fluid.la/integrates/error401
+error401_page: /errors/
 servername: fluid.la
 landing: http://www.fluid.la/
 error_log: /var/log/apache2/error.log

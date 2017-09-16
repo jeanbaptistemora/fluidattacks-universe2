@@ -5,7 +5,7 @@
         Options  +Indexes +Multiviews +FollowSymLinks
         RewriteEngine on
         RewriteRule ^/services/permanent-hacking                {{ landing }}services/permanent-hacking/ [P]
-        RewriteRule ^/$         {{ landing }} [P]
+        RewriteRule ^/$         {{ landing }}/es/servicios [P]
         RewriteRule ^/(.*)           {{ landing }}/$1        [P]
         ProxyPassReverse / {{ landing }}
         ErrorDocument 404 {{ error_page }}
