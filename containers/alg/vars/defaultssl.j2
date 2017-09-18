@@ -70,6 +70,7 @@
         ProxyPassReverse / {{ landing }}
         ErrorDocument 401 {{ error401_page }}
         ErrorDocument 404 {{ error_page }}
+	ErrorDocument 405 {{ error401_page }}
         ErrorDocument 500 {{ error500_page }}
 
     # Configuración SSL
