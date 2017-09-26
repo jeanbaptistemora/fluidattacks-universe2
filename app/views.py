@@ -217,6 +217,7 @@ def get_findings(request):
         finding_parsed['estado'] = state['estado']
         closing_cicles = api.get_closings_by_finding(finding['id'])
         finding_parsed['cierres'] = [rmp.map_closing(api.get_submission(x['id'])) for x in closing_cicles['submissions']]
+	finding_parsed['cardinalidad_total'] = finding_parsed['cardinalidad']
         if 'abiertas' in state:
             finding_parsed['cardinalidad'] = state['abiertas']
         if 'abiertas_cuales' in state:

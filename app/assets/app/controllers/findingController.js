@@ -29,7 +29,7 @@ integrates.calcCardinality = function(data){
                 var Resol = parseFloat(i.nivel_resolucion.split(" | ")[0]);
                 var Confi = parseFloat(i.nivel_confianza.split(" | ")[0]);
                 var BaseScore = (((0.6*(10.41*(1-(1-ImpCon)*(1-ImpInt)*(1-ImpDis))))+(0.4*(20*AccCom*Auth*AccVec))-1.5)*1.176);
-                total_criticidad += BaseScore * parseFloat(i.cardinalidad);
+                total_criticidad += BaseScore * parseFloat(i.cardinalidad_total);
             }
     	}catch(e){
     
