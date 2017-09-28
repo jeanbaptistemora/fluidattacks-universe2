@@ -499,34 +499,27 @@ integrates.controller(
         };
         $scope.mainGraphcriticalityPieChart = function(){
             var currData = $scope.data;
-            var total = 0;
-            var high = 0;
-            var moderate = 0;
-            var low = 0;
+            var exploit = 0;
+            var nonexploit = 0;
             currData.forEach(function(val, i){
-                cardinalidad = parseFloat(val.cardinalidad);
-                total += cardinalidad;
-                criticity = parseFloat(val.criticidad);
-                if(criticity >= 7){
-                    high ++;
-                }else if(criticity >= 4 & criticity <= 6.9){
-                    moderate ++;
+                explotable = val.explotabilidad;
+                if(explotable == "1.000 | Alta: No se requiere exploit o se puede automatizar"){
+                    exploit ++;
+                }else if(explotable == "0.950 | Funcional: Existe exploit"){
+                    exploit ++;
                 }else{
-                    low ++;
+                    nonexploit ++;
                 }
             });
-            total = parseFloat(total);
-            highLabel = "Altos :n%".replace(":n", (high*100/total).toFixed(2).toString());
-            moderateLabel = "Moderados :n%".replace(":n", (moderate*100/total).toFixed(2).toString());
-            lowLabel = "Bajos :n%".replace(":n", (low*100/total).toFixed(2).toString());
+            exploitLabel = "Explotable :n%".replace(":n", (exploit).toString());
+            nonexploitLabel = "No Explotable :n%".replace(":n", (nonexploit).toString());
             $("#grapCriticality").empty();
             Morris.Donut({
                 element: 'grapCriticality',
                 resize: true,
                 data: [
-                  {label: highLabel, value: high, color: "#ff1a1a"},
-                  {label: moderateLabel, value: moderate, color: "#ffbf00"},
-                  {label: lowLabel, value: low, color: "#FFFF37"}
+                  {label: exploitLabel, value: exploit, color: "#ff1a1a"},
+                  {label: nonexploitLabel, value: nonexploit, color: "#31c0be"},
                 ]
             });
         };
