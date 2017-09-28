@@ -603,8 +603,8 @@ integrates.controller(
                         $('[data-toggle="tooltip"]').tooltip();
                         $scope.calculateCardinality({data: $scope.data});
                     
-                        if(finding !== undefined){
-                            $scope.finding.id = finding;
+                        if($stateParams.finding !== undefined){
+                            $scope.finding.id = $stateParams.finding;
                             $scope.loadFindingByID($scope.finding.id);
                             $scope.view.project = false;
                             $scope.view.finding = false;
