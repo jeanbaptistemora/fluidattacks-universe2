@@ -475,34 +475,25 @@ integrates.controller(
         };
         $scope.mainGraphamountPieChart = function(){
             var currData = $scope.data;
-            var total = 0;
-            var high = 0;
-            var moderate = 0;
-            var low = 0;
+            var total_seg = 0;
+            var total_hig = 0;
             currData.forEach(function(val, i){
-                cardinalidad = parseFloat(val.cardinalidad);
-                total += cardinalidad;
-                criticity = parseFloat(val.criticidad);
-                if(criticity >= 7){
-                    high += cardinalidad;
-                }else if(criticity >= 4 & criticity <= 6.9){
-                    moderate += cardinalidad;
+                tipo = val.tipo_hallazgo;
+                if(tipo == "Seguridad"){
+                    total_seg += 1;
                 }else{
-                    low += cardinalidad;
+                    total_hig += 1;
                 }
             });
-            total = parseFloat(total);
-            highLabel = "Altos :n%".replace(":n", (high*100/total).toFixed(2).toString());
-            moderateLabel = "Moderados :n%".replace(":n", (moderate*100/total).toFixed(2).toString());
-            lowLabel = "Bajos :n%".replace(":n", (low*100/total).toFixed(2).toString());
+            total_segLabel = "Vulnerabilidad :n%".replace(":n", (total_seg).toString());
+            total_higLabel = "Higiene :n%".replace(":n", (total_hig).toString());
             $("#grapAmount").empty();
             Morris.Donut({
                 element: 'grapAmount',
                 resize: true,
                 data: [
-                  {label: highLabel, value: high, color: "#ff1a1a"},
-                  {label: moderateLabel, value: moderate, color: "#ffbf00"},
-                  {label: lowLabel, value: low, color: "#FFFF37"}
+                  {label: total_segLabel, value: total_seg, color: "#ff1a1a"},
+                  {label: total_higLabel, value: total_hig, color: "#31c0be"},
                 ]
             });
         };
