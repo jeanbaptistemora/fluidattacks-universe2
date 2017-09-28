@@ -34,11 +34,11 @@
             <div class="row">
                 <div class="col-md-4 text-center">
                     <h3>Distribución por Explotabilidad</h3>
-                    <div id="grapCriticality" style="width:250px; height:250px; margin: auto;"></div>
+                    <div id="grapExploit" style="width:250px; height:250px; margin: auto;"></div>
                 </div>
                 <div class="col-md-4 text-center">
                     <h3>Distribución por Tipo Hallazgo</h3>
-                    <div id="grapAmount" style="width:250px; height:250px; margin: auto;"></div>
+                    <div id="grapType" style="width:250px; height:250px; margin: auto;"></div>
                 </div>
                 <div class="col-md-4 text-center">
                     <h3>Hallazgos por Estado</h3>
@@ -96,7 +96,7 @@
                                         <th data-field="timestamp" data-sortable="true">
                                             {{'search_findings.table.headings.timestamp' | translate}}
                                         </th>
-                                        <th data-field="tipo_hallazgo" data-sortable="true">
+                                        <th data-field="tipo_hallazgo_cliente" data-sortable="true">
                                             {{'search_findings.table.headings.type' | translate}}
                                         </th>
                                         <th data-field="hallazgo" data-width="120">
@@ -113,6 +113,9 @@
                                         </th>
                                         <th data-field="estado" data-sortable="true" data-width="20">
                                             {{'search_findings.table.headings.state' | translate}}
+                                        </th>
+                                        <th data-field="explotable" data-sortable="true" data-width="20">
+                                            {{'search_findings.table.headings.exploit' | translate}}
                                         </th>
                                     </tr>
                                 </thead>

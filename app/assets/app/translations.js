@@ -62,7 +62,8 @@ integrates.config(['$translateProvider', function($translateProvider) {
                     'vulnerability': 'Description',
                     'criticity': 'CVSSv2 Score',
                     'cardinality': 'Vulnerabilities',
-                    'state': 'State'
+                    'state': 'State',
+                    'exploit': 'Exploit'
                 }
             }
         }
@@ -119,7 +120,8 @@ integrates.config(['$translateProvider', function($translateProvider) {
                     'vulnerability': 'Descripcion',
                     'criticity': 'Puntaje CVSSv2',
                     'cardinality': 'Vulnerabilidades',
-                    'state': 'Estado'
+                    'state': 'Estado',
+                    'exploit': 'Explotable'
                 }
             }
         }
