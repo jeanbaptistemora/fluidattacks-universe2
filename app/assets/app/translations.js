@@ -63,7 +63,7 @@ integrates.config(['$translateProvider', function($translateProvider) {
                     'criticity': 'CVSSv2 Score',
                     'cardinality': 'Vulnerabilities',
                     'state': 'State',
-                    'explpoit': 'Exploit'
+                    'exploit': 'Exploit'
                 }
             }
         }
