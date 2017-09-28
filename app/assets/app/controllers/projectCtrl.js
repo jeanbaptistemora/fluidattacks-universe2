@@ -84,8 +84,8 @@ integrates.controller(
         $scope.goBack = function(){
             $scope.view.project = true;
             $scope.view.finding = false;
-            $scope.mainGraphcriticalityPieChart;
-            $scope.mainGraphamountPieChart;
+            $scope.mainGraphexploitPieChart;
+            $scope.mainGraphtypePieChart;
             $scope.mainGraphstatusPieChart;
             $('html, body').animate({ scrollTop: $scope.currentScrollPosition }, 'fast');
         };
@@ -473,7 +473,7 @@ integrates.controller(
                 $timeout($scope.goUp, 200);
             }
         };
-        $scope.mainGraphamountPieChart = function(){
+        $scope.mainGraphtypePieChart = function(){
             var currData = $scope.data;
             var total_seg = 0;
             var total_hig = 0;
@@ -487,9 +487,9 @@ integrates.controller(
             });
             total_segLabel = "Vulnerabilidad :n%".replace(":n", (total_seg).toString());
             total_higLabel = "Higiene :n%".replace(":n", (total_hig).toString());
-            $("#grapAmount").empty();
+            $("#grapType").empty();
             Morris.Donut({
-                element: 'grapAmount',
+                element: 'grapType',
                 resize: true,
                 data: [
                   {label: total_segLabel, value: total_seg, color: "#ff1a1a"},
@@ -497,7 +497,7 @@ integrates.controller(
                 ]
             });
         };
-        $scope.mainGraphcriticalityPieChart = function(){
+        $scope.mainGraphexploitPieChart = function(){
             var currData = $scope.data;
             var exploit = 0;
             var nonexploit = 0;
@@ -513,9 +513,9 @@ integrates.controller(
             });
             exploitLabel = "Explotable :n%".replace(":n", (exploit).toString());
             nonexploitLabel = "No Explotable :n%".replace(":n", (nonexploit).toString());
-            $("#grapCriticality").empty();
+            $("#grapExploit").empty();
             Morris.Donut({
-                element: 'grapCriticality',
+                element: 'grapExploit',
                 resize: true,
                 data: [
                   {label: exploitLabel, value: exploit, color: "#ff1a1a"},
@@ -578,8 +578,8 @@ integrates.controller(
                         //Tracking Mixpanel
                         $scope.data = response.data;
                         mixPanelDashboard.trackSearchFinding(userEmail, project);
-                        $timeout($scope.mainGraphcriticalityPieChart, 200);
-                        $timeout($scope.mainGraphamountPieChart, 200);
+                        $timeout($scope.mainGraphexploitPieChart, 200);
+                        $timeout($scope.mainGraphtypePieChart, 200);
                         $timeout($scope.mainGraphstatusPieChart, 200);
                         //CONFIGURACION DE TABLA
                         $("#vulnerabilities").bootstrapTable('destroy');
