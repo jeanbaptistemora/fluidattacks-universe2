@@ -503,9 +503,7 @@ integrates.controller(
             var nonexploit = 0;
             currData.forEach(function(val, i){
                 explotable = val.explotabilidad;
-                if(explotable == "1.000 | Alta: No se requiere exploit o se puede automatizar"){
-                    exploit ++;
-                }else if(explotable == "0.950 | Funcional: Existe exploit"){
+                if(explotable == "1.000 | Alta: No se requiere exploit o se puede automatizar" || explotable == "0.950 | Funcional: Existe exploit"){
                     exploit ++;
                 }else{
                     nonexploit ++;

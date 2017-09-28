@@ -194,7 +194,6 @@ def get_findings(request):
     los hallazgos."""
     project = request.GET.get('project', None)
     username = request.session['username']
-
     if not has_access_to_project(username, project):
         return redirect('dashboard')
 
@@ -222,9 +221,7 @@ def get_findings(request):
             finding_parsed['tipo_hallazgo_cliente'] = 'Vulnerabilidad'
         else:
             finding_parsed['tipo_hallazgo_cliente'] = finding_parsed['tipo_hallazgo']
-        if finding_parsed['explotabilidad'] == '1.000 | Alta: No se requiere exploit o se puede automatizar':
-            finding_parsed['explotable'] = 'Si'
-        elif finding_parsed['explotabilidad'] == '0.950 | Funcional: Existe exploit':
+        if finding_parsed['explotabilidad'] == '1.000 | Alta: No se requiere exploit o se puede automatizar' or finding_parsed['explotabilidad'] == '0.950 | Funcional: Existe exploit':
             finding_parsed['explotable'] = 'Si'
         else:
             finding_parsed['explotable'] = 'No'        
@@ -243,7 +240,6 @@ def get_findings(request):
             if filtr.encode("utf8") == \
                     finding_parsed["tipo_prueba"].encode("utf8"):
                 findings.append(finding_parsed)
-        
     findings.reverse()
     return util.response(findings, 'Success', False)
 
