@@ -189,6 +189,7 @@ def generate_autodoc_it(request, project, findings):
 @never_cache
 @csrf_exempt
 @authorize(['analyst', 'customer'])
+# pylint: disable=R0912
 def get_findings(request):
     """Captura y procesa el nombre de un proyecto para devolver
     los hallazgos."""
@@ -196,7 +197,6 @@ def get_findings(request):
     username = request.session['username']
     if not has_access_to_project(username, project):
         return redirect('dashboard')
-
     filtr = request.GET.get('filter', None)
     if not project:
         return util.response([], 'Empty fields', True)
@@ -221,7 +221,8 @@ def get_findings(request):
             finding_parsed['tipo_hallazgo_cliente'] = 'Vulnerabilidad'
         else:
             finding_parsed['tipo_hallazgo_cliente'] = finding_parsed['tipo_hallazgo']
-        if finding_parsed['explotabilidad'] == '1.000 | Alta: No se requiere exploit o se puede automatizar' or finding_parsed['explotabilidad'] == '0.950 | Funcional: Existe exploit':
+        if finding_parsed['explotabilidad'] == '1.000 | Alta: No se requiere exploit o se puede automatizar' \
+                    or finding_parsed['explotabilidad'] == '0.950 | Funcional: Existe exploit':
             finding_parsed['explotable'] = 'Si'
         else:
             finding_parsed['explotable'] = 'No'        
@@ -242,7 +243,6 @@ def get_findings(request):
                 findings.append(finding_parsed)
     findings.reverse()
     return util.response(findings, 'Success', False)
-
 
 @never_cache
 @csrf_exempt
