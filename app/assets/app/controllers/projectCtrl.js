@@ -518,8 +518,8 @@ integrates.controller(
                 element: 'grapCriticality',
                 resize: true,
                 data: [
-                  {label: exploitLabel, value: high, color: "#ff1a1a"},
-                  {label: nonexploitLabel, value: moderate, color: "#31c0be"},
+                  {label: exploitLabel, value: exploit, color: "#ff1a1a"},
+                  {label: nonexploitLabel, value: nonexploit, color: "#31c0be"},
                 ]
             });
         };
