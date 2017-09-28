@@ -359,6 +359,14 @@ integrates.controller(
                     "ref": 0
                 });
             }
+            if($scope.finding.explotacion !== undefined){
+                var url = url_pre + $scope.finding.explotacion;
+                evidenceList.push({
+                    "url": url,
+                    "desc": 'Evidencia de explotación',
+                    "ref": 1
+                });
+            }
             if($scope.finding.desc_evidencia_1 !== undefined
                 && $scope.finding.ruta_evidencia_1 !== undefined){
                 var url = url_pre + $scope.finding.ruta_evidencia_1;
@@ -367,7 +375,7 @@ integrates.controller(
                     "desc": $scope.capitalizeFirstLetter(
                         $scope.finding.desc_evidencia_1
                     ),
-                    "ref": 1
+                    "ref": 2
                 });
             }
             if($scope.finding.desc_evidencia_2 !== undefined
@@ -378,7 +386,7 @@ integrates.controller(
                     "desc": $scope.capitalizeFirstLetter(
                         $scope.finding.desc_evidencia_2
                     ),
-                    "ref": 2
+                    "ref": 3
                 });
             }
             if($scope.desc_evidencia_3 !== undefined
@@ -389,7 +397,7 @@ integrates.controller(
                     "desc": $scope.capitalizeFirstLetter(
                         $scope.finding.desc_evidencia_3
                     ),
-                    "ref": 3
+                    "ref": 4
                 });
             }
             if($scope.finding.desc_evidencia_4 !== undefined
@@ -400,7 +408,7 @@ integrates.controller(
                     "desc": $scope.capitalizeFirstLetter(
                         $scope.finding.desc_evidencia_4
                     ),
-                    "ref": 4
+                    "ref": 5
                 });
             }
             if($scope.finding.desc_evidencia_5 !== undefined
@@ -411,7 +419,7 @@ integrates.controller(
                     "desc": $scope.capitalizeFirstLetter(
                         $scope.finding.desc_evidencia_5
                     ),
-                    "ref": 5
+                    "ref": 6
                 });
             }
             $scope.tabEvidences = evidenceList;
