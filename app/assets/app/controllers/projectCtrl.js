@@ -500,7 +500,7 @@ integrates.controller(
         $scope.mainGraphcriticalityPieChart = function(){
             var currData = $scope.data;
             var exploit = 0;
-            var noexploit = 0;
+            var nonexploit = 0;
             currData.forEach(function(val, i){
                 explotable = val.explotabilidad;
                 if(explotable == "1.000 | Alta: No se requiere exploit o se puede automatizar"){
