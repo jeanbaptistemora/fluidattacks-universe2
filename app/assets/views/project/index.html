@@ -380,6 +380,22 @@
                                                   ng-model="finding.sistema_comprometido">{{finding.sistema_comprometido}}</textarea>
                                     </div>
                                 </div>
+                                <div class="row table-row"> 
+                                        <div class="col-md-3 col-xs-12 col-sm-12 table-head"><label><b>Registros Comprometidos</b></label></div>
+                                        <div class="col-md-3 col-xs-12 col-sm-12 table-desc">
+                                            <p ng-show="onlyReadableTab1">{{finding.registros}}</p>
+                                            <textarea class="form-control no-resize"
+                                                      ng-show="!onlyReadableTab1"
+                                                      ng-model="finding.registros">{{finding.registros}}</textarea>
+                                        </div>
+                                        <div class="col-md-3 col-xs-12 col-sm-12 table-head"><label><b>Total Registros Comprometidos</b></label></div>
+                                        <div class="col-md-3 col-xs-12 col-sm-12 table-desc">
+                                            <p ng-show="onlyReadableTab1">{{finding.registros_num}}</p>
+                                            <textarea class="form-control no-resize"
+                                                      ng-show="!onlyReadableTab1"
+                                                      ng-model="finding.registros_num">{{finding.registros_num}}</textarea>
+                                        </div>
+                                    </div>
                                 <div class="row table-row">
                                     <div class="col-md-3 col-xs-12 col-sm-12 table-head"><label><b>Debilidad</b></label></div>
                                     <div class="col-md-9 col-xs-12 col-sm-12 table-desc">
