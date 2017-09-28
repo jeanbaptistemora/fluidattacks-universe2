@@ -112,7 +112,7 @@ integrates.config(['$translateProvider', function($translateProvider) {
             'table':{
                 'headings':{
                     'action': 'Accion',
-                    'type': 'Tipo prueba',
+                    'type': 'Tipo hallazgo',
                     'finding': 'Titulo',
                     'vulnerability': 'Descripcion',
                     'criticity': 'Puntaje CVSSv2',
