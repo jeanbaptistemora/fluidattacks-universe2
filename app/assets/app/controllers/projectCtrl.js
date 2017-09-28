@@ -485,8 +485,8 @@ integrates.controller(
                     total_hig += 1;
                 }
             });
-            total_segLabel = "Vulnerabilidad :n%".replace(":n", (total_seg).toString());
-            total_higLabel = "Higiene :n%".replace(":n", (total_hig).toString());
+            total_segLabel = "Vulnerabilidad :n%".replace(":n", (total_seg*100/(total_seg+total_hig)).toString());
+            total_higLabel = "Higiene :n%".replace(":n", (total_hig*100/(total_seg+total_hig)).toString());
             $("#grapType").empty();
             Morris.Donut({
                 element: 'grapType',
@@ -509,8 +509,8 @@ integrates.controller(
                     nonexploit ++;
                 }
             });
-            exploitLabel = "Explotable :n%".replace(":n", (exploit).toString());
-            nonexploitLabel = "No Explotable :n%".replace(":n", (nonexploit).toString());
+            exploitLabel = "Explotable :n%".replace(":n", (exploit*100/(exploit+nonexploit)).toString());
+            nonexploitLabel = "No Explotable :n%".replace(":n", (nonexploit*100/(exploit+nonexploit)).toString());
             $("#grapExploit").empty();
             Morris.Donut({
                 element: 'grapExploit',
