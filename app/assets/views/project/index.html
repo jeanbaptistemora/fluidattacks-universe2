@@ -93,10 +93,13 @@
                                    data-page-size="15" data-toolbar="#toolbar" data-refresh="true" data-search="true">
                                 <thead>
                                     <tr class="head-blue" style="background-color: #0361cc; color:white;">
+                                        <th data-field="timestamp" data-sortable="true">
+                                            {{'search_findings.table.headings.timestamp' | translate}}
+                                        </th>
                                         <th data-field="tipo_hallazgo" data-sortable="true">
                                             {{'search_findings.table.headings.type' | translate}}
                                         </th>
-                                        <th data-field="hallazgo" data-width="150">
+                                        <th data-field="hallazgo" data-width="120">
                                             {{'search_findings.table.headings.finding' | translate}}
                                         </th>
                                         <th data-field="vulnerabilidad" style="display:none;">

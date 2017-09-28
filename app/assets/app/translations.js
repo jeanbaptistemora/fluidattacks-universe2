@@ -56,6 +56,7 @@ integrates.config(['$translateProvider', function($translateProvider) {
             'table':{
                 'headings':{
                     'action': 'Action',
+                    'timestamp': 'Date',
                     'type': 'Type',
                     'finding': 'Title',
                     'vulnerability': 'Description',
@@ -112,6 +113,7 @@ integrates.config(['$translateProvider', function($translateProvider) {
             'table':{
                 'headings':{
                     'action': 'Accion',
+                    'timestamp': 'Fecha',
                     'type': 'Tipo hallazgo',
                     'finding': 'Titulo',
                     'vulnerability': 'Descripcion',
