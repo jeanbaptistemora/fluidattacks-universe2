@@ -218,6 +218,16 @@ def get_findings(request):
         closing_cicles = api.get_closings_by_finding(finding['id'])
         finding_parsed['cierres'] = [rmp.map_closing(api.get_submission(x['id'])) for x in closing_cicles['submissions']]
         finding_parsed['cardinalidad_total'] = finding_parsed['cardinalidad']
+        if finding_parsed['tipo_hallazgo'] == 'Seguridad':
+            finding_parsed['tipo_hallazgo_cliente'] = 'Vulnerabilidad'
+        else:
+            finding_parsed['tipo_hallazgo_cliente'] = finding_parsed['tipo_hallazgo']
+        if finding_parsed['explotabilidad'] == '1.000 | Alta: No se requiere exploit o se puede automatizar':
+            finding_parsed['explotable'] = 'Si'
+        elif finding_parsed['explotabilidad'] == '0.950 | Funcional: Existe exploit':
+            finding_parsed['explotable'] = 'Si'
+        else:
+            finding_parsed['explotable'] = 'No'        
         if 'abiertas' in state:
             finding_parsed['cardinalidad'] = state['abiertas']
         if 'abiertas_cuales' in state:
