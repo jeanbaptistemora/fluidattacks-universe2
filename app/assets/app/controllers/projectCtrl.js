@@ -479,11 +479,13 @@ integrates.controller(
             var total_hig = 0;
             currData.forEach(function(val, i){
                 tipo = val.tipo_hallazgo;
-                if(tipo == "Seguridad"){
-                    total_seg += 1;
-                }else{
-                    total_hig += 1;
-                }
+                if(val.estado != "Cerrado"){
+                    if(tipo == "Seguridad"){
+                        total_seg += 1;
+                    }else{
+                        total_hig += 1;
+                    }
+                }    
             });
             total_segLabel = "Vulnerabilidad :n%".replace(":n", (total_seg*100/(total_seg+total_hig)).toFixed(2).toString());
             total_higLabel = "Higiene :n%".replace(":n", (total_hig*100/(total_seg+total_hig)).toFixed(2).toString());
@@ -503,11 +505,13 @@ integrates.controller(
             var nonexploit = 0;
             currData.forEach(function(val, i){
                 explotable = val.explotabilidad;
-                if(explotable == "1.000 | Alta: No se requiere exploit o se puede automatizar" || explotable == "0.950 | Funcional: Existe exploit"){
-                    exploit ++;
-                }else{
-                    nonexploit ++;
-                }
+                if(val.estado != "Cerrado"){
+                    if(explotable == "1.000 | Alta: No se requiere exploit o se puede automatizar" || explotable == "0.950 | Funcional: Existe exploit"){
+                        exploit ++;
+                    }else{
+                        nonexploit ++;
+                    }
+                }    
             });
             exploitLabel = "Explotable :n%".replace(":n", (exploit*100/(exploit+nonexploit)).toFixed(2).toString());
             nonexploitLabel = "No Explotable :n%".replace(":n", (nonexploit*100/(exploit+nonexploit)).toFixed(2).toString());
