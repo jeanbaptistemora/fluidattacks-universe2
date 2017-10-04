@@ -217,9 +217,7 @@ def get_findings(request):
         closing_cicles = api.get_closings_by_finding(finding['id'])
         finding_parsed['cierres'] = [rmp.map_closing(api.get_submission(x['id'])) for x in closing_cicles['submissions']]
         finding_parsed['cardinalidad_total'] = finding_parsed['cardinalidad']
-        if 'tipo_hallazgo' not in finding_parsed:
-            finding_parsed['tipo_hallazgo'] = 'Seguridad'
-        if finding_parsed['tipo_hallazgo'] == 'Seguridad':
+        if 'tipo_hallazgo' not in finding_parsed or finding_parsed['tipo_hallazgo'] == 'Seguridad':
             finding_parsed['tipo_hallazgo_cliente'] = 'Vulnerabilidad'
         else:
             finding_parsed['tipo_hallazgo_cliente'] = finding_parsed['tipo_hallazgo']
