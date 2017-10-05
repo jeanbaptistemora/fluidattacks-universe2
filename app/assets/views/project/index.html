@@ -86,6 +86,7 @@
                                 </button>
                             </div>
                             <p>Haz <b>click</b> para ver mas detalles del hallazgo</p>
+
                             <table id="vulnerabilities" 
                                    data-click-to-select="true" 
                                    data-classes="table table-hover table-striped" 
@@ -93,8 +94,11 @@
                                    data-page-size="15" data-toolbar="#toolbar" data-refresh="true" data-search="true">
                                 <thead>
                                     <tr class="head-blue" style="background-color: #0361cc; color:white;">
-                                        <th data-field="timestamp" data-sortable="true">
+                                        <th data-field="timestamp" data-sortable="true" data-formatter="removeHour">
                                             {{'search_findings.table.headings.timestamp' | translate}}
+                                        </th>
+                                        <th data-field="edad" data-sortable="true">
+                                            Edad
                                         </th>
                                         <th data-field="tipo_hallazgo_cliente" data-sortable="true">
                                             {{'search_findings.table.headings.type' | translate}}
@@ -111,7 +115,7 @@
                                         <th data-field="cardinalidad" data-sortable="true" data-width="20">
                                             {{'search_findings.table.headings.cardinality' | translate}}
                                         </th>
-                                        <th data-field="estado" data-sortable="true" data-width="20">
+                                        <th data-field="estado" data-sortable="true" data-width="20" data-formatter="labelState">
                                             {{'search_findings.table.headings.state' | translate}}
                                         </th>
                                         <th data-field="explotable" data-sortable="true" data-width="20">

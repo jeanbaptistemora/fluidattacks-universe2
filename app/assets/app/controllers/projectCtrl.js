@@ -2,6 +2,22 @@
  * @file ProjectCtrl.js
  * @author engineering@fluid.la
  */
+/* Table Formatter */
+function removeHour(value, row, index){
+    if(value.indexOf(":") != -1){
+        return value.split(" ")[0];
+    }
+    return value;
+}
+function labelState(value, row, index){
+    if(value == "Cerrado"){
+        return "<label class='label label-success'>Cerrado</label>";
+    }else if(value == "Abierto"){
+        return "<label class='label label-danger' style='background-color: #f22;'>Abierto</label>";
+    }else{
+        return "<label class='label label-info'>Parcialmente Cerrado</label>";
+    }
+}
 /**
  * Controlador de vista de proyectos
  * @name ProjectCtrl 
