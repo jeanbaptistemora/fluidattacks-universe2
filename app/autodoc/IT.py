@@ -95,7 +95,8 @@ class Bancolombia(object):
         if "escenario" in finding:
             self.assign_qc(self.COLQC_ESCENARIO, finding["escenario"])
         self.assign_qc(self.COLQC_HALLAZGO, finding["hallazgo"])
-        self.assign_qc(self.COLQC_AMBITO, finding["ambito"])
+        if 'ambito' in finding:
+            self.assign_qc(self.COLQC_AMBITO, finding["ambito"])
         if "categoria" in finding:
             self.assign_qc(self.COLQC_CATEGORIA, finding["categoria"])
         self.assign_qc(self.COLQC_AMENAZA, finding["amenaza"])
