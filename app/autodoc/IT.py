@@ -188,6 +188,8 @@ class Fluid(object):
         self.assign(self.COL_HALLAZGO, finding["hallazgo"])
         self.assign(self.COL_VULNERABILIDAD, finding["vulnerabilidad"])
         self.assign(self.COL_DONDE, finding["donde"])
+        if 'requisitos' not in finding:
+            finding["requisitos"] = '-'
         self.assign(self.COL_REQUISITOS, finding["requisitos"])
         self.assign(self.COL_CRITICIDAD, finding["criticidad"])
         self.assign(self.COL_CARDINALIDAD, finding["cardinalidad"])
