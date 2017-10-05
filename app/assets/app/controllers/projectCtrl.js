@@ -466,8 +466,6 @@ integrates.controller(
                     break;
                 }
             }
-            console.log(findingObj);
-            console.log($scope.data);
             if(findingObj.length != undefined){
                 $msg.error("No encontramos el hallazgo!");
                 return false;
@@ -608,7 +606,10 @@ integrates.controller(
                             onClickRow: function(row, elem){
                                 $scope.loadFindingByID(row.id);
                                 $scope.currentScrollPosition =  $(document).scrollTop();
-                            }
+                            },
+                            cookieIdTable: "saveId",
+                            cookie: true,
+                            exportDataType: "all"
                         });
                         $("#vulnerabilities").bootstrapTable('refresh');
                         //MANEJO DEL UI

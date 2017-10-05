@@ -11,7 +11,7 @@ var $xhr = new (class xhr {
                 success: function (response) { deferred.resolve(response); },
                 error: function (XMLHttpRequest, textStatus, errorThrown) { 
                    if(XMLHttpRequest.status == 401){
-                       location = BASE.url + "login";
+                       location = BASE.url + "index";
                    }else{
                        $.gritter.add({ title: 'Oops!', text: 'Hay un error',
                             class_name: 'color warning', sticky: false,

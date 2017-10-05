@@ -92,20 +92,32 @@
                             <table id="vulnerabilities" 
                                    data-click-to-select="true" 
                                    data-classes="table table-hover table-striped" 
-                                   data-striped="true" data-pagination="true" 
-                                   data-page-size="15" data-toolbar="#toolbar" data-refresh="true" data-search="true">
+                                   data-striped="true"
+                                   data-show-columns="true"
+                                   data-cookie="true"
+                                   data-cookie-id-table="saveId"
+                                   data-export-types="['sql', 'excel']"
+                                   data-pagination="true"
+                                   data-search="true"
+                                   data-page-size="15" 
+                                   data-toolbar="#toolbar">
                                 <thead>
                                     <tr class="head-blue" style="background-color: #0361cc; color:white;">
-                                        <th data-field="timestamp" data-sortable="true" data-formatter="removeHour">
+                                        <th data-field="timestamp" 
+                                            data-sortable="true" 
+                                            data-width="100"
+                                            data-formatter="removeHour">
                                             {{'search_findings.table.headings.timestamp' | translate}}
                                         </th>
-                                        <th data-field="edad" data-sortable="true">
-                                            Edad
+                                        <th data-field="edad" 
+                                            data-align="center"
+                                            data-sortable="true">
+                                            {{'search_findings.table.headings.age' | translate}}
                                         </th>
                                         <th data-field="tipo_hallazgo_cliente" data-sortable="true">
                                             {{'search_findings.table.headings.type' | translate}}
                                         </th>
-                                        <th data-field="hallazgo" data-width="120">
+                                        <th data-field="hallazgo" data-width="140" data-sortable="true">
                                             {{'search_findings.table.headings.finding' | translate}}
                                         </th>
                                         <th data-field="vulnerabilidad" style="display:none;">
