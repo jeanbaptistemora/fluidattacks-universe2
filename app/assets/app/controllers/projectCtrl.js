@@ -163,8 +163,10 @@ integrates.controller(
         };
         $scope.calculateCardinality = function(data){
             var cardinalidad = 0;
+            var cardinalidad_total = 0;
             data.data.forEach(function(i){
                 cardinalidad += parseInt(i.cardinalidad);
+                cardinalidad_total += parseInt(i.cardinalidad_total);
             });
             $("#total_cardinalidad").html(cardinalidad);
             $("#total_hallazgos").html(data.data.length);
@@ -185,10 +187,10 @@ integrates.controller(
                         total_criticidad += BaseScore * parseFloat(i.cardinalidad_total);
                     }
                 }catch(e){
-            
                 }
             });
             $("#total_criticidad").html(total_criticidad.toFixed(0));
+            $("#total_efectividad").html("n%".replace("n", (((1-(cardinalidad/cardinalidad_total))*100).toFixed(2).toString())));
         };
         $scope.capitalizeFirstLetter = function(string) {
             return string.charAt(0).toUpperCase() + string.slice(1);
