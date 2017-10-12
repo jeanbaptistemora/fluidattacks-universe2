@@ -44,6 +44,7 @@ def error401(request):
 
 
 @csrf_exempt
+@never_cache
 @authenticate
 def registration(request):
     "Vista de registro para usuarios autenticados"
@@ -471,6 +472,10 @@ def get_myprojects(request):
         })
     return util.response(json_data, 'Correcto!', False)
 
+
+@never_cache
+@csrf_exempt
+@authorize(['analyst', 'customer'])
 def get_myevents(request):
     user = request.session["username"]
     projects = integrates_dao.get_projects_by_user(user)
