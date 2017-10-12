@@ -56,12 +56,13 @@ integrates.config(['$translateProvider', function($translateProvider) {
             'table':{
                 'headings':{
                     'action': 'Action',
-                    'timestamp': 'Finding Date',
+                    'age': 'Age',
+                    'timestamp': 'Date',
                     'type': 'Type',
                     'finding': 'Title',
                     'vulnerability': 'Description',
                     'criticity': 'CVSSv2 Score',
-                    'cardinality': 'Vulnerabilities',
+                    'cardinality': '# Vuln.',
                     'state': 'State',
                     'exploit': 'Exploit'
                 }
@@ -113,13 +114,14 @@ integrates.config(['$translateProvider', function($translateProvider) {
             },
             'table':{
                 'headings':{
+                    'age': 'Edad',
                     'action': 'Accion',
-                    'timestamp': 'Fecha Reporte',
-                    'type': 'Tipo hallazgo',
+                    'timestamp': 'Fecha',
+                    'type': 'Tipo',
                     'finding': 'Titulo',
                     'vulnerability': 'Descripcion',
-                    'criticity': 'Puntaje CVSSv2',
-                    'cardinality': 'Vulnerabilidades',
+                    'criticity': 'CVSSv2',
+                    'cardinality': '# Vuln.',
                     'state': 'Estado',
                     'exploit': 'Explotable'
                 }
