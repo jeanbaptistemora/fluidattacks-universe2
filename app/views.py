@@ -192,6 +192,7 @@ def generate_autodoc_it(request, project, findings):
 @csrf_exempt
 @authorize(['analyst', 'customer'])
 # pylint: disable=R0912
+# pylint: disable=R0914
 def get_findings(request):
     """Captura y procesa el nombre de un proyecto para devolver
     los hallazgos."""
@@ -200,9 +201,7 @@ def get_findings(request):
     if not has_access_to_project(username, project):
         return redirect('dashboard')
     filtr = request.GET.get('filter', None)
-    if not project:
-        return util.response([], 'Empty fields', True)
-    if project.strip() == "":
+    if not project or project.strip() == "":
         return util.response([], 'Empty fields', True)
     api = FormstackAPI()
     finding_requests = api.get_findings(project)["submissions"]
