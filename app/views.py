@@ -44,6 +44,7 @@ def error401(request):
 
 
 @csrf_exempt
+@never_cache
 @authenticate
 def registration(request):
     "Vista de registro para usuarios autenticados"
@@ -192,6 +193,7 @@ def generate_autodoc_it(request, project, findings):
 @csrf_exempt
 @authorize(['analyst', 'customer'])
 # pylint: disable=R0912
+# pylint: disable=R0914
 def get_findings(request):
     """Captura y procesa el nombre de un proyecto para devolver
     los hallazgos."""
@@ -200,9 +202,7 @@ def get_findings(request):
     if not has_access_to_project(username, project):
         return redirect('dashboard')
     filtr = request.GET.get('filter', None)
-    if not project:
-        return util.response([], 'Empty fields', True)
-    if project.strip() == "":
+    if not project or project.strip() == "":
         return util.response([], 'Empty fields', True)
     api = FormstackAPI()
     finding_requests = api.get_findings(project)["submissions"]
@@ -472,6 +472,10 @@ def get_myprojects(request):
         })
     return util.response(json_data, 'Correcto!', False)
 
+
+@never_cache
+@csrf_exempt
+@authorize(['analyst', 'customer'])
 def get_myevents(request):
     user = request.session["username"]
     projects = integrates_dao.get_projects_by_user(user)
