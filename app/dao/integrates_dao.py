@@ -1,5 +1,6 @@
 from django.db import connections
 from django.utils import timezone
+from django.db.utils import OperationalError
 
 
 def create_user_dao(email, username='-', first_name='-', last_name='-'):
@@ -87,6 +88,27 @@ def is_registered_dao(email):
     if row[0] == 1:
         return '1'
     return '0'
+
+
+def add_access_to_project_dao(email, project_name):
+    """Da acceso al proyecto en cuestion."""
+
+    if has_access_to_project_dao(email, project_name):
+        return True
+    with connections['integrates'].cursor() as cursor:
+        query = 'SELECT id FROM users WHERE email = %s'
+        cursor.execute(query, (email,))
+        user_id = cursor.fetchone()
+
+        # Temp fix. Remove
+        company_project = ''
+        query = 'INSERT INTO projects(user_id, project, company_project) VALUES(%s, %s, %s)'
+        try:
+            cursor.execute(query, (user_id[0], project_name.lower(), company_project,))
+            success = True
+        except OperationalError:
+            success = False
+    return success
 
 
 def has_access_to_project_dao(email, project_name):

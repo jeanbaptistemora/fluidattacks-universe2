@@ -15,16 +15,16 @@ CREATE TABLE IF NOT EXISTS users (
     last_login datetime(6) DEFAULT NULL,
     date_joined datetime(6) DEFAULT NULL,
     PRIMARY KEY (id, email)
-) ENGINE=INNODB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+) ENGINE=INNODB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 CREATE TABLE IF NOT EXISTS projects (
     user_id INT NOT NULL,
     project varchar(64) COLLATE utf8_bin NOT NULL,
     FOREIGN KEY (user_id) REFERENCES users(id)
-) ENGINE=INNODB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+) ENGINE=INNODB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 CREATE TABLE IF NOT EXISTS findings (
     project varchar(64) COLLATE utf8_bin NOT NULL,
     amount INT NOT NULL,
     PRIMARY KEY (project)
-) ENGINE=INNODB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+) ENGINE=INNODB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;

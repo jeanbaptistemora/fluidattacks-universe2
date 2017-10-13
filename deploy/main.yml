@@ -78,6 +78,7 @@
       - google-api-python-client
       - oauth2client
       - pytz
+      - slackclient 
      register: installed_deps
 
    - name: Patch social auth module
