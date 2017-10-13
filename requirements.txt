@@ -26,3 +26,4 @@ google-api-python-client==1.6.2
 oauth2client==4.0.0
 django-intercom==0.0.13
 pytz==2017.2
+slackclient==1.0.9

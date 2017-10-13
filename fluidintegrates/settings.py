@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'django_crontab',
     'analytical',
     'intercom',
+    'app.slackbot',
 ]
 
 MIDDLEWARE = [
@@ -224,6 +225,10 @@ INTERCOM_INCLUDE_USERID = False
 INTERCOM_CUSTOM_DATA_CLASSES = [
     'app.pipeline.intercom_custom_data.IntercomCustomData',
 ]
+
+
+# Slack
+SLACK_BOT_TOKEN = '***REMOVED***'
 
 if DEBUG:
     SOCIAL_AUTH_LOGIN_REDIRECT_URL     = '/registration'
