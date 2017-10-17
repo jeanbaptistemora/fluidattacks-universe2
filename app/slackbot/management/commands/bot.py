@@ -21,7 +21,7 @@ VALID_COMMANDS = ['add_access',
                   'list_users']
 BOT_NAME = 'integrates'
 CMD_SEP = ' '
-CHANNEL = 'commands'
+CHANNEL = 'fluidintegrates'
 
 logging.config.dictConfig(settings.LOGGING)
 logger = logging.getLogger(__name__)
