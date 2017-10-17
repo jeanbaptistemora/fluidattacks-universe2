@@ -79,7 +79,7 @@
       - oauth2client
       - pytz
       - slackclient
-      - boto3 
+      - boto3
       - watchtower
      register: installed_deps
 
