@@ -2,6 +2,8 @@
 # FLUIDIntegrates admin bot
 #
 
+import logging
+import logging.config
 import time
 import slackclient
 from django.core.management.base import BaseCommand
@@ -19,15 +21,29 @@ VALID_COMMANDS = ['add_access',
                   'list_users']
 BOT_NAME = 'integrates'
 CMD_SEP = ' '
-CHANNEL = 'fluidintegrates'
+CHANNEL = 'commands'
+
+logging.config.dictConfig(settings.LOGGING)
+logger = logging.getLogger(__name__)
 
 class Command(BaseCommand):
     help = 'Starts the admin bot'
 
-    def handle_command(self, command, channel):
+    def get_user_by_id(self, user_id):
+        api_call = self.slack_client.api_call("users.list")
+        if api_call.get('ok'):
+            users = api_call.get('members')
+            for user in users:
+                if user['id'] == user_id:
+                    return user['profile']['email']
+
+    def handle_command(self, command, channel, user):
         command_parsed = command.split(' ')
         if command_parsed[0] in VALID_COMMANDS:
             response = "Running " + " ".join(command_parsed)
+            # pylint: disable=W1201
+            logger.info('User %s executed %s' % (self.get_user_by_id(user),
+                " ".join(command_parsed),))
             if command_parsed[0] == 'add_access':
                 response = self.do_add_access(command)
             elif command_parsed[0] == 'remove_access':
@@ -52,8 +68,9 @@ class Command(BaseCommand):
                 if output and 'text' in output and AT_BOT in output['text']:
                     # return text after the @ mention, whitespace removed
                     return output['text'].split(AT_BOT)[1].strip().lower(), \
-                           output['channel']
-        return None, None
+                           output['channel'], \
+                           output['user']
+        return None, None, None
 
     def do_unregister_user(self, data):
         try:
@@ -139,6 +156,7 @@ syntax to use near ''' at line 1. Run this in your bash console \
         except ValueError:
             output = "That's not something I can do yet, human."
         return output
+
 # pylint: disable=W0613
     def handle(self, *args, **kwargs):
         READ_WEBSOCKET_DELAY = 1
@@ -150,9 +168,9 @@ syntax to use near ''' at line 1. Run this in your bash console \
                 self.slack_client.api_call("chat.postMessage", channel=CHANNEL,
                                       text=start_msg, as_user=True)
                 while True:
-                    command, channel = self.parse_slack_output(self.slack_client.rtm_read())
-                    if command and channel:
-                        self.handle_command(command, channel)
+                    command, channel, user = self.parse_slack_output(self.slack_client.rtm_read())
+                    if command and channel and user:
+                        self.handle_command(command, channel, user)
                     time.sleep(READ_WEBSOCKET_DELAY)
             except KeyboardInterrupt:
                 bye_msg = "FLUIDIntegrates admin bot has disconnected."

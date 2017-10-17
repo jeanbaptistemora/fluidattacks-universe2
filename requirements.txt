@@ -27,3 +27,5 @@ oauth2client==4.0.0
 django-intercom==0.0.13
 pytz==2017.2
 slackclient==1.0.9
+boto3==1.4.7
+watchtower==0.4.1
