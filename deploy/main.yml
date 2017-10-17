@@ -79,6 +79,8 @@
       - oauth2client
       - pytz
       - slackclient
+      - boto3
+      - watchtower
      register: installed_deps
 
    - name: Patch social auth module

@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/1.10/ref/settings/
 """
 
+from boto3.session import Session
 import os
 import sys
 sys.path.append('/usr/src/app')
@@ -125,6 +126,13 @@ USE_L10N = True
 USE_TZ = True
 
 # Logging
+AWS_ACCESS_KEY_ID = '***REMOVED***'
+AWS_SECRET_ACCESS_KEY = '7+ZxOJ7LNc4tGAlLM50tBeQRgJER/LsFLYWhS1MF' # noqa
+AWS_REGION_NAME = 'us-east-1'
+
+boto3_session = Session(aws_access_key_id=AWS_ACCESS_KEY_ID,
+                        aws_secret_access_key=AWS_SECRET_ACCESS_KEY,
+                        region_name=AWS_REGION_NAME)
 LOGGING = {
         'version': 1,
         'disable_existing_loggers': False,
@@ -138,6 +146,24 @@ LOGGING = {
                 'level': 'ERROR',
                 'class': 'logging.StreamHandler'
             },
+            'watchtower': {
+                'level': 'INFO',
+                'class': 'watchtower.CloudWatchLogHandler',
+                         'boto3_session': boto3_session,
+                         'log_group': 'FLUID',
+                         'stream_name': 'FLUIDIntegrates',
+                'formatter': 'aws',
+            },
+        },
+        'formatters': {
+            'simple': {
+                'format': u"%(asctime)s [%(levelname)-8s] %(message)s",
+                'datefmt': "%Y-%m-%d %H:%M:%S"
+            },
+            'aws': {
+                'format': u"%(asctime)s [%(levelname)-8s] %(message)s",
+                'datefmt': "%Y-%m-%d %H:%M:%S"
+            },
         },
         'loggers': {
             'django.request': {
@@ -149,10 +175,12 @@ LOGGING = {
                 'handlers': ['console'],
                 'level': 'INFO'
             },
-
-            }
+            'app': {
+                'handlers': ['console', 'watchtower'],
+                'level': 'INFO'
+            },
+        }
     }
-
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.10/howto/static-files/
