@@ -370,6 +370,15 @@
                                                   ng-model="finding.donde">{{finding.donde}}</textarea>
                                     </div>
                                 </div>
+                                <div class="row table-row">
+                                    <div class="col-md-3 col-xs-12 col-sm-12 table-head"><label><b>Cardinalidad</b></label></div>
+                                    <div class="col-md-9 col-xs-12 col-sm-12 table-desc">
+                                        <p ng-show="onlyReadableTab1">{{finding.cardinalidad}}</p>
+                                        <input type="text" class="form-control"
+                                               ng-show="!onlyReadableTab1"
+                                               ng-model="finding.cardinalidad">
+                                    </div>
+                                </div>
                                 <div class="row table-row"> 
                                     <div class="col-md-3 col-xs-12 col-sm-12 table-head"><label><b>Vectores de ataque</b></label></div>
                                     <div class="col-md-3 col-xs-12 col-sm-12 table-desc">
@@ -475,6 +484,35 @@
                                             </option>
                                         </select>
                                     </div>
+                                </div><div class="row table-row"> 
+                                    <div class="col-md-3 col-xs-12 col-sm-12 table-head"><label><b>Impacto Integridad</b></label></div>
+                                    <div class="col-md-9 col-xs-12 col-sm-12 table-desc">
+                                        <p ng-show="onlyReadableTab2">{{finding.impacto_integridad}}</p>
+                                        <select ng-model="finding.impacto_integridad"
+                                                ng-show="!onlyReadableTab2"
+                                                ng-change="findingCalculateCSSv2();"
+                                                class="form-control">
+                                            <option ng-repeat="item in list.integrity"
+                                                    value="{{item.value + ' | ' + item.name}}">
+                                                {{item.name}}
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="row table-row"> 
+                                    <div class="col-md-3 col-xs-12 col-sm-12 table-head"><label><b>Impacto Disponibilidad</b></label></div>
+                                    <div class="col-md-9 col-xs-12 col-sm-12 table-desc">
+                                        <p ng-show="onlyReadableTab2">{{finding.impacto_disponibilidad}}</p>
+                                        <select ng-model="finding.impacto_disponibilidad"
+                                                ng-show="!onlyReadableTab2"
+                                                ng-change="findingCalculateCSSv2();"
+                                                class="form-control">
+                                            <option ng-repeat="item in list.availability"
+                                                    value="{{item.value + ' | ' + item.name}}">
+                                                {{item.name}}
+                                            </option>
+                                        </select>
+                                    </div>
                                 </div>
                                 <div class="row table-row"> 
                                     <div class="col-md-3 col-xs-12 col-sm-12 table-head"><label><b>Autenticación</b></label></div>
@@ -492,21 +530,6 @@
                                     </div>
                                 </div>
                                 <div class="row table-row"> 
-                                    <div class="col-md-3 col-xs-12 col-sm-12 table-head"><label><b>Impacto Integridad</b></label></div>
-                                    <div class="col-md-9 col-xs-12 col-sm-12 table-desc">
-                                        <p ng-show="onlyReadableTab2">{{finding.impacto_integridad}}</p>
-                                        <select ng-model="finding.impacto_integridad"
-                                                ng-show="!onlyReadableTab2"
-                                                ng-change="findingCalculateCSSv2();"
-                                                class="form-control">
-                                            <option ng-repeat="item in list.integrity"
-                                                    value="{{item.value + ' | ' + item.name}}">
-                                                {{item.name}}
-                                            </option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="row table-row"> 
                                     <div class="col-md-3 col-xs-12 col-sm-12 table-head"><label><b>Explotabilidad</b></label></div>
                                     <div class="col-md-9 col-xs-12 col-sm-12 table-desc">
                                         <p ng-show="onlyReadableTab2">{{finding.explotabilidad}}</p>
@@ -517,21 +540,6 @@
                                             <option ng-repeat="item in list.explotability"
                                                     value="{{item.value + ' | ' + item.name}}">
                                                     {{item.name}}
-                                            </option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="row table-row"> 
-                                    <div class="col-md-3 col-xs-12 col-sm-12 table-head"><label><b>Disponibilidad</b></label></div>
-                                    <div class="col-md-9 col-xs-12 col-sm-12 table-desc">
-                                        <p ng-show="onlyReadableTab2">{{finding.impacto_disponibilidad}}</p>
-                                        <select ng-model="finding.impacto_disponibilidad"
-                                                ng-show="!onlyReadableTab2"
-                                                ng-change="findingCalculateCSSv2();"
-                                                class="form-control">
-                                            <option ng-repeat="item in list.availability"
-                                                    value="{{item.value + ' | ' + item.name}}">
-                                                {{item.name}}
                                             </option>
                                         </select>
                                     </div>
