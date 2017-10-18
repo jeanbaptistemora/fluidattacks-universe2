@@ -38,7 +38,7 @@ class Command(BaseCommand):
                     return user['profile']['email']
 
     def handle_command(self, command, channel, user):
-        command_parsed = command.split(' ')
+        command_parsed = ' '.join(command_parsed.split()).split(' ')
         if command_parsed[0] in VALID_COMMANDS:
             response = "Running " + " ".join(command_parsed)
             # pylint: disable=W1201
