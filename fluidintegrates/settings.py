@@ -108,7 +108,7 @@ DATABASES = {
         'OPTIONS': {
             'sql_mode': 'STRICT_TRANS_TABLES',
         }
-    }
+    },
 }
 
 

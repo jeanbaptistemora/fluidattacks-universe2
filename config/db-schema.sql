@@ -36,5 +36,3 @@ CREATE TABLE IF NOT EXISTS project_access (
     FOREIGN KEY (user_id) REFERENCES users(id),
     FOREIGN KEY (project_id) REFERENCES projects(id)
 ) ENGINE=INNODB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
-
-

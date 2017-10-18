@@ -24,6 +24,29 @@ VALUES (%s, %s, %s, %s, %s, %s, %s)'
     return row
 
 
+def create_project_dao(project=None, description=None):
+    if project and description:
+        project = project.lower()
+
+        with connections['integrates'].cursor() as cursor:
+            query = 'SELECT * FROM projects WHERE project=%s'
+            cursor.execute(query, (project,))
+            row = cursor.fetchone()
+
+            if row is not None:
+                # Project already exists.
+                return False
+
+            query = 'INSERT INTO projects(project, description) VALUES (%s, %s)'
+            try:
+                cursor.execute(query, (project, description,))
+                row = cursor.fetchone()
+            except OperationalError:
+                return False
+        return True
+    return False
+
+
 def update_user_login_dao(email):
     last_login = timezone.now()
 
@@ -56,7 +79,7 @@ def get_company_dao(email):
 
 
 def get_role_dao(email):
-    """Obtiene el rol que que tiene el usuario."""
+    """Obtiene el rol que tiene el usuario."""
     with connections['integrates'].cursor() as cursor:
         query = 'SELECT role FROM users WHERE email = %s'
         cursor.execute(query, (email,))
@@ -92,21 +115,31 @@ def is_registered_dao(email):
 
 def add_access_to_project_dao(email, project_name):
     """Da acceso al proyecto en cuestion."""
-
     if has_access_to_project_dao(email, project_name):
         return True
     with connections['integrates'].cursor() as cursor:
         query = 'SELECT id FROM users WHERE email = %s'
-        cursor.execute(query, (email,))
-        user_id = cursor.fetchone()
-
-        # Temp fix. Remove
-        company_project = ''
-        query = 'INSERT INTO projects(user_id, project, company_project) VALUES(%s, %s, %s)'
         try:
-            cursor.execute(query, (user_id[0], project_name.lower(), company_project,))
-            success = True
+            cursor.execute(query, (email,))
+            user_id = cursor.fetchone()
         except OperationalError:
+            user_id = None
+
+        query = 'SELECT id FROM projects WHERE project = %s'
+        try:
+            cursor.execute(query, (project_name,))
+            project_id = cursor.fetchone()
+        except OperationalError:
+            project_id = None
+
+        if project_id and user_id:
+            query = 'INSERT INTO project_access(user_id, project_id) VALUES(%s, %s)'
+            try:
+                cursor.execute(query, (user_id[0], project_id[0]))
+                success = True
+            except OperationalError:
+                success = False
+        else:
             success = False
     return success
 
@@ -115,13 +148,26 @@ def has_access_to_project_dao(email, project_name):
     """Verifica si el usuario tiene acceso al proyecto en cuestion."""
     with connections['integrates'].cursor() as cursor:
         query = 'SELECT id FROM users WHERE email = %s'
-        cursor.execute(query, (email,))
-        user_id = cursor.fetchone()
+        try:
+            cursor.execute(query, (email,))
+            user_id = cursor.fetchone()
+        except OperationalError:
+            return False
 
-        query = 'SELECT * FROM projects WHERE user_id = %s and \
-project = %s'
-        cursor.execute(query, (user_id[0], project_name.lower(),))
-        has_access = cursor.fetchone()
+        query = 'SELECT id FROM projects WHERE project = %s'
+        try:
+            cursor.execute(query, (project_name.lower(),))
+            project_id = cursor.fetchone()
+        except OperationalError:
+            return False
+
+        if project_id and user_id:
+            query = 'SELECT * FROM project_access WHERE user_id = %s and \
+    project_id = %s'
+            cursor.execute(query, (user_id[0], project_id[0],))
+            has_access = cursor.fetchone()
+        else:
+            return False
 
     if has_access is not None:
         return True
@@ -159,8 +205,9 @@ def assign_company(email, company):
 def get_project_users(project):
     """Trae los usuarios interesados de un proyecto."""
     with connections['integrates'].cursor() as cursor:
-        query = 'SELECT users.email FROM users LEFT JOIN projects \
-ON users.id = projects.user_id WHERE project=%s'
+        query = 'SELECT users.email FROM users LEFT JOIN project_access \
+ON users.id = project_access.user_id WHERE project_access.project_id=(SELECT id FROM \
+projects where project=%s)'
         cursor.execute(query, (project,))
         rows = cursor.fetchall()
     return rows
@@ -169,9 +216,10 @@ ON users.id = projects.user_id WHERE project=%s'
 def get_projects_by_user(user_id):
     """Trae los usuarios interesados de un proyecto."""
     with connections['integrates'].cursor() as cursor:
-        query = "SELECT project, company_project FROM projects \
-INNER JOIN users ON projects.user_id = users.id \
-WHERE email=%s ORDER BY project ASC"
+        query = "SELECT projects.project, projects.description FROM \
+project_access INNER JOIN users ON project_access.user_id=users.id \
+INNER JOIN projects ON project_access.project_id=projects.id \
+WHERE users.email=%s ORDER BY projects.project ASC"
         cursor.execute(query, (user_id,))
         rows = cursor.fetchall()
     return rows
