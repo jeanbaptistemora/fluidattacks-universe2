@@ -112,8 +112,11 @@ syntax to use near ''' at line 1. Run this in your bash console \
                     integrates_dao.register(user)
                     integrates_dao.assign_role(user, 'customer')
                     integrates_dao.assign_company(user, company)
-                integrates_dao.add_access_to_project_dao(user, project)
-                output = '*[OK]* Added access to *%s* to project *%s*.' % (user, project)
+                if integrates_dao.add_access_to_project_dao(user, project):
+                    output = '*[OK]* Added access to *%s* to project *%s*.' % (user, project)
+                else:
+                    output = '*[FAIL]* Failed to give access. Verify the \
+email address and that the project *%s* is created.' % (project)
         except ValueError:
             output = "That's not something I can do yet, human."
         return output

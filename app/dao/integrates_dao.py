@@ -136,12 +136,10 @@ def add_access_to_project_dao(email, project_name):
             query = 'INSERT INTO project_access(user_id, project_id) VALUES(%s, %s)'
             try:
                 cursor.execute(query, (user_id[0], project_id[0]))
-                success = True
+                return True
             except OperationalError:
-                success = False
-        else:
-            success = False
-    return success
+                return False
+    return False
 
 
 def has_access_to_project_dao(email, project_name):
