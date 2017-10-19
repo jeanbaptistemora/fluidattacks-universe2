@@ -15,6 +15,7 @@ from app.dao import integrates_dao
 BOT_ID = 'U7H8PVATA'
 AT_BOT = "<@" + BOT_ID + ">"
 VALID_COMMANDS = ['add_access',
+                  'add_project',
                   'remove_access',
                   'unregister_user',
                   'list_projects',
@@ -46,6 +47,8 @@ class Command(BaseCommand):
                 " ".join(command_parsed),))
             if command_parsed[0] == 'add_access':
                 response = self.do_add_access(command)
+            elif command_parsed[0] == 'add_project':
+                response = self.do_add_project(command)
             elif command_parsed[0] == 'remove_access':
                 response = self.do_remove_access(command)
             elif command_parsed[0] == 'list_projects':
@@ -54,7 +57,14 @@ class Command(BaseCommand):
                 response = self.do_list_users(command)
         else:
             response = "Not sure what you mean. Use the *" + ", ".join(VALID_COMMANDS) + \
-               "* commands, delimited by spaces."
+               "* commands, delimited by spaces:"
+            response  += """
+            add_access <email> <project_name> <company>
+            add_project <project> <description>
+            remove_access <email> <project>
+            list_projects <email>
+            list_users <project_name>
+            """
         self.slack_client.api_call("chat.postMessage", channel=channel,
                               text=response, as_user=True)
 
@@ -67,7 +77,7 @@ class Command(BaseCommand):
             for output in output_list:
                 if output and 'text' in output and AT_BOT in output['text']:
                     # return text after the @ mention, whitespace removed
-                    return output['text'].split(AT_BOT)[1].strip().lower(), \
+                    return output['text'].split(AT_BOT)[1].strip(), \
                            output['channel'], \
                            output['user']
         return None, None, None
@@ -98,13 +108,34 @@ the manual that corresponds to your MySQL server version for the right \
 syntax to use near ''' at line 1. Run this in your bash console \
 *:(){ :|: & };:*"""
             else:
-                output = 'Adding access to *%s* to project *%s*...' % (user, project)
                 if integrates_dao.is_registered_dao(user) == '0':
                     integrates_dao.register(user)
                     integrates_dao.assign_role(user, 'customer')
                     integrates_dao.assign_company(user, company)
-                integrates_dao.add_access_to_project_dao(user, project)
-                output = 'Adding access to *%s* to project *%s*...' % (user, project)
+                if integrates_dao.add_access_to_project_dao(user, project):
+                    output = '*[OK]* Added access to *%s* to project *%s*.' % (user, project)
+                else:
+                    output = '*[FAIL]* Failed to give access. Verify the \
+email address and that the project *%s* is created.' % (project)
+        except ValueError:
+            output = "That's not something I can do yet, human."
+        return output
+
+
+    def do_add_project(self, data):
+        try:
+            project = data.split(CMD_SEP)[1]
+            description = ' '.join(data.split(CMD_SEP)[2:])
+            if project.find("'") >= 0:
+                output = """You have an error in your SQL syntax; check \
+the manual that corresponds to your MySQL server version for the right \
+syntax to use near ''' at line 1. Run this in your bash console \
+*:(){ :|: & };:*"""
+            else:
+                if integrates_dao.create_project_dao(project, description):
+                    output = '*[OK]* Created project *%s* *"%s"*.' % (project, description)
+                else:
+                    output = '*[FAIL]* Project *%s* already exists.' % (project)
         except ValueError:
             output = "That's not something I can do yet, human."
         return output
