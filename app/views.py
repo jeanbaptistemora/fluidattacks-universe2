@@ -16,11 +16,14 @@ from . import util
 from .decorators import authenticate, authorize
 from .models import FormstackAPI, FormstackRequestMapper
 from .autodoc import IE, IT
+from .dto.cssv2 import Cssv2DTO
+from .dto.description import DescriptionDTO
 # pylint: disable=E0402
 from .mailer import send_mail_delete_finding
 from .services import has_access_to_project
 from .dao import integrates_dao
 from .api.drive import DriveAPI
+from .api.formstack import FrmAPI
 from magic import Magic
 from datetime import datetime
 
@@ -525,3 +528,35 @@ def get_evidence(request):
                 with open(filename, "r") as file_obj:
                     return HttpResponse(file_obj.read(), content_type="image/gif")
             os.unlink(filename)
+
+@never_cache
+@authorize(['analyst'])
+def update_cssv2(request):
+    parameters = request.POST.dict()
+    try:
+        generic_dto = Cssv2DTO()
+        generic_dto.create(parameters)
+        api = FrmAPI()
+        request = api.update(generic_dto.request_id, generic_dto.data)
+        if request:
+            return util.response([], 'success', False)
+        return util.response([], 'error', False)
+    except KeyError:
+        return util.response([], 'Campos vacios', True)
+
+@never_cache
+@authorize(['analyst'])
+def update_description(request):
+    parameters = request.POST.dict()
+    try:
+        generic_dto = DescriptionDTO()
+        generic_dto.create(parameters)
+        api = FrmAPI()
+        print generic_dto.data
+        request = api.update(generic_dto.request_id, generic_dto.data)
+        print request
+        if request:
+            return util.response([], 'success', False)
+        return util.response([], 'error', False)
+    except KeyError:
+        return util.response([], 'Campos vacios', True)

@@ -675,8 +675,6 @@ integrates.controller(
             //Recalcular CSSV2
             $scope.findingCalculateCSSv2();
             cssv2Data.criticidad = $scope.finding.criticidad;
-            $msg.info("En desarrollo ;)");
-            return false;
             //Instanciar modal de confirmacion
             var modalInstance = $uibModal.open({
                 templateUrl: BASE.url + 'assets/views/project/confirmMdl.html',
@@ -691,6 +689,8 @@ integrates.controller(
                         req.then(function(response){
                             if(!response.error){
                                 $msg.success("Actualizado ;)");
+                                $uibModalInstance.close();
+                                location.reload();
                             }else{
                                 $msg.error("Hay un error :(");
                             }
@@ -708,6 +708,7 @@ integrates.controller(
                 id: $scope.finding.id,
                 nivel: $scope.finding.nivel,
                 hallazgo: $scope.finding.hallazgo,
+                cardinalidad: $scope.finding.cardinalidad,
                 escenario: $scope.finding.escenario,
                 actor: $scope.finding.actor,
                 categoria: $scope.finding.categoria,
@@ -723,8 +724,6 @@ integrates.controller(
                 sistema_comprometido: $scope.finding.sistema_comprometido,
                 cwe: $scope.finding.cwe,
             };
-            $msg.info("En desarrollo ;)");
-            return false;
             if(descData.nivel == "Detallado"){
                 //Recalcular Severidad
                 var choose = $scope.findingCalculateSeveridad();
@@ -746,6 +745,8 @@ integrates.controller(
                         req.then(function(response){
                             if(!response.error){
                                 $msg.success("Actualizado ;)");
+                                $uibModalInstance.close();
+                                location.reload();
                             }else{
                                 $msg.error("Hay un error :(");
                             }
@@ -777,6 +778,8 @@ integrates.controller(
                         req.then(function(response){
                             if(!response.error){
                                 $msg.success("Actualizado ;)");
+                                $uibModalInstance.close();
+                                location.reload();
                             }else{
                                 $msg.error("Hay un error :(");
                             }
