@@ -92,7 +92,7 @@ DATABASES = {
         'NAME': 'django',
         'USER': 'integrates',
         'PASSWORD': 'we2xiong6Mohrooyai5iaXei6',
-        'HOST': 'fluidservesexams.cmjvwttsb0nk.us-east-1.rds.amazonaws.com',
+        'HOST': 'fluiddatabase.cmjvwttsb0nk.us-east-1.rds.amazonaws.com',
         'PORT': '3306',
         'OPTIONS': {
             'sql_mode': 'STRICT_TRANS_TABLES',
@@ -103,7 +103,7 @@ DATABASES = {
         'NAME': 'fluidintegrates',
         'USER': 'integrates',
         'PASSWORD': 'we2xiong6Mohrooyai5iaXei6',
-        'HOST': 'fluidservesexams.cmjvwttsb0nk.us-east-1.rds.amazonaws.com',
+        'HOST': 'fluiddatabase.cmjvwttsb0nk.us-east-1.rds.amazonaws.com',
         'PORT': '3306',
         'OPTIONS': {
             'sql_mode': 'STRICT_TRANS_TABLES',
