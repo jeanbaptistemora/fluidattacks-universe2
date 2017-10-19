@@ -689,6 +689,8 @@ integrates.controller(
                         req.then(function(response){
                             if(!response.error){
                                 $msg.success("Actualizado ;)");
+                                $uibModalInstance.close();
+                                location.reload();
                             }else{
                                 $msg.error("Hay un error :(");
                             }
@@ -743,6 +745,8 @@ integrates.controller(
                         req.then(function(response){
                             if(!response.error){
                                 $msg.success("Actualizado ;)");
+                                $uibModalInstance.close();
+                                location.reload();
                             }else{
                                 $msg.error("Hay un error :(");
                             }
@@ -774,6 +778,8 @@ integrates.controller(
                         req.then(function(response){
                             if(!response.error){
                                 $msg.success("Actualizado ;)");
+                                $uibModalInstance.close();
+                                location.reload();
                             }else{
                                 $msg.error("Hay un error :(");
                             }
