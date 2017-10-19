@@ -72,7 +72,7 @@ integrates.factory('projectFtry', function($q){
          */
         UpdateCSSv2: function(data){
             return $xhr.post($q, BASE.url + "update_cssv2", {
-                data: json, _: Math.random()
+                data, _: Math.random()
             });
         },
         /**
@@ -84,8 +84,8 @@ integrates.factory('projectFtry', function($q){
          * @return {Object}
          */
         UpdateDescription: function(data){
-            return $xhr.post($q, BASE.url + "update_desc", {
-                data: json, _: Math.random()
+            return $xhr.post($q, BASE.url + "update_description", {
+                data, _: Math.random()
             });
         },
         /**

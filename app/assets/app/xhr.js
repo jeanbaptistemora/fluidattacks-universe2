@@ -1,5 +1,6 @@
 'use strict'
 /* Angular JQuery Sync */
+ajaxConfig();
 var $xhr = new (class xhr {
     request($method, $q, $url, $data){
         if(!$q) throw "Undefined Promise";
