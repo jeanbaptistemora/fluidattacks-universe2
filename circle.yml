@@ -60,8 +60,14 @@ jobs:
                 sudo aws ecr get-login --region us-east-1 >> login.sh && sudo sh login.sh
 
       - run:
-          name: Build container
-          command: sudo deploy/build.sh $CIRCLE_BRANCH
+          name: Build integrates container
+          working_directory: deploy/containers/integrates/
+          command: sudo bash build.sh $CIRCLE_BRANCH
+
+      - run:
+          name: Build bot container
+          working_directory: deploy/containers/bot/
+          command: sudo bash build.sh $CIRCLE_BRANCH
 
       - run:
           name: Run asserts
@@ -75,4 +81,5 @@ jobs:
               sudo aws configure set aws_secret_access_key $AWS_SECRET_KEY && \
               sudo aws ecr get-login --region us-east-1 >> login.sh && sudo sh login.sh && \
               sudo docker -D push 205810638802.dkr.ecr.us-east-1.amazonaws.com/integrates:master;
+              sudo docker -D push 205810638802.dkr.ecr.us-east-1.amazonaws.com/integratesbot:master;
             fi
