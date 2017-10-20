@@ -71,6 +71,10 @@
       - httplib2
       - google-api-python-client
       - oauth2client
+      - pytz
+      - slackclient
+      - boto3
+      - watchtower
 
    - name: Remover archivo index
      file:
