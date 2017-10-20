@@ -25,7 +25,18 @@
       - python-mysqldb
       - unzip
       - cron
-      - python-boto
+      - python-pip
+      - python-dev
+
+   - name: Upgrade setuptools
+     pip:
+      name: "{{ item }}"
+      extra_args: -U --force
+     with_items:
+      - pip
+      - setuptools
+      - boto3
+      - botocore
 
    - name: Retirar index
      file:
@@ -66,7 +77,7 @@
       recurse: "yes"
 
    - name: Obtener moodledata s3
-     s3:
+     aws_s3:
       aws_access_key: "{{aws_access_key}}"
       aws_secret_key: "{{aws_secret_key}}"
       bucket: "{{ s3bucket }}"
