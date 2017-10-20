@@ -62,7 +62,7 @@ jobs:
       - run:
           name: Build integrates container
           working_directory: deploy/containers/integrates/
-          command: sudo build.sh $CIRCLE_BRANCH
+          command: ls; pwd; sudo build.sh $CIRCLE_BRANCH
 
       - run:
           name: Build bot container
