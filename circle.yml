@@ -60,8 +60,12 @@ jobs:
                 sudo aws ecr get-login --region us-east-1 >> login.sh && sudo sh login.sh
 
       - run:
-          name: Build container
-          command: sudo deploy/build.sh $CIRCLE_BRANCH
+          name: Build integrates container
+          command: sudo deploy/integrates/build.sh $CIRCLE_BRANCH
+
+      - run:
+          name: Build bot container
+          command: sudo deploy/bot/build.sh $CIRCLE_BRANCH
 
       - run:
           name: Run asserts

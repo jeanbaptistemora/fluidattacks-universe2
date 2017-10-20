@@ -39,4 +39,4 @@ RUN ansible-playbook main.yml --vault-password-file .vault.txt
 EXPOSE 443
 
 # Primer comando
-CMD service cron start && /usr/sbin/apache2ctl -D FOREGROUND && /usr/src/app/manage.py bot
+CMD service cron start && /usr/sbin/apache2ctl -D FOREGROUND
