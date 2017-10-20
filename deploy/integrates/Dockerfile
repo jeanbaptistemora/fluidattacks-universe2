@@ -20,11 +20,11 @@ RUN apt-get update \
     && apt-get install -y software-properties-common sudo
 
 # Agrega el playbook
-ADD main.yml /root/
-ADD patch_socialauth.py /root/
+ADD ../common/main.yml /root/
+ADD ../common/patch_socialauth.py /root/
 
 # Agrega las variables
-ADD vars* /root/vars
+ADD ../common/vars* /root/vars
 
 # Agrega el vault
 ADD .vault.txt /root/
