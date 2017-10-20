@@ -61,11 +61,11 @@ jobs:
 
       - run:
           name: Build integrates container
-          command: sudo deploy/integrates/build.sh $CIRCLE_BRANCH
+          command: sudo deploy/containers/integrates/build.sh $CIRCLE_BRANCH
 
       - run:
           name: Build bot container
-          command: sudo deploy/bot/build.sh $CIRCLE_BRANCH
+          command: sudo deploy/containers/bot/build.sh $CIRCLE_BRANCH
 
       - run:
           name: Run asserts
