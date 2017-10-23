@@ -206,8 +206,11 @@ def get_project_users(project):
         query = 'SELECT users.email FROM users LEFT JOIN project_access \
 ON users.id = project_access.user_id WHERE project_access.project_id=(SELECT id FROM \
 projects where project=%s)'
-        cursor.execute(query, (project,))
-        rows = cursor.fetchall()
+        try:
+            cursor.execute(query, (project,))
+            rows = cursor.fetchall()
+        except OperationalError:
+            rows = []
     return rows
 
 
