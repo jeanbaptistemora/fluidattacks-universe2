@@ -235,20 +235,20 @@ def get_findings(request):
             finding_parsed['cardinalidad'] = state['abiertas']
         if 'abiertas_cuales' in state:
             finding_parsed['donde'] = state['abiertas_cuales']
+        
+        if state['estado'] == 'Cerrado':
+            finding_parsed['donde'] = '-'
+            finding_parsed['edad'] = '-'
         else:
-            if state['estado'] == 'Cerrado':
-                finding_parsed['donde'] = '-'
-                finding_parsed['edad'] = '-'
-            else:
-                tzn = pytz.timezone('America/Bogota')
-                finding_date_str = finding_parsed["timestamp"].split(" ")[0]
-                finding_date = datetime.strptime(finding_date_str, '%Y-%m-%d')
-                finding_date = finding_date.replace(tzinfo=tzn).date()
-                current_date = datetime.now(tz=tzn).date()
-                final_date = (current_date - finding_date)
-                strdays = ":n dias".replace(":n", str(final_date.days))
-                if(final_date.days == 1): strdays = strdays.replace("s","")
-                finding_parsed['edad'] = strdays
+            tzn = pytz.timezone('America/Bogota')
+            finding_date_str = finding_parsed["timestamp"].split(" ")[0]
+            finding_date = datetime.strptime(finding_date_str, '%Y-%m-%d')
+            finding_date = finding_date.replace(tzinfo=tzn).date()
+            current_date = datetime.now(tz=tzn).date()
+            final_date = (current_date - finding_date)
+            strdays = ":n dias".replace(":n", str(final_date.days))
+            if(final_date.days == 1): strdays = strdays.replace("s","")
+            finding_parsed['edad'] = strdays
         if 'cerradas_cuales' in state:
             finding_parsed['cerradas'] = state['cerradas_cuales']
         if not filtr:
