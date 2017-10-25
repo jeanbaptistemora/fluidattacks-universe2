@@ -11,11 +11,11 @@ function removeHour(value, row, index){
 }
 function labelState(value, row, index){
     if(value == "Cerrado"){
-        return "<label class='label label-success'>Cerrado</label>";
+        return "<label class='label label-success' style='background-color: #31c0be'>Cerrado</label>";
     }else if(value == "Abierto"){
         return "<label class='label label-danger' style='background-color: #f22;'>Abierto</label>";
     }else{
-        return "<label class='label label-info'>Parcialmente Cerrado</label>";
+        return "<label class='label label-info' style='background-color: #ffbf00'>Parcialmente Cerrado</label>";
     }
 }
 /**
