@@ -38,7 +38,7 @@ jobs:
       - run:
           name: Create Settings
           command: >
-                ansible-playbook main.yml --vault-password-file .vault.txt
+                ansible-playbook main.yml --vault-password-file /tmp/.vault.txt
 
       - run:
           name: Run Integrates tests
