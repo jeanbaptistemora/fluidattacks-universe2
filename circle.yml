@@ -36,6 +36,11 @@ jobs:
                 ansible-lint deploy/main.yml
 
       - run:
+          name: Create Settings
+          command: >
+                ansible-playbook main.yml --vault-password-file .vault.txt
+
+      - run:
           name: Run Integrates tests
           command: >
                 python manage.py test
