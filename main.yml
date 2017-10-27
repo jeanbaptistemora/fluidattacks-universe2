@@ -1,0 +1,15 @@
+---
+- hosts: localhost
+
+  become: "yes"
+
+  tasks:
+   - name: Include secret vars
+     include_vars: deploy/containers/common/vars/vars.yml
+
+   - name: Agregar secret vars
+     template:
+      src: "deploy/containers/common/vars/settings.j2"
+      dest: "fluidintegrates/settings.py"
+      mode: "0644"
+

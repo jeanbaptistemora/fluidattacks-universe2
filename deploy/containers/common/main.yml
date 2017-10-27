@@ -104,6 +104,12 @@
       dest: "/usr/src/app"
       version: "{{ lookup('env','CIRCLE_BRANCH') }}"
 
+   - name: Agregar secret vars
+     template:
+      src: "vars/settings.j2"
+      dest: "/usr/src/app/fluidintegrates/settings.py"
+      mode: "0644"
+
    - name: Establecer permisos directorio
      file:
       path: "{{ documentroot }}"
