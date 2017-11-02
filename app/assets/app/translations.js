@@ -74,7 +74,13 @@ integrates.config(['$translateProvider', function($translateProvider) {
             'description1': 'You can see details of a project by ',
             'description2': 'clicking',
             'description3': ' on it'
-          }
+          },
+          'eventualities':{
+                'title': 'My Eventualities',
+                'description_1': 'You can see details of a eventuality by',
+                'description_2': 'clicking',
+                'description_3': 'on it'
+              }
         }
     };
     var traducciones = {
@@ -141,7 +147,13 @@ integrates.config(['$translateProvider', function($translateProvider) {
             'description1': 'Para ver el detalle del proyecto debes hacer ',
             'description2': 'click',
             'description3': ' sobre el proyecto'
-          }
+          },
+          'eventualities':{
+                 'title': 'Mis Eventualidades',
+                 'description_1': 'Para ver el detalle de la eventualidad debes hacer',
+                 'description_2': 'click',
+                 'description_3': 'sobre la eventualidad'
+           }
         }
     };
     if(localStorage['lang'] === undefined){
