@@ -1,7 +1,7 @@
 <div class="page-head">
     <ol class="breadcrumb">
-        <li><a href="#">Busqueda</a></li>
-        <li><a href="#">Eventualidades por proyecto</a></li>
+      <li><a href="#">{{'event_by_name.page_head.search' | translate}}</a></li>
+        <li><a href="#">{{'event_by_name.page_head.vuln_by_proj' | translate}}</a></li>
     </ol>
 </div>
 <div class="main-content">
@@ -135,64 +135,64 @@
     </script>
 
     <!-- START: MODAL EDITAR -->
-    <script type="text/ng-template" id="editar.html">
-        <div class="modal-body" id="modal-body">
-            <div class="row">
-                <div class="col-md-8">
-                    <div class="form-group">
-                        <label>Tipo</label>
-                        <input type="text" class="form-control" ng-model="evnt.tipo" disabled>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <label>Analista</label>
-                        <input type="text" class="form-control" ng-model="evnt.analista" disabled>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <label>Proyecto Fluid</label>
-                        <input type="text" class="form-control" ng-model="evnt.proyecto_fluid" disabled>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <label>Proyecto Cliente</label>
-                        <input type="text" class="form-control" ng-model="evnt.proyecto_cliente" disabled>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <label>Cliente</label>
-                        <input type="text" class="form-control" ng-model="evnt.cliente" disabled>
-                    </div>
-                </div>
-                <div class="col-md-12">
-                    <div class="form-group">
-                        <label>Detalle</label>
-                        <textarea class="form-control" id="email" disabled> {{evnt.detalle}} </textarea>
-                    </div>
-                </div>
-                <div class="col-md-6" ng-class="esDetallado">
-                    <div class="form-group">
-                        <label>Fecha</label>
-                        <input type="text" class="form-control" ng-model="evnt.fecha" disabled>
-                    </div>
-                </div>
-                <div class="col-md-6" ng-class="esDetallado">
-                    <div class="form-group">
-                        <label>Afectacion</label>
-                        <input type="number" class="form-control" ng-model="evnt.afectacion" min="0">
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="modal-footer">
-            <button class="btn btn-warning" type="button" ng-click="closeModalEditar()">Cerrar</button>
-            <button class="btn btn-primary" type="button" ng-click="okModalEditar()">Actualizar</button>
-        </div>
-    </script>
+      <script type="text/ng-template" id="editar.html">
+          <div class="modal-body" id="modal-body">
+              <div class="row">
+                  <div class="col-md-8">
+                      <div class="form-group">
+                          <label>{{'event_by_name.modal_edit.type' | translate}}</label>
+                          <input type="text" class="form-control" ng-model="evnt.tipo" disabled>
+                      </div>
+                  </div>
+                  <div class="col-md-4">
+                      <div class="form-group">
+                          <label>{{'event_by_name.modal_edit.analyst' | translate}}</label>
+                          <input type="text" class="form-control" ng-model="evnt.analista" disabled>
+                      </div>
+                  </div>
+                  <div class="col-md-4">
+                      <div class="form-group">
+                          <label>{{'event_by_name.modal_edit.f_proj' | translate}}</label>
+                          <input type="text" class="form-control" ng-model="evnt.proyecto_fluid" disabled>
+                      </div>
+                  </div>
+                  <div class="col-md-4">
+                      <div class="form-group">
+                          <label>{{'event_by_name.modal_edit.c_proj' | translate}}</label>
+                          <input type="text" class="form-control" ng-model="evnt.proyecto_cliente" disabled>
+                      </div>
+                  </div>
+                  <div class="col-md-4">
+                      <div class="form-group">
+                          <label>{{'event_by_name.modal_edit.client' | translate}}</label>
+                          <input type="text" class="form-control" ng-model="evnt.cliente" disabled>
+                      </div>
+                  </div>
+                  <div class="col-md-12">
+                      <div class="form-group">
+                          <label>{{'event_by_name.modal_edit.detail' | translate}}</label>
+                          <textarea class="form-control" id="email" disabled> {{evnt.detalle}} </textarea>
+                      </div>
+                  </div>
+                  <div class="col-md-6" ng-class="esDetallado">
+                      <div class="form-group">
+                          <label>{{'event_by_name.modal_edit.date' | translate}}</label>
+                          <input type="text" class="form-control" ng-model="evnt.fecha" disabled>
+                      </div>
+                  </div>
+                  <div class="col-md-6" ng-class="esDetallado">
+                      <div class="form-group">
+                          <label>{{'event_by_name.modal_edit.affec' | translate}}</label>
+                          <input type="number" class="form-control" ng-model="evnt.afectacion" min="0">
+                      </div>
+                  </div>
+              </div>
+          </div>
+          <div class="modal-footer">
+              <button class="btn btn-warning" type="button" ng-click="closeModalEditar()">{{'event_by_name.modal_edit.close' | translate}}</button>
+              <button class="btn btn-primary" type="button" ng-click="okModalEditar()">{{'event_by_name.modal_edit.refresh' | translate}}</button>
+          </div>
+      </script>
 
     <div class="row">
         <div class="col-md-12 text-center loader">

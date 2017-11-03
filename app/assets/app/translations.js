@@ -104,7 +104,25 @@ integrates.config(['$translateProvider', function($translateProvider) {
         'tab_container':{
           'findings': 'Findings',
           'eventualities': 'Eventualities'
-        }
+        },
+        'event_by_name':{
+          'page_head':{
+            'search': 'Search',
+            'vuln_by_proj': 'Eventualities by project '
+          },
+          'modal_edit':{
+            'type': 'Type',
+            'analyst': 'Analyst',
+            'f_proj': 'Fluid Project',
+            'c_proj': 'Client Project',
+            'client': 'Client',
+            'detail': 'Description',
+            'date': 'Date',
+            'affec': 'Affection',
+            'close': 'Close',
+            'refresh': 'Update'
+         }
+       }
     };
     var traducciones = {
         'logout': {
@@ -200,7 +218,25 @@ integrates.config(['$translateProvider', function($translateProvider) {
         'tab_container':{
           'findings': 'Hallazgos',
           'eventualities': 'Eventualidades'
-        }
+        },
+        'event_by_name':{
+          'page_head':{
+            'search': 'Busqueda',
+            'vuln_by_proj': 'Eventualidades por proyecto'
+          },
+          'modal_edit':{
+            'type': 'Tipo',
+            'analyst': 'Analista',
+            'f_proj': 'Proyecto Fluid',
+            'c_proj': 'Proyecto Cliente',
+            'client': 'Cliente',
+            'detail': 'Detalle',
+            'date': 'Fecha',
+            'affec': 'Afectacion',
+            'close': 'Cerrar',
+            'refresh': 'Actualizar'
+         }
+       }
     };
     if(localStorage['lang'] === undefined){
         localStorage['lang'] = 'es';
