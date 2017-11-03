@@ -9,3 +9,4 @@ logs
 Gemfile.lock
 vendor
 config/drive_authorization.json
+fluidintegrates/settings.py
