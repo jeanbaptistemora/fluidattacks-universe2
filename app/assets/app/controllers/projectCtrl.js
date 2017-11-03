@@ -20,8 +20,8 @@ function labelState(value, row, index){
 }
 /**
  * Controlador de vista de proyectos
- * @name ProjectCtrl 
- * @param {Object} $scope 
+ * @name ProjectCtrl
+ * @param {Object} $scope
  * @param {Object} $uibModal
  * @param {Object} $stateParams
  * @param {Object} $state
@@ -145,8 +145,8 @@ integrates.controller(
             var dd = today.getDate();
             var mm = today.getMonth()+1; //January is 0!
             var yyyy = today.getFullYear();
-            if(dd<10){ dd='0'+dd; } 
-            if(mm<10){ mm='0'+mm; } 
+            if(dd<10){ dd='0'+dd; }
+            if(mm<10){ mm='0'+mm; }
             var today = dd+'/'+mm+'/'+yyyy;
             $scope.header = {
                 findingTitle: $scope.finding.hallazgo,
@@ -171,7 +171,7 @@ integrates.controller(
             $("#total_cardinalidad").html(cardinalidad);
             $("#total_hallazgos").html(data.data.length);
             var total_criticidad = 0;
-            data.data.forEach(function(i){    
+            data.data.forEach(function(i){
                 try{
                     if(i.tipo_hallazgo == "Seguridad"){
                         var ImpCon = parseFloat(i.impacto_confidencialidad.split(" | ")[0]);
@@ -323,7 +323,7 @@ integrates.controller(
                 $scope.header.findingValueDescription = " Tolerable";
                 $scope.header.findingValueColor = $scope.colors.tolerable;
             }
-    
+
             if($scope.header.findingState == "Abierto"){
                 $scope.header.findingStateColor = $scope.colors.critical;
             }else if($scope.header.findingState == "Parcialmente cerrado"){
@@ -331,7 +331,7 @@ integrates.controller(
             }else{
                 $scope.header.findingStateColor = $scope.colors.ok;
             }
-    
+
             $scope.header.findingCount = $scope.finding.cardinalidad;
         };
         $scope.findingCalculateSeveridad = function(){
@@ -501,7 +501,7 @@ integrates.controller(
                     }else{
                         total_hig += 1;
                     }
-                }    
+                }
             });
             total_segLabel = "Vulnerabilidad :n%".replace(":n", (total_seg*100/(total_seg+total_hig)).toFixed(2).toString());
             total_higLabel = "Higiene :n%".replace(":n", (total_hig*100/(total_seg+total_hig)).toFixed(2).toString());
@@ -527,7 +527,7 @@ integrates.controller(
                     }else{
                         nonexploit ++;
                     }
-                }    
+                }
             });
             exploitLabel = "Explotable :n%".replace(":n", (exploit*100/(exploit+nonexploit)).toFixed(2).toString());
             nonexploitLabel = "No Explotable :n%".replace(":n", (nonexploit*100/(exploit+nonexploit)).toFixed(2).toString());
@@ -616,7 +616,7 @@ integrates.controller(
                         $("#search_section").show();
                         $('[data-toggle="tooltip"]').tooltip();
                         $scope.calculateCardinality({data: $scope.data});
-                    
+
                         if($stateParams.finding !== undefined){
                             $scope.finding.id = $stateParams.finding;
                             $scope.loadFindingByID($scope.finding.id);
@@ -637,7 +637,7 @@ integrates.controller(
                             onClickRow: function(row){
                                 var modalInstance = $uibModal.open({
                                     templateUrl: BASE.url + 'assets/views/project/eventualityMdl.html',
-                                    animation: true, 
+                                    animation: true,
                                     resolve: { evt: row }, backdrop: false,
                                     controller: function($scope, $uibModalInstance, evt){
                                         $scope.evt = evt;
@@ -700,7 +700,7 @@ integrates.controller(
                         $uibModalInstance.close();
                     };
                 }
-            });            
+            });
         };
         $scope.updateDescription = function(){
             //Obtener datos
@@ -756,7 +756,7 @@ integrates.controller(
                         $uibModalInstance.close();
                     };
                 }
-            });  
+            });
         };
         $scope.deleteFinding = function(){
             //Obtener datos
@@ -789,7 +789,7 @@ integrates.controller(
                         $uibModalInstance.close();
                     };
                 }
-            });  
+            });
         };
         $scope.updateEvidenceText = function(target){
             console.log(target);

@@ -33,15 +33,15 @@
         <div class="col-md-12" id="search_section">
             <div class="row">
                 <div class="col-md-4 text-center">
-                    <h3>Distribución por Explotabilidad</h3>
+                    <h3>{{'grapExploit.title' | translate}}</h3>
                     <div id="grapExploit" style="width:250px; height:250px; margin: auto;"></div>
                 </div>
                 <div class="col-md-4 text-center">
-                    <h3>Distribución por Tipo Hallazgo</h3>
+                    <h3>{{'grapType.title' | translate}}</h3>
                     <div id="grapType" style="width:250px; height:250px; margin: auto;"></div>
                 </div>
                 <div class="col-md-4 text-center">
-                    <h3>Hallazgos por Estado</h3>
+                    <h3>{{'grapStatus.title' | translate}}</h3>
                     <div id="grapStatus" style="width:250px; height:250px; margin: auto;"></div>
                 </div>
             </div>
@@ -50,12 +50,12 @@
                         <ul class="nav pills-tabs nav-justified" style="background-color: white; border-bottom: 1px #eee solid;">
                         <li class="active" style="font-size:15px;">
                             <a href="#findings" data-toggle="tab" aria-expanded="false">
-                                <i class="icon s7-light"></i>&nbsp;Hallazgos
+                                <i class="icon s7-light"></i>&nbsp;{{'tab_container.findings' | translate}}
                             </a>
                         </li>
                         <li class="" style="font-size:15px;">
                             <a href="#eventualities" data-toggle="tab" aria-expanded="true">
-                                <i class="icon s7-star"></i>&nbsp;Eventualidades
+                                <i class="icon s7-star"></i>&nbsp;{{'tab_container.eventualities' | translate}}
                             </a>
                         </li>
                     </ul>
@@ -66,9 +66,9 @@
                                 <label id="total_hallazgos"></label> &nbsp;&nbsp;&nbsp;
                                 <label><b>{{'search_findings.filter_labels.cardinalities' | translate}}</b></label>
                                 <label id="total_cardinalidad"></label> &nbsp;&nbsp;&nbsp;
-                                <label><b>Criticidad Total Encontrada</b></label>
+                                <label><b>{{'search_findings.filter_labels.criticity' | translate}}</b></label>
                                 <label id="total_criticidad"></label> &nbsp;&nbsp;&nbsp;
-                                <label><b>Efectividad de Cierre</b></label>
+                                <label><b>{{'search_findings.filter_labels.closure' | translate}}</b></label>
                                 <label id="total_efectividad"></label> &nbsp;&nbsp;&nbsp;
                             </div>
                             <!-- START: toolbar -->
@@ -87,11 +87,11 @@
                                     {{'search_findings.filter_buttons.documentation' | translate}} <i class="glyphicon glyphicon-star"></i>
                                 </button>
                             </div>
-                            <p>Haz <b>click</b> para ver mas detalles del hallazgo</p>
+                            <p>{{'search_findings.descriptions.description1' | translate}} <b>{{'search_findings.descriptions.description2' | translate}}</b> {{'search_findings.descriptions.description3' | translate}}</p>
 
-                            <table id="vulnerabilities" 
-                                   data-click-to-select="true" 
-                                   data-classes="table table-hover table-striped" 
+                            <table id="vulnerabilities"
+                                   data-click-to-select="true"
+                                   data-classes="table table-hover table-striped"
                                    data-striped="true"
                                    data-show-columns="true"
                                    data-cookie="true"
@@ -100,17 +100,17 @@
                                    data-export-types="['sql', 'excel']"
                                    data-pagination="true"
                                    data-search="true"
-                                   data-page-size="15" 
+                                   data-page-size="15"
                                    data-toolbar="#toolbar">
                                 <thead>
                                     <tr class="head-blue" style="background-color: #0361cc; color:white;">
-                                        <th data-field="timestamp" 
-                                            data-sortable="true" 
+                                        <th data-field="timestamp"
+                                            data-sortable="true"
                                             data-width="100"
                                             data-formatter="removeHour">
                                             {{'search_findings.table.headings.timestamp' | translate}}
                                         </th>
-                                        <th data-field="edad" 
+                                        <th data-field="edad"
                                             data-align="center"
                                             data-sortable="true">
                                             {{'search_findings.table.headings.age' | translate}}
@@ -144,7 +144,7 @@
                             <div class="row">
                                 <!-- START: toolbar -->
                                 <div class="btn-group" id="toolbar2">
-                                    <p><b>Haz <b>click</b> para ver el detalle</b></p>
+                                    <p><b>{{'search_findings.eventualities.description' | translate}}</b></p>
                                 </div>
                                 <div class="col-md-12">
                                     <table id="tblEventualities" data-classes="table table-hover table-striped" data-striped="true" data-pagination="true" data-page-size="15" data-toolbar="#toolbar2" data-search="true">
@@ -188,7 +188,7 @@
         </div>
     </div>
     <div class="row">
-        
+
     </div>
     <div class="row">
         <div class="col-sm-12 col-md-12">
@@ -317,7 +317,7 @@
                                                ng-model="finding.valor_riesgo" disabled/>
                                     </div>
                                 </div>
-                                <div class="row table-row" ng-show="esDetallado"> 
+                                <div class="row table-row" ng-show="esDetallado">
                                     <div class="col-md-3 col-xs-12 col-sm-12 table-head"><label><b>Probabilidad</b></label></div>
                                     <div class="col-md-3 col-xs-12 col-sm-12 table-desc">
                                         <p ng-show="onlyReadableTab1">{{finding.probabilidad}}</p>
@@ -362,7 +362,7 @@
                                 <div class="row table-row">
                                     <div class="col-md-3 col-xs-12 col-sm-12 table-head"><label><b>Dónde</b></label></div>
                                     <div class="col-md-9 col-xs-12 col-sm-12 table-desc">
-                                        <textarea class="form-control" rows="6" 
+                                        <textarea class="form-control" rows="6"
                                                   ng-show="onlyReadableTab1"
                                                   disabled style="margin-bottom: 5px;">{{finding.donde}}</textarea>
                                         <textarea class="form-control" rows="6" style="margin-bottom: 5px;"
@@ -379,7 +379,7 @@
                                                ng-model="finding.cardinalidad">
                                     </div>
                                 </div>
-                                <div class="row table-row"> 
+                                <div class="row table-row">
                                     <div class="col-md-3 col-xs-12 col-sm-12 table-head"><label><b>Vectores de ataque</b></label></div>
                                     <div class="col-md-3 col-xs-12 col-sm-12 table-desc">
                                         <p ng-show="onlyReadableTab1">{{finding.vector_ataque}}</p>
@@ -395,7 +395,7 @@
                                                   ng-model="finding.amenaza">{{finding.amenaza}}</textarea>
                                     </div>
                                 </div>
-                                <div class="row table-row"> 
+                                <div class="row table-row">
                                     <div class="col-md-3 col-xs-12 col-sm-12 table-head"><label><b>Recomendación</b></label></div>
                                     <div class="col-md-3 col-xs-12 col-sm-12 table-desc">
                                         <p ng-show="onlyReadableTab1">{{finding.solucion_efecto}}</p>
@@ -411,7 +411,7 @@
                                                   ng-model="finding.sistema_comprometido">{{finding.sistema_comprometido}}</textarea>
                                     </div>
                                 </div>
-                                <div class="row table-row"> 
+                                <div class="row table-row">
                                         <div class="col-md-3 col-xs-12 col-sm-12 table-head"><label><b>Registros Comprometidos</b></label></div>
                                         <div class="col-md-3 col-xs-12 col-sm-12 table-desc">
                                             <p ng-show="onlyReadableTab1">{{finding.registros}}</p>
@@ -455,7 +455,7 @@
                     <div id="cssv2" class="tab-pane cont">
                         <div class="row">
                             <div class="col-md-12 col-sm-12 col-xs-12">
-                                <div class="row table-row"> 
+                                <div class="row table-row">
                                     <div class="col-md-3 col-xs-12 col-sm-12 table-head"><label><b>Vector de Acceso</b></label></div>
                                     <div class="col-md-9 col-xs-12 col-sm-12 table-desc">
                                         <p ng-show="onlyReadableTab2">{{finding.vector_acceso}}</p>
@@ -470,7 +470,7 @@
                                         </select>
                                     </div>
                                 </div>
-                                <div class="row table-row"> 
+                                <div class="row table-row">
                                     <div class="col-md-3 col-xs-12 col-sm-12 table-head"><label><b>Impacto Confidencialidad</b></label></div>
                                     <div class="col-md-9 col-xs-12 col-sm-12 table-desc">
                                         <p ng-show="onlyReadableTab2">{{finding.impacto_confidencialidad}}</p>
@@ -484,7 +484,7 @@
                                             </option>
                                         </select>
                                     </div>
-                                </div><div class="row table-row"> 
+                                </div><div class="row table-row">
                                     <div class="col-md-3 col-xs-12 col-sm-12 table-head"><label><b>Impacto Integridad</b></label></div>
                                     <div class="col-md-9 col-xs-12 col-sm-12 table-desc">
                                         <p ng-show="onlyReadableTab2">{{finding.impacto_integridad}}</p>
@@ -499,7 +499,7 @@
                                         </select>
                                     </div>
                                 </div>
-                                <div class="row table-row"> 
+                                <div class="row table-row">
                                     <div class="col-md-3 col-xs-12 col-sm-12 table-head"><label><b>Impacto Disponibilidad</b></label></div>
                                     <div class="col-md-9 col-xs-12 col-sm-12 table-desc">
                                         <p ng-show="onlyReadableTab2">{{finding.impacto_disponibilidad}}</p>
@@ -514,7 +514,7 @@
                                         </select>
                                     </div>
                                 </div>
-                                <div class="row table-row"> 
+                                <div class="row table-row">
                                     <div class="col-md-3 col-xs-12 col-sm-12 table-head"><label><b>Autenticación</b></label></div>
                                     <div class="col-md-9 col-xs-12 col-sm-12 table-desc">
                                         <p ng-show="onlyReadableTab2">{{finding.autenticacion}}</p>
@@ -529,7 +529,7 @@
                                         </select>
                                     </div>
                                 </div>
-                                <div class="row table-row"> 
+                                <div class="row table-row">
                                     <div class="col-md-3 col-xs-12 col-sm-12 table-head"><label><b>Explotabilidad</b></label></div>
                                     <div class="col-md-9 col-xs-12 col-sm-12 table-desc">
                                         <p ng-show="onlyReadableTab2">{{finding.explotabilidad}}</p>
@@ -544,7 +544,7 @@
                                         </select>
                                     </div>
                                 </div>
-                                <div class="row table-row"> 
+                                <div class="row table-row">
                                     <div class="col-md-3 col-xs-12 col-sm-12 table-head"><label><b>Nivel Confianza</b></label></div>
                                     <div class="col-md-9 col-xs-12 col-sm-12 table-desc">
                                         <p ng-show="onlyReadableTab2">{{finding.nivel_confianza}}</p>
@@ -559,7 +559,7 @@
                                         </select>
                                     </div>
                                 </div>
-                                <div class="row table-row"> 
+                                <div class="row table-row">
                                     <div class="col-md-3 col-xs-12 col-sm-12 table-head"><label><b>Nivel Resolución</b></label></div>
                                     <div class="col-md-9 col-xs-12 col-sm-12 table-desc">
                                         <p ng-show="onlyReadableTab2">{{finding.nivel_resolucion}}</p>
@@ -571,7 +571,7 @@
                                                     value="{{item.value + ' | ' + item.name}}">
                                                 {{item.name}}
                                             </option>
-                                        </select>   
+                                        </select>
                                     </div>
                                 </div>
                                 <div class="row table-row">
@@ -589,7 +589,7 @@
                                         </select>
                                     </div>
                                 </div>
-                                <div class="row table-row"> 
+                                <div class="row table-row">
                                     <div class="col-md-3 col-xs-12 col-sm-12 table-head"><label><b>CSSv2 Base</b></label></div>
                                     <div class="col-md-9 col-xs-12 col-sm-12 table-desc"><p>{{finding.cssv2base}}</p></div>
                                     <div class="col-md-3 col-xs-12 col-sm-12 table-head"><label><b>CSSv2 Temporal</b></label></div>
@@ -672,7 +672,7 @@
                             <div class="col-md-6 text-center">
                                 <div mag-thumb="inner-inline" mag-flow="inline">
                                     <img ng-src="{{ev.url || ''}}"
-                                         style="max-width:100%;" 
+                                         style="max-width:100%;"
                                          class="img-thumbnail img-responsive integrates-image"
                                          width="600" height="600"/>
                                 </div>
@@ -726,13 +726,13 @@
     .pills-tabs > li.active > a:hover,
     .pills-tabs > li.active > a:focus{
         background-color: #eee;
-        color: #777; 
+        color: #777;
     }
     .pills-tabs > li > a,
     .pills-tabs > li > a:hover,
     .pills-tabs > li > a:focus{
         background-color: white;
-        color: #666; 
+        color: #666;
     }
     .table-head{
         text-align: right;
@@ -753,6 +753,6 @@
     }
     #vulnerabilities thead tr{ background-color: #337ab7; color:white;  }
     #eventualities thead tr{ background-color: #337ab7; color:white;  }
-    
+
 </style>
 <!-- End CommonStyles -->

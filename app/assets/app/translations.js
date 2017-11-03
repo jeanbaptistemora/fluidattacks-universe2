@@ -47,7 +47,9 @@ integrates.config(['$translateProvider', function($translateProvider) {
             },
             'filter_labels':{
                 'findings': 'Findings',
-                'cardinalities': 'Vulnerabilities'
+                'cardinalities': 'Vulnerabilities',
+                'criticity': 'Total Criticity Found',
+                'closure': 'Closure Effectiveness'
             },
             'filter_buttons':{
                 'advance': 'Progress',
@@ -66,6 +68,14 @@ integrates.config(['$translateProvider', function($translateProvider) {
                     'state': 'State',
                     'exploit': 'Exploit'
                 }
+            },
+            'descriptions':{
+              'description1': '',
+              'description2': 'Click',
+              'description3': 'to see more details of the find'
+            },
+            'eventualities':{
+              'description': 'Click to see the detail'
             }
         },
         'main_content':{
@@ -81,6 +91,19 @@ integrates.config(['$translateProvider', function($translateProvider) {
                 'description_2': 'clicking',
                 'description_3': 'on it'
               }
+        },
+        'grapExploit':{
+          'title': 'Distribution by Exploitability'
+        },
+        'grapType':{
+          'title': 'Distribution by Type Find'
+        },
+        'grapStatus':{
+          'title': 'Findings by Status'
+        },
+        'tab_container':{
+          'findings': 'Findings',
+          'eventualities': 'Eventualities'
         }
     };
     var traducciones = {
@@ -120,7 +143,9 @@ integrates.config(['$translateProvider', function($translateProvider) {
             },
             'filter_labels':{
                 'findings': 'Hallazgos',
-                'cardinalities': 'Vulnerabilidades'
+                'cardinalities': 'Vulnerabilidades',
+                'criticity': 'Criticidad Total Encontrada',
+                'closure': 'Efectividad de Cierre'
             },
             'filter_buttons':{
                 'advance': 'Avance',
@@ -139,6 +164,14 @@ integrates.config(['$translateProvider', function($translateProvider) {
                     'state': 'Estado',
                     'exploit': 'Explotable'
                 }
+            },
+            'descriptions':{
+              'description1': 'Haz',
+              'description2': 'click',
+              'description3': 'para ver mas detalles del hallazgo'
+            },
+            'eventualities':{
+              'description': 'Haz click para ver el detalle'
             }
         },
         'main_content':{
@@ -154,6 +187,19 @@ integrates.config(['$translateProvider', function($translateProvider) {
                  'description_2': 'click',
                  'description_3': 'sobre la eventualidad'
            }
+        },
+        'grapExploit':{
+          'title': 'Distribucion por Explotabilidad'
+        },
+        'grapType':{
+          'title': 'Distribucion por Tipo Hallazgo'
+        },
+        'grapStatus':{
+          'title': 'Hallazgos por Estado'
+        },
+        'tab_container':{
+          'findings': 'Hallazgos',
+          'eventualities': 'Eventualidades'
         }
     };
     if(localStorage['lang'] === undefined){
