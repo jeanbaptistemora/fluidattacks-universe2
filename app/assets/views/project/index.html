@@ -172,7 +172,7 @@
     <div class="row">
         <div class="col-md-2 col-xs-12 col-sm-12">
             <button class="btn btn-default btn-block" ng-click="goBack();">
-                <i class="icon s7-angle-left"></i> Volver
+                <i class="icon s7-angle-left"></i> {{'search_findings.project_buttons.back' | translate}}
             </button>
         </div>
         <div class="col-md-8 col-sm-12 col-sm-12 text-left">
@@ -180,7 +180,7 @@
         </div>
         <div class="col-md-2 col-xs-12 col-sm-12" ng-show="isManager">
             <button class="btn btn-danger btn-block" ng-click="deleteFinding();">
-                <i class="icon s7-trash"></i> Eliminar
+                <i class="icon s7-trash"></i> {{'search_findings.project_buttons.delete' | translate}}
             </button>
         </div>
         <div class="col-md-12 col-xs-12 col-sm-12">
@@ -197,31 +197,31 @@
                 <div class="col-md-2 col-sm-6 col-xs-6"  style="padding-bottom: 10px;">
                     <span class="label label-default">{{header.findingID}}</span>
                 </div>
-                <div class="col-md-2 col-sm-6 col-xs-6 text-right">Tipo</div>
+                <div class="col-md-2 col-sm-6 col-xs-6 text-right">{{'search_findings.project_labels.type' | translate}}</div>
                 <div class="col-md-2 col-sm-6 col-xs-6"  style="padding-bottom: 10px;">
                     <span class="label label-default">{{header.findingType}}</span>
                 </div>
-                <div class="col-md-2 col-sm-6 col-xs-6 text-right">Criticidad</div>
+                <div class="col-md-2 col-sm-6 col-xs-6 text-right">{{'search_findings.project_labels.criticity' | translate}}</div>
                 <div class="col-md-2 col-sm-6 col-xs-6"  style="padding-bottom: 10px;">
                         <span class="label label-default" style="{{header.findingValueColor}}">{{header.findingValue}} {{header.findingValueDescription}}</span>
                 </div>
             </div>
             <div class="row">
-                <div class="col-md-2 col-sm-6 col-xs-6 text-right">Vulnerabilidades</div>
+                <div class="col-md-2 col-sm-6 col-xs-6 text-right">{{'search_findings.project_labels.vulnerabilities' | translate}}</div>
                 <div class="col-md-2 col-sm-6 col-xs-6"  style="padding-bottom: 10px;">
                     <span class="label label-default">{{header.findingCount}}</span>
                 </div>
-                <div class="col-md-2 col-sm-6 col-xs-6 text-right">Estado</div>
+                <div class="col-md-2 col-sm-6 col-xs-6 text-right">{{'search_findings.project_labels.status' | translate}}</div>
                 <div class="col-md-2 col-sm-6 col-xs-6"  style="padding-bottom: 10px;">
                     <span class="label label-default" style="{{header.findingStateColor}}">{{header.findingState}}</span>
                 </div>
-                <div class="col-md-2 col-sm-6 col-xs-6 text-right">Fecha Reporte</div>
+                <div class="col-md-2 col-sm-6 col-xs-6 text-right">{{'search_findings.project_labels.report' | translate}}</div>
                 <div class="col-md-2 col-sm-6 col-xs-6"  style="padding-bottom: 10px;">
                     <span class="label label-default control-label">{{finding.timestamp}}</span>
                 </div>
-                <div class="col-md-2 col-sm-6 col-xs-6 text-right">Proyecto Fluid</div>
+                <div class="col-md-2 col-sm-6 col-xs-6 text-right">{{'search_findings.project_labels.project' | translate}}</div>
                 <div class="col-md-2 col-sm-6 col-xs-6">{{finding.proyecto_fluid}}</div>
-                <div class="col-md-2 col-sm-6 col-xs-6 text-right">Proyecto Cliente</div>
+                <div class="col-md-2 col-sm-6 col-xs-6 text-right">{{'search_findings.project_labels.client' | translate}}</div>
                 <div class="col-md-6 col-sm-6 col-xs-6">{{finding.proyecto_cliente}}</div>
             </div>
         </div>
@@ -231,7 +231,7 @@
                 <ul class="nav pills-tabs nav-justified" style="background-color: white; border-bottom: 1px #eee solid;">
                     <li class="active" style="font-size:16px;">
                         <a href="#info" data-toggle="tab" aria-expanded="false">
-                        <i class="icon s7-note2" ></i>&nbsp;Descripción</a>
+                        <i class="icon s7-note2" ></i>&nbsp;{{'search_findings.tab_description.description_name' | translate}}</a>
                     </li>
                     <li class="" style="font-size:16px;">
                         <a href="#cssv2" data-toggle="tab" aria-expanded="false">
@@ -243,7 +243,7 @@
                     </li>
                     <li style="font-size:16px;">
                         <a href="#evidence" data-toggle="tab">
-                        <i class="icon s7-photo"></i>&nbsp;Evidencia</a>
+                        <i class="icon s7-photo"></i>&nbsp;{{'search_findings.tab_evidence.evidence_name' | translate}}</a>
                     </li>
                 </ul>
                 <!-- Start Tabs -->
@@ -253,20 +253,20 @@
                         <div class="row">
                             <div class="col-md-12 col-sm-12 col-xs-12">
                                 <div class="row table-row" ng-show="isManager && !onlyReadableTab1">
-                                    <div class="col-md-3 col-xs-12 col-sm-12 table-head"><label><b>Tipo Hallazgo</b></label></div>
+                                    <div class="col-md-3 col-xs-12 col-sm-12 table-head"><label><b>{{'search_findings.tab_description.type' | translate}}</b></label></div>
                                     <div class="col-md-9 col-xs-12 col-sm-12 table-desc">
                                         <p ng-show="onlyReadableTab1">{{finding.nivel}}</p>
                                         <select ng-model="finding.nivel"
                                                 ng-show="!onlyReadableTab1"
                                                 ng-change="detectNivel();"
                                                 class="form-control">
-                                            <option value="Detallado">Detallado</option>
-                                            <option value="General">General</option>
+                                            <option value="Detallado">{{'search_findings.tab_description.detailed' | translate}}</option>
+                                            <option value="General">{{'search_findings.tab_description.general' | translate}}</option>
                                         </select>
                                     </div>
                                 </div>
                                 <div class="row table-row">
-                                    <div class="col-md-3 col-xs-12 col-sm-12 table-head"><label><b>Título</b></label></div>
+                                    <div class="col-md-3 col-xs-12 col-sm-12 table-head"><label><b>{{'search_findings.tab_description.title' | translate}}</b></label></div>
                                     <div class="col-md-9 col-xs-12 col-sm-12 table-desc">
                                         <p ng-show="onlyReadableTab1">{{finding.hallazgo}}</p>
                                         <input type="text" class="form-control"
@@ -275,7 +275,7 @@
                                     </div>
                                 </div>
                                 <div class="row table-row">
-                                    <div class="col-md-3 col-xs-12 col-sm-12 table-head"><label><b>Escenario</b></label></div>
+                                    <div class="col-md-3 col-xs-12 col-sm-12 table-head"><label><b>{{'search_findings.tab_description.stage' | translate}}</b></label></div>
                                     <div class="col-md-3 col-xs-12 col-sm-12 table-desc">
                                         <p ng-show="onlyReadableTab1">{{finding.escenario}}</p>
                                         <select ng-model="finding.escenario"
@@ -297,7 +297,7 @@
                                     </div>
                                 </div>
                                 <div class="row table-row" ng-show="esDetallado">
-                                    <div class="col-md-3 col-xs-12 col-sm-12 table-head"><label><b>Categoría</b></label></div>
+                                    <div class="col-md-3 col-xs-12 col-sm-12 table-head"><label><b>{{'search_findings.tab_description.category' | translate}}</b></label></div>
                                     <div class="col-md-3 col-xs-12 col-sm-12 table-desc">
                                         <p ng-show="onlyReadableTab1">{{finding.categoria}}</p>
                                         <select ng-model="finding.categoria"
@@ -309,7 +309,7 @@
                                             </option>
                                         </select>
                                     </div>
-                                    <div class="col-md-3 col-xs-12 col-sm-12 table-head"><label><b>Valor Riesgo</b></label></div>
+                                    <div class="col-md-3 col-xs-12 col-sm-12 table-head"><label><b>{{'search_findings.tab_description.risk' | translate}}</b></label></div>
                                     <div class="col-md-3 col-xs-12 col-sm-12 table-desc">
                                         <p ng-show="onlyReadableTab1">{{finding.valor_riesgo}}</p>
                                         <input type="text" class="form-control"
@@ -318,7 +318,7 @@
                                     </div>
                                 </div>
                                 <div class="row table-row" ng-show="esDetallado">
-                                    <div class="col-md-3 col-xs-12 col-sm-12 table-head"><label><b>Probabilidad</b></label></div>
+                                    <div class="col-md-3 col-xs-12 col-sm-12 table-head"><label><b>{{'search_findings.tab_description.probability' | translate}}</b></label></div>
                                     <div class="col-md-3 col-xs-12 col-sm-12 table-desc">
                                         <p ng-show="onlyReadableTab1">{{finding.probabilidad}}</p>
                                         <select ng-model="finding.probabilidad"
@@ -331,7 +331,7 @@
                                             </option>
                                         </select>
                                     </div>
-                                    <div class="col-md-3 col-xs-12 col-sm-12 table-head"><label><b>Severidad</b></label></div>
+                                    <div class="col-md-3 col-xs-12 col-sm-12 table-head"><label><b>{{'search_findings.tab_description.severity' | translate}}</b></label></div>
                                     <div class="col-md-3 col-xs-12 col-sm-12 table-desc">
                                         <p ng-show="onlyReadableTab1">{{finding.severidad}}</p>
                                         <input type="text" class="form-control"
@@ -342,7 +342,7 @@
                                     </div>
                                 </div>
                                 <div class="row table-row">
-                                    <div class="col-md-3 col-xs-12 col-sm-12 table-head"><label><b>Descripción</b></label></div>
+                                    <div class="col-md-3 col-xs-12 col-sm-12 table-head"><label><b>{{'search_findings.tab_description.description' | translate}}</b></label></div>
                                     <div class="col-md-9 col-xs-12 col-sm-12 table-desc">
                                         <p ng-show="onlyReadableTab1">{{finding.vulnerabilidad}}</p>
                                         <textarea class="form-control no-resize"
@@ -351,7 +351,7 @@
                                     </div>
                                 </div>
                                 <div class="row table-row">
-                                    <div class="col-md-3 col-xs-12 col-sm-12 table-head"><label><b>Requisitos</b></label></div>
+                                    <div class="col-md-3 col-xs-12 col-sm-12 table-head"><label><b>{{'search_findings.tab_description.requirements' | translate}}</b></label></div>
                                     <div class="col-md-9 col-xs-12 col-sm-12 table-desc">
                                         <p ng-show="onlyReadableTab1">{{finding.requisitos}}</p>
                                         <textarea class="form-control no-resize"
@@ -360,7 +360,7 @@
                                     </div>
                                 </div>
                                 <div class="row table-row">
-                                    <div class="col-md-3 col-xs-12 col-sm-12 table-head"><label><b>Dónde</b></label></div>
+                                    <div class="col-md-3 col-xs-12 col-sm-12 table-head"><label><b>{{'search_findings.tab_description.where' | translate}}</b></label></div>
                                     <div class="col-md-9 col-xs-12 col-sm-12 table-desc">
                                         <textarea class="form-control" rows="6"
                                                   ng-show="onlyReadableTab1"
@@ -371,7 +371,7 @@
                                     </div>
                                 </div>
                                 <div class="row table-row">
-                                    <div class="col-md-3 col-xs-12 col-sm-12 table-head"><label><b>Cardinalidad</b></label></div>
+                                    <div class="col-md-3 col-xs-12 col-sm-12 table-head"><label><b>{{'search_findings.tab_description.cardinality' | translate}}</b></label></div>
                                     <div class="col-md-9 col-xs-12 col-sm-12 table-desc">
                                         <p ng-show="onlyReadableTab1">{{finding.cardinalidad}}</p>
                                         <input type="text" class="form-control"
@@ -380,14 +380,14 @@
                                     </div>
                                 </div>
                                 <div class="row table-row">
-                                    <div class="col-md-3 col-xs-12 col-sm-12 table-head"><label><b>Vectores de ataque</b></label></div>
+                                    <div class="col-md-3 col-xs-12 col-sm-12 table-head"><label><b>{{'search_findings.tab_description.vectors' | translate}}</b></label></div>
                                     <div class="col-md-3 col-xs-12 col-sm-12 table-desc">
                                         <p ng-show="onlyReadableTab1">{{finding.vector_ataque}}</p>
                                         <textarea class="form-control no-resize"
                                                   ng-show="!onlyReadableTab1"
                                                   ng-model="finding.vector_ataque">{{finding.vector_ataque}}</textarea>
                                     </div>
-                                    <div class="col-md-3 col-xs-12 col-sm-12 table-head"><label><b>Amenaza</b></label></div>
+                                    <div class="col-md-3 col-xs-12 col-sm-12 table-head"><label><b>{{'search_findings.tab_description.threat' | translate}}</b></label></div>
                                     <div class="col-md-3 col-xs-12 col-sm-12 table-desc">
                                         <p ng-show="onlyReadableTab1">{{finding.amenaza}}</p>
                                         <textarea class="form-control no-resize"
@@ -396,14 +396,14 @@
                                     </div>
                                 </div>
                                 <div class="row table-row">
-                                    <div class="col-md-3 col-xs-12 col-sm-12 table-head"><label><b>Recomendación</b></label></div>
+                                    <div class="col-md-3 col-xs-12 col-sm-12 table-head"><label><b>{{'search_findings.tab_description.recommendation' | translate}}</b></label></div>
                                     <div class="col-md-3 col-xs-12 col-sm-12 table-desc">
                                         <p ng-show="onlyReadableTab1">{{finding.solucion_efecto}}</p>
                                         <textarea class="form-control no-resize"
                                                   ng-show="!onlyReadableTab1"
                                                   ng-model="finding.solucion_efecto">{{finding.solucion_efecto}}</textarea>
                                     </div>
-                                    <div class="col-md-3 col-xs-12 col-sm-12 table-head"><label><b>Sistemas Comprometidos</b></label></div>
+                                    <div class="col-md-3 col-xs-12 col-sm-12 table-head"><label><b>{{'search_findings.tab_description.system' | translate}}</b></label></div>
                                     <div class="col-md-3 col-xs-12 col-sm-12 table-desc">
                                         <p ng-show="onlyReadableTab1">{{finding.sistema_comprometido}}</p>
                                         <textarea class="form-control no-resize"
@@ -412,14 +412,14 @@
                                     </div>
                                 </div>
                                 <div class="row table-row">
-                                        <div class="col-md-3 col-xs-12 col-sm-12 table-head"><label><b>Registros Comprometidos</b></label></div>
+                                        <div class="col-md-3 col-xs-12 col-sm-12 table-head"><label><b>{{'search_findings.tab_description.records' | translate}}</b></label></div>
                                         <div class="col-md-3 col-xs-12 col-sm-12 table-desc">
                                             <p ng-show="onlyReadableTab1">{{finding.registros}}</p>
                                             <textarea class="form-control no-resize"
                                                       ng-show="!onlyReadableTab1"
                                                       ng-model="finding.registros">{{finding.registros}}</textarea>
                                         </div>
-                                        <div class="col-md-3 col-xs-12 col-sm-12 table-head"><label><b>Total Registros Comprometidos</b></label></div>
+                                        <div class="col-md-3 col-xs-12 col-sm-12 table-head"><label><b>{{'search_findings.tab_description.totalrecords' | translate}}</b></label></div>
                                         <div class="col-md-3 col-xs-12 col-sm-12 table-desc">
                                             <p ng-show="onlyReadableTab1">{{finding.registros_num}}</p>
                                             <textarea class="form-control no-resize"
@@ -428,7 +428,7 @@
                                         </div>
                                     </div>
                                 <div class="row table-row">
-                                    <div class="col-md-3 col-xs-12 col-sm-12 table-head"><label><b>Debilidad</b></label></div>
+                                    <div class="col-md-3 col-xs-12 col-sm-12 table-head"><label><b>{{'search_findings.tab_description.weakness' | translate}}</b></label></div>
                                     <div class="col-md-9 col-xs-12 col-sm-12 table-desc">
                                         <p ng-show="onlyReadableTab1">{{finding.cwe}}</p>
                                         <input type="text" class="form-control"
@@ -439,12 +439,12 @@
                                 <div class="row table-row" ng-show="isManager">
                                     <div class="col-md-4 col-md-offset-3 col-xs-12 col-sm-12">
                                         <button class="btn btn-default btn-block"
-                                                ng-click="descriptionEditable();">Hacer Editable</button>
+                                                ng-click="descriptionEditable();">{{'search_findings.tab_description.editable' | translate}}</button>
                                     </div>
                                     <div class="col-md-4 col-xs-12 col-sm-12">
                                         <button class="btn btn-success btn-block"
                                                 ng-show="!onlyReadableTab1"
-                                                ng-click="updateDescription();">Actualizar</button>
+                                                ng-click="updateDescription();">{{'search_findings.tab_description.update' | translate}}</button>
                                     </div>
                                 </div>
                             </div>
@@ -456,7 +456,7 @@
                         <div class="row">
                             <div class="col-md-12 col-sm-12 col-xs-12">
                                 <div class="row table-row">
-                                    <div class="col-md-3 col-xs-12 col-sm-12 table-head"><label><b>Vector de Acceso</b></label></div>
+                                    <div class="col-md-3 col-xs-12 col-sm-12 table-head"><label><b>{{'search_findings.tab_cssv2.vector' | translate}}</b></label></div>
                                     <div class="col-md-9 col-xs-12 col-sm-12 table-desc">
                                         <p ng-show="onlyReadableTab2">{{finding.vector_acceso}}</p>
                                         <select ng-model="finding.vector_acceso"
@@ -471,7 +471,7 @@
                                     </div>
                                 </div>
                                 <div class="row table-row">
-                                    <div class="col-md-3 col-xs-12 col-sm-12 table-head"><label><b>Impacto Confidencialidad</b></label></div>
+                                    <div class="col-md-3 col-xs-12 col-sm-12 table-head"><label><b>{{'search_findings.tab_cssv2.confidenciality' | translate}}</b></label></div>
                                     <div class="col-md-9 col-xs-12 col-sm-12 table-desc">
                                         <p ng-show="onlyReadableTab2">{{finding.impacto_confidencialidad}}</p>
                                         <select ng-model="finding.impacto_confidencialidad"
@@ -485,7 +485,7 @@
                                         </select>
                                     </div>
                                 </div><div class="row table-row">
-                                    <div class="col-md-3 col-xs-12 col-sm-12 table-head"><label><b>Impacto Integridad</b></label></div>
+                                    <div class="col-md-3 col-xs-12 col-sm-12 table-head"><label><b>{{'search_findings.tab_cssv2.integrity' | translate}}</b></label></div>
                                     <div class="col-md-9 col-xs-12 col-sm-12 table-desc">
                                         <p ng-show="onlyReadableTab2">{{finding.impacto_integridad}}</p>
                                         <select ng-model="finding.impacto_integridad"
@@ -500,7 +500,7 @@
                                     </div>
                                 </div>
                                 <div class="row table-row">
-                                    <div class="col-md-3 col-xs-12 col-sm-12 table-head"><label><b>Impacto Disponibilidad</b></label></div>
+                                    <div class="col-md-3 col-xs-12 col-sm-12 table-head"><label><b>{{'search_findings.tab_cssv2.availability' | translate}}</b></label></div>
                                     <div class="col-md-9 col-xs-12 col-sm-12 table-desc">
                                         <p ng-show="onlyReadableTab2">{{finding.impacto_disponibilidad}}</p>
                                         <select ng-model="finding.impacto_disponibilidad"
@@ -515,7 +515,7 @@
                                     </div>
                                 </div>
                                 <div class="row table-row">
-                                    <div class="col-md-3 col-xs-12 col-sm-12 table-head"><label><b>Autenticación</b></label></div>
+                                    <div class="col-md-3 col-xs-12 col-sm-12 table-head"><label><b>{{'search_findings.tab_cssv2.authentication' | translate}}</b></label></div>
                                     <div class="col-md-9 col-xs-12 col-sm-12 table-desc">
                                         <p ng-show="onlyReadableTab2">{{finding.autenticacion}}</p>
                                         <select ng-model="finding.autenticacion"
@@ -530,7 +530,7 @@
                                     </div>
                                 </div>
                                 <div class="row table-row">
-                                    <div class="col-md-3 col-xs-12 col-sm-12 table-head"><label><b>Explotabilidad</b></label></div>
+                                    <div class="col-md-3 col-xs-12 col-sm-12 table-head"><label><b>{{'search_findings.tab_cssv2.exploitability' | translate}}</b></label></div>
                                     <div class="col-md-9 col-xs-12 col-sm-12 table-desc">
                                         <p ng-show="onlyReadableTab2">{{finding.explotabilidad}}</p>
                                         <select ng-model="finding.explotabilidad"
@@ -545,7 +545,7 @@
                                     </div>
                                 </div>
                                 <div class="row table-row">
-                                    <div class="col-md-3 col-xs-12 col-sm-12 table-head"><label><b>Nivel Confianza</b></label></div>
+                                    <div class="col-md-3 col-xs-12 col-sm-12 table-head"><label><b>{{'search_findings.tab_cssv2.confidence' | translate}}</b></label></div>
                                     <div class="col-md-9 col-xs-12 col-sm-12 table-desc">
                                         <p ng-show="onlyReadableTab2">{{finding.nivel_confianza}}</p>
                                         <select ng-model="finding.nivel_confianza"
@@ -560,7 +560,7 @@
                                     </div>
                                 </div>
                                 <div class="row table-row">
-                                    <div class="col-md-3 col-xs-12 col-sm-12 table-head"><label><b>Nivel Resolución</b></label></div>
+                                    <div class="col-md-3 col-xs-12 col-sm-12 table-head"><label><b>{{'search_findings.tab_cssv2.resolution' | translate}}</b></label></div>
                                     <div class="col-md-9 col-xs-12 col-sm-12 table-desc">
                                         <p ng-show="onlyReadableTab2">{{finding.nivel_resolucion}}</p>
                                         <select ng-model="finding.nivel_resolucion"
@@ -575,7 +575,7 @@
                                     </div>
                                 </div>
                                 <div class="row table-row">
-                                    <div class="col-md-3 col-xs-12 col-sm-12 table-head"><label><b>Complejidad Acceso</b></label></div>
+                                    <div class="col-md-3 col-xs-12 col-sm-12 table-head"><label><b>{{'search_findings.tab_cssv2.complexity' | translate}}</b></label></div>
                                     <div class="col-md-9 col-xs-12 col-sm-12 table-desc">
                                         <p ng-show="onlyReadableTab2">{{finding.complejidad_acceso}}</p>
                                         <select ng-model="finding.complejidad_acceso"
@@ -598,12 +598,12 @@
                                 <div class="row table-row" ng-show="isManager">
                                     <div class="col-md-4 col-md-offset-3 col-xs-12 col-sm-12">
                                         <button class="btn btn-default btn-block"
-                                                ng-click="cssv2Editable();">Hacer Editable</button>
+                                                ng-click="cssv2Editable();">{{'search_findings.tab_cssv2.editable' | translate}}</button>
                                     </div>
                                     <div class="col-md-4 col-xs-12 col-sm-12">
                                         <button class="btn btn-success btn-block"
                                                 ng-show="!onlyReadableTab2"
-                                                ng-click="updateCSSv2();">Actualizar</button>
+                                                ng-click="updateCSSv2();">{{'search_findings.tab_cssv2.update' | translate}}</button>
                                     </div>
                                 </div>
                             </div>
@@ -614,11 +614,11 @@
                     <div id="tracking" class="tab-pane cont">
                         <div class="row">
                             <div class="col-md-12">
-                                <p>Vulnerabilidades Abiertas</p>
+                                <p>{{'search_findings.tab_tracking.open' | translate}}</p>
                                 <textarea class="form-control" rows="4" disabled>{{finding.donde}}</textarea>
                             </div>
                             <div class="col-md-12">
-                                <p>Vulnerabilidades Cerradas</p>
+                                <p>{{'search_findings.tab_tracking.close' | translate}}</p>
                                 <textarea class="form-control" rows="4" disabled>{{finding.cerradas}}</textarea>
                             </div>
                         </div>
@@ -630,7 +630,7 @@
                                         <div class="timeline-content">
                                             <table class="table table-bordered table-responsive" style="max-width: 350px;">
                                                 <tr class="text-center">
-                                                    <td colspan="2"><b>Hallazgo reportado</b></td>
+                                                    <td colspan="2"><b>{{'search_findings.tab_tracking.finding' | translate}}</b></td>
                                                 </tr>
                                             </table>
                                         </div>
@@ -640,14 +640,14 @@
                                         <div class="timeline-content">
                                             <table class="table table-bordered table-responsive" style="max-width: 350px;">
                                                 <tr class="text-center">
-                                                    <td colspan="2"><b>Ciclo de cierre {{x.position}}</b></td>
+                                                    <td colspan="2"><b>{{'search_findings.tab_tracking.cicle' | translate}} {{x.position}}</b></td>
                                                 </tr>
                                                 <tr>
-                                                    <td>Vulnerabilidades Abiertas</td>
+                                                    <td>{{'search_findings.tab_tracking.open' | translate}}</td>
                                                     <td>{{x.abiertas}}</td>
                                                 </tr>
                                                 <tr>
-                                                    <td>Vulnerabilidades Cerradas</td>
+                                                    <td>{{'search_findings.tab_tracking.close' | translate}}</td>
                                                     <td>{{x.cerradas}}</td>
                                                 </tr>
                                             </table>
@@ -664,7 +664,7 @@
                             <div class="col-md-4 col-md-offset-4 col-xs-12 col-sm-12">
                                 <button class="btn btn-default btn-block"
                                         ng-click="evidenceEditable();">
-                                    Hacer Editable
+                                    {{'search_findings.tab_evidence.editable' | translate}}
                                 </button>
                             </div>
                         </div>
@@ -679,7 +679,7 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="row">
-                                    <label><b>Detalle</b></label>
+                                    <label><b>{{'search_findings.tab_evidence.detail' | translate}}</b></label>
                                 </div>
                                 <div class="row">
                                     <p ng-show="onlyReadableTab3">{{ev.desc}}</p>
@@ -690,7 +690,7 @@
                                             ng-show="!onlyReadableTab3"
                                             reference="{{ev.ref}}"
                                             ng-click="updateEvidenceText(this);">
-                                            Actualizar
+                                            {{'search_findings.tab_evidence.update' | translate}}
                                     </button>
                                 </div>
                             </div>
@@ -706,7 +706,7 @@
         <div class="row">
             <div class="col-md-4 col-md-offset-4 col-sm-12 col-xs-12 text-center" style="margin-bottom: 15px !important;">
                 <button class="btn btn-default" ng-click="goBack();">
-                    <i class="icon s7-angle-left"></i> Volver
+                    <i class="icon s7-angle-left"></i> {{'search_findings.project_buttons.back' | translate}}
                 </button>
             </div>
         </div>
