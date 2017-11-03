@@ -104,7 +104,54 @@ integrates.config(['$translateProvider', function($translateProvider) {
         'tab_container':{
           'findings': 'Findings',
           'eventualities': 'Eventualities'
-        }
+        },
+        'event_by_name':{
+          'page_head':{
+            'search': 'Search',
+            'vuln_by_proj': 'Eventualities by project '
+          },
+          'main_content':{
+            'id': 'ID',
+            'name': 'Name'
+          },
+          'modal_avance':{
+            'title': 'Eventualities Resume'
+          },
+          'modal_ver':{
+            'type': 'Type',
+            'analyst': 'Analyst',
+            'f_proj': 'Fluid Project',
+            'c_proj': 'Client Project',
+            'client': 'Client',
+            'detail': 'Description',
+            'date': 'Date',
+            'affec': 'Affection',
+            'ok': 'OK'
+         },
+          'modal_edit':{
+            'type': 'Type',
+            'analyst': 'Analyst',
+            'f_proj': 'Fluid Project',
+            'c_proj': 'Client Project',
+            'client': 'Client',
+            'detail': 'Description',
+            'date': 'Date',
+            'affec': 'Affection',
+            'close': 'Close',
+            'refresh': 'Update'
+         },
+         'row':{
+           'muted': 'Please wait, loading...',
+           'event': 'EVENTUALITIES',
+           'affect': 'TOTAL AFFECTATION'
+         },
+         'table':{
+           'date': 'Date',
+           'type': 'Type',
+           'affect':'Affectation',
+           'status':'Status'
+         }
+       }
     };
     var traducciones = {
         'logout': {
@@ -200,7 +247,54 @@ integrates.config(['$translateProvider', function($translateProvider) {
         'tab_container':{
           'findings': 'Hallazgos',
           'eventualities': 'Eventualidades'
-        }
+        },
+        'event_by_name':{
+          'page_head':{
+            'search': 'Busqueda',
+            'vuln_by_proj': 'Eventualidades por proyecto'
+          },
+          'main_content':{
+            'id': 'ID',
+            'name': 'Nombre'
+          },
+          'modal_avance':{
+            'title': 'Resumen eventualidades'
+          },
+          'modal_ver':{
+            'type': 'Tipo',
+            'analyst': 'Analista',
+            'f_proj': 'Proyecto Fluid',
+            'c_proj': 'Proyecto Cliente',
+            'client': 'Cliente',
+            'detail': 'Detalle',
+            'date': 'Fecha',
+            'affec': 'Afectacion',
+            'ok': 'OK'
+         },
+          'modal_edit':{
+            'type': 'Tipo',
+            'analyst': 'Analista',
+            'f_proj': 'Proyecto Fluid',
+            'c_proj': 'Proyecto Cliente',
+            'client': 'Cliente',
+            'detail': 'Detalle',
+            'date': 'Fecha',
+            'affec': 'Afectacion',
+            'close': 'Cerrar',
+            'refresh': 'Actualizar'
+         },
+         'row':{
+           'muted': 'Un momento por favor, cargando...',
+           'event': 'EVENTUALIDADES',
+           'affect': 'AFECTACION TOTAL'
+         },
+         'table':{
+           'date': 'Fecha',
+           'type': 'Tipo',
+           'affect':'Afectacion',
+           'status':'Estado'
+         }
+       }
     };
     if(localStorage['lang'] === undefined){
         localStorage['lang'] = 'es';
