@@ -49,7 +49,7 @@ integrates.config(['$translateProvider', function($translateProvider) {
                 'findings': 'Findings',
                 'cardinalities': 'Vulnerabilities',
                 'criticity': 'Total Criticity Found',
-                'closure': 'Closure Effectiveness'
+                'closure': 'Findings Fixed'
             },
             'filter_buttons':{
                 'advance': 'Progress',
@@ -72,10 +72,10 @@ integrates.config(['$translateProvider', function($translateProvider) {
             'descriptions':{
               'description1': '',
               'description2': 'Click',
-              'description3': 'to see more details of the find'
+              'description3': 'to see more details'
             },
             'eventualities':{
-              'description': 'Click to see the detail'
+              'description': 'Click to see more details'
             },
             'project_buttons':{
               'back': 'Go Back',
@@ -144,22 +144,22 @@ integrates.config(['$translateProvider', function($translateProvider) {
         'main_content':{
           'projects':{
             'title': 'My Projects',
-            'description1': 'You can see details of a project by ',
+            'description1': 'You could check the details of a project ',
             'description2': 'clicking',
             'description3': ' on it'
           },
           'eventualities':{
                 'title': 'My Eventualities',
-                'description_1': 'You can see details of a eventuality by',
+                'description_1': 'You could check the details of a eventuality ',
                 'description_2': 'clicking',
                 'description_3': 'on it'
               }
         },
         'grapExploit':{
-          'title': 'Distribution by Exploitability'
+          'title': 'Exploitability'
         },
         'grapType':{
-          'title': 'Distribution by Finding Type'
+          'title': 'Finding Type'
         },
         'grapStatus':{
           'title': 'Findings by Status'
