@@ -76,6 +76,69 @@ integrates.config(['$translateProvider', function($translateProvider) {
             },
             'eventualities':{
               'description': 'Click to see the detail'
+            },
+            'project_buttons':{
+              'back': 'Go Back',
+              'delete': 'Delete'
+            },
+            'project_labels':{
+              'type': 'Type',
+              'criticity': 'Criticity',
+              'vulnerabilities': 'Vulnerabilities',
+              'status': 'Status',
+              'report': 'Report Date',
+              'project': 'Fluid Project',
+              'client': 'Client Project'
+            },
+            'tab_description':{
+              'description_name': 'Description',
+              'type': 'Finding Type',
+              'detailed': 'Detailed',
+              'general': 'General',
+              'title': 'Title',
+              'stage': 'Stage',
+              'category': 'Category',
+              'risk': 'Risk Value',
+              'probability': 'Probability',
+              'severity': 'Severity',
+              'description': 'Description',
+              'requirements': 'Requirements',
+              'where': 'Where',
+              'cardinality': 'Cardinality',
+              'vectors': 'Attack Vectors',
+              'threat': 'Threat',
+              'recommendation': 'Recommendation',
+              'system': 'Committed Systems',
+              'records': 'Committed Records',
+              'totalrecords': 'Total Committed Records',
+              'weakness': 'Weakness',
+              'editable': 'Make Editable',
+              'update': 'Update'
+            },
+            'tab_cssv2':{
+              'vector': 'Access Vector',
+              'confidenciality': 'Confidentiality Impact',
+              'integrity': 'Integrity Impact',
+              'availability': 'Availability Impact',
+              'authentication': 'Authentication',
+              'exploitability': 'Exploitability',
+              'confidence': 'Confidence Level',
+              'resolution':'Resolution Level',
+              'complexity': 'Access Complexity',
+              'editable': 'Make Editable',
+              'update':'Update'
+            },
+            'tab_tracking':{
+              'open': 'Open Vulnerabilities',
+              'close': 'Close Vulnerabilities',
+              'finding': 'Reported Finding',
+              'cicle': 'Closing cycle'
+            },
+            'tab_evidence':{
+              'evidence_name':'Evidence',
+              'editable': 'Make Editable',
+              'detail': 'Detail',
+              'update':'Update'
             }
         },
         'main_content':{
@@ -96,7 +159,7 @@ integrates.config(['$translateProvider', function($translateProvider) {
           'title': 'Distribution by Exploitability'
         },
         'grapType':{
-          'title': 'Distribution by Type Find'
+          'title': 'Distribution by Finding Type'
         },
         'grapStatus':{
           'title': 'Findings by Status'
@@ -190,6 +253,69 @@ integrates.config(['$translateProvider', function($translateProvider) {
             },
             'eventualities':{
               'description': 'Haz click para ver el detalle'
+            },
+            'project_buttons':{
+              'back': 'Volver',
+              'delete': 'Eliminar'
+            },
+            'project_labels':{
+              'type': 'Tipo',
+              'criticity': 'Criticidad',
+              'vulnerabilities': 'Vulnerabilidades',
+              'status': 'Estado',
+              'report': 'Fecha Reporte',
+              'project': 'Proyecto Fluid',
+              'client': 'Proyecto Cliente'
+            },
+            'tab_description':{
+              'description_name': 'Descripcion',
+              'type': 'Tipo Hallazgo',
+              'detailed': 'Detallado',
+              'general': 'General',
+              'title': 'Titulo',
+              'stage': 'Escenario',
+              'category': 'Categoria',
+              'risk': 'Valor Riesgo',
+              'probability': 'Probabilidad',
+              'severity': 'Severidad',
+              'description': 'Descripcion',
+              'requirements': 'Requisitos',
+              'where': 'Donde',
+              'cardinality': 'Cardinalidad',
+              'vectors': 'Vectores de ataque',
+              'threat': 'Amenaza',
+              'recommendation': 'Recomendacion',
+              'system': 'Sistemas Comprometidos',
+              'records': 'Registros Comprometidos',
+              'totalrecords': 'Total Registros Comprometidos',
+              'weakness': 'Debilidad',
+              'editable': 'Hacer Editable',
+              'update': 'Actualizar'
+            },
+            'tab_cssv2':{
+              'vector': 'Vector de Acceso',
+              'confidenciality': 'Impacto Confidencialidad',
+              'integrity': 'Impacto Integridad',
+              'availability': 'Impacto Disponibilidad',
+              'authentication': 'Autenticacion',
+              'exploitability': 'Explotabilidad',
+              'confidence': 'Nivel Confianza',
+              'resolution':'Nivel Resolucion',
+              'complexity': 'Complejidad Acceso',
+              'editable': 'Hacer Editable',
+              'update':'Actualizar'
+            },
+            'tab_tracking':{
+              'open': 'Vulnerabilidades Abiertas',
+              'close': 'Vulnerabilidades Cerradas',
+              'finding': 'Hallazgo reportado',
+              'cicle': 'Ciclo de cierre'
+            },
+            'tab_evidence':{
+              'evidence_name':'Evidencia',
+              'editable': 'Hacer Editable',
+              'detail': 'Detalle',
+              'update':'Actualizar'
             }
         },
         'main_content':{
