@@ -15,8 +15,8 @@
                        style="margin-top: 10px;">
             </div>
             <div class="col-md-2 text-left" >
-                <input type="radio" name="category" ng-click="setCategory('ID');"><label>&nbsp;&nbsp;&nbsp;ID</label><br>
-                <input type="radio" name="category" ng-click="setCategory('Name');" checked="true"><label>&nbsp;&nbsp;&nbsp;Nombre</label>
+                <input type="radio" name="category" ng-click="setCategory('ID');"><label>&nbsp;&nbsp;&nbsp;{{'event_by_name.main_content.id' | translate}}</label><br>
+                <input type="radio" name="category" ng-click="setCategory('Name');" checked="true"><label>&nbsp;&nbsp;&nbsp;{{'event_by_name.main_content.name' | translate}}</label>
             </div>
             <div class="col-md-1">
                 <button class="btn btn-primary form-control"
@@ -63,7 +63,7 @@
     <!-- START: MODAL AVANCE -->
     <script type="text/ng-template" id="avance.html">
         <div class="modal-header">
-            <h3 class="modal-title" id="modal-title">Resumen eventualidades</h3>
+            <h3 class="modal-title" id="modal-title">{{'event_by_name.modal_avance.title' | translate}}</h3>
         </div>
         <div class="modal-body" id="modal-body">
             <ul style="list-style: none;">
@@ -81,56 +81,56 @@
             <div class="row">
                 <div class="col-md-8">
                     <div class="form-group">
-                        <label>Tipo</label>
+                        <label>{{'event_by_name.modal_ver.type' | translate}}</label>
                         <input type="text" class="form-control" ng-model="evnt.tipo" disabled>
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="form-group">
-                        <label>Analista</label>
+                        <label>{{'event_by_name.modal_ver.analyst' | translate}}</label>
                         <input type="text" class="form-control" ng-model="evnt.analista" disabled>
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="form-group">
-                        <label>Proyecto Fluid</label>
+                        <label>{{'event_by_name.modal_ver.f_proj' | translate}}</label>
                         <input type="text" class="form-control" ng-model="evnt.proyecto_fluid" disabled>
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="form-group">
-                        <label>Proyecto Cliente</label>
+                        <label>{{'event_by_name.modal_ver.c_proj' | translate}}</label>
                         <input type="text" class="form-control" ng-model="evnt.proyecto_cliente" disabled>
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="form-group">
-                        <label>Cliente</label>
+                        <label>{{'event_by_name.modal_ver.client' | translate}}</label>
                         <input type="text" class="form-control" ng-model="evnt.cliente" disabled>
                     </div>
                 </div>
                 <div class="col-md-12">
                     <div class="form-group">
-                        <label>Detalle</label>
+                        <label>{{'event_by_name.modal_ver.detail' | translate}}</label>
                         <textarea class="form-control" id="email" disabled> {{evnt.detalle}} </textarea>
                     </div>
                 </div>
                 <div class="col-md-6" ng-class="esDetallado">
                     <div class="form-group">
-                        <label>Fecha</label>
+                        <label>{{'event_by_name.modal_ver.date' | translate}}</label>
                         <input type="text" class="form-control" ng-model="evnt.fecha" disabled>
                     </div>
                 </div>
                 <div class="col-md-6" ng-class="esDetallado">
                     <div class="form-group">
-                        <label>Afectacion</label>
+                        <label>{{'event_by_name.modal_ver.affec' | translate}}</label>
                         <input type="number" class="form-control" ng-model="evnt.afectacion" disabled>
                     </div>
                 </div>
             </div>
         </div>
         <div class="modal-footer">
-            <button class="btn btn-primary" type="button" ng-click="closeModalVer()">OK</button>
+            <button class="btn btn-primary" type="button" ng-click="closeModalVer()">{{'event_by_name.modal_ver.ok' | translate}}</button>
         </div>
     </script>
 
@@ -197,13 +197,13 @@
     <div class="row">
         <div class="col-md-12 text-center loader">
             <img src="assets/img/loading.gif" style="margin-top: 25px;" width="90" heigth="90">
-            <h5 class="text-muted">Un momento porfavor, cargando...</h5>
+            <h5 class="text-muted">{{'event_by_name.row.muted' | translate}}</h5>
         </div>
         <div class="col-md-10 col-md-offset-1" id="search_section">
             <div class="row container">
-                <label><b>EVENTUALIDADES</b></label>&nbsp;&nbsp;&nbsp;
+                <label><b>{{'event_by_name.row.event' | translate}}</b></label>&nbsp;&nbsp;&nbsp;
                 <label id="total_eventualidades"></label> &nbsp;&nbsp;&nbsp;
-                <label><b>AFECTACION TOTAL</b></label> &nbsp;&nbsp;&nbsp;
+                <label><b>{{'event_by_name.row.affect' | translate}}</b></label> &nbsp;&nbsp;&nbsp;
                 <label id="total_afectacion"></label> &nbsp;&nbsp;&nbsp;
             </div>
             <!-- START: toolbar -->
@@ -248,13 +248,13 @@
                         <th data-field="id">ID</th>
                         <!--<th data-field="proyecto_fluid">Proyecto</th>-->
                         <th data-field="fecha"
-                            data-sortable="true">Fecha</th>
-                        <th data-field="tipo">Tipo</th>
+                            data-sortable="true">{{'event_by_name.table.date' | translate}}</th>
+                        <th data-field="tipo">{{'event_by_name.table.type' | translate}}</th>
                         <th data-field="afectacion"
                             data-formatter="integrates.afectacionFormatter"
-                            data-sortable="true">Afectacion</th>
+                            data-sortable="true">{{'event_by_name.table.affect' | translate}}</th>
                         <th data-field="estado"
-                            data-sortable="true">Estado</th>
+                            data-sortable="true">{{'event_by_name.table.status' | translate}}</th>
                     </tr>
                 </thead>
             </table>
