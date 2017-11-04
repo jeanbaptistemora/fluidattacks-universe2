@@ -255,7 +255,7 @@ integrates.controller("eventualityController", function($scope, $uibModal, event
             $scope.response = "";
             $.gritter.add({
                 title: 'Consultando',
-                text: 'Un momento porfavor...',
+                text: 'Un momento por favor...',
                 class_name: 'color info',
                 sticky: false,
             });
