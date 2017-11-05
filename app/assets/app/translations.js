@@ -139,7 +139,19 @@ integrates.config(['$translateProvider', function($translateProvider) {
               'editable': 'Make Editable',
               'detail': 'Detail',
               'update':'Update'
-            }
+            },
+            'pop_table':{
+               'type': 'Type',
+               'date': 'Date',
+               'status': 'Status',
+               'details':'Description'
+            },
+            'event_table':{
+               'id': 'ID',
+               'date': 'Date',
+               'type': 'Type',
+               'status': 'Status'
+             }
         },
         'main_content':{
           'projects':{
@@ -345,7 +357,19 @@ integrates.config(['$translateProvider', function($translateProvider) {
               'editable': 'Hacer Editable',
               'detail': 'Detalle',
               'update':'Actualizar'
-            }
+            },
+            'pop_table':{
+               'type': 'Tipo',
+               'date': 'Fecha',
+               'status': 'Estado',
+               'details':'Descripcion'
+             },
+             'event_table':{
+               'id': 'ID',
+               'date': 'Fecha',
+               'type': 'Tipo',
+               'status': 'Estado'
+             }
         },
         'main_content':{
           'projects':{
