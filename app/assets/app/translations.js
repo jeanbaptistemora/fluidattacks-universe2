@@ -151,7 +151,12 @@ integrates.config(['$translateProvider', function($translateProvider) {
                'date': 'Date',
                'type': 'Type',
                'status': 'Status'
+             },
+             'page_head':{
+               'breadcrumb':{
+                'project': 'Project'
              }
+           }
         },
         'main_content':{
           'projects':{
@@ -190,11 +195,13 @@ integrates.config(['$translateProvider', function($translateProvider) {
         'event_by_name':{
           'page_head':{
             'search': 'Search',
-            'vuln_by_proj': 'Events by project '
+            'vuln_by_proj': 'Events by project ',
+            'search': 'Search',
           },
           'main_content':{
             'id': 'ID',
-            'name': 'Name'
+            'name': 'Name',
+            'placeholder':'Name or ID project'
           },
           'modal_avance':{
             'title': 'Events Resume'
@@ -376,7 +383,12 @@ integrates.config(['$translateProvider', function($translateProvider) {
                'date': 'Fecha',
                'type': 'Tipo',
                'status': 'Estado'
+             },
+             'page_head':{
+               'breadcrumb':{
+                'project': 'Proyecto'
              }
+           }
         },
         'main_content':{
           'projects':{
@@ -419,7 +431,8 @@ integrates.config(['$translateProvider', function($translateProvider) {
           },
           'main_content':{
             'id': 'ID',
-            'name': 'Nombre'
+            'name': 'Nombre',
+            'placeholder':'Nombre o ID de proyecto'
           },
           'modal_avance':{
             'title': 'Resumen eventualidades'
