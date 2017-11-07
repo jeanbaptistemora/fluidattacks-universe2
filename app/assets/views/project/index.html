@@ -104,12 +104,6 @@
                                    data-toolbar="#toolbar">
                                 <thead>
                                     <tr class="head-blue" style="background-color: #0361cc; color:white;">
-                                        <th data-field="timestamp"
-                                            data-sortable="true"
-                                            data-width="100"
-                                            data-formatter="removeHour">
-                                            {{'search_findings.table.headings.timestamp' | translate}}
-                                        </th>
                                         <th data-field="edad"
                                             data-align="center"
                                             data-sortable="true">
@@ -368,15 +362,6 @@
                                         <textarea class="form-control" rows="6" style="margin-bottom: 5px;"
                                                   ng-show="!onlyReadableTab1"
                                                   ng-model="finding.donde">{{finding.donde}}</textarea>
-                                    </div>
-                                </div>
-                                <div class="row table-row">
-                                    <div class="col-md-3 col-xs-12 col-sm-12 table-head"><label><b>{{'search_findings.tab_description.cardinality' | translate}}</b></label></div>
-                                    <div class="col-md-9 col-xs-12 col-sm-12 table-desc">
-                                        <p ng-show="onlyReadableTab1">{{finding.cardinalidad}}</p>
-                                        <input type="text" class="form-control"
-                                               ng-show="!onlyReadableTab1"
-                                               ng-model="finding.cardinalidad">
                                     </div>
                                 </div>
                                 <div class="row table-row">
