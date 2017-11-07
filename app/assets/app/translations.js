@@ -42,13 +42,14 @@ integrates.config(['$translateProvider', function($translateProvider) {
                     'infrastructure': 'Infrastructure'
                 },
                 'search':{
-                    'placeholder': 'FLUID project name'
+                    'placeholder': 'FLUID project name',
+                    'button': 'Search',
                 }
             },
             'filter_labels':{
                 'findings': 'Findings',
                 'cardinalities': 'Vulnerabilities',
-                'criticity': 'Total Criticity Found',
+                'criticity': 'Total Severity Found',
                 'closure': 'Vulnerabilities remediated'
             },
             'filter_buttons':{
@@ -197,7 +198,6 @@ integrates.config(['$translateProvider', function($translateProvider) {
           'page_head':{
             'search': 'Search',
             'vuln_by_proj': 'Events by project ',
-            'search': 'Search',
           },
           'main_content':{
             'id': 'ID',
@@ -240,6 +240,11 @@ integrates.config(['$translateProvider', function($translateProvider) {
            'type': 'Type',
            'affect':'Affectation',
            'status':'Status'
+         },
+         'btn_group':{
+           'watch': 'WATCH!',
+           'edit': 'EDIT!',
+           'resume': 'RESUME!'
          }
        }
     };
@@ -275,7 +280,8 @@ integrates.config(['$translateProvider', function($translateProvider) {
                     'infrastructure': 'Infraestructura'
                 },
                 'search':{
-                    'placeholder': 'Nombre del proyecto en Fluid'
+                    'placeholder': 'Nombre del proyecto en Fluid',
+                    'button': 'Ejecutar esta busqueda',
                 }
             },
             'filter_labels':{
@@ -472,6 +478,11 @@ integrates.config(['$translateProvider', function($translateProvider) {
            'type': 'Tipo',
            'affect':'Afectacion',
            'status':'Estado'
+         },
+         'btn_group':{
+           'watch': 'VER!',
+           'edit': 'EDITAR!',
+           'resume': 'RESUMEN!'
          }
        }
     };
