@@ -235,7 +235,7 @@ def get_findings(request):
             finding_parsed['cardinalidad'] = state['abiertas']
         if 'abiertas_cuales' in state:
             finding_parsed['donde'] = state['abiertas_cuales']
-        
+
         if state['estado'] == 'Cerrado':
             finding_parsed['donde'] = '-'
             finding_parsed['edad'] = '-'
@@ -511,7 +511,7 @@ def get_evidence(request):
     if drive_id is None:
         return HttpResponse("Error - ID de imagen no enviado", content_type="text/html")
     else:
-        if not re.match("[a-zA-Z0-9]{20,}", drive_id):
+        if not re.match("[a-zA-Z0-9_-]{20,}", drive_id):
             return HttpResponse("Error - ID con formato incorrecto", content_type="text/html")
         drive_api = DriveAPI(drive_id)
         image = drive_api.FILE
