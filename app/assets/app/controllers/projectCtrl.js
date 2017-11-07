@@ -503,8 +503,10 @@ integrates.controller(
                     }
                 }
             });
-            total_segLabel = "Vulnerabilidad :n%".replace(":n", (total_seg*100/(total_seg+total_hig)).toFixed(2).toString());
-            total_higLabel = "Higiene :n%".replace(":n", (total_hig*100/(total_seg+total_hig)).toFixed(2).toString());
+            var seg_transl = $translate.instant('grapType.seg_Label');
+            var hig_transl = $translate.instant('grapType.hig_Label');
+            total_segLabel = seg_transl + " :n%".replace(":n", (total_seg*100/(total_seg+total_hig)).toFixed(2).toString());
+            total_higLabel = hig_transl + " :n%".replace(":n", (total_hig*100/(total_seg+total_hig)).toFixed(2).toString());
             $("#grapType").empty();
             Morris.Donut({
                 element: 'grapType',
@@ -529,8 +531,10 @@ integrates.controller(
                     }
                 }
             });
-            exploitLabel = "Explotable :n%".replace(":n", (exploit*100/(exploit+nonexploit)).toFixed(2).toString());
-            nonexploitLabel = "No Explotable :n%".replace(":n", (nonexploit*100/(exploit+nonexploit)).toFixed(2).toString());
+            var exploit_transl = $translate.instant('grapExploit.exploit_Label');
+            var nonexploit_transl = $translate.instant('grapExploit.nonexploit_Label');
+            exploitLabel = exploit_transl + " :n%".replace(":n", (exploit*100/(exploit+nonexploit)).toFixed(2).toString());
+            nonexploitLabel = nonexploit_transl + " :n%".replace(":n", (nonexploit*100/(exploit+nonexploit)).toFixed(2).toString());
             $("#grapExploit").empty();
             Morris.Donut({
                 element: 'grapExploit',
@@ -559,9 +563,12 @@ integrates.controller(
                 }
             });
             total = parseFloat(total);
-            openLabel = "Abiertos :n%".replace(":n", (open*100/total).toFixed(2).toString());
-            partialLabel = "Parciales :n%".replace(":n", (partial*100/total).toFixed(2).toString());
-            closeLabel = "Cerrados :n%".replace(":n", (close*100/total).toFixed(2).toString());
+            var open_transl = $translate.instant('grapStatus.open_Label');
+            var partial_transl = $translate.instant('grapStatus.partial_Label');
+            var close_transl = $translate.instant('grapStatus.close_Label');
+            openLabel = open_transl + " :n%".replace(":n", (open*100/total).toFixed(2).toString());
+            partialLabel = partial_transl + " :n%".replace(":n", (partial*100/total).toFixed(2).toString());
+            closeLabel = close_transl + " :n%".replace(":n", (close*100/total).toFixed(2).toString());
             $("#grapStatus").empty();
             Morris.Donut({
                 element: 'grapStatus',

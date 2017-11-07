@@ -168,13 +168,20 @@ integrates.config(['$translateProvider', function($translateProvider) {
               }
         },
         'grapExploit':{
-          'title': 'Exploitability'
+          'title': 'Exploitability',
+          'exploit_Label': 'Exploitable',
+          'nonexploit_Label': 'Not Exploitable'
         },
         'grapType':{
-          'title': 'Finding Type'
+          'title': 'Finding Type',
+          'seg_Label': 'Vulnerability',
+          'hig_Label': 'Hygiene'
         },
         'grapStatus':{
-          'title': 'Findings by Status'
+          'title': 'Findings by Status',
+          'open_Label': 'Open',
+          'partial_Label': 'Partial',
+          'close_Label': 'Closed'
         },
         'tab_container':{
           'findings': 'Findings',
@@ -386,13 +393,20 @@ integrates.config(['$translateProvider', function($translateProvider) {
            }
         },
         'grapExploit':{
-          'title': 'Distribucion por Explotabilidad'
+          'title': 'Distribucion por Explotabilidad',
+          'exploit_Label': 'Explotable',
+          'nonexploit_Label': 'No Explotable'
         },
         'grapType':{
-          'title': 'Distribucion por Tipo Hallazgo'
+          'title': 'Distribucion por Tipo Hallazgo',
+          'seg_Label': 'Vulnerabilidad',
+          'hig_Label': 'Higiene'
         },
         'grapStatus':{
-          'title': 'Hallazgos por Estado'
+          'title': 'Hallazgos por Estado',
+          'open_Label': 'Abiertos',
+          'partial_Label': 'Parciales',
+          'close_Label': 'Cerrados'
         },
         'tab_container':{
           'findings': 'Hallazgos',
