@@ -49,7 +49,7 @@ integrates.config(['$translateProvider', function($translateProvider) {
             'filter_labels':{
                 'findings': 'Findings',
                 'cardinalities': 'Vulnerabilities',
-                'criticity': 'Total Criticity Found',
+                'criticity': 'Total Severity Found',
                 'closure': 'Vulnerabilities remediated'
             },
             'filter_buttons':{
