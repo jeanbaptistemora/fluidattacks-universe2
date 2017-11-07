@@ -19,7 +19,7 @@ integrates.config(['$translateProvider', function($translateProvider) {
         },
         'left_menu': {
             'first': 'Findings',
-            'second': 'Eventualities'
+            'second': 'Events'
         },
         'breadcumbs': {
             'findings': {
@@ -27,8 +27,8 @@ integrates.config(['$translateProvider', function($translateProvider) {
                 'function': 'Findings by project'
             },
             'eventualities':{
-                'page': 'Eventualities',
-                'function': 'Eventualities by project'
+                'page': 'Events',
+                'function': 'Events by project'
             }
         },
         'search_findings': {
@@ -42,14 +42,14 @@ integrates.config(['$translateProvider', function($translateProvider) {
                     'infrastructure': 'Infrastructure'
                 },
                 'search':{
-                    'placeholder': 'Fluid project name'
+                    'placeholder': 'FLUID project name'
                 }
             },
             'filter_labels':{
                 'findings': 'Findings',
                 'cardinalities': 'Vulnerabilities',
                 'criticity': 'Total Criticity Found',
-                'closure': 'Findings Fixed'
+                'closure': 'Vulnerabilities remediated'
             },
             'filter_buttons':{
                 'advance': 'Progress',
@@ -65,7 +65,7 @@ integrates.config(['$translateProvider', function($translateProvider) {
                     'vulnerability': 'Description',
                     'criticity': 'CVSSv2 Score',
                     'cardinality': '# Vuln.',
-                    'state': 'State',
+                    'state': 'Status',
                     'exploit': 'Exploit'
                 }
             },
@@ -87,8 +87,8 @@ integrates.config(['$translateProvider', function($translateProvider) {
               'vulnerabilities': 'Vulnerabilities',
               'status': 'Status',
               'report': 'Report Date',
-              'project': 'Fluid Project',
-              'client': 'Client Project'
+              'project': 'FLUID\'s Project',
+              'client': 'Customer\'s Project'
             },
             'tab_description':{
               'description_name': 'Description',
@@ -96,7 +96,7 @@ integrates.config(['$translateProvider', function($translateProvider) {
               'detailed': 'Detailed',
               'general': 'General',
               'title': 'Title',
-              'stage': 'Stage',
+              'stage': 'Scenario',
               'category': 'Category',
               'risk': 'Risk Value',
               'probability': 'Probability',
@@ -104,15 +104,15 @@ integrates.config(['$translateProvider', function($translateProvider) {
               'description': 'Description',
               'requirements': 'Requirements',
               'where': 'Where',
-              'cardinality': 'Cardinality',
+              'cardinality': 'Vulnerability',
               'vectors': 'Attack Vectors',
               'threat': 'Threat',
               'recommendation': 'Recommendation',
               'system': 'Committed Systems',
-              'records': 'Committed Records',
-              'totalrecords': 'Total Committed Records',
+              'records': 'Compromised Records',
+              'totalrecords': 'Total Compromised Records',
               'weakness': 'Weakness',
-              'editable': 'Make Editable',
+              'editable': 'Edit',
               'update': 'Update'
             },
             'tab_cssv2':{
@@ -125,18 +125,18 @@ integrates.config(['$translateProvider', function($translateProvider) {
               'confidence': 'Confidence Level',
               'resolution':'Resolution Level',
               'complexity': 'Access Complexity',
-              'editable': 'Make Editable',
+              'editable': 'Edit',
               'update':'Update'
             },
             'tab_tracking':{
               'open': 'Open Vulnerabilities',
-              'close': 'Close Vulnerabilities',
+              'close': 'Closed Vulnerabilities',
               'finding': 'Reported Finding',
               'cicle': 'Closing cycle'
             },
             'tab_evidence':{
               'evidence_name':'Evidence',
-              'editable': 'Make Editable',
+              'editable': 'Edit',
               'detail': 'Detail',
               'update':'Update'
             },
@@ -156,13 +156,13 @@ integrates.config(['$translateProvider', function($translateProvider) {
         'main_content':{
           'projects':{
             'title': 'My Projects',
-            'description1': 'You could check the details of a project ',
+            'description1': 'You can check the details of a project ',
             'description2': 'clicking',
             'description3': ' on it'
           },
           'eventualities':{
-                'title': 'My Eventualities',
-                'description_1': 'You could check the details of a eventuality ',
+                'title': 'My Events',
+                'description_1': 'You can check the details of an event ',
                 'description_2': 'clicking',
                 'description_3': 'on it'
               }
@@ -185,25 +185,25 @@ integrates.config(['$translateProvider', function($translateProvider) {
         },
         'tab_container':{
           'findings': 'Findings',
-          'eventualities': 'Eventualities'
+          'eventualities': 'Events'
         },
         'event_by_name':{
           'page_head':{
             'search': 'Search',
-            'vuln_by_proj': 'Eventualities by project '
+            'vuln_by_proj': 'Events by project '
           },
           'main_content':{
             'id': 'ID',
             'name': 'Name'
           },
           'modal_avance':{
-            'title': 'Eventualities Resume'
+            'title': 'Events Resume'
           },
           'modal_ver':{
             'type': 'Type',
             'analyst': 'Analyst',
-            'f_proj': 'Fluid Project',
-            'c_proj': 'Client Project',
+            'f_proj': 'FLUID\'s Project',
+            'c_proj': 'Customer\'s Project',
             'client': 'Client',
             'detail': 'Description',
             'date': 'Date',
@@ -213,8 +213,8 @@ integrates.config(['$translateProvider', function($translateProvider) {
           'modal_edit':{
             'type': 'Type',
             'analyst': 'Analyst',
-            'f_proj': 'Fluid Project',
-            'c_proj': 'Client Project',
+            'f_proj': 'FLUID\'s Project',
+            'c_proj': 'Customer\'s Project',
             'client': 'Client',
             'detail': 'Description',
             'date': 'Date',
@@ -224,7 +224,7 @@ integrates.config(['$translateProvider', function($translateProvider) {
          },
          'row':{
            'muted': 'Please wait, loading...',
-           'event': 'EVENTUALITIES',
+           'event': 'EVENTS',
            'affect': 'TOTAL AFFECTATION'
          },
          'table':{
@@ -274,7 +274,7 @@ integrates.config(['$translateProvider', function($translateProvider) {
                 'findings': 'Hallazgos',
                 'cardinalities': 'Vulnerabilidades',
                 'criticity': 'Criticidad Total Encontrada',
-                'closure': 'Efectividad de Cierre'
+                'closure': 'Vulnerabilidades remediadas'
             },
             'filter_buttons':{
                 'advance': 'Avance',
