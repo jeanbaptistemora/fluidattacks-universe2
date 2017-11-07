@@ -63,7 +63,7 @@ integrates.config(['$translateProvider', function($translateProvider) {
                     'type': 'Type',
                     'finding': 'Title',
                     'vulnerability': 'Description',
-                    'criticity': 'CVSSv2 Score',
+                    'criticity': 'Severity',
                     'cardinality': '# Vuln.',
                     'state': 'Status',
                     'exploit': 'Exploit'
@@ -116,6 +116,7 @@ integrates.config(['$translateProvider', function($translateProvider) {
               'update': 'Update'
             },
             'tab_cssv2':{
+              'description_name': 'Severity',
               'vector': 'Access Vector',
               'confidenciality': 'Confidentiality Impact',
               'integrity': 'Integrity Impact',
@@ -295,7 +296,7 @@ integrates.config(['$translateProvider', function($translateProvider) {
                     'type': 'Tipo',
                     'finding': 'Titulo',
                     'vulnerability': 'Descripcion',
-                    'criticity': 'CVSSv2',
+                    'criticity': 'Severidad',
                     'cardinality': '# Vuln.',
                     'state': 'Estado',
                     'exploit': 'Explotable'
@@ -348,6 +349,7 @@ integrates.config(['$translateProvider', function($translateProvider) {
               'update': 'Actualizar'
             },
             'tab_cssv2':{
+              'description_name': 'Severidad',
               'vector': 'Vector de Acceso',
               'confidenciality': 'Impacto Confidencialidad',
               'integrity': 'Impacto Integridad',
