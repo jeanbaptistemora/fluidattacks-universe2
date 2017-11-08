@@ -33,14 +33,6 @@ integrates.config(['$translateProvider', function($translateProvider) {
         },
         'search_findings': {
             'filter_menu':{
-                'filter_select':{
-                    'any': 'All',
-                    'analysis': 'Analysis',
-                    'application': 'Application',
-                    'binary': 'Binary',
-                    'code': 'Code',
-                    'infrastructure': 'Infrastructure'
-                },
                 'search':{
                     'placeholder': 'FLUID project name',
                     'button': 'Search',
@@ -270,14 +262,6 @@ integrates.config(['$translateProvider', function($translateProvider) {
         },
         'search_findings': {
             'filter_menu':{
-                'filter_select':{
-                    'any': 'Todos',
-                    'analysis': 'Analisis',
-                    'application': 'Aplicacion',
-                    'binary': 'Binario',
-                    'code': 'Codigo',
-                    'infrastructure': 'Infraestructura'
-                },
                 'search':{
                     'placeholder': 'Nombre del proyecto en Fluid',
                     'button': 'Ejecutar esta busqueda',

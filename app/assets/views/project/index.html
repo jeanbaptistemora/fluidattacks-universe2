@@ -6,18 +6,8 @@
     <div class="text-center">
         <!-- Start SearchBox -->
         <div class="row">
-            <div class="col-md-4 col-md-offset-2">
+            <div class="col-md-4 col-md-offset-3">
                 <input class="form-control text-center text-uppercase" ng-model="project" id="project" placeholder="{{'search_findings.filter_menu.search.placeholder' | translate}}">
-            </div>
-            <div class="col-md-3">
-                <select class="form-control text-uppercase" ng-model="filter" ng-required="true">
-                    <option value="" selected>{{'search_findings.filter_menu.filter_select.any' | translate}}</option>
-                    <option value="Análisis">{{'search_findings.filter_menu.filter_select.analysis' | translate}}</option>
-                    <option value="Aplicación">{{'search_findings.filter_menu.filter_select.application' | translate}}</option>
-                    <option value="Binario">{{'search_findings.filter_menu.filter_select.binary' | translate}}</option>
-                    <option value="Código">{{'search_findings.filter_menu.filter_select.code' | translate}}</option>
-                    <option value="Infraestructura">{{'search_findings.filter_menu.filter_select.infrastructure' | translate}}</option>
-                </select>
             </div>
             <div class="col-md-1">
                 <button class="btn btn-primary form-control" id="search" ng-click="search();" title="{{'search_findings.filter_menu.search.button' | translate}}">
@@ -70,7 +60,7 @@
                                 <label id="total_criticidad"></label> &nbsp;&nbsp;&nbsp;
                                 <label><b>{{'search_findings.filter_labels.closure' | translate}}</b></label>
                                 <label id="total_efectividad"></label> &nbsp;&nbsp;&nbsp;
-                            </div>                            
+                            </div>
                             <div class="btn-group" >
                                 <script>
                                     $(document).ready(function() {
@@ -108,35 +98,36 @@
                                     <tr class="head-blue" style="background-color: #0361cc; color:white;">
                                         <th data-field="timestamp"
                                             data-sortable="true"
-                                            data-width="100"
+                                            data-width="5%"
                                             data-formatter="removeHour"
                                             data-visible="false">
                                             {{'search_findings.table.headings.timestamp' | translate}}
                                         </th>
                                         <th data-field="edad"
                                             data-align="center"
+                                            data-width="5%"
                                             data-sortable="true">
                                             {{'search_findings.table.headings.age' | translate}}
                                         </th>
-                                        <th data-field="tipo_hallazgo_cliente" data-sortable="true">
+                                        <th data-field="tipo_hallazgo_cliente" data-width="5%" data-sortable="true">
                                             {{'search_findings.table.headings.type' | translate}}
                                         </th>
-                                        <th data-field="hallazgo" data-width="140" data-sortable="true">
+                                        <th data-field="hallazgo" data-width="140" data-width="15%" data-sortable="true">
                                             {{'search_findings.table.headings.finding' | translate}}
                                         </th>
-                                        <th data-field="vulnerabilidad" style="display:none;">
+                                        <th data-field="vulnerabilidad" data-width="40%" style="display:none;">
                                             {{'search_findings.table.headings.vulnerability' | translate}}
                                         </th>
-                                        <th data-field="criticidad" data-sortable="true" data-width="20">
+                                        <th data-field="criticidad" data-width="5%" data-sortable="true" data-width="20">
                                             {{'search_findings.table.headings.criticity' | translate}}
                                         </th>
-                                        <th data-field="cardinalidad" data-sortable="true" data-width="20">
+                                        <th data-field="cardinalidad" data-width="5%" data-sortable="true" data-width="20">
                                             {{'search_findings.table.headings.cardinality' | translate}}
                                         </th>
-                                        <th data-field="estado" data-sortable="true" data-width="20" data-formatter="labelState">
+                                        <th data-field="estado" data-width="5%" data-sortable="true" data-width="20" data-formatter="labelState">
                                             {{'search_findings.table.headings.state' | translate}}
                                         </th>
-                                        <th data-field="explotable" data-sortable="true" data-width="20">
+                                        <th data-field="explotable" data-width="5%" data-sortable="true" data-width="20">
                                             {{'search_findings.table.headings.exploit' | translate}}
                                         </th>
                                     </tr>

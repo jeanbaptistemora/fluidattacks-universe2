@@ -246,7 +246,7 @@ def get_findings(request):
             finding_date = finding_date.replace(tzinfo=tzn).date()
             current_date = datetime.now(tz=tzn).date()
             final_date = (current_date - finding_date)
-            strdays = ":n dias".replace(":n", str(final_date.days))
+            strdays = ":n días".replace(":n", str(final_date.days))
             if(final_date.days == 1): strdays = strdays.replace("s","")
             finding_parsed['edad'] = strdays
         if 'cerradas_cuales' in state:

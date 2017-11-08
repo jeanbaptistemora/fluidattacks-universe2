@@ -104,7 +104,6 @@ integrates.controller("FindingResumeController", function($scope, $stateParams,
     $scope.dropDownList = function(){
         $scope.list = {};
         $scope.list.finding_type = finding_type;
-        $scope.list.finding_test_type = finging_test_type;
         $scope.list.categories = categories;
         $scope.list.probability = probabilities;
         $scope.list.actor = actor;
