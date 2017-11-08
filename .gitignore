@@ -5,6 +5,7 @@ app/autodoc/results/*.pptx
 logs
 *.pyc
 *.sqlite3
+*.retry
 .bundle
 Gemfile.lock
 vendor
