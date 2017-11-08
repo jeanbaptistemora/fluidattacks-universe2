@@ -199,7 +199,7 @@ integrates.controller(
             $scope.colors = {};
             $scope.colors.critical = "background-color: #f12;";  //red
             $scope.colors.moderate = "background-color: #f72;";  //orange
-            $scope.colors.tolerable = "background-color: #fd2;"; //yellow
+            $scope.colors.tolerable = "background-color: #ffbf00;"; //yellow
             $scope.colors.ok = "background-color: #008000;"; //green
         };
         $scope.configKeyboardView = function(){
