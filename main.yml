@@ -21,3 +21,8 @@
       owner: www-data
       group: www-data
 
+   - name: Add Formstack API Keys
+     lineinfile:
+      path: app/models.py
+      regexp: "^    ltokens="
+      line: "{{FORMSTACK_TOKENS}}"
