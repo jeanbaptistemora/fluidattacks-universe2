@@ -72,7 +72,7 @@
                                 <label id="total_efectividad"></label> &nbsp;&nbsp;&nbsp;
                             </div>
                             <!-- START: toolbar -->
-                            <div class="btn-group" id="toolbar">
+                            <div class="btn-group" >
                                 <script>
                                     $(document).ready(function() {
                                         if (userRole == "customer") {
@@ -87,7 +87,9 @@
                                     {{'search_findings.filter_buttons.documentation' | translate}} <i class="glyphicon glyphicon-star"></i>
                                 </button>
                             </div>
-                            <p>{{'search_findings.descriptions.description1' | translate}} <b>{{'search_findings.descriptions.description2' | translate}}</b> {{'search_findings.descriptions.description3' | translate}}</p>
+                            <div id="toolbar" style="padding-top: 5%;">
+                              <p>{{'search_findings.descriptions.description1' | translate}} <b>{{'search_findings.descriptions.description2' | translate}}</b> {{'search_findings.descriptions.description3' | translate}}</p>
+                            </div>
 
                             <table id="vulnerabilities"
                                    data-click-to-select="true"
