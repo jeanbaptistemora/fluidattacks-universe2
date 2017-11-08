@@ -102,7 +102,7 @@
      git:
       repo: "https://jrestrepoatfluid@bitbucket.org/fluidsignal/fluid-integrates.git"
       dest: "/usr/src/app"
-      version: master #"{{ lookup('env','CIRCLE_BRANCH') }}"
+      version: "{{ lookup('env','CIRCLE_BRANCH') }}"
 
    - name: Agregar secret vars
      template:
