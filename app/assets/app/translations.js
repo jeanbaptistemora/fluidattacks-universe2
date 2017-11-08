@@ -263,7 +263,7 @@ integrates.config(['$translateProvider', function($translateProvider) {
         'search_findings': {
             'filter_menu':{
                 'search':{
-                    'placeholder': 'Nombre del proyecto en Fluid',
+                    'placeholder': 'Nombre del proyecto en FLUID',
                     'button': 'Ejecutar esta busqueda',
                 }
             },
@@ -309,7 +309,7 @@ integrates.config(['$translateProvider', function($translateProvider) {
               'vulnerabilities': 'Vulnerabilidades',
               'status': 'Estado',
               'report': 'Fecha Reporte',
-              'project': 'Proyecto Fluid',
+              'project': 'Proyecto FLUID',
               'client': 'Proyecto Cliente'
             },
             'tab_description':{
@@ -430,7 +430,7 @@ integrates.config(['$translateProvider', function($translateProvider) {
           'modal_ver':{
             'type': 'Tipo',
             'analyst': 'Analista',
-            'f_proj': 'Proyecto Fluid',
+            'f_proj': 'Proyecto FLUID',
             'c_proj': 'Proyecto Cliente',
             'client': 'Cliente',
             'detail': 'Detalle',
@@ -441,7 +441,7 @@ integrates.config(['$translateProvider', function($translateProvider) {
           'modal_edit':{
             'type': 'Tipo',
             'analyst': 'Analista',
-            'f_proj': 'Proyecto Fluid',
+            'f_proj': 'Proyecto FLUID',
             'c_proj': 'Proyecto Cliente',
             'client': 'Cliente',
             'detail': 'Detalle',
