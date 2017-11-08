@@ -13,3 +13,11 @@
       dest: "fluidintegrates/settings.py"
       mode: "0644"
 
+   - name: Agregar drive authorization
+     template:
+      src: "deploy/containers/common/vars/drive_authorization.j2"
+      dest: "config/drive_authorization.json"
+      mode: "0644"
+      owner: www-data
+      group: www-data
+
