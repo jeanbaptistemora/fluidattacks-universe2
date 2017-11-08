@@ -110,6 +110,20 @@
       dest: "/usr/src/app/fluidintegrates/settings.py"
       mode: "0644"
 
+   - name: Agregar drive authorization
+     template:
+      src: "vars/drive_authorization.j2"
+      dest: "/usr/src/app/config/drive_authorization.json"
+      mode: "0644"
+      owner: www-data
+      group: www-data
+
+   - name: Add Formstack API Keys
+     lineinfile:
+      path: "/usr/src/app/app/models.py"
+      regexp: "^    ltokens="
+      line: "{{FORMSTACK_TOKENS}}"
+
    - name: Establecer permisos directorio
      file:
       path: "{{ documentroot }}"
