@@ -102,7 +102,7 @@
      git:
       repo: "https://jrestrepoatfluid@bitbucket.org/fluidsignal/fluid-integrates.git"
       dest: "/usr/src/app"
-      version: "{{ lookup('env','CIRCLE_BRANCH') }}"
+      version: master #"{{ lookup('env','CIRCLE_BRANCH') }}"
 
    - name: Agregar secret vars
      template:
@@ -117,6 +117,12 @@
       mode: "0644"
       owner: www-data
       group: www-data
+
+   - name: Add Formstack API Keys
+     lineinfile:
+      path: "/usr/src/app/app/models.py"
+      regexp: "^    ltokens="
+      line: "{{FORMSTACK_TOKENS}}"
 
    - name: Establecer permisos directorio
      file:

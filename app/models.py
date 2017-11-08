@@ -306,9 +306,7 @@ class FormstackRequestMapper(object):
 class FormstackAPI(object):
 
     headers_config = {}
-    ltokens=['d6f75fd20d78ddb525f390114188471d','7f7599e833e78a4f8c0420fe89948491']
-    #TOKEN = "7f7599e833e78a4f8c0420fe89948491"
-    #TOKEN = 'd6f75fd20d78ddb525f390114188471d'
+    ltokens=
     TOKEN = ltokens[randint(0,(len(ltokens)-1))]
 
     def __init__(self):
