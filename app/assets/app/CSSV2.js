@@ -186,15 +186,3 @@ var finding_type = [{
 }, {
     name: "Higiene"
 }];
-
-var finging_test_type = [{
-    name: "Análisis"
-}, {
-    name: "Aplicación"
-}, {
-    name: "Binario"
-},{
-    name: "Código"
-},{
-    name: "Infraestructura"
-}];

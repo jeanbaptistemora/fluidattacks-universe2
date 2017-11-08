@@ -6,18 +6,8 @@
     <div class="text-center">
         <!-- Start SearchBox -->
         <div class="row">
-            <div class="col-md-4 col-md-offset-2">
+            <div class="col-md-4 col-md-offset-3">
                 <input class="form-control text-center text-uppercase" ng-model="project" id="project" placeholder="{{'search_findings.filter_menu.search.placeholder' | translate}}">
-            </div>
-            <div class="col-md-3">
-                <select class="form-control text-uppercase" ng-model="filter" ng-required="true">
-                    <option value="" selected>{{'search_findings.filter_menu.filter_select.any' | translate}}</option>
-                    <option value="Análisis">{{'search_findings.filter_menu.filter_select.analysis' | translate}}</option>
-                    <option value="Aplicación">{{'search_findings.filter_menu.filter_select.application' | translate}}</option>
-                    <option value="Binario">{{'search_findings.filter_menu.filter_select.binary' | translate}}</option>
-                    <option value="Código">{{'search_findings.filter_menu.filter_select.code' | translate}}</option>
-                    <option value="Infraestructura">{{'search_findings.filter_menu.filter_select.infrastructure' | translate}}</option>
-                </select>
             </div>
             <div class="col-md-1">
                 <button class="btn btn-primary form-control" id="search" ng-click="search();" title="{{'search_findings.filter_menu.search.button' | translate}}">
@@ -70,7 +60,7 @@
                                 <label id="total_criticidad"></label> &nbsp;&nbsp;&nbsp;
                                 <label><b>{{'search_findings.filter_labels.closure' | translate}}</b></label>
                                 <label id="total_efectividad"></label> &nbsp;&nbsp;&nbsp;
-                            </div>                            
+                            </div>
                             <div class="btn-group" >
                                 <script>
                                     $(document).ready(function() {
