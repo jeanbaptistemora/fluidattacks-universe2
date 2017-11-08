@@ -70,9 +70,8 @@
                                 <label id="total_criticidad"></label> &nbsp;&nbsp;&nbsp;
                                 <label><b>{{'search_findings.filter_labels.closure' | translate}}</b></label>
                                 <label id="total_efectividad"></label> &nbsp;&nbsp;&nbsp;
-                            </div>
-                            <!-- START: toolbar -->
-                            <div class="btn-group" id="toolbar">
+                            </div>                            
+                            <div class="btn-group" >
                                 <script>
                                     $(document).ready(function() {
                                         if (userRole == "customer") {
@@ -87,7 +86,10 @@
                                     {{'search_findings.filter_buttons.documentation' | translate}} <i class="glyphicon glyphicon-star"></i>
                                 </button>
                             </div>
-                            <p>{{'search_findings.descriptions.description1' | translate}} <b>{{'search_findings.descriptions.description2' | translate}}</b> {{'search_findings.descriptions.description3' | translate}}</p>
+                            <!-- START: toolbar -->
+                            <div id="toolbar" style="padding-top: 5%;">
+                              <p>{{'search_findings.descriptions.description1' | translate}} <b>{{'search_findings.descriptions.description2' | translate}}</b> {{'search_findings.descriptions.description3' | translate}}</p>
+                            </div>
 
                             <table id="vulnerabilities"
                                    data-click-to-select="true"
@@ -107,7 +109,8 @@
                                         <th data-field="timestamp"
                                             data-sortable="true"
                                             data-width="100"
-                                            data-formatter="removeHour">
+                                            data-formatter="removeHour"
+                                            data-visible="false">
                                             {{'search_findings.table.headings.timestamp' | translate}}
                                         </th>
                                         <th data-field="edad"
