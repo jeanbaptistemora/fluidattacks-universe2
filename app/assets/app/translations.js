@@ -333,7 +333,7 @@ integrates.config(['$translateProvider', function($translateProvider) {
               'records': 'Registros Comprometidos',
               'totalrecords': 'Total Registros Comprometidos',
               'weakness': 'Debilidad',
-              'editable': 'Hacer Editable',
+              'editable': 'Editar',
               'update': 'Actualizar'
             },
             'tab_cssv2':{
@@ -347,7 +347,7 @@ integrates.config(['$translateProvider', function($translateProvider) {
               'confidence': 'Nivel Confianza',
               'resolution':'Nivel Resolucion',
               'complexity': 'Complejidad Acceso',
-              'editable': 'Hacer Editable',
+              'editable': 'Editar',
               'update':'Actualizar'
             },
             'tab_tracking':{
@@ -358,7 +358,7 @@ integrates.config(['$translateProvider', function($translateProvider) {
             },
             'tab_evidence':{
               'evidence_name':'Evidencia',
-              'editable': 'Hacer Editable',
+              'editable': 'Editar',
               'detail': 'Detalle',
               'update':'Actualizar'
             },
