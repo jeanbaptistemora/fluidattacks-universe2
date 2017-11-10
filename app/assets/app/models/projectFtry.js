@@ -19,7 +19,7 @@ integrates.factory('projectFtry', function($q, $translate){
          * @return {Object}
          */
         projectByName: function(project, filter){
-            var oops_ac = $translate.instant('proj_alerts.error_cont2');
+            var oops_ac = $translate.instant('proj_alerts.error_text');
             return $xhr.get($q, BASE.url + "get_findings", {
                 project: project, filter: filter, _: Math.random()
             },oops_ac);
@@ -33,7 +33,7 @@ integrates.factory('projectFtry', function($q, $translate){
          * @return {Object}
          */
         EventualityByName: function(project, category){
-            var oops_ac = $translate.instant('proj_alerts.error_cont2');
+            var oops_ac = $translate.instant('proj_alerts.error_text');
             return $xhr.get($q, BASE.url + "get_eventualities", {
                 project: project, category: category, _: Math.random()
             },oops_ac);
@@ -46,7 +46,7 @@ integrates.factory('projectFtry', function($q, $translate){
          * @return {Object}
          */
         FindingById: function(id){
-            var oops_ac = $translate.instant('proj_alerts.error_cont2');
+            var oops_ac = $translate.instant('proj_alerts.error_text');
             return $xhr.post($q, BASE.url + "get_finding", {
                 id: id, _: Math.random()
             },oops_ac);
@@ -61,7 +61,7 @@ integrates.factory('projectFtry', function($q, $translate){
          * @return {Object}
          */
         ProjectDoc: function(project, json, format){
-            var oops_ac = $translate.instant('proj_alerts.error_cont2');
+            var oops_ac = $translate.instant('proj_alerts.error_text');
             return $xhr.post($q, BASE.url + "generate_autodoc", {
                 project: project, data: json, format: format, _: Math.random()
             },oops_ac);
@@ -75,7 +75,7 @@ integrates.factory('projectFtry', function($q, $translate){
          * @return {Object}
          */
         UpdateCSSv2: function(data){
-            var oops_ac = $translate.instant('proj_alerts.error_cont2');
+            var oops_ac = $translate.instant('proj_alerts.error_text');
             return $xhr.post($q, BASE.url + "update_cssv2", {
                 data, _: Math.random()
             },oops_ac);
@@ -89,7 +89,7 @@ integrates.factory('projectFtry', function($q, $translate){
          * @return {Object}
          */
         UpdateDescription: function(data){
-            var oops_ac = $translate.instant('proj_alerts.error_cont2');
+            var oops_ac = $translate.instant('proj_alerts.error_text');
             return $xhr.post($q, BASE.url + "update_description", {
                 data, _: Math.random()
             },oops_ac);
@@ -103,7 +103,7 @@ integrates.factory('projectFtry', function($q, $translate){
          * @return {Object}
          */
         DeleteFinding: function(data){
-            var oops_ac = $translate.instant('proj_alerts.error_cont2');
+            var oops_ac = $translate.instant('proj_alerts.error_text');
             return $xhr.post($q, BASE.url + "delete_finding", {
                 data: json, _: Math.random()
             },oops_ac);

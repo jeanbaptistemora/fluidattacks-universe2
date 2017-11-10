@@ -68,16 +68,16 @@ integrates.updateEvntRow = function(row){
  * @return {undefined}
  */
 integrates.controller("eventualityController", function($scope, $uibModal, $translate, eventualityFactory) {
-     var attent_at = $translate.instant('proj_alerts.attent_title');
-     var updated_at = $translate.instant('proj_alerts.updated_title');
-     var event_at = $translate.instant('proj_alerts.event_title');
-     var event_ac1 = $translate.instant('proj_alerts.event_cont1');
-     var event_ac2 = $translate.instant('proj_alerts.event_cont2');
-     var event_ac3 = $translate.instant('proj_alerts.event_cont3');
-     var event_ac4 = $translate.instant('proj_alerts.event_cont4');
-     var event_ac5 = $translate.instant('proj_alerts.event_cont5');
-     var event_ac6 = $translate.instant('proj_alerts.event_cont6');
-     var event_ac7 = $translate.instant('proj_alerts.event_cont7');
+     var attent_title = $translate.instant('proj_alerts.attent_title');
+     var updated_title = $translate.instant('proj_alerts.updated_title');
+     var event_title = $translate.instant('proj_alerts.event_title');
+     var event_wait = $translate.instant('proj_alerts.event_wait');
+     var event_select = $translate.instant('proj_alerts.event_select');
+     var event_required = $translate.instant('proj_alerts.event_required');
+     var event_internal = $translate.instant('proj_alerts.event_internal');
+     var event_formstack = $translate.instant('proj_alerts.event_formstack');
+     var event_positiveint = $translate.instant('proj_alerts.event_positiveint');
+     var event_updated = $translate.instant('proj_alerts.event_updated');
      /**
      * Inicializa las variables del controlador de eventualidades
      * @function init
@@ -112,7 +112,7 @@ integrates.controller("eventualityController", function($scope, $uibModal, $tran
         if(sel.length == 0){
             $.gritter.add({
                 title: 'Error',
-                text: event_ac2,
+                text: event_select,
                 class_name: 'color warning',
                     sticky: false,
             });
@@ -174,7 +174,7 @@ integrates.controller("eventualityController", function($scope, $uibModal, $tran
         if(sel.length == 0){
             $.gritter.add({
                 title: 'Error',
-                text: event_cont2,
+                text: event_select,
                 class_name: 'color warning',
                 sticky: false,
             });
@@ -203,8 +203,8 @@ integrates.controller("eventualityController", function($scope, $uibModal, $tran
                        submit = true;
                    }catch(e){
                        $.gritter.add({
-                            title: attent_at,
-                            text: event_ac6,
+                            title: attent_title,
+                            text: event_positiveint,
                             class_name: 'color warning',
                             sticky: false,
                        });
@@ -216,8 +216,8 @@ integrates.controller("eventualityController", function($scope, $uibModal, $tran
                    eventualityFactory.updateEvnt($scope.evnt).then(function(response){
                         if(!response.error){
                             $.gritter.add({
-                                title: updated_at,
-                                text: event_ac7,
+                                title: updated_title,
+                                text: event_updated,
                                 class_name: 'color success',
                                 sticky: false,
                             });
@@ -264,8 +264,8 @@ integrates.controller("eventualityController", function($scope, $uibModal, $tran
             && category !== ""){
             $scope.response = "";
             $.gritter.add({
-                title: event_at,
-                text: event_ac1,
+                title: event_title,
+                text: event_wait,
                 class_name: 'color info',
                 sticky: false,
             });
@@ -282,7 +282,7 @@ integrates.controller("eventualityController", function($scope, $uibModal, $tran
                     $('[data-toggle="tooltip"]').tooltip();
                     integrates.evntTotalize(data);
                     $.gritter.add({
-                        title: event_at,
+                        title: event_title,
                         text: data.message,
                         class_name: 'color success',
                         sticky: false,
@@ -297,8 +297,8 @@ integrates.controller("eventualityController", function($scope, $uibModal, $tran
                 }
             }).catch(function(fallback) {
                 $.gritter.add({
-                    title: event_at,
-                    text: event_ac4,
+                    title: event_title,
+                    text: event_internal,
                     class_name: 'color warning',
                     sticky: false,
                 });
@@ -307,15 +307,15 @@ integrates.controller("eventualityController", function($scope, $uibModal, $tran
                     $scope.searchEvntByName();
                 }else{
                     $.gritter.add({
-                        title: event_at,
-                        text: event_ac5,
+                        title: event_title,
+                        text: event_formstack,
                         class_name: 'color warning',
                         sticky: false,
                     });
                 }
             });
         }else{
-            $scope.response = event_ac3 ;
+            $scope.response = event_required ;
         }
     };
 

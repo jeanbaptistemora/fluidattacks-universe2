@@ -18,7 +18,7 @@ integrates.factory('findingFactory', function($q,$translate){
          * @return {Object}
          */
         getVulnByName: function(project, filter){
-            var oops_ac = $translate.instant('proj_alerts.error_cont2');
+            var oops_ac = $translate.instant('proj_alerts.error_text');
             return $xhr.get($q, BASE.url + "get_findings", {
                 project: project, filter: filter, _: Math.random()
             }, oops_ac);
