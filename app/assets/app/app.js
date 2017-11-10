@@ -70,18 +70,18 @@ BASE.url = BASE.production;
 if(location.pathname.indexOf("/integrates") == -1)
     BASE.url = BASE.development;
 var $msg = {};
-$msg.success = function(text, title = "Correcto!"){
+$msg.success = function(text, title){
     $.gritter.add({ title: title, text: text, class_name: 'color info', sticky: false });
 };
 $msg.error = function(text, title = "Oops!"){
     $.gritter.add({ title: title, text: text, class_name: 'color danger', sticky: false });
-};  
-$msg.info = function(text, title = "Noticia!"){
+};
+$msg.info = function(text, title){
     $.gritter.add({ title: title, text: text, class_name: 'color info', sticky: false });
 };
-$msg.warning = function(text, title = "Cuidado!"){
+$msg.warning = function(text, title){
     $.gritter.add({ title: title, text: text, class_name: 'color warning', sticky: false });
-}; 
+};
 /**
  * Crea integrates como una aplicacion de angular
  * @module {AngularJS} FluidIntegrates

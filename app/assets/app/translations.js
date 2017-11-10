@@ -181,6 +181,17 @@ integrates.config(['$translateProvider', function($translateProvider) {
           'partial_label': 'Partial',
           'close_label': 'Closed'
         },
+        'proj_alerts':{
+          'search_title': 'News!',
+          'search_cont': 'Searching Project...',
+          'attent_title': 'Attention!',
+          'attent_cont': 'Empty search',
+          'updated_title': 'Correct!',
+          'updated_cont': 'Updated ;)',
+          'error_cont1': 'There is an error :(',
+          'error_cont2': 'There is an error'
+
+        },
         'tab_container':{
           'findings': 'Findings',
           'eventualities': 'Events'
@@ -409,6 +420,16 @@ integrates.config(['$translateProvider', function($translateProvider) {
           'open_label': 'Abiertos',
           'partial_label': 'Parciales',
           'close_label': 'Cerrados'
+        },
+        'proj_alerts':{
+          'search_title': 'Noticia!',
+          'search_cont': 'Buscando Proyecto...',
+          'attent_title': 'Cuidado!',
+          'attent_cont': 'Busqueda vacia',
+          'updated_title': 'Correcto!',
+          'updated_cont': 'Actualizado ;)',
+          'error_cont1': 'Hay un error :(',
+          'error_cont2': 'Hay un error'
         },
         'tab_container':{
           'findings': 'Hallazgos',

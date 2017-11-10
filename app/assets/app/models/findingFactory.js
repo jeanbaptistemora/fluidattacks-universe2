@@ -8,7 +8,7 @@
  * @param {Object} $q
  * @return {undefined}
  */
-integrates.factory('findingFactory', function($q){
+integrates.factory('findingFactory', function($q,$translate){
     return {
         /**
          * Invoca el servicio para tener los hallazgos de un proyecto
@@ -18,9 +18,10 @@ integrates.factory('findingFactory', function($q){
          * @return {Object}
          */
         getVulnByName: function(project, filter){
+            var oops_ac = $translate.instant('proj_alerts.error_cont2');
             return $xhr.get($q, BASE.url + "get_findings", {
                 project: project, filter: filter, _: Math.random()
-            });
+            }, oops_ac);
         },
          /**
          * Invoca el servicio para tener los hallazgos de un proyecto por id

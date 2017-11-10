@@ -585,7 +585,9 @@ integrates.controller(
             var finding = $scope.findingId;
             if(project === undefined
                 || project === ""){
-                $msg.warning("Busqueda vacia");
+                var attention_at = $translate.instant('proj_alerts.attent_title');
+                var attention_ac = $translate.instant('proj_alerts.attent_cont');
+                $msg.warning(attention_ac,attention_at);
                 return false;
             }
             if($stateParams.project != $scope.project){
@@ -593,7 +595,9 @@ integrates.controller(
             }else{
                 $scope.view.project = false;
                 $scope.view.finding = false;
-                $msg.info("Buscando Proyecto :)");
+                var search_at = $translate.instant('proj_alerts.search_title');
+                var search_ac = $translate.instant('proj_alerts.search_cont');
+                $msg.info(search_ac, search_at);
                 var reqProject = projectFtry.projectByName(project, filter);
                 var reqEventualities = projectFtry.EventualityByName(project, "Name");
                 reqProject.then(function(response){
@@ -694,11 +698,14 @@ integrates.controller(
                         //Capturar la Promisse
                         req.then(function(response){
                             if(!response.error){
-                                $msg.success("Actualizado ;)");
+                                var updated_at = $translate.instant('proj_alerts.updated_title');
+                                var updated_ac = $translate.instant('proj_alerts.updated_cont');
+                                $msg.success(updated_ac,updated_at);
                                 $uibModalInstance.close();
                                 location.reload();
                             }else{
-                                $msg.error("Hay un error :(");
+                                var error_ac1 = $translate.instant('proj_alerts.error_cont1');
+                                $msg.error(error_ac1);
                             }
                         });
                     };
@@ -750,11 +757,14 @@ integrates.controller(
                         //Capturar la Promisse
                         req.then(function(response){
                             if(!response.error){
-                                $msg.success("Actualizado ;)");
+                                var updated_at = $translate.instant('proj_alerts.updated_title');
+                                var updated_ac = $translate.instant('proj_alerts.updated_cont');
+                                $msg.success(updated_ac,updated_at);
                                 $uibModalInstance.close();
                                 location.reload();
                             }else{
-                                $msg.error("Hay un error :(");
+                              var error_ac1 = $translate.instant('proj_alerts.error_cont1');
+                              $msg.error(error_ac1);
                             }
                         });
                     };
@@ -783,11 +793,14 @@ integrates.controller(
                         //Capturar la Promisse
                         req.then(function(response){
                             if(!response.error){
-                                $msg.success("Actualizado ;)");
+                                var updated_at = $translate.instant('proj_alerts.updated_title');
+                                var updated_ac = $translate.instant('proj_alerts.updated_cont');
+                                $msg.success(updated_ac,updated_at);
                                 $uibModalInstance.close();
                                 location.reload();
                             }else{
-                                $msg.error("Hay un error :(");
+                              var error_ac1 = $translate.instant('proj_alerts.error_cont1');
+                              $msg.error(error_ac1);
                             }
                         });
                     };
