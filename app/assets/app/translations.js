@@ -189,8 +189,15 @@ integrates.config(['$translateProvider', function($translateProvider) {
           'updated_title': 'Correct!',
           'updated_cont': 'Updated ;)',
           'error_cont1': 'There is an error :(',
-          'error_cont2': 'There is an error'
-
+          'error_cont2': 'There is an error',
+          'event_title': 'Searching',
+          'event_cont1': 'Wait a moment please...',
+          'event_cont2': 'You must select an event',
+          'event_cont3': 'Name or ID is required',
+          'event_cont4': 'Internal error, loading...',
+          'event_cont5': 'Unable to access Formstack',
+          'event_cont6': 'Affectation must be a positive integer or zero',
+          'event_cont7': 'Event updated'
         },
         'tab_container':{
           'findings': 'Findings',
@@ -429,7 +436,15 @@ integrates.config(['$translateProvider', function($translateProvider) {
           'updated_title': 'Correcto!',
           'updated_cont': 'Actualizado ;)',
           'error_cont1': 'Hay un error :(',
-          'error_cont2': 'Hay un error'
+          'error_cont2': 'Hay un error',
+          'event_title': 'Consultando',
+          'event_cont1': 'Un momento por favor...',
+          'event_cont2': 'Debes seleccionar una eventualidad',
+          'event_cont3': 'El nombre es obligatorio',
+          'event_cont4': 'Error interno, cargando datos...',
+          'event_cont5': 'No se tuvo acceso a Formstack...',
+          'event_cont6': 'La afectación debe ser un número positivo o cero',
+          'event_cont7': 'Eventualidad actualizada'
         },
         'tab_container':{
           'findings': 'Hallazgos',
