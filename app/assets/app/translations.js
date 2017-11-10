@@ -197,7 +197,8 @@ integrates.config(['$translateProvider', function($translateProvider) {
           'event_internal': 'Internal error, loading...',
           'event_formstack': 'Unable to access Formstack',
           'event_positiveint': 'Affectation must be a positive integer or zero',
-          'event_updated': 'Event updated'
+          'event_updated': 'Event updated',
+          'event_exist':'This proyect has no vulnerabilities or does not exist'
         },
         'tab_container':{
           'findings': 'Findings',
@@ -444,7 +445,8 @@ integrates.config(['$translateProvider', function($translateProvider) {
           'event_internal': 'Error interno, cargando datos...',
           'event_formstack': 'No se tuvo acceso a Formstack...',
           'event_positiveint': 'La afectación debe ser un número positivo o cero',
-          'event_updated': 'Eventualidad actualizada'
+          'event_updated': 'Eventualidad actualizada',
+          'event_exist':'Este proyecto no tiene eventualidades o no existe'
         },
         'tab_container':{
           'findings': 'Hallazgos',

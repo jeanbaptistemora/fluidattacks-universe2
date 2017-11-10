@@ -78,6 +78,7 @@ integrates.controller("eventualityController", function($scope, $uibModal, $tran
      var event_formstack = $translate.instant('proj_alerts.event_formstack');
      var event_positiveint = $translate.instant('proj_alerts.event_positiveint');
      var event_updated = $translate.instant('proj_alerts.event_updated');
+     var event_exist = $translate.instant('proj_alerts.event_exist');
      /**
      * Inicializa las variables del controlador de eventualidades
      * @function init
@@ -283,7 +284,7 @@ integrates.controller("eventualityController", function($scope, $uibModal, $tran
                     integrates.evntTotalize(data);
                     $.gritter.add({
                         title: event_title,
-                        text: data.message,
+                        text: updated_title,
                         class_name: 'color success',
                         sticky: false,
                     });
