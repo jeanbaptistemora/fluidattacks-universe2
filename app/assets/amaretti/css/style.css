@@ -6403,6 +6403,14 @@ button.close {
   z-index: 1050;
   -webkit-overflow-scrolling: touch;
   outline: 0;
+  text-align: center;
+}
+.modal:before {
+  content: '';
+  display: inline-block;
+  height: 100%;
+  vertical-align: middle;
+  margin-right: -4px;
 }
 .modal.fade .modal-dialog {
   -webkit-transform: translate(0, -25%);
@@ -6427,6 +6435,9 @@ button.close {
   position: relative;
   width: auto;
   margin: 10px;
+  display: inline-block;
+  text-align: left;
+  vertical-align: middle;
 }
 .modal-content {
   position: relative;

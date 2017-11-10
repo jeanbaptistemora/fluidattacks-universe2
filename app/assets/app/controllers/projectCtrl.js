@@ -648,7 +648,8 @@ integrates.controller(
                                 var modalInstance = $uibModal.open({
                                     templateUrl: BASE.url + 'assets/views/project/eventualityMdl.html',
                                     animation: true,
-                                    resolve: { evt: row }, backdrop: false,
+                                    resolve: { evt: row }, 
+                                    backdrop: 'static',
                                     controller: function($scope, $uibModalInstance, evt){
                                         $scope.evt = evt;
                                         $scope.close = function(){
@@ -688,7 +689,8 @@ integrates.controller(
             //Instanciar modal de confirmacion
             var modalInstance = $uibModal.open({
                 templateUrl: BASE.url + 'assets/views/project/confirmMdl.html',
-                animation: true, backdrop: false,
+                animation: true, 
+                backdrop: 'static',
                 resolve: { updateData: cssv2Data },
                 controller: function($scope, $uibModalInstance, updateData){
                     $scope.modalTitle = "Actualizar CSSv2";
@@ -747,7 +749,8 @@ integrates.controller(
             }
             var modalInstance = $uibModal.open({
                 templateUrl: BASE.url + 'assets/views/project/confirmMdl.html',
-                animation: true, backdrop: false,
+                animation: true, 
+                backdrop: 'static',
                 resolve: { updateData: descData },
                 controller: function($scope, $uibModalInstance, updateData){
                     $scope.modalTitle = "Actualizar Descripción";
@@ -783,7 +786,8 @@ integrates.controller(
             return false;
             var modalInstance = $uibModal.open({
                 templateUrl: BASE.url + 'assets/views/project/confirmMdl.html',
-                animation: true, backdrop: false,
+                animation: true, 
+                backdrop: 'static',
                 resolve: { updateData: descData },
                 controller: function($scope, $uibModalInstance, updateData){
                     $scope.modalTitle = "Eliminar Hallazgo";

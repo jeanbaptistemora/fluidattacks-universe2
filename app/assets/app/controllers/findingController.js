@@ -297,7 +297,8 @@ integrates.controller("findingController", function($scope, $uibModal, $translat
                         onDblClickRow: function(row){
                             var modalInstance = $uibModal.open({
                                 animation: true, templateUrl: 'eventualityDetail.html',
-                                resolve: { evt: row}, backdrop: false,
+                                resolve: { evt: row}, 
+                                backdrop: 'static',
                                 controller: function($scope, $uibModalInstance, evt){
                                     $scope.evt = evt;
                                     $scope.close = function(){
