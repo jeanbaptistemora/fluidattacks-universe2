@@ -9,7 +9,7 @@
  * @return {undefined}
  */
 integrates.config(['$translateProvider', function($translateProvider) {
-    $translateProvider.useSanitizeValueStrategy('sanitize');
+    $translateProvider.useSanitizeValueStrategy('sanitizeParameters');
     var translations = {
         'logout': {
             'message': 'Are you sure?',
@@ -51,7 +51,7 @@ integrates.config(['$translateProvider', function($translateProvider) {
             'table':{
                 'headings':{
                     'action': 'Action',
-                    'age': 'Age',
+                    'age': 'Age (Days)',
                     'timestamp': 'Date',
                     'type': 'Type',
                     'finding': 'Title',
@@ -279,7 +279,7 @@ integrates.config(['$translateProvider', function($translateProvider) {
             },
             'table':{
                 'headings':{
-                    'age': 'Edad',
+                    'age': 'Edad (Días)',
                     'action': 'Accion',
                     'timestamp': 'Fecha',
                     'type': 'Tipo',
