@@ -188,9 +188,17 @@ integrates.config(['$translateProvider', function($translateProvider) {
           'attent_cont': 'Empty search',
           'updated_title': 'Correct!',
           'updated_cont': 'Updated ;)',
-          'error_cont1': 'There is an error :(',
-          'error_cont2': 'There is an error'
-
+          'error_textsad': 'There is an error :(',
+          'error_text': 'There is an error',
+          'event_title': 'Searching',
+          'event_wait': 'Wait a moment please...',
+          'event_select': 'You must select an event',
+          'event_required': 'Name or ID is required',
+          'event_internal': 'Internal error, loading...',
+          'event_formstack': 'Unable to access Formstack',
+          'event_positiveint': 'Affectation must be a positive integer or zero',
+          'event_updated': 'Event updated',
+          'event_exist':'This proyect has no vulnerabilities or does not exist'
         },
         'tab_container':{
           'findings': 'Findings',
@@ -428,8 +436,17 @@ integrates.config(['$translateProvider', function($translateProvider) {
           'attent_cont': 'Busqueda vacia',
           'updated_title': 'Correcto!',
           'updated_cont': 'Actualizado ;)',
-          'error_cont1': 'Hay un error :(',
-          'error_cont2': 'Hay un error'
+          'error_textsad': 'Hay un error :(',
+          'error_text': 'Hay un error',
+          'event_title': 'Consultando',
+          'event_wait': 'Un momento por favor...',
+          'event_select': 'Debes seleccionar una eventualidad',
+          'event_required': 'El nombre es obligatorio',
+          'event_internal': 'Error interno, cargando datos...',
+          'event_formstack': 'No se tuvo acceso a Formstack...',
+          'event_positiveint': 'La afectación debe ser un número positivo o cero',
+          'event_updated': 'Eventualidad actualizada',
+          'event_exist':'Este proyecto no tiene eventualidades o no existe'
         },
         'tab_container':{
           'findings': 'Hallazgos',

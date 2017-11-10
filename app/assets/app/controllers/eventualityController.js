@@ -67,8 +67,19 @@ integrates.updateEvntRow = function(row){
  * @param {integrates.eventualityFactory} eventualityFactory
  * @return {undefined}
  */
-integrates.controller("eventualityController", function($scope, $uibModal, eventualityFactory) {
-    /**
+integrates.controller("eventualityController", function($scope, $uibModal, $translate, eventualityFactory) {
+     var attent_title = $translate.instant('proj_alerts.attent_title');
+     var updated_title = $translate.instant('proj_alerts.updated_title');
+     var event_title = $translate.instant('proj_alerts.event_title');
+     var event_wait = $translate.instant('proj_alerts.event_wait');
+     var event_select = $translate.instant('proj_alerts.event_select');
+     var event_required = $translate.instant('proj_alerts.event_required');
+     var event_internal = $translate.instant('proj_alerts.event_internal');
+     var event_formstack = $translate.instant('proj_alerts.event_formstack');
+     var event_positiveint = $translate.instant('proj_alerts.event_positiveint');
+     var event_updated = $translate.instant('proj_alerts.event_updated');
+     var event_exist = $translate.instant('proj_alerts.event_exist');
+     /**
      * Inicializa las variables del controlador de eventualidades
      * @function init
      * @member integrates.eventualityController
@@ -102,7 +113,7 @@ integrates.controller("eventualityController", function($scope, $uibModal, event
         if(sel.length == 0){
             $.gritter.add({
                 title: 'Error',
-                text: 'Debes seleccionar una eventualidad',
+                text: event_select,
                 class_name: 'color warning',
                     sticky: false,
             });
@@ -164,7 +175,7 @@ integrates.controller("eventualityController", function($scope, $uibModal, event
         if(sel.length == 0){
             $.gritter.add({
                 title: 'Error',
-                text: 'Debes seleccionar una eventualidad',
+                text: event_select,
                 class_name: 'color warning',
                 sticky: false,
             });
@@ -193,8 +204,8 @@ integrates.controller("eventualityController", function($scope, $uibModal, event
                        submit = true;
                    }catch(e){
                        $.gritter.add({
-                            title: 'Correcto!',
-                            text: 'La afectacion debe ser un numero positivo o cero',
+                            title: attent_title,
+                            text: event_positiveint,
                             class_name: 'color warning',
                             sticky: false,
                        });
@@ -206,8 +217,8 @@ integrates.controller("eventualityController", function($scope, $uibModal, event
                    eventualityFactory.updateEvnt($scope.evnt).then(function(response){
                         if(!response.error){
                             $.gritter.add({
-                                title: 'Correcto!',
-                                text: 'Eventualidad actualizada',
+                                title: updated_title,
+                                text: event_updated,
                                 class_name: 'color success',
                                 sticky: false,
                             });
@@ -254,8 +265,8 @@ integrates.controller("eventualityController", function($scope, $uibModal, event
             && category !== ""){
             $scope.response = "";
             $.gritter.add({
-                title: 'Consultando',
-                text: 'Un momento por favor...',
+                title: event_title,
+                text: event_wait,
                 class_name: 'color info',
                 sticky: false,
             });
@@ -272,8 +283,8 @@ integrates.controller("eventualityController", function($scope, $uibModal, event
                     $('[data-toggle="tooltip"]').tooltip();
                     integrates.evntTotalize(data);
                     $.gritter.add({
-                        title: 'Consultando',
-                        text: data.message,
+                        title: event_title,
+                        text: updated_title,
                         class_name: 'color success',
                         sticky: false,
                     });
@@ -287,8 +298,8 @@ integrates.controller("eventualityController", function($scope, $uibModal, event
                 }
             }).catch(function(fallback) {
                 $.gritter.add({
-                    title: 'Consultando',
-                    text: 'Error interno cargando datos...',
+                    title: event_title,
+                    text: event_internal,
                     class_name: 'color warning',
                     sticky: false,
                 });
@@ -297,15 +308,15 @@ integrates.controller("eventualityController", function($scope, $uibModal, event
                     $scope.searchEvntByName();
                 }else{
                     $.gritter.add({
-                        title: 'Consultando',
-                        text: 'No se tuvo acceso a formstack...',
+                        title: event_title,
+                        text: event_formstack,
                         class_name: 'color warning',
                         sticky: false,
                     });
                 }
             });
         }else{
-            $scope.response = "El nombre es obligatorio";
+            $scope.response = event_required ;
         }
     };
 

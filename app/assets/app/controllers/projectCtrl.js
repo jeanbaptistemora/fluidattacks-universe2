@@ -706,7 +706,7 @@ integrates.controller(
                                 $uibModalInstance.close();
                                 location.reload();
                             }else{
-                                var error_ac1 = $translate.instant('proj_alerts.error_cont1');
+                                var error_ac1 = $translate.instant('proj_alerts.error_textsad');
                                 $msg.error(error_ac1);
                             }
                         });
@@ -766,7 +766,7 @@ integrates.controller(
                                 $uibModalInstance.close();
                                 location.reload();
                             }else{
-                              var error_ac1 = $translate.instant('proj_alerts.error_cont1');
+                              var error_ac1 = $translate.instant('proj_alerts.error_textsad');
                               $msg.error(error_ac1);
                             }
                         });
@@ -803,7 +803,7 @@ integrates.controller(
                                 $uibModalInstance.close();
                                 location.reload();
                             }else{
-                              var error_ac1 = $translate.instant('proj_alerts.error_cont1');
+                              var error_ac1 = $translate.instant('proj_alerts.error_textsad');
                               $msg.error(error_ac1);
                             }
                         });
