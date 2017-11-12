@@ -1,0 +1,50 @@
+image: docker:latest
+
+variables:
+  DOCKER_DRIVER: overlay2
+
+services:
+- docker:dind
+
+before_script:
+    - echo $VAULT > deploy/containers/integrates/.vault.txt
+    - docker login registry.gitlab.com -u $DOCKER_USER -p $DOCKER_PASS
+
+#codequality:
+#  image: docker:latest
+#  variables:
+#    DOCKER_DRIVER: overlay
+#  services:
+#    - docker:dind
+#  script:
+#    - docker pull codeclimate/codeclimate
+#    - docker run --env CODECLIMATE_CODE="$PWD" --volume "$PWD":/code --volume /var/run/docker.sock:/var/run/docker.sock --volume /tmp/cc:/tmp/cc codeclimate/codeclimate init
+#    - docker run --env CODECLIMATE_CODE="$PWD" --volume "$PWD":/code --volume /var/run/docker.sock:/var/run/docker.sock --volume /tmp/cc:/tmp/cc codeclimate/codeclimate analyze -f json > codeclimate.json
+#  artifacts:
+#    paths: [codeclimate.json]
+
+stages:
+    - build
+    - test
+    - deploy
+
+build_images:
+    stage: build
+    script:
+        - cd deploy/containers/integrates && ls && sh build.sh
+        - docker push registry.gitlab.com/fluidsignal/integrates:base
+
+#test:
+#    stage: test
+#    script:
+#        - docker pull registry.gitlab.com/fluidsignal/integrates:base
+#        - docker run -t -v $(pwd):/usr/src/app registry.gitlab.com/fluidsignal/integrates:base python /usr/src/app/manage.py test
+
+deploy:
+    stage: deploy
+    script:
+        - docker pull registry.gitlab.com/fluidsignal/integrates:base
+        - docker tag registry.gitlab.com/fluidsignal/integrates:base registry.gitlab.com/fluidsignal/integrates:master
+        - docker push registry.gitlab.com/fluidsignal/integrates:master
+    only:
+    - master

@@ -100,9 +100,9 @@
 
    - name: Clonar repositorio integrates
      git:
-      repo: "https://jrestrepoatfluid@bitbucket.org/fluidsignal/fluid-integrates.git"
+      repo: "https://gitlab.com/fluidsignal/integrates.git"
       dest: "/usr/src/app"
-      version: "{{ lookup('env','CIRCLE_BRANCH') }}"
+      version: master
 
    - name: Agregar secret vars
      template:

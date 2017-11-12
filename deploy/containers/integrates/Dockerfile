@@ -1,13 +1,10 @@
 # Imagen base del ultimo linux estable de Debian (jessie)
-FROM 205810638802.dkr.ecr.us-east-1.amazonaws.com/integrates:base
+FROM debian:jessie
 
 # Dudas sobre la imagen en cuestion
 MAINTAINER FLUID Engineering Team <engineering@fluid.la>
 
-ARG circle_branch
-
 ENV DEBIAN_FRONTEND noninteractive      # instalación no interactiva
-ENV CIRCLE_BRANCH=$circle_branch
 ENV TZ=America/Bogota
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
@@ -15,11 +12,21 @@ RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 RUN gpg --recv-key --keyserver pgp.key-server.io 93C4A3FD7BB9C367 \
     && gpg --export --armor 93C4A3FD7BB9C367 | apt-key add -
 
+# Instalar software-properties y sudo
+RUN apt-get update && apt-get install -y software-properties-common sudo
+
+# Agregar ansible repo
+RUN sudo echo "deb http://ppa.launchpad.net/ansible/ansible/ubuntu trusty main" | sudo tee -a /etc/apt/sources.list
+
+# Instala dependencias
 RUN apt-get update \
     && apt-get upgrade -y \
-    && apt-get install -y software-properties-common sudo
+    && apt-get install -y --force-yes\
+               ansible
 
 # Agrega el playbook
+RUN pwd && ls -la
+
 ADD common/main.yml /root/
 ADD common/patch_socialauth.py /root/
 
@@ -31,6 +38,8 @@ ADD .vault.txt /root/
 
 # Cambia al directorio root
 WORKDIR /root/
+
+RUN pwd && ls -la
 
 # Ejecuta el ansible
 RUN ansible-playbook main.yml --vault-password-file .vault.txt
