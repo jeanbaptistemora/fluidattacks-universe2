@@ -4,10 +4,10 @@ variables:
   DOCKER_DRIVER: overlay2
 
 services:
-- docker:dind
+   - docker:dind
 
 before_script:
-    - echo $VAULT > deploy/containers/integrates/.vault.txt
+    - echo $VAULT > deploy/containers/.vault.txt
     - docker login registry.gitlab.com -u $DOCKER_USER -p $DOCKER_PASS
 
 #codequality:
@@ -28,11 +28,17 @@ stages:
     - test
     - deploy
 
-build_images:
+build_integrates:
     stage: build
     script:
-        - cd deploy/containers/integrates && ls && sh build.sh
+        - cd deploy/containers/integrates && sh build.sh
         - docker push registry.gitlab.com/fluidsignal/integrates:base
+
+build_bot:
+    stage: build
+    script:
+        - cd deploy/containers/bot && sh build.sh
+        - docker push registry.gitlab.com/fluidsignal/integrates/bot:base
 
 #test:
 #    stage: test
@@ -40,11 +46,20 @@ build_images:
 #        - docker pull registry.gitlab.com/fluidsignal/integrates:base
 #        - docker run -t -v $(pwd):/usr/src/app registry.gitlab.com/fluidsignal/integrates:base python /usr/src/app/manage.py test
 
-deploy:
+deploy_integrates:
     stage: deploy
     script:
         - docker pull registry.gitlab.com/fluidsignal/integrates:base
         - docker tag registry.gitlab.com/fluidsignal/integrates:base registry.gitlab.com/fluidsignal/integrates:master
         - docker push registry.gitlab.com/fluidsignal/integrates:master
+    only:
+    - master
+
+deploy_bot:
+    stage: deploy
+    script:
+        - docker pull registry.gitlab.com/fluidsignal/integrates/bot:base
+        - docker tag registry.gitlab.com/fluidsignal/integrates/bot:base registry.gitlab.com/fluidsignal/integrates/bot:master
+        - docker push registry.gitlab.com/fluidsignal/integrates/bot:master
     only:
     - master

@@ -1,5 +1,5 @@
 # Imagen base del ultimo linux estable de Debian (jessie)
-FROM 205810638802.dkr.ecr.us-east-1.amazonaws.com/integrates:base
+FROM registry.gitlab.com/fluidsignal/integrates:deps
 
 # Dudas sobre la imagen en cuestion
 MAINTAINER FLUID Engineering Team <engineering@fluid.la>

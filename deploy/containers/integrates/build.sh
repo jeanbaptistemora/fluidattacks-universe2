@@ -15,6 +15,7 @@ MASTER_BRANCH="master"
 echo "---### [${SERVER}] Compilando contenedor."
 
 # construir la imagen
+cp ../.vault.txt .
 cp -a ../common .
 docker build -t registry.gitlab.com/fluidsignal/integrates:base .
 rm -rf common
