@@ -1,0 +1,254 @@
+= FLUIDIntegrates
+:lang:                   es
+:author:                 Enginering Team
+:email:		         engineering@fluid.la
+:revnumber:              v1.0
+:revdate:                2017
+:toc:                    macro
+:toc-title:              Tabla de Contenido
+:icons:                  font
+:source-highlighter:     pygments
+:keywords:               fluidintegrates, fluidsignal,
+
+image:https://gitlab.com/fluidsignal/integrates/badges/master/pipeline.svg[link="https://gitlab.com/fluidsignal/integrates/commits/master",title="pipeline status"]
+image:https://gitlab.com/fluidsignal/integrates/badges/master/coverage.svg[link="https://gitlab.com/fluidsignal/integrates/commits/master",title="coverage report"]
+
+toc::[]
+
+== Aplicación
+
+Las instrucciones que se presentan a continuación han sido verificadas en los
+siguientes sistemas operativos basados en Debian:
+
+* Ubuntu 16.04.1 LTS aka LTS
+
+[source, console]
+----
+$ lsb_release -a.
+No LSB modules are available.
+Distributor ID: Ubuntu
+Description:    Ubuntu 16.04.3 LTS
+Release:    16.04
+Codename:   xenial
+----
+
+<<<
+== Actualización de paquetes
+
+* Para una correcta instalación de la aplicación y evitar incompatibilidad
+  en las versiones de las dependencias, es necesario actualizar los paquetes
+  esenciales del ambiente.  Para sistemas operativos basados en *Debian* los
+  comandos   que actualiza estas dependencias es el siguiente:
+
+[source, console]
+----
+$ sudo apt-get update \
+               upgrade
+
+----
+
+<<<
+== Dependencias
+
+* Lo primero para comenzar a contribuir en el desarrollo es instalar algunas
+  herramientas dentro del sistema operativo que permiten tener un ambiente de
+  desarrollo idoneo.  Para sistemas operativos basados en *Debian* el comando
+  que instala estas dependencias es el siguiente:
+
+[source, console]
+----
+$ sudo apt install git \
+                   python \
+                   python-pip \
+                   apache2 \
+                   libapache2-mod-wsgi
+
+----
+
+* La siguiente libreria debe ser instalada de forma individual con el siguiente
+  comando:
+
+[source, console]
+----
+$ sudo apt install libapache2-mod-wsgi-py3
+
+----
+
+  * NOTA:
+
+  Para distirbuciones UBUNTU >= 14.04:
+
+* Es necesario que el comando *_pip_* esté actualizado en la versión más reciente,
+  para esto se debe ejecutar el siguiente comando:
+
+[source, console]
+----
+$ pip install --upgrade pip
+
+----
+
+* Continuamos instalando las siguientes dependencias:
+
+[source, console]
+----
+$ sudo apt install libtiff5-dev \
+                   libjpeg8-dev \
+                   zlib1g-dev \
+                   libfreetype6-dev \
+                   liblcms2-dev \
+                   libwebp-dev \
+                   tcl8.6-dev \
+                   tk8.6-dev \
+                   python-tk
+
+----
+
+* y por ultimo, instalamos los complementos necesarios para el correcto
+  funcionamiento de python:
+
+[source, console]
+----
+$ sudo pip install  django \
+                    requests \
+                    openpyxl \
+                    lxml \
+                    python-pptx \
+                    pyyaml \
+                    decorators \
+                    retrying
+
+----
+
+<<<
+== Descarga
+
+* En esta etapa procedemos a crear una copia local del repositorio central de
+  Integrates en una carpeta especifica en el sistema:
+
+[source, console]
+----
+$ cd /var/www && sudo git clone https://gitlab.com/fluidsignal/integrates.git
+Cloning into 'integrates'...
+Username for 'https://gitlab.com': loginatfluid
+Password for 'https://loginatfluid@gitlab.com':
+remote: Counting objects: 5858, done.
+remote: Compressing objects: 100% (93/93), done.
+remote: Total 5858 (delta 82), reused 148 (delta 69)
+Receiving objects: 100% (5858/5858), 29.56 MiB | 679.00 KiB/s, done.
+Resolving deltas: 100% (3243/3243), done.
+Checking connectivity... done.
+
+----
+
+* El comando anterior descargará todo el repositorio de código completo del
+  producto, permitiendo navegar por diferentes versiones y ramas.
+
+<<<
+== Configuración GIT
+
+* Para comenzar a realizar cambios sobre el repositorio deben configurarse los
+  usuarios con los cuales quedaran registrados sus cambios:
+
+[source, console]
+----
+$ git config --global user.name "Faustino Asprilla"
+$ git config --global user.email fasprilla@fluid.la
+----
+
+* Usted puede verificar si los cambios estan registrados mediante la orden:
+
+[source, console]
+----
+$ git config --list
+user.email=fasprilla@fluid.la
+user.name=Faustino Asprilla
+alias.ahead=log origin/master..HEAD --oneline
+push.default=matching
+----
+
+<<<
+== Desplegar FLUIDintegrates de forma local
+
+* Antes de contribuir al repositorio central de FLUID, es necesario comprobar que
+  los cambios que vayamos a realizar funcionen correctamente y no alteren el buen
+  funcionamiento del resto del codigo. Esto se puede verifcar al desplegar el app
+  de forma local, lo cual se puede lograr a traves de los siguientes comandos:
+
+[source, console]
+----
+$ sudo  mkdir  /usr/src/app  && cd /usr/src/app
+$ sudo ln -s /var/www/integrates/*.
+
+----
+
+* Será necesario crear un arhivo que contiene la contraseña que nos permitirá
+  acceder a FLUIDIntegrates y ejecutar las API's necesarias:
+
+[source, console]
+----
+$ pico /tmp/.vault.txt
+
+----
+
+* Se abre el editor de texto con el archivo nuevo, unicamente se debe escribir la
+  contraseña en la primera linea, luego debemos guardar y cerrar. Si desea conocer
+  la contraseña por favor contactarse con jrestrepo@fluid.la
+
+* Para instalar las otras dependencias que son requisito minimo para desplegar
+  FLUIDIntegrates, ejecute:
+
+[source, console]
+----
+$ sudo apt install ansible
+$ sudo apt-get install libmysqlclient-dev \
+                       build-essential \
+                       libssl-dev \
+                       libffi-dev \
+                       python-dev
+
+----
+
+* A continuación se instalarán las dependencias faltantes y se actualizarán
+  aquellas que ya están instaladas:
+
+[source, console]
+----
+sudo apt-get install -y python-dev python-pip && sudo pip install --upgrade -r requirements.txt
+
+----
+
+* El anterior comando es esencial para el despliegue, por lo que usted debe
+  asegurarse que la instalación sea correcta (Sin mensajes de error o dependencias
+  no actualizadas)
+
+<<<
+== Generación de tokens de acceso
+
+* El ultimo paso antes de desplegar la app de forma local es generar los tokens
+  de acceso para la identificación de usuarios y el acceso a las diferentes bases
+  de datos de las que se alimenta FLUIDIntegrates:
+
+[source, console]
+----
+$ sudo  ansible-playbook main.yml --vault-password-file /tmp/.vault.txt
+$ pico fluidintegrates/settings.py
+
+----
+
+* Se abrirá el archivo _settings.py_ en el editor de texto. Navegar por el archivo
+  hasta encontrar la linea _DEBUG = False_ y reemplazarla por _DEBUG = True_.
+
+== Crear servidor 
+
+ * Finalmente se debe lanzar el servidor local que contiene a la aplicación. Esto
+   se hace con el siguiente comando:
+
+[source, console]
+----
+$ python manage.py runsslserver
+
+----
+
+* En este punto la aplicación ya está desplegada localmente, para acceder a ella
+  vaya a la barra de direcciones de su navegador de preferencia y escriba la siguiente
+  dirección: _https://localhost:8000_.
