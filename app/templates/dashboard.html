@@ -54,7 +54,7 @@
               <span>Dashboard</span>
             </div>
             <a href="#" class="am-toggle-left-sidebar navbar-toggle collapsed"><span class="icon-bar"><span></span><span></span><span></span></span></a><a onclick="goDash();" class="navbar-brand"></a><style>.navbar-brand:hover{ cursor:pointer;}</style>
-          </div><a href="#" class="am-toggle-right-sidebar" title="Perfil"><span class="icon s7-menu2"></span></a><a href="#" data-toggle="collapse" data-target="#am-navbar-collapse" class="am-toggle-top-header-menu collapsed"><span class="icon s7-angle-down"></span></a>
+          </div><!--<a href="#" class="am-toggle-right-sidebar" title="Perfil"><span class="icon s7-menu2"></span></a>--><a href="#" data-toggle="collapse" data-target="#am-navbar-collapse" class="am-toggle-top-header-menu collapsed"><span class="icon s7-angle-down"></span></a>
           <div id="am-navbar-collapse" class="collapse navbar-collapse" ng-controller="dashboardCtrl">
             <ul class="nav navbar-nav am-nav-right">
             <li><a ui-sref="home"><b>FLUIDIntegrates</b></a></li>
@@ -107,6 +107,7 @@
       <div class="am-content">
         <div ui-view></div>
       </div>
+     <!--
       <nav class="am-right-sidebar">
         <div class="sb-content">
           <div class="user-info">
@@ -114,9 +115,9 @@
         <span class="company">{{ company }}</span>
             <span class="name">{{ username }}
               <span class="status"></span>
-            </span>
+            </span>-->
             <!--<span class="position">Art Director</span>-->
-          </div>
+      <!--    </div>
           <div class="tab-navigation">
           </div>
           <div class="tab-panel">
@@ -130,7 +131,7 @@
             </div>
           </div>
         </div>
-      </nav>
+      </nav>-->
     </div>
     <div id="full_loader" style="margin: 0px; padding: 0px; position: fixed; right: 0px; top: 0px; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.5); z-index: 30001; opacity: 0.8; display:none;">
       <p style="position: absolute; color: White; top: 50%; left: 45%; text-align:center;">
