@@ -4,8 +4,8 @@
  */
 /**
  * Crea el controlador de las funciones del dashboard
- * @name dashboardController 
- * @param {Object} $scope 
+ * @name dashboardController
+ * @param {Object} $scope
  * @param {Object} $uibModal
  * @return {undefined}
  */
@@ -57,7 +57,13 @@ integrates.controller("dashboardCtrl", function($scope, $uibModal, $timeout,
 		$translate.use(localStorage['lang']);
     }
     $scope.initMyProjects = function(){
+        if(localStorage['lang'] === "en"){
+          var vlang = 'en-US';
+        } else {
+          var vlang = 'es-CO';
+        }
         $("#myProjectsTbl").bootstrapTable({
+            locale: vlang,
             url: BASE.url+"get_myprojects",
             onClickRow: function(row, elem){
                 $state.go("ProjectNamed", {project: row.project});
@@ -66,7 +72,13 @@ integrates.controller("dashboardCtrl", function($scope, $uibModal, $timeout,
         $("#myProjectsTbl").bootstrapTable("refresh");
     };
     $scope.initMyEventualities = function(){
+        if(localStorage['lang'] === "en"){
+          var vlang = 'en-US';
+        } else {
+          var vlang = 'es-CO';
+        }
         $("#myEventsTbl").bootstrapTable({
+            locale: vlang,
             url: BASE.url+"get_myevents",
             onClickRow: function(row, elem){
                 var modalInstance = $uibModal.open({
