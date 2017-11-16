@@ -257,11 +257,6 @@ integrates.controller("eventualityController", function($scope, $uibModal, $tran
      * @return {undefined}
      */
     $scope.searchEvntByName = function(){
-        if(localStorage['lang'] === "en"){
-         var vlang = 'en-US';
-        } else {
-         var vlang = 'es-CO';
-        }
         var project = $scope.project;
         var category = $scope.category;
         if (project !== undefined
@@ -281,7 +276,7 @@ integrates.controller("eventualityController", function($scope, $uibModal, $tran
                 if(!data.error){
                     //CONFIGURACION DE TABLA
                     $("#eventualities").bootstrapTable('destroy');
-                    $("#eventualities").bootstrapTable({data: data.data, locale: vlang});
+                    $("#eventualities").bootstrapTable(data);
                     $("#eventualities").bootstrapTable('refresh');
                     //MANEJO DEL UI
                     $("#search_section").show();

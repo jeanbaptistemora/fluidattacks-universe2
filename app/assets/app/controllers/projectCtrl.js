@@ -580,11 +580,6 @@ integrates.controller(
             });
         };
         $scope.search = function(){
-            if(localStorage['lang'] === "en"){
-             var vlang = 'en-US';
-            } else {
-             var vlang = 'es-CO';
-            }
             var project = $scope.project;
             var filter = $scope.filter;
             var finding = $scope.findingId;
@@ -617,7 +612,6 @@ integrates.controller(
                         //CONFIGURACION DE TABLA
                         $("#vulnerabilities").bootstrapTable('destroy');
                         $("#vulnerabilities").bootstrapTable({
-                            locale: vlang,
                             data: $scope.data,
                             onClickRow: function(row, elem){
                                 $scope.loadFindingByID(row.id);
@@ -649,13 +643,12 @@ integrates.controller(
                         //CONFIGURACION DE TABLA
                         $("#tblEventualities").bootstrapTable('destroy');
                         $("#tblEventualities").bootstrapTable({
-                            locale: vlang,
                             data: response.data,
                             onClickRow: function(row){
                                 var modalInstance = $uibModal.open({
                                     templateUrl: BASE.url + 'assets/views/project/eventualityMdl.html',
                                     animation: true,
-                                    resolve: { evt: row },
+                                    resolve: { evt: row }, 
                                     backdrop: 'static',
                                     controller: function($scope, $uibModalInstance, evt){
                                         $scope.evt = evt;
@@ -696,7 +689,7 @@ integrates.controller(
             //Instanciar modal de confirmacion
             var modalInstance = $uibModal.open({
                 templateUrl: BASE.url + 'assets/views/project/confirmMdl.html',
-                animation: true,
+                animation: true, 
                 backdrop: 'static',
                 resolve: { updateData: cssv2Data },
                 controller: function($scope, $uibModalInstance, updateData){
@@ -756,7 +749,7 @@ integrates.controller(
             }
             var modalInstance = $uibModal.open({
                 templateUrl: BASE.url + 'assets/views/project/confirmMdl.html',
-                animation: true,
+                animation: true, 
                 backdrop: 'static',
                 resolve: { updateData: descData },
                 controller: function($scope, $uibModalInstance, updateData){
@@ -793,7 +786,7 @@ integrates.controller(
             return false;
             var modalInstance = $uibModal.open({
                 templateUrl: BASE.url + 'assets/views/project/confirmMdl.html',
-                animation: true,
+                animation: true, 
                 backdrop: 'static',
                 resolve: { updateData: descData },
                 controller: function($scope, $uibModalInstance, updateData){
