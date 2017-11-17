@@ -6,22 +6,17 @@ variables:
 services:
    - docker:dind
 
+
 before_script:
     - echo $VAULT > deploy/containers/.vault.txt
     - docker login registry.gitlab.com -u $DOCKER_USER -p $DOCKER_PASS
 
-#codequality:
-#  image: docker:latest
-#  variables:
-#    DOCKER_DRIVER: overlay
-#  services:
-#    - docker:dind
-#  script:
-#    - docker pull codeclimate/codeclimate
-#    - docker run --env CODECLIMATE_CODE="$PWD" --volume "$PWD":/code --volume /var/run/docker.sock:/var/run/docker.sock --volume /tmp/cc:/tmp/cc codeclimate/codeclimate init
-#    - docker run --env CODECLIMATE_CODE="$PWD" --volume "$PWD":/code --volume /var/run/docker.sock:/var/run/docker.sock --volume /tmp/cc:/tmp/cc codeclimate/codeclimate analyze -f json > codeclimate.json
-#  artifacts:
-#    paths: [codeclimate.json]
+codequality:
+  script:
+    - docker pull codeclimate/codeclimate
+    - docker run --env CODECLIMATE_CODE="$PWD" --volume "$PWD":/code --volume /var/run/docker.sock:/var/run/docker.sock --volume /tmp/cc:/tmp/cc codeclimate/codeclimate analyze -e sonar-python -e pep8 -e randon -f json > codeclimate.json
+  artifacts:
+    paths: [codeclimate.json]
 
 stages:
     - build
