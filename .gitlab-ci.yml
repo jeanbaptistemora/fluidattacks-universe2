@@ -35,11 +35,29 @@ build_bot:
         - cd deploy/containers/bot && sh build.sh
         - docker push registry.gitlab.com/fluidsignal/integrates/bot:base
 
-#test:
+manage:
+    stage: test
+    script:
+        - docker pull registry.gitlab.com/fluidsignal/integrates:base
+        - docker run -t registry.gitlab.com/fluidsignal/integrates:base python /usr/src/app/manage.py test
+
+Prospector_app:
+    stage: test
+    script:
+        - docker pull registry.gitlab.com/fluidsignal/integrates:base
+        - docker run -t registry.gitlab.com/fluidsignal/integrates:base prospector -u django /usr/src/app/app
+
+Prospector_fluidintegrates:
+    stage: test
+    script:
+        - docker pull registry.gitlab.com/fluidsignal/integrates:base
+        - docker run -t registry.gitlab.com/fluidsignal/integrates:base prospector -u django /usr/src/app/fluidintegrates
+
+#Prospector_deploy:
 #    stage: test
 #    script:
 #        - docker pull registry.gitlab.com/fluidsignal/integrates:base
-#        - docker run -t -v $(pwd):/usr/src/app registry.gitlab.com/fluidsignal/integrates:base python /usr/src/app/manage.py test
+#        - docker run -t registry.gitlab.com/fluidsignal/integrates:base pip install -U fluidasserts 
 
 deploy_integrates:
     stage: deploy
