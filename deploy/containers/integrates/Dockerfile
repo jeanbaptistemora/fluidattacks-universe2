@@ -24,9 +24,6 @@ RUN apt-get update \
     && apt-get install -y --force-yes\
                ansible
 
-# Agrega el playbook
-RUN pwd && ls -la
-
 ADD common/main.yml /root/
 ADD common/patch_socialauth.py /root/
 
@@ -38,8 +35,6 @@ ADD .vault.txt /root/
 
 # Cambia al directorio root
 WORKDIR /root/
-
-RUN pwd && ls -la
 
 # Ejecuta el ansible
 RUN ansible-playbook main.yml --vault-password-file .vault.txt
