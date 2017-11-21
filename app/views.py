@@ -216,47 +216,46 @@ def get_findings(request):
     rmp = FormstackRequestMapper()
     for finding in finding_requests:
         formstack_request = api.get_submission(finding["id"])
-        finding_parsed = rmp.map_finding(formstack_request)         
-        if finding_parsed['proyecto_fluid'].lower() == project:
-            state = api.get_finding_state(finding["id"])
-            finding_parsed['estado'] = state['estado']
-            closing_cicles = api.get_closings_by_finding(finding['id'])
-            finding_parsed['cierres'] = [rmp.map_closing(api.get_submission(x['id'])) for x in closing_cicles['submissions']]
-            finding_parsed['cardinalidad_total'] = finding_parsed['cardinalidad']
-            if 'tipo_hallazgo' not in finding_parsed or finding_parsed['tipo_hallazgo'] == 'Seguridad':
-                finding_parsed['tipo_hallazgo_cliente'] = 'Vulnerabilidad'
-            else:
-                finding_parsed['tipo_hallazgo_cliente'] = finding_parsed['tipo_hallazgo']
-            if finding_parsed['explotabilidad'] == '1.000 | Alta: No se requiere exploit o se puede automatizar' \
-                        or finding_parsed['explotabilidad'] == '0.950 | Funcional: Existe exploit':
-                finding_parsed['explotable'] = 'Si'
-            else:
-                finding_parsed['explotable'] = 'No'
-            if 'abiertas' in state:
-                finding_parsed['cardinalidad'] = state['abiertas']
-            if 'abiertas_cuales' in state:
-                finding_parsed['donde'] = state['abiertas_cuales']
+        finding_parsed = rmp.map_finding(formstack_request)
+        state = api.get_finding_state(finding["id"])
+        finding_parsed['estado'] = state['estado']
+        closing_cicles = api.get_closings_by_finding(finding['id'])
+        finding_parsed['cierres'] = [rmp.map_closing(api.get_submission(x['id'])) for x in closing_cicles['submissions']]
+        finding_parsed['cardinalidad_total'] = finding_parsed['cardinalidad']
+        if 'tipo_hallazgo' not in finding_parsed or finding_parsed['tipo_hallazgo'] == 'Seguridad':
+            finding_parsed['tipo_hallazgo_cliente'] = 'Vulnerabilidad'
+        else:
+            finding_parsed['tipo_hallazgo_cliente'] = finding_parsed['tipo_hallazgo']
+        if finding_parsed['explotabilidad'] == '1.000 | Alta: No se requiere exploit o se puede automatizar' \
+                    or finding_parsed['explotabilidad'] == '0.950 | Funcional: Existe exploit':
+            finding_parsed['explotable'] = 'Si'
+        else:
+            finding_parsed['explotable'] = 'No'
+        if 'abiertas' in state:
+            finding_parsed['cardinalidad'] = state['abiertas']
+        if 'abiertas_cuales' in state:
+            finding_parsed['donde'] = state['abiertas_cuales']
 
-            if state['estado'] == 'Cerrado':
-                finding_parsed['donde'] = '-'
-                finding_parsed['edad'] = '-'
-            else:
-                tzn = pytz.timezone('America/Bogota')
-                finding_date_str = finding_parsed["timestamp"].split(" ")[0]
-                finding_date = datetime.strptime(finding_date_str, '%Y-%m-%d')
-                finding_date = finding_date.replace(tzinfo=tzn).date()
-                current_date = datetime.now(tz=tzn).date()
-                final_date = (current_date - finding_date)
-                strdays = ":n".replace(":n", str(final_date.days))
-                finding_parsed['edad'] = strdays
-            if 'cerradas_cuales' in state:
-                finding_parsed['cerradas'] = state['cerradas_cuales']
-            if not filtr:
+        if state['estado'] == 'Cerrado':
+            finding_parsed['donde'] = '-'
+            finding_parsed['edad'] = '-'
+        else:
+            tzn = pytz.timezone('America/Bogota')
+            finding_date_str = finding_parsed["timestamp"].split(" ")[0]
+            finding_date = datetime.strptime(finding_date_str, '%Y-%m-%d')
+            finding_date = finding_date.replace(tzinfo=tzn).date()
+            current_date = datetime.now(tz=tzn).date()
+            final_date = (current_date - finding_date)
+            strdays = ":n".replace(":n", str(final_date.days))
+            finding_parsed['edad'] = strdays
+        if 'cerradas_cuales' in state:
+            finding_parsed['cerradas'] = state['cerradas_cuales']
+        if not filtr:
+            findings.append(finding_parsed)
+        elif "tipo_prueba" in finding_parsed:
+            if filtr.encode("utf8") == \
+                    finding_parsed["tipo_prueba"].encode("utf8"):
                 findings.append(finding_parsed)
-            elif "tipo_prueba" in finding_parsed:
-                if filtr.encode("utf8") == \
-                        finding_parsed["tipo_prueba"].encode("utf8"):
-                    findings.append(finding_parsed)
     findings.reverse()
     return util.response(findings, 'Success', False)
 
