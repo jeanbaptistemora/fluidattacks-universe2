@@ -307,46 +307,38 @@ def get_eventualities(request):
     category = request.GET.get('category', None)
     if not category:
         category = "Name"
-    if not project:
+    if not project or project.strip() == "":
         return util.response([], 'Campos vacios', True)
     else:
-        if project.strip() == "":
-            return util.response([], 'Campos vacios', True)
-        else:
-            api = FormstackAPI()
-            rmp = FormstackRequestMapper()
-            if category == "Name":
-                eventuality_requests = \
-                    api.get_eventualities(project)["submissions"]
-                if eventuality_requests:
-                    # pylint: disable=C1801
-                    if len(eventuality_requests) == 0:
-                        return util.response([],
-                                             'Este proyecto no tiene \
-eventualidades o no existe', False)
-                    eventualities = []
-                    for eventuality in eventuality_requests:
-                        eventuality_request = \
-                            api.get_submission(eventuality["id"])
-                        eventuality_parsed = \
-                            rmp.map_eventuality(eventuality_request)
-                        if eventuality_parsed['proyecto_fluid'].lower() == project.lower():
-                           eventualities.append(eventuality_parsed)
-                    return util.response(eventualities, 'Correcto', False)
-                else:
-                    return util.response([],
-                                         'Este proyecto no tiene \
-eventualidades o no existe', False)
-            else:
-                if util.is_numeric(project):
-                    eventualities = []
-                    eventuality_request = api.get_submission(project)
+        api = FormstackAPI()
+        rmp = FormstackRequestMapper()
+        if category == "Name":
+            eventuality_requests = \
+                api.get_eventualities(project)["submissions"]
+            # pylint: disable=C1801
+            if eventuality_requests and len(eventuality_requests) != 0:
+                eventualities = []
+                for eventuality in eventuality_requests:
+                    eventuality_request = \
+                        api.get_submission(eventuality["id"])
                     eventuality_parsed = \
                         rmp.map_eventuality(eventuality_request)
-                    if eventuality_parsed['id'].lower() == project.lower():
-                       eventualities.append(eventuality_parsed)
-                    return util.response(eventualities, 'Correcto', False)
-                return util.response([], 'Debes ingresar un ID \
+                    if eventuality_parsed['proyecto_fluid'].lower() == project.lower():
+                        eventualities.append(eventuality_parsed)
+                return util.response(eventualities, 'Correcto', False)
+            return util.response([],
+                                     'Este proyecto no tiene \
+eventualidades o no existe', False)
+        else:
+            if util.is_numeric(project):
+                eventualities = []
+                eventuality_request = api.get_submission(project)
+                eventuality_parsed = \
+                    rmp.map_eventuality(eventuality_request)
+                if eventuality_parsed['id'].lower() == project.lower():
+                    eventualities.append(eventuality_parsed)
+                return util.response(eventualities, 'Correcto', False)
+            return util.response([], 'Debes ingresar un ID \
 numerico!', True)
 
 
@@ -498,8 +490,8 @@ def get_myevents(request):
                 eventuality_parsed = \
                     rmp.map_eventuality(eventuality_request)
                 if eventuality_parsed['proyecto_fluid'].lower() == project.lower():
-                   if eventuality_parsed["estado"] == "Pendiente":
-                      eventualities.append(eventuality_parsed)
+                    if eventuality_parsed["estado"] == "Pendiente":
+                        eventualities.append(eventuality_parsed)
     return util.response(eventualities, 'Correcto', False)
 
 @never_cache

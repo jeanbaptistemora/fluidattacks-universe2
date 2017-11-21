@@ -9,7 +9,7 @@ fi
 set -e
 
 SERVER="integrates"
-MASTER_BRANCH="master"
+CI_COMMIT_REF_NAME=$1
 
 # Mensaje de inicio
 echo "---### [${SERVER}] Compilando contenedor."
@@ -17,6 +17,5 @@ echo "---### [${SERVER}] Compilando contenedor."
 # construir la imagen
 cp ../.vault.txt .
 cp -a ../common .
-docker build -t registry.gitlab.com/fluidsignal/integrates:base .
+docker build --build-arg ci_commit_ref_name=$CI_COMMIT_REF_NAME -t registry.gitlab.com/fluidsignal/integrates:base .
 rm -rf common
-#docker run --detach --name="$SERVER" -p 8000:443 205810638802.dkr.ecr.us-east-1.amazonaws.com/integrates:$MASTER_BRANCH

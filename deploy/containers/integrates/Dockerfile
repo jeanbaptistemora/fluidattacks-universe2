@@ -4,7 +4,10 @@ FROM registry.gitlab.com/fluidsignal/integrates:deps
 # Dudas sobre la imagen en cuestion
 MAINTAINER FLUID Engineering Team <engineering@fluid.la>
 
+ARG ci_commit_ref_name
+
 ENV DEBIAN_FRONTEND noninteractive      # instalación no interactiva
+ENV CI_COMMIT_REF_NAME=$ci_commit_ref_name
 ENV TZ=America/Bogota
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 

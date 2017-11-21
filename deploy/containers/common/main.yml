@@ -102,7 +102,7 @@
      git:
       repo: "https://gitlab.com/fluidsignal/integrates.git"
       dest: "/usr/src/app"
-      version: master
+      version: "{{ lookup('env','CI_COMMIT_REF_NAME') }}"
 
    - name: Agregar secret vars
      template:

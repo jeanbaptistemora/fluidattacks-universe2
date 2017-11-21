@@ -26,13 +26,13 @@ stages:
 build_integrates:
     stage: build
     script:
-        - cd deploy/containers/integrates && sh build.sh
+        - cd deploy/containers/integrates && sh build.sh $CI_COMMIT_REF_NAME
         - docker push registry.gitlab.com/fluidsignal/integrates:base
 
 build_bot:
     stage: build
     script:
-        - cd deploy/containers/bot && sh build.sh
+        - cd deploy/containers/bot && sh build.sh $CI_COMMIT_REF_NAME
         - docker push registry.gitlab.com/fluidsignal/integrates/bot:base
 
 manage:
