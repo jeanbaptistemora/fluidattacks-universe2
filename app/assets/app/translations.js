@@ -256,7 +256,29 @@ integrates.config(['$translateProvider', function($translateProvider) {
            'edit': 'EDIT!',
            'resume': 'RESUME!'
          }
+       },
+       'event_formstack':{
+         'type':{
+           'auth_attack': 'Authorization for special attack',
+           'toe_differs': 'ToE differs from what was approved',
+           'high_approval': 'High availability approval',
+           'incor_supplies': 'Incorrect or missing supplies',
+           'explic_suspend': 'Client explicitly suspends project',
+           'approv_change': 'Client approves the change of ToE',
+           'cancel_proj': 'Client cancels the project/milestone',
+           'det_attack': 'Client detects an attack',
+           'other': 'other',
+           'inacc_ambient': 'Inaccessible ambient',
+           'uns_ambient': 'Unstable ambient',
+           'unknown':'-'
+         },
+         'status':{
+           'solve': 'Solved',
+           'unsolve': 'Unsolved',
+           'unknown':'-'
+         }
        }
+
     };
     var traducciones = {
         'logout': {
@@ -503,6 +525,27 @@ integrates.config(['$translateProvider', function($translateProvider) {
            'watch': 'VER!',
            'edit': 'EDITAR!',
            'resume': 'RESUMEN!'
+         }
+       },
+       'event_formstack':{
+         'type':{
+           'auth_attack': 'Autorización para ataque especial',
+           'toe_differs': 'Alcance difiere a lo aprobado',
+           'high_approval': 'Aprobación de alta disponibilidad',
+           'incor_supplies': 'Insumos incorrectos o faltantes',
+           'explic_suspend': 'Cliente suspende explicitamente',
+           'approv_change': 'Cliente aprueba cambio de alcance',
+           'cancel_proj': 'Cliente cancela el proyecto/hito',
+           'det_attack': 'Cliente detecta ataque',
+           'other': 'Otro',
+           'inacc_ambient': 'Ambiente no accesible',
+           'uns_ambient': 'Ambiente inestable',
+           'unknown':'-'
+         },
+         'status':{
+           'solve': 'Pendiente',
+           'unsolve': 'Tratada',
+           'unknown':'-'
          }
        }
     };
