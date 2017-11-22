@@ -277,8 +277,139 @@ integrates.config(['$translateProvider', function($translateProvider) {
            'unsolve': 'Unsolved',
            'unknown':'-'
          }
+       },
+       'finding_formstack':{
+         'actor':{
+           'any_internet': 'Anyone on Internet',
+           'any_costumer': 'Any costumer of the organization',
+           'some_costumer': 'Only some costumers of the organization',
+           'any_access': 'Anyone with access to the station',
+           'any_employee': 'Any employee of the organization',
+           'some_employee': 'Only some employees',
+           'one_employee': 'Only one employee',
+           'default': '-'
+         },
+         'authentication':{
+           'any_authen': '0.704 | Any: Authentication is not required',
+           'single_authen': '0.560 | Single: Single authentication point',
+           'multiple_authen': '0.450 | Multiple: Multiple authentication points',
+           'default':'-'
+         },
+         'category':{
+           'update_base': 'Update and configure components security baselines',
+           'define_model': 'Define the authorization model considering the principle of minimum privilege',
+           'performance': 'Performance',
+           'event': 'Event',
+           'avoid_technical': 'Avoid exposing the technical information of the application, servers and platforms.',
+           'exclude_data': 'Exclude sensitive data from source code and event log',
+           'strengt_authen': 'Strengthen controls in authentication and session management',
+           'strengt_process': 'Strengthen controls in file processing',
+           'strengt_protect': 'Strengthen the protection of stored data related to passwords or cryptographic keys',
+           'validate_input': 'Implement controls to validate input data',
+           'maintain': 'Maintainability',
+           'record_event': 'Record events for traceability and audit',
+           'secure_protoc': 'Use secure communication protocols',
+           'validate_http': 'Validate the integrity of transactions in HTTP requests',
+           'default':'-'
+         },
+         'complexity':{
+           'high_complex': '0.350 | High: Special conditions are required like administrative access',
+           'medium_complex': '0.610 | Medium: Some conditions are required like system access',
+           'low_complex': '0.710 | Low: No special conditions are required',
+           'default':'-'
+         },
+         'scenario':{
+           'anon_inter': 'Anonymous from Internet',
+           'anon_intra': 'Anonymous from Intranet',
+           'infra_scan': 'Infrastructure scan',
+           'unauth_extra': 'Unauthorized Extranet user',
+           'auth_inter': 'Authorized Internet user',
+           'unauth_inter': 'Unauthorized Internet user',
+           'auth_intra': 'Authorized Intranet user',
+           'unauth_inter': 'Unauthorized Internet user',
+           'default': '-'
+         },
+         'status':{
+           'open': 'Open',
+           'close': 'Close',
+           'part_close': 'Partially closed',
+           'default': '-'
+         },
+         'exploitability':{
+           'improbable': '0.850 | Improbable: There is no exploit',
+           'conceptual': '0.900 | Conceptual: There are laboratory tests',
+           'functional': '0.950 | Functional: There is an exploit',
+           'high': '1.000 | High: Exploit is not required or it can be automated',
+           'default': '-'
+         },
+         'exploitable':{
+           'yes': 'Yes',
+           'no': 'No',
+           'default': '-'
+         },
+         'confidenciality':{
+           'none': '0 | None: There is no impact',
+           'partial': '0.275 | Partial: Access to information but no control over it',
+           'complete': '0.660 | Complete: Total control over information related with the target',
+           'default': '-'
+         },
+         'availability':{
+           'none': '0 | None: There is no impact',
+           'partial': '0.275 | Partial: There is intermittency in the access to the target',
+           'complete': '0.660 | Complete: There is a total target fallen',
+           'default': '-'
+         },
+         'integrity':{
+           'none': '0 | None: There is no impact',
+           'partial': '0.275 | Partial: Posibility of modify some target information',
+           'complete': '0.660 | Complete: Posibility of modify all target information',
+           'default': '-'
+         },
+         'confidence':{
+           'not_confirm': '0.900 | Not confirmed: There are few sources that recognize vulnerability',
+           'not_corrob': '0.950 | Not corroborared: Vulnerability is recognized by unofficial sources',
+           'confirmed': '1.000 | Confirmed: The vulnerability is recognized by the manufacturer',
+           'default': '-'
+         },
+         'resolution':{
+           'palliative': '0.950 | Palliative: There is a patch that was not published by the manufacturer',
+           'official': '0.870 | Official: There is an manufacturer available patch',
+           'temporal': '0.900 | Temporal: There are temporary solutions',
+           'non_existent': '1.000 | Non-existent: There is no solution',
+           'default': '-'
+         },
+         'probability':{
+           'prev_vuln': '100% previously with vulnerability',
+           'easy_vuln': '75% Easy to have a vulnerability',
+           'possible_vuln': '50% Possible vulnerability',
+           'diffic_vuln': '25% Difficult to have a vulnerability',
+           'default': '-'
+         },
+         'finding_type':{
+           'hygiene': 'Hygiene',
+           'vuln': 'Vulnerability',
+           'default': '-'
+         },
+         'test_method':{
+           'analysis': 'Analysis',
+           'app': 'App',
+           'binary': 'Binary',
+           'code': 'Code',
+           'infras': 'Infrastructure',
+           'default': '-'
+         },
+         'access_vector':{
+           'adjacent': '0.646 | Adjacent network: Exploitable from same network segment',
+           'network': '1.000 | Network: Exploitable from Internet',
+           'local': '0.395 | Local: Exploitable with local access to the target',
+           'default': '-'
+         },
+         'criticity_header':{
+           'high': ' High',
+           'moderate': ' Moderate',
+           'tolerable': ' Tolerable'
+         }
        }
-
     };
     var traducciones = {
         'logout': {
@@ -546,6 +677,138 @@ integrates.config(['$translateProvider', function($translateProvider) {
            'solve': 'Pendiente',
            'unsolve': 'Tratada',
            'unknown':'-'
+         }
+       },
+       'finding_formstack':{
+         'actor':{
+           'any_internet': 'Cualquier persona en Internet',
+           'any_costumer': 'Cualquier cliente de la organización',
+           'some_costume': 'Solo algunos clientes de la organización',
+           'any_access': 'Cualquier persona con acceso a la estación',
+           'any_employee': 'Cualquier empleado de la organización',
+           'some_employee': 'Solo algunos empleados',
+           'one_employee': 'Solo un empleado',
+           'default': '-'
+         },
+         'authentication':{
+           'any_authen': '0.704 | Ninguna: No se requiere autenticación',
+           'single_authen': '0.560 | Única: Único punto de autenticación',
+           'multiple_authen': '0.450 | Multiple: Multiples puntos de autenticación',
+           'default':'-'
+         },
+         'category':{
+           'update_base': 'Actualizar y configurar las líneas base de seguridad de los componentes',
+           'define_model': 'Definir el modelo de autorización considerando el principio de mínimo privilegio',
+           'performance': 'Desempeño',
+           'event': 'Eventualidad',
+           'avoid_technical': 'Evitar exponer la información técnica de la aplicación, servidores y plataformas',
+           'exclude_data': 'Excluir datos sensibles del código fuente y del registro de eventos',
+           'strengt_authen': 'Fortalecer controles en autenticación y manejo de sesión',
+           'strengt_process': 'Fortalecer controles en el procesamiento de archivos',
+           'strengt_protect': 'Fortalecer la protección de datos almacenados relacionados con contraseñas o llaves criptográficas',
+           'validate_input': 'Implementar controles para validar datos de entrada',
+           'maintain': 'Mantenibilidad',
+           'record_event': 'Registrar eventos para trazabilidad y auditoría',
+           'secure_protoc': 'Utilizar protocolos de comunicación seguros',
+           'validate_http': 'Validar la integridad de las transacciones en peticiones HTTP',
+           'default':'-'
+         },
+         'complexity':{
+           'high_complex': '0.350 | Alto: Se requieren condiciones especiales como acceso administrativo',
+           'medium_complex': '0.610 | Medio: Se requieren algunas condiciones como acceso al sistema',
+           'low_complex': '0.710 | Bajo: No se requiere ninguna condición especial',
+           'default':'-'
+         },
+         'scenario':{
+           'anon_inter': 'Anónimo desde Internet',
+           'anon_intra': 'Anónimo desde Intranet',
+           'infra_scan': 'Escaneo de Infraestructura',
+           'unauth_extra': 'Extranet usuario no autorizado',
+           'auth_inter': 'Internet usuario autorizado',
+           'unauth_inter': 'Internet usuario no autorizado',
+           'auth_intra': 'Intranet usuario autorizado',
+           'unauth_inter': 'Intranet usuario no autorizado',
+           'default': '-'
+         },
+         'status':{
+           'open': 'Abierto',
+           'close': 'Cerrado',
+           'part_close': 'Parcialmente cerrado',
+           'default': '-'
+         },
+         'exploitability':{
+           'improbable': '0.850 | Improbable: No existe un exploit',
+           'conceptual': '0.900 | Conceptual: Existen pruebas de laboratorio',
+           'functional': '0.950 | Funcional: Existe exploit',
+           'high': '1.000 | Alta: No se requiere exploit o se puede automatizar',
+           'default': '-'
+         },
+         'exploitable':{
+           'yes': 'Si',
+           'no': 'No',
+           'default': '-'
+         },
+         'confidenciality':{
+           'none': '0 | Ninguno: No se presenta ningún impacto',
+           'partial': '0.275 | Parcial: Se obtiene acceso a la información pero no control sobre ella',
+           'complete': '0.660 | Completo: Se controla toda la información relacionada con el objetivo',
+           'default': '-'
+         },
+         'availability':{
+           'none': '0 | Ninguno: No se presenta ningún impacto',
+           'partial': '0.275 | Parcial: Se presenta intermitencia en el acceso al objetivo',
+           'complete': '0.660 | Completo: Hay una caída total del objetivo',
+           'default': '-'
+         },
+         'integrity':{
+           'none': '0 | Ninguno: No se presenta ningún impacto',
+           'partial': '0.275 | Parcial: Es posible modificar cierta información del objetivo',
+           'complete': '0.660 | Completo: Es posible modificar toda la información del objetivo',
+           'default': '-'
+         },
+         'confidence':{
+           'not_confirm': '0.900 | No confirmado: Existen pocas fuentes que reconocen la vulnerabilidad',
+           'not_corrob': '0.950 | No corroborado: La vulnerabilidad es reconocida por fuentes no oficiales',
+           'confirmed': '1.000 | Confirmado: La vulnerabilidad es reconocida por el fabricante',
+           'default': '-'
+         },
+         'resolution':{
+           'palliative': '0.950 | Paliativa: Existe un parche que no fue publicado por el fabricante',
+           'official': '0.870 | Oficial: Existe un parche disponible por el fabricante',
+           'temporal': '0.900 | Temporal: Existen soluciones temporales',
+           'non_existent': '1.000 | Inexistente: No existe solución',
+           'default': '-'
+         },
+         'probability':{
+           'prev_vuln': '100% Vulnerado Anteriormente',
+           'easy_vuln': '75% Fácil de vulnerar',
+           'possible_vuln': '50% Posible de vulnerar',
+           'diffic_vuln': '25% Difícil de vulnerar',
+           'default': '-'
+         },
+         'finding_type':{
+           'hygiene': 'Higiene',
+           'vuln': 'Vulnerabilidad',
+           'default': '-'
+         },
+         'test_method':{
+           'analysis': 'Análisis',
+           'app': 'Aplicación',
+           'binary': 'Binario',
+           'code': 'Código',
+           'infras': 'Infraestructura',
+           'default': '-'
+         },
+         'access_vector':{
+           'adjacent': '0.646 | Red adyacente: Explotable desde el mismo segmento de red',
+           'network': '1.000 | Red: Explotable desde Internet',
+           'local': '0.395 | Local: Explotable con acceso local al objetivo',
+           'default': '-'
+         },
+         'criticity_header':{
+           'high': ' Alto',
+           'moderate': ' Moderado',
+           'tolerable': ' Tolerable'
          }
        }
     };
