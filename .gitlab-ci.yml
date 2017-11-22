@@ -1,0 +1,36 @@
+image: alpine
+
+deployment:
+  environment: production
+  before_script:
+    - apk update
+    - apk add alpine-sdk py2-curl python2 python2-dev py-pip libffi-dev openssl openssl-dev jpeg-dev asciidoc highlight ruby ruby-dev
+    - pip install -r requirements.txt
+    - pip install awscli
+    - gem install --no-document sass
+  script:
+    - pelican content/
+    - aws s3 cp --acl=public-read-write output/ s3://blog2.fluid.la
+  only:
+     - master
+
+
+
+pages:
+  environment: staging
+  before_script:
+    - apk update
+    - apk add alpine-sdk py2-curl python2 python2-dev py-pip libffi-dev openssl openssl-dev jpeg-dev asciidoc highlight ruby ruby-dev
+    - pip install -r requirements.txt
+    - gem install --no-document sass
+  script:
+    - sed -i 's/http:\/\/blog2.fluid.la/\/blog/' pelicanconf.py
+    - sed -i 's/http:\/\/blog2.fluid.la/\/blog/' publishconf.py
+    - pelican content
+    - mkdir -p /public
+    - cp -r output/ public/
+  artifacts:
+    paths:
+      - public/
+  except:
+    - master
