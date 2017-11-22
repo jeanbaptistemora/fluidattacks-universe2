@@ -618,7 +618,7 @@ integrates.controller(
                         $scope.data = response.data;
                         for(var i = 0; i< $scope.data.length;i++){
                            switch ($scope.data[i].actor) {
-                             case "Cualquier persona en Internet":
+                             case "​Cualquier persona en Internet":
                                $scope.data[i].actor = $translate.instant('finding_formstack.actor.any_internet');;
                                break;
                              case "Cualquier cliente de la organización":
