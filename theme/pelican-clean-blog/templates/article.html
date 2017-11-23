@@ -5,18 +5,19 @@
 {% block header %}
     <!-- Page Header -->
     {% include "navigationbar.html" %}
-    {% if HEADER_COVER %}
+    {% if article.header_cover %}
+        <header class="intro-header" style="background-image: url('{{ article.header_cover }}')">
+    {% elif HEADER_COVER %}
         <header class="intro-header" style="background-image: url('{{ HEADER_COVER }}')">
     {% elif HEADER_COLOR %}
         <header class="intro-header" style="background-color: {{ HEADER_COLOR }}">
     {% else %}
-        <header class="intro-header"> <!--style="background-image: url('{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/fluid.png');" >-->
-            <a href=""><img src='{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/fluid.png'></a>
-    {% endif %}      
+        <header class="intro-header" id="intro-eth" style="background-image: url('{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/fluid.png')">
+    {% endif %}     
         <div class="container" onclick="window.location = '{{ SITEURL }}'">
             <div class="row" id="roweth">
                 <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-                    <div class="post-heading">
+                    <div class="post-heading">                        
                     </div>
                 </div>
             </div>
@@ -26,7 +27,7 @@
 
 {% block content %}
     <!-- Post Content -->
-  <div id="divpage">
+  <div id="divarticle">
     <article>
         <h1>{{ article.title }}</h1>
         {% if article.headline %}
