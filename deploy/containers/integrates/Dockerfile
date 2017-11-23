@@ -25,10 +25,11 @@ RUN sudo echo "deb http://ppa.launchpad.net/ansible/ansible/ubuntu trusty main" 
 RUN apt-get update \
     && apt-get upgrade -y \
     && apt-get install -y --force-yes\
-               ansible
+               ansible \
+               curl
 
-# Agrega el playbook
-RUN pwd && ls -la
+#Instala Nodejs
+RUN curl -sL https://deb.nodesource.com/setup_6.x | sudo -E bash -
 
 ADD common/main.yml /root/
 ADD common/patch_socialauth.py /root/
@@ -41,8 +42,6 @@ ADD .vault.txt /root/
 
 # Cambia al directorio root
 WORKDIR /root/
-
-RUN pwd && ls -la
 
 # Ejecuta el ansible
 RUN ansible-playbook main.yml --vault-password-file .vault.txt

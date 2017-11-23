@@ -1,0 +1,10 @@
+{
+  "name": "FLUIDIntegrates",
+  "version": "1.0.0",
+  "description": "",
+  "repository": "https://gitlab.com/fluidsignal/integrates.git",
+  "author": "Enginering Team",
+  "dependencies": {
+    "lightgallery": "^1.6.5"
+  }
+}

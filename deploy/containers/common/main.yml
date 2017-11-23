@@ -22,6 +22,8 @@
       - apache2
       - python-setuptools
       - python-tk
+      - nodejs
+      - build-essential
 
    - name: Instalar librerias
      apt:
@@ -158,6 +160,10 @@
    - name: Habilitar mod_ssl
      command: "a2enmod ssl"
      when: migrate
+
+   - name: Instala los paquetes de package.json.
+     npm:
+      path: "/usr/src/app/app/assets"
 
    - name: Creando sitio web HTTPS
      template:

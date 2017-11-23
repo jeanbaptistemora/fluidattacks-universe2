@@ -17,7 +17,10 @@ RUN gpg --recv-key --keyserver pgp.key-server.io 93C4A3FD7BB9C367 \
 
 RUN apt-get update \
     && apt-get upgrade -y \
-    && apt-get install -y software-properties-common sudo
+    && apt-get install -y software-properties-common sudo curl
+
+#Instala Nodejs
+RUN curl -sL https://deb.nodesource.com/setup_6.x | sudo -E bash -    
 
 # Agrega el playbook
 ADD common/main.yml /root/
