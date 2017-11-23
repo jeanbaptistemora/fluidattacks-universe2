@@ -263,8 +263,8 @@
                                                     ng-click="updateDescription();">
                                                     <i class="glyphicon glyphicon-repeat"></i>  {{'search_findings.tab_description.update' | translate}}
                                             </button>
-                                        </div> 
-                                    </div>                                     
+                                        </div>
+                                    </div>
                                 </div>
                                 <div class="row table-row" ng-show="isManager && !onlyReadableTab1">
                                     <div class="col-md-3 col-xs-12 col-sm-12 table-head"><label><b>{{'search_findings.tab_description.type' | translate}}</b></label></div>
@@ -384,6 +384,15 @@
                                                   ng-model="finding.donde">{{finding.donde}}</textarea>
                                     </div>
                                 </div>
+                                <div class="row table-row" ng-show="!onlyReadableTab1">
+                                    <div class="col-md-3 col-xs-12 col-sm-12 table-head"><label><b>{{'search_findings.tab_description.cardinality' | translate}}</b></label></div>
+                                    <div class="col-md-9 col-xs-12 col-sm-12 table-desc">
+                                        <p ng-show="onlyReadableTab1">{{finding.cardinalidad}}</p>
+                                        <input type="text" class="form-control"
+                                               ng-show="!onlyReadableTab1"
+                                               ng-model="finding.cardinalidad">
+                                    </div>
+                                </div>
                                 <div class="row table-row">
                                     <div class="col-md-3 col-xs-12 col-sm-12 table-head"><label><b>{{'search_findings.tab_description.vectors' | translate}}</b></label></div>
                                     <div class="col-md-3 col-xs-12 col-sm-12 table-desc">
@@ -440,7 +449,7 @@
                                                ng-show="!onlyReadableTab1"
                                                ng-model="finding.cwe">
                                     </div>
-                                </div>                                
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -468,7 +477,7 @@
                                             </button>
                                         </div>
                                     </div>
-                                    
+
                                 </div>
                                 <div class="row table-row">
                                     <div class="col-md-3 col-xs-12 col-sm-12 table-head"><label><b>{{'search_findings.tab_cssv2.vector' | translate}}</b></label></div>
@@ -609,7 +618,7 @@
                                     <div class="col-md-9 col-xs-12 col-sm-12 table-desc"><p>{{finding.cssv2base}}</p></div>
                                     <div class="col-md-3 col-xs-12 col-sm-12 table-head"><label><b>CSSv2 Temporal</b></label></div>
                                     <div class="col-md-9 col-xs-12 col-sm-12 table-desc"><p>{{finding.criticidad}}</p></div>
-                                </div>                                
+                                </div>
                             </div>
                         </div>
                     </div>
