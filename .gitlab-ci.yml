@@ -53,12 +53,6 @@ Prospector_fluidintegrates:
         - docker pull registry.gitlab.com/fluidsignal/integrates:base
         - docker run -t registry.gitlab.com/fluidsignal/integrates:base prospector -u django /usr/src/app/fluidintegrates
 
-#Prospector_deploy:
-#    stage: test
-#    script:
-#        - docker pull registry.gitlab.com/fluidsignal/integrates:base
-#        - docker run -t registry.gitlab.com/fluidsignal/integrates:base pip install -U fluidasserts 
-
 deploy_integrates:
     stage: deploy
     script:
