@@ -332,7 +332,7 @@ integrates.config(['$translateProvider', function($translateProvider) {
          },
          'status':{
            'open': 'Open',
-           'close': 'Close',
+           'close': 'Closed',
            'part_close': 'Partially closed',
            'default': '-'
          },

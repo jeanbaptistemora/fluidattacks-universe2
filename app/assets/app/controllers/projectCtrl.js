@@ -12,8 +12,8 @@ function removeHour(value, row, index){
 function labelState(value, row, index){
     if(value == "Cerrado"){
         return "<label class='label label-success' style='background-color: #31c0be'>Cerrado</label>";
-    }else if(value == "Close"){
-        return "<label class='label label-success' style='background-color: #31c0be'>Close</label>";
+    }else if(value == "Closed"){
+        return "<label class='label label-success' style='background-color: #31c0be'>Closed</label>";
     }else if(value == "Abierto"){
         return "<label class='label label-danger' style='background-color: #f22;'>Abierto</label>";
     }else if(value == "Open"){
@@ -500,7 +500,7 @@ integrates.controller(
             var total_hig = 0;
             currData.forEach(function(val, i){
                 tipo = val.tipo_hallazgo;
-                if(val.estado != "Cerrado" && val.estado != "Close"){
+                if(val.estado != "Cerrado" && val.estado != "Closed"){
                     if(tipo == "Seguridad"){
                         total_seg += 1;
                     }else{
@@ -528,7 +528,7 @@ integrates.controller(
             var nonexploit = 0;
             currData.forEach(function(val, i){
                 explotable = val.explotabilidad;
-                if(val.estado != "Cerrado" && val.estado != "Close"){
+                if(val.estado != "Cerrado" && val.estado != "Closed"){
                     if(explotable == "1.000 | Alta: No se requiere exploit o se puede automatizar" || explotable == "0.950 | Funcional: Existe exploit" || explotable == "1.000 | High: Exploit is not required or it can be automated" || explotable == "0.950 | Functional: There is an exploit" ){
                         exploit ++;
                     }else{
@@ -561,7 +561,7 @@ integrates.controller(
                 total ++;
                 if(estado == "Abierto" || estado == "Open" ){
                     open++;
-                }else if(estado == "Cerrado" || estado == "Close"){
+                }else if(estado == "Cerrado" || estado == "Closed"){
                     close++;
                 }else{
                     partial++;
