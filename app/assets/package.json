@@ -5,6 +5,6 @@
   "repository": "https://gitlab.com/fluidsignal/integrates.git",
   "author": "Enginering Team",
   "dependencies": {
-    "lightgallery": "^1.6.5"
+    "magnific-popup": "^1.1.0"
   }
 }

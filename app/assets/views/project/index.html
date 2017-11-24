@@ -681,34 +681,38 @@
                                 </button>
                             </div>
                         </div>
-                        <div class="row" ng-repeat="ev in tabEvidences">
-                            <div class="col-md-6 text-center">
-                                <div mag-thumb="inner-inline" mag-flow="inline">
-                                    <img ng-src="{{ev.url || ''}}"
-                                         style="max-width:100%;"
-                                         class="img-thumbnail img-responsive integrates-image"
-                                         width="600" height="600"/>
+                        <div class="popup-gallery">
+                            <div class="row" ng-repeat="ev in tabEvidences">
+                                <div class="col-md-6 text-center">
+                                    <div mag-thumb="inner-inline" mag-flow="inline">
+                                        <a ng-href="{{ev.url || ''}}" title="{{ev.desc}}">
+                                            <img ng-src="{{ev.url || ''}}"
+                                                style="max-width:100%;"
+                                                class="img-thumbnail img-responsive integrates-image"
+                                                width="600" height="600"/>
+                                        </a>
+                                    </div>
                                 </div>
+                                <div class="col-md-6">
+                                    <div class="row">
+                                        <label><b>{{'search_findings.tab_evidence.detail' | translate}}</b></label>
+                                    </div>
+                                    <div class="row">
+                                        <p ng-show="onlyReadableTab3">{{ev.desc}}</p>
+                                        <textarea class="form-control"
+                                                  ng-show="!onlyReadableTab3"
+                                                  id="evidenceText{{ev.ref}}">{{ev.desc}}</textarea>
+                                        <button class="btn btn-success btn-block"
+                                                ng-show="!onlyReadableTab3"
+                                                reference="{{ev.ref}}"
+                                                ng-click="updateEvidenceText(this);">
+                                                <i class="glyphicon glyphicon-repeat"></i>  {{'search_findings.tab_evidence.update' | translate}}
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="col-md-12"><hr></div>
                             </div>
-                            <div class="col-md-6">
-                                <div class="row">
-                                    <label><b>{{'search_findings.tab_evidence.detail' | translate}}</b></label>
-                                </div>
-                                <div class="row">
-                                    <p ng-show="onlyReadableTab3">{{ev.desc}}</p>
-                                    <textarea class="form-control"
-                                              ng-show="!onlyReadableTab3"
-                                              id="evidenceText{{ev.ref}}">{{ev.desc}}</textarea>
-                                    <button class="btn btn-success btn-block"
-                                            ng-show="!onlyReadableTab3"
-                                            reference="{{ev.ref}}"
-                                            ng-click="updateEvidenceText(this);">
-                                            <i class="glyphicon glyphicon-repeat"></i>  {{'search_findings.tab_evidence.update' | translate}}
-                                    </button>
-                                </div>
-                            </div>
-                            <div class="col-md-12"><hr></div>
-                        </div>
+                        </div>                        
                     </div>
                     <!-- End Tab Evidence -->
                 </div>
