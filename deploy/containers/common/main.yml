@@ -100,7 +100,7 @@
       path: "/var/www/html"
       state: absent
 
-   - name: Clonar repositorio integrates
+   - name: Clonar repositorio integrates {{ lookup('env','CI_COMMIT_REF_NAME') }}
      git:
       repo: "https://gitlab.com/fluidsignal/integrates.git"
       dest: "/usr/src/app"
