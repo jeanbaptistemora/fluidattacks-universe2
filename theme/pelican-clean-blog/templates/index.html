@@ -47,13 +47,13 @@
                         {% if article.has_summary %}
                             {{ article.summary }}
                         {% elif article.summary %}
-                            {{ article.summary|striptags|truncate(140) }}
+                            {{ article.summary|striptags|truncate(160) }}
                         {% endif %}
                         </p>                    
                     {% endif %}
                     <br /><br />
                     <div class="divread">
-                        <a id="read-more" href="{{ SITEURL }}/{{ article.url }}">Seguir leyendo</a></div>                     
+                        <a id="read-more" href="{{ SITEURL }}/{{ article.url }}">Seguir leyendo >></a></div>                     
                     </div></td>                    
                 {% else %}                        
                     {% set linea = linea + loop.index %}
@@ -79,13 +79,13 @@
                         {% if article.has_summary %}
                             {{ article.summary }}
                         {% elif article.summary %}
-                             {{ article.summary|striptags|truncate(140) }}
+                             {{ article.summary|striptags|truncate(160) }}
                         {% endif %}
                         </p>
                     {% endif %}
                     <br /><br />
                     <div class="divread">
-                    <a id="read-more" href="{{ SITEURL }}/{{ article.url }}">Seguir leyendo</a></div>     
+                    <a id="read-more" href="{{ SITEURL }}/{{ article.url }}">Seguir leyendo >></a></div>     
                     </div></td>                    
                 {% endif %}
             {% else %} 
@@ -111,13 +111,13 @@
                     {% if article.has_summary %}
                         {{ article.summary }}
                     {% elif article.summary %}
-                         {{ article.summary|striptags|truncate(140) }}
+                         {{ article.summary|striptags|truncate(160) }}
                     {% endif %}
                     </p>
                 {% endif %}
                 <br /><br />
                 <div class="divread">
-                <a id="read-more" href="{{ SITEURL }}/{{ article.url }}">Seguir leyendo</a></div>     
+                <a id="read-more" href="{{ SITEURL }}/{{ article.url }}">Seguir leyendo >></a></div>     
                 </div></td></tr>                
          {% endif %}
     {% endfor %}
@@ -152,13 +152,13 @@
                 {% if article.has_summary %}
                     {{ article.summary }}
                 {% elif article.summary %}
-                    {{ article.summary|striptags|truncate(140) }}
+                    {{ article.summary|striptags|truncate(160) }}
                 {% endif %}
                 </p>                    
             {% endif %}
                 <br /><br />
                 <div class="divread">
-                    <a id="read-more" href="{{ SITEURL }}/{{ article.url }}">Seguir leyendo</a></div>                     
+                    <a id="read-more" href="{{ SITEURL }}/{{ article.url }}">Seguir leyendo >></a></div>                     
                 </div></td>
                 {% else %}
                 <td class="tdview"><div class="post-preview">
@@ -183,13 +183,13 @@
                 {% if article.has_summary %}
                     {{ article.summary }}
                 {% elif article.summary %}
-                    {{ article.summary|striptags|truncate(140) }}
+                    {{ article.summary|striptags|truncate(160) }}
                 {% endif %}
                 </p>
             {% endif %}
                     <br /><br />
                     <div class="divread">
-                        <a id="read-more" href="{{ SITEURL }}/{{ article.url }}">Seguir leyendo</a></div>     
+                        <a id="read-more" href="{{ SITEURL }}/{{ article.url }}">Seguir leyendo >></a></div>     
                </div></td></tr>
                 {% endif %}
                 {% endfor %}

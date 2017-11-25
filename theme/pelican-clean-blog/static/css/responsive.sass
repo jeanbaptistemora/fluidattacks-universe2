@@ -1,152 +1,97 @@
-@media (max-width: 480px)
-  .intro-header
-    margin-bottom: 0px
-  #contbody
-    margin-top: 0px
-  #divindex
-    padding-right: 1%
-    padding-left: 1%
-    margin-left: 0
-    margin-right: 0
-  table
-    border-collapse: collapse
-    tr
-      .tdview
-        width: 100%
-        display: block
-        margin-left: 0
-        margin-right: 0
-        margin-bottom: 0%
-  #divarticle
-    article
-      h1
-        text-align: center
-        color: #1d4f72
-      .related
-        table
-          border-spacing: 20px
-          tr
-            td
-              display: table-footer-group
-              text-align-center
-
-@media (min-width: 480px) and (max-width: 860px)
-  .intro-header
-    margin-bottom: 0px
-  #contbody
-    margin-top: 0px
-  #divindex
-    padding-right: 1%
-    padding-left: 1%
-    margin-left: 0
-    margin-right: 0
-  table
-    border-collapse: collapse
-    tr
-      .tdview
-        width: 100%
-        display: block
-        margin-left: 0
-        margin-right: 0
-        margin-bottom: 0%
-  #divarticle
-    article
-      h1
-        text-align: center
-        color: #1d4f72
-      .related
-        table
-          border-spacing: 20px
-          tr
-            td
-              display: table-footer-group
-              text-align-center
-  #divpage
-    margin-left: 0
-    margin-right: 0
-    #tblent
-      margin-top: 10px
-      .trent
-        display: none
-      .ent2
-        display: block
-        width: 100%
-        text-align: left
-        margin-left: 0px
-      .tdent
-        display: block
-        width: 100%
-        margin-left: 0px
-        margin-top: -30px
-        text-align: justify
-        font-size: 16px
-    #tdmax
-      display: none
-    #tdresponsive
-      display: table-cell
-      #tblocation
-        .maps
-          text-align: center
-
-@media (min-width: 860px)
-  .intro-header
-    margin-bottom: 0px
-  #contbody
-    margin-top: 0px
+@media (max-width: 640px)
+  #cssmenu
     width: 100%
-  .col-md-offset-1
-    margin-left: 0
-  .col-md-10
-    width: 100%
-  #divindex
-    padding-right: 1%
-    padding-left: 1%
-    margin-left: 0
-    margin-right: 0
-  table
-    border-spacing: 20px
-    tr
-      .tdview
-        margin-left: 0
-        margin-right: 0
-        margin-bottom: 0%
-        .post-preview
-          text-align: center
-          #aautor
-            font-size: 12px
-          span
-            font-size: 12px
-    .footer
-      #navfoot
-        text-align: right
-  #divarticle
-    article
-      h1
-        text-align: center
-        color: #1d4f72
-      .related
-        table
-          tr
-            td
-              width: auto	
-              text-align-center
-              img
-                max-width: 100%
-      .footer
-      #navfoot
-        text-align: right
-  #divpage
-    margin-left: 0
-    margin-right: 0
-    .imgethical
+    min-height: 72px
+    #menu-button
+      font-size: 20px
       width: 100%
-    #tblent
-      .trent
-        .tdent
-          text-align: center
-      #tblocation
-        .maps
-          text-align: center
-    .footer
-      #navfoot
-        text-align: right
+      padding-top: 26px
+      padding-left: 17px
+      padding-bottom: 21px
+      border-bottom: 5px solid #1e4f72
+      &:before
+        top: 29px
+        left: 85px
+        width: 20px
+        background: #fff
+      &:after
+        top: 35px
+        left: 85px
+        width: 20px
+        height: 8px
+      &.menu-opened
+        &:before, &:after
+          top: 34px
+          width: 18px
+          background: #fff
+    ul
+      background: #1b75bb
+      border-top: 5px solid #1e4f72
+    > ul > li
+      border-top: 1px dotted #428bca
+      min-height: 60px
+    ul li a
+      padding-top: 23px
+      min-height: 60px
+    .submenu-button
+      height: 60px
+      border-left: 1px dotted #428bca
+      &:before
+        top: 26px
+        height: 10px
+        right: 22px
+      &:after
+        top: 30px
+        width: 10px
+        right: 18px
+    ul ul 
+      border-top: none
+    ul ul li
+      height: 61px
+      border-top: 1px dotted #428bca
+    ul ul li a
+      padding-top: 24px
+      padding-bottom: 0 
+  .intro-header
+    margin-bottom: 0
+  #contbody
+    margin-top: 0
+    padding: 10px 17px 0px 17px
+  .row
+    margin: 0
+  .col-lg-8, .col-md-10
+    padding: 0
+  #divindex
+    margin: 0
+  table
+    border-spacing: 0
+  .tdview
+    width: 100%
+    padding: 21px
+    margin: 0 0 25px 0
+    display: block
+  .post-preview>a>.post-title
+    margin: 20px 0 10px 0
+    font-size: 20px
+    font-weight: 400
+  .article-summary
+    margin: 20px 0 20px 0
+  .pager .next>a
+    float: none
+  .footer
+    background: #14588e
+
+  #divarticle
+    margin-top: 0
+    padding: 25px
+    h1
+      font-weight: 400
+      text-align: center
+      color: #1d4f72
+      text-transform: uppercase
+      font-size: 22px
+    a, span
+      font-size: 14px
+    #preamble
+      font-size: 16px
+      font-size: 14px

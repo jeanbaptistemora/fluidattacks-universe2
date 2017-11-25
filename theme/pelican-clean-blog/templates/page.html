@@ -37,6 +37,16 @@
         {% else %}
           {% include 'ethical.html' %}
         {% endif %}
+    <section>
+    <p id="post-share-links">
+	<h4>Compártelo:</h4>	
+        <a href="{{page.share_post['linkedin']}}" target="_blank" title="Haz click para compartir en Linkedin"><img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/social-media/linkedin.png"/></a>
+        <a href="{{page.share_post['twitter']}}" target="_blank" title="Haz click para compartir en Twitter"><img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/social-media/twitter.png"/></a>
+        <a href="{{page.share_post['facebook']}}" target="_blank" title="Haz click para compartir en Facebook"><img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/social-media/facebook.png"/></a>
+        <a href="{{page.share_post['google-plus']}}" target="_blank" title="Haz click para compartir en Google Plus"><img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/social-media/gplus.png"/></a>
+        <a href="javascript:window.print()" target="_blank" title="Haz click para imprimir"><img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/social-media/print.png"/></a>
+    </p>
+</section>
     </article>
    </div>     
     

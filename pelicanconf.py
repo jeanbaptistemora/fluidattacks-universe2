@@ -14,6 +14,8 @@ PATH = 'content'
 
 TIMEZONE = 'America/Bogota'
 
+DEFAULT_DATE_FORMAT = ('%Y-%m-%d')
+
 DEFAULT_LANG = 'Spanish'
 
 # Feed generation is usually not desired when developing
@@ -50,6 +52,8 @@ STATIC_PATHS = ['images']
 # Plugins
 PLUGIN_PATHS = 'pelican-plugins'
 PLUGINS = ['asciidoc_reader','assets','neighbors','share_post','related_posts','representative_image']
+
+RELATED_POSTS_MAX = 3
 
 # Discus
 DISQUS_SITENAME = 'fluid-blog'
