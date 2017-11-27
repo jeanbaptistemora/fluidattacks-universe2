@@ -222,6 +222,53 @@ sudo apt-get install -y python-dev python-pip && sudo pip install --upgrade -r r
   no actualizadas)
 
 <<<
+== Instalación de NPM
+* Node Package Manager o simplemente npm es un gestor de paquetes desde el cual 
+  podremos tener cualquier librería disponible con solo una línea de código, npm 
+  nos ayudará a administrar nuestros módulos, distribuir paquetes y agregar 
+  dependencias de una manera sencilla. Para instalar npm debemos instalar 
+  _Nodejs_, este trae por defecto npm:
+
+[source, console]
+----
+$ sudo apt-get install curl
+$ curl -sL https://deb.nodesource.com/setup_6.x | sudo -E bash -
+$ sudo apt-get install -y nodejs
+
+----
+
+* Para instalar las dependencias que ya se encuentran en FLUIDIntegrates ejecutar 
+  el siguiente comando:
+
+[source, console]
+----
+$ cd /app/assets
+$ npm install
+
+----
+
+* Para instalar nuevas dependencias o paquetes se debe ejecutar el siguiente comando:
+
+[source, console]
+----
+$ cd /app/assets
+$ npm install <package_name> --save 
+
+----
+
+* Para borrar dependencias o paquetes que ya no serán utilizados:
+
+[source, console]
+----
+$ cd /app/assets
+$ npm uninstall <package_name> --save 
+
+----
+
+* Para ver mas información sobre los paquetes de npm visitar el siguiente 
+link: _https://www.npmjs.com/_.
+
+<<<
 == Generación de tokens de acceso
 
 * El ultimo paso antes de desplegar la app de forma local es generar los tokens
