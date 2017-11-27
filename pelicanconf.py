@@ -35,7 +35,7 @@ LINKS = (('Pelican', 'http://getpelican.com/'),
 SOCIAL = (('You can add links in your config file', '#'),
           ('Another social link', '#'),)
 
-DEFAULT_PAGINATION = 9
+DEFAULT_PAGINATION = 12
 
 # Formating URLs
 #ARTICLE_URL = '{date:%Y}/{date:%m}/{date:%d}/{slug}.html'
