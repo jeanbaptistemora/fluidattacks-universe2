@@ -56,7 +56,7 @@
     margin-bottom: 0
   #contbody
     margin-top: 0
-    padding: 10px 17px 0px 17px
+    padding: 10px 0 0 0
   .row
     margin: 0
   .col-lg-8, .col-md-10
@@ -64,7 +64,7 @@
     margin: 0
     width: 100%
   #divindex
-    margin: 0
+    margin: 0 21px 0 21px
   #tbresponsive
     display: none
   table
@@ -86,9 +86,11 @@
     float: none
   .footer
     background: #14588e
+  .footer nav ul li a
+    padding: 0 25px 0 0
 
   #divarticle
-    margin-top: 0
+    margin: 0 21px 0 21px
     padding: 21px
     h1
       font-weight: 400
@@ -116,8 +118,10 @@
       a
         font-size: 14px
         color: #1d4f72
+  .next
+    width: 100%
   #divpage
-    margin: 0
+    margin: 0 21px 0 21px
   article
     h1
       font-size: 20px
@@ -147,21 +151,29 @@
         width: 100%
         text-align: justify
         margin: 0
+  #tblocation .maps
+    text-align: center
 
 @media (min-width: 480px) and (max-width: 640px)
   #divindex
   .tdview
-    padding: 21px
+    padding: 25px
   .post-preview>a>.post-title
     font-size: 22px
   #divarticle
     padding: 25px
     h1
       font-size: 22px
+    .meta
+      font-size: 16px
+  #divarticle .related table tr td a
+    font-size: 16px
   #divpage
     article
       h1
         font-size: 22px
+  .next tr td a
+    font-size: 16px
 
 @media (min-width: 640px) and (max-width: 960px)
   #contbody
@@ -176,15 +188,60 @@
     display: table-cell
     width: 50%
     border-bottom: 25px inset #d3d3d3
-  #tblocation .maps
-    text-align: center
+  #divindex
+    margin: 0
+  #divarticle
+    h1
+      font-size: 24px
+    .meta
+      font-size: 18px
+  #divarticle .related table tr td a
+    font-size: 18px
+  .next tr td a
+    font-size: 18px
 
 @media (min-width: 640px)
   .footer nav
     display: grid
 
+@media (min-width: 770px)
+  article h1
+    font-size: 24px
+  article h2
+    font-size: 20px
+  article #tblent .trent
+    display: table-row
+  article #tblent .ent2
+    display: none
+  article #tblent .tdent
+    display: table-cell
+    width: 25%
+
 @media (min-width: 905px)
-  
+  #divpage
+    margin: 0 25px 0 25px
+    article
+      h1
+        font-size: 26px
+    #tbborder #tdresponsive
+      display: none
+    #tbborder .tdborder
+      display: table-cell
+    #tblocation th
+      vertical-align: middle
+  .imgethical
+    width: 100%
+  #divarticle
+    h1
+      font-size: 26px
+    .meta
+      font-size: 20px
+      a
+        width: 65%
+  #divarticle .related table tr td a
+    font-size: 20px
+  .next tr td a
+    font-size: 20px
 
 @media (min-width: 960px)
   #cssmenu
@@ -209,6 +266,8 @@
     margin: 0
     width: 100%
     padding: 10px 0 0 0
+  #divindex
+    margin: 0
   #tbnormal
     border-spacing: 25px 0px
   .tdview
@@ -216,4 +275,3 @@
     display: table-cell
     border-bottom: 25px inset #d3d3d3
     padding: 25px
-    
