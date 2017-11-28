@@ -103,12 +103,13 @@
     .meta
       color: #1565a2
       font-size: 14px
-      display: inline-flex
+      height: 17px
       width: 100%
       a
+        text-transform: capitalize
         color: #1565a2
         text-align: center
-        width: 60%
+        margin-left: 5px
     #preamble, p, .writer
       font-size: 16px
     .related table tr td
@@ -120,6 +121,8 @@
         color: #1d4f72
   .next
     width: 100%
+  .next tr td a
+    font-size: 14px
   #divpage
     margin: 0 21px 0 21px
   article
@@ -154,6 +157,28 @@
   #tblocation .maps
     text-align: center
 
+  #contauthor
+    margin: 10px 25px 0 25px
+    background-color: #fff
+    border-top: 3px solid #1e4f72
+    padding: 21px
+    width: auto
+    .post-heading
+      color: #1e4f72
+      display: inline-flex
+      padding-top: 5px  
+      h1
+        margin: 0
+        font-weight: 400
+        font-size: 20px
+        text-transform: uppercase
+      h2
+        margin: 0 0 0 5px
+        font-weight: 400
+        text-transform: uppercase
+        font-size: 20px
+    
+
 @media (min-width: 480px) and (max-width: 640px)
   #divindex
   .tdview
@@ -164,16 +189,17 @@
     padding: 25px
     h1
       font-size: 22px
-    .meta
-      font-size: 16px
-  #divarticle .related table tr td a
-    font-size: 16px
   #divpage
     article
       h1
         font-size: 22px
-  .next tr td a
-    font-size: 16px
+  #contauthor
+    padding: 25px
+    .post-heading h1
+      font-size: 22px
+    .post-heading h2
+      font-size: 22px
+
 
 @media (min-width: 640px) and (max-width: 960px)
   #contbody
@@ -193,16 +219,23 @@
   #divarticle
     h1
       font-size: 24px
-    .meta
-      font-size: 18px
-  #divarticle .related table tr td a
-    font-size: 18px
-  .next tr td a
-    font-size: 18px
+  #contauthor
+    .post-heading h1
+      font-size: 24px
+    .post-heading h2
+      font-size: 24px
 
 @media (min-width: 640px)
   .footer nav
     display: grid
+  #divarticle
+    .meta
+      display: inline-flex
+      padding-left: 5%
+      a
+        margin-right: 15px
+        width: 25%
+        text-align: left
 
 @media (min-width: 770px)
   article h1
@@ -235,13 +268,12 @@
     h1
       font-size: 26px
     .meta
-      font-size: 20px
-      a
-        width: 65%
-  #divarticle .related table tr td a
-    font-size: 20px
-  .next tr td a
-    font-size: 20px
+      padding-left: 15%
+  #contauthor
+    .post-heading h1
+      font-size: 26px
+    .post-heading h2
+      font-size: 26px
 
 @media (min-width: 960px)
   #cssmenu

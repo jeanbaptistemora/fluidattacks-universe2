@@ -26,9 +26,11 @@
         {% endif %}
         <span class="meta">
             {% for author in article.authors %}
-                <a href="{{ SITEURL }}/{{ author.url }}">{{ author }}</a>
-            {% endfor %}<br/><span>
-	{{ article.locale_date }}</span>
+                <img src='{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/user.png'><a href="{{ SITEURL }}/{{ author.url }}">{{ author }}</a>
+            {% endfor %}<br/>
+                <img src='{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/comment.png'><a href="./#disqus_thread">Deja un comentario</a><br/>
+                <img src='{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/folder.png'><a href="/category/{{ article.category }}.html">Categoría: {{ article.category }}</a><br/>
+	        <img src='{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/calendar2.png'><a href>{{ article.locale_date }}</a><br/>
         </span>
         {% if article.modified %}
             <span class="meta">Updated on {{ article.locale_modified }}</span>
@@ -87,14 +89,14 @@
  {% if article.prev_article %}
      <td id="prev">
         <div><a href="{{ SITEURL }}/{{ article.prev_article.url}}">
-             {{ article.prev_article.title }}
+             << {{ article.prev_article.title }}
 		</a></div>
      </td>
  {% endif %}
  {% if article.next_article %}
      <td id="next">
          <div><a href="{{ SITEURL }}/{{ article.next_article.url}}">
-             {{ article.next_article.title }}
+             {{ article.next_article.title }} >>
 		 </a></div>
       </td>
  {% endif %}

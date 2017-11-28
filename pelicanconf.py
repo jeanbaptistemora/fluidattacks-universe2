@@ -35,6 +35,7 @@ LINKS = (('Pelican', 'http://getpelican.com/'),
 SOCIAL = (('You can add links in your config file', '#'),
           ('Another social link', '#'),)
 
+# Articles per page
 DEFAULT_PAGINATION = 12
 
 # Formating URLs
@@ -57,7 +58,6 @@ RELATED_POSTS_MAX = 3
 
 # Discus
 DISQUS_SITENAME = 'fluid-blog'
-
 
 # theme
 THEME = "theme/pelican-clean-blog"
