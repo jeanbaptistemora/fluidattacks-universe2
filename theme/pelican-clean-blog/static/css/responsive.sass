@@ -63,6 +63,7 @@
     padding: 0
     margin: 0
     width: 100%
+    text-align: center
   #divindex
     margin: 0 21px 0 21px
   #tbresponsive
@@ -112,6 +113,8 @@
         margin-left: 5px
     #preamble, p, .writer
       font-size: 16px
+    section
+      text-align: left
     .related table tr td
       width: 33%
       padding: 0
@@ -125,16 +128,23 @@
     font-size: 14px
   #divpage
     margin: 0 21px 0 21px
-  article
-    h1
-      font-size: 20px
-      margin-top: 0
-      text-transform: uppercase
-      font-weight: 400
-    h2
-      text-transform: uppercase
-      font-size: 16px
-      text-align: center
+    padding: 21px
+    article
+      margin: 0
+      padding: 0
+      h1
+        font-size: 20px
+        margin-top: 0
+        text-transform: uppercase
+        font-weight: 400
+      h2
+        text-transform: uppercase
+        font-size: 16px
+        text-align: center
+      .sect1 p, .sect2
+        margin-left: 0
+      section
+        text-align: left
     #tbborder .tdborder
       display: none
     #tbborder #tdresponsive
@@ -190,6 +200,8 @@
     h1
       font-size: 22px
   #divpage
+    margin: 0 25px 0 25px
+    padding: 25px
     article
       h1
         font-size: 22px
@@ -236,17 +248,19 @@
         margin-right: 15px
         width: 25%
         text-align: left
+  #divpage
+    padding: 25px
 
 @media (min-width: 770px)
-  article h1
+  #divpage article h1
     font-size: 24px
-  article h2
+  #divpage article h2
     font-size: 20px
-  article #tblent .trent
+  #divpage article #tblent .trent
     display: table-row
-  article #tblent .ent2
+  #divpage article #tblent .ent2
     display: none
-  article #tblent .tdent
+  #divpage article #tblent .tdent
     display: table-cell
     width: 25%
 
@@ -307,3 +321,12 @@
     display: table-cell
     border-bottom: 25px inset #d3d3d3
     padding: 25px
+  .footer nav
+    display: grid
+    text-align: center
+    float: none
+    max-width: 100%
+    ul li
+      float: none
+      width: 25%
+      display: inline
