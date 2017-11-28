@@ -461,6 +461,22 @@ integrates.controller(
                 $scope.esGeneral = "show-detallado";
             }
         };
+        $scope.findingExploitTab = function(){
+            var url_pre = BASE.url + "get_exploit?id=";
+            $scope.hasExploit = false;          
+            if($scope.finding.exploit !== undefined && $scope.finding.cierres.length == 0){
+                var url = url_pre + $scope.finding.exploit;
+                var exploit = projectFtry.getExploit(url);
+                $scope.hasExploit = true;
+                exploit.then(function(response){
+                    if(!response.error){
+                        $scope.exploitURL = response;                    
+                    }
+                });
+            } else {
+                $scope.hasExploit = false;
+            }            
+        };
         $scope.loadFindingByID = function(id){
             $scope.$apply();
             var findingObj = undefined;
@@ -481,6 +497,7 @@ integrates.controller(
                 $scope.view.finding = true;
                 $scope.findingInformationTab();
                 $scope.findingEvidenceTab();
+                $scope.findingExploitTab();
                 //Control de campos para tipos de hallazgo
                 $scope.esDetallado = false;
                 if($scope.finding.nivel == "Detallado"){
@@ -506,7 +523,7 @@ integrates.controller(
                             return item.el.attr('title');
                         }
                     }
-                });
+                });              
                 //Tracking mixpanel
                 mixPanelDashboard.trackReadFinding(userEmail, $scope.finding.id);
                 $timeout($scope.goUp, 200);
@@ -937,6 +954,16 @@ integrates.controller(
                             data: $scope.data,
                             onClickRow: function(row, elem){
                                 $scope.loadFindingByID(row.id);
+                                $("#infoItem").addClass("active");
+                                $("#info").addClass("active");
+                                $("#cssv2Item").removeClass("active");
+                                $("#cssv2").removeClass("active")
+                                $("#trackingItem").removeClass("active");
+                                $("#tracking").removeClass("active");
+                                $("#evidenceItem").removeClass("active");
+                                $("#evidence").removeClass("active");
+                                $("#exploitItem").removeClass("active");
+                                $("#exploit").removeClass("active");
                                 $scope.currentScrollPosition =  $(document).scrollTop();
                             },
                             cookieIdTable: "saveId",

@@ -51,7 +51,9 @@ class DriveAPI(object):
         if done:
             mime = Magic(mime=True)
             mime_type = mime.from_file(filename)
-            if mime_type == "image/png" or mime_type == "image/gif":
+            if mime_type == "image/png" or mime_type == "image/gif" \
+                or mime_type =="text/x-c" or mime_type =="text/x-python" \
+                or mime_type =="text/plain":
                 return fh
         return None
 

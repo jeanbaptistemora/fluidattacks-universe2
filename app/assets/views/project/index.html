@@ -223,21 +223,25 @@
             <!-- Start Tab Set -->
             <div class="tab-container">
                 <ul class="nav pills-tabs nav-justified" style="background-color: white; border-bottom: 1px #eee solid;">
-                    <li class="active" style="font-size:16px;">
+                    <li id="infoItem" class="active" style="font-size:16px;">
                         <a href="#info" data-toggle="tab" aria-expanded="false">
                         <i class="icon s7-note2" ></i>&nbsp;{{'search_findings.tab_description.description_name' | translate}}</a>
                     </li>
-                    <li class="" style="font-size:16px;">
+                    <li id="cssv2Item" class="" style="font-size:16px;">
                         <a href="#cssv2" data-toggle="tab" aria-expanded="false">
                         <i class="icon s7-calculator" ></i>&nbsp;{{'search_findings.tab_cssv2.description_name' | translate}}</a>
                     </li>
-                    <li class="" style="font-size:16px;">
+                    <li id="trackingItem" class="" style="font-size:16px;">
                         <a href="#tracking" data-toggle="tab" aria-expanded="true">
                         <i class="icon s7-graph1"></i>&nbsp;Tracking</a>
                     </li>
-                    <li style="font-size:16px;">
+                    <li id="evidenceItem" style="font-size:16px;">
                         <a href="#evidence" data-toggle="tab">
                         <i class="icon s7-photo"></i>&nbsp;{{'search_findings.tab_evidence.evidence_name' | translate}}</a>
+                    </li>
+                    <li id="exploitItem" style="font-size:16px;" ng-show="hasExploit">
+                        <a href="#exploit" data-toggle="tab">
+                        <i class="icon s7-file"></i>&nbsp;Exploit</a>
                     </li>
                 </ul>
                 <!-- Start Tabs -->
@@ -712,9 +716,14 @@
                                 </div>
                                 <div class="col-md-12"><hr></div>
                             </div>
-                        </div>                        
+                        </div>                       
                     </div>
                     <!-- End Tab Evidence -->
+                    <!-- Start Tab Exploit -->
+                    <div id="exploit" class="tab-pane cont" ng-show="hasExploit">
+                        <pre prism-highlight source="{{exploitURL}}" class="language-python line-numbers"></pre>                     
+                    </div>
+                    <!-- End Tab Exploit -->
                 </div>
                 <!-- End Tabs -->
             </div>

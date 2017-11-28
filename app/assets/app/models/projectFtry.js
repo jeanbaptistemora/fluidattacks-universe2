@@ -39,6 +39,17 @@ integrates.factory('projectFtry', function($q, $translate){
             },oops_ac);
         },
         /**
+         * Invoca el servicio para tener el exploit de un hallazgo
+         * @function getExploit
+         * @param {String} link
+         * @member integrates.projectFtry
+         * @return {Object}
+         */
+        getExploit: function(link){
+            var oops_ac = $translate.instant('proj_alerts.error_text');
+            return $xhr.get($q, link, {}, oops_ac);
+        },
+        /**
          * Invoca el servicio para tener el detalle de un hallazgo
          * @function FindingById
          * @param {Integer} id

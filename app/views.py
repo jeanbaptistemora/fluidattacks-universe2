@@ -525,6 +525,39 @@ def get_evidence(request):
             os.unlink(filename)
 
 @never_cache
+@csrf_exempt
+@authorize(['analyst', 'customer'])
+def get_exploit(request):
+    drive_id = request.GET.get('id', None)
+
+    if drive_id not in request.session:
+        redirect('dashboard')
+        
+    if drive_id is None:
+        return HttpResponse("Error - ID de archivo no enviado", content_type="text/html")
+    else:
+        if not re.match("[a-zA-Z0-9_-]{20,}", drive_id):
+            return HttpResponse("Error - ID con formato incorrecto", content_type="text/html")
+        drive_api = DriveAPI(drive_id)
+        file = drive_api.FILE
+        if file is None:
+            return HttpResponse("Error - No se pudo descargar el archivo", content_type="text/html")
+        else:            
+            filename = "/tmp/:id.tmp".replace(":id", drive_id)
+            mime = Magic(mime=True)
+            mime_type = mime.from_file(filename)
+            if mime_type == "text/x-c":
+                with open(filename, "r") as file_obj:
+                    return HttpResponse(file_obj.read(), content_type="text/plain")
+            elif mime_type == "text/x-python":
+                with open(filename, "r") as file_obj:
+                    return HttpResponse(file_obj.read(), content_type="text/plain")
+            elif mime_type == "text/plain":
+                with open(filename, "r") as file_obj:
+                    return HttpResponse(file_obj.read(), content_type="text/plain")
+            os.unlink(filename)
+
+@never_cache
 @authorize(['analyst'])
 def update_cssv2(request):
     parameters = request.POST.dict()
