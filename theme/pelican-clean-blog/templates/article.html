@@ -55,7 +55,7 @@
         <a href="{{article.share_post['twitter']}}" target="_blank" title="Haz click para compartir en Twitter"><img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/social-media/twitter.png"/></a>
         <a href="{{article.share_post['facebook']}}" target="_blank" title="Haz click para compartir en Facebook"><img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/social-media/facebook.png"/></a>
         <a href="{{article.share_post['google-plus']}}" target="_blank" title="Haz click para compartir en Google Plus"><img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/social-media/gplus.png"/></a>
-        <a href="javascript:window.print()" target="_blank" title="Haz click para imprimir"><img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/social-media/print.png"/></a>
+        <a href="javascript:window.print()" target="_self" title="Haz click para imprimir"><img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/social-media/print.png"/></a>
     </p>
 </section>		
 {% endif %}
@@ -123,3 +123,4 @@
 	</article>
         </div>	
 {% endblock content %}
+

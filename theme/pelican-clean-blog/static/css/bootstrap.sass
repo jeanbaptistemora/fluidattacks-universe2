@@ -223,59 +223,39 @@ td, th
 
 /*! Source: https://github.com/h5bp/html5-boilerplate/blob/master/src/css/main.css
 @media print
-  *
-    color: #000 !important
-    text-shadow: none !important
-    background: transparent !important
-    -webkit-box-shadow: none !important
-    box-shadow: none !important
-    &:before, &:after
-      color: #000 !important
-      text-shadow: none !important
-      background: transparent !important
-      -webkit-box-shadow: none !important
-      box-shadow: none !important
-  a
-    text-decoration: underline
-    &:visited
-      text-decoration: underline
-    &[href]:after
-      content: " (" attr(href) ")"
-  abbr[title]:after
-    content: " (" attr(title) ")"
-  a
-    &[href^="#"]:after, &[href^="javascript:"]:after
-      content: ""
-  pre, blockquote
-    border: 1px solid #999
-    page-break-inside: avoid
-  thead
-    display: table-header-group
-  tr
-    page-break-inside: avoid
-  img
-    page-break-inside: avoid
-    max-width: 100% !important
-  p, h2, h3
-    orphans: 3
-    widows: 3
-  h2, h3
-    page-break-after: avoid
-  select
-    background: #fff !important
-  .navbar
+  #menubar
     display: none
-  .btn > .caret, .dropup > .btn > .caret
-    border-top-color: #000 !important
-  .label
-    border: 1px solid #000
-  .table
-    border-collapse: collapse !important
-    td, th
-      background-color: #fff !important
-  .table-bordered
-    th, td
-      border: 1px solid #ddd !important
+  .intro-header
+    display: none
+  .footer
+    display: none
+  .comments
+    display: none
+  #divarticle section
+    display: none
+  hr
+    display: none
+  .next
+    display: none
+  #hrcomments
+    display: none
+  #divpage article section
+    display: none
+  #divpage article #tblent .trent
+    display: table-row
+  #divpage article #tblent .ent2
+    display: none
+  #divpage article #tblent .tdent
+    display: table-cell
+    width: 25%
+  #divpage
+    article    
+      #tbborder #tdresponsive
+        display: none
+      #tbborder .tdborder
+        display: table-cell
+      #tblocation th
+        vertical-align: middle
 
 @font-face
   font-family: 'Glyphicons Halflings'
@@ -5553,32 +5533,6 @@ button.close
 
 @media (min-width: 1200px)
   .hidden-lg
-    display: none !important
-
-@media print
-  .visible-print
-    display: block !important
-  table.visible-print
-    display: table
-  tr.visible-print
-    display: table-row !important
-  th.visible-print, td.visible-print
-    display: table-cell !important
-
-@media print
-  .visible-print-block
-    display: block !important
-
-@media print
-  .visible-print-inline
-    display: inline !important
-
-@media print
-  .visible-print-inline-block
-    display: inline-block !important
-
-@media print
-  .hidden-print
     display: none !important
 
 /*# sourceMappingURL=bootstrap.css.map
