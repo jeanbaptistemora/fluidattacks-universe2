@@ -17,5 +17,5 @@ echo "---### [${SERVER}] Compilando contenedor."
 # construir la imagen
 cp ../.vault.txt .
 cp -a ../common .
-docker build --build-arg ci_commit_ref_name=$CI_COMMIT_REF_NAME -t registry.gitlab.com/fluidsignal/integrates:base .
+docker build --no-cache --build-arg ci_commit_ref_name=$CI_COMMIT_REF_NAME -t registry.gitlab.com/fluidsignal/integrates:base .
 rm -rf common

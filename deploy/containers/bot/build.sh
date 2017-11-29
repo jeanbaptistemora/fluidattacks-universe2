@@ -15,6 +15,6 @@ CI_COMMIT_REF_NAME=$1
 # construir la imagen
 cp ../.vault.txt .
 cp -a ../common .
-docker build --build-arg ci_commit_ref_name=$CI_COMMIT_REF_NAME -t registry.gitlab.com/fluidsignal/integrates/bot:base .
+docker build --no-cache --build-arg ci_commit_ref_name=$CI_COMMIT_REF_NAME -t registry.gitlab.com/fluidsignal/integrates/bot:base .
 rm .vault.txt
 rm -rf common
