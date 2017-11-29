@@ -509,6 +509,7 @@ def get_evidence(request):
         if not re.match("[a-zA-Z0-9_-]{20,}", drive_id):
             return HttpResponse("Error - ID con formato incorrecto", content_type="text/html")
         drive_api = DriveAPI(drive_id)
+        # pylint: disable=W0622
         image = drive_api.FILE
         if image is None:
             return HttpResponse("Error - No se pudo descargar la imagen", content_type="text/html")
@@ -539,6 +540,7 @@ def get_exploit(request):
         if not re.match("[a-zA-Z0-9_-]{20,}", drive_id):
             return HttpResponse("Error - ID con formato incorrecto", content_type="text/html")
         drive_api = DriveAPI(drive_id)
+        # pylint: disable=W0622
         file = drive_api.FILE
         if file is None:
             return HttpResponse("Error - No se pudo descargar el archivo", content_type="text/html")
