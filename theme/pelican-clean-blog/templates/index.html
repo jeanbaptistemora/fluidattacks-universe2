@@ -34,12 +34,12 @@
                             {{ article.title }}
                         </h2>
                     </a>
-                    <img class="imgprev" src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/icon.png"/>
+                    <img class="imgprev" src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/calendar2.png"/>
+                    <span>{{ article.locale_date }}</span>
+                    &nbsp;&nbsp;<img class="imgprev" src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/icon.png"/>
                     {% for author in article.authors %}
                         <a id="aautor" href="{{ SITEURL }}/{{ author.url }}">{{ author }}</a>
-                    {% endfor %}
-                    &nbsp;&nbsp;<img class="imgprev" src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/calendar.png"/>
-                    <span>{{ article.locale_date }}</span>             
+                    {% endfor %}             
                     {% if SHOW_FULL_ARTICLE %}
                         {{ article.content }}
                     {% else %}
@@ -66,12 +66,13 @@
                             {{ article.title }}
                         </h2>
                     </a>
-                    <img class="imgprev" src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/icon.png"/>
+                    <img class="imgprev" src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/calendar2.png"/>
+                    <span>{{ article.locale_date }}</span>
+                    &nbsp;&nbsp;<img class="imgprev" src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/icon.png"/>
                     {% for author in article.authors %}
                     <a id="aautor" href="{{ SITEURL }}/{{ author.url }}">{{ author }}</a>
                     {% endfor %}
-                    &nbsp;&nbsp;<img class="imgprev" src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/calendar.png"/>
-                    <span>{{ article.locale_date }}</span>            
+                               
                     {% if SHOW_FULL_ARTICLE %}
                         {{ article.content }}
                     {% else %}
@@ -98,12 +99,12 @@
                         {{ article.title }}
                     </h2>
                 </a>
-                <img class="imgprev" src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/icon.png"/>
+                <img class="imgprev" src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/calendar2.png"/>
+                <span>{{ article.locale_date }}</span>
+                &nbsp;&nbsp;<img class="imgprev" src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/icon.png"/>
                 {% for author in article.authors %}
                 <a id="aautor" href="{{ SITEURL }}/{{ author.url }}">{{ author }}</a>
-                {% endfor %}
-                &nbsp;&nbsp;<img class="imgprev" src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/calendar.png"/>
-                <span>{{ article.locale_date }}</span>            
+                {% endfor %}           
                 {% if SHOW_FULL_ARTICLE %}
                     {{ article.content }}
                 {% else %}
@@ -139,12 +140,12 @@
                             {{ article.title }}
                         </h2>
                     </a>
-                    <img class="imgprev" src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/icon.png"/>
+                    <img class="imgprev" src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/calendar2.png"/>
+                    <span>{{ article.locale_date }}</span>
+                    &nbsp;&nbsp;<img class="imgprev" src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/icon.png"/>
                     {% for author in article.authors %}
                         <a id="aautor" href="{{ SITEURL }}/{{ author.url }}">{{ author }}</a>
-                    {% endfor %}
-                    &nbsp;&nbsp;<img class="imgprev" src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/calendar.png"/>
-                    <span>{{ article.locale_date }}</span>             
+                    {% endfor %}            
                     {% if SHOW_FULL_ARTICLE %}
                         {{ article.content }}
                     {% else %}
@@ -171,12 +172,12 @@
                             {{ article.title }}
                         </h2>
                     </a>
-                    <img class="imgprev" src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/icon.png"/>
+                    <img class="imgprev" src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/calendar2.png"/>
+                    <span>{{ article.locale_date }}</span>
+                    &nbsp;&nbsp;<img class="imgprev" src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/icon.png"/>
                     {% for author in article.authors %}
                     <a id="aautor" href="{{ SITEURL }}/{{ author.url }}">{{ author }}</a>
-                    {% endfor %}
-                    &nbsp;&nbsp;<img class="imgprev" src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/calendar.png"/>
-                    <span>{{ article.locale_date }}</span>            
+                    {% endfor %}           
                     {% if SHOW_FULL_ARTICLE %}
                         {{ article.content }}
                     {% else %}
@@ -203,12 +204,12 @@
                         {{ article.title }}
                     </h2>
                 </a>
-                <img class="imgprev" src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/icon.png"/>
+                <img class="imgprev" src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/calendar2.png"/>
+                <span>{{ article.locale_date }}</span>
+                &nbsp;&nbsp;<img class="imgprev" src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/icon.png"/>
                 {% for author in article.authors %}
                 <a id="aautor" href="{{ SITEURL }}/{{ author.url }}">{{ author }}</a>
-                {% endfor %}
-                &nbsp;&nbsp;<img class="imgprev" src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/calendar.png"/>
-                <span>{{ article.locale_date }}</span>            
+                {% endfor %}        
                 {% if SHOW_FULL_ARTICLE %}
                     {{ article.content }}
                 {% else %}
@@ -242,13 +243,12 @@
                     {{ article.title }}
                 </h2>
             </a>
-            <img class="imgprev" src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/icon.png"/>
+            <img class="imgprev" src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/calendar2.png"/>
+            <span>{{ article.locale_date }}</span>
+            &nbsp;&nbsp;<img class="imgprev" src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/icon.png"/>
             {% for author in article.authors %}
              <a href="{{ SITEURL }}/{{ author.url }}">{{ author }}</a>
             {% endfor %}
-             &nbsp;&nbsp;<img class="imgprev" src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/calendar.png"/>
-                <span>{{ article.locale_date }}</span>
-             
             {% if SHOW_FULL_ARTICLE %}
                 {{ article.content }}
             {% else %}
@@ -274,12 +274,12 @@
                     {{ article.title }}
                 </h2>
             </a>
-             <img class="imgprev" src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/icon.png"/>
+             <img class="imgprev" src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/calendar2.png"/>
+                <span>{{ article.locale_date }}</span>
+                &nbsp;&nbsp;<img class="imgprev" src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/icon.png"/> 
                 {% for author in article.authors %}
                   <a href="{{ SITEURL }}/{{ author.url }}">{{ author }}</a>
-                {% endfor %}
-                &nbsp;&nbsp;<img class="imgprev" src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/calendar.png"/>
-                    <span>{{ article.locale_date }}</span>            
+                {% endfor %}          
             {% if SHOW_FULL_ARTICLE %}
                 {{ article.content }}
             {% else %}
