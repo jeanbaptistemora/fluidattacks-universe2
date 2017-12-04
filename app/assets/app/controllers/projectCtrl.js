@@ -257,7 +257,6 @@ integrates.controller(
             $scope.downloadDoc();
         };
         $scope.downloadDoc = function(){
-            console.log($scope.downloadURL);
             if($scope.downloadURL == undefined){
                 $timeout($scope.downloadDoc, 3000);
             }else{
@@ -1213,6 +1212,38 @@ integrates.controller(
                     $scope.close = function(){
                         $uibModalInstance.close();
                     };
+                }
+            });
+        };
+        $scope.openModalAvance = function(){
+            var modalInstance = $uibModal.open({
+                animation: true,
+                templateUrl: 'avance.html',
+                windowClass: 'modal avance-modal',
+                controller: function($scope, $uibModalInstance){
+                    var data = $("#vulnerabilities").bootstrapTable('getData');
+                    for(i=0; i < data.length; i++){
+                        data[i].atributos = 0;
+                        if (typeof data[i].registros !== 'undefined' && data[i].registros !== ''){
+                          data[i].atributos = 1 + (data[i].registros.match(/\n/g)||[]).length;
+                        }
+                    }
+                    for(i=0; i < data.length-1; i++){
+                        for(j=i+1; j < data.length; j++){
+                           if(parseFloat(data[i].criticidad) < parseFloat(data[j].criticidad)){
+                                aux = data[i];
+                                data[i] = data[j];
+                                data[j] = aux;
+                           }
+                        }
+                    }
+                    $scope.rows = data;
+                    $scope.closeModalAvance = function(){
+                        $uibModalInstance.dismiss('cancel');
+                    }
+                },
+                resolve: {
+                    ok: true
                 }
             });
         };
