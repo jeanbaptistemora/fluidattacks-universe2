@@ -463,19 +463,19 @@ integrates.controller(
         };
         $scope.findingExploitTab = function(){
             var url_pre = BASE.url + "get_exploit?id=";
-            $scope.hasExploit = false;          
+            $scope.hasExploit = false;
             if($scope.finding.exploit !== undefined && $scope.finding.cierres.length == 0){
                 var url = url_pre + $scope.finding.exploit;
                 var exploit = projectFtry.getExploit(url);
                 $scope.hasExploit = true;
                 exploit.then(function(response){
                     if(!response.error){
-                        $scope.exploitURL = response;                    
+                        $scope.exploitURL = response;
                     }
                 });
             } else {
                 $scope.hasExploit = false;
-            }            
+            }
         };
         $scope.loadFindingByID = function(id){
             $scope.$apply();
@@ -523,7 +523,7 @@ integrates.controller(
                             return item.el.attr('title');
                         }
                     }
-                });              
+                });
                 //Tracking mixpanel
                 mixPanelDashboard.trackReadFinding(userEmail, $scope.finding.id);
                 $timeout($scope.goUp, 200);
@@ -953,7 +953,7 @@ integrates.controller(
                             locale: vlang,
                             data: $scope.data,
                             onClickRow: function(row, elem){
-                                $scope.loadFindingByID(row.id);
+                                $state.go("FindingContent", {project: row.proyecto_fluid.toLowerCase(), id: row.id});
                                 $("#infoItem").addClass("active");
                                 $("#info").addClass("active");
                                 $("#cssv2Item").removeClass("active");
