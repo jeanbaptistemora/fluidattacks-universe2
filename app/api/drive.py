@@ -45,9 +45,10 @@ class DriveAPI(object):
         done = False
         while done is False:
             try:
-                done = downloader.next_chunk()
+                status, done = downloader.next_chunk()                
             except HttpError:
                 pass
+        print(status.total_size)
         if done:
             mime = Magic(mime=True)
             mime_type = mime.from_file(filename)
