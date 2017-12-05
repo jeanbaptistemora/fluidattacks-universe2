@@ -676,8 +676,8 @@ integrates.config(['$translateProvider', function($translateProvider) {
            'unknown':'-'
          },
          'status':{
-           'solve': 'Pendiente',
-           'unsolve': 'Tratada',
+           'solve': 'Tratada',
+           'unsolve': 'Pendiente',
            'unknown':'-'
          }
        },
