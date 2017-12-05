@@ -42,7 +42,7 @@ integrates.config(['$translateProvider', function($translateProvider) {
                 'findings': 'Findings',
                 'cardinalities': 'Open Vulnerabilities',
                 'criticity': 'Total Severity Found',
-                'closure': 'Vulnerabilities remediated'
+                'closure': 'Fixed vulnerabilities'
             },
             'filter_buttons':{
                 'advance': 'Progress',
@@ -59,16 +59,16 @@ integrates.config(['$translateProvider', function($translateProvider) {
                     'criticity': 'Severity',
                     'cardinality': 'Open Vuln.',
                     'state': 'Status',
-                    'exploit': 'Exploit'
+                    'exploit': 'Exploitable'
                 }
             },
             'descriptions':{
               'description1': '',
               'description2': 'Click',
-              'description3': 'to see more details'
+              'description3': 'on a finding to see more details'
             },
             'eventualities':{
-              'description': 'Click to see more details'
+              'description': 'Click on an event to see more details'
             },
             'project_buttons':{
               'back': 'Go Back',
@@ -155,13 +155,13 @@ integrates.config(['$translateProvider', function($translateProvider) {
         'main_content':{
           'projects':{
             'title': 'My Projects',
-            'description1': 'You can check the details of a project ',
+            'description1': 'You can check the details of a project by ',
             'description2': 'clicking',
             'description3': ' on it'
           },
           'eventualities':{
                 'title': 'My Events',
-                'description_1': 'You can check the details of an event ',
+                'description_1': 'You can check the details of an event by ',
                 'description_2': 'clicking',
                 'description_3': 'on it'
               }
