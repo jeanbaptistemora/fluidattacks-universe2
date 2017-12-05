@@ -5,6 +5,7 @@
   "repository": "https://gitlab.com/fluidsignal/integrates.git",
   "author": "Enginering Team",
   "dependencies": {
+    "angular-elastic": "^2.5.1",
     "magnific-popup": "^1.1.0"
   }
 }

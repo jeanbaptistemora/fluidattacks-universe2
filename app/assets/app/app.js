@@ -86,4 +86,4 @@ $msg.warning = function(text, title){
  * Crea integrates como una aplicacion de angular
  * @module {AngularJS} FluidIntegrates
  */
-var integrates = angular.module("FluidIntegrates", ['ui.router','ui.bootstrap','pascalprecht.translate','ngSanitize','ngNotify', 'prismjsHighlight']);
+var integrates = angular.module("FluidIntegrates", ['ui.router','ui.bootstrap','pascalprecht.translate','ngSanitize','ngNotify', 'prismjsHighlight', 'monospaced.elastic']);

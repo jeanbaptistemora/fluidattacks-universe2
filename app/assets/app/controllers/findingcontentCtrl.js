@@ -398,6 +398,27 @@ integrates.controller("findingcontentCtrl", function($scope, $stateParams, $time
                     }
                 }
             });
+            //Init auto height in textarea
+            if($("#infoItem").hasClass("active")){
+              $timeout(function() {
+                $scope.$broadcast("elastic:adjust");
+              });
+            }
+            $("#trackingItem").on("click", function(){
+              $timeout(function() {
+                $scope.$broadcast("elastic:adjust");
+              });
+            });
+            $("#infoItem").on("click", function(){
+              $timeout(function() {
+                $scope.$broadcast("elastic:adjust");
+              });
+            });
+            $("#edit").on("click", function(){
+              $timeout(function() {
+                $scope.$broadcast("elastic:adjust");
+              });
+            });
             //Tracking mixpanel
             mixPanelDashboard.trackReadFinding(userEmail, $scope.finding.id);
             $timeout($scope.goUp, 200);
