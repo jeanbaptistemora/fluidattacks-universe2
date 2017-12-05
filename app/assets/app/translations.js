@@ -76,7 +76,7 @@ integrates.config(['$translateProvider', function($translateProvider) {
             },
             'project_labels':{
               'type': 'Type',
-              'criticity': 'Criticity',
+              'criticity': 'Severity',
               'vulnerabilities': 'Open Vulnerabilities',
               'status': 'Status',
               'report': 'Report Date',
@@ -101,7 +101,7 @@ integrates.config(['$translateProvider', function($translateProvider) {
               'vectors': 'Attack Vectors',
               'threat': 'Threat',
               'recommendation': 'Recommendation',
-              'system': 'Committed Systems',
+              'system': 'Affected Systems',
               'records': 'Compromised Records',
               'totalrecords': 'Total Compromised Records',
               'weakness': 'Weakness',
@@ -125,7 +125,7 @@ integrates.config(['$translateProvider', function($translateProvider) {
             'tab_tracking':{
               'open': 'Open Vulnerabilities',
               'close': 'Closed Vulnerabilities',
-              'finding': 'Reported Finding',
+              'finding': 'Discovery',
               'cicle': 'Closing cycle'
             },
             'tab_evidence':{
