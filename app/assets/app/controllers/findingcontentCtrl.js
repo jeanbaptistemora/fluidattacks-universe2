@@ -70,6 +70,83 @@ integrates.controller("findingcontentCtrl", function($scope, $stateParams, $time
             $scope.hasExploit = false;
         }
     };
+    $scope.cssv2Editable = function(){
+        if($scope.onlyReadableTab2 == false){
+            $scope.onlyReadableTab2 = true;
+        }else{
+            $scope.onlyReadableTab2 = false;
+        }
+    };
+    $scope.descriptionEditable = function(){
+        if($scope.onlyReadableTab1 == false){
+            $scope.onlyReadableTab1 = true;
+        }else{
+            $scope.onlyReadableTab1 = false;
+        }
+    };
+    $scope.evidenceEditable = function(){
+        if($scope.onlyReadableTab3 == false){
+            $scope.onlyReadableTab3 = true;
+        }else{
+            $scope.onlyReadableTab3 = false;
+        }
+    };
+    $scope.updateCSSv2 = function(){
+        //Obtener datos de las listas
+        var cssv2Data = {
+            id: $scope.finding.id,
+            vector_acceso: $scope.finding.vector_acceso,
+            impacto_confidencialidad: $scope.finding.impacto_confidencialidad,
+            autenticacion: $scope.finding.autenticacion,
+            impacto_integridad: $scope.finding.impacto_integridad,
+            explotabilidad: $scope.finding.explotabilidad,
+            impacto_disponibilidad: $scope.finding.impacto_disponibilidad,
+            nivel_confianza: $scope.finding.nivel_confianza,
+            nivel_resolucion: $scope.finding.nivel_resolucion,
+            complejidad_acceso: $scope.finding.complejidad_acceso
+        };
+        //Recalcular CSSV2
+        $scope.findingCalculateCSSv2();
+        cssv2Data.criticidad = $scope.finding.criticidad;
+        //Instanciar modal de confirmacion
+        var modalInstance = $uibModal.open({
+            templateUrl: BASE.url + 'assets/views/project/confirmMdl.html',
+            animation: true,
+            backdrop: 'static',
+            resolve: { updateData: cssv2Data },
+            controller: function($scope, $uibModalInstance, updateData){
+                $scope.modalTitle = "Actualizar CSSv2";
+                $scope.ok = function(){
+                    //Consumir el servicio
+                    var req = projectFtry.UpdateCSSv2(updateData);
+                    //Capturar la Promisse
+                    req.then(function(response){
+                        if(!response.error){
+                            var updated_at = $translate.instant('proj_alerts.updated_title');
+                            var updated_ac = $translate.instant('proj_alerts.updated_cont');
+                            $msg.success(updated_ac,updated_at);
+                            $uibModalInstance.close();
+                            location.reload();
+                        }else{
+                            var error_ac1 = $translate.instant('proj_alerts.error_textsad');
+                            $msg.error(error_ac1);
+                        }
+                    });
+                };
+                $scope.close = function(){
+                    $uibModalInstance.close();
+                };
+            }
+        });
+    };
+    $scope.updateEvidenceText = function(target){
+        console.log(target);
+        $msg.info("En desarrollo ;)");
+        return false;
+    };
+    $scope.goUp = function(){
+         $('html, body').animate({ scrollTop: 0 }, 'fast');
+     };
     $scope.loadFindingByID = function(id){
         var findingObj = undefined;
         var req = findingFactory.getVulnById(id);
@@ -445,13 +522,6 @@ integrates.controller("findingcontentCtrl", function($scope, $stateParams, $time
             }
         };
     };
-    $scope.descriptionEditable = function(){
-        if($scope.onlyReadableTab1 == false){
-            $scope.onlyReadableTab1 = true;
-        }else{
-            $scope.onlyReadableTab1 = false;
-        }
-    };
     $scope.findingCalculateCSSv2 = function(){
         var ImpCon = parseFloat($scope.finding.impacto_confidencialidad.split(" | ")[0]);
         var ImpInt = parseFloat($scope.finding.impacto_integridad.split(" | ")[0]);
@@ -704,6 +774,7 @@ integrates.controller("findingcontentCtrl", function($scope, $stateParams, $time
         $scope.finding = {};
         $scope.finding.id = $stateParams.id;
         $scope.loadFindingByID($stateParams.id);
+        $scope.goUp();
     };
     $scope.init();
 });
