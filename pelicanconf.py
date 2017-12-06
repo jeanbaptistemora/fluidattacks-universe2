@@ -1,21 +1,19 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*- #
 from __future__ import unicode_literals
-
 import sys
 reload(sys)
 sys.setdefaultencoding("utf-8")
 
+# Site information
 AUTHOR = 'FLUID'
 SITENAME = 'Blog de FLUID'
 SITEURL = 'http://blog2.fluid.la'
-
 PATH = 'content'
 
+# Date and time configuration
 TIMEZONE = 'America/Bogota'
-
 DEFAULT_DATE_FORMAT = ('%Y-%m-%d')
-
 DEFAULT_LANG = 'Spanish'
 
 # Feed generation is usually not desired when developing
@@ -38,30 +36,33 @@ SOCIAL = (('You can add links in your config file', '#'),
 # Articles per page
 DEFAULT_PAGINATION = 12
 
-# Formating URLs
-#ARTICLE_URL = '{date:%Y}/{date:%m}/{date:%d}/{slug}.html'
-#ARTICLE_SAVE_AS = '{date:%Y}/{date:%m}/{date:%d}/{slug}.html'
-ARTICLE_URL = '{date:%Y}/{date:%m}/{date:%d}/{slug}/'
-ARTICLE_SAVE_AS = '{date:%Y}/{date:%m}/{date:%d}/{slug}/index.html'
+# URLs format
+ARTICLE_URL = 'posts/{slug}/'
+ARTICLE_SAVE_AS = 'posts/{slug}/index.html'
 PAGE_URL = 'pages/{slug}/'
 PAGE_SAVE_AS = 'pages/{slug}/index.html'
 PAGE_PATHS = ['pages']
 
-#Images
+# Images path
 STATIC_PATHS = ['images']
 
-# Plugins
+# Plugins configuration
 PLUGIN_PATHS = 'pelican-plugins'
-PLUGINS = ['asciidoc_reader','assets','neighbors','share_post','related_posts','representative_image']
-
+PLUGINS = [
+           'asciidoc_reader',
+           'assets',
+           'neighbors',
+           'share_post',
+           'related_posts',
+           'representative_image'
+]
 RELATED_POSTS_MAX = 3
 
-# Discus
+# Disqus
 DISQUS_SITENAME = 'fluid-blog'
 
-# theme
-THEME = "theme/pelican-clean-blog"
+# Theme
+THEME = 'theme/pelican-clean-blog'
 
-
-# Uncomment following line if you want document-relative URLs when developing
-#RELATIVE_URLS = True
+# Google Analytics
+GOOGLE_ANALYTICS = 'UA-22974464-4'

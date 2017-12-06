@@ -3,29 +3,35 @@
 {% block title %}{{ SITENAME }} - Tags{% endblock %}
 
 {% block header %}
-    <!-- Page Header -->
+    {% include "navigationbar.html" %}
     {% if HEADER_COVER %}
         <header class="intro-header" style="background-image: url('{{ HEADER_COVER }}')">
     {% elif HEADER_COLOR %}
         <header class="intro-header" style="background-color: {{ HEADER_COLOR }}">
     {% else %}
-        <header class="intro-header" style="background-image: url('{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/home-bg.jpg')">
-    {% endif %}
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-                    <div class="post-heading">
-                        <h1>{{ SITENAME }} - Tags</h1>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </header>
+        <header class="intro-header"> <!--style="background-image: url('{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/fluid.png');" >-->
+            <a href="/"><img src='{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/fluid.png'></a>
+    {% endif %}   
+        </header>
 {% endblock header %}
 
 {% block content %}
-    <h1>Tags for {{ SITENAME }}</h1>
-    {%- for tag, articles in tags|sort %}
-        <li><a href="{{ SITEURL }}/{{ tag.url }}">{{ tag }}</a> ({{ articles|count }})</li>
-    {% endfor %}
+    <div id="divpage">
+      <article>
+        <h1>TAGS:</h1>
+        <div id="preamble">
+          <div class="ulist" id="authorlist">
+            <ul>
+              {%- for tag, articles in tags|sort %}
+                  <li>
+                    <a href="{{ SITEURL }}/{{ tag.url }}">
+                    <p>{{ tag }} ({{ articles|count }})</p>
+                    </a>
+                  </li>
+              {% endfor %}
+            </ul>
+          </div>
+        </div>
+      </article>
+    </div>
 {% endblock content %}

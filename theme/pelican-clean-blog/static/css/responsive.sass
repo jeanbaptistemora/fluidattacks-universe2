@@ -181,7 +181,6 @@
     width: auto
     .post-heading
       color: #1e4f72
-      display: inline-flex
       padding-top: 5px  
       h1
         margin: 0
@@ -193,8 +192,18 @@
         font-weight: 400
         text-transform: uppercase
         font-size: 20px
+      a p
+        margin: 0
+        color: #1e4f72
+        font-size: 18px
+        text-align: center
   .ulist ul
     padding-left: 25px
+  #divpage #preamble #authorlist
+    width: fit-content
+    margin: 0 auto
+    ul li a
+      color: #1565a2
   #divpage #preamble .ulist ul li p
     margin: 0
   #divarticle .ulist ul li p
@@ -216,13 +225,13 @@
     article
       h1
         font-size: 22px
+         
   #contauthor
+    display: block
     padding: 25px
-    .post-heading h1
-      font-size: 22px
-    .post-heading h2
-      font-size: 22px
-
+    .post-heading
+      h1, h2
+        font-size: 22px
 
 @media (min-width: 640px) and (max-width: 960px)
   #contbody
@@ -248,6 +257,15 @@
     .post-heading h2
       font-size: 24px
 
+@media (min-width: 480px)
+  #divpage article #preamble #authorlist ul
+    column-count: 2
+    list-style-position: inside
+    text-align: left
+    li a p
+      margin: 0
+      display: inline
+
 @media (min-width: 640px)
   .footer nav
     display: grid
@@ -265,6 +283,13 @@
     padding: 25px
     p
       font-size: 18px
+
+@media (min-width: 700px)
+  #contauthor
+    .post-heading
+      display: flex
+      a
+        margin: 0 0 0 auto
 
 @media (min-width: 770px)
   #divpage article h1
@@ -347,3 +372,5 @@
       display: inline
       a
         font-size: 16px
+  #divpage article #preamble #authorlist ul
+    column-count: 3

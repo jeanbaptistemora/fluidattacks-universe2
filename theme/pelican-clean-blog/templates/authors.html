@@ -3,35 +3,35 @@
 {% block title %}{{ SITENAME }} - Authors{% endblock title %}
 
 {% block header %}
-    <!-- Page Header -->
+    {% include "navigationbar.html" %}
     {% if HEADER_COVER %}
         <header class="intro-header" style="background-image: url('{{ HEADER_COVER }}')">
     {% elif HEADER_COLOR %}
         <header class="intro-header" style="background-color: {{ HEADER_COLOR }}">
     {% else %}
-        <header class="intro-header" style="background-image: url('{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/home-bg.jpg')">
-    {% endif %}
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-                    <div class="post-heading">
-                        <h1>Articles by {{ author }}</h1>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </header>
+        <header class="intro-header"> <!--style="background-image: url('{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/fluid.png');" >-->
+            <a href="/"><img src='{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/fluid.png'></a>
+    {% endif %}   
+        </header>
 {% endblock header %}
 
 {% block content %}
-    {% for author, articles in authors|sort %}
-        <div class="post-preview">
-            <a href="{{ SITEURL }}/{{ author.url }}" rel="bookmark">
-                <h2 class="post-title">
-                    {{ author }} ({{ articles|count }})
-                </h2>
-            </a>
+    <div id="divpage">
+      <article>
+        <h1>AUTORES:</h1>
+        <div id="preamble">
+          <div class="ulist" id="authorlist">
+            <ul>
+              {% for author, articles in authors|sort %}
+                  <li>
+                    <a href="{{ SITEURL }}/{{ author.url }}" rel="bookmark">
+                    <p>{{ author }} ({{ articles|count }})</p>
+                    </a>
+                  </li>
+              {% endfor %}
+            </ul>
+          </div>
         </div>
-        <hr>
-    {% endfor %}
+      </article>
+    </div>
 {% endblock content %}
