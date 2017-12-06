@@ -6317,6 +6317,17 @@ button.list-group-item-danger.active:focus {
 .panel-danger > .panel-footer + .panel-collapse > .panel-body {
   border-bottom-color: #0A62AC;
 }
+/* responsive img in panel-body*/
+@media (min-width: 768px) and (max-width: 1199px) {
+  .integrates-image {
+    height: 200px !important;
+  }
+}
+@media (min-width: 1200px) {
+  .integrates-image {
+    height: 250px !important;
+  }
+}
 .embed-responsive {
   position: relative;
   display: block;

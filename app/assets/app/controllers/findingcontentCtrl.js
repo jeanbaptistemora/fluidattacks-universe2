@@ -496,6 +496,10 @@ integrates.controller("findingcontentCtrl", function($scope, $stateParams, $time
                 $scope.$broadcast("elastic:adjust");
               });
             });
+            //Init auto height in panels
+            $("#evidenceItem").on("click", function(){              
+              $('.equalHeight').matchHeight();              
+            });
             //Tracking mixpanel
             mixPanelDashboard.trackReadFinding(userEmail, $scope.finding.id);
             $timeout($scope.goUp, 200);
