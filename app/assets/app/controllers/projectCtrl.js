@@ -1221,7 +1221,8 @@ integrates.controller(
                 templateUrl: 'avance.html',
                 windowClass: 'modal avance-modal',
                 controller: function($scope, $uibModalInstance){
-                    var data = $("#vulnerabilities").bootstrapTable('getData');
+                    var auxiliar = $("#vulnerabilities").bootstrapTable('getData');
+                    var data = auxiliar;
                     for(i=0; i < data.length; i++){
                         data[i].atributos = 0;
                         if (typeof data[i].registros !== 'undefined' && data[i].registros !== ''){
@@ -1240,6 +1241,7 @@ integrates.controller(
                     $scope.rows = data;
                     $scope.closeModalAvance = function(){
                         $uibModalInstance.dismiss('cancel');
+                        $timeout(function() {$("#vulnerabilities").bootstrapTable('load', auxiliar);},100);
                     }
                 },
                 resolve: {
