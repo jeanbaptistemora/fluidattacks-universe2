@@ -34,12 +34,16 @@
                             {{ article.title }}
                         </h2>
                     </a>
-                    <img class="imgprev" src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/calendar2.png"/>
-                    <span>{{ article.locale_date }}</span>
-                    &nbsp;&nbsp;<img class="imgprev" src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/icon.png"/>
+                    <img class="imgprev" src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/icon.png"/>
                     {% for author in article.authors %}
                         <a id="aautor" href="{{ SITEURL }}/{{ author.url }}">{{ author }}</a>
-                    {% endfor %}             
+                    {% endfor %}
+                    &nbsp;&nbsp;<img class="imgprev" src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/folder.png"/>
+                    <a id="aautor" href="/category/{{ article.category }}.html"">{{ article.category }}</a>
+                    &nbsp;&nbsp;<img class="imgprev" src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/tags.png"/>
+                    {% for tag in article.tags %}
+                        <a id="aautor" href="{{ SITEURL }}/{{ tag.url }}">{{ tag }}</a>
+                    {% endfor %}      
                     {% if SHOW_FULL_ARTICLE %}
                         {{ article.content }}
                     {% else %}
@@ -66,13 +70,16 @@
                             {{ article.title }}
                         </h2>
                     </a>
-                    <img class="imgprev" src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/calendar2.png"/>
-                    <span>{{ article.locale_date }}</span>
-                    &nbsp;&nbsp;<img class="imgprev" src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/icon.png"/>
+                    <img class="imgprev" src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/icon.png"/>
                     {% for author in article.authors %}
-                    <a id="aautor" href="{{ SITEURL }}/{{ author.url }}">{{ author }}</a>
+                        <a id="aautor" href="{{ SITEURL }}/{{ author.url }}">{{ author }}</a>
                     {% endfor %}
-                               
+                    &nbsp;&nbsp;<img class="imgprev" src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/folder.png"/>
+                    <a id="aautor" href="/category/{{ article.category }}.html"">{{ article.category }}</a>
+                    &nbsp;&nbsp;<img class="imgprev" src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/tags.png"/>
+                    {% for tag in article.tags %}
+                        <a id="aautor" href="{{ SITEURL }}/{{ tag.url }}">{{ tag }}</a>
+                    {% endfor %}      
                     {% if SHOW_FULL_ARTICLE %}
                         {{ article.content }}
                     {% else %}
@@ -99,12 +106,16 @@
                         {{ article.title }}
                     </h2>
                 </a>
-                <img class="imgprev" src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/calendar2.png"/>
-                <span>{{ article.locale_date }}</span>
-                &nbsp;&nbsp;<img class="imgprev" src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/icon.png"/>
-                {% for author in article.authors %}
-                <a id="aautor" href="{{ SITEURL }}/{{ author.url }}">{{ author }}</a>
-                {% endfor %}           
+                <img class="imgprev" src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/icon.png"/>
+                    {% for author in article.authors %}
+                        <a id="aautor" href="{{ SITEURL }}/{{ author.url }}">{{ author }}</a>
+                    {% endfor %}
+                    &nbsp;&nbsp;<img class="imgprev" src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/folder.png"/>
+                    <a id="aautor" href="/category/{{ article.category }}.html"">{{ article.category }}</a>
+                    &nbsp;&nbsp;<img class="imgprev" src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/tags.png"/>
+                    {% for tag in article.tags %}
+                        <a id="aautor" href="{{ SITEURL }}/{{ tag.url }}">{{ tag }}</a>
+                    {% endfor %}            
                 {% if SHOW_FULL_ARTICLE %}
                     {{ article.content }}
                 {% else %}
@@ -140,12 +151,16 @@
                             {{ article.title }}
                         </h2>
                     </a>
-                    <img class="imgprev" src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/calendar2.png"/>
-                    <span>{{ article.locale_date }}</span>
-                    &nbsp;&nbsp;<img class="imgprev" src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/icon.png"/>
+                    <img class="imgprev" src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/icon.png"/>
                     {% for author in article.authors %}
                         <a id="aautor" href="{{ SITEURL }}/{{ author.url }}">{{ author }}</a>
-                    {% endfor %}            
+                    {% endfor %}
+                    &nbsp;&nbsp;<img class="imgprev" src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/folder.png"/>
+                    <a id="aautor" href="/category/{{ article.category }}.html"">{{ article.category }}</a>
+                    &nbsp;&nbsp;<img class="imgprev" src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/tags.png"/>
+                    {% for tag in article.tags %}
+                        <a id="aautor" href="{{ SITEURL }}/{{ tag.url }}">{{ tag }}</a>
+                    {% endfor %}             
                     {% if SHOW_FULL_ARTICLE %}
                         {{ article.content }}
                     {% else %}
@@ -172,11 +187,15 @@
                             {{ article.title }}
                         </h2>
                     </a>
-                    <img class="imgprev" src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/calendar2.png"/>
-                    <span>{{ article.locale_date }}</span>
-                    &nbsp;&nbsp;<img class="imgprev" src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/icon.png"/>
+                    <img class="imgprev" src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/icon.png"/>
                     {% for author in article.authors %}
-                    <a id="aautor" href="{{ SITEURL }}/{{ author.url }}">{{ author }}</a>
+                        <a id="aautor" href="{{ SITEURL }}/{{ author.url }}">{{ author }}</a>
+                    {% endfor %}
+                    &nbsp;&nbsp;<img class="imgprev" src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/folder.png"/>
+                    <a id="aautor" href="/category/{{ article.category }}.html"">{{ article.category }}</a>
+                    &nbsp;&nbsp;<img class="imgprev" src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/tags.png"/>
+                    {% for tag in article.tags %}
+                        <a id="aautor" href="{{ SITEURL }}/{{ tag.url }}">{{ tag }}</a>
                     {% endfor %}           
                     {% if SHOW_FULL_ARTICLE %}
                         {{ article.content }}
@@ -204,12 +223,16 @@
                         {{ article.title }}
                     </h2>
                 </a>
-                <img class="imgprev" src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/calendar2.png"/>
-                <span>{{ article.locale_date }}</span>
-                &nbsp;&nbsp;<img class="imgprev" src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/icon.png"/>
-                {% for author in article.authors %}
-                <a id="aautor" href="{{ SITEURL }}/{{ author.url }}">{{ author }}</a>
-                {% endfor %}        
+                <img class="imgprev" src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/icon.png"/>
+                    {% for author in article.authors %}
+                        <a id="aautor" href="{{ SITEURL }}/{{ author.url }}">{{ author }}</a>
+                    {% endfor %}
+                    &nbsp;&nbsp;<img class="imgprev" src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/folder.png"/>
+                    <a id="aautor" href="/category/{{ article.category }}.html"">{{ article.category }}</a>
+                    &nbsp;&nbsp;<img class="imgprev" src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/tags.png"/>
+                    {% for tag in article.tags %}
+                        <a id="aautor" href="{{ SITEURL }}/{{ tag.url }}">{{ tag }}</a>
+                    {% endfor %}        
                 {% if SHOW_FULL_ARTICLE %}
                     {{ article.content }}
                 {% else %}
@@ -243,12 +266,16 @@
                     {{ article.title }}
                 </h2>
             </a>
-            <img class="imgprev" src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/calendar2.png"/>
-            <span>{{ article.locale_date }}</span>
-            &nbsp;&nbsp;<img class="imgprev" src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/icon.png"/>
-            {% for author in article.authors %}
-             <a href="{{ SITEURL }}/{{ author.url }}">{{ author }}</a>
-            {% endfor %}
+            <img class="imgprev" src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/icon.png"/>
+                    {% for author in article.authors %}
+                        <a id="aautor" href="{{ SITEURL }}/{{ author.url }}">{{ author }}</a>
+                    {% endfor %}
+                    &nbsp;&nbsp;<img class="imgprev" src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/folder.png"/>
+                    <a id="aautor" href="/category/{{ article.category }}.html"">{{ article.category }}</a>
+                    &nbsp;&nbsp;<img class="imgprev" src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/tags.png"/>
+                    {% for tag in article.tags %}
+                        <a id="aautor" href="{{ SITEURL }}/{{ tag.url }}">{{ tag }}</a>
+                    {% endfor %} 
             {% if SHOW_FULL_ARTICLE %}
                 {{ article.content }}
             {% else %}
@@ -274,12 +301,16 @@
                     {{ article.title }}
                 </h2>
             </a>
-             <img class="imgprev" src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/calendar2.png"/>
-                <span>{{ article.locale_date }}</span>
-                &nbsp;&nbsp;<img class="imgprev" src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/icon.png"/> 
-                {% for author in article.authors %}
-                  <a href="{{ SITEURL }}/{{ author.url }}">{{ author }}</a>
-                {% endfor %}          
+             <img class="imgprev" src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/icon.png"/>
+                    {% for author in article.authors %}
+                        <a id="aautor" href="{{ SITEURL }}/{{ author.url }}">{{ author }}</a>
+                    {% endfor %}
+                    &nbsp;&nbsp;<img class="imgprev" src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/folder.png"/>
+                    <a id="aautor" href="/category/{{ article.category }}.html"">{{ article.category }}</a>
+                    &nbsp;&nbsp;<img class="imgprev" src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/tags.png"/>
+                    {% for tag in article.tags %}
+                        <a id="aautor" href="{{ SITEURL }}/{{ tag.url }}">{{ tag }}</a>
+                    {% endfor %}           
             {% if SHOW_FULL_ARTICLE %}
                 {{ article.content }}
             {% else %}

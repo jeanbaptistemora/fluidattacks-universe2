@@ -1,0 +1,35 @@
+{% extends "index.html" %}
+{% block title %}{{ SITENAME }} Search {% endblock %}
+
+{% block header %}
+    <!-- Page Header -->
+    {% include "navigationbar.html" %}
+    {% if HEADER_COVER %}
+        <header class="intro-header" style="background-image: url('{{ HEADER_COVER }}')">
+    {% elif HEADER_COLOR %}
+        <header class="intro-header" style="background-color: {{ HEADER_COLOR }}">
+    {% else %}
+        <header class="intro-header"> <!--style="background-image: url('{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/fluid.png');" >-->
+            <a href="/"><img src='{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/fluid.png'></a>
+    {% endif %}   
+        </header>
+{% endblock header %}
+
+{% block content %}
+  <script type="text/javascript" src="{{ SITEURL }}/theme/tipuesearch/tipuesearch.min.js"></script>
+  <script type="text/javascript" src="{{ SITEURL }}/theme/tipuesearch/tipuesearch_set.js"></script>
+  <script>
+    $(document).ready(function() {
+      $('#tipue_search_input').tipuesearch({
+        'show': 10,
+        'mode': 'json',
+        'contentLocation': '{{ SITEURL }}/tipuesearch_content.json'
+      });
+    });
+  </script>
+  <div id="divpage">
+    <article>
+      <div id="tipue_search_content"></div>
+    </article>
+  </div>
+{% endblock %}

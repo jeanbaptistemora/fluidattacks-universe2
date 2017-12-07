@@ -54,9 +54,11 @@ PLUGINS = [
            'neighbors',
            'share_post',
            'related_posts',
-           'representative_image'
+           'representative_image',
+           'tipue_search'
 ]
 RELATED_POSTS_MAX = 3
+DIRECT_TEMPLATES = (('index', 'tags', 'categories', 'archives', 'authors', 'search'))
 
 # Disqus
 DISQUS_SITENAME = 'fluid-blog'
