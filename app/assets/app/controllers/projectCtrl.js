@@ -1220,6 +1220,8 @@ integrates.controller(
                 animation: true,
                 templateUrl: 'avance.html',
                 windowClass: 'modal avance-modal',
+                backdrop: 'static',
+                keyboard: false,
                 controller: function($scope, $uibModalInstance){
                     var auxiliar = $("#vulnerabilities").bootstrapTable('getData');
                     var data = auxiliar;
