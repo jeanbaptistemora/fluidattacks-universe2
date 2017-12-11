@@ -618,8 +618,8 @@ integrates.controller("findingcontentCtrl", function($scope, $stateParams, $time
                 "ref": 3
             });
         }
-        if($scope.desc_evidencia_3 !== undefined
-            && $scope.ruta_evidencia_3 !== undefined){
+        if($scope.finding.desc_evidencia_3 !== undefined
+            && $scope.finding.ruta_evidencia_3 !== undefined){
             var url = url_pre + $scope.finding.ruta_evidencia_3;
             evidenceList.push({
                 "url": url,
@@ -641,7 +641,7 @@ integrates.controller("findingcontentCtrl", function($scope, $stateParams, $time
             });
         }
         if($scope.finding.desc_evidencia_5 !== undefined
-            && $scope.ruta_evidencia_5 !== undefined){
+            && $scope.finding.ruta_evidencia_5 !== undefined){
             var url = url_pre + $scope.finding.ruta_evidencia_5;
             evidenceList.push({
                 "url": url,
