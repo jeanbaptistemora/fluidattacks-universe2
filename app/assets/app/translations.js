@@ -139,7 +139,8 @@ integrates.config(['$translateProvider', function($translateProvider) {
               'evidence_name':'Evidence',
               'editable': 'Edit',
               'detail': 'Detail',
-              'update':'Update'
+              'update':'Update',
+              'alert':'In progress...'
             },
             'pop_table':{
                'type': 'Type',
@@ -196,6 +197,10 @@ integrates.config(['$translateProvider', function($translateProvider) {
           'partial_label': 'Partial',
           'close_label': 'Closed'
         },
+        'progress_mod':{
+          'title': 'Progress Report',
+          'finding': 'Finding'
+        },
         'proj_alerts':{
           'search_title': 'News!',
           'search_cont': 'Searching Project...',
@@ -213,7 +218,11 @@ integrates.config(['$translateProvider', function($translateProvider) {
           'event_formstack': 'Unable to access Formstack',
           'event_positiveint': 'Affectation must be a positive integer or zero',
           'event_updated': 'Event updated',
-          'event_exist':'This proyect has no vulnerabilities or does not exist'
+          'event_exist':'This proyect has no vulnerabilities or does not exist',
+          'no_finding':'We could not find the finding!',
+          'error_severity':'Severity must be an integer bewteen 0 and 5',
+          'wrong_severity':'You must calculate severity correctly',
+          'not_found':'We could not find it!'
         },
         'tab_container':{
           'findings': 'Findings',
@@ -424,12 +433,28 @@ integrates.config(['$translateProvider', function($translateProvider) {
            'moderate': ' Moderate',
            'tolerable': ' Tolerable'
          }
+       },
+       'registration':{
+         'close_session': 'Close Session',
+         'close_modal': 'Are you sure?',
+         'yes': 'Yes',
+         'no': 'No',
+         'hello': 'Hello',
+         'no_authorization': 'You do not have authorization for login yet. Please contact FLUID\'s staff to get access.'
+       },
+       'confirmmodal':{
+         'title_cssv2': 'Update CSSv2',
+         'title_description': 'Update Description',
+         'title_finding': 'Delete Finding',
+         'confirm': 'Are you sure?',
+         'no': 'No',
+         'yes': 'Yes'
        }
     };
     var traducciones = {
         'logout': {
             'message': 'Esta seguro de que desea salir?',
-            'title':'Cerrar Sesion',
+            'title':'Cerrar Sesión',
             'ok': 'Salir',
             'cancel': 'Cancelar'
         },
@@ -555,7 +580,8 @@ integrates.config(['$translateProvider', function($translateProvider) {
               'evidence_name':'Evidencia',
               'editable': 'Editar',
               'detail': 'Detalle',
-              'update':'Actualizar'
+              'update':'Actualizar',
+              'alert':'En desarrollo...'
             },
             'pop_table':{
                'type': 'Tipo',
@@ -612,6 +638,10 @@ integrates.config(['$translateProvider', function($translateProvider) {
           'partial_label': 'Parciales',
           'close_label': 'Cerrados'
         },
+        'progress_mod':{
+          'title': 'Reporte de Avance',
+          'finding': 'Hallazgo'
+        },
         'proj_alerts':{
           'search_title': 'Noticia!',
           'search_cont': 'Buscando Proyecto...',
@@ -629,7 +659,11 @@ integrates.config(['$translateProvider', function($translateProvider) {
           'event_formstack': 'No se tuvo acceso a Formstack...',
           'event_positiveint': 'La afectación debe ser un número positivo o cero',
           'event_updated': 'Eventualidad actualizada',
-          'event_exist':'Este proyecto no tiene eventualidades o no existe'
+          'event_exist':'Este proyecto no tiene eventualidades o no existe',
+          'no_finding':'No encontramos el hallazgo!',
+          'error_severity':'La severidad debe ser un numero de 0 a 5',
+          'wrong_severity':'Debes calcular correctamente la severidad',
+          'not_found':'No pudimos encontrarlo!'
         },
         'tab_container':{
           'findings': 'Hallazgos',
@@ -840,10 +874,26 @@ integrates.config(['$translateProvider', function($translateProvider) {
            'moderate': ' Moderado',
            'tolerable': ' Tolerable'
          }
+       },
+       'registration':{
+         'close_session': 'Cerrar Sesión',
+         'close_modal': 'Esta seguro de que desea salir?',
+         'yes': 'Si',
+         'no': 'No',
+         'hello': 'Hola',
+         'no_authorization': 'No tienes autorización aún para ingresar. Comunícate con un representante de FLUID para obtener acceso.'
+       },
+       'confirmmodal':{
+         'title_cssv2': 'Actualizar CSSv2',
+         'title_description': 'Actualizar Descripción',
+         'title_finding': 'Elminiar Hallazgo',
+         'confirm': '¿Realizar esta acción?',
+         'no': 'Cancelar',
+         'yes': 'Aceptar'
        }
     };
     if(localStorage['lang'] === undefined){
-        localStorage['lang'] = 'es';
+        localStorage['lang'] = 'en';
     }
     $translateProvider
         .translations('en', translations)

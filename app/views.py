@@ -123,14 +123,14 @@ def export_autodoc(request):
     try:
         kind = request.GET.get("format", "").strip()
         if kind != "IE" != kind != "IT":
-            raise Exception('Este evento de seguridad sera registrado')
+            raise Exception('This security event will be registered')
         filename = detail[kind]["path"]
         filename = filename.replace(":project", project)
         filename = filename.replace(":username", username)
         if not util.is_name(project):
-            raise Exception('Este evento de seguridad sera registrado')
+            raise Exception('This security event will be registered')
         if not os.path.isfile(filename):
-            raise Exception('La documentacion no ha sido generada')
+            raise Exception('Documentation has not been generated')
         with open(filename, 'r') as document:
             response = HttpResponse(document.read(),
                                     content_type=detail[kind]["content_type"])
@@ -170,8 +170,8 @@ def generate_autodoc(request):
             else:
                 generate_autodoc_it(request, project, findings)
             str_time = str("%s" % (time.time() - start_time))
-            return util.response([], 'Documentacion generada en ' +
-                                 str("%.2f segundos" %
+            return util.response([], 'Documentation generated in ' +
+                                 str("%.2f seconds" %
                                      float(str_time)), False)
     return util.response([], 'Error...', True)
 
@@ -211,7 +211,7 @@ def get_findings(request):
     finding_requests = api.get_findings(project)["submissions"]
     # pylint: disable=C1801
     if len(finding_requests) == 0:
-        return util.response([], 'El proyecto no existe', False)
+        return util.response([], 'The project does not exist', False)
     findings = []
     rmp = FormstackRequestMapper()
     for finding in finding_requests:
@@ -308,7 +308,7 @@ def get_eventualities(request):
     if not category:
         category = "Name"
     if not project or project.strip() == "":
-        return util.response([], 'Campos vacios', True)
+        return util.response([], 'Empty fields', True)
     else:
         api = FormstackAPI()
         rmp = FormstackRequestMapper()
@@ -325,10 +325,10 @@ def get_eventualities(request):
                         rmp.map_eventuality(eventuality_request)
                     if eventuality_parsed['proyecto_fluid'].lower() == project.lower():
                         eventualities.append(eventuality_parsed)
-                return util.response(eventualities, 'Correcto', False)
+                return util.response(eventualities, 'Correct', False)
             return util.response([],
-                                     'Este proyecto no tiene \
-eventualidades o no existe', False)
+                                     'This project has no \
+events or does not exist', False)
         else:
             if util.is_numeric(project):
                 eventualities = []
@@ -337,9 +337,9 @@ eventualidades o no existe', False)
                     rmp.map_eventuality(eventuality_request)
                 if eventuality_parsed['id'].lower() == project.lower():
                     eventualities.append(eventuality_parsed)
-                return util.response(eventualities, 'Correcto', False)
-            return util.response([], 'Debes ingresar un ID \
-numerico!', True)
+                return util.response(eventualities, 'Correct', False)
+            return util.response([], 'You must enter a \
+numeric ID!', True)
 
 
 @csrf_exempt
@@ -351,7 +351,7 @@ def delete_finding(request):
         or "vuln[proyecto_fluid]" not in post_parms \
         or "vuln[justificacion]" not in post_parms \
             or "vuln[id]" not in post_parms:
-        return util.response([], 'Campos vacios', True)
+        return util.response([], 'Empty fields', True)
     else:
         api = FormstackAPI()
         rmp = FormstackRequestMapper()
@@ -378,8 +378,8 @@ def delete_finding(request):
                 }
             to = ["engineering@fluid.la"]
             send_mail_delete_finding(to, context)
-            return util.response([], 'Eliminado correctamente!', False)
-        return util.response([], 'No se pudo actualizar',
+            return util.response([], 'Deleted!', False)
+        return util.response([], 'Finding could not be deleted',
                              True)
 
 # FIXME: Need to add access control to this function
@@ -392,7 +392,7 @@ def update_eventuality(request):
     if "vuln[proyecto_fluid]" not in post_parms \
         != "vuln[id]" not in post_parms \
             != "vuln[afectacion]" not in post_parms:
-        return util.response([], 'Campos vacios', True)
+        return util.response([], 'Empty Fields', True)
     else:
         validate = False
         try:
@@ -401,15 +401,15 @@ def update_eventuality(request):
         except ValueError:
             validate = False
         if not validate:
-            return util.response([], 'Afectacion negativa', True)
+            return util.response([], 'Negative Affectation', True)
     api = FormstackAPI()
     submission_id = post_parms["vuln[id]"]
     afectacion = post_parms["vuln[afectacion]"]
     updated = api.update_eventuality(afectacion, submission_id)
     if not updated:
-        return util.response([], 'No se pudo actualizar',
+        return util.response([], 'Event could not be updated',
                              True)
-    return util.response([], 'Actualizado correctamente!', False)
+    return util.response([], 'Updated!', False)
 
 
 @csrf_exempt
@@ -427,7 +427,7 @@ def update_finding(request):
         != "vuln[amenaza]" not in post_parms \
         != "vuln[requisitos]" not in post_parms \
             != "vuln[id]" not in post_parms:
-        return util.response([], 'Campos vacios', True)
+        return util.response([], 'Empty', True)
     else:
         nivel = post_parms["vuln[nivel]"]
         execute = False
@@ -439,7 +439,7 @@ def update_finding(request):
                     and "vuln[sistema_comprometido]" in post_parms:
                 execute = True
         if not execute:
-            return util.response([], 'Campos vacios', True)
+            return util.response([], 'Empty Fields', True)
         formstack_api = FormstackAPI()
         submission_id = post_parms["vuln[id]"]
         rmp = FormstackRequestMapper()
@@ -452,9 +452,9 @@ def update_finding(request):
 
         updated = formstack_api.update_finding(post_parms, submission_id)
         if not updated:
-            return util.response([], 'No se pudo actualizar',
+            return util.response([], 'Finding could not be updated',
                                  True)
-        return util.response([], 'Actualizado correctamente!', False)
+        return util.response([], 'Updated!', False)
 
 @never_cache
 @authorize(['analyst', 'customer'])
@@ -467,7 +467,7 @@ def get_myprojects(request):
             "project": row[0].upper(),
             "company_project": row[1]
         })
-    return util.response(json_data, 'Correcto!', False)
+    return util.response(json_data, 'Correct!', False)
 
 
 @never_cache
@@ -492,7 +492,7 @@ def get_myevents(request):
                 if eventuality_parsed['proyecto_fluid'].lower() == project.lower():
                     if eventuality_parsed["estado"] == "Pendiente":
                         eventualities.append(eventuality_parsed)
-    return util.response(eventualities, 'Correcto', False)
+    return util.response(eventualities, 'Correct', False)
 
 @never_cache
 @csrf_exempt
@@ -504,15 +504,15 @@ def get_evidence(request):
         redirect('dashboard')
 
     if drive_id is None:
-        return HttpResponse("Error - ID de imagen no enviado", content_type="text/html")
+        return HttpResponse("Error - Unsent image ID", content_type="text/html")
     else:
         if not re.match("[a-zA-Z0-9_-]{20,}", drive_id):
-            return HttpResponse("Error - ID con formato incorrecto", content_type="text/html")
+            return HttpResponse("Error - ID with wrong format", content_type="text/html")
         drive_api = DriveAPI(drive_id)
         # pylint: disable=W0622
         image = drive_api.FILE
         if image is None:
-            return HttpResponse("Error - No se pudo descargar la imagen", content_type="text/html")
+            return HttpResponse("Error - Unable to download the image", content_type="text/html")
         else:
             filename = "/tmp/:id.tmp".replace(":id", drive_id)
             mime = Magic(mime=True)
@@ -533,18 +533,18 @@ def get_exploit(request):
 
     if drive_id not in request.session:
         redirect('dashboard')
-        
+
     if drive_id is None:
-        return HttpResponse("Error - ID de archivo no enviado", content_type="text/html")
+        return HttpResponse("Error - Unsent file ID", content_type="text/html")
     else:
         if not re.match("[a-zA-Z0-9_-]{20,}", drive_id):
-            return HttpResponse("Error - ID con formato incorrecto", content_type="text/html")
+            return HttpResponse("Error - ID with wrong format", content_type="text/html")
         drive_api = DriveAPI(drive_id)
         # pylint: disable=W0622
         file = drive_api.FILE
         if file is None:
-            return HttpResponse("Error - No se pudo descargar el archivo", content_type="text/html")
-        else:            
+            return HttpResponse("Error - Unable to download the image", content_type="text/html")
+        else:
             filename = "/tmp/:id.tmp".replace(":id", drive_id)
             mime = Magic(mime=True)
             mime_type = mime.from_file(filename)
@@ -572,7 +572,7 @@ def update_cssv2(request):
             return util.response([], 'success', False)
         return util.response([], 'error', False)
     except KeyError:
-        return util.response([], 'Campos vacios', True)
+        return util.response([], 'Empty fields', True)
 
 @never_cache
 @authorize(['analyst'])
@@ -589,4 +589,4 @@ def update_description(request):
             return util.response([], 'success', False)
         return util.response([], 'error', False)
     except KeyError:
-        return util.response([], 'Campos vacios', True)
+        return util.response([], 'Empty fields', True)

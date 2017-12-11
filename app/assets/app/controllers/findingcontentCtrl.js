@@ -115,7 +115,7 @@ integrates.controller("findingcontentCtrl", function($scope, $stateParams, $time
             backdrop: 'static',
             resolve: { updateData: cssv2Data },
             controller: function($scope, $uibModalInstance, updateData){
-                $scope.modalTitle = "Actualizar CSSv2";
+                $scope.modalTitle = $translate.instant('confirmmodal.title_cssv2');
                 $scope.ok = function(){
                     //Consumir el servicio
                     var req = projectFtry.UpdateCSSv2(updateData);
@@ -141,7 +141,7 @@ integrates.controller("findingcontentCtrl", function($scope, $stateParams, $time
     };
     $scope.updateEvidenceText = function(target){
         console.log(target);
-        $msg.info("En desarrollo ;)");
+        $msg.info($translate.instant('search_findings.tab_evidence.alert'));
         return false;
     };
     $scope.goUp = function(){
@@ -497,14 +497,14 @@ integrates.controller("findingcontentCtrl", function($scope, $stateParams, $time
               });
             });
             //Init auto height in panels
-            $("#evidenceItem").on("click", function(){              
-              $('.equalHeight').matchHeight();              
+            $("#evidenceItem").on("click", function(){
+              $('.equalHeight').matchHeight();
             });
             //Tracking mixpanel
             mixPanelDashboard.trackReadFinding(userEmail, $scope.finding.id);
             $timeout($scope.goUp, 200);
         } else {
-          $msg.error("No encontramos el hallazgo!");
+          $msg.error($translate.instant('proj_alerts.no_finding'));
           return false;
         }
       });
@@ -657,7 +657,7 @@ integrates.controller("findingcontentCtrl", function($scope, $stateParams, $time
         if(!isNaN($scope.finding.severidad)){
             var severidad = parseFloat($scope.finding.severidad);
             if (severidad < 0 || severidad > 5){
-                $msg.error("La severidad debe ser un numero de 0 a 5", "error");
+                $msg.error($translate.instant('proj_alerts.error_severity'), "error");
                 return false;
             }
             try{
@@ -680,7 +680,7 @@ integrates.controller("findingcontentCtrl", function($scope, $stateParams, $time
                     return false;
             }
         }else{
-            $msg.error("La severidad debe ser un numero de 0 a 5", "error");
+            $msg.error($translate.instant('proj_alerts.error_severity'), "error");
             return false;
         }
     };
@@ -710,7 +710,7 @@ integrates.controller("findingcontentCtrl", function($scope, $stateParams, $time
              //Recalcular Severidad
              var choose = $scope.findingCalculateSeveridad();
              if(!choose){
-                 $msg.error("Debes calcular correctamente la severidad");
+                 $msg.error( $translate.instant('proj_alerts.wrong_severity'));
                  return false;
              }
          }
@@ -720,7 +720,7 @@ integrates.controller("findingcontentCtrl", function($scope, $stateParams, $time
              backdrop: 'static',
              resolve: { updateData: descData },
              controller: function($scope, $uibModalInstance, updateData){
-                 $scope.modalTitle = "Actualizar Descripción";
+                 $scope.modalTitle = $translate.instant('confirmmodal.title_description');
                  $scope.ok = function(){
                      //Consumir el servicio
                      var req = projectFtry.UpdateDescription(updateData);

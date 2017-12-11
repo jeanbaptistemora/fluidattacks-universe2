@@ -982,7 +982,7 @@ integrates.controller(
                             $scope.view.finding = false;
                         }
                     }else{
-                        $msg.error("No pudimos encontrarlo :(");
+                        $msg.error($translate.instant('proj_alerts.not_found'));
                     }
                 });
                 reqEventualities.then(function(response){
@@ -1094,7 +1094,7 @@ integrates.controller(
                 backdrop: 'static',
                 resolve: { updateData: cssv2Data },
                 controller: function($scope, $uibModalInstance, updateData){
-                    $scope.modalTitle = "Actualizar CSSv2";
+                    $scope.modalTitle = $translate.instant('confirmmodal.title_cssv2');;
                     $scope.ok = function(){
                         //Consumir el servicio
                         var req = projectFtry.UpdateCSSv2(updateData);
@@ -1154,7 +1154,7 @@ integrates.controller(
                 backdrop: 'static',
                 resolve: { updateData: descData },
                 controller: function($scope, $uibModalInstance, updateData){
-                    $scope.modalTitle = "Actualizar Descripción";
+                    $scope.modalTitle = $translate.instant('confirmmodal.title_description');
                     $scope.ok = function(){
                         //Consumir el servicio
                         var req = projectFtry.UpdateDescription(updateData);
@@ -1191,7 +1191,7 @@ integrates.controller(
                 backdrop: 'static',
                 resolve: { updateData: descData },
                 controller: function($scope, $uibModalInstance, updateData){
-                    $scope.modalTitle = "Eliminar Hallazgo";
+                    $scope.modalTitle = $translate.instant('confirmmodal.title_finding');
                     $scope.ok = function(){
                         //Consumir el servicio
                         var req = projectFtry.DeleteFinding(updateData);

@@ -1,11 +1,11 @@
 <div class="modal-body" id="modal-body">
         <div class="row">
             <h3>{{modalTitle}}</h3>
-            <p>¿Realizar esta accion?</p>
+            <p>{{'confirmmodal.confirm' | translate}}</p>
         </div>
     </div>
     <div class="modal-footer">
-        <button class="btn btn-danger" type="button" ng-click="close()">CANCELAR</button>
-        <button class="btn btn-primary" type="button" ng-click="ok()">ACEPTAR</button>
+        <button class="btn btn-danger" type="button" ng-click="close()">{{'confirmmodal.no' | translate}}</button>
+        <button class="btn btn-primary" type="button" ng-click="ok()">{{'confirmmodal.yes' | translate}}</button>
     </div>
 </div>

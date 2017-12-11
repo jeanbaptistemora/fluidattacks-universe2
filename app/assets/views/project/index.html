@@ -20,11 +20,11 @@
 <!-- START: MODAL AVANCE -->
 <script type="text/ng-template" id="avance.html">
     <div class="modal-header">
-        <h3 class="modal-title" id="modal-title">Reporte de avance</h3>
+        <h3 class="modal-title" id="modal-title">{{'progress_mod.title' | translate}}</h3>
     </div>
     <div class="modal-body" id="modal-body">
         <ul style="list-style: none;">
-            <li ng-repeat="r in rows"> - Hallazgos #{{r.id}}:&nbsp;[{{r.criticidad}}&nbsp;CVSS]&nbsp;{{r.hallazgo}}&nbsp;({{r.cardinalidad}})&nbsp;->&nbsp;[{{r.registros_num}},&nbsp;{{r.atributos}}]
+            <li ng-repeat="r in rows"> - {{'progress_mod.finding' | translate}} #{{r.id}}:&nbsp;[{{r.criticidad}}&nbsp;CVSS]&nbsp;{{r.hallazgo}}&nbsp;({{r.cardinalidad}})&nbsp;->&nbsp;[{{r.registros_num}},&nbsp;{{r.atributos}}]
         </ul>
     </div>
     <div class="modal-footer">
