@@ -157,13 +157,20 @@ integrates.config(['$translateProvider', function($translateProvider) {
             'title': 'My Projects',
             'description1': 'You can check the details of a project by ',
             'description2': 'clicking',
-            'description3': ' on it'
+            'description3': ' on it',
+            'project_title': 'FLUID\'s Project',
+            'project_description': 'Description'
           },
           'eventualities':{
                 'title': 'My Events',
                 'description_1': 'You can check the details of an event by ',
                 'description_2': 'clicking',
-                'description_3': 'on it'
+                'description_3': 'on it',
+                'project_title': 'FLUID\'s Project',
+                'date': 'Date',
+                'type': 'Type',
+                'description': 'Description',
+                'close': 'CLOSE'
               }
         },
         'grapExploit':{
@@ -559,13 +566,20 @@ integrates.config(['$translateProvider', function($translateProvider) {
             'title': 'Mis Proyectos',
             'description1': 'Para ver el detalle del proyecto debes hacer ',
             'description2': 'click',
-            'description3': ' sobre el proyecto'
+            'description3': ' sobre el proyecto',
+            'project_title': 'Proyecto FLUID',
+            'project_description': 'Descripción'
           },
           'eventualities':{
                  'title': 'Mis Eventualidades',
                  'description_1': 'Para ver el detalle de la eventualidad debes hacer',
                  'description_2': 'click',
-                 'description_3': 'sobre la eventualidad'
+                 'description_3': 'sobre la eventualidad',
+                 'project_title': 'Proyecto FLUID',
+                 'date': 'Fecha',
+                 'type': 'Tipo',
+                 'description': 'Detalle',
+                 'close': 'CERRAR'
            }
         },
         'grapExploit':{

@@ -33,9 +33,9 @@
                 <thead>
                     <tr>
                         <th data-field="project"
-                            data-sortable="true">Proyecto FLUID</th>
+                            data-sortable="true">{{'main_content.projects.project_title' | translate}}</th>
                         <th data-field="company_project"
-                            data-sortable="true">Descripción</th>
+                            data-sortable="true">{{'main_content.projects.project_description' | translate}}</th>
                     </tr>
                 </thead>
             </table>
@@ -60,11 +60,11 @@
                         <th data-field="id"
                             data-sortable="true">ID</th>
                         <th data-field="proyecto_fluid"
-                            data-sortable="true">Proyecto FLUID</th>
+                            data-sortable="true">{{'main_content.eventualities.project_title' | translate}}</th>
                         <th data-field="fecha"
-                            data-sortable="true">Fecha</th>
+                            data-sortable="true">{{'main_content.eventualities.date' | translate}}</th>
                         <th data-field="tipo"
-                            data-sortable="true">Tipo</th>
+                            data-sortable="true">{{'main_content.eventualities.type' | translate}}</th>
                     </tr>
                 </thead>
             </table>
@@ -79,19 +79,19 @@
                 </div>
                 <div class="col-md-12">
                     <div class="form-group">
-                        <label>Tipo</label>
+                        <label>{{'main_content.eventualities.type' | translate}}</label>
                         <input type="text" class="form-control" ng-model="evnt.tipo" disabled>
                     </div>
                 </div>
                 <div class="col-md-12">
                     <div class="form-group">
-                        <label>Fecha</label>
+                        <label>{{'main_content.eventualities.date' | translate}}</label>
                         <input type="text" class="form-control" ng-model="evnt.fecha" disabled>
                     </div>
                 </div>
                 <div class="col-md-12">
                     <div class="form-group">
-                        <label>Detalle</label>
+                        <label>{{'main_content.eventualities.description' | translate}}</label>
                         <textarea class="form-control"
                                   sryle="resize: none;" disabled> {{evnt.detalle}} </textarea>
                     </div>
@@ -100,7 +100,7 @@
             </div>
         </div>
         <div class="modal-footer">
-            <button class="btn btn-primary" type="button" ng-click="close()">CERRAR</button>
+            <button class="btn btn-primary" type="button" ng-click="close()">{{'main_content.eventualities.close' | translate}}</button>
         </div>
     </script>
 </div>
