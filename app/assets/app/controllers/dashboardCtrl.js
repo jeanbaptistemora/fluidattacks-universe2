@@ -55,6 +55,7 @@ integrates.controller("dashboardCtrl", function($scope, $uibModal, $timeout,
 			localStorage['lang'] = langKey;
 		}
 		$translate.use(localStorage['lang']);
+    location.reload();
     }
     $scope.initMyProjects = function(){
         if(localStorage['lang'] === "en"){
