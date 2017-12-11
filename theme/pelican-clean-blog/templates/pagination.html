@@ -4,13 +4,13 @@
     <ul class="pager">
         <li class="next">
             {% if articles_page.has_previous() %}
-                <a href="{{ SITEURL }}/{{ articles_previous_page.url }}"> &larr; Pág. Anterior</a>
+                <a href="{{ SITEURL }}/{{ articles_previous_page.url }}"> &larr; Anterior</a>
             {% endif %}
             {% if articles_page.has_next() %}
-                <a href="{{ SITEURL }}/{{ articles_next_page.url }}">Pág. Siguiente &rarr;</a>
+                <a href="{{ SITEURL }}/{{ articles_next_page.url }}">Siguiente &rarr;</a>
             {% endif %}
         </li>
     </ul>
-    Pág. {{ articles_page.number }} / {{ articles_paginator.num_pages }}
+    Página {{ articles_page.number }} de {{ articles_paginator.num_pages }}
     <hr>
 {% endif %}
