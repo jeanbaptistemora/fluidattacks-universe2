@@ -1,0 +1,86 @@
+<div class="main-content" style="background-color: white;">
+	<div class="tab-container">
+		<ul class="nav pills-tabs nav-justified" style="background-color: white; border-bottom: 1px #eee solid;">
+			<li id="progressItem" class="active" style="font-size:16px;">
+				<a href="#progress" data-toggle="tab" aria-expanded="false">
+				<i class="icon s7-refresh-2"></i>&nbsp;{{'forms.progress' | translate}}</a>
+			</li>
+			<li id="findingsItem" class="" style="font-size:16px;">
+				<a href="#findings" data-toggle="tab" aria-expanded="false">
+				<i class="icon s7-id"></i>&nbsp;{{'forms.findings' | translate}}</a>
+			</li>
+			<li id="closingItem" class="" style="font-size:16px;">
+				<a href="#closing" data-toggle="tab" aria-expanded="true">
+				<i class="icon s7-less"></i>&nbsp;{{'forms.closure' | translate}}</a>
+			</li>
+		</ul>		
+		<div class="tab-content">
+			<div id="progress" class="tab-pane cont active">
+				<div class="row">
+	            	<div class="col-md-12 col-sm-12 col-xs-12">	
+	            		<iframe id="ifrmProgress" onload="iFrameResize()" width="100%" src="https://fluid.la/forms/avance"
+	    				frameborder="0"></iframe>											
+					</div>
+				</div>
+			</div>
+			<div id="findings" class="tab-pane cont">
+				<div class="row">
+	            	<div class="col-md-12 col-sm-12 col-xs-12">
+	            		<iframe id="ifrmFindings" onload="iFrameResize()" width="100%" src="https://fluid.la/forms/hallazgos"
+	    				frameborder="0"></iframe>	            							
+					</div>
+				</div>
+			</div>
+			<div id="closing" class="tab-pane cont">
+				<div class="row">
+	            	<div class="col-md-12 col-sm-12 col-xs-12">
+	            		<iframe id="ifrmClosure" onload="iFrameResize()" width="100%" src="https://fluid.la/forms/cierres"
+	    				frameborder="0"></iframe>
+					</div>
+				</div>
+			</div>		
+		</div>
+	</div>
+</div>
+<!-- Start CommonStyles -->
+<style>
+    .bg-critical{ background-color: #F12; }
+    .bg-moderate{ background-color: #F72; }
+    .bg-tolerable{ background-color: #FD2; }
+    .no-resize{ resize: none; height: 100px !important;}
+    .hide-detallado, .fl-hidden { display: none; }
+    .show-detallado, .fl-visible{ display: block;}
+    .pills-tabs > li.active > a,
+    .pills-tabs > li.active > a:hover,
+    .pills-tabs > li.active > a:focus{
+        background-color: #eee;
+        color: #777;
+    }
+    .pills-tabs > li > a,
+    .pills-tabs > li > a:hover,
+    .pills-tabs > li > a:focus{
+        background-color: white;
+        color: #666;
+    }
+    .table-head{
+        text-align: right;
+    }
+    @media (max-width: 768px) {
+        .table-head{
+            text-align: left;
+        }
+    }
+    .table-row{
+        margin-top: 15px;
+        font-size: 14px;
+    }
+    .table-desc{
+        color: #888;
+        text-align: justify;
+        /*border-bottom: 0.5px #DDD solid;*/
+    }
+    #vulnerabilities thead tr{ background-color: #337ab7; color:white;  }
+    #eventualities thead tr{ background-color: #337ab7; color:white;  }
+
+</style>
+<!-- End CommonStyles -->

@@ -19,7 +19,13 @@ integrates.config(['$translateProvider', function($translateProvider) {
         },
         'left_menu': {
             'first': 'Findings',
-            'second': 'Events'
+            'second': 'Events',
+            'third': 'Forms'
+        },
+        'forms': {
+            'progress': 'Progress',
+            'findings': 'Findings',
+            'closure': 'Closure'
         },
         'breadcumbs': {
             'findings': {
@@ -428,7 +434,13 @@ integrates.config(['$translateProvider', function($translateProvider) {
         },
         'left_menu': {
             'first': 'Hallazgos',
-            'second': 'Eventualidades'
+            'second': 'Eventualidades',
+            'third': 'Formularios'
+        },
+        'forms': {
+            'progress': 'Avance',
+            'findings': 'Hallazgos',
+            'closure': 'Cierre'
         },
         'breadcumbs': {
             'findings': {

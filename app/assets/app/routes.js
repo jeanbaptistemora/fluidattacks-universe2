@@ -68,6 +68,11 @@ integrates.config(function($stateProvider, $urlRouterProvider) {
             templateUrl: 'assets/views/search/event_by_name.html',
             controller: 'eventualityController'
         })
+        .state('Forms', {
+            url: '/Forms',
+            templateUrl: 'assets/views/search/forms.html',
+            controller: 'formCtrl'
+        })
 });
 integrates.config(function($sceDelegateProvider) {
     $sceDelegateProvider.resourceUrlWhitelist([
