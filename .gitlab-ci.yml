@@ -10,7 +10,7 @@ deployment:
     - gem install --no-document sass
   script:
     - pelican content/
-    - aws s3 cp --recursive --acl=public-read-write output/ s3://blog2.fluid.la
+    - aws s3 cp --recursive --acl=public-read-write output/ s3://blog.fluid.la
   only:
      - master
 

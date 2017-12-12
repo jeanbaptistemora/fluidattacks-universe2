@@ -11,7 +11,7 @@
         <header class="intro-header" style="background-color: {{ HEADER_COLOR }}">
     {% else %}
         <header class="intro-header"> <!--style="background-image: url('{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/fluid.png');" >-->
-            <a href="/"><img src='{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/fluid.png'></a>
+            <a href="{{ SITEURL }}"><img src='{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/fluid.png'></a>
     {% endif %}   
         </header>
 {% endblock header %}
@@ -29,8 +29,8 @@
                 <img src='{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/user.png'><a href="{{ SITEURL }}/{{ author.url }}">{{ author }}</a>
             {% endfor %}<br/>
                 <img src='{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/comment.png'><a href="./#disqus_thread">Deja un comentario</a><br/>
-                <img src='{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/folder.png'><a href="/category/{{ article.category }}.html">{{ article.category }}</a><br/>
-	        <img src='{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/calendar2.png'><a href>{{ article.locale_date }}</a><br/>
+                <img src='{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/folder.png'><a href="{{ SITEURL }}/category/{{ article.category }}.html">{{ article.category }}</a><br/>
+	        <img src='{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/calendar2.png'><a>{{ article.locale_date }}</a><br/>
         </span>
         {% if article.modified %}
             <span class="meta">Updated on {{ article.locale_modified }}</span>
@@ -39,7 +39,7 @@
         {{ translations.translations_for(article) }}
         {{ article.content }}	
  
- <p><img id="imgwriter" src="/images/authors/{{article.writer}}.png">
+ <p><img id="imgwriter" src="{{ SITEURL }}/images/authors/{{article.writer}}.png">
   <strong class="writer">
     <a href="{{ SITEURL }}/{{ article.author.url }}"><span>{{article.name}}</span></a>
   </strong><br>{{article.about1}}

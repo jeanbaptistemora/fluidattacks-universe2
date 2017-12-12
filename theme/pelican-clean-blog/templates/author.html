@@ -19,7 +19,7 @@
         <header class="intro-header" style="background-color: {{ HEADER_COLOR }}">
     {% else %}
         <header class="intro-header"> <!--style="background-image: url('{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/fluid.png');" >-->
-            <a href="/"><img src='{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/fluid.png'></a>
+            <a href="{{ SITEURL }}"><img src='{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/fluid.png'></a>
     {% endif %}   
         </header>
         <div class="container" id="contauthor">
@@ -28,7 +28,7 @@
                     <div class="post-heading">
                         <h1>AUTOR: </h1>    
                         <h2>{{ author }}</h2>
-                        <br><a href='/authors.html'>
+                        <br><a href="{{ SITEURL }}/authors.html">
                               <p>LISTA DE AUTORES</p>
                             </a>
                     </div>

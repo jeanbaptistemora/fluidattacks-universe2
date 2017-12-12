@@ -8,7 +8,7 @@ sys.setdefaultencoding("utf-8")
 # Site information
 AUTHOR = 'FLUID'
 SITENAME = 'Blog de FLUID'
-SITEURL = 'http://blog2.fluid.la'
+SITEURL = 'http://fluid.la/blog'
 PATH = 'content'
 
 # Date and time configuration
@@ -58,7 +58,7 @@ PLUGINS = [
            'tipue_search'
 ]
 RELATED_POSTS_MAX = 3
-DIRECT_TEMPLATES = (('index', 'tags', 'categories', 'archives', 'authors', 'search'))
+DIRECT_TEMPLATES = (('index', 'tags', 'categories', 'archives', 'authors', 'search', '404'))
 
 # Disqus
 DISQUS_SITENAME = 'fluid-blog'

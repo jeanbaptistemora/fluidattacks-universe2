@@ -8,7 +8,7 @@
         <header class="intro-header" style="background-color: {{ HEADER_COLOR }}">
     {% else %}
         <header class="intro-header"> <!--style="background-image: url('{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/fluid.png');" >-->
-            <a href="/"><img src='{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/fluid.png'></a>
+            <a href="{{ SITEURL }}"><img src='{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/fluid.png'></a>
     {% endif %}   
         </header>
         <div class="container" id="contauthor">
@@ -16,7 +16,7 @@
                 <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
                     <div class="post-heading">
                         <h1>{{ tag }}</h1>
-                        <br><a href='/tags.html'>
+                        <br><a href="{{ SITEURL }}/tags.html">
                               <p>LISTA DE TAGS</p>
                             </a>
                     </div>

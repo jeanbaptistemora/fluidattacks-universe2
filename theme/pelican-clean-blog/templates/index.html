@@ -10,7 +10,7 @@
         <header class="intro-header" style="background-color: {{ HEADER_COLOR }}">
     {% else %}
         <header class="intro-header"> <!--style="background-image: url('{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/fluid.png');" >-->
-            <a href="/"><img src='{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/fluid.png'></a>
+            <a href="{{ SITEURL }}"><img src='{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/fluid.png'></a>
     {% endif %}   
         </header>
 {% endblock header %}
@@ -39,7 +39,7 @@
                         <a id="aautor" href="{{ SITEURL }}/{{ author.url }}">{{ author }}</a>
                     {% endfor %}
                     &nbsp;&nbsp;<img class="imgprev" src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/folder.png"/>
-                    <a id="aautor" href="/category/{{ article.category }}.html"">{{ article.category }}</a>
+                    <a id="aautor" href="{{ SITEURL }}/category/{{ article.category }}.html"">{{ article.category }}</a>
                     &nbsp;&nbsp;<img class="imgprev" src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/tags.png"/>
                     {% for tag in article.tags %}
                         <a id="aautor" href="{{ SITEURL }}/{{ tag.url }}">{{ tag }}</a>
@@ -75,7 +75,7 @@
                         <a id="aautor" href="{{ SITEURL }}/{{ author.url }}">{{ author }}</a>
                     {% endfor %}
                     &nbsp;&nbsp;<img class="imgprev" src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/folder.png"/>
-                    <a id="aautor" href="/category/{{ article.category }}.html"">{{ article.category }}</a>
+                    <a id="aautor" href="{{ SITEURL }}/category/{{ article.category }}.html"">{{ article.category }}</a>
                     &nbsp;&nbsp;<img class="imgprev" src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/tags.png"/>
                     {% for tag in article.tags %}
                         <a id="aautor" href="{{ SITEURL }}/{{ tag.url }}">{{ tag }}</a>
@@ -111,7 +111,7 @@
                         <a id="aautor" href="{{ SITEURL }}/{{ author.url }}">{{ author }}</a>
                     {% endfor %}
                     &nbsp;&nbsp;<img class="imgprev" src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/folder.png"/>
-                    <a id="aautor" href="/category/{{ article.category }}.html"">{{ article.category }}</a>
+                    <a id="aautor" href="{{ SITEURL }}/category/{{ article.category }}.html"">{{ article.category }}</a>
                     &nbsp;&nbsp;<img class="imgprev" src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/tags.png"/>
                     {% for tag in article.tags %}
                         <a id="aautor" href="{{ SITEURL }}/{{ tag.url }}">{{ tag }}</a>
@@ -156,7 +156,7 @@
                         <a id="aautor" href="{{ SITEURL }}/{{ author.url }}">{{ author }}</a>
                     {% endfor %}
                     &nbsp;&nbsp;<img class="imgprev" src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/folder.png"/>
-                    <a id="aautor" href="/category/{{ article.category }}.html"">{{ article.category }}</a>
+                    <a id="aautor" href="{{ SITEURL }}/category/{{ article.category }}.html"">{{ article.category }}</a>
                     &nbsp;&nbsp;<img class="imgprev" src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/tags.png"/>
                     {% for tag in article.tags %}
                         <a id="aautor" href="{{ SITEURL }}/{{ tag.url }}">{{ tag }}</a>
@@ -192,7 +192,7 @@
                         <a id="aautor" href="{{ SITEURL }}/{{ author.url }}">{{ author }}</a>
                     {% endfor %}
                     &nbsp;&nbsp;<img class="imgprev" src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/folder.png"/>
-                    <a id="aautor" href="/category/{{ article.category }}.html"">{{ article.category }}</a>
+                    <a id="aautor" href="{{ SITEURL }}/category/{{ article.category }}.html"">{{ article.category }}</a>
                     &nbsp;&nbsp;<img class="imgprev" src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/tags.png"/>
                     {% for tag in article.tags %}
                         <a id="aautor" href="{{ SITEURL }}/{{ tag.url }}">{{ tag }}</a>
@@ -228,7 +228,7 @@
                         <a id="aautor" href="{{ SITEURL }}/{{ author.url }}">{{ author }}</a>
                     {% endfor %}
                     &nbsp;&nbsp;<img class="imgprev" src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/folder.png"/>
-                    <a id="aautor" href="/category/{{ article.category }}.html"">{{ article.category }}</a>
+                    <a id="aautor" href="{{ SITEURL }}/category/{{ article.category }}.html"">{{ article.category }}</a>
                     &nbsp;&nbsp;<img class="imgprev" src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/tags.png"/>
                     {% for tag in article.tags %}
                         <a id="aautor" href="{{ SITEURL }}/{{ tag.url }}">{{ tag }}</a>
@@ -271,7 +271,7 @@
                         <a id="aautor" href="{{ SITEURL }}/{{ author.url }}">{{ author }}</a>
                     {% endfor %}
                     &nbsp;&nbsp;<img class="imgprev" src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/folder.png"/>
-                    <a id="aautor" href="/category/{{ article.category }}.html"">{{ article.category }}</a>
+                    <a id="aautor" href="{{ SITEURL }}/category/{{ article.category }}.html"">{{ article.category }}</a>
                     &nbsp;&nbsp;<img class="imgprev" src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/tags.png"/>
                     {% for tag in article.tags %}
                         <a id="aautor" href="{{ SITEURL }}/{{ tag.url }}">{{ tag }}</a>
@@ -306,7 +306,7 @@
                         <a id="aautor" href="{{ SITEURL }}/{{ author.url }}">{{ author }}</a>
                     {% endfor %}
                     &nbsp;&nbsp;<img class="imgprev" src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/folder.png"/>
-                    <a id="aautor" href="/category/{{ article.category }}.html"">{{ article.category }}</a>
+                    <a id="aautor" href="{{ SITEURL }}/category/{{ article.category }}.html"">{{ article.category }}</a>
                     &nbsp;&nbsp;<img class="imgprev" src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/tags.png"/>
                     {% for tag in article.tags %}
                         <a id="aautor" href="{{ SITEURL }}/{{ tag.url }}">{{ tag }}</a>
@@ -332,3 +332,4 @@
             
     {% include "pagination.html" %}
 {% endblock content %}
+
