@@ -54,6 +54,13 @@ integrates.controller("findingcontentCtrl", function($scope, $stateParams, $time
 
         $scope.header.findingCount = $scope.finding.cardinalidad;
     };
+    String.prototype.replaceAll = function(search, replace)
+    {
+        if (replace === undefined) {
+            return this.toString();
+        }
+        return this.replace(new RegExp('[' + search + ']', 'g'), replace);
+    };
     $scope.findingExploitTab = function(){
         var url_pre = BASE.url + "get_exploit?id=";
         $scope.hasExploit = false;
@@ -63,6 +70,8 @@ integrates.controller("findingcontentCtrl", function($scope, $stateParams, $time
             $scope.hasExploit = true;
             exploit.then(function(response){
                 if(!response.error){
+                    response = response.replaceAll("<", "&lt;");
+                    response = response.replaceAll(">", "&gt;");
                     $scope.exploitURL = response;
                 }
             });
