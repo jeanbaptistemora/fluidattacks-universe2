@@ -25,7 +25,8 @@ integrates.config(['$translateProvider', function($translateProvider) {
         'forms': {
             'progress': 'Progress',
             'findings': 'Findings',
-            'closure': 'Closure'
+            'closure': 'Closure',
+            'events': 'Events'
         },
         'breadcumbs': {
             'findings': {
@@ -440,7 +441,8 @@ integrates.config(['$translateProvider', function($translateProvider) {
         'forms': {
             'progress': 'Avance',
             'findings': 'Hallazgos',
-            'closure': 'Cierre'
+            'closure': 'Cierre',
+            'events': 'Eventualidades'
         },
         'breadcumbs': {
             'findings': {
