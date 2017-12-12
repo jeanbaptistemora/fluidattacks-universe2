@@ -543,7 +543,7 @@ def get_exploit(request):
         # pylint: disable=W0622
         file = drive_api.FILE
         if file is None:
-            return HttpResponse("Error - Unable to download the image", content_type="text/html")
+            return HttpResponse("Error - Unable to download the file", content_type="text/html")
         else:
             filename = "/tmp/:id.tmp".replace(":id", drive_id)
             mime = Magic(mime=True)
@@ -555,6 +555,9 @@ def get_exploit(request):
                 with open(filename, "r") as file_obj:
                     return HttpResponse(file_obj.read(), content_type="text/plain")
             elif mime_type == "text/plain":
+                with open(filename, "r") as file_obj:
+                    return HttpResponse(file_obj.read(), content_type="text/plain")
+            elif mime_type == "text/html":
                 with open(filename, "r") as file_obj:
                     return HttpResponse(file_obj.read(), content_type="text/plain")
             os.unlink(filename)
