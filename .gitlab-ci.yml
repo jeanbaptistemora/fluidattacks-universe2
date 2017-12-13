@@ -4,10 +4,12 @@ deployment:
   environment: production
   before_script:
     - apk update
-    - apk add alpine-sdk py2-curl python2 python2-dev py-pip libffi-dev openssl openssl-dev jpeg-dev asciidoc highlight ruby ruby-dev
+    - apk add grep && cd content/
+    - if grep -r Fluid || grep -r Fluidsignal\ Group || grep -r fluidsignal; then echo "El único nombre aceptado es FLUID"; exit 1; fi
+    - cd ../ && apk add alpine-sdk py2-curl python2 python2-dev py-pip libffi-dev openssl openssl-dev jpeg-dev  asciidoc highlight ruby ruby-dev
     - pip install -r requirements.txt
     - pip install awscli
-    - gem install --no-document sass
+    - gem install --no-document sass	
   script:
     - pelican content/
     - aws s3 cp --recursive --acl=public-read-write output/ s3://blog.fluid.la
@@ -20,7 +22,9 @@ pages:
   environment: staging
   before_script:
     - apk update
-    - apk add alpine-sdk py2-curl python2 python2-dev py-pip libffi-dev openssl openssl-dev jpeg-dev asciidoc highlight ruby ruby-dev
+    - apk add grep && cd content/
+    - if grep -r Fluid || grep -r Fluidsignal\ Group || grep -r fluidsignal; then echo "El único nombre aceptado es FLUID"; exit 1; fi
+    - cd ../ && apk add alpine-sdk py2-curl python2 python2-dev py-pip libffi-dev openssl openssl-dev jpeg-dev asciidoc highlight ruby ruby-dev
     - pip install -r requirements.txt
     - gem install --no-document sass
   script:
