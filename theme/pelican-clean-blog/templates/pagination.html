@@ -1,5 +1,4 @@
 {% if DEFAULT_PAGINATION and articles_paginator.num_pages > 1 %}
-    <hr>
     <!-- Pager -->
     <ul class="pager">
         <li class="next">
@@ -12,5 +11,4 @@
         </li>
     </ul>
     Página {{ articles_page.number }} de {{ articles_paginator.num_pages }}
-    <hr>
 {% endif %}
