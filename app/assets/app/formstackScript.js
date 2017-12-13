@@ -32,6 +32,7 @@ var donde = $("#field38193357");
 var has_solution = $("#field38861717_1");
 var has_no_solution = $("#field38861717_2");
 var solution_kb = $("#field38861739");
+var tipo = $("#field54319180");
 var debilidad = $("#field38899046");
 var solution_pdf = $("#field38307753");
 var evidencia_hallazgo = $('#field32202896');
@@ -58,6 +59,7 @@ function showInfo(data,tabletop) {
 				solution.val(obj[i].Recomendacion);
 				donde.attr("placeholder", obj[i].Donde);
 				debilidad.val(obj[i].CWE.split("/")[5].split(".")[0]);
+				tipo.val(obj[i].Tipo);
         
 		        if(obj[i].Evidente == "Sí"){
 		        	si_evidente.attr('checked', true);
@@ -117,6 +119,7 @@ function showInfo(data,tabletop) {
 				solution.val("");
 				threat.val("");
 				risk.val("");
+				tipo.val("");
 				debilidad.val(0);
 				donde.attr("placeholder", "Formato DONDE dependiendo de la vulnerabilidad.");
 				$("#fsCell38861739").addClass("fsHidden");
