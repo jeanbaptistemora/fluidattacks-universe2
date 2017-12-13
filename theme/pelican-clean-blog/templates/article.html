@@ -28,7 +28,7 @@
             {% for author in article.authors %}
                 <img src='{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/user.png'><a href="{{ SITEURL }}/{{ author.url }}">{{ author }}</a>
             {% endfor %}<br/>
-                <img src='{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/comment.png'><a href="./#disqus_thread">Deja un comentario</a><br/>
+                <img src='{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/comment.png'><a href="./#disqus_thread">Comentar</a><br/>
                 <img src='{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/folder.png'><a href="{{ SITEURL }}/category/{{ article.category }}.html">{{ article.category }}</a><br/>
 	        <img src='{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/calendar2.png'><a>{{ article.locale_date }}</a><br/>
         </span>
