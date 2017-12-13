@@ -28,7 +28,9 @@ def authorize(roles):
                 request.session['registered'] != '1' or \
                 request.session['role'] not in roles:
                 if 'any' not in roles:
-                    return HttpResponse('<script> location = "error401"; </script>', status=401)
+                    return HttpResponse('<script> location = "error401"; \
+                           var getUrl=window.location.hash.substr(1); \
+              localStorage.setItem("url_inicio",getUrl); </script>', status=401)
             return func(*args, **kwargs)
         return authorize_and_call
     return wrapper

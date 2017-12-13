@@ -96,10 +96,12 @@
             if (integrates.isProduction())
               mixpanel.track("Login Google");
             location = "{% url 'social:begin' 'google-oauth2' %}?username={{ value }}&registered={{ value }}&role={{ value }}";
+            localStorage.getItem("url_inicio")
         }else if(page == "azure"){
             if (integrates.isProduction())
               mixpanel.track("Login Azure");
             location = "{% url 'social:begin' 'azuread-oauth2' %}?username={{ value }}&registered={{ value }}&role={{ value }}";
+            localStorage.getItem("url_inicio")
         }else{
             window.close();
         }

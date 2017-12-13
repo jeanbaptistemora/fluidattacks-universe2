@@ -89,7 +89,14 @@
                         <h1>Hello {{ user.first_name }}!</h1>
                         <br>
                         {% if is_registered == '1' %}
-                            <script>location = "dashboard"</script>
+                            <script>
+                            if (localStorage.getItem("url_inicio") === null){
+                              location = "dashboard";
+                            } else {
+                                var link= "https://fluid.la/integrates/dashboard#" + localStorage.getItem("url_inicio") ;
+                                window.location= link;
+                            }
+                            </script>
                         {% else %}
                             <p>You do not have authorization for login yet. Please contact FLUID's staff to get access.</p>
                         {% endif %}
