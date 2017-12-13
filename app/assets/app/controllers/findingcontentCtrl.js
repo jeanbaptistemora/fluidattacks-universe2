@@ -160,6 +160,11 @@ integrates.controller("findingcontentCtrl", function($scope, $stateParams, $time
         var findingObj = undefined;
         var req = findingFactory.getVulnById(id);
         req.then(function(response){
+            console.log(response);
+            console.log($stateParams.project);
+            console.log(response.data.proyecto_fluid.toLowerCase());
+            console.log($stateParams.project == response.data.proyecto_fluid.toLowerCase());
+
             if(!response.error && $stateParams.project == response.data.proyecto_fluid.toLowerCase()){
                 $scope.finding = response.data;
                    switch ($scope.finding.actor) {
