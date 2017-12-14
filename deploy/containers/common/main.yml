@@ -122,7 +122,7 @@
 
    - name: Add Formstack API Keys
      lineinfile:
-      path: "/usr/src/app/app/models.py"
+      path: "/usr/src/app/app/api/formstack.py"
       regexp: "^    ltokens="
       line: "{{FORMSTACK_TOKENS}}"
 

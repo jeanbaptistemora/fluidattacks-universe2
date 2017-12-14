@@ -1,5 +1,5 @@
 from django.test import TestCase
-from app.models import FormstackAPI
+from .api.formstack import FormstackAPI
 # Create your tests here.
 
 
@@ -36,25 +36,13 @@ class FormstackAPITests(TestCase):
         request = api_frms.get_eventualities(project)
         self.assertIs("submissions" in request, True)
 
-    def test_get_order(self):
-        """Obtiene el pedido de un nombre de proyecto."""
-        api_frms = FormstackAPI()
-        project = "Hayes"
-        request = api_frms.get_order(project)
-        self.assertIs("submissions" in request, True)
-
-    def test_update_order(self):
-        """Actualiza un pedido en Formstack."""
-        api_frms = FormstackAPI()
-        project = "Bramley"
-        submission_id = "244210431"
-        request = api_frms.update_order(project, submission_id)
-        self.assertIs("success" in request, True)
-
     def test_update_eventuality(self):
         """Actualiza la afectacion de una eventualidad en Formstack."""
         api_frms = FormstackAPI()
         afectacion = "0"
         submission_id = "244210431"
-        request = api_frms.update_eventuality(afectacion, submission_id)
+        data = {
+            "29042542": afectacion
+        }
+        request = api_frms.update(submission_id, data)
         self.assertIs("success" in request, True)
