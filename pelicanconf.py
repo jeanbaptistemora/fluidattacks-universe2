@@ -8,7 +8,7 @@ sys.setdefaultencoding("utf-8")
 # Site information
 AUTHOR = 'FLUID'
 SITENAME = 'Blog de FLUID'
-SITEURL = 'http://fluid.la/blog'
+SITEURL = 'https://fluid.la/site'
 PATH = 'content'
 
 # Date and time configuration
@@ -40,7 +40,7 @@ DEFAULT_PAGINATION = 12
 ARTICLE_URL = 'posts/{slug}/'
 ARTICLE_SAVE_AS = 'posts/{slug}/index.html'
 PAGE_URL = 'pages/{slug}/'
-PAGE_SAVE_AS = 'pages/{slug}/index.html'
+PAGE_SAVE_AS = '{slug}/index.html'
 PAGE_PATHS = ['pages']
 
 # Images path
