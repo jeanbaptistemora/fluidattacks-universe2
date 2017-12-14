@@ -51,7 +51,7 @@
                         {% if article.has_summary %}
                             {{ article.summary }}
                         {% elif article.summary %}
-                            {{ article.summary|striptags|truncate(160) }}
+                            {{ article.summary|striptags|truncate(320) }}
                         {% endif %}
                         </p>                    
                     {% endif %}
@@ -87,7 +87,7 @@
                         {% if article.has_summary %}
                             {{ article.summary }}
                         {% elif article.summary %}
-                             {{ article.summary|striptags|truncate(160) }}
+                             {{ article.summary|striptags|truncate(320) }}
                         {% endif %}
                         </p>
                     {% endif %}
@@ -123,7 +123,7 @@
                     {% if article.has_summary %}
                         {{ article.summary }}
                     {% elif article.summary %}
-                         {{ article.summary|striptags|truncate(160) }}
+                         {{ article.summary|striptags|truncate(320) }}
                     {% endif %}
                     </p>
                 {% endif %}
@@ -168,7 +168,7 @@
                         {% if article.has_summary %}
                             {{ article.summary }}
                         {% elif article.summary %}
-                            {{ article.summary|striptags|truncate(160) }}
+                            {{ article.summary|striptags|truncate(320) }}
                         {% endif %}
                         </p>                    
                     {% endif %}
@@ -204,7 +204,7 @@
                         {% if article.has_summary %}
                             {{ article.summary }}
                         {% elif article.summary %}
-                             {{ article.summary|striptags|truncate(160) }}
+                             {{ article.summary|striptags|truncate(320) }}
                         {% endif %}
                         </p>
                     {% endif %}
@@ -240,7 +240,7 @@
                     {% if article.has_summary %}
                         {{ article.summary }}
                     {% elif article.summary %}
-                         {{ article.summary|striptags|truncate(160) }}
+                         {{ article.summary|striptags|truncate(320) }}
                     {% endif %}
                     </p>
                 {% endif %}
@@ -283,7 +283,7 @@
                 {% if article.has_summary %}
                     {{ article.summary }}
                 {% elif article.summary %}
-                    {{ article.summary|striptags|truncate(160) }}
+                    {{ article.summary|striptags|truncate(320) }}
                 {% endif %}
                 </p>                    
             {% endif %}
@@ -318,7 +318,7 @@
                 {% if article.has_summary %}
                     {{ article.summary }}
                 {% elif article.summary %}
-                    {{ article.summary|striptags|truncate(160) }}
+                    {{ article.summary|striptags|truncate(320) }}
                 {% endif %}
                 </p>
             {% endif %}
