@@ -1,58 +1,56 @@
-.footer
-  width: 100%
-  margin: 0 auto
-  padding: 0 2em
-  padding-bottom: 1em
-  background: #1A7EBA
-  height: auto
-  border-top: 2px solid #14598e
-  nav
-    float: right
-    margin: 2em 0
-    max-width: 50%
-    display: block
-    ul
-      display: inline
-      margin: 0
-      list-style-type: none
-      list-style-position: outside
-      position: relative
-      li
-        float: left
-        position: relative
+@media (min-width: 100px)
+  .footer
+    background-color: #13588e
+    padding: 0 20px 0 20px
+  #divlogo
+    text-align: center
+    margin: 0 0 30px 0
+    padding-top: 30px
+  #divsocial
+    text-align: center
+  #navfoot
+    #tbsite2
+      display: table
+      border-bottom: 30px solid #13588e
+      width: 100%
+      text-align: center
+      tr td
+        background-color: #13588e
+        border: none
+        color: white
+        width: 25%
+        padding-bottom: 0
+        h3
+          font-size: 25px
         a
-          padding: 0.7em 1em
-          text-transform: uppercase
-          text-decoration: none
-          color: #fff
+          color: white
           font-size: 17px
           &:hover
-            color: #ddd
-          
-@media (min-width: 640px) and (max-width: 960px)
-  .footer
-    padding-bottom: 3em
-    nav
-      float: none
-      max-width: 100%
-      margin: 2em 0 0
-      text-align: center
-      ul
-        li
-          float: none
-          display: inline
+            color: #0085a1
+            text-decoration: underline
+    #tbsite4
+      display: none
 
-@media (max-width: 639px)
-  .footer
-    padding-bottom: 1em
-    nav
-      margin: 0
-      float: none
-      max-width: 100%
+@media (min-width: 780px)
+  #navfoot
+    #tbsite2
+      display: none
+    #tbsite4
+      display: table
+      border-bottom: 30px solid #13588e
+      width: 100%
       text-align: center
-      ul
-        li
-          float: none
-          display: inline
-          a
-            display: block
+      tr td
+        background-color: #13588e
+        border: none
+        color: white
+        width: 25%
+        padding-bottom: 0
+        h3
+          font-size: 25px
+        a
+          color: white
+          font-size: 17px
+          &:hover
+            color: #0085a1
+            text-decoration: underline
