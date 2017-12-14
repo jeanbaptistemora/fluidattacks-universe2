@@ -20,7 +20,7 @@ deployment:
 pages:
   environment: staging
   script:
-    - sed -i 's/http:\/\/blog2.fluid.la/\/blog/' pelicanconf.py
+    - sed -i 's/https:\/\/fluid.la\/site/\/blog/' pelicanconf.py
     - pelican content
     - mkdir -p /public
     - cp -r output/ public/
