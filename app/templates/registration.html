@@ -92,10 +92,17 @@
                             <script>
                             if (localStorage.getItem("url_inicio") === null){
                               location = "dashboard";
-                            } else {
+                          } else {
+                              if (location.toString().indexOf("localhost:8000") === -1){
                                 var link= "https://fluid.la/integrates/dashboard#" + localStorage.getItem("url_inicio") ;
                                 window.location= link;
-                            }
+                                localStorage.clear();
+                            } else {
+                                var link= "https://localhost:8000/dashboard#" + localStorage.getItem("url_inicio") ;
+                                window.location= link;
+                                localStorage.clear();
+                                 }
+                               }
                             </script>
                         {% else %}
                             <p>You do not have authorization for login yet. Please contact FLUID's staff to get access.</p>
