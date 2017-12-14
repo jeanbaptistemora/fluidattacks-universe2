@@ -45,8 +45,7 @@
   </strong><br>{{article.about1}}
   <br>{{article.about2}}
 </p>
-		
-<hr>
+
 {% if article.share_post and article.status != 'draft' %}
 <section>
     <p id="post-share-links">
@@ -59,7 +58,7 @@
     </p>
 </section>		
 {% endif %}
-<hr>
+
  {% if article.related_posts %}		
 <h4>Relacionado</h4>
 <section class="related">
@@ -79,7 +78,7 @@
         <div class="tags">
             <p>{% for tag in article.tags %}
             <a href="{{ SITEURL }}/{{ tag.url }}">{{ tag | escape }}</a>
-            {% if not loop.last %}&nbsp;&nbsp;{% endif %}{% endfor %}</p>
+            {% endfor %}</p>
         </div>
 </section>
 {% endif %}
