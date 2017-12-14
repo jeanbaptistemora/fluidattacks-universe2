@@ -37,6 +37,7 @@ urlpatterns = [
         views.get_eventualities, name='get_eventualities'),
     url(r'^get_evidence/?\.*$', views.get_evidence, name='get_evidence'),
     url(r'^get_exploit/?\.*$', views.get_exploit, name='get_exploit'),
+    url(r'^update_finding/?\.*$', views.update_finding, name='update_finding'),
     url(r'^update_eventuality/?\.*$',
         views.update_eventuality, name='update_eventuality'),
     url(r'^delete_finding/?\.*$', views.delete_finding, name='delete_finding'),

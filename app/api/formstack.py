@@ -5,23 +5,16 @@ import json
 import requests
 from requests.exceptions import ConnectionError
 from retrying import retry
-from random import randint
 # pylint: disable=E0402
 
 requests.adapters.DEFAULT_RETRIES = 10
 
-class FormstackAPI(object):
+class FrmAPI(object):
 
     headers_config = {}
-    ltokens=['e9ef81ddb47c0639014d09f8668bd4d1', '3508a7cde027417981c8bedbccc2cd30', 'f8e4fe5d82b96e40b1a0aaded7815188']
-    TOKEN = ltokens[randint(0,(len(ltokens)-1))]
+    #TOKEN = "7f7599e833e78a4f8c0420fe89948491"
+    TOKEN = 'e9ef81ddb47c0639014d09f8668bd4d1'
     SUBMISSION_URL = "https://www.formstack.com/api/v2/submission/:id.json"
-    #Finding URL
-    FN_URL = "https://www.formstack.com/api/v2/form/1998500/submission.json"
-    #Eventuality URL
-    EV_URL = "https://www.formstack.com/api/v2/form/1886931/submission.json"
-    #Close finding URL
-    CL_URL = "https://www.formstack.com/api/v2/form/2264008/submission.json"
 
     def __init__(self):
         """Constructor."""
@@ -69,44 +62,7 @@ AppleWebKit/537.36 (KHTML, like Gecko) FLUIDIntegrates/1.0'
             executed_request = None
         return executed_request
 
-    def delete_submission(self, submission_id):
-        """ Elimina un id de submission """
-        data = {'id': submission_id}
-        url = self.SUBMISSION_URL.replace(":id", submission_id)
-        return self.request("DELETE", url, data=data)
-
-    def get_eventualities(self, project):
-        """Obtiene las eventualidades partir del
-        nombre de proyecto."""
-        search_field = "29042322"
-        data = {'search_field_1': search_field, 'search_value_1': project, 'per_page': 100}
-        return self.request("GET", self.EV_URL, data=data)
-
-    def get_submission(self, submission_id):
-        """Obtiene un submission a partir de su ID."""
-        url = self.SUBMISSION_URL.replace(":id", submission_id)
-        return self.request("GET", url)
-
-    def get_findings(self, project):
-        """Obtiene los hallazgos a partir del nombre
-        de proyecto."""
-        search_field = "32201732"
-        data = {'search_field_1': search_field, 'search_value_1': project, 'per_page': 100}
-        return self.request("GET", self.FN_URL, data=data)
-
-    def get_closings_by_id(self, submission_id):
-        """Obtiene los cierres de un ID de proyecto."""
-        search_field = "39596063"
-        data = {'search_field_1': search_field, 'search_value_1': submission_id}
-        return self.request("GET", self.CL_URL, data=data)
-
-    def get_closings_by_project(self, project):
-        """Obtiene los cierres de un proyecto"""
-        search_field = "39596058"
-        data = {'search_field_1': search_field, 'search_value_1': project}
-        return self.request("GET", self.CL_URL, data=data)
-
     def update(self, request_id, data_dto):
-        """Actualiza un registro en formstack."""
+        """Actualiza un hallazgo en formstack."""
         url = self.SUBMISSION_URL.replace(":id", request_id)
         return self.request("PUT", url, data=data_dto)

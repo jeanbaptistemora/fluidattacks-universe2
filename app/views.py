@@ -14,16 +14,16 @@ from django.http import HttpResponse
 # pylint: disable=E0402
 from . import util
 from .decorators import authenticate, authorize
+from .models import FormstackAPI, FormstackRequestMapper
 from .autodoc import IE, IT
-from .dto.finding import FindingDTO
-from .dto.closing import ClosingDTO
-from .dto.eventuality import EventualityDTO
+from .dto.cssv2 import Cssv2DTO
+from .dto.description import DescriptionDTO
 # pylint: disable=E0402
 from .mailer import send_mail_delete_finding
 from .services import has_access_to_project
 from .dao import integrates_dao
 from .api.drive import DriveAPI
-from .api.formstack import FormstackAPI
+from .api.formstack import FrmAPI
 from magic import Magic
 from datetime import datetime
 
@@ -191,235 +191,272 @@ def generate_autodoc_it(request, project, findings):
     else:
         IT.Fluid(project, findings, request)
 
-@never_cache
-@csrf_exempt
-@require_http_methods(["GET"])
-@authorize(['analyst', 'customer'])
-def get_eventualities(request):
-    "Obtiene las eventualidades con el nombre del proyecto."
-    project = request.GET.get('project', None)
-    category = request.GET.get('category', None)
-    username = request.session['username']
-    dataset = []
-    evt_dto = EventualityDTO()
-    api = FormstackAPI()
-    if not has_access_to_project(username, project):
-        return util.response(dataset, 'a', True)
-    if project is None:
-        return util.response(dataset, 'Campos Vacios', True)
-    if category == "Name":
-        submissions = api.get_eventualities(project)
-        frmset = submissions["submissions"]
-        for row in frmset:
-            submission = api.get_submission(row["id"])
-            evtset = evt_dto.parse(row["id"], submission)
-            if evtset['proyecto_fluid'].lower() == project.lower():
-                dataset.append(evtset)
-        return util.response(dataset, 'Success', False)
-    elif category == "ID":
-        # Only fluid can filter by id
-        if "@fluid.la" not in username:
-            return util.response(dataset, 'Access denied', True)
-        if not project.isdigit():
-            return util.response(dataset, 'Campos vacios', True)
-        submission = api.get_submission(row["id"])
-        evtset = evt_dto.parse(row["id"], submission)
-        dataset.append(evtset)
-        return util.response(dataset, 'Success', False)
-    else:
-        return util.response(dataset, 'Not actions', True)
-
 
 @never_cache
 @csrf_exempt
-@require_http_methods(["POST"])
-@authorize(['analyst', 'customer'])
-def get_finding(request):
-    submission_id = request.POST.get('id', "")
-    finding = []
-    state = {'estado': 'Abierto'}
-    fin_dto = FindingDTO()
-    cls_dto = ClosingDTO()
-    username = request.session['username']
-    api = FormstackAPI()
-    if str(submission_id).isdigit() is True:
-        frmset = api.get_submission(submission_id)
-        finding = fin_dto.parse(submission_id, frmset, request)
-        if not has_access_to_project(username, finding['proyecto_fluid']):
-            return util.response([], 'Access denied', True)
-        else:
-            closingreqset = api.get_closings_by_id(submission_id)["submissions"]
-            findingcloseset = []
-            for closingreq in closingreqset:
-                frmset = api.get_submission(closingreq["id"])
-                closingset = cls_dto.parse(frmset)
-                findingcloseset.append(closingset)
-                #El ultimo es el ultimo ciclo de cierre
-                state = closingset
-            finding["estado"] = state["estado"]
-            if 'abiertas' in state:
-                finding['cardinalidad'] = state['abiertas']
-            if 'abiertas_cuales' in state:
-                finding['donde'] = state['abiertas_cuales']
-            else:
-                if state['estado'] == 'Cerrado':
-                    finding['donde'] = '-'
-            if 'cerradas_cuales' in state:
-                finding['cerradas'] = state['cerradas_cuales']
-            finding["cierres"] = findingcloseset
-            return util.response(finding, 'Success', False)
-    else:
-        return util.response([], 'Wrong', True)
-
-
-@never_cache
-@csrf_exempt
-@require_http_methods(["GET"])
 @authorize(['analyst', 'customer'])
 # pylint: disable=R0912
 # pylint: disable=R0914
 def get_findings(request):
     """Captura y procesa el nombre de un proyecto para devolver
     los hallazgos."""
-    project = request.GET.get('project', "")
+    project = request.GET.get('project', None)
     username = request.session['username']
-    api = FormstackAPI()
-    fin_dto = FindingDTO()
-    cls_dto = ClosingDTO()
-    findings = []
-    if project.strip() == "":
-        return util.response([], 'Empty fields', True)
     if not has_access_to_project(username, project):
-        return util.response([], 'Access denied', True)
-    finreqset = api.get_findings(project)["submissions"]
-    for finreq in finreqset:
-        state = {'estado': 'Abierto'}
-        findingset = api.get_submission(finreq["id"])
-        finding = fin_dto.parse(finreq["id"], findingset, request)
-        if finding['proyecto_fluid'].lower() == project.lower():
-            closingreqset = api.get_closings_by_id(finreq["id"])["submissions"]
-            findingcloseset = []
-            for closingreq in closingreqset:
-                frmset = api.get_submission(closingreq["id"])
-                closingset = cls_dto.parse(frmset)
-                findingcloseset.append(closingset)
-                #El ultimo es el ultimo ciclo de cierre
-                state = closingset
-            finding["estado"] = state["estado"]
-            finding["cierres"] = findingcloseset
-            finding['cardinalidad_total'] = finding['cardinalidad']
-            if 'abiertas' in state:
-                finding['cardinalidad'] = state['abiertas']
-            if 'abiertas_cuales' in state:
-                finding['donde'] = state['abiertas_cuales']
+        return redirect('dashboard')
+    filtr = request.GET.get('filter', None)
+    if not project or project.strip() == "":
+        return util.response([], 'Empty fields', True)
+    api = FormstackAPI()
+    finding_requests = api.get_findings(project)["submissions"]
+    # pylint: disable=C1801
+    if len(finding_requests) == 0:
+        return util.response([], 'The project does not exist', False)
+    findings = []
+    rmp = FormstackRequestMapper()
+    for finding in finding_requests:
+        formstack_request = api.get_submission(finding["id"])
+        finding_parsed = rmp.map_finding(formstack_request)
+        if finding_parsed['proyecto_fluid'].lower() == project.lower():
+            state = api.get_finding_state(finding["id"])
+            finding_parsed['estado'] = state['estado']
+            closing_cicles = api.get_closings_by_finding(finding['id'])
+            finding_parsed['cierres'] = [rmp.map_closing(api.get_submission(x['id'])) for x in closing_cicles['submissions']]
+            finding_parsed['cardinalidad_total'] = finding_parsed['cardinalidad']
+            if 'tipo_hallazgo' not in finding_parsed or finding_parsed['tipo_hallazgo'] == 'Seguridad':
+                finding_parsed['tipo_hallazgo_cliente'] = 'Vulnerabilidad'
             else:
-                if state['estado'] == 'Cerrado':
-                    finding['donde'] = '-'
-            if 'cerradas_cuales' in state:
-                finding['cerradas'] = state['cerradas_cuales']
+                finding_parsed['tipo_hallazgo_cliente'] = finding_parsed['tipo_hallazgo']
+            if finding_parsed['explotabilidad'] == '1.000 | Alta: No se requiere exploit o se puede automatizar' \
+                        or finding_parsed['explotabilidad'] == '0.950 | Funcional: Existe exploit':
+                finding_parsed['explotable'] = 'Si'
+            else:
+                finding_parsed['explotable'] = 'No'
+            if 'abiertas' in state:
+                finding_parsed['cardinalidad'] = state['abiertas']
+            if 'abiertas_cuales' in state:
+                finding_parsed['donde'] = state['abiertas_cuales']
+
             if state['estado'] == 'Cerrado':
-                finding['donde'] = '-'
-                finding['edad'] = '-'
+                finding_parsed['donde'] = '-'
+                finding_parsed['edad'] = '-'
             else:
                 tzn = pytz.timezone('America/Bogota')
-                finding_date_str = finding["timestamp"].split(" ")[0]
+                finding_date_str = finding_parsed["timestamp"].split(" ")[0]
                 finding_date = datetime.strptime(finding_date_str, '%Y-%m-%d')
                 finding_date = finding_date.replace(tzinfo=tzn).date()
                 current_date = datetime.now(tz=tzn).date()
                 final_date = (current_date - finding_date)
                 strdays = ":n".replace(":n", str(final_date.days))
-                finding['edad'] = strdays
+                finding_parsed['edad'] = strdays
             if 'cerradas_cuales' in state:
-                finding['cerradas'] = state['cerradas_cuales']
-            findings.append(finding)
+                finding_parsed['cerradas'] = state['cerradas_cuales']
+            if not filtr:
+                findings.append(finding_parsed)
+            elif "tipo_prueba" in finding_parsed:
+                if filtr.encode("utf8") == \
+                        finding_parsed["tipo_prueba"].encode("utf8"):
+                    findings.append(finding_parsed)
     findings.reverse()
-    return util.response(findings, 'Success', False)    
+    return util.response(findings, 'Success', False)
 
 @never_cache
 @csrf_exempt
 @authorize(['analyst', 'customer'])
-def get_evidence(request):
-    drive_id = request.GET.get('id', None)
-    if drive_id is None:
-        return HttpResponse("Error - Unsent image ID", content_type="text/html")
-    if drive_id not in request.session:
-        return util.response([], 'Access denied', True)
-    if not re.match("[a-zA-Z0-9_-]{20,}", drive_id):
-        return HttpResponse("Error - ID with wrong format", content_type="text/html")
-    drive_api = DriveAPI(drive_id)
-    # pylint: disable=W0622
-    if not drive_api.FILE:
-        return HttpResponse("Error - Unable to download the image", content_type="text/html")
+def get_finding(request):
+    submission_id = request.POST.get('id', None)
+    if util.is_numeric(submission_id):
+        api = FormstackAPI()
+        rmp = FormstackRequestMapper()
+        formstack_request = api.get_submission(submission_id)
+        finding = rmp.map_finding(formstack_request, request)
+
+        username = request.session['username']
+        if not has_access_to_project(username, finding['proyecto_fluid']):
+            return redirect('dashboard')
+
+        state = api.get_finding_state(submission_id)
+        finding['estado'] = state['estado']
+        if 'abiertas' in state:
+            finding['cardinalidad'] = state['abiertas']
+        if 'abiertas_cuales' in state:
+            finding['donde'] = state['abiertas_cuales']
+        else:
+            if state['estado'] == 'Cerrado':
+                finding['donde'] = '-'
+        if 'cerradas_cuales' in state:
+            finding['cerradas'] = state['cerradas_cuales']
+
+        closing_cicles = api.get_closings_by_finding(finding['id'])
+        finding['cierres'] = [rmp.map_closing(api.get_submission(x['id'])) for x in closing_cicles['submissions']]
+        return util.response(finding, 'Success', False)
+    return util.response([], 'Empty fields', True)
+
+
+@never_cache
+@csrf_exempt
+@authorize(['analyst', 'customer'])
+def get_eventualities(request):
+    """Obtiene las eventualidades con el nombre del proyecto."""
+    project = request.GET.get('project', None)
+    username = request.session['username']
+
+    if not has_access_to_project(username, project):
+        return redirect('dashboard')
+
+    category = request.GET.get('category', None)
+    if not category:
+        category = "Name"
+    if not project or project.strip() == "":
+        return util.response([], 'Empty fields', True)
     else:
-        filename = "/tmp/:id.tmp".replace(":id", drive_id)
-        mime = Magic(mime=True)
-        mime_type = mime.from_file(filename)
-        if mime_type == "image/png":
-            with open(filename, "r") as file_obj:
-                return HttpResponse(file_obj.read(), content_type="image/png")
-        elif mime_type == "image/gif":
-            with open(filename, "r") as file_obj:
-                return HttpResponse(file_obj.read(), content_type="image/gif")
-        os.unlink(filename)
+        api = FormstackAPI()
+        rmp = FormstackRequestMapper()
+        if category == "Name":
+            eventuality_requests = \
+                api.get_eventualities(project)["submissions"]
+            # pylint: disable=C1801
+            if eventuality_requests and len(eventuality_requests) != 0:
+                eventualities = []
+                for eventuality in eventuality_requests:
+                    eventuality_request = \
+                        api.get_submission(eventuality["id"])
+                    eventuality_parsed = \
+                        rmp.map_eventuality(eventuality_request)
+                    if eventuality_parsed['proyecto_fluid'].lower() == project.lower():
+                        eventualities.append(eventuality_parsed)
+                return util.response(eventualities, 'Correct', False)
+            return util.response([],
+                                     'This project has no \
+events or does not exist', False)
+        else:
+            if util.is_numeric(project):
+                eventualities = []
+                eventuality_request = api.get_submission(project)
+                eventuality_parsed = \
+                    rmp.map_eventuality(eventuality_request)
+                if eventuality_parsed['id'].lower() == project.lower():
+                    eventualities.append(eventuality_parsed)
+                return util.response(eventualities, 'Correct', False)
+            return util.response([], 'You must enter a \
+numeric ID!', True)
 
-@never_cache
-@csrf_exempt
-@require_http_methods(["GET"])
-@authorize(['analyst', 'customer'])
-def get_exploit(request):
-    drive_id = request.GET.get('id', None)
-    if drive_id is None:
-        return HttpResponse("Error - Unsent image ID", content_type="text/html")
-    if drive_id not in request.session:
-        return util.response([], 'Access denied', True)
-    if not re.match("[a-zA-Z0-9_-]{20,}", drive_id):
-        return HttpResponse("Error - ID with wrong format", content_type="text/html")
-    drive_api = DriveAPI(drive_id)
-    if drive_api.FILE is None:
-        return HttpResponse("Error - Unable to download the file", content_type="text/html")
-    filename = "/tmp/:id.tmp".replace(":id", drive_id)
-    mime = Magic(mime=True)
-    mime_type = mime.from_file(filename)
-    if mime_type == "text/x-c":
-        with open(filename, "r") as file_obj:
-            return HttpResponse(file_obj.read(), content_type="text/plain")
-    elif mime_type == "text/x-python":
-        with open(filename, "r") as file_obj:
-            return HttpResponse(file_obj.read(), content_type="text/plain")
-    elif mime_type == "text/plain":
-        with open(filename, "r") as file_obj:
-            return HttpResponse(file_obj.read(), content_type="text/plain")
-    elif mime_type == "text/html":
-        with open(filename, "r") as file_obj:
-            return HttpResponse(file_obj.read(), content_type="text/plain")
-    os.unlink(filename)
 
-@never_cache
 @csrf_exempt
-@require_http_methods(["GET"])
-@authorize(['analyst', 'customer'])
-def get_myevents(request):
-    user = request.session["username"]
-    projects = integrates_dao.get_projects_by_user(user)
-    dataset = []
-    evt_dto = EventualityDTO()
+@authorize(['analyst'])
+def delete_finding(request):
+    """Captura y procesa el id de una eventualidad para eliminarla"""
+    post_parms = request.POST.dict()
+    if "vuln[hallazgo]" not in post_parms \
+        or "vuln[proyecto_fluid]" not in post_parms \
+        or "vuln[justificacion]" not in post_parms \
+            or "vuln[id]" not in post_parms:
+        return util.response([], 'Empty fields', True)
+    else:
+        api = FormstackAPI()
+        rmp = FormstackRequestMapper()
+        submission_id = post_parms["vuln[id]"]
+        formstack_request = api.get_submission(submission_id)
+        finding = rmp.map_finding(formstack_request)
+
+        username = request.session['username']
+        if not has_access_to_project(username, finding['proyecto_fluid']):
+            return redirect('dashboard')
+
+        res = api.delete_finding(submission_id)
+        if res:
+            finding_id = post_parms["vuln[id]"]
+            finding_name = post_parms["vuln[hallazgo]"]
+            justify = post_parms["vuln[justificacion]"]
+            analyst = request.session["username"]
+            context = {
+                'mail_analista': analyst,
+                'name_finding': finding_name,
+                'id_finding': finding_id,
+                'description': justify,
+                'project': finding['proyecto_fluid'],
+                }
+            to = ["engineering@fluid.la"]
+            send_mail_delete_finding(to, context)
+            return util.response([], 'Deleted!', False)
+        return util.response([], 'Finding could not be deleted',
+                             True)
+
+# FIXME: Need to add access control to this function
+@csrf_exempt
+@authorize(['analyst'])
+def update_eventuality(request):
+    "Captura y procesa los parametros para actualizar una eventualidad"
+    post_parms = request.POST.dict()
+
+    if "vuln[proyecto_fluid]" not in post_parms \
+        != "vuln[id]" not in post_parms \
+            != "vuln[afectacion]" not in post_parms:
+        return util.response([], 'Empty Fields', True)
+    else:
+        validate = False
+        try:
+            int(post_parms["vuln[afectacion]"])
+            validate = True
+        except ValueError:
+            validate = False
+        if not validate:
+            return util.response([], 'Negative Affectation', True)
     api = FormstackAPI()
-    for row in projects:
-        project = row[0]
-        submissions = api.get_eventualities(project)
-        frmset = submissions["submissions"]
-        for evtsub in frmset:
-            submission = api.get_submission(evtsub["id"])
-            evtset = evt_dto.parse(evtsub["id"], submission)
-            if evtset['proyecto_fluid'].lower() == project.lower():
-                if evtset['estado'] == "Pendiente":
-                    dataset.append(evtset)
-    return util.response(dataset, 'Success', False)
+    submission_id = post_parms["vuln[id]"]
+    afectacion = post_parms["vuln[afectacion]"]
+    updated = api.update_eventuality(afectacion, submission_id)
+    if not updated:
+        return util.response([], 'Event could not be updated',
+                             True)
+    return util.response([], 'Updated!', False)
 
+
+@csrf_exempt
+@authorize(['analyst'])
+def update_finding(request):
+    "Captura y procesa los parametros para actualizar un hallazgo"
+    post_parms = request.POST.dict()
+    if "vuln[proyecto_fluid]" not in post_parms \
+        != "vuln[nivel]" not in post_parms \
+        != "vuln[hallazgo]" not in post_parms \
+        != "vuln[vulnerabilidad]" not in post_parms \
+        != "vuln[donde]" not in post_parms \
+        != "vuln[cardinalidad]" not in post_parms \
+        != "vuln[criticidad]" not in post_parms \
+        != "vuln[amenaza]" not in post_parms \
+        != "vuln[requisitos]" not in post_parms \
+            != "vuln[id]" not in post_parms:
+        return util.response([], 'Empty', True)
+    else:
+        nivel = post_parms["vuln[nivel]"]
+        execute = False
+        if nivel == "Detallado":
+            if "vuln[riesgo]" in post_parms:
+                execute = True
+        else:
+            if "vuln[vector_ataque]" in post_parms \
+                    and "vuln[sistema_comprometido]" in post_parms:
+                execute = True
+        if not execute:
+            return util.response([], 'Empty Fields', True)
+        formstack_api = FormstackAPI()
+        submission_id = post_parms["vuln[id]"]
+        rmp = FormstackRequestMapper()
+        formstack_request = formstack_api.get_submission(submission_id)
+        finding = rmp.map_finding(formstack_request)
+
+        username = request.session['username']
+        if not has_access_to_project(username, finding['proyecto_fluid']):
+            return redirect('dashboard')
+
+        updated = formstack_api.update_finding(post_parms, submission_id)
+        if not updated:
+            return util.response([], 'Finding could not be updated',
+                                 True)
+        return util.response([], 'Updated!', False)
 
 @never_cache
-@csrf_exempt
-@require_http_methods(["GET"])
 @authorize(['analyst', 'customer'])
 def get_myprojects(request):
     user = request.session["username"]
@@ -430,83 +467,129 @@ def get_myprojects(request):
             "project": row[0].upper(),
             "company_project": row[1]
         })
-    return util.response(json_data, 'Success', False)
+    return util.response(json_data, 'Correct!', False)
+
 
 @never_cache
-@require_http_methods(["POST"])
+@csrf_exempt
+@authorize(['analyst', 'customer'])
+def get_myevents(request):
+    user = request.session["username"]
+    projects = integrates_dao.get_projects_by_user(user)
+    api = FormstackAPI()
+    rmp = FormstackRequestMapper()
+    eventualities = []
+    for proj_obj in projects:
+        project = proj_obj[0]
+        eventuality_requests = \
+            api.get_eventualities(project)["submissions"]
+        if eventuality_requests:
+            for eventuality in eventuality_requests:
+                eventuality_request = \
+                    api.get_submission(eventuality["id"])
+                eventuality_parsed = \
+                    rmp.map_eventuality(eventuality_request)
+                if eventuality_parsed['proyecto_fluid'].lower() == project.lower():
+                    if eventuality_parsed["estado"] == "Pendiente":
+                        eventualities.append(eventuality_parsed)
+    return util.response(eventualities, 'Correct', False)
+
+@never_cache
+@csrf_exempt
+@authorize(['analyst', 'customer'])
+def get_evidence(request):
+    drive_id = request.GET.get('id', None)
+
+    if drive_id not in request.session:
+        redirect('dashboard')
+
+    if drive_id is None:
+        return HttpResponse("Error - Unsent image ID", content_type="text/html")
+    else:
+        if not re.match("[a-zA-Z0-9_-]{20,}", drive_id):
+            return HttpResponse("Error - ID with wrong format", content_type="text/html")
+        drive_api = DriveAPI(drive_id)
+        # pylint: disable=W0622
+        image = drive_api.FILE
+        if image is None:
+            return HttpResponse("Error - Unable to download the image", content_type="text/html")
+        else:
+            filename = "/tmp/:id.tmp".replace(":id", drive_id)
+            mime = Magic(mime=True)
+            mime_type = mime.from_file(filename)
+            if mime_type == "image/png":
+                with open(filename, "r") as file_obj:
+                    return HttpResponse(file_obj.read(), content_type="image/png")
+            elif mime_type == "image/gif":
+                with open(filename, "r") as file_obj:
+                    return HttpResponse(file_obj.read(), content_type="image/gif")
+            os.unlink(filename)
+
+@never_cache
+@csrf_exempt
+@authorize(['analyst', 'customer'])
+def get_exploit(request):
+    drive_id = request.GET.get('id', None)
+
+    if drive_id not in request.session:
+        redirect('dashboard')
+
+    if drive_id is None:
+        return HttpResponse("Error - Unsent file ID", content_type="text/html")
+    else:
+        if not re.match("[a-zA-Z0-9_-]{20,}", drive_id):
+            return HttpResponse("Error - ID with wrong format", content_type="text/html")
+        drive_api = DriveAPI(drive_id)
+        # pylint: disable=W0622
+        file = drive_api.FILE
+        if file is None:
+            return HttpResponse("Error - Unable to download the file", content_type="text/html")
+        else:
+            filename = "/tmp/:id.tmp".replace(":id", drive_id)
+            mime = Magic(mime=True)
+            mime_type = mime.from_file(filename)
+            if mime_type == "text/x-c":
+                with open(filename, "r") as file_obj:
+                    return HttpResponse(file_obj.read(), content_type="text/plain")
+            elif mime_type == "text/x-python":
+                with open(filename, "r") as file_obj:
+                    return HttpResponse(file_obj.read(), content_type="text/plain")
+            elif mime_type == "text/plain":
+                with open(filename, "r") as file_obj:
+                    return HttpResponse(file_obj.read(), content_type="text/plain")
+            elif mime_type == "text/html":
+                with open(filename, "r") as file_obj:
+                    return HttpResponse(file_obj.read(), content_type="text/plain")
+            os.unlink(filename)
+
+@never_cache
 @authorize(['analyst'])
 def update_cssv2(request):
     parameters = request.POST.dict()
     try:
-        generic_dto = FindingDTO()
-        generic_dto.create_cssv2(parameters)
-        generic_dto.to_formstack()
-        api = FormstackAPI()
+        generic_dto = Cssv2DTO()
+        generic_dto.create(parameters)
+        api = FrmAPI()
         request = api.update(generic_dto.request_id, generic_dto.data)
         if request:
             return util.response([], 'success', False)
         return util.response([], 'error', False)
     except KeyError:
-        return util.response([], 'Campos vacios', True)
+        return util.response([], 'Empty fields', True)
 
 @never_cache
-@require_http_methods(["POST"])
 @authorize(['analyst'])
 def update_description(request):
     parameters = request.POST.dict()
     try:
-        generic_dto = FindingDTO()
-        generic_dto.create_description(parameters)
-        generic_dto.to_formstack()
-        api = FormstackAPI()
-        request = api.update(generic_dto.request_id, generic_dto.data)
-        if request:
-            return util.response([], 'success', False)
-        return util.response([], 'error', False)
-    except KeyError:
-        return util.response([], 'Campos vacios', True)
-
-@never_cache
-@require_http_methods(["POST"])
-@authorize(['analyst'])
-def update_eventuality(request):
-    "Actualiza una eventualidad asociada a un proyecto"
-    parameters = request.POST.dict()
-    try:
-        generic_dto = EventualityDTO()
+        generic_dto = DescriptionDTO()
         generic_dto.create(parameters)
-        if not parameters["vuln[afectacion]"].isdigit():
-            return util.response([], 'Afectacion negativa', True)
-        api = FormstackAPI()
+        api = FrmAPI()
+        print generic_dto.data
         request = api.update(generic_dto.request_id, generic_dto.data)
+        print request
         if request:
             return util.response([], 'success', False)
         return util.response([], 'error', False)
     except KeyError:
-        return util.response([], 'Campos vacios', True)
-
-@never_cache
-@require_http_methods(["POST"])
-@authorize(['analyst'])
-def delete_finding(request):
-    """Captura y procesa el id de una eventualidad para eliminarla"""
-    parameters = request.POST.dict()
-    username = request.session['username']
-    fin_dto = FindingDTO()
-    try:
-        submission_id = parameters["vuln[id]"]
-        context = fin_dto.create_delete(parameters, username, "")
-        api = FormstackAPI()
-        frmreq = api.get_submission(submission_id)
-        finding = fin_dto.parse(submission_id, frmreq, request)
-        context["project"] = finding["proyecto_fluid"]
-        result = api.delete_finding(submission_id)
-        if result is None:
-            return util.response([], 'Error', True)
-        to = ["engineering@fluid.la"]
-        send_mail_delete_finding(to, context)
-        return util.response([], 'Success', False)
-    except KeyError:
-        return util.response([], 'Campos vacios', True)
-            
-        
+        return util.response([], 'Empty fields', True)
