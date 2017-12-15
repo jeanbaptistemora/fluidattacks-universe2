@@ -20,9 +20,7 @@ pages:
   environment: staging
   script:
     - sed -i 's/https:\/\/fluid.la\/site/\/blog/' pelicanconf.py
-    - pelican --fatal errors content/
-    - mkdir -p /public
-    - cp -r output/ public/
+    - pelican --fatal errors -o public/ content/
   artifacts:
     paths:
       - public/
