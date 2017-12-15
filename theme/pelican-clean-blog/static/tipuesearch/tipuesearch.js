@@ -18,7 +18,7 @@ http://www.tipue.com/search
           'contextLength'          : 60,
           'contextStart'           : 90,
           'debug'                  : false,
-          'descriptiveWords'       : 30,
+          'descriptiveWords'       : 50,
           'highlightTerms'         : true,
           'liveContent'            : '*',
           'liveDescription'        : '*',
