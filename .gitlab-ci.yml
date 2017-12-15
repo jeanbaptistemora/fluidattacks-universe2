@@ -2,7 +2,7 @@ image: debian:stable-slim
 
 before_script:
   - apt-get -y update && cd content/
-  - if grep -r Fluid || grep -r Fluidsignal\ Group || grep -r fluidsignal; then echo "El único nombre aceptado es FLUID"; exit 1; fi
+  - if egrep -r 'Fluid|Fluidsignal\ Group|fluidsignal'; then echo "El único nombre aceptado es FLUID"; exit 1; fi
   - cd ../ && apt-get install -y python-pip libssl-dev libcurl4-openssl-dev ruby ruby-dev asciidoc source-highlight
   - pip install -r requirements.txt
   - gem install sass
