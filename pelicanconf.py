@@ -7,7 +7,7 @@ sys.setdefaultencoding("utf-8")
 
 # Site information
 AUTHOR = 'FLUID'
-SITENAME = 'Blog de FLUID'
+SITENAME = 'FLUID'
 SITEURL = 'https://fluid.la/site'
 PATH = 'content'
 
