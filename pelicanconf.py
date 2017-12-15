@@ -55,10 +55,24 @@ PLUGINS = [
            'share_post',
            'related_posts',
            'representative_image',
-           'tipue_search'
+           'tipue_search',
+           'sitemap'
 ]
 RELATED_POSTS_MAX = 3
 DIRECT_TEMPLATES = (('index', 'tags', 'categories', 'archives', 'authors', 'search', '404'))
+SITEMAP = {
+    'format': 'xml',
+    'priorities': {
+        'articles': 0.7,
+        'indexes': 0.8,
+        'pages': 0.9
+    },
+    'changefreqs': {
+        'articles': 'monthly',
+        'indexes': 'daily',
+        'pages': 'monthly'
+    }
+}
 
 # Disqus
 DISQUS_SITENAME = 'fluid-blog'
