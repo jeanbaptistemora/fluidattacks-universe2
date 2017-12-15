@@ -175,14 +175,14 @@ class FindingDTO(object):
             self.data[self.NIVEL_CONFIANZA] \
                 = parameter["data[nivel_confianza]"]
 
-    def create_delete_set(self, parameter, analyst, project):
+    def create_delete(self, parameter, analyst, project, finding):
         """ Crea un set de datos para enviar en el correo
             de eliminacion de hallazgo """
         return {
             'mail_analista': analyst,
-            'name_finding': parameter["vuln[hallazgo]"],
-            'id_finding': parameter["vuln[id]"],
-            'description': parameter["vuln[justificacion]"],
+            'name_finding': finding,
+            'id_finding': parameter["data[id]"],
+            'description': parameter["data[justificacion]"],
             'project': project,
         }
 

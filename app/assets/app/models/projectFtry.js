@@ -116,7 +116,7 @@ integrates.factory('projectFtry', function($q, $translate){
         DeleteFinding: function(data){
             var oops_ac = $translate.instant('proj_alerts.error_text');
             return $xhr.post($q, BASE.url + "delete_finding", {
-                data: json, _: Math.random()
+                data: data, _: Math.random()
             },oops_ac);
         }
     }

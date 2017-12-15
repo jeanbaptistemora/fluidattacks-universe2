@@ -4,7 +4,7 @@
  */
 /**
  * Funciones para administrar el UI del resumen de un hallazgo
- * @name findingcontentCtrl.js
+ * @name findingContentCtrl.js
  * @param {Object} $scope
  * @param {Object} $uibModal
  * @param {Object} $stateParams
@@ -163,11 +163,13 @@ integrates.controller("findingcontentCtrl", function($scope, $stateParams, $time
                 animation: true,
                 backdrop: 'static',
                 resolve: { updateData: descData },
-                controller: function($scope, $uibModalInstance, updateData){
+                controller: function($scope, $uibModalInstance, updateData, $stateParams, $state){
+                    $scope.vuln = {};
                     $scope.modalTitle = $translate.instant('confirmmodal.title_finding');
                     $scope.ok = function(){
+                        $scope.vuln.id = updateData.id;
                         //Consumir el servicio
-                        var req = projectFtry.DeleteFinding(updateData);
+                        var req = projectFtry.DeleteFinding($scope.vuln);
                         //Capturar la Promisse
                         req.then(function(response){
                             if(!response.error){
@@ -175,7 +177,7 @@ integrates.controller("findingcontentCtrl", function($scope, $stateParams, $time
                                 var updated_ac = $translate.instant('proj_alerts.updated_cont');
                                 $msg.success(updated_ac,updated_at);
                                 $uibModalInstance.close();
-                                location.reload();
+                                $state.go("ProjectNamed", {project: $stateParams.project});
                             }else{
                               var error_ac1 = $translate.instant('proj_alerts.error_textsad');
                               $msg.error(error_ac1);

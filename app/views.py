@@ -495,19 +495,21 @@ def delete_finding(request):
     username = request.session['username']
     fin_dto = FindingDTO()
     try:
-        submission_id = parameters["vuln[id]"]
-        context = fin_dto.create_delete(parameters, username, "")
+        submission_id = parameters["data[id]"]
+        context = fin_dto.create_delete(parameters, username, "", "")
         api = FormstackAPI()
         frmreq = api.get_submission(submission_id)
         finding = fin_dto.parse(submission_id, frmreq, request)
         context["project"] = finding["proyecto_fluid"]
-        result = api.delete_finding(submission_id)
+        context["name_finding"] = finding["hallazgo"]
+        result = api.delete_submission(submission_id)
         if result is None:
             return util.response([], 'Error', True)
         to = ["engineering@fluid.la"]
         send_mail_delete_finding(to, context)
         return util.response([], 'Success', False)
-    except KeyError:
+    except KeyError as e:
+        print str(e)
         return util.response([], 'Campos vacios', True)
             
         
