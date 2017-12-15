@@ -79,72 +79,101 @@ class FindingDTO(object):
         self.create_description(parameter)
         self.create_cssv2(parameter)
 
-    def create_description(self, parameter):
+    def create_description(self, parameter): # noqa: C901
         """ Convierte los indices de un JSON a indices
             de Formstack """
-        self.request_id \
-            = parameter["data[id]"]
-        self.data[self.CLASE] \
-            = parameter["data[nivel]"]
-        self.data[self.HALLAZGO] \
-            = parameter["data[hallazgo]"]
-        self.data[self.ESCENARIO] \
-            = parameter["data[escenario]"]
-        self.data[self.CARDINALIDAD] \
-            = parameter["data[cardinalidad]"]
-        self.data[self.ACTOR] \
-            = parameter["data[actor]"]
-        self.data[self.VULNERABILIDAD] \
-            = parameter["data[vulnerabilidad]"]
-        self.data[self.REQUISITOS] \
-            = parameter["data[requisitos]"]
-        self.data[self.DONDE] \
-            = parameter["data[donde]"]
-        self.data[self.SOLUCION_EFECTO] \
-            = parameter["data[solucion_efecto]"]
-        self.data[self.AMENAZA] \
-            = parameter["data[amenaza]"]
-        self.data[self.VECTOR_ATAQUE] \
-            = parameter["data[vector_ataque]"]
-        self.data[self.SISTEMA_COMPROMETIDO] \
-            = parameter["data[sistema_comprometido]"]
-        self.data[self.CWE] \
-            = parameter["data[cwe]"]
-        if self.data[self.CLASE] == "Detallado":
-            self.data[self.CATEGORIA] \
-                = parameter["data[categoria]"]
-            self.data[self.VALOR_RIESGO] \
-                = parameter["data[valor_riesgo]"]
-            self.data[self.PROBABILIDAD] \
-                = parameter["data[probabilidad]"]
-            self.data[self.SEVERIDAD] \
-                = parameter["data[severidad]"]
+        if "data[id]" in parameter:
+            self.request_id \
+                = parameter["data[id]"]
+        if "data[hallazgo]" in parameter:
+            self.data[self.HALLAZGO] \
+                = parameter["data[hallazgo]"]
+        if "data[escenario]" in parameter:
+            self.data[self.ESCENARIO] \
+                = parameter["data[escenario]"]
+        if "data[cardinalidad]" in parameter:
+            self.data[self.CARDINALIDAD] \
+                = parameter["data[cardinalidad]"]
+        if "data[actor]" in parameter:
+            self.data[self.ACTOR] \
+                = parameter["data[actor]"]
+        if "data[vulnerabilidad]" in parameter:
+            self.data[self.VULNERABILIDAD] \
+                = parameter["data[vulnerabilidad]"]
+        if "data[requisitos]" in parameter:
+            self.data[self.REQUISITOS] \
+                = parameter["data[requisitos]"]
+        if "data[donde]" in parameter:
+            self.data[self.DONDE] \
+                = parameter["data[donde]"]
+        if "data[solucion_efecto]" in parameter:
+            self.data[self.SOLUCION_EFECTO] \
+                = parameter["data[solucion_efecto]"]
+        if "data[amenaza]" in parameter:
+            self.data[self.AMENAZA] \
+                = parameter["data[amenaza]"]
+        if "data[vector_ataque]" in parameter:
+            self.data[self.VECTOR_ATAQUE] \
+                = parameter["data[vector_ataque]"]
+        if "data[sistema_comprometido]" in parameter:
+            self.data[self.SISTEMA_COMPROMETIDO] \
+                = parameter["data[sistema_comprometido]"]
+        if "data[cwe]" in parameter:
+            self.data[self.CWE] \
+                = parameter["data[cwe]"]
+        if "data[nivel]" in parameter:
+            self.data[self.CLASE] \
+                = parameter["data[nivel]"]
+            if self.data[self.CLASE] == "Detallado":
+                if "data[categoria]" in parameter:
+                    self.data[self.CATEGORIA] \
+                        = parameter["data[categoria]"]
+                if "data[valor_riesgo]" in parameter:
+                    self.data[self.VALOR_RIESGO] \
+                        = parameter["data[valor_riesgo]"]
+                if "data[probabilidad]" in parameter:                
+                    self.data[self.PROBABILIDAD] \
+                        = parameter["data[probabilidad]"]
+                if "data[severidad]" in parameter: 
+                    self.data[self.SEVERIDAD] \
+                        = parameter["data[severidad]"]
 
     def create_cssv2(self, parameter):
         """ Convierte los indices de un JSON a indices
             de Formstack """
-        self.request_id \
-            = parameter["data[id]"]
-        self.data[self.VECTOR_ACCESO] \
-            = parameter["data[vector_acceso]"]
-        self.data[self.COMPLEJIDAD_ACCESO] \
-            = parameter["data[complejidad_acceso]"]
-        self.data[self.AUTENTICACION] \
-            = parameter["data[autenticacion]"]
-        self.data[self.EXPLOTABILIDAD] \
-            = parameter["data[explotabilidad]"]
-        self.data[self.CRITICIDAD] \
-            = parameter["data[criticidad]"]
-        self.data[self.IMPACTO_CONFIDENCIALIDAD] \
-            = parameter["data[impacto_confidencialidad]"]
-        self.data[self.IMPACTO_INTEGRIDAD] \
-            = parameter["data[impacto_integridad]"]
-        self.data[self.IMPACTO_DISPONIBILIDAD] \
-            = parameter["data[impacto_disponibilidad]"]
-        self.data[self.NIVEL_RESOLUCION] \
-            = parameter["data[nivel_resolucion]"]
-        self.data[self.NIVEL_CONFIANZA] \
-            = parameter["data[nivel_confianza]"]
+        if "data[id]" in parameter:
+            self.request_id \
+                = parameter["data[id]"]
+        if "data[vector_acceso]" in parameter:
+            self.data[self.VECTOR_ACCESO] \
+                = parameter["data[vector_acceso]"]
+        if "data[complejidad_acceso]" in parameter:
+            self.data[self.COMPLEJIDAD_ACCESO] \
+                = parameter["data[complejidad_acceso]"]
+        if "data[autenticacion]" in parameter:
+            self.data[self.AUTENTICACION] \
+                = parameter["data[autenticacion]"]
+        if "data[explotabilidad]" in parameter:
+            self.data[self.EXPLOTABILIDAD] \
+                = parameter["data[explotabilidad]"]
+        if "data[criticidad]" in parameter:
+            self.data[self.CRITICIDAD] \
+                = parameter["data[criticidad]"]
+        if "data[impacto_confidencialidad]" in parameter:
+            self.data[self.IMPACTO_CONFIDENCIALIDAD] \
+                = parameter["data[impacto_confidencialidad]"]
+        if "data[impacto_integridad]" in parameter:
+            self.data[self.IMPACTO_INTEGRIDAD] \
+                = parameter["data[impacto_integridad]"]
+        if "data[impacto_disponibilidad]" in parameter:
+            self.data[self.IMPACTO_DISPONIBILIDAD] \
+                = parameter["data[impacto_disponibilidad]"]
+        if "data[nivel_resolucion]" in parameter:
+            self.data[self.NIVEL_RESOLUCION] \
+                = parameter["data[nivel_resolucion]"]
+        if "data[nivel_confianza]" in parameter:
+            self.data[self.NIVEL_CONFIANZA] \
+                = parameter["data[nivel_confianza]"]
 
     def create_delete_set(self, parameter, analyst, project):
         """ Crea un set de datos para enviar en el correo
@@ -230,7 +259,7 @@ class FindingDTO(object):
                 except ValueError:
                     self.data["cwe"] = 'None'
 
-    def parse_cssv2(self, request_arr):
+    def parse_cssv2(self, request_arr): # noqa: C901
         "Convierte la califiacion de un hallazgo en formstack"
         for finding in request_arr["data"]:
             if finding["field"] == self.VECTOR_ACCESO:

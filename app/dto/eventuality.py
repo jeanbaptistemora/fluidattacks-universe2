@@ -21,15 +21,19 @@ class EventualityDTO(object):
     def create(self, parameter):
         """ Convierte los indices de un JSON a indices
             de Formstack """
-        self.request_id \
-            = parameter["vuln[id]"]
-        self.data[self.AFECTACION] \
-            = parameter["vuln[afectacion]"]
-        self.data[self.PROYECTO_FLUID] \
-            = parameter["vuln[proyecto_fluid]"]
-        if parameter["vuln[afectacion]"] != "":
-            self.data[self.ESTADO] \
-                = "Tratada"
+        if "vuln[id]" in parameter:
+            self.request_id \
+                = parameter["vuln[id]"]
+        if "vuln[afectacion]" in parameter:
+            self.data[self.AFECTACION] \
+                = parameter["vuln[afectacion]"]
+        if "vuln[proyecto_fluid]" in parameter:
+            self.data[self.PROYECTO_FLUID] \
+                = parameter["vuln[proyecto_fluid]"]
+        if "vuln[afectacion]" in parameter:
+            if parameter["vuln[afectacion]"] != "":
+                self.data[self.ESTADO] \
+                    = "Tratada"
         self.to_formstack()
 
     def parse(self, submission_id, request_arr):

@@ -1,0 +1,12 @@
+Copyright © 2015 FLUID 
+
+Todos los derechos reservados. Este documento contiene información de propiedad
+de FLUID. El cliente puede usar dicha información sólo con el propósito de
+documentación sin poder divulgar su contenido a terceras partes ya que contiene
+ideas, conceptos, precios y estructuras de propiedad de FLUID La clasificación
+"propietaria" significa que ésta información es sólo para uso de las personas a
+quienes esta dirigida. En caso de requerirse copias totales o parciales se debe
+contar con la autorización expresa y escrita de FLUID Las normas que
+fundamentan la clasificación de la información son los artículos 72 y
+siguientes de la decisión del acuerdo de Cartagena, 344 de 1.993, el artículo
+238 del código penal y los artículos 16 y siguientes de la ley 256 de 1.996.

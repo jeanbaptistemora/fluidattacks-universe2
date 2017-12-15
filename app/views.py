@@ -463,7 +463,8 @@ def update_description(request):
         if request:
             return util.response([], 'success', False)
         return util.response([], 'error', False)
-    except KeyError:
+    except KeyError as e:
+        print str(e)
         return util.response([], 'Campos vacios', True)
 
 @never_cache
