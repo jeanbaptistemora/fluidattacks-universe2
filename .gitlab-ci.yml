@@ -11,7 +11,7 @@ deployment:
   environment: production	
   script:
     - pip install awscli
-    - pelican content/
+    - pelican --fatal errors content/
     - aws s3 cp --recursive --acl=public-read-write output/ s3://blog.fluid.la
   only:
      - master
@@ -20,7 +20,7 @@ pages:
   environment: staging
   script:
     - sed -i 's/https:\/\/fluid.la\/site/\/blog/' pelicanconf.py
-    - pelican content/
+    - pelican --fatal errors content/
     - mkdir -p /public
     - cp -r output/ public/
   artifacts:
