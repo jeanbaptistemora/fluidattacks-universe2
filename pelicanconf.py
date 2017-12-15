@@ -43,8 +43,8 @@ PAGE_URL = 'pages/{slug}/'
 PAGE_SAVE_AS = 'pages/{slug}/index.html'
 PAGE_PATHS = ['pages']
 
-# Images path
-STATIC_PATHS = ['images']
+# Images and files path
+STATIC_PATHS = ['images', 'files']
 
 # Plugins configuration
 PLUGIN_PATHS = 'pelican-plugins'
