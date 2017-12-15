@@ -1,12 +1,11 @@
-image: alpine
+image: debian:stable-slim
 
 before_script:
-  - apk update
-  - apk add grep && cd content/
+  - apt-get -y update && cd content/
   - if grep -r Fluid || grep -r Fluidsignal\ Group || grep -r fluidsignal; then echo "El único nombre aceptado es FLUID"; exit 1; fi
-  - cd ../ && apk add alpine-sdk py2-curl python2 python2-dev py-pip libffi-dev openssl openssl-dev jpeg-dev asciidoc highlight ruby ruby-dev
+  - cd ../ && apt-get install -y python-pip libssl-dev libcurl4-openssl-dev ruby ruby-dev asciidoc source-highlight
   - pip install -r requirements.txt
-  - gem install --no-document sass
+  - gem install sass
 
 deployment:
   environment: production	
@@ -21,7 +20,7 @@ pages:
   environment: staging
   script:
     - sed -i 's/https:\/\/fluid.la\/site/\/blog/' pelicanconf.py
-    - pelican content
+    - pelican content/
     - mkdir -p /public
     - cp -r output/ public/
   artifacts:
