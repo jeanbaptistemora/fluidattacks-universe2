@@ -7,7 +7,7 @@ sys.setdefaultencoding("utf-8")
 
 # Site information
 AUTHOR = 'FLUID'
-SITENAME = 'FLUID'
+SITENAME = 'FLUID | Pentesting, Ethical Hacking, Análisis de Código'
 SITEURL = 'https://fluid.la/site'
 PATH = 'content'
 
