@@ -1178,43 +1178,6 @@ integrates.controller(
                 }
             });
         };
-        $scope.deleteFinding = function(){
-            //Obtener datos
-            descData = {
-                id: $scope.finding.id
-            };
-            $msg.info("En desarrollo ;)");
-            return false;
-            var modalInstance = $uibModal.open({
-                templateUrl: BASE.url + 'assets/views/project/confirmMdl.html',
-                animation: true,
-                backdrop: 'static',
-                resolve: { updateData: descData },
-                controller: function($scope, $uibModalInstance, updateData){
-                    $scope.modalTitle = $translate.instant('confirmmodal.title_finding');
-                    $scope.ok = function(){
-                        //Consumir el servicio
-                        var req = projectFtry.DeleteFinding(updateData);
-                        //Capturar la Promisse
-                        req.then(function(response){
-                            if(!response.error){
-                                var updated_at = $translate.instant('proj_alerts.updated_title');
-                                var updated_ac = $translate.instant('proj_alerts.updated_cont');
-                                $msg.success(updated_ac,updated_at);
-                                $uibModalInstance.close();
-                                location.reload();
-                            }else{
-                              var error_ac1 = $translate.instant('proj_alerts.error_textsad');
-                              $msg.error(error_ac1);
-                            }
-                        });
-                    };
-                    $scope.close = function(){
-                        $uibModalInstance.close();
-                    };
-                }
-            });
-        };
         $scope.openModalAvance = function(){
             var modalInstance = $uibModal.open({
                 animation: true,

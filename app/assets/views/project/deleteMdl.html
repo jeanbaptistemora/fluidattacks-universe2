@@ -1,0 +1,21 @@
+<div class="modal-body" id="modal-body">
+    <div class="row">
+    	<div class="col-md-12">
+    	<h3>{{modalTitle}}</h3>
+    	<hr>                   
+        <label> {{'deletemodal.justification' | translate}} </label><label style="color: #f22;"> *</label>
+        <select class="form-control" ng-model="vuln.justificacion" ng-required="true">
+            <option value="{{'deletemodal.change_evidence' | translate}}" selected>{{'deletemodal.change_evidence' | translate}}</option>
+            <option value="{{'deletemodal.finding_changed' | translate}}">{{'deletemodal.finding_changed' | translate}}</option>
+            <option value="{{'deletemodal.not_vulnerability' | translate}}">{{'deletemodal.not_vulnerability' | translate}}</option>
+            <option value="{{'deletemodal.duplicated' | translate}}">{{'deletemodal.duplicated' | translate}}</option>
+        </select>
+        <br>
+        <p class="text-center">{{'confirmmodal.confirm' | translate}}</p>
+    	</div>               
+    </div>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-danger" type="button" ng-click="close()">{{'confirmmodal.no' | translate}}</button>
+    <button class="btn btn-primary" type="button" ng-click="ok()">{{'confirmmodal.yes' | translate}}</button>
+</div>

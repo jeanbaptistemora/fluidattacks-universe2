@@ -449,6 +449,13 @@ integrates.config(['$translateProvider', function($translateProvider) {
          'confirm': 'Are you sure?',
          'no': 'No',
          'yes': 'Yes'
+       }, 
+       'deletemodal':{
+         'justification': 'Justification',
+         'change_evidence': 'Change of evidence',
+         'finding_changed': 'Finding has changed',
+         'not_vulnerability': 'It is not a Vulnerability',
+         'duplicated': 'It is duplicated'
        }
     };
     var traducciones = {
@@ -886,10 +893,17 @@ integrates.config(['$translateProvider', function($translateProvider) {
        'confirmmodal':{
          'title_cssv2': 'Actualizar CSSv2',
          'title_description': 'Actualizar Descripción',
-         'title_finding': 'Elminiar Hallazgo',
+         'title_finding': 'Eliminar Hallazgo',
          'confirm': '¿Realizar esta acción?',
          'no': 'Cancelar',
          'yes': 'Aceptar'
+       }, 
+       'deletemodal':{
+         'justification': 'Justificación',
+         'change_evidence': 'Cambio de Evidencia',
+         'finding_changed': 'Por Modificación del Hallazgo',
+         'not_vulnerability': 'No es una Vulnerabilidad',
+         'duplicated': 'Está Duplicado'
        }
     };
     if(localStorage['lang'] === undefined){
