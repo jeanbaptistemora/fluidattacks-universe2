@@ -14,7 +14,9 @@ def authenticate(func):
         if "username" in request.session:
             if request.session["username"] is None:
                 return HttpResponse('Unauthorized \
-<script>location = "/logout"; </script>', status=401)
+                <script>var getUrl=window.location.hash.substr(1); \
+                localStorage.setItem("url_inicio",getUrl); \
+                location = "/logout"; </script>', status=401)
         return func(*args, **kwargs)
     return authenticate_and_call
 
@@ -28,9 +30,10 @@ def authorize(roles):
                 request.session['registered'] != '1' or \
                 request.session['role'] not in roles:
                 if 'any' not in roles:
-                    return HttpResponse('<script> location = "error401"; \
+                    return HttpResponse('<script> \
                            var getUrl=window.location.hash.substr(1); \
-              localStorage.setItem("url_inicio",getUrl); </script>', status=401)
+              localStorage.setItem("url_inicio",getUrl); \
+              location = "/index"; </script>')
             return func(*args, **kwargs)
         return authorize_and_call
     return wrapper
