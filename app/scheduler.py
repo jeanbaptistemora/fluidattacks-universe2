@@ -2,11 +2,12 @@
 
 # pylint: disable=E0402
 from .dao import integrates_dao
-from .models import FormstackAPI, FormstackRequestMapper
+from .dto.finding import FindingDTO
+from .api import FormstackAPI
 from .mailer import send_mail_new_finding, send_mail_change_finding
 
-
 def get_new_findings():
+    """ Envio de correo resumen con los hallazgos de un proyecto """
     projects = integrates_dao.get_registered_projects()
     api = FormstackAPI()
     for project in projects:
@@ -21,17 +22,15 @@ def get_new_findings():
             to.append('projects@fluid.la')
             if new_findings > cur_findings:
                 delta = new_findings - cur_findings
-                rmp = FormstackRequestMapper()
+                gen_dto = FindingDTO()
                 context = {'findings': list()}
                 for finding in finding_requests[-delta:]:
                     formstack_request = api.get_submission(finding["id"])
-                    finding_parsed = rmp.map_finding(formstack_request)
-
+                    finding_parsed = gen_dto.parse_description(formstack_request)
                     context['findings'].append({'nombre_hallazgo':
                         finding_parsed['hallazgo']})
                 context['cantidad'] = str(delta)
                 context['proyecto'] = project[0].upper()
-
                 print(to)
                 send_mail_new_finding(to, context)
             else:

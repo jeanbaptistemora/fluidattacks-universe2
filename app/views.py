@@ -463,8 +463,7 @@ def update_description(request):
         if request:
             return util.response([], 'success', False)
         return util.response([], 'error', False)
-    except KeyError as e:
-        print str(e)
+    except KeyError:
         return util.response([], 'Campos vacios', True)
 
 @never_cache
@@ -508,8 +507,7 @@ def delete_finding(request):
         to = ["engineering@fluid.la"]
         send_mail_delete_finding(to, context)
         return util.response([], 'Success', False)
-    except KeyError as e:
-        print str(e)
+    except KeyError:
         return util.response([], 'Campos vacios', True)
             
         
