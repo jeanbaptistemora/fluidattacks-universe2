@@ -48,14 +48,11 @@
 
 {% if article.share_post and article.status != 'draft' %}
 <section>
-    <p id="post-share-links">
-	<h4>Compártelo:</h4>	
-        <a href="{{article.share_post['linkedin']}}" target="_blank" title="Haz click para compartir en Linkedin"><img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/social-media/linkedin.png"/></a>
-        <a href="{{article.share_post['twitter']}}" target="_blank" title="Haz click para compartir en Twitter"><img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/social-media/twitter.png"/></a>
-        <a href="{{article.share_post['facebook']}}" target="_blank" title="Haz click para compartir en Facebook"><img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/social-media/facebook.png"/></a>
-        <a href="{{article.share_post['google-plus']}}" target="_blank" title="Haz click para compartir en Google Plus"><img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/social-media/gplus.png"/></a>
-        <a href="javascript:window.print()" target="_self" title="Haz click para imprimir"><img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/social-media/print.png"/></a>
-    </p>
+         <!-- Go to www.addthis.com/dashboard to customize your tools -->
+         <div id="divshare" class="addthis_inline_share_toolbox">
+           <h4>Compartir:</h4>
+           <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5a37e74c4b1448ce"></script>
+         </div>
 </section>		
 {% endif %}
 
