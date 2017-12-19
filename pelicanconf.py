@@ -9,42 +9,24 @@ sys.setdefaultencoding("utf-8")
 AUTHOR = 'FLUID'
 SITENAME = 'FLUID | Pentesting, Ethical Hacking, Análisis de Código'
 SITEURL = 'https://fluid.la/site'
-PATH = 'content'
+
+# Theme
+THEME = 'theme/pelican-clean-blog'
 
 # Date and time configuration
 TIMEZONE = 'America/Bogota'
 DEFAULT_DATE_FORMAT = ('%Y-%m-%d')
 DEFAULT_LANG = 'Spanish'
 
-# Feed generation is usually not desired when developing
-FEED_ALL_ATOM = None
-CATEGORY_FEED_ATOM = None
-TRANSLATION_FEED_ATOM = None
-AUTHOR_FEED_ATOM = None
-AUTHOR_FEED_RSS = None
-
-# Blogroll
-LINKS = (('Pelican', 'http://getpelican.com/'),
-         ('Python.org', 'http://python.org/'),
-         ('Jinja2', 'http://jinja.pocoo.org/'),
-         ('You can modify those links in your config file', '#'),)
-
-# Social widget
-SOCIAL = (('You can add links in your config file', '#'),
-          ('Another social link', '#'),)
-
-# Articles per page
-DEFAULT_PAGINATION = 12
-
 # URLs format
+PATH = 'content'
+ARTICLE_PATHS = ['posts']
+PAGE_PATHS = ['pages']
+STATIC_PATHS = ['images', 'files', 'posts']
 ARTICLE_URL = 'posts/{slug}/'
 ARTICLE_SAVE_AS = 'posts/{slug}/index.html'
 PAGE_URL = 'pages/{slug}/'
 PAGE_SAVE_AS = 'pages/{slug}/index.html'
-PAGE_PATHS = ['pages']
-
-# Images and files path
-STATIC_PATHS = ['images', 'files']
 
 # Plugins configuration
 PLUGIN_PATHS = 'pelican-plugins'
@@ -73,12 +55,27 @@ SITEMAP = {
         'pages': 'monthly'
     }
 }
+DEFAULT_PAGINATION = 12
 
 # Disqus
 DISQUS_SITENAME = 'fluid-blog'
 
-# Theme
-THEME = 'theme/pelican-clean-blog'
-
 # Google Analytics
 GOOGLE_ANALYTICS = 'UA-22974464-4'
+
+# Feed generation is usually not desired when developing
+FEED_ALL_ATOM = None
+CATEGORY_FEED_ATOM = None
+TRANSLATION_FEED_ATOM = None
+AUTHOR_FEED_ATOM = None
+AUTHOR_FEED_RSS = None
+
+# Blogroll
+LINKS = (('Pelican', 'http://getpelican.com/'),
+         ('Python.org', 'http://python.org/'),
+         ('Jinja2', 'http://jinja.pocoo.org/'),
+         ('You can modify those links in your config file', '#'),)
+
+# Social widget
+SOCIAL = (('You can add links in your config file', '#'),
+          ('Another social link', '#'),)
