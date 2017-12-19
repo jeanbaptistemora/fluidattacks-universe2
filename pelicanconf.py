@@ -20,11 +20,11 @@ DEFAULT_LANG = 'Spanish'
 
 # URLs format
 PATH = 'content'
-ARTICLE_PATHS = ['posts']
+ARTICLE_PATHS = ['blog']
 PAGE_PATHS = ['pages']
-STATIC_PATHS = ['images', 'files', 'posts']
-ARTICLE_URL = 'posts/{slug}/'
-ARTICLE_SAVE_AS = 'posts/{slug}/index.html'
+STATIC_PATHS = ['images', 'files', 'blog']
+ARTICLE_URL = 'blog/{slug}/'
+ARTICLE_SAVE_AS = 'blog/{slug}/index.html'
 PAGE_URL = 'pages/{slug}/'
 PAGE_SAVE_AS = 'pages/{slug}/index.html'
 
