@@ -1183,13 +1183,13 @@ integrates.controller(
                 animation: true,
                 templateUrl: 'avance.html',
                 windowClass: 'modal avance-modal',
-                backdrop: 'static',
                 keyboard: false,
                 controller: function($scope, $uibModalInstance){
                     var auxiliar = $("#vulnerabilities").bootstrapTable('getData');
                     var data = auxiliar;
                     for(i=0; i < data.length; i++){
                         data[i].atributos = 0;
+                        data[i].link = 'https://fluid.la/integrates/dashboard#!/Project/' + data[i].proyecto_fluid.toLowerCase() + '/' + data[i].id;
                         if (typeof data[i].registros !== 'undefined' && data[i].registros !== ''){
                           data[i].atributos = 1 + (data[i].registros.match(/\n/g)||[]).length;
                         }
