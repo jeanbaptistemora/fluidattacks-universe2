@@ -78,7 +78,7 @@ integrates.config(['$translateProvider', function($translateProvider) {
               'description': 'Click on an event to see more details'
             },
             'project_buttons':{
-              'back': 'Go Back',
+              'back': 'Back',
               'delete': 'Delete'
             },
             'project_labels':{
