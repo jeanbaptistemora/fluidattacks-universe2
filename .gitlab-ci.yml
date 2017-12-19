@@ -12,6 +12,7 @@ deployment:
   script:
     - pip install awscli
     - pelican --fatal errors content/
+    - aws s3 rm --recursive s3://blog.fluid.la
     - aws s3 cp --recursive --acl=public-read-write output/ s3://blog.fluid.la
   only:
      - master
