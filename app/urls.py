@@ -42,6 +42,7 @@ urlpatterns = [
     url(r'^delete_finding/?\.*$', views.delete_finding, name='delete_finding'),
     url(r'^update_cssv2/?$', views.update_cssv2, name='update_cssv2'),
     url(r'^update_description/?$', views.update_description, name='update_description'),
+    url(r'^update_treatment/?$', views.update_treatment, name='update_treatment'),
     # Documentacion automatica
     url(r'^generate_autodoc/?$',
         views.generate_autodoc, name='generate_autodoc'),

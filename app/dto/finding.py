@@ -57,6 +57,9 @@ class FindingDTO(object):
     SISTEMA_COMPROMETIDO = "48092123"
     VECTOR_ATAQUE = "48092088"
     CWE = "38899046"
+    TRATAMIENTO = "59350064"
+    RAZON_TRATAMIENTO = "59351642"
+    RESPONSABLE_TRATAMIENTO = "59381058"
 
     #Atributos CssV2
     VECTOR_ACCESO = "38529247"
@@ -131,12 +134,28 @@ class FindingDTO(object):
                 if "data[valor_riesgo]" in parameter:
                     self.data[self.VALOR_RIESGO] \
                         = parameter["data[valor_riesgo]"]
-                if "data[probabilidad]" in parameter:                
+                if "data[probabilidad]" in parameter:
                     self.data[self.PROBABILIDAD] \
                         = parameter["data[probabilidad]"]
-                if "data[severidad]" in parameter: 
+                if "data[severidad]" in parameter:
                     self.data[self.SEVERIDAD] \
                         = parameter["data[severidad]"]
+
+    def create_treatment(self, parameter):
+        """ Convierte los indices de un JSON a indices
+            de Formstack """
+        if "data[id]" in parameter:
+            self.request_id \
+                = parameter["data[id]"]
+        if "data[tratamiento]" in parameter:
+            self.data[self.TRATAMIENTO] \
+                = parameter["data[tratamiento]"]
+        if "data[razon_tratamiento]" in parameter:
+            self.data[self.RAZON_TRATAMIENTO] \
+                = parameter["data[razon_tratamiento]"]
+        if "data[responsable_tratamiento]" in parameter:
+            self.data[self.RESPONSABLE_TRATAMIENTO] \
+                = parameter["data[responsable_tratamiento]"]
 
     def create_cssv2(self, parameter):
         """ Convierte los indices de un JSON a indices
@@ -208,7 +227,7 @@ class FindingDTO(object):
             if finding["field"] == self.CODIGO_CLIENTE:
                 self.data["codigo_cliente"] = finding["value"]
             if finding["field"] == self.PROBABILIDAD:
-                self.data["probabilidad"] = finding["value"]            
+                self.data["probabilidad"] = finding["value"]
             if finding["field"] == self.SEVERIDAD:
                 self.data["severidad"] = finding["value"]
             if finding["field"] == self.NIVEL_RIESGO:
@@ -251,6 +270,12 @@ class FindingDTO(object):
                 self.data["categoria"] = finding["value"]
             if finding["field"] == self.ACTOR:
                 self.data["actor"] = finding["value"]
+            if finding["field"] == self.TRATAMIENTO:
+                self.data["tratamiento"] = finding["value"]
+            if finding["field"] == self.RAZON_TRATAMIENTO:
+                self.data["razon_tratamiento"] = finding["value"]
+            if finding["field"] == self.RESPONSABLE_TRATAMIENTO:
+                self.data["responsable_tratamiento"] = finding["value"]
             if finding["field"] == self.CWE:
                 try:
                     value = int(finding["value"])

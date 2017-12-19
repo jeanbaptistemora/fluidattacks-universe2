@@ -106,6 +106,19 @@ integrates.factory('projectFtry', function($q, $translate){
             },oops_ac);
         },
         /**
+         * Invoca el servicio para actualizar el tratamiento de un hallazgo
+         * @function UpdateTreatment
+         * @param {JSON} data
+         * @member integrates.projectFtry
+         * @return {Object}
+         */
+        UpdateTreatment: function(data){
+            var oops_ac = $translate.instant('proj_alerts.error_text');
+            return $xhr.post($q, BASE.url + "update_treatment", {
+                data, _: Math.random()
+            },oops_ac);
+        },
+        /**
          * Invoca el servicio para actualizar la seccion
          * descriptiva de un hallazgo
          * @function DeleteFinding

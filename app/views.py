@@ -333,7 +333,7 @@ def get_findings(request):
                 finding['cerradas'] = state['cerradas_cuales']
             findings.append(finding)
     findings.reverse()
-    return util.response(findings, 'Success', False)    
+    return util.response(findings, 'Success', False)
 
 @never_cache
 @csrf_exempt
@@ -468,6 +468,23 @@ def update_description(request):
 
 @never_cache
 @require_http_methods(["POST"])
+@authorize(['customer'])
+def update_treatment(request):
+    parameters = request.POST.dict()
+    try:
+        generic_dto = FindingDTO()
+        generic_dto.create_treatment(parameters)
+        generic_dto.to_formstack()
+        api = FormstackAPI()
+        request = api.update(generic_dto.request_id, generic_dto.data)
+        if request:
+            return util.response([], 'success', False)
+        return util.response([], 'error', False)
+    except KeyError:
+        return util.response([], 'Campos vacios', True)
+
+@never_cache
+@require_http_methods(["POST"])
 @authorize(['analyst'])
 def update_eventuality(request):
     "Actualiza una eventualidad asociada a un proyecto"
@@ -509,5 +526,3 @@ def delete_finding(request):
         return util.response([], 'Success', False)
     except KeyError:
         return util.response([], 'Campos vacios', True)
-            
-        

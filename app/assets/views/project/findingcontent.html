@@ -56,10 +56,14 @@
               <div class="col-md-2 col-sm-6 col-xs-6"  style="padding-bottom: 10px;">
                   <span class="label label-default control-label">{{finding.timestamp}}</span>
               </div>
+            </div>
+            <div class="row">
               <div class="col-md-2 col-sm-6 col-xs-6 text-right">{{'search_findings.project_labels.project' | translate}}</div>
               <div class="col-md-2 col-sm-6 col-xs-6">{{finding.proyecto_fluid}}</div>
               <div class="col-md-2 col-sm-6 col-xs-6 text-right">{{'search_findings.project_labels.client' | translate}}</div>
-              <div class="col-md-6 col-sm-6 col-xs-6">{{finding.proyecto_cliente}}</div>
+              <div class="col-md-2 col-sm-6 col-xs-6">{{finding.proyecto_cliente}}</div>
+              <div class="col-md-2 col-sm-6 col-xs-6 text-right">{{'search_findings.tab_description.treatment' | translate}}</div>
+              <div class="col-md-2 col-sm-6 col-xs-6">{{header.findingTreatment}}</div>
           </div>
       </div>
       <div class="col-sm-12 col-md-12" style="margin-top:10px;">
@@ -274,21 +278,21 @@
                                   </div>
                               </div>
                               <div class="row table-row">
-                                      <div class="col-md-3 col-xs-12 col-sm-12 table-head"><label><b>{{'search_findings.tab_description.records' | translate}}</b></label></div>
-                                      <div class="col-md-3 col-xs-12 col-sm-12 table-desc">
-                                          <p ng-show="onlyReadableTab1">{{finding.registros}}</p>
-                                          <textarea class="form-control no-resize"
-                                                    ng-show="!onlyReadableTab1"
-                                                    ng-model="finding.registros">{{finding.registros}}</textarea>
-                                      </div>
-                                      <div class="col-md-3 col-xs-12 col-sm-12 table-head"><label><b>{{'search_findings.tab_description.totalrecords' | translate}}</b></label></div>
-                                      <div class="col-md-3 col-xs-12 col-sm-12 table-desc">
-                                          <p ng-show="onlyReadableTab1">{{finding.registros_num}}</p>
-                                          <textarea class="form-control no-resize"
-                                                    ng-show="!onlyReadableTab1"
-                                                    ng-model="finding.registros_num">{{finding.registros_num}}</textarea>
-                                      </div>
+                                  <div class="col-md-3 col-xs-12 col-sm-12 table-head"><label><b>{{'search_findings.tab_description.records' | translate}}</b></label></div>
+                                  <div class="col-md-3 col-xs-12 col-sm-12 table-desc">
+                                      <p ng-show="onlyReadableTab1">{{finding.registros}}</p>
+                                      <textarea class="form-control no-resize"
+                                                ng-show="!onlyReadableTab1"
+                                                ng-model="finding.registros">{{finding.registros}}</textarea>
                                   </div>
+                                  <div class="col-md-3 col-xs-12 col-sm-12 table-head"><label><b>{{'search_findings.tab_description.totalrecords' | translate}}</b></label></div>
+                                  <div class="col-md-3 col-xs-12 col-sm-12 table-desc">
+                                      <p ng-show="onlyReadableTab1">{{finding.registros_num}}</p>
+                                      <textarea class="form-control no-resize"
+                                                ng-show="!onlyReadableTab1"
+                                                ng-model="finding.registros_num">{{finding.registros_num}}</textarea>
+                                  </div>
+                              </div>
                               <div class="row table-row">
                                   <div class="col-md-3 col-xs-12 col-sm-12 table-head"><label><b>{{'search_findings.tab_description.weakness' | translate}}</b></label></div>
                                   <div class="col-md-9 col-xs-12 col-sm-12 table-desc">
@@ -298,7 +302,53 @@
                                              ng-model="finding.cwe">
                                   </div>
                               </div>
-                          </div>
+                              <div class="row table-row">
+                                  <div class="col-md-3 col-xs-12 col-sm-12 table-head" ng-show="!onlyReadableTab4"><label><b>{{'search_findings.tab_description.treatment' | translate}}</b></label></div>
+                                  <div class="col-md-3 col-xs-12 col-sm-12 table-desc" ng-show="!onlyReadableTab4">
+                                      <p ng-show="onlyReadableTab4"ng-show="!onlyReadableTab4">{{finding.tratamiento}}</p>
+                                      <select ng-model="finding.tratamiento"
+                                              ng-click="validateTreatment();"
+                                              ng-show="!onlyReadableTab4"
+                                              class="form-control">
+                                          <option ng-repeat="item in list.treatment"
+                                                  value="{{item.name}}">
+                                              {{item.name}}
+                                          </option>
+                                      </select>
+                                  </div>
+                                  <div class="col-md-3 col-xs-12 col-sm-12 table-head"><label><b>{{'search_findings.tab_description.treat_justification' | translate}}</b></label></div>
+                                  <div class="col-md-3 col-xs-12 col-sm-12 table-desc">
+                                      <p ng-show="onlyReadableTab4">{{finding.razon_tratamiento}}</p>
+                                      <textarea class="form-control no-resize"
+                                                ng-show="!onlyReadableTab4"
+                                                ng-model="finding.razon_tratamiento">{{finding.razon_tratamiento}}</textarea>
+                                  </div>
+                                  <div class="col-md-3 col-xs-12 col-sm-12 table-head"><label><b>{{'search_findings.tab_description.treat_manager' | translate}}</b></label></div>
+                                  <div class="col-md-3 col-xs-12 col-sm-12 table-desc">
+                                      <p>{{finding.responsable_tratamiento}}</p>
+                                  </div>
+                              </div>
+                              <div class="row table-row" ng-show="!isManager">
+                                <div class="row">
+                                  <div class="col-md-2 col-md-offset-10 col-xs-12 col-sm-12">
+                                      <button id="edit" class="btn btn-primary btn-block"
+                                              ng-click="treatmentEditable();"
+                                              <i class="glyphicon glyphicon-edit"></i>  {{'search_findings.tab_description.edit_treatment' | translate}}
+                                      </button>
+                                  </div>
+                              </div>
+                              <br>
+                              <div class="row">
+                                <div class="col-md-2 col-md-offset-10 col-xs-12 col-sm-12">
+                                  <button class="btn btn-success btn-block"
+                                          ng-show="!onlyReadableTab4"
+                                          ng-click="updateTreatment();"
+                                          <i class="glyphicon glyphicon-repeat"></i>  {{'search_findings.tab_description.update_treatment' | translate}}
+                                  </button>
+                                </div>
+                              </div>
+                            </div>
+                         </div>
                       </div>
                   </div>
                   <!-- End Tab Info -->
@@ -532,7 +582,7 @@
                       <div class="popup-gallery">
                         <div class="row">
                             <div ng-repeat="ev in tabEvidences">
-                                <div class="col-md-4 col-sm-6 col-xs-12 equalHeight">                                       
+                                <div class="col-md-4 col-sm-6 col-xs-12 equalHeight">
                                     <div class="panel panel-default">
                                       <div class="panel-body">
                                         <div mag-thumb="inner-inline" mag-flow="inline">
@@ -561,7 +611,7 @@
                                             </button>
                                         </div>
                                       </div>
-                                    </div>                                                                                
+                                    </div>
                                 </div>
                             </div>
                         </div>

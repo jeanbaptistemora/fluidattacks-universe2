@@ -113,7 +113,13 @@ integrates.config(['$translateProvider', function($translateProvider) {
               'totalrecords': 'Total Compromised Records',
               'weakness': 'Weakness',
               'editable': 'Edit',
-              'update': 'Update'
+              'update': 'Update',
+              'treatment': 'Treatment',
+              'treat_justification': 'Treatment Justification',
+              'treat_manager': 'Treatment Manager',
+              'edit_treatment': 'Edit',
+              'update_treatment': 'Update',
+              'update_treatmodal': 'Update Treatment'
             },
             'tab_cssv2':{
               'description_name': 'Severity',
@@ -222,7 +228,12 @@ integrates.config(['$translateProvider', function($translateProvider) {
           'no_finding':'We could not find the finding!',
           'error_severity':'Severity must be an integer bewteen 0 and 5',
           'wrong_severity':'You must calculate severity correctly',
-          'not_found':'We could not find it!'
+          'not_found':'We could not find it!',
+          'differ_comment':'You must enter a new treatment justification',
+          'empty_comment':'You must enter a treatment justification!',
+          'short_comment':'You must enter a justification of at least 50 characters and maximum 80 characters',
+          'congratulation':'Congratulations',
+          'updated_treat':'Treatment updated'
         },
         'tab_container':{
           'findings': 'Findings',
@@ -432,7 +443,13 @@ integrates.config(['$translateProvider', function($translateProvider) {
            'high': ' High',
            'moderate': ' Moderate',
            'tolerable': ' Tolerable'
-         }
+         },
+         'treatment_header':{
+           'default': '-',
+           'asummed': 'Asummed',
+           'working': 'Workig on it',
+           'remediated': 'Remediated'
+         },
        },
        'registration':{
          'close_session': 'Close Session',
@@ -449,7 +466,7 @@ integrates.config(['$translateProvider', function($translateProvider) {
          'confirm': 'Are you sure?',
          'no': 'No',
          'yes': 'Yes'
-       }, 
+       },
        'deletemodal':{
          'justification': 'Justification',
          'change_evidence': 'Change of evidence',
@@ -561,7 +578,13 @@ integrates.config(['$translateProvider', function($translateProvider) {
               'totalrecords': 'Total Registros Comprometidos',
               'weakness': 'Debilidad',
               'editable': 'Editar',
-              'update': 'Actualizar'
+              'update': 'Actualizar',
+              'treatment': 'Tratamiento',
+              'treat_justification': 'Justificación del Tratamiento',
+              'treat_manager': 'Responsable del Tratamiento',
+              'edit_treatment': 'Editar',
+              'update_treatment': 'Actualizar',
+              'update_treatmodal': 'Actualizar Tratamiento'
             },
             'tab_cssv2':{
               'description_name': 'Severidad',
@@ -670,7 +693,12 @@ integrates.config(['$translateProvider', function($translateProvider) {
           'no_finding':'No encontramos el hallazgo!',
           'error_severity':'La severidad debe ser un numero de 0 a 5',
           'wrong_severity':'Debes calcular correctamente la severidad',
-          'not_found':'No pudimos encontrarlo!'
+          'not_found':'No pudimos encontrarlo!',
+          'differ_comment':'Debes ingresar una nueva justificación del tratamiento',
+          'empty_comment':'Debes ingresar una justificación del tratamiento!',
+          'short_comment':'Debes ingresar una justificación de mínimo 50 caracteres y máximo 80 caracteres',
+          'congratulation':'Felicidades',
+          'updated_treat':'El tratamiento fue actualizado'
         },
         'tab_container':{
           'findings': 'Hallazgos',
@@ -880,7 +908,13 @@ integrates.config(['$translateProvider', function($translateProvider) {
            'high': ' Alto',
            'moderate': ' Moderado',
            'tolerable': ' Tolerable'
-         }
+         },
+         'treatment_header':{
+           'default': '-',
+           'asummed': 'Asumido',
+           'working': 'Pendiente',
+           'remediated': 'Remediado'
+         },
        },
        'registration':{
          'close_session': 'Cerrar Sesión',
@@ -897,7 +931,7 @@ integrates.config(['$translateProvider', function($translateProvider) {
          'confirm': '¿Realizar esta acción?',
          'no': 'Cancelar',
          'yes': 'Aceptar'
-       }, 
+       },
        'deletemodal':{
          'justification': 'Justificación',
          'change_evidence': 'Cambio de Evidencia',

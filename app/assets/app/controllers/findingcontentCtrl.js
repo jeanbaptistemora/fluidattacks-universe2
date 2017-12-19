@@ -32,6 +32,7 @@ integrates.controller("findingcontentCtrl", function($scope, $stateParams, $time
         $scope.header.findingState = $scope.finding.estado;
         $scope.header.findingID = $scope.finding.id;
         $scope.header.findingValue = $scope.finding.criticidad;
+        $scope.header.findingTreatment = $scope.finding.tratamiento;
         var findingValue = parseFloat($scope.finding.criticidad);
         if(findingValue >= 7){
             $scope.header.findingValueDescription = $translate.instant('finding_formstack.criticity_header.high');
@@ -99,6 +100,19 @@ integrates.controller("findingcontentCtrl", function($scope, $stateParams, $time
         }else{
             $scope.onlyReadableTab3 = false;
         }
+    };
+    $scope.treatmentEditable = function(){
+      if($scope.onlyReadableTab4 == false){
+          $scope.finding.responsable_tratamiento = userEmail;
+          $scope.onlyReadableTab4 = true;
+          $scope.finding.tratamiento = $scope.aux.tratamiento
+          $scope.finding.razon_tratamiento = $scope.aux.razon
+      }else if($scope.onlyReadableTab4 == true){
+          $scope.finding.tratamiento = $scope.aux.tratamiento
+          $scope.finding.razon_tratamiento = $scope.aux.razon
+          $scope.finding.responsable_tratamiento = $scope.aux.responsable
+          $scope.onlyReadableTab4 = false;
+      }
     };
     $scope.updateCSSv2 = function(){
         //Obtener datos de las listas
@@ -197,13 +211,12 @@ integrates.controller("findingcontentCtrl", function($scope, $stateParams, $time
         var findingObj = undefined;
         var req = findingFactory.getVulnById(id);
         req.then(function(response){
-            console.log(response);
-            console.log($stateParams.project);
-            console.log(response.data.proyecto_fluid.toLowerCase());
-            console.log($stateParams.project == response.data.proyecto_fluid.toLowerCase());
-
             if(!response.error && $stateParams.project == response.data.proyecto_fluid.toLowerCase()){
                 $scope.finding = response.data;
+                $scope.aux={};
+                $scope.aux.tratamiento = $scope.finding.tratamiento;
+                $scope.aux.razon = $scope.finding.razon_tratamiento;
+                $scope.aux.responsable = $scope.finding.responsable_tratamiento;
                    switch ($scope.finding.actor) {
                      case "​Cualquier persona en Internet":
                        $scope.finding.actor = $translate.instant('finding_formstack.actor.any_internet');;
@@ -494,6 +507,19 @@ integrates.controller("findingcontentCtrl", function($scope, $stateParams, $time
                      default:
                        $scope.finding.vector_acceso = $translate.instant('finding_formstack.access_vector.default');;
                    }
+                   switch ($scope.finding.tratamiento) {
+                     case "Asumido":
+                       $scope.finding.tratamiento = $translate.instant('finding_formstack.treatment_header.asummed');;
+                       break;
+                     case "Pendiente":
+                       $scope.finding.tratamiento = $translate.instant('finding_formstack.treatment_header.working');;
+                       break;
+                     case "Remediado":
+                       $scope.finding.tratamiento = $translate.instant('finding_formstack.treatment_header.remediated');;
+                       break;
+                     default:
+                       $scope.finding.tratamiento = $translate.instant('finding_formstack.treatment_header.default');;
+                   }
                 $scope.findingHeaderBuilding();
                 $scope.view.project = false;
                 $scope.view.finding = true;
@@ -609,6 +635,7 @@ integrates.controller("findingcontentCtrl", function($scope, $stateParams, $time
         $scope.list.explotability = explotability;
         $scope.list.resolutionLevel = resolutionLevel;
         $scope.list.realiabilityLevel = realiabilityLevel;
+        $scope.list.treatment = tratamiento;
     };
     $scope.findingInformationTab = function(){
         $scope.findingDropDownList();
@@ -795,6 +822,56 @@ integrates.controller("findingcontentCtrl", function($scope, $stateParams, $time
              }
          });
      };
+     $scope.validateTreatment = function(){
+       if ($scope.aux.tratamiento !== $scope.finding.tratamiento){
+          $scope.finding.razon_tratamiento = '';
+       }
+     };
+     $scope.updateTreatment = function(){
+          //Obtener datos
+          if ($scope.aux.razon === $scope.finding.razon_tratamiento){
+            $msg.error($translate.instant('proj_alerts.differ_comment'));
+          } else if ($scope.finding.razon_tratamiento === '') {
+            $msg.error($translate.instant('proj_alerts.empty_comment'))
+          } else if ($scope.finding.razon_tratamiento.length < 50 || $scope.finding.razon_tratamiento.length > 80) {
+            $msg.error($translate.instant('proj_alerts.short_comment'))
+          } else {
+          $scope.finding.responsable_tratamiento = userEmail;
+          newData = {
+              id: $scope.finding.id,
+              tratamiento: $scope.finding.tratamiento,
+              razon_tratamiento: $scope.finding.razon_tratamiento,
+              responsable_tratamiento: $scope.finding.responsable_tratamiento,
+          };
+          var modalInstance = $uibModal.open({
+              templateUrl: BASE.url + 'assets/views/project/confirmMdl.html',
+              animation: true,
+              backdrop: 'static',
+              resolve: { updateData: newData },
+              controller: function($scope, $uibModalInstance, updateData){
+                  $scope.modalTitle = $translate.instant('search_findings.tab_description.update_treatmodal');
+                  $scope.ok = function(){
+                      //Consumir el servicio
+                      var req = projectFtry.UpdateTreatment(updateData);
+                      //Capturar la Promisse
+                      req.then(function(response){
+                          if(!response.error){
+                              $msg.success($translate.instant('proj_alerts.updated_treat'),$translate.instant('proj_alerts.congratulation'));
+                              $uibModalInstance.close();
+                              location.reload();
+                          }else{
+                            var error_ac1 = $translate.instant('proj_alerts.error_textsad');
+                            $msg.error(error_ac1);
+                          }
+                      });
+                  };
+                  $scope.close = function(){
+                      $uibModalInstance.close();
+                  };
+              }
+          });
+        }
+    };
     $scope.goBack = function(){
        $scope.view.project = true;
        $scope.view.finding = false;
@@ -809,6 +886,7 @@ integrates.controller("findingcontentCtrl", function($scope, $stateParams, $time
         $scope.onlyReadableTab1 = true;
         $scope.onlyReadableTab2 = true;
         $scope.onlyReadableTab3 = true;
+        $scope.onlyReadableTab4 = true;
         $scope.isManager = userRole != "customer";
         //Defaults para cambiar vistas
         $scope.view = {};

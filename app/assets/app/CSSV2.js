@@ -186,3 +186,11 @@ var finding_type = [{
 }, {
     name: "Higiene"
 }];
+
+var tratamiento = [{
+    name: "Asumido"
+}, {
+    name: "Pendiente"
+}, {
+    name: "Remediado"
+}];
