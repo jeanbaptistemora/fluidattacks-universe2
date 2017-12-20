@@ -66,7 +66,8 @@ integrates.config(['$translateProvider', function($translateProvider) {
                     'criticity': 'Severity',
                     'cardinality': 'Open Vuln.',
                     'state': 'Status',
-                    'exploit': 'Exploitable'
+                    'exploit': 'Exploitable',
+                    'treatment': 'Treatment'
                 }
             },
             'descriptions':{
@@ -531,7 +532,9 @@ integrates.config(['$translateProvider', function($translateProvider) {
                     'criticity': 'Severidad',
                     'cardinality': 'Vuln. Abiertas',
                     'state': 'Estado',
-                    'exploit': 'Explotable'
+                    'exploit': 'Explotable',
+                    'treatment': 'Tratamiento'
+
                 }
             },
             'descriptions':{

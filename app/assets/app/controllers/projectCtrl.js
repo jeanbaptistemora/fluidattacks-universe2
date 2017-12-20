@@ -941,6 +941,19 @@ integrates.controller(
                              default:
                                $scope.data[i].vector_acceso = $translate.instant('finding_formstack.access_vector.default');;
                            }
+                           switch ($scope.data[i].tratamiento) {
+                             case "Asumido":
+                               $scope.data[i].tratamiento = $translate.instant('finding_formstack.treatment_header.asummed');;
+                               break;
+                             case "Pendiente":
+                               $scope.data[i].tratamiento = $translate.instant('finding_formstack.treatment_header.working');;
+                               break;
+                             case "Remediado":
+                               $scope.data[i].tratamiento = $translate.instant('finding_formstack.treatment_header.remediated');;
+                               break;
+                             default:
+                               $scope.data[i].tratamiento = $translate.instant('finding_formstack.treatment_header.default');;
+                           }
                         };
                         mixPanelDashboard.trackSearchFinding(userEmail, project);
                         $timeout($scope.mainGraphexploitPieChart, 200);
