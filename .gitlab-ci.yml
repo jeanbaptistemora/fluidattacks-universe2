@@ -1,16 +1,13 @@
-image: debian:stable-slim
+image: registry.gitlab.com/fluidsignal/blog
 
 before_script:
-  - apt-get -y update && cd content/
+  - cd content/
   - if egrep -r 'Fluid|Fluidsignal\ Group|fluidsignal'; then echo "El único nombre aceptado es FLUID"; exit 1; fi
-  - cd ../ && apt-get install -y python-pip libssl-dev libcurl4-openssl-dev ruby ruby-dev asciidoc source-highlight
-  - pip install -r requirements.txt
-  - gem install sass
+  - cd ../
 
-deployment:
+deploy:
   environment: production	
   script:
-    - pip install awscli
     - pelican --fatal errors content/
     - aws s3 rm --recursive s3://blog.fluid.la
     - aws s3 cp --recursive --acl=public-read-write output/ s3://blog.fluid.la
