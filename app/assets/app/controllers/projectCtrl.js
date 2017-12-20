@@ -965,7 +965,7 @@ integrates.controller(
                             locale: vlang,
                             data: $scope.data,
                             onClickRow: function(row, elem){
-                                $state.go("FindingContent", {project: row.proyecto_fluid.toLowerCase(), id: row.id});
+                                $state.go("FindingDescription", {project: row.proyecto_fluid.toLowerCase(), id: row.id});
                                 $("#infoItem").addClass("active");
                                 $("#info").addClass("active");
                                 $("#cssv2Item").removeClass("active");
@@ -1202,7 +1202,7 @@ integrates.controller(
                     var data = auxiliar;
                     for(i=0; i < data.length; i++){
                         data[i].atributos = 0;
-                        data[i].link = 'https://fluid.la/integrates/dashboard#!/Project/' + data[i].proyecto_fluid.toLowerCase() + '/' + data[i].id;
+                        data[i].link = 'https://fluid.la/integrates/dashboard#!/Project/' + data[i].proyecto_fluid.toLowerCase() + '/' + data[i].id + '/tab=description';
                         if (typeof data[i].registros !== 'undefined' && data[i].registros !== ''){
                           data[i].atributos = 1 + (data[i].registros.match(/\n/g)||[]).length;
                         }

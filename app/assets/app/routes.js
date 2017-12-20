@@ -38,8 +38,28 @@ integrates.config(function($stateProvider, $urlRouterProvider) {
             templateUrl: 'assets/views/project/index.html',
             controller: 'projectCtrl'
         })
-        .state('FindingContent', {
-            url: '/Project/:project/:id',
+        .state('FindingDescription', {
+            url: '/Project/:project/:id/tab=description',
+            templateUrl: 'assets/views/project/findingcontent.html',
+            controller: 'findingcontentCtrl'
+        })
+        .state('FindingSeverity', {
+            url: '/Project/:project/:id/tab=severity',
+            templateUrl: 'assets/views/project/findingcontent.html',
+            controller: 'findingcontentCtrl'
+        })
+        .state('FindingTracking', {
+            url: '/Project/:project/:id/tab=tracking',
+            templateUrl: 'assets/views/project/findingcontent.html',
+            controller: 'findingcontentCtrl'
+        })
+        .state('FindingEvidence', {
+            url: '/Project/:project/:id/tab=evidence',
+            templateUrl: 'assets/views/project/findingcontent.html',
+            controller: 'findingcontentCtrl'
+        })
+        .state('FindingExploit', {
+            url: '/Project/:project/:id/tab=exploit',
             templateUrl: 'assets/views/project/findingcontent.html',
             controller: 'findingcontentCtrl'
         })

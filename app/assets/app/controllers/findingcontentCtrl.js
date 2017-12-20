@@ -878,6 +878,21 @@ integrates.controller("findingcontentCtrl", function($scope, $stateParams, $time
        $state.go("ProjectNamed", {project: $scope.project});
        $('html, body').animate({ scrollTop: $scope.currentScrollPosition }, 'fast');
      };
+    $scope.urlDescription = function(){
+        location.replace(window.location.href.split("tab=")[0] + "tab=description")
+     };
+    $scope.urlSeverity = function(){
+        location.replace(window.location.href.split("tab=")[0] + "tab=severity")
+     };
+    $scope.urlTracking = function(){
+        location.replace(window.location.href.split("tab=")[0] + "tab=tracking")
+     };
+    $scope.urlEvidence = function(){
+        location.replace(window.location.href.split("tab=")[0] + "tab=evidence")
+     };
+    $scope.urlExploit = function(){
+        location.replace(window.location.href.split("tab=")[0] + "tab=exploit")
+     };
     $scope.init = function(){
         var project = $stateParams.project;
         var findingId = $stateParams.finding;
@@ -908,6 +923,66 @@ integrates.controller("findingcontentCtrl", function($scope, $stateParams, $time
         $scope.finding.id = $stateParams.id;
         $scope.loadFindingByID($stateParams.id);
         $scope.goUp();
+        if (window.location.hash.indexOf('description') !== -1){
+          $("#infoItem").addClass("active");
+          $("#info").addClass("active");
+          $("#cssv2Item").removeClass("active");
+          $("#cssv2").removeClass("active");
+          $("#trackingItem").removeClass("active");
+          $("#tracking").removeClass("active");
+          $("#evidenceItem").removeClass("active");
+          $("#evidence").removeClass("active");
+          $("#exploitItem").removeClass("active");
+          $("#exploit").removeClass("active");
+        }
+        if (window.location.hash.indexOf('severity') !== -1){
+          $("#infoItem").removeClass("active");
+          $("#info").removeClass("active");
+          $("#cssv2Item").addClass("active");
+          $("#cssv2").addClass("active");
+          $("#trackingItem").removeClass("active");
+          $("#tracking").removeClass("active");
+          $("#evidenceItem").removeClass("active");
+          $("#evidence").removeClass("active");
+          $("#exploitItem").removeClass("active");
+          $("#exploit").removeClass("active");
+        }
+        if (window.location.hash.indexOf('tracking') !== -1){
+          $("#infoItem").removeClass("active");
+          $("#info").removeClass("active");
+          $("#cssv2Item").removeClass("active");
+          $("#cssv2").removeClass("active");
+          $("#trackingItem").addClass("active");
+          $("#tracking").addClass("active");
+          $("#evidenceItem").removeClass("active");
+          $("#evidence").removeClass("active");
+          $("#exploitItem").removeClass("active");
+          $("#exploit").removeClass("active");
+        }
+        if (window.location.hash.indexOf('evidence') !== -1){
+          $("#infoItem").removeClass("active");
+          $("#info").removeClass("active");
+          $("#cssv2Item").removeClass("active");
+          $("#cssv2").removeClass("active");
+          $("#trackingItem").removeClass("active");
+          $("#tracking").removeClass("active");
+          $("#evidenceItem").addClass("active");
+          $("#evidence").addClass("active");
+          $("#exploitItem").removeClass("active");
+          $("#exploit").removeClass("active");
+        }
+        if (window.location.hash.indexOf('exploit') !== -1){
+          $("#infoItem").removeClass("active");
+          $("#info").removeClass("active");
+          $("#cssv2Item").removeClass("active");
+          $("#cssv2").removeClass("active");
+          $("#trackingItem").removeClass("active");
+          $("#tracking").removeClass("active");
+          $("#evidenceItem").removeClass("active");
+          $("#evidence").removeClass("active");
+          $("#exploitItem").addClass("active");
+          $("#exploit").addClass("active");
+        }
     };
     $scope.init();
 });
