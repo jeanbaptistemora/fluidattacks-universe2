@@ -16,7 +16,7 @@ integrates.calcCardinality = function(data){
     $("#total_cardinalidad").html(cardinalidad);
     $("#total_hallazgos").html(data.data.length);
     var total_criticidad = 0;
-    data.data.forEach(function(i){    
+    data.data.forEach(function(i){
     	try{
             if(i.tipo_hallazgo == "Seguridad"){
                 var ImpCon = parseFloat(i.impacto_confidencialidad.split(" | ")[0]);
@@ -32,7 +32,6 @@ integrates.calcCardinality = function(data){
                 total_criticidad += BaseScore * parseFloat(i.cardinalidad_total);
             }
     	}catch(e){
-    
     	}
     });
     $("#total_criticidad").html(total_criticidad.toFixed(0));
@@ -40,12 +39,12 @@ integrates.calcCardinality = function(data){
 integrates.vuln_formatter = function(value, row, index){
     if (userRole == "analyst"){
         str = "<div class='btn-group'>"
-            + "<a class='btn btn-default' href=':basedashboard#!/FindingResume/nid' target='_blank'><i class='glyphicon glyphicon-eye-open'></i></a>"
+            + "<a class='btn btn-default' href=':basedashboard#!/finding-resume/nid' target='_blank'><i class='glyphicon glyphicon-eye-open'></i></a>"
             + "<a class='btn btn-default' href=':basedashboard#!/vuln/update/?id=nid' target='_blank'><i class='glyphicon glyphicon-pencil'></i></a>"
             + "<a class='btn btn-default' href=':basedashboard#!/vuln/delete/?id=nid' target='_blank'><i class='glyphicon glyphicon-trash'></i></a></div>";
     }else{
         str = "<div class='btn-group'>"
-            + "<a class='btn btn-default' href=':basedashboard#!/FindingResume/nid' target='_blank'><i class='glyphicon glyphicon-eye-open'></i></a>";
+            + "<a class='btn btn-default' href=':basedashboard#!/finding-resume/nid' target='_blank'><i class='glyphicon glyphicon-eye-open'></i></a>";
     }
     return str.replace(/nid/g, row.id).replace(/:base/g, BASE.url);
 }
@@ -57,8 +56,8 @@ integrates.vuln_formatter = function(value, row, index){
  * @param {integrates.findingFactory} findingFactory
  * @return {undefined}
  */
-integrates.controller("findingController", function($scope, $uibModal, $translate, 
-                                                    $filter, findingFactory, eventualityFactory, 
+integrates.controller("findingController", function($scope, $uibModal, $translate,
+                                                    $filter, findingFactory, eventualityFactory,
                                                     $timeout, $state, $stateParams) {
     /**
      * Inicializa las variables del controlador de hallazgos
@@ -297,7 +296,7 @@ integrates.controller("findingController", function($scope, $uibModal, $translat
                         onDblClickRow: function(row){
                             var modalInstance = $uibModal.open({
                                 animation: true, templateUrl: 'eventualityDetail.html',
-                                resolve: { evt: row}, 
+                                resolve: { evt: row},
                                 backdrop: 'static',
                                 controller: function($scope, $uibModalInstance, evt){
                                     $scope.evt = evt;

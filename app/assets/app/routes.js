@@ -19,52 +19,52 @@ integrates.config(function($stateProvider, $urlRouterProvider) {
             controller: 'dashboardCtrl'
         })
         .state('FindingResume', {
-            url: '/FindingResume/:id',
+            url: '/finding-resume/:id',
             templateUrl: 'assets/views/search/vuln_resume.html',
             controller: 'FindingResumeController'
         })
         .state('SearchProject', {
-            url: '/SearchProject/:project',
+            url: '/search-project/:project',
             templateUrl: 'assets/views/search/vulns_by_name.html',
             controller: 'findingController'
         })
         .state('ProjectSearch', {
-            url: '/Project',
+            url: '/project',
             templateUrl: 'assets/views/project/index.html',
             controller: 'projectCtrl'
         })
         .state('ProjectNamed', {
-            url: '/Project/:project',
+            url: '/project/:project',
             templateUrl: 'assets/views/project/index.html',
             controller: 'projectCtrl'
         })
         .state('FindingDescription', {
-            url: '/Project/:project/:id/tab=description',
+            url: '/project/:project/:id/tab=description',
             templateUrl: 'assets/views/project/findingcontent.html',
             controller: 'findingcontentCtrl'
         })
         .state('FindingSeverity', {
-            url: '/Project/:project/:id/tab=severity',
+            url: '/project/:project/:id/tab=severity',
             templateUrl: 'assets/views/project/findingcontent.html',
             controller: 'findingcontentCtrl'
         })
         .state('FindingTracking', {
-            url: '/Project/:project/:id/tab=tracking',
+            url: '/project/:project/:id/tab=tracking',
             templateUrl: 'assets/views/project/findingcontent.html',
             controller: 'findingcontentCtrl'
         })
         .state('FindingEvidence', {
-            url: '/Project/:project/:id/tab=evidence',
+            url: '/project/:project/:id/tab=evidence',
             templateUrl: 'assets/views/project/findingcontent.html',
             controller: 'findingcontentCtrl'
         })
         .state('FindingExploit', {
-            url: '/Project/:project/:id/tab=exploit',
+            url: '/project/:project/:id/tab=exploit',
             templateUrl: 'assets/views/project/findingcontent.html',
             controller: 'findingcontentCtrl'
         })
         .state('VulnerabilitiesByName', {
-            url: '/VulnerabilitiesByName',
+            url: '/vulnerabilities-by-name',
             templateUrl: 'assets/views/search/vulns_by_name.html',
             controller: 'findingController'
         })
@@ -84,12 +84,12 @@ integrates.config(function($stateProvider, $urlRouterProvider) {
                 controller: 'findingReadController'
             })
         .state('EventualitiesByName', {
-            url: '/EventualitiesByName',
+            url: '/eventualities-by-name',
             templateUrl: 'assets/views/search/event_by_name.html',
             controller: 'eventualityController'
         })
         .state('Forms', {
-            url: '/Forms',
+            url: '/forms',
             templateUrl: 'assets/views/search/forms.html',
             controller: 'formCtrl'
         })
