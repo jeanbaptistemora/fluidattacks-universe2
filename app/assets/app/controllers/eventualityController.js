@@ -253,7 +253,7 @@ integrates.controller("eventualityController", function($scope, $uibModal, $tran
     /**
      * Busca las eventualidades por nombre de proyecto
      * @function searchEvntByName
-     * @member integrates.findingController
+     * @member integrates.eventualityController
      * @return {undefined}
      */
     $scope.searchEvntByName = function(){

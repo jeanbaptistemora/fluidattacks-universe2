@@ -18,16 +18,6 @@ integrates.config(function($stateProvider, $urlRouterProvider) {
             templateUrl: 'assets/views/dashboard.html',
             controller: 'dashboardCtrl'
         })
-        .state('FindingResume', {
-            url: '/finding-resume/:id',
-            templateUrl: 'assets/views/search/vuln_resume.html',
-            controller: 'FindingResumeController'
-        })
-        .state('SearchProject', {
-            url: '/search-project/:project',
-            templateUrl: 'assets/views/search/vulns_by_name.html',
-            controller: 'findingController'
-        })
         .state('ProjectSearch', {
             url: '/project',
             templateUrl: 'assets/views/project/index.html',
@@ -63,26 +53,6 @@ integrates.config(function($stateProvider, $urlRouterProvider) {
             templateUrl: 'assets/views/project/findingcontent.html',
             controller: 'findingcontentCtrl'
         })
-        .state('VulnerabilitiesByName', {
-            url: '/vulnerabilities-by-name',
-            templateUrl: 'assets/views/search/vulns_by_name.html',
-            controller: 'findingController'
-        })
-            .state('UpdateVuln', {
-                url: '/vuln/update/?id',
-                templateUrl: 'assets/views/search/vulns_update.html',
-                controller: 'findingUpdateController'
-            })
-            .state('DeleteVuln', {
-                url: '/vuln/delete/?id',
-                templateUrl: 'assets/views/search/vulns_delete.html',
-                controller: 'findingDeleteController'
-            })
-            .state('ReadVuln', {
-                url: '/vuln/read/?id',
-                templateUrl: 'assets/views/search/vulns_read.html',
-                controller: 'findingReadController'
-            })
         .state('EventualitiesByName', {
             url: '/eventualities-by-name',
             templateUrl: 'assets/views/search/event_by_name.html',
