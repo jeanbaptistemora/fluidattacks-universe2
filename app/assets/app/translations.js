@@ -147,7 +147,9 @@ integrates.config(['$translateProvider', function($translateProvider) {
               'editable': 'Edit',
               'detail': 'Detail',
               'update':'Update',
-              'alert':'In progress...'
+              'alert':'In progress...',
+              'animation_exploit':'Exploitation animation',
+              'evidence_exploit':'Exploitation evidence'
             },
             'pop_table':{
                'type': 'Type',
@@ -614,7 +616,9 @@ integrates.config(['$translateProvider', function($translateProvider) {
               'editable': 'Editar',
               'detail': 'Detalle',
               'update':'Actualizar',
-              'alert':'En desarrollo...'
+              'alert':'En desarrollo...',
+              'animation_exploit':'Animación de explotación',
+              'evidence_exploit':'Evidencia de explotación'
             },
             'pop_table':{
                'type': 'Tipo',

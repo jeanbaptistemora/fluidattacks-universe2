@@ -662,7 +662,7 @@ integrates.controller("findingcontentCtrl", function($scope, $stateParams, $time
             var url = url_pre + $scope.finding.animacion;
             evidenceList.push({
                 "url": url,
-                "desc": 'Animación de explotación',
+                "desc": $translate.instant('search_findings.tab_evidence.animation_exploit'),
                 "ref": 0
             });
         }
@@ -670,7 +670,7 @@ integrates.controller("findingcontentCtrl", function($scope, $stateParams, $time
             var url = url_pre + $scope.finding.explotacion;
             evidenceList.push({
                 "url": url,
-                "desc": 'Evidencia de explotación',
+                "desc": $translate.instant('search_findings.tab_evidence.evidence_exploit'),
                 "ref": 1
             });
         }
