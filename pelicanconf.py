@@ -77,7 +77,7 @@ lang_siteurls = {
 }
 
 # Disqus
-DISQUS_SITENAME = 'fluid-blog'
+DISQUS_SITENAME = 'fluidsignal'
 
 # Google Analytics
 GOOGLE_ANALYTICS = 'UA-22974464-4'

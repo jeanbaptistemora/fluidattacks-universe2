@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2017-12-21 23:57-0500\n"
+"POT-Creation-Date: 2017-12-22 15:19-0500\n"
 "PO-Revision-Date: 2017-12-21 15:09-0500\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: es\n"
@@ -109,9 +109,17 @@ msgstr "comentarios"
 msgid "Methodology"
 msgstr "Metodología"
 
+#: templates/ethical.html:7
+msgid "methodology.png"
+msgstr "metodologia.png"
+
 #: templates/ethical.html:10
 msgid "Criteria"
 msgstr "Criterio"
+
+#: templates/ethical.html:13
+msgid "criteria.png"
+msgstr "criterio.png"
 
 #: templates/ethical.html:18
 msgid "Deliverables"
@@ -178,6 +186,11 @@ msgstr "Nosotros"
 msgid "Services"
 msgstr "Servicios"
 
+#: templates/footer.html:20 templates/footer.html:64
+#: templates/navigationbar.html:4
+msgid "fluid.la"
+msgstr "fluid.la/es/servicios/"
+
 #: templates/footer.html:20 templates/footer.html:40 templates/footer.html:64
 #: templates/footer.html:78 templates/navigationbar.html:4
 msgid "Home"
@@ -185,8 +198,18 @@ msgstr "Inicio"
 
 #: templates/footer.html:21 templates/footer.html:65
 #: templates/navigationbar.html:12
+msgid "#lp-pom-block-965"
+msgstr "#lp-pom-block-1000"
+
+#: templates/footer.html:21 templates/footer.html:65
+#: templates/navigationbar.html:12
 msgid "Benefits"
 msgstr "Beneficios"
+
+#: templates/footer.html:22 templates/footer.html:66
+#: templates/navigationbar.html:13
+msgid "#lp-pom-block-876"
+msgstr "#lp-pom-block-1090"
 
 #: templates/footer.html:22 templates/footer.html:66
 #: templates/navigationbar.html:13
@@ -208,6 +231,10 @@ msgstr "publicaciones"
 #: templates/footer.html:24 templates/footer.html:68
 msgid "Publications"
 msgstr "Publicaciones"
+
+#: templates/footer.html:25 templates/footer.html:69
+msgid "#lp-pom-block-11"
+msgstr "#lp-pom-block-9"
 
 #: templates/footer.html:25 templates/footer.html:69
 msgid "Contact Us"
