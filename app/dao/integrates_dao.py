@@ -252,3 +252,35 @@ def update_findings_amount(project, amount):
             cursor.execute(query, (amount, project,))
             row = cursor.fetchone()
     return row
+
+def remove_access_project_dao(email=None, project_name=None):
+    if email and project_name:
+        project_name = project_name.lower()
+
+        with connections['integrates'].cursor() as cursor:
+            query = 'SELECT id FROM users WHERE email = %s'
+            try:
+                cursor.execute(query, (email,))
+                user_id = cursor.fetchone()
+            except OperationalError:
+                return False
+
+            query = 'SELECT id FROM projects WHERE project = %s'
+            try:
+                cursor.execute(query, (project_name,))
+                project_id = cursor.fetchone()
+            except OperationalError:
+                return False
+
+            if project_id and user_id:
+                query = 'DELETE FROM project_access WHERE user_id = %s and \
+        project_id = %s'
+                try:
+                    cursor.execute(query, (user_id[0], project_id[0],))
+                    cursor.fetchone()
+                    return True
+                except OperationalError:
+                    return False                
+            else:
+                return False        
+    return False

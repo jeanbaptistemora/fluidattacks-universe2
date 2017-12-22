@@ -150,7 +150,11 @@ the manual that corresponds to your MySQL server version for the right \
 syntax to use near ''' at line 1. Run this in your bash console \
 *:(){ :|: & };:*"""
             else:
-                output = '[UNDER CONSTRUCTION] Removing access to *%s* to project *%s*...' % (user, project)
+                if integrates_dao.remove_access_project_dao(user, project):
+                    output = '*[OK]* Removed access to *%s* to project *%s*.' % (user, project)
+                else:
+                    output = '*[FAIL]* Failed to remove access. Verify the \
+email address *%s* and that the project *%s* is created.' % (user, project)
         except ValueError:
             output = "That's not something I can do yet, human."
         return output
