@@ -192,5 +192,5 @@ var tratamiento = [{
 }, {
     name: "Pendiente"
 }, {
-    name: "Remediado"
+    name: "Remediar"
 }];

@@ -948,7 +948,7 @@ integrates.controller(
                              case "Pendiente":
                                $scope.data[i].tratamiento = $translate.instant('finding_formstack.treatment_header.working');;
                                break;
-                             case "Remediado":
+                             case "Remediar":
                                $scope.data[i].tratamiento = $translate.instant('finding_formstack.treatment_header.remediated');;
                                break;
                              default:

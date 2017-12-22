@@ -451,7 +451,7 @@ integrates.config(['$translateProvider', function($translateProvider) {
            'default': '-',
            'asummed': 'Asummed',
            'working': 'Workig on it',
-           'remediated': 'Remediated'
+           'remediated': 'Remediate'
          },
        },
        'registration':{
@@ -920,7 +920,7 @@ integrates.config(['$translateProvider', function($translateProvider) {
            'default': '-',
            'asummed': 'Asumido',
            'working': 'Pendiente',
-           'remediated': 'Remediado'
+           'remediated': 'Remediar'
          },
        },
        'registration':{

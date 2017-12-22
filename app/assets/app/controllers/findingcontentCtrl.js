@@ -514,7 +514,7 @@ integrates.controller("findingcontentCtrl", function($scope, $stateParams, $time
                      case "Pendiente":
                        $scope.finding.tratamiento = $translate.instant('finding_formstack.treatment_header.working');;
                        break;
-                     case "Remediado":
+                     case "Remediar":
                        $scope.finding.tratamiento = $translate.instant('finding_formstack.treatment_header.remediated');;
                        break;
                      default:
