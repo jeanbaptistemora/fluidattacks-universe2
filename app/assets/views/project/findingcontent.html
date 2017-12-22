@@ -78,10 +78,6 @@
                       <a href="#cssv2" data-toggle="tab" aria-expanded="false" >
                       <i class="icon s7-calculator" ></i>&nbsp;{{'search_findings.tab_cssv2.description_name' | translate}}</a>
                   </li>
-                  <li id="trackingItem" class="" style="font-size:16px;" ng-click="urlTracking();">
-                      <a href="#tracking" data-toggle="tab" aria-expanded="true">
-                      <i class="icon s7-graph1"></i>&nbsp;Tracking</a>
-                  </li>
                   <li id="evidenceItem" style="font-size:16px;" ng-click="urlEvidence();">
                       <a href="#evidence" data-toggle="tab">
                       <i class="icon s7-photo"></i>&nbsp;{{'search_findings.tab_evidence.evidence_name' | translate}}</a>
@@ -89,6 +85,10 @@
                   <li id="exploitItem" style="font-size:16px;" ng-show="hasExploit" ng-click="urlExploit();">
                       <a href="#exploit" data-toggle="tab">
                       <i class="icon s7-file"></i>&nbsp;Exploit</a>
+                  </li>
+                  <li id="trackingItem" class="" style="font-size:16px;" ng-click="urlTracking();">
+                      <a href="#tracking" data-toggle="tab" aria-expanded="true">
+                      <i class="icon s7-graph1"></i>&nbsp;Tracking</a>
                   </li>
               </ul>
               <!-- Start Tabs -->
@@ -521,54 +521,6 @@
                       </div>
                   </div>
                   <!-- End Tab CSSv2 -->
-                  <!-- Start Tab Tracking -->
-                  <div id="tracking" class="tab-pane cont">
-                      <div class="row">
-                          <div class="col-md-12">
-                              <p>{{'search_findings.tab_tracking.open' | translate}}</p>
-                              <textarea msd-elastic ng-model="finding.donde" class="form-control" disabled>{{finding.donde}}</textarea>
-                          </div>
-                          <div class="col-md-12">
-                              <p>{{'search_findings.tab_tracking.close' | translate}}</p>
-                              <textarea msd-elastic ng-model="finding.cerradas" class="form-control" disabled>{{finding.cerradas}}</textarea>
-                          </div>
-                      </div>
-                      <div class="row">
-                          <div class="col-md-12">
-                              <ul class="timeline">
-                                  <li class="timeline-item text-left">
-                                      <div class="timeline-date"><span>{{finding.timestamp}}</span></div>
-                                      <div class="timeline-content">
-                                          <table class="table table-bordered table-responsive" style="max-width: 350px;">
-                                              <tr class="text-center">
-                                                  <td colspan="2"><b>{{'search_findings.tab_tracking.finding' | translate}}</b></td>
-                                              </tr>
-                                          </table>
-                                      </div>
-                                  </li>
-                                  <li class="timeline-item" ng-repeat="x in finding.cierres">
-                                      <div class="timeline-date"><span>{{x.timestamp}} </span></div>
-                                      <div class="timeline-content">
-                                          <table class="table table-bordered table-responsive" style="max-width: 350px;">
-                                              <tr class="text-center">
-                                                  <td colspan="2"><b>{{'search_findings.tab_tracking.cicle' | translate}} {{x.position}}</b></td>
-                                              </tr>
-                                              <tr>
-                                                  <td>{{'search_findings.tab_tracking.open' | translate}}</td>
-                                                  <td>{{x.abiertas}}</td>
-                                              </tr>
-                                              <tr>
-                                                  <td>{{'search_findings.tab_tracking.close' | translate}}</td>
-                                                  <td>{{x.cerradas}}</td>
-                                              </tr>
-                                          </table>
-                                      </div>
-                                  </li>
-                              </ul>
-                          </div>
-                      </div>
-                  </div>
-                  <!-- End Tab Tracking -->
                   <!-- Start Tab Evidence -->
                   <div id="evidence" class="tab-pane cont">
                       <div class="row" ng-show="isManager" style="margin-bottom: 10px;">
@@ -623,6 +575,54 @@
                       <pre prism-highlight source="{{exploitURL}}" class="language-python line-numbers"></pre>
                   </div>
                   <!-- End Tab Exploit -->
+                  <!-- Start Tab Tracking -->
+                  <div id="tracking" class="tab-pane cont">
+                      <div class="row">
+                          <div class="col-md-12">
+                              <p>{{'search_findings.tab_tracking.open' | translate}}</p>
+                              <textarea msd-elastic ng-model="finding.donde" class="form-control" disabled>{{finding.donde}}</textarea>
+                          </div>
+                          <div class="col-md-12">
+                              <p>{{'search_findings.tab_tracking.close' | translate}}</p>
+                              <textarea msd-elastic ng-model="finding.cerradas" class="form-control" disabled>{{finding.cerradas}}</textarea>
+                          </div>
+                      </div>
+                      <div class="row">
+                          <div class="col-md-12">
+                              <ul class="timeline">
+                                  <li class="timeline-item text-left">
+                                      <div class="timeline-date"><span>{{finding.timestamp}}</span></div>
+                                      <div class="timeline-content">
+                                          <table class="table table-bordered table-responsive" style="max-width: 350px;">
+                                              <tr class="text-center">
+                                                  <td colspan="2"><b>{{'search_findings.tab_tracking.finding' | translate}}</b></td>
+                                              </tr>
+                                          </table>
+                                      </div>
+                                  </li>
+                                  <li class="timeline-item" ng-repeat="x in finding.cierres">
+                                      <div class="timeline-date"><span>{{x.timestamp}} </span></div>
+                                      <div class="timeline-content">
+                                          <table class="table table-bordered table-responsive" style="max-width: 350px;">
+                                              <tr class="text-center">
+                                                  <td colspan="2"><b>{{'search_findings.tab_tracking.cicle' | translate}} {{x.position}}</b></td>
+                                              </tr>
+                                              <tr>
+                                                  <td>{{'search_findings.tab_tracking.open' | translate}}</td>
+                                                  <td>{{x.abiertas}}</td>
+                                              </tr>
+                                              <tr>
+                                                  <td>{{'search_findings.tab_tracking.close' | translate}}</td>
+                                                  <td>{{x.cerradas}}</td>
+                                              </tr>
+                                          </table>
+                                      </div>
+                                  </li>
+                              </ul>
+                          </div>
+                      </div>
+                  </div>
+                  <!-- End Tab Tracking -->
               </div>
               <!-- End Tabs -->
           </div>
