@@ -199,7 +199,7 @@ msgstr "Inicio"
 #: templates/footer.html:21 templates/footer.html:65
 #: templates/navigationbar.html:12
 msgid "#lp-pom-block-965"
-msgstr "#lp-pom-block-1000"
+msgstr "es/servicios/#lp-pom-block-1000"
 
 #: templates/footer.html:21 templates/footer.html:65
 #: templates/navigationbar.html:12
@@ -209,7 +209,7 @@ msgstr "Beneficios"
 #: templates/footer.html:22 templates/footer.html:66
 #: templates/navigationbar.html:13
 msgid "#lp-pom-block-876"
-msgstr "#lp-pom-block-1090"
+msgstr "es/servicios/#lp-pom-block-1090"
 
 #: templates/footer.html:22 templates/footer.html:66
 #: templates/navigationbar.html:13
@@ -234,7 +234,7 @@ msgstr "Publicaciones"
 
 #: templates/footer.html:25 templates/footer.html:69
 msgid "#lp-pom-block-11"
-msgstr "#lp-pom-block-9"
+msgstr "es/servicios/#lp-pom-block-9"
 
 #: templates/footer.html:25 templates/footer.html:69
 msgid "Contact Us"
