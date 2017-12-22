@@ -7,8 +7,8 @@ sys.setdefaultencoding("utf-8")
 
 # Site information
 AUTHOR = 'FLUID'
-SITENAME = 'FLUID | Pentesting, Ethical Hacking, Análisis de Código'
-SITEURL = 'https://fluid.la/site'
+SITENAME = 'FLUID | Pentesting, Ethical Hacking, Code Analysis'
+SITEURL = 'https://fluid.la/web/en'
 
 # Theme
 THEME = 'theme/pelican-clean-blog'
@@ -16,17 +16,18 @@ THEME = 'theme/pelican-clean-blog'
 # Date and time configuration
 TIMEZONE = 'America/Bogota'
 DEFAULT_DATE_FORMAT = ('%Y-%m-%d')
-DEFAULT_LANG = 'Spanish'
+DEFAULT_LANG = 'en'
+OUTPUT_PATH = 'output/en'
 
 # URLs format
 PATH = 'content'
-ARTICLE_PATHS = ['blog']
-PAGE_PATHS = ['pages']
-STATIC_PATHS = ['images', 'files', 'blog']
+ARTICLE_PATHS = ['blog-en']
+PAGE_PATHS = ['pages-en']
+STATIC_PATHS = ['images', 'files', 'blog-en']
 ARTICLE_URL = 'blog/{slug}/'
-ARTICLE_SAVE_AS = 'blog/{slug}/index.html'
-PAGE_URL = 'pages/{slug}/'
-PAGE_SAVE_AS = 'pages/{slug}/index.html'
+ARTICLE_SAVE_AS = 'blog-en/{slug}/index.html'
+PAGE_URL = '{slug}/'
+PAGE_SAVE_AS = '{slug}/index.html'
 
 # Plugins configuration
 PLUGIN_PATHS = 'pelican-plugins'
@@ -38,7 +39,8 @@ PLUGINS = [
            'related_posts',
            'representative_image',
            'tipue_search',
-           'sitemap'
+           'sitemap',
+           'i18n_subsites'
 ]
 RELATED_POSTS_MAX = 3
 DIRECT_TEMPLATES = (('index', 'tags', 'categories', 'archives', 'authors', 'search', '404'))
@@ -56,6 +58,23 @@ SITEMAP = {
     }
 }
 DEFAULT_PAGINATION = 12
+JINJA_ENVIRONMENT = {'extensions': ['jinja2.ext.i18n']}
+I18N_SUBSITES = {
+    'es': {
+        'SITENAME': 'FLUID | Pentesting, Ethical Hacking, Análisis de Código',
+        'SITEURL': 'https://fluid.la/web/es',
+        'OUTPUT_PATH': 'output/es',
+        'THEME': 'theme/pelican-clean-blog',
+        'ARTICLE_PATHS': ['blog-es'],
+        'PAGE_PATHS': ['pages-es'],
+        'ARTICLE_SAVE_AS': 'blog-es/{slug}/index.html',
+        'STATIC_PATHS': ['files', 'images', 'blog-es']
+        }
+}
+lang_siteurls = {
+     'en': 'https://fluid.la/web/en',
+     'es': 'https://fluid.la/web/es',
+}
 
 # Disqus
 DISQUS_SITENAME = 'fluid-blog'

@@ -10,7 +10,7 @@
         <header class="intro-header" style="background-color: {{ HEADER_COLOR }}">
     {% else %}
         <header class="intro-header"> <!--style="background-image: url('{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/fluid.png');" >-->
-            <a href="{{ SITEURL }}"><img src='{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/fluid.png'></a>
+            <a href="{{ SITEURL }}"><img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/fluid.png"></a>
     {% endif %}   
         </header>
 {% endblock header %}
@@ -57,7 +57,7 @@
                     {% endif %}
                     <br /><br />
                     <div class="divread">
-                        <a id="read-more" href="{{ SITEURL }}/{{ article.url }}">Seguir leyendo >></a></div>                     
+                        <a id="read-more" href="{{ SITEURL }}/{{ article.url }}">{{ gettext('Read More') }} >></a></div>                     
                     </div></td>                    
                 {% else %}                        
                     {% set linea = linea + loop.index %}
@@ -93,7 +93,7 @@
                     {% endif %}
                     <br /><br />
                     <div class="divread">
-                    <a id="read-more" href="{{ SITEURL }}/{{ article.url }}">Seguir leyendo >></a></div>     
+                    <a id="read-more" href="{{ SITEURL }}/{{ article.url }}">{{ gettext('Read More') }} >></a></div>     
                     </div></td>                    
                 {% endif %}
             {% else %} 
@@ -129,7 +129,7 @@
                 {% endif %}
                 <br /><br />
                 <div class="divread">
-                <a id="read-more" href="{{ SITEURL }}/{{ article.url }}">Seguir leyendo >></a></div>     
+                <a id="read-more" href="{{ SITEURL }}/{{ article.url }}">{{ gettext('Read More') }} >></a></div>     
                 </div></td></tr>                
          {% endif %}
     {% endfor %}
@@ -174,7 +174,7 @@
                     {% endif %}
                     <br /><br />
                     <div class="divread">
-                        <a id="read-more" href="{{ SITEURL }}/{{ article.url }}">Seguir leyendo >></a></div>                     
+                        <a id="read-more" href="{{ SITEURL }}/{{ article.url }}">{{ gettext('Read More') }} >></a></div>                     
                     </div></td>                    
                 {% else %}                        
                     {% set linea = linea + loop.index %}
@@ -210,7 +210,7 @@
                     {% endif %}
                     <br /><br />
                     <div class="divread">
-                    <a id="read-more" href="{{ SITEURL }}/{{ article.url }}">Seguir leyendo >></a></div>     
+                    <a id="read-more" href="{{ SITEURL }}/{{ article.url }}">{{ gettext('Read More') }} >></a></div>     
                     </div></td>                    
                 {% endif %}
             {% else %} 
@@ -246,7 +246,7 @@
                 {% endif %}
                 <br /><br />
                 <div class="divread">
-                <a id="read-more" href="{{ SITEURL }}/{{ article.url }}">Seguir leyendo >></a></div>     
+                <a id="read-more" href="{{ SITEURL }}/{{ article.url }}">{{ gettext('Read More') }} >></a></div>     
                 </div></td></tr>                
          {% endif %}
     {% endfor %}
@@ -289,7 +289,7 @@
             {% endif %}
                 <br /><br />
                 <div class="divread">
-                    <a id="read-more" href="{{ SITEURL }}/{{ article.url }}">Seguir leyendo >></a></div>                     
+                    <a id="read-more" href="{{ SITEURL }}/{{ article.url }}">{{ gettext('Read More') }} >></a></div>                     
                 </div></td>
                 {% else %}
                 <td class="tdview"><div class="post-preview">
@@ -324,7 +324,7 @@
             {% endif %}
                     <br /><br />
                     <div class="divread">
-                        <a id="read-more" href="{{ SITEURL }}/{{ article.url }}">Seguir leyendo >></a></div>     
+                        <a id="read-more" href="{{ SITEURL }}/{{ article.url }}">{{ gettext('Read More') }} >></a></div>     
                </div></td></tr>
                 {% endif %}
                 {% endfor %}

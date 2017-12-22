@@ -1,6 +1,6 @@
 {% extends "index.html" %}
 
-{% block title %}{{ SITENAME }} - Articles by {{ author }}{% endblock %}
+{% block title %}{{ SITENAME }} - {{ gettext('Articles by') }} {{ author }}{% endblock %}
 
 {% block opengraph %}
     {{ super() }}
@@ -19,17 +19,17 @@
         <header class="intro-header" style="background-color: {{ HEADER_COLOR }}">
     {% else %}
         <header class="intro-header"> <!--style="background-image: url('{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/fluid.png');" >-->
-            <a href="{{ SITEURL }}"><img src='{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/fluid.png'></a>
+            <a href="{{ SITEURL }}"><img src= "{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/fluid.png"></a>
     {% endif %}   
         </header>
         <div class="container" id="contauthor">
             <div class="row">
                 <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
                     <div class="post-heading">
-                        <h1>Autor: </h1>    
+                        <h1>{{ gettext('Author') }}: </h1>    
                         <h2>{{ author }}</h2>
                         <br><a href="{{ SITEURL }}/authors.html">
-                              <p>Otros autores</p>
+                              <p>{{ gettext('More authors') }}</p>
                             </a>
                     </div>
                 </div>

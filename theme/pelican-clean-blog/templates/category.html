@@ -1,6 +1,6 @@
 {% extends "index.html" %}
 
-{% block title %}{{ SITENAME }} - Articles in the {{ category }} category{% endblock %}
+{% block title %}{{ SITENAME }} - {{ gettext('Articles in the') }} {{ category }} {{ gettext('category') }}{% endblock %}
 
 {% block header %}
     {% include "navigationbar.html" %}
@@ -10,14 +10,14 @@
         <header class="intro-header" style="background-color: {{ HEADER_COLOR }}">
     {% else %}
         <header class="intro-header"> <!--style="background-image: url('{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/fluid.png');" >-->
-            <a href="{{ SITEURL }}"><img src='{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/fluid.png'></a>
+            <a href="{{ SITEURL }}"><img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/fluid.png"></a>
     {% endif %}   
         </header>
         <div class="container" id="contauthor">
             <div class="row">
                 <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
                     <div class="post-heading">
-                        <h1>Categoría: {{ category }} </h1>
+                        <h1>{{ gettext('Category') }}: {{ category }} </h1>
                     </div>
                 </div>
             </div>

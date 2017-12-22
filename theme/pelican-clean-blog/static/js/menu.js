@@ -45,11 +45,11 @@
         if (settings.sticky === true) cssmenu.css('position', 'fixed');
 
         resizeFix = function() {
-          if ($( window ).width() > 960) {
+          if ($( window ).width() > 1000) {
             cssmenu.find('ul').show();
           }
 
-          if ($(window).width() <= 960) {
+          if ($(window).width() <= 1000) {
             cssmenu.find('ul').hide().removeClass('open');
           }
         };

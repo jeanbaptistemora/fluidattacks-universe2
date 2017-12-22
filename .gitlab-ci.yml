@@ -1,4 +1,4 @@
-image: registry.gitlab.com/fluidsignal/blog
+image: registry.gitlab.com/fluidsignal/web
 
 before_script:
   - cd content/
@@ -9,18 +9,14 @@ deploy:
   environment: production	
   script:
     - pelican --fatal errors content/
+    - mv output/en/blog-en output/en/blog && mv output/es/blog-es output/es/blog
     - aws s3 rm --recursive s3://blog.fluid.la
     - aws s3 cp --recursive --acl=public-read-write output/ s3://blog.fluid.la
   only:
      - master
 
-pages:
-  environment: staging
+test:
   script:
-    - sed -i 's/https:\/\/fluid.la\/site/\/blog/' pelicanconf.py
-    - pelican --fatal errors -o public/ content/
-  artifacts:
-    paths:
-      - public/
+    - pelican --fatal errors content/
   except:
     - master

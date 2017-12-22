@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% block title %}No se encontró la página&nbsp;|&nbsp;{{ SITENAME }}{% endblock title %}
+{% block title %}{{ gettext('The page was not found') }}&nbsp;|&nbsp;{{ SITENAME }}{% endblock title %}
 
 {% block header %}
     <!-- Page Header -->
@@ -11,7 +11,7 @@
         <header class="intro-header" style="background-color: {{ HEADER_COLOR }}">
     {% else %}
         <header class="intro-header"> <!--style="background-image: url('{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/fluid.png');" >-->
-            <a href="/"><img src='{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/fluid.png'></a>
+            <a href="/"><img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/fluid.png"></a>
     {% endif %}   
         </header>
 {% endblock header %}
@@ -19,10 +19,10 @@
 {% block content %}
   <div id="divpage">
     <article>
-      <h1>ERROR 404: PÁGINA NO ENCONTRADA</h1>
-      <p>Parece que no hay nada en esta dirección. Intenta haciendo una búsqueda o dirígite a uno de los links que se listan a continuación:</p>
+      <h1>ERROR 404: {{ gettext('PAGE NOT FOUND') }}</h1>
+      <p>{{ gettext('It seems nothing was found in this address. Try searching or browsing to one of the following links') }}:</p>
         <div id="div404">
-          <h2>Entradas Recientes</h2> 
+          <h2>{{ gettext('Recent Entries') }}</h2> 
           {% set recent = articles if not all_articles else all_articles %}
           <ul>
             {% for article in recent %}
@@ -33,7 +33,7 @@
           </ul>
         </div>
         <div id="div404">
-  	  <h2>Categorías</h2>
+  	  <h2>{{ gettext('Categories') }}</h2>
           <ul>  
             {% for category, articles in categories %}
               <li><a href="{{ SITEURL }}/{{ category.url }}">{{ category }}</a></li>
@@ -41,7 +41,7 @@
           </ul>
         </div>
         <div id="div404">
-          <h2>Páginas</h2>
+          <h2>{{ gettext('Page') }}</h2>
           <ul>
             {% for page in pages|sort %}
               <li><a href="{{ SITEURL }}/{{ page.url }}">{{ page.title }}</a></li>

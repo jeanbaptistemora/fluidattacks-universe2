@@ -28,12 +28,12 @@
             {% for author in article.authors %}
                 <img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/user.png"><a href="{{ SITEURL }}/{{ author.url }}">{{ author }}</a>
             {% endfor %}<br/>
-                <img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/comment.png"><a href="./#disqus_thread">Comentar</a><br/>
+                <img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/comment.png"><a href="./#disqus_thread">{{ gettext('Comment') }}</a><br/>
                 <img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/folder.png"><a href="{{ SITEURL }}/category/{{ article.category }}.html">{{ article.category }}</a><br/>
 	        <img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/calendar2.png"><a>{{ article.locale_date }}</a><br/>
         </span>
         {% if article.modified %}
-            <span class="meta">Updated on {{ article.locale_modified }}</span>
+            <span class="meta">{{ gettext('Updated on') }} {{ article.locale_modified }}</span>
         {% endif %}
         {% import 'translations.html' as translations with context %}
         {{ translations.translations_for(article) }}
@@ -54,7 +54,7 @@
 {% endif %}
 
  {% if article.related_posts %}		
-<h4>Relacionado</h4>
+<h4>{{ gettext('Related') }}</h4>
 <section class="related">
     <table><tr>
     {% for related_post in article.related_posts %}

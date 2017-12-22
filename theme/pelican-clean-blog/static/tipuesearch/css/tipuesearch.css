@@ -41,6 +41,19 @@ http://www.tipue.com/search
      margin-right: 20px;
 }
 
+#langbutton
+{
+     float: left;
+     margin: 20px 10px 0 0
+}
+
+#langbutton a
+{
+     font-size: 16px;
+     text-transform: uppercase;
+     color: white;
+}
+
 #tipue_search_input
 {
      color: black;
@@ -206,7 +219,7 @@ http://www.tipue.com/search
   }
 }
 
-@media (max-width: 960px) {
+@media (max-width: 1000px) {
   #searchbar
   {
        background-color: #1974ba;

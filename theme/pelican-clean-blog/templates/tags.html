@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% block title %}{{ SITENAME }} - Tags{% endblock %}
+{% block title %}{{ SITENAME }} - {{ gettext('Tags') }}{% endblock %}
 
 {% block header %}
     {% include "navigationbar.html" %}
@@ -10,7 +10,7 @@
         <header class="intro-header" style="background-color: {{ HEADER_COLOR }}">
     {% else %}
         <header class="intro-header"> <!--style="background-image: url('{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/fluid.png');" >-->
-            <a href="{{ SITEURL }}"><img src='{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/fluid.png'></a>
+            <a href="{{ SITEURL }}"><img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/fluid.png"></a>
     {% endif %}   
         </header>
 {% endblock header %}
@@ -18,7 +18,7 @@
 {% block content %}
     <div id="divpage">
       <article>
-        <h1>Tags:</h1>
+        <h1>{{ gettext('Tags') }}:</h1>
         <div id="preamble">
           <div class="ulist" id="authorlist">
             <ul>
