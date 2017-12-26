@@ -872,6 +872,42 @@ integrates.controller("findingcontentCtrl", function($scope, $stateParams, $time
           });
         }
     };
+    $scope.findingSolved = function(){
+        //Obtener datos
+        descData = {
+            user_mail: userEmail,
+            finding_name: $scope.finding.hallazgo,
+            project: $scope.finding.proyecto_fluid,
+            finding_url: window.location.href,
+            finding_id: $scope.finding.id,
+            finding_vulns: $scope.finding.cardinalidad,
+         };
+         var modalInstance = $uibModal.open({
+             templateUrl: BASE.url + 'assets/views/project/confirmMdl.html',
+             animation: true,
+             backdrop: 'static',
+             resolve: { mailData: descData },
+             controller: function($scope, $uibModalInstance, mailData){
+                 $scope.modalTitle = $translate.instant('search_findings.tab_description.remediated_finding');
+                 $scope.ok = function(){
+                     //Consumir el servicio
+                     var req = projectFtry.FindingSolved(mailData);
+                     //Capturar la Promisse
+                     req.then(function(response){
+                         if(!response.error){
+                             $msg.success($translate.instant('proj_alerts.remediated_success'));
+                             $uibModalInstance.close();
+                         }else{
+                           $msg.error($translate.instant('proj_alerts.error_textsad'));
+                         }
+                     });
+                 };
+                 $scope.close = function(){
+                     $uibModalInstance.close();
+                 };
+             }
+         });
+       };
     $scope.goBack = function(){
        $scope.view.project = true;
        $scope.view.finding = false;
@@ -912,7 +948,6 @@ integrates.controller("findingcontentCtrl", function($scope, $stateParams, $time
         if(project != undefined
             && project != "") {
             $scope.project = project;
-
         }
         //Inicializacion para consulta de hallazgos
         $scope.configColorPalette();

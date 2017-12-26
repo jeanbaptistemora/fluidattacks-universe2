@@ -117,6 +117,16 @@
                                       </div>
                                   </div>
                               </div>
+                              <div class="row table-row" ng-show="!isManager">
+                                <div class="row">
+                                  <div class="col-md-2 col-md-offset-10 col-xs-12 col-sm-12">
+                                      <button id="Treatment" class="btn btn-primary btn-block"
+                                              ng-click="findingSolved();"
+                                              <i class="glyphicon glyphicon-edit"></i>  {{'search_findings.tab_description.remediated' | translate}}
+                                      </button>
+                                  </div>
+                                </div>
+                              </div>
                               <div class="row table-row" ng-show="isManager && !onlyReadableTab1">
                                   <div class="col-md-3 col-xs-12 col-sm-12 table-head"><label><b>{{'search_findings.tab_description.type' | translate}}</b></label></div>
                                   <div class="col-md-9 col-xs-12 col-sm-12 table-desc">

@@ -40,6 +40,7 @@ urlpatterns = [
     url(r'^update_eventuality/?\.*$',
         views.update_eventuality, name='update_eventuality'),
     url(r'^delete_finding/?\.*$', views.delete_finding, name='delete_finding'),
+    url(r'^finding_solved/?\.*$', views.finding_solved, name='finding_solved'),
     url(r'^update_cssv2/?$', views.update_cssv2, name='update_cssv2'),
     url(r'^update_description/?$', views.update_description, name='update_description'),
     url(r'^update_treatment/?$', views.update_treatment, name='update_treatment'),

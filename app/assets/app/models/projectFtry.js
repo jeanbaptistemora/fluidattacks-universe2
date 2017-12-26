@@ -131,6 +131,18 @@ integrates.factory('projectFtry', function($q, $translate){
             return $xhr.post($q, BASE.url + "delete_finding", {
                 data: data, _: Math.random()
             },oops_ac);
+        },
+        /**
+         * @function FindingSolved
+         * @param {JSON} data
+         * @member integrates.projectFtry
+         * @return {Object}s
+         */
+        FindingSolved: function(data){
+            var oops_ac = $translate.instant('proj_alerts.error_text');
+            return $xhr.post($q, BASE.url + "finding_solved", {
+                data, _: Math.random()
+            },oops_ac);
         }
     }
 });

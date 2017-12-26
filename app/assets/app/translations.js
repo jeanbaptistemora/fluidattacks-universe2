@@ -120,7 +120,9 @@ integrates.config(['$translateProvider', function($translateProvider) {
               'treat_manager': 'Treatment Manager',
               'edit_treatment': 'Edit',
               'update_treatment': 'Update',
-              'update_treatmodal': 'Update Treatment'
+              'update_treatmodal': 'Update Treatment',
+              'remediated': 'Remediated',
+              'remediated_finding': 'Finding remediated'
             },
             'tab_cssv2':{
               'description_name': 'Severity',
@@ -236,7 +238,8 @@ integrates.config(['$translateProvider', function($translateProvider) {
           'empty_comment':'You must enter a treatment justification!',
           'short_comment':'You must enter a justification of at least 50 characters and maximum 80 characters',
           'congratulation':'Congratulations',
-          'updated_treat':'Treatment updated'
+          'updated_treat':'Treatment updated',
+          'remediated_success':'This finding was marked as remediated. A request to verify the solution was sent'
         },
         'tab_container':{
           'findings': 'Findings',
@@ -589,7 +592,9 @@ integrates.config(['$translateProvider', function($translateProvider) {
               'treat_manager': 'Responsable del Tratamiento',
               'edit_treatment': 'Editar',
               'update_treatment': 'Actualizar',
-              'update_treatmodal': 'Actualizar Tratamiento'
+              'update_treatmodal': 'Actualizar Tratamiento',
+              'remediated': 'Remediado',
+              'remediated_finding': 'Hallazgo remediado'
             },
             'tab_cssv2':{
               'description_name': 'Severidad',
@@ -705,7 +710,8 @@ integrates.config(['$translateProvider', function($translateProvider) {
           'empty_comment':'Debes ingresar una justificación del tratamiento!',
           'short_comment':'Debes ingresar una justificación de mínimo 50 caracteres y máximo 80 caracteres',
           'congratulation':'Felicidades',
-          'updated_treat':'El tratamiento fue actualizado'
+          'updated_treat':'El tratamiento fue actualizado',
+          'remediated_success':'El hallazgo fue marcado como remediado, la solicitud de revisión de la solución fue enviada'
         },
         'tab_container':{
           'findings': 'Hallazgos',

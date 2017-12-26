@@ -20,6 +20,7 @@ from .dto.closing import ClosingDTO
 from .dto.eventuality import EventualityDTO
 # pylint: disable=E0402
 from .mailer import send_mail_delete_finding
+from .mailer import send_mail_remediate_finding
 from .services import has_access_to_project
 from .dao import integrates_dao
 from .api.drive import DriveAPI
@@ -523,6 +524,32 @@ def delete_finding(request):
             return util.response([], 'Error', True)
         to = ["engineering@fluid.la"]
         send_mail_delete_finding(to, context)
+        return util.response([], 'Success', False)
+    except KeyError:
+        return util.response([], 'Campos vacios', True)
+
+@never_cache
+@require_http_methods(["POST"])
+@authorize(['customer'])
+def finding_solved(request):
+    """ Envia un correo solicitando la revision de un hallazgo """
+    parameters = request.POST.dict()
+    recipients = integrates_dao.get_project_users(parameters['data[project]'])
+    # Send email parameters
+    try:
+        to = [x[0] for x in recipients]
+        to.append('engineering@fluid.la')
+        to.append('projects@fluid.la')
+        context = {
+           'project': parameters['data[project]'],
+           'finding_name': parameters['data[finding_name]'],
+           'user_mail': parameters['data[user_mail]'],
+           'finding_url': parameters['data[finding_url]'],
+           'finding_id': parameters['data[finding_id]'],
+           'finding_vulns': parameters['data[finding_vulns]'],
+           'company': request.session["company"],
+            }
+        send_mail_remediate_finding(to, context)
         return util.response([], 'Success', False)
     except KeyError:
         return util.response([], 'Campos vacios', True)
