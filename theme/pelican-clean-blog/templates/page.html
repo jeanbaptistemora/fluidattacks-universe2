@@ -32,7 +32,24 @@
          <!-- Go to www.addthis.com/dashboard to customize your tools -->
          <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5a37e74c4b1448ce"></script>
        </section>
-     </article>
-   </div>     
-    
+<br /><br />		
+<hr id="hrcoments">
+    {% if DISQUS_SITENAME and SITEURL %}
+        <div class="comments">
+            <h3>Haz un comentario</h3>
+            <div id="disqus_thread"></div>
+            <script type="text/javascript">
+                var disqus_shortname = '{{ DISQUS_SITENAME }}';
+                var disqus_identifier = '{{ page.slug }}';
+                var disqus_url = '{{ SITEURL }}/{{ page.url }}';
+                (function() { // DON'T EDIT BELOW THIS LINE
+                  var d = document, dsq = d.createElement('script');
+                  dsq.src = 'https://{{ DISQUS_SITENAME }}.disqus.com/embed.js';
+                  dsq.setAttribute('data-timestamp', +new Date());
+                  (d.head || d.body).appendChild(dsq);
+                })();
+            </script>
+        </div>
+        <script id="dsq-count-scr" src="//{{ DISQUS_SITENAME }}.disqus.com/count.js" async></script>
+    {% endif %}
 {% endblock content %}
