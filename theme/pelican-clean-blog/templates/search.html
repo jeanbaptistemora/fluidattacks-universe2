@@ -10,20 +10,20 @@
         <header class="intro-header" style="background-color: {{ HEADER_COLOR }}">
     {% else %}
         <header class="intro-header"> <!--style="background-image: url('{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/fluid.png');" >-->
-            <a href="{{ SITEURL }}/"><img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/fluid.png"></a>
+            <a href="../{{ DEFAULT_LANG }}/"><img src="{{ THEME_STATIC_DIR }}/images/fluid.png"></a>
     {% endif %}   
         </header>
 {% endblock header %}
 
 {% block content %}
-  <script type="text/javascript" src="{{ SITEURL }}/theme/tipuesearch/tipuesearch.min.js"></script>
-  <script type="text/javascript" src="{{ SITEURL }}/theme/tipuesearch/tipuesearch_set.js"></script>
+  <script type="text/javascript" src="theme/tipuesearch/tipuesearch.min.js"></script>
+  <script type="text/javascript" src="theme/tipuesearch/tipuesearch_set.js"></script>
   <script>
     $(document).ready(function() {
       $('#tipue_search_input').tipuesearch({
         'show': 10,
         'mode': 'json',
-        'contentLocation': '{{ SITEURL }}/tipuesearch_content.json'
+        'contentLocation': 'tipuesearch_content.json'
       });
     });
   </script>

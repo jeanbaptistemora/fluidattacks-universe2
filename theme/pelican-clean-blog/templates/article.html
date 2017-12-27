@@ -11,7 +11,7 @@
         <header class="intro-header" style="background-color: {{ HEADER_COLOR }}">
     {% else %}
         <header class="intro-header"> <!--style="background-image: url('/{{ THEME_STATIC_DIR }}/images/fluid.png');" >-->
-            <a href="{{ SITEURL }}/"><img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/fluid.png"></a>
+            <a href="../../"><img src="../../{{ THEME_STATIC_DIR }}/images/fluid.png"></a>
     {% endif %}   
         </header>
 {% endblock header %}
@@ -26,11 +26,11 @@
         {% endif %}
         <span class="meta">
             {% for author in article.authors %}
-                <img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/user.png"><a href="{{ SITEURL }}/{{ author.url }}">{{ author }}</a>
+                <img src="../../{{ THEME_STATIC_DIR }}/images/user.png"><a href="../../{{ author.url }}">{{ author }}</a>
             {% endfor %}<br/>
-                <img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/comment.png"><a href="./#disqus_thread">{{ gettext('Comment') }}</a><br/>
-                <img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/folder.png"><a href="{{ SITEURL }}/category/{{ article.category }}.html">{{ article.category }}</a><br/>
-	        <img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/calendar2.png"><a>{{ article.locale_date }}</a><br/>
+                <img src="../../{{ THEME_STATIC_DIR }}/images/comment.png"><a href="./#disqus_thread">{{ gettext('Comment') }}</a><br/>
+                <img src="../../{{ THEME_STATIC_DIR }}/images/folder.png"><a href="../../category/{{ article.category }}.html">{{ article.category }}</a><br/>
+	        <img src="../../{{ THEME_STATIC_DIR }}/images/calendar2.png"><a>{{ article.locale_date }}</a><br/>
         </span>
         {% if article.modified %}
             <span class="meta">{{ gettext('Updated on') }} {{ article.locale_modified }}</span>
@@ -39,9 +39,9 @@
         {{ translations.translations_for(article) }}
         {{ article.content }}	
  
- <p><img id="imgwriter" src="{{ SITEURL }}/images/authors/{{article.writer}}.png">
+ <p><img id="imgwriter" src="../../images/authors/{{ article.writer }}.png">
   <strong class="writer">
-    <a href="{{ SITEURL }}/{{ article.author.url }}"><span>{{article.name}}</span></a>
+    <a href="../../{{ article.author.url }}"><span>{{article.name}}</span></a>
   </strong><br>{{article.about1}}
   <br>{{article.about2}}
 </p>
@@ -59,8 +59,8 @@
     <table><tr>
     {% for related_post in article.related_posts %}
         <td>	
-	  <img src="{{ SITEURL }}/blog/{{ related_post.slug }}/{{ related_post.featured_image }}"><br> 
-	  <a href="{{ SITEURL }}/{{ related_post.url }}">{{ related_post.title }}</a>
+	  <img src="../{{ related_post.slug }}/{{ related_post.featured_image }}"><br> 
+	  <a href="../../{{ related_post.url }}">{{ related_post.title }}</a>
 	</td>
     {% endfor %}
     </tr></table>
@@ -71,7 +71,7 @@
  <section>
         <div class="tags">
             <p>{% for tag in article.tags %}
-            <a href="{{ SITEURL }}/{{ tag.url }}">{{ tag | escape }}</a>
+            <a href="../../{{ tag.url }}">{{ tag | escape }}</a>
             {% endfor %}</p>
         </div>
 </section>
@@ -81,14 +81,14 @@
  <tr>
  {% if article.prev_article %}
      <td id="prev">
-        <div><a href="{{ SITEURL }}/{{ article.prev_article.url}}">
+        <div><a href="../../{{ article.prev_article.url}}">
              << {{ article.prev_article.title }}
 		</a></div>
      </td>
  {% endif %}
  {% if article.next_article %}
      <td id="next">
-         <div><a href="{{ SITEURL }}/{{ article.next_article.url}}">
+         <div><a href="../../{{ article.next_article.url}}">
              {{ article.next_article.title }} >>
 		 </a></div>
       </td>

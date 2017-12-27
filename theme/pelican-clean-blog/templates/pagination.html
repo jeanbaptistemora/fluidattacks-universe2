@@ -3,10 +3,10 @@
     <ul class="pager">
         <li class="next">
             {% if articles_page.has_previous() %}
-                <a href="{{ SITEURL }}/{{ articles_previous_page.url }}"> &larr; {{ gettext('Previous') }}</a>
+                <a href="{{ articles_previous_page.url }}"> &larr; {{ gettext('Previous') }}</a>
             {% endif %}
             {% if articles_page.has_next() %}
-                <a href="{{ SITEURL }}/{{ articles_next_page.url }}">{{ gettext('Next') }} &rarr;</a>
+                <a href="{{ articles_next_page.url }}">{{ gettext('Next') }} &rarr;</a>
             {% endif %}
         </li>
     </ul>
