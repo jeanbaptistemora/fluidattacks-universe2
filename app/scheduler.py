@@ -3,7 +3,7 @@
 # pylint: disable=E0402
 from .dao import integrates_dao
 from .dto.finding import FindingDTO
-from .api import FormstackAPI
+from .api.formstack import FormstackAPI
 from .mailer import send_mail_new_finding, send_mail_change_finding
 
 def get_new_findings():
