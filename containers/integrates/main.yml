@@ -49,7 +49,7 @@
      pip:
       name: "{{ item }}"
      with_items:
-      - django
+      - django==1.11
       - python-pptx
       - pyyaml
       - openpyxl
