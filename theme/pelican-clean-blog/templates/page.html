@@ -11,7 +11,7 @@
         <header class="intro-header" style="background-color: {{ HEADER_COLOR }}">
     {% else %}
         <header class="intro-header"> <!--style="background-image: url('{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/fluid.png');" >-->
-            <a href="../"><img src="../{{ THEME_STATIC_DIR }}/images/fluid.png"></a>
+            <a href="{{ SITEURL }}/"><img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/fluid.png"></a>
     {% endif %}   
         </header>
 {% endblock header %}
