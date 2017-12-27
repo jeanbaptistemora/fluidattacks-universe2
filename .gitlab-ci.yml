@@ -11,8 +11,9 @@ deploy:
     - pelican --fatal errors content/
     - mv output/en/blog-en output/en/blog && mv output/es/blog-es output/es/blog
     - ./xmlcombine.sh
-    - aws s3 rm --recursive s3://blog.fluid.la
-    - aws s3 cp --recursive --acl=public-read-write output/ s3://blog.fluid.la
+    - mkdir output/web && mv output/en output/web && mv output/es output/web
+    - aws s3 rm --recursive s3://web.fluid.la
+    - aws s3 cp --recursive --acl=public-read-write output/ s3://web.fluid.la
   only:
      - master
 
