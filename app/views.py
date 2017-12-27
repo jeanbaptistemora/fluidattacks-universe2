@@ -538,7 +538,7 @@ def finding_solved(request):
     # Send email parameters
     try:
         to = [x[0] for x in recipients]
-        to.append('engineering@fluid.la')
+        to.append('concurrent@fluid.la')
         to.append('projects@fluid.la')
         context = {
            'project': parameters['data[project]'],
