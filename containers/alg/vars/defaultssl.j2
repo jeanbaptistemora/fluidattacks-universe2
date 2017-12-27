@@ -2,21 +2,20 @@
 <VirtualHost *:{{ https_port }}>
     ServerName fluid.la
     Options  +Indexes +Multiviews +FollowSymLinks
-
 	ServerAdmin {{ server_admin }}
 	proxyErrorOverride on
 
     # Sitemap
-    RewriteRule ^/sitemap.xml$                https://s3.amazonaws.com/fluidserves/sitemap/sitemap.xml     [P,L]
-	ProxyPassReverse /sitemap.xml  https://s3.amazonaws.com/fluidserves/sitemap/sitemap.xml
+        RewriteRule ^/sitemap.xml$                https://fluid.la/web/en/sitemap.xml     [P,L]
+	    ProxyPassReverse /sitemap.xml  https://fluid.la/web/en/sitemap.xml
 
     # Moodle
-    RewriteRule ^/courses(.*)                http://fluid.la:8080$1     [P,L]
-    ProxyPassReverse /courses http://fluid.la:8080
+        RewriteRule ^/courses(.*)                http://fluid.la:8080$1     [P,L]
+        ProxyPassReverse /courses http://fluid.la:8080
 
     # Favicon KB
-	Substitute "s|type=\"image/x-icon\".*href=\".*|type=\"image/x-icon\" href=\"https://app.knowledgeowl.com/app/image/id/54f110f97cb829fd677b23d4/n/favicon_fluid.png\">|i"
-	Substitute "s|<a href=\"//kb.fluid.la/help/article/link/|<a href=\"//fluid.la/help/article/link/|i"
+	    Substitute "s|type=\"image/x-icon\".*href=\".*|type=\"image/x-icon\" href=\"https://app.knowledgeowl.com/app/image/id/54f110f97cb829fd677b23d4/n/favicon_fluid.png\">|i"
+	    Substitute "s|<a href=\"//kb.fluid.la/help/article/link/|<a href=\"//fluid.la/help/article/link/|i"
 
    # Blog
         Substitute "s|<ul id=\"menu-menu-superior\" class=\"main-navigation-menu\">|<img src=\"https://fluidsignal.files.wordpress.com/2015/02/fluid-footer.png\" width=215 height=41 class=\"logo-fluid\" /><ul id=\"menu-menu-superior\" class=\"main-navigation-menu\">|i"
@@ -43,9 +42,11 @@
         ProxyPassReverse /index https://fluid.la:8000/index
         RewriteRule ^/registration(.*)$           https://fluid.la:8000/registration$1        [P,L]
         ProxyPassReverse /registration https://fluid.la:8000/registration
+        RewriteRule ^/errors$           https://fluid.la/integrates/error401        [P,L]
+        ProxyPassReverse /errors https://fluid.la/integrates/error401
 
     # KB - Knowledgeowl
-	Header edit Location ^http://kb.fluid.la(.*)$ https://fluid.la$1
+	    Header edit Location ^http://kb.fluid.la(.*)$ https://fluid.la$1
         Header edit Set-Cookie kb.fluid.la fluid.la
         RewriteRule ^/kb$           http://kb.fluid.la/help/readerlogin        [P,L]
         ProxyPassReverse /kb http://kb.fluid.la/help/readerlogin
@@ -53,13 +54,14 @@
         ProxyPassReverse /help http://kb.fluid.la/help
 
     # Blog
-        RewriteRule ^/blog(.*)           https://blog.fluid.la$1        [P,L]
-        ProxyPassReverse /blog https://blog.fluid.la
-	AddOutputFilterByType INFLATE;SUBSTITUTE;DEFLATE text/html text/plain text/xml
-	Substitute "s|http://|https://|i"
+        RewriteRule ^/web(.*)/?$           http://blog.fluid.la$1        [P,L]
+        ProxyPassReverse /web http://blog.fluid.la
+        Substitute "s|http://blog.fluid.la/|https://fluid.la/web/|i"
 
-        ErrorLog {{ error_log }}
-        CustomLog {{ custom_log }} combined
+    AddOutputFilterByType INFLATE;SUBSTITUTE;DEFLATE text/html text/plain text/xml
+	Substitute "s|http://|https://|i"
+    ErrorLog {{ error_log }}
+    CustomLog {{ custom_log }} combined
 	LogLevel {{ log_level }}
 
     #Pagina WEB
@@ -70,18 +72,18 @@
         ProxyPassReverse / {{ landing }}
         ErrorDocument 401 {{ error401_page }}
         ErrorDocument 404 {{ error_page }}
-	ErrorDocument 405 {{ error401_page }}
+	    ErrorDocument 405 {{ error401_page }}
         ErrorDocument 500 {{ error500_page }}
 
     # Configuración SSL
-	SSLEngine on
-	SSLProxyEngine on
+	    SSLEngine on
+	    SSLProxyEngine on
         SSLProxyVerify none
         SSLProxyCheckPeerCN off
-	SSLProxyCheckPeerName off
-	SSLProxyCheckPeerExpire off
-	SSLCertificateFile    /etc/ssl/certs/fluidla.crt
-	SSLCertificateKeyFile /etc/ssl/private/fluidla.key
+	    SSLProxyCheckPeerName off
+	    SSLProxyCheckPeerExpire off
+	    SSLCertificateFile    /etc/ssl/certs/fluidla.crt
+	    SSLCertificateKeyFile /etc/ssl/private/fluidla.key
 
 	<FilesMatch "\.(cgi|shtml|phtml|php)$">
 		SSLOptions +StdEnvVars
