@@ -14,4 +14,4 @@ SERVER="base"
 echo "---### [${SERVER}] Compilando contenedor."
 
 # construir la imagen
-docker build -t 205810638802.dkr.ecr.us-east-1.amazonaws.com/serves:${SERVER} containers/${SERVER}
+docker build -t registry.gitlab.com/fluidsignal/serves:${SERVER} containers/${SERVER}

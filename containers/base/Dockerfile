@@ -18,7 +18,6 @@ RUN apt-get update \
     && apt-get install -y --force-yes\
                ansible
 
-
 # Agrega el playbook
 ADD main.yml /root/
 
