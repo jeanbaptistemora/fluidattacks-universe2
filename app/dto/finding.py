@@ -284,6 +284,14 @@ class FindingDTO(object):
                 except ValueError:
                     self.data["cwe"] = 'None'
 
+    def parse_description_mail(self, request_arr): # noqa: C901
+        "Convierte la descripcion de un hallazgo en formstack para envio de mail"
+        self.data["timestamp"] = request_arr["timestamp"]
+        for finding in request_arr["data"]:
+            if finding["field"] == self.HALLAZGO:
+                self.data["hallazgo"] = finding["value"]
+        return self.data
+
     def parse_cssv2(self, request_arr): # noqa: C901
         "Convierte la califiacion de un hallazgo en formstack"
         for finding in request_arr["data"]:

@@ -26,7 +26,7 @@ def get_new_findings():
                 context = {'findings': list()}
                 for finding in finding_requests[-delta:]:
                     formstack_request = api.get_submission(finding["id"])
-                    finding_parsed = gen_dto.parse_description(formstack_request)
+                    finding_parsed = gen_dto.parse_description_mail(formstack_request)
                     context['findings'].append({'nombre_hallazgo':
                         finding_parsed['hallazgo']})
                 context['cantidad'] = str(delta)
