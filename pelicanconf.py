@@ -67,9 +67,9 @@ I18N_SUBSITES = {
         'OUTPUT_PATH': 'output/web/es',
         'THEME': 'theme/pelican-clean-blog',
         'ARTICLE_PATHS': ['blog-es'],
-        'PAGE_PATHS': ['pages-es'],
+        'PAGE_PATHS': ['pages-es', 'kb'],
         'ARTICLE_SAVE_AS': 'blog-es/{slug}/index.html',
-        'STATIC_PATHS': ['files', 'images', 'blog-es', 'pages-es/kb']
+        'STATIC_PATHS': ['files', 'images', 'blog-es', 'kb']
         }
 }
 lang_siteurls = {
