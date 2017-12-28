@@ -3,8 +3,10 @@
 import jinja2
 import os
 import time
-from pylab import figure, pie, axis, legend, savefig, cla, clf, close
-from matplotlib.font_manager import FontProperties
+import matplotlib # pylint: disable=wrong-import-position
+matplotlib.use('Agg') # pylint: disable=wrong-import-position
+from pylab import figure, pie, axis, legend, savefig, cla, clf, close # pylint: disable=wrong-import-position
+from matplotlib.font_manager import FontProperties # pylint: disable=wrong-import-position
 
 
 class FindingPDFMaker(object):

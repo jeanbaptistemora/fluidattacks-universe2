@@ -146,7 +146,7 @@
       state: directory
       owner: "www-data"
       group: "www-data"
-      mode: "0777"
+      mode: "0744"
       recurse: "yes"
 
    - name: Actualizar permisos
@@ -155,7 +155,7 @@
       state: directory
       owner: "www-data"
       group: "www-data"
-      mode: "0777"
+      mode: "0744"
       recurse: "yes"
 
    - name: Actualizar permisos
@@ -164,7 +164,7 @@
       state: directory
       owner: "www-data"
       group: "www-data"
-      mode: "0777"
+      mode: "0744"
       recurse: "yes"
 
    - name: Agregar secret vars
