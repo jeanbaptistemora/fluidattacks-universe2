@@ -657,7 +657,7 @@ integrates.controller("findingcontentCtrl", function($scope, $stateParams, $time
     $scope.findingEvidenceTab = function(){
         $scope.tabEvidences = [];
         var evidenceList = [];
-        var url_pre = BASE.url + "get_evidence?id=";
+        var url_pre = window.location.href.split('dashboard#!/')[0] + window.location.href.split('dashboard#!/')[1] + '/';
         if($scope.finding.animacion !== undefined){
             var url = url_pre + $scope.finding.animacion;
             evidenceList.push({
@@ -915,19 +915,19 @@ integrates.controller("findingcontentCtrl", function($scope, $stateParams, $time
        $('html, body').animate({ scrollTop: $scope.currentScrollPosition }, 'fast');
      };
     $scope.urlDescription = function(){
-        location.replace(window.location.href.split("tab=")[0] + "tab=description")
+        location.replace(window.location.href.split($stateParams.id)[0] + $stateParams.id + "/description")
      };
     $scope.urlSeverity = function(){
-        location.replace(window.location.href.split("tab=")[0] + "tab=severity")
+        location.replace(window.location.href.split($stateParams.id)[0] + $stateParams.id + "/severity")
      };
     $scope.urlTracking = function(){
-        location.replace(window.location.href.split("tab=")[0] + "tab=tracking")
+        location.replace(window.location.href.split($stateParams.id)[0] + $stateParams.id + "/tracking")
      };
     $scope.urlEvidence = function(){
-        location.replace(window.location.href.split("tab=")[0] + "tab=evidence")
+        location.replace(window.location.href.split($stateParams.id)[0] + $stateParams.id + "/evidence")
      };
     $scope.urlExploit = function(){
-        location.replace(window.location.href.split("tab=")[0] + "tab=exploit")
+        location.replace(window.location.href.split($stateParams.id)[0] + $stateParams.id + "/exploit")
      };
     $scope.init = function(){
         var project = $stateParams.project;

@@ -365,6 +365,33 @@ def get_evidence(request):
 
 @never_cache
 @csrf_exempt
+@authorize(['analyst', 'customer'])
+def get_evidences(request, fileid):
+    drive_id = fileid
+    if drive_id is None:
+        return HttpResponse("Error - Unsent image ID", content_type="text/html")
+    if drive_id not in request.session:
+        return util.response([], 'Access denied', True)
+    if not re.match("[a-zA-Z0-9_-]{20,}", drive_id):
+        return HttpResponse("Error - ID with wrong format", content_type="text/html")
+    drive_api = DriveAPI(drive_id)
+    # pylint: disable=W0622
+    if not drive_api.FILE:
+        return HttpResponse("Error - Unable to download the image", content_type="text/html")
+    else:
+        filename = "/tmp/:id.tmp".replace(":id", drive_id)
+        mime = Magic(mime=True)
+        mime_type = mime.from_file(filename)
+        if mime_type == "image/png":
+            with open(filename, "r") as file_obj:
+                return HttpResponse(file_obj.read(), content_type="image/png")
+        elif mime_type == "image/gif":
+            with open(filename, "r") as file_obj:
+                return HttpResponse(file_obj.read(), content_type="image/gif")
+        os.unlink(filename)
+
+@never_cache
+@csrf_exempt
 @require_http_methods(["GET"])
 @authorize(['analyst', 'customer'])
 def get_exploit(request):

@@ -1202,7 +1202,7 @@ integrates.controller(
                     var data = auxiliar;
                     for(i=0; i < data.length; i++){
                         data[i].atributos = 0;
-                        data[i].link = window.location.href.split('project/')[0] + 'project/' + data[i].proyecto_fluid.toLowerCase() + '/' + data[i].id + '/tab=description';
+                        data[i].link = window.location.href.split('project/')[0] + 'project/' + data[i].proyecto_fluid.toLowerCase() + '/' + data[i].id + '/description';
                         if (typeof data[i].registros !== 'undefined' && data[i].registros !== ''){
                           data[i].atributos = 1 + (data[i].registros.match(/\n/g)||[]).length;
                         }
