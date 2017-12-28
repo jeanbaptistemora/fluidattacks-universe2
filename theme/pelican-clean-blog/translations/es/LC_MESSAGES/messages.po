@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2017-12-22 15:19-0500\n"
+"POT-Creation-Date: 2017-12-28 13:43-0500\n"
 "PO-Revision-Date: 2017-12-21 15:09-0500\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: es\n"
@@ -39,7 +39,7 @@ msgid "Recent Entries"
 msgstr "Entradas Recientes"
 
 #: templates/404.html:36 templates/categories.html:3
-#: templates/categories.html:18
+#: templates/categories.html:21
 msgid "Categories"
 msgstr "Categorías"
 
@@ -67,6 +67,10 @@ msgstr "Actualizado el"
 #: templates/article.html:57
 msgid "Related"
 msgstr "Relacionado"
+
+#: templates/article.html:101 templates/page.html:39
+msgid "Leave a comment"
+msgstr "Haz un comentario"
 
 #: templates/author.html:3
 msgid "Articles by"

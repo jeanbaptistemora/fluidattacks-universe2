@@ -35,21 +35,40 @@
 <br /><br />
   {% if DISQUS_SITENAME and SITEURL and "kb/" in page.slug %}
     <hr id="hrcoments">
-        <div class="comments">
-            <h3>Haz un comentario</h3>
-            <div id="disqus_thread"></div>
-            <script type="text/javascript">
-                var disqus_shortname = '{{ DISQUS_SITENAME }}';
-                var disqus_identifier = '{{ page.slug }}';
-                var disqus_url = '{{ SITEURL }}/{{ page.url }}';
-                (function() { // DON'T EDIT BELOW THIS LINE
-                  var d = document, dsq = d.createElement('script');
-                  dsq.src = 'https://{{ DISQUS_SITENAME }}.disqus.com/embed.js';
-                  dsq.setAttribute('data-timestamp', +new Date());
-                  (d.head || d.body).appendChild(dsq);
-                })();
-            </script>
-        </div>
-        <script id="dsq-count-scr" src="//{{ DISQUS_SITENAME }}.disqus.com/count.js" async></script>
-    {% endif %}
+      <div class="comments">
+        <h3>{{ gettext('Leave a comment') }}</h3>
+        <div id="disqus_thread"></div>
+        {% if DEFAULT_LANG == "es" %}
+          <script type="text/javascript">
+            var disqus_config = function () {
+              this.page.identifier = "{{ page.slug }}";
+              this.page.url = "{{ SITEURL }}/{{ page.url }}";
+              this.language = "es_AR";
+            };
+            (function() {
+              var d = document, dsq = d.createElement('script');
+              dsq.src = 'https://{{ DISQUS_SITENAME }}.disqus.com/embed.js';
+              dsq.setAttribute('data-timestamp', +new Date());
+              (d.head || d.body).appendChild(dsq);
+            })();
+          </script>
+        {% else %}
+          <script type="text/javascript">
+            var disqus_config = function () {
+              this.page.identifier = "{{ page.slug }}";
+              this.page.url = "{{ SITEURL }}/{{ page.url }}";
+            };
+            (function() {
+              var d = document, dsq = d.createElement('script');
+              dsq.src = 'https://{{ DISQUS_SITENAME }}.disqus.com/embed.js';
+              dsq.setAttribute('data-timestamp', +new Date());
+              (d.head || d.body).appendChild(dsq);
+            })();
+          </script>
+        {% endif %}
+      </div>
+      <script id="dsq-count-scr" src="//{{ DISQUS_SITENAME }}.disqus.com/count.js" async></script>
+  {% endif %}
+  </article>
+</div>	
 {% endblock content %}
