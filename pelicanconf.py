@@ -17,7 +17,7 @@ THEME = 'theme/pelican-clean-blog'
 TIMEZONE = 'America/Bogota'
 DEFAULT_DATE_FORMAT = ('%Y-%m-%d')
 DEFAULT_LANG = 'en'
-OUTPUT_PATH = 'output/en'
+OUTPUT_PATH = 'output/web/en'
 
 # URLs format
 PATH = 'content'
@@ -63,7 +63,7 @@ I18N_SUBSITES = {
     'es': {
         'SITENAME': 'FLUID | Pentesting, Ethical Hacking, Análisis de Código',
         'SITEURL': 'https://fluid.la/web/es',
-        'OUTPUT_PATH': 'output/es',
+        'OUTPUT_PATH': 'output/web/es',
         'THEME': 'theme/pelican-clean-blog',
         'ARTICLE_PATHS': ['blog-es'],
         'PAGE_PATHS': ['pages-es'],

@@ -1,5 +1,5 @@
 #!/bin/bash
-cp sitemap.xml output/sitemap.xml
-tail -n +6 output/en/sitemap.xml | head -n -1 >> output/sitemap.xml
-tail -n +6 output/es/sitemap.xml >> output/sitemap.xml
-rm {output/en/sitemap.xml,output/es/sitemap.xml}
+cp sitemap.xml output/web/sitemap.xml
+tail -n +6 output/web/en/sitemap.xml | head -n -1 >> output/web/sitemap.xml
+tail -n +6 output/web/es/sitemap.xml >> output/web/sitemap.xml
+rm {output/web/en/sitemap.xml,output/web/es/sitemap.xml}
