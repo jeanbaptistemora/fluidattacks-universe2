@@ -40,7 +40,8 @@ PLUGINS = [
            'representative_image',
            'tipue_search',
            'sitemap',
-           'i18n_subsites'
+           'i18n_subsites',
+           'pelican_redirect'
 ]
 RELATED_POSTS_MAX = 3
 DIRECT_TEMPLATES = (('index', 'tags', 'categories', 'archives', 'authors', 'search', '404'))
@@ -75,6 +76,7 @@ lang_siteurls = {
      'en': 'https://fluid.la/web/en',
      'es': 'https://fluid.la/web/es',
 }
+REDIRECT_SAVE_AS = PAGE_SAVE_AS
 
 # Disqus
 DISQUS_SITENAME = 'fluidsignal'

@@ -9,8 +9,9 @@ deploy:
   environment: production	
   script:
     - pelican --fatal errors content/
-    - mv output/en/blog-en output/en/blog && mv output/es/blog-es output/es/blog
+    - mv output/web/en/blog-en output/web/en/blog && mv output/web/es/blog-es output/web/es/blog
     - ./xmlcombine.sh
+    - mv output/web/en/redirect/index.html output/web/ && rmdir output/web/en/redirect/
     - aws s3 rm --recursive s3://web.fluid.la
     - aws s3 cp --recursive --acl=public-read-write output/ s3://web.fluid.la
   only:
