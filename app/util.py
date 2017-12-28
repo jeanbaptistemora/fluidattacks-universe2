@@ -8,6 +8,7 @@ import datetime
 import json
 import hmac
 import hashlib
+from magic import Magic
 from django.http import JsonResponse
 
 
@@ -107,3 +108,49 @@ def get_hmac(request):
                 request.user.email,
                 digestmod=hashlib.sha256)
     return result.hexdigest()
+
+def get_evidence_set(finding):
+    evidence_set = []
+    if "ruta_evidencia_1" in finding and \
+        "desc_evidencia_1" in finding:
+        evidence_set.append({
+            "id": finding["ruta_evidencia_1"],
+            "explicacion": finding["desc_evidencia_1"].capitalize()
+        })
+    if "ruta_evidencia_2" in finding and \
+        "desc_evidencia_2" in finding:
+        evidence_set.append({
+            "id": finding["ruta_evidencia_2"],
+            "explicacion": finding["desc_evidencia_2"].capitalize()
+        })
+    if "ruta_evidencia_3" in finding and \
+        "desc_evidencia_3" in finding:
+        evidence_set.append({
+            "id": finding["ruta_evidencia_3"],
+            "explicacion": finding["desc_evidencia_3"].capitalize()
+        })
+    if "ruta_evidencia_4" in finding and \
+        "desc_evidencia_4" in finding:
+        evidence_set.append({
+            "id": finding["ruta_evidencia_4"],
+            "explicacion": finding["desc_evidencia_4"].capitalize()
+        })
+    if "ruta_evidencia_5" in finding and \
+        "desc_evidencia_5" in finding:
+        evidence_set.append({
+            "id": finding["ruta_evidencia_5"],
+            "explicacion": finding["desc_evidencia_5"].capitalize()
+        })
+    return evidence_set
+    
+
+def get_ext_filename(drive_id):
+    filename = "/tmp/img_:id".replace(":id", drive_id)
+    mime = Magic(mime=True)
+    mime_type = mime.from_file(filename)
+    if mime_type == "image/png":
+        return filename+".png"
+    elif mime_type == "image/jpeg":
+        return filename+".jgp"
+    elif mime_type == "image/gif":
+        return filename+".gif"

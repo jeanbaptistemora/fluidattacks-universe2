@@ -1,0 +1,120 @@
+= {{full_project}}
+:lang:		{{lang}}
+:author:	Engineering Team
+:email:		engineering@fluid.la 
+:date: 	    {{report_date}}
+:language:	java
+:revnumber:	v1.0
+:revdate:	{{revdate}}
+:revmark:	Versión inicial
+
+//Primera pagina - Contenido
+<<< 
+=== {{fluid_tpl['content_title']}}
+{% for li in fluid_tpl['content_list'] %}
+{{"==== "+li+"\n"}}
+{%- endfor %}
+
+//Segunda pagina - Objetivos
+<<<
+=== {{fluid_tpl['goals_title']}}
+{{fluid_tpl['goals_img']}}
+
+//Tercera pagina - Explicacion criticidad
+<<<
+=== {{criticity_title}}
+{{fluid_tpl['criticity_img']}}
+
+//Cuarta pagina - Tabla de hallazgos
+<<<
+=== {{resume_table_title}}
+.{{resume_table_title}}
+|===
+|{{finding_title}} |{{criticity_title}} |{{cardinality_title}} |{{state_title}} |{{treatment_title}}
+{% for fin in findings %}
+    {{"| "+fin['hallazgo']}}
+    {{"| "+fin['criticidad']}}
+    {{"| "+fin['cardinalidad']}}
+    {{"| "+fin['estado']+"\n"}}
+    {{"| "+fin['tratamiento']+"\n"}}
+{%- endfor %}
+|===
+
+//Quinta pagina - Vista general
+<<<
+=== {{resume_page_title}}
+{{main_pie_filename}}
+.{{resume_ttab_title}}
+[cols="^,^,^,^", options="header"]
+|===
+|{{criticity_title}}|{{finding_title}}s|{{resume_perc_title}}|{{resume_vuln_title}}
+{% for row in main_tables['resume'] %}
+  {% for col in row %}
+    {{"| "+col|string}}
+  {%- endfor %}
+
+{%- endfor %}
+|===
+//Sexta pagina - Vista general
+<<<
+.{{resume_top_title}}
+|===
+|{{resume_vnum_title}}|{{criticity_title}}|{{resume_vname_title}}
+{% for row in main_tables['top'] %}
+    {% for col in row %}
+        {{"| "+col|string }}
+    {%-  endfor %}
+{%- endfor %}
+|===
+.{{resume_regi_title}}
+[cols="<,^", options="header"]
+|===
+|{{"*"+records_title+"*"}}|{{main_tables['num_reg']}}
+|===
+
+//Septima en adleante - Resumen hallazgos
+<<<
+=== {{finding_section_title}}
+{% for fin in findings %}
+==== {{fin['hallazgo'] + "\n"}}
+|===
+|{{criticity_title}}|{{cardinality_title}}|{{records_title}}|{{state_title}}
+{{"|"+fin['criticidad']+"|"+fin['cardinalidad']+"|"+fin['registros_num']+"|"+fin['estado']}}
+|===
+===== {{description_title}}
+{{fin['vulnerabilidad'] + "\n"}}
+===== {{threat_title}}
+{{fin['amenaza'] + "\n"}}
+
+{% if "riesgo" in fin %}
+===== {{risk_title}}
+{{fin['riesgo'] + "\n"}}
+{% endif %}
+
+{% if "vector_ataque" in fin %}
+===== {{attack_vector_title}}
+{{fin['vector_ataque'] + "\n"}}
+{% endif %}
+
+{% if "sistema_comprometido" in fin %}
+===== {{compromised_system_title}}
+{{fin['sistema_comprometido'] + "\n"}}
+{% endif %}
+
+===== {{solution_title}}
+{{fin['solucion_efecto'] + "\n"}}
+===== {{requisite_title}}
+    {% for req in fin['requisitos'].split("\n") %}
+        - {{req + "\n"}}
+    {% endfor %}
+<<<
+==== {{evidence_title}}
+{% for evi in fin['evidence_set'] %}
+{{evi['explicacion'] + "\n"}}
+{{evi['name']+"\n"}}
+{% endfor %}
+<<<
+{%- endfor %}
+
+<<<
+include::../templates/footer.adoc[]

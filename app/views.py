@@ -18,6 +18,7 @@ from .autodoc import IE, IT
 from .dto.finding import FindingDTO
 from .dto.closing import ClosingDTO
 from .dto.eventuality import EventualityDTO
+from .documentator.pdf import FindingPDFMaker
 # pylint: disable=E0402
 from .mailer import send_mail_delete_finding
 from .mailer import send_mail_remediate_finding
@@ -93,6 +94,41 @@ def logout(request):
         pass
     return redirect("/index")
 
+#pylint: disable-msg=R0913
+@never_cache
+@csrf_exempt
+@authorize(['analyst', 'customer'])
+def project_to_pdf(request, lang, project):
+    "Exporta un hallazgo a PDF"
+    username = request.session['username']
+    findings = []
+    if project.strip() == "":
+        return util.response([], 'Empty fields', True)
+    if not has_access_to_project(username, project):
+        return util.response([], 'Access denied', True)
+    if lang not in ["es", "en"]:
+        return util.response([], 'Unsupported language', True)
+    for reqset in FormstackAPI().get_findings(project)["submissions"]:
+        findings.append(catch_finding(request, reqset["id"]))
+    pdf_maker = FindingPDFMaker(lang)
+    findings = util.ord_asc_by_criticidad(findings)
+    drive_api = DriveAPI()
+    for finding in findings:
+        evidence_set = util.get_evidence_set(finding)
+        finding["evidence_set"] = evidence_set
+        for evidence in evidence_set:
+            drive_api.download_images(evidence["id"])
+            evidence["name"] = "image::../images/"+evidence["id"]+".png[]"
+    pdf_maker.create_project(findings, project)
+    report_filename = pdf_maker.RESULT_DIR + project + ".pdf"
+    if not os.path.isfile(report_filename):
+        raise Exception('Documentation has not been generated')
+    with open(report_filename, 'r') as document:
+        response = HttpResponse(document.read(),
+                                content_type="application/pdf")
+        response['Content-Disposition'] = \
+            "inline;filename=:id.pdf".replace(":id", project)
+    return response
 
 # Documentacion automatica
 @never_cache
@@ -230,48 +266,16 @@ def get_eventualities(request):
     else:
         return util.response(dataset, 'Not actions', True)
 
-
 @never_cache
 @csrf_exempt
 @require_http_methods(["POST"])
 @authorize(['analyst', 'customer'])
 def get_finding(request):
     submission_id = request.POST.get('id', "")
-    finding = []
-    state = {'estado': 'Abierto'}
-    fin_dto = FindingDTO()
-    cls_dto = ClosingDTO()
-    username = request.session['username']
-    api = FormstackAPI()
-    if str(submission_id).isdigit() is True:
-        frmset = api.get_submission(submission_id)
-        finding = fin_dto.parse(submission_id, frmset, request)
-        if not has_access_to_project(username, finding['proyecto_fluid']):
-            return util.response([], 'Access denied', True)
-        else:
-            closingreqset = api.get_closings_by_id(submission_id)["submissions"]
-            findingcloseset = []
-            for closingreq in closingreqset:
-                frmset = api.get_submission(closingreq["id"])
-                closingset = cls_dto.parse(frmset)
-                findingcloseset.append(closingset)
-                #El ultimo es el ultimo ciclo de cierre
-                state = closingset
-            finding["estado"] = state["estado"]
-            if 'abiertas' in state:
-                finding['cardinalidad'] = state['abiertas']
-            if 'abiertas_cuales' in state:
-                finding['donde'] = state['abiertas_cuales']
-            else:
-                if state['estado'] == 'Cerrado':
-                    finding['donde'] = '-'
-            if 'cerradas_cuales' in state:
-                finding['cerradas'] = state['cerradas_cuales']
-            finding["cierres"] = findingcloseset
-            return util.response(finding, 'Success', False)
-    else:
-        return util.response([], 'Wrong', True)
-
+    finding = catch_finding(request, submission_id)
+    if finding:
+        return util.response(finding, 'Success', False) 
+    return util.response([], 'Wrong', True)
 
 @never_cache
 @csrf_exempt
@@ -285,24 +289,38 @@ def get_findings(request):
     project = request.GET.get('project', "")
     username = request.session['username']
     api = FormstackAPI()
-    fin_dto = FindingDTO()
-    cls_dto = ClosingDTO()
     findings = []
     if project.strip() == "":
         return util.response([], 'Empty fields', True)
     if not has_access_to_project(username, project):
         return util.response([], 'Access denied', True)
     finreqset = api.get_findings(project)["submissions"]
-    for finreq in finreqset:
-        state = {'estado': 'Abierto'}
-        findingset = api.get_submission(finreq["id"])
-        finding = fin_dto.parse(finreq["id"], findingset, request)
+    for submission_id in finreqset:
+        finding = catch_finding(request, submission_id["id"])
         if finding['proyecto_fluid'].lower() == project.lower():
-            closingreqset = api.get_closings_by_id(finreq["id"])["submissions"]
+            findings.append(finding)
+    return util.response(findings, 'Success', False)    
+
+def catch_finding(request, submission_id):
+    finding = []
+    state = {'estado': 'Abierto'}
+    fin_dto = FindingDTO()
+    cls_dto = ClosingDTO()
+    username = request.session['username']
+    api = FormstackAPI()
+    if str(submission_id).isdigit() is True:
+        finding = fin_dto.parse(
+            submission_id,
+            api.get_submission(submission_id),
+            request
+        )
+        if not has_access_to_project(username, finding['proyecto_fluid']):
+            return None
+        else:
+            closingreqset = api.get_closings_by_id(submission_id)["submissions"]
             findingcloseset = []
             for closingreq in closingreqset:
-                frmset = api.get_submission(closingreq["id"])
-                closingset = cls_dto.parse(frmset)
+                closingset = cls_dto.parse(api.get_submission(closingreq["id"]))
                 findingcloseset.append(closingset)
                 #El ultimo es el ultimo ciclo de cierre
                 state = closingset
@@ -323,18 +341,16 @@ def get_findings(request):
                 finding['edad'] = '-'
             else:
                 tzn = pytz.timezone('America/Bogota')
-                finding_date_str = finding["timestamp"].split(" ")[0]
-                finding_date = datetime.strptime(finding_date_str, '%Y-%m-%d')
+                finding_date = datetime.strptime(
+                    finding["timestamp"].split(" ")[0],
+                    '%Y-%m-%d'
+                )
                 finding_date = finding_date.replace(tzinfo=tzn).date()
-                current_date = datetime.now(tz=tzn).date()
-                final_date = (current_date - finding_date)
-                strdays = ":n".replace(":n", str(final_date.days))
-                finding['edad'] = strdays
-            if 'cerradas_cuales' in state:
-                finding['cerradas'] = state['cerradas_cuales']
-            findings.append(finding)
-    findings.reverse()
-    return util.response(findings, 'Success', False)
+                final_date = (datetime.now(tz=tzn).date() - finding_date)
+                finding['edad'] = ":n".replace(":n", str(final_date.days))    
+            return finding
+    else:
+        return None
 
 @never_cache
 @csrf_exempt
