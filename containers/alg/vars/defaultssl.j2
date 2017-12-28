@@ -54,8 +54,9 @@
         ProxyPassReverse /help http://kb.fluid.la/help
 
     # Blog
-        RewriteRule ^/web(.*)/?$           http://blog.fluid.la$1        [P,L]
-        ProxyPassReverse /web http://blog.fluid.la
+        RewriteRule ^/web(.*)$           http://web.fluid.la/web$1        [P,L]
+        ProxyPassReverse /web http://web.fluid.la/web
+
         Substitute "s|http://blog.fluid.la/|https://fluid.la/web/|i"
 
     AddOutputFilterByType INFLATE;SUBSTITUTE;DEFLATE text/html text/plain text/xml
