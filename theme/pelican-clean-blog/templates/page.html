@@ -32,9 +32,9 @@
          <!-- Go to www.addthis.com/dashboard to customize your tools -->
          <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5a37e74c4b1448ce"></script>
        </section>
-<br /><br />		
-<hr id="hrcoments">
-    {% if DISQUS_SITENAME and SITEURL %}
+<br /><br />
+  {% if DISQUS_SITENAME and SITEURL and "kb/" in page.slug %}
+    <hr id="hrcoments">
         <div class="comments">
             <h3>Haz un comentario</h3>
             <div id="disqus_thread"></div>
