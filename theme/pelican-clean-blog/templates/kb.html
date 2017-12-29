@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+
+{% block title %}{{ SITENAME }}{% endblock title %}
+
+{% block header %}
+    {% include "navigationbar.html" %}
+    {% if HEADER_COVER %}
+        <header class="intro-header" style="background-image: url('{{ HEADER_COVER }}')">
+    {% elif HEADER_COLOR %}
+        <header class="intro-header" style="background-color: {{ HEADER_COLOR }}">
+    {% else %}
+        <header class="intro-header"> <!--style="background-image: url('{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/fluid.png');" >-->
+            <a href="../"><img src="../{{ THEME_STATIC_DIR }}/images/fluid.png"></a>
+    {% endif %}   
+        </header>
+{% endblock header %}
+
+{% block content %}
+    <div id="divpage">
+      <article>
+        <h1>Knowledge Base</h1>
+        {% for page in pages if page.kb %}
+          {% if loop.first %}
+            <button class="kb-category"><h2>{{ page.category }}</h2></button>
+              {% set cat = page.category %}
+              <div class="kbpanel">
+                {% for kbarticle in pages if kbarticle.kb and kbarticle.category == cat%}
+                  <a href="../{{ kbarticle.slug }}"><h3>{{ kbarticle.title }}</h3></a>
+                {% endfor %}
+              </div>  
+          {% else %}
+            {% if page.category != loop.previtem.category %}
+              <button class="kb-category"><h2>{{ page.category }}</h2></button>
+                {% set cat = page.category %}
+                <div class="kbpanel">
+                  {% for kbarticle in pages if kbarticle.kb and kbarticle.category == cat%}
+                    <a href="../{{ kbarticle.slug }}"><h3>{{ kbarticle.title }}</h3></a>
+                  {% endfor %}
+                </div>  
+            {% endif %}
+          {% endif %}
+        {% endfor %}
+      </article>
+    </div>
+    <script>
+      var kbcat = document.getElementsByClassName("kb-category");
+      var i;
+      for (i = 0; i < kbcat.length; i++) {
+        kbcat[i].addEventListener("click", function() {
+          this.classList.toggle("active");
+          var kbpanel = this.nextElementSibling;
+          if (kbpanel.style.maxHeight){
+            kbpanel.style.maxHeight = null;
+          } else {
+            kbpanel.style.maxHeight = kbpanel.scrollHeight + "px";
+          }
+        });
+      }
+    </script>
+{% endblock content %}

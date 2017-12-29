@@ -1,0 +1,28 @@
+.kb-category
+  width: 100%
+  border: none
+  border-top: 3px solid #1e4f72
+  transition: 0.4s
+  background-color: white
+  display: flex
+
+.kbpanel
+  background-color: white
+  max-height: 0
+  overflow: hidden
+  transition: max-height 0.2s ease-out
+  margin-bottom: 15px
+  a h3
+    color: #1e4f72
+    margin-left: 30px
+
+.kb-category:after
+  content: '\02795'
+  font-size: 25px
+  text-align: right
+  margin-top: 17px
+  width: 100%
+  margin-right: 20px
+
+.kb-category.active:after 
+  content: "\2796"
