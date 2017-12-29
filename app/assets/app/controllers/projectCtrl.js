@@ -266,6 +266,7 @@ integrates.controller(
                 var url = BASE.url + "doc/" + lang + "/project/" + project;
                 if(navigator.userAgent.indexOf("Firefox") == -1){
                     $scope.downloadURL = url;
+                    $scope.downloadDoc();
                 }else{
                      win = window.open(url, '__blank');
                 }
