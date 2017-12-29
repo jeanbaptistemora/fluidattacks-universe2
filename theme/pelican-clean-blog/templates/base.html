@@ -11,6 +11,7 @@
             <meta name="google-site-verification" content="{{ GOOGLE_SITE_VERIFICATION }}">
         {% endif %}        
 	<title>{% block title %}{{ SITENAME }}{% if SITESUBTITLE and SHOW_SITESUBTITLE_IN_HTML %} - {{ SITESUBTITLE }}{% endif %}{% endblock title %}</title>
+        {% block canonical %}{% endblock canonical %}
         <link rel="shortcut icon" type="image/x-icon" href="https://secure.gravatar.com/blavatar/f82913ee12d603d8a6a348614916a1d9?s=32" sizes="16x16" />
         <link rel="icon" type="image/x-icon" href="https://secure.gravatar.com/blavatar/f82913ee12d603d8a6a348614916a1d9?s=32" sizes="16x16" />
         <link rel="apple-touch-icon-precomposed" href="https://secure.gravatar.com/blavatar/f82913ee12d603d8a6a348614916a1d9?s=114" />
