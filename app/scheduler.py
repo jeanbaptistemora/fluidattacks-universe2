@@ -31,6 +31,7 @@ def get_new_findings():
                         finding_parsed['hallazgo']})
                 context['cantidad'] = str(delta)
                 context['proyecto'] = project[0].upper()
+                context['url_proyecto'] = 'https://fluid.la/integrates/dashboard#!/project/' + project[0].lower()
                 print(to)
                 send_mail_new_finding(to, context)
             else:
