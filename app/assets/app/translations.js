@@ -453,7 +453,7 @@ integrates.config(['$translateProvider', function($translateProvider) {
          'treatment_header':{
            'default': '-',
            'asummed': 'Asummed',
-           'working': 'Workig on it',
+           'working': 'Working on it',
            'remediated': 'Remediate'
          },
        },

@@ -100,6 +100,9 @@ class FindingPDFMaker(object):
             "crit_h": "(Alta)",
             "crit_m": "(Media)",
             "crit_l": "(Baja)",
+            "treat_status_wor": "Pendiente",
+            "treat_status_asu": "Asumido",
+            "treat_status_rem": "Remediar",
         }
 
     def lang_support_en(self):
@@ -144,6 +147,9 @@ class FindingPDFMaker(object):
             "crit_h": "(High)",
             "crit_m": "(Moderate)",
             "crit_l": "(Low)",
+            "treat_status_wor": "Working on it",
+            "treat_status_asu": "Assumed",
+            "treat_status_rem": "Remediate",
         }
 
     def create_finding(self, data):
@@ -330,10 +336,17 @@ class FindingPDFMaker(object):
             project,
             words
         )
-        for i in findings:
-            if "tratamiento" in i:
-                print i["tratamiento"]
-            
+        for finding in findings:  # Fix para viejos hallazgos de formstack
+            if "tratamiento" not in finding:
+                finding["tratamiento"] = words["treat_status_wor"]
+            elif finding["tratamiento"] == "-":
+                finding["tratamiento"] = words["treat_status_wor"]
+            elif finding["tratamiento"] == "Pendiente":
+                finding["tratamiento"] = words["treat_status_wor"]
+            elif finding["tratamiento"] == "Asumido":
+                finding["tratamiento"] = words["treat_status_asu"]
+            elif finding["tratamiento"] == "Remediar":
+                finding["tratamiento"] = words["treat_status_rem"]
         main_pie_filename = "image::../images/" \
             + main_pie_filename \
             + "[Estado de hallazgos]"
