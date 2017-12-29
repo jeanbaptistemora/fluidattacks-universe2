@@ -37,6 +37,7 @@ def get_new_findings():
             else:
                 context = {
                     'proyecto': project[0].upper(),
+                    'url_proyecto': 'https://fluid.la/integrates/dashboard#!/project/' + project[0].lower(),
                 }
                 print(to)
                 send_mail_change_finding(to, context)
