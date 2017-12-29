@@ -256,6 +256,21 @@ integrates.controller(
             });
             $scope.downloadDoc();
         };
+        $scope.generatePDF = function(){
+            var project = $scope.project;
+            var lang = localStorage['lang'];
+            var prjpatt = new RegExp("^[a-zA-Z0-9_]+$");
+            var langpatt = new RegExp("^en|es$");
+            if(prjpatt.test(project)
+                && langpatt.test(lang)){
+                var url = BASE.url + "doc/" + lang + "/project/" + project;
+                if(navigator.userAgent.indexOf("Firefox") == -1){
+                    $scope.downloadURL = url;
+                }else{
+                     win = window.open(url, '__blank');
+                }
+            }
+        };
         $scope.downloadDoc = function(){
             if($scope.downloadURL == undefined){
                 $timeout($scope.downloadDoc, 3000);
