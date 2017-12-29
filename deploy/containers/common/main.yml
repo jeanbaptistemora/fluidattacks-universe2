@@ -27,6 +27,7 @@
       - python-numpy
       - python-scipy
       - python-matplotlib
+      - ruby
    - name: Instalar librerias
      apt:
       pkg: "{{ item }}"
@@ -102,7 +103,7 @@
    - name: Patch social auth module
      command: "python /root/patch_socialauth.py"
      when: installed_deps
-
+  
    - name: Agregar netrc
      template:
       src: "vars/netrc.j2"
@@ -114,30 +115,8 @@
       path: "/var/www/html"
       state: absent
 
-   - name: Clonar repositorio integrates {{ lookup('env','CI_COMMIT_REF_NAME') }}
-     git:
-      repo: "https://gitlab.com/fluidsignal/integrates.git"
-      dest: "/usr/src/app"
-      version: "{{ lookup('env','CI_COMMIT_REF_NAME') }}"
-
-   - name: Clonar Rbenv
-     git:
-      repo: "https://github.com/rbenv/rbenv.git"
-      dest: "~/.rbenv"
-
-   - name: Clonar Rbenv Ruby-Build Plugin
-     git:
-      repo: "https://github.com/rbenv/ruby-build.git"
-      dest: "~/.rbenv/plugins/ruby-build"
-
-   - name: Instalar Ruby y Asciidoctor
+   - name: Instalar Gema Asciidoctor
      command: > 
-      echo 'export PATH="$HOME/.rbenv/bin:$PATH"' >> ~/.bashrc && 
-      echo 'eval "$(rbenv init -)"' >> ~/.bashrc && 
-      source ~/.bashrc &&
-      rbenv install -l &&
-      rbenv install 2.3.1 &&
-      rbenv global 2.3.1 &&
       gem install asciidoctor-pdf --pre
 
    - name: Actualizar permisos
