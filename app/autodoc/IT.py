@@ -103,7 +103,8 @@ class Bancolombia(object):
         self.assign_qc(self.COLQC_TIPO_REPORTE, "Hallazgo")
         self.assign_qc(self.COLQC_NATURALEZA, "Seguridad")
         self.assign_qc(self.COLQC_PROBABILIDAD, finding["probabilidad"])
-        self.assign_qc(self.COLQC_SEVERIDAD, finding["severidad"])
+        if "severidad" in finding:
+            self.assign_qc(self.COLQC_SEVERIDAD, finding["severidad"])
 
     def fix_complexity_access(self, complexity_access):
         if complexity_access == "Bajo":

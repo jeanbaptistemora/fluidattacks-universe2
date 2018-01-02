@@ -1,10 +1,10 @@
 = {{full_project}}
 :lang:		{{lang}}
-:author:	Engineering Team
-:email:		engineering@fluid.la 
+:author:	{{team}}
+:email:		{{team_mail}}
 :date: 	    {{report_date}}
-:language:	java
-:revnumber:	v1.0
+:language:	python
+:revnumber:	{{version}}
 :revdate:	{{revdate}}
 :revmark:	Versión inicial
 

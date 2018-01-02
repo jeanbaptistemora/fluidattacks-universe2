@@ -238,11 +238,11 @@ footer:
   recto_content:
     left: 'Fluidsignal Group S.A. ({author})'
     #center: '{page-number}'
-    right: '{page-number} de {page-count}'
+    right: '{page-number} / {page-count}'
   verso_content:
     left: 'Fluidsignal Group S.A. ({author})'
     #center: '{page-number}'
-    right: '{page-number} de {page-count}'
+    right: '{page-number} / {page-count}'
 header:
   font_size: $base_font_size_small
   font_color: $base_font_color

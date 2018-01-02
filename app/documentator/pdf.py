@@ -1,8 +1,9 @@
-# encoding=utf8
+# -*- coding: utf-8 -*-
 "Clase para exportar los hallazgos A PDF"
 import jinja2
 import os
 import time
+import sys
 import matplotlib # pylint: disable=wrong-import-position
 matplotlib.use('Agg') # pylint: disable=wrong-import-position
 from pylab import figure, pie, axis, legend, savefig, cla, clf, close # pylint: disable=wrong-import-position
@@ -15,17 +16,17 @@ class FindingPDFMaker(object):
     TPL_DIR = "/tpls/"
     FONT_DIR = "/resources/fonts"
     RESULT_DIR = "/results/"
-    FILE_TPL = "templates/body.adoc"
-    PROJ_TPL = "templates/project.adoc"
+    PROJ_TPL = "templates/executive.adoc"
     GRAPH_PATH = "/usr/src/app/app/documentator/images/"
     STYLE = "fluid"
     lang = "es"
+    doctype = "executive"
     wordlist = None
     out_name = ""
     command = ""
     context = {}
 
-    def __init__(self, lang):
+    def __init__(self, lang, doctype):
         " Constructor de la clase "
         self.PATH = os.path.dirname(os.path.abspath(__file__))
         self.STYLE_DIR = self.PATH + self.STYLE_DIR
@@ -34,6 +35,11 @@ class FindingPDFMaker(object):
         self.TPL_DIR = self.PATH + self.TPL_DIR
         self.TPL_IMG_PATH = "/usr/src/app/app/documentator/images/"
         self.lang = lang
+        self.doctype = doctype
+        if(self.doctype == "tech"):
+            self.PROJ_TPL = "templates/tech.adoc"
+        reload(sys)
+        sys.setdefaultencoding('utf-8')
         self.lang_support()
 
     def create_command(self, tpl_name):
@@ -65,13 +71,15 @@ class FindingPDFMaker(object):
             "finding_section_title": "Resumen de Hallazgos",
             "content_title": "Contenido",
             "content_list": [
-                "1. Objetivos del proyecto",
-                "2. Tabla de hallazgos",
-                "3. Paronama General",
-                "4. Resumen de hallazgos"
+                "1. Objetivos del Proyecto",
+                "2. Tabla de Hallazgos",
+                "3. Panorama General",
+                "4. Resumen de Hallazgos"
             ],
+            "tech": "Informe Técnico",
+            "executive": "Informe Ejecutivo",
             "goals_title": "Objetivos del proyecto",
-            "metodology_title": "Metodologia",
+            "metodology_title": "Metodología",
             "state_title": "Estado",
             "records_title": "Registros",
             "description_title": "Vulnerabilidad",
@@ -83,7 +91,7 @@ class FindingPDFMaker(object):
             "resume_ttab_title": "Tabla resumen hallazgos",
             "resume_top_title": "Top de Hallazgos",
             "threat_title": "Amenaza",
-            "solution_title": "Solucion",
+            "solution_title": "Solución",
             "requisite_title": "Requisitos",
             "treatment_title": "Tratamiento",
             "risk_title": "Riesgo",
@@ -117,6 +125,8 @@ class FindingPDFMaker(object):
                 "3. General View",
                 "4. Findings Summary"
             ],
+            "tech": "Technical Report",
+            "executive": "Executive Report",
             "goals_title": "Goals",
             "metodology_title": "Metodology",
             "state_title": "Status",
@@ -152,30 +162,32 @@ class FindingPDFMaker(object):
             "treat_status_rem": "Remediate",
         }
 
-    def create_finding(self, data):
+    def executive(self, data, project):
         " Crea el template a renderizar y le aplica el contexto "
-        self.fill_data(data)
-        self.out_name = data["id"]+".pdf"
+        self.fill_project(data, project)
+        self.out_name = project+"_IE.pdf"
+        if self.doctype == "tech":
+            self.out_name = project+"_IT.pdf"
         searchpath = self.PATH
         template_loader = jinja2.FileSystemLoader(searchpath=searchpath)
         template_env = jinja2.Environment(loader=template_loader)
-        template = template_env.get_template(self.FILE_TPL)
-        tpl_name = self.TPL_DIR + ":id.tpl".replace(":id", data["id"])
+        template = template_env.get_template(self.PROJ_TPL)
+        tpl_name = self.TPL_DIR + ":id_IE.tpl".replace(":id", project)
         render_text = template.render(self.context)
         with open(tpl_name, "w") as tplfile:
             tplfile.write(render_text.encode("utf-8"))
         self.create_command(tpl_name)
         os.system(self.command)
-
-    def create_project(self, data, project):
+    
+    def tech(self, data, project):
         " Crea el template a renderizar y le aplica el contexto "
         self.fill_project(data, project)
-        self.out_name = project+".pdf"
+        self.out_name = project+"_IT.pdf"
         searchpath = self.PATH
         template_loader = jinja2.FileSystemLoader(searchpath=searchpath)
         template_env = jinja2.Environment(loader=template_loader)
         template = template_env.get_template(self.PROJ_TPL)
-        tpl_name = self.TPL_DIR + ":id.tpl".replace(":id", project)
+        tpl_name = self.TPL_DIR + ":id_IT.tpl".replace(":id", project)
         render_text = template.render(self.context)
         with open(tpl_name, "w") as tplfile:
             tplfile.write(render_text.encode("utf-8"))
@@ -329,8 +341,12 @@ class FindingPDFMaker(object):
 
     def fill_project(self, findings, project):
         words = self.wordlist[self.lang]
-        full_project = findings[0]['proyecto_cliente'] + " ["
-        full_project += project + "]"
+        full_project = findings[0]['proyecto_cliente']
+        doctype = words[self.doctype]
+        full_project += " [" + project + "]"
+        team = "Engineering Team"
+        version = "v1.0"
+        team_mail = "engineering@fluid.la"
         main_pie_filename = self.make_pie_finding(
             findings,
             project,
@@ -354,7 +370,10 @@ class FindingPDFMaker(object):
         fluid_tpl_content = self.make_content(words)
         self.context = {
             "full_project": full_project.upper(),
-            "revdate": time.strftime("%d/%m/%Y"),
+            "team": team,
+            "team_mail": team_mail,
+            "version": version,
+            "revdate": doctype + " " + time.strftime("%d/%m/%Y"),
             "fluid_tpl": fluid_tpl_content,
             "main_pie_filename": main_pie_filename,
             'main_tables': main_tables,
@@ -387,26 +406,4 @@ class FindingPDFMaker(object):
             "crit_h": words["crit_h"],
             "crit_m": words["crit_m"],
             "crit_l": words["crit_l"],
-        }
-
-    def fill_data(self, data):
-        " Crea el contexto a partir del hallazgo "
-        words = self.wordlist[self.lang]
-        self.context = {
-            "finding_text": data["hallazgo"],
-            "revdate": time.strftime("%d/%m/%Y"),
-            "lang": self.lang,
-            "report_date": data["timestamp"],
-            # Titulos segun lenguaje
-            "description_title": words["description_title"],
-            "threat_title": words["threat_title"],
-            "risk_title": words["risk_title"],
-            "solution_title": words["solution_title"],
-            "requisite_title": words["requisite_title"],
-            # Informacion segun titulos
-            "description_text": data["vulnerabilidad"],
-            "threat_text": data["amenaza"],
-            "risk_text": data["riesgo"],
-            "solution_text": data["solucion_efecto"],
-            "requisite_text": data["requisitos"].split('\n'),
         }

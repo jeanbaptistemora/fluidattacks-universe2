@@ -346,7 +346,7 @@ integrates.controller(
                         var langpatt = new RegExp("^en|es$");
                         if(prjpatt.test(project)
                             && langpatt.test(lang)){
-                            var url = BASE.url + "pdf/"+ lang + "/project/" + project;
+                            var url = BASE.url + "pdf/"+ lang + "/project/" + project + "/tech/";
                             if(navigator.userAgent.indexOf("Firefox") == -1){
                                 downLink = document.createElement("a");
                                 downLink.target = "_blank";
@@ -381,11 +381,11 @@ integrates.controller(
                         var langpatt = new RegExp("^en|es$");
                         if(prjpatt.test(project)
                             && langpatt.test(lang)){
-                            var url = BASE.url + "doc/"+ lang + "/project/" + project;
+                            var url = BASE.url + "pdf/"+ lang + "/project/" + project + "/executive/";
                             if(navigator.userAgent.indexOf("Firefox") == -1){
                                 downLink = document.createElement("a");
                                 downLink.target = "_blank";
-                                downLink.href = $scope.downloadURL;
+                                downLink.href = url;
                                 downLink.click();
                             }else{
                                 win = window.open(url, '__blank');
