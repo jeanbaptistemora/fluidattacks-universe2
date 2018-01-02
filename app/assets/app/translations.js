@@ -212,6 +212,12 @@ integrates.config(['$translateProvider', function($translateProvider) {
           'title': 'Progress Report',
           'finding': 'Finding'
         },
+        'technical_report_mod':{
+          'title': 'Technical Reports'
+        },
+        'executive_report_mod':{
+          'title': 'Executive Reports'
+        },
         'proj_alerts':{
           'search_title': 'News!',
           'search_cont': 'Searching Project...',
@@ -683,6 +689,12 @@ integrates.config(['$translateProvider', function($translateProvider) {
         'progress_mod':{
           'title': 'Reporte de Avance',
           'finding': 'Hallazgo'
+        },
+        'technical_report_mod':{
+          'title': 'Reportes Técnicos'
+        },
+        'executive_report_mod':{
+          'title': 'Reportes Ejecutivos'
         },
         'proj_alerts':{
           'search_title': 'Noticia!',

@@ -256,6 +256,152 @@ integrates.controller(
             });
             $scope.downloadDoc();
         };
+        var modalInstance = $uibModal.open({
+                animation: true,
+                templateUrl: 'avance.html',
+                windowClass: 'modal avance-modal',
+                keyboard: false,
+                controller: function($scope, $uibModalInstance){
+                    var auxiliar = $("#vulnerabilities").bootstrapTable('getData');
+                    var data = auxiliar;
+                    for(i=0; i < data.length; i++){
+                        data[i].atributos = 0;
+                        data[i].link = window.location.href.split('project/')[0] + 'project/' + data[i].proyecto_fluid.toLowerCase() + '/' + data[i].id + '/description';
+                        if (typeof data[i].registros !== 'undefined' && data[i].registros !== ''){
+                          data[i].atributos = 1 + (data[i].registros.match(/\n/g)||[]).length;
+                        }
+                    }
+                    for(i=0; i < data.length-1; i++){
+                        for(j=i+1; j < data.length; j++){
+                           if(parseFloat(data[i].criticidad) < parseFloat(data[j].criticidad)){
+                                aux = data[i];
+                                data[i] = data[j];
+                                data[j] = aux;
+                           }
+                        }
+                    }
+                    $scope.rows = data;
+                    $scope.closeModalAvance = function(){
+                        $uibModalInstance.dismiss('cancel');
+                        $timeout(function() {$("#vulnerabilities").bootstrapTable('load', auxiliar);},100);
+                    }
+                },
+                resolve: {
+                    ok: true
+                }
+            });
+        $scope.technicalReportModal = function(){
+            var modalInstance = $uibModal.open({
+                animation: true,
+                templateUrl: 'technicalReportModal.html',
+                windowClass: 'modal avance-modal',
+                keyboard: false,
+                controller: function($scope, $uibModalInstance, $stateParams, projectFtry){
+                    $scope.findingMatrizXLSReport = function(){
+                        var project = $stateParams.project;
+                        var data = $("#vulnerabilities").bootstrapTable('getData');
+                        for(i=0; i < data.length-1; i++){
+                            for(j=i+1; j < data.length; j++){
+                                if(parseFloat(data[i].criticidad) < parseFloat(data[j].criticidad)){
+                                    aux = data[i];
+                                    data[i] = data[j];
+                                    data[j] = aux;
+                                }
+                            }
+                        }
+                        var prjpatt = new RegExp("^[a-zA-Z0-9_]+$");
+                        if(!prjpatt.test(project)) return false;
+                        var generateDoc = true;
+                        try{
+                            json = data;
+                            generateDoc = true;
+                            json = JSON.stringify(JSON.parse(JSON.stringify(json))); //remove indices
+                            if (json == undefined) throw "error";
+                            if (json == [] || json == {}) throw "error";
+                            if(project.trim() == "") throw "error";
+                        }catch(e){
+                            generateDoc = false;
+                        }
+                        if(generateDoc == false) return false;
+                        var req = projectFtry.ProjectDoc(project, json, "IT");
+                        req.then(function(response){
+                            if(!response.error){
+                                var url = BASE.url + "export_autodoc?project=" + project;
+                                url += "&format=IT";
+                                if(navigator.userAgent.indexOf("Firefox") == -1){
+                                    downLink = document.createElement("a");
+                                    downLink.target = "_blank";
+                                    downLink.href = url;
+                                    downLink.click();
+                                }else{
+                                    win = window.open(url, '__blank');
+                                }
+                            }
+                        });
+                    };
+                    $scope.findingMatrizPDFReport = function(){
+                        var project = $stateParams.project;
+                        var lang = localStorage['lang'];
+                        var prjpatt = new RegExp("^[a-zA-Z0-9_]+$");
+                        var langpatt = new RegExp("^en|es$");
+                        if(prjpatt.test(project)
+                            && langpatt.test(lang)){
+                            var url = BASE.url + "pdf/"+ lang + "/project/" + project;
+                            if(navigator.userAgent.indexOf("Firefox") == -1){
+                                downLink = document.createElement("a");
+                                downLink.target = "_blank";
+                                downLink.href = url;
+                                downLink.click();
+                            }else{
+                                win = window.open(url, '__blank');
+                            }
+                        }
+                    };
+                    $scope.closeModalAvance = function(){
+                        $uibModalInstance.dismiss('cancel');
+                        $timeout(function() {$("#vulnerabilities").bootstrapTable('load', auxiliar);},100);
+                    }
+                },
+                resolve: {
+                    ok: true
+                }
+            });
+        };
+        $scope.executiveReportModal = function(){
+            var modalInstance = $uibModal.open({
+                animation: true,
+                templateUrl: 'executiveReportModal.html',
+                windowClass: 'modal avance-modal',
+                keyboard: false,
+                controller: function($scope, $uibModalInstance, $stateParams){
+                    $scope.findingMatrizPDFReport = function(){
+                        var project = $stateParams.project;
+                        var lang = localStorage['lang'];
+                        var prjpatt = new RegExp("^[a-zA-Z0-9_]+$");
+                        var langpatt = new RegExp("^en|es$");
+                        if(prjpatt.test(project)
+                            && langpatt.test(lang)){
+                            var url = BASE.url + "doc/"+ lang + "/project/" + project;
+                            if(navigator.userAgent.indexOf("Firefox") == -1){
+                                downLink = document.createElement("a");
+                                downLink.target = "_blank";
+                                downLink.href = $scope.downloadURL;
+                                downLink.click();
+                            }else{
+                                win = window.open(url, '__blank');
+                            }
+                        }
+                    };
+                    $scope.closeModalAvance = function(){
+                        $uibModalInstance.dismiss('cancel');
+                        $timeout(function() {$("#vulnerabilities").bootstrapTable('load', auxiliar);},100);
+                    }
+                },
+                resolve: {
+                    ok: true
+                }
+            });
+        };
         $scope.generatePDF = function(){
             var project = $scope.project;
             var lang = localStorage['lang'];
@@ -263,10 +409,9 @@ integrates.controller(
             var langpatt = new RegExp("^en|es$");
             if(prjpatt.test(project)
                 && langpatt.test(lang)){
-                var url = BASE.url + "doc/" + lang + "/project/" + project;
+                var url = BASE.url + "doc/"+ lang + "/project/" + project;
                 if(navigator.userAgent.indexOf("Firefox") == -1){
                     $scope.downloadURL = url;
-                    $scope.downloadDoc();
                 }else{
                      win = window.open(url, '__blank');
                 }

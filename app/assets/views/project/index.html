@@ -31,6 +31,31 @@
         <button class="btn btn-primary" type="button" ng-click="closeModalAvance()">OK</button>
     </div>
 </script>
+<!-- START: MODAL AVANCE -->
+<script type="text/ng-template" id="technicalReportModal.html">
+    <div class="modal-header">
+        <h3 class="modal-title" id="modal-title">{{'technical_report_mod.title' | translate}}</h3>
+    </div>
+    <div class="modal-body" id="modal-body">
+        <button class="btn btn-success" ng-click="findingMatrizXLSReport();">XLS</button>
+        <button class="btn btn-danger" ng-click="findingMatrizPDFReport();">PDF</button>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-primary" type="button" ng-click="closeModalAvance()">OK</button>
+    </div>
+</script>
+<!-- START: MODAL AVANCE -->
+<script type="text/ng-template" id="executiveReportModal.html">
+    <div class="modal-header">
+        <h3 class="modal-title" id="modal-title">{{'executive_report_mod.title' | translate}}</h3>
+    </div>
+    <div class="modal-body" id="modal-body">
+        <button class="btn btn-danger" ng-click="findingMatrizPDFReport();">PDF</button>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-primary" type="button" ng-click="closeModalAvance()">OK</button>
+    </div>
+</script>
 <!-- Start ProjectContent -->
 <div class="main-content" ng-show="view.project" style="background-color: white;">
     <div class="row">
@@ -86,11 +111,11 @@
                                 <button type="button" id="progress_button" class="btn btn-default" data-toggle="tooltip" data-placement="top" title="{{'search_findings.filter_buttons.advance' | translate}}!" ng-click="openModalAvance();">
                                     {{'search_findings.filter_buttons.advance' | translate}} <i class="glyphicon glyphicon-bookmark"></i>
                                 </button>
-                                <button type="button" id="document_button" class="btn btn-success" data-toggle="tooltip" data-placement="top" title="{{'search_findings.filter_buttons.documentation' | translate}}" ng-click="generateFullDoc();">
-                                    XLS <i class="glyphicon glyphicon-star"></i>
+                                <button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="top" title="{{'search_findings.filter_buttons.documentation' | translate}}" ng-click="technicalReportModal();">
+                                    {{'technical_report_mod.title' | translate}} <i class="glyphicon glyphicon-th-list"></i>
                                 </button>
-                                <button type="button" id="pdf_button" class="btn btn-danger" data-toggle="tooltip" data-placement="top" title="{{'search_findings.filter_buttons.documentation' | translate}}" ng-click="generatePDF();">
-                                    PDF &nbsp;<i class="glyphicon glyphicon-save-file"></i>
+                                <button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="top" title="{{'search_findings.filter_buttons.documentation' | translate}}" ng-click="executiveReportModal();">
+                                    {{'executive_report_mod.title' | translate}} &nbsp;<i class="glyphicon glyphicon-briefcase"></i>
                                 </button>
                             </div>
                             <!-- START: toolbar -->
