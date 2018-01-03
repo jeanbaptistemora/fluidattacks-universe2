@@ -5,8 +5,26 @@ before_script:
   - if egrep -r 'Fluid|Fluidsignal\ Group|fluidsignal'; then echo "El único nombre aceptado es FLUID"; exit 1; fi
   - cd ../
 
+stages:
+  - build
+  - deployment
+
+builder:
+  image: docker
+  variables:
+    DOCKER_DRIVER: overlay2
+  services:
+    - docker:dind
+  stage: build
+  script:
+    - docker login registry.gitlab.com -u $DOCKER_USER -p $DOCKER_PASSWD
+    - docker pull registry.gitlab.com/fluidsignal/web:builder
+    - docker build --cache-from registry.gitlab.com/fluidsignal/web:builder -t registry.gitlab.com/fluidsignal/web:builder builder/
+    - docker push registry.gitlab.com/fluidsignal/web:builder
+
 deploy:
-  environment: production	
+  environment: production
+  stage: deployment
   script:
     - pelican --fatal errors content/
     - mv output/web/en/blog-en output/web/en/blog && mv output/web/es/blog-es output/web/es/blog
@@ -18,6 +36,7 @@ deploy:
      - master
 
 test:
+  stage: deployment
   script:
     - pelican --fatal errors content/
   except:
