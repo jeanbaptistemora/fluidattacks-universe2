@@ -31,7 +31,7 @@ PAGE_SAVE_AS = '{slug}/index.html'
 KB_SAVE_AS = 'kb/index.html'
 
 # Plugins configuration
-PLUGIN_PATHS = 'pelican-plugins'
+PLUGIN_PATHS = '/app/pelican-plugins'
 PLUGINS = [
            'asciidoc_reader',
            'assets',
@@ -42,7 +42,7 @@ PLUGINS = [
            'tipue_search',
            'sitemap',
            'i18n_subsites',
-           'pelican_redirect'
+           'pelican-redirect'
 ]
 RELATED_POSTS_MAX = 3
 DIRECT_TEMPLATES = (('index', 'tags', 'categories', 'archives', 'authors', 'search', '404', 'kb'))

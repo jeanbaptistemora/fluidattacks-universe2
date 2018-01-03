@@ -14,6 +14,7 @@
 	
 	echo "Generating build (3/5) . . ."
 	sed -i 's/https:\/\/fluid.la/http:\/\/localhost:8000/' pelicanconf.py
+        sed -i 's/\/app\///' pelicanconf.py
 	
 	pelican --fatal errors content/
 	if [ $? == 0 ];then
