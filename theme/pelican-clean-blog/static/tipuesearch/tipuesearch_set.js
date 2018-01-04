@@ -78,3 +78,12 @@ var tipuesearch_string_15 = 'Búsquedas relacionadas a';
 
 var startTimer = new Date().getTime();
 
+// Settings
+
+$(document).ready(function() {
+  $('#tipue_search_input').tipuesearch({
+    'show': 10,
+    'mode': 'json',
+    'contentLocation': 'tipuesearch_content.json'
+  });
+});

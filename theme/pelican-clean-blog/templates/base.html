@@ -5,8 +5,11 @@
     {% block head %}
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">  
-        {% include 'analytics.html' %}
+        <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+        <!-- Script to include Google Analytics --> 
+        {% assets filters="uglifyjs", output="static/js/analytics.min.js", "js/analytics.js" %}
+          <script src="{{ SITEURL }}/{{ ASSET_URL }}"></script>
+	{% endassets %}
         {% if GOOGLE_SITE_VERIFICATION %}
             <meta name="google-site-verification" content="{{ GOOGLE_SITE_VERIFICATION }}">
         {% endif %}        
@@ -42,44 +45,9 @@
         {% if TAG_FEED_RSS and tag %}
             <link href="{{ FEED_DOMAIN }}/{{ TAG_FEED_RSS|format(tag.slug) }}" type="application/rss+xml" rel="alternate" title="{{ SITENAME }} Tags RSS Feed" />
         {% endif %}
-    {% endfor %}        
-        <!-- Search Bar -->
-        <link rel="stylesheet" href="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/tipuesearch/css/tipuesearch.css">
-	<!-- Custom sass-->
-	{% assets filters="sass, cssmin", output="static/css/bootstrap.min.css", "css/bootstrap.sass" %}
-	 	<link rel="stylesheet" href="{{ SITEURL }}/{{ ASSET_URL }}">
-	{% endassets %}
-	{% assets filters="sass, cssmin", output="static/css/clean-blog.min.css", "css/clean-blog.sass" %}
-	 	<link rel="stylesheet" href="{{ SITEURL }}/{{ ASSET_URL }}">
-	{% endassets %}        
-        <!-- Code highlight color scheme -->
-        {% if COLOR_SCHEME_CSS %}
-            <link href="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/css/code_blocks/{{ COLOR_SCHEME_CSS }}" rel="stylesheet">
-        {% else %}
-            <link href="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/css/code_blocks/github_jekyll.css" rel="stylesheet">
-        {% endif %}
-
-        {% if CSS_OVERRIDE %}
-            <!-- CSS specified by the user -->
-            <link href="{{ SITEURL }}/{{ CSS_OVERRIDE }}" rel="stylesheet">
-        {% endif %}
-	<!-- sass by user-->
-	{% assets filters="sass", output="static/css/menu.css", "css/menu.sass" %}
-	 <link rel="stylesheet" href="{{ SITEURL }}/{{ ASSET_URL }}">
-	{% endassets %}
-	{% assets filters="sass", output="static/css/footer.css", "css/footer.sass" %}
-	 <link rel="stylesheet" href="{{ SITEURL }}/{{ ASSET_URL }}">
-	{% endassets %}
-	{% assets filters="sass", output="static/css/article.css", "css/article.sass" %}
-	 <link rel="stylesheet" href="{{ SITEURL }}/{{ ASSET_URL }}">
-	{% endassets %}
-	{% assets filters="sass", output="static/css/pages.css", "css/pages.sass" %}
-	 <link rel="stylesheet" href="{{ SITEURL }}/{{ ASSET_URL }}">
-	{% endassets %}
-	{% assets filters="sass", output="static/css/responsive.css", "css/responsive.sass" %}
-	 <link rel="stylesheet" href="{{ SITEURL }}/{{ ASSET_URL }}">
-	{% endassets %}
-	{% assets filters="sass", output="static/css/kb.css", "css/kb.sass" %}
+    {% endfor %}
+        <!-- Compress and Minify CSS files and bundle from SASS files -->  
+	{% assets filters="cssmin", output="static/css/style.min.css", "bundle", "css/code_blocks/github_jekyll.css", "tipuesearch/css/tipuesearch.css" %}
 	 <link rel="stylesheet" href="{{ SITEURL }}/{{ ASSET_URL }}">
 	{% endassets %}
         <!-- Custom Fonts -->
@@ -124,12 +92,10 @@
 </head>
 
 <body>	
-    <!-- jQuery -->
-    <script src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/js/jquery.min.js"></script>
-    <!-- Bootstrap Core JavaScript -->
-    <script src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/js/bootstrap.min.js"></script>
-    <!-- js barra de menu -->	
-    <script src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/js/menu.js"></script>    
+    <!-- jQuery, Bootstrap Core and Menu -->
+    {% assets filters="uglifyjs", output="static/js/theme.min.js", "js/jquery.js", "js/bootstrap.js", "js/menu.js" %}
+      <script src="{{ SITEURL }}/{{ ASSET_URL }}"></script>
+    {% endassets %} 
     {% if not DISABLE_CUSTOM_THEME_JAVASCRIPT %}
         <!-- Custom Theme JavaScript -->
       <script src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/js/clean-blog.min.js"></script>

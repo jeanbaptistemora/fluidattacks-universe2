@@ -16,17 +16,9 @@
 {% endblock header %}
 
 {% block content %}
-  <script type="text/javascript" src="theme/tipuesearch/tipuesearch.min.js"></script>
-  <script type="text/javascript" src="theme/tipuesearch/tipuesearch_set.js"></script>
-  <script>
-    $(document).ready(function() {
-      $('#tipue_search_input').tipuesearch({
-        'show': 10,
-        'mode': 'json',
-        'contentLocation': 'tipuesearch_content.json'
-      });
-    });
-  </script>
+  {% assets filters="uglifyjs", output="static/js/tipuesearch.min.js", "tipuesearch/tipuesearch.js", "tipuesearch/tipuesearch_set.js" %}
+    <script src="{{ SITEURL }}/{{ ASSET_URL }}"></script>
+  {% endassets %} 
   <div id="divpage">
     <article>
       <div id="tipue_search_content"></div>
