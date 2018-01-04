@@ -96,10 +96,10 @@
       text-transform: capitalize
       text-align: center
       color: #1d4f72
-      font-size: 50px
-      margin: 30px 0 30px 0
+      font-size: 34px
+      margin: 30px 0
     h4
-      font-size: 17px
+      font-size: 18px
     .meta
       color: #1565a2
       font-size: 15px
@@ -111,44 +111,48 @@
         text-align: center
         margin-left: 5px
     .sect1 h2
-      font-size: 35px
+      font-size: 30px
       text-transform: capitalize
     .sect2 h3
-      font-size: 25px
+      font-size: 24px
       text-transform: capitalize
     #preamble, p, .writer
-      font-size: 17px
+      font-size: 18px
     .related table tr td
       width: 33%
       padding: 0
       text-align: center
       a
-        font-size: 17px
+        font-size: 18px
         color: #1d4f72
   .tags a
     text-transform: capitalize
-    font-size: 17px
+    font-size: 18px
     margin-bottom: 30px
   .next
     width: 100%
   .next tr td a
-    font-size: 17px
+    font-size: 18px
   #divarticle article
     text-align: left
+    max-width: 95ch
+    margin: 0 auto
+
   #divpage
     margin: 0 21px 0 21px
     padding: 21px
     article
-      margin: 0
-      padding: 0
+      margin: 0 auto
+      max-width: 95ch
+      text-align: left
       h1
-        font-size: 50px
+        font-size: 34px
         margin: 30px 0 30px 0
         text-transform: capitalize
         font-weight: 600
       h2
         text-transform: capitalize
-        font-size: 35px
+        font-size: 30px
         text-align: left
       .sect1 p
         margin-left: 0
@@ -156,7 +160,7 @@
         margin-left: 0
         h3
           text-align: left
-          font-size: 25px
+          font-size: 24px
           text-transform: capitalize
       section
         text-align: left
@@ -165,7 +169,7 @@
     #tbborder #tdresponsive
       display: table-cell
     p
-      font-size: 17px
+      font-size: 18px
     #tblent
       .trent
         display: none
@@ -173,11 +177,11 @@
         display: block
         margin: 0
         h3
-          font-size: 17px
+          font-size: 18px
       .tdent
         display: block
         width: 100%
-        text-align: justify
+        text-align: left
         margin: 0
   #tblocation .maps
     text-align: center
@@ -296,13 +300,45 @@
         margin: 0 0 0 auto
 
 @media (min-width: 770px)
-  #divpage article #tblent .trent
-    display: table-row
-  #divpage article #tblent .ent2
-    display: none
-  #divpage article #tblent .tdent
-    display: table-cell
-    width: 25%
+  #divarticle
+    h1
+      font-size: 42px
+    h4
+      font-size: 21px
+    .meta
+      font-size: 18px
+    .sect1 h2
+      font-size: 34px
+    .sect2 h3
+      font-size: 26px
+    #preamble, p, .writer
+      font-size: 21px
+    .related table tr td
+      a
+        font-size: 21px
+  .tags a
+    font-size: 21px
+  .next tr td a
+    font-size: 21px
+  #divpage
+    article
+      h1
+        font-size: 42px
+      h2
+        font-size: 34px
+      .sect2
+        h3
+          font-size: 26px
+    p
+      font-size: 21px
+    #tblent
+      .trent
+        display: table-row
+      .ent2
+        display: none
+      .tdent
+        display: table-cell
+        width: 25%
 
 @media (min-width: 905px)
   #divpage
