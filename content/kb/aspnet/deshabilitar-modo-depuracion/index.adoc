@@ -1,0 +1,35 @@
+:slug: kb/aspnet/deshabilitar-modo-depuracion
+:eth: no
+:category: aspnet
+:kb: yes
+
+= Deshabilitar Modo Depuración
+
+== Necesidad
+
+Gestionar las excepciones de tal forma que se evite que información detallada llegue a manos de un atacante.
+
+== Contexto
+
+A continuación se describe las circunstancias bajo las cuales la siguiente solución tiene sentido:
+
+. La aplicación esta construida en ASP .NET versión 1.1, 2.0, superior.
+. Se utiliza la versión del .NET Framework 1.0,1.1 ó superior.
+
+== Solución
+
+. Los mensajes de depuración ayudan a un atacante a conocer el sistema y planear una forma de atacarlo. Las aplicaciones ASP.NET pueden ser configuradas para generar depuración binaria (debug binaries). Estos binarios dan información detallada sobre los mensajes de depuración y no deberían ser usados en un ambiente de producción. Para prevenir esta practica en un ambiente de producción se debe realizar lo siguiente [1]:
+
+* El atributo _debug_ del elemento _compilation_ define si los binarios compilados deben incluir información de depuración. Para identificar esta vulnerabilidad, busque el siguiente patrón en la sección de compilación dentro del grupo system.web del archivo Web.config en el directorio raíz de la aplicación: 
+
+[source,xml,linenums]
+----
+<configuration>
+   <compilation debug="true"/>
+ </configuration>
+----
+* En el caso en el que la aplicación sea desplegada en un ambiente de producción el valor del atributo debug debe ser _debug="false"_.
+
+== Referencias
+
+https://cwe.mitre.org/data/definitions/11.html[OWASP, ASP.NET Misconfigurations]
