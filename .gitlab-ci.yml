@@ -36,6 +36,8 @@ deploy:
     - ./xmlcombine.sh
     # Set the redirect from web/ to web/en/
     - mv output/web/en/redirect/index.html output/web/ && rmdir output/web/en/redirect/
+    # Organize pages images in the corresponding folder
+    - cp -r output/web/es/pages-es/. output/web/es/ && rm -r output/web/es/pages-es
     # Upload generated output to S3 bucket
     - aws s3 rm --recursive s3://web.fluid.la
     - aws s3 cp --recursive --acl=public-read-write output/ s3://web.fluid.la
