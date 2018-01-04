@@ -31,7 +31,7 @@ PAGE_SAVE_AS = '{slug}/index.html'
 KB_SAVE_AS = 'kb/index.html'
 
 # Plugins configuration
-PLUGIN_PATHS = '/app/pelican-plugins'
+PLUGIN_PATHS = ['/app/pelican-plugins']
 PLUGINS = [
            'asciidoc_reader',
            'assets',
