@@ -28,6 +28,9 @@ The steps to submit the exam are the following:
 . After succeessfully logging in, go to the left side navigation bar and look for the “Sites home” tab”, click it.
 . Scroll down to the end of the page and select “General Knowlegde Exam”.
 . Click the "Enroll me" button next to the course name, then, on the next page, click the "ATTEMPT QUIZ NOW" button to begin.
+
+ IMPORTANT: Please keep in mind that once you answer or skip a question, you won't be able to go back to it so you can't modify the answer
+
 . Once you have finished, look for the “FINISH ATTEMPT” button in the bottom of the page and click it to validate if you answered all the questions.
 . Click the “Submit all and finish” button located in the bottom of the page.
 . To exit the program, use the button located in the bottom right side of the screen.
