@@ -24,9 +24,11 @@ ataques de fuerza bruta, este procedimiento contempla ataques al usuario root.
 
 . Editamos el archivo /etc/pam.d/password-auth y añadimos lo siguiente para que 
 deshabilite la cuenta por 30 segundos
-[quote]
-auth required pam_tally2.so deny=3 even_deny_root unlock_time=30 audit +
+[source, conf, linenums]
+----
+auth required pam_tally2.so deny=3 even_deny_root unlock_time=30 audit 
 account required pam_tally2.so
+----
 
 [start=2]
 El orden en que se insertan debe ser el descrito en la imagen siguiente, esto 

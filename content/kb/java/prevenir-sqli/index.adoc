@@ -46,10 +46,12 @@ declaraciones preparadas automáticamente se escapan de metacaracteres como son
 la comilla simple y los caracteres punto y coma. El siguiente segmento de código 
 muestra como usar la clase java.sql.PreparedStatement en lugar de java.sql.Statement. 
 [source, java,linenums]
+----
 String selectStatement = "SELECT * FROM User WHERE userId =? ";
 PreparedStatement prepStmt = con.prepareStatement(selectStatement);
 prepStmt.setString(1, userId);
 ResultSet rs = prepStmt.executeQuery();
+----
  
 [start=6]
 . Nótese que la solución es independiente del gestor de bases de datos utilizado.
@@ -70,15 +72,17 @@ llamada datos con la siguiente información.
 [start=8]
 . Para esto primero creamos la base de datos ejemplo:
 [source, bash, linenums]
+----
 % echo "create database ejemplo;" | mysql -u root -p
+----
  
 [start=9]
 . Luego ejecutamos las siguientes instrucciones de tal forma que se cree la 
 tabla con los datos requeridos.
 [source, sql,linenums]
---
--- Table structure for table `datos`
---
+----
+/*Table structure for table `datos`
+
 DROP TABLE IF EXISTS `datos`;
   /*!40101 SET @saved_cs_client = @@character_set_client */;
   /*!40101 SET character_set_client = utf8 */;
@@ -87,15 +91,16 @@ CREATE TABLE `datos` (
   `nombre` varchar(100) DEFAULT NULL
    ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
  /*!40101 SET character_set_client = @saved_cs_client */;
---
--- insert on `datos`
---
+
+/*insert on `datos`
+
 LOCK TABLES `datos` WRITE;
  /*!40000 ALTER TABLE `datos` DISABLE KEYS */;
 INSERT INTO `datos` VALUES
   ('1','Bogota'),('2','Medellin'),('3','Manizales'),('4','Cartagena');
  /*!40000 ALTER TABLE `datos` ENABLE KEYS */;
 UNLOCK TABLES;
+----
  
 [start=10]
 . Para esto lo más sencillo es crear por ejemplo un archivo llamado db.sql 
@@ -122,12 +127,14 @@ directorios y archivos como la siguiente:
 ignorado para contenedores de servlets con soporte de la especificación versión 
 igual o superior a 3.0. En nuestro caso se utilizará:
 [source, xml, linenums]]
+----
 <?xml version="1.0" encoding="ISO-8859-1"?>
  <!DOCTYPE web-app
    PUBLIC "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
    "http://java.sun.com/dtd/web-app_2_3.dtd">
  <web-app>
  </web-app>
+----
  
 [start=13] 
 . El jar que contiene el driver de conexión a MySQL puede descargarse desde el 
@@ -138,17 +145,20 @@ proyecto.
 de las clases en el paquete java.sql, tales como PreparedStatement y ResultSet 
 entre otras.
 [source, html,linenums]
+----
 <html>
  <head>
    <title>Prueba</title>
  </head>
  <body>
    <%@ page import="java.sql.*;" %>
+----
  
 [start=15] 
 . Se establece la conexión usando como usuario root, contraseña Prog=seg y base 
 de datos ejemplo.
 [source, java,linenums]
+----
 <%
  Connection conexion=null;
  PreparedStatement prepStmt=null;
@@ -156,6 +166,7 @@ de datos ejemplo.
    Class.forName("com.mysql.jdbc.Driver").newInstance();
    conexion = DriverManager.getConnection(
      "jdbc:mysql://localhost:3306/ejemplo?user=root&password=Prog=seg");
+----
   
 [start=16]
 . Se crea la consulta especificando que el parámetro será el valor que se 
@@ -167,9 +178,11 @@ String selectStatement = "SELECT cod , nombre FROM datos WHERE cod=?";
 . Se obtiene por método get el id de la ciudad que se desea visualizar, y se 
 utiliza para parametrizar la consulta.
 [source, java,linenums]
+----
 String id = request.getParameter("id");
 prepStmt = conexion.prepareStatement(selectStatement);
 prepStmt.setString(1, id);
+----
 
 [start=18] 
 . Se ejecuta la consulta y se muestran los valores obtenidos:

@@ -20,8 +20,10 @@ solución tiene sentido:
 
 . Para cookies de sesión manejadas por PHP, la opción se puede habilitar en el 
 archivo php.ini a través del parámetro:
-[quote]
+[source, conf, linenums]
+----
 session.cookie_httponly = True
+----
 
 [start=2]
 . También se puede habilitar en un script a través de la función:

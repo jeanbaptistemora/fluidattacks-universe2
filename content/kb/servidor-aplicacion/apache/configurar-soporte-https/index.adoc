@@ -54,23 +54,27 @@ servidores Apache
 [start=7] 
 . Editar el archivo /etc/httpd/conf.d/ssl.conf y buscar los parámetros 
 SSLCertificateFile y SSLCertificateKeyFile y asignar los valores.
-[quote]
- SSLCertificateFile /etc/pki/tls/certs/ca.crt
- SSLCertificateKeyFile /etc/pki/tls/private/ca.key
+[source, conf, linenums]
+----
+SSLCertificateFile /etc/pki/tls/certs/ca.crt
+SSLCertificateKeyFile /etc/pki/tls/private/ca.key
+----
  
 [start=8] 
 .  Crear un host virtual donde se le indicara al servidor Apache donde dirigir 
 las peticiones dirigidas al puerto 443 (Peticiones HTTPS). Para esta operación 
 se edita el archivo /etc/httpd/conf/httpd.conf y se copia al final
-[quote]
- <VirtualHost *:443>
-  SSLEngine on
-  SSLCertificateFile /etc/pki/tls/certs/ca.crt
-  SSLCertificateKeyFile /etc/pki/tls/private/ca.key
-  AllowOverride All
-  DocumentRoot /var/www/httpsdocs
-  ServerName dominio.com
- </VirtualHost>
+[source, conf, linenums]
+----
+<VirtualHost *:443>
+ SSLEngine on
+ SSLCertificateFile /etc/pki/tls/certs/ca.crt
+ SSLCertificateKeyFile /etc/pki/tls/private/ca.key
+ AllowOverride All
+ DocumentRoot /var/www/httpsdocs
+ ServerName dominio.com
+</VirtualHost>
+----
  
 [start=9]
 . Reiniciar el servidor Apache

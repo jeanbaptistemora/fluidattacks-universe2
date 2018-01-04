@@ -21,9 +21,11 @@ solución tiene sentido:
 
 . En el archivo de configuración httpd.conf asegúrese de contener las 
 siguientes directivas:
-[quote]
+[source, conf, linenums]
+----
 ServerSignature Off +
 ServerTokens Prod
+----
 
 [start=2]
 . En caso de no encontrar el archivo httpd.conf editar el archivo security en 
@@ -45,13 +47,17 @@ completamente este valor, lo que necesitará hacer es lo siguiente:
 . Descargar el código fuente de Apache.
 . Editar el archivo httpd.h, cambiando el valor de la cadena "Apache" en la 
 línea:
-[quote]
+[source, conf, linenums]
+----
 define SERVER_BASEPRODUCT "Apache"
+----
 
 [start=9]
 . Por un valor diferente como:
-[quote]
+[source, conf, linenums]
+----
 define SERVER_BASEPRODUCT "Server"
+----
 
 [start=10]
 Bajar el servicio Apache, recompilar, reinstalar e iniciar el servicio Apache.

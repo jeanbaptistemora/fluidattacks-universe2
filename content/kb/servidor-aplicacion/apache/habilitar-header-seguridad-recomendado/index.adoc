@@ -23,16 +23,18 @@ solución tiene sentido:
 . Si se está en un host virtual de Apache, se pueden implementar los headers 
 añadiendo al archivo .htaccess o al archivo httpd.conf cualquiera de las 
 siguientes opciones
-[quote]
-Header always set x-Frame-Options "DENY" +
-Header always set X-Xss-Protection "1; mode=block" +
-Header always set X-Content-Type-Options "nosniff" +
-Header always set X-Content-Security-Policy "default-src 'self'; img-src 'self'; style-src
-'self' 'unsafe-inline'; font-src 'self'; script-src 'self' 'unsafe-inline'; connect-src
-'self';" +
-Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains" +
-Header always set X-Permitted-Cross-Domain-Policies "none" +
+[source, conf, linenums]
+----
+Header always set x-Frame-Options "DENY" 
+Header always set X-Xss-Protection "1; mode=block" 
+Header always set X-Content-Type-Options "nosniff" 
+Header always set X-Content-Security-Policy "default-src 'self'; img-src 'self'; 
+  style-src 'self' 'unsafe-inline'; font-src 'self'; script-src 'self' 'unsafe-inline'; connect-src
+   'self';" 
+Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains" 
+Header always set X-Permitted-Cross-Domain-Policies "none" 
 Header always unset X-Powered-By
+----
 
 == Referencias
 
