@@ -18,14 +18,6 @@ http://www.tipue.com/search
 {
      font: 300 16px/1.7 Ubuntu, sans-serif;
 }
-.tipue_search_content_title
-{
-     font: 100 20px/1.7 Ubuntu, sans-serif;
-}
-.tipue_search_content_text, .tipue_search_related_title
-{
-     font: 300 16px/1.7 Ubuntu, sans-serif;
-}
 .tipue_search_content_bold, .tipue_search_related_bold
 {
      font-weight: 400;
@@ -117,7 +109,7 @@ http://www.tipue.com/search
 }
 .tipue_search_content_title a
 {
-     color: #1e4f72;
+     color: #1d4f72;
      text-decoration: none;
 }
 .tipue_search_content_title a:hover
@@ -201,24 +193,6 @@ http://www.tipue.com/search
      background: #f6f6f6;
 }
 
-@media (min-width: 480px) {
-  .tipue_search_content_title
-  {
-       font-size: 22px;
-  }
-}
-
-@media (min-width: 640px) {
-  .tipue_search_content_title
-  {
-       font-size: 24px;
-  }
-  .tipue_search_content_text, .tipue_search_related_title
-  {
-       font-size: 18px;
-  }
-}
-
 @media (max-width: 1000px) {
   #searchbar
   {
@@ -227,16 +201,5 @@ http://www.tipue.com/search
        width: 100%;
        padding-left: 20px;
        margin: 0
-  }
-}
-
-@media (min-width: 960px) {
-  .tipue_search_content_title
-  {
-       font-size: 26px;
-  }
-  .tipue_search_content_text, .tipue_search_related_title
-  {
-       font-size: 18px;
   }
 }
