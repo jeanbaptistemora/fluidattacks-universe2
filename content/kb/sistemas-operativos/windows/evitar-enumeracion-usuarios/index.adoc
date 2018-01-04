@@ -34,9 +34,10 @@ image::login.png[]
 configurar la siguiente ruta usando la solución 
 http://kb.fluid.la/help/directorio-activo-2008-modificar-configuracion-directivas-dominio[Modificar
 configuración de directivas de dominio por medio de Active Directory]
-[quote]
-Computer configuration/Windows Settings/Security Settings/Local 
-Policies/SecurityOptions
+[source, conf, linenums]
+----
+Computer configuration/Windows Settings/Security Settings/LocalPolicies/SecurityOptions
+----
 
 [start=3]
 . La ruta seguida puede apreciarse en la siguiente imagen:
@@ -62,9 +63,10 @@ image::sesion.png[]
 . Para verificar que la longitud de clave sea superior a cero (lo cual 
 significa que sólo se necesitaría nombre de usuario para un usuario que no haya 
 establecido una contraseña) la ruta a seguir será:
-[quote]
- Configuración del equipo/Configuración de Windows/Configuración de
- Seguridad/Directivas de cuentas/Directivas de contraseñas
+[source, conf, linenums]
+----
+Configuración del equipo/Configuración de Windows/Configuración de Seguridad/Directivas de cuentas/Directivas de contraseñas
+----
  
 [start=7] 
 . Configurar mediante las opciones presentadas que la longitud de la contraseña 
@@ -72,9 +74,10 @@ sea diferente de cero y acorde a las políticas internas de la organización.
 . Verificar también qué la opción de enumerar cuentas de administrador esté 
 deshabilitada, para evitar mostrar las cuentas de administrador existentes. 
 Para esto siga la ruta:
-[quote]
- Configuración del equipo/Plantillas administrativa/Componentes de 
- Windows/Interfaz de usuario de credenciales
+[source, conf, linenums]
+----
+ Configuración del equipo/Plantillas administrativa/Componentes de Windows/Interfaz de usuario de credenciales
+----
  
 image::directiva.png[]
 

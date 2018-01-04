@@ -30,8 +30,10 @@ acción seleccionada por el atacante suplantando a la víctima.
 autorización para realizar acciones vulnerables. También ocurren cuando la 
 aplicación procesa las acciones dadas las credenciales como parte de la 
 petición. Por ejemplo:
-[quote]
+[source, conf, linenums]
+----
  http://www.sitio.com/accion/?usuario=usr&contrasena=pass
+----
 
 [start=4] 
 . Insertar valores aleatorios en los formularios es una técnica que se basa en 

@@ -2,7 +2,7 @@
 :date: 2016-09-10
 :category: opiniones-de-seguridad
 :tags: cloud, aws, seguridad, tercerizar
-:Image: shared-security-cloud.jpg
+:Image: shared-security-cloud.png
 :author: Paula Velez
 :writer: paulav
 :name: Paula Velez
@@ -40,7 +40,7 @@ que van a utilizar. Al final del día AWS te entrega la “bóveda” y el clien
 quien controla las visitas.
 
 .Quién es responsable de que dentro de los servicios de AWS – https://media.amazonwebservices.com/AWS_Security_Best_Practices.pdf[Referencia]
-image::aws-services-jpg[]
+image::aws-services.png[]
 
 == Funcionalidades de Seguridad
 

@@ -37,7 +37,7 @@ image::error.png[]
 .*_Figura1: Vulnerabilidad detectada_*
 
 [quote]
-*Notice: Undefined variable: ip in /www/net-force.nl/challenge/level402/protected.php on line 13.*
+Notice: Undefined variable: ip in /www/net-force.nl/challenge/level402/protected.php on line 13.
 
 Como decía más atrás, cuando aparece la notificación *Notice* es porque existe 
 un error en la programación del sitio web, en este caso se ve claramente que la

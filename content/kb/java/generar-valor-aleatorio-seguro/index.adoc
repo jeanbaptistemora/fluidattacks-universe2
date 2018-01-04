@@ -72,11 +72,13 @@ for (int i = 0; i < 4; i++) {
  
 [start=8] 
 . Este es el resultado para la generación de números aleatorios
-[quote]
--1061930007 +
-1168469548 +
--1436156118 +
+[source, conf, linenums]
+----
+-1061930007 
+1168469548 
+-1436156118 
 1022454756
+----
 
 == Referencias
 

@@ -110,25 +110,33 @@ out.println(safe); }}
 
 [start=13]
 . Las listas blancas que trae la herramienta por defecto son
-[quote]
-*Whitelist.simpleText()* +
+[source, conf, linenums]
+----
+*Whitelist.simpleText()* 
 "b", "em", "i", "strong", "u"
+----
 
-[quote]
-*Whitelist.basic()* +
-"a", "b", "blockquote", "br", "cite", "code", "dd", "dl", "dt", "em", "i", "li", +
+[source, conf, linenums]
+----
+*Whitelist.basic()* 
+"a", "b", "blockquote", "br", "cite", "code", "dd", "dl", "dt", "em", "i", "li", 
 "ol", "p", "pre", "q", "small", "strike", "strong", "sub", "sup", "u", "ul"
+----
 
-[quote]
-*Whitelist.basicWithImages()* +
+[source, conf, linenums]
+----
+*Whitelist.basicWithImages()* 
 basic()."img"
+----
 
-[quote]
+[source, conf, linenums]
+----
 *Whitelist.relaxed()* +
-"a", "b", "blockquote", "br", "caption", "cite", "code", "col", "colgroup", +
-"dd", "div", "dl", "dt", "em", "h1", "h2", "h3", "h4", "h5", "h6", "i", "img",  +
-"li", "ol", "p", "pre", "q", "small", "strike", "strong", "sub", "sup", +
+"a", "b", "blockquote", "br", "caption", "cite", "code", "col", "colgroup", 
+"dd", "div", "dl", "dt", "em", "h1", "h2", "h3", "h4", "h5", "h6", "i", "img",  
+"li", "ol", "p", "pre", "q", "small", "strike", "strong", "sub", "sup", 
 "table", "tbody", "td", "tfoot", "th", "thead", "tr", "u", "ul"
+----
 
 [start=14]
 . A continuación observe algunas pruebas de inyección y su resultado luego de 

@@ -58,9 +58,11 @@ aplicación que se encarga de filtrar todos los paquetes
 
 Ya sabiendo esto procedemos al análisis, usando el siguiente comando:
 
-[quote]
-sudo nmap [options][url]
-sudo nmap -sS dareyourmind.net
+[source, bash, linenums]
+----
+% sudo nmap [options][url]
+% sudo nmap -sS dareyourmind.net
+----
 
 Como se ve en la figura, son muchos los puertos abiertos, y al lado derecho 
 podemos ver que servicios corre la maquina.
@@ -71,9 +73,11 @@ Luego de esto empezamos a realizar la conexión a los puertos para conseguir la
 información, esto lo podemos realizar con la herramienta *netcat*, de la siguiente 
 manera:
 
-[quote]
-sudo nc [host][port]
-sudo nc dareyourmind.net [port]
+[source, bash, linenums]
+----
+% sudo nc [host][port]
+% sudo nc dareyourmind.net [port]
+----
 
 Como se ve en la siguiente figura podemos ver la versión de SSH, FTP, smtp.
 
@@ -84,8 +88,10 @@ por alguna razón hay un puerto filtrado o abierto y el servicio que corre es
 desconocido (unknow), nmap lo puede omitir, es por eso que debemos analizar 
 todos los puertos que en total son (65535).
 
-[quote]
-sudo nmap -sS hackthis.co.uk -p0-65535 hackthis.co.uk
+[source, conf, linenums]
+----
+% sudo nmap -sS hackthis.co.uk -p0-65535 hackthis.co.uk
+----
 
 Lo ideal si esto fuera un caso real es analizar todos los puertos abiertos, ya
 que en ocasiones las aplicaciones mal intencionadas corren en los puertos más 

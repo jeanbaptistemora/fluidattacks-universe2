@@ -46,11 +46,13 @@ aplicación:
 [source, bash, linenums]
 % ls -R 
 
-[quote]
-.: +
-cerrar.jsp index.jsp login-failed.jsp login.jsp WEB-INF/ +
-./WEB-INF: +
+[source, conf, linenums]
+----
+.: 
+cerrar.jsp index.jsp login-failed.jsp login.jsp WEB-INF/ 
+./WEB-INF: 
 web.xml
+----
 
 [start=3]
 . Se crea el archivo cerrar.jsp, página encargada de invalidar la sesión. Para 

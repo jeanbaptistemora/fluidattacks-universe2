@@ -58,16 +58,18 @@ ResultSet rs = prepStmt.executeQuery();
 . A continuación se presenta una aplicación web de ejemplo protegida ante SQL 
 Injection. Primero se creará la base de datos ejemplo, con una única tabla 
 llamada datos con la siguiente información.
-[quote]
- mysql> select * from datos; +
- +------+-----------+ +
- | cod | nombre | +
- +------+-----------+ +
- | 1 | Bogota | +
- | 2 | Medellin | +
- | 3 | Manizales | +
- | 4 | Cartagena | +
- +------+-----------+
+[source, conf, linenums]
+----
+mysql> select * from datos; 
++------+-----------+ 
+| cod | nombre | 
++------+-----------+ 
+| 1 | Bogota | 
+| 2 | Medellin | 
+| 3 | Manizales | 
+| 4 | Cartagena | 
++------+-----------+
+----
  
 [start=8]
 . Para esto primero creamos la base de datos ejemplo:
@@ -114,13 +116,15 @@ directorios y archivos como la siguiente:
 [source, bash, linenums]
 % ls -R  
  
-[quote]
- .:  +
- index.jsp WEB-INF/ +
- ./WEB-INF:  +
- lib/ web.xml  +
- ./WEB-INF/lib:  +
- mysql-connector-java-5.0.8-bin.jar
+[source, conf, linenums]
+----
+.:  
+index.jsp WEB-INF/ +
+./WEB-INF:  +
+lib/ web.xml  +
+./WEB-INF/lib:  +
+mysql-connector-java-5.0.8-bin.jar
+----
 
 [start=12] 
 . El archivo web.xml es un descriptor típico de despligue que incluso puede ser 
@@ -221,8 +225,10 @@ prepStmt.setString(1, id);
 [start=19] 
 . Para utilizar la aplicación, basta con pasar por método GET el código de la 
 ciudad que se desea visualizar.
-[quote]
- http://localhost:8080/sqli/index.jsp?id=2
+[source, conf, linenums]
+----
+http://localhost:8080/sqli/index.jsp?id=2
+---- 
 
 [start=20]  
 . Pueden intentarse ataques tales como 1 or 1=1 para comprobar que la 

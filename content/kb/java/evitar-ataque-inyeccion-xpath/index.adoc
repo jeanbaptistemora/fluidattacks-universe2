@@ -55,21 +55,26 @@ forjar consultas maliciosas en las entradas de la aplicación.
  
 [start=3]
 . Ahora bien, es posible fabricar la siguiente consulta de Xpath.
-[quote]
- /users/user[loginID/text()='abc' and password/text()='test123']
+[source, conf, linenums]
+----
+/users/user[loginID/text()='abc' and password/text()='test123']
+----
 
 [start=4]
 . Si un atacante pudiera controlar las entradas de la consulta, de manera 
 similar a los ataques de inyección SQL, podría fabricar una consulta de este 
 tipo:
-[quote]
- /users/user[LoginID/text()='' or '1'='1' and password/text()='' or '1'='1']
+[source, conf, linenums]
+----
+/users/user[LoginID/text()='' or '1'='1' and password/text()='' or '1'='1']
+----
 
 [start=5]
 . En el siguiente código, si un atacante puede manipular la entrada a doLogin, 
 es posible realizar tautologías que permitan evadir el mecanismo de 
 autenticación.
 [source, java, linenums]
+----
 private boolean doLogin(String loginID, String password)
  throws ParserConfigurationException, SAXException,
     IOException, XPathExpressionException {
@@ -92,6 +97,7 @@ private boolean doLogin(String loginID, String password)
         else
          {return false;}
       }
+----
 
 [start=6]
 . Para prevenir estos ataques se procede del mismo modo que con los ataques 
@@ -101,9 +107,11 @@ en el servidor Web (en Apache se puede usar el Mod_Security SecFilterSelective
 THE_REQUEST "(\'|\")"); Ademas, es importante usar parametrización en las 
 consultas:
 [source, java, linenums]
+----
 declare variable $loginID as xs:string external;
 declare variable $password as xs:string external;
 //users/user[@loginID=$loginID and @password=$password]
+----
  
 [start=7]
 . Para utilizar consultas parametrizadas se requiere emplear XQuery, que es un 
