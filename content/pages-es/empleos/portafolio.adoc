@@ -16,26 +16,25 @@ Le recordamos que los objetivos del portafolio son:
 
 Los requisitos que se esperan del documento son los siguientes:
 
-* El portafolio debe entregarse en formato PDF a través del formulario de aplicación. Sin embargo, en este caso puedes construirlo y enviarlo vía e-mail a careers@autonomicmind.co.
-* Es un documento diferente a la hoja de vida.
-* El portafolio debe tener mínimo 5 resultados entre personales, profesionales y académicos cada uno de ellos explicado en máximo 1 página
-** Diseños (de red, de datos, de clases, de circuitos, etc)
-** Porciones de código.
-** Documentación.
+. El portafolio debe entregarse en formato PDF a través del formulario de aplicación. Sin embargo, en este caso puedes construirlo y enviarlo vía e-mail a careers@autonomicmind.co.
+. Es un documento diferente a la hoja de vida.
+. El portafolio debe tener mínimo 5 resultados entre personales, profesionales y académicos cada uno de ellos explicado en máximo 1 página
+* Diseños (de red, de datos, de clases, de circuitos, etc)
+* Porciones de código.
+* Documentación.
 
-* El portafolio puede presentar resultados de diferentes categorías (código fuente, diseños, documentación, estadísticas, etc)
-* El portafolio debe preservar los derechos de autor:
-** Citando las fuentes pertinentes.
-** Impidiendo la asociación entre el resultado y la organización para la cual fue creado.
-** Reproduciendo sólo parte del resultado de forma que se limite su uso inadecuado.
-* El portafolio puede seguir las recomendaciones de los portafolios de diseño que apliquen a trabajos de ingeniería:
-** Simple
-** Interesante
-** Fácil de leer
+. El portafolio puede presentar resultados de diferentes categorías (código fuente, diseños, documentación, estadísticas, etc)
+. El portafolio debe preservar los derechos de autor:
+* Citando las fuentes pertinentes.
+* Impidiendo la asociación entre el resultado y la organización para la cual fue creado.
+* Reproduciendo sólo parte del resultado de forma que se limite su uso inadecuado.
+. El portafolio puede seguir las recomendaciones de los portafolios de diseño que apliquen a trabajos de ingeniería:
+* Simple
+* Interesante
+* Fácil de leer
+* Sólo sus mejores resultados
 
-Sólo sus mejores resultados
-
-** El propósito de este documento es ver su capacidad de expresarse sobre si mismo, sintetizar ideas y llamar la atención.  
+El propósito de este documento es ver su capacidad de expresarse sobre si mismo, sintetizar ideas y llamar la atención.  
 
 No seguir estas indicaciones evidenciará dificultad para seguir instrucciones o poco interés para el proceso en FLUID y por tal motivo sera finalizado el proceso de forma inmediata.
 
