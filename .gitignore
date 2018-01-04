@@ -2,3 +2,4 @@
 pelican/
 output/
 pelican-plugins/
+webtest.sh

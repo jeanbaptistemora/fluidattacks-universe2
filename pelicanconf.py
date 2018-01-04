@@ -42,7 +42,8 @@ PLUGINS = [
            'tipue_search',
            'sitemap',
            'i18n_subsites',
-           'pelican-redirect'
+           'pelican-redirect',
+           'headerid'
 ]
 RELATED_POSTS_MAX = 3
 DIRECT_TEMPLATES = (('index', 'tags', 'categories', 'archives', 'authors', 'search', '404', 'kb'))
