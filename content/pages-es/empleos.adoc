@@ -75,7 +75,7 @@ El objetivo de esta etapa es participar en un auto-entrenamiento intensivo en re
 Es de carácter obligatorio en el proceso y el esfuerzo requerido estimado se encuentra principalmente determinado según tu conocimiento. Para hacerla requieres haber finalizado la etapa anterior. 
 Para comenzar es necesario que nos notifiques vía e-mail que ya has llegado a esta etapa y leer las instrucciones detalladas que se encuentran link:../empleos/inmersion/[aquí].
 
-== 11. Referencias Inversas
+== 11. Referencias
 
 El objetivo de esta etapa es validar las referencias de sus empleos anteriores.
 Es de carácter obligatorio en el proceso y el esfuerzo requerido estimado se encuentra entre 15 min por llamada. Para hacerla requieres haber finalizado la etapa anterior. 
