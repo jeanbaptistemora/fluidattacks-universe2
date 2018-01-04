@@ -8,7 +8,7 @@ Esta etapa que vamos a comenzar ahora es una etapa que ocurrirá durante el rest
 
 Esta etapa también es una especie de salvavidas en el proceso de selección, pues usted puede no estar graduado, no tener experiencia, o que el resultado de su examen de conocimiento actual sea bajo, pero fue capaz de finalizar esta etapa, usted evidenciará que tiene la competencia más valiosa: aprender de cosas nuevas sobre la marcha y aplicarlas para resolver problemas reales. Esto, con la calidad humana, tiene mayor peso que todo lo demás.
 
-== Objetivos
+== 1. Objetivos
 En esta etapa se busca que usted evidencie mediante ejercicios prácticos sus competencias técnicas en problemas parecidos a los que enfrentará en FLUID, y con las cuales podrá solucionar de forma efectiva problemas de nuestros clientes en el ámbito de la seguridad. También demuestra que usted será un compañero valioso para enriquecer a los miembros actuales del equipo de trabajo.
 
 Los retos técnicos se dividen en dos categorías, retos de hacking y retos de programación. Con los primeros usted demuestra su habilidad y astucia para sobrepasar controles de seguridad, con los segundos usted demuestra que está en capacidad de rápidamente entender un programa, comprender un lenguaje, y por ende le será más fácil auditar código fuente y encontrar vulnerabilidades.
@@ -44,20 +44,24 @@ utilizarán en su labor diaria en FLUID,
 pares).
 
 
-== Requerimientos previos
+== 2. Requerimientos previos
 
 . Registrarse en GitLab usando su correo electronico personal y creando el ID de
 *GitLab* que más le guste.
 . Unirte a nuestro https://join.slack.com/t/autonomicmind/shared_invite/enQtMjg4ODI4NjM3MjY3LWUxMTNmMjk3MDdkMDAzYWY0ZjQ3MzNlYjUzZjM3NTM3MDVmYTliN2YyNGViZGUyNzUxOTAzNTdmZDQ5NWNjNGI[canal de Slack], en donde encontrará personal de FLUID y otros candidatos actualmente en esta etapa, quienes podrán guiarlo con soluciones a dudas puntuales o inconvenientes que le surjan.
-. Solicitarnos el permiso de acceso al repositorio vía Slack indicandonos su nombre de usuario.
+. Solicitarnos el permiso de acceso al repositorio vía Slack presentándote a los demás con el siguiente mensaje:
+[quote]
+____________________________________________________________________
+He leído y entendido toda la documentación de los retos técnicos, acepto las condiciones y por ende solicito acceso al repo Git con mi usuario [nombreDeUsuario] en gitlab
+____________________________________________________________________
 
-== Instrucciones
+== 3. Instrucciones
 
 . Identifique 40 retos que tienen solución en Internet pero no en nuestro repositorio (también denominados OTHERS),
 . Resuelva 10 retos de programación que no tienen solución, ni en nuestro repositorio ni identificada (punto 1),
 . Resuelva 10 retos de hacking que no tienen solución, ni en nuestro repositorio ni identificada (punto 1).
 
-=== Repositorio
+== 4. Repositorio
 
 El repositorio donde usted debe enviar sus soluciones es el siguiente: https://gitlab.com/autonomicmind/training/. Por favor lea atentamente las siguientes pautas para trabajar en este repositorio Git:
 
@@ -121,7 +125,9 @@ de las subcarpetas donde se encuentra el archivo.  Si contiene multiples
 lenguajes significa que debe utilizarse de forma secuencial (round robin) 
 cada lenguaje para construir más soluciones de dicha subcarpeta.
 
-* *Versionamiento:* Todos los archivos relacionados con la resolución de retos, se deben almacenar en este repositorio GIT en la estructura
+== 5. Versionamiento
+
+Todos los archivos relacionados con la resolución de retos, se deben almacenar en este repositorio GIT en la estructura
 de retos indicada.
 {nbsp} +
 {nbsp} +
@@ -141,43 +147,45 @@ de integración pasa sin errores (en verde), su **merge request** es integrado
 al repositorio.  Los resultados de la integración pueden verse siempre en
 https://gitlab.com/autonomicmind/training/pipelines[GitLab-CI].
 
-* *GitLab Runner:* El GitLab Runner es una herramienta que realiza la integración continua del repositorio cada vez que se introduce un cambio. La herramienta se ejecuta automaticamente en la plataforma de GitLab, pero es posible correr integraciones locales con el fin de identificar errores antes de hacer commits o merge requests al repositorio. Para esto, se debe instalar el GitLab Runner en el equipo, de la siguiente manera:
+== 6. Local Builds:
 
-** *En Sistemas Operativos Linux:*
+El GitLab Runner es una herramienta que realiza la integración continua del repositorio cada vez que se introduce un cambio. La herramienta se ejecuta automaticamente en la plataforma de GitLab, pero es posible correr integraciones locales con el fin de identificar errores antes de hacer commits o merge requests al repositorio. Para esto, se debe instalar el GitLab Runner en el equipo, de la siguiente manera:
 
-.. Instalar curl,
+* *En Sistemas Operativos Linux:*
+
+. Instalar curl,
 
     sudo apt-get update
     sudo apt-get install curl
 
-.. Instalar https://docs.docker.com/engine/installation/#server[Docker], escogiendo
+. Instalar https://docs.docker.com/engine/installation/#server[Docker], escogiendo
 la versión correspondiente a la distribución de Linux,
-.. Añadir el repositorio oficial de GitLab,
+. Añadir el repositorio oficial de GitLab,
 
     curl -L https://packages.gitlab.com/install/repositories/runner/gitlab-runner/script.deb.sh | sudo bash
 
-.. Instalar el Runner,
+. Instalar el Runner,
 
     sudo apt-get install gitlab-runner
 
-.. Ir al directorio donde se encuentra clonado el repositorio de training,
+. Ir al directorio donde se encuentra clonado el repositorio de training,
 
     cd ~/example/training
 
-.. Revisar que se está trabajando sobre la rama correspondiente al talento,
+. Revisar que se está trabajando sobre la rama correspondiente al talento,
 
     git branch
 
-.. Si no es así, cambiar a la rama del talento,
+. Si no es así, cambiar a la rama del talento,
 
     git checkout rama_talento
 
-.. Luego, ejecutar la integración con los siguientes comandos,
+. Luego, ejecutar la integración con los siguientes comandos,
 
     gitlab-ci-multi-runner exec docker precommit_job
     gitlab-ci-multi-runner exec docker scons_job
 
-.. Si la integración fue exitosa, añadir los cambios, hacer commit y subir los
+. Si la integración fue exitosa, añadir los cambios, hacer commit y subir los
 archivos a la rama del talento (si no fue exitosa, corregir el error y ejecutar 
 los dos comandos anteriores),
 
@@ -185,15 +193,15 @@ los dos comandos anteriores),
     git commit -m "Ejemplo"
     git push origin rama_talento
 
-.. Por último, hacer merge request a la rama master. Un https://gitlab.com/autonomicmind/training/merge_requests/171[ejemplo] de un ** merge request**.
+. Por último, hacer merge request a la rama master. Un https://gitlab.com/autonomicmind/training/merge_requests/171[ejemplo] de un ** merge request**.
 
-** *En Sistemas Operativos Windows:* La forma de ejecutar la integración desde Docker no se encuentra todavía disponible para Windows y, al basarse la integración en Linux, esto hace que el proceso en Windows sea más complicado. Se sugiere instalar un software de virtualización (https://my.vmware.com/en/web/vmware/free#desktop_end_user_computing/vmware_workstation_player/14_0[VMware],
+* *En Sistemas Operativos Windows:* La forma de ejecutar la integración desde Docker no se encuentra todavía disponible para Windows y, al basarse la integración en Linux, esto hace que el proceso en Windows sea más complicado. Se sugiere instalar un software de virtualización (https://my.vmware.com/en/web/vmware/free#desktop_end_user_computing/vmware_workstation_player/14_0[VMware],
 https://www.virtualbox.org/wiki/Downloads[Virtualbox]) y crear una máquina virtual
 basada en una distribución de Linux (e.g. https://www.ubuntu.com/download/desktop[Ubuntu],
 o la de su preferencia) y aplicar el proceso descrito anteriormente para Sistemas 
 Operativos Linux.
 
-== Recomendaciones
+== 7. Recomendaciones
 
 La clave para cumplir los 3 objetivos enunciados es primero crear 40 archivos OTHERS.txt en carpetas de retos que no lo tengan. Luego buscar retos que no tengan solución ni en OTHERS.txt ni en el repositorio, y trabajar en resolver el reto en la respectiva plataforma. Para retos de lenguajes de programación, una solución es válida si no ha sido resuelta en el lenguaje que usted pretende solucionarlo. Una sugerencia es seleccionar un lenguaje no muy usado y resolver los retos en dicho lenguaje.
 
@@ -201,7 +209,7 @@ Apreciamos que envíe los 40+10+10 archivos a medida que avances en los retos, q
 
 Una vez tenga acceso al repositorio, antes de enviar un Merge Request, por favor lea los siguientes https://gitlab.com/autonomicmind/training/wikis/home[requisitos].
 
-== Informes de avance
+== 8. Informes de avance
 
 Apreciaremos mucho que nos informe de sus avances mínimo 1 vez cada semana por el siguiente enlace: https://fluid.la/forms/training .
 Al diligenciar el anterior formulario ,por favor tenga en cuenta lo siguiente:
@@ -219,7 +227,7 @@ image::ranking_colombia_codeabbey.png[Ranking Colombia]
 
 image::ranking_wechall.png[Ranking en Wechall]
 
-== Fin de la etapa
+== 9. Fin de la etapa
 
 Esta etapa finaliza cuando usted haya completado los objetivos anteriormente mencionados y nos envíe vía e-mail los 40+10+10 archivos referentes a las soluciones realizadas por usted.
 
@@ -227,7 +235,7 @@ Por favor tenga en cuenta que durante esta etapa la continuidad es fundamental y
 
 * Entiendase movimiento como push al repositorio git.
 
-== Preguntas
+== 10. Preguntas
 
 * Antes de realizar una pregunta, le rogamos encarecidamente leer nuevamente
 este documento, las instrucciones enviadas por correo (de aplicar) y las
@@ -241,7 +249,7 @@ realizadas en el pasado] por otros participantes.
 . http://codecondo.com/coding-challenges/
 . https://www.reddit.com/r/learnprogramming/comments/244yqk/sites_like_project_euler/
 
-== Propiedad Intelectual
+== 11. Propiedad Intelectual
  
 * Los derechos patrimoniales sobre el contenido de este repositorio se encuentran definidos en el archivo https://gitlab.com/autonomicmind/training/blob/master/COPYRIGHT.txt[COPYRIGHT].
 * La licencia y privilegios que tienen los usuarios de este repositorio 
