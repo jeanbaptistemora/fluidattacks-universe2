@@ -83,7 +83,7 @@ A continuación se describe las circunstancias bajo las cuales la siguiente solu
 </authorization>
 ----------------------------------------
 
-== Las reglas se aplican de la siguiente manera: 
+Las reglas se aplican de la siguiente manera: 
 
 [start = 9]
 . Reglas que figuran en los archivos de configuración a nivel de aplicación tienen prioridad sobre las reglas heredadas. El sistema determina qué norma prevalece en la construcción de una lista combinada de todas las reglas de una URL, con las normas más recientes (los más cercanos en la jerarquía) a la cabeza de la lista.
