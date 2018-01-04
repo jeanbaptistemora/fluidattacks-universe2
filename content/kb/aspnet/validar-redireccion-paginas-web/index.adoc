@@ -39,7 +39,7 @@ Resource Locator) predefinida en la aplicación. Evite
 %>
  
 [start=2]
-Reemplace por
+. Reemplace por
 [source, html, linenums]
 <%
   Response.Redirect ("https://www.google.com")
