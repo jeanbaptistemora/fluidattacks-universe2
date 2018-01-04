@@ -1,5 +1,0 @@
-:slug: careers/topics
-:category: careers
-:eth: no
-
-= Topics

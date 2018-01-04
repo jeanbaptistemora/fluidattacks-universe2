@@ -1,5 +1,4 @@
-:slug: empleos/estilo
-:category: careers
+:slug: estilo
 :eth: no
 
 = Estilo

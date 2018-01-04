@@ -1,5 +1,4 @@
-:slug: empleos/temas
-:category: careers
+:slug: temas
 :eth: no
 
 = Temas

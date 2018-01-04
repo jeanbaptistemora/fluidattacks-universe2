@@ -1,5 +1,0 @@
-:slug: careers/style
-:category: careers
-:eth: no
-
-= Style

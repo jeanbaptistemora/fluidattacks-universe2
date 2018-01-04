@@ -1,0 +1,4 @@
+:slug: style
+:eth: no
+
+= Style
