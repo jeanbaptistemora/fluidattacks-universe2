@@ -85,7 +85,7 @@ El proceso de Inmersión termina cuando:
 . Participe en dos proyectos de entrenamiento sorpresa, con indicaciones variables que midan su capacidad de seguir instrucciones y desarrollar actividades bajo presión.En caso de aceptar esta propuesta sólo requerimos que nos indique:
 * La fecha en la que enviará el 100% de los requerimientos mencionados,
 * La fecha en la cual puede comenzar la etapa de Inmersión en nuestras instalaciones.
-. Se acepten en el repositorio 10 artículos publicables en el blog que cumplan la https://fluid.la/web/es/estilo/[línea editorial].
+. Se acepten en el repositorio 10 artículos publicables en el blog que cumplan la link:../estilo/[línea editorial].
 
 * Para la elaboración de artículos deberá tener en cuenta lo siguiente:
 
@@ -93,7 +93,7 @@ El proceso de Inmersión termina cuando:
 
 La elaboración de articulos tiene como objetivo familiarizar a futuros talentos con contenido
 relevante para la audiencia de FLUID.  Por tal motivo estos deben adherirse
-a la línea editorial definida https://fluid.la/web/es/estilo/[aquí].
+a la línea editorial definida link:../estilo/[aquí].
 
 Para la generación de documentos y articulos para el blog (carpeta
 articles) el lenguaje que debe utilizarse es AsciiDoc.

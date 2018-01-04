@@ -1,4 +1,4 @@
-:slug: destacado-no-continua
+:slug: empleos/destacado-no-continua
 :category: careers
 :eth: no
 

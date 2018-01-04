@@ -10,7 +10,7 @@ A continuación se especifican los términos del proceso de selección:
 
 . Para nosotros es grato saber que estás interesado en trabajar con nosotros, por tal motivo hemos automatizado gran parte del proceso de selección para que optimices tu tiempo y hagas parte de nuestro equipo de trabajo. La gran mayoría del proceso se realiza por Internet y está en función de tu propia disponibilidad y dedicación, por ende la duración del proceso se encuentra en un 90% en tus manos.
 
-. Dado que el proceso de selección es detallado y algo diferente a lo que realizan las demás empresas, queremos que hayas leído detenidamente todo el proceso que se encuentra detallado link:../empleos/[aquí].  Por ende si continuas y aceptas estos términos entendemos que entiendes y aceptas ser parte de él y el esfuerzo y dedicación que esto implica.
+. Dado que el proceso de selección es detallado y algo diferente a lo que realizan las demás empresas, queremos que hayas leído detenidamente todo el proceso que se encuentra detallado link:../../empleos/[aquí].  Por ende si continuas y aceptas estos términos entendemos que entiendes y aceptas ser parte de él y el esfuerzo y dedicación que esto implica.
 
 . Mantener la seguridad de la información de nuestros clientes, ser objetivos, precisos y justos en la evaluación del desempeño, son prioridades en FLUID, por tanto todos los sistemas de la organización están sujetos a monitoreo y el reporte de esfuerzo se realiza mediante https://www.timedoctor.com/[sistemas de control automáticos de actividad y tiempo].
 

@@ -71,7 +71,7 @@ I18N_SUBSITES = {
         'ARTICLE_PATHS': ['blog-es'],
         'PAGE_PATHS': ['pages-es', 'kb'],
         'ARTICLE_SAVE_AS': 'blog-es/{slug}/index.html',
-        'STATIC_PATHS': ['files', 'images', 'blog-es', 'kb']
+        'STATIC_PATHS': ['files', 'images', 'blog-es', 'kb', 'pages-es']
         }
 }
 lang_siteurls = {

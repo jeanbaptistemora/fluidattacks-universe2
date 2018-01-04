@@ -211,13 +211,13 @@ Al diligenciar el anterior formulario ,por favor tenga en cuenta lo siguiente:
 
 * En Codeabbey (Para retos de programación): 
 
-** image:../../images/pages/ranking_mundial_codeabbey.png[Ranking mundial]
+image::ranking_mundial_codeabbey.png[Ranking mundial]
 
-** image:../../images/pages/ranking_colombia_codeabbey.png[Ranking Colombia]
+image::ranking_colombia_codeabbey.png[Ranking Colombia]
 
 * En Wechall (Para retos de hacking):
 
-** image:../../images/pages/ranking_wechall.png[Ranking en Wechall]
+image::ranking_wechall.png[Ranking en Wechall]
 
 == Fin de la etapa
 

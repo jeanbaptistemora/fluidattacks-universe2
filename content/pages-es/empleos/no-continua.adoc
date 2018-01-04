@@ -1,4 +1,4 @@
-:slug: no-continua
+:slug: empleos/no-continua
 :category: careers
 :eth: no
 
