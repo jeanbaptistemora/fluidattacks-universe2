@@ -65,8 +65,8 @@ significa que sólo se necesitaría nombre de usuario para un usuario que no hay
 establecido una contraseña) la ruta a seguir será:
 [source, conf, linenums]
 ----
-Configuración del equipo/Configuración de Windows/Configuración de Seguridad/Directivas de cuentas
-   /Directivas de contraseñas
+Configuración del equipo/Configuración de Windows/Configuración de Seguridad
+  /Directivas de cuentas/Directivas de contraseñas
 ----
  
 [start=7] 

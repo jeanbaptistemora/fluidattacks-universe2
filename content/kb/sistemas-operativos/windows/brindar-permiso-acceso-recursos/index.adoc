@@ -1,4 +1,4 @@
-:slug: kb/servicio-plataforma/brindar-permiso-acceso-recursos
+:slug: kb/sistemas-operativos/windows/brindar-permiso-acceso-recursos
 :eth: no
 :category: windows
 :kb: yes
