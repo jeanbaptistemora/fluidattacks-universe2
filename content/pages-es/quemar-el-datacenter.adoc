@@ -65,7 +65,7 @@ Ingeniero de Sistemas de la Universidad EAFIT, becario de International Max-Plan
 
 * *Material:* El material se le envia solo a los asistentes que diligencien la evaluación de satisfacción 1 día después de la charla.
 
-=== Expectativas de nuestra parte
+== 8. Requisitos
 
 * Asistentes diligencian por Internet en la sección de preguntas de la charla una evaluación de satisfacción de 3 minutos. 
 
@@ -76,9 +76,6 @@ Ingeniero de Sistemas de la Universidad EAFIT, becario de International Max-Plan
 * Los asistentes conozcan previamente la invitación completa de forma que puedan decidir voluntariamente no asistir si no es pertinente la charla.
 
 * Poder ingresar 30 minutos antes al lugar a conectar equipos y empezar a la hora en punto la charla.
-
-
-=== Requisitos para la charla
 
 * *Conexión HDMI física:*  La presentación se hace desde un portatil Linux con animaciones, por ende no son soportados conectores inalámbricos HDMI que requieren instalación de Drivers Windows.
 
