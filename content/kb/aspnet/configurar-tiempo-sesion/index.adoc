@@ -33,4 +33,4 @@ A continuación se describe las circunstancias bajo las cuales la siguiente solu
 
 == Referencias
 
-https://msdn.microsoft.com/es-es/library/h6bb9cz9(VS.80).aspx[Elemento sessionState (Esquema de configuración de ASP.NET)]
+. https://msdn.microsoft.com/es-es/library/h6bb9cz9(VS.80).aspx[Elemento sessionState (Esquema de configuración de ASP.NET)]
