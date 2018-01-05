@@ -51,4 +51,4 @@ RewriteRule .* - [F]
 == Referencias
 
 . http://www.ducea.com/2007/10/22/apache-tips-disable-the-http-trace-method/[Disabling HTTP TRACE Method]
-. https://www.owasp.org/index.php/Cross_Site_Tracing[Cross Site Tracing]
+. http://www.owasp.org/index.php/Cross_Site_Tracing[Cross Site Tracing]
