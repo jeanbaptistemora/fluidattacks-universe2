@@ -60,7 +60,7 @@ integrates.config(function($stateProvider, $urlRouterProvider) {
         })
         .state('Forms', {
             url: '/forms',
-            templateUrl: 'assets/views/search/forms.html',
+            templateUrl: '/forms',
             controller: 'formCtrl'
         })
 });

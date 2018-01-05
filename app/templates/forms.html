@@ -3,19 +3,19 @@
 		<ul class="nav pills-tabs nav-justified" style="background-color: white; border-bottom: 1px #eee solid;">
 			<li id="progressItem" class="active" style="font-size:16px;">
 				<a href="#progress" data-toggle="tab" aria-expanded="false">
-				<i class="icon s7-refresh-2"></i>&nbsp;{{'forms.progress' | translate}}</a>
+				<i class="icon s7-refresh-2"></i>&nbsp;{% templatetag openvariable %} 'forms.progress' | translate {% templatetag closevariable %}</a>
 			</li>
 			<li id="findingsItem" class="" style="font-size:16px;">
 				<a href="#findings" data-toggle="tab" aria-expanded="false">
-				<i class="icon s7-id"></i>&nbsp;{{'forms.findings' | translate}}</a>
+				<i class="icon s7-id"></i>&nbsp;{% templatetag openvariable %} 'forms.findings' | translate {% templatetag closevariable %}</a>
 			</li>
 			<li id="closingItem" class="" style="font-size:16px;">
 				<a href="#closing" data-toggle="tab" aria-expanded="false">
-				<i class="icon s7-less"></i>&nbsp;{{'forms.closure' | translate}}</a>
+				<i class="icon s7-less"></i>&nbsp;{% templatetag openvariable %} 'forms.closure' | translate {% templatetag closevariable %}</a>
 			</li>
 			<li id="eventItem" class="" style="font-size:16px;">
 				<a href="#events" data-toggle="tab" aria-expanded="false">
-				<i class="icon s7-way"></i>&nbsp;{{'forms.events' | translate}}</a>
+				<i class="icon s7-way"></i>&nbsp;{% templatetag openvariable %} 'forms.events' | translate {% templatetag closevariable %}</a>
 			</li>
 		</ul>		
 		<div class="tab-content">

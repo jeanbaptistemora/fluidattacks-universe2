@@ -27,6 +27,7 @@ urlpatterns = [
     url(r'^dashboard/?$', views.dashboard, name='dashboard'),
     url(r'^registration/?$', views.registration, name='registration'),
     url(r'^oauth/', include('social_django.urls', namespace='social')),
+    url(r'^forms/?\.*$', views.forms),
     # Presentacion Dashboard
     url(r'^get_myprojects/?\.*$', views.get_myprojects, name='get_myprojects'),
     url(r'^get_myevents/?\.*$', views.get_myevents, name='get_myevents'),

@@ -47,6 +47,12 @@ def error401(request):
     parameters = {}
     return render(request, "HTTP401.html", parameters)
 
+@never_cache
+@authenticate
+@authorize(['analyst'])
+def forms(request):
+    "Vista de formularios para analistas"
+    return render(request, "forms.html")
 
 @csrf_exempt
 @never_cache
