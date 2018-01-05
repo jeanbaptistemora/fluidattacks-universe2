@@ -2,9 +2,7 @@ image: registry.gitlab.com/fluidsignal/web:builder
 
 before_script:
   # Check that incorrect names are not being used
-  - cd content/
-  - if egrep -r 'Fluid|Fluidsignal\ Group|fluidsignal'; then echo "El único nombre aceptado es FLUID"; exit 1; fi
-  - cd ../
+  - ./checks.sh
 
 stages:
   - build
