@@ -1,9 +1,9 @@
-:slug: kb/servidor-aplicacion/apache/habilitar-header-seguridad-recomendado
+:slug: kb/servidor-aplicacion/apache/habilitar-headers-seguridad
 :eth: no
 :category: apache
 :kb: yes
 
-= Habilitar los Headers de seguridad recomendados
+= Habilitar Headers de seguridad 
 
 == Necesidad
 
