@@ -53,10 +53,10 @@ root hard maxlogins 1
 [start=2]
 . Al realizar una conexión a través de SSH y sobrepasar el número máximo de 
 sesiones concurrentes se puede apreciar el siguiente mensaje:
-[source, bash, linenums]
+[source, conf, linenums]
 ----
-% login as: FLUID 
-% FLUID@192.168.0.106's password: 
+login as: FLUID 
+FLUID@192.168.0.106's password: 
 
 Linux FLUIDTools 3.12-kali1-686-pae #1 SMP Debian 3.12.6-2kali1 (2014-01-06) i686 
 The programs included with the Kali GNU/Linux system are free software; 
