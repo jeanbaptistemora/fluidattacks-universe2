@@ -44,6 +44,7 @@ A continuación se describen las circunstancias bajo las cuales la siguiente sol
 </membership>
 
 == Referencias
+
 . https://msdn.microsoft.com/en-us/library/system.security.cryptography.hashalgorithm.aspx[HashAlgorithm Class]
 . https://msdn.microsoft.com/es-es/library/system.security.cryptography.randomnumbergenerator.aspx[RandomNumberGenerator Class]
 . REQ.0132: El sistema debe almacenar las contraseñas con diferentes derivaciones de clave (Salt).

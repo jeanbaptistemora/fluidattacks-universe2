@@ -157,5 +157,6 @@ explorar debilidades en la seguridad y así poder construir un Internet:: más
 seguro para todos.
 
 == Referencias
+
 . http://www.itproportal.com/2016/02/02/the-top-10-linux-security-distros/[ITProPortal]
 . http://www.techradar.com/news/10-best-linux-distros-for-privacy-fiends-and-security-buffs[TechRadar]

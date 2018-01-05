@@ -1,12 +1,13 @@
 # Define green color and no color
 GC='\033[0;	32m'
 NC='\033[0m'
+ERRORS=0
 
 # Search for incorrect names
-if pcregrep --color -nr -e  'Fluid|Fluidsignal\ Group|fluidsignal' content/; then echo -e "${GC}\nEl único nombre aceptado es FLUID${NC}"; fi
+if pcregrep --color -nr --include='\.adoc' -e 'Fluid|Fluidsignal\ Group|fluidsignal' content/; then echo -e "${GC}\nEl único nombre aceptado es FLUID${NC}"; ERRORS=1; fi
 
 # Leave a blank space after a title
-if pcregrep --color -Mrn --include='\.adoc' '^=.*.*\n.*[A-Z0-9]' content/; then echo -e "${GC}\nDejar un espacio en blanco luego de títulos${NC}"; fi
+if pcregrep --color -Mrn --include='\.adoc' '^=.*.*\n.*[A-Z0-9]' content/; then echo -e "${GC}\nDejar un espacio en blanco luego de títulos${NC}"; ERRORS=1; fi
 
 #if pcregrep --color -Mnr '^\nhttp' content/kb/; then echo -e "${GC}\nERRORES: Referencias deben ser numeradas${NC}"; exit 1;fi
 
@@ -35,3 +36,4 @@ if pcregrep --color -Mrn --include='\.adoc' '^=.*.*\n.*[A-Z0-9]' content/; then 
 
 # if pcregrep -M -n -r --include='\.adoc$' '^= .*\n\n.*^= .*\n\n' content; then echo 'ERRORES: Doble titulo principal.'; return 1;fi
 
+exit $ERRORS

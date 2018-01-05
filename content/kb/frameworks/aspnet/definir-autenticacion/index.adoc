@@ -88,4 +88,5 @@ A continuación se describen las circunstancias bajo las cuales la siguiente sol
 . Las contraseñas con algoritmo hash almacenados en un archivo de texto no se pueden utilizar para regenerar la contraseña original , pero que son potencialmente vulnerables a un ataque de diccionario . En este tipo de ataque , el atacante , después de acceder al archivo de contraseñas , los intentos de adivinar las contraseñas mediante el uso de software de manera iterativa de hash todas las palabras en un diccionario de gran tamaño y comparar los hashes generados con el hash almacenado. Si almacena las contraseñas hash de cualquier manera, usted debe requerir que los usuarios eligen contraseñas que no son palabras comunes y que contienen algunos números y caracteres no alfanuméricos para ayudar a prevenir los ataques de diccionario . Además , usted puede hacer más fácil la gestión de credenciales mediante el almacenamiento mediante la suscripción de ASP.NET. 
 
 == Referencias
+
 https://msdn.microsoft.com/en-us/library/da0adyye(v=vs.100).aspx[Credenciales de autenticación de formularios]

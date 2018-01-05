@@ -34,6 +34,7 @@ cargados en la aplicación deben ser archivos de texto o archivos comprimidos
 con extensión zip.
 
 == Referencias
+
 . http://docs.jboss.org/richfaces/latest_3_3_X/en/devguide/html/rich_fileUpload.html[JBoss - Richfile]
 . REQ.0168: El sistema debe descartar toda la información potencialmente 
 insegura que sea recibida por entradas de datos.

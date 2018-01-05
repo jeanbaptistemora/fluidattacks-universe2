@@ -91,5 +91,6 @@ Las reglas se aplican de la siguiente manera:
 . Dado un conjunto de reglas combinadas para una aplicación, ASP.NET se inicia en la cabeza de la lista y comprueba las reglas hasta que se encuentra la primera coincidencia. La configuración predeterminada de ASP.NET contiene un elemento users="*"> <allow, que  autoriza a todos los usuarios. (De forma predeterminada, esta regla se aplica pasada.) Si no hay otra normativa autorización partido, se permite la solicitud. Si se encuentra una coincidencia, y el partido es un elemento deny, la solicitud se devuelve con el código de estado HTTP 401. Si un elemento permiten partidos, el módulo permite que la petición se procesa adicionalmente.
  
 == Referencias
+
 . https://msdn.microsoft.com/en-us/library/yfe5dwc2(v=vs.100).aspx[Seguridad en la autenticación ASP.NET]
 . https://msdn.microsoft.com/en-us/library/wce3kxhd(v=vs.100).aspx[Autorización ASP.NET]

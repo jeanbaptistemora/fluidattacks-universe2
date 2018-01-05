@@ -9,6 +9,7 @@ Esta etapa que vamos a comenzar ahora es una etapa que ocurrirá durante el rest
 Esta etapa también es una especie de salvavidas en el proceso de selección, pues usted puede no estar graduado, no tener experiencia, o que el resultado de su examen de conocimiento actual sea bajo, pero fue capaz de finalizar esta etapa, usted evidenciará que tiene la competencia más valiosa: aprender de cosas nuevas sobre la marcha y aplicarlas para resolver problemas reales. Esto, con la calidad humana, tiene mayor peso que todo lo demás.
 
 == 1. Objetivos
+
 En esta etapa se busca que usted evidencie mediante ejercicios prácticos sus competencias técnicas en problemas parecidos a los que enfrentará en FLUID, y con las cuales podrá solucionar de forma efectiva problemas de nuestros clientes en el ámbito de la seguridad. También demuestra que usted será un compañero valioso para enriquecer a los miembros actuales del equipo de trabajo.
 
 Los retos técnicos se dividen en dos categorías, retos de hacking y retos de programación. Con los primeros usted demuestra su habilidad y astucia para sobrepasar controles de seguridad, con los segundos usted demuestra que está en capacidad de rápidamente entender un programa, comprender un lenguaje, y por ende le será más fácil auditar código fuente y encontrar vulnerabilidades.

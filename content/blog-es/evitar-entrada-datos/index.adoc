@@ -174,5 +174,6 @@ vulnerabilidad, pero lo que se debe tener en cuenta es que donde hay una
 consulta SQL existe una vulnerabilidad a nuestro sistema.
 
 == Referencia
+
 . http://php.net/manual/es/security.database.sql-injection.php[PHP]
 . https://technet.microsoft.com/es-es/library/ms161953(v=sql.105).aspx[Microsoft Technet]

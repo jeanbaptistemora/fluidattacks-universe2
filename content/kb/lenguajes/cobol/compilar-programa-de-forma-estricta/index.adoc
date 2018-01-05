@@ -79,4 +79,5 @@ que puede observar a continuación:
 -----------------------
 
 == Referencias
+
 . REQ.0152: El código debe compilarse o interpretarse de forma estricta.

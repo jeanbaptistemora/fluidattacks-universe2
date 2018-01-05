@@ -37,6 +37,7 @@ for beginners. On this site I found really good examples to start with.
 http://yoire.com/?mo=Challenges&path=challenges/reversing[Yoire.com Reversing]
 
 == Yoire Challenge: Crackme Average
+
 Our task here is to obtain the serial for the executable file. Simple but
 great for learning purposes.
 

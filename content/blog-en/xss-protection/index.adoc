@@ -37,6 +37,7 @@ this control we will be looking at a really cool challenge from our pals at
 http://halls-of-valhalla.org/beta/challenges[Halls of Valhalla].
 
 == Halls of Valhalla Challenge: XSS4
+
 Our task here is to perform an XSS injection with alert(1). The JavaScript
 alert(1) method generates a pop up alert window with 1 as a the alert message.
 

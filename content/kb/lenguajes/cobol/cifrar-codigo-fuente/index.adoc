@@ -110,5 +110,6 @@ programa:
 image::debug-source-code.png[]
 
 == Referencias
+
 . REQ.0154: El código fuente debe estar ofuscado en ambiente de producción.
 . https://goo.gl/xCQd4F[Encrypting the debug listing view]

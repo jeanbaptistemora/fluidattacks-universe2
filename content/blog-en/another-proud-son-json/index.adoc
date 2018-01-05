@@ -20,6 +20,7 @@ communications.
 image::image3.png[]
 
 == JSON Web Token
+
 A JSON Web Token (JWT) is a URL safe way to represent a set of information
 between two parties. The information shared between the parties can be
 referred to as claims. It is a safe way to transfer information because it can
@@ -84,6 +85,7 @@ authentication server and the application server. Here we have four steps.
    response to the user.
 
 === JWT Security
+
 Remember the data in the JWT is encoded and signed but not encrypted. The data
 is encoded to transform the data structure and allow transportation following a
 standard definition. The data is signed to verify authenticity which lets me

@@ -36,6 +36,7 @@ hunt and found an access point using WEP. They quickly sniffed all the traffic
 they could and have now come to us with a challenge.
 
 == Yashira Challenge: WEP Security
+
 In this challenge, the folks at yashira.org have come to us with the capture
 file of all the traffic from the access point using WEP encryption. Our task
 is to find out the WEP key.

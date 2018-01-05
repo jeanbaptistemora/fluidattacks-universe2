@@ -44,6 +44,7 @@ other healthcare organizations to the cloud but focused only on the United
 States law and healthcare providers.
 
 == Health Information Technology for Economic and Clinical Health Act (HITECH)
+
 The HITECH act was created in 2009 to stimulate the adoption of electronic
 health records (EHR) and supporting technology in the United States. This act
 stipulates that beginning in 2011, healthcare providers would be offered
@@ -52,12 +53,14 @@ after which time penalties may be applied for failing to demonstrate such use
 (Rouse, 2015).
 
 == The Health Insurance Portability and Accountability Act (HIPAA)
+
 The HIPPA act provides data privacy and security provisions for safeguarding
 medical information. This is intended to guarantee the privacy of medical
 information. This act is not directly related to HITECH but they both
 reinforce each other in some aspects (Rouse, 2015).
 
 == Compliance in the Cloud
+
 Chris Bowen, founder of ClearDATA, says there are three main focus areas for
 HIPAA and HITECH regulations related to technology:
 1. Administrative controls: Policies must be in place to determine who has access
@@ -82,6 +85,7 @@ transferring the risk to a third party but based on the SLA they are obligated
 to meet and therefore satisfying the physical controls.
 
 == Fraud and Cloud. Friends or foes?
+
 Now that we can check off compliance we are left with fraud, the other big
 risk. With the migration to the cloud, it is not only your application but also
 your data that leaves your sight, which means it is no longer protected by
@@ -117,6 +121,7 @@ great article that gives you http://www.networkworld.com/article/3121967/cloud-c
 9 Tips on securing your hospital's information on the cloud]
 
 == References
+
 Butler, B. (2016, September 20). Why this hospital is moving to Amazon’s cloud.
 Retrieved April 27, 2017, from
 http://www.networkworld.com/article/3121957/cloud-computing/why-this-hospital-is-moving-to-amazon-s-cloud.html

@@ -23,6 +23,7 @@ Security Assertion Mark-up Language.
 image::image2.png[]
 
 == SAML - Security Assertion Mark-up Language
+
 SAML is a standard for logging users into applications based on their sessions
 in another context. Most organizations already know the identity of users
 because they are logged in to their Active Directory domain or Intranet. It is
@@ -52,6 +53,7 @@ of the user is established and he is granted access to the web application
 (Onelogin, 2016).
 
 == Problems and Vulnerabilities
+
 This all works very well but one of the most common problems with this service
 is misconfiguration. Failing to correctly configure your SSO service will
 result in many vulnerabilities. Misconfiguration gives an attacker the
@@ -71,10 +73,12 @@ operations to perform, usually to grant access to the application as a
 certain user (Jensen, 2017).
 
 == Common Attacks and Solutions
+
 The two most commonly seen attacks in SAML are XML wrapping attacks and
 replaying attacks.
 
 === XML Wrapping
+
 XML wrapping consist in wrapping or encapsulating a malicious payload within a
 SAML message without invalidating the original message. This is seen in SAML as
 XML assertion and signature wrapping, where the concept remains the same and
@@ -108,6 +112,7 @@ The first step helps prevent wrapping. The second prevents forgery.
 (Krawczyk, 2012)
 
 === Replaying
+
 A replaying attack consist in replaying expired messages or resending the
 messages to another application. This is done with the intention of gaining
 valuable information or even replaying sessions and taking control.

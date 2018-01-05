@@ -7,6 +7,7 @@
 Si estás interesado y tienes la motivación y habilidades siempre habrá una posición disponible. A continuación explicamos cada una de nuestras vacantes.
 
 == Diagnosticando la seguridad de la tecnología (Ethical Hacker):
+
 Se requieren talentos con perfil de desarrollador, que les 
 guste programar, y tengan interés en el área de la seguridad de la información para hacer pruebas de ethical hacker. Se requiere 
 que tenga conocimientos generales de redes de datos e infraestructura de TI, y que tengan disposición a trabajar en equipo. 
@@ -14,12 +15,14 @@ No se requiere tener experiencia laboral ni que sea ya profesional graduado. El 
 y es negociable si tiene algún horario especial en la universidad, en caso de que aún esté estudiando.
 
 == Gestionando proyectos: 
+
 Se requiere líder de proyecto, ingeniero graduado con conocimiento técnico básico en seguridad de 
 la información y algo de experiencia en temas de infraestructura de TI y redes de datos. Si es certificado PMP 
 (Project Management Professional) o tiene conocimientos específicos en gestión de proyectos es un valor agregado, más no es 
 indispensable para aplicar a la vacante.
 
 == Diseñando la seguridad de la tecnología o Administrando tecnologías de seguridad: 
+
 Ingeniero con conocimientos en redes de datos, infraestructura de TI y seguridad de la información, no es indispensable que sea 
 profesional graduado, con el fin de estructurar, definir y diseñar conjuntamente requisitos y controles de seguridad en las 
 instalaciones físicas, en la tecnología, y en los procesos de la organización.
@@ -30,6 +33,7 @@ riesgos de seguridad y los controles que mitiguen la materialización de eventos
 que sea profesional graduado.
 
 == Auxiliar de sistemas:
+
 Se requiere un practicante de áreas relacionadas con sistemas o software, con conocimiento en el 
 manejo de excel, word, y powerpoint, para brindar acompañamiento y soporte básico de TI y labores afines, con el fin de apoyar 
 al área administrativa, de producción y de talento humano.
@@ -86,6 +90,7 @@ Profesional con al menos 5 años de experiencia en desarrollo de aplicaciones de
 * Levantamiento de requisitos
 
 == Desarrollador Junior
+
 Talento estudiante de tecnología en sistemas, electrónica, ingeniería o carreras afines, con el objetivo de desarrollar herramientas para soportar la producción de la organización, desarrollando productos con métodos, algoritmos y soluciones que cumplan las expectativas de producción, levantar la información de los productos y documentarla siguiendo los estándares y formatos definidos en el área, y garantizar la calidad de los desarrollos apoyándose en los artefactos definidos en la organización, por lo que es deseable que se cuente con experiencia en programación y desarrollo de software, más no es obligatorio.
 
 También es deseable que el talento cuente con conocimientos en Inspire Designer, Inspire Automation, lenguajes de programación como java, VB, .Net, entre otros, además de conocimientos de Bases de Datos y manejo básico de herramientas web.

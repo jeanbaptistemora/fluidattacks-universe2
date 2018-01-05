@@ -104,8 +104,10 @@ encriptados de manera sencilla, es por esto que normalmente este tipo de
 encriptación sólo se usa con fines educativos o académicos.
 
 == Referencias
+
 https://es.wikipedia.org/wiki/Cifrado_por_sustituci%C3%B3n[Cifrado por sustitución]
 
 == Link del reto
+
 https://www.codeeval.com/open_challenges/121/[Lost In Translation]
 

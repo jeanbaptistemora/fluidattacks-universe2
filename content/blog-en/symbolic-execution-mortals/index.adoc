@@ -31,6 +31,7 @@ the concepts to be able to understand the why to the problems behind symbolic
 execution.
 
 == Symbolic Execution
+
 Symbolic execution is a popular program analysis technique introduced in the
 mid ’70s in the context of software testing to check whether a certain property
 can be violated by a program. Today it conserves the same principles and there
@@ -49,6 +50,7 @@ concrete input values it can run with those values and give me an expression at
 the end.
 
 === How it works
+
 The execution of all possible paths is done by a symbolic execution engine. To
 keep track of all executions, the engine always maintains a state (stmt, σ, π).
 

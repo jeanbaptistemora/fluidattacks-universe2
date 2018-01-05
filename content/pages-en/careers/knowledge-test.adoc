@@ -9,11 +9,13 @@ The next step to continue with your selection process is to submit our knowledge
 The steps to submit the exam are the following:
 
 == Create an account
+
 . Browse to the following link: https://fluid.la/courses/login/index.php[Click here].
 . Click in “CREATE NEW ACCOUNT” button and fill the form with your information.Please consider that the user name field only admits lowercase letters , and the password must have at least 8 characters, at least 1 digit(s), at least 1 lower case letter(s), at least 1 upper case letter(s), and at least 1 non-alphanumeric character(s) such as as *, -, or #
 . Confirm your email direction following the instructions. Check your inbox and in case you can’t find it there, check the spam folder.
 
 == Install SafeExamBrowser
+
 . Download the following security software to present the exam: link:../../files/fluidexams.zip[Click here].
 
  IMPORTANT: Please finish reading all the steps before you execute the program.
@@ -24,6 +26,7 @@ The steps to submit the exam are the following:
 . To present the exam, you must go to the folder and execute the “fluidexams” file. From this moment, the only program active in the computer will be the exam.
 
 == Present the exam
+
 . You will have to log in with the credentials you just registered back in the step 2.
 . After succeessfully logging in, go to the left side navigation bar and look for the “Sites home” tab”, click it.
 . Scroll down to the end of the page and select “General Knowlegde Exam”.

@@ -63,6 +63,7 @@ define SERVER_BASEPRODUCT "Server"
 Bajar el servicio Apache, recompilar, reinstalar e iniciar el servicio Apache.
 
 == Referencias
+
 . https://httpd.apache.org/docs/2.4/es/[Documentación Apache]
 . REQ.0272 La información (nombre de producto, versión o configuración) de 
 servicios expuestos no debe ser accesible. (Ej, versiones que se publican al 

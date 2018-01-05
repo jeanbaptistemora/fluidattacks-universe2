@@ -56,4 +56,5 @@ estará disponible solo a las personas que hayan sido autenticadas
 satisfactoriamente con los roles correspondientes, en este caso, rol1.
 
 == Referencias
+
 . Aplicación web de ejemplo de Tomcat 5.5. (archivo web.xml).

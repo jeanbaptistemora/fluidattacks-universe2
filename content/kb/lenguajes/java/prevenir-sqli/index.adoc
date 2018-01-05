@@ -233,6 +233,7 @@ http://localhost:8080/sqli/index.jsp?id=2
 aplicación no presenta fallas de inyección.
 
 == Referencias
+
 . http://www.owasp.org/index.php/Preventing_SQL_Injection_in_Java
 . http://hdiv.org/
 . REQ.0164: Debe usarse construcciones parametrizadas o procedimientos 

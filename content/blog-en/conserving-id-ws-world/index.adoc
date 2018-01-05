@@ -66,6 +66,7 @@ technical one.
 === Key Concepts
 
 ==== Federation Metadata
+
 Federation Metadata refers to all configuration information that allows a party
 to identify common services within a federation and the respective policies in
 place to access them. In web services this is seen in the form of metadata
@@ -73,6 +74,7 @@ documents that contain endpoint references, claims and security tokens required
 to access them.
 
 ==== Authorization
+
 WS-Federation defines an authorization model that allows the implementation of
 any authorization service in order to provide a security token and make
 decisions regarding the access to available services. Although an organization
@@ -80,11 +82,13 @@ can implement any authorization service they desire, a common model to interact
 with the service is required.
 
 === Adding more Security
+
 Within WS-Federation there are some concepts that allow an organization to
 request additional information in order to authorize access to advanced
 functionalities of a service, hence adding more security.
 
 ==== Attributes
+
 A federation message may not always be sufficient to identify common services.
 After an initial request to access a basic service is authenticated some
 organizations may request additional information in order to grant access to
@@ -96,6 +100,7 @@ are additional information that is requested in order to authorize or deny
 access to a certain service.
 
 ==== Pseudonym
+
 Some organizations or individuals are very concerned with identity fraud. This
 is a common risk in WS-Security but Federation also provides a concept that
 protects the user's identity. If an attacker manages to obtain everything

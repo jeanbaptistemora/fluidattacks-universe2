@@ -83,6 +83,7 @@ string out_Name = Encoder.HtmlEncode(Request.QueryString["Name"]);
 ----
   
 == Referencias
+
 . https://www.microsoft.com/en-us/download/search.aspx?q=antixss[Microsoft AntiXSS]
 . https://msdn.microsoft.com/en-us/library/aa973813.aspx[Microsoft, Protecting the Contoso Bookmark Page]
 . REQ.0155: La salida de información del sistema debe estar codificada en el lenguaje correspondiente (escaping).

@@ -104,8 +104,10 @@ end
 ----
 
 == Referencias
+
 https://es.wikipedia.org/wiki/Sistema_binario[Wikipedia, la Enciclopedia libre]
 
 == Link del reto
+
 https://www.codeeval.com/open_challenges/16/[Contando unos]
 
