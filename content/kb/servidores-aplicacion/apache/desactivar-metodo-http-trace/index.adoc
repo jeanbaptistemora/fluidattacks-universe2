@@ -20,20 +20,26 @@ solución tiene sentido:
 
 . Se edita el archivo de configuración de Apache, ubicado generalmente en 
 /etc/apache2/conf.d/security y se edita la siguiente línea:
++
 [source, conf, linenums]
 ----
 TraceEnable off
 ----
 
-[start=2]
-. Se reinicia el servidor web con el comando: apache2ctl restart
+. Se reinicia el servidor web con el comando: apache2ctl restart.
 . Para evitar un Cross-Site-Tracing attack se habilita el módulo rewrite de 
-Apache2 y se edita el archivo de configuración de cada virtualhost o del 
-archivo /etc/apache2/sitesavailable/default
+Apache2
++
 [source, conf, linenums]
 ----
-#a2enmod rewrite 
-y editamos el fichero de configuración /etc/apache2/sites-available/default: 
+a2enmod rewrite 
+----
+
+. Y se edita el archivo de configuración de cada virtualhost o del  archivo 
+/etc/apache2/sitesavailable/default.
++
+[source, conf, linenums]
+----
 <VirtualHost :80> 
 <IfModule mod_rewrite.c> 
 RewriteEngine On 
