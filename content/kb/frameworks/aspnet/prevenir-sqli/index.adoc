@@ -1,4 +1,4 @@
-:slug: kb/frameworks/aspnet/prevenir-sqli-aspnet
+:slug: kb/frameworks/aspnet/prevenir-sqli
 :eth: no
 :category: aspnet
 :kb: yes
@@ -79,4 +79,4 @@ La validación de datos proporcionados por el usuario en el código de cliente e
 
 == Referencias
 
-. https://msdn.microsoft.com/en-us/library/ff648339.aspx[Prevenir SQLi Aspnet]
+. https://msdn.microsoft.com/en-us/library/ff648339.aspx[Prevenir SQLi]
