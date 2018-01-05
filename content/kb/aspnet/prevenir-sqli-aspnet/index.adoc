@@ -1,4 +1,4 @@
-:slug: kb/aspnet/prevenir-inyeccion-codigo-sql
+:slug: kb/aspnet/prevenir-sqli-aspnet
 :eth: no
 :category: aspnet
 :kb: yes
@@ -79,4 +79,4 @@ La validación de datos proporcionados por el usuario en el código de cliente e
 
 == Referencias
 
-. https://www.microsoft.com/en-us/download/details.aspx?id=55984[Validar los datos proporcionados por el usuario]
+. https://msdn.microsoft.com/en-us/library/ff648339.aspx[Prevenir SQLi Aspnet]
