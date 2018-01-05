@@ -17,7 +17,7 @@ En este universo metodológico estamos perdiendo de vista que existe desde hace 
 
 En esta charla veremos como el mundo le pertenece a los programadores y como los ambientes son infinitos.
 
-== Experiencia
+== 1. Experiencia
 
 Esta charla académica gratuita la hemos estado dando ya hace 9 meses en:
 
@@ -31,23 +31,27 @@ Esta charla académica gratuita la hemos estado dando ya hace 9 meses en:
 
 En total se han dictado más de *35 charlas* con un total de *878 asistentes* y una *satisfacción global de 165%.*
 
-== Objetivo de la charla
+== 2. Objetivo
 
 En este espacio queremos socializar nuestras convicciones sobre lo que creemos será el futuro de la tecnología, el desarrollo de software y la gestión de su ciclo de vida en los próximos 10 años y por ende como se tendrá que adaptar todo el ecosistema de gestión, incluido el que nos compete a nosotros: Pruebas de Seguridad.
 
-== ¿Donde y cuando?
+== 3. ¿Donde?
 
-Podemos dictar la charla a domicilio en sus instalaciones. Acordaremos la fecha en que se dictará, es cuestión de que nos indiques 3 posibles horarios para realizarla y nosotros seleccionamos 1.
+Podemos dictar la charla a domicilio en sus instalaciones.
 
-== Público objetivo
+== 4. ¿Cuando? 
+
+Acordaremos la fecha en que se dictará, es cuestión de que nos indiques 3 posibles horarios para realizarla y nosotros seleccionamos 1.
+
+== 5. Público
 
 La charla es apta para personal técnico y personal gerencial de tecnología.  Ambos perfiles son bienvenidos y su satisfacción es alta indistintamente.  Sin embargo si desea disparar cambios y experimentos dentro de su organización es importante considerar la presencia de personas con poder de decisión.
 
-== Acerca del expositor
+== 6. Expositor
 
 Ingeniero de Sistemas de la Universidad EAFIT, becario de International Max-Planck Research School for Computer Science de Alemania y por el Center for Development of Advanced Computing del Gobierno de la India para el Programa de Reducción de Fraude Informático. Certificado actualmente como profesional en seguridad de la información CISSP.  Se desempeñó como docente de cátedra de las materias de Sistemas Operativos en la Universidad EAFIT, y Telemática y Sistemas Distribuidos en la Universidad Pontificia Bolivariana. Fue uno de los primeros Colombianos en ser desarrollador oficial del proyecto Debian. Fue miembro del comité técnico 181 de ICONTEC donde participó activamente en la homologación a Norma Técnica Colombiana de múltiples normas ISO relacionadas con seguridad. Es socio fundador de FLUID y parte de su equipo directivo hace 16 años, desde donde lideró la implantación de la primera certificación ISO 27001 en Colombia y en la cual participó en su mantenimiento durante 6 años. Es inversionista y miembro de junta directiva en Empiricus y Biva, además miembro independiente de las juntas directivas de Cidenet y Nous Digital.  En el pasado participó de las juntas directivas de S-SQUARE, Nuva y Al Derecho. Ha sido jurado en iNNpulsa Colombia y Startup Weekend, es un conferencista frecuente en temas relacionados con seguridad y emprendimiento.
 
-== Detalles
+== 7. Detalles
 
 * *Duración:* 2 horas (no es posible reducir su duración).
 
