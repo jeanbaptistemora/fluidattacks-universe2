@@ -28,63 +28,63 @@ El siguiente código realiza el procedimiento anteriormente mencionado [1]
 
 [source,java,linenums]
 ----
- using System;
- using System.Collections.Generic;
- using System.Linq;
- using System.Web;
- using System.Web.Services;
- namespace SecuredWebService
- {
-     /// <summary>
-     /// Soap Header for the Secured Web Service.
-     /// Username and Password are required for AuthenticateUser(),
-     ///   and AuthenticatedToken is required for everything else.
-     /// </summary>
-     public class SecuredWebServiceHeader : System.Web.Services.Protocols.SoapHeader
-     {
-          public string Username;
-          public string Password;
-          public string AuthenticatedToken;
-     }
-          /// <summary>
-          /// Summary description for SecuredWebService
-          /// </summary>
-          [WebService(Namespace = "http://tempuri.org/")]
-          [WebServiceBinding(ConformsTo = WsiProfiles.BasicProfile1_1)]
-          [System.ComponentModel.ToolboxItem(false)]
-          // To allow this Web Service to be called from script, using ASP.NET AJAX 
-          //uncomment the following line.
-          // [System.Web.Script.Services.ScriptService]
-          public class SecuredWebService : System.Web.Services.WebService
-          {
-                 public SecuredWebServiceHeader SoapHeader;
-                 [WebMethod]
-                 [System.Web.Services.Protocols.SoapHeader("SoapHeader")]
-                 public string AuthenticateUser()
-          {
-           if (SoapHeader == null)
-               return "Please provide a Username and Password";
-           if (string.IsNullOrEmpty(SoapHeader.Username)||string.IsNullOrEmpty(SoapHeader.Password))
-               return "Please provide a Username and Password";
-           // Are the credentials valid?
-           if (!IsUserValid(SoapHeader.Username, SoapHeader.Password))
-               return "Invalid Username or Password";
-           // Create and store the AuthenticatedToken before returning it
-           string token = Guid.NewGuid().ToString();
-           HttpRuntime.Cache.Add(
-               token,
-               SoapHeader.Username,
-               null,
-               System.Web.Caching.Cache.NoAbsoluteExpiration,
-               TimeSpan.FromMinutes(,
-               System.Web.Caching.CacheItemPriority.NotRemovable,
-               null);
-           return token;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.Services;
+namespace SecuredWebService
+{
+  /// <summary>
+  /// Soap Header for the Secured Web Service.
+  /// Username and Password are required for AuthenticateUser(),
+  ///   and AuthenticatedToken is required for everything else.
+  /// </summary>
+  public class SecuredWebServiceHeader : System.Web.Services.Protocols.SoapHeader
+  {
+    public string Username;
+    public string Password;
+    public string AuthenticatedToken;
+  }
+  
+  /// <summary>
+  /// Summary description for SecuredWebService
+  /// </summary>
+  [WebService(Namespace = "http://tempuri.org/")]
+  [WebServiceBinding(ConformsTo = WsiProfiles.BasicProfile1_1)]
+  [System.ComponentModel.ToolboxItem(false)]
+  // To allow this Web Service to be called from script, using ASP.NET AJAX 
+  //uncomment the following line.
+  // [System.Web.Script.Services.ScriptService]
+  
+  public class SecuredWebService : System.Web.Services.WebService
+  {
+    public SecuredWebServiceHeader SoapHeader;
+    [WebMethod]
+    [System.Web.Services.Protocols.SoapHeader("SoapHeader")]
+    public string AuthenticateUser()
+    {
+      if (SoapHeader == null)
+      return "Please provide a Username and Password";
+      if (string.IsNullOrEmpty(SoapHeader.Username)||string.IsNullOrEmpty(SoapHeader.Password))
+      return "Please provide a Username and Password";
+      // Are the credentials valid?
+      if (!IsUserValid(SoapHeader.Username, SoapHeader.Password))
+        return "Invalid Username or Password";
+      // Create and store the AuthenticatedToken before returning it
+      string token = Guid.NewGuid().ToString();
+      HttpRuntime.Cache.Add(
+        token,
+        SoapHeader.Username,
+        null,
+        System.Web.Caching.Cache.NoAbsoluteExpiration,
+        TimeSpan.FromMinutes(,System.Web.Caching.CacheItemPriority.NotRemovable,null);
+        return token;
     }
     private bool IsUserValid(string Username, string Password)
     {
-           // TODO: Implement Authentication
-           return true;
+      // TODO: Implement Authentication
+      return true;
     }
     [WebMethod]
     [System.Web.Services.Protocols.SoapHeader("SoapHeader")]

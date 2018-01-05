@@ -65,7 +65,8 @@ significa que sólo se necesitaría nombre de usuario para un usuario que no hay
 establecido una contraseña) la ruta a seguir será:
 [source, conf, linenums]
 ----
-Configuración del equipo/Configuración de Windows/Configuración de Seguridad/Directivas de cuentas/Directivas de contraseñas
+Configuración del equipo/Configuración de Windows/Configuración de Seguridad/Directivas de cuentas
+   /Directivas de contraseñas
 ----
  
 [start=7] 
@@ -76,7 +77,8 @@ deshabilitada, para evitar mostrar las cuentas de administrador existentes.
 Para esto siga la ruta:
 [source, conf, linenums]
 ----
- Configuración del equipo/Plantillas administrativa/Componentes de Windows/Interfaz de usuario de credenciales
+ Configuración del equipo/Plantillas administrativa/Componentes de Windows
+    /Interfaz de usuario de credenciales
 ----
  
 image::directiva.png[]

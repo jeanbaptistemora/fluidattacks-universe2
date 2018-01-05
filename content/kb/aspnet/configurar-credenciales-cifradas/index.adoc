@@ -28,7 +28,8 @@ El comando siguiente cifra el elemento _connectionStrings_ del archivo Web.confi
 
 [source,sh,linenums]
 ----
-aspnet_regiis -pe "connectionStrings" -app "/SampleApplication" -prov "RsaProtectedConfigurationProvider"
+aspnet_regiis -pe "connectionStrings" -app "/SampleApplication" 
+  -prov "RsaProtectedConfigurationProvider"
 ----
 
 [start = 3]
