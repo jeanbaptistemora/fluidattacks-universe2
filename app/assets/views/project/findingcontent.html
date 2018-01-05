@@ -90,6 +90,10 @@
                       <a href="#tracking" data-toggle="tab" aria-expanded="true">
                       <i class="icon s7-graph1"></i>&nbsp;Tracking</a>
                   </li>
+                  <li id="commentItem" style="font-size:16px;" ng-click="urlComments();">
+                      <a href="#comment" data-toggle="tab">
+                      <i class="icon s7-comment"></i>&nbsp;{{'search_findings.tab_comments.comments_name' | translate}}</a>
+                  </li>
               </ul>
               <!-- Start Tabs -->
               <div class="tab-content">
@@ -633,6 +637,11 @@
                       </div>
                   </div>
                   <!-- End Tab Tracking -->
+                  <!-- Start Tab Comment -->
+                  <div id="comment" class="tab-pane cont">                                         
+                    <div id="comments-container"></div>
+                  </div>
+                  <!-- End Tab Comment -->
               </div>
               <!-- End Tabs -->
           </div>

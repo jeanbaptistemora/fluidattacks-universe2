@@ -53,6 +53,11 @@ integrates.config(function($stateProvider, $urlRouterProvider) {
             templateUrl: 'assets/views/project/findingcontent.html',
             controller: 'findingcontentCtrl'
         })
+        .state('FindingComments', {
+            url: '/project/:project/:id/comments',
+            templateUrl: 'assets/views/project/findingcontent.html',
+            controller: 'findingcontentCtrl'
+        })
         .state('EventualitiesByName', {
             url: '/eventualities-by-name',
             templateUrl: 'assets/views/search/event_by_name.html',

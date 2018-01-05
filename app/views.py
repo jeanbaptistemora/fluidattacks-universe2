@@ -608,3 +608,64 @@ def finding_solved(request):
         return util.response([], 'Success', False)
     except KeyError:
         return util.response([], 'Campos vacios', True)
+
+@never_cache
+@csrf_exempt
+@require_http_methods(["GET"])
+@authorize(['analyst', 'customer'])
+def get_comments(request):
+    submission_id = request.GET.get('id', "")
+    comments = integrates_dao.get_comments_dynamo(int(submission_id))
+    json_data = []
+    for row in comments:
+        aux = row['email'] == request.session["username"]
+        json_data.append({
+            'id': int(row['user_id']),
+            'parent': int(row['parent']),
+            'created': row['created'],
+            'modified': row['modified'],
+            'content': row['content'],
+            'fullname': row['fullname'],
+            'created_by_current_user': aux,
+            'email': row['email']
+        })
+    return util.response(json_data, 'Success', False)
+
+@never_cache
+@require_http_methods(["POST"])
+@authorize(['analyst', 'customer'])
+def add_comment(request):
+    submission_id = request.POST.get('id', "")
+    data = request.POST.dict()
+    data["data[created]"] = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+    data["data[modified]"] = datetime.now().strftime('%Y-%m-%d %H:%M:%S')    
+    email = request.session["username"]
+    data["data[fullname]"] = request.session["first_name"] + " " + request.session["last_name"] 
+    comment = integrates_dao.create_comment_dynamo(int(submission_id), email, data)
+    if not comment:
+        return util.response([], 'Error', True)
+    return util.response([], 'Success', False)
+
+@never_cache
+@require_http_methods(["POST"])
+@authorize(['analyst', 'customer'])
+def update_comment(request):
+    submission_id = request.POST.get('id', "")
+    data = request.POST.dict()   
+    data["data[modified]"] = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+    data["data[fullname]"] = request.session["first_name"] + " " + request.session["last_name"] 
+    comment = integrates_dao.update_comment_dynamo(int(submission_id), data) 
+    if not comment:
+        return util.response([], 'Error', True)
+    return util.response([], 'Success', False)
+
+@never_cache
+@require_http_methods(["POST"])
+@authorize(['analyst', 'customer'])
+def delete_comment(request):
+    submission_id = request.POST.get('id', "")
+    data = request.POST.dict()   
+    comment = integrates_dao.delete_comment_dynamo(int(submission_id), data)
+    if not comment:
+        return util.response([], 'Error', True)
+    return util.response([], 'Success', False)

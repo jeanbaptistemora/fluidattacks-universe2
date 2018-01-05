@@ -2,6 +2,8 @@ from django.db import connections
 from django.utils import timezone
 from django.db.utils import OperationalError
 
+from boto3 import resource
+from boto3.dynamodb.conditions import Key
 
 def create_user_dao(email, username='-', first_name='-', last_name='-'):
     role = 'None'
@@ -284,3 +286,74 @@ def remove_access_project_dao(email=None, project_name=None):
             else:
                 return False        
     return False
+
+def get_comments_dynamo(finding_id):
+    """Obtiene los comentarios de un hallazgo"""
+    dynamodb_resource = resource('dynamodb')
+    table = dynamodb_resource.Table('comments')
+    filter_key = 'finding_id'
+    if filter_key and finding_id:
+        filtering_exp = Key(filter_key).eq(finding_id)
+        response = table.query(KeyConditionExpression=filtering_exp)
+    else:
+        response = table.query()
+    items = response['Items']
+    while True:
+        print len(response['Items'])
+        if response.get('LastEvaluatedKey'):
+            response = table.query(ExclusiveStartKey=response['LastEvaluatedKey'])
+            items += response['Items']
+        else:
+            break
+    return items
+
+def create_comment_dynamo(finding_id, email, data):
+    """Crea un comentario en un hallazgo"""
+    dynamodb_resource = resource('dynamodb')
+    table = dynamodb_resource.Table('comments')
+    response = table.put_item(
+        Item={
+            'finding_id': finding_id,
+            'user_id': int(data["data[id]"]),
+            'content': data["data[content]"],
+            'created': data["data[created]"],
+            'email': email,
+            'fullname': data["data[fullname]"],
+            'modified': data["data[modified]"],
+            'parent': data["data[parent]"],            
+        }
+        )
+    resp = response['ResponseMetadata']['HTTPStatusCode'] == 200
+    return resp
+
+def update_comment_dynamo(finding_id, data):
+    """Actualiza un comentario en un hallazgo"""
+    dynamodb_resource = resource('dynamodb')
+    table = dynamodb_resource.Table('comments')
+    response = table.update_item(
+        Key={
+            'finding_id': finding_id,
+            'user_id': int(data["data[id]"])
+                        
+        },
+        UpdateExpression='SET modified = :mod, content = :cont',
+        ExpressionAttributeValues={
+            ':mod': data["data[modified]"],
+            ':cont': data["data[content]"]
+        }
+    )
+    resp = response['ResponseMetadata']['HTTPStatusCode'] == 200
+    return resp
+
+def delete_comment_dynamo(finding_id, data):
+    """Elimina un comentario en un hallazgo"""
+    dynamodb_resource = resource('dynamodb')
+    table = dynamodb_resource.Table('comments')
+    response = table.delete_item(
+        Key={
+            'finding_id': finding_id,
+            'user_id': int(data["data[id]"])
+        }
+    )
+    resp = response['ResponseMetadata']['HTTPStatusCode'] == 200
+    return resp

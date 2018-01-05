@@ -101,6 +101,7 @@
       - matplotlib
       - pylint==1.7.5
       - pylint-django==0.7.2
+      - awscli
 
      register: installed_deps
 
@@ -113,6 +114,25 @@
       src: "vars/netrc.j2"
       dest: "/root/.netrc"
       mode: "0600"
+
+   - name: Crear directorio para la configuración de AWS
+     file:
+      path: "/root/.aws"
+      state: directory
+      mode: "0775"
+      recurse: "yes"
+
+   - name: Agregar aws config
+     template:
+      src: "vars/config.j2"
+      dest: "/root/.aws/config"
+      mode: "0775"
+
+   - name: Agregar aws credetials
+     template:
+      src: "vars/credentials.j2"
+      dest: "/root/.aws/credentials"
+      mode: "0775"
 
    - name: Remover archivo index
      file:

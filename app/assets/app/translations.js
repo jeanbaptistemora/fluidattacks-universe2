@@ -153,6 +153,9 @@ integrates.config(['$translateProvider', function($translateProvider) {
               'animation_exploit':'Exploitation animation',
               'evidence_exploit':'Exploitation evidence'
             },
+            'tab_comments':{
+              'comments_name':'Comments'
+            },
             'pop_table':{
                'type': 'Type',
                'date': 'Date',
@@ -630,6 +633,9 @@ integrates.config(['$translateProvider', function($translateProvider) {
               'alert':'En desarrollo...',
               'animation_exploit':'Animación de explotación',
               'evidence_exploit':'Evidencia de explotación'
+            },
+            'tab_comments':{
+              'comments_name':'Comentarios'
             },
             'pop_table':{
                'type': 'Tipo',

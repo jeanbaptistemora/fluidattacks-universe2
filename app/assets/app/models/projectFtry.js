@@ -50,6 +50,61 @@ integrates.factory('projectFtry', function($q, $translate){
             return $xhr.get($q, link, {}, oops_ac);
         },
         /**
+         * Invoca el servicio para tener los comentarios de un hallazgo
+         * @function getComments
+         * @param {String} id
+         * @member integrates.projectFtry
+         * @return {Object}
+         */
+        getComments: function(id){
+            var oops_ac = $translate.instant('proj_alerts.error_text');
+            return $xhr.get($q, BASE.url + "get_comments", {
+                id: id, _: Math.random()
+            },oops_ac);
+        },
+        /**
+         * Invoca el servicio para agregar nuevos comentarios en un hallazgo
+         * @function addComment
+         * @param {String} id
+         * @param {Object} data
+         * @member integrates.projectFtry
+         * @return {Object}
+         */
+        addComment: function(id, data){
+            var oops_ac = $translate.instant('proj_alerts.error_text');
+            return $xhr.post($q, BASE.url + "add_comment", {
+                id: id, data: data, _: Math.random()
+            },oops_ac);
+        },
+        /**
+         * Invoca el servicio para actualizar los comentarios en un hallazgo
+         * @function updateComment
+         * @param {String} id
+         * @param {Object} data
+         * @member integrates.projectFtry
+         * @return {Object}
+         */
+        updateComment: function(id, data){
+            var oops_ac = $translate.instant('proj_alerts.error_text');
+            return $xhr.post($q, BASE.url + "update_comment", {
+                id: id, data: data, _: Math.random()
+            },oops_ac);
+        },
+        /**
+         * Invoca el servicio para eliminar los comentarios en un hallazgo
+         * @function deleteComment
+         * @param {String} id
+         * @param {Object} data
+         * @member integrates.projectFtry
+         * @return {Object}
+         */
+        deleteComment: function(id, data){
+            var oops_ac = $translate.instant('proj_alerts.error_text');
+            return $xhr.post($q, BASE.url + "delete_comment", {
+                id: id, data: data, _: Math.random()
+            },oops_ac);
+        },
+        /**
          * Invoca el servicio para tener el detalle de un hallazgo
          * @function FindingById
          * @param {Integer} id

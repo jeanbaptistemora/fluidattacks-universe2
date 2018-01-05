@@ -526,6 +526,7 @@ integrates.controller("findingcontentCtrl", function($scope, $stateParams, $time
                 $scope.findingInformationTab();
                 $scope.findingEvidenceTab();
                 $scope.findingExploitTab();
+                $scope.findingCommentTab();
                 //Control de campos para tipos de hallazgo
                 $scope.esDetallado = false;
                 if($scope.finding.nivel == "Detallado"){
@@ -731,6 +732,79 @@ integrates.controller("findingcontentCtrl", function($scope, $stateParams, $time
         }
         $scope.tabEvidences = evidenceList;
     };
+    $scope.findingCommentTab = function(){
+        if($scope.finding.id !== undefined){
+            var comments = projectFtry.getComments($scope.finding.id);
+            comments.then(function(response){
+                if(!response.error){                   
+                    var usersArray = []
+                    for (var i = 0; i < response.data.length; i++) {
+                      var user = {fullname: "", email: ""};
+                      user["fullname"] = response.data[i].fullname;
+                      user["email"] = response.data[i].email;
+                      usersArray.push(user);
+                    }                   
+                    var saveComment = function(data) {
+                      // Convert pings to human readable format
+                      $(data.pings).each(function(index, id) {
+                        var user = usersArray.filter(function(user){return user.id == id})[0];
+                        data.content = data.content.replace('@' + id, '@' + user.fullname);
+                      });
+                      return data;
+                    }
+                    $('#comments-container').comments({
+                      roundProfilePictures: true,
+                      textareaRows: 2,
+                      enableAttachments: false,
+                      enableHashtags: true,
+                      enablePinging: false,
+                      enableUpvoting: false,
+                      getUsers: function(success, error) {
+                        setTimeout(function() {
+                          success(usersArray);
+                        }, 500);
+                      },
+                      getComments: function(success, error) {
+                        setTimeout(function() {
+                          success(response.data);
+                        }, 500);
+                      },
+                      postComment: function(data, success, error) {
+                        data["id"] = parseInt(Math.round(new Date()/1000).toString() + (Math.random() * 10000).toString(9));
+                        var comment = projectFtry.addComment($scope.finding.id, data);
+                        comment.then(function(response){
+                          if(!response.error){
+                            setTimeout(function() {
+                              success(data);
+                            }, 500);
+                          }
+                        });
+                      },
+                      putComment: function(data, success, error) {
+                        var comment = projectFtry.updateComment($scope.finding.id, data);
+                        comment.then(function(response){
+                          if(!response.error){
+                            setTimeout(function() {
+                              success(data);
+                            }, 500);
+                          }
+                        });
+                      },
+                      deleteComment: function(data, success, error) {
+                        var comment = projectFtry.deleteComment($scope.finding.id, data);
+                        comment.then(function(response){
+                          if(!response.error){
+                            setTimeout(function() {
+                              success();
+                            }, 500);
+                          }
+                        });
+                      }
+                    });                                   
+                }
+            });
+        }
+    };
     $scope.findingCalculateSeveridad = function(){
         if(!isNaN($scope.finding.severidad)){
             var severidad = parseFloat($scope.finding.severidad);
@@ -929,6 +1003,9 @@ integrates.controller("findingcontentCtrl", function($scope, $stateParams, $time
     $scope.urlExploit = function(){
         location.replace(window.location.href.split($stateParams.id)[0] + $stateParams.id + "/exploit")
      };
+     $scope.urlComments = function(){
+        location.replace(window.location.href.split($stateParams.id)[0] + $stateParams.id + "/comments")
+     };
     $scope.init = function(){
         var project = $stateParams.project;
         var findingId = $stateParams.finding;
@@ -969,6 +1046,8 @@ integrates.controller("findingcontentCtrl", function($scope, $stateParams, $time
           $("#evidence").removeClass("active");
           $("#exploitItem").removeClass("active");
           $("#exploit").removeClass("active");
+          $("#commentItem").removeClass("active");
+          $("#comment").removeClass("active");
         }
         if (window.location.hash.indexOf('severity') !== -1){
           $("#infoItem").removeClass("active");
@@ -981,6 +1060,8 @@ integrates.controller("findingcontentCtrl", function($scope, $stateParams, $time
           $("#evidence").removeClass("active");
           $("#exploitItem").removeClass("active");
           $("#exploit").removeClass("active");
+          $("#commentItem").removeClass("active");
+          $("#comment").removeClass("active");
         }
         if (window.location.hash.indexOf('tracking') !== -1){
           $("#infoItem").removeClass("active");
@@ -993,6 +1074,8 @@ integrates.controller("findingcontentCtrl", function($scope, $stateParams, $time
           $("#evidence").removeClass("active");
           $("#exploitItem").removeClass("active");
           $("#exploit").removeClass("active");
+          $("#commentItem").removeClass("active");
+          $("#comment").removeClass("active");
         }
         if (window.location.hash.indexOf('evidence') !== -1){
           $("#infoItem").removeClass("active");
@@ -1005,6 +1088,8 @@ integrates.controller("findingcontentCtrl", function($scope, $stateParams, $time
           $("#evidence").addClass("active");
           $("#exploitItem").removeClass("active");
           $("#exploit").removeClass("active");
+          $("#commentItem").removeClass("active");
+          $("#comment").removeClass("active");
         }
         if (window.location.hash.indexOf('exploit') !== -1){
           $("#infoItem").removeClass("active");
@@ -1015,8 +1100,24 @@ integrates.controller("findingcontentCtrl", function($scope, $stateParams, $time
           $("#tracking").removeClass("active");
           $("#evidenceItem").removeClass("active");
           $("#evidence").removeClass("active");
+          $("#commentItem").removeClass("active");
+          $("#comment").removeClass("active");
           $("#exploitItem").addClass("active");
           $("#exploit").addClass("active");
+        }
+        if (window.location.hash.indexOf('comments') !== -1){
+          $("#infoItem").removeClass("active");
+          $("#info").removeClass("active");
+          $("#cssv2Item").removeClass("active");
+          $("#cssv2").removeClass("active");
+          $("#trackingItem").removeClass("active");
+          $("#tracking").removeClass("active");
+          $("#evidenceItem").removeClass("active");
+          $("#evidence").removeClass("active");
+          $("#exploitItem").removeClass("active");
+          $("#exploit").removeClass("active");
+          $("#commentItem").addClass("active");
+          $("#comment").addClass("active");
         }
     };
     $scope.init();

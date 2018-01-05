@@ -28,6 +28,11 @@ urlpatterns = [
     url(r'^registration/?$', views.registration, name='registration'),
     url(r'^oauth/', include('social_django.urls', namespace='social')),
     url(r'^forms/?\.*$', views.forms),
+    # Comentarios
+    url(r'^get_comments/?\.*$', views.get_comments, name='get_comments'),
+    url(r'^add_comment/?\.*$', views.add_comment, name='add_comment'),
+    url(r'^update_comment/?\.*$', views.update_comment, name='update_comment'),
+    url(r'^delete_comment/?\.*$', views.delete_comment, name='delete_comment'),
     # Presentacion Dashboard
     url(r'^get_myprojects/?\.*$', views.get_myprojects, name='get_myprojects'),
     url(r'^get_myevents/?\.*$', views.get_myevents, name='get_myevents'),
