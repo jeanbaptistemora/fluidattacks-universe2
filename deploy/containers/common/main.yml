@@ -28,6 +28,7 @@
       - python-scipy
       - python-matplotlib
       - ruby
+      - npm
    - name: Instalar librerias
      apt:
       pkg: "{{ item }}"
@@ -98,6 +99,9 @@
       - watchtower==0.4.1
       - jinja2
       - matplotlib
+      - pylint==1.7.5
+      - pylint-django==0.7.2
+
      register: installed_deps
 
    - name: Patch social auth module
