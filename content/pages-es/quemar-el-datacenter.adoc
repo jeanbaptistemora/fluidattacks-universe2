@@ -4,7 +4,18 @@
 
 = Quemar el datacenter - De mascotas a ganado
 
-El mundo del desarrollo de aplicaciones y la administración de infraestructura han sido típicamente dos mundos separados y antagonistas.  Existe una dicotomía entre la apertura al cambio que se pide en el desarrollo y la estabilidad que se les pide a las áreas de infraestructura.  Recientemente vemos como emergen frases extrañas (tecnorrea) como DevOps, perfiles DevOps, como las empresas crean áreas de transformación DevOps pero más allá del ámbito de gobierno (roles, responsabilidades y procesos), ¿cómo esto se traduce en conceptos técnicos simples en espacios adicionales a las aplicaciones?.  En este universo metodológico estamos perdiendo de vista que existe desde hace más de 20 años, y con más criticidad hace 10, una emergencia en lenguajes de programación específicos para infraestructura y redes, que si los dominamos desde el principio, hacen que las prácticas de programación desarrolladas durante medio siglo comiencen a aplicar a la infraestructura: ¿Podemos compilar un servidor? ¿Hacer linting de infraestructura? ¿Hacer análisis estático de redes? ¿Podemos integrar continuamente la infraestructura? ¿Podemos hacer despliegue continuo de infraestructura? ¿La infraestructura puede ser inmutable y por ende desechable?.  En esta charla veremos como el mundo le pertenece a los programadores y como los ambientes son infinitos.
+El mundo del desarrollo de aplicaciones y la administración de infraestructura han sido típicamente dos mundos separados y antagonistas.  Existe una dicotomía entre la apertura al cambio que se pide en el desarrollo y la estabilidad que se les pide a las áreas de infraestructura.  Recientemente vemos como emergen frases extrañas (tecnorrea) como DevOps, perfiles DevOps, como las empresas crean áreas de transformación DevOps pero más allá del ámbito de gobierno (roles, responsabilidades y procesos), ¿cómo esto se traduce en conceptos técnicos simples en espacios adicionales a las aplicaciones?.
+
+En este universo metodológico estamos perdiendo de vista que existe desde hace más de 20 años, y con más criticidad hace 10, una emergencia en lenguajes de programación específicos para infraestructura y redes, que si los dominamos desde el principio, hacen que las prácticas de programación desarrolladas durante medio siglo comiencen a aplicar a la infraestructura: 
+
+* ¿Podemos compilar un servidor? 
+* ¿Hacer linting de infraestructura? 
+* ¿Hacer análisis estático de redes? 
+* ¿Podemos integrar continuamente la infraestructura? 
+* ¿Podemos hacer despliegue continuo de infraestructura? 
+* ¿La infraestructura puede ser inmutable y por ende desechable?.  
+
+En esta charla veremos como el mundo le pertenece a los programadores y como los ambientes son infinitos.
 
 Esta charla académica gratuita la hemos estado dando ya hace 9 meses en:
 
