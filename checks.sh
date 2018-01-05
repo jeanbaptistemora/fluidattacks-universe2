@@ -1,5 +1,3 @@
-#!/bin/bash
-
 if egrep -r 'Fluid|Fluidsignal\ Group|fluidsignal' content/; then echo "El único nombre aceptado es FLUID"; exit 1; fi
 
 # if grep -P -n -r --include "*.adoc" "^[^.] http" content/kb; then echo "ERRORES: Referencias deben ser numeradas"; exit 1;fi
