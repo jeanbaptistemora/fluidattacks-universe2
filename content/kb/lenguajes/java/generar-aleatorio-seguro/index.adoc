@@ -1,4 +1,4 @@
-:slug: kb/lenguajes/java/generar-valor-aleatorio-seguro
+:slug: kb/lenguajes/java/generar-aleatorio-seguro
 :eth: no
 :category: java
 :kb: yes
