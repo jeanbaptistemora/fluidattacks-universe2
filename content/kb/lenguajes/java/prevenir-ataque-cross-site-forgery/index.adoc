@@ -49,9 +49,13 @@ para instalarlo se debe considerar los siguientes pasos:
 . Descargar OWASP CSRFGuard 3+ [2].
 . Copiar los archivos OWASP CSRFGuard en el directorio de la
 aplicación de la siguiente forma:
+[source, conf, linenums]
+----
+${PROJECT}/WEB-INF/lib/Owasp.CsrfGuard.jar
+${PROJECT}/WEB-INF/Owasp.CsrfGuard.properties
+${PROJECT}/WEB-INF/Owasp.CsrfGuard.js
+----
 
-image::configuracion.png[]
- 
 [start=9] 
 . Modificar el archivo Owasp.CsrfGuard.properties para indicar que archivos no 
 requieren ser protegidos. El identificador entre 
