@@ -17,15 +17,17 @@ En este universo metodológico estamos perdiendo de vista que existe desde hace 
 
 En esta charla veremos como el mundo le pertenece a los programadores y como los ambientes son infinitos.
 
+== Experiencia
+
 Esta charla académica gratuita la hemos estado dando ya hace 9 meses en:
 
-* *Grandes empresas de la región:* Sura, Bancolombia -arquitectura, seguridad, ambientes-, Grupo Éxito, Tigo Une, Celsia-EPSA, Comfama, Banistmo, St George Bank, Banco de Credito del Peru, GNB Sudameris, Cueros Velez
+* *Grandes empresas de la región:* https://www.segurossura.com.co/Paginas/default.aspx[Sura], https://www.grupobancolombia.com/wps/portal/personas[Bancolombia], https://www.grupoexito.com.co/es/[Grupo Éxito], https://www.tigoune.com.co/[Tigo Une], http://www.celsia.com/[Celsia-EPSA], https://www.comfama.com/webinicio/default.asp[Comfama], https://www.banistmo.com/[Banistmo], https://www.stgeorgesbank.com/[St. Georges Bank], https://www.bcp.com.bo/[Banco de Credito del Peru], https://www.gnbsudameris.com.co/[GNB Sudameris], https://www.velez.com.co/[Cueros Velez]
 
-* *Universidades:* EAFIT, UdeM, UdeA, UNALMed, Politécnico Jaime Isaza Cadavid, UPB, Uniminuto Bogotá
+* *Universidades:* http://www.eafit.edu.co/[EAFIT], https://www.udem.edu.co/[UdeM], https://www.udea.edu.co/[UdeA], https://medellin.unal.edu.co/[UNALMed], http://www.politecnicojic.edu.co/[Politécnico Jaime Isaza Cadavid], https://www.upb.edu.co/es/home[UPB], http://www.uniminuto.edu/[Uniminuto Bogotá]
 
-* *Empresas proveedoras de TI:* Komet Sales, Perceptio, Internexa, Gluky, Cidenet, Choucair Testing, Cadena, SETI, NovitIT Peru, Flypass, Cognox, Todo1, Mareigua
+* *Empresas proveedoras de TI:* https://www.kometsales.com/[Komet Sales], http://perceptio.co/[Perceptio], http://www.internexa.com/Paginas/Home.aspx[Internexa], http://gluky.co/[Gluky], https://outsourcing.cidenet.com.co/home/[Cidenet], https://www.choucairtesting.com/[Choucair Testing], http://www.cadena.com.co/es/home.aspx[Cadena], http://www.seti.com.co/sitios/seti/Paginas/HomePageSeti.aspx[SETI], http://novit.pe/[NovitIT Peru], http://flypass.com.co/[Flypass], http://www.cognox.co/sitios/Cognox/default.aspx[Cognox], https://www.todo1services.com/[Todo1], http://www.mareigua.com/[Mareigua]
 
-* *Otros espacios abiertos:* RutaN, MeetUp-Medellin-DevOps.
+* *Otros espacios abiertos:* https://www.rutanmedellin.org/es/[RutaN], https://www.meetup.com/es/mde-devops[MeetUp-Medellin-DevOps].
 
 En total se han dictado más de *35 charlas* con un total de *878 asistentes* y una *satisfacción global de 165%.*
 
