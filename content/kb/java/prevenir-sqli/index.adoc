@@ -114,10 +114,8 @@ donde se copia ese contenido y posteriormente se ejecuta.
 . Una vez se tiene la base de datos construida, se crea una estructura de 
 directorios y archivos como la siguiente:
 [source, bash, linenums]
-% ls -R  
- 
-[source, conf, linenums]
 ----
+% ls -R  
 .:  
 index.jsp WEB-INF/ +
 ./WEB-INF:  +
