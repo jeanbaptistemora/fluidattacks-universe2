@@ -1,0 +1,54 @@
+:slug: kb/frameworks/aspnet/establecer-content-type-charset
+:eth: no
+:category: aspnet
+:kb: yes
+
+= Establecer Content-Type y Charset
+
+== Necesidad
+
+Establecer Content-Type y Charset en ASP.Net
+
+== Contexto
+
+A continuación se describe las circunstancias bajo las cuales la siguiente solución tiene sentido:
+
+. Se está desarrollando en ASP.Net
+
+== Solución
+
+. Las aplicaciones son rara vez probadas contra los exploits que usan Unicode, y sin embargo, muchas son vulnerables al mismo tipo de problemas que permite a un atacante realizar un "HTTP REQUEST SMUGGLING". El "HTTP REQUEST SMUGGLING" le permite a un atacante evadir los controles de un sistema, usando codificaciones diferentes, para que dos sistemas (usualmente, un WAF y el servidor WEB) perciban peticiones HTTP diferentes. 
++
+La forma canónica significa la forma más simple o más estandar de algo. El proceso de canonizar las solicitudes se encarga de abordar la forma en que los sistemas transforman los datos de una forma a otra. En sí, canonizar es convertir algo de una representación a una forma más simple.
++
+Las aplicaciones Web deben lidiar con muchos procesos de canonización desde la codificación del URL hasta la traducción de las IP. Cuando se toman decisiones de seguridad basándose en datos canonizados menos que perfectos, la aplicación debe ser capaz de lidiar con entradas inesperadas de manera segura. 
++
+Para evitar los ataques que se aprovechan de la canonización, se debe seleccionar una forma canónica y todas las entradas de usuario deben ser canonizadas a esa forma antes de tomar decisiones de autorización. Se debe realizar pruebas de seguridad después de que se ha realizado la decodificación. Se recomienda verificar que la codificación usada esta soportada para cada símbolo que se presenta.
+
+. Para definir una forma canonica, en HTTP definimos el Content-Type. En C# tenemos la propiedad _HttpResponse.ContentType_, que permite establecer u obtener el tipo MIME del flujo de salida. Se encuentra en el espacio de nombres _System.Web_ en el ensamblado _System.Web_ de _System.Web.dll_. Ejemplo de uso:
++
+
+[source, java, linenums]
+----
+// Establece el contet type.
+Response.ContentType = "image/jpeg";
+----
+
+. De manera similar, podemos definir el Character-Set usado. En C# se cuenta con HttpResponse.Charset que permite establecer u obtener el tipo MIME del flujo de salida. Ejemplo de uso:
++
+
+[source,java,linenums]
+----
+if (Response.Charset == "utf-8") 
+ {
+   // ...
+ }
+----
+
+== Referencias
+
+. https://msdn.microsoft.com/en-us/library/system.web.httpresponse.contenttype.aspx[Microsoft, HttpResponse.ContentType]
+
+. REQ.0039: Los archivos generados de forma dinámica por el sistema deben tener definido un Content-Type explícito.
+
+. REQ.0040: Los archivos generados de forma dinámica por el sistema deben tener definido un Character-Set explícito.
