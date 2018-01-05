@@ -70,32 +70,32 @@
      pip:
       name: "{{ item }}"
      with_items:
-      - django
-      - python-pptx
-      - pyyaml
-      - openpyxl
-      - requests
-      - lxml
-      - decorators
-      - retrying
-      - social-auth-app-django
-      - prospector
-      - mysqlclient
-      - django-sslserver
-      - ansible
-      - django-crontab
-      - django-analytical
-      - django-intercom
-      - mandrill
-      - python-magic
-      - apiclient
-      - httplib2
-      - google-api-python-client
-      - oauth2client
-      - pytz
-      - slackclient
-      - boto3
-      - watchtower
+      - django==1.11
+      - python-pptx==0.6.5
+      - pyyaml==3.12
+      - openpyxl==2.4.7
+      - requests==2.13.0
+      - lxml==3.7.3
+      - decorators==0.1.1
+      - retrying==1.3.3
+      - social-auth-app-django==1.1.0
+      - prospector==0.12.5
+      - mysqlclient==1.3.10
+      - django-sslserver==0.19
+      - ansible==2.4.2.0
+      - django-crontab==0.7.1
+      - django-analytical==2.2.2
+      - django-intercom==0.0.13
+      - mandrill==1.0.57
+      - python-magic==0.4.13
+      - apiclient==1.0.2
+      - httplib2==0.10.3
+      - google-api-python-client==1.6.2
+      - oauth2client==4.0.0
+      - pytz==2017.2
+      - slackclient==1.0.9
+      - boto3==1.4.7
+      - watchtower==0.4.1
       - jinja2
       - matplotlib
      register: installed_deps
