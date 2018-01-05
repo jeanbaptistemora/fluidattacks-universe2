@@ -4,6 +4,12 @@
 
 = Quemar el datacenter - De mascotas a ganado
 
+== 1. Objetivo
+
+En este espacio queremos socializar nuestras convicciones sobre lo que creemos será el futuro de la tecnología, el desarrollo de software y la gestión de su ciclo de vida en los próximos 10 años y por ende como se tendrá que adaptar todo el ecosistema de gestión, incluido el que nos compete a nosotros: Pruebas de Seguridad.
+
+== 2. Contenido
+
 El mundo del desarrollo de aplicaciones y la administración de infraestructura han sido típicamente dos mundos separados y antagonistas.  Existe una dicotomía entre la apertura al cambio que se pide en el desarrollo y la estabilidad que se les pide a las áreas de infraestructura.  Recientemente vemos como emergen frases extrañas (tecnorrea) como DevOps, perfiles DevOps, como las empresas crean áreas de transformación DevOps pero más allá del ámbito de gobierno (roles, responsabilidades y procesos), ¿cómo esto se traduce en conceptos técnicos simples en espacios adicionales a las aplicaciones?.
 
 En este universo metodológico estamos perdiendo de vista que existe desde hace más de 20 años, y con más criticidad hace 10, una emergencia en lenguajes de programación específicos para infraestructura y redes, que si los dominamos desde el principio, hacen que las prácticas de programación desarrolladas durante medio siglo comiencen a aplicar a la infraestructura: 
@@ -17,7 +23,8 @@ En este universo metodológico estamos perdiendo de vista que existe desde hace 
 
 En esta charla veremos como el mundo le pertenece a los programadores y como los ambientes son infinitos.
 
-== 1. Experiencia
+
+== 3. Experiencia
 
 Esta charla académica gratuita la hemos estado dando ya hace 9 meses en:
 
@@ -31,55 +38,52 @@ Esta charla académica gratuita la hemos estado dando ya hace 9 meses en:
 
 En total se han dictado más de *35 charlas* con un total de *878 asistentes* y una *satisfacción global de 165%.*
 
-== 2. Objetivo
-
-En este espacio queremos socializar nuestras convicciones sobre lo que creemos será el futuro de la tecnología, el desarrollo de software y la gestión de su ciclo de vida en los próximos 10 años y por ende como se tendrá que adaptar todo el ecosistema de gestión, incluido el que nos compete a nosotros: Pruebas de Seguridad.
-
-== 3. ¿Donde?
+== 4. ¿Donde?
 
 Podemos dictar la charla a domicilio en sus instalaciones.
 
-== 4. ¿Cuando? 
+Las charlas pueden ser en Medellín con un público de mínimo 20 personas y uno de ellos con más de 10 personas a cargo. Para otras ciudades en Colombia, Centro América, Ecuador y Perú se debe contar entre los asistentes 1 persona con más de 20 personas a cargo.
+
+== 5. ¿Cuando? 
 
 Acordaremos la fecha en que se dictará, es cuestión de que nos indiques 3 posibles horarios para realizarla y nosotros seleccionamos 1.
 
-== 5. Público
+La charla tiene una duración de 2 horas (no es posible reducir su duración).
+
+== 6. Público
 
 La charla es apta para personal técnico y personal gerencial de tecnología.  Ambos perfiles son bienvenidos y su satisfacción es alta indistintamente.  Sin embargo si desea disparar cambios y experimentos dentro de su organización es importante considerar la presencia de personas con poder de decisión.
 
-== 6. Expositor
-
-Ingeniero de Sistemas de la Universidad EAFIT, becario de International Max-Planck Research School for Computer Science de Alemania y por el Center for Development of Advanced Computing del Gobierno de la India para el Programa de Reducción de Fraude Informático. Certificado actualmente como profesional en seguridad de la información CISSP.  Se desempeñó como docente de cátedra de las materias de Sistemas Operativos en la Universidad EAFIT, y Telemática y Sistemas Distribuidos en la Universidad Pontificia Bolivariana. Fue uno de los primeros Colombianos en ser desarrollador oficial del proyecto Debian. Fue miembro del comité técnico 181 de ICONTEC donde participó activamente en la homologación a Norma Técnica Colombiana de múltiples normas ISO relacionadas con seguridad. Es socio fundador de FLUID y parte de su equipo directivo hace 16 años, desde donde lideró la implantación de la primera certificación ISO 27001 en Colombia y en la cual participó en su mantenimiento durante 6 años. Es inversionista y miembro de junta directiva en Empiricus y Biva, además miembro independiente de las juntas directivas de Cidenet y Nous Digital.  En el pasado participó de las juntas directivas de S-SQUARE, Nuva y Al Derecho. Ha sido jurado en iNNpulsa Colombia y Startup Weekend, es un conferencista frecuente en temas relacionados con seguridad y emprendimiento.
+El límite de asistentes está limitado al espacio del que se disponga.  Se ha realizado en grupos de 20 personas y en auditorios con más de 80 personas.
 
 == 7. Detalles
 
-* *Duración:* 2 horas (no es posible reducir su duración).
+. *Inversión:* $0 COP, FLUID se encarga de todos los costos correspondientes excepto el lugar y el tiempo de los asistentes. Si no se pueden cumplir los requisitos mínimos de número de asistentes y perfil de los mismos, la inversión de la conferencia en Medellín es de $1.025.324 COP, en otras ciudades del país 2X, y 3X fuera de Colombia.
 
-* *Límite de asistentes:* Está limitada al espacio del que se disponga.  Se ha realizado en grupos de 20 personas y en auditorios con más de 80 personas.
-
-* *Ubicación:* Las charlas pueden ser en Medellín en un público de mínimo de 20 personas y uno de ellos con más de 10 personas a cargo. En cualquier ciudad de Centro América, Colombia, Ecuador y Perú si entre los asistentes se encuentra 1 persona con más de 20 personas a cargo.
-
-* *Inversión:* $0 COP, FLUID se encarga de todos los costos correspondientes excepto el lugar y el tiempo de los asistentes. Si no se pueden cumplir los requisitos mínimos de número de asistentes y perfil de los mismos, la inversión de la conferencia en Medellín es de $1.025.324 COP, en otras ciudades del país 2X, y 3X fuera de Colombia.
-
-* *Restricciones:* No es posible incluir personas remotamente.  La charla es muy dinámica y por ende depende mucho de la interacción cara a cara con el público.
-
-* *Material:* El material se le envia solo a los asistentes que diligencien la evaluación de satisfacción 1 día después de la charla.
+. *Material:* El material se le envia solo a los asistentes que diligencien la evaluación de satisfacción 1 día después de la charla.
 
 == 8. Requisitos
 
-* Asistentes diligencian por Internet en la sección de preguntas de la charla una evaluación de satisfacción de 3 minutos. 
+. Asistentes diligencian por Internet en la sección de preguntas de la charla una evaluación de satisfacción de 3 minutos. 
 
-* Adicionalmente esperamos poder llevar por parte de FLUID un máximo de 4 invitados adicionales al expositor. 
+. Adicionalmente esperamos poder llevar por parte de FLUID un máximo de 4 invitados adicionales al expositor. 
 
-* No usar celulares y portátiles durante la presentación. 
+. No usar celulares y portátiles durante la presentación. 
 
-* Los asistentes conozcan previamente la invitación completa de forma que puedan decidir voluntariamente no asistir si no es pertinente la charla.
+. Los asistentes conozcan previamente la invitación completa de forma que puedan decidir voluntariamente no asistir si no es pertinente la charla.
 
-* Poder ingresar 30 minutos antes al lugar a conectar equipos y empezar a la hora en punto la charla.
+. Poder ingresar 30 minutos antes al lugar a conectar equipos y empezar a la hora en punto la charla.
 
-* *Conexión HDMI física:*  La presentación se hace desde un portatil Linux con animaciones, por ende no son soportados conectores inalámbricos HDMI que requieren instalación de Drivers Windows.
+. *Conexión HDMI física:*  La presentación se hace desde un portatil Linux con animaciones, por ende no son soportados conectores inalámbricos HDMI que requieren instalación de Drivers Windows.
 
-* *Acceso a Google Drive via WiFi:* La presentación dispone de animaciones y videos solo disponibles si el portatil de presentación puede conectarse a Internet mediante una WiFi que permita conexión a Google Drive. 
+. *Acceso a Google Drive via WiFi:* La presentación dispone de animaciones y videos solo disponibles si el portatil de presentación puede conectarse a Internet mediante una WiFi que permita conexión a Google Drive. 
 
+. No incluir personas remotamente.  La charla es muy dinámica y por ende depende mucho de la interacción cara a cara con el público.
+
+== 9. Expositor
+
+Ingeniero de Sistemas de la Universidad EAFIT, becario de International Max-Planck Research School for Computer Science de Alemania y por el Center for Development of Advanced Computing del Gobierno de la India para el Programa de Reducción de Fraude Informático. Certificado actualmente como profesional en seguridad de la información CISSP.  Se desempeñó como docente de cátedra de las materias de Sistemas Operativos en la Universidad EAFIT, y Telemática y Sistemas Distribuidos en la Universidad Pontificia Bolivariana. Fue uno de los primeros Colombianos en ser desarrollador oficial del proyecto Debian.
+
+Fue miembro del comité técnico 181 de ICONTEC donde participó activamente en la homologación a Norma Técnica Colombiana de múltiples normas ISO relacionadas con seguridad. Es socio fundador de FLUID y parte de su equipo directivo hace 16 años, desde donde lideró la implantación de la primera certificación ISO 27001 en Colombia y en la cual participó en su mantenimiento durante 6 años. Es inversionista y miembro de junta directiva en Empiricus y Biva, además miembro independiente de las juntas directivas de Cidenet y Nous Digital.  En el pasado participó de las juntas directivas de S-SQUARE, Nuva y Al Derecho. Ha sido jurado en iNNpulsa Colombia y Startup Weekend, es un conferencista frecuente en temas relacionados con seguridad y emprendimiento.
 
 
