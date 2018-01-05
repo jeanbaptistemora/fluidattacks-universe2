@@ -1,4 +1,4 @@
-:slug: kb/servidor-aplicacion/apache/desactivar-metodo-http-trace
+:slug: kb/servidores-aplicacion/apache/desactivar-metodo-http-trace
 :eth: no
 :category: apache
 :kb: yes

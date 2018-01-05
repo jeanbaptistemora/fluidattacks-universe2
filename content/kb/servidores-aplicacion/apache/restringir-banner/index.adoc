@@ -1,4 +1,4 @@
-:slug: kb/servidor-aplicacion/apache/restringir-banner
+:slug: kb/servidores-aplicacion/apache/restringir-banner
 :eth: no
 :category: apache
 :kb: yes

@@ -1,4 +1,4 @@
-:slug: kb/servidor-aplicacion/apache/configurar-soporte-https
+:slug: kb/servidores-aplicacion/apache/configurar-soporte-https
 :eth: no
 :category: apache
 :kb: yes

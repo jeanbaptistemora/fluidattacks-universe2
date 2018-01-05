@@ -1,4 +1,4 @@
-:slug: kb/servidor-aplicacion/glassfish/revisar-bitacora
+:slug: kb/servidores-aplicacion/glassfish/revisar-bitacora
 :eth: no
 :category: glassfish
 :kb: yes

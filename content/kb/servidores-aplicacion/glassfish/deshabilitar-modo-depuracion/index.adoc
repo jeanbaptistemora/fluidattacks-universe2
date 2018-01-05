@@ -1,4 +1,4 @@
-:slug: kb/servidor-aplicacion/glassfish/deshabilitar-modo-depuracion
+:slug: kb/servidores-aplicacion/glassfish/deshabilitar-modo-depuracion
 :eth: no
 :category: glassfish
 :kb: yes
