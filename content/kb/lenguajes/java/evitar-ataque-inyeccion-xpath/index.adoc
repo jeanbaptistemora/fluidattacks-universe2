@@ -1,0 +1,246 @@
+:slug: kb/lenguajes/java/evitar-ataque-inyeccion-xpath
+:eth: no
+:category: java
+:kb: yes
+
+=  Evitar Ataques de Inyección XPATH
+
+== Necesidad
+
+Evitar ataques de inyección XPATH
+
+== Contexto
+
+A continuación se describen las circunstancias bajo las cuales la siguiente 
+solución tiene sentido:
+
+. Se está desarrollando una aplicación con Java.
+. Se está desarrollando una aplicación que utiliza el API de interpretación de 
+XML XPATH.
+
+== Solución
+
+. De manera similar a un ataque de inyección SQL, los ataques de inyección de 
+XPATH se aprovechan de la naturaleza de los intérpretes de Xpath que permiten 
+forjar consultas maliciosas en las entradas de la aplicación.
+. Primero considere el siguiente archivo XML:
+[source, xml, linenums]
+<?xml version="1.0" encoding="UTF-8"?>
+ <users>
+   <user>
+     <firstname>Ben</firstname>
+     <lastname>Elmore</lastname>
+     <loginID>abc</loginID>
+     <password>test123</password>
+   </user>
+   <user>
+     <firstname>Shlomy</firstname>
+     <lastname>Gantz</lastname>
+     <loginID>xyz</loginID>
+     <password>123test</password>
+   </user>
+   <user>
+     <firstname>Jeghis</firstname>
+     <lastname>Katz</lastname>
+     <loginID>mrj</loginID>
+     <password>jk2468</password>
+   </user>
+   <user>
+     <firstname>Darien</firstname>
+     <lastname>Heap</lastname>
+     <loginID>drano</loginID>
+     <password>2mne8s</password>
+    </user>
+ </users>
+ 
+[start=3]
+. Ahora bien, es posible fabricar la siguiente consulta de Xpath.
+[source, conf, linenums]
+----
+/users/user[loginID/text()='abc' and password/text()='test123']
+----
+
+[start=4]
+. Si un atacante pudiera controlar las entradas de la consulta, de manera 
+similar a los ataques de inyección SQL, podría fabricar una consulta de este 
+tipo:
+[source, conf, linenums]
+----
+/users/user[LoginID/text()='' or '1'='1' and password/text()='' or '1'='1']
+----
+
+[start=5]
+. En el siguiente código, si un atacante puede manipular la entrada a doLogin, 
+es posible realizar tautologías que permitan evadir el mecanismo de 
+autenticación.
+[source, java, linenums]
+----
+private boolean doLogin(String loginID, String password)
+ throws ParserConfigurationException, SAXException,
+    IOException, XPathExpressionException {
+      DocumentBuilderFactory domFactory = DocumentBuilderFactory.newInstance();
+      domFactory.setNamespaceAware(true);
+      DocumentBuilder builder = domFactory.newDocumentBuilder();
+      Document doc = builder.parse("users.xml");
+      XPathFactory factory = XPathFactory.newInstance();
+      XPath xpath = factory.newXPath();
+      String query = "//users/user[loginID/text()='"
+        + loginID + "' and password/text()='"+password+"' ]/firstname/text()";
+      XPathExpression expr = xpath.compile(query);
+      Object result = expr.evaluate(doc, XPathConstants.NODESET);
+      NodeList nodes = (NodeList) result;
+      //print first names to the console
+      for (int i = 0; i < nodes.getLength(); i++) {
+        System.out.println(nodes.item(i).getNodeValue()+" accede al sistema");}
+        if (nodes.getLength() >= 1) {
+          return true;}
+        else
+         {return false;}
+      }
+----
+
+[start=6]
+. Para prevenir estos ataques se procede del mismo modo que con los ataques 
+de inyección SQL. Es decir, realizando validación de las entradas, sistemas de 
+prevención como WAF, inspección de datos en las diferentes capas, por ejemplo 
+en el servidor Web (en Apache se puede usar el Mod_Security SecFilterSelective 
+THE_REQUEST "(\'|\")"); Ademas, es importante usar parametrización en las 
+consultas:
+[source, java, linenums]
+----
+declare variable $loginID as xs:string external;
+declare variable $password as xs:string external;
+//users/user[@loginID=$loginID and @password=$password]
+----
+ 
+[start=7]
+. Para utilizar consultas parametrizadas se requiere emplear XQuery, que es un 
+superconjunto de XPath. XQuery básicamente permite utilizar archivos XML como 
+si fuesen bases de datos. Java no soporta de modo nativo XQuery, pero existen 
+parseadores gratuitos como el referenciado en [2].
+. El código completo usando AWT sería:
+[source, java, linenums]
+------------------------
+import java.awt.*;
+import java.awt.event.*;
+import java.io.IOException;
+import org.w3c.dom.*;
+import org.xml.sax.SAXException;
+import javax.xml.parsers.*;
+import javax.xml.xpath.*;
+
+public class XpathInjectionExample {
+  public static void main(String[] args) {
+    System.out.println("Running");
+    self= new XpathInjectionExample();
+    self.printForm();
+  }
+  
+  public static void doLogin() {
+    boolean auth = false;
+    try {
+      auth = self.doLogin(self.lUserName.getText(), self.lPass.getText());
+    } catch (ParserConfigurationException e1) {
+        System.out.println("ParserConfigurationException");
+    } catch (SAXException e1) {
+        System.out.println("SAXException");
+    } catch (IOException e1) {
+        System.out.println("IOException");
+    } catch (XPathExpressionException e1) {
+        System.out.println("XPathExpressionException");
+    }
+    if (auth) 
+		self.lbl2.setText("Autenticacion exitosa");
+    else 
+		self.lbl2.setText("Usuario y/o Contrasena invalida");
+  }
+  
+  private boolean doLogin(String loginID, String password)
+     throws ParserConfigurationException,
+       SAXException, IOException, XPathExpressionException
+  {
+     DocumentBuilderFactory domFactory = DocumentBuilderFactory.newInstance();
+     domFactory.setNamespaceAware(true);
+     DocumentBuilder builder = domFactory.newDocumentBuilder();
+     Document doc = builder.parse("users.xml");
+     XPathFactory factory = XPathFactory.newInstance();
+     XPath xpath = factory.newXPath();
+     String query = "//users/user[loginID/text()='"
+       + loginID + "' and password/text()='"+password+"' ]/firstname/text()";
+     XPathExpression expr = xpath.compile(query);
+     Object result = expr.evaluate(doc, XPathConstants.NODESET);
+     NodeList nodes = (NodeList) result;
+     //print first names to the console
+     for (int i = 0; i < nodes.getLength(); i++) {
+       System.out.println(nodes.item(i).getNodeValue()+" accede al sistema");}
+       if (nodes.getLength() >= 1) {
+         return true;}
+       else
+         {return false;}
+  }
+  
+  private void printForm() {
+    al = new myActionListener();
+    frm=new Frame("Autenticacion");
+    lbl = new Label("Bienvenido al sistema mas seguro..."
+      + "sientase tranquilo, nosotros no usamos SQL!");
+    frm.add(lbl);
+    frm.setSize(600,200);
+    frm.setVisible(true);
+    frm.addWindowListener(new WindowAdapter(){
+      public void windowClosing(WindowEvent e){
+        System.exit(0);}
+      });
+    p = new Panel();
+    p1 = new Panel();
+    jUserName = new Label("Nombre de usuario");
+    lUserName = new TextField(20);
+    jPass =new Label("Last Name");
+    lPass=new TextField(20);
+    lPass.setEchoChar('*');
+    p.setLayout(new GridLayout(3,1));
+    p.add(jUserName);
+    p.add(lUserName);
+    p.add(jPass);
+    p.add(lPass);
+    Submit=new Button("Hecho");
+    Submit.setActionCommand("Hecho");
+    Submit.addActionListener(al);
+    p.add(Submit);
+    p1.add(p);
+    lbl2 = new Label("Presione Hecho para continuar");
+    p1.add(lbl2);
+    frm.add(p1,BorderLayout.NORTH);
+  }
+  
+  // miembros del GUI
+  private Frame frm;
+  private Label lbl;
+  private Label lbl2;
+  private Panel p;
+  private Panel p1;
+  private Label jUserName;
+  private TextField lUserName;
+  private Label jPass;
+  private TextField lPass;
+  private Button Submit;
+  private ActionListener al;
+  public static XpathInjectionExample self;
+}
+
+class myActionListener implements ActionListener {
+  public void actionPerformed(ActionEvent ae) {
+    String s = ae.getActionCommand();
+    if (s.equals("Hecho")) {
+      XpathInjectionExample.doLogin() ;
+    }
+  }
+}
+--------------------------------
+
+== Referencias
+
+. https://www.owasp.org/index.php/XPATH_Injection[XPath injection]
+. https://sourceforge.net/projects/saxon/files/latest/download?source=files[Saxon Home Edition (HE) (open source)]
+. REQ.0168: El sistema debe descartar toda la información potencialmente 
+insegura que sea recibida por entradas de datos.

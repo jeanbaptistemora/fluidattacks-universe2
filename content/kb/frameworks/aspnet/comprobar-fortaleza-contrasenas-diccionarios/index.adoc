@@ -1,0 +1,139 @@
+:slug: kb/frameworks/aspnet/comprobar-fortaleza-contrasenas-diccionarios
+:eth: no
+:category: aspnet
+:kb: yes
+
+= Comprobar Fortaleza de Contraseñas por medio de Diccionarios
+
+== Necesidad
+
+Comprobar fortaleza de contraseñas por medio de diccionarios en ASP.Net
+
+== Contexto
+
+A continuación se describen las circunstancias bajo las cuales la siguiente solución tiene sentido:
+
+. Se está desarrollando una aplicación en ASP.Net.
+. Se requiere comprobar la fortaleza de una contraseña por medio de diccionarios. [1]
+. El sistema operativo o el administrador del sistema poseen diccionarios con palabras comunes.
+
+== Solución
+
+. El código dará solución a la necesidad de comprobar la fortaleza de una contraseña al buscarla en diccionarios que contienen palabras comunes. Iniciamos el desarrollo de la aplicación importando las clases necesarias y definiendo el nombre de nuestra clase:
+
+[source,java,linenums]
+----
+using System.IO;
+public class Dictionary {
+----
+
+[start = 2]
+. El método _Main_ será el encargado de llamar al método _isPasswordInDictionary_ , el cual realiza la búsqueda de la contraseña.
+
+[source,java,linenums]
+----
+   public static void Main(string[] args)
+   {
+      try 
+      {
+----
+
+[start = 3]
+. Establecemos la ruta del diccionario y se imprime el resultado.
+
+[source,java,linenums]
+----
+       string dic = "passwords.txt";
+       System.Console.WriteLine(isPasswordInDictionary(dic, "123"));
+       System.Console.WriteLine(isPasswordInDictionary(dic, "hello"));
+       System.Console.WriteLine(isPasswordInDictionary(dic, "admin"));
+       System.Console.WriteLine(isPasswordInDictionary(dic, "SystEM"));
+       System.Console.WriteLine(isPasswordInDictionary(dic, "Str0n6_P4ssw0rd!"));
+----
+
+[start = 4]
+. Capturamos las excepciones posibles:
+
+[source,java,linenums]
+----
+      } 
+      catch (FileNotFoundException e) 
+      {
+          System.Console.WriteLine("Diccionario no encontrado");
+          System.Console.Error.WriteLine(e.Message);
+      } 
+      catch (IOException e) 
+      {
+          System.Console.WriteLine("Error de entrada/salida de datos");
+          System.Console.Error.WriteLine(e.Message);
+      }
+    }
+----
+
+[start = 5]
+. El método principal es el encargado de abrir el archivo de diccionario y buscar la contraseña. Retornará falso si la contraseña no se encuentra en el diccionario y verdadero en el caso contrario. Iniciamos definiendo los parámetros: _dictionaryFilePath_ que contiene la ruta al diccionario y _password_ que es la contraseña.
+
+[source,java,linenums]
+----
+    public static bool isPasswordInDictionary(string dictionaryFilePath, string password)  
+    {
+----
+
+[start = 6]
+. Se abre el archivo de diccionario con la clase _StreamReader_, la cual permite leer archivos de mucho contenido con un buen manejo de memoria. Se define igualmente la variable que contendrá la palabra leida del diccionario.
+
+[source,java,linenums]
+----
+        StreamReader dictionary = new StreamReader(dictionaryFilePath);
+        string word = "";
+----
+
+[start = 7]
+. Se itera a través de cada palabra en el archivo, si se encuentra dentro de la contraseña entonces se retorna verdadero, en otro caso se retorna falso. En este caso estamos limitándonos a probar palabras del diccionario con más de dos caracteres, para evitar problemas con diccionarios que puedan tener letras individuales en la lista de palabras.
+
+[source,java,linenums]
+----
+        while ((word = dictionary.ReadLine()) != null) 
+        {
+            if (word.Length > 2 && (password.IndexOf(word, System.StringComparison.OrdinalIgnoreCase) >= 0)) 
+            {
+                return true;
+            }
+        }
+        return false;  
+     }
+----
+
+[start = 8]
+. La siguiente es una lista de diccionarios que se recomiendan para hacer la búsqueda:
+
+* http://dazzlepod.com/uniqpass/
+* http://www.openwall.com/wordlists/
+* http://wordlist.aspell.net/
+* https://packetstormsecurity.com/Crackers/wordlists/
+* http://www.deer-run.com/~hal/sysadmin/pam_cracklib.html
+
+. Para GNU/Linux se pueden utilizar los diccionarios incluidos con el sistema operativo que se encuentran en la ruta _/usr/share/dict/_. El resultado para la anterior aplicación es el siguiente
+
+|===
+|*Palabra* | *Resultado*
+
+|123|true
+
+|hello|true
+
+|admin|true
+
+|SystEM|true
+
+|Str0n6_P4ssw0rd!|false
+
+|===
+
+== Referencias
+
+. REQ.0126    Las contraseñas (tipo palabra) deben tener al menos 8 caracteres de longitud.
+. REQ.0127    Las contraseñas (tipo palabra) deben tener al menos 1 letra minúscula.
+. REQ.0128    Las contraseñas (tipo palabra) deben tener al menos 1 letra mayúscula.
+. REQ.0129    Las contraseñas (tipo palabra) deben tener al menos 1 dígito.
+. REQ.0130    Las contraseñas (tipo palabra) deben tener al menos 1 carácter especial.
