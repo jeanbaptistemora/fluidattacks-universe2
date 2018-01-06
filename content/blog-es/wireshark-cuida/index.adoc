@@ -17,7 +17,7 @@ Es muy importante saber que un monitoreo de red no es lo mismo que la gestión d
 
 
 .Logo de wireshark footnote:[Imagen tomada de https://es.wikipedia.org/[Wikipedia]]
-image::2000px-Wireshark_Logo.svg.png[]
+image::2000px-Wireshark-Logo.svg.png[]
 
 == ¿Qué es wireshark?
 

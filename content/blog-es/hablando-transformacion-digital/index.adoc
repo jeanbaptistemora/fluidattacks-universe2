@@ -2,7 +2,7 @@
 :date: 2016-11-15
 :category: general
 :tags: transformar, evolucionar, digital
-:Image: transformacion_digital.jpg
+:Image: transformacion-digital.jpg
 :author: Ivan Velez
 :writer: ivanv
 :name: Ivan Velez

@@ -220,13 +220,13 @@ Al diligenciar el anterior formulario ,por favor tenga en cuenta lo siguiente:
 
 * En Codeabbey (Para retos de programación): 
 
-image::ranking_mundial_codeabbey.png[Ranking mundial]
+image::ranking-mundial-codeabbey.png[Ranking mundial]
 
-image::ranking_colombia_codeabbey.png[Ranking Colombia]
+image::ranking-colombia-codeabbey.png[Ranking Colombia]
 
 * En Wechall (Para retos de hacking):
 
-image::ranking_wechall.png[Ranking en Wechall]
+image::ranking-wechall.png[Ranking en Wechall]
 
 == 9. Fin de la etapa
 

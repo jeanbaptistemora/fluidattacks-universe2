@@ -82,7 +82,7 @@ personalizadas, kernel personalizado, y características como:
 == https://backbox.org/[BackBox Linux]
 
 .Escritorio de BackBox footnote:[Imagen tomada de http://www.subhashdasyam.com[SubHashDasyam]]
-image::backbox-linux-2_5.png[]
+image::backbox-linux-2-5.png[]
 
 BackBox está basado en https://www.ubuntu.com[Ubuntu] y diseñado para realizar
 pentest, respuesta a incidentes e informática forense. El objetivo principal de
@@ -118,7 +118,7 @@ ventaja es que este sistema operativo está adaptado también para el uso diario
 == https://blackarch.org/[BlackArch Linux]
 
 .Escritorio BlackArch footnote:[Imagen tomada de http://lamiradadelreplicante.com/[LaMiradaDelReplicante]]
-image::blackarchlinux_image2.jpg[]
+image::blackarchlinux-image2.jpg[]
 
 BlackArch es una expansión ligera de Arch Linux para pentesters e
 investigadores de seguridad. El repositorio cuenta con aproximadamente 1080
@@ -135,7 +135,7 @@ Requisitos de instalación::
 == http://bugtraq-team.com/[Bugtraq]
 
 .Escritorio Bugtraq footnote:[Imagen tomada de http://lamiradadelreplicante.com/[LaMiradaDelReplicante]]
-image::blackarchlinux_image2.jpg[]
+image::blackarchlinux-image2.jpg[]
 
 Disponible en Debian, se dedica exclusivamente a la seguridad informática. Su comunidad se centra en temas que traten sobre discusiones de vulnerabilidad, anuncios de seguridad, métodos de explotación, etc... Bugtraq lo conforma hackers experimentados y desarrolladores que ofrecen servicios para la ética y las pruebas de intrusión.
 

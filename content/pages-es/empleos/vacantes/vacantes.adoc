@@ -40,7 +40,7 @@ al área administrativa, de producción y de talento humano.
 
 ++++
 <p style="text-align:center">
-image:logo_autonomic.png[align="center"] <a href="https://www.linkedin.com/company/autonomicmind/"><img style="vertical-align: bottom;padding-left: 30px;" src="logo_linkedin.png"/></a>
+image:logo-autonomic.png[align="center"] <a href="https://www.linkedin.com/company/autonomicmind/"><img style="vertical-align: bottom;padding-left: 30px;" src="logo-linkedin.png"/></a>
 </p>
 ++++
 
