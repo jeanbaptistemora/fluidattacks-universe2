@@ -15,7 +15,7 @@ if pcregrep --color -Mnr '^== Referenc.*.*\n.*\n[A-Za-z]' content/; then echo -e
 # solo hace match de enlaces en viñetas de una sola línea, pero es un gran avance.  Pendiente enlaces en medio del texto
 # if grep -P -n -r --include "*.adoc" '^. https+://.*[^\]]$' content; then echo 'ERRORES: Enlaces deben tener "[Titulo]".'; exit 1;fi
 
-# if find content -iname '*.asc' | egrep '.*'; then echo 'ERRORES: Extension "asc" no soportada.'; exit 1;fi
+if find content -iname '*.asc' | egrep '.*'; then echo 'ERRORES: Extension "asc" no soportada.'; ERRORS=1;fi
 
 # if find content -iname '*_*' | egrep '.*'; then echo 'ERRORES: Usar guión alto "-" en vez de guion bajo "_".'; exit 1;fi
 
