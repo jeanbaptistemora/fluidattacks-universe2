@@ -48,9 +48,9 @@ javascript en cualquier campo URL de cualquier navegador, le damos enter y
 sabremos que nos quiere decir esta cookie.
 
 [source, javascript,linenums]
-----------------------
+----
 alert (document.cookie);
------------------------
+----
 
 image::alerta.png[]
 .*_Alerta que nos muestra la información de la cookie_*

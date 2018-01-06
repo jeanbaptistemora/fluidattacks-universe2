@@ -8,7 +8,7 @@ COPY . /app
 # Download only the plugins listed in plugin_list.txt and reset to the version used in this project
 # Download pelican-redirect plugin (not found in the general repository) and create __init__.py so pelican can load the plugin
 RUN apt-get -y update && \
-  apt-get install -y python-pip libssl-dev libcurl4-openssl-dev ruby ruby-dev source-highlight git node-uglify && \
+  apt-get install -y python-pip libssl-dev libcurl4-openssl-dev ruby ruby-dev source-highlight git node-uglify pcregrep && \
   apt-get install -y --no-install-recommends asciidoc && \
   pip install -r requirements.txt && \
   pip install awscli && \

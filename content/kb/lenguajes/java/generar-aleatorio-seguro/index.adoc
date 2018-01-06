@@ -57,7 +57,7 @@ random.nextBytes(integer);
 . Hacemos uso del método toInt [3] para convertir el array de bytes a entero. 
 Retornamos el valor.
 [source, java,linenums]
------------------------
+----
 return toInt(integer);
 }
 
@@ -68,7 +68,7 @@ for (int i = 0; i < 4; i++) {
 }
  return result;
 }
-------------------------
+----
  
 [start=8] 
 . Este es el resultado para la generación de números aleatorios

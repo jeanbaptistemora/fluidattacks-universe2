@@ -75,13 +75,13 @@ A continuación se describe las circunstancias bajo las cuales la siguiente solu
 . El ejemplo siguiente permite que todos los usuarios realizar un HTTP GET para un recurso, pero sólo permite la identidad Kim realizar una operación POST: 
 
 [source, xml, linenums]
-----------------------------------------
+----
 <authorization>
   <allow verbs="GET" users="*"/>
   <allow verbs="POST" users="Kim"/>
   <deny verbs="POST" users="*"/> 
 </authorization>
-----------------------------------------
+----
 
 Las reglas se aplican de la siguiente manera: 
 

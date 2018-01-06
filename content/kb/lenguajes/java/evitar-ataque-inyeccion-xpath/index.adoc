@@ -120,7 +120,7 @@ si fuesen bases de datos. Java no soporta de modo nativo XQuery, pero existen
 parseadores gratuitos como el referenciado en [2].
 . El código completo usando AWT sería:
 [source, java, linenums]
-------------------------
+----
 import java.awt.*;
 import java.awt.event.*;
 import java.io.IOException;
@@ -236,7 +236,7 @@ class myActionListener implements ActionListener {
     }
   }
 }
---------------------------------
+----
 
 == Referencias
 

@@ -54,20 +54,20 @@ argumento en el parámetro GENLVL. Para crear el programa COBOLSTR de la
 biblioteca FLUID con un nivel de severidad 0 (Compilación estricta) se usa el
 siguiente comando:
 [source,cobol,linenums]
------------------------
+----
 CRTBNDCBL
 PGM(FLUID/COBOLSTR)
 SRCFILE(FLUID/SOURCE)
 SRCMBR(COBOLSTR)
 GENLVL(0)
 REPLACE(*YES)
------------------------
+----
 [start=5]
 . El anterior programa es creado exitosamente, el código fuente utilizado para
 esta solución y que contiene la estructura básica de un programa en COBOL es el
 que puede observar a continuación:
 [source,cobol,linenums]
------------------------
+----
        IDENTIFICATION DIVISION.
        PROGRAM-ID. COBOLSTR.
        ENVIRONMENT DIVISION.
@@ -76,8 +76,8 @@ que puede observar a continuación:
        MAIN.
            DISPLAY "Programa estricto".
            STOP RUN.
------------------------
+----
 
 == Referencias
-
+ 	
 . REQ.0152: El código debe compilarse o interpretarse de forma estricta.

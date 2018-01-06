@@ -57,14 +57,14 @@ A R O
 We calculate first the hypotenuse with the first 2 sides
 
 [source, python,linenums]
-----------------
+----
 let rec hypo a b = hypot a b;
-----------------
+----
 
 Then we compare with the longest side
 
 [source, python,linenums]
-----------------
+----
 if float_of_int c > hy then
   Printf.printf "O "
 else
@@ -72,4 +72,4 @@ else
     Printf.printf "A "
   else
     Printf.printf "R "
------------------
+----

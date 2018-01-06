@@ -189,7 +189,7 @@ prepStmt.setString(1, id);
 [start=18] 
 . Se ejecuta la consulta y se muestran los valores obtenidos:
 [source, java,linenums]
-------------------------
+----
        ResultSet tabla = prepStmt.executeQuery();
        out.println("Codigo\tNombre");
        while(tabla.next()) {
@@ -218,7 +218,7 @@ prepStmt.setString(1, id);
   %>
  </body>
 </html>
--------------------------------
+----
 
 [start=19] 
 . Para utilizar la aplicación, basta con pasar por método GET el código de la 

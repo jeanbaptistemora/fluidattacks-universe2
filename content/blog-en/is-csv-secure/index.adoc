@@ -91,22 +91,22 @@ command execution code in the CSV file like we've seen
 A developer could make a validation like this regex
 
 [source, javascript,linenums]
-----------------
+----
 var regexp = new RegExp(/([=,-,+,@])/g);
-----------------
+----
 
 And blocking this types of input, also, can put a space between the dangerous
 character like ' =' to mitigate this vulnerability
 
 [source, javascript,linenums]
-----------------
+----
 if(regexp.test(formData.sdata1)){
   formData.sdata1 = " "+formData.sdata1
 }
 if(regexp.test(formData.sdata2)){
   formData.sdata2 = " "+formData.sdata2
 }
-----------------
+----
 
 In this example we can see that the spreadsheet program doesn't calculate the
 formula and our input is secure
