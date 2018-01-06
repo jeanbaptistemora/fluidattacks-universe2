@@ -63,4 +63,4 @@ La función de un certificado SSL es darle la seguridad a un visitante de una p�
 Como se pudo observar para poder evitar esta vulnerabilidad solo se debe ser cuidadoso al momento de digitar una página web, siempre revisar su protocolo -si es HTTP o HTTPS-, los navegadores son una gran ayuda ya que tienen esta información a la mano para que sea más fácil para el usuario reconocer si está en una página autentica o no, una forma para estar seguro de la autenticidad de la página es ingresando la dirección IP de la página en vez de la dirección, por ejemplo, la dirección IP de Facebook es 31.13.65.36
 
 .Entrando por IP
-image::facebookIP.gif[]
+image::facebookip.gif[]

@@ -17,7 +17,7 @@ Es muy importante saber que un monitoreo de red no es lo mismo que la gestión d
 
 
 .Logo de wireshark footnote:[Imagen tomada de https://es.wikipedia.org/[Wikipedia]]
-image::2000px-Wireshark-Logo.svg.png[]
+image::2000px-wireshark-logo.svg.png[]
 
 == ¿Qué es wireshark?
 
@@ -25,14 +25,14 @@ Es un potente http://culturacion.com/que-es-un-sniffer/[_sniffer_] de red ademá
 
 
 .Interfaces en wireshark
-image::Wireshark.png[]
+image::wireshark.png[]
 
 Como se observa en la imagen 2, wireshark detecta automáticamente a que interfaz está conectado el sistema, y las demás interfaces que tiene disponible -En este caso el sistema está conectado a la red Wifi.
 Con la información que ofrece este programa, podemos analizar el tráfico que pasa por la red a la que está conectado el sistema y así prevenir problemas que puedan surgir derivado de ello, por ejemplo, si la conexión no es estable, se podría verificar que equipo está generando un tráfico no deseado y observando su protocolo poder determinar si es un ataque externo o una máquina de la red infectada con algún troyano.
 También es perfecto para el aprendizaje de los protocolos de red, nos da la oportunidad de observar los diferentes protocolos de red y desglosarlos para poder comprender su utilidad y su función.
 
 .Protocolo TCP desglosado por wireshark
-image::TCP.png[]
+image::tcp.png[]
 
 Otra posibilidad que, aunque no está en la filosofía de Wireshark es para usarlo de forma delictiva, como por ejemplo robar una contraseña Wifi protegida por cifrado WEP (Wired Equivalent Privacy), o incluso robar seriales de alguna aplicación que utilice verificación en línea.
 

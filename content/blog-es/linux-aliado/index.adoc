@@ -26,7 +26,7 @@ de estos pentest se evalúan los potenciales impactos a la seguridad e
 integridad de la:: información y sugerir medidas para contrarrestar los ataques.
 
 .Logo de Linux footnote:[Imagen tomada de http://www.unixforum.co.uk/[Foro UNIX]]
-image::Linux-header.jpg[]
+image::linux-header.jpg[]
 
 == ¿Por qué usar Linux?
 

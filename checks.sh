@@ -16,13 +16,13 @@ if pcregrep --color -Mnr '^== Referenc.*.*\n.*\n[A-Za-z]' content/; then echo -e
 # if grep -P -n -r --include "*.adoc" '^. https+://.*[^\]]$' content; then echo 'ERRORES: Enlaces deben tener "[Titulo]".'; ERRORS=1;fi
 
 # Check there are not any articles with the .asc extension
-if find content -iname '*.asc' | egrep '.*'; then echo -e "${GC}ERRORES: Extension \"asc\" no soportada.${NC}"; ERRORS=1;fi
+if find content/ -iname '*.asc' | egrep '.*'; then echo -e "${GC}ERRORES: Extension \"asc\" no soportada.${NC}"; ERRORS=1;fi
 
-if find content -iname '*_*' | egrep '.*'; then echo -e "${GC}ERRORES: Usar guión alto '-' en vez de guión bajo '_'.${NC}"; ERRORS=1;fi
+if find content/ -iname '*_*' | egrep '.*'; then echo -e "${GC}ERRORES: Usar guión alto '-' en vez de guión bajo '_'.${NC}"; ERRORS=1;fi
 
-# if find content -iname '*.jpg' | egrep '.*'; then echo 'ERRORES: Formato de imagenes debe ser "png".'; ERRORS=1;fi
+# if find content/ -iname '*.jpg' | egrep '.*'; then echo -e "${GC}ERRORES: Formato de imagenes debe ser \"png\".${NC}"; ERRORS=1;fi
 
-# if find content | egrep '.*[A-Z].*'; then echo 'ERRORES: Rutas siempre en minuscula'; ERRORS=1;fi
+if find content/ | egrep '.*[A-Z].*'; then echo -e "${GC}ERRORES: Rutas siempre en minuscula${NC}"; ERRORS=1;fi
 
 # if find content -iname '* *' | egrep '.*'; then echo 'ERRORES: Rutas sin espacio. Usar guión alto "-".'; ERRORS=1;fi
 
