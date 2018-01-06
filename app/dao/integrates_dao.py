@@ -289,7 +289,7 @@ def remove_access_project_dao(email=None, project_name=None):
 
 def get_comments_dynamo(finding_id):
     """Obtiene los comentarios de un hallazgo"""
-    dynamodb_resource = resource('dynamodb')
+    dynamodb_resource = resource('dynamodb', region_name="us-east-1")
     table = dynamodb_resource.Table('comments')
     filter_key = 'finding_id'
     if filter_key and finding_id:
@@ -309,7 +309,7 @@ def get_comments_dynamo(finding_id):
 
 def create_comment_dynamo(finding_id, email, data):
     """Crea un comentario en un hallazgo"""
-    dynamodb_resource = resource('dynamodb')
+    dynamodb_resource = resource('dynamodb', region_name="us-east-1")
     table = dynamodb_resource.Table('comments')
     response = table.put_item(
         Item={
@@ -328,7 +328,7 @@ def create_comment_dynamo(finding_id, email, data):
 
 def update_comment_dynamo(finding_id, data):
     """Actualiza un comentario en un hallazgo"""
-    dynamodb_resource = resource('dynamodb')
+    dynamodb_resource = resource('dynamodb', region_name="us-east-1")
     table = dynamodb_resource.Table('comments')
     response = table.update_item(
         Key={
@@ -347,7 +347,7 @@ def update_comment_dynamo(finding_id, data):
 
 def delete_comment_dynamo(finding_id, data):
     """Elimina un comentario en un hallazgo"""
-    dynamodb_resource = resource('dynamodb')
+    dynamodb_resource = resource('dynamodb', region_name="us-east-1")
     table = dynamodb_resource.Table('comments')
     response = table.delete_item(
         Key={
