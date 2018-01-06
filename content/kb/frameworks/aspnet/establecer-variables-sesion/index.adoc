@@ -1,0 +1,50 @@
+:slug: kb/frameworks/aspnet/establecer-variables-sesion
+:eth: no
+:category: aspnet
+:kb: yes
+
+= Establecer Variables de Sesión
+
+== Necesidad
+
+Establecer variables de sesión como mecanismo primario de transferencia de información entre páginas.
+
+== Contexto
+
+A continuación se describe las circunstancias bajo las cuales la siguiente solución tiene sentido:
+
+. La aplicación esta construida en ASP .NET versión 1.1, 2.0, superior.
+. Se utiliza la versión del .NET Framework 1.0,1.1 ó superior.
+
+== Solución
+
+Para utilizar las variables de sesión como mecanismo de transferencia de información entre páginas se debe considerar los siguientes pasos [1]:
+
+. Almacenar valores en una sesión particular. Se debe usar la clase _HttpSessionState_, la cual esta presente en el espacio de nombre _System.Web.SessionState_.
++
+[source,C,linenums]
+----
+HttpSessionState.Session["nombreObjeto"]  ="valorObjeto";
+----
++
+Esto crea automáticamente un nuevo tema llamado _nombreObjeto_ en la Colección de estado de sesión (si no existe) y establece su valor a _"valorObjeto"_.
++
+. Leer los valores almacenados en el _Session State_. Para recuperar el objeto previamente almacenado en el _Session State_ se debe hacer lo siguiente:
++
+[source,C,linenums]
+----
+string nombreVariable = HttpSessionState.Session["nombreObjeto"].ToString();
+----
++
+Tenga en cuenta que el método _ToString()_ se llama porque los datos que se almacenan en el estado de la sesión son de tipo _Object_. Por lo tanto, la conversión o casting al tipo adecuado es necesario. 
++
+. Eliminar el objeto que se almacenó en el _Session State_. Si se desea eliminar un objeto guardado en el estado de sesión, se debe hacer lo siguiente: 
++
+[source,C,linenums]
+----
+HttpSessionState.Remove("nombreObjeto");
+----
+
+== Referencias
+
+. https://msdn.microsoft.com/en-us/library/6c3yckfw.aspx[Microsoft, Pass Values Between ASP.NET Web Forms Pages]
