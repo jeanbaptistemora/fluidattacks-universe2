@@ -45,4 +45,4 @@ aspnet_regiis -pd "connectionStrings" -app "/SampleApplication"
 
 == Referencias
 
-https://msdn.microsoft.com/en-us/library/zhhddkxy.aspx[Encrypting and decrypting configuration sections - MSDN]
+. https://msdn.microsoft.com/en-us/library/zhhddkxy.aspx[Encrypting and decrypting configuration sections - MSDN]

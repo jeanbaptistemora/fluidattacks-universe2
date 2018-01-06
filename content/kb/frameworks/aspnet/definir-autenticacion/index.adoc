@@ -89,4 +89,4 @@ A continuación se describen las circunstancias bajo las cuales la siguiente sol
 
 == Referencias
 
-https://msdn.microsoft.com/en-us/library/da0adyye(v=vs.100).aspx[Credenciales de autenticación de formularios]
+. https://msdn.microsoft.com/en-us/library/da0adyye(v=vs.100).aspx[Credenciales de autenticación de formularios]

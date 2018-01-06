@@ -105,7 +105,7 @@ end
 
 == Referencias
 
-https://es.wikipedia.org/wiki/Sistema_binario[Wikipedia, la Enciclopedia libre]
+. https://es.wikipedia.org/wiki/Sistema_binario[Wikipedia, la Enciclopedia libre]
 
 == Link del reto
 

@@ -123,14 +123,14 @@ important step in defining a comprehensive Web services security strategy.
 
 == References
 
-Goodner, M., Hondo, M., Nadalin, A., McIntosh, M., & Schmidt, D.
+. Goodner, M., Hondo, M., Nadalin, A., McIntosh, M., & Schmidt, D.
 (2007, May 28). Understanding WS-Federation. Retrieved May 2, 2017, from
 https://msdn.microsoft.com/en-us/library/bb498017.aspx
 
-International Business Machines Corporation. (2007, April 1). Federation of
+. International Business Machines Corporation. (2007, April 1). Federation of
 Identities in a Web Services World. Retrieved May 2, 2017, from
 https://msdn.microsoft.com/en-us/library/ms951235.aspx
 
-WS-Tust. (2012, April 25). OASIS Standard incorporating Approved Errata 01.
+. WS-Tust. (2012, April 25). OASIS Standard incorporating Approved Errata 01.
 Retrieved May 2, 2017, from
 http://docs.oasis-open.org/ws-sx/ws-trust/v1.4/ws-trust.html

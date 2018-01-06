@@ -134,13 +134,13 @@ have any screws left over when you configure the service.
 
 == References
 
-Jensen, J. (2017, March 07). Attacking SSO: Common SAML Vulnerabilities and
+. Jensen, J. (2017, March 07). Attacking SSO: Common SAML Vulnerabilities and
 Ways to Find Them. Retrieved April 28, 2017, from
 https://blog.netspi.com/attacking-sso-common-saml-vulnerabilities-ways-find/
 
-Krawczyk, P. (2012, January 01). Secure SAML validation to prevent XML
+. Krawczyk, P. (2012, January 01). Secure SAML validation to prevent XML
 signature wrapping attacks. Retrieved April 28, 2017, from
 https://arxiv.org/ftp/arxiv/papers/1401/1401.7483.pdf
 
-Onelogin. (2016, January 01). Dev Overview of SAML. Retrieved April 28, 2017,
+. Onelogin. (2016, January 01). Dev Overview of SAML. Retrieved April 28, 2017,
 from https://developers.onelogin.com/saml

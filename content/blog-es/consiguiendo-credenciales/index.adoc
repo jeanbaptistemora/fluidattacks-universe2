@@ -108,13 +108,13 @@ datos estaría siempre vulnerable.
 
 == Referencias
 
-http://sechow.com/bricks/docs/login-1.html[Tabla de inyecciones SQL mas comunes]
+. http://sechow.com/bricks/docs/login-1.html[Tabla de inyecciones SQL mas comunes]
 
-https://es.wikipedia.org/wiki/Base_de_datos[Base de datos en Wikipedia]
+. https://es.wikipedia.org/wiki/Base_de_datos[Base de datos en Wikipedia]
 
-https://es.wikipedia.org/wiki/Inyecci%C3%B3n_SQL[Inyección SQL en WikiPedia]
+. https://es.wikipedia.org/wiki/Inyecci%C3%B3n_SQL[Inyección SQL en WikiPedia]
 
-https://es.wikipedia.org/wiki/SQL[SQL en WikiPedia]
+. https://es.wikipedia.org/wiki/SQL[SQL en WikiPedia]
 
 == Link del reto
 

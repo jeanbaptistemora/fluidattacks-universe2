@@ -142,12 +142,12 @@ información o inyecten información basura (spam).
 
 == Referencias
 
-https://es.wikipedia.org/wiki/Captcha[Captcha en Wikipedia]
+. https://es.wikipedia.org/wiki/Captcha[Captcha en Wikipedia]
 
-https://es.wikipedia.org/wiki/Reconocimiento_%C3%B3ptico_de_caracteres[OCR en
+. https://es.wikipedia.org/wiki/Reconocimiento_%C3%B3ptico_de_caracteres[OCR en
 Wikipedia]
 
 == Link del reto
 
-http://challengeland.co/Challenges/Captcha/60e9d06ada[ChallengeLand Captcha 02]
+. http://challengeland.co/Challenges/Captcha/60e9d06ada[ChallengeLand Captcha 02]
 

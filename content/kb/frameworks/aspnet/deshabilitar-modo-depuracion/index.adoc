@@ -34,4 +34,4 @@ Los mensajes de depuración ayudan a un atacante a conocer el sistema y planear 
 
 == Referencias
 
-https://cwe.mitre.org/data/definitions/11.html[OWASP, ASP.NET Misconfigurations]
+. https://cwe.mitre.org/data/definitions/11.html[OWASP, ASP.NET Misconfigurations]

@@ -125,7 +125,7 @@ over an insecure network. Such protocol include but are not limited to:
 
 == References
 
-Mitchell, B. (2017, March 10). What is a WEP Key? Retrieved April 24, 2017,
+. Mitchell, B. (2017, March 10). What is a WEP Key? Retrieved April 24, 2017,
 from https://www.lifewire.com/what-is-a-wep-key-818305
 
 == Challenge Link

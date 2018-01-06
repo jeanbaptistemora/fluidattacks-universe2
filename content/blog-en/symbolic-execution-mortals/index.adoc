@@ -136,6 +136,6 @@ must be met in order to violate it.
 
 == References
 
-Baldoni, R., Coppa, E., D’Elia, D., Demetrescu, C., & Finochi, I. (2016,
+. Baldoni, R., Coppa, E., D’Elia, D., Demetrescu, C., & Finochi, I. (2016,
 October 3). A Survey of Symbolic Execution Techniques. Retrieved May 4, 2017,
 from https://arxiv.org/pdf/1610.00502.pdf

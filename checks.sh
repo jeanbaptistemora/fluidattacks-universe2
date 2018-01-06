@@ -7,9 +7,10 @@ ERRORS=0
 if pcregrep --color -nr --include='\.adoc' -e 'Fluid|Fluidsignal\ Group|fluidsignal' content/; then echo -e "${GC}\nEl único nombre aceptado es FLUID${NC}"; ERRORS=1; fi
 
 # Leave a blank space after a title
-if pcregrep --color -Mrn --include='\.adoc' '^=.*.*\n.*[A-Z0-9]' content/; then echo -e "${GC}\nDejar un espacio en blanco luego de títulos${NC}"; ERRORS=1; fi
+if pcregrep --color -Mrn --include='\.adoc' '^=.*.[A-Z].*.*\n.*[A-Z]' content/ ; then echo -e "${GC}\nDejar un espacio en blanco luego de títulos${NC}"; ERRORS=1; fi
 
-#if pcregrep --color -Mnr '^\nhttp' content/kb/; then echo -e "${GC}\nERRORES: Referencias deben ser numeradas${NC}"; exit 1;fi
+# Check numerated references
+if pcregrep --color -Mnr '^== Referenc.*.*\n.*\n[A-Za-z]' content/; then echo -e "${GC}\nERRORES: Referencias deben ser numeradas${NC}"; ERRORS=1;fi
 
 # solo hace match de enlaces en viñetas de una sola línea, pero es un gran avance.  Pendiente enlaces en medio del texto
 # if grep -P -n -r --include "*.adoc" '^. https+://.*[^\]]$' content; then echo 'ERRORES: Enlaces deben tener "[Titulo]".'; exit 1;fi

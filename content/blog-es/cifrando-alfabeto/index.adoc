@@ -105,7 +105,7 @@ encriptación sólo se usa con fines educativos o académicos.
 
 == Referencias
 
-https://es.wikipedia.org/wiki/Cifrado_por_sustituci%C3%B3n[Cifrado por sustitución]
+. https://es.wikipedia.org/wiki/Cifrado_por_sustituci%C3%B3n[Cifrado por sustitución]
 
 == Link del reto
 

@@ -126,7 +126,7 @@ complete XSS filter.
 
 == References
 
-OWASP. (2016, June 04). Cross-Site Scripting (XSS). Retrieved April 26, 2017,
+. OWASP. (2016, June 04). Cross-Site Scripting (XSS). Retrieved April 26, 2017,
 from https://www.owasp.org/index.php/Cross-site_Scripting_(XSS)
 
 == Challenge Link

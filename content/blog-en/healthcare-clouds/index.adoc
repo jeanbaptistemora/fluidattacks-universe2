@@ -122,24 +122,24 @@ great article that gives you http://www.networkworld.com/article/3121967/cloud-c
 
 == References
 
-Butler, B. (2016, September 20). Why this hospital is moving to Amazon’s cloud.
+. Butler, B. (2016, September 20). Why this hospital is moving to Amazon’s cloud.
 Retrieved April 27, 2017, from
 http://www.networkworld.com/article/3121957/cloud-computing/why-this-hospital-is-moving-to-amazon-s-cloud.html
 
-ClearDATA. (2016, January 01). 5 Risks Hospitals Face When Using The Public
+. ClearDATA. (2016, January 01). 5 Risks Hospitals Face When Using The Public
 Cloud. Retrieved April 27, 2017, from
 https://assets.sourcemedia.com/2c/ec/ab05b5b44513a7fc8170f0f6f75e/5-risks-hospitals-face-when-using-the-public-cloud-hit.pdf
 
-Filkins, B. (2011, September 01). Cloudy with a Chance of Better Health Care.
+. Filkins, B. (2011, September 01). Cloudy with a Chance of Better Health Care.
 Retrieved April 27, 2017, from
 https://www.sans.org/reading-room/whitepapers/analyst/cloudy-chance-health-care-security-compliance-fundamentals-protecting-e-h-35055
 
-Rouse, M. (2015, April 01). HIPAA (Health Insurance Portability and
+. Rouse, M. (2015, April 01). HIPAA (Health Insurance Portability and
 Accountability Act). Retrieved April 27, 2017, from
 http://searchhealthit.techtarget.com/definition/HITECH-Act
 
-Rouse, M. (2015, April 01). HITECH Act. Retrieved April 27, 2017, from
+. Rouse, M. (2015, April 01). HITECH Act. Retrieved April 27, 2017, from
 http://searchhealthit.techtarget.com/definition/HITECH-Act
 
-Salesforce. (2016, January 01). SaaS: Software as a Service. Retrieved April
+. Salesforce. (2016, January 01). SaaS: Software as a Service. Retrieved April
 27, 2017, from https://www.salesforce.com/saas/
