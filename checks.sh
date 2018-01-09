@@ -1,5 +1,5 @@
 # Define green color and no color
-GC='\033[0;	32m'
+GC='\033[0;32m'
 NC='\033[0m'
 ERRORS=0
 
@@ -21,8 +21,10 @@ if find content/ -iname '*.asc' | egrep '.*'; then echo -e "${GC}ERRORES: Extens
 # Check that names do not have underscore
 if find content/ -iname '*_*' | egrep '.*'; then echo -e "${ 	GC}ERRORES: Usar guión alto '-' en vez de guión bajo '_'.${NC}"; ERRORS=1;fi
 
-# if find content/ -iname '*.jpg' | egrep '.*'; then echo -e "${GC}ERRORES: Formato de imagenes debe ser \"png\".${NC}"; ERRORS=1;fi
+# Check every image is in PNG format
+if find content/ -iname '*.jpg' | egrep '.*'; then echo -e "${GC}ERRORES: Formato de imagenes debe ser \"png\".${NC}"; ERRORS=1;fi
 
+# Check no uppercase characters are used in the names of the files
 if find content/ | egrep '.*[A-Z].*'; then echo -e "${GC}ERRORES: Rutas siempre en minuscula${NC}"; ERRORS=1;fi
 
 # Check that files names do not have spaces in them

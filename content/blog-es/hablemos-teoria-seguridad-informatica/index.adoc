@@ -2,7 +2,7 @@
 :date: 2017-05-30
 :category: opiniones-de-seguridad
 :tags: seguridad, teoria, definir
-:Image: theory-preview.jpg
+:Image: theory-preview.png
 :author: Jhony Villa
 :writer: jhony
 :name: Jhony Arbey Villa Peña
@@ -26,7 +26,7 @@ En este artículo vamos a dar una definición de la terminología más empleada 
 seguridad informática con el fin de crear bases conceptuales a la hora de abordar las diferentes 
 temáticas tratadas en esta área.
 
-image::teoria.jpg[]
+image::teoria.png[]
 
 En primer lugar la seguridad informática es la rama de ingeniería de sistemas y computación que se 
 encarga de minimizar los riesgos asociados a la utilización de sistemas informáticos, además es la 

@@ -47,7 +47,7 @@ Bajo estas premisas y revisando el cuadrante, estamos ante un punto importante
 a tener en cuenta en las organizaciones… y es como protegernos y ante que 
 protegernos. Por lo que debemos revisar los siguientes enfoques:
 
-image::1.jpg[]
+image::chart.png[]
 .*_Fuente: Gartner,June 2016_*
 
 . *Realizar backups por cumplimiento*: Según el tipo de compañía se deben 

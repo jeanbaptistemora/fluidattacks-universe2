@@ -2,7 +2,7 @@
 :date: 2017-03-07
 :category: retos
 :tags: sqli, database, reto, solucionar
-:Image: database.jpg
+:Image: database.png
 :author: Francisco Bernal
 :writer: pacho
 :name: Francisco Bernal Baquero
@@ -28,7 +28,7 @@ sensibles como direcciones de nuestros clientes, tarjetas de crédito y sus
 contraseñas. Teniendo esto en mente el tema a tratar es la inyección SQL.
 
 .Bases de datos footnote:[Imagen tomada de http://www.tecniplanet.net[Tecniplanet]]
-image::database.jpg[]
+image::database.png[]
 
 == ¿Qué es una inyección SQL?
 

@@ -2,7 +2,7 @@
 :date: 2017-04-26
 :category: challenges
 :tags: xss, web, protect, challenge
-:Image: xss.jpg
+:Image: xss.png
 :author: Juan Aguirre
 :writer: juanes
 :name: Juan Esteban Aguirre González

@@ -2,7 +2,7 @@
 :date: 2017-03-07
 :category: opiniones-de-seguridad
 :tags: sde, sdlc, software, definir
-:Image: definiendo-software.jpg
+:Image: definiendo-software.png
 :author: Ivan Velez
 :writer: ivanv
 :name: Ivan Velez
@@ -32,7 +32,7 @@ todo el centro de datos, y un renovado enfoque en el CPU. Más control de la red
 tendrá lugar en el CPU” – Zeev Draer
 * “El valor de SDN y la virtualización de la red se encuentra en la capa de control” – Lori MacVittie
 
-image::sdsdell.jpg[]
+image::definiendo-software.png[]
 .*_Software Defined Storage_*
 
 El reto en infraestructuras de TI es controlar los excesos de aprovisionamiento,

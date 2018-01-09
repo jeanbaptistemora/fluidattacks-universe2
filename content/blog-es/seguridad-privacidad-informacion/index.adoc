@@ -2,7 +2,7 @@
 :date: 2017-02-07
 :category: opiniones-de-seguridad
 :tags: información, privacidad, seguridad, proteger
-:Image: privacidad-info.jpg
+:Image: privacidad-info.png
 :author: Paula Velez
 :writer: paulav
 :name: Paula Velez
@@ -34,7 +34,7 @@ buscan regular y estandarizar a los responsables de proteger la PII, con esto
 más el Habeas Data los usuarios nos podemos sentir tranquilos porque están 
 velando adecuadamente por nuestros derechos.
 
-image::img-data.jpg[]
+image::privacidad-info.png[]
 .*_Como usuarios entregamos mucha información y los sistemas deben entregar las herramientas para controlarla adecuadamente: http://www.androidsis.com/las-nuevas-herramientas-de-google-para-darte-mas-control-sobre-tu-privacidad-y-seguridad/[androsis]_*
 
 *Generalidades* claves de varias regulaciones de privacidad a nivel de seguridad 

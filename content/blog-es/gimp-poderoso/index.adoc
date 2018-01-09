@@ -2,7 +2,7 @@
 :date: 2016-11-29
 :category: retos
 :tags: solucionar, reto, herramienta, ocultar
-:Image: gimp-preview.jpg
+:Image: gimp-preview.png
 :author: Alejandro Aguirre
 :writer: alejoa
 :name: Alejandro Aguirre Soto
@@ -27,7 +27,7 @@ creado con diversos fines en estos editores para manipular las imágenes,
 dándole así el mayor gusto a los publicistas o diseñadores gráficos que 
 trabajan en la edición digital.
 
-image::gimp.jpg[]
+image::gimp.png[]
 .*_Programa de manipulación de imágenes de GNU – https://www.gimp.org/[GIMP]_*
 
 Este artículo se concentrará en un famoso editor de imágenes llamado 
@@ -47,7 +47,7 @@ mensaje sin necesidad de esconderlo, pero que a simple vista no se vea.
 En este reto nos dan una imagen en formato GIF y nos dicen que no pestañemos 
 pues esta imagen nos mostrará la solución.
 
-image::reto.jpg[]
+image::reto.png[]
 .*_Imagen del Reto – http://www.hacker.org/challenge/chal.php?id=88[Hacker.org]_*
 
 Por la misma naturaleza del formato GIF que es un formato de imagen que permite 
@@ -55,7 +55,7 @@ que haya una sucesión de imágenes en una sola imagen, suponemos que este
 archivo contiene varias imágenes, para estudiarlo nos disponemos a abrirlo con 
 el editor de imágenes GIMP.
 
-image::frames.jpg[]
+image::frames.png[]
 .*_Frames del GIF, en uno se encuentra la solución_*
 
 Con el editor de imágenes GIMP en la sección de capas, vemos efectivamente que 

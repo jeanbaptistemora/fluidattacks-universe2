@@ -2,7 +2,7 @@
 :date: 2016-12-24
 :category: retos
 :tags: matemática, solucionar, programar, reto
-:Image: maths-friend.jpg
+:Image: maths-friend.png
 :author: Camilo Cardona
 :writer: camiloc
 :name: Camilo Cardona

@@ -2,7 +2,7 @@
 :date: 2016-11-08
 :category: opiniones-de-seguridad
 :tags: atacar, rsa, seguridad
-:Image: 1.jpg
+:Image: 1.png
 :author: Paula Velez
 :writer: paulav
 :name: Paula Velez
@@ -32,7 +32,7 @@ es por esto que analizar el comportamiento de los usuarios se convierte en un
 punto clave para descubrir posibles fraudes y de esta manera evitarlo antes de 
 que logre afectar a la organización y/o dañar a los usuarios legítimos.
 
-image::1.jpg[]
+image::1.png[]
 .*_Vision for fraud and risk management – https://globalsummit.rsa.com/wp-content/uploads/2015/09/RSA%E2%80%99s-Vision-For-Fraud-And-Risk-Management.pdf[RSA]_*
 
 La realidad es que las amenazas no se anuncian abiertamente, sino todo lo 
@@ -81,7 +81,7 @@ cerrar la sesión)
 . Debe ser *ágil*, implementar acciones de detección y respuesta en tiempo real 
 sin castigar la experiencia de los usuarios.
 
-image::2.jpg[]
+image::objetivo.png[]
 .*_Top retailers affected by e-commerce fraud – https://www.rsa.com/en-us/resources/2017-global-fraud-and-cybercrime-forecast[RSA]_*
 
 Para finalizar es importante tener claro que no solo los bancos son 

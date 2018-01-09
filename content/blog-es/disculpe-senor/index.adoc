@@ -2,7 +2,7 @@
 :date: 2017-05-17
 :category: opiniones-de-seguridad
 :tags: probar, software, funcionalidad
-:Image: disculpe-senor.jpg
+:Image: disculpe-senor.png
 :author: Jhony Villa
 :writer: jhony
 :name: Jhony Arbey Villa Peña
@@ -35,7 +35,7 @@ comprometerían el buen funcionamiento del software, y eso sin mencionar que
 podría verse comprometida toda la información utilizada por el programa para su
 desempeño.
 
-image::concolic.jpg[]
+image::concolic.png[]
 .*_Concolic Execution: tomado de kaist.edu_*
 
 Una de esas pruebas se conoce como Concolic Execution o Concolic Testing, esta

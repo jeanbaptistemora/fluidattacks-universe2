@@ -2,7 +2,7 @@
 :date: 2017-03-07
 :category: opiniones-de-seguridad
 :tags: linux, probar, versión
-:Image: linux.jpg
+:Image: linux.png
 :author: Francisco Bernal
 :writer: pacho
 :name: Francisco Bernal Baquero
@@ -26,7 +26,7 @@ de estos pentest se evalúan los potenciales impactos a la seguridad e
 integridad de la:: información y sugerir medidas para contrarrestar los ataques.
 
 .Logo de Linux footnote:[Imagen tomada de http://www.unixforum.co.uk/[Foro UNIX]]
-image::linux-header.jpg[]
+image::linux-header.png[]
 
 == ¿Por qué usar Linux?
 
@@ -45,7 +45,7 @@ La reputación de Linux como sistema operativo seguro se ha mantenido desde sus 
 == https://www.kali.org/[Kali Linux]
 
 .Escritorio de Kali
-image::kali-linux-16553-1.jpg[]
+image::kali-linux-16553-1.png[]
 
 Kali Linux es derivado de las distribuciones Debian, actualmente está siendo
 mantenida por https://www.offensive-security.com/[_Offensive Security Ltd_].
@@ -118,7 +118,7 @@ ventaja es que este sistema operativo está adaptado también para el uso diario
 == https://blackarch.org/[BlackArch Linux]
 
 .Escritorio BlackArch footnote:[Imagen tomada de http://lamiradadelreplicante.com/[LaMiradaDelReplicante]]
-image::blackarchlinux-image2.jpg[]
+image::blackarchlinux-image2.png[]
 
 BlackArch es una expansión ligera de Arch Linux para pentesters e
 investigadores de seguridad. El repositorio cuenta con aproximadamente 1080
@@ -135,7 +135,7 @@ Requisitos de instalación::
 == http://bugtraq-team.com/[Bugtraq]
 
 .Escritorio Bugtraq footnote:[Imagen tomada de http://lamiradadelreplicante.com/[LaMiradaDelReplicante]]
-image::blackarchlinux-image2.jpg[]
+image::blackarchlinux-image2.png[]
 
 Disponible en Debian, se dedica exclusivamente a la seguridad informática. Su comunidad se centra en temas que traten sobre discusiones de vulnerabilidad, anuncios de seguridad, métodos de explotación, etc... Bugtraq lo conforma hackers experimentados y desarrolladores que ofrecen servicios para la ética y las pruebas de intrusión.
 

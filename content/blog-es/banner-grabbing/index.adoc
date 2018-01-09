@@ -67,7 +67,7 @@ Ya sabiendo esto procedemos al análisis, usando el siguiente comando:
 Como se ve en la figura, son muchos los puertos abiertos, y al lado derecho 
 podemos ver que servicios corre la maquina.
 
-image::nmap.jpg[]
+image::nmap.png[]
 
 Luego de esto empezamos a realizar la conexión a los puertos para conseguir la 
 información, esto lo podemos realizar con la herramienta *netcat*, de la siguiente 
@@ -81,7 +81,7 @@ manera:
 
 Como se ve en la siguiente figura podemos ver la versión de SSH, FTP, smtp.
 
-image::netcat.jpg[]
+image::netcat.png[]
 
 Para el segundo ejercicio es necesario analizar todos los puertos, ya que si 
 por alguna razón hay un puerto filtrado o abierto y el servicio que corre es
@@ -103,7 +103,7 @@ pueden ser shells u otras aplicaciones. Luego de realizar el mismo proceso que
 el ejercicio anterior nos damos cuenta que en el puerto 6776 corre un banner 
 especial.
 
-image::netcat2.jpg[]
+image::netcat2.png[]
 
 En general existen muchas recomendaciones que pueden surgir frente a este tema, 
 pero entre las más importantes están:

@@ -2,7 +2,7 @@
 :date: 2016-07-25
 :category: opiniones-de-seguridad
 :tags: programar, validar, software, seguridad
-:Image: validar-datos.jpg
+:Image: validar-datos.png
 :author: Camilo Cardona
 :writer: camiloc
 :name: Camilo Cardona
@@ -33,7 +33,7 @@ error de la aplicación o peor aún, realizar un ataque del tipo “Inyección�
 lo largo de este post veremos ejemplos prácticos de como funcionan, como son 
 explotados y como solucionar este tipo de amenazas en nuestras aplicaciones.
 
-image::validar-datos.jpg[]
+image::validar-datos.png[]
 
 == El reto
 
@@ -46,7 +46,7 @@ En la siguiente figura tenemos el código fuente de la aplicación, la cual busc
 palabras claves en un archivo.
 
 .Código Fuente de la aplicación
-image::codigo.jpg[]
+image::codigo.png[]
 
 De la figura anterior podemos deducir rápidamente que es un código PHP que usa 
 un archivo llamado *“dictionary.txt”*, tal vez no parezca nada fuera de lo 
@@ -66,7 +66,7 @@ Ya sabiendo que el S.O es una versión de GNU/Linux la tarea es más sencilla,
 solo se necesita saber como concatenar comandos. Ver figura2
 
 .Múltiples comandos
-image::comandos.jpg[]
+image::comandos.png[]
 
 Y así es como demostramos como un fallo en el diseño e implementación al 
 momento de desarrollar una aplicación puede ser de alto impacto en los 
@@ -74,7 +74,7 @@ activos de la organización. Esta vulnerabilidad es conocida como *“Inyección
 de comandos”*.
 
 .Inyección de comandos
-image::inyeccion.jpg[]
+image::inyeccion.png[]
 
 == Mitigando las amenazas
 

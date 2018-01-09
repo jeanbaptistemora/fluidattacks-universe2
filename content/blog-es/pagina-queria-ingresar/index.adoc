@@ -2,7 +2,7 @@
 :date: 2017-03-08
 :category: opiniones-de-seguridad
 :tags: web, seguridad, información
-:Image: pagina.jpg
+:Image: pagina.png
 :author: Francisco Bernal
 :writer: pacho
 :name: Francisco Bernal Baquero
@@ -42,7 +42,7 @@ HTTP (Hyper Text Transport Protocol) es el protocolo encargado de definir el int
 === Diferencia HTTP y HTTPS
 
 .Diferencia en HTTP y HTTPS footnote:[Imagen tomada de http://www.wordpressmagazine.es[WordPress]]
-image::http-vs-https.jpg[]
+image::http-vs-https.png[]
 
 El protocolo HTTPS (Hypertext Transfer Protocol Secure), se basa en la combinación de dos protocolos el HTTPS y el SSL/TLS (Secure Sockets Layer/Transport Layer Security)! esta es la manera más segura de acceder a los contenidos en Internet, porque todo dato ingresado va cifrado, lo que garantiza que la información solo! será visible entre el cliente y el servidor.
 

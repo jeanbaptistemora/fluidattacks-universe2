@@ -3,7 +3,7 @@
 :category: opiniones-de-seguridad
 :author: Luis Arteaga
 :tags: solucionar, web, reto
-:Image: road.jpg
+:Image: road.png
 :writer: stiwar
 :name: Luis Arteaga
 :about1: Ingeniero en Electrónica y Telecomunicaciones.

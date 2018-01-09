@@ -2,7 +2,7 @@
 :date: 2017-04-24
 :category: challenges
 :tags: wep, wifi, encryption, challenge
-:Image: stupid-wep.jpg
+:Image: stupid-wep.png
 :author: Juan Aguirre
 :writer: juanes
 :name: Juan Esteban Aguirre González

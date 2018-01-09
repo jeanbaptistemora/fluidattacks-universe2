@@ -2,7 +2,7 @@
 :date: 2017-04-27
 :category: security-opinions
 :tags: cloud, protect, health
-:Image: health-cloud.jpg
+:Image: health-cloud.png
 :author: Juan Aguirre
 :writer: juanes
 :name: Juan Esteban Aguirre González

@@ -3,7 +3,7 @@
 :category: opiniones-de-seguridad
 :author: Luis Arteaga
 :tags: solucionar, browser, reto
-:Image: html-search.jpg
+:Image: html-search.png
 :writer: stiwar
 :name: Luis Arteaga
 :about1: Ingeniero en Electrónica y Telecomunicaciones.

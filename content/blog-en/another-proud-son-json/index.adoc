@@ -2,7 +2,7 @@
 :date: 2017-05-04
 :category: security-opinions
 :tags: security, information, jwt
-:Image: proud-son.jpg
+:Image: proud-son.png
 :author: Juan Aguirre
 :writer: juanes
 :name: Juan Esteban Aguirre González

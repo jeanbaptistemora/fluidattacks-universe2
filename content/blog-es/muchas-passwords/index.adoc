@@ -3,7 +3,7 @@
 :category: opiniones-de-seguridad
 :author: Jhony Villa
 :tags: password, protocolo, implementar
-:Image: password.jpg
+:Image: password.png
 :writer: jhony
 :name: Jhony Arbey Villa Peña
 :about1: Ingeniero en Sistemas.

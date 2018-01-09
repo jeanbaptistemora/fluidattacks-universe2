@@ -2,7 +2,7 @@
 :date: 2016-12-24
 :category: retos
 :tags: database, sqli, reto, solucionar
-:Image: credenciales.jpg
+:Image: credenciales.png
 :author: Alejandro Aguirre
 :writer: alejoa
 :name: Alejandro Aguirre Soto

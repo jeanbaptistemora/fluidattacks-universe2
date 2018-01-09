@@ -2,7 +2,7 @@
 :date: 2016-08-23
 :category: opiniones-de-seguridad
 :tags: invertir, seguridad, información
-:Image: information-security-expense-investment.jpg
+:Image: information-security-expense-investment.png
 :author: Camilo Cardona
 :writer: camiloc
 :name: Camilo Cardona
@@ -26,7 +26,7 @@ plantearnos interrogantes sobre el costo/beneficio del uso de nuevas
 tecnologías y procesos y ver que siempre hay un riesgo asociado que debemos 
 mitigar.
 
-image::estadistica.jpg[]
+image::estadistica.png[]
 .*_Figura 1: Estadísticas de amenazas a la seguridad según Verizon en el 2016_*
 
 Imaginemos por un segundo que un día llegáramos a nuestro trabajo y nos 
@@ -45,7 +45,7 @@ costo/beneficio y que la seguridad de la información debe ser visto como un
 proceso, de los muchos procesos que pueden manejar una empresa y no un gasto 
 como algunos lo ven.
 
-image::informacion.jpg[]
+image::informacion.png[]
 .*_Figura 2: Seguridad en latinoamerica Rescatado de http://www.portantier.com_*
 
 Obviamente un sistema de seguridad de la información debe estar limitado por un 

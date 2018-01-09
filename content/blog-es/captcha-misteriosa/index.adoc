@@ -2,7 +2,7 @@
 :date: 2017-01-01
 :category: retos
 :tags: web, captcha, reto, solucionar
-:Image: captchas.jpg
+:Image: captchas.png
 :author: Alejandro Aguirre
 :writer: alejoa
 :name: Alejandro Aguirre Soto
@@ -21,7 +21,7 @@ En teoría el humano y no el robot es capaz de identificar el texto de la imagen
 distorsionada.
 
 .Captcha de Wikipedia "smwm"
-image::ejm.jpg[]
+image::ejm.png[]
 
 == Captchas y seguridad
 

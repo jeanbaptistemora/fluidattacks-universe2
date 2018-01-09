@@ -2,7 +2,7 @@
 :date: 2017-01-05
 :category: challenges
 :tags: pythagoras, code, challenge, solve
-:Image: triangles.jpg
+:Image: triangles.png
 :author: Jonathan Armas
 :writer: johna
 :name: Jonathan Armas
@@ -19,7 +19,7 @@ hypotenuse and the other two sides being known as the legs. All triangles are
 convex and bicentric. That portion of the plane enclosed by the triangle is 
 called the triangle interior, while the remainder is the exterior.
 
-image::type.jpg[]
+image::type.png[]
 
 An triangle is said to be acute if all three of its angles are all acute, a
 triangle having an obtuse angle is called an obtuse triangle, and a triangle

@@ -2,7 +2,7 @@
 :date: 2017-01-31
 :category: opiniones-de-seguridad
 :tags: seta, concientizar, seguridad
-:Image: pilares.jpg
+:Image: pilares.png
 :author: Camilo Cardona
 :writer: camiloc
 :name: Camilo Cardona
@@ -39,7 +39,7 @@ del flujo, enfocando todos los recursos y esfuerzos a mejorar o reforzar otras
 áreas del negocio.
 
 .Pilares de las organizaciones modernas
-image::pilares.jpg[]
+image::pilares.png[]
 
 Dicho el ¿Que?. Ahora debemos conocer las diferencias entre cada una de las 
 metodologías y su enfoque pues muchos programas de seguridad fallan por no 

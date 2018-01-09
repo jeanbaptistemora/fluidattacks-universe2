@@ -2,7 +2,7 @@
 :date: 2017-04-25
 :category: challenges
 :tags: revert, challenge, engineering
-:Image: reversing-mortals.jpg
+:Image: reversing-mortals.png
 :author: Juan Aguirre
 :writer: juanes
 :name: Juan Esteban Aguirre González

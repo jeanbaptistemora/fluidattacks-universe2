@@ -3,7 +3,7 @@
 :author: Jhony Villa
 :category: retos
 :tags: configurar, indexof, reto
-:Image: indexof.jpg
+:Image: indexof.png
 :writer: jhony
 :name: Jhony Arbey Villa Peña
 :about1: Ingeniero en Sistemas.

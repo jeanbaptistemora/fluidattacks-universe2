@@ -2,7 +2,7 @@
 :date: 2016-10-04
 :category: opiniones-de-seguridad
 :tags: windows, seguridad, proteger
-:Image: windows10-allied.jpg
+:Image: windows10-allied.png
 :author: Paula Velez
 :writer: paulav
 :name: Paula Velez
@@ -26,7 +26,7 @@ Windows 10 cambiaron muchas cosas desde la raíz y crearon nuevas tecnologías
 para hacer del sistema un software más robusto frente a los espías y el malware.
 
 .Caracteristicas
-image::caracteristicas.jpg[]
+image::caracteristicas.png[]
 
 De la 1 a 4 son características pre ataques que se encargan de proteger a los
 usuarios antes de que sucedan las cosas, es todo el tema de prevención y manejo 
@@ -58,7 +58,7 @@ aplicaciones por lo que si detecta que la aplicación hace cosas que no se
 ajustan a un uso normal, la bloquea y la expulsa de la Tienda Windows.
 
 .Ejemplo de SmartScreen – https://docs.microsoft.com/es-es/windows/threat-protection/overview-of-threat-mitigations-in-windows-10[Fuente]
-image::smartscreen.jpg[]
+image::smartscreen.png[]
 
 == Windows Hello
 

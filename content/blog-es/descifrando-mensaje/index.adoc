@@ -2,7 +2,7 @@
 :date: 2017-04-04
 :category: opiniones-de-seguridad
 :tags: cifrar, seguridad, criptografía
-:Image: cifrado-preview.jpg
+:Image: cifrado-preview.png
 :author: Francisco Bernal
 :writer: pacho
 :name: Francisco Bernal Baquero
@@ -20,7 +20,7 @@ se han perdido por cifrados deficientes (https://hipertextual.com/2011/07/la-maq
 En resumen, el cifrado de la información tiene una gran importancia a la hora de proteger los datos y la información que recibimos 
 frente ataques contra nuestra red.
 
-image::cifrado.jpg[]
+image::cifrado.png[]
 
 == Cifrar vs. Ocultar
 

@@ -2,7 +2,7 @@
 :date: 2017-04-28
 :category: security-opinions
 :tags: security, credential, saml, standard
-:Image: multiple-credentials.jpg
+:Image: multiple-credentials.png
 :author: Juan Aguirre
 :writer: juanes
 :name: Juan Esteban Aguirre González

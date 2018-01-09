@@ -3,7 +3,7 @@
 :author: Jhony Villa
 :category: opiniones-de-seguridad
 :tags: intranet, iwa, windows
-:Image: iwa.jpg
+:Image: iwa.png
 :writer: jhony
 :name: Jhony Arbey Villa Peña
 :about1: Ingeniero en Sistemas.

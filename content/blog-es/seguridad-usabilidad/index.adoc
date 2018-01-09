@@ -2,7 +2,7 @@
 :date: 2016-08-23
 :category: opiniones-de-seguridad
 :tags: seguridad, usabilidad, concientizar
-:Image: security.jpg
+:Image: security.png
 :author: Camilo Cardona
 :writer: camiloc
 :name: Camilo Cardona
@@ -32,7 +32,7 @@ sí que lo más probable es que este termine anotándola en algún lugar y el ni
 de amenaza sea mayor a que si el mismo usuario hubiera creado la contraseña. El
 punto es que la usabilidad debe ser un aliado de la seguridad y no un opuesto.
 
-image::security.jpg[]
+image::security.png[]
 
 == Principios de la usabilidad
 

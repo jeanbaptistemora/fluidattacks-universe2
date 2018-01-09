@@ -2,7 +2,7 @@
 :date: 2016-09-27
 :category: opiniones-de-seguridad
 :tags: actualizar, seguridad, versión
-:Image: parchear.jpg
+:Image: parchear.png
 :author: Juan Jaramillo
 :writer: juanj
 :name: Juan Jaramillo
@@ -11,7 +11,7 @@
 
 = Recomendaciones para mejorar su proceso de actualización y parcheo
 
-image::parchear.jpg[]
+image::parchear.png[]
 
 La aparición de amenazas en la Internet es constante, el auge de ataques como 
 el ransomware y malware está encendiendo las alarmas de los expertos de 

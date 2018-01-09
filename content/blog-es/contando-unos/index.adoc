@@ -2,7 +2,7 @@
 :date: 2016-12-24
 :category: retos
 :tags: binario, reto, programar
-:Image: contando-unos.jpg
+:Image: contando-unos.png
 :author: Alejandro Aguirre
 :writer: alejoa
 :name: Alejandro Aguirre Soto
