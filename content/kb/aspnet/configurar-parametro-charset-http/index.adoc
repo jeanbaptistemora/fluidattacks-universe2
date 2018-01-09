@@ -24,7 +24,7 @@ A continuación se describe las circunstancias bajo las cuales la siguiente solu
 . Cuando se toman decisiones de seguridad basándose en datos normalizados menos que perfectos, la aplicación debe ser capaz de lidiar con entradas inesperadas de manera segura. Para evitar los ataques que se aprovechan de la normalización, se debe seleccionar una forma única y todas las entradas de usuario deben ser modificados a esa forma antes de tomar decisiones de autorización. Se debe realizar pruebas de seguridad después de que se ha realizado la decodificación. Se recomienda verificar que la codificación usada esté soportada para cada simbolo que se presenta. 
 
 . ASP y ASP.Net. ContentType y charset se configuran por separado y consisten en métodos del objeto Response. Para configurar el charset use, por ejemplo:
-
++
 [source, html, linenums]
 ----
 <%Response.charset="utf-8"%>
@@ -32,11 +32,10 @@ A continuación se describe las circunstancias bajo las cuales la siguiente solu
 
 . En ASP.Net, la configuración de Response.ContentEncoding se hará cargo tanto del parámetro charset del Content-Type de HTTP como de la codificación real del documento que se envía (la cual debe, por supuesto, ser la misma). El valor predeterminado puede configurarse en el elemento globalization en Web.config (o Machine.config, que, originariamente, se configura en UTF-8). 
 
-Para especificar la codificación
-[start = 1]
+Para especificar la codificación:
 
 . Para configurar la codificación para todas las páginas, añadir una propiedad globalización en el archivo Web.config y, a continuación, establezca su fileEncoding, requestEncoding y responseEncoding atributos, como se muestra en el siguiente ejemplo:
-
++
 [source,html,linenums]
 ----
 <configuration>
@@ -51,9 +50,9 @@ Para especificar la codificación
   </system.web>
 </configuration>
 ---- 
-[start = 2]
-. Para establecer la codificación de una página individual, establezca los atributos _RequestEncoding_ y _ResponseEncoding_ de la directiva @ Page, como se muestra en el siguiente ejemplo:
 
+. Para establecer la codificación de una página individual, establezca los atributos _RequestEncoding_ y _ResponseEncoding_ de la directiva @ Page, como se muestra en el siguiente ejemplo:
++
 [source,html,linenums]
 ----
 <%@ Page RequestEncoding="utf-8" ResponseEncoding="utf-8" %>

@@ -124,14 +124,16 @@ usuario:
 requisito. Sin embargo, se debe tener en cuenta que una palabra en estos casos
 puede tener una longitud de un carácter, por lo que la contraseña "a a a" podría
 ser válida. Se recomienda la revisión de [2]:
++
 [source,cobol,linenums]
 ----
            IF W05-PNUMBER < 3
                DISPLAY "Requisito incumplido"
 ----
-[start=10]
+
 . En caso contrario, la entrada contiene tres o más palabras, por lo que el
 requisito de seguridad se ha cumplido:
++
 [source,cobol,linenums]
 ----
            ELSE

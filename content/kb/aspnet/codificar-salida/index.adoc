@@ -34,7 +34,7 @@ A continuación se describen las circunstancias bajo las cuales la siguiente sol
 * Encabezados HTTP
 
 . Cuando se identifique que una entrada es no confiable, es importante determinar el método de codificación más apropiado. La siguiente tabla muestra los métodos de códificación asociados
-
++
 |===
 |*Método de Codificación* | *Cuándo se debe usar*
 
@@ -61,7 +61,6 @@ A continuación se describen las circunstancias bajo las cuales la siguiente sol
 
 |===
 
-[start = 5]
 . Para usarlo se requiere:
 
 * Click derecho en el explorador de soluciones en Visual Studio.
@@ -69,14 +68,14 @@ A continuación se describen las circunstancias bajo las cuales la siguiente sol
 * Seleccionar la pestaña "browse" y luego adicione AntiXSSLibrary.dll.
 * Adicionar una directiva using Microsoft.Security.Application;
 * Cambiar la forma en que se asigna la salida, por ejemplo:
-
++
 [source, java, linenums]
 ----
 string out_Name = Request.QueryString["Name"]; 
 ----
-
++
 reemplazarlo por:
-
++
 [source, java, linenums]
 ----
 string out_Name = Encoder.HtmlEncode(Request.QueryString["Name"]);

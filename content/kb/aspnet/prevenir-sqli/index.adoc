@@ -21,14 +21,14 @@ Un aspecto importante de la creación de aplicaciones ASP.NET seguras es la posi
 
 . *Validación de entrada a las páginas Web ASP.NET:*
 Mediante los controles de validación se puede agregar validación de entrada a las páginas Web ASP.NET. Los controles de validación proporcionan un mecanismo fácil de utilizar para todos los tipos comunes de validación estándar (por ejemplo, probar fechas válidas o valores comprendidos en un intervalo), además de otras formas para proporcionar validación escrita personalizada. Además, los controles de validación permiten personalizar completamente cómo se muestra la información de errores al usuario.
++
 Los controles de validación se pueden utilizar con cualquier control que se coloque en una página Web ASP.NET, incluidos los controles HTML y de servidor Web. Nota:De forma predeterminada, las páginas Web ASP.NET comprueban automáticamente la entrada de datos potencialmente malintencionados.
 
-[start = 2]
 . *Utilizar controles de validación:*
 Habilite la validación de los datos introducidos por el usuario agregando controles de validación a la página como lo haría con otros controles de servidor. Existen controles para distintos tipos de validación, como la comprobación de un intervalo o la comparación de modelos.
-
++
 Tipos de validación para controles de servidor ASP.NET.
-
++
 |===
 |*Tipo de validación* | *Utilizar control* | *Descripción*
 
@@ -53,7 +53,6 @@ Tipos de validación para controles de servidor ASP.NET.
 |Comprueba la entrada de usuario utilizando la validación lógica que ha escrito. Este tipo de validación permite comprobar valores derivados en tiempo de ejecución. 
 |===
 
-[start = 3] 
 . En un formulario se pueden asociar más de un control de validación a un control. Por ejemplo, se podría especificar que se requiera un control y que además contenga un intervalo de valores específico.Existe un control relacionado, _ValidationSummary_, que no realiza ningún tipo de validación pero suele utilizarse con otros controles de validación para mostrar los mensajes de error de todos los controles de validación de la página juntos. Cada control de validación hace referencia a un control de entrada (un control de servidor) situado en otra parte de la página. Cuando se procesan los datos introducidos por el usuario (por ejemplo, cuando se envía una página), el control de validación comprueba dichos datos y establece una propiedad para indicar si han pasado la comprobación. Una vez que se ha llamado a todos los controles de validación, se establece una propiedad en la página que indica si alguna de las comprobaciones de validación ha producido un error. Los controles de validación se pueden asociar en grupos de validación a fin de que los controles que pertenezcan a un grupo común se validen juntos. Puede utilizar estos grupos para habilitar o deshabilitar de forma selectiva la validación para controles relacionados en una página. Otras operaciones de validación, como mostrar un control _ValidationSummary_ o llamar al método _GetValidators_, pueden hacer referencia al grupo de validación. En su propio código puede probar el estado de la página y de los controles individuales. Por ejemplo, podría probar el estado de los controles de validación antes de actualizar un registro de datos con información introducida por el usuario. Si se detecta un estado no válido, se omite la actualización. Normalmente, si una comprobación de validación produce errores, se omite todo el procesamiento y se devuelve la página al usuario. Los controles de validación que detectan errores generan un mensaje de error que aparece en la página. Puede mostrar todos los errores de validación en un solo lugar mediante un control _ValidationSummary_. 
 
 . *Validar múltiples condiciones:*
