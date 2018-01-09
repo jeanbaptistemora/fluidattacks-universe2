@@ -1,4 +1,4 @@
-:slug: conserving-id-ws-world
+:slug: conserving-id-ws-world/
 :date: 2017-05-02
 :category: security-opinions
 :tags: web, security, information

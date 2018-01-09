@@ -1,4 +1,4 @@
-:slug: careers/reverse-references
+:slug: careers/reverse-references/
 :category: careers
 :eth: no
 

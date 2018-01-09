@@ -1,4 +1,4 @@
-:slug: amenaza-fantasma-iot-crimenware
+:slug: amenaza-fantasma-iot-crimenware/
 :date: 2016-11-01
 :category: opiniones-de-seguridad
 :tags: crimenware, iot, seguridad, atacar

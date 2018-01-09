@@ -1,4 +1,4 @@
-:slug: xss-protection
+:slug: xss-protection/
 :date: 2017-04-26
 :category: challenges
 :tags: xss, web, protect, challenge

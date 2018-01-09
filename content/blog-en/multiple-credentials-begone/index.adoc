@@ -1,4 +1,4 @@
-:slug: multiple-credentials-begone
+:slug: multiple-credentials-begone/
 :date: 2017-04-28
 :category: security-opinions
 :tags: security, credential, saml, standard

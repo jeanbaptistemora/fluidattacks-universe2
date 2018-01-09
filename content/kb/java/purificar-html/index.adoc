@@ -1,4 +1,4 @@
-:slug: kb/java/purificar-html
+:slug: kb/java/purificar-html/
 :eth: no
 :category: java
 :kb: yes

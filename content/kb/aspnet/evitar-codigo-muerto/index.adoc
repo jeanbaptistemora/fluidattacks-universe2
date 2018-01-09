@@ -1,4 +1,4 @@
-:slug: kb/aspnet/evitar-codigo-muerto
+:slug: kb/aspnet/evitar-codigo-muerto/
 :eth: no
 :category: aspnet
 :kb: yes

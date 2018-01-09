@@ -1,4 +1,4 @@
-:slug: kb/aspnet/configurar-parametro-charset-http
+:slug: kb/aspnet/configurar-parametro-charset-http/
 :eth: no
 :category: aspnet
 :kb: yes

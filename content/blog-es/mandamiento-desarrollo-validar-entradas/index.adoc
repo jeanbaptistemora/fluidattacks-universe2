@@ -1,4 +1,4 @@
-:slug: mandamiento-desarrollo-validar-entradas
+:slug: mandamiento-desarrollo-validar-entradas/
 :date: 2016-07-25
 :category: opiniones-de-seguridad
 :tags: programar, validar, software, seguridad

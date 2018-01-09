@@ -1,4 +1,4 @@
-:slug: kb/cobol/cifrar-codigo-fuente
+:slug: kb/cobol/cifrar-codigo-fuente/
 :eth: no
 :category: cobol
 :kb: yes

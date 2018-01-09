@@ -1,4 +1,4 @@
-:slug: kb/aspnet/comprobar-fortaleza-contrasenas-diccionarios
+:slug: kb/aspnet/comprobar-fortaleza-contrasenas-diccionarios/
 :eth: no
 :category: aspnet
 :kb: yes

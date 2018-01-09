@@ -1,4 +1,4 @@
-:slug: buscar-directorio-oculto
+:slug: buscar-directorio-oculto/
 :date: 2016-12-24
 :category: retos
 :tags: web, ocultar, reto, solucionar

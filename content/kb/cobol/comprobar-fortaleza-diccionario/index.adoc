@@ -1,4 +1,4 @@
-:slug: kb/cobol/comprobar-fortaleza-diccionario
+:slug: kb/cobol/comprobar-fortaleza-diccionario/
 :eth: no
 :category: cobol
 :kb: yes

@@ -1,4 +1,4 @@
-:slug: kb/aspnet/cifrar-contrasenas-una-sola-via
+:slug: kb/aspnet/cifrar-contrasenas-una-sola-via/
 :eth: no
 :category: aspnet
 :kb: yes

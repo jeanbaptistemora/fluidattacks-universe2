@@ -1,4 +1,4 @@
-:slug: seguridad-informacion-gasto-inversion
+:slug: seguridad-informacion-gasto-inversion/
 :date: 2016-08-23
 :category: opiniones-de-seguridad
 :tags: invertir, seguridad, información

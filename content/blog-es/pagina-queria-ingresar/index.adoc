@@ -1,4 +1,4 @@
-:slug: pagina-queria-ingresar
+:slug: pagina-queria-ingresar/
 :date: 2017-03-08
 :category: opiniones-de-seguridad
 :tags: web, seguridad, información

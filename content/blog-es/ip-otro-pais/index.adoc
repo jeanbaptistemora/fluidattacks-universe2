@@ -1,4 +1,4 @@
-:slug: ip-otro-pais
+:slug: ip-otro-pais/
 :date: 2016-12-24
 :category: retos
 :tags: red, reto, solucionar, herramienta

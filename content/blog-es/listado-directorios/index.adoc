@@ -1,4 +1,4 @@
-:slug: listado-directorios
+:slug: listado-directorios/
 :date: 2017-05-23
 :author: Jhony Villa
 :category: retos

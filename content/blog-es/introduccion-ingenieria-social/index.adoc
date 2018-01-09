@@ -1,4 +1,4 @@
-:slug: introduccion-ingenieria-social
+:slug: introduccion-ingenieria-social/
 :date: 2017-05-16
 :category: opiniones-de-seguridad
 :tags: concientizar, ingeniería, social, amenaza

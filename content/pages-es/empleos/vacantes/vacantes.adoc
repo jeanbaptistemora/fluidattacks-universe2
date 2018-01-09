@@ -1,4 +1,4 @@
-:slug: empleos/vacantes
+:slug: empleos/vacantes/
 :category: careers
 :eth: no
 

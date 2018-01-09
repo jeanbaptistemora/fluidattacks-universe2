@@ -1,4 +1,4 @@
-:slug: kb/java/validar-archivos-richfaces
+:slug: kb/java/validar-archivos-richfaces/
 :eth: no
 :category: java
 :kb: yes

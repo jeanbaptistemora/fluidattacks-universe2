@@ -1,4 +1,4 @@
-:slug: temas
+:slug: temas/
 :eth: no
 
 = Temas

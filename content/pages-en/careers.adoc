@@ -1,4 +1,4 @@
-:slug: careers
+:slug: careers/
 :category: careers
 :eth: no
 

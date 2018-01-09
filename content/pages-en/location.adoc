@@ -1,4 +1,4 @@
-:slug: location
+:slug: location/
 :eth: no
 :location: yes
 

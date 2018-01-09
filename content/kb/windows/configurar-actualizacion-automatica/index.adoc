@@ -1,4 +1,4 @@
-:slug: kb/windows/configurar-actualizacion-automatica
+:slug: kb/windows/configurar-actualizacion-automatica/
 :eth: no
 :category: windows
 :kb: yes

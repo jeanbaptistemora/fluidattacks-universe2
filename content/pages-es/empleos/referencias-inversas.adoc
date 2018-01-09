@@ -1,4 +1,4 @@
-:slug: empleos/referencias-inversas
+:slug: empleos/referencias-inversas/
 :category: careers
 :eth: no
 

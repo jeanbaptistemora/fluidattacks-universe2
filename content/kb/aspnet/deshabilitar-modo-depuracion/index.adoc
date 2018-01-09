@@ -1,4 +1,4 @@
-:slug: kb/aspnet/deshabilitar-modo-depuracion
+:slug: kb/aspnet/deshabilitar-modo-depuracion/
 :eth: no
 :category: aspnet
 :kb: yes

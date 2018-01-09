@@ -1,4 +1,4 @@
-:slug: kb/aspnet/configurar-forma-segura-cadenas-conexion
+:slug: kb/aspnet/configurar-forma-segura-cadenas-conexion/
 :eth: no
 :category: aspnet
 :kb: yes

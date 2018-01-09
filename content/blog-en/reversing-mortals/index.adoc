@@ -1,4 +1,4 @@
-:slug: reversing-mortals
+:slug: reversing-mortals/
 :date: 2017-04-25
 :category: challenges
 :tags: revert, challenge, engineering

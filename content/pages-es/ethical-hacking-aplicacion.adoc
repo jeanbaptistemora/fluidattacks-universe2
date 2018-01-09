@@ -1,4 +1,4 @@
-:slug: ethical-hacking-aplicacion
+:slug: ethical-hacking-aplicacion/
 
 = Ethical Hacking de Aplicación
 

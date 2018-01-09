@@ -24,10 +24,10 @@ PATH = 'content'
 ARTICLE_PATHS = ['blog-en']
 PAGE_PATHS = ['pages-en']
 STATIC_PATHS = ['images', 'files', 'blog-en']
-ARTICLE_URL = 'blog/{slug}/'
-ARTICLE_SAVE_AS = 'blog-en/{slug}/index.html'
-PAGE_URL = '{slug}/'
-PAGE_SAVE_AS = '{slug}/index.html'
+ARTICLE_URL = 'blog/{slug}'
+ARTICLE_SAVE_AS = 'blog-en/{slug}index.html'
+PAGE_URL = '{slug}'
+PAGE_SAVE_AS = '{slug}index.html'
 KB_SAVE_AS = 'kb/index.html'
 
 # Plugins configuration

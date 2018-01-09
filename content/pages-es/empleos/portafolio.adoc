@@ -1,4 +1,4 @@
-:slug: empleos/portafolio
+:slug: empleos/portafolio/
 :category: careers
 :eth: no
 

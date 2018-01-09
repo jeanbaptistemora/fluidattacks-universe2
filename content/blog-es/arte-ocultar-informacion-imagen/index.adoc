@@ -1,4 +1,4 @@
-:slug: arte-ocultar-informacion-imagen
+:slug: arte-ocultar-informacion-imagen/
 :date: 2016-10-25
 :category: retos
 :tags: reto, esteganografía, solucionar, ocultar

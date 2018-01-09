@@ -1,4 +1,4 @@
-:slug: kb/hacking/evitar-ataque-ddos
+:slug: kb/hacking/evitar-ataque-ddos/
 :eth: no
 :category: hacking
 :kb: yes

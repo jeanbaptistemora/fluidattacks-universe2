@@ -1,4 +1,4 @@
-:slug: gimp-poderoso
+:slug: gimp-poderoso/
 :date: 2016-11-29
 :category: retos
 :tags: solucionar, reto, herramienta, ocultar

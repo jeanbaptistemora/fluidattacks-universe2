@@ -1,4 +1,4 @@
-:slug: ethical-hacking-infraestructura
+:slug: ethical-hacking-infraestructura/
 
 = Ethical Hacking de Infraestructura
 

@@ -1,4 +1,4 @@
-:slug: empleos
+:slug: empleos/
 :category: careers
 :eth: no
 

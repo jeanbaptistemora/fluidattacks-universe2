@@ -1,4 +1,4 @@
-:slug: kb/windows/deshabilitar-puerto-innecesario
+:slug: kb/windows/deshabilitar-puerto-innecesario/
 :eth: no
 :category: windows
 :kb: yes

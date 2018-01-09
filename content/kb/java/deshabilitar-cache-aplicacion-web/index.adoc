@@ -1,4 +1,4 @@
-:slug: kb/java/deshabilitar-cache-aplicacion-web
+:slug: kb/java/deshabilitar-cache-aplicacion-web/
 :eth: no
 :category: java
 :kb: yes

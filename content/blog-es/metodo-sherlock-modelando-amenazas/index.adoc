@@ -1,4 +1,4 @@
-:slug: metodo-sherlock-modelando-amenazas
+:slug: metodo-sherlock-modelando-amenazas/
 :date: 2017-01-24
 :category: opiniones-de-seguridad
 :tags: sdlc, modelar, amenaza, concientizar

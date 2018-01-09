@@ -1,4 +1,4 @@
-:slug: descifrando-mensaje
+:slug: descifrando-mensaje/
 :date: 2017-04-04
 :category: opiniones-de-seguridad
 :tags: cifrar, seguridad, criptografía

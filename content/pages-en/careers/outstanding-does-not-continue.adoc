@@ -1,4 +1,4 @@
-:slug: careers/outstanding-does-not-continue
+:slug: careers/outstanding-does-not-continue/
 :category: careers
 :eth: no
 

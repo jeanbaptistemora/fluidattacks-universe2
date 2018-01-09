@@ -1,4 +1,4 @@
-:slug: cookie-cool-mundo
+:slug: cookie-cool-mundo/
 :date: 2016-12-24
 :category: retos
 :tags: cookie, reto, solucionar, herramienta

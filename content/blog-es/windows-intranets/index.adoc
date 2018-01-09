@@ -1,4 +1,4 @@
-:slug: windows-intranets
+:slug: windows-intranets/
 :date: 2017-06-06
 :author: Jhony Villa
 :category: opiniones-de-seguridad

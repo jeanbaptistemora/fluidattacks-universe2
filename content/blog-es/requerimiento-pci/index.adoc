@@ -1,4 +1,4 @@
-:slug: requerimiento-pci
+:slug: requerimiento-pci/
 :date: 2016-10-18
 :category: opiniones-de-seguridad
 :tags: protocolo, proteger, seguridad

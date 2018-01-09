@@ -1,4 +1,4 @@
-:slug: ingenieria-inversa
+:slug: ingenieria-inversa/
 :date: 2016-11-22
 :category: retos
 :tags: reto, revertir, ingeniería, solucionar

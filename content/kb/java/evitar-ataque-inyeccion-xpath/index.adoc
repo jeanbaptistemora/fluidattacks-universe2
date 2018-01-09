@@ -1,4 +1,4 @@
-:slug: kb/java/evitar-ataque-inyeccion-xpath
+:slug: kb/java/evitar-ataque-inyeccion-xpath/
 :eth: no
 :category: java
 :kb: yes

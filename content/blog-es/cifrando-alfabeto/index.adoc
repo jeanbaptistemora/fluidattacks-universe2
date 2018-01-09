@@ -1,4 +1,4 @@
-:slug: cifrando-alfabeto
+:slug: cifrando-alfabeto/
 :date: 2016-12-24
 :category: retos
 :tags: cifrar, reto, solucionar

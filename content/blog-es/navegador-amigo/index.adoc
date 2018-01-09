@@ -1,4 +1,4 @@
-:slug: navegador-amigo
+:slug: navegador-amigo/
 :date: 2017-12-18
 :category: opiniones-de-seguridad
 :author: Luis Arteaga

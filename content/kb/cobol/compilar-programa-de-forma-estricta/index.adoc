@@ -1,4 +1,4 @@
-:slug: kb/cobol/compilar-programa-de-forma-estricta
+:slug: kb/cobol/compilar-programa-de-forma-estricta/
 :eth: no
 :category: cobol
 :kb: yes

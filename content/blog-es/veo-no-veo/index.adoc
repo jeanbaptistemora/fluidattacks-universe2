@@ -1,4 +1,4 @@
-:slug: veo-no-veo
+:slug: veo-no-veo/
 :date: 2017-12-19
 :category: opiniones-de-seguridad
 :author: Luis Arteaga

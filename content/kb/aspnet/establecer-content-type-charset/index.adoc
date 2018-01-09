@@ -1,4 +1,4 @@
-:slug: kb/aspnet/establecer-content-type-charset
+:slug: kb/aspnet/establecer-content-type-charset/
 :eth: no
 :category: aspnet
 :kb: yes

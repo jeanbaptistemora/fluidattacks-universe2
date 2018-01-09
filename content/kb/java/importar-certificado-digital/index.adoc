@@ -1,4 +1,4 @@
-:slug: kb/java/importar-certificado-digital
+:slug: kb/java/importar-certificado-digital/
 :eth: no
 :category: java
 :kb: yes

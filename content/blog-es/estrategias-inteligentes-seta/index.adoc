@@ -1,4 +1,4 @@
-:slug: estrategias-inteligentes-seta
+:slug: estrategias-inteligentes-seta/
 :date: 2017-01-31
 :category: opiniones-de-seguridad
 :tags: seta, concientizar, seguridad

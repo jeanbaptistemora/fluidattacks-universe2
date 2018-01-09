@@ -1,4 +1,4 @@
-:slug: kb/java/prevenir-ataque-cross-site-scripting
+:slug: kb/java/prevenir-ataque-cross-site-scripting/
 :eth: no
 :category: java
 :kb: yes

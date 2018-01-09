@@ -1,4 +1,4 @@
-:slug: kb/aspnet/establecer-variables-sesion
+:slug: kb/aspnet/establecer-variables-sesion/
 :eth: no
 :category: aspnet
 :kb: yes

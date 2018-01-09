@@ -1,4 +1,4 @@
-:slug: empleos/evaluacion-conocimientos
+:slug: empleos/evaluacion-conocimientos/
 :category: careers
 :eth: no
 

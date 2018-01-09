@@ -1,4 +1,4 @@
-:slug: muchas-passwords
+:slug: muchas-passwords/
 :date: 2017-05-12
 :category: opiniones-de-seguridad
 :author: Jhony Villa

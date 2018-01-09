@@ -1,4 +1,4 @@
-:slug: busca-encuentra
+:slug: busca-encuentra/
 :date: 2017-12-15
 :category: opiniones-de-seguridad
 :author: Luis Arteaga

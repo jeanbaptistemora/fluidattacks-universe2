@@ -1,4 +1,4 @@
-:slug: default-password
+:slug: default-password/
 :date: 2016-07-13
 :category: opiniones-de-seguridad
 :tags: seguridad, password, atacar

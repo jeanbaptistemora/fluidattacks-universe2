@@ -1,4 +1,4 @@
-:slug: kb/glassfish/revisar-bitacora
+:slug: kb/glassfish/revisar-bitacora/
 :eth: no
 :category: glassfish
 :kb: yes

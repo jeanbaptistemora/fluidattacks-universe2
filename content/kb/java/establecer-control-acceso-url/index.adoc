@@ -1,4 +1,4 @@
-:slug: kb/java/establecer-control-acceso-url
+:slug: kb/java/establecer-control-acceso-url/
 :eth: no
 :category: java
 :kb: yes

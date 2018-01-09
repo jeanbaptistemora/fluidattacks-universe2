@@ -1,4 +1,4 @@
-:slug: definiendo-software
+:slug: definiendo-software/
 :date: 2017-03-07
 :category: opiniones-de-seguridad
 :tags: sde, sdlc, software, definir

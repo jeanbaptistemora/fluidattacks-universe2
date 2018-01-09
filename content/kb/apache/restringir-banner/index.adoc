@@ -1,4 +1,4 @@
-:slug: kb/apache/restringir-banner
+:slug: kb/apache/restringir-banner/
 :eth: no
 :category: apache
 :kb: yes

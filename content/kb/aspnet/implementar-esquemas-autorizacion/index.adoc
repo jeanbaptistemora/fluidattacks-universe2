@@ -1,4 +1,4 @@
-:slug: kb/aspnet/implementar-esquemas-autorizacion
+:slug: kb/aspnet/implementar-esquemas-autorizacion/
 :eth: no
 :category: aspnet
 :kb: yes

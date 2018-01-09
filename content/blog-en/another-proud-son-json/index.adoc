@@ -1,4 +1,4 @@
-:slug: another-proud-son-json
+:slug: another-proud-son-json/
 :date: 2017-05-04
 :category: security-opinions
 :tags: security, information, jwt

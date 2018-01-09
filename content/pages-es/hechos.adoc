@@ -1,4 +1,4 @@
-:slug: hechos
+:slug: hechos/
 :eth: no
 
 = Hechos

@@ -1,4 +1,4 @@
-:slug: rompe-codigos
+:slug: rompe-codigos/
 :date: 2016-08-30
 :category: opiniones-de-seguridad
 :tags: cifrar, criptografía, reto, solucionar

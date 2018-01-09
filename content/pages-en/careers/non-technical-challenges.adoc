@@ -1,4 +1,4 @@
-:slug: careers/non-technical-challenges
+:slug: careers/non-technical-challenges/
 :category: careers
 :eth: no
 

@@ -1,4 +1,4 @@
-:slug: deseando-cookie
+:slug: deseando-cookie/
 :date: 2016-09-13
 :category: opiniones-de-seguridad
 :tags: seguridad, sesión, cookie, proteger

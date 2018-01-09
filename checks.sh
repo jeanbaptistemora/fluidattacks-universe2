@@ -39,6 +39,9 @@ if  pcregrep --color -nr --include='\.adoc' '^-{5,}' content; then echo -e "${GC
 # Check that the start attribute is never used
 if pcregrep --color -nr --include='\.adoc' '\[start' content; then echo -e "${GC}ERRORES: No usar el atributo \"start\" para la enumeración de listas. Utilizar el caracter '+' para concatenar el contenido de cada numeral${NC}"; ERRORS=1;fi
 
+# Check that the slug ends in a '/'
+if pcregrep --color -nr --include='\.adoc' ':slug:.*[a-zA-Z0-9]$' content; then echo -e "${GC}ERRORES: El \"slug\" del artículo debe terminar en '/'${NC}"; ERRORS=1;fi
+
 # requiere pcregrep para busqueda multilinea
 # if pcregrep -M -n -r --include='\.adoc$' '^\[source,.*\n[^.].*\n[^-]' content; then echo 'ERRORES: Source sin caption de archivo ".file.py (parte a)" y delimitadores "----".'; ERRORS=1;fi
 

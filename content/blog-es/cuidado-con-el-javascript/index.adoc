@@ -1,4 +1,4 @@
-:slug: cuidado-con-el-javascript
+:slug: cuidado-con-el-javascript/
 :date: 2017-12-20
 :category: opiniones-de-seguridad
 :author: Luis Arteaga

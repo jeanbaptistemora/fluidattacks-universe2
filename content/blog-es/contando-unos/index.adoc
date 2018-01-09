@@ -1,4 +1,4 @@
-:slug: contando-unos
+:slug: contando-unos/
 :date: 2016-12-24
 :category: retos
 :tags: binario, reto, programar

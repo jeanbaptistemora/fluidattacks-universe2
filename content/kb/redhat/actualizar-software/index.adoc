@@ -1,4 +1,4 @@
-:slug: kb/redhat/actualizar-software
+:slug: kb/redhat/actualizar-software/
 :eth: no
 :category: redhat
 :kb: yes

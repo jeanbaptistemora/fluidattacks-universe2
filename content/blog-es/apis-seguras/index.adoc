@@ -1,4 +1,4 @@
-:slug: apis-seguras
+:slug: apis-seguras/
 :date: 2017-05-02
 :category: opiniones-de-seguridad
 :tags: api, protocolo, intercambiar, información

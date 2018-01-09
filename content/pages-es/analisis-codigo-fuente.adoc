@@ -1,4 +1,4 @@
-:slug: analisis-codigo-fuente
+:slug: analisis-codigo-fuente/
 
 = Análisis de Código Fuente
 

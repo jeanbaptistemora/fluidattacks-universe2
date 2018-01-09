@@ -1,4 +1,4 @@
-:slug: kb/linux/limitar-sesiones-concurrentes
+:slug: kb/linux/limitar-sesiones-concurrentes/
 :eth: no
 :category: linux
 :kb: yes

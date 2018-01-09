@@ -1,4 +1,4 @@
-:slug: stupid-neigbours-using-wep
+:slug: stupid-neigbours-using-wep/
 :date: 2017-04-24
 :category: challenges
 :tags: wep, wifi, encryption, challenge

@@ -1,4 +1,4 @@
-:slug: proteger-organizacion-hacker-lammer
+:slug: proteger-organizacion-hacker-lammer/
 :date: 2017-12-18
 :category: opiniones-de-seguridad
 :tags: seguridad, proteger, información

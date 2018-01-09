@@ -1,4 +1,4 @@
-:slug: careers/immersion
+:slug: careers/immersion/
 :category: careers
 :eth: no
 

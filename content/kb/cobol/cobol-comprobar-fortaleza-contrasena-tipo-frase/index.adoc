@@ -1,4 +1,4 @@
-:slug: kb/cobol/comprobar-fortaleza-contrasena-tipo-frase
+:slug: kb/cobol/comprobar-fortaleza-contrasena-tipo-frase/
 :eth: no
 :category: cobol
 :kb: yes

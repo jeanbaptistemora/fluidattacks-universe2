@@ -1,4 +1,4 @@
-:slug: banner-grabbing
+:slug: banner-grabbing/
 :date: 2016-10-11
 :category: retos
 :tags: información, herramienta, reto, solucionar

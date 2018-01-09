@@ -1,4 +1,4 @@
-:slug: comportamiento-enemigo
+:slug: comportamiento-enemigo/
 :date: 2016-11-08
 :category: opiniones-de-seguridad
 :tags: atacar, rsa, seguridad

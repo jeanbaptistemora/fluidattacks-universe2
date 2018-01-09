@@ -1,4 +1,4 @@
-:slug: empleos/faq
+:slug: empleos/faq/
 :category: careers
 :eth: no
 

@@ -1,4 +1,4 @@
-:slug: seguridad-compartida-nube
+:slug: seguridad-compartida-nube/
 :date: 2016-09-10
 :category: opiniones-de-seguridad
 :tags: cloud, aws, seguridad, tercerizar

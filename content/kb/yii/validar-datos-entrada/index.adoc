@@ -1,4 +1,4 @@
-:slug: kb/yii/validar-datos-entrada
+:slug: kb/yii/validar-datos-entrada/
 :eth: no
 :category: yii
 :kb: yes

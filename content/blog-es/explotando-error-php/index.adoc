@@ -1,4 +1,4 @@
-:slug: explotando-error-php
+:slug: explotando-error-php/
 :date: 2016-12-24
 :category: retos
 :tags: php, atacar, reto, solucionar

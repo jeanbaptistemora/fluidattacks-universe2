@@ -1,4 +1,4 @@
-:slug: riesgos-terceros-propiedad
+:slug: riesgos-terceros-propiedad/
 :date: 2016-12-20
 :category: opiniones-de-seguridad
 :tags: sdlc, software, seguridad

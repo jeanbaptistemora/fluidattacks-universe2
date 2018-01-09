@@ -1,4 +1,4 @@
-:slug: kb/java/generar-aleatorio-seguro
+:slug: kb/java/generar-aleatorio-seguro/
 :eth: no
 :category: java
 :kb: yes

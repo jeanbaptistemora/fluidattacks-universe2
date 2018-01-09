@@ -1,4 +1,4 @@
-:slug: empleos/evaluacion-temperamento
+:slug: empleos/evaluacion-temperamento/
 :category: careers
 :eth: no
 

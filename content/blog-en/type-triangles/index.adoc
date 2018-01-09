@@ -1,4 +1,4 @@
-:slug: type-triangles
+:slug: type-triangles/
 :date: 2017-01-05
 :category: challenges
 :tags: pythagoras, code, challenge, solve

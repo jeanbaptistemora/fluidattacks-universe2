@@ -1,4 +1,4 @@
-:slug: symbolic-execution-mortals
+:slug: symbolic-execution-mortals/
 :date: 2017-05-04
 :category: security-opinions
 :tags: security, test, software

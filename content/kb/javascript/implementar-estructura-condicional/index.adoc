@@ -1,4 +1,4 @@
-:slug: kb/javascript/implementar-estructura-condicional
+:slug: kb/javascript/implementar-estructura-condicional/
 :eth: no
 :category: javascript
 :kb: yes

@@ -1,4 +1,4 @@
-:slug: careers/knowledge-test
+:slug: careers/knowledge-test/
 :category: careers
 :eth: no
 

@@ -1,4 +1,4 @@
-:slug: que-ruta-mas-insegura
+:slug: que-ruta-mas-insegura/
 :date: 2017-12-21
 :category: opiniones-de-seguridad
 :author: Luis Arteaga

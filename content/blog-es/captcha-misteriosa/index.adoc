@@ -1,4 +1,4 @@
-:slug: captcha-misteriosa
+:slug: captcha-misteriosa/
 :date: 2017-01-01
 :category: retos
 :tags: web, captcha, reto, solucionar

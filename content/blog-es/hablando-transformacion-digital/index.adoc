@@ -1,4 +1,4 @@
-:slug: hablando-transformacion-digital
+:slug: hablando-transformacion-digital/
 :date: 2016-11-15
 :category: general
 :tags: transformar, evolucionar, digital

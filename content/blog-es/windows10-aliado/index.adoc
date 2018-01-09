@@ -1,4 +1,4 @@
-:slug: windows10-aliado
+:slug: windows10-aliado/
 :date: 2016-10-04
 :category: opiniones-de-seguridad
 :tags: windows, seguridad, proteger

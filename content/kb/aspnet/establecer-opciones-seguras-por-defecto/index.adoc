@@ -1,4 +1,4 @@
-:slug: kb/aspnet/establecer-opciones-seguras-por-defecto
+:slug: kb/aspnet/establecer-opciones-seguras-por-defecto/
 :eth: no
 :category: aspnet
 :kb: yes

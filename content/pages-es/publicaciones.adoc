@@ -1,4 +1,4 @@
-:slug: publicaciones
+:slug: publicaciones/
 :eth: no
 
 = Publicaciones

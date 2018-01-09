@@ -1,4 +1,4 @@
-:slug: seguridad-usabilidad
+:slug: seguridad-usabilidad/
 :date: 2016-08-23
 :category: opiniones-de-seguridad
 :tags: seguridad, usabilidad, concientizar

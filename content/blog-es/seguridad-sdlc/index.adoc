@@ -1,4 +1,4 @@
-:slug: seguridad-sdlc
+:slug: seguridad-sdlc/
 :date: 2016-12-06
 :category: opiniones-de-seguridad
 :tags: devops, sdlc, programar

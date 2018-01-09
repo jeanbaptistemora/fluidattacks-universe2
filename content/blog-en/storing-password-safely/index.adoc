@@ -1,4 +1,4 @@
-:slug: storing-password-safely
+:slug: storing-password-safely/
 :date: 2017-01-02
 :category: challenges
 :tags: password, security, challenge

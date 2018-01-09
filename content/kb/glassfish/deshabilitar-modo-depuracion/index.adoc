@@ -1,4 +1,4 @@
-:slug: kb/glassfish/deshabilitar-modo-depuracion
+:slug: kb/glassfish/deshabilitar-modo-depuracion/
 :eth: no
 :category: glassfish
 :kb: yes

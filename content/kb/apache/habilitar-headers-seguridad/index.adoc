@@ -1,4 +1,4 @@
-:slug: kb/apache/habilitar-headers-seguridad
+:slug: kb/apache/habilitar-headers-seguridad/
 :eth: no
 :category: apache
 :kb: yes

@@ -1,4 +1,4 @@
-:slug: careers/terms-selection
+:slug: careers/terms-selection/
 :category: careers
 :eth: no
 
