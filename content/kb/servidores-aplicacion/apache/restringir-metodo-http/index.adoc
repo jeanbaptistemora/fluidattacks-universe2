@@ -20,13 +20,16 @@ solución tiene sentido:
 == Solución
 
 . Los controles de acceso se aplican normalmente a todos los métodos de acceso, 
-y este es el comportamiento que se busca casi siempre. En general, las 
-directivas de control de acceso no deben estar dentro de una sección Limit.
+y este es el comportamiento que se busca casi siempre. 
+. En general, las directivas de control de acceso no deben estar dentro de una 
+sección Limit.
 . El propósito de las secciones es restringir el efecto de los controles de
-acceso a los métodos HTTP que se especifiquen. Para los demás métodos, las 
-restricciones de acceso que estén incluidas en la sección correspondiente no 
-tendrán efecto. Los siguientes ejemplos aplican el control de acceso solo a los 
-métodos POST, PUT, y DELETE, no afectando al resto de métodos:
+acceso a los métodos HTTP que se especifiquen. 
+. Para los demás métodos, las restricciones de acceso que estén incluidas en la 
+sección correspondiente no tendrán efecto. 
+. Los siguientes ejemplos aplican el control de acceso solo a los métodos POST, 
+PUT, y DELETE, no afectando al resto de métodos:
++
 [source, html, linenums]
 ----
 <Limit POST PUT DELETE>
@@ -34,7 +37,6 @@ métodos POST, PUT, y DELETE, no afectando al resto de métodos:
 </Limit>
 ----
 
-[start=3]
 . Los métodos incluidos en la lista pueden ser uno o más de los siguientes: 
 GET, POST, PUT, DELETE, CONNECT, OPTIONS, PATCH, PROPFIND, PROPPATCH, MKCOL, 
 COPY, MOVE, LOCK, y UNLOCK. Los nombres de los métodos diferencian mayúsculas 
