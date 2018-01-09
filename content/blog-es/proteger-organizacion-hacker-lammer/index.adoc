@@ -4,7 +4,7 @@
 :tags: seguridad, proteger, información
 :Image: lamers.jpg
 :author: Felipe Gómez
-:writer: FelipeGomezA
+:writer: fgomez
 :name: Felipe Gomez Arango
 :about1: Account Manager de FLUID, Administrador de Empresas
 :about2: Apasionado por la tecnología y la seguridad
