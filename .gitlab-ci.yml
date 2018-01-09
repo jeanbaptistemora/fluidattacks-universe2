@@ -9,7 +9,7 @@ stages:
   - deployment
 
 builder:
-  image: docker
+  image: docker:17
   services:
     - docker:dind
   stage: build
