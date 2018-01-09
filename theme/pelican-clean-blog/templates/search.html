@@ -2,6 +2,10 @@
 {% block title %}{{ SITENAME }} {{ gettext('Search') }} {% endblock %}
 
 {% block header %}
+    <!-- Search PLugin -->
+    {% assets filters="uglifyjs", output="static/js/tipuesearch.min.js", "/app/js/tipuesearch.js", "/app/js/tipuesearch_set.js" %}
+      <script src="{{ SITEURL }}/{{ ASSET_URL }}"></script>
+    {% endassets%}
     <!-- Page Header -->
     {% include "navigationbar.html" %}
     {% if HEADER_COVER %}
@@ -16,12 +20,19 @@
 {% endblock header %}
 
 {% block content %}
-  {% assets filters="uglifyjs", output="static/js/tipuesearch.min.js", "tipuesearch/tipuesearch.js", "tipuesearch/tipuesearch_set.js" %}
-    <script src="{{ SITEURL }}/{{ ASSET_URL }}"></script>
-  {% endassets %} 
   <div id="divpage">
     <article>
       <div id="tipue_search_content"></div>
     </article>
   </div>
+  <script>  
+    $(document).ready(function() {
+      $('#tipue_search_input').tipuesearch({
+        'show': 10,
+        'mode': 'json',
+        'contentLocation': '{{ SITEURL }}/tipuesearch_content.json',
+        'descriptiveWords': '50',
+      });
+    });
+  </script>
 {% endblock %}

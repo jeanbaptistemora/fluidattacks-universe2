@@ -5,14 +5,18 @@ WORKDIR /app
 COPY . /app
 
 # Install all necessary dependencies
+# Download and decompress only the necessary JS files to run TipueSearch
 # Download only the plugins listed in plugin_list.txt and reset to the version used in this project
 # Download pelican-redirect plugin (not found in the general repository) and create __init__.py so pelican can load the plugin
 RUN apt-get -y update && \
-  apt-get install -y python-pip libssl-dev libcurl4-openssl-dev ruby ruby-dev source-highlight git node-uglify pcregrep && \
+  apt-get install -y python-pip libssl-dev libcurl4-openssl-dev ruby ruby-dev source-highlight git node-uglify pcregrep curl unzip && \
   apt-get install -y --no-install-recommends asciidoc && \
   pip install -r requirements.txt && \
   pip install awscli && \
   gem install sass && \
+  curl -Lo TipueSearch.zip  http://www.tipue.com/search/tipuesearch.zip && \
+  unzip -j TipueSearch.zip '*/*/tipuesearch.js' -x '*/*/*/*' -d ./js/ && \
+  unzip -j TipueSearch.zip '*/*/tipuesearch_set.js' -x '*/*/*/*' -d ./js/ && \
   mkdir pelican-plugins && cd pelican-plugins && \
   git init && git remote add origin https://github.com/getpelican/pelican-plugins.git && \
   git config core.sparsecheckout true && cat ../plugin_list.txt >> .git/info/sparse-checkout && \

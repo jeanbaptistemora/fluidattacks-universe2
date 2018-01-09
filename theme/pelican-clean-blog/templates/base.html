@@ -54,7 +54,7 @@
         {% endif %}
     {% endfor %}
         <!-- Compress and Minify CSS files and bundle from SASS files -->  
-	{% assets filters="cssmin", output="static/css/style.min.css", "bundle", "css/code_blocks/github_jekyll.css", "tipuesearch/css/tipuesearch.css" %}
+	{% assets filters="cssmin", output="static/css/style.min.css", "bundle", "css/code_blocks/github_jekyll.css", "css/tipuesearch.css" %}
 	 <link rel="stylesheet" href="{{ SITEURL }}/{{ ASSET_URL }}">
 	{% endassets %}
         <!-- Custom Fonts -->
