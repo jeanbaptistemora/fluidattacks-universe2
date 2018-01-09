@@ -100,7 +100,7 @@
 
 <body>	
     <!-- jQuery, Bootstrap Core and Menu -->
-    {% assets filters="uglifyjs", output="static/js/theme.min.js", "js/jquery.js", "js/bootstrap.js", "js/menu.js" %}
+    {% assets filters="uglifyjs", output="static/js/theme.min.js", "/app/node_modules/jquery/dist/jquery.js", "/app/node_modules/bootstrap/dist/js/bootstrap.js", "js/menu.js" %}
       <script src="{{ SITEURL }}/{{ ASSET_URL }}"></script>
     {% endassets %} 
     {% if not DISABLE_CUSTOM_THEME_JAVASCRIPT %}

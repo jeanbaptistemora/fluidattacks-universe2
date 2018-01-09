@@ -12,7 +12,7 @@ rm -rf ./output
 
 echo "Generating build (3/5) . . ."
 sed -i 's/https:\/\/fluid.la/http:\/\/localhost:8000/' pelicanconf.py
-pelican --fatal errors|warnings content/
+pelican --fatal errors --fatal warnings content/
 mv output/web/en/blog-en output/web/en/blog && mv output/web/es/blog-es output/web/es/blog
 
 echo "Updating sitemap, setting redirect and pages images (4/5) . . ."

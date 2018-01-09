@@ -23,7 +23,7 @@ deploy:
     - ./checks.sh
   script:
     # Generate the website, exiting on any error encountered
-    - pelican --fatal errors|warnings content/
+    - pelican --fatal errors --fatal warnings content/
     # Give the folders, named after the language of its content, a general name in each subsite
     - mv output/web/en/blog-en output/web/en/blog && mv output/web/es/blog-es output/web/es/blog
     # Script to generate a complete sitemap of the site
@@ -41,6 +41,6 @@ deploy:
 test:
   stage: deployment
   script:
-    - pelican --fatal errors|warnings content/
+    - pelican --fatal errors --fatal warnings content/
   except:
     - master
