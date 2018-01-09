@@ -1,0 +1,40 @@
+:slug: kb/java/validar-archivos-richfaces
+:eth: no
+:category: java
+:kb: yes
+
+= Validar Archivos Richfaces
+
+== Necesidad
+
+Validar el formato de los archivos que se permiten cargar al sistema (Java, 
+Richfaces)
+
+== Contexto
+
+A continuación se describen las circunstancias bajo las cuales la siguiente 
+solución tiene sentido:
+
+. La aplicación está contruida en Java EE 1.5 en adelante.
+. La aplicación utiliza el framework RichFaces 3.2.0 en adelante
+
+== Solución
+
+. Para habilitar la validación de formatos de archivos en Java EE utilizando el 
+framework RichFaces se debe utilizar la propiedad acceptedTypes del componente 
+de la siguiente forma [1]:
++
+[source, html, linenums]
+----
+<rich:fileUpload acceptedTypes="txt, zip"/>
+----
+
+. En la instrucción anterior se valida que únicamente los archivos que pueden ser 
+cargados en la aplicación deben ser archivos de texto o archivos comprimidos 
+con extensión zip.
+
+== Referencias
+
+. http://docs.jboss.org/richfaces/latest_3_3_X/en/devguide/html/rich_fileUpload.html[JBoss - Richfile]
+. REQ.0168: El sistema debe descartar toda la información potencialmente 
+insegura que sea recibida por entradas de datos.

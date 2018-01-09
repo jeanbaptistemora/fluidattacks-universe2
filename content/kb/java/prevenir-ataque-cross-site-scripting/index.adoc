@@ -1,0 +1,47 @@
+:slug: kb/java/prevenir-ataque-cross-site-scripting
+:eth: no
+:category: java
+:kb: yes
+
+= Prevenir Cross Site Scripting
+
+== Necesidad
+
+Evitar la vulnerabilidad de Cross Site Scripting (XSS, Java, Java EE)
+
+== Contexto
+
+A continuación se describen las circunstancias bajo las cuales la siguiente 
+solución tiene sentido:
+
+. Se tiene una aplicación web bajo la plataforma Java EE a la cual se le quiere 
+controlar las vulnerabilidades posibles de Cross Site Scripting.
+
+== Solución
+
+. Para evitar Cross Site Scripting, se deben de cumplir los siguientes 
+lineamientos:
+* Nunca incluya datos foráneos, solo desde lugares de confianza.
+* Codifique los datos que vaya a incluir en un elemento HTML.
+* Codifique y valide los atributos que vaya a incluir en un atributo HTML.
+* Codifique y valide el código Javascript que vaya a incluir en un bloque de 
+código Javascript HTML.
+* Codifique y valide el código CSS que vaya a incluir en los estilos HTML.
+* Codifique y valide las direcciones URL que vaya a incluir en un URL del HTML.
+. De una manera se puede generar taglibs especiales que se encarguen de 
+codificar los datos de salida como se sugiere acá. [1]
+. También existen librerías tipo plataforma que se pueden agregar a la 
+aplicación actual para controlar la codificación de algunos campos, como son 
+[2] y [3]. Ver soluciones referenciadas [4] y [5].
+
+== Referencias
+
+. https://www.ibm.com/developerworks/tivoli/library/s-csscript/[IBM - Library S-csscript]
+. https://hdivsecurity.com/[Http Data Integrity Validator - Hdiv]
+. https://dzone.com/articles/xss-filter-java-ee-web-apps[XSSFilter - Java]
+. Prevenir ataques XSS en Java EE usando ESAPI
+. Prevenir XSS en Java EE usando Apache Commons Lang
+. REQ.0168 El sistema debe descartar toda la información potencialmente 
+insegura que sea recibida por entradas de datos.
+. REQ.0155 La salida de información del sistema debe estar codificada en el 
+lenguaje correspondiente (escaping).

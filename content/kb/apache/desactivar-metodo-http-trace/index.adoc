@@ -1,0 +1,54 @@
+:slug: kb/apache/desactivar-metodo-http-trace
+:eth: no
+:category: apache
+:kb: yes
+
+= Desactivar Método HTTP TRACE
+
+== Necesidad
+
+Se busca desactivar el método HTTP TRACE en un servidor Web Apache.
+
+== Contexto
+
+A continuación se describen las circunstancias bajo las cuales la siguiente 
+solución tiene sentido:
+
+. Se cuenta con una instalación funcional de Apache versión 2.2.22 o superior.
+
+== Solución
+
+. Se edita el archivo de configuración de Apache, ubicado generalmente en 
+/etc/apache2/conf.d/security y se edita la siguiente línea:
++
+[source, conf, linenums]
+----
+TraceEnable off
+----
+
+. Se reinicia el servidor web con el comando: apache2ctl restart.
+. Para evitar un Cross-Site-Tracing attack se habilita el módulo rewrite de 
+Apache2
++
+[source, conf, linenums]
+----
+a2enmod rewrite 
+----
+
+. Y se edita el archivo de configuración de cada virtualhost o del  archivo 
+/etc/apache2/sitesavailable/default.
++
+[source, conf, linenums]
+----
+<VirtualHost :80> 
+<IfModule mod_rewrite.c> 
+RewriteEngine On 
+RewriteCond %{REQUEST_METHOD} ^(TRACE|TRACK|OPTIONS) 
+RewriteRule .* - [F] 
+</IfModule>
+----
+
+== Referencias
+
+. http://www.ducea.com/2007/10/22/apache-tips-disable-the-http-trace-method/[Disabling HTTP TRACE Method]
+. http://www.owasp.org/index.php/Cross_Site_Tracing[Cross Site Tracing]

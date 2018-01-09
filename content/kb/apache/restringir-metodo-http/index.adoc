@@ -1,0 +1,50 @@
+:slug: kb/apache/restringir-metodo-http
+:eth: no
+:category: apache
+:kb: yes
+
+= Restringir Métodos HTTP
+
+== Necesidad
+
+Se requiere restringir métodos inseguros como PUT o DELETE en un servidor web.
+
+== Contexto
+
+A continuación se describen las circunstancias bajo las cuales la siguiente 
+solución tiene sentido:
+
+. Se tiene un servidor Apache 2.x en la máquina
+. Se tienen permisos para modificar los archivos de configuración.
+
+== Solución
+
+. Los controles de acceso se aplican normalmente a todos los métodos de acceso, 
+y este es el comportamiento que se busca casi siempre. 
+. En general, las directivas de control de acceso no deben estar dentro de una 
+sección Limit.
+. El propósito de las secciones es restringir el efecto de los controles de
+acceso a los métodos HTTP que se especifiquen. 
+. Para los demás métodos, las restricciones de acceso que estén incluidas en la 
+sección correspondiente no tendrán efecto. 
+. Los siguientes ejemplos aplican el control de acceso solo a los métodos POST, 
+PUT, y DELETE, no afectando al resto de métodos:
++
+[source, html, linenums]
+----
+<Limit POST PUT DELETE>
+ Require valid-user
+</Limit>
+----
+
+. Los métodos incluidos en la lista pueden ser uno o más de los siguientes: 
+GET, POST, PUT, DELETE, CONNECT, OPTIONS, PATCH, PROPFIND, PROPPATCH, MKCOL, 
+COPY, MOVE, LOCK, y UNLOCK. Los nombres de los métodos diferencian mayúsculas 
+de minúsculas (case-sensitive). Si se usa GET también se restringirán las 
+peticiones HEAD. El método TRACE no puede limitarse, para tal fin bastará con 
+seguir la solución: [2]
+
+== Referencias
+
+. http://httpd.apache.org/docs/2.0/en/mod/core.html[AcceptPathInfo Directive]
+. link::../../../desactivar-metodo-http-trace[No TRACE Apache2]

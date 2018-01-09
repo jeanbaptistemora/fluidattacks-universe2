@@ -1,0 +1,147 @@
+:slug: kb/cobol/comprobar-fortaleza-contrasena-tipo-frase
+:eth: no
+:category: cobol
+:kb: yes
+
+= Comprobar Fortaleza de Contraseña Tipo Frase
+
+== Necesidad
+
+Comprobar fortaleza de contraseñas tipo frase en COBOL
+
+== Contexto
+
+A continuación se describen las circunstancias bajo las cuales la siguiente
+solución tiene sentido:
+
+. Se está desarrollando una aplicación en COBOL.
+. La aplicación administra contraseñas de tipo frase.
+. Las contraseñas (tipo frase -preferido-) deben tener al menos 3 palabras de
+longitud. [1]
+
+== Solución
+
+. Declaramos la división de identificación:
++
+[source,cobol,linenums]
+----
+       IDENTIFICATION DIVISION.
+      ******************
+      * Identification *
+      ******************
+       PROGRAM-ID. COBOLPASS2.
+----
+
+. En la división de datos declaramos las variables necesarias para la solución
+(En orden): contraseña ingresada por el usuario, contador de caracteres,
+longitud de la contraseña, variable que contendra un solo carácter, el número de
+palabras en la contraseña y un indicador que nos ayudará a contar el número de
+palabras:
++
+[source,cobol,linenums]
+----
+      ********
+      * Data *
+      ********
+       DATA DIVISION.
+
+       WORKING-STORAGE SECTION.
+       01 W01-PASSWORD PIC X(64) VALUE "".
+       01 W02-COUNT    PIC 9(02) VALUE 1.
+       01 W03-LENGTH   PIC 9(02) VALUE 0.
+       01 W04-CHAR     PIC X     VALUE "".
+       01 W05-PNUMBER  PIC 9(02) VALUE 0.
+       01 W06-FLAG     PIC 9     VALUE 0.
+           88 W06-FLAG-FALSE VALUE 0.
+           88 W06-FLAG-TRUE  VALUE 1.
+----
+
+. Obtenemos la contraseña proveniente del usuario:
++
+[source,cobol,linenums]
+----
+      ********
+      * Main *
+      ********
+       PROCEDURE DIVISION.
+       MAIN.
+           ACCEPT W01-PASSWORD.
+----
+
+. Calculamos la longitud de la contraseña:
++
+[source,cobol,linenums]
+----
+COMPUTE W03-LENGTH = FUNCTION LENGTH(W01-PASSWORD).
+----
+
+. Recorremos la contraseña letra por letra:
++
+[source,cobol,linenums]
+----
+           PERFORM UNTIL W02-COUNT > W03-LENGTH
+               MOVE W01-PASSWORD(W02-COUNT:1) TO W04-CHAR
+----
+
+. Si el carácter es espacio y el carácter inmediatamente anterior es una letra
+diferentes a espacio, entonces indicamos a través de la bandera que ahora se
+encontrarán más espacios:
++
+[source,cobol,linenums]
+----
+               IF W04-CHAR = SPACE
+                   IF W06-FLAG-TRUE
+                       MOVE 0 TO W06-FLAG
+                   END-IF
+----
+
+. Si el carácter es diferente a espacio y el carácter inmediatamente anterior es
+un espacio entonces hemos encontrado una palabra, aumentamos el valor de la
+variable PNUMBER. A través de la bandera le indicamos al algoritmo que ahora
+está leyendo una palabra, esto evitará que sigamos acumulando el valor para
+PNUMBER:
++
+[source,cobol,linenums]
+----
+               ELSE
+                   IF W06-FLAG-FALSE
+                       COMPUTE W05-PNUMBER = W05-PNUMBER + 1
+                       MOVE 1 TO W06-FLAG
+                   END-IF
+               END-IF
+----
+
+. Realizamos el mismo análisis para el resto de caracteres en la entrada del
+usuario:
++
+[source,cobol,linenums]
+----
+               COMPUTE W02-COUNT = W02-COUNT + 1
+           END-PERFORM.
+----
+
+. Si el número de palabras es menor a tres entonces se ha incumplido el
+requisito. Sin embargo, se debe tener en cuenta que una palabra en estos casos
+puede tener una longitud de un carácter, por lo que la contraseña "a a a" podría
+ser válida. Se recomienda la revisión de [2]:
+[source,cobol,linenums]
+----
+           IF W05-PNUMBER < 3
+               DISPLAY "Requisito incumplido"
+----
+[start=10]
+. En caso contrario, la entrada contiene tres o más palabras, por lo que el
+requisito de seguridad se ha cumplido:
+[source,cobol,linenums]
+----
+           ELSE
+               DISPLAY "Requisito cumplido"
+           END-IF.
+
+           STOP RUN.
+----
+
+== Referencias
+
+. REQ.0125: Las contraseñas (tipo frase -preferido-) deben tener al menos 3
+palabras de longitud.
