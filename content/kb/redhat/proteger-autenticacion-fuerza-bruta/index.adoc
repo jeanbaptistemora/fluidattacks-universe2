@@ -1,4 +1,4 @@
-:slug: kb/sistemas-operativos/redhat/proteger-autenticacion-fuerza-bruta
+:slug: kb/redhat/proteger-autenticacion-fuerza-bruta
 :eth: no
 :category: redhat
 :kb: yes

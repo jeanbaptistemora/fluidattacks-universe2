@@ -1,4 +1,4 @@
-:slug: kb/sistemas-operativos/windows/evitar-enumeracion-usuarios
+:slug: kb/windows/evitar-enumeracion-usuarios
 :eth: no
 :category: windows
 :kb: yes
