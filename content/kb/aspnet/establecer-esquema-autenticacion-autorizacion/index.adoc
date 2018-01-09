@@ -7,32 +7,100 @@
 
 == Necesidad
 
-Se requiere implementar en una aplicación web ASP.NET un esquema de autenticación y autorización de usuarios.
+Se requiere implementar en una aplicación web ASP.NET, 
+un esquema de autenticación 
+y autorización de usuarios.
 
 == Contexto
 
-A continuación se describe las circunstancias bajo las cuales la siguiente solución tiene sentido:
+A continuación se describe las circunstancias 
+bajo las cuales la siguiente solución tiene sentido:
 
-. La aplicación esta hecha en ASP.NET version 2.0 ó superior.
-. Se utiliza el sistema para la gestión de base de datos Microsoft SQL Server 2000 en adelante.
+. La aplicación esta hecha en ASP.NET version 2.0 
+ó superior.
+. Se utiliza el sistema 
+para la gestión de base de datos Microsoft SQL Server 2000 en adelante.
 
 == Solución
 
-ASP.NET 2.0 tiene incluido un conjunto de servicios de aplicación que pueden ser utilizadas por las aplicaciones web desarrolladas bajo ésta plataforma. Un servicio para la gestión de credenciales de usuario (usuario y contraseña) e implementación de políticas de seguridad de contraseñas es el _API_ (Application programming interface) _Membership_. Un segundo servicio es el _API Role_, el cual permite agrupar los usuarios de una aplicación a través del establecimiento de roles. Estos dos componentes permiten implementar de manera flexible y mantenible las partes de autenticación (mediante _Membership_) y autorización (_Role_) de los usuarios.
+ASP.NET 2.0 tiene incluido un conjunto de servicios de aplicación 
+que pueden ser utilizadas por las aplicaciones web 
+desarrolladas bajo ésta plataforma. 
+Un servicio utilizado
+para la gestión de credenciales de usuario (usuario y contraseña) 
+e implementación de políticas de seguridad de contraseñas es el _API_ 
+(Application programming interface) _Membership_. 
+Un servicio alternativo es el _API Role_, 
+el cual permite agrupar los usuarios de una aplicación 
+a través del establecimiento de roles. 
+Estos dos componentes permiten implementar de manera flexible 
+y mantenible las partes de autenticación (mediante _Membership_) 
+y autorización (_Role_) de los usuarios.
 
-Para hacer uso de los dos servicios anteriormente mencionados, se debe especificar los proveedores quienes son los encargados  de ofrecer un contrato de servicios para un contexto, por ejemplo,ASP.NET ofrece proveedores para motores de base de datos Microsoft SQL Server, directorios activos, bases de datos XML, entre otros. Para este caso se va utilizar los proveedores _SqlMembershipProvider_ y _SqlRoleProvider_ [1]. Para utilizar estos dos proveedores se deben considerar los siguientes pasos:
+Para hacer uso de los servicios anteriormente mencionados, 
+se debe especificar los proveedores quienes son los encargados  
+de ofrecer un contrato de servicios para un contexto. 
+Por ejemplo, 
+ASP.NET ofrece proveedores 
+para motores de base de datos Microsoft SQL Server, 
+directorios activos, 
+bases de datos XML, 
+entre otros. 
+Para este caso, 
+se utilizarán los proveedores _SqlMembershipProvider_ 
+y _SqlRoleProvider_ [1]. 
+Para garantizar el adecuado uso de estos dos proveedores, 
+se deben considerar los siguientes pasos:
 
-. Especifique una base de datos para almacenar la información de los usuarios y roles. En este punto se recomienda que se utilice la base de datos definida para la aplicación, en la cual se guardarán las tablas, vistas y procedimientos almacenados necesarios para configurar el esquema de servicios del ASP.NET. Este repositorio de datos debió de ser creado mediante el motor de base de datos Microsoft SQL Server 2000, 2005 0 2008. 
+. Especifique una base de datos 
+para almacenar la información de los usuarios 
+y sus respectivos roles. 
+En este punto, 
+se recomienda que se utilice la base de datos definida para la aplicación, 
+en la cual se guardarán las tablas, 
+vistas 
+y procedimientos almacenados necesarios para configurar 
+el esquema de servicios del ASP.NET. 
+Este repositorio de datos debió de ser creado 
+mediante el motor de base de datos Microsoft SQL Server 2000, 2005 0 2008. 
 
-. Provisione a la base de datos el esquema de ASP.NET. Para este punto se debe utilizar la herramienta _aspnet_regsql.exe_ para crear todo el esquema necesario (tablas, vistas, procedimientos almacenados) y montarlo en la base de datos seleccionada en el punto anterior. Esta herramienta se encuentra ubicada en directorio correspondiente a la versión del .NET framework instalado en el servidor, posiblemente en la ruta _C:\WINDOWS\Microsoft.NET\Framework\v2.0.xyz_ [2].
+. Provisione a la base de datos el esquema de ASP.NET. 
+Para ello, 
+se debe utilizar la herramienta _aspnet_regsql.exe_ 
+para crear todo el esquema necesario 
+y montarlo en la base de datos seleccionada en el punto anterior. 
+Esta herramienta se encuentra ubicada 
+en directorio correspondiente a la versión del .NET framework 
+instalado en el servidor, 
+posiblemente en la ruta _C:\WINDOWS\Microsoft.NET\Framework\v2.0.xyz_ [2].
 +
-* Ejecute la herramienta aspnet_regsql.exe basado en interfaz gráfica y seleccione la opción Configuración del SQL Server para servicios de aplicación. 
+* Ejecute la herramienta aspnet_regsql.exe 
+basado en interfaz gráfica 
+y seleccione la opción Configuración del SQL Server 
+para servicios de aplicación. 
 +
-* Ingrese la información de configuración de la conexión al servidor y seleccione la base de la aplicación. En el campo Servidor, ingrese el nombre de maquina del servidor en el cual se encuentra instalado la base de datos. Seleccione la opción Autenticación SQL Server y especifique el nombre de usuario y contraseña para acceder a la base de datos. Por ultimo, seleccione en el menú desplegable Base de datos, el nombre de la base de datos de la aplicación. 
+* Ingrese la información de configuración de la conexión al servidor 
+y seleccione la base de la aplicación. 
+En el campo Servidor, 
+ingrese el nombre de maquina del servidor 
+en el cual se encuentra instalada la base de datos. 
+Seleccione la opción Autenticación SQL Server 
+y especifique el nombre de usuario 
+y contraseña para acceder a la base de datos. 
+A continuación, 
+seleccione en el menú desplegable Base de datos, 
+seguido del nombre de la base de datos de la aplicación. 
 +
-* Finalmente, al presionar el botón Siguiente, la herramienta crea todo el esquema necesario dentro de la base de datos seleccionada.
+* Finalmente, 
+al presionar el botón _Siguiente_, 
+la herramienta crea todo el esquema necesario 
+dentro de la base de datos seleccionada.
 +
-. Configure la cadena de conexión a la base de datos. En el archivo de configuración de la aplicación web.config defina la cadena de conexión para establecer comunicación con la base de datos de la aplicación, para lo cual se requiere utilizar el elemento _connectionStrings_ [3].  
+. Configure la cadena de conexión a la base de datos. 
+En el archivo de configuración de la aplicación web.config 
+defina la cadena de conexión para establecer comunicación 
+con la base de datos de la aplicación, 
+para lo cual se requiere utilizar el elemento _connectionStrings_ [3].  
 +
 [source, xml, linenums]
 ----
@@ -57,21 +125,43 @@ Una conexión en modo de ejemplo puede ser:
  </connectionStrings>
 ----
 +
-A continuación se describen los atributos especificados en el elemento de configuración add:
+A continuación, 
+se describen los atributos especificados en el elemento de configuración _add_:
 +
-* *name:* Es el identificador que se usará para referenciar la cadena de conexión. 
+* *name:* Es el identificador 
+que será utilizado
+para referenciar la cadena de conexión. 
 +
-* *ConnectionString:* Contiene especificado los valores que se usarán para establecer la conexión con la base de datos, incluye: 
+* *ConnectionString:* Contiene especificado los valores 
+que se usarán 
+para establecer la conexión con la base de datos, 
+incluye: 
 +
-** *Data Source:* Es el nombre de maquina que tiene asignado el servidor de base de datos. 
+** *Data Source:* Es el nombre de máquina 
+que tiene asignado el servidor de base de datos. 
 +
-** *Initial Catalog:* Es el nombre que se estableció para la base de datos 
+** *Initial Catalog:* Es el nombre 
+que se estableció para la base de datos. 
 +
-** *User Id:* Nombre de usuario para acceder a la base de datos. 
+** *User Id:* Nombre de usuario 
+para acceder a la base de datos. 
 +
-** *Password:* Contraseña utilizada para acceder a la base de datos.
+** *Password:* Contraseña utilizada 
+para acceder a la base de datos.
 +
-. Configure el proveedor _SqlMembershipProvider_. Para configurar la parte de autenticación de usuarios a la aplicación, se debe adicionar un registro en el archivo web.config de la aplicación para agregar el proveedor _SqlMembershipProvider_, especificando la base de datos que contiene el esquema de servicios de aplicaciones ASP.NET, la cual contiene toda la información de los usuarios. Esta conexión a la base de datos se especificó en el punto anterior. Para la configuración de éste proveedor se debe utilizar el elemento _membership_ especificando el proveedor de suscripciones predeterminado que va a utilizar la aplicación para gestionar la autenticación de los usuarios.  
+. Configure el proveedor _SqlMembershipProvider_. 
+Para configurar la parte de autenticación de usuarios a la aplicación, 
+se debe adicionar un registro en el archivo web.config 
+de la aplicación para agregar el proveedor _SqlMembershipProvider_, 
+especificando la base de datos que contiene 
+el esquema de servicios de aplicaciones ASP.NET, 
+la cual contiene toda la información de los usuarios. 
+Esta conexión a la base de datos se especificó en el punto anterior. 
+Para la configuración de éste proveedor, 
+se debe utilizar el elemento _membership_, 
+especificando el proveedor de suscripciones predeterminado 
+que va a utilizar la aplicación 
+para gestionar la autenticación de los usuarios.  
 +
 [source,xml,linenums]
 ----
@@ -93,14 +183,39 @@ A continuación se describen los atributos especificados en el elemento de confi
 </membership>
 ----
 +
-A continuación se describen algunos de los atributos especificados en el elemento de configuración add para agregar una instancia del proveedor _SqlMembershipProvider_ [5]:
+A continuación, 
+se describen algunos de los atributos especificados 
+en el elemento de configuración _add_ 
+para agregar una instancia del proveedor _SqlMembershipProvider_ [5]:
 +
-* *name:* Es el nombre con cual se identificará la configuración del proveedor de suscripciones. 
-* *type:* Es el tipo proveedor que se utilizara para gestionar la autenticación de los usuarios. 
-* *connectionStringName:* Corresponde al identificador de la cadena de conexión a la base de datos que se configuró en el punto 3.
-* *applicationName:* Es el nombre de la aplicación que va a utilizar ésta instancia del proveedor de suscripción.
+* *name:* Es el nombre con cual 
+se identificará la configuración del proveedor de suscripciones. 
+* *type:* Es el tipo proveedor 
+que se utilizara para gestionar la autenticación de los usuarios. 
+* *connectionStringName:* Corresponde al identificador 
+de la cadena de conexión a la base de datos que se configuró en el punto 3.
+* *applicationName:* Es el nombre de la aplicación 
+que va a utilizar ésta instancia del proveedor de suscripción.
 +
-. Configure el proveedor _SqlRoleProvider_. Para configurar la parte de autorización mediante roles, los cuales se asignarán a los usuarios de la aplicación, se debe adicionar un registro en el archivo web.config de la aplicación para agregar el proveedor _SqlRoleProvider_, especificando la base de datos que contiene el esquema de servicios de aplicaciones ASP.NET, la cual contiene toda la información de los usuarios. Esta conexión a la base de datos se especificó en el punto anterior. Para la configuración de éste proveedor se debe utilizar el elemento _roleManager_ y estableciendo el atributo _enabled_ al valor _true_ para indicar que se habilite la administración de funciones de roles. Adicionalmente, se debe especificar el proveedor para la gestión de roles que se usará de manera predeterminada en la aplicación.
+. Configure el proveedor _SqlRoleProvider_. 
+Para configurar la parte de autorización mediante roles, 
+los cuales se asignarán a los usuarios de la aplicación, 
+se debe adicionar un registro en el archivo web.config 
+de la aplicación para agregar el proveedor _SqlRoleProvider_, 
+especificando la base de datos 
+que contiene el esquema de servicios de aplicaciones ASP.NET, 
+la cual contiene toda la información de los usuarios. 
+Esta conexión a la base de datos 
+se especificó en el punto anterior. 
+Para la configuración de éste proveedor 
+se debe utilizar el elemento _roleManager_ 
+y estableciendo el atributo _enabled_ al valor _true_ 
+para indicar 
+que se habilite la administración de funciones de roles. 
+Adicionalmente, 
+se debe especificar el proveedor 
+para la gestión de roles 
+que se usará de manera predeterminada en la aplicación.
 +
 [source, xml, linenums]
 ----
@@ -115,21 +230,67 @@ A continuación se describen algunos de los atributos especificados en el elemen
     </roleManager>
 ----
 +
-A continuación se describen algunos de los atributos especificados en el elemento de configuración add para agregar una instancia del proveedor _SqlRoleProvider_ [6]:
+A continuación se describen 
+algunos de los atributos especificados 
+en el elemento de configuración _add_ 
+para agregar una instancia del proveedor _SqlRoleProvider_ [6]:
 +
-* *name:* Es el nombre con cual se identificará la configuración del proveedor que gestionará los roles.
+* *name:* Es el nombre con cual 
+se identificará la configuración del proveedor 
+que gestionará los roles.
 +
-*type:* Es el tipo proveedor que se utilizara para gestionar la autorización de los usuarios.
+*type:* Es el tipo proveedor 
+que se utilizara para gestionar 
+la autorización de los usuarios.
 +
-* *connectionStringName:* Corresponde al identificador de la cadena de conexión a la base de datos que se configuró en el punto 3.
+* *connectionStringName:* Corresponde al identificador 
+de la cadena de conexión a la base de datos 
+que se configuró en el punto 3.
 +
-* *applicationName:* Es el nombre de la aplicación que va a utilizar ésta instancia del proveedor para proporcionar los servicios de la administración de funciones para una aplicaciónASP.NET.
+* *applicationName:* Es el nombre de la aplicación 
+que va a utilizar ésta instancia del proveedor 
+para proporcionar los servicios de la administración de funciones 
+para una aplicaciónASP.NET.
 +
-. Utilice las APIs Membership y Role para crear usuarios y roles respectivamente. Una vez creada configuración del proveedor de suscripciones y el proveedor para la administración de funciones de los usuarios, a nivel de código de la aplicación es posible gestionar los usuarios mediante el API System.Web.Security.Membership, por medio de la cual es posible crear, modificar, eliminar los usuarios de la aplicación [7]. Para implementar un formulario de autenticación que hago uso del proveedor de suscripciones se debe seguir la solución https://msdn.microsoft.com/en-us/library/ff649314.aspx[How To: Use Forms Authentication with SQL Server in ASP.NET 2.0.]
+. Utilice las APIs _Membership_ 
+y _Role_ para crear usuarios 
+y roles respectivamente. 
+Una vez creada configuración del proveedor de suscripciones 
+y el proveedor para la administración de funciones de los usuarios, 
+a nivel de código de la aplicación 
+es posible gestionar los usuarios 
+mediante el API _System.Web.Security.Membership_, 
+permitiendo crear, 
+modificar 
+y eliminar los usuarios de la aplicación [7]. 
+Para implementar un formulario de autenticación 
+que hace uso del proveedor de suscripciones 
+se debe seguir la solución https://msdn.microsoft.com/en-us/library/ff649314.aspx[How To: Use Forms Authentication with SQL Server in ASP.NET 2.0.]
 +
-Para la parte de gestión de roles se puede usar el API System.Web.Security.Roles y System.Web.Security.RolePrincipal, por medio de las cuales es posible definir un nuevo rol, modificar y eliminarlo. También es posible asociar un usuario de la aplicación a un rol especifico. Para gestionar estos roles se recomienda seguir la solución https://msdn.microsoft.com/en-us/library/ff647401.aspx#paght000013_step3[How To: Use Role Manager in ASP.NET 2.0.]
+Para la parte de gestión de roles, 
+es posible utilizar el API _System.Web.Security.Roles_ 
+y _System.Web.Security.RolePrincipal_, 
+por medio de las cuales es posible definir un nuevo rol, 
+modificarlo 
+y eliminarlo. 
+También es posible asociar un usuario de la aplicación 
+a un rol especifico. 
+Para gestionar estos roles, 
+se recomienda seguir la solución https://msdn.microsoft.com/en-us/library/ff647401.aspx#paght000013_step3[How To: Use Role Manager in ASP.NET 2.0.]
 +
-. Establezca permisos de acceso a recursos basados en roles. Una vez creado los roles que se van asignar a los usuarios, es posible configurar el acceso a los recursos que tiene publicado la aplicación tanto a nivel de directorio como a nivel de pagina web. Para especificar la ubicación de un recurso se debe utilizar el elemento location [8]. Para configurar el acceso a un recurso se debe utilizar el elemento authorization [9], el cual debe ser especificado dentro del archivo de configuración de la aplicación web.config.
+. Establezca permisos de acceso 
+a recursos basados en roles. 
+Una vez creado los roles 
+que se van asignar a los usuarios, 
+es posible configurar el acceso 
+a los recursos que tiene publicado la aplicación, 
+tanto a nivel de directorio como a nivel de pagina web. 
+Para especificar la ubicación de un recurso, 
+se debe utilizar el elemento _location_ [8]. 
+Para configurar el acceso a un recurso, 
+se debe utilizar el elemento _authorization_ [9], 
+el cual debe ser especificado 
+dentro del archivo de configuración de la aplicación _web.config_.
 +
 [source,xml,linenums]
 ----
@@ -145,9 +306,19 @@ Para la parte de gestión de roles se puede usar el API System.Web.Security.Role
   </location>
 ----
 +
-En la configuración anterior, se establece que los roles _SupervisorNacional_, _SupervisorDespachoRegional_, _AdministradorNacional_ pueden acceder al contenido del directorio _Maestros_. Cualquier otro rol diferente a los mencionados, tienen el acceso denegado para acceder algún recurso ubicado en el directorio Maestros.
+En la configuración anterior se establece 
+que los roles _SupervisorNacional_, 
+_SupervisorDespachoRegional_, 
+_AdministradorNacional_ pueden acceder 
+al contenido del directorio _Maestros_. 
+Cualquier otro rol diferente a los mencionados, 
+tienen el acceso denegado 
+para acceder algún recurso ubicado en el directorio Maestros.
 +
-La siguiente configuración específica que los recursos ubicados en el subdirectorio Admin, el cual se encuentra ubicado en el directorio Maestros, solo puede acceder los usuario que tengan el rol AdministradorNacional.
+La siguiente configuración, 
+específica que los recursos ubicados en el subdirectorio Admin, 
+el cual se encuentra ubicado en el directorio Maestros, 
+solo puede acceder los usuario que tengan el rol _AdministradorNacional_.
 +
 [source,xml,linenums]
 ----
@@ -161,7 +332,9 @@ La siguiente configuración específica que los recursos ubicados en el subdirec
   </location>
 ----
 +
-Para configurar el acceso mediante roles para las paginas web que expone la aplicación, se puede hacer de la misma forma:
+Para configurar el acceso mediante roles 
+para las paginas web que expone la aplicación, 
+se puede hacer de la misma forma:
 +
 [source,xml,linenums]
 ----
@@ -175,7 +348,10 @@ Para configurar el acceso mediante roles para las paginas web que expone la apli
   </location>
 ----
 +
-En la configuración anterior, se establece que los usuarios autorizados que pueden acceder a la pagina indicaCondicionesGestoria.aspx, son aquellos que tengan el rol deSupervisorNacional. 
+En la configuración anterior se establece 
+que los usuarios autorizados 
+con acceso a la página _indicaCondicionesGestoria.aspx_, 
+son aquellos que tengan el rol _deSupervisorNacional_. 
 
 
 == Referencias
