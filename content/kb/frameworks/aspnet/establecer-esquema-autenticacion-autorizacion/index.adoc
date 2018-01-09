@@ -37,8 +37,10 @@ Para hacer uso de los dos servicios anteriormente mencionados, se debe especific
 [source, xml, linenums]
 ----
 <connectionStrings>
-   <add name="NombreConexion" connectionString="Data Source=Servidor;Initial
-        Catalog=NombreBaseDatos;User Id=Usuario;Password=Contraseña;"/>
+   <add name="NombreConexion" 
+        connectionString="Data Source=Servidor;Initial
+         Catalog=NombreBaseDatos;User Id=Usuario;
+         Password=Contraseña;"/>
  </connectionStrings>
 ----
 +
@@ -47,8 +49,11 @@ Una conexión en modo de ejemplo puede ser:
 [source,xml, linenums]
 ----
  <connectionStrings>
-   <add name="cnsFLUIDIdentifies" connectionString="Data Source=FLUIDIdentifies;Initial
-        Catalog=dbFLUIDIdentifies;User Id=FLUIDIdentifies;Password=FLUID5Meters!;"/>
+   <add name="cnsFLUIDIdentifies" 
+        connectionString= "Data Source=FLUIDIdentifies;
+         InitialCatalog=dbFLUIDIdentifies;
+         User Id=FLUIDIdentifies;
+         Password=FLUID5Meters!;"/>
  </connectionStrings>
 ----
 +
@@ -73,10 +78,16 @@ A continuación se describen los atributos especificados en el elemento de confi
 <membership defaultProvider="AspNetSqlMembershipProvider">
    <providers>
         <clear/>
-         <add name="AspNetSqlMembershipProvider" type="System.Web.Security.SqlMembershipProvider” 
-           connectionStringName="cnsFLUIDIdentifies" requiresQuestionAndAnswer="false"
-           requiresUniqueEmail="true" passwordFormat="Hashed" minRequiredNonalphanumericCharacters="2"
-           minRequiredPasswordLength="8" maxInvalidPasswordAttempts="50" passwordAttemptWindow="30"
+         <add name="AspNetSqlMembershipProvider" 
+           type="System.Web.Security.SqlMembershipProvider"
+           connectionStringName="cnsFLUIDIdentifies" 
+           requiresQuestionAndAnswer="false"
+           requiresUniqueEmail="true"
+           passwordFormat="Hashed"
+           minRequiredNonalphanumericCharacters="2"
+           minRequiredPasswordLength="8"
+           maxInvalidPasswordAttempts="50" 
+           passwordAttemptWindow="30"
            applicationName="FLUIDIdentifies"/>
     </providers>
 </membership>
@@ -96,8 +107,10 @@ A continuación se describen algunos de los atributos especificados en el elemen
 <roleManager enabled="true">
       <providers>
         <clear />
-        <add connectionStringName="cnsFLUIDIdentifies" applicationName="FLUIDIdentifies"
-           name="AspNetSqlRoleProvider" type="System.Web.Security.SqlRoleProvider" />
+        <add connectionStringName="cnsFLUIDIdentifies" 
+             applicationName="FLUIDIdentifies"
+             name="AspNetSqlRoleProvider" 
+             type="System.Web.Security.SqlRoleProvider" />
       </providers>
     </roleManager>
 ----
