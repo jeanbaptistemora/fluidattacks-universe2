@@ -1,9 +1,5 @@
 image: registry.gitlab.com/fluidsignal/web:builder
 
-before_script:
-  # Check that incorrect names are not being used
-  - ./checks.sh
-
 stages:
   - build
   - deployment
@@ -23,9 +19,11 @@ builder:
 deploy:
   environment: production
   stage: deployment
+  before_script:
+    - ./checks.sh
   script:
     # Generate the website, exiting on any error encountered
-    - pelican --fatal errors content/
+    - pelican --fatal errors|warnings content/
     # Give the folders, named after the language of its content, a general name in each subsite
     - mv output/web/en/blog-en output/web/en/blog && mv output/web/es/blog-es output/web/es/blog
     # Script to generate a complete sitemap of the site
@@ -43,6 +41,6 @@ deploy:
 test:
   stage: deployment
   script:
-    - pelican --fatal errors content/
+    - pelican --fatal errors|warnings content/
   except:
     - master
