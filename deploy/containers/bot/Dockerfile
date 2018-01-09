@@ -1,4 +1,4 @@
-# Imagen base del ultimo linux estable de Debian (jessie)
+# Imagen base del ultimo linux estable de Debian (jessie-slim)
 FROM registry.gitlab.com/fluidsignal/integrates:deps
 
 # Dudas sobre la imagen en cuestion
@@ -11,20 +11,8 @@ ENV CI_COMMIT_REF_NAME=$ci_commit_ref_name
 ENV TZ=America/Bogota
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
-# Instala dependencias
-RUN gpg --recv-key --keyserver pgp.key-server.io 93C4A3FD7BB9C367 \
-    && gpg --export --armor 93C4A3FD7BB9C367 | apt-key add -
-
-RUN apt-get update \
-    && apt-get upgrade -y \
-    && apt-get install -y software-properties-common sudo curl
-
-#Instala Nodejs
-RUN curl -sL https://deb.nodesource.com/setup_6.x | sudo -E bash -    
-
 # Agrega el playbook
 ADD common/main.yml /root/
-ADD common/patch_socialauth.py /root/
 
 # Agrega las variables
 ADD common/vars* /root/vars

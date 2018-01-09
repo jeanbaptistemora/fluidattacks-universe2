@@ -23,7 +23,7 @@ RUN curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -
 RUN apt-get update \
     && apt-get upgrade -y \
     && apt-get install -y --force-yes\
-               ansible curl \
+               git ansible curl \
                python-dev python-pip apache2 \
                python-setuptools python-tk nodejs \
                build-essential python-numpy python-scipy \
@@ -41,8 +41,8 @@ RUN apt-get update \
 ADD requirements.txt /root/
 RUN pip install --upgrade cffi
 RUN pip install --upgrade setuptools
-RUN apt-get install -y python-dev python-pip \
-    && pip install --upgrade -r /root/requirements.txt
+RUN pip install --upgrade pip
+RUN pip install --upgrade -r /root/requirements.txt
 
 # SocialAuth Patch
 ADD patch_socialauth.py /root/

@@ -19,9 +19,15 @@ codequality:
     paths: [codeclimate.json]
 
 stages:
+    - deps
     - build
     - test
     - deploy
+
+build_deps:
+    stage: deps
+    script:
+        - docker build -t registry.gitlab.com/fluidsignal/integrates:deps deploy/containers/deps
 
 build_integrates:
     stage: build

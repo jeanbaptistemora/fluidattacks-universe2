@@ -32,4 +32,4 @@ watchtower==0.4.1
 jinja2
 matplotlib
 awscli
-
+pyOpenSSL==17.5.0
