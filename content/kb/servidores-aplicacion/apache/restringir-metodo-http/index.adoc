@@ -47,4 +47,4 @@ seguir la solución: [2]
 == Referencias
 
 . http://httpd.apache.org/docs/2.0/en/mod/core.html[AcceptPathInfo Directive]
-. https://fluid.la/web/es/kb/servidor-aplicacion/desactivar-metodo-http-trace/[No TRACE Apache2]
+. link::../../../desactivar-metodo-http-trace[No TRACE Apache2]
