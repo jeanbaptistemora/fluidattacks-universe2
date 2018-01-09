@@ -47,4 +47,4 @@ HttpSessionState.Remove("nombreObjeto");
 
 == Referencias
 
-. https://msdn.microsoft.com/en-us/library/6c3yckfw.aspx[Microsoft, Pass Values Between ASP.NET Web Forms Pages]
+. https://medium.com/@neharastogi_2838/how-to-pass-values-between-two-web-pages-in-asp-net-f4225ed19b7[Microsoft, Pass Values Between ASP.NET Web Forms Pages]
