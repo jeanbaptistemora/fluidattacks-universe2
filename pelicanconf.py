@@ -72,7 +72,8 @@ I18N_SUBSITES = {
         'ARTICLE_PATHS': ['blog-es'],
         'PAGE_PATHS': ['pages-es', 'kb'],
         'ARTICLE_SAVE_AS': 'blog-es/{slug}/index.html',
-        'STATIC_PATHS': ['files', 'images', 'blog-es', 'kb', 'pages-es']
+        'STATIC_PATHS': ['files', 'images', 'blog-es', 'kb', 'pages-es'],
+        'GOOGLE_ANALYTICS': 'UA-22974464-4',
         }
 }
 lang_siteurls = {
@@ -88,7 +89,7 @@ ASSET_BUNDLES = (
 DISQUS_SITENAME = 'fluidsignal'
 
 # Google Analytics
-GOOGLE_ANALYTICS = 'UA-22974464-4'
+GOOGLE_ANALYTICS = 'UA-22974464-11'
 
 # Feed generation is usually not desired when developing
 FEED_ALL_ATOM = None
