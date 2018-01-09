@@ -22,6 +22,7 @@ solución tiene sentido:
 operativo y así evitar la falta de trazabilidad en el momento de ocurrencia de 
 un incidente de seguridad se debe editar el archivo/etc/security/limits.conf 
 agregando las siguientes líneas:
++
 [source, conf, linenums]
 ----
 # /etc/security/limits.conf 
@@ -50,9 +51,9 @@ agregando las siguientes líneas:
 root hard maxlogins 1 
 ----
 
-[start=2]
 . Al realizar una conexión a través de SSH y sobrepasar el número máximo de 
 sesiones concurrentes se puede apreciar el siguiente mensaje:
++
 [source, conf, linenums]
 ----
 login as: FLUID 
@@ -68,7 +69,6 @@ Too many logins for 'FLUID'.
 Last login: Tue Mar 18 22:35:38 2014 from 192.168.0.100
 ----
 
-[start=3]
 . El cual indica que el usuario FLUID ha sobrepasado el número de 
 sesiones concurrentes el cual fue establecido en 1.
 

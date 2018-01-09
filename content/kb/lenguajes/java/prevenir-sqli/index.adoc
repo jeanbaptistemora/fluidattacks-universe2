@@ -28,23 +28,28 @@ estrategia.
 parametrizadas.
 * La concatenación de cadenas (variables alfanuméricas) nunca debe  usarse para 
 generar SQL dinámico.
+
 . Cuando deba generar SQL dinámico valide todas las entradas que con formarán 
 las partes de la sentencia SQL de manera que no se puedan inyectar subconsultas 
 o modificaciones a la consulta original.
+
 . Consulte la posibilidad de incluir librerías de protección de ataques tales 
 como HDIV. [2]
+
 . Cuando este asignando los privilegios que el usuario de conexión de la 
 aplicación tendría sobre el esquema de su base de datos, recuerde no asignarle 
 privilegios que le permitan hacer modificaciones sobre el esquema. 
 Adicionalmente los privilegios deberían ser finamente seleccionado de manera 
 que sólo acceda a los objetos que debe acceder. Recuerde el principio del menor 
 privilegio.
+
 . El método adecuado para prevenir ataques de inyección SQL en Java es usar 
 comandos preparados o procedimientos almacenados parametrizados en lugar de 
 incluir directamente la entrada del usuario en una instrucción SQL. Las 
 declaraciones preparadas automáticamente se escapan de metacaracteres como son 
 la comilla simple y los caracteres punto y coma. El siguiente segmento de código 
 muestra como usar la clase java.sql.PreparedStatement en lugar de java.sql.Statement. 
++
 [source, java,linenums]
 ----
 String selectStatement = "SELECT * FROM User WHERE userId =? ";
@@ -53,11 +58,12 @@ prepStmt.setString(1, userId);
 ResultSet rs = prepStmt.executeQuery();
 ----
  
-[start=6]
 . Nótese que la solución es independiente del gestor de bases de datos utilizado.
+
 . A continuación se presenta una aplicación web de ejemplo protegida ante SQL 
 Injection. Primero se creará la base de datos ejemplo, con una única tabla 
 llamada datos con la siguiente información.
++
 [source, conf, linenums]
 ----
 mysql> select * from datos; 
@@ -71,16 +77,16 @@ mysql> select * from datos;
 +------+-----------+
 ----
  
-[start=8]
 . Para esto primero creamos la base de datos ejemplo:
++
 [source, bash, linenums]
 ----
 % echo "create database ejemplo;" | mysql -u root -p
 ----
  
-[start=9]
 . Luego ejecutamos las siguientes instrucciones de tal forma que se cree la 
 tabla con los datos requeridos.
++
 [source, sql,linenums]
 ----
 /*Table structure for table `datos`
@@ -104,15 +110,17 @@ INSERT INTO `datos` VALUES
 UNLOCK TABLES;
 ----
  
-[start=10]
 . Para esto lo más sencillo es crear por ejemplo un archivo llamado db.sql 
 donde se copia ese contenido y posteriormente se ejecuta.
++
 [source, bash, linenums]
+----
 % mysql -u root -p ejemplo < db.sql
+----
  
-[start=11]
 . Una vez se tiene la base de datos construida, se crea una estructura de 
 directorios y archivos como la siguiente:
++
 [source, bash, linenums]
 ----
 % ls -R  
@@ -124,10 +132,10 @@ lib/ web.xml  +
 mysql-connector-java-5.0.8-bin.jar
 ----
 
-[start=12] 
 . El archivo web.xml es un descriptor típico de despligue que incluso puede ser 
 ignorado para contenedores de servlets con soporte de la especificación versión 
 igual o superior a 3.0. En nuestro caso se utilizará:
++
 [source, xml, linenums]]
 ----
 <?xml version="1.0" encoding="ISO-8859-1"?>
@@ -138,14 +146,15 @@ igual o superior a 3.0. En nuestro caso se utilizará:
  </web-app>
 ----
  
-[start=13] 
 . El jar que contiene el driver de conexión a MySQL puede descargarse desde el 
 sitio oficial. Este debe ser accesible por el servidor de aplicaciones. Una 
 forma sencilla de conseguirlo es incluir el jar en la carpeta WEB-INF/lib del 
 proyecto.
+
 . El archivo index.jsp se muestra a continuación. Primero se realiza el import 
 de las clases en el paquete java.sql, tales como PreparedStatement y ResultSet 
 entre otras.
++
 [source, html,linenums]
 ----
 <html>
@@ -156,9 +165,9 @@ entre otras.
    <%@ page import="java.sql.*;" %>
 ----
  
-[start=15] 
 . Se establece la conexión usando como usuario root, contraseña Prog=seg y base 
 de datos ejemplo.
++
 [source, java,linenums]
 ----
 <%
@@ -170,15 +179,17 @@ de datos ejemplo.
      "jdbc:mysql://localhost:3306/ejemplo?user=root&password=Prog=seg");
 ----
   
-[start=16]
 . Se crea la consulta especificando que el parámetro será el valor que se 
 comparará con el campo cod:
++
 [source, java,linenums]
+----
 String selectStatement = "SELECT cod , nombre FROM datos WHERE cod=?";
+----
  
-[start=17]
 . Se obtiene por método get el id de la ciudad que se desea visualizar, y se 
 utiliza para parametrizar la consulta.
++
 [source, java,linenums]
 ----
 String id = request.getParameter("id");
@@ -186,8 +197,8 @@ prepStmt = conexion.prepareStatement(selectStatement);
 prepStmt.setString(1, id);
 ----
 
-[start=18] 
 . Se ejecuta la consulta y se muestran los valores obtenidos:
++
 [source, java,linenums]
 ----
        ResultSet tabla = prepStmt.executeQuery();
@@ -220,15 +231,14 @@ prepStmt.setString(1, id);
 </html>
 ----
 
-[start=19] 
 . Para utilizar la aplicación, basta con pasar por método GET el código de la 
 ciudad que se desea visualizar.
++
 [source, conf, linenums]
 ----
 http://localhost:8080/sqli/index.jsp?id=2
 ---- 
 
-[start=20]  
 . Pueden intentarse ataques tales como 1 or 1=1 para comprobar que la 
 aplicación no presenta fallas de inyección.
 

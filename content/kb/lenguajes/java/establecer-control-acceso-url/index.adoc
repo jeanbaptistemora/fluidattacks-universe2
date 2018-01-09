@@ -26,19 +26,23 @@ servidor de aplicaciones.
 
 . Dentro del archivo WEB-INF\web.xml de la aplicación web se deben configurar 
 los roles requeridos en la aplicación
++
 [source, xml, linenums]
+----
  <security-role>
   <role-name>rol1</role-name>
 </security-role>
 <security-role>
   <role-name>rol2</role-name>
 </security-role>
+----
  
-[start=2]
 . Posteriormente se deben definir la restricción de seguridad para la dirección 
 URL que se quiere proteger, y que por ende solo pueden ser accedidas por 
 determinados roles
++
 [source, xml, linenums]
+----
  <security-constraint>
   <display-name>Restricción de Seguridad 1</display-name>
   <web-resource-collection>
@@ -49,8 +53,8 @@ determinados roles
     <role-name>rol1</role-name>
   </auth-constraint>
 </security-constraint>
+----
  
-[start=3]
 . De esta forma el acceso a todos los archivos contenidos en /restringido 
 estará disponible solo a las personas que hayan sido autenticadas 
 satisfactoriamente con los roles correspondientes, en este caso, rol1.

@@ -22,34 +22,42 @@ un dominio Windows.
 
 . Para deshabilitar servicios a través del directorio activo, se deben seguir 
 los siguientes pasos:
+
 . Click en Start, Run. Allí ingresar gpmc.msc y dar click en OK.
+
 . Allí ir al dominio al cual se le desea aplicar la configuración y dar click 
 en Group Policy Objects.
+
 . En el panel del lado derecho, dar click derecho y seleccionar New.
+
 . Asignar un nombre y en Source Starter GPO seleccionar (none).
+
 . Dar click derecho en la política creada y seleccionar Edit.
+
 . Navegar hacia la ruta Computer 
 configuration\Policies\Windows Settings\Security Settings\System Services.
+
 . Allí seleccionar los servicios que se quiere habilitar o deshabilitar
+
 . También es posible modificar la configuración para máquinas localmente de la 
 siguiente forma.
+
 . Para desactivar los servicios que se consideren inseguros, un usuario con rol 
 de administrador debe acceder a Panel de Control 
 \Herramientas Administrativas\Servicios. Luego de autenticarse si es del caso, 
 observará una ventana como la siguiente:
-
++
 image::servicios.png[]
 
-[start=11]
 . Para deshabilitar un servicio, haga clic secundario y pulse Propiedades. En 
 la opción tipo de inicio, seleccione Deshabilitado y pulse Aceptar
-
++
 image::propiedades.png[]
 
-[start=12]
 . Al momento de deshabilitar un servicio, asegúrese de que realmente no sea 
 necesario según el rol que el equipo vaya a cumplir dentro de la 
 infraestructura.
+
 . Ciertos servicios con alta probabilidad de no ser necesarios en Windows 7 se 
 listan a continuación [1]:
 * IP Helper
@@ -65,26 +73,24 @@ listan a continuación [1]:
 * HomeGroup Listener
 * HomeGroup Provider
 * Tablet PC Input Service
+
 . A continuación se muestran los servicios tradicionales de Windows en general 
 que son más aptos a ser deshabilitados adaptados de la solución referenciada en 
 [2].
-
++
 image::tabla.png[]
 
-[start=15]
 . El listado mostrado para su sistema dependerá de los servicios que se hayan 
 previamente instalado. Por ejemplo el conjunto de servicios denominado Simple 
 TCP/IP Services, dependerá de la configuración en Panel de Control\Programas 
-
++
 image::programas.png[]
 
-[start=16]
 . Y, además, también dependerá de características\Activar o desactivar las 
 características de Windows:
-
++
 image::caracteristicas.png[]
 
-[start=17]
 . Es recomendable deshabilitar todos los servicios que no sean necesarios para 
 el sistema. Puede encontrar más información de la relación entre número de 
 puerto y nombre del servicio en [3].

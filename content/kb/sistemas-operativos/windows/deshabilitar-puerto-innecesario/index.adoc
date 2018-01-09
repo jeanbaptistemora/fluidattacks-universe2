@@ -24,10 +24,9 @@ solución tiene sentido:
 . Allí ingresar cmd y presionar ejecutar.
 . En la consola, ejecutar el comando netstat -an, y en la salida no deberán 
 estar los siguientes servicios:
-
++
 image::servicios.png[]
 
-[start=4]
 . Adicionalmente se debe hacer una verificación por la herramienta de servicios 
 de Windows, haciendo click en Start, Administrative Tools, Services.
 . Allí se debe verificar que los siguientes servicios se encuentren 

@@ -23,8 +23,10 @@ solución tiene sentido:
 recomienda contemplar todos los posibles escenarios.
 * Para sentencias if debe usarse su correspondiente else [1].
 * Para sentencias switch debe usarse su correspondiente default [2].
+
 . El siguiente muestra el uso correcto de la sentencia if, primero creamos una 
 función que nos retornará un número aleatorio entre un rango especificado:
++
 [source, js, linenums]
 ----
 function getRandomInt(min, max) {
@@ -32,9 +34,9 @@ function getRandomInt(min, max) {
 }
 ----
 
-[start=3]
 . Obtenemos un valor aleatorio entre 0 y 2, y comparamos este utilizando 
 if/else.
++
 [source, js, linenums]
 ----
 var args = getRandomInt(0,2);
@@ -46,7 +48,6 @@ if (args <= 1)
 }
 ----
 
-[start=4]
 . El siguiente muestra el uso correcto de la sentencia switch, se debe incluir 
 el caso default:
 [source, js, linenums]

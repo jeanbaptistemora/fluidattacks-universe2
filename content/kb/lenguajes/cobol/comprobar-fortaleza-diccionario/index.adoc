@@ -25,6 +25,7 @@ ingresada por el usuario. En [2], [3], [4], [5] y [6], encontrará la lista de
 diccionarios que se recomiendan para hacer la búsqueda.
 . Por cuestiones de espacio se creó el archivo COMMONPASS con el siguiente
 contenido:
++
 [source,cobol,linenums]
 ----
 123
@@ -38,8 +39,9 @@ qwerty
 system
 mustang
 ----
-[start=3]
+
 . Iniciamos el programa definiendo la división de identificación:
++
 [source,cobol,linenums]
 ----
  IDENTIFICATION DIVISION.
@@ -48,9 +50,10 @@ mustang
  ******************
  PROGRAM-ID. COBOLCPASS.
 ----
-[start=4]
+
 . En la división de entorno asignamos la variable COMMON-PASS al archivo
 COMMONPASS, el cual contiene las contraseñas comunes:
++
 [source,cobol,linenums]
 ----
       ***************
@@ -62,9 +65,10 @@ COMMONPASS, el cual contiene las contraseñas comunes:
            SELECT COMMON-PASS ASSIGN TO "COMMONPASS"
            ORGANIZATION IS SEQUENTIAL.
 ----
-[start=5]
+
 . En la división de datos establecemos la estructura para el archivo con
 contraseñas comunes:
++
 [source,cobol,linenums]
 ----
       ********
@@ -78,13 +82,14 @@ contraseñas comunes:
            88 WS-PASS-EOF VALUE HIGH-VALUES.
            02 WS-PASSWORD PIC X(26).
 ----
-[start=6]
+
 . En la sección de almacenamiento declaramos cuatro variables:
 * WS-USERPASS: Contraseña ingresada por el usuario.
 * WS-COUNT: Contador que indica si la contraseña en el diccionario está
 contenida en la contraseña ingresada por el usuario.
 * WS-LENGTH: Longitud real de la contraseña en el diccionario.
 * WS-FLAG: Bandera que indica si el requisito es cumplido.
++
 [source,cobol,linenums]
 ----
        WORKING-STORAGE SECTION.
@@ -95,9 +100,10 @@ contenida en la contraseña ingresada por el usuario.
            88 WS-FLAG-FALSE VALUE 0.
            88 WS-FLAG-TRUE  VALUE 1.
 ----
-[start=7]
+
 . En la división de procedimiento encontramos la lógica del programa. Obtenemos
 la contraseña del usuario y la convertimos a mayúscula:
++
 [source,cobol,linenums]
 ----
       ********
@@ -109,26 +115,29 @@ la contraseña del usuario y la convertimos a mayúscula:
            ACCEPT WS-USERPASS.
            MOVE FUNCTION UPPER-CASE(WS-USERPASS) TO WS-USERPASS.
 ----
-[start=8]
+
 . Abrimos el archivo con las contraseñas comunes:
++
 [source,cobol,linenums]
 ----
 OPEN INPUT COMMON-PASS.
 ----
-[start=9]
+
 . Leemos el primer registro del diccionario y a través del uso de la sentencia
 AT END podemos saber si alcanzó el final del archivo:
++
 [source,cobol,linenums]
 ----
            READ COMMON-PASS
                AT END SET WS-PASS-EOF TO TRUE
            END-READ.
 ----
-[start=10]
+
 . Convertimos la contraseña en el diccionario a mayúscula e inicializamos las
 variables de contador y longitud. Tanto la contraseña ingresada por el usuario
 como la contenida en el diccionario son convertidas a mayúscula por facilidad de
 validación:
++
 [source,cobol,linenums]
 ----
            PERFORM UNTIL WS-PASS-EOF
@@ -136,9 +145,10 @@ validación:
                MOVE 0 TO WS-COUNT
                MOVE 0 TO WS-LENGTH
 ----
-[start=11]
+
 . Obtenemos la longitud real de la contraseña en el diccionario para evitar
 problemas con los espacios al final de la misma:
++
 [source,cobol,linenums]
 ----
                INSPECT FUNCTION REVERSE(WS-PASSWORD)
@@ -147,18 +157,20 @@ problemas con los espacios al final de la misma:
                COMPUTE WS-LENGTH = FUNCTION LENGTH(WS-PASSWORD)
                                    - WS-LENGTH
 ----
-[start=12]
+
 . Se busca todas las coincidencias de la contraseña en el diccionario dentro de
 la contraseña ingresada por el usuario:
++
 [source,cobol,linenums]
 ----
                INSPECT WS-USERPASS
                TALLYING WS-COUNT
                FOR ALL WS-PASSWORD(1:WS-LENGTH)
 ----
-[start=13]
+
 . Si la contraseña está contenida en la contraseña ingresada por el usuario,
 entonces salimos del procesamiento del archivo:
++
 [source,cobol,linenums]
 ----
                IF WS-COUNT > 0 THEN
@@ -166,8 +178,9 @@ entonces salimos del procesamiento del archivo:
                    PERFORM FINAL-PROCESS
                END-IF
 ----
-[start=14]
+
 . Leemos el próximo registro:
++
 [source,cobol,linenums]
 ----
                READ COMMON-PASS
@@ -175,16 +188,18 @@ entonces salimos del procesamiento del archivo:
                END-READ
            END-PERFORM
 ----
-[start=15]
+
 . Como proceso final, cerramos el archivo:
++
 [source,cobol,linenums]
 ----
        FINAL-PROCESS.
            CLOSE COMMON-PASS
 ----
-[start=16]
+
 . Si la bandera está en falso, significa que el requisito fue cumplido y la
 contraseña no contiene palabras de diccionario:
++
 [source,cobol,linenums]
 ----
            IF WS-FLAG-FALSE THEN
@@ -195,7 +210,7 @@ contraseña no contiene palabras de diccionario:
 
            STOP RUN.
 ----
-[start=17]
+
 . El resultado para la anterior aplicación es el siguiente:
 |===
 |Palabra |Resultado

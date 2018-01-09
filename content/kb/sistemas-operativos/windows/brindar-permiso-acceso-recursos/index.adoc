@@ -21,15 +21,13 @@ solución tiene sentido:
 . Se ingresa a Server Manager y se hace clic en File Services y Share and 
 Storage Manager. Luego se da doble clic sobre el recurso compartido como se ve 
 en la imagen.
-
++
 image::manager.png[]
 
-[start=2]
 . Allí damos clic sobre las pestaña Permissions
-
++
 image::permisos.png[]
 
-[start=3]
 . Aquí debemos definir y diferenciar los tipos de permisos para los
 recursos:
 . Permisos SMB: El control de acceso basado en SMB de un recurso compartido se
@@ -66,10 +64,9 @@ compartido de una carpeta o volumen compartidos que aparecen enumerados en
 Protocolo: SMB en la ficha Recursos compartidos. Para modificar los permisos de
 recurso compartido, seleccione la carpeta o volumen; en el panel Actions, haga 
 clic en Properties y, en la ficha Permissions, haga clic en Share Permissions.
-
++
 image::permisos-2.png[]
 
-[start=13]
 . Puede configurar los permisos NTFS locales para una carpeta o volumen 
 compartido mediante Administración de almacenamiento y recursos compartidos, de 
 las formas que se indican a continuación:

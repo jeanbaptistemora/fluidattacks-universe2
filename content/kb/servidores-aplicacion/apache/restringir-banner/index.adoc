@@ -15,52 +15,58 @@ A continuación se describen las circunstancias bajo las cuales la siguiente
 solución tiene sentido:
 
 . Se utiliza Apache2 como servidor web.
+
 . Se desea ocultar la información de versión de la plataforma Apache.
 
 == Solución
 
 . En el archivo de configuración httpd.conf asegúrese de contener las 
 siguientes directivas:
++
 [source, conf, linenums]
 ----
 ServerSignature Off +
 ServerTokens Prod
 ----
 
-[start=2]
 . En caso de no encontrar el archivo httpd.conf editar el archivo security en 
 /etc/apache2/conf.d/
+
 . Después de realizar la modificación en el archivo de configuración se debe 
 reiniciar el servicio:
++
 [source, bash, linenums]
 ----
 % apache2 restart
 ----
 
-[start=4]
 . La directiva ServerSignature le indica al Apache que muestre la versión en 
 los errores de requisitos HTTP.
+
 . La directiva ServerTokens hace que en los encabezados solo se vea: "Server: 
 Apache".
+
 . Si lo que se desea es que no aparezca el Nombre del "Apache" o cambiar 
 completamente este valor, lo que necesitará hacer es lo siguiente:
+
 . Descargar el código fuente de Apache.
+
 . Editar el archivo httpd.h, cambiando el valor de la cadena "Apache" en la 
 línea:
++
 [source, conf, linenums]
 ----
 define SERVER_BASEPRODUCT "Apache"
 ----
 
-[start=9]
 . Por un valor diferente como:
++
 [source, conf, linenums]
 ----
 define SERVER_BASEPRODUCT "Server"
 ----
 
-[start=10]
-Bajar el servicio Apache, recompilar, reinstalar e iniciar el servicio Apache.
+. Bajar el servicio Apache, recompilar, reinstalar e iniciar el servicio Apache.
 
 == Referencias
 

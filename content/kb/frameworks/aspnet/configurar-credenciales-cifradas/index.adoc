@@ -25,14 +25,13 @@ Puede utilizar la Herramienta Registro de IIS de ASP.NET (Aspnet_regiis.exe) par
 . *Cifrar una sección de configuración Web:*
 Para cifrar el contenido del archivo de configuración, utilice la herramienta Aspnet_regiis.exe con la opción –pe y el nombre del elemento de configuración que se va a cifrar. Utilice la opción –app para identificar la aplicación para la cual se va a cifrar el archivo Web.config y la opción -site para identificar el sitio Web del que forma parte la aplicación. El sitio Web se identifica utilizando el número del sitio de la metabase de los Servicios de Internet Information Server (IIS). Puede recuperar el número del sitio desde la variable del servidor INSTANCE_META_PATH de la colección ServerVariables. Por ejemplo, cuando está instalado IIS, se crea un sitio Web denominado "Default Web Site" como sitio 1. En las páginas que provienen de ese sitio, la variable del servidor INSTANCE_META_PATH devuelve "/LM/W3SVC/1". Si no especifica una opción -site, se utiliza sitio 1. Utilice la opción _–prov_ para identificar el nombre del _ProtectedConfigurationProvider_ que llevará a cabo el cifrado y descifrado. Si no especifica un proveedor mediante la opción -prov, se utilizará el proveedor configurado como _defaultProvider_.
 El comando siguiente cifra el elemento _connectionStrings_ del archivo Web.config para la aplicación _SampleApplication_. Dado que no se incluye ninguna opción -site, se supone que la aplicación es del sitio Web 1 (más conocido como Default Web Site en IIS). El cifrado se realiza utilizando el _RsaProtectedConfigurationProvider_ especificado en la configuración del equipo.
-
++
 [source,sh,linenums]
 ----
 aspnet_regiis -pe "connectionStrings" -app "/SampleApplication" 
   -prov "RsaProtectedConfigurationProvider"
 ----
 
-[start = 3]
 . *Descifrar una sección de configuración Web:*
 Para descifrar el contenido del archivo de configuración, utilice la herramienta Aspnet_regiis.exe con el modificador -pd y el nombre del elemento de configuración que se va a descifrar. Utilice los modificadores –app y -site para identificar la aplicación para la que se va a descifrar el archivo Web.config. No es necesario especificar el modificador –prov para identificar el nombre del _ProtectedConfigurationProvider_, ya que esa información se lee desde el atributo _configProtectionProvider_ de la sección de configuración protegida.
 

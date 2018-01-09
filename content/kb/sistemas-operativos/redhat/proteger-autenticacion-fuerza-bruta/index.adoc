@@ -24,41 +24,41 @@ ataques de fuerza bruta, este procedimiento contempla ataques al usuario root.
 
 . Editamos el archivo /etc/pam.d/password-auth y añadimos lo siguiente para que 
 deshabilite la cuenta por 30 segundos
++
 [source, conf, linenums]
 ----
 auth required pam_tally2.so deny=3 even_deny_root unlock_time=30 audit 
 account required pam_tally2.so
 ----
 
-[start=2]
-El orden en que se insertan debe ser el descrito en la imagen siguiente, esto 
+. El orden en que se insertan debe ser el descrito en la imagen siguiente, esto 
 tendrá efectos en su funcionamiento:
-
++
 image::edicion.png[]
 
-[start=3]
 . Reiniciamos el servicio ssh
++
 [source, bash, linenums]
 ----
 % service sshd restart
 ----
 
-[start=4]
 . Verificamos el log de tally
++
 [source, bash, linenums]
 ----
 % cat /var/log/tallylog
 ----
 
-[start=5]
 . Revisamos el registro de claves erróneas
++
 [source, bash, linenums]
 ----
 % pam_tally2 -u Usuario1
 ----
 
-[start=6]
 . Reseteamos el registro de claves erróneas de ser requerido
++
 [source, bash, linenums]
 ----
 % pam_tally2 -u Usuario1 --reset

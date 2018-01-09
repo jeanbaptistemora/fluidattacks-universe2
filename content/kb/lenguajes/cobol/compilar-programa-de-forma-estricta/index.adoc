@@ -30,6 +30,7 @@ o no. Ningún programa es creado si algún error ocurre con una severidad igual 
 mayor a la especificada.
 . La siguiente tabla muestra los niveles de severidad para diferentes tipos
 mensajes:
++
 |===
 |Severidad |Tipo de mensaje
 
@@ -48,11 +49,12 @@ mensajes:
 |40 - 99
 |Terminal
 |===
-[start=4]
+
 . Para compilar un programa en COBOL de forma estricta se debe usar "0" como
 argumento en el parámetro GENLVL. Para crear el programa COBOLSTR de la
 biblioteca FLUID con un nivel de severidad 0 (Compilación estricta) se usa el
 siguiente comando:
++
 [source,cobol,linenums]
 ----
 CRTBNDCBL
@@ -62,7 +64,7 @@ SRCMBR(COBOLSTR)
 GENLVL(0)
 REPLACE(*YES)
 ----
-[start=5]
+
 . El anterior programa es creado exitosamente, el código fuente utilizado para
 esta solución y que contiene la estructura básica de un programa en COBOL es el
 que puede observar a continuación:

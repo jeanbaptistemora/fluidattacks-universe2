@@ -30,11 +30,12 @@ carpeta logs dentro de nuestro dominio.
 . A continuación se puede ver un ejemplo extraído de la bitácora, se observa 
 que se incluye fecha, hora, segundos, milisegundos y zona horaria de manera 
 predeterminada.
-[quote]
-[#|2012-10-26T15:06:48.176-0500|INFO|glassfish3.1.2| +
-javax.enterprise.system.std.com.sun.enterprise.server.logging| +
-_ThreadID=188;_ThreadName=Thread-2;|Attempting to load ESAPI.properties via 
-file io.|#]
+[source, conf, linenums]
+----
+[#|2012-10-26T15:06:48.176-0500|INFO|glassfish3.1.2| 
+javax.enterprise.system.std.com.sun.enterprise.server.logging| 
+_ThreadID=188;_ThreadName=Thread-2;|Attempting to load ESAPI.properties via file io.|#]
+----
 
 == Referencias
 

@@ -26,64 +26,60 @@ existentes para planear un ataque de fuerza bruta o de diccionario.
 
 . Ingresar al sistema y verificar que se solicite como mínimo nombre de
 usuario y contraseña:
-
++
 image::login.png[]
 
-[start=2]
 . Para aplicar esta configuración a un dominio por medio de Directorio Activo, 
 configurar la siguiente ruta usando la solución 
 http://kb.fluid.la/help/directorio-activo-2008-modificar-configuracion-directivas-dominio[Modificar
 configuración de directivas de dominio por medio de Active Directory]
++
 [source, conf, linenums]
 ----
 Computer configuration/Windows Settings/Security Settings/LocalPolicies/SecurityOptions
 ----
 
-[start=3]
 . La ruta seguida puede apreciarse en la siguiente imagen:
-
++
 image::ruta.png[]
 
-[start=4]
 . Para configurar la política de modo local, abrimos el Local Group Policy 
 Editor, para esto el usuario debe dar clic en [Inicio], y ejecutar: gpedit.msc. 
 Luego se debe seguir la ruta mencionada anteriormente. Observará la misma ruta 
 en un formulario ligeramente diferente que el de los pasos para configuración 
 de equipos pertenecientes a un dominio de Windows:
-
++
 image::gpedit.png[]
 
-[start=5]
 . Habilite la propiedad Inicio de sesión interactivo: no mostrar el último 
 nombre de usuario:
-
++
 image::sesion.png[]
 
-[start=6]
 . Para verificar que la longitud de clave sea superior a cero (lo cual 
 significa que sólo se necesitaría nombre de usuario para un usuario que no haya 
 establecido una contraseña) la ruta a seguir será:
++
 [source, conf, linenums]
 ----
 Configuración del equipo/Configuración de Windows/Configuración de Seguridad
   /Directivas de cuentas/Directivas de contraseñas
 ----
  
-[start=7] 
 . Configurar mediante las opciones presentadas que la longitud de la contraseña 
 sea diferente de cero y acorde a las políticas internas de la organización.
 . Verificar también qué la opción de enumerar cuentas de administrador esté 
 deshabilitada, para evitar mostrar las cuentas de administrador existentes. 
 Para esto siga la ruta:
++
 [source, conf, linenums]
 ----
  Configuración del equipo/Plantillas administrativa/Componentes de Windows
     /Interfaz de usuario de credenciales
 ----
- 
++ 
 image::directiva.png[]
 
-[start=9] 
 . De esta forma, cuando se requiera acceder recursos privilegiados no se 
 informará el nombre de usuario del administrador:
 

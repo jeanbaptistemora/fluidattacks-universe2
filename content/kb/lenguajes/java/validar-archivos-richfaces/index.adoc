@@ -23,12 +23,12 @@ solución tiene sentido:
 . Para habilitar la validación de formatos de archivos en Java EE utilizando el 
 framework RichFaces se debe utilizar la propiedad acceptedTypes del componente 
 de la siguiente forma [1]:
++
 [source, html, linenums]
 ----
 <rich:fileUpload acceptedTypes="txt, zip"/>
 ----
 
-[start=2]
 . En la instrucción anterior se valida que únicamente los archivos que pueden ser 
 cargados en la aplicación deben ser archivos de texto o archivos comprimidos 
 con extensión zip.

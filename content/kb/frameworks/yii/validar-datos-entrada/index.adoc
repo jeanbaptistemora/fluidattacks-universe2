@@ -22,6 +22,7 @@ solución tiene sentido:
 . Se cuenta con un formulario del cual se desean validar sus datos.
 . Para validar datos con Yii se hace uso del método rules() en los modelos 
 definidos para el uso de la aplicación, un ejemplo se muestra a continuación:
++
 [source, php, linenums]
 ----
 /**
@@ -42,7 +43,6 @@ public function rules()
 }
 ----
 
-[start=3]
 . En el ejemplo anterior se puede apreciar el uso de diferentes validaciones 
 del tipo required, email o incluso el uso de expresiones regulares como se 
 aprecia en array('nombres','match', 'pattern'=>'[\w\s]{3,}', 
