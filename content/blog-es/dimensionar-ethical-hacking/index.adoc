@@ -51,6 +51,7 @@ la prueba a realizar es un Ethical Hacking de Infraestructura.
 Una vez establecido el tipo de prueba que se desea realizar, 
 se debe determinar el Objetivo de Evaluación o ToE (Target of Evaluation) 
 por medio de 3 items.
+
 * **Cantidad de Puertos**, 
 si lo que se evaluará es la infraestructura.
 
@@ -61,7 +62,7 @@ si el objetivo de prueba es la aplicación.
 si se desean establecer los riesgos asociados al desarrollo.
 
 Al tener claro estos alcances, 
-se puede tener la tranquilidad de que se revisará 
+se puede tener la tranquilidad que se revisará 
 todo lo que está en esa tecnología, 
 al contrario de los dimensionamientos basados en tiempo de ejecución,
 con herramientas automatizadas y que solamente 
