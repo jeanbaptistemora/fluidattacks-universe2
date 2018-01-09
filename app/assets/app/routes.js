@@ -65,7 +65,7 @@ integrates.config(function($stateProvider, $urlRouterProvider) {
         })
         .state('Forms', {
             url: '/forms',
-            templateUrl: '/forms',
+            templateUrl: BASE.url + 'forms',
             controller: 'formCtrl'
         })
 });

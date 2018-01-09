@@ -28,7 +28,6 @@
       - python-scipy
       - python-matplotlib
       - ruby
-      - npm
    - name: Instalar librerias
      apt:
       pkg: "{{ item }}"

@@ -697,10 +697,10 @@ integrates.config(['$translateProvider', function($translateProvider) {
           'finding': 'Hallazgo'
         },
         'technical_report_mod':{
-          'title': 'Reportes Técnicos'
+          'title': 'Informes Técnicos'
         },
         'executive_report_mod':{
-          'title': 'Reportes Ejecutivos'
+          'title': 'Informes Ejecutivos'
         },
         'proj_alerts':{
           'search_title': 'Noticia!',
