@@ -1,0 +1,82 @@
+:slug: kb/aspnet/prevenir-sqli
+:eth: no
+:category: aspnet
+:kb: yes
+
+= Prevenir Inyección de Código SQL
+
+== Necesidad
+
+Prevenir inyección de código SQL en ASP.Net
+
+== Contexto
+
+A continuación se describe las circunstancias bajo las cuales la siguiente solución tiene sentido:
+
+. La aplicación está construida con el lenguaje de programación ASP.Net.
+
+== Solución
+
+Un aspecto importante de la creación de aplicaciones ASP.NET seguras es la posibilidad de validar la información proporcionada por los usuarios en un formulario. ASP.NET cuenta con controles de validación que proporcionan una forma eficaz y fácil de usar para comprobar errores y, si es necesario, mostrar mensajes al usuario.
+
+. *Validación de entrada a las páginas Web ASP.NET:*
+Mediante los controles de validación se puede agregar validación de entrada a las páginas Web ASP.NET. Los controles de validación proporcionan un mecanismo fácil de utilizar para todos los tipos comunes de validación estándar (por ejemplo, probar fechas válidas o valores comprendidos en un intervalo), además de otras formas para proporcionar validación escrita personalizada. Además, los controles de validación permiten personalizar completamente cómo se muestra la información de errores al usuario.
+Los controles de validación se pueden utilizar con cualquier control que se coloque en una página Web ASP.NET, incluidos los controles HTML y de servidor Web. Nota:De forma predeterminada, las páginas Web ASP.NET comprueban automáticamente la entrada de datos potencialmente malintencionados.
+
+[start = 2]
+. *Utilizar controles de validación:*
+Habilite la validación de los datos introducidos por el usuario agregando controles de validación a la página como lo haría con otros controles de servidor. Existen controles para distintos tipos de validación, como la comprobación de un intervalo o la comparación de modelos.
+
+Tipos de validación para controles de servidor ASP.NET.
+
+|===
+|*Tipo de validación* | *Utilizar control* | *Descripción*
+
+|Entrada requerida
+|RequiredFieldValidator
+|Garantiza que el usuario no omite una entrada.
+
+|Comparación con un valor
+|CompareValidator
+|Compara los datos proporcionados por el usuario con un valor constante, con el valor de otro control (mediante un operador de comparación como menor que, igual que o mayor que) o para un tipo de datos específico.
+
+|Comprobación del intervalo
+|RangeValidator
+|Comprueba que una entrada de usuario está entre los límites superior e inferior especificados. Se pueden comprobar los intervalos entre pares de números, caracteres alfabéticos y fechas.
+
+|Coincidencia de modelos
+|RegularExpressionValidator
+|Comprueba que la entrada del usuario coincide con un modelo definido por una expresión regular. Este tipo de validación permite comprobar secuencias de caracteres predecibles, como los que aparecen en las direcciones de correo electrónico, números de teléfono, códigos postales, etc.
+
+|Definida por el usuario
+|CustomValidator
+|Comprueba la entrada de usuario utilizando la validación lógica que ha escrito. Este tipo de validación permite comprobar valores derivados en tiempo de ejecución. 
+|===
+
+[start = 3] 
+. En un formulario se pueden asociar más de un control de validación a un control. Por ejemplo, se podría especificar que se requiera un control y que además contenga un intervalo de valores específico.Existe un control relacionado, _ValidationSummary_, que no realiza ningún tipo de validación pero suele utilizarse con otros controles de validación para mostrar los mensajes de error de todos los controles de validación de la página juntos. Cada control de validación hace referencia a un control de entrada (un control de servidor) situado en otra parte de la página. Cuando se procesan los datos introducidos por el usuario (por ejemplo, cuando se envía una página), el control de validación comprueba dichos datos y establece una propiedad para indicar si han pasado la comprobación. Una vez que se ha llamado a todos los controles de validación, se establece una propiedad en la página que indica si alguna de las comprobaciones de validación ha producido un error. Los controles de validación se pueden asociar en grupos de validación a fin de que los controles que pertenezcan a un grupo común se validen juntos. Puede utilizar estos grupos para habilitar o deshabilitar de forma selectiva la validación para controles relacionados en una página. Otras operaciones de validación, como mostrar un control _ValidationSummary_ o llamar al método _GetValidators_, pueden hacer referencia al grupo de validación. En su propio código puede probar el estado de la página y de los controles individuales. Por ejemplo, podría probar el estado de los controles de validación antes de actualizar un registro de datos con información introducida por el usuario. Si se detecta un estado no válido, se omite la actualización. Normalmente, si una comprobación de validación produce errores, se omite todo el procesamiento y se devuelve la página al usuario. Los controles de validación que detectan errores generan un mensaje de error que aparece en la página. Puede mostrar todos los errores de validación en un solo lugar mediante un control _ValidationSummary_. 
+
+. *Validar múltiples condiciones:*
+Cada control de validación normalmente realiza una comprobación. No obstante, es posible que se deseen comprobar múltiples condiciones. Por ejemplo, supongamos que desea especificar que una entrada de usuario es necesaria y que sólo puede contener fechas dentro de un intervalo especificado.
+En las páginas se puede asociar más de un control de validación a cada control de entrada. En ese caso, las comprobaciones realizadas por los controles se resuelven utilizando un operador lógico _AND_, lo que significa que los datos introducidos por el usuario deben pasar todas las comprobaciones para que se consideren válidos.
+En algunos casos podrían ser entradas válidas en varios formatos distintos. Por ejemplo, si solicita un número de teléfono, puede permitir que los usuarios introduzcan un número local, un número de larga distancia o un número internacional. El uso de múltiples controles de validación no funcionaría en esta instancia, ya que los datos introducidos por el usuario deben pasar todas las comprobaciones para ser válidos. Para realizar este tipo de comprobación, que es una operación lógica OR en la que sólo se debe pasar una comprobación, utilice el control de validación _RegularExpressionValidator_ y especifique múltiples modelos válidos en el control. Opcionalmente, puede utilizar el control de validación _CustomValidator_ y escribir su propio código de validación. 
+
+. *Modelo de objetos de validación:*
+El modelo de objetos expuesto por cada uno de los controles de validación y por la página permite interactuar con los controles de validación. Cada control de validación expone su propiedad _IsValid_, que se puede probar para determinar si se ha pasado la comprobación de validación o ha producido errores en ese control. La página también expone una propiedad _IsValid_ que resume el estado _IsValid_ de todos los controles de validación de la página. Esta propiedad le permite realizar una única comprobación para determinar si puede continuar con su propio procesamiento.
+La página también expone una colección _Validators_ que contiene una lista de todos los controles de validación de la página. Puede recorrer esta colección para examinar el estado de controles de validación individuales.
+
+. *Personalizar la validación:*
+El proceso de validación se puede personalizar de las maneras siguientes:​
+
+* Especificar el formato, el texto y la ubicación de los mensajes de error. Además, se puede especificar si los mensajes de error aparecen de forma individual o como un resumen.
+
+* Crear validación personalizada utilizando el control _CustomValidator_. El control llama a la lógica personalizada, pero, por lo demás, funciona de la misma manera que otros controles de validación al establecer el estado de error, mostrar los mensajes de error, etc. Esto proporciona una forma fácil de crear una lógica de validación personalizada, pero sin dejar de utilizar el marco de trabajo de validación de la página.
+
+* En la validación en el cliente, interceptar la llamada a la validación y sustituir o agregar su propia lógica de validación.
+
+. *Validar datos proporcionados por el usuario en procedimientos almacenados de SQL Server:*
+La validación de datos proporcionados por el usuario en el código de cliente es importante para no realizar viajes innecesarios de ida y vuelta al servidor. Igualmente importante es la validación de parámetros de procedimientos almacenados en el servidor a fin de detectar datos no válidos proporcionados por el usuario que la validación en el cliente no detecta. En el caso de SQL Server 2000, vea _Validating User Input_ (validar los datos proporcionados por el usuario), _Specifying Parameters_ (especificar parámetros), _Stored Procedures_ (procedimientos almacenados) y _CREATE PROCEDURE_ (crear procedimiento) en los Libros en pantalla de SQL Server 2000.
+
+== Referencias
+
+. https://msdn.microsoft.com/en-us/library/ff648339.aspx[Prevenir SQLi]
