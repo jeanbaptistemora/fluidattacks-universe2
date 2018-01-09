@@ -1,4 +1,4 @@
-:slug: kb/frameworks/aspnet/definir-autenticacion-en-webservices
+:slug: kb/aspnet/definir-autenticacion-en-webservices
 :eth: no
 :category: aspnet
 :kb: yes
