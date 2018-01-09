@@ -135,11 +135,11 @@ Sintácticos
 ._*Tabla comparativa Pentesting Vs Análisis de Vulnerabilidades*_
 
 Afortunadamente, cuando se realiza un Pentesting con FLUID, nuestros ingenieros 
-están en la capacidad de generar sus propios exploits pues tienen un enfoque 
+están en la capacidad de generar sus propios exploits, pues tienen un enfoque 
 de desarrolladores, lo que les permite en muchas ocasiones explotar 
 vulnerabilidades ZERO DAY y reportarlas lo más pronto posible, de forma que 
 las compañías puedan implementar los controles a tiempo.
 
 De ahora en adelante, cuando vaya a realizar una prueba de seguridad porque la 
-organización o regulaciones se lo exige pregúntese, ¿Quiero protegerme de un 
+organización o regulaciones se lo exigen, pregúntese, ¿Quiero protegerme de un 
 Lamer o de un Hacker?
