@@ -256,40 +256,6 @@ integrates.controller(
             });
             $scope.downloadDoc();
         };
-        var modalInstance = $uibModal.open({
-                animation: true,
-                templateUrl: 'avance.html',
-                windowClass: 'modal avance-modal',
-                keyboard: false,
-                controller: function($scope, $uibModalInstance){
-                    var auxiliar = $("#vulnerabilities").bootstrapTable('getData');
-                    var data = auxiliar;
-                    for(i=0; i < data.length; i++){
-                        data[i].atributos = 0;
-                        data[i].link = window.location.href.split('project/')[0] + 'project/' + data[i].proyecto_fluid.toLowerCase() + '/' + data[i].id + '/description';
-                        if (typeof data[i].registros !== 'undefined' && data[i].registros !== ''){
-                          data[i].atributos = 1 + (data[i].registros.match(/\n/g)||[]).length;
-                        }
-                    }
-                    for(i=0; i < data.length-1; i++){
-                        for(j=i+1; j < data.length; j++){
-                           if(parseFloat(data[i].criticidad) < parseFloat(data[j].criticidad)){
-                                aux = data[i];
-                                data[i] = data[j];
-                                data[j] = aux;
-                           }
-                        }
-                    }
-                    $scope.rows = data;
-                    $scope.closeModalAvance = function(){
-                        $uibModalInstance.dismiss('cancel');
-                        $timeout(function() {$("#vulnerabilities").bootstrapTable('load', auxiliar);},100);
-                    }
-                },
-                resolve: {
-                    ok: true
-                }
-            });
         $scope.technicalReportModal = function(){
             var modalInstance = $uibModal.open({
                 animation: true,
