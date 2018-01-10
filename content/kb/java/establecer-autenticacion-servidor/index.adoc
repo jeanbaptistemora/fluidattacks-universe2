@@ -1,4 +1,4 @@
-:slug: kb/java/establecer-esquema-autenticacion-servidor/
+:slug: kb/java/establecer-autenticacion-servidor/
 :eth: no
 :category: java
 :kb: yes
