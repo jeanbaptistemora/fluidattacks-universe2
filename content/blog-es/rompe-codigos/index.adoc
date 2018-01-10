@@ -10,7 +10,7 @@
 :about2: "No tengo talentos especiales, pero sí soy profundamente curioso" Albert Einstein
 :figure-caption: Imagen
 
-= "Los rompe códigos" - parte I
+= Los rompe códigos - parte I
 
 Desde tiempos inmemoriales y también en el antiguo arte de la guerra, 
 trasportar mensajes indescifrables para el enemigo o tan solo para terceros se 

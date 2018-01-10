@@ -1,14 +1,14 @@
 # Translations template for PROJECT.
-# Copyright (C) 2017 ORGANIZATION
+# Copyright (C) 2018 ORGANIZATION
 # This file is distributed under the same license as the PROJECT project.
-# FIRST AUTHOR <EMAIL@ADDRESS>, 2017.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2018.
 #
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2017-12-28 13:43-0500\n"
+"POT-Creation-Date: 2018-01-10 17:57-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -53,20 +53,20 @@ msgstr ""
 msgid "Archives for"
 msgstr ""
 
-#: templates/article.html:31
+#: templates/article.html:32
 msgid "Comment"
 msgstr ""
 
-#: templates/article.html:36
+#: templates/article.html:37
 msgid "Updated on"
 msgstr ""
 
-#: templates/article.html:57
+#: templates/article.html:58
 msgid "Related"
 msgstr ""
 
-#: templates/article.html:101 templates/page.html:39
-msgid "Haz un comentario"
+#: templates/article.html:102 templates/page.html:39
+msgid "Leave a comment"
 msgstr ""
 
 #: templates/author.html:3
@@ -166,6 +166,30 @@ msgstr ""
 msgid ""
 "GIF or Animated Videos where the exploitation of the vulnerability is "
 "shown. A vulnerability that is not exploited is never roported"
+msgstr ""
+
+#: templates/footer.html:3
+msgid "FLUID logo"
+msgstr ""
+
+#: templates/footer.html:6
+msgid "Twitter logo"
+msgstr ""
+
+#: templates/footer.html:7
+msgid "Facebook logo"
+msgstr ""
+
+#: templates/footer.html:8
+msgid "Google Plus logo"
+msgstr ""
+
+#: templates/footer.html:9
+msgid "LinkedIn logo"
+msgstr ""
+
+#: templates/footer.html:10
+msgid "YouTube logo"
 msgstr ""
 
 #: templates/footer.html:15 templates/footer.html:57
@@ -295,7 +319,9 @@ msgstr ""
 msgid "Tags"
 msgstr ""
 
-#: templates/footer.html:47 templates/footer.html:85
+#: templates/footer.html:47 templates/footer.html:48 templates/footer.html:49
+#: templates/footer.html:50 templates/footer.html:85 templates/footer.html:86
+#: templates/footer.html:87 templates/footer.html:88
 #: templates/navigationbar.html:14
 msgid "careers"
 msgstr ""
@@ -332,40 +358,73 @@ msgstr ""
 msgid "Application"
 msgstr ""
 
-#: templates/index.html:60 templates/index.html:96 templates/index.html:132
-#: templates/index.html:177 templates/index.html:213 templates/index.html:249
-#: templates/index.html:292 templates/index.html:327
+#: templates/index.html:15
+msgid "FLUID header image"
+msgstr ""
+
+#: templates/index.html:29 templates/index.html:67 templates/index.html:106
+#: templates/index.html:150 templates/index.html:188
+msgid "Featured image of the article"
+msgstr ""
+
+#: templates/index.html:32 templates/index.html:70 templates/index.html:109
+#: templates/index.html:153 templates/index.html:191
+msgid "article"
+msgstr ""
+
+#: templates/index.html:36 templates/index.html:74 templates/index.html:113
+#: templates/index.html:157 templates/index.html:195
+msgid "Quill icon"
+msgstr ""
+
+#: templates/index.html:40 templates/index.html:78 templates/index.html:117
+#: templates/index.html:161 templates/index.html:199
+msgid "Folder icon"
+msgstr ""
+
+#: templates/index.html:42 templates/index.html:80 templates/index.html:119
+#: templates/index.html:163 templates/index.html:201
+msgid "Tag icon"
+msgstr ""
+
+#: templates/index.html:59 templates/index.html:97 templates/index.html:136
+#: templates/index.html:180 templates/index.html:218
 msgid "Read More"
 msgstr ""
 
 #: templates/location.html:22 templates/location.html:32
-#: templates/location.html:71 templates/location.html:91
+#: templates/location.html:72 templates/location.html:92
 msgid "Land line"
 msgstr ""
 
 #: templates/location.html:23 templates/location.html:33
-#: templates/location.html:44 templates/location.html:72
-#: templates/location.html:92 templates/location.html:113
+#: templates/location.html:44 templates/location.html:73
+#: templates/location.html:93 templates/location.html:114
 msgid "Mobile"
 msgstr ""
 
-#: templates/location.html:25 templates/location.html:74
+#: templates/location.html:25 templates/location.html:75
 msgid "Forum Building"
 msgstr ""
 
 #: templates/location.html:26 templates/location.html:36
-#: templates/location.html:75 templates/location.html:95
+#: templates/location.html:46 templates/location.html:76
+#: templates/location.html:96 templates/location.html:116
 msgid "Office"
 msgstr ""
 
 #: templates/location.html:27 templates/location.html:37
-#: templates/location.html:46 templates/location.html:76
-#: templates/location.html:96 templates/location.html:115
+#: templates/location.html:47 templates/location.html:77
+#: templates/location.html:97 templates/location.html:117
 msgid "Postal Code"
 msgstr ""
 
-#: templates/location.html:35 templates/location.html:94
+#: templates/location.html:35 templates/location.html:95
 msgid "Villorio Building"
+msgstr ""
+
+#: templates/navigationbar.html:27
+msgid "Search icon"
 msgstr ""
 
 #: templates/pagination.html:6
@@ -378,10 +437,6 @@ msgstr ""
 
 #: templates/pagination.html:13
 msgid "of"
-msgstr ""
-
-#: templates/search.html:2
-msgid "Search"
 msgstr ""
 
 #: templates/tag.html:2
