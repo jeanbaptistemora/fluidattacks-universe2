@@ -4,35 +4,53 @@ WORKDIR /app
 
 COPY . /app
 
-# Install all necessary dependencies
-# Download and decompress only the necessary JS files to run TipueSearch
-# Download jquery and bootstrap js files through yarn
-# Download only the plugins listed in plugin_list.txt and reset to the version used in this project
-# Download pelican-redirect plugin (not found in the general repository) and create __init__.py so pelican can load the plugin
-RUN apt-get -y update && \
-  apt-get install -y python-pip libssl-dev libcurl4-openssl-dev ruby ruby-dev source-highlight git pcregrep curl unzip gnupg && \
-  apt-get install -y --no-install-recommends asciidoc && \
-  pip install -r requirements.txt && \
-  gem install sass && \
-  mkdir js && cd js && \
-  git init && git remote add https://github.com/Tipue/Tipue-Search.git && \
-  git config core.sparsecheckout && cat js-files >> .git/info/sparse-checkout && \
-  git pull origin master && git reset --hard  e14a5b6 && cd ../ && \
-  curl -sL https://deb.nodesource.com/setup_9.x | bash - && apt-get install -y nodejs && \
-  curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - && \
-  echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list && \
-  apt-get update && apt-get install -y yarn && \
-  yarn install && \
-  export PATH=$PATH:/app/node_modules/uglify-js/bin && \
-  mkdir pelican-plugins && cd pelican-plugins && \
-  git init && git remote add origin https://github.com/getpelican/pelican-plugins.git && \
-  git config core.sparsecheckout true && cat ../plugin_list.txt >> .git/info/sparse-checkout && \
-  git pull origin master && git reset --hard 3924d5b && \
-  git clone --depth=1 https://github.com/slinkp/pelican-redirect.git && cd pelican-redirect && git reset --hard f00004c && \
-  echo "from .pelican_redirect import *" > __init__.py
+# Basic dependencies to set sources lists
+RUN apt-get update -qq && apt-get install -qqy curl gnupg
 
+# Set sources for nodejs and yarn 16-18
+# Install necessary dependencies 19-35
+# Download only the necessary JS files to use TipueSearch plugin 35-38
+# Download only the plugins listed in plugin_list.txt and reset to the version used in this project 39-42
+# Download pelican-redirect plugin (not found in the general repository) and create __init__.py so pelican can load the plugin 43-44
+RUN curl -sL https://deb.nodesource.com/setup_9.x | bash - && \
+    echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list && \  
+    curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - && \
+    apt-get update && \
+    apt-get install -qqy --no-install-recommends \
+        asciidoc \
+        gcc \
+        git \
+        libcurl4-openssl-dev \
+        libssl-dev \
+        make \
+        nodejs \
+        pcregrep \
+        python-dev \
+        python-pip \
+        python-setuptools \
+        ruby-full \
+        source-highlight \
+        yarn && \
+    pip install --upgrade \
+        pip \
+        setuptools \
+        wheel && \
+    pip install -r requirements.txt && \
+    gem install -N sass && \
+    yarn install && \
+    mkdir js && cd js && \
+    git init && git remote add origin https://github.com/Tipue/Tipue-Search.git && \
+    git config core.sparsecheckout true && cat ../js-files.txt >> .git/info/sparse-checkout && \
+    git pull origin master && git reset --hard  e14a5b6 && cd ../ && \
+    mkdir pelican-plugins && cd pelican-plugins && \
+    git init && git remote add origin https://github.com/getpelican/pelican-plugins.git && \
+    git config core.sparsecheckout true && cat ../plugin_list.txt >> .git/info/sparse-checkout && \
+    git pull origin master && git reset --hard 3924d5b && \
+    git clone --depth=1 https://github.com/slinkp/pelican-redirect.git && cd pelican-redirect && git reset --hard f00004c && \
+    echo "from .pelican_redirect import *" > __init__.py && \
+    rm -rf /var/lib/apt/lists/*
+
+# Add the uglifyjs program to the PATH
 ENV PATH=$PATH:/app/node_modules/uglify-js/bin/
 
 CMD ["bash"]
-  
-  
