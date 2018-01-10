@@ -48,6 +48,7 @@ if pcregrep --color -nr --include='\.adoc' 'slug:.*[a-z]$' content; then echo -e
 # Check alternative text in images
 if pcregrep --color -Mnr --include='\.adoc' '^image\:\:.*\[\]' content; then echo -e "${GC}ERRORES: Imagenes sin texto alternativo.${NC}"; ERRORS=1;fi
 
-# if pcregrep -M -n -r --include='\.adoc$' '^= .*\n\n.*^= .*\n\n' content; then echo 'ERRORES: Doble titulo principal.'; return 1;fi
+# Check doble titulo principal
+if pcregrep -M -n -r --include='\.adoc$' '^= .*\n\n.*^= .*\n\n' content; then echo 'ERRORES: Doble titulo principal.'; return 1;fi
 
 exit $ERRORS
