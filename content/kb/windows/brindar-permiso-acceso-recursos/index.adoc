@@ -22,11 +22,11 @@ solución tiene sentido:
 Storage Manager. Luego se da doble clic sobre el recurso compartido como se ve 
 en la imagen.
 +
-image::manager.png[]
+image::manager.png[server-manager]
 
 . Allí damos clic sobre las pestaña Permissions
 +
-image::permisos.png[]
+image::permisos.png[permisos]
 
 . Aquí debemos definir y diferenciar los tipos de permisos para los
 recursos:
@@ -65,7 +65,7 @@ Protocolo: SMB en la ficha Recursos compartidos. Para modificar los permisos de
 recurso compartido, seleccione la carpeta o volumen; en el panel Actions, haga 
 clic en Properties y, en la ficha Permissions, haga clic en Share Permissions.
 +
-image::permisos-2.png[]
+image::permisos-2.png[permisos-recurso]
 
 . Puede configurar los permisos NTFS locales para una carpeta o volumen 
 compartido mediante Administración de almacenamiento y recursos compartidos, de 
@@ -83,7 +83,7 @@ compartidos. Para modificar los permisos NTFS, seleccione la carpeta o volumen;
 en el panel Actions, haga clic en Properties y, en la ficha Permissions, haga 
 clic en NTFS Permissions.
 
-image::permisos-3.png[]
+image::permisos-3.png[permisos.ntfs]
 
 == Referencias
 

@@ -25,7 +25,7 @@ recomendable mantener desactivada la opción de depuración.
 en Configuration -> JVM Settings.
 . Desactivamos la casilla Debug.
 
-image::glassfish.png[]
+image::glassfish.png[glassfish]
 
 == Referencias
 

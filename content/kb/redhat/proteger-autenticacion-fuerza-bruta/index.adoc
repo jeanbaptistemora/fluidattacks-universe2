@@ -34,7 +34,7 @@ account required pam_tally2.so
 . El orden en que se insertan debe ser el descrito en la imagen siguiente, esto 
 tendrá efectos en su funcionamiento:
 +
-image::edicion.png[]
+image::edicion.png[orden]
 
 . Reiniciamos el servicio ssh
 +

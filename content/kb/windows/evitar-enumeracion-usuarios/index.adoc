@@ -27,7 +27,7 @@ existentes para planear un ataque de fuerza bruta o de diccionario.
 . Ingresar al sistema y verificar que se solicite como mínimo nombre de
 usuario y contraseña:
 +
-image::login.png[]
+image::login.png[login-enumeracion]
 
 . Para aplicar esta configuración a un dominio por medio de Directorio Activo, 
 configurar la siguiente ruta usando la solución 
@@ -41,7 +41,7 @@ Computer configuration/Windows Settings/Security Settings/LocalPolicies/Security
 
 . La ruta seguida puede apreciarse en la siguiente imagen:
 +
-image::ruta.png[]
+image::ruta.png[ruta]
 
 . Para configurar la política de modo local, abrimos el Local Group Policy 
 Editor, para esto el usuario debe dar clic en [Inicio], y ejecutar: gpedit.msc. 
@@ -49,12 +49,12 @@ Luego se debe seguir la ruta mencionada anteriormente. Observará la misma ruta
 en un formulario ligeramente diferente que el de los pasos para configuración 
 de equipos pertenecientes a un dominio de Windows:
 +
-image::gpedit.png[]
+image::gpedit.png[gpedit]
 
 . Habilite la propiedad Inicio de sesión interactivo: no mostrar el último 
 nombre de usuario:
 +
-image::sesion.png[]
+image::sesion.png[sesion]
 
 . Para verificar que la longitud de clave sea superior a cero (lo cual 
 significa que sólo se necesitaría nombre de usuario para un usuario que no haya 
@@ -78,12 +78,12 @@ Para esto siga la ruta:
     /Interfaz de usuario de credenciales
 ----
 + 
-image::directiva.png[]
+image::directiva.png[directivas]
 
 . De esta forma, cuando se requiera acceder recursos privilegiados no se 
 informará el nombre de usuario del administrador:
 
-image::login-2.png[]
+image::login-2.png[login]
 
 == Referencias
 

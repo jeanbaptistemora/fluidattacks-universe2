@@ -47,12 +47,12 @@ de administrador debe acceder a Panel de Control
 \Herramientas Administrativas\Servicios. Luego de autenticarse si es del caso, 
 observará una ventana como la siguiente:
 +
-image::servicios.png[]
+image::servicios.png[servicios]
 
 . Para deshabilitar un servicio, haga clic secundario y pulse Propiedades. En 
 la opción tipo de inicio, seleccione Deshabilitado y pulse Aceptar
 +
-image::propiedades.png[]
+image::propiedades.png[propiedades]
 
 . Al momento de deshabilitar un servicio, asegúrese de que realmente no sea 
 necesario según el rol que el equipo vaya a cumplir dentro de la 
@@ -78,18 +78,18 @@ listan a continuación [1]:
 que son más aptos a ser deshabilitados adaptados de la solución referenciada en 
 [2].
 +
-image::tabla.png[]
+image::tabla.png[servicios-windows]
 
 . El listado mostrado para su sistema dependerá de los servicios que se hayan 
 previamente instalado. Por ejemplo el conjunto de servicios denominado Simple 
 TCP/IP Services, dependerá de la configuración en Panel de Control\Programas 
 +
-image::programas.png[]
+image::programas.png[programas]
 
 . Y, además, también dependerá de características\Activar o desactivar las 
 características de Windows:
 +
-image::caracteristicas.png[]
+image::caracteristicas.png[caracteristicas]
 
 . Es recomendable deshabilitar todos los servicios que no sean necesarios para 
 el sistema. Puede encontrar más información de la relación entre número de 

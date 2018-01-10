@@ -146,7 +146,7 @@ basic()."img"
 . A continuación observe algunas pruebas de inyección y su resultado luego de 
 la purificación
 
-image::salida.png[]
+image::salida.png[salida]
 
 == Referencias
 

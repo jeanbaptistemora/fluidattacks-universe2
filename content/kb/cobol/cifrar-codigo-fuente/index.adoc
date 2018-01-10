@@ -84,6 +84,7 @@ cual permite que se adjunte una copia del código fuente cifrada con una clave
 proporcionada por el usuario, en el momento de depuración, dicha clave es
 requerida para descifrar el código fuente, si la clave no coincide no es posible
 recuperar el código fuente.
+
 . Compilamos y creamos el programa COBOL a través del comando CRTBNDCBL
 (CRTBNDRPG para programas en RPG), el argumento para DBGVIEW debe ser *LIST, y
 el argumento para DBGENCKEY es la contraseña (De máximo 16 caracteres) con la
@@ -109,12 +110,12 @@ STRDBG COBOLDEBUG
 . En este momento la aplicación solicita la clave para descifrar el código
 fuente:
 +
-image::debug-decryption-key.png[]
+image::debug-decryption-key.png[clave]
 
 . Si la clave es correcta podremos ver el código fuente y depurar normalmente el
 programa:
 
-image::debug-source-code.png[]
+image::debug-source-code.png[depuracion]
 
 == Referencias
 
