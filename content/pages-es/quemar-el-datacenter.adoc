@@ -21,12 +21,12 @@ En este universo metodológico estamos perdiendo de vista que existe desde hace 
 * ¿Podemos hacer despliegue continuo de infraestructura? 
 * ¿La infraestructura puede ser inmutable y por ende desechable?.  
 
-En esta charla veremos como el mundo le pertenece a los programadores y como los ambientes son infinitos.
+En esta conferencia veremos como el mundo le pertenece a los programadores y como los ambientes son infinitos.
 
 
 == 3. Experiencia
 
-Esta charla académica gratuita la hemos estado dando ya hace 9 meses en:
+Esta conferencia académica gratuita la hemos estado dando ya hace 9 meses en:
 
 * *Grandes empresas de la región:* https://www.segurossura.com.co/Paginas/default.aspx[Sura], https://www.grupobancolombia.com/wps/portal/personas[Bancolombia], https://www.grupoexito.com.co/es/[Grupo Éxito], https://www.tigoune.com.co/[Tigo Une], http://www.celsia.com/[Celsia-EPSA], https://www.comfama.com/webinicio/default.asp[Comfama], https://www.banistmo.com/[Banistmo], https://www.stgeorgesbank.com/[St. Georges Bank], https://www.bcp.com.bo/[Banco de Credito del Peru], https://www.gnbsudameris.com.co/[GNB Sudameris], https://www.velez.com.co/[Cueros Velez]
 
@@ -38,47 +38,49 @@ Esta charla académica gratuita la hemos estado dando ya hace 9 meses en:
 
 En total se han dictado más de *35 charlas* con un total de *878 asistentes* y una *satisfacción global de 165%.*
 
-== 4. ¿Donde?
+== 4. ¿Dónde?
 
-Podemos dictar la charla a domicilio en sus instalaciones.
+Podemos dictar la conferencia a domicilio en sus instalaciones.
 
 Las charlas pueden ser en Medellín con un público de mínimo 20 personas y uno de ellos con más de 10 personas a cargo. Para otras ciudades en Colombia, Centro América, Ecuador y Perú se debe contar entre los asistentes 1 persona con más de 20 personas a cargo.
 
-== 5. ¿Cuando? 
+== 5. ¿Cuándo? 
 
 Acordaremos la fecha en que se dictará, es cuestión de que nos indiques 3 posibles horarios para realizarla y nosotros seleccionamos 1.
 
-La charla tiene una duración de 2 horas (no es posible reducir su duración).
+La conferencia tiene una duración de 2 horas (no es posible reducir su duración).
 
 == 6. Público
 
-La charla es apta para personal técnico y personal gerencial de tecnología.  Ambos perfiles son bienvenidos y su satisfacción es alta indistintamente.  Sin embargo si desea disparar cambios y experimentos dentro de su organización es importante considerar la presencia de personas con poder de decisión.
+La conferencia es apta para personal técnico y personal gerencial de tecnología.  Ambos perfiles son bienvenidos y su satisfacción es alta indistintamente.  Sin embargo si desea disparar cambios y experimentos dentro de su organización es importante considerar la presencia de personas con poder de decisión.
 
-El límite de asistentes está limitado al espacio del que se disponga.  Se ha realizado en grupos de 20 personas y en auditorios con más de 80 personas.
+El límite de asistentes está determinado según el espacio del que se disponga.  Se ha realizado en grupos de 20 personas y en auditorios con más de 80 personas.
 
 == 7. Detalles
 
 . *Inversión:* $0 COP, FLUID se encarga de todos los costos correspondientes excepto el lugar y el tiempo de los asistentes. Si no se pueden cumplir los requisitos mínimos de número de asistentes y perfil de los mismos, la inversión de la conferencia en Medellín es de $1.025.324 COP, en otras ciudades del país 2X, y 3X fuera de Colombia.
 
-. *Material:* El material se le envia solo a los asistentes que diligencien la evaluación de satisfacción 1 día después de la charla.
+. *Material:* El material se le envia solo a los asistentes que diligencien la evaluación de satisfacción 1 día después de la conferencia.
 
 == 8. Requisitos
 
-. Asistentes diligencian por Internet en la sección de preguntas de la charla una evaluación de satisfacción de 3 minutos. 
+A continuación describimos los aspectos que requerimos se cumplan en su totalidad para poder dictar la conferencia sin ningún contratiempo:
 
-. Adicionalmente esperamos poder llevar por parte de FLUID un máximo de 4 invitados adicionales al expositor. 
+. Todos los asistentes antes de retirarse DEBEN diligenciar por Internet una evaluación de satisfacción de 2 minutos.
 
-. No usar celulares y portátiles durante la presentación. 
+. FLUID PODRÁ invitar hasta 4 asistentes adicionales a los de su organización.
 
-. Los asistentes conozcan previamente la invitación completa de forma que puedan decidir voluntariamente no asistir si no es pertinente la charla.
+. Los asistentes NO DEBEN usar celulares ni portátiles durante todo el tiempo de la conferencia.
 
-. Poder ingresar 30 minutos antes al lugar a conectar equipos y empezar a la hora en punto la charla.
+. Todos los asistentes DEBEN tener previamente acceso a la totalidad de esta invitación de forma que puedan decidir voluntariamente si asistir o no.
+
+. El expositor DEBE poder ingresar 30 minutos antes al lugar de la conferencia a conectar equipos, hacer pruebas de conectividad WiFi y así empezar a la hora en punto la conferencia.
 
 . *Conexión HDMI física:*  La presentación se hace desde un portatil Linux con animaciones, por ende no son soportados conectores inalámbricos HDMI que requieren instalación de Drivers Windows.
 
 . *Acceso a Google Drive via WiFi:* La presentación dispone de animaciones y videos solo disponibles si el portatil de presentación puede conectarse a Internet mediante una WiFi que permita conexión a Google Drive. 
 
-. No incluir personas remotamente.  La charla es muy dinámica y por ende depende mucho de la interacción cara a cara con el público.
+. No incluir personas remotamente.  La conferencia es muy dinámica y por ende depende mucho de la interacción cara a cara con el público.
 
 == 9. Expositor
 
