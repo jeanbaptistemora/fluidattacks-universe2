@@ -45,7 +45,8 @@ if pcregrep --color -nr --include='\.adoc' 'slug:.*[a-zA-Z0-9]$' content; then e
 # requiere pcregrep para busqueda multilinea
 # if pcregrep -M -n -r --include='\.adoc$' '^\[source,.*\n[^.].*\n[^-]' content; then echo 'ERRORES: Source sin caption de archivo ".file.py (parte a)" y delimitadores "----".'; ERRORS=1;fi
 
-# if pcregrep -M -n -r --include='\.adoc$' '^image\:\:.*\[\]' content; then echo 'ERRORES: Imagenes sin texto alternativo.'; ERRORS=1;fi
+# Check alternative text in images
+if pcregrep -M -n -r --include='\.adoc$' '^image\:\:.*\[\]' content; then echo 'ERRORES: Imagenes sin texto alternativo.'; ERRORS=1;fi
 
 # if pcregrep -M -n -r --include='\.adoc$' '^= .*\n\n.*^= .*\n\n' content; then echo 'ERRORES: Doble titulo principal.'; return 1;fi
 
