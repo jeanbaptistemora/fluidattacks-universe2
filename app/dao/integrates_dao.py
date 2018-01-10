@@ -1,7 +1,9 @@
 from django.db import connections
 from django.utils import timezone
 from django.db.utils import OperationalError
-
+from ..var import AWS_ACCESS_KEY_DYNAMODB
+from ..var import AWS_SECRET_KEY_DYNAMODB
+from ..var import AWS_REGION
 from boto3 import resource
 from boto3.dynamodb.conditions import Key
 
@@ -287,9 +289,13 @@ def remove_access_project_dao(email=None, project_name=None):
                 return False        
     return False
 
+dynamodb_resource = resource('dynamodb',
+                            aws_access_key_id=AWS_ACCESS_KEY_DYNAMODB,
+                            aws_secret_access_key=AWS_SECRET_KEY_DYNAMODB, 
+                            region_name=AWS_REGION)
+
 def get_comments_dynamo(finding_id):
     """Obtiene los comentarios de un hallazgo"""
-    dynamodb_resource = resource('dynamodb', region_name="us-east-1")
     table = dynamodb_resource.Table('comments')
     filter_key = 'finding_id'
     if filter_key and finding_id:
@@ -309,7 +315,6 @@ def get_comments_dynamo(finding_id):
 
 def create_comment_dynamo(finding_id, email, data):
     """Crea un comentario en un hallazgo"""
-    dynamodb_resource = resource('dynamodb', region_name="us-east-1")
     table = dynamodb_resource.Table('comments')
     response = table.put_item(
         Item={
@@ -328,7 +333,6 @@ def create_comment_dynamo(finding_id, email, data):
 
 def update_comment_dynamo(finding_id, data):
     """Actualiza un comentario en un hallazgo"""
-    dynamodb_resource = resource('dynamodb', region_name="us-east-1")
     table = dynamodb_resource.Table('comments')
     response = table.update_item(
         Key={
@@ -347,7 +351,6 @@ def update_comment_dynamo(finding_id, data):
 
 def delete_comment_dynamo(finding_id, data):
     """Elimina un comentario en un hallazgo"""
-    dynamodb_resource = resource('dynamodb', region_name="us-east-1")
     table = dynamodb_resource.Table('comments')
     response = table.delete_item(
         Key={
