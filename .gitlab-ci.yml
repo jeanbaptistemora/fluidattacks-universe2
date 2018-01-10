@@ -4,6 +4,9 @@ stages:
   - build
   - deployment
 
+before_script:
+  - ./checks.sh
+
 builder:
   image: docker:17
   services:
@@ -19,8 +22,6 @@ builder:
 deploy:
   environment: production
   stage: deployment
-  before_script:
-    - ./checks.sh
   script:
     # Generate the website, exiting on any error encountered
     - pelican --fatal errors --fatal warnings content/
