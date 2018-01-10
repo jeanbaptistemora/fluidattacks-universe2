@@ -60,7 +60,7 @@
     <table><tr>
     {% for related_post in article.related_posts %}
         <td>	
-	  <img src="../{{ related_post.slug }}/{{ related_post.featured_image }}"><br> 
+	  <img src="../{{ related_post.slug }}{{ related_post.featured_image }}"><br> 
 	  <a href="../../{{ related_post.url }}">{{ related_post.title }}</a>
 	</td>
     {% endfor %}

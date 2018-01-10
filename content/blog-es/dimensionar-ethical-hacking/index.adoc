@@ -1,4 +1,4 @@
-:slug: dimensionar-ethical-hacking
+:slug: dimensionar-ethical-hacking/
 :date: 2018-01-09
 :category: opiniones-de-seguridad
 :tags: Ethical Hacking, Pentesting, Pruebas de seguridad
