@@ -11,7 +11,7 @@ SITENAME = 'FLUID | Pentesting, Ethical Hacking, Code Analysis'
 SITEURL = 'https://fluid.la/web/en'
 
 # Theme
-THEME = 'theme/pelican-clean-blog'
+THEME = 'theme/2014'
 
 # Date and time configuration
 TIMEZONE = 'America/Bogota'
@@ -68,7 +68,7 @@ I18N_SUBSITES = {
         'SITENAME': 'FLUID | Pentesting, Ethical Hacking, Análisis de Código',
         'SITEURL': 'https://fluid.la/web/es',
         'OUTPUT_PATH': 'output/web/es',
-        'THEME': 'theme/pelican-clean-blog',
+        'THEME': 'theme/2014',
         'ARTICLE_PATHS': ['blog-es'],
         'PAGE_PATHS': ['pages-es', 'kb'],
         'ARTICLE_SAVE_AS': 'blog-es/{slug}/index.html',
