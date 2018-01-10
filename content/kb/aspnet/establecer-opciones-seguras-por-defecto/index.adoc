@@ -7,25 +7,35 @@
 
 == Necesidad
 
-Establecer opciones seguras por defecto en estructuras condicionales (ASP.Net)
+Establecer opciones seguras por defecto 
+en estructuras condicionales (ASP.Net)
 
 == Contexto
 
-A continuación se describe las circunstancias bajo las cuales la siguiente solución tiene sentido:
+A continuación se describe las circunstancias 
+bajo las cuales la siguiente solución tiene sentido:
 
 . Se está desarrollando una aplicación en ASP.Net.
 
 == Solución
 
-En cada estructura condicional empleada en una aplicación ASP.Net, se recomienda contemplar todos los posibles escenarios.
+En cada estructura condicional empleada 
+en una aplicación ASP.Net, 
+se recomienda contemplar todos los posibles escenarios.
 
-* Para sentencias _if_ debe usarse su correspondiente _else_ [1].
+* Para sentencias _if_ 
+debe usarse su correspondiente _else_ [1].
 
-* Para sentencias _switch_ debe usarse su correspondiente _default_ [2].
+* Para sentencias _switch_ 
+debe usarse su correspondiente _default_ [2].
 
-En el siguiente ejemplo se muestra la forma correcta de utilizar las opciones por defecto _else_ y _default_.
+En el siguiente ejemplo 
+se muestra la forma correcta 
+de utilizar las opciones por defecto _else_ 
+y _default_.
 
-. Se empieza validando que haya más de un argumento al llamar al programa.
+. Se empieza validando 
+que haya más de un argumento al llamar al programa.
 +
 [source, java,linenums]
 ----
@@ -41,7 +51,9 @@ class Program
 ...
 ----
 
-. En caso afirmativo, se verifica que el argumento tenga solo un carácter.
+. En caso afirmativo, 
+se verifica 
+que el argumento tenga solo un carácter.
 +
 [source,java,linenums]
 ----
@@ -50,7 +62,9 @@ class Program
 ...
 ----
 
-. En caso afirmativo, se muestra un mensaje si se eligió la opción 0 ó 1, u otro diferente si se eligió la opción 2.
+. En caso afirmativo, 
+se muestra un mensaje si se eligió la opción 0 ó 1, 
+u otro diferente si se eligió la opción 2.
 +
 [source,java,linenums]
 ----
@@ -67,7 +81,8 @@ class Program
 }
 ----
 
-. Se manejan los casos cuando las condiciones anteriores no fueron ciertas.
+. Se manejan los casos 
+cuando las condiciones anteriores no fueron ciertas.
 +
 [source,java,linenums]
 ----
@@ -84,7 +99,11 @@ class Program
 }
 ----
 
-. Se compila y ejecuta el programa con diferentes entradas, comprobando que este se comporta como es esperado ante diferentes tipos de argumentos.
+. Se compila 
+y ejecuta el programa con diferentes entradas, 
+comprobando 
+que éste se comporta como es esperado 
+ante diferentes tipos de argumentos.
 
 [source,cs,linenums]
 ----
