@@ -31,7 +31,7 @@ if find content | egrep '.*[A-Z].*'; then echo -e "${GC}ERRORES: Rutas siempre e
 if find content -iname '* *' | egrep '.*'; then echo -e "${GC}ERRORES: Rutas sin espacio. Usar guión alto \"-\".${NC}"; ERRORS=1;fi
 
 # slugs más largos de 50 + raíz superan requisito de URL<=76
-#if grep -E -n -r --include "*.adoc" "^:slug: .{50,}" content; then echo 'ERRORES: URL debe ser de máximo 76 caracteres.'; ERRORS=1;fi
+if grep -E -n -r --include "*.adoc" "^:slug: .{50,}" content; then echo 'ERRORES: URL debe ser de máximo 76 caracteres.'; ERRORS=1;fi
 
 # Check that 4 - delimit the code block, not more, not less
 if  pcregrep --color -nr --include='\.adoc' '^-{5,}' content; then echo -e "${GC}ERRORES: Delimitador de bloque debe ser 4 exactamente.${NC}"; ERRORS=1;fi
