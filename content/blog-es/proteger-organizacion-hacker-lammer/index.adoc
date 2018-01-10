@@ -73,7 +73,7 @@ obtenidos a través de una herramienta, más no por la malicia y la capacidad
 de interpretación del entorno por parte del atacante.
 
 
-image::animacion-de-explotacion.gif[]
+image::animacion-de-explotacion.gif[injection]
 .*_Explotación de SQL injection por acuberos@fluid.la_*
 
 A diferencia de un análisis de vulnerabilidades, un Pentesting (Ethical 
@@ -85,7 +85,7 @@ o aplicación. Adicionalmente, este tipo de pruebas permiten realizar una
 correlación de vulnerabilidades, que no es más que la forma como un atacante 
 real busca generar el mayor daño posible a las compañías.
 
-image::mapa-hallazgos.png[]
+image::mapa-hallazgos.png[hallazgo]
 .*_Ejemplo de mapa de hallazgos (Correlación de vulnerabilidades)_*
 
 Uno de los factores más críticos que todo Pentesting busca evitar es el 

@@ -29,7 +29,7 @@ solución al reto 5 de la categoría _Main_ del sitio
 http://hackthis.co.uk/[hackthis]:
 
 .hackthis: nivel 5 de la categoría MAIN
-image::level5.png[]
+image::level5.png[reto]
 
 Si deseas conocer la solución a anteriores retos, puedes ingresar al
 https://fluid.la[blog de fluid] donde encontrarás este y otros artículos
@@ -51,7 +51,7 @@ Para que este atajo funcione sin ningún problema (si es que existe) en Firefox,
 debemos dar un click en alguna parte del mensaje de alerta y seguido a ello
 presionar Ctrl+U, tal y como lo ilustra la siguiente animación:
 
-image::click.gif[]
+image::click.gif[atajo]
 
 En caso de que no funcione, intenta recargar la página. Una última alternativa
 sería pulsar en cualquiera de los dos botones de la ventana de alerta y acceder
@@ -61,7 +61,7 @@ Una vez desplegado el código fuente del reto, debemos prestar especial atenció
 al siguiente bloque de código JavaScript (JS en adelante):
 
 .hackthis: código JS para el reto 5 de la categoría MAIN
-image::script.png[]
+image::script.png[reto]
 
 En terminos sencillos, el anterior script delimitado por las etiquetas
 *<script>* y *</script>* funciona de la siguiente manera:
@@ -82,7 +82,7 @@ redireccionado mediante la siguiente ruta relativa:
 A continuación, una animación ilustrando todo el proceso descrito anteriormente:
 
 .hackthis: animación y solución al reto MAIN 5
-image::main5.gif[]
+image::main5.gif[solucion]
 
 == Soluciones alternativas
 
@@ -103,7 +103,7 @@ El anterior script fue tomado del código fuente de la página como vimos
 anteriormente. La siguiente animación resume este proceso:
 
 .hackthis: animación y solución al reto MAIN 5 (segunda solución)
-image::main5-2.gif[]
+image::main5-2.gif[solucion-2]
 
 La tercer forma requiere el uso de la herramienta _Scratchpad_, la cual es
 exclusiva de Firefox. Para los usuarios de Google Chrome y Chromium existen
@@ -123,7 +123,7 @@ navegador. La siguiente animación muestra el uso de Scratchpad para solucionar
 el reto en cuestión:
 
 .hackthis: animación y solución al reto MAIN 5 (tercer solución)
-image::main5-3.gif[]
+image::main5-3.gif[solucion-3]
 
 Estas son todas las soluciones que conozco hasta el momento sin utilizar algún
 plugin o programa externo como https://goo.gl/h4Mvdr[Tamper Data] o

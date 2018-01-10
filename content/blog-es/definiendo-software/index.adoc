@@ -32,7 +32,7 @@ todo el centro de datos, y un renovado enfoque en el CPU. Más control de la red
 tendrá lugar en el CPU” – Zeev Draer
 * “El valor de SDN y la virtualización de la red se encuentra en la capa de control” – Lori MacVittie
 
-image::definiendo-software.png[]
+image::definiendo-software.png[SDE]
 .*_Software Defined Storage_*
 
 El reto en infraestructuras de TI es controlar los excesos de aprovisionamiento,
@@ -79,7 +79,7 @@ Definidos por Software las capas de infraestructura de TI, que incluyen los
 elementos claves de redes, almacenamiento y servidores, así como también la 
 administración.
 
-image::sdeibm.png[]
+image::sdeibm.png[SDE]
 .*_Software Defined Environments: https://www-935.ibm.com/services/nl/nl/it-services/systems/server-services/software-defined-environment/index.html[IBM]_*
 
 * *El Almacenamiento Definido por Software (SDS):* Unifica el almacenamiento para 

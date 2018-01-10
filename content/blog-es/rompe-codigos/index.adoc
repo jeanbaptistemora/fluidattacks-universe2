@@ -73,7 +73,7 @@ de un archivo es diferente del que recibe el mensaje al que lo envía fue porque
 dicho archivo fue modicado.
 
 .Validación de integridad del archivo
-image::1.png[]
+image::1.png[validacion]
 
 == Herramientas para descifrar datos
 

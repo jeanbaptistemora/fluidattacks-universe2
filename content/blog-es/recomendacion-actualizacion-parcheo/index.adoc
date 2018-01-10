@@ -11,7 +11,7 @@
 
 = Recomendaciones para mejorar su proceso de actualización y parcheo
 
-image::parchear.png[]
+image::parchear.png[parcheo]
 
 La aparición de amenazas en la Internet es constante, el auge de ataques como 
 el ransomware y malware está encendiendo las alarmas de los expertos de 

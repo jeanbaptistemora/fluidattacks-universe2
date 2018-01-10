@@ -67,12 +67,12 @@ habilidades para superar controles de seguridad en diferentes categorías. Una
 vez registrados en hackthis, podremos acceder a todos los retos disponibles:
 
 .hackthis: los 10 niveles de la categoría MAIN
-image::levels.png[]
+image::levels.png[retos]
 
 == Reto: Main Level 1
 
 .hackthis: nivel 1 de la categoría MAIN
-image::level1.png[]
+image::level1.png[reto]
 
 Como se aprecia en la anterior imagen, este reto solicita credenciales de acceso
 válidas tanto para el usuario como su contraseña. Para este nivel básico, usaré
@@ -96,7 +96,7 @@ idioma en el que está configurado tu sistema operativo), tal como se muestra en
 la siguiente imagen:
 
 .uso de la herramienta View Page Source
-image::viewsourcecode.png[]
+image::viewsourcecode.png[tool]
 
 Una vez realizada dicha acción, se despliega una nueva pestaña en el navegador
 donde podrás ver todo el html, CSS y JS que componen la página web. La línea que
@@ -106,7 +106,7 @@ mostrados por el navegador) el cual contiene las credenciales de acceso válidas
 para el reto:
 
 .hackthis: solución al reto MAIN 1
-image::level1answer.png[]
+image::level1answer.png[solucion]
 
 Con esto, sólo basta ingresar las credenciales *in* y *out* en los campos
 Username y Password respectivamente para resolver el reto. Si bien hemos

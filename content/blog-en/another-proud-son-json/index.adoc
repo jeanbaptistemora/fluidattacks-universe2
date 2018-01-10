@@ -17,7 +17,7 @@ become a major issue in the complex world of web applications and their
 communications.
 
 .JSON Web Token JWT
-image::image3.png[]
+image::image3.png[jwt]
 
 == JSON Web Token
 
@@ -38,7 +38,7 @@ signature is calculated based on the body and the payload of the JWT which
 allows a party to know if the message has been tampered with (Auth0, 2015).
 
 .JWT Structure example - https://jwt.io/
-image::image1.png[]
+image::image1.png[jwt-structure]
 
 The JWT is made up of three parts that are separated by a single dot. Remember
 all the values are base64 encoded (header.payload.signature).
@@ -64,7 +64,7 @@ all the values are base64 encoded (header.payload.signature).
 === How it works
 
 .JWT Flow
-image::image2.png[]
+image::image2.png[jwt-flow]
 
 As we can see in the image above, we have three entities. The user, the
 authentication server and the application server. Here we have four steps.

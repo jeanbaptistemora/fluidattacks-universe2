@@ -32,7 +32,7 @@ es un punto de información representado en bits. Transformando el bit menos
 signicativo de cada pixel podemos obtener una sola imagen que oculta a otra 
 imagen.
 
-image::lsb-example.png[]
+image::lsb-example.png[lsb]
 .*_Figura 1: Imagen donde se ve la combinación de dos imágenes en una sola,https://upload.wikimedia.org/wikipedia/commons/a/a2/Lsb-example.JPG[wikipedia]_*
 
 El segundo método consiste en simplemente poner el mensaje dentro de la 
@@ -46,21 +46,21 @@ método.
 Este reto consiste en descubrir el mensaje oculto dentro de una imagen, sólo 
 nos proporcionan la siguiente imagen:
 
-image::image1.png[]
+image::image1.png[reto]
 .*_Figura 2: Imagen del reto, http://challengeland.co/Dashboard/[Challengeland]_*
 
 Ahora nos disponemos a abrir la imagen con un editor de texto, para este caso 
 se utilizará el https://wiki.gnome.org/Apps/Gedit[Gedit], que es el editor de 
 texto por defecto de GNOME.
 
-image::figura3.png[]
+image::figura3.png[gedit]
 .*_Figura 3: Imagen abierta con el Gedit_*
 
 Como vemos en la figura 3, sólo se muestran los “datos crudos” e ilegibles de 
 la imagen, debemos entonces navegar en estos datos hasta encontrar una palabra 
 (mensaje) que esté en un idioma legible.
 
-image::figura4.png[]
+image::figura4.png[resuelto]
 .*_Figura 4: Palabra encontrada_*
 
 Encontramos casi al final de este texto una palabra “legible” bastante

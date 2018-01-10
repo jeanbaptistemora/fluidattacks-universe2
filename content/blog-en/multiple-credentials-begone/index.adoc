@@ -20,7 +20,7 @@ across many different industries and the focus of this article is SAML,
 Security Assertion Mark-up Language.
 
 .Single Sign-on Services and SAML
-image::image2.png[]
+image::image2.png[saml]
 
 == SAML - Security Assertion Mark-up Language
 
@@ -35,7 +35,7 @@ over authentication with more traditional methods like user name/password.
 (Onelogin, 2016)
 
 .Figure 2: SAML flow
-image::image1.png[]
+image::image1.png[flow]
 
 SAML SSO works by transferring the user’s identity from one place, the identity
 provider (IP), to another, the service provider (SP). This is done through an
@@ -63,7 +63,7 @@ the identity provider he can then intercept and modify the SAML messages being
 exchanged however he sees fit.
 
 .Figure 3: SAML message structure
-image::image3.png[]
+image::image3.png[structure]
 
 
 The most common areas of SAML messages that are prone to tampering are

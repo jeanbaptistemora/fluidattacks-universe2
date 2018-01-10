@@ -37,7 +37,7 @@ eso que se hace obligatorio conocer a que amenazas son susceptibles nuestros
 dispositivos móviles y cuáles son las medidas de seguridad básicas que debe
 tener cada usuario a la hora de usar su equipo.
 
-image::sm.png[]
+image::sm.png[seguridad]
 .*Seguridad en Dispositivos Móviles - https://www.academiaeset.com/default/store/14041-seguridad-en-dispositivos-moviles[Academia ESET]*
 
 La mayor amenaza a la que se expone un dispositivo móvil y por consiguiente a la 

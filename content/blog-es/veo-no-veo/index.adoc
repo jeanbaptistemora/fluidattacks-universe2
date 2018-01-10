@@ -37,7 +37,7 @@ solución al reto 2 de la categoría _MAIN_ del sitio web
 anterior para el reto 1 de la misma categoría:
 
 .hackthis: nivel 2 de la categoría MAIN
-image::level2.png[]
+image::level2.png[reto]
 
 Al igual que el https://goo.gl/NRxUPF[reto 1], en este se solicita ingresar
 credenciales válidas para un determinado usuario. Solo que esta vez haremos uso
@@ -49,7 +49,7 @@ tecla _f12_. Una vez desplegada la herramienta, busca el siguiente bloque de
 etiquetas dentro del html:
 
 .hackthis: solución al reto MAIN 2
-image::level2answer.png[]
+image::level2answer.png[solucion]
 
 Aquí debemos prestar especial atención al contenido entre las dos etiquetas
 *<span>* y *</span>*. Como se aprecia en la imagen, la primera contiene el valor:
@@ -62,7 +62,7 @@ consiste en resaltar el texto oculto a la derecha de las palabras "Username" y
 "Password" tal como se aprecia a continuación:
 
 .hackthis: solución al reto MAIN 2 (tercer solución)
-image::union.png[]
+image::union.png[solucion-2]
 
 == Editando el html en vivo
 
@@ -80,7 +80,7 @@ Al hacer esto, podemos ver que los cambios se reflejan de manera instantánea en
 el navegador:
 
 .hackthis: solución al reto MAIN 2 (cuarta solución)
-image::level2answer4.png[]
+image::level2answer4.png[solucion-3]
 
 Puedes leer sobre el formato de colores RGB y probar con otros en
 https://goo.gl/cjpNSu[este enlace].
@@ -90,7 +90,7 @@ resolver un mismo reto, se incluye una pequeña animación, la cual, muestra tod
 el proceso para ejecutar la cuarta solución al reto 2:
 
 .hackthis: animación y solución al reto MAIN 2 (cuarta solución)
-image::main2.gif[]
+image::main2.gif[solucion-3]
 
 Para terminar, y en mi opinión, antes de agregar un nuevo complemento o plugin
 a tu navegador, verifica que este no cuente ya con una herramienta que cumpla con

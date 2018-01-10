@@ -30,7 +30,7 @@ millones de pruebas antes de sacarlo al mercado, en algún momento van a ser
 víctimas de un ataque y es por esto que se debe tener un sistema de respuesta 
 ante este tipo de situaciones.
 
-image::1.png[]
+image::1.png[riesgos]
 
 Ahora que podemos hacer para identificar vulnerabilidades tanto en desarrollos 
 si eres un proveedor o en adquisición de software si eres un comprador. En 
@@ -54,7 +54,7 @@ licencia, vulnerabilidades conocidas, tiempos de actualización, soporte, etc)
 . Utilizar técnicas que ayuden a detectar vulnerabilidades en el desarrollo 
 tanto antes de liberarlo como en el proceso de adquisición.
 
-image::2.png[]
+image::2.png[secure]
 .*_Secure Software Requires the Right Tools – https://onlinexperiences.com[Jonathan Knudsen]_*
 
 Las herramientas que pueden hacer parte del robot army están separadas por el 

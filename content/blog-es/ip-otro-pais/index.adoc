@@ -57,13 +57,13 @@ navegar en internet anonimamente haciendo un puente de IPs para cambiar de
 dirección IP y en consecuencia cambiar de país de conexión. Se puede descargar 
 gratuitamente desde su página web: https://www.torproject.org/download/download[Tor browser]
 
-image::tor.png[]
+image::tor.png[tor]
 
 Lo ejecutamos y cuando conectamos a www.google.com, podemos ver claramente en 
 la Figura el puente de direccionamiento que se ha creado y el país en el cual 
 estamos, internet piensa que estamos en otro país!
 
-image::puente.png[]
+image::puente.png[proxy]
 
 == Reto HaxTor Nivel 8
 
@@ -74,7 +74,7 @@ directory needs .hu host to see. Es decir tenemos que ingresar desde un host
 ubicado en Hungría para poder ver la contraseña. Porque la extensión .hu es 
 utilizada por sitios web ubicados en este país.
 
-image::mensaje.png[]
+image::mensaje.png[reto]
 
 Con el software Tor podemos cambiar nuestra ip y nuestro país por uno como 
 Hungría, pero al parecer la página necesita que nuestro host sea propiamente de 
@@ -89,7 +89,7 @@ Creamos una cuenta en OpenVpn, y seguimos las instrucciones de instalación
 según el sistema operativo que usemos. Ahora para cambiar nuestro Host nos 
 dirigimos a Accounts→ Add Server → Earth @ Budapest/Hungary.
 
-image::openvpn.png[]
+image::openvpn.png[vpn]
 
 Una vez agregado el host, lo ponemos en funcionamiento en nuestro computador 
 siguiendo las instrucciones brindadas por OpenVpn (el funcionamiento cambia 

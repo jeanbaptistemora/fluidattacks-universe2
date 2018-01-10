@@ -21,7 +21,7 @@ spreadsheet that uses a completely different format. The database program most
 likely can export its data as "CSV"; the exported CSV file can then be imported
 by the spreadsheet program.
 
-image::csv-example.png[]
+image::csv-example.png[example]
 
 There is a vulnerability in this types of format that the most of programmers
 ignores, that is "CSV Injection". As https://www.owasp.org/index.php/CSV-Injection[OWASP] says, it occurs when websites embed
@@ -33,17 +33,17 @@ formulas can be used to malicious attacks.
 
 We have a page that stores data on a table and exports it on a CSV file
 
-image::page-example.png[]
+image::page-example.png[page]
 
 We put some normal data and nothing happens
 
-image::normal-input.png[]
-image::normal-result.png[]
+image::normal-input.png[input]
+image::normal-result.png[result]
 
 But what happens if we put a formula like =2+5 in a field?
 
-image::formula-input.png[]
-image::formula-result.png[]
+image::formula-input.png[formula-input]
+image::formula-result.png[formula-result]
 
 On our table nothing happens, but when we open the CSV file we get the result of
 the formula that we introduced. This can be very dangerous if someone introduce
@@ -55,7 +55,7 @@ a more dangerous code like
 
 When the user open the file it shows a link with our malicious site
 
-image::hyperlink-vuln.png[]
+image::hyperlink-vuln.png[vuln]
 
 Also we can execute commands on the target with this formula injection, in where
 we open the calc when someone opens the CSV file
@@ -66,12 +66,12 @@ we open the calc when someone opens the CSV file
 
 It shows some warnings but the user trust in the source of the file and accept
 
-image::first-warning.png[]
-image::second-warning.png[]
+image::first-warning.png[warning-1]
+image::second-warning.png[warning-2]
 
 And then the code execution
 
-image::exec-example.png[]
+image::exec-example.png[exec]
 
 The effectiveness of this vulnerability is that the user trust on the source of
 the file without asking himself if is the normal behaviour when someone opens a
@@ -111,7 +111,7 @@ if(regexp.test(formData.sdata2)){
 In this example we can see that the spreadsheet program doesn't calculate the
 formula and our input is secure
 
-image::secure-input.png[]
-image::secure-result.png[]
+image::secure-input.png[secure-input]
+image::secure-result.png[secure-result]
 
 The source code of the page for testing can be found https://fluid.la/web/en/files/csvinjection.zip[here]

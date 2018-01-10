@@ -21,7 +21,7 @@ integra para garantizar un despliegue continuo, donde la construcción, prueba y
 liberación de software sea más rápido y eficiente. Como todos hacen parte del 
 equipo ¿En que momento debemos llamar al equipo de seguridad?
 
-image::sdlc1.png[]
+image::sdlc1.png[sdlc]
 .*_Getting the Sec into DevSecOps – Whose Job is it Really? by https://info.whitehatsec.com/1116-Webinar-451SecuringDevOps-LP.html[WhiteHat Secuity]_*
 
 Para empezar dejemos claro a qué nos referimos con DevOps porque conceptos y 
@@ -53,7 +53,7 @@ explotación y el costo asociado.
 A partir del SDLC evaluemos las oportunidades y los puntos claves donde debemos 
 incluir temas de seguridad.
 
-image::sdlc2.png[]
+image::sdlc2.png[sdlc-clave]
 
 Al final de cuentas lo importante es entender que la seguridad no es un valor 
 agregado es un pilar del desarrollo de cualquier sistema, no se debe pensar al 

@@ -36,7 +36,7 @@ Antes de resolver el reto, debemos conocer un poco sobre cómo trabajan las ruta
 relativas y absolutas en una url:
 
 .sistema de archivos de ejemplo
-image::folders.png[]
+image::folders.png[ejemplo]
 
 Todo servidor al igual que nuestra computadora, organiza los archivos y carpetas
 en un sistema denominado sistema de archivos. Imaginemos que tenemos un sitio web
@@ -87,7 +87,7 @@ presionamos la siguiente combinación de teclas: _ctrl+U_ en tu navegador. Una v
 desplegado el código fuente del reto, debemos buscar el siguiente formulario
 html:
 
-image::html-code.png[]
+image::html-code.png[codigo]
 
 De la anterior imagen podemos ver que el formulario contiene una etiqueta de
 tipo _hidden_ (un tipo de etiqueta cuyo contenido no es desplegado por el
@@ -107,7 +107,7 @@ ahí, podemos completar la ruta de la siguiente manera:
 Accedemos a dicha url para obtener:
 
 .HackThis: solución al reto 4 de la categoría Main
-image::answer-level-4.png[]
+image::answer-level-4.png[respuesta]
 
 De la anterior imagen podemos ver que las credenciales de acceso son: 999 y 911
 para el usuario y contraseña respectivamente. Ingresamos dichas credenciales y
@@ -116,7 +116,7 @@ el reto es resuelto.
 A continuación dejo una animación resumiendo el proceso anterior:
 
 .hackthis: animación y solución al reto MAIN 4
-image::main4.gif[]
+image::main4.gif[solucion]
 
 Como podemos ver, tampoco es recomendable (y de hecho, nunca se debe hacer)
 almacenar credenciales de acceso mediante rutas ocultas, y sobre todo, con

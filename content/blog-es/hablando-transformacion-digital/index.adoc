@@ -45,7 +45,7 @@ tiempo. Por esta razón, desde el rol, nos piden tres objetivos principales:
 .Búsqueda de la eficiencia.
 .Innovación continua.
 
-image::campos.png[]
+image::campos.png[campo]
 
 Ahora bien, el mundo viene hablando de transformación digital. Tomando la 
 definición del TechTarget, que la define como:

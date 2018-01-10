@@ -60,7 +60,7 @@ hace uso de tres actores el usuario final, el cliente confiable (hace
 referencia a la aplicación, servicio o plataforma web) y un proveedor de
 identidad (en Oauth servidor de autenticación).
 
-image::open.png[]
+image::open.png[openid]
 .*_OpenID Connect: Funcionamiento_*
 
 Para comenzar, el usuario final solicita un servicio o acceso a los recursos
@@ -91,27 +91,27 @@ mediante Facebook o Google.
 En este ejemplo, wattpad asume el papel de cliente confiable y tanto Facebook
 como Google toman el rol de proveedores de identidad.
 
-image::open1.png[]
+image::open1.png[ingreso]
 .*_Imagen 1: Página de ingreso del sitio_*
 
 Como se puede apreciar en la imagen, el cliente solicita al usuario que
 seleccione uno de los proveedores de identidad.
 
-image::open2.png[]
+image::open2.png[google]
 .*_Imagen 2: Página de logeo de google_*
 
 Una vez es seleccionado el proveedor (en este caso Google) el cliente comunica
 al proveedor con el usuario abriendo una nueva ventana en el navegador con el
 fin de que el último se identifique.
 
-image::open3.png[]
+image::open3.png[autorizacion]
 .*_Imagen 3: Página de autorización de acceso_*
 
 Cuando el usuario se autentica, el proveedor de identidad solicita la autorización
 de acceso a los datos por parte del cliente. En este caso se informa que el
 cliente desea conocer mi edad y mi idioma.
 
-image::open4.png[]
+image::open4.png[acceso]
 .*_Imagen 4: El sitio web como tal_*
 
 Autorizada la aplicación cliente, el usuario ya puede interactuar con la

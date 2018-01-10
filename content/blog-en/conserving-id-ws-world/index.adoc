@@ -18,7 +18,7 @@ communication and integration of these applications is most commonly done
 through Web Services (WS) and with the growing concern over cyber security
 comes the need to securely communicate via WS.
 
-image::image1.png[]
+image::image1.png[fe-ws]
 .*_Figure 1: Federated Identity and Web Services_*
 
 WS-Security defines the basic mechanism for a secure message exchange. This

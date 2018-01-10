@@ -17,7 +17,7 @@ estándar industrial el cual los negocios usan para salvaguardar los datos
 durante y después de la compra. Este fue actualizado con el objetivo de atender 
 las crecientes necesidades de protección de lainformación de los clientes.
 
-image::pci.png[]
+image::pci.png[pci]
 
 Uno de los cambios más notables del estándar es implementar evaluaciones de 
 seguridad para procesar los pagos, con el objetivo de dar cumplimiento a la 

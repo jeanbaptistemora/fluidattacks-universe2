@@ -21,7 +21,7 @@ C2 (Command & Control) y Ransomware las principales variantes. Malware diseñado
 para ser silencioso, indetectable y con el único objetivo de infectar y 
 propagarse en diferentes tipos dispositivos dentro de una red.
 
-image::reporte.png[]
+image::reporte.png[reporte]
 .*_Figura 1. Reporte de incidentes 2016 relacionados con crimenware – http://www.verizonenterprise.com/[Verizonenterprise.com]_*
 
 En el ultimo año han existido varios casos informados por el FBI donde se ha
@@ -44,7 +44,7 @@ Estos y muchos otros factores facilitan a criminales de la red alcanzar su
 objetivo, siendo así la falta de un plan de mantenimiento y control uno de los
 principales problemas contra las amenazas del crimenware.
 
-image::reporte2.png[]
+image::reporte2.png[iot-2016]
 .*_Figura 2. Seguridad en IoT 2016 – http://usblogs.pwc.com/cybersecurity/[PwC]_*
 
 Así que en conclusión ¡La rebelión de las maquinas ha empezado, Skynet ha 

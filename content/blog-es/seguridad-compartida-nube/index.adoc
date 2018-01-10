@@ -40,7 +40,7 @@ que van a utilizar. Al final del día AWS te entrega la “bóveda” y el clien
 quien controla las visitas.
 
 .Quién es responsable de que dentro de los servicios de AWS – https://media.amazonwebservices.com/AWS_Security_Best_Practices.pdf[Referencia]
-image::aws-services.png[]
+image::aws-services.png[aws]
 
 == Funcionalidades de Seguridad
 

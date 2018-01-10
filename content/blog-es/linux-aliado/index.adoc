@@ -26,7 +26,7 @@ de estos pentest se evalúan los potenciales impactos a la seguridad e
 integridad de la:: información y sugerir medidas para contrarrestar los ataques.
 
 .Logo de Linux footnote:[Imagen tomada de http://www.unixforum.co.uk/[Foro UNIX]]
-image::linux-header.png[]
+image::linux-header.png[logo]
 
 == ¿Por qué usar Linux?
 
@@ -45,7 +45,7 @@ La reputación de Linux como sistema operativo seguro se ha mantenido desde sus 
 == https://www.kali.org/[Kali Linux]
 
 .Escritorio de Kali
-image::kali-linux-16553-1.png[]
+image::kali-linux-16553-1.png[kali]
 
 Kali Linux es derivado de las distribuciones Debian, actualmente está siendo
 mantenida por https://www.offensive-security.com/[_Offensive Security Ltd_].
@@ -63,7 +63,7 @@ Requisitos de instalación::
 == http://www.pentoo.ch/[Pentoo]
 
 .Escritorio de pentoo footnote:[Imagen tomada de https://bytescode.wordpress.com/[BytesCode]]
-image::pentoo.png[]
+image::pentoo.png[pentoo]
 
 Pentoo es un Live CD y Live USB diseñada para pentest y evaluación de
 seguridad. Se basa en https://www.gentoo.org/[Linux Gentoo], pentoo está
@@ -82,7 +82,7 @@ personalizadas, kernel personalizado, y características como:
 == https://backbox.org/[BackBox Linux]
 
 .Escritorio de BackBox footnote:[Imagen tomada de http://www.subhashdasyam.com[SubHashDasyam]]
-image::backbox-linux-2-5.png[]
+image::backbox-linux-2-5.png[backbox]
 
 BackBox está basado en https://www.ubuntu.com[Ubuntu] y diseñado para realizar
 pentest, respuesta a incidentes e informática forense. El objetivo principal de
@@ -105,7 +105,7 @@ Requisitos de instalación::
 == https://www.parrotsec.org/[Parrot Security OS]
 
 .Escritorio de Parrot footnote:[Imagen tomada de http://linux.softwsp.com[Softwsp]]
-image::parrot-security-os-linux-008.png[]
+image::parrot-security-os-linux-008.png[parrot]
 
 Es un sistema operativo basado en la nube para realizar pentest, informática
 forense, Ingeniería Inversa, Hackeo, cloud pentest, privacidad/anonimato y
@@ -118,7 +118,7 @@ ventaja es que este sistema operativo está adaptado también para el uso diario
 == https://blackarch.org/[BlackArch Linux]
 
 .Escritorio BlackArch footnote:[Imagen tomada de http://lamiradadelreplicante.com/[LaMiradaDelReplicante]]
-image::blackarchlinux-image2.png[]
+image::blackarchlinux-image2.png[blackarch]
 
 BlackArch es una expansión ligera de Arch Linux para pentesters e
 investigadores de seguridad. El repositorio cuenta con aproximadamente 1080
@@ -135,7 +135,7 @@ Requisitos de instalación::
 == http://bugtraq-team.com/[Bugtraq]
 
 .Escritorio Bugtraq footnote:[Imagen tomada de http://lamiradadelreplicante.com/[LaMiradaDelReplicante]]
-image::blackarchlinux-image2.png[]
+image::blackarchlinux-image2.png[blackarch-2]
 
 Disponible en Debian, se dedica exclusivamente a la seguridad informática. Su comunidad se centra en temas que traten sobre discusiones de vulnerabilidad, anuncios de seguridad, métodos de explotación, etc... Bugtraq lo conforma hackers experimentados y desarrolladores que ofrecen servicios para la ética y las pruebas de intrusión.
 

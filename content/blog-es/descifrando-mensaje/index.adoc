@@ -20,14 +20,14 @@ se han perdido por cifrados deficientes (https://hipertextual.com/2011/07/la-maq
 En resumen, el cifrado de la información tiene una gran importancia a la hora de proteger los datos y la información que recibimos 
 frente ataques contra nuestra red.
 
-image::cifrado.png[]
+image::cifrado.png[cifrado]
 
 == Cifrar vs. Ocultar
 
 No hay que confundir el cifrado que es alterar un mensaje, con ocultar. La esteganografía es la disciplina que se encarga de ocultar 
 a través de diversas técnicas que generalmente se combinan con el proceso de cifrado como hablaban en *artículos anteriores.*
 
-image::cifrado.gif[]
+image::cifrado.gif[estego-cifrado]
 .*_Esteganografía vs. Cifrado – TuxyLinux_*
 
 El objetivo principal de la criptografía es evitar que el contenido sea interpretado y el objetivo de la esteganografía es evitar 
@@ -39,7 +39,7 @@ que la existencia del contenido sea conocida.
 
 Es un cifrado que consiste en usar una clave que tanto el emisor como el receptor conocen.
 
-image::simetrico.gif[]
+image::simetrico.gif[simetrico]
 .*_Cifrado simétrico- https://www.ibiblio.org/[ibiblio]_*
 
 Este algoritmo realiza operaciones de http://unicrom.com/compuerta-xor-o-exclusiva/[XOR] (Or exclusivo)
@@ -83,7 +83,7 @@ Este método usa un par de claves para el envío de mensajes. Estas claves perte
 el mensaje. Una clave es pública y la otra es privada, el emisor cifra el mensaje con la clave pública y el receptor descifra 
 el mensaje con la clave privada.
 
-image::asimetrico.png[]
+image::asimetrico.png[asimetrico]
 .*_Cifrado Asimétrico- https://msdn.microsoft.com/en-us/library/ff650720.aspx[Microsoft]_*
 
 * *RSA* (Rivest, Shamir y Adleman): Los mensajes enviados usando este algoritmo se representan mediante números y el funcionamiento

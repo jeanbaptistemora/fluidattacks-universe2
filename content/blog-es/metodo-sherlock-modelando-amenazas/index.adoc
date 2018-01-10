@@ -42,7 +42,7 @@ posiblemente afecten la seguridad del aplicativo, con el fin de encontrar bugs
 a temprana edad y de esta forma establecer los posibles casos de abusos.
 
 .Ciclo del modelado de amenazas
-image::sherlock.png[]
+image::sherlock.png[ciclo]
 
 == El corazón del método
 
@@ -58,7 +58,7 @@ fronteras y los flujos del sistema, los privilegios, entre otros, como se
 muestra a continuación.
 
 .Representación básica de abstracción de una aplicación
-image::2.png[]
+image::2.png[abstraccion]
 
 === 2. ¿Que podría salir mal?
 
@@ -83,7 +83,7 @@ servicios.
 protegidos, ejecución de comandos, entre otros.
 
 .Detección de posibles amenazas
-image::3.png[]
+image::3.png[amenaza]
 
 La anterior figura nos muestra un ejemplo básico de búsqueda y relación de 
 posibles amenazas con los componentes del sistema.

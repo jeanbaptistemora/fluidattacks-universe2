@@ -32,7 +32,7 @@ sí que lo más probable es que este termine anotándola en algún lugar y el ni
 de amenaza sea mayor a que si el mismo usuario hubiera creado la contraseña. El
 punto es que la usabilidad debe ser un aliado de la seguridad y no un opuesto.
 
-image::security.png[]
+image::security.png[seguridad]
 
 == Principios de la usabilidad
 

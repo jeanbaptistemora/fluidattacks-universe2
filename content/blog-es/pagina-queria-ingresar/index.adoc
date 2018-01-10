@@ -18,22 +18,22 @@ Con el afán de abarcar el terreno lo más rápido posible los desarrolladores d
 HTML no permite definir la apariencia de una pagina, aunque se utiliza tambien como un leguaje de presentacion. Los archivos de navegador se visualizan en un navegador web. La presentacion de la pagina es muy dependiente del navegador ya que el mismo documento no produce el mismo resultado en la pantalla si se visualiza con un browser o con otro, en pocas palabras, HTML se limita a describir la estructura y el contenido de un documento, y no el formato de su pagina ni su apariencia.
 
 .footnote:[Imagen tomada de https://www.w3.org/[W3]]
-image::ctn-04.gif[]
+image::ctn-04.gif[footnote]
 
 == El peligro de no revisar
 
 La mayoría de robos a cuentas ya sean de Facebook o peor de cuentas bancarias ocurren por no fijarse en la dirección a la que se requiere entrar.
 
 .Dos facebook
-image::facebook.gif[]
+image::facebook.gif[facebook]
 
 La mayoría de ataques que se centran en robos de cuentas se basan en el afán del usuario, como podemos ver en la figura las paginas son exactamente las mismas, la única diferencia visible se encuentra en la URL, la original tiene la dirección normal de Facebook, la falsa al no estar alojada en un servidor tiene la dirección local, pero, ¿Qué pasaría si estuviera alojada en un servidor? La respuesta a esta pregunta es, el atacante se centra en ubicar direcciones web con un nombre similar a la página a atacar, un ejemplo podría ser “\www.facebookk.com\” -Es de recordar que Facebook re-direcciona algunas páginas al original para evitar este tipo de ataque como con \www.facebok.com\- pero entonces, ¿Cómo podemos estar seguros que la pagina que entre es la verdadera página? La mayoría de páginas que requieren un inicio de sesión tienen un protocolo HTTPS.
 
 .HTTP vs. HTTPS
-image::http.png[]
+image::http.png[http]
 
 .HTTP vs. HTTPS
-image::https.png[]
+image::https.png[https]
 
 == ¿Qué es HTTP y HTTPS?
 
@@ -42,15 +42,15 @@ HTTP (Hyper Text Transport Protocol) es el protocolo encargado de definir el int
 === Diferencia HTTP y HTTPS
 
 .Diferencia en HTTP y HTTPS footnote:[Imagen tomada de http://www.wordpressmagazine.es[WordPress]]
-image::http-vs-https.png[]
+image::http-vs-https.png[diferencia]
 
 El protocolo HTTPS (Hypertext Transfer Protocol Secure), se basa en la combinación de dos protocolos el HTTPS y el SSL/TLS (Secure Sockets Layer/Transport Layer Security)! esta es la manera más segura de acceder a los contenidos en Internet, porque todo dato ingresado va cifrado, lo que garantiza que la información solo! será visible entre el cliente y el servidor.
 
 .HTTPS PayPal
-image::paypal.png[]
+image::paypal.png[paypal]
 
 .HTTPS Gmail
-image::gmail.png[]
+image::gmail.png[gmail]
 
 Como podemos ver en los ejemplos, HTTPS es fundamental para cualquier actividad que haga uso de datos personales, como cuentas bancarias, contraseñas, números de tarjetas de crédito etc… para que este sistema funcione se debe aplicar el esquema de certificado, que debe estar debidamente firmado por una autoridad.
 
@@ -63,4 +63,4 @@ La función de un certificado SSL es darle la seguridad a un visitante de una p�
 Como se pudo observar para poder evitar esta vulnerabilidad solo se debe ser cuidadoso al momento de digitar una página web, siempre revisar su protocolo -si es HTTP o HTTPS-, los navegadores son una gran ayuda ya que tienen esta información a la mano para que sea más fácil para el usuario reconocer si está en una página autentica o no, una forma para estar seguro de la autenticidad de la página es ingresando la dirección IP de la página en vez de la dirección, por ejemplo, la dirección IP de Facebook es 31.13.65.36
 
 .Entrando por IP
-image::facebookip.gif[]
+image::facebookip.gif[facebook-ip]

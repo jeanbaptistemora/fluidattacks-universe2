@@ -33,7 +33,7 @@ en cuanto a malos hábitos se refiere.
 
 == JavaScript, un veterano de guerra
 
-image::javascript-card.png[]
+image::javascript-card.png[javascript]
 
 Si bien es cierto que existen muchas tecnologías en el mercado, útiles y con un
 gran soporte en cuanto a mantenimiento y actualizaciones se refiere. No cabe duda
@@ -52,7 +52,7 @@ embargo, en este artículo daremos solución al reto 3 de la categoría _MAIN_ d
 sitio web hackthis:
 
 .hackthis: nivel 3 de la categoría MAIN
-image::level3.png[]
+image::level3.png[reto]
 
 Al igual que en los primeros dos niveles, en este tercer nivel se solicita
 ingresar credenciales de acceso válidas para un determinado usuario. Con el fin
@@ -67,13 +67,13 @@ dependiendo del navegador utilizado y del idioma en el que esté configurado tu
 sistema operativo) o también mediante el atajo _Ctrl+U_:
 
 .uso de la herramienta View Page Source
-image::viewsourcecode.png[]
+image::viewsourcecode.png[vps]
 
 Una vez desplegado el código fuente, debemos prestar especial atención al script
 contenido en la línea 41:
 
 .script JS (jQuery) contenido en el reto de nivel 3
-image::script-level3.png[]
+image::script-level3.png[jquery]
 
 Trataré de explicar el anterior script de jQuery de la manera más clara y sobre
 todo, más sencilla posible:
@@ -90,7 +90,7 @@ un mensaje de alerta con el texto: "Incorrect login". A continuación, se presen
 una imagen gif ilustrando el procedimiento descrito anteriormente:
 
 .hackthis: animación y solución al reto MAIN 3
-image::main3.gif[]
+image::main3.gif[solucion]
 
 Por lo anterior, podemos resaltar que almacenar información _sensible_ o
 confidencial en cualquier lugar del código fuente de un sitio web, es considerado

@@ -33,7 +33,7 @@ Este reto consiste en dos pasos:
 El primer paso consiste en detectar la vulnerabilidad y explotarla, la página
 web del reto se nos presenta de la siguiente manera:
 
-image::error.png[]
+image::error.png[reto]
 .*_Figura1: Vulnerabilidad detectada_*
 
 [quote]
@@ -56,7 +56,7 @@ tiene acceso 213.75.238.147.
 
 Y efectivamente penetramos el sitio web y pasamos al segundo paso de este reto.
 
-image::solucion.png[]
+image::solucion.png[solucion]
 .*_Figura2: Segundo paso del reto_*
 
 Como se ve en la Figura2 se da click en link Proceed para proceder, pero 
@@ -67,7 +67,7 @@ la url en cuestión https://net-force.nl/challenge/level402/auth.php
 [quote]
 curl -I https://net-force.nl/challenge/level402/auth.php
 
-image::curl.png[]
+image::curl.png[curl]
 .*_Figura3: Utilizando curl_*
 
 En la Figura3 se ve claramente el protocolo, tipo de servidor, tipo de 

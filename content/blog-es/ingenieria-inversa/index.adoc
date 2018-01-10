@@ -39,7 +39,7 @@ desarrollen aplicaciones “open source” (de código abierto) que compiten con
 aplicaciones y programas privados, por ejemplo el software OpenOffice compite 
 con el Microsoft Office, y el sistema operativo Linux compite con Windows.
 
-image::inversa.png[]
+image::inversa.png[inversa]
 .*_John Schreiner – https://illustrationonline.com/[IlustrationOnline]_*
 
 La comunidad de software libre se ha transformado en todo un movimiento 
@@ -66,7 +66,7 @@ es un programa privado, al cual le debemos hacer ingeniería inversa para
 extraerle información. Nos indican que la contraseña para pasar de nivel está 
 en una imagen BMP (imagen de mapa de bits) que se encuentra dentro del programa.
 
-image::challenge.png[]
+image::challenge.png[reto]
 .*_Reto Reversing – http://challengeland.co/[Challengeland]_*
 
 Vamos a utilizar un software gratuito que se encuentra en internet, el 
@@ -79,7 +79,7 @@ Filename/Wildcard ponemos nuestro ejecutable y en el campo Destination Folder,
 la carpeta donde queremos encontrar nuestros archivos extraídos, también es 
 posible seleccionar también los recursos que deseamos extraer del ejecutable.
 
-image::reverse-tool.png[]
+image::reverse-tool.png[tool]
 .*_Herramienta de ingeniería inversa – Resource-Extract_*
 
 Pulsamos el botón Start y el software empezará a extraer todos los recursos que 

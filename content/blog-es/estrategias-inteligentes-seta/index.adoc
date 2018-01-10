@@ -39,7 +39,7 @@ del flujo, enfocando todos los recursos y esfuerzos a mejorar o reforzar otras
 áreas del negocio.
 
 .Pilares de las organizaciones modernas
-image::pilares.png[]
+image::pilares.png[pilar]
 
 Dicho el ¿Que?. Ahora debemos conocer las diferencias entre cada una de las 
 metodologías y su enfoque pues muchos programas de seguridad fallan por no 
@@ -72,7 +72,7 @@ y puedan formular simples respuestas y su aprendizaje se da por medios sociales
 como el uso de campañas de creación de cultura.
 
 .Ejemplo de campañas de concienciación
-image::ejemplo.png[]
+image::ejemplo.png[campaña]
 
 == Causas principales de fracaso: el comportamiento y la cultura de cambio
 
@@ -96,7 +96,7 @@ muchas de las amenazas de seguridad que involucran al talento humano como los es
 la ingeniería social y los fallos por errores o negligencias.
 
 .Encuesta sobre la frecuencia con que los empleados reciben entrenamiento sobre amenazas de seguridad en las organizaciones: https://www.mimecast.com/[Mimecast]
-image::encuesta.png[]
+image::encuesta.png[encuesta]
 
 La anterior es una encuesta llevada a cabo en el Reino Unido sobre la frecuencia 
 con que los empleados reciben entrenamiento sobre algunas amenazas de seguridad 

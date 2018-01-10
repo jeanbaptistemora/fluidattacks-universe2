@@ -21,7 +21,7 @@ En teoría el humano y no el robot es capaz de identificar el texto de la imagen
 distorsionada.
 
 .Captcha de Wikipedia "smwm"
-image::ejm.png[]
+image::ejm.png[catpcha]
 
 == Captchas y seguridad
 
@@ -52,7 +52,7 @@ EL captcha del reto, es una imagen con un texto de alrededor de 10 caracteres,
 el cual es generado aleatoriamente, además se encuentra rotado:
 
 .Captcha del reto
-image::img1.png[]
+image::img1.png[reto]
 
 El objetivo del reto es enviar el texto de la imagen en un lapso no mayor a *3*
 segundos.
@@ -105,7 +105,7 @@ dst_im.save('cap.png')
 *Nota:* La imagen derecha quedaría:
 
 .Imagen rotada
-image::img2.png[]
+image::img2.png[rotacion]
 
 5.Se abre esta imagen y se transforma a texto con la ayuda de la librería
 pytesser (esta librería debe estar disponible en la carpeta de este código):

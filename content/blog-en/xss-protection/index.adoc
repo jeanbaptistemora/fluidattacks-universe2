@@ -41,7 +41,7 @@ http://halls-of-valhalla.org/beta/challenges[Halls of Valhalla].
 Our task here is to perform an XSS injection with alert(1). The JavaScript
 alert(1) method generates a pop up alert window with 1 as a the alert message.
 
-image::image1.png[]
+image::image1.png[challenge]
 .*_Figure 1: Challenge XSS4 on halls-of-valhalla.org_*
 
 In this challenge we are presented with an input in which we can submit a
@@ -50,7 +50,7 @@ the source code for the function that displays my message. This function is
 written in PHP. First we need to go through the source code and understand what
 it is doing. Once we have done this we can look for possible vulnerabilities.
 
-image::image2.png[]
+image::image2.png[message]
 .*_Figure 2: Display message function source code_*
 
 From the code we see a conditional check. The if statement checks the return
@@ -86,7 +86,7 @@ method has a common and well known vulnerability. Since the method needs to
 identify the "<" and ">" symbols in order to know what to delete, we need to
 inject our script without the use of these symbols.
 
-image::image3.png[]
+image::image3.png[xss]
 .*_Figure 3: Can you say XSS_*
 
 Note that in the echo message, one of the input strings, $title, is used inside
@@ -103,13 +103,13 @@ other attribute. We can't forget about the closing single quote, when adding
 the attribute we need to leave the quotes open in order to use the single quote
 added by the HTML tag and therefore maintain a valid syntax.
 
-image::image4.png[]
+image::image4.png[event]
 .*_Figure 4: Event: onmouseover='alert(1)'_*
 
 Know that we have successfully posted our message containing the injection, all
 we need to do to test it out is trigger the onmouseover event.
 
-image::image5.png[]
+image::image5.png[xss-protection]
 .*_Figure 5: There goes your XSS protection_*
 
 Once we place the mouse pointer over our message we can see we get the alert 1

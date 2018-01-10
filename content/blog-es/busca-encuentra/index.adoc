@@ -37,12 +37,12 @@ del sitio en cuestión. Una vez registrados en hackthis, podremos acceder a todo
 los retos disponibles:
 
 .hackthis: los 10 niveles de la categoría MAIN
-image::levels.png[]
+image::levels.png[retos]
 
 == Reto: Main Level 1
 
 .hackthis: nivel 1 de la categoría MAIN
-image::level1.png[]
+image::level1.png[reto-1]
 
 Como se aprecia en la anterior imagen, este reto solicita credenciales de acceso
 válidas tanto para el usuario como su contraseña. Para este nivel básico,
@@ -58,7 +58,7 @@ diendo del navegador utilizado y el idioma en el que está configurado tu sistem
 operativo), tal como se muestra en la siguiente imagen:
 
 .uso de la herramienta View Page Source
-image::viewsourcecode.png[]
+image::viewsourcecode.png[vps]
 
 Una vez realizada dicha acción, se despliega una nueva pestaña en el navegador
 donde podrás ver todo el html, CSS y JS que componen la página web. La línea que
@@ -68,7 +68,7 @@ trados por el navegador) el cual contiene las credenciales de acceso válidas pa
 ra el reto:
 
 .hackthis: solución al reto MAIN 1
-image::level1answer.png[]
+image::level1answer.png[solucion-1]
 
 Con esto, sólo basta ingresar las credenciales *in* y *out* en los campos Username
 y Password respectivamente para resolver el reto.
@@ -76,7 +76,7 @@ y Password respectivamente para resolver el reto.
 == Reto: Main Level 2
 
 .hackthis: nivel 2 de la categoría MAIN
-image::level2.png[]
+image::level2.png[reto-2]
 
 Al igual que el primer reto, en este se solicita ingresar credenciales válidas
 para un determinado usuario. Pero esta vez, haremos uso de una nueva herramienta
@@ -88,7 +88,7 @@ Una vez desplegada la herramienta, busca la siguiente línea dentro de las
 etiquetas html:
 
 .hackthis: solución al reto MAIN 2
-image::level2answer.png[]
+image::level2answer.png[solucion-2]
 
 Debemos prestar especial atención al contenido entre las dos etiquetas *<span>*
 y *</span>*, como se aprecia en la imagen, la primera contiene el valor: _resu_
@@ -99,7 +99,7 @@ siste en resaltar el texto oculto a la derecha de las palabras "Username" y
 "Password" tal como se aprecia a continuación:
 
 .hackthis: solución al reto MAIN 2 (tercer solución)
-image::union.png[]
+image::union.png[solucion-3]
 
 La cuarta forma, consiste en cambiar el valor #*00000* (que corresponde al color
 negro en RGB-Red,Green,Blue) de las dos etiquetas span por un valor visible en
@@ -108,12 +108,12 @@ la herramienta _Inspect Element_. Al hacer esto, podemos ver que los cambios se
 reflejan de manera instantánea en el navegador:
 
 .hackthis: solución al reto MAIN 2 (cuarta solución)
-image::level2answer4.png[]
+image::level2answer4.png[solucion-4]
 
 == Reto: Main Level 6
 
 .hackthis: nivel 6 de la categoría MAIN
-image::level6.png[]
+image::level6.png[reto-3]
 
 En esta ocasión, se solicita ingresar con el usuario *Ronald*, el cual, no se
 encuentra disponible entre las opciones por defecto. Sin embargo, podemos jugar
@@ -121,13 +121,13 @@ nuevamente con las etiquetas html que conforman la página web (presionando f12)
 y agregar la opción _Ronald_ dentro de la etiqueta *<select>*:
 
 .Agregando la opción "Ronald" dentro de la etiqueta option
-image::level6answer1.png[]
+image::level6answer1.png[etiqueta]
 
 Con esto, ya podremos seleccionar el usuario Ronald entre las opciones des-
 plegables y por lo tanto, resolver el reto:
 
 .hackthis: solución al reto MAIN 6
-image::level6answer2.png[]
+image::level6answer2.png[solucion-5]
 
 Existe una segunda solución, la cual, a mi parecer es más "elegante" e "intere-
 sante", pero que requiere algunos conocimientos básicos en cuanto al uso de JS.
@@ -139,7 +139,7 @@ permite ejecutar código JS y ver los cambios reflejados en el navegador de
 manera instantánea:
 
 .uso de la herramienta scratchpad
-image::scratchpad.png[]
+image::scratchpad.png[scratchpad]
 
 Una vez, deplegada la herramienta, procedemos a ejecutar el siguiente script de JS:
 
@@ -156,7 +156,7 @@ blecer el texto que será desplegado por el navegador dentro del menú desplegab
 Una vez descrito el script, procedemos a ejecutarlo pulsando en en botón _Run_:
 
 .ejecutando código JS en scratchpad
-image::script.png[]
+image::script.png[js]
 
 Al regresar a la página del reto, la segunda opción contiene el valor de _Ronald_
 y podremos resolver el reto.
