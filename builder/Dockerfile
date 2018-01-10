@@ -22,7 +22,7 @@ RUN apt-get -y update && \
   curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - && \
   echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list && \
   apt-get update && apt-get install -y yarn && \
-  yarn add jquery && yarn add bootstrap && yarn add uglify-js && \
+  yarn install && \
   export PATH=$PATH:/app/node_modules/uglify-js/bin && \
   mkdir pelican-plugins && cd pelican-plugins && \
   git init && git remote add origin https://github.com/getpelican/pelican-plugins.git && \
