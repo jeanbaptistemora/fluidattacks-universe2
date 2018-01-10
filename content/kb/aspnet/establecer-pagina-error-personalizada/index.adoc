@@ -11,15 +11,22 @@ Establecer página personalizada de error en ASP
 
 == Contexto
 
-A continuación se describe las circunstancias bajo las cuales la siguiente solución tiene sentido:
+A continuación se describe las circunstancias 
+bajo las cuales la siguiente solución tiene sentido:
 
-* Se tiene una aplicación cuyo código fuente es en ASP .NET
+* Se tiene una aplicación 
+cuyo código fuente es en ASP .NET
 
-* Se desea personalizar los errores que aparecen en la aplicación para asegurar que no haya fuga de información.
+* Se desea personalizar los errores 
+que aparecen en la aplicación 
+para asegurar 
+que no haya fuga de información.
 
 == Solución
 
-. En el archivo _Web.Config_ en la sección _system.web_ verificar que la propiedad _customErrors_ sea de la siguiente forma:
+. En el archivo _Web.Config_ 
+en la sección _system.web_ verificar 
+que la propiedad _customErrors_ sea de la siguiente forma:
 
 [source,xml,linenums]
 ----
