@@ -14,9 +14,10 @@ RUN apt-get -y update && \
   apt-get install -y --no-install-recommends asciidoc && \
   pip install -r requirements.txt && \
   gem install sass && \
-  curl -Lo TipueSearch.zip  http://www.tipue.com/search/tipuesearch.zip && \
-  unzip -j TipueSearch.zip '*/*/tipuesearch.js' -x '*/*/*/*' -d ./js/ && \
-  unzip -j TipueSearch.zip '*/*/tipuesearch_set.js' -x '*/*/*/*' -d ./js/ && \
+  mkdir js && cd js && \
+  git init && git remote add https://github.com/Tipue/Tipue-Search.git && \
+  git config core.sparsecheckout && cat js-files >> .git/info/sparse-checkout && \
+  git pull origin master && git reset --hard  e14a5b6 && cd ../ && \
   curl -sL https://deb.nodesource.com/setup_9.x | bash - && apt-get install -y nodejs && \
   curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - && \
   echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list && \

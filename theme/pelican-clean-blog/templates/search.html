@@ -3,7 +3,7 @@
 
 {% block header %}
     <!-- Search PLugin -->
-    {% assets filters="uglifyjs", output="static/js/tipuesearch.min.js", "/app/js/tipuesearch.js", "/app/js/tipuesearch_set.js" %}
+    {% assets filters="uglifyjs", output="static/js/tipuesearch.min.js", "/app/js/tipuesearch/tipuesearch.js", "/app/js/tipuesearch/tipuesearch_set.js" %}
       <script src="{{ SITEURL }}/{{ ASSET_URL }}"></script>
     {% endassets%}
     <!-- Page Header -->
