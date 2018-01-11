@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2018-01-10 17:57-0500\n"
+"POT-Creation-Date: 2018-01-11 09:13-0500\n"
 "PO-Revision-Date: 2017-12-21 15:09-0500\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: es\n"
@@ -372,8 +372,8 @@ msgid "Application"
 msgstr "Aplicación"
 
 #: templates/index.html:15
-msgid "FLUID header image"
-msgstr "Imagen de cabecera de FLUID"
+msgid "Young hacker smiling"
+msgstr "Joven hacker sonriendo"
 
 #: templates/index.html:29 templates/index.html:67 templates/index.html:106
 #: templates/index.html:150 templates/index.html:188

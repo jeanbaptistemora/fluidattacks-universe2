@@ -12,7 +12,7 @@
     <header class="intro-header" style="background-color: {{ HEADER_COLOR }}">
   {% else %}
     <header class="intro-header"> <!--style="background-image: url('{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/fluid.png');" >-->
-    <a href="{{ SITEURL }}/"><img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/fluid.png" alt="{{ gettext('FLUID header image') }}"></a>
+    <a href="{{ SITEURL }}/"><img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/fluid.png" alt="{{ gettext('Young hacker smiling') }}"></a>
   {% endif %}   
     </header>
 {% endblock header %}
@@ -26,7 +26,7 @@
             <tr><td class="tdview">            
               <div class="post-preview">           
                 {% if  article.featured_image %}            
-                  <img src="{{ SITEURL }}/blog/{{ article.slug }}{{ article.featured_image }}" alt="{{ gettext('Featured image of the article') }} {{ article. title }}" class="{{ loop.index }}">
+                  <img src="{{ SITEURL }}/blog/{{ article.slug }}{{ article.featured_image }}" alt="{{ gettext('Featured image of the article') }} {{ article. title }}">
                 {% endif %}
                 <a href="{{ SITEURL }}/{{ article.url }}" rel="bookmark" title="Permalink to {{ article.title|striptags }}">
                 <h2 id="{{ gettext('article') }}{{ loop.index }}" class="post-title">
@@ -64,7 +64,7 @@
             <td class="tdview">
               <div class="post-preview">
                 {% if  article.featured_image %}            
-                  <img src="{{ SITEURL }}/blog/{{ article.slug }}{{ article.featured_image }}" alt="{{ gettext('Featured image of the article') }} {{ article. title }}" class="{{ loop.index }}">
+                  <img src="{{ SITEURL }}/blog/{{ article.slug }}{{ article.featured_image }}" alt="{{ gettext('Featured image of the article') }} {{ article. title }}">
                 {% endif %}
                 <a href="{{ SITEURL }}/{{ article.url }}" rel="bookmark" title="Permalink to {{ article.title|striptags }}">
                 <h2 id="{{ gettext('article') }}{{ loop.index }}" class="post-title">
@@ -103,7 +103,7 @@
           <td class="tdview">
             <div class="post-preview">
               {% if  article.featured_image %}            
-                <img src="{{ SITEURL }}/blog/{{ article.slug }}{{ article.featured_image }}" alt="{{ gettext('Featured image of the article') }} {{ article. title }}" class="{{ loop.index }}">
+                <img src="{{ SITEURL }}/blog/{{ article.slug }}{{ article.featured_image }}" alt="{{ gettext('Featured image of the article') }} {{ article. title }}">
               {% endif %}
               <a href="{{ SITEURL }}/{{ article.url }}" rel="bookmark" title="Permalink to {{ article.title|striptags }}">
               <h2 id="{{ gettext('article') }}{{ loop.index }}" class="post-title">
