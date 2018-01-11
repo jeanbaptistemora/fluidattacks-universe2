@@ -286,7 +286,7 @@ def get_finding(request):
     submission_id = request.POST.get('id', "")
     finding = catch_finding(request, submission_id)
     if finding:
-        return util.response(finding, 'Success', False) 
+        return util.response(finding, 'Success', False)
     return util.response([], 'Wrong', True)
 
 @never_cache
@@ -311,7 +311,7 @@ def get_findings(request):
         finding = catch_finding(request, submission_id["id"])
         if finding['proyecto_fluid'].lower() == project.lower():
             findings.append(finding)
-    return util.response(findings, 'Success', False)    
+    return util.response(findings, 'Success', False)
 
 def catch_finding(request, submission_id):
     finding = []
@@ -359,7 +359,7 @@ def catch_finding(request, submission_id):
                 )
                 finding_date = finding_date.replace(tzinfo=tzn).date()
                 final_date = (datetime.now(tz=tzn).date() - finding_date)
-                finding['edad'] = ":n".replace(":n", str(final_date.days))    
+                finding['edad'] = ":n".replace(":n", str(final_date.days))
             return finding
     else:
         return None
@@ -595,6 +595,7 @@ def finding_solved(request):
         to = [x[0] for x in recipients]
         to.append('concurrent@fluid.la')
         to.append('projects@fluid.la')
+        to.append('ralvarez@fluid.la')
         context = {
            'project': parameters['data[project]'],
            'finding_name': parameters['data[finding_name]'],
@@ -638,9 +639,9 @@ def add_comment(request):
     submission_id = request.POST.get('id', "")
     data = request.POST.dict()
     data["data[created]"] = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-    data["data[modified]"] = datetime.now().strftime('%Y-%m-%d %H:%M:%S')    
+    data["data[modified]"] = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
     email = request.session["username"]
-    data["data[fullname]"] = request.session["first_name"] + " " + request.session["last_name"] 
+    data["data[fullname]"] = request.session["first_name"] + " " + request.session["last_name"]
     comment = integrates_dao.create_comment_dynamo(int(submission_id), email, data)
     if not comment:
         return util.response([], 'Error', True)
@@ -651,10 +652,10 @@ def add_comment(request):
 @authorize(['analyst', 'customer'])
 def update_comment(request):
     submission_id = request.POST.get('id', "")
-    data = request.POST.dict()   
+    data = request.POST.dict()
     data["data[modified]"] = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-    data["data[fullname]"] = request.session["first_name"] + " " + request.session["last_name"] 
-    comment = integrates_dao.update_comment_dynamo(int(submission_id), data) 
+    data["data[fullname]"] = request.session["first_name"] + " " + request.session["last_name"]
+    comment = integrates_dao.update_comment_dynamo(int(submission_id), data)
     if not comment:
         return util.response([], 'Error', True)
     return util.response([], 'Success', False)
@@ -664,7 +665,7 @@ def update_comment(request):
 @authorize(['analyst', 'customer'])
 def delete_comment(request):
     submission_id = request.POST.get('id', "")
-    data = request.POST.dict()   
+    data = request.POST.dict()
     comment = integrates_dao.delete_comment_dynamo(int(submission_id), data)
     if not comment:
         return util.response([], 'Error', True)
