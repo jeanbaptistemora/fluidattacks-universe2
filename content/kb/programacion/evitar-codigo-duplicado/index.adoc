@@ -1,0 +1,47 @@
+:slug: kb/programacion/evitar-codigo-duplicado/
+:eth: no
+:category: programacion
+:kb: yes
+
+= Evitar Código Fuente Duplicado
+
+== Necesidad
+
+Evitar código fuente duplicado
+
+== Contexto
+
+A continuación se describen las circunstancias bajo las cuales la siguiente 
+solución tiene sentido:
+
+. Se utiliza un lenguaje de programación.
+. Se desea evitar código repetido.
+
+== Solución
+
+. El termino código duplicado es utilizado para hacer referencia a las 
+secuencias de código fuente que ocurren más de una vez dentro de un mismo 
+programa. El código duplicado es considerado generalmente una mala práctica por 
+varias razones.
+
+. Algunos de los problemas específicos de duplicar código son:
+* Afecta la comprensión del sistema: Al tener que leer secciones de código más 
+largo y repetido, se hará más difícil la comprensión del código.
+* Problemas durante actualizaciones o cambios: Cuando se tiene código duplicado 
+y es necesario realizar una actualización o modificación de este, el tiempo de 
+prueba y de desarrollo se aumentará, y en el peor caso, se podrá olvidar 
+actualizar alguno de los códigos duplicados.
+* Tamaño del archivo y compilado final: Al duplicar el código el tamaño del 
+archivo y del compilado va a ser más grande que si en su lugar se reutilizara 
+código.
+
+. En lugar de repetir el código se debe utilizar alguna de las siguientes
+opciones:
+* Sub-rutinas, procedimientos, métodos.
+* Bibliotecas.
+
+== Referencias
+
+. https://es.wikipedia.org/wiki/C%C3%B3digo_duplicado[Código duplicado]
+. REQ.0157: El código fuente no debe tener funciones, métodos o clases 
+repetidas.
