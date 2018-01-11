@@ -3,6 +3,7 @@
 :category: retos
 :tags: sqli, database, reto, solucionar
 :Image: database.png
+:alt: Red de computadores usando diferentes bases de datos conectadas al mundo
 :author: Francisco Bernal
 :writer: pacho
 :name: Francisco Bernal Baquero

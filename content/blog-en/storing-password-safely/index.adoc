@@ -3,6 +3,7 @@
 :category: challenges
 :tags: password, security, challenge
 :Image: storing-password-safely.png
+:alt: Magnifying glass finding password in a set of binary data
 :author: Jonathan Armas
 :writer: johna
 :name: Jonathan Armas

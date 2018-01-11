@@ -3,6 +3,7 @@
 :category: opiniones-de-seguridad
 :tags: invertir, seguridad, información
 :Image: information-security-expense-investment.png
+:alt: Teclado con una tecla roja que dice INFORMATION SECURITY
 :author: Camilo Cardona
 :writer: camiloc
 :name: Camilo Cardona

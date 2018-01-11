@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2018-01-11 09:13-0500\n"
+"POT-Creation-Date: 2018-01-11 09:26-0500\n"
 "PO-Revision-Date: 2017-12-21 15:09-0500\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: es\n"
@@ -374,11 +374,6 @@ msgstr "Aplicación"
 #: templates/index.html:15
 msgid "Young hacker smiling"
 msgstr "Joven hacker sonriendo"
-
-#: templates/index.html:29 templates/index.html:67 templates/index.html:106
-#: templates/index.html:150 templates/index.html:188
-msgid "Featured image of the article"
-msgstr "Imagen representativa del artículo"
 
 #: templates/index.html:32 templates/index.html:70 templates/index.html:109
 #: templates/index.html:153 templates/index.html:191

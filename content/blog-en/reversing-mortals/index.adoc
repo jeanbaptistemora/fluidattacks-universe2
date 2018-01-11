@@ -3,6 +3,7 @@
 :category: challenges
 :tags: revert, challenge, engineering
 :Image: reversing-mortals.png
+:alt: Yellow puzzle missing one piece, shown in red
 :author: Juan Aguirre
 :writer: juanes
 :name: Juan Esteban Aguirre González

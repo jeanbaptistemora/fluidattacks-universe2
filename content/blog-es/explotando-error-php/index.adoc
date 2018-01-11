@@ -3,6 +3,7 @@
 :category: retos
 :tags: php, atacar, reto, solucionar
 :Image: php-exploitation.png
+:alt: Datos hexadecimales con un candado y las letras PHP
 :author: Alejandro Aguirre
 :writer: alejoa
 :name: Alejandro Aguirre Soto

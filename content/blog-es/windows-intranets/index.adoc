@@ -4,6 +4,7 @@
 :category: opiniones-de-seguridad
 :tags: intranet, iwa, windows
 :Image: iwa.png
+:alt: Diagrama con flechas que muestran la interacción usuario-servidor
 :writer: jhony
 :name: Jhony Arbey Villa Peña
 :about1: Ingeniero en Sistemas.

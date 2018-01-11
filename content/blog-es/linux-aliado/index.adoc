@@ -3,6 +3,7 @@
 :category: opiniones-de-seguridad
 :tags: linux, probar, versión
 :Image: linux.png
+:alt: Tarjeta electrónica con un botón central con el símbolo de Linux
 :author: Francisco Bernal
 :writer: pacho
 :name: Francisco Bernal Baquero

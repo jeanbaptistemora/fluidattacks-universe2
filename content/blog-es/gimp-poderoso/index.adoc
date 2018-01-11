@@ -3,6 +3,7 @@
 :category: retos
 :tags: solucionar, reto, herramienta, ocultar
 :Image: gimp-preview.png
+:alt: Ícono de GIMP, un zorro con un pincel en la boca
 :author: Alejandro Aguirre
 :writer: alejoa
 :name: Alejandro Aguirre Soto

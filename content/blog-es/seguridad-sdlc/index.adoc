@@ -3,6 +3,7 @@
 :category: opiniones-de-seguridad
 :tags: devops, sdlc, programar
 :Image: sdlc.png
+:alt: Flechas con las diferentes etapas del SDLC formando un círculo
 :author: Paula Velez
 :writer: paulav
 :name: Paula Velez

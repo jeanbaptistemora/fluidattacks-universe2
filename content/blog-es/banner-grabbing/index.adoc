@@ -3,6 +3,7 @@
 :category: retos
 :tags: información, herramienta, reto, solucionar
 :Image: banner.png
+:alt: Página de resultados luego de hacer una búsqueda
 :author: Camilo Cardona
 :writer: camiloc
 :name: Camilo Cardona

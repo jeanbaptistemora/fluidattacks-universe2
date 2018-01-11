@@ -3,6 +3,7 @@
 :category: opiniones-de-seguridad
 :tags: proteger, seguridad, dispositivo, amenaza
 :Image: moviles.png
+:alt: Celulares y tabletas apilados entre sí
 :author: Jhony Villa
 :writer: jhony
 :name: Jhony Arbey Villa Peña

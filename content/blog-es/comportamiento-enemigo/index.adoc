@@ -2,7 +2,8 @@
 :date: 2016-11-08
 :category: opiniones-de-seguridad
 :tags: atacar, rsa, seguridad
-:Image: 1.png
+:Image: comportamiento-enemigo.png
+:alt: Persona mitad-ángel mitad-demonio sosteniendo una bolsa de dinero
 :author: Paula Velez
 :writer: paulav
 :name: Paula Velez

@@ -4,6 +4,7 @@
 :author: Luis Arteaga
 :tags: solucionar, browser, reto
 :Image: htmlcode.png
+:alt: Snippet de código en HTML
 :writer: stiwar
 :name: Luis Arteaga
 :about1: Ingeniero en Electrónica y Telecomunicaciones.

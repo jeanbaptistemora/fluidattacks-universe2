@@ -3,6 +3,7 @@
 :category: opiniones-de-seguridad
 :tags: rto, rpo, proteger
 :Image: rto-rpo.png
+:alt: Línea de tiempo entre la transición RTO a RPO luego de incidente
 :author: Ivan Velez
 :writer: ivanv
 :name: Ivan Velez

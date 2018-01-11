@@ -3,6 +3,7 @@
 :category: security-opinions
 :tags: web, security, information
 :Image: identity.png
+:alt: Line of Lego stormtroopers with one facing the opposite direction
 :author: Juan Aguirre
 :writer: juanes
 :name: Juan Esteban Aguirre González

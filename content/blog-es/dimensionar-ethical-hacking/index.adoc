@@ -3,6 +3,7 @@
 :category: opiniones-de-seguridad
 :tags: Ethical Hacking, Pentesting, Pruebas de seguridad
 :Image: dimensionar-ethical-hacking.png
+:alt: Persona trabajando en el computador, viendo el celular
 :author: Felipe Gómez
 :writer: fgomez
 :name: Felipe Gomez Arango

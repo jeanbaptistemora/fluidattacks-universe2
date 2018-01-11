@@ -3,6 +3,7 @@
 :category: opiniones-de-seguridad
 :tags: actualizar, seguridad, versión
 :Image: parchear.png
+:alt: Computador conectado a la palabra UPDATE
 :author: Juan Jaramillo
 :writer: juanj
 :name: Juan Jaramillo

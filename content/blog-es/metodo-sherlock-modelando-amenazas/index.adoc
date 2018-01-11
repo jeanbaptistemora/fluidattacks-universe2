@@ -3,6 +3,7 @@
 :category: opiniones-de-seguridad
 :tags: sdlc, modelar, amenaza, concientizar
 :Image: sherlock.png
+:alt: Diagrama de bloques mostrando el proceso de modelado de amenazas
 :author: Camilo Cardona
 :writer: camiloc
 :name: Camilo Cardona

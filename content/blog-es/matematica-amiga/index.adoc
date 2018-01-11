@@ -3,6 +3,7 @@
 :category: retos
 :tags: matemática, solucionar, programar, reto
 :Image: maths-friend.png
+:alt: Fórmulas trigonométricas
 :author: Camilo Cardona
 :writer: camiloc
 :name: Camilo Cardona

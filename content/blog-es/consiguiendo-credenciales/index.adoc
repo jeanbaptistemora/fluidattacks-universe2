@@ -3,6 +3,7 @@
 :category: retos
 :tags: database, sqli, reto, solucionar
 :Image: credenciales.png
+:alt: Jeringa desbloqueando una base de datos
 :author: Alejandro Aguirre
 :writer: alejoa
 :name: Alejandro Aguirre Soto

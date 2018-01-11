@@ -3,6 +3,7 @@
 :category: retos
 :tags: matematica, reto, solucionar
 :Image: division.png
+:alt: Monedas con números de diferentes colores
 :author: Alejandro Aguirre
 :writer: alejoa
 :name: Alejandro Aguirre Soto

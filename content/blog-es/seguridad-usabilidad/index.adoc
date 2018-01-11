@@ -3,6 +3,7 @@
 :category: opiniones-de-seguridad
 :tags: seguridad, usabilidad, concientizar
 :Image: security.png
+:alt: Caricatura acerca de políticas de seguridad
 :author: Camilo Cardona
 :writer: camiloc
 :name: Camilo Cardona

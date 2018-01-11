@@ -3,6 +3,7 @@
 :category: opiniones-de-seguridad
 :tags: seguridad, monitorear, red, herramienta
 :Image: wireshark.jpeg
+:alt: Una señal que se combina con el símbolo de Wireshark
 :author: Francisco Bernal
 :writer: pacho
 :name: Francisco Bernal Baquero

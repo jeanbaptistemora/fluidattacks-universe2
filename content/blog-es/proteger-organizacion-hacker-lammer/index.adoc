@@ -3,6 +3,7 @@
 :category: opiniones-de-seguridad
 :tags: seguridad, proteger, información
 :Image: lamers.png
+:alt: Manos tecleando en un editor de texto
 :author: Felipe Gómez
 :writer: fgomez
 :name: Felipe Gomez Arango

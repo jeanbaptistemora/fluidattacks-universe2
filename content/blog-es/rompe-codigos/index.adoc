@@ -3,6 +3,7 @@
 :category: opiniones-de-seguridad
 :tags: cifrar, criptografía, reto, solucionar
 :Image: rompe-codigos.png
+:alt: Llave con un set de datos hexadecimales detrás de ella
 :author: Camilo Cardona
 :writer: camiloc
 :name: Camilo Cardona

@@ -3,6 +3,7 @@
 :category: security-opinions
 :tags: security, information, jwt
 :Image: proud-son.png
+:alt: Text editor with code highlighting
 :author: Juan Aguirre
 :writer: juanes
 :name: Juan Esteban Aguirre González

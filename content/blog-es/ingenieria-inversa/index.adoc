@@ -3,6 +3,7 @@
 :category: retos
 :tags: reto, revertir, ingeniería, solucionar
 :Image: inversa.png
+:alt: Pingüino de Linux visto a través de Rayos-X
 :author: Alejandro Aguirre
 :writer: alejoa
 :name: Alejandro Aguirre Soto

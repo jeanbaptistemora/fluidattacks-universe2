@@ -4,6 +4,7 @@
 :author: Luis Arteaga
 :tags: solucionar, browser, reto
 :Image: html-search.png
+:alt: Lupa investigando un código HTML
 :writer: stiwar
 :name: Luis Arteaga
 :about1: Ingeniero en Electrónica y Telecomunicaciones.

@@ -3,6 +3,7 @@
 :category: opiniones-de-seguridad
 :tags: web, seguridad, información
 :Image: pagina.png
+:alt: Teclado con una letra roja que dice GET ME OUT OF HERE
 :author: Francisco Bernal
 :writer: pacho
 :name: Francisco Bernal Baquero

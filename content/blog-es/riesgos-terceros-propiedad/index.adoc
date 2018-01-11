@@ -3,6 +3,7 @@
 :category: opiniones-de-seguridad
 :tags: sdlc, software, seguridad
 :Image: risks-third-parties.png
+:alt: Empresario con un holograma de servicios de red protegidos
 :author: Paula Velez
 :writer: paulav
 :name: Paula Velez

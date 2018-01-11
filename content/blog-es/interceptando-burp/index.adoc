@@ -3,6 +3,7 @@
 :category: opiniones-de-seguridad
 :tags: herramienta, proxy, interceptar
 :Image: burp-intercept.png
+:alt: Imagen de inicio del programa Burp
 :author: Alejandro Aguirre
 :writer: alejoa
 :name: Alejandro Aguirre Soto

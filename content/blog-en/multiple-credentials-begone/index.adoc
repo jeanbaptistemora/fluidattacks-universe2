@@ -3,6 +3,7 @@
 :category: security-opinions
 :tags: security, credential, saml, standard
 :Image: multiple-credentials.png
+:alt: Several boxes prompting for username and password
 :author: Juan Aguirre
 :writer: juanes
 :name: Juan Esteban Aguirre González

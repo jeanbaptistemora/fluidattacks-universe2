@@ -3,6 +3,7 @@
 :category: opiniones-de-seguridad
 :tags: seguridad, password, atacar
 :Image: default-password.png
+:alt: Símbolo de prohibición sobre la contraseña por defecto
 :author: Camilo Cardona
 :writer: camiloc
 :name: Camilo Cardona

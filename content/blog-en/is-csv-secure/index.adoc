@@ -3,6 +3,7 @@
 :category: security-opinions
 :tags: security, csv, code, web
 :Image: csv.png
+:alt: Blank CSV document icon
 :author: Jonathan Armas
 :writer: johna
 :name: Jonathan Armas

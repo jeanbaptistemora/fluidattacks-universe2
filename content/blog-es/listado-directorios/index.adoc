@@ -4,6 +4,7 @@
 :category: retos
 :tags: configurar, indexof, reto
 :Image: indexof.png
+:alt: Archivador de documentos con etiquetas por letra
 :writer: jhony
 :name: Jhony Arbey Villa Peña
 :about1: Ingeniero en Sistemas.

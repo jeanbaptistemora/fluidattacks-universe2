@@ -3,6 +3,7 @@
 :category: opiniones-de-seguridad
 :tags: probar, software, funcionalidad
 :Image: disculpe-senor.png
+:alt: Lupa buscando insectos(bugs) en un monitor
 :author: Jhony Villa
 :writer: jhony
 :name: Jhony Arbey Villa Peña

@@ -3,6 +3,7 @@
 :category: opiniones-de-seguridad
 :tags: concientizar, ingeniería, social, amenaza
 :Image: ingenieriasocial.png
+:alt: Mano manejando una marioneta que está interactuando con otras marionetas
 :author: Jhony Villa
 :writer: jhony
 :name: Jhony Arbey Villa Peña

@@ -3,6 +3,7 @@
 :category: security-opinions
 :tags: security, test, software
 :Image: sym-exec.png
+:alt: Doll using a magnifying glass while searching through a set of data
 :author: Juan Aguirre
 :writer: juanes
 :name: Juan Esteban Aguirre González

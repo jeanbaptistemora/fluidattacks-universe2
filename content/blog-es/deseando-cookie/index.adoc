@@ -3,6 +3,7 @@
 :category: opiniones-de-seguridad
 :tags: seguridad, sesión, cookie, proteger
 :Image: cookie.png
+:alt: Tres galletas con chips de chocolate
 :author: Paula Velez
 :writer: paulav
 :name: Paula Velez

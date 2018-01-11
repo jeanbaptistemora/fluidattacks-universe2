@@ -3,6 +3,7 @@
 :category: retos
 :tags: binario, reto, programar
 :Image: contando-unos.png
+:alt: Colección de datos binarios, mostrados en verde
 :author: Alejandro Aguirre
 :writer: alejoa
 :name: Alejandro Aguirre Soto

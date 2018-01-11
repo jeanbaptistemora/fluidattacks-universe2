@@ -3,6 +3,7 @@
 :category: challenges
 :tags: pythagoras, code, challenge, solve
 :Image: triangles.png
+:alt: Pyramids in the desert
 :author: Jonathan Armas
 :writer: johna
 :name: Jonathan Armas
