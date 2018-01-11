@@ -54,4 +54,7 @@ if pcregrep -M -n -r --include='\.adoc$' '^= .*\n\n.*^= .*\n\n' content; then ec
 # Check double quotes are not used in the title
 if pcregrep --color -nr --include='\.adoc' '^= [A-Z].*\"' content; then echo -e "${GC}ERRORES: No usar comillas dobles \" en el título.${NC}"; ERRORS=1;fi
 
+# Check that blog articles have alt description for their featured images
+if pcregrep --color -Lnr --include='\.adoc' '^:alt:.*' content/blog*; then echo -e "${GC}ERRORES: Los artículos deben llevar meta-descripción \"alt\" para su imagen representativa${NC}"; ERRORS=1;fi
+
 exit $ERRORS
