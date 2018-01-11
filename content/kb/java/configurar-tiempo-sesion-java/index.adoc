@@ -1,0 +1,63 @@
+:slug: kb/java/configurar-tiempo-sesion-java/
+:eth: no
+:category: java
+:kb: yes
+
+= Configurar Tiempo de Sesión
+
+== Necesidad
+
+Configurar tiempo de vida de la sesión en Java EE.
+
+== Contexto
+
+A continuación se describen las circunstancias bajo las cuales la siguiente 
+solución tiene sentido:
+
+. La aplicación está desarrollada en Java EE versión 1.4 o superior
+
+== Solución
+
+. En Java las sesiones están representadas por el objeto HttpSession, la cual
+está presente en el paquete javax.servlet.http. Para poderacceder a una sesión, 
+se debe invocar el método getSession del objetoHttpServletRequest. Este método 
+devuelve una referencia de la sesión actual asociada con la solicitud [1].
++
+[source, java, linenums]
+----
+public void doPost (HttpServletRequest request, HttpServletResponse response)
+  throws ServletException, IOException {
+    HttpSession session = request.getSession(); 
+}
+----
+
+. Para establecer el tiempo máximo de vida de la sesión se debe utilizar el 
+método setMaxInactiveInterval (su valor está dado en segundos) del objeto 
+}HttpSession [2], el cual no debe ser superior a cinco minutos.
++
+[source, java, linenums]
+----
+HttpSession session = request.getSession();
+session.setMaxInactiveInterval(300);
+----
+
+. Una forma recomendada de realizar esta configuración es utilizando el archivo 
+de configuración de la aplicación /WEBINF/web.xml empleando el elemento 
+session-config de la siguiente manera [3]:
++
+[source, xml, linenums]
+----
+<session-config>
+ <session-timeout>5</session-timeout>
+</session-config>
+----
+
+. Para este caso el timeout de la sesión está especificado en minutos.
+
+== Referencias
+
+. https://docs.oracle.com/javaee/1.4/tutorial/doc/[The J2EETrademarked 1.4 Tutorial]
+. https://docs.oracle.com/javaee/1.4/api/javax/servlet/http/HttpSession.html[Interface HttpSession]
+. http://lineadecodigo.com/java/modificar-time-out-de-sesion/[Modificar time-out de sesión]
+. REQ.0020: El sistema debe cerrar una sesión si se presenta un tiempo de 
+inactividad por parte del usuario, superior o igual a 5 minutos.
