@@ -1,0 +1,100 @@
+:slug: kb/java/establecer-opcion-segura-condicional/
+:eth: no
+:category: java
+:kb: yes
+
+= Establecer Opciones Seguras por Defecto en Estructuras Condicionales
+
+== Necesidad
+
+Establecer opciones seguras por defecto en estructuras condicionales (Java)
+
+== Contexto
+
+A continuación se describen las circunstancias bajo las cuales la siguiente 
+solución tiene sentido:
+
+. Se está desarrollando aplicación en Java (1.4.2+).
+
+== Solución
+
+. En cada estructura condicional empleada en una aplicación Java, se recomienda 
+contemplar todos los posibles escenarios.
+
+. Para sentencias if debe usarse su correspondiente else [1].
+
+. Para sentencias switch debe usarse su correspondiente default [2] .
+
+. En el siguiente ejemplo, se empieza por validar que el usuario haya ingresado 
+al menos un argumento al ejecutar la aplicación y se almacena en la variable 
+entero convertida en entero.
++
+[source, java, linenums]
+----
+public class Main {
+  public static void main(String[] args) {
+    if (args.length >= 1) {
+      int entrada = Integer.parseInt(args[0]);
+----
+
+. Se evalúa que instrucciones ejecutar según el valor de la variable entrada:
++
+[source, java, linenums]
+----
+   switch (entrada) {
+   case 1:
+     System.out.println("Primera opción seleccionada");
+   break;
+   case 2:
+     System.out.println("Segunda opción seleccionada");
+   break;
+----
+
+. Se crea la opción segura por defecto para el switch, default.
++
+[source, java, linenums]
+----
+   default:
+     System.out.println("No se ha seleccionado una opción válida");
+   break;
+----
+
+. Se crea la opción segura por defecto para el if, else.
++
+[source, java, linenums]
+----
+    }
+  } 
+  else {
+    System.out.println("Debe ingresarse como argumento el número de la opción: 1 o 2");
+  }
+ }
+}
+----
+
+. Se compila y ejecuta la aplicación con algunos casos de prueba:
++
+[source, bash, linenums]
+----
+% java Main.java
+% java Main
+Debe ingresarse como argumento el número de la opción: 1 o 2
+% java Main 1
+Primera opción seleccionada
+% java Main 2
+Segunda opción seleccionada
+% java Main -1
+No se ha seleccionado una opción válida
+% java Main 1000000
+No se ha seleccionado una opción válida
+----
+
+. Se evidencia que la aplicación se comporta bien al no ingresar argumento o 
+ingresar opciones fuera de las definidas.
+
+== Referencias
+
+. https://docs.oracle.com/javase/tutorial/java/nutsandbolts/if.html[. The if-then and if-then-else Statements]
+. https://docs.oracle.com/javase/tutorial/java/nutsandbolts/switch.html[The switch Statement]
+. REQ.0156: El código debe definir opciones por defecto seguras (ej: default en 
+switchs).
