@@ -7,11 +7,14 @@
 
 == Necesidad
 
-Almacenar las cadenas de conexión para el acceso a datos en archivos de configuración de la aplicación.
+Almacenar las cadenas de conexión 
+para el acceso a datos 
+en archivos de configuración de la aplicación.
 
 == Contexto
 
-A continuación se describe las circunstancias bajo las cuales la siguiente solución tiene sentido:
+A continuación se describe las circunstancias 
+bajo las cuales la siguiente solución tiene sentido:
 
 . La aplicación esta construida en ASP .NET version 1.1, 2.0, superior.
 
@@ -19,9 +22,26 @@ A continuación se describe las circunstancias bajo las cuales la siguiente solu
 
 == Solución
 
-La protección del acceso a la fuente de datos es uno de los objetivos más importantes cuando se asegura una aplicación. Una cadena de conexión presenta una vulnerabilidad potencial si no está asegurada. Almacenar la información de la conexión en texto plano o persistiendo ésta en memoria puede comprometer la seguridad de la aplicación. Las cadenas de conexión embebidas en el código fuente de la aplicación pueden ser leídas usando la herramienta _Ildasm.exe_ (MSIL Disassembler), la cual se puede emplear para ver el lenguaje intermedio de Microsoft (MSIL) en un ensamblado compilado [1]. Para proteger la información de conexión se debe realizar los siguientes pasos:
+La protección del acceso a la fuente de datos 
+es uno de los objetivos más importantes 
+cuando se asegura una aplicación. 
+Una cadena de conexión presenta una vulnerabilidad potencial 
+si no está asegurada. 
+Almacenar la información de la conexión 
+en texto plano o persistiendo ésta en memoria 
+puede comprometer la seguridad de la aplicación. 
+Las cadenas de conexión embebidas en el código fuente de la aplicación 
+pueden ser leídas usando la herramienta _Ildasm.exe_ (MSIL Disassembler), 
+la cual se puede emplear 
+para ver el lenguaje intermedio 
+de Microsoft (MSIL) en un ensamblado compilado [1]. 
+Para proteger la información de conexión 
+se debe realizar los siguientes pasos:
 
-. Declarar la sección _connectionStrings_ adentro del elemento configuration en el archivo web.config de la aplicación utilizando la siguiente parametrización: 
+. Declarar la sección _connectionStrings_ 
+dentro del elemento _configuration_ 
+en el archivo _web.config_ de la aplicación 
+utilizando la siguiente parametrización: 
 +
 [source,xml,linenums]
 ----
@@ -38,13 +58,23 @@ La protección del acceso a la fuente de datos es uno de los objetivos más impo
 +
 Los atributos del subelemento _add_ son:
 +
-* *Name:* Es usado para especificar el nombre de la cadena de conexión, el cual es recuperado en tiempo de ejecución. Este nombre debe ser único para identificar una conexión en particular.
+* *Name:* Utilizado para especificar el nombre 
+de la cadena de conexión, 
+el cual es recuperado en tiempo de ejecución. 
+Este nombre debe ser único 
+para identificar una conexión en particular.
 
-* *ProviderName:* Es el nombre del proveedor de datos del .Net Framework que se usará para la conexión.
+* *ProviderName:* Es el nombre del proveedor de datos del .Net Framework
+ que se usará para la conexión.
 
-* *ConnectionString:* Es el valor de la cadena de conexión para una base de datos especifica.
+* *ConnectionString:* Es el valor de la cadena de conexión 
+para una base de datos específica.
 
-. Recuperar la cadena de conexión declarada en el archivo de configuración desde el código de la aplicación se debe usar la clase _ConnectionStringSettings_ del nombre de espacio _System.Configuration._
+. Recuperar la cadena de conexión 
+declarada en el archivo de configuración 
+desde el código de la aplicación. 
+Para ello, se debe usar la clase _ConnectionStringSettings_ 
+del nombre de espacio _System.Configuration._
 +
 [source,C,linenums]
 ----
@@ -57,14 +87,22 @@ if (settings != null)
    nombreConexion = settings.ConnectionString; 
 ---- 
 
-. Cifrar la sección _connectionStrings_. Para cifrar la información de conexión que contiene el elemento connectionStrings en el archivo Web.config de la aplicación ASP.NET, se debe usar la herramienta Aspnet_regiis.exe con el siguiente comando [3]: 
+. Cifrar la sección _connectionStrings_. 
+Para cifrar la información de conexión 
+que contiene el elemento _connectionStrings_ 
+en el archivo Web.config de la aplicación ASP.NET, 
+se debe usar la herramienta _Aspnet_regiis.exe_ 
+con el siguiente comando [3]: 
 +
 [source, sh, linenums]
 ----
 aspnet_regiis -pe "connectionStrings" -app "/AppName" -prov "RsaProtectedConfigurationProvider"
 ----
 
-. Descifrar una sección del archivo de configuración. Para descifrar la información de conexión que contiene el elemento _connectionStrings_ en el archivo Web.config se debe realizar con el siguiente comando [3]:
+. Descifrar una sección del archivo de configuración. 
+Para descifrar la información de conexión 
+que contiene el elemento _connectionStrings_ 
+en el archivo Web.config se debe realizar utilizando el siguiente comando [3]:
 +
 [source, sh, linenums]
 ----
