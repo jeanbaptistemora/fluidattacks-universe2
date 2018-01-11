@@ -1,0 +1,70 @@
+:slug: kb/python/ofuscar-codigo-fuente/
+:eth: no
+:category: python
+:kb: yes
+
+= Ofuscar Código Fuente
+
+== Necesidad
+
+Se requiere ofuscar el código Python para evitar la legibilidad del código fuente.
+
+== Contexto
+
+A continuación se describen las circunstancias bajo las cuales la siguiente 
+solución tiene sentido:
+
+. Se tiene una aplicación programada en Python
+. Se desea entregar archivos .py con el código no legible.
+
+== Solución
+
+. Se descarga la herramienta https://github.com/astrand/pyobfuscate[pyobfuscate]
+
+. Se prepara el archivo con código Python que se quiere ofuscar.
++
+[source, py, linenums]
+----
+import unittest
+
+def function none():
+  pass
+
+def function_args(a, b, c):
+  assert a == 1
+  assert b == 2
+  assert c == 3
+  assert "a" in locals()
+  assert "b" in locals()
+  assert "c" in locals()
+  
+def function_default(expected. arg=12):
+  assert expected == arg
+  assert "expected" in locals()
+  assert "arg" in locals()
+  
+def function_posargs(*args)
+  pass
+----
+
+. Se ejecuta el siguiente comando desde una consola de comandos
++
+[source, bash, linenums]
+----
+python pyobfuscate.py archivo.py > archivo.ofuscado.py
+----
++
+image::comando.png[ejecucion comando python]
+
+. Se procede a verificar que el nuevo archivo generado esta ofuscado.
++
+image::ofuscado.png[codigo ofuscado]
+
+. Se verifica que el nuevo archivo generado funcione exactamente igual que el 
+original.
+
+image::ejecucion.png[ejecucion normal]
+
+== Referencias
+
+. https://github.com/astrand/pyobfuscate[pyobfuscate]    
