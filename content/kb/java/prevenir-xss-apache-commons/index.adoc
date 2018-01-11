@@ -1,0 +1,142 @@
+:slug: kb/java/prevenir-xss-apache-commons/
+:eth: no
+:category: java
+:kb: yes
+
+= Prevenir Cross Site Scripting Usando Apache Commons Lang
+
+== Necesidad
+
+Prevenir XSS usando Apache Commons Lang (Java)
+
+== Contexto
+
+A continuación se describen las circunstancias bajo las cuales la siguiente 
+solución tiene sentido:
+
+. La aplicación está desarrollada en Java.
+
+== Solución
+
+. Lo que se busca es codificar información de salida para que los caracteres 
+sean tratados como datos y no como caracteres que puedan ser ejecutados por 
+algún analizador sintáctico
+
+. Lo primero que se requiere es descargar la libreria Apache Commons Lang y 
+agregarla al proyecto que contiene el código de la aplicación [1].
+
+. Como segundo paso se debe importar el paquete org.apache.commons.lang3 a la 
+clase que pretende a mostrar alguna información de salida. 
++
+[source, java, linenums]
+----
+import org.apache.commons.lang3.StringEscapeUtils;
+----
+
+. La clase StringEscapeUtils que se encuentra en el paquete 
+org.apache.commons.lang3 de la biblioteca Apache Commons permite codificar la 
+información de salida a un formato especifico (HTML, Javascript, CSS, SQL, XML).
+
+. La clase StringEscapeUtils ofrece los siguientes métodos estáticos que pueden 
+ser usados para codificar la información de salida a un formato especifico:
++
+[source, java, linenums]
+----
+escapeXml(String str)
+escapeSql (String str)
+escapeEcmaScript (String str)
+escapeHtml4 (String str)
+escapeCsv (String str)
+----
+
+. Cada uno de los métodos anteriormente mencionados, devuelve una cadena de 
+caracteres con la información codificada. Para codificar la información que se
+muestra dentro de un código HTML por ejemplo, se puede usar el método 
+escapeHtml4 de la siguiente forma:
++
+[source, java, linenums]
+----
+response.setContentType("text/html");
+java.io.PrintWriter out = response.getWriter();
+String mensaje= request.getParameter("mensaje");
+----
+
+. Esta clase puede usarse desde cualquier aplicación Java. A continuación se 
+presenta un ejemplo de como utilizarla en una aplicación web.
++
+[source, bash, linenums]
+----
+/var/lib/tomcat7/webapps/xss % ls -R
+
+index.jsp WEB-INF/
+./WEB-INF:
+lib/ web.xml
+./WEB-INF/lib:
+commons-lang3-3.0.1.jar
+----
+
+. El archivo web.xml es un descriptor típico de despliegue que incluso 
+puede ser ignorado para contenedores de servlets con soporte de la 
+especificación versión igual o superior a 3.0. En nuestro caso se utilizará:
++
+[source, xml, linenums]
+----
+<?xml version="1.0" encoding="ISO-8859-1"?>
+  <!DOCTYPE web-app
+    PUBLIC "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
+     "http://java.sun.com/dtd/web-app_2_3.dtd">
+  <web-app>
+  </web-app>
+----
+
+. El jar de la biblioteca debe ser accesible por el servidor de aplicaciones. 
+Una forma sencilla de conseguirlo es incluir el jar en la carpeta WEB-INF/lib 
+del proyecto.
+
+. El archivo index.jsp, desde el cual se hace uso de la biblioteca, se muestra 
+a continuación:
++
+[source, html, linenums]
+----
+<html>
+  <head>
+    <title>Prueba</title>
+  </head>
+  <body>
+    <%@ page import="org.apache.commons.lang3.StringEscapeUtils" %>
+----
+
+. Se observa como se importa la biblioteca usando el tag @page con el atributo 
+import.
++
+[source, html, linenums]
+----
+   <%
+     String mensajeCodificado;
+     //mensajeCodificado=request.getParameter("mensaje");
+     mensajeCodificado=StringEscapeUtils.escapeHtml4(request.getParameter("mensaje"));
+     out.print(mensajeCodificado);
+   %>
+  </body>
+</html>
+----
+
+. El método escapeHtml4 simplemente recibe un objeto tipo String como parámetro 
+y retorna otro String ya codificado.
+
+. Al visualizar la página se nota como el código HTML y Javascript nunca se 
+ejecutó gracias a que las comillas simples fueron escapadas. Para evidenciar 
+este comportamiento se puede observar el código fuente generado.
+
+== Código de ejemplo:
+
+. http://dyzz9obi78pm5.cloudfront.net/app/image/id/54f0d9d67cb82985497b24d0/n/codigoLang.zip[codigoLang.zip]
+. http://www.java2s.com/Code/Jar/c/Downloadcommonslang331jar.htm[commons-lang3-3.1.jar]
+
+== Referencias
+
+. http://commons.apache.org/proper/commons-lang/[Commons Lang]
+. https://www.owasp.org/index.php/XSS_(Cross_Site_Scripting)_Prevention_Cheat_Sheet[XSS Prevention Cheat Sheet]
+. https://commons.apache.org/proper/commons-lang/javadocs/api-2.6/org/apache/commons/lang/StringEscapeUtils.html[Class StringEscapeUtils]
+. REQ.0168 El sistema debe descartar toda la información potencialmente 
+insegura que sea recibida por entradas de datos.
