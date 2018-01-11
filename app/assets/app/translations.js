@@ -340,7 +340,7 @@ integrates.config(['$translateProvider', function($translateProvider) {
            'default': '-'
          },
          'authentication':{
-           'any_authen': '0.704 | Any: Authentication is not required',
+           'any_authen': '0.704 | None: Authentication is not required',
            'single_authen': '0.560 | Single: Single authentication point',
            'multiple_authen': '0.450 | Multiple: Multiple authentication points',
            'default':'-'
