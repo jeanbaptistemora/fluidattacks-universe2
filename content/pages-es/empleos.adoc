@@ -30,18 +30,29 @@ El objetivo de esta etapa es ver su capacidad de expresarse sobre si mismo, sint
 Es de carácter obligatorio en el proceso y el esfuerzo requerido estimado se encuentra entre 1 y 2 horas según tu habilidad. 
 Para comenzar solo es necesario seguir las instrucciones detalladas que se encuentran link:../empleos/portafolio/[aquí].
 
-== 5. Aplicación
-
+++++
+<div id="etapa_a">
+<h2> 5. Aplicación</h2>
+<br/>
 El objetivo de esta etapa es que registres tu hoja de vida y algunas de tus expectativas laborales en nuestro sistema.
 Es de carácter obligatorio en el proceso y el esfuerzo requerido estimado se encuentra entre 5 y 10 min según tu perfil. Para hacerla requieres haber finalizado la etapa anterior.
-Para comenzar solo es necesario seguir las instrucciones detalladas que se encuentran https://fluid.la/forms/aplicacion[aquí].
-
-== 6. Historia
-
+<p id="a_formLink" style="display:none;text-align:center">
+Para comenzar solo es necesario seguir las instrucciones detalladas que se encuentran <a href="https://fluid.la/forms/aplicacion">aquí</a>
+</p>
+</div>
+<div id="etapa_h">
+<h2> 6. Historia</h2>
+<br/>
 El objetivo de esta etapa es que registres en nuestro sistema tus periodos laborales. 
 Es de carácter obligatorio en el proceso (opcional si no tienes experiencia laboral) y el esfuerzo requerido estimado se encuentra entre 3 y 5 min por periodo laboral. Para hacerla requieres haber finalizado la etapa anterior.
-Para comenzar solo es necesario seguir las instrucciones detalladas que se encuentran https://fluid.la/forms/periodo[aquí].
-
+<p id="h_formLink" style="display:none;text-align:center">
+Para comenzar solo es necesario seguir las instrucciones detalladas que se encuentran <a href="https://fluid.la/forms/periodo">aquí</a>
+</p>
+</div>
+<script>
+"398453"==window.location.href.split("?")[1]?(document.getElementById("a_formLink").style.display="block",document.getElementById("etapa_a").style.backgroundColor="#ffffa6"):"987343"==window.location.href.split("?")[1]&&(document.getElementById("h_formLink").style.display="block",document.getElementById("etapa_h").style.backgroundColor="#ffffa6");
+</script>
+++++
 == 7. Evaluaciones
 
 * *Temperamento:* El objetivo de esta etapa es determinar los rasgos preponderantes de tu temperamento y su equilibrio.

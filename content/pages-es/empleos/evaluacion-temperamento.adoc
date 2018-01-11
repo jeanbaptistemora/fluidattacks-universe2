@@ -9,16 +9,29 @@ Nuestra filosofía se basa en formar un equipo talentoso, en el cual prime la é
 
 Para proceder con este paso, te pedimos el favor de seguir las siguientes instrucciones:
 
-. Ingresar a https://fluid.la/forms/profile
-. Sigue las instrucciones que aparecen en pantalla
-. Una vez registrado podrá presentar la prueba en 8 minutos, Son 24 preguntas cada una con tiempo máximo de 20 segundos,
-. Una vez finalice podremos ver sus 4 principales fortalezas. Algunas recomendaciones para presentar la prueba son las siguientes:
-. Una vez inicies el examen no podrá repetirse ni detenerse,
-. Asegúrate de no ser interrumpido durante la presentación del mismo,
-. Confié en la primera opción que viene a su mente,
-. No hay respuestas buenas y malas,
-. El resultado de la prueba siempre son tus 4 fortalezas más altas,
-. Si tienes alguna duda no dudes en escribir a careers@autonomicmind.co
+
+++++
+<ol>
+<li id="noFormLink"> Ingresar al enlace que se te enviará vía e-mail cuando finalices las etapas anteriores.</li>
+<li id="formLink" style="display:none;background-color:#ffffa6"> Ingresar a <a href="https://fluid.la/forms/profile/">https://fluid.la/forms/profile/</a></li>
+<br/>
+<li> Sigue las instrucciones que aparecen en pantalla</li><br/>
+<li> Una vez registrado podrá presentar la prueba en 8 minutos, Son 24 preguntas cada una con tiempo máximo de 20 segundos,</li><br/>
+<li> Una vez finalice podremos ver sus 4 principales fortalezas. Algunas recomendaciones para presentar la prueba son las siguientes:</li><br/>
+<li> Una vez inicies el examen no podrá repetirse ni detenerse,</li><br/>
+<li> Asegúrate de no ser interrumpido durante la presentación del mismo,</li><br/>
+<li> Confié en la primera opción que viene a su mente,</li><br/>
+<li> No hay respuestas buenas y malas,</li><br/>
+<li> El resultado de la prueba siempre son tus 4 fortalezas más altas,</li><br/>
+<li> Si tienes alguna duda no dudes en escribir a careers@autonomicmind.co</li><br/>
+</ol>
+
+<script>
+"435872"==window.location.href.split("?")[1]&&(document.getElementById("noFormLink").style.display="none",document.getElementById("formLink").style.display="block");
+</script>
+++++
+
+
 
 Recuerda que la agilidad con la que procedas con cada paso del proceso será una variable que se considerará dentro de los criterios de selección.
 
