@@ -1,0 +1,85 @@
+:slug: kb/java/prevenir-xss-esapi/
+:eth: no
+:category: java
+:kb: yes
+
+= Prevenir Cross Site Scripting Usando ESAPI
+
+== Necesidad
+
+Prevenir XSS en Java EE usando ESAPI.
+
+== Contexto
+
+A continuación se describen las circunstancias bajo las cuales la siguiente 
+solución tiene sentido:
+
+. Se dispone de un programa realizado en Java EE 1.5 o superior.
+
+== Solución
+
+ESAPI (The OWASP Enterprise Security API) es una librería de control para 
+implementar seguridad en una aplicación web en Java. ESAPI proporciona la clase 
+Encoder del paquete org.owasp.esapi para codificar la salida a a un formato 
+especifico como es HTML, XPATH, CSS, VBSCRIPT, URL, SQL, LDAP, JavaScript, 
+entre otros. Actualmente se encuentra disponible la versión 2.0 de ESAPI que 
+soporta java 1.5 y superior [1]. Para prevenir Cross Site Scripting utilizando 
+ESAPI 2.0 se debe seguir los siguientes pasos:
+
+. Descargar la versión 2.0 de ESAPI y seguir el manual de instalación [1].
+
+. Importar las clases org.owasp.esapi.ESAPI y la interfaz 
+org.owasp.esapi.Encoder.
++
+[source, java, linenums]
+----
+import org.owasp.esapi.ESAPI;
+import org.owasp.esapi.Encoder;
+----
+
+. Especificar el tipo de codificación. Cuando se necesita insertar un dato no 
+confiable directamente dentro del cuerpo HTML de un documento, la entrada debe 
+ser codificada en formato HTML [2].
++
+[source, java, linenums]
+----
+//Reemplazar (para el caso particular)
+String unSafe = request.getParameter("input");
+//Por
+String safe = ESAPI.encoder().encodeForHTML( request.getParameter( "input" ) );
+----
+
+. Para este caso la función encodeForHTML codifica caracteres especiales como 
+&, <, >, ", ',/, para evitar el cambio en cualquier contexto de ejecución por 
+ejemplo, cuando la entrada de datos contiene script inyectados.
+
+. Si el dato de entrada no confiable se inserta como un valor de un atributo de 
+un elemento HTML como aparece a continuación:
++
+[source, html, linenums]
+----
+<div attr=...ESCAPE UNTRUSTED DATA BEFORE PUTTING HERE...>content</div> 
+  dentro de un atributo sin comilla
+<div attr='...ESCAPE UNTRUSTED DATA BEFORE PUTTING HERE...'>content</div> 
+  dentro de un atributo con comilla simple
+<div attr="...ESCAPE UNTRUSTED DATA BEFORE PUTTING HERE...">content</div> 
+  dentro de un atributo con comilla simple
+----
+
+. Se debe considerar la siguiente instrucción de código para que se codifiquen 
+caracteres especiales dentro de los atributos.
++
+[source, html, linenums]
+----
+String safe = ESAPI.encoder().encodeForHTMLAttribute( request.getParameter("input"));
+----
+
+== Referencias
+
+. https://www.owasp.org/index.php/Category:OWASP_Enterprise_Security_API#tab=Java_EE[OWASP ESAPI for Java EE]
+. https://www.owasp.org/index.php/XSS_(Cross_Site_Scripting)_Prevention_Cheat_Sheet[XSS Prevention Cheat Sheet]
+. https://www.owasp.org/index.php/Category:OWASP_Enterprise_Security_API/es[OWASP Enterprise Security API]
+. REQ.0168: El sistema debe descartar toda la información potencialmente 
+insegura que sea recibida por entradas de datos.
+. REQ.0155: La salida de información del sistema debe estar codificada en el 
+lenguaje correspondiente (escaping).
