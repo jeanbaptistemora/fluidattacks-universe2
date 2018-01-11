@@ -1,11 +1,12 @@
 from django.db import connections
 from django.utils import timezone
 from django.db.utils import OperationalError
-from ..var import AWS_ACCESS_KEY_DYNAMODB
-from ..var import AWS_SECRET_KEY_DYNAMODB
-from ..var import AWS_REGION
 from boto3 import resource
 from boto3.dynamodb.conditions import Key
+# pylint: disable=E0402
+from .. import AWS_ACCESS_KEY_DYNAMODB
+from .. import AWS_SECRET_KEY_DYNAMODB
+from .. import AWS_REGION
 
 def create_user_dao(email, username='-', first_name='-', last_name='-'):
     role = 'None'
