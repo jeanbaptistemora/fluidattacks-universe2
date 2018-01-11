@@ -1,0 +1,53 @@
+:slug: kb/java/definir-charset-content-type-jsp/
+:eth: no
+:category: java
+:kb: yes
+
+= Definir Character-Set y Content-Type Explícito en Páginas JSP
+
+== Necesidad
+
+Definir Character-Set y Content-Type explícito en páginas JSP para Java EE.
+
+== Contexto
+
+A continuación se describen las circunstancias bajo las cuales la siguiente 
+solución tiene sentido:
+
+. Se está desarrollando una aplicación web usando la tecnología de JSP de Java.
+. Se dispone de un contenedor de servlets.
+. Se está utilizando una versión previa a Java EE 6.
+* Si se está utilizando Java EE 6 o superior, en vez de JSP se recomienda 
+utilizar https://docs.oracle.com/javaee/6/tutorial/doc/giepx.html[Facelets]
+
+== Solución
+
+. Para evitar que el navegador web tenga que adivinar el conjunto de caracteres 
+usados, se recomienda especificarlo directamente, en especial para archivos 
+generados dinámicamente.
+
+. Las consecuencias de no usar un Char-Set específico pueden resultar en 
+vulnerabilidades XSS.
+
+. En JSP, el tag usado para especificar el Char-Set en JSP es @page con el 
+atributo contentType. Ejemplo:
++
+[source, html, linenums]
+----
+<%@ page contentType="text/html; charset=iso-8859-1"%>
+<%
+  String s = "Texto codificado";
+  out.println(s);
+%>
+<br />
+<%= s %>
+----
+
+== Referencias
+
+. https://docs.oracle.com/cd/E28280_01/bi.1111/b32121/pbr_nls003.htm#RSPUB23729[Specifying a Character Set in a JSP]
+. https://docs.oracle.com/cd/B10002_01/generic.903/a97681/jspprim.htm[JSP Primer]
+. REQ.0039: Los archivos generados de forma dinámica por el sistema deben tener 
+definido un Content-Type explícito.
+. REQ.0040: Los archivos generados de forma dinámica por el sistema deben tener 
+definido un Character-Set explícito.
