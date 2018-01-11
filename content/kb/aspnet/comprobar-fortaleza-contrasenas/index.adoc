@@ -7,19 +7,28 @@
 
 == Necesidad
 
-Comprobar fortaleza de contraseñas por medio de diccionarios en ASP.Net
+Comprobar fortaleza de contraseñas 
+por medio de diccionarios en ASP.Net
 
 == Contexto
 
-A continuación se describen las circunstancias bajo las cuales la siguiente solución tiene sentido:
+A continuación se describen las circunstancias bajo 
+las cuales la siguiente solución tiene sentido:
 
 . Se está desarrollando una aplicación en ASP.Net.
-. Se requiere comprobar la fortaleza de una contraseña por medio de diccionarios. [1]
-. El sistema operativo o el administrador del sistema poseen diccionarios con palabras comunes.
+. Se requiere comprobar la fortaleza de una contraseña 
+por medio de diccionarios. [1]
+. El sistema operativo o el administrador del sistema 
+poseen diccionarios con palabras comunes.
 
 == Solución
 
-. El código dará solución a la necesidad de comprobar la fortaleza de una contraseña al buscarla en diccionarios que contienen palabras comunes. Iniciamos el desarrollo de la aplicación importando las clases necesarias y definiendo el nombre de nuestra clase:
+. El código dará solución a la necesidad 
+de comprobar la fortaleza de una contraseña 
+al buscarla en diccionarios que contienen palabras comunes. 
+Iniciamos el desarrollo de la aplicación 
+importando las clases necesarias 
+y definiendo el nombre de nuestra clase:
 +
 [source,java,linenums]
 ----
@@ -27,7 +36,9 @@ using System.IO;
 public class Dictionary {
 ----
 
-. El método _Main_ será el encargado de llamar al método _isPasswordInDictionary_ , el cual realiza la búsqueda de la contraseña.
+. El método _Main_ será el encargado 
+de llamar al método _isPasswordInDictionary_ , 
+el cual realiza la búsqueda de la contraseña.
 +
 [source,java,linenums]
 ----
@@ -37,7 +48,8 @@ public class Dictionary {
       {
 ----
 
-. Establecemos la ruta del diccionario y se imprime el resultado.
+. Establecemos la ruta del diccionario 
+y se imprime el resultado.
 +
 [source,java,linenums]
 ----
@@ -67,7 +79,15 @@ public class Dictionary {
     }
 ----
 
-. El método principal es el encargado de abrir el archivo de diccionario y buscar la contraseña. Retornará falso si la contraseña no se encuentra en el diccionario y verdadero en el caso contrario. Iniciamos definiendo los parámetros: _dictionaryFilePath_ que contiene la ruta al diccionario y _password_ que es la contraseña.
+. El método principal es el encargado 
+de abrir el archivo de diccionario 
+y buscar la contraseña. 
+Retornará verdadero si la contraseña 
+se encuentra en el diccionario 
+y falso en el caso contrario. 
+Iniciamos definiendo los parámetros: 
+_dictionaryFilePath_ que contiene la ruta al diccionario 
+y _password_ que es la contraseña.
 +
 [source,java,linenums]
 ----
@@ -75,7 +95,12 @@ public class Dictionary {
     {
 ----
 
-. Se abre el archivo de diccionario con la clase _StreamReader_, la cual permite leer archivos de mucho contenido con un buen manejo de memoria. Se define igualmente la variable que contendrá la palabra leida del diccionario.
+. Se abre el archivo de diccionario 
+con la clase _StreamReader_, 
+la cual permite leer archivos de mucho contenido 
+con un buen manejo de memoria. 
+Se define igualmente la variable 
+que contendrá la palabra leida del diccionario.
 +
 [source,java,linenums]
 ----
@@ -83,7 +108,14 @@ public class Dictionary {
         string word = "";
 ----
 
-. Se itera a través de cada palabra en el archivo, si se encuentra dentro de la contraseña entonces se retorna verdadero, en otro caso se retorna falso. En este caso estamos limitándonos a probar palabras del diccionario con más de dos caracteres, para evitar problemas con diccionarios que puedan tener letras individuales en la lista de palabras.
+. Se itera a través de cada palabra en el archivo, 
+si se encuentra la contraseña en el diccionario
+entonces se retorna verdadero, 
+en otro caso se retorna falso. 
+En este caso estamos limitándonos 
+a probar palabras del diccionario con más de dos caracteres, 
+para evitar problemas con diccionarios 
+que puedan tener letras individuales en la lista de palabras.
 +
 [source,java,linenums]
 ----
@@ -98,7 +130,8 @@ public class Dictionary {
      }
 ----
 
-. La siguiente es una lista de diccionarios que se recomiendan para hacer la búsqueda:
+. La siguiente es una lista de diccionarios 
+que se recomiendan para hacer la búsqueda:
 
 * http://dazzlepod.com/uniqpass/
 * http://www.openwall.com/wordlists/
@@ -106,7 +139,10 @@ public class Dictionary {
 * https://packetstormsecurity.com/Crackers/wordlists/
 * http://www.deer-run.com/~hal/sysadmin/pam_cracklib.html
 
-. Para GNU/Linux se pueden utilizar los diccionarios incluidos con el sistema operativo que se encuentran en la ruta _/usr/share/dict/_. El resultado para la anterior aplicación es el siguiente
+. Para GNU/Linux se pueden utilizar 
+los diccionarios incluidos con el sistema operativo 
+que se encuentran en la ruta _/usr/share/dict/_. 
+El resultado para la anterior aplicación es el siguiente
 
 |===
 |*Palabra* | *Resultado*
