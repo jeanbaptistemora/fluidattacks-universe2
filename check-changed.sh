@@ -14,14 +14,24 @@ function error {
 echo "${CHANGED:-(None)}"
 echo -e "\e[1;31m^--Files modified in this merge request.\e[0m\n"
 
-echo "$CHANGED" | grep '.adoc' \
+echo "$CHANGED" | pcregrep '^content.*adoc$' \
   | xargs -r -n 1 ./lix.sh \
-  | pcregrep '^[5-9]'
-error "LIX readbility index out of range. Should be <50."
+  | pcregrep '^[4-9]\d\s'
+error "LIX readbility index out of range. Should be <40."
 
-echo "$CHANGED" | grep '.adoc' \
+echo "$CHANGED" | pcregrep '^content/kb.*adoc$' \
   | xargs -r -n 1 ./words.sh \
-  | pcregrep -v '^([8-9]\d\d|^1[0-1]\d\d)'
-error "Number of words in text out of range. Should be 800>=words<1200."
+  | pcregrep -v '^([4-8]\d\d\s)'
+error "Number of words in KB text out of range. Should be 400>=words<800."
+
+echo "$CHANGED" | pcregrep '^content/blog.*adoc$' \
+  | xargs -r -n 1 ./words.sh \
+  | pcregrep -v '^([8-9]\d\d|^1[0-1]\d\d)\s'
+error "Number of words in posts out of range. Should be 800>=words<1200."
+
+echo "$CHANGED" | pcregrep '^content/pages.*adoc$' \
+  | xargs -r -n 1 ./words.sh \
+  | pcregrep -v '^([4-9]\d\d|^1[0-1]\d\d)\s'
+error "Number of words in pages out of range. Should be 400>=words<1200."
 
 exit ${ERRORS}

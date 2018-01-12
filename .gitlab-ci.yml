@@ -24,8 +24,6 @@ checks:
     - ./check-changed.sh
     - ./check-all.sh
     - pelican --fatal errors --fatal warnings content/
-  except:
-    - master
 
 deploy:
   stage: deployment
