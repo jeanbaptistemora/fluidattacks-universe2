@@ -1,0 +1,177 @@
+:slug: kb/java/analizar-bytecode/
+:eth: no
+:category: java
+:kb: yes
+
+= Analizar Bytecode
+
+== Necesidad
+
+Analizar bytecode para determinar optimización en concatenación de Strings (Java)
+
+== Contexto
+
+A continuación se describen las circunstancias bajo las cuales la siguiente 
+solución tiene sentido:
+
+. Se está desarrollando una aplicación con Java 7 o anterior.
+
+== Solución
+
+. Al compilar una aplicación Java, en realidad lo que estamos haciendo es 
+generar instrucciones para la JVM.
+
+. Es posible hacer el desensamblado del bytecode para determinar que tipo de 
+optimizaciones está utilizando el compilador de Java.
+
+. Inicialmente comprobamos la versión instalada de nuestro entorno:
++
+[source, bash, linenums]
+----
+% java -version
+java version "1.7.0_147-icedtea"
+OpenJDK Runtime Environment (IcedTea7 2.0) (7~b147-2.0-0ubuntu0.11.10.1)
+OpenJDK Client VM (build 21.0-b17, mixed mode, sharing)
+% javac -version
+javac 1.7.0_147
+% javap -version
+1.7.0_147
+----
+
+. A continuación tendremos dos códigos para comparar. El primero de ellos será 
+Main.java en el cual se usa la clase StringBuilder para concatenación de String:
++
+[source, java, linenums]
+----
+class Main {
+
+ public static void main(String args []) {
+   String strPrueba="FLUID-Signal-Group-";
+   String tmpString = new String ();
+   StringBuilder strBuilder = new StringBuilder ();
+   int numIteraciones=5000;
+   for (int i=0; i < numIteraciones ;i++){
+     strBuilder.append (strPrueba);
+   }
+   tmpString = strBuilder.toString();
+   System.out.println(tmpString.length());
+  }
+}
+----
+
+. Compilamos y ejecutamos:
++
+[source, bash, linenums]
+----
+% javac Main.java
+% java Main
+95000
+----
+
+. El segundo código será el mismo programa anterior, pero se cambiará el uso de 
+StringBuilder por el operador de String +=, con el fin de determinar que 
+optimizaciones hace la JVM.
++
+[source, java, linenums]
+----
+class MainUsandoMas {
+   public static void main(String args []) {
+     String strPrueba="FLUID-Signal-Group-";
+     String tmpString = new String ();
+     int numIteraciones=5000;
+     for (int i=0; i < numIteraciones ;i++){
+       tmpString += strPrueba;
+     }
+     System.out.println(tmpString.length());
+   }
+}
+----
+
+. Compilamos y ejecutamos para comprobar que el resultado es el mismo:
++
+[source, bash, linenums]
+----
+% javac MainUsandoMas.java
+% java MainUsandoMas
+95000
+----
+
+. Para desensamblar el código utilizamos la herramienta javap con el argumento 
+c. Primero desensamblamos Main, a continuación se muestra un extracto de las 
+instrucciones, mostrando el ciclo:
++
+[source, conf, linenums]
+----
+% javap -c Main
+Compiled from "Main.java"
+class Main {
+ Main();
+ Code:
+ 27: iload 5
+ 29: iload 4
+ 31: if_icmpge 46
+ 34: aload_3
+ 35: aload_1
+ 36: invokevirtual #7
+ // Method java/lang/StringBuilder.append:
+ //(Ljava/lang/String;)Ljava/lang/StringBuilder;
+ 39: pop
+ 40: iinc 5, 1
+ 43: goto 27
+}
+----
+
+. Ahora desensamblamos MainUsandoMas, a continuación se muestra un extracto de 
+las instrucciones que muestran en donde ser realiza el ciclo:
++
+[source, conf, linenums]
+----
+% javap -c MainUsandoMas
+Compiled from "MainUsandoMas.java"
+class MainUsandoMas {
+ MainUsandoMas();
+ Code:
+ 18: iload 4
+ 20: iload_3
+ 21: if_icmpge 49
+ 24: new #5
+ // class java/lang/StringBuilder
+ 27: dup
+ 28: invokespecial #6
+ // Method java/lang/StringBuilder."<init>":()V
+ 31: aload_2
+ 32: invokevirtual #7
+ // Method java/lang/StringBuilder.append:
+ //(Ljava/lang/String;)Ljava/lang/StringBuilder;
+ 35: aload_1
+ 36: invokevirtual #7
+ // Method java/lang/StringBuilder.append:
+ //(Ljava/lang/String;)Ljava/lang/StringBuilder;
+ 39: invokevirtual #8
+ // Method java/lang/StringBuilder.toString:
+ //()Ljava/lang/String;
+ 42: astore_2
+ 43: iinc 4, 1
+ 46: goto 18
+...
+}
+----
+
+. Como conclusiones de analizar las instrucciones de JVM de ambos programas 
+encontramos que, al compilar efectivamente se hace optimización del operador += 
+para utilizar StringBuilder en vez de instanciar String múltiples veces. Sin 
+embargo, no se hace del modo más óptimo, puesto que en cada iteración se 
+instancia de nuevo a StringBuilder y usa el método toString cada vez.
+
+. Debe tenerse en cuenta que la optimización durante compilación es una 
+característica opcional que dependerá de la implementación específica. Citando 
+[1], capítulo "15.18.1 String Concatenation Operator +": "To increase the 
+performance of repeated string concatenation, a Java compiler may use the 
+StringBuffer class or a similar technique to reduce the number of intermediate 
+String objects that are created by evaluation of an expression".
+
+== Referencias
+
+. http://download.oracle.com/otndocs/jcp/jls-7-mr3-fullv-oth-JSpec[Java Language Specification 7]
+. REQ.0159: El código debe utilizar contenedores o estructuras de datos 
+optimizadas.
