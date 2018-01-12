@@ -7,18 +7,24 @@
 
 == Necesidad
 
-Se requiere cifrar el contenido de las variables que se asignan a través de campos de texto en una forma HTML.
+Se requiere cifrar el contenido de las variables 
+que se asignan a través de campos de texto en una forma HTML.
 
 == Contexto
 
-A continuación se describen las circunstancias bajo las cuales la siguiente solución tiene sentido:
+A continuación se describen las circunstancias 
+bajo las cuales la siguiente solución tiene sentido:
 
-. Se tiene una aplicación web, que tiene campos de autenticación usuario/password y es necesario que dichos valores viajen cifrados a través de la red.
+. Se tiene una aplicación web, 
+que tiene campos de autenticación usuario/password 
+y es necesario que dichos valores viajen cifrados a través de la red.
 . La aplicación está hecha en ASP.NET. 
 
 == Solución
 
-. La siguiente función cifra cadenas en sumas de verificación MD5 usando el espacio de nombres System.Security.Cryptography:
+. La siguiente función cifra cadenas 
+en sumas de verificación MD5 
+usando el espacio de nombres System.Security.Cryptography:
 
 [source, vbs, linenums]
 ----
