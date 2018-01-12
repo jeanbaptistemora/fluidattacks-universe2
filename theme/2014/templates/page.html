@@ -4,71 +4,73 @@
 {% block title %}{{ SITENAME }}&nbsp;|&nbsp; {{ page.title }}{% endblock title %}
 
 {% block header %}
-    <!-- Page Header -->
-    {% include "navigationbar.html" %}
-    {% if HEADER_COVER %}
-        <header class="intro-header" style="background-image: url('{{ HEADER_COVER }}')">
-    {% elif HEADER_COLOR %}
-        <header class="intro-header" style="background-color: {{ HEADER_COLOR }}">
-    {% else %}
-        <header class="intro-header"> <!--style="background-image: url('{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/fluid.png');" >-->
-            <a href="{{ SITEURL }}/"><img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/fluid.png"></a>
-    {% endif %}   
-        </header>
+  <!-- Page Header -->
+  {% include "navigationbar.html" %}
+  {% if HEADER_COVER %}
+    <header class="intro-header" style="background-image: url('{{ HEADER_COVER }}')">
+  {% elif HEADER_COLOR %}
+    <header class="intro-header" style="background-color: {{ HEADER_COLOR }}">
+  {% else %}
+    <header class="intro-header"> <!--style="background-image: url('{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/fluid.png');" >-->
+    <a href="{{ SITEURL }}/"><img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/fluid.png"></a>
+  {% endif %}   
+  </header>
 {% endblock header %}
 
 {% block content %}   
-   <div id="divpage">         
-     <article>
-       <h1>{{ page.title }}</h1>
-       {{ page.content }}
-       {% if page.eth %}
-         {% if page.location %}
-           {% include 'location.html' %}
-         {% endif %}
-       {% else %}
-         {% include 'ethical.html' %}
-       {% endif %}
-       <section>
-         <!-- Go to www.addthis.com/dashboard to customize your tools -->
-         <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5a37e74c4b1448ce"></script>
-       </section>
-  {% if DISQUS_SITENAME and SITEURL and "kb/" in page.slug %}
-    <hr id="hrcoments">
-      <div class="comments">
-        <h3>{{ gettext('Leave a comment') }}</h3>
-        <div id="disqus_thread"></div>
-        {% if DEFAULT_LANG == "es" %}
-          <script type="text/javascript">
-            var disqus_config = function () {
-              this.page.identifier = "{{ page.slug }}";
-              this.page.url = "{{ SITEURL }}/{{ page.url }}";
-              this.language = "es_AR";
-            };
-            (function() {
-              var d = document, dsq = d.createElement('script');
-              dsq.src = 'https://{{ DISQUS_SITENAME }}.disqus.com/embed.js';
-              dsq.setAttribute('data-timestamp', +new Date());
-              (d.head || d.body).appendChild(dsq);
-            })();
-          </script>
-        {% else %}
-          <script type="text/javascript">
-            var disqus_config = function () {
-              this.page.identifier = "{{ page.slug }}";
-              this.page.url = "{{ SITEURL }}/{{ page.url }}";
-            };
-            (function() {
-              var d = document, dsq = d.createElement('script');
-              dsq.src = 'https://{{ DISQUS_SITENAME }}.disqus.com/embed.js';
-              dsq.setAttribute('data-timestamp', +new Date());
-              (d.head || d.body).appendChild(dsq);
-            })();
-          </script>
+  <div id="divpage">         
+    <article>
+      <h1>{{ page.title }}</h1>
+      {{ page.content }}
+      {% if page.eth %}
+        {% if page.location %}
+          {% include 'location.html' %}
         {% endif %}
-      </div>
-      <script id="dsq-count-scr" src="//{{ DISQUS_SITENAME }}.disqus.com/count.js" async></script>
-  {% endif %}
-  </article>
-</div>	
+      {% else %}
+        {% include 'ethical.html' %}
+      {% endif %}
+      <section>
+        <!-- Go to www.addthis.com/dashboard to customize your tools -->
+        <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5a37e74c4b1448ce"></script>
+      </section>
+      <br/>
+
+      {% if DISQUS_SITENAME and SITEURL and "kb/" in page.slug %}
+        <hr id="hrcoments">
+        <div class="comments">
+          <h3>{{ gettext('Leave a comment') }}</h3>
+          <div id="disqus_thread"></div>
+          {% if DEFAULT_LANG == "es" %}
+            <script type="text/javascript">
+              var disqus_config = function () {
+                this.page.identifier = "{{ page.slug }}";
+                this.page.url = "{{ SITEURL }}/{{ page.url }}";
+                this.language = "es_AR";
+              };
+              (function() {
+                var d = document, dsq = d.createElement('script');
+                dsq.src = 'https://{{ DISQUS_SITENAME }}.disqus.com/embed.js';
+                dsq.setAttribute('data-timestamp', +new Date());
+                (d.head || d.body).appendChild(dsq);
+              })();
+            </script>
+          {% else %}
+            <script type="text/javascript">
+              var disqus_config = function () {
+                this.page.identifier = "{{ page.slug }}";
+                this.page.url = "{{ SITEURL }}/{{ page.url }}";
+              };
+              (function() {
+                var d = document, dsq = d.createElement('script');
+                dsq.src = 'https://{{ DISQUS_SITENAME }}.disqus.com/embed.js';
+                dsq.setAttribute('data-timestamp', +new Date());
+                (d.head || d.body).appendChild(dsq);
+              })();
+            </script>
+          {% endif %}
+        </div>
+        <script id="dsq-count-scr" src="//{{ DISQUS_SITENAME }}.disqus.com/count.js" async></script>
+      {% endif %}
+    </article>
+  </div>	
 {% endblock content %}

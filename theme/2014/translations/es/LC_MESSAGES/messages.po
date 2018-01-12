@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2018-01-11 09:26-0500\n"
+"POT-Creation-Date: 2018-01-11 22:53-0500\n"
 "PO-Revision-Date: 2017-12-21 15:09-0500\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: es\n"
@@ -56,13 +56,38 @@ msgstr "Archivos"
 msgid "Archives for"
 msgstr "Archivos para"
 
+#: templates/article.html:15 templates/index.html:15
+msgid "Young hacker smiling"
+msgstr "Joven hacker sonriendo"
+
+#: templates/article.html:30
+msgid "User icon"
+msgstr "Ícono de usuario"
+
+#: templates/article.html:32
+msgid "Dialog box icon"
+msgstr "Ícono de globo de diálogo"
+
 #: templates/article.html:32
 msgid "Comment"
 msgstr "Comentar"
 
+#: templates/article.html:33 templates/index.html:40 templates/index.html:78
+#: templates/index.html:117 templates/index.html:161 templates/index.html:199
+msgid "Folder icon"
+msgstr "Ícono de carpeta"
+
+#: templates/article.html:34
+msgid "Calendar icon"
+msgstr "Ícono de calendario"
+
 #: templates/article.html:37
 msgid "Updated on"
 msgstr "Actualizado el"
+
+#: templates/article.html:43
+msgid "Author picture"
+msgstr "Foto del autor"
 
 #: templates/article.html:58
 msgid "Related"
@@ -371,10 +396,6 @@ msgstr "Términos"
 msgid "Application"
 msgstr "Aplicación"
 
-#: templates/index.html:15
-msgid "Young hacker smiling"
-msgstr "Joven hacker sonriendo"
-
 #: templates/index.html:32 templates/index.html:70 templates/index.html:109
 #: templates/index.html:153 templates/index.html:191
 msgid "article"
@@ -384,11 +405,6 @@ msgstr "artículo"
 #: templates/index.html:157 templates/index.html:195
 msgid "Quill icon"
 msgstr "Ícono de pluma"
-
-#: templates/index.html:40 templates/index.html:78 templates/index.html:117
-#: templates/index.html:161 templates/index.html:199
-msgid "Folder icon"
-msgstr "Ícono de carpeta"
 
 #: templates/index.html:42 templates/index.html:80 templates/index.html:119
 #: templates/index.html:163 templates/index.html:201
@@ -454,3 +470,4 @@ msgstr "Etiqueta"
 #: templates/tag.html:20
 msgid "More tags"
 msgstr "Más etiquetas"
+

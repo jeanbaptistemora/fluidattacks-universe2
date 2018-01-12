@@ -2,21 +2,21 @@
 {% block title %}{{ SITENAME }} {{ gettext('Search') }} {% endblock %}
 
 {% block header %}
-    <!-- Search PLugin -->
-    {% assets filters="uglifyjs", output="static/js/tipuesearch.min.js", "/app/js/tipuesearch/tipuesearch.js", "/app/js/tipuesearch/tipuesearch_set.js" %}
-      <script src="{{ SITEURL }}/{{ ASSET_URL }}"></script>
-    {% endassets%}
-    <!-- Page Header -->
-    {% include "navigationbar.html" %}
-    {% if HEADER_COVER %}
-        <header class="intro-header" style="background-image: url('{{ HEADER_COVER }}')">
-    {% elif HEADER_COLOR %}
-        <header class="intro-header" style="background-color: {{ HEADER_COLOR }}">
-    {% else %}
-        <header class="intro-header"> <!--style="background-image: url('{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/fluid.png');" >-->
-            <a href="../{{ DEFAULT_LANG }}/"><img src="{{ THEME_STATIC_DIR }}/images/fluid.png"></a>
-    {% endif %}   
-        </header>
+  <!-- Search PLugin -->
+  {% assets filters="uglifyjs", output="static/js/tipuesearch.min.js", "/app/js/tipuesearch/tipuesearch.js", "/app/js/tipuesearch/tipuesearch_set.js" %}
+    <script src="{{ SITEURL }}/{{ ASSET_URL }}"></script>
+  {% endassets%}
+  <!-- Page Header -->
+  {% include "navigationbar.html" %}
+  {% if HEADER_COVER %}
+    <header class="intro-header" style="background-image: url('{{ HEADER_COVER }}')">
+  {% elif HEADER_COLOR %}
+    <header class="intro-header" style="background-color: {{ HEADER_COLOR }}">
+  {% else %}
+    <header class="intro-header"> <!--style="background-image: url('{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/fluid.png');" >-->
+    <a href="../{{ DEFAULT_LANG }}/"><img src="{{ THEME_STATIC_DIR }}/images/fluid.png" alt="Young hacker smiling"></a>
+  {% endif %}   
+  </header>
 {% endblock header %}
 
 {% block content %}

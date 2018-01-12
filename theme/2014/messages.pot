@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2018-01-11 09:26-0500\n"
+"POT-Creation-Date: 2018-01-11 22:53-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -53,12 +53,37 @@ msgstr ""
 msgid "Archives for"
 msgstr ""
 
+#: templates/article.html:15 templates/index.html:15
+msgid "Young hacker smiling"
+msgstr ""
+
+#: templates/article.html:30
+msgid "User icon"
+msgstr ""
+
+#: templates/article.html:32
+msgid "Dialog box icon"
+msgstr ""
+
 #: templates/article.html:32
 msgid "Comment"
 msgstr ""
 
+#: templates/article.html:33 templates/index.html:40 templates/index.html:78
+#: templates/index.html:117 templates/index.html:161 templates/index.html:199
+msgid "Folder icon"
+msgstr ""
+
+#: templates/article.html:34
+msgid "Calendar icon"
+msgstr ""
+
 #: templates/article.html:37
 msgid "Updated on"
+msgstr ""
+
+#: templates/article.html:43
+msgid "Author picture"
 msgstr ""
 
 #: templates/article.html:58
@@ -358,10 +383,6 @@ msgstr ""
 msgid "Application"
 msgstr ""
 
-#: templates/index.html:15
-msgid "Young hacker smiling"
-msgstr ""
-
 #: templates/index.html:32 templates/index.html:70 templates/index.html:109
 #: templates/index.html:153 templates/index.html:191
 msgid "article"
@@ -370,11 +391,6 @@ msgstr ""
 #: templates/index.html:36 templates/index.html:74 templates/index.html:113
 #: templates/index.html:157 templates/index.html:195
 msgid "Quill icon"
-msgstr ""
-
-#: templates/index.html:40 templates/index.html:78 templates/index.html:117
-#: templates/index.html:161 templates/index.html:199
-msgid "Folder icon"
 msgstr ""
 
 #: templates/index.html:42 templates/index.html:80 templates/index.html:119
