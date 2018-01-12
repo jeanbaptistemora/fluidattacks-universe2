@@ -62,7 +62,7 @@ La inyección más fácil de todas es la que utiliza la condición *OR* para hac
 pasar siempre un argumento como verdadero, y obtener acceso a la base de datos.
 
 Es decir ponemos como *user:* _cualquier usuario_, y en *password:* 
-_cualquiercosa' or '1'='1_  de modo que la petición SQL queda de la siguiente 
+_cualquiercosa' or `1'=`1'_ de modo que la petición SQL queda de la siguiente 
 manera:
 
 [source,php,linenums]
