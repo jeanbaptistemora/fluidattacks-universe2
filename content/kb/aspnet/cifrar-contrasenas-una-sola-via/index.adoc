@@ -7,18 +7,26 @@
 
 == Necesidad
 
-Se requiere usar algoritmos criptográficos para cifrar información confidencial.
+Se requiere usar algoritmos criptográficos 
+para cifrar información confidencial.
 
 == Contexto
 
-A continuación se describen las circunstancias bajo las cuales la siguiente solución tiene sentido:
+A continuación se describen las circunstancias 
+bajo las cuales la siguiente solución tiene sentido:
 
 . La aplicación esta hecha en cualquier lenguaje del .NET Framework (C#, VB).
 . La aplicación requiere cifrar información confidencial.
 
 == Solución
 
-El .NET Framework proporciona las siguientes clases que implementan algoritmos de resumen criptográfico [1]: _MD5CryptoServiceProvider_, _SHA1Managed_, _SHA256MANAGED,SHA384MANAGED_, _SHA512MANAGED_. Para usar alguna de estas clases se debe usar el nombre de espacio _System.Security.Cryptography_. A continuación se muestra el uso de la clase _SHA256MANAGED_. 
+El .NET Framework proporciona las siguientes clases 
+que implementan algoritmos de resumen criptográfico [1]: 
+_MD5CryptoServiceProvider_, _SHA1Managed_, 
+_SHA256MANAGED_, _SHA384MANAGED_ y _SHA512MANAGED_. 
+Para usar alguna de estas clases se debe usar 
+el nombre de espacio _System.Security.Cryptography_. 
+A continuación se muestra el uso de la clase _SHA256MANAGED_. 
 
 . Obtenemos un array de bytes de los caracteres dentro de la cadena.
 +
@@ -28,7 +36,13 @@ using System.Security.Cryptography;
 byte[] datos=Encoding.ASCII.GetBytes(Cadena);
 ----
 
-. Se establece el tipo de algoritmo a utilizar para obtener el valor hash. Para especificar otro proveedor, se debe cambiar _SHA256Managed_ por el respectivo algoritmo a usar. cambiarlo por _MD5CryptoServiceProvider_, _SHA1Managed_, _SHA384MANAGED_, o  _SHA512MANAGED_.
+. Se establece el tipo de algoritmo a utilizar 
+para obtener el valor hash. 
+Para especificar otro proveedor, 
+se debe cambiar _SHA256Managed_ 
+por el respectivo algoritmo a usar. 
+cambiarlo por _MD5CryptoServiceProvider_, 
+_SHA1Managed_, _SHA384MANAGED_, o  _SHA512MANAGED_.
 +
 [source,java,linenums]
 ----
@@ -36,7 +50,8 @@ HashAlgorithm hashAlgo;
 hashAlgo = new SHA256Managed();
 ----
 
-. El método ComputeHash calcula el valor hash y devuelve un array de bytes.
+. El método ComputeHash calcula el valor hash 
+y devuelve un array de bytes.
 +
 [source,java,linenums]
 ----
