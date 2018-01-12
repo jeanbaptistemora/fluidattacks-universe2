@@ -88,7 +88,8 @@ se edita el archivo /etc/httpd/conf/httpd.conf y se copia al final
 ----
  
 . Reiniciar el servidor Apache
-[source, bash, linenums]
++
+[source, bash, linenos, 153]
 % /etc/init.d/apache restart
 
 == Referencias

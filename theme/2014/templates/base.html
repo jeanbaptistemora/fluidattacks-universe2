@@ -54,8 +54,8 @@
         {% endif %}
     {% endfor %}
         <!-- Compress and Minify CSS files and bundle from SASS files -->  
-	{% assets filters="cssmin", output="static/css/style.min.css", "bundle", "css/code_blocks/github_jekyll.css", "css/tipuesearch.css" %}
-	 <link rel="stylesheet" href="{{ SITEURL }}/{{ ASSET_URL }}">
+	{% assets filters="cssmin", output="static/css/style.min.css", "bundle", "css/code_blocks/monokai.css", "css/tipuesearch.css" %}
+	 <link rel="stylesheet" type="text/css" href="{{ SITEURL }}/{{ ASSET_URL }}">
 	{% endassets %}
         <!-- Custom Fonts -->
         <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
@@ -101,12 +101,8 @@
 <body>	
     <!-- jQuery, Bootstrap Core and Menu -->
     {% assets filters="uglifyjs", output="static/js/theme.min.js", "/app/node_modules/jquery/dist/jquery.js", "/app/node_modules/bootstrap/dist/js/bootstrap.js", "js/menu.js" %}
-      <script src="{{ SITEURL }}/{{ ASSET_URL }}"></script>
+      <script type="text/javascript" src="{{ SITEURL }}/{{ ASSET_URL }}"></script>
     {% endassets %} 
-    {% if not DISABLE_CUSTOM_THEME_JAVASCRIPT %}
-        <!-- Custom Theme JavaScript -->
-      <script src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/js/clean-blog.min.js"></script>
-    {% endif %}
     <!-- Navigation -->
 	
     {% block header %}{% endblock header %}
