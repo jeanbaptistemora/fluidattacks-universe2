@@ -19,6 +19,7 @@ RUN curl -sL https://deb.nodesource.com/setup_9.x | bash - && \
     apt-get update && \
         apt-get install -qqy --no-install-recommends \
             asciidoc \
+            diction \
             gcc \
             git \
             libcurl4-openssl-dev \
