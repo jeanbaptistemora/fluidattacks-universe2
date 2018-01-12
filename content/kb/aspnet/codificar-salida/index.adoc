@@ -11,29 +11,51 @@ Codificar la salida según el lenguaje correspondiente en ASP.Net
 
 == Contexto
 
-A continuación se describen las circunstancias bajo las cuales la siguiente solución tiene sentido:
+A continuación se describen las circunstancias 
+bajo las cuales la siguiente solución tiene sentido:
 
 . Se está desarrollando una aplicación en ASP.Net.
 
 == Solución
 
-. Los ataques por Cross Site Scripting explotan las vulnerabilidades de las aplicaciones Web que fallan en validar y/o codificar las entradas embebidas en los datos de respuesta. Los usuarios maliciosos pueden inyectar scripts al lado del cliente a los datos de respuesta causando que el navegador de la víctima ejecute códigos posiblemente maliciosos. La https://www.microsoft.com/en-us/download/details.aspx?id=28589[biblioteca gratuita Anti Cross Site Scripting de Microsoft] puede usarse para proteger a los usuarios de este tipo de ataques. Antes de comenzar a explicar cómo proteger una aplicación de los ataques de XSS es importante resaltar los vectores de ataque que un usuario malicioso puede usar para lanzar dichos ataques.
+. Los ataques por Cross Site Scripting 
+explotan las vulnerabilidades de las aplicaciones Web 
+que fallan en validar y/o codificar 
+las entradas embebidas en los datos de respuesta. 
+Los usuarios maliciosos pueden inyectar scripts 
+en el lado del cliente a los datos de respuesta 
+causando que el navegador de la víctima 
+ejecute códigos posiblemente maliciosos.
 
-. Idealmente, se deben ejecutar estas tareas en la etapa de diseño; sin embargo, aún es posible realizar el trabajo en las aplicaciones que ya se encuentren implementadas de esta forma:
+. La https://www.microsoft.com/en-us/download/details.aspx?id=28589[biblioteca gratuita Anti Cross Site Scripting de Microsoft] 
+puede usarse para proteger a los usuarios de este tipo de ataques. 
+Antes de abordar el tema 
+de cómo proteger una aplicación de los ataques de XSS 
+es importante resaltar los vectores de ataque 
+que un usuario malicioso puede usar para lanzar dichos ataques.
+
+. Idealmente, se deben ejecutar estas tareas en la etapa de diseño, 
+sin embargo, aún es posible realizar el trabajo en las aplicaciones 
+que ya se encuentren implementadas de esta forma. 
+Dichas tareas se listan a continuación:
 
 * Revisar todo el código que produce salidas
 * Determinar si la salida incluye parámetros no confiables de salida.
 * Determinar si el contexto en el que se usa la entrada no confiable.
 * Codificar la salida de manera apropiada.
 
-. El mejor criterio para determinar si la entrada es confiable es asumir que no lo es. Ejemplos de entradas no confiables incluyen:
+. El mejor criterio para determinar si la entrada es confiable 
+es asumir que no lo es. 
+Ejemplos de entradas no confiables incluyen:
 
 * Campos de formulario
 * Cadenas "Query"
 * Contenidos de cookies
 * Encabezados HTTP
 
-. Cuando se identifique que una entrada es no confiable, es importante determinar el método de codificación más apropiado. La siguiente tabla muestra los métodos de códificación asociados
+. Cuando se identifique que una entrada no es confiable, 
+es importante determinar el método de codificación más apropiado. 
+La siguiente tabla muestra los métodos de códificación asociados
 +
 |===
 |*Método de Codificación* | *Cuándo se debe usar*
