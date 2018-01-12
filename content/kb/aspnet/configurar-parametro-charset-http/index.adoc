@@ -11,30 +11,84 @@ Establecer Charset en ASP.Net
 
 == Contexto
 
-A continuación se describe las circunstancias bajo las cuales la siguiente solución tiene sentido:
+A continuación se describe las circunstancias 
+bajo las cuales la siguiente solución tiene sentido:
 
 . Se está desarrollando en ASP.Net
 
 == Solución
 
-. Las aplicaciones son rara vez probadas contra los exploits que usan Unicode, y sin embargo, muchas son vulnerables al mismo tipo de problemas que permite a un atacante realizar un "HTTP REQUEST SMUGGLING". El "HTTP REQUEST SMUGGLING" le permite a un atacante evadir los controles de un sistema, usando codificaciones diferentes, para que dos sistemas (usualmente, un WAF y el servidor WEB) perciban peticiones HTTP diferentes.
+. Las aplicaciones son rara vez probadas 
+contra los exploits que usan Unicode,
+sin embargo, muchas son vulnerables 
+al mismo tipo de problemas 
+que permite a un atacante realizar 
+un _HTTP Request Smuggling_.
 
-. La forma única significa la forma más simple o más estándar de algo. El proceso de normalizar las solicitudes se encarga de abordar la manera en que los sistemas transforman los datos de una forma a otra. En sí, normalizar es convertir algo desde su representación original a una forma más simple. Las aplicaciones Web deben lidiar con muchos procesos de normalización desde la codificación del URL hasta la traducción de las IP.
+. El _HTTP Request Smuggling_ 
+le permite a un atacante 
+evadir los controles de un sistema, 
+usando codificaciones diferentes, 
+para que dos sistemas (usualmente, un WAF y el servidor WEB) 
+perciban peticiones HTTP diferentes. 
 
-. Cuando se toman decisiones de seguridad basándose en datos normalizados menos que perfectos, la aplicación debe ser capaz de lidiar con entradas inesperadas de manera segura. Para evitar los ataques que se aprovechan de la normalización, se debe seleccionar una forma única y todas las entradas de usuario deben ser modificados a esa forma antes de tomar decisiones de autorización. Se debe realizar pruebas de seguridad después de que se ha realizado la decodificación. Se recomienda verificar que la codificación usada esté soportada para cada simbolo que se presenta. 
+. La forma normal (_canonical form_) es la representación más simple 
+o más estándar de algo. 
+El proceso de normalizar las solicitudes 
+se encarga de abordar el modo 
+en que los sistemas transforman los datos de una forma a otra. 
+En sí, normalizar es convertir algo 
+desde su estado original 
+a una representación más simple. 
 
-. ASP y ASP.Net. ContentType y charset se configuran por separado y consisten en métodos del objeto Response. Para configurar el charset use, por ejemplo:
+. Las aplicaciones Web deben tratar 
+con muchos procesos de normalización 
+desde la codificación del URL,  
+hasta la traducción de las IP. 
+Cuando se toman decisiones de seguridad 
+basándose en datos normalizados menos que perfectos, 
+la aplicación debe ser capaz de manejar 
+entradas inesperadas de manera segura. 
+
+. Para evitar los ataques 
+que se aprovechan de la normalización, 
+se debe seleccionar una forma normal
+y modificar todas las entradas de usuario dicha forma 
+antes de tomar decisiones de autorización.
+
+. De la misma manera, 
+se deben ejecutar pruebas de seguridad 
+después de que se ha realizado la decodificación, 
+por lo cual se recomienda verificar 
+que la codificación usada esté soportada 
+para cada símbolo que se presenta. 
+
+. ASP y ASP.Net. _ContentType_ y _Charset_ 
+se configuran por separado 
+y consisten en métodos del objeto _Response_. 
+Para configurar el charset use, por ejemplo:
 +
 [source, html, linenums]
 ----
 <%Response.charset="utf-8"%>
 ----
 
-. En ASP.Net, la configuración de Response.ContentEncoding se hará cargo tanto del parámetro charset del Content-Type de HTTP como de la codificación real del documento que se envía (la cual debe, por supuesto, ser la misma). El valor predeterminado puede configurarse en el elemento globalization en Web.config (o Machine.config, que, originariamente, se configura en UTF-8). 
+. En ASP.Net, la configuración de _Response.ContentEncoding_ 
+se hará cargo tanto del parámetro _charset_ del _Content-Type_ de HTTP 
+como de la codificación real 
+del documento que se envía ,
+la cual debe ser, por supuesto, la misma. 
+El valor predeterminado puede configurarse 
+en el elemento _globalization_ en _Web.config_ 
+(o _Machine.config_, que originariamente, se configura en UTF-8). 
 
-Para especificar la codificación:
-
-. Para configurar la codificación para todas las páginas, añadir una propiedad globalización en el archivo Web.config y, a continuación, establezca su fileEncoding, requestEncoding y responseEncoding atributos, como se muestra en el siguiente ejemplo:
+. Especificar la codificación: Para configurar la codificación 
+en todas las páginas, 
+se debe añadir una propiedad globalización 
+en el archivo _Web.config_ 
+y a continuación, establezca sus atributos _fileEncoding_, 
+_requestEncoding_ y _responseEncoding_, 
+como se muestra en el siguiente ejemplo:
 +
 [source,html,linenums]
 ----
@@ -51,7 +105,9 @@ Para especificar la codificación:
 </configuration>
 ---- 
 
-. Para establecer la codificación de una página individual, establezca los atributos _RequestEncoding_ y _ResponseEncoding_ de la directiva @ Page, como se muestra en el siguiente ejemplo:
+. Para establecer la codificación de una página individual, 
+establezca los atributos _RequestEncoding_ y _ResponseEncoding_ 
+de la directiva _@ Page_, como se muestra en el siguiente ejemplo:
 +
 [source,html,linenums]
 ----
