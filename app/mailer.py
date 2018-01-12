@@ -36,3 +36,6 @@ def send_mail_delete_finding(email_to, context):
 
 def send_mail_remediate_finding(email_to, context):
     __send_mail('remediatefindingintegrates', email_to, context=context)
+
+def send_mail_new_comment(email_to, context):
+    __send_mail('newcommentintegrates', email_to, context=context)

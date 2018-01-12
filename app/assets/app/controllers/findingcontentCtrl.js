@@ -771,6 +771,9 @@ integrates.controller("findingcontentCtrl", function($scope, $stateParams, $time
                       },
                       postComment: function(data, success, error) {
                         data["id"] = parseInt(Math.round(new Date()/1000).toString() + (Math.random() * 10000).toString(9));
+                        data["finding_name"] = $scope.finding.hallazgo;
+                        data["project"] = $scope.finding.proyecto_fluid;
+                        data["finding_url"] = window.location.href;
                         var comment = projectFtry.addComment($scope.finding.id, data);
                         comment.then(function(response){
                           if(!response.error){

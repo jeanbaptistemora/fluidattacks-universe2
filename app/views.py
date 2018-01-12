@@ -22,6 +22,7 @@ from .documentator.pdf import FindingPDFMaker
 # pylint: disable=E0402
 from .mailer import send_mail_delete_finding
 from .mailer import send_mail_remediate_finding
+from .mailer import send_mail_new_comment
 from .services import has_access_to_project
 from .dao import integrates_dao
 from .api.drive import DriveAPI
@@ -645,7 +646,22 @@ def add_comment(request):
     comment = integrates_dao.create_comment_dynamo(int(submission_id), email, data)
     if not comment:
         return util.response([], 'Error', True)
-    return util.response([], 'Success', False)
+    try:
+        to = ['concurrent@fluid.la']
+        to.append('ralvarez@fluid.la')
+        comment_content = data['data[content]'].replace('\n', ' ')
+        context = {
+           'project': data['data[project]'],
+           'finding_name': data['data[finding_name]'],
+           'user_email': email,
+           'finding_url': data['data[finding_url]'],
+           'finding_id': submission_id,
+           'comment': comment_content,
+            }
+        send_mail_new_comment(to, context)
+        return util.response([], 'Success', False)
+    except KeyError:
+        return util.response([], 'Campos vacios', True)    
 
 @never_cache
 @require_http_methods(["POST"])
