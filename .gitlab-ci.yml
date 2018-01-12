@@ -2,10 +2,8 @@ image: registry.gitlab.com/fluidsignal/web:builder
 
 stages:
   - build
+  - lint
   - deployment
-
-before_script:
-  - ./checks.sh
 
 builder:
   image: docker:17
@@ -16,12 +14,22 @@ builder:
     - docker login registry.gitlab.com -u $DOCKER_USER -p $DOCKER_PASSWD
     - docker pull registry.gitlab.com/fluidsignal/web:builder
     # Only builds from scratch if the Dockerfile has changed
-    - docker build --cache-from registry.gitlab.com/fluidsignal/web:builder -t registry.gitlab.com/fluidsignal/web:builder builder/
+    - docker build --cache-from registry.gitlab.com/fluidsignal/web:builder
+      -t registry.gitlab.com/fluidsignal/web:builder builder/
     - docker push registry.gitlab.com/fluidsignal/web:builder
 
+checks:
+  stage: lint
+  script:
+    - ./check-changed.sh
+    - ./check-all.sh
+    - pelican --fatal errors --fatal warnings content/
+  except:
+    - master
+
 deploy:
-  environment: production
   stage: deployment
+  environment: production
   script:
     # Generate the website, exiting on any error encountered
     - pelican --fatal errors --fatal warnings content/
@@ -37,11 +45,4 @@ deploy:
     - aws s3 rm --recursive s3://web.fluid.la
     - aws s3 cp --recursive --acl=public-read-write output/ s3://web.fluid.la
   only:
-     - master
-
-test:
-  stage: deployment
-  script:
-    - pelican --fatal errors --fatal warnings content/
-  except:
     - master
