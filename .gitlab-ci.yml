@@ -24,6 +24,9 @@ checks:
     - ./check-changed.sh
     - ./check-all.sh
     - pelican --fatal errors --fatal warnings content/
+    - ./html-lint.sh
+  except:
+    - master
 
 deploy:
   stage: deployment

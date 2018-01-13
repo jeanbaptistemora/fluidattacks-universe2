@@ -9,10 +9,11 @@ RUN apt-get update -qq && apt-get install -qqy curl gnupg
 
 # Set sources for nodejs and yarn  15-17
 # Install necessary dependencies 18-40
-# Download only the necessary JS files to use TipueSearch plugin 41-44
-# Download only the plugins listed in plugin_list.txt and reset to the version used in this project 45-48
-# Download pelican-redirect plugin (not found in the general repository) and create __init__.py so pelican can load the plugin 49-50
-# Change default code-highlighter to Pygments 52
+# Install HTML linter tidy 44-47
+# Download only the necessary JS files to use TipueSearch plugin 47-50
+# Download only the plugins listed in plugin_list.txt and reset to the version used in this project 51-54
+# Download pelican-redirect plugin (not found in the general repository) and create __init__.py so pelican can load the plugin 55-56
+# Change default code-highlighter to Pygments 57
 RUN curl -sL https://deb.nodesource.com/setup_9.x | bash - && \
         echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list && \  
         curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - && \
@@ -20,6 +21,7 @@ RUN curl -sL https://deb.nodesource.com/setup_9.x | bash - && \
         apt-get install -qqy --no-install-recommends \
             asciidoc \
             diction \
+            g++ \
             gcc \
             git \
             libcurl4-openssl-dev \
@@ -39,6 +41,10 @@ RUN curl -sL https://deb.nodesource.com/setup_9.x | bash - && \
         pip install -r requirements.txt && \
         gem install -N sass && \
         yarn install && \
+    curl -sSL https://cmake.org/files/v3.10/cmake-3.10.1-Linux-x86_64.tar.gz | tar -zx && \
+        mv cmake* Cmake && export PATH=$PATH:/app/Cmake/bin/ && \
+        git clone --depth=1 https://github.com/htacg/tidy-html5.git && cd tidy-html5/build/cmake && \ 
+        cmake ../.. -DCMAKE_BUILD_TYPE=Release && make && make install && cd ../../../ && \
     mkdir js && cd js && \
         git init && git remote add origin https://github.com/Tipue/Tipue-Search.git && \
         git config core.sparsecheckout true && cat ../js-files.txt >> .git/info/sparse-checkout && \

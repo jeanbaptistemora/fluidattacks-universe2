@@ -55,9 +55,9 @@ if pcregrep -M -n -r --include='\.adoc$' '^= .*\n\n.*^= .*\n\n' content; then -e
 if pcregrep --color -nr --include='\.adoc' '^= [A-Z].*\"' content; then echo -e "${GC}ERRORES: No usar comillas dobles \" en el título.${NC}"; ERRORS=1;fi
 
 # Check that blog articles have alt description for their featured images
-if pcregrep --color -Lnr --include='\.adoc' '^:alt:.*' content/blog*; then echo -e "${GC}ERRORES: Los bloques de código deben estar separados del párrafo por un '+'${NC}"; ERRORS=1;fi
+if pcregrep --color -Lnr --include='\.adoc' '^:alt:.*' content/blog*; then echo -e "${GC}ERRORES: Los artículos deben llevar meta-descripción \"alt\" para su imagen representativa${NC}"; ERRORS=1;fi
 
 # Check that code does not follow inmmediatly after a paragraph in the KB
-if pcregrep --color -Mnr --include='\.adoc' '[a-zA-Z0-9].*\n.*\[source' content/kb; then echo -e "${GC}ERRORES: Los artículos deben llevar meta-descripción \"alt\" para su imagen representativa${NC}"; ERRORS=1;fi
+if pcregrep --color -Mnr --include='\.adoc' '[a-zA-Z0-9].*\n.*\[source' content/kb; then echo -e "${GC}ERRORES: Los bloques de código deben estar separados del párrafo por un '+'${NC}"; ERRORS=1;fi
 
 exit $ERRORS
