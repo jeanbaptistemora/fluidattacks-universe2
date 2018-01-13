@@ -11,7 +11,7 @@
         <header class="intro-header" style="background-color: {{ HEADER_COLOR }}">
     {% else %}
         <header class="intro-header"> <!--style="background-image: url('{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/fluid.png');" >-->
-            <a href="/"><img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/fluid.png"></a>
+            <a href="/"><img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/fluid.png" alt="{{ gettext('Young hacker smiling') }}"></a>
     {% endif %}   
         </header>
 {% endblock header %}
@@ -21,7 +21,7 @@
     <article>
       <h1>ERROR 404: {{ gettext('PAGE NOT FOUND') }}</h1>
       <p>{{ gettext('It seems nothing was found in this address. Try searching or browsing to one of the following links') }}:</p>
-        <div id="div404">
+        <div class="div404">
           <h2>{{ gettext('Recent Entries') }}</h2> 
           {% set recent = articles if not all_articles else all_articles %}
           <ul>
@@ -32,7 +32,7 @@
             {% endfor %}
           </ul>
         </div>
-        <div id="div404">
+        <div class="div404">
   	  <h2>{{ gettext('Categories') }}</h2>
           <ul>  
             {% for category, articles in categories %}
@@ -40,7 +40,7 @@
             {% endfor %}
           </ul>
         </div>
-        <div id="div404">
+        <div class="div404">
           <h2>{{ gettext('Page') }}</h2>
           <ul>
             {% for page in pages|sort %}
@@ -51,5 +51,3 @@
     </article>
   </div>
 {% endblock content %}
-
-

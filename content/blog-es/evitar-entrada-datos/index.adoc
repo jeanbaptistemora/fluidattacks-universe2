@@ -126,7 +126,7 @@ la función _mysql_real_escape_string_ la cual coloca barras invertidas ante los
 siguientes caracteres:  \x00 \n \r \' \" y \x1a. Con lo cual garantiza que los
 datos sean seguros antes de enviar una consulta a MySQL.
 
-[source,php,linenums]
+[source, shell, linenums]
 ---- 
 <?php
 $enlace = mysql_connect('mysql_host', 'mysql_usuario', 'mysql_contrasenya')

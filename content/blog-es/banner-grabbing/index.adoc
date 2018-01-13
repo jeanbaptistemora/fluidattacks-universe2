@@ -89,9 +89,9 @@ por alguna razón hay un puerto filtrado o abierto y el servicio que corre es
 desconocido (unknow), nmap lo puede omitir, es por eso que debemos analizar 
 todos los puertos que en total son (65535).
 
-[source, conf, linenums]
+[source, shell, linenums]
 ----
-% sudo nmap -sS hackthis.co.uk -p0-65535 hackthis.co.uk
+sudo nmap -sS hackthis.co.uk -p0-65535 hackthis.co.uk
 ----
 
 Lo ideal si esto fuera un caso real es analizar todos los puertos abiertos, ya

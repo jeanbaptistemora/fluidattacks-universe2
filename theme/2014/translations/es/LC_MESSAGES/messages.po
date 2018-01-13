@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2018-01-11 22:53-0500\n"
+"POT-Creation-Date: 2018-01-13 03:49-0500\n"
 "PO-Revision-Date: 2017-12-21 15:09-0500\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: es\n"
@@ -21,6 +21,14 @@ msgstr ""
 #: templates/404.html:3
 msgid "The page was not found"
 msgstr "La página no fue encontrada"
+
+#: templates/404.html:14 templates/archives.html:13 templates/article.html:15
+#: templates/author.html:22 templates/authors.html:13
+#: templates/categories.html:13 templates/category.html:13
+#: templates/index.html:15 templates/page.html:15 templates/tag.html:11
+#: templates/tags.html:13
+msgid "Young hacker smiling"
+msgstr "Joven hacker sonriendo"
 
 #: templates/404.html:22
 msgid "PAGE NOT FOUND"
@@ -51,14 +59,10 @@ msgstr "Página"
 msgid "Archives"
 msgstr "Archivos"
 
-#: templates/archives.html:18 templates/period_archives.html:3
+#: templates/archives.html:23 templates/period_archives.html:3
 #: templates/period_archives.html:18
 msgid "Archives for"
 msgstr "Archivos para"
-
-#: templates/article.html:15 templates/index.html:15
-msgid "Young hacker smiling"
-msgstr "Joven hacker sonriendo"
 
 #: templates/article.html:30
 msgid "User icon"
@@ -93,7 +97,7 @@ msgstr "Foto del autor"
 msgid "Related"
 msgstr "Relacionado"
 
-#: templates/article.html:102 templates/page.html:39
+#: templates/article.html:103 templates/page.html:41
 msgid "Leave a comment"
 msgstr "Haz un comentario"
 
@@ -142,6 +146,10 @@ msgstr "Metodología"
 msgid "methodology.png"
 msgstr "metodologia.png"
 
+#: templates/ethical.html:7
+msgid "Timeline showng the stages performed by FLUID during a test"
+msgstr "Línea de tiempo mostrando las etapas seguidas por FLUID durante una prueba"
+
 #: templates/ethical.html:10
 msgid "Criteria"
 msgstr "Criterio"
@@ -150,21 +158,41 @@ msgstr "Criterio"
 msgid "criteria.png"
 msgstr "criterio.png"
 
+#: templates/ethical.html:13
+msgid "Standards and organizations on which FLUID bases its security criteria"
+msgstr "Estándaras y organizaciones utilizadas por FLUID para definir su criterio de seguridad"
+
 #: templates/ethical.html:18
 msgid "Deliverables"
 msgstr "Entregables"
+
+#: templates/ethical.html:21 templates/ethical.html:27
+msgid "Character doing a presentation"
+msgstr "Personaje haciendo una presentación"
 
 #: templates/ethical.html:21 templates/ethical.html:27
 msgid "Executive Report"
 msgstr "Reporte Ejecutivo"
 
 #: templates/ethical.html:22 templates/ethical.html:29
+msgid "Check list"
+msgstr "Lista de ítems"
+
+#: templates/ethical.html:22 templates/ethical.html:29
 msgid "Technical Report"
 msgstr "Reporte Técnico"
 
 #: templates/ethical.html:23 templates/ethical.html:31
+msgid "A couple of text documents"
+msgstr "Un par de documentos de texto"
+
+#: templates/ethical.html:23 templates/ethical.html:31
 msgid "Solution Folder"
 msgstr "Carpeta de Soluciones"
+
+#: templates/ethical.html:24 templates/ethical.html:33
+msgid "Magnifying glass searching through binary data"
+msgstr "Lupa buscando sobre datos binarios"
 
 #: templates/ethical.html:24 templates/ethical.html:33
 msgid "Evidence Folder"
@@ -416,34 +444,34 @@ msgstr "Ícono de etiqueta"
 msgid "Read More"
 msgstr "Seguir Leyendo"
 
-#: templates/location.html:22 templates/location.html:32
-#: templates/location.html:72 templates/location.html:92
+#: templates/location.html:22 templates/location.html:31
+#: templates/location.html:67 templates/location.html:86
 msgid "Land line"
 msgstr "Teléfono Fijo"
 
-#: templates/location.html:23 templates/location.html:33
-#: templates/location.html:44 templates/location.html:73
-#: templates/location.html:93 templates/location.html:114
+#: templates/location.html:23 templates/location.html:32
+#: templates/location.html:40 templates/location.html:68
+#: templates/location.html:87 templates/location.html:105
 msgid "Mobile"
 msgstr "Celular"
 
-#: templates/location.html:25 templates/location.html:75
+#: templates/location.html:25 templates/location.html:70
 msgid "Forum Building"
 msgstr "Edificio Forum"
 
-#: templates/location.html:26 templates/location.html:36
-#: templates/location.html:46 templates/location.html:76
-#: templates/location.html:96 templates/location.html:116
+#: templates/location.html:26 templates/location.html:35
+#: templates/location.html:42 templates/location.html:71
+#: templates/location.html:90 templates/location.html:107
 msgid "Office"
 msgstr "Oficina"
 
-#: templates/location.html:27 templates/location.html:37
-#: templates/location.html:47 templates/location.html:77
-#: templates/location.html:97 templates/location.html:117
+#: templates/location.html:27 templates/location.html:36
+#: templates/location.html:43 templates/location.html:72
+#: templates/location.html:91 templates/location.html:108
 msgid "Postal Code"
 msgstr "Código Postal"
 
-#: templates/location.html:35 templates/location.html:95
+#: templates/location.html:34 templates/location.html:89
 msgid "Villorio Building"
 msgstr "Edificio Villorio"
 
