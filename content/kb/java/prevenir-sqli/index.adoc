@@ -64,7 +64,7 @@ ResultSet rs = prepStmt.executeQuery();
 Injection. Primero se creará la base de datos ejemplo, con una única tabla 
 llamada datos con la siguiente información.
 +
-[source, conf, linenums]
+[source, shell, linenums]
 ----
 mysql> select * from datos; 
 +------+-----------+ 
@@ -234,7 +234,7 @@ prepStmt.setString(1, id);
 . Para utilizar la aplicación, basta con pasar por método GET el código de la 
 ciudad que se desea visualizar.
 +
-[source, conf, linenums]
+[source, shell, linenums]
 ----
 http://localhost:8080/sqli/index.jsp?id=2
 ---- 

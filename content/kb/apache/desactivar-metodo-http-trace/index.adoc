@@ -21,7 +21,7 @@ solución tiene sentido:
 . Se edita el archivo de configuración de Apache, ubicado generalmente en 
 /etc/apache2/conf.d/security y se edita la siguiente línea:
 +
-[source, conf, linenums]
+[source, shell, linenums]
 ----
 TraceEnable off
 ----
@@ -30,7 +30,7 @@ TraceEnable off
 . Para evitar un Cross-Site-Tracing attack se habilita el módulo rewrite de 
 Apache2
 +
-[source, conf, linenums]
+[source, shell, linenums]
 ----
 a2enmod rewrite 
 ----
@@ -38,7 +38,7 @@ a2enmod rewrite
 . Y se edita el archivo de configuración de cada virtualhost o del  archivo 
 /etc/apache2/sitesavailable/default.
 +
-[source, conf, linenums]
+[source, shell, linenums]
 ----
 <VirtualHost :80> 
 <IfModule mod_rewrite.c> 

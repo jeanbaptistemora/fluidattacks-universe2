@@ -80,7 +80,8 @@ for (int i = 0; i < 4; i++) {
 ----
  
 . Este es el resultado para la generación de números aleatorios
-[source, conf, linenums]
++
+[source, shell, linenums]
 ----
 -1061930007 
 1168469548 

@@ -23,7 +23,7 @@ operativo y así evitar la falta de trazabilidad en el momento de ocurrencia de
 un incidente de seguridad se debe editar el archivo/etc/security/limits.conf 
 agregando las siguientes líneas:
 +
-[source, conf, linenums]
+[source, shell, linenums]
 ----
 # /etc/security/limits.conf 
 # 
@@ -54,7 +54,7 @@ root hard maxlogins 1
 . Al realizar una conexión a través de SSH y sobrepasar el número máximo de 
 sesiones concurrentes se puede apreciar el siguiente mensaje:
 +
-[source, conf, linenums]
+[source, shell, linenums]
 ----
 login as: FLUID 
 FLUID@192.168.0.106's password: 

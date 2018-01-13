@@ -23,7 +23,7 @@ solución tiene sentido:
 . En el archivo de configuración httpd.conf asegúrese de contener las 
 siguientes directivas:
 +
-[source, conf, linenums]
+[source, shell, linenums]
 ----
 ServerSignature Off +
 ServerTokens Prod
@@ -54,14 +54,14 @@ completamente este valor, lo que necesitará hacer es lo siguiente:
 . Editar el archivo httpd.h, cambiando el valor de la cadena "Apache" en la 
 línea:
 +
-[source, conf, linenums]
+[source, shell, linenums]
 ----
 define SERVER_BASEPRODUCT "Apache"
 ----
 
 . Por un valor diferente como:
 +
-[source, conf, linenums]
+[source, shell, linenums]
 ----
 define SERVER_BASEPRODUCT "Server"
 ----

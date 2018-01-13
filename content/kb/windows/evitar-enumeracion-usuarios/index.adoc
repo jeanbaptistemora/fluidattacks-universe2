@@ -34,7 +34,7 @@ configurar la siguiente ruta usando la solución
 http://kb.fluid.la/help/directorio-activo-2008-modificar-configuracion-directivas-dominio[Modificar
 configuración de directivas de dominio por medio de Active Directory]
 +
-[source, conf, linenums]
+[source, shell, linenums]
 ----
 Computer configuration/Windows Settings/Security Settings/LocalPolicies/SecurityOptions
 ----
@@ -60,7 +60,7 @@ image::sesion.png[sesion]
 significa que sólo se necesitaría nombre de usuario para un usuario que no haya 
 establecido una contraseña) la ruta a seguir será:
 +
-[source, conf, linenums]
+[source, shell, linenums]
 ----
 Configuración del equipo/Configuración de Windows/Configuración de Seguridad
   /Directivas de cuentas/Directivas de contraseñas
@@ -72,7 +72,7 @@ sea diferente de cero y acorde a las políticas internas de la organización.
 deshabilitada, para evitar mostrar las cuentas de administrador existentes. 
 Para esto siga la ruta:
 +
-[source, conf, linenums]
+[source, shell, linenums]
 ----
  Configuración del equipo/Plantillas administrativa/Componentes de Windows
     /Interfaz de usuario de credenciales

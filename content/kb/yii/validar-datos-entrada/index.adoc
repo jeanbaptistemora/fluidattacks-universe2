@@ -55,6 +55,7 @@ explotar funciones del método CActiveRecord.
 . Esta validación se realiza cuando el método validate() es llamado desde el 
 objeto modelo, generalmente en respuesta a una acción por parte del usuario, 
 ejemplo:
++
 [source, php, linenums]
 ----
 $model->attributes=$_POST['Usuarios'];

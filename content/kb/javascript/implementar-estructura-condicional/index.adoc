@@ -50,6 +50,7 @@ if (args <= 1)
 
 . El siguiente muestra el uso correcto de la sentencia switch, se debe incluir 
 el caso default:
++
 [source, js, linenums]
 ----
 var val = getRandomInt(1,4);
@@ -68,5 +69,5 @@ switch(val) {
 == Referencias
 
 . https://developer.mozilla.org/es/docs/Web/JavaScript/Referencia/Sentencias/switch[switch - JavaScript MDN]
-. https://developer.mozilla.org/es/docs/Web/JavaScript/Referencia/Sentencias/if...else[if...else - JavaScript MDN]
+. https://developer.mozilla.org/es/docs/Web/JavaScript/Referencia/Sentencias/if%2E%2E%2Eelse[if...else - JavaScript MDN]
 . REQ.0156 El código debe definir opciones por defecto seguras (ej: default en switchs).

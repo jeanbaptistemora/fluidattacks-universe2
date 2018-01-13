@@ -30,7 +30,8 @@ carpeta logs dentro de nuestro dominio.
 . A continuación se puede ver un ejemplo extraído de la bitácora, se observa 
 que se incluye fecha, hora, segundos, milisegundos y zona horaria de manera 
 predeterminada.
-[source, conf, linenums]
++
+[source, shell, linenums]
 ----
 [#|2012-10-26T15:06:48.176-0500|INFO|glassfish3.1.2| 
 javax.enterprise.system.std.com.sun.enterprise.server.logging| 

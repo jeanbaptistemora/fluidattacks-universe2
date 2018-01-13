@@ -33,9 +33,9 @@ este.
 +
 [source, bash, linenums]
 ----
-% keytool -list -keystore cacerts
+keytool -list -keystore cacerts
 
-% Enter keystore password:
+Enter keystore password:
 
 Keystore type: JKS
 Keystore provider: SUN
@@ -57,9 +57,10 @@ Certificate fingerprint (MD5): A2:33:9B:4C:74:78:73:D4:6C:E7:C1:F3:8D:CB:5C:E9
 . Para importar un certificado al keystore se utiliza el comando 'keytool 
 -import -alias <nombre alias del certificado> -keystore <keystorefile> -file 
 <certfile>', este pedirá el password del keystore para poder acceder a este.
++
 [source, bash, linenums]
 ----
-% keytool -import -alias cabco -keystore cacerts -file /tmp/ca.cer
+keytool -import -alias cabco -keystore cacerts -file /tmp/ca.cer
 
 Enter keystore password:
 

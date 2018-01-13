@@ -68,6 +68,7 @@ REPLACE(*YES)
 . El anterior programa es creado exitosamente, el código fuente utilizado para
 esta solución y que contiene la estructura básica de un programa en COBOL es el
 que puede observar a continuación:
++
 [source,cobol,linenums]
 ----
        IDENTIFICATION DIVISION.

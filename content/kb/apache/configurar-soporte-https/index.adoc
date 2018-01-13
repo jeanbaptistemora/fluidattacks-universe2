@@ -27,45 +27,45 @@ servidores Apache
 +
 [source, bash, linenums]
 ----
-% apt-get install mod_ssl openssl
+apt-get install mod_ssl openssl
 ----
 
 . RedHat y derivados
 +
 [source, bash, linenums]
 ----
-% yum install mod_ssl openssl
+yum install mod_ssl openssl
 ----
 
 . Generar clave privada (Para el ejemplo se utiliza algoritmo RSA a 1024 bits)
 +
 [source, bash, linenums]
 ----
-% openssl genrsa -out ca.key 1024
+openssl genrsa -out ca.key 1024
 ----
  
 . Generar CSR (Certificate Signing Request)
 +
 [source, bash, linenums]
 ----
-% openssl req -new -key ca.key -out ca.csr 
-% # Se autofirma el certificado 
-% openssl x509 -req -days 365 -in ca.csr -signkey ca.key -out ca.crt
+openssl req -new -key ca.key -out ca.csr 
+# Se autofirma el certificado 
+openssl x509 -req -days 365 -in ca.csr -signkey ca.key -out ca.crt
 ----
  
 . Mover los ficheros de la firma que acabamos de generar a las rutas
 +
 [source, bash, linenums]
 ----
-% mv ca.crt /etc/pki/tls/certs 
-% mv ca.key /etc/pki/tls/private/ca.key 
-% mv ca.csr /etc/pki/tls/private/ca.csr 
+mv ca.crt /etc/pki/tls/certs 
+mv ca.key /etc/pki/tls/private/ca.key 
+mv ca.csr /etc/pki/tls/private/ca.csr 
 ----
  
 . Editar el archivo /etc/httpd/conf.d/ssl.conf y buscar los parámetros 
 SSLCertificateFile y SSLCertificateKeyFile y asignar los valores.
 +
-[source, conf, linenums]
+[source, shell, linenums]
 ----
 SSLCertificateFile /etc/pki/tls/certs/ca.crt
 SSLCertificateKeyFile /etc/pki/tls/private/ca.key
@@ -75,7 +75,7 @@ SSLCertificateKeyFile /etc/pki/tls/private/ca.key
 las peticiones dirigidas al puerto 443 (Peticiones HTTPS). Para esta operación 
 se edita el archivo /etc/httpd/conf/httpd.conf y se copia al final
 +
-[source, conf, linenums]
+[source, shell, linenums]
 ----
 <VirtualHost *:443>
  SSLEngine on
@@ -90,7 +90,7 @@ se edita el archivo /etc/httpd/conf/httpd.conf y se copia al final
 . Reiniciar el servidor Apache
 +
 [source, bash, linenums]
-% /etc/init.d/apache restart
+/etc/init.d/apache restart
 
 == Referencias
 

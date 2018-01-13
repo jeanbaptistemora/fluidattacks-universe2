@@ -59,8 +59,9 @@ duro. Se recomienda que cree un nuevo directorio tal como /tmp/updates y guarde
 todos los paquetes descargados en el.
 
 . Ejecutar el siguiente comando y verificar que no haya ningún resultado
++
 [source, bash]
-% yum check-update
+yum check-update
  
 image::verificar.png[verificacion]
 

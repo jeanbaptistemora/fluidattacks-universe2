@@ -100,9 +100,9 @@ class MainUsandoMas {
 c. Primero desensamblamos Main, a continuación se muestra un extracto de las 
 instrucciones, mostrando el ciclo:
 +
-[source, conf, linenums]
+[source, shell, linenums]
 ----
-% javap -c Main
+javap -c Main
 Compiled from "Main.java"
 class Main {
  Main();
@@ -124,9 +124,9 @@ class Main {
 . Ahora desensamblamos MainUsandoMas, a continuación se muestra un extracto de 
 las instrucciones que muestran en donde ser realiza el ciclo:
 +
-[source, conf, linenums]
+[source, shell, linenums]
 ----
-% javap -c MainUsandoMas
+javap -c MainUsandoMas
 Compiled from "MainUsandoMas.java"
 class MainUsandoMas {
  MainUsandoMas();

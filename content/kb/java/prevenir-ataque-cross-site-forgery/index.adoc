@@ -31,9 +31,9 @@ autorización para realizar acciones vulnerables. También ocurren cuando la
 aplicación procesa las acciones dadas las credenciales como parte de la 
 petición. Por ejemplo:
 +
-[source, conf, linenums]
+[source, shell, linenums]
 ----
- http://www.sitio.com/accion/?usuario=usr&contrasena=pass
+http://www.sitio.com/accion/?usuario=usr&contrasena=pass
 ----
 
 . Insertar valores aleatorios en los formularios es una técnica que se basa en 
@@ -50,7 +50,7 @@ para instalarlo se debe considerar los siguientes pasos:
 . Copiar los archivos OWASP CSRFGuard en el directorio de la
 aplicación de la siguiente forma:
 +
-[source, conf, linenums]
+[source, shell, linenums]
 ${PROJECT}/WEB-INF/lib/Owasp.CsrfGuard.jar
 ${PROJECT}/WEB-INF/Owasp.CsrfGuard.properties
 ${PROJECT}/WEB-INF/Owasp.CsrfGuard.js
@@ -61,7 +61,7 @@ org.owasp.csrfguard.unprotected. y el = puede ser un nombre cualquiera. Después
 del = se debe especificar un patrón para especificar las paginas. Algunos 
 ejemplos:
 +
-[source, conf, linenums]
+[source, shell, linenums]
 org.owasp.csrfguard.unprotected.Default=/ProgSeg/
 org.owasp.csrfguard.unprotected.Index=/ProgSeg/index.jsp
 org.owasp.csrfguard.unprotected.MiServlet=/ProgSeg/MiServlet
@@ -111,6 +111,7 @@ filtro estará asociado. Se puede configurar el filtro para que manipule todas
 las solicitudes que reciba un servlet específico o un patrón URL
 . La siguiente declaración indica que manipule todos los request
 direccionados a cualquier página.
++
 [source, xml,linenums]
 <filter-mapping>
   <filter-name>CSRFGuard</filter-name>

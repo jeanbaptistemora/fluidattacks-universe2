@@ -181,6 +181,7 @@ del usuario mediante el método POST del protocolo HTTP al servlet LoginServlet,
 se verifica por medio del métodovalidateResponseForID de la clase 
 DefaultManageableImageCaptchaService que la respuesta ingresada corresponda con 
 el contenido de la imagen que se mostró al usuario.
++
 [source, java, linenums]
 ----
 package com.servlet.servletidentifies;

@@ -21,7 +21,7 @@ solución tiene sentido:
 . Para cookies de sesión manejadas por PHP, la opción se puede habilitar en el 
 archivo php.ini a través del parámetro:
 +
-[source, conf, linenums]
+[source, shell, linenums]
 ----
 session.cookie_httponly = True
 ----

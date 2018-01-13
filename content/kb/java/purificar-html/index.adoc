@@ -114,13 +114,13 @@ out.println(safe); }}
 
 . Las listas blancas que trae la herramienta por defecto son
 +
-[source, conf, linenums]
+[source, shell, linenums]
 ----
 *Whitelist.simpleText()* 
 "b", "em", "i", "strong", "u"
 ----
 +
-[source, conf, linenums]
+[source, shell, linenums]
 ----
 *Whitelist.basic()* 
 "a", "b", "blockquote", "br", "cite", "code", "dd", "dl", 
@@ -128,13 +128,13 @@ out.println(safe); }}
 "strike", "strong", "sub", "sup", "u", "ul"
 ----
 +
-[source, conf, linenums]
+[source, shell, linenums]
 ----
 *Whitelist.basicWithImages()* 
 basic()."img"
 ----
 +
-[source, conf, linenums]
+[source, shell, linenums]
 ----
 *Whitelist.relaxed()* 
 "a", "b", "blockquote", "br", "caption", "cite", "code", "col", "colgroup", 

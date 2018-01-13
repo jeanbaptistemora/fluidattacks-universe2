@@ -46,15 +46,18 @@ if pcregrep --color -nr --include='\.adoc' 'slug:.*[a-z]$' content; then echo -e
 # if pcregrep -M -n -r --include='\.adoc$' '^\[source,.*\n[^.].*\n[^-]' content; then echo 'ERRORES: Source sin caption de archivo ".file.py (parte a)" y delimitadores "----".'; ERRORS=1;fi
 
 # Check alternative text in images
-if pcregrep --color -Mnr --include='\.adoc' '^image\:\:.*\[\]' content; then echo -e "${GC}ERRORES: Imagenes sin texto alternativo.${NC}"; ERRORS=1;fi
+if pcregrep --color -Mnr --include='\.adoc' 'image\:\:.*\[\]' content; then echo -e "${GC}ERRORES: Imagenes sin texto alternativo.${NC}"; ERRORS=1;fi
 
 # Check doble titulo principal
-if pcregrep -M -n -r --include='\.adoc$' '^= .*\n\n.*^= .*\n\n' content; then echo 'ERRORES: Doble titulo principal.'; ERRORS=1;fi
+if pcregrep -M -n -r --include='\.adoc$' '^= .*\n\n.*^= .*\n\n' content; then -e echo "${GC}ERRORES: Doble titulo principal.${NC}"; ERRORS=1;fi
 
 # Check double quotes are not used in the title
 if pcregrep --color -nr --include='\.adoc' '^= [A-Z].*\"' content; then echo -e "${GC}ERRORES: No usar comillas dobles \" en el título.${NC}"; ERRORS=1;fi
 
 # Check that blog articles have alt description for their featured images
-if pcregrep --color -Lnr --include='\.adoc' '^:alt:.*' content/blog*; then echo -e "${GC}ERRORES: Los artículos deben llevar meta-descripción \"alt\" para su imagen representativa${NC}"; ERRORS=1;fi
+if pcregrep --color -Lnr --include='\.adoc' '^:alt:.*' content/blog*; then echo -e "${GC}ERRORES: Los bloques de código deben estar separados del párrafo por un '+'${NC}"; ERRORS=1;fi
+
+# Check that code does not follow inmmediatly after a paragraph in the KB
+if pcregrep --color -Mnr --include='\.adoc' '[a-zA-Z0-9].*\n.*\[source' content/kb; then echo -e "${GC}ERRORES: Los artículos deben llevar meta-descripción \"alt\" para su imagen representativa${NC}"; ERRORS=1;fi
 
 exit $ERRORS

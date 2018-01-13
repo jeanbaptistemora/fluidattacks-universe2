@@ -23,7 +23,8 @@ solución tiene sentido:
 . Si se está en un host virtual de Apache, se pueden implementar los headers 
 añadiendo al archivo .htaccess o al archivo httpd.conf cualquiera de las 
 siguientes opciones
-[source, conf, linenums]
++
+[source, shell, linenums]
 ----
 Header always set x-Frame-Options "DENY" 
 Header always set X-Xss-Protection "1; mode=block" 

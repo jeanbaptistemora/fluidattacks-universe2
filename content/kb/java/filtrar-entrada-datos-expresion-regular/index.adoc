@@ -87,10 +87,10 @@ patrón especificado, haciendo uso del método matches.
 . Se compila y ejecuta pasando como parámetro el argumento "hola" y se observa 
 que se ha clasificado la cadena como válida.
 +
-[source, conf, linenums]
+[source, shell, linenums]
 ----
-% javac Main.java
-% java Main hola
+javac Main.java
+java Main hola
 La cadena SI es válida
 ----
 
@@ -98,9 +98,9 @@ La cadena SI es válida
 asterisco al final, carácter que no se encuentra en la definición del patrón, 
 y se observa que se ha clasificado la cadena como NO válida.
 +
-[source, conf, linenums]
+[source, shell, linenums]
 ----
-% java Main hola*
+java Main hola*
 La cadena NO es válida
 ----
 

@@ -59,7 +59,7 @@ forjar consultas maliciosas en las entradas de la aplicación.
  
 . Ahora bien, es posible fabricar la siguiente consulta de Xpath.
 +
-[source, conf, linenums]
+[source, shell, linenums]
 ----
 /users/user[loginID/text()='abc' and password/text()='test123']
 ----
@@ -68,7 +68,7 @@ forjar consultas maliciosas en las entradas de la aplicación.
 similar a los ataques de inyección SQL, podría fabricar una consulta de este 
 tipo:
 +
-[source, conf, linenums]
+[source, shell, linenums]
 ----
 /users/user[LoginID/text()='' or '1'='1' and password/text()='' or '1'='1']
 ----
@@ -123,6 +123,7 @@ si fuesen bases de datos. Java no soporta de modo nativo XQuery, pero existen
 parseadores gratuitos como el referenciado en [2].
 
 . El código completo usando AWT sería:
++
 [source, java, linenums]
 ----
 import java.awt.*;

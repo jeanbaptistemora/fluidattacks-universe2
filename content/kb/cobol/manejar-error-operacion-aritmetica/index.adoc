@@ -105,6 +105,7 @@ CALC-ERROR.
 . En este caso es mostrada la excepción debido a que la suma total de los montos 
 ($1.200.000) supera la longitud esperada en la variable W01-TOTALAMOUNT.
 . Se debe redefinir la variable con el objetivo de almacenar números más grandes
++
 [source, cobol,linenums]
 ----
 ********
