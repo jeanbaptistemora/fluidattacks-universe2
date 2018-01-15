@@ -11,25 +11,60 @@ Definir autenticación en ASP.Net
 
 == Contexto
 
-A continuación se describen las circunstancias bajo las cuales la siguiente solución tiene sentido:
+A continuación se describen las circunstancias 
+bajo las cuales la siguiente solución tiene sentido:
 
 . Se está desarrollando una aplicación en ASP.Net.
 
 == Solución
 
-. La autenticación es el proceso de obtención de credenciales de identificación, como el nombre y la contraseña de un usuario y la validación de las credenciales contra alguna autoridad. Si las credenciales son válidas, la entidad que presentó las credenciales se considera una identidad autenticada. Una vez que una identidad ha sido autenticada, el proceso de autorización determina si la identidad que tiene acceso a un recurso dado. ASP.NET implementa la autenticación a través de proveedores de autenticación, los módulos de código que contienen el código necesario para autenticar las credenciales del solicitante. Los temas de esta sección describen los proveedores de autenticación integrados en ASP.NET.
+. La autenticación es el proceso de obtención 
+de credenciales de identificación, 
+tales como el nombre y la contraseña de un usuario. 
+Si las credenciales son válidas, 
+la entidad que presentó las credenciales 
+se considera una identidad autenticada. 
+ASP.NET implementa la autenticación 
+a través de proveedores de autenticación. 
+Éstos son módulos de código que contienen 
+el código necesario para autenticar 
+las credenciales del solicitante. 
+En la siguiente tabla se describen 
+los proveedores de autenticación integrados en ASP.NET.
 +
 |===
 |Término |Descripción
 
-|Proveedor de autenticación de Windows
-|Proporciona información sobre cómo utilizar la autenticación de Windows junto con los Servicios de Internet Information Server (IIS) de autenticación para asegurar las aplicaciones ASP.NET.
+|Proveedor de autenticación de Windows.
+|Proporciona información sobre cómo utilizar 
+la autenticación de Windows 
+y los Servicios de Internet Information Server (IIS) de autenticación 
+para asegurar las aplicaciones ASP.NET.
 
-|Proveedor de autenticación con formularios
-|Proporciona información sobre cómo crear un formulario de acceso específica de la aplicación y realizar la autenticación con su propio código. Una forma cómoda de trabajar con la autenticación de formularios es utilizar membresía ASP.NET  y los controles de inicio de sesión ASP.NET, que en conjunto proporcionan una manera de recoger las credenciales de usuario, autenticación, y gestionarlos, con poco o ningún código. 
+|Proveedor de autenticación con formularios.
+|Proporciona información sobre cómo crear 
+un formulario de acceso específico
+y realizar la autenticación con su propio código. 
+Una forma cómoda de trabajar 
+con la autenticación de formularios 
+es utilizar membresía ASP.NET  
+y los controles de inicio de sesión ASP.NET. 
+Éstos en conjunto proporcionan una manera 
+de recoger las credenciales de usuario/autenticación 
+y gestionarlos, con poco o ningún código. 
 |===
 
-. Proveedor de autenticación con formularios: La autenticación con formularios permite autenticar el nombre de usuario y la contraseña de los usuarios mediante un formulario de inicio de sesión que se crea. Las solicitudes no autenticadas se redirigen a una página de inicio de sesión, donde el usuario proporciona las credenciales y envía el formulario. Si la aplicación autentica la solicitud, el sistema emite un ticket que contiene una clave para el restablecimiento de la identidad para las solicitudes posteriores. Se debe validar que la configuración de la autenticación de formularios es segura. Ejemplo:
+. Proveedor de autenticación con formularios: 
+La autenticación con formularios permite autenticar 
+el nombre de usuario y la contraseña 
+mediante un formulario de inicio de sesión que se crea. 
+Si la aplicación autentica la solicitud, 
+el sistema emite un ticket 
+que contiene una clave 
+para el restablecimiento de la identidad 
+para las solicitudes posteriores.  
+A continuación se presenta un ejemplo 
+de una autenticación con formularios:
 +
 [source, html]
 ----
@@ -42,16 +77,15 @@ A continuación se describen las circunstancias bajo las cuales la siguiente sol
        slidingExpiration="true" />
 ----
 
-. Explicación de cada parámetro:
-
-* Cookie de autenticación se cifra y comprobarse la integridad (protección).
-* SSL es necesario para la cookie de autenticación (requireSSL).
-* Plazo de caducidad se establece en false si no se utiliza SSL (slidingExpiration).
-* La duración de la sesión se limita (tiempo de espera).
-* Nombres de cookies y caminos son únicos (nombre y ruta) .
-* No se utiliza el elemento <credentials>.
-
-. Almacenamiento de usuarios en el archivo de configuración de aplicaciones: Cuando se utiliza la autenticación de formularios, puede validar usuarios a partir de pares usuario / contraseña en la sección del archivo de configuración del sitio Web. Puede utilizar el método de autenticación para comparar las credenciales recogidas del usuario a la lista de pares usuario / contraseña en la sección de credenciales para determinar si el acceso debe concederse. En el siguiente ejemplo, los usuarios Kim y John pueden iniciar sesión si proporcionan la contraseña correcta. 
+. Almacenamiento de usuarios 
+en el archivo de configuración de aplicaciones: 
+Cuando se utiliza la autenticación de formularios, 
+puede validar usuarios 
+a partir de pares usuario / contraseña 
+para determinar si el acceso debe concederse. 
+En el siguiente ejemplo, 
+los usuarios Kim y John pueden iniciar sesión 
+si proporcionan la contraseña correcta. 
 +
 [source, html]
 ----
@@ -63,25 +97,79 @@ A continuación se describen las circunstancias bajo las cuales la siguiente sol
 </credentials>
 ----
 
-. Los pares de credenciales en el ejemplo se cifran utilizando el formato de una contraseña hash Algoritmo 1 seguro (SHA1). Se requiere el atributo _PasswordFormat_. Los valores para esta propiedad se enumeran en la tabla siguiente.
+. Los pares de credenciales en el ejemplo 
+se cifran utilizando el formato 
+de una contraseña _Secure Hash Algorithm_ (SHA1). 
+Se requiere el atributo _PasswordFormat_. 
+Los valores para esta propiedad 
+se enumeran en la siguiente tabla.
 +
 |===
 |Valor | Descripción
 
 |Texto claro
-|Las contraseñas se almacenan en texto claro. La contraseña de usuario se compara directamente a este valor sin más transformación.
+|Las contraseñas se almacenan en texto claro. 
+La contraseña de usuario 
+se compara directamente a este valor 
+sin más transformación.
 
 |MD5
-|Las contraseñas se almacenan utilizando un Message Digest 5 (MD5) resumen hash. Para validar las credenciales, la contraseña del usuario se aplica un algoritmo hash utilizando el algoritmo MD5 y se compara con el valor almacenado. La contraseña de texto no se almacena o se compara cuando se utiliza este valor. Este algoritmo produce un mejor rendimiento que SHA1.
+|Las contraseñas se almacenan 
+utilizando un Message Digest 5 (MD5). 
+Para validar las credenciales, 
+la contraseña del usuario 
+aplica un algoritmo hash 
+utilizando el algoritmo MD5 
+y se compara con el valor almacenado. 
+La contraseña de texto no se almacena 
+o se compara cuando se utiliza este valor. 
+Este algoritmo produce 
+un mejor rendimiento que SHA1.
 
 |SHA1
-|Las contraseñas se almacenan utilizando el SHA1 hash. Para validar las credenciales, la contraseña del usuario se aplica un algoritmo hash utilizando el algoritmo SHA1 y se compara con el valor almacenado. La contraseña de texto no se almacena. Utilice este algoritmo para mejorar la seguridad en el algoritmo MD5.
+|Las contraseñas se almacenan 
+utilizando el SHA1 hash. 
+Para validar las credenciales, 
+la contraseña del usuario 
+aplica un algoritmo hash 
+utilizando el algoritmo SHA1 
+y se compara con el valor almacenado. 
+La contraseña de texto no se almacena. 
+Utilice este algoritmo para mejorar la seguridad 
+en el algoritmo MD5.
 
 |===
 
-. El . NET Framework incluye clases y métodos para crear valores hash mediante programación para el almacenamiento persistente. Una clase que puede ser útil para la programación de esta tarea es la clase FormsAuthentication . Su método HashPasswordForStoringInConfigFile puede hacer el hash. Para un control más preciso , puede utilizar las clases System.Security.Cryptography también.
+. El . NET Framework incluye clases y métodos 
+para crear valores hash mediante programación 
+para el almacenamiento persistente. 
+Una clase útil para la programación de esta tarea 
+es la clase _FormsAuthentication_ . 
+Su método _HashPasswordForStoringInConfigFile_ puede hacer el hash. 
+Para un control más preciso, 
+puede utilizar también las clases _System.Security.Cryptography_.
 
-. Las contraseñas con algoritmo hash almacenados en un archivo de texto no se pueden utilizar para regenerar la contraseña original , pero que son potencialmente vulnerables a un ataque de diccionario . En este tipo de ataque , el atacante , después de acceder al archivo de contraseñas , los intentos de adivinar las contraseñas mediante el uso de software de manera iterativa de hash todas las palabras en un diccionario de gran tamaño y comparar los hashes generados con el hash almacenado. Si almacena las contraseñas hash de cualquier manera, usted debe requerir que los usuarios eligen contraseñas que no son palabras comunes y que contienen algunos números y caracteres no alfanuméricos para ayudar a prevenir los ataques de diccionario . Además , usted puede hacer más fácil la gestión de credenciales mediante el almacenamiento mediante la suscripción de ASP.NET. 
+. Las contraseñas con algoritmo hash 
+almacenados en un archivo de texto 
+no se pueden utilizar 
+para regenerar la contraseña original. 
+Sin embargo son potencialmente vulnerables 
+a un ataque de diccionario. 
+En este tipo de ataque, 
+el atacante,realiza varios intentos 
+de adivinar las contraseñas 
+utilizando un diccionario virtual de gran tamaño. 
+Posterior a ello compara los hashes generados 
+con el hash almacenado. 
+Si almacena las contraseñas hash de cualquier manera, 
+usted debe asegurarse que los usuarios elijan contraseñas 
+que no sean palabras comunes. 
+Además, deben contener algunos números 
+y caracteres no alfanuméricos 
+para ayudar a prevenir los ataques de diccionario. 
+Además, usted puede hacer más fácil 
+la gestión de credenciales mediante el almacenamiento 
+a través de la suscripción de ASP.NET. 
 
 == Referencias
 
