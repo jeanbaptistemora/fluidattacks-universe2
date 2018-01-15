@@ -6,8 +6,8 @@
 	proxyErrorOverride on
 
     # Sitemap
-        RewriteRule ^/sitemap.xml$                https://fluid.la/web/en/sitemap.xml     [P,L]
-	    ProxyPassReverse /sitemap.xml  https://fluid.la/web/en/sitemap.xml
+        RewriteRule ^/sitemap.xml$                https://fluid.la/web/sitemap.xml    [P,L]
+	    ProxyPassReverse /sitemap.xml  https://fluid.la/web/sitemap.xml
 
     # Moodle
         RewriteRule ^/courses(.*)                http://fluid.la:8080$1     [P,L]
