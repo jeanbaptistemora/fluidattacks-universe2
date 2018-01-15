@@ -4,115 +4,180 @@
 
 = Selección
 
-A primera vista, el proceso de selección puede parecer un poco complicado y engorroso pero no lo es. En los pasos siguientes te explicamos un poco de nosotros y de cómo puedes hacer parte de nuestro equipo:
+A continuación te explicaremos cómo puedes hacer parte de nuestro equipo:
 
 == 1. Condiciones
 
-El objetivo de esta etapa es que conozcas y aceptes los términos y condiciones del proceso de selección. 
-Es de carácter obligatorio en el proceso y el esfuerzo requerido estimado se encuentra entre 4 y 6 min.
-Para comenzar solo es necesario seguir las instrucciones detalladas que se encuentran link:../empleos/terminos-seleccion/[aquí].
+El objetivo de esta etapa, 
+es que conozcas y aceptes los términos y condiciones del proceso de selección, 
+Esto es obligatorio y requiere un esfuerzo estimado de 4 a 6 min. 
+Para comenzar, 
+solo debes seguir las instrucciones detalladas link:../empleos/terminos-seleccion/[aquí]. 
 
 == 2. Razones
 
-El objetivo de esta etapa es que conozcas qué hace a FLUID un gran lugar para trabajar.
-Es de carácter obligatorio en el proceso y el esfuerzo requerido estimado se encuentra entre 3 y 5 min. 
-Para comenzar solo es necesario hacer click link:../empleos/razones/[aquí].
+El objetivo de esta etapa, 
+es que conozcas qué hace a FLUID un gran lugar para trabajar. 
+Esto es obligatorio y requiere un esfuerzo estimado de 3 a 5 min. 
+Para comenzar, 
+solo debes hacer click link:../empleos/razones/[aquí]. 
 
 == 3. Vacantes
 
-El objetivo de esta etapa es que conozcas los roles que puedes desempeñar tanto al interior de FLUID, como tambien vacantes que se tienen por parte de AUTONOMIC un Spin Off de FLUID, y quien es la empresa encargada de todo el proceso de reclutamiento. Puedes aplicar a cualquiera de las vacantes que encuentres en esta página, incluso si la vacante no está abierta en este momento, dado que en caso de abrirse, el proceso de selección será mas ágil y te estaríamos contactando si tu perfil se ajusta.
-Es de carácter obligatorio en el proceso y el esfuerzo requerido estimado se encuentra entre 3 y 5 min. 
-Para comenzar solo es necesario hacer click link:../empleos/vacantes/[aquí].
+El objetivo de esta etapa, 
+es que conozcas los roles que puedes desempeñar en FLUID, 
+o en vacantes que se tienen por parte de AUTONOMIC, 
+una empresa Spin Off de FLUID encargada de todo el proceso de reclutamiento. 
+Esto es obligatorio y requiere un esfuerzo estimado de 3 a 5 min. 
+Para comenzar, 
+solo debes hacer click link:../empleos/vacantes/[aquí].
 
 == 4. Portafolio
 
-El objetivo de esta etapa es ver su capacidad de expresarse sobre si mismo, sintetizar ideas y llamar la atención mediante la elaboración de un portafolio.
-Es de carácter obligatorio en el proceso y el esfuerzo requerido estimado se encuentra entre 1 y 2 horas según tu habilidad. 
-Para comenzar solo es necesario seguir las instrucciones detalladas que se encuentran link:../empleos/portafolio/[aquí].
+El objetivo de esta etapa, 
+es evidenciar su capacidad de expresarse, 
+sintetizar ideas y llamar la atención mediante la elaboración de un portafolio. 
+Esto es obligatorio y requiere un esfuerzo estimado de 1 a 2 horas según tu habilidad. 
+Para iniciar, 
+solo debes seguir las instrucciones detalladas link:../empleos/portafolio/[aquí].
 
 ++++
-<div id="etapa_a">
-<h2> 5. Aplicación</h2>
-<p>El objetivo de esta etapa es que registres tu hoja de vida y algunas de tus expectativas laborales en nuestro sistema.
-Es de carácter obligatorio en el proceso y el esfuerzo requerido estimado se encuentra entre 5 y 10 min según tu perfil. Para hacerla requieres haber finalizado la etapa anterior.</p>
+<div id="etapa_a"><h2> 5. Aplicación</h2><p>El objetivo de esta etapa, 
+es que registres tu hoja de vida y tus expectativas laborales. 
+Esto es obligatorio y requiere un esfuerzo estimado de 5 a 10 min según tu perfil. 
+Para hacerla requieres haber finalizado la etapa anterior.</p>
 <p id="a_formLink" style="display:none;text-align:center">
-Para comenzar solo es necesario seguir las instrucciones detalladas que se encuentran <a href="https://fluid.la/forms/aplicacion">aquí</a>
-</p>
-</div>
-<div id="etapa_h">
-<h2> 6. Historia</h2>
-<p>El objetivo de esta etapa es que registres en nuestro sistema tus periodos laborales. 
-Es de carácter obligatorio en el proceso (opcional si no tienes experiencia laboral) y el esfuerzo requerido estimado se encuentra entre 3 y 5 min por periodo laboral. Para hacerla requieres haber finalizado la etapa anterior.</p>
+Para iniciar, 
+solo debes seguir las instrucciones detalladas 
+<a href="https://fluid.la/forms/aplicacion">aquí</a></p></div>
+
+<div id="etapa_h"><h2> 6. Historia</h2>
+
+<p>El objetivo de esta etapa, es registrar tus periodos laborales.  
+Es opcional <b>sólo si no tienes experiencia laboral</b> y requiere un esfuerzo estimado de 3 a 5 min por periodo. 
+Para hacerla requieres haber finalizado la etapa anterior.</p>
+
 <p id="h_formLink" style="display:none;text-align:center">
-Para comenzar solo es necesario seguir las instrucciones detalladas que se encuentran <a href="https://fluid.la/forms/periodo">aquí</a>
+Para iniciar, 
+solo debes seguir las instrucciones detalladas 
+<a href="https://fluid.la/forms/periodo">
+aquí
+</a>
 </p>
 </div>
-<script>
-"398453"==window.location.href.split("?")[1]?(document.getElementById("a_formLink").style.display="block",document.getElementById("etapa_a").style.backgroundColor="#ffffa6"):"987343"==window.location.href.split("?")[1]&&(document.getElementById("h_formLink").style.display="block",document.getElementById("etapa_h").style.backgroundColor="#ffffa6");
-</script>
+<script>"398453"==window.location.href.split("?")[1]?(document.getElementById("a_formLink").style.display="block",document.getElementById("etapa_a").style.backgroundColor="#ffffa6"):"987343"==window.location.href.split("?")[1]&&(document.getElementById("h_formLink").style.display="block",document.getElementById("etapa_h").style.backgroundColor="#ffffa6");</script>
 ++++
 == 7. Evaluaciones
 
-* *Temperamento:* El objetivo de esta etapa es determinar los rasgos preponderantes de tu temperamento y su equilibrio.
-Es de carácter obligatorio en el proceso y el esfuerzo requerido estimado se encuentra entre 8 y 10 min. Para hacerla no requieres haber finalizado la etapa anterior.
-Para comenzar solo es necesario seguir las instrucciones detalladas que se encuentran link:../empleos/evaluacion-temperamento/[aquí].
+. *Temperamento:* El objetivo de esta etapa, 
+es determinar los rasgos preponderantes de tu temperamento y su equilibrio.
+Esto es obligatorio y requiere un esfuerzo estimado de 8 a 10 min. 
+Para hacerla no requieres haber finalizado la etapa anterior.
+Para iniciar, 
+solo debes seguir las instrucciones detalladas link:../empleos/evaluacion-temperamento/[aquí].
 
-* *Conocimientos:* El objetivo de esta etapa es evidenciar sus aptitudes y habilidades en distintas áreas.
-Es de carácter obligatorio en el proceso y el esfuerzo requerido estimado se encuentra entre 2 y 3 horas según tu conocimiento. Para hacerla requieres haber finalizado la evaluación anterior. 
-Para comenzar solo es necesario seguir las instrucciones detalladas que se encuentran link:../../es/empleos/evaluacion-conocimientos/[aquí].
+. *Conocimientos:* El objetivo de esta etapa, 
+es evidenciar sus aptitudes y habilidades en distintas áreas.
+Esto es obligatorio y requiere un esfuerzo estimado de 2 a 3 horas según tu conocimiento. 
+Para hacerla requieres haber finalizado la evaluación anterior. 
+Para iniciar, 
+solo debes seguir las instrucciones detalladas link:../../es/empleos/evaluacion-conocimientos/[aquí].
 
-* *Fortalezas:* El objetivo de esta etapa es evidenciar sus fortalezas mediante la presentación del test Clifton StrengthsFinder.
-Es de carácter obligatorio en el proceso y el esfuerzo requerido estimado se encuentra entre 40 y 45 min. Para hacerla requieres haber finalizado la evaluación anterior. 
-Para comenzar es necesario que nos notifiques vía e-mail que ya has llegado a esta etapa.
+. *Fortalezas:* El objetivo de esta etapa, 
+es evidenciar sus fortalezas mediante el test Clifton StrengthsFinder.
+Esto es obligatorio y requiere un esfuerzo estimado de 40 a 45 min. 
+Para hacerla requieres haber finalizado la evaluación anterior. 
+Para comenzar, 
+debes notificarnos vía e-mail que ya llegaste a esta etapa.
 
 == 8. Retos
 
-* *Retos Técnicos*: El objetivo de esta etapa es evidenciar en la práctica (no con exámenes) tu potencial para aprender, investigar y resolver diferentes tipos de problemas a los que nos enfrentamos diariamente. Nuestros talentos actuales se encuentran en el https://www.wechall.net/country_ranking/for/31/Colombia[TOP10 de Colombia] en resolución de retos e incluso algunos de ellos se encuentran en el https://www.wechall.net/ranking[TOP100 Mundial]. Es de carácter obligatorio (para perfiles técnicos) en el proceso y el esfuerzo requerido estimado se encuentra entre 4 y 16 horas según tu conocimiento. Para hacerla requieres haber finalizado la etapa anterior.
-Para comenzar solo es necesario seguir las instrucciones detalladas link:../empleos/retos-tecnicos/[aquí].
+. *Retos Técnicos*: El objetivo de esta etapa, 
+es evidenciar en la práctica tu potencial para aprender, 
+investigar y resolver diferentes tipos de problemas a los que nos enfrentamos diariamente. 
+Nuestros talentos actuales están en el https://www.wechall.net/country_ranking/for/31/Colombia[TOP10 de Colombia], 
+e incluso, 
+algunos de ellos están en el https://www.wechall.net/ranking[TOP100 Mundial]. 
+Esto es obligatorio para perfiles técnicos y requiere un esfuerzo estimado de 4 a 16 horas según tu conocimiento. 
+Para hacerla requieres haber finalizado la etapa anterior. 
+Para iniciar, 
+solo debes seguir las instrucciones detalladas link:../empleos/retos-tecnicos/[aquí].
 
-* *Retos No Técnicos*: El objetivo de esta etapa es evidenciar sus habilidades para dar solución a retos que aplican a perfiles principalmente analíticos y estadísticos. Es de carácter obligatorio (para perfiles no técnicos) en el proceso y el esfuerzo requerido estimado se encuentra entre 4 y 16 horas según tu conocimiento. Para hacerla requieres haber finalizado la etapa anterior.
-Para comenzar solo es necesario seguir las instrucciones detalladas link:../empleos/retos-no-tecnicos/[aquí].
+. *Retos No Técnicos*: El objetivo de esta etapa, 
+es evidenciar sus habilidades para dar solución a retos que aplican a perfiles analíticos y estadísticos. 
+Esto es obligatorio para perfiles no técnicos y requiere un esfuerzo estimado de 4 a 16 horas según tu conocimiento. 
+Para hacerla requieres haber finalizado la etapa anterior. 
+Para iniciar, 
+solo debes seguir las instrucciones detalladas link:../empleos/retos-no-tecnicos/[aquí].
 
 == 9. Entrevistas
 
-* *Entrevista en Video (Opcional):* El objetivo de esta etapa es darnos una idea de usted y de su interés por pertenecer a FLUID mediante una entrevista virtual. El esfuerzo requerido estimado se encuentra entre 25 y 30 min. Para hacerla requieres haber finalizado la etapa anterior. Para comenzar es necesario que nos notifiques vía e-mail que ya has llegado a esta etapa.
-* *Entrevista Presencial:* El objetivo de esta etapa es acordar una fecha en la cual tendremos un encuentro en donde podremos conocerlo personalmente y también donde usted podrá aclarar las dudas que le surjan en este punto del proceso. El esfuerzo requerido estimado se encuentra entre 25 y 30 min.Para hacerla requieres haber finalizado la etapa anterior. Para comenzar es necesario que nos notifiques vía e-mail que ya has llegado a esta etapa.
+. *Entrevista en Video (Opcional):* El objetivo de esta etapa, 
+es demostrar su interés por pertenecer a FLUID mediante una entrevista virtual. 
+Requiere un esfuerzo estimado de 25 a 30 min. 
+Para hacerla requieres haber finalizado la etapa anterior. 
+Para iniciar, 
+notifícanos vía e-mail a careers@autonomicmind.co
+. *Entrevista Presencial:* El objetivo de esta etapa, 
+es acordar un encuentro en donde podremos conocerlo personalmente. 
+Requiere un esfuerzo estimado de 25 a 30 min. 
+Para hacerla requieres haber finalizado la etapa anterior. 
+Para iniciar, 
+notifícanos vía e-mail a careers@autonomicmind.co
   
 == 10. Inmersión
 
-El objetivo de esta etapa es participar en un auto-entrenamiento intensivo en retos de programación y de hacking, financiado por FLUID. 
-Es de carácter obligatorio en el proceso y el esfuerzo requerido estimado se encuentra principalmente determinado según tu conocimiento. Para hacerla requieres haber finalizado la etapa anterior. 
-Para comenzar es necesario que nos notifiques vía e-mail que ya has llegado a esta etapa y leer las instrucciones detalladas que se encuentran link:../empleos/inmersion/[aquí].
+* El objetivo de esta etapa, 
+es participar en un auto-entrenamiento intensivo en retos de programación y de hacking, 
+financiado por FLUID. 
+Esto es obligatorio y el esfuerzo requerido es determinado según tu conocimiento. 
+Para hacerla requieres haber finalizado la etapa anterior. 
+Para iniciar, 
+notifícanos vía e-mail a careers@autonomicmind.co y leer las instrucciones detalladas  link:../empleos/inmersion/[aquí].
 
 == 11. Referencias
 
-El objetivo de esta etapa es validar las referencias de sus empleos anteriores.
-Es de carácter obligatorio en el proceso y el esfuerzo requerido estimado se encuentra entre 15 min por llamada. Para hacerla requieres haber finalizado la etapa anterior. 
-Para comenzar solo es necesario seguir las instrucciones detalladas que se encuentran link:../empleos/referencias-inversas/[aquí].
+El objetivo de esta etapa, es validar las referencias de sus empleos anteriores. 
+Esto es obligatorio y requiere un esfuerzo estimado de 15 min por llamada. 
+Para hacerla requieres haber finalizado la etapa anterior. 
+Para iniciar, 
+solo debes seguir las instrucciones detalladas link:../empleos/referencias-inversas/[aquí].
 
 == 12. Polígrafo
 
-El objetivo de esta etapa es presentar una prueba de polígrafo. Debido a que nuestro negocio principal es la seguridad de la información, puede que durante este proceso de selección o su relación laboral sea necesario la presentación de este tipo de pruebas.
-Es de carácter opcional en el proceso y el esfuerzo requerido estimado es de 2 horas. Para hacerla requieres haber finalizado la etapa anterior.
-Para comenzar es necesario que nos notifiques vía e-mail que ya has llegado a esta etapa.
+El objetivo de esta etapa, 
+es presentar una prueba de polígrafo. 
+Debido a que nuestro negocio principal es la seguridad de la información, 
+puede que durante este proceso de selección o su relación laboral sea necesario la presentación de este tipo de pruebas. 
+Esto es opcional y el esfuerzo requerido estimado es de 2 horas. 
+Para hacerla requieres haber finalizado la etapa anterior. 
+Para iniciar, 
+notifícanos vía e-mail a careers@autonomicmind.co
 
 == 13. Audición
 
-El objetivo de esta etapa es presentar un tema que se te indica a tu futuro equipo de trabajo. Un mínimo de tres o un máximo de 30 personas será la audiencia y ésta evaluara la presentación.
-Es de carácter opcional en el proceso y el esfuerzo requerido estimado es de 4 horas para prepararse y 20 min para la presentación.
-Para hacerla no requieres haber finalizado la etapa anterior. Para comenzar es necesario que nos notifiques vía e-mail que ya has llegado a esta etapa.
+El objetivo de esta etapa, 
+es demostrar su capacidad expresarse, exponiendo un tema indicado a una audiencia de mínimo de tres y máximo 30 personas. 
+Esto es opcional y el esfuerzo requerido estimado es de 4 horas para prepararse y 20 min para la presentación. 
+Para hacerla no requieres haber finalizado la etapa anterior. 
+Para iniciar, 
+notifícanos vía e-mail a careers@autonomicmind.co
 
 == 14. Oferta
 
-Si has llegado hasta este punto FLUID te enviará un correo electrónico especificando los términos de la oferta laboral que tiene para ti.  Dicha oferta siempre será escrita y las dudas que tengas se deben realizar por escrito en el mismo hilo de correo.  
-Si llegamos a un acuerdo pasamos a la etapa siguiente.
+Si has llegado hasta este punto te enviaremos vía e-mail los términos de la oferta laboral que tenemos para ti.
+Si tienes dudas, debes expresarlas en el mismo hilo de correo. 
 
 == 15. Vinculación
 
-Ya habiendo llegado a un acuerdo con lo ofertado, lo único faltante es que nos envíes por e-mail los documentos que detallamos link:../empleos/vinculacion/[aquí]
+Ya habiendo llegado a un acuerdo con lo ofertado, 
+debes enviarnos vía e-mail los documentos que detallamos link:../empleos/vinculacion/[aquí]
 
-Al completar los pasos serás notificado(a) del resultado del proceso. Aunque es un proceso largo, realmente se puede hacer muy rápido. En algunos casos se hace en menos de dos semanas.
+Al finalizar, te notificaremos del resultado del proceso. 
+Aunque es un proceso largo, 
+se puede hacer muy rápido. 
+En algunos casos se hace en menos de dos semanas.
 
 == Preguntas frecuentes
 
-¿Tienes dudas en el proceso de selección?, te invitamos a leer nuestra sección de preguntas frecuentes link:../empleos/faq/[aquí]
+* *¿Tienes dudas?*, te invitamos a leer nuestra sección de preguntas frecuentes link:../empleos/faq/[aquí]
