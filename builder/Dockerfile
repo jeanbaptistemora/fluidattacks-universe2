@@ -59,6 +59,6 @@ RUN curl -sL https://deb.nodesource.com/setup_9.x | bash - && \
     rm -rf /var/lib/apt/lists/*
 
 # Add the uglifyjs program to the PATH
-ENV PATH=$PATH:/app/node_modules/uglify-js/bin/
+ENV PATH=$PATH:/app/node_modules/uglify-js/bin/:/app/node_modules/sass-lint/bin/
 
 CMD ["bash"]
