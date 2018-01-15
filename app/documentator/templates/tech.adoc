@@ -52,7 +52,6 @@
   {% for col in row %}
     {{"| "+col|string}}
   {%- endfor %}
-
 {%- endfor %}
 |===
 //Sexta pagina - Vista general
@@ -107,13 +106,9 @@
     {% for req in fin['requisitos'].split("\n") %}
         - {{req + "\n"}}
     {% endfor %}
-<<<
-==== {{evidence_title}}
-{% for evi in fin['evidence_set'] %}
-{{evi['explicacion'] + "\n"}}
-{{evi['name']+"\n"}}
-{% endfor %}
-<<<
+==== {{where_title}}
+    {{fin['donde'].lstrip() + "\n"}}
+<<<             
 {%- endfor %}
 
 <<<
