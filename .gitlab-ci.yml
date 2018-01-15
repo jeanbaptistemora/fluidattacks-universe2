@@ -41,12 +41,6 @@ build_exams:
         - sh containers/exams/build.sh
         - docker push registry.gitlab.com/fluidsignal/serves/exams:base
 
-build_integrates:
-    stage: build
-    script:
-        - sh containers/integrates/build.sh
-        - docker push registry.gitlab.com/fluidsignal/integrates:base
-
 build_vpn:
     stage: build
     script:
