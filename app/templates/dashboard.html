@@ -38,10 +38,13 @@
         "$last_name": "{{ request.session.last_name }}",
         "$Role": "{{ request.session.role }}",
         "$Organization": "{{ request.session.company }}",
+        "$Language": localStorage['lang'],
     });
     var userEmail = "{{ request.session.username }}";
     var userRole = "{{ request.session.role }}";
     var lastLogin = "{{ request.session.last_login }}";
+    var Organization = "{{ request.session.company }}";
+    var userName = "{{ request.session.first_name }} {{ request.session.last_name }}";
     function goDash(){
       location = BASE.url + "dashboard#/home";
     }

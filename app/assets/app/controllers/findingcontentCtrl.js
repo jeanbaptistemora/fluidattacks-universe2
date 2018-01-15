@@ -192,6 +192,8 @@ integrates.controller("findingcontentCtrl", function($scope, $stateParams, $time
                                 $msg.success(updated_ac,updated_at);
                                 $uibModalInstance.close();
                                 $state.go("ProjectNamed", {project: $stateParams.project});
+                                //Tracking mixpanel
+                                mixPanelDashboard.trackFinding("DeleteFinding", userEmail, descData.id);
                             }else{
                               var error_ac1 = $translate.instant('proj_alerts.error_textsad');
                               $msg.error(error_ac1);
@@ -579,7 +581,7 @@ integrates.controller("findingcontentCtrl", function($scope, $stateParams, $time
               $('.equalHeight').matchHeight();
             });
             //Tracking mixpanel
-            mixPanelDashboard.trackReadFinding(userEmail, $scope.finding.id);
+            mixPanelDashboard.trackFinding("ReadFinding", userEmail, $scope.finding.id);
             $timeout($scope.goUp, 200);
         } else {
           $msg.error($translate.instant('proj_alerts.no_finding'));
@@ -868,6 +870,8 @@ integrates.controller("findingcontentCtrl", function($scope, $stateParams, $time
                              $msg.success(updated_ac,updated_at);
                              $uibModalInstance.close();
                              location.reload();
+                             //Tracking mixpanel
+                             mixPanelDashboard.trackFinding("UpdateFinding", userEmail, descData.id);
                          }else{
                            var error_ac1 = $translate.instant('proj_alerts.error_textsad');
                            $msg.error(error_ac1);
@@ -953,6 +957,10 @@ integrates.controller("findingcontentCtrl", function($scope, $stateParams, $time
                      //Capturar la Promisse
                      req.then(function(response){
                          if(!response.error){
+                             //Tracking mixpanel
+                             var org = Organization.toUpperCase();
+                             var projt = descData.project.toUpperCase();
+                             mixPanelDashboard.trackFindingDetailed("FindingRemediated", userName, userEmail, org, projt, descData.finding_id);
                              $msg.success($translate.instant('proj_alerts.remediated_success'));
                              $uibModalInstance.close();
                          }else{
@@ -1019,6 +1027,8 @@ integrates.controller("findingcontentCtrl", function($scope, $stateParams, $time
         $scope.finding.id = $stateParams.id;
         $scope.loadFindingByID($stateParams.id);
         $scope.goUp();
+        var org = Organization.toUpperCase();
+        var projt = project.toUpperCase();
         if (window.location.hash.indexOf('description') !== -1){
           $("#infoItem").addClass("active");
           $("#info").addClass("active");
@@ -1032,6 +1042,8 @@ integrates.controller("findingcontentCtrl", function($scope, $stateParams, $time
           $("#exploit").removeClass("active");
           $("#commentItem").removeClass("active");
           $("#comment").removeClass("active");
+          //Tracking mixpanel
+          mixPanelDashboard.trackFindingDetailed("FindingDescription", userName, userEmail, org, projt, $scope.finding.id);      
         }
         if (window.location.hash.indexOf('severity') !== -1){
           $("#infoItem").removeClass("active");
@@ -1046,6 +1058,8 @@ integrates.controller("findingcontentCtrl", function($scope, $stateParams, $time
           $("#exploit").removeClass("active");
           $("#commentItem").removeClass("active");
           $("#comment").removeClass("active");
+          //Tracking mixpanel
+          mixPanelDashboard.trackFindingDetailed("FindingSeverity", userName, userEmail, org, projt, $scope.finding.id);
         }
         if (window.location.hash.indexOf('tracking') !== -1){
           $("#infoItem").removeClass("active");
@@ -1060,6 +1074,8 @@ integrates.controller("findingcontentCtrl", function($scope, $stateParams, $time
           $("#exploit").removeClass("active");
           $("#commentItem").removeClass("active");
           $("#comment").removeClass("active");
+          //Tracking mixpanel
+          mixPanelDashboard.trackFindingDetailed("FindingTracking", userName, userEmail, org, projt, $scope.finding.id);
         }
         if (window.location.hash.indexOf('evidence') !== -1){
           $("#infoItem").removeClass("active");
@@ -1074,6 +1090,8 @@ integrates.controller("findingcontentCtrl", function($scope, $stateParams, $time
           $("#exploit").removeClass("active");
           $("#commentItem").removeClass("active");
           $("#comment").removeClass("active");
+          //Tracking mixpanel
+          mixPanelDashboard.trackFindingDetailed("FindingEvidence", userName, userEmail, org, projt, $scope.finding.id);
         }
         if (window.location.hash.indexOf('exploit') !== -1){
           $("#infoItem").removeClass("active");
@@ -1088,6 +1106,8 @@ integrates.controller("findingcontentCtrl", function($scope, $stateParams, $time
           $("#comment").removeClass("active");
           $("#exploitItem").addClass("active");
           $("#exploit").addClass("active");
+          //Tracking mixpanel
+          mixPanelDashboard.trackFindingDetailed("FindingExploit", userName, userEmail, org, projt, $scope.finding.id);
         }
         if (window.location.hash.indexOf('comments') !== -1){
           $("#infoItem").removeClass("active");
@@ -1102,6 +1122,8 @@ integrates.controller("findingcontentCtrl", function($scope, $stateParams, $time
           $("#exploit").removeClass("active");
           $("#commentItem").addClass("active");
           $("#comment").addClass("active");
+          //Tracking mixpanel
+          mixPanelDashboard.trackFindingDetailed("FindingComments", userName, userEmail, org, projt, $scope.finding.id);
         }
     };
     $scope.init();

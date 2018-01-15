@@ -20,51 +20,59 @@ mixPanelDashboard.isProduction = function(){
     }
 };
 
-mixPanelDashboard.trackSearchFinding = function(userEmail, project){
+mixPanelDashboard.trackSearch = function(trackName, userEmail, project){
     if(mixPanelDashboard.isProduction()) return false;
     mixpanel.track(
-        "SearchFinding", {
+        trackName, {
             "Email": userEmail,
             "Project": project
         }
     );
 };
 
-mixPanelDashboard.trackSearchEventuality = function(userEmail, project){
+mixPanelDashboard.trackReadEventuality = function(userName, userEmail, Organization, project, id){
     if(mixPanelDashboard.isProduction()) return false;
     mixpanel.track(
-        "SearchEventuality", {
+        "ReadEventuality", {
+            "Name": userName,
             "Email": userEmail,
+            "Organization": Organization,
+            "Project": project,
+            "EventID": id
+        }
+    );
+};
+
+mixPanelDashboard.trackReports = function(trackName, userName, userEmail, Organization, project){
+    if(mixPanelDashboard.isProduction()) return false;
+    mixpanel.track(
+        trackName, {
+            "Name": userName,
+            "Email": userEmail,
+            "Organization": Organization,
             "Project": project
         }
     );
 };
 
-mixPanelDashboard.trackReadFinding = function(userEmail, id){
+mixPanelDashboard.trackFinding = function(trackName, userEmail, id){
     if(mixPanelDashboard.isProduction()) return false;
     mixpanel.track(
-        "ReadFinding", {
+        trackName, {
             "Email": userEmail,
             "FindingID": id
         }
     );
 };
 
-mixPanelDashboard.trackUpdateFinding = function(userEmail, id){
+mixPanelDashboard.trackFindingDetailed = function(trackName, userName, userEmail, Organization, project, id){
     if(mixPanelDashboard.isProduction()) return false;
     mixpanel.track(
-        "UpdateFinding", {
+        trackName, {
+            "Name": userName,
             "Email": userEmail,
-            "FindingID": id
-        }
-    );
-};
-
-mixPanelDashboard.trackDeleteFinding = function(userEmail, id){
-    if(mixPanelDashboard.isProduction()) return false;
-    mixpanel.track(
-        "DeleteFinding", {
-            "Email": userEmail,
+            "Organization": Organization,
+            "Project": project,
             "FindingID": id
         }
     );

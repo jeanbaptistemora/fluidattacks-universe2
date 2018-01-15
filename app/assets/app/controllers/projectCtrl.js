@@ -257,6 +257,10 @@ integrates.controller(
             $scope.downloadDoc();
         };
         $scope.technicalReportModal = function(){
+            //Tracking mixpanel
+            var org = Organization.toUpperCase();
+            var projt = $scope.project.toUpperCase(); 
+            mixPanelDashboard.trackReports("TechnicalReports", userName, userEmail, org, projt);
             var modalInstance = $uibModal.open({
                 animation: true,
                 templateUrl: 'technicalReportModal.html',
@@ -292,6 +296,8 @@ integrates.controller(
                         var req = projectFtry.ProjectDoc(project, json, "IT");
                         req.then(function(response){
                             if(!response.error){
+                                //Tracking mixpanel
+                                mixPanelDashboard.trackReports("TechnicalReportXLS", userName, userEmail, org, projt);
                                 var url = BASE.url + "export_autodoc?project=" + project;
                                 url += "&format=IT";
                                 if(navigator.userAgent.indexOf("Firefox") == -1){
@@ -312,6 +318,8 @@ integrates.controller(
                         var langpatt = new RegExp("^en|es$");
                         if(prjpatt.test(project)
                             && langpatt.test(lang)){
+                            //Tracking mixpanel
+                            mixPanelDashboard.trackReports("TechnicalReportPDF", userName, userEmail, org, projt);
                             var url = BASE.url + "pdf/"+ lang + "/project/" + project + "/tech/";
                             if(navigator.userAgent.indexOf("Firefox") == -1){
                                 downLink = document.createElement("a");
@@ -324,8 +332,7 @@ integrates.controller(
                         }
                     };
                     $scope.closeModalAvance = function(){
-                        $uibModalInstance.dismiss('cancel');
-                        $timeout(function() {$("#vulnerabilities").bootstrapTable('load', auxiliar);},100);
+                        $uibModalInstance.close();
                     }
                 },
                 resolve: {
@@ -334,6 +341,10 @@ integrates.controller(
             });
         };
         $scope.executiveReportModal = function(){
+            //Tracking mixpanel
+            var org = Organization.toUpperCase();
+            var projt = $scope.project.toUpperCase(); 
+            mixPanelDashboard.trackReports("ExecutiveReports", userName, userEmail, org, projt);
             var modalInstance = $uibModal.open({
                 animation: true,
                 templateUrl: 'executiveReportModal.html',
@@ -358,6 +369,8 @@ integrates.controller(
                         var langpatt = new RegExp("^en|es$");
                         if(prjpatt.test(project)
                             && langpatt.test(lang)){
+                            //Tracking mixpanel
+                            mixPanelDashboard.trackReports("ExecutivePDFPresentation", userName, userEmail, org, projt);
                             var url = BASE.url + "pdf/"+ lang + "/project/" + project + "/presentation/";
                             if(navigator.userAgent.indexOf("Firefox") == -1){
                                 downLink = document.createElement("a");
@@ -376,6 +389,8 @@ integrates.controller(
                         var langpatt = new RegExp("^en|es$");
                         if(prjpatt.test(project)
                             && langpatt.test(lang)){
+                            //Tracking mixpanel
+                            mixPanelDashboard.trackReports("ExecutivePDFReport", userName, userEmail, org, projt);
                             var url = BASE.url + "pdf/"+ lang + "/project/" + project + "/executive/";
                             if(navigator.userAgent.indexOf("Firefox") == -1){
                                 downLink = document.createElement("a");
@@ -389,7 +404,7 @@ integrates.controller(
                     };
                     
                     $scope.closeModalAvance = function(){
-                        $uibModalInstance.dismiss('cancel');
+                        $uibModalInstance.close();
                     }
                     $scope.init();
                 },
@@ -681,7 +696,7 @@ integrates.controller(
                     }
                 });
                 //Tracking mixpanel
-                mixPanelDashboard.trackReadFinding(userEmail, $scope.finding.id);
+                mixPanelDashboard.trackFinding("ReadFinding", userEmail, $scope.finding.id);
                 $timeout($scope.goUp, 200);
             }
         };
@@ -1114,7 +1129,7 @@ integrates.controller(
                                $scope.data[i].tratamiento = $translate.instant('finding_formstack.treatment_header.default');;
                            }
                         };
-                        mixPanelDashboard.trackSearchFinding(userEmail, project);
+                        mixPanelDashboard.trackSearch("SearchFinding", userEmail, project);
                         $timeout($scope.mainGraphexploitPieChart, 200);
                         $timeout($scope.mainGraphtypePieChart, 200);
                         $timeout($scope.mainGraphstatusPieChart, 200);
@@ -1211,7 +1226,7 @@ integrates.controller(
                              response.data[i].estado = $translate.instant('event_formstack.status.unknown');;
                          }
                       };
-                        mixPanelDashboard.trackSearchEventuality (userEmail, project);
+                        mixPanelDashboard.trackSearch("SearchEventuality", userEmail, project);
                         //CONFIGURACION DE TABLA
                         $("#tblEventualities").bootstrapTable('destroy');
                         $("#tblEventualities").bootstrapTable({
@@ -1225,6 +1240,10 @@ integrates.controller(
                                     backdrop: 'static',
                                     controller: function($scope, $uibModalInstance, evt){
                                         $scope.evt = evt;
+                                        //Tracking mixpanel
+                                        var org = Organization.toUpperCase();
+                                        var projt = project.toUpperCase();
+                                        mixPanelDashboard.trackReadEventuality(userName, userEmail, org, projt, evt.id);
                                         $scope.close = function(){
                                             $uibModalInstance.close();
                                         }
@@ -1377,7 +1396,7 @@ integrates.controller(
                     }
                     $scope.rows = data;
                     $scope.closeModalAvance = function(){
-                        $uibModalInstance.dismiss('cancel');
+                        $uibModalInstance.close();
                         $timeout(function() {$("#vulnerabilities").bootstrapTable('load', auxiliar);},100);
                     }
                 },

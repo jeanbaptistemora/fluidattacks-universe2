@@ -55,6 +55,10 @@ integrates.controller("dashboardCtrl", function($scope, $uibModal, $timeout,
 			localStorage['lang'] = langKey;
 		}
 		$translate.use(localStorage['lang']);
+    mixpanel.identify(userEmail);
+    mixpanel.people.set({
+        "$Language": localStorage['lang'],
+    });
     location.reload();
     }
     $scope.initMyProjects = function(){
@@ -134,6 +138,10 @@ integrates.controller("dashboardCtrl", function($scope, $uibModal, $timeout,
                       windowClass: 'modal avance-modal',
                       controller: function($scope, data, $uibModalInstance){
                           $scope.evnt = data;
+                          //Tracking mixpanel
+                          var org = Organization.toUpperCase();
+                          var projt = $scope.evnt.proyecto_fluid.toUpperCase();
+                          mixPanelDashboard.trackReadEventuality(userName, userEmail, org, projt, $scope.evnt.id);
                           $scope.close = function(){
                               $uibModalInstance.close();
                           }

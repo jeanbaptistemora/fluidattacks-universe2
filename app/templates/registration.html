@@ -32,11 +32,12 @@
         "$last_name": "{{ request.session.last_name }}",
         "$last_login": new Date(),
     });
-    mixpanel.track(
-        "Logged In", {
-            "Email": "{{ request.session.username }}",
-        }
-    );
+    if (location.toString().indexOf("localhost:8000") == -1)
+        mixpanel.track(
+            "Logged In", {
+                "Email": "{{ request.session.username }}",
+            }
+        );
     </script>
   </head>
   <body ng-cloak class="am-splash-screen" ng-app="FluidIntegrates">
