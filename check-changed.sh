@@ -16,8 +16,8 @@ echo -e "\e[1;31m^--Files modified in this merge request.\e[0m\n"
 
 echo "$CHANGED" | pcregrep '^content.*adoc$' \
   | xargs -r -n 1 ./lix.sh \
-  | pcregrep '^[4-9]\d\s'
-error "LIX readbility index out of range. Should be <40."
+  | pcregrep '^[5-9]\d\s'
+error "LIX readability index out of range. Should be <50."
 
 echo "$CHANGED" | pcregrep '^content/kb.*adoc$' \
   | xargs -r -n 1 ./words.sh \
