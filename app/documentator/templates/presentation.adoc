@@ -1,0 +1,191 @@
+= {{toe}}: <Service>
+:lang:		es
+:author:	Para uso exclusivo de <Organizacion>
+:email:		engineering@fluid.la
+:date: 	    2018-11-01
+:revnumber:	{{simpledate}}
+
+<<<
+image::../resources/presentation_theme/t_contenido_es.png[width=400]
+{nbsp} +
+
+image::../resources/presentation_theme/c_contenido_es.png[pdfwidth=100%, align="center"]
+
+<<<
+image::../resources/presentation_theme/t_objetivos_es.png[width=400]
+{nbsp} +
+
+image::../resources/presentation_theme/c_objetivos_es.png[pdfwidth=100%, align="center"]
+
+<<<
+image::../resources/presentation_theme/t_metodologia_es.png[width=400]
+image::../resources/presentation_theme/c_metodologia_es.png[pdfwidth=85%, align="center"]
+
+<<<
+image::../resources/presentation_theme/t_criticidad_es.png[width=400]
+{nbsp} +
+
+image::../resources/presentation_theme/c_criticidad_es.png[pdfwidth=90%, align="center"]
+
+<<<
+image::../resources/presentation_theme/t_alcance_es.png[width=400]
+
+[.center, %header,cols=2*,width="80%",frame="all"]
+|===
+^|*Parámetro*
+^|*Valor*
+
+|*Fecha de inicio*
+|aaaa/mm/dd
+
+|*Fecha de fin*
+|aaaa/mm/dd
+
+|*Alcance posible*
+|x entradas/puertos/líneas
+
+|*Alcance probado*
+|x entradas/puertos/líneas
+
+|*Cobertura*
+|x%
+
+|*Ambiente*
+|Producción/Certificación/Pruebas/Otro
+
+|*Cambios en el ambiente*
+|No se presentaron/Sí se presentaron. Ver observaciones.
+
+|*Insumos*
+|- Arquitectura de seguridad (Si fue entregado Diseño de Seguridad) 
+ - Requisitos transversales de seguridad que aplicaban a la solución (Si se hizo perfilamiento)
+|===
+
+[cols=3*]
+|===
+^|*Security Tester*
+^|*Security Architect*
+^|*Project Manager*
+
+^| asdasd 
+^| asdasda 
+^| sdfsdf
+
+3.3+^| *Equipo del proyecto*
+|===
+
+<<<
+image::../resources/presentation_theme/t_panorama_es.png[width=400]
+
+{{main_pie_filename}}
+.{{resume_ttab_title}}
+[cols="^,^,^,^", options="header"]
+|===
+|{{criticity_title}}|{{finding_title}}s|{{resume_perc_title}}|{{resume_vuln_title}}
+{% for row in main_tables['resume'] %}
+  {% for col in row %}
+    {{"| "+col|string}}
+  {%- endfor %}
+{%- endfor %}
+|===
+<<<
+image::../resources/presentation_theme/t_panorama_es.png[width=400]
+
+[cols=4,.center]
+|===
+4+^.^|*{{resume_top_title}}*
+^.^|*#* ^|*{{criticity_title}}* 
+2+^.^|*{{resume_vname_title}}*
+{% for row in main_tables['top'] %}
+	{% for i in range(0, row|length) %}
+		{% if i == 2 %}{{"2+<.^|"+row[i]|string}}{% else %}{{"^.^|"+row[i]|string}}{% endif %}
+	{%-  endfor %}
+{%- endfor %}
+^.^|{{"*"+records_title+"*"}} 3+^.^| {{main_tables['num_reg']}}
+^.^|*Impactos Relevantes* 3+^.^|Sed lacus lectus, porttitor eu nisi id, bibendum finibus orci. Pellentesque vel sem ac libero consequat varius. Sed eleifend fringilla fringilla. Cras vitae porta sapien. Proin interdum, magna vitae hendrerit varius, risus nisl commodo quam, eget consequat est eros laoreet urna. Quisque eu massa condimentum, pellentesque nulla ac, venenatis felis. Aliquam erat volutpat. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse congue elit vel justo fringilla finibus.
+|===
+
+<<<
+{nbsp} +
+{nbsp} +
+{nbsp} +
+{nbsp} +
+{nbsp} +
+[.center]
+image::../resources/presentation_theme/findings_es.png[pdfwidth=100%, pdfheight=100%]
+
+<<<
+{% for i in range(0, findings|length) %}
+image::../resources/presentation_theme/t_hallazgo_es.png[width=400]
+////
+	BEGIN: DOCUMENT BLOCK FOR EVIDENCE
+////
+[cols=4,.center]
+|===
+4+^.^|*{{findings[i]['hallazgo']}}*
+
+^.^|*#* ^| {{(i+1)|string}} ^.^|*Criticidad* ^.^| {{findings[i]['criticidad']}}
+^.^|*Vulnerabilidades* ^.^| {{findings[i]['cardinalidad']}} ^.^|*Estado* ^| {{findings[i]['estado']}}
+^.^|*Impacto a negocio* ^.^| {{findings[i]['impacto']}} ^.^|*Registros comprometidos* ^.^| {{findings[i]['registros_num']}}
+^.^|*Debilidad*
+3+.^|{{findings[i]['vulnerabilidad']}}
+^.^|*Vectores de ataque*
+3+.^|{{findings[i]['vector_ataque']}}
+^.^|*Amenazas*
+3+.^|{{findings[i]['amenaza']}}
+^.^|*Sistema comprometido*
+3+.^|{{findings[i]['sistema_comprometido']}}
+^.^|*Recomendación*
+3+.^|{{findings[i]['solucion_efecto']}}
+^.^|*Requisitos incumplidos*
+3+.^|{% for req in findings[i]['requisitos'].split("\n") %}{{req + "\n"}}{% endfor %}
+|===
+
+<<<
+image::../resources/presentation_theme/t_evidencia_es.png[width=400]
+
+{% for evi in findings[i]['evidence_set'] %}
+{{evi['explicacion'] + "\n"}}
+{{evi['name']+"\n"}}
+<<<
+{% endfor %}
+////
+	END: DOCUMENT BLOCK FOR EVIDENCE
+////
+<<<
+{%- endfor %}
+
+
+<<<
+image::../resources/presentation_theme/t_recomendaciones_es.png[width=400]
+{nbsp} +
+
+Sed condimentum iaculis mi. Curabitur vestibulum maximus massa at gravida. Morbi eu orci enim. Sed massa libero, elementum ut convallis at, ornare a nulla. Nunc convallis lectus eget nisl tempor vehicula. Curabitur accumsan iaculis finibus. In laoreet ullamcorper diam sit amet mattis. Quisque cursus aliquam nibh.
+
+<<<
+image::../resources/presentation_theme/t_conclusiones_es.png[width=400]
+{nbsp} +
+
+Maecenas vehicula euismod ligula, ac iaculis libero pharetra nec. Etiam laoreet augue erat, nec faucibus enim malesuada at. Nam at nisi at purus tincidunt consectetur vel sed enim. In posuere, libero blandit feugiat fringilla, arcu nibh sagittis lorem, ac lobortis turpis libero quis enim. Vivamus gravida sollicitudin tincidunt. Suspendisse efficitur risus eu velit lacinia ultricies. Aliquam molestie turpis et ultrices condimentum. Phasellus feugiat finibus auctor. Proin non tellus ut mauris commodo dignissim ut at est. In sem augue, congue vel turpis nec, maximus dignissim felis. Praesent aliquam dolor nec auctor tempus.
+
+<<<
+image::../resources/presentation_theme/t_contacto_es.png[width=400]
+{nbsp} +
+
+image::../resources/presentation_theme/c_contacto_es.png[pdfwidth=80%, align="center"]
+
+<<<
+image::../resources/presentation_theme/t_clausula_es.png[width=400]
+{nbsp} +
+{nbsp} +
+
+===== Clasificación: Propietaria
+===== Copyright © 2018 FLUID
+===== Todos los derechos reservados.
+===== Este documento contiene información de propiedad de FLUID. El cliente puede usar dicha información sólo con el propósito de documentación sin poder divulgar su contenido a terceras partes ya que contiene ideas, conceptos, precios y estructuras de propiedad de FLUID La clasificación "propietaria" significa que ésta información es sólo para uso de las personas a quienes esta dirigida. En caso de requerirse copias totales o parciales se debe contar con la autorización expresa y escrita de FLUID Las normas que fundamentan la clasificación de la información son los artículos 72 y siguientes de la decisión del acuerdo de Cartagena, 344 de 1.993, el artículo 238 del código penal y los artículos 16 y siguientes de la ley 256 de 1.996. 
+
+<<<
+{nbsp} +
+{nbsp} +
+
+image::../resources/presentation_theme/end.png[pdfwidth=50%, align="center"]

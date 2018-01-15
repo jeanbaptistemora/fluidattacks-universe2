@@ -115,25 +115,33 @@ def project_to_pdf(request, lang, project, doctype):
         return util.response([], 'Access denied', True)
     if lang not in ["es", "en"]:
         return util.response([], 'Unsupported language', True)
-    if doctype not in ["tech", "executive"]:
+    if doctype not in ["tech", "executive", "presentation"]:
         return util.response([], 'Unsupported doctype', True)
     for reqset in FormstackAPI().get_findings(project)["submissions"]:
         findings.append(catch_finding(request, reqset["id"]))
     pdf_maker = FindingPDFMaker(lang, doctype)
     findings = util.ord_asc_by_criticidad(findings)
     drive_api = DriveAPI()
-    for finding in findings:
-        evidence_set = util.get_evidence_set(finding)
-        finding["evidence_set"] = evidence_set
-        for evidence in evidence_set:
-            drive_api.download_images(evidence["id"])
-            evidence["name"] = "image::../images/"+evidence["id"]+".png[]"
-    pdf_maker.executive(findings, project)
+    if doctype == "tech":
+        pdf_maker.tech(findings, project)
+    else:
+        for finding in findings:
+            evidence_set = util.get_evidence_set(finding)
+            finding["evidence_set"] = evidence_set
+            for evidence in evidence_set:
+                drive_api.download_images(evidence["id"])
+                evidence["name"] = "image::../images/"+evidence["id"]+'.png[align="center"]'
+        if doctype == "executive":
+            pdf_maker.executive(findings, project)
+        else:
+            pdf_maker.presentation(findings, project)
     report_filename = pdf_maker.RESULT_DIR + project
     if doctype == "tech":
         report_filename += "_IT.pdf"
     elif doctype == "executive":
         report_filename += "_IE.pdf"
+    else:
+        report_filename += "_PR.pdf"
     if not os.path.isfile(report_filename):
         raise Exception('Documentation has not been generated')
     with open(report_filename, 'r') as document:

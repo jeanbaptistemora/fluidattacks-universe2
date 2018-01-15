@@ -238,6 +238,13 @@ class FindingDTO(object):
                 self.data["donde"] = finding["value"]
             if finding["field"] == self.CRITICIDAD:
                 self.data["criticidad"] = finding["value"]
+                criticity = float(finding["value"])
+                if(criticity <= 3.9):
+                    self.data["impacto"] = "Bajo"
+                elif(criticity <= 6.9):
+                    self.data["impacto"] = "Medio"
+                else:
+                    self.data["impacto"] = "Alto"
             if finding["field"] == self.VULNERABILIDAD:
                 self.data["vulnerabilidad"] = finding["value"]
             if finding["field"] == self.AMENAZA:

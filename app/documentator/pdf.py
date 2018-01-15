@@ -29,15 +29,18 @@ class FindingPDFMaker(object):
     def __init__(self, lang, doctype):
         " Constructor de la clase "
         self.PATH = os.path.dirname(os.path.abspath(__file__))
-        self.STYLE_DIR = self.PATH + self.STYLE_DIR
         self.RESULT_DIR = self.PATH + self.RESULT_DIR
         self.FONT_DIR = self.PATH + self.FONT_DIR
         self.TPL_DIR = self.PATH + self.TPL_DIR
         self.TPL_IMG_PATH = "/usr/src/app/app/documentator/images/"
         self.lang = lang
         self.doctype = doctype
+        self.STYLE_DIR = self.PATH + self.STYLE_DIR
         if(self.doctype == "tech"):
             self.PROJ_TPL = "templates/tech.adoc"
+        if(self.doctype == "presentation"):
+            self.PROJ_TPL = "templates/presentation.adoc"
+            self.STYLE_DIR = self.PATH + "/resources/presentation_theme"             
         reload(sys)
         sys.setdefaultencoding('utf-8')
         self.lang_support()
@@ -77,6 +80,7 @@ class FindingPDFMaker(object):
                 "4. Resumen de Hallazgos"
             ],
             "tech": "Informe Técnico",
+            "presentation": "Presentación",
             "executive": "Informe Ejecutivo",
             "goals_title": "Objetivos del proyecto",
             "metodology_title": "Metodología",
@@ -84,6 +88,7 @@ class FindingPDFMaker(object):
             "records_title": "Registros",
             "description_title": "Vulnerabilidad",
             "resume_vuln_title": "Vulnerabilidades",
+            "where_title": "Donde",
             "resume_perc_title": "Porcentaje",
             "resume_regi_title": "Total registros comprometidos",
             "resume_vnum_title": "#",
@@ -126,6 +131,7 @@ class FindingPDFMaker(object):
                 "4. Findings Summary"
             ],
             "tech": "Technical Report",
+            "presentation": "Executive Presentation",
             "executive": "Executive Report",
             "goals_title": "Goals",
             "metodology_title": "Metodology",
@@ -133,6 +139,7 @@ class FindingPDFMaker(object):
             "records_title": "Records",
             "description_title": "Vulnerability",
             "resume_vuln_title": "Vulnerabilities",
+            "where_title": "Where",
             "resume_perc_title": "Percent",
             "resume_regi_title": "Total Records",
             "resume_vnum_title": "#",
@@ -166,8 +173,6 @@ class FindingPDFMaker(object):
         " Crea el template a renderizar y le aplica el contexto "
         self.fill_project(data, project)
         self.out_name = project+"_IE.pdf"
-        if self.doctype == "tech":
-            self.out_name = project+"_IT.pdf"
         searchpath = self.PATH
         template_loader = jinja2.FileSystemLoader(searchpath=searchpath)
         template_env = jinja2.Environment(loader=template_loader)
@@ -177,6 +182,7 @@ class FindingPDFMaker(object):
         with open(tpl_name, "w") as tplfile:
             tplfile.write(render_text.encode("utf-8"))
         self.create_command(tpl_name)
+        print self.command
         os.system(self.command)
     
     def tech(self, data, project):
@@ -188,6 +194,21 @@ class FindingPDFMaker(object):
         template_env = jinja2.Environment(loader=template_loader)
         template = template_env.get_template(self.PROJ_TPL)
         tpl_name = self.TPL_DIR + ":id_IT.tpl".replace(":id", project)
+        render_text = template.render(self.context)
+        with open(tpl_name, "w") as tplfile:
+            tplfile.write(render_text.encode("utf-8"))
+        self.create_command(tpl_name)
+        os.system(self.command)
+
+    def presentation(self, data, project):
+        " Crea el template a renderizar y le aplica el contexto "
+        self.fill_project(data, project)
+        self.out_name = project+"_PR.pdf"
+        searchpath = self.PATH
+        template_loader = jinja2.FileSystemLoader(searchpath=searchpath)
+        template_env = jinja2.Environment(loader=template_loader)
+        template = template_env.get_template(self.PROJ_TPL)
+        tpl_name = self.TPL_DIR + ":id_PR.tpl".replace(":id", project)
         render_text = template.render(self.context)
         with open(tpl_name, "w") as tplfile:
             tplfile.write(render_text.encode("utf-8"))
@@ -207,6 +228,7 @@ class FindingPDFMaker(object):
         }
 
     def make_pie_finding(self, findings, project, words):
+        " Crea la grafica de hallazgos "
         figure(1, figsize=(6, 6))
         finding_state_pie = [0, 0, 0]  # A, PC, C
         finding_state_pielabels = [
@@ -365,15 +387,19 @@ class FindingPDFMaker(object):
                 finding["tratamiento"] = words["treat_status_rem"]
         main_pie_filename = "image::../images/" \
             + main_pie_filename \
-            + "[Estado de hallazgos]"
+            + '[width=300, align="center"]'
         main_tables = self.make_vuln_table(findings, words)
         fluid_tpl_content = self.make_content(words)
+        print findings[0]
         self.context = {
             "full_project": full_project.upper(),
             "team": team,
             "team_mail": team_mail,
+            "customer": "",
+            "toe": findings[0]["proyecto_cliente"],
             "version": version,
             "revdate": doctype + " " + time.strftime("%d/%m/%Y"),
+            "simpledate": time.strftime("%Y.%m.%d"),
             "fluid_tpl": fluid_tpl_content,
             "main_pie_filename": main_pie_filename,
             'main_tables': main_tables,
@@ -381,6 +407,7 @@ class FindingPDFMaker(object):
             # Titulos segun lenguaje
             "finding_title": words["finding_title"],
             "finding_section_title": words["finding_section_title"],
+            "where_title": words["where_title"],
             "description_title": words["description_title"],
             "resume_vuln_title": words["resume_vuln_title"],
             "resume_perc_title": words["resume_perc_title"],
