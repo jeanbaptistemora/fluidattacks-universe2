@@ -1,0 +1,142 @@
+:slug: kb/java/comprobar-contrasena-diccionario/
+:eth: no
+:category: java
+:kb: yes
+
+= Comprobar Fortaleza de Contraseña por Medio de Diccionarios
+
+== Necesidad
+
+Comprobar fortaleza de contraseña por medio de diccionarios en Java.
+
+== Contexto
+
+A continuación se describen las circunstancias bajo las cuales la siguiente 
+solución tiene sentido:
+
+. Se está desarrollando una aplicación en Java.
+. Se requiere comprobar la fortaleza de una contraseña por medio de 
+diccionarios.
+. El sistema operativo o el administrador del sistema poseen diccionarios con 
+palabras comunes.
+
+== Solución
+
+. El código dará solución a la necesidad de comprobar la fortaleza de una 
+contraseña al buscarla en diccionarios que contienen palabras comunes.
+
+. Iniciamos el desarrollo de la aplicación importando las clases necesarias y 
+definiendo el nombre de nuestra clase:
++
+[source, java, linenums]
+----
+import java.io.*;
+
+public class Dictionary {
+----
+
+. El método main será el encargado de llamar al método isPasswordInDictionary, 
+método encargado de hacer la búsqueda de la contraseña.
++
+[source, java, linenums]
+----
+public static void main(String[] args) {
+  try {
+----
+
+. Establecemos la ruta del diccionario y se imprime el resultado.
++
+[source, java, linenums]
+----
+String diccionario = "C:\\passwords.txt";
+System.out.println(isPasswordInDictionary(diccionario, "123"));
+System.out.println(isPasswordInDictionary(diccionario, "hello"));
+System.out.println(isPasswordInDictionary(diccionario, "admin"));
+System.out.println(isPasswordInDictionary(diccionario, "SystEM"));
+System.out.println(isPasswordInDictionary(diccionario, "MyStr0n6_P4assw0rd!"));
+----
+
+. Capturamos las excepciones posibles:
++
+[source, java, linenums]
+----
+  }
+  catch (FileNotFoundException e) {
+    System.err.println("Diccionario no encontrado");
+  }
+  catch (IOException e) {
+    System.err.println("Error de entrada/salida de datos");
+  }
+}
+----
+
+. El método principal es el encargado de abrir el archivo de diccionario y 
+buscar la contraseña. Retornará falso si la contraseña no se encuentra en el 
+diccionario, y verdadero en cualquier otro escenario.
+
+. Iniciamos definiendo los parámetros: dictionaryFilePath que contiene la ruta 
+al diccionario y password que es la contraseña. El método arroja las 
+excepciones posibles, las cuales deben ser controladas por el método que invocó 
+la llamada.
++
+[source, java, linenums]
+----
+public static boolean isPasswordInDictionary(String dictionaryFilePath, String password)
+   throws FileNotFoundException, IOException {
+----
+
+. Se abre el archivo del diccionario con la clase BufferedReader, la cual 
+permite leer archivos de mucho contenido con un buen manejo de memoria. Se 
+define igualmente la variable que contendrá la palabra leída del diccionario.
++
+[source, java, linenums]
+----
+BufferedReader dictionary = new BufferedReader(new FileReader(dictionaryFilePath));
+String word = "";
+----
+
+. Se itera a través de cada palabra en el archivo, si coincide con la 
+contraseña entonces se retorna verdadero, en otro caso se retorna falso. Solo 
+probamos palabras que tengan más de dos caracteres para evitar problemas con 
+diccionarios que tengan letras o sílabas.
++
+[source, java, linenums]
+----
+  while ((word = dictionary.readLine()) != null) {
+    if (word.length() > 2 && password.indexOf(word) != -1) {
+      return true;
+    }
+  }
+  return false;
+  }
+}
+----
+
+. La siguiente es una lista de diccionarios que se recomiendan para hacer la 
+búsqueda
+* http://dazzlepod.com/uniqpass/[UNIQPASS v18]
+* http://www.openwall.com/wordlists/[Openwall wordlists collection]
+* http://wordlist.aspell.net/[SCOWL]
+* https://packetstormsecurity.com/Crackers/wordlists/[packet storm]
+* http://www.deer-run.com/~hal/sysadmin/pam_cracklib.html[A Friendly Warning]
+
+. Para GNU/Linux se recomienda utilizar los diccionarios incluidos con el 
+sistema operativo que se encuentran en la ruta /usr/share/dict/.
+
+. El resultado para la anterior aplicación es el siguiente:
+
+[width="30%", options="header,footer", frame="topbot"]
+|============================
+|Palabra |Resultado
+|123 |true
+|hello |true
+|admin |true
+|SystEM |true
+|My-Str0n6_P4assw0rd! |false
+|===========================
+
+== Código de Ejemplo
+
+. http://dyzz9obi78pm5.cloudfront.net/app/image/id/54f0d7b07cb8291f577b23dc/n/codigo.zip[Código-1]
+. http://dyzz9obi78pm5.cloudfront.net/app/image/id/54f0d7b57cb8291f577b23de/n/codigoid2011120417374200.zip[Código-2]
+. http://dyzz9obi78pm5.cloudfront.net/app/image/id/54f0d7b97cb82986497b247f/n/diccionario.txt[Diccionario]
