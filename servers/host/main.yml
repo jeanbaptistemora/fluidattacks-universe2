@@ -1,54 +1,75 @@
----
-- name: Installs docker host file for fluid-serves
-  hosts: container
-  become: "yes"
+image: docker:latest
 
-  vars:
-    destdir: /tmp/fluid-serves
-    vault_pass: "{{ lookup('env','VAULT') }}"
-  gather_facts: "False"
-  tasks:
-    - name: Wait for SSH become available on instance
-      local_action: wait_for port=22 host={{inventory_hostname}} delay=10
+variables:
+  DOCKER_DRIVER: overlay2
 
-    - name: Add vault password
-      lineinfile:
-        dest: /root/.vault.txt
-        line: "{{ vault_pass }}"
-        create: "yes"
+services:
+   - docker:dind
 
-    - name: Incluir variables de configuracion
-      include_vars: vars/vars.yml
 
-    - name: Agregar netrc
-      template:
-        src: "vars/netrc.j2"
-        dest: "/root/.netrc"
-        mode: "0600"
-      register: confvars
+before_script:
+    - echo $VAULT > /tmp/.vault.txt
+    - docker login registry.gitlab.com -u $DOCKER_USER -p $DOCKER_PASS
 
-    - name: Copy vault
-      command: cp /home/core/.vault.txt /root/
-      when: confvars
+codequality:
+  script:
+    - docker pull codeclimate/codeclimate
+    - docker run --env CODECLIMATE_CODE="$PWD" --volume "$PWD":/code --volume /var/run/docker.sock:/var/run/docker.sock --volume /tmp/cc:/tmp/cc codeclimate/codeclimate analyze -e sonar-python -e pep8 -e randon -f json > codeclimate.json
+  artifacts:
+    paths: [codeclimate.json]
 
-    - name: View if exist .vault.txt
-      local_action: stat path="/root/.vault.txt"
-      register: result
+stages:
+    - build
+    - test
+    - deploy
 
-    - name: Clonar repositorio serves
-      git:
-        repo: "https://jrestrepoatfluid@bitbucket.org/fluidsignal/fluid-serves.git"
-        dest: "/root/fluid-serves"
-        version: "master"
-      register: repo
+build_base:
+    stage: build
+    script:
+        - sh containers/base/build.sh
+        - docker push registry.gitlab.com/fluidsignal/serves:base
 
-    - name: Retirar git conf
-      file:
-        path: "/root/.netrc"
-        state: absent
+build_alg:
+    stage: build
+    script:
+        - sh containers/alg/build.sh
+        - docker push registry.gitlab.com/fluidsignal/serves/alg:base
 
-    - name: Execute start.sh
-      command: "/root/fluid-serves/start.sh"
-      args:
-        chdir: "/root/fluid-serves"
-      when: repo
+build_exams:
+    stage: build
+    script:
+        - sh containers/exams/build.sh
+        - docker push registry.gitlab.com/fluidsignal/serves/exams:base
+
+build_vpn:
+    stage: build
+    script:
+        - sh containers/vpn/build.sh
+        - docker push registry.gitlab.com/fluidsignal/serves/vpn:base
+
+deploy_alg:
+    stage: deploy
+    script:
+        - docker pull registry.gitlab.com/fluidsignal/serves/alg:base
+        - docker tag registry.gitlab.com/fluidsignal/serves/alg:base registry.gitlab.com/fluidsignal/serves/alg:master
+        - docker push registry.gitlab.com/fluidsignal/serves/alg:master
+    only:
+    - master
+
+deploy_exams:
+    stage: deploy
+    script:
+        - docker pull registry.gitlab.com/fluidsignal/serves/exams:base
+        - docker tag registry.gitlab.com/fluidsignal/serves/exams:base registry.gitlab.com/fluidsignal/serves/exams:master
+        - docker push registry.gitlab.com/fluidsignal/serves/exams:master
+    only:
+    - master
+
+deploy_vpn:
+    stage: deploy
+    script:
+        - docker pull registry.gitlab.com/fluidsignal/serves/vpn:base
+        - docker tag registry.gitlab.com/fluidsignal/serves/vpn:base registry.gitlab.com/fluidsignal/serves/vpn:master
+        - docker push registry.gitlab.com/fluidsignal/serves/vpn:master
+    only:
+    - master
