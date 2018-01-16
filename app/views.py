@@ -674,19 +674,6 @@ def add_comment(request):
 @never_cache
 @require_http_methods(["POST"])
 @authorize(['analyst', 'customer'])
-def update_comment(request):
-    submission_id = request.POST.get('id', "")
-    data = request.POST.dict()
-    data["data[modified]"] = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-    data["data[fullname]"] = request.session["first_name"] + " " + request.session["last_name"]
-    comment = integrates_dao.update_comment_dynamo(int(submission_id), data)
-    if not comment:
-        return util.response([], 'Error', True)
-    return util.response([], 'Success', False)
-
-@never_cache
-@require_http_methods(["POST"])
-@authorize(['analyst', 'customer'])
 def delete_comment(request):
     submission_id = request.POST.get('id', "")
     data = request.POST.dict()

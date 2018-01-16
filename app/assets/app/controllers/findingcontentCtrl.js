@@ -759,6 +759,7 @@ integrates.controller("findingcontentCtrl", function($scope, $stateParams, $time
                       enableHashtags: true,
                       enablePinging: false,
                       enableUpvoting: false,
+                      enableEditing: false,
                       getUsers: function(success, error) {
                         setTimeout(function() {
                           success(usersArray);
@@ -779,26 +780,6 @@ integrates.controller("findingcontentCtrl", function($scope, $stateParams, $time
                           if(!response.error){
                             setTimeout(function() {
                               success(data);
-                            }, 500);
-                          }
-                        });
-                      },
-                      putComment: function(data, success, error) {
-                        var comment = projectFtry.updateComment($scope.finding.id, data);
-                        comment.then(function(response){
-                          if(!response.error){
-                            setTimeout(function() {
-                              success(data);
-                            }, 500);
-                          }
-                        });
-                      },
-                      deleteComment: function(data, success, error) {
-                        var comment = projectFtry.deleteComment($scope.finding.id, data);
-                        comment.then(function(response){
-                          if(!response.error){
-                            setTimeout(function() {
-                              success();
                             }, 500);
                           }
                         });

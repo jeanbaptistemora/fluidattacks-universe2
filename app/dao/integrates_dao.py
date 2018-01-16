@@ -332,24 +332,6 @@ def create_comment_dynamo(finding_id, email, data):
     resp = response['ResponseMetadata']['HTTPStatusCode'] == 200
     return resp
 
-def update_comment_dynamo(finding_id, data):
-    """Actualiza un comentario en un hallazgo"""
-    table = dynamodb_resource.Table('comments')
-    response = table.update_item(
-        Key={
-            'finding_id': finding_id,
-            'user_id': int(data["data[id]"])
-                        
-        },
-        UpdateExpression='SET modified = :mod, content = :cont',
-        ExpressionAttributeValues={
-            ':mod': data["data[modified]"],
-            ':cont': data["data[content]"]
-        }
-    )
-    resp = response['ResponseMetadata']['HTTPStatusCode'] == 200
-    return resp
-
 def delete_comment_dynamo(finding_id, data):
     """Elimina un comentario en un hallazgo"""
     table = dynamodb_resource.Table('comments')

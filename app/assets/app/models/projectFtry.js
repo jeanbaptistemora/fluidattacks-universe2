@@ -77,20 +77,6 @@ integrates.factory('projectFtry', function($q, $translate){
             },oops_ac);
         },
         /**
-         * Invoca el servicio para actualizar los comentarios en un hallazgo
-         * @function updateComment
-         * @param {String} id
-         * @param {Object} data
-         * @member integrates.projectFtry
-         * @return {Object}
-         */
-        updateComment: function(id, data){
-            var oops_ac = $translate.instant('proj_alerts.error_text');
-            return $xhr.post($q, BASE.url + "update_comment", {
-                id: id, data: data, _: Math.random()
-            },oops_ac);
-        },
-        /**
          * Invoca el servicio para eliminar los comentarios en un hallazgo
          * @function deleteComment
          * @param {String} id
