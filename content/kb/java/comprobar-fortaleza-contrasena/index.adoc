@@ -1,0 +1,128 @@
+:slug: kb/java/comprobar-fortaleza-contrasena/
+:eth: no
+:category: java
+:kb: yes
+
+= Comprobar Fortaleza de Contraseñas
+
+== Necesidad
+
+Comprobar la fortaleza de una contraseña basados en los siguientes requisitos 
+de seguridad para las credenciales:
+
+. Las contraseñas (tipo palabra) deben tener al menos 8 caracteres de longitud.
+. Las contraseñas (tipo palabra) deben tener al menos 1 letra minúscula.
+. Las contraseñas (tipo palabra) deben tener al menos 1 letra mayúscula.
+. Las contraseñas (tipo palabra) deben tener al menos 1 dígito numérico.
+. Las contraseñas (tipo palabra) deben tener al menos 1 carácter especial.
+
+== Contexto
+
+A continuación se describen las circunstancias bajo las cuales la siguiente 
+solución tiene sentido:
+
+. Se está desarrollando una aplicación en Java.
+. La aplicación administra contraseñas de tipo palabra.
+. Se desea validar que la contraseña cumpla con los requisitos de fortaleza.
+
+== Solución
+
+. Para comprobar la fortaleza de una contraseña en Java se debe implementar el 
+método checkPassword que tendrá como entrada la contraseña.
+
+. El método retornará falso si la contraseña no cumple con los requisitos de 
+seguridad para contraseñas de tipo palabra (longitud igual o mayor a ocho, al 
+menos 1 carácter de tipo: numérico, especial, mayúscula, minúscula).
+
+. Se construye el método checkPassword como público o privado (según la 
+necesidad). El tipo de variable de retorno boolean que indica si la contraseña 
+es o no robusta, y el parámetro donde recibe la contraseña a verificar:
++
+[source, java, linenums]
+----
+public boolean checkPassword(String password) {
+----
+
+. A continuación se verifica que la contraseña no esté vacía:
++
+[source, java, linenums]
+----
+if (password.equals(""))
+  return false;
+----
+
+. Verificamos que la longitud sea mayor o igual a ocho:
++
+[source, java, linenums]
+----
+if (password.length() < 8)
+  return false;
+----
+
+. Inicializamos las variables que cuentan el número de apariciones de cada tipo 
+de carácter:
++
+[source, java, linenums]
+----
+int lower_count = 0, upper_count = 0, numeric_count = 0, special_count = 0;
+----
+
+. En la lógica del método recorremos la contraseña carácter por carácter y 
+vamos sumando las apariciones según su tipo:
++
+[source, java, linenums]
+----
+char letter;
+for (int i = 0; i < password.length(); i++) {
+  letter = password.charAt(i);
+  if (Character.isUpperCase(letter)) {
+    upper_count++;
+  }
+  else if (Character.isLowerCase(letter)) {
+    lower_count++;
+  }
+  else if (Character.isDigit(letter)) {
+    numeric_count++;
+  }
+  else {
+    special_count++;
+  }
+}
+----
+
+. Finalmente, retornamos verdadero si cumple con los requisitos de seguridad y 
+falso si incumple uno o mas.
++
+[source, java, linenums]
+----
+if (lower_count >= 1 && upper_count >= 1 && numeric_count >= 1 && special_count>= 1) {
+  return true;
+}
+else {
+  return false;
+}
+----
+
+. Algunas pruebas con contraseñas comunes y no comunes:
+
+[width="30%", options="header,footer", frame="topbot"]
+|======================
+|Contraseña |Resultado
+|admin |false
+|1026102983 |false
+|tex385 |false
+|HolaMundo |false
+|1aA! |false
+|1aA!mmmm |true
+|lm123Dwde2## |true
+|=====================
+
+== Referencias
+
+. REQ.0126 Las contraseñas (tipo palabra) deben tener al menos 8 caracteres de 
+longitud.
+. REQ.0127 Las contraseñas (tipo palabra) deben tener al menos 1 letra 
+minúscula.
+. REQ.0128 Las contraseñas (tipo palabra) deben tener al menos 1 letra mayúscula
+. REQ.0129 Las contraseñas (tipo palabra) deben tener al menos 1 dígito.
+. REQ.0130 Las contraseñas (tipo palabra) deben tener al menos 1 carácter especial.
