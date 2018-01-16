@@ -4,28 +4,79 @@
 
 = Términos del Proceso de Selección
 
-A continuación se especifican los términos del proceso de selección:
+A continuación se especifican los términos del proceso de selección, 
+por favor leerlos en detalle. 
 
-. Antes de continuar el proceso y solicitarte información sobre ti queremos primero presentarnos nosotros como empresa y darte contexto para que puedas tomar una decisión informada sobre donde potencialmente continuarás tu carrera laboral. Somos una empresa Colombiana, dedicada a la seguridad de la información, fundada en el 2001, con menos de 40 personas, ventas anuales cercanas a 1.5MM USD y sedes en Medellín y Bogotá (Colombia), y en Clayton (North Carolina, U.S.A.).
+Si tienes dudas, contáctanos vía e-mail a careers@autonomicmind.co.
 
-. Para nosotros es grato saber que estás interesado en trabajar con nosotros, por tal motivo hemos automatizado gran parte del proceso de selección para que optimices tu tiempo y hagas parte de nuestro equipo de trabajo. La gran mayoría del proceso se realiza por Internet y está en función de tu propia disponibilidad y dedicación, por ende la duración del proceso se encuentra en un 90% en tus manos.
+== La empresa
 
-. Dado que el proceso de selección es detallado y algo diferente a lo que realizan las demás empresas, queremos que hayas leído detenidamente todo el proceso que se encuentra detallado link:../../empleos/[aquí].  Por ende si continuas y aceptas estos términos entendemos que entiendes y aceptas ser parte de él y el esfuerzo y dedicación que esto implica.
+A continuación, nos presentamos como empresa con el fin de que luego puedas tomar una decisión informada sobre donde potencialmente continuarás tu carrera laboral.
 
-. Mantener la seguridad de la información de nuestros clientes, ser objetivos, precisos y justos en la evaluación del desempeño, son prioridades en FLUID, por tanto todos los sistemas de la organización están sujetos a monitoreo y el reporte de esfuerzo se realiza mediante https://www.timedoctor.com/[sistemas de control automáticos de actividad y tiempo].
+=== Contexto 
+++++
+</br>
+++++
+* Somos una empresa:
 
-. La expectativa salarial indicada por ti es una variable que consideramos durante todo el proceso pues queremos poder satisfacerla para que permanezcas en FLUID a largo plazo. Sin embargo para nosotros es una prioridad aún mayor la equidad de los salarios de las personas que actualmente trabajan con nosotros y la coherencia de esta remuneración con su desempeño. Por este motivo es posible que después de todo el proceso encontremos que nuestra percepción de tu desempeño potencial no concuerda con tu expectativa salarial. En este caso, es posible que nuestra oferta sea inferior a la esperada por ti. Esperamos que esto no suceda pero queremos informarte de ello con anterioridad.
+** De origen Colombiano,
+** Dedicada a la seguridad de la información,
+** Fundada en el 2001,
+** Con menos de 40 personas,
+** Ventas anuales cercanas a 1.5MM USD,
+** Con sedes en Medellín, Bogotá (Colombia) y en Clayton (North Carolina, U.S.A.).
+++++
+</br>
+++++
+* En FLUID todos los sistemas de están sujetos a monitoreo mediante https://www.timedoctor.com/[sistemas de control automáticos de actividad y tiempo]. Con lo cual buscamos:
+** Mantener la seguridad de la información de nuestros clientes, 
+** Ser objetivos, precisos y justos en la evaluación del desempeño.
 
-. Si no recibes durante el proceso una notificación explícita de eliminación del proceso, significa que aún te encuentras en él y que estás sujeto a análisis para alguna vacante actual o potencial.
+== El proceso de selección
 
-. Al aceptar estas condiciones aceptas ser recomendado para vacantes no solo de nuestra organización sino también para vacantes en nuestros aliados de negocio.
+. Mediante este proceso, se busca encontrar y contratar el 10% más alto de la población para cada rol y rango salarial requerido. 
+. Con este proceso, FLUID desea seleccionar sólo a los mejores para construir un equipo:
+** Élite,
+** Duradero, 
+** Disciplinado, 
+** Responsable,
+** Ético.
 
-. Si al finalizar este proceso deseas que la información continúe en nuestra base de datos para futuras ofertas no debes realizar ninguna acción. Por el contrario, si deseas que se elimine la información recolectada, debes indicarlo mediante correo electrónico a careers@autonomicmind.co
+. Hemos automatizado gran parte del proceso de selección para que optimices tu tiempo y así, puedas aspirar a hacer parte de nuestro equipo de forma más ágil y sencilla. 
 
-. Al aceptar estos términos declaras que tu contrato actual o anteriores no contienen cláusulas (o éstas han vencido) que te inhabiliten para trabajar en cualquier función en una empresa de seguridad de la información.
+. La gran mayoría del proceso se realiza por Internet y depende de tu disponibilidad y dedicación, por ende, la duración del proceso se encuentra en un 90% en tus manos.
 
-. Asímismo, aceptar estas condiciones implica que entiendes que de firmar un contrato entre las partes, este contendrá cláusulas de exclusividad, no competencia, no solicitación y confidencialidad con aplicación durante la relación laboral y 6 meses posteriores a la finalización del mismo.
+. Dado que el proceso de selección es detallado y algo diferente a lo que realizan las demás empresas, queremos que hayas leído detenidamente todo el proceso que se encuentra detallado link:../../empleos/[aquí].  
 
-. Si estás interesado en acelerar tu tiempo de vinculación, te pediremos después de que aceptes nuestra oferta de trabajo la siguiente link:../vinculacion/[información]
+. Si continuas y aceptas estos términos estas indicando que entiendes el esfuerzo y dedicación que esto implica y aceptas ser parte de él.
 
-Este proceso de reclutamiento busca encontrar y contratar el 10% más alto de la población para cada rol y rango salarial requerido. FLUID desea con él, seleccionar sólo a los mejores para construir un equipo élite, duradero, disciplinado, responsable y ético.
+=== Fin del proceso 
+++++
+</br>
+++++
+. Si durante el proceso no se te notifica de forma explícita del fin del mismo, 
+significa que aún te encuentras en él y por tanto, estás sujeto a análisis para alguna vacante actual o potencial.
+
+== El candidato
+
+. Al aceptar estos términos y condiciones, declaras que tu contrato actual o anteriores no contienen cláusulas (o éstas han vencido) que te inhabiliten para trabajar en cualquier función en una empresa de seguridad de la información.
+
+. Al aceptar estos términos y condiciones, entiendes que de firmar un contrato entre las partes:
+** Contendrá cláusulas de:
+*** Exclusividad, 
+*** No competencia, 
+*** No solicitación,
+*** Confidencialidad.
+** Las anteriores cláusulas tendrán aplicación durante la relación laboral y 6 meses posteriores a la finalización del mismo.
+
+. En la etapa de vinculación, después de que aceptes nuestra oferta de trabajo, deberás proveer la siguiente link:../vinculacion/[información].
+
+. Al aceptar estos términos y condiciones, entiendes que existe la posibilidad de que nuestra oferta sea inferior a tu expectativa salarial inicial. 
+Esto se debe a que: 
+** Para nosotros es una de mayor prioridad la equidad de los salarios de las personas de nuestro equipo actual y la coherencia de esta remuneración con su desempeño. 
+** Es posible que nuestra percepción de tu desempeño potencial no concuerde con tu expectativa salarial inicial.
+
+. Al aceptar estos términos y condiciones, aceptas ser recomendado para vacantes no solo de FLUID sino también para vacantes en nuestros aliados de negocio.
+
+. Por defecto tus registros permanecerán en nuestra base de datos para futuras ofertas. 
+** Si deseas que se eliminen los datos recolectados, debes indicarlo vía e-mail a careers@autonomicmind.co.
