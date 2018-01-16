@@ -1,99 +1,109 @@
-.divpage 
-  article
-    h3
-      text-align: left 
-    table 
-    .table
-      text-align: center
-      border: none
-    .sect1
-      ul
-        li
-          margin-top: -20px
-      p
-        margin-left: 2%
-      .arabic li p
-        margin: 15px 0
-    .sect2
-      margin-left: 2%
-      font-size: 15px
-      h3
-        font-size: 20px
-      ol
-        li
-          margin-top: -30px
-      ul
-        li
-          margin-top: -20px
-          ol
-            li
-              margin-top: -30px
-      p
-        margin-left: 2%
-    .preamble .arabic li p
+$lightgray: rgba(221, 221, 221, 1)
+$titleblack: rgba(48, 48, 48, 1)
+
+.arabic
+  li
+    p
       margin: 15px 0
-
-.tdent
-  text-align: left
-  width: 25%
-  vertical-align: top
-
-.imgethical
-  display: block
-  max-width: 100%
-  height: auto
 
 .imgentregable
   vertical-align: middle
 
+.imgethical
+  display: block
+  height: auto
+  max-width: 100%
+
+.maps
+  border: 1px solid $lightgray
+  display: table-cell
+  padding: .3em .6em
+  vertical-align: inherit
+
+  iframe
+    border: 0
+    height: 300px
+    margin-bottom: 25px
+    margin-top: 15px
+    max-width: 100%
+    width: 400px
+
+.table,
+.tblent
+  border: 0
+
+  td
+    border: 0
+    padding: 10px 0
+
 .tbborder
-  width: 100%
-  table-layout: fixed
   border-spacing: 0
   margin-bottom: 5%
-  .tdborder
-    border: 1px solid #ddd
-    padding: 0.3em 0.6em
-    height: 750px
-  .tdresponsive
-    display: none
-    
-.tblocation
   table-layout: fixed
   width: 100%
+    
+.tblocation
   height: auto
+  table-layout: fixed
+  width: 100%
+
   th
+    border: 1px solid $lightgray
+    padding: .3em .6em
     text-align: center
     width: 60px
-    border: 1px solid #ddd
-    padding: 0.3em 0.6em
+
     h1
+      color: $titleblack
       font-style: normal
       font-weight: 400
-      color: #303030
-  .tdlocation
-    border: 1px solid #ddd !important
-    padding: 0.3em 0.6em
-    display: table-cell
-    vertical-align: inherit
-    text-align: center
-    span
-      font-size: medium
-      line-height: 1.3846em
+
+.tdborder
+  border: 1px solid $lightgray
+  height: 750px
+  padding: .3em .6em
+
+.tdent
+  text-align: left
+  vertical-align: top
+  width: 25%
+
+.tdlocation
+  border: 1px solid $lightgray
+  display: table-cell
+  padding: .3em .6em
+  text-align: center
+  vertical-align: inherit
+
+  span
+    font-size: medium
+    line-height: 1.3846em
+
+  p
+    margin-bottom: 1.5em
+
+.tdresponsive
+  border: 1px solid $lightgray
+  display: none
+  padding: 10px
+
+.sect1
+  font-size: 15px
+
+  ul
+    li
+      margin-top: -15px
+
     p
-      margin-bottom: 1.5em
-  .maps
-    border: 1px solid #ddd
-    padding: 0.3em 0.6em
-    display: table-cell
-    vertical-align: inherit
-    iframe
-      max-width: 100%
-      width: 400px
-      height: 300px
-      border-top-width: 0px
-      border-right-width: 0px
-      border-bottom-width: 0px
-      border-left-width: 0px
-      margin-top: 15px
-      margin-bottom: 25px
+
+      margin-left: 0
+
+  h3
+    font-size: 20px
+
+.ulist
+  margin-top: 15px
+  padding-left: 20px
+
+  ul
+    padding-left: 0px

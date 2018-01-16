@@ -2,24 +2,64 @@ $darkergray: rgba(46, 42, 37, 1)
 $lightblue: rgba(0, 133, 161, 1)
 $white: rgba(255, 255, 255, 1)
 
-@media (min-width: 100px)
-  .footer
+.divlogo
+  margin: 0 0 30px
+  padding-top: 30px
+  text-align: center
+
+.divsocial
+  text-align: center
+
+.footer
+  background-color: $darkergray
+  padding: 0 20px
+
+.navfoot
+  margin: auto
+  width: 350px
+
+.tbsite2
+  border-bottom: 30px solid $darkergray
+  display: table
+  width: 100%
+
+  th
     background-color: $darkergray
-    padding: 0 20px
+    border: 0
+    color: $white
+    padding-bottom: 0
 
-  .divlogo
-    margin: 0 0 30px
-    padding-top: 30px
-    text-align: center
+    h3
+      font-size: 25px
+      text-align: left
 
-  .divsocial
-    text-align: center
+  td
+    background-color: $darkergray
+    border: 0
+    color: $white
+    padding-top: 0
+    width: 25%
 
+    a
+      color: $white
+      font-size: 17px
+
+      &:hover
+        color: $lightblue
+        text-decoration: underline
+
+.tbsite4
+  display: none
+
+@media (min-width: 780px)
   .navfoot
     margin: auto
-    width: 350px
+    width: 620px
 
   .tbsite2
+    display: none
+
+  .tbsite4
     border-bottom: 30px solid $darkergray
     display: table
     width: 100%
@@ -48,44 +88,3 @@ $white: rgba(255, 255, 255, 1)
         &:hover
           color: $lightblue
           text-decoration: underline
-
-  .tbsite4
-    display: none
-
-@media (min-width: 780px)
-  .navfoot
-    margin: auto
-    width: 620px
-
-    .tbsite2
-      display: none
-
-    .tbsite4
-      border-bottom: 30px solid $darkergray
-      display: table
-      width: 100%
-
-      th
-        background-color: $darkergray
-        border: 0
-        color: $white
-        padding-bottom: 0
-
-        h3
-          font-size: 25px
-          text-align: left
-
-      td
-        background-color: $darkergray
-        border: 0
-        color: $white
-        padding-top: 0
-        width: 25%
-
-        a
-          color: $white
-          font-size: 17px
-
-          &:hover
-            color: $lightblue
-            text-decoration: underline

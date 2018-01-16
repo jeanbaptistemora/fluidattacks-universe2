@@ -164,9 +164,9 @@
           text-transform: capitalize
       section
         text-align: left
-    .tbborder .tdborder
+    .tdmax
       display: none
-    .tbborder #tdresponsive
+    .tdresponsive
       display: table-cell
     p
       font-size: 18px
@@ -192,6 +192,7 @@
         margin: 0
   .tblocation .maps
     text-align: center
+    padding: 0 10px
 
   .list-title
     margin: 10px 25px 0 25px
@@ -217,18 +218,18 @@
         color: #1e4f72
         font-size: 18px
         text-align: center
-  .ulist ul
+  .itemlist ul
     padding-left: 25px
-  .divpage .preamble .ulist
+  .divpage .preamble .itemlist
     width: fit-content
     margin: 0 auto
     ul li a
       color: #1565a2
 
-  .divpage .preamble .ulist ul li p
+  .divpage .preamble .itemlist ul li p
     margin: 0
 
-  .divarticle .ulist ul li p
+  .divarticle .itemlist ul li p
     margin: 0
 
   .div404
@@ -278,7 +279,7 @@
       font-size: 24px
 
 @media (min-width: 480px)
-  .divpage article .preamble .ulist ul
+  .divpage article .preamble .itemlist ul
     column-count: 2
     list-style-position: inside
     text-align: left
@@ -292,6 +293,7 @@
     .meta
       display: inline-flex
       padding-left: 5%
+      margin-bottom: 30px
       a
         margin-right: 15px
         width: 25%
@@ -356,10 +358,12 @@
 @media (min-width: 905px)
   .divpage
     margin: 10px 25px
-    .tbborder .tdresponsive
+    .tdresponsive
       display: none
-    .tbborder .tdborder
+    .tdmax
+      border: 1px solid #ddd
       display: table-cell
+      padding: 10px
     .tblocation th
       vertical-align: middle
   .imgethical
@@ -383,7 +387,7 @@
     display: table-cell
     border-bottom: 25px solid #d3d3d3
     padding: 25px
-  .divpage article .preamble .ulist ul
+  .divpage article .preamble .itemlist ul
     column-count: 3
 
 @media (min-width: 1100px)
