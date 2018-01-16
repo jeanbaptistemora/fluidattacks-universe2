@@ -23,6 +23,7 @@ checks:
   script:
     - ./check-changed.sh
     - ./check-all.sh
+    - ./sass-lint.sh
     - pelican --fatal errors --fatal warnings content/
     - ./html-lint.sh
   except:

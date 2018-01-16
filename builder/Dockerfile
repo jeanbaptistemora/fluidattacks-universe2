@@ -57,6 +57,7 @@ RUN apt-get update -qq && apt-get install -qqy \
     git clone --depth=1 https://github.com/slinkp/pelican-redirect.git && cd pelican-redirect && git reset --hard f00004c && \
         echo "from .pelican_redirect import *" > __init__.py && \
     sed -i 's/source-highlight$/pygments/' /etc/asciidoc/asciidoc.conf && \
+    sed -i 's/0/1/' /app/node_modules/sass-lint/lib/config/sass-lint.yml && \
     cd /app && rm -rf /var/lib/apt/lists/* \
         Cmake \
         Dockerfile \

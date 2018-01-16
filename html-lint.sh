@@ -4,8 +4,8 @@ NC='\033[0m'
 ERRORS=0
 
 for FILE in $(find output -iname '*.html');do
+  echo -e ${GC}$FILE${NC};
   if ! tidy -e -q $FILE;then
-    echo -e ${GC}$FILE${NC};
     ERRORS=1;
   fi;
 done;
