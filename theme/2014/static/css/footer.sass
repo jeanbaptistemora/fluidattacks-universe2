@@ -1,70 +1,91 @@
+$darkergray: rgba(46, 42, 37, 1)
+$lightblue: rgba(0, 133, 161, 1)
+$white: rgba(255, 255, 255, 1)
+
 @media (min-width: 100px)
   .footer
-    background-color: #2e2a25
-    padding: 0 20px 0 20px
-  #divlogo
-    text-align: center
-    margin: 0 0 30px 0
+    background-color: $darkergray
+    padding: 0 20px
+
+  .divlogo
+    margin: 0 0 30px
     padding-top: 30px
-  #divsocial
     text-align: center
-  #navfoot
-    width: 350px
+
+  .divsocial
+    text-align: center
+
+  .navfoot
     margin: auto
-    #tbsite2
-      display: table
-      border-bottom: 30px solid #2e2a25
-      width: 100%
-      tr
-        th
-          background-color: #2e2a25
-          border: none
-          color: white
-          padding-bottom: 0
-          h3
-            font-size: 25px
-        td
-          background-color: #2e2a25
-          border: none
-          color: white
-          width: 25%
-          padding-top: 0
-          a
-            color: white
-            font-size: 17px
-            &:hover
-              color: #0085a1
-              text-decoration: underline
-    #tbsite4
-      display: none
+    width: 350px
+
+  .tbsite2
+    border-bottom: 30px solid $darkergray
+    display: table
+    width: 100%
+
+    th
+      background-color: $darkergray
+      border: 0
+      color: $white
+      padding-bottom: 0
+
+      h3
+        font-size: 25px
+        text-align: left
+
+    td
+      background-color: $darkergray
+      border: 0
+      color: $white
+      padding-top: 0
+      width: 25%
+
+      a
+        color: $white
+        font-size: 17px
+
+        &:hover
+          color: $lightblue
+          text-decoration: underline
+
+  .tbsite4
+    display: none
 
 @media (min-width: 780px)
-  #navfoot
+  .navfoot
     margin: auto
     width: 620px
-    #tbsite2
+
+    .tbsite2
       display: none
-    #tbsite4
+
+    .tbsite4
+      border-bottom: 30px solid $darkergray
       display: table
-      border-bottom: 30px solid #2e2a25
       width: 100%
-      tr
-        th
-          background-color: #2e2a25
-          border: none
-          color: white
-          padding-bottom: 0
-          h3
-            font-size: 25px
-        td
-          background-color: #2e2a25
-          border: none
-          color: white
-          width: 25%
-          padding-top: 0
-          a
-            color: white
-            font-size: 17px
-            &:hover
-              color: #0085a1
-              text-decoration: underline
+
+      th
+        background-color: $darkergray
+        border: 0
+        color: $white
+        padding-bottom: 0
+
+        h3
+          font-size: 25px
+          text-align: left
+
+      td
+        background-color: $darkergray
+        border: 0
+        color: $white
+        padding-top: 0
+        width: 25%
+
+        a
+          color: $white
+          font-size: 17px
+
+          &:hover
+            color: $lightblue
+            text-decoration: underline

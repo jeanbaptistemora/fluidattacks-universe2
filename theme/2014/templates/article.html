@@ -19,7 +19,7 @@
 
 {% block content %}
   <!-- Post Content -->
-  <div id="divarticle">
+  <div class="divarticle">
     <article>
       <h1>{{ article.title }}</h1>
       {% if article.headline %}
@@ -40,7 +40,7 @@
       {{ translations.translations_for(article) }}
       {{ article.content }}	
  
-      <p><img id="imgwriter" src="../../images/authors/{{ article.writer }}.png" alt="{{ gettext('Author picture') }}">
+      <p><img class="imgwriter" src="../../images/authors/{{ article.writer }}.png" alt="{{ gettext('Author picture') }}">
         <strong class="writer">
           <a href="../../{{ article.author.url }}"><span>{{article.name}}</span></a>
         </strong><br>{{article.about1}}
@@ -78,17 +78,17 @@
          </section>
        {% endif %}
        <br />
-       <table class="next" id="tblnext">
+       <table class="tblnext">
          <tr>
            {% if article.prev_article %}
-             <td id="prev">
+             <td class="prev">
                <div><a href="../../{{ article.prev_article.url}}">
                  << {{ article.prev_article.title }}
 	       </a></div>
              </td>
            {% endif %}
            {% if article.next_article %}
-             <td id="next">
+             <td class="next">
                <div><a href="../../{{ article.next_article.url}}">
                  {{ article.next_article.title }} >>
 	       </a></div>
@@ -98,7 +98,7 @@
        </table>
        <br />	
        {% if DISQUS_SITENAME and SITEURL %}
-         <hr id="hrcoments">
+         <hr class="hrcoments">
          <div class="comments">
            <h3>{{ gettext('Leave a comment') }}</h3>
            <div id="disqus_thread"></div>
@@ -136,4 +136,3 @@
      </article>
    </div>	
 {% endblock content %}
-

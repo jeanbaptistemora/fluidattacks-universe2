@@ -97,7 +97,7 @@ class MainUsandoMas {
 ----
 
 . Para desensamblar el código utilizamos la herramienta javap con el argumento 
-c. Primero desensamblamos Main, a continuación se muestra un extracto de las 
+`c.' Primero desensamblamos Main, a continuación se muestra un extracto de las 
 instrucciones, mostrando el ciclo:
 +
 [source, shell, linenums]

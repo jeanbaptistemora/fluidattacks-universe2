@@ -15,15 +15,12 @@ body
 
 article, aside, details, figcaption, figure, footer, header, hgroup, main, menu, nav, section, summary
   display: block
-      
-#divindex2
-  display: none
   
-#divarticle
+.divarticle
   background-color: #fff
   border-top: #1d4f72 3px solid
   
-#divpage
+.divpage
   background-color: #fff
   margin-top: 10px
   margin-left: -10%
@@ -36,7 +33,10 @@ article, aside, details, figcaption, figure, footer, header, hgroup, main, menu,
       border-collapse: collapse
       td
         border: none
+        padding: 10px 0 0
       .ent
+        padding: 10px 10px 0 10px
+        text-align: center
         width: 25%
   
 .tdview
@@ -215,7 +215,7 @@ td, th
 
 /*! Source: https://github.com/h5bp/html5-boilerplate/blob/master/src/css/main.css
 @media print
-  #menubar
+  .menubar
     display: none
   .intro-header
     display: none
@@ -223,28 +223,28 @@ td, th
     display: none
   .comments
     display: none
-  #divarticle section
+  .divarticle section
     display: none
   hr
     display: none
-  .next
+  .tblnext
     display: none
-  #hrcomments
+  .hrcomments
     display: none
-  #divpage article section
+  .divpage article section
     display: none
-  #divpage article #tblent .trent
+  .divpage article .tblent .trent
     display: table-row
-  #divpage article #tblent .ent2
+  .divpage article .tblent .ent2
     display: none
-  #divpage article #tblent .tdent
+  .divpage article .tblent .tdent
     display: table-cell
     width: 25%
-  #divpage
+  .divpage
     article    
-      #tbborder #tdresponsive
+      .tbborder .tdresponsive
         display: none
-      #tbborder .tdborder
+      .tbborder .tdborder
         display: table-cell
       .tblocation th
         vertical-align: middle
@@ -1281,9 +1281,6 @@ pre
   padding-left: 15px
   margin-right: auto
   margin-left: auto
-  
-#contbody
-  margin-top: -26%
 
 .row
   margin-right: -15px
@@ -1780,140 +1777,6 @@ caption
   padding-bottom: 8px
   color: #777
   text-align: left
-
-th
-  text-align: left
-
-.table
-  width: 100%
-  max-width: 100%
-  margin-bottom: 20px
-  >
-    thead > tr > th, tbody > tr > th, tfoot > tr > th, thead > tr > td, tbody > tr > td, tfoot > tr > td
-      padding: 8px
-      line-height: 1.42857143
-      vertical-align: top
-      border-top: 1px solid #ddd
-    thead > tr > th
-      vertical-align: bottom
-      border-bottom: 2px solid #ddd
-    caption + thead > tr:first-child > th, colgroup + thead > tr:first-child > th, thead:first-child > tr:first-child > th, caption + thead > tr:first-child > td, colgroup + thead > tr:first-child > td, thead:first-child > tr:first-child > td
-      border-top: 0
-    tbody + tbody
-      border-top: 2px solid #ddd
-  .table
-    background-color: #fff
-
-.table-condensed >
-  thead > tr > th, tbody > tr > th, tfoot > tr > th, thead > tr > td, tbody > tr > td, tfoot > tr > td
-    padding: 5px
-
-.table-bordered
-  border: 1px solid #ddd
-  >
-    thead > tr > th, tbody > tr > th, tfoot > tr > th, thead > tr > td, tbody > tr > td, tfoot > tr > td
-      border: 1px solid #ddd
-    thead > tr >
-      th, td
-        border-bottom-width: 2px
-
-.table-striped > tbody > tr:nth-child(odd)
-  background-color: #f9f9f9
-
-.table-hover > tbody > tr:hover
-  background-color: #f5f5f5
-
-table
-  col[class*="col-"]
-    position: static
-    display: table-column
-    float: none
-  td[class*="col-"], th[class*="col-"]
-    position: static
-    display: table-cell
-    float: none
-
-.table >
-  thead > tr > td.active, tbody > tr > td.active, tfoot > tr > td.active, thead > tr > th.active, tbody > tr > th.active, tfoot > tr > th.active, thead > tr.active > td, tbody > tr.active > td, tfoot > tr.active > td, thead > tr.active > th, tbody > tr.active > th, tfoot > tr.active > th
-    background-color: #f5f5f5
-
-.table-hover > tbody > tr
-  >
-    td.active:hover, th.active:hover
-      background-color: #e8e8e8
-  &.active:hover > td, &:hover > .active, &.active:hover > th
-    background-color: #e8e8e8
-
-.table >
-  thead > tr > td.success, tbody > tr > td.success, tfoot > tr > td.success, thead > tr > th.success, tbody > tr > th.success, tfoot > tr > th.success, thead > tr.success > td, tbody > tr.success > td, tfoot > tr.success > td, thead > tr.success > th, tbody > tr.success > th, tfoot > tr.success > th
-    background-color: #dff0d8
-
-.table-hover > tbody > tr
-  >
-    td.success:hover, th.success:hover
-      background-color: #d0e9c6
-  &.success:hover > td, &:hover > .success, &.success:hover > th
-    background-color: #d0e9c6
-
-.table >
-  thead > tr > td.info, tbody > tr > td.info, tfoot > tr > td.info, thead > tr > th.info, tbody > tr > th.info, tfoot > tr > th.info, thead > tr.info > td, tbody > tr.info > td, tfoot > tr.info > td, thead > tr.info > th, tbody > tr.info > th, tfoot > tr.info > th
-    background-color: #d9edf7
-
-.table-hover > tbody > tr
-  >
-    td.info:hover, th.info:hover
-      background-color: #c4e3f3
-  &.info:hover > td, &:hover > .info, &.info:hover > th
-    background-color: #c4e3f3
-
-.table >
-  thead > tr > td.warning, tbody > tr > td.warning, tfoot > tr > td.warning, thead > tr > th.warning, tbody > tr > th.warning, tfoot > tr > th.warning, thead > tr.warning > td, tbody > tr.warning > td, tfoot > tr.warning > td, thead > tr.warning > th, tbody > tr.warning > th, tfoot > tr.warning > th
-    background-color: #fcf8e3
-
-.table-hover > tbody > tr
-  >
-    td.warning:hover, th.warning:hover
-      background-color: #faf2cc
-  &.warning:hover > td, &:hover > .warning, &.warning:hover > th
-    background-color: #faf2cc
-
-.table >
-  thead > tr > td.danger, tbody > tr > td.danger, tfoot > tr > td.danger, thead > tr > th.danger, tbody > tr > th.danger, tfoot > tr > th.danger, thead > tr.danger > td, tbody > tr.danger > td, tfoot > tr.danger > td, thead > tr.danger > th, tbody > tr.danger > th, tfoot > tr.danger > th
-    background-color: #f2dede
-
-.table-hover > tbody > tr
-  >
-    td.danger:hover, th.danger:hover
-      background-color: #ebcccc
-  &.danger:hover > td, &:hover > .danger, &.danger:hover > th
-    background-color: #ebcccc
-
-.table-responsive
-  min-height: .01%
-  overflow-x: auto
-
-@media screen and (max-width: 960px)
-  .table-responsive
-    width: 100%
-    margin-bottom: 15px
-    overflow-y: hidden
-    -ms-overflow-style: -ms-autohiding-scrollbar
-    border: 1px solid #ddd
-    >
-      .table
-        margin-bottom: 0        
-        >
-          thead > tr > th, tbody > tr > th, tfoot > tr > th, thead > tr > td, tbody > tr > td, tfoot > tr > td
-            white-space: nowrap
-      .table-bordered
-        border: 0
-        >
-          thead > tr > th:first-child, tbody > tr > th:first-child, tfoot > tr > th:first-child, thead > tr > td:first-child, tbody > tr > td:first-child, tfoot > tr > td:first-child
-            border-left: 0
-          thead > tr > th:last-child, tbody > tr > th:last-child, tfoot > tr > th:last-child, thead > tr > td:last-child, tbody > tr > td:last-child, tfoot > tr > td:last-child
-            border-right: 0
-          tbody > tr:last-child > th, tfoot > tr:last-child > th, tbody > tr:last-child > td, tfoot > tr:last-child > td
-            border-bottom: 0
 
 fieldset
   min-width: 0
@@ -4036,7 +3899,7 @@ fieldset[disabled] .navbar-inverse .btn-link:hover, .navbar-inverse .btn-link[di
 
 .pager
   padding-left: 0
-  margin: 20px 0
+  margin: 0
   text-align: center
   list-style: none
   li
@@ -4556,207 +4419,6 @@ a.list-group-item-danger
 .list-group-item-text
   margin-bottom: 0
   line-height: 1.3
-
-.panel
-  margin-bottom: 20px
-  background-color: #fff
-  border: 1px solid transparent
-  border-radius: 4px
-  -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05)
-  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05)
-
-.panel-body
-  padding: 15px
-
-.panel-heading
-  padding: 10px 15px
-  border-bottom: 1px solid transparent
-  border-top-left-radius: 3px
-  border-top-right-radius: 3px
-  > .dropdown .dropdown-toggle
-    color: inherit
-
-.panel-title
-  margin-top: 0
-  margin-bottom: 0
-  font-size: 16px
-  color: inherit
-  > a
-    color: inherit
-
-.panel-footer
-  padding: 10px 15px
-  background-color: #f5f5f5
-  border-top: 1px solid #ddd
-  border-bottom-right-radius: 3px
-  border-bottom-left-radius: 3px
-
-.panel >
-  .list-group, .panel-collapse > .list-group
-    margin-bottom: 0
-  .list-group .list-group-item, .panel-collapse > .list-group .list-group-item
-    border-width: 1px 0
-    border-radius: 0
-  .list-group:first-child .list-group-item:first-child, .panel-collapse > .list-group:first-child .list-group-item:first-child
-    border-top: 0
-    border-top-left-radius: 3px
-    border-top-right-radius: 3px
-  .list-group:last-child .list-group-item:last-child, .panel-collapse > .list-group:last-child .list-group-item:last-child
-    border-bottom: 0
-    border-bottom-right-radius: 3px
-    border-bottom-left-radius: 3px
-
-.panel-heading + .list-group .list-group-item:first-child, .list-group + .panel-footer
-  border-top-width: 0
-
-.panel >
-  .table, .table-responsive > .table, .panel-collapse > .table
-    margin-bottom: 0
-  .table caption, .table-responsive > .table caption, .panel-collapse > .table caption
-    padding-right: 15px
-    padding-left: 15px
-  .table:first-child, .table-responsive:first-child > .table:first-child, .table:first-child > thead:first-child > tr:first-child, .table-responsive:first-child > .table:first-child > thead:first-child > tr:first-child, .table:first-child > tbody:first-child > tr:first-child, .table-responsive:first-child > .table:first-child > tbody:first-child > tr:first-child
-    border-top-left-radius: 3px
-    border-top-right-radius: 3px
-  .table:first-child > thead:first-child > tr:first-child td:first-child, .table-responsive:first-child > .table:first-child > thead:first-child > tr:first-child td:first-child, .table:first-child > tbody:first-child > tr:first-child td:first-child, .table-responsive:first-child > .table:first-child > tbody:first-child > tr:first-child td:first-child, .table:first-child > thead:first-child > tr:first-child th:first-child, .table-responsive:first-child > .table:first-child > thead:first-child > tr:first-child th:first-child, .table:first-child > tbody:first-child > tr:first-child th:first-child, .table-responsive:first-child > .table:first-child > tbody:first-child > tr:first-child th:first-child
-    border-top-left-radius: 3px
-  .table:first-child > thead:first-child > tr:first-child td:last-child, .table-responsive:first-child > .table:first-child > thead:first-child > tr:first-child td:last-child, .table:first-child > tbody:first-child > tr:first-child td:last-child, .table-responsive:first-child > .table:first-child > tbody:first-child > tr:first-child td:last-child, .table:first-child > thead:first-child > tr:first-child th:last-child, .table-responsive:first-child > .table:first-child > thead:first-child > tr:first-child th:last-child, .table:first-child > tbody:first-child > tr:first-child th:last-child, .table-responsive:first-child > .table:first-child > tbody:first-child > tr:first-child th:last-child
-    border-top-right-radius: 3px
-  .table:last-child, .table-responsive:last-child > .table:last-child, .table:last-child > tbody:last-child > tr:last-child, .table-responsive:last-child > .table:last-child > tbody:last-child > tr:last-child, .table:last-child > tfoot:last-child > tr:last-child, .table-responsive:last-child > .table:last-child > tfoot:last-child > tr:last-child
-    border-bottom-right-radius: 3px
-    border-bottom-left-radius: 3px
-  .table:last-child > tbody:last-child > tr:last-child td:first-child, .table-responsive:last-child > .table:last-child > tbody:last-child > tr:last-child td:first-child, .table:last-child > tfoot:last-child > tr:last-child td:first-child, .table-responsive:last-child > .table:last-child > tfoot:last-child > tr:last-child td:first-child, .table:last-child > tbody:last-child > tr:last-child th:first-child, .table-responsive:last-child > .table:last-child > tbody:last-child > tr:last-child th:first-child, .table:last-child > tfoot:last-child > tr:last-child th:first-child, .table-responsive:last-child > .table:last-child > tfoot:last-child > tr:last-child th:first-child
-    border-bottom-left-radius: 3px
-  .table:last-child > tbody:last-child > tr:last-child td:last-child, .table-responsive:last-child > .table:last-child > tbody:last-child > tr:last-child td:last-child, .table:last-child > tfoot:last-child > tr:last-child td:last-child, .table-responsive:last-child > .table:last-child > tfoot:last-child > tr:last-child td:last-child, .table:last-child > tbody:last-child > tr:last-child th:last-child, .table-responsive:last-child > .table:last-child > tbody:last-child > tr:last-child th:last-child, .table:last-child > tfoot:last-child > tr:last-child th:last-child, .table-responsive:last-child > .table:last-child > tfoot:last-child > tr:last-child th:last-child
-    border-bottom-right-radius: 3px
-  .panel-body +
-    .table, .table-responsive
-      border-top: 1px solid #ddd
-  .table + .panel-body, .table-responsive + .panel-body
-    border-top: 1px solid #ddd
-  .table > tbody:first-child > tr:first-child
-    th, td
-      border-top: 0
-  .table-bordered, .table-responsive > .table-bordered
-    border: 0
-  .table-bordered > thead > tr > th:first-child, .table-responsive > .table-bordered > thead > tr > th:first-child, .table-bordered > tbody > tr > th:first-child, .table-responsive > .table-bordered > tbody > tr > th:first-child, .table-bordered > tfoot > tr > th:first-child, .table-responsive > .table-bordered > tfoot > tr > th:first-child, .table-bordered > thead > tr > td:first-child, .table-responsive > .table-bordered > thead > tr > td:first-child, .table-bordered > tbody > tr > td:first-child, .table-responsive > .table-bordered > tbody > tr > td:first-child, .table-bordered > tfoot > tr > td:first-child, .table-responsive > .table-bordered > tfoot > tr > td:first-child
-    border-left: 0
-  .table-bordered > thead > tr > th:last-child, .table-responsive > .table-bordered > thead > tr > th:last-child, .table-bordered > tbody > tr > th:last-child, .table-responsive > .table-bordered > tbody > tr > th:last-child, .table-bordered > tfoot > tr > th:last-child, .table-responsive > .table-bordered > tfoot > tr > th:last-child, .table-bordered > thead > tr > td:last-child, .table-responsive > .table-bordered > thead > tr > td:last-child, .table-bordered > tbody > tr > td:last-child, .table-responsive > .table-bordered > tbody > tr > td:last-child, .table-bordered > tfoot > tr > td:last-child, .table-responsive > .table-bordered > tfoot > tr > td:last-child
-    border-right: 0
-  .table-bordered > thead > tr:first-child > td, .table-responsive > .table-bordered > thead > tr:first-child > td, .table-bordered > tbody > tr:first-child > td, .table-responsive > .table-bordered > tbody > tr:first-child > td, .table-bordered > thead > tr:first-child > th, .table-responsive > .table-bordered > thead > tr:first-child > th, .table-bordered > tbody > tr:first-child > th, .table-responsive > .table-bordered > tbody > tr:first-child > th, .table-bordered > tbody > tr:last-child > td, .table-responsive > .table-bordered > tbody > tr:last-child > td, .table-bordered > tfoot > tr:last-child > td, .table-responsive > .table-bordered > tfoot > tr:last-child > td, .table-bordered > tbody > tr:last-child > th, .table-responsive > .table-bordered > tbody > tr:last-child > th, .table-bordered > tfoot > tr:last-child > th
-    border-bottom: 0
-  .table-responsive
-    > .table-bordered > tfoot > tr:last-child > th
-      border-bottom: 0
-    margin-bottom: 0
-    border: 0
-
-.panel-group
-  margin-bottom: 20px
-  .panel
-    margin-bottom: 0
-    border-radius: 4px
-    + .panel
-      margin-top: 5px
-  .panel-heading
-    border-bottom: 0
-    + .panel-collapse >
-      .panel-body, .list-group
-        border-top: 1px solid #ddd
-  .panel-footer
-    border-top: 0
-    + .panel-collapse .panel-body
-      border-bottom: 1px solid #ddd
-
-.panel-default
-  border-color: #ddd
-  >
-    .panel-heading
-      color: #333
-      background-color: #f5f5f5
-      border-color: #ddd
-      + .panel-collapse > .panel-body
-        border-top-color: #ddd
-      .badge
-        color: #f5f5f5
-        background-color: #333
-    .panel-footer + .panel-collapse > .panel-body
-      border-bottom-color: #ddd
-
-.panel-primary
-  border-color: #428bca
-  >
-    .panel-heading
-      color: #fff
-      background-color: #428bca
-      border-color: #428bca
-      + .panel-collapse > .panel-body
-        border-top-color: #428bca
-      .badge
-        color: #428bca
-        background-color: #fff
-    .panel-footer + .panel-collapse > .panel-body
-      border-bottom-color: #428bca
-
-.panel-success
-  border-color: #d6e9c6
-  >
-    .panel-heading
-      color: #3c763d
-      background-color: #dff0d8
-      border-color: #d6e9c6
-      + .panel-collapse > .panel-body
-        border-top-color: #d6e9c6
-      .badge
-        color: #dff0d8
-        background-color: #3c763d
-    .panel-footer + .panel-collapse > .panel-body
-      border-bottom-color: #d6e9c6
-
-.panel-info
-  border-color: #bce8f1
-  >
-    .panel-heading
-      color: #31708f
-      background-color: #d9edf7
-      border-color: #bce8f1
-      + .panel-collapse > .panel-body
-        border-top-color: #bce8f1
-      .badge
-        color: #d9edf7
-        background-color: #31708f
-    .panel-footer + .panel-collapse > .panel-body
-      border-bottom-color: #bce8f1
-
-.panel-warning
-  border-color: #faebcc
-  >
-    .panel-heading
-      color: #8a6d3b
-      background-color: #fcf8e3
-      border-color: #faebcc
-      + .panel-collapse > .panel-body
-        border-top-color: #faebcc
-      .badge
-        color: #fcf8e3
-        background-color: #8a6d3b
-    .panel-footer + .panel-collapse > .panel-body
-      border-bottom-color: #faebcc
-
-.panel-danger
-  border-color: #ebccd1
-  >
-    .panel-heading
-      color: #a94442
-      background-color: #f2dede
-      border-color: #ebccd1
-      + .panel-collapse > .panel-body
-        border-top-color: #ebccd1
-      .badge
-        color: #f2dede
-        background-color: #a94442
-    .panel-footer + .panel-collapse > .panel-body
-      border-bottom-color: #ebccd1
 
 .embed-responsive
   position: relative

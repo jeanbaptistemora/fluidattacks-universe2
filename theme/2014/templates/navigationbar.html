@@ -1,5 +1,5 @@
-<div id="menubar">
-  <div id='cssmenu'>
+<div class="menubar">
+  <div class='cssmenu'>
     <ul>
       <li><a href="https://{{ gettext('fluid.la') }}">{{ gettext('Home') }}</a></li>
       <li class='active'><a href='#'>{{ gettext('Services') }}</a>
@@ -15,9 +15,9 @@
       <li><a href="{{ SITEURL }}/kb/">KB</a></li>
       <li class='active'><a href="{{ SITEURL }}/">Blog</a></li>
     </ul>
-    <div id="searchbar">
+    <div class="searchbar">
       <form action="{{ SITEURL }}/search.html" onsubmit="return validateForm(this.elements['q'].value);">
-        <div id="langbutton">
+        <div class="langbutton">
           {% if lang_siteurls %}
             {% for lang, url in lang_siteurls.items() %}
               <span{% if lang == DEFAULT_LANG %} class="active"{% endif %}><a href="{{ url }}/">{{ lang }} </a></span>

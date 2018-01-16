@@ -1,8 +1,8 @@
 @media (min-width: 100px)
-  #cssmenu
+  .cssmenu
     width: 100%
     min-height: 72px
-    #menu-button
+    .menu-button
       font-size: 20px
       width: 100%
       padding-top: 26px
@@ -54,7 +54,7 @@
       padding-bottom: 0 
   .intro-header
     margin-bottom: 0
-  #contbody
+  .list-title
     width: 100%
     margin: 0 0 -14px 0
     padding: 10px 0 0 0
@@ -65,9 +65,9 @@
     margin: 0
     width: 100%
     text-align: center
-  #divindex
-    margin: 0 21px 0 21px
-  #tbresponsive
+  .divindex
+    margin: 10px 21px 0 21px
+  .tbresponsive
     display: none
   table
     border-spacing: 0
@@ -88,8 +88,8 @@
   .pager .next>a
     float: none
 
-  #divarticle
-    margin: 0 21px 0 21px
+  .divarticle
+    margin: 10px 21px
     padding: 21px
     h1
       font-weight: 600
@@ -116,7 +116,7 @@
     .sect2 h3
       font-size: 24px
       text-transform: capitalize
-    #preamble, p, .writer
+    .preamble, p, .writer
       font-size: 18px
     .related table tr td
       width: 33%
@@ -129,17 +129,17 @@
     text-transform: capitalize
     font-size: 18px
     margin-bottom: 30px
-  .next
+  .tblnext
     width: 100%
-  .next tr td a
+  .tblnext tr td a
     font-size: 18px
-  #divarticle article
+  .divarticle article
     text-align: left
     max-width: 95ch
     margin: 0 auto
 
-  #divpage
-    margin: 0 21px 0 21px
+  .divpage
+    margin: 10px 21px
     padding: 21px
     article
       margin: 0 auto
@@ -164,9 +164,9 @@
           text-transform: capitalize
       section
         text-align: left
-    #tbborder .tdborder
+    .tbborder .tdborder
       display: none
-    #tbborder #tdresponsive
+    .tbborder #tdresponsive
       display: table-cell
     p
       font-size: 18px
@@ -175,7 +175,9 @@
       margin-left: 0
     .tipue_search_content_text
       font-size: 18px
-    #tblent
+    .theader
+      text-align: center
+    .tblent
       .trent
         display: none
       .ent2
@@ -191,7 +193,7 @@
   .tblocation .maps
     text-align: center
 
-  #contauthor
+  .list-title
     margin: 10px 25px 0 25px
     background-color: #fff
     border-top: 3px solid #1e4f72
@@ -217,16 +219,16 @@
         text-align: center
   .ulist ul
     padding-left: 25px
-  #divpage #preamble #authorlist
+  .divpage .preamble .ulist
     width: fit-content
     margin: 0 auto
     ul li a
       color: #1565a2
 
-  #divpage #preamble .ulist ul li p
+  .divpage .preamble .ulist ul li p
     margin: 0
 
-  #divarticle .ulist ul li p
+  .divarticle .ulist ul li p
     margin: 0
 
   .div404
@@ -240,17 +242,17 @@
       color: #1e4f72
 
 @media (min-width: 480px) and (max-width: 640px)
-  #divindex
   .tdview
     padding: 25px
   .post-preview>a>.post-title
     font-size: 22px
-  #divarticle
+  .divarticle
+    margin: 10px 25px
     padding: 25px
-  #divpage
-    margin: 0 25px 0 25px
+  .divpage
+    margin: 10px 25px
     padding: 25px  
-  #contauthor
+  .list-title
     display: block
     padding: 25px
     .post-heading
@@ -258,26 +260,25 @@
         font-size: 22px
 
 @media (min-width: 640px) and (max-width: 960px)
-  #contbody
-    #tbnormal
-      display: none
-    #tbresponsive
-      display: block
-      border-spacing: 25px 0px
+  .tbnormal
+    display: none
+  .tbresponsive
+    display: block
+    border-spacing: 25px 0px
   .tdview
     display: table-cell
     width: 50%
     border-bottom: 25px solid #d3d3d3
-  #divindex
-    margin: 0
-  #contauthor
+  .divindex
+    margin: 10px 0 0
+  .list-title
     .post-heading h1
       font-size: 24px
     .post-heading h2
       font-size: 24px
 
 @media (min-width: 480px)
-  #divpage article #preamble #authorlist ul
+  .divpage article .preamble .ulist ul
     column-count: 2
     list-style-position: inside
     text-align: left
@@ -286,7 +287,8 @@
       display: inline
 
 @media (min-width: 640px)
-  #divarticle
+  .divarticle
+    margin: 10px 25px
     .meta
       display: inline-flex
       padding-left: 5%
@@ -294,18 +296,18 @@
         margin-right: 15px
         width: 25%
         text-align: left
-  #divpage
+  .divpage
     padding: 25px
 
 @media (min-width: 700px)
-  #contauthor
+  .list-title
     .post-heading
       display: flex
       a
         margin: 0 0 0 auto
 
 @media (min-width: 770px)
-  #divarticle
+  .divarticle
     h1
       font-size: 42px
     h4
@@ -316,16 +318,16 @@
       font-size: 34px
     .sect2 h3
       font-size: 26px
-    #preamble, p, .writer
+    .preamble, p, .writer
       font-size: 21px
     .related table tr td
       a
         font-size: 21px
   .tags a
     font-size: 21px
-  .next tr td a
+  .tblnext tr td a
     font-size: 21px
-  #divpage
+  .divpage
     article
       h1
         font-size: 42px
@@ -340,50 +342,52 @@
       font-size: 26px
     .tipue_search_content_text
       font-size: 21px
-    #tblent
+    .tblent
       .trent
         display: table-row
       .ent2
         display: none
       .tdent
         display: table-cell
+        padding: 0 10px
+        text-align: center
         width: 25%
 
 @media (min-width: 905px)
-  #divpage
-    margin: 0 25px 0 25px
-    #tbborder #tdresponsive
+  .divpage
+    margin: 10px 25px
+    .tbborder .tdresponsive
       display: none
-    #tbborder .tdborder
+    .tbborder .tdborder
       display: table-cell
     .tblocation th
       vertical-align: middle
   .imgethical
     width: 100%
-  #divarticle
+  .divarticle
     .meta
       padding-left: 12%
-  #contauthor
+  .list-title
     .post-heading h1
       font-size: 26px
     .post-heading h2
       font-size: 26px
 
 @media (min-width: 960px)
-  #divindex
-    margin: 0
-  #tbnormal
+  .divindex
+    margin: 10px 0 0
+  .tbnormal
     border-spacing: 25px 0px
   .tdview
     width: 33%
     display: table-cell
     border-bottom: 25px solid #d3d3d3
     padding: 25px
-  #divpage article #preamble #authorlist ul
+  .divpage article .preamble .ulist ul
     column-count: 3
 
 @media (min-width: 1100px)
-  #cssmenu
+  .cssmenu
     height: 71px
     border-bottom: 5px solid #1e4f72
     ul

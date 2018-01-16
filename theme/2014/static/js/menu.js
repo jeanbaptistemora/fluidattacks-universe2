@@ -9,8 +9,8 @@
       }, options);
 
       return this.each(function() {
-        cssmenu.prepend('<div id="menu-button">' + settings.title + '</div>');
-        $(this).find("#menu-button").on('click', function(){
+        cssmenu.prepend('<div class="menu-button">' + settings.title + '</div>');
+        $(this).find(".menu-button").on('click', function(){
           $(this).toggleClass('menu-opened');
           var mainmenu = $(this).next('ul');
           if (mainmenu.hasClass('open')) { 
@@ -62,7 +62,7 @@
 
 (function($){
 $(document).ready(function(){
-$("#cssmenu").menumaker({
+$(".cssmenu").menumaker({
    title: "Menu",
    format: "multitoggle"
 });

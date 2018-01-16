@@ -18,8 +18,8 @@
 {% endblock header %}
 
 {% block content %}
-  <div id="divindex">
-    <table id="tbnormal">
+  <div class="divindex">
+    <table class="tbnormal">
       {% for article in articles_page.object_list %}
         {% if loop.index % 3 != 0 %}
           {% if loop.index % 3 == 1 %}
@@ -140,7 +140,7 @@
         {% endif %}
       {% endfor %}
     </table>
-    <table id="tbresponsive">
+    <table class="tbresponsive">
       {% for article in articles_page.object_list %}  
         {% set outerloop = loop %}             
         {% if loop.index % 2 != 0 %}

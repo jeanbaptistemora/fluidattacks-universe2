@@ -16,11 +16,11 @@
 {% endblock header %}
 
 {% block content %}
-  <div id="divpage">
+  <div class="divpage">
     <article>
       <h1>{{ gettext('Categories') }}:</h1>
-      <div id="preamble">
-        <div class="ulist" id="authorlist">
+      <div class="preamble">
+        <div class="ulist">
           <ul>
             {% for category, articles in categories|sort %}
               <li>

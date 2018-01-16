@@ -26,20 +26,20 @@ http://www.tipue.com/search
 
 /* search box */
 
-#searchbar
+.searchbar
 {
      margin-top: -60px;
      float: right;
      margin-right: 20px;
 }
 
-#langbutton
+.langbutton
 {
      float: left;
      margin: 20px 10px 0 0
 }
 
-#langbutton a
+.langbutton a
 {
      font-size: 16px;
      text-transform: uppercase;
@@ -194,7 +194,7 @@ http://www.tipue.com/search
 }
 
 @media (max-width: 1000px) {
-  #searchbar
+  .searchbar
   {
        background-color: #1974ba;
        float: left;

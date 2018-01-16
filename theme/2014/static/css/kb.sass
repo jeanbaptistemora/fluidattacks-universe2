@@ -1,36 +1,41 @@
+$black: rgba(0, 0, 0, 1)
+$darkblue: rgba(29, 79, 114, 1)
+$white: rgba(255, 255, 255, 1)
+
 .kb-category
-  background-color: white
-  border: none
-  border-top: 3px solid #1e4f72
-  color: black
+  background-color: $white
+  border: 0
+  border-top: 3px solid $darkblue
+  color: $black
   display: flex
   width: 100%
+
+  &::after
+    content: '\02795'
+    font-size: 25px
+    margin: 17px 20px 0
+    text-align: right
+    width: 100%
+
   &:hover
     cursor: pointer
     text-decoration: none
-    &:after
-      color: black
+
+    &::after
+      color: $black
+
+  &.active
+    &::after
+      content: '\2796'
 
 .kbpanel
-  background-color: white
+  background-color: $white
+  margin-bottom: 15px
   max-height: 0
   overflow: hidden
-  transition: max-height 0.2s ease-out
-  margin-bottom: 15px
-  a h3
-    color: #1e4f72
-    margin-left: 30px
+  transition: max-height .2s ease-out
 
-.kb-category:after
-  content: '\02795'
-  font-size: 25px
-  text-align: right
-  margin-top: 17px
-  width: 100%
-  margin-right: 20px
-
-.kb-category.active:after
-  content: "\2796"
-
-.kb-category.active:hover:after
-  color: black
+  a
+    h3
+      color: $darkblue
+      margin-left: 30px
