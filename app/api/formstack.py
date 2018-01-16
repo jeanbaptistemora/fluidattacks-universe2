@@ -3,17 +3,18 @@
 
 import json
 import requests
+# pylint: disable=E0402
+from .. import FORMSTACK_TOKENS
 from requests.exceptions import ConnectionError
 from retrying import retry
 from random import randint
-# pylint: disable=E0402
 
 requests.adapters.DEFAULT_RETRIES = 10
 
 class FormstackAPI(object):
 
     headers_config = {}
-    ltokens=
+    ltokens= FORMSTACK_TOKENS.split(',')
     TOKEN = ltokens[randint(0,(len(ltokens)-1))]
     SUBMISSION_URL = "https://www.formstack.com/api/v2/submission/:id.json"
     #Finding URL

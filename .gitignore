@@ -13,7 +13,6 @@ logs
 Gemfile.lock
 vendor
 config/drive_authorization.json
-fluidintegrates/settings.py
 app/assets/node_modules
 app/assets/package-lock.json
 deploy/containers/.vault.txt
