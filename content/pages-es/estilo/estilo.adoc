@@ -89,8 +89,7 @@ en donde se indique al lector el tema general.
 
 * Párrafo corto sobre el autor del _post_ 
 cuando el autor sea invitado 
-y no cuente con perfil de colaborador. 
-(Ver la sección de autores)
+(Ver la sección de autores).
 
 === 3. Límite de palabras 
 
@@ -169,16 +168,8 @@ que ya se haya usado en la guía.
 es para explicar el desarrollo.
 * Si eres invitado copiar las líneas de código 
 para añadirlas al post, no usar imágenes.
-* Si tienes perfil de colaborador 
-poner el editor en versión HTML 
-y usar los siguientes tags para añadir el código:
-
-[source, html,linenums]
-----
-<pre id="precode><code>
-aqui va el código
-</code></pre>
-----
+* Preferiblemente utilizar asciidoc como lenguaje base
+para el artículo.
 
 === 8. Explicaciones de explotación
 
@@ -233,8 +224,9 @@ certificaciones, gustos.
 === Solicitudes
 
 * Si eres parte del equipo de FLUID 
-no dudes en pedir tu usuario de colaborador en cualquier momento. 
-Lo solicitas enviado un correo a communications@fluid.la
+envía tu artículo a través de un _Merge Request_
+en formato *asciidoc* cumpliendo todas las reglas
+anteriormente mencionadas.
 
 * Si no eres parte del equipo de FLUID 
 solo debes enviar a communications@fluid.la tu artículo, 
@@ -253,8 +245,9 @@ de los artículos enviados.
 FLUID no evalúa si está de acuerdo o no con la opinión del autor 
 solo revisa que cumpla con las normas descritas anteriormente.
 
-* Cuando el autor tenga perfil de colaborador en el blog 
-debe informar que ya está listo el borrador 
+* Una vez completado el borrador 
+se debe solicitar la revisión del artículo
+a través del _Merge Request_
 para entrar a evaluar el contenido.
 
 Si el artículo es aceptado y se decide publicar en el blog 
