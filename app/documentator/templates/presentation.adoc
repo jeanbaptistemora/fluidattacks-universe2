@@ -1,8 +1,8 @@
-= {{toe}}: {{tipo_prueba}}
+= {{cliente}}: {{toe.upper()}}
 :lang:		es
 :author:	Para uso exclusivo de {{cliente}}
 :email:		engineering@fluidattacks.com
-:date: 	    2018-11-01
+:date: 	    2018-27-02
 :revnumber:	{{simpledate}}
 
 <<<
@@ -19,7 +19,7 @@ image::../resources/presentation_theme/c_objetivos_es.png[pdfwidth=100%, align="
 
 <<<
 image::../resources/presentation_theme/t_metodologia_es.png[width=400]
-image::../resources/presentation_theme/c_metodologia_es.png[pdfwidth=85%, align="center"]
+image::../resources/presentation_theme/c_metodologia_es.png[pdfwidth=95%, align="center"]
 
 <<<
 image::../resources/presentation_theme/t_criticidad_es.png[width=400]
@@ -34,6 +34,9 @@ image::../resources/presentation_theme/t_alcance_es.png[width=400]
 |===
 ^|*Parámetro*
 ^|*Valor*
+
+|*Tipo de prueba*
+|{{tipo_prueba}}
 
 |*Fecha de inicio*
 |{{fecha_inicio}}
@@ -62,25 +65,22 @@ image::../resources/presentation_theme/t_alcance_es.png[width=400]
 
 [cols=3*]
 |===
-^|*Security Tester*
-^|*Security Architect*
-^|*Project Manager*
+3+^.^|*{{resume_top_title}}*
 
-^| {{analista}} 
-^| {{arquitecto}} 
-^| {{lider}}
+^|*Security Tester* ^|*Security Architect* ^|*Project Manager*
+^|{{analista}} ^|{{arquitecto}} ^|{{lider}}
 
-3.3+^| *Equipo del proyecto*
 |===
 
 <<<
 image::../resources/presentation_theme/t_panorama_es.png[width=400]
 
 {{main_pie_filename}}
-.{{resume_ttab_title}}
-[cols="^,^,^,^", options="header"]
+
+[cols=4,.center]
 |===
-|{{criticity_title}}|{{finding_title}}s|{{resume_perc_title}}|{{resume_vuln_title}}
+4+^.^|*{{resume_ttab_title}}*
+|*{{criticity_title}}*|*{{finding_title}}s*|*{{resume_perc_title}}*|*{{resume_vuln_title}}*
 {% for row in main_tables['resume'] %}
   {% for col in row %}
     {{"| "+col|string}}
@@ -88,12 +88,13 @@ image::../resources/presentation_theme/t_panorama_es.png[width=400]
 {%- endfor %}
 |===
 <<<
+
 image::../resources/presentation_theme/t_panorama_es.png[width=400]
 
 [cols=4,.center]
 |===
 4+^.^|*{{resume_top_title}}*
-^.^|*#* ^|*{{criticity_title}}* 
+^.^|*#* ^|*{{criticity_title}}*
 2+^.^|*{{resume_vname_title}}*
 {% for row in main_tables['top'] %}
 	{% for i in range(0, row|length) %}
@@ -105,6 +106,33 @@ image::../resources/presentation_theme/t_panorama_es.png[width=400]
 |===
 
 <<<
+
+image::../resources/presentation_theme/t_panorama_cierre_es.png[width=400]
+
+[cols=5,.center]
+|===
+5+^.^|*Estado Hallazgos*
+|*{{finding_title}}* |*{{criticity_title}}* |*{{cardinality_title}}* |*{{state_title}}* |*{{treatment_title}}*
+{% for fin in findings %}
+    {{"| "+fin['hallazgo']}}
+    {{"| "+fin['criticidad']}}
+    {{"| "+fin['cardinalidad']}}
+    {{"| "+fin['estado']+"\n"}}
+    {{"| "+fin['tratamiento']+"\n"}}
+{%- endfor %}
+|===
+
+<<<
+image::../resources/presentation_theme/t_descripcion_es.png[width=400]
+image::../resources/presentation_theme/c_descripcion_es.png[pdfwidth=85%, align="center"]
+
+<<<
+image::../resources/presentation_theme/t_mapa_hallazgos_es.png[width=400]
+{nbsp} +
+
+{{mapa_hallazgos}}
+
+<<<
 {nbsp} +
 {nbsp} +
 {nbsp} +
@@ -112,31 +140,36 @@ image::../resources/presentation_theme/t_panorama_es.png[width=400]
 {nbsp} +
 [.center]
 image::../resources/presentation_theme/findings_es.png[pdfwidth=100%, pdfheight=100%]
-																																																																											
+
 <<<
 {% for i in range(0, findings|length) %}
-image::../resources/presentation_theme/t_hallazgo_es.png[width=400]
+//image::../resources/presentation_theme/t_hallazgo_es.png[width=400]
 ////
 	BEGIN: DOCUMENT BLOCK FOR EVIDENCE
 ////
+== {{findings[i]['hallazgo']}}
+=== *_(Criticidad Técnica: {{findings[i]['criticidad']}})_*
+{nbsp} +
+
 [cols=4,.center]
 |===
-4+^.^|*{{findings[i]['hallazgo']}}*
+<.^|*Vulnerabilidades*
+^.^|{{findings[i]['cardinalidad']}}
+<.^|*Estado*
+^| {{findings[i]['estado']}}
 
-^.^|*#* ^| {{(i+1)|string}} ^.^|*Criticidad* ^.^| {{findings[i]['criticidad']}}
-^.^|*Vulnerabilidades* ^.^| {{findings[i]['cardinalidad']}} ^.^|*Estado* ^| {{findings[i]['estado']}}
-^.^|*Impacto a negocio* ^.^| {{findings[i]['impacto']}} ^.^|*Registros comprometidos* ^.^| {{findings[i]['registros_num']}}
-^.^|*Debilidad*
+<.^|*Impacto a negocio* ^.^| {{findings[i]['impacto']}} <.^|*Registros comprometidos* ^.^| {{findings[i]['registros_num']}}
+<.^|*Debilidad*
 3+.^|{{findings[i]['vulnerabilidad']}}
-^.^|*Vectores de ataque*
+<.^|*Vector de ataque*
 3+.^|{{findings[i]['vector_ataque']}}
-^.^|*Amenazas*
+<.^|*Amenaza*
 3+.^|{{findings[i]['amenaza']}}
-^.^|*Sistema comprometido*
+<.^|*Sistema comprometido*
 3+.^|{{findings[i]['sistema_comprometido']}}
-^.^|*Recomendación*
+<.^|*Recomendación*
 3+.^|{{findings[i]['solucion_efecto']}}
-^.^|*Requisitos incumplidos*
+<.^|*Requisitos*
 3+.^|{% for req in findings[i]['requisitos'].split("\n") %}{{req + "\n"}}{% endfor %}
 |===
 
@@ -154,18 +187,35 @@ image::../resources/presentation_theme/t_evidencia_es.png[width=400]
 <<<
 {%- endfor %}
 
+<<<
+image::../resources/presentation_theme/t_observaciones_es.png[width=400]
+{nbsp} +
+
+{{observaciones}}
 
 <<<
 image::../resources/presentation_theme/t_recomendaciones_es.png[width=400]
 {nbsp} +
 
-{{observaciones}}
+{{recomendaciones}}
 
 <<<
 image::../resources/presentation_theme/t_conclusiones_es.png[width=400]
 {nbsp} +
 
 {{conclusiones}}
+
+<<<
+image::../resources/presentation_theme/t_nivel_es.png[width=400]
+{nbsp} +
+
+[.text-center]
+Por lo tanto se puede concluir que *{{proyecto_cliente}}* presenta un nivel de seguridad
+
+{{nivel_seguridad}}
+
+[.text-center]
+Criticidad más alta *{{findings[0]["impacto"]}}* y vector de acceso mas riesgoso *{{findings[0]["vector_acceso"].split(" | ")[1].split(":")[0]}}*
 
 <<<
 image::../resources/presentation_theme/t_contacto_es.png[width=400]
@@ -176,12 +226,8 @@ image::../resources/presentation_theme/c_contacto_es.png[pdfwidth=80%, align="ce
 <<<
 image::../resources/presentation_theme/t_clausula_es.png[width=400]
 {nbsp} +
-{nbsp} +
 
-===== Clasificación: Propietaria
-===== Copyright © 2018 FLUID
-===== Todos los derechos reservados.
-===== Este documento contiene información de propiedad de FLUID. El cliente puede usar dicha información sólo con el propósito de documentación sin poder divulgar su contenido a terceras partes ya que contiene ideas, conceptos, precios y estructuras de propiedad de FLUID La clasificación "propietaria" significa que ésta información es sólo para uso de las personas a quienes esta dirigida. En caso de requerirse copias totales o parciales se debe contar con la autorización expresa y escrita de FLUID Las normas que fundamentan la clasificación de la información son los artículos 72 y siguientes de la decisión del acuerdo de Cartagena, 344 de 1.993, el artículo 238 del código penal y los artículos 16 y siguientes de la ley 256 de 1.996. 
+image::../resources/presentation_theme/c_clausula_es.png[pdfwidth=80%, align="center"]
 
 <<<
 {nbsp} +

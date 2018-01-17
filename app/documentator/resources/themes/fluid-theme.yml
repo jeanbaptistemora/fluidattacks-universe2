@@ -93,17 +93,15 @@ title_page:
   background:
     image: image:title.jpg[]
   title:
-    top: 20%
+    top: 18%
     font_size: $heading_h1_font_size
     font_color: 999999
     line_height: 0.9
   subtitle:
-    font_size: $heading_h3_font_size
-    font_style: bold_italic
-    line_height: 1
+    font_size: 9
   authors:
     margin_top: $base_font_size * 1.25
-    font_size: $base_font_size_large
+    font_size: $heading_h5_font_size
     font_color: 181818
   revision:
     margin_top: $base_font_size * 1.25

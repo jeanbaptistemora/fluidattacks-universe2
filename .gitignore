@@ -3,8 +3,10 @@ app/documentator/tpls/*.tpl
 app/documentator/images/*.png
 app/autodoc/results/*.xlsx
 app/autodoc/results/*.pptx
+app/techdoc/results/*.xlsx
 !app/autodoc/templates/*.pptx
 !app/autodoc/templates/*.xlsx
+!app/techdoc/templates/*.xlsx
 logs
 *.pyc
 *.sqlite3

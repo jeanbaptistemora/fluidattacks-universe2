@@ -268,50 +268,23 @@ integrates.controller(
                 controller: function($scope, $uibModalInstance, $stateParams, projectFtry){
                     $scope.findingMatrizXLSReport = function(){
                         var project = $stateParams.project;
-                        var data = $("#vulnerabilities").bootstrapTable('getData');
-                        for(i=0; i < data.length-1; i++){
-                            for(j=i+1; j < data.length; j++){
-                                if(parseFloat(data[i].criticidad) < parseFloat(data[j].criticidad)){
-                                    aux = data[i];
-                                    data[i] = data[j];
-                                    data[j] = aux;
-                                }
-                            }
-                        }
+                        var lang = localStorage['lang'];
                         var prjpatt = new RegExp("^[a-zA-Z0-9_]+$");
-                        if(!prjpatt.test(project)) return false;
-                        var generateDoc = true;
-                        try{
-                            json = data;
-                            generateDoc = true;
-                            json = JSON.stringify(JSON.parse(JSON.stringify(json))); //remove indices
-                            if (json == undefined) throw "error";
-                            if (json == [] || json == {}) throw "error";
-                            if(project.trim() == "") throw "error";
-                        }catch(e){
-                            Rollbar.error("Error: An error ocurred generating the technical report", e);
-                            generateDoc = false;
-                        }
-                        if(generateDoc == false) return false;
-                        var req = projectFtry.ProjectDoc(project, json, "IT");
-                        req.then(function(response){
-                            if(!response.error){
-                                //Tracking mixpanel
-                                mixPanelDashboard.trackReports("TechnicalReportXLS", userName, userEmail, org, projt);
-                                var url = BASE.url + "export_autodoc?project=" + project;
-                                url += "&format=IT";
-                                if(navigator.userAgent.indexOf("Firefox") == -1){
-                                    downLink = document.createElement("a");
-                                    downLink.target = "_blank";
-                                    downLink.href = url;
-                                    downLink.click();
-                                }else{
-                                    win = window.open(url, '__blank');
-                                }
-                            } else {
-                                Rollbar.error("Error: An error ocurred generating the technical report");
+                        var langpatt = new RegExp("^en|es$");
+                        if(prjpatt.test(project)
+                            && langpatt.test(lang)){
+                            //Tracking mixpanel
+                            mixPanelDashboard.trackReports("TechnicalReportXLS", userName, userEmail, org, projt);
+                            var url = BASE.url + "xls/"+ lang + "/project/" + project;
+                            if(navigator.userAgent.indexOf("Firefox") == -1){
+                                downLink = document.createElement("a");
+                                downLink.target = "_blank";
+                                downLink.href = url;
+                                downLink.click();
+                            }else{
+                                win = window.open(url, '__blank');
                             }
-                        });
+                        }
                     };
                     $scope.findingMatrizPDFReport = function(){
                         var project = $stateParams.project;

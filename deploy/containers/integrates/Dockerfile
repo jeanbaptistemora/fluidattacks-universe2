@@ -48,6 +48,8 @@ RUN rm -r /var/www/html \
     && mkdir /usr/src/app/app/documentator/results  \
     && chown -R www-data:www-data  /usr/src/app/app/documentator \
     && chmod -R 0744 /usr/src/app/app/documentator \
+    && chown -R www-data:www-data  /usr/src/app/app/techdoc \
+    && chmod -R 0744 /usr/src/app/app/techdoc \
     && python /usr/src/app/deploy/containers/common/vars/render.py \
     && chown -R www-data:www-data $FI_DOCUMENTROOT \
     && a2dismod python \

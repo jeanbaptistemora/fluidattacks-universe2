@@ -10,7 +10,7 @@ from pylab import figure, pie, axis, legend, savefig, cla, clf, close # pylint: 
 from matplotlib.font_manager import FontProperties # pylint: disable=wrong-import-position
 
 
-class FindingPDFMaker(object):
+class CreatorPDF(object):
 
     STYLE_DIR = "/resources/themes"
     TPL_DIR = "/tpls/"
@@ -172,7 +172,7 @@ class FindingPDFMaker(object):
     def executive(self, data, project):
         " Crea el template a renderizar y le aplica el contexto "
         self.fill_project(data, project)
-        self.out_name = project+"_IE.pdf"
+        self.out_name = project + "_IE.pdf"
         searchpath = self.PATH
         template_loader = jinja2.FileSystemLoader(searchpath=searchpath)
         template_env = jinja2.Environment(loader=template_loader)
@@ -185,10 +185,10 @@ class FindingPDFMaker(object):
         print self.command
         os.system(self.command)
     
-    def tech(self, data, project):
+    def tech(self, data, project, user):
         " Crea el template a renderizar y le aplica el contexto "
         self.fill_project(data, project)
-        self.out_name = project+"_IT.pdf"
+        self.out_name = user + "_" + project + "_IT.pdf"
         searchpath = self.PATH
         template_loader = jinja2.FileSystemLoader(searchpath=searchpath)
         template_env = jinja2.Environment(loader=template_loader)
@@ -200,11 +200,11 @@ class FindingPDFMaker(object):
         self.create_command(tpl_name)
         os.system(self.command)
 
-    def presentation(self, data, project, project_info):
+    def presentation(self, data, project, project_info, user):
         " Crea el template a renderizar y le aplica el contexto "
         self.fill_project(data, project)
         self.project_info_context(project_info)
-        self.out_name = project+"_PR.pdf"
+        self.out_name = user + "_" + project + "_PR.pdf"
         searchpath = self.PATH
         template_loader = jinja2.FileSystemLoader(searchpath=searchpath)
         template_env = jinja2.Environment(loader=template_loader)
@@ -228,6 +228,8 @@ class FindingPDFMaker(object):
         self.context["tipo_prueba"] = project_info["tipo_prueba"]
         self.context["ambiente"] = project_info["ambiente"]
         self.context["tipo_cobertura"] = project_info["tipo_cobertura"]
+        self.context["mapa_hallazgos"] = project_info["mapa_hallazgos"]
+        self.context["nivel_seguridad"] = project_info["nivel_seguridad"]
         self.context["cobertura"] = ""
         self.context["toe_campos_visibles"] = ""
         self.context["toe_lineas_visibles"] = ""
@@ -246,6 +248,7 @@ class FindingPDFMaker(object):
         self.context["impacto_relevate"] = project_info["impacto_relevate"]
         self.context["observaciones"] = project_info["observaciones"]
         self.context["conclusiones"] = project_info["conclusiones"]
+        self.context["recomendaciones"] = project_info["recomendaciones"]
         self.context["tipo_industria"] = project_info["tipo_industria"]
         self.context["lenguaje"] = project_info["lenguaje"]
         self.context["tipo_aplicacion"] = project_info["tipo_aplicacion"]
@@ -271,7 +274,7 @@ class FindingPDFMaker(object):
             words['vuln_m'],
             words['vuln_l']
         ]
-        colors = ["red", "orange", "green"]
+        colors = ["red", "orange", "yellow"]
         explode = (0, 0.1, 0)
         for finding in findings:
             criticity = float(finding["criticidad"])
@@ -312,7 +315,7 @@ class FindingPDFMaker(object):
             "Parcialmente Cerradas",
             "Cerradas"
         ]
-        colors = ["red", "orange", "green"]
+        colors = ["red", "orange", "yellow"]
         explode = (0, 0.1, 0)
         for finding in findings:
             if finding["estado"] == "Abierto":
@@ -422,7 +425,7 @@ class FindingPDFMaker(object):
                 finding["tratamiento"] = words["treat_status_rem"]
         main_pie_filename = "image::../images/" \
             + main_pie_filename \
-            + '[width=300, align="center"]'
+            + '[width=330, align="center"]'
         main_tables = self.make_vuln_table(findings, words)
         fluid_tpl_content = self.make_content(words)
         self.context = {

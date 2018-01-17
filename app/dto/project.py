@@ -17,6 +17,8 @@ class ProjectDTO(object):
     AMBIENTE = "60063680"
     TIPO_COBERTURA = "60064178"
     COBERTURA = "60063976"
+    MAPA_HALLAZGOS = "60294068"
+    NIVEL_SEGURIDAD = "60294098"
     TOE_CAMPOS_VISIBLES = "52762496"
     TOE_LINEAS_VISIBLES = "52762572"
     TOE_PUERTOS_VISIBLES = "52762526"
@@ -26,6 +28,7 @@ class ProjectDTO(object):
     IMPACTO_RELEVANTE = "60155980"
     OBSERVACIONES = "60063218"
     CONCLUSIONES = "60063227"
+    RECOMENDACIONES = "60294226"
     TIPO_INDUSTRIA = "52765044"
     LENGUAJE = "52764314"
     TIPO_APLICACION = "52762843"
@@ -98,12 +101,18 @@ class ProjectDTO(object):
     def parse_resume(self, request_arr): # noqa: C901
         "Convierte el resumen de un proyecto"
         for finding in request_arr["data"]:
+            if finding["field"] == self.MAPA_HALLAZGOS:
+                self.data["mapa_hallazgos"] = finding["value"]
+            if finding["field"] == self.NIVEL_SEGURIDAD:
+                self.data["nivel_seguridad"] = finding["value"]
             if finding["field"] == self.IMPACTO_RELEVANTE:
                 self.data["impacto_relevate"] = finding["value"]
             if finding["field"] == self.OBSERVACIONES:
                 self.data["observaciones"] = finding["value"]
             if finding["field"] == self.CONCLUSIONES:
                 self.data["conclusiones"] = finding["value"]
+            if finding["field"] == self.RECOMENDACIONES:
+                self.data["recomendaciones"] = finding["value"]
             if finding["field"] == self.TIPO_INDUSTRIA:
                 self.data["tipo_industria"] = finding["value"]
             if finding["field"] == self.LENGUAJE:

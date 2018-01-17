@@ -5,8 +5,6 @@ from __future__ import absolute_import
 import os
 import sys
 import re
-import json
-import time
 import pytz
 import rollbar
 import boto3
@@ -21,12 +19,13 @@ from django.http import HttpResponse
 # pylint: disable=E0402
 from . import util
 from .decorators import authenticate, authorize
-from .autodoc import IE, IT
+from .techdoc.IT import ITReport
 from .dto.finding import FindingDTO
 from .dto.closing import ClosingDTO
 from .dto.project import ProjectDTO
 from .dto.eventuality import EventualityDTO
-from .documentator.pdf import FindingPDFMaker
+from .documentator.pdf import CreatorPDF
+from .documentator.secure_pdf import SecurePDF
 # pylint: disable=E0402
 from .mailer import send_mail_delete_finding
 from .mailer import send_mail_remediate_finding
@@ -125,9 +124,38 @@ def logout(request):
 @never_cache
 @csrf_exempt
 @authorize(['analyst', 'customer'])
-def project_to_pdf(request, lang, project, doctype):
-    "Exporta un hallazgo a PDF"
+def project_to_xls(request, lang, project):
+    "Crea el reporte tecnico"
     findings = []
+    detail = {
+        "content_type": "application/vnd.openxmlformats\
+                        -officedocument.spreadsheetml.sheet",
+        "content_disposition": "inline;filename=:project.xlsx",
+        "path": "/usr/src/app/app/autodoc/results/:project_:username.xlsx"
+    }
+    username = request.session['username'].split("@")[0]
+    if project.strip() == "":
+        rollbar.report_message('Error: Empty fields in project', 'error', request)
+        return util.response([], 'Empty fields', True)
+    if not has_access_to_project(request.session['username'], project):
+        rollbar.report_message('Error: Access to project denied', 'error', request)
+        return util.response([], 'Access denied', True)
+    if lang not in ["es", "en"]:
+        rollbar.report_message('Error: Unsupported language', 'error', request)
+        return util.response([], 'Unsupported language', True)
+    for reqset in FormstackAPI().get_findings(project)["submissions"]:
+        findings.append(catch_finding(request, reqset["id"]))
+    data = util.ord_asc_by_criticidad(findings)
+    it_report = ITReport(project, data, username)
+    with open(it_report.result_filename, 'r') as document:
+        response = HttpResponse(document.read(),
+                                content_type=detail["content_type"])
+        file_name = detail["content_disposition"]
+        file_name = file_name.replace(":project", project)
+        response['Content-Disposition'] = file_name
+    return response
+
+def validation_project_to_pdf(request, lang, project, doctype):
     if project.strip() == "":
         rollbar.report_message('Error: Empty fields in project', 'error', request)
         return util.response([], 'Empty fields', True)
@@ -140,11 +168,25 @@ def project_to_pdf(request, lang, project, doctype):
     if doctype not in ["tech", "executive", "presentation"]:
         rollbar.report_message('Error: Unsupported doctype', 'error', request)
         return util.response([], 'Unsupported doctype', True)
+
+#pylint: disable=too-many-branches
+#pylint: disable=too-many-locals
+@never_cache
+@csrf_exempt
+@authorize(['analyst', 'customer'])
+def project_to_pdf(request, lang, project, doctype):
+    "Exporta un hallazgo a PDF"
+    findings = []
+    user = request.session['username'].split("@")[0]
+    validator = validation_project_to_pdf(request, lang, project, doctype)
+    if validator is not None:
+        return validator
     for reqset in FormstackAPI().get_findings(project)["submissions"]:
         findings.append(catch_finding(request, reqset["id"]))
-    pdf_maker = FindingPDFMaker(lang, doctype)
+    pdf_maker = CreatorPDF(lang, doctype)
+    secure_pdf = SecurePDF()
     findings = util.ord_asc_by_criticidad(findings)
-    report_filename = pdf_maker.RESULT_DIR + project
+    report_filename = ""
     for finding in findings:
         key_list = key_existing_list(finding['id'])
         field_list = [FindingDTO().DOC_ACHV1, FindingDTO().DOC_ACHV2, \
@@ -165,18 +207,29 @@ def project_to_pdf(request, lang, project, doctype):
                 DriveAPI().download_images(evidence["id"])
                 evidence["name"] = "image::../images/"+evidence["id"]+'.png[align="center"]'
     if doctype == "tech":
-        pdf_maker.tech(findings, project)
-        report_filename += "_IT.pdf"
+        pdf_maker.tech(findings, project, user)
+        report_filename = secure_pdf.create_full(user, pdf_maker.out_name)
     elif doctype == "executive":
         return HttpResponse("Reporte deshabilitado", content_type="text/html")
-        #pdf_maker.executive(findings, project)
-        #report_filename += "_IE.pdf"
     else:
-        report_filename += "_PR.pdf"
         project_info = get_project_info(project)
+        mapa_id = util.drive_url_filter(project_info["mapa_hallazgos"])
+        project_info["mapa_hallazgos"] = "image::../images/"+mapa_id+'.png[align="center"]'
+        DriveAPI().download_images(mapa_id)
+        nivel_sec = project_info["nivel_seguridad"].split(" ")[0]
+        if not util.is_numeric(nivel_sec):
+            return HttpResponse("Parametrizacion incorrecta", content_type="text/html")
+        nivel_sec = int(nivel_sec)
+        if nivel_sec < 0 or nivel_sec > 6:
+            return HttpResponse("Parametrizacion incorrecta", content_type="text/html")
+        project_info["nivel_seguridad"] = "image::../resources/presentation_theme/nivelsec"+str(nivel_sec)+'.png[align="center"]'
+        print project_info
         if not project_info:
             return HttpResponse("Documentacion incompleta", content_type="text/html")
-        pdf_maker.presentation(findings, project, project_info)
+        pdf_maker.presentation(findings, project, project_info, user)
+        #secure_pdf = SecurePDF()
+        #report_filename = secure_pdf.create_only_pass(user, pdf_maker.out_name)
+        report_filename = pdf_maker.RESULT_DIR + pdf_maker.out_name
     if not os.path.isfile(report_filename):
         rollbar.report_message('Error: Documentation has not been generated', 'error', request)
         raise HttpResponse('Documentation has not been generated :(', content_type="text/html")
@@ -184,7 +237,7 @@ def project_to_pdf(request, lang, project, doctype):
         response = HttpResponse(document.read(),
                                 content_type="application/pdf")
         response['Content-Disposition'] = \
-            "inline;filename=:id.pdf".replace(":id", project)
+            "inline;filename=:id.pdf".replace(":id", user + "_" + project)
     return response
 
 #pylint: disable-msg=R0913
@@ -211,111 +264,6 @@ def get_project_info(project):
         submission = FormstackAPI().get_submission(submission_id)
         return ProjectDTO().parse(submission)
     return []
-
-# Documentacion automatica
-@never_cache
-@csrf_exempt
-@require_http_methods(["GET"])
-@authorize(['analyst', 'customer'])
-def export_autodoc(request):
-    "Captura y devuelve el pdf de un proyecto"
-    project = request.GET.get('project', "")
-    username = request.session['username']
-
-    if not has_access_to_project(username, project):
-        return redirect('dashboard')
-
-    detail = {
-        "IT": {
-            "content_type": "application/vnd.openxmlformats\
-                             -officedocument.spreadsheetml.sheet",
-            "content_disposition": "inline;filename=:project.xlsx",
-            "path": "/usr/src/app/app/autodoc/results/:project_:username.xlsx"
-        },
-        "IE": {
-            "content_type": "application/vnd.openxmlformats\
-                            -officedocument.presentationml.presentation",
-            "content_disposition": "inline;filename=:project.pptx",
-            "path": "/usr/src/app/app/autodoc/results/:project_:username.pptx"
-        }
-    }
-    try:
-        kind = request.GET.get("format", "").strip()
-        if kind != "IE" != kind != "IT":
-            rollbar.report_message('Error: Security issue', 'error', request)
-            raise Exception('This security event will be registered')
-        filename = detail[kind]["path"]
-        filename = filename.replace(":project", project)
-        filename = filename.replace(":username", username)
-        if not util.is_name(project):
-            rollbar.report_message('Error: Security issue', 'error', request)
-            raise Exception('This security event will be registered')
-        if not os.path.isfile(filename):
-            rollbar.report_message('Error: Documentation has not been generated', 'error', request)
-            raise Exception('Documentation has not been generated')
-        with open(filename, 'r') as document:
-            response = HttpResponse(document.read(),
-                                    content_type=detail[kind]["content_type"])
-            file_name = detail[kind]["content_disposition"]
-            file_name = file_name.replace(":project", project)
-            response['Content-Disposition'] = file_name
-        return response
-    except ValueError as expt:
-        rollbar.report_exc_info(sys.exc_info(), request)
-        return HttpResponse(expt.message)
-    except Exception as expt:
-        rollbar.report_exc_info(sys.exc_info(), request)
-        return HttpResponse(expt.message)
-    return HttpResponse(expt.message)
-
-
-@never_cache
-@csrf_exempt
-@require_http_methods(["POST"])
-@authorize(['analyst', 'customer'])
-def generate_autodoc(request):
-    "Genera la documentacion automatica"
-    project = request.POST.get('project', "")
-    username = request.session['username']
-
-    if not has_access_to_project(username, project):
-        return redirect('dashboard')
-
-    start_time = time.time()
-    data = request.POST.get('data', None)
-    kind = request.POST.get('format', "")
-    if kind != "IE" != kind != "IT":
-        rollbar.report_message('Error: An error ocurred with the given parameters', 'error', request)
-        util.response([], 'Error de parametrizacion', True)
-    if util.is_json(data) and util.is_name(project):
-        findings = json.loads(data)
-        if len(findings) >= 1:
-            if kind == "IE":
-                generate_autodoc_ie(request, project, findings)
-            else:
-                generate_autodoc_it(request, project, findings)
-            str_time = str("%s" % (time.time() - start_time))
-            return util.response([], 'Documentation generated in ' +
-                                 str("%.2f seconds" %
-                                     float(str_time)), False)
-    rollbar.report_message('Error: An error ocurred generating document', 'error', request)
-    return util.response([], 'Error...', True)
-
-
-@authorize(['analyst'])
-def generate_autodoc_ie(request, project, findings):
-    if(findings[0]["tipo"] == "Detallado"):
-        IE.Bancolombia(project, findings, request)
-    else:
-        IE.Fluid(project, findings, request)
-
-
-@authorize(['analyst', 'customer'])
-def generate_autodoc_it(request, project, findings):
-    if(findings[0]["tipo"] == "Detallado"):
-        IT.Bancolombia(project, findings, request)
-    else:
-        IT.Fluid(project, findings, request)
 
 @never_cache
 @csrf_exempt
@@ -401,6 +349,9 @@ def get_findings(request):
             return util.response([], 'Project masked', True)
         if finding['proyecto_fluid'].lower() == project.lower():
             findings.append(finding)
+    import json
+    with open("/tmp/"+project+".txt", "w") as f:
+        f.write(json.dumps(findings))
     return util.response(findings, 'Success', False)
 
 def catch_finding(request, submission_id):

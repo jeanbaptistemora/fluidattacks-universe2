@@ -33,7 +33,7 @@ font:
 page:
   background_color: ffffff
   layout: landscape
-  margin: [3cm, 3cm, 3cm, 3cm]
+  margin: [3cm, 2cm, 2cm, 2cm]
   size: letter
   background_image: image:background.jpg[]
 base:
@@ -80,7 +80,10 @@ heading:
   # h2 is used for chapter titles
   h2_font_size: floor($base_font_size * 2.15)
   h3_font_size: round($base_font_size * 1.7)
-  h4_font_color: 00FF00
+  h3_align: center
+  h2_font_color: 194d73
+  h3_font_color: 194d73
+  h2_align: center
   h4_font_size: $base_font_size_large
   h5_font_size: $base_font_size
   h6_font_size: $base_font_size_small
