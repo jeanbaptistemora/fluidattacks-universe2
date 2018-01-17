@@ -13,7 +13,7 @@ requests.adapters.DEFAULT_RETRIES = 10
 class FormstackAPI(object):
 
     headers_config = {}
-    ltokens=['e9ef81ddb47c0639014d09f8668bd4d1', '3508a7cde027417981c8bedbccc2cd30', 'f8e4fe5d82b96e40b1a0aaded7815188']
+    ltokens=
     TOKEN = ltokens[randint(0,(len(ltokens)-1))]
     SUBMISSION_URL = "https://www.formstack.com/api/v2/submission/:id.json"
     #Finding URL
