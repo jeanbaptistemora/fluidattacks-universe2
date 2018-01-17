@@ -46,6 +46,7 @@ RUN rm -r /var/www/html \
     && mkdir /usr/src/app/app/documentator/images  \
     && mkdir /usr/src/app/app/documentator/tpls  \
     && mkdir /usr/src/app/app/documentator/results  \
+    && mkdir /usr/src/app/app/techdoc/results  \
     && chown -R www-data:www-data  /usr/src/app/app/documentator \
     && chmod -R 0744 /usr/src/app/app/documentator \
     && chown -R www-data:www-data  /usr/src/app/app/techdoc \
