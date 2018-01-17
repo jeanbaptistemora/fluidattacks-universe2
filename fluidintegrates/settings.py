@@ -10,7 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/1.10/ref/settings/
 """
 # pylint: disable=E0402
-from . import SECRET_KEY_ENV, DB_USER, DB_PASSWD, DB_HOST, DB_PORT, \
+from app import SECRET_KEY_ENV, DB_USER, DB_PASSWD, DB_HOST, DB_PORT, \
          AWS_ACCESS_KEY, AWS_SECRET, AWS_REGION, MIXPANEL, INTERCOM, \
          INTERCOM_SECURE_KEY_ENV, SLACK_BOT, GOOGLE_OAUTH2_KEY, \
          GOOGLE_OAUTH2_SECRET, AZUREAD_OAUTH2_KEY, AZUREAD_OAUTH2_SECRET
