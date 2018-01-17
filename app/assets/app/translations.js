@@ -219,7 +219,8 @@ integrates.config(['$translateProvider', function($translateProvider) {
           'title': 'Technical Reports'
         },
         'executive_report_mod':{
-          'title': 'Executive Reports'
+          'title': 'Executive Reports',
+          'message': 'The project\'s documentation has not been finished'
         },
         'proj_alerts':{
           'search_title': 'News!',
@@ -700,7 +701,8 @@ integrates.config(['$translateProvider', function($translateProvider) {
           'title': 'Informes Técnicos'
         },
         'executive_report_mod':{
-          'title': 'Informes Ejecutivos'
+          'title': 'Informes Ejecutivos',
+          'message': 'La documentación del proyecto no ha sido finalizada'
         },
         'proj_alerts':{
           'search_title': 'Noticia!',

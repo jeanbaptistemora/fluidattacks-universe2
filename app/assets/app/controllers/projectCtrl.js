@@ -352,12 +352,15 @@ integrates.controller(
                 keyboard: false,
                 controller: function($scope, $uibModalInstance, $stateParams){
                     $("#hasPresentation").hide();
+                    $("#hasPresentationMsg").show();
                     $scope.init = function(){
                         $("#hasPresentation").hide();
+                        $("#hasPresentationMsg").show();
                         $.get(BASE.url+"check_pdf/project/"+$stateParams.project,function(r){
                             if(!r.error){
                                 if(r.data.enable){
                                     $("#hasPresentation").show();
+                                    $("#hasPresentationMsg").hide();
                                 }
                             }
                         });
@@ -402,7 +405,6 @@ integrates.controller(
                             }
                         }
                     };
-                    
                     $scope.closeModalAvance = function(){
                         $uibModalInstance.close();
                     }

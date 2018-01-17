@@ -121,29 +121,26 @@ def project_to_pdf(request, lang, project, doctype):
         findings.append(catch_finding(request, reqset["id"]))
     pdf_maker = FindingPDFMaker(lang, doctype)
     findings = util.ord_asc_by_criticidad(findings)
+    report_filename = pdf_maker.RESULT_DIR + project
+    for finding in findings:
+        evidence_set = util.get_evidence_set(finding)
+        finding["evidence_set"] = evidence_set
+        for evidence in evidence_set:
+            DriveAPI().download_images(evidence["id"])
+            evidence["name"] = "image::../images/"+evidence["id"]+'.png[align="center"]'
     if doctype == "tech":
         pdf_maker.tech(findings, project)
-    else:
-        for finding in findings:
-            evidence_set = util.get_evidence_set(finding)
-            finding["evidence_set"] = evidence_set
-            for evidence in evidence_set:
-                DriveAPI().download_images(evidence["id"])
-                evidence["name"] = "image::../images/"+evidence["id"]+'.png[align="center"]'
-        if doctype == "executive":
-            pdf_maker.executive(findings, project)
-        else:
-            project_info = get_project_info(project)
-            if not project_info:
-                return HttpResponse("Documentacion incompleta", content_type="text/html")
-            pdf_maker.presentation(findings, project, project_info)
-    report_filename = pdf_maker.RESULT_DIR + project
-    if doctype == "tech":
         report_filename += "_IT.pdf"
     elif doctype == "executive":
-        report_filename += "_IE.pdf"
+        return HttpResponse("Reporte deshabilitado", content_type="text/html")
+        #pdf_maker.executive(findings, project)
+        #report_filename += "_IE.pdf"
     else:
         report_filename += "_PR.pdf"
+        project_info = get_project_info(project)
+        if not project_info:
+            return HttpResponse("Documentacion incompleta", content_type="text/html")
+        pdf_maker.presentation(findings, project, project_info)
     if not os.path.isfile(report_filename):
         raise HttpResponse('Documentation has not been generated :(', content_type="text/html")
     with open(report_filename, 'r') as document:

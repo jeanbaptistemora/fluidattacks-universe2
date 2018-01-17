@@ -108,7 +108,13 @@
     {% endfor %}
 ==== {{where_title}}
     {{fin['donde'].lstrip() + "\n"}}
-<<<             
+==== {{evidence_title}}
+{% for evi in fin['evidence_set'] %}
+{{evi['explicacion'] + "\n"}}
+{{evi['name']+"\n"}}
+<<<
+{% endfor %}
+<<<
 {%- endfor %}
 
 <<<
