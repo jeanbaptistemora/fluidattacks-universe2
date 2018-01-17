@@ -3,7 +3,7 @@ reg = "us-east-1"
 sreg = "us-east-1b"
 
 #EC2 Vars
-amiID = "ami-2757f631"
+amiID = "ami-49e5cb5e"
 iType = "t2.micro"
 kName = "fluidtestingserves"
 

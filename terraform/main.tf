@@ -1,16 +1,3 @@
-# AWS vars
-variable "acc_key" {}
-variable "sec_key" {}
-variable "reg" {}
-variable "sreg" {}
-
-#EC2 vars
-variable "amiID" {}
-variable "iType" {}
-variable "kName" {}
-
-# Net Vars
-variable "cdir" {}
 
 provider "aws" {
   access_key = "${var.acc_key}"
@@ -32,6 +19,15 @@ module "ec2instance" {
   snetId = "${module.createNetwork.snetId}"
   kName = "${var.kName}"
 }
+
+# module "r53" {
+#   source = "./dns"
+#   server = "${module.ec2instance.ip}"
+# }
+#
+# module "iam" {
+#   source = "./iam"
+# }
 
 output "instance_ip" {
   value = "${module.ec2instance.ip}"

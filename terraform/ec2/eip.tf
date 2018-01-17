@@ -3,6 +3,7 @@ variable "allow_host_http_ports" {
   default = ["8080", "8000"]
 }
 
+
 resource "aws_eip" "fluidserves_eip" {
 
   instance = "${aws_instance.fluidserves.id}"
@@ -19,13 +20,23 @@ resource "aws_eip_association" "eip_assoc" {
 
   connection {
     host = "${aws_eip.fluidserves_eip.public_ip}"
-    user = "ubuntu"
-    private_key = "${file("vars/fluidtestingserves.pem")}"
+    user = "admin"
+    private_key = "${file("vars/${var.kName}.pem")}"
   }
+
+  provisioner "file" {
+      source      = "ec2/host/script.sh"
+      destination = "/tmp/script.sh"
+    }
+
+  provisioner "file" {
+      source      = "ec2/host/docker-compose.yml"
+      destination = "/tmp/docker-compose.yml"
+    }
 
   provisioner "remote-exec" {
        inline = [
-           "echo uname",
+           "sh /tmp/script.sh"
        ]
    }
 }

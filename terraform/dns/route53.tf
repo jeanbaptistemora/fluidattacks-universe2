@@ -1,12 +1,10 @@
+variable "server" {}
 
-resource "aws_route53_zone" "primary" {
-  name = "example.com"
+variable "domain" {
+    default="fluid.la."
 }
 
-resource "aws_route53_record" "www" {
-  zone_id = "${data.aws_route53_zone.selected.zone_id}"
-  name    = "www.${data.aws_route53_zone.selected.name}"
-  type    = "A"
-  ttl     = "300"
-  records = ["10.0.0.1"]
+resource "aws_route53_zone" "fs_maindomain" {
+  name = "${var.domain}"
+  comment = "Dominio principal de FLUID"
 }
