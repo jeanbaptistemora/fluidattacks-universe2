@@ -1,6 +1,6 @@
-= {{toe}}: <Service>
+= {{toe}}: {{tipo_prueba}}
 :lang:		es
-:author:	Para uso exclusivo de <Organizacion>
+:author:	Para uso exclusivo de {{cliente}}
 :email:		engineering@fluid.la
 :date: 	    2018-11-01
 :revnumber:	{{simpledate}}
@@ -36,29 +36,28 @@ image::../resources/presentation_theme/t_alcance_es.png[width=400]
 ^|*Valor*
 
 |*Fecha de inicio*
-|aaaa/mm/dd
+|{{fecha_inicio}}
 
 |*Fecha de fin*
-|aaaa/mm/dd
+|{{fecha_fin}}
 
 |*Alcance posible*
-|x entradas/puertos/líneas
+|{%if cobertura != "" %} {{toe_campos_visibles}} entradas/{{toe_puertos_visibles}} puertos/{{toe_lineas_visibles}} líneas {% else %} - {% endif %}
 
 |*Alcance probado*
-|x entradas/puertos/líneas
+|{{toe_campos_probados}} entradas/{{toe_puertos_probados}} puertos/{{toe_lineas_probadas}} líneas
 
 |*Cobertura*
-|x%
+|{{tipo_cobertura}}
 
 |*Ambiente*
-|Producción/Certificación/Pruebas/Otro
+|{{ambiente}}
 
 |*Cambios en el ambiente*
-|No se presentaron/Sí se presentaron. Ver observaciones.
+|{{cambios_ambiente}}
 
 |*Insumos*
-|- Arquitectura de seguridad (Si fue entregado Diseño de Seguridad) 
- - Requisitos transversales de seguridad que aplicaban a la solución (Si se hizo perfilamiento)
+|{{insumos}}
 |===
 
 [cols=3*]
@@ -67,9 +66,9 @@ image::../resources/presentation_theme/t_alcance_es.png[width=400]
 ^|*Security Architect*
 ^|*Project Manager*
 
-^| asdasd 
-^| asdasda 
-^| sdfsdf
+^| {{analista}} 
+^| {{arquitecto}} 
+^| {{lider}}
 
 3.3+^| *Equipo del proyecto*
 |===
@@ -102,7 +101,7 @@ image::../resources/presentation_theme/t_panorama_es.png[width=400]
 	{%-  endfor %}
 {%- endfor %}
 ^.^|{{"*"+records_title+"*"}} 3+^.^| {{main_tables['num_reg']}}
-^.^|*Impactos Relevantes* 3+^.^|Sed lacus lectus, porttitor eu nisi id, bibendum finibus orci. Pellentesque vel sem ac libero consequat varius. Sed eleifend fringilla fringilla. Cras vitae porta sapien. Proin interdum, magna vitae hendrerit varius, risus nisl commodo quam, eget consequat est eros laoreet urna. Quisque eu massa condimentum, pellentesque nulla ac, venenatis felis. Aliquam erat volutpat. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse congue elit vel justo fringilla finibus.
+^.^|*Impactos Relevantes* 3+^.^|{{impacto_relevate}}
 |===
 
 <<<
@@ -113,7 +112,7 @@ image::../resources/presentation_theme/t_panorama_es.png[width=400]
 {nbsp} +
 [.center]
 image::../resources/presentation_theme/findings_es.png[pdfwidth=100%, pdfheight=100%]
-
+																																																																											
 <<<
 {% for i in range(0, findings|length) %}
 image::../resources/presentation_theme/t_hallazgo_es.png[width=400]
@@ -160,13 +159,13 @@ image::../resources/presentation_theme/t_evidencia_es.png[width=400]
 image::../resources/presentation_theme/t_recomendaciones_es.png[width=400]
 {nbsp} +
 
-Sed condimentum iaculis mi. Curabitur vestibulum maximus massa at gravida. Morbi eu orci enim. Sed massa libero, elementum ut convallis at, ornare a nulla. Nunc convallis lectus eget nisl tempor vehicula. Curabitur accumsan iaculis finibus. In laoreet ullamcorper diam sit amet mattis. Quisque cursus aliquam nibh.
+{{observaciones}}
 
 <<<
 image::../resources/presentation_theme/t_conclusiones_es.png[width=400]
 {nbsp} +
 
-Maecenas vehicula euismod ligula, ac iaculis libero pharetra nec. Etiam laoreet augue erat, nec faucibus enim malesuada at. Nam at nisi at purus tincidunt consectetur vel sed enim. In posuere, libero blandit feugiat fringilla, arcu nibh sagittis lorem, ac lobortis turpis libero quis enim. Vivamus gravida sollicitudin tincidunt. Suspendisse efficitur risus eu velit lacinia ultricies. Aliquam molestie turpis et ultrices condimentum. Phasellus feugiat finibus auctor. Proin non tellus ut mauris commodo dignissim ut at est. In sem augue, congue vel turpis nec, maximus dignissim felis. Praesent aliquam dolor nec auctor tempus.
+{{conclusiones}}
 
 <<<
 image::../resources/presentation_theme/t_contacto_es.png[width=400]

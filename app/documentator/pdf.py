@@ -200,9 +200,10 @@ class FindingPDFMaker(object):
         self.create_command(tpl_name)
         os.system(self.command)
 
-    def presentation(self, data, project):
+    def presentation(self, data, project, project_info):
         " Crea el template a renderizar y le aplica el contexto "
         self.fill_project(data, project)
+        self.project_info_context(project_info)
         self.out_name = project+"_PR.pdf"
         searchpath = self.PATH
         template_loader = jinja2.FileSystemLoader(searchpath=searchpath)
@@ -214,6 +215,40 @@ class FindingPDFMaker(object):
             tplfile.write(render_text.encode("utf-8"))
         self.create_command(tpl_name)
         os.system(self.command)
+
+    def project_info_context(self, project_info):
+        self.context["proyecto_fluid"] = project_info["proyecto_fluid"]
+        self.context["proyecto_cliente"] = project_info["proyecto_cliente"]
+        self.context["cliente"] = project_info["cliente"]
+        self.context["lider"] = project_info["lider"]
+        self.context["analista"] = project_info["analista"]
+        self.context["arquitecto"] = project_info["arquitecto"]
+        self.context["fecha_inicio"] = project_info["fecha_inicio"]
+        self.context["fecha_fin"] = project_info["fecha_fin"]
+        self.context["tipo_prueba"] = project_info["tipo_prueba"]
+        self.context["ambiente"] = project_info["ambiente"]
+        self.context["tipo_cobertura"] = project_info["tipo_cobertura"]
+        self.context["cobertura"] = ""
+        self.context["toe_campos_visibles"] = ""
+        self.context["toe_lineas_visibles"] = ""
+        self.context["toe_puertos_visibles"] = ""
+        if "cobertura" in project_info:
+            self.context["cobertura"] = project_info["cobertura"]
+        if "toe_campos_visibles" in project_info:
+            self.context["toe_campos_visibles"] = project_info["toe_campos_visibles"]
+        if "toe_lineas_visibles" in project_info:
+            self.context["toe_lineas_visibles"] = project_info["toe_lineas_visibles"]
+        if "toe_puertos_visibles" in project_info:
+            self.context["toe_puertos_visibles"] = project_info["toe_puertos_visibles"]
+        self.context["toe_campos_probados"] = project_info["toe_campos_probados"]
+        self.context["toe_lineas_probadas"] = project_info["toe_lineas_probadas"]
+        self.context["toe_puertos_probados"] = project_info["toe_puertos_probados"]
+        self.context["impacto_relevate"] = project_info["impacto_relevate"]
+        self.context["observaciones"] = project_info["observaciones"]
+        self.context["conclusiones"] = project_info["conclusiones"]
+        self.context["tipo_industria"] = project_info["tipo_industria"]
+        self.context["lenguaje"] = project_info["lenguaje"]
+        self.context["tipo_aplicacion"] = project_info["tipo_aplicacion"]
 
     def make_content(self, words):
         base = "image::../templates/:name_" + self.lang + ".png[]"
@@ -390,7 +425,6 @@ class FindingPDFMaker(object):
             + '[width=300, align="center"]'
         main_tables = self.make_vuln_table(findings, words)
         fluid_tpl_content = self.make_content(words)
-        print findings[0]
         self.context = {
             "full_project": full_project.upper(),
             "team": team,

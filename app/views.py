@@ -17,6 +17,7 @@ from .decorators import authenticate, authorize
 from .autodoc import IE, IT
 from .dto.finding import FindingDTO
 from .dto.closing import ClosingDTO
+from .dto.project import ProjectDTO
 from .dto.eventuality import EventualityDTO
 from .documentator.pdf import FindingPDFMaker
 # pylint: disable=E0402
@@ -101,17 +102,16 @@ def logout(request):
         pass
     return redirect("/index")
 
-#pylint: disable-msg=R0913
+#pylint: disable=too-many-branches
 @never_cache
 @csrf_exempt
 @authorize(['analyst', 'customer'])
 def project_to_pdf(request, lang, project, doctype):
     "Exporta un hallazgo a PDF"
-    username = request.session['username']
     findings = []
     if project.strip() == "":
         return util.response([], 'Empty fields', True)
-    if not has_access_to_project(username, project):
+    if not has_access_to_project(request.session['username'], project):
         return util.response([], 'Access denied', True)
     if lang not in ["es", "en"]:
         return util.response([], 'Unsupported language', True)
@@ -121,7 +121,6 @@ def project_to_pdf(request, lang, project, doctype):
         findings.append(catch_finding(request, reqset["id"]))
     pdf_maker = FindingPDFMaker(lang, doctype)
     findings = util.ord_asc_by_criticidad(findings)
-    drive_api = DriveAPI()
     if doctype == "tech":
         pdf_maker.tech(findings, project)
     else:
@@ -129,12 +128,15 @@ def project_to_pdf(request, lang, project, doctype):
             evidence_set = util.get_evidence_set(finding)
             finding["evidence_set"] = evidence_set
             for evidence in evidence_set:
-                drive_api.download_images(evidence["id"])
+                DriveAPI().download_images(evidence["id"])
                 evidence["name"] = "image::../images/"+evidence["id"]+'.png[align="center"]'
         if doctype == "executive":
             pdf_maker.executive(findings, project)
         else:
-            pdf_maker.presentation(findings, project)
+            project_info = get_project_info(project)
+            if not project_info:
+                return HttpResponse("Documentacion incompleta", content_type="text/html")
+            pdf_maker.presentation(findings, project, project_info)
     report_filename = pdf_maker.RESULT_DIR + project
     if doctype == "tech":
         report_filename += "_IT.pdf"
@@ -143,13 +145,36 @@ def project_to_pdf(request, lang, project, doctype):
     else:
         report_filename += "_PR.pdf"
     if not os.path.isfile(report_filename):
-        raise Exception('Documentation has not been generated')
+        raise HttpResponse('Documentation has not been generated :(', content_type="text/html")
     with open(report_filename, 'r') as document:
         response = HttpResponse(document.read(),
                                 content_type="application/pdf")
         response['Content-Disposition'] = \
             "inline;filename=:id.pdf".replace(":id", project)
     return response
+
+#pylint: disable-msg=R0913
+@never_cache
+@csrf_exempt
+@authorize(['analyst', 'customer'])
+def check_pdf(request, project):
+    username = request.session['username']
+    if not util.is_name(project):
+        return util.response([], 'Name error', True)
+    if not has_access_to_project(username, project):
+        return util.response([], 'Access denied', True)
+    reqset = get_project_info(project)
+    if reqset:
+        return util.response({"enable": True}, 'Success', False)
+    return util.response({"enable": False}, 'Success', False)
+
+def get_project_info(project):
+    reqset = FormstackAPI().get_project_info(project)["submissions"]
+    if reqset:
+        submission_id = reqset[-1]["id"]
+        submission = FormstackAPI().get_submission(submission_id)
+        return ProjectDTO().parse(submission)
+    return []
 
 # Documentacion automatica
 @never_cache

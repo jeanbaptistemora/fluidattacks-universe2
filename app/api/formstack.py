@@ -18,6 +18,8 @@ class FormstackAPI(object):
     SUBMISSION_URL = "https://www.formstack.com/api/v2/submission/:id.json"
     #Finding URL
     FN_URL = "https://www.formstack.com/api/v2/form/1998500/submission.json"
+    #Project information URL
+    IN_URL = "https://www.formstack.com/api/v2/form/2696665/submission.json"
     #Eventuality URL
     EV_URL = "https://www.formstack.com/api/v2/form/1886931/submission.json"
     #Close finding URL
@@ -93,6 +95,13 @@ AppleWebKit/537.36 (KHTML, like Gecko) FLUIDIntegrates/1.0'
         search_field = "32201732"
         data = {'search_field_1': search_field, 'search_value_1': project, 'per_page': 100}
         return self.request("GET", self.FN_URL, data=data)
+
+    def get_project_info(self, project):
+        """Obtiene los hallazgos a partir del nombre
+        de proyecto."""
+        search_field = "52601266"
+        data = {'search_field_1': search_field, 'search_value_1': project, 'per_page': 100}
+        return self.request("GET", self.IN_URL, data=data)
 
     def get_closings_by_id(self, submission_id):
         """Obtiene los cierres de un ID de proyecto."""
