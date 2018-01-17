@@ -340,6 +340,35 @@ integrates.controller(
                 windowClass: 'modal avance-modal',
                 keyboard: false,
                 controller: function($scope, $uibModalInstance, $stateParams){
+                    $("#hasPresentation").hide();
+                    $scope.init = function(){
+                        $("#hasPresentation").hide();
+                        $.get(BASE.url+"check_pdf/project/"+$stateParams.project,function(r){
+                            if(!r.error){
+                                if(r.data.enable){
+                                    $("#hasPresentation").show();
+                                }
+                            }
+                        });
+                    };
+                    $scope.findingMatrizPDFPresentation = function(){
+                        var project = $stateParams.project;
+                        var lang = localStorage['lang'];
+                        var prjpatt = new RegExp("^[a-zA-Z0-9_]+$");
+                        var langpatt = new RegExp("^en|es$");
+                        if(prjpatt.test(project)
+                            && langpatt.test(lang)){
+                            var url = BASE.url + "pdf/"+ lang + "/project/" + project + "/presentation/";
+                            if(navigator.userAgent.indexOf("Firefox") == -1){
+                                downLink = document.createElement("a");
+                                downLink.target = "_blank";
+                                downLink.href = url;
+                                downLink.click();
+                            }else{
+                                win = window.open(url, '__blank');
+                            }
+                        }
+                    };
                     $scope.findingMatrizPDFReport = function(){
                         var project = $stateParams.project;
                         var lang = localStorage['lang'];
@@ -358,10 +387,11 @@ integrates.controller(
                             }
                         }
                     };
+                    
                     $scope.closeModalAvance = function(){
                         $uibModalInstance.dismiss('cancel');
-                        $timeout(function() {$("#vulnerabilities").bootstrapTable('load', auxiliar);},100);
                     }
+                    $scope.init();
                 },
                 resolve: {
                     ok: true
@@ -746,6 +776,7 @@ integrates.controller(
                 ]
             });
         };
+        
         $scope.search = function(){
             if(localStorage['lang'] === "en"){
               var vlang = 'en-US';
@@ -765,6 +796,7 @@ integrates.controller(
             if($stateParams.project != $scope.project){
                 $state.go("ProjectNamed", {project: $scope.project});
             }else{
+                /* handling presentation button */
                 $scope.view.project = false;
                 $scope.view.finding = false;
                 var search_at = $translate.instant('proj_alerts.search_title');
