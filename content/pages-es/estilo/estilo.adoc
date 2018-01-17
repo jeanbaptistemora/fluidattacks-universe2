@@ -87,38 +87,33 @@ ya que esta será usada para hacer el _mailing_ correspondiente al artículo.
 * *Última sección:* Una conclusión corta 
 en donde se indique al lector el tema general.
 
-* Párrafo corto sobre el autor del _post_ 
+* Información acerca del autor del post 
 cuando el autor sea invitado 
 (Ver la sección de autores).
 
 === 3. Límite de palabras 
 
-Aunque los artículos no están limitados 
+Aunque los documentos no están limitados 
 por una cantidad específica de palabras se debe tener en cuenta:
 
-* *Para artículos en la _Knowledge Base_ (KB):*
+* *Para documentos en la _Knowledge Base_ (KB):* 
+Entre 400 y 800 palabras.
 
-** Mínimo: 400.
-** Máximo: 800.
+* *Para documentos en Post:*
+Entre 800 y 1200 palabras.
 
-* *Para artículos en Post:*
+* *Para documentos en Páginas:*
+Entre 400 y 1200 palabras.
 
-** Mínimo: 800.
-** Máximo: 1200.
-
-* *Para artículos en Páginas:*
-
-** Mínimo: 400.
-** Máximo: 1200.
-
-* *Para todos los artículos:*
+* *Para todos los documentos:*
 Las frases deben tener 
 una métrica de complejidad LIX inferior a 50, 
 garantizando la lectura simple del texto.
 
 === 4. Saltos de línea semánticos
 
-Los artículos deben incluir saltos de línea semánticos (SLB), 
+Los artículos deben incluir saltos de línea semánticos 
+(http://sembr.org/[SLB]), 
 para facilitar su posterior edición 
 y llevar un registro ordenado de las modificaciones 
 dentro del sistema de control de versiones (GitHub, Gitlab). 
@@ -128,7 +123,7 @@ Para ello se definen las siguientes reglas:
 * Máximo de caracteres antes de un SLB: 80.
 * Se *debe* agregar un SLB luego de un punto y seguido (.).
 * Se *puede* agregar un SLB después 
-de un conector, dependiendo del contexto, 
+de un http://www.salutip.com/2012/03/los-conectores-o-conectivos-en-espanol.html[conector], dependiendo del contexto, 
 siempre y cuando no incumpla las reglas anteriores.
 
 Las excepciones a éstas reglas son:
@@ -153,7 +148,13 @@ deben incluir la referencia.
 
 Explicación corta de lo que se va a mostrar a continuación
 
-image::fuente.png[fuente]
+[source, C, linenums]
+----
+function cool(x){
+	
+	return x + 1;
+}
+----
 
 De ser necesario añadir explicación adicional 
 o incluir pasos a tener en cuenta 
@@ -166,10 +167,13 @@ Estilos del código fuente:
 que ya se haya usado en la guía.
 * No debe incluir comentarios, ya que el artículo 
 es para explicar el desarrollo.
-* Si eres invitado copiar las líneas de código 
-para añadirlas al post, no usar imágenes.
-* Preferiblemente utilizar asciidoc como lenguaje base
-para el artículo.
+* Añadir las líneas de código al post 
+utilizando un bloque de código, no usar imágenes.
+* Utilizar *asciidoc* como lenguaje base
+para realizar el artículo. 
+Para mayor información consulta la
+http://asciidoctor.org/docs/asciidoc-writers-guide/[guía de asciidoc],
+o su http://asciidoctor.org/docs/asciidoc-syntax-quick-reference/[quick reference].
 
 === 8. Explicaciones de explotación
 
