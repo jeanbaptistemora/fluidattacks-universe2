@@ -8,7 +8,7 @@ services:
 
 
 before_script:
-    - echo $VAULT > deploy/containers/.vault.txt 
+    - echo $VAULT > deploy/containers/.vault.txt
     - sh env.sh
     - docker login registry.gitlab.com -u $DOCKER_USER -p $DOCKER_PASS
 
@@ -46,7 +46,7 @@ manage:
     stage: test
     script:
         - docker pull registry.gitlab.com/fluidsignal/integrates:base
-        - docker run --env-file env.list -t registry.gitlab.com/fluidsignal/integrates:base python /usr/src/app/manage.py test
+        - docker run --env-file env.list -t registry.gitlab.com/fluidsignal/integrates:base python /usr/src/app/manage.py test app.tests
         - rm env.list
 
 Prospector_app:
