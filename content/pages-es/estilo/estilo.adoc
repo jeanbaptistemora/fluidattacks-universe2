@@ -136,8 +136,12 @@ Las excepciones a éstas reglas son:
 . Hipervínculos.
 . Códigos fuente.
 
+Un ejemplo de uso se muestra a continuación:
+
+image::slb_example.png[slb]
+
 Para mayor información sobre los SLB y cómo utilizarlos,
-puedes consultar la guías de http://rhodesmill.org/brandon/2012/one-sentence-per-line/[semantic linefeeds],
+puedes consultar las guías de http://rhodesmill.org/brandon/2012/one-sentence-per-line/[semantic linefeeds],
 https://scott.mn/2014/02/21/semantic_linewrapping/[semantic linewrapping],
 o la http://asciidoctor.org/docs/asciidoc-recommended-practices/#one-sentence[documentación de asciidoc]
 
