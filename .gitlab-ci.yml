@@ -23,29 +23,29 @@ stages:
     - test
     - deploy
 
-# build_base:
-#     stage: build
-#     script:
-#         - sh containers/base/build.sh
-#         - docker push registry.gitlab.com/fluidsignal/serves:base
-#
-# build_alg:
-#     stage: build
-#     script:
-#         - sh containers/alg/build.sh
-#         - docker push registry.gitlab.com/fluidsignal/serves/alg:base
-#
-# build_exams:
-#     stage: build
-#     script:
-#         - sh containers/exams/build.sh
-#         - docker push registry.gitlab.com/fluidsignal/serves/exams:base
-#
-# build_vpn:
-#     stage: build
-#     script:
-#         - sh containers/vpn/build.sh
-#         - docker push registry.gitlab.com/fluidsignal/serves/vpn:base
+build_base:
+    stage: build
+    script:
+        - sh containers/base/build.sh
+        - docker push registry.gitlab.com/fluidsignal/serves:base
+
+build_alg:
+    stage: build
+    script:
+        - sh containers/alg/build.sh
+        - docker push registry.gitlab.com/fluidsignal/serves/alg:base
+
+build_exams:
+    stage: build
+    script:
+        - sh containers/exams/build.sh
+        - docker push registry.gitlab.com/fluidsignal/serves/exams:base
+
+build_vpn:
+    stage: build
+    script:
+        - sh containers/vpn/build.sh
+        - docker push registry.gitlab.com/fluidsignal/serves/vpn:base
 
 test_terraform:
    stage: test
@@ -60,8 +60,6 @@ test_terraform:
       - unzip tflint.zip && rm tflint.zip
       - install tflint /bin
       - cd infrastructure
-      # delete
-      - ls vars/
    script:
       - terraform init
       - tflint --var-file="vars/aws.tfvars"
@@ -94,3 +92,15 @@ deploy_vpn:
         - docker push registry.gitlab.com/fluidsignal/serves/vpn:master
     only:
     - master
+
+deploy_terraform:
+   stage: deploy
+   before_script:
+      - mkdir infrastructure/vars && echo $AWS_VARS > infrastructure/vars/aws.tfvars
+      - echo $KEY_SERVES > infrastructure/vars/fluidtestingserves.pem
+      - cd infrastructure
+   script:
+      - terraform init
+      - terraform apply -var-file="vars/aws.tfvars"
+    only:
+    - jarmas
