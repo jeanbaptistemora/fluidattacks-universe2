@@ -30,15 +30,24 @@ o ataques de criptoanalistas [1].
 Existen diversas formas de generar números aleatorios, 
 un ejemplo es utilizando generadores físicos, 
 los cuales toman señales aleatorias del ambiente, 
-tales como: el ruido generado por una fuga de corriente 
-desde un diodo a un transistor,
-el ruido generado al presionar una tecla,
-señales perceptibles provenientes de alguna fuente de audio, 
-tiempos entre interrupciones, entre muchos otros. 
+tales como: 
+
+* El ruido generado por una fuga de corriente 
+desde un diodo a un transistor.
+
+* El ruido generado al presionar una tecla.
+
+* Señales perceptibles provenientes de alguna fuente de audio.
+
+* Tiempos entre interrupciones. 
+
+* Y muchos otros más.
+
 Después de obtener la señal aleatoria,
 ésta es procesada a través 
 de una función criptográfica Hash
 para obtener el número aleatorio.
+
 Este tipo de generadores poseen la ventaja 
 de ser verdaderamente aleatorios,
 a diferencia de los generadores pseudo-aleatorios,
