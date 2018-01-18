@@ -136,6 +136,11 @@ Las excepciones a éstas reglas son:
 . Hipervínculos.
 . Códigos fuente.
 
+Para mayor información sobre los SLB y cómo utilizarlos,
+puedes consultar la guías de http://rhodesmill.org/brandon/2012/one-sentence-per-line/[semantic linefeeds],
+https://scott.mn/2014/02/21/semantic_linewrapping/[semantic linewrapping],
+o la http://asciidoctor.org/docs/asciidoc-recommended-practices/#one-sentence[documentación de asciidoc]
+
 === 6. Imágenes
 
 . Todo documento debe incluir mínimo 
