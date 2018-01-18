@@ -11,31 +11,34 @@ Autenticar servidor de red para clientes que no poseen un certificado digital
 
 == Contexto
 
-A continuación se describen las circunstancias bajo las cuales la siguiente 
-solución tiene sentido:
+A continuación se describen las circunstancias 
+bajo las cuales la siguiente solución tiene sentido:
 
 . Se está desarrollando una aplicación en Java.
-. No es práctico o implementable la generación de certificados digitales del 
-lado del cliente.
+. No es práctico o implementable la generación de certificados digitales 
+del lado del cliente.
 
 == Solución
 
 . Las conexiones SSL soportan autenticación de una y dos vías.
 
-. En la autenticación de una vía, el servidor presenta un certificado digital 
-al cliente para probar su identidad. El cliente realiza dos pasos para validar 
-el certificado:
-* Verificar que el certificado digital fue firmado por una autoridad confiable.
-* Validar que el nombre de host en el certificado coincide con el nombre del 
-servidor
+. En la autenticación de una vía, 
+el servidor presenta un certificado digital al cliente 
+para probar su identidad. 
+El cliente realiza dos pasos para validar el certificado:
+* Verifica que el certificado digital fue firmado por una autoridad confiable.
+* Valida que el nombre de host en el certificado 
+coincide con el nombre del servidor
 
 . Si las validaciones son exitosas, se establece la conexión SSL.
 
-. Para poder soportar de manera adecuada los requerimientos de la PKI en las 
-conexiones SSL, es necesario contar con un sistema de almacenamiento de 
-material criptográfico.
+. Para poder soportar de manera adecuada 
+los requerimientos de la PKI en las conexiones SSL, 
+es necesario contar con un sistema de almacenamiento 
+de material criptográfico.
 
-. La clase Keystore permite administrar esta información. Como tal, soporta:
+. La clase Keystore permite administrar esta información. 
+Como tal, soporta:
 * Claves privadas.
 * Clave secreta (para criptografía simétrica).
 * Certificados confiables (para validar la identidad de otras partes).
@@ -50,12 +53,14 @@ KeyStore keystore = KeyStore.getInstance("JKS");
 keystore.load(new FileInputStream(KEYSTORE), null);
 ----
 
-. Primero se obtiene una instancia de contenedor de tipo java keystore, y se 
-carga el archivo para administrar la información.
+. Primero se obtiene una instancia de contenedor de tipo java keystore, 
+y se carga el archivo para administrar la información.
 
-. La fábrica abstracta de administradores de claves requiere un tipo de 
-algoritmo a usar. En este caso usamos certificados X.509 que son los apropiados 
-para SSL. Además inicializamos el administrador con el contenedor de llaves.
+. La fábrica abstracta de administradores de claves 
+requiere un tipo de algoritmo a usar. 
+En este caso usamos certificados X.509 
+que son los apropiados para SSL. 
+Además inicializamos el administrador con el contenedor de llaves.
 +
 [source, java, linenums]
 ----
@@ -64,9 +69,10 @@ KeyManagerFactory kmf = KeyManagerFactory.getInstance("SunX509");
 kmf.init(keystore, null);
 ----
 
-. La fábrica abstracta de administradores de confianza crea objetos que 
-permiten validar la identidad utilizando certificados confiables. Su 
-inicialización es similar a la de los administradores de claves.
+. La fábrica abstracta de administradores de confianza 
+crea objetos que permiten validar la identidad 
+utilizando certificados confiables. 
+Su inicialización es similar a la de los administradores de claves.
 +
 [source, java, linenums]
 ----
@@ -75,8 +81,8 @@ TrustManagerFactory tmf = TrustManagerFactory.getInstance("SunX509");
 tmf.init(keystore);
 ----
 
-. El paso siguiente es crear una fábrica de fábricas de sockets seguros, para 
-esto es necesario relacionar los administradores creados previamente.
+. El paso siguiente es crear una fábrica de fábricas de sockets seguros, 
+para esto es necesario relacionar los administradores creados previamente.
 +
 [source, java, linenums]
 ----
@@ -84,9 +90,10 @@ esto es necesario relacionar los administradores creados previamente.
 ServerSocketFactory ssf = sslc.getServerSocketFactory();
 ----
 
-. Con la fábrica de sockets de servidores se puede crear el servidor que va a 
-atender las conexiones seguras. Note que para configurar el comportamiento de 
-una vía se establece que el cliente no requiere autenticación.
+. Con la fábrica de sockets de servidores 
+se puede crear el servidor que va a atender las conexiones seguras. 
+Note que para configurar el comportamiento de una vía 
+se establece que el cliente no requiere autenticación.
 +
 [source, java, linenums]
 ----
@@ -96,8 +103,8 @@ server.setNeedClientAuth(false);
 SSLSocket client = (SSLSocket) server.accept();
 ----
 
-. La clase SSLServerSocket en realidad deriva de Socket, por lo que la 
-comunicación puede hacerse como un socket convencional.
+. La clase SSLServerSocket en realidad deriva de Socket, 
+por lo que la comunicación puede hacerse como un socket convencional.
 +
 [source, java, linenums]
 ----
@@ -111,9 +118,10 @@ client.close();
 server.close();
 ----
 
-. Es importante aclarar que el servidor y el cliente difieren en la forma que 
-usan el socket. Es decir, los clientes invocan objetos de tipo SSLSocket
-quién nos va a cifrar la conexión?
+. Es importante aclarar que el servidor y el cliente 
+difieren en la forma que usan el socket. 
+Es decir, los clientes invocan objetos de tipo SSLSocket
+quién nos va a cifrar la conexión
 +
 [source, java, linenums]
 ---- 
@@ -254,5 +262,5 @@ public class Client
 . https://docs.oracle.com/javase/6/docs/api/javax/net/ssl/KeyManagerFactory.html[Class KeyManagerFactory]
 . https://docs.oracle.com/javase/7/docs/api/javax/net/ServerSocketFactory.html[Class ServerSocketFactory]
 . http://www.java2s.com/Code/Java/Network-Protocol/SSL-Server-Socket.htm[SSL Server Socket]
-. REQ.0082: Un sistema con información crítica para el negocio debe requerir 
-certificados digitales de cliente en el proceso de autenticación.
+. REQ.0082: Un sistema con información crítica para el negocio 
+debe requerir certificados digitales de cliente en el proceso de autenticación.
