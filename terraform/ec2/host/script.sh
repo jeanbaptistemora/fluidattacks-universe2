@@ -6,4 +6,3 @@ sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/debi
 sudo apt-get update && sudo apt-get upgrade -y
 sudo apt-get install -y docker-ce
 sudo pip install docker-compose
-sudo docker-compose -f /tmp/docker-compose.yml up

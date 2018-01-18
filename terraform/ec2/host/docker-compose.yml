@@ -1,10 +1,25 @@
 version: "3"
 services:
-  vpn:
-    image: debian
+  alg:
+    image: registry.gitlab.com/fluidsignal/serves/alg:master
     ports:
-      - "443:3443"
-      - "80:3080"
+      - "80:80"
+      - "443:443"
+  exams:
+    image: registry.gitlab.com/fluidsignal/serves/exams:master
+    ports:
+      - "8080:80"
+  integrates:
+    image: registry.gitlab.com/fluidsignal/integrates:master
+    ports:
+      - "8000:443"
+  vpn:
+    image: registry.gitlab.com/fluidsignal/serves/vpn:master
+    ports:
+      - "8081:443"
+  bot:
+    image: registry.gitlab.com/fluidsignal/integrates/bot:master
+
   watchtower:
     image: v2tec/watchtower
     volumes:

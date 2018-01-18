@@ -9,6 +9,8 @@ services:
 
 before_script:
     - echo $VAULT > /tmp/.vault.txt
+    - mkdir terraform/vars && echo $AWS_VARS > terraform/vars/aws.tfvars
+    - echo $KEY_SERVES > terraform/vars/fluidtestingserves.pem
     - docker login registry.gitlab.com -u $DOCKER_USER -p $DOCKER_PASS
 
 codequality:
@@ -46,6 +48,23 @@ build_vpn:
     script:
         - sh containers/vpn/build.sh
         - docker push registry.gitlab.com/fluidsignal/serves/vpn:base
+
+test_terraform:
+   stage: test
+   before_script:
+      - apk update && apk add curl
+      - curl -o terraform.zip https://releases.hashicorp.com/terraform/0.10.6/terraform_0.10.6_linux_amd64.zip
+      - unzip terraform.zip && rm terraform.zip
+      - cp terraform /bin/terraform
+      - curl -Lo tflint.zip https://github.com/wata727/tflint/releases/download/v0.4.2/tflint_linux_amd64.zip
+      - unzip tflint.zip && rm tflint.zip
+      - install tflint /bin
+      - cd terraform
+   script:
+      - tflint --var-file="vars/aws.tfvars"
+      - terraform init
+      - terraform plan -var-file="vars/aws.tfvars"
+
 
 deploy_alg:
     stage: deploy

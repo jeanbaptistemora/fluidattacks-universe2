@@ -18,6 +18,9 @@ module "ec2instance" {
   sgId = "${module.createNetwork.sgId}"
   snetId = "${module.createNetwork.snetId}"
   kName = "${var.kName}"
+
+  docker = "${var.docker}"
+  start_all = "${var.start_all}"
 }
 
 # module "r53" {

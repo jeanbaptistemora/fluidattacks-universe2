@@ -11,3 +11,7 @@ variable "kName" {}
 
 # Net Vars
 variable "cdir" {}
+
+# Host Vars
+variable "docker" {}
+variable "start_all" {}
