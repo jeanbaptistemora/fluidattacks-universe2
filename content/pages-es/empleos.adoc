@@ -6,14 +6,13 @@
 
 A continuación te explicaremos cómo puedes hacer parte de nuestro equipo:
 
-== 1. Condiciones
-
-El objetivo de esta etapa 
+++++
+<div id="etapa_c"><h2>  1. Condiciones</h2><p>El objetivo de esta etapa 
 es que conozcas y aceptes los términos y condiciones del proceso de selección, 
 Esto es obligatorio y requiere un esfuerzo estimado de 4 a 6 min. 
 Para comenzar, 
-solo debes seguir las instrucciones detalladas link:../empleos/terminos-seleccion/[aquí]. 
-
+solo debes seguir las instrucciones detalladas <a href="../empleos/terminos-seleccion/">aquí</a>.</p></div> 
+++++
 == 2. Razones
 
 El objetivo de esta etapa 
@@ -27,7 +26,7 @@ solo debes hacer click link:../empleos/razones/[aquí].
 El objetivo de esta etapa 
 es que conozcas los roles que puedes desempeñar en FLUID, 
 o en vacantes que se tienen por parte de AUTONOMIC, 
-una empresa Spin Off de FLUID encargada de todo el proceso de reclutamiento. 
+una empresa Spin Off de FLUID encargada del proceso de reclutamiento. 
 Esto es obligatorio y requiere un esfuerzo estimado de 3 a 5 min. 
 Para comenzar, 
 solo debes hacer click link:../empleos/vacantes/[aquí].
@@ -46,7 +45,7 @@ solo debes seguir las instrucciones detalladas link:../empleos/portafolio/[aquí
 es que registres tu hoja de vida y tus expectativas laborales. 
 Esto es obligatorio y requiere un esfuerzo estimado de 5 a 10 min según tu perfil. 
 Para hacerla requieres haber finalizado la etapa anterior.</p>
-<p id="a_formLink" style="display:none;text-align:center">
+<p id="a_formLink">
 Para iniciar, 
 solo debes seguir las instrucciones detalladas 
 <a href="https://fluid.la/forms/aplicacion">aquí</a></p></div>
@@ -57,7 +56,7 @@ solo debes seguir las instrucciones detalladas
 Es opcional <b>sólo si no tienes experiencia laboral</b> y requiere un esfuerzo estimado de 3 a 5 min por periodo. 
 Para hacerla requieres haber finalizado la etapa anterior.</p>
 
-<p id="h_formLink" style="display:none;text-align:center">
+<p id="h_formLink">
 Para iniciar, 
 solo debes seguir las instrucciones detalladas 
 <a href="https://fluid.la/forms/periodo">
@@ -65,7 +64,7 @@ aquí
 </a>
 </p>
 </div>
-<script>"398453"==window.location.href.split("?")[1]?(document.getElementById("a_formLink").style.display="block",document.getElementById("etapa_a").style.backgroundColor="#ffffa6"):"987343"==window.location.href.split("?")[1]&&(document.getElementById("h_formLink").style.display="block",document.getElementById("etapa_h").style.backgroundColor="#ffffa6");</script>
+<script>document.getElementById("h_formLink").style.display="none",document.getElementById("a_formLink").style.display="none";var r=window.location.href.split("?")[1];"398453"==r?(document.getElementById("a_formLink").style.display="block",document.getElementById("etapa_a").style.backgroundColor="#ffffa6"):"987343"==r?(document.getElementById("h_formLink").style.display="block",document.getElementById("etapa_h").style.backgroundColor="#ffffa6"):"0062"==r&&(document.getElementById("etapa_c").style.backgroundColor="#ffffa6");</script>
 ++++
 == 7. Evaluaciones
 
@@ -88,7 +87,7 @@ es evidenciar sus fortalezas mediante el test Clifton StrengthsFinder.
 Esto es obligatorio y requiere un esfuerzo estimado de 40 a 45 min. 
 Para hacerla requieres haber finalizado la evaluación anterior. 
 Para comenzar, 
-debes notificarnos vía e-mail que ya llegaste a esta etapa.
+debes notificarnos vía e-mail a careers@autonomicmind.co
 
 == 8. Retos
 
@@ -112,7 +111,7 @@ solo debes seguir las instrucciones detalladas link:../empleos/retos-no-tecnicos
 
 == 9. Entrevistas
 
-. *Entrevista en Video (Opcional):* El objetivo de esta etapa 
+. *Entrevista en Video:* El objetivo de esta etapa 
 es demostrar su interés por pertenecer a FLUID mediante una entrevista virtual. 
 Requiere un esfuerzo estimado de 25 a 30 min. 
 Para hacerla requieres haber finalizado la etapa anterior. 
@@ -130,8 +129,7 @@ notifícanos vía e-mail a careers@autonomicmind.co
 * El objetivo de esta etapa 
 es participar en un auto-entrenamiento intensivo en retos de programación y de hacking, 
 financiado por FLUID. 
-Esto es obligatorio y el esfuerzo requerido es determinado según tu conocimiento. 
-Para hacerla requieres haber finalizado la etapa anterior. 
+Esto es obligatorio y el esfuerzo requerido es determinado según tu conocimiento.  
 Para iniciar, 
 notifícanos vía e-mail a careers@autonomicmind.co y leer las instrucciones detalladas  link:../empleos/inmersion/[aquí].
 
@@ -147,8 +145,8 @@ solo debes seguir las instrucciones detalladas link:../empleos/referencias-inver
 
 El objetivo de esta etapa 
 es presentar una prueba de polígrafo. 
-Debido a que nuestro negocio principal es la seguridad de la información, 
-puede que durante este proceso de selección o su relación laboral sea necesario la presentación de este tipo de pruebas. 
+Nuestro negocio principal es la seguridad de la información, 
+por lo cuál puede que en el proceso o su relación laboral sea necesario presentar este tipo de pruebas. 
 Esto es opcional y el esfuerzo requerido estimado es de 2 horas. 
 Para hacerla requieres haber finalizado la etapa anterior. 
 Para iniciar, 
@@ -180,4 +178,4 @@ En algunos casos se hace en menos de dos semanas.
 
 == Preguntas frecuentes
 
-* *¿Tienes dudas?*, te invitamos a leer nuestra sección de preguntas frecuentes link:../empleos/faq/[aquí]
+* *¿Tienes dudas?*, puedes leer nuestra sección de preguntas frecuentes link:../empleos/faq/[aquí]
