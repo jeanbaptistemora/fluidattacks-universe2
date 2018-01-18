@@ -138,7 +138,7 @@ Las excepciones a éstas reglas son:
 
 Un ejemplo de uso se muestra a continuación:
 
-image::slb_example.png[slb]
+image::slb-example.png[slb]
 
 Para mayor información sobre los SLB y cómo utilizarlos,
 puedes consultar las guías de http://rhodesmill.org/brandon/2012/one-sentence-per-line/[semantic linefeeds],

@@ -19,7 +19,7 @@ if pcregrep --color -Mnr '^== Referenc.*.*\n.*\n[A-Za-z]' content; then echo -e 
 if find content -iname '*.asc' | egrep '.*'; then echo -e "${GC}ERRORES: Extension \"asc\" no soportada.${NC}"; ERRORS=1;fi
 
 # Check that names do not have underscore
-if find content -iname '*_*' | egrep '.*'; then echo -e "${ 	GC}ERRORES: Usar guión alto '-' en vez de guión bajo '_'.${NC}"; ERRORS=1;fi
+if find content -iname '*_*' | egrep '.*'; then echo -e "${GC}ERRORES: Usar guión alto '-' en vez de guión bajo '_'.${NC}"; ERRORS=1;fi
 
 # Check every image is in PNG format
 if find content -iname '*.jpg' | egrep '.*'; then echo -e "${GC}ERRORES: Formato de imagenes debe ser \"png\".${NC}"; ERRORS=1;fi

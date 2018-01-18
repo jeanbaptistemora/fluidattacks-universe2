@@ -25,27 +25,45 @@
       {% if article.headline %}
         <h3 class="subheading">{{ article.headline }}</h3>
       {% endif %}
-      <span class="meta">
-        {% for author in article.authors %}
-          <img src="../../{{ THEME_STATIC_DIR }}/images/user.png" alt="{{ gettext('User icon') }}"><a href="../../{{ author.url }}">{{ author }}</a>
-        {% endfor %}<br/>
-        <img src="../../{{ THEME_STATIC_DIR }}/images/comment.png" alt="{{ gettext('Dialog box icon') }}"><a href="./#disqus_thread">{{ gettext('Comment') }}</a><br/>
-        <img src="../../{{ THEME_STATIC_DIR }}/images/folder.png" alt="{{ gettext('Folder icon') }}"><a href="../../category/{{ article.category }}.html">{{ article.category }}</a><br/>
-	<img src="../../{{ THEME_STATIC_DIR }}/images/calendar2.png" alt="{{ gettext('Calendar icon') }}"><a>{{ article.locale_date }}</a><br/>
-      </span>
+      <table class="meta-table">
+        <tr>
+          <td class="meta-data">
+            {% for author in article.authors %}
+              <img src="../../{{ THEME_STATIC_DIR }}/images/user.png" alt="{{ gettext('User icon') }}"><a href="../../{{ author.url }}">{{ author }}</a>
+            {% endfor %}<br/>
+          </td>
+          <td class="meta-data"> 
+            <img src="../../{{ THEME_STATIC_DIR }}/images/comment.png" alt="{{ gettext('Dialog box icon') }}"><a href="./#disqus_thread">{{ gettext('Comment') }}</a><br/>
+          </td>
+          <td class="meta-data">
+            <img src="../../{{ THEME_STATIC_DIR }}/images/folder.png" alt="{{ gettext('Folder icon') }}"><a href="../../category/{{ article.category }}.html">{{ article.category }}</a><br/>
+          </td>
+	  <td class="meta-data">
+            <img src="../../{{ THEME_STATIC_DIR }}/images/calendar2.png" alt="{{ gettext('Calendar icon') }}"><p>{{ article.locale_date }}</p><br/>
+          </td>
+        </tr>  
+      </table>
       {% if article.modified %}
         <span class="meta">{{ gettext('Updated on') }} {{ article.locale_modified }}</span>
       {% endif %}
       {% import 'translations.html' as translations with context %}
       {{ translations.translations_for(article) }}
       {{ article.content }}	
- 
-      <p><img class="imgwriter" src="../../images/authors/{{ article.writer }}.png" alt="{{ gettext('Author picture') }}">
-        <strong class="writer">
-          <a href="../../{{ article.author.url }}"><span>{{article.name}}</span></a>
-        </strong><br>{{article.about1}}
-        <br>{{article.about2}}
-      </p>
+      <br/>
+      <div class="authorimg">
+        <img class="imgwriter" src="../../images/authors/{{ article.writer }}.png" alt="{{ gettext('Author picture') }}">
+      </div>
+      <table class="authorinfo">
+        <tr><td>
+            <p class="writer"><a href="../../{{ article.author.url }}">{{article.name}}</a></p>
+        </td></tr>
+        <tr><td>
+          <p>{{article.about1}}</p>
+        </td></tr>
+        <tr><td>
+          <p>{{article.about2}}</p>
+        </td></tr>
+      </table>
 
       {% if article.share_post and article.status != 'draft' %}
         <section>
@@ -56,15 +74,13 @@
       <br/>
       {% if article.related_posts %}		
         <h4>{{ gettext('Related') }}</h4>
-          <section class="related">
-            <table><tr>
-              {% for related_post in article.related_posts %}
-                <td>	
-	          <img src="../{{ related_post.slug }}{{ related_post.featured_image }}" alt="related_post.alt"><br> 
-	          <a href="../../{{ related_post.url }}">{{ related_post.title }}</a>
-	        </td>
-              {% endfor %}
-           </tr></table>
+          <section class="sect-related">
+            {% for related_post in article.related_posts %}
+              <div class="related">	
+	        <img src="../{{ related_post.slug }}{{ related_post.featured_image }}" alt="related_post.alt"><br> 
+	        <a href="../../{{ related_post.url }}">{{ related_post.title }}</a>
+	      </div>
+            {% endfor %}
          </section>
        {% endif %}
        <hr>
@@ -78,24 +94,18 @@
          </section>
        {% endif %}
        <br />
-       <table class="tblnext">
-         <tr>
-           {% if article.prev_article %}
-             <td class="prev">
-               <div><a href="../../{{ article.prev_article.url}}">
-                 << {{ article.prev_article.title }}
-	       </a></div>
-             </td>
-           {% endif %}
-           {% if article.next_article %}
-             <td class="next">
-               <div><a href="../../{{ article.next_article.url}}">
-                 {{ article.next_article.title }} >>
-	       </a></div>
-             </td>
-           {% endif %}
-         </tr>
-       </table>
+       <div class="article-nav">
+         {% if article.prev_article %}
+           <div class="prev-article">
+             <a href="../../{{ article.prev_article.url}}"><< {{ article.prev_article.title }}</a>
+           </div>
+         {% endif %}
+         {% if article.next_article %}
+           <div class="next-article">
+             <a href="../../{{ article.next_article.url}}">{{ article.next_article.title }} >></a>
+           </div>
+         {% endif %}
+       </div>
        <br />	
        {% if DISQUS_SITENAME and SITEURL %}
          <hr class="hrcoments">

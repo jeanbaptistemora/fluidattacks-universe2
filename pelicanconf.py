@@ -82,7 +82,7 @@ lang_siteurls = {
 }
 REDIRECT_SAVE_AS = PAGE_SAVE_AS
 ASSET_BUNDLES = (
-  ('bundle', ['css/menu.sass', 'css/bootstrap.sass', 'css/clean-blog.sass', 'css/footer.sass', 'css/article.sass', 'css/pages.sass', 'css/responsive.sass', 'css/kb.sass'], {'filters': 'sass'}),
+  ('bundle', ['css/menu.sass', 'css/footer.sass', 'css/article.sass', 'css/pages.sass', 'css/kb.sass', 'css/base.sass', 'css/index.sass'], {'filters': 'sass'}),
 )
 
 # Disqus

@@ -1,0 +1,236 @@
+$font: 'Ubuntu', sans-serif
+$darkblue: rgba(29, 79, 114, 1)
+$darkgray: rgba(102, 102, 102, 1)
+$lightblue: rgba(0, 133, 161, 1)
+$lightgray: rgba(211, 211, 211, 1)
+$textblack: rgba(48, 48, 48, 1)
+$shadowgray: rgba(170, 170, 170, 1)
+$white: rgba(255, 255, 255, 1)
+
+html
+  font-family: $font
+
+body
+  background-color: $lightgray
+  line-height: 1.42857143
+  margin: 0
+
+.col-lg-8,
+.col-md-10
+  text-align: center
+  width: 100%
+
+.list-title
+  background-color: $white
+  border-top: 3px solid $darkblue
+  margin: 10px 21px 0
+  padding: 20px
+  width: auto
+
+.post-heading
+  color: $darkblue
+
+  h1
+    font-weight: 400
+
+  a
+    h3
+      font-weight: 400
+
+h1
+  font-size: 34px
+
+h2
+  font-size: 30px
+
+h3
+  font-size: 24px
+
+h4
+  font-size: 18px
+
+h1,
+h2,
+h3,
+h4
+  font-weight: 600
+  line-height: 1.1
+  margin: 20px 0 10px
+  text-transform: capitalize
+
+a
+  color: $darkblue
+  text-decoration: none
+
+  &:hover
+    color: $lightblue
+
+.imageblock
+  img
+    margin: 20px 0
+
+.olist
+  ol
+    font-size: 18px
+    padding-left: 20px
+
+    p
+      margin-top: 10px
+
+p
+  font-size: 18px
+  line-height: 29.75px
+  margin: 20px 0 0
+  text-align: left
+
+  strong
+    color: $textblack
+    font-weight: bold
+
+.div404
+  border-top: 3px solid $darkblue
+  box-shadow: 0 2px 2px $shadowgray
+  margin-bottom: 20px
+  padding-bottom: 10px
+  text-align: left
+  text-transform: capitalize
+
+img
+  max-width: 100%
+  vertical-align: middle
+
+table
+  border-collapse: separate
+
+  td,
+  th
+    background-color: $white
+    border-top: 3px solid $darkblue
+    padding: 20px
+    vertical-align: top
+
+.highlighttable
+  border-collapse: collapse
+  margin-top: 20px
+
+  pre
+    font-style: normal
+    overflow: unset
+    padding-left: 8px
+    text-align: left
+
+
+.highlight
+  pre
+    text-align: left
+
+ul
+  padding-left: 0
+
+  li
+    margin-top: -10px
+
+.ulist
+  margin-top: 15px
+  padding-left: 20px
+
+.quoteblock
+  border: 1px solid $lightgray
+  border-left: 3px solid $darkblue
+  color: $darkgray
+  font-size: 16px
+  font-style: italic
+  margin-top: 20px
+  padding: .05em 1.25em 1em
+  text-align: center
+
+pre
+  border: 1px solid $lightgray
+  border-left: 3px solid $darkblue
+  font-size: 16px
+  margin-top: 20px
+  overflow: auto
+  padding: .05em 1.25em 1em
+
+.hrcoments
+  border-top: 3px solid $darkblue
+
+//sass-lint:disable no-universal-selectors
+*,
+*::before,
+*::after
+  box-sizing: border-box
+//sass-lint:enable no-universal-selectors
+
+@media (min-width: 640px)
+  .list-title
+    margin: 10px 25px 0
+
+  .post-heading
+    display: flex
+
+    a
+      margin: auto 10px auto auto
+
+@media (min-width: 770px)
+  h1
+    font-size: 42px
+
+  h2
+    font-size: 34px
+
+  h3
+    font-size: 26px
+
+  h4
+    font-size: 21px
+
+  .title
+    font-size: 18px
+
+  .olist
+    .arabic
+      ol
+        font-size: 21px
+
+  p
+    font-size: 21px
+
+@media print
+  .menubar
+    display: none
+
+  .footer
+    display: none
+
+  .comments
+    display: none
+
+  .divarticle
+    section
+      display: none
+
+  hr
+    display: none
+
+  .tblnext
+    display: none
+
+  .hrcomments
+    display: none
+
+  .trent
+    display: table-row
+
+  .ent2
+    display: none
+
+  .tdent
+    display: table-cell
+    width: 25%
+
+  .tdresponsive
+    display: none
+
+  .tdborder
+    display: table-cell
