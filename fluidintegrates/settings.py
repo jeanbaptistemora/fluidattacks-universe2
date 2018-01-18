@@ -12,7 +12,7 @@ https://docs.djangoproject.com/en/1.10/ref/settings/
 # pylint: disable=E0402
 from . import SECRET_KEY_ENV, DB_USER, DB_PASSWD, DB_HOST, DB_PORT, \
          AWS_ACCESS_KEY, AWS_SECRET, AWS_REGION, MIXPANEL, INTERCOM, \
-         INTERCOM_SECURE_KEY_ENV, SLACK_BOT, GOOGLE_OAUTH2_KEY, \
+         INTERCOM_SECURE_KEY_ENV, SLACK_BOT, GOOGLE_OAUTH2_KEY, DEBUG_ENV, \
          GOOGLE_OAUTH2_SECRET, AZUREAD_OAUTH2_KEY, AZUREAD_OAUTH2_SECRET
 from boto3.session import Session
 import os
@@ -30,7 +30,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = SECRET_KEY_ENV # noqa
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = DEBUG_ENV!='False'
 
 ALLOWED_HOSTS = ["192.168.0.26", "localhost", "127.0.0.1", "fluid.la"]
 

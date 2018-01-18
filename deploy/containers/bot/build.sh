@@ -32,6 +32,7 @@ AZUREAD_OAUTH2_SECRET=${19}
 DRIVE_AUTHORIZATION=${20}
 FORMSTACK_TOKENS=${21}
 AWS_OUTPUT=${22}
+DEBUG_ENV=${23}
 # construir la imagen
 cp ../.vault.txt .
 cp -a ../common .
@@ -57,6 +58,7 @@ docker build --no-cache --build-arg ci_commit_ref_name="$CI_COMMIT_REF_NAME" \
             --build-arg drive_authorization="$DRIVE_AUTHORIZATION" \
             --build-arg formstack_tokens="$FORMSTACK_TOKENS" \
             --build-arg aws_output="$AWS_OUTPUT" \
+            --build-arg debug_env="$DEBUG_ENV" \
 						-t registry.gitlab.com/fluidsignal/integrates/bot:base .
 rm .vault.txt
 rm -rf common

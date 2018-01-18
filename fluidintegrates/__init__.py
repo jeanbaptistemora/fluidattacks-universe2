@@ -19,6 +19,7 @@ try:
     AZUREAD_OAUTH2_SECRET = os.environ['AZUREAD_OAUTH2_SECRET']
     DRIVE_AUTHORIZATION = os.environ['DRIVE_AUTHORIZATION']
     AWS_OUTPUT = os.environ['AWS_OUTPUT']
+    DEBUG_ENV = os.environ['DEBUG_ENV']
 except KeyError as e:
     print "Environment variable " + e.args[0] +  " doesn't exist"
     raise

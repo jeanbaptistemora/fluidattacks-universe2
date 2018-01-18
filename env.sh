@@ -22,4 +22,5 @@
 	env | grep DRIVE_AUTHORIZATION
 	env | grep FORMSTACK_TOKENS
 	env | grep AWS_OUTPUT
+	env | grep DEBUG_ENV
 } > "env".list
