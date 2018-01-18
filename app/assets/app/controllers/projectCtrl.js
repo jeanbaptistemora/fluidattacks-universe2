@@ -695,8 +695,6 @@ integrates.controller(
                         }
                     }
                 });
-                //Tracking mixpanel
-                mixPanelDashboard.trackFinding("ReadFinding", userEmail, $scope.finding.id);
                 $timeout($scope.goUp, 200);
             }
         };
@@ -1150,6 +1148,8 @@ integrates.controller(
                                 $("#evidence").removeClass("active");
                                 $("#exploitItem").removeClass("active");
                                 $("#exploit").removeClass("active");
+                                //Tracking mixpanel
+                                mixPanelDashboard.trackFinding("ReadFinding", userEmail, row.id);
                                 $scope.currentScrollPosition =  $(document).scrollTop();
                             },
                             cookieIdTable: "saveId",

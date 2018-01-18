@@ -580,8 +580,6 @@ integrates.controller("findingcontentCtrl", function($scope, $stateParams, $time
             $("#evidenceItem").on("click", function(){
               $('.equalHeight').matchHeight();
             });
-            //Tracking mixpanel
-            mixPanelDashboard.trackFinding("ReadFinding", userEmail, $scope.finding.id);
             $timeout($scope.goUp, 200);
         } else {
           $msg.error($translate.instant('proj_alerts.no_finding'));
