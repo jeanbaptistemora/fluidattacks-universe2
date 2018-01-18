@@ -7,22 +7,30 @@
 
 == Necesidad
 
-Analizar bytecode para determinar optimización en concatenación de Strings (Java)
+Analizar bytecode para determinar una adecuada optimización 
+en la concatenación de Strings (Java)
 
 == Contexto
 
-A continuación se describen las circunstancias bajo las cuales la siguiente 
-solución tiene sentido:
+A continuación se describen las circunstancias 
+bajo las cuales la siguiente solución tiene sentido:
 
 . Se está desarrollando una aplicación con Java 7 o anterior.
 
 == Solución
 
-. Al compilar una aplicación Java, en realidad lo que estamos haciendo es 
-generar instrucciones para la JVM.
+El bytecode son los tipos de instrucciones 
+que la máquina virtual Java espera recibir, 
+para posteriormente ser compiladas a lenguaje de maquina, 
+mediante un compilador JIT a la hora de su ejecución.
 
-. Es posible hacer el desensamblado del bytecode para determinar que tipo de 
-optimizaciones está utilizando el compilador de Java.
+. Entonces, al compilar una aplicación Java, 
+en realidad lo que estamos haciendo 
+es generar instrucciones para la JVM.
+
+. Es posible hacer el desensamblado del bytecode 
+para determinar que tipo de optimizaciones 
+está utilizando el compilador de Java.
 
 . Inicialmente comprobamos la versión instalada de nuestro entorno:
 +
@@ -38,8 +46,9 @@ javac 1.7.0_147
 1.7.0_147
 ----
 
-. A continuación tendremos dos códigos para comparar. El primero de ellos será 
-Main.java en el cual se usa la clase StringBuilder para concatenación de String:
+. A continuación tendremos dos códigos para comparar. 
+El primero de ellos será Main.java 
+en el cual se usa la clase StringBuilder para concatenación de String:
 +
 [source, java, linenums]
 ----
@@ -68,9 +77,9 @@ class Main {
 95000
 ----
 
-. El segundo código será el mismo programa anterior, pero se cambiará el uso de 
-StringBuilder por el operador de String +=, con el fin de determinar que 
-optimizaciones hace la JVM.
+. El segundo código será el mismo programa anterior, 
+pero se cambiará el uso de StringBuilder por el operador de String +=.
+Esto con el fin de determinar que optimizaciones hace la JVM.
 +
 [source, java, linenums]
 ----
@@ -96,9 +105,10 @@ class MainUsandoMas {
 95000
 ----
 
-. Para desensamblar el código utilizamos la herramienta javap con el argumento 
-`c.' Primero desensamblamos Main, a continuación se muestra un extracto de las 
-instrucciones, mostrando el ciclo:
+. Para desensamblar el código 
+utilizamos la herramienta javap con el argumento 'c'. 
+Primero desensamblamos Main, 
+a continuación se muestra un extracto de las instrucciones mostrando el ciclo:
 +
 [source, shell, linenums]
 ----
@@ -121,8 +131,9 @@ class Main {
 }
 ----
 
-. Ahora desensamblamos MainUsandoMas, a continuación se muestra un extracto de 
-las instrucciones que muestran en donde ser realiza el ciclo:
+. Ahora desensamblamos MainUsandoMas. 
+a continuación se muestra un extracto de las instrucciones 
+que muestran en donde ser realiza el ciclo:
 +
 [source, shell, linenums]
 ----
@@ -157,21 +168,29 @@ class MainUsandoMas {
 }
 ----
 
-. Como conclusiones de analizar las instrucciones de JVM de ambos programas 
-encontramos que, al compilar efectivamente se hace optimización del operador += 
-para utilizar StringBuilder en vez de instanciar String múltiples veces. Sin 
-embargo, no se hace del modo más óptimo, puesto que en cada iteración se 
-instancia de nuevo a StringBuilder y usa el método toString cada vez.
+. Como conclusiones después de analizar 
+las instrucciones de JVM de ambos programas encontramos que, 
+al compilar, efectivamente, se hace una optimización del operador += 
+para utilizar StringBuilder en vez de instanciar String múltiples veces. 
+Sin embargo, no se hace del modo más óptimo, 
+debido a que en cada iteración 
+se instancia de nuevo a StringBuilder 
+y usa el método toString cada vez que es llamado.
 
-. Debe tenerse en cuenta que la optimización durante compilación es una 
-característica opcional que dependerá de la implementación específica. Citando 
-[1], capítulo "15.18.1 String Concatenation Operator +": "To increase the 
-performance of repeated string concatenation, a Java compiler may use the 
-StringBuffer class or a similar technique to reduce the number of intermediate 
-String objects that are created by evaluation of an expression".
+. Debe tenerse en cuenta 
+que la optimización durante la compilación 
+es una característica opcional 
+la cual dependerá de una implementación específica. 
+Citando a [1], en el capítulo "15.18.1 String Concatenation Operator +": 
+"To increase the performance of repeated string concatenation, 
+a Java compiler may use the StringBuffer class 
+or a similar technique 
+to reduce the number of intermediate String objects 
+that are created by evaluation of an expression".
 
 == Referencias
 
+. https://es.wikipedia.org/wiki/Bytecode_Java[Bytecode Java]
 . http://download.oracle.com/otndocs/jcp/jls-7-mr3-fullv-oth-JSpec[Java Language Specification 7]
 . REQ.0159: El código debe utilizar contenedores o estructuras de datos 
 optimizadas.
