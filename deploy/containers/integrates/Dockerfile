@@ -8,12 +8,14 @@ ARG ci_commit_ref_name
 ARG aws_region
 ARG aws_access_key_dynamodb
 ARG aws_secret_key_dynamodb
+ARG formstack_tokens
 
 ENV DEBIAN_FRONTEND noninteractive      # instalación no interactiva
 ENV CI_COMMIT_REF_NAME=$ci_commit_ref_name
 ENV AWS_REGION=$aws_region
 ENV AWS_ACCESS_KEY_DYNAMODB=$aws_access_key_dynamodb
 ENV AWS_SECRET_KEY_DYNAMODB=$aws_secret_key_dynamodb
+ENV FORMSTACK_TOKENS=$formstack_tokens
 ENV TZ=America/Bogota
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
