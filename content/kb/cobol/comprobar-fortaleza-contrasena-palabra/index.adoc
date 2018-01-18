@@ -1,0 +1,267 @@
+:slug: kb/cobol/comprobar-fortaleza-contrasena-palabra/
+:eth: no
+:category: cobol
+:kb: yes
+
+= Comprobar Fortaleza de Contraseñas Tipo Palabra
+
+== Necesidad
+
+Comprobar fortaleza de contraseñas tipo palabra en COBOL.
+
+== Contexto
+
+A continuación se describe las circunstancias 
+bajo las cuales la siguiente solución tiene sentido:
+
+. Se está desarrollando una aplicación en COBOL.
+. Las contraseñas (tipo palabra) deben tener al menos 8 caracteres de longitud [1][7].
+. Las contraseñas (tipo palabra) deben tener al menos 1 letra minúscula [2][7].
+. Las contraseñas (tipo palabra) deben tener al menos 1 letra mayúscula [3][7].
+. Las contraseñas (tipo palabra) deben tener al menos 1 dígito numérico [4][7].
+. Las contraseñas (tipo palabra) deben tener al menos 1 carácter especial [5][7].
+
+== Solución
+
+. Para comprobar la fortaleza de una contraseña en COBOL 
+se implementará un procedimiento que recorrerá 
+carácter por carácter la contraseña ingresada, 
+si alguno de los requisitos 
+para contraseñas tipo palabras es incumplido, 
+el programa mostrará el mensaje "Requisito incumplido".
+
+. Definimos el nombre del programa 
+mediante la sentencia _IDENTIFICATION DIVISION_:
++
+[source,cobol,linenums]
+----
+      IDENTIFICATION DIVISION.
+      ******************
+      * Identification *
+      ******************
+      PROGRAM-ID. COBOLPASSR.
+----
++
+En este caso el nombre designado al programa es COBOLPASSR.
+
+. Creamos una clase especial de dato 
+el cual contiene los caracteres especiales:
++
+[source,cobol,linenums]
+----
+       ***************
+       * Environment *
+       ***************
+       ENVIRONMENT DIVISION.
+
+       SPECIAL-NAMES.
+           CLASS WS-SPECIAL IS
+                   ' ' THRU '/'
+                   ':' THRU '@'
+                   '[' THRU '`'.
+----
+
+. En la división de datos (DATA DIVISION), 
+declaramos los datos o variables a manejar:
+
+* W01-PASSWORD: Contiene la contraseña.
+
+* W02-COUNT: Almacena la posición del carácter que se desea analizar.
+
+* W03-LENGTH: Es la longitud de la contraseña 
+sin los espacios finales.
+
+* W04-CHAR: El carácter actual que se desea analizar.
+
+* W05-UCOUNT: Contador para los caracteres alfabéticos 
+que se encuentran en mayúscula.
+
+* W06-LCOUNT: Contador para los caracteres alfabéticos 
+que se encuentran en minúscula.
+
+* W07-NCOUNT: Contador para los caracteres numéricos.
+
+* W08-SCOUNT: Contador para los caracteres especiales.
+
+* W09-FLAG: Una bandera que indica si los requisitos se han cumplido.
+
++
+[source,cobol,linenums]
+----
+       ********
+       * Data *
+       ********
+       DATA DIVISION.
+
+       WORKING-STORAGE SECTION.
+       01 W01-PASSWORD PIC X(64) VALUE "".
+       01 W02-COUNT    PIC 9(02) VALUE 1.
+       01 W03-LENGTH   PIC 9(02) VALUE 0.
+       01 W04-CHAR     PIC X     VALUE "".
+       01 W05-UCOUNT   PIC 9(02) VALUE 0.
+       01 W06-LCOUNT   PIC 9(02) VALUE 0.
+       01 W07-NCOUNT   PIC 9(02) VALUE 0.
+       01 W08-SCOUNT   PIC 9(02) VALUE 0.
+       01 W09-FLAG     PIC 9     VALUE 1.
+           88 W09-FLAG-FALSE VALUE 0.
+           88 W09-FLAG-TRUE  VALUE 1.
+----
+
+. Obtenemos la contraseña ingresada por el usuario
+desde la entrada estándar (teclado):
++
+[source,cobol,linenums]
+----
+       ********
+       * Main *
+       ********
+       PROCEDURE DIVISION.
+       MAIN.
+           ACCEPT W01-PASSWORD.
+----
++
+Mediante la sentencia _ACCEPT_ capturamos 
+la contraseña ingresada por el usuario
+dentro de la variable W01-PASSWORD.
+
+. Se cuenta el número de espacios en blanco al final de la contraseña:
++
+[source,cobol,linenums]
+----
+           INSPECT FUNCTION REVERSE(W01-PASSWORD)
+                   TALLYING W03-LENGTH FOR LEADING SPACES.
+----
+
+. Calculamos la longitud real de la contraseña:
++
+[source,cobol,linenums]
+----
+           COMPUTE W03-LENGTH = FUNCTION LENGTH(W01-PASSWORD)
+                                - W03-LENGTH.
+----
+
+. Si la longitud de la contraseña 
+es menor a ocho caracteres, 
+entonces se incumple un requisito:
++
+[source,cobol,linenums]
+----
+           IF W03-LENGTH < 8 THEN
+               MOVE 0 TO W09-FLAG
+           END-IF.
+----
+
+. Si la longitud es de ocho o más caracteres, 
+entonces se verifica los requisitos restantes:
++
+[source,cobol,linenums]
+----
+           IF W09-FLAG-TRUE
+----
+
+. Recorremos carácter por carácter:
++
+[source,cobol,linenums]
+----
+               PERFORM UNTIL W02-COUNT > W03-LENGTH
+                   MOVE W01-PASSWORD(W02-COUNT:1) TO W04-CHAR
+----
+
+. Con las condiciones comprobamos 
+si el carácter es alfabético en mayúscula, 
+alfabético en minúscula, numérico o especial:
++
+[source,cobol,linenums]
+----
+                   IF W04-CHAR IS ALPHABETIC-UPPER
+                       COMPUTE W05-UCOUNT = W05-UCOUNT + 1
+                   ELSE
+                       IF W04-CHAR IS ALPHABETIC-LOWER
+                           COMPUTE W06-LCOUNT = W06-LCOUNT + 1
+                       ELSE
+                           IF W04-CHAR IS NUMERIC
+                               COMPUTE W07-NCOUNT = W07-NCOUNT + 1
+                           ELSE
+                               IF W04-CHAR IS WS-SPECIAL
+                                   COMPUTE W08-SCOUNT = W08-SCOUNT + 1
+                               END-IF
+                           END-IF
+                       END-IF
+                   END-IF
+----
+
+. Incrementamos el contador de la posición del carácter a analizar:
++
+[source,cobol,linenums]
+----
+                   COMPUTE W02-COUNT = W02-COUNT + 1
+               END-PERFORM
+           END-IF.
+----
+
+. Finalmente se comprueba el número de ocurrencias 
+para cada tipo de carácter:
++
+[source,cobol,linenums]
+----
+           IF W05-UCOUNT = 0 OR W06-LCOUNT = 0 OR
+              W07-NCOUNT = 0 OR W08-SCOUNT = 0
+               MOVE 0 TO W09-FLAG
+           END-IF.
+----
+
+. Mostramos el respectivo mensaje:
++
+[source,cobol,linenums]
+----
+           IF W09-FLAG-TRUE
+               DISPLAY "Requisito cumplido"
+           ELSE
+               DISPLAY "Requisito incumplido"
+           END-IF.
+
+           STOP RUN.
+----
+
+. Algunas pruebas con contraseñas comunes y no comunes:
+|===
+|Contraseña |Resultado
+
+|admin
+|false
+
+|1026102983
+|false
+
+|tex385
+|false
+
+|HolaMundo
+|false
+
+|1aA!
+|false
+
+|1aA!mmmm
+|true
+
+|lm123Dwde2##
+|true
+
+|===
+
+== Referencias
+
+. REQ.0126    Las contraseñas (tipo palabra) deben tener 
+al menos 8 caracteres de longitud.
+. REQ.0127    Las contraseñas (tipo palabra) deben tener 
+al menos 1 letra minúscula.
+. REQ.0128    Las contraseñas (tipo palabra) deben tener 
+al menos 1 letra mayúscula.
+. REQ.0129    Las contraseñas (tipo palabra) deben tener 
+al menos 1 dígito.
+. REQ.0130    Las contraseñas (tipo palabra) deben tener 
+al menos 1 carácter especial.
+. REQ.0131    Las contraseñas de acceso de un sistema a otro 
+deben tener una longitud superior a 20 caracteres.
+. https://www.paypal.com/us/selfhelp/article/Tips-for-creating-a-secure-password-FAQ3152[Tips for creating a secure password.]
