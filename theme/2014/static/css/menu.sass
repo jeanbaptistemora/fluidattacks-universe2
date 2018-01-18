@@ -9,6 +9,10 @@ $white: rgba(255, 255, 255, 1)
   line-height: 1
   z-index: 0
 
+.m-closed,
+.sm-closed
+  display: none
+
 .m-link
   color: $white
   display: block
@@ -23,9 +27,10 @@ $white: rgba(255, 255, 255, 1)
     color: $white
     text-decoration: none
 
-.m-open
+.m-opened
   background: $submenublue
   border-top: 5px solid $darkblue
+  display: block
   margin: 0
   padding: 0
   z-index: -1
@@ -96,8 +101,9 @@ $white: rgba(255, 255, 255, 1)
     color: $white
     text-decoration: none
 
-.sm-open
+.sm-opened
   border-top: 0
+  display: block
   padding: 0
   position: relative
   z-index: 1
@@ -159,15 +165,10 @@ $white: rgba(255, 255, 255, 1)
     &:hover
       ul
         background: $menublue
-
-        li
-          border-top: 1px dotted $dottedblue
+        display: block
 
       &::before
         display: none
-
-      .sm-link
-        color: $white
 
     &::before
       background: $white
@@ -187,7 +188,7 @@ $white: rgba(255, 255, 255, 1)
       top: 35px
       width: 8px
 
-  .m-open
+  .m-opened
     background: $menublue
     border-top: 0
 
@@ -199,19 +200,13 @@ $white: rgba(255, 255, 255, 1)
   .menu-button
     display: none
 
-  .sm-open
-    background: transparent
-    border: 0
+  .sm-opened
     display: none
     position: absolute
 
     li
-      border: 0
       min-width: 260px
       padding-top: 0
-
-      a
-        color: transparent
 
   .submenu-button
     display: none
