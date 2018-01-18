@@ -9,8 +9,8 @@ services:
 
 before_script:
     - echo $VAULT > /tmp/.vault.txt
-    - mkdir terraform/vars && echo $AWS_VARS > terraform/vars/aws.tfvars
-    - echo $KEY_SERVES > terraform/vars/fluidtestingserves.pem
+    - mkdir infrastructure/vars && echo $AWS_VARS > infrastructure/vars/aws.tfvars
+    - echo $KEY_SERVES > infrastructure/vars/fluidtestingserves.pem
     - docker login registry.gitlab.com -u $DOCKER_USER -p $DOCKER_PASS
 
 codequality:
@@ -53,13 +53,13 @@ test_terraform:
    stage: test
    before_script:
       - apk update && apk add curl
-      - curl -o terraform.zip https://releases.hashicorp.com/terraform/0.10.6/terraform_0.10.6_linux_amd64.zip
+      - curl -o terraform.zip https://releases.hashicorp.com/terraform/0.11.2/terraform_0.11.2_linux_amd64.zip
       - unzip terraform.zip && rm terraform.zip
       - cp terraform /bin/terraform
-      - curl -Lo tflint.zip https://github.com/wata727/tflint/releases/download/v0.4.2/tflint_linux_amd64.zip
+      - curl -Lo tflint.zip https://github.com/wata727/tflint/releases/download/v0.5.4/tflint_linux_amd64.zip
       - unzip tflint.zip && rm tflint.zip
       - install tflint /bin
-      - cd terraform
+      - cd infrastructure
    script:
       - tflint --var-file="vars/aws.tfvars"
       - terraform init
