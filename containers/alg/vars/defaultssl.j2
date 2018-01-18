@@ -60,7 +60,8 @@
         Substitute "s|http://blog.fluid.la/|https://fluid.la/web/|i"
 
     AddOutputFilterByType INFLATE;SUBSTITUTE;DEFLATE text/html text/plain text/xml
-	Substitute "s|http://|https://|i"
+        Substitute "s|http://(\w+)\.fluid.la/(.*)|https://$1.fluid.la/$2|i"
+        Substitute "s|http://fluid.la/(.*)|https://fluid.la/$1|i"
     ErrorLog {{ error_log }}
     CustomLog {{ custom_log }} combined
 	LogLevel {{ log_level }}
