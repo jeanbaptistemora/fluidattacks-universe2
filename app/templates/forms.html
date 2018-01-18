@@ -4,6 +4,14 @@
 			<li id="progressItem" class="active" style="font-size:16px;">
 				<a href="#progress" data-toggle="tab" aria-expanded="false">
 				<i class="icon s7-refresh-2"></i>&nbsp;{% templatetag openvariable %} 'forms.progress' | translate {% templatetag closevariable %}</a>
+				<script type="text/javascript">
+				    if (location.toString().indexOf("localhost:8000") == -1)
+				        mixpanel.track(
+				            "Forms", {
+				                "Email": "{{ request.session.username }}",
+				            }
+				        );
+				</script>
 			</li>
 			<li id="findingsItem" class="" style="font-size:16px;">
 				<a href="#findings" data-toggle="tab" aria-expanded="false">

@@ -778,6 +778,10 @@ integrates.controller("findingcontentCtrl", function($scope, $stateParams, $time
                         var comment = projectFtry.addComment($scope.finding.id, data);
                         comment.then(function(response){
                           if(!response.error){
+                            //Tracking mixpanel
+                            var org = Organization.toUpperCase();
+                            var projt = $stateParams.project.toUpperCase();
+                            mixPanelDashboard.trackFindingDetailed("FindingNewComment", userName, userEmail, org, projt, $scope.finding.id);
                             setTimeout(function() {
                               success(data);
                             }, 500);
@@ -916,6 +920,9 @@ integrates.controller("findingcontentCtrl", function($scope, $stateParams, $time
                       //Capturar la Promisse
                       req.then(function(response){
                           if(!response.error){
+                              var org = Organization.toUpperCase();
+                              var projt = $stateParams.project.toUpperCase();
+                              mixPanelDashboard.trackFindingDetailed("FindingUpdateTreatment", userName, userEmail, org, projt, newData.id);
                               $msg.success($translate.instant('proj_alerts.updated_treat'),$translate.instant('proj_alerts.congratulation'));
                               $uibModalInstance.close();
                               location.reload();
