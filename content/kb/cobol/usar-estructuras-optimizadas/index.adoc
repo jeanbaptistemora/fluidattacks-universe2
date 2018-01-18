@@ -1,0 +1,179 @@
+:slug: kb/cobol/usar-estructuras-optimizadas/
+:eth: no
+:category: cobol
+:kb: yes
+
+= Usar Estructuras Optimizadas
+
+== Necesidad
+
+Usar la instrucción COPY 
+para incluir estructuras de datos optimizadas en COBOL.
+
+== Contexto
+
+A continuación se describe las circunstancias 
+bajo las cuales la siguiente solución tiene sentido:
+
+. Se está desarrollando una aplicación en COBOL.
+. El código debe utilizar contenedores 
+o estructuras de datos optimizadas [1].
+
+== Solución
+
+. La sentencia _COPY_ es muy diferente 
+a otras sentencias en COBOL. 
+Mientras que otras sentencias 
+son ejecutadas en tiempo de ejecución, 
+la sentencia COPY es ejecutada en tiempo de compilación.
+. Esta sentencia es similar a la sentencia include de C/C++, 
+el código contenido en el miembro declarado 
+en la sentencia COPY 
+es copiado directamente en el código fuente 
+y posteriormente compilado. 
+Este proceso ayuda a mantener estructuras de datos optimizadas 
+y centralizadas para su posterior uso.
+En la siguiente solución encontrará 
+la forma de copiar código almacenado 
+en bibliotecas reusables desde COBOL.
+. Creamos un nuevo miembro llamado QPHONE 
+en la biblioteca FLUID del archivo QRPGSRC.
+Este archivo contiene una estructura de datos optimizada 
+para el almacenamiento de registros telefónicos:
+
+* PHONE-LAST-NAME: Contiene el apellido.
+
+* PHONE-FIRST-NAME: Contiene el nombre.
+
+* PHONE-NUMBER: Contiene el número telefónico.
+
++
+[source,cobol,linenums]
+----
+      *** START HEADER FILE SPECIFICATIONS ****************************
+      *
+      *Header File Name: QPHONE.CBLINC
+      * LANGUAGE:     COBOL                                             *
+      *
+      *Descriptive Name: Estructura de datos para registros telefonicos
+      *
+      *Description: Estructura reutilizable para registros telefonicos
+      *
+      *** END HEADER FILE SPECIFICATIONS ******************************
+
+       01 PHONE-RECORD.
+           05 PHONE-LAST-NAME  PIC X(10).
+           05 PHONE-FIRST-NAME PIC X(10).
+           05 PHONE-NUMBER     PIC X(10).
+----
+. En el momento de crear un nuevo programa 
+que requiera el uso de registros telefónicos, 
+se incluye el código reusable 
+a través de la sentencia COPY.
+. Definimos el nombre del programa 
+mediante la sentencia _IDENTIFICATION DIVISION_:
++
+[source,cobol,linenums]
+----
+       IDENTIFICATION DIVISION.
+      ******************
+      * Identification *
+      ******************
+       PROGRAM-ID. COBOLCOPYB.
+----
+En este caso el nombre designado al programa es COBOLCOPYB.
+. En la división de datos _DATA DIVISION_ 
+hacemos uso de la sentencia COPY 
+la cual debe seguir el siguiente formato [2]:
+
+image::copy-format.png[formato]
+
+. Si _file-name_ no es especificado, 
+el archivo QCBLLESRC es asumido por defecto. 
+Puede especificar el nombre del archivo 
+y la biblioteca usando el formato MYLIB-MYFILE.
+. Copiamos el código contenido 
+en el miembro QPHONE que se encuentra 
+en la biblioteca FLUID del archivo QRPGSRC:
++
+[source,cobol,linenums]
+----
+      ********
+      * Data *
+      ********
+       DATA DIVISION.
+       WORKING-STORAGE SECTION.
+       COPY QPHONE OF FLUID-QRPGSRC.
+----
+. Hacemos uso de la estructura PHONE-RECORD:
++
+[source,cobol,linenums]
+----
+      ********
+      * Main *
+      ********
+       PROCEDURE DIVISION.
+       MAIN.
+           MOVE "Apellido  Nombre    3001234982"
+           TO PHONE-RECORD.
+----
+. Mostramos los datos usando cada variable de la estructura:
++
+[source,cobol,linenums]
+----
+           DISPLAY "Nombre: " PHONE-FIRST-NAME.
+           DISPLAY "Apellido: " PHONE-LAST-NAME.
+           DISPLAY "Numero tel: " PHONE-NUMBER.
+
+           STOP RUN.
+----
+. La biblioteca QSYSINC provee todos los archivos de inclusión 
+para las interfaces de programación de aplicaciones 
+incluidas en el sistema operativo. 
+Para el lenguaje de programación COBOL, 
+los archivos de inclusión 
+se encuentran en la biblioteca QSYSINC del archivo QCBLLESRC.
+. A través del comando para trabajar con miembros 
+podemos obtener la lista completa 
+de archivos de inclusión para COBOL:
++
+[source,cobol,linenums]
+----
+WRKMBRPDM FILE(QSYSINC/QCBLLESRC)
+----
+
+* Algunos de ellos estan especificados en la siguiente tabla:
+
+|===
+|Nombre |Descripción
+
+|DSQCOMMB
+|API de administración de sentencias
+
+|JNI
+|Interfaz nativa de Java
+
+|QC3CCI
+|API de Criptografía
+
+|QSY
+|API de seguridad
+
+|QTEDBGS
+|API de depuración
+
+|QUS
+|API de espacio de usuario
+
+|QUSEC
+|Parámetro de la interfaz para errores de código
+
+|===
+
+* Código ejemplo: https://dyzz9obi78pm5.cloudfront.net/app/image/id/54f4cb9a7cb829ba544f51f6/n/Estructurasoptimizadas.zip[Estructurasoptimizadas.zip]
+
+== Referencias
+
+. REQ.0159: El código debe utilizar contenedores 
+o estructuras de datos optimizadas.
+. https://www.ibm.com/support/knowledgecenter/ssw_i5_54/books/sc092539.pdf[ILE COBOL Reference, página 586.]
