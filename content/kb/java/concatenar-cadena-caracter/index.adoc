@@ -11,39 +11,45 @@ Concatenar cadenas de caracteres sin afectar el rendimiento (Java)
 
 == Contexto
 
-A continuación se describen las circunstancias bajo las cuales la siguiente 
-solución tiene sentido:
+A continuación se describen las circunstancias 
+bajo las cuales la siguiente solución tiene sentido:
 
 . Se sabe cuando usar la clase StringBuilder frente a StringBuffer.
-. Se está desarrollando en Java (1.5+). Si se está desarrollando en Java 
-1.0 - 1.4, se debe utilizar StringBuffer en vez de StringBuilder.
+. Se está desarrollando en Java (1.5+). 
+Si se está desarrollando en Java 1.0 - 1.4, 
+se debe utilizar StringBuffer en vez de StringBuilder.
 . Se busca una comparación aproximada. 
 . La concatenación se hace de forma iterativa o recursiva.
 
 == Solución
 
-. Java dispone de dos tipos de clases para representar las cadenas de 
-caracteres:
+. Java dispone de dos tipos de clases 
+para representar las cadenas de caracteres:
 * Cadenas mutables: Una vez instanciada una cadena su valor puede cambiar.
 * Cadenas inmutables: Una vez instanciada una cadena su valor no puede cambiar.
 
-. Teniendo en consideración lo anterior, es ideal utilizar cadenas inmutables 
-cuando no se realizaran modificaciones (concatenaciones, reducción, entre 
-otras) sobre las cadenas, y cadenas mutables en caso contrario.
+. Teniendo en consideración lo anterior, 
+es ideal utilizar cadenas inmutables 
+cuando no se realizaran modificaciones 
+(concatenaciones, reducción, entre otras) sobre las cadenas, 
+y cadenas mutables en caso contrario.
 
-. El uso de estos lineamientos evita la creación de objetos innecesarios cuando 
-se realizan operaciones entre cadenas inmutables [1].
+. El uso de estos lineamientos 
+evita la creación de objetos innecesarios 
+cuando se realizan operaciones entre cadenas inmutables [1].
 
-. Concatenar cadenas de caracteres mediante el operador + es adecuado para unir 
-pocos Strings, teniendo en cuenta que la JVM cuenta con optimizadores que 
-pueden hacer uso, por ejemplo, de StringBuilder.
+. Concatenar cadenas de caracteres mediante el operador + 
+es adecuado para unir pocos Strings, 
+teniendo en cuenta que la JVM cuenta con optimizadores 
+que pueden hacer uso, por ejemplo, de StringBuilder.
 
-. Para un gran número de iteraciones, se recomienda hacer uso del método append 
-de las clases StringBuilder (no sincronizada) o StringBuffer (sincronizada). De 
-este modo solo es necesario la creación de una sola instancia [2].
+. Para un gran número de iteraciones, 
+se recomienda hacer uso del método append 
+de las clases StringBuilder (no sincronizada) o StringBuffer (sincronizada). 
+De este modo solo es necesario la creación de una sola instancia [2].
 
-. Para el siguiente código que busca ejemplificar el uso de StringBuilder y 
-medir su rendimiento.
+. Para el siguiente código que busca ejemplificar el uso de StringBuilder 
+y medir su rendimiento.
 
 . Se empieza por definir los objetos que serán usados más adelante.
 +
@@ -64,8 +70,8 @@ StringBuilder strBuilder = new StringBuilder();
 ----
 
 . Para agregar múltiples objetos String se debe crear operaciones atómicas 
-donde se ingrese cada objeto String por separado. Vemos como en el ciclo 
-siguiente se agrega el String consecutivamente.
+donde se ingrese cada objeto String por separado. 
+Vemos como en el ciclo siguiente se agrega el String consecutivamente.
 +
 [source, java, linenums]
 ----
@@ -75,16 +81,16 @@ for (int i=0; i < numIteraciones ;i++){
 }
 ----
 
-. Finalmente para convertir objetos StringBuilder a String se usa el método 
-toString.
+. Finalmente, para convertir objetos StringBuilder a String 
+se usa el método toString.
 +
 [source, java, linenums]
 ----
 tmpString = strBuilder.toString();
 ----
 
-. Se calcula el tiempo de ejecución para comparar con la aplicación que no usa 
-StringBuilder.
+. Se calcula el tiempo de ejecución 
+para comparar con la aplicación que no usa StringBuilder.
 +
 [source, java, linenums]
 ----
@@ -94,8 +100,9 @@ StringBuilder.
 }
 ----
 
-. Se observa la diferencia en milisegundos de 4 frente a 484, corriendo la 
-aplicación en un procesador Core i5 de 2.40GHz con 4GB de memoria RAM.
+. Se observa la diferencia en milisegundos de 4 frente a 484, 
+corriendo la aplicación en un procesador Core i5 de 2.40GHz 
+con 4GB de memoria RAM.
 +
 [source, shell, linenums]
 ----
