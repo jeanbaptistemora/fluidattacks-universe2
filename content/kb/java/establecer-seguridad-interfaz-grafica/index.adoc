@@ -7,55 +7,62 @@
 
 == Necesidad
 
-Establecer políticas de seguridad mediante interfaz gráfica en Java para 
-mantener el principio del privilegio mínimo
+Establecer políticas de seguridad mediante interfaz gráfica en Java 
+para mantener el principio del mínimo privilegio.
 
 == Contexto
 
-A continuación se describen las circunstancias bajo las cuales la siguiente 
-solución tiene sentido:
+A continuación se describen las circunstancias 
+bajo las cuales la siguiente solución tiene sentido:
 
 . Se está desarrollando una aplicación en Java.
-. Se desea establecer una política de seguridad para mantener el principio del 
-privilegio mínimo.
+. Se desea establecer una política de seguridad 
+para mantener el principio del mínimo privilegio.
 
 == Solución
 
-. La plataforma Java fue diseñada con un fuerte énfasis en seguridad. En 
-esencia, el lenguaje Java en sí es de tipo seguro y provee un recolector de 
-basura automático, mejorando la robustez del código de la aplicación. Una carga 
-de clases segura y un mecanismo de verificación aseguran que solo código 
-legítimo se ejecute. [1]
+. La plataforma Java fue diseñada con un fuerte énfasis en seguridad. 
+En esencia, el lenguaje Java en sí es de tipo seguro 
+y provee un recolector de basura automático, 
+mejorando la robustez del código de la aplicación. 
+Una carga de clases segura y un mecanismo de verificación 
+aseguran que solo código legítimo se ejecute. [1]
 
-. De acuerdo al principio del mínimo privilegio, el código no puede tener más 
-privilegios que aquellos que se tiene para ejecutar una determinada tarea. Debe 
-limitarse el uso de secciones de código que requieran elevar privilegios y 
-establecer políticas de seguridad sobre las clases de la aplicación. [2]
+. De acuerdo al principio del mínimo privilegio, 
+el código no puede tener más privilegios 
+que aquellos que se tiene para ejecutar una determinada tarea. 
+Debe limitarse el uso de secciones de código que requieran elevar privilegios 
+y establecer políticas de seguridad sobre las clases de la aplicación. [2]
 
-. La arquitectura de Java permite establecer políticas de seguridad sobre 
-funcionalidades potencialmente peligrosas, existen permisos sobre: audio, 
-autenticación, entorno gráfico, delegación, manejo de archivos, registro de 
-eventos, administración de red, credenciales, sockets, SSL, entre otros.
+. La arquitectura de Java permite establecer políticas de seguridad 
+sobre funcionalidades potencialmente peligrosas, 
+existen permisos sobre: audio, autenticación, entorno gráfico, delegación, 
+manejo de archivos, registro de eventos, administración de red, credenciales, 
+sockets, SSL, entre otros.
 
 . En el siguiente diagrama se muestra la arquitectura de Java. [3]
 +
 image::arquitectura.png[arquitectura java]
 
-. Las clases pasan por un primer control donde se verifica que el bytecode esté 
-bien formado. Luego, el cargador de clase busca y carga dinámicamente la clase 
-si ésta existe, el programador puede usar el paquete de seguridad de Java para 
-establecer permisos en tiempo de ejecución [4]. Finalmente, y antes de que se 
-haga la llamada al sistema operativo, el administrador de seguridad y el 
-controlador de acceso, verifican que la aplicación tenga los privilegios 
-necesarios para ejecutar determinadas acciones.
+. Las clases pasan por un primer control 
+donde se verifica que el bytecode esté bien formado. 
+Luego, el cargador de clase 
+busca y carga dinámicamente la clase si ésta existe, 
+el programador puede usar el paquete de seguridad de Java 
+para establecer permisos en tiempo de ejecución [4]. 
+Finalmente, y antes de que se haga la llamada al sistema operativo, 
+el administrador de seguridad y el controlador de acceso, 
+verifican que la aplicación tenga los privilegios necesarios 
+para ejecutar determinadas acciones.
 
-. Este último filtro es definido por la política de seguridad que establece el 
-navegador, la máquina virtual o el administrador del sistema. [5]
+. Este último filtro es definido por la política de seguridad 
+que establece el navegador, 
+la máquina virtual o el administrador del sistema. [5]
 
 . A continuación un pequeño ejemplo para evidenciar la política de seguridad.
 
-. Empezamos importando las clases que pertenecen a la biblioteca io y 
-definiendo el nombre de la clase principal.
+. Empezamos importando las clases que pertenecen a la biblioteca io 
+y definiendo el nombre de la clase principal.
 +
 [source, java, linenums]
 ----
@@ -74,8 +81,8 @@ public static void main(String[] args) {
 }
 ----
 
-. Construimos el método readFile e inicializamos los buffer de lectura y 
-escritura.
+. Construimos el método readFile 
+e inicializamos los buffer de lectura y escritura.
 +
 [source, java, linenums]
 ----
@@ -93,8 +100,9 @@ try {
   File file = new File(path);
 ----
 
-. Leemos el archivo y mostramos su contenido. Finalmente, y para la 
-demostración, agregamos una línea con un nombre de usuario y contraseña.
+. Leemos el archivo y mostramos su contenido. 
+Finalmente, y para la demostración, 
+agregamos una línea con un nombre de usuario y contraseña.
 +
 [source, java, linenums]
 ----
@@ -105,8 +113,8 @@ while ((text = reader.readLine()) != null) {
 }
 ----
 
-. Capturamos las excepciones necesarias, cerramos los recursos y terminamos el 
-desarrollo de la aplicación:
+. Capturamos las excepciones necesarias, 
+cerramos los recursos y terminamos el desarrollo de la aplicación:
 +
 [source, java, linenums]
 ----
@@ -145,8 +153,8 @@ Este documento contiene informacion sensible
 dcorrea:123456
 ----
 
-. Al ejecutar por consola la aplicación, nos muestra el contenido y finaliza 
-normalmente:
+. Al ejecutar por consola la aplicación, 
+nos muestra el contenido y finaliza normalmente:
 +
 [source, shell, linenums]
 ----
@@ -157,28 +165,31 @@ dcorrea:123456
 harold:admin
 ----
 
-. El problema radica en que se ha escrito contenido en el archivo sensible 
-"harold:admin", y esto puede generar problemas de seguridad si la entrada de 
-datos no es correctamente validada. 
+. El problema radica en que se ha escrito contenido 
+en el archivo sensible "harold:admin", 
+y esto puede generar problemas de seguridad 
+si la entrada de datos no es correctamente validada. 
 
-. Para eliminar el problema se establecerá la política de seguridad de solo 
-lectura para el archivo sensible, para esto se usará la herramienta policytool 
-que viene con el JDK. [6]
+. Para eliminar el problema se establecerá la política de seguridad 
+de solo lectura para el archivo sensible, 
+para esto se usará la herramienta policytool que viene con el JDK. [6]
 
-. En el pantallazo inicial vamos a la opción archivo, y creamos un archivo que 
-contendrá las políticas de seguridad.
+. En el pantallazo inicial vamos a la opción archivo, 
+y creamos un archivo que contendrá las políticas de seguridad.
 +
 image::policytool.png[pantalla inicial]
 
-. El siguiente paso es agregar una entrada, para ello, damos clic en Agregar 
-entrada de norma. La base de códigos es la ruta de las clases sobre las cuales 
-aplicaremos la política de seguridad.
+. El siguiente paso es agregar una entrada, para ello, 
+damos clic en Agregar entrada de norma. 
+La base de códigos es la ruta de las clases 
+sobre las cuales aplicaremos la política de seguridad.
 +
 image::policytool-1.png[agregar entrada]
 
-. Aplicaremos una política para el manejo de archivos (FilePermission), el 
-nombre de destino es la ruta del archivo o los archivos sobre los cuales la 
-política tiene efecto, y las acciones read, write, delete, execute.
+. Aplicaremos una política para el manejo de archivos (FilePermission), 
+el nombre de destino es la ruta del archivo o los archivos 
+sobre los cuales la política tiene efecto, 
+y las acciones read, write, delete, execute.
 +
 image::policytool-2.png[permisos]
 
@@ -192,16 +203,17 @@ grant codeBase "file:/D:/FLUID/" {
   permission java.io.FilePermission "D:\\FLUID\\sensible.txt", "read";};
 ----
 
-. Para ejecutar la aplicación con la política se deben especificar los 
-parámetros java.security.manager y java.security.policy:
+. Para ejecutar la aplicación con la política, 
+se deben especificar los parámetros 
+java.security.manager y java.security.policy:
 +
 [source, shell, linenums]
 ----
 java -Djava.security.manager -Djava.security.policy==politica.seguridad Politica
 ----
 
-. El resultado tal como se esperaba es una violación de seguridad, se captura 
-la excepción y se muestra el error:
+. El resultado tal como se esperaba es una violación de seguridad, 
+se captura la excepción y se muestra el error:
 +
 [source, shell, linenums]
 ----
@@ -216,5 +228,5 @@ Write Denied
 . https://docs.oracle.com/javase/7/docs/technotes/guides/security/permissions.html[Permissions in the Java Development Kit]
 . https://docs.oracle.com/javase/7/docs/technotes/guides/security/PolicyFiles.html[Default Policy Implementation and Policy File Syntax]
 . https://docs.oracle.com/javase/tutorial/security/tour1/wstep1.html[Start Policy Tool]
-. REQ.0264: Los privilegios para objetos nuevos deben establecerse según el 
-principio de mínimo privilegio.
+. REQ.0264: Los privilegios para objetos nuevos 
+deben establecerse según el principio de mínimo privilegio.
