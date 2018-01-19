@@ -11,24 +11,25 @@ Definir Character-Set y Content-Type explícito en servlets para Java EE.
 
 == Contexto
 
-A continuación se describen las circunstancias bajo las cuales la siguiente 
-solución tiene sentido:
+A continuación se describen las circunstancias 
+bajo las cuales la siguiente solución tiene sentido:
 
-. Se está desarrollando una aplicación web usando la tecnología de servlets de 
-Java.
+. Se está desarrollando una aplicación web 
+usando la tecnología de servlets de Java.
 . Se dispone de un contenedor de servlets.
 
 == Solución
 
-. Para evitar que el navegador web tenga que adivinar el conjunto de caracteres 
-usados, se recomienda especificarlo directamente, en especial para archivos 
-generados dinámicamente.
+. Para evitar que el navegador web 
+tenga que adivinar el conjunto de caracteres usados, 
+se recomienda especificarlo directamente, 
+en especial para archivos que son generados dinámicamente.
 
-. Las consecuencias de no usar un Char-set específico pueden resultar en 
-vulnerabilidades XSS [1].
+. Las consecuencias de no usar un Char-set específico 
+pueden resultar en vulnerabilidades tipo XSS [1].
 
-. Dentro del directorio para despliegue de de aplicaciones (webapps), crear la 
-siguiente estructura de directorios:
+. Dentro del directorio para despliegue de las aplicaciones (webapps), 
+crear la siguiente estructura de directorios:
 +
 [source, bash, linenums]
 ----
@@ -43,8 +44,9 @@ test/
 TestServlet.java
 ----
 
-. El descriptor de despliegue web.xml define cuales servlets existen mediante 
-<servlet-name> y que clase lo representa usando <servletclass>.
+. El descriptor de despliegue web.xml 
+define cuales servlets existen mediante <servlet-name> 
+y que clase lo representa usando <servletclass>.
 +
 [source, xml, linenums]
 ----
@@ -71,9 +73,10 @@ TestServlet.java
 </web-app>
 ----
 
-. El código del servlet se escribe en TestServlet.java, donde para asignar el 
-Char-set deseado se usa el método setContentType del objeto response. Se 
-recomienda definir también el tipo de contenido simultáneamente.
+. El código del servlet se escribe en TestServlet.java, 
+donde para asignar el Char-set deseado 
+se usa el método setContentType del objeto response. 
+Se recomienda definir también el tipo de contenido simultáneamente.
 +
 [source, java, linenums]
 ----
@@ -93,22 +96,27 @@ public class TestServlet extends HttpServlet {
 }
 ----
 
-. Para compilar el servlet, dado que el API de servlets no es parte del JDK 
-estándar, se debe usar un JAR que contenga los paquetes necesarios. Por ejemplo 
-el contenedor de servlets tomcat los provee en su carpeta lib, así que para 
-compilar usando ese JAR como parte del classpath se ejecutaría:
+. Para compilar el servlet, 
+dado que el API de servlets no es parte del JDK estándar, 
+se debe usar un JAR que contenga los paquetes necesarios. 
+Por ejemplo, el contenedor de servlets tomcat 
+los provee en su carpeta lib, 
+así que para compilar usando ese JAR como parte del classpath se ejecutaría:
 +
 [source, bash, linenums]
 ----
 % javac -cp ".:/usr/share/tomcat7/lib/servlet-api.jar" test/TestServlet.java
 ----
 
-. Algunos contenedores de servlets se deben detener e iniciar nuevamente antes 
-de que reconozcan los nuevos servlets, aunque si es solo modificación y 
-recompilación de servlets existentes, no debería ser necesario. En tomcat por 
-ejemplo la configuración que lo permite es modificando el archivo 
-conf/context.xml para afectar a todas las aplicaciones, o si es específico para 
-una aplicación, se deberá utilizar el META-INF/context.xml de esta:
+. Algunos contenedores de servlets se deben detener e iniciar nuevamente 
+antes de que reconozcan los nuevos servlets, 
+aunque si es solo modificación y recompilación de servlets existentes, 
+no debería ser necesario. 
+En tomcat, por ejemplo, la configuración que lo permite 
+es modificando el archivo conf/context.xml 
+para afectar a todas las aplicaciones, 
+o si es específico para una aplicación, 
+se deberá utilizar el META-INF/context.xml de esta:
 +
 [source, xml, linenums]
 ----
@@ -121,10 +129,10 @@ una aplicación, se deberá utilizar el META-INF/context.xml de esta:
   </Context>
 ----
 
-. Para detectar errores durante el desarrollo, se recomienda revisar los 
-archivos de logs del contenedor de servlets. En linux, una forma de ver como 
-cambia dinámicamente el final de un archivo es empleando el comando tail con el 
-parámetro f:
+. Para detectar errores durante el desarrollo, 
+se recomienda revisar los archivos de logs del contenedor de servlets. 
+En linux, una forma de ver como cambia dinámicamente el final de un archivo 
+es empleando el comando tail con el parámetro f:
 +
 [source, xml, linenums]
 ----
@@ -134,6 +142,7 @@ log/tomcat7 % tail -f catalina.out
 == Referencias
 
 . https://docs.oracle.com/javaee/5/tutorial/doc/bnayb.html[Character Sets and Encodings]
+. https://developer.mozilla.org/es/docs/Web/HTTP/Headers/Content-Type[Content-Type]
 . REQ.0039: Los archivos generados de forma dinámica por el sistema deben tener 
 definido un Content-Type explícito.
 . REQ.0040: Los archivos generados de forma dinámica por el sistema deben tener 
