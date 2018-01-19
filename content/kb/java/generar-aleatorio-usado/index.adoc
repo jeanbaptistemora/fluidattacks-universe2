@@ -11,23 +11,25 @@ Generar números, cadenas o sales aleatorias de manera segura en Java
 
 == Contexto
 
-A continuación se describen las circunstancias bajo las cuales la siguiente 
-solución tiene sentido:
+A continuación se describen las circunstancias 
+bajo las cuales la siguiente solución tiene sentido:
 
 . Se está desarrollando una aplicación en Java 1.4 o superior.
-. La aplicación necesita generar números aleatorios usados como identificadores 
-que no se almacenan.
+. La aplicación necesita generar números aleatorios usados 
+como identificadores que no se almacenan.
 
 == Solución
 
-. La clase java.security.SecureRandom proporciona un generador de números 
-pseudoaleatorios que cumplen por lo menos con la especificación FIPS 140-2 
-sobre pruebas estadísticas para generadores de números aleatorios (Requisitos 
-de seguridad de los módulos criptográficos [1]). 
-Adicionalmente, la clase debe producir una salida no determinista que por lo 
-tanto requiere que la semilla no sea predecible y que la salida sean secuencias 
-criptográficamente fuertes tal como está descrito en RFC 1750: Recomendaciones 
-de aleatoriedad para la seguridad [2].
+. La clase java.security.SecureRandom 
+proporciona un generador de números pseudoaleatorios 
+que cumplen por lo menos con la especificación FIPS 140-2 
+sobre pruebas estadísticas para generadores de números aleatorios 
+(Requisitos de seguridad de los módulos criptográficos [1]). 
+Adicionalmente, la clase debe producir una salida no determinista 
+que por lo tanto requiere que la semilla no sea predecible 
+y que la salida sean secuencias criptográficamente fuertes 
+tal como está descrito en RFC 1750: 
+Recomendaciones de aleatoriedad para la seguridad [2].
 
 . Para entender la diferencia entre utilizar la clase Random y SecureRandom, 
 considérese el siguiente par de programas:
@@ -64,11 +66,12 @@ class SR {
 }
 ----
 
-. Ambos programas muestran una secuencia de 5 enteros a partir de una semilla 
-dada.
+. Ambos programas muestran una secuencia de 5 enteros 
+a partir de una semilla dada.
 
-. Al ejecutar el primer programa repetidamente (haciendo uso de la clase 
-Random), se observa que la salida es siempre la misma:
+. Al ejecutar el primer programa repetidamente 
+(haciendo uso de la clase Random), 
+se observa que la salida es siempre la misma:
 +
 [source, shell, linenums]
 ----
@@ -84,8 +87,8 @@ Random), se observa que la salida es siempre la misma:
 2 0 1 4 0
 ----
 
-. El segundo caso, haciendo uso de la clase SecureRandom, se observa que la 
-salida si es aleatoria.
+. El segundo caso, haciendo uso de la clase SecureRandom, 
+se observa que la salida si es aleatoria.
 +
 [source, shell, linenums]
 ----
@@ -101,37 +104,39 @@ salida si es aleatoria.
 2 1 2 4 3
 ----
 
-. Si bien es posible usar la clase Random con semillas cambiantes (como por 
-ejemplo el epoch de Unix, tiempo desde 00:00:00 UTC del 1 de Enero de 1970), al 
-no ser esta semilla realmente aleatoria sino, por el contrario, determinista, 
-se podría predecir los números generados si se conoce, por ejemplo, cuanto 
-lleva la aplicación en ejecución. 
+. Si bien es posible usar la clase Random con semillas cambiantes 
+(como por ejemplo el epoch de Unix, 
+tiempo desde 00:00:00 UTC del 1 de Enero de 1970), 
+al no ser esta semilla realmente aleatoria sino, por el contrario, 
+determinista, se podría predecir los números generados si se conoce, 
+por ejemplo, cuanto lleva la aplicación en ejecución. 
 En cambio usando SecureRandom esto no ocurre.
 
-. Sin embargo, una de las desventajas de usar SecureRandom, es que consume 
-mayor cantidad de recursos que Random [4]. 
-Otra desventaja es que las llamadas a SecureRandom pueden causar bloqueos 
-temporales en caso de que no haya suficiente entropía en el sistema [5].
+. Sin embargo, una de las desventajas de usar SecureRandom, 
+es que consume mayor cantidad de recursos que Random [4]. 
+Otra desventaja es que las llamadas a SecureRandom 
+pueden causar bloqueos temporales 
+en caso de que no haya suficiente entropía en el sistema [5].
 
-. Para generar enteros de forma aleatoria se recomienda hacer uso de
-los métodos de la forma nextX que, a pesar de que algunos son heredados desde 
-Random, su implementación garantiza que se usen los mecanismos propios de la 
-clase SecureRandom [6], [7].
+. Para generar enteros de forma aleatoria 
+se recomienda hacer uso de los métodos de la forma nextX que, 
+a pesar de que algunos son heredados desde Random, su implementación garantiza 
+que se usen los mecanismos propios de la clase SecureRandom [6], [7].
 
-. A continuación se presenta un código que usa distintos métodos para generar 
-enteros de manera segura
+. A continuación se presenta un código que usa distintos métodos 
+para generar enteros de manera segura
 
-. Para hacer uso de la clase SecureRandom primero se importa la clase de la
-biblioteca security.
+. Para hacer uso de la clase SecureRandom 
+primero se importa la clase de la biblioteca security.
 +
 [source, java, linenums]
 ----
 import java.security.SecureRandom;
 ----
 
-. A continuación se muestra como utilizar los métodos nextInt y nextBytes de 
-SecureRandom para generar números, arreglos de bytes y cadenas de caracteres 
-aleatorias:
+. A continuación, se muestra como utilizar los métodos nextInt y nextBytes 
+de SecureRandom para generar números, 
+arreglos de bytes y cadenas de caracteres aleatorias:
 +
 [source, java, linenums]
 ----
@@ -152,18 +157,18 @@ class CLI {
 }
 ----
 
-. El método nextInt retorna un valor entre 0 (incluyente) y el valor indicado 
-como argumento (excluyente).
+. El método nextInt retorna un valor entre 0 (incluyente) 
+y el valor indicado como argumento (excluyente).
 
-. El método nextBytes genera un arreglo de bytes del tamaño especificado por el 
-tamaño del argumento.
+. El método nextBytes genera un arreglo de bytes del tamaño especificado 
+por el tamaño del argumento.
 
-. Finalmente para obtener un String aleatorio, basta con aplicar cualquier 
-codificación de caracteres al arreglo de bytes. 
+. Finalmente, para obtener un String aleatorio, 
+basta con aplicar cualquier codificación de caracteres al arreglo de bytes. 
 En este caso se usa Base64.
 
-. La salida, luego de dos ejecuciones, revela que las secuencias son realmente 
-aleatorias.
+. La salida, luego de dos ejecuciones, 
+revela que las secuencias son realmente aleatorias.
 +
 [source, shell, linenums]
 ----
