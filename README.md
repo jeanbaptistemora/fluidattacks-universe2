@@ -3,7 +3,7 @@ FLUID SERVES - Infraestructura Inmutable
 
 Repositorio de código para almacenar la definición de la infraestructura de FLUID.
 
-La definición de la infraestrucura se realizó utilizando Ansible sobre Docker.
+La definición de la infraestrucura se realizó utilizando Terraform y Docker.
 
 Servidores en Producción:
 ------------
@@ -16,14 +16,24 @@ Servidores en Producción:
 Requisitos para lanzar el ambiente:
 ------------
 
-  * Python
-  * Boto3
-  * Troposphere
+  * Terraform
+  * AWS cli
+  * Clave privada .pem en infrastructure/vars
+  * Archivo con credenciales de AWS y ejecucion de login de docker en la ruta infrastucture/vars/aws.tfvars
+
+  Ejemplo:
+  ----
+  acc_key = "YOUR KEY"
+  sec_key = "YOUR SECRET KEY"
+  docker = "sudo docker login URL -u USER -p PASSWORD"
+  start_all = "sudo docker-compose -f /tmp/docker-compose.yml up -d"
+  ----
 
 Instrucciones para lanzar el ambiente:
 ------------
-  * Configurar el cliente Boto3 con las credenciales de acceso a AWS.
-  * Ejecutar el script launch_prd.sh
+  * cd infrastructure
+  * terraform init
+  * terraform apply -var-file="vars/aws.tfvars"
 
 Cosas por hacer:
 ------------
