@@ -12,19 +12,23 @@ contraseñas comunes en COBOL
 
 == Contexto
 
-A continuación se describe las circunstancias bajo las cuales la siguiente
-solución tiene sentido:
+A continuación se describe las circunstancias 
+bajo las cuales la siguiente solución tiene sentido:
+
 . Se está desarrollando una aplicación en COBOL.
-. Las claves tipo palabra no deben contener palabras de diccionario. [1]
+. Las claves tipo palabra 
+no deben contener palabras de diccionario. [1]
 
 == Solución
 
-. Para la construcción de la solución deberemos definir o buscar una lista con
-contraseñas comunes, las cuales serán usadas para comparar con la contraseña
-ingresada por el usuario. En [2], [3], [4], [5] y [6], encontrará la lista de
-diccionarios que se recomiendan para hacer la búsqueda.
-. Por cuestiones de espacio se creó el archivo COMMONPASS con el siguiente
-contenido:
+. Para la construcción de la solución deberemos definir 
+o buscar una lista con contraseñas comunes, 
+las cuales serán usadas 
+para comparar con la contraseña ingresada por el usuario. 
+En [2], [3], [4], [5] y [6], encontrará la lista de diccionarios 
+que se recomiendan para hacer la búsqueda.
+. Por cuestiones de espacio 
+se creó el archivo COMMONPASS con el siguiente contenido:
 +
 [source,cobol,linenums]
 ----
@@ -44,21 +48,22 @@ mustang
 +
 [source,cobol,linenums]
 ----
- IDENTIFICATION DIVISION.
- ******************
- * Identification *
- ******************
- PROGRAM-ID. COBOLCPASS.
+      IDENTIFICATION DIVISION.
+      ******************
+      * Identification *
+      ******************
+      PROGRAM-ID. COBOLCPASS.
 ----
 
-. En la división de entorno asignamos la variable COMMON-PASS al archivo
-COMMONPASS, el cual contiene las contraseñas comunes:
+. En la división de entorno 
+asignamos la variable COMMON-PASS al archivo COMMONPASS, 
+el cual contiene las contraseñas comunes:
 +
 [source,cobol,linenums]
 ----
-      ***************
-      * Environment *
-      ***************
+       ***************
+       * Environment *
+       ***************
        ENVIRONMENT DIVISION.
        INPUT-OUTPUT SECTION.
        FILE-CONTROL.
@@ -71,9 +76,9 @@ contraseñas comunes:
 +
 [source,cobol,linenums]
 ----
-      ********
-      * Data *
-      ********
+       ********
+       * Data *
+       ********
        DATA DIVISION.
 
        FILE SECTION.
@@ -84,11 +89,17 @@ contraseñas comunes:
 ----
 
 . En la sección de almacenamiento declaramos cuatro variables:
+
 * WS-USERPASS: Contraseña ingresada por el usuario.
-* WS-COUNT: Contador que indica si la contraseña en el diccionario está
-contenida en la contraseña ingresada por el usuario.
+
+* WS-COUNT: Contador que indica 
+si la contraseña en el diccionario 
+está contenida en la contraseña ingresada por el usuario.
+
 * WS-LENGTH: Longitud real de la contraseña en el diccionario.
+
 * WS-FLAG: Bandera que indica si el requisito es cumplido.
+
 +
 [source,cobol,linenums]
 ----
@@ -101,14 +112,16 @@ contenida en la contraseña ingresada por el usuario.
            88 WS-FLAG-TRUE  VALUE 1.
 ----
 
-. En la división de procedimiento encontramos la lógica del programa. Obtenemos
-la contraseña del usuario y la convertimos a mayúscula:
+. En la división PROCEDURE DIVISION
+ se encuentra la lógica del programa. 
+Obtenemos la contraseña del usuario 
+y la convertimos a mayúscula:
 +
 [source,cobol,linenums]
 ----
-      ********
-      * Main *
-      ********
+       ********
+       * Main *
+       ********
        PROCEDURE DIVISION.
        MAIN.
            DISPLAY "Ingrese clave a verificar: ".
@@ -123,8 +136,9 @@ la contraseña del usuario y la convertimos a mayúscula:
 OPEN INPUT COMMON-PASS.
 ----
 
-. Leemos el primer registro del diccionario y a través del uso de la sentencia
-AT END podemos saber si alcanzó el final del archivo:
+. Leemos el primer registro del diccionario 
+y a través del uso de la sentencia AT END 
+podemos saber si alcanzó el final del archivo:
 +
 [source,cobol,linenums]
 ----
@@ -133,10 +147,11 @@ AT END podemos saber si alcanzó el final del archivo:
            END-READ.
 ----
 
-. Convertimos la contraseña en el diccionario a mayúscula e inicializamos las
-variables de contador y longitud. Tanto la contraseña ingresada por el usuario
-como la contenida en el diccionario son convertidas a mayúscula por facilidad de
-validación:
+. Convertimos la contraseña en el diccionario a mayúscula 
+e inicializamos las variables de contador y longitud. 
+Tanto la contraseña ingresada por el usuario
+como la contenida en el diccionario, 
+son convertidas a mayúscula por facilidad de validación:
 +
 [source,cobol,linenums]
 ----
@@ -146,8 +161,8 @@ validación:
                MOVE 0 TO WS-LENGTH
 ----
 
-. Obtenemos la longitud real de la contraseña en el diccionario para evitar
-problemas con los espacios al final de la misma:
+. Obtenemos la longitud real de la contraseña en el diccionario 
+para evitar problemas con los espacios al final de la misma:
 +
 [source,cobol,linenums]
 ----
@@ -158,8 +173,8 @@ problemas con los espacios al final de la misma:
                                    - WS-LENGTH
 ----
 
-. Se busca todas las coincidencias de la contraseña en el diccionario dentro de
-la contraseña ingresada por el usuario:
+. Se busca todas las coincidencias de la contraseña en el diccionario 
+dentro de la contraseña ingresada por el usuario:
 +
 [source,cobol,linenums]
 ----
@@ -197,8 +212,9 @@ entonces salimos del procesamiento del archivo:
            CLOSE COMMON-PASS
 ----
 
-. Si la bandera está en falso, significa que el requisito fue cumplido y la
-contraseña no contiene palabras de diccionario:
+. Si la bandera está en falso, 
+significa que el requisito fue cumplido 
+y la contraseña no contiene palabras de diccionario:
 +
 [source,cobol,linenums]
 ----
@@ -236,8 +252,8 @@ contraseña no contiene palabras de diccionario:
 
 == Referencias
 
-. REQ.0101: El sistema debe tener la capacidad de validar que ninguna contraseña
-contenga palabras de diccionario.
+. REQ.0101: El sistema debe tener la capacidad de validar 
+que ninguna contraseña contenga palabras de diccionario.
 . http://dazzlepod.com/uniqpass/[Dazzlepod Uniqpass]
 . http://www.openwall.com/wordlists/[Openwall Wordlist]
 . http://wordlist.aspell.net/[Wordlist project]
