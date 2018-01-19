@@ -7,33 +7,34 @@
 
 == Necesidad
 
-Implementar control de acceso discrecional (Discretionary Access Control) en 
-java
+Implementar control de acceso discrecional 
+(Discretionary Access Control) en java
 
 == Contexto
 
-A continuación se describen las circunstancias bajo las cuales la siguiente 
-solución tiene sentido:
+A continuación se describen las circunstancias 
+bajo las cuales la siguiente solución tiene sentido:
 
 . Se está usando un compilador estándar de Java.
 
 == Solución
 
-. El control de acceso discrecional (DAC) es un modelo de autorización donde 
-para cada recurso se especifican cuales son los sujetos pueden acceder a él.
+. El control de acceso discrecional (DAC) 
+es un modelo de autorización donde para cada recurso 
+se especifican cuales son los sujetos pueden acceder a él.
 
-. Un sujeto solo podrá acceder a los recursos para los cuales implícitamente se 
-le han asignado permisos.
+. Un sujeto solo podrá acceder a los recursos para los cuales implícitamente 
+se le han asignado permisos.
 
 . Aunque ha empezado a entrar en desuso en pro de otros modelos como MAC 
-(Mandatory Access Control) y  RBAC (Control de acceso basado en roles), es el 
-modelo usado en la JVM [1].
+(Mandatory Access Control) y  RBAC (Control de acceso basado en roles), 
+es el modelo usado en la JVM [1].
 
-. Se define la clase Permission que representa autorización de acceso de un 
-sujeto hacia un recurso.
+. Se define la clase Permission que representa autorización de acceso 
+de un sujeto hacia un recurso.
 
-. El método grantedTo se encargará de validar si el permiso de un recurso 
-corresponde al sujeto.
+. El método grantedTo se encargará de validar 
+si el permiso de un recurso corresponde al sujeto.
 +
 [source, java, linenums]
 ----
@@ -88,8 +89,8 @@ class Subject
 }
 ----
 
-. La clase Resource representa un recurso que intentará ser accedido por un 
-sujeto.
+. La clase Resource representa un recurso 
+que intentará ser accedido por un sujeto.
 +
 [source, java, linenums]
 ----
@@ -115,19 +116,20 @@ class Resource
 }
 ----
 
-. La clase AccessController determina cuando un sujeto puede acceder a un 
-recurso y se encarga de mostrar por la salida estándar un mensaje que indica si 
-fue exitoso o no el acceso.
+. La clase AccessController determina cuando un sujeto 
+puede acceder a un recurso y se encarga de mostrar por la salida estándar 
+un mensaje que indica si fue exitoso o no el acceso.
 
-. La clase permite que se registren nuevos permisos mediante el método 
-addPermission.
+. La clase permite que se registren nuevos permisos 
+mediante el método addPermission.
 
-. Para verificar que un sujeto pueda acceder a un objeto, se recorren uno a uno 
-los permisos y se comprueba que corresponda al sujeto y al recurso.
+. Para verificar que un sujeto pueda acceder a un objeto, 
+se recorren uno a uno los permisos 
+y se comprueba que corresponda al sujeto y al recurso.
 
-. Este proceso puede optimizarse de diferente maneras, una de ellas podría ser 
-utilizando estructuras de datos como Map y Set, o consultas en bases de datos 
-entre otros.
+. Este proceso puede optimizarse de diferente maneras, 
+una de ellas podría ser utilizando estructuras de datos como Map y Set, 
+o consultas en bases de datos entre otros.
 +
 [source, java, linenums]
 ----
@@ -170,9 +172,10 @@ class AccessController
 }
 ----
 
-. La clase CLI se encarga de crear dos sujetos y dos recursos, asigna luego el 
-permiso de acceso del sujeto 1 hacia el recurso 1 y finalmente intenta un 
-acceso por cada combinación posible entre sujetos y recursos.
+. La clase CLI se encarga de crear dos sujetos y dos recursos, 
+asigna luego el permiso de acceso del sujeto 1 hacia el recurso 1 
+y finalmente intenta un acceso por cada combinación posible 
+entre sujetos y recursos.
 +
 [source, java, linenums]
 ----
@@ -194,8 +197,9 @@ class CLI
 }
 ----
 
-. Al compilar y ejecutar, se aprecia que únicamente el sujeto 1 pudo acceder al 
-recurso 1, puesto que era el único permiso añadido al controlador.
+. Al compilar y ejecutar, se aprecia que únicamente el sujeto 1 
+pudo acceder al recurso 1, 
+puesto que era el único permiso añadido al controlador.
 +
 [source, shell, linenums]
 ----
