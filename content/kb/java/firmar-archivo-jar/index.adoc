@@ -11,34 +11,39 @@ Firmar archivos JAR (firmar código móvil)
 
 == Contexto
 
-A continuación se describen las circunstancias bajo las cuales la siguiente 
-solución tiene sentido:
+A continuación se describen las circunstancias 
+bajo las cuales la siguiente solución tiene sentido:
 
 . Se tiene código Java empaquetado en archivos JAR.
 
 == Solución
 
-. Un archivo JAR (por sus siglas en inglés, Java ARchive) es un tipo de archivo 
-que permite ejecutar aplicaciones escritas en el lenguaje de programación Java. 
+. Un archivo JAR (por sus siglas en inglés, Java ARchive) 
+es un tipo de archivo que permite ejecutar aplicaciones escritas 
+en el lenguaje de programación Java. 
 
-. La firma de un archivo JAR tiene como objetivo permitir a la persona que lo 
-ejecuta la verificación de la identidad de su creador con el fin de que ella 
-pueda discernir si la aplicación es confiable o no, y por tanto hacer uso de la 
-misma. En pocas palabras, El firmado digital de un JAR permite garantizar la 
-integridad y el no repudio del software por parte de la persona que lo 
-utilizará.
+. La firma de un archivo JAR tiene como objetivo 
+permitir a la persona que lo ejecuta 
+la verificación de la identidad de su creador 
+con el fin de que ella pueda discernir si la aplicación es confiable o no, 
+y por tanto hacer uso de la misma. 
+En pocas palabras, El firmado digital de un JAR 
+permite garantizar la integridad y el no repudio del software 
+por parte de la persona que lo utilizará.
 
-. La firma del archivo JAR se hace a través de un certificado digital, este se 
-define como un fichero informático generado por una entidad de servicios de 
-certificación que asocia unos datos de identidad a una persona física, 
-organismo o empresa, confirmando de esta manera su identidad digital. 
+. La firma del archivo JAR se hace a través de un certificado digital, 
+este se define como un fichero informático 
+generado por una entidad de servicios de certificación 
+que asocia unos datos de identidad a una persona física, organismo o empresa, 
+confirmando de esta manera su identidad digital. 
 
-. Además los certificados se deben almacenar en keystores y para un mejor uso, 
-cada certificado puede ser referenciado mediante un alias, que, por lo general,  
-suele ser el nombre de la persona que firma la clave.    
+. Además, los certificados se deben almacenar en keystores 
+y para un mejor uso, cada certificado puede ser referenciado mediante un alias, 
+que, por lo general, suele ser el nombre de la persona que firma la clave.    
 
-. Para cuestiones de ejemplo, se utilizará la siguiente clase que será 
-empaquetada en un JAR y que además contiene un método sensible:
+. Para cuestiones de ejemplo, 
+se utilizará la siguiente clase que será empaquetada en un JAR 
+y que además contiene un método sensible:
 +
 [source, java, linenums]
 ----
@@ -57,8 +62,9 @@ class CLI
 }
 ----
 
-. Lo primero que se debe hacer es generar un par de certificados (llave pública 
-y privada) y almacenarlos en un keystore:
+. Lo primero que se debe hacer 
+es generar un par de certificados (llave pública y privada) 
+y almacenarlos en un keystore:
 +
 [source, shell, linenums]
 ----
@@ -98,8 +104,8 @@ adding: com/FLUID/CLI.java(in = 262) (out= 144)(deflated 45%)
 adding: com/FLUID/CLI.class(in = 551) (out= 348)(deflated 36%)
 ----
 
-. Finalmente, procedemos a firmar el paquete generado paquete-1.0.jar con el 
-alias FLUID alojado en el keystore previamente creado:
+. Finalmente, procedemos a firmar el paquete generado 
+paquete-1.0.jar con el alias FLUID alojado en el keystore previamente creado:
 +
 [source, shell, linenums]
 ----
@@ -115,9 +121,9 @@ $ java -jar paquete-1.0.jar
 public static void main
 ----
 
-. Adicionalmente, es posible utilizar la herramienta jarsigner para verificar 
-la firma de un paquete. Para el ejemplo, se verificará la firma de paquete 
-paquete-1.0.jar:
+. Adicionalmente, es posible utilizar la herramienta jarsigner 
+para verificar la firma de un paquete. 
+Para el ejemplo, se verificará la firma de paquete paquete-1.0.jar:
 +
 [source, shell, linenums]
 ----
