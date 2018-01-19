@@ -10,8 +10,6 @@ services:
 before_script:
     - echo $VAULT > /tmp/.vault.txt
     - docker login registry.gitlab.com -u $DOCKER_USER -p $DOCKER_PASS
-    - mkdir infrastructure/vars && echo $AWS_VARS > infrastructure/vars/aws.tfvars
-    - echo $KEY_SERVES > infrastructure/vars/fluidtestingserves.pem
 
 codequality:
   script:
@@ -52,6 +50,8 @@ build_vpn:
 test_terraform:
    stage: test
    before_script:
+      - mkdir infrastructure/vars && echo $AWS_VARS > infrastructure/vars/aws.tfvars
+      - echo $KEY_SERVES > infrastructure/vars/fluidtestingserves.pem
       - cd infrastructure
    script:
       - terraform init
@@ -89,6 +89,8 @@ deploy_vpn:
 deploy_terraform:
     stage: deploy
     before_script:
+        - mkdir infrastructure/vars && echo $AWS_VARS > infrastructure/vars/aws.tfvars
+        - echo $KEY_SERVES > infrastructure/vars/fluidtestingserves.pem
         - cd infrastructure
     script:
         - terraform init
