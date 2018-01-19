@@ -94,6 +94,6 @@ deploy_terraform:
         - cd infrastructure
     script:
         - terraform init
-        - terraform apply -var-file="vars/aws.tfvars"
+        - terraform apply -auto-approve -var-file="vars/aws.tfvars"
     only:
     - jarmas
