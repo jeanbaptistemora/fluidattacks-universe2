@@ -21,17 +21,18 @@ bajo las cuales la siguiente solución tiene sentido:
 
 . Para eliminar código repetido a través de la aplicación, 
 use la sentencia _COPY_ en cualquier división del programa 
-y en cualquier nivel de secuencia para 
-incluir código almacenado en el programa.
+y en cualquier nivel de secuencia 
+para incluir código almacenado en el programa.
 Usted puede anidar sentencias COPY 
 a cualquier nivel de profundidad.
+
 . Para especificar más de una biblioteca fuente, 
 use múltiples definiciones del sistema 
 o la combinación de múltiples definiciones 
 y la palabra reservada _IN/OF_ (IN/OF nombre biblioteca) [2]:
 
-* *z/OS batch:* Use _JCL_ para 
-concatenar conjuntos de datos en la sentencia _SYSLIB DD_. 
+* *z/OS batch:* Use _JCL_ 
+para concatenar conjuntos de datos en la sentencia _SYSLIB DD_. 
 De forma alternativa, utilice múltiples sentencias DD 
 y  IN/OF de la sentencia COPY.
 
@@ -85,7 +86,7 @@ de la división de entorno:
        CONFIGURATION SECTION.
        SOURCE-COMPUTER. IBM-ISERIES WITH DEBUGGING MODE.
 ----
-. En la división de datos, 
+. En la división de datos _DATA DIVISION_, 
 usamos la sentencia COPY para 
 copiar el código almacenado y contenido en QSYSINC-QCBLLESRC 
 (Copia la estructura para códigos de error):
@@ -94,7 +95,7 @@ copiar el código almacenado y contenido en QSYSINC-QCBLLESRC
 ----
        DATA DIVISION.
        WORKING-STORAGE SECTION.
-      DCOPY QUSEC OF QSYSINC-QCBLLESRC.
+       DCOPY QUSEC OF QSYSINC-QCBLLESRC.
 ----
 . Mostramos el valor por defecto de la variable BYTES-PROVIDED:
 +
@@ -109,6 +110,6 @@ copiar el código almacenado y contenido en QSYSINC-QCBLLESRC
 == Referencias
 
 . REQ.0157: El código fuente no debe tener funciones, métodos o clases repetidas.
-. https://www.ibm.com/support/knowledgecenter/SSAE4W_9.0.0/com.ibm.etools.iseries.langref.doc/c0925395663.htm[COPY Statement - Format 1]
-. https://www.ibm.com/support/knowledgecenter/SSAE4W_9.0.0/com.ibm.etools.iseries.langref.doc/c0925395102.htm[ILE COBOL Language Reference]
-. https://www.ibm.com/support/knowledgecenter/SSQ2R2_9.5.1/com.ibm.etools.cbl.win.doc/topics/rlcdscop.htm[COPY statement]
+. https://www.ibm.com/support/knowledgecenter/SSAE4W_9.0.0/com.ibm.etools.iseries.langref.doc/c0925395663.htm[COPY Statement - Format 1.]
+. https://www.ibm.com/support/knowledgecenter/SSAE4W_9.0.0/com.ibm.etools.iseries.langref.doc/c0925395102.htm[ILE COBOL Language Reference.]
+. https://www.ibm.com/support/knowledgecenter/SSQ2R2_9.5.1/com.ibm.etools.cbl.win.doc/topics/rlcdscop.htm[COPY statement.]
