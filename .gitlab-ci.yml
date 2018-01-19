@@ -92,7 +92,8 @@ deploy_terraform:
         - mkdir infrastructure/vars && echo $AWS_VARS > infrastructure/vars/aws.tfvars
         - aws s3 cp s3://serves/fluidtestingserves.pem infrastructure/vars/fluidtestingserves.pem
         - aws s3 cp --recursive s3://serves/.terraform infrastructure/.terraform || echo ""
-        - aws s3 cp s3://serves/terraform.tfstate infrastructure/terraform.tfstate|| echo ""
+        - rm -r infrastructure/.terraform/plugins/ || echo ""
+        - aws s3 cp s3://serves/terraform.tfstate infrastructure/terraform.tfstate || echo ""
         - cd infrastructure
     script:
         - terraform init
