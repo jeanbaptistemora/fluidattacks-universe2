@@ -1,6 +1,7 @@
 import os
 
 try:
+    FI_ROLLBAR_ACCESS_TOKEN = os.environ['FI_ROLLBAR_ACCESS_TOKEN']
     AWS_REGION = os.environ['AWS_REGION']
     SECRET_KEY_ENV = os.environ['SECRET_KEY_ENV']
     DB_USER = os.environ['DB_USER']

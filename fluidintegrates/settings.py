@@ -13,9 +13,11 @@ https://docs.djangoproject.com/en/1.10/ref/settings/
 from . import SECRET_KEY_ENV, DB_USER, DB_PASSWD, DB_HOST, DB_PORT, \
          AWS_ACCESS_KEY, AWS_SECRET, AWS_REGION, MIXPANEL, INTERCOM, \
          INTERCOM_SECURE_KEY_ENV, SLACK_BOT, GOOGLE_OAUTH2_KEY, DEBUG_ENV, \
-         GOOGLE_OAUTH2_SECRET, AZUREAD_OAUTH2_KEY, AZUREAD_OAUTH2_SECRET
+         GOOGLE_OAUTH2_SECRET, AZUREAD_OAUTH2_KEY, AZUREAD_OAUTH2_SECRET, \
+         FI_ROLLBAR_ACCESS_TOKEN
 from boto3.session import Session
 import os
+import rollbar
 import sys
 sys.path.append('/usr/src/app')
 
@@ -61,6 +63,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'social_django.middleware.SocialAuthExceptionMiddleware',
+    'rollbar.contrib.django.middleware.RollbarNotifierMiddleware',
 ]
 
 ROOT_URLCONF = 'fluidintegrates.urls'
@@ -115,6 +118,14 @@ DATABASES = {
     },
 }
 
+# Rollbar configuration
+ROLLBAR = {
+    'access_token': FI_ROLLBAR_ACCESS_TOKEN,
+    'environment': 'development' if DEBUG else 'production',
+    'enabled': False if DEBUG else True,
+    'root': BASE_DIR,
+}
+rollbar.init(**ROLLBAR)
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.10/topics/i18n/

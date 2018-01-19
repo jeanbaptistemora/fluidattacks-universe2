@@ -23,4 +23,5 @@
 	env | grep FORMSTACK_TOKENS
 	env | grep AWS_OUTPUT
 	env | grep DEBUG_ENV
+	env | grep FI_ROLLBAR_ACCESS_TOKEN
 } > "env".list

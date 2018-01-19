@@ -27,6 +27,7 @@ ARG drive_authorization
 ARG formstack_tokens
 ARG aws_output
 ARG debug_env
+ARG rollbar_access_token
 
 ENV DEBIAN_FRONTEND noninteractive      # instalación no interactiva
 ENV CI_COMMIT_REF_NAME=$ci_commit_ref_name
@@ -52,6 +53,7 @@ ENV DRIVE_AUTHORIZATION=$drive_authorization
 ENV FORMSTACK_TOKENS=$formstack_tokens
 ENV AWS_OUTPUT=$aws_output
 ENV DEBUG_ENV=$debug_env
+ENV FI_ROLLBAR_ACCESS_TOKEN=$rollbar_access_token
 ENV TZ=America/Bogota
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 

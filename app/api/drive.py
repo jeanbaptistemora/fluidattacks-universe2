@@ -4,6 +4,7 @@
 from __future__ import print_function
 import httplib2
 import io
+import logging
 from magic import Magic
 from apiclient import discovery
 from oauth2client import client
@@ -13,6 +14,8 @@ from django.conf import settings
 
 from apiclient.http import MediaIoBaseDownload # pylint: disable=import-error
 from apiclient.http import HttpError # pylint: disable=import-error
+
+logging.getLogger('googleapiclient.discovery_cache').setLevel(logging.ERROR)
 
 class DriveAPI(object):
     """ Clase para consumir la API de Google Drive """

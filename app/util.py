@@ -8,6 +8,7 @@ import datetime
 import json
 import hmac
 import hashlib
+import rollbar
 from magic import Magic
 from django.http import JsonResponse
 
@@ -33,6 +34,7 @@ def traceability(msg, user):
         file_obj.write(logmsg)
         file_obj.close()
     except (OSError, IOError) as expt:
+        rollbar.report_message("ERROR CON EL LOG " + expt.message(), 'error')
         print("ERROR CON EL LOG " + expt.message())
 
 

@@ -3,10 +3,12 @@ from django.utils import timezone
 from django.db.utils import OperationalError
 from boto3 import resource
 from boto3.dynamodb.conditions import Key
+from botocore.exceptions import ClientError
 # pylint: disable=E0402
 from .. import AWS_ACCESS_KEY_DYNAMODB
 from .. import AWS_SECRET_KEY_DYNAMODB
 from .. import AWS_REGION
+import rollbar
 
 def create_user_dao(email, username='-', first_name='-', last_name='-'):
     role = 'None'
@@ -47,6 +49,7 @@ def create_project_dao(project=None, description=None):
                 cursor.execute(query, (project, description,))
                 row = cursor.fetchone()
             except OperationalError:
+                rollbar.report_exc_info()
                 return False
         return True
     return False
@@ -135,6 +138,7 @@ def add_access_to_project_dao(email, project_name):
             cursor.execute(query, (project_name,))
             project_id = cursor.fetchone()
         except OperationalError:
+            rollbar.report_exc_info()
             project_id = None
 
         if project_id and user_id:
@@ -143,6 +147,7 @@ def add_access_to_project_dao(email, project_name):
                 cursor.execute(query, (user_id[0], project_id[0]))
                 return True
             except OperationalError:
+                rollbar.report_exc_info()
                 return False
     return False
 
@@ -155,6 +160,7 @@ def has_access_to_project_dao(email, project_name):
             cursor.execute(query, (email,))
             user_id = cursor.fetchone()
         except OperationalError:
+            rollbar.report_exc_info()
             return False
 
         query = 'SELECT id FROM projects WHERE project = %s'
@@ -162,6 +168,7 @@ def has_access_to_project_dao(email, project_name):
             cursor.execute(query, (project_name.lower(),))
             project_id = cursor.fetchone()
         except OperationalError:
+            rollbar.report_exc_info()
             return False
 
         if project_id and user_id:
@@ -215,6 +222,7 @@ projects where project=%s)'
             cursor.execute(query, (project,))
             rows = cursor.fetchall()
         except OperationalError:
+            rollbar.report_exc_info()
             rows = []
     return rows
 
@@ -268,6 +276,7 @@ def remove_access_project_dao(email=None, project_name=None):
                 cursor.execute(query, (email,))
                 user_id = cursor.fetchone()
             except OperationalError:
+                rollbar.report_exc_info()
                 return False
 
             query = 'SELECT id FROM projects WHERE project = %s'
@@ -275,6 +284,7 @@ def remove_access_project_dao(email=None, project_name=None):
                 cursor.execute(query, (project_name,))
                 project_id = cursor.fetchone()
             except OperationalError:
+                rollbar.report_exc_info()
                 return False
 
             if project_id and user_id:
@@ -285,6 +295,7 @@ def remove_access_project_dao(email=None, project_name=None):
                     cursor.fetchone()
                     return True
                 except OperationalError:
+                    rollbar.report_exc_info()
                     return False                
             else:
                 return False        
@@ -317,32 +328,41 @@ def get_comments_dynamo(finding_id):
 def create_comment_dynamo(finding_id, email, data):
     """Crea un comentario en un hallazgo"""
     table = dynamodb_resource.Table('comments')
-    response = table.put_item(
-        Item={
-            'finding_id': finding_id,
-            'user_id': int(data["data[id]"]),
-            'content': data["data[content]"],
-            'created': data["data[created]"],
-            'email': email,
-            'fullname': data["data[fullname]"],
-            'modified': data["data[modified]"],
-            'parent': data["data[parent]"],            
-        }
-        )
-    resp = response['ResponseMetadata']['HTTPStatusCode'] == 200
-    return resp
+    try:
+        response = table.put_item(
+            Item={
+                'finding_id': finding_id,
+                'user_id': int(data["data[id]"]),
+                'content': data["data[content]"],
+                'created': data["data[created]"],
+                'email': email,
+                'fullname': data["data[fullname]"],
+                'modified': data["data[modified]"],
+                'parent': data["data[parent]"],            
+            }
+            )
+        resp = response['ResponseMetadata']['HTTPStatusCode'] == 200
+        return resp
+    except ClientError:
+        rollbar.report_exc_info()
+        return False
+    
 
 def delete_comment_dynamo(finding_id, data):
     """Elimina un comentario en un hallazgo"""
     table = dynamodb_resource.Table('comments')
-    response = table.delete_item(
-        Key={
-            'finding_id': finding_id,
-            'user_id': int(data["data[id]"])
-        }
-    )
-    resp = response['ResponseMetadata']['HTTPStatusCode'] == 200
-    return resp
+    try:
+        response = table.delete_item(
+            Key={
+                'finding_id': finding_id,
+                'user_id': int(data["data[id]"])
+            }
+        )
+        resp = response['ResponseMetadata']['HTTPStatusCode'] == 200
+        return resp
+    except ClientError:
+        rollbar.report_exc_info()
+        return False
 
 def get_replayer_dynamo(user_id):
     """Obtiene los comentarios de un hallazgo por el id de un comentario"""
