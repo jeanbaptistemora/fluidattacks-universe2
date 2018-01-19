@@ -1,4 +1,4 @@
-image: docker:latest
+image: registry.gitlab.com/fluidsignal/serves:builder
 
 variables:
   DOCKER_DRIVER: overlay2
@@ -10,6 +10,8 @@ services:
 before_script:
     - echo $VAULT > /tmp/.vault.txt
     - docker login registry.gitlab.com -u $DOCKER_USER -p $DOCKER_PASS
+    - mkdir infrastructure/vars && echo $AWS_VARS > infrastructure/vars/aws.tfvars
+    - echo $KEY_SERVES > infrastructure/vars/fluidtestingserves.pem
 
 codequality:
   script:
@@ -50,15 +52,6 @@ build_vpn:
 test_terraform:
    stage: test
    before_script:
-      - mkdir infrastructure/vars && echo $AWS_VARS > infrastructure/vars/aws.tfvars
-      - echo $KEY_SERVES > infrastructure/vars/fluidtestingserves.pem
-      - apk update && apk add curl
-      - curl -o terraform.zip https://releases.hashicorp.com/terraform/0.11.2/terraform_0.11.2_linux_amd64.zip
-      - unzip terraform.zip && rm terraform.zip
-      - cp terraform /bin/terraform
-      - curl -Lo tflint.zip https://github.com/wata727/tflint/releases/download/v0.5.4/tflint_linux_amd64.zip
-      - unzip tflint.zip && rm tflint.zip
-      - install tflint /bin
       - cd infrastructure
    script:
       - terraform init
@@ -96,8 +89,6 @@ deploy_vpn:
 deploy_terraform:
     stage: deploy
     before_script:
-        - mkdir infrastructure/vars && echo $AWS_VARS > infrastructure/vars/aws.tfvars
-        - echo $KEY_SERVES > infrastructure/vars/fluidtestingserves.pem
         - cd infrastructure
     script:
         - terraform init
