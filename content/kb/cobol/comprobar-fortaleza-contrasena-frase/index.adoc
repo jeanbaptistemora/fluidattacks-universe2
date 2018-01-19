@@ -7,42 +7,50 @@
 
 == Necesidad
 
-Comprobar fortaleza de contraseñas tipo frase en COBOL
+Comprobar fortaleza de contraseñas tipo frase en COBOL.
 
 == Contexto
 
-A continuación se describen las circunstancias bajo las cuales la siguiente
-solución tiene sentido:
+A continuación se describen las circunstancias 
+bajo las cuales la siguiente solución tiene sentido:
 
 . Se está desarrollando una aplicación en COBOL.
 . La aplicación administra contraseñas de tipo frase.
-. Las contraseñas (tipo frase -preferido-) deben tener al menos 3 palabras de
-longitud. [1]
+. Las contraseñas (tipo frase -preferido-) 
+deben tener al menos 3 palabras de longitud. [1]
 
 == Solución
 
-. Declaramos la división de identificación:
+. Declaramos la división _IDENTIFICATION DIVISION_ [2]:
 +
 [source,cobol,linenums]
 ----
-       IDENTIFICATION DIVISION.
+      IDENTIFICATION DIVISION.
       ******************
       * Identification *
       ******************
-       PROGRAM-ID. COBOLPASS2.
+      PROGRAM-ID. COBOLPASS2.
 ----
++
+Es la primera de las cuatro divisiones
+que conforman a un programa desarrollado en COBOL. 
+Mediante la sentencia PROGRAM-ID
+establecemos el nombre del programa a COBOLPASS2.
 
-. En la división de datos declaramos las variables necesarias para la solución
-(En orden): contraseña ingresada por el usuario, contador de caracteres,
-longitud de la contraseña, variable que contendra un solo carácter, el número de
-palabras en la contraseña y un indicador que nos ayudará a contar el número de
-palabras:
+. En la división de datos _DATA DIVISION_ [3] 
+declaramos las variables necesarias 
+para la solución (en orden): 
+contraseña ingresada por el usuario, 
+contador de caracteres, longitud de la contraseña, 
+variable que contendra un solo caracter, 
+el número de palabras en la contraseña 
+y un indicador que nos ayudará a contar el número de palabras:
 +
 [source,cobol,linenums]
 ----
-      ********
-      * Data *
-      ********
+       ********
+       * Data *
+       ********
        DATA DIVISION.
 
        WORKING-STORAGE SECTION.
@@ -56,19 +64,29 @@ palabras:
            88 W06-FLAG-TRUE  VALUE 1.
 ----
 
-. Obtenemos la contraseña proveniente del usuario:
+. Declaramos la división _PROCEDURE DIVISION_ [4]:
 +
 [source,cobol,linenums]
 ----
-      ********
-      * Main *
-      ********
+       ********
+       * Main *
+       ********
        PROCEDURE DIVISION.
        MAIN.
            ACCEPT W01-PASSWORD.
 ----
++
+En esta división se definen
+todos los procesos necesarios
+para que el programa funcione.
+Dicho de otra manera,
+consta de todo el algoritmo del programa.
+Para este caso, obtenemos la contraseña proveniente del usuario 
+mediante la sentencia ACCEPT 
+y almacenamos el valor en la variable W01-PASSWORD.
 
-. Calculamos la longitud de la contraseña:
+. Calculamos la longitud de la contraseña
+almacenada dentro de la variable W01-PASSWORD:
 +
 [source,cobol,linenums]
 ----
@@ -83,9 +101,11 @@ COMPUTE W03-LENGTH = FUNCTION LENGTH(W01-PASSWORD).
                MOVE W01-PASSWORD(W02-COUNT:1) TO W04-CHAR
 ----
 
-. Si el carácter es espacio y el carácter inmediatamente anterior es una letra
-diferentes a espacio, entonces indicamos a través de la bandera que ahora se
-encontrarán más espacios:
+. Si el carácter es espacio 
+y el carácter inmediatamente anterior 
+es una letra diferente a espacio, 
+entonces indicamos a través de la bandera 
+que ahora se encontrarán más espacios:
 +
 [source,cobol,linenums]
 ----
@@ -95,11 +115,14 @@ encontrarán más espacios:
                    END-IF
 ----
 
-. Si el carácter es diferente a espacio y el carácter inmediatamente anterior es
-un espacio entonces hemos encontrado una palabra, aumentamos el valor de la
-variable PNUMBER. A través de la bandera le indicamos al algoritmo que ahora
-está leyendo una palabra, esto evitará que sigamos acumulando el valor para
-PNUMBER:
+. Si el carácter es diferente a espacio 
+y el carácter inmediatamente anterior 
+es un espacio entonces hemos encontrado una palabra, 
+aumentamos el valor de la variable PNUMBER. 
+A través de la bandera 
+le indicamos al algoritmo 
+que ahora está leyendo una palabra, 
+esto evitará que sigamos acumulando el valor para PNUMBER:
 +
 [source,cobol,linenums]
 ----
@@ -111,8 +134,9 @@ PNUMBER:
                END-IF
 ----
 
-. Realizamos el mismo análisis para el resto de caracteres en la entrada del
-usuario:
+. Realizamos el mismo análisis 
+para el resto de caracteres 
+en la entrada del usuario:
 +
 [source,cobol,linenums]
 ----
@@ -120,10 +144,13 @@ usuario:
            END-PERFORM.
 ----
 
-. Si el número de palabras es menor a tres entonces se ha incumplido el
-requisito. Sin embargo, se debe tener en cuenta que una palabra en estos casos
-puede tener una longitud de un carácter, por lo que la contraseña "a a a" podría
-ser válida. Se recomienda la revisión de [2]:
+. Si el número de palabras 
+es menor a tres 
+entonces se ha incumplido el requisito. 
+Sin embargo, se debe tener en cuenta 
+que una palabra en estos casos
+puede tener una longitud de un carácter, 
+por lo que la contraseña "a a a" podría ser válida. 
 +
 [source,cobol,linenums]
 ----
@@ -131,8 +158,8 @@ ser válida. Se recomienda la revisión de [2]:
                DISPLAY "Requisito incumplido"
 ----
 
-. En caso contrario, la entrada contiene tres o más palabras, por lo que el
-requisito de seguridad se ha cumplido:
+. En caso contrario, la entrada contiene tres o más palabras, 
+por lo que el requisito de seguridad se ha cumplido:
 +
 [source,cobol,linenums]
 ----
@@ -145,5 +172,8 @@ requisito de seguridad se ha cumplido:
 
 == Referencias
 
-. REQ.0125: Las contraseñas (tipo frase -preferido-) deben tener al menos 3
-palabras de longitud.
+. REQ.0125: Las contraseñas (tipo frase -preferido-) 
+deben tener al menos 3 palabras de longitud.
+. http://www.escobol.com/modules.php?name=Sections&op=printpage&artid=11[Identification Division.]
+. http://www.escobol.com/modules.php?name=Sections&op=printpage&artid=13[Data Division.]
+. http://www.escobol.com/modules.php?name=Sections&op=printpage&artid=14[Procedure Division.]
