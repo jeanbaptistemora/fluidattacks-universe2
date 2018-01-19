@@ -10,6 +10,8 @@ RUN apk update && apk add curl && \
       cp terraform /bin/terraform && \
     curl -Lo tflint.zip https://github.com/wata727/tflint/releases/download/v0.5.4/tflint_linux_amd64.zip && \
       unzip tflint.zip && rm tflint.zip && \
-      install tflint /bin
+      install tflint /bin && \
+    apk --update add python python-dev py-pip && \
+    pip install awscli
 
 CMD ["bash"]

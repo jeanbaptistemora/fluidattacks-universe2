@@ -51,7 +51,7 @@ test_terraform:
    stage: test
    before_script:
       - mkdir infrastructure/vars && echo $AWS_VARS > infrastructure/vars/aws.tfvars
-      - echo $KEY_SERVES > infrastructure/vars/fluidtestingserves.pem
+      - aws s3 cp s3://serves/fluidtestingserves.pem infrastructure/vars/fluidtestingserves.pem
       - cd infrastructure
    script:
       - terraform init
@@ -90,7 +90,7 @@ deploy_terraform:
     stage: deploy
     before_script:
         - mkdir infrastructure/vars && echo $AWS_VARS > infrastructure/vars/aws.tfvars
-        - echo $KEY_SERVES > infrastructure/vars/fluidtestingserves.pem
+        - aws s3 cp s3://serves/fluidtestingserves.pem infrastructure/vars/fluidtestingserves.pem
         - cd infrastructure
     script:
         - terraform init
