@@ -11,30 +11,34 @@ Filtrar entradas en una aplicación usando expresiones regulares (Java)
 
 == Contexto
 
-A continuación se describen las circunstancias bajo las cuales la siguiente 
-solución tiene sentido:
+A continuación se describen las circunstancias 
+bajo las cuales la siguiente solución tiene sentido:
 
-. Se requiere implementar un control para validar la entrada de datos en la 
-aplicación
+. Se requiere implementar un control 
+para validar la entrada de datos en la aplicación
 
 == Solución
 
-. Las expresiones regulares son usadas dentro de las aplicaciones Java para 
-limitar la entrada de datos no confiables evitando que un atacante pueda 
-inyectar código malicioso.
+. Las expresiones regulares son usadas dentro de las aplicaciones Java 
+para limitar la entrada de datos no confiables 
+evitando que un atacante pueda inyectar código malicioso.
 
-. Las expresiones regulares son una buena manera de validar los campos de texto 
-como nombres, direcciones, números de teléfono y otra información del usuario.
+. Las expresiones regulares son una buena manera 
+de validar los campos de texto como nombres, direcciones, números de teléfono 
+y otra información del usuario.
 
-. Se pueden utilizar para forzar la entrada (limitando el rango de caracteres 
-de entrada), aplicar reglas de formato, y verificar longitudes.
+. Se pueden utilizar para forzar la entrada 
+(limitando el rango de caracteres de entrada), 
+aplicar reglas de formato, y verificar longitudes.
 
-. El soporte para las expresiones regulares está disponible para las 
-aplicaciones Java mediante el uso del paquete java.util.regex, el cual contiene 
-las clases Pattern, Matcher, y PatternSyntaxException[1].
+. El soporte para las expresiones regulares 
+está disponible para las aplicaciones Java 
+mediante el uso del paquete java.util.regex, 
+el cual contiene las clases Pattern, Matcher, y PatternSyntaxException[1].
 
-. Para validar la entrada de datos, primero se debe importar las clases Matcher 
-y Pattern del paquete java.util.regex.
+. Para validar la entrada de datos, 
+primero se debe importar 
+las clases Matcher y Pattern del paquete java.util.regex.
 +
 [source, java, linenums]
 ----
@@ -42,8 +46,8 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 ----
 
-. A continuación se debe crear una instancia de la clase *Pattern*, la cual es 
-la representación compilada de una expresión regular.
+. A continuación, se debe crear una instancia de la clase *Pattern*. 
+Esta clase es la representación compilada de una expresión regular.
 +
 [source, java, linenums]
 ----
@@ -52,28 +56,33 @@ class Main {
     Pattern p = Pattern.compile("^[a-zA-Z'.\\s]{1,40}$");
 ----
 
-. La expresión regular utilizada en el código anterior limita un campo de 
-nombre de entrada para los caracteres alfabéticos (mayúsculas y minúsculas), 
-caracteres de espacio, la comilla simple y el carácter de punto. Además, la 
-longitud del campo está limitada a 40 caracteres.
-. Como paso siguiente se crea una instancia de Matcher, la cual es el producto 
-de aplicar un patrón a una cadena de caracteres, mediante la invocación del 
-método Pattern.matcher. Esta instancia permite realizar operaciones sobre la 
-secuencia de caracteres que se quiere validar.
+. La expresión regular utilizada en el código anterior 
+limita un campo de nombre de entrada 
+para los carácteres alfabéticos (mayúsculas y minúsculas), 
+carácteres de espacio, la comilla simple y el carácter de punto. 
+Además, la longitud del campo está limitada a 40 carácteres.
+
+. Como paso siguiente, se crea una instancia de Matcher. 
+Esta entrada es el producto de aplicar un patrón a una cadena de carácteres, 
+mediante la invocación del método Pattern.matcher. 
+Esta instancia permite realizar operaciones 
+sobre la secuencia de carácteres que se quiere validar.
 +
 [source, java, linenums]
 ----
 Matcher matcher = p.matcher(args[0]);
 ----
 
-. En este caso se está aplicando el patrón al primer argumento que reciba la 
-aplicación.
-. A continuación se comprueba si la cadena de caracteres cumple o no con el 
-patrón especificado, haciendo uso del método matches.
-. boolean cadenaValida = matcher.matches();
+. En este caso, se está aplicando el patrón 
+al primer argumento que reciba la aplicación.
+
+. A continuación, se comprueba si la cadena de carácteres 
+cumple o no con el patrón especificado 
+haciendo uso del método matches.
 +
 [source, java, linenums]
 ----
+   boolean cadenaValida = matcher.matches();
    if (cadenaValida) {
      System.out.println("La cadena SI es válida");
    }
@@ -84,8 +93,8 @@ patrón especificado, haciendo uso del método matches.
 }
 ----
 
-. Se compila y ejecuta pasando como parámetro el argumento "hola" y se observa 
-que se ha clasificado la cadena como válida.
+. Se compila y ejecuta pasando como parámetro el argumento "hola". 
+Se puede observar que se ha clasificado la cadena como válida.
 +
 [source, shell, linenums]
 ----
@@ -94,9 +103,10 @@ java Main hola
 La cadena SI es válida
 ----
 
-. Ahora se ejecuta pasando como parámetro el argumento "hola*", con un 
-asterisco al final, carácter que no se encuentra en la definición del patrón, 
-y se observa que se ha clasificado la cadena como NO válida.
+. Ahora, se ejecuta pasando como parámetro el argumento "hola*", 
+con un asterisco al final;
+carácter que no se encuentra en la definición del patrón. 
+Y se observa que se ha clasificado la cadena como NO válida.
 +
 [source, shell, linenums]
 ----
