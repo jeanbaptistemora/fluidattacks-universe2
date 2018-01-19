@@ -7,47 +7,53 @@
 
 == Necesidad
 
-Comprobación de la identidad de llamadas mediante programación en Servlets 
-(Java)
+Comprobación de la identidad de llamadas 
+mediante programación en Servlets (Java)
 
 == Contexto
 
-A continuación se describen las circunstancias bajo las cuales la siguiente 
-solución tiene sentido:
+A continuación se describen las circunstancias 
+bajo las cuales la siguiente solución tiene sentido:
 
-. Se dispone de un servidor de aplicaciones o contenedor de Servlets conforme 
-con las especificaciones empresariales de Java que soporte la especificación 
-3.0 o superior.
+. Se dispone de un servidor de aplicaciones o contenedor de Servlets 
+conforme con las especificaciones empresariales de Java 
+que soporte la especificación 3.0 o superior.
 
 == Solución
 
 . Inicialmente se configuran los usuarios que tendrán acceso a la aplicación. 
-Este paso dependerá del contenedor de servlets que se esté usando y de la 
-fuente de donde se extraen los datos. Revisar las soluciones del contexto si no 
-se conoce como realizar este proceso.
+Este paso dependerá del contenedor de servlets que se esté usando 
+y de la fuente de donde se extraen los datos. 
+Revisar las soluciones del contexto 
+si no se conoce como realizar este proceso.
 
-. En general, la administración de la seguridad debería se ejercida por el 
-contenedor de tal modo que sea transparente para el servlet.
+. En general, la administración de la seguridad 
+debería se ejercida por el contenedor 
+de tal modo que sea transparente para el servlet.
 
-. El API descrita en esta solución, debe ser usada en aquellos casos poco 
-frecuentes en los cuales los métodos del servlet requieren acceso a la 
-información del contexto de seguridad.
+. El API descrita en esta solución, 
+debe ser usada en aquellos casos poco frecuentes 
+en los cuales los métodos del servlet 
+requieren acceso a la información del contexto de seguridad.
 
-. La especificación de Servlet 3.0 admite los siguientes métodos para acceder a 
-la información de seguridad de quien está solicitando acceder al servlet:
-* getRemoteUser, determina el nombre de usuario con el cual el cliente se ha 
-autenticado. Este método retorna null en caso de que no se haya autenticado.
-* isUserInRole, determina si un usuario remoto se encuentra en un rol de 
-seguridad específico pasado como argumento, correspondiente al campo role-name 
-del descriptor de despliegue. Si el usuario no se ha autenticado, este método 
-retorna false.
-* getUserPrincipal, determina el nombre principal (principal name) del usuario 
-actual retornando un objeto de la clase java.security.Principal, el cual posee 
-el método getName que retorna el nombre del usuario. Si el usuario no se ha 
-autenticado, se retorna null.
+. La especificación de Servlet 3.0 
+admite los siguientes métodos para acceder a la información de seguridad 
+de quien está solicitando acceder al servlet:
+* getRemoteUser, determina el nombre de usuario 
+con el cual el cliente se ha autenticado. 
+Este método retorna null en caso de que no se haya autenticado.
+* isUserInRole, determina si un usuario remoto 
+se encuentra en un rol de seguridad específico pasado como argumento, 
+correspondiente al campo role-name del descriptor de despliegue. 
+Si el usuario no se ha autenticado, este método retorna false.
+* getUserPrincipal, determina el nombre principal 
+(principal name) del usuario actual 
+retornando un objeto de la clase java.security.Principal, 
+el cual posee el método getName que retorna el nombre del usuario. 
+Si el usuario no se ha autenticado, se retorna null.
 
-. A continuación se muestra un ejemplo de como usar los métodos. La estructura 
-de carpetas que debe tener la aplicación es:
+. A continuación se muestra un ejemplo de como usar los métodos. 
+La estructura de carpetas que debe tener la aplicación es:
 +
 [source, bash, linenums]
 ----
@@ -56,11 +62,11 @@ src/test:
 TestRemoteUserData.java
 ----
 
-. Se crea el servlet TestRemoteUserData.java, configurando mediante anotaciones 
-cuales serán los roles permitidos.
+. Se crea el servlet TestRemoteUserData.java, 
+configurando mediante anotaciones cuales serán los roles permitidos.
 
-. Primero se especifica que pertenece al paquete test y se importan las clases 
-necesarias para trabajar con servlets HTTP:
+. Primero se especifica que pertenece al paquete test 
+y se importan las clases necesarias para trabajar con servlets HTTP:
 +
 [source, java, linenums]
 ----
@@ -75,8 +81,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 ----
 
-. Se especifica que el servlet se llamará TestRemoteUserData y que la URL que 
-mapea a este será /TestRemoteUserData
+. Se especifica que el servlet se llamará TestRemoteUserData 
+y que la URL que mapea a este será /TestRemoteUserData
 +
 [source, java, linenums]
 ----
@@ -97,8 +103,8 @@ public class TestRemoteUserData extends HttpServlet {
       PrintWriter out = response.getWriter();
 ----
 
-. Se crean variables que se utilizarán para almacenar la información del usuario 
-remoto.
+. Se crean variables que se utilizarán 
+para almacenar la información del usuario remoto.
 +
 [source, java, linenums]
 ----
@@ -106,13 +112,14 @@ java.security.Principal principal = null;
 String remoteUser = null;
 ----
 
-. Se escribe como parte de la respuesta el resultado de invocar 
-request.isUserInRole para el rol1, request.getRemoteUser y 
-request.getUserPrincipal.getName y request.getAuthType. 
+. Se escribe como parte de la respuesta 
+el resultado de invocar request.isUserInRole para el rol1, 
+request.getRemoteUser y request.getUserPrincipal.getName y request.getAuthType. 
 
-.  Los tres primeros métodos ya han sido explicados anteriormente. getAuthType 
-retorna el mecanismo de autenticación especificado en el descriptor de 
-despliegue, que en este caso no se ha configurado uno así que corresponde a 
+.  Los tres primeros métodos ya han sido explicados anteriormente. 
+getAuthType retorna el mecanismo de autenticación 
+especificado en el descriptor de despliegue, 
+que en este caso no se ha configurado uno así que corresponde a 
 +
 [source, java, linenums]
 ----
@@ -127,8 +134,8 @@ try {
     out.println("getAuthType: " + request.getAuthType() + "<br><br>");NONE.
 ----
 
-. Se intenta autenticarse usando las credenciales del usuario1 y se muestra de 
-nuevo el resultado de llamar los métodos de request.
+. Se intenta autenticarse usando las credenciales del usuario1 
+y se muestra de nuevo el resultado de llamar los métodos de request.
 +
 [source, java, linenums]
 ----
@@ -150,8 +157,8 @@ try {
   out.println("getAuthType: " + request.getAuthType() + "<br><br>");
 ----
 
-. Se eliminan los datos de autenticación del cliente y se muestra de nuevo el 
-resultado de llamar los métodos de request.
+. Se eliminan los datos de autenticación del cliente 
+y se muestra de nuevo el resultado de llamar los métodos de request.
 +
 [source, java, linenums]
 ----
@@ -173,8 +180,8 @@ resultado de llamar los métodos de request.
 }
 ----
 
-. Para probar la aplicación, luego de hacer el despliegue, basta con acceder 
-a la dirección del servlet:
+. Para probar la aplicación, luego de hacer el despliegue, 
+basta con acceder a la dirección del servlet:
 +
 [source, conf, linenums]
 ----
@@ -204,11 +211,12 @@ getUserPrincipal.getName: null
 getAuthType: null
 ----
 
-. Nótese como solo hay información luego de hacer la autenticación y antes de 
-eliminar la información de esta.
+. Nótese como solo hay información luego de hacer la autenticación 
+y antes de eliminar la información de esta.
 
 == Referencias
 
 . https://docs.oracle.com/javaee/6/tutorial/doc/gjiie.html[The Java EE 6 Tutorial]
-. REQ.0264: Los privilegios para objetos nuevos deben establecerse según el 
-principio de mínimo privilegio (umask)
+. http://www.cua.uam.mx/pdfs/revistas_electronicas/libros-electronicos/2017/java/Java.pdf[Introducción a la Programación Web con Java]
+. REQ.0264: Los privilegios para objetos nuevos 
+deben establecerse según el principio de mínimo privilegio (umask)
