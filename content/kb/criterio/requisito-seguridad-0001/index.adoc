@@ -1,4 +1,4 @@
-:slug: kb/criterios/activos-de-informacion/req001/
+:slug: kb/criterio/requisito-seguridad-0001/ 
 :eth: no
 :category: criterios
 :kb: yes
