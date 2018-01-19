@@ -1,0 +1,177 @@
+$darkgray: rgba(102, 102, 102, 1);
+$darkblue: rgba(29, 79, 114, 1);
+$lightblue: rgba(0, 133, 161, 1);
+$lightgray: rgba(211, 211, 211, 1);
+$tagblue: rgba(27, 117, 187, 1);
+$white: rgba(255, 255, 255, 1);
+
+@mixin next-prev-resp {
+  background-color: $darkblue;
+  display: inline-table;
+  padding: 5px;
+  width: 40%;
+
+  a {
+    color: $white;
+
+    &:hover {
+      color: $lightblue;
+    }
+  }
+}
+
+@mixin next-prev {
+  background-color: $white;
+  padding: 0;
+
+  a {
+    background-color: $darkblue;
+    padding: 5px;
+  }
+}
+
+@mixin blank-cell {
+  border: 0;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+}
+
+.content {
+  text-align: center;
+}
+
+.title {
+  color: $darkgray;
+  font-size: 15px;
+  text-align: center;
+}
+
+.divarticle {
+  background-color: $white;
+  border-top: 3px solid $darkblue;
+  margin: 10px 21px;
+  padding: 25px;
+}
+
+.meta-table {
+  border-collapse: collapse;
+}
+
+.meta-data {
+  @include blank-cell;
+  display: block;
+
+  a {
+    font-size: 17px;
+    margin-left: 5px;
+    position: relative;
+    text-align: center;
+    text-transform: capitalize;
+    top: 3px;
+  }
+
+  p {
+    display: inline;
+    font-size: 17px;
+    margin-left: 5px;
+    position: relative;
+    top: 3px;
+  }
+}
+
+.imgwriter {
+  border-radius: 45px;
+  float: left;
+  height: 90px;
+  width: 90px;
+}
+
+.authorinfo {
+  border-collapse: collapse;
+  left: 10px;
+  position: relative;
+  top: 5px;
+  width: 80%;
+
+  td {
+    @include blank-cell;
+
+    p {
+      margin: 0;
+    }
+  }
+}
+
+.related {
+  display: inline-table;
+  text-align: center;
+  width: 32%;
+
+  img {
+    margin: 10px 0;
+  }
+}
+
+.tags {
+  a {
+    background-color: $tagblue;
+    color: $white;
+    float: left;
+    margin: 0 5px 40px 0;
+    padding: 5px 10px;
+    text-transform: capitalize;
+  }
+}
+
+.article-nav {
+  margin-top: 60px;
+}
+
+.prev-article {
+  @include next-prev-resp;
+  margin-right: 15%;
+}
+
+.next-article {
+  @include next-prev-resp;
+}
+
+@media (min-width: 640px) {
+  .divarticle {
+    margin: 10px 25px;
+  }
+
+  .meta-table {
+    background-color: $white;
+    border-collapse: separate;
+    border-spacing: 10px;
+    display: table;
+    width: 100%;
+  }
+
+  .meta-data {
+    display: table-cell;
+    text-align: center;
+    width: 25%;
+  }
+
+  .next-article,
+  .prev-article {
+    a {
+      font-size: 21px;
+    }
+  }
+}
+
+@media (min-width: 770px) {
+  .prev-article {
+    @include next-prev;
+    margin-right: 18%;
+  }
+
+  .next-article {
+    @include next-prev;
+    text-align: right;
+  }
+}

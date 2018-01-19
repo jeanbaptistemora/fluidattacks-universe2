@@ -11,7 +11,7 @@ for FILE in $(find theme -type f \( -name '*.sass' -or -name '*.scss' \));do
 done;
 
 if [ "$ERRORS" = "0" ];then
-  echo -e "${GC}Los archivos SASS cumplen con todas las reglas del linter${NC}";
+  echo -e "${GC}Los archivos SCSS cumplen con todas las reglas del linter${NC}";
 fi;
 
 exit $ERRORS

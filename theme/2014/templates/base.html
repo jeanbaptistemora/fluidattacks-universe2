@@ -53,8 +53,8 @@
             <link href="{{ FEED_DOMAIN }}/{{ TAG_FEED_RSS|format(tag.slug) }}" type="application/rss+xml" rel="alternate" title="{{ SITENAME }} Tags RSS Feed" />
         {% endif %}
     {% endfor %}
-        <!-- Compress and Minify CSS files and bundle from SASS files -->  
-	{% assets filters="cssmin", output="static/css/style.min.css", "bundle", "css/code_blocks/monokai.css", "css/tipuesearch.css" %}
+        <!-- Compress and Minify CSS files and bundle from SASS files -->
+	{% assets filters="scss, cssmin", output="static/css/theme.min.css", "scss/base.scss", "scss/article.scss", "scss/kb.scss", "scss/pages.scss", "scss/index.scss", "scss/monokai.scss", "scss/menu.scss", "scss/tipuesearch.scss", "scss/footer.scss" %}
 	 <link rel="stylesheet" type="text/css" href="{{ SITEURL }}/{{ ASSET_URL }}">
 	{% endassets %}
         <!-- Custom Fonts -->

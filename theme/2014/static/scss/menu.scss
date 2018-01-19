@@ -1,0 +1,243 @@
+$darkblue: rgba(29, 79, 114, 1);
+$dottedblue: rgba(66, 139, 202, 1);
+$menublue: rgba(20, 88, 142, 1);
+$submenublue: rgba(27, 117, 187, 1);
+$white: rgba(255, 255, 255, 1);
+
+@mixin link {
+  color: $white;
+  display: block;
+  text-transform: uppercase;
+
+  &:hover {
+    background-color: $darkblue;
+    color: $white;
+  }
+}
+
+@mixin menu-pseudo {
+  content: '';
+  left: 85px;
+  position: absolute;
+  width: 20px;
+}
+
+@mixin active-pseudo {
+  background: $white;
+  top: 35px;
+  width: 18px;
+}
+
+@mixin sm-pseudo {
+  background: $white;
+  content: '';
+  position: absolute;
+}
+
+.cssmenu {
+  background: $menublue;
+  line-height: 1;
+  z-index: 0;
+}
+
+.m-closed,
+.sm-closed {
+  display: none;
+}
+
+.m-link {
+  @include link;
+  font-size: 16px;
+  letter-spacing: 1px;
+  min-height: 60px;
+  padding: 23px 17px 17px;
+}
+
+.m-opened {
+  background: $submenublue;
+  border-top: 5px solid $darkblue;
+  display: block;
+  margin: 0;
+  padding: 0;
+  z-index: -1;
+
+  li {
+    border-top: 1px dotted $dottedblue;
+    display: block;
+    line-height: 1;
+    margin-top: 0;
+    min-height: 60px;
+    position: relative;
+    width: 100%;
+  }
+}
+
+.menu-button {
+  @include link;
+  border-bottom: 5px solid $darkblue;
+  cursor: pointer;
+  font-size: 20px;
+  padding: 26px 17px 21px;
+  position: relative;
+
+  &::before {
+    @include menu-pseudo;
+    background: $white;
+    height: 2px;
+    top: 29px;
+  }
+
+  &::after {
+    @include menu-pseudo;
+    border-bottom: 2px solid $white;
+    border-top: 2px solid $white;
+    height: 8px;
+    top: 35px;
+  }
+
+  &.menu-opened {
+    &::before {
+      @include active-pseudo;
+      transform: rotate(-45deg);
+    }
+
+    &::after {
+      @include active-pseudo;
+      border: 0;
+      height: 2px;
+      transform: rotate(45deg);
+    }
+  }
+}
+
+.sm-link {
+  @include link;
+  font-size: 13px;
+  height: 100%;
+  letter-spacing: 0;
+  padding: 24px 30px 0 25px;
+  width: 100%;
+}
+
+.sm-opened {
+  border-top: 0;
+  display: block;
+  padding: 0;
+  position: relative;
+  z-index: 1;
+
+  li {
+    border-top: 1px dotted $dottedblue;
+    height: 61px;
+  }
+}
+
+.submenu-button {
+  border-left: 1px dotted $dottedblue;
+  cursor: pointer;
+  display: block;
+  height: 60px;
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 45px;
+  z-index: 99;
+
+  &:hover {
+    background: $darkblue;
+  }
+
+  &.submenu-opened {
+    background: $darkblue;
+
+    &::before {
+      display: none;
+    }
+
+    &::after {
+      background: $white;
+    }
+  }
+
+  &::before {
+    @include sm-pseudo;
+    height: 10px;
+    right: 22px;
+    top: 26px;
+    width: 2px;
+  }
+
+  &::after {
+    @include sm-pseudo;
+    height: 2px;
+    right: 18px;
+    top: 30px;
+    width: 10px;
+  }
+}
+
+@media (min-width: 1100px) {
+  .cssmenu {
+    border-bottom: 5px solid $darkblue;
+    height: 72px;
+  }
+
+  .has-sub {
+    a {
+      padding-right: 30px;
+    }
+
+    &:hover {
+      ul {
+        background: $menublue;
+        display: block;
+      }
+
+      &::before {
+        display: none;
+      }
+    }
+
+    &::before {
+      @include sm-pseudo;
+      height: 8px;
+      right: 12px;
+      top: 32px;
+      width: 2px;
+    }
+
+    &::after {
+      @include sm-pseudo;
+      height: 2px;
+      right: 9px;
+      top: 35px;
+      width: 8px;
+    }
+  }
+
+  .m-opened {
+    background: $menublue;
+    border-top: 0;
+
+    li {
+      display: inline-block;
+      padding-top: 5px;
+      width: auto;
+    }
+  }
+
+  .menu-button,
+  .submenu-button {
+    display: none;
+  }
+
+  .sm-opened {
+    display: none;
+    position: absolute;
+
+    li {
+      min-width: 260px;
+      padding-top: 0;
+    }
+  }
+}

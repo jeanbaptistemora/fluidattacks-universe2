@@ -1,0 +1,182 @@
+$darkblue: rgba(29, 79, 114, 1);
+$lightgray: rgba(211, 211, 211, 1);
+$titleblack: rgba(48, 48, 48, 1);
+$white: rgba(255, 255, 255, 1);
+
+@mixin table-border {
+  border: 1px solid $lightgray;
+  padding: .3em .6em;
+}
+
+.imgentregable {
+  vertical-align: middle;
+}
+
+.imgethical {
+  display: block;
+  height: auto;
+  margin: auto;
+}
+
+.maps {
+  @include table-border;
+  display: table-cell;
+  text-align: center;
+
+  iframe {
+    border: 0;
+    height: 300px;
+    margin-bottom: 25px;
+    margin-top: 15px;
+    max-width: 100%;
+    width: 400px;
+  }
+}
+
+.table,
+.tblent {
+  display: block;
+  width: 100%;
+
+  td {
+    border: 0;
+    padding: 10px 0;
+  }
+}
+
+.tbborder {
+  border-spacing: 0;
+  margin-bottom: 5%;
+  table-layout: fixed;
+  width: 100%;
+}
+
+.tblocation {
+  height: auto;
+  table-layout: fixed;
+  width: 100%;
+
+  th {
+    @include table-border;
+    text-align: center;
+    width: 60px;
+  }
+}
+
+.tdborder {
+  @include table-border;
+  height: 750px;
+}
+
+.tdent {
+  display: block;
+  text-align: left;
+}
+
+.tdlocation {
+  @include table-border;
+  display: table-cell;
+  text-align: center;
+}
+
+.tdresponsive {
+  @include table-border;
+  display: table-cell;
+}
+
+.divpage {
+  background-color: $white;
+  border-top: 3px solid $darkblue;
+  margin: 10px 21px;
+  padding: 25px;
+}
+
+.tdmax,
+.trent {
+  display: none;
+}
+
+.theader {
+  text-align: center;
+  vertical-align: center;
+}
+
+.ent2 {
+  display: block;
+  margin: 0;
+}
+
+.itemlist {
+  margin-left: 30%;
+
+  p {
+    margin-top: 10px;
+    text-transform: capitalize;
+  }
+}
+
+@media (min-width: 480px) {
+  .itemlist {
+    margin-left: 15%;
+
+    ul {
+      column-count: 2;
+      list-style-position: inside;
+      text-align: left;
+
+      li {
+        margin-top: 0;
+      }
+
+      p {
+        display: inline;
+      }
+    }
+  }
+}
+
+@media (min-width: 640px) {
+  .divpage {
+    margin: 10px 25px;
+  }
+}
+
+@media (min-width: 770px) {
+  .trent {
+    display: table-row;
+  }
+
+  .ent {
+    text-align: center;
+  }
+
+  .ent2 {
+    display: none;
+  }
+
+  .tdent {
+    display: table-cell;
+    text-align: center;
+    width: 25%;
+  }
+}
+
+@media (min-width: 905px) {
+  .tdresponsive {
+    display: none;
+  }
+
+  .tdmax {
+    border: 1px solid $lightgray;
+    display: table-cell;
+    padding: 10px;
+  }
+
+  .itemlist {
+    margin-left: 10%;
+
+    ul {
+      column-count: 3;
+    }
+  }
+}

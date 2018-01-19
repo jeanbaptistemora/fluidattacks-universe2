@@ -81,9 +81,6 @@ lang_siteurls = {
      'es': 'https://fluid.la/web/es',
 }
 REDIRECT_SAVE_AS = PAGE_SAVE_AS
-ASSET_BUNDLES = (
-  ('bundle', ['css/menu.sass', 'css/footer.sass', 'css/article.sass', 'css/pages.sass', 'css/kb.sass', 'css/base.sass', 'css/index.sass'], {'filters': 'sass'}),
-)
 
 # Disqus
 DISQUS_SITENAME = 'fluidsignal'

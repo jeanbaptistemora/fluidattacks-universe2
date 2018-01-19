@@ -1,0 +1,48 @@
+$black: rgba(0, 0, 0, 1);
+$darkblue: rgba(29, 79, 114, 1);
+$white: rgba(255, 255, 255, 1);
+
+.kb-category {
+  background-color: $white;
+  border: 0;
+  border-top: 3px solid $darkblue;
+  color: $black;
+  display: flex;
+  width: 100%;
+
+  &::after {
+    content: '\02795';
+    font-size: 25px;
+    margin: 17px 20px 0;
+    text-align: right;
+    width: 100%;
+  }
+
+  &:hover {
+    cursor: pointer;
+
+    &::after {
+      color: $black;
+    }
+  }
+
+  &.active {
+    &::after {
+      content: '\2796';
+    }
+  }
+}
+
+.kbpanel {
+  background-color: $white;
+  margin-bottom: 15px;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height .2s ease-out;
+
+  a {
+    h3 {
+      margin-left: 30px;
+    }
+  }
+}
