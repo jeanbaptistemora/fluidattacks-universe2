@@ -7,29 +7,38 @@
 
 == Necesidad
 
-Compilar programa en COBOL de forma estricta
+Compilar programa en COBOL de forma estricta.
 
 == Contexto
 
-A continuación se describe las circunstancias bajo las cuales la siguiente
-solución tiene sentido:
+A continuación se describe las circunstancias 
+bajo las cuales la siguiente solución tiene sentido:
 
 . Se está desarrollando una aplicación en COBOL.
-. El código debe compilarse o interpretarse de forma estricta. [1]
+. El código debe compilarse 
+o interpretarse de forma estricta. [1]
 
 == Solución
 
-. A través del parámetro GENLVL del comando CRTBNDCBL se especifica el nivel
-de severidad que determina si un objeto es creado. La severidad corresponde al
-nivel de severidad de los mensajes producidos durante la compilación. Este
-parámetro aplica individualmente a cada unidad dentro del miembro del archivo
-fuente.
-. Se debe especificar un número de uno o dos dígitos, desde 0 hasta 30, el cual
-es el nivel de severidad que usted desea para determinar si el objeto es creado
-o no. Ningún programa es creado si algún error ocurre con una severidad igual o
-mayor a la especificada.
-. La siguiente tabla muestra los niveles de severidad para diferentes tipos
-mensajes:
+. A través del parámetro _GENLVL_ del comando _CRTBNDCBL_, 
+se especifica el nivel de severidad 
+que determina si un objeto es creado. 
+La severidad corresponde al nivel de rigurosidad 
+de los mensajes producidos durante la compilación. 
+Este parámetro aplica de manera individual 
+a cada unidad dentro del miembro del archivo fuente.
+
+. Se debe especificar un número de uno 
+o dos dígitos, desde 0 hasta 29 [2], 
+el cual es el nivel de severidad que usted desea 
+para determinar si el objeto es creado o no. 
+Ningún programa es creado 
+si algún error ocurre con una severidad igual 
+o mayor a la especificada.
+
+. La siguiente tabla muestra 
+los niveles de severidad 
+para diferentes tipos de mensajes:
 +
 |===
 |Severidad |Tipo de mensaje
@@ -50,10 +59,11 @@ mensajes:
 |Terminal
 |===
 
-. Para compilar un programa en COBOL de forma estricta se debe usar "0" como
-argumento en el parámetro GENLVL. Para crear el programa COBOLSTR de la
-biblioteca FLUID con un nivel de severidad 0 (Compilación estricta) se usa el
-siguiente comando:
+. Para compilar un programa en COBOL de forma estricta, 
+se debe usar "0" como argumento en el parámetro GENLVL. 
+Para crear el programa COBOLSTR de la biblioteca FLUID 
+con un nivel de severidad 0 (Compilación estricta), 
+se usa el siguiente comando:
 +
 [source,cobol,linenums]
 ----
@@ -65,9 +75,10 @@ GENLVL(0)
 REPLACE(*YES)
 ----
 
-. El anterior programa es creado exitosamente, el código fuente utilizado para
-esta solución y que contiene la estructura básica de un programa en COBOL es el
-que puede observar a continuación:
+. El anterior programa es creado exitosamente, 
+el código fuente utilizado para esta solución 
+y que contiene la estructura básica de un programa en COBOL, 
+es el que puede observar a continuación:
 +
 [source,cobol,linenums]
 ----
@@ -80,7 +91,40 @@ que puede observar a continuación:
            DISPLAY "Programa estricto".
            STOP RUN.
 ----
++
+En el anterior bloque de código se puede observar 
+las cuatro divisiones de las que 
+se compone un programa en COBOL:
+
+* *IDENTIFICATION DIVISION:* mediante la sentencia _PROGRAM-ID_
+se especifica el nombre del programa.
+En este caso es COBOLSTR.
+
+* *ENVIRONMENT DIVISION:* el objetivo de esta división
+es describir el ambiente 
+sobre el cual se desarrolló 
+y va a ser ejecutado el programa [3].
+En este caso dicha división no es implementada.
+
+* *DATA DIVISION:* en esta división se declaran 
+nombres de campos, registros, variables, etc. 
+Es decir, se especifica cada dato utlizado por el programa [4].
+En este caso dicha división no es implementada.
+
+* *PROCEDURE DIVISION:* en esta división se definen 
+todos los procesos necesarios 
+para que el programa funcione.
+Dicho de otra manera, 
+consta de todo el algoritmo del programa [5].
+Para este caso, el programa además de 
+ser compilado de forma estrica, 
+imprime un texto en pantalla 
+mediante la instrucción DISPLAY.
 
 == Referencias
- 	
+
 . REQ.0152: El código debe compilarse o interpretarse de forma estricta.
+. https://www.ibm.com/support/knowledgecenter/en/ssw_ibm_i_72/cl/crtcblpgm.htm[Create COBOL Program.]
+. http://www.escobol.com/modules.php?name=Sections&op=printpage&artid=12[Environment Division.]
+. http://www.escobol.com/modules.php?name=Sections&op=printpage&artid=13[Data Division.]
+. http://www.escobol.com/modules.php?name=Sections&op=printpage&artid=14[Procedure Division.]
