@@ -1,9 +1,9 @@
-:slug: kb/criterio/requisito-seguridad-0002/ 
+:slug: kb/criterio/requisito-seguridad-002/ 
 :eth: no
 :category: criterio
 :kb: yes
 
-= REQ.0002 Cada activo de información debe estar asociado con un responsable del activo
+= REQ.002 Cada activo de información debe estar asociado con un responsable del activo
 
 == Descripción
 
