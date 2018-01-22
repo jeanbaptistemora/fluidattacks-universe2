@@ -1,0 +1,181 @@
+:slug: test-style/
+:eth: no
+:variable: Asciidoc
+:plus: &#43
+
+= Test several Asciidoc styles and functionalities
+
+Level 0 headers are created
+by preceeding the title
+with one equal sign,
+like this:
+
+[quote]
+ = Test several Asciidoc styles and functionalities
+
+[[cheat-sheet]]
+== Asciidoc Cheat Sheet
+
+Level 1 headers are created
+the same way as level 0,
+except one more equal sign is used.
+
+You can also set an ``id'' HTML attribute to the titles
+by doing the following,
+which will set the ``id'' of the header
+to ``cheat-sheet'':
+
+[quote]
+\[[cheat-sheet]] +
+== Asciidoc Cheat Sheet
+
+=== Text Style
+
+As can be expected,
+level 2 headers have one more equal sign.
+
+Now, some rules
+that allow text formatting:
+
+* A phrase is placed inside `single quotes'
+by surrounding it with a tick to the left (`)
+and a single quote to the right (')
+* A phrase is placed inside ``double quotes''
+by surrounding it with two ticks to the left (\`\`)
+and two single quotes to the right ('')
+* Single quotes (\'emphasis') around a phrase
+place 'emphasis',
+* Astericks (\*bold*) around a phrase
+make the text *bold*,
+* Double astericks (l\*\*e\**tters) around one or more l**e**tters in a word
+ make those letters bold,
+* Double underscore (\__phr\__ase) around a __sub__string in a word
+emphasizes that substring,
+* Use carrots (\^super\^string) around characters
+to make them ^super^script,
+* Use tildes (\~subs\~tring) around characters
+to make them ~sub~script,
+* To use +monospaced+ characters,
+enclose the phrase in plus signs (\+phrase+)
+* To pass through +++<u>HTML</u>+++ directly,
+surround the text with triple plus signs.
+* To force a line break, +
+a plus sign (+) must be used at the end of the sentence.
+* To escape special characters,
+the backslash is used (\),
+* Reserved XML characters like <, > and &,
+can be used safely,
+* Force a space{sp}between inline elements
+using the \{sp} attribute,
+* Hold text together
+with an intrinsic non-breaking{nbsp}space attribute, \{nbsp}
+* Claim copyright (C), registered trademark (R) or trademark (TM)
+
+=== Tables
+
+A table is delimited,
+at the beginning and at the end,
+by (|===).
+The columns are separated by a pipe (|).
+
+.An example table
+[options="header"]
+|====
+|Col 1|Col 2      |Col 3
+|1    |Item 1     |a
+|2    |Item 2     |b
+|3    |Item 3     |c
+|6    |Three items|d
+|====
+
+=== Lists
+
+* Q: How did the programmer die in the shower? +
+  A: He read the shampoo instructions:
+
+  . Lather, rinse.
+  . Repeat.
+
+* There are only 10 kinds of people in this world:
+  - Those who understand binary.
+  - Those who don't.
+
+Lists are created by preceeding a (*) to an item.
+Other delimiters, like a hyphen (-),
+can also be used to declarate a list.
+When combined, a nested list can be created.
+
+Ordered list can also be nested
+
+. List 1
+.. List 2
+... List 3
+.... List 4
+..... List 5
+
+In order to keep content in the correct indentation level,
+a plus sign (+) is placed in the blank line
+between the content.
+
+=== Misc
+
+* Code listings:
++
+[source,python]
+----
+#!/usr/bin/env python
+import antigravity
+try:
+  antigravity.fly()
+except FlytimeError as e:
+  # um...not sure what to do now.
+  pass
+----
+
+* Quotes:
++
+____
+A quote without source information
+____
++
+[quote,"Charles Dickens","A Tale of Two Cities"]
+It was the best of times, it was the worst of times, it was the age of wisdom,
+it was the age of foolishness...
+
+* Links:
+** link:http://asciidoclive.com/[AsciiDocLIVE] is awesome!
+
+* Images:
++
+image::doge.png[Doge]
+
+* Videos:
++
+video::he-man.mp4[YouTube]
+
+* Definitions
++
+[[defs]]
+term::
+  definition line two
+[[another_term]]
+another term::
+  another definition, which can be literal (indented) or regular paragraph
+
+* Let's make a horizontal rule...
++
+'''
+
+* Let's get literal
++
+....
+Okay.
+....
+
+* Anchors can be used to move fast inside the document,
+ <<cheat-sheet, Cheat Sheet>>.
+
+== References
+
+. link:http://powerman.name/doc/asciidoc[Asciidoc Cheat Sheet]
+. link:http://asciidoc.org/userguide.html[Asciidoc User Guide]

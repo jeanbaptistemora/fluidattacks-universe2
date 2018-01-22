@@ -23,11 +23,11 @@ OUTPUT_PATH = 'output/web/en'
 PATH = 'content'
 ARTICLE_PATHS = ['blog-en']
 PAGE_PATHS = ['pages-en']
-STATIC_PATHS = ['images', 'files', 'blog-en']
+STATIC_PATHS = ['images', 'files', 'blog-en', 'pages-en']
 ARTICLE_URL = 'blog/{slug}'
 ARTICLE_SAVE_AS = 'blog-en/{slug}index.html'
 PAGE_URL = '{slug}'
-PAGE_SAVE_AS = '{slug}index.html'
+PAGE_SAVE_AS = 'pages-en/{slug}index.html'
 KB_SAVE_AS = 'kb/index.html'
 
 # Plugins configuration
@@ -71,7 +71,8 @@ I18N_SUBSITES = {
         'THEME': 'theme/2014',
         'ARTICLE_PATHS': ['blog-es'],
         'PAGE_PATHS': ['pages-es', 'kb'],
-        'ARTICLE_SAVE_AS': 'blog-es/{slug}/index.html',
+        'PAGE_SAVE_AS': 'pages-es/{slug}index.html',
+        'ARTICLE_SAVE_AS': 'blog-es/{slug}index.html',
         'STATIC_PATHS': ['files', 'images', 'blog-es', 'kb', 'pages-es'],
         'GOOGLE_ANALYTICS': 'UA-22974464-4',
         }

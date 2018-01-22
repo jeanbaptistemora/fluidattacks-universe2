@@ -17,8 +17,9 @@ mv output/web/en/blog-en output/web/en/blog && mv output/web/es/blog-es output/w
 
 echo "Updating sitemap, setting redirect and pages images (4/5) . . ."
 ./xmlcombine.sh
+mv output/web/es/pages-es/* output/web/es/ && rm -r output/web/es/pages-es
+mv output/web/en/pages-en/* output/web/en/ && rm -r output/web/en/pages-en
 mv output/web/en/redirect/index.html output/web/ && rmdir output/web/en/redirect/
-cp -r output/web/es/pages-es/. output/web/es/ && rm -r output/web/es/pages-es
 # Undo changes made to the file and change permissions of the files used by the container as root
 git checkout -- pelicanconf.py
 chmod -R a+rwX {output/,pelicanconf.py,pelicanconf.pyc}
