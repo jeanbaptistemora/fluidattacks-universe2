@@ -9,8 +9,8 @@
 
 Una vez la organización ha realizado 
 la identificación de cada uno de los activos, 
-se debe asignar un responsable o responsables 
-y unas responsabilidades asociadas 
+se le debe asignar un responsable o responsables 
+determinadas responsabilidades asociadas 
 a todos los activos inventariados.
 La asignación de responsabilidad garantiza la creación 
 y ejecución de controles de seguridad 
@@ -47,21 +47,21 @@ los accesos permitidos por los usuarios del activo.
 se cumplan para cada uno de los activos de información.
 
 . Identificar y gestionar los posibles riesgos 
-que pueden afectar o comprometer los activos de información.
+que pueden afectar o comprometer la integridad de activos de información.
 
 == Diagrama
 
 image::diag1-req002.png[Diagrama req002]
 
-== Soluciones aplicables
+== Soluciones
 
 * ISO 27005 - Gestión de riesgos para un SGSI con ISO 27005.
 
-* Consultoría - Establecer Inventario de Activos de Información.
+* Consultoría - Establecer el Inventario de Activos de Información.
 
 * ISO 27003 - ​Guía ISO 27003.
 
-* Consultoría - Determinar Propietario de un Activo de Información​.
+* Consultoría - Determinar el Propietario de un Activo de Información​.
 
 * Consultoría - Responder a cuestionario inventario activos de información.
 
@@ -75,7 +75,7 @@ El incidente no es gestionado
 debido a que los activos afectados 
 no cuentan con un responsable asignado.
 
-== Categorías (o atributos)
+== Atributos
 
 * Capa: Capa de Recursos.
 

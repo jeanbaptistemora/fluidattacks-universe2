@@ -41,12 +41,12 @@ lo cual es recomendado.)
 
 * Criticidad del proceso al que corresponde.
 
-* Dueño, responsable o propietario del activo (https://fluid.la/web/es/kb/criterio/requisito-seguridad-002/[REQ. 002]).
+* Dueño, responsable o propietario del activo (link:../requisito-seguridad-002/[REQ. 002]).
 
 * Clasificación del activo en cuanto a la confidencialidad, 
 disponibilidad e integridad del mismo.
 
-* Valor del activo teniendo en cuenta su clasificación (https://fluid.la/web/es/kb/criterio/requisito-seguridad-003/[REQ. 003]).
+* Valor del activo teniendo en cuenta su clasificación (link:../requisito-seguridad-003/[REQ. 003]).
 
 . Es recomendable que la identificación de los activos 
 la realice el responsable de cada proceso de la organización, 
