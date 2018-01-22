@@ -4,15 +4,16 @@ WORKDIR /app
 
 COPY . /app
 
-# 16-18: Install basic dependencies to set sources lists 
-# 19-21: Set sources for NodeJS and Yarn
-# 22-44: Install all necessarty dependencies
-# 45-48: Download Cmake in order to build tidy-html after cloning it from the repository
-# 49-52: Clone the necessaty JS files from the Tipue repository in order to run the plugin
-# 53-56: Clone just the plugins that are being used in this project with Pelican 
-# 57-58: Clone the pleican-redirect plugin (aside from the official repository) and make it recognizable as a module
-# 59: Change the default highlighter to Pygments
-# 60-67: Erase files and directories that are not needed during runtime
+# 17-19: Install basic dependencies to set sources lists 
+# 20-22: Set sources for NodeJS and Yarn
+# 23-44: Install all necessarty dependencies
+# 45-46: Download tidy-html binary and install it
+# 47-50: Clone the necessaty JS files from the Tipue repository in order to run the plugin
+# 51-54: Clone just the plugins that are being used in this project with Pelican 
+# 55-56: Clone the pleican-redirect plugin (aside from the official repository) and make it recognizable as a module
+# 57: Change the default highlighter to Pygments
+# 58: Enable every rule of sass-lint
+# 59-67: Erase files and directories that are not needed during runtime
 RUN apt-get update -qq && apt-get install -qqy \
         curl \
         gnupg && \
@@ -22,7 +23,6 @@ RUN apt-get update -qq && apt-get install -qqy \
     apt-get update && apt-get install -qqy --no-install-recommends \
         asciidoc \
         diction \
-        g++ \
         gcc \
         git \
         libcurl4-openssl-dev \
@@ -42,10 +42,8 @@ RUN apt-get update -qq && apt-get install -qqy \
         pip install -r requirements.txt && \
         gem install -N sass && \
         yarn install && \
-    curl -sSL https://cmake.org/files/v3.10/cmake-3.10.1-Linux-x86_64.tar.gz | tar -zx && \
-        mv cmake* Cmake && export PATH=$PATH:/app/Cmake/bin/ && \
-        git clone --depth=1 https://github.com/htacg/tidy-html5.git && cd tidy-html5/build/cmake && \ 
-        cmake ../.. -DCMAKE_BUILD_TYPE=Release && make && make install && cd ../../../ && \
+    curl -sSLo tidy.deb https://github.com/htacg/tidy-html5/releases/download/5.4.0/tidy-5.4.0-64bit.deb && \
+        dpkg -i tidy.deb && \
     mkdir js && cd js && \
         git init && git remote add origin https://github.com/Tipue/Tipue-Search.git && \
         git config core.sparsecheckout true && cat ../js-files.txt >> .git/info/sparse-checkout && \
@@ -65,6 +63,7 @@ RUN apt-get update -qq && apt-get install -qqy \
         js-files.txt \
         plugin_list.txt \
         requirements.txt \
+        tidy.deb \
         yarn.lock 
 
 # Add the uglifyjs program to the PATH
