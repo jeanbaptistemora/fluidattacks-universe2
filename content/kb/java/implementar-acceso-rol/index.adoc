@@ -11,19 +11,20 @@ Implementar control de acceso basado en roles (Role Based Access Control)
 
 == Contexto
 
-A continuación se describen las circunstancias bajo las cuales la siguiente 
-solución tiene sentido:
+A continuación se describen las circunstancias 
+bajo las cuales la siguiente solución tiene sentido:
 
 . Se está usando un compilador estándar de Java.
 
 == Solución
 
-. El control de acceso basado en roles (RBAC) es un modelo de autorización bajo 
-el cual se agrupan sujetos en roles y la asignación de permisos sobre los 
-recursos se hace con los roles y no con los sujetos directamente.
+. El control de acceso basado en roles (RBAC) es un modelo de autorización 
+bajo el cual se agrupan sujetos en roles 
+y la asignación de permisos sobre los recursos 
+se hace con los roles y no con los sujetos directamente.
 
-. Un sujeto solo podrá acceder a un recurso si alguno de los roles a los que 
-pertenece posee los privilegios para hacerlo.
+. Un sujeto solo podrá acceder a un recurso 
+si alguno de los roles a los que pertenece posee los privilegios para hacerlo.
 
 . La clase Subject simboliza el sujeto con intenciones de acceder a un recurso.
 +
@@ -47,8 +48,8 @@ class Subject
 }
 ----
 
-. La clase Resource representa un recurso que intentará ser accedido por un 
-sujeto.
+. La clase Resource representa un recurso 
+que intentará ser accedido por un sujeto.
 +
 [source, java, linenums]
 ----
@@ -74,11 +75,14 @@ class Resource
 }
 ----
 
-. La clase Role representa el rol al que podrá pertenecer un conjunto de 
-sujetos. Para esto se cuenta con el método addSubject para agregar nuevos 
-sujetos y contains que determina la pertenencia o no de un sujeto al rol.
-* Este proceso puede optimizarse de diferente maneras, una de ellas podría ser 
-utilizando estructuras de datos Set, consultas en bases de datos entre otros.
+. La clase Role representa el rol al que podrá pertenecer 
+un conjunto de sujetos. 
+Para esto se cuenta con el método addSubject 
+para agregar nuevos sujetos y contains 
+que determina la pertenencia o no de un sujeto al rol.
+* Este proceso puede optimizarse de diferente maneras, 
+una de ellas podría ser utilizando estructuras de datos Set, 
+consultas en bases de datos entre otros.
 +
 [source, java, linenums]
 ----
@@ -121,11 +125,11 @@ class Role
 }
 ----
 
-. Se define la clase Permission que representa autorización de acceso de un rol 
-hacia un recurso.
+. Se define la clase Permission 
+que representa autorización de acceso de un rol hacia un recurso.
 
-. El método grantedTo se encarga de validar si el permiso corresponde de rol 
-hacia un recurso.
+. El método grantedTo se encarga de validar 
+si el permiso corresponde de rol hacia un recurso.
 +
 [source, java, linenums]
 ----
@@ -152,19 +156,21 @@ class Permission {
 }
 ----
 
-. La clase AccessController determina cuando un sujeto puede acceder a un 
-recurso y se encarga de mostrar por la salida estándar un mensaje que indica si 
-fue exitoso o no el acceso.
+. La clase AccessController determina 
+cuando un sujeto puede acceder a un recurso 
+y se encarga de mostrar por la salida estándar 
+un mensaje que indica si fue exitoso o no el acceso.
 
-. La clase permite que se registren nuevos permisos mediante el método 
-addPermission.
+. La clase permite que se registren nuevos permisos 
+mediante el método addPermission.
 
-. Para verificar que un sujeto pueda acceder a un objeto, se recorren uno a uno 
-los permisos y se comprueba para cada uno si el rol relacionado tiene acceso al 
-recurso y si el sujeto pertenece a ese rol.
-* Este proceso puede optimizarse de diferente maneras, una de ellas podría ser 
-utilizando estructuras de datos como Map y Set, consultas en bases de datos 
-entre otros.
+. Para verificar que un sujeto pueda acceder a un objeto, 
+se recorren uno a uno los permisos y se comprueba para cada uno 
+si el rol relacionado tiene acceso al recurso 
+y si el sujeto pertenece a ese rol.
+* Este proceso puede optimizarse de diferente maneras, 
+una de ellas podría ser utilizando estructuras de datos como Map y Set, 
+consultas en bases de datos entre otros.
 +
 [source, java, linenums]
 ----
@@ -207,8 +213,8 @@ class AccessController
 }
 ----
 
-. La clase CLI se encarga de crear roles, sujetos, permisos y recursos. Luego 
-comprueba cuales sujetos tienen acceso a cuales recursos.
+. La clase CLI se encarga de crear roles, sujetos, permisos y recursos. 
+Luego comprueba cuales sujetos tienen acceso a cuales recursos.
 
 . Primero se crean los roles 1 y 2.
 +
@@ -232,8 +238,8 @@ Subject subj2 = new Subject("Sujeto2");
 Subject subj3 = new Subject("Sujeto3");
 ----
 
-. A los sujetos 0 y 1 se les asigna el rol 1. A los sujetos 2 y 3 se les asigna 
-el rol 2.
+. A los sujetos 0 y 1 se les asigna el rol 1. 
+A los sujetos 2 y 3 se les asigna el rol 2.
 +
 [source, java, linenums]
 ----
@@ -270,8 +276,8 @@ AccessController.addPermission(perm1);
 }
 ----
 
-. Al compilar y ejecutar, se aprecia que únicamente los sujetos pertenecientes 
-al rol 1 pudieron acceder al recurso.
+. Al compilar y ejecutar, se aprecia que únicamente 
+los sujetos pertenecientes al rol 1 pudieron acceder al recurso.
 +
 [source, shell, linenums]
 ----
