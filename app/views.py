@@ -679,6 +679,10 @@ def add_comment(request):
     try:
         to = ['concurrent@fluid.la']
         to.append('ralvarez@fluid.la')
+        if data["data[parent]"] != '0':
+            replayer = integrates_dao.get_replayer_dynamo(int(data["data[parent]"]))
+            for row in replayer:
+                to.append(row['email'])        
         comment_content = data['data[content]'].replace('\n', ' ')
         context = {
            'project': data['data[project]'],
@@ -689,6 +693,7 @@ def add_comment(request):
            'comment': comment_content,
             }
         send_mail_new_comment(to, context)
+        to = ['']
         return util.response([], 'Success', False)
     except KeyError:
         return util.response([], 'Campos vacios', True)    

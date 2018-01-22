@@ -343,3 +343,21 @@ def delete_comment_dynamo(finding_id, data):
     )
     resp = response['ResponseMetadata']['HTTPStatusCode'] == 200
     return resp
+
+def get_replayer_dynamo(user_id):
+    """Obtiene los comentarios de un hallazgo por el id de un comentario"""
+    table = dynamodb_resource.Table('comments')
+    filter_key = 'user_id'
+    if filter_key and user_id:
+        filtering_exp = Key(filter_key).eq(user_id)
+        response = table.scan(FilterExpression=filtering_exp)
+    else:
+        response = table.scan()
+    items = response['Items']
+    while True:
+        if response.get('LastEvaluatedKey'):
+            response = table.scan(ExclusiveStartKey=response['LastEvaluatedKey'])
+            items += response['Items']
+        else:
+            break
+    return items
