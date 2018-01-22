@@ -41,12 +41,12 @@ lo cual es recomendado.)
 
 * Criticidad del proceso al que corresponde.
 
-* Dueño, responsable o propietario del activo (REQ. 002).
+* Dueño, responsable o propietario del activo (https://fluid.la/web/es/kb/criterio/requisito-seguridad-002/[REQ. 002]).
 
 * Clasificación del activo en cuanto a la confidencialidad, 
 disponibilidad e integridad del mismo.
 
-* Valor del activo teniendo en cuenta su clasificación (REQ. 003).
+* Valor del activo teniendo en cuenta su clasificación (https://fluid.la/web/es/kb/criterio/requisito-seguridad-003/[REQ. 003]).
 
 . Es recomendable que la identificación de los activos 
 la realice el responsable de cada proceso de la organización, 
@@ -55,7 +55,7 @@ tal y como se muestra en el siguiente diagrama:
 
 image::diag1-req001.png[Diagrama1]
 
-== Soluciones aplicables
+== Soluciones
 
 * Consultoría - Establecer el Inventario de Activos de Información.
 * Consultoría- Determinar la granuralidad de activo de información.
@@ -73,7 +73,7 @@ pues se desconoce el impacto de los activos afectados.
 En consecuencia la solución del incidente 
 puede ser tardía e impactar en mayor medida a la organización.
 
-== Categorías (o atributos)
+== Atributos
 
 . Capa: Capa de Recursos
 . Activo: Activos de Información
