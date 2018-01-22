@@ -1,4 +1,4 @@
-:slug: kb/criterio/requisito-seguridad-0001/ 
+:slug: kb/criterio/requisito-seguridad-001/ 
 :eth: no
 :category: criterio
 :kb: yes
