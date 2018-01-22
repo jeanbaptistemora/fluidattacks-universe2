@@ -11,8 +11,8 @@ Utilizar concurrencia en una aplicación usando EJB en Java
 
 == Contexto
 
-A continuación se describen las circunstancias bajo las cuales la siguiente 
-solución tiene sentido:
+A continuación se describen las circunstancias 
+bajo las cuales la siguiente solución tiene sentido:
 
 . Se tiene una aplicación java Java EE 1.6.
 . Se tiene un servidor de aplicaciones WebLogic 10.3.
@@ -20,17 +20,20 @@ solución tiene sentido:
 
 == Solución
 
-EJB o Enterprise JavaBeans son una de las interfaces de programación de 
-aplicaciones que forman parte del estándar de construcción de aplicaciones 
-empresariales J2EE. Estas proporcionan un modelo de componentes distribuido 
-estándar del lado del servidor con el objetivo de dotar al programador de un 
-modelo que le permita abstraerse de los problemas generales de una aplicación 
-empresarial. 
+EJB o Enterprise JavaBeans 
+son una de las interfaces de programación de aplicaciones 
+que forman parte del estándar 
+de construcción de aplicaciones empresariales J2EE. 
+Estas proporcionan un modelo de componente distribuido estándar 
+del lado del servidor con el objetivo de dotar al programador 
+de un modelo que le permita abstraerse 
+de los problemas generales de una aplicación empresarial. 
 
 . Se generará un EJB de sesión sin estado utilizando las anotaciones de EJB3.
 
-. Lo primero que se hará es crear el EJB, este necesita 2 clases, la interface 
-y el Bean como tal, que serán incluidas en el paquete Especialista.
+. Lo primero que se hará es crear el EJB, este necesita 2 clases, 
+la interface y el Bean como tal, 
+que serán incluidas en el paquete Especialista.
 
 . Clase de la interface de negocio: Concurrencia.java:
 +
@@ -50,8 +53,8 @@ public interface Concurrencia {
 }
 ----
 
-. Clase de el EJB: ConcurrenciaBean, aquí es donde se ejecutara toda la lógica 
-transaccional
+. Clase del EJB: ConcurrenciaBean, 
+aquí es donde se ejecutara toda la lógica transaccional
 +
 [source, java,linenums]
 ----
@@ -100,12 +103,13 @@ public class ConcurrenciaBean {
 }
 ----
 
-. ACLARACIÓN: Los System.out.println() constituyen una situación en una 
-auditoría de código fuente, en este caso esta función se hace para ver el 
-funcionamiento de los EJB en la solución.
+. ACLARACIÓN: Los System.out.println() constituyen una situación 
+en una auditoría de código fuente, en este caso, 
+esta función se hace para ver el funcionamiento de los EJB en la solución.
 
-. Para que el proyecto funcione hay que agregarle la librería de el weblogic 
-para el manejo de EJB, por lo general esta librería se encuentra en:
+. Para que el proyecto funcione 
+hay que agregarle la librería de el weblogic para el manejo de EJB, 
+por lo general esta librería se encuentra en:
 +
 [source, shell,linenums]
 ----
@@ -120,8 +124,8 @@ image::ejb.png[estructura del proyecto]
 
 . Se despliega el EJB en el servidor de aplicaciones y se inicia el mismo.
 
-. Ahora se creará una aplicación web Java, que en este caso tendrá un servlet y 
-una clase encargada de llamar el EJB haciendo conexión con el WebLogic.
+. Ahora se creará una aplicación web Java, que en este caso tendrá un servlet 
+y una clase encargada de llamar el EJB haciendo conexión con el WebLogic.
 
 . Clase Servlet: 
 +
@@ -243,5 +247,5 @@ image::estructura.png[estructura del proyecto]
 
 . https://docs.oracle.com/cd/E11035_01/wls100/ejb30/index.html[Programming WebLogic Enterprise JavaBeans, Version 3.0]
 . http://wiki.eclipse.org/EclipseLink/Examples/JPA/WebLogic_Web_Tutorial[WebLogic Web Tutorial]
-. REQ.0159: El código debe utilizar contenedores o estructuras de datos 
-optimizadas.
+. REQ.0159: El código debe utilizar contenedores 
+o estructuras de datos optimizadas.
