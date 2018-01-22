@@ -1,3 +1,4 @@
+from __future__ import absolute_import
 from django.db import connections
 from django.utils import timezone
 from django.db.utils import OperationalError
@@ -5,9 +6,8 @@ from boto3 import resource
 from boto3.dynamodb.conditions import Key
 from botocore.exceptions import ClientError
 # pylint: disable=E0402
-from .. import AWS_ACCESS_KEY_DYNAMODB
-from .. import AWS_SECRET_KEY_DYNAMODB
-from .. import AWS_REGION
+from __init__ import FI_AWS_DYNAMODB_ACCESS_KEY
+from __init__ import FI_AWS_DYNAMODB_SECRET_KEY
 import rollbar
 
 def create_user_dao(email, username='-', first_name='-', last_name='-'):
@@ -296,15 +296,15 @@ def remove_access_project_dao(email=None, project_name=None):
                     return True
                 except OperationalError:
                     rollbar.report_exc_info()
-                    return False                
+                    return False
             else:
-                return False        
+                return False
     return False
 
 dynamodb_resource = resource('dynamodb',
-                            aws_access_key_id=AWS_ACCESS_KEY_DYNAMODB,
-                            aws_secret_access_key=AWS_SECRET_KEY_DYNAMODB, 
-                            region_name=AWS_REGION)
+                            aws_access_key_id=FI_AWS_DYNAMODB_ACCESS_KEY,
+                            aws_secret_access_key=FI_AWS_DYNAMODB_SECRET_KEY,
+                            region_name='us-east-1')
 
 def get_comments_dynamo(finding_id):
     """Obtiene los comentarios de un hallazgo"""
@@ -338,7 +338,7 @@ def create_comment_dynamo(finding_id, email, data):
                 'email': email,
                 'fullname': data["data[fullname]"],
                 'modified': data["data[modified]"],
-                'parent': data["data[parent]"],            
+                'parent': data["data[parent]"],
             }
             )
         resp = response['ResponseMetadata']['HTTPStatusCode'] == 200
@@ -346,7 +346,7 @@ def create_comment_dynamo(finding_id, email, data):
     except ClientError:
         rollbar.report_exc_info()
         return False
-    
+
 
 def delete_comment_dynamo(finding_id, data):
     """Elimina un comentario en un hallazgo"""

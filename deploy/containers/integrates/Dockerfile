@@ -5,14 +5,12 @@ FROM registry.gitlab.com/fluidsignal/integrates:deps
 MAINTAINER FLUID Engineering Team <engineering@fluid.la>
 
 ARG ci_commit_ref_name
-ARG aws_region
 ARG aws_access_key_dynamodb
 ARG aws_secret_key_dynamodb
 ARG secret_key_env
 ARG db_user
 ARG db_passwd
 ARG db_host
-ARG db_port
 ARG aws_access_key
 ARG aws_secret
 ARG mixpanel
@@ -31,28 +29,26 @@ ARG rollbar_access_token
 
 ENV DEBIAN_FRONTEND noninteractive      # instalación no interactiva
 ENV CI_COMMIT_REF_NAME=$ci_commit_ref_name
-ENV AWS_REGION=$aws_region
-ENV AWS_ACCESS_KEY_DYNAMODB=$aws_access_key_dynamodb
-ENV AWS_SECRET_KEY_DYNAMODB=$aws_secret_key_dynamodb
-ENV SECRET_KEY_ENV=$secret_key_env
-ENV DB_USER=$db_user
-ENV DB_PASSWD=$db_passwd
-ENV DB_HOST=$db_host
-ENV DB_PORT=$db_port
-ENV AWS_ACCESS_KEY=$aws_access_key
-ENV AWS_SECRET=$aws_secret
-ENV MIXPANEL=$mixpanel
-ENV INTERCOM=$intercom
-ENV INTERCOM_SECURE_KEY_ENV=$intercom_secure_key
-ENV SLACK_BOT=$slack_bot
-ENV GOOGLE_OAUTH2_KEY=$google_oauth2_key
-ENV GOOGLE_OAUTH2_SECRET=$google_oauth2_secret
-ENV AZUREAD_OAUTH2_KEY=$azured_oauth2_key
-ENV AZUREAD_OAUTH2_SECRET=$azured_oauth2_secret
-ENV DRIVE_AUTHORIZATION=$drive_authorization
-ENV FORMSTACK_TOKENS=$formstack_tokens
-ENV AWS_OUTPUT=$aws_output
-ENV DEBUG_ENV=$debug_env
+ENV FI_AWS_DYNAMODB_ACCESS_KEY=$aws_access_key_dynamodb
+ENV FI_AWS_DYNAMODB_SECRET_KEY=$aws_secret_key_dynamodb
+ENV FI_DJANGO_SECRET_KEY=$secret_key_env
+ENV FI_DB_USER=$db_user
+ENV FI_DB_PASSWD=$db_passwd
+ENV FI_DB_HOST=$db_host
+ENV FI_AWS_CLOUDWATCH_ACCESS_KEY=$aws_access_key
+ENV FI_AWS_CLOUDWATCH_SECRET_KEY=$aws_secret
+ENV FI_MIXPANEL_API_TOKEN=$mixpanel
+ENV FI_INTERCOM_APPID=$intercom
+ENV FI_INTERCOM_SECURE_KEY=$intercom_secure_key
+ENV FI_SLACK_BOT_TOKEN=$slack_bot
+ENV FI_GOOGLE_OAUTH2_KEY=$google_oauth2_key
+ENV FI_GOOGLE_OAUTH2_SECRET=$google_oauth2_secret
+ENV FI_AZUREAD_OAUTH2_KEY=$azured_oauth2_key
+ENV FI_AZUREAD_OAUTH2_SECRET=$azured_oauth2_secret
+ENV FI_DRIVE_AUTHORIZATION=$drive_authorization
+ENV FI_FORMSTACK_TOKENS=$formstack_tokens
+ENV FI_AWS_OUTPUT=$aws_output
+ENV FI_DEBUG=$debug_env
 ENV FI_ROLLBAR_ACCESS_TOKEN=$rollbar_access_token
 ENV TZ=America/Bogota
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone

@@ -1,10 +1,11 @@
 # -*- coding: utf-8 -*-
 """Funciones para consumir la API de Formstack."""
 
+from __future__ import absolute_import
 import json
 import requests
 # pylint: disable=E0402
-from .. import FORMSTACK_TOKENS
+from __init__ import FI_FORMSTACK_TOKENS
 from requests.exceptions import ConnectionError
 from retrying import retry
 from random import randint
@@ -14,7 +15,7 @@ requests.adapters.DEFAULT_RETRIES = 10
 class FormstackAPI(object):
 
     headers_config = {}
-    ltokens= FORMSTACK_TOKENS.split(',')
+    ltokens= FI_FORMSTACK_TOKENS.split(',')
     TOKEN = ltokens[randint(0,(len(ltokens)-1))]
     SUBMISSION_URL = "https://www.formstack.com/api/v2/submission/:id.json"
     #Finding URL

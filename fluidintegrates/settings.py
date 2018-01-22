@@ -10,17 +10,16 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/1.10/ref/settings/
 """
 # pylint: disable=E0402
-from . import SECRET_KEY_ENV, DB_USER, DB_PASSWD, DB_HOST, DB_PORT, \
-         AWS_ACCESS_KEY, AWS_SECRET, AWS_REGION, MIXPANEL, INTERCOM, \
-         INTERCOM_SECURE_KEY_ENV, SLACK_BOT, GOOGLE_OAUTH2_KEY, DEBUG_ENV, \
-         GOOGLE_OAUTH2_SECRET, AZUREAD_OAUTH2_KEY, AZUREAD_OAUTH2_SECRET, \
-         FI_ROLLBAR_ACCESS_TOKEN
+from __future__ import absolute_import
+from __init__ import FI_DJANGO_SECRET_KEY, FI_DB_USER, FI_DB_PASSWD, FI_DB_HOST, \
+         FI_AWS_CLOUDWATCH_ACCESS_KEY, FI_AWS_CLOUDWATCH_SECRET_KEY, FI_MIXPANEL_API_TOKEN, FI_INTERCOM_APPID, \
+         FI_INTERCOM_SECURE_KEY, FI_SLACK_BOT_TOKEN, FI_GOOGLE_OAUTH2_KEY, FI_DEBUG, \
+         FI_GOOGLE_OAUTH2_SECRET, FI_AZUREAD_OAUTH2_KEY, FI_AZUREAD_OAUTH2_SECRET, FI_ROLLBAR_ACCESS_TOKEN
 from boto3.session import Session
 import os
 import rollbar
 import sys
 sys.path.append('/usr/src/app')
-
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -29,10 +28,10 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/1.10/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = SECRET_KEY_ENV # noqa
+SECRET_KEY = FI_DJANGO_SECRET_KEY # noqa
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = DEBUG_ENV!='False'
+DEBUG = FI_DEBUG!='False'
 
 ALLOWED_HOSTS = ["192.168.0.26", "localhost", "127.0.0.1", "fluid.la"]
 
@@ -97,10 +96,10 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'django',
-        'USER': DB_USER,
-        'PASSWORD': DB_PASSWD,
-        'HOST': DB_HOST,
-        'PORT': DB_PORT,
+        'USER': FI_DB_USER,
+        'PASSWORD': FI_DB_PASSWD,
+        'HOST': FI_DB_HOST,
+        'PORT': '3306',
         'OPTIONS': {
             'sql_mode': 'STRICT_TRANS_TABLES',
         }
@@ -108,10 +107,10 @@ DATABASES = {
     'integrates': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'fluidintegrates',
-        'USER': DB_USER,
-        'PASSWORD': DB_PASSWD,
-        'HOST': DB_HOST,
-        'PORT': DB_PORT,
+        'USER': FI_DB_USER,
+        'PASSWORD': FI_DB_PASSWD,
+        'HOST': FI_DB_HOST,
+        'PORT': '3306',
         'OPTIONS': {
             'sql_mode': 'STRICT_TRANS_TABLES',
         }
@@ -141,9 +140,9 @@ USE_L10N = True
 USE_TZ = True
 
 # Logging
-AWS_ACCESS_KEY_ID = AWS_ACCESS_KEY
-AWS_SECRET_ACCESS_KEY = AWS_SECRET # noqa
-AWS_REGION_NAME = AWS_REGION
+AWS_ACCESS_KEY_ID = FI_AWS_CLOUDWATCH_ACCESS_KEY
+AWS_SECRET_ACCESS_KEY = FI_AWS_CLOUDWATCH_SECRET_KEY # noqa
+AWS_REGION_NAME = 'us-east-1'
 
 boto3_session = Session(aws_access_key_id=AWS_ACCESS_KEY_ID,
                         aws_secret_access_key=AWS_SECRET_ACCESS_KEY,
@@ -258,12 +257,12 @@ SOCIAL_AUTH_USERNAME_IS_FULL_EMAIL = True
 USE_X_FORWARDED_HOST = True
 
 # django-analytical
-MIXPANEL_API_TOKEN = MIXPANEL
+MIXPANEL_API_TOKEN = FI_MIXPANEL_API_TOKEN
 ANALYTICAL_AUTO_IDENTIFY = False
 
 # Intercom
-INTERCOM_APPID = INTERCOM
-INTERCOM_SECURE_KEY = INTERCOM_SECURE_KEY_ENV
+INTERCOM_APPID = FI_INTERCOM_APPID
+INTERCOM_SECURE_KEY = FI_INTERCOM_SECURE_KEY
 INTERCOM_INCLUDE_USERID = False
 INTERCOM_CUSTOM_DATA_CLASSES = [
     'app.pipeline.intercom_custom_data.IntercomCustomData',
@@ -271,7 +270,7 @@ INTERCOM_CUSTOM_DATA_CLASSES = [
 
 
 # Slack
-SLACK_BOT_TOKEN = SLACK_BOT
+SLACK_BOT_TOKEN = FI_SLACK_BOT_TOKEN
 
 if DEBUG:
     SOCIAL_AUTH_LOGIN_REDIRECT_URL     = '/registration'
@@ -292,8 +291,8 @@ SOCIAL_AUTH_GOOGLE_OAUTH2_SCOPE = [
     'https://www.googleapis.com/auth/userinfo.profile'
 ]
 
-SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = GOOGLE_OAUTH2_KEY
-SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = GOOGLE_OAUTH2_SECRET # noqa
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = FI_GOOGLE_OAUTH2_KEY
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = FI_GOOGLE_OAUTH2_SECRET # noqa
 
 DRIVE_SCOPES = [
     'https://www.googleapis.com/auth/drive.file',
@@ -304,5 +303,5 @@ DRIVE_AUTHOR_FILE = "/usr/src/app/config/drive_authorization.json" # noqa
 DRIVE_APP_NAME = 'FLUIDIntegrates_Drive'
 
 # Azure OAuth2
-SOCIAL_AUTH_AZUREAD_OAUTH2_KEY = AZUREAD_OAUTH2_KEY
-SOCIAL_AUTH_AZUREAD_OAUTH2_SECRET = AZUREAD_OAUTH2_SECRET # noqa
+SOCIAL_AUTH_AZUREAD_OAUTH2_KEY = FI_AZUREAD_OAUTH2_KEY
+SOCIAL_AUTH_AZUREAD_OAUTH2_SECRET = FI_AZUREAD_OAUTH2_SECRET # noqa

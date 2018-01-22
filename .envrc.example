@@ -1,0 +1,41 @@
+
+# Llave única para uso de Django, necesaria para encriptar y utilizar funciones como CookieStorage o FallbackStorage. Si esta llave no existe Django no puede funcionar.
+export FI_DJANGO_SECRET_KEY='value'
+# Usuario de acceso a las bases de datos MySQL que utiliza Integrates.
+export FI_DB_USER='value'
+# Contraseña de acceso a las bases de datos MySQL que utiliza Integrates.
+export FI_DB_PASSWD='value'
+# Dirección del servidor donde se almacenan las bases de datos que utiliza Integrates.
+export FI_DB_HOST='value'
+# Llave de acceso al servicio CloudWatch de AWS, encargado del monitoreo de los recursos de AWS y backup de Integrates.
+export FI_AWS_CLOUDWATCH_ACCESS_KEY='value'
+# Llave secreta para uso del servicio CloudWatch de AWS, encargado del monitoreo de los recursos de AWS y backup de Integrates.
+export FI_AWS_CLOUDWATCH_SECRET_KEY='value'
+# Token único para consumo del API de Mixpanel, necesaria para realizar tracking de usuarios en Integrates.
+export FI_MIXPANEL_API_TOKEN='value'
+# Usuario de acceso a la cuenta de Intercom, app encargada del chat en vivo de Integrates.
+export FI_INTERCOM_APPID='value'
+# Contraseña de acceso a la cuenta de Intercom, encargado del chat en vivo de Integrates.
+export FI_INTERCOM_SECURE_KEY='value'
+# Token único para consumo del API de Slack, necesaria para ejecutar comandos desde el chat de Slack, como por ejemplo, agregar o eliminar a un usuario a un proyecto.
+export FI_SLACK_BOT_TOKEN='value'
+# Llave de acceso para uso de Google OAuth 2.0, encargado de la autenticación (login) de los usuarios que ingresan a Integrates por medio de una cuenta  Google.
+export FI_GOOGLE_OAUTH2_KEY='value'
+# Contraseña de acceso para uso de Google OAuth 2.0, encargado de la autenticación (login) de los usuarios que ingresan a Integrates por medio de una cuenta  Google.
+export FI_GOOGLE_OAUTH2_SECRET='value'
+# Llave de acceso para uso de Azure OAuth 2.0, encargado de la autenticación (login) de los usuarios que ingresan a Integrates por medio de una cuenta Microsoft.
+export FI_AZUREAD_OAUTH2_KEY='value'
+# Contraseña de acceso para uso de Azure OAuth 2.0, encargado de la autenticación (login) de los usuarios que ingresan a Integrates por medio de una cuenta Microsoft.
+export FI_AZUREAD_OAUTH2_SECRET='value'
+# Diccionario de credenciales para uso de API's de google, es necesario para acceder a Google Drive en donde se guardan las evidencias de los hallazgos.
+export FI_DRIVE_AUTHORIZATION='value'
+# Tokens para consumo de Api de Formstack, necesaria para acceder a la informacion de todos los hallazgos y eventualidades, es actualmente la principal base de datos.
+export FI_FORMSTACK_TOKENS='value'
+# Formato de salida de los archivos generados por DynamoDB, este valor debe estar definido para un correcto funcionamiento de DynamoDB.
+export FI_AWS_OUTPUT='value'
+# Llave de acceso al servicio DynamoDB de AWS, necesario para acceder a la base de datos de los cometarios de cada hallazgo.
+export FI_AWS_DYNAMODB_ACCESS_KEY='value'
+# Llave secreta para acceso al servicio DynamoDB de AWS, necesario para acceder a la base de datos de los cometarios de cada hallazgo.
+export FI_AWS_DYNAMODB_SECRET_KEY='value'
+# Parametro necesario para el uso de Django, permite el debug de la aplicación. Si esta variable no es definida, Django no puede funcionar.
+export FI_DEBUG='value'
