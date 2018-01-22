@@ -24,6 +24,7 @@ from .documentator.pdf import FindingPDFMaker
 from .mailer import send_mail_delete_finding
 from .mailer import send_mail_remediate_finding
 from .mailer import send_mail_new_comment
+from .mailer import send_mail_reply_comment
 from .services import has_access_to_project
 from .dao import integrates_dao
 from .api.drive import DriveAPI
@@ -678,11 +679,7 @@ def add_comment(request):
         return util.response([], 'Error', True)
     try:
         to = ['concurrent@fluid.la']
-        to.append('ralvarez@fluid.la')
-        if data["data[parent]"] != '0':
-            replayer = integrates_dao.get_replayer_dynamo(int(data["data[parent]"]))
-            for row in replayer:
-                to.append(row['email'])        
+        to.append('ralvarez@fluid.la')        
         comment_content = data['data[content]'].replace('\n', ' ')
         context = {
            'project': data['data[project]'],
@@ -694,6 +691,11 @@ def add_comment(request):
             }
         send_mail_new_comment(to, context)
         to = ['']
+        if data["data[parent]"] != '0':
+            replayer = integrates_dao.get_replayer_dynamo(int(data["data[parent]"]))
+            for row in replayer:
+                to.append(row['email'])
+            send_mail_reply_comment(to, context)
         return util.response([], 'Success', False)
     except KeyError:
         return util.response([], 'Campos vacios', True)    
