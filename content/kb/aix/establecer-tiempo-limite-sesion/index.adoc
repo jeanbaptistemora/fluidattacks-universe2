@@ -11,16 +11,29 @@ Establecer el tiempo limite de sesión inactiva en un sistema Unix.
 
 == Contexto
 
-A continuación se describen las circunstancias bajo las cuales la siguiente 
-solución tiene sentido:
+A continuación se describen las circunstancias 
+bajo las cuales la siguiente solución tiene sentido:
 
 . Disponer de un sistema operativo conforme con la especificación Unix.
 . Se tiene acceso a la interfaz de comandos (CLI) del sistema en cuestión.
 
 == Solución
 
-. El tiempo de vida de la sesión es el tiempo que ella estará activa sin que se 
-realice actividad por parte del usuario.
+El tiempo limite de sesión o timeout se refiere al periodo de tiempo determinado 
+por el cual una sesión permanecera activa 
+desde el momento en que el usuario deja de interactuar con determinado sistema. 
+Este limite de tiempo es definido por el administrador del sistema, 
+y una vez finaliza, la sesión del usuario que está interactuando con él, 
+se cierra o elimina.
+
+Por seguridad se recomienda fijar un tiempo límite de sesión corto 
+con el fin de evitar que algún atacante 
+tome posesión de una sesión abandonada por un usuario 
+y comprometa la integridad y/o el funcionamiento del sistema. 
+
+. Como se ha explicado, el tiempo de vida de la sesión 
+es el tiempo en que esta estará activa 
+sin que se realice actividad por parte del usuario.
 
 . Este tiempo se especifica en segundos y se parametriza a través de una 
 variable de entorno cuyo nombre varia dependiendo del shell con el cual se este 
@@ -84,4 +97,5 @@ mié jun 9 16:15:13 COT 2010
 
 == Referencias
 
+. https://en.wikipedia.org/wiki/Timeout_(computing)[Timeout (computing)]
 . http://rm-rf.es/bash-y-ssh-establecer-timeout-por-inactividad/[Establecer timeout por inactividad]
