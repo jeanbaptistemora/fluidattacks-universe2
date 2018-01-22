@@ -11,24 +11,61 @@ Se requiere restringir métodos inseguros como PUT o DELETE en un servidor web.
 
 == Contexto
 
-A continuación se describen las circunstancias bajo las cuales la siguiente 
-solución tiene sentido:
+A continuación se describen las circunstancias 
+bajo las cuales la siguiente solución tiene sentido:
 
 . Se tiene un servidor Apache 2.x en la máquina
 . Se tienen permisos para modificar los archivos de configuración.
 
 == Solución
 
+El Protocolo de transferencia de hipertexto 
+(en inglés: Hypertext Transfer Protocol o HTTP) 
+es el protocolo de comunicación que permite 
+las transferencias de información en la World Wide Web (WWW). 
+HTTP es un protocolo orientado a transacciones 
+y sigue el esquema petición-respuesta entre un cliente y un servidor. 
+El cliente realiza una petición enviando un mensaje, 
+con cierto formato al servidor. 
+El servidor le envía un mensaje de respuesta.[1]
+
+Para realizar estas peticiones HTTP define un conjunto de métodos de petición 
+para indicar la acción que se desea realizar para un recurso determinado.
+
+Algunos de los métodos más usados son: 
+
+* GET: El método GET  solicita una representación de un recurso específico. 
+Las peticiones que usan el método GET sólo deben recuperar datos.
+* HEAD: El método HEAD pide una respuesta idéntica a la de una petición GET, 
+pero sin el cuerpo de la respuesta.
+* POST: El método POST se utiliza 
+para enviar una entidad a un recurso en específico, 
+causando a menudo un cambio en el estado 
+o efectos secundarios en el servidor.
+* PUT: El método PUT reemplaza todas las representaciones actuales 
+del recurso de destino con la carga útil de la petición.
+* DELETE: El método DELETE borra un recurso en específico.
+* CONNECT: El método CONNECT establece 
+un tunel hacia el servidor identificado por el recurso.
+* OPTIONS: El método OPTIONS es utilizado para describir 
+as opciones de comunicación para el recurso de destino.
+* TRACE: El método TRACE  realiza una prueba de bucle 
+de retorno de mensaje a lo largo de la ruta al recurso de destino.[2]
+
 . Los controles de acceso se aplican normalmente a todos los métodos de acceso, 
 y este es el comportamiento que se busca casi siempre. 
-. En general, las directivas de control de acceso no deben estar dentro de una 
-sección Limit.
-. El propósito de las secciones es restringir el efecto de los controles de
-acceso a los métodos HTTP que se especifiquen. 
-. Para los demás métodos, las restricciones de acceso que estén incluidas en la 
-sección correspondiente no tendrán efecto. 
-. Los siguientes ejemplos aplican el control de acceso solo a los métodos POST, 
-PUT, y DELETE, no afectando al resto de métodos:
+
+. En general, las directivas de control de acceso 
+no deben estar dentro de una sección Limit.
+
+. El propósito de las secciones es restringir 
+el efecto de los controles de acceso a los métodos HTTP que se especifiquen. 
+
+. Para los demás métodos, las restricciones de acceso 
+que estén incluidas en la sección correspondiente no tendrán efecto. 
+
+. Los siguientes ejemplos aplican el control de acceso 
+solo a los métodos POST, PUT, y DELETE, no afectando al resto de métodos:
 +
 [source, html, linenums]
 ----
@@ -39,12 +76,15 @@ PUT, y DELETE, no afectando al resto de métodos:
 
 . Los métodos incluidos en la lista pueden ser uno o más de los siguientes: 
 GET, POST, PUT, DELETE, CONNECT, OPTIONS, PATCH, PROPFIND, PROPPATCH, MKCOL, 
-COPY, MOVE, LOCK, y UNLOCK. Los nombres de los métodos diferencian mayúsculas 
-de minúsculas (case-sensitive). Si se usa GET también se restringirán las 
-peticiones HEAD. El método TRACE no puede limitarse, para tal fin bastará con 
-seguir la solución: [2]
+COPY, MOVE, LOCK, y UNLOCK. 
+Los nombres de los métodos diferencian mayúsculas de minúsculas (case-sensitive). 
+Si se usa GET también se restringirán las peticiones HEAD. 
+El método TRACE no puede limitarse, 
+para tal fin bastará con seguir la solución: [4]
 
 == Referencias
 
+. https://es.wikipedia.org/wiki/Protocolo_de_transferencia_de_hipertexto[Protocolo de transferencia de hipertexto]
+. https://developer.mozilla.org/es/docs/Web/HTTP/Methods[Métodos de petición HTTP]
 . http://httpd.apache.org/docs/2.0/en/mod/core.html[AcceptPathInfo Directive]
 . link::../../../desactivar-metodo-http-trace[No TRACE Apache2]
