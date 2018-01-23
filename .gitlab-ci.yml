@@ -39,10 +39,11 @@ deploy:
     - mv output/web/en/blog-en output/web/en/blog && mv output/web/es/blog-es output/web/es/blog
     # Script to generate a complete sitemap of the site
     - ./xmlcombine.sh
+    # Remove the language identification used to group documents and images in the same directory
+    - mv output/web/es/pages-es/* output/web/es/ && rm -r output/web/es/pages-es
+    - mv output/web/en/pages-en/* output/web/en/ && rm -r output/web/en/pages-en
     # Set the redirect from web/ to web/en/
     - mv output/web/en/redirect/index.html output/web/ && rmdir output/web/en/redirect/
-    # Organize pages images in the corresponding folder
-    - cp -r output/web/es/pages-es/. output/web/es/ && rm -r output/web/es/pages-es
     # Upload generated output to S3 bucket
     - aws s3 rm --recursive s3://web.fluid.la
     - aws s3 cp --recursive --acl=public-read-write output/ s3://web.fluid.la
