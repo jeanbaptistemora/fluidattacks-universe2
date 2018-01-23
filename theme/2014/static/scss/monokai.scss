@@ -132,7 +132,6 @@ $codeyellow: rgba(230, 219, 116, 1);
 
   pre {
     font-style: normal;
-    overflow: unset;
     padding-left: 8px;
     text-align: left;
   }
@@ -149,6 +148,7 @@ $codeyellow: rgba(230, 219, 116, 1);
     border-radius: 0;
     color: $codegray;
     margin: 0;
+    overflow: unset;
   }
 }
 

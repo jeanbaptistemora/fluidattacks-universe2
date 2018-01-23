@@ -7,4 +7,3 @@ representative_image
 tipue_search
 sitemap
 i18n_subsites
-headerid

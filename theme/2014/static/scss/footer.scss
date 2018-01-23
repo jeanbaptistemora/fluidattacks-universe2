@@ -3,6 +3,21 @@ $darkergray: rgba(46, 42, 37, 1);
 $lightblue: rgba(0, 133, 161, 1);
 $white: rgba(255, 255, 255, 1);
 
+@mixin footer-th {
+  background-color: $darkergray;
+  border: 0;
+  color: $white;
+  padding-bottom: 0;
+}
+
+@mixin footer-td {
+  background-color: $darkergray;
+  border: 0;
+  color: $white;
+  padding-top: 0;
+  width: 25%;
+}
+
 .divlogo {
   margin: 0 0 30px;
   padding-top: 30px;
@@ -37,10 +52,7 @@ $white: rgba(255, 255, 255, 1);
   width: 100%;
 
   th {
-    background-color: $darkergray;
-    border: 0;
-    color: $white;
-    padding-bottom: 0;
+    @include footer-th;
 
     h3 {
       text-align: left;
@@ -48,11 +60,7 @@ $white: rgba(255, 255, 255, 1);
   }
 
   td {
-    background-color: $darkergray;
-    border: 0;
-    color: $white;
-    padding-top: 0;
-    width: 25%;
+    @include footer-td;
 
     a {
       color: $white;
@@ -86,10 +94,7 @@ $white: rgba(255, 255, 255, 1);
     width: 100%;
 
     th {
-      background-color: $darkergray;
-      border: 0;
-      color: $white;
-      padding-bottom: 0;
+      @include footer-th;
 
       h3 {
         text-align: left;
@@ -97,11 +102,7 @@ $white: rgba(255, 255, 255, 1);
     }
 
     td {
-      background-color: $darkergray;
-      border: 0;
-      color: $white;
-      padding-top: 0;
-      width: 25%;
+      @include footer-td;
 
       a {
         color: $white;

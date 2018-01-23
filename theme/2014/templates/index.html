@@ -29,7 +29,7 @@
                   <img src="{{ SITEURL }}/blog/{{ article.slug }}{{ article.featured_image }}" alt="{{ article.alt }}">
                 {% endif %}
                 <a href="{{ SITEURL }}/{{ article.url }}" rel="bookmark" title="Permalink to {{ article.title|striptags }}">
-                <h2 id="{{ gettext('article') }}{{ loop.index }}" class="post-title">
+                <h2 class="post-title">
                   {{ article.title }}
                 </h2>
                 </a>
@@ -67,7 +67,7 @@
                   <img src="{{ SITEURL }}/blog/{{ article.slug }}{{ article.featured_image }}" alt="{{ article.alt }}">
                 {% endif %}
                 <a href="{{ SITEURL }}/{{ article.url }}" rel="bookmark" title="Permalink to {{ article.title|striptags }}">
-                <h2 id="{{ gettext('article') }}{{ loop.index }}" class="post-title">
+                <h2 class="post-title">
                   {{ article.title }}
                 </h2>
                 </a>
@@ -106,7 +106,7 @@
                 <img src="{{ SITEURL }}/blog/{{ article.slug }}{{ article.featured_image }}" alt="{{ article.alt }}">
               {% endif %}
               <a href="{{ SITEURL }}/{{ article.url }}" rel="bookmark" title="Permalink to {{ article.title|striptags }}">
-              <h2 id="{{ gettext('article') }}{{ loop.index }}" class="post-title">
+              <h2 class="post-title">
                 {{ article.title }}
               </h2>
               </a>
@@ -141,8 +141,7 @@
       {% endfor %}
     </table>
     <table class="tbresponsive">
-      {% for article in articles_page.object_list %}  
-        {% set outerloop = loop %}             
+      {% for article in articles_page.object_list %}               
         {% if loop.index % 2 != 0 %}
           <tr><td class="tdview">            
             <div class="post-preview">           
@@ -150,7 +149,7 @@
                 <img src="{{ SITEURL }}/blog/{{ article.slug }}{{ article.featured_image }}" alt="{{ article.alt }}">
               {% endif %}
               <a href="{{ SITEURL }}/{{ article.url }}" rel="bookmark" title="Permalink to {{ article.title|striptags }}">
-              <h2 id="{{ gettext('article') }}-2-{{ loop.index }}" class="post-title">
+              <h2 class="post-title">
                 {{ article.title }}
               </h2>
               </a>
@@ -188,7 +187,7 @@
                 <img src="{{ SITEURL }}/blog/{{ article.slug }}{{ article.featured_image }}" alt="{{ article.alt }}">
               {% endif %}
               <a href="{{ SITEURL }}/{{ article.url }}" rel="bookmark" title="Permalink to {{ article.title|striptags }}">
-              <h2 id="{{ gettext('article') }}-2-{{ loop.index }}" class="post-title">
+              <h2 class="post-title">
                 {{ article.title }}
               </h2>
               </a>
