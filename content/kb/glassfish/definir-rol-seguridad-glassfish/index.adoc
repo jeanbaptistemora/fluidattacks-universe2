@@ -11,13 +11,51 @@ Definir usuarios y roles en GlassFish.
 
 == Contexto
 
-A continuación se describen las circunstancias bajo las cuales la siguiente 
-solución tiene sentido:
+A continuación se describen las circunstancias 
+bajo las cuales la siguiente solución tiene sentido:
 
 . Se utiliza el servidor de aplicaciones GlassFish.
 . Se desea configurar usuarios y roles en el Realm de GlassFish.
 
 == 	Solución
+
+GlassFish es un servidor de aplicaciones de software libre 
+desarrollado por Sun Microsystems 
+y que implementa las tecnologías definidas en la plataforma Java EE 
+además permite ejecutar aplicaciones que siguen esta especificación. 
+Es gratuito, de código libre y se distribuye bajo un licenciamiento dual 
+a través de la licencia CDDL y la GNU GPL. [1]
+
+Cuando se está diseñando una aplicación web, o sistema en general, 
+se debe conocer los tipos de usuarios que tendrán acceso al mismo, 
+y una vez determinados quienes serán los usuarios, hay que definir 
+cúal será el rol que tendrán en la aplicación.
+
+Según lo anterior, es posible decir que un usuario, 
+en general, es una persona, un componente de software o incluso un servicio. 
+
+Por otra parte, un rol es un nivel de autorización definido para la aplicación 
+el cual será asignado a uno o varios usuarios 
+para que interactúen con la aplicación. 
+En otras palabras, define qué aplicaciones y qué partes de cada aplicación 
+pueden tener acceso los usuarios y qué pueden hacer.
+
+Por ejemplo, una aplicación que administra 
+los empleados de una organización. 
+En ésta, los empleados podrían tener acceso 
+a toda su información personal, 
+pero no podrían ver la información de otros empleados, 
+ni editar la de ellos.
+Pero los administradores, tendrían acceso 
+a la información de todos los empleados, 
+así como permisos para editarla.
+
+En este ejemplo se podrían definir, al menos, 
+dos roles: empleado y administrador; 
+donde sólo los usuarios del rol administrador 
+puede ver y editar la información de todos los empleados.
+
+. Para crear un nuevo usuario seguimos los siguientes pasos:
 
 . Iniciamos sesión en la consola de administrador de GlassFish:
 
@@ -33,5 +71,9 @@ image::opcion.png[manage users]
 
 == Referencias
 
-. REQ.0171: El sistema debe restringir el acceso a objetos del sistema que 
-tengan contenido sensible. Solo permitirá acceso a usuarios autorizados.
+. https://es.wikipedia.org/wiki/GlassFish[GlassFish]
+. https://docs.oracle.com/cd/E19316-01/820-4335/abloe/index.html[Understanding Users, Groups, Roles, and Realms]
+. https://docs.oracle.com/cd/E19798-01/821-1841/bnbxr/index.html[Managing Users and Groups on the GlassFish Server]
+. REQ.0171: El sistema debe restringir el acceso a objetos del sistema 
+que tengan contenido sensible. 
+Solo permitirá acceso a usuarios autorizados.
