@@ -95,16 +95,16 @@
        {% endif %}
        <br />
        <div class="article-nav">
-         {% if article.prev_article %}
-           <div class="prev-article">
+         <div class="prev-article">
+           {% if article.prev_article %}
              <a href="../../{{ article.prev_article.url}}"><< {{ article.prev_article.title }}</a>
-           </div>
-         {% endif %}
-         {% if article.next_article %}
-           <div class="next-article">
+           {% endif %}
+         </div>
+         <div class="next-article">
+           {% if article.next_article %}
              <a href="../../{{ article.next_article.url}}">{{ article.next_article.title }} >></a>
-           </div>
-         {% endif %}
+           {% endif %}
+         </div>
        </div>
        <br />	
        {% if DISQUS_SITENAME and SITEURL %}
