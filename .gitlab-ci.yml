@@ -40,8 +40,8 @@ deploy:
     # Script to generate a complete sitemap of the site
     - ./xmlcombine.sh
     # Remove the language identification used to group documents and images in the same directory
-    - mv output/web/es/pages-es/* output/web/es/ && rm -r output/web/es/pages-es
-    - mv output/web/en/pages-en/* output/web/en/ && rm -r output/web/en/pages-en
+    - cp -r output/web/es/pages-es/* output/web/es/ && rm -rf output/web/es/pages-es
+    - cp -r output/web/en/pages-en/* output/web/en/ && rm -rf output/web/en/pages-en
     # Set the redirect from web/ to web/en/
     - mv output/web/en/redirect/index.html output/web/ && rmdir output/web/en/redirect/
     # Upload generated output to S3 bucket
