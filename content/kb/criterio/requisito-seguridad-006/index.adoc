@@ -1,0 +1,87 @@
+:slug: kb/criterio/requisito-seguridad-006/ 
+:eth: no
+:category: criterio
+:kb: yes
+
+= REQ.006 Cada amenaza sobre un activo de información debe ser medida en términos de su probabilidad de ocurrencia
+
+== Descripción
+
+Luego de identificar la posibles amenazas
+y establecer un catálogo de amenazas 
+para todos los activos de la organización
+es necesario estudiar cuáles son las amenazas
+que puedan aprovechar posibles vulnerabilidades 
+en el activo de información y afectarlo negativamente. 
+Para ello se debe determinar la periodicidad 
+con la cual esta amenaza puede generarse. 
+Cuando la amenaza se puede presentar con mayor frecuencia, 
+mayor es la probabilidad de la materialización de un riesgo. 
+
+== Implementación
+
+La probabilidad de ocurrencia de la amenaza es 
+proporcional a la exposición. 
+Un activo más expuesto a la amenaza 
+tiene mayor probabilidad de afectación
+y por ende, mayor riesgo de ser vulnerado.
+
+Al la hora de determinar qué tan probable 
+es el hecho de que se presente una amenaza, 
+existen muchas variables que se deben tener en cuenta 
+y que pueden tener mayor o menor peso en relación 
+a cómo afectan determinados activos.
+Entre dichas variables se cuentan 
+los factores físicos y lógicos, 
+de índole externa e interna.
+Esto se traduce a determinar la accesibilidad 
+de un activo de información 
+con base en oportunidades de acceso al dominio,
+asumiendo una situación en donde el atacante
+posee los recursos y las capacidades
+para vulnerar el activo en cuestión.
+Las oportunidades de acceso al dominio
+se definen como:
+
+* Accesibilidad física presencial. 
+* Accesibilidad física cualificada. 
+* Accesibilidad lógica competencial. 
+* Accesibilidad lógica instrumental.
+
+Para encontrar la probabilidad de ocurrencia, 
+la organización puede hacer uso 
+de los datos históricos de incidentes. 
+En caso de no tener un historial de incidentes 
+puede tomar como referencia los datos generados 
+por otras entidades del mismo sector.
+
+== Diagrama
+
+image::diag1.png[Diagrama1] 
+
+== Soluciones
+
+* ISO 27005 - Gestión de riesgos para un SGSI con ISO 27005.
+* Consultoría - Aprender teoría básica de riesgos.
+
+== Casos de abuso
+
+Un usuario empleado o anónimo 
+ejecuta acciones las cuales van en contravía 
+de la seguridad de cualquier activo de la organización. 
+Debido a la situación anteriormente descrita, 
+el control establecido no fue eficiente 
+debido a una falla en la valoración de riesgo 
+al no determinar el impacto real para la organización. 
+
+== Atributos
+
+* Capa: Capa de Recursos.
+* Activo: Activos de Información.
+* Alcance: Adherencia.
+* Fase: Análisis.
+* Tipo de Control: Procedimiento.
+
+== Referencias
+
+. https://www.iso.org/isoiec-27001-information-security.html[Serie de normas ISO/IEC 27000]
