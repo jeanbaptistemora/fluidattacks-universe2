@@ -26,4 +26,8 @@
 	env | grep FI_GITLAB_LOGIN
 	env | grep FI_GITLAB_PASSWORD
 	env | grep FI_DOCUMENTROOT
+	env | grep FI_ROLLBAR_ACCESS_TOKEN
+	env | grep FI_ROLLBAR_ENVIRONMENT
+	env | grep CI_COMMIT_SHA
+	env | grep CI_COMMIT_REF_NAME
 } > "env".list

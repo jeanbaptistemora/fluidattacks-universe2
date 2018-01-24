@@ -93,3 +93,10 @@ deploy_bot:
         - docker push registry.gitlab.com/fluidsignal/integrates/bot:master
     only:
     - master
+
+deploy_rollbar:
+    stage: deploy
+    script:
+        - docker run -d -e FI_ROLLBAR_ACCESS_TOKEN=$FI_ROLLBAR_ACCESS_TOKEN -e FI_ROLLBAR_ENVIRONMENT=$FI_ROLLBAR_ENVIRONMENT -e FI_ROLLBAR_REVISION=$CI_COMMIT_SHA -e FI_ROLLBAR_LOCAL_USERNAME=$CI_COMMIT_REF_NAME registry.gitlab.com/fluidsignal/integrates:deps curl https://api.rollbar.com/api/1/deploy/ -F access_token=$FI_ROLLBAR_ACCESS_TOKEN -F environment=$FI_ROLLBAR_ENVIRONMENT -F revision=$CI_COMMIT_SHA -F local_username=$CI_COMMIT_REF_NAME
+    only:
+    - master
