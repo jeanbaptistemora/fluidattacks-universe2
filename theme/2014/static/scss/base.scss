@@ -203,6 +203,12 @@ article {
   }
 }
 
+.monospaced {
+  background-color: $lightgray;
+  font-family: monospace;
+  padding: 0 10px;
+}
+
 //sass-lint:disable no-universal-selectors
 *,
 *::before,
