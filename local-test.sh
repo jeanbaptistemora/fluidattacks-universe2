@@ -12,13 +12,17 @@ rm -rf ./output
 
 echo "Generating build (3/5) . . ."
 sed -i 's/https:\/\/fluid.la/http:\/\/localhost:8000/' pelicanconf.py
+if [ ! $# -eq 0 ]; then
+  sed -i 's/2014/2018/g; s/pages-en/pages-en-2018/g; s/pages-es/pages-es-2018/g' pelicanconf.py
+fi
+
 pelican --fatal errors --fatal warnings content/
 mv output/web/en/blog-en output/web/en/blog && mv output/web/es/blog-es output/web/es/blog
 
 echo "Updating sitemap, setting redirect and pages images (4/5) . . ."
 ./xmlcombine.sh
-cp -r output/web/es/pages-es/* output/web/es/ && rm -rf output/web/es/pages-es
-cp -r output/web/en/pages-en/* output/web/en/ && rm -rf output/web/en/pages-en
+cp -r output/web/es/pages-es*/* output/web/es/ && rm -rf output/web/es/pages-es*
+cp -r output/web/en/pages-en*/* output/web/en/ && rm -rf output/web/en/pages-en*
 mv output/web/en/redirect/index.html output/web/ && rmdir output/web/en/redirect/
 # Undo changes made to the file and change permissions of the files used by the container as root
 git checkout -- pelicanconf.py

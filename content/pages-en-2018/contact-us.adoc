@@ -1,0 +1,4 @@
+:slug: contact-us/
+:template: pages-en/contact-us
+
+= Contact Us

@@ -1,0 +1,158 @@
+@import 'mixins';
+
+header {
+  padding: 0;
+
+  .cover {
+    background-color: $cover-color;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    height: 250px;
+    overflow: hidden;
+    position: relative;
+
+    img {
+      bottom: 0;
+      filter: grayscale(100%);
+      left: 0;
+      margin: auto;
+      min-width: 100%;
+      opacity: .2;
+      position: absolute;
+      right: 0;
+      top: 0;
+    }
+  }
+
+  .container {
+
+    &.extend {
+      padding-bottom: 217px;
+    }
+  }
+
+  &.blog-index {
+    padding: 70px 0 260px;
+  }
+}
+
+.wrapper {
+  margin-top: -217px;
+
+  .page {
+    background: $white;
+    border-radius: 5px;
+    box-shadow: 0 0 30px $shadow-soft;
+    font-size: 22px;
+    letter-spacing: 4px;
+    margin-bottom: 100px;
+    padding: 80px;
+
+    h1 {
+      color: $blue-2;
+    }
+
+    h2 {
+      padding: 10px 0;
+    }
+  }
+}
+
+.headline {
+  background: $headline-color;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  display: flex;
+  height: 217px;
+  overflow: hidden;
+  position: relative;
+
+  figure {
+    height: 100%;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    z-index: 0;
+
+    img {
+      filter: grayscale(100%);
+      max-height: 100%;
+      opacity: .2;
+      transition: filter, opacity .3s;
+    }
+  }
+
+  h2 {
+    color: $white;
+    font-size: 14px;
+    letter-spacing: 2px;
+    line-height: 25px;
+    padding: 0 30px;
+    text-align: left;
+    text-transform: uppercase;
+    z-index: 1;
+  }
+
+  &:hover {
+    text-decoration: none;
+    text-shadow: 1px 1px 2px $shadow-text;
+
+    img {
+      filter: none;
+      opacity: .6;
+    }
+  }
+}
+
+.post {
+  background: $white;
+  border-radius: 5px;
+  box-shadow: 0 0 30px $shadow-soft;
+  margin-bottom: 45px;
+  padding-bottom: 40px;
+
+  p {
+    color: $gray-2;
+    font-size: 15px;
+    height: 130px;
+    line-height: 26px;
+    margin: 30px;
+    overflow: hidden;
+  }
+
+  .data {
+    color: $gray;
+    font-size: 12px;
+    letter-spacing: 1px;
+    margin: 0 15px 40px;
+
+    a {
+      color: $gray-3;
+      display: block;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    figure {
+      float: left;
+      margin-right: 10px;
+      max-height: 18px;
+      max-width: 18px;
+
+      img {
+        max-height: 18px;
+      }
+    }
+  }
+}
+
+.page-info {
+  color: $gray;
+  font-family: 'raleway-bold';
+  font-size: 13px;
+  letter-spacing: 2px;
+  margin-bottom: 50px;
+  text-shadow: 1px 1px 0 $white;
+  text-transform: uppercase;
+}

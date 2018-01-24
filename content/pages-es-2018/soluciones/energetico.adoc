@@ -1,0 +1,4 @@
+:slug: soluciones/energetico/
+:template: pages-es/soluciones/energetico
+
+= Energético

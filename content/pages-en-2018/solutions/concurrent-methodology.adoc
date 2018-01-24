@@ -1,0 +1,4 @@
+:slug: solutions/concurrent-methodology/
+:template: pages-en/solutions/concurrent-methodology
+
+= Concurrent methodology

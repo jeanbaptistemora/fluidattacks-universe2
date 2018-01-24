@@ -1,0 +1,4 @@
+:slug: contactanos/
+:template: pages-es/contactanos
+
+= Contáctanos

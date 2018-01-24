@@ -1,0 +1,4 @@
+:slug: solutions/expertis/web-apps/
+:template: pages-en/solutions/web-apps
+
+= Web Applications

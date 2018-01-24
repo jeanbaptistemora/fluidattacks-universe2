@@ -1,0 +1,4 @@
+:slug: solutions/financial/
+:template: pages-en/solutions/financial
+
+= Financial

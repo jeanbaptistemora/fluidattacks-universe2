@@ -1,0 +1,4 @@
+:slug: soluciones/tecnologia/
+:template: pages-es/soluciones/tecnologia
+
+= Tecnología

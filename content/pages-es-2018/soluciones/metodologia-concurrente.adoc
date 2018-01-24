@@ -1,0 +1,4 @@
+:slug: soluciones/metodologia-concurrente/
+:template: pages-es/soluciones/metodologia-concurrente
+
+= Metodología concurrente

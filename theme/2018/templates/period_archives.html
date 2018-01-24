@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block title %}{{ SITENAME }} - {{ gettext('Archives for') }} {{ period | reverse | join (' ') }}{% endblock %}
+
+{% block header %}
+<div class="container extend">
+    <div class="row">
+        <div class="col-md-12">
+            <h1 class="ico-left article ico ico-blog">
+                {{ gettext('Archives for') }} {{ period | reverse | join (' ') }}
+            </h1>
+        </div>
+    </div>
+</div>
+{% endblock header %}
+
+{% block content %}
+<div class="wrapper main">
+    <div class="page container">
+        <div class="row archives">
+            <div class="col-md-12">
+                <dl>
+                    {% for article in dates %}
+                        <dt>{{ article.locale_date }}</dt>
+                        <dd><a href="{{ SITEURL }}/{{ article.url }}">{{ article.title }}</a></dd>
+                    {% endfor %}
+                    <hr>
+                </dl>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

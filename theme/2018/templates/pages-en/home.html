@@ -1,0 +1,655 @@
+{% extends "index.html" %}
+
+{% block customcss %}
+{% assets filters="scss,cssmin", output="static/css/home.min.css", "css/custom/pages/home.scss", "css/custom/pages/about-us.scss", "css/custom/pages/solutions.scss", "css/custom/form.scss" %}
+	<link rel="stylesheet" href="{{ SITEURL }}/{{ ASSET_URL }}">
+{% endassets %} 
+{% endblock customcss %}
+
+{% block header %}
+
+<div class="container">
+	<h1>
+		WE HACK YOUR SOFTWARE <span>BEFORE THE BAD GUYS DO</span>
+	</h1>
+	<p>
+		It Security Testing, Ethical Hacking and<br/>
+		Weakness detection in your Applications
+	</p>
+	<a class="btn btn-green" href="{{ SITEURL }}{{ gettext('/solutions') }}">{{ gettext('See more') }}</a>
+</div>
+
+<figure class="scroll-down">
+	<img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/pages/home/scroll.png" alt="Ir abajo" />
+</figure>
+
+<video loop="loop" autoplay="autoplay">
+	<source src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/videos/home.mov" type="video/mp4">
+</video>
+
+{% endblock header %}
+
+{% block content %}
+
+<!-- ................... SVG's ................... -->
+<div class="hidden">
+	<div class="hexagon-white">
+		<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 125.35 108.56">
+			<polygon points="94.02 0 31.33 0 0 54.28 31.33 108.56 94.02 108.56 125.35 54.28 94.02 0"/>
+		</svg>
+	</div>
+	<div class="hexagon-gradient">
+		<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 125.35 108.56">
+			<polygon class="svg-gradient" points="94.02 0 31.33 0 0 54.28 31.33 108.56 94.02 108.56 125.35 54.28 94.02 0"/>
+		</svg>
+	</div>
+</div>
+<!-- ............................................... -->
+	
+<!-- OUR SERVICES -->
+<section class="our-services">
+	
+	<div class="container">
+		<div class="row">
+			<div class="col-md-12">
+				<h1 class="text-center ico ico-top ico-services">
+					Services
+				</h1>
+				<p class="text-center">
+					Somos una compañía especializada en Ethical Hacking <br/>
+					(Pentesting) enfocados en la explotación de <br/>
+					vulnerabildiades de Día Cero (Zero Day)
+				</p>
+			</div>
+		</div>
+		<div class="row text-center justify-content-center">
+			<div class="col-11 col-md-10 col-lg-4 card-column">
+				<div class="col-md-12 card card-green">
+					<a href="{{ SITEURL }}{{ gettext('/solutions') }}/ethical-hacking-infrastructure">
+						<figure class="mar-0-auto">
+							<img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/pages/home/ico-infraestructure.png" alt="Ethical Hacking de Infraestructura"/>
+						</figure>
+						<h4>
+							ETHICAL HACKING <span>DE INFRAESTRUCTURA</span>
+						</h4>
+						<p>
+							Realizar pruebas sobre la infraestructura que soportan los sistemas (Servicios de red/SO)
+						</p>
+					</a>
+				</div>
+			</div>
+			<div class="col-11 col-md-10 col-lg-4 card-column">
+				<div class="col-md-12 card card-purple">
+					<a href="{{ SITEURL }}{{ gettext('/solutions') }}/ethical-hacking-application">
+						<figure class="mar-0-auto">
+							<img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/pages/home/ico-application.png" alt="Ethical Hacking de Aplicación"/>
+						</figure>
+						<h4>
+							ETHICAL HACKING <span>DE APLICACIÓN</span>
+						</h4>
+						<p>
+							Identificar vulnerabilidades en las aplicaciones (web/móvil) y los servicios (web services) 
+						</p>
+					</a>
+				</div>
+			</div>
+			<div class="col-11 col-md-10 col-lg-4 card-column">
+				<div class="col-md-12 card card-blue">
+					<a href="{{ SITEURL }}{{ gettext('/solutions') }}/source-code-analysis">
+						<figure class="mar-0-auto">
+							<img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/pages/home/ico-code.png" alt="Análisis de código fuente"/>
+						</figure>
+						<h4>
+							ANÁLISIS DE <span>CÓDIGO FUENTE</span>
+						</h4>
+						<p>
+							Detectar problemas de seguridad directamente desde el desarrollo
+						</p>
+					</a>
+				</div>
+			</div>
+		</div>
+		<div class="row by-experience justify-content-center">
+			<div class="col-11 col-lg-4">
+				<h1 class="ico ico-top ico-expertis">
+					Por expertis
+				</h1>
+				<p>
+					Especialistas en evaluación de tecnologías específicas para reducir los riesgos en su negocio
+				</p>
+				<a class="btn btn-green" href="{{ SITEURL }}{{ gettext('/solutions') }}">{{ gettext('See more') }}</a>
+			</div>
+			<div class="col-11 col-lg-8">
+
+				<div class="row wrapper-xp-icon">
+
+					<div class="col-12 col-sm-6 col-md-4">
+						<a href="{{ SITEURL }}{{ gettext('/solutions') }}/expertis/web-apps" class="xp-icon">
+							<figure>
+								<img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/pages/content/icons-85/icon-web-app.png" alt="Aplicaciones Web"/>
+							</figure>
+							<h4>
+								APLICACIONES <span>WEB</span>
+							</h4>
+						</a>
+					</div>
+
+					<div class="col-12 col-sm-6 col-md-4">
+						<a href="{{ SITEURL }}{{ gettext('/solutions') }}/expertis/mobile-apps" class="xp-icon">
+							<figure>
+								<img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/pages/content/icons-85/icon-mobile-app.png" alt="Aplicaciones móviles"/>
+							</figure>
+							<h4>
+								APLICACIONES <span>MÓVILES</span>
+							</h4>
+						</a>
+					</div>
+
+
+					<div class="col-12 col-sm-6 col-md-4">
+						<a href="{{ SITEURL }}{{ gettext('/solutions') }}/expertis/cloud" class="xp-icon">
+							<figure>
+								<img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/pages/content/icons-85/icon-cloud.png" alt="Cloud"/>
+							</figure>
+							<h4>
+								CLOUD
+							</h4>
+						</a>
+					</div>
+
+					<div class="col-12 col-sm-6 col-md-4">
+						<a href="{{ SITEURL }}{{ gettext('/solutions') }}/expertis/corporative-infrastructure" class="xp-icon">
+							<figure>
+								<img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/pages/content/icons-85/icon-corporative.png" alt="Infraestructura corporativa"/>
+							</figure>
+							<h4>
+								INFRAESTRUCTURA <span>CORPORATIVA</span>
+							</h4>
+						</a>
+					</div>
+
+					<div class="col-12 col-sm-6 col-md-4">
+						<a href="{{ SITEURL }}{{ gettext('/solutions') }}/expertis/critical-infrastructure" class="xp-icon">
+							<figure>
+								<img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/pages/content/icons-85/icon-critical.png" alt="Infraestructura crítica"/>
+							</figure>
+							<h4>
+								INFRAESTRUCTURA <span>CRÍTICA</span>
+							</h4>
+						</a>
+					</div>
+
+					<div class="col-12 col-sm-6 col-md-4">
+						<a href="{{ SITEURL }}{{ gettext('/solutions') }}/expertis/iot" class="xp-icon">
+							<figure>
+								<img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/pages/content/icons-85/icon-iot.png" alt="IOT"/>
+							</figure>
+							<h4>
+								IOT
+							</h4>
+						</a>
+					</div>
+
+					
+				</div>
+
+			</div>
+		</div>
+	</div>
+
+</section>
+<!-- END SERVICES -->
+
+
+<!-- ABOUT US -->
+<section class="why-fluid text-white">
+	<div class="container">
+		<div class="row justify-content-center justify-content-lg-start">
+			<div class="col-11 col-lg-5">
+				<h3 class="text-uppercase mar-bot-30"><i class="far fa-check-circle fon-siz-20">&nbsp;</i>/ Why Fluid?</h3>
+				<h1 class="text-white">
+					Reasons to choose us
+				</h1>
+
+				<div class="wrapper-reasons-text-carousel">
+
+					<div id="reasons-text-carousel" class="reasons-text-carousel owl-carousel owl-theme">
+						<div class="item">
+							<p class="max-wid-305">
+								Reducción de pérdidas por incidentes de seguridad, al disminuir la probabilidad que sus sistemas sean vulnerados
+							</p>
+						</div>
+						<div class="item">
+							<p class="max-wid-305">
+								Personal con certificaciones prácticas y estudios relacionados a temas de seguridad.
+							</p>
+						</div>
+						<div class="item">
+							<p class="max-wid-305">
+								Buscamos el mayor impacto a nivel corporativo y no solo desde la perspectiva de la tecnología.
+							</p>
+						</div>
+						<div class="item">
+							<p class="max-wid-305">
+								Asegurando la calidad, reportando únicamente vulnerabilidades confirmadas.
+							</p>
+						</div>
+						<div class="item">
+							<p class="max-wid-305">
+								Especializados en encontrar vulnerabilidades de día cero (Zero day vulnerabilities)
+							</p>
+						</div>
+					</div>
+
+				</div>
+
+				<a class="btn btn-green" href="{{ SITEURL }}{{ gettext('/about-us') }}">{{ gettext('See more') }}</a>
+			</div>
+		</div>
+	</div>
+	<div class="wrapper-reasons-carusel">
+		<div class="reasons-carousel-controls">
+			<a class="back white-arrow" href="javascript:;">
+				<figure>
+					<img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/pages/about-us/carousel-controls-back-white.png" alt="Atrás"/>
+				</figure>
+				{{ gettext('BACK')}}
+			</a>
+			<a class="next green-arrow" href="javascript:;">
+				<figure>
+					<img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/pages/about-us/carousel-controls-next-green.png" alt="Siguiente"/>
+				</figure>
+				{{ gettext('NEXT')}}
+			</a>
+		</div>
+		<div id="reasons-carousel" class="reasons-carousel owl-carousel owl-theme">
+			<div class="item">
+				<div class="item-content">
+					<div>
+						<figure>
+							<img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/pages/content/icons-150/icon-satisfaction.png" alt="Satisfacemos a nuestros clientes"/>
+						</figure>
+						<h4>
+							SATISFACEMOS A
+							<span>NUESTROS CLIENTES</span>
+						</h4>
+					</div>
+				</div>
+			</div>
+			<div class="item">
+				<div class="item-content">
+					<div>
+						<figure>
+						<img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/pages/content/icons-150/icon-knowledge.png" alt="Tenemos confianza en nuestro conocimiento"/>
+						</figure>
+						<h4>
+							TENEMOS CONFIANZA EN
+							<span>NUESTRO CONOCIMIENTO</span>
+						</h4>
+					</div>
+				</div>
+			</div>
+			<div class="item">
+				<div class="item-content">
+					<div>
+						<figure>
+						<img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/pages/content/icons-150/icon-alliance.png" alt="Somos aliados de su negocio"/>
+						</figure>
+						<h4>
+							SOMOS ALIADOS
+							<span>DE SU NEGOCIO</span>
+						</h4>
+					</div>
+				</div>
+			</div>
+
+			<div class="item">
+				<div class="item-content">
+					<div>
+						<figure>
+						<img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/pages/content/icons-150/icon-responsibility.png" alt="Responsabilidad antes que rentabilidad"/>
+						</figure>
+						<h4> 
+							RESPONSABILIDAD ANTES
+							<span>QUE RENTABILIDAD</span>
+						</h4>
+					</div>
+				</div>
+			</div>
+			<div class="item">
+				<div class="item-content">
+					<div>
+						<figure>
+						<img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/pages/content/icons-150/icon-specialists.png" alt="Especialistas"/>
+						</figure>
+						<h4>
+							ESPECIALISTAS
+						</h4>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+<!-- END ABOUT US -->
+
+
+<!-- QUALITY -->
+<section class="quality">
+	<div class="container">	
+		<div class="row">
+			<div class="col-md-12">
+				<h1 class="text-center fon-siz-18 text-capitalize">Las cifras respaldan nuestra experiencia</h1>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-6 col-lg-3">
+				<div class="quality-card">
+					<figure>
+						<img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/pages/home/ico-qt-years.png" alt="16 años de servicio"/>
+					</figure>
+					<div class="number">16</div>
+					<h4>
+						AÑOS DE <span>SERVICIO</span>
+					</h4>
+				</div>
+			</div>
+			<div class="col-md-6 col-lg-3">
+				<div class="quality-card">
+					<figure>
+						<img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/pages/home/ico-qt-sector.png" alt="451 proyectos realizados"/>
+					</figure>
+					<div class="number">451</div>
+					<h4>
+						PROYECTOS <span>REALIZADOS</span>
+					</h4>
+				</div>
+			</div>
+			<div class="col-md-6 col-lg-3">
+				<div class="quality-card">
+					<figure>
+						<img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/pages/home/ico-qt-code.png" alt="41407 vulnerabilidades reportadas"/>
+					</figure>
+					<div class="number">41407</div>
+					<h4>
+						VULNERABILIDADES <span>REPORTADAS</span>
+					</h4>
+				</div>
+			</div>
+			<div class="col-md-6 col-lg-3">
+				<div class="quality-card">
+					<figure>
+						<img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/pages/home/ico-qt-test.png" alt="14.038.678 líneas de código revisadas"/>
+					</figure>
+					<div class="number">14.038.678</div>
+					<h4>
+						LÍNEAS DE CÓDIGO <span>REVISADAS</span>
+					</h4>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+<!-- END QUALITY -->
+
+<section class="customers bg-white">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-12">
+				<h1 class="text-center ico ico-top ico-customers">
+					Clients
+				</h1>
+				<p class="text-center">
+					contamos con más de 15 años de experiencia en la prestación de diferentes tipos de servicios de seguridad a diversas empresas de los sectores financiero, de seguros, telecomunicaciones, energía y retail; También hemos trabajado con instituciones gubernamentales. A continuación se muestran algunas de las empresas que son clientes actuales:
+				</p>
+			</div>
+			<div class="col-md-12 text-center">
+				<a class="brands-carousel-back carousel-control" href="javascript:;" data-carousel="#brands-carousel" data-direction="prev">
+					<figure>
+						<img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/pages/home/carousel-controls-back-black.png" alt="Atrás"/>
+					</figure>
+				</a>
+				<a class="brands-carousel-next carousel-control" href="javascript:;" data-carousel="#brands-carousel" data-direction="next">
+					<figure>
+						<img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/pages/home/carousel-controls-next-black.png" alt="Siguiente"/>
+					</figure>
+				</a>
+				<div id="brands-carousel" class="brands-carousel owl-carousel owl-theme">
+					<div class="item">
+						<img class="img-fluid" src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/pages/clients/logos/asb-logo.jpg" alt="asb"/>
+					</div>
+					<div class="item">
+						<img class="img-fluid" src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/pages/clients/logos/aval-logo.jpg" alt="aval"/>
+					</div>
+					<div class="item">
+						<img class="img-fluid" src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/pages/clients/logos/banistmo-logo.jpg" alt="banistmo"/>
+					</div>
+					<div class="item">
+						<img class="img-fluid" src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/pages/clients/logos/caf-logo.jpg" alt="caf"/>
+					</div>
+					<div class="item">
+						<img class="img-fluid" src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/pages/clients/logos/celsia-logo.jpg" alt="celsia"/>
+					</div>
+					<div class="item">
+						<img class="img-fluid" src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/pages/clients/logos/choucair.jpg" alt="cho"/>
+					</div>
+					<div class="item">
+						<img class="img-fluid" src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/pages/clients/logos/claro-logo.jpg" alt="claro"/>
+					</div>
+					<div class="item">
+						<img class="img-fluid" src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/pages/clients/logos/colpatria-logo.jpg" alt="colpatria"/>
+					</div>
+					<div class="item">
+						<img class="img-fluid" src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/pages/clients/logos/corona-logo.jpg" alt="corona"/>
+					</div>
+					<div class="item">
+						<img class="img-fluid" src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/pages/clients/logos/directv-logo.jpg" alt="directv"/>
+					</div>
+					<div class="item">
+						<img class="img-fluid" src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/pages/clients/logos/edatel-logo.jpg" alt="edatel"/>
+					</div>
+					<div class="item">
+						<img class="img-fluid" src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/pages/clients/logos/gobernacion-logo.jpg" alt="gobernacion"/>
+					</div>
+					<div class="item">
+						<img class="img-fluid" src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/pages/clients/logos/grupo-argos-logo.jpg" alt="grupo-argos"/>
+					</div>
+					<div class="item">
+						<img class="img-fluid" src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/pages/clients/logos/grupo-aval-logo.jpg" alt="grupo-aval"/>
+					</div>
+					<div class="item">
+						<img class="img-fluid" src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/pages/clients/logos/grupo-exito-logo.jpg" alt="grupo-exito"/>
+					</div>
+					<div class="item">
+						<img class="img-fluid" src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/pages/clients/logos/isagen-logo.jpg" alt="isagen"/>
+					</div>
+					<div class="item">
+						<img class="img-fluid" src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/pages/clients/logos/manuelita-logo.jpg" alt="manuelita"/>
+					</div>
+					<div class="item">
+						<img class="img-fluid" src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/pages/clients/logos/supersalud-logo.jpg" alt="supersalud"/>
+					</div>
+					<div class="item">
+						<img class="img-fluid" src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/pages/clients/logos/sura-logo.jpg" alt="sura"/>
+					</div>
+					<div class="item">
+						<img class="img-fluid" src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/pages/clients/logos/teraport-logo.jpg" alt="teraport"/>
+					</div>
+					<div class="item">
+						<img class="img-fluid" src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/pages/clients/logos/themissinglink-logo.jpg" alt="themissinglink"/>
+					</div>
+					<div class="item">
+						<img class="img-fluid" src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/pages/clients/logos/tuya-logo.jpg" alt="tuya"/>
+					</div>
+					<div class="item">
+						<img class="img-fluid" src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/pages/clients/logos/une-logo.jpg" alt="une"/>
+					</div>
+					<div class="item">
+						<img class="img-fluid" src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/pages/clients/logos/une-tigo-logo.jpg" alt="une-tigo"/>
+					</div>
+					<div class="item">
+						<img class="img-fluid" src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/pages/clients/logos/xm-logo.jpg" alt="xm"/>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+
+
+<section class="satisfaction text-white">
+	<div class="container">
+		<div class="row justify-content-between">
+			<div class="col-md-7">
+				<ul class="colorful">
+					<li>Cumplimiento</li>
+					<li>Gestión</li>
+					<li>Documentación</li>
+					<li>Satisfacción General</li>
+				</ul>
+				<figure>
+					<img class="img-fluid" src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/pages/home/satisfaction-graph.png" alt="Gráfica de satisfacción"/>
+				</figure>
+			</div>
+			<div class="col-md-4">
+				<h1 class="text-left text-green pad-top-0 ico ico-top ico-satisfaction">
+					Satisfaction
+				</h1>
+				<p>
+					Trabajamos para que nuestros clientes estén satisfechos con los resultados
+				</p>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-12">
+				<div class="panel text-center">
+					<h1 class="text-center ico ico-top ico-certifications">
+						Certifications
+					</h1>
+					<ul class="certifications">
+						<li>
+							<img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/pages/home/certifications/ceh.png" alt="CEH"/>
+						</li>
+						<li>
+							<img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/pages/home/certifications/cisa.png" alt="CISA"/>
+						</li>
+						<li>
+							<img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/pages/home/certifications/cism.png" alt="CISM"/>
+						</li>
+						<li>
+							<img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/pages/home/certifications/cispp.png" alt="CISPP"/>
+						</li>
+						<li>
+							<img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/pages/home/certifications/oscp.png" alt="OSCP"/>
+						</li>
+						<li>
+							<img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/pages/home/certifications/security-plus.png" alt="SECURITY +"/>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+
+
+<section class="home-contact-us">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-6 col-lg-5">
+				<h1 class="ico ico-top ico-contact-us">
+					Contact Us
+				</h1>
+				<p>
+					Pronto nos pondremos en contacto para que nos cuente en que le podemos ayudar
+				</p>
+
+				<form>
+					<div class="form-group">
+						
+						<div class="input-group">
+							<div class="input-group-addon">Nombre:</div>
+							<input required="required" type="text" class="form-control" name="name">
+						</div>
+					
+					</div>
+
+					<div class="form-group">
+						
+						<div class="input-group">
+							<div class="input-group-addon">Teléfono:</div>
+							<input required="required" type="text" class="form-control" name="phonenumber">
+						</div>
+					
+					</div>
+
+					<div class="form-group">
+						
+						<div class="input-group">
+							<div class="input-group-addon">Email corporativo:</div>
+							<input required="required" type="email" class="form-control" name="email">
+						</div>
+					
+					</div>
+					
+					<div class="form-group">
+						
+						<div class="input-group">
+							<div class="input-group-addon">Motivo:</div>
+							<select required="required" name="subject" class="form-control">
+							  <option selected value="">Seleccione</option>
+							  <option value="Comercial">Comercial</option>
+							  <option value="Empleo">Empleo</option>
+							</select>
+						</div>
+					
+					</div>
+					
+
+					<div class="form-group">
+						
+						<div class="input-group">
+							<div class="input-group-addon">País:</div>
+							<input type="text" required="required" name="country" class="form-control">
+						</div>
+					
+					</div>
+
+					<div class="form-group">
+						
+						<div class="input-group">
+							<div class="input-group-addon">Mensaje:</div>
+							<input type="text" class="form-control" required="required" name="message">
+						</div>
+					
+					</div>	
+
+					<div class="form-group row">
+						<button type="submit" class="btn btn-green">{{ gettext('SEND') }}</button>
+					</div>
+					
+
+					<div class="form-check">
+						<label class="form-check-label">
+							<input class="form-check-input" type="checkbox" value="">
+							Autorizo a FLUID para usar mi información personal en un futuro.
+						</label>
+					</div>
+				</form>
+			</div>
+
+			<div class="col-md-6 col-lg-7 d-flex justify-content-end align-items-sm-center align-items-lg-start">
+				<figure class="d-none d-md-block">
+					<img class="img-fluid" src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/pages/contact-us/figure.png" alt="Contáctanos"/>
+				</figure>
+			</div>
+		</div>
+	</div>
+</section>
+
+{% endblock content %}
+
+{% block javascript %}
+	<script type="text/javascript" src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/js/plugins/owl.carousel/owl.carousel.js"></script>
+	<script type="text/javascript" src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/js/custom/home.js"></script>
+{% endblock javascript %}

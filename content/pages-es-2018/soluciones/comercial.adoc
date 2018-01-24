@@ -1,0 +1,4 @@
+:slug: soluciones/comercial/
+:template: pages-es/soluciones/comercial
+
+= Comercial

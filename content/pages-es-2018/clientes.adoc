@@ -1,0 +1,4 @@
+:slug: clientes/
+:template: pages-es/clientes
+
+= Clientes

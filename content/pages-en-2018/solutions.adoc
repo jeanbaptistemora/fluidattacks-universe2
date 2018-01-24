@@ -1,0 +1,4 @@
+:slug: solutions/
+:template: pages-en/solutions
+
+= Solutions

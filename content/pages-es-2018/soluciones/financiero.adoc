@@ -1,0 +1,4 @@
+:slug: soluciones/financiero/
+:template: pages-es/soluciones/financiero
+
+= Sector financiero

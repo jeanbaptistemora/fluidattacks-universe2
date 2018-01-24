@@ -1,0 +1,4 @@
+:slug: solutions/ethical-hacking-infrastructure/
+:template: pages-en/solutions/ethical-hacking-infrastructure
+
+= Ethical hacking infrastructure

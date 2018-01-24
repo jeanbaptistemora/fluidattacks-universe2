@@ -1,0 +1,4 @@
+:slug: solutions/products/fluidintegrates/
+:template: pages-en/solutions/fluidintegrates
+
+= fluidintegrates

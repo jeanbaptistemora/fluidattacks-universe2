@@ -1,0 +1,4 @@
+:slug: soluciones/metodologia-por-proyecto/
+:template: pages-es/soluciones/metodologia-por-proyecto
+
+= Metodología por proyecto

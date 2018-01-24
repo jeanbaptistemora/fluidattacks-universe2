@@ -1,0 +1,4 @@
+:slug: solutions/products/fluidasserts/
+:template: pages-en/solutions/fluidasserts
+
+= fluidasserts

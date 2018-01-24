@@ -1,0 +1,76 @@
+@import 'mixins';
+
+.tipue-search {
+  background: $gray-1;
+  margin-bottom: 50px;
+  padding: 30px;
+}
+
+.tipue-search-content {
+  font-size: 15px;
+  letter-spacing: 1px;
+}
+
+.tipue-search-content-title {
+
+  a {
+    color: $blue-2;
+    display: inline-block;
+    font-family: 'raleway-bold';
+    margin: 20px 0 10px;
+    text-transform: uppercase;
+  }
+}
+
+.tipue-search-content-url {
+
+  a {
+    color: $gray;
+    display: inline-block;
+    margin-bottom: 20px;
+  }
+}
+
+.tipue-search-content-text {
+  border-bottom: 1px dashed $gray-2;
+  font-family: 'raleway-regular';
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  line-height: 30px;
+  margin: 35px 0 50px;
+  padding-bottom: 50px;
+}
+
+.tipue-search-content-bold {
+  background: $green;
+  color: $white;
+  padding: 2px;
+}
+
+.tipue-search-foot-boxes {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+
+  li {
+    display: inline-block;
+    margin: 10px;
+
+    &.current {
+      background: $green;
+      color: $white;
+      padding: 5px 12px;
+    }
+
+    a {
+      background: $gray;
+      border-radius: 2px;
+      color: $white;
+      cursor: pointer;
+      display: block;
+      padding: 5px 12px;
+    }
+  }
+}

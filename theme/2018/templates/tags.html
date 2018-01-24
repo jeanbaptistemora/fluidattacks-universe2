@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block customcss %}
+{% assets filters="scss,cssmin", output="static/css/tags.min.css", "css/custom/article.scss" %}
+    <link rel="stylesheet" href="{{ SITEURL }}/{{ ASSET_URL }}">
+{% endassets %} 
+{% endblock customcss %}
+
+{% block title %}{{ SITENAME }} - {{ gettext('Tags') }}{% endblock %}
+
+{% block header %}
+<div class="container extend">
+    <div class="row">
+        <div class="col-md-12">
+            <h1 class="ico-left article ico ico-blog">
+                {{ gettext('Tags') }}:
+            </h1>
+        </div>
+    </div>
+</div>
+{% endblock header %}
+
+{% block content %}
+<div class="wrapper main">
+	<div class="page container">
+		<div class="row tags justify-content-around">
+			<div class="col-md-10 text-center">
+			{% for tag, articles in tags|sort %}
+			<a href="{{ tag.url }}" rel="bookmark">{{ tag }} ({{ articles|count }})</a>
+			{% endfor %}
+			</div>
+		</div>
+	</div>
+</div>
+{% endblock content %}

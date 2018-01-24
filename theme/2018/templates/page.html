@@ -1,0 +1,78 @@
+{% extends "index.html" %}
+
+{% block canonical %}<link rel="canonical" href="{{ SITEURL }}/{{ page.url }}"/>{% endblock canonical %}
+{% block title %}{{ SITENAME }}&nbsp;|&nbsp; {{ page.title }}{% endblock title %}
+
+{% block header %}
+<div class="container extend">
+	<div class="row">
+		<div class="col-md-12">
+			<h1 class="ico-left article ico ico-blog">
+				{% if page.top %}
+				{{ page.top }}
+				{% else %}
+				{{ page.title }}
+				{% endif %}
+			</h1>
+		</div>
+	</div>
+</div>
+{% endblock header %}
+
+{% block content %}
+
+<div class="wrapper main">
+    <div class="page container">
+    	<div class="row">
+    		<div class="col-md-12">
+
+				<h1>{{ page.title }}</h1>
+					
+				{{ page.content }}
+				
+				<div>
+					<!-- Go to www.addthis.com/dashboard to customize your tools -->
+					<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5a37e74c4b1448ce"></script>
+				</div>
+				{% if DISQUS_SITENAME and SITEURL and "kb/" in page.slug %}
+				<hr id="hrcoments">
+				<div class="comments">
+					<h3>{{ gettext('Leave a comment') }}</h3>
+					<div id="disqus_thread"></div>
+					{% if DEFAULT_LANG == "es" %}
+					<script type="text/javascript">
+						var disqus_config = function () {
+							this.page.identifier = "{{ page.slug }}";
+							this.page.url = "{{ SITEURL }}/{{ page.url }}";
+							this.language = "es_AR";
+						};
+						(function() {
+							var d = document, dsq = d.createElement('script');
+							dsq.src = 'https://{{ DISQUS_SITENAME }}.disqus.com/embed.js';
+							dsq.setAttribute('data-timestamp', +new Date());
+							(d.head || d.body).appendChild(dsq);
+						})();
+					</script>
+					{% else %}
+					<script type="text/javascript">
+						var disqus_config = function () {
+							this.page.identifier = "{{ page.slug }}";
+							this.page.url = "{{ SITEURL }}/{{ page.url }}";
+						};
+						(function() {
+							var d = document, dsq = d.createElement('script');
+							dsq.src = 'https://{{ DISQUS_SITENAME }}.disqus.com/embed.js';
+							dsq.setAttribute('data-timestamp', +new Date());
+							(d.head || d.body).appendChild(dsq);
+						})();
+					</script>
+					{% endif %}
+				</div>
+				<script id="dsq-count-scr" src="//{{ DISQUS_SITENAME }}.disqus.com/count.js" async></script>
+				{% endif %}
+			</div>
+		</div>
+	</div>
+</div>
+
+{% endblock content %}

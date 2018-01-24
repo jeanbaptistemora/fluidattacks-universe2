@@ -1,0 +1,4 @@
+:slug: solutions/ethical-hacking-application/
+:template: pages-en/solutions/ethical-hacking-application
+
+= Ethical hacking application

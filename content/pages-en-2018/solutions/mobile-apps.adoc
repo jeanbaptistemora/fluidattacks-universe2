@@ -1,0 +1,4 @@
+:slug: solutions/expertis/mobile-apps/
+:template: pages-en/solutions/mobile-apps
+
+= Mobile apps

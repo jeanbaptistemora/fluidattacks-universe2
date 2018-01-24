@@ -1,0 +1,4 @@
+:slug: home/
+:template: pages-en/home
+
+= Home

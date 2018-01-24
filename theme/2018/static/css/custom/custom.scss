@@ -1,0 +1,185 @@
+@import 'mixins';
+
+.hidden {
+  display: none;
+}
+
+.mar-0 {
+  margin: 0;
+}
+
+.mar-0-auto  {
+  margin: 0 auto;
+}
+
+.mar-auto {
+  margin: auto;
+}
+
+.mar-top-30 {
+  margin-top: 30px;
+}
+
+.mar-bot-0 {
+  margin-bottom: 0;
+}
+
+.mar-bot-30 {
+  margin-bottom: 30px;
+}
+
+.mar-bot-50 {
+  margin-bottom: 50px;
+}
+
+.mar-50-0 {
+  margin: 50px 0;
+}
+
+.pad-0 {
+  padding: 0;
+}
+
+.pad-top-0 {
+  padding-top: 0;
+}
+
+.pad-top-55 {
+  padding-top: 55px;
+}
+
+.pad-lef-0 {
+  padding-left: 0;
+}
+
+.pad-rig-0 {
+  padding-right: 0;
+}
+
+.pad-bot-0 {
+  padding-bottom: 0;
+}
+
+.fon-siz-18 {
+  font-size: 18px;
+}
+
+.fon-siz-20 {
+  font-size: 20px;
+}
+
+.text-white {
+  color: $white;
+}
+
+.text-green {
+  color: $green;
+}
+
+.bg-white {
+  background: $white;
+}
+
+.max-wid-max {
+  max-width: max-content;
+}
+
+.max-wid-305 {
+  max-width: 305px;
+}
+
+.max-wid-100-p {
+  max-width: 100%;
+}
+
+.ico {
+  background-repeat: no-repeat;
+
+  &.ico-blog {
+    background-image: url('../../images/blog/ico-blog.png');
+  }
+
+  &.ico-services {
+    background-image: url('../../images/pages/home/title-services.png');
+  }
+
+  &.ico-expertis {
+    background-image: url('../../images/pages/home/title-experience.png');
+  }
+
+  &.ico-customers {
+    background-image: url('../../images/pages/home/title-customers.png');
+  }
+
+  &.ico-satisfaction {
+    background-image: url('../../images/pages/home/title-satisfaction.png');
+  }
+
+  &.ico-certifications {
+    background-image: url('../../images/pages/home/title-certifications.png');
+  }
+
+  &.ico-contact-us {
+    background-image: url('../../images/pages/home/title-contact.png');
+  }
+
+  &.ico-about-us {
+    background-image: url('../../images/pages/about-us/icon-about-us.png');
+  }
+
+  &.ico-who-we-are {
+    background-image: url('../../images/pages/about-us/icon-who-we-are.png');
+  }
+
+  &.ico-what-we-do {
+    background-image: url('../../images/pages/about-us/icon-what-we-do.png');
+  }
+
+  &.ico-about-us-blue {
+    background-image: url('../../images/pages/about-us/icon-about-us-blue.png');
+  }
+
+  &.ico-work-with-us {
+    background-image: url('../../images/pages/about-us/icon-work-with-us.png');
+  }
+
+  &.ico-solutions {
+    background-image: url('../../images/pages/solutions/icon-solutions.png');
+  }
+
+  &.ico-our-services {
+    background-image: url('../../images/pages/solutions/icon-services.png');
+  }
+
+  &.ico-testimonials {
+    background-image: url('../../images/pages/solutions/icon-testimonials.png');
+  }
+
+  &.ico-survey {
+    background-image: url('../../images/pages/solutions/icon-survey.png');
+  }
+
+  &.ico-clients {
+    background-image: url('../../images/pages/clients/icon-clients.png');
+  }
+
+  &.ico-clients-blue {
+    background-image: url('../../images/pages/clients/icon-customers.png');
+  }
+
+  &.ico-place {
+    background-image: url('../../images/pages/contact-us/icon-contact-us.png');
+  }
+
+  &.ico-experience {
+    background-image: url('../../images/pages/content/icon-experience.png');
+  }
+
+  &.ico-success-cases {
+    background-image: url('../../images/pages/content/icon-success.png');
+  }
+
+  &.ico-related {
+    background-image: url('../../images/blog/ico-related.png');
+  }
+}

@@ -1,0 +1,246 @@
+@import 'mixins';
+@import 'fonts';
+
+.owl-carousel {
+
+  .owl-item {
+
+    img {
+      width: auto;
+    }
+  }
+}
+
+.main-navbar {
+  background-color: $base;
+  box-shadow: 0 0 28px $shadow-hard;
+  display: table;
+  position: fixed;
+  top: 0;
+  transition: background .3s;
+  width: 100%;
+  z-index: 99;
+
+  .container {
+    padding: 0;
+  }
+
+  .navbar {
+    padding: 21px 0;
+  }
+
+  .navbar-brand {
+    border: 0;
+
+    &:hover {
+      border: 0;
+    }
+
+    &::before {
+      display: none;
+    }
+  }
+
+  a {
+    border: 2px solid transparent;
+    border-radius: 5px;
+    color: $gray-3;
+    font-family: 'raleway-bold';
+    font-size: 11px;
+    letter-spacing: 4px;
+    padding: 10px;
+    text-transform: uppercase;
+
+    &:hover {
+      border: 2px solid $green;
+      color: $green;
+      text-decoration: none;
+
+      &::before {
+        background: $green;
+        content: '';
+        height: 5px;
+        margin-left: -10px;
+        position: absolute;
+        top: 0;
+        width: 40px;
+      }
+    }
+
+    &.contact-us {
+      border: 2px solid $green;
+      color: $green;
+      margin: 0 20px;
+    }
+
+    &.lang {
+
+      a {
+        &:hover {
+          border: 2px solid transparent;
+          color: $green;
+          font-family: 'raleway-bold';
+        }
+
+        &.active {
+          border: 2px solid transparent;
+          color: $green;
+          font-family: 'raleway-bold';
+        }
+      }
+    }
+  }
+
+  .navbar-toggler-icon {
+    cursor: pointer;
+
+    span {
+      background: $white;
+      display: block;
+      height: 2px;
+      margin: 6px 0;
+      width: 30px;
+    }
+  }
+
+  li {
+    &:last-child {
+      &::before {
+        color: $gray-4;
+        content: '/';
+      }
+    }
+  }
+}
+
+.panel {
+  background: $white;
+  border-radius: 5px;
+  box-shadow: 0 0 20px $shadow-softness;
+  padding: 50px;
+}
+
+.btn {
+  box-shadow: 0 0 25px $shadow-hard;
+  font-family: 'raleway-bold';
+  font-size: 13px;
+  letter-spacing: 4px;
+  max-width: 205px;
+  overflow: hidden;
+  padding: 14px;
+  text-transform: uppercase;
+  width: 100%;
+
+  &.btn-green {
+    background: $green;
+    color: $white;
+
+    &.submit {
+      max-width: 100%;
+      padding: 14px;
+    }
+  }
+
+  &.btn-page {
+    background: $white;
+    box-shadow: 0 0 25px $shadow-softness;
+    margin: 30px 0;
+    max-width: initial;
+    padding: 16px;
+    width: 100%;
+
+    &.btn-page-prev {
+      border-bottom-right-radius: 0;
+      border-top-right-radius: 0;
+    }
+
+    &.btn-page-next {
+      border-bottom-left-radius: 0;
+      border-top-left-radius: 0;
+    }
+  }
+
+  &.btn-center {
+    display: block;
+    margin: auto;
+  }
+
+  &.btn-small {
+    font-size: 11px;
+    max-width: 175px;
+    padding: 12px;
+  }
+
+  &.btn-outline {
+    border: 2px solid $white;
+    border-radius: 8px;
+    box-shadow: none;
+    font-size: 11px;
+    padding: 10px;
+  }
+}
+
+.card {
+  border: 0;
+  box-shadow: 0 0 25px $shadow-softness;
+  height: 100%;
+  padding: 40px;
+
+  &::before  {
+    content: '';
+    height: 60px;
+    left: 30px;
+    position: absolute;
+    top: 0;
+    width: 30px;
+  }
+
+  &.card-green {
+    &::before {
+      background: $green;
+    }
+  }
+
+  &.card-purple {
+    &::before {
+      background: $purple;
+    }
+  }
+
+  &.card-aqua {
+    &::before {
+      background: $blue;
+    }
+  }
+
+  &.card-blue {
+    &::before {
+      background: $blue-2;
+    }
+  }
+
+  &.card-gray {
+    &::before {
+      background: $gray-4;
+    }
+  }
+
+  &::after {
+    border-color: transparent transparent $white;
+    border-style: solid;
+    border-width: 0 15px 8px;
+    content: '';
+    height: 0;
+    left: 30px;
+    position: absolute;
+    top: 52px;
+  }
+
+  p {
+    color: $gray-2;
+    font-size: 14px;
+    line-height: 24px;
+    margin: 0;
+  }
+
+}

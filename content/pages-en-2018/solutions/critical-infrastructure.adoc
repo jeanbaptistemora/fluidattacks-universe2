@@ -1,0 +1,4 @@
+:slug: solutions/expertis/critical-infrastructure/
+:template: pages-en/solutions/critical-infrastructure
+
+= Critical infrastructure

@@ -1,0 +1,224 @@
+@import '../mixins';
+
+$home-color-1:    rgba(44, 125, 191, 1);
+$home-color-2:    rgba(97, 87, 165, 1);
+
+.main-navbar  {
+  background: none;
+  box-shadow: none;
+
+  .solid {
+    display: block;
+  }
+
+  .color {
+    display: none;
+  }
+
+  a {
+    color: $white;
+  }
+
+  &.scrolled {
+    background-color: $base;
+    box-shadow: 0 0 28px $shadow-hard;
+
+    a {
+      color: $gray-3;
+    }
+
+    .solid {
+      display: none;
+    }
+
+    .color {
+      display: block;
+    }
+  }
+}
+
+header {
+  @include diagonal-gradient($home-color-1, $home-color-2);
+  align-items: center;
+  display: flex;
+  min-height: 100vh;
+  overflow: hidden;
+  padding-bottom: 80px;
+  padding-top: 150px;
+  position: relative;
+  width: 100%;
+
+  h1 {
+    font-family: 'raleway-medium';
+    font-size: 42px;
+    line-height: 55px;
+
+    span {
+      display: block;
+      font-family: 'raleway-light';
+    }
+  }
+
+  .container {
+    z-index: 1;
+  }
+
+  video {
+    left: 0;
+    min-height: 100%;
+    object-fit: cover;
+    object-position: 50% 50%;
+    opacity: .18;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    z-index: 0;
+  }
+
+  p {
+    color: $base;
+    font-family: 'raleway-light';
+    font-size: 15px;
+    letter-spacing: 3px;
+    line-height: 30px;
+    margin: 35px 0;
+  }
+
+  .scroll-down {
+    bottom: 0;
+    height: 53px;
+    left: 0;
+    margin: auto;
+    margin-bottom: 30px;
+    position: absolute;
+    right: 0;
+    width: 27px;
+  }
+}
+
+.quality {
+  padding: 80px 0;
+}
+
+.quality-card  {
+  margin-top: 60px;
+  padding: 45px 0;
+  text-align: center;
+  transition: box-shadow .3s, background .3s;
+
+  .number {
+    color: $blue;
+    font-family: 'raleway-bold';
+    font-size: 40px;
+    padding-bottom: 10px;
+    position: relative;
+
+    &::after {
+      @include bottom-green-line(auto);
+    }
+  }
+
+  h4 {
+    padding: 20px 0;
+  }
+
+  &:hover {
+    background: $white;
+    border-radius: 5px;
+    box-shadow: 0 0 20px $shadow-softness;
+  }
+}
+
+.customers {
+  padding: 80px 0;
+}
+
+.brands-carousel {
+  margin: 60px 0 0;
+}
+
+.brands-carousel-back {
+  left: -70px;
+  position: absolute;
+  top: 88px;
+  z-index: 9;
+}
+
+.brands-carousel-next  {
+  position: absolute;
+  right: -70px;
+  top: 88px;
+  z-index: 9;
+}
+
+.satisfaction {
+  background: url('../../images/pages/home/bg-satisfaction.jpg');
+  background-color: $blue-2;
+  background-position: left top;
+  background-repeat: no-repeat;
+  background-size: cover;
+  padding: 80px 0;
+}
+
+.colorful {
+  display: table;
+  list-style: none;
+  margin-bottom: 40px;
+  padding: 0;
+
+  li  {
+    float: left;
+    font-family: 'raleway-bold';
+    font-size: 13px;
+    letter-spacing: 5px;
+    margin: 10px 0;
+    text-transform: uppercase;
+    width: 50%;
+
+    &::before {
+      content: '\002B23';
+      display: block;
+      float: left;
+      margin-right: 5px;
+    }
+
+    &:nth-child(1n) {
+      &::before {
+        color: $green;
+      }
+    }
+
+    &:nth-child(2n) {
+      &::before {
+        color: $purple;
+      }
+    }
+
+    &:nth-child(3n) {
+      &::before {
+        color: $orange;
+      }
+    }
+
+    &:nth-child(4n) {
+      &::before {
+        color: $gray;
+      }
+    }
+  }
+}
+
+.by-experience {
+  margin-top: 100px;
+}
+
+.certifications {
+  margin-top: 60px;
+  padding: 0;
+  text-align: center;
+
+  li {
+    display: inline-block;
+    margin: 10px;
+  }
+}

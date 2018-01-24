@@ -1,0 +1,4 @@
+:slug: solutions/project-methodology/
+:template: pages-en/solutions/project-methodology
+
+= Project methodology

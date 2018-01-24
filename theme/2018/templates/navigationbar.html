@@ -1,0 +1,54 @@
+<div class="main-navbar {% if page %}{% if page.slug == 'home/' %}nav-home{% endif %}{% endif %}">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-12">
+				<div class="container">
+					<nav class="navbar navbar-expand-lg">
+						
+						<a class="navbar-brand scroll-to" href="{{ SITEURL }}/home" data-target=".home-video">
+
+							{% if page %}
+								{% if page.slug == 'home/' %}
+									<img class="solid img-fluid" alt="Fluid" src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/pages/home/logo.png"/>
+									<img class="color img-fluid" alt="Fluid" src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/pages/home/logo-color.png"/>
+								{% else %}
+									<img class="solid" alt="Fluid" src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/blog/logo.png"/>
+								{% endif %}
+							{% else %}
+								<img class="solid" alt="Fluid" src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/blog/logo.png"/>
+							{% endif %}
+						</a>
+
+						<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle menu">
+							<span class="navbar-toggler-icon">
+								<span class="bar">&nbsp;</span>
+								<span class="bar">&nbsp;</span>
+								<span class="bar">&nbsp;</span>
+							</span>
+						</button>
+
+						<div class="collapse navbar-collapse" id="navbar">
+							<ul class="navbar-nav ml-auto lnks">
+
+								<li><a href="{{ SITEURL }}{{ gettext('/about-us') }}">{{ gettext('About us') }}</a></li>
+								<li><a href="{{ SITEURL }}{{ gettext('/solutions') }}">{{ gettext('Solutions') }}</a></li>
+								<li><a href="{{ SITEURL }}{{ gettext('/clients') }}">{{ gettext('Clients') }}</a></li>
+								<li><a href="{{ SITEURL }}">Blog</a></li>
+								<li><a href="{{ SITEURL }}{{ gettext('/contact-us') }}" class="contact-us">{{ gettext('Contact us') }}</a></li>
+
+								{% if lang_siteurls %}
+								{% for lang, url in lang_siteurls.items() %}
+								<li class="lang">
+									<a class="{% if lang == DEFAULT_LANG %}active{% endif %}" href="{{ url }}/">{{ lang }} </a>
+								</li>
+								{% endfor %}
+								{% endif %}
+
+							</ul>
+						</div>
+					</nav>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

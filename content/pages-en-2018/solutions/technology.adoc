@@ -1,0 +1,4 @@
+:slug: solutions/technology/
+:template: pages-en/solutions/technology
+
+= Technology

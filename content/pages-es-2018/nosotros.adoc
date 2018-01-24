@@ -1,0 +1,4 @@
+:slug: nosotros/
+:template: pages-es/nosotros
+
+= Nosotros

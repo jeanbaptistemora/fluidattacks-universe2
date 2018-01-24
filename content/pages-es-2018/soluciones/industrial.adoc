@@ -1,0 +1,4 @@
+:slug: soluciones/industrial/
+:template: pages-es/soluciones/industrial
+
+= Industrial

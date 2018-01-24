@@ -1,0 +1,4 @@
+:slug: soluciones/expertis/infraestructura-corporativa/
+:template: pages-es/soluciones/infraestructura-corporativa
+
+= Infraestructura corporativa

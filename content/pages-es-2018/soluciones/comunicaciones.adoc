@@ -1,0 +1,4 @@
+:slug: soluciones/comunicaciones/
+:template: pages-es/soluciones/comunicaciones
+
+= Comunicaciones

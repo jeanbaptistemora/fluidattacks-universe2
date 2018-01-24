@@ -1,0 +1,4 @@
+:slug: soluciones/expertis/aplicaciones-moviles/
+:template: pages-es/soluciones/aplicaciones-moviles
+
+= Aplicaciones móviles

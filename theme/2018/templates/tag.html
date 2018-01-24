@@ -1,0 +1,17 @@
+{% extends "index.html" %}
+{% block title %}{{ SITENAME }} - {{ gettext('Tag') }} {{ tag }}{% endblock %}
+
+{% block header %}
+<div class="container extend">
+	<div class="row">
+		<div class="col-md-12">
+			<h1 class="ico-left article mar-bot-0 ico ico-blog">
+				{{ gettext('Tag') }}: {{ tag }}
+			</h1>
+			<p class="text-center text-white">
+				<a class="btn btn-green" href="../tags.html">{{ gettext('More tags') }}</a>
+			</p>
+		</div>
+	</div>
+</div>
+{% endblock header %}

@@ -1,0 +1,173 @@
+@import 'mixins';
+
+$navbar-color: rgba(17, 42, 109, 1);
+$left-h1-after: calc(50% - 17.5px);
+
+@media (max-width: 767px) {
+
+  .card-column {
+    margin: 50px 0 0;
+  }
+
+  .post-article {
+
+    .post-article-content {
+      padding: 30px;
+    }
+  }
+
+  .icon-page {
+    display: none;
+  }
+
+  .how-we-do-it {
+
+    .column {
+      margin: 25px 5% auto;
+      width: 90%;
+
+      &:nth-child(2) {
+        transform: scale(1, 1);
+      }
+    }
+
+    .absolute-this {
+      position: initial;
+    }
+
+    .products {
+
+      .mar-custom {
+        margin: 50px auto 0;
+      }
+    }
+  }
+
+  .btn-fluidintegrates {
+    margin-bottom: 25px;
+  }
+}
+
+@media (max-width: 575px) {
+
+  h1 {
+
+    &.article {
+      margin: 40px 20px;
+    }
+  }
+
+  .column-services {
+    .row {
+      margin: 0;
+    }
+  }
+
+  .row {
+
+    &.tags {
+      padding: 0 15px;
+    }
+  }
+
+  .about-author {
+
+    figure {
+      margin: 0 auto 40px;
+    }
+  }
+
+  .prev-next-articles {
+
+    a {
+      margin: 0 0 20px;
+    }
+  }
+
+  .main {
+
+    .page {
+      padding: 40px 20px;
+
+      img {
+        max-width: 100%;
+      }
+
+      table {
+        display: flex;
+        overflow: scroll;
+      }
+    }
+  }
+
+  .accordion {
+
+    .card {
+
+      .card-body {
+        padding: 40px 20px;
+      }
+    }
+  }
+}
+
+@media(max-width: 374px) {
+
+  h1 {
+    font-size: 16px;
+    line-height: 23px;
+  }
+
+  header {
+
+    h1 {
+      font-size: 12px;
+      line-height: 24px;
+    }
+  }
+
+  .wrapper-reasons-carusel {
+    max-width: 300px;
+
+    .item {
+      width: 300px;
+
+      figure {
+        display: none;
+      }
+
+      h4 {
+        padding: 0;
+      }
+    }
+
+    .svg {
+      max-width: 300px;
+    }
+  }
+
+  .wrapper {
+
+    .page {
+      padding: 30px;
+    }
+  }
+
+  .accordion {
+
+    .card-header {
+      padding-left: 50px;
+
+      span {
+        font-size: 16px;
+        height: 28px;
+        line-height: 28px;
+        width: 40px;
+      }
+    }
+
+    .card-body {
+      padding: 10px 50px 50px;
+    }
+  }
+}

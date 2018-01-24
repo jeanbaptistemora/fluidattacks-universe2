@@ -1,0 +1,46 @@
+// Main Colors
+$base:            rgba(245, 245, 245, 1);
+$white:           rgba(255, 255, 255, 1);
+$black:           rgba(0, 0, 0, 1);
+
+// Site Colors
+$gray:            rgba(193, 191, 196, 1);
+$gray-1:          rgba(234, 234, 234, 1);
+$gray-2:          rgba(132, 132, 132, 1);
+$gray-3:          rgba(85, 85, 85, 1);
+$gray-4:          rgba(65, 64, 66, 1);
+
+$blue:            rgba(44, 125, 191, 1);
+$blue-2:          rgba(25, 77, 115, 1);
+
+// Complementary Colors
+$purple:          rgba(97, 87, 165, 1);
+$green:           rgba(141, 198, 63, 1);
+$orange:          rgba(215, 135, 49, 1);
+$cover-color:     rgba(14, 14, 14, 1);
+$headline-color:  rgba(41, 41, 41, 1);
+$footer-bottom:   rgba(60, 59, 61, 1);
+
+// Shadows
+$shadow-softness: rgba(0, 0, 0, .1);
+$shadow-soft:     rgba(0, 0, 0, .2);
+$shadow-hard:     rgba(0, 0, 0, .3);
+$shadow-text:     rgba(0, 0, 0, .8);
+
+// Mixins
+@mixin diagonal-gradient($from, $to) {
+  background: linear-gradient(135deg, $from 0%, $to 100%);
+  background-color: $from;
+}
+
+@mixin bottom-green-line($margin) {
+  background-color: $green;
+  bottom: 0;
+  content: '';
+  height: 2px;
+  left: 0;
+  margin: $margin;
+  position: absolute;
+  right: 0;
+  width: 35px;
+}

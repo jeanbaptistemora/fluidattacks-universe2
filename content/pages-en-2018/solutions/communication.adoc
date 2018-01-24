@@ -1,0 +1,4 @@
+:slug: solutions/communication/
+:template: pages-en/solutions/communication
+
+= Communication

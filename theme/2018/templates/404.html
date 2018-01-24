@@ -1,0 +1,83 @@
+{% extends "base.html" %}
+
+{% block title %}{{ gettext('The page was not found') }}&nbsp;|&nbsp;{{ SITENAME }}{% endblock title %}
+
+{% block header %}
+
+<h1 class="ico ico-blog">
+	ERROR 404: {{ gettext('PAGE NOT FOUND') }}
+</h1>
+
+{% endblock header %}
+
+{% block content %}
+<div class="wrapper main">
+	<div class="page container">
+		<div class="row">
+			
+			<div class="col-md-12">
+				<p>{{ gettext('It seems nothing was found in this address. Try searching or browsing to one of the following links') }}:</p>
+			</div>
+
+		</div>
+
+		<div class="row">
+
+			{% set recent = articles if not all_articles else all_articles %}
+			{% for article in recent %}
+				{% if loop.index <= 6 %}
+
+				<div class="col-md-4 col-sm-3 col-xs-1">
+					<div class="post">
+						
+						<a class="headline" href="{{ SITEURL }}/{{ article.url }}" rel="bookmark" title="Permalink to {{ article.title|striptags }}">
+
+							<h2>{{ article.title }}</h2>
+
+							<figure>
+								{% if article.featured_image %}
+								<img src="{{ SITEURL }}/blog/{{ article.slug }}/{{ article.featured_image }}" alt="{{ article.title }}"/>
+								{% endif %}
+							</figure>
+						</a>
+
+						{% if SHOW_FULL_ARTICLE %}
+							{{ article.content }}
+						{% else %}
+							<p>
+							{% if article.has_summary %}
+								{{ article.summary }}
+							{% elif article.summary %}
+								{{ article.summary|striptags|truncate(135) }}
+							{% endif %}
+							</p>
+						{% endif %}
+
+						<div class="data row">
+							<div class="col-md-6">
+								<figure>
+									<img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/blog/ico-author.png" alt="{{ gettext('Author') }}"/>
+								</figure>
+								{% for author in article.authors %}
+									<a href="{{ SITEURL }}/{{ author.url }}">{{ author }}</a>
+								{% endfor %}
+							</div>
+							<div class="col-md-6">
+								<figure>
+									<img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/blog/ico-date.png" alt="{{ gettext('Date') }}"/>
+								</figure>
+								{{article.date.strftime('%Y / %m / %d')}}
+							</div>
+						</div>
+
+						<a class="btn btn-green btn-center btn-small read-more" href="{{ SITEURL }}/{{ article.url }}">{{ gettext('Read More') }}</a>
+						
+					</div>
+				</div>
+
+				{% endif %}
+			{% endfor %}
+		</div>
+	</div>
+</div>
+{% endblock content %}

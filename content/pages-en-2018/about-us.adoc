@@ -1,0 +1,4 @@
+:slug: about-us/
+:template: pages-en/about-us
+
+= About us

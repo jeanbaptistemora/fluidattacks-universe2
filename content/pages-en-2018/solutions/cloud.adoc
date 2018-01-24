@@ -1,0 +1,4 @@
+:slug: solutions/expertis/cloud/
+:template: pages-en/solutions/cloud
+
+= Cloud

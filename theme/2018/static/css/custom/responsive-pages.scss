@@ -1,0 +1,122 @@
+@import 'mixins';
+
+$navbar-color: rgba(17, 42, 109, 1);
+$left-h1-after: calc(50% - 17.5px);
+
+@media (min-width: 992px) {
+
+  .why-fluid {
+
+    .reasons-carousel {
+      width: calc(100% + 230px);
+    }
+  }
+}
+
+@media (max-width: 991px) {
+
+  .why-fluid {
+    background-size: cover;
+    padding: 80px 0 50px;
+
+    .wrapper-reasons-carusel {
+      flex-wrap: wrap;
+      margin: auto;
+      max-width: 376px;
+      position: relative;
+      text-align: center;
+      width: 100%;
+    }
+
+    .reasons-carousel {
+      left: 0;
+      position: relative;
+
+      .item {
+        width: 360px;
+      }
+    }
+
+    h3 {
+
+      .wrapper-reasons-text-carousel {
+        text-align: center;
+      }
+    }
+
+    .reasons-text-carousel {
+
+      p {
+
+        .max-wid-305 {
+          margin: 10px 0;
+          max-width: none;
+        }
+      }
+    }
+
+    .btn {
+
+      .btn-green {
+        display: block;
+        margin: 0 auto 45px;
+      }
+    }
+
+    .reasons-carousel-controls {
+      margin: 25px 0;
+      position: relative;
+      width: 100%;
+    }
+
+    &::after {
+      width: auto;
+    }
+  }
+
+  .our-team {
+
+    .us-carousel {
+
+      figure {
+        width: 100%;
+      }
+    }
+  }
+
+  .how-we-do-it {
+
+    .column {
+      width: 240px;
+    }
+  }
+
+  .testimonial-carousel-back {
+    left: 20px;
+  }
+
+  .testimonial-carousel-next {
+    right: 20px;
+  }
+
+  .absolute-this {
+    margin-bottom: 50px;
+    position: relative;
+  }
+
+  .testimonials {
+
+    .page {
+      padding: 60px;
+    }
+
+    .icon-page {
+      top: 0;
+    }
+  }
+
+  .offices {
+    padding: 0;
+    width: 100%;
+  }
+}

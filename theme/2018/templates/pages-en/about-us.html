@@ -1,0 +1,494 @@
+{% extends "index.html" %}
+
+{% block customcss %}
+{% assets filters="scss,cssmin", output="static/css/about-us.min.css", "css/custom/pages/about-us.scss" %}
+	<link rel="stylesheet" href="{{ SITEURL }}/{{ ASSET_URL }}">
+{% endassets %} 
+{% endblock customcss %}
+
+{% block title %}{{ SITENAME }} - {{ gettext('About us') }}{% endblock title %}
+
+{% block header %}
+	<div class="container">
+		<div class="row">
+			<div class="col-md-12">
+				<h1 class="ico-left ico ico-about-us">
+					Nosotros
+				</h1>
+			</div>
+		</div>
+	</div>
+{% endblock header %}
+
+{% block content %}
+
+<!-- SVG ..................................................... -->
+<div class="hidden">
+	<div class="hexagon-white">
+		<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 125.35 108.56">
+			<polygon points="94.02 0 31.33 0 0 54.28 31.33 108.56 94.02 108.56 125.35 54.28 94.02 0"/>
+		</svg>
+	</div>
+	<div class="hexagon-gradient">
+		<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 125.35 108.56">
+			<polygon class="svg-gradient" points="94.02 0 31.33 0 0 54.28 31.33 108.56 94.02 108.56 125.35 54.28 94.02 0"/>
+		</svg>
+	</div>
+</div>
+<!-- ......................................................... -->
+
+<div class="wrapper">
+	
+	<!-- WHO WE ARE .............................................. -->
+	<section class="who-we-are">
+		<div class="page container">
+			<div class="row">
+			
+				<div class="col-12 col-lg-7">
+					<figure class="icon-page">
+						<img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/pages/about-us/figure.png" alt="Nosotros" class="img-fluid" />
+					</figure>
+				</div>
+				<div class="col-12 col-lg-5">
+					<h1 class="ico ico-top ico-who-we-are">
+						Quienes somos
+					</h1>
+					<p>
+						Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias cuando un impresordesconocido usó una galería de textos y los mezcló de tal manera que logró hacer un libro.
+					</p>
+				</div>
+
+			</div>
+		</div>
+	</section>
+	<!-- ......................................................... -->
+
+	<!-- WHAT WE DO .............................................. -->
+	<section class="what-we-do">
+		<div class="container">
+
+			<div class="row justify-content-center">
+				<div class="col-11 col-lg-6">
+					<h1 class="text-center ico ico-top ico-what-we-do">
+						QUE HACEMOS
+					</h1>
+					<p class="text-center">
+						Lorem Ipsum white-box mtethodology or code review, either on each application or the complete
+					</p>
+				</div>
+			</div>
+
+			<div class="mar-50-0">
+				<div class="row text-center justify-content-center">
+					<div class="col-11 col-md-10 col-lg-4 card-column">
+						<div class="col-md-12 card card-green">
+							<a href="{{ SITEURL }}{{ gettext('/solutions') }}/ethical-hacking-infrastructure">
+								<figure class="mar-0-auto">
+									<img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/pages/home/ico-infraestructure.png" alt="Ethical Hacking de Infraestructura"/>
+								</figure>
+								<h4>
+									ETHICAL HACKING <span>DE INFRAESTRUCTURA</span>
+								</h4>
+								<p>
+									Realizar pruebas sobre la infraestructura que soportan los sistemas (Servicios de red/SO)
+								</p>
+							</a>
+						</div>
+					</div>
+					<div class="col-11 col-md-10 col-lg-4 card-column">
+						<div class="col-md-12 card card-purple">
+							<a href="{{ SITEURL }}{{ gettext('/solutions') }}/ethical-hacking-application">
+								<figure class="mar-0-auto">
+									<img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/pages/home/ico-application.png" alt="Ethical Hacking de Aplicación"/>
+								</figure>
+								<h4>
+									ETHICAL HACKING <span>DE APLICACIÓN</span>
+								</h4>
+								<p>
+									Identificar vulnerabilidades en las aplicaciones (web/móvil) y los servicios (web services) 
+								</p>
+							</a>
+						</div>
+					</div>
+					<div class="col-11 col-md-10 col-lg-4 card-column">
+						<div class="col-md-12 card card-blue">
+							<a href="{{ SITEURL }}{{ gettext('/solutions') }}/source-code-analysis">
+								<figure class="mar-0-auto">
+									<img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/pages/home/ico-code.png" alt="Análisis de código fuente"/>
+								</figure>
+								<h4>
+									ANÁLISIS DE <span>CÓDIGO FUENTE</span>
+								</h4>
+								<p>
+									Detectar problemas de seguridad directamente desde el desarrollo
+								</p>
+							</a>
+						</div>
+					</div>
+				</div>
+			</div>
+
+		</div>
+	</section>
+	<!-- ......................................................... -->
+
+	<!-- WHY FLUID ............................................... -->
+	<section class="why-fluid text-white">
+		<div class="container">
+			<div class="row justify-content-center justify-content-lg-start">
+				<div class="col-11 col-lg-5">
+					<h3 class="text-uppercase mar-bot-30"><i class="far fa-check-circle fon-siz-20">&nbsp;</i>/ Why Fluid?</h3>
+					<h1 class="text-white">
+						Reasons to choose us
+					</h1>
+
+					<div class="wrapper-reasons-text-carousel">
+
+						<div id="reasons-text-carousel" class="reasons-text-carousel owl-carousel owl-theme">
+							<div class="item">
+								<p class="max-wid-305">
+									Reducción de pérdidas por incidentes de seguridad, al disminuir la probabilidad que sus sistemas sean vulnerados
+								</p>
+							</div>
+							<div class="item">
+								<p class="max-wid-305">
+									Personal con certificaciones prácticas y estudios relacionados a temas de seguridad.
+								</p>
+							</div>
+							<div class="item">
+								<p class="max-wid-305">
+									Buscamos el mayor impacto a nivel corporativo y no solo desde la perspectiva de la tecnología.
+								</p>
+							</div>
+							<div class="item">
+								<p class="max-wid-305">
+									Asegurando la calidad, reportando únicamente vulnerabilidades confirmadas.
+								</p>
+							</div>
+							<div class="item">
+								<p class="max-wid-305">
+									Especializados en encontrar vulnerabilidades de día cero (Zero day vulnerabilities)
+								</p>
+							</div>
+						</div>
+
+					</div>
+
+					<a class="btn btn-green" href="{{ SITEURL }}{{ gettext('/about-us') }}">{{ gettext('See more') }}</a>
+				</div>
+			</div>
+		</div>
+		<div class="wrapper-reasons-carusel">
+			<div class="reasons-carousel-controls">
+				<a class="back white-arrow" href="javascript:;">
+					<figure>
+						<img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/pages/about-us/carousel-controls-back-white.png" alt="Atrás"/>
+					</figure>
+					{{ gettext('BACK')}}
+				</a>
+				<a class="next green-arrow" href="javascript:;">
+					<figure>
+						<img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/pages/about-us/carousel-controls-next-green.png" alt="Siguiente"/>
+					</figure>
+					{{ gettext('NEXT')}}
+				</a>
+			</div>
+			<div id="reasons-carousel" class="reasons-carousel owl-carousel owl-theme">
+				<div class="item">
+					<div class="item-content">
+						<div>
+							<figure>
+								<img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/pages/content/icons-150/icon-satisfaction.png" alt="Satisfacemos a nuestros clientes"/>
+							</figure>
+							<h4>
+								SATISFACEMOS A
+								<span>NUESTROS CLIENTES</span>
+							</h4>
+						</div>
+					</div>
+				</div>
+				<div class="item">
+					<div class="item-content">
+						<div>
+							<figure>
+							<img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/pages/content/icons-150/icon-knowledge.png" alt="Tenemos confianza en nuestro conocimiento"/>
+							</figure>
+							<h4>
+								TENEMOS CONFIANZA EN
+								<span>NUESTRO CONOCIMIENTO</span>
+							</h4>
+						</div>
+					</div>
+				</div>
+				<div class="item">
+					<div class="item-content">
+						<div>
+							<figure>
+							<img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/pages/content/icons-150/icon-alliance.png" alt="Somos aliados de su negocio"/>
+							</figure>
+							<h4>
+								SOMOS ALIADOS
+								<span>DE SU NEGOCIO</span>
+							</h4>
+						</div>
+					</div>
+				</div>
+
+				<div class="item">
+					<div class="item-content">
+						<div>
+							<figure>
+							<img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/pages/content/icons-150/icon-responsibility.png" alt="Responsabilidad antes que rentabilidad"/>
+							</figure>
+							<h4> 
+								RESPONSABILIDAD ANTES
+								<span>QUE RENTABILIDAD</span>
+							</h4>
+						</div>
+					</div>
+				</div>
+				<div class="item">
+					<div class="item-content">
+						<div>
+							<figure>
+							<img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/pages/content/icons-150/icon-specialists.png" alt="Especialistas"/>
+							</figure>
+							<h4>
+								ESPECIALISTAS
+							</h4>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<!-- ......................................................... -->
+
+	<!-- OUR TEAM ................................................ -->
+	<section class="our-team">
+		<div class="container">
+			<div class="row justify-content-center text-center">
+				<div class="col-md-12">
+					<h1 class="text-center ico ico-top ico-about-us-blue">
+						NOSOTROS
+					</h1>
+					<p>
+						Lorem Ipsum white-box methodology or code review, either on each application or the complete
+					</p>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12 text-center">
+					<a class="us-carousel-back carousel-control" href="javascript:;" data-carousel="#us-carousel" data-direction="prev">
+						<figure>
+							<img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/pages/about-us/carousel-controls-back-green.png" alt="Atrás"/>
+						</figure>
+					</a>
+					<a class="us-carousel-next carousel-control" href="javascript:;" data-carousel="#us-carousel" data-direction="next">
+						<figure>
+							<img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/pages/about-us/carousel-controls-next-green.png" alt="Siguiente"/>
+						</figure>
+					</a>
+					<div id="us-carousel" class="us-carousel owl-carousel owl-theme text-center">
+						<div class="item">
+							<div class="item-content">
+								<div>  
+									<figure>
+										<img class="img-fluid" src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/pages/about-us/team/member.png" alt="Daniel Lorem"/>
+									</figure>
+									<span class="name">DANIEL LOREM</span>
+									<p>
+										<img class="icon-team" src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/pages/about-us/icon-team.png" alt="Maestría en Innovación en Inglaterra"/> Maestría en Innovación en Inglaterra
+									</p>
+								</div>
+							</div>
+						</div>
+						<div class="item">
+							<div class="item-content">
+								<div>  
+									<figure>
+										<img class="img-fluid" src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/pages/about-us/team/member.png" alt="Daniel Lorem"/>
+									</figure>
+									<span class="name">DANIEL LOREM</span>
+									<p>
+										<img class="icon-team" src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/pages/about-us/icon-team.png" alt="Maestría en Innovación en Inglaterra"/> Maestría en Innovación en Inglaterra
+									</p>
+								</div>
+							</div>
+						</div>
+						<div class="item">
+							<div class="item-content">
+								<div>  
+									<figure>
+										<img class="img-fluid" src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/pages/about-us/team/member.png" alt="Daniel Lorem"/>
+									</figure>
+									<span class="name">DANIEL LOREM</span>
+									<p>
+										<img class="icon-team" src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/pages/about-us/icon-team.png" alt="Maestría en Innovación en Inglaterra"/> Maestría en Innovación en Inglaterra
+									</p>
+								</div>
+							</div>
+						</div>
+						<div class="item">
+							<div class="item-content">
+								<div>  
+									<figure>
+										<img class="img-fluid" src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/pages/about-us/team/member.png" alt="Daniel Lorem"/>
+									</figure>
+									<span class="name">DANIEL LOREM</span>
+									<p>
+										<img class="icon-team" src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/pages/about-us/icon-team.png" alt="Maestría en Innovación en Inglaterra"/> Maestría en Innovación en Inglaterra
+									</p>
+								</div>
+							</div>
+						</div>
+						<div class="item">
+							<div class="item-content">
+								<div>  
+									<figure>
+										<img class="img-fluid" src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/pages/about-us/team/member.png" alt="Daniel Lorem"/>
+									</figure>
+									<span class="name">DANIEL LOREM</span>
+									<p>
+										<img class="icon-team" src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/pages/about-us/icon-team.png" alt="Maestría en Innovación en Inglaterra"/> Maestría en Innovación en Inglaterra
+									</p>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<!-- ......................................................... -->
+
+	<!-- WORK WITH US ............................................ -->
+	<section class="work-with-us">
+		<div class="container">
+			<div class="row justify-content-around">
+				<div class="col-lg-4">
+					<h1 class="ico ico-top ico-work-with-us">
+						TRABAJA CON NOSOTROS
+					</h1>
+					<p>
+						Using a white-box methodology or code review, either on each application or the complete suite of applications we detect security issues:
+					</p>
+					<a href="#" class="btn btn-green max-wid-100-p">DÉJANOS SABER DE TI</a>
+				</div>
+				<div class="col-lg-7 mt-5 mt-lg-0">
+					<div class="accordion" id="accordion" role="tablist">
+						<div class="card">
+							<div class="card-header" role="tab" id="heading-tab-1">
+								<a data-toggle="collapse" href="#tab-1" role="button" aria-expanded="true" aria-controls="tab-1">
+									<span>1</span> Hacker que hace sus <strong>propias herramientas</strong>
+								</a>
+							</div>
+							<div id="tab-1" class="collapse show" role="tabpanel" aria-labelledby="heading-tab-1" data-parent="#accordion">
+								<div class="card-body">
+									<p>
+										Si deseas comenzar un proceso de selección con nosotros diligencia este formulario de aplicación. Utilizar la misma dirección de correo electronico durante todo el proceso.
+									</p>
+								</div>
+							</div>
+						</div>
+						<div class="card">
+							<div class="card-header" role="tab" id="heading-tab-2">
+								<a class="collapsed" data-toggle="collapse" href="#tab-2" role="button" aria-expanded="false" aria-controls="tab-2">
+									<span>2</span> Entrenamiento <strong>permanente</strong>
+								</a>
+							</div>
+							<div id="tab-2" class="collapse" role="tabpanel" aria-labelledby="heading-tab-2" data-parent="#accordion">
+								<div class="card-body">
+									<p>
+										Si deseas comenzar un proceso de selección con nosotros diligencia este formulario de aplicación. Utilizar la misma dirección de correo electronico durante todo el proceso.
+									</p>
+								</div>
+							</div>
+						</div>
+						<div class="card">
+							<div class="card-header" role="tab" id="heading-tab-3">
+								<a class="collapsed" data-toggle="collapse" href="#tab-3" role="button" aria-expanded="false" aria-controls="tab-3">
+									<span>3</span> Computador <strong>portatil</strong>
+								</a>
+							</div>
+							<div id="tab-3" class="collapse" role="tabpanel" aria-labelledby="heading-tab-3" data-parent="#accordion">
+								<div class="card-body">
+									<p>
+										Si deseas comenzar un proceso de selección con nosotros diligencia este formulario de aplicación. Utilizar la misma dirección de correo electronico durante todo el proceso.
+									</p>
+								</div>
+							</div>
+						</div>
+
+						<div class="card">
+							<div class="card-header" role="tab" id="heading-tab-4">
+								<a class="collapsed" data-toggle="collapse" href="#tab-4" role="button" aria-expanded="false" aria-controls="tab-4">
+									<span>4</span> Proyectos cortos <strong>y alta rotación</strong>
+								</a>
+							</div>
+							<div id="tab-4" class="collapse" role="tabpanel" aria-labelledby="heading-tab-4" data-parent="#accordion">
+								<div class="card-body">
+									<p>
+										Si deseas comenzar un proceso de selección con nosotros diligencia este formulario de aplicación. Utilizar la misma dirección de correo electronico durante todo el proceso.
+									</p>
+								</div>
+							</div>
+						</div>
+						<div class="card">
+							<div class="card-header double-line" role="tab" id="heading-tab-5">
+								<a class="collapsed" data-toggle="collapse" href="#tab-5" role="button" aria-expanded="false" aria-controls="tab-5">
+									<span>5</span> Mejora continua basada <br/><strong>en estándares internacionales</strong>
+								</a>
+							</div>
+							<div id="tab-5" class="collapse" role="tabpanel" aria-labelledby="heading-tab-5" data-parent="#accordion">
+								<div class="card-body">
+									<p>
+										Si deseas comenzar un proceso de selección con nosotros diligencia este formulario de aplicación. Utilizar la misma dirección de correo electronico durante todo el proceso.
+									</p>
+								</div>
+							</div>
+						</div>
+						<div class="card">
+							<div class="card-header" role="tab" id="heading-tab-6">
+								<a class="collapsed" data-toggle="collapse" href="#tab-6" role="button" aria-expanded="false" aria-controls="tab-6">
+									<span>6</span><strong>Entrevistas</strong>
+								</a>
+							</div>
+							<div id="tab-6" class="collapse" role="tabpanel" aria-labelledby="heading-tab-6" data-parent="#accordion">
+								<div class="card-body">
+									<p>
+										Si deseas comenzar un proceso de selección con nosotros diligencia este formulario de aplicación. Utilizar la misma dirección de correo electronico durante todo el proceso.
+									</p>
+								</div>
+							</div>
+						</div>
+
+						<div class="card">
+							<div class="card-header" role="tab" id="heading-tab-7">
+								<a class="collapsed" data-toggle="collapse" href="#tab-7" role="button" aria-expanded="false" aria-controls="tab-7">
+									<span>7</span>Trabaja<strong>con los grandes</strong>
+								</a>
+							</div>
+							<div id="tab-7" class="collapse" role="tabpanel" aria-labelledby="heading-tab-7" data-parent="#accordion">
+								<div class="card-body">
+									<p>
+										Si deseas comenzar un proceso de selección con nosotros diligencia este formulario de aplicación. Utilizar la misma dirección de correo electronico durante todo el proceso.
+									</p>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<!-- ......................................................... -->
+
+</div>
+
+{% endblock content %}
+
+{% block javascript %}
+	<script type="text/javascript" src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/js/plugins/owl.carousel/owl.carousel.js"></script>
+	<script type="text/javascript" src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/js/custom/about-us.js"></script>
+{% endblock javascript %}

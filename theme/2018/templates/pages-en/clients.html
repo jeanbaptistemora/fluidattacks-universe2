@@ -1,0 +1,300 @@
+{% extends "index.html" %}
+
+{% block customcss %}
+{% assets filters="scss,cssmin", output="static/css/clients.min.css", "css/custom/pages/clients.scss" %}
+	<link rel="stylesheet" href="{{ SITEURL }}/{{ ASSET_URL }}">
+{% endassets %} 
+{% endblock customcss %}
+
+{% block title %}{{ SITENAME }} - {{ gettext('Clients') }}{% endblock title %}
+
+{% block header %}
+	<div class="container">
+		<div class="row">
+			<div class="col-md-12">
+				<h1 class="ico-left ico ico-clients">
+					Clients
+				</h1>
+			</div>
+		</div>
+	</div>
+{% endblock header %}
+
+{% block content %}
+
+<div class="wrapper">
+
+	<section class="customers">
+		<div class="page container">
+			<div class="row">
+				<div class="col-lg-7">
+					<figure class="icon-page">
+						<img class="img-fluid" src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/pages/clients/figure.png" alt="Clientes"/>
+					</figure>
+				</div>
+				<div class="col-lg-5">
+					<h1 class="ico-top ico ico-clients-blue">
+						CLIENTS
+					</h1>
+					<p>
+						FLUID has 15 years of experience providing different types of security services to various companies in the financial, insurance, telecommunications, energy and retail sectors; we have worked with government institutions as well. Below are shown some of the companies which are current customers:
+					</p>
+				</div>
+			</div>
+
+			<div class="row brands">
+				<div class="col-12 col-sm-6 col-lg-3">
+					<figure>
+						<img class="img-fluid" src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/pages/clients/logos/asb-logo.jpg" alt="asb"/>
+					</figure>
+				</div>
+				<div class="col-12 col-sm-6 col-lg-3">
+					<figure>
+						<img class="img-fluid" src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/pages/clients/logos/aval-logo.jpg" alt="aval"/>
+					</figure>
+				</div>
+				<div class="col-12 col-sm-6 col-lg-3">
+					<figure>
+						<img class="img-fluid" src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/pages/clients/logos/banistmo-logo.jpg" alt="banistmo"/>
+					</figure>
+				</div>
+				<div class="col-12 col-sm-6 col-lg-3">
+					<figure>
+						<img class="img-fluid" src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/pages/clients/logos/caf-logo.jpg" alt="caf"/>
+					</figure>
+				</div>
+				<div class="col-12 col-sm-6 col-lg-3">
+					<figure>
+						<img class="img-fluid" src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/pages/clients/logos/celsia-logo.jpg" alt="celsia"/>
+					</figure>
+				</div>
+				<div class="col-12 col-sm-6 col-lg-3">
+					<figure>
+						<img class="img-fluid" src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/pages/clients/logos/choucair.jpg" alt="choucair"/>
+					</figure>
+				</div>
+				<div class="col-12 col-sm-6 col-lg-3">
+					<figure>
+						<img class="img-fluid" src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/pages/clients/logos/claro-logo.jpg" alt="claro"/>
+					</figure>
+				</div>
+				<div class="col-12 col-sm-6 col-lg-3">
+					<figure>
+						<img class="img-fluid" src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/pages/clients/logos/colpatria-logo.jpg" alt="colpatria"/>
+					</figure>
+				</div>
+				<div class="col-12 col-sm-6 col-lg-3">
+					<figure>
+						<img class="img-fluid" src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/pages/clients/logos/corona-logo.jpg" alt="corona"/>
+					</figure>
+				</div>
+				<div class="col-12 col-sm-6 col-lg-3">
+					<figure>
+						<img class="img-fluid" src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/pages/clients/logos/directv-logo.jpg" alt="directv"/>
+					</figure>
+				</div>
+				<div class="col-12 col-sm-6 col-lg-3">
+					<figure>
+						<img class="img-fluid" src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/pages/clients/logos/edatel-logo.jpg" alt="edatel"/>
+					</figure>
+				</div>
+				<div class="col-12 col-sm-6 col-lg-3">
+					<figure>
+						<img class="img-fluid" src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/pages/clients/logos/gobernacion-logo.jpg" alt="gobernacion"/>
+					</figure>
+				</div>
+				<div class="col-12 col-sm-6 col-lg-3">
+					<figure>
+						<img class="img-fluid" src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/pages/clients/logos/grupo-argos-logo.jpg" alt="grupo-argos"/>
+					</figure>
+				</div>
+				<div class="col-12 col-sm-6 col-lg-3">
+					<figure>
+						<img class="img-fluid" src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/pages/clients/logos/grupo-aval-logo.jpg" alt="grupo-aval"/>
+					</figure>
+				</div>
+				<div class="col-12 col-sm-6 col-lg-3">
+					<figure>
+						<img class="img-fluid" src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/pages/clients/logos/grupo-exito-logo.jpg" alt="grupo-exito"/>
+					</figure>
+				</div>
+				<div class="col-12 col-sm-6 col-lg-3">
+					<figure>
+						<img class="img-fluid" src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/pages/clients/logos/isagen-logo.jpg" alt="isagen"/>
+					</figure>
+				</div>
+				<div class="col-12 col-sm-6 col-lg-3">
+					<figure>
+						<img class="img-fluid" src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/pages/clients/logos/manuelita-logo.jpg" alt="manuelita"/>
+					</figure>
+				</div>
+				<div class="col-12 col-sm-6 col-lg-3">
+					<figure>
+						<img class="img-fluid" src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/pages/clients/logos/supersalud-logo.jpg" alt="supersalud"/>
+					</figure>
+				</div>
+				<div class="col-12 col-sm-6 col-lg-3">
+					<figure>
+						<img class="img-fluid" src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/pages/clients/logos/sura-logo.jpg" alt="sura"/>
+					</figure>
+				</div>
+				<div class="col-12 col-sm-6 col-lg-3">
+					<figure>
+						<img class="img-fluid" src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/pages/clients/logos/teraport-logo.jpg" alt="teraport"/>
+					</figure>
+				</div>
+				<div class="col-12 col-sm-6 col-lg-3">
+					<figure>
+						<img class="img-fluid" src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/pages/clients/logos/themissinglink-logo.jpg" alt="themissinglink"/>
+					</figure>
+				</div>
+				<div class="col-12 col-sm-6 col-lg-3">
+					<figure>
+						<img class="img-fluid" src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/pages/clients/logos/tuya-logo.jpg" alt="tuya"/>
+					</figure>
+				</div>
+				<div class="col-12 col-sm-6 col-lg-3">
+					<figure>
+						<img class="img-fluid" src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/pages/clients/logos/une-logo.jpg" alt="une"/>
+					</figure>
+				</div>
+				<div class="col-12 col-sm-6 col-lg-3">
+					<figure>
+						<img class="img-fluid" src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/pages/clients/logos/une-tigo-logo.jpg" alt="une-tigo"/>
+					</figure>
+				</div>
+				<div class="col-12 col-sm-6 col-lg-3">
+					<figure>
+						<img class="img-fluid" src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/pages/clients/logos/xm-logo.jpg" alt="xm"/>
+					</figure>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<section class="testimonials">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-12">
+					<h1 class="text-center text-green ico ico-top ico-testimonials">
+						Testimonnials
+					</h1>
+				</div>
+			</div>
+			<div class="row justify-content-center">
+				<div class="col-md-10">
+					<a class="testimonial-carousel-back" href="javascript:;">
+						<figure>
+							<img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/pages/about-us/carousel-controls-back-green.png" alt="Atrás"/>
+						</figure>
+					</a>
+					<a class="testimonial-carousel-next" href="javascript:;">
+						<figure>
+							<img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/pages/about-us/carousel-controls-next-green.png" alt="Siguiente"/>
+						</figure>
+					</a>
+					<div id="testimonial-carousel" class="testimonial-carousel owl-carousel owl-theme text-white">
+						<div class="item">
+							<div class="item-content">
+								<div class="row"> 
+									<div class="col-12 col-lg-2 d-flex align-items-center justify-content-center"> 
+										<figure class="picture">
+											<img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/pages/solutions/testimonials/picture-1.jpg" alt="Foto"/>
+										</figure>
+									</div>
+									<div class="col-12 col-lg-10">
+										<p>
+											FLUID has 15 years of experience providing different types of security services to various companies in the financial, insurance, telecommunications, energy and retail sectors; we have worked with government institutions as well. 
+										</p>
+										<div class="name">
+											<img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/pages/solutions/testimonials/icon-name.png" alt="Nombre"/>
+											Daniel Henao Ramírez
+										</div>
+										<div class="date">
+											<img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/pages/solutions/testimonials/icon-date.png" alt="Fecha"/>
+											2017 / 04 / 04
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="item">
+							<div class="item-content">
+								<div class="row"> 
+									<div class="col-12 col-lg-2 d-flex align-items-center justify-content-center">
+										<figure class="picture">
+											<img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/pages/solutions/testimonials/picture-1.jpg" alt="Foto"/>
+										</figure>
+									</div>
+									<div class="col-12 col-lg-10">
+										<p>
+											FLUID has 15 years of experience providing different types of security services to various companies in the financial, insurance, telecommunications, energy and retail sectors; we have worked with government institutions as well. 
+										</p>
+										<div class="name">
+											<img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/pages/solutions/testimonials/icon-name.png" alt="Nombre"/>
+											Daniel Henao Ramírez
+										</div>
+										<div class="date">
+											<img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/pages/solutions/testimonials/icon-date.png" alt="Fecha"/>
+											2017 / 04 / 04
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="item">
+							<div class="item-content">
+								<div class="row"> 
+									<div class="col-12 col-lg-2 d-flex align-items-center justify-content-center">
+										<figure class="picture">
+											<img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/pages/solutions/testimonials/picture-1.jpg" alt="Foto"/>
+										</figure>
+									</div>
+									<div class="col-12 col-lg-10">
+										<p>
+											FLUID has 15 years of experience providing different types of security services to various companies in the financial, insurance, telecommunications, energy and retail sectors; we have worked with government institutions as well. 
+										</p>
+										<div class="name">
+											<img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/pages/solutions/testimonials/icon-name.png" alt="Nombre"/>
+											Daniel Henao Ramírez
+										</div>
+										<div class="date">
+											<img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/pages/solutions/testimonials/icon-date.png" alt="Fecha"/>
+											2017 / 04 / 04
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="page container">
+			<div class="row">
+				<div class="col-lg-7">
+					<figure class="icon-page">
+						<img class="img-fluid" src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/pages/solutions/figure-survey.png" alt="Encuesta"/>
+					</figure>
+				</div>
+				<div class="col-lg-5">
+					<h1 class="ico ico-top ico-survey">
+						ENCUESTA DE<br/>SATISFACCIÓN
+					</h1>
+					<p>
+						Using a white-box methodology or code review, either on each application or the complete suite of applications we detect security issues:
+					</p>
+					<a href="javascript:;" class="btn btn-green max-wid-100-p">Cuéntanos qué opinas</a>
+				</div>
+			</div>
+		</div>
+	</section>
+
+</div>
+{% endblock content %}
+
+{% block javascript %}
+	<script type="text/javascript" src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/js/plugins/owl.carousel/owl.carousel.js"></script>
+	<script type="text/javascript" src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/js/custom/clients.js"></script>
+{% endblock javascript %}

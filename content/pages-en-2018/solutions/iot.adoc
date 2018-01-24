@@ -1,0 +1,4 @@
+:slug: solutions/expertis/iot/
+:template: pages-en/solutions/iot
+
+= Iot

@@ -1,0 +1,4 @@
+:slug: soluciones/transporte/
+:template: pages-es/soluciones/transporte
+
+= Transporte

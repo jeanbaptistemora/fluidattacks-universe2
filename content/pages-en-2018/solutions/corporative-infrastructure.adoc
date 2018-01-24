@@ -1,0 +1,4 @@
+:slug: solutions/expertis/corporative-infrastructure/
+:template: pages-en/solutions/corporative-infrastructure
+
+= Corporative infrastructure

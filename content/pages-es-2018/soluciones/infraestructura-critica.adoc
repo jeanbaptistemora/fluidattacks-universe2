@@ -1,0 +1,4 @@
+:slug: soluciones/expertis/infraestructura-critica/
+:template: pages-es/soluciones/infraestructura-critica
+
+= Infraestructura critica
