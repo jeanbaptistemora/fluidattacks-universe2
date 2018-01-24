@@ -7,19 +7,46 @@
 
 == Necesidad
 
-Se requiere ofuscar el código Python para evitar la legibilidad del código fuente.
+Se requiere ofuscar el código Python 
+para evitar la legibilidad del código fuente.
 
 == Contexto
 
-A continuación se describen las circunstancias bajo las cuales la siguiente 
-solución tiene sentido:
+A continuación se describen las circunstancias 
+bajo las cuales la siguiente solución tiene sentido:
 
 . Se tiene una aplicación programada en Python
 . Se desea entregar archivos .py con el código no legible.
 
 == Solución
 
-. Se descarga la herramienta https://github.com/astrand/pyobfuscate[pyobfuscate]
+. La ofuscación de código consiste en realizar cambios 
+que no afecten el funcionamiento del código fuente de la aplicación, 
+pero evita que este sea fácilmente visualizado 
+y comprendido por un atacante. 
+Esto solo debe ser hecho 
+con los archivos que vayan a ser publicados 
+en el entorno de producción 
+y no en etapas de desarrollo.
+
+. Hay que tener en cuenta que todos los mecanismos de ofuscación 
+pueden ser reversados, por lo cual 
+no intente ocultar información confidencial dentro del código fuente.
+
+. En esta solución se verá la manera de ofuscar el código 
+de una aplicación realizada en python.
+
+. Primero, hay que descargar  la herramienta 
+https://github.com/astrand/pyobfuscate[pyobfuscate]
+
+. La herramienta anterior transforma el código fuente 
+de las siguientes formas:
+
+* Elimina los comentarios y docstrings.
+* Cambia la identación del código. 
+* Agrega espacios en blanco entre los tokens.
+* Renombra las funciones, las clases y variables.
+* Inserta líneas de código falsas en lugar de líneas en blanco.
 
 . Se prepara el archivo con código Python que se quiere ofuscar.
 +
@@ -47,7 +74,7 @@ def function_posargs(*args)
   pass
 ----
 
-. Se ejecuta el siguiente comando desde una consola de comandos
+. Se ejecuta el siguiente comando desde una consola de comandos.
 +
 [source, bash, linenums]
 ----
@@ -60,11 +87,32 @@ image::comando.png[ejecucion comando python]
 +
 image::ofuscado.png[codigo ofuscado]
 
-. Se verifica que el nuevo archivo generado funcione exactamente igual que el 
-original.
+. Se verifica que el nuevo archivo generado 
+funcione exactamente igual que el original.
 
 image::ejecucion.png[ejecucion normal]
 
+. En conclusión, la ofuscación de código tiene varias ventajas, 
+sobre todo en cuanto a la seguridad, 
+ya que evita que un atacante 
+comprenda el funcionamiento del código 
+y por tanto, no logre alterarlo con malos propósitos.
+
+. Otra razón para usar ofuscación 
+es la protección de la propiedad intelectual. 
+Puesto que muchas veces se quiere que terceras personas 
+no sepan la manera en que está programada determinada aplicación 
+y así evitar su reproducción 
+sin que sean reconocidos los respectivos derechos intelectuales.
+
+. El único inconveniente que puede tener, 
+es que debido a que el código final es completamente ilegible 
+la mantenibilidad del código se hace un poco laboriosa  
+en caso de que el archivo original llegase a perderse 
+obligando a trabajar directamente sobre el comprimido.
+
 == Referencias
 
-. https://github.com/astrand/pyobfuscate[pyobfuscate]    
+. https://github.com/astrand/pyobfuscate[pyobfuscate]  
+. https://es.wikipedia.org/wiki/Ofuscaci%C3%B3n[Ofuscación]
+. REQ.0062: El código fuente debe estar ofuscado en ambiente de producción.
