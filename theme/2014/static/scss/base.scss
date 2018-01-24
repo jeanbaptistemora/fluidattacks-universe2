@@ -21,12 +21,13 @@ $white: rgba(255, 255, 255, 1);
   }
 }
 
-@mixin quote {
+@mixin quo-lit-block {
   border: 1px solid $lightgray;
   border-left: 3px solid $darkblue;
   font-size: 16px;
   margin-top: 20px;
-  padding: .05em 1.25em 1em;
+  overflow: auto;
+  padding: 15px 10px;
 }
 
 html {
@@ -168,15 +169,14 @@ ul {
 }
 
 .quoteblock {
-  @include quote;
+  @include quo-lit-block;
   color: $darkgray;
   font-style: italic;
   text-align: center;
 }
 
 pre {
-  @include quote;
-  overflow: auto;
+  @include quo-lit-block;
 }
 
 .hrcoments {
@@ -206,9 +206,7 @@ article {
 }
 
 .monospaced {
-  background-color: $lightgray;
   font-family: monospace;
-  padding: 0 10px;
 }
 
 .tableblock {

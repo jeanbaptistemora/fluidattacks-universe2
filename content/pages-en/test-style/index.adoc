@@ -10,8 +10,9 @@ by preceeding the title
 with one equal sign,
 like this:
 
-[quote]
- = Test several Asciidoc styles and functionalities
+....
+= Test several Asciidoc styles and functionalities
+....
 
 [[cheat-sheet]]
 == Asciidoc Cheat Sheet
@@ -25,9 +26,10 @@ by doing the following,
 which will set the ``id'' of the header
 to ``cheat-sheet'':
 
-[quote]
-\[[cheat-sheet]] +
+....
+[[cheat-sheet]]
 == Asciidoc Cheat Sheet
+....
 
 === Text Style
 
@@ -134,9 +136,8 @@ except FlytimeError as e:
 
 * Quotes:
 +
-____
+[quote]
 A quote without source information
-____
 +
 [quote,"Charles Dickens","A Tale of Two Cities"]
 It was the best of times, it was the worst of times, it was the age of wisdom,
