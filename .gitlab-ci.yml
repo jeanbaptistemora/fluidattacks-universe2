@@ -33,7 +33,7 @@ pages:
   stage: deployment
   environment: staging
   script:
-    - sed -i 's/https:\/\/fluid.la//g; s/2014/2018/g; s/output\/web/pulic/g; s/pages-es/pages-es-2018/g; s/pages-en/pages-en-2018/g' pelicanconf.py
+    - sed -i 's/https:\/\/fluid.la//g; s/2014/2018/g; s/output\/web/public/g; s/pages-es/pages-es-2018/g; s/pages-en/pages-en-2018/g' pelicanconf.py
     - sed -i 's/output\/web/public/g' xmlcombine.sh
     - sed -i 's/output/public/g' html-lint.sh
     - pelican --fatal errors --fatal warnings content/
