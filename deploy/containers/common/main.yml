@@ -3,12 +3,16 @@
 
   become: "yes"
 
+  vars:
+    DRIVE_AUTHORIZATION:  "{{ lookup('env','FI_DRIVE_AUTHORIZATION') }}"
+    machine: "{{ lookup('env','FI_GITLAB_MACHINE') }}"
+    login: "{{ lookup('env','FI_GITLAB_LOGIN') }}"
+    password:  "{{ lookup('env','FI_GITLAB_PASSWORD') }}"
+    documentroot:  "{{ lookup('env','FI_DOCUMENTROOT') }}"
+
   tasks:
    - name: Incluir llaves de cifrado
      include_vars: vars/key.yml
-
-   - name: include default step variables
-     include_vars: vars/vars.yml
 
    - name: Agregar netrc
      template:

@@ -22,4 +22,8 @@
 	env | grep FI_AWS_OUTPUT
 	env | grep FI_DEBUG
 	env | grep FI_ROLLBAR_ACCESS_TOKEN
+	env | grep FI_GITLAB_MACHINE
+	env | grep FI_GITLAB_LOGIN
+	env | grep FI_GITLAB_PASSWORD
+	env | grep FI_DOCUMENTROOT
 } > "env".list

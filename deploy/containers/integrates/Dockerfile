@@ -26,6 +26,10 @@ ARG formstack_tokens
 ARG aws_output
 ARG debug_env
 ARG rollbar_access_token
+ARG gitlab_machine
+ARG gitlab_login
+ARG gitlab_password
+ARG documentroot
 
 ENV DEBIAN_FRONTEND noninteractive      # instalación no interactiva
 ENV CI_COMMIT_REF_NAME=$ci_commit_ref_name
@@ -50,6 +54,10 @@ ENV FI_FORMSTACK_TOKENS=$formstack_tokens
 ENV FI_AWS_OUTPUT=$aws_output
 ENV FI_DEBUG=$debug_env
 ENV FI_ROLLBAR_ACCESS_TOKEN=$rollbar_access_token
+ENV FI_GITLAB_MACHINE=$gitlab_machine
+ENV FI_GITLAB_LOGIN=$gitlab_login
+ENV FI_GITLAB_PASSWORD=$gitlab_password
+ENV FI_DOCUMENTROOT=$documentroot
 ENV TZ=America/Bogota
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 

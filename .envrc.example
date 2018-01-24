@@ -39,3 +39,13 @@ export FI_AWS_DYNAMODB_ACCESS_KEY='value'
 export FI_AWS_DYNAMODB_SECRET_KEY='value'
 # Parametro necesario para el uso de Django, permite el debug de la aplicación. Si esta variable no es definida, Django no puede funcionar.
 export FI_DEBUG='value'
+# Token para consumo del API de Rollbar, el cual permite llevar un log detallado de los errores de funcionamiento que pueden ocurrir en Integrates
+export FI_ROLLBAR_ACCESS_TOKEN='value'
+# Dominio de la pagina donde se encuentra almacenado en el repositorio de Integrates
+export FI_GITLAB_MACHINE='value'
+# Usuario de la cuenta donde se encuentra almacenado el master del repositorio de Integrates
+export FI_GITLAB_LOGIN='value'
+# Contraseña de la cuenta donde se encuentra almacenado el master del repositorio de Integrates
+export FI_GITLAB_PASSWORD='value'
+# Ruta de la carpeta principal de Integrates en el contenedor y localhost
+export FI_DOCUMENTROOT='value'

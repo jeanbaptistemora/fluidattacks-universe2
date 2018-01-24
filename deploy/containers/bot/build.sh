@@ -32,6 +32,10 @@ FI_FORMSTACK_TOKENS=${19}
 FI_AWS_OUTPUT=${20}
 FI_DEBUG=${21}
 FI_ROLLBAR_ACCESS_TOKEN=${22}
+FI_GITLAB_MACHINE=${23}
+FI_GITLAB_LOGIN=${24}
+FI_GITLAB_PASSWORD=${25}
+FI_DOCUMENTROOT=${26}
 # construir la imagen
 cp ../.vault.txt .
 cp -a ../common .
@@ -57,6 +61,10 @@ docker build --no-cache --build-arg ci_commit_ref_name="$CI_COMMIT_REF_NAME" \
             --build-arg aws_output="$FI_AWS_OUTPUT" \
             --build-arg debug_env="$FI_DEBUG" \
             --build-arg rollbar_access_token="$FI_ROLLBAR_ACCESS_TOKEN" \
+            --build-arg gitlab_machine="$FI_GITLAB_MACHINE" \
+            --build-arg gitlab_login="$FI_GITLAB_LOGIN" \
+            --build-arg gitlab_password="$FI_GITLAB_PASSWORD" \
+            --build-arg documentroot="$FI_DOCUMENTROOT" \
 						-t registry.gitlab.com/fluidsignal/integrates/bot:base .
 rm .vault.txt
 rm -rf common
