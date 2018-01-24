@@ -111,6 +111,7 @@ integrates.controller("eventualityController", function($scope, $uibModal, $tran
     $scope.openModalVer = function(){
         var sel = $("#eventualities").bootstrapTable('getSelections');
         if(sel.length == 0){
+            Rollbar.error("Error: No events are selected");
             $.gritter.add({
                 title: 'Error',
                 text: event_select,
@@ -173,6 +174,7 @@ integrates.controller("eventualityController", function($scope, $uibModal, $tran
     $scope.openModalEditar = function(){
         var sel = $("#eventualities").bootstrapTable('getSelections');
         if(sel.length == 0){
+            Rollbar.error("Error: No events are selected");
             $.gritter.add({
                 title: 'Error',
                 text: event_select,
@@ -203,6 +205,7 @@ integrates.controller("eventualityController", function($scope, $uibModal, $tran
                        }
                        submit = true;
                    }catch(e){
+                        Rollbar.error("Error: Affectation can not be a negative number");
                        $.gritter.add({
                             title: attent_title,
                             text: event_positiveint,
@@ -225,6 +228,7 @@ integrates.controller("eventualityController", function($scope, $uibModal, $tran
                             integrates.updateEvntRow($scope.evnt);
                             $uibModalInstance.dismiss('cancel');
                         }else{
+                            Rollbar.error(response.message);
                             $.gritter.add({
                                 title: 'Error!',
                                 text: response.message,
@@ -347,6 +351,7 @@ integrates.controller("eventualityController", function($scope, $uibModal, $tran
                         sticky: false,
                     });
                 }else{
+                    Rollbar.error(data.message);
                      $.gritter.add({
                         title: 'Error',
                         text: data.message,
@@ -355,6 +360,7 @@ integrates.controller("eventualityController", function($scope, $uibModal, $tran
                     });
                 }
             }).catch(function(fallback) {
+                Rollbar.error("Error: An internal error occurred");
                 $.gritter.add({
                     title: event_title,
                     text: event_internal,
@@ -365,6 +371,7 @@ integrates.controller("eventualityController", function($scope, $uibModal, $tran
                     $scope.maxRecursiveCall = $scope.maxRecursiveCall - 1;
                     $scope.searchEvntByName();
                 }else{
+                    Rollbar.error("Error: Unable to access Formstack");
                     $.gritter.add({
                         title: event_title,
                         text: event_formstack,

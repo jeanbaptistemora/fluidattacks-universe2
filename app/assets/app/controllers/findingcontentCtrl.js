@@ -74,6 +74,8 @@ integrates.controller("findingcontentCtrl", function($scope, $stateParams, $time
                     response = response.replaceAll("<", "&lt;");
                     response = response.replaceAll(">", "&gt;");
                     $scope.exploitURL = response;
+                } else {
+                  Rollbar.error(response.message);
                 }
             });
         } else {
@@ -152,6 +154,7 @@ integrates.controller("findingcontentCtrl", function($scope, $stateParams, $time
                             location.reload();
                         }else{
                             var error_ac1 = $translate.instant('proj_alerts.error_textsad');
+                            Rollbar.error("Error: An error occurred updating CSSv2");
                             $msg.error(error_ac1);
                         }
                     });
@@ -196,6 +199,7 @@ integrates.controller("findingcontentCtrl", function($scope, $stateParams, $time
                                 mixPanelDashboard.trackFinding("DeleteFinding", userEmail, descData.id);
                             }else{
                               var error_ac1 = $translate.instant('proj_alerts.error_textsad');
+                              Rollbar.error("Error: An error occurred deleting finding");
                               $msg.error(error_ac1);
                             }
                         });
@@ -583,6 +587,7 @@ integrates.controller("findingcontentCtrl", function($scope, $stateParams, $time
             $timeout($scope.goUp, 200);
         } else {
           $msg.error($translate.instant('proj_alerts.no_finding'));
+          Rollbar.error("Error: Finding not found");
           return false;
         }
       });
@@ -785,6 +790,8 @@ integrates.controller("findingcontentCtrl", function($scope, $stateParams, $time
                             setTimeout(function() {
                               success(data);
                             }, 500);
+                          } else {
+                            Rollbar.error("Error: An error occurred adding comment");
                           }
                         });
                       }
@@ -797,6 +804,7 @@ integrates.controller("findingcontentCtrl", function($scope, $stateParams, $time
         if(!isNaN($scope.finding.severidad)){
             var severidad = parseFloat($scope.finding.severidad);
             if (severidad < 0 || severidad > 5){
+                Rollbar.error("Error: Severity must be an integer bewteen 0 and 5");
                 $msg.error($translate.instant('proj_alerts.error_severity'), "error");
                 return false;
             }
@@ -820,6 +828,7 @@ integrates.controller("findingcontentCtrl", function($scope, $stateParams, $time
                     return false;
             }
         }else{
+            Rollbar.error("Error: Severity must be an integer bewteen 0 and 5");
             $msg.error($translate.instant('proj_alerts.error_severity'), "error");
             return false;
         }
@@ -850,6 +859,7 @@ integrates.controller("findingcontentCtrl", function($scope, $stateParams, $time
              //Recalcular Severidad
              var choose = $scope.findingCalculateSeveridad();
              if(!choose){
+                 Rollbar.error("Error: An error occurred calculating severity");
                  $msg.error( $translate.instant('proj_alerts.wrong_severity'));
                  return false;
              }
@@ -875,6 +885,7 @@ integrates.controller("findingcontentCtrl", function($scope, $stateParams, $time
                              //Tracking mixpanel
                              mixPanelDashboard.trackFinding("UpdateFinding", userEmail, descData.id);
                          }else{
+                           Rollbar.error("Error: An error occurred updating description");
                            var error_ac1 = $translate.instant('proj_alerts.error_textsad');
                            $msg.error(error_ac1);
                          }
@@ -927,6 +938,7 @@ integrates.controller("findingcontentCtrl", function($scope, $stateParams, $time
                               $uibModalInstance.close();
                               location.reload();
                           }else{
+                            Rollbar.error("Error: An error occurred updating treatment");
                             var error_ac1 = $translate.instant('proj_alerts.error_textsad');
                             $msg.error(error_ac1);
                           }
@@ -969,6 +981,7 @@ integrates.controller("findingcontentCtrl", function($scope, $stateParams, $time
                              $msg.success($translate.instant('proj_alerts.remediated_success'));
                              $uibModalInstance.close();
                          }else{
+                           Rollbar.error("Error: An error occurred when remediating the finding");
                            $msg.error($translate.instant('proj_alerts.error_textsad'));
                          }
                      });

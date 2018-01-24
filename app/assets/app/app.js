@@ -86,4 +86,16 @@ $msg.warning = function(text, title){
  * Crea integrates como una aplicacion de angular
  * @module {AngularJS} FluidIntegrates
  */
-var integrates = angular.module("FluidIntegrates", ['ui.router','ui.bootstrap','pascalprecht.translate','ngSanitize','ngNotify', 'prismjsHighlight', 'monospaced.elastic']);
+var integrates = angular.module("FluidIntegrates", ['ui.router','ui.bootstrap', 'pascalprecht.translate','ngSanitize','ngNotify', 'prismjsHighlight', 'monospaced.elastic', 'tandibar/ng-rollbar']);
+
+integrates.config(['RollbarProvider', function(RollbarProvider) {
+  isProduction = location.toString().indexOf("localhost:8000") == -1;
+  RollbarProvider.init({
+    accessToken: "cad6d1f7ecda480ba003e29f0428d44e",
+    enabled: isProduction,
+    captureUncaught: true,
+    payload: {
+      environment: 'production'
+    }
+  });
+}]);

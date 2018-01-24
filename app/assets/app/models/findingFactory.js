@@ -47,19 +47,23 @@ integrates.factory('findingFactory', function($q,$translate){
                   error: function (xhr, status) {
                       $(".loader").hide();
                       if(xhr.status == 500){
+                        Rollbar.error("Error: An error ocurred loading data");
                         deferred.resolve({
                             error: null,
                             message: "Error interno cargando datos"
                         });
                       }else if(xhr.status == 401){
+                         Rollbar.error("Error: 401 Unauthorized");
                          location = "error401";
                       }
                   }
               });
           } catch (e) {
               if(e.status == 401){
+                Rollbar.error("Error: 401 Unauthorized");
                   location = "error401";
               }
+              Rollbar.error("Error: An error ocurred getting finding by ID", e);
               deferred.resolve('exception');
           }
           return deferred.promise
@@ -88,19 +92,23 @@ integrates.factory('findingFactory', function($q,$translate){
                   error: function (xhr, status) {
                       $(".loader").hide();
                       if(xhr.status == 500){
+                        Rollbar.error("Error: An error ocurred loading data");
                         deferred.resolve({
                             error: null,
                             message: "Error interno cargando datos"
                         });
                       }else if(xhr.status == 401){
+                         Rollbar.error("Error: 401 Unauthorized");
                          location = "error401";
                       }
                   }
               });
           } catch (e) {
               if(e.status == 401){
+                  Rollbar.error("Error: 401 Unauthorized");
                   location = "error401";
               }
+              Rollbar.error("Error: An error ocurred getting ID by project", e);
               deferred.resolve('exception');
           }
           return deferred.promise
@@ -132,16 +140,19 @@ integrates.factory('findingFactory', function($q,$translate){
                   error: function (xhr, status) {
                       $(".loader").hide();
                       if(xhr.status == 500){
+                        Rollbar.error("Error: An error ocurred loading data");
                         deferred.resolve({
                             error: null,
                             message: "Error interno cargando datos"
                         });
                       }else if(xhr.status == 401){
+                         Rollbar.error("Error: 401 Unauthorized");
                          location = "error401";
                       }
                   }
               });
           } catch (e) {
+              Rollbar.error("Error: An error ocurred generating document", e);
               console.log('There was an exception: ' + e.message);
               deferred.resolve('exception');
           }
@@ -170,19 +181,23 @@ integrates.factory('findingFactory', function($q,$translate){
                   error: function (xhr, status) {
                       $(".loader").hide();
                       if(xhr.status == 500){
+                        Rollbar.error("Error: An error ocurred loading data");
                         deferred.resolve({
                             error: null,
                             message: "Error interno cargando datos"
                         });
                       }else if(xhr.status == 401){
+                         Rollbar.error("Error: 401 Unauthorized");
                          location = "error401";
                       }
                   }
               });
           } catch (e) {
               if(e.status == 401){
+                  Rollbar.error("Error: 401 Unauthorized");
                   location = "error401";
               }
+              Rollbar.error("Error: An error ocurred updating finding", e);
               deferred.resolve('exception');
           }
           return deferred.promise
@@ -209,19 +224,23 @@ integrates.factory('findingFactory', function($q,$translate){
                   error: function (xhr, status) {
                       $(".loader").hide();
                       if(xhr.status == 500){
+                        Rollbar.error("Error: An error ocurred loading data");
                         deferred.resolve({
                             error: null,
                             message: "Error interno cargando datos"
                         });
                       }else if(xhr.status == 401){
+                         Rollbar.error("Error: 401 Unauthorized");
                          location = "error401";
                       }
                   }
               });
           } catch (e) {
               if(e.status == 401){
+                  Rollbar.error("Error: 401 Unauthorized");
                   location = "error401";
               }
+              Rollbar.error("Error: An error ocurred deleting finding", e);
               deferred.resolve('exception');
           }
           return deferred.promise

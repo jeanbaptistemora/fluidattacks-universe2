@@ -14,6 +14,7 @@ var $xhr = new (class xhr {
                    if(XMLHttpRequest.status == 401){
                        location = BASE.url + "index";
                    }else{
+                       Rollbar.error(text);
                        $.gritter.add({ title: 'Oops!', text: text ,
                             class_name: 'color warning', sticky: false,
                        });

@@ -193,6 +193,7 @@ integrates.controller(
                         total_criticidad += BaseScore * parseFloat(i.cardinalidad_total);
                     }
                 }catch(e){
+                    Rollbar.error("Error: An error ocurred calculating cardinality", e);
                 }
             });
             $("#total_criticidad").html(total_criticidad.toFixed(0));
@@ -239,6 +240,7 @@ integrates.controller(
                 if (json == [] || json == {}) throw "error";
                 if(project.trim() == "") throw "error";
             }catch(e){
+                Rollbar.error("Error: An error ocurred generating document", e);
                 generateDoc = false;
             }
             if(generateDoc == false) return false;
@@ -252,6 +254,8 @@ integrates.controller(
                     }else{
                         win = window.open(url, '__blank');
                     }
+                } else {
+                    Rollbar.error("Error: An error ocurred generating document");
                 }
             });
             $scope.downloadDoc();
@@ -290,6 +294,7 @@ integrates.controller(
                             if (json == [] || json == {}) throw "error";
                             if(project.trim() == "") throw "error";
                         }catch(e){
+                            Rollbar.error("Error: An error ocurred generating the technical report");
                             generateDoc = false;
                         }
                         if(generateDoc == false) return false;
@@ -308,6 +313,8 @@ integrates.controller(
                                 }else{
                                     win = window.open(url, '__blank');
                                 }
+                            } else {
+                                Rollbar.error("Error: An error ocurred generating the technical report");
                             }
                         });
                     };
@@ -362,6 +369,8 @@ integrates.controller(
                                     $("#hasPresentation").show();
                                     $("#hasPresentationMsg").hide();
                                 }
+                            } else {
+                                Rollbar.error("Error: An error ocurred generating the executive report");
                             }
                         });
                     };
@@ -1171,6 +1180,7 @@ integrates.controller(
                             $scope.view.finding = false;
                         }
                     }else{
+                        Rollbar.error("Error: Project not found");
                         $msg.error($translate.instant('proj_alerts.not_found'));
                     }
                 });
@@ -1258,7 +1268,7 @@ integrates.controller(
                         $("#search_section").show();
                         $('[data-toggle="tooltip"]').tooltip();
                     }else{
-
+                        Rollbar.error("Error: Event not found");
                     }
                 });
             }
