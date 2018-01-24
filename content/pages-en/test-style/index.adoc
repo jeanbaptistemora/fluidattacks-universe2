@@ -39,46 +39,99 @@ level 2 headers have one more equal sign.
 Now, some rules
 that allow text formatting:
 
-* A phrase is placed inside `single quotes'
-by surrounding it with a tick to the left (`)
-and a single quote to the right (')
-* A phrase is placed inside ``double quotes''
-by surrounding it with two ticks to the left (\`\`)
-and two single quotes to the right ('')
-* Single quotes (\'emphasis') around a phrase
-place 'emphasis',
-* Astericks (\*bold*) around a phrase
-make the text *bold*,
-* Double astericks (l\*\*e\**tters) around one or more l**e**tters in a word
- make those letters bold,
-* Double underscore (\__phr\__ase) around a __sub__string in a word
-emphasizes that substring,
-* Use carrots (\^super\^string) around characters
-to make them ^super^script,
-* Use tildes (\~subs\~tring) around characters
-to make them ~sub~script,
-* To use +monospaced+ characters,
-enclose the phrase in plus signs (\+phrase+)
-* To pass through +++<u>HTML</u>+++ directly,
-surround the text with triple plus signs.
+* Using `single quotes'
++
+....
+`single quotes'
+....
+
+* Using ``double quotes''
++
+....
+``double quotes'',
+....
+
+* Change text to _italic_,
++
+....
+_italic_
+....
+
+* Change text to *bold*,
++
+....
+*bold*
+....
+
+* Change part of a word to b**o**ld,
++
+....
+b**o**ld
+....
+
+* Change part of a word to __ita__lics,
++
+....
+__ita__lics
+....
+
+* Use ^super^scripts,
++
+....
+^super^scripts
+....
+
+* Use ~sub~scripts,
++
+....
+~sub~scripts
+....
+
+* Use +monospaced+ characters,
++
+....
++monospaced+, `monospaced`
+....
+
+* Pass through +++<u>HTML</u>+++,
++
+....
++++<u>HTML</u>+++
+....
+
 * To force a line break, +
-a plus sign (+) must be used at the end of the sentence.
+do this:
++
+....
+To force a line break +
+do this
+....
+
 * To escape special characters,
 the backslash is used (\),
+
 * Reserved XML characters like <, > and &,
 can be used safely,
-* Force a space{sp}between inline elements
-using the \{sp} attribute,
-* Hold text together
-with an intrinsic non-breaking{nbsp}space attribute, \{nbsp}
-* Claim copyright (C), registered trademark (R) or trademark (TM)
+
+* Claim copyright (C), registered trademark (R) or trademark (TM).
++
+....
+(C), (R), (TM)
+....
 
 === Tables
 
-A table is delimited,
-at the beginning and at the end,
-by (|===).
-The columns are separated by a pipe (|).
+....
+.Title
+[options="header"] -> Optional
+|====
+|Col 1|Col 2      |Col 3
+|1    |Item 1     |a
+|2    |Item 2     |b
+|3    |Item 3     |c
+|6    |Three items|d
+|====
+....
 
 .An example table
 [options="header"]
@@ -90,13 +143,80 @@ The columns are separated by a pipe (|).
 |6    |Three items|d
 |====
 
+The previous was the most simple table,
+more options can be set:
+
+....
+[grid="rows",format="csv"]
+[options="header",cols="^,<,<s,<,>m"]
+|====
+ID,FName,LName,Address,Phone
+1,Vasya,Pupkin,London,+123
+2,X,Y,"A,B",45678
+|====
+
+grid -> Sets borders
+format -> Sets the delimiter character between columns
+header -> The first column are headers
+cols -> Sets format of the columns
+  ^  align center in the row
+  <  align left in the row
+  <s align left in the row and font strong (bold)
+  >m align right in the row and font monospaced
+
+The CSS of the site overrides some of the previous.
+....
+
+[grid="rows",format="csv"]
+[options="header",cols="^,<,<s,<,>m"]
+|====
+ID,FName,LName,Address,Phone
+1,Vasya,Pupkin,London,+123
+2,X,Y,"A,B",45678
+|====
+
+Table cells can also be styled
+to occupy multiple rows.
+
+....
+.Multiline cells, row/col span
+|====
+|Date |Duration |Avg HR |Notes
+
+|22-Aug-08 .2+^.^|10:24 | 157 |
+Worked out MSHR (max sustainable
+heart rate) by going hard
+for this interval.
+
+|22-Aug-08 | 152 |
+Back-to-back with previous interval.
+
+|24-Aug-08 3+^|none
+|====
+
+.2+^.^ -> Occupy two cells vertically and align center
+          horizontally and vertically
+3+^    -> Occupy 3 cells horizontally and align center horizontally
+
+A dot (.) represents columns
+....
+
+.Multiline cells, row/col span
+|====
+|Date |Duration |Avg HR |Notes
+
+|22-Aug-08 .2+^.^|10:24 | 157 |
+Worked out MSHR (max sustainable
+heart rate) by going hard
+for this interval.
+
+|22-Aug-08 | 152 |
+Back-to-back with previous interval.
+
+|24-Aug-08 3+^|none
+|====
+
 === Lists
-
-* Q: How did the programmer die in the shower? +
-  A: He read the shampoo instructions:
-
-  . Lather, rinse.
-  . Repeat.
 
 * There are only 10 kinds of people in this world:
   - Those who understand binary.
@@ -108,6 +228,13 @@ can also be used to declarate a list.
 When combined, a nested list can be created.
 
 Ordered list can also be nested
+
+....
+. List1
+.. List 2
+... List 3
+and so on
+....
 
 . List 1
 .. List 2
@@ -123,6 +250,13 @@ between the content.
 
 * Code listings:
 +
+....
+[source, language(python,java,...)]
+----
+Code
+----
+....
++
 [source,python]
 ----
 #!/usr/bin/env python
@@ -136,6 +270,16 @@ except FlytimeError as e:
 
 * Quotes:
 +
+....
+Simple quote
+[quote]
+Text
+
+Quote with information
+[quote,author,source]
+Text
+....
++
 [quote]
 A quote without source information
 +
@@ -144,37 +288,116 @@ It was the best of times, it was the worst of times, it was the age of wisdom,
 it was the age of foolishness...
 
 * Links:
-** link:http://asciidoclive.com/[AsciiDocLIVE] is awesome!
++
+....
+link:http://asciidoclive.com[AsciiDocLIVE]
+....
++
+link:http://asciidoclive.com/[AsciiDocLIVE] is awesome!
 
 * Images:
++
+....
+Block image -> image::path/to/image[alt description]
+Inline image -> image:path/to/image[alt description]
+....
 +
 image::doge.png[Doge]
 
 * Videos:
 +
+....
+video::path/to/video[]
+....
++
 video::he-man.mp4[YouTube]
 
 * Definitions
 +
-[[defs]]
-term::
-  definition line two
-[[another_term]]
-another term::
-  another definition, which can be literal (indented) or regular paragraph
+....
+Term 1:: Definition
+Term 2:: Definition
+[horizontal]
+Subterm 2.1::: Definition can also be placed horizontally
+....
++
+Term 1:: Definition
+Term2:: Definition
+[horizontal]
+Subterm 2.1::: Definition can also be placed horizontally
 
 * Let's make a horizontal rule...
++
+....
+'''
+....
 +
 '''
 
 * Let's get literal
 +
+ ....
+ Just use four dots in the lines before and after the sentence.
+ ....
++
 ....
-Okay.
+{space}Leaving a blank space before the sentence does the job as well.
 ....
 
 * Anchors can be used to move fast inside the document,
- <<cheat-sheet, Cheat Sheet>>.
+set the links like this:
++
+ <<element id, anchor text>>
+ <<cheat-sheet, Cheat Sheet>>
++
+Test it by going back to the <<cheat-sheet, Cheat Sheet>>.
+
+* Variables can be set as tags
+at the beginning of the document
+and their value can be referenced
+by doing the following:
++
+ :variable: Asciidoc
+ This document was written using {variable}
++
+This document was written using {variable}
+
+* Optional titles
++
+....
+.Title
+Image, list, video, ...
+....
++
+.List Title
+. List 1
+
+* Comments
++
+....
+The next line will be commented
+// This line should not be shown
+....
++
+The next line will be commented
+//This line should not be shown
+
+* Questions and Answers
++
+....
+[qanda]
+Question 1::
+   Answer 1
+Question 2::
+   Answer 2nse.
+       . Repeat.
+....
+
+[qanda]
+Question 1::
+   Answer 1
+Question 2::
+   Answer 2
 
 == References
 

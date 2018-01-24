@@ -97,11 +97,17 @@ a {
   }
 }
 
-.imageblock {
+.imageblock,
+.videoblock {
   text-align: center;
 
-  img {
+  img,
+  video {
     margin: 20px 0;
+  }
+
+  .title {
+    text-align: center;
   }
 }
 
@@ -152,6 +158,10 @@ table {
     border-top: 3px solid $darkblue;
     padding: 20px;
     vertical-align: top;
+  }
+
+  .title {
+    text-align: center;
   }
 }
 
@@ -236,7 +246,45 @@ article {
 .title {
   color: $darkgray;
   font-size: 16px;
-  text-align: center;
+}
+
+.dlist {
+  dt {
+    font-size: 18px;
+    font-weight: bold;
+  }
+
+  p {
+    margin-top: 0;
+  }
+}
+
+.hdlist {
+  font-size: 18px;
+
+  table {
+    margin: 0;
+
+    td {
+      border-top: 0;
+      padding: 0;
+      vertical-align: middle;
+    }
+  }
+
+  .hdlist1 {
+    font-weight: bold;
+  }
+}
+
+.qlist {
+  li {
+    margin-bottom: 20px;
+  }
+
+  p {
+    margin-top: 0;
+  }
 }
 
 //sass-lint:disable no-universal-selectors

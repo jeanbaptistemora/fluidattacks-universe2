@@ -1,4 +1,4 @@
-	image: registry.gitlab.com/fluidsignal/web:builder
+image: registry.gitlab.com/fluidsignal/web:builder
 
 stages:
   - build
