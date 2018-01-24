@@ -52,7 +52,7 @@ Para ello se importan las librerías _System_ y _System.Text_:
 using System;
 using System.Text;
 ----
-Posteriormente, se instancia un objeto 
+. Posteriormente, se instancia un objeto 
 de la clase _StringBuilder_, en este caso el objeto _sb_:
 +
 [source, java, linenums]
