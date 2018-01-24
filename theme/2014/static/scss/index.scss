@@ -74,11 +74,13 @@ $white: rgba(255, 255, 255, 1);
 .tbnormal {
   background-color: $lightgray;
   border-spacing: 0;
+  margin-top: 0;
 }
 
 .tbresponsive {
   background-color: $lightgray;
   display: none;
+  margin-top: 0;
 }
 
 .tdview {
