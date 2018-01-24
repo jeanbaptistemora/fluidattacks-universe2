@@ -77,6 +77,7 @@ y apellido de longitud máxima 10.
 Desde este punto se puede notar que hay un error de diseño, 
 la longitud máxima para el nombre completo 
 debería ser la suma de las dos anteriores variables (Longitud máxima de 20).
+
 +
 [source, cobol,linenums]
 ----
