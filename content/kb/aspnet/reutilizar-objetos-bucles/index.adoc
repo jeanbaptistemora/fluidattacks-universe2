@@ -1,0 +1,102 @@
+:slug: kb/aspnet/reutilizar-objetos-bucles/
+:eth: no
+:category: aspnet
+:kb: yes
+
+= Reutilizar Objetos en Bucles
+
+== Necesidad
+
+Reutilizar objetos dentro de un bucle de un programa en ASP.Net.
+
+== Contexto
+
+A continuación se describe las circunstancias 
+bajo las cuales la siguiente solución tiene sentido:
+
+. Se está desarrollando una aplicación en ASP.Net.
+
+== Solución
+
+. Teniendo en cuenta que ASP.Net usa recolector de basura, 
+y sumado a las características del contexto anterior, 
+se tienen las siguientes implicaciones:
+
+* Cada objeto al ser creado 
+requiere recursos de memoria 
+para sus variables de instancia.
+
+* Cada objeto al ser creado requiere 
+recursos de procesador [1] 
+para inicializar las variables de instancia.
+
+* Cada objeto creado es evaluado 
+para determinar si debe ser eliminado [1].
+
+* Cada objeto creado podrá ser eliminado en algún momento [1].
+
+. Dadas las anteriores circunstancias 
+se recomienda reutilizar los objetos creados 
+en un bucle de forma que los recursos demandados 
+por las implicaciones anteriores se minimicen. 
+El siguiente ejemplo ilustra como reutilizar objetos. 
+Inicialmente se define una clase con el método _main_, 
+dentro del cual se crea una instancia de la clase _StringBuilder_:
++
+Para utilizar la clase _StringBuilder_ 
+se debe incluir el espacio de nombres _System.Text_. 
+Para ello se importan las librerías _System_ y _System.Text_:
++
+[source, java, linenums]
+----
+using System;
+using System.Text;
+----
+Posteriormente, se instancia un objeto 
+de la clase _StringBuilder_, en este caso el objeto _sb_:
++
+[source, java, linenums]
+----
+static void Main(string[] args)
+        {
+      StringBuilder sb;
+...
+----
+
+. A pesar de que la clase _StringBuilder_ 
+instancia siempre un objeto dinámico 
+que permite expandir el número de caracteres 
+de la cadena que encapsula, 
+es posible definir un valor personalizado 
+para el número máximo de caracteres que puede contener.
+El valor anteriormente mencionado se define 
+como la capacidad del objeto 
+y difiere de la longitud de la cadena 
+contenida en el objeto _StringBuilder_ en dicho momento.
++
+De acuerdo a lo anteriormente dicho, 
+se reutilizará el objeto haciendo uso de un bucle _for_.
+De esta manera se evitará instanciar nuevos objetos,
+al definir el número de veces que el objeto será reutilizado.
+En este caso se inicializará un ciclo de 40 iteraciones.
+A continuación se presenta una porción de código
+con el procedimiento descrito:
++
+[source, java, linenums]
+----
+int limit = 41;
+//long startTime = System.currentTimeMillis ();
+for (int i = 0; i < limit; i++) {
+...
+----
+
+. Por cada iteración, se está reutilizando la instancia, 
+con el método _Clear()_ se cambia el estado del objeto 
+de modo similar a uno recién creado, 
+sin necesidad de realmente crear uno nuevo.
+
+== Referencias
+
+. https://msdn.microsoft.com/es-es/library/2839d5h5(v=vs.110).aspx[Microsoft, Utilizar la clase StringBuilder]
+. https://msdn.microsoft.com/en-us/library/3457w616.aspx[Creating Reusable Elements with ASP.NET User Controls]
+. REQ.0159: El código debe utilizar contenedores o estructuras de datos optimizadas.
