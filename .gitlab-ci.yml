@@ -1,4 +1,4 @@
-image: registry.gitlab.com/fluidsignal/web:builder
+	image: registry.gitlab.com/fluidsignal/web:builder
 
 stages:
   - build
@@ -38,6 +38,7 @@ pages:
     - sed -i 's/output/public/g' html-lint.sh
     - pelican --fatal errors --fatal warnings content/
     - ./xmlcombine.sh
+    - mv public/en/blog-en public/en/blog && mv public/es/blog-es public/es/blog
     - cp -r public/es/pages-es-2018/* public/es/ && rm -rf public/es/pages-es-2018
     - cp -r public/en/pages-en-2018/* public/en/ && rm -rf public/en/pages-en-2018
     - mv public/en/redirect/index.html public/ && rmdir public/en/redirect/
