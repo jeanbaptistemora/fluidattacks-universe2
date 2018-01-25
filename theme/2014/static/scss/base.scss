@@ -130,10 +130,26 @@ a {
   ol {
     font-size: 18px;
     padding-left: 20px;
+  }
 
-    p {
-      margin-top: 10px;
-    }
+  p {
+    margin-top: 10px;
+  }
+
+  .loweralpha {
+    list-style-type: lower-alpha;
+  }
+
+  .upperalpha {
+    list-style-type: upper-alpha;
+  }
+
+  .lowerroman {
+    list-style-type: lower-roman;
+  }
+
+  .upperroman {
+    list-style-type: upper-roman;
   }
 }
 
