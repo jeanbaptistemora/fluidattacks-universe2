@@ -7,20 +7,20 @@
 
 == Necesidad
 
-Reutilizar objetos dentro de un bucle de un programa en ASP.Net.
+Reutilizar objetos dentro de un bucle de un programa en +ASP.Net+.
 
 == Contexto
 
 A continuación se describe las circunstancias 
 bajo las cuales la siguiente solución tiene sentido:
 
-. Se está desarrollando una aplicación en ASP.Net.
+. Se está desarrollando una aplicación en +ASP.Net+.
 
 == Solución
 
-. Teniendo en cuenta que ASP.Net usa recolector de basura, 
+. Teniendo en cuenta que +ASP.Net+ usa recolector de basura, 
 y sumado a las características del contexto anterior, 
-se tienen las siguientes implicaciones <<ref1, [1]>>:
+se tienen las siguientes implicaciones <<r1, [1]>>:
 
 * Cada objeto al ser creado 
 requiere recursos de memoria 
@@ -72,7 +72,7 @@ para el número máximo de caracteres que puede contener.
 El valor anteriormente mencionado se define 
 como la capacidad del objeto 
 y difiere de la longitud de la cadena 
-contenida en el objeto +StringBuilder+ en dicho momento  <<ref2, [2]>>.
+contenida en el objeto +StringBuilder+ en dicho momento  <<r2, [2]>>.
 +
 De acuerdo a lo anteriormente dicho, 
 se reutilizará el objeto haciendo uso de un bucle +for+.
@@ -97,6 +97,6 @@ sin necesidad de realmente crear uno nuevo.
 
 == Referencias
 
-. [[ref1]] https://msdn.microsoft.com/en-us/library/3457w616.aspx[Creating Reusable Elements with ASP.NET User Controls]
-. [[ref2]] https://msdn.microsoft.com/es-es/library/2839d5h5(v=vs.110).aspx[Microsoft, Utilizar la clase StringBuilder]
-. [[ref3]] REQ.0159: El código debe utilizar contenedores o estructuras de datos optimizadas.
+. [[r1]] link:https://msdn.microsoft.com/en-us/library/3457w616.aspx[Creating Reusable Elements with ASP.NET User Controls]
+. [[r2]] link:https://msdn.microsoft.com/es-es/library/2839d5h5(v=vs.110).aspx[Microsoft, Utilizar la clase StringBuilder]
+. [[r3]] REQ.0159: El código debe utilizar contenedores o estructuras de datos optimizadas.
