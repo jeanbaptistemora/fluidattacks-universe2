@@ -63,6 +63,20 @@ _italic_
 *bold*
 ....
 
+* Change [red]#color#, [aqua-background]#background#,
+[big]#size#, or [aqua green-background small]#all of them#,
+and even in one l[fuchsia gray-background big]##e##tter,
+or add [underline]#underline#, [overline]#overline# and
+[red line-through]#line through#
++
+....
+Change [red]#color#, [aqua-background]#background#,
+[big]#size#, or [aqua green-background small]#all of them#
+and even in one l[fuchsia gray-background big]##e##tter,
+or add [underine]#underline#, [overline]#overline# and
+[red line-through]#line through#
+....
+
 * Change part of a word to b**o**ld,
 +
 ....
