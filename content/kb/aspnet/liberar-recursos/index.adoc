@@ -7,14 +7,14 @@
 
 == Necesidad
 
-Comprender conceptos de la codificación segura (ASP.Net).
+Comprender conceptos de la codificación segura en +ASP.Net+.
 
 == Contexto
 
 A continuación se describen las circunstancias 
 bajo las cuales la siguiente solución tiene sentido:
 
-. La aplicación esta construida en ASP .NET
+. La aplicación esta construida en +ASP.NET+
 
 == Solución
 
@@ -27,11 +27,11 @@ para evitar los ataques que se aprovechan de éstas
 para obtener información confidencial
 o realizar otras acciones no deseadas.
 
-Para realizar un manejo de excepciones de ASP.NET,
-normalmente se recurre a las sentencias _try_ y _catch_.
+Para realizar un manejo de excepciones de +ASP.NET+,
+normalmente se recurre a las sentencias +try+ y +catch+.
 Se coloca el código que puede producir
-una excepción dentro de la sentencia _try_ 
-y el código a ejecutar cuando se presente en la sentencia _catch_.
+una excepción dentro de la sentencia +try+ 
+y el código a ejecutar cuando se presente en la sentencia +catch+.
 De esta manera es posible capturar las excepciones
 cuando éstas sucedan y tratarlas cuando se presenten.
 
@@ -43,26 +43,26 @@ mejorando el rendimiento
 y la experiencia del usuario final.
 
 Para lograr un manejo de excepciones
-con un uso eficiente de recursos en ASP.NET
-se recurre a la sentencia _finally_. 
-Al enviar un bloque de código a _finally_
+con un uso eficiente de recursos en +ASP.NET+
+se recurre a la sentencia +finally+. 
+Al enviar un bloque de código a +finally+
 es posible limpiar todos los recursos
-localizados en una sentencia _try_.
-La ventaja de la sentencia _finally_ es
+localizados en una sentencia +try+ <<r1 , [1]>>.
+La ventaja de la sentencia +finally+ es
 que permite ser ejecutada cada vez 
-que una excepción ocurre en el bloque _try_. 
+que una excepción ocurre en el bloque +try+. 
 Si se combinan estas dos sentencias, 
-en conjunto con la sentencia _catch_,
+en conjunto con la sentencia +catch+,
 obtenemos una aplicación que maneja
 las excepciones de forma adecuada.
 
 A continuación se presenta un ejemplo 
-de manejo de excepciones en ASP.NET utilizando
-_try_ , _catch_ y _finally_ :
+de manejo de excepciones en +ASP.NET+ utilizando
++try+ , +catch+ y +finally+ :
 
 . Importamos la librería _System_
 necesaria para el uso de las sentencias
-_try_ , _catch_ y _finally_:
++try+ , +catch+ y +finally+:
 +
 [source,c,linenums]
 ----
@@ -76,7 +76,7 @@ public class EHClass
 ----
 
 . Colocamos el código que puede causar una excepción
-dentro del bloque _try_, en este caso se utilizará 
+dentro del bloque +try+, en este caso se utilizará 
 para la lectura de un archivo. 
 Esto puede generar una excepción
 al intentar abrir un archivo no válido: 
@@ -92,9 +92,9 @@ al intentar abrir un archivo no válido:
       }
 ----
 
-. El bloque _catch_ capturará la excepción 
+. El bloque +catch+ capturará la excepción 
 y ejecutará el código definido por el usuario 
-en caso de presentarse dicha excepción. 
+en caso de presentarse dicha excepción <<r2, [2]>>. 
 Como se muestra a continuación:
 +
 [source, c, linenums]
@@ -106,11 +106,11 @@ Como se muestra a continuación:
 ----
 
 . La liberación de algún recurso 
-en una aplicación ASP.NET 
-se debe realizar dentro de la cláusula _finally_. 
+en una aplicación +ASP.NET+ 
+se debe realizar dentro de la cláusula +finally+. 
 Ésto con el propósito de garantizar 
 que si ocurre algún evento excepcional 
-dentro de la cláusula _try_, 
+dentro de la cláusula +try+, 
 el recurso reservado por la aplicación sea liberado.
 Como se aprecia en el siguiente código:
 +
@@ -127,6 +127,5 @@ Como se aprecia en el siguiente código:
 
 == Referencias
 
-. https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/keywords/try-catch-finally[Microsoft, Try- Catch- Finally]
-
-. https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/keywords/try-finally[Microsoft, Try-Finally]
+. [[r1]] link:https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/keywords/try-finally[Microsoft, Try-Finally]
+. [[r2]] link:https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/keywords/try-catch-finally[Microsoft, Try- Catch- Finally]
