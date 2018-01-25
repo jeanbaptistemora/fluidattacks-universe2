@@ -1,3 +1,7 @@
 :slug: ethical-hacking-infrastructure/
 
 = Ethical Hacking over Infrastructure
+
+This page is not currently available in this language.
+
+See the spanish version link:../../es/ethical-hacking-infraestructura/[here].

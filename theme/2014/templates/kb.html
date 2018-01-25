@@ -1,53 +1,28 @@
-{% extends "base.html" %}
-
-{% block canonical %}<link rel="canonical" href="{{ SITEURL }}/kb/"/>{% endblock canonical %}
-{% block title %}Knowledge Base | {{ SITENAME }}{% endblock title %}
-
-{% block header %}
-  {% include "navigationbar.html" %}
-  {% if HEADER_COVER %}
-    <header class="intro-header" style="background-image: url('{{ HEADER_COVER }}')">
-  {% elif HEADER_COLOR %}
-    <header class="intro-header" style="background-color: {{ HEADER_COLOR }}">
-  {% else %}
-    <header class="intro-header"> <!--style="background-image: url('{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/fluid.png');" >-->
-    <a href="../"><img src="../{{ THEME_STATIC_DIR }}/images/fluid.png" alt="{{ gettext('Young hacker smiling') }}"></a>
-  {% endif %}   
-  </header>
-{% endblock header %}
-
-{% block content %}
-  <div class="divpage">
-    <article>
-      <h1>Knowledge Base</h1>
-      {% for page in pages if page.kb %}
-        {% if loop.first %}
-          <a class="kb-category">
-            <h2>{{ page.category }}</h2>
-          </a>
-          {% set cat = page.category %}
-          <div class="kbpanel">
-            {% for kbarticle in pages if kbarticle.kb and kbarticle.category == cat%}
-              <a href="../{{ kbarticle.slug }}"><h3>{{ kbarticle.title }}</h3></a>
-            {% endfor %}
-          </div>  
-        {% else %}
-          {% if page.category != loop.previtem.category %}
-            <a class="kb-category">
-              <h2>{{ page.category }}</h2>
-            </a>
-            {% set cat = page.category %}
-            <div class="kbpanel">
-              {% for kbarticle in pages if kbarticle.kb and kbarticle.category == cat%}
-                <a href="../{{ kbarticle.slug }}"><h3>{{ kbarticle.title }}</h3></a>
-              {% endfor %}
-            </div>  
-          {% endif %}
-        {% endif %}
+{% for page in pages if page.kb %}
+  {% if loop.first %}
+    <a class="kb-category">
+      <h2>{{ page.category }}</h2>
+    </a>
+    {% set cat = page.category %}
+    <div class="kbpanel">
+      {% for kbarticle in pages if kbarticle.kb and kbarticle.category == cat%}
+        <a href="../{{ kbarticle.slug }}"><h3>{{ kbarticle.title }}</h3></a>
       {% endfor %}
-    </article>
-  </div>
-  {% assets filters="uglifyjs", output="static/js/kb.min.js", "js/kb.js" %}
-    <script src="{{ SITEURL }}/{{ ASSET_URL }}"></script>
-  {% endassets %} 
-{% endblock content %}
+    </div>  
+  {% else %}
+    {% if page.category != loop.previtem.category %}
+      <a class="kb-category">
+        <h2>{{ page.category }}</h2>
+      </a>
+      {% set cat = page.category %}
+      <div class="kbpanel">
+        {% for kbarticle in pages if kbarticle.kb and kbarticle.category == cat%}
+          <a href="../{{ kbarticle.slug }}"><h3>{{ kbarticle.title }}</h3></a>
+        {% endfor %}
+      </div>  
+    {% endif %}
+  {% endif %}
+{% endfor %}
+{% assets filters="uglifyjs", output="static/js/kb.min.js", "js/kb.js" %}
+  <script src="{{ SITEURL }}/{{ ASSET_URL }}"></script>
+{% endassets %}

@@ -3,3 +3,7 @@
 :eth: no
 
 = Technical Challenges
+
+This page is not currently available in this language.
+
+See the spanish version link:../../../es/empleos/retos-tecnicos/[here].

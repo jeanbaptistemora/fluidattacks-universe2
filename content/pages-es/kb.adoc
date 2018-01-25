@@ -1,0 +1,5 @@
+:slug: kb/
+:eth: no
+:kbindex: yes
+
+= Knowledge Base

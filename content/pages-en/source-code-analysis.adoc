@@ -1,3 +1,7 @@
 :slug: source-code-analysis/
 
 = Source Code Analysis
+
+This page is not currently available in this language.
+
+See the spanish version link:../../es/analisis-codigo-fuente/[here].

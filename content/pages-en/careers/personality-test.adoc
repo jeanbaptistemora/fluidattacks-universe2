@@ -1,5 +1,0 @@
-:slug: careers/personality-test/
-:category: careers
-:eth: no
-
-= Personality Test

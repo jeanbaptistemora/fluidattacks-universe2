@@ -2,3 +2,7 @@
 :eth: no
 
 = Términos de Uso
+
+Esta página no se encuentra actualmente es este idioma.
+
+Para ver la versión en inglés, ir link:../../en/terms-use/[aquí].

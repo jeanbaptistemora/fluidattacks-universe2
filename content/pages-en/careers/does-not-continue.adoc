@@ -1,5 +1,0 @@
-:slug: careers/does-not-continue/
-:category: careers
-:eth: no
-
-= Does not continue

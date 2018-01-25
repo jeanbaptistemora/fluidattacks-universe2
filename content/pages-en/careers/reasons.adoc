@@ -3,3 +3,7 @@
 :eth: no
 
 = Reasons to work with us
+
+This page is not currently available in this language.
+
+See the spanish version link:../../../es/empleos/razones/[here].

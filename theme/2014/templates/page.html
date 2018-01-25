@@ -46,13 +46,16 @@
       {% else %}
         {% include 'ethical.html' %}
       {% endif %}
+      {% if page.kbindex %}
+        {% include 'kb.html'%}
+      {% endif %}
       <section>
         <!-- Go to www.addthis.com/dashboard to customize your tools -->
         <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5a37e74c4b1448ce"></script>
       </section>
       <br/>
 
-      {% if DISQUS_SITENAME and SITEURL and "kb/" in page.slug %}
+      {% if DISQUS_SITENAME and SITEURL and "kb/" in page.slug and not page.kbindex %}
         <hr class="hrcoments">
         <div class="comments">
           <h3>{{ gettext('Leave a comment') }}</h3>

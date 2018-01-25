@@ -28,7 +28,6 @@ ARTICLE_URL = 'blog/{slug}'
 ARTICLE_SAVE_AS = 'blog-en/{slug}index.html'
 PAGE_URL = '{slug}'
 PAGE_SAVE_AS = 'pages-en/{slug}index.html'
-KB_SAVE_AS = 'kb/index.html'
 
 # Plugins configuration
 PLUGIN_PATHS = ['/app/pelican-plugins']
@@ -45,7 +44,7 @@ PLUGINS = [
            'pelican-redirect',
 ]
 RELATED_POSTS_MAX = 3
-DIRECT_TEMPLATES = (('index', 'tags', 'categories', 'archives', 'authors', 'search', 'kb'))
+DIRECT_TEMPLATES = (('index', 'tags', 'categories', 'archives', 'authors', 'search'))
 SITEMAP = {
     'format': 'xml',
     'priorities': {

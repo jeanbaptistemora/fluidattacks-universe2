@@ -1,0 +1,9 @@
+:slug: careers/faq/
+:category: careers
+:eth: no
+
+= Frequently Asked Questions (FAQ)
+
+This page is not currently available in this language.
+
+See the spanish version link:../../../es/empleos/faq/[here].
