@@ -6,17 +6,13 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-        <!-- Script to include Google Analytics --> 
-        <script>
-          var _gaq = _gaq || [];
-          _gaq.push(['_setAccount', '{{ GOOGLE_ANALYTICS }}']);
-          _gaq.push(['_trackPageview']);
-          (function() {
-            var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-          })();
-        </script>
+	<!-- Google Tag Manager -->
+	<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+	new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+	j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+	'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+	})(window,document,'script','dataLayer','GTM-TZ3ZXPL');</script>
+	<!-- End Google Tag Manager -->
         {% if GOOGLE_SITE_VERIFICATION %}
             <meta name="google-site-verification" content="{{ GOOGLE_SITE_VERIFICATION }}">
         {% endif %}        
@@ -99,11 +95,15 @@
 </head>
 
 <body>	
-    <!-- jQuery, Bootstrap Core and Menu -->
-    {% assets filters="uglifyjs", output="static/js/theme.min.js", "/app/node_modules/jquery/dist/jquery.js", "js/menu.js", "js/id.js" %}
-      <script type="text/javascript" src="{{ SITEURL }}/{{ ASSET_URL }}"></script>
-    {% endassets %} 
-    <!-- Navigation -->
+	<!-- Google Tag Manager (noscript) -->
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TZ3ZXPL"
+	height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+	<!-- End Google Tag Manager (noscript) -->    
+	<!-- jQuery, Bootstrap Core and Menu -->
+    	{% assets filters="uglifyjs", output="static/js/theme.min.js", "/app/node_modules/jquery/dist/jquery.js", "js/menu.js", "js/id.js" %}
+      	<script type="text/javascript" src="{{ SITEURL }}/{{ ASSET_URL }}"></script>
+    	{% endassets %} 
+    	<!-- Navigation -->
 	
     {% block header %}{% endblock header %}
 	
