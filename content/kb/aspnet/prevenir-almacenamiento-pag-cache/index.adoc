@@ -7,14 +7,14 @@
 
 == Necesidad
 
-Prevenir almacenamiento de páginas en caché en ASP.Net.
+Prevenir almacenamiento de páginas en caché en +ASP.Net+.
 
 == Contexto
 
 A continuación se describe las circunstancias 
 bajo las cuales la siguiente solución tiene sentido:
 
-. Se está desarrollando una aplicación WEB en ASP.Net.
+. Se está desarrollando una aplicación WEB en +ASP.Net+.
 
 == Solución
 
@@ -30,7 +30,7 @@ y mejorando el rendimiento.
 
 El caché web, es un tipo especial de caché,
 que tiene por objetivo reducir el ancho de banda consumido,
-la carga de los servidores y el retraso de las descargas <<ref1, [1]>>.
+la carga de los servidores y el retraso de las descargas <<r1, [1]>>.
 Dentro de esta categoría se distinguen 3 tipos de caché web:
 
 * *Privados:* Funciona para un usuario.
@@ -41,17 +41,17 @@ En el ámbito del desarrollo web,
 es frecuente que las aplicaciones puedan aumentar el rendimiento
 si se almacenan en la memoria caché 
 los datos a los que se tiene acceso de forma frecuente
-y cuya creación requiere un tiempo de procesamiento significativo <<ref2,[2]>>.
+y cuya creación requiere un tiempo de procesamiento significativo <<r2,[2]>>.
 Uno de los factores más críticos 
 a la hora de crear aplicaciones Web,
 que sean escalables y de alto rendimiento
 es la capacidad para almacenar elementos en memoria, 
 ya sean objetos de datos, páginas
 o secciones de páginas en el momento
-en el que son solicitados <<ref3, [3]>>.
+en el que son solicitados <<r3, [3]>>.
 Sin embargo, para mejorar la confidencialidad, 
 es importante limitar ciertas páginas de la aplicación 
-de ser almacenadas en cache por el navegador web. 
+de ser almacenadas en caché por el navegador web. 
 Esto evita que un atacante 
 con acceso a la máquina de un usuario legítimo 
 pueda obtener información de las páginas visitadas.
@@ -68,13 +68,13 @@ Response.Cache.SetCacheability(HttpCacheability.NoCache);
 
 . Cada vez que se haga clic en un botón 
 hacia delante o hacia atrás del explorador, 
-o cualquier evento que genere un _POSTBACK_, 
+o cualquier evento que genere un +POSTBACK+, 
 se solicitará al servidor una nueva versión de la página.
 
 == Referencias
 
-. [[ref1]] https://es.wikipedia.org/wiki/Cach%C3%A9_(inform%C3%A1tica)[Memoria Caché]
-. [[ref2]] https://msdn.microsoft.com/es-es/library/xsbfdd8c(v=vs.100).aspx[Almacenamiento en caché en ASP.NET]
-. [[ref3]] https://msdn.microsoft.com/es-es/library/ms178597(v=vs.100).aspx[Información general sobre el almacenamiento en caché en ASP.NET]
-. [[ref4]] http://www.esasp.net/2010/06/como-evitar-cache-de-pagina-en-el.html[Como evitar Cache de Página en el Explorador]
-. [[ref5]] REQ.0172: El sistema no debe almacenar información sensible en archivos temporales o en memoria caché.
+. [[r1]] link:https://es.wikipedia.org/wiki/Cach%C3%A9_(inform%C3%A1tica)[Memoria Caché]
+. [[r2]] link:https://msdn.microsoft.com/es-es/library/xsbfdd8c(v=vs.100).aspx[Almacenamiento en caché en ASP.NET]
+. [[r3]] link:https://msdn.microsoft.com/es-es/library/ms178597(v=vs.100).aspx[Información general sobre el almacenamiento en caché en ASP.NET]
+. [[r4]] link:http://www.esasp.net/2010/06/como-evitar-cache-de-pagina-en-el.html[Como evitar Cache de Página en el Explorador]
+. [[r5]] REQ.0172: El sistema no debe almacenar información sensible en archivos temporales o en memoria caché.
