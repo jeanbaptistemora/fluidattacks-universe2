@@ -17,21 +17,21 @@ para realizar un ataque a su sistema.
 A continuación se describe las circunstancias 
 bajo las cuales la siguiente solución tiene sentido:
 
-. Se está desarrollando una aplicación en ASP.Net.
+. Se está desarrollando una aplicación en +ASP.Net+.
 
 == Solución
 
 Un aspecto importante del desarrollo de aplicaciones seguras
 es evitar que se filtre información relevante.
 Los mensajes de error le pueden dar a un atacante
-una idea del funcionamiento interno de la aplicación <<ref1, [1]>> .
+una idea del funcionamiento interno de la aplicación <<r1, [1]>> .
 Cuando la aplicación muestra mensajes de error, 
 no debe revelar información que a un usuario malintencionado 
 le pueda resultar útil en el ataque a su sistema. 
 Por ejemplo, si la aplicación intenta sin éxito 
 iniciar sesión en una base de datos, 
 no debe mostrar un mensaje de error 
-que incluya el nombre del usuario que está utilizando <<ref2, [2]>>.
+que incluya el nombre del usuario que está utilizando <<r2, [2]>>.
 
 Existen diversas maneras de controlar mensajes de error, 
 incluyendo las siguientes:
@@ -89,5 +89,5 @@ se muestra en el siguiente fragmento de código:
 
 == Referencias
 
-. [[ref1]] https://www.owasp.org/index.php/Error_Handling[Error Handling]
-. [[ref2]] https://msdn.microsoft.com/es-es/library/994a1482(v=vs.100).aspx[Cómo: Mostrar mensajes de error seguros]
+. [[r1]] link:https://www.owasp.org/index.php/Error_Handling[Error Handling]
+. [[r2]] link:https://msdn.microsoft.com/es-es/library/994a1482(v=vs.100).aspx[Cómo: Mostrar mensajes de error seguros]
