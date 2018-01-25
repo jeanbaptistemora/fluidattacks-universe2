@@ -1,8 +1,7 @@
 {
   "dependencies": {
-    "bootstrap": "^3.3.7",
-    "jquery": "^3.2.1",
+    "jquery": "^3.3.1",
     "sass-lint": "^1.12.1",
-    "uglify-js": "^3.3.5"
+    "uglify-js": "^3.3.8"
   }
 }
