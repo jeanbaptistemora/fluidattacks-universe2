@@ -35,6 +35,7 @@ estableciendo distintos niveles de registro
 los cuales suelen ser: depuración, información, advertencia y error.
 
 El uso de bitácoras puede servir para: 
+
 * Análisis forense.
 * Detección de intrusos.
 * Depuración de errores. 
