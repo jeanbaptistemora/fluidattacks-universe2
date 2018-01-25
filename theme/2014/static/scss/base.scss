@@ -232,6 +232,7 @@ article {
 
 .monospaced {
   font-family: monospace;
+  font-size: 17px;
 }
 
 .tableblock {
@@ -501,6 +502,10 @@ article {
 
   p {
     font-size: 21px;
+  }
+
+  .monospaced {
+    font-size: 20px;
   }
 }
 
