@@ -2,6 +2,7 @@
 """ Vistas y servicios para FluidIntegrates """
 
 import os
+import sys
 import re
 import json
 import time
@@ -69,7 +70,7 @@ def registration(request):
             'is_registered': request.session["registered"],
         }
     except KeyError:
-        rollbar.report_exc_info()
+        rollbar.report_exc_info(sys.exc_info(), request)
         return redirect('/error500')
     return render(request, "registration.html", parameters)
 
@@ -86,7 +87,7 @@ def dashboard(request):
         }
         integrates_dao.update_user_login_dao(request.session["username"])
     except KeyError:
-        rollbar.report_exc_info()
+        rollbar.report_exc_info(sys.exc_info(), request)
         return redirect('/error500')
     return render(request, "dashboard.html", parameters)
 
@@ -114,16 +115,16 @@ def project_to_pdf(request, lang, project, doctype):
     "Exporta un hallazgo a PDF"
     findings = []
     if project.strip() == "":
-        rollbar.report_message('Empty fields', 'error', request)
+        rollbar.report_message('Error: Empty fields in project', 'error', request)
         return util.response([], 'Empty fields', True)
     if not has_access_to_project(request.session['username'], project):
-        rollbar.report_message('Access denied', 'error', request)
+        rollbar.report_message('Error: Access to project denied', 'error', request)
         return util.response([], 'Access denied', True)
     if lang not in ["es", "en"]:
-        rollbar.report_message('Unsupported language', 'error', request)
+        rollbar.report_message('Error: Unsupported language', 'error', request)
         return util.response([], 'Unsupported language', True)
     if doctype not in ["tech", "executive", "presentation"]:
-        rollbar.report_message('Unsupported doctype', 'error', request)
+        rollbar.report_message('Error: Unsupported doctype', 'error', request)
         return util.response([], 'Unsupported doctype', True)
     for reqset in FormstackAPI().get_findings(project)["submissions"]:
         findings.append(catch_finding(request, reqset["id"]))
@@ -150,6 +151,7 @@ def project_to_pdf(request, lang, project, doctype):
             return HttpResponse("Documentacion incompleta", content_type="text/html")
         pdf_maker.presentation(findings, project, project_info)
     if not os.path.isfile(report_filename):
+        rollbar.report_message('Error: Documentation has not been generated', 'error', request)
         raise HttpResponse('Documentation has not been generated :(', content_type="text/html")
     with open(report_filename, 'r') as document:
         response = HttpResponse(document.read(),
@@ -165,10 +167,10 @@ def project_to_pdf(request, lang, project, doctype):
 def check_pdf(request, project):
     username = request.session['username']
     if not util.is_name(project):
-        rollbar.report_message('Name error', 'error', request)
+        rollbar.report_message('Error: Name error in project', 'error', request)
         return util.response([], 'Name error', True)
     if not has_access_to_project(username, project):
-        rollbar.report_message('Access denied', 'error', request)
+        rollbar.report_message('Error: Access to project denied', 'error', request)
         return util.response([], 'Access denied', True)
     reqset = get_project_info(project)
     if reqset:
@@ -213,15 +215,16 @@ def export_autodoc(request):
     try:
         kind = request.GET.get("format", "").strip()
         if kind != "IE" != kind != "IT":
+            rollbar.report_message('Error: Security issue', 'error', request)
             raise Exception('This security event will be registered')
         filename = detail[kind]["path"]
         filename = filename.replace(":project", project)
         filename = filename.replace(":username", username)
         if not util.is_name(project):
-            rollbar.report_message('This security event will be registered', 'error', request)
+            rollbar.report_message('Error: Security issue', 'error', request)
             raise Exception('This security event will be registered')
         if not os.path.isfile(filename):
-            rollbar.report_message('Documentation has not been generated', 'error', request)
+            rollbar.report_message('Error: Documentation has not been generated', 'error', request)
             raise Exception('Documentation has not been generated')
         with open(filename, 'r') as document:
             response = HttpResponse(document.read(),
@@ -231,10 +234,10 @@ def export_autodoc(request):
             response['Content-Disposition'] = file_name
         return response
     except ValueError as expt:
-        rollbar.report_exc_info()
+        rollbar.report_exc_info(sys.exc_info(), request)
         return HttpResponse(expt.message)
     except Exception as expt:
-        rollbar.report_exc_info()
+        rollbar.report_exc_info(sys.exc_info(), request)
         return HttpResponse(expt.message)
     return HttpResponse(expt.message)
 
@@ -255,7 +258,7 @@ def generate_autodoc(request):
     data = request.POST.get('data', None)
     kind = request.POST.get('format', "")
     if kind != "IE" != kind != "IT":
-        rollbar.report_message('Error de parametrizacion', 'error', request)
+        rollbar.report_message('Error: An error ocurred with the given parameters', 'error', request)
         util.response([], 'Error de parametrizacion', True)
     if util.is_json(data) and util.is_name(project):
         findings = json.loads(data)
@@ -268,7 +271,7 @@ def generate_autodoc(request):
             return util.response([], 'Documentation generated in ' +
                                  str("%.2f seconds" %
                                      float(str_time)), False)
-    rollbar.report_message('Error...', 'error', request)
+    rollbar.report_message('Error: An error ocurred generating document', 'error', request)
     return util.response([], 'Error...', True)
 
 
@@ -300,10 +303,10 @@ def get_eventualities(request):
     evt_dto = EventualityDTO()
     api = FormstackAPI()
     if not has_access_to_project(username, project):
-        rollbar.report_message('a', 'error', request)
+        rollbar.report_message('Error: Access to project denied', 'error', request)
         return util.response(dataset, 'a', True)
     if project is None:
-        rollbar.report_message('Campos Vacios', 'error', request)
+        rollbar.report_message('Error: Empty fields in project', 'error', request)
         return util.response(dataset, 'Campos Vacios', True)
     if category == "Name":
         submissions = api.get_eventualities(project)
@@ -317,17 +320,17 @@ def get_eventualities(request):
     elif category == "ID":
         # Only fluid can filter by id
         if "@fluid.la" not in username:
-            rollbar.report_message('Access denied', 'error', request)
+            rollbar.report_message('Error: Access to project denied', 'error', request)
             return util.response(dataset, 'Access denied', True)
         if not project.isdigit():
-            rollbar.report_message('Campos vacios', 'error', request)
+            rollbar.report_message('Error: ID is not a number', 'error', request)
             return util.response(dataset, 'Campos vacios', True)
         submission = api.get_submission(row["id"])
         evtset = evt_dto.parse(row["id"], submission)
         dataset.append(evtset)
         return util.response(dataset, 'Success', False)
     else:
-        rollbar.report_message('Not actions', 'error', request)
+        rollbar.report_message('Error: An error occurred getting events', 'error', request)
         return util.response(dataset, 'Not actions', True)
 
 @never_cache
@@ -339,7 +342,7 @@ def get_finding(request):
     finding = catch_finding(request, submission_id)
     if finding:
         return util.response(finding, 'Success', False)
-    rollbar.report_message('Wrong', 'error', request)
+    rollbar.report_message('Error: An error occurred getting finding', 'error', request)
     return util.response([], 'Wrong', True)
 
 @never_cache
@@ -356,10 +359,10 @@ def get_findings(request):
     api = FormstackAPI()
     findings = []
     if project.strip() == "":
-        rollbar.report_message('Empty fields', 'error', request)
+        rollbar.report_message('Error: Empty fields in project', 'error', request)
         return util.response([], 'Empty fields', True)
     if not has_access_to_project(username, project):
-        rollbar.report_message('Access denied', 'error', request)
+        rollbar.report_message('Error: Access to project denied', 'error', request)
         return util.response([], 'Access denied', True)
     finreqset = api.get_findings(project)["submissions"]
     for submission_id in finreqset:
@@ -382,6 +385,7 @@ def catch_finding(request, submission_id):
             request
         )
         if not has_access_to_project(username, finding['proyecto_fluid']):
+            rollbar.report_message('Error: Access to project denied', 'error', request)
             return None
         else:
             closingreqset = api.get_closings_by_id(submission_id)["submissions"]
@@ -417,6 +421,7 @@ def catch_finding(request, submission_id):
                 finding['edad'] = ":n".replace(":n", str(final_date.days))
             return finding
     else:
+        rollbar.report_message('Error: An error occurred catching finding', 'error', request)
         return None
 
 @never_cache
@@ -425,18 +430,18 @@ def catch_finding(request, submission_id):
 def get_evidence(request):
     drive_id = request.GET.get('id', None)
     if drive_id is None:
-        rollbar.report_message('Error - Unsent image ID', 'error', request)
+        rollbar.report_message('Error: Missing evidence image ID', 'error', request)
         return HttpResponse("Error - Unsent image ID", content_type="text/html")
     if drive_id not in request.session:
-        rollbar.report_message('Access denied', 'error', request)
+        rollbar.report_message('Error: Access to evidence denied', 'error', request)
         return util.response([], 'Access denied', True)
     if not re.match("[a-zA-Z0-9_-]{20,}", drive_id):
-        rollbar.report_message('Error - ID with wrong format', 'error', request)
+        rollbar.report_message('Error: Invalid evidence image ID format', 'error', request)
         return HttpResponse("Error - ID with wrong format", content_type="text/html")
     drive_api = DriveAPI(drive_id)
     # pylint: disable=W0622
     if not drive_api.FILE:
-        rollbar.report_message('Error - Unable to download the image', 'error', request)
+        rollbar.report_message('Error: Unable to download the evidence image', 'error', request)
         return HttpResponse("Error - Unable to download the image", content_type="text/html")
     else:
         filename = "/tmp/:id.tmp".replace(":id", drive_id)
@@ -456,18 +461,18 @@ def get_evidence(request):
 def get_evidences(request, fileid):
     drive_id = fileid
     if drive_id is None:
-        rollbar.report_message('Error - Unsent image ID', 'error', request)
+        rollbar.report_message('Error: Missing evidence image ID', 'error', request)
         return HttpResponse("Error - Unsent image ID", content_type="text/html")
     if drive_id not in request.session:
-        rollbar.report_message('Access denied', 'error', request)
+        rollbar.report_message('Error: Access to evidence denied', 'error', request)
         return util.response([], 'Access denied', True)
     if not re.match("[a-zA-Z0-9_-]{20,}", drive_id):
-        rollbar.report_message('Error - ID with wrong format', 'error', request)
+        rollbar.report_message('Error: Invalid evidence image ID format', 'error', request)
         return HttpResponse("Error - ID with wrong format", content_type="text/html")
     drive_api = DriveAPI(drive_id)
     # pylint: disable=W0622
     if not drive_api.FILE:
-        rollbar.report_message('Error - Unable to download the image', 'error', request)
+        rollbar.report_message('Error: Unable to download the evidence image', 'error', request)
         return HttpResponse("Error - Unable to download the image", content_type="text/html")
     else:
         filename = "/tmp/:id.tmp".replace(":id", drive_id)
@@ -488,17 +493,17 @@ def get_evidences(request, fileid):
 def get_exploit(request):
     drive_id = request.GET.get('id', None)
     if drive_id is None:
-        rollbar.report_message('Error - Unsent image ID', 'error', request)
-        return HttpResponse("Error - Unsent image ID", content_type="text/html")
+        rollbar.report_message('Error: Missing exploit ID', 'error', request)
+        return HttpResponse("Error - Unsent exploit ID", content_type="text/html")
     if drive_id not in request.session:
-        rollbar.report_message('Access denied', 'error', request)
+        rollbar.report_message('Error: Access to exploit denied', 'error', request)
         return util.response([], 'Access denied', True)
     if not re.match("[a-zA-Z0-9_-]{20,}", drive_id):
-        rollbar.report_message('Error - ID with wrong format', 'error', request)
+        rollbar.report_message('Error: Invalid exploit ID format', 'error', request)
         return HttpResponse("Error - ID with wrong format", content_type="text/html")
     drive_api = DriveAPI(drive_id)
     if drive_api.FILE is None:
-        rollbar.report_message('Error - Unable to download the file', 'error', request)
+        rollbar.report_message('Error: Unable to download the exploit', 'error', request)
         return HttpResponse("Error - Unable to download the file", content_type="text/html")
     filename = "/tmp/:id.tmp".replace(":id", drive_id)
     mime = Magic(mime=True)
@@ -568,10 +573,10 @@ def update_cssv2(request):
         request = api.update(generic_dto.request_id, generic_dto.data)
         if request:
             return util.response([], 'success', False)
-        rollbar.report_message('error', 'error', request)
+        rollbar.report_message('Error: An error occurred updating CSSV2', 'error', request)
         return util.response([], 'error', False)
     except KeyError:
-        rollbar.report_exc_info()
+        rollbar.report_exc_info(sys.exc_info(), request)
         return util.response([], 'Campos vacios', True)
 
 @never_cache
@@ -587,10 +592,10 @@ def update_description(request):
         request = api.update(generic_dto.request_id, generic_dto.data)
         if request:
             return util.response([], 'success', False)
-        rollbar.report_message('error', 'error', request)
+        rollbar.report_message('Error: An error occurred updating description', 'error', request)
         return util.response([], 'error', False)
     except KeyError:
-        rollbar.report_exc_info()
+        rollbar.report_exc_info(sys.exc_info(), request)
         return util.response([], 'Campos vacios', True)
 
 @never_cache
@@ -606,10 +611,10 @@ def update_treatment(request):
         request = api.update(generic_dto.request_id, generic_dto.data)
         if request:
             return util.response([], 'success', False)
-        rollbar.report_message('error', 'error', request)
+        rollbar.report_message('Error: An error occurred updating treatment', 'error', request)
         return util.response([], 'error', False)
     except KeyError:
-        rollbar.report_exc_info()
+        rollbar.report_exc_info(sys.exc_info(), request)
         return util.response([], 'Campos vacios', True)
 
 @never_cache
@@ -622,16 +627,16 @@ def update_eventuality(request):
         generic_dto = EventualityDTO()
         generic_dto.create(parameters)
         if not parameters["vuln[afectacion]"].isdigit():
-            rollbar.report_message('Afectacion negativa', 'error', request)
+            rollbar.report_message('Error: Affectation can not be a negative number', 'error', request)
             return util.response([], 'Afectacion negativa', True)
         api = FormstackAPI()
         request = api.update(generic_dto.request_id, generic_dto.data)
         if request:
             return util.response([], 'success', False)
-        rollbar.report_message('error', 'error', request) 
+        rollbar.report_message('Error: An error ocurred updating event', 'error', request) 
         return util.response([], 'error', False)
     except KeyError:
-        rollbar.report_exc_info()
+        rollbar.report_exc_info(sys.exc_info(), request)
         return util.response([], 'Campos vacios', True)
 
 @never_cache
@@ -652,13 +657,13 @@ def delete_finding(request):
         context["name_finding"] = finding["hallazgo"]
         result = api.delete_submission(submission_id)
         if result is None:
-            rollbar.report_message('Error', 'error', request) 
+            rollbar.report_message('Error: An error ocurred deleting finding', 'error', request) 
             return util.response([], 'Error', True)
         to = ["engineering@fluid.la"]
         send_mail_delete_finding(to, context)
         return util.response([], 'Success', False)
     except KeyError:
-        rollbar.report_exc_info()
+        rollbar.report_exc_info(sys.exc_info(), request)
         return util.response([], 'Campos vacios', True)
 
 @never_cache
@@ -686,7 +691,7 @@ def finding_solved(request):
         send_mail_remediate_finding(to, context)
         return util.response([], 'Success', False)
     except KeyError:
-        rollbar.report_exc_info()
+        rollbar.report_exc_info(sys.exc_info(), request)
         return util.response([], 'Campos vacios', True)
 
 @never_cache
@@ -723,7 +728,7 @@ def add_comment(request):
     data["data[fullname]"] = request.session["first_name"] + " " + request.session["last_name"]
     comment = integrates_dao.create_comment_dynamo(int(submission_id), email, data)
     if not comment:
-        rollbar.report_message('Error adding comment', 'error', request) 
+        rollbar.report_message('Error: An error ocurred adding comment', 'error', request) 
         return util.response([], 'Error', True)
     try:
         to = ['concurrent@fluid.la']
@@ -746,7 +751,7 @@ def add_comment(request):
             send_mail_reply_comment(to, context)
         return util.response([], 'Success', False)
     except KeyError:
-        rollbar.report_exc_info()
+        rollbar.report_exc_info(sys.exc_info(), request)
         return util.response([], 'Campos vacios', True)    
 
 @never_cache
@@ -757,6 +762,6 @@ def delete_comment(request):
     data = request.POST.dict()
     comment = integrates_dao.delete_comment_dynamo(int(submission_id), data)
     if not comment:
-        rollbar.report_message('Error deleting comment', 'error', request)
+        rollbar.report_message('Error: An error ocurred deleting comment', 'error', request)
         return util.response([], 'Error', True)
     return util.response([], 'Success', False)

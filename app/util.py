@@ -34,7 +34,7 @@ def traceability(msg, user):
         file_obj.write(logmsg)
         file_obj.close()
     except (OSError, IOError) as expt:
-        rollbar.report_message("ERROR CON EL LOG " + expt.message(), 'error')
+        rollbar.report_message("ERROR WITH LOG " + expt.message(), 'error')
         print("ERROR CON EL LOG " + expt.message())
 
 
