@@ -3,7 +3,7 @@
 :category: java
 :kb: yes
 
-= Autenticar Servidor de Red para Clientes Sin Certificado Digital
+= Autenticar Servidor para Clientes Sin Certificado
 
 == Necesidad
 

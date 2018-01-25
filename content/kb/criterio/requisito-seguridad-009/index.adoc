@@ -3,7 +3,11 @@
 :category: criterio
 :kb: yes
 
-= REQ.009 Los posibles atacantes del sistema deben estar identificados
+= REQ.009 Identificar posibles atacantes
+
+== Nombre Completo
+
+Los posibles atacantes del sistema deben estar identificados
 
 == Descripción
 

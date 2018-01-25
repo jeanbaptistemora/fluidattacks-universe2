@@ -1,7 +1,24 @@
 {% extends "index.html" %}
 
 {% block canonical %}<link rel="canonical" href="{{ SITEURL }}/{{ page.url }}"/>{% endblock canonical %}
-{% block title %}{{ SITENAME }}&nbsp;|&nbsp; {{ page.title }}{% endblock title %}
+
+{% block title %}
+  {% set TITLE = 0 %}
+  {% if DEFAULT_LANG == "en" %}
+    {% if page.title|length < 30 %}
+{{ page.title }} | {{ SITENAME }}
+      {% set TITLE = 1 %}
+    {% endif %}
+  {% else %}
+    {% if page.title|length < 21 %}
+{{ page.title }} | {{ SITENAME }}
+      {% set TITLE =1 %}
+    {% endif %}
+  {% endif %}
+  {% if TITLE == 0 %}
+{{ page.title }} | FLUID
+  {% endif %}
+{% endblock title %}
 
 {% block header %}
   <!-- Page Header -->

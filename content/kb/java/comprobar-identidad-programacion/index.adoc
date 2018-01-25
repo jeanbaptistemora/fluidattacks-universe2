@@ -3,7 +3,7 @@
 :category: java
 :kb: yes
 
-= Comprobar Identidad de Llamadas Mediante Programación en Servlets
+= Comprobar Identidad de Llamadas en Servlets
 
 == Necesidad
 

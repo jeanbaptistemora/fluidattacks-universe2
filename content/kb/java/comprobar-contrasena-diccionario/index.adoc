@@ -3,7 +3,7 @@
 :category: java
 :kb: yes
 
-= Comprobar Fortaleza de Contraseña por Medio de Diccionarios
+= Comprobar Fortaleza de Contraseña con Diccionarios
 
 == Necesidad
 

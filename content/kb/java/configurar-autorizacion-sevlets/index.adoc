@@ -3,7 +3,7 @@
 :category: java
 :kb: yes
 
-= Configurar Autorización para Servlets Usando Programación
+= Configurar Autorización para Servlets Programando
 
 == Necesidad
 

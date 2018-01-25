@@ -3,7 +3,7 @@
 :category: java
 :kb: yes
 
-= Generar Números Aleatorios Usados Como Identificadores
+= Generar Números Aleatorios Como Identificadores
 
 == Necesidad
 

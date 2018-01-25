@@ -3,7 +3,11 @@
 :category: criterio
 :kb: yes
 
-= REQ.006 Cada amenaza sobre un activo de información debe ser medida en términos de su probabilidad de ocurrencia
+= REQ.006 Amenazas medidas en términos de ocurrencia
+
+== Nombre Completo
+
+Cada amenaza sobre un activo de información debe ser medida en términos de su probabilidad de ocurrencia
 
 == Descripción
 

@@ -3,7 +3,7 @@
 :category: java
 :kb: yes
 
-= Definir Character-Set y Content-Type Explícito en Páginas JSP
+= Definir Character-Set y Content-Type en Páginas JSP
 
 == Necesidad
 

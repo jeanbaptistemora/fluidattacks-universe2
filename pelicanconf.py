@@ -45,7 +45,7 @@ PLUGINS = [
            'pelican-redirect',
 ]
 RELATED_POSTS_MAX = 3
-DIRECT_TEMPLATES = (('index', 'tags', 'categories', 'archives', 'authors', 'search', '404', 'kb'))
+DIRECT_TEMPLATES = (('index', 'tags', 'categories', 'archives', 'authors', 'search', 'kb'))
 SITEMAP = {
     'format': 'xml',
     'priorities': {

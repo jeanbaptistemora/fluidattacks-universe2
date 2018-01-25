@@ -3,7 +3,11 @@
 :category: criterio
 :kb: yes
 
-= REQ.003 Cada activo de información debe estar valorado en términos monetarios
+= REQ.003 Activo de información valorado en moneda
+
+== Nombre Completo
+
+Cada activo de información debe estar valorado en términos monetarios
 
 == Descripción
 

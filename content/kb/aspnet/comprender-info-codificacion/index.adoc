@@ -3,7 +3,7 @@
 :category: aspnet
 :kb: yes
 
-= Comprender Información General Sobre Codificación Segura
+= Comprender Información Sobre Codificación Segura
 
 == Necesidad
 

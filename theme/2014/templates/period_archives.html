@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% block title %}{{ SITENAME }} - {{ gettext('Archives for') }} {{ period | reverse | join (' ') }}{% endblock %}
+{% block title %}{{ gettext('Archives for') }} {{ period | reverse | join (' ') }} | {{ SITENAME }}{% endblock %}
 
 {% block header %}
     <!-- Page Header -->

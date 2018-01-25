@@ -3,7 +3,7 @@
 :category: java
 :kb: yes
 
-= Prevenir Cross Site Scripting Usando Apache Commons Lang
+= Prevenir XSS Usando Apache Commons Lang
 
 == Necesidad
 

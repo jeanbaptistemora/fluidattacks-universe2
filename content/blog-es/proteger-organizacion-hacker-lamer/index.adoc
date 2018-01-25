@@ -1,4 +1,4 @@
-:slug: proteger-organizacion-hacker-lammer/
+:slug: proteger-organizacion-hacker-lamer/
 :date: 2017-12-18
 :category: opiniones-de-seguridad
 :tags: seguridad, proteger, información
@@ -10,7 +10,7 @@
 :about1: Account Manager de FLUID, Administrador de Empresas
 :about2: Apasionado por la tecnología y la seguridad
 
-= Proteja su organización de los Hackers, no de los Lamers…
+= Proteja su organización de los Hackers, no de Lamers
 
 Sin lugar a dudas, los recientes eventos en términos de vulneración de 
 privacidad como los robos de información personal a celebridades, hackeos a 

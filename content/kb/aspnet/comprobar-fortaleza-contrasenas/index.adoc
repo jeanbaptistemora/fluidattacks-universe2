@@ -3,7 +3,7 @@
 :category: aspnet
 :kb: yes
 
-= Comprobar Fortaleza de Contraseñas por medio de Diccionarios
+= Comprobar Fortaleza de Contraseñas con Diccionarios
 
 == Necesidad
 

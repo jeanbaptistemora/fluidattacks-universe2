@@ -3,7 +3,11 @@
 :category: criterio
 :kb: yes
 
-= REQ.005 Los sistemas que interactúen con un activo de información deben tener identificadas las posibles vulnerabilidades que sobre ellos apliquen y que sean conocidas
+= REQ.005 Identicar posibles vulnerabilidades 
+
+== Nombre Completo
+
+Los sistemas que interactúen con un activo de información deben tener identificadas las posibles vulnerabilidades que sobre ellos apliquen y que sean conocidas
 
 == Descripción
 

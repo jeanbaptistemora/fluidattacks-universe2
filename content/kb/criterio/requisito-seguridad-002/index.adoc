@@ -3,7 +3,11 @@
 :category: criterio
 :kb: yes
 
-= REQ.002 Cada activo de información debe estar asociado con un responsable del activo
+= REQ.002 Activo de información asociado a responsable
+
+== Nombre Completo
+
+Cada activo de información debe estar asociado con un responsable del activo
 
 == Descripción
 

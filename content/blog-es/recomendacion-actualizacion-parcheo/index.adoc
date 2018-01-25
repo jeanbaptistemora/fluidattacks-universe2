@@ -10,7 +10,7 @@
 :about1: Profesional experto en diversos temas de seguridad de la información, seguridad de redes y sistemas operativos
 :about2: Conocimientos en seguridad informática, modelos, estándares en seguridad de la información e informática forense.
 
-= Recomendaciones para mejorar su proceso de actualización y parcheo
+= ¿Cómo mejorar su proceso de actualización y parcheo?
 
 image::parchear.png[parcheo]
 

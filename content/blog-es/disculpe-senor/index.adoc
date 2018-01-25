@@ -10,7 +10,7 @@
 :about1: Ingeniero en Sistemas.
 :about2: Apasionado por las redes la música y la seguridad.
 
-= Disculpe señor, he hecho este software, pero no sé cómo probarlo
+= Disculpe, hice este software, y no sé cómo probarlo
 
 En un mundo globalizado que está en constante expansión, surge la necesidad de
 transmitir y tratar todo tipo de información de manera constante, ágil y segura.

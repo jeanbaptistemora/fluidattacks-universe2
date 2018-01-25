@@ -1,5 +1,23 @@
 {% extends "index.html" %}
-{% block title %}{{ SITENAME }} - {{ gettext('Tag') }} {{ tag }}{% endblock %}
+
+{% block title %}
+  {% set TITLE = 0 %}
+  {% if DEFAULT_LANG == "en" %}
+    {% if tag.name|length < 25 %}
+{{ gettext('Tag') }} {{ tag }} | {{ SITENAME }}
+      {% set TITLE = 1 %}
+    {% endif %}
+  {% else %}
+    {% if tag.name|length < 11 %}
+{{ gettext('Tag') }} {{ tag }} | {{ SITENAME }}
+      {% set TITLE =1 %}
+    {% endif %}
+  {% endif %}
+  {% if TITLE == 0 %}
+{{ gettext('Tag') }} {{ tag }} | FLUID
+  {% endif %}
+{% endblock %}
+
 {% block header %}
   {% include "navigationbar.html" %}
   {% if HEADER_COVER %}

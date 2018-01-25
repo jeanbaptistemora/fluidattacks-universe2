@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% block title %}{{ SITENAME }} - {{ gettext('Categories') }}{% endblock %}
+{% block title %}{{ gettext('Categories') }} | {{ SITENAME }}{% endblock %}
 
 {% block header %}
   {% include "navigationbar.html" %}
@@ -25,7 +25,7 @@
             {% for category, articles in categories|sort %}
               <li>
                 <a href="{{ category.url }}" rel="bookmark">
-                  <p>{{ category }} ({{ articles|count }})</p>
+                  <p>{{ category.name|replace("-", " ") }} ({{ articles|count }})</p>
                 </a>
               </li>
             {% endfor %}

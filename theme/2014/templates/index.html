@@ -1,5 +1,7 @@
 {% extends "base.html" %}
 
+{% block title %}{{ gettext('Blog Home') }} | {{ SITENAME }}{% endblock %}
+
 {% block canonical %}<link rel="canonical" href="{{ SITEURL }}/"/>{% endblock canonical %}
 
 {% block header %}
@@ -38,7 +40,7 @@
                   <a class="aautor" href="{{ SITEURL }}/{{ author.url }}">{{ author }}</a>
                 {% endfor %}
                 &nbsp;&nbsp;<img class="imgprev" src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/folder.png" alt="{{ gettext('Folder icon') }}">
-                <a class="aautor" href="{{ SITEURL }}/category/{{ article.category }}.html">{{ article.category }}</a>
+                <a class="aautor" href="{{ SITEURL }}/category/{{ article.category }}.html">{{ article.category|replace("-", " ") }}</a>
                 &nbsp;&nbsp;<img class="imgprev" src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/tags.png" alt="{{ gettext('Tag icon') }}">
                 {% for tag in article.tags %}
                   <a class="aautor" href="{{ SITEURL }}/{{ tag.url }}">{{ tag }}</a>
@@ -76,7 +78,7 @@
                   <a class="aautor" href="{{ SITEURL }}/{{ author.url }}">{{ author }}</a>
                 {% endfor %}
                 &nbsp;&nbsp;<img class="imgprev" src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/folder.png" alt="{{ gettext('Folder icon') }}">
-                <a class="aautor" href="{{ SITEURL }}/category/{{ article.category }}.html">{{ article.category }}</a>
+                <a class="aautor" href="{{ SITEURL }}/category/{{ article.category }}.html">{{ article.category|replace("-", " ") }}</a>
                 &nbsp;&nbsp;<img class="imgprev" src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/tags.png" alt="{{ gettext('Tag icon') }}">
                 {% for tag in article.tags %}
                   <a class="aautor" href="{{ SITEURL }}/{{ tag.url }}">{{ tag }}</a>
@@ -115,7 +117,7 @@
                 <a class="aautor" href="{{ SITEURL }}/{{ author.url }}">{{ author }}</a>
               {% endfor %}
               &nbsp;&nbsp;<img class="imgprev" src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/folder.png" alt="{{ gettext('Folder icon') }}">
-              <a class="aautor" href="{{ SITEURL }}/category/{{ article.category }}.html">{{ article.category }}</a>
+              <a class="aautor" href="{{ SITEURL }}/category/{{ article.category }}.html">{{ article.category|replace("-", " ") }}</a>
               &nbsp;&nbsp;<img class="imgprev" src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/tags.png" alt="{{ gettext('Tag icon') }}">
               {% for tag in article.tags %}
                 <a class="aautor" href="{{ SITEURL }}/{{ tag.url }}">{{ tag }}</a>
@@ -158,7 +160,7 @@
                 <a class="aautor" href="{{ SITEURL }}/{{ author.url }}">{{ author }}</a>
               {% endfor %}
               &nbsp;&nbsp;<img class="imgprev" src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/folder.png" alt="{{ gettext('Folder icon') }}">
-              <a class="aautor" href="{{ SITEURL }}/category/{{ article.category }}.html">{{ article.category }}</a>
+              <a class="aautor" href="{{ SITEURL }}/category/{{ article.category }}.html">{{ article.category|replace("-", " ") }}</a>
               &nbsp;&nbsp;<img class="imgprev" src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/tags.png" alt="{{ gettext('Tag icon') }}">
               {% for tag in article.tags %}
                 <a class="aautor" href="{{ SITEURL }}/{{ tag.url }}">{{ tag }}</a>
@@ -196,7 +198,7 @@
                 <a class="aautor" href="{{ SITEURL }}/{{ author.url }}">{{ author }}</a>
               {% endfor %}
               &nbsp;&nbsp;<img class="imgprev" src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/folder.png" alt="{{ gettext('Folder icon') }}">
-              <a class="aautor" href="{{ SITEURL }}/category/{{ article.category }}.html">{{ article.category }}</a>
+              <a class="aautor" href="{{ SITEURL }}/category/{{ article.category }}.html">{{ article.category|replace("-", " ") }}</a>
               &nbsp;&nbsp;<img class="imgprev" src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/tags.png" alt="{{ gettext('Tag icon') }}">
               {% for tag in article.tags %}
                 <a class="aautor" href="{{ SITEURL }}/{{ tag.url }}">{{ tag }}</a>

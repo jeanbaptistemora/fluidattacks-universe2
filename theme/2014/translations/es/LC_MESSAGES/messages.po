@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2018-01-13 03:49-0500\n"
+"POT-Creation-Date: 2018-01-25 16:25+0000\n"
 "PO-Revision-Date: 2017-12-21 15:09-0500\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: es\n"
@@ -18,98 +18,69 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.5.1\n"
 
-#: templates/404.html:3
-msgid "The page was not found"
-msgstr "La página no fue encontrada"
+#: templates/archives.html:3
+msgid "Blog archives"
+msgstr "Archivos del Blog"
 
-#: templates/404.html:14 templates/archives.html:13 templates/article.html:15
-#: templates/author.html:22 templates/authors.html:13
+#: templates/archives.html:13 templates/article.html:31
+#: templates/author.html:38 templates/authors.html:13
 #: templates/categories.html:13 templates/category.html:13
-#: templates/index.html:15 templates/page.html:15 templates/tag.html:11
+#: templates/index.html:17 templates/page.html:32 templates/tag.html:29
 #: templates/tags.html:13
 msgid "Young hacker smiling"
 msgstr "Joven hacker sonriendo"
-
-#: templates/404.html:22
-msgid "PAGE NOT FOUND"
-msgstr "PÁGINA NO ENCONTRADA"
-
-#: templates/404.html:23
-msgid ""
-"It seems nothing was found in this address. Try searching or browsing to "
-"one of the following links"
-msgstr ""
-"Parece que no hay nada en esta dirección. Intenta haciendo una búsqueda o"
-" dirígite a uno de los links que se listan a continuación"
-
-#: templates/404.html:25
-msgid "Recent Entries"
-msgstr "Entradas Recientes"
-
-#: templates/404.html:36 templates/categories.html:3
-#: templates/categories.html:21
-msgid "Categories"
-msgstr "Categorías"
-
-#: templates/404.html:44 templates/pagination.html:13
-msgid "Page"
-msgstr "Página"
-
-#: templates/archives.html:3
-msgid "Archives"
-msgstr "Archivos"
 
 #: templates/archives.html:23 templates/period_archives.html:3
 #: templates/period_archives.html:18
 msgid "Archives for"
 msgstr "Archivos para"
 
-#: templates/article.html:30
+#: templates/article.html:48
 msgid "User icon"
 msgstr "Ícono de usuario"
 
-#: templates/article.html:32
+#: templates/article.html:52
 msgid "Dialog box icon"
 msgstr "Ícono de globo de diálogo"
 
-#: templates/article.html:32
+#: templates/article.html:52
 msgid "Comment"
 msgstr "Comentar"
 
-#: templates/article.html:33 templates/index.html:40 templates/index.html:78
-#: templates/index.html:117 templates/index.html:161 templates/index.html:199
+#: templates/article.html:55 templates/index.html:42 templates/index.html:80
+#: templates/index.html:119 templates/index.html:162 templates/index.html:200
 msgid "Folder icon"
 msgstr "Ícono de carpeta"
 
-#: templates/article.html:34
+#: templates/article.html:58
 msgid "Calendar icon"
 msgstr "Ícono de calendario"
 
-#: templates/article.html:37
+#: templates/article.html:63
 msgid "Updated on"
 msgstr "Actualizado el"
 
-#: templates/article.html:43
+#: templates/article.html:70
 msgid "Author picture"
 msgstr "Foto del autor"
 
-#: templates/article.html:58
+#: templates/article.html:92
 msgid "Related"
 msgstr "Relacionado"
 
-#: templates/article.html:103 templates/page.html:41
+#: templates/article.html:129 templates/page.html:58
 msgid "Leave a comment"
 msgstr "Haz un comentario"
 
-#: templates/author.html:3
+#: templates/author.html:7 templates/author.html:12 templates/author.html:17
 msgid "Articles by"
 msgstr "Artículos por"
 
-#: templates/author.html:29
+#: templates/author.html:45
 msgid "Author"
 msgstr "Autor"
 
-#: templates/author.html:32
+#: templates/author.html:47
 msgid "More authors"
 msgstr "Más autores"
 
@@ -118,13 +89,13 @@ msgstr "Más autores"
 msgid "Authors"
 msgstr "Autores"
 
-#: templates/category.html:3
-msgid "Articles in the"
-msgstr "Artículos en la"
+#: templates/categories.html:3 templates/categories.html:21
+msgid "Categories"
+msgstr "Categorías"
 
 #: templates/category.html:3
-msgid "category"
-msgstr "categoría"
+msgid "Articles in the category"
+msgstr "Artículos en la categoría"
 
 #: templates/category.html:20
 msgid "Category"
@@ -160,7 +131,9 @@ msgstr "criterio.png"
 
 #: templates/ethical.html:13
 msgid "Standards and organizations on which FLUID bases its security criteria"
-msgstr "Estándaras y organizaciones utilizadas por FLUID para definir su criterio de seguridad"
+msgstr ""
+"Estándaras y organizaciones utilizadas por FLUID para definir su criterio"
+" de seguridad"
 
 #: templates/ethical.html:18
 msgid "Deliverables"
@@ -424,54 +397,53 @@ msgstr "Términos"
 msgid "Application"
 msgstr "Aplicación"
 
-#: templates/index.html:32 templates/index.html:70 templates/index.html:109
-#: templates/index.html:153 templates/index.html:191
-msgid "article"
-msgstr "artículo"
+#: templates/index.html:3
+msgid "Blog Home"
+msgstr "Inicio del Blog"
 
-#: templates/index.html:36 templates/index.html:74 templates/index.html:113
-#: templates/index.html:157 templates/index.html:195
+#: templates/index.html:38 templates/index.html:76 templates/index.html:115
+#: templates/index.html:158 templates/index.html:196
 msgid "Quill icon"
 msgstr "Ícono de pluma"
 
-#: templates/index.html:42 templates/index.html:80 templates/index.html:119
-#: templates/index.html:163 templates/index.html:201
+#: templates/index.html:44 templates/index.html:82 templates/index.html:121
+#: templates/index.html:164 templates/index.html:202
 msgid "Tag icon"
 msgstr "Ícono de etiqueta"
 
-#: templates/index.html:59 templates/index.html:97 templates/index.html:136
-#: templates/index.html:180 templates/index.html:218
+#: templates/index.html:61 templates/index.html:99 templates/index.html:138
+#: templates/index.html:181 templates/index.html:219
 msgid "Read More"
 msgstr "Seguir Leyendo"
 
-#: templates/location.html:22 templates/location.html:31
-#: templates/location.html:67 templates/location.html:86
+#: templates/location.html:21 templates/location.html:30
+#: templates/location.html:66 templates/location.html:85
 msgid "Land line"
 msgstr "Teléfono Fijo"
 
-#: templates/location.html:23 templates/location.html:32
-#: templates/location.html:40 templates/location.html:68
-#: templates/location.html:87 templates/location.html:105
+#: templates/location.html:22 templates/location.html:31
+#: templates/location.html:39 templates/location.html:67
+#: templates/location.html:86 templates/location.html:104
 msgid "Mobile"
 msgstr "Celular"
 
-#: templates/location.html:25 templates/location.html:70
+#: templates/location.html:24 templates/location.html:69
 msgid "Forum Building"
 msgstr "Edificio Forum"
+
+#: templates/location.html:25 templates/location.html:34
+#: templates/location.html:41 templates/location.html:70
+#: templates/location.html:89 templates/location.html:106
+msgid "Office"
+msgstr "Oficina"
 
 #: templates/location.html:26 templates/location.html:35
 #: templates/location.html:42 templates/location.html:71
 #: templates/location.html:90 templates/location.html:107
-msgid "Office"
-msgstr "Oficina"
-
-#: templates/location.html:27 templates/location.html:36
-#: templates/location.html:43 templates/location.html:72
-#: templates/location.html:91 templates/location.html:108
 msgid "Postal Code"
 msgstr "Código Postal"
 
-#: templates/location.html:34 templates/location.html:89
+#: templates/location.html:33 templates/location.html:88
 msgid "Villorio Building"
 msgstr "Edificio Villorio"
 
@@ -488,14 +460,21 @@ msgid "Next"
 msgstr "Siguiente"
 
 #: templates/pagination.html:13
+msgid "Page"
+msgstr "Página"
+
+#: templates/pagination.html:13
 msgid "of"
 msgstr "de"
 
-#: templates/tag.html:2
+#: templates/tag.html:7 templates/tag.html:12 templates/tag.html:17
 msgid "Tag"
 msgstr "Etiqueta"
 
-#: templates/tag.html:20
+#: templates/tag.html:38
 msgid "More tags"
 msgstr "Más etiquetas"
 
+#: templates/search.html
+msgid "Search"
+msgstr "Búsqueda"

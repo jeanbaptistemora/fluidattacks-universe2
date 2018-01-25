@@ -1,7 +1,23 @@
 {% extends "index.html" %}
 
 {% block canonical %}<link rel="canonical" href="{{ SITEURL }}/{{ article.url }}"/>{% endblock canonical %}
-{% block title %}{{ SITENAME }}&nbsp;|&nbsp; {{ article.title }}{% endblock title %}
+{% block title %}
+  {% set TITLE = 0 %}
+  {% if DEFAULT_LANG == "en" %}
+    {% if article.title|length < 30 %}
+{{ article.title }} | {{ SITENAME }}
+      {% set TITLE = 1 %}
+    {% endif %}
+  {% else %}
+    {% if article.title|length < 21 %}
+{{ article.title }} | {{ SITENAME }}
+      {% set TITLE =1 %}
+    {% endif %}
+  {% endif %}
+  {% if TITLE == 0 %}
+{{ article.title }} | FLUID
+  {% endif %}
+{% endblock title %}
 
 {% block header %}
   <!-- Page Header -->
@@ -36,7 +52,7 @@
             <img src="../../{{ THEME_STATIC_DIR }}/images/comment.png" alt="{{ gettext('Dialog box icon') }}"><a href="./#disqus_thread">{{ gettext('Comment') }}</a><br/>
           </td>
           <td class="meta-data">
-            <img src="../../{{ THEME_STATIC_DIR }}/images/folder.png" alt="{{ gettext('Folder icon') }}"><a href="../../category/{{ article.category }}.html">{{ article.category }}</a><br/>
+            <img src="../../{{ THEME_STATIC_DIR }}/images/folder.png" alt="{{ gettext('Folder icon') }}"><a href="../../category/{{ article.category }}.html">{{ article.category|replace("-", " ") }}</a><br/>
           </td>
 	  <td class="meta-data">
             <img src="../../{{ THEME_STATIC_DIR }}/images/calendar2.png" alt="{{ gettext('Calendar icon') }}"><p>{{ article.locale_date }}</p><br/>

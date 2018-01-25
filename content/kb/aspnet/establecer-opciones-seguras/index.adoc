@@ -3,7 +3,7 @@
 :category: aspnet
 :kb: yes
 
-= Establecer Opciones Seguras por Defecto en Estructuras Condicionales
+= Establecer Opciones Seguras en Condicionales
 
 == Necesidad
 

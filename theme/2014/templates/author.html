@@ -1,6 +1,22 @@
 {% extends "index.html" %}
 
-{% block title %}{{ SITENAME }} - {{ gettext('Articles by') }} {{ author }}{% endblock %}
+{% block title %}
+  {% set TITLE = 0 %}
+  {% if DEFAULT_LANG == "en" %}
+    {% if author.name|length < 18 %}
+{{ gettext('Articles by') }} {{ author }} | {{ SITENAME }}
+      {% set TITLE = 1 %}
+    {% endif %}
+  {% else %}
+    {% if author.name|length < 7 %}
+{{ gettext('Articles by') }} | {{ SITENAME }}
+      {% set TITLE =1 %}
+    {% endif %}
+  {% endif %}
+  {% if TITLE == 0 %}
+{{ gettext('Articles by') }} {{ author }} | FLUID
+  {% endif %}
+{% endblock %}
 
 {% block opengraph %}
   {{ super() }}

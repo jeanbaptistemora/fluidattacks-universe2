@@ -3,7 +3,7 @@
 :category: aspnet
 :kb: yes
 
-= Generar Identificador Único para Una Transacción o Recurso
+= Generar Identificador Único para Transacción
 
 == Necesidad
 

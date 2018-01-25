@@ -10,7 +10,7 @@
 :about1: Ingeniero en Sistemas.
 :about2: Apasionado por las redes la música y la seguridad.
 
-= Las cadenas y sus eslabones: Introducción a la ingeniería social
+= Cadenas y eslabones: Inicio en la ingeniería social
 
 [quote]
 “Una cadena es tan fuerte como el más débil de sus eslabones”. Thomas Reid.

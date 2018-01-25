@@ -3,7 +3,11 @@
 :category: criterio
 :kb: yes
 
-= REQ.004 Las amenazas asociadas a un activo de información deben estar identificadas y documentadas
+= REQ.004 Identificar amenazas asociadas a activo
+
+== Nombre Completo
+
+Las amenazas asociadas a un activo de información deben estar identificadas y documentadas
 
 == Descripción
 

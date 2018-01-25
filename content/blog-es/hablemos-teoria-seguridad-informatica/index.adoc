@@ -10,7 +10,7 @@
 :about1: Ingeniero en Sistemas.
 :about2: Apasionado por las redes la música y la seguridad.
 
-= Hablemos de teoría: Términos básicos en la seguridad informática
+= Hablemos de teoría: Términos básicos de seguridad
 
 Desde que el Internet se consolidó como medio de comunicación global, unida a la progresiva 
 dependencia de las personas a los múltiples sistemas de información como herramientas 

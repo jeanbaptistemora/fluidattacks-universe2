@@ -3,7 +3,11 @@
 :category: criterio
 :kb: yes
 
-= REQ.008 Cada riesgo de seguridad de información, debe estar medido en función de su probabilidad e impacto
+= REQ.008 Riesgos medidos por probabilidad e impacto
+
+== Nombre Completo
+
+Cada riesgo de seguridad de información, debe estar medido en función de su probabilidad e impacto
 
 == Descripción
 
