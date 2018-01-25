@@ -20,32 +20,32 @@ bajo las cuales la siguiente solución tiene sentido:
 
 . Teniendo en cuenta que ASP.Net usa recolector de basura, 
 y sumado a las características del contexto anterior, 
-se tienen las siguientes implicaciones:
+se tienen las siguientes implicaciones <<ref1, [1]>>:
 
 * Cada objeto al ser creado 
 requiere recursos de memoria 
 para sus variables de instancia.
 
 * Cada objeto al ser creado requiere 
-recursos de procesador [1] 
+recursos de procesador
 para inicializar las variables de instancia.
 
 * Cada objeto creado es evaluado 
-para determinar si debe ser eliminado [1].
+para determinar si debe ser eliminado.
 
-* Cada objeto creado podrá ser eliminado en algún momento [1].
+* Cada objeto creado podrá ser eliminado en algún momento.
 
 . Dadas las anteriores circunstancias 
 se recomienda reutilizar los objetos creados 
 en un bucle de forma que los recursos demandados 
 por las implicaciones anteriores se minimicen. 
 El siguiente ejemplo ilustra como reutilizar objetos. 
-Inicialmente se define una clase con el método _main_, 
-dentro del cual se crea una instancia de la clase _StringBuilder_:
+Inicialmente se define una clase con el método +main+, 
+dentro del cual se crea una instancia de la clase +StringBuilder+:
 +
-Para utilizar la clase _StringBuilder_ 
-se debe incluir el espacio de nombres _System.Text_. 
-Para ello se importan las librerías _System_ y _System.Text_:
+Para utilizar la clase +StringBuilder+ 
+se debe incluir el espacio de nombres +System.Text+. 
+Para ello se importan las librerías +System+ y +System.Text+:
 +
 [source, java, linenums]
 ----
@@ -53,7 +53,7 @@ using System;
 using System.Text;
 ----
 . Posteriormente, se instancia un objeto 
-de la clase _StringBuilder_, en este caso el objeto _sb_:
+de la clase +StringBuilder+, en este caso el objeto +sb+:
 +
 [source, java, linenums]
 ----
@@ -63,7 +63,7 @@ static void Main(string[] args)
 ...
 ----
 
-. A pesar de que la clase _StringBuilder_ 
+. A pesar de que la clase +StringBuilder+ 
 instancia siempre un objeto dinámico 
 que permite expandir el número de caracteres 
 de la cadena que encapsula, 
@@ -72,10 +72,10 @@ para el número máximo de caracteres que puede contener.
 El valor anteriormente mencionado se define 
 como la capacidad del objeto 
 y difiere de la longitud de la cadena 
-contenida en el objeto _StringBuilder_ en dicho momento.
+contenida en el objeto +StringBuilder+ en dicho momento  <<ref2, [2]>>.
 +
 De acuerdo a lo anteriormente dicho, 
-se reutilizará el objeto haciendo uso de un bucle _for_.
+se reutilizará el objeto haciendo uso de un bucle +for+.
 De esta manera se evitará instanciar nuevos objetos,
 al definir el número de veces que el objeto será reutilizado.
 En este caso se inicializará un ciclo de 40 iteraciones.
@@ -91,12 +91,12 @@ for (int i = 0; i < limit; i++) {
 ----
 
 . Por cada iteración, se está reutilizando la instancia, 
-con el método _Clear()_ se cambia el estado del objeto 
+con el método +Clear()+ se cambia el estado del objeto 
 de modo similar a uno recién creado, 
 sin necesidad de realmente crear uno nuevo.
 
 == Referencias
 
-. https://msdn.microsoft.com/es-es/library/2839d5h5(v=vs.110).aspx[Microsoft, Utilizar la clase StringBuilder]
-. https://msdn.microsoft.com/en-us/library/3457w616.aspx[Creating Reusable Elements with ASP.NET User Controls]
-. REQ.0159: El código debe utilizar contenedores o estructuras de datos optimizadas.
+. [[ref1]] https://msdn.microsoft.com/en-us/library/3457w616.aspx[Creating Reusable Elements with ASP.NET User Controls]
+. [[ref2]] https://msdn.microsoft.com/es-es/library/2839d5h5(v=vs.110).aspx[Microsoft, Utilizar la clase StringBuilder]
+. [[ref3]] REQ.0159: El código debe utilizar contenedores o estructuras de datos optimizadas.
