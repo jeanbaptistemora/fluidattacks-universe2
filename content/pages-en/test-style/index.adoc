@@ -386,6 +386,34 @@ Image, list, video, ...
 .List Title
 . List 1
 
++
+.Code Title
+[source, python]
+----
+print "Hello World"
+----
++
+.Image Title
+image::doge.png[Doge]
++
+.Video Title
+video::he-man.mp4[Youtube]
++
+.Table Title
+|====
+| Col1 | Col 2
+|====
++
+.Quote Title
+[quote]
+Something deep
++
+.Literal Title
+ Hello
++
+.Normal Title
+Normal paragraph
+
 * Comments
 +
 ....

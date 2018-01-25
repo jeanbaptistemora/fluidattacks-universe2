@@ -40,7 +40,6 @@ $yellow: rgba(255, 255, 0, 1);
   border: 1px solid $lightgray;
   border-left: 3px solid $darkblue;
   font-size: 16px;
-  margin-top: 20px;
   overflow: auto;
   padding: 15px 10px;
 }
@@ -112,28 +111,23 @@ a {
   }
 }
 
+.listingblock,
+.literalblock {
+  margin: 15px 0;
+}
+
+
 .imageblock,
 .videoblock {
+  margin: 15px 0;
   text-align: center;
-
-  img,
-  video {
-    margin: 20px 0;
-  }
-
-  .title {
-    text-align: center;
-  }
 }
 
 .olist {
-  ol {
-    font-size: 18px;
-    padding-left: 20px;
-  }
+  margin: 15px 0;
 
   p {
-    margin-top: 10px;
+    margin-top: 15px;
   }
 
   .loweralpha {
@@ -153,10 +147,15 @@ a {
   }
 }
 
+ol {
+  font-size: 18px;
+  padding-left: 20px;
+}
+
 p {
   font-size: 18px;
   line-height: 29.75px;
-  margin: 20px 0 0;
+  margin: 0;
   text-align: left;
 
   strong {
@@ -181,7 +180,6 @@ img {
 
 table {
   border-collapse: separate;
-  margin-top: 30px;
 
   td,
   th {
@@ -189,10 +187,6 @@ table {
     border-top: 3px solid $darkblue;
     padding: 20px;
     vertical-align: top;
-  }
-
-  .title {
-    text-align: center;
   }
 }
 
@@ -207,12 +201,17 @@ ul {
 .ulist {
   margin-top: 15px;
   padding-left: 20px;
+
+  p {
+    margin-top: 15px;
+  }
 }
 
 .quoteblock {
   @include quo-lit-block;
   color: $darkgray;
   font-style: italic;
+  margin: 15px 0;
   text-align: center;
 }
 
@@ -253,6 +252,7 @@ article {
 
 .tableblock {
   border-collapse: collapse;
+  margin: 15px 0;
 
   th {
     border: 1px solid $lightgray;
@@ -310,6 +310,8 @@ article {
 }
 
 .qlist {
+  margin: 15px 0;
+
   li {
     margin-bottom: 20px;
   }
@@ -452,7 +454,7 @@ article {
   }
 
 .small {
-  font-size: 0.6em;
+  font-size: .6em;
 }
 
 .underline {
