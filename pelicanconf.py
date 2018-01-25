@@ -7,7 +7,7 @@ sys.setdefaultencoding("utf-8")
 
 # Site information
 AUTHOR = 'FLUID'
-SITENAME = 'FLUID | Pentesting, Ethical Hacking, Code Analysis'
+SITENAME = 'A Pentesting Company | FLUID'
 SITEURL = 'https://fluid.la/web/en'
 
 # Theme
@@ -64,7 +64,7 @@ DEFAULT_PAGINATION = 12
 JINJA_ENVIRONMENT = {'extensions': ['jinja2.ext.i18n']}
 I18N_SUBSITES = {
     'es': {
-        'SITENAME': 'FLUID | Pentesting, Ethical Hacking, Análisis de Código',
+        'SITENAME': 'Especialistas en Ethical Hacking | FLUID',
         'SITEURL': 'https://fluid.la/web/es',
         'OUTPUT_PATH': 'output/web/es',
         'THEME': 'theme/2014',
