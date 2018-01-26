@@ -6,11 +6,12 @@
         var str = titles[j].innerText;
         if (titles[j].id == "" || titles[j].id.indexOf("_") >= 0) {
           str = str.replace(/^[0-9].*\.\s+/, '');
+          str = str.replace(/[¡!¿?,':\.]/g, '');
           str = str.replace(/\s+/g, '-').toLowerCase();
-          var replaceChars={ "á":"a" ,"é":"e", "í":"i", "ó":"o", "ú":"u" };
-          str = str.replace(/[áéíóú]/g, function(match) {return replaceChars[match];});
+          var replaceChars={ "á":"a" ,"é":"e", "í":"i", "ó":"o", "ú":"u", "ñ":"n" };
+          str = str.replace(/[áéíóúñ]/g, function(match) {return replaceChars[match];});
           titles[j].id = str;
-          $(titles[j]).prepend('<a href="./#'+ str +'" class="anchor"></a>');
+          $(titles[j]).prepend('<a href="#'+ str +'" class="anchor"></a>');
         }
       }
     }

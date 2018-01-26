@@ -12,7 +12,7 @@
 :about1: Ingeniero en Sistemas.
 :about2: Apasionado por las redes la música y la seguridad.
 
-= El indio que permitía ver sus habitaciones…
+= El indio que permitía ver sus habitaciones
 
 Con más de 40 años desde su creación, Internet no es solo una innovación 
 tecnológica que ofrece múltiples servicios a las personas que lo usan, 
