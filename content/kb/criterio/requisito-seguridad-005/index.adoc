@@ -1,6 +1,8 @@
 :slug: kb/criterio/requisito-seguridad-005/ 
 :eth: no
 :category: criterio
+:description: TODO
+:keywords: TODO
 :kb: yes
 
 = REQ.005 Identicar posibles vulnerabilidades 

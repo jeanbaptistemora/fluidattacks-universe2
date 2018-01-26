@@ -4,6 +4,8 @@
 :tags: revert, challenge, engineering
 :Image: reversing-mortals.png
 :alt: Yellow puzzle missing one piece, shown in red
+:description: TODO
+:keywords: TODO
 :author: Juan Aguirre
 :writer: juanes
 :name: Juan Esteban Aguirre González

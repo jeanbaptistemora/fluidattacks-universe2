@@ -4,6 +4,8 @@
 :tags: rto, rpo, proteger
 :Image: rto-rpo.png
 :alt: Línea de tiempo entre la transición RTO a RPO luego de incidente
+:description: TODO
+:keywords: TODO
 :author: Ivan Velez
 :writer: ivanv
 :name: Ivan Velez

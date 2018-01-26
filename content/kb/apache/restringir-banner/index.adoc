@@ -1,6 +1,8 @@
 :slug: kb/apache/restringir-banner/
 :eth: no
 :category: apache
+:description: TODO
+:keywords: TODO
 :kb: yes
 
 = Restringir Banners

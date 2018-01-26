@@ -1,6 +1,8 @@
 :slug: kb/aspnet/comprobar-fortaleza-contrasenas/
 :eth: no
 :category: aspnet
+:description: TODO
+:keywords: TODO
 :kb: yes
 
 = Comprobar Fortaleza de Contraseñas con Diccionarios

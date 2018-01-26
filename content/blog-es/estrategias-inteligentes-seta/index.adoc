@@ -4,6 +4,8 @@
 :tags: seta, concientizar, seguridad
 :Image: pilares.png
 :alt: Tres diagramas circulares mostrando relación personas-procesos-tecnología
+:description: TODO
+:keywords: TODO
 :author: Camilo Cardona
 :writer: camiloc
 :name: Camilo Cardona

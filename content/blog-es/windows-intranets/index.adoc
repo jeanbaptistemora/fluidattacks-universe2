@@ -1,5 +1,7 @@
 :slug: windows-intranets/
 :date: 2017-06-06
+:description: TODO
+:keywords: TODO
 :author: Jhony Villa
 :category: opiniones-de-seguridad
 :tags: intranet, iwa, windows

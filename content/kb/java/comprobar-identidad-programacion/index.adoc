@@ -1,6 +1,8 @@
 :slug: kb/java/comprobar-identidad-programacion/
 :eth: no
 :category: java
+:description: TODO
+:keywords: TODO
 :kb: yes
 
 = Comprobar Identidad de Llamadas en Servlets

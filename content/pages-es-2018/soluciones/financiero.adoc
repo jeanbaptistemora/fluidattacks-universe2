@@ -1,4 +1,6 @@
 :slug: soluciones/financiero/
+:description: TODO
+:keywords: TODO
 :template: pages-es/soluciones/financiero
 
 = Sector financiero

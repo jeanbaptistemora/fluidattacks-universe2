@@ -1,6 +1,8 @@
 :slug: kb/javascript/ofuscar-codigo-javascript/
 :eth: no
 :category: javascript
+:description: TODO
+:keywords: TODO
 :kb: yes
 
 = Ofuscar Código JavaScript

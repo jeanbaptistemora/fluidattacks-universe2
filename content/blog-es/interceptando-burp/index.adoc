@@ -4,6 +4,8 @@
 :tags: herramienta, proxy, interceptar
 :Image: burp-intercept.png
 :alt: Imagen de inicio del programa Burp
+:description: TODO
+:keywords: TODO
 :author: Alejandro Aguirre
 :writer: alejoa
 :name: Alejandro Aguirre Soto

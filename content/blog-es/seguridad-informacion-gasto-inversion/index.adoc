@@ -4,6 +4,8 @@
 :tags: invertir, seguridad, información
 :Image: information-security-expense-investment.png
 :alt: Teclado con una tecla roja que dice INFORMATION SECURITY
+:description: TODO
+:keywords: TODO
 :author: Camilo Cardona
 :writer: camiloc
 :name: Camilo Cardona

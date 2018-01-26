@@ -1,6 +1,8 @@
 :slug: kb/aspnet/evitar-codigo-fuente-duplicado/
 :eth: no
 :category: aspnet
+:description: TODO
+:keywords: TODO
 :kb: yes
 
 = Evitar Código Fuente Duplicado

@@ -1,4 +1,6 @@
 :slug: solutions/products/fluidasserts/
+:description: TODO
+:keywords: TODO
 :template: pages-en/solutions/fluidasserts
 
 = fluidasserts

@@ -1,6 +1,8 @@
 :slug: kb/aspnet/cifrar-contrasenas-una-sola-via/
 :eth: no
 :category: aspnet
+:description: TODO
+:keywords: TODO
 :kb: yes
 
 = Cifrar Contraseñas en una sola Vía

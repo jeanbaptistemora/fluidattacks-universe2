@@ -1,6 +1,8 @@
 :slug: kb/aspnet/establecer-variables-sesion/
 :eth: no
 :category: aspnet
+:description: TODO
+:keywords: TODO
 :kb: yes
 
 = Establecer Variables de Sesión

@@ -1,6 +1,8 @@
 :slug: kb/aspnet/validar-redireccion-paginas-web/
 :eth: no
 :category: aspnet
+:description: TODO
+:keywords: TODO
 :kb: yes
 
 = Validar Redirecciones a Páginas Web

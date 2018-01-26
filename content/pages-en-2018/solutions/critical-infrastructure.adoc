@@ -1,4 +1,6 @@
 :slug: solutions/expertis/critical-infrastructure/
+:description: TODO
+:keywords: TODO
 :template: pages-en/solutions/critical-infrastructure
 
 = Critical infrastructure

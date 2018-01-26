@@ -1,5 +1,10 @@
 {% extends "index.html" %}
 
+{% block meta %}
+  <meta name="keywords" content="TODO">
+  <meta name="description" content="TODO">
+{% endblock meta %}
+
 {% block title %}{{ gettext('Articles in the category') }} {{ category.name|replace("-", " ") }} | FLUID{% endblock %}
 
 {% block header %}

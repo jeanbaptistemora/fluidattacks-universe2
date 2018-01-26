@@ -1,6 +1,8 @@
 :slug: kb/java/prevenir-xss-esapi/
 :eth: no
 :category: java
+:description: TODO
+:keywords: TODO
 :kb: yes
 
 = Prevenir Cross Site Scripting Usando ESAPI

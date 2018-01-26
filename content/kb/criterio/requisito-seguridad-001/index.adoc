@@ -1,6 +1,8 @@
 :slug: kb/criterio/requisito-seguridad-001/ 
 :eth: no
 :category: criterio
+:description: TODO
+:keywords: TODO
 :kb: yes
 
 = REQ.001 Activos de información identificados

@@ -1,4 +1,6 @@
 :slug: solutions/expertis/iot/
+:description: TODO
+:keywords: TODO
 :template: pages-en/solutions/iot
 
 = Iot

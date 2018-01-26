@@ -4,6 +4,8 @@
 :tags: protocolo, proteger, seguridad
 :Image: pci.png
 :alt: Tarjetas de crédito con la palabra PCI DSS 3.2
+:description: TODO
+:keywords: TODO
 :author: Juan Jaramillo
 :writer: juanj
 :name: Juan Jaramillo

@@ -1,6 +1,8 @@
 :slug: kb/cobol/enmascarar-texto/
 :eth: no
 :category: cobol
+:description: TODO
+:keywords: TODO
 :kb: yes
 
 = Enmascarar Texto

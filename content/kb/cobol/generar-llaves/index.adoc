@@ -1,6 +1,8 @@
 :slug: kb/cobol/generar-llaves/
 :eth: no
 :category: cobol
+:description: TODO
+:keywords: TODO
 :kb: yes
 
 = Generar Llaves

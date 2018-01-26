@@ -4,6 +4,8 @@
 :tags: binario, reto, programar
 :Image: contando-unos.png
 :alt: Colección de datos binarios, mostrados en verde
+:description: TODO
+:keywords: TODO
 :author: Alejandro Aguirre
 :writer: alejoa
 :name: Alejandro Aguirre Soto

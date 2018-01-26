@@ -1,6 +1,8 @@
 :slug: kb/aspnet/mostrar-msg-error-manera-segura/
 :eth: no
 :category: aspnet
+:description: TODO
+:keywords: TODO
 :kb: yes
 
 = Mostrar Mensajes de Error de Manera Segura

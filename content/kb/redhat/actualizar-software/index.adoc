@@ -1,6 +1,8 @@
 :slug: kb/redhat/actualizar-software/
 :eth: no
 :category: redhat
+:description: TODO
+:keywords: TODO
 :kb: yes
 
 = Actualizar Software en RedHat

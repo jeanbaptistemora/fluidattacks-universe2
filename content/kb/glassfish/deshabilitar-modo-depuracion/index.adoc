@@ -1,6 +1,8 @@
 :slug: kb/glassfish/deshabilitar-modo-depuracion/
 :eth: no
 :category: glassfish
+:description: TODO
+:keywords: TODO
 :kb: yes
 
 = Deshabilitar Modo Depuración

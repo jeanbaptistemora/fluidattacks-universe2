@@ -1,5 +1,7 @@
 :slug: empleos/terminos-seleccion/
 :category: careers
+:description: TODO
+:keywords: TODO
 :eth: no
 
 = Términos del Proceso de Selección

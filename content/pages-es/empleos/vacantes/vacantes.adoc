@@ -1,5 +1,7 @@
 :slug: empleos/vacantes/
 :category: careers
+:description: TODO
+:keywords: TODO
 :eth: no
 
 = Vacantes

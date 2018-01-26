@@ -4,6 +4,8 @@
 :tags: web, captcha, reto, solucionar
 :Image: captchas.png
 :alt: Formulario de autenticación con captcha
+:description: TODO
+:keywords: TODO
 :author: Alejandro Aguirre
 :writer: alejoa
 :name: Alejandro Aguirre Soto

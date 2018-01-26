@@ -4,6 +4,8 @@
 :tags: atacar, rsa, seguridad
 :Image: comportamiento-enemigo.png
 :alt: Persona mitad-ángel mitad-demonio sosteniendo una bolsa de dinero
+:description: TODO
+:keywords: TODO
 :author: Paula Velez
 :writer: paulav
 :name: Paula Velez

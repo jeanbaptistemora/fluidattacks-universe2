@@ -1,5 +1,7 @@
 :slug: careers/non-technical-challenges/
 :category: careers
+:description: TODO
+:keywords: TODO
 :eth: no
 
 = Non-technical Challenges

@@ -1,6 +1,8 @@
 :slug: kb/java/establecer-seguridad-interfaz-grafica/
 :eth: no
 :category: java
+:description: TODO
+:keywords: TODO
 :kb: yes
 
 = Establecer Política de Seguridad Por GUI

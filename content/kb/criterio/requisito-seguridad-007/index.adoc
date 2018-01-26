@@ -1,6 +1,8 @@
 :slug: kb/criterio/requisito-seguridad-007/ 
 :eth: no
 :category: criterio
+:description: TODO
+:keywords: TODO
 :kb: yes
 
 = REQ.007 Amenazas medidas en términos de impacto

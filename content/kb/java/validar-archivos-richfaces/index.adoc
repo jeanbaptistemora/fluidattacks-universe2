@@ -1,6 +1,8 @@
 :slug: kb/java/validar-archivos-richfaces/
 :eth: no
 :category: java
+:description: TODO
+:keywords: TODO
 :kb: yes
 
 = Validar Archivos Richfaces

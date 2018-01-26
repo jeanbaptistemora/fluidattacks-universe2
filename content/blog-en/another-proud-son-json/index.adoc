@@ -4,6 +4,8 @@
 :tags: security, information, jwt
 :Image: proud-son.png
 :alt: Text editor with code highlighting
+:description: TODO
+:keywords: TODO
 :author: Juan Aguirre
 :writer: juanes
 :name: Juan Esteban Aguirre González

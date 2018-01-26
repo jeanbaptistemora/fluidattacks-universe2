@@ -1,6 +1,8 @@
 :slug: busca-encuentra/
 :date: 2017-12-15
 :category: opiniones-de-seguridad
+:description: TODO
+:keywords: TODO
 :author: Luis Arteaga
 :tags: solucionar, browser, reto
 :Image: htmlcode.png

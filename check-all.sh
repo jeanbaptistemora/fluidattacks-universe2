@@ -60,7 +60,26 @@ if pcregrep --color -Lnr --include='\.adoc' '^:alt:.*' content/blog*; then echo 
 # Check that code does not follow inmmediatly after a paragraph in the KB
 if pcregrep --color -Mnr --include='\.adoc' '[a-zA-Z0-9].*\n.*\[source' content/kb; then echo -e "${GC}ERRORES: Los bloques de código deben estar separados del párrafo por un '+'${NC}"; ERRORS=1;fi
 
-# Check that the title of the website does not have more than 60 characters
+# Check that the title of the website does not have more than 60 characters (Once "| FLUID" is attached)
 if pcregrep --color -ru --include='\.adoc' '^= [A-Z].{52}' content; then echo -e "${GC}ERRORES: Los títulos deben tener máximo 52 caracteres${NC}"; ERRORS=1;fi
+
+# Check that every .adoc has keywords defined
+if pcregrep -Lr --include='\.adoc' ':keywords:' content; then echo -e "${GC}ERRORES: El atributo \":keywords:\" debe estar definido en el .adoc${NC}"; ERRORS=1;fi
+
+# Check that the every .adoc has description defined
+if pcregrep -Lr --include='\.adoc' ':description:' content; then echo -e "${GC}ERRORES: El atributo \":description:\" debe estar definido en el .adoc${NC}"; ERRORS=1;fi
+
+# Check that the meta description has a minimum lenght of 50 characters and a maximum length of 300 characters
+for FILE in $(find content -iname '*.adoc'); do
+  if cat $FILE | tr -d "\n" | pcregrep --color -o ':description: .{300,}:key'; then
+    echo -e "${GC}Descriptions must have a maximum lenght of 300 characters. The previous description belongs to the file \"$FILE\"${NC}";
+    ERRORS=1;
+  fi
+#  if cat $FILE | tr -d "\n" | pcregrep --color -o ':description: .{1,49}:key'; then
+#    echo -e "${GC}Descriptions must have a minimum lenght of 50 characters. The previous description belongs to the file \"$FILE\"${NC}";
+#    ERRORS=1;
+#  fi
+done
+
 
 exit $ERRORS

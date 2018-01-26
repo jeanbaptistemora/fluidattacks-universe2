@@ -1,5 +1,7 @@
 :slug: careers/faq/
 :category: careers
+:description: TODO
+:keywords: TODO
 :eth: no
 
 = Frequently Asked Questions (FAQ)

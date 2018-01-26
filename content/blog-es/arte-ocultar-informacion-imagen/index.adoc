@@ -4,6 +4,8 @@
 :tags: reto, esteganografía, solucionar, ocultar
 :Image: estegano.png
 :alt: Lupa buscando información en una imagen de la Mona Lisa
+:description: TODO
+:keywords: TODO
 :author: Alejandro Aguirre
 :writer: alejoa
 :name: Alejandro Aguirre Soto

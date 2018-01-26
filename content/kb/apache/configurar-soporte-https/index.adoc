@@ -1,6 +1,8 @@
 :slug: kb/apache/configurar-soporte-https/
 :eth: no
 :category: apache
+:description: TODO
+:keywords: TODO
 :kb: yes
 
 = Configurar Soporte HTTPS

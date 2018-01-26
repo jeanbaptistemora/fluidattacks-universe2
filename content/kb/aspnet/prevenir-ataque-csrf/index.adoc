@@ -1,6 +1,8 @@
 :slug: kb/aspnet/prevenir-ataque-csrf/
 :eth: no
 :category: aspnet
+:description: TODO
+:keywords: TODO
 :kb: yes
 
 = Prevenir Ataque CSRF

@@ -1,4 +1,6 @@
 :slug: solutions/concurrent-methodology/
+:description: TODO
+:keywords: TODO
 :template: pages-en/solutions/concurrent-methodology
 
 = Concurrent methodology

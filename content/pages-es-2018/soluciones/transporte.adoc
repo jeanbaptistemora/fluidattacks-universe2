@@ -1,4 +1,6 @@
 :slug: soluciones/transporte/
+:description: TODO
+:keywords: TODO
 :template: pages-es/soluciones/transporte
 
 = Transporte

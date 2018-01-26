@@ -4,6 +4,8 @@
 :tags: seguridad, usabilidad, concientizar
 :Image: security.png
 :alt: Caricatura acerca de políticas de seguridad
+:description: TODO
+:keywords: TODO
 :author: Camilo Cardona
 :writer: camiloc
 :name: Camilo Cardona

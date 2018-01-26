@@ -1,4 +1,6 @@
 :slug: kb/
+:description: TODO
+:keywords: TODO
 :eth: no
 :kbindex: yes
 

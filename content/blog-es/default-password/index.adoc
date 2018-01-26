@@ -4,6 +4,8 @@
 :tags: seguridad, password, atacar
 :Image: default-password.png
 :alt: Símbolo de prohibición sobre la contraseña por defecto
+:description: TODO
+:keywords: TODO
 :author: Camilo Cardona
 :writer: camiloc
 :name: Camilo Cardona

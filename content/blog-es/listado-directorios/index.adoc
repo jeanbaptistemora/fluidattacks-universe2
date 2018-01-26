@@ -1,5 +1,7 @@
 :slug: listado-directorios/
 :date: 2017-05-23
+:description: TODO
+:keywords: TODO
 :author: Jhony Villa
 :category: retos
 :tags: configurar, indexof, reto

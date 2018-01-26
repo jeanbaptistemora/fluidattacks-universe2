@@ -1,6 +1,8 @@
 :slug: kb/java/definir-rol-seguridad-tomcat/
 :eth: no
 :category: java
+:description: TODO
+:keywords: TODO
 :kb: yes
 
 = Definir Roles de Seguridad en Tomcat

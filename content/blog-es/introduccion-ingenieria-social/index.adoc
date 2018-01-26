@@ -4,6 +4,8 @@
 :tags: concientizar, ingeniería, social, amenaza
 :Image: ingenieriasocial.png
 :alt: Mano manejando una marioneta que está interactuando con otras marionetas
+:description: TODO
+:keywords: TODO
 :author: Jhony Villa
 :writer: jhony
 :name: Jhony Arbey Villa Peña

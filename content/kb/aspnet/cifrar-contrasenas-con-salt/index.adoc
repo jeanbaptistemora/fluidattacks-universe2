@@ -1,6 +1,8 @@
 :slug: kb/aspnet/cifrar-contrasenas-con-salt/
 :eth: no
 :category: aspnet
+:description: TODO
+:keywords: TODO
 :kb: yes
 
 = Cifrar Contraseñas con Salt

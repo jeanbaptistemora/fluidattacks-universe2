@@ -1,4 +1,6 @@
 :slug: terminos-uso/
+:description: TODO
+:keywords: TODO
 :eth: no
 
 = Términos de Uso

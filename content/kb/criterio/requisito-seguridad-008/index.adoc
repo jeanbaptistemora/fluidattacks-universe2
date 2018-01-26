@@ -1,6 +1,8 @@
 :slug: kb/criterio/requisito-seguridad-008/ 
 :eth: no
 :category: criterio
+:description: TODO
+:keywords: TODO
 :kb: yes
 
 = REQ.008 Riesgos medidos por probabilidad e impacto

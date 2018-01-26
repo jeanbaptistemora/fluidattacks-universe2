@@ -1,5 +1,7 @@
 :slug: empleos/
 :category: careers
+:description: TODO
+:keywords: TODO
 :eth: no
 
 = Selección

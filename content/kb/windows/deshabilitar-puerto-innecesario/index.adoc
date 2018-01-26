@@ -1,6 +1,8 @@
 :slug: kb/windows/deshabilitar-puerto-innecesario/
 :eth: no
 :category: windows
+:description: TODO
+:keywords: TODO
 :kb: yes
 
 = Deshabilitar Puertos Innecesarios

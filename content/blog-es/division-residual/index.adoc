@@ -4,6 +4,8 @@
 :tags: matematica, reto, solucionar
 :Image: division.png
 :alt: Monedas con números de diferentes colores
+:description: TODO
+:keywords: TODO
 :author: Alejandro Aguirre
 :writer: alejoa
 :name: Alejandro Aguirre Soto

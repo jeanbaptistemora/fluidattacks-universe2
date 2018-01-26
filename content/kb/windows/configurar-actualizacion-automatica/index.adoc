@@ -1,6 +1,8 @@
 :slug: kb/windows/configurar-actualizacion-automatica/
 :eth: no
 :category: windows
+:description: TODO
+:keywords: TODO
 :kb: yes
 
 = Configurar Actualizaciones Automáticas

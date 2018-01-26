@@ -4,6 +4,8 @@
 :tags: cifrar, criptografía, reto, solucionar
 :Image: rompe-codigos.png
 :alt: Llave con un set de datos hexadecimales detrás de ella
+:description: TODO
+:keywords: TODO
 :author: Camilo Cardona
 :writer: camiloc
 :name: Camilo Cardona

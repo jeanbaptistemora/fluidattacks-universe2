@@ -1,6 +1,8 @@
 :slug: kb/cobol/evitar-mensajes-error-autenticacion/
 :eth: no
 :category: cobol
+:description: TODO
+:keywords: TODO
 :kb: yes
 
 = Evitar Emitir Mensajes de Errores en Autenticación

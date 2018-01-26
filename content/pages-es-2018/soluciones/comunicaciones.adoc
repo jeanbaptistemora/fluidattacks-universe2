@@ -1,4 +1,6 @@
 :slug: soluciones/comunicaciones/
+:description: TODO
+:keywords: TODO
 :template: pages-es/soluciones/comunicaciones
 
 = Comunicaciones

@@ -1,4 +1,6 @@
 :slug: clients/
+:description: TODO
+:keywords: TODO
 :template: pages-en/clients
 
 = Clients

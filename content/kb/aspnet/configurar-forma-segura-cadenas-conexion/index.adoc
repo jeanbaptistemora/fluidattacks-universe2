@@ -1,6 +1,8 @@
 :slug: kb/aspnet/configurar-segura-cadenas-conexion/
 :eth: no
 :category: aspnet
+:description: TODO
+:keywords: TODO
 :kb: yes
 
 = Configurar forma segura en cadenas de conexión

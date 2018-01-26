@@ -1,6 +1,8 @@
 :slug: que-ruta-mas-insegura/
 :date: 2017-12-21
 :category: opiniones-de-seguridad
+:description: TODO
+:keywords: TODO
 :author: Luis Arteaga
 :tags: solucionar, web, reto
 :Image: road.png

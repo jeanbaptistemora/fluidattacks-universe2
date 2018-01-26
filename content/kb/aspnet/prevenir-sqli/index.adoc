@@ -1,6 +1,8 @@
 :slug: kb/aspnet/prevenir-sqli/
 :eth: no
 :category: aspnet
+:description: TODO
+:keywords: TODO
 :kb: yes
 
 = Prevenir Inyección de Código SQL

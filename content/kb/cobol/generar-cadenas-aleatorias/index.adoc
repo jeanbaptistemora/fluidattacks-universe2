@@ -1,6 +1,8 @@
 :slug: kb/cobol/generar-cadenas-aleatorias/
 :eth: no
 :category: cobol
+:description: TODO
+:keywords: TODO
 :kb: yes
 
 = Generar Cadenas Aleatorias

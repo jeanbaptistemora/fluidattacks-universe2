@@ -4,6 +4,8 @@
 :tags: sdlc, modelar, amenaza, concientizar
 :Image: sherlock.png
 :alt: Diagrama de bloques mostrando el proceso de modelado de amenazas
+:description: TODO
+:keywords: TODO
 :author: Camilo Cardona
 :writer: camiloc
 :name: Camilo Cardona

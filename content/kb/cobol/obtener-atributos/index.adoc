@@ -1,6 +1,8 @@
 :slug: kb/cobol/obtener-atributos/
 :eth: no
 :category: cobol
+:description: TODO
+:keywords: TODO
 :kb: yes
 
 = Obtener Atributos

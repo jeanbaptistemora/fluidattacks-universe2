@@ -1,5 +1,7 @@
 :slug: careers/legalization/
 :category: careers
+:description: TODO
+:keywords: TODO
 :eth: no
 
 = Legalization

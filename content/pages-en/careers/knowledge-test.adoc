@@ -1,5 +1,7 @@
 :slug: careers/knowledge-test/
 :category: careers
+:description: TODO
+:keywords: TODO
 :eth: no
 
 = Knowledge Test

@@ -1,4 +1,6 @@
 :slug: nosotros/
+:description: TODO
+:keywords: TODO
 :template: pages-es/nosotros
 
 = Nosotros

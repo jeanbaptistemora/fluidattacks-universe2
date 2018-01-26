@@ -1,4 +1,6 @@
 :slug: soluciones/expertis/infraestructura-critica/
+:description: TODO
+:keywords: TODO
 :template: pages-es/soluciones/infraestructura-critica
 
 = Infraestructura critica

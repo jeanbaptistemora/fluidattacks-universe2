@@ -1,6 +1,8 @@
 :slug: kb/aspnet/prevenir-almacenamiento-pag-cache/
 :eth: no
 :category: aspnet
+:description: TODO
+:keywords: TODO
 :kb: yes
 
 = Prevenir Almacenamiento de Páginas en Caché

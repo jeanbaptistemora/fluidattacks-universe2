@@ -4,6 +4,8 @@
 :tags: información, herramienta, reto, solucionar
 :Image: banner.png
 :alt: Página de resultados luego de hacer una búsqueda
+:description: TODO
+:keywords: TODO
 :author: Camilo Cardona
 :writer: camiloc
 :name: Camilo Cardona

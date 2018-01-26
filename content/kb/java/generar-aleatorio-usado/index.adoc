@@ -1,6 +1,8 @@
 :slug: kb/java/generar-aleatorio-usado/
 :eth: no
 :category: java
+:description: TODO
+:keywords: TODO
 :kb: yes
 
 = Generar Números Aleatorios Como Identificadores

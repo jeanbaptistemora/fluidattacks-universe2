@@ -1,5 +1,7 @@
 :slug: empleos/retos-tecnicos/
 :category: careers
+:description: TODO
+:keywords: TODO
 :eth: no
 
 = Retos Técnicos

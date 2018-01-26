@@ -4,6 +4,8 @@
 :tags: seguridad, teoria, definir
 :Image: theory-preview.png
 :alt: Caricatura de un hacker entrando a un computador por el cable de Internet
+:description: TODO
+:keywords: TODO
 :author: Jhony Villa
 :writer: jhony
 :name: Jhony Arbey Villa Peña

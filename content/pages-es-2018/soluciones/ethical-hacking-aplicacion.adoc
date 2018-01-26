@@ -1,4 +1,6 @@
 :slug: soluciones/ethical-hacking-aplicacion/
+:description: TODO
+:keywords: TODO
 :template: pages-es/soluciones/ethical-hacking-aplicacion
 
 = Ethical hacking aplicacion

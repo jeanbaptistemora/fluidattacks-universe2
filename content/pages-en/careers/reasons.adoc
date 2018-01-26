@@ -1,5 +1,7 @@
 :slug: careers/reasons/
 :category: careers
+:description: TODO
+:keywords: TODO
 :eth: no
 
 = Reasons to work with us

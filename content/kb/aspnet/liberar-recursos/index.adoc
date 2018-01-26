@@ -1,6 +1,8 @@
 :slug: kb/aspnet/liberar-recursos/
 :eth: no
 :category: aspnet
+:description: TODO
+:keywords: TODO
 :kb: yes
 
 = Liberar Recursos

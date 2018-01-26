@@ -1,6 +1,8 @@
 :slug: kb/aspnet/cifrar-credenciales-en-autenticacion/
 :eth: no
 :category: aspnet
+:description: TODO
+:keywords: TODO
 :kb: yes
 
 = Cifrar Credenciales en Autenticación

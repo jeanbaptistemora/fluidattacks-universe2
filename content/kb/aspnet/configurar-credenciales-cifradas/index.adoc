@@ -1,6 +1,8 @@
 :slug: kb/aspnet/configurar-credenciales-cifradas/
 :eth: no
 :category: aspnet
+:description: TODO
+:keywords: TODO
 :kb: yes
 
 = Configurar Credenciales Cifradas

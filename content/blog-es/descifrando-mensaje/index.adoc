@@ -4,6 +4,8 @@
 :tags: cifrar, seguridad, criptografía
 :Image: cifrado-preview.png
 :alt: Colección de datos hexadecimales con candados
+:description: TODO
+:keywords: TODO
 :author: Francisco Bernal
 :writer: pacho
 :name: Francisco Bernal Baquero

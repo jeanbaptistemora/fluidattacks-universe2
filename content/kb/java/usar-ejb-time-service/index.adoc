@@ -1,6 +1,8 @@
 :slug: kb/java/usar-ejb-time-service/
 :eth: no
 :category: java
+:description: TODO
+:keywords: TODO
 :kb: yes
 
 = Usar EJB Timer Service

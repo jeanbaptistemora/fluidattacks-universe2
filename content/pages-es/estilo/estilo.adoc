@@ -1,4 +1,6 @@
 :slug: estilo/
+:description: TODO
+:keywords: TODO
 :eth: no
 
 = Estilo

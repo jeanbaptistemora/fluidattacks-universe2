@@ -1,4 +1,6 @@
 :slug: ethical-hacking-application/
+:description: TODO
+:keywords: TODO
 
 = Ethical Hacking over Applications
 

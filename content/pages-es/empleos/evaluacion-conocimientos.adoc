@@ -1,5 +1,7 @@
 :slug: empleos/evaluacion-conocimientos/
 :category: careers
+:description: TODO
+:keywords: TODO
 :eth: no
 
 = Evaluación de conocimientos

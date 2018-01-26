@@ -1,6 +1,8 @@
 :slug: kb/cobol/liberar-recursos/
 :eth: no
 :category: cobol
+:description: TODO
+:keywords: TODO
 :kb: yes
 
 = Liberar Recursos

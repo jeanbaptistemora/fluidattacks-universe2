@@ -1,4 +1,6 @@
 :slug: soluciones/industrial/
+:description: TODO
+:keywords: TODO
 :template: pages-es/soluciones/industrial
 
 = Industrial

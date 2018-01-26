@@ -1,6 +1,8 @@
 :slug: kb/criterio/requisito-seguridad-004/ 
 :eth: no
 :category: criterio
+:description: TODO
+:keywords: TODO
 :kb: yes
 
 = REQ.004 Identificar amenazas asociadas a activo

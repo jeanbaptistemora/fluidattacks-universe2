@@ -1,6 +1,8 @@
 :slug: kb/aspnet/definir-autenticacion-en-webservices/
 :eth: no
 :category: aspnet
+:description: TODO
+:keywords: TODO
 :kb: yes
 
 = Definir Autenticación en WebServices

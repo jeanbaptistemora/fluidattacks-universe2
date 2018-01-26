@@ -1,6 +1,8 @@
 :slug: kb/aspnet/establecer-content-type-charset/
 :eth: no
 :category: aspnet
+:description: TODO
+:keywords: TODO
 :kb: yes
 
 = Establecer Content-Type y Charset

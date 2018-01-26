@@ -1,5 +1,7 @@
 :slug: empleos/faq/
 :category: careers
+:description: TODO
+:keywords: TODO
 :eth: no
 
 = Preguntas frecuentes

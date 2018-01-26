@@ -1,4 +1,6 @@
 :slug: ethical-hacking-infrastructure/
+:description: TODO
+:keywords: TODO
 
 = Ethical Hacking over Infrastructure
 

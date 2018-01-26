@@ -1,6 +1,8 @@
 :slug: kb/windows/evitar-enumeracion-usuarios/
 :eth: no
 :category: windows
+:description: TODO
+:keywords: TODO
 :kb: yes
 
 = Evitar Enumeración de Usuarios

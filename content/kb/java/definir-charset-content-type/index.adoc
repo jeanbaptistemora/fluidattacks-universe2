@@ -1,6 +1,8 @@
 :slug: kb/java/definir-charset-content-type/
 :eth: no
 :category: java
+:description: TODO
+:keywords: TODO
 :kb: yes
 
 = Definir Character-Set y Content-Type Usando Servlets

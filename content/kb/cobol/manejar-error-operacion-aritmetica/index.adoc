@@ -1,6 +1,8 @@
 :slug: kb/cobol/manejar-error-operacion-aritmetica/
 :eth: no
 :category: cobol
+:description: TODO
+:keywords: TODO
 :kb: yes
 
 = Manejar Errores en Operaciones Aritméticas

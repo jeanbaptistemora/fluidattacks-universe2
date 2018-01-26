@@ -1,6 +1,8 @@
 :slug: kb/aspnet/generar-identificador-unico/
 :eth: no
 :category: aspnet
+:description: TODO
+:keywords: TODO
 :kb: yes
 
 = Generar Identificador Único para Transacción

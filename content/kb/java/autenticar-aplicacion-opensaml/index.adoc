@@ -1,6 +1,8 @@
 :slug: kb/java/autenticar-aplicacion-opensaml/
 :eth: no
 :category: java
+:description: TODO
+:keywords: TODO
 :kb: yes
 
 = Autenticar Aplicación Cliente Usando OpenSAML

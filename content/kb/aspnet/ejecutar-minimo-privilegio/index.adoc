@@ -1,6 +1,8 @@
 :slug: kb/aspnet/ejecutar-minimo-privilegio/
 :eth: no
 :category: aspnet
+:description: TODO
+:keywords: TODO
 :kb: yes
 
 = Ejecutar las Aplicaciones con Mínimo Privilegio

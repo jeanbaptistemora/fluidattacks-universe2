@@ -4,6 +4,8 @@
 :tags: xss, web, protect, challenge
 :Image: xss.png
 :alt: Computer with four padlocks, one unlocked
+:description: TODO
+:keywords: TODO
 :author: Juan Aguirre
 :writer: juanes
 :name: Juan Esteban Aguirre González

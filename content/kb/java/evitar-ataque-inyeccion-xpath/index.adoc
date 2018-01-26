@@ -1,6 +1,8 @@
 :slug: kb/java/evitar-ataque-inyeccion-xpath/
 :eth: no
 :category: java
+:description: TODO
+:keywords: TODO
 :kb: yes
 
 =  Evitar Ataques de Inyección XPATH

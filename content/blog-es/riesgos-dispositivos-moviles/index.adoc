@@ -4,6 +4,8 @@
 :tags: proteger, seguridad, dispositivo, amenaza
 :Image: moviles.png
 :alt: Celulares y tabletas apilados entre sí
+:description: TODO
+:keywords: TODO
 :author: Jhony Villa
 :writer: jhony
 :name: Jhony Arbey Villa Peña

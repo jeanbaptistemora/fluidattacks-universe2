@@ -1,5 +1,7 @@
 :slug: empleos/vinculacion/
 :category: careers
+:description: TODO
+:keywords: TODO
 :eth: no
 
 = Vinculación

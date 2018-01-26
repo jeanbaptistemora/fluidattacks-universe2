@@ -4,6 +4,8 @@
 :tags: sde, sdlc, software, definir
 :Image: definiendo-software.png
 :alt: Programandor trabajando en 3 monitores las etapas de diseño de software
+:description: TODO
+:keywords: TODO
 :author: Ivan Velez
 :writer: ivanv
 :name: Ivan Velez

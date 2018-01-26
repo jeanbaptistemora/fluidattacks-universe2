@@ -1,6 +1,8 @@
 :slug: una-alerta-a-la-espera/
 :date: 2017-12-22
 :category: opiniones-de-seguridad
+:description: TODO
+:keywords: TODO
 :author: Luis Arteaga
 :tags: solucionar, javascript, reto
 :Image: js.png

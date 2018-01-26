@@ -1,6 +1,8 @@
 :slug: kb/cobol/cifrar-codigo-fuente/
 :eth: no
 :category: cobol
+:description: TODO
+:keywords: TODO
 :kb: yes
 
 = Cifrar Código Fuente

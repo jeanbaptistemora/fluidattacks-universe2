@@ -1,6 +1,8 @@
 :slug: kb/cobol/comprobar-fortaleza-contrasena-frase/
 :eth: no
 :category: cobol
+:description: TODO
+:keywords: TODO
 :kb: yes
 
 = Comprobar Fortaleza de Contraseña Tipo Frase

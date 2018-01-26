@@ -1,4 +1,6 @@
 :slug: soluciones/expertis/aplicaciones-web/
+:description: TODO
+:keywords: TODO
 :template: pages-es/soluciones/aplicaciones-web
 
 = Aplicaciones web

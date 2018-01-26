@@ -1,4 +1,6 @@
 :slug: soluciones/expertis/infraestructura-corporativa/
+:description: TODO
+:keywords: TODO
 :template: pages-es/soluciones/infraestructura-corporativa
 
 = Infraestructura corporativa

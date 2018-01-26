@@ -1,6 +1,8 @@
 :slug: kb/aspnet/evitar-divulgacion-banner/
 :eth: no
 :category: aspnet
+:description: TODO
+:keywords: TODO
 :kb: yes
 
 = Evitar Divulgación de Banner

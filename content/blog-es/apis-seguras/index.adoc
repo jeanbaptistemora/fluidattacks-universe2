@@ -4,6 +4,8 @@
 :tags: api, protocolo, intercambiar, información
 :Image: oauth-preview.png
 :alt: Interacción entre el usuario y el sistema en un esquema OAuth
+:description: TODO
+:keywords: TODO
 :author: Jhony Villa
 :writer: jhony
 :name: Jhony Arbey Villa Peña

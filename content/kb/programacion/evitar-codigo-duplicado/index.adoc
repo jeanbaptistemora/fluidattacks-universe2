@@ -1,6 +1,8 @@
 :slug: kb/programacion/evitar-codigo-duplicado/
 :eth: no
 :category: programacion
+:description: TODO
+:keywords: TODO
 :kb: yes
 
 = Evitar Código Fuente Duplicado

@@ -1,4 +1,6 @@
 :slug: topics/
+:description: TODO
+:keywords: TODO
 :eth: no
 
 = Topics

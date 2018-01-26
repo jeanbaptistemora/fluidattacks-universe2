@@ -4,6 +4,8 @@
 :tags: crimenware, iot, seguridad, atacar
 :Image: crimenware.png
 :alt: Ladrón entrando a un computador como si fuera una caja fuerte
+:description: TODO
+:keywords: TODO
 :author: Camilo Cardona
 :writer: camiloc
 :name: Camilo Cardona

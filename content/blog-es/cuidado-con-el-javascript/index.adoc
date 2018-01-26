@@ -1,6 +1,8 @@
 :slug: cuidado-con-el-javascript/
 :date: 2017-12-20
 :category: opiniones-de-seguridad
+:description: TODO
+:keywords: TODO
 :author: Luis Arteaga
 :tags: solucionar, javascript, reto
 :Image: js-pwd.png

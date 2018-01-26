@@ -1,6 +1,8 @@
 :slug: kb/cobol/usar-estructuras-condicionales/
 :eth: no
 :category: cobol
+:description: TODO
+:keywords: TODO
 :kb: yes
 
 = Usar Estructuras Condicionales

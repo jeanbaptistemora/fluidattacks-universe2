@@ -1,6 +1,11 @@
 {% extends "index.html" %}
 {% block title %}{{ gettext('Search') }} | {{ SITENAME }}{% endblock %}
 
+{% block meta %}
+  <meta name="keywords" content="TODO">
+  <meta name="description" content="TODO">
+{% endblock meta %}
+
 {% block header %}
   <!-- Search PLugin -->
   {% assets filters="uglifyjs", output="static/js/tipuesearch.min.js", "/app/js/tipuesearch/tipuesearch.js", "/app/js/tipuesearch/tipuesearch_set.js" %}

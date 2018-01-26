@@ -1,4 +1,6 @@
 :slug: solutions/energetic/
+:description: TODO
+:keywords: TODO
 :template: pages-en/solutions/energetic
 
 = Energético

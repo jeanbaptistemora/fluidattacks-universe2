@@ -1,6 +1,8 @@
 :slug: kb/cobol/comprobar-fortaleza-diccionario/
 :eth: no
 :category: cobol
+:description: TODO
+:keywords: TODO
 :kb: yes
 
 = Comprobar Fortaleza Diccionario

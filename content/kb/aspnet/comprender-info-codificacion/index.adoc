@@ -1,6 +1,8 @@
 :slug: kb/aspnet/comprender-info-codificacion/
 :eth: no
 :category: aspnet
+:description: TODO
+:keywords: TODO
 :kb: yes
 
 = Comprender Información Sobre Codificación Segura

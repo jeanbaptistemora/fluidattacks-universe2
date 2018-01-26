@@ -1,6 +1,8 @@
 :slug: kb/yii/validar-datos-entrada/
 :eth: no
 :category: yii
+:description: TODO
+:keywords: TODO
 :kb: yes
 
 = Validar Datos de Entrada

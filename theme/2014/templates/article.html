@@ -1,6 +1,12 @@
 {% extends "index.html" %}
 
 {% block canonical %}<link rel="canonical" href="{{ SITEURL }}/{{ article.url }}"/>{% endblock canonical %}
+
+{% block meta %}
+  <meta name="keywords" content="{{ article.keywords }}">
+  <meta name="description" content="{{ article.description }}">
+{% endblock meta %}
+
 {% block title %}
   {% set TITLE = 0 %}
   {% if DEFAULT_LANG == "en" %}

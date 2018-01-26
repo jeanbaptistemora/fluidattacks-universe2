@@ -1,6 +1,8 @@
 :slug: kb/java/establecer-control-acceso-servlet/
 :eth: no
 :category: java
+:description: TODO
+:keywords: TODO
 :kb: yes
 
 = Establecer Control de Acceso para Servlets

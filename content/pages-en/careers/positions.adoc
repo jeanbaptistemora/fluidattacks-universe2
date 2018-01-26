@@ -1,5 +1,7 @@
 :slug: careers/positions/
 :category: careers
+:description: TODO
+:keywords: TODO
 :eth: no
 
 = Positions

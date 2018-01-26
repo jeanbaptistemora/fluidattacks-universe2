@@ -4,6 +4,8 @@
 :tags: pythagoras, code, challenge, solve
 :Image: triangles.png
 :alt: Pyramids in the desert
+:description: TODO
+:keywords: TODO
 :author: Jonathan Armas
 :writer: johna
 :name: Jonathan Armas

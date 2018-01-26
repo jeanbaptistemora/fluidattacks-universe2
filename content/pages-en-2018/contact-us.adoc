@@ -1,4 +1,6 @@
 :slug: contact-us/
+:description: TODO
+:keywords: TODO
 :template: pages-en/contact-us
 
 = Contact Us

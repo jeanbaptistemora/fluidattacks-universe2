@@ -1,6 +1,8 @@
 :slug: kb/python/ofuscar-codigo-fuente/
 :eth: no
 :category: python
+:description: TODO
+:keywords: TODO
 :kb: yes
 
 = Ofuscar Código Fuente

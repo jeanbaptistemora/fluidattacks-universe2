@@ -1,4 +1,6 @@
 :slug: about-us/
+:description: TODO
+:keywords: TODO
 :template: pages-en/about-us
 
 = About us

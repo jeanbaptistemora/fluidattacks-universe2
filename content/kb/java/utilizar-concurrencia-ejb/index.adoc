@@ -1,6 +1,8 @@
 :slug: kb/java/utilizar-concurrencia-ejb/
 :eth: no
 :category: java
+:description: TODO
+:keywords: TODO
 :kb: yes
 
 = Utilizar Concurrencia Usando EJB

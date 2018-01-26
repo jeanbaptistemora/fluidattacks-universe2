@@ -2,6 +2,11 @@
 
 {% block canonical %}<link rel="canonical" href="{{ SITEURL }}/{{ page.url }}"/>{% endblock canonical %}
 
+{% block meta %}
+  <meta name="keywords" content="{{ page.keywords }}">
+  <meta name="description" content="{{ page.description }}">
+{% endblock meta %}
+
 {% block title %}
   {% set TITLE = 0 %}
   {% if DEFAULT_LANG == "en" %}

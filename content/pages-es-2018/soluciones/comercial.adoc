@@ -1,4 +1,6 @@
 :slug: soluciones/comercial/
+:description: TODO
+:keywords: TODO
 :template: pages-es/soluciones/comercial
 
 = Comercial

@@ -1,4 +1,6 @@
 :slug: solutions/ethical-hacking-application/
+:description: TODO
+:keywords: TODO
 :template: pages-en/solutions/ethical-hacking-application
 
 = Ethical hacking application

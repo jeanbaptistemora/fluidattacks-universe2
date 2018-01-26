@@ -1,6 +1,8 @@
 :slug: kb/hacking/evitar-ataque-dos/
 :eth: no
 :category: hacking
+:description: TODO
+:keywords: TODO
 :kb: yes
 
 = Evitar Ataque de Denegación de Servicio

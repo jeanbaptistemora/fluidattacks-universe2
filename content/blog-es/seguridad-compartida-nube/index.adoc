@@ -4,6 +4,8 @@
 :tags: cloud, aws, seguridad, tercerizar
 :Image: shared-security-cloud.png
 :alt: Hojas con datos binarios bajo una nube, al lado de un candado
+:description: TODO
+:keywords: TODO
 :author: Paula Velez
 :writer: paulav
 :name: Paula Velez

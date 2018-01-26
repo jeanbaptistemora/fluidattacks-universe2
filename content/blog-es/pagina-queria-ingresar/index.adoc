@@ -4,6 +4,8 @@
 :tags: web, seguridad, información
 :Image: pagina.png
 :alt: Teclado con una letra roja que dice GET ME OUT OF HERE
+:description: TODO
+:keywords: TODO
 :author: Francisco Bernal
 :writer: pacho
 :name: Francisco Bernal Baquero

@@ -1,6 +1,8 @@
 :slug: kb/java/comprobar-contrasena-diccionario/
 :eth: no
 :category: java
+:description: TODO
+:keywords: TODO
 :kb: yes
 
 = Comprobar Fortaleza de Contraseña con Diccionarios

@@ -1,4 +1,6 @@
 :slug: soluciones/expertis/aplicaciones-moviles/
+:description: TODO
+:keywords: TODO
 :template: pages-es/soluciones/aplicaciones-moviles
 
 = Aplicaciones móviles

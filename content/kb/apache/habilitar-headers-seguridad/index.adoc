@@ -1,6 +1,8 @@
 :slug: kb/apache/habilitar-headers-seguridad/
 :eth: no
 :category: apache
+:description: TODO
+:keywords: TODO
 :kb: yes
 
 = Habilitar Headers de seguridad 

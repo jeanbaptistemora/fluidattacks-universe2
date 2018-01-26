@@ -1,6 +1,8 @@
 :slug: kb/redhat/proteger-autenticacion-fuerza-bruta/
 :eth: no
 :category: redhat
+:description: TODO
+:keywords: TODO
 :kb: yes
 
 = Proteger Autenticación de Ataques de Fuerza Bruta

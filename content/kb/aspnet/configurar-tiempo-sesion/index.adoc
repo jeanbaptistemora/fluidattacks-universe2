@@ -1,6 +1,8 @@
 :slug: kb/aspnet/configurar-tiempo-sesion/
 :eth: no
 :category: aspnet
+:description: TODO
+:keywords: TODO
 :kb: yes
 
 = Configurar tiempo de sesión

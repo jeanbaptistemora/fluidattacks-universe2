@@ -1,6 +1,8 @@
 :slug: kb/aspnet/codificar-salida/
 :eth: no
 :category: aspnet
+:description: TODO
+:keywords: TODO
 :kb: yes
 
 = Codificar Salida

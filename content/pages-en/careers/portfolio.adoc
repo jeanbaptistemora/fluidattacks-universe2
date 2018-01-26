@@ -1,5 +1,7 @@
 :slug: careers/portfolio/
 :category: careers
+:description: TODO
+:keywords: TODO
 :eth: no
 
 = Portfolio

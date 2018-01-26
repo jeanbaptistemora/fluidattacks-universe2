@@ -4,6 +4,8 @@
 :tags: wep, wifi, encryption, challenge
 :Image: stupid-wep.png
 :alt: Hand touching the Wireless icon
+:description: TODO
+:keywords: TODO
 :author: Juan Aguirre
 :writer: juanes
 :name: Juan Esteban Aguirre González

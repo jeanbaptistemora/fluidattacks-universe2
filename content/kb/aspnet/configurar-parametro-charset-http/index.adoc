@@ -1,6 +1,8 @@
 :slug: kb/aspnet/configurar-parametro-charset-http/
 :eth: no
 :category: aspnet
+:description: TODO
+:keywords: TODO
 :kb: yes
 
 = Configurar Parámetro Charset de HTTP

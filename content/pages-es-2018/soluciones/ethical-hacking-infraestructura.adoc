@@ -1,4 +1,6 @@
 :slug: soluciones/ethical-hacking-infraestructura/
+:description: TODO
+:keywords: TODO
 :template: pages-es/soluciones/ethical-hacking-infraestructura
 
 = Ethical hacking infraestructura

@@ -1,6 +1,8 @@
 :slug: kb/java/especificar-regla-control-acceso/
 :eth: no
 :category: java
+:description: TODO
+:keywords: TODO
 :kb: yes
 
 = Especificar Reglas Para Control de Acceso

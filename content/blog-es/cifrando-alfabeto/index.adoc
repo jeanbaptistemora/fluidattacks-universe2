@@ -4,6 +4,8 @@
 :tags: cifrar, reto, solucionar
 :Image: cifradoabc.png
 :alt: Regla de substitución ROT13 en el abecedario, con ejemplo
+:description: TODO
+:keywords: TODO
 :author: Alejandro Aguirre
 :writer: alejoa
 :name: Alejandro Aguirre Soto

@@ -4,6 +4,8 @@
 :tags: matemática, solucionar, programar, reto
 :Image: maths-friend.png
 :alt: Fórmulas trigonométricas
+:description: TODO
+:keywords: TODO
 :author: Camilo Cardona
 :writer: camiloc
 :name: Camilo Cardona

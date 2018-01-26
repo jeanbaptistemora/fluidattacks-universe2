@@ -1,6 +1,8 @@
 :slug: kb/glassfish/revisar-bitacora/
 :eth: no
 :category: glassfish
+:description: TODO
+:keywords: TODO
 :kb: yes
 
 = Revisar Bitácoras

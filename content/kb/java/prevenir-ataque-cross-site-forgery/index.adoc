@@ -1,6 +1,8 @@
 :slug: kb/java/prevenir-ataque-cross-site-forgery/
 :eth: no
 :category: java
+:description: TODO
+:keywords: TODO
 :kb: yes
 
 = Prevenir Ataques de Cross Site Request Forgery

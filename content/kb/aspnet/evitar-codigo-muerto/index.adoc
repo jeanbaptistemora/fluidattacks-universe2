@@ -1,6 +1,8 @@
 :slug: kb/aspnet/evitar-codigo-muerto/
 :eth: no
 :category: aspnet
+:description: TODO
+:keywords: TODO
 :kb: yes
 
 = Evitar Código Muerto

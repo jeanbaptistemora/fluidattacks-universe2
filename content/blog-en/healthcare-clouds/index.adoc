@@ -4,6 +4,8 @@
 :tags: cloud, protect, health
 :Image: health-cloud.png
 :alt: The word Health Insurance being lift up to the sky by ballons
+:description: TODO
+:keywords: TODO
 :author: Juan Aguirre
 :writer: juanes
 :name: Juan Esteban Aguirre González

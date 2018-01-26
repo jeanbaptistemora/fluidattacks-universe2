@@ -4,6 +4,8 @@
 :tags: programar, validar, software, seguridad
 :Image: validar-datos.png
 :alt: Caricatura acerca de validar las entradas a bases de datos
+:description: TODO
+:keywords: TODO
 :author: Camilo Cardona
 :writer: camiloc
 :name: Camilo Cardona

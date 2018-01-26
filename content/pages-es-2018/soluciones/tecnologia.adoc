@@ -1,4 +1,6 @@
 :slug: soluciones/tecnologia/
+:description: TODO
+:keywords: TODO
 :template: pages-es/soluciones/tecnologia
 
 = Tecnología

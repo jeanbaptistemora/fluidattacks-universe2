@@ -4,6 +4,8 @@
 :tags: web, ocultar, reto, solucionar
 :Image: directorios-ocultos.png
 :alt: Carpeta con archivos, cerrada con llave
+:description: TODO
+:keywords: TODO
 :author: Alejandro Aguirre
 :writer: alejoa
 :name: Alejandro Aguirre Soto

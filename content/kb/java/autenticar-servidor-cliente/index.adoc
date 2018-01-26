@@ -1,6 +1,8 @@
 :slug: kb/java/autenticar-servidor-cliente/
 :eth: no
 :category: java
+:description: TODO
+:keywords: TODO
 :kb: yes
 
 = Autenticar Servidor para Clientes Sin Certificado

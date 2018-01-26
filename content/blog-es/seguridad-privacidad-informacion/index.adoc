@@ -4,6 +4,8 @@
 :tags: información, privacidad, seguridad, proteger
 :Image: privacidad-info.png
 :alt: Computador accediendo a muchos servicios, enfatizando en la seguridad
+:description: TODO
+:keywords: TODO
 :author: Paula Velez
 :writer: paulav
 :name: Paula Velez

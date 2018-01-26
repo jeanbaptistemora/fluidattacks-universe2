@@ -1,6 +1,8 @@
 :slug: kb/criterio/requisito-seguridad-002/ 
 :eth: no
 :category: criterio
+:description: TODO
+:keywords: TODO
 :kb: yes
 
 = REQ.002 Activo de información asociado a responsable

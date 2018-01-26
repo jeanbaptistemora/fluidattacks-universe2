@@ -4,6 +4,8 @@
 :tags: cookie, reto, solucionar, herramienta
 :Image: cookie-cool.png
 :alt: Galleta usando gafas de sol de marco verde
+:description: TODO
+:keywords: TODO
 :author: Alejandro Aguirre
 :writer: alejoa
 :name: Alejandro Aguirre Soto

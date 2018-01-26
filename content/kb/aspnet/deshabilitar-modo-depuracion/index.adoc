@@ -1,6 +1,8 @@
 :slug: kb/aspnet/deshabilitar-modo-depuracion/
 :eth: no
 :category: aspnet
+:description: TODO
+:keywords: TODO
 :kb: yes
 
 = Deshabilitar Modo Depuración

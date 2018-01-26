@@ -4,6 +4,8 @@
 :tags: red, reto, solucionar, herramienta
 :Image: ip.png
 :alt: Poste de dirección con una dirección IP, con el mundo atrás
+:description: TODO
+:keywords: TODO
 :author: Alejandro Aguirre
 :writer: alejoa
 :name: Alejandro Aguirre Soto

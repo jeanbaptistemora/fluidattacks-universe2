@@ -1,6 +1,8 @@
 :slug: kb/aspnet/establecer-autenticacion-autorizacion/
 :eth: no
 :category: aspnet
+:description: TODO
+:keywords: TODO
 :kb: yes
 
 = Establecer Esquema de Autenticación y Autorización

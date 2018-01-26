@@ -4,6 +4,8 @@
 :tags: web, security, information
 :Image: identity.png
 :alt: Line of Lego stormtroopers with one facing the opposite direction
+:description: TODO
+:keywords: TODO
 :author: Juan Aguirre
 :writer: juanes
 :name: Juan Esteban Aguirre González

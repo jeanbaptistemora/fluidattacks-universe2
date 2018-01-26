@@ -1,4 +1,6 @@
 :slug: source-code-analysis/
+:description: TODO
+:keywords: TODO
 
 = Source Code Analysis
 

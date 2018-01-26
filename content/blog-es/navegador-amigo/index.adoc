@@ -1,6 +1,8 @@
 :slug: navegador-amigo/
 :date: 2017-12-18
 :category: opiniones-de-seguridad
+:description: TODO
+:keywords: TODO
 :author: Luis Arteaga
 :tags: solucionar, browser, reto
 :Image: viewhtml.png
