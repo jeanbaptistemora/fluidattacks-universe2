@@ -29,7 +29,7 @@ para una solicitud GET.
 La especificación de HTTP para las solicitudes GET 
 da a entender que las solicitudes GET 
 sólo se deben usar para recuperar datos 
-y no para modificar el estado  <<r1, [1]>>.
+y no para modificar el estado  <<r1, ^[1]^>>.
 
 * Asegúrese de que las solicitudes 
 no se puedan reproducir si un atacante usó JavaScript 
@@ -46,7 +46,7 @@ impide un sinnúmero de ataques más fáciles,
 como el que se describió en el ejemplo 
 del mensaje de correo electrónico que contiene una imagen, 
 además de los vínculos básicos incrustados 
-en los sitios comprometidos por XSS <<r2, [2]>> . 
+en los sitios comprometidos por XSS <<r2, ^[2]^>> . 
 
 . En +Web Forms+ la prevención de los ataques 
 es un poco diferente de +ASP.NET MVC+. 
