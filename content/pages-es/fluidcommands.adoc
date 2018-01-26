@@ -1,0 +1,10 @@
+:slug: fluidcommands/
+:description: TODO
+:keywords: TODO
+:eth: no
+
+= FLUIDCommands
+
+En el momento, esta página se encuentra en desarrollo.
+
+Lamentamos los inconvenientes.

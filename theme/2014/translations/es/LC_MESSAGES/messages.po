@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2018-01-25 16:25+0000\n"
+"POT-Creation-Date: 2018-01-26 14:43+0000\n"
 "PO-Revision-Date: 2017-12-21 15:09-0500\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: es\n"
@@ -18,86 +18,86 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.5.1\n"
 
-#: templates/archives.html:3
+#: templates/archives.html:8
 msgid "Blog archives"
 msgstr "Archivos del Blog"
 
-#: templates/archives.html:13 templates/article.html:31
-#: templates/author.html:38 templates/authors.html:13
-#: templates/categories.html:13 templates/category.html:13
-#: templates/index.html:17 templates/page.html:32 templates/tag.html:29
-#: templates/tags.html:13
+#: templates/archives.html:18 templates/article.html:37
+#: templates/author.html:43 templates/authors.html:18
+#: templates/categories.html:18 templates/category.html:18
+#: templates/index.html:22 templates/page.html:37 templates/tag.html:34
+#: templates/tags.html:18
 msgid "Young hacker smiling"
 msgstr "Joven hacker sonriendo"
 
-#: templates/archives.html:23 templates/period_archives.html:3
-#: templates/period_archives.html:18
+#: templates/archives.html:28 templates/period_archives.html:8
+#: templates/period_archives.html:23
 msgid "Archives for"
 msgstr "Archivos para"
 
-#: templates/article.html:48
+#: templates/article.html:54
 msgid "User icon"
 msgstr "Ícono de usuario"
 
-#: templates/article.html:52
+#: templates/article.html:58
 msgid "Dialog box icon"
 msgstr "Ícono de globo de diálogo"
 
-#: templates/article.html:52
+#: templates/article.html:58
 msgid "Comment"
 msgstr "Comentar"
 
-#: templates/article.html:55 templates/index.html:42 templates/index.html:80
-#: templates/index.html:119 templates/index.html:162 templates/index.html:200
+#: templates/article.html:61 templates/index.html:47 templates/index.html:85
+#: templates/index.html:124 templates/index.html:167 templates/index.html:205
 msgid "Folder icon"
 msgstr "Ícono de carpeta"
 
-#: templates/article.html:58
+#: templates/article.html:64
 msgid "Calendar icon"
 msgstr "Ícono de calendario"
 
-#: templates/article.html:63
+#: templates/article.html:69
 msgid "Updated on"
 msgstr "Actualizado el"
 
-#: templates/article.html:70
+#: templates/article.html:76
 msgid "Author picture"
 msgstr "Foto del autor"
 
-#: templates/article.html:92
+#: templates/article.html:98
 msgid "Related"
 msgstr "Relacionado"
 
-#: templates/article.html:129 templates/page.html:58
+#: templates/article.html:135 templates/page.html:66
 msgid "Leave a comment"
 msgstr "Haz un comentario"
 
-#: templates/author.html:7 templates/author.html:12 templates/author.html:17
+#: templates/author.html:12 templates/author.html:17 templates/author.html:22
 msgid "Articles by"
 msgstr "Artículos por"
 
-#: templates/author.html:45
+#: templates/author.html:50
 msgid "Author"
 msgstr "Autor"
 
-#: templates/author.html:47
+#: templates/author.html:52
 msgid "More authors"
 msgstr "Más autores"
 
-#: templates/authors.html:3 templates/authors.html:21 templates/footer.html:44
+#: templates/authors.html:8 templates/authors.html:26 templates/footer.html:44
 #: templates/footer.html:82
 msgid "Authors"
 msgstr "Autores"
 
-#: templates/categories.html:3 templates/categories.html:21
+#: templates/categories.html:8 templates/categories.html:26
 msgid "Categories"
 msgstr "Categorías"
 
-#: templates/category.html:3
+#: templates/category.html:8
 msgid "Articles in the category"
 msgstr "Artículos en la categoría"
 
-#: templates/category.html:20
+#: templates/category.html:25
 msgid "Category"
 msgstr "Categoría"
 
@@ -251,22 +251,20 @@ msgid "Home"
 msgstr "Inicio"
 
 #: templates/footer.html:21 templates/footer.html:65
-#: templates/navigationbar.html:12
 msgid "#lp-pom-block-965"
 msgstr "es/servicios/#lp-pom-block-1000"
 
 #: templates/footer.html:21 templates/footer.html:65
-#: templates/navigationbar.html:12
 msgid "Benefits"
 msgstr "Beneficios"
 
 #: templates/footer.html:22 templates/footer.html:66
-#: templates/navigationbar.html:13
+#: templates/navigationbar.html:19
 msgid "#lp-pom-block-876"
 msgstr "es/servicios/#lp-pom-block-1090"
 
 #: templates/footer.html:22 templates/footer.html:66
-#: templates/navigationbar.html:13
+#: templates/navigationbar.html:19
 msgid "Clients"
 msgstr "Clientes"
 
@@ -333,7 +331,7 @@ msgid "Code Analysis"
 msgstr "Análisis de Código"
 
 #: templates/footer.html:36 templates/footer.html:60
-#: templates/navigationbar.html:14
+#: templates/navigationbar.html:20
 msgid "Careers"
 msgstr "Empleos"
 
@@ -353,15 +351,15 @@ msgstr "temas"
 msgid "Topics"
 msgstr "Temas"
 
-#: templates/footer.html:43 templates/footer.html:81 templates/tags.html:3
-#: templates/tags.html:21
+#: templates/footer.html:43 templates/footer.html:81 templates/tags.html:8
+#: templates/tags.html:26
 msgid "Tags"
 msgstr "Etiquetas"
 
 #: templates/footer.html:47 templates/footer.html:48 templates/footer.html:49
 #: templates/footer.html:50 templates/footer.html:85 templates/footer.html:86
 #: templates/footer.html:87 templates/footer.html:88
-#: templates/navigationbar.html:14
+#: templates/navigationbar.html:20
 msgid "careers"
 msgstr "empleos"
 
@@ -397,22 +395,22 @@ msgstr "Términos"
 msgid "Application"
 msgstr "Aplicación"
 
-#: templates/index.html:3
+#: templates/index.html:8
 msgid "Blog Home"
 msgstr "Inicio del Blog"
 
-#: templates/index.html:38 templates/index.html:76 templates/index.html:115
-#: templates/index.html:158 templates/index.html:196
+#: templates/index.html:43 templates/index.html:81 templates/index.html:120
+#: templates/index.html:163 templates/index.html:201
 msgid "Quill icon"
 msgstr "Ícono de pluma"
 
-#: templates/index.html:44 templates/index.html:82 templates/index.html:121
-#: templates/index.html:164 templates/index.html:202
+#: templates/index.html:49 templates/index.html:87 templates/index.html:126
+#: templates/index.html:169 templates/index.html:207
 msgid "Tag icon"
 msgstr "Ícono de etiqueta"
 
-#: templates/index.html:61 templates/index.html:99 templates/index.html:138
-#: templates/index.html:181 templates/index.html:219
+#: templates/index.html:66 templates/index.html:104 templates/index.html:143
+#: templates/index.html:186 templates/index.html:224
 msgid "Read More"
 msgstr "Seguir Leyendo"
 
@@ -447,7 +445,11 @@ msgstr "Código Postal"
 msgid "Villorio Building"
 msgstr "Edificio Villorio"
 
-#: templates/navigationbar.html:27
+#: templates/navigationbar.html:12
+msgid "Products"
+msgstr "Productos"
+
+#: templates/navigationbar.html:33
 msgid "Search icon"
 msgstr "Ícono de búsqueda"
 
@@ -467,14 +469,15 @@ msgstr "Página"
 msgid "of"
 msgstr "de"
 
-#: templates/tag.html:7 templates/tag.html:12 templates/tag.html:17
+#: templates/tag.html:12 templates/tag.html:17 templates/tag.html:22
 msgid "Tag"
 msgstr "Etiqueta"
 
-#: templates/tag.html:38
+#: templates/tag.html:43
 msgid "More tags"
 msgstr "Más etiquetas"
 
 #: templates/search.html
 msgid "Search"
 msgstr "Búsqueda"
+
