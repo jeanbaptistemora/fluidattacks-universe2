@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2018-01-26 14:43+0000\n"
+"POT-Creation-Date: 2018-01-26 22:39+0000\n"
 "PO-Revision-Date: 2017-12-21 15:09-0500\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: es\n"
@@ -25,8 +25,7 @@ msgstr "Archivos del Blog"
 #: templates/archives.html:18 templates/article.html:37
 #: templates/author.html:43 templates/authors.html:18
 #: templates/categories.html:18 templates/category.html:18
-#: templates/index.html:22 templates/page.html:37 templates/tag.html:34
-#: templates/tags.html:18
+#: templates/index.html:22 templates/tag.html:34 templates/tags.html:18
 msgid "Young hacker smiling"
 msgstr "Joven hacker sonriendo"
 
@@ -35,40 +34,45 @@ msgstr "Joven hacker sonriendo"
 msgid "Archives for"
 msgstr "Archivos para"
 
-#: templates/article.html:54
+#: templates/article.html:49 templates/categories.html:8
+#: templates/categories.html:26
+msgid "Categories"
+msgstr "Categorías"
+
+#: templates/article.html:62
 msgid "User icon"
 msgstr "Ícono de usuario"
 
-#: templates/article.html:58
+#: templates/article.html:66
 msgid "Dialog box icon"
 msgstr "Ícono de globo de diálogo"
 
-#: templates/article.html:58
+#: templates/article.html:66
 msgid "Comment"
 msgstr "Comentar"
 
-#: templates/article.html:61 templates/index.html:47 templates/index.html:85
+#: templates/article.html:69 templates/index.html:47 templates/index.html:85
 #: templates/index.html:124 templates/index.html:167 templates/index.html:205
 msgid "Folder icon"
 msgstr "Ícono de carpeta"
 
-#: templates/article.html:64
+#: templates/article.html:72
 msgid "Calendar icon"
 msgstr "Ícono de calendario"
 
-#: templates/article.html:69
+#: templates/article.html:77
 msgid "Updated on"
 msgstr "Actualizado el"
 
-#: templates/article.html:76
+#: templates/article.html:84
 msgid "Author picture"
 msgstr "Foto del autor"
 
-#: templates/article.html:98
+#: templates/article.html:106
 msgid "Related"
 msgstr "Relacionado"
 
-#: templates/article.html:135 templates/page.html:66
+#: templates/article.html:143
 msgid "Leave a comment"
 msgstr "Haz un comentario"
 
@@ -88,10 +92,6 @@ msgstr "Más autores"
 #: templates/footer.html:82
 msgid "Authors"
 msgstr "Autores"
-
-#: templates/categories.html:8 templates/categories.html:26
-msgid "Categories"
-msgstr "Categorías"
 
 #: templates/category.html:8
 msgid "Articles in the category"
@@ -477,7 +477,5 @@ msgstr "Etiqueta"
 msgid "More tags"
 msgstr "Más etiquetas"
 
-#: templates/search.html
 msgid "Search"
 msgstr "Búsqueda"
-

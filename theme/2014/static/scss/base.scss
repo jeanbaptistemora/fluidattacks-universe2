@@ -469,6 +469,47 @@ article {
   text-decoration: line-through;
 }
 
+.breadcrumbs {
+  float: left;
+  margin: 0 20px 20px 0;
+  width: 100%;
+
+  ul {
+    list-style: none;
+  }
+
+  li {
+    background-color: $white;
+    box-shadow: -2px 0 20px -6px $black;
+    float: left;
+    transform: skewX(-15deg);
+
+    &:hover {
+      background-color: $lightblue;
+
+    }
+
+    &:last-child {
+      background-color: $darkblue;
+
+      a {
+        color: $white;
+      }
+    }
+  }
+
+  a {
+    display: block;
+    padding: 10px;
+    text-transform: capitalize;
+    transform: skewX(15deg);
+
+    &:hover {
+      color: $white;
+    }
+  }
+}
+
 //sass-lint:disable no-universal-selectors
 *,
 *::before,
@@ -483,7 +524,6 @@ article {
   }
 
   .post-heading {
-    display: flex;
 
     a {
       margin: auto 10px auto auto;

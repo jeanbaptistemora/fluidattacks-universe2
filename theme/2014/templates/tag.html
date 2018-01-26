@@ -38,6 +38,13 @@
     <div class="row">
       <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
         <div class="post-heading">
+          <div class="breadcrumbs">
+            <ul>
+              <li><a href="{{ SITEURL }}/">Blog</a></li>
+              <li><a href="{{ SITEURL }}/tags.html">{{ gettext('Tags') }}</a></li>
+              <li><a href="#">{{ tag }}</a></li>
+            </ul>
+          </div>
           <h1>{{ tag }}</h1>
           <a href="../tags.html">
             <h3>{{ gettext('More tags') }}</h3>

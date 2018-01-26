@@ -23,6 +23,12 @@
 {% block content %}
   <div class="divpage">
     <article>
+      <div class="breadcrumbs">
+        <ul>
+          <li><a href="{{ SITEURL }}/">Blog</a></li>
+          <li><a href="{{ SITEURL }}/tags.html">{{ gettext('Tags') }}</a></li>
+        </ul>
+      </div>
       <h1>{{ gettext('Tags') }}:</h1>
       <div class="preamble">
         <div class="itemlist">

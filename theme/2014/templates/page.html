@@ -42,6 +42,21 @@
 {% block content %}   
   <div class="divpage">         
     <article>
+      <div class="breadcrumbs">
+        <ul>
+          <li><a href="{{ SITEURL }}/">Blog</a></li>
+          {% if page.kb %}
+            <li><a href="{{ SITEURL }}/kb/">KB</a></li>
+            <li><a href="{{ SITEURL }}/kb/#{{ page.category }}">{{ page.category }}</a></li>
+            <li><a href="#">{{ page.title }}</a></li>	
+          {% else %}
+            {% if gettext('careers') in page.slug and page.slug|replace("/", "") != gettext('careers') %}
+              <li><a href="{{ SITEURL }}/{{ gettext('careers') }}/">{{ gettext('Selection') }}</a></li>
+            {% endif %}
+            <li><a href="#">{{ page.title }}</a></li>
+          {% endif %}
+        </ul>
+      </div>
       <h1>{{ page.title }}</h1>
       {{ page.content }}
       {% if page.eth %}
