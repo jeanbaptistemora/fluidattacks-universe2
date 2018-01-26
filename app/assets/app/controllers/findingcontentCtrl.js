@@ -222,6 +222,16 @@ integrates.controller("findingcontentCtrl", function($scope, $stateParams, $time
                 $scope.aux={};
                 $scope.aux.tratamiento = $scope.finding.tratamiento;
                 $scope.aux.razon = $scope.finding.razon_tratamiento;
+                if ($scope.finding.tratamiento == "Asumido"){
+                  $scope.isAssumed = true;
+                } else {
+                  $scope.isAssumed = false;
+                }
+                if ($scope.finding.estado == "Cerrado"){
+                  $scope.isClosed = true;
+                } else {
+                  $scope.isClosed = false;
+                }
                 $scope.aux.responsable = $scope.finding.responsable_tratamiento;
                    switch ($scope.finding.actor) {
                      case "​Cualquier persona en Internet":
@@ -527,6 +537,7 @@ integrates.controller("findingcontentCtrl", function($scope, $stateParams, $time
                        $scope.finding.tratamiento = $translate.instant('finding_formstack.treatment_header.default');;
                    }
                 $scope.findingHeaderBuilding();
+                $scope.remediatedView();
                 $scope.view.project = false;
                 $scope.view.finding = true;
                 $scope.findingInformationTab();
@@ -541,6 +552,12 @@ integrates.controller("findingcontentCtrl", function($scope, $stateParams, $time
                 //Control de campos editables
                 $scope.onlyReadableTab1 = true;
                 $scope.onlyReadableTab2 = true;
+                $scope.isManager = userRole != "customer";
+                if(!$scope.isManager && !$scope.isAssumed && !$scope.isClosed){
+                  $('.finding-treatment').show();
+                } else {
+                  $('.finding-treatment').hide();
+                }                
                 //Inicializar galeria de evidencias
                 $('.popup-gallery').magnificPopup({
                   delegate: 'a',
@@ -978,8 +995,11 @@ integrates.controller("findingcontentCtrl", function($scope, $stateParams, $time
                              var org = Organization.toUpperCase();
                              var projt = descData.project.toUpperCase();
                              mixPanelDashboard.trackFindingDetailed("FindingRemediated", userName, userEmail, org, projt, descData.finding_id);
+                             $scope.remediated = response.data.remediated;
+                             console.log($scope.remediated);
                              $msg.success($translate.instant('proj_alerts.remediated_success'));
                              $uibModalInstance.close();
+                             location.reload();
                          }else{
                            Rollbar.error("Error: An error occurred when remediating the finding");
                            $msg.error($translate.instant('proj_alerts.error_textsad'));
@@ -992,6 +1012,71 @@ integrates.controller("findingcontentCtrl", function($scope, $stateParams, $time
              }
          });
        };
+    $scope.remediatedView = function(){
+        $scope.isManager = userRole != "customer";
+        $scope.isRemediated = true;
+        if($scope.finding.id !== undefined){
+            var req = projectFtry.RemediatedView($scope.finding.id);
+            req.then(function(response){
+                if(!response.error){
+                  $scope.isRemediated = response.data.remediated;
+                  if($scope.isManager && $scope.isRemediated){
+                    $('.finding-verified').show();
+                  } else {
+                    $('.finding-verified').hide();
+                  }
+                } else {
+                  Rollbar.error("Error: An error occurred when remediating/verifying the finding");
+                }
+            });
+        }              
+    };
+    $scope.findingVerified = function(){
+        //Obtener datos
+        var currUrl = window.location.href;
+        var trackingUrl = currUrl.replace("/description", "/tracking");
+        descData = {
+            user_mail: userEmail,
+            finding_name: $scope.finding.hallazgo,
+            project: $scope.finding.proyecto_fluid,
+            finding_url: trackingUrl,
+            finding_id: $scope.finding.id,
+            finding_vulns: $scope.finding.cardinalidad,
+        };
+        var modalInstance = $uibModal.open({
+            templateUrl: BASE.url + 'assets/views/project/confirmMdl.html',
+            animation: true,
+            backdrop: 'static',
+            resolve: { mailData: descData },
+            controller: function($scope, $uibModalInstance, mailData){
+                $scope.modalTitle = $translate.instant('search_findings.tab_description.verified_finding');
+                $scope.ok = function(){
+                    //Consumir el servicio
+                    var req = projectFtry.FindingVerified(mailData);
+                    //Capturar la Promisse
+                    req.then(function(response){
+                        if(!response.error){
+                            //Tracking mixpanel
+                            var org = Organization.toUpperCase();
+                            var projt = descData.project.toUpperCase();
+                            mixPanelDashboard.trackFindingDetailed("FindingVerified", userName, userEmail, org, projt, descData.finding_id);
+                            var updated_at = $translate.instant('proj_alerts.updated_title');
+                            var updated_ac = $translate.instant('proj_alerts.verified_success');
+                            $msg.success(updated_ac,updated_at);
+                            $uibModalInstance.close();
+                            location.reload();
+                        }else{
+                          Rollbar.error("Error: An error occurred when verifying the finding");
+                          $msg.error($translate.instant('proj_alerts.error_textsad'));
+                        }
+                    });
+                };
+                $scope.close = function(){
+                    $uibModalInstance.close();
+                };
+            }
+        });
+    };
     $scope.goBack = function(){
        $scope.view.project = true;
        $scope.view.finding = false;

@@ -121,12 +121,23 @@
                                       </div>
                                   </div>
                               </div>
-                              <div class="row table-row" ng-show="!isManager">
+                              <div class="finding-treatment row table-row" style="display: none;">
                                 <div class="row">
                                   <div class="col-md-2 col-md-offset-10 col-xs-12 col-sm-12">
                                       <button id="Treatment" class="btn btn-primary btn-block"
                                               ng-click="findingSolved();"
-                                              <i class="glyphicon glyphicon-edit"></i>  {{'search_findings.tab_description.remediated' | translate}}
+                                              ng-disabled="isRemediated">
+                                              {{'search_findings.tab_description.remediated' | translate}}
+                                      </button>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="finding-verified row table-row" style="display: none;">
+                                <div class="row">
+                                  <div class="col-md-2 col-md-offset-10 col-xs-12 col-sm-12">
+                                      <button id="verified" class="btn btn-warning btn-block"
+                                              ng-click="findingVerified();">
+                                              <i class="glyphicon glyphicon-ok"></i>  {{'search_findings.tab_description.verified' | translate}}
                                       </button>
                                   </div>
                                 </div>

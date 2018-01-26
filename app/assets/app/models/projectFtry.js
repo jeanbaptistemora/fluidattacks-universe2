@@ -184,6 +184,32 @@ integrates.factory('projectFtry', function($q, $translate){
             return $xhr.post($q, BASE.url + "finding_solved", {
                 data, _: Math.random()
             },oops_ac);
-        }
+        },
+        /**
+         * Invoca el servicio para mostrar si fue remediado un hallazgo
+         * @function RemediatedView
+         * @param {JSON} data
+         * @member integrates.projectFtry
+         * @return {Object}s
+         */
+        RemediatedView: function(id){
+            var oops_ac = $translate.instant('proj_alerts.error_text');
+            return $xhr.get($q, BASE.url + "get_remediated", {
+                id: id, _: Math.random()
+            },oops_ac);
+        },
+        /**
+         * Invoca el servicio para mostrar si fue verificado un hallazgo
+         * @function FindingVerified
+         * @param {JSON} data
+         * @member integrates.projectFtry
+         * @return {Object}s
+         */
+        FindingVerified: function(data){
+            var oops_ac = $translate.instant('proj_alerts.error_text');
+            return $xhr.post($q, BASE.url + "finding_verified", {
+                data, _: Math.random()
+            },oops_ac);
+        },
     }
 });

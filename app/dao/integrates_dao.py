@@ -381,3 +381,58 @@ def get_replayer_dynamo(user_id):
         else:
             break
     return items
+
+def get_remediated_dynamo(finding_id):
+    """Obtiene el tratamiento de un hallazgo"""
+    table = dynamodb_resource.Table('remediated')
+    filter_key = 'finding_id'
+    if filter_key and finding_id:
+        filtering_exp = Key(filter_key).eq(finding_id)
+        response = table.query(KeyConditionExpression=filtering_exp)
+    else:
+        response = table.query()
+    items = response['Items']
+    while True:
+        print len(response['Items'])
+        if response.get('LastEvaluatedKey'):
+            response = table.query(ExclusiveStartKey=response['LastEvaluatedKey'])
+            items += response['Items']
+        else:
+            break
+    return items
+
+def add_remediated_dynamo(finding_id, remediated, project, finding_name):
+    """Crea o actualiza un registro de remediado"""
+    table = dynamodb_resource.Table('remediated')
+    item = get_remediated_dynamo(finding_id)
+    if item == []:
+        try:
+            response = table.put_item(
+                Item={
+                    'finding_id': finding_id,
+                    'remediated': remediated, 
+                    'project': project,
+                    'finding_name': finding_name,               
+                }
+                )
+            resp = response['ResponseMetadata']['HTTPStatusCode'] == 200
+            return resp
+        except ClientError:
+            rollbar.report_exc_info()
+            return False
+    else:
+        try:
+            response = table.update_item(
+                Key={
+                    'finding_id': finding_id,
+                },
+                UpdateExpression='SET remediated = :val1',
+                ExpressionAttributeValues={
+                    ':val1': remediated
+                }
+            )
+            resp = response['ResponseMetadata']['HTTPStatusCode'] == 200
+            return resp
+        except ClientError:
+            rollbar.report_exc_info()
+            return False

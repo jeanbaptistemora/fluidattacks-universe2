@@ -27,6 +27,7 @@ from .mailer import send_mail_delete_finding
 from .mailer import send_mail_remediate_finding
 from .mailer import send_mail_new_comment
 from .mailer import send_mail_reply_comment
+from .mailer import send_mail_verified_finding
 from .services import has_access_to_project
 from .dao import integrates_dao
 from .api.drive import DriveAPI
@@ -673,6 +674,10 @@ def finding_solved(request):
     """ Envia un correo solicitando la revision de un hallazgo """
     parameters = request.POST.dict()
     recipients = integrates_dao.get_project_users(parameters['data[project]'])
+    remediated = integrates_dao.add_remediated_dynamo(int(parameters['data[finding_id]']), True, parameters['data[project]'], parameters['data[finding_name]'])
+    if not remediated:
+        rollbar.report_message('Error: An error occurred when remediating the finding', 'error', request) 
+        return util.response([], 'Error', True)
     # Send email parameters
     try:
         to = [x[0] for x in recipients]
@@ -693,6 +698,52 @@ def finding_solved(request):
     except KeyError:
         rollbar.report_exc_info(sys.exc_info(), request)
         return util.response([], 'Campos vacios', True)
+
+@never_cache
+@require_http_methods(["POST"])
+@authorize(['analyst'])
+def finding_verified(request):
+    """ Envia un correo informando que el hallazgo fue verificado """
+    parameters = request.POST.dict()
+    recipients = integrates_dao.get_project_users(parameters['data[project]'])
+    verified = integrates_dao.add_remediated_dynamo(int(parameters['data[finding_id]']), False, parameters['data[project]'], parameters['data[finding_name]'])
+    if not verified:
+        rollbar.report_message('Error: An error occurred when verifying the finding', 'error', request) 
+        return util.response([], 'Error', True)
+    # Send email parameters
+    try:
+        to = [x[0] for x in recipients]
+        to.append('concurrent@fluid.la')
+        to.append('projects@fluid.la')
+        to.append('ralvarez@fluid.la')
+        context = {
+           'project': parameters['data[project]'],
+           'finding_name': parameters['data[finding_name]'],
+           'user_mail': parameters['data[user_mail]'],
+           'finding_url': parameters['data[finding_url]'],
+           'finding_id': parameters['data[finding_id]'],
+           'finding_vulns': parameters['data[finding_vulns]'],
+           'company': request.session["company"],
+            }
+        send_mail_verified_finding(to, context)
+        return util.response([], 'Success', False)
+    except KeyError:
+        rollbar.report_exc_info(sys.exc_info(), request)
+        return util.response([], 'Campos vacios', True)
+
+@never_cache
+@csrf_exempt
+@require_http_methods(["GET"])
+@authorize(['analyst', 'customer'])
+def get_remediated(request):
+    finding_id = request.GET.get('id', "")
+    remediated = integrates_dao.get_remediated_dynamo(int(finding_id))
+    if remediated == []:
+        return util.response({'remediated': False}, 'Success', False)
+    resp = False
+    for row in remediated:
+        resp = row['remediated']
+    return util.response({'remediated': resp}, 'Success', False)
 
 @never_cache
 @csrf_exempt

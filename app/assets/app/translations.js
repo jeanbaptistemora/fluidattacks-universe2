@@ -122,7 +122,9 @@ integrates.config(['$translateProvider', function($translateProvider) {
               'update_treatment': 'Update',
               'update_treatmodal': 'Update Treatment',
               'remediated': 'Remediated',
-              'remediated_finding': 'Finding remediated'
+              'remediated_finding': 'Finding remediated',
+              'verified': 'Verified',
+              'verified_finding': 'Finding verified'
             },
             'tab_cssv2':{
               'description_name': 'Severity',
@@ -249,7 +251,8 @@ integrates.config(['$translateProvider', function($translateProvider) {
           'short_comment':'You must enter a justification of at least 50 characters and maximum 80 characters',
           'congratulation':'Congratulations',
           'updated_treat':'Treatment updated',
-          'remediated_success':'This finding was marked as remediated. A request to verify the solution was sent'
+          'remediated_success':'This finding was marked as remediated. A request to verify the solution was sent',
+          'verified_success':'This finding was marked as verified.'
         },
         'tab_container':{
           'findings': 'Findings',
@@ -604,7 +607,9 @@ integrates.config(['$translateProvider', function($translateProvider) {
               'update_treatment': 'Actualizar',
               'update_treatmodal': 'Actualizar Tratamiento',
               'remediated': 'Remediado',
-              'remediated_finding': 'Hallazgo remediado'
+              'remediated_finding': 'Hallazgo remediado',
+              'verified': 'Verificado',
+              'verified_finding': 'Hallazgo verificado'
             },
             'tab_cssv2':{
               'description_name': 'Severidad',
@@ -731,7 +736,8 @@ integrates.config(['$translateProvider', function($translateProvider) {
           'short_comment':'Debes ingresar una justificación de mínimo 50 caracteres y máximo 80 caracteres',
           'congratulation':'Felicidades',
           'updated_treat':'El tratamiento fue actualizado',
-          'remediated_success':'El hallazgo fue marcado como remediado, la solicitud de revisión de la solución fue enviada'
+          'remediated_success':'El hallazgo fue marcado como remediado, la solicitud de revisión de la solución fue enviada',
+          'verified_success':'El hallazgo fue marcado como remediado.'
         },
         'tab_container':{
           'findings': 'Hallazgos',
