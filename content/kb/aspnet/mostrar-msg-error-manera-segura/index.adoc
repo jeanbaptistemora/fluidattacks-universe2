@@ -26,14 +26,14 @@ bajo las cuales la siguiente solución tiene sentido:
 Un aspecto importante del desarrollo de aplicaciones seguras
 es evitar que se filtre información relevante.
 Los mensajes de error le pueden dar a un atacante
-una idea del funcionamiento interno de la aplicación <<r1, [1]>> .
+una idea del funcionamiento interno de la aplicación <<r1, ^[1]^>> .
 Cuando la aplicación muestra mensajes de error, 
 no debe revelar información que a un usuario malintencionado 
 le pueda resultar útil en el ataque a su sistema. 
 Por ejemplo, si la aplicación intenta sin éxito 
 iniciar sesión en una base de datos, 
 no debe mostrar un mensaje de error 
-que incluya el nombre del usuario que está utilizando <<r2, [2]>>.
+que incluya el nombre del usuario que está utilizando <<r2, ^[2]^>>.
 
 Existen diversas maneras de controlar mensajes de error, 
 incluyendo las siguientes:
