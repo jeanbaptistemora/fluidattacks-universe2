@@ -49,7 +49,7 @@ con un uso eficiente de recursos en +ASP.NET+
 se recurre a la sentencia +finally+. 
 Al enviar un bloque de código a +finally+
 es posible limpiar todos los recursos
-localizados en una sentencia +try+ <<r1 , [1]>>.
+localizados en una sentencia +try+ <<r1 , ^[1]^>>.
 La ventaja de la sentencia +finally+ es
 que permite ser ejecutada cada vez 
 que una excepción ocurre en el bloque +try+. 
@@ -96,7 +96,7 @@ al intentar abrir un archivo no válido:
 
 . El bloque +catch+ capturará la excepción 
 y ejecutará el código definido por el usuario 
-en caso de presentarse dicha excepción <<r2, [2]>>. 
+en caso de presentarse dicha excepción <<r2, ^[2]^>>. 
 Como se muestra a continuación:
 +
 [source, c, linenums]
