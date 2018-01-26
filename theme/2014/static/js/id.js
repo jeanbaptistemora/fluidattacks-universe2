@@ -5,6 +5,7 @@
       for (j = 0; j < titles.length; j++) {
         var str = titles[j].innerText;
         if (titles[j].id == "" || titles[j].id.indexOf("_") >= 0) {
+          str = str.replace(/^[0-9].*\.\s+/, '');
           str = str.replace(/\s+/g, '-').toLowerCase();
           var replaceChars={ "á":"a" ,"é":"e", "í":"i", "ó":"o", "ú":"u" };
           str = str.replace(/[áéíóú]/g, function(match) {return replaceChars[match];});
