@@ -76,10 +76,17 @@ WORKDIR /root/
 # Remover archivo index, clonar repositorio Integrates $CI_COMMIT_REF_NAME y ejecuta el ansible
 RUN rm -r /var/www/html \
     && git clone -b $CI_COMMIT_REF_NAME https://$FI_GITLAB_LOGIN:$FI_GITLAB_PASSWORD@gitlab.com/fluidsignal/integrates.git  /usr/src/app \
+    && gem install asciidoctor-pdf --pre \
+    && ls /usr/src/app/app/documentator \
+    && chown -R www-data:www-data  /usr/src/app/app/documentator \
+    && chmod -R 0744 /usr/src/app/app/documentator  \
+    && chown -R www-data:www-data $FI_DOCUMENTROOT \
+    && /usr/src/app/manage.py makemigrations \
+    && /usr/src/app/manage.py migrate \
+    && /usr/src/app/manage.py crontab add \
+    && a2dismod python \
+    && a2enmod ssl \
     && ansible-playbook main.yml --vault-password-file .vault.txt
-
-# Ejecuta el ansible
-RUN ansible-playbook main.yml --vault-password-file .vault.txt
 
 # Primer comando
 CMD /usr/src/app/manage.py bot
