@@ -18,7 +18,7 @@ bajo las cuales la siguiente solución tiene sentido:
 
 . Se está desarrollando una aplicación en COBOL.
 . El código debe compilarse 
-o interpretarse de forma estricta. [1]
+o interpretarse de forma estricta<<r1,^[1]^>>.
 
 == Solución
 
@@ -31,7 +31,7 @@ Este parámetro aplica de manera individual
 a cada unidad dentro del miembro del archivo fuente.
 
 . Se debe especificar un número de uno 
-o dos dígitos, desde 0 hasta 29 [2], 
+o dos dígitos, desde 0 hasta 29<<r2,^[2]^>>, 
 el cual es el nivel de severidad que usted desea 
 para determinar si el objeto es creado o no. 
 Ningún programa es creado 
@@ -42,24 +42,16 @@ o mayor a la especificada.
 los niveles de severidad 
 para diferentes tipos de mensajes:
 +
-|===
+.Niveles de severidad para diferentes tipos de mensajes.
+[options="header"]
+|====
 |Severidad |Tipo de mensaje
-
-|00 - 04
-|Información
-
-|05 - 19
-|Advertencia
-
-|20 - 29
-|Error
-
-|30 - 39
-|Severo
-
-|40 - 99
-|Terminal
-|===
+|00 - 04   |Información
+|05 - 19   |Advertencia
+|20 - 29   |Error
+|30 - 39   |Severo
+|40 - 99   |Terminal
+|====
 
 . Para compilar un programa en COBOL de forma estricta, 
 se debe usar "0" como argumento en el parámetro GENLVL. 
@@ -69,12 +61,12 @@ se usa el siguiente comando:
 +
 [source,cobol,linenums]
 ----
-CRTBNDCBL
-PGM(FLUID/COBOLSTR)
-SRCFILE(FLUID/SOURCE)
-SRCMBR(COBOLSTR)
-GENLVL(0)
-REPLACE(*YES)
+      CRTBNDCBL
+      PGM(FLUID/COBOLSTR)
+      SRCFILE(FLUID/SOURCE)
+      SRCMBR(COBOLSTR)
+      GENLVL(0)
+      REPLACE(*YES)
 ----
 
 . El anterior programa es creado exitosamente, 
@@ -84,14 +76,14 @@ es el que puede observar a continuación:
 +
 [source,cobol,linenums]
 ----
-       IDENTIFICATION DIVISION.
-       PROGRAM-ID. COBOLSTR.
-       ENVIRONMENT DIVISION.
-       DATA DIVISION.
-       PROCEDURE DIVISION.
-       MAIN.
-           DISPLAY "Programa estricto".
-           STOP RUN.
+      IDENTIFICATION DIVISION.
+      PROGRAM-ID. COBOLSTR.
+      ENVIRONMENT DIVISION.
+      DATA DIVISION.
+      PROCEDURE DIVISION.
+      MAIN.
+          DISPLAY "Programa estricto".
+          STOP RUN.
 ----
 +
 En el anterior bloque de código se puede observar 
@@ -105,19 +97,19 @@ En este caso es COBOLSTR.
 * *ENVIRONMENT DIVISION:* el objetivo de esta división
 es describir el ambiente 
 sobre el cual se desarrolló 
-y va a ser ejecutado el programa [3].
+y va a ser ejecutado el programa<<r3,^[3]^>>.
 En este caso dicha división no es implementada.
 
 * *DATA DIVISION:* en esta división se declaran 
 nombres de campos, registros, variables, etc. 
-Es decir, se especifica cada dato utlizado por el programa [4].
+Es decir, se especifica cada dato utlizado por el programa<<r4,^[4]^>>.
 En este caso dicha división no es implementada.
 
 * *PROCEDURE DIVISION:* en esta división se definen 
 todos los procesos necesarios 
 para que el programa funcione.
 Dicho de otra manera, 
-consta de todo el algoritmo del programa [5].
+consta de todo el algoritmo del programa<<r5,^[5]^>>.
 Para este caso, el programa además de 
 ser compilado de forma estrica, 
 imprime un texto en pantalla 
@@ -125,8 +117,9 @@ mediante la instrucción DISPLAY.
 
 == Referencias
 
-. REQ.0152: El código debe compilarse o interpretarse de forma estricta.
-. https://www.ibm.com/support/knowledgecenter/en/ssw_ibm_i_72/cl/crtcblpgm.htm[Create COBOL Program.]
-. http://www.escobol.com/modules.php?name=Sections&op=printpage&artid=12[Environment Division.]
-. http://www.escobol.com/modules.php?name=Sections&op=printpage&artid=13[Data Division.]
-. http://www.escobol.com/modules.php?name=Sections&op=printpage&artid=14[Procedure Division.]
+. [[r1]] REQ.0152: El código debe compilarse 
+o interpretarse de forma estricta.
+. [[r2]] link:https://www.ibm.com/support/knowledgecenter/en/ssw_ibm_i_72/cl/crtcblpgm.htm[Create COBOL Program].
+. [[r3]] link:http://www.escobol.com/modules.php?name=Sections&op=printpage&artid=12[Environment Division].
+. [[r4]] link:http://www.escobol.com/modules.php?name=Sections&op=printpage&artid=13[Data Division].
+. [[r5]] link:http://www.escobol.com/modules.php?name=Sections&op=printpage&artid=14[Procedure Division].
