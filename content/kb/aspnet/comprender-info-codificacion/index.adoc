@@ -9,7 +9,7 @@
 
 == Necesidad
 
-Comprender conceptos de la codificación segura (ASP.Net).
+Comprender conceptos de la codificación segura en +ASP.Net+.
 
 == Contexto
 
@@ -17,7 +17,7 @@ A continuación se describen las circunstancias
 bajo las cuales la siguiente solución tiene sentido:
 
 . La aplicación está construida 
-con el lenguaje de programación ASP.Net.
+con el lenguaje de programación +ASP.Net+.
 
 == Solución
 
@@ -26,12 +26,12 @@ El código neutral con respecto a la seguridad
 no realiza ninguna acción concreta 
 con el sistema de seguridad. 
 Puede aprovechar las ventajas 
-de las tecnologías de seguridad de .NET Framework.
+de las tecnologías de seguridad de +.NET Framework+.
 +
 Una biblioteca neutral respecto a la seguridad 
 posee características importantes de comprender. 
 Suponga que la biblioteca proporciona 
-los elementos de la API que utilizan archivos 
+los elementos de la +API+ que utilizan archivos 
 o llaman a código no administrado. 
 Si su código no tiene el correspondiente permiso, 
 entonces no se ejecutará de la forma descrita. 
@@ -41,7 +41,7 @@ deberá tener el mismo permiso para funcionar correctamente.
 +
 Si el código que realiza la llamada 
 no tiene el permiso necesario, 
-aparece una excepción _SecurityException_. 
+aparece una excepción +SecurityException+. 
 Lo anterior es resultado del recorrido de pila 
 de seguridad de acceso a código.
 
@@ -61,13 +61,13 @@ Además, es posible que el código
 admita los datos proporcionados por el usuario 
 desde Internet o de otras fuentes que no sean de confianza. 
 En este caso es necesario tener mucho cuidado 
-con las entradas malintencionadas.
+con las entradas malintencionadas <<r1 ,^[1]^>>.
 
 . *Implementación de contenedor administrado en código nativo:*
 Normalmente, en este escenario se implementa 
 alguna funcionalidad muy útil en código nativo. 
 Ésto se realiza con el fin de que esté disponible para código administrado. 
-Con la invocación de plataforma o la interoperabilidad COM 
+Con la invocación de plataforma o la interoperabilidad +COM+ 
 es fácil escribir contenedores administrados. 
 No obstante, si los escribe de esta forma, 
 los llamadores de los contenedores 
@@ -100,27 +100,27 @@ la más peligrosa si se realiza incorrectamente.
 La biblioteca se utiliza como una interfaz 
 para que otro código tenga acceso a determinados recursos 
 que normalmente no estarían disponibles. 
-Al igual que la clases de.NET Framework 
+Al igual que la clases de +.NET Framework+ 
 exigen permisos en los recursos que utilizan. 
 +
 En cualquier parte que exponga un recurso, 
 el código debe exigir el permiso apropiado al recurso.
 A continuación, se deben declarar sus derechos 
-para ejecutar la operación en curso.
+para ejecutar la operación en curso <<r2 ,^[2]^>>.
 
 . *Instrucciones de codificación segura:*
 La directiva de seguridad basada 
 ofrece mecanismos explícitos y muy eficaces 
 para implementar el sistema de seguridad. 
 Con la mayor parte del código de la aplicación 
-se puede usar la infraestructura implementada por .NET Framework. 
+se puede usar la infraestructura implementada por +.NET Framework+. 
 +
 En algunos casos, es necesario utilizar 
 una seguridad específica de la aplicación. 
 Ésta se crea mediante la extensión del sistema de seguridad 
-o con nuevos métodos ad hoc.
+o con nuevos métodos +ad hoc+.
 +
-Con los permisos que exige .NET Framework 
+Con los permisos que exige +.NET Framework+ 
 se deben construir las barreras que impidan 
 que un código malicioso realice acciones no deseadas. 
 Además, mediante el código de confianza 
@@ -129,7 +129,7 @@ y la capacidad de uso en todos los escenarios esperados.
 
 == Referencias
 
-. https://www.codeproject.com/Articles/1116318/Points-to-Secure-Your-ASP-NET-MVC-Applications[Secure Your ASP.NET MVC Applications]
-. https://www.infragistics.com/community/blogs/b/brijmishra/posts/9-tips-for-writing-secure-applications-in-asp-net[Tips for Writing Secure Applications in ASP.NET]
+. [[r1]] link:https://www.codeproject.com/Articles/1116318/Points-to-Secure-Your-ASP-NET-MVC-Applications[Secure Your ASP.NET MVC Applications]
+. [[r2]] link:https://www.infragistics.com/community/blogs/b/brijmishra/posts/9-tips-for-writing-secure-applications-in-asp-net[Tips for Writing Secure Applications in ASP.NET]
 
 
