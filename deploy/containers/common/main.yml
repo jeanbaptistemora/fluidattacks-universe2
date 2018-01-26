@@ -14,23 +14,6 @@
    - name: Incluir llaves de cifrado
      include_vars: vars/key.yml
 
-   - name: Agregar netrc
-     template:
-      src: "vars/netrc.j2"
-      dest: "/root/.netrc"
-      mode: "0600"
-
-   - name: Remover archivo index
-     file:
-      path: "/var/www/html"
-      state: absent
-
-   - name: Clonar repositorio integrates {{ lookup('env','CI_COMMIT_REF_NAME') }}
-     git:
-      repo: "https://gitlab.com/fluidsignal/integrates.git"
-      dest: "/usr/src/app"
-      version: "{{ lookup('env','CI_COMMIT_REF_NAME') }}"
-
    - name: Instalar Gema Asciidoctor
      command: >
       gem install asciidoctor-pdf --pre

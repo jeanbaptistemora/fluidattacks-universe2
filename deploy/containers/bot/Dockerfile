@@ -73,6 +73,11 @@ ADD .vault.txt /root/
 # Cambia al directorio root
 WORKDIR /root/
 
+# Remover archivo index, clonar repositorio Integrates $CI_COMMIT_REF_NAME y ejecuta el ansible
+RUN rm -r /var/www/html \
+    && git clone -b $CI_COMMIT_REF_NAME https://$FI_GITLAB_LOGIN:$FI_GITLAB_PASSWORD@gitlab.com/fluidsignal/integrates.git  /usr/src/app \
+    && ansible-playbook main.yml --vault-password-file .vault.txt
+
 # Ejecuta el ansible
 RUN ansible-playbook main.yml --vault-password-file .vault.txt
 
