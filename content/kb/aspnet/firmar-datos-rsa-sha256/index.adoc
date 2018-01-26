@@ -9,14 +9,14 @@
 
 == Necesidad
 
-Firma de datos con RSA y SHA256 en ASP.Net.
+Firma de datos con +RSA+ y +SHA256+ en +ASP.Net+.
 
 == Contexto
 
 A continuación se describen las circunstancias 
 bajo las cuales la siguiente solución tiene sentido:
 
-. Se está desarrollando una aplicación en ASP.Net.
+. Se está desarrollando una aplicación en +ASP.Net+.
 . Se desea firmar contenido.
 
 == Solución
@@ -37,19 +37,19 @@ Además, una firma digital debe ser:
 * *Innegable:* El firmante no puede negar su propia firma.
 * *Viable:* Fácil de generar.
 
-En ASP.NET es posible generar firmas digitales 
-utilizando criptografía asimétrica RSA 
-o funciones hash criptográficas como SHA256. 
+En +ASP.NET+ es posible generar firmas digitales 
+utilizando criptografía asimétrica +RSA+ 
+o funciones hash criptográficas como +SHA256.+ 
 Para ello, se realizan los siguientes pasos:  
 
 . El primer ítem necesario es el certificado 
 con la respectiva clave privada. 
 Una posibilidad es leer el certificado 
 de la máquina local o el usuario actual 
-usando un archivo .cer 
+usando un archivo +.cer+ 
 que permita identificar la clave privada, 
 para luego enumerar los certificados 
-y el _hash_ correspondiente.
+y el +hash+ correspondiente <<r1, ^[1]^>>.
 A continuación se presenta una porción de código
 con el procedimiento anteriormente descrito:
 +
@@ -70,14 +70,14 @@ foreach( X509Certificate2 cert in store.Certificates)
 en que se obtenga el certificado con la clave privada, 
 en algunos casos se requiere reconstruirlo. 
 La razón por la cual esto se hace necesario 
-es para cambiar el CSP 
+es para cambiar el +CSP+ 
 (proveedor de servicios de criptografía), 
-ya que se va a usar SHA256 
-el cual es más seguro que otros hash 
-que han demostrado tener problemas de colisiones. 
+ya que se va a usar +SHA256+ 
+el cual es más seguro que otros +hash+ 
+que han demostrado tener problemas de colisiones <<r2, ^[2]^>>. 
 Lo primero que se hace es exportar la clave 
 y luego reimportarla usando cualquier formato intermedio, 
-en esta solución se usa XML.
+en esta solución se usa +XML+.
 +
 [source, java, linenums]
 ----
@@ -113,6 +113,6 @@ if (!key.VerifyData(data, CryptoConfig.MapNameToOID("SHA256"), sig))
 
 == Referencias
 
-. https://msdn.microsoft.com/es-es/library/system.security.cryptography.rsacryptoserviceprovider(v=vs.80).aspx[Microsoft, RSACryptoServiceProvider]
-. https://stackoverflow.com/questions/7444586/how-can-i-sign-a-file-using-rsa-and-sha256-with-net[StackOverFlow, Sign a File Using RSA and Sha256 with .NET]
+. [[r1]] link:https://stackoverflow.com/questions/7444586/how-can-i-sign-a-file-using-rsa-and-sha256-with-net[StackOverFlow, Sign a File Using RSA and Sha256 with .NET]
+. [[r2]] link:https://msdn.microsoft.com/es-es/library/system.security.cryptography.rsacryptoserviceprovider(v=vs.80).aspx[Microsoft, RSACryptoServiceProvider]
 . REQ.0173: Debe utilizarse firmas digitales para garantizar la autenticidad de información sensible
