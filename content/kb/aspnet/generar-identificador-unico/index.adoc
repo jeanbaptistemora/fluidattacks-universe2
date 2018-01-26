@@ -20,7 +20,7 @@ bajo las cuales la siguiente solución tiene sentido:
 . Se pretende utilizar un método estándar 
 para la creación de identificadores únicos.
 
-. La aplicación está desarrollada en ASP.Net.
+. La aplicación está desarrollada en +ASP.Net+.
 
 == Solución
 
@@ -34,19 +34,19 @@ a una baja probabilidad de crear dos números iguales.
 "Luego de generar 1 billón de UUIDs 
 cada segundo por los siguientes 100 años, 
 la probabilidad de crear uno que esté duplicado 
-sería cerca del 50%" [1].
+sería cerca del 50%" <<r1,^[1]^>>.
 
 Un UUID está conformado por 
 5 grupos de dígitos en formato hexadecimal de 
 longitud 8-4-4-4-12 respectivamente separados por guiones, 
 para un total de 36 caracteres (32 dígitos y 4 guiones).
-Un ejemplo de un UUID en su forma canónica es es siguiente:
+Un ejemplo de un +UUID+ en su forma canónica es es siguiente:
 
 ----
 550e8400-e29b-41d4-a716-446655440000
 ----
 
-Los UUIDs tienen un campo de aplicación 
+Los +UUIDs+ tienen un campo de aplicación 
 bastante extenso en diferentes áreas. 
 Entre los ejemplos de aplicación de un UUID se cuenta:
 
@@ -58,22 +58,22 @@ Entre los ejemplos de aplicación de un UUID se cuenta:
 
 * Procesos de construcción de Software.
 
-El identificador global único o GUID, 
-es la implementación de UUID de Microsoft.
-El GUID es utilizado para distinguir interfaces 
-de componentes software diferentes [2], 
+El identificador global único o +GUID+, 
+es la implementación de +UUID+ de +Microsoft+.
+El +GUID+ es utilizado para distinguir interfaces 
+de componentes software diferentes <<r2, ^[2]^>>, 
 esto quiere decir que dos componentes
 con un mismo nombre y versión,
 puede mostrarse de forma diferente al usuario,
-si tiene un GUID diferente.
+si tiene un +GUID+ diferente.
 
-Un GUID es tratado como un objeto,
-cuando es insertado en programas de Microsoft Office,
+Un +GUID+ es tratado como un objeto,
+cuando es insertado en programas de +Microsoft Office+,
 pero también puede ayudar a identificar
 flujos de audio y video. 
 
-. A continuación se muestra como generar un GUID desde programación.
-Para ello se utilizará el método _NewGuid_ de la librería _System_.
+. A continuación se muestra como generar un +GUID+ desde programación.
+Para ello se utilizará el método +NewGuid+ de la librería +System+.
 A continuación se muestra la implementación del método anteriormente descrito:
 +
 [source, c, linenums]
@@ -92,8 +92,8 @@ namespace LineaBase
 }
 ----
 
-. Como se observa, basta con llamar el método estático _NewGuid_ 
-de la estructura Guid [3].
+. Como se observa, basta con llamar el método estático +NewGuid+ 
+de la estructura +Guid+ <<r3, ^[3]^>>.
 Se pueden evidenciar diferentes identificadores 
 al compilar y ejecutar la aplicación:
 +
@@ -118,10 +118,10 @@ Copyright (C) Microsoft Corporation. All rights reserved.
 
 == Referencias
 
-. https://en.wikipedia.org/w/index.php?title=Universally_unique_identifier&oldid=457875938[Universally unique identifier, Wikipedia]
+. [[r1]] link:https://en.wikipedia.org/w/index.php?title=Universally_unique_identifier&oldid=457875938[Universally unique identifier, Wikipedia]
 
-. https://es.wikipedia.org/wiki/Identificador_%C3%BAnico_global[Identificador Único Global]
+. [[r2]] link:https://es.wikipedia.org/wiki/Identificador_%C3%BAnico_global[Identificador Único Global]
 
-. https://msdn.microsoft.com/en-us/library/system.guid.newguid.aspx[Guid.NewGuid Method]
+. [[r3]] link:https://msdn.microsoft.com/en-us/library/system.guid.newguid.aspx[Guid.NewGuid Method]
 
-. REQ.0218: Los números aleatorios generados deben seguir una distribución uniforme.
+. [[r4]] REQ.0218: Los números aleatorios generados deben seguir una distribución uniforme.
