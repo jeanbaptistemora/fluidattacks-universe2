@@ -22,7 +22,7 @@ o interpretarse de forma estricta<<r1,^[1]^>>.
 
 == Solución
 
-. A través del parámetro _GENLVL_ del comando _CRTBNDCBL_, 
+. A través del parámetro +GENLVL+ del comando +CRTBNDCBL+, 
 se especifica el nivel de severidad 
 que determina si un objeto es creado. 
 La severidad corresponde al nivel de rigurosidad 
@@ -90,7 +90,7 @@ En el anterior bloque de código se puede observar
 las cuatro divisiones de las que 
 se compone un programa en COBOL:
 
-* *IDENTIFICATION DIVISION:* mediante la sentencia _PROGRAM-ID_
+* *IDENTIFICATION DIVISION:* mediante la sentencia +PROGRAM-ID+ 
 se especifica el nombre del programa.
 En este caso es COBOLSTR.
 
