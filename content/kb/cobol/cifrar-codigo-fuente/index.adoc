@@ -23,40 +23,40 @@ en entornos de producción
 sin exponer el código fuente.
 
 . El código fuente no debe ser accesible 
-en ambientes de producción (ej: compilación, ofuscación).[1]
+en ambientes de producción (ej: compilación, ofuscación)<<r1,^[1]^>>.
 
 == Solución
 
 Para el ejemplo se usará un programa sencillo hecho en COBOL:
 
-. Se define la primer división _IDENTIFICATION DIVISION_ 
+. Se define la primer división +IDENTIFICATION DIVISION+ 
 de todo programa en COBOL:
 +
 [source,cobol,linenums]
 ----
-IDENTIFICATION DIVISION.
-******************
-* Identification *
-******************
-PROGRAM-ID. COBOLDEBUG.
+      IDENTIFICATION DIVISION.
+      ******************
+      * Identification *
+      ******************
+      PROGRAM-ID. COBOLDEBUG.
 ----
 +
-En este caso mediante la instrucción _PROGRAM-ID_, 
+En este caso mediante la instrucción +PROGRAM-ID+, 
 se denomina al programa bajo el nombre de COBOLDEBUG.
 
-. La siguiente división a definir es la de _DATA DIVISION_.
+. La siguiente división a definir es la de +DATA DIVISION+.
 En esta división se declaran 
 nombres de campos, registros, variables, etc. 
-Es decir, se especifica cada tipo de dato utlizado por el programa [2].
+Es decir, se especifica cada tipo de dato utlizado por el programa <<r2,^[2]^>>.
 +
 [source,cobol,linenums]
 ----
-********
-* Data *
-********
-DATA DIVISION.
-WORKING-STORAGE SECTION.
-01 W01-COUNT PIC 9(02).
+      ********
+      * Data *
+      ********
+      DATA DIVISION.
+      WORKING-STORAGE SECTION.
+      01 W01-COUNT PIC 9(02).
 ----
 +
 Como se observa en el código anterior, 
@@ -68,32 +68,32 @@ de la línea que se imprimirá en pantalla:
 . En la división PROCEDURE DIVISION, 
 se definen todos los procesos necesarios 
 para que el programa funcione.
-Es decir, se especifia el algoritmo del programa [3].
+Es decir, se especifia el algoritmo del programa<<r3,^[3]^>>.
 Para este caso, recorremos de uno en uno la variable W01-COUNT 
 empezando en 1 y terminando en 9:
 +
 [source,cobol,linenums]
 ----
-********
-* Main *
-********
-PROCEDURE DIVISION.
-MAIN.
-PERFORM VARYING W01-COUNT FROM 1 BY 1 UNTIL W01-COUNT > 9
-DISPLAY "Linea " W01-COUNT
-END-PERFORM.
-STOP RUN.
+      ********
+      * Main *
+      ********
+      PROCEDURE DIVISION.
+      MAIN.
+      PERFORM VARYING W01-COUNT FROM 1 BY 1 UNTIL W01-COUNT > 9
+      DISPLAY "Linea " W01-COUNT
+      END-PERFORM.
+      STOP RUN.
 ----
 
 . La salida del anterior programa es similar a la siguiente:
 +
 [source,cobol,linenums]
 ----
-Linea 01
-Linea 02
-...
-Linea 08
-Linea 09
+      Linea 01
+      Linea 02
+      ...
+      Linea 08
+      Linea 09
 ----
 
 . Ahora se requiere depurar el programa en entornos de producción, 
@@ -102,7 +102,7 @@ una copia del código fuente es adjuntada con el programa,
 lo que le permitiría a un atacante 
 obtener el código fuente original de las aplicaciones compiladas. 
 Para evitar que la copia exacta del código se adjunte con el programa 
-se debe usar la opción DBGENCKEY [4], 
+se debe usar la opción DBGENCKEY<<r4,^[4]^>>, 
 la cual permite que se adjunte una copia del código fuente 
 cifrada con una clave proporcionada por el usuario. 
 En el momento de depuración, 
@@ -117,19 +117,19 @@ con la cual el código fuente será cifrado:
 +
 [source,cobol,linenums]
 ----
-CRTBNDCBL
-PGM(FLUID/COBOLDEBUG)
-SRCFILE(FLUID/QRPGSRC)
-SRCMBR(COBOLDEBUG)
-DBGVIEW(*LIST)
-DBGENCKEY('$ecr3t-K3y')
+      CRTBNDCBL
+      PGM(FLUID/COBOLDEBUG)
+      SRCFILE(FLUID/QRPGSRC)
+      SRCMBR(COBOLDEBUG)
+      DBGVIEW(*LIST)
+      DBGENCKEY('$ecr3t-K3y')
 ----
 
 . Para depurar el programa se ejecuta el siguiente comando:
 +
 [source,cobol,linenums]
 ----
-STRDBG COBOLDEBUG
+      STRDBG COBOLDEBUG
 ----
 
 . En este momento la aplicación solicita la clave 
@@ -145,7 +145,7 @@ image::debug-source-code.png[depuracion]
 
 == Referencias
 
-. REQ.0154: El código fuente debe estar ofuscado en ambiente de producción.
-. http://www.escobol.com/modules.php?name=Sections&op=printpage&artid=13[Data Division.]
-. http://www.escobol.com/modules.php?name=Sections&op=printpage&artid=14[Procedure Division.]
-. https://www.ibm.com/support/knowledgecenter/ssw_ibm_i_71/rbam6/encdbgview.htm[Encrypting the debug listing view.]
+. [[r1]] REQ.0154: El código fuente debe estar ofuscado en ambiente de producción.
+. [[r2]] link:http://www.escobol.com/modules.php?name=Sections&op=printpage&artid=13[Data Division].
+. [[r3]] link:http://www.escobol.com/modules.php?name=Sections&op=printpage&artid=14[Procedure Division].
+. [[r4]] link:https://www.ibm.com/support/knowledgecenter/ssw_ibm_i_71/rbam6/encdbgview.htm[Encrypting the debug listing view].
