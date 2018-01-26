@@ -9,14 +9,14 @@
 
 == Necesidad
 
-Generar números aleatorios seguros en ASP.Net.
+Generar números aleatorios seguros en +ASP.Net+.
 
 == Contexto
 
 A continuación se describen las circunstancias 
 bajo las cuales la siguiente solución tiene sentido:
 
-. Se está desarrollando una aplicación en ASP.Net.
+. Se está desarrollando una aplicación en +ASP.Net+.
 . Se desean generar números aleatorios seguros.
 
 == Solución
@@ -27,7 +27,7 @@ que sirven para asegurar archivos y documentos.
 Es por eso que es de vital importancia 
 que los números aleatorios sean siempre seguros
 para resistir posibles predicciones 
-o ataques de criptoanalistas [1]. 
+o ataques de criptoanalistas <<r1,^[1]^>>. 
 
 Existen diversas formas de generar números aleatorios, 
 un ejemplo es utilizando generadores físicos, 
@@ -58,7 +58,7 @@ que pueden ser generados a partir de código.
 De esta manera los números aleatorios 
 generados con un generador físico
 no pueden ser recreados 
-por ningún tipo de software.
+por ningún tipo de +software+.
 
 Otra forma de generar números aleatorios 
 es utilizando generadores basados en código,
@@ -71,14 +71,14 @@ y el mismo valor semilla
 es posible generar la misma secuencia de números.
 
 Para el caso de este artículo, 
-se hará uso de la clase _RNGCryptoServiceProvider_
+se hará uso de la clase +RNGCryptoServiceProvider+
 para generar números aleatorios
 criptográficamente seguros.
 Para ello debemos seguir los siguientes pasos:
 
-. La clase _RNGCryptoServiceProvider_ proporciona 
+. La clase +RNGCryptoServiceProvider+ proporciona 
 un generador de números pseudoaleatorios 
-usando la implementación de un proveedor de servicios criptográficos. 
+usando la implementación de un proveedor de servicios criptográficos <<r2, ^[2]^>>. 
 Esta clase no puede heredarse.
 Inicialmente se usan los siguientes componentes:
 +
@@ -99,10 +99,10 @@ generador de números pseudoaleatorios.
 +
 [source, java, linenums]
 ----
-RandomNumberGenerator rng = new _RNGCryptoServiceProvider()_;
+RandomNumberGenerator rng = new RNGCryptoServiceProvider();
 ----
 
-. El método _GetBytes_ llena un arreglo de bytes 
+. El método +GetBytes+ llena un arreglo de bytes 
 con una secuencia de valores aleatorios criptográficamente seguros.
 +
 [source,java,linenums]
@@ -120,11 +120,11 @@ string token = Convert.ToBase64String(tokenData);
 
 == Referencias
 
-. https://www.segu-info.com.ar/proyectos/p1_generador-numeros.htm[Generadores de números aleatorios]
-. https://msdn.microsoft.com/en-us/library/system.security.cryptography.rngcryptoserviceprovider.aspx[Microsoft, RNGCryptosServiceProvider]
-. REQ.0143: Debe utilizarse como mecanismo de cifrado asimétrico 
+. [[r1]] link:https://www.segu-info.com.ar/proyectos/p1_generador-numeros.htm[Generadores de números aleatorios]
+. [[r2]] link:https://msdn.microsoft.com/en-us/library/system.security.cryptography.rngcryptoserviceprovider.aspx[Microsoft, RNGCryptosServiceProvider]
+. [[r3]] REQ.0143: Debe utilizarse como mecanismo de cifrado asimétrico 
 un tamaño de clave mínimo de 2048 bits.
-. REQ.0219: Debe usarse el mecanismo criptográfico 
+. [[r4]] REQ.0219: Debe usarse el mecanismo criptográfico 
 más seguro ofrecido por la plataforma 
 (ej: java.security.SecureRandom) 
 para la generación de números aleatorios 
