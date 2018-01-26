@@ -32,7 +32,7 @@ y mejorando el rendimiento.
 
 El caché web, es un tipo especial de caché,
 que tiene por objetivo reducir el ancho de banda consumido,
-la carga de los servidores y el retraso de las descargas <<r1, [1]>>.
+la carga de los servidores y el retraso de las descargas <<r1, ^[1]^>>.
 Dentro de esta categoría se distinguen 3 tipos de caché web:
 
 * *Privados:* Funciona para un usuario.
@@ -43,14 +43,14 @@ En el ámbito del desarrollo web,
 es frecuente que las aplicaciones puedan aumentar el rendimiento
 si se almacenan en la memoria caché 
 los datos a los que se tiene acceso de forma frecuente
-y cuya creación requiere un tiempo de procesamiento significativo <<r2,[2]>>.
+y cuya creación requiere un tiempo de procesamiento significativo <<r2,^[2]^>>.
 Uno de los factores más críticos 
 a la hora de crear aplicaciones Web,
 que sean escalables y de alto rendimiento
 es la capacidad para almacenar elementos en memoria, 
 ya sean objetos de datos, páginas
 o secciones de páginas en el momento
-en el que son solicitados <<r3, [3]>>.
+en el que son solicitados <<r3, ^[3]^>>.
 Sin embargo, para mejorar la confidencialidad, 
 es importante limitar ciertas páginas de la aplicación 
 de ser almacenadas en caché por el navegador web. 
