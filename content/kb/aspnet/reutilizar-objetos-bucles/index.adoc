@@ -22,7 +22,7 @@ bajo las cuales la siguiente solución tiene sentido:
 
 . Teniendo en cuenta que +ASP.Net+ usa recolector de basura, 
 y sumado a las características del contexto anterior, 
-se tienen las siguientes implicaciones <<r1, [1]>>:
+se tienen las siguientes implicaciones <<r1, ^[1]^>>:
 
 * Cada objeto al ser creado 
 requiere recursos de memoria 
@@ -74,7 +74,7 @@ para el número máximo de caracteres que puede contener.
 El valor anteriormente mencionado se define 
 como la capacidad del objeto 
 y difiere de la longitud de la cadena 
-contenida en el objeto +StringBuilder+ en dicho momento  <<r2, [2]>>.
+contenida en el objeto +StringBuilder+ en dicho momento  <<r2, ^[2]^>>.
 +
 De acuerdo a lo anteriormente dicho, 
 se reutilizará el objeto haciendo uso de un bucle +for+.
