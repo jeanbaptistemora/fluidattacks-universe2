@@ -61,7 +61,7 @@ if pcregrep --color -Lnr --include='\.adoc' '^:alt:.*' content/blog*; then echo 
 if pcregrep --color -Mnr --include='\.adoc' '[a-zA-Z0-9].*\n.*\[source' content/kb; then echo -e "${GC}ERRORES: Los bloques de código deben estar separados del párrafo por un '+'${NC}"; ERRORS=1;fi
 
 # Check that the title of the website does not have more than 60 characters (Once "| FLUID" is attached)
-if pcregrep --color -ru --include='\.adoc' '^= [A-Z].{52}' content; then echo -e "${GC}ERRORES: Los títulos deben tener máximo 52 caracteres${NC}"; ERRORS=1;fi
+if pcregrep --color -ru --include='\.adoc' '^= [A-Z¿¡].{52}' content; then echo -e "${GC}ERRORES: Los títulos deben tener máximo 52 caracteres${NC}"; ERRORS=1;fi
 
 # Check that every .adoc has keywords defined
 if pcregrep -Lr --include='\.adoc' ':keywords:' content; then echo -e "${GC}ERRORES: El atributo \":keywords:\" debe estar definido en el .adoc${NC}"; ERRORS=1;fi

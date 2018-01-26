@@ -12,7 +12,7 @@
 :about1: Ingeniera en informatica
 :about2: Viajar para correr es un mundo de posibilidades
 
-= ¿Dónde se encuentra la seguridad con la privacidad de la información?
+= ¿Dónde se encuentra la seguridad con la privacidad?
 
 La protección de datos personales es un derecho fundamental que está vinculado 
 fuertemente con la globalización y el crecimiento en el uso de las tecnologías 

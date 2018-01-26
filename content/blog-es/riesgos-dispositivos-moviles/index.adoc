@@ -12,7 +12,7 @@
 :about1: Ingeniero en Sistemas.
 :about2: Apasionado por las redes la música y la seguridad.
 
-= ¿Está usted protegido? Riesgos en los dispositivos móviles.
+= ¿Estás protegido? Riesgos en dispositivos móviles.
 
 Hace un poco más de diez años, cuando aún era estudiante de colegio, recuerdo
 que en toda la institución sólo había tres alumnos que tenían celular. Eran
