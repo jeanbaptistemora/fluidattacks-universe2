@@ -1,8 +1,8 @@
 :slug: kb/windows/brindar-permiso-acceso-recursos/
 :eth: no
 :category: windows
-:description: TODO
-:keywords: TODO
+:description: En este instructivo, explicaremos paso a paso cómo dar permisos de acceso sobre recursos de Windows Server 2008 de forma centralizada.
+:keywords: windows, windows server 2008
 :kb: yes
 
 = Brindar Permisos de Acceso Sobre Recursos

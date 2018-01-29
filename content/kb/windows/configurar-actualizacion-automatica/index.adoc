@@ -1,8 +1,8 @@
 :slug: kb/windows/configurar-actualizacion-automatica/
 :eth: no
 :category: windows
-:description: TODO
-:keywords: TODO
+:description: En este instructivo, explicaremos paso a paso cómo actualizar y mantener versiones estables en Windows Server 2008.
+:keywords: windows, windows server 2008
 :kb: yes
 
 = Configurar Actualizaciones Automáticas
