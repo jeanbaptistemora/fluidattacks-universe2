@@ -42,6 +42,7 @@ PLUGINS = [
            'sitemap',
            'i18n_subsites',
            'pelican-redirect',
+           'tag_cloud'
 ]
 RELATED_POSTS_MAX = 3
 DIRECT_TEMPLATES = (('index', 'tags', 'categories', 'archives', 'authors', 'search'))

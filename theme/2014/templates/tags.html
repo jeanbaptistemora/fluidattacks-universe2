@@ -31,17 +31,18 @@
       </div>
       <h1>{{ gettext('Tags') }}:</h1>
       <div class="preamble">
-        <div class="itemlist">
-          <ul>
-            {%- for tag, articles in tags|sort %}
-              <li>
-                <a href="{{ tag.url }}">
-                  <p>{{ tag }} ({{ articles|count }})</p>
-                </a>
-              </li>
-            {% endfor %}
-          </ul>
-        </div>
+        <ul class="tagcloud">
+          {% for tag in tag_cloud %}
+            <li class="tag-{{ tag.1 }}">
+              <a href="{{ SITEURL }}/{{ tag.0.url }}">
+                {{ tag.0 }}
+                {% if TAG_CLOUD_BADGE %}
+                  <span class="badge">{{ tag.2 }}</span>
+                {% endif %}
+              </a>
+            </li>
+          {% endfor %}
+        </ul>
       </div>
     </article>
   </div>
