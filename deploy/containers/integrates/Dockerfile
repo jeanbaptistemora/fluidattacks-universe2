@@ -82,12 +82,16 @@ RUN rm -r /var/www/html \
     && mkdir /usr/src/app/app/documentator/results  \
     && chown -R www-data:www-data  /usr/src/app/app/documentator \
     && chmod -R 0744 /usr/src/app/app/documentator  \
+    && python /usr/src/app/deploy/containers/common/vars/render.py \
     && chown -R www-data:www-data $FI_DOCUMENTROOT \
     && /usr/src/app/manage.py makemigrations \
     && /usr/src/app/manage.py migrate \
     && /usr/src/app/manage.py crontab add \
     && a2dismod python \
     && a2enmod ssl \
+    && cd /usr/src/app/app/assets && npm install && cd \
+    && a2ensite integrates-ssl.conf \
+    && a2ensite 000-default.conf \
     && ansible-playbook main.yml --vault-password-file .vault.txt
 
 # Make port 80 and 443 available to the world outside this container

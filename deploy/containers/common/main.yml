@@ -14,36 +14,6 @@
    - name: Incluir llaves de cifrado
      include_vars: vars/key.yml
 
-   - name: Agregar drive authorization
-     template:
-      src: "vars/drive_authorization.j2"
-      dest: "/usr/src/app/config/drive_authorization.json"
-      mode: "0644"
-      owner: www-data
-      group: www-data
-
-   - name: Instala los paquetes de package.json.
-     npm:
-      path: "/usr/src/app/app/assets"
-
-   - name: Creando sitio web HTTPS
-     template:
-      src: "vars/integrates-ssl.j2"
-      dest: "/etc/apache2/sites-available/integrates-ssl.conf"
-      mode: "0644"
-
-   - name: Creando sitio web HTTP
-     template:
-      src: "vars/default.j2"
-      dest: "/etc/apache2/sites-available/000-default.conf"
-      mode: "0644"
-
-   - name: Habilitar sitio integrates HTTPS
-     command: "a2ensite integrates-ssl.conf"
-
-   - name: Habilitar sitio integrates HTTP
-     command: "a2ensite 000-default.conf"
-
    - name: Instalando certificado digital
      copy:
       content: '{{ ssl_cert }}'
