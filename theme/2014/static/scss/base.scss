@@ -567,6 +567,12 @@ article {
   }
 }
 
+@media(min-width: 980px) {
+  .at-expanding-share-button-desktop {
+    display: none;
+  }
+}
+
 @media print {
   .menubar,
   .comments,
