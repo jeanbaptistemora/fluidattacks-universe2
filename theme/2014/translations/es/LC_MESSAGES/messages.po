@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2018-01-26 22:39+0000\n"
+"POT-Creation-Date: 2018-01-29 15:07+0000\n"
 "PO-Revision-Date: 2017-12-21 15:09-0500\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: es\n"
@@ -25,7 +25,8 @@ msgstr "Archivos del Blog"
 #: templates/archives.html:18 templates/article.html:37
 #: templates/author.html:43 templates/authors.html:18
 #: templates/categories.html:18 templates/category.html:18
-#: templates/index.html:22 templates/tag.html:34 templates/tags.html:18
+#: templates/index.html:22 templates/page.html:37 templates/tag.html:34
+#: templates/tags.html:18
 msgid "Young hacker smiling"
 msgstr "Joven hacker sonriendo"
 
@@ -34,8 +35,17 @@ msgstr "Joven hacker sonriendo"
 msgid "Archives for"
 msgstr "Archivos para"
 
+#: templates/article.html:48 templates/author.html:52 templates/authors.html:28
+#: templates/categories.html:28 templates/category.html:27
+#: templates/footer.html:20 templates/footer.html:40 templates/footer.html:64
+#: templates/footer.html:78 templates/navigationbar.html:4
+#: templates/page.html:47 templates/tag.html:43 templates/tags.html:28
+msgid "Home"
+msgstr "Inicio"
+
 #: templates/article.html:49 templates/categories.html:8
-#: templates/categories.html:26
+#: templates/categories.html:29 templates/categories.html:32
+#: templates/category.html:28
 msgid "Categories"
 msgstr "Categorías"
 
@@ -72,7 +82,7 @@ msgstr "Foto del autor"
 msgid "Related"
 msgstr "Relacionado"
 
-#: templates/article.html:143
+#: templates/article.html:143 templates/page.html:81
 msgid "Leave a comment"
 msgstr "Haz un comentario"
 
@@ -80,24 +90,24 @@ msgstr "Haz un comentario"
 msgid "Articles by"
 msgstr "Artículos por"
 
-#: templates/author.html:50
+#: templates/author.html:53 templates/authors.html:8 templates/authors.html:29
+#: templates/authors.html:32 templates/footer.html:44 templates/footer.html:82
+msgid "Authors"
+msgstr "Autores"
+
+#: templates/author.html:57
 msgid "Author"
 msgstr "Autor"
 
-#: templates/author.html:52
+#: templates/author.html:59
 msgid "More authors"
 msgstr "Más autores"
-
-#: templates/authors.html:8 templates/authors.html:26 templates/footer.html:44
-#: templates/footer.html:82
-msgid "Authors"
-msgstr "Autores"
 
 #: templates/category.html:8
 msgid "Articles in the category"
 msgstr "Artículos en la categoría"
 
-#: templates/category.html:25
+#: templates/category.html:32
 msgid "Category"
 msgstr "Categoría"
 
@@ -245,11 +255,6 @@ msgstr "Servicios"
 msgid "fluid.la"
 msgstr "fluid.la/es/servicios/"
 
-#: templates/footer.html:20 templates/footer.html:40 templates/footer.html:64
-#: templates/footer.html:78 templates/navigationbar.html:4
-msgid "Home"
-msgstr "Inicio"
-
 #: templates/footer.html:21 templates/footer.html:65
 msgid "#lp-pom-block-965"
 msgstr "es/servicios/#lp-pom-block-1000"
@@ -351,19 +356,20 @@ msgstr "temas"
 msgid "Topics"
 msgstr "Temas"
 
-#: templates/footer.html:43 templates/footer.html:81 templates/tags.html:8
-#: templates/tags.html:26
+#: templates/footer.html:43 templates/footer.html:81 templates/tag.html:44
+#: templates/tags.html:8 templates/tags.html:29 templates/tags.html:32
 msgid "Tags"
 msgstr "Etiquetas"
 
 #: templates/footer.html:47 templates/footer.html:48 templates/footer.html:49
 #: templates/footer.html:50 templates/footer.html:85 templates/footer.html:86
 #: templates/footer.html:87 templates/footer.html:88
-#: templates/navigationbar.html:20
+#: templates/navigationbar.html:20 templates/page.html:53
+#: templates/page.html:54
 msgid "careers"
 msgstr "empleos"
 
-#: templates/footer.html:47 templates/footer.html:85
+#: templates/footer.html:47 templates/footer.html:85 templates/page.html:54
 msgid "Selection"
 msgstr "Selección"
 
@@ -473,7 +479,7 @@ msgstr "de"
 msgid "Tag"
 msgstr "Etiqueta"
 
-#: templates/tag.html:43
+#: templates/tag.html:50
 msgid "More tags"
 msgstr "Más etiquetas"
 

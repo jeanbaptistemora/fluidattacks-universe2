@@ -45,7 +45,7 @@
     <article>
       <div class="breadcrumbs">
         <ul>
-          <li><a href="{{ SITEURL }}">Blog</a></li>
+          <li><a href="{{ SITEURL }}">{{ gettext('Home') }}</a></li>
           <li><a href="{{ SITEURL }}/categories.html">{{ gettext('Categories') }}</a></li>
           <li><a href="{{ SITEURL }}/{{ category.url }}">{{ article.category|replace("-", " ") }}</a></li>
           <li><a href="#">{{ article.title }}</a></li>	
