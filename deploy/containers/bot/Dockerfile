@@ -77,7 +77,9 @@ WORKDIR /root/
 RUN rm -r /var/www/html \
     && git clone -b $CI_COMMIT_REF_NAME https://$FI_GITLAB_LOGIN:$FI_GITLAB_PASSWORD@gitlab.com/fluidsignal/integrates.git  /usr/src/app \
     && gem install asciidoctor-pdf --pre \
-    && ls /usr/src/app/app/documentator \
+    && mkdir /usr/src/app/app/documentator/images  \
+    && mkdir /usr/src/app/app/documentator/tpls  \
+    && mkdir /usr/src/app/app/documentator/results  \
     && chown -R www-data:www-data  /usr/src/app/app/documentator \
     && chmod -R 0744 /usr/src/app/app/documentator  \
     && chown -R www-data:www-data $FI_DOCUMENTROOT \
