@@ -4,7 +4,7 @@ NC='\033[0m'
 ERRORS=0
 
 # Search for incorrect names
-if pcregrep --color -nr --include='\.adoc' -e 'Fluid|Fluidsignal\ Group|fluidsignal' content; then echo -e "${GC}\nEl único nombre aceptado es FLUID${NC}"; ERRORS=1; fi
+if pcregrep --color -nr --include='\.adoc' -e 'Fluid|Fluidsignal\ Group|fluidsignal|\ fluid[)}\ \]]' content; then echo -e "${GC}\nEl único nombre aceptado es FLUID${NC}"; ERRORS=1; fi
 
 # Leave a blank space after a title
 if pcregrep --color -Mrn --include='\.adoc' '^=.*.[A-Z].*.*\n.*[A-Z]' content ; then echo -e "${GC}\nDejar un espacio en blanco luego de títulos${NC}"; ERRORS=1; fi
