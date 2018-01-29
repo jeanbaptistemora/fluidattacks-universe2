@@ -270,7 +270,7 @@ msgstr "es/servicios/#lp-pom-block-1090"
 
 #: templates/footer.html:22 templates/footer.html:66
 #: templates/navigationbar.html:19
-msgid "Clients"
+msgid "Customers"
 msgstr "Clientes"
 
 #: templates/footer.html:23 templates/footer.html:67
