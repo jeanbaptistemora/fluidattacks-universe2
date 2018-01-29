@@ -20,7 +20,7 @@ bajo las cuales la siguiente solución tiene sentido:
 . La aplicación no debe mostrar 
 el texto ingresado por el usuario (contraseñas, información sensible, etc).
 . Los datos de ambientes diferentes a producción 
-deben encontrarse enmascarados [1].
+deben encontrarse enmascarados<<r1,^[1]^>>.
 
 == Solución
 
@@ -35,33 +35,33 @@ deben encontrarse enmascarados [1].
       PROGRAM-ID. COBOLPASS.
 ----
 +
-Mediante _PROGRAM-ID_ definimos el nombre del programa, 
-en este caso _COBOLPASS_.
+Mediante +PROGRAM-ID+ definimos el nombre del programa, 
+en este caso COBOLPASS.
 
-. Declaramos las variables _username_ y _password_:
+. Declaramos las variables W01-USERNAME y W02-PASSWORD:
 +
 [source,cobol,linenums]
 ----
-       ********
-       * Data *
-       ********
-       DATA DIVISION.
+      ********
+      * Data *
+      ********
+      DATA DIVISION.
 
-       WORKING-STORAGE SECTION.
-       01 W01-USERNAME PIC X(20).
-       01 W02-PASSWORD PIC X(20).
+      WORKING-STORAGE SECTION.
+      01 W01-USERNAME PIC X(20).
+      01 W02-PASSWORD PIC X(20).
 ----
 +
 En esta división podemos definir entre otras cosas,
 las variables utilizadas por el programa.
-Para ello, dentro de la sección: _WORKING-STORAGE SECTION_
+Para ello, dentro de la sección: +WORKING-STORAGE SECTION+
 definimos todas las variables que se van a utilizar.
 Cada variable que se defina dentro de dicha sección,
-debe constar de las siguientes tres partes [2]:
+debe constar de las siguientes tres partes<<r2,^[2]^>>:
 
 * *Número de Nivel:* el número de nivel le informa al compilador 
 el tipo de campo utilizado. 
-En este caso es _01_, 
+En este caso es 01, 
 indicando la primer entrada de un registro 
 o la primer entrada de un campo que se va a subdividir.
 
@@ -76,35 +76,35 @@ W01-USERNAME y W02-PASSWORD.
 * *PICTURE/PIC:* el propósito de esta palabra reservada 
 es identificar el tipo de dato 
 que va a contener la variable. 
-En este caso su valor es _X_, 
+En este caso su valor es X, 
 indicando valores alfanuméricos 
 con 20 caracteres de longitud.
 
 . Definimos el algoritmo o 
 las tareas realizadas por el programa
-dentro de la división _PROCEDURE DIVISION_ [3]:
+dentro de la división +PROCEDURE DIVISION+<<r3,^[3]^>>:
 +
 [source,cobol,linenums]
 ----
       ********
       * Main *
       ********
-       PROCEDURE DIVISION.
-       MAIN.
-           DISPLAY "Username: ".
-           ACCEPT W01-USERNAME.
+      PROCEDURE DIVISION.
+      MAIN.
+          DISPLAY "Username: ".
+          ACCEPT W01-USERNAME.
 ----
 +
-Mediante DISPLAY podemos desplegar texto en pantalla
-y con la instrucción _ACCEPT_ [4][5]
-es posible capturar datos desde el teclado.
-En este caso se solicita el nombre de usuario
-y el valor ingresado por el usuario
+Mediante DISPLAY podemos desplegar texto en pantalla 
+y con la instrucción +ACCEPT+^<<r4,[4]>>,<<r5,[5]>>^ 
+es posible capturar datos desde el teclado. 
+En este caso se solicita el nombre de usuario 
+y el valor ingresado por el usuario 
 es almacenado en la variable W01-USERNAME.
 
 . De manera similar, la contraseña 
 es solicitada al usuario 
-y almacenada dentro de la variable W02-PASSWORD.
+y almacenada dentro de la variable W02-PASSWORD. 
 Sin embargo, en esta ocasión 
 el texto ingresado por el usuario 
 es enmascarado mediante las instrucciones NO-ECHO o SECURE 
@@ -112,18 +112,18 @@ de tal forma que un tercero no pueda visualizarlo:
 +
 [source,cobol,linenums]
 ----
-           DISPLAY "Password: ".
-           ACCEPT W02-PASSWORD WITH NO-ECHO.
-        
-           STOP RUN.
+      DISPLAY "Password: ".
+      ACCEPT W02-PASSWORD WITH NO-ECHO.
+       
+      STOP RUN.
 ----
 
-* Código de ejemplo: https://dyzz9obi78pm5.cloudfront.net/app/image/id/54f4cb237cb8292f5a4f507f/n/EnmascararTexto.zip[EnmascararTexto.zip]
+* Código de ejemplo: link:src.zip[src.zip]
 
 == Referencias
 
-. REQ.0152: El código debe compilarse o interpretarse de forma estricta.
-. http://www.escobol.com/modules.php?name=Sections&op=printpage&artid=13[Data Division.]
-. http://www.escobol.com/modules.php?name=Sections&op=printpage&artid=14[Procedure Division.]
-. https://www.ibm.com/support/knowledgecenter/SSQ2R2_14.0.0/com.ibm.etools.cbl.win.doc/topics/rlpsacce.htm[ACCEPT statement.]
-. https://supportline.microfocus.com/Documentation/AcucorpProducts/docs/v6_online_doc/gtman3/gt3678.htm[ACUCOBOL-GT Reference Manual.]
+. [[r1]] REQ.0152: El código debe compilarse o interpretarse de forma estricta.
+. [[r2]] link:http://www.escobol.com/modules.php?name=Sections&op=printpage&artid=13[Data Division].
+. [[r3]] link:http://www.escobol.com/modules.php?name=Sections&op=printpage&artid=14[Procedure Division].
+. [[r4]] link:https://www.ibm.com/support/knowledgecenter/SSQ2R2_14.0.0/com.ibm.etools.cbl.win.doc/topics/rlpsacce.htm[ACCEPT statement].
+. [[r5]] link:https://supportline.microfocus.com/Documentation/AcucorpProducts/docs/v6_online_doc/gtman3/gt3678.htm[ACUCOBOL-GT Reference Manual].
