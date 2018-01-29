@@ -64,6 +64,7 @@ El programa queda de la siguiente manera:
 
 1.Se importan las librerías necesarias:
 
+.test.py
 [source, python,linenums]
 ----
 from PIL import Image

@@ -54,6 +54,7 @@ es mayor a la longitud del número que lo contiene.
 
 * Se define la división IDENTIFICATION DIVISION [3][4].
 +
+.test.py
 [source, cobol,linenums]
 ----
        IDENTIFICATION DIVISION.

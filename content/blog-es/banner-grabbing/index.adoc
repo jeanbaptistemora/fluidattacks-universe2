@@ -61,6 +61,7 @@ aplicación que se encarga de filtrar todos los paquetes
 
 Ya sabiendo esto procedemos al análisis, usando el siguiente comando:
 
+.test.py
 [source, bash, linenums]
 ----
 % sudo nmap [options][url]

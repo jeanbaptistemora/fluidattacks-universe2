@@ -78,6 +78,7 @@ A continuación se muestra el uso de la clase +SHA256MANAGED+.
 . El primer paso es obtener un +array+ de bytes 
 de los caracteres dentro de la cadena.
 +
+.test.py
 [source,java,linenums]
 ----
 using System.Security.Cryptography;

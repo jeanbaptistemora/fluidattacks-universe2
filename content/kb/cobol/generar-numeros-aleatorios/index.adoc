@@ -35,6 +35,7 @@ ya que los números aleatorios podrían ser fácilmente predecibles.
 
 . Se da inicio a la solución definiendo la división IDENTIFICATION DIVISION [2]:
 +
+.test.py
 [source,cobol,linenums]
 ----
        IDENTIFICATION DIVISION.

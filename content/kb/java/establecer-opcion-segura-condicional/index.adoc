@@ -31,6 +31,7 @@ contemplar todos los posibles escenarios.
 al menos un argumento al ejecutar la aplicación y se almacena en la variable 
 entero convertida en entero.
 +
+.test.py
 [source, java, linenums]
 ----
 public class Main {

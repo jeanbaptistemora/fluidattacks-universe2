@@ -68,6 +68,7 @@ para las solicitudes posteriores.
 A continuación se presenta un ejemplo 
 de una autenticación con formularios:
 +
+.test.py
 [source, html]
 ----
 <forms loginUrl="Restricted\login.aspx"

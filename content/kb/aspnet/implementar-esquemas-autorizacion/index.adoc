@@ -81,6 +81,7 @@ a menos que los archivos de configuración
 en un subdirectorio modifiquen dichos permisos. 
 A continuación se presenta autorización:
 +
+.test.py
 [source, xml, linenums]
 ----
 <authorization>

@@ -66,6 +66,7 @@ la máquina virtual o el administrador del sistema. [5]
 . Empezamos importando las clases que pertenecen a la biblioteca io 
 y definiendo el nombre de la clase principal.
 +
+.test.py
 [source, java, linenums]
 ----
 import java.io.*;

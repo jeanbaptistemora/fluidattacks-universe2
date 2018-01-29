@@ -80,6 +80,7 @@ El cifrado se realiza
 utilizando el _RsaProtectedConfigurationProvider_ 
 especificado en la configuración del equipo.
 +
+.test.py
 [source,sh,linenums]
 ----
 aspnet_regiis -pe "connectionStrings" -app "/SampleApplication" 

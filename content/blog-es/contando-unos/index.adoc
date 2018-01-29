@@ -58,6 +58,7 @@ _El código en lenguaje *ruby* queda de la siguiente manera:_
 
 * Leemos cada nueva línea de texto:
 
+.test.py
 [source,ruby,linenums]
 ----
 class Number_ones

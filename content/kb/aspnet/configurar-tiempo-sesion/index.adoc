@@ -29,6 +29,7 @@ dentro del archivo de configuración _web.config_.
 El archivo debe tener las siguientes líneas:
 
 
+.test.py
 [source,xml,linenums]
 ----
 <?xml version="1.0" encoding="utf-8" ?>

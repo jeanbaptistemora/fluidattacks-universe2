@@ -60,6 +60,7 @@ Este procedimiento contempla ataques al usuario root.
 . Editamos el archivo /etc/pam.d/password-auth 
 y añadimos lo siguiente para que deshabilite la cuenta por 30 segundos:
 +
+.test.py
 [source, shell, linenums]
 ----
 auth required pam_tally2.so deny=3 even_deny_root unlock_time=30 audit 

@@ -41,6 +41,7 @@ hasta avanzados, algunos de estos ejercicios pueden resolverse a calculadora y
 lápiz y otros a través de scripts que realicen las complejas operaciones 
 rápidamente, como en el siguiente código: 
 
+.test.py
 [source, python,linenums]
 .mcm_mcd.py
 ----

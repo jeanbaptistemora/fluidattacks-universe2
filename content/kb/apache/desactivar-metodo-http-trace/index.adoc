@@ -66,6 +66,7 @@ dicho método en un servidor apache.
 ubicado generalmente en /etc/apache2/conf.d/security 
 y se edita la siguiente línea:
 +
+.test.py
 [source, shell, linenums]
 ----
 TraceEnable off

@@ -25,6 +25,7 @@ deben tener al menos 3 palabras de longitud<<r1,^[1]^>>.
 
 . Declaramos la división +IDENTIFICATION DIVISION+<<r2,^[2]^>>:
 +
+.test.py
 [source,cobol,linenums]
 ----
       IDENTIFICATION DIVISION.

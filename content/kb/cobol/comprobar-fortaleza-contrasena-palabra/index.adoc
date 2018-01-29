@@ -42,6 +42,7 @@ el programa mostrará el mensaje "Requisito incumplido".
 . Definimos el nombre del programa 
 mediante la sentencia +IDENTIFICATION DIVISION+:
 +
+.test.py
 [source,cobol,linenums]
 ----
       IDENTIFICATION DIVISION.

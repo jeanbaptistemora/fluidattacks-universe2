@@ -36,6 +36,7 @@ no deberían ignorarse.
 
 . Por ejemplo, se crea una clase que use el método stop de la clase Thread:
 +
+.test.py
 [source, java, linenums]
 ----
 class T implements Runnable {

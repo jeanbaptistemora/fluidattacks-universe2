@@ -36,6 +36,7 @@ está utilizando el compilador de Java.
 
 . Inicialmente comprobamos la versión instalada de nuestro entorno:
 +
+.test.py
 [source, bash, linenums]
 ----
 % java -version

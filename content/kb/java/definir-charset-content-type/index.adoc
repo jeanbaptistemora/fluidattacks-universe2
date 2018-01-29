@@ -33,6 +33,7 @@ pueden resultar en vulnerabilidades tipo XSS [1].
 . Dentro del directorio para despliegue de las aplicaciones (webapps), 
 crear la siguiente estructura de directorios:
 +
+.test.py
 [source, bash, linenums]
 ----
 % ls -R

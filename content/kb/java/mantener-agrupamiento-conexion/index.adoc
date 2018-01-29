@@ -42,6 +42,7 @@ cuando se establece la conexión por primera vez.
 
 . Iniciamos el desarrollo de la solución creando el archivo web.xml
 +
+.test.py
 [source, xml, linenums]
 ----
 <?xml version="1.0" encoding="ISO-8859-1"?>

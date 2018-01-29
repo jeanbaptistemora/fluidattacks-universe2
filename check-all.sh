@@ -58,7 +58,7 @@ if pcregrep --color -nr --include='\.adoc' '^= [A-Z].*\"' content; then echo -e 
 if pcregrep --color -Lnr --include='\.adoc' '^:alt:.*' content/blog*; then echo -e "${GC}ERRORES: Los artículos deben llevar meta-descripción \"alt\" para su imagen representativa${NC}"; ERRORS=1;fi
 
 # Check that code does not follow inmmediatly after a paragraph in the KB
-if pcregrep --color -Mnr --include='\.adoc' '[a-zA-Z0-9].*\n.*\[source' content/kb; then echo -e "${GC}ERRORES: Los bloques de código deben estar separados del párrafo por un '+'${NC}"; ERRORS=1;fi
+if pcregrep --color -Mnr --include='\.adoc' '^[a-zA-Z0-9].*\n.*\[source' content/kb; then echo -e "${GC}ERRORES: Los bloques de código deben estar separados del párrafo por un '+'${NC}"; ERRORS=1;fi
 
 # Check that the title of the website does not have more than 60 characters (Once "| FLUID" is attached)
 if pcregrep --color -ru --include='\.adoc' '^= [A-Z¿¡].{52}' content; then echo -e "${GC}ERRORES: Los títulos deben tener máximo 52 caracteres${NC}"; ERRORS=1;fi
@@ -79,7 +79,12 @@ for FILE in $(find content -iname '*.adoc'); do
 #    echo -e "${GC}Descriptions must have a minimum lenght of 50 characters. The previous description belongs to the file \"$FILE\"${NC}";
 #    ERRORS=1;
 #  fi
+  if pcregrep --color -Mq '^\[source' $FILE; then
+    if ! pcregrep --color -Mq '^\..*\n\[source' $FILE; then
+      echo -e "${GC}El primer código fuente del artículo \"$FILE\" debe llevar título.${NC}";
+      ERRORS=1;	
+    fi
+  fi
 done
-
 
 exit $ERRORS

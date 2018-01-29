@@ -28,6 +28,7 @@ forjar consultas maliciosas en las entradas de la aplicación.
 
 . Primero considere el siguiente archivo XML:
 +
+.test.py
 [source, xml, linenums]
 ----
 <?xml version="1.0" encoding="UTF-8"?>

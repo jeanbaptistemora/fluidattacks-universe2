@@ -48,6 +48,7 @@ se debe invocar el método getSession del objetoHttpServletRequest.
 Este método devuelve una referencia de la sesión actual 
 asociada con la solicitud [1].
 +
+.test.py
 [source, java, linenums]
 ----
 public void doPost (HttpServletRequest request, HttpServletResponse response)

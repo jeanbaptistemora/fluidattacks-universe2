@@ -45,6 +45,7 @@ dentro del elemento _configuration_
 en el archivo _web.config_ de la aplicación 
 utilizando la siguiente parametrización: 
 +
+.test.py
 [source,xml,linenums]
 ----
 <?xml version='1.0' encoding='utf-8'?>

@@ -33,6 +33,7 @@ ESAPI 2.0 se debe seguir los siguientes pasos:
 . Importar las clases org.owasp.esapi.ESAPI y la interfaz 
 org.owasp.esapi.Encoder.
 +
+.test.py
 [source, java, linenums]
 ----
 import org.owasp.esapi.ESAPI;

@@ -40,6 +40,7 @@ y tomando como usuarios los definidos para el propio servidor,
 se deberá agregar en el archivo tomcatusers.xml 
 usuarios con roles específicos, por ejemplo:
 +
+.test.py
 [source, xml, linenums]
 ----
 <tomcat-users> 

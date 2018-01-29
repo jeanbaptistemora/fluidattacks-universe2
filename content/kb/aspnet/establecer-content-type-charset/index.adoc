@@ -76,6 +76,7 @@ en el ensamblado _System.Web_ de _System.Web.dll_.
 A continuación se presenta un ejemplo de uso del _ContentType_:
 +
 
+.test.py
 [source, java, linenums]
 ----
 // Establece el contet type.

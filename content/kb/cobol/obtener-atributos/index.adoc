@@ -50,6 +50,7 @@ haciendo uso de QUSROBJD.
 
 . Se inicia definiendo la división IDENTIFICATION DIVISION:
 +
+.test.py
 [source, cobol,linenums]
 ----
        IDENTIFICATION DIVISION.

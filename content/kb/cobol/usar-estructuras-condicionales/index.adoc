@@ -29,6 +29,7 @@ como se muestra a continuación,
 se inicia la aplicación de prueba 
 declarando la división IDENTIFICATION DIVISION:
 +
+.test.py
 [source,cobol,linenums]
 ----
       IDENTIFICATION DIVISION.

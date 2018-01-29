@@ -70,6 +70,7 @@ se configuran por separado
 y consisten en métodos del objeto _Response_. 
 Para configurar el charset use, por ejemplo:
 +
+.test.py
 [source, html, linenums]
 ----
 <%Response.charset="utf-8"%>

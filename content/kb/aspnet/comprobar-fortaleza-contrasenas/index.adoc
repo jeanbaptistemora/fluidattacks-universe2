@@ -32,6 +32,7 @@ Iniciamos el desarrollo de la aplicación
 importando las clases necesarias 
 y definiendo el nombre de nuestra clase:
 +
+.test.py
 [source,java,linenums]
 ----
 using System.IO;

@@ -33,6 +33,7 @@ tal como está descrito en RFC 1750: Recomendaciones de aleatoriedad para la
 seguridad [2].
 . Se debe importar la clase !SecureRandom de la biblioteca security.
 +
+.test.py
 [source, java,linenums]
 ----
 import java.security.SecureRandom;

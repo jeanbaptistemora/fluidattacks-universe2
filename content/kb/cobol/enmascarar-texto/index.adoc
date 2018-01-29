@@ -26,6 +26,7 @@ deben encontrarse enmascarados<<r1,^[1]^>>.
 
 . Definimos las divisiones de la aplicación:
 +
+.test.py
 [source,cobol,linenums]
 ----
        IDENTIFICATION DIVISION.

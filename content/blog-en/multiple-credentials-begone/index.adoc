@@ -94,6 +94,7 @@ the tags is the signature or assertion the system needs. The
 getElementsByTagName() method returns a list of all the selected XML elements
 in the document. We focus on this method because it is the most popular amongst
 developers, probably because of its simplicity.
+.test.py
 [source, java,linenums]
 ----
 NodeList nodes = document.getElementsByTagName("saml:Assertion");

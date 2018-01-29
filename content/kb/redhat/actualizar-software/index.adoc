@@ -69,6 +69,7 @@ los paquetes descargados en el.
 
 . Ejecutar el siguiente comando y verificar que no haya ningún resultado
 +
+.test.py
 [source, bash]
 yum check-update
  

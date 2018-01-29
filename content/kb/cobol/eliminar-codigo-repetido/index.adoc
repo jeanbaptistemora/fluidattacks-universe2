@@ -51,6 +51,7 @@ y IN/OF de la sentencia COPY.
 . Por ejemplo, si usted omite la palabra reservada "OF", 
 la biblioteca por defecto es SYSLIB:
 +
+.test.py
 [source,cobol,linenums]
 ----
       COPY MEMBER1 OF COPYLIB

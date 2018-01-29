@@ -52,6 +52,7 @@ de las siguientes formas:
 
 . Se prepara el archivo con código Python que se quiere ofuscar.
 +
+.test.py
 [source, py, linenums]
 ----
 import unittest

@@ -43,6 +43,7 @@ Revisar las soluciones del contexto si no se conoce como realizar este proceso.
 . A continuación se muestra la estructura de carpetas 
 que debe contener la aplicación:
 +
+.test.py
 [source, bash, linenums]
 ----
 % ls -R *

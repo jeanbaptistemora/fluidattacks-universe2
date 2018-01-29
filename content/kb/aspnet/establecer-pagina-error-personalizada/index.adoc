@@ -30,6 +30,7 @@ que no haya fuga de información.
 en la sección _system.web_ verificar 
 que la propiedad _customErrors_ sea de la siguiente forma:
 
+.test.py
 [source,xml,linenums]
 ----
 <configuration>

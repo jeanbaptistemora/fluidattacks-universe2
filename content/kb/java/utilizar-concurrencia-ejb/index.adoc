@@ -39,6 +39,7 @@ que serán incluidas en el paquete Especialista.
 
 . Clase de la interface de negocio: Concurrencia.java:
 +
+.test.py
 [source, java,linenums]
 ----
 package Especialista;

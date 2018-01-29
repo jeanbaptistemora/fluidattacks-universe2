@@ -37,6 +37,7 @@ la autorización para realizar acciones vulnerables.
 También ocurren cuando la aplicación procesa las credenciales dadas 
 como parte de la petición. Por ejemplo:
 +
+.test.py
 [source, shell, linenums]
 ----
 http://www.sitio.com/accion/?usuario=usr&contrasena=pass

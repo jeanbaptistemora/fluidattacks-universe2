@@ -77,6 +77,7 @@ y que sólo debe usarse cuando se vaya a utilizar en una petición HTTP.
 la opción se puede habilitar 
 en el archivo php.ini a través del parámetro:
 +
+.test.py
 [source, shell, linenums]
 ----
 session.cookie_httponly = True

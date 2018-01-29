@@ -50,6 +50,7 @@ el estado de una sesión usando JSF.
 se establece, previamente, una referencia al objeto 
 ExternalContext de la siguiente forma:
 +
+.test.py
 [source, java, linenums]
 ----
 import javax.faces.context.ExternalContext;

@@ -42,6 +42,7 @@ pero en este caso utilizaremos la de .NET que funciona en Windows.
 
 . Ofuscaremos el siguiente código:
 +
+.test.py
 [source, js, linenums]
 ----
 function add(x, y) { 

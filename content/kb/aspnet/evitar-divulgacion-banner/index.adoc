@@ -30,6 +30,7 @@ es necesario establecer en +false+
 el valor del atributo +enableVersionHeader+ 
 del elemento +httpRuntime+ <<r1, ^[1]^>>.
 +
+.test.py
 [source, xml, linenums]
 ----
 <httpRuntime

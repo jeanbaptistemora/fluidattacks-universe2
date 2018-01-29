@@ -72,6 +72,7 @@ para desactivar +Request Validation+.
 Simplemente agregue +[AllowHtml]+ 
 a la propiedad de su modelo, del siguiente modo:
 +
+.test.py
 [source, java, linenums]
 ----
 public class BlogEntry

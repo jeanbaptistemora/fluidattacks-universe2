@@ -66,6 +66,7 @@ Para ello se deben realizar los siguientes pasos:
 para validar peticiones. 
 Para esto se agrega en +Machine.config+ la siguiente línea: 
 +
+.test.py
 [source, xml, linenums]
 ----
 <pages validateRequest="true" ... />

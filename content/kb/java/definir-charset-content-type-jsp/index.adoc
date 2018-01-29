@@ -60,6 +60,7 @@ pueden resultar en vulnerabilidades tipo XSS.
 es @page con el atributo contentType. 
 Ejemplo:
 +
+.test.py
 [source, html, linenums]
 ----
 <%@ page contentType="text/html; charset=iso-8859-1"%>

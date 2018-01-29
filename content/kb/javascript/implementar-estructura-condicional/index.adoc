@@ -74,6 +74,7 @@ se recomienda contemplar todos los posibles escenarios.
 Primero creamos una función que nos retornará un número aleatorio 
 entre un rango especificado:
 +
+.test.py
 [source, js, linenums]
 ----
 function getRandomInt(min, max) {

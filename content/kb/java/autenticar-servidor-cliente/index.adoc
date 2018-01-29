@@ -47,6 +47,7 @@ Como tal, soporta:
 
 . En el siguiente código se crea un contenedor de llaves:
 +
+.test.py
 [source, java, linenums]
 ----
 String KEYSTORE = "cacerts";

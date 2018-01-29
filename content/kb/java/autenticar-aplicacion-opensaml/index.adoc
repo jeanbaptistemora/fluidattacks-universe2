@@ -64,6 +64,7 @@ antes de usar la biblioteca
 es invocar el método estático de inicialización bootstrap 
 definido en la clase DefaultBootstrap:
 +
+.test.py
 [source, java, linenums]
 ----
 try {

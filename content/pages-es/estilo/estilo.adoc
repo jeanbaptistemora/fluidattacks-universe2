@@ -175,6 +175,7 @@ utilizando un bloque de código, no usar imágenes.
 
 *Ejemplo:*
 
+.test.py
 [source, C, linenums]
 ----
 function cool(x){

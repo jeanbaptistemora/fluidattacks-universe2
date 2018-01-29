@@ -33,6 +33,7 @@ A continuación se presenta un ejemplo
 en el cual se declara una nueva clase 
 y una constante para depurar los mensajes:
 +
+.test.py
 [source, java, linenums]
 ----
   class Reuse

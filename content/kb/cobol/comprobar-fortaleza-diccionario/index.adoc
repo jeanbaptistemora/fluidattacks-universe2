@@ -32,6 +32,7 @@ de diccionarios que se recomiendan para hacer la búsqueda.
 . Por cuestiones de espacio 
 se creó el archivo COMMONPASS con el siguiente contenido:
 +
+.test.py
 [source,cobol,linenums]
 ----
       123

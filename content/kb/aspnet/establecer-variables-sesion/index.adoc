@@ -30,6 +30,7 @@ se debe considerar los siguientes pasos [1]:
 Se debe usar la clase _HttpSessionState_, 
 la cual esta presente en el espacio de nombre _System.Web.SessionState_.
 +
+.test.py
 [source,C,linenums]
 ----
 HttpSessionState.Session["nombreObjeto"]  ="valorObjeto";

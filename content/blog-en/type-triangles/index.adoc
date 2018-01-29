@@ -59,6 +59,7 @@ A R O
 
 We calculate first the hypotenuse with the first 2 sides
 
+.test.py
 [source, python,linenums]
 ----
 let rec hypo a b = hypot a b;

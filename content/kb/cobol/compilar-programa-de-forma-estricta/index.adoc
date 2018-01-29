@@ -59,6 +59,7 @@ Para crear el programa COBOLSTR de la biblioteca FLUID
 con un nivel de severidad 0 (Compilación estricta), 
 se usa el siguiente comando:
 +
+.test.py
 [source,cobol,linenums]
 ----
       CRTBNDCBL

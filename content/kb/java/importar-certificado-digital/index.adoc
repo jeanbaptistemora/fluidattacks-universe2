@@ -33,6 +33,7 @@ de la máquina virtual, se utiliza el comando keytool -list -keystore
 <keystorefile>, este solicitará el password del keystore para poder acceder a 
 este.
 +
+.test.py
 [source, bash, linenums]
 ----
 keytool -list -keystore cacerts

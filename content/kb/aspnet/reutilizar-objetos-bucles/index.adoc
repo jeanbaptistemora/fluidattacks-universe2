@@ -49,6 +49,7 @@ Para utilizar la clase +StringBuilder+
 se debe incluir el espacio de nombres +System.Text+. 
 Para ello se importan las librerías +System+ y +System.Text+:
 +
+.test.py
 [source, java, linenums]
 ----
 using System;

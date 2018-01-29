@@ -24,6 +24,7 @@ solución tiene sentido:
 . En el archivo conf\tomcat-users.xml añadir los roles y usuarios requeridos, 
 estos últimos asociados a su respectiva contraseña y roles:
 +
+.test.py
 [source, xml, linenums]
 ----
 <?xml version='1.0' encoding='utf-8'?>

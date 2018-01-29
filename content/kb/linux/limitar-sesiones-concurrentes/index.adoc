@@ -69,6 +69,7 @@ se deben seguir los siguientes pasos:
 . Primero, se debe editar el archivo/etc/security/limits.conf 
 agregando las siguientes líneas:
 +
+.test.py
 [source, shell, linenums]
 ----
 # /etc/security/limits.conf 

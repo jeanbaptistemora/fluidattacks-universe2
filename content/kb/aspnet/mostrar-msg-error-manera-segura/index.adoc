@@ -81,6 +81,7 @@ Por ejemplo, puede redirigir los errores 404 estándar
 Un ejemplo del procedimiento anteriormente mencionado
 se muestra en el siguiente fragmento de código:
 
+.test.py
 [source, xml, linenums]
 ----
 <customErrors mode="RemoteOnly" defaultRedirect="AppErrors.aspx"> 

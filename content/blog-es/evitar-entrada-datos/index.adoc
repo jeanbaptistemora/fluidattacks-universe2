@@ -111,6 +111,7 @@ una consulta, para hacer esto se programa según el lenguaje.
 El método quote filtra los caracteres especiales -Esto asumiendo que una
 variable $sql hace referencia a un objeto DBI-
 
+.test.py
 [source,perl,linenums]
 ----  
 $query = $sql->prepare 

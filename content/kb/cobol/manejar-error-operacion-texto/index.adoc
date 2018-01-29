@@ -62,6 +62,7 @@ y existen caracteres sin examinar en el campo de envío.
 . Lo anterior se ilustra mediante un ejemplo. 
 En primer lugar se define la división IDENTIFICATION DIVISION [3][4]:
 +
+.test.py
 [source, cobol,linenums]
 ----
        IDENTIFICATION DIVISION.

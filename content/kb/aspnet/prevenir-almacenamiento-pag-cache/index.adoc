@@ -62,6 +62,7 @@ pueda obtener información de las páginas visitadas.
 se modifica el +Page_Load+ de la página en cuestión.
 Agregando cualquiera de las siguientes líneas:
 +
+.test.py
 [source, java, linenums]
 ----
 Response.Cache.SetCacheability(HttpCacheability.ServerAndNoCache);

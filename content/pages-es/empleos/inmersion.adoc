@@ -126,6 +126,7 @@ blog (estilo programación literal), este debe hacerse tambien en AsciiDoc
 forma secuencial, manteniendo la indentación original y utilizando el
 resaltado de código (syntax highlighting) propio de GitLab y AsciiDoc:
 
+.test.py
 [source,python] 
 ----
 print('Hola mundo')

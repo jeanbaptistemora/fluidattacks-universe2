@@ -46,6 +46,7 @@ trabajando.
 . Para establecer dicha variable a nivel de sistema se debe parametrizar el 
 archivo de inicio de sesión así:
 +
+.test.py
 [source, bash, linenums]
 ----
 % cat /etc/profile

@@ -74,6 +74,7 @@ ubicado en la carpeta logs dentro de nuestro dominio.
 Se observa que se incluye fecha, hora, segundos, milisegundos 
 y zona horaria de manera predeterminada.
 +
+.test.py
 [source, shell, linenums]
 ----
 [#|2012-10-26T15:06:48.176-0500|INFO|glassfish3.1.2| 

@@ -38,6 +38,7 @@ la generación de números pseudoaleatorios criptográficamente seguros.
 
 . Comenzamos la solución definiendo la división IDENTIFICATION DIVISION [2]:
 +
+.test.py
 [source,cobol,linenums]
 ----
        PROCESS NOMONOPRC.

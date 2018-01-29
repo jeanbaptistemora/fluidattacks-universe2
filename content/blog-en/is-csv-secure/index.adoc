@@ -93,6 +93,7 @@ command execution code in the CSV file like we've seen
 
 A developer could make a validation like this regex
 
+.test.py
 [source, javascript,linenums]
 ----
 var regexp = new RegExp(/([=,-,+,@])/g);

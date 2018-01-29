@@ -31,6 +31,7 @@ Además debe realizar la validación del texto introducido por el usuario.
 Para este caso el servlet com.servlet.identifies.LoginServlet 
 se va a encargar de realizar estas dos funciones:
 +
+.test.py
 [source, xml, linenums]
 ----
 <servlet>

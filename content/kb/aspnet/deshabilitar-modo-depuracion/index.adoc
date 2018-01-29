@@ -44,6 +44,7 @@ en la sección de compilación
 dentro del grupo _system.web_ 
 del archivo _Web.config_ en el directorio raíz de la aplicación: 
 +
+.test.py
 [source,xml,linenums]
 ----
 <configuration>

@@ -30,6 +30,7 @@ funcionalidad en la aplicación se debe tener en cuenta los siguientes aspectos
 destino, en su lugar, establezca el destino mediante una dirección URL (Uniform 
 Resource Locator) predefinida en la aplicación. Evite
 +
+.test.py
 [source, html, linenums]
 ----
 <form action="redireccionar-a-una-pagina.asp" method="get">

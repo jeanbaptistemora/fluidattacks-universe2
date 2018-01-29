@@ -57,6 +57,7 @@ Si el usuario no se ha autenticado, se retorna null.
 . A continuación se muestra un ejemplo de como usar los métodos. 
 La estructura de carpetas que debe tener la aplicación es:
 +
+.test.py
 [source, bash, linenums]
 ----
 % ls -R *

@@ -31,6 +31,7 @@ y agregarla al proyecto que contiene el código de la aplicación [1].
 . Como segundo paso, se debe importar el paquete org.apache.commons.lang3 
 a la clase que pretende a mostrar alguna información de salida. 
 +
+.test.py
 [source, java, linenums]
 ----
 import org.apache.commons.lang3.StringEscapeUtils;

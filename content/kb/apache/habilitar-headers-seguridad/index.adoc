@@ -47,6 +47,7 @@ contra las páginas web, como puede ser un ataque XSS.
 añadiendo al archivo .htaccess o al archivo httpd.conf 
 cualquiera de las siguientes opciones:
 +
+.test.py
 [source, shell, linenums]
 ----
 Header always set x-Frame-Options "DENY" 

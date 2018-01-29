@@ -31,6 +31,7 @@ y cursores de la base de datos.
 
 . Los archivos en COBOL se deben cerrar usando la sintaxis [2][3]: 
 +
+.test.py
 [source,cobol,linenums]
 ----
 CLOSE descriptor

@@ -104,6 +104,7 @@ defina la cadena de conexión para establecer comunicación
 con la base de datos de la aplicación, 
 para lo cual se requiere utilizar el elemento _connectionStrings_ [3].  
 +
+.test.py
 [source, xml, linenums]
 ----
 <connectionStrings>

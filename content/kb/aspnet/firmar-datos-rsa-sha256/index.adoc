@@ -53,6 +53,7 @@ y el +hash+ correspondiente <<r1, ^[1]^>>.
 A continuación se presenta una porción de código
 con el procedimiento anteriormente descrito:
 +
+.test.py
 [source,java,linenums]
 ----
 X509Certificate2 publicCert = new X509Certificate2(@"C:\mycertificate.cer");

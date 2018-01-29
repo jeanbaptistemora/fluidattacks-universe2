@@ -48,6 +48,7 @@ se recomienda seguir los siguientes pasos.
 . En el archivo de configuración httpd.conf 
 asegúrese de contener las siguientes directivas:
 +
+.test.py
 [source, shell, linenums]
 ----
 ServerSignature Off +

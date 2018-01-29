@@ -69,6 +69,7 @@ que estén incluidas en la sección correspondiente no tendrán efecto.
 . Los siguientes ejemplos aplican el control de acceso 
 solo a los métodos POST, PUT, y DELETE, no afectando al resto de métodos:
 +
+.test.py
 [source, html, linenums]
 ----
 <Limit POST PUT DELETE>

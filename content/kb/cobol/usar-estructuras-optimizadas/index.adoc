@@ -52,6 +52,7 @@ para el almacenamiento de registros telefónicos:
 * PHONE-NUMBER: Contiene el número telefónico.
 
 +
+.test.py
 [source,cobol,linenums]
 ----
        *** START HEADER FILE SPECIFICATIONS ****************************

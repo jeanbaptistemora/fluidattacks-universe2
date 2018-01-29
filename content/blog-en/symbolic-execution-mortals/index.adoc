@@ -67,6 +67,7 @@ To better understand how symbolic execution works we are going to look at an
 example that illustrates the steps taken by the symbolic execution engine.
 
 Consider the following code:
+.test.py
 [source, c,linenums]
 ----
 void myFunct(int a, int b){

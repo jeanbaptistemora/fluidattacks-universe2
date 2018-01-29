@@ -34,6 +34,7 @@ tipo de contenido y la forma de codificación. Acto seguido se incluye el taglib
 de CSRFGuard, usando como prefijo csrf para utilizarse de forma abreviada en 
 líneas siguientes.
 +
+.test.py
 [source, html, linenums]
 ----
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>

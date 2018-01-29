@@ -36,6 +36,7 @@ entre más grande sea, significará un nivel de acceso más alto.
 . El método allows determina si otro nivel de sensibilidad 
 es más alto que el propio.
 +
+.test.py
 [source, java, linenums]
 ----
 class Sensibility

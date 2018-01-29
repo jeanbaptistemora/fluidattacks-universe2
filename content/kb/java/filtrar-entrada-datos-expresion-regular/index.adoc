@@ -42,6 +42,7 @@ el cual contiene las clases Pattern, Matcher, y PatternSyntaxException[1].
 primero se debe importar 
 las clases Matcher y Pattern del paquete java.util.regex.
 +
+.test.py
 [source, java, linenums]
 ----
 import java.util.regex.Matcher;

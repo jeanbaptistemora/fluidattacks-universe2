@@ -82,6 +82,7 @@ al inicio del programa.
 La siguiente porción de código 
 ilustra la utilización de la librería:
 
+.test.py
 [source, py, linenums]
 ----
 Public Function EncryptMD5 (ByVal text As String) As String

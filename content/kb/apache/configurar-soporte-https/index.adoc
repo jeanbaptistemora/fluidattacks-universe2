@@ -52,6 +52,7 @@ y el modulo de soporte para servidores Apache.
 
 . Debian y derivados
 +
+.test.py
 [source, bash, linenums]
 ----
 apt-get install mod_ssl openssl

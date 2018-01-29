@@ -76,6 +76,7 @@ flujos de audio y video.
 Para ello se utilizará el método +NewGuid+ de la librería +System+.
 A continuación se muestra la implementación del método anteriormente descrito:
 +
+.test.py
 [source, c, linenums]
 ----
 using System;

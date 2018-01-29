@@ -29,6 +29,7 @@ servidor de aplicaciones.
 . Dentro del archivo WEB-INF\web.xml de la aplicación web se deben configurar 
 los roles requeridos en la aplicación
 +
+.test.py
 [source, xml, linenums]
 ----
  <security-role>

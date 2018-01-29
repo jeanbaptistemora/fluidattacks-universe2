@@ -59,6 +59,7 @@ en los modelos definidos para el uso de la aplicación.
 
 . Un ejemplo se muestra a continuación:
 +
+.test.py
 [source, php, linenums]
 ----
 /**

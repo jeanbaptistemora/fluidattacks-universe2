@@ -66,6 +66,7 @@ de manejo de excepciones en +ASP.NET+ utilizando
 necesaria para el uso de las sentencias
 +try+ , +catch+ y +finally+:
 +
+.test.py
 [source,c,linenums]
 ----
 using System;

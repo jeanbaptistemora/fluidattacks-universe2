@@ -32,6 +32,7 @@ Para el ejemplo se usará un programa sencillo hecho en COBOL:
 . Se define la primer división +IDENTIFICATION DIVISION+ 
 de todo programa en COBOL:
 +
+.test.py
 [source,cobol,linenums]
 ----
       IDENTIFICATION DIVISION.

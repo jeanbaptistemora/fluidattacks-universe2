@@ -26,6 +26,7 @@ solución tiene sentido:
 framework RichFaces se debe utilizar la propiedad acceptedTypes del componente 
 de la siguiente forma [1]:
 +
+.test.py
 [source, html, linenums]
 ----
 <rich:fileUpload acceptedTypes="txt, zip"/>

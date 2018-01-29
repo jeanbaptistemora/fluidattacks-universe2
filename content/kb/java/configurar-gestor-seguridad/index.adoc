@@ -53,6 +53,7 @@ se especifica como valores de propiedades
 cuyos nombres son de la forma policy.url.n donde n es un número.
 Por defecto el sistema tiene definidas las siguientes ubicaciones: 
 +
+.test.py
 [source, shell, linenums]
 ----
 policy.url.1=file:${java.home}/lib/security/java.policy

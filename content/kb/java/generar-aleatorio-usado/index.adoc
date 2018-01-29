@@ -36,6 +36,7 @@ Recomendaciones de aleatoriedad para la seguridad [2].
 . Para entender la diferencia entre utilizar la clase Random y SecureRandom, 
 considérese el siguiente par de programas:
 +
+.test.py
 [source, java, linenums]
 ----
 // Programa 1

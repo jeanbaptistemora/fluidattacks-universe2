@@ -37,6 +37,7 @@ se debe configurar la siguiente ruta usando la solución
 http://kb.fluid.la/help/directorio-activo-2008-modificar-configuracion-directivas-dominio[Modificar
 configuración de directivas de dominio por medio de Active Directory]
 +
+.test.py
 [source, shell, linenums]
 ----
 Computer configuration/Windows Settings/Security Settings/LocalPolicies/SecurityOptions

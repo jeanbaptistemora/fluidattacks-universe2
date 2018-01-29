@@ -27,6 +27,7 @@ si es un error de usuario o de contraseña<<r1,^[1]^>>.
 . Se da inicio a la aplicación de ejemplo 
 declarando la división +IDENTIFICATION DIVISION+<<r2,^[2]^>>:
 +
+.test.py
 [source,cobol,linenums]
 ----
       ******************

@@ -30,6 +30,7 @@ En el siguiente código se muestra un ejemplo de código muerto:
 Definimos la nueva clase e
 importamos las clases necesarias desde la biblioteca IO:
 +
+.test.py
 [source,java,linenums]
 ----
 using System;

@@ -90,6 +90,7 @@ llaman a métodos de las posiciones inferiores.
 A continuación se presenta una porción de código
 que muestra el uso del método _PermitOnly_:
 +
+.test.py
 [source,java,linenums]
 ----
 // Dar acceso al clipboard

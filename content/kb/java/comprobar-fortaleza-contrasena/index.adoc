@@ -44,6 +44,7 @@ El tipo de variable de retorno boolean
 que indica si la contraseña es o no robusta, 
 y el parámetro donde recibe la contraseña a verificar:
 +
+.test.py
 [source, java, linenums]
 ----
 public boolean checkPassword(String password) {
