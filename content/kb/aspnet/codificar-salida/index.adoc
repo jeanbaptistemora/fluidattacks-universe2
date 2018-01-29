@@ -1,38 +1,38 @@
 :slug: kb/aspnet/codificar-salida/
 :eth: no
 :category: aspnet
-:description: TODO
-:keywords: TODO
+:description: Nuestros ethical hackers explican como evitar vulnerabilidades de seguridad mediante la programación segura en +ASP.NET+ para codificar adecuadamente las salidas en aplicaciones web.
+:keywords: ASP.NET , XSS
 :kb: yes
 
 = Codificar Salida
 
 == Necesidad
 
-Codificar la salida según el lenguaje correspondiente en ASP.Net
+Codificar la salida según el lenguaje correspondiente en +ASP.Net+
 
 == Contexto
 
 A continuación se describen las circunstancias 
 bajo las cuales la siguiente solución tiene sentido:
 
-. Se está desarrollando una aplicación en ASP.Net.
+. Se está desarrollando una aplicación en +ASP.Net+.
 
 == Solución
 
-. Los ataques por Cross Site Scripting 
+. Los ataques por +Cross Site Scripting+ 
 explotan las vulnerabilidades de las aplicaciones Web 
 que fallan en validar y/o codificar 
 las entradas embebidas en los datos de respuesta. 
-Los usuarios maliciosos pueden inyectar scripts 
+Los usuarios maliciosos pueden inyectar +scripts+ 
 en el lado del cliente a los datos de respuesta 
 causando que el navegador de la víctima 
 ejecute códigos posiblemente maliciosos.
 
-. La https://www.microsoft.com/en-us/download/details.aspx?id=28589[biblioteca gratuita Anti Cross Site Scripting de Microsoft] 
-puede usarse para proteger a los usuarios de este tipo de ataques. 
+. La link:https://www.microsoft.com/en-us/download/details.aspx?id=28589[biblioteca gratuita Anti Cross Site Scripting de Microsoft] 
+puede usarse para proteger a los usuarios de este tipo de ataques <<r1, ^[1]^>>. 
 Antes de abordar el tema 
-de cómo proteger una aplicación de los ataques de XSS 
+de cómo proteger una aplicación de los ataques de +XSS+ 
 es importante resaltar los vectores de ataque 
 que un usuario malicioso puede usar para lanzar dichos ataques.
 
@@ -41,7 +41,7 @@ sin embargo, aún es posible realizar el trabajo en las aplicaciones
 que ya se encuentren implementadas de esta forma. 
 Dichas tareas se listan a continuación:
 
-* Revisar todo el código que produce salidas
+* Revisar todo el código que produce salidas.
 * Determinar si la salida incluye parámetros no confiables de salida.
 * Determinar si el contexto en el que se usa la entrada no confiable.
 * Codificar la salida de manera apropiada.
@@ -50,45 +50,47 @@ Dichas tareas se listan a continuación:
 es asumir que no lo es. 
 Ejemplos de entradas no confiables incluyen:
 
-* Campos de formulario
-* Cadenas "Query"
-* Contenidos de cookies
-* Encabezados HTTP
+* Campos de formulario.
+* Cadenas +"Query"+.
+* Contenidos de +cookies+.
+* Encabezados +HTTP+.
 
 . Cuando se identifique que una entrada no es confiable, 
 es importante determinar el método de codificación más apropiado. 
-La siguiente tabla muestra los métodos de códificación asociados
+La siguiente tabla muestra los métodos de codificación asociados <<r2,^[2]^>>:
 +
 |===
 |*Método de Codificación* | *Cuándo se debe usar*
 
-|HtmlEncode
-|Entrada no confiable usada en salida HTML excepto cuando se asigna a un atributo HTML
+|+HtmlEncode+
+|Entrada no confiable usada en salida +HTML+ 
+excepto cuando se asigna a un atributo +HTML+.
 
-|HtmlAttributeEncode
-|Entrada no confiable se usa en atributos HTML
+|+HtmlAttributeEncode+
+|Entrada no confiable se usa en atributos +HTML+
 
-|XmlEncode
-|Entrada no confiable usada en salida XML excepto cuando se asigne a un atributo XML
+|+XmlEncode+
+|Entrada no confiable usada en salida +XML+ 
+excepto cuando se asigne a un atributo +XML+.
 
-|XmlAttributeEncode
-|Salida no confiable usada en los atributos XML
+|+XmlAttributeEncode+
+|Salida no confiable usada en los atributos XML.
 
-|UrlEncode
-|Entrada no confiable usada como un argumento URL
+|+UrlEncode+
+|Entrada no confiable usada como un argumento URL.
 
-|UrlPathEncode
-|Entrada no confiable usada como parte de un path URL
+|+UrlPathEncode+
+|Entrada no confiable usada como parte de un path URL.
 
-|JavaScriptEncode
-|Entrada no confiable usada dentro de un contexto JavaScript
+|+JavaScriptEncode+
+|Entrada no confiable usada dentro de un contexto JavaScript.
 
 |===
 
 . Para usarlo se requiere:
 
 * Click derecho en el explorador de soluciones en Visual Studio.
-* Seleccionar "Add Reference"
+* Seleccionar "Add Reference".
 * Seleccionar la pestaña "browse" y luego adicione AntiXSSLibrary.dll.
 * Adicionar una directiva using Microsoft.Security.Application;
 * Cambiar la forma en que se asigna la salida, por ejemplo:
@@ -107,6 +109,6 @@ string out_Name = Encoder.HtmlEncode(Request.QueryString["Name"]);
   
 == Referencias
 
-. https://www.microsoft.com/en-us/download/search.aspx?q=antixss[Microsoft AntiXSS]
-. https://msdn.microsoft.com/en-us/library/aa973813.aspx[Microsoft, Protecting the Contoso Bookmark Page]
-. REQ.0155: La salida de información del sistema debe estar codificada en el lenguaje correspondiente (escaping).
+. [[r1]] link:https://www.microsoft.com/en-us/download/search.aspx?q=antixss[Microsoft AntiXSS]
+. [[r2]] link:https://msdn.microsoft.com/en-us/library/aa973813.aspx[Microsoft, Protecting the Contoso Bookmark Page]
+. [[r3]] REQ.0155: La salida de información del sistema debe estar codificada en el lenguaje correspondiente (escaping).
