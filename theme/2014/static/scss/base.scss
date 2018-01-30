@@ -10,6 +10,7 @@ $gray: rgba(128, 128, 128, 1);
 $green: rgba(0, 128, 0, 1);
 $lightblue: rgba(0, 133, 161, 1);
 $lightgray: rgba(211, 211, 211, 1);
+$lightergray: rgba(238, 238, 238, 1);
 $lime: rgba(0, 255, 0, 1);
 $maroon: rgba(128, 0, 0, 1);
 $navy: rgba(0, 0, 128, 1);
@@ -162,6 +163,16 @@ p {
     color: $textblack;
     font-weight: bold;
   }
+
+  .monospaced {
+    background-color: $lightergray;
+    border-radius: 5px;
+    font-family: monospace;
+    font-size: 17px;
+    overflow-wrap: break-word;
+    padding: 0 5px;
+    word-break: break-word;
+  }
 }
 
 img {
@@ -242,11 +253,6 @@ article {
   &::before {
     content: '\00b6';
   }
-}
-
-.monospaced {
-  font-family: monospace;
-  font-size: 17px;
 }
 
 .tableblock {
@@ -590,11 +596,12 @@ article {
 
   p {
     font-size: 21px;
+
+    .monospaced {
+      font-size: 20px;
+    }
   }
 
-  .monospaced {
-    font-size: 20px;
-  }
 }
 
 @media(min-width: 980px) {
