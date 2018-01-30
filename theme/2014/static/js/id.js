@@ -3,7 +3,7 @@
     for (i = 1; i < 5; i++) {
       var titles = $(document).find("h"+ i +":visible");
       for (j = 0; j < titles.length; j++) {
-        if (!($(titles[j]).has("anchor").length)) {
+        if (!($(titles[j]).children("span").length)) {
           var str = titles[j].innerText;
           var replaceChars={ "á":"a" ,"é":"e", "í":"i", "ó":"o", "ú":"u", "ñ":"n" };
           str = str.replace(/^[0-9].*\.\s+/, '');
