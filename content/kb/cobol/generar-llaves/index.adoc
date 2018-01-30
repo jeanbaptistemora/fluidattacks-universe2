@@ -10,7 +10,7 @@
 == Necesidad
 
 Usar la función criptográfica más segura del lenguaje 
-para la generación de llaves aleatorias en +COBO+.
+para la generación de llaves aleatorias en +COBOL+.
 
 == Contexto
 
