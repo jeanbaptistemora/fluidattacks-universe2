@@ -436,3 +436,23 @@ def add_remediated_dynamo(finding_id, remediated, project, finding_name):
         except ClientError:
             rollbar.report_exc_info()
             return False
+
+def get_remediated_allfindings_dynamo(filter_value):
+    """ Obtiene el tratamiento de todos los hallazgos """
+    table = dynamodb_resource.Table('remediated')
+    filter_key = 'remediated'
+    if filter_key and filter_value:
+        filtering_exp = Key(filter_key).eq(filter_value)
+        response = table.scan(FilterExpression=filtering_exp)
+    else:
+        response = table.scan()
+
+    items = response['Items']
+    while True:
+        print len(response['Items'])
+        if response.get('LastEvaluatedKey'):
+            response = table.scan(ExclusiveStartKey=response['LastEvaluatedKey'])
+            items += response['Items']
+        else:
+            break
+    return items

@@ -4,7 +4,7 @@
 from .dao import integrates_dao
 from .dto.finding import FindingDTO
 from .api.formstack import FormstackAPI
-from .mailer import send_mail_new_finding, send_mail_change_finding
+from .mailer import send_mail_new_finding, send_mail_change_finding, send_mail_new_remediated
 
 def get_new_findings():
     """ Envio de correo resumen con los hallazgos de un proyecto """
@@ -42,3 +42,18 @@ def get_new_findings():
                 print(to)
                 send_mail_change_finding(to, context)
             integrates_dao.update_findings_amount(project[0], new_findings)
+
+def get_remediated_findings():
+    """ Envio de correo resumen con los hallazgos pendientes de verificar """
+    findings = integrates_dao.get_remediated_allfindings_dynamo(True)
+    if findings != []:
+        to = ['concurrent@fluid.la', 'ralvarez@fluid.la']
+        context = {'findings': list()}
+        cont = 0
+        for finding in findings:
+            context['findings'].append({'finding_name': finding['finding_name'], 'finding_url': \
+                'https://fluid.la/integrates/dashboard#!/project/'+ finding['project'].lower() + '/' + \
+                str(finding['finding_id']) + '/description', 'project': finding['project'].upper()})
+            cont += 1
+        context['total'] = cont
+        send_mail_new_remediated(to, context)
