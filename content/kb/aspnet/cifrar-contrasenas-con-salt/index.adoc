@@ -1,7 +1,7 @@
 :slug: kb/aspnet/cifrar-contrasenas-con-salt/
 :eth: no
 :category: aspnet
-:description: Nuestros ethical hackers explican como evitar vulnerabilidades de seguridad mediante la configuración segura de contraseñas en +ASP.NET+.
+:description: Nuestros ethical hackers explican como evitar vulnerabilidades de seguridad mediante la configuración segura de contraseñas en ASP.NET.
 :keywords: ASP.NET , Contraseña.
 :kb: yes
 
@@ -85,7 +85,7 @@ del archivo +Web.config+ de una aplicación +ASP.NET+.
 A continuación, se especifica la instancia +SqlMembershipProvider+ 
 de la aplicación y se establece el formato de contraseña en +Hashed+.
 
-.test.py
+.Ejemplo configuración membership.
 [source, xml, linenums]
 <membership defaultProvider="SqlProvider" userIsOnlineTimeWindow="20">
   <providers>
