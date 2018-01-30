@@ -5,138 +5,424 @@
 :variable: Asciidoc
 :plus: &#43
 
-= Test several Asciidoc styles and functionalities
+= Asciidoc Style Test
 
-Level 0 headers are created
-by preceeding the title
-with one equal sign,
-like this:
+== Headers
 
 ....
-= Test several Asciidoc styles and functionalities
+= Asciidoc Style Test -> Level 0 Header
+== Headers -> Level 1 Header
+=== ... -> Level 2 Header
+...
 ....
 
-[[cheat-sheet]]
-== Asciidoc Cheat Sheet
+== Anchors
 
-Level 1 headers are created
-the same way as level 0,
-except one more equal sign is used.
+Create an anchor to a header
 
-You can also set an ``id'' HTML attribute to the titles
-by doing the following,
-which will set the ``id'' of the header
-to ``cheat-sheet'':
+[[test-anchor]]
+=== Test Anchor
 
 ....
-[[cheat-sheet]]
-== Asciidoc Cheat Sheet
+[[test-anchor]]
+=== Test Anchor
 ....
 
-=== Text Style
+Use the anchor to quickly jump to the <<test-anchor, Header>>
 
-As can be expected,
-level 2 headers have one more equal sign.
-
-Now, some rules
-that allow text formatting:
-
-* Using `single quotes'
-+
 ....
-`single quotes'
+<<anchor id, text>>
+<<test-anchor, Header>>
 ....
 
-* Using ``double quotes''
-+
+== Text Format
+
+=== Bold
+
+Change text to *bold*
+
 ....
-``double quotes'',
+Change text to *bold*
 ....
 
-* Change text to _italic_,
-+
+=== Partially Bold
+
+Change only part of a string to b**ol**d
+
 ....
-_italic_
+Change only part of a string to b**ol**d
 ....
 
-* Change text to *bold*,
-+
+=== Italics
+
+Change text to _italics_
+
 ....
-*bold*
+Change text to _italics_
 ....
 
-* Change [red]#color#, [aqua-background]#background#,
-[big]#size#, or [aqua green-background small]#all of them#,
-and even in one l[fuchsia gray-background big]##e##tter,
-or add [underline]#underline#, [overline]#overline# and
-[red line-through]#line through#
-+
+=== Partial Italics
+
+Change only part of a string to __ita__lics
+
+....
+Change only part of a string to __ita__lics
+....
+
+=== Emphasis
+
+Give emphasis to a 'word'
+
+....
+Give emphasis to a 'word'
+....
+
+=== Color, Size and Background
+
+Change [red]#color#, [aqua-background]#background#,
+[big]#size#, or [aqua green-background small]#all of them#
+and even in one l[fuchsia gray-background big]##e##tter
+
 ....
 Change [red]#color#, [aqua-background]#background#,
 [big]#size#, or [aqua green-background small]#all of them#
-and even in one l[fuchsia gray-background big]##e##tter,
-or add [underine]#underline#, [overline]#overline# and
-[red line-through]#line through#
+and even in one l[fuchsia gray-background big]##e##tter
 ....
 
-* Change part of a word to b**o**ld,
+=== Overline, Underline or Line-Through
+
+Add [underline]#underline#, [overline]#overline# and
+[red line-through]#line through#. Can be combined with
+previous [green yellow-background overline]##sty##[blue purple-background underline]#les#
+
+....
+Add [underline]#underline#, [overline]#overline# and
+[red line-through]#line through#. Can be combined with
+previous [green yellow-background overline]##sty##[blue purple-background underline]#les#
+....
+
+=== Single and Double Quotes
+
+* Use `single quotes'
 +
 ....
-b**o**ld
-....
+`single quotes'
+.... 
 
-* Change part of a word to __ita__lics,
+* Use ``double quotes''
 +
 ....
-__ita__lics
+``double quotes''
 ....
 
-* Use ^super^scripts,
+=== Superscripts and Subscripts
+
+* Use ^super^scripts
 +
 ....
 ^super^scripts
 ....
 
-* Use ~sub~scripts,
+* Use ~sub~scripts
 +
 ....
 ~sub~scripts
 ....
 
-* Use +monospaced+ characters,
-+
+=== Monospaced
+
+Use +monospaced+ characters in `different` ways
+
 ....
-+monospaced+, `monospaced`
++monospaced+, `different`
 ....
 
-* Pass through +++<u>HTML</u>+++,
-+
-....
-+++<u>HTML</u>+++
-....
+=== Line Break
 
-* To force a line break, +
-do this:
-+
+Use the symbol plus +
+to force a line break
+
 ....
-To force a line break +
-do this
+Use the symbol plus +
+to force a line break
 ....
 
-* To escape special characters,
-the backslash is used (\),
+=== Escape Character
 
-* Reserved XML characters like <, > and &,
-can be used safely,
+Use \'backslash' to escape characters,
+in this case, not using emphasis
 
-* Claim copyright (C), registered trademark (R) or trademark (TM).
-+
+....
+Use \'backslash' to escape characters
+....
+
+=== Comments
+
+Use ``//'' to comment in the text and not
+render it in the HTML.
+
+// This way
+
+....
+Use ``//'' to comment in the text and not
+render it in the HTML.
+
+// This way
+....
+
+=== Pass-through HTML
+
+Write +++<u>HTML</u>+++ code in the document.
+
+....
+Write +++<u>HTML</u>+++ code in the document.
+....
+
+=== Licence Characters
+
+(C), (R), (TM)
+
 ....
 (C), (R), (TM)
 ....
 
+== Media and links
+
+=== Titles (Optional)
+
+They are delacred before an element, starting with a dot
+(images, lists, quotes, literals, ...)
+
+.Literal Title
+....
+.Literal Title
+....
+
+.Image Title
+image::doge.png[Doge]
+
+.Video Title
+video::he-man.mp4[He-man]
+
+.List Title
+. Item 1
+.. Subitem 1
+. Item 2
+
+.Quote Title
+[quote]
+I'm Batman
+
+.Table Title
+|====
+| Col 1 | Col 2
+|====
+
+.Paragraph Title
+Normal Paragraph
+
+.Code Title
+[source, python]
+print "Hello World"
+
+=== Images
+
+* Images can be displayed as a block,
++
+image::doge.png[Doge]
++
+....
+image::doge.png[Doge]
+....
+
+* Or can also be displayed as inline elements image:doge.png[Doge]
++
+....
+image:doge.png[Doge]
+....
+
+=== Videos
+
+.He-Man Singing
+video::he-man.mp4[He-man]
+
+....
+video::he-man.mp4[He-man]
+....
+
+=== Links
+
+* Links can be declared with the URL alone,
+https://google.com
+
+* Or here is another way to get to link:https://google.com[Google]
++
+....
+link:https://google.com[Google]
+....
+
+== Special Blocks
+
+=== Literals
+
+* A literal block is delimited by 4 dots before and after the content
++
+....
+ ....
+ Hello
+ ....
+....
+
+* It can also be used by preceeding the text with a space
++
+ Like this
+ It is another option
++
+....
+ Like this
+ It is another option
+....
+
+=== Quotes
+
+* Quotes can be used without source information
++
+[quote]
+I'm Batman
++
+....
+[quote]
+I'm Batman
+....
+
+* Or with source information
++
+[quote, Batman, Detective Comics]
+I'm Batman
++
+....
+[quote, Batman, Detective Comics]
+I'm Batman
+....
+
+=== Source Code
+
+* Simple code
++
+[source, python]
+print "Hello World"
++
+....
+[source, python]
+print "Hello World"
+....
+
+* Delimited in a block (in case empty lines are used)
++
+[source, cpp]
+----
+#include somelib.h
+
+int main(void) {
+
+}
+----
++
+....
+[source, cpp]
+----
+#include somelib.h
+
+int main(void) {
+
+}
+----
+....
+
+* Using line numeration
++
+[source, java, linenums]
+----
+Line 1
+Line 2
+Line 3
+----
++
+....
+[source, java, linenums]
+----
+Line 1
+Line 2
+Line 3
+----
+....
+
+=== Lists
+
+* Unordered lists
+- Nested unordered list
+** Second Option
+
+....
+* Unordered lists
+- Nested unordered list
+** Second Option
+....
+
+* Ordered Lists
++
+. Item 1
+.. Item 1.1
+... Item 1.1.1
+.. Item 1.2
+... Item 1.2.1
+.... Item 1.2.1.1
+. Item 2
++
+....
+. Item 1
+.. Item 1.1
+... Item 1.1.1
+.. Item 1.2
+... Item 1.2.1
+.... Item 1.2.1.1
+. Item 2
+....
+
+* List Continuation
+
+** Some topic
++
+Still talking about the same topic
+
+** Another Topic
+
+Talking about something else
+
+....
+** Something about a topic
++
+Still talking about the same topic
+
+** Another Topic
+
+Talking about a third topic
+....
+
 === Tables
 
+* Simple table
++
+.Title
+[options="header"]
+|====
+|Col 1|Col 2      |Col 3
+|1    |Item 1     |a
+|2    |Item 2     |b
+|3    |Item 3     |c
+|6    |Three items|d
+|====
++
 ....
 .Title
 [options="header"] -> Optional
@@ -149,19 +435,16 @@ can be used safely,
 |====
 ....
 
-.An example table
-[options="header"]
+* A more complicated Table
++
+[grid="rows",format="csv"]
+[options="header",cols="^,<,<s,<,>m"]
 |====
-|Col 1|Col 2      |Col 3
-|1    |Item 1     |a
-|2    |Item 2     |b
-|3    |Item 3     |c
-|6    |Three items|d
+ID,FName,LName,Address,Phone
+1,Vasya,Pupkin,London,+123
+2,X,Y,"A,B",45678
 |====
-
-The previous was the most simple table,
-more options can be set:
-
++
 ....
 [grid="rows",format="csv"]
 [options="header",cols="^,<,<s,<,>m"]
@@ -183,19 +466,27 @@ cols -> Sets format of the columns
 The CSS of the site overrides some of the previous.
 ....
 
-[grid="rows",format="csv"]
-[options="header",cols="^,<,<s,<,>m"]
+* Multiline cells in a table, custom caption
++
+.Multiline cells, row/col span
+[caption="Tabla 1."]
 |====
-ID,FName,LName,Address,Phone
-1,Vasya,Pupkin,London,+123
-2,X,Y,"A,B",45678
+|Date |Duration |Avg HR |Notes
+
+|22-Aug-08 .2+^.^|10:24 | 157 |
+Worked out MSHR (max sustainable
+heart rate) by going hard
+for this interval.
+
+|22-Aug-08 | 152 |
+Back-to-back with previous interval.
+
+|24-Aug-08 3+^|none
 |====
-
-Table cells can also be styled
-to occupy multiple rows.
-
++
 ....
 .Multiline cells, row/col span
+[caption="Tabla"]
 |====
 |Date |Duration |Avg HR |Notes
 
@@ -217,218 +508,15 @@ Back-to-back with previous interval.
 A dot (.) represents columns
 ....
 
-.Multiline cells, row/col span
-|====
-|Date |Duration |Avg HR |Notes
+=== Questions and Answers
 
-|22-Aug-08 .2+^.^|10:24 | 157 |
-Worked out MSHR (max sustainable
-heart rate) by going hard
-for this interval.
+[qanda]
+Question 1::
+   Answer 1
+Question 2::
+   Answer 2nse.
+       . Repeat.
 
-|22-Aug-08 | 152 |
-Back-to-back with previous interval.
-
-|24-Aug-08 3+^|none
-|====
-
-=== Lists
-
-* There are only 10 kinds of people in this world:
-  - Those who understand binary.
-  - Those who don't.
-
-Lists are created by preceeding a (*) to an item.
-Other delimiters, like a hyphen (-),
-can also be used to declarate a list.
-When combined, a nested list can be created.
-
-Ordered list can also be nested
-
-....
-. List1
-.. List 2
-... List 3
-and so on
-....
-
-. List 1
-.. List 2
-... List 3
-.... List 4
-..... List 5
-
-In order to keep content in the correct indentation level,
-a plus sign (+) is placed in the blank line
-between the content.
-
-=== Misc
-
-* Code listings:
-+
-....
-.test.py
-[source, language(python,java,...)]
-----
-Code
-----
-....
-+
-[source,python]
-----
-#!/usr/bin/env python
-import antigravity
-try:
-  antigravity.fly()
-except FlytimeError as e:
-  # um...not sure what to do now.
-  pass
-----
-
-* Quotes:
-+
-....
-Simple quote
-[quote]
-Text
-
-Quote with information
-[quote,author,source]
-Text
-....
-+
-[quote]
-A quote without source information
-+
-[quote,"Charles Dickens","A Tale of Two Cities"]
-It was the best of times, it was the worst of times, it was the age of wisdom,
-it was the age of foolishness...
-
-* Links:
-+
-....
-link:http://asciidoclive.com[AsciiDocLIVE]
-....
-+
-link:http://asciidoclive.com/[AsciiDocLIVE] is awesome!
-
-* Images:
-+
-....
-Block image -> image::path/to/image[alt description]
-Inline image -> image:path/to/image[alt description]
-....
-+
-image::doge.png[Doge]
-
-* Videos:
-+
-....
-video::path/to/video[]
-....
-+
-video::he-man.mp4[YouTube]
-
-* Definitions
-+
-....
-Term 1:: Definition
-Term 2:: Definition
-[horizontal]
-Subterm 2.1::: Definition can also be placed horizontally
-....
-+
-Term 1:: Definition
-Term2:: Definition
-[horizontal]
-Subterm 2.1::: Definition can also be placed horizontally
-
-* Let's make a horizontal rule...
-+
-....
-'''
-....
-+
-'''
-
-* Let's get literal
-+
- ....
- Just use four dots in the lines before and after the sentence.
- ....
-+
-....
-{space}Leaving a blank space before the sentence does the job as well.
-....
-
-* Anchors can be used to move fast inside the document,
-set the links like this:
-+
- <<element id, anchor text>>
- <<cheat-sheet, Cheat Sheet>>
-+
-Test it by going back to the <<cheat-sheet, Cheat Sheet>>.
-
-* Variables can be set as tags
-at the beginning of the document
-and their value can be referenced
-by doing the following:
-+
- :variable: Asciidoc
- This document was written using {variable}
-+
-This document was written using {variable}
-
-* Optional titles
-+
-....
-.Title
-Image, list, video, ...
-....
-+
-.List Title
-. List 1
-
-+
-.Code Title
-[source, python]
-----
-print "Hello World"
-----
-+
-.Image Title
-image::doge.png[Doge]
-+
-.Video Title
-video::he-man.mp4[Youtube]
-+
-.Table Title
-|====
-| Col1 | Col 2
-|====
-+
-.Quote Title
-[quote]
-Something deep
-+
-.Literal Title
- Hello
-+
-.Normal Title
-Normal paragraph
-
-* Comments
-+
-....
-The next line will be commented
-// This line should not be shown
-....
-+
-The next line will be commented
-//This line should not be shown
-
-* Questions and Answers
-+
 ....
 [qanda]
 Question 1::
@@ -438,11 +526,63 @@ Question 2::
        . Repeat.
 ....
 
-[qanda]
-Question 1::
-   Answer 1
-Question 2::
-   Answer 2
+=== Definitions
+
+Term 1:: Definition
+Term 2:: Definition
+[horizontal]
+Subterm 2.1::: Definition can also be placed horizontally
+
+....
+Term 1:: Definition
+Term 2:: Definition
+[horizontal]
+Subterm 2.1::: Definition can also be placed horizontally
+....
+
+=== Horizontal Rule
+
+'''
+
+....
+'''
+....
+
+=== Variables
+
+They can be declared at the beginning of the document.
+
+....
+:variable: Asciidoc
+
+This text is written in {variable}
+....
+
+This text is written in {variable}
+
+=== Classes
+
+* As with colors, inline elements can be given a class name
+and then be edited in the CSS, [new-class]#Like This#
++
+....
+As with colors, inline elements can be given a class name
+and then be edited in the CSS, [new-class]#Like This#
+....
+
+* Block elements can also be given a class name
++
+[role="new-class"]
+----
+Text
+----
++
+....
+[role="new-class"]
+----
+Text
+----
+....
 
 == References
 
