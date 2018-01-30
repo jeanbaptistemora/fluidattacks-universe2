@@ -9,58 +9,58 @@
 
 == Necesidad
 
-Usar función criptográfica más segura del lenguaje 
-para la generación de llaves aleatorias en COBOL.
+Usar la función criptográfica más segura del lenguaje 
+para la generación de llaves aleatorias en +COBO+.
 
 == Contexto
 
 A continuación se describe las circunstancias 
 bajo las cuales la siguiente solución tiene sentido:
 
-. Se está desarrollando una aplicación en COBOL.
+. Se está desarrollando una aplicación en +COBOL+.
 . Debe usarse el mecanismo criptográfico más seguro 
 ofrecido por la plataforma de desarrollo 
 para la generación de números aleatorios, 
 de los cuales se deriven riesgos de seguridad en caso de predecirse el número 
-(ej: Generación de ID, mapeo de códigos, llaves), 
-evaluando previamente un posible impacto en la disponibilidad [1].
+(ej: Generación de +ID+, mapeo de códigos, llaves), 
+evaluando previamente un posible impacto en la disponibilidad<<r1,^[1]^>>.
 
 == Solución
 
 . La generación de números pseudoaleatorios 
-es realizada aplicando los conceptos del apéndice 3 de FIPS 186-1. 
+es realizada aplicando los conceptos del apéndice 3 de +FIPS 186-1+. 
 El servidor automáticamente genera la semilla 
 usando datos recolectados de la información del sistema 
-o usando un coprocesador criptográfico como el 4764 si está disponible.
+o usando un coprocesador criptográfico como el +4764+ si está disponible.
 
-. El procedimiento Qc3GenPRNs tiene como propósito 
+. El procedimiento +Qc3GenPRNs+ tiene como propósito 
 la generación de números pseudoaleatorios criptográficamente seguros.
 
-. Comenzamos la solución definiendo la división IDENTIFICATION DIVISION [2]:
+. Comenzamos la solución definiendo la división +IDENTIFICATION DIVISION+<<r2,^[2]^>>:
 +
-.test.py
+.cobolrnds.cbl
 [source,cobol,linenums]
 ----
        PROCESS NOMONOPRC.
        IDENTIFICATION DIVISION.
-       ******************
-       * Identification *
-       ******************
+      ******************
+      * Identification *
+      ******************
        PROGRAM-ID. COBOLRNDS.
 ----
 +
-En esta división mediante la sentencia PROGRAM-ID, 
-se denomina al programa como COBOLRNDS.
+En esta división mediante la sentencia +PROGRAM-ID+, 
+se denomina al programa como +COBOLRNDS+.
 
-. En la división ENVIRONMENT DIVISION [3] 
-y dentro de la sección CONFIGURATION SECTION, 
-enlazamos el procedimiento externo Qc3GenPRNs:
+. En la división +ENVIRONMENT DIVISION+<<r3,^[3]^>> 
+y dentro de la sección +CONFIGURATION SECTION+, 
+enlazamos el procedimiento externo +Qc3GenPRNs+:
 +
 [source,cobol,linenums]
 ----
-       ***************
-       * Environment *
-       ***************
+      ***************
+      * Environment *
+      ***************
        ENVIRONMENT DIVISION.
        CONFIGURATION SECTION.
          SOURCE-COMPUTER. IBM-ISERIES.
@@ -68,42 +68,42 @@ enlazamos el procedimiento externo Qc3GenPRNs:
          SPECIAL-NAMES.
          LINKAGE TYPE PROCEDURE FOR "Qc3GenPRNs".
 ----
-. En la división DATA DIVISION [4] 
-se copia las estructuras contenidas en QC3CCI (Manejo criptográfico) 
-y QUSEC (Manejo de errores):
+. En la división +DATA DIVISION+<<r4,^[4]^>> 
+se copia las estructuras contenidas en +QC3CCI+ (Manejo criptográfico) 
+y +QUSEC+ (Manejo de errores):
 +
 [source,cobol,linenums]
 ----
-       ********
-       * Data *
-       ********
+      ********
+      * Data *
+      ********
        DATA DIVISION.
 
        WORKING-STORAGE SECTION.
        COPY QC3CCI OF QSYSINC-QCBLLESRC.
        COPY QUSEC OF QSYSINC-QCBLLESRC.
 ----
-. Se declara la variable WS-RAND-BYTES, 
-la cual almacenará la llave generada aleatoriamente:
+. Se declara la variable +WS-RAND-BYTES+, 
+la cual va a almacenar la llave generada aleatoriamente:
 +
 [source,cobol,linenums]
 ----
        01 WS-RAND-BYTES PIC X(32).
 ----
-. En la división PROCEDURE DIVISION se encuentra la lógica de negocio:
+. En la división +PROCEDURE DIVISION+ se encuentra la lógica de negocio:
 +
 [source,cobol,linenums]
 ----
-       ********
-       * Main *
-       ********
+      ********
+      * Main *
+      ********
        PROCEDURE DIVISION.
        MAIN.
 ----
-. Se hace un llamado al procedimiento Qc3GenPRNs. 
-Los argumentos que espera el procedimiento son [5]:
+. Se hace un llamado al procedimiento +Qc3GenPRNs+. 
+Los argumentos que espera el procedimiento<<r5,^[5]^>> son:
 
-* *Data:* La variable donde se almacenará el flujo de datos aleatorios.
+* *Data:* La variable donde se va a almacenar el flujo de datos aleatorios.
 
 * *Longitud de datos:* La longitud de la variable portadora.
 
@@ -121,12 +121,12 @@ Los argumentos que espera el procedimiento son [5]:
 +
 [source,cobol,linenums]
 ----
-           CALL "Qc3GenPRNs" USING
-               BY REFERENCE WS-RAND-BYTES,
-               BY CONTENT   LENGTH OF WS-RAND-BYTES,
-               BY CONTENT   "0",
-               BY CONTENT   "0",
-               BY REFERENCE QUS-EC.
+       CALL "Qc3GenPRNs" USING
+           BY REFERENCE WS-RAND-BYTES,
+           BY CONTENT   LENGTH OF WS-RAND-BYTES,
+           BY CONTENT   "0",
+           BY CONTENT   "0",
+           BY REFERENCE QUS-EC.
 ----
 
 . Se despliega en pantalla el flujo aleatorio 
@@ -134,29 +134,32 @@ y se detiene la ejecución del programa:
 +
 [source,cobol,linenums]
 ----
-           DISPLAY "Random: " WS-RAND-BYTES.
+       DISPLAY "Random: " WS-RAND-BYTES.
 
-           STOP RUN.
+       STOP RUN.
 ----
-. Algunas de las llaves generadas pueden ser observadas a continuación:
+. Algunas de las llaves generadas al ejecutar el programa 
+pueden ser observadas a continuación:
 +
 [source,cobol,linenums]
 ----
-Random:  iÂQW½ &l  º|äF Êú§± zº PïõM#OÝÖ
-Random: Üæ@  & Ï¬Ó÷2]#` ä« ñÒ´    =5fr4ÿ
-Random: üQ;ý Øi âÒãyè*  ñ ß:¿¯S}  e9$óóâ
-Random: %xërW 8W!îæ @ëÆ?Æ 5(    é"  íõ ä
-Random: Á  ÅûÀ·d,é P~J¾}Ãðø£  ® >  zY"6÷
-Random: F`IG9q£þ#    £ #¯¥6 VæU V¼½m8 OÙ
+       Random:  iÂQW½ &l  º|äF Êú§± zº PïõM#OÝÖ
+       Random: Üæ@  & Ï¬Ó÷2]#` ä« ñÒ´    =5fr4ÿ
+       Random: üQ;ý Øi âÒãyè*  ñ ß:¿¯S}  e9$óóâ
+       Random: %xërW 8W!îæ @ëÆ?Æ 5(    é"  íõ ä
+       Random: Á  ÅûÀ·d,é P~J¾}Ãðø£  ® >  zY"6÷
+       Random: F`IG9q£þ#    £ #¯¥6 VæU V¼½m8 OÙ
 ----
+
+* Código de ejemplo: link:src.zip[src.zip]
 
 == Referencias
 
-. REQ.0219: Debe usarse el mecanismo criptográfico más seguro 
+. [[r1]] REQ.0219: Debe usarse el mecanismo criptográfico más seguro 
 ofrecido por la plataforma (ej: java.security.SecureRandom) 
 para la generación de números aleatorios usados en procesos críticos 
 (ej: generación de ID, mapeo de códigos, llaves).
-. https://www.ibm.com/support/knowledgecenter/en/ssw_ibm_i_73/rzasb/iddiv.htm[Identification Division.]
-. https://www.ibm.com/support/knowledgecenter/en/ssw_ibm_i_72/rzasb/envcon.htm[Environment Division.]
-. https://www.ibm.com/support/knowledgecenter/en/ssw_ibm_i_73/rzasb/datdivs.htm[Data Division Structure.]
-. https://www.ibm.com/support/knowledgecenter/ssw_i5_54/apis/qc3genprns.htm[Generate Pseudorandom Numbers (QC3GENRN, Qc3GenPRNs) API.]
+. [[r2]] link:https://www.ibm.com/support/knowledgecenter/en/ssw_ibm_i_73/rzasb/iddiv.htm[Identification Division].
+. [[r3]] link:https://www.ibm.com/support/knowledgecenter/en/ssw_ibm_i_72/rzasb/envcon.htm[Environment Division].
+. [[r4]] link:https://www.ibm.com/support/knowledgecenter/en/ssw_ibm_i_73/rzasb/datdivs.htm[Data Division Structure].
+. [[r5]] link:https://www.ibm.com/support/knowledgecenter/ssw_i5_54/apis/qc3genprns.htm[Generate Pseudorandom Numbers (QC3GENRN, Qc3GenPRNs) API].
