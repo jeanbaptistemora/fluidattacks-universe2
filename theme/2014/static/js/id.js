@@ -3,15 +3,16 @@
     for (i = 1; i < 5; i++) {
       var titles = $(document).find("h"+ i +":visible");
       for (j = 0; j < titles.length; j++) {
-        var str = titles[j].innerText;
-        if (titles[j].id == "" || titles[j].id.indexOf("_") >= 0) {
+        if (!($(titles[j]).has("anchor").length)) {
+          var str = titles[j].innerText;
+          var replaceChars={ "á":"a" ,"é":"e", "í":"i", "ó":"o", "ú":"u", "ñ":"n" };
           str = str.replace(/^[0-9].*\.\s+/, '');
           str = str.replace(/[¡!¿?,':\.]/g, '');
           str = str.replace(/\s+/g, '-').toLowerCase();
-          var replaceChars={ "á":"a" ,"é":"e", "í":"i", "ó":"o", "ú":"u", "ñ":"n" };
           str = str.replace(/[áéíóúñ]/g, function(match) {return replaceChars[match];});
           $(titles[j]).prepend('<a href="#'+ str +'" class="anchor-sign"></a>');
           $(titles[j]).prepend('<span id="'+ str +'" class="anchor"></span>');
+          $(titles[j]).removeAttr("id");
         }
       }
     }
