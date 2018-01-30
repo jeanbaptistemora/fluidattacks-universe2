@@ -1,7 +1,7 @@
 :slug: kb/aspnet/codificar-salida/
 :eth: no
 :category: aspnet
-:description: Nuestros ethical hackers explican como evitar vulnerabilidades de seguridad mediante la programación segura en +ASP.NET+ para codificar adecuadamente las salidas en aplicaciones web.
+:description: Nuestros ethical hackers explican como evitar vulnerabilidades de seguridad mediante la programación segura en ASP.NET para codificar adecuadamente las salidas en aplicaciones web.
 :keywords: ASP.NET , XSS
 :kb: yes
 
@@ -95,7 +95,7 @@ excepto cuando se asigne a un atributo +XML+.
 * Adicionar una directiva using Microsoft.Security.Application;
 * Cambiar la forma en que se asigna la salida, por ejemplo:
 +
-.test.py
+.Ejemplo de salida codificada.
 [source, java, linenums]
 ----
 string out_Name = Request.QueryString["Name"]; 
