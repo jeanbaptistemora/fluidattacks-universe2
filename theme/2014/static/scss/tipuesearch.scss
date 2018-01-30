@@ -3,6 +3,7 @@ $black: rgba(0, 0, 0, 1);
 $blue: rgba(83, 150, 234, 1);
 $blue2: rgba(25, 116, 186, 1);
 $darkblue: rgba(29, 79, 114, 1);
+$greenyellow: rgba(173, 255, 47, 1);
 $lightblue: rgba(0, 133, 161, 1);
 $lightgray: rgba(211, 211, 211, 1);
 $middleblack: rgba(85, 85, 85, 1);
@@ -55,7 +56,12 @@ $white: rgba(255, 255, 255, 1);
       color: $lightblue;
     }
   }
+
+  .language {
+    color: $greenyellow;
+  }
 }
+
 
 #tipue_search_input {
   border: 1px solid $lightgray;

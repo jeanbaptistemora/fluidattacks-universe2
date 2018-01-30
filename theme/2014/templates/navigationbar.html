@@ -4,7 +4,7 @@
       <div class="langbutton">
         {% if lang_siteurls %}
           {% for lang, url in lang_siteurls.items() %}
-            <span{% if lang == DEFAULT_LANG %} class="active"{% endif %}><a href="{{ url }}/">{{ lang }} </a></span>
+            <span><a href="{{ url }}/" {% if lang == DEFAULT_LANG %} class="language"{% endif %}>{{ lang }} </a></span>
           {% endfor %}
         {% endif %}
       </div>
