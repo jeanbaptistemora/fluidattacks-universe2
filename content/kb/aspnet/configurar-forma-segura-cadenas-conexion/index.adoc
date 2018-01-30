@@ -1,8 +1,8 @@
 :slug: kb/aspnet/configurar-segura-cadenas-conexion/
 :eth: no
 :category: aspnet
-:description: TODO
-:keywords: TODO
+:description: Nuestros ethical hackers explican como evitar vulnerabilidades de seguridad mediante la configuración segura de cadenas de conexión en ASP.NET.
+:keywords: ASP.NET, Cadenas de conexión.
 :kb: yes
 
 = Configurar forma segura en cadenas de conexión
@@ -18,7 +18,7 @@ en archivos de configuración de la aplicación.
 A continuación se describe las circunstancias 
 bajo las cuales la siguiente solución tiene sentido:
 
-. La aplicación esta construida en ASP .NET version 1.1, 2.0, superior.
+. La aplicación esta construida en +ASP.NET+ versión +1.1+, +2.0+, o superior.
 
 . La aplicación requiere conectarse a una base de datos.
 
@@ -33,19 +33,19 @@ Almacenar la información de la conexión
 en texto plano o persistiendo ésta en memoria 
 puede comprometer la seguridad de la aplicación. 
 Las cadenas de conexión embebidas en el código fuente de la aplicación 
-pueden ser leídas usando la herramienta _Ildasm.exe_ (MSIL Disassembler), 
+pueden ser leídas usando la herramienta +Ildasm.exe+ (+MSIL Disassembler+), 
 la cual se puede emplear 
 para ver el lenguaje intermedio 
-de Microsoft (MSIL) en un ensamblado compilado [1]. 
+de +Microsoft (MSIL)+ en un ensamblado compilado <<r1 ,^[1]^>>. 
 Para proteger la información de conexión 
 se debe realizar los siguientes pasos:
 
-. Declarar la sección _connectionStrings_ 
-dentro del elemento _configuration_ 
-en el archivo _web.config_ de la aplicación 
+. Declarar la sección +connectionStrings+ 
+dentro del elemento +configuration+ 
+en el archivo +web.config+ de la aplicación 
 utilizando la siguiente parametrización: 
 +
-.test.py
+.Web.config
 [source,xml,linenums]
 ----
 <?xml version='1.0' encoding='utf-8'?>
@@ -59,25 +59,25 @@ utilizando la siguiente parametrización:
 </configuration>
 ----
 +
-Los atributos del subelemento _add_ son:
+Los atributos del subelemento +add+ son:
 +
-* *Name:* Utilizado para especificar el nombre 
+* +Name:+ Utilizado para especificar el nombre 
 de la cadena de conexión, 
 el cual es recuperado en tiempo de ejecución. 
 Este nombre debe ser único 
 para identificar una conexión en particular.
 
-* *ProviderName:* Es el nombre del proveedor de datos del .Net Framework
+* +ProviderName:+ Es el nombre del proveedor de datos del +.NET Framework+
  que se usará para la conexión.
 
-* *ConnectionString:* Es el valor de la cadena de conexión 
+* +ConnectionString:+ Es el valor de la cadena de conexión 
 para una base de datos específica.
 
 . Recuperar la cadena de conexión 
 declarada en el archivo de configuración 
 desde el código de la aplicación. 
-Para ello, se debe usar la clase _ConnectionStringSettings_ 
-del nombre de espacio _System.Configuration._
+Para ello, se debe usar la clase +ConnectionStringSettings+ 
+del nombre de espacio +System.Configuration+ <<r2,^[2]^>>.
 +
 [source,C,linenums]
 ----
@@ -90,36 +90,37 @@ if (settings != null)
    nombreConexion = settings.ConnectionString; 
 ---- 
 
-. Cifrar la sección _connectionStrings_. 
+. Cifrar la sección +connectionStrings+. 
 Para cifrar la información de conexión 
-que contiene el elemento _connectionStrings_ 
-en el archivo Web.config de la aplicación ASP.NET, 
-se debe usar la herramienta _Aspnet_regiis.exe_ 
-con el siguiente comando [3]: 
+que contiene el elemento +connectionStrings+ 
+en el archivo Web.config de la aplicación +ASP.NET+, 
+se debe usar la herramienta +Aspnet_regiis.exe+ 
+con el siguiente comando <<r3,^[3]^>>: 
 +
-[source, sh, linenums]
+[source, bat, linenums]
 ----
 aspnet_regiis -pe "connectionStrings" -app "/AppName" -prov "RsaProtectedConfigurationProvider"
 ----
 
 . Descifrar una sección del archivo de configuración. 
 Para descifrar la información de conexión 
-que contiene el elemento _connectionStrings_ 
-en el archivo Web.config se debe realizar utilizando el siguiente comando [3]:
+que contiene el elemento +connectionStrings+ 
+en el archivo Web.config se debe realizar 
+utilizando el siguiente comando <<r3, ^[3]^>>:
 +
-[source, sh, linenums]
+[source, bat, linenums]
 ----
 aspnet_regiis -pd "connectionStrings" -app "/AppName"
 ---- 
 
 == Referencias
 
-. https://docs.microsoft.com/en-us/dotnet/framework/data/adonet/protecting-connection-information[Microsoft, Protecting Connection Information]
+. [[r1]] link:https://docs.microsoft.com/en-us/dotnet/framework/data/adonet/protecting-connection-information[Microsoft, Protecting Connection Information]
 
-. https://msdn.microsoft.com/es-es/library/bf7sd233(VS.80).aspx[Microsoft, connectionStrings]
+. [[r2]] link:https://msdn.microsoft.com/es-es/library/bf7sd233(VS.80).aspx[Microsoft, connectionStrings]
 
-. https://msdn.microsoft.com/en-us/library/53tyfkaw.aspx[Microsoft, Encrypting Configuration Information Using Protected Configuration]
+. [[r3]] link:https://msdn.microsoft.com/en-us/library/53tyfkaw.aspx[Microsoft, Encrypting Configuration Information Using Protected Configuration]
 
-. https://msdn.microsoft.com/en-us/library/zhhddkxy.aspx[Microsoft, Encrypting and Decrypting Configurations Sections]
+. [[r4]] link:https://msdn.microsoft.com/en-us/library/zhhddkxy.aspx[Microsoft, Encrypting and Decrypting Configurations Sections]
 
-. https://msdn.microsoft.com/es-es/library/k6h9cz8h(VS.90).aspx[Microsoft, Herramienta Registro de IIS]
+. [[r5]] link:https://msdn.microsoft.com/es-es/library/k6h9cz8h(VS.90).aspx[Microsoft, Herramienta Registro de IIS]
