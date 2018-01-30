@@ -11,8 +11,11 @@
 
 ....
 = Asciidoc Style Test -> Level 0 Header
+
 == Headers -> Level 1 Header
+
 === ... -> Level 2 Header
+
 ...
 ....
 
@@ -315,28 +318,6 @@ print "Hello World"
 ....
 [source, python]
 print "Hello World"
-....
-
-* Delimited in a block (in case empty lines are used)
-+
-[source, cpp]
-----
-#include somelib.h
-
-int main(void) {
-
-}
-----
-+
-....
-[source, cpp]
-----
-#include somelib.h
-
-int main(void) {
-
-}
-----
 ....
 
 * Using line numeration

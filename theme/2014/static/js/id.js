@@ -10,8 +10,8 @@
           str = str.replace(/\s+/g, '-').toLowerCase();
           var replaceChars={ "á":"a" ,"é":"e", "í":"i", "ó":"o", "ú":"u", "ñ":"n" };
           str = str.replace(/[áéíóúñ]/g, function(match) {return replaceChars[match];});
-          titles[j].id = str;
-          $(titles[j]).prepend('<a href="#'+ str +'" class="anchor"></a>');
+          $(titles[j]).prepend('<a href="#'+ str +'" class="anchor-sign"></a>');
+          $(titles[j]).prepend('<span id="'+ str +'" class="anchor"></span>');
         }
       }
     }

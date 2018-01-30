@@ -30,7 +30,7 @@ $yellow: rgba(255, 255, 0, 1);
   text-transform: capitalize;
 
   &:hover {
-    .anchor {
+    .anchor-sign {
       visibility: visible;
     }
   }
@@ -164,15 +164,6 @@ p {
   }
 }
 
-.div404 {
-  border-top: 3px solid $darkblue;
-  box-shadow: 0 2px 2px $shadowgray;
-  margin-bottom: 20px;
-  padding-bottom: 10px;
-  text-align: left;
-  text-transform: capitalize;
-}
-
 img {
   max-width: 100%;
   vertical-align: middle;
@@ -235,9 +226,17 @@ article {
 }
 
 .anchor {
+  display: block;
+  position: relative;
+  top: -72px;
+  visibility: hidden;
+}
+
+.anchor-sign {
   color: inherit;
   font-weight: 400;
   margin-left: -20px;
+  transition: .1s;
   visibility: hidden;
 
   &::before {
