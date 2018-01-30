@@ -78,7 +78,7 @@ A continuación se muestra el uso de la clase +SHA256MANAGED+.
 . El primer paso es obtener un +array+ de bytes 
 de los caracteres dentro de la cadena.
 +
-.Ejemplo de uso de la clase +SHA256MANAGED+.
+.Hashpass.java
 [source,java,linenums]
 ----
 using System.Security.Cryptography;

@@ -85,7 +85,7 @@ del archivo +Web.config+ de una aplicación +ASP.NET+.
 A continuación, se especifica la instancia +SqlMembershipProvider+ 
 de la aplicación y se establece el formato de contraseña en +Hashed+.
 
-.Ejemplo configuración membership.
+.Web.config
 [source, xml, linenums]
 <membership defaultProvider="SqlProvider" userIsOnlineTimeWindow="20">
   <providers>

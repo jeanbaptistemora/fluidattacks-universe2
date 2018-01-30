@@ -95,7 +95,7 @@ excepto cuando se asigne a un atributo +XML+.
 * Adicionar una directiva using Microsoft.Security.Application;
 * Cambiar la forma en que se asigna la salida, por ejemplo:
 +
-.Ejemplo de salida codificada.
+. Outputcoded.java
 [source, java, linenums]
 ----
 string out_Name = Request.QueryString["Name"]; 
