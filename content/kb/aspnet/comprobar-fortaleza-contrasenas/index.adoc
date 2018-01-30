@@ -1,8 +1,8 @@
 :slug: kb/aspnet/comprobar-fortaleza-contrasenas/
 :eth: no
 :category: aspnet
-:description: TODO
-:keywords: TODO
+:description: Nuestros ethical hackers explican como evitar vulnerabilidades de seguridad mediante la configuración segura de contraseñas en ASPNET, probando su resistencia a ataques de diccionario.
+:keywords: ASP.NET, Diccionario.
 :kb: yes
 
 = Comprobar Fortaleza de Contraseñas con Diccionarios
@@ -10,16 +10,16 @@
 == Necesidad
 
 Comprobar fortaleza de contraseñas 
-por medio de diccionarios en ASP.Net
+por medio de diccionarios en +ASP.Net+
 
 == Contexto
 
 A continuación se describen las circunstancias bajo 
 las cuales la siguiente solución tiene sentido:
 
-. Se está desarrollando una aplicación en ASP.Net.
+. Se está desarrollando una aplicación en +ASP.Net+.
 . Se requiere comprobar la fortaleza de una contraseña 
-por medio de diccionarios. [1]
+por medio de diccionarios <<r1, ^[1]^>>.
 . El sistema operativo o el administrador del sistema 
 poseen diccionarios con palabras comunes.
 
@@ -32,15 +32,15 @@ Iniciamos el desarrollo de la aplicación
 importando las clases necesarias 
 y definiendo el nombre de nuestra clase:
 +
-.test.py
+.Dictionary.java
 [source,java,linenums]
 ----
 using System.IO;
 public class Dictionary {
 ----
 
-. El método _Main_ será el encargado 
-de llamar al método _isPasswordInDictionary_ , 
+. El método +Main+ será el encargado 
+de llamar al método +isPasswordInDictionary+ , 
 el cual realiza la búsqueda de la contraseña.
 +
 [source,java,linenums]
@@ -89,8 +89,8 @@ Retornará verdadero si la contraseña
 se encuentra en el diccionario 
 y falso en el caso contrario. 
 Iniciamos definiendo los parámetros: 
-_dictionaryFilePath_ que contiene la ruta al diccionario 
-y _password_ que es la contraseña.
++dictionaryFilePath+ que contiene la ruta al diccionario 
+y +password+ que es la contraseña.
 +
 [source,java,linenums]
 ----
@@ -99,11 +99,11 @@ y _password_ que es la contraseña.
 ----
 
 . Se abre el archivo de diccionario 
-con la clase _StreamReader_, 
+con la clase +StreamReader+, 
 la cual permite leer archivos de mucho contenido 
 con un buen manejo de memoria. 
 Se define igualmente la variable 
-que contendrá la palabra leida del diccionario.
+que contendrá la palabra leída del diccionario.
 +
 [source,java,linenums]
 ----
@@ -133,39 +133,35 @@ que puedan tener letras individuales en la lista de palabras.
      }
 ----
 
-. La siguiente es una lista de diccionarios 
-que se recomiendan para hacer la búsqueda:
-
-* http://dazzlepod.com/uniqpass/
-* http://www.openwall.com/wordlists/
-* http://wordlist.aspell.net/
-* https://packetstormsecurity.com/Crackers/wordlists/
-* http://www.deer-run.com/~hal/sysadmin/pam_cracklib.html
-
-. Para GNU/Linux se pueden utilizar 
+. Para +GNU/Linux+ se pueden utilizar 
 los diccionarios incluidos con el sistema operativo 
-que se encuentran en la ruta _/usr/share/dict/_. 
-El resultado para la anterior aplicación es el siguiente
+que se encuentran en la ruta +/usr/share/dict/+. 
+El resultado para la anterior aplicación es el siguiente:
 
 |===
 |*Palabra* | *Resultado*
 
-|123|true
+|123|+true+
 
-|hello|true
+|hello|+true+
 
-|admin|true
+|admin|+true+
 
-|SystEM|true
+|SystEM|+true+
 
-|Str0n6_P4ssw0rd!|false
+|Str0n6_P4ssw0rd!|+false+
 
 |===
 
 == Referencias
 
-. REQ.0126    Las contraseñas (tipo palabra) deben tener al menos 8 caracteres de longitud.
-. REQ.0127    Las contraseñas (tipo palabra) deben tener al menos 1 letra minúscula.
-. REQ.0128    Las contraseñas (tipo palabra) deben tener al menos 1 letra mayúscula.
-. REQ.0129    Las contraseñas (tipo palabra) deben tener al menos 1 dígito.
-. REQ.0130    Las contraseñas (tipo palabra) deben tener al menos 1 carácter especial.
+. [[r1]] REQ.0126 Las contraseñas (tipo palabra) deben tener al menos 8 caracteres de longitud.
+. [[r2]] REQ.0127 Las contraseñas (tipo palabra) deben tener al menos 1 letra minúscula.
+. [[r3]] REQ.0128 Las contraseñas (tipo palabra) deben tener al menos 1 letra mayúscula.
+. [[r4]] REQ.0129 Las contraseñas (tipo palabra) deben tener al menos 1 dígito.
+. [[r5]] REQ.0130 Las contraseñas (tipo palabra) deben tener al menos 1 carácter especial.
+. [[r6]] link:http://dazzlepod.com/uniqpass/[Uniqpass Password list]
+. [[r7]] link:http://www.openwall.com/wordlists/[Openwall worldlist collection]
+. [[r8]] link:http://wordlist.aspell.net/[Spell Checker Oriented Word Lists (SCOWL)]
+. [[r9]] link:https://packetstormsecurity.com/Crackers/wordlists/[Packetstorm Security Dictionary]
+. [[r10]] link:http://www.deer-run.com/~hal/sysadmin/pam_cracklib.html[Deer Dictionary toolbox]
