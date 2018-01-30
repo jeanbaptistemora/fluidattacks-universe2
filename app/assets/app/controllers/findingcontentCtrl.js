@@ -222,15 +222,23 @@ integrates.controller("findingcontentCtrl", function($scope, $stateParams, $time
                 $scope.aux={};
                 $scope.aux.tratamiento = $scope.finding.tratamiento;
                 $scope.aux.razon = $scope.finding.razon_tratamiento;
-                if ($scope.finding.tratamiento == "Asumido"){
+                if($scope.finding.tratamiento == "Asumido"){
                   $scope.isAssumed = true;
                 } else {
                   $scope.isAssumed = false;
                 }
-                if ($scope.finding.estado == "Cerrado"){
+                if($scope.finding.estado == "Cerrado"){
                   $scope.isClosed = true;
                 } else {
                   $scope.isClosed = false;
+                }
+                if($scope.finding.suscripcion == "Concurrente" || $scope.finding.suscripcion == "Si"){
+                  $scope.isConcurrent = true;
+                } else {
+                  $scope.isConcurrent = false;
+                }
+                if($scope.finding.suscripcion != 'Concurrente' && $scope.finding.suscripcion != 'Puntual'){
+                  Rollbar.warning("Warning: Finding " + id + " without type");
                 }
                 $scope.aux.responsable = $scope.finding.responsable_tratamiento;
                    switch ($scope.finding.actor) {
@@ -553,7 +561,7 @@ integrates.controller("findingcontentCtrl", function($scope, $stateParams, $time
                 $scope.onlyReadableTab1 = true;
                 $scope.onlyReadableTab2 = true;
                 $scope.isManager = userRole != "customer";
-                if(!$scope.isManager && !$scope.isAssumed && !$scope.isClosed){
+                if(!$scope.isManager && !$scope.isAssumed && !$scope.isClosed && $scope.isConcurrent){
                   $('.finding-treatment').show();
                 } else {
                   $('.finding-treatment').hide();

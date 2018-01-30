@@ -33,6 +33,7 @@ class FindingDTO(object):
     #Atributos descriptivos
     CLASE = "38392454" #detallado
     HALLAZGO = "32201810"
+    SUSCRIPCION = "54346108"
     CODIGO_CLIENTE = "38193365"
     PROBABILIDAD = "38193660"
     SEVERIDAD = "38193659"
@@ -224,6 +225,8 @@ class FindingDTO(object):
         for finding in request_arr["data"]:
             if finding["field"] == self.HALLAZGO:
                 self.data["hallazgo"] = finding["value"]
+            if finding["field"] == self.SUSCRIPCION:
+                self.data["suscripcion"] = finding["value"]
             if finding["field"] == self.CODIGO_CLIENTE:
                 self.data["codigo_cliente"] = finding["value"]
             if finding["field"] == self.PROBABILIDAD:
