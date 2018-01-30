@@ -36,6 +36,8 @@ FI_GITLAB_MACHINE=${23}
 FI_GITLAB_LOGIN=${24}
 FI_GITLAB_PASSWORD=${25}
 FI_DOCUMENTROOT=${26}
+FI_SSL_CERT=${27}
+FI_SSL_KEY=${28}
 # construir la imagen
 cp ../.vault.txt .
 cp -a ../common .
@@ -65,6 +67,8 @@ docker build --no-cache --build-arg ci_commit_ref_name="$CI_COMMIT_REF_NAME" \
             --build-arg gitlab_login="$FI_GITLAB_LOGIN" \
             --build-arg gitlab_password="$FI_GITLAB_PASSWORD" \
             --build-arg documentroot="$FI_DOCUMENTROOT" \
+            --build-arg ssl_cert="$FI_SSL_CERT" \
+            --build-arg ssl_key="$FI_SSL_KEY" \
 						-t registry.gitlab.com/fluidsignal/integrates/bot:base .
 rm .vault.txt
 rm -rf common

@@ -30,4 +30,6 @@
 	env | grep FI_ROLLBAR_ENVIRONMENT
 	env | grep CI_COMMIT_SHA
 	env | grep CI_COMMIT_REF_NAME
+	env | grep FI_SSL_KEY
+	env | grep FI_SSL_CERT
 } > "env".list

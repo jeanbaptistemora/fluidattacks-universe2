@@ -30,6 +30,8 @@ ARG gitlab_machine
 ARG gitlab_login
 ARG gitlab_password
 ARG documentroot
+ARG ssl_cert
+ARG ssl_key
 
 ENV DEBIAN_FRONTEND noninteractive      # instalación no interactiva
 ENV CI_COMMIT_REF_NAME=$ci_commit_ref_name
@@ -58,11 +60,10 @@ ENV FI_GITLAB_MACHINE=$gitlab_machine
 ENV FI_GITLAB_LOGIN=$gitlab_login
 ENV FI_GITLAB_PASSWORD=$gitlab_password
 ENV FI_DOCUMENTROOT=$documentroot
+ENV FI_SSL_CERT=$ssl_cert
+ENV FI_SSL_KEY=$ssl_key
 ENV TZ=America/Bogota
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
-
-# Agrega el playbook
-ADD common/main.yml /root/
 
 # Agrega las variables
 ADD common/vars* /root/vars
@@ -92,7 +93,8 @@ RUN rm -r /var/www/html \
     && cd /usr/src/app/app/assets && npm install && cd \
     && a2ensite integrates-ssl.conf \
     && a2ensite 000-default.conf \
-    && ansible-playbook main.yml --vault-password-file .vault.txt
+    && echo "$FI_SSL_CERT" | base64 -di > "/etc/ssl/certs/fluidla.crt" \
+    && echo "$FI_SSL_KEY" | base64 -di > "/etc/ssl/private/fluidla.key"
 
 # Make port 80 and 443 available to the world outside this container
 EXPOSE 443
