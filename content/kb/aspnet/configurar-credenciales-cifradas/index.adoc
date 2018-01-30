@@ -1,87 +1,87 @@
 :slug: kb/aspnet/configurar-credenciales-cifradas/
 :eth: no
 :category: aspnet
-:description: TODO
-:keywords: TODO
+:description: Nuestros ethical hackers explican como evitar vulnerabilidades de seguridad mediante la configuración segura de credenciales en ASP.NET.
+:keywords: ASP.NET, Credenciales.
 :kb: yes
 
 = Configurar Credenciales Cifradas
 
 == Necesidad
 
-Credenciales cifradas en web.config
+Credenciales cifradas en +web.config+
 
 == Contexto
 
 A continuación se describe las circunstancias 
 bajo las cuales la siguiente solución tiene sentido:
 
-. Se utiliza el framework .NET.
-. Se desarrolla una aplicación web con ASP.NET.
+. Se utiliza el +framework .NET+.
+. Se desarrolla una aplicación web con +ASP.NET+.
 . Se desean cifrar las cadenas de conexión 
-a base de datos en el archivo web.config.
+a base de datos en el archivo +web.config+.
 
 == Solución
 
 . *Cifrar y descifrar secciones de configuración:*
-Es posible utilizar la Herramienta Registro de IIS de ASP.NET 
-(_Aspnet regiis.exe_) para cifrar o descifrar secciones 
+Es posible utilizar la Herramienta Registro de +IIS+ de +ASP.NET+ 
+(+Aspnet regiis.exe+) para cifrar o descifrar secciones 
 de un archivo de configuración Web. 
-ASP.NET descifrará automáticamente los elementos 
-de configuración cifrados al procesar el archivo _Web.config_ 
-La herramienta _Aspnet_regiis.exe_ está ubicada en la carpeta _%WINDIR%\Microsoft.NET\Framework\versionNumber_. 
++ASP.NET+ descifrará automáticamente los elementos 
+de configuración cifrados al procesar el archivo +Web.config+.
+La herramienta +Aspnet_regiis.exe+ está ubicada en la carpeta +%WINDIR%\Microsoft.NET\Framework\versionNumber+. 
 También puede utilizar las clases de configuración protegida 
-del espacio de nombres _System.Configuration_ 
+del espacio de nombres +System.Configuration+ 
 para cifrar y descifrar secciones 
 de un archivo de configuración Web, 
-secciones de un archivo de configuración para un ejecutable (.exe) 
+secciones de un archivo de configuración para un ejecutable (+.exe+) 
 o secciones de los archivos de configuración 
 en el equipo y en la aplicación.
 
 . *Cifrar una sección de configuración Web:*
 Para cifrar el contenido del archivo de configuración, 
-utilice la herramienta _Aspnet_regiis.exe_ 
-con la opción –pe 
+utilice la herramienta +Aspnet_regiis.exe+ 
+con la opción +–pe+ 
 y el nombre del elemento de configuración 
 que se va a cifrar. 
-Utilice la opción –app para identificar 
+Utilice la opción +–app+ para identificar 
 la aplicación para la cual 
-se va a cifrar el archivo Web.config 
-y la opción -site para identificar 
+se va a cifrar el archivo +Web.config+ 
+y la opción +-site+ para identificar 
 el sitio Web del que forma parte la aplicación. 
 El sitio Web se identifica 
 utilizando el número del sitio 
 de la metabase de los servicios 
-de Internet Information Server (IIS). 
+de +Internet Information Server (IIS)+. 
 Puede recuperar el número del sitio 
-desde la variable del servidor _INSTANCE META PATH_ 
-de la colección _ServerVariables_. 
-Por ejemplo, cuando está instalado IIS, 
+desde la variable del servidor +INSTANCE META PATH+ 
+de la colección +ServerVariables+. 
+Por ejemplo, cuando está instalado +IIS+, 
 se crea un sitio Web 
-denominado _Default Web Site_ como sitio 1. 
+denominado +Default Web Site+ como sitio 1. 
 En las páginas que provienen de ese sitio, 
-la variable del servidor _INSTANCE META PATH_ 
-devuelve "/LM/W3SVC/1". 
-Si no especifica una opción -site, 
+la variable del servidor +INSTANCE META PATH+ 
+devuelve +/LM/W3SVC/1+. 
+Si no especifica una opción -+site+, 
 se utiliza el sitio 1. 
-Utilice la opción _–prov_ 
-para identificar el nombre del _ProtectedConfigurationProvider_ 
+Utilice la opción +–prov+ 
+para identificar el nombre del +ProtectedConfigurationProvider+ 
 que llevará a cabo el cifrado y descifrado. 
 Si no especifica un proveedor 
-mediante la opción -prov, 
-se utilizará el proveedor configurado como _defaultProvider_.
+mediante la opción +-prov+, 
+se utilizará el proveedor configurado como +defaultProvider+.
 A continuación se presenta el comando encargado 
-de cifrar el elemento _connectionStrings_ 
-del archivo Web.config para la aplicación _SampleApplication_. 
-Dado que no se incluye ninguna opción -site, 
+de cifrar el elemento +connectionStrings+ 
+del archivo +Web.config+ para la aplicación +SampleApplication+. 
+Dado que no se incluye ninguna opción +-site+, 
 se asume que la aplicación 
-es del sitio Web 1 (mejor conocido como _Default Web Site_ en IIS). 
+es del sitio Web 1 (mejor conocido como +Default Web Site+ en +IIS+). 
 El cifrado se realiza 
-utilizando el _RsaProtectedConfigurationProvider_ 
+utilizando el +RsaProtectedConfigurationProvider+ 
 especificado en la configuración del equipo.
 +
-.test.py
-[source,sh,linenums]
+.customcred.bat
+[source,bat,linenums]
 ----
 aspnet_regiis -pe "connectionStrings" -app "/SampleApplication" 
   -prov "RsaProtectedConfigurationProvider"
@@ -90,29 +90,29 @@ aspnet_regiis -pe "connectionStrings" -app "/SampleApplication"
 . *Descifrar una sección de configuración Web:*
 Para descifrar el contenido 
 del archivo de configuración, 
-utilice la herramienta Aspnet_regiis.exe 
-con el modificador -pd 
+utilice la herramienta +Aspnet_regiis.exe+. 
+Use el modificador +-pd+ 
 y el nombre del elemento de configuración 
 que se va a descifrar. 
-Utilice los modificadores –app 
-y -site para identificar la aplicación 
+Utilice los modificadores +–app+ 
+y +-site+ para identificar la aplicación 
 para la que se va a descifrar 
-el archivo Web.config. 
+el archivo +Web.config+. 
 No es necesario especificar 
-el modificador –prov para identificar 
-el nombre del _ProtectedConfigurationProvider_, 
-ya que esa información se lee 
-desde el atributo _configProtectionProvider_ 
+el modificador +–prov+ para identificar 
+el nombre del +ProtectedConfigurationProvider+. 
+Ésto debido a que esa información se lee 
+desde el atributo +configProtectionProvider+ 
 de la sección de configuración protegida.
-El siguiente comando se encarga 
-de descifrar el elemento _connectionStrings_ 
-del archivo Web.config para la aplicación _SampleApplication_ :
+El siguiente comando descifra el elemento +connectionStrings+ 
+del archivo +Web.config+ para la aplicación +SampleApplication+ :
 
-[source,sh,linenums]
+[source,bat,linenums]
 ----
 aspnet_regiis -pd "connectionStrings" -app "/SampleApplication"
 ----
 
 == Referencias
 
-. https://msdn.microsoft.com/en-us/library/zhhddkxy.aspx[Encrypting and decrypting configuration sections - MSDN]
+. [[r1]] link:https://msdn.microsoft.com/en-us/library/zhhddkxy.aspx[Encrypting and decrypting configuration sections - MSDN.]
+. [[r2]] link:https://msdn.microsoft.com/es-es/library/system.web.services.protocols.webclientprotocol.credentials(v=vs.110).aspx[Propiedad WebClientProtocol.Credentials.]
