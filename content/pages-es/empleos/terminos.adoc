@@ -1,10 +1,10 @@
-:slug: empleos/terminos-seleccion/
+:slug: empleos/terminos/
 :category: careers
 :description: TODO
 :keywords: TODO
 :eth: no
 
-= Términos del Proceso de Selección
+= Términos
 
 A continuación se especifican los términos del proceso de selección, 
 por favor leerlos en detalle. 
