@@ -3,25 +3,22 @@ $darkergray: rgba(46, 42, 37, 1);
 $lightblue: rgba(0, 133, 161, 1);
 $white: rgba(255, 255, 255, 1);
 
-@mixin footer-th {
+@mixin footer {
   background-color: $darkergray;
   border: 0;
   color: $white;
   padding-bottom: 0;
 }
 
-@mixin footer-td {
-  background-color: $darkergray;
-  border: 0;
-  color: $white;
-  padding-top: 0;
-  width: 25%;
-}
-
 .divlogo {
   margin: 0 0 30px;
   padding-top: 30px;
   text-align: center;
+}
+
+.divcompany {
+  display: inline-block;
+  vertical-align: top;
 }
 
 .divsocial {
@@ -38,21 +35,23 @@ $white: rgba(255, 255, 255, 1);
 .footer {
   background-color: $darkergray;
   padding: 0 20px;
+  text-align: center;
 }
 
 .navfoot {
   margin: auto;
+  text-align: left;
+  white-space: nowrap;
   width: 350px;
 }
 
 .tbsite2 {
-  border-bottom: 30px solid $darkergray;
+  border-bottom: 20px solid $darkergray;
   border-collapse: collapse;
-  display: table;
-  width: 100%;
 
   th {
-    @include footer-th;
+    @include footer;
+    padding-bottom: 0;
 
     h3 {
       text-align: left;
@@ -60,7 +59,8 @@ $white: rgba(255, 255, 255, 1);
   }
 
   td {
-    @include footer-td;
+    @include footer;
+    padding-top: 0;
 
     a {
       color: $white;
@@ -88,21 +88,19 @@ $white: rgba(255, 255, 255, 1);
   }
 
   .tbsite4 {
-    border-bottom: 30px solid $darkergray;
+    border-bottom: 20px solid $darkergray;
     border-collapse: collapse;
     display: table;
-    width: 100%;
 
     th {
-      @include footer-th;
+      @include footer;
+      padding-bottom: 0;
 
-      h3 {
-        text-align: left;
-      }
     }
 
     td {
-      @include footer-td;
+      @include footer;
+      padding-top: 0;
 
       a {
         color: $white;
@@ -112,6 +110,21 @@ $white: rgba(255, 255, 255, 1);
           color: $lightblue;
         }
       }
+    }
+  }
+}
+
+@media (min-width: 1000px) {
+  .navfoot {
+    display: inline-block;
+    width: fit-content;
+  }
+
+  .tbsite4 {
+    margin-left: 20px;
+
+    th {
+      padding-top: 6px;
     }
   }
 }
