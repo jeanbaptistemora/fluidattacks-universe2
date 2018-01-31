@@ -98,6 +98,7 @@ I18N_SUBSITES = {
         'CATEGORIES_URL': 'categorias/',
         'CATEGORY_SAVE_AS': 'categorias/{slug}/index.html',
         'CATEGORY_URL': 'categorias/{slug}/',
+        'ASCIIDOC_OPTIONS': ['-f /etc/asciidoc/lang-es.conf'],
     }
 }
 lang_siteurls = {
