@@ -100,4 +100,4 @@ RUN rm -r /var/www/html \
 EXPOSE 443
 
 # Primer comando
-CMD service cron start && /usr/sbin/apache2ctl -D FOREGROUND
+CMD env > /etc/environment && service cron start && /usr/sbin/apache2ctl -D FOREGROUND
