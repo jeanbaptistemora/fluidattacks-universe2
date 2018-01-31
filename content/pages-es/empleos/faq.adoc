@@ -16,7 +16,7 @@ La aplicación del examen no me deja salir de Moodle ¿Que puedo hacer?::
 	Si ya finalizaste el examen, da click en el botón que está situado en la parte inferior derecha de la pantalla para salir. Si esto no funciona puedes intentar reiniciando el equipo con tranquilidad pues ya para este momento habrás enviado el examen y no se perderá ningún dato.
 
 No tengo RUT, ¿como puedo diligenciar el formulario de tercero?::
-	En la http://www.dian.gov.co/contenidos/servicios/rut.html[página de la DIAN] se explica cómo sacarlo por primera vez o como actualizarlo
+	En la link:http://www.dian.gov.co/contenidos/servicios/rut.html[página de la DIAN] se explica cómo sacarlo por primera vez o como actualizarlo
 
 No se para cual vacante me postulé ¿Como puedo averiguarlo?::
 	Escribir cualquier duda u observación respecto al proceso de selección  al correo careers@autonomicmind.co.
@@ -31,7 +31,7 @@ No me funciona la aplicación de examen ¿que puedo hacer?::
 	Prueba ejecutando la aplicación como administrador. Si el problema persiste puedes intentarlo desde otro PC.
 
 No llegó el adjunto para el análisis de datos ¿como lo obtengo?::
-	Intenta descargarlo desde https://fluid.la/web/es/files/hallazgos-open-data.tar.bz2[aquí] 
+	Intenta descargarlo desde link:https://fluid.la/web/es/files/hallazgos-open-data.tar.bz2[aquí] 
 
 Se me pasó el tiempo para el examen, ¿que puedo hacer?::
 	De tener un motivo justificado (bloqueos de la aplicación, reinicios inesperados del pc, problemas de conexión) puedes escribirnos vía e-mail a careers@autonomicmind.co indicándonos que sucedió y nosotros te indicaremos como proceder.
@@ -40,7 +40,7 @@ No alcance a enviar el análisis de datos, ¿que puedo hacer?::
 	De tener un motivo justificado puedes escribirnos vía e-mail a careers@autonomicmind.co indicándonos por qué no lo realizaste en el plazo dado y solicitando una nueva fecha de entrega.
 
 ¿Que pongo en el portafolio?::
-	Las instrucciones y pautas para la elaboración del portafolio las puedes encontrar en: https://fluid.la/web/es/empleos/portafolio/ 
+	Las instrucciones y pautas para la elaboración del portafolio las puedes encontrar link:https://fluid.la/web/es/empleos/portafolio/[aquí]
 
 No tengo visa, ¿que pongo en ese campo?::
 	Este campo no es obligatorio, no lo diligencies si no tienes visa.

@@ -30,7 +30,7 @@ A continuación, nos presentamos como empresa con el fin de que luego puedas tom
 ++++
 </br>
 ++++
-* En FLUID todos los sistemas están sujetos a monitoreo mediante https://www.timedoctor.com/[sistemas de control automáticos de actividad y tiempo]. Con lo cual buscamos:
+* En FLUID todos los sistemas están sujetos a monitoreo mediante link:https://www.timedoctor.com/[sistemas de control automáticos de actividad y tiempo]. Con lo cual buscamos:
 ** Mantener la seguridad de la información de nuestros clientes, 
 ** Ser objetivos, precisos y justos en la evaluación del desempeño.
 
