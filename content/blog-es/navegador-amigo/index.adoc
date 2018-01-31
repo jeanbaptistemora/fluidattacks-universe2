@@ -1,6 +1,6 @@
 :slug: navegador-amigo/
 :date: 2017-12-18
-:category: opiniones-de-seguridad
+:category: opiniones
 :description: TODO
 :keywords: TODO
 :author: Luis Arteaga

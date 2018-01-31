@@ -1,6 +1,6 @@
 :slug: pagina-queria-ingresar/
 :date: 2017-03-08
-:category: opiniones-de-seguridad
+:category: opiniones
 :tags: web, seguridad, información
 :Image: pagina.png
 :alt: Teclado con una letra roja que dice GET ME OUT OF HERE

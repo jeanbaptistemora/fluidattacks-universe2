@@ -1,6 +1,6 @@
 :slug: seguridad-compartida-nube/
 :date: 2016-09-10
-:category: opiniones-de-seguridad
+:category: opiniones
 :tags: cloud, aws, seguridad, tercerizar
 :Image: shared-security-cloud.png
 :alt: Hojas con datos binarios bajo una nube, al lado de un candado

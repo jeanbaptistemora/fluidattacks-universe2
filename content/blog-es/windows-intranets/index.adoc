@@ -3,7 +3,7 @@
 :description: TODO
 :keywords: TODO
 :author: Jhony Villa
-:category: opiniones-de-seguridad
+:category: opiniones
 :tags: intranet, iwa, windows
 :Image: iwa.png
 :alt: Diagrama con flechas que muestran la interacción usuario-servidor

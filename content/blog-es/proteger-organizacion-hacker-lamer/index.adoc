@@ -1,6 +1,6 @@
 :slug: proteger-organizacion-hacker-lamer/
 :date: 2017-12-18
-:category: opiniones-de-seguridad
+:category: opiniones
 :tags: seguridad, proteger, información
 :Image: lamers.png
 :alt: Manos tecleando en un editor de texto

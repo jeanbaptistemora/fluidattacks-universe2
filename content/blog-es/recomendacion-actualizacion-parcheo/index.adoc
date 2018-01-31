@@ -1,6 +1,6 @@
 :slug: recomendacion-actualizacion-parcheo/
 :date: 2016-09-27
-:category: opiniones-de-seguridad
+:category: opiniones
 :tags: actualizar, seguridad, versión
 :Image: parchear.png
 :alt: Computador conectado a la palabra UPDATE

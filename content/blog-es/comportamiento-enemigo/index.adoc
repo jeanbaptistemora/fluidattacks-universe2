@@ -1,6 +1,6 @@
 :slug: comportamiento-enemigo/
 :date: 2016-11-08
-:category: opiniones-de-seguridad
+:category: opiniones
 :tags: atacar, rsa, seguridad
 :Image: comportamiento-enemigo.png
 :alt: Persona mitad-ángel mitad-demonio sosteniendo una bolsa de dinero

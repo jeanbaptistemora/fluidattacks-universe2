@@ -1,6 +1,6 @@
 :slug: conserving-id-ws-world/
 :date: 2017-05-02
-:category: security-opinions
+:category: opinions
 :tags: web, security, information
 :Image: identity.png
 :alt: Line of Lego stormtroopers with one facing the opposite direction

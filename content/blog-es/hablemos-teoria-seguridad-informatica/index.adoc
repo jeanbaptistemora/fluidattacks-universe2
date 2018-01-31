@@ -1,6 +1,6 @@
 :slug: hablemos-teoria-seguridad-informatica/
 :date: 2017-05-30
-:category: opiniones-de-seguridad
+:category: opiniones
 :tags: seguridad, teoria, definir
 :Image: theory-preview.png
 :alt: Caricatura de un hacker entrando a un computador por el cable de Internet

@@ -1,6 +1,6 @@
 :slug: introduccion-ingenieria-social/
 :date: 2017-05-16
-:category: opiniones-de-seguridad
+:category: opiniones
 :tags: concientizar, ingeniería, social, amenaza
 :Image: ingenieriasocial.png
 :alt: Mano manejando una marioneta que está interactuando con otras marionetas

@@ -1,6 +1,6 @@
 :slug: riesgos-dispositivos-moviles/
 :date: 2017-05-09
-:category: opiniones-de-seguridad
+:category: opiniones
 :tags: proteger, seguridad, dispositivo, amenaza
 :Image: moviles.png
 :alt: Celulares y tabletas apilados entre sí

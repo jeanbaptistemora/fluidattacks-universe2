@@ -1,6 +1,6 @@
 :slug: seguridad-informacion-gasto-inversion/
 :date: 2016-08-23
-:category: opiniones-de-seguridad
+:category: opiniones
 :tags: invertir, seguridad, información
 :Image: information-security-expense-investment.png
 :alt: Teclado con una tecla roja que dice INFORMATION SECURITY

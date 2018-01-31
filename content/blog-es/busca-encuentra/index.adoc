@@ -1,6 +1,6 @@
 :slug: busca-encuentra/
 :date: 2017-12-15
-:category: opiniones-de-seguridad
+:category: opiniones
 :description: TODO
 :keywords: TODO
 :author: Luis Arteaga

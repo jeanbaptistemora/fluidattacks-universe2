@@ -1,6 +1,6 @@
 :slug: estrategias-inteligentes-seta/
 :date: 2017-01-31
-:category: opiniones-de-seguridad
+:category: opiniones
 :tags: seta, concientizar, seguridad
 :Image: pilares.png
 :alt: Tres diagramas circulares mostrando relación personas-procesos-tecnología

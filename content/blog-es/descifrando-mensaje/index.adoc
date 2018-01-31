@@ -1,6 +1,6 @@
 :slug: descifrando-mensaje/
 :date: 2017-04-04
-:category: opiniones-de-seguridad
+:category: opiniones
 :tags: cifrar, seguridad, criptografía
 :Image: cifrado-preview.png
 :alt: Colección de datos hexadecimales con candados

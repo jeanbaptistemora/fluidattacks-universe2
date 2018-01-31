@@ -1,6 +1,6 @@
 :slug: requerimiento-pci/
 :date: 2016-10-18
-:category: opiniones-de-seguridad
+:category: opiniones
 :tags: protocolo, proteger, seguridad
 :Image: pci.png
 :alt: Tarjetas de crédito con la palabra PCI DSS 3.2

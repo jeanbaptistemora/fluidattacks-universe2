@@ -1,6 +1,6 @@
 :slug: healthcare-clouds/
 :date: 2017-04-27
-:category: security-opinions
+:category: opinions
 :tags: cloud, protect, health
 :Image: health-cloud.png
 :alt: The word Health Insurance being lift up to the sky by ballons

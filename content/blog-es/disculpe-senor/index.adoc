@@ -1,6 +1,6 @@
 :slug: disculpe-senor/
 :date: 2017-05-17
-:category: opiniones-de-seguridad
+:category: opiniones
 :tags: probar, software, funcionalidad
 :Image: disculpe-senor.png
 :alt: Lupa buscando insectos(bugs) en un monitor

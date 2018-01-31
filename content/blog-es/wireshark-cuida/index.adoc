@@ -1,6 +1,6 @@
 :slug: wireshark-cuida/
 :date: 2017-03-08
-:category: opiniones-de-seguridad
+:category: opiniones
 :tags: seguridad, monitorear, red, herramienta
 :Image: wireshark.jpeg
 :alt: Una señal que se combina con el símbolo de Wireshark

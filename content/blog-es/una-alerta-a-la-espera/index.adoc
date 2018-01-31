@@ -1,6 +1,6 @@
 :slug: una-alerta-a-la-espera/
 :date: 2017-12-22
-:category: opiniones-de-seguridad
+:category: opiniones
 :description: TODO
 :keywords: TODO
 :author: Luis Arteaga

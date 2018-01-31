@@ -1,6 +1,6 @@
 :slug: veo-no-veo/
 :date: 2017-12-19
-:category: opiniones-de-seguridad
+:category: opiniones
 :description: TODO
 :keywords: TODO
 :author: Luis Arteaga

@@ -1,6 +1,6 @@
 :slug: seguridad-usabilidad/
 :date: 2016-08-23
-:category: opiniones-de-seguridad
+:category: opiniones
 :tags: seguridad, usabilidad, concientizar
 :Image: security.png
 :alt: Caricatura acerca de políticas de seguridad

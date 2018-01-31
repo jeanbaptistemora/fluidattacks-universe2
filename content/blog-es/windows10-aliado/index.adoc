@@ -1,6 +1,6 @@
 :slug: windows10-aliado/
 :date: 2016-10-04
-:category: opiniones-de-seguridad
+:category: opiniones
 :tags: windows, seguridad, proteger
 :Image: windows10-allied.png
 :alt: Datos hexadecimales protegidos por un candado, con el logo Windows 10

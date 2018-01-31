@@ -1,6 +1,6 @@
 :slug: seguridad-privacidad-informacion/
 :date: 2017-02-07
-:category: opiniones-de-seguridad
+:category: opiniones
 :tags: información, privacidad, seguridad, proteger
 :Image: privacidad-info.png
 :alt: Computador accediendo a muchos servicios, enfatizando en la seguridad

@@ -1,6 +1,6 @@
 :slug: definiendo-software/
 :date: 2017-03-07
-:category: opiniones-de-seguridad
+:category: opiniones
 :tags: sde, sdlc, software, definir
 :Image: definiendo-software.png
 :alt: Programandor trabajando en 3 monitores las etapas de diseño de software

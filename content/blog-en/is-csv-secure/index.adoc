@@ -1,6 +1,6 @@
 :slug: is-csv-secure/
 :date: 2017-12-22
-:category: security-opinions
+:category: opinions
 :tags: security, csv, code, web
 :Image: csv.png
 :alt: Blank CSV document icon

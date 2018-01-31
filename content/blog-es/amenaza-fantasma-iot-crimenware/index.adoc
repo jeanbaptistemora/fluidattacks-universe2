@@ -1,6 +1,6 @@
 :slug: amenaza-fantasma-iot-crimenware/
 :date: 2016-11-01
-:category: opiniones-de-seguridad
+:category: opiniones
 :tags: crimenware, iot, seguridad, atacar
 :Image: crimenware.png
 :alt: Ladrón entrando a un computador como si fuera una caja fuerte
