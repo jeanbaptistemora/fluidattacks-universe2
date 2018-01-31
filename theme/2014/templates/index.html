@@ -48,7 +48,11 @@
                 <a class="aautor" href="{{ SITEURL }}/{{ gettext('categories')}}/{{ article.category }}">{{ article.category|replace("-", " ") }}</a>
                 &nbsp;&nbsp;<img class="imgprev" src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/tags.png" alt="{{ gettext('Tag icon') }}">
                 {% for tag in article.tags %}
-                  <a class="aautor" href="{{ SITEURL }}/{{ tag.url }}">{{ tag }}</a>
+                  {% if loop.last %}
+                    <a class="aautor" href="{{ SITEURL }}/{{ tag.url }}">{{ tag }}</a>
+                  {% else %}
+                    <a class="aautor" href="{{ SITEURL }}/{{ tag.url }}">{{ tag }},&nbsp;</a>
+                  {% endif %}
                 {% endfor %}      
                 {% if SHOW_FULL_ARTICLE %}
                   {{ article.content }}
@@ -86,8 +90,12 @@
                 <a class="aautor" href="{{ SITEURL }}/{{ gettext('categories') }}/{{ article.category }}">{{ article.category|replace("-", " ") }}</a>
                 &nbsp;&nbsp;<img class="imgprev" src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/tags.png" alt="{{ gettext('Tag icon') }}">
                 {% for tag in article.tags %}
-                  <a class="aautor" href="{{ SITEURL }}/{{ tag.url }}">{{ tag }}</a>
-                {% endfor %}      
+                  {% if loop.last %}
+                    <a class="aautor" href="{{ SITEURL }}/{{ tag.url }}">{{ tag }}</a>
+                  {% else %}
+                    <a class="aautor" href="{{ SITEURL }}/{{ tag.url }}">{{ tag }},&nbsp;</a>
+                  {% endif %}
+                {% endfor %}    
                 {% if SHOW_FULL_ARTICLE %}
                   {{ article.content }}
                 {% else %}
@@ -125,8 +133,12 @@
               <a class="aautor" href="{{ SITEURL }}/{{ gettext('categories') }}/{{ article.category }}">{{ article.category|replace("-", " ") }}</a>
               &nbsp;&nbsp;<img class="imgprev" src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/tags.png" alt="{{ gettext('Tag icon') }}">
               {% for tag in article.tags %}
-                <a class="aautor" href="{{ SITEURL }}/{{ tag.url }}">{{ tag }}</a>
-              {% endfor %}            
+                  {% if loop.last %}
+                    <a class="aautor" href="{{ SITEURL }}/{{ tag.url }}">{{ tag }}</a>
+                  {% else %}
+                    <a class="aautor" href="{{ SITEURL }}/{{ tag.url }}">{{ tag }},&nbsp;</a>
+                  {% endif %}
+                {% endfor %}       
               {% if SHOW_FULL_ARTICLE %}
                 {{ article.content }}
               {% else %}
@@ -168,8 +180,12 @@
               <a class="aautor" href="{{ SITEURL }}/{{ gettext('categories') }}/{{ article.category }}">{{ article.category|replace("-", " ") }}</a>
               &nbsp;&nbsp;<img class="imgprev" src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/tags.png" alt="{{ gettext('Tag icon') }}">
               {% for tag in article.tags %}
-                <a class="aautor" href="{{ SITEURL }}/{{ tag.url }}">{{ tag }}</a>
-              {% endfor %}             
+                  {% if loop.last %}
+                    <a class="aautor" href="{{ SITEURL }}/{{ tag.url }}">{{ tag }}</a>
+                  {% else %}
+                    <a class="aautor" href="{{ SITEURL }}/{{ tag.url }}">{{ tag }},&nbsp;</a>
+                  {% endif %}
+                {% endfor %}             
               {% if SHOW_FULL_ARTICLE %}
                 {{ article.content }}
               {% else %}
@@ -206,8 +222,12 @@
               <a class="aautor" href="{{ SITEURL }}/{{ gettext('categories') }}/{{ article.category }}">{{ article.category|replace("-", " ") }}</a>
               &nbsp;&nbsp;<img class="imgprev" src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/tags.png" alt="{{ gettext('Tag icon') }}">
               {% for tag in article.tags %}
-                <a class="aautor" href="{{ SITEURL }}/{{ tag.url }}">{{ tag }}</a>
-              {% endfor %}           
+                  {% if loop.last %}
+                    <a class="aautor" href="{{ SITEURL }}/{{ tag.url }}">{{ tag }}</a>
+                  {% else %}
+                    <a class="aautor" href="{{ SITEURL }}/{{ tag.url }}">{{ tag }},&nbsp;</a>
+                  {% endif %}
+                {% endfor %}            
               {% if SHOW_FULL_ARTICLE %}
                 {{ article.content }}
               {% else %}
