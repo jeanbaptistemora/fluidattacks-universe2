@@ -8,59 +8,60 @@
 
 A continuación se encuentran múltiples preguntas que surgen comunmente durante el proceso de selección y sus respectivas respuestas
 
-* *P: ¿Por qué si ya aplique en un portal de empleo, no me invitan al proceso?*
-** *R:* Una vez que apliques a una de nuestras vacantes en alguno de los portales en los cuales estamos registrados, nos tomamos de 1 a 2 días en identificar candidatos potenciales, clasificar e invitar vía e-mail. Si por algún motivo no has sido invitado pasados 2 días (excluyendo fines de semana) y consideras que tu perfil encaja con lo descrito en la vacante puedes escribirnos a careers@autonomicmind.co.
+[qanda]
+¿Por qué si ya aplique en un portal de empleo, no me invitan al proceso?::
+	Una vez que apliques a una de nuestras vacantes en alguno de los portales en los cuales estamos registrados, nos tomamos de 1 a 2 días en identificar candidatos potenciales, clasificar e invitar vía e-mail. Si por algún motivo no has sido invitado pasados 2 días (excluyendo fines de semana) y consideras que tu perfil encaja con lo descrito en la vacante puedes escribirnos a careers@autonomicmind.co.
 
-* *P: La aplicación del examen no me deja salir de Moodle ¿Que puedo hacer?*
-** *R:* Si ya finalizaste el examen, da click en el botón que está situado en la parte inferior derecha de la pantalla para salir. Si esto no funciona puedes intentar reiniciando el equipo con tranquilidad pues ya para este momento habrás enviado el examen y no se perderá ningún dato.
+La aplicación del examen no me deja salir de Moodle ¿Que puedo hacer?::
+	Si ya finalizaste el examen, da click en el botón que está situado en la parte inferior derecha de la pantalla para salir. Si esto no funciona puedes intentar reiniciando el equipo con tranquilidad pues ya para este momento habrás enviado el examen y no se perderá ningún dato.
 
-* *P: No tengo RUT, ¿como puedo diligenciar el formulario de tercero?*
-** *R:* En la http://www.dian.gov.co/contenidos/servicios/rut.html[página de la DIAN] se explica cómo sacarlo por primera vez o como actualizarlo
+No tengo RUT, ¿como puedo diligenciar el formulario de tercero?::
+	En la http://www.dian.gov.co/contenidos/servicios/rut.html[página de la DIAN] se explica cómo sacarlo por primera vez o como actualizarlo
 
-* *P: No se para cual vacante me postulé ¿Como puedo averiguarlo?* 
-** *R: * Escribir cualquier duda u observación respecto al proceso de selección  al correo careers@autonomicmind.co.
+No se para cual vacante me postulé ¿Como puedo averiguarlo?::
+	Escribir cualquier duda u observación respecto al proceso de selección  al correo careers@autonomicmind.co.
 
-* *P: Ya me había postulado para una vacante, ¿lo puedo hacer de nuevo para otro perfil o para el mismo?* 
-** *R:* Si lo puedes hacer, y en caso de haber pasado más de seis meses desde tu última postulación, debes hacer el proceso de nuevo desde el principio, en caso de no haber pasado los seis meses, nos escribes un correo a careers@autonomicmind.co informandonos que quieres aplicar a otro perfil.
+Ya me había postulado para una vacante, ¿lo puedo hacer de nuevo para otro perfil o para el mismo?::
+	Si lo puedes hacer, y en caso de haber pasado más de seis meses desde tu última postulación, debes hacer el proceso de nuevo desde el principio, en caso de no haber pasado los seis meses, nos escribes un correo a careers@autonomicmind.co informandonos que quieres aplicar a otro perfil.
 
-* *P: ¿Me puedo postular para dos vacantes diferentes?* 
-** *R:* Si, haces el proceso una sola vez, y nos escribes a cuales vacantes deseas aplicar al correo careers@autonomicmind.co               
+¿Me puedo postular para dos vacantes diferentes?::
+	Si, haces el proceso una sola vez, y nos escribes a cuales vacantes deseas aplicar al correo careers@autonomicmind.co               
 
-* *P: No me funciona la aplicación de examen ¿que puedo hacer?* 
-** *R:* Prueba ejecutando la aplicación como administrador. Si el problema persiste puedes intentarlo desde otro PC.
+No me funciona la aplicación de examen ¿que puedo hacer?::
+	Prueba ejecutando la aplicación como administrador. Si el problema persiste puedes intentarlo desde otro PC.
 
-* *P: No llegó el adjunto para el análisis de datos ¿como lo obtengo?* 
-** *R:* Intenta descargarlo desde https://fluid.la/web/es/files/hallazgos-open-data.tar.bz2[aquí] 
+No llegó el adjunto para el análisis de datos ¿como lo obtengo?::
+	Intenta descargarlo desde https://fluid.la/web/es/files/hallazgos-open-data.tar.bz2[aquí] 
 
-* *P: Se me pasó el tiempo para el examen, ¿que puedo hacer?* 
-** *R:* De tener un motivo justificado (bloqueos de la aplicación, reinicios inesperados del pc, problemas de conexión) puedes escribirnos vía e-mail a careers@autonomicmind.co indicándonos que sucedió y nosotros te indicaremos como proceder.
+Se me pasó el tiempo para el examen, ¿que puedo hacer?::
+	De tener un motivo justificado (bloqueos de la aplicación, reinicios inesperados del pc, problemas de conexión) puedes escribirnos vía e-mail a careers@autonomicmind.co indicándonos que sucedió y nosotros te indicaremos como proceder.
 
-* *P: No alcance a enviar el análisis de datos, ¿que puedo hacer?* 
-** *R:* De tener un motivo justificado puedes escribirnos vía e-mail a careers@autonomicmind.co indicándonos por qué no lo realizaste en el plazo dado y solicitando una nueva fecha de entrega.
+No alcance a enviar el análisis de datos, ¿que puedo hacer?::
+	De tener un motivo justificado puedes escribirnos vía e-mail a careers@autonomicmind.co indicándonos por qué no lo realizaste en el plazo dado y solicitando una nueva fecha de entrega.
 
-* *P: ¿Que pongo en el portafolio?* 
-** *R:* Las instrucciones y pautas para la elaboración del portafolio las puedes encontrar en: https://fluid.la/web/es/empleos/portafolio/ 
+¿Que pongo en el portafolio?::
+	Las instrucciones y pautas para la elaboración del portafolio las puedes encontrar en: https://fluid.la/web/es/empleos/portafolio/ 
 
-* *P: No tengo visa, ¿que pongo en ese campo?* 
-** *R:* Este campo no es obligatorio, no lo diligencies si no tienes visa.
+No tengo visa, ¿que pongo en ese campo?::
+	Este campo no es obligatorio, no lo diligencies si no tienes visa.
 
-* *P: ¿Que hago cuando termine la prueba de temperamento?* 
-** *R:* Cuando termines la prueba puedes proceder con la siguiente etapa (Evaluación de conocimientos). Momentos después te estaremos enviando tus resultados vía e-mail.
+¿Que hago cuando termine la prueba de temperamento?::
+	Cuando termines la prueba puedes proceder con la siguiente etapa (Evaluación de conocimientos). Momentos después te estaremos enviando tus resultados vía e-mail.
 
-* *P: ¿Tengo que hacer la prueba del polígrafo?* 
-** *R:* En la gran mayoría de los casos esta prueba no es obligatoria durante el proceso de selección, sin embargo, debido a que nuestro negocio principal es la seguridad de la información, puede que durante este proceso de selección o su relación laboral sea necesario la presentación de este tipo de pruebas.
+¿Tengo que hacer la prueba del polígrafo?::
+	En la gran mayoría de los casos esta prueba no es obligatoria durante el proceso de selección, sin embargo, debido a que nuestro negocio principal es la seguridad de la información, puede que durante este proceso de selección o su relación laboral sea necesario la presentación de este tipo de pruebas.
 
-* *P: ¿Tengo que hacer la prueba de Gallup?* 
-** *R:* Esta prueba solo se solicita en algunos casos, por lo tanto basta con que nos notifiques vía e-mail que has llegado a esta etapa y nosotros te indicaremos como proceder.
+¿Tengo que hacer la prueba de Gallup?::
+	Esta prueba solo se solicita en algunos casos, por lo tanto basta con que nos notifiques vía e-mail que has llegado a esta etapa y nosotros te indicaremos como proceder.
 
-* *P: ¿En este proceso se realiza algún estudio de riesgos con mis datos?* 
-** *R:* Si, en la etapa previa a la contratación, se realiza una confirmación de los datos del candidato en centrales de riesgo y otras referencias.
+¿En este proceso se realiza algún estudio de riesgos con mis datos?::
+	Si, en la etapa previa a la contratación, se realiza una confirmación de los datos del candidato en centrales de riesgo y otras referencias.
 
-* *P: No he dicho en mi empresa que estoy en otro proceso, ¿es obligatoria la etapa de referencias inversas?* 
-** *R:* Si es obligatoria, y al ser en una etapa avanzada en el proceso de selección, previa a la contratación, es necesario que se tengan claras las expectativas de todas las partes.
+No he dicho en mi empresa que estoy en otro proceso, ¿es obligatoria la etapa de referencias inversas?::
+	Si es obligatoria, y al ser en una etapa avanzada en el proceso de selección, previa a la contratación, es necesario que se tengan claras las expectativas de todas las partes.
 
-* *P: ¿Soy muy timido para exponer en público, es obligatorio hacer la audición?* 
-** *R:* Esta etapa es de carácter opcional en el proceso, sin embargo, debes tener en cuenta que en nuestro equipo de trabajo mantener una buena comunicación es fundamental independiente del rol que vayas a desempeñar en la empresa.
+¿Soy muy timido para exponer en público, es obligatorio hacer la audición?::
+	Esta etapa es de carácter opcional en el proceso, sin embargo, debes tener en cuenta que en nuestro equipo de trabajo mantener una buena comunicación es fundamental independiente del rol que vayas a desempeñar en la empresa.
 
-* *P: ¿Es obligatorio realizar todas las etapas del proceso?* 
-** *R:* A medida que avances en el proceso de selección, y dependiendo para que vacante estás postulado se te darán indicaciones al respecto.
+¿Es obligatorio realizar todas las etapas del proceso?::
+	A medida que avances en el proceso de selección, y dependiendo para que vacante estás postulado se te darán indicaciones al respecto.
