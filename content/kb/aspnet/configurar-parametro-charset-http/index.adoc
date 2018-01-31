@@ -34,7 +34,7 @@ usando codificaciones diferentes,
 para que dos sistemas (usualmente, un +WAF+ y el servidor +WEB+) 
 perciban peticiones +HTTP+ diferentes. 
 
-. La forma normal (_+canonical form+_) es la representación más simple 
+. La forma normal (+canonical form+) es la representación más simple 
 o más estándar de algo. 
 El proceso de normalizar las solicitudes 
 se encarga de abordar el modo 
@@ -48,7 +48,7 @@ con muchos procesos de normalización
 desde la codificación del +URL+,  
 hasta la traducción de las +IP+. 
 Cuando se toman decisiones de seguridad 
-basándose en datos normalizados menos que perfectos, 
+basándose en datos normalizados imperfectos, 
 la aplicación debe ser capaz de manejar 
 entradas inesperadas de manera segura. 
 
@@ -73,7 +73,7 @@ Para configurar el +charset+ use por ejemplo:
 .Web.config
 [source, xml, linenums]
 ----
-<%Response.charset="utf-8"%>
+<% Response.charset="utf-8" %>
 ----
 
 . En +ASP.Net+, la configuración de +Response.ContentEncoding+ 
@@ -112,12 +112,12 @@ como se muestra en el siguiente ejemplo:
 establezca los atributos +RequestEncoding+ y +ResponseEncoding+ 
 de la directiva +@ Page+, como se muestra en el siguiente ejemplo:
 +
-[source,html,linenums]
+[source,xml,linenums]
 ----
 <%@ Page RequestEncoding="utf-8" ResponseEncoding="utf-8" %>
 ----
 
 == Referencias
 
-. [[r1]] link:https://msdn.microsoft.com/en-us/library/ms525304(v=vs.90).aspx[Response.Charset]
-. [[r2]] link:https://msdn.microsoft.com/en-us/library/39d1w2xf(v=vs.100).aspx[Cómo seleccionar y codificar para la globalización de páginas Web ASP.NET]
+. [[r1]] link:https://msdn.microsoft.com/en-us/library/ms525304(v=vs.90).aspx[Response.Charset].
+. [[r2]] link:https://msdn.microsoft.com/en-us/library/39d1w2xf(v=vs.100).aspx[Cómo seleccionar y codificar para la globalización de páginas Web ASP.NET].
