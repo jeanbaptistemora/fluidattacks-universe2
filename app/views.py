@@ -675,6 +675,7 @@ def finding_solved(request):
     parameters = request.POST.dict()
     recipients = integrates_dao.get_project_users(parameters['data[project]'])
     remediated = integrates_dao.add_remediated_dynamo(int(parameters['data[finding_id]']), True, parameters['data[project]'], parameters['data[finding_name]'])
+    rem_solution = parameters['data[justification]'].replace('\n', ' ')
     if not remediated:
         rollbar.report_message('Error: An error occurred when remediating the finding', 'error', request) 
         return util.response([], 'Error', True)
@@ -692,6 +693,7 @@ def finding_solved(request):
            'finding_id': parameters['data[finding_id]'],
            'finding_vulns': parameters['data[finding_vulns]'],
            'company': request.session["company"],
+           'solution': rem_solution,
             }
         send_mail_remediate_finding(to, context)
         return util.response([], 'Success', False)

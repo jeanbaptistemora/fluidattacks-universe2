@@ -987,32 +987,54 @@ integrates.controller("findingcontentCtrl", function($scope, $stateParams, $time
             finding_vulns: $scope.finding.cardinalidad,
          };
          var modalInstance = $uibModal.open({
-             templateUrl: BASE.url + 'assets/views/project/confirmMdl.html',
+             templateUrl: BASE.url + 'assets/views/project/remediatedMdl.html',
              animation: true,
              backdrop: 'static',
              resolve: { mailData: descData },
              controller: function($scope, $uibModalInstance, mailData){
+                $scope.remediatedData = {}
                  $scope.modalTitle = $translate.instant('search_findings.tab_description.remediated_finding');
                  $scope.ok = function(){
-                     //Consumir el servicio
-                     var req = projectFtry.FindingSolved(mailData);
-                     //Capturar la Promisse
-                     req.then(function(response){
-                         if(!response.error){
-                             //Tracking mixpanel
-                             var org = Organization.toUpperCase();
-                             var projt = descData.project.toUpperCase();
-                             mixPanelDashboard.trackFindingDetailed("FindingRemediated", userName, userEmail, org, projt, descData.finding_id);
-                             $scope.remediated = response.data.remediated;
-                             console.log($scope.remediated);
-                             $msg.success($translate.instant('proj_alerts.remediated_success'));
-                             $uibModalInstance.close();
-                             location.reload();
-                         }else{
-                           Rollbar.error("Error: An error occurred when remediating the finding");
-                           $msg.error($translate.instant('proj_alerts.error_textsad'));
+                    $scope.remediatedData.user_mail = mailData.user_mail;
+                    $scope.remediatedData.finding_name = mailData.finding_name;
+                    $scope.remediatedData.project = mailData.project;
+                    $scope.remediatedData.finding_url = mailData.finding_url;
+                    $scope.remediatedData.finding_id = mailData.finding_id;
+                    $scope.remediatedData.finding_vulns = mailData.finding_vulns;
+                    $scope.remediatedData.justification = $scope.remediatedData.justification.trim(); 
+                    if($scope.remediatedData.justification.length < 100) {
+                      $msg.error($translate.instant('proj_alerts.short_remediated_comment'));
+                    } else {
+                      //Consumir el servicio
+                      var req = projectFtry.FindingSolved($scope.remediatedData);
+                      //Capturar la Promisse
+                      req.then(function(response){
+                          if(!response.error){
+                              //Tracking mixpanel
+                              var org = Organization.toUpperCase();
+                              var projt = descData.project.toUpperCase();
+                              mixPanelDashboard.trackFindingDetailed("FindingRemediated", userName, userEmail, org, projt, descData.finding_id);
+                              $scope.remediated = response.data.remediated;
+                              $msg.success($translate.instant('proj_alerts.remediated_success'));
+                              $uibModalInstance.close();
+                              location.reload();
+                              var data = {};
+                              data["id"] = parseInt(Math.round(new Date()/1000).toString() + (Math.random() * 10000).toString(9));
+                              data["content"] = $scope.remediatedData.justification;
+                              data["parent"] = 0;
+                              data["email"] = $scope.remediatedData.user_mail;
+                              data["finding_name"] = $scope.remediatedData.finding_name;
+                              data["project"] = $scope.remediatedData.project;
+                              data["finding_url"] = $scope.remediatedData.finding_url;
+                              var comment = projectFtry.addComment($scope.remediatedData.finding_id, data);
+                          }else{
+                            console.log("error", response.data);
+                            Rollbar.error("Error: An error occurred when remediating the finding");
+                            $msg.error($translate.instant('proj_alerts.error_textsad'));
                          }
-                     });
+                      });
+                    }
+                    
                  };
                  $scope.close = function(){
                      $uibModalInstance.close();

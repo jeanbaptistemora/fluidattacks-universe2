@@ -92,6 +92,7 @@ integrates.config(['$translateProvider', function($translateProvider) {
               'client': 'Customer\'s Project'
             },
             'tab_description':{
+              'solution': 'Applied Solution Justification',
               'description_name': 'Description',
               'type': 'Finding Type',
               'detailed': 'Detailed',
@@ -249,6 +250,7 @@ integrates.config(['$translateProvider', function($translateProvider) {
           'differ_comment':'You must enter a new treatment justification',
           'empty_comment':'You must enter a treatment justification!',
           'short_comment':'You must enter a justification of at least 50 characters and maximum 80 characters',
+          'short_remediated_comment': 'You must enter a justification of at least 100 characters',
           'congratulation':'Congratulations',
           'updated_treat':'Treatment updated',
           'remediated_success':'This finding was marked as remediated. A request to verify the solution was sent',
@@ -577,6 +579,7 @@ integrates.config(['$translateProvider', function($translateProvider) {
               'client': 'Proyecto Cliente'
             },
             'tab_description':{
+              'solution': 'Justificación de la Solución Aplicada',
               'description_name': 'Descripcion',
               'type': 'Tipo Hallazgo',
               'detailed': 'Detallado',
@@ -734,6 +737,7 @@ integrates.config(['$translateProvider', function($translateProvider) {
           'differ_comment':'Debes ingresar una nueva justificación del tratamiento',
           'empty_comment':'Debes ingresar una justificación del tratamiento!',
           'short_comment':'Debes ingresar una justificación de mínimo 50 caracteres y máximo 80 caracteres',
+          'short_remediated_comment':'Debes ingresar una justificación de mínimo 100 caracteres',
           'congratulation':'Felicidades',
           'updated_treat':'El tratamiento fue actualizado',
           'remediated_success':'El hallazgo fue marcado como remediado, la solicitud de revisión de la solución fue enviada',
