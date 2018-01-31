@@ -44,14 +44,14 @@
     <article>
       <div class="breadcrumbs">
         <ul>
-          <li><a href="{{ SITEURL }}/">{{ gettext('Home') }}</a></li>
+          <li><a href="{{ SITEURL }}/">{{ gettext('Home') }} >>&nbsp;</a></li>
           {% if page.kb %}
-            <li><a href="{{ SITEURL }}/kb/">KB</a></li>
-            <li><a href="{{ SITEURL }}/kb/#{{ page.category }}">{{ page.category }}</a></li>
+            <li><a href="{{ SITEURL }}/kb/">KB >>&nbsp;</a></li>
+            <li><a href="{{ SITEURL }}/kb/#{{ page.category }}">{{ page.category }} >>&nbsp;</a></li>
             <li><a href="#">{{ page.title }}</a></li>	
           {% else %}
             {% if gettext('careers') in page.slug and page.slug|replace("/", "") != gettext('careers') %}
-              <li><a href="{{ SITEURL }}/{{ gettext('careers') }}/">{{ gettext('Selection') }}</a></li>
+              <li><a href="{{ SITEURL }}/{{ gettext('careers') }}/">{{ gettext('Selection') }} >>&nbsp;</a></li>
             {% endif %}
             <li><a href="#">{{ page.title }}</a></li>
           {% endif %}

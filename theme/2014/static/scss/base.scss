@@ -471,29 +471,20 @@ article {
 
   li {
     background-color: $white;
-    box-shadow: -2px 0 20px -6px $black;
     float: left;
-    transform: skewX(-15deg);
 
     &:hover {
       background-color: $lightblue;
 
     }
-
-    &:last-child {
-      background-color: $darkblue;
-
-      a {
-        color: $white;
-      }
-    }
   }
 
   a {
     display: block;
-    padding: 10px;
+    font-family: monospace;
+    font-size: 15px;
+    padding: 10px 0;
     text-transform: capitalize;
-    transform: skewX(15deg);
 
     &:hover {
       color: $white;
