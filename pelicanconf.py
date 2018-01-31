@@ -28,6 +28,18 @@ ARTICLE_URL = 'blog/{slug}'
 ARTICLE_SAVE_AS = 'blog-en/{slug}index.html'
 PAGE_URL = '{slug}'
 PAGE_SAVE_AS = 'pages-en/{slug}index.html'
+TAGS_SAVE_AS = 'tags/index.html'
+TAGS_URL = 'tags/'
+TAG_SAVE_AS = 'tags/{slug}/index.html'
+TAG_URL = 'tags/{slug}/'
+AUTHORS_SAVE_AS = 'authors/index.html'
+AUTHORS_URL = 'authors/'
+AUTHOR_SAVE_AS = 'authors/{slug}/index.html'
+AUTHOR_URL = 'authors/{slug}/'
+CATEGORIES_SAVE_AS = 'categories/index.html'
+CATEGORIES_URL = 'categories/'
+CATEGORY_SAVE_AS = 'categories/{slug}/index.html'
+CATEGORY_URL = 'categories/{slug}/'
 
 # Plugins configuration
 PLUGIN_PATHS = ['/app/pelican-plugins']
@@ -74,7 +86,19 @@ I18N_SUBSITES = {
         'ARTICLE_SAVE_AS': 'blog-es/{slug}index.html',
         'STATIC_PATHS': ['files', 'images', 'blog-es', 'kb', 'pages-es'],
         'GOOGLE_ANALYTICS': 'UA-22974464-4',
-        }
+        'TAGS_SAVE_AS': 'etiquetas/index.html',
+        'TAGS_URL': 'etiquetas/',
+        'TAG_SAVE_AS': 'etiquetas/{slug}/index.html',
+        'TAG_URL': 'etiquetas/{slug}/',
+        'AUTHORS_SAVE_AS': 'autores/index.html',
+        'AUTHORS_URL': 'autores/',
+        'AUTHOR_SAVE_AS': 'autores/{slug}/index.html',
+        'AUTHOR_URL': 'autores/{slug}/',
+        'CATEGORIES_SAVE_AS': 'categorias/index.html',
+        'CATEGORIES_URL': 'categorias/',
+        'CATEGORY_SAVE_AS': 'categorias/{slug}/index.html',
+        'CATEGORY_URL': 'categorias/{slug}/',
+    }
 }
 lang_siteurls = {
      'en': 'https://fluid.la/web/en',

@@ -15,7 +15,7 @@
     <header class="intro-header" style="background-color: {{ HEADER_COLOR }}">
   {% else %}
     <header class="intro-header"> <!--style="background-image: url('{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/fluid.png');" >-->
-    <a href="../{{ DEFAULT_LANG }}/"><img src="{{ THEME_STATIC_DIR }}/images/fluid.png" alt="{{ gettext('Young hacker smiling') }}"></a>
+    <a href="../"><img src="../{{ THEME_STATIC_DIR }}/images/fluid.png" alt="{{ gettext('Young hacker smiling') }}"></a>
   {% endif %}   
   </header>
 {% endblock header %}
@@ -25,8 +25,8 @@
     <article>
       <div class="breadcrumbs">
         <ul>
-          <li><a href="{{ SITEURL }}/">{{ gettext('Home') }}</a></li>
-          <li><a href="{{ SITEURL }}/authos.html">{{ gettext('Authors') }}</a></li>
+          <li><a href="../">{{ gettext('Home') }}</a></li>
+          <li><a href="./#">{{ gettext('Authors') }}</a></li>
         </ul>
       </div>
       <h1>{{ gettext('Authors') }}:</h1>
@@ -35,7 +35,7 @@
           <ul>
             {% for author, articles in authors|sort %}
               <li>
-                <a href="{{ author.url }}" rel="bookmark">
+                <a href="../{{ author.url }}" rel="bookmark">
                   <p>{{ author }} ({{ articles|count }})</p>
                 </a>
               </li>

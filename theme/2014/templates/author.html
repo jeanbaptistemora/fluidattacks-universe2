@@ -40,7 +40,7 @@
     <header class="intro-header" style="background-color: {{ HEADER_COLOR }}">
   {% else %}
     <header class="intro-header"> <!--style="background-image: url('{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/fluid.png');" >-->
-    <a href="../"><img src= "../{{ THEME_STATIC_DIR }}/images/fluid.png" alt="{{ gettext('Young hacker smiling') }}"></a>
+    <a href="../../"><img src= "../../{{ THEME_STATIC_DIR }}/images/fluid.png" alt="{{ gettext('Young hacker smiling') }}"></a>
   {% endif %}   
   </header>
   <div class="list-title">
@@ -49,8 +49,8 @@
         <div class="post-heading">
           <div class="breadcrumbs">
             <ul>
-              <li><a href="{{ SITEURL }}/">{{ gettext('Home') }}</a></li>
-              <li><a href="{{ SITEURL }}/authors.html">{{ gettext('Authors') }}</a></li>
+              <li><a href="../../">{{ gettext('Home') }}</a></li>
+              <li><a href="../">{{ gettext('Authors') }}</a></li>
               <li><a href="#">{{ author }}</a></li>
             </ul>
           </div>
