@@ -49,7 +49,7 @@ $white: rgba(255, 255, 255, 1);
   font-size: 16px;
   letter-spacing: 1px;
   min-height: 60px;
-  padding: 23px 17px 17px;
+  padding: 22px 10px 17px;
 }
 
 .m-opened {
@@ -190,7 +190,7 @@ $white: rgba(255, 255, 255, 1);
   padding-top: 72px;
 }
 
-@media (min-width: 1140px) {
+@media (min-width: 845px) {
   .cssmenu {
     border-bottom: 5px solid $darkblue;
     height: 72px;
@@ -198,7 +198,7 @@ $white: rgba(255, 255, 255, 1);
 
   .has-sub {
     a {
-      padding-right: 30px;
+      padding-right: 25px;
     }
 
     &:hover {
@@ -253,5 +253,9 @@ $white: rgba(255, 255, 255, 1);
       min-width: 260px;
       padding-top: 0;
     }
+  }
+
+  .fluid-screw {
+    left: 6px;
   }
 }
