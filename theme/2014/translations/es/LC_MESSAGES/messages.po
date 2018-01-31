@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2018-01-29 15:24+0000\n"
+"POT-Creation-Date: 2018-01-31 01:08+0000\n"
 "PO-Revision-Date: 2017-12-21 15:09-0500\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: es\n"
@@ -38,7 +38,7 @@ msgstr "Archivos para"
 #: templates/article.html:48 templates/author.html:52 templates/authors.html:28
 #: templates/categories.html:28 templates/category.html:27
 #: templates/footer.html:20 templates/footer.html:40 templates/footer.html:64
-#: templates/footer.html:78 templates/navigationbar.html:4
+#: templates/footer.html:78 templates/navigationbar.html:22
 #: templates/page.html:47 templates/tag.html:43 templates/tags.html:28
 msgid "Home"
 msgstr "Inicio"
@@ -246,12 +246,12 @@ msgid "About Us"
 msgstr "Nosotros"
 
 #: templates/footer.html:16 templates/footer.html:58
-#: templates/navigationbar.html:5
+#: templates/navigationbar.html:23
 msgid "Services"
 msgstr "Servicios"
 
 #: templates/footer.html:20 templates/footer.html:64
-#: templates/navigationbar.html:4
+#: templates/navigationbar.html:22
 msgid "fluid.la"
 msgstr "fluid.la/es/servicios/"
 
@@ -264,12 +264,12 @@ msgid "Benefits"
 msgstr "Beneficios"
 
 #: templates/footer.html:22 templates/footer.html:66
-#: templates/navigationbar.html:20
+#: templates/navigationbar.html:37
 msgid "#lp-pom-block-876"
 msgstr "es/servicios/#lp-pom-block-1090"
 
 #: templates/footer.html:22 templates/footer.html:66
-#: templates/navigationbar.html:20
+#: templates/navigationbar.html:37
 msgid "Customers"
 msgstr "Clientes"
 
@@ -306,37 +306,37 @@ msgid "Terms of Use"
 msgstr "Términos de Uso"
 
 #: templates/footer.html:29 templates/footer.html:73
-#: templates/navigationbar.html:8
+#: templates/navigationbar.html:25
 msgid "ethical-hacking-application"
 msgstr "ethical-hacking-aplicacion"
 
 #: templates/footer.html:29 templates/footer.html:73
-#: templates/navigationbar.html:8
+#: templates/navigationbar.html:25
 msgid "Application Hacking"
 msgstr "Hacking de Aplicación"
 
 #: templates/footer.html:30 templates/footer.html:74
-#: templates/navigationbar.html:9
+#: templates/navigationbar.html:26
 msgid "ethical-hacking-infrastructure"
 msgstr "ethical-hacking-infraestructura"
 
 #: templates/footer.html:30 templates/footer.html:74
-#: templates/navigationbar.html:9
+#: templates/navigationbar.html:26
 msgid "Network Hacking"
 msgstr "Hacking de Red"
 
 #: templates/footer.html:31 templates/footer.html:75
-#: templates/navigationbar.html:10
+#: templates/navigationbar.html:27
 msgid "source-code-analysis"
 msgstr "analisis-codigo-fuente"
 
 #: templates/footer.html:31 templates/footer.html:75
-#: templates/navigationbar.html:10
+#: templates/navigationbar.html:27
 msgid "Code Analysis"
 msgstr "Análisis de Código"
 
 #: templates/footer.html:36 templates/footer.html:60
-#: templates/navigationbar.html:21
+#: templates/navigationbar.html:38
 msgid "Careers"
 msgstr "Empleos"
 
@@ -364,7 +364,7 @@ msgstr "Etiquetas"
 #: templates/footer.html:47 templates/footer.html:48 templates/footer.html:49
 #: templates/footer.html:50 templates/footer.html:85 templates/footer.html:86
 #: templates/footer.html:87 templates/footer.html:88
-#: templates/navigationbar.html:21 templates/page.html:53
+#: templates/navigationbar.html:38 templates/page.html:53
 #: templates/page.html:54
 msgid "careers"
 msgstr "empleos"
@@ -451,17 +451,21 @@ msgstr "Código Postal"
 msgid "Villorio Building"
 msgstr "Edificio Villorio"
 
-#: templates/navigationbar.html:7
+#: templates/navigationbar.html:12
+msgid "Search this site..."
+msgstr "Buscar en el sitio..."
+
+#: templates/navigationbar.html:14
+msgid "Magnifying glass"
+msgstr "Lupa"
+
+#: templates/navigationbar.html:19
 msgid "FLUID screw logo"
 msgstr "Tuerca logo de FLUID"
 
-#: templates/navigationbar.html:13
+#: templates/navigationbar.html:30
 msgid "Products"
 msgstr "Productos"
-
-#: templates/navigationbar.html:34
-msgid "Search icon"
-msgstr "Ícono de búsqueda"
 
 #: templates/pagination.html:6
 msgid "Previous"
@@ -486,6 +490,9 @@ msgstr "Etiqueta"
 #: templates/tag.html:50
 msgid "More tags"
 msgstr "Más etiquetas"
+
+msgid "Search icon"
+msgstr "Ícono de búsqueda"
 
 msgid "Search"
 msgstr "Búsqueda"

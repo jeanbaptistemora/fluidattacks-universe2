@@ -40,7 +40,7 @@ $white: rgba(255, 255, 255, 1);
   float: right;
   margin: 5px 10px 0;
   position: sticky;
-  z-index: 1;
+  z-index: 2;
 }
 
 .langbutton {
@@ -60,32 +60,6 @@ $white: rgba(255, 255, 255, 1);
   .language {
     color: $greenyellow;
   }
-}
-
-
-#tipue_search_input {
-  border: 1px solid $lightgray;
-  border-radius: 0;
-  box-shadow: none;
-  color: $black;
-  margin: 10px 0 0;
-  max-width: 120px;
-  outline: 0;
-  padding: 10px;
-}
-
-.tipue_search_icon {
-  height: 30px;
-  width: 30px;
-}
-
-.tipue_search_left {
-  float: left;
-  padding: 15px 10px 0 0;
-}
-
-.tipue_search_right {
-  float: left;
 }
 
 #tipue_search_content {
@@ -191,9 +165,33 @@ $white: rgba(255, 255, 255, 1);
   }
 }
 
-@media (min-width: 480px) {
-  #tipue_search_input {
-    max-width: 210px;
+.search-box {
+  border: 0;
+  border-radius: 10px;
+  outline: 0;
+  padding: 10px;
+  position: absolute;
+  right: 35px;
+  top: -5px;
+  transform: translateY(-80px);
+  transition: transform ease 500ms;
+}
+
+.search {
+  float: right;
+  position: relative;
+  top: 16px;
+
+  &:focus-within {
+    .search-box {
+      transform: translateY(0);
+    }
+  }
+}
+
+.search-icon {
+  &:hover {
+    cursor: pointer;
   }
 }
 
