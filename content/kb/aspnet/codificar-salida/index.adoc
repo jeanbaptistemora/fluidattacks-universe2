@@ -4,6 +4,7 @@
 :description: Nuestros ethical hackers explican como evitar vulnerabilidades de seguridad mediante la programación segura en ASP.NET para codificar adecuadamente las salidas en aplicaciones web.
 :keywords: ASP.NET , XSS
 :kb: yes
+:table-caption: Tabla
 
 = Codificar Salida
 
@@ -42,8 +43,8 @@ que ya se encuentren implementadas de esta forma.
 Dichas tareas se listan a continuación:
 
 * Revisar todo el código que produce salidas.
-* Determinar si la salida incluye parámetros no confiables de salida.
-* Determinar si el contexto en el que se usa la entrada no confiable.
+* Determinar si la salida incluye parámetros no confiables.
+* Determinar el contexto en el que se usa la entrada no confiable.
 * Codificar la salida de manera apropiada.
 
 . El mejor criterio para determinar si la entrada es confiable 
@@ -59,6 +60,7 @@ Ejemplos de entradas no confiables incluyen:
 es importante determinar el método de codificación más apropiado. 
 La siguiente tabla muestra los métodos de codificación asociados <<r2,^[2]^>>:
 +
+.Uso apropiado de métodos de codificación.
 |===
 |*Método de Codificación* | *Cuándo se debe usar*
 
@@ -95,7 +97,7 @@ excepto cuando se asigne a un atributo +XML+.
 * Adicionar una directiva utilizando +Microsoft.Security.Application+.
 * Cambiar la forma en que se asigna la salida, por ejemplo:
 +
-.Outputcoded.java
+.OutputCoded.java
 [source, java, linenums]
 ----
 string out_Name = Request.QueryString["Name"]; 
@@ -110,6 +112,6 @@ string out_Name = Encoder.HtmlEncode(Request.QueryString["Name"]);
   
 == Referencias
 
-. [[r1]] link:https://www.microsoft.com/en-us/download/search.aspx?q=antixss[Microsoft AntiXSS]
-. [[r2]] link:https://msdn.microsoft.com/en-us/library/aa973813.aspx[Microsoft, Protecting the Contoso Bookmark Page]
+. [[r1]] link:https://www.microsoft.com/en-us/download/search.aspx?q=antixss[Microsoft AntiXSS.]
+. [[r2]] link:https://msdn.microsoft.com/en-us/library/aa973813.aspx[Microsoft, Protecting the Contoso Bookmark Page.]
 . [[r3]] REQ.0155: La salida de información del sistema debe estar codificada en el lenguaje correspondiente (escaping).
