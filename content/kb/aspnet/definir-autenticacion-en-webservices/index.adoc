@@ -1,89 +1,89 @@
 :slug: kb/aspnet/definir-autenticacion-en-webservices/
 :eth: no
 :category: aspnet
-:description: TODO
-:keywords: TODO
+:description: Nuestros ethical hackers explican como evitar vulnerabilidades de seguridad mediante la configuración segura de autenticación de usuarios en webservices programando en ASP.NET con el fin de mejorar significativamente la seguridad de la aplicación. 
+:keywords: ASP.NET Autenticación.
 :kb: yes
 
 = Definir Autenticación en WebServices
 
 == Necesidad
 
-Autenticación en WebServices ASP.NET
+Autenticación en WebServices +ASP.NET+.
 
 == Contexto
 
 A continuación se describe las circunstancias 
 bajo las cuales la siguiente solución tiene sentido:
 
-. Se tiene un Servicio Web desarrollado en ASP.NET V3
-. El Servicio Web contiene información sensible y debe ser asegurado
+. Se tiene un Servicio Web desarrollado en +ASP.NET V3+.
+. El Servicio Web contiene información sensible y debe ser asegurado.
 
 == Solución
 
-Los Web Services son geniales.
+Los +Web Services+ son geniales.
 Son flexibles y cruzan las barreras de los lenguajes.
 Sin embargo, en la mayoría de los casos,
 asegurar la funcionalidad 
-que un Web Service expone es muy útil. 
+que un +Web Service+ expone es muy útil. 
 
 Existen muchas formas de crear
 un mecanismo de autenticación para
-un Web Service, entre ellas se cuenta:
+un +Web Service+, entre ellas se cuenta:
 
 * Pedir las credenciales de usuario 
 para cada método (no recomendado).
 * Escribir un código de validación 
 que deba ser llamado antes 
-para proporcionar un _token_. 
-Este _token_ se enviaría con cada solicitud, 
-y el Web Service tendría que validar el _token_. 
+para proporcionar un +token+. 
+Este +token+ se enviaría con cada solicitud, 
+y el +Web Service+ tendría que validar el +token+. 
 Este método requiere que los usuarios 
-conozcan su API muy bien, 
+conozcan su +API+ muy bien, 
 y requeriría que se implementara 
 una especie de máquina de estados, 
 para mejorar aspectos tales como 
-el tiempo límite del _token_, entre otros.
-* Requerir que el consumidor (por ejemplo, el browser), 
-sea validado antes de acceder al Web Service.
+el tiempo límite del +token+, entre otros.
+* Requerir que el consumidor (por ejemplo, el +browser+), 
+sea validado antes de acceder al +Web Service+.
 
 En este caso realizaremos una autenticación 
-de credenciales utilizando un _token_,
-haciendo uso del encabezado _SOAP_ (_SOAPHeader_).
+de credenciales utilizando un +token+,
+haciendo uso del encabezado +SOAP+ (+SOAPHeader+).
 Para ello, debemos seguir los siguientes pasos:
 
 . Lo primero que debemos hacer es proporcionar una forma
 de aceptar las credenciales de autenticación.  
 Realizamos esto al hacer 
-que la cabecera _SOAP_ sea requerida 
-en todas las llamadas al Servicio Web _Hello World_.
-La cabecera _SOAP_ es el lugar común
+que la cabecera +SOAP+ sea requerida 
+en todas las llamadas al Servicio Web +Hello World+.
+La cabecera +SOAP+ es el lugar común
 donde se colocará la información de autenticación.
 Para validar la autenticación se utilizará
-un _token_ de autenticación,
-el cual será accesible a través del método _IsAuthenticated()_.
+un +token+ de autenticación,
+el cual será accesible a través del método +IsAuthenticated()+ <<r1, ^[1]^>>.
 
 . Para lograr que la cabecera web
 sea requerida en todos los llamados, 
-creamos el objeto _SecuredSoapHeader_, 
+creamos el objeto +SecuredSoapHeader+, 
 lo instanciamos públicamente 
-y le agregamos la directiva _[SoapHeader]_ 
-al método _Hello World_.
+y le agregamos la directiva +[SoapHeader]+ 
+al método +Hello World+.
 
-. Se procede a generar un _token_ 
+. Se procede a generar un +token+ 
 para que no sea necesario el ingreso 
 de las credenciales en cada llamado al servicio Web. 
-el método encargado de ello es _AuthenticateUser()_.
+el método encargado de ello es +AuthenticateUser()+.
 
 . Agregamos un chequeo básico 
-para asegurarnos de que la cabecera _SOAP_ sea válida. 
-Luego de esto, agregamos el método privado _IsUserValid()_ 
+para asegurarnos de que la cabecera +SOAP+ sea válida. 
+Luego de esto, agregamos el método privado +IsUserValid()+ 
 para albergar la autenticación respectiva.
 
 El siguiente código realiza 
-el procedimiento anteriormente mencionado [1]:
+el procedimiento anteriormente mencionado <<r2, ^[2]^>>:
 
-.test.py
+.SecuredWebServiceHeader.java
 [source,java,linenums]
 ----
 using System;
@@ -141,7 +141,6 @@ namespace SecuredWebService
     }
     private bool IsUserValid(string Username, string Password)
     {
-      // TODO: Implement Authentication.
       return true;
     }
     [WebMethod]
@@ -156,6 +155,6 @@ namespace SecuredWebService
 
 == Referencias
 
-. https://www.codeproject.com/Articles/22190/Securing-your-Web-Services-Using-Forms-Authenticat[ASP WebServices Authentication]
+. [[r1]] link:https://www.codeproject.com/Articles/22190/Securing-your-Web-Services-Using-Forms-Authenticat[ASP WebServices Authentication].
 
-. https://forums.asp.net/t/1925125.aspx?ajax+with+authentication+header+and+asmx+webservice[Authentication ASMX WebService]
+. [[r2]] link:https://forums.asp.net/t/1925125.aspx?ajax+with+authentication+header+and+asmx+webservice[Authentication ASMX WebService].
