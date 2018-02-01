@@ -73,7 +73,7 @@ al método +Hello World+.
 . Se procede a generar un +token+ 
 para que no sea necesario el ingreso 
 de las credenciales en cada llamado al servicio Web. 
-el método encargado de ello es +AuthenticateUser()+.
+El método encargado de ello es +AuthenticateUser()+.
 
 . Agregamos un chequeo básico 
 para asegurarnos de que la cabecera +SOAP+ sea válida. 
