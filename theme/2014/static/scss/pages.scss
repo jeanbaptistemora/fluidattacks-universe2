@@ -8,16 +8,6 @@ $white: rgba(255, 255, 255, 1);
   padding: .3em .6em;
 }
 
-.imgentregable {
-  vertical-align: middle;
-}
-
-.imgethical {
-  display: block;
-  height: auto;
-  margin: auto;
-}
-
 .maps {
   @include table-border;
   display: table-cell;
@@ -30,17 +20,6 @@ $white: rgba(255, 255, 255, 1);
     margin-top: 15px;
     max-width: 100%;
     width: 400px;
-  }
-}
-
-.table,
-.tblent {
-  display: block;
-  width: 100%;
-
-  td {
-    border: 0;
-    padding: 10px 0;
   }
 }
 
@@ -68,11 +47,6 @@ $white: rgba(255, 255, 255, 1);
   height: 750px;
 }
 
-.tdent {
-  display: block;
-  text-align: left;
-}
-
 .tdlocation {
   @include table-border;
   display: table-cell;
@@ -91,19 +65,8 @@ $white: rgba(255, 255, 255, 1);
   padding: 25px;
 }
 
-.tdmax,
-.trent {
+.tdmax {
   display: none;
-}
-
-.theader {
-  text-align: center;
-  vertical-align: center;
-}
-
-.ent2 {
-  display: block;
-  margin: 0;
 }
 
 .itemlist {
@@ -138,26 +101,6 @@ $white: rgba(255, 255, 255, 1);
 @media (min-width: 640px) {
   .divpage {
     margin: 10px 25px;
-  }
-}
-
-@media (min-width: 770px) {
-  .trent {
-    display: table-row;
-  }
-
-  .ent {
-    text-align: center;
-  }
-
-  .ent2 {
-    display: none;
-  }
-
-  .tdent {
-    display: table-cell;
-    text-align: center;
-    width: 25%;
   }
 }
 

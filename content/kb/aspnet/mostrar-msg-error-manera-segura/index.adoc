@@ -1,5 +1,4 @@
 :slug: kb/aspnet/mostrar-msg-error-manera-segura/
-:eth: no
 :category: aspnet
 :description: TODO
 :keywords: TODO

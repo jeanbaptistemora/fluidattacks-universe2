@@ -1,5 +1,4 @@
 :slug: kb/aspnet/configurar-parametro-charset-http/
-:eth: no
 :category: aspnet
 :description: Nuestros ethical hackers explican como evitar vulnerabilidades de seguridad mediante la configuración segura del parámetro Charset en ASP.NET.
 :keywords: ASP.NET , Charset.

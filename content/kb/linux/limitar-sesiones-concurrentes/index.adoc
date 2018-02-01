@@ -1,5 +1,4 @@
 :slug: kb/linux/limitar-sesiones-concurrentes/
-:eth: no
 :category: linux
 :description: TODO
 :keywords: TODO

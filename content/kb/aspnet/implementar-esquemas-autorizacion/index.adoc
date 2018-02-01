@@ -1,5 +1,4 @@
 :slug: kb/aspnet/implementar-esquemas-autorizacion/
-:eth: no
 :category: aspnet
 :description: TODO
 :keywords: TODO

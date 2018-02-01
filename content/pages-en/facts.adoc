@@ -1,7 +1,6 @@
 :slug: facts/
 :description: TODO
 :keywords: TODO
-:eth: no
 
 = Facts
 

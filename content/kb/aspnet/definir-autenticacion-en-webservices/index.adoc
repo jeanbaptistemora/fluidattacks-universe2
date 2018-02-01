@@ -1,5 +1,4 @@
 :slug: kb/aspnet/definir-autenticacion-en-webservices/
-:eth: no
 :category: aspnet
 :description: Nuestros ethical hackers explican como evitar vulnerabilidades de seguridad mediante la configuración segura de autenticación de usuarios en webservices programando en ASP.NET con el fin de mejorar significativamente la seguridad de la aplicación. 
 :keywords: ASP.NET Autenticación.

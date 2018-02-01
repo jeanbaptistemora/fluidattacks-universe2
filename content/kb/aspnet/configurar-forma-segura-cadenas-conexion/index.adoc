@@ -1,5 +1,4 @@
 :slug: kb/aspnet/configurar-segura-cadenas-conexion/
-:eth: no
 :category: aspnet
 :description: Nuestros ethical hackers explican como evitar vulnerabilidades de seguridad mediante la configuración segura de cadenas de conexión en ASP.NET.
 :keywords: ASP.NET, Cadenas de conexión.

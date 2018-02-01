@@ -1,7 +1,6 @@
 :slug: fluidasserts/
 :description: TODO
 :keywords: TODO
-:eth: no
 
 = FLUIDAsserts
 

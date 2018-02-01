@@ -1,5 +1,4 @@
 :slug: kb/redhat/actualizar-software/
-:eth: no
 :category: redhat
 :description: TODO
 :keywords: TODO

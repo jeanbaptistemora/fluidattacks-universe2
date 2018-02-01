@@ -1,7 +1,6 @@
 :slug: fluidintegrates/
 :description: TODO
 :keywords: TODO
-:eth: no
 
 = FLUIDIntegrates
 

@@ -1,5 +1,4 @@
 :slug: kb/aspnet/establecer-pagina-error-personalizada/
-:eth: no
 :category: aspnet
 :description: TODO
 :keywords: TODO

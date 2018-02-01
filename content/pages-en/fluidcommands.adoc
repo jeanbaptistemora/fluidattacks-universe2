@@ -1,7 +1,6 @@
 :slug: fluidcommands/
 :description: TODO
 :keywords: TODO
-:eth: no
 
 = FLUIDCommands
 

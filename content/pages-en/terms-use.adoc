@@ -1,7 +1,6 @@
 :slug: terms-use/
 :description: TODO
 :keywords: TODO
-:eth: no
 
 = Terms of Use
 

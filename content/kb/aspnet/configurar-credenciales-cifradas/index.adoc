@@ -1,5 +1,4 @@
 :slug: kb/aspnet/configurar-credenciales-cifradas/
-:eth: no
 :category: aspnet
 :description: Nuestros ethical hackers explican como evitar vulnerabilidades de seguridad mediante la configuración segura de credenciales en ASP.NET.
 :keywords: ASP.NET, Credenciales.

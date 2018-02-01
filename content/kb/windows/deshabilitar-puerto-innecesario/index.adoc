@@ -1,5 +1,4 @@
 :slug: kb/windows/deshabilitar-puerto-innecesario/
-:eth: no
 :category: windows
 :description: En este instructivo, explicaremos paso a paso cómo deshabilitar puertos innenesarios en un sistema operativo Windows.
 :keywords: windows

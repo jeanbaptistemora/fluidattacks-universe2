@@ -1,5 +1,4 @@
 :slug: kb/hacking/evitar-ataque-dos/
-:eth: no
 :category: hacking
 :description: TODO
 :keywords: TODO

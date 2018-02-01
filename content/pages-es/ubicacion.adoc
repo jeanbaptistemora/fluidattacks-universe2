@@ -1,7 +1,6 @@
 :slug: ubicacion/
 :description: TODO
 :keywords: TODO
-:eth: no
 :location: yes
 
 = Ubicación

@@ -1,0 +1,6 @@
+:slug: home/
+:template: home
+:description: TODO
+:keywords: TODO
+
+= Home

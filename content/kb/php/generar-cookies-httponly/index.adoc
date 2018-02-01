@@ -1,5 +1,4 @@
 :slug: kb/php/generar-cookies-httponly/
-:eth: no
 :category: php
 :description: TODO
 :keywords: TODO

@@ -1,5 +1,4 @@
 :slug: kb/windows/deshabilitar-servicio-inseguro/
-:eth: no
 :category: windows
 :description: TODO
 :keywords: TODO

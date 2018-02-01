@@ -1,5 +1,4 @@
 :slug: kb/java/definir-rol-seguridad-tomcat/
-:eth: no
 :category: java
 :description: TODO
 :keywords: TODO

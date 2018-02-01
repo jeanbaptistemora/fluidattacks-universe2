@@ -1,5 +1,4 @@
 :slug: kb/java/filtrar-entrada-datos-expresion-regular/
-:eth: no
 :category: java
 :description: TODO
 :keywords: TODO

@@ -1,5 +1,4 @@
 :slug: kb/javascript/implementar-estructura-condicional/
-:eth: no
 :category: javascript
 :description: TODO
 :keywords: TODO

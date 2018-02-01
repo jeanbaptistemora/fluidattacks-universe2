@@ -1,5 +1,4 @@
 :slug: kb/java/generar-aleatorio-seguro/
-:eth: no
 :category: java
 :description: TODO
 :keywords: TODO

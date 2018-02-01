@@ -1,5 +1,4 @@
 :slug: kb/java/deshabilitar-cache-aplicacion-web/
-:eth: no
 :category: java
 :description: TODO
 :keywords: TODO

@@ -1,4 +1,7 @@
 :slug: analisis-codigo-fuente/
+:image: analisis-codigo.png
+:alt: Dedo señalando código fuente
+:home: yes
 :description: TODO
 :keywords: TODO
 

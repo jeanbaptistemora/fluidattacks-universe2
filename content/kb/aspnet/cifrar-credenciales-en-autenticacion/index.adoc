@@ -1,5 +1,4 @@
 :slug: kb/aspnet/cifrar-credenciales-en-autenticacion/
-:eth: no
 :category: aspnet
 :description:  Nuestros ethical hackers explican como evitar vulnerabilidades de seguridad mediante la configuración segura de credenciales de autenticación en ASP.NET.
 :keywords: ASP.NET , Autenticación.

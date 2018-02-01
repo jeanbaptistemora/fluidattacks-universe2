@@ -1,5 +1,4 @@
 :slug: kb/java/almacenar-estado-sesion-jsf/
-:eth: no
 :category: java
 :description: TODO
 :keywords: TODO

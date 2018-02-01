@@ -1,5 +1,4 @@
 :slug: kb/java/establecer-control-acceso-url/
-:eth: no
 :category: java
 :description: TODO
 :keywords: TODO

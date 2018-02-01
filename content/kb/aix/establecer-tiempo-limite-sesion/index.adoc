@@ -1,5 +1,4 @@
 :slug: kb/aix/establecer-tiempo-limite-sesion/
-:eth: no
 :category: aix
 :description: TODO
 :keywords: TODO

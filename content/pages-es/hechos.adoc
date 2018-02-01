@@ -1,7 +1,6 @@
 :slug: hechos/
 :description: TODO
 :keywords: TODO
-:eth: no
 
 = Hechos
 

@@ -1,5 +1,4 @@
 :slug: kb/cobol/usar-estructuras-optimizadas/
-:eth: no
 :category: cobol
 :description: TODO
 :keywords: TODO

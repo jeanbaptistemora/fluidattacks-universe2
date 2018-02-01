@@ -1,5 +1,4 @@
 :slug: kb/aspnet/codificar-salida/
-:eth: no
 :category: aspnet
 :description: Nuestros ethical hackers explican como evitar vulnerabilidades de seguridad mediante la programación segura en ASP.NET para codificar adecuadamente las salidas en aplicaciones web.
 :keywords: ASP.NET , XSS

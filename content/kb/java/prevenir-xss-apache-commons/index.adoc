@@ -1,5 +1,4 @@
 :slug: kb/java/prevenir-xss-apache-commons/
-:eth: no
 :category: java
 :description: TODO
 :keywords: TODO

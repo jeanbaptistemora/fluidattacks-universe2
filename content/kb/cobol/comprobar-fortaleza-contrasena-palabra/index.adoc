@@ -1,5 +1,4 @@
 :slug: kb/cobol/comprobar-fortaleza-contrasena-palabra/
-:eth: no
 :category: cobol
 :description: TODO
 :keywords: TODO

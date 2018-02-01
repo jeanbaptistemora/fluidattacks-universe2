@@ -1,5 +1,4 @@
 :slug: kb/java/autenticar-servidor-cliente/
-:eth: no
 :category: java
 :description: TODO
 :keywords: TODO

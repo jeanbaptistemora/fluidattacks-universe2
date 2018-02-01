@@ -1,5 +1,4 @@
 :slug: kb/aspnet/configurar-tiempo-sesion/
-:eth: no
 :category: aspnet
 :description: Nuestros ethical hackers explican como evitar vulnerabilidades de seguridad mediante la configuración segura del tiempo de sesión en ASP.NET modificando de forma personalizada en tiempo de expiración de la sesión de los usuarios según requiera el caso. 
 :keywords: ASP.NET, Tiempo de sesión.

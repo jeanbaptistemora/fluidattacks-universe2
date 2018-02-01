@@ -1,5 +1,4 @@
 :slug: kb/java/evitar-codigo-duplicado-java/
-:eth: no
 :category: java
 :description: TODO
 :keywords: TODO

@@ -2,7 +2,6 @@
 :category: conferencias
 :description: TODO
 :keywords: TODO
-:eth: no
 
 = Quemar el datacenter - De mascotas a ganado
 

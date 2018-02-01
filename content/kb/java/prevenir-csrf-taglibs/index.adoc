@@ -1,5 +1,4 @@
 :slug: kb/java/prevenir-csrf-taglibs/
-:eth: no
 :category: java
 :description: TODO
 :keywords: TODO

@@ -1,0 +1,180 @@
+{% extends "base.html" %}
+
+{% block meta %}
+  <meta name="keywords" content="TODO">
+  <meta name="description" content="TODO">
+{% endblock meta %}
+
+{% block title %}{{ gettext('Home') }} | {{ SITENAME }}{% endblock %}
+
+{% block canonical %}<link rel="canonical" href="{{ SITEURL }}/"/>{% endblock canonical %}
+
+{% block header %}
+  <!-- Page Header -->
+  <!-- Set your background image for this header on the line below. -->        
+  {% include "navigationbar.html" %}
+  {% if HEADER_COVER %}
+    <header class="intro-header" style="background-image: url('{{ HEADER_COVER }}')">
+  {% elif HEADER_COLOR %}
+    <header class="intro-header" style="background-color: {{ HEADER_COLOR }}">
+  {% else %}
+    <header class="intro-header"> <!--style="background-image: url('{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/fluid-{{ DEFAULT_LANG }}.png');" >-->
+    <a href="{{ SITEURL }}/"><img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/fluid-{{ DEFAULT_LANG }}.png" alt="{{ gettext('Young hacker smiling') }}"></a>
+  {% endif %}   
+    </header>
+{% endblock header %}
+
+{% block content %}
+  <div class="divindex">
+    <table class="tbnormal">
+      {% set var = [0] %}
+      {% for page in pages %}
+        {% if page.home %}
+          {% if var.append(var.pop() + 1) %}{% endif %} 
+          {% if var[0] % 3 != 0 %}
+            {% if var[0] % 3 == 1 %}
+              <tr><td class="tdview">            
+                <div class="post-preview">                 
+                  <img src="../{{ page.slug }}{{ page.image }}" alt="{{ page.alt }}">
+                  <a href="{{ SITEURL }}/{{ page.url }}" rel="bookmark" title="Permalink to {{ page.title|striptags }}">
+                  <h2 class="post-title">
+                    {{ page.title }}
+                  </h2>
+                  </a>     
+                  {% if SHOW_FULL_page %}
+                    {{ page.content }}
+                  {% else %}
+                    <p class="article-summary">
+                    {% if page.has_summary %}
+                      {{ page.summary }}
+                    {% elif page.summary %}
+                      {{ page.summary|striptags|truncate(320) }}
+                    {% endif %}
+                    </p>                    
+                  {% endif %}
+                  <br /><br />
+                  <div class="divread">
+                    <a class="read-more" href="{{ SITEURL }}/{{ page.url }}">{{ gettext('Read More') }} >></a>
+                  </div>
+                </div>
+              </td>
+            {% else %}
+              <td class="tdview">
+                <div class="post-preview">          
+                  <img src="../{{ page.slug }}{{ page.image }}" alt="{{ page.alt }}">
+                  <a href="{{ SITEURL }}/{{ page.url }}" rel="bookmark" title="Permalink to {{ page.title|striptags }}">
+                  <h2 class="post-title">
+                    {{ page.title }}
+                  </h2>
+                  </a>
+                  {% if SHOW_FULL_page %}
+                    {{ page.content }}
+                  {% else %}
+                    <p class="article-summary">
+                    {% if page.has_summary %}
+                      {{ page.summary }}
+                    {% elif page.summary %}
+                      {{ page.summary|striptags|truncate(320) }}
+                    {% endif %}
+                    </p>
+                  {% endif %}
+                  <br /><br />
+                  <div class="divread">
+                    <a class="read-more" href="{{ SITEURL }}/{{ page.url }}">{{ gettext('Read More') }} >></a>
+                  </div>
+                </div>
+              </td>                    
+            {% endif %}
+          {% else %}
+            <td class="tdview">
+              <div class="post-preview">          
+                <img src="../{{ page.slug }}{{ page.image }}" alt="{{ page.alt }}">
+                <a href="{{ SITEURL }}/{{ page.url }}" rel="bookmark" title="Permalink to {{ page.title|striptags }}">
+                <h2 class="post-title">
+                  {{ page.title }}
+                </h2>
+                </a>
+                {% if SHOW_FULL_page %}
+                  {{ page.content }}
+                {% else %}
+                  <p class="article-summary">
+                  {% if page.has_summary %}
+                    {{ page.summary }}
+                  {% elif page.summary %}
+                    {{ page.summary|striptags|truncate(320) }}
+                  {% endif %}
+                  </p>
+                {% endif %}
+                <br /><br />
+                <div class="divread">
+                  <a class="read-more" href="{{ SITEURL }}/{{ page.url }}">{{ gettext('Read More') }} >></a>
+                </div>     
+              </div>
+            </td></tr>
+          {% endif %}
+        {% endif %}
+      {% endfor %}
+    </table>
+    <table class="tbresponsive">
+      {% set var = [0] %}
+      {% for page in pages %}
+        {% if page.home %}
+          {% if var.append(var.pop() + 1) %}{% endif %}                
+          {% if var[0] % 2 != 0 %}
+            <tr><td class="tdview">            
+              <div class="post-preview">                   
+                <img src="../{{ page.slug }}{{ page.image }}" alt="{{ page.alt }}">
+                <a href="{{ SITEURL }}/{{ page.url }}" rel="bookmark" title="Permalink to {{ page.title|striptags }}">
+                <h2 class="post-title">
+                  {{ page.title }}
+                </h2>
+                </a>
+                {% if SHOW_FULL_page %}
+                  {{ page.content }}
+                {% else %}
+                  <p class="article-summary">
+                  {% if page.has_summary %}
+                    {{ page.summary }}
+                  {% elif page.summary %}
+                    {{ page.summary|striptags|truncate(320) }}
+                  {% endif %}
+                  </p>                    
+                {% endif %}
+                <br /><br />
+                <div class="divread">
+                  <a class="read-more" href="{{ SITEURL }}/{{ page.url }}">{{ gettext('Read More') }} >></a>
+                </div>
+              </div>
+            </td>                    
+          {% else %}
+            <td class="tdview">
+              <div class="post-preview">          
+                <img src="../{{ page.slug }}{{ page.image }}" alt="{{ page.alt }}">
+                <a href="{{ SITEURL }}/{{ page.url }}" rel="bookmark" title="Permalink to {{ page.title|striptags }}">
+                <h2 class="post-title">
+                  {{ page.title }}
+                </h2>
+                </a>
+                {% if SHOW_FULL_page %}
+                  {{ page.content }}
+                {% else %}
+                  <p class="article-summary">
+                  {% if page.has_summary %}
+                    {{ page.summary }}
+                  {% elif page.summary %}
+                    {{ page.summary|striptags|truncate(320) }}
+                  {% endif %}
+                  </p>
+                {% endif %}
+                <br /><br />
+                <div class="divread">
+                  <a class="read-more" href="{{ SITEURL }}/{{ page.url }}">{{ gettext('Read More') }} >></a>
+                </div>
+              </div>
+            </td></tr>              
+          {% endif %}
+        {% endif %}
+      {% endfor %}
+    </table>
+  </div>
+{% endblock content %}

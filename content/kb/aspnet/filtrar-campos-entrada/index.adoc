@@ -1,5 +1,4 @@
 :slug: kb/aspnet/filtrar-campos-entrada/
-:eth: no
 :category: aspnet
 :description: TODO
 :keywords: TODO

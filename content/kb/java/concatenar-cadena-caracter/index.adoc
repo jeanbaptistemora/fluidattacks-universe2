@@ -1,5 +1,4 @@
 :slug: kb/java/concatenar-cadena-caracter/
-:eth: no
 :category: java
 :description: TODO
 :keywords: TODO

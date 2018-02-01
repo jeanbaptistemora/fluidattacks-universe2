@@ -1,7 +1,6 @@
 :slug: test-style/
 :description: TODO
 :keywords: TODO
-:eth: no
 :variable: Asciidoc
 :plus: &#43
 

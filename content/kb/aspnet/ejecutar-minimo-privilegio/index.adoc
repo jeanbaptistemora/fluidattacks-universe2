@@ -1,5 +1,4 @@
 :slug: kb/aspnet/ejecutar-minimo-privilegio/
-:eth: no
 :category: aspnet
 :description: Nuestros ethical hackers explican cómo evitar vulnerabilidades de seguridad mediante la programación segura en ASP.NET desarrollando aplicaciones computacionalmente seguras aplicando el principio del mínimo privilegio. Esto facilita desarrollar aplicaciones fáciles de probar y mantener.
 :keywords: ASP.NET, Seguridad, Mínimo, Privilegio, Permisos, Programación.

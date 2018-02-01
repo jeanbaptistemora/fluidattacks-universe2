@@ -1,5 +1,4 @@
 :slug: kb/aspnet/establecer-opciones-seguras/
-:eth: no
 :category: aspnet
 :description: TODO
 :keywords: TODO

@@ -1,7 +1,6 @@
 :slug: publications/
 :description: TODO
 :keywords: TODO
-:eth: no
 
 = Publications
 

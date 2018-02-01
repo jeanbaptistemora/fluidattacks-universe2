@@ -1,5 +1,4 @@
 :slug: kb/java/configurar-tiempo-sesion-java/
-:eth: no
 :category: java
 :description: TODO
 :keywords: TODO

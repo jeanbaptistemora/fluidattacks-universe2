@@ -1,5 +1,4 @@
 :slug: kb/cobol/eliminar-codigo-repetido/
-:eth: no
 :category: cobol
 :description: TODO
 :keywords: TODO

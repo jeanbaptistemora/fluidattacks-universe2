@@ -1,5 +1,4 @@
 :slug: kb/aspnet/prevenir-ataque-xss/
-:eth: no
 :category: aspnet
 :description: TODO
 :keywords: TODO

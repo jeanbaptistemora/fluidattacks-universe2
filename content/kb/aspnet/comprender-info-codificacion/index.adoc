@@ -1,5 +1,4 @@
 :slug: kb/aspnet/comprender-info-codificacion/
-:eth: no
 :category: aspnet
 :description: Nuestros ethical hackers explican como evitar vulnerabilidades de seguridad mediante la programación segura en ASP.NET para comprender información relevante sobre codificación segura en aplicaciones web.
 :keywords: ASP.NET, Codificación segura.

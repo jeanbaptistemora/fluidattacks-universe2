@@ -1,5 +1,4 @@
 :slug: kb/html/validar-formulario-html/
-:eth: no
 :category: html
 :description: TODO
 :keywords: TODO

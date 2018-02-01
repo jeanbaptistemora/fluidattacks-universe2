@@ -1,5 +1,4 @@
 :slug: kb/cobol/evitar-elementos-obsoletos/
-:eth: no
 :category: cobol
 :description: TODO
 :keywords: TODO

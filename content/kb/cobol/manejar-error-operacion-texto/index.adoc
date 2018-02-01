@@ -1,5 +1,4 @@
 :slug: kb/cobol/manejar-error-operacion-texto/
-:eth: no
 :category: cobol
 :description: TODO
 :keywords: TODO

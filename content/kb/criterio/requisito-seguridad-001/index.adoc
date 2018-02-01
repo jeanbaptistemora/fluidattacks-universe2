@@ -1,5 +1,4 @@
 :slug: kb/criterio/requisito-seguridad-001/ 
-:eth: no
 :category: criterio
 :description: TODO
 :keywords: TODO

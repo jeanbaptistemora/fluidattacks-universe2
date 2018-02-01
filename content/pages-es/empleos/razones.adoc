@@ -2,7 +2,6 @@
 :category: careers
 :description: TODO
 :keywords: TODO
-:eth: no
 
 = Razones para trabajar con nosotros
 

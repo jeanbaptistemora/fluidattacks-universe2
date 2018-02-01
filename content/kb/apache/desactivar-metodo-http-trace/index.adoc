@@ -1,5 +1,4 @@
 :slug: kb/apache/desactivar-metodo-http-trace/
-:eth: no
 :category: apache
 :description: TODO
 :keywords: TODO

@@ -1,5 +1,4 @@
 :slug: kb/aspnet/cifrar-contrasenas-una-sola-via/
-:eth: no
 :category: aspnet
 :description: Nuestros ethical hackers explican como evitar vulnerabilidades de seguridad mediante la configuración segura de contraseñas en ASP.NET.
 :keywords: ASP.NET, Contraseña

@@ -1,5 +1,4 @@
 :slug: kb/programacion/evitar-codigo-duplicado/
-:eth: no
 :category: programacion
 :description: TODO
 :keywords: TODO

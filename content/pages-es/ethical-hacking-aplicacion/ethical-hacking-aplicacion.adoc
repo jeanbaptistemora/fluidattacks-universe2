@@ -1,6 +1,9 @@
 :slug: ethical-hacking-aplicacion/
+:image: hacking-aplicacion.png
+:alt: Manos tecleando
 :description: Servicios de Ethical Hacking de aplicación realizada por expertos. Somos hackers que desarrollamos nuestras propias herramientas.
 :keywords: ethical hacking, aplicaciones, vulnerabilidades
+:home: yes
 
 = Ethical Hacking de Aplicación
 

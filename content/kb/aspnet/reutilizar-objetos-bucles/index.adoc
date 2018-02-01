@@ -1,5 +1,4 @@
 :slug: kb/aspnet/reutilizar-objetos-bucles/
-:eth: no
 :category: aspnet
 :description: TODO
 :keywords: TODO

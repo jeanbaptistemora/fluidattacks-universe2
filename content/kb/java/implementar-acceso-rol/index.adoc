@@ -1,5 +1,4 @@
 :slug: kb/java/implementar-acceso-rol/
-:eth: no
 :category: java
 :description: TODO
 :keywords: TODO

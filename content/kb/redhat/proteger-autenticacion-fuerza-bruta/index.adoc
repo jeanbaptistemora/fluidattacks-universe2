@@ -1,5 +1,4 @@
 :slug: kb/redhat/proteger-autenticacion-fuerza-bruta/
-:eth: no
 :category: redhat
 :description: TODO
 :keywords: TODO

@@ -1,5 +1,4 @@
 :slug: kb/glassfish/revisar-bitacora/
-:eth: no
 :category: glassfish
 :description: TODO
 :keywords: TODO

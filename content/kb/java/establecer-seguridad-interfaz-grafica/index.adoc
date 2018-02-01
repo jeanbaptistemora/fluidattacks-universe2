@@ -1,5 +1,4 @@
 :slug: kb/java/establecer-seguridad-interfaz-grafica/
-:eth: no
 :category: java
 :description: TODO
 :keywords: TODO

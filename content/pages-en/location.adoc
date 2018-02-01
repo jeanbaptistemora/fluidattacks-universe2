@@ -1,7 +1,6 @@
 :slug: location/
 :description: TODO
 :keywords: TODO
-:eth: no
 :location: yes
 
 = Location

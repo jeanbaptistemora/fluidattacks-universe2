@@ -1,5 +1,4 @@
 :slug: kb/yii/validar-datos-entrada/
-:eth: no
 :category: yii
 :description: TODO
 :keywords: TODO
