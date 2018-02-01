@@ -93,6 +93,16 @@ $white: rgba(255, 255, 255, 1);
   }
 }
 
+.integrates-table {
+  td {
+    border: 0;
+  }
+
+  h3 {
+    text-align: center;
+  }
+}
+
 @media (min-width: 480px) {
   .itemlist {
     margin-left: 15%;
