@@ -41,8 +41,7 @@ $white: rgba(255, 255, 255, 1);
 .navfoot {
   margin: auto;
   text-align: left;
-  white-space: nowrap;
-  width: 350px;
+  width: 300px;
 }
 
 .tbsite2 {
@@ -75,6 +74,12 @@ $white: rgba(255, 255, 255, 1);
 
 .tbsite4 {
   display: none;
+}
+
+@media (min-width: 480px) {
+  .navfoot {
+    white-space: nowrap;
+  }
 }
 
 @media (min-width: 780px) {
