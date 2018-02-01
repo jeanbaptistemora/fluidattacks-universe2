@@ -51,7 +51,7 @@
             <li><a href="#">{{ page.title }}</a></li>	
           {% else %}
             {% if gettext('careers') in page.slug and page.slug|replace("/", "") != gettext('careers') %}
-              <li><a href="{{ SITEURL }}/{{ gettext('careers') }}/">{{ gettext('Selection') }} >>&nbsp;</a></li>
+              <li><a href="{{ SITEURL }}/{{ gettext('careers') }}/">{{ gettext('Careers') }} >>&nbsp;</a></li>
             {% endif %}
             <li><a href="#">{{ page.title }}</a></li>
           {% endif %}

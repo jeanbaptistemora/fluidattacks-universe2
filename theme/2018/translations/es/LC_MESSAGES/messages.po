@@ -314,8 +314,8 @@ msgid "careers"
 msgstr "empleos"
 
 #: templates/footer.html:47 templates/footer.html:85
-msgid "Selection"
-msgstr "Selección"
+msgid "Careers"
+msgstr "Empleos"
 
 #: templates/footer.html:48 templates/footer.html:86
 msgid "reasons"

@@ -301,7 +301,7 @@ msgid "careers"
 msgstr ""
 
 #: templates/footer.html:47 templates/footer.html:85
-msgid "Selection"
+msgid "Careers"
 msgstr ""
 
 #: templates/footer.html:48 templates/footer.html:86
