@@ -1,20 +1,20 @@
-{% for page in pages if page.kb %}
+{% for kbpage in pages if kbpage.kb %}
   {% if loop.first %}
     <a class="kb-category">
-      <h2>{{ page.category }}</h2>
+      <h2>{{ kbpage.category }}</h2>
     </a>
-    {% set cat = page.category %}
+    {% set cat = kbpage.category %}
     <div class="kbpanel">
       {% for kbarticle in pages if kbarticle.kb and kbarticle.category == cat%}
         <a href="../{{ kbarticle.slug }}"><h3>{{ kbarticle.title }}</h3></a>
       {% endfor %}
     </div>  
   {% else %}
-    {% if page.category != loop.previtem.category %}
+    {% if kbpage.category != loop.previtem.category %}
       <a class="kb-category">
-        <h2>{{ page.category }}</h2>
+        <h2>{{ kbpage.category }}</h2>
       </a>
-      {% set cat = page.category %}
+      {% set cat = kbpage.category %}
       <div class="kbpanel">
         {% for kbarticle in pages if kbarticle.kb and kbarticle.category == cat%}
           <a href="../{{ kbarticle.slug }}"><h3>{{ kbarticle.title }}</h3></a>
