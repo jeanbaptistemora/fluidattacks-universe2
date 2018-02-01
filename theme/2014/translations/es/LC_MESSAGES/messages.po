@@ -365,10 +365,6 @@ msgstr "autores"
 msgid "careers"
 msgstr "empleos"
 
-#: templates/footer.html:47 templates/footer.html:85 templates/page.html:54
-msgid "Careers"
-msgstr "Empleos"
-
 #: templates/footer.html:48 templates/footer.html:86
 msgid "reasons"
 msgstr "razones"
@@ -387,7 +383,7 @@ msgstr "Vacantes"
 
 #: templates/footer.html:50 templates/footer.html:88
 msgid "terms-selection"
-msgstr "terminos-seleccion"
+msgstr "terminos"
 
 #: templates/footer.html:50 templates/footer.html:88
 msgid "Terms"
