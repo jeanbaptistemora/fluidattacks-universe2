@@ -61,7 +61,7 @@ contados a partir de la fecha de entrega de resultados de la prueba de búsqueda
 
 == Modelo del Proyecto
 
-image::../theme/images/escenario.png[Escenarios de la Prueba]
+image::../theme/images/escenario.png[Escenarios de la Prueba Ethical Hacking]
 
 
 **Escenario 1: Usuario anónimo desde Internet**
