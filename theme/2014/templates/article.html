@@ -127,12 +127,12 @@
        <div class="article-nav">
          <div class="prev-article">
            {% if article.prev_article %}
-             <a href="../../{{ article.prev_article.url}}"><< {{ article.prev_article.title }}</a>
+             <div><a href="../../{{ article.prev_article.url}}"><< {{ article.prev_article.title }}</a></div>
            {% endif %}
          </div>
          <div class="next-article">
            {% if article.next_article %}
-             <a href="../../{{ article.next_article.url}}">{{ article.next_article.title }} >></a>
+             <div><a href="../../{{ article.next_article.url}}">{{ article.next_article.title }} >></a></div>
            {% endif %}
          </div>
        </div>

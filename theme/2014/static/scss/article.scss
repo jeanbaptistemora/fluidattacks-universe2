@@ -5,11 +5,16 @@ $lightgray: rgba(211, 211, 211, 1);
 $tagblue: rgba(27, 117, 187, 1);
 $white: rgba(255, 255, 255, 1);
 
-@mixin next-prev-resp {
-  background-color: $darkblue;
-  display: inline-table;
-  padding: 5px;
+@mixin next-prev {
+  display: inline-block;
+  vertical-align: top;
   width: 40%;
+
+  div {
+    background: $darkblue;
+    padding: 5px;
+    width: fit-content;
+  }
 
   a {
     color: $white;
@@ -17,16 +22,6 @@ $white: rgba(255, 255, 255, 1);
     &:hover {
       color: $lightblue;
     }
-  }
-}
-
-@mixin next-prev {
-  background-color: $white;
-  padding: 0;
-
-  a {
-    background-color: $darkblue;
-    padding: 5px;
   }
 }
 
@@ -117,12 +112,20 @@ $white: rgba(255, 255, 255, 1);
 }
 
 .prev-article {
-  @include next-prev-resp;
-  margin-right: 15%;
+  @include next-prev;
+  margin-right: 18%;
+
+  div {
+    margin-right: auto;
+  }
 }
 
 .next-article {
-  @include next-prev-resp;
+  @include next-prev;
+
+  div {
+    margin-left: auto;
+  }
 }
 
 @media (min-width: 640px) {
@@ -149,17 +152,5 @@ $white: rgba(255, 255, 255, 1);
     a {
       font-size: 21px;
     }
-  }
-}
-
-@media (min-width: 770px) {
-  .prev-article {
-    @include next-prev;
-    margin-right: 18%;
-  }
-
-  .next-article {
-    @include next-prev;
-    text-align: right;
   }
 }

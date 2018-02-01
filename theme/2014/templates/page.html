@@ -73,25 +73,25 @@
         <!-- Go to www.addthis.com/dashboard to customize your tools -->
         <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5a37e74c4b1448ce"></script>
       </section>
-      <br/>
+      <br>
       {% if page.kb %}
         {% for kbpage in pages if kbpage.kb and kbpage.category == page.category %}
-          {% if kbpage.slug == page.slug %}
+          {% if kbpage.slug == page.slug and (loop.previtem != undefined or loop.nextitem != undefined) %}
             <div class="article-nav">
               <div class="prev-article">
                 {% if loop.previtem != undefined %}
-                  <a href="../../../{{ loop.previtem.slug }}"><< {{ loop.previtem.title }}</a>
+                  <div><a href="../../../{{ loop.previtem.slug }}"><< {{ loop.previtem.title }}</a></div>
                 {% endif %}
               </div>
               <div class="next-article">
                 {% if loop.nextitem != undefined %}
-                  <a href="../../../{{ loop.nextitem.slug }}">{{ loop.nextitem.title }} >></a>
+                  <div><a href="../../../{{ loop.nextitem.slug }}">{{ loop.nextitem.title }} >></a></div>
                 {% endif %}
               </div>
             </div>
+            <br>
           {% endif %}
         {% endfor %}
-        <br>
       {% endif %}
       {% if DISQUS_SITENAME and SITEURL and "kb/" in page.slug and not page.kbindex %}
         <hr class="hrcoments">
