@@ -30,7 +30,7 @@ No me funciona la aplicación de examen, ¿qué puedo hacer?::
 	Prueba ejecutando la aplicación como administrador. Si el problema persiste puedes intentarlo desde otro PC.
 
 No llegó el adjunto para el análisis de datos, ¿cómo lo obtengo?::
-	Intenta descargarlo desde [button]#link:https://fluid.la/web/es/files/hallazgos-open-data.tar.bz2[aquí >>]# 
+	Intenta descargarlo desde [button]#link:../hallazgos-open-data.tar.bz2[aquí >>]# 
 
 Se me pasó el tiempo para el examen, ¿qué puedo hacer?::
 	De tener un motivo justificado (bloqueos de la aplicación, reinicios inesperados del pc, problemas de conexión) puedes escribirnos vía e-mail a careers@autonomicmind.co indicándonos que sucedió y nosotros te indicaremos como proceder.
