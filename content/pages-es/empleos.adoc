@@ -49,7 +49,7 @@ Para hacerla requieres haber finalizado la etapa anterior.</p>
 <p id="a_formLink">
 Para iniciar, 
 solo debes seguir las instrucciones detalladas 
-<a href="https://fluid.la/forms/aplicacion" class="read-more">aquí</a></p></div>
+<a href="https://fluid.la/forms/aplicacion" class="button">aquí</a></p></div>
 
 <div id="etapa_h"><h2>6. Historia</h2>
 
@@ -60,7 +60,7 @@ Para hacerla requieres haber finalizado la etapa anterior.</p>
 <p id="h_formLink">
 Para iniciar, 
 solo debes seguir las instrucciones detalladas 
-<a href="https://fluid.la/forms/periodo" class="read-more">
+<a href="https://fluid.la/forms/periodo" class="button">
 aquí
 </a>
 </p>

@@ -18,7 +18,7 @@ Los términos del contrato de entrenamiento para esta etapa de Inmersión son lo
 Este proceso comienza cuando usted tenga listo todo lo siguiente:
 
 . Usuario en https://gitlab.com/[GitLab] y acceso a https://gitlab.com/autonomicmind/training[nuestro repositorio] (previamente solicitado) 
-. Se registre como tercero en el siguiente [read-more]#https://fluid.la/forms/tercero[formulario >>]# con el RUT anexo,
+. Se registre como tercero en el siguiente [button]#https://fluid.la/forms/tercero[formulario >>]# con el RUT anexo,
 . Entregue en PDF escaneado la copia de la Tarjeta Profesional o el recibo de comienzo de trámite de la misma, aplica si usted ya tiene título de pregrado.
 . Lea y acepte las condiciones de almacenamiento de resultados de entrenamiento que se encuentran https://gitlab.com/autonomicmind/training/blob/master/README.adoc[aquí]
 . Y se encuentren almacenadas en dicho repositorio y con las reglas ahí especificadas las soluciones a los retos que le permitieron lograr el criterio de aceptación de su etapa de retos.
@@ -41,7 +41,7 @@ Este proceso comienza cuando usted tenga listo todo lo siguiente:
 == Reportes
 
 . Debe reportar todo el tiempo dedicado mediante la herramienta asignada en modo automático,
-. Debe reportar diariamente su avance mediante el siguiente [read-more]#link:https://fluid.la/forms/training[formulario >>]#
+. Debe reportar diariamente su avance mediante el siguiente [button]#link:https://fluid.la/forms/training[formulario >>]#
 . Se debe comenzar la sesión de entrenamiento a las 07:00 AM los días de semana.
 . Debe finalizar el entrenamiento del dia y diligenciar el reporte antes de las 6:00PM del día en cuestión,
 . El fraude deparará en la finalización inmediata del proceso de selección

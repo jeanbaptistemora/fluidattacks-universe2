@@ -626,15 +626,31 @@ video::he-man.mp4[He-man]
 
 ==== Option 1
 
+When this option is being used,
+every punctuaction mark
+goes outside of the square brackets ``[]''
+
 * Source
 +
 ....
-link:https://google.com[Google]
+link:https://google.com[Google].
 ....
 
 * Render
 +
-link:https://google.com[Google]
+link:https://google.com[Google].
+
+==== Option 1 - Type button
+
+* Source
++
+....
+[button]#link:https://google.com[Google]#.
+....
+
+* Render
++
+[button]#link:https://google.com[Google]#.
 
 ==== Option 2 - Do not use
 
