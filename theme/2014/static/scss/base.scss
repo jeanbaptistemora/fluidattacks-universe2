@@ -29,11 +29,13 @@ $yellow: rgba(255, 255, 0, 1);
   line-height: 1.1;
   margin: 20px 0 10px;
   text-transform: capitalize;
+}
 
-  &:hover {
-    .anchor-sign {
-      visibility: visible;
-    }
+@mixin anchor-size($size, $bottom, $left) {
+  .anchor-sign {
+    bottom: $bottom;
+    font-size: $size;
+    margin-left: $left;
   }
 }
 
@@ -71,21 +73,25 @@ body {
 
 h1 {
   @include hn;
+  @include anchor-size(24px, 8px, -16px);
   font-size: 34px;
 }
 
 h2 {
   @include hn;
+  @include anchor-size(21px, 9px, -14px);
   font-size: 30px;
 }
 
 h3 {
   @include hn;
+  @include anchor-size(18px, 5px, -12px);
   font-size: 24px;
 }
 
 h4 {
   @include hn;
+  @include anchor-size(18px, 5px, -12px);
   font-size: 18px;
 }
 
@@ -230,14 +236,12 @@ article {
 }
 
 .anchor-sign {
-  color: inherit;
+  color: $lightgray;
   font-weight: 400;
-  margin-left: -20px;
-  transition: .1s;
-  visibility: hidden;
+  position: relative;
 
   &::before {
-    content: '\00b6';
+    content: '\0023';
   }
 }
 
@@ -540,10 +544,18 @@ article {
 @media (min-width: 770px) {
   h1 {
     font-size: 42px;
+
+    .anchor-sign {
+      bottom: 15px;
+    }
   }
 
   h2 {
     font-size: 34px;
+
+    .anchor-sign {
+      bottom: 11px;
+    }
   }
 
   h3 {
@@ -552,6 +564,10 @@ article {
 
   h4 {
     font-size: 21px;
+
+    .anchor-sign {
+      bottom: 3px;
+    }
   }
 
   .title {
