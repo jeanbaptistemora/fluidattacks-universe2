@@ -4,7 +4,7 @@
 :variable: Asciidoc
 :plus: &#43
 
-= Asciidoc Format
+= Format
 
 == Headers
 
@@ -420,7 +420,7 @@ as a subscript
 
 === Monospaced
 
-* Use monospaced font
+Use monospaced font
 
 ==== Monospaced - Option 1
 
@@ -784,7 +784,7 @@ Setting a blank space as the first character of a line
 
 === Quotes
 
-==== Without Source Information
+==== Quote Without Source Information
 
 * Source
 +
@@ -798,7 +798,7 @@ I'm Batman
 [quote]
 I'm Batman
 
-==== With Source Information
+==== Quote With Source Information
 
 * Source
 +
