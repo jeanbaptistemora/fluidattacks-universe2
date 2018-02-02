@@ -96,7 +96,7 @@ $ python exploit.py
 ----
 > set FLUIDASSERTS_LICENSE_KEY=<ID de licencia>
 > set FLUIDASSERTS_USER_EMAIL=<Tu correo electrónico>
-> export FLUIDASSERTS_STRICT="true"
+> set FLUIDASSERTS_STRICT="false"
 
 > python exploit.py
 ----
