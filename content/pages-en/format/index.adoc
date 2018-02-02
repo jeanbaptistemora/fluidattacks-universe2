@@ -535,47 +535,128 @@ so focus only on content in the .adocs
 * They are delacred before an element, starting with a dot
 (images, lists, quotes, literals, ...)
 
+==== Image Titles
+
 * Source
 +
 ....
 .Image Title
 image::doge.png[Doge]
-
-.Video Title
-video::he-man.mp4[He-man]
-
-...
 ....
 
 * Render
 +
 .Image Title
 image::doge.png[Doge]
+
+==== Video Title
+
+* Source
++
+....
+.Video Title
+video::he-man.mp4[He-man]
+....
+
+* Render
 +
 .Video Title
 video::he-man.mp4[He-man]
+
+==== Literal Title
+* Source
++
+....
+ .Literal Title
+ ....
+ Literal Block
+ ....
+....
+
+* Render
 +
 .Literal Title
 ....
 Literal block
 ....
+
+==== List Title
+
+* Source
++
+....
+.List Title
+. Item 1
+.. Subitem 1
+. Item 2
+....
+
+* Render
 +
 .List Title
 . Item 1
 .. Subitem 1
 . Item 2
+
+==== Quote Title
+
+* Source
++
+....
+.Quote Title
+[quote]
+I'm Batman
+....
+
+* Render
 +
 .Quote Title
 [quote]
 I'm Batman
+
+==== Table Title
+
+* Source
++
+....
+.Table Title
+|====
+| Col 1 | Col 2
+|====
+....
+
+* Render
 +
 .Table Title
 |====
 | Col 1 | Col 2
 |====
+
+==== Paragraph Title
+
+* Source
++
+....
+.Paragraph Title
+Normal Paragraph
+....
+
+* Render
 +
 .Paragraph Title
 Normal Paragraph
+
+==== Code Title
+
+* Source
++
+....
+.Code Title
+[source, python]
+print "Hello World"
+....
+
+* Render
 +
 .Code Title
 [source, python]
