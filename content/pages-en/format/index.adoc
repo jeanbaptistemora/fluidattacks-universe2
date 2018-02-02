@@ -1,4 +1,4 @@
-:slug: test-style/
+:slug: format/
 :description: TODO
 :keywords: TODO
 :variable: Asciidoc
@@ -133,10 +133,20 @@ previous [green yellow-background overline]##sty##[blue purple-background underl
 
 === Monospaced
 
-Use +monospaced+ characters in `different` ways
+Use +monospaced+ font
 
 ....
-+monospaced+, `different`
++monospaced+
+....
+
+=== Monospaced - Do not use
+
+There is another way of using `monospaced`,
+but it would be best to use
+the previous method.
+
+....
+`monospaced`
 ....
 
 === Line Break
@@ -172,9 +182,13 @@ render it in the HTML.
 // This way
 ....
 
-=== Pass-through HTML
+=== Pass-through HTML - Do not use
 
 Write +++<u>HTML</u>+++ code in the document.
+Do not use this method,
+since the idea of Pelican
+is to separate content from style,
+so focus only on content in the .adocs 
 
 ....
 Write +++<u>HTML</u>+++ code in the document.
@@ -255,9 +269,10 @@ video::he-man.mp4[He-man]
 === Links
 
 * Links can be declared with the URL alone,
-https://google.com
+https://google.com - Do not use
 
 * Or here is another way to get to link:https://google.com[Google]
+- Use this method instead
 +
 ....
 link:https://google.com[Google]
@@ -386,7 +401,7 @@ Still talking about the same topic
 
 ** Another Topic
 
-Talking about a third topic
+Talking about something else
 ....
 
 === Tables
