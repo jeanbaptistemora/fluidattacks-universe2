@@ -818,21 +818,24 @@ I'm Batman
 * Source
 +
 ....
+.Code.py
 [source, python]
 print "Hello World"
 ....
 
 * Render
 +
+.Code.py
 [source, python]
 print "Hello World"
 
 
-==== Using Line Numeration
+==== Source Code With Numbered Lines
 
 * Source
 +
 ....
+.Code.java
 [source, java, linenums]
 ----
 Line 1
@@ -843,6 +846,7 @@ Line 3
 
 * Render
 +
+.Code.java
 [source, java, linenums]
 ----
 Line 1
@@ -857,6 +861,7 @@ Line 3
 ....
 . Item 1
 +
+.Code1.py
 [source, python]
 ----
 print "Hello World"
@@ -864,6 +869,7 @@ print "Hello World"
 
 . Item 2
 +
+.Code2.py
 [source, python]
 ----
 print "Bye World"
@@ -874,6 +880,7 @@ print "Bye World"
 +
 . Item 1
 +
+.Code1.py
 [source, python]
 ----
 print "Hello World"
@@ -881,6 +888,7 @@ print "Hello World"
 
 . Item 2
 +
+.Code2.py
 [source, python]
 ----
 print "Bye World"
