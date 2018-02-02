@@ -422,7 +422,7 @@ as a subscript
 
 * Use monospaced font
 
-==== Option 1
+==== Monospaced - Option 1
 
 * Source
 +
@@ -434,7 +434,7 @@ as a subscript
 +
 +word+
 
-==== Option 2 - Do not use
+==== Monospaced - Option 2 - Do not use
 
 * Source
 +
@@ -705,7 +705,7 @@ video::he-man.mp4[He-man]
 
 === Links
 
-==== Option 1
+==== Link - Option 1
 
 When this option is being used,
 every punctuaction mark
@@ -721,7 +721,7 @@ link:https://google.com[Google].
 +
 link:https://google.com[Google].
 
-==== Option 1 - Type button
+==== Link - Option 1 - Type button
 
 * Source
 +
@@ -733,7 +733,7 @@ link:https://google.com[Google].
 +
 [button]#link:https://google.com[Google]#.
 
-==== Option 2 - Do not use
+==== Link - Option 2 - Do not use
 
 * Source
 +
@@ -749,7 +749,7 @@ https://google.com
 
 === Literals
 
-==== Option 1
+==== Literal - Option 1
 
 * A literal block is delimited by 4 dots before and after the content
 
@@ -767,7 +767,7 @@ https://google.com
 Hello
 ....
 
-==== Option 2 - Do not use unless (....) cannot be used
+==== Litearl - Option 2 - Do not use
 
 * Setting a blank space as the first character of a line
 
