@@ -61,7 +61,9 @@ $ sudo apt install git \
                    python \
                    python-pip \
                    apache2 \
-                   libapache2-mod-wsgi
+                   libapache2-mod-wsgi \
+                   direnv \
+                   ruby
 
 ----
 
@@ -177,22 +179,9 @@ push.default=matching
 [source, console]
 ----
 $ sudo  mkdir  /usr/src/app  && cd /usr/src/app
-$ sudo ln -s /var/www/integrates/*.
+$ sudo ln -s /var/www/integrates/* .
 
 ----
-
-* Será necesario crear un arhivo que contiene la contraseña que nos permitirá
-  acceder a FLUIDIntegrates y ejecutar las API's necesarias:
-
-[source, console]
-----
-$ pico /tmp/.vault.txt
-
-----
-
-* Se abre el editor de texto con el archivo nuevo, unicamente se debe escribir la
-  contraseña en la primera linea, luego debemos guardar y cerrar. Si desea conocer
-  la contraseña por favor contactarse con jrestrepo@fluid.la
 
 * Para instalar las otras dependencias que son requisito minimo para desplegar
   FLUIDIntegrates, ejecute:
@@ -213,7 +202,9 @@ $ sudo apt-get install libmysqlclient-dev \
 
 [source, console]
 ----
-sudo apt-get install -y python-dev python-pip && sudo pip install --upgrade -r requirements.txt
+$ sudo apt-get install -y python-dev python-pip
+$ sudo gem install asciidoctor-pdf --pre
+$ cd /var/www/integrates/deploy/containers/deps && sudo pip install --upgrade -r requirements.txt
 
 ----
 
@@ -223,10 +214,10 @@ sudo apt-get install -y python-dev python-pip && sudo pip install --upgrade -r r
 
 <<<
 == Instalación de NPM
-* Node Package Manager o simplemente npm es un gestor de paquetes desde el cual 
-  podremos tener cualquier librería disponible con solo una línea de código, npm 
-  nos ayudará a administrar nuestros módulos, distribuir paquetes y agregar 
-  dependencias de una manera sencilla. Para instalar npm debemos instalar 
+* Node Package Manager o simplemente npm es un gestor de paquetes desde el cual
+  podremos tener cualquier librería disponible con solo una línea de código, npm
+  nos ayudará a administrar nuestros módulos, distribuir paquetes y agregar
+  dependencias de una manera sencilla. Para instalar npm debemos instalar
   _Nodejs_, este trae por defecto npm:
 
 [source, console]
@@ -237,12 +228,12 @@ $ sudo apt-get install -y nodejs
 
 ----
 
-* Para instalar las dependencias que ya se encuentran en FLUIDIntegrates ejecutar 
+* Para instalar las dependencias que ya se encuentran en FLUIDIntegrates ejecutar
   el siguiente comando:
 
 [source, console]
 ----
-$ cd /app/assets
+$ cd app/assets
 $ npm install
 
 ----
@@ -251,8 +242,8 @@ $ npm install
 
 [source, console]
 ----
-$ cd /app/assets
-$ npm install <package_name> --save 
+$ cd app/assets
+$ npm install <package_name> --save
 
 ----
 
@@ -260,39 +251,102 @@ $ npm install <package_name> --save
 
 [source, console]
 ----
-$ cd /app/assets
-$ npm uninstall <package_name> --save 
+$ cd app/assets
+$ npm uninstall <package_name> --save
 
 ----
 
-* Para ver mas información sobre los paquetes de npm visitar el siguiente 
+* Para ver mas información sobre los paquetes de npm visitar el siguiente
 link: _https://www.npmjs.com/_.
 
 <<<
-== Generación de tokens de acceso
+== Variables de entorno para Integrates
 
-* El ultimo paso antes de desplegar la app de forma local es generar los tokens
-  de acceso para la identificación de usuarios y el acceso a las diferentes bases
-  de datos de las que se alimenta FLUIDIntegrates:
+* El archivo _**.envrc**_ contiene todas las variables de entorno para el correcto funcionamiento de Integrates,
+  por razones de seguridad el archivo no se encuentra en el repositorio. Para una copia por favor contactar a
+  _jrestrepo@fluid.la_.
+
+* Es necesario agregar la siguiente línea:  _**eval "$(direnv hook bash)"**_  al
+  final del archivo que se despliega al ejecutar el comando:
 
 [source, console]
 ----
-$ sudo  ansible-playbook main.yml --vault-password-file /tmp/.vault.txt
-$ pico fluidintegrates/settings.py
+$ nano ~/.bashrc
 
 ----
 
-* Se abrirá el archivo _settings.py_ en el editor de texto. Navegar por el archivo
-  hasta encontrar la linea _DEBUG = False_ y reemplazarla por _DEBUG = True_.
+* Ubicar el archivo _.envrc_ en la carpeta principal de Integrates, es decir, en la ruta
+  /var/www/integrates y luego ejecutar el siguiente comando:
 
-== Crear servidor 
+[source, console]
+----
+$ direnv allow
 
- * Finalmente se debe lanzar el servidor local que contiene a la aplicación. Esto
-   se hace con el siguiente comando:
+----
+
+* Para confirmar que las variables fueron correctamente cargadas, ejecute el siguiente comando y verifique
+  que se muestren las variables que están en el archivo _.envrc_ .
+
+[source, console]
+----
+$ printenv
+
+----
+
+<<<
+== Crear servidor
+
+* Finalmente se debe lanzar el servidor local que contiene a la aplicación. Esto
+  se puede realizar de 2 maneras:
+
+=== 1. Creación de server con Python
 
 [source, console]
 ----
 $ python manage.py runsslserver
+
+----
+
+* En este punto la aplicación ya está desplegada localmente, para acceder a ella
+  vaya a la barra de direcciones de su navegador de preferencia y escriba la siguiente
+  dirección: _https://localhost:8000_.
+
+=== 1. Creación de server con Docker
+
+* Lo primero que hay que hacer es instalar Docker CE. Seguir los pasos de instalación que se encuentran
+  https://docs.docker.com/install/linux/docker-ce/debian/#install-using-the-convenience-script[aquí].
+
+* Ejecutar el siguiente comando, el cual le pedirá que ingrese un usuario y contraseña
+  correspondientes a sus credenciales en Gitlab.
+
+[source, console]
+----
+$ sudo docker login registry.gitlab.com -u $DOCKER_USER -p $DOCKER_PASS
+
+----
+* Se debe especificar el nombre de la rama del repositorio de Integrates que se clonará
+  dentro del contenedor, usualmente se clona la rama _master_.
+
+[source, console]
+----
+$ CI_COMMIT_REF_NAME=master
+
+----
+
+* Antes de lanzar el contenedor, es necesario crear la imagen que se utilizará
+  durante el despliegue.
+
+[source, console]
+----
+$ sh build.sh $CI_COMMIT_REF_NAME $FI_GITLAB_LOGIN $FI_GITLAB_PASSWORD $FI_DRIVE_AUTHORIZATION $FI_DOCUMENTROOT $FI_SSL_CERT $FI_SSL_KEY
+
+----
+
+* Para desplegar el servidor con Integrates se ejecuta el siguiente comando:
+
+[source, console]
+----
+$ sudo docker run -d -p 8000:443 --env-file /var/www/integrates/env.list -t --name=integrates registry.gitlab.com/fluidsignal/integrates:base
 
 ----
 
