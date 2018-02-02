@@ -8,6 +8,9 @@
 
 *FLUIDAsserts* es un motor de automatización de *cierre* de hallazgos de seguridad.
 
+.Flujo de uso
+image::fluidassertses.png[FLUIDAsserts]
+
 == 2. Requerimientos
 
 * *CPU*: 4 cores @1.8GHz
@@ -19,16 +22,22 @@
 * *Sistema operativo*:
 ** Cualquier distribución basada en Linux que soporte DockerCE
 ** Windows Server con HyperV y Docker
+** MacOS
 * *Dependencias de software*: DockerCE 17 o superior
 
 == 3. Instalación
 
-¡Escríbenos a engineering@fluid.la y te daremos las instrucciones!
+*FLUIDAsserts* es simple de instalar:
 
-== 4. Ejemplos de uso
+[source, bash]
+----
+$ pip install -U fluidasserts
+----
+
+== 4. Ejemplos de exploits
 
 .Exploit 1: Verificar inyección SQL
-[source, python]
+[source, python, linenum]
 ----
 from fluidasserts.service import http
 
@@ -37,7 +46,7 @@ http.has_sqli(url)
 ----
 
 .Exploit 2: Verificar enumeración de usuarios
-[source, python]
+[source, python, linenum]
 ----
 from fluidasserts.service import http
 
@@ -47,7 +56,7 @@ http.has_user_enumeration('http://127.0.0.1:5000/userenum/fail', 'username', dat
 ----
 
 .Exploit 3: Verificar seguridad de CAPTCHA
-[source, python]
+[source, python, linenum]
 ----
 from fluidasserts.format import captcha
 
@@ -59,10 +68,61 @@ captcha.is_insecure_in_image(weak_img, '9T795')
 ----
 
 .Exploit 4: Verificar si un puerto usa protocolos de cifrado seguros
-[source, python]
+[source, python, linenum]
 ----
 from fluidasserts.service import tcp
 
 tcp.is_port_insecure('127.0.0.1',80)
 tcp.is_port_insecure('127.0.0.1',443)
 ----
+
+== 5. Ejecución
+
+=== En un PC
+
+==== Linux
+
+[source, bash]
+----
+$ export FLUIDASSERTS_LICENSE_KEY=<ID de licencia>
+$ export FLUIDASSERTS_USER_EMAIL=<Tu correo electrónico>
+$ export FLUIDASSERTS_STRICT="false"
+
+$ python exploit.py
+----
+
+==== Windows
+[source, bash]
+----
+> set FLUIDASSERTS_LICENSE_KEY=<ID de licencia>
+> set FLUIDASSERTS_USER_EMAIL=<Tu correo electrónico>
+> export FLUIDASSERTS_STRICT="true"
+
+> python exploit.py
+----
+
+=== En un pipeline de CI
+
+* Si tienes una aplicación suscrita a nuestro servicio de Pruebas Concurrentes de Seguridad que incluya el uso de FLUIDAsserts, puedes integrarlo a tu pipeline de integración contínua. Solo debes agregar un job que ejecute dos comandos:
+[source, bash]
+----
+$ docker login <params>
+$ docker run <params>
+----
+
+.Ejemplo de job en Gitlab CI
+[source, yaml]
+----
+fluidasserts:
+  script:
+    - docker login quay.io -u $QUAY_LOGIN -p $QUAY_PASSWORD
+    - docker run -v "$PWD"/fusion:/code -e FLUIDASSERTS_STRICT=$STRICT quay.io/fluid/<cliente>:<app>
+  artifacts:
+    paths: [/tmp/fluidasserts.log]
+----
+
+*NOTA:* La variable 'STRICT' debe tener los valores 'true' o 'false'. Si es 'true' y alguna de las vulnerabilidades está abierta, ¡el pipeline se romperá!
+
+== Licencia
+
+Escríbenos a engineering@fluid.la para obtener información de licencias.
