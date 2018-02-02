@@ -16,6 +16,7 @@ if [ ! $# -eq 0 ]; then
   sed -i 's/2014/2018/g; s/pages-en/pages-en-2018/g; s/pages-es/pages-es-2018/g' pelicanconf.py
 fi
 
+pybabel compile --directory theme/2014/translations --domain messages
 pelican --fatal errors --fatal warnings content/
 mv output/web/en/blog-en output/web/en/blog && mv output/web/es/blog-es output/web/es/blog
 

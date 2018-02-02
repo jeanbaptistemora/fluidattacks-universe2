@@ -24,6 +24,7 @@ checks:
     - ./check-changed.sh
     - ./check-all.sh
     - ./sass-lint.sh
+    - pybabel compile --directory theme/2014/translations/ --domain messages
     - pelican --fatal errors --fatal warnings content/
     - ./html-lint.sh
   except:
@@ -53,6 +54,8 @@ deploy:
   stage: deployment
   environment: production
   script:
+    # Generate file for localization of the site
+    - pybabel compile --directory theme/2014/translations/ --domain messages
     # Generate the website, exiting on any error encountered
     - pelican --fatal errors --fatal warnings content/
     # Give the folders, named after the language of its content, a general name in each subsite
