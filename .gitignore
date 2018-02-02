@@ -3,3 +3,4 @@ pelican/
 output/
 pelican-plugins/
 webtest.sh
+.babel.cfg.swp
