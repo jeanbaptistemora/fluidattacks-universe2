@@ -23,7 +23,9 @@ image::fluidassertses.png[FLUIDAsserts]
 ** Cualquier distribución basada en Linux que soporte DockerCE
 ** Windows Server con HyperV y Docker
 ** MacOS
-* *Dependencias de software*: DockerCE 17 o superior
+* *Dependencias de software*:
+** DockerCE 17 o superior
+** Python 2.7, 3.5 ó 3.6
 
 == 3. Instalación
 
