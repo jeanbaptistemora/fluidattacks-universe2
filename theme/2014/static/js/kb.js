@@ -11,3 +11,18 @@ for (i = 0; i < kbcat.length; i++) {
     }
   });
 }
+
+$(document).ready(function () {
+  var anchor = window.location.hash;
+  if (anchor != "") {
+    var span = document.getElementById(anchor.replace('#',''));
+    var kbcat = span.parentNode.parentNode;
+    var kbpanel = kbcat.nextElementSibling;
+    kbcat.classList.toggle("active");
+    if (kbpanel.style.maxHeight){
+      kbpanel.style.maxHeight = null;
+    } else {
+      kbpanel.style.maxHeight = kbpanel.scrollHeight + "px";
+    }
+  }
+});
