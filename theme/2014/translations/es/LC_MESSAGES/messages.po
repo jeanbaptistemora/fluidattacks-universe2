@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2018-01-31 16:46+0000\n"
+"POT-Creation-Date: 2018-02-02 00:21+0000\n"
 "PO-Revision-Date: 2017-12-21 15:09-0500\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: es\n"
@@ -25,8 +25,8 @@ msgstr "Archivos del Blog"
 #: templates/archives.html:18 templates/article.html:37
 #: templates/author.html:43 templates/authors.html:18
 #: templates/categories.html:18 templates/category.html:18
-#: templates/index.html:22 templates/page.html:37 templates/tag.html:34
-#: templates/tags.html:18
+#: templates/home.html:22 templates/index.html:22 templates/page.html:37
+#: templates/tag.html:34 templates/tags.html:18
 msgid "Young hacker smiling"
 msgstr "Joven hacker sonriendo"
 
@@ -37,11 +37,17 @@ msgstr "Archivos para"
 
 #: templates/article.html:48 templates/author.html:52 templates/authors.html:28
 #: templates/categories.html:28 templates/category.html:27
-#: templates/footer.html:20 templates/footer.html:40 templates/footer.html:64
-#: templates/footer.html:78 templates/navigationbar.html:22
-#: templates/page.html:47 templates/tag.html:43 templates/tags.html:28
+#: templates/footer.html:22 templates/footer.html:42 templates/footer.html:66
+#: templates/footer.html:80 templates/home.html:8
+#: templates/navigationbar.html:22 templates/page.html:47 templates/tag.html:43
+#: templates/tags.html:28
 msgid "Home"
 msgstr "Inicio"
+
+#: templates/article.html:49 templates/index.html:48 templates/index.html:90
+#: templates/index.html:133 templates/index.html:180 templates/index.html:222
+msgid "categories"
+msgstr "categorias"
 
 #: templates/article.html:49 templates/categories.html:8
 #: templates/categories.html:29 templates/categories.html:32
@@ -61,8 +67,8 @@ msgstr "Ícono de globo de diálogo"
 msgid "Comment"
 msgstr "Comentar"
 
-#: templates/article.html:69 templates/index.html:47 templates/index.html:85
-#: templates/index.html:124 templates/index.html:167 templates/index.html:205
+#: templates/article.html:69 templates/index.html:47 templates/index.html:89
+#: templates/index.html:132 templates/index.html:179 templates/index.html:221
 msgid "Folder icon"
 msgstr "Ícono de carpeta"
 
@@ -82,7 +88,7 @@ msgstr "Foto del autor"
 msgid "Related"
 msgstr "Relacionado"
 
-#: templates/article.html:143 templates/page.html:81
+#: templates/article.html:143 templates/page.html:95
 msgid "Leave a comment"
 msgstr "Haz un comentario"
 
@@ -91,7 +97,7 @@ msgid "Articles by"
 msgstr "Artículos por"
 
 #: templates/author.html:53 templates/authors.html:8 templates/authors.html:29
-#: templates/authors.html:32 templates/footer.html:44 templates/footer.html:82
+#: templates/authors.html:32 templates/footer.html:46 templates/footer.html:84
 msgid "Authors"
 msgstr "Autores"
 
@@ -107,313 +113,216 @@ msgstr "Tiene"
 msgid "comments"
 msgstr "comentarios"
 
-#: templates/ethical.html:4
-msgid "Methodology"
-msgstr "Metodología"
-
-#: templates/ethical.html:7
-msgid "methodology.png"
-msgstr "metodologia.png"
-
-#: templates/ethical.html:7
-msgid "Timeline showng the stages performed by FLUID during a test"
-msgstr "Línea de tiempo mostrando las etapas seguidas por FLUID durante una prueba"
-
-#: templates/ethical.html:10
-msgid "Criteria"
-msgstr "Criterio"
-
-#: templates/ethical.html:13
-msgid "criteria.png"
-msgstr "criterio.png"
-
-#: templates/ethical.html:13
-msgid "Standards and organizations on which FLUID bases its security criteria"
-msgstr ""
-"Estándaras y organizaciones utilizadas por FLUID para definir su criterio"
-" de seguridad"
-
-#: templates/ethical.html:18
-msgid "Deliverables"
-msgstr "Entregables"
-
-#: templates/ethical.html:21 templates/ethical.html:27
-msgid "Character doing a presentation"
-msgstr "Personaje haciendo una presentación"
-
-#: templates/ethical.html:21 templates/ethical.html:27
-msgid "Executive Report"
-msgstr "Reporte Ejecutivo"
-
-#: templates/ethical.html:22 templates/ethical.html:29
-msgid "Check list"
-msgstr "Lista de ítems"
-
-#: templates/ethical.html:22 templates/ethical.html:29
-msgid "Technical Report"
-msgstr "Reporte Técnico"
-
-#: templates/ethical.html:23 templates/ethical.html:31
-msgid "A couple of text documents"
-msgstr "Un par de documentos de texto"
-
-#: templates/ethical.html:23 templates/ethical.html:31
-msgid "Solution Folder"
-msgstr "Carpeta de Soluciones"
-
-#: templates/ethical.html:24 templates/ethical.html:33
-msgid "Magnifying glass searching through binary data"
-msgstr "Lupa buscando sobre datos binarios"
-
-#: templates/ethical.html:24 templates/ethical.html:33
-msgid "Evidence Folder"
-msgstr "Carpeta de Evidencias"
-
-#: templates/ethical.html:28
-msgid ""
-"This report is a managerial analysis (as a presentation) of the number of"
-" vulnerabilities, their criticity and affectation, taking into account "
-"the risk each one of them poses on the business objectives of the "
-"organization"
-msgstr ""
-"Este reporte es un análisis gerencial (modo presentación) del número de "
-"vulnerabilidades, su criticidad y afectación, teniendo en cuenta el "
-"impacto de cada una de ellas sobre los objetivos de negocio de la "
-"organización"
-
-#: templates/ethical.html:30
-msgid ""
-"This report thoroughly describes each one of the results found during the"
-" execution of the tests"
-msgstr ""
-"Este reporte describe detalladamente cada uno de los resultados "
-"encontrados durante la ejecución de las pruebas"
-
-#: templates/ethical.html:32
-msgid ""
-"PDF describing, step by step, how to fix the vulnerabilities found during"
-" the test"
-msgstr ""
-"PDF que describe, paso a paso, cómo remediar las vulnerabilidades "
-"encontradas durante la prueba"
-
-#: templates/ethical.html:34
-msgid ""
-"GIF or Animated Videos where the exploitation of the vulnerability is "
-"shown. A vulnerability that is not exploited is never roported"
-msgstr ""
-"GIF o vídeo animado donde se muestra la explotación de la vulnerabilidad."
-" Nunca se reporta una vulnerabilidad que no haya sido explotada"
-
-#: templates/footer.html:3
+#: templates/footer.html:4
 msgid "FLUID logo"
 msgstr "Logo de FLUID"
 
-#: templates/footer.html:6
+#: templates/footer.html:7
 msgid "Twitter logo"
 msgstr "Logo de Twitter"
 
-#: templates/footer.html:7
+#: templates/footer.html:8
 msgid "Facebook logo"
 msgstr "Logo de Facebook"
 
-#: templates/footer.html:8
+#: templates/footer.html:9
 msgid "Google Plus logo"
 msgstr "Logo de Google Plus"
 
-#: templates/footer.html:9
+#: templates/footer.html:10
 msgid "LinkedIn logo"
 msgstr "Logo de LinkedIn"
 
-#: templates/footer.html:10
+#: templates/footer.html:11
 msgid "YouTube logo"
 msgstr "Logo de YouTube"
 
-#: templates/footer.html:15 templates/footer.html:57
+#: templates/footer.html:17 templates/footer.html:59
 msgid "About Us"
 msgstr "Nosotros"
 
-#: templates/footer.html:16 templates/footer.html:58
+#: templates/footer.html:18 templates/footer.html:60
 #: templates/navigationbar.html:23
 msgid "Services"
 msgstr "Servicios"
 
-#: templates/footer.html:20 templates/footer.html:64
+#: templates/footer.html:22 templates/footer.html:66
 #: templates/navigationbar.html:22
 msgid "fluid.la"
 msgstr "fluid.la/es/servicios/"
 
-#: templates/footer.html:21 templates/footer.html:65
+#: templates/footer.html:23 templates/footer.html:67
 msgid "#lp-pom-block-965"
 msgstr "es/servicios/#lp-pom-block-1000"
 
-#: templates/footer.html:21 templates/footer.html:65
+#: templates/footer.html:23 templates/footer.html:67
 msgid "Benefits"
 msgstr "Beneficios"
 
-#: templates/footer.html:22 templates/footer.html:66
+#: templates/footer.html:24 templates/footer.html:68
 #: templates/navigationbar.html:37
 msgid "#lp-pom-block-876"
 msgstr "es/servicios/#lp-pom-block-1090"
 
-#: templates/footer.html:22 templates/footer.html:66
+#: templates/footer.html:24 templates/footer.html:68
 #: templates/navigationbar.html:37
 msgid "Customers"
 msgstr "Clientes"
 
-#: templates/footer.html:23 templates/footer.html:67
+#: templates/footer.html:25 templates/footer.html:69
 msgid "location"
 msgstr "ubicacion"
 
-#: templates/footer.html:23 templates/footer.html:67
+#: templates/footer.html:25 templates/footer.html:69
 msgid "Location"
 msgstr "Ubicación"
 
-#: templates/footer.html:24 templates/footer.html:68
+#: templates/footer.html:26 templates/footer.html:70
 msgid "publications"
 msgstr "publicaciones"
 
-#: templates/footer.html:24 templates/footer.html:68
+#: templates/footer.html:26 templates/footer.html:70
 msgid "Publications"
 msgstr "Publicaciones"
 
-#: templates/footer.html:25 templates/footer.html:69
+#: templates/footer.html:27 templates/footer.html:71
 msgid "#lp-pom-block-11"
 msgstr "es/servicios/#lp-pom-block-9"
 
-#: templates/footer.html:25 templates/footer.html:69
+#: templates/footer.html:27 templates/footer.html:71
 msgid "Contact Us"
 msgstr "Contáctenos"
 
-#: templates/footer.html:26 templates/footer.html:70
+#: templates/footer.html:28 templates/footer.html:72
 msgid "terms-use"
 msgstr "terminos-uso"
 
-#: templates/footer.html:26 templates/footer.html:70
+#: templates/footer.html:28 templates/footer.html:72
 msgid "Terms of Use"
 msgstr "Términos de Uso"
 
-#: templates/footer.html:29 templates/footer.html:73
+#: templates/footer.html:31 templates/footer.html:75
 #: templates/navigationbar.html:25
 msgid "ethical-hacking-application"
 msgstr "ethical-hacking-aplicacion"
 
-#: templates/footer.html:29 templates/footer.html:73
+#: templates/footer.html:31 templates/footer.html:75
 #: templates/navigationbar.html:25
 msgid "Application Hacking"
 msgstr "Hacking de Aplicación"
 
-#: templates/footer.html:30 templates/footer.html:74
+#: templates/footer.html:32 templates/footer.html:76
 #: templates/navigationbar.html:26
 msgid "ethical-hacking-infrastructure"
 msgstr "ethical-hacking-infraestructura"
 
-#: templates/footer.html:30 templates/footer.html:74
+#: templates/footer.html:32 templates/footer.html:76
 #: templates/navigationbar.html:26
 msgid "Network Hacking"
 msgstr "Hacking de Red"
 
-#: templates/footer.html:31 templates/footer.html:75
+#: templates/footer.html:33 templates/footer.html:77
 #: templates/navigationbar.html:27
 msgid "source-code-analysis"
 msgstr "analisis-codigo-fuente"
 
-#: templates/footer.html:31 templates/footer.html:75
+#: templates/footer.html:33 templates/footer.html:77
 #: templates/navigationbar.html:27
 msgid "Code Analysis"
 msgstr "Análisis de Código"
 
-#: templates/footer.html:36 templates/footer.html:60
-#: templates/navigationbar.html:38
+#: templates/footer.html:38 templates/footer.html:49 templates/footer.html:62
+#: templates/footer.html:87 templates/navigationbar.html:38
+#: templates/page.html:54
 msgid "Careers"
 msgstr "Empleos"
 
-#: templates/footer.html:41 templates/footer.html:79
+#: templates/footer.html:43 templates/footer.html:81
 msgid "style"
 msgstr "estilo"
 
-#: templates/footer.html:41 templates/footer.html:79
+#: templates/footer.html:43 templates/footer.html:81
 msgid "Style"
 msgstr "Estilo"
 
-#: templates/footer.html:42 templates/footer.html:80
+#: templates/footer.html:44 templates/footer.html:82
 msgid "topics"
 msgstr "temas"
 
-#: templates/footer.html:42 templates/footer.html:80
+#: templates/footer.html:44 templates/footer.html:82
 msgid "Topics"
 msgstr "Temas"
 
-#: templates/footer.html:43 templates/footer.html:81
+#: templates/footer.html:45 templates/footer.html:83
 msgid "tags"
 msgstr "etiquetas"
 
-#: templates/footer.html:43 templates/footer.html:81 templates/tag.html:44
+#: templates/footer.html:45 templates/footer.html:83 templates/tag.html:44
 #: templates/tags.html:8 templates/tags.html:29 templates/tags.html:32
 msgid "Tags"
 msgstr "Etiquetas"
 
-#: templates/footer.html:44 templates/footer.html:82
+#: templates/footer.html:46 templates/footer.html:84
 msgid "authors"
 msgstr "autores"
 
-#: templates/footer.html:47 templates/footer.html:48 templates/footer.html:49
-#: templates/footer.html:50 templates/footer.html:85 templates/footer.html:86
-#: templates/footer.html:87 templates/footer.html:88
+#: templates/footer.html:49 templates/footer.html:50 templates/footer.html:51
+#: templates/footer.html:52 templates/footer.html:87 templates/footer.html:88
+#: templates/footer.html:89 templates/footer.html:90
 #: templates/navigationbar.html:38 templates/page.html:53
 #: templates/page.html:54
 msgid "careers"
 msgstr "empleos"
 
-#: templates/footer.html:48 templates/footer.html:86
+#: templates/footer.html:50 templates/footer.html:88
 msgid "reasons"
 msgstr "razones"
 
-#: templates/footer.html:48 templates/footer.html:86
+#: templates/footer.html:50 templates/footer.html:88
 msgid "Reasons"
 msgstr "Razones"
 
-#: templates/footer.html:49 templates/footer.html:87
+#: templates/footer.html:51 templates/footer.html:89
 msgid "positions"
 msgstr "vacantes"
 
-#: templates/footer.html:49 templates/footer.html:87
+#: templates/footer.html:51 templates/footer.html:89
 msgid "Positions"
 msgstr "Vacantes"
 
-#: templates/footer.html:50 templates/footer.html:88
+#: templates/footer.html:52 templates/footer.html:90
 msgid "terms-selection"
 msgstr "terminos"
 
-#: templates/footer.html:50 templates/footer.html:88
+#: templates/footer.html:52 templates/footer.html:90
 msgid "Terms"
 msgstr "Términos"
 
-#: templates/footer.html:51 templates/footer.html:89
+#: templates/footer.html:53 templates/footer.html:91
 msgid "Application"
 msgstr "Aplicación"
+
+#: templates/home.html:57 templates/home.html:83 templates/home.html:110
+#: templates/home.html:145 templates/home.html:171
+msgid "Consult Service"
+msgstr "Consultar Servicio"
 
 #: templates/index.html:8
 msgid "Blog Home"
 msgstr "Inicio del Blog"
 
-#: templates/index.html:43 templates/index.html:81 templates/index.html:120
-#: templates/index.html:163 templates/index.html:201
+#: templates/index.html:43 templates/index.html:85 templates/index.html:128
+#: templates/index.html:175 templates/index.html:217
 msgid "Quill icon"
 msgstr "Ícono de pluma"
 
-#: templates/index.html:48 templates/index.html:86 templates/index.html:125
-#: templates/index.html:168 templates/index.html:206
-msgid "categories"
-msgstr "categorias"
-
-#: templates/index.html:49 templates/index.html:87 templates/index.html:126
-#: templates/index.html:169 templates/index.html:207
+#: templates/index.html:49 templates/index.html:91 templates/index.html:134
+#: templates/index.html:181 templates/index.html:223
 msgid "Tag icon"
 msgstr "Ícono de etiqueta"
 
-#: templates/index.html:66 templates/index.html:104 templates/index.html:143
-#: templates/index.html:186 templates/index.html:224
+#: templates/index.html:70 templates/index.html:112 templates/index.html:155
+#: templates/index.html:202 templates/index.html:244
 msgid "Read More"
 msgstr "Seguir Leyendo"
 
