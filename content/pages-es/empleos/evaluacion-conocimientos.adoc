@@ -13,13 +13,13 @@ Los pasos para realizar el examen son los siguientes:
 
 == Crear una cuenta
 
-. Ingresar a la dirección web: https://fluid.la/courses/login/index.php[Click aquí].
+. Ingresar a la siguiente [read-more]#link:https://fluid.la/courses/login/index.php[dirección web >>]#
 . Dar click en el botón “CREATE NEW ACCOUNT” y llena el formulario con tu información. Por favor tenga en cuenta que el nombre de usuario solo admite letras en minúsculas, y la contraseña debe ser mayor a 8 caracteres, tener una letra en mayúscula y al menos un carácter no alfanumérico (*,-, o #).
 . Confirmar su dirección de correo siguiendo las instrucciones. Revise su buzón de correo y su carpeta SPAM en caso tal de que no llegue a su bandeja principal.
 
 == Instalar SafeExamBrowser
 
-. Descarga el siguiente software de seguridad para presentar el examen: link:../../files/fluidexams.zip[Click aquí].
+. Descarga el siguiente [read-more]#link:../../files/fluidexams.zip[software de seguridad >>]# para presentar el examen.
 
  IMPORTANTE: Por favor termina de leer los demás pasos antes de ejecutar el aplicativo
  

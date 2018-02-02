@@ -23,6 +23,7 @@ $white: rgba(255, 255, 255, 1);
 
   .read-more {
     color: $white;
+    padding: 15px 21px;
 
     &:hover {
       color: $lightblue;
@@ -63,12 +64,6 @@ $white: rgba(255, 255, 255, 1);
   font-weight: 400;
   margin: 20px 0 10px;
   text-transform: uppercase;
-}
-
-.read-more {
-  background-color: $darkblue;
-  font-size: 16px;
-  padding: 15px 21px;
 }
 
 .tbnormal {
