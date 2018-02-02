@@ -1,7 +1,7 @@
 :slug: kb/aspnet/establecer-opciones-seguras/
 :category: aspnet
-:description: TODO
-:keywords: TODO
+:description: Nuestros ethical hackers explican cómo evitar vulnerabilidades de seguridad mediante la programación segura en ASP.NET. Estableciendo buenas prácticas de programación al momento de definir opciones por defecto cuando se utilizan estructuras condicionales.
+:keywords: ASP.NET, Seguridad, Programación, Estructuras, Condicionales, Opción por Defecto.
 :kb: yes
 
 = Establecer Opciones Seguras en Condicionales
@@ -9,36 +9,61 @@
 == Necesidad
 
 Establecer opciones seguras por defecto 
-en estructuras condicionales (ASP.Net)
+en estructuras condicionales en el lenguaje +ASP.NET+.
 
 == Contexto
 
 A continuación se describe las circunstancias 
 bajo las cuales la siguiente solución tiene sentido:
 
-. Se está desarrollando una aplicación en ASP.Net.
+. Se está desarrollando una aplicación en +ASP.NET+.
 
 == Solución
 
-En cada estructura condicional empleada 
-en una aplicación ASP.Net, 
-se recomienda contemplar todos los posibles escenarios.
+Cuando se desarrolla una aplicación web, 
+de manera frecuente se hace necesario 
+el uso de estructuras condicionales
+que sirven para detectar las decisiones del usuario, 
+establecer un menú, entre muchas otras aplicaciones.
+Cuando existen muchas opciones o decisiones 
+que puede tomar el usuario, 
+se crean estructuras condicionales grandes 
+las cuales son susceptibles a errores al ingresar opciones no válidas.
+Un atacante puede utilizar ésto para vulnerar la aplicación
+y realizar un daño u obtener información confidencial
+al aprovecharse de las malas prácticas de programación
+presentes en la aplicación.
 
-* Para sentencias _if_ 
-debe usarse su correspondiente _else_ [1].
+Debido a lo anterior, es necesario definir 
+una opción por defecto 
+en todas las estructuras condicionales.
+También es necesario validar las opciones ingresadas por el usuario, 
+comparándolas en términos de longitud y formato 
+a la opción esperada por la aplicación.
+De esta manera es posible cubrir una mayor cantidad de escenarios 
+que pueden afectar negativamente el programa. 
+De esta manera es posible crear 
+una aplicación más segura y resistente a ataques.
 
-* Para sentencias _switch_ 
-debe usarse su correspondiente _default_ [2].
+Para el caso de las aplicaciones desarrolladas en +ASPNET+ 
+las pautas mencionadas anteriormente 
+deben aplicarse concretamente 
+a las estructuras condicionales +if+ y +switch+.
+Para ello se definen los siguientes criterios:
 
-En el siguiente ejemplo 
-se muestra la forma correcta 
-de utilizar las opciones por defecto _else_ 
-y _default_.
+* Para sentencias +if+, establecer una opción por defecto 
+al utilizar su correspondiente +else+ <<r1 , ^[1]^>>.
 
-. Se empieza validando 
-que haya más de un argumento al llamar al programa.
+* Para sentencias +switch+, establecer una opción por defecto  
+al utilizar su correspondiente +default+ <<r2, ^[2]^>>.
+
+En el siguiente ejemplo se muestra la forma correcta 
+de utilizar las opciones por defecto +else+ y +default+.
+
+. Se empieza validando que exista más de un argumento 
+en el momento de llamar al programa:
 +
-.test.py
+.Program.java
 [source, java,linenums]
 ----
 using System;
@@ -53,9 +78,8 @@ class Program
 ...
 ----
 
-. En caso afirmativo, 
-se verifica 
-que el argumento tenga solo un carácter.
+. En caso afirmativo, se verifica que el argumento 
+tenga solo un carácter:
 +
 [source,java,linenums]
 ----
@@ -64,9 +88,10 @@ que el argumento tenga solo un carácter.
 ...
 ----
 
-. En caso afirmativo, 
-se muestra un mensaje si se eligió la opción 0 ó 1, 
-u otro diferente si se eligió la opción 2.
+. En caso afirmativo, se muestra un mensaje 
+si se eligió la opción +0+ o la opción +1+. 
+En caso de elegitse la opción +2+
+mostrar un mensaje diferente:
 +
 [source,java,linenums]
 ----
@@ -83,8 +108,7 @@ u otro diferente si se eligió la opción 2.
 }
 ----
 
-. Se manejan los casos 
-cuando las condiciones anteriores no fueron ciertas.
+. Se manejan los casos cuando las condiciones anteriores no fueron ciertas.
 +
 [source,java,linenums]
 ----
@@ -101,10 +125,8 @@ cuando las condiciones anteriores no fueron ciertas.
 }
 ----
 
-. Se compila 
-y ejecuta el programa con diferentes entradas, 
-comprobando 
-que éste se comporta como es esperado 
+. Se compila y ejecuta el programa con diferentes entradas. 
+Ésto sirve para comprobar su comportamiento
 ante diferentes tipos de argumentos.
 
 [source,cs,linenums]
@@ -135,6 +157,6 @@ Segunda opción seleccionada.
 
 == Referencias
 
-. https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/keywords/if-else[if-else (MSDN)]
-. https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/keywords/switch[switch (MSDN)]
-. REQ.0156: El código debe definir opciones por defecto seguras (ej: default en switchs).
+. [[r1]] link:https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/keywords/if-else[if-else (MSDN)].
+. [[r2]] link:https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/keywords/switch[switch (MSDN)].
+. [[r3]] REQ.0156: El código debe definir opciones por defecto seguras (ej: +default+ en +switchs+).
