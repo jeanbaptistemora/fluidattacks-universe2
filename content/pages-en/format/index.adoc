@@ -4,285 +4,659 @@
 :variable: Asciidoc
 :plus: &#43
 
-= Asciidoc Style Test
+= Asciidoc Format
 
 == Headers
 
+* Source
++
 ....
-= Asciidoc Style Test -> Level 0 Header
+= Asciidoc Format -> Level 0 Header
 
 == Headers -> Level 1 Header
 
-=== ... -> Level 2 Header
+=== Level 2 Header
 
 ...
 ....
 
+* Render
+
+=== Level 2 Header
+
 == Anchors
 
-Create an anchor to a header
+=== Create Anchor
 
-[[test-anchor]]
-=== Test Anchor
+* Create an anchor to a header,
+so it can be accessed quickly.
 
+* Source
++
 ....
 [[test-anchor]]
 === Test Anchor
 ....
 
-Use the anchor to quickly jump to the <<test-anchor, Header>>
+* Render
 
+[[test-anchor]]
+==== Test Anchor
+
+=== Use Anchor
+
+* Create a link to the previously created anchor
+
+* Source
++
 ....
-<<anchor id, text>>
 <<test-anchor, Header>>
 ....
+
+* Render
++
+<<test-anchor, Header>>
 
 == Text Format
 
 === Bold
 
-Change text to *bold*
+==== Complete Bold
 
+* Use bold font in a word
+
+* Source
++
 ....
-Change text to *bold*
+*word*
 ....
 
-=== Partially Bold
+* Render
++
+*word*
 
-Change only part of a string to b**ol**d
+==== Partial Bold
 
+* Use bold font in a part of a word
+
+* Source
++
 ....
-Change only part of a string to b**ol**d
+w**or**d
 ....
+
+* Render
++
+w**or**d
 
 === Italics
 
-Change text to _italics_
+==== Complete Italics
 
+* Use style italics in a word
+
+* Source
++
 ....
-Change text to _italics_
+_word_
 ....
 
-=== Partial Italics
+* Render
++
+_word_
 
-Change only part of a string to __ita__lics
+==== Partial Italics
 
+* Use style italics in part of a w__or__d
+
+* Source
++
 ....
-Change only part of a string to __ita__lics
+w__or__d
 ....
+
+* Render
++
+w__or__d
 
 === Emphasis
 
-Give emphasis to a 'word'
+* Give emphasis to a word
 
-....
-Give emphasis to a 'word'
-....
-
-=== Color, Size and Background
-
-Change [red]#color#, [aqua-background]#background#,
-[big]#size#, or [aqua green-background small]#all of them#
-and even in one l[fuchsia gray-background big]##e##tter
-
-....
-Change [red]#color#, [aqua-background]#background#,
-[big]#size#, or [aqua green-background small]#all of them#
-and even in one l[fuchsia gray-background big]##e##tter
-....
-
-=== Overline, Underline or Line-Through
-
-Add [underline]#underline#, [overline]#overline# and
-[red line-through]#line through#. Can be combined with
-previous [green yellow-background overline]##sty##[blue purple-background underline]#les#
-
-....
-Add [underline]#underline#, [overline]#overline# and
-[red line-through]#line through#. Can be combined with
-previous [green yellow-background overline]##sty##[blue purple-background underline]#les#
-....
-
-=== Single and Double Quotes
-
-* Use `single quotes'
+* Source
 +
 ....
-`single quotes'
+Give emphasis to a 'word'
+....
+
+* Render
++
+'word'
+
+=== Color
+
+==== Complete Color
+
+* Change the color of a word,
+which can be chosen from the
+link:http://www.elizabethcastro.com/html/colors/sixteencolors.html[16 Basic HTML Colors]. +
+It can be combined with the formats:
+size, background, overline, underline and line-through
+
+* Source
++
+....
+[red]#word#
+....
+
+* Render
++
+[red]#word#
+
+==== Partial Color
+
+* Change the color of part of a word,
+which can be chosen from the
+link:http://www.elizabethcastro.com/html/colors/sixteencolors.html[16 Basic HTML Colors]. +
+It can be combined with the formats:
+size, background, overline, underline and line-through
+
+* Source
++
+....
+w[blue]##or##d
+....
+
+* Render
++
+w[blue]##or##d
+
+=== Size
+
+==== Complete Size
+
+* Change the size of a word. +
+It can be combined with the formats:
+color, background, overline, underline and line-through
+
+* Source
++
+....
+[big]#word#
+....
+
+* Render
++
+[big]#word#
+
+==== Partial Size
+
+* Change the size of part of a word. +
+It can be combined with the formats:
+color, background, overline, underline and line-through
+
+* Source
++
+....
+w[small]##or##d
+....
+
+* Render
++
+w[small]##or##d
+
+=== Background
+
+==== Complete Background
+
+* Change the background color of a word,
+which can be chosen from the
+link:http://www.elizabethcastro.com/html/colors/sixteencolors.html[16 Basic HTML Colors]. +
+It can be combined with the formats:
+color, size, overline, underline and line-through
+
+* Source
++
+....
+[aqua-background]#word#
+....
+
+* Render
++
+[aqua-background]#word#
+
+==== Partial Background
+
+* Change the background color of part a word,
+which can be chosen from the
+link:http://www.elizabethcastro.com/html/colors/sixteencolors.html[16 Basic HTML Colors]. +
+It can be combined with the formats:
+color, size, overline, underline and line-through
+
+* Source
++
+....
+w[aqua-background]##or##d
+....
+
+* Render
++
+w[aqua-background]##or##d
+
+=== Overline
+
+==== Complete Overline
+
+* Add line over a word. +
+It can be combined with the formats:
+color, size, background, underline and line-through
+
+* Source
++
+....
+[overline]#word#
+....
+
+* Render
++
+[overline]#word#
+
+==== Partial Overline
+
+* Add line over part of a word. +
+It can be combined with the formats:
+color, size, background, underline and line-through
+
+* Source
++
+....
+w[overline]##or##d
+....
+
+* Render
++
+w[overline]##or##d
+
+=== Underline
+
+==== Complete Underline
+
+* Add line under a word. +
+It can be combined with the formats:
+color, size, background, overline and line-through
+
+* Source
++
+....
+[underline]#word#
+....
+
+* Render
++
+[underline]#word#
+
+==== Partial Underline
+
+* Add line under part of a word. +
+It can be combined with the formats:
+color, size, background, overline and line-through
+
+* Source
++
+....
+w[underline]##or##d
+....
+
+* Render
++
+w[underline]##or##d
+
+=== Line Through
+
+==== Complete Line Through
+
+* Add line through a word. +
+It can be combined with the formats:
+color, size, background, overline and underline
+
+* Source
++
+....
+[line-through]#word#
+....
+
+* Render
++
+[line-through]#word#
+
+==== Partial Line Through
+
+* Add line through part of a word. +
+It can be combined with the formats:
+color, size, background, overline and underline
+
+* Source
++
+....
+w[line-through]##or##d
+....
+
+* Render
++
+w[line-through]##or##d
+
+
+=== Style Combination
+
+* Source
++
+....
+[green yellow-background overline]##wo##[blue purple-background underline]#rd#
+....
+
+* Render
++
+[green yellow-background overline]##wo##[blue purple-background underline]#rd#
+
+=== Single Quotes
+
+* Place a word in single quotes
+
+* Source
++
+....
+`word'
 .... 
 
-* Use ``double quotes''
+* Render
++
+`word'
+
+=== Double Quotes
+
+* Place a word in double quotes
+
+* Source
 +
 ....
-``double quotes''
-....
+``word''
+.... 
 
-=== Superscripts and Subscripts
+* Render
++
+``word''
 
-* Use ^super^scripts
+=== Superscripts
+
+* Place a word, 
+or part of a word,
+as a superscript
+
+* Source
 +
 ....
-^super^scripts
+^super^script
 ....
 
-* Use ~sub~scripts
+* Render
++
+^super^script
+
+=== Subscripts
+
+* Place a word, 
+or part of a word,
+as a subscript
+
+* Source
 +
 ....
-~sub~scripts
+~wo~rd
 ....
+
+* Render
++
+~wo~rd
 
 === Monospaced
 
-Use +monospaced+ font
+* Use monospaced font
 
+==== Option 1
+
+* Source
++
 ....
-+monospaced+
++word+
 ....
 
-=== Monospaced - Do not use
+* Render
++
++word+
 
-There is another way of using `monospaced`,
-but it would be best to use
-the previous method.
+==== Option 2 - Do not use
 
+* Source
++
 ....
-`monospaced`
+`word`
 ....
+
+* Render
++
+`word`
 
 === Line Break
 
-Use the symbol plus +
-to force a line break
+* Break a line in the same paragraph
 
+* Source
++
 ....
-Use the symbol plus +
-to force a line break
+This idea ends here. +
+And I want this one in a new line,
+but in the same paragraph
 ....
+
+* Render
++
+This idea ends here. +
+And I want this one in a new line,
+but in the same paragraph
 
 === Escape Character
 
-Use \'backslash' to escape characters,
-in this case, not using emphasis
+* Use the backslash (\)
+to escape special characters
 
+* Source
++
 ....
-Use \'backslash' to escape characters
+\*word* (Normally, it would make the word bold)
 ....
+
+* Render
++
+\*word*
 
 === Comments
 
-Use ``//'' to comment in the text and not
-render it in the HTML.
+* Use two slashes (//)
+to comment in the text
+and do not render it in the HTML.
 
-// This way
-
+* Source
++
 ....
-Use ``//'' to comment in the text and not
-render it in the HTML.
-
-// This way
+The next line is a comment.
+// It should not be rendered in the HTML
 ....
+
+* Render
++
+The next line is a comment.
+// It should not be rendered in the HTML
 
 === Pass-through HTML - Do not use
 
-Write +++<u>HTML</u>+++ code in the document.
+* Delimit HTML code in 3 plus (+)
+to execute it once rendered. +
 Do not use this method,
 since the idea of Pelican
 is to separate content from style,
 so focus only on content in the .adocs 
 
+* Source
++
 ....
-Write +++<u>HTML</u>+++ code in the document.
++++<u>HTML</u>+++
 ....
+
+* Render
++
++++<u>HTML</u>+++
 
 === Licence Characters
 
+* Source
++
+....
 (C), (R), (TM)
+....
 
-....
+* Render
++
 (C), (R), (TM)
-....
 
 == Media and links
 
-=== Titles (Optional)
+=== Titles
 
-They are delacred before an element, starting with a dot
+* They are delacred before an element, starting with a dot
 (images, lists, quotes, literals, ...)
 
-.Literal Title
+* Source
++
 ....
-.Literal Title
-....
-
 .Image Title
 image::doge.png[Doge]
 
 .Video Title
 video::he-man.mp4[He-man]
 
+...
+....
+
+* Render
++
+.Image Title
+image::doge.png[Doge]
++
+.Video Title
+video::he-man.mp4[He-man]
++
+.Literal Title
+....
+Literal block
+....
++
 .List Title
 . Item 1
 .. Subitem 1
 . Item 2
-
++
 .Quote Title
 [quote]
 I'm Batman
-
++
 .Table Title
 |====
 | Col 1 | Col 2
 |====
-
++
 .Paragraph Title
 Normal Paragraph
-
++
 .Code Title
 [source, python]
 print "Hello World"
 
 === Images
 
-* Images can be displayed as a block,
-+
-image::doge.png[Doge]
+==== Block Images
+
+* Source
 +
 ....
 image::doge.png[Doge]
 ....
 
-* Or can also be displayed as inline elements image:doge.png[Doge]
+* Render
++
+Block Image
++
+image::doge.png[Doge]
+
+==== Inline Images
+
+* Source
 +
 ....
 image:doge.png[Doge]
 ....
 
+* Render
++
+Inline Image
+image:doge.png[Doge]
+
 === Videos
 
-.He-Man Singing
+* Source
++
+....
 video::he-man.mp4[He-man]
+....
 
-....
+* Render
++
 video::he-man.mp4[He-man]
-....
 
 === Links
 
-* Links can be declared with the URL alone,
-https://google.com - Do not use
+==== Option 1
 
-* Or here is another way to get to link:https://google.com[Google]
-- Use this method instead
+* Source
 +
 ....
 link:https://google.com[Google]
 ....
 
+* Render
++
+link:https://google.com[Google]
+
+==== Option 2 - Do not use
+
+* Source
++
+....
+https://google.com
+....
+
+* Render
++
+https://google.com
+
 == Special Blocks
 
 === Literals
 
+==== Option 1
+
 * A literal block is delimited by 4 dots before and after the content
+
+* Source
 +
 ....
  ....
@@ -290,58 +664,76 @@ link:https://google.com[Google]
  ....
 ....
 
-* It can also be used by preceeding the text with a space
-+
- Like this
- It is another option
+* Render
 +
 ....
- Like this
- It is another option
+Hello
 ....
+
+==== Option 2 - Do not use unless (....) cannot be used
+
+* Setting a blank space as the first character of a line
+
+* Source
++
+....
+{space}Hello
+....
+
+* Render
++
+ Hello
 
 === Quotes
 
-* Quotes can be used without source information
-+
-[quote]
-I'm Batman
+==== Without Source Information
+
+* Source
 +
 ....
 [quote]
 I'm Batman
 ....
 
-* Or with source information
+* Render
 +
-[quote, Batman, Detective Comics]
+[quote]
 I'm Batman
+
+==== With Source Information
+
+* Source
 +
 ....
 [quote, Batman, Detective Comics]
 I'm Batman
 ....
+
+* Render
++
+[quote, Batman, Detective Comics]
+I'm Batman
 
 === Source Code
 
-* Simple code
-+
-[source, python]
-print "Hello World"
+==== Simple code
+
+* Source
 +
 ....
 [source, python]
 print "Hello World"
 ....
 
-* Using line numeration
+* Render
 +
-[source, java, linenums]
-----
-Line 1
-Line 2
-Line 3
-----
+[source, python]
+print "Hello World"
+
+
+==== Using Line Numeration
+
+* Source
 +
 ....
 [source, java, linenums]
@@ -351,20 +743,85 @@ Line 2
 Line 3
 ----
 ....
+
+* Render
++
+[source, java, linenums]
+----
+Line 1
+Line 2
+Line 3
+----
+
+==== Code Inside a List
+
+* Source
++
+....
+. Item 1
++
+[source, python]
+----
+print "Hello World"
+----
+
+. Item 2
++
+[source, python]
+----
+print "Bye World"
+----
+....
+
+* Render
++
+. Item 1
++
+[source, python]
+----
+print "Hello World"
+----
+
+. Item 2
++
+[source, python]
+----
+print "Bye World"
+----
 
 === Lists
 
-* Unordered lists
-- Nested unordered list
-** Second Option
+==== Unordered Lists
 
+* Source
++
 ....
-* Unordered lists
-- Nested unordered list
-** Second Option
+* Item 1
+- Subitem 1.1
+** Subitem 1.2
 ....
 
-* Ordered Lists
+* Render
++
+* Item 1
+- Subitem 1.1
+** Subitem 1.2
+
+==== Ordered Lists
+
+* Source
++
+....
+. Item 1
+.. Item 1.1
+... Item 1.1.1
+.. Item 1.2
+... Item 1.2.1
+.... Item 1.2.1.1
+. Item 2
+....
+
+* Render
 +
 . Item 1
 .. Item 1.1
@@ -373,50 +830,36 @@ Line 3
 ... Item 1.2.1
 .... Item 1.2.1.1
 . Item 2
+
+==== List Continuation
+
+* Source
 +
 ....
-. Item 1
-.. Item 1.1
-... Item 1.1.1
-.. Item 1.2
-... Item 1.2.1
-.... Item 1.2.1.1
-. Item 2
-....
-
-* List Continuation
-
-** Some topic
+. Something about a topic
 +
 Still talking about the same topic
 
-** Another Topic
+. Another Topic
 
 Talking about something else
-
 ....
-** Something about a topic
+
+* Render
++
+. Something about a topic
 +
 Still talking about the same topic
 
-** Another Topic
+. Another Topic
 
 Talking about something else
-....
 
 === Tables
 
-* Simple table
-+
-.Title
-[options="header"]
-|====
-|Col 1|Col 2      |Col 3
-|1    |Item 1     |a
-|2    |Item 2     |b
-|3    |Item 3     |c
-|6    |Three items|d
-|====
+==== Simple table
+
+* Source
 +
 ....
 .Title
@@ -430,15 +873,22 @@ Talking about something else
 |====
 ....
 
-* A more complicated Table
+* Render
 +
-[grid="rows",format="csv"]
-[options="header",cols="^,<,<s,<,>m"]
+.Title
+[options="header"]
 |====
-ID,FName,LName,Address,Phone
-1,Vasya,Pupkin,London,+123
-2,X,Y,"A,B",45678
+|Col 1|Col 2      |Col 3
+|1    |Item 1     |a
+|2    |Item 2     |b
+|3    |Item 3     |c
+|6    |Three items|d
 |====
+
+
+==== A More Complicated Table
+
+* Source
 +
 ....
 [grid="rows",format="csv"]
@@ -461,23 +911,20 @@ cols -> Sets format of the columns
 The CSS of the site overrides some of the previous.
 ....
 
-* Multiline cells in a table, custom caption
+* Render
 +
-.Multiline cells, row/col span
-[caption="Tabla 1."]
+[grid="rows",format="csv"]
+[options="header",cols="^,<,<s,<,>m"]
 |====
-|Date |Duration |Avg HR |Notes
-
-|22-Aug-08 .2+^.^|10:24 | 157 |
-Worked out MSHR (max sustainable
-heart rate) by going hard
-for this interval.
-
-|22-Aug-08 | 152 |
-Back-to-back with previous interval.
-
-|24-Aug-08 3+^|none
+ID,FName,LName,Address,Phone
+1,Vasya,Pupkin,London,+123
+2,X,Y,"A,B",45678
 |====
+
+
+==== Multiline cells in a table, custom caption
+
+* Source
 +
 ....
 .Multiline cells, row/col span
@@ -503,74 +950,117 @@ Back-to-back with previous interval.
 A dot (.) represents columns
 ....
 
+* Render
++
+.Multiline cells, row/col span
+[caption="Tabla 1."]
+|====
+|Date |Duration |Avg HR |Notes
+
+|22-Aug-08 .2+^.^|10:24 | 157 |
+Worked out MSHR (max sustainable
+heart rate) by going hard
+for this interval.
+
+|22-Aug-08 | 152 |
+Back-to-back with previous interval.
+
+|24-Aug-08 3+^|none
+|====
+
+
 === Questions and Answers
 
+* Source
++
+....
 [qanda]
 Question 1::
    Answer 1
 Question 2::
    Answer 2nse.
        . Repeat.
+....
 
-....
+* Render
++
 [qanda]
 Question 1::
    Answer 1
 Question 2::
    Answer 2nse.
        . Repeat.
-....
 
 === Definitions
 
+* Source
++
+....
 Term 1:: Definition
 Term 2:: Definition
 [horizontal]
 Subterm 2.1::: Definition can also be placed horizontally
+....
 
-....
+* Render
++
 Term 1:: Definition
 Term 2:: Definition
 [horizontal]
 Subterm 2.1::: Definition can also be placed horizontally
-....
 
 === Horizontal Rule
 
+* Source
++
+....
 '''
+....
 
-....
+* Render
++
 '''
-....
 
 === Variables
 
-They can be declared at the beginning of the document.
+* They can be declared at the beginning of the document.
 
+* Source
++
 ....
 :variable: Asciidoc
 
 This text is written in {variable}
 ....
 
+* Render
++
 This text is written in {variable}
 
 === Classes
 
-* As with colors, inline elements can be given a class name
-and then be edited in the CSS, [new-class]#Like This#
+==== Inline Classes
+
+* As with colors,
+inline elements can be given a class name
+and then be edited in the CSS
+
+* Source
 +
 ....
-As with colors, inline elements can be given a class name
-and then be edited in the CSS, [new-class]#Like This#
+[new-class]#element#
 ....
 
-* Block elements can also be given a class name
+* Render
 +
-[role="new-class"]
-----
-Text
-----
+[new-class]#element#
+
+==== Block Classes
+
+* Block elements can also
+be given class names
+
+* Source
 +
 ....
 [role="new-class"]
@@ -578,6 +1068,13 @@ Text
 Text
 ----
 ....
+
+* Render
++
+[role="new-class"]
+----
+Text
+----
 
 == References
 
