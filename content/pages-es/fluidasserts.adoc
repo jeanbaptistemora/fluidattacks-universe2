@@ -4,6 +4,65 @@
 
 = FLUIDAsserts
 
-En el momento, esta página se encuentra en desarrollo.
+== 1. Descripción
 
-Lamentamos los inconvenientes.
+*FLUIDAsserts* es un motor de automatización de *cierre* de hallazgos de seguridad.
+
+== 2. Requerimientos
+
+* *CPU*: 4 cores @1.8GHz
+* *RAM*: 4GiB DDR3 @1.6Ghz
+* *Espacio en disco*: 10GiB
+* *Red*:
+** Acceso al registro de contenedores Quay.IO
+** Acceso al ambiente de integración donde tengas la aplicación o plataforma
+* *Sistema operativo*:
+** Cualquier distribución basada en Linux que soporte DockerCE
+** Windows Server con HyperV y Docker
+* *Dependencias de software*: DockerCE 17 o superior
+
+== 3. Instalación
+
+¡Escríbenos a engineering@fluid.la y te daremos las instrucciones!
+
+== 4. Ejemplos de uso
+
+.Exploit 1: Verificar inyección SQL
+[source, python]
+----
+from fluidasserts.service import http
+
+url = 'https://example.com/test.php?id=1'
+http.has_sqli(url)
+----
+
+.Exploit 2: Verificar enumeración de usuarios
+[source, python]
+----
+from fluidasserts.service import http
+
+data = 'username=foo&password=bar'
+
+http.has_user_enumeration('http://127.0.0.1:5000/userenum/fail', 'username', data=data)
+----
+
+.Exploit 3: Verificar seguridad de CAPTCHA
+[source, python]
+----
+from fluidasserts.format import captcha
+
+url = 'https://example.com/captchaimg.png'
+weak_img = 'weak.jpg'
+
+captcha.is_insecure_in_url(url, 'KCKLR')
+captcha.is_insecure_in_image(weak_img, '9T795')
+----
+
+.Exploit 4: Verificar si un puerto usa protocolos de cifrado seguros
+[source, python]
+----
+from fluidasserts.service import tcp
+
+tcp.is_port_insecure('127.0.0.1',80)
+tcp.is_port_insecure('127.0.0.1',443)
+----
