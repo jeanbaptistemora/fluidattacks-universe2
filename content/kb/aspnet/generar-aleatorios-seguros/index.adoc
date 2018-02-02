@@ -1,10 +1,10 @@
-:slug: kb/aspnet/generar-numeros-aleatorios-seguros/
+:slug: kb/aspnet/generar-aleatorios-seguros/
 :category: aspnet
 :description: TODO
 :keywords: TODO
 :kb: yes
 
-= Generar Números Aleatorios Seguros
+= Generar aleatorios seguros
 
 == Necesidad
 

@@ -4,7 +4,7 @@
 :keywords: TODO
 :kb: yes
 
-= Evitar Código Muerto
+= Evitar código muerto
 
 == Necesidad
 

@@ -4,18 +4,18 @@
 :keywords: TODO
 :kb: yes
 
-= Prevenir Inyección de Código SQL
+= Prevenir inyección SQL
 
 == Necesidad
 
-Prevenir inyección de código SQL en ASP.Net
+Prevenir inyección de código SQL en ASP.NET
 
 == Contexto
 
 A continuación se describe las circunstancias 
 bajo las cuales la siguiente solución tiene sentido:
 
-. La aplicación está construida con el lenguaje de programación ASP.Net.
+. La aplicación está construida con el lenguaje de programación ASP.NET.
 
 == Solución
 

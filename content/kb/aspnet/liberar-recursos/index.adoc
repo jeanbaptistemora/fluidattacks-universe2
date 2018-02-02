@@ -4,7 +4,7 @@
 :keywords: TODO
 :kb: yes
 
-= Liberar Recursos
+= Liberar recursos
 
 == Necesidad
 

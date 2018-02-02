@@ -4,7 +4,7 @@
 :keywords: TODO
 :kb: yes
 
-= Establecer Variables de Sesión
+= Establecer variables de sesión
 
 == Necesidad
 

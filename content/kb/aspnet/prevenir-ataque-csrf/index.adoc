@@ -4,7 +4,7 @@
 :keywords: TODO
 :kb: yes
 
-= Prevenir Ataque CSRF
+= Prevenir ataque CSRF
 
 == Necesidad
 
@@ -16,7 +16,7 @@ A continuación se describe las circunstancias
 bajo las cuales la siguiente solución tiene sentido:
 
 . La aplicación está construida 
-con el lenguaje de programación +ASP.Net+.
+con el lenguaje de programación +ASP.NET+.
 
 == Solución
 
@@ -24,19 +24,19 @@ con el lenguaje de programación +ASP.Net+.
 
 * Asegúrese de que las solicitudes 
 no se puedan reemplazar al hacer clic en un vínculo 
-para una solicitud GET. 
-La especificación de HTTP para las solicitudes GET 
-da a entender que las solicitudes GET 
+para una solicitud +GET+. 
+La especificación de HTTP para las solicitudes +GET+ 
+da a entender que las solicitudes +GET+ 
 sólo se deben usar para recuperar datos 
 y no para modificar el estado  <<r1, ^[1]^>>.
 
 * Asegúrese de que las solicitudes 
-no se puedan reproducir si un atacante usó JavaScript 
-para imitar una solicitud POST de un formulario.
+no se puedan reproducir si un atacante usó +JavaScript+ 
+para imitar una solicitud +POST+ de un formulario.
 
-* Prevenga cualquier tipo de acciones mediante GET. 
+* Prevenga cualquier tipo de acciones mediante +GET+. 
 Por ejemplo, no permita la creación ni la eliminación 
-a través de una dirección URL. 
+a través de una dirección +URL+. 
 Idealmente, estas operaciones debieran requerir 
 algún tipo de interacción con el usuario. 
 Si bien esto no previene los ataques 
@@ -45,7 +45,7 @@ impide un sinnúmero de ataques más fáciles,
 como el que se describió en el ejemplo 
 del mensaje de correo electrónico que contiene una imagen, 
 además de los vínculos básicos incrustados 
-en los sitios comprometidos por XSS <<r2, ^[2]^>> . 
+en los sitios comprometidos por +XSS+ <<r2, ^[2]^>> . 
 
 . En +Web Forms+ la prevención de los ataques 
 es un poco diferente de +ASP.NET MVC+. 
@@ -91,10 +91,10 @@ tenemos que crear una sesión nueva para fijarlo.
 
 * +ASP.NET MVC+ contiene su propio conjunto 
 de métodos auxiliares integrados 
-que brindan protección contra los ataques CSRF 
-que usan tokens únicos que se pasan con la solicitud. 
+que brindan protección contra los ataques +CSRF+ 
+que usan +tokens+ únicos que se pasan con la solicitud. 
 Estos métodos no solo usan un campo de formulario oculto requerido, 
-sino que también el valor de una cookie, 
+sino que también el valor de una +cookie+, 
 lo que dificulta la falsificación de las solicitudes. 
 Estas medidas de protección se pueden implementar fácilmente 
 y es absolutamente imprescindible 
@@ -120,5 +120,5 @@ public ActionResult Index(User user)
 
 === Referencias
 
-. [[r1]] link:https://msdn.microsoft.com/es-es/magazine/hh708755.aspx[Protección contra CSRF]
-. [[r2]] link:https://www.owasp.org/index.php/.NET_AntiXSS_Library[Librería Anti-Cross Site Scripting] 
+. [[r1]] link:https://msdn.microsoft.com/es-es/magazine/hh708755.aspx[Protección contra CSRF].
+. [[r2]] link:https://www.owasp.org/index.php/.NET_AntiXSS_Library[Librería Anti-Cross Site Scripting].

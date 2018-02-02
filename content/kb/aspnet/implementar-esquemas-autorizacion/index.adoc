@@ -4,7 +4,7 @@
 :keywords: TODO
 :kb: yes
 
-= Implementar Esquemas de Autorización
+= Implementar esquemas de autorización
 
 == Necesidad
 

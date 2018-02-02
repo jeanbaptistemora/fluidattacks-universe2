@@ -1,14 +1,14 @@
-:slug: kb/aspnet/comprender-info-codificacion/
+:slug: kb/aspnet/comprender-programacion-segura/
 :category: aspnet
-:description: Nuestros ethical hackers explican como evitar vulnerabilidades de seguridad mediante la programación segura en ASP.NET para comprender información relevante sobre codificación segura en aplicaciones web.
-:keywords: ASP.NET, Codificación segura.
+:description: Nuestros ethical hackers explican cómo evitar vulnerabilidades de seguridad mediante la programación segura en ASP.NET abarcando generalidades y explicando conceptos relacionados a buenas prácticas de programación, para desarrollar aplicaciones web computacionalmente seguras.
+:keywords: ASP.NET, Seguridad, Programación, .NET Framework, Buenas Prácticas, Código neutral.
 :kb: yes
 
-= Comprender Información Sobre Codificación Segura
+= Comprender programación segura
 
 == Necesidad
 
-Comprender conceptos de la codificación segura en +ASP.Net+.
+Comprender conceptos de la programación segura en +ASP.NET+.
 
 == Contexto
 
@@ -16,7 +16,7 @@ A continuación se describen las circunstancias
 bajo las cuales la siguiente solución tiene sentido:
 
 . La aplicación está construida 
-con el lenguaje de programación +ASP.Net+.
+con el lenguaje de programación +ASP.NET+.
 
 == Solución
 

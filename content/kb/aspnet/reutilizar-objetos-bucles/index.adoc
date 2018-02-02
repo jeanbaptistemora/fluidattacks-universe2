@@ -4,18 +4,18 @@
 :keywords: TODO
 :kb: yes
 
-= Reutilizar Objetos en Bucles
+= Reutilizar objetos en bucles
 
 == Necesidad
 
-Reutilizar objetos dentro de un bucle de un programa en +ASP.Net+.
+Reutilizar objetos dentro de un bucle de un programa en +ASP.NET+.
 
 == Contexto
 
 A continuación se describe las circunstancias 
 bajo las cuales la siguiente solución tiene sentido:
 
-. Se está desarrollando una aplicación en +ASP.Net+.
+. Se está desarrollando una aplicación en +ASP.NET+.
 
 == Solución
 

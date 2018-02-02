@@ -1,7 +1,7 @@
 :slug: kb/aspnet/establecer-content-type-charset/
 :category: aspnet
 :description: Nuestros ethical hackers explican como evitar vulnerabilidades de seguridad mediante la configuración segura de los parámetros content-type y charset en ASP.NET para evitar ataques de tipo Http Request Smuggling y reforzar la seguridad de las aplicaciones web.
-:keywords: ASP.NET, Content type.
+:keywords: ASP.NET, Seguridad, Content type, Charset, HTTP Request Smuggling, Configuración.
 :kb: yes
 
 = Establecer Content-Type y Charset

@@ -4,18 +4,18 @@
 :keywords: TODO
 :kb: yes
 
-= Prevenir Almacenamiento de Páginas en Caché
+= Prevenir almacenamiento de páginas en caché
 
 == Necesidad
 
-Prevenir almacenamiento de páginas en caché en +ASP.Net+.
+Prevenir almacenamiento de páginas en caché en +ASP.NET+.
 
 == Contexto
 
 A continuación se describe las circunstancias 
 bajo las cuales la siguiente solución tiene sentido:
 
-. Se está desarrollando una aplicación WEB en +ASP.Net+.
+. Se está desarrollando una aplicación WEB en +ASP.NET+.
 
 == Solución
 

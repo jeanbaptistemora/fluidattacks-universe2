@@ -1,11 +1,11 @@
 :slug: kb/aspnet/comprobar-fortaleza-contrasenas/
 :category: aspnet
-:description: Nuestros ethical hackers explican como evitar vulnerabilidades de seguridad mediante la configuración segura de contraseñas en ASP.NET, probando su resistencia ante ataques de diccionario.
-:keywords: ASP.NET, Diccionario.
+:description: Nuestros ethical hackers explican cómo evitar vulnerabilidades de seguridad mediante la configuración segura de contraseñas en ASP.NET, probando su resistencia al realizar un ataque de fuerza bruta con diccionario, para promover la importancia de una contraseña robusta.
+:keywords: ASP.NET, Seguridad, Contraseña, Diccionario, Fuerza bruta, Buenas prácticas.
 :kb: yes
 :table-caption: Tabla
 
-= Comprobar Fortaleza de Contraseñas con Diccionarios
+= Comprobar fortaleza de contraseñas
 
 == Necesidad
 

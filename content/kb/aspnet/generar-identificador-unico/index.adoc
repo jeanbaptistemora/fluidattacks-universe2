@@ -4,7 +4,7 @@
 :keywords: TODO
 :kb: yes
 
-= Generar Identificador Único para Transacción
+= Generar identificador único para transacción
 
 == Necesidad
 
@@ -19,7 +19,7 @@ bajo las cuales la siguiente solución tiene sentido:
 . Se pretende utilizar un método estándar 
 para la creación de identificadores únicos.
 
-. La aplicación está desarrollada en +ASP.Net+.
+. La aplicación está desarrollada en +ASP.NET+.
 
 == Solución
 

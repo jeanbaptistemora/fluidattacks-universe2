@@ -1,21 +1,21 @@
-:slug: kb/aspnet/configurar-parametro-charset-http/
+:slug: kb/aspnet/configurar-charset-http/
 :category: aspnet
-:description: Nuestros ethical hackers explican como evitar vulnerabilidades de seguridad mediante la configuración segura del parámetro Charset en ASP.NET.
-:keywords: ASP.NET , Charset.
+:description: Nuestros ethical hackers explican cómo evitar vulnerabilidades de seguridad mediante la configuración segura del parámetro Charset en ASP.NET. Esto permite reforzar la protección contra ataques de tipo HTTP Request Smuggling así como exploits que usan Unicode.
+:keywords: ASP.NET, Seguridad, Charset, HTPP, HTTP Request Smuggling, Codificación, Configuración.
 :kb: yes
 
-= Configurar Parámetro Charset de HTTP
+= Configurar charset de HTTP
 
 == Necesidad
 
-Establecer +Charset+ en +ASP.Net+.
+Establecer +Charset+ en +ASP.NET+.
 
 == Contexto
 
 A continuación se describe las circunstancias 
 bajo las cuales la siguiente solución tiene sentido:
 
-. Se está desarrollando en +ASP.Net+.
+. Se está desarrollando en +ASP.NET+.
 
 == Solución
 
@@ -84,8 +84,8 @@ El valor predeterminado puede configurarse
 en el elemento +globalization+ en +Web.config+ 
 (o +Machine.config+, que originariamente, se configura en UTF-8). 
 
-. Especificar la codificación: Para configurar la codificación 
-en todas las páginas, 
+. Especificar la codificación: 
+Para configurar la codificación en todas las páginas, 
 se debe añadir una propiedad globalización 
 en el archivo +Web.config+ <<r2, ^[2]^>>
 y a continuación, establezca sus atributos +fileEncoding+, 

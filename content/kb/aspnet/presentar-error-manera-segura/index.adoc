@@ -1,10 +1,10 @@
-:slug: kb/aspnet/mostrar-msg-error-manera-segura/
+:slug: kb/aspnet/presentar-error-manera-segura/
 :category: aspnet
 :description: TODO
 :keywords: TODO
 :kb: yes
 
-= Mostrar Mensajes de Error de Manera Segura
+= Presentar error de manera segura
 
 == Necesidad
 

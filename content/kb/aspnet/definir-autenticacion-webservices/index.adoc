@@ -1,10 +1,10 @@
-:slug: kb/aspnet/definir-autenticacion-en-webservices/
+:slug: kb/aspnet/definir-autenticacion-webservices/
 :category: aspnet
 :description: Nuestros ethical hackers explican como evitar vulnerabilidades de seguridad mediante la configuración segura de autenticación de usuarios en webservices programando en ASP.NET con el fin de mejorar significativamente la seguridad de la aplicación. 
-:keywords: ASP.NET Autenticación.
+:keywords: ASP.NET, Seguridad, Autenticación, Webservice, Credenciales, Acceso.
 :kb: yes
 
-= Definir Autenticación en WebServices
+= Definir autenticación en webservices
 
 == Necesidad
 

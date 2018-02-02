@@ -1,10 +1,10 @@
 :slug: kb/aspnet/configurar-credenciales-cifradas/
 :category: aspnet
-:description: Nuestros ethical hackers explican como evitar vulnerabilidades de seguridad mediante la configuración segura de credenciales en ASP.NET.
-:keywords: ASP.NET, Credenciales.
+:description: Nuestros ethical hackers explican cómo evitar vulnerabilidades de seguridad mediante la configuración segura de credenciales en ASP.NET. Al cifrar las credenciales se disminuyen los riesgos vulnerar la aplicación, lo cual permite crear aplicaciones web computacionalmente seguras. 
+:keywords: ASP.NET, Seguridad, Credenciales, Cifrar, Usuario, Contraseña.
 :kb: yes
 
-= Configurar Credenciales Cifradas
+= Configurar credenciales cifradas
 
 == Necesidad
 

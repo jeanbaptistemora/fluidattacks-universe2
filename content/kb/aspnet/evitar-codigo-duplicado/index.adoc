@@ -1,10 +1,10 @@
-:slug: kb/aspnet/evitar-codigo-fuente-duplicado/
+:slug: kb/aspnet/evitar-codigo-duplicado/
 :category: aspnet
 :description: TODO
 :keywords: TODO
 :kb: yes
 
-= Evitar Código Fuente Duplicado
+= Evitar código fuente duplicado
 
 == Necesidad
 

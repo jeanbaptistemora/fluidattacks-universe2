@@ -1,10 +1,10 @@
-:slug: kb/aspnet/cifrar-contrasenas-una-sola-via/
+:slug: kb/aspnet/cifrar-contrasenas-una-via/
 :category: aspnet
-:description: Nuestros ethical hackers explican como evitar vulnerabilidades de seguridad mediante la configuración segura de contraseñas en ASP.NET.
-:keywords: ASP.NET, Contraseña
+:description: Nuestros ethical hackers explican cómo evitar vulnerabilidades de seguridad mediante la configuración segura de contraseñas en ASP.NET al utilizar distintas funciones de resumen criptográfico para proteger información crítica y confidencial de la aplicación.
+:keywords: ASP.NET, Seguridad, Contraseña, Hash, MD5, SHA1.
 :kb: yes
 
-= Cifrar Contraseñas en una sola Vía
+= Cifrar contraseñas en una vía
 
 == Necesidad
 
@@ -16,7 +16,7 @@ para cifrar información confidencial.
 A continuación se describen las circunstancias 
 bajo las cuales la siguiente solución tiene sentido:
 
-. La aplicación esta hecha en cualquier lenguaje del +.NET Framework+ (C#, VB).
+. La aplicación esta hecha en cualquier lenguaje del +.NET Framework+ (+C#+, +VB+).
 . La aplicación requiere cifrar información confidencial.
 
 == Solución

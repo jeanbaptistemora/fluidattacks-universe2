@@ -4,7 +4,7 @@
 :keywords: TODO
 :kb: yes
 
-= Filtrar Campos de Entrada
+= Filtrar campos de entrada
 
 == Necesidad
 

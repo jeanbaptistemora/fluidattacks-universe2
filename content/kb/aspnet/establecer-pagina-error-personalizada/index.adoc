@@ -4,7 +4,7 @@
 :keywords: TODO
 :kb: yes
 
-= Establecer una Página de error personalizada
+= Establecer página de error personalizada
 
 == Necesidad
 

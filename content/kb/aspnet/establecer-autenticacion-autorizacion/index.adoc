@@ -4,13 +4,12 @@
 :keywords: ASP.NET, Seguridad, Programación, Autenticación, Autorización, SQL Server.
 :kb: yes
 
-= Establecer Esquema de Autenticación y Autorización
+= Establecer autenticación y autorización
 
 == Necesidad
 
 Se requiere implementar en una aplicación web +ASP.NET+, 
-un esquema de autenticación 
-y autorización de usuarios.
+un esquema de autenticación y autorización de usuarios.
 
 == Contexto
 

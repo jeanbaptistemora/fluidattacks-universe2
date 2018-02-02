@@ -4,7 +4,7 @@
 :keywords: TODO
 :kb: yes
 
-= Firmar Datos con RSA y SHA256
+= Firmar datos con RSA y SHA256
 
 == Necesidad
 
