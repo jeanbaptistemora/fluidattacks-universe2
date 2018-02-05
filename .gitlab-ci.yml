@@ -1,4 +1,4 @@
-image: docker:latest
+image: docker:17
 
 variables:
   DOCKER_DRIVER: overlay2
@@ -11,6 +11,7 @@ before_script:
     - echo $VAULT > deploy/containers/.vault.txt
     - sh env.sh
     - docker login registry.gitlab.com -u $DOCKER_USER -p $DOCKER_PASS
+    - apk update && apk add curl
 
 codequality:
   script:
@@ -63,10 +64,8 @@ fluidasserts:
     script:
         - docker login fluid-docker.jfrog.io -u $CONCURRENT_USER -p $CONCURRENT_PASS
         - docker pull fluid-docker.jfrog.io/fluid:integrates
-        - docker run -e FLUIDASSERTS_STRICT=false fluid-docker.jfrog.io/fluid:integrates
-    artifacts:
-        paths:
-            - /tmp/fluidasserts.log
+        - docker run -v /tmp:/tmp  -e FA_STRICT="false" fluid-docker.jfrog.io/fluid:integrates
+        - curl -u $CONCURRENT_USER:$CONCURRENT_PASS -T /tmp/fluidasserts.log https://fluid.jfrog.io/fluid/generic/fluidasserts_$CONCURRENT_USER_$(date +%Y%m%d%H%M%S).log
 
 Prospector_app:
     stage: test
