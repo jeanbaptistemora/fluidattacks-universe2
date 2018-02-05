@@ -1,5 +1,5 @@
 :slug: empleos/terminos/
-:category: careers
+:category: empleos
 :description: TODO
 :keywords: TODO
 

@@ -1,4 +1,5 @@
-:slug: ethical-hacking-infrastructure/
+:slug: services/network-hacking/
+:category: services
 :description: TODO
 :keywords: TODO
 

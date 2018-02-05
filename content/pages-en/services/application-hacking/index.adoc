@@ -1,4 +1,5 @@
-:slug: ethical-hacking-application/
+:slug: services/application-hacking/
+:category: services
 :description: TODO
 :keywords: TODO
 

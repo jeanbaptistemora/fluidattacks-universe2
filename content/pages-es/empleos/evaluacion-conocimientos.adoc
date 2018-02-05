@@ -1,5 +1,5 @@
 :slug: empleos/evaluacion-conocimientos/
-:category: careers
+:category: empleos
 :description: TODO
 :keywords: TODO
 

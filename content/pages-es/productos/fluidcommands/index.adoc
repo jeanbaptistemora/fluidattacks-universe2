@@ -1,4 +1,5 @@
-:slug: fluidcommands/
+:slug: productos/fluidcommands/
+:category: productos
 :description: TODO
 :keywords: TODO
 

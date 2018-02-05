@@ -1,5 +1,4 @@
 :slug: careers/
-:category: careers
 :description: TODO
 :keywords: TODO
 

@@ -1,8 +1,9 @@
-:slug: fluidasserts/
+:slug: products/fluidintegrates/
+:category: products
 :description: TODO
 :keywords: TODO
 
-= FLUIDAsserts
+= FLUIDIntegrates
 
 This page is currently in development.
 

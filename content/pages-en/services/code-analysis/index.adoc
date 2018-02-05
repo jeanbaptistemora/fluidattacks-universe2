@@ -1,4 +1,5 @@
-:slug: source-code-analysis/
+:slug: services/code-analysis/
+:category: services
 :description: TODO
 :keywords: TODO
 

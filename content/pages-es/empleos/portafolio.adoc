@@ -1,5 +1,5 @@
 :slug: empleos/portafolio/
-:category: careers
+:category: empleos
 :description: TODO
 :keywords: TODO
 

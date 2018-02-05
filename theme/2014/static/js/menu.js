@@ -20,10 +20,10 @@
 
         multiTg = function() {
           cssmenu.find(".has-sub").prepend('<span class="submenu-button"></span>');
-          cssmenu.find('.submenu-button').parent().on('click', function() {
+          cssmenu.find('.submenu-button').on('click', function() {
             if ($(window).width() < 830) {
-              $(this).children("span").toggleClass('submenu-opened');
-              $(this).children("span").siblings('ul').toggleClass('sm-opened');
+              $(this).toggleClass('submenu-opened');
+              $(this).siblings('ul').toggleClass('sm-opened');
             }
           });
         };

@@ -1,4 +1,5 @@
-:slug: fluidintegrates/
+:slug: productos/fluidintegrates/
+:category: productos
 :description: TODO
 :keywords: TODO
 :eth: no

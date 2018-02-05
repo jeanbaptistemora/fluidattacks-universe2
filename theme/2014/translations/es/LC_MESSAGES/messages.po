@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2018-02-02 00:21+0000\n"
+"POT-Creation-Date: 2018-02-05 20:30+0000\n"
 "PO-Revision-Date: 2017-12-21 15:09-0500\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: es\n"
@@ -50,45 +50,44 @@ msgid "categories"
 msgstr "categorias"
 
 #: templates/article.html:49 templates/categories.html:8
-#: templates/categories.html:29 templates/categories.html:32
-#: templates/category.html:28
+#: templates/categories.html:31 templates/category.html:28
 msgid "Categories"
 msgstr "Categorías"
 
-#: templates/article.html:62
+#: templates/article.html:61
 msgid "User icon"
 msgstr "Ícono de usuario"
 
-#: templates/article.html:66
+#: templates/article.html:65
 msgid "Dialog box icon"
 msgstr "Ícono de globo de diálogo"
 
-#: templates/article.html:66
+#: templates/article.html:65
 msgid "Comment"
 msgstr "Comentar"
 
-#: templates/article.html:69 templates/index.html:47 templates/index.html:89
+#: templates/article.html:68 templates/index.html:47 templates/index.html:89
 #: templates/index.html:132 templates/index.html:179 templates/index.html:221
 msgid "Folder icon"
 msgstr "Ícono de carpeta"
 
-#: templates/article.html:72
+#: templates/article.html:71
 msgid "Calendar icon"
 msgstr "Ícono de calendario"
 
-#: templates/article.html:77
+#: templates/article.html:76
 msgid "Updated on"
 msgstr "Actualizado el"
 
-#: templates/article.html:84
+#: templates/article.html:83
 msgid "Author picture"
 msgstr "Foto del autor"
 
-#: templates/article.html:106
+#: templates/article.html:105
 msgid "Related"
 msgstr "Relacionado"
 
-#: templates/article.html:143 templates/page.html:95
+#: templates/article.html:142 templates/page.html:95
 msgid "Leave a comment"
 msgstr "Haz un comentario"
 
@@ -96,8 +95,8 @@ msgstr "Haz un comentario"
 msgid "Articles by"
 msgstr "Artículos por"
 
-#: templates/author.html:53 templates/authors.html:8 templates/authors.html:29
-#: templates/authors.html:32 templates/footer.html:46 templates/footer.html:84
+#: templates/author.html:53 templates/authors.html:8 templates/authors.html:31
+#: templates/footer.html:46 templates/footer.html:84
 msgid "Authors"
 msgstr "Autores"
 
@@ -201,10 +200,17 @@ msgstr "terminos-uso"
 msgid "Terms of Use"
 msgstr "Términos de Uso"
 
+#: templates/footer.html:31 templates/footer.html:32 templates/footer.html:33
+#: templates/footer.html:75 templates/footer.html:76 templates/footer.html:77
+#: templates/navigationbar.html:23 templates/navigationbar.html:25
+#: templates/navigationbar.html:26 templates/navigationbar.html:27
+msgid "services"
+msgstr "servicios"
+
 #: templates/footer.html:31 templates/footer.html:75
 #: templates/navigationbar.html:25
-msgid "ethical-hacking-application"
-msgstr "ethical-hacking-aplicacion"
+msgid "application-hacking"
+msgstr "hacking-aplicacion"
 
 #: templates/footer.html:31 templates/footer.html:75
 #: templates/navigationbar.html:25
@@ -213,8 +219,8 @@ msgstr "Hacking de Aplicación"
 
 #: templates/footer.html:32 templates/footer.html:76
 #: templates/navigationbar.html:26
-msgid "ethical-hacking-infrastructure"
-msgstr "ethical-hacking-infraestructura"
+msgid "network-hacking"
+msgstr "hacking-red"
 
 #: templates/footer.html:32 templates/footer.html:76
 #: templates/navigationbar.html:26
@@ -223,8 +229,8 @@ msgstr "Hacking de Red"
 
 #: templates/footer.html:33 templates/footer.html:77
 #: templates/navigationbar.html:27
-msgid "source-code-analysis"
-msgstr "analisis-codigo-fuente"
+msgid "code-analysis"
+msgstr "analisis-codigo"
 
 #: templates/footer.html:33 templates/footer.html:77
 #: templates/navigationbar.html:27
@@ -258,7 +264,7 @@ msgid "tags"
 msgstr "etiquetas"
 
 #: templates/footer.html:45 templates/footer.html:83 templates/tag.html:44
-#: templates/tags.html:8 templates/tags.html:29 templates/tags.html:32
+#: templates/tags.html:8 templates/tags.html:31
 msgid "Tags"
 msgstr "Etiquetas"
 
@@ -369,6 +375,11 @@ msgstr "Lupa"
 msgid "FLUID screw logo"
 msgstr "Tuerca logo de FLUID"
 
+#: templates/navigationbar.html:30 templates/navigationbar.html:32
+#: templates/navigationbar.html:33 templates/navigationbar.html:34
+msgid "products"
+msgstr "productos"
+
 #: templates/navigationbar.html:30
 msgid "Products"
 msgstr "Productos"
@@ -395,4 +406,3 @@ msgstr "Etiqueta"
 
 msgid "Search"
 msgstr "Búsqueda"
-

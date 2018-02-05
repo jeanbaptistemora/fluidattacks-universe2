@@ -1,4 +1,5 @@
-:slug: analisis-codigo-fuente/
+:slug: servicios/analisis-codigo/
+:category: servicios
 :image: analisis-codigo.png
 :alt: Dedo señalando código fuente
 :home: yes

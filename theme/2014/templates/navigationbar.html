@@ -20,18 +20,18 @@
   <div class='cssmenu'>
     <ul class="m-closed">
       <li><a href="https://{{ gettext('fluid.la') }}" class="m-link">{{ gettext('Home') }}</a></li>
-      <li class='active'><a href='#' class="m-link">{{ gettext('Services') }}</a>
+      <li class='active'><a href="{{ SITEURL }}/{{ gettext('services') }}/" class="m-link">{{ gettext('Services') }}</a>
         <ul class="sm-closed">
-          <li><a href="{{ SITEURL }}/{{ gettext('ethical-hacking-application') }}/" class="sm-link">{{ gettext('Application Hacking') }}</a></li>
-          <li><a href="{{ SITEURL }}/{{ gettext('ethical-hacking-infrastructure') }}/" class="sm-link">{{ gettext('Network Hacking') }}</a></li>
-          <li><a href="{{ SITEURL }}/{{ gettext('source-code-analysis') }}/" class="sm-link">{{ gettext('Code Analysis') }}</a></li>
+          <li><a href="{{ SITEURL }}/{{ gettext('services') }}/{{ gettext('application-hacking') }}/" class="sm-link">{{ gettext('Application Hacking') }}</a></li>
+          <li><a href="{{ SITEURL }}/{{ gettext('services') }}/{{ gettext('network-hacking') }}/" class="sm-link">{{ gettext('Network Hacking') }}</a></li>
+          <li><a href="{{ SITEURL }}/{{ gettext('services') }}/{{ gettext('code-analysis') }}/" class="sm-link">{{ gettext('Code Analysis') }}</a></li>
         </ul>
       </li>
-      <li><a href='#' class="m-link">{{ gettext('Products') }}</a>
+      <li><a href="{{ SITEURL }}/{{ gettext('products') }}/" class="m-link">{{ gettext('Products') }}</a>
         <ul class="sm-closed">
-          <li><a href="{{ SITEURL }}/fluidintegrates/" class="sm-link">FLUIDIntegrates</a></li>
-          <li><a href="{{ SITEURL }}/fluidasserts/" class="sm-link">FLUIDAsserts</a></li>
-          <li><a href="{{ SITEURL }}/fluidcommands/" class="sm-link">FLUIDCommands</a></li>
+          <li><a href="{{ SITEURL }}/{{ gettext('products') }}/fluidintegrates/" class="sm-link">FLUIDIntegrates</a></li>
+          <li><a href="{{ SITEURL }}/{{ gettext('products') }}/fluidasserts/" class="sm-link">FLUIDAsserts</a></li>
+          <li><a href="{{ SITEURL }}/{{ gettext('products') }}/fluidcommands/" class="sm-link">FLUIDCommands</a></li>
         </ul>
       </li>
       <li><a href="https://fluid.la/{{ gettext('#lp-pom-block-876') }}" class="m-link">{{ gettext('Customers') }}</a></li>

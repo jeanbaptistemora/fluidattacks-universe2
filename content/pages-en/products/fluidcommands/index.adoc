@@ -1,8 +1,9 @@
-:slug: fluidintegrates/
+:slug: products/fluidcommands/
+:category: products
 :description: TODO
 :keywords: TODO
 
-= FLUIDIntegrates
+= FLUIDCommands
 
 This page is currently in development.
 

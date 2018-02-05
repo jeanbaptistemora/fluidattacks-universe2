@@ -45,14 +45,12 @@
       <div class="breadcrumbs">
         <ul>
           <li><a href="{{ SITEURL }}/">{{ gettext('Home') }} >>&nbsp;</a></li>
-          {% if page.kb %}
-            <li><a href="{{ SITEURL }}/kb/">KB >>&nbsp;</a></li>
-            <li><a href="{{ SITEURL }}/kb/#{{ page.category }}">{{ page.category }}</a></li>
-          {% else %}
-            {% if gettext('careers') in page.slug and page.slug|replace("/", "") != gettext('careers') %}
-              <li><a href="{{ SITEURL }}/{{ gettext('careers') }}/">{{ gettext('Careers') }}</a></li>
+            {% if page.kb %}
+              <li><a href="{{ SITEURL }}/kb/">KB >>&nbsp;</a></li>
             {% endif %}
-          {% endif %}
+            {% if "misc" not in page.category.name %}
+              <li><a href="../">{{ page.category }}</a></li>
+            {% endif %}
         </ul>
       </div>
       <h1>{{ page.title }}</h1>

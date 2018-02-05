@@ -1,8 +1,9 @@
-:slug: fluidcommands/
+:slug: products/fluidasserts/
+:category: products
 :description: TODO
 :keywords: TODO
 
-= FLUIDCommands
+= FLUIDAsserts
 
 This page is currently in development.
 

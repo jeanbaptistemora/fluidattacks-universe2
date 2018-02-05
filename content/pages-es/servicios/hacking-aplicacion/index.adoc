@@ -1,16 +1,20 @@
-:slug: ethical-hacking-infraestructura/
+:slug: servicios/hacking-aplicacion/
+:category: servicios
+:image: hacking-aplicacion.png
+:alt: Manos tecleando
+:description: Servicios de Ethical Hacking de aplicación realizada por expertos. Somos hackers que desarrollamos nuestras propias herramientas.
+:keywords: ethical hacking, aplicaciones, vulnerabilidades
 :home: yes
-:image: hacking-infraestructura.png
-:alt: Persona en un computador, visto desde arriba
-:description: Especialistas en Ethical Hacking de infraestructura. Somos hackers que desarrollamos nuestras propias herramientas y exploits, lo que nos permite encontrar todas las vulnerabilidades y reportarlas lo más pronto posible,
-:keywords: ethical hacking infraestructura, ethical hacking, vulnerabilidad
 
-= Ethical Hacking de Infraestructura
+= Ethical Hacking de Aplicación
 
-Realizar pruebas sobre la infraestructura que soportan los sistemas (Servicios de red/SO), 
-buscando explotar vulnerabilidades específicas de la tecnología evaluada.
-Posteriormente suministrar soluciones documentadas que permitan al cliente 
-realizar la respectiva remediación.
+Comprende el intento de explotación de vulnerabilidades en aplicaciones.
+El propósito es realizar operaciones no autorizadas sobre ellas, 
+violando la privacidad de la organización y 
+comprometiendo información sensible. 
+Así mismo, 
+se analizan los posibles riesgos derivados sobre la organización, 
+junto con las opciones para mitigarlos.
 
 == Objetivos
 
@@ -61,7 +65,7 @@ contados a partir de la fecha de entrega de resultados de la prueba de búsqueda
 
 == Modelo del Proyecto
 
-image::../theme/images/escenario.png[Escenarios de la Prueba Ethical Hacking]
+image::../../theme/images/escenario.png[Escenarios de la Prueba Ethical Hacking]
 
 
 **Escenario 1: Usuario anónimo desde Internet**
@@ -113,4 +117,3 @@ en un plazo máximo de 90 días después de la entrega de resultados.
 .^|Informe Ejecutivo |Este informe es un análisis gerencial del número de vulnerabilidades, su criticidad y afectación teniendo en cuenta el impacto que representa cada una sobre los objetivos de negocio de la organización. 
 .^|Evidencias |Cada hallazgo reportado tiene las evidencias de su explotación. (.gif)|
 |====
-
