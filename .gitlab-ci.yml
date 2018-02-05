@@ -61,9 +61,9 @@ manage:
 fluidasserts:
     stage: test
     script:
-        - docker login fluid-docker.jfrog.io -u $FI_JFROG_LOGIN -p $FI_JFROG_PASSWORD
+        - docker login fluid-docker.jfrog.io -u $CONCURRENT_USER -p $CONCURRENT_PASS
         - docker pull fluid-docker.jfrog.io/fluid:integrates
-        - docker run -v "$PWD"/fusion:/code -e FLUIDASSERTS_STRICT=$STRICT fluid-docker.jfrog.io/fluid:integrates
+        - docker run -e FLUIDASSERTS_STRICT=false fluid-docker.jfrog.io/fluid:integrates
     artifacts:
         paths:
             - /tmp/fluidasserts.log
