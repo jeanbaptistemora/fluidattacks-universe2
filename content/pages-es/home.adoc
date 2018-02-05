@@ -1,9 +1,6 @@
 :slug: home/
 :template: home
-:description: Somos una compañía especialista en Ethical Hacking de Aplicación e
-Infraestructura. Somos hackers que desarrollamos nuestras propias herramientas, 
-cuyo objetivo identificar todas las vulnerabilidades y reportarlas lo más pronto
-posible.
+:description: Somos una compañía especialista en Ethical Hacking de Aplicación e Infraestructura. Somos hackers que desarrollamos nuestras propias herramientas, cuyo objetivo identificar todas las vulnerabilidades y reportarlas lo más pronto posible.
 :keywords: ethical hacking, vulnerabildad
 
 = Home
