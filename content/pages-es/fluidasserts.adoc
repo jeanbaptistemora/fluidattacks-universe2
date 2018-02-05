@@ -6,7 +6,7 @@
 
 == 1. Descripción
 
-+FLUIDAsserts+ es un motor de automatización de *cierre* de hallazgos de seguridad sobre ambientes de ejecución +(DAST)+.
++FLUIDAsserts+ es un motor de automatización de *cierre* de hallazgos de seguridad sobre ambientes en ejecución +(DAST)+.
 
 .Flujo de uso
 image::fluidassertses.png[FLUIDAsserts]
