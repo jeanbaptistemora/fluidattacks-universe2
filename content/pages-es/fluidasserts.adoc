@@ -40,16 +40,27 @@ $ python exploit.py
 
 === En un pipeline de CI
 
-* Si tienes una aplicación suscrita a nuestro servicio de Pruebas Concurrentes de Seguridad que incluya el uso de +FLUIDAsserts+, puedes agregarlo a tu pipeline de integración contínua.
+Si tienes una aplicación suscrita a nuestro servicio de Pruebas Concurrentes de Seguridad que incluya el uso de +FLUIDAsserts+, puedes agregarlo a tu pipeline de integración contínua. Para eso, debes seguir los siguientes pasos:
 
-.Ejemplo de job en Gitlab CI
+* 1. Agregar las variables +USER+, +PASS+, +ORG+ y +APP+. No te preocupes, ¡los valores serán entregados por nosotros!:
+** *USER*: Nombre de usuario para obtener la imagen de nuestro registro de contenedores
+** *PASS*: Contraseña del usuario
+** *ORG*: Nombre de la compañía
+** *APP*: Nombre de la aplicación
+
+.Ejemplo de variables en un ambiente Gitlab CI
+image::vars.png[Variables de entorno]
+
+* 2. Agregar un job donde se ejecute el contenedor.
+
+.En Gitlab CI, agregar:
 [source, yaml]
 ----
 fluidasserts:
     script:
-        - docker login fluid-docker.jfrog.io -u $CONCURRENT_USER -p $CONCURRENT_PASS
-        - docker pull fluid-docker.jfrog.io/<cliente>:<app>
-        - docker run -e FLUIDASSERTS_STRICT="true" fluid-docker.jfrog.io/<cliente>:<app>
+        - docker login fluid-docker.jfrog.io -u $USER -p $PASS
+        - docker pull fluid-docker.jfrog.io/$ORG:$APP
+        - docker run -v /tmp:/tmp -e FLUIDASSERTS_STRICT="true" fluid-docker.jfrog.io/$ORG:$APP
     artifacts:
         paths:
             - /tmp/fluidasserts.log
