@@ -116,6 +116,16 @@ integrates.controller("findingcontentCtrl", function($scope, $stateParams, $time
           $scope.onlyReadableTab4 = false;
       }
     };
+    $scope.detectNivel = function (){
+        $timeout(function(){
+            $scope.$apply();
+            if($scope.finding.nivel == "Detallado"){
+                $scope.esDetallado = true;
+            }else{
+                $scope.esDetallado = false;
+            }
+        },200);
+    };
     $scope.updateCSSv2 = function(){
         //Obtener datos de las listas
         var cssv2Data = {
@@ -565,7 +575,7 @@ integrates.controller("findingcontentCtrl", function($scope, $stateParams, $time
                   $('.finding-treatment').show();
                 } else {
                   $('.finding-treatment').hide();
-                }                
+                }
                 //Inicializar galeria de evidencias
                 $('.popup-gallery').magnificPopup({
                   delegate: 'a',
@@ -766,14 +776,14 @@ integrates.controller("findingcontentCtrl", function($scope, $stateParams, $time
         if($scope.finding.id !== undefined){
             var comments = projectFtry.getComments($scope.finding.id);
             comments.then(function(response){
-                if(!response.error){                   
+                if(!response.error){
                     var usersArray = []
                     for (var i = 0; i < response.data.length; i++) {
                       var user = {fullname: "", email: ""};
                       user["fullname"] = response.data[i].fullname;
                       user["email"] = response.data[i].email;
                       usersArray.push(user);
-                    }                   
+                    }
                     var saveComment = function(data) {
                       // Convert pings to human readable format
                       $(data.pings).each(function(index, id) {
@@ -820,7 +830,7 @@ integrates.controller("findingcontentCtrl", function($scope, $stateParams, $time
                           }
                         });
                       }
-                    });                                   
+                    });
                 }
             });
         }
@@ -1001,7 +1011,7 @@ integrates.controller("findingcontentCtrl", function($scope, $stateParams, $time
                     $scope.remediatedData.finding_url = mailData.finding_url;
                     $scope.remediatedData.finding_id = mailData.finding_id;
                     $scope.remediatedData.finding_vulns = mailData.finding_vulns;
-                    $scope.remediatedData.justification = $scope.remediatedData.justification.trim(); 
+                    $scope.remediatedData.justification = $scope.remediatedData.justification.trim();
                     if($scope.remediatedData.justification.length < 100) {
                       $msg.error($translate.instant('proj_alerts.short_remediated_comment'));
                     } else {
@@ -1034,7 +1044,7 @@ integrates.controller("findingcontentCtrl", function($scope, $stateParams, $time
                          }
                       });
                     }
-                    
+
                  };
                  $scope.close = function(){
                      $uibModalInstance.close();
@@ -1059,7 +1069,7 @@ integrates.controller("findingcontentCtrl", function($scope, $stateParams, $time
                   Rollbar.error("Error: An error occurred when remediating/verifying the finding");
                 }
             });
-        }              
+        }
     };
     $scope.findingVerified = function(){
         //Obtener datos
@@ -1176,7 +1186,7 @@ integrates.controller("findingcontentCtrl", function($scope, $stateParams, $time
           $("#commentItem").removeClass("active");
           $("#comment").removeClass("active");
           //Tracking mixpanel
-          mixPanelDashboard.trackFindingDetailed("FindingDescription", userName, userEmail, org, projt, $scope.finding.id);      
+          mixPanelDashboard.trackFindingDetailed("FindingDescription", userName, userEmail, org, projt, $scope.finding.id);
         }
         if (window.location.hash.indexOf('severity') !== -1){
           $("#infoItem").removeClass("active");
