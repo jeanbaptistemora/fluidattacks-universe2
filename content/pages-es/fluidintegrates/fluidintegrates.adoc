@@ -19,7 +19,8 @@ del estado de seguridad de los sistemas.
 [cols="2*"]
 |===
 a|== Autenticación fácil y rápida
-Acceso por medio de una cuenta de Google o Microsoft.
+No se guardan las credenciales del usuario.
+La autenticación es federada permitiendo así, la autenticación con usuarios corporativos.
 a|image::login.png[Login]
 
 a|image::dashboard.png[Dashboard]
@@ -35,6 +36,11 @@ a|image::events.png[Events]
 a|image::graphs.png[Graphs]
 a|== Gráficas de Estado del Proyecto
 Se puede visualizar el estado actual de los hallazgos que han sido reportados.
+Permitiendo así:
+
+* Priorizar los hallazgos por su explotabilidad real confirmada.
+* Indicar cuáles hallazgos son vulnerabilidades y cuántos son problemas de tipo higiene de seguridad.
+* Saber cuántos hallazgos han sido solucionados y cuántos aun no.
 
 a|== Métricas del proyecto
 Permiten realizar un seguimiento del estado actual del proyecto.
@@ -46,16 +52,19 @@ Algunas métricas utilizadas son:
 * Vulnerabilidades remediadas.
 a|image::metrics.png[Metrics]
 
-a|image:reportpdf.png[Reportpdf]
-a|== Generar Informes
+|*Informe Técnico*
+.4+a|== Generar Informes
 Se pueden generar informes técnicos y ejecutivos
 con la información actual del proyecto.
+a|image:technical.png[Technical Report]
+|*Informe Ejecutivo*
+a|image:ejecutive.png[Ejecutive Report]
 
 a|== Ordenar Hallazgos
 Los hallazgos reportados se pueden ordenar de acuerdo a diferentes criterios establecidos.
 Algunos de ellos son:
 
-* La edad.
+* *La edad:* Tiempo que transcurre entre el reporte del hallazgo y la solución aplicada por el cliente.
 * La severidad.
 * El estado.
 * El tratamiento.
@@ -77,6 +86,11 @@ a|image::remediated.png[Remediated]
 .2+a|== Remediación/Tratamiento
 Los clientes pueden solicitar la revisión^1^ de un hallazgo que ha sido corregido
 y documentar^2^ el tratamiento del hallazgo.
+Para la documentación el cliente tiene las siguientes opciones:
+
+* *Asumido:* El cliente asume el riesgo que implica no solucionar el problema de seguridad.
+* *Pendiente:* El cliente aun no tiene claro si asumirá o remediará el hallazgo.
+* *Remediar:* El cliente solucionará el problema de seguridad.
 a|image::treatment.png[Treatment]
 
 a|== Severidad del Hallazgo
