@@ -40,26 +40,22 @@ $ python exploit.py
 
 === En un pipeline de CI
 
-* Si tienes una aplicación suscrita a nuestro servicio de Pruebas Concurrentes de Seguridad que incluya el uso de FLUIDAsserts, puedes agregarlo a tu pipeline de integración contínua. Solo debes agregar un job que ejecute dos comandos:
-[source, bash]
-----
-$ docker login <params>
-$ docker run <params>
-----
+* Si tienes una aplicación suscrita a nuestro servicio de Pruebas Concurrentes de Seguridad que incluya el uso de FLUIDAsserts, puedes agregarlo a tu pipeline de integración contínua.
 
 .Ejemplo de job en Gitlab CI
 [source, yaml]
 ----
 fluidasserts:
-  script:
-    - docker login fluid-docker.jfrog.io -u $CONCURRENT_USER -p $CONCURRENT_PASS
-    - docker run -v "$PWD"/fusion:/code -e FLUIDASSERTS_STRICT=$STRICT fluid-docker.jfrog.io/<cliente>:<app>
-  artifacts:
-    paths: [/tmp/fluidasserts.log]
+    script:
+        - docker login fluid-docker.jfrog.io -u $CONCURRENT_USER -p $CONCURRENT_PASS
+        - docker pull fluid-docker.jfrog.io/<cliente>:<app>
+        - docker run -e FLUIDASSERTS_STRICT="true" fluid-docker.jfrog.io/<cliente>:<app>
+    artifacts:
+        paths:
+            - /tmp/fluidasserts.log
 ----
 
-*NOTA:* La variable +STRICT+ debe tener los valores +true+ o +false+. Si es +true+ y alguna de las vulnerabilidades está abierta, ¡el pipeline se romperá!
-
+*NOTA:* La variable +FLUIDASSERTS_STRICT+ debe tener los valores +true+ o +false+. Si es +true+ y alguna de las vulnerabilidades está abierta, ¡el pipeline se romperá!
 
 == 3. Requerimientos
 
@@ -70,7 +66,7 @@ fluidasserts:
 * *Red*:
 ** Acceso al repositorio de artefactos https://fluid.jfrog.io
 * *Dependencias de software*:
-** Python 3.6
+** +Python 3.6+
 
 === Para integrar en un pipeline de CI
 
@@ -82,7 +78,7 @@ fluidasserts:
 ** Acceso al registro de contenedores https://fluid-docker.jfrog.io
 ** Acceso al ambiente de integración donde tengas la aplicación o plataforma
 * *Dependencias de software*:
-** DockerCE 17 ó superior
+** +DockerCE 17+ ó superior
 
 === Comunes
 
