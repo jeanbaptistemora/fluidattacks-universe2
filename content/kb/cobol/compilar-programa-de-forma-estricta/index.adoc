@@ -8,14 +8,14 @@
 
 == Necesidad
 
-Compilar programa en COBOL de forma estricta.
+Compilar programa en +COBOL+ de forma estricta.
 
 == Contexto
 
 A continuación se describe las circunstancias 
 bajo las cuales la siguiente solución tiene sentido:
 
-. Se está desarrollando una aplicación en COBOL.
+. Se está desarrollando una aplicación en +COBOL+.
 . El código debe compilarse 
 o interpretarse de forma estricta<<r1,^[1]^>>.
 
@@ -52,13 +52,12 @@ para diferentes tipos de mensajes:
 |40 - 99   |Terminal
 |====
 
-. Para compilar un programa en COBOL de forma estricta, 
-se debe usar "0" como argumento en el parámetro GENLVL. 
-Para crear el programa COBOLSTR de la biblioteca FLUID 
+. Para compilar un programa en +COBOL+ de forma estricta, 
+se debe usar "0" como argumento en el parámetro +GENLVL+. 
+Para crear el programa +COBOLSTR+ de la biblioteca +FLUID+ 
 con un nivel de severidad 0 (Compilación estricta), 
 se usa el siguiente comando:
 +
-.test.py
 [source,cobol,linenums]
 ----
       CRTBNDCBL
@@ -71,49 +70,58 @@ se usa el siguiente comando:
 
 . El anterior programa es creado exitosamente, 
 el código fuente utilizado para esta solución 
-y que contiene la estructura básica de un programa en COBOL, 
+y que contiene la estructura básica de un programa en +COBOL+, 
 es el que puede observar a continuación:
 +
+.cobolstr.cbl
 [source,cobol,linenums]
 ----
-      IDENTIFICATION DIVISION.
-      PROGRAM-ID. COBOLSTR.
-      ENVIRONMENT DIVISION.
-      DATA DIVISION.
-      PROCEDURE DIVISION.
-      MAIN.
-          DISPLAY "Programa estricto".
-          STOP RUN.
+       IDENTIFICATION DIVISION.
+       PROGRAM-ID. COBOLSTR.
+       ENVIRONMENT DIVISION.
+       DATA DIVISION.
+       PROCEDURE DIVISION.
+       MAIN.
+           DISPLAY "Programa estricto".
+           STOP RUN.
 ----
 +
 En el anterior bloque de código se puede observar 
 las cuatro divisiones de las que 
-se compone un programa en COBOL:
+se compone un programa en +COBOL+:
 
-* *IDENTIFICATION DIVISION:* mediante la sentencia +PROGRAM-ID+ 
-se especifica el nombre del programa.
-En este caso es COBOLSTR.
+* +IDENTIFICATION DIVISION:+ mediante la sentencia +PROGRAM-ID+ 
+se especifica el nombre del programa. 
+En este caso es +COBOLSTR+.
 
-* *ENVIRONMENT DIVISION:* el objetivo de esta división
+* +ENVIRONMENT DIVISION:+ el objetivo de esta división
 es describir el ambiente 
 sobre el cual se desarrolló 
-y va a ser ejecutado el programa<<r3,^[3]^>>.
+y va a ser ejecutado el programa<<r3,^[3]^>>. 
 En este caso dicha división no es implementada.
 
-* *DATA DIVISION:* en esta división se declaran 
+* +DATA DIVISION:+ en esta división se declaran 
 nombres de campos, registros, variables, etc. 
-Es decir, se especifica cada dato utlizado por el programa<<r4,^[4]^>>.
+Es decir, se especifica cada dato utilizado por el programa<<r4,^[4]^>>. 
 En este caso dicha división no es implementada.
 
-* *PROCEDURE DIVISION:* en esta división se definen 
+* +PROCEDURE DIVISION:+ en esta división se definen 
 todos los procesos necesarios 
-para que el programa funcione.
+para que el programa funcione. 
 Dicho de otra manera, 
-consta de todo el algoritmo del programa<<r5,^[5]^>>.
+consta de todo el algoritmo del programa<<r5,^[5]^>>. 
 Para este caso, el programa además de 
-ser compilado de forma estrica, 
+ser compilado de forma estricta, 
 imprime un texto en pantalla 
-mediante la instrucción DISPLAY.
+mediante la instrucción +DISPLAY+.
+
+== Descargas
+
+Puedes descargar el código fuente 
+pulsando en el siguiente enlace:
+
+. [button]#link:src/cobolstr.cbl[cobolstr.cbl >>]# contiene 
+todas las instrucciones COBOL del programa.
 
 == Referencias
 
