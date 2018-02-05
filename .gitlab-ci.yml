@@ -58,6 +58,16 @@ manage:
         - docker run --env-file env.list -t registry.gitlab.com/fluidsignal/integrates:base python /usr/src/app/manage.py test app.tests
         - rm env.list
 
+fluidasserts:
+    stage: test
+    script:
+        - docker login fluid-docker.jfrog.io -u $FI_JFROG_LOGIN -p $FI_JFROG_PASSWORD
+        - docker pull fluid-docker.jfrog.io/fluid:integrates
+        - docker run -v "$PWD"/fusion:/code -e FLUIDASSERTS_STRICT=$STRICT fluid-docker.jfrog.io/fluid:integrates
+    artifacts:
+        paths:
+            - /tmp/fluidasserts.log
+
 Prospector_app:
     stage: test
     script:
