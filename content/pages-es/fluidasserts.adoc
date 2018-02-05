@@ -6,7 +6,7 @@
 
 == 1. Descripción
 
-*FLUIDAsserts* es un motor de automatización de *cierre* de hallazgos de seguridad.
+*FLUIDAsserts* es un motor de automatización de *cierre* de hallazgos de seguridad sobre ambientes de ejecución +(DAST)+.
 
 .Flujo de uso
 image::fluidassertses.png[FLUIDAsserts]
@@ -52,13 +52,13 @@ $ docker run <params>
 ----
 fluidasserts:
   script:
-    - docker login quay.io -u $CONCURRENT_USER -p $CONCURRENT_PASS
-    - docker run -v "$PWD"/fusion:/code -e FLUIDASSERTS_STRICT=$STRICT quay.io/fluid/<cliente>:<app>
+    - docker login fluid-docker.jfrog.io -u $CONCURRENT_USER -p $CONCURRENT_PASS
+    - docker run -v "$PWD"/fusion:/code -e FLUIDASSERTS_STRICT=$STRICT fluid-docker.jfrog.io/<cliente>:<app>
   artifacts:
     paths: [/tmp/fluidasserts.log]
 ----
 
-*NOTA:* La variable 'STRICT' debe tener los valores 'true' o 'false'. Si es 'true' y alguna de las vulnerabilidades está abierta, ¡el pipeline se romperá!
+*NOTA:* La variable +STRICT+ debe tener los valores +true+ o +false+. Si es +true+ y alguna de las vulnerabilidades está abierta, ¡el pipeline se romperá!
 
 
 == 3. Requerimientos
@@ -70,7 +70,7 @@ fluidasserts:
 * *Red*:
 ** Acceso al repositorio de artefactos https://fluid.jfrog.io
 * *Dependencias de software*:
-** Python 2.7, 3.5 ó 3.6
+** Python 3.6
 
 === Para integrar en un pipeline de CI
 
@@ -79,7 +79,7 @@ fluidasserts:
 ** Windows Server con HyperV y Docker
 ** MacOS
 * *Red*:
-** Acceso al registro de contenedores https://fluid.jfrog.io
+** Acceso al registro de contenedores https://fluid-docker.jfrog.io
 ** Acceso al ambiente de integración donde tengas la aplicación o plataforma
 * *Dependencias de software*:
 ** DockerCE 17 ó superior
@@ -134,4 +134,4 @@ tcp.is_port_insecure('127.0.0.1',443)
 
 == Licencia
 
-Escríbenos a engineering@fluid.la para obtener información de licencias.
+Escríbenos a relations@fluid.la para obtener información de licencias.
