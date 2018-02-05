@@ -297,7 +297,7 @@ msgid "Positions"
 msgstr "Vacantes"
 
 #: templates/footer.html:52 templates/footer.html:90
-msgid "terms-selection"
+msgid "terms"
 msgstr "terminos"
 
 #: templates/footer.html:52 templates/footer.html:90

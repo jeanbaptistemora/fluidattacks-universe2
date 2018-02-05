@@ -5,6 +5,6 @@
 
 = FLUIDIntegrates
 
-This page is currently in development.
+This page is not currently available in this language.
 
-Sorry for the inconvenience.
+See the spanish version [button]#link:../../../es/productos/fluidintegrates/[here >>]#

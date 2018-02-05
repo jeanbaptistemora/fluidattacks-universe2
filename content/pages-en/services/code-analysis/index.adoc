@@ -7,4 +7,4 @@
 
 This page is not currently available in this language.
 
-See the spanish version link:../../es/analisis-codigo-fuente/[here].
+See the spanish version [button]#link:../../../es/servicios/analisis-codigo/[here >>]#

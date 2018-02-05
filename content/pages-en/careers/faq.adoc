@@ -7,4 +7,4 @@
 
 This page is not currently available in this language.
 
-See the spanish version link:../../../es/empleos/faq/[here].
+See the spanish version [button]#link:../../../es/empleos/faq/[here >>]#

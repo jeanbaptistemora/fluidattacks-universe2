@@ -1,4 +1,4 @@
-:slug: careers/terms-selection/
+:slug: careers/terms/
 :category: careers
 :description: TODO
 :keywords: TODO
@@ -7,4 +7,4 @@
 
 This page is not currently available in this language.
 
-See the spanish version link:../../../es/empleos/terminos-seleccion/[here].
+See the spanish version [button]#link:../../../es/empleos/terminos/[here >>]#
