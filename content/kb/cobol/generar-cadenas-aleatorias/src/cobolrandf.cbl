@@ -1,11 +1,6 @@
        IDENTIFICATION DIVISION.
-      ******************
-      * Identification *
-      ******************
        PROGRAM-ID. COBOLRANDF.
-      ********
-      * Data *
-      ********
+
        DATA DIVISION.
 
        WORKING-STORAGE SECTION.
@@ -28,9 +23,7 @@
        01 W07-COUNT                  PIC 9(02).
        01 W08-POS                    PIC 9(03).
        01 W09-RANDOMINT              PIC 9(18).
-      ********
-      * Main *
-      ********
+
        PROCEDURE DIVISION.
        MAIN.
            MOVE FUNCTION CURRENT-DATE TO W02-CURRENT-DATE-DATA.

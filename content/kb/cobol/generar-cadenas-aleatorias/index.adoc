@@ -46,26 +46,26 @@ ya que los números aleatorios podrían ser fácilmente predecibles.
 ----
 . Se definen nueve variables:
 
-* *+W01-RANDOM+* en la que finalmente 
+* +W01-RANDOM+ en la que finalmente 
 se va a almacenar el número aleatorio.
 
-* *+W02-CURRENT-DATE-DATA+* que va a contener 
+* +W02-CURRENT-DATE-DATA+ que va a contener 
 la fecha actual de ejecución del programa.
 
-* *+W03-IDAY+* y *+W04-SVAL+*, variables de uso temporal 
+* +W03-IDAY+ y +W04-SVAL+, variables de uso temporal 
 cuyo fin es facilitar el cálculo de los segundos transcurridos 
 desde el primero de enero de 1970.
 
-* *+W05-CHARSET+* el conjunto de caracteres definidos para la cadena aleatoria.
+* +W05-CHARSET+ el conjunto de caracteres definidos para la cadena aleatoria.
 
-* *+W06-RANDOMNAME+* contiene la cadena aleatoria de 40 caracteres.
+* +W06-RANDOMNAME+ contiene la cadena aleatoria de 40 caracteres.
 
-* *+W07-COUNT+* contador usado para formar la cadena aleatoria.
+* +W07-COUNT+ contador usado para formar la cadena aleatoria.
 
-* *+W08-POS+* posición obtenida del generador de números aleatorios, 
+* +W08-POS+ posición obtenida del generador de números aleatorios, 
 según esta posición se extrae un caracter del conjunto de caracteres definido.
 
-* *+W09-RANDOMINT+* variable temporal usada 
+* +W09-RANDOMINT+ variable temporal usada 
 para representar el número aleatorio de forma entera.
 
 +
@@ -220,17 +220,23 @@ se despliega en pantalla la cadena aleatoria:
 . Las siguientes son algunas de las cadenas 
 generadas al momento de llevar a cabo la prueba:
 +
-[source,cobol,linenums]
+[source,bat,linenums]
 ----
-       fYN8rU5c5VrAOahlmibQCuZ9hBbyGVhpttqjZL4i
-       VNCyfKvRuLgyEOWaaXQG2kOzW0Qm5KVdijfZPBtY
-       QJ8ucGqOrGcvALSWXUMCxgKwTwMj1HSaefcVK6pU
-       NG4rYCnKnDZs6IPTTPJ8ucHrPtJfxDOWbbYRH3mQ
-       G8yjR5gCg6SkzAIMLIC1nVAkHmBXr5HPTUQKAweJ
-       C4ufN1c9c2Pgv6EIIF8yjS6hEh7Un2DLPQNH7taG
+fYN8rU5c5VrAOahlmibQCuZ9hBbyGVhpttqjZL4i
+VNCyfKvRuLgyEOWaaXQG2kOzW0Qm5KVdijfZPBtY
+QJ8ucGqOrGcvALSWXUMCxgKwTwMj1HSaefcVK6pU
+NG4rYCnKnDZs6IPTTPJ8ucHrPtJfxDOWbbYRH3mQ
+G8yjR5gCg6SkzAIMLIC1nVAkHmBXr5HPTUQKAweJ
+C4ufN1c9c2Pgv6EIIF8yjS6hEh7Un2DLPQNH7taG
 ----
 
-* Código de ejemplo: link:src.zip[src.zip]
+== Descargas
+
+Puedes descargar el código fuente 
+pulsando en el siguiente enlace:
+
+. [button]#link:src/cobolrandf.cbl[cobolrandf.cbl >>]# contiene 
+todas las instrucciones +COBOL+ del programa explicado anteriormente.
 
 == Referencias
 
