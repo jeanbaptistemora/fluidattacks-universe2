@@ -28,7 +28,7 @@ y cursores de la base de datos.
 
 * *Liberar archivos*
 
-. Los archivos en +COBOL+ se deben cerrar usando la sintaxis^<<r2,[2]>>,<<r3,[3]>>^: 
+. Los archivos en +COBOL+ se deben cerrar usando la sintaxis^<<r2,[2]>>,<<r3,[3]>>^:
 +
 [source,cobol,linenums]
 ----
@@ -80,7 +80,7 @@ se establece el formato del archivo:
        FD TEST-FILE.
        01 TEST-FILE-RECORD PIC X(32).
 ----
-. En la división +PROCEDURE DIVISION+<<r8,^[8]^>>
+. En la división +PROCEDURE DIVISION+<<r8,^[8]^>> 
 se encuentra la lógica del programa:
 +
 [source,cobol,linenums]
@@ -208,7 +208,17 @@ y para mantener compatibilidad entre diferentes plataformas:
        STOP RUN.
 ----
 
-* Código de ejemplo: link:src.zip[src.zip]
+== Descargas
+
+Puedes descargar el código fuente 
+pulsando en los siguientes enlaces: 
+
+. [button]#link:src/cobolclsf.cbl[cobolclsf.cbl >>]# contiene 
+instrucciones para cerrar correctamente un recurso abierto 
+tal como se explicó antes.
+. [button]#link:src/cobolclsc.cbl[cobolclsc.cbl >>]# contiene 
+instrucciones para cerrar correctamente un cursor abierto 
+tal como se explicó antes.
 
 == Referencias
 

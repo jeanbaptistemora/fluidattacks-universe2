@@ -1,20 +1,13 @@
        IDENTIFICATION DIVISION.
-      ******************
-      * Identification *
-      ******************
        PROGRAM-ID. COBOLCLSC.
-      ********
-      * Data *
-      ********
+
        DATA DIVISION.
 
        WORKING-STORAGE SECTION.
        01 WS-USERNAME PIC X(64) VALUE "".
 
        COPY SQLCA OF QSYSINC-QCBLLESRC.
-      ********
-      * Main *
-      ********
+
        PROCEDURE DIVISION.
        MAIN.
            EXEC SQL
