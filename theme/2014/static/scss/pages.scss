@@ -9,6 +9,29 @@ $white: rgba(255, 255, 255, 1);
   padding: .3em .6em;
 }
 
+@mixin integrates {
+  td {
+    border: 0;
+    word-break: break-word;
+
+    p {
+      margin: 10px;
+    }
+
+    li {
+      p {
+        margin: 10px 0;
+        text-align: left;
+      }
+    }
+  }
+
+  h2 {
+    margin: 20px 10px;
+    text-align: center;
+  }
+}
+
 .maps {
   @include table-border;
   display: table-cell;
@@ -94,12 +117,16 @@ $white: rgba(255, 255, 255, 1);
 }
 
 .integrates-table {
-  td {
-    border: 0;
-  }
+  @include integrates;
+  display: none;
+  table-layout: fixed;
+}
 
-  h2 {
-    text-align: center;
+.integrates-table-resp {
+  @include integrates;
+
+  td {
+    display: inline;
   }
 }
 
@@ -120,6 +147,16 @@ $white: rgba(255, 255, 255, 1);
         display: inline;
       }
     }
+  }
+}
+
+@media (min-width: 600px) {
+  .integrates-table-resp {
+    display: none;
+  }
+
+  .integrates-table {
+    display: table;
   }
 }
 
