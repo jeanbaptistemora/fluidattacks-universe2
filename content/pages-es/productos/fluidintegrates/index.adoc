@@ -113,6 +113,9 @@ a|== Exploit de la Vulnerabilidad
 Se muestra el *script* usado para la explotación de la vulnerabilidad.
 Este puede ser reutilizado para validar las correcciones aplicadas.
 
+Si el usuario cuenta con una licencia del producto link:https://fluid.la/web/es/productos/fluidasserts/[FLUIDAsserts],
+podrá reproducir la vulnerabilidad.
+
 a|== Línea de Tiempo de la Vulnerabilidad
 Se encuentra la evolución de la vulnerabilidad a lo largo del tiempo,
 relacionando las fechas de reporte
@@ -269,6 +272,9 @@ a|[[14]]
 
 Se muestra el *script* usado para la explotación de la vulnerabilidad.
 Este puede ser reutilizado para validar las correcciones aplicadas.
+
+Si el usuario cuenta con una licencia del producto link:https://fluid.la/web/es/productos/fluidasserts/[FLUIDAsserts],
+podrá reproducir la vulnerabilidad.
 a|image::explotacion-vulnerabilidad.png[Explotación De La Vulnerabilidad]
 
 a|[[15]]
