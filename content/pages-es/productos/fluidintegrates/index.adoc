@@ -36,26 +36,25 @@ a|image::eventualidades.png[Eventualidades]
 
 a|image::graficas.png[Gráficas]
 a|== Gráficas de Estado del Proyecto
-Se puede visualizar el estado actual de los hallazgos que han sido reportados.
+Se puede visualizar el estado actual de las vulnerabilidades que han sido reportadas.
 Permitiendo así:
 
-* Priorizar los hallazgos por su explotabilidad real confirmada.
-* Indicar cuáles hallazgos son vulnerabilidades y cuántos son problemas de tipo higiene de seguridad.
-* Saber cuántos hallazgos han sido solucionados y cuántos aun no.
+* Priorizar las vulnerabilidades por su explotabilidad real confirmada.
+* Indicar cuáles son vulnerabilidades y cuántos son problemas de tipo higiene de seguridad.
+* Saber cuántas vulnerabilidades han sido solucionados y cuántas aun no.
 
 a|== Métricas del proyecto
 Permiten realizar un seguimiento del estado actual del proyecto.
 Algunas métricas utilizadas son:
 
-* La cantidad de hallazgos.
-* El número de vulnerabilidades.
+* La cantidad de vulnerabilidades encontradas.
 * La criticidad actual del proyecto.
 * Vulnerabilidades remediadas.
 a|image::metricas.png[Metricas]
 
 a|image::informe-tecnico.png[Informe Técnico]
 a|== Generar Informes Técnicos
-En este documento se encuentra la información detallada de cada hallazgo reportado.
+En este documento se encuentra la información detallada de cada vulnerabilidad.
 Es de gran utilidad para el personal técnico a la hora de darle una solución a las fallas de seguridad reportadas.
 
 a|== Generar Informes Ejecutivos
@@ -63,7 +62,7 @@ En este documento se encuentra la información resumida y organizada.
 De tal manera que pueda ser de utilidad para todas las personas en la cadena de valor del proyecto.
 a|image::informe-ejecutivo.png[Informe Ejecutivo]
 
-a|image::ordenar-hallazgos.png[Priorizar Remediación]
+a|image::priorizar-remediacion.png[Priorizar Remediación]
 a|== Priorizar Remediación
 Las vulnerabilidades se pueden priorizar de acuerdo a diferentes parámetros.
 Esto con el fin de conocer cuáles necesitan una solución inmediata.
@@ -75,58 +74,59 @@ Algunos parámetros son:
 * *El estado:* Abierto, cerrado o parcialmente cerrado.
 * *El tratamiento:* Asumido, pendiente o remediar.
 
-a|== Visualizar Hallazgos
-Cada hallazgo incluye información acerca del estado actual,
+a|== Visualizar Vulnerabilidades
+Cada vulnerabilidad incluye información acerca del estado actual,
 así como su criticidad, tipo y fecha de reporte.
-a|image::hallazgos.png[Hallazgos]
+a|image::vulnerabilidades.png[Vulnerabilidades]
 
-a|image::descripcion-hallazgo.png[Descripción Del Hallazgo]
-a|== Descripción del Hallazgo
-Se encuentra el detalle técnico que permite entender la naturaleza del hallazgo,
-donde se encuentra(n) la(s) vulnerabilidad(es),
+a|image::descripcion-vulnerabilidad.png[Descripción De La Vulnerabilidad]
+a|== Descripción de la Vulnerabilidad
+Se encuentra el detalle técnico que permite entender la naturaleza de la vulnerabilidad,
+donde se encuentran los problemas de seguridad,
 requisitos incumplidos,
 riesgos y recomendaciones de solución.
 
 .2+a|== Remediación / Tratamiento
-Los clientes pueden solicitar la revisión^1^ de un hallazgo que ha sido corregido
-y documentar^2^ el tratamiento del hallazgo.
+Los clientes pueden solicitar la revisión^1^ de una vulnerabilidad que ha sido corregida
+y documentar^2^ el tratamiento de esta.
 Para la documentación el cliente tiene las siguientes opciones:
 
 * *Asumido:* El cliente asume el riesgo que implica no solucionar el problema de seguridad.
-* *Pendiente:* El cliente aun no tiene claro si asumirá o remediará el hallazgo.
+* *Pendiente:* El cliente aun no tiene claro si asumirá o remediará la vulnerabilidad.
 * *Remediar:* El cliente solucionará el problema de seguridad.
 a|image::remediacion.png[Remediación]
 a|image::tratamiento.png[Tratamiento]
 
-a|image::severidad-hallazgo.png[Severidad Del Hallazgo]
-a|== Severidad del Hallazgo
-Se muestra la calificación técnica del hallazgo
-basado en el estándar CVSS (Common Vulnerability Scoring System). Esto con el fin de determinar la criticidad del hallazgo.
+a|image::severidad-vulnerabilidad.png[Severidad De La Vulnerabilidad]
+a|== Severidad de la Vulnerabilidad
+Se muestra la calificación técnica de la vulnerabilidad
+basado en el estándar CVSS (Common Vulnerability Scoring System).
+Esto con el fin de determinar la criticidad de la vulnerabilidad.
 
-a|== Evidencias del Hallazgo
+a|== Evidencias de la Vulnerabilidad
 Se encuentra de forma gráfica la evidencia de la existencia de la vulnerabilidad.
 En algunos casos se muestra el proceso de explotación por medio de una animación.
-a|image::evidencia-hallazgo.gif[Evidencia Del Hallazgo]
+a|image::evidencia-vulnerabilidad.gif[Evidencia De La Vulnerabilidad]
 
-a|image::explotacion-hallazgo.png[Explotación Del Hallazgo]
-a|== Exploit del Hallazgo
+a|image::explotacion-vulnerabilidad.png[Explotación De La Vulnerabilidad]
+a|== Exploit de la Vulnerabilidad
 Se muestra el *script* usado para la explotación de la vulnerabilidad.
 Este puede ser reutilizado para validar las correcciones aplicadas.
 
-a|== Línea de Tiempo del Hallazgo
-Se encuentra la evolución del hallazgo a lo largo del tiempo,
+a|== Línea de Tiempo de la Vulnerabilidad
+Se encuentra la evolución de la vulnerabilidad a lo largo del tiempo,
 relacionando las fechas de reporte
 y los diferentes ciclos de cierre realizados.
 a|image::linea-tiempo.png[Linea De Tiempo]
 
-a|image::comentarios-hallazgo.png[Comentarios Del Hallazgo]
-a|== Comentarios Sobre los Hallazgos
+a|image::comentarios-vulnerabilidad.png[Comentarios De La Vulnerabilidad]
+a|== Comentarios Sobre las Vulnerabilidades
 Los usuarios de la cadena de valor del proyecto incluyendo a FLUID,
 pueden intercambiar apreciaciones,
-dudas u observaciones sobre el hallazgo en cuestión.
+dudas u observaciones sobre la vulnerabilidad en cuestión.
 
 a|== Chatea con Nosotros
-Le permite a los usuarios resolver dudas con respecto a los hallazgos
+Le permite a los usuarios resolver dudas con respecto a las vulnerabilidades
 o de la plataforma en sí.
 
 El equipo de ingeniería contestará en menos de 4 horas en horario 8x5.
@@ -164,12 +164,12 @@ a|image::eventualidades.png[Eventualidades]
 a|[[4]]
 == Gráficas de Estado del Proyecto
 
-Se puede visualizar el estado actual de los hallazgos que han sido reportados.
+Se puede visualizar el estado actual de las vulnerabilidades que han sido reportadas.
 Permitiendo así:
 
-* Priorizar los hallazgos por su explotabilidad real confirmada.
-* Indicar cuáles hallazgos son vulnerabilidades y cuántos son problemas de tipo higiene de seguridad.
-* Saber cuántos hallazgos han sido solucionados y cuántos aun no.
+* Priorizar las vulnerabilidades por su explotabilidad real confirmada.
+* Indicar cuáles son vulnerabilidades y cuántos son problemas de tipo higiene de seguridad.
+* Saber cuántas vulnerabilidades han sido solucionados y cuántas aun no.
 a|image::graficas.png[Gráficas]
 
 a|[[5]]
@@ -178,8 +178,7 @@ a|[[5]]
 Permiten realizar un seguimiento del estado actual del proyecto.
 Algunas métricas utilizadas son:
 
-* La cantidad de hallazgos.
-* El número de vulnerabilidades.
+* La cantidad de vulnerabilidades encontradas.
 * La criticidad actual del proyecto.
 * Vulnerabilidades remediadas.
 a|image::metricas.png[Metricas]
@@ -187,7 +186,7 @@ a|image::metricas.png[Metricas]
 a|[[6]]
 == Generar Informes Técnicos
 
-En este documento se encuentra la información detallada de cada hallazgo reportado.
+En este documento se encuentra la información detallada de cada vulnerabilidad.
 Es de gran utilidad para el personal técnico a la hora de darle una solución a las fallas de seguridad reportadas.
 a|image::informe-tecnico.png[Informe Técnico]
 
@@ -211,78 +210,79 @@ Algunos parámetros son:
 * *La severidad:* Criticidad de acuerdo al estándar CVSS.
 * *El estado:* Abierto, cerrado o parcialmente cerrado.
 * *El tratamiento:* Asumido, pendiente o remediar.
-a|image::ordenar-hallazgos.png[Priorizar Remediación]
+a|image::priorizar-remediacion.png[Priorizar Remediación]
 
 a|[[9]]
-== Visualizar Hallazgos
+== Visualizar Vulnerabilidades
 
-Cada hallazgo incluye información acerca del estado actual,
+Cada vulnerabilidad incluye información acerca del estado actual,
 así como su criticidad, tipo y fecha de reporte.
-a|image::hallazgos.png[Hallazgos]
+a|image::vulnerabilidades.png[Vulnerabilidades]
 
 a|[[10]]
-== Descripción del Hallazgo
+== Descripción de la Vulnerabilidad
 
-Se encuentra el detalle técnico que permite entender la naturaleza del hallazgo,
-donde se encuentra(n) la(s) vulnerabilidad(es),
+Se encuentra el detalle técnico que permite entender la naturaleza de la vulnerabilidad,
+donde se encuentran los problemas de seguridad,
 requisitos incumplidos,
 riesgos y recomendaciones de solución.
-a|image::descripcion-hallazgo.png[Descripción Del Hallazgo]
+a|image::descripcion-vulnerabilidad.png[Descripción De La Vulnerabilidad]
 
 .2+a|[[11]]
 == Remediación / Tratamiento
 
-Los clientes pueden solicitar la revisión^1^ de un hallazgo que ha sido corregido
-y documentar^2^ el tratamiento del hallazgo.
+Los clientes pueden solicitar la revisión^1^ de una vulnerabilidad que ha sido corregida
+y documentar^2^ el tratamiento de esta.
 Para la documentación el cliente tiene las siguientes opciones:
 
 * *Asumido:* El cliente asume el riesgo que implica no solucionar el problema de seguridad.
-* *Pendiente:* El cliente aun no tiene claro si asumirá o remediará el hallazgo.
+* *Pendiente:* El cliente aun no tiene claro si asumirá o remediará la vulnerabilidad.
 * *Remediar:* El cliente solucionará el problema de seguridad.
 a|image::remediacion.png[Remediación]
 a|image::tratamiento.png[Tratamiento]
 
 a|[[12]]
-== Severidad del Hallazgo
+== Severidad de la Vulnerabilidad
 
-Se muestra la calificación técnica del hallazgo
-basado en el estándar CVSS (Common Vulnerability Scoring System). Esto con el fin de determinar la criticidad del hallazgo.
-a|image::severidad-hallazgo.png[Severidad Del Hallazgo]
+Se muestra la calificación técnica de la vulnerabilidad
+basado en el estándar CVSS (Common Vulnerability Scoring System).
+Esto con el fin de determinar la criticidad de la vulnerabilidad.
+a|image::severidad-vulnerabilidad.png[Severidad De La Vulnerabilidad]
 
 a|[[13]]
-== Evidencias del Hallazgo
+== Evidencias de la Vulnerabilidad
 
 Se encuentra de forma gráfica la evidencia de la existencia de la vulnerabilidad.
 En algunos casos se muestra el proceso de explotación por medio de una animación.
-a|image::evidencia-hallazgo.gif[Evidencia Del Hallazgo]
+a|image::evidencia-vulnerabilidad.gif[Evidencia De La Vulnerabilidad]
 
 a|[[14]]
-== Exploit del Hallazgo
+== Exploit de la Vulnerabilidad
 
 Se muestra el *script* usado para la explotación de la vulnerabilidad.
 Este puede ser reutilizado para validar las correcciones aplicadas.
-a|image::explotacion-hallazgo.png[Explotación Del Hallazgo]
+a|image::explotacion-vulnerabilidad.png[Explotación De La Vulnerabilidad]
 
 a|[[15]]
-== Línea de Tiempo del Hallazgo
+== Línea de Tiempo de la Vulnerabilidad
 
-Se encuentra la evolución del hallazgo a lo largo del tiempo,
+Se encuentra la evolución de la vulnerabilidad a lo largo del tiempo,
 relacionando las fechas de reporte
 y los diferentes ciclos de cierre realizados.
 a|image::linea-tiempo.png[Linea De Tiempo]
 
 a|[[16]]
-== Comentarios Sobre los Hallazgos
+== Comentarios Sobre las Vulnerabilidades
 
 Los usuarios de la cadena de valor del proyecto incluyendo a FLUID,
 pueden intercambiar apreciaciones,
-dudas u observaciones sobre el hallazgo en cuestión.
-a|image::comentarios-hallazgo.png[Comentarios Del Hallazgo]
+dudas u observaciones sobre la vulnerabilidad en cuestión.
+a|image::comentarios-vulnerabilidad.png[Comentarios De La Vulnerabilidad]
 
 a|[[17]]
 == Chatea con Nosotros
 
-Le permite a los usuarios resolver dudas con respecto a los hallazgos
+Le permite a los usuarios resolver dudas con respecto a las vulnerabilidades
 o de la plataforma en sí.
 
 El equipo de ingeniería contestará en menos de 4 horas en horario 8x5.
