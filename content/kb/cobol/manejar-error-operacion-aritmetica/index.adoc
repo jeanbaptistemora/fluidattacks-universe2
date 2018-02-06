@@ -137,14 +137,23 @@ con el objetivo de almacenar números más grandes.
        WORKING-STORAGE SECTION.
        01 W01-TOTALAMOUNT PIC 9(63) VALUE 0.
 ----
- 
+
+== Descargas
+
+Puedes descargar el código fuente 
+pulsando en el siguiente enlace:
+
+. [button]#link:src/cobolonsz.cbl[cobolonsz.cbl >>]# contiene 
+todas las instrucciones +COBOL+ con la variable +W01-TOTALAMOUNT+ redefinida 
+(sin desbordamiento).
+
 == Referencias
 
 . [[r1]] REQ.0149: El código fuente de un sistema 
 no debe realizar funciones diferentes 
 a las que han sido especificadas 
 en los requisitos funcionales (puertas traseras).
-. [[r2]]REQ.0077: El sistema no debe registrar información sensible 
+. [[r2]] REQ.0077: El sistema no debe registrar información sensible 
 en un evento excepcional de una bitácora.
 . [[r3]] link:https://www.ibm.com/support/knowledgecenter/en/ssw_ibm_i_73/rzasb/iddiv.htm[IBM - Identification Division].
 . [[r4]] link:http://www.escobol.com/modules.php?name=Sections&op=viewarticle&artid=11[Identification Division].
