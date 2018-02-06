@@ -28,14 +28,14 @@ y mantenimiento a una estructura existente basada en +COBOL+.
 
 == Solución
 
-. Los elementos en desuso del lenguaje
-son elementos categorizados como obsoletos
+. Los elementos en desuso del lenguaje 
+son elementos categorizados como obsoletos 
 en el estándar +ANSI X3.23-1985 COBOL+<<r2,^[2]^>>. 
 Estos elementos no forman parte del estándar +COBOL+ de 2002<<r3,^[3]^>> 
 y por lo tanto no son mejorados, modificados o mantenidos.
 
 . En +COBOL+, los elementos del lenguaje listados aquí 
-serán eliminados en futuras especificaciones de +COBOL+.
+serán eliminados en futuras especificaciones de +COBOL+. 
 Por lo cual, no deberían ser usados en un programa de código abierto.
 
 . +COBOL+ es un lenguaje de programación 
@@ -56,12 +56,12 @@ considerados obsoletos dentro de +COBOL+,
 tanto en su versión estándar, 
 como para la versión de +IBM+:
 +
-.Listado de los elementos obsoletos en +COBOL+.
+.Listado de elementos obsoletos en +COBOL+.
 [options="header"]
 |===
 |Elemento |Localización
 
-|ALL.
+|+ALL.+
 |En los literales mayores a un caracter 
 con un tipo de dato numérico o numérico editado.
 
