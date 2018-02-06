@@ -63,15 +63,17 @@ En este documento se encuentra la información resumida y organizada.
 De tal manera que pueda ser de utilidad para todas las personas en la cadena de valor del proyecto.
 a|image::informe-ejecutivo.png[Informe Ejecutivo]
 
-a|image::ordenar-hallazgos.png[Ordenar Hallazgos]
-a|== Ordenar Hallazgos
-Los hallazgos reportados se pueden ordenar de acuerdo a diferentes criterios establecidos.
-Algunos de ellos son:
+a|image::ordenar-hallazgos.png[Priorizar Remediación]
+a|== Priorizar Remediación
+Las vulnerabilidades se pueden priorizar de acuerdo a diferentes parámetros.
+Esto con el fin de conocer cuáles necesitan una solución inmediata.
 
-* *La edad:* Tiempo que transcurre entre el reporte del hallazgo y la solución aplicada por el cliente.
-* La severidad.
-* El estado.
-* El tratamiento.
+Algunos parámetros son:
+
+* *La edad:* Tiempo que transcurre entre el reporte de la vulnerabilidad y la solución aplicada por el cliente.
+* *La severidad:* Criticidad de acuerdo al estándar CVSS.
+* *El estado:* Abierto, cerrado o parcialmente cerrado.
+* *El tratamiento:* Asumido, pendiente o remediar.
 
 a|== Visualizar Hallazgos
 Cada hallazgo incluye información acerca del estado actual,
@@ -198,16 +200,18 @@ a|image::informe-ejecutivo.png[Informe Ejecutivo]
 
 
 a|[[8]]
-== Ordenar Hallazgos
+== Priorizar Remediación
 
-Los hallazgos reportados se pueden ordenar de acuerdo a diferentes criterios establecidos.
-Algunos de ellos son:
+Las vulnerabilidades se pueden priorizar de acuerdo a diferentes parámetros.
+Esto con el fin de conocer cuáles necesitan una solución inmediata.
 
-* *La edad:* Tiempo que transcurre entre el reporte del hallazgo y la solución aplicada por el cliente.
-* La severidad.
-* El estado.
-* El tratamiento.
-a|image::ordenar-hallazgos.png[Ordenar Hallazgos]
+Algunos parámetros son:
+
+* *La edad:* Tiempo que transcurre entre el reporte de la vulnerabilidad y la solución aplicada por el cliente.
+* *La severidad:* Criticidad de acuerdo al estándar CVSS.
+* *El estado:* Abierto, cerrado o parcialmente cerrado.
+* *El tratamiento:* Asumido, pendiente o remediar.
+a|image::ordenar-hallazgos.png[Priorizar Remediación]
 
 a|[[9]]
 == Visualizar Hallazgos
