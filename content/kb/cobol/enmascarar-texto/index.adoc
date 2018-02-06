@@ -25,7 +25,7 @@ deben encontrarse enmascarados<<r1,^[1]^>>.
 
 . Definimos las divisiones de la aplicación:
 +
-.test.py
+.cobolpass.cbl
 [source,cobol,linenums]
 ----
        IDENTIFICATION DIVISION.
@@ -118,7 +118,13 @@ de tal forma que un tercero no pueda visualizarlo:
        STOP RUN.
 ----
 
-* Código de ejemplo: link:src.zip[src.zip]
+== Descargas
+
+Puedes descargar el código fuente 
+pulsando en el siguiente enlace:
+
+. [button]#link:src/cobolpass.cbl[cobolpass.cbl >>]# contiene 
+los pasos necesarios para enmascarar el texto explicado anteriormente.
 
 == Referencias
 
