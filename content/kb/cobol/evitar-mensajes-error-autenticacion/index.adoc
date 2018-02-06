@@ -26,7 +26,7 @@ si es un error de usuario o de contraseña<<r1,^[1]^>>.
 . Se da inicio a la aplicación de ejemplo 
 declarando la división +IDENTIFICATION DIVISION+<<r2,^[2]^>>:
 +
-.test.py
+.cobolauth.cbl
 [source,cobol,linenums]
 ----
       ******************
@@ -41,10 +41,11 @@ se establece el nombre del programa a +COBOLAUTH+
 mediante la sentencia +PROGRAM-ID+. 
 Cabe resaltar que el uso de +IDENTIFICATION DIVISION+ 
 no se limita a establecer el nombre de un programa en +COBOL+. 
-Al final del presente escrito^<<r2,[2]>>,<<r3,[3]>>^ puede encontrar mayor información 
+Al final del presente escrito^<<r2,[2]>>,<<r3,[3]>>^ 
+puede encontrar mayor información 
 sobre otros usos dados a dicha división.
 
-. Se declara los datos a usar en la división +DATA DIVISION+<<r4,^[4]^>>:
+. Se declaran los datos a usar en la división +DATA DIVISION+<<r4,^[4]^>>:
 +
 [source,cobol,linenums]
 ----
@@ -127,6 +128,14 @@ además de posibles ataques de fuerza bruta:
            
        STOP RUN.
 ----
+
+== Descargas
+
+Puedes descargar el código fuente 
+pulsando en el siguiente enlace:
+
+. [button]#link:src/cobolauth.cbl[cobolauth.cbl >>]# contiene 
+todas las instrucciones +COBOL+ del programa explicado anteriormente.
 
 == Referencias
 
