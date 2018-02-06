@@ -124,6 +124,8 @@ a|== Comentarios Sobre las Vulnerabilidades
 Los usuarios de la cadena de valor del proyecto incluyendo a FLUID,
 pueden intercambiar apreciaciones,
 dudas u observaciones sobre la vulnerabilidad en cuestión.
+Esta sección es de gran utilidad para que los desarrolladores entiendan dónde se encuentra el problema,
+y así puedan darle una solución.
 
 a|== Chatea con Nosotros
 Le permite a los usuarios resolver dudas con respecto a las vulnerabilidades
