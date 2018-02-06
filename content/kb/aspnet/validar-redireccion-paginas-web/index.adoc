@@ -1,35 +1,38 @@
 :slug: kb/aspnet/validar-redireccion-paginas-web/
 :category: aspnet
-:description: TODO
-:keywords: TODO
+:description: Nuestros ethical hackers explican cómo evitar vulnerabilidades de seguridad mediante la programación segura en ASP.NET al validar los campos de entrada de las aplicaciones web evitando que usuarios malintencionados hagan uso de expresiones regulares para atacar la aplicación.
+:keywords: ASP.NET, Seguridad, Regex, Validar, Redirección, Campos.
 :kb: yes
 
 = Validar redirecciones a páginas web
 
 == Necesidad
 
-Se requiere reenviar la solicitud de un cliente a una página que expone la 
-aplicación web.
+Se requiere reenviar la solicitud de un cliente 
+a una página que expone la aplicación web.
 
 == Contexto
 
-A continuación se describen las circunstancias bajo las cuales la siguiente 
-solución tiene sentido:
+A continuación se describen las circunstancias 
+bajo las cuales la siguiente solución tiene sentido:
 
-. La aplicación esta desarrollada en ASP.
+. La aplicación esta desarrollada en +ASP.NET+.
 
 == Solución
 
-Para redireccionar la solicitud de un usuario a una web que expone la 
-aplicación, ASP proporciona el método Response.Redirect. Para implementar ésta 
-funcionalidad en la aplicación se debe tener en cuenta los siguientes aspectos 
-[1]:
+Para redireccionar la solicitud de un usuario a una web 
+que expone la aplicación, +ASP.NET+ 
+proporciona el método +Response.Redirect+. 
+Para implementar ésta funcionalidad en la aplicación 
+se debe tener en cuenta los siguientes aspectos <<r1, ^[1]^>>:
 
-. Evite el uso de parámetros manipulables por el usuario para definir el 
-destino, en su lugar, establezca el destino mediante una dirección URL (Uniform 
-Resource Locator) predefinida en la aplicación. Evite
+. Evite el uso de parámetros manipulables por el usuario 
+para definir el destino.
+En su lugar, establezca el destino mediante una dirección +URL+ 
+(+Uniform Resource Locator+) predefinida en la aplicación. 
+Por ejemplo, en el siguiente código:
 +
-.test.py
+.MyPage.html
 [source, html, linenums]
 ----
 <form action="redireccionar-a-una-pagina.asp" method="get">
@@ -42,33 +45,42 @@ Resource Locator) predefinida en la aplicación. Evite
  Response.Redirect (url)
 %>
  
-. Reemplace por
+. Reemplace +Response.Redirect (url)+ por
 +
-[source, html, linenums]
+[source, html, linenums] 
 <%
   Response.Redirect ("https://www.google.com")
 %>
 ----
  
-. Si se requiere el uso de algún parámetro para establecer la dirección de 
-destino, considere lo siguiente: 
-. Valide el contenido enviado en el parámetro. Para realizar ésta validación se 
-recomienda hacer uso de expresiones regulares. Las expresiones regulares son 
-usadas dentro de las aplicaciones ASP.NET para limitar la entrada de datos no 
-confiables evitando que un atacante pueda inyectar código malicioso. El soporte 
-para las expresiones regulares está disponible para las aplicaciones ASP.NET 
-mediante el control RegularExpressionValidator y la clase Regex encontrada en 
-el espacio de nombreSystem.Text.RegularExpressions. Para validar la entrada de 
-datos en el lado del cliente usando el control RegularExpressionValidator se 
-debe realizar lo siguiente [1]:
-. Agregar un control RegularExpressionValidator en la pagina ASP.
-. Establecer la propiedad ControlToValidate para indicar cual será el control a 
-validar.
-. Establecer la propiedad ValidationExpression a una expresión regular 
-correspondiente.
-. Establecer la propiedad ErrorMessage para definir el mensaje que se mostrará 
-si la validación falla. El siguiente código muestra como se implementa este 
-control a un campo de texto:
+. Si se requiere el uso de algún parámetro 
+para establecer la dirección de destino, 
+considere validar el contenido enviado en el parámetro. 
+Para realizar ésta validación 
+se recomienda hacer uso de expresiones regulares. 
+Las expresiones regulares son usadas dentro de las aplicaciones +ASP.NET+ 
+para limitar la entrada de datos no confiables 
+evitando que un atacante pueda inyectar código malicioso. 
+El soporte para las expresiones regulares está disponible 
+en las aplicaciones'+ASP.NET+ 
+haciendo uso del control +RegularExpressionValidator+ <<r2 ,^[2]^>> 
+y la clase +Regex+. 
+Éstas se pueden encontrar 
+en el espacio de nombres +System.Text.RegularExpressions+.
+
+. Para validar la entrada de datos en el lado del cliente 
+agregar un control +RegularExpressionValidator+ en la pagina +ASP+.
+
+. Establecer la propiedad +ControlToValidate+ 
+para indicar cual será el control a validar.
+
+. Establecer la propiedad +ValidationExpression+ 
+a una expresión regular correspondiente.
+
+. Establecer la propiedad +ErrorMessage+ 
+para definir el mensaje que se mostrará si la validación falla. 
+El siguiente código muestra como se implementa 
+este control a un campo de texto:
 +
 [source, html, linenums]
 ----
@@ -83,12 +95,15 @@ control a un campo de texto:
  </form>
 ----
  
-. La expresión regular utilizada en el ejemplo de código anterior limita un 
-campo de nombre de entrada para los caracteres alfabéticos (mayúsculas y 
-minúsculas), caracteres de espacio, la comilla simple y el carácter de punto. 
+. La expresión regular utilizada en el ejemplo de código anterior 
+limita un campo de nombre de entrada 
+para los caracteres alfabéticos (mayúsculas y minúsculas), 
+caracteres de espacio, las comillas simples y el carácter de punto. 
 Además, la longitud del campo está limitada a 40 caracteres.
-. Para validar la entrada de datos en el lado del servidor se debe utilizar la 
-clase Regex del espacio de nombres System.Text.RegularExpressions.
+
+. Para validar la entrada de datos en el lado del servidor 
+se debe utilizar la clase +Regex+ 
+del espacio de nombres +System.Text.RegularExpressions+.
 +
 [source, cs, linenums]
 ----
@@ -103,9 +118,9 @@ else
 }
 ----
  
-. Codifique el valor del parámetro que es utilizado para establecer la 
-dirección de destino a formato URL. Para realizar esta codificación se debe 
-emplear el método encode.
+. Codifique el valor del parámetro que es utilizado 
+para establecer la dirección de destino a formato +URL+. 
+Para realizar esta codificación se debe emplear el método +encode+.
 ----
 [source, html, linenums]
 <%
@@ -115,4 +130,6 @@ emplear el método encode.
 
 == Referencias
 
-. https://www.owasp.org/index.php/Top_10_2010-A10-Unvalidated_Redirects_and_Forwards[. Top 10 2010-A10-Unvalidated Redirects and Forwards] 
+. [[r1]] link:https://www.owasp.org/index.php/Top_10_2010-A10-Unvalidated_Redirects_and_Forwards[Top 10 2010-A10-Unvalidated Redirects and Forwards]. 
+
+. [[r2]] link:https://msdn.microsoft.com/es-es/library/system.web.ui.webcontrols.regularexpressionvalidator(v=vs.110).aspx[Clase RegularExpressionValidator].
