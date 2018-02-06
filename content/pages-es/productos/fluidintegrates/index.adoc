@@ -123,7 +123,7 @@ y los diferentes ciclos de cierre realizados.
 a|image::linea-tiempo.png[Linea De Tiempo]
 
 a|image::comentarios-vulnerabilidad.png[Comentarios De La Vulnerabilidad]
-a|== Comentarios Sobre las Vulnerabilidades
+a|== Aclaraciones de Dudas Sobre las Vulnerabilidades
 Los usuarios de la cadena de valor del proyecto incluyendo a FLUID,
 pueden intercambiar apreciaciones,
 dudas u observaciones sobre la vulnerabilidad en cuestión.
@@ -286,11 +286,13 @@ y los diferentes ciclos de cierre realizados.
 a|image::linea-tiempo.png[Linea De Tiempo]
 
 a|[[16]]
-== Comentarios Sobre las Vulnerabilidades
+== Aclaraciones de Dudas Sobre las Vulnerabilidades
 
 Los usuarios de la cadena de valor del proyecto incluyendo a FLUID,
 pueden intercambiar apreciaciones,
 dudas u observaciones sobre la vulnerabilidad en cuestión.
+Esta sección es de gran utilidad para que los desarrolladores entiendan dónde se encuentra el problema,
+y así puedan darle una solución.
 a|image::comentarios-vulnerabilidad.png[Comentarios De La Vulnerabilidad]
 
 a|[[17]]
