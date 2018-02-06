@@ -21,9 +21,9 @@ image::fluidassertses.png[FLUIDAsserts]
 [source, bash]
 ----
 $ pip install -U fluidasserts
-$ export FLUIDASSERTS_LICENSE_KEY=<ID de licencia>
-$ export FLUIDASSERTS_USER_EMAIL=<Tu correo electrónico>
-$ export FLUIDASSERTS_STRICT="false"
+$ export FA_LICENSE_KEY=<ID de licencia>
+$ export FA_USER_EMAIL=<Tu correo electrónico>
+$ export FA_STRICT="false"
 
 $ python exploit.py
 ----
@@ -32,27 +32,27 @@ $ python exploit.py
 [source, bash]
 ----
 > pip install -U fluidasserts
-> set FLUIDASSERTS_LICENSE_KEY=<ID de licencia>
-> set FLUIDASSERTS_USER_EMAIL=<Tu correo electrónico>
-> set FLUIDASSERTS_STRICT="false"
+> set FA_LICENSE_KEY=<ID de licencia>
+> set FA_USER_EMAIL=<Tu correo electrónico>
+> set FA_STRICT="false"
 
 > python exploit.py
 ----
 
 === En un pipeline de CI
 
-Si tienes una aplicación suscrita a nuestro servicio de Pruebas Concurrentes de Seguridad que incluya el uso de +FLUIDAsserts+, puedes agregarlo a tu pipeline de integración contínua. Para eso, debes seguir los siguientes pasos:
+Si tienes una aplicación suscrita a nuestro servicio de *Pruebas Concurrentes de Seguridad* que incluya el uso de +FLUIDAsserts+, puedes agregarlo a tu pipeline de integración contínua. Para eso, debes seguir los siguientes pasos:
 
-* 1. Agregar las variables +USER+, +PASS+, +ORG+ y +APP+. No te preocupes, ¡los valores serán entregados por nosotros!:
-** *USER*: Nombre de usuario para obtener la imagen de nuestro registro de contenedores
-** *PASS*: Contraseña del usuario
-** *ORG*: Nombre de la compañía
-** *APP*: Nombre de la aplicación
+. Agregar las variables +USER+, +PASS+, +ORG+ y +APP+. No te preocupes, ¡los valores serán entregados por nosotros!:
+.. +USER+: Nombre de usuario para obtener la imagen de nuestro registro de contenedores
+.. +PASS+: Contraseña del usuario
+.. +ORG+: Nombre de la compañía
+.. +APP+: Nombre de la aplicación
 
 .Ejemplo de variables en un ambiente Gitlab CI
 image::vars.png[Variables de entorno]
 
-* 2. Agregar un job donde se ejecute el contenedor.
+. Agregar un job donde se ejecute el contenedor.
 
 .En Gitlab CI, agregar:
 [source, yaml]
@@ -61,13 +61,13 @@ fluidasserts:
     script:
         - docker login fluid-docker.jfrog.io -u $USER -p $PASS
         - docker pull fluid-docker.jfrog.io/$ORG:$APP
-        - docker run -v /tmp:/tmp -e FLUIDASSERTS_STRICT="true" fluid-docker.jfrog.io/$ORG:$APP
+        - docker run -v /tmp:/tmp -e FA_STRICT="true" fluid-docker.jfrog.io/$ORG:$APP
     artifacts:
         paths:
             - /tmp/fluidasserts.log
 ----
 
-*NOTA:* La variable +FLUIDASSERTS_STRICT+ debe tener los valores +true+ o +false+. Si es +true+ y alguna de las vulnerabilidades está abierta, ¡el pipeline se romperá!
+*NOTA:* La variable +FA_STRICT+ debe tener los valores +true+ o +false+. Si es +true+ y alguna de las vulnerabilidades está abierta, ¡el pipeline se romperá!
 
 == 3. Requerimientos
 
@@ -83,8 +83,8 @@ fluidasserts:
 === Para integrar en un pipeline de CI
 
 * *Sistema operativo*:
-** Cualquier distribución basada en Linux que soporte DockerCE
-** Windows Server con HyperV y Docker
+** Cualquier distribución basada en Linux que soporte +DockerCE+
+** Windows Server con +HyperV+ y +Docker+
 ** MacOS
 * *Red*:
 ** Acceso al registro de contenedores https://fluid-docker.jfrog.io
