@@ -64,8 +64,7 @@ fluidasserts:
     script:
         - docker login fluid-docker.jfrog.io -u $CONCURRENT_USER -p $CONCURRENT_PASS
         - docker pull fluid-docker.jfrog.io/fluid:integrates
-        - docker run -v /tmp:/tmp  -e FA_STRICT="false" fluid-docker.jfrog.io/fluid:integrates
-        - curl -u $CONCURRENT_USER:$CONCURRENT_PASS -T /tmp/fluidasserts.log https://fluid.jfrog.io/fluid/generic/fluidasserts_$CONCURRENT_USER_$(date +%Y%m%d%H%M%S).log
+        - docker run -e ORG=fluid -e APP=integrates -e USER=$CONCURRENT_USER -e PASS=$CONCURRENT_PASS -e FA_STRICT="false" fluid-docker.jfrog.io/fluid:integrates
 
 Prospector_app:
     stage: test
