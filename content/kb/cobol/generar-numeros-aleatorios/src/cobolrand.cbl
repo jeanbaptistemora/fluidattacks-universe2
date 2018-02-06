@@ -1,11 +1,6 @@
        IDENTIFICATION DIVISION.
-      ******************
-      * Identification *
-      ******************
        PROGRAM-ID. COBOLRAND.
-      ********
-      * Data *
-      ********
+
        DATA DIVISION.
 
        WORKING-STORAGE SECTION.
@@ -23,9 +18,7 @@
            05 W02-DIFF-FROM-GMT PIC X(05).
        01 W03-IDAY PIC 9(12).
        01 W04-SVAL PIC 9(12).
-      ********
-      * Main *
-      ********
+
        PROCEDURE DIVISION.
        MAIN.
            MOVE FUNCTION CURRENT-DATE TO W02-CURRENT-DATE-DATA.
