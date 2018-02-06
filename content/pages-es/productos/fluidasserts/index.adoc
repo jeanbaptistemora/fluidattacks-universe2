@@ -61,8 +61,7 @@ fluidasserts:
     script:
         - docker login fluid-docker.jfrog.io -u $USER -p $PASS
         - docker pull fluid-docker.jfrog.io/$ORG:$APP
-        - docker run -v /tmp:/tmp -e FA_STRICT="true" fluid-docker.jfrog.io/$ORG:$APP
-        - curl -u $USER:$PASS -T /tmp/fluidasserts.log https://fluid.jfrog.io/fluid/generic/fluidasserts_$USER_$(date +%Y%m%d%H%M%S).log
+        - docker run -e ORG=$ORG -e APP=$APP -e USER=$USER -e PASS=$PASS -e FA_STRICT="true" fluid-docker.jfrog.io/$ORG:$APP
 ----
 
 *NOTA:* La variable +FA_STRICT+ debe tener los valores +true+ o +false+. Si es +true+ y alguna de las vulnerabilidades está abierta, ¡el pipeline se romperá!
