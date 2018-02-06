@@ -11,7 +11,6 @@ before_script:
     - echo $VAULT > deploy/containers/.vault.txt
     - sh env.sh
     - docker login registry.gitlab.com -u $DOCKER_USER -p $DOCKER_PASS
-    - apk update && apk add curl
 
 codequality:
   script:
