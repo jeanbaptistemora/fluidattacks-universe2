@@ -4,6 +4,7 @@ NC='\033[0m'
 ERRORS=0
 
 for FILE in $(find output -iname '*.html');do
+  sed -i 's/<span\ class=".\{1,3\}"><\/span>//g' $FILE
   echo -e ${GC}$FILE${NC};
   if ! tidy -e -q $FILE;then
     ERRORS=1;
