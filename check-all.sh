@@ -71,7 +71,7 @@ if pcregrep -Lr --include='\.adoc' ':description:' content; then echo -e "${GC}E
 
 # Check that the meta description has a minimum lenght of 50 characters and a maximum length of 300 characters
 for FILE in $(find content -iname '*.adoc'); do
-  if cat $FILE | tr -d "\n" | pcregrep --color -o ':description: .{300,}:key'; then
+  if cat $FILE | tr -d "\n" | pcregrep --color -o '([^:description: ].{300,}\n)'; then
     echo -e "${GC}Descriptions must have a maximum lenght of 300 characters. The previous description belongs to the file \"$FILE\"${NC}";
     ERRORS=1;
   fi
