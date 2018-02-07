@@ -49,7 +49,7 @@
               <li><a href="{{ SITEURL }}/kb/">KB >>&nbsp;</a></li>
             {% endif %}
             {% if "misc" not in page.category.name %}
-              <li><a href="../">{{ page.category }}</a></li>
+              <li><a href="../../#{{ page.category.name }}">{{ page.category }}</a></li>
             {% endif %}
         </ul>
       </div>
