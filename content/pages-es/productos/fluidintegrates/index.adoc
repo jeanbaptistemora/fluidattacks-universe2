@@ -310,6 +310,26 @@ image::chat.png[Chat]
 ==
 [role="int-text"]
 ===
+.Notificaciones Por Correo
+Se envían notificaciones vía correo electrónico a los usuarios de la cadena de valor del proyecto.
+Algunas de ellas son:
+
+* Cada semana se informa sobre las nuevas vulnerabilidades reportadas.
+* Cuando un usuario realiza un comentario sobre una vulnerabilidad.
+* Cuando un usuario informa que ya fue remediada una vulnerabilidad.
+* Cuando se verifica la remediación de una vulnerabilidad.
+===
+
+[role="int-img"]
+===
+image::correo.png[Correo]
+===
+==
+
+[role="int-row"]
+==
+[role="int-text"]
+===
 .Base De Conocimiento
 Los usuarios tienen acceso a la base de conocimiento (link:../../kb/[KB]) de FLUID.
 En esta se encuentran ejemplos de cómo cumplir con los requisitos de seguridad
