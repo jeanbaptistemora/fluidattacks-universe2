@@ -1,7 +1,7 @@
 :slug: kb/aspnet/proteger-cadenas-conexion/
 :category: aspnet
 :description: Nuestros ethical hackers explican cómo evitar vulnerabilidades de seguridad mediante la configuración segura de cadenas de conexión en ASP.NET. Las cadenas de conexión contienen información crítica en una aplicación web, por lo que deben estar bien protegidas en todo momento.
-:keywords: ASP.NET, Seguridad, Configuración, Cadenas de conexión.
+:keywords: ASP.NET, Seguridad, Configuración, Cadenas de conexión, Cifrar, RSA.
 :kb: yes
 
 = Proteger cadenas de conexión
@@ -114,12 +114,12 @@ aspnet_regiis -pd "connectionStrings" -app "/AppName"
 
 == Referencias
 
-. [[r1]] link:https://docs.microsoft.com/en-us/dotnet/framework/data/adonet/protecting-connection-information[Microsoft, Protecting Connection Information]
+. [[r1]] link:https://docs.microsoft.com/en-us/dotnet/framework/data/adonet/protecting-connection-information[Microsoft, Protecting Connection Information].
 
-. [[r2]] link:https://msdn.microsoft.com/es-es/library/bf7sd233(VS.80).aspx[Microsoft, connectionStrings]
+. [[r2]] link:https://msdn.microsoft.com/es-es/library/bf7sd233(VS.80).aspx[Microsoft, connectionStrings].
 
-. [[r3]] link:https://msdn.microsoft.com/en-us/library/53tyfkaw.aspx[Microsoft, Encrypting Configuration Information Using Protected Configuration]
+. [[r3]] link:https://msdn.microsoft.com/en-us/library/53tyfkaw.aspx[Microsoft, Encrypting Configuration Information Using Protected Configuration].
 
-. [[r4]] link:https://msdn.microsoft.com/en-us/library/zhhddkxy.aspx[Microsoft, Encrypting and Decrypting Configurations Sections]
+. [[r4]] link:https://msdn.microsoft.com/en-us/library/zhhddkxy.aspx[Microsoft, Encrypting and Decrypting Configurations Sections].
 
-. [[r5]] link:https://msdn.microsoft.com/es-es/library/k6h9cz8h(VS.90).aspx[Microsoft, Herramienta Registro de IIS]
+. [[r5]] link:https://msdn.microsoft.com/es-es/library/k6h9cz8h(VS.90).aspx[Microsoft, Herramienta Registro de IIS].
