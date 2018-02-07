@@ -106,45 +106,79 @@ fluidasserts:
 
 == 4. Ejemplos de exploits
 
-.Exploit 1: Verificar inyección SQL
+.ex1.py: Verificar inyección SQL
 [source, python, linenum]
 ----
+"""
+Test a SQL Injection vulnerability
+"""
+
 from fluidasserts.service import http
 
-url = 'https://example.com/test.php?id=1'
-http.has_sqli(url)
+URL = 'http://testphp.vulnweb.com/AJAX/infoartist.php?id=3%27'
+
+http.has_sqli(URL)
 ----
 
-.Exploit 2: Verificar enumeración de usuarios
+.Resultado de ejecucion ex1.py
+image::ex1.png[ex1]
+
+.ex2.py: Verificar fuerza bruta en formulario de login
 [source, python, linenum]
 ----
+"""
+Check if it's possible to bruteforce a login form
+"""
+
 from fluidasserts.service import http
 
-data = 'username=foo&password=bar'
+URL = 'http://testphp.vulnweb.com/userinfo.php'
+DATA = 'uname=foo&pass=bar'
+OK_TEXT = 'Smith'
+USER_LIST = ['admin', 'test']
+PASS_LIST = ['password', 'test', '123']
 
-http.has_user_enumeration('http://127.0.0.1:5000/userenum/fail', 'username', data=data)
+http.can_brute_force(URL, OK_TEXT, 'uname', 'pass', USER_LIST, PASS_LIST, data=DATA)
 ----
 
-.Exploit 3: Verificar seguridad de CAPTCHA
+.Resultado de ejecucion ex2.py
+image::ex2.png[ex2]
+
+.ex3.py: Verificar XSS
 [source, python, linenum]
 ----
-from fluidasserts.format import captcha
+"""
+Test a XSS vulnerability
+"""
 
-url = 'https://example.com/captchaimg.png'
-weak_img = 'weak.jpg'
+from fluidasserts.service import http
 
-captcha.is_insecure_in_url(url, 'KCKLR')
-captcha.is_insecure_in_image(weak_img, '9T795')
+URL = 'http://testphp.vulnweb.com/guestbook.php'
+BAD_TEXT = r"<script>alert\('Hacked by FLUID'\)</script>"
+
+DATA = 'name=test&text=%3Cscript%3Ealert%28%27Hacked+by+FLUID%27%29%3C%2Fscript%3E&submit=add+message'
+http.has_xss(URL, BAD_TEXT, data=DATA)
 ----
 
-.Exploit 4: Verificar si un puerto usa protocolos de cifrado seguros
+.Resultado de ejecucion ex3.py
+image::ex3.png[ex3]
+
+.ex4.py: Verificar si un formulario de login usa HTTPS
 [source, python, linenum]
 ----
-from fluidasserts.service import tcp
+"""
+Test if https is enforced on a login form
+"""
 
-tcp.is_port_insecure('127.0.0.1',80)
-tcp.is_port_insecure('127.0.0.1',443)
+from fluidasserts.service import http
+
+URL = 'http://testphp.vulnweb.com/login.php'
+
+http.is_not_https_required(URL)
 ----
+
+.Resultado de ejecucion ex4.py
+image::ex4.png[ex4]
 
 == Licencia
 
