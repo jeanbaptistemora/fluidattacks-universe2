@@ -72,11 +72,11 @@ En primer lugar se define la división +IDENTIFICATION DIVISION+^<<r3,[3]>>,<<r4
 ----
 . En la división +DATA DIVISION+<<r5,^[5]^>> se declaran tres variables:
 
-* +W01-FIRSTNAME+: El primer nombre de longitud máxima 10.
+* +W01-FIRSTNAME:+ El primer nombre de longitud máxima 10.
 
-* +W02-LASTNAME+: El apellido de longitud máxima 10.
+* +W02-LASTNAME:+ El apellido de longitud máxima 10.
 
-* +W03-FULLNAME+: El nombre completo compuesto por primer nombre 
+* +W03-FULLNAME:+ El nombre completo compuesto por primer nombre 
 y apellido de longitud máxima 10. 
 Desde este punto se puede notar que hay un error de diseño, 
 la longitud máxima para el nombre completo 
@@ -135,6 +135,14 @@ se despliega en pantalla una advertencia:
            DISPLAY "String overflow".
            STOP RUN.
 ----
+
+== Descargas
+
+Puedes descargar el código fuente 
+pulsando en el siguiente enlace:
+
+. [button]#link:src/cobolof.cbl[cobolof.cbl >>]# contiene 
+el código explicado anteriormente sin desbordamiento.
 
 == Referencias
 
