@@ -1,11 +1,6 @@
        IDENTIFICATION DIVISION.
-      ******************
-      * Identification *
-      ******************
        PROGRAM-ID. COBOLSHE.
-      ********
-      * Data *
-      ********
+
        DATA DIVISION.
 
        WORKING-STORAGE SECTION.
@@ -15,9 +10,7 @@
        01 W04-COUNT     PIC 9(002) VALUE 1.
        01 W05-CHAR      PIC X(001) VALUE "".
        01 W06-TEMP      PIC X(006) VALUE "".
-      ********
-      * Main *
-      ********
+
        PROCEDURE DIVISION.
        MAIN.
            MOVE "<script>alert(document.cookie); </script>" TO W01-INPUT
