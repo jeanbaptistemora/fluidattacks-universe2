@@ -261,6 +261,7 @@ image::explotacion-vulnerabilidad.png[Explotación De La Vulnerabilidad]
 Se encuentra la evolución de la vulnerabilidad a lo largo del tiempo,
 relacionando las fechas de reporte
 y los diferentes ciclos de cierre realizados.
+Esta sección es de gran utilidad para conocer la efectividad de los ciclos de cierre realizados.
 ===
 
 [role="int-img"]
