@@ -1,7 +1,7 @@
 :slug: kb/cobol/comprobar-fortaleza-contrasena-palabra/
 :category: cobol
-:description: TODO
-:keywords: TODO
+:description: Nuestros ethical hackers explican cómo evitar vulnerabilidades de seguridad mediante la programación segura en cobol al comprobar la fortaleza de las contraseñas tipo palabra. Los atacantes pueden obtener una contraseña por fuerza bruta por lo cual es importante contar con una contraseña segura.
+:keywords: Cobol, Seguridad, Fortaleza, Contraseña, Palabra, Buenas prácticas. 
 :kb: yes
 
 = Comprobar Fortaleza de Contraseñas Tipo Palabra

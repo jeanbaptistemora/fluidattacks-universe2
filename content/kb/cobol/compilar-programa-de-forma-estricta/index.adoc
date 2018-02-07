@@ -1,7 +1,7 @@
 :slug: kb/cobol/compilar-programa-de-forma-estricta/
 :category: cobol
-:description: TODO
-:keywords: TODO
+:description: Nuestros ethical hackers explican cómo evitar vulnerabilidades de seguridad mediante la programación segura en cobol al compilar de forma estricta el programa. Los mensajes de compilación dejan entrever rutas e información que puede ser utilizada para vulnerar una aplicación web.
+:keywords: Cobol, Programación, Seguridad, Compilación Estricta, Depurar, Buenas prácticas.
 :kb: yes
 
 = Compilar Programa de Forma Estricta

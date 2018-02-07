@@ -1,7 +1,7 @@
 :slug: kb/cobol/enmascarar-texto/
 :category: cobol
-:description: TODO
-:keywords: TODO
+:description: Nuestros ethical hackers explican cómo evitar vulnerabilidades de seguridad mediante la programación segura en cobol al enmascarar el texto ingresado por el usuario. La información sensible, por ejemplo usuarios y contraseñas deben ser enmascarados en aplicaciones de ambientes de producción.
+:keywords: Cobol, Seguridad, Enmascarar, Texto, Buenas Prácticas, Contraseña.
 :kb: yes
 
 = Enmascarar Texto

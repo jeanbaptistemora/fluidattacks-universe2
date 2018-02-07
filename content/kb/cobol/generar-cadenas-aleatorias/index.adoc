@@ -1,7 +1,7 @@
 :slug: kb/cobol/generar-cadenas-aleatorias/
 :category: cobol
-:description: TODO
-:keywords: TODO
+:description: Nuestros ethical hackers explican cómo evitar vulnerabilidades de seguridad mediante la programación segura en cobol al generar cadenas aleatorias. Los elementos aleatorios son muy utilizados en aplicaciones criptográficas y contribuyen a mejorar la seguridad general de la aplicación.
+:keywords: Cobol, Seguridad, Generar, Cadenas, Aleatorias, Números.
 :kb: yes
 
 = Generar Cadenas Aleatorias

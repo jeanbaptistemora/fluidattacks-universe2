@@ -1,7 +1,7 @@
 :slug: kb/cobol/generar-llaves/
 :category: cobol
-:description: TODO
-:keywords: TODO
+:description: Nuestros ethical hackers explican cómo evitar vulnerabilidades de seguridad mediante la programación segura en cobol al generar llaves criptográficas. Las llaves criptográficas son muy utilizadas para incrementar la seguridad de la información crítica como credenciales de acceso y autenticación.
+:keywords: Cobol, Seguridad, Generar, Llaves, Números, Aleatorios.
 :kb: yes
 
 = Generar Llaves

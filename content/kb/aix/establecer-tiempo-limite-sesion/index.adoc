@@ -1,7 +1,7 @@
 :slug: kb/aix/establecer-tiempo-limite-sesion/
 :category: aix
-:description: TODO
-:keywords: TODO
+:description: Nuestros ethical hackers explican cómo evitar vulnerabilidades de seguridad mediante la configuración segura en Unix del tiempo de sesión. Un atacante puede aprovecharse de un usuario inactivo para vulnerar una aplicación, es por ello que es importante limitar el tiempo de sesión de los usuarios.
+:keywords: Unix, Seguridad, Tiempo, Sesión, Limitar, Timeout.
 :kb: yes
 
 = Establecer Tiempo Límite para Sesión Inactiva
@@ -21,7 +21,7 @@ bajo las cuales la siguiente solución tiene sentido:
 == Solución
 
 El tiempo limite de sesión o timeout se refiere al periodo de tiempo determinado 
-por el cual una sesión permanecera activa 
+por el cual una sesión permanecerá activa 
 desde el momento en que el usuario deja de interactuar con determinado sistema. 
 Este limite de tiempo es definido por el administrador del sistema, 
 y una vez finaliza, la sesión del usuario que está interactuando con él, 

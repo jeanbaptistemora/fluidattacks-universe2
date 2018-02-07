@@ -1,7 +1,7 @@
 :slug: kb/cobol/liberar-recursos/
 :category: cobol
-:description: TODO
-:keywords: TODO
+:description: Nuestros ethical hackers explican cómo evitar vulnerabilidades de seguridad mediante la programación segura en cobol al liberar recursos. Al liberar recursos que no están siendo utilizados se mejora el rendimiento de la aplicación y la experiencia del usuario.
+:keywords: Cobol, Seguridad, Liberar, Recursos, Buenas Prácticas, SQL.
 :kb: yes
 
 = Liberar Recursos

@@ -1,7 +1,7 @@
 :slug: kb/apache/configurar-soporte-https/
 :category: apache
-:description: TODO
-:keywords: TODO
+:description: Nuestros ethical hackers explican cómo evitar vulnerabilidades de seguridad mediante la configuración segura en Apache de Canales seguros para el envío de información. Los canales seguros de información cifran los datos con SSL, lo que permite mejorar la seguridad de la aplicación.
+:keywords: Apache, Seguridad, Configuración, HTTPS, SSL, TLS.
 :kb: yes
 
 = Configurar Soporte HTTPS

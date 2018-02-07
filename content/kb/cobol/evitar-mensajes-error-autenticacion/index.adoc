@@ -1,7 +1,7 @@
 :slug: kb/cobol/evitar-mensajes-error-autenticacion/
 :category: cobol
-:description: TODO
-:keywords: TODO
+:description: Nuestros ethical hackers explican cómo evitar vulnerabilidades de seguridad mediante la programación segura en cobol al evitar emitir mensajes de error en autenticación. Los mensajes de error pueden contener información que puede ser aprovechada por un atacante para vulnerar la aplicación.
+:keywords: Cobol, Seguridad, Evitar, Autenticación, Error, Mensajes.
 :kb: yes
 
 = Evitar Emitir Mensajes de Errores en Autenticación

@@ -1,7 +1,7 @@
 :slug: kb/apache/habilitar-headers-seguridad/
 :category: apache
-:description: TODO
-:keywords: TODO
+:description: Nuestros ethical hackers explican cómo evitar vulnerabilidades de seguridad mediante la configuración segura en Apache habilitando los headers de seguridad. Los headers proporcionan información del cliente y/o servidor, además de proporcionar protección contra ataques comúnes, como los XSS.
+:keywords: Apache, Seguridad, Headers, Configuración
 :kb: yes
 
 = Habilitar Headers de seguridad 
