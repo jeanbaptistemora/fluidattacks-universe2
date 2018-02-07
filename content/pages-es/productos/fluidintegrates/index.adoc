@@ -6,8 +6,9 @@
 = FLUIDIntegrates
 
 Sistema donde confluyen todos los interesados
+(hacker, desarrolladores, gerentes de proyectos, auditores, gerentes de producto, etc),
 de la cadena de valor del proyecto.
-Busca acercar el desarrollador al tester,
+Busca acercar el desarrollador al hacker,
 de modo que las vulnerabilidades se solucionen
 de manera eficiente y eficaz.
 También brinda información en tiempo real a los tomadores de decisiones
