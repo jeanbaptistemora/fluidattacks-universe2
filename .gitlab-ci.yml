@@ -61,9 +61,13 @@ manage:
 fluidasserts:
     stage: test
     script:
+        - docker network create --subnet=192.168.200.0/24 integrates_test
+        - docker run -d --name "integrates_test" --env-file env.list --network integrates_test --ip 192.168.200.100 -p 8000:8000 -t registry.gitlab.com/fluidsignal/integrates:base python /usr/src/app/manage.py runserver 0.0.0.0:8000
         - docker login fluid-docker.jfrog.io -u $CONCURRENT_USER -p $CONCURRENT_PASS
         - docker pull fluid-docker.jfrog.io/fluid:integrates
-        - docker run -e ORG=fluid -e APP=integrates -e USER=$CONCURRENT_USER -e PASS=$CONCURRENT_PASS -e FA_STRICT="false" fluid-docker.jfrog.io/fluid:integrates
+        - docker run --network integrates_test -e ORG=fluid -e APP=integrates -e USER=$CONCURRENT_USER -e PASS=$CONCURRENT_PASS -e FA_STRICT="false" fluid-docker.jfrog.io/fluid:integrates
+        - docker stop integrates_test && docker rm integrates_test
+        - docker network rm integrates_test
 
 Prospector_app:
     stage: test
