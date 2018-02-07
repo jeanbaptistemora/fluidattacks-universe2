@@ -4,16 +4,17 @@ WORKDIR /app
 
 COPY . /app
 
-# 17-19: Install basic dependencies to set sources lists 
-# 20-22: Set sources for NodeJS and Yarn
-# 23-44: Install all necessarty dependencies
-# 45-46: Download tidy-html binary and install it
-# 47-50: Clone the necessaty JS files from the Tipue repository in order to run the plugin
-# 51-54: Clone just the plugins that are being used in this project with Pelican 
-# 55-56: Clone the pleican-redirect plugin (aside from the official repository) and make it recognizable as a module
-# 57: Change the default highlighter to Pygments
-# 58: Enable every rule of sass-lint
-# 59-67: Erase files and directories that are not needed during runtime
+# 18-20: Install basic dependencies to set sources lists 
+# 22-23: Set sources for NodeJS and Yarn
+# 24-46: Install all necessarty dependencies
+# 47-48: Download tidy-html binary and install it
+# 49-52: Clone the necessaty JS files from the Tipue repository in order to run the plugin
+# 53-56: Clone just the plugins that are being used in this project with Pelican 
+# 57-58: Clone the pleican-redirect plugin (aside from the official repository) and make it recognizable as a module
+# 59: Change the default highlighter to Pygments
+# 60: Enable every rule of sass-lint
+# 61-63: Add custom blocks to the asciidoc.conf file
+# 64-72: Erase files and directories that are not needed during runtime
 RUN apt-get update -qq && apt-get install -qqy \
         curl \
         gnupg && \
@@ -26,6 +27,7 @@ RUN apt-get update -qq && apt-get install -qqy \
         gcc \
         git \
         libcurl4-openssl-dev \
+        libffi-dev \
         libssl-dev \
         make \
         nodejs \
@@ -56,10 +58,13 @@ RUN apt-get update -qq && apt-get install -qqy \
         echo "from .pelican_redirect import *" > __init__.py && \
     sed -i 's/source-highlight$/pygments/' /etc/asciidoc/asciidoc.conf && \
     sed -i 's/0/1/' /app/node_modules/sass-lint/lib/config/sass-lint.yml && \
+    sed -i '/#\ Paragraph/,+4d' /etc/asciidoc/html5.conf && \
+        head -n 7 /app/asciidoc.conf >> /etc/asciidoc/html5.conf && \
+        tail -n +9 /app/asciidoc.conf >> /etc/asciidoc/asciidoc.conf && \
     cd /app && rm -rf /var/lib/apt/lists/* \
-        Cmake \
+        asciidoc.conf \
         Dockerfile \
-        packages.json \
+        package.json \
         js-files.txt \
         plugin_list.txt \
         requirements.txt \
