@@ -93,13 +93,6 @@
           <p>{{article.about2}}</p>
         </td></tr>
       </table>
-
-      {% if article.share_post and article.status != 'draft' %}
-        <section>
-          <!-- Go to www.addthis.com/dashboard to customize your tools -->
-          <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5a37e74c4b1448ce"></script>
-        </section>	
-      {% endif %}
       <br/>
       {% if article.related_posts %}		
         <h4>{{ gettext('Related') }}</h4>
