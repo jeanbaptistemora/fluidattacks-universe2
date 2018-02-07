@@ -26,8 +26,8 @@ para garantizar la autenticidad de información sensible<<r2,^[2]^>>.
 
 . Cada uno de los objetos almacenados 
 en el sistema de archivos +QSYS.LIB+ 
-están asociados a un conjunto de atributos 
-o metadatos que contienen información extra del objeto tales como:
+están asociados a un conjunto de atributos o metadatos 
+que contienen información extra del objeto tales como:
 
 * Propietario.
 
@@ -60,7 +60,7 @@ haciendo uso de +QUSROBJD+.
 ----
 +
 En esta división mediante la sentencia +PROGRAM-ID+, 
-se denomina al programa como +COBOLOBJ+.
+se denomina al programa como +COBOLOBJ+. 
 Cabe resaltar que el uso de +IDENTIFICATION DIVISION+ 
 no se limita a establecer el nombre de un programa en +COBOL+. 
 Al final del presente artículo,^<<r3,[3]>>,<<r4,[4]>>^ 
@@ -71,14 +71,14 @@ relacionada al uso de dicha división.
 y dentro de la sección +WORKING-STORAGE SECTION+, 
 se declaran tres estructuras de datos:
 
-* +DATA-TYPES+: los diferentes tipos de datos 
-para ser reusados en las demás variables.
+* +DATA-TYPES:+ los diferentes tipos de datos 
+para ser reutilizados en las demás variables.
 
-* +REQUIRED-PARAMETER+: parámetros obligatorios de la biblioteca +QUSROBJD+ 
+* +REQUIRED-PARAMETER:+ parámetros obligatorios de la biblioteca +QUSROBJD+ 
 que contiene información acerca del nombre del objeto, su tipo 
 y biblioteca en la que se encuentra el mismo.
 
-* +OPTIONAL-PARAMETER+: parámetros opcionales de la biblioteca +QUSROBJD+ 
+* +OPTIONAL-PARAMETER:+ parámetros opcionales de la biblioteca +QUSROBJD+ 
 que contendrá el detalle del error en caso de que ocurra alguno.
 
 +
@@ -108,9 +108,9 @@ que contendrá el detalle del error en caso de que ocurra alguno.
 ----
 
 . Copiamos de las estructuras de datos 
-para el llamado a la intefaz de aplicación +QUSROBJD+. 
+para el llamado a la interfaz de aplicación +QUSROBJD+. 
 Al final de este artículo<<r6,^[6]^>> 
-puede encontrar más ejemplos relacionados con QUSROBJD:
+puede encontrar más ejemplos relacionados con +QUSROBJD+:
 +
 [source, cobol,linenums]
 ----
@@ -180,7 +180,13 @@ se despliega en pantalla el +ID+ de la excepción:
        STOP RUN.
 ----
 
-* Código de ejemplo: link:src.zip[src.zip]
+== Descargas
+
+Puedes descargar el código fuente 
+pulsando en el siguiente enlace:
+
+. [button]#link:src/cobolobj.cbl[cobolobj.cbl >>]# contiene 
+el código explicado anteriormente para trabajar con atributos de objetos.
 
 == Referencias
 

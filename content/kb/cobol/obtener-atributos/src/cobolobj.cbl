@@ -1,11 +1,6 @@
        IDENTIFICATION DIVISION.
-      ******************
-      * Identification *
-      ******************
        PROGRAM-ID. COBOLOBJ.
-      ********
-      * Data *
-      ********
+
        DATA DIVISION.
 
        WORKING-STORAGE SECTION.
@@ -25,9 +20,7 @@
            02 O-RESERVED         PIC X(01).
            02 O-EXCEPTION-DATA   PIC X(240).
        COPY QUSROBJD OF QSYSINC-QCBLLESRC.
-      ********
-      * Main *
-      ********
+
        PROCEDURE DIVISION.
        MAIN.
            DISPLAY "Nombre del objeto: ".
