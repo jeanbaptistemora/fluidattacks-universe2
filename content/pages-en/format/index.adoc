@@ -855,6 +855,36 @@ Line 2
 Line 3
 ----
 
+==== Source Code from file
+
+The path to the file must be absolute
+and according to the container's filesystem. +
+In the source,
+there must not be a space
+between the path and the square brackets.
+The space was placed,
+so the file was not rendered
+in the literal block.
+
+* Source
++
+....
+.Code from file
+[source, gherkin, linenums]
+----
+ include::/web/content/pages-en/format/script.feature [] -> No space
+----
+....
+
+
+* Render
++
+.Code from file
+[source, gherkin, linenums]
+----
+include::/web/content/pages-en/format/script.feature[]
+----
+
 ==== Code Inside a List
 
 * Source
