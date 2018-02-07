@@ -79,13 +79,13 @@ h1 {
 
 h2 {
   @include hn;
-  @include anchor-size(21px, 9px, -14px);
+  @include anchor-size(21px, 9px, -16px);
   font-size: 30px;
 }
 
 h3 {
   @include hn;
-  @include anchor-size(18px, 5px, -12px);
+  @include anchor-size(18px, 5px, -14px);
   font-size: 24px;
 }
 
