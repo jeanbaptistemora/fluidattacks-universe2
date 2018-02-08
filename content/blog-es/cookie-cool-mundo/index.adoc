@@ -56,8 +56,8 @@ sabremos que nos quiere decir esta cookie.
 alert (document.cookie);
 ----
 
+.Alerta que nos muestra la información de la cookie
 image::alerta.png[alerta]
-.*_Alerta que nos muestra la información de la cookie_*
 
 Bien ahora sabemos algo más y es que la variable isAdmin es igual a 0, 
 suponemos que la debemos cambiar a 1 para pasar este reto.
@@ -66,8 +66,8 @@ Ahora que sabemos leer la información de una cookie, vamos a proceder a
 editarla y para esto debemos instalarle un plugin a nuestro navegador llamado:
 cookie editor en inglés (para mozilla firefox):
 
+.Cookie editor para el mozilla firefox
 image::editor.png[editor]
-.*_Cookie editor para el mozilla firefox_*
 
 Una vez instalado este plugin, reiniciamos el navegador y procedemos a 
 implementar nuestro nuevo editor de galletas informáticas!
@@ -75,16 +75,16 @@ implementar nuestro nuevo editor de galletas informáticas!
 En nuestro cookie editor buscamos el sitio web en cuestión, en nuestro caso es 
 Challengeland:
 
+.Cookie editor funcionando
 image::editor-2.png[editor-run]
-.*_Cookie editor funcionando_*
 
 Podemos ver toda la información de nuestra cookie y editarla en los campos que 
 se muestran en la imagen de abajo, para nuestro ejemplo nos ocuparemos 
 simplemente del campo de content el cual es igual a 0. Cambiamos este valor por 
 1 (suponiendo que es el valor que necesitamos) y guardamos los cambios.
 
+.Un vistazo a la información de nuestra galleta
 image::informacion.png[informacion]
-.*_Un vistazo a la información de nuestra galleta_*
 
 Bien, ahora actualizamos nuestra página para enviarle al servidor nuestra 
 cookie modificada, y pasa algo! La cookie mas cool del mundo nos revela la 

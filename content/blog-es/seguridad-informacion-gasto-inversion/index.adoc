@@ -29,8 +29,8 @@ plantearnos interrogantes sobre el costo/beneficio del uso de nuevas
 tecnologías y procesos y ver que siempre hay un riesgo asociado que debemos 
 mitigar.
 
+.Estadísticas de amenazas a la seguridad según Verizon en el 2016
 image::estadistica.png[estadistica]
-.*_Figura 1: Estadísticas de amenazas a la seguridad según Verizon en el 2016_*
 
 Imaginemos por un segundo que un día llegáramos a nuestro trabajo y nos 
 encontráramos con la noticia de que parte de la información de la empresa, de 
@@ -48,8 +48,8 @@ costo/beneficio y que la seguridad de la información debe ser visto como un
 proceso, de los muchos procesos que pueden manejar una empresa y no un gasto 
 como algunos lo ven.
 
+.Seguridad en latinoamerica Rescatado de http://www.portantier.com
 image::informacion.png[latinoamerica]
-.*_Figura 2: Seguridad en latinoamerica Rescatado de http://www.portantier.com_*
 
 Obviamente un sistema de seguridad de la información debe estar limitado por un 
 alcance y por el ROSI (Return On Security Investment), es decir que dependiendo 

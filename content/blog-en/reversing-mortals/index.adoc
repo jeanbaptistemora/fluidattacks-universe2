@@ -44,8 +44,8 @@ http://yoire.com/?mo=Challenges&path=challenges/reversing[Yoire.com Reversing]
 Our task here is to obtain the serial for the executable file. Simple but
 great for learning purposes.
 
+.Challenge Crackme Average on yoire.com
 image::image1.png[challenge]
-.*_Figure 1: Challenge Crackme Average on yoire.com_*
 
 To accomplish our task we need a debugger. The debugger we will be using is the
 very well known OllyDbg. A complete installation guide and user manual can be
@@ -67,8 +67,8 @@ gives us two options. Check serial or close.
 In order to understand what the program does we will just enter any serial and
 check it. We want to see what happens.
 
+.Result after checking an incorrect serial
 image::image2.png[result]
-.*_Figure 2: Result after checking an incorrect serial_*
 
 After we enter an incorrect serial we get the following message "Sorry the
 serial is invalid. :(". You might think this doesn't help us at all but in fact
@@ -77,8 +77,8 @@ it gives us the starting point we need. Keep this message nearby.
 Let's open the executable file in olly and check out if assembly is as
 difficult as they say.
 
+.exe file on OllyDbg
 image::image3.png[ollydbg]
-.*_Figure 3: exe file on OllyDbg_*
 
 Once the file loads, we can see that we have the registers on the top right,
 the stack on the bottom right, the hex dump on the bottom left and the main
@@ -96,16 +96,16 @@ where it compares my input with the correct serial.
 Olly has a great feature for this, right-click on the main screen - search for
 - All referenced text strings.
 
+.Search for all referenced text strings
 image::image4.png[search]
-.*_Figure 4: Search for all referenced text strings_*
 
 A new window pops up with the results. The window contains all the strings that
 are referenced in the program. Here we can see the message we set as our
 starting point and also the message that is displayed when we enter the correct
 serial.
 
+.Search for all referenced text strings
 image::image5.png[search-text]
-.*_Figure 5: Search for all referenced text strings_*
 
 Debugging pretty much consist on setting breakpoints where we think are needed
 and analysing the execution of the program before, during and after the
@@ -124,8 +124,8 @@ functions, they allow you to set breakpoint where they need to be set and
 obtain valuable information that will allow you to crack the exe. We will go
 ahead and set a break point in that function.
 
+.Setting breakpoints
 image::image6.png[breakpoint]
-.*_Figure 6: Setting breakpoints_*
 
 With the breakpoint set, we can hit F9 to run the program until it reaches the
 breakpoint. The program will halt at the GetDigItemText instruction and wait
@@ -134,16 +134,16 @@ it does immediately after. If we hit F8 to step over the instructions and keep
 an eye out for what it compares against, in the first CMP we can see that it
 compares my first char 'p' with the hex 63.
 
+.Check out the CMP!!
 image::image7.png[cmp]
-.*_Figure 7: Check out the CMP!!_*
 
 After the comparison we can note that the JNZ is taken. Since the two values
 compared are not equal, JNZ is executed. After the jump the program gives us
 the invalid serial message and exits. Before we try another password let's
 understand what the program is performing all the comparisons against.
 
+.All the comparisons
 image::image8.png[comparison]
-.*_Figure 8: All the comparisons_*
 
 We have the hex values: 63, 68, 61, 72, 62, 79, 63, 68, 61, 72. And note that
 if the last jump is not taken then we will land in the correct serial portion
@@ -152,8 +152,8 @@ Now all we need to do is pull out our handy http://www.asciitable.com/[ascii
 table] and figure out the serial.
 'c''h''a''r''b''y''c''h''a''r' we have our answer. Let's test it out.
 
+.Correct serial - Cracked!!
 image::image9.png[cracked]
-.*_Figure 9: Correct serial - Cracked!!_*
 
 There we have it. Our first reversing. It's awesome!
 

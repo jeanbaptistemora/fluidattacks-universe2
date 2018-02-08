@@ -30,8 +30,8 @@ image::cifrado.png[cifrado]
 No hay que confundir el cifrado que es alterar un mensaje, con ocultar. La esteganografía es la disciplina que se encarga de ocultar 
 a través de diversas técnicas que generalmente se combinan con el proceso de cifrado como hablaban en *artículos anteriores.*
 
+.Esteganografía vs. Cifrado – TuxyLinux
 image::cifrado.gif[estego-cifrado]
-.*_Esteganografía vs. Cifrado – TuxyLinux_*
 
 El objetivo principal de la criptografía es evitar que el contenido sea interpretado y el objetivo de la esteganografía es evitar 
 que la existencia del contenido sea conocida.
@@ -42,8 +42,8 @@ que la existencia del contenido sea conocida.
 
 Es un cifrado que consiste en usar una clave que tanto el emisor como el receptor conocen.
 
+.Cifrado simétrico- https://www.ibiblio.org/[ibiblio]
 image::simetrico.gif[simetrico]
-.*_Cifrado simétrico- https://www.ibiblio.org/[ibiblio]_*
 
 Este algoritmo realiza operaciones de http://unicrom.com/compuerta-xor-o-exclusiva/[XOR] (Or exclusivo)
 https://es.khanacademy.org/computing/computer-science/cryptography/modarithmetic/a/modular-addition-and-subtraction[suma modular] y
@@ -86,8 +86,8 @@ Este método usa un par de claves para el envío de mensajes. Estas claves perte
 el mensaje. Una clave es pública y la otra es privada, el emisor cifra el mensaje con la clave pública y el receptor descifra 
 el mensaje con la clave privada.
 
+.Cifrado Asimétrico- https://msdn.microsoft.com/en-us/library/ff650720.aspx[Microsoft]
 image::asimetrico.png[asimetrico]
-.*_Cifrado Asimétrico- https://msdn.microsoft.com/en-us/library/ff650720.aspx[Microsoft]_*
 
 * *RSA* (Rivest, Shamir y Adleman): Los mensajes enviados usando este algoritmo se representan mediante números y el funcionamiento
 se basa en el producto de dos primos grandes -mayores que 10100- elegidos al azar para conformar la clave de descifrado.

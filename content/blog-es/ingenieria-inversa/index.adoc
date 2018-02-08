@@ -42,8 +42,8 @@ desarrollen aplicaciones “open source” (de código abierto) que compiten con
 aplicaciones y programas privados, por ejemplo el software OpenOffice compite 
 con el Microsoft Office, y el sistema operativo Linux compite con Windows.
 
+.John Schreiner – https://illustrationonline.com/[IlustrationOnline]
 image::inversa.png[inversa]
-.*_John Schreiner – https://illustrationonline.com/[IlustrationOnline]_*
 
 La comunidad de software libre se ha transformado en todo un movimiento 
 filosófico/ideológico que busca democratizar el software y la tecnología
@@ -69,8 +69,8 @@ es un programa privado, al cual le debemos hacer ingeniería inversa para
 extraerle información. Nos indican que la contraseña para pasar de nivel está 
 en una imagen BMP (imagen de mapa de bits) que se encuentra dentro del programa.
 
+.Reto Reversing – http://challengeland.co/[Challengeland]
 image::challenge.png[reto]
-.*_Reto Reversing – http://challengeland.co/[Challengeland]_*
 
 Vamos a utilizar un software gratuito que se encuentra en internet, el 
 software se llama http://www.nirsoft.net/utils/resources_extract.html[Resource-Extract] 
@@ -82,8 +82,8 @@ Filename/Wildcard ponemos nuestro ejecutable y en el campo Destination Folder,
 la carpeta donde queremos encontrar nuestros archivos extraídos, también es 
 posible seleccionar también los recursos que deseamos extraer del ejecutable.
 
+.Herramienta de ingeniería inversa – Resource-Extract
 image::reverse-tool.png[tool]
-.*_Herramienta de ingeniería inversa – Resource-Extract_*
 
 Pulsamos el botón Start y el software empezará a extraer todos los recursos que 
 le hayamos indicado. Podemos ver una imagen BMP en la carpeta que destinamos 

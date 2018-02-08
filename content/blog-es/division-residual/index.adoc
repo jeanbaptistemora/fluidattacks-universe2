@@ -19,8 +19,8 @@ lo que sobra de una división entre dos enteros, así pues el residuo de *2/2* e
 igual a *0* ya que el dos está una sola vez en el dos mas CERO. Pero el residuo 
 de *3/2* es igual a *1* ya que el dos está una sola vez en el tres mas UNO.
 
+.Ejemplo
 image::ejemplo.png[ejemplo]
-.*_Ejemplo_*
 
 Mas concretamente: "el resto o residuo de una división de dos números enteros 
 es el número que se le ha de restar al dividendo para que sea igual a un 

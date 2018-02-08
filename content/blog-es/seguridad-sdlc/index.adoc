@@ -24,8 +24,8 @@ integra para garantizar un despliegue continuo, donde la construcción, prueba y
 liberación de software sea más rápido y eficiente. Como todos hacen parte del 
 equipo ¿En que momento debemos llamar al equipo de seguridad?
 
+.Getting the Sec into DevSecOps – Whose Job is it Really? by https://info.whitehatsec.com/1116-Webinar-451SecuringDevOps-LP.html[WhiteHat Secuity]
 image::sdlc1.png[sdlc]
-.*_Getting the Sec into DevSecOps – Whose Job is it Really? by https://info.whitehatsec.com/1116-Webinar-451SecuringDevOps-LP.html[WhiteHat Secuity]_*
 
 Para empezar dejemos claro a qué nos referimos con DevOps porque conceptos y 
 filosofías existen muchas, lo importante es tener claro que no solo es un tema 

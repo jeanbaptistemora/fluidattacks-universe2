@@ -24,8 +24,8 @@ porque es importante la programación, y de esto esta claro que la optimización
 de algoritmos, la lógica de la programación nacen de aprender y conocer modelos 
 matemáticos.
 
+.Relación Programación, Matemáticas y creatividad
 image::relacion.png[relacion]
-.*_Figura 1: Relación Programación, Matemáticas y creatividad_*
 
 Estos modelos están en muchos de los algoritmos que usan nuestras aplicaciones 
 y juegos, como por ejemplo para el movimiento en un auto se usa la formula de 

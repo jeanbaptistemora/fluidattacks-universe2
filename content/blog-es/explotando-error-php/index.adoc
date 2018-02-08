@@ -36,8 +36,8 @@ Este reto consiste en dos pasos:
 El primer paso consiste en detectar la vulnerabilidad y explotarla, la página
 web del reto se nos presenta de la siguiente manera:
 
+.Vulnerabilidad detectada
 image::error.png[reto]
-.*_Figura1: Vulnerabilidad detectada_*
 
 [quote]
 Notice: Undefined variable: ip in /www/net-force.nl/challenge/level402/protected.php on line 13.
@@ -59,8 +59,8 @@ tiene acceso 213.75.238.147.
 
 Y efectivamente penetramos el sitio web y pasamos al segundo paso de este reto.
 
+.Segundo paso del reto
 image::solucion.png[solucion]
-.*_Figura2: Segundo paso del reto_*
 
 Como se ve en la Figura2 se da click en link Proceed para proceder, pero 
 sorpresivamente se muestra otra página web con Acceso denegado. Para resolver
@@ -70,8 +70,8 @@ la url en cuestión https://net-force.nl/challenge/level402/auth.php
 [quote]
 curl -I https://net-force.nl/challenge/level402/auth.php
 
+.Utilizando curl
 image::curl.png[curl]
-.*_Figura3: Utilizando curl_*
 
 En la Figura3 se ve claramente el protocolo, tipo de servidor, tipo de 
 contenido, como esta cifrado, etc.. Pero lo más importante es la variable 

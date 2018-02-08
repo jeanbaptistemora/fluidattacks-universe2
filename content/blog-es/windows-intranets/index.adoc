@@ -26,8 +26,8 @@ que usar diferentes recursos pertenecientes a la organización surgiendo de esta
 Una intranet es una red privada que utiliza todas las funcionalidades y recursos de Internet de tal manera que concede el 
 intercambio de información de forma rápida y, como su nombre lo dice, privada y controlada dentro de una organización.
 
+.What is an Intranet?- https://axerosolutions.com/intranet-software/what-is-an-intranet.aspx[Axero]
 image::intranet.png[intranet]
-.*_What is an Intranet?- https://axerosolutions.com/intranet-software/what-is-an-intranet.aspx[Axero]_*
 
 Pero así como usa todos los beneficios de Internet, en igual medida, también se ve afectado por todos los riesgos de seguridad 
 que tiene el primero. Uno de esos riesgos es que personas no autorizadas ingresen a la red interna y puedan ver y extraer 
@@ -50,8 +50,8 @@ ante los recursos de una red. Por su parte, NTLM es un protocolo de autenticaci�
 uso de nombres de usuario y contraseñas cifradas al momento de autenticarse en la red con el fin de proteger la información de ésta. 
 Y, SPNEGO es un estándar que establece determinadas reglas de comunicación en el modelo cliente servidor.
 
+.Funcionamiento de IWA
 image::iwa.png[iwa]
-.*_Funcionamiento de IWA_*
 
 Una vez definidos los protocolos en los que se apoya IWA, es absolutamente necesario explicar de una manera comprensible cuál es 
 su funcionamiento:

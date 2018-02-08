@@ -43,8 +43,8 @@ puede personalizar para hallar archivos ocultos con extensiones tales como:
 Este reto propone una única página donde hay un formulario donde se pueden
 ingresar credenciales de usuario con opción para cargar un archivo:
 
+.Formulario
 image::img1.png[reto]
-.*_Figura1: Formulario_*
 
 Hay dos formas de hallar un directorio oculto en este sitio web:
 
@@ -54,8 +54,8 @@ el directorio revelado (e.g exploit.php con <??>).
 *La segunda* y mas entretenida aún es utilizar un buscador de directorios
 ocultos, en este caso se implementa *Dirsearch*:
 
+.Dirsearch en acción
 image::img2.png[dirsearch]
-.*_Figura2: Dirsearch en acción_*
 
 Siguiendo las indicaciones que brinda el desarrollador se ejecuta el siguiente
 comando donde -f (forzar a utilizar extensiones) -e (tipo de extensión, php en
@@ -70,8 +70,8 @@ python3 Dirsearch.py -f -e php -u http://challengeland.co/Realistic/216cb95883/
 En la siguiente imagen se ve que *Dirsearch* encontró un nuevo directorio:
 */images* y además un nuevo archivo */index.php* (demasiado obvio):
 
+.Hallazgo de Dirsearch
 image::img3.png[hallazgo]
-.*_Figura3: Hallazgo de Dirsearch_*
 
 *Nota:* Dirsearch también indica que tipo de código devuelve el protocolo *http*
 (301, 403, 404, etc...)
@@ -84,9 +84,8 @@ _http://challengeland.co/Realistic/216cb95883/images_
 
 Y como resultando se obtendría:
 
-
+.Nuevo hallazgo de Dirsearch
 image::img4.png[hallazgo-2]
-.*_Figura4: Nuevo hallazgo de Dirsearch_*
 
 Se ha encontrado un nuevo archivo en el directorio: /images/shell.php
 

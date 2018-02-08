@@ -37,7 +37,7 @@ over authentication with more traditional methods like user name/password.
 2. No need to remember and renew passwords
 (Onelogin, 2016)
 
-.Figure 2: SAML flow
+.SAML flow
 image::image1.png[flow]
 
 SAML SSO works by transferring the user’s identity from one place, the identity
@@ -65,7 +65,7 @@ to place himself between all communications between the service provider and
 the identity provider he can then intercept and modify the SAML messages being
 exchanged however he sees fit.
 
-.Figure 3: SAML message structure
+.SAML message structure
 image::image3.png[structure]
 
 

@@ -38,8 +38,8 @@ comprometerían el buen funcionamiento del software, y eso sin mencionar que
 podría verse comprometida toda la información utilizada por el programa para su
 desempeño.
 
+.Concolic Execution: tomado de kaist.edu
 image::concolic.png[concolic]
-.*_Concolic Execution: tomado de kaist.edu_*
 
 Una de esas pruebas se conoce como Concolic Execution o Concolic Testing, esta
 prueba de verificación de software analiza el funcionamiento de los programas
@@ -54,8 +54,8 @@ que el software toma a partir de los valores dado.
 
 Veamos un ejemplo. Tomemos el siguiente fragmento de código java.
 
+.Código de ejemplo
 image::codigo.png[ejemplo]
-.*_Imagen 1: Código de ejemplo_*
 
 En él, se tienen tres variables X, Y y Z cuyo valor es la multiplicación de Y por 2.
 Además, hay dos condiciones, pero como se ve, en la segunda existe un error que

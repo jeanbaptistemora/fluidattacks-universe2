@@ -44,8 +44,8 @@ In this challenge, the folks at yashira.org have come to us with the capture
 file of all the traffic from the access point using WEP encryption. Our task
 is to find out the WEP key.
 
+.Challenge 182 on yashira.org
 image::image1.png[reto]
-.*_Figure 1: Challenge 182 on yashira.org_*
 
 To solve this challenge we are going to be using aircrack. Aircrack is a
 complete suite of tools that are used to assess Wi-Fi network security.
@@ -71,8 +71,8 @@ it. So let's open a terminal on kali and run the basic aircrack command on it
 $aircrack-ng redwifi.cap. This command will attempt to decrypt the WEP key with
 the PTW method by default unless specified otherwise.
 
+.aircrack-ng redwifi.cap command output
 image::image2.png[aircrack]
-.*_Figure 2: aircrack-ng redwifi.cap command output_*
 
 From this we see that we do not have enough IV packets to easily crack the key,
 we need an other way to do this. A dictionary attack is good but in order for
@@ -98,16 +98,16 @@ Telefonica routers based on the BSSID and the ESSID. Wlandecrypter is one of
 them. We can generate a dictionary with the following command:
 $wlandecrypter [BSSID] [ESSID] wordlistdoc.lst
 
+.Generating a dictionary with wlandecrypter
 image::image3.png[dictionary]
-.*_Figure 3: Generating a dictionary with wlandecrypter_*
 
 Now that we have the capture file and the dictionary file we can move on to the
 actual attack. We will be performing a brute force attack using a dictionary to
 reduce the number of forceful key attempts. To do this we can use the following
 command: $aircraack -w wordlistdoc.lst redwifi.cap
 
+.Cracking a WEP key with aircrack-ng and a dictionary
 image::image4.png[cracking]
-.*_Figure 4: Cracking a WEP key with aircrack-ng and a dictionary_*
 
 And there it is, we managed to successfully crack and decrypt the WEP key.
 

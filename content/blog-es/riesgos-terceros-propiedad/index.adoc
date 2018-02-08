@@ -57,8 +57,8 @@ licencia, vulnerabilidades conocidas, tiempos de actualización, soporte, etc)
 . Utilizar técnicas que ayuden a detectar vulnerabilidades en el desarrollo 
 tanto antes de liberarlo como en el proceso de adquisición.
 
+.Secure Software Requires the Right Tools – https://onlinexperiences.com[Jonathan Knudsen]
 image::2.png[secure]
-.*_Secure Software Requires the Right Tools – https://onlinexperiences.com[Jonathan Knudsen]_*
 
 Las herramientas que pueden hacer parte del robot army están separadas por el 
 tipo de análisis que realizan y de acuerdo a esto se utilizan en diferentes 

@@ -27,8 +27,8 @@ errores.
 Para esto resolveremos los retos que veremos a continuación usando herramientas 
 como metasploit, medusa y ncrack.
 
+.Errores de capa 8
 image::error.png[error]
-.*_Figura 1. Errores de capa 8_*
 
 Uno de los errores más comunes de los administradores es dejar las credenciales
 de autenticación de las aplicaciones o dispositivos por defecto, ejemplo de 
@@ -57,8 +57,8 @@ cuestión de tiempo nos arroja las credenciales que fueron validadas. Es así
 como en cuestión de tiempo y un poco de astucia al momento de crear los 
 diccionarios podríamos conseguir el acceso.
 
+.Ataque de fuerza bruta
 image::ataque.png[ataque]
-.*_Figura 2. Ataque de fuerza bruta_*
 
 *Nota:*  Si queremos saber más de como usar esta herramienta podemos consultar
 el manual de Linux “man ncrack” o en la fuente oficial.
@@ -72,5 +72,5 @@ personas deben usar contraseñas fuertes, no usar palabras de diccionarios o
 palabras con las que puedan relacionarnos como es nuestros gustos, direcciones, 
 fechas u otras.
 
+.Principio de las contraseñas fuertes Fuente: @UofMaryland
 image::powerful.png[password]
-.*_Figura 3. Principio de las contraseñas fuertes Fuente: @UofMaryland_*

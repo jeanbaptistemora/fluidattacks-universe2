@@ -56,9 +56,8 @@ configurados para usar lenguaje SQL.
 
 En este reto nos proponen obtener acceso utilizando como pista: una condición.
 
-
+.Imagen del reto
 image::img1.png[reto]
-.*_Figura1: Imagen del reto_*
 
 La inyección más fácil de todas es la que utiliza la condición *OR* para hacer 
 pasar siempre un argumento como verdadero, y obtener acceso a la base de datos.
@@ -79,17 +78,13 @@ acceso.
 
 Para el reto ponemos:
 
-
+.Obteniendo acceso
 image::img2.png[acceso]
-.*_Figura2: Obteniendo acceso_*
-
 
 Y obtenemos acceso!
 
-
+.Acceso obtenido
 image::img3.png[acceso]
-.*_Figura3: Acceso obtenido_*
-
 
 A continuación se adjunta una tabla donde se muestran las inyecciones SQL más 
 famosas utilizadas con la condición OR.
@@ -98,9 +93,8 @@ Cabe recalcar que la seguridad de cada sitio utiliza una forma diferente de
 verificar las credenciales, así que se deben tener en cuenta todas las 
 posibilidades a la hora de hacer una inyección SQL con la condición OR.
 
-
+.Tabla con Inyección SQL-OR
 image::img4.png[sql-or]
-.*_Figura4: Tabla con Inyección SQL-OR_*
 
 En este artículo se mostró cómo conseguir las credenciales de un sitio web a 
 través de la inyección SQL más simple de todas, cabe recalcar que cada inyección 

@@ -84,8 +84,8 @@ void myFunct(int a, int b){
 
 Let's try to find the values that make the assert fail.
 
+.Symbolic execution tree of function myFunct()
 image::image1.png[symbolic]
-.*_Figure 1: Symbolic execution tree of function myFunct()_*
 
 The symbolic execution tree in the image represents the states the symbolic
 execution engine goes through during the analysis of the program, in this case
