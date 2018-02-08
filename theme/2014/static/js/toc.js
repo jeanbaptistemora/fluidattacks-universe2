@@ -1,7 +1,7 @@
 function getinfo(sect, header, nxt_sect, label) {
   $(sect).each(function() {
     var h = $(this).children(header);
-    var text = h[0].innerText;
+    var text = h[0].innerText.replace(/^[0-9].*\.\s+/, '');;
     var link = $(h).children("span")[0].id;
     newitem += "<li>" + "<a href=#" + link + ">" + text + "</a>";
     if ($(this).find(nxt_sect).length) {
