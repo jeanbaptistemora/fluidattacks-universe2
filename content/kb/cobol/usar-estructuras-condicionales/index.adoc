@@ -1,8 +1,7 @@
 :slug: kb/cobol/usar-estructuras-condicionales/
-:eth: no
 :category: cobol
-:description: Nuestros ethical hackers explican cómo evitar vulnerabilidades de seguridad mediante la programación segura en cobol al utilizar estructuras condicionales. Estableciendo opciones por defecto se evita que un atacante aproveche opciones no consideradas para vulnerar la aplicación.
-:keywords: Cobol, Seguridad, Estructuras, Condicionales, Default, Buenas prácticas.
+:description: Nuestros ethical hackers explican cómo evitar vulnerabilidades de seguridad mediante la programación segura en cobol al contemplar todos los escenarios posibles en una estructura condicional que pueda dar origen a comportamientos erróneos dentro de la aplicación.
+:keywords: COBOL, variables, condicionales, inicializar, IF, ELSE.
 :kb: yes
 
 = Usar Estructuras Condicionales
@@ -24,9 +23,9 @@ bajo las cuales la siguiente solución tiene sentido:
 == Solución
 
 . En cada estructura condicional empleada en una aplicación +COBOL+, 
-se recomienda contemplar todos los posibles escenarios, 
-como se muestra a continuación, 
-se inicia la aplicación de prueba 
+se recomienda contemplar todos los posibles escenarios 
+como se muestra en esta entrada. 
+A continuación, se inicia la aplicación de prueba 
 declarando la división +IDENTIFICATION DIVISION+:
 +
 .cobolcond.cbl
@@ -124,7 +123,7 @@ se obtiene el número ingresado por el usuario:
        ACCEPT PLANET-NUMBER.
 ----
 . Usando el condicional +IF+^<<r5,[5]>>,<<r6,[6]>>^ 
-determinamos el tipo de planeta, 
+se determina el tipo de planeta, 
 observe nuevamente como se deben considerar 
 todos los escenarios por defecto 
 a través del uso de la sentencia +ELSE+:
@@ -156,7 +155,13 @@ a través del uso de la sentencia +ELSE+:
        Tipo de planeta desconocido
 ----
 
-* Código de ejemplo: link:src.zip[src.zip]
+== Descargas
+
+Puedes descargar el código fuente 
+pulsando en el siguiente enlace:
+
+. [button]#link:src/cobolcond.cbl[cobolcond.cbl >>]# contiene 
+la implementación del código anterior.
 
 == Referencias
 

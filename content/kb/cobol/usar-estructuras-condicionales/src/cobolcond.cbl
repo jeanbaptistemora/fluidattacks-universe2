@@ -1,19 +1,12 @@
        IDENTIFICATION DIVISION.
-      ******************
-      * Identification *
-      ******************
        PROGRAM-ID. COBOLCOND.
-      ********
-      * Data *
-      ********
+
        DATA DIVISION.
        WORKING-STORAGE SECTION.
        01 PLANET.
            05 PLANET-NUMBER PIC 9(2) VALUE 3.
            05 PLANET-NAME   PIC X(8) VALUE "Tierra".
-      ********
-      * Main *
-      ********
+
        PROCEDURE DIVISION.
        MAIN.
            DISPLAY PLANET-NUMBER, " - ", PLANET-NAME.
