@@ -33,6 +33,13 @@ WORKDIR /root/
 RUN rm -r /var/www/html \
     && git clone -b $CI_COMMIT_REF_NAME https://$FI_GITLAB_LOGIN:$FI_GITLAB_PASSWORD@gitlab.com/fluidsignal/integrates.git  /usr/src/app \
     && gem install asciidoctor-pdf --pre \
+    && apt-get install -y ruby-dev \
+    && gem install fluentd --no-ri --no-rdoc \
+    && fluentd --setup /etc/fluent \
+    && fluent-gem install eventmachine em-http-request \
+    && rm /etc/fluent/fluent.conf \
+    && mv /usr/src/app/deploy/containers/common/vars/fluent.conf /etc/fluent/ \
+    && mv /usr/src/app/deploy/containers/common/vars/out_rollbar.rb /etc/fluent/plugin/ \
     && mkdir /usr/src/app/app/documentator/images  \
     && mkdir /usr/src/app/app/documentator/tpls  \
     && mkdir /usr/src/app/app/documentator/results  \
@@ -47,10 +54,11 @@ RUN rm -r /var/www/html \
     && echo "$FI_SSL_KEY" | base64 -di > "/etc/ssl/private/fluidla.key"
 
 # Make port 80 and 443 available to the world outside this container
-EXPOSE 443
+EXPOSE 443 24224
 
 # Primer comando
 CMD env > /etc/environment  \
+&& fluentd -d /etc/fluent/fluent.conf \
 && a2ensite integrates-ssl.conf \
 && a2ensite 000-default.conf \
 && /usr/src/app/manage.py makemigrations \
