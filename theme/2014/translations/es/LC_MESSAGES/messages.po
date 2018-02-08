@@ -168,6 +168,12 @@ msgstr "es/servicios/#lp-pom-block-1090"
 msgid "Customers"
 msgstr "Clientes"
 
+msgid "Values"
+msgstr "Valores"
+
+msgid "values"
+msgstr "valores"
+
 #: templates/footer.html:25 templates/footer.html:69
 msgid "location"
 msgstr "ubicacion"
