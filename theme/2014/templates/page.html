@@ -81,6 +81,11 @@
           {% endif %}
         {% endfor %}
       {% endif %}
+      {% if page.toc %}
+        {% assets filters="uglifyjs", output="static/js/toc.min.js", "js/toc.js" %}
+      	  <script type="text/javascript" src="{{ SITEURL }}/{{ ASSET_URL }}"></script>
+    	{% endassets %} 
+      {% endif %}
       {% if DISQUS_SITENAME and SITEURL and "kb/" in page.slug and not page.kbindex %}
         <hr class="hrcoments">
         <div class="comments">

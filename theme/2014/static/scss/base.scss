@@ -116,33 +116,25 @@ a {
   text-align: center;
 }
 
-.olist {
-  margin: 15px 0;
+.loweralpha {
+  list-style-type: lower-alpha;
+}
 
-  p {
-    margin-top: 15px;
-  }
+.upperalpha {
+  list-style-type: upper-alpha;
+}
 
-  .loweralpha {
-    list-style-type: lower-alpha;
-  }
+.lowerroman {
+  list-style-type: lower-roman;
+}
 
-  .upperalpha {
-    list-style-type: upper-alpha;
-  }
-
-  .lowerroman {
-    list-style-type: lower-roman;
-  }
-
-  .upperroman {
-    list-style-type: upper-roman;
-  }
+.upperroman {
+  list-style-type: upper-roman;
 }
 
 ol {
   font-size: 18px;
-  padding-left: 20px;
+  padding-left: 28px;
 }
 
 p {

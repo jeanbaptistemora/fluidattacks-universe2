@@ -103,11 +103,11 @@
 	<!-- Google Tag Manager (noscript) -->
 	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TZ3ZXPL"
 	height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-	<!-- End Google Tag Manager (noscript) -->    
-	<!-- jQuery, Bootstrap Core and Menu -->
-    	{% assets filters="uglifyjs", output="static/js/theme.min.js", "/app/node_modules/jquery/dist/jquery.js", "js/menu.js", "js/id.js", "js/linenum.js" %}
-      	<script type="text/javascript" src="{{ SITEURL }}/{{ ASSET_URL }}"></script>
-    	{% endassets %} 
+	<!-- End Google Tag Manager (noscript) -->
+        <!-- jQuery, Menu, Line Numbers in Source Code -->
+        {% assets filters="uglifyjs", output="static/js/theme.min.js", "/app/node_modules/jquery/dist/jquery.js", "js/menu.js", "js/id.js", "js/linenum.js" %}
+          <script type="text/javascript" src="{{ SITEURL }}/{{ ASSET_URL }}"></script>
+        {% endassets %} 
     	<!-- Navigation -->
 	
     {% block header %}{% endblock header %}
@@ -119,7 +119,11 @@
                 {% block content %}{% endblock content %}	      
             </div>
         </div>
-    </div>   
+    </div>
+    <!-- Anchors -->
+    {% assets filters="uglifyjs", output="static/js/id.min.js", "js/id.js" %}
+      <script type="text/javascript" src="{{ SITEURL }}/{{ ASSET_URL }}"></script>
+    {% endassets %} 
     <!-- Footer -->
     {% include 'footer.html' %}
     <!-- RDStation -->

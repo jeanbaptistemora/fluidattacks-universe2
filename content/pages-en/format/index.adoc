@@ -3,6 +3,7 @@
 :keywords: TODO
 :variable: Asciidoc
 :plus: &#43
+:toc: yes
 
 = Format
 
