@@ -65,7 +65,7 @@ body {
 .list-title {
   background-color: $white;
   border-top: 3px solid $darkblue;
-  margin: 10px 21px 0;
+  margin: 10px 20px 0;
   padding: 20px;
   width: auto;
 }
@@ -524,12 +524,6 @@ article {
   box-sizing: border-box;
 }
 //sass-lint:enable no-universal-selectors
-
-@media (min-width: 640px) {
-  .list-title {
-    margin: 10px 25px 0;
-  }
-}
 
 @media (min-width: 770px) {
   h1 {

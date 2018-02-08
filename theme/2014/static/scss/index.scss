@@ -18,7 +18,7 @@ $white: rgba(255, 255, 255, 1);
 }
 
 .divread {
-  bottom: 45px;
+  bottom: 40px;
   position: absolute;
 
   .button {
@@ -67,7 +67,6 @@ $white: rgba(255, 255, 255, 1);
 .post-title {
   font-size: 22px;
   font-weight: 400;
-  margin: 20px 0 10px;
   text-transform: uppercase;
 
   .anchor-sign {
@@ -75,62 +74,32 @@ $white: rgba(255, 255, 255, 1);
   }
 }
 
-.tbnormal {
-  background-color: $lightgray;
-  border-spacing: 0;
-  margin-top: 0;
-}
-
-.tbresponsive {
-  background-color: $lightgray;
-  display: none;
-  margin-top: 0;
-}
-
-.tdview {
-  border-bottom: 25px solid $lightgray;
-  display: block;
-  margin: 0;
+.blog-post {
+  background-color: $white;
+  border-top: 3px solid $darkblue;
+  margin-bottom: 20px;
   padding: 20px;
   position: relative;
-  width: 100%;
 }
 
 @media (min-width: 640px) {
   .divindex {
-    margin: 10px 0 0;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+
+  .blog-post {
+    width: 49%;
   }
 
   .post-title {
     font-size: 20px;
   }
-
-  .tbnormal {
-    display: none;
-  }
-
-  .tbresponsive {
-    border-spacing: 25px 0;
-    display: block;
-  }
-
-  .tdview {
-    display: table-cell;
-    width: 50%;
-  }
 }
 
 @media (min-width: 960px) {
-  .tbnormal {
-    border-spacing: 25px 0;
-    display: block;
-  }
-
-  .tbresponsive {
-    display: none;
-  }
-
-  .tdview {
-    width: 33%;
+  .blog-post {
+    width: 32%;
   }
 }

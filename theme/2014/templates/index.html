@@ -26,228 +26,45 @@
 
 {% block content %}
   <div class="divindex">
-    <table class="tbnormal">
-      {% for article in articles_page.object_list %}
-        {% if loop.index % 3 != 0 %}
-          {% if loop.index % 3 == 1 %}
-            <tr><td class="tdview">            
-              <div class="post-preview">           
-                {% if  article.featured_image %}            
-                  <img src="{{ SITEURL }}/blog/{{ article.slug }}{{ article.featured_image }}" alt="{{ article.alt }}">
-                {% endif %}
-                <a href="{{ SITEURL }}/{{ article.url }}" rel="bookmark" title="Permalink to {{ article.title|striptags }}">
-                <h2 class="post-title">
-                  {{ article.title }}
-                </h2>
-                </a>
-                <img class="imgprev" src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/icon.png" alt="{{ gettext('Quill icon') }}">
-                {% for author in article.authors %}
-                  <a class="aautor" href="{{ SITEURL }}/{{ author.url }}">{{ author }}</a>
-                {% endfor %}
-                &nbsp;&nbsp;<img class="imgprev" src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/folder.png" alt="{{ gettext('Folder icon') }}">
-                <a class="aautor" href="{{ SITEURL }}/{{ gettext('categories')}}/{{ article.category }}">{{ article.category|replace("-", " ") }}</a>
-                &nbsp;&nbsp;<img class="imgprev" src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/tags.png" alt="{{ gettext('Tag icon') }}">
-                {% for tag in article.tags %}
-                  {% if loop.last %}
-                    <a class="aautor" href="{{ SITEURL }}/{{ tag.url }}">{{ tag }}</a>
-                  {% else %}
-                    <a class="aautor" href="{{ SITEURL }}/{{ tag.url }}">{{ tag }},&nbsp;</a>
-                  {% endif %}
-                {% endfor %}      
-                {% if SHOW_FULL_ARTICLE %}
-                  {{ article.content }}
-                {% else %}
-                  <p class="article-summary">
-                  {% if article.has_summary %}
-                    {{ article.summary }}
-                  {% elif article.summary %}
-                    {{ article.summary|striptags|truncate(320) }}
-                  {% endif %}
-                  </p>                    
-                {% endif %}
-                <br /><br />
-                <div class="divread">
-                  <a class="button" href="{{ SITEURL }}/{{ article.url }}">{{ gettext('Read More') }} >></a>
-                </div>
-              </div>
-            </td>
-          {% else %}
-            <td class="tdview">
-              <div class="post-preview">
-                {% if  article.featured_image %}            
-                  <img src="{{ SITEURL }}/blog/{{ article.slug }}{{ article.featured_image }}" alt="{{ article.alt }}">
-                {% endif %}
-                <a href="{{ SITEURL }}/{{ article.url }}" rel="bookmark" title="Permalink to {{ article.title|striptags }}">
-                <h2 class="post-title">
-                  {{ article.title }}
-                </h2>
-                </a>
-                <img class="imgprev" src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/icon.png" alt="{{ gettext('Quill icon') }}">
-                {% for author in article.authors %}
-                  <a class="aautor" href="{{ SITEURL }}/{{ author.url }}">{{ author }}</a>
-                {% endfor %}
-                &nbsp;&nbsp;<img class="imgprev" src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/folder.png" alt="{{ gettext('Folder icon') }}">
-                <a class="aautor" href="{{ SITEURL }}/{{ gettext('categories') }}/{{ article.category }}">{{ article.category|replace("-", " ") }}</a>
-                &nbsp;&nbsp;<img class="imgprev" src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/tags.png" alt="{{ gettext('Tag icon') }}">
-                {% for tag in article.tags %}
-                  {% if loop.last %}
-                    <a class="aautor" href="{{ SITEURL }}/{{ tag.url }}">{{ tag }}</a>
-                  {% else %}
-                    <a class="aautor" href="{{ SITEURL }}/{{ tag.url }}">{{ tag }},&nbsp;</a>
-                  {% endif %}
-                {% endfor %}    
-                {% if SHOW_FULL_ARTICLE %}
-                  {{ article.content }}
-                {% else %}
-                  <p class="article-summary">
-                  {% if article.has_summary %}
-                    {{ article.summary }}
-                  {% elif article.summary %}
-                    {{ article.summary|striptags|truncate(320) }}
-                  {% endif %}
-                  </p>
-                {% endif %}
-                <br /><br />
-                <div class="divread">
-                  <a class="button" href="{{ SITEURL }}/{{ article.url }}">{{ gettext('Read More') }} >></a>
-                </div>
-              </div>
-            </td>                    
+    {% for article in articles_page.object_list %}
+      <div class="blog-post">
+        <div class="post-preview">
+          {% if  article.featured_image %}            
+             <img src="{{ SITEURL }}/blog/{{ article.slug }}{{ article.featured_image }}" alt="{{ article.alt }}">
           {% endif %}
-        {% else %}
-          <td class="tdview">
-            <div class="post-preview">
-              {% if  article.featured_image %}            
-                <img src="{{ SITEURL }}/blog/{{ article.slug }}{{ article.featured_image }}" alt="{{ article.alt }}">
-              {% endif %}
-              <a href="{{ SITEURL }}/{{ article.url }}" rel="bookmark" title="Permalink to {{ article.title|striptags }}">
-              <h2 class="post-title">
-                {{ article.title }}
-              </h2>
-              </a>
-              <img class="imgprev" src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/icon.png" alt="{{ gettext('Quill icon') }}">
-              {% for author in article.authors %}
-                <a class="aautor" href="{{ SITEURL }}/{{ author.url }}">{{ author }}</a>
-              {% endfor %}
-              &nbsp;&nbsp;<img class="imgprev" src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/folder.png" alt="{{ gettext('Folder icon') }}">
-              <a class="aautor" href="{{ SITEURL }}/{{ gettext('categories') }}/{{ article.category }}">{{ article.category|replace("-", " ") }}</a>
-              &nbsp;&nbsp;<img class="imgprev" src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/tags.png" alt="{{ gettext('Tag icon') }}">
-              {% for tag in article.tags %}
-                  {% if loop.last %}
-                    <a class="aautor" href="{{ SITEURL }}/{{ tag.url }}">{{ tag }}</a>
-                  {% else %}
-                    <a class="aautor" href="{{ SITEURL }}/{{ tag.url }}">{{ tag }},&nbsp;</a>
-                  {% endif %}
-                {% endfor %}       
-              {% if SHOW_FULL_ARTICLE %}
-                {{ article.content }}
-              {% else %}
-                <p class="article-summary">
-                {% if article.has_summary %}
-                  {{ article.summary }}
-                {% elif article.summary %}
-                  {{ article.summary|striptags|truncate(320) }}
-                {% endif %}
-                </p>
-              {% endif %}
-              <br /><br />
-              <div class="divread">
-                <a class="button" href="{{ SITEURL }}/{{ article.url }}">{{ gettext('Read More') }} >></a>
-              </div>     
-            </div>
-          </td></tr>
-        {% endif %}
-      {% endfor %}
-    </table>
-    <table class="tbresponsive">
-      {% for article in articles_page.object_list %}               
-        {% if loop.index % 2 != 0 %}
-          <tr><td class="tdview">            
-            <div class="post-preview">           
-              {% if  article.featured_image %}            
-                <img src="{{ SITEURL }}/blog/{{ article.slug }}{{ article.featured_image }}" alt="{{ article.alt }}">
-              {% endif %}
-              <a href="{{ SITEURL }}/{{ article.url }}" rel="bookmark" title="Permalink to {{ article.title|striptags }}">
-              <h2 class="post-title">
-                {{ article.title }}
-              </h2>
-              </a>
-              <img class="imgprev" src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/icon.png" alt="{{ gettext('Quill icon') }}">
-              {% for author in article.authors %}
-                <a class="aautor" href="{{ SITEURL }}/{{ author.url }}">{{ author }}</a>
-              {% endfor %}
-              &nbsp;&nbsp;<img class="imgprev" src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/folder.png" alt="{{ gettext('Folder icon') }}">
-              <a class="aautor" href="{{ SITEURL }}/{{ gettext('categories') }}/{{ article.category }}">{{ article.category|replace("-", " ") }}</a>
-              &nbsp;&nbsp;<img class="imgprev" src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/tags.png" alt="{{ gettext('Tag icon') }}">
-              {% for tag in article.tags %}
-                  {% if loop.last %}
-                    <a class="aautor" href="{{ SITEURL }}/{{ tag.url }}">{{ tag }}</a>
-                  {% else %}
-                    <a class="aautor" href="{{ SITEURL }}/{{ tag.url }}">{{ tag }},&nbsp;</a>
-                  {% endif %}
-                {% endfor %}             
-              {% if SHOW_FULL_ARTICLE %}
-                {{ article.content }}
-              {% else %}
-                <p class="article-summary">
-                {% if article.has_summary %}
-                  {{ article.summary }}
-                {% elif article.summary %}
-                  {{ article.summary|striptags|truncate(320) }}
-                {% endif %}
-                </p>                    
-              {% endif %}
-              <br /><br />
-              <div class="divread">
-                <a class="button" href="{{ SITEURL }}/{{ article.url }}">{{ gettext('Read More') }} >></a>
-              </div>
-            </div>
-          </td>                    
-        {% else %}
-          <td class="tdview">
-            <div class="post-preview">
-              {% if  article.featured_image %}            
-                <img src="{{ SITEURL }}/blog/{{ article.slug }}{{ article.featured_image }}" alt="{{ article.alt }}">
-              {% endif %}
-              <a href="{{ SITEURL }}/{{ article.url }}" rel="bookmark" title="Permalink to {{ article.title|striptags }}">
-              <h2 class="post-title">
-                {{ article.title }}
-              </h2>
-              </a>
-              <img class="imgprev" src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/icon.png" alt="{{ gettext('Quill icon') }}">
-              {% for author in article.authors %}
-                <a class="aautor" href="{{ SITEURL }}/{{ author.url }}">{{ author }}</a>
-              {% endfor %}
-              &nbsp;&nbsp;<img class="imgprev" src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/folder.png" alt="{{ gettext('Folder icon') }}">
-              <a class="aautor" href="{{ SITEURL }}/{{ gettext('categories') }}/{{ article.category }}">{{ article.category|replace("-", " ") }}</a>
-              &nbsp;&nbsp;<img class="imgprev" src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/tags.png" alt="{{ gettext('Tag icon') }}">
-              {% for tag in article.tags %}
-                  {% if loop.last %}
-                    <a class="aautor" href="{{ SITEURL }}/{{ tag.url }}">{{ tag }}</a>
-                  {% else %}
-                    <a class="aautor" href="{{ SITEURL }}/{{ tag.url }}">{{ tag }},&nbsp;</a>
-                  {% endif %}
-                {% endfor %}            
-              {% if SHOW_FULL_ARTICLE %}
-                {{ article.content }}
-              {% else %}
-                <p class="article-summary">
-                {% if article.has_summary %}
-                  {{ article.summary }}
-                {% elif article.summary %}
-                  {{ article.summary|striptags|truncate(320) }}
-                {% endif %}
-                </p>
-              {% endif %}
-              <br /><br />
-              <div class="divread">
-                <a class="button" href="{{ SITEURL }}/{{ article.url }}">{{ gettext('Read More') }} >></a>
-              </div>
-            </div>
-          </td></tr>              
-        {% endif %}
-      {% endfor %}
-    </table>
-    {% include "pagination.html" %}
+          <a href="{{ SITEURL }}/{{ article.url }}" rel="bookmark" title="Permalink to {{ article.title|striptags }}">
+            <h2 class="post-title">
+              {{ article.title }}
+            </h2>
+          </a>
+          <img class="imgprev" src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/icon.png" alt="{{ gettext('Quill icon') }}">
+          {% for author in article.authors %}
+            <a class="aautor" href="{{ SITEURL }}/{{ author.url }}">{{ author }}</a>
+          {% endfor %}
+          &nbsp;&nbsp;<img class="imgprev" src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/folder.png" alt="{{ gettext('Folder icon') }}">
+          <a class="aautor" href="{{ SITEURL }}/{{ gettext('categories')}}/{{ article.category }}">{{ article.category|replace("-", " ") }}</a>
+          &nbsp;&nbsp;<img class="imgprev" src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/tags.png" alt="{{ gettext('Tag icon') }}">
+          {% for tag in article.tags %}
+            {% if loop.last %}
+              <a class="aautor" href="{{ SITEURL }}/{{ tag.url }}">{{ tag }}</a>
+            {% else %}
+              <a class="aautor" href="{{ SITEURL }}/{{ tag.url }}">{{ tag }},&nbsp;</a>
+            {% endif %}
+          {% endfor %}
+          <p class="article-summary">
+            {% if article.has_summary %}
+              {{ article.summary }}
+            {% elif article.summary %}
+              {{ article.summary|striptags|truncate(320) }}
+            {% endif %}
+          </p>
+          <br><br>
+          <div class="divread">
+            <a class="button" href="{{ SITEURL }}/{{ article.url }}">{{ gettext('Read More') }} >></a>
+          </div>
+        </div>
+      </div>
+    {% endfor %}
   </div>
+  {% include "pagination.html" %}
 {% endblock content %}
