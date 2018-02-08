@@ -50,7 +50,7 @@ $white: rgba(255, 255, 255, 1);
 
   th {
     @include footer;
-    padding-bottom: 0;
+    padding: 20px 20px 0;
 
     h3 {
       text-align: left;
@@ -59,7 +59,8 @@ $white: rgba(255, 255, 255, 1);
 
   td {
     @include footer;
-    padding-top: 0;
+    padding: 0 20px 20px;
+    vertical-align: top;
 
     a {
       color: $white;
@@ -96,16 +97,18 @@ $white: rgba(255, 255, 255, 1);
     border-bottom: 20px solid $darkergray;
     border-collapse: collapse;
     display: table;
+    width: 100%;
 
     th {
       @include footer;
-      padding-bottom: 0;
+      padding: 20px 20px 0;
 
     }
 
     td {
       @include footer;
-      padding-top: 0;
+      padding: 0 20px 20px;
+      vertical-align: top;
 
       a {
         color: $white;

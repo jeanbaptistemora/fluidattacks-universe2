@@ -164,14 +164,11 @@ img {
 }
 
 table {
-  border-collapse: separate;
+  border-collapse: collapse;
 
   td,
   th {
     background-color: $white;
-    border-top: 3px solid $darkblue;
-    padding: 20px;
-    vertical-align: top;
   }
 }
 
@@ -237,27 +234,80 @@ article {
 }
 
 .tableblock {
-  border-collapse: collapse;
   margin: 15px auto;
 
+  td,
   th {
     border: 1px solid $lightgray;
     font-size: 21px;
-    height: 50px;
-    padding: 0;
-    text-align: center;
-    vertical-align: middle;
-  }
-
-  td {
-    border: 1px solid $lightgray;
-    padding: 0;
-    vertical-align: middle;
+    padding: 10px;
 
     p {
       margin: 10px 0;
-      text-align: center;
     }
+  }
+}
+
+.tfoot {
+  font-weight: bold;
+}
+
+.frame-topbot {
+  td,
+  th {
+    border-left-style: hidden;
+    border-right-style: hidden;
+  }
+}
+
+.frame-sides {
+  td,
+  th {
+    border-bottom-style: hidden;
+    border-top-style: hidden;
+  }
+}
+
+.frame-none {
+  td,
+  th {
+    border-style: hidden;
+  }
+}
+
+.halign-left {
+  p {
+    text-align: left;
+  }
+}
+
+.halign-center {
+  p {
+    text-align: center;
+  }
+}
+
+.halign-right {
+  p {
+    text-align: right;
+  }
+}
+
+.valign-right {
+  p {
+    vertical-align: right;
+  }
+}
+
+.valign-top {
+  p {
+    vertical-align: top;
+  }
+}
+
+.valign-left {
+  p {
+    vertical-align: left;
   }
 }
 
@@ -590,15 +640,6 @@ article {
   .tblnext,
   .tdresponsive {
     display: none;
-  }
-
-  .trent {
-    display: table-row;
-  }
-
-  .tdent {
-    display: table-cell;
-    width: 25%;
   }
 
   .tdborder {
