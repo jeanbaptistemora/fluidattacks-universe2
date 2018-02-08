@@ -15,7 +15,7 @@
           $(titles[j]).removeAttr("id");
           if ( titles.length ) {
             str = titles[j].textContent;
-            titles[j].childNodes[2].data = str.slice(0,str.toLowerCase().search(/[a-z]/)) + str[str.toLowerCase().search(/[a-z]/)].toUpperCase() + str.slice(str.toLowerCase().search(/[a-z]/) + 1); 
+            titles[j].childNodes[2].data = str.slice(0,str.toLowerCase().search(/[a-záéíóú]/)) + str[str.toLowerCase().search(/[a-záéíóú]/)].toUpperCase() + str.slice(str.toLowerCase().search(/[a-záéíóú]/) + 1); 
           }
         }
       }
