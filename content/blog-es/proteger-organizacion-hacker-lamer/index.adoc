@@ -116,6 +116,7 @@ reportadas por estas herramientas.
 
 A continuación un cuadro que nos permite sintetizar lo descrito anteriormente:
 
+.Tabla comparativa Pentesting Vs Análisis de Vulnerabilidades
 |===
 | Aspecto | Pentesting (FLUID) | Análisis de Vulnerabilidades (Otros)
 | Método de revisión | Híbrido (Herramientas + revisión manual experta) | Estático (Solo herramientas)
@@ -134,7 +135,6 @@ Sintácticos
 | Tipo de Evidencia | Imagenes, GIF o video corto | Salidas de Herramienta, Imágenes
 | Entregables | Evidencias de explotación Recomendación general | Informe resumen
 |===
-._*Tabla comparativa Pentesting Vs Análisis de Vulnerabilidades*_
 
 Afortunadamente, cuando se realiza un Pentesting con FLUID, nuestros ingenieros 
 están en la capacidad de generar sus propios exploits, pues tienen un enfoque 

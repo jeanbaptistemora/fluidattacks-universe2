@@ -25,10 +25,10 @@ if find content -iname '*_*' | egrep '.*'; then echo -e "${GC}ERRORES: Usar gui�
 if find content -iname '*.jpg' | egrep '.*'; then echo -e "${GC}ERRORES: Formato de imagenes debe ser \"png\".${NC}"; ERRORS=1;fi
 
 # Check that the image caption is not manually placed
-if pcregrep --color -nre '^\.Imagen?\ [0-9]|^\.Figur(a|e)\ [0-9]' content; then echo -e "${GC}ERRORES: El título de las imágenes no debe llevar caption\"Imagen #\", \"Figura #\".${NC}"; ERRORS=1;fi
+if pcregrep --color -nr --include='\.adoc' -e '^\.Imagen?\ [0-9]|^\.Figur(a|e)\ [0-9]' content; then echo -e "${GC}ERRORES: El título de las imágenes no debe llevar caption\"Imagen #\", \"Figura #\".${NC}"; ERRORS=1;fi
 
 # Check the titles of the images are well placed
-if pcregrep --color -Mnr 'image::.*\n\.[a-zA-Z]' content; then echo -e "${GC}ERRORES: El título de las imágenes van antes de la imagen, no después${NC}"; ERRORS=1;fi
+if pcregrep --color -Mnr --include='\.adoc' 'image::.*\n\.[a-zA-Z]' content; then echo -e "${GC}ERRORES: El título de las imágenes van antes de la imagen, no después${NC}"; ERRORS=1;fi
 
 # Check no uppercase characters are used in the names of the files
 if find content | egrep '.*[A-Z].*'; then echo -e "${GC}ERRORES: Rutas siempre en minuscula${NC}"; ERRORS=1;fi
