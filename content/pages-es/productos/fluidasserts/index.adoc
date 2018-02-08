@@ -52,16 +52,16 @@ $ python exploit.py
 
 Si tienes una aplicación suscrita a nuestro servicio de *Pruebas Concurrentes de Seguridad* que incluya el uso de +FLUIDAsserts+, puedes agregarlo a tu pipeline de integración contínua. Para eso, debes seguir los siguientes pasos:
 
-. Agregar las variables +USER+, +PASS+, +ORG+ y +APP+. No te preocupes, ¡los valores serán entregados por nosotros!:
-.. +USER+: Nombre de usuario para obtener la imagen de nuestro registro de contenedores
-.. +PASS+: Contraseña del usuario
-.. +ORG+: Nombre de la compañía
-.. +APP+: Nombre de la aplicación
+* Agregar las variables de entorno +USER+, +PASS+, +ORG+ y +APP+. No te preocupes, ¡los valores serán entregados por nosotros!:
+** +USER+: Nombre de usuario para obtener la imagen de nuestro registro de contenedores
+** +PASS+: Contraseña del usuario
+** +ORG+: Nombre de la compañía
+** +APP+: Nombre de la aplicación
 
 .Ejemplo de variables en un ambiente Gitlab CI
 image::vars.png[Variables de entorno]
 
-. Agregar un job donde se ejecute el contenedor.
+* Agregar un job donde se ejecute el contenedor.
 
 .En Gitlab CI, agregar:
 [source, yaml]
