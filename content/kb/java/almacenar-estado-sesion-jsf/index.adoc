@@ -1,7 +1,7 @@
 :slug: kb/java/almacenar-estado-sesion-jsf/
 :category: java
-:description: TODO
-:keywords: TODO
+:description: Nuestros ethical hackers explican cómo evitar vulnerabilidades de seguridad mediante la programación segura en Java al almacenar el estado de sesión utilizando Javaserver Faces. Las sesiones son frecuentemente utilizadas debido permiten guardar información accesible en diferentes páginas web.
+:keywords: Java, Seguridad, Estado , Sesión, Estándar empresarial, Javaserver Faces.
 :kb: yes
 
 = Almacenar Estado de Sesión en Capa Web de Aplicación
@@ -27,7 +27,7 @@ La conexión que se establece entre un usuario
 y un servidor Web se denomina sesión.
 Las sesiones permiten almacenar información 
 a lo largo de diferentes páginas, 
-pudiendo acceder a ella en el momento que se requiera. 
+permitiendo acceder a ella en el momento que se requiera. 
 Dentro de las sesiones es posible 
 guardar cierta información la primera vez que el usuario visita la página,
 y dicha información puede ser mostrada en una visita posterior 

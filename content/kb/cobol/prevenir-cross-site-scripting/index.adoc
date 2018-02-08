@@ -1,7 +1,7 @@
 :slug: kb/cobol/prevenir-cross-site-scripting/
 :category: cobol
-:description: TODO
-:keywords: TODO
+:description: Nuestros ethical hackers explican cómo evitar vulnerabilidades de seguridad mediante la programación segura en cobol buscando prevenir ataques de tipo cross site scripting (XSS). Éste es un tipo frecuente de ataque, por lo cual es necesario tomar medidas preventivas para evitarlo.
+:keywords: Cobol, Seguridad, Buenas Prácticas, Prevenir, XSS, Cross Site Scripting.
 :kb: yes
 
 = Prevenir Cross Site Scripting

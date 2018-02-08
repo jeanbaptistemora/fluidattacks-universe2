@@ -1,7 +1,7 @@
 :slug: kb/hacking/evitar-ataque-dos/
 :category: hacking
-:description: TODO
-:keywords: TODO
+:description: Nuestros ethical hackers explican cómo evitar vulnerabilidades de seguridad mediante la configuración segura de sistemas para evitar un ataque de denegación de servicios (DoS). Un ataque DoS produce que un recurso sea inaccesible al generar una sobrecarga de información en el servidor.
+:keywords: Hacking, DOS, Denegación de servicio, Ataque , Buenas Prácticas, Servidor.
 :kb: yes
 
 = Evitar Ataque de Denegación de Servicio

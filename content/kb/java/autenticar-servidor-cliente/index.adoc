@@ -1,7 +1,7 @@
 :slug: kb/java/autenticar-servidor-cliente/
 :category: java
-:description: TODO
-:keywords: TODO
+:description: Nuestros ethical hackers explican cómo evitar vulnerabilidades de seguridad mediante la configuración segura en Java al autenticar el servidor para clientes sin un certificado digital. Ésto resulta útil cuando no es práctico o implementable la generación de certificados en el lado del cliente.
+:keywords: Java, Seguridad, Autenticar, Servidor, Cliente, Certificado.
 :kb: yes
 
 = Autenticar Servidor para Clientes Sin Certificado

@@ -1,7 +1,7 @@
 :slug: kb/java/comprobar-fortaleza-contrasena/
 :category: java
-:description: TODO
-:keywords: TODO
+:description: Nuestros ethical hackers explican cómo evitar vulnerabilidades de seguridad mediante la programación segura en Java al comprobar la fortaleza de las contraseñas. Es importante contar con contraseñas seguras que sean resistentes a distintos ataques para evitar un robo de credenciales.
+:keywords: Java, Seguridad, Comprobar, Contraseña, Diccionario, Fortaleza.
 :kb: yes
 
 = Comprobar Fortaleza de Contraseñas

@@ -1,8 +1,8 @@
 :slug: kb/cobol/usar-estructuras-condicionales/
 :eth: no
 :category: cobol
-:description: TODO
-:keywords: TODO
+:description: Nuestros ethical hackers explican cómo evitar vulnerabilidades de seguridad mediante la programación segura en cobol al utilizar estructuras condicionales. Estableciendo opciones por defecto se evita que un atacante aproveche opciones no consideradas para vulnerar la aplicación.
+:keywords: Cobol, Seguridad, Estructuras, Condicionales, Default, Buenas prácticas.
 :kb: yes
 
 = Usar Estructuras Condicionales

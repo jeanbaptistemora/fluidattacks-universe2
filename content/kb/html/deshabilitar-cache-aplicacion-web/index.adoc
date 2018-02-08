@@ -1,7 +1,7 @@
 :slug: kb/html/deshabilitar-cache-aplicacion-web/
 :category: html
-:description: TODO
-:keywords: TODO
+:description: Nuestros ethical hackers explican cómo evitar vulnerabilidades de seguridad mediante la programación segura en HTML al deshabilitar la caché en campos de aplicaciones web. La memoria caché en un formulario web puede ser utilizada para perpetrar un ataque de robo de información.
+:keywords: HTML, Caché , Deshabilitar, Formulario, Navegador, Autocompletar.
 :kb: yes
 
 = Deshabilitar Caché en Campos de Aplicaciones Web
