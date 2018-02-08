@@ -6,13 +6,15 @@
 
 A continuación te explicaremos cómo puedes hacer parte de nuestro equipo:
 
-++++
-<div id="etapa_c"><h2>1. Condiciones</h2><p>El objetivo de esta etapa 
+[role="etapa_c"]
+== 1. Condiciones
+
+El objetivo de esta etapa 
 es que conozcas y aceptes los términos y condiciones del proceso de selección, 
 Esto es obligatorio y requiere un esfuerzo estimado de 4 a 6 min. 
 Para comenzar, 
-solo debes seguir las instrucciones detalladas <a href="../empleos/terminos/">aquí</a>.</p></div> 
-++++
+solo debes seguir las instrucciones detalladas link:../empleos/terminos/[aquí].
+
 == 2. Razones
 
 El objetivo de esta etapa 
@@ -40,31 +42,33 @@ Esto es obligatorio y requiere un esfuerzo estimado de 1 a 2 horas según tu hab
 Para iniciar, 
 solo debes seguir las instrucciones detalladas link:../empleos/portafolio/[aquí].
 
-++++
-<div id="etapa_a"><h2>5. Aplicación</h2><p>El objetivo de esta etapa 
+[role="etapa_a"]
+== 5. Aplicación
+
+El objetivo de esta etapa 
 es que registres tu hoja de vida y tus expectativas laborales. 
 Esto es obligatorio y requiere un esfuerzo estimado de 5 a 10 min según tu perfil. 
-Para hacerla requieres haber finalizado la etapa anterior.</p>
-<p id="a_formLink">
+Para hacerla requieres haber finalizado la etapa anterior.
+
+[role="a_formLink"]
 Para iniciar, 
 solo debes seguir las instrucciones detalladas 
-<a href="https://fluid.la/forms/aplicacion" class="button">aquí</a></p></div>
+link:https://fluid.la/forms/aplicacion[aquí]
 
-<div id="etapa_h"><h2>6. Historia</h2>
+[role="etapa_h"]
+== 6. Historia
 
-<p>El objetivo de esta etapa es registrar tus periodos laborales.  
-Es opcional <b>sólo si no tienes experiencia laboral</b> y requiere un esfuerzo estimado de 3 a 5 min por periodo. 
-Para hacerla requieres haber finalizado la etapa anterior.</p>
+El objetivo de esta etapa es registrar tus periodos laborales.  
+Es opcional *sólo si no tienes experiencia laboral* y requiere un esfuerzo estimado de 3 a 5 min por periodo. 
+Para hacerla requieres haber finalizado la etapa anterior.
 
-<p id="h_formLink">
+[role="h_formLink"]
 Para iniciar, 
 solo debes seguir las instrucciones detalladas 
-<a href="https://fluid.la/forms/periodo" class="button">
-aquí
-</a>
-</p>
-</div>
-<script>document.getElementById("h_formLink").style.display="none",document.getElementById("a_formLink").style.display="none";var r=window.location.href.split("?")[1];"398453"==r?(document.getElementById("a_formLink").style.display="block",document.getElementById("etapa_a").style.backgroundColor="#ffffa6"):"987343"==r?(document.getElementById("h_formLink").style.display="block",document.getElementById("etapa_h").style.backgroundColor="#ffffa6"):"0062"==r&&(document.getElementById("etapa_c").style.backgroundColor="#ffffa6");</script>
+link:https://fluid.la/forms/periodo[aquí]
+
+++++
+<script>document.getElementsByClassName("h_formLink")[0].style.display="none",document.getElementsByClassName("a_formLink")[0].style.display="none";var r=window.location.href.split("?")[1];"398453"==r?(document.getElementsByClassName("a_formLink")[0].style.display="block",document.getElementsByClassName("etapa_a")[0].style.backgroundColor="#ffffa6"):"987343"==r?(document.getElementsByClassName("h_formLink")[0].style.display="block",document.getElementsByClassName("etapa_h")[0].style.backgroundColor="#ffffa6"):"0062"==r&&(document.getElementsByClassName("etapa_c")[0].style.backgroundColor="#ffffa6");</script>
 ++++
 == 7. Evaluaciones
 
