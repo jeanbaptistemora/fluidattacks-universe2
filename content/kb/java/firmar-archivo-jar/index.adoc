@@ -1,7 +1,7 @@
 :slug: kb/java/firmar-archivo-jar/
 :category: java
-:description: TODO
-:keywords: TODO
+:description: Nuestros ethical hackers explican cómo evitar vulnerabilidades de seguridad mediante la programación segura en Java al firmar los archivos JAR usando un certificado digital. Ésto permite verificar la identidad del creador de la aplicación, garantizando la integridad y el no repudio del software.
+:keywords: Java, Seguridad, Firmar, JAR, Código móvil, Certificado digital. 
 :kb: yes
 
 = Firmar Archivos JAR

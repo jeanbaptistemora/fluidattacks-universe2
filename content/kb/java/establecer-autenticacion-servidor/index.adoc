@@ -1,7 +1,7 @@
 :slug: kb/java/establecer-autenticacion-servidor/
 :category: java
-:description: TODO
-:keywords: TODO
+:description: Nuestros ethical hackers explican cómo evitar vulnerabilidades de seguridad mediante la programación segura en Java al establecer un esquema de autenticación para la aplicación. Una vez configurados los roles de seguridad, el paso siguiente es definir la autenticación en el servidor.
+:keywords: Java, Seguridad, Esquema, Autenticación, Servidor, Buenas Prácticas.
 :kb: yes
 
 =  Establecer Esquema de Autenticación en Servidor de Aplicación

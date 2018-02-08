@@ -1,7 +1,7 @@
 :slug: kb/java/establecer-seguridad-interfaz-grafica/
 :category: java
-:description: TODO
-:keywords: TODO
+:description: Nuestros ethical hackers explican cómo evitar vulnerabilidades de seguridad mediante la programación segura en Java al establecer políticas de seguridad a través de la interfaz gráfica manteniendo el principio de mínimo privilegio, permitiendo disminuir las posibles brechas de seguridad. 
+:keywords: Java, Política, Seguridad, GUI, Mínimo Privilegio, Interfaz.
 :kb: yes
 
 = Establecer Política de Seguridad Por GUI

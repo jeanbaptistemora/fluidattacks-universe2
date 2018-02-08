@@ -1,7 +1,7 @@
 :slug: kb/java/configurar-tiempo-sesion-java/
 :category: java
-:description: TODO
-:keywords: TODO
+:description: Nuestros ethical hackers explican cómo evitar vulnerabilidades de seguridad mediante la programación segura en Java al configurar el tiempo de sesión. Para desarrollar una aplicación segura es recomendable configurar un tiempo de sesión no mayor a 5 minutos.
+:keywords: Java, Seguridad, Buenas Prácticas, Configurar, Tiempo, Sesión.
 :kb: yes
 
 = Configurar Tiempo de Sesión

@@ -1,7 +1,7 @@
 :slug: kb/java/establecer-control-acceso-servlet/
 :category: java
-:description: TODO
-:keywords: TODO
+:description: Nuestros ethical hackers explican cómo evitar vulnerabilidades de seguridad mediante la programación segura en Java al establecer el control de acceso para servlets de forma declarativa con anotaciones. Ésto resulta útil cuando se requiere un diseño personalizado para la pantalla de autenticación.
+:keywords: Java, Control, Acceso, Servlet, Autenticación, Permisos.
 :kb: yes
 
 = Establecer Control de Acceso para Servlets
@@ -9,7 +9,7 @@
 == Necesidad
 
 Establecer control de acceso para Servlets 
-usando de forma declarativa con anotaciones (Java)
+usando una forma declarativa con anotaciones (Java)
 
 == Contexto
 
@@ -30,7 +30,7 @@ por la aplicación en el servidor de aplicaciones.
 * Para emplear un mecanismo genérico de control de acceso 
 https://fluid.la/web/es/kb/java/establecer-control-acceso-url/[establecer control de acceso]
 . Se requiere un diseño personalizado para la pantalla de autenticación.
-. Se conoce como trabajar con servlets.
+. Se conoce cómo trabajar con servlets.
 
 == Solución
 

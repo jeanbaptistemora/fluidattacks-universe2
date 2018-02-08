@@ -1,7 +1,7 @@
 :slug: kb/java/generar-aleatorio-seguro/
 :category: java
-:description: TODO
-:keywords: TODO
+:description: Nuestros ethical hackers explican cómo evitar vulnerabilidades de seguridad mediante la programación segura en Java al generar valores aleatorios de manera segura. Es importante que al momento de generar valores aleatorios éstos no puedan replicarse facilmente para evitar brechas de seguridad.
+:keywords: Java, Seguridad, Generar, Número, Cadena, Aleatorio. 
 :kb: yes
 
 = Generar Valores Aleatorios de Manera Segura

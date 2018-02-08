@@ -1,7 +1,7 @@
 :slug: kb/java/evitar-ataque-inyeccion-xpath/
 :category: java
-:description: TODO
-:keywords: TODO
+:description: Nuestros ethical hackers explican cómo evitar vulnerabilidades de seguridad mediante la programación segura en Java al evitar ataques inyección XPATH. Los ataques XPATH se aprovechan de los intérpretes para inyectar consultas maliciosas en las entradas de una aplicación.
+:keywords: Java, Seguridad, Inyección, XPATH, Buenas Prácticas, XML. 
 :kb: yes
 
 =  Evitar Ataques de XPATH Injection
