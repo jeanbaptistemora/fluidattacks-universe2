@@ -4,30 +4,57 @@
 :keywords: TODO
 :kb: yes
 
-=  Evitar Ataques de Inyección XPATH
+=  Evitar Ataques de XPATH Injection
 
 == Necesidad
 
-Evitar ataques de inyección XPATH
+Evitar ataques de +XPATH Injection+
 
 == Contexto
 
-A continuación se describen las circunstancias bajo las cuales la siguiente 
-solución tiene sentido:
+A continuación se describen las circunstancias 
+bajo las cuales la siguiente solución tiene sentido:
 
-. Se está desarrollando una aplicación con Java.
-. Se está desarrollando una aplicación que utiliza el API de interpretación de 
-XML XPATH.
+. Se está desarrollando una aplicación con +Java+.
+. Se está desarrollando una aplicación que utiliza 
+el +API+ de interpretación de +XML+ +XPATH+.
 
 == Solución
 
-. De manera similar a un ataque de inyección SQL, los ataques de inyección de 
-XPATH se aprovechan de la naturaleza de los intérpretes de Xpath que permiten 
-forjar consultas maliciosas en las entradas de la aplicación.
+De manera similar a las +SQL Injection+, 
+los ataques de +XPATH Injection+ se producen 
+cuando un sitio web utiliza la información suministrada por el usuario 
+para construir una consulta +XPATH+ para datos +XML+. 
+Mediante el envío de sentencias intencionalmente mal formadas, 
+un atacante puede descubrir cómo se estructuran los datos +XML+, 
+incluso acceder a todos sus datos. 
+El atacante incluso puede ser capaz de elevar sus privilegios 
+en el sitio web si los datos +XML+ se utilizan para la autenticación. 
 
-. Primero considere el siguiente archivo XML:
+Las consultas +XML+ se realizan con +XPATH+, 
+un tipo de declaración descriptiva simple 
+que permite la consulta +XML+ para localizar información. 
+Al igual que +SQL+, puede especificar ciertos atributos 
+para encontrar y mostrar patrones para que coincidan. 
+Cuando se hace uso de +XML+ en un sitio web 
+es común aceptar algún tipo de entrada 
+en la cadena de consulta para identificar 
+el contenido a localizar y mostrar en la página. 
+
+Por último, hay que saber que +XPATH+ es un lenguaje estándar, 
+y su notación y/o sintaxis es siempre independiente de la implementación, 
+lo que significa que el ataque puede ser automatizado. 
+No hay dialectos diferentes, 
+ya que se lleva a cabo en las solicitudes de las bases de datos +SQL+. 
+Debido a que no existe un control de acceso de nivel, 
+es posible obtener el documento completo. ^<<r1,[1]>>^ 
+
+En esa solución se pretende mostrar un ataque +XPATH+ 
+y como evitarlo en una aplicación desarrollada en +java+.
+
+. Primero considere el siguiente archivo +XML+.
 +
-.test.py
+.test.xml
 [source, xml, linenums]
 ----
 <?xml version="1.0" encoding="UTF-8"?>
@@ -59,25 +86,26 @@ forjar consultas maliciosas en las entradas de la aplicación.
  </users>
 ----
  
-. Ahora bien, es posible fabricar la siguiente consulta de Xpath.
+. Ahora bien, es posible fabricar la siguiente consulta de +XPATH+.
 +
 [source, shell, linenums]
 ----
 /users/user[loginID/text()='abc' and password/text()='test123']
 ----
 
-. Si un atacante pudiera controlar las entradas de la consulta, de manera 
-similar a los ataques de inyección SQL, podría fabricar una consulta de este 
-tipo:
+. Si un atacante pudiera controlar las entradas de la consulta, 
+de manera similar a los ataques de +SQL Injection+, 
+podría fabricar una consulta de este tipo.
 +
 [source, shell, linenums]
 ----
 /users/user[LoginID/text()='' or '1'='1' and password/text()='' or '1'='1']
 ----
 
-. En el siguiente código, si un atacante puede manipular la entrada a doLogin, 
-es posible realizar tautologías que permitan evadir el mecanismo de 
-autenticación.
+. En el siguiente código, 
+si un atacante puede manipular la entrada a +doLogin+, 
+es posible realizar tautologías que permitan evadir 
+el mecanismo de autenticación.
 +
 [source, java, linenums]
 ----
@@ -105,12 +133,14 @@ private boolean doLogin(String loginID, String password)
     }
 ----
 
-. Para prevenir estos ataques se procede del mismo modo que con los ataques 
-de inyección SQL. Es decir, realizando validación de las entradas, sistemas de 
-prevención como WAF, inspección de datos en las diferentes capas, por ejemplo 
-en el servidor Web (en Apache se puede usar el Mod_Security SecFilterSelective 
-THE_REQUEST "(\'|\")"); Ademas, es importante usar parametrización en las 
-consultas:
+. Para prevenir estos ataques, 
+se procede del mismo modo que con los ataques de +SQL Injection+. 
+Es decir, realizando validación de las entradas, 
+sistemas de prevención como +WAF+, 
+inspección de datos en las diferentes capas. 
+Por ejemplo, en el servidor Web +Apache+ se puede usar 
+el +Mod_Security SecFilterSelective THE_REQUEST "(\'|\")")+.
+Ademas, es importante usar parametrización en las consultas.
 +
 [source, java, linenums]
 ----
@@ -119,12 +149,15 @@ declare variable $password as xs:string external;
 //users/user[@loginID=$loginID and @password=$password]
 ----
  
-. Para utilizar consultas parametrizadas se requiere emplear XQuery, que es un 
-superconjunto de XPath. XQuery básicamente permite utilizar archivos XML como 
-si fuesen bases de datos. Java no soporta de modo nativo XQuery, pero existen 
-parseadores gratuitos como el referenciado en [2].
+. Para utilizar consultas parametrizadas se requiere emplear +XQuery+, 
+que es un super conjunto de +XPATH+. 
+XQuery básicamente permite utilizar archivos +XML+ 
+como si fuesen bases de datos. 
+Java no soporta de modo nativo +XQuery+, 
+pero existen parseadores gratuitos 
+como el referenciado en ^<<r3,[3]>>^.
 
-. El código completo usando AWT sería:
+. El código completo usando +AWT+ sería:
 +
 [source, java, linenums]
 ----
@@ -247,7 +280,9 @@ class myActionListener implements ActionListener {
 
 == Referencias
 
-. https://www.owasp.org/index.php/XPATH_Injection[XPath injection]
-. https://sourceforge.net/projects/saxon/files/latest/download?source=files[Saxon Home Edition (HE) (open source)]
-. REQ.0168: El sistema debe descartar toda la información potencialmente 
-insegura que sea recibida por entradas de datos.
+. [[r1]] link:https://es.wikipedia.org/wiki/Inyecci%C3%B3n_XPath[XPATH Injection]
+. [[r2]] link:https://www.owasp.org/index.php/XPATH_Injection[XPath injection]
+. [[r3]] link:https://sourceforge.net/projects/saxon/files/latest/download?source=files[Saxon Home Edition (HE) (open source)]
+. [[r4]] REQ.0168: El sistema debe descartar 
+toda la información potencialmente insegura 
+que sea recibida por entradas de datos.
