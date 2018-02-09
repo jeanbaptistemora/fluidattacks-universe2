@@ -4,31 +4,32 @@
 :keywords: CSharp, Seguridad, Desarrollo, Depuracion.
 :kb: yes
 
-= Proteger Aplicación de Ataques de XSS.
+= Proteger Aplicación de Ataques de XSS
 
 == Necesidad
 
-Codificar el código según el lenguaje correspondiente en C#
+Codificar el código según el lenguaje correspondiente en +C#+
 
 == Contexto
 
 A continuación se describen las circunstancias bajo las cuales la siguiente
 solución tiene sentido:
 
-. Se está desarrollando una aplicación en C#.
+. Se está desarrollando una aplicación en +C#+ y se deben
+agregar mensajes de depuración.
 
 == Solución
 
 Los ataques por +Cross Site Scripting+ explotan las vulnerabilidades de las
-aplicaciones Web que fallan en validar y/o codificar las entradas embebidas en
-los datos de respuesta.
+aplicaciones +Web+ que fallan en validar y/o codificar las entradas embebidas
+en los datos de respuesta.
 Los usuarios maliciosos pueden inyectar +scripts+ al lado del cliente a los
 datos de respuesta causando que el navegador de la victima
 ejecute códigos posiblemente maliciosos.
 
-La biblioteca Anti +Cross Site Scripting+ de Microsoft puede usarse para
+La biblioteca +Anti Cross Site Scripting+ de +Microsoft+ puede usarse para
 proteger a los usuarios de este tipo de ataques.
-Puede descargarse gratis en Microsoft Anti Cross Site Scripting.
+Puede descargarse gratis en +Microsoft Anti Cross Site Scripting+.
 
 Antes de comenzar a explicar como proteger una aplicación de los ataques de
 +XSS+ es importante resaltar los vectores de ataque que un usuario malicioso
