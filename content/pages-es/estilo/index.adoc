@@ -12,15 +12,14 @@ sobre temas de seguridad de forma clara y fácil de entender.
 Te invitamos a compartir tus conocimientos con nosotros y el mundo.
 
 El público objetivo son personas 
-que no tienen conocimientos técnicos avanzados 
-por lo que se debe manejar un lenguaje sencillo 
-pero que aporte conocimientos específicos 
-sobre temas de seguridad.
+que no tienen conocimientos técnicos avanzados.
+Se debe manejar un lenguaje sencillo 
+pero que aporte conocimientos sobre temas de seguridad.
 
 == Temáticas
 
 Los temas del blog están orientados 
-única y exclusivamente a temas de seguridad y TI, 
+únicamente a temas de seguridad y TI, 
 aunque hay situaciones que aunque no son de seguridad 
 pueden ser tratadas como tal:
 
@@ -87,13 +86,9 @@ en donde se indique al lector el tema general.
 una métrica de complejidad LIX inferior a 50, 
 garantizando la lectura simple del texto.
 
-. Información acerca del autor del +post+ 
-cuando el autor sea invitado 
-(Ver la sección  <<s1, Autores>>).
-
 === 3. Formato
 
-Los documentos serán recibidos únicamente en formato *asciidoc*.
+Los documentos serán recibidos únicamente en formato +asciidoc+.
 Para mayor información consulta la
 link:http://asciidoctor.org/docs/asciidoc-writers-guide/[guía de asciidoc],
 o su link:http://asciidoctor.org/docs/asciidoc-syntax-quick-reference/[quick reference].
@@ -102,13 +97,13 @@ o su link:http://asciidoctor.org/docs/asciidoc-syntax-quick-reference/[quick ref
 
 Los documentos tienen límites estrictos en su longitud :
 
-. *Para documentos en la +Knowledge Base+ (KB):* 
+. *Para documentos tipo KB:* 
 Entre 400 y 800 palabras.
 
-. *Para documentos en Post:*
+. *Para documentos tipo Post:*
 Entre 800 y 1200 palabras.
 
-. *Para documentos en Páginas:*
+. *Para documentos tipo Página:*
 Entre 400 y 1200 palabras.
 
 === 5. Saltos de línea semánticos
@@ -117,7 +112,7 @@ Los documentos deben incluir saltos de línea semánticos
 (link:http://sembr.org/[SLB]), 
 para facilitar su posterior edición 
 y llevar un registro ordenado de las modificaciones 
-dentro del sistema de control de versiones (+GitHub+, +Gitlab+). 
+dentro del sistema de control de versiones (+Gitlab+). 
 Para ello se definen las siguientes reglas:
 
 . Mínimo de palabras antes de un SLB: 4.
@@ -132,7 +127,7 @@ Las excepciones a éstas reglas son:
 . Hipervínculos.
 . Códigos fuente.
 
-Un ejemplo de uso se muestra a continuación:
+*Ejemplo:*
 
 image::slb-example.png[slb]
 
@@ -145,8 +140,11 @@ o la link:http://asciidoctor.org/docs/asciidoc-recommended-practices/#one-senten
 
 . Todo documento debe incluir mínimo 
 una imagen relacionada con el tema a tratar.
+
 . Las imágenes que no sean propias 
 deben incluir la referencia.
+
+. Incluir una descripción de la imagen.
 
 === 7. Vídeos
 
@@ -160,6 +158,7 @@ Para los documentos que utilicen código fuente,
 se establecen las siguientes reglas:
 
 . El código no debe tener más de 8 líneas.
+. El código fuente debe ser en inglés.
 . No está permitido repetir un fragmento de código 
 que ya se haya usado en la guía.
 . Añadir las líneas de código al +post+ 
@@ -167,32 +166,33 @@ utilizando un bloque de código, no usar imágenes.
 
 *Ejemplo:*
 
-.SampleClass.c
+.example.c
 [source, C, linenums]
 ----
 function cool(x){
-	/*No utilices comentarios en el código fuente.
-	Debes explicar el funcionamiento de tu código en el documento*/
+	/*Please don't use comments in source code.
+	You must explain your code in the document*/
 	int y;
 	y = x + 1;
 	return y;
-	//Y recuerda no sobrepasar las 8 líneas ;)	
+	//And remember, do NOT exceed 8 lines ;)	
 }
 ----
 
 === 9. Explicaciones de explotación
 
-Para el caso de documentos enfocados en temas de explotación,
+Para el caso de documentos enfocados en explotación,
 una vez explicado el procedimiento
-se recomienda incluir un gif corto 
+se recomienda incluir un +gif+ corto 
 demostrando el resultado de lo explicado.
+Agregar una descripción del gif.
 
+.Ejemplo de descripción de explotación.
 image::explotacion.gif[gif]
 
 === 10. No se permiten
 
-. Fragmentos de código fuente o ejemplos de implementaciones 
-que no sean evidencias propias.
+. Fragmentos de código fuente que no sean evidencias propias.
 
 . Imágenes sin la referencia original.
 
@@ -205,10 +205,14 @@ sin incluir cómo programar seguro en el.
 
 . Si se usan acrónimos se debe incluir entre paréntesis su significado.
 
-. Algunas veces se usan artículos o manuales 
-para construir las opiniones del documento, 
-no olvidar incluir las referencias 
-cuando utilicen fragmentos de dichas fuentes.
+. Incluir las referencias cuando utilicen fragmentos de fuentes externas.
+
+. Los párrafos *deben* ser originales, 
+no utilizar textos de otras páginas 
+a menos que sean frases puntuales.
+
+. Los documentos deben tener 
++metadescription+ (250 a 300 caracteres) y 6 +keywords+.
 
 . Las palabras extranjeras y palabras reservadas
 utilizadas por fuera de bloques de código
@@ -230,13 +234,12 @@ and now I need to cite a reference <<r# ,^[#]^>>
 
 == References
 
-. [[r#]] link:https://my-url[Fancy name for url.]
+. [[r#]] link:https://my-url[Fancy name for url].
 ----
 
-. Para más información sobre asciidoc, 
+. Para más información sobre +asciidoc+, 
 consulta nuestra link:../../en/format[página de prueba.]
 
-[[s1]]
 == Autores
 
 Si quieres compartir tus conocimientos y opiniones de seguridad 
@@ -261,7 +264,7 @@ certificaciones, gustos.
 
 . Si eres parte del equipo de FLUID 
 envía tu documento a través de un +Merge Request+
-en formato *asciidoc* cumpliendo todas las reglas
+en formato +asciidoc+ cumpliendo todas las reglas
 anteriormente mencionadas.
 
 . Si no eres parte del equipo de FLUID 
