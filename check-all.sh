@@ -22,7 +22,10 @@ if find content -iname '*.asc' | egrep '.*'; then echo -e "${GC}ERRORES: Extensi
 if find content -iname '*_*' | egrep '.*'; then echo -e "${GC}ERRORES: Usar guión alto '-' en vez de guión bajo '_'.${NC}"; ERRORS=1;fi
 
 # Check every image is in PNG format
-if find content -iname '*.jpg' | egrep '.*'; then echo -e "${GC}ERRORES: Formato de imagenes debe ser \"png\".${NC}"; ERRORS=1;fi
+if find content -name '*.jpg' -o -name '*.jpeg' -o -name '*.svg' | egrep '.*'; then echo -e "${GC}ERRORES: Formato de imagenes debe ser \"png\".${NC}"; ERRORS=1;fi
+
+# Check every image fits the size limit
+if find content -name '*.png' -size +300k | egrep '.*'; then echo -e "${GC}ERRORES: Las imágenes deben pesar máximo 300kB.${NC}"; ERRORS=1;fi
 
 # Check that the image caption is not manually placed
 if pcregrep --color -nr --include='\.adoc' -e '^\.Imagen?\ [0-9]|^\.Figur(a|e)\ [0-9]' content; then echo -e "${GC}ERRORES: El título de las imágenes no debe llevar caption\"Imagen #\", \"Figura #\".${NC}"; ERRORS=1;fi
