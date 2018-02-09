@@ -106,13 +106,11 @@ fluidasserts:
 
 == 4. Ejemplos de exploits
 
+=== Inyección SQL
+
 .ex1_open.py: Verificar inyección SQL aun presente
 [source, python, linenum]
 ----
-"""
-Test a SQL Injection vulnerability
-"""
-
 from fluidasserts.service import http
 
 URL = 'http://testphp.vulnweb.com/AJAX/infoartist.php?id=3%27'
@@ -128,14 +126,9 @@ Loading modules...
 2018-02-09 11:15:22,273 - FLUIDAsserts - INFO - OPEN: http://testphp.vulnweb.com/AJAX/infoartist.php?id=3%27 Bad text present, Details=Warning.*mysql_.*
 ----
 
-
 .ex1_close.py: Verificar inyección SQL ya solucionada
 [source, python, linenum]
 ----
-"""
-Test a SQL Injection vulnerability
-"""
-
 from fluidasserts.service import http
 
 URL = 'http://testphp.vulnweb.com/AJAX/infoartist.php?id=3'
@@ -151,13 +144,11 @@ Loading modules...
 2018-02-09 11:16:04,923 - FLUIDAsserts - INFO - CLOSE: http://testphp.vulnweb.com/AJAX/infoartist.php?id=3 Bad text not present
 ----
 
+=== Cross-Site Scripting
+
 .ex2_open.py: Verificar XSS aun presente
 [source, python, linenum]
 ----
-"""
-Test a XSS vulnerability
-"""
-
 from fluidasserts.service import http
 
 URL = 'http://testphp.vulnweb.com/guestbook.php'
@@ -178,10 +169,6 @@ Loading modules...
 .ex2_close.py: Verificar XSS ya solucionado
 [source, python, linenum]
 ----
-"""
-Test a XSS vulnerability
-"""
-
 from fluidasserts.service import http
 
 URL = 'http://testphp.vulnweb.com/guestbook.php'
@@ -204,10 +191,6 @@ Loading modules...
 .ex1_open.py: Verificar inyección SQL aun presente
 [source, python, linenum]
 ----
-"""
-Test a SQL Injection vulnerability
-"""
-
 from fluidasserts.service import http
 
 URL = 'http://testphp.vulnweb.com/AJAX/infoartist.php?id=3%27'
