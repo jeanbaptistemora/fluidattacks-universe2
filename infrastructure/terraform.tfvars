@@ -5,7 +5,7 @@ sreg = "us-east-1b"
 #EC2 Vars
 amiID = "ami-49e5cb5e"
 iType = "t2.micro"
-kName = "fluidtestingserves"
+kName = "FLUID_ServesTF"
 
 # Network vars
 cdir = "192.168.102.0/24"
