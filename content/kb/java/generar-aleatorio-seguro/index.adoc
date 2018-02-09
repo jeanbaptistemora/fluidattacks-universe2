@@ -29,19 +29,19 @@ firmas o certificados digitales y, en general,
 para crear algoritmos de encriptación 
 que usan llaves numéricas de un sólo uso.
 
+En +java+, la clase +java.security.SecureRandom+ 
+proporciona un generador de números pseudoaleatorios 
+que cumplen, por lo menos, con la especificación +FIPS 140-2+ 
+sobre pruebas estadísticas para generadores de números aleatorios 
+y requisitos de seguridad de los módulos criptográficos ^<<r1,[1]>>^.
+
 La especificación define 4 niveles de seguridad 
 entre los cuales se menciona que se debe añadir 
 una resistencia a la intrusión tanto física como lógica 
 con fines de desmontaje o modificación, 
 de manera que dificulte al máximo los ataques 
 para lo cual, se debe contar con una protección criptográfica 
-y administración de claves de forma eficiente.
-
-En +java+, la clase +java.security.SecureRandom+ 
-proporciona un generador de números pseudoaleatorios 
-que cumplen, por lo menos, con la especificación +FIPS 140-2+ 
-sobre pruebas estadísticas para generadores de números aleatorios 
-y requisitos de seguridad de los módulos criptográficos ^<<r1,[1]>>^. 
+y administración de claves de forma eficiente. 
 
 Adicionalmente, la clase debe producir 
 una salida no determinística, por lo tanto, 
@@ -78,10 +78,14 @@ byte[] integer = new byte[4];
 
 . Se usa +SecureRandom+ y su método +nextBytes+ 
 para llenar aleatoriamente el +array+.
+Se debe tener en cuenta que a partir 
+de la versión +8+ de +Java+, 
+se recomienda instanciar el método +getInstanceStrong()+ 
+para una mayor entropía.
 +
 [source, java,linenums]
 ----
-SecureRandom random = new SecureRandom();
+SecureRandom random = new SecureRandom.getInstanceStrong();
 random.nextBytes(integer);
 ----
 
@@ -118,7 +122,8 @@ for (int i = 0; i < 4; i++) {
 . [[r1]] link:https://www.seagate.com/files/docs/pdf/es-ES/whitepaper/fips-140-2-faq-mb605.1-1007es.pdf[Tecnología de la unidad FIPS 140-2 estándar y con autocifrado] 
 . [[r2]] link:http://www.ietf.org/rfc/rfc1750.txt[RFC 1750]
 . [[r3]] link:http://bethecoder.com/applications/articles/java/basics/how-to-convert-byte-array-to-integer.html[How to convert Byte Array to Integer]
-. [[r4]] REQ.0219: Debe usarse el mecanismo criptográfico más seguro 
+. [[r4]] link:https://wiki.sei.cmu.edu/confluence/display/java/MSC02-J.+Generate+strong+random+numbers[MSC02-J. Generate strong random numbers]
+. [[r5]] REQ.0219: Debe usarse el mecanismo criptográfico más seguro 
 ofrecido por la plataforma 
 ej: (java.security.SecureRandom) 
 para la generación de números aleatorios usados en procesos críticos 
