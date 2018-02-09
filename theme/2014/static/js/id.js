@@ -3,7 +3,7 @@
     for (i = 1; i < 5; i++) {
       var titles = $(document).find("h"+ i +":visible");
       for (j = 0; j < titles.length; j++) {
-        if (!($(titles[j]).children("span").length)) {
+        if (!($(titles[j]).children("span").length) && !$(titles[j]).parents(".colfoot").length) {
           var replaceChars={ "á":"a" ,"é":"e", "í":"i", "ó":"o", "ú":"u", "ñ":"n" };
           var str = titles[j].innerText.toLowerCase();
           str = str.replace(/^[0-9].*\.\s+/, '');
