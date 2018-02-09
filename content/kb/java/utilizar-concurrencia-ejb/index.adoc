@@ -1,7 +1,7 @@
 :slug: kb/java/utilizar-concurrencia-ejb/
 :category: java
-:description: TODO
-:keywords: TODO
+:description: Nuestros ethical hackers explican cómo evitar vulnerabilidades de seguridad mediante la programación segura en Java al utilizar concurrencia utilizando Enterprise JavaBeans. EJB le proporciona al programador un modelo en donde se detalla cómo los servidores de aplicaciones web proveen objetos.
+:keywords: Java, Seguridad, EJB, Weblogic, JavaBeans, Concurrencia.
 :kb: yes
 
 = Utilizar Concurrencia Usando EJB

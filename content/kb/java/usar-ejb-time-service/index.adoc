@@ -1,7 +1,7 @@
 :slug: kb/java/usar-ejb-time-service/
 :category: java
-:description: TODO
-:keywords: TODO
+:description: Nuestros ethical hackers explican cómo evitar vulnerabilidades de seguridad mediante la programación segura en Java al utilizar el servicio EJB Timer. Esto resulta particularmente útil cuando no es posible manejar hilos en la aplicación web, debido a su susceptibilidad para los errores.
+:keywords: Java, EJB Timer, JEE, Seguridad, Optimización, Buenas prácticas. 
 :kb: yes
 
 = Usar EJB Timer Service

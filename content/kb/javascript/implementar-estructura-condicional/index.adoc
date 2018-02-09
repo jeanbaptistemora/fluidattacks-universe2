@@ -1,7 +1,7 @@
 :slug: kb/javascript/implementar-estructura-condicional/
 :category: javascript
-:description: TODO
-:keywords: TODO
+:description: Nuestros ethical hackers explican cómo evitar vulnerabilidades de seguridad mediante la programación segura en JavaScript al establecer opciones seguras en estructuras condicionales. Las opciones por defecto se deben implementar en todos los condicionales para evitar brechas de seguridad.
+:keywords: JavaScript, Seguridad, Buenas Prácticas, Condicional, Opciones, Defecto.
 :kb: yes
 
 = Implementar Estructura Condicional

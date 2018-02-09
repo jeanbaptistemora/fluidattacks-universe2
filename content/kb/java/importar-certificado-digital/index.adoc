@@ -1,7 +1,7 @@
 :slug: kb/java/importar-certificado-digital/
 :category: java
-:description: TODO
-:keywords: TODO
+:description: Nuestros ethical hackers explican cómo evitar vulnerabilidades de seguridad mediante la programación segura en Java al importar un certificado digital. Los certificados digitales aseguran la autenticidad de un software, permitiéndole cumplir con los principios de integridad y no repudio.
+:keywords: Java, Certificado, Digital, Seguridad, Autofirmado, Keystore.
 :kb: yes
 
 = Importar Certificado Digital

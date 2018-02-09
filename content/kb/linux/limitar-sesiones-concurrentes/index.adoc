@@ -1,7 +1,7 @@
 :slug: kb/linux/limitar-sesiones-concurrentes/
 :category: linux
-:description: TODO
-:keywords: TODO
+:description: Nuestros ethical hackers explican cómo evitar vulnerabilidades de seguridad mediante la configuración segura en Linux al limitar el número de sesiones concurrentes. Los atacantes pueden establecer un gran número de sesiones concurrentes para efectuar un ataque de denegación de servicio.
+:keywords: Linux, Evitar, Sesiones, Concurrentes, Seguridad, Buenas Prácticas.
 :kb: yes
 
 = Limitar Número de Sesiones Concurrentes por Usuario
@@ -49,12 +49,12 @@ y un sistema específico.
 
 Si bien, poder tener múltiples conexiones hacia un sistema 
 puede ser o mejor dicho es ventajoso, 
-tambien es recomendable limitar o controlar 
+también es recomendable limitar o controlar 
 el número de estas por las siguientes razones:
 
 Se evita la degradación del rendimiento y errores 
 provocados en el sistema por parte de los usuarios conectados. 
-Tambien se evitan posibles ataques de denegación de servicio.
+También se evitan posibles ataques de denegación de servicio.
 Además, evita la falta de trazabilidad 
 en el momento de ocurrencia de un incidente de seguridad.
 Por ultimo, previene el consumo excesivo de los recursos 

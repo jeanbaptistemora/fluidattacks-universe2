@@ -1,7 +1,7 @@
 :slug: kb/java/validar-jcaptcha/
 :category: java
-:description: TODO
-:keywords: TODO
+:description: Nuestros ethical hackers explican cómo evitar vulnerabilidades de seguridad mediante la programación segura en Java al utilizar Jcaptcha para validar que las acciones realizadas en la aplicación sean realizadas por un humano. La validación Jcaptcha permite un control anti-robot para la aplicación.
+:keywords: Java, Seguridad, Validar, Captcha, Control, Anti-Robot.
 :kb: yes
 
 = Validar JCaptcha

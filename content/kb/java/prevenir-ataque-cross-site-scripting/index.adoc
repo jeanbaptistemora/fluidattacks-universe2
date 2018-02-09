@@ -1,7 +1,7 @@
 :slug: kb/java/prevenir-ataque-cross-site-scripting/
 :category: java
-:description: TODO
-:keywords: TODO
+:description: Nuestros ethical hackers explican cómo evitar vulnerabilidades de seguridad mediante la programación segura en Java al prevenir ataques de tipo Cross Site Scripting (XSS). El XSS es una vulnerabilidad muy común de las aplicaciones y actualmente existen muchas herramientas que ayudan a prevenirlo.
+:keywords: Java, Seguridad, Buenas Prácticas, Prevenir, XSS, Cross Site Scripting. 
 :kb: yes
 
 = Prevenir Cross Site Scripting

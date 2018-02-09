@@ -1,7 +1,7 @@
 :slug: kb/javascript/ofuscar-codigo-javascript/
 :category: javascript
-:description: TODO
-:keywords: TODO
+:description: Nuestros ethical hackers explican cómo evitar vulnerabilidades de seguridad mediante la programación segura en JavaScript al ofuscar el código fuente de la aplicación. Ésto se evita que un atacante pueda visualizar el código de la aplicación para identificar vulnerabilidades en el mismo.
+:keywords: JavaScript, Seguridad, Ofuscar, Código, Buenas Prácticas, Producción.
 :kb: yes
 
 = Ofuscar Código JavaScript

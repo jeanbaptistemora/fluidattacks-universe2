@@ -1,7 +1,7 @@
 :slug: kb/java/purificar-html/
 :category: java
-:description: TODO
-:keywords: TODO
+:description: Nuestros ethical hackers explican cómo evitar vulnerabilidades de seguridad mediante la programación segura en Java utilizando Jsoup para purificar el código HTML. Jsoup es una biblioteca especializada en seguridad que define una lista blanca de atributos, evitando inyecciones de código malicioso.
+:keywords: Java, Seguridad, Buenas Prácticas, HTML, Jsoup, Servlet.
 :kb: yes
 
 = Purificar HTML

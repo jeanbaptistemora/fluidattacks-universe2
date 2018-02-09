@@ -1,7 +1,7 @@
 :slug: kb/java/implementar-acceso-rol/
 :category: java
-:description: TODO
-:keywords: TODO
+:description: Nuestros ethical hackers explican cómo evitar vulnerabilidades de seguridad mediante la programación segura en Java al implementar un control de acceso basado en roles. En este tipo de control de acceso los usuarios son agrupados en roles y cada rol tiene sus propios privilegios de acceso.
+:keywords: Java, Seguridad, Acceso, Rol, Privilegios, Acceso.
 :kb: yes
 
 = Implementar Control de Acceso Basado en Roles
