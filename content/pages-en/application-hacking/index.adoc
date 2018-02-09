@@ -1,5 +1,4 @@
-:slug: services/application-hacking/
-:category: services
+:slug: application-hacking/
 :description: TODO
 :keywords: TODO
 

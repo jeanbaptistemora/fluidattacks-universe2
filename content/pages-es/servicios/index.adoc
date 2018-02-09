@@ -4,8 +4,6 @@
 
 = Servicios
 
-== link:hacking-aplicacion/[Ethical Hacking de Aplicación]
+== link:hacking-puntual/[Hacking Puntual]
 
-== link:hacking-red/[Ethical Hacking de Red]
-
-== link:analisis-codigo/[Análisis de Código Fuente]
+== link:hacking-continuo/[Hacking Continuo]

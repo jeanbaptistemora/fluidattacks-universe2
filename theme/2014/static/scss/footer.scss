@@ -6,8 +6,15 @@ $white: rgba(255, 255, 255, 1);
 @mixin footer {
   background-color: $darkergray;
   border: 0;
-  color: $white;
   padding-bottom: 0;
+
+  a {
+    color: $white;
+
+    &:hover {
+      color: $lightblue;
+    }
+  }
 }
 
 .divlogo {
@@ -61,15 +68,6 @@ $white: rgba(255, 255, 255, 1);
     @include footer;
     padding: 0 20px 20px;
     vertical-align: top;
-
-    a {
-      color: $white;
-      font-size: 17px;
-
-      &:hover {
-        color: $lightblue;
-      }
-    }
   }
 }
 
@@ -109,15 +107,6 @@ $white: rgba(255, 255, 255, 1);
       @include footer;
       padding: 0 20px 20px;
       vertical-align: top;
-
-      a {
-        color: $white;
-        font-size: 17px;
-
-        &:hover {
-          color: $lightblue;
-        }
-      }
     }
   }
 }

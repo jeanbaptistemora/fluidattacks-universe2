@@ -4,8 +4,6 @@
 
 = Services
 
-== link:application-hacking/[Ethical Hacking over Applications]
+== link:one-shot-hacking/[One-Shot Hacking]
 
-== link:network-hacking/[Ethical Hacking over Infrastructure]
-
-== link:code-analysis/[Source Code Analysis]
+== link:continuous-hacking/[Continuous Hacking]

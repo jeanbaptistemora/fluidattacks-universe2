@@ -1,5 +1,4 @@
-:slug: services/network-hacking/
-:category: services
+:slug: network-hacking/
 :description: TODO
 :keywords: TODO
 
