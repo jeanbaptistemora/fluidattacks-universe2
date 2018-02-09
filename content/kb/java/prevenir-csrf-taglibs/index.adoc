@@ -8,32 +8,55 @@
 
 == Necesidad
 
-Prevenir ataques CSRF usando taglibs de CSRFGuard (Java EE)
+Prevenir ataques +CSRF+ usando +taglibs+ de +CSRFGuard+ en +Java EE+.
 
 == Contexto
 
-A continuación se describen las circunstancias bajo las cuales la siguiente 
-solución tiene sentido:
+A continuación se describen las circunstancias 
+bajo las cuales la siguiente solución tiene sentido:
 
-. Se está desarrollando una aplicación JEE.
-. Se tiene instalado un contenedor de servlets.
-. Se desea utilizar la nueva versión (v3), aún inestable de la herramienta 
-CSRFGuard.
-. Se cuenta con la herramienta CSRFGuard v3 [1] instalada y configurada
-. Se entiende el ataque CSRF.
+. Se está desarrollando una aplicación +Java EE+.
+. Se tiene instalado un contenedor de +servlets+.
+. Se desea utilizar la versión +v3+ de la herramienta +CSRFGuard+.
+. Se cuenta con la herramienta 
++CSRFGuard v3+ ^<<r1,[1]>>^ instalada y configurada
+. Se entiende el ataque +CSRF+.
 
 == Solución
 
-. Se describirá a continuación como emplear la biblioteca CSRFGuard v3[1] para 
-proteger el recurso accion.html de peticiones no generadas desde formularios de 
-la aplicación, los cuales se encuentran en index.jsp.
++Cross Site Request Forgery+ o por sus siglas +CSRF+, 
+es un ataque contra sitios web que fuerza a un usuario, 
+previamente registrado en la aplicación, 
+a ejecutar acciónes de forma no intencionada en la página. 
+Es decir, fuerza al navegador web de la víctima a enviar 
+una petición a una aplicación web vulnerable, entonces, 
+dicha aplicación se encarga de realizar 
+la acción elegida por el atacante a través de la víctima, 
+debido a que la actividad maliciosa 
+será procesada en nombre del usuario legitimo.
 
-. Primero definimos aspectos generales de la página como lo es el lenguaje, el 
-tipo de contenido y la forma de codificación. Acto seguido se incluye el taglib 
-de CSRFGuard, usando como prefijo csrf para utilizarse de forma abreviada en 
-líneas siguientes.
+Al contrario de los ataques +XSS+, 
+los cuales explotan la confianza del usuario 
+para con un sitio particular; 
+el +Cross Site Request Forgery+ 
+explota la confianza que un sitio web tiene 
+en un usuario particular.
+
+Se describirá a continuación como emplear 
+la biblioteca +CSRFGuard+ ^<<r2,[2]>>^ 
+para proteger el recurso +accion.html+ 
+de peticiones no generadas desde formularios de la aplicación, 
+los cuales se encuentran en +index.jsp+.
+
+. Primero, hay que definir aspectos generales de la página 
+como lo es el lenguaje, el tipo de contenido 
+y la forma de codificación. 
+Acto seguido, se incluye el +taglib+ de +CSRFGuard+, 
+usando como prefijo +csrf+ 
+para que pueda ser utilizado,
+de forma abreviada, en las líneas siguientes.
 +
-.test.py
+.accion.html
 [source, html, linenums]
 ----
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
@@ -42,8 +65,8 @@ líneas siguientes.
 <html>
 ----
 
-. En el primer formulario se incluye un campo oculto cuyo nombre y valor serán 
-generados dinámicamente por la biblioteca.
+. En el primer formulario, se debe incluir un campo oculto 
+cuyo nombre y valor serán generados dinámicamente por la biblioteca.
 +
 [source, html, linenums]
 ----
@@ -57,9 +80,9 @@ generados dinámicamente por la biblioteca.
 <br />
 ----
 
-. El segundo formulario se define usando el taglib csrf:form, el cual 
-automáticamente se encarga de agregar un campo oculto análogo al del primer 
-formulario.
+. El segundo formulario se define usando el +taglib+ +csrf:form+, 
+el cual, automáticamente, se encarga de agregar 
+un campo oculto análogo al del primer formulario.
 +
 [source, html, linenums]
 ----
@@ -71,10 +94,11 @@ formulario.
 <br />
 ----
 
-. Ambos formularios intentarán hacer una petición GET a accion.html enviando el 
-campo oculto que permitirá comprobar la validez de la solicitud.
+. Ambos formularios intentarán hacer una petición +GET+ a +accion.html+ 
+enviando el campo oculto que permitirá 
+comprobar la validez de la solicitud.
 
-. Finalmente se cierran los tags aún abiertos
+. Finalmente se cierran los +tags+ aún abiertos
 +
 [source, html, linenums]
 ----
@@ -82,13 +106,14 @@ campo oculto que permitirá comprobar la validez de la solicitud.
 </html>
 ----
 
-. Examinando el código fuente generado para los formularios, se puede apreciar 
-el valor de los campos ocultos:
+. Examinando el código fuente generado para los formularios, 
+se puede apreciar el valor de los campos ocultos.
 
 image::formulario.png[formulario]
 
 == Referencias
 
-. https://www.owasp.org/index.php/Category:OWASP_CSRFGuard_Project[CSRFGuard Project]
-. REQ.0169 La aplicación debe garantizar que las peticiones que ejecuten 
-transacciones no sigan un patrón discernible.
+. [[r1]] link:https://www.owasp.org/index.php/Cross-Site_Request_Forgery_(CSRF)[Cross-Site Request Forgery (CSRF)]
+. [[r2]] link:https://www.owasp.org/index.php/Category:OWASP_CSRFGuard_Project[CSRFGuard Project]
+. [[r3]] REQ.0169 La aplicación debe garantizar que las peticiones 
+que ejecuten transacciones no sigan un patrón discernible.
