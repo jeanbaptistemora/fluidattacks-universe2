@@ -106,7 +106,7 @@ fluidasserts:
 
 == 4. Ejemplos de exploits
 
-.ex1.py: Verificar inyección SQL
+.ex1_open.py: Verificar inyección SQL aun presente
 [source, python, linenum]
 ----
 """
@@ -120,31 +120,38 @@ URL = 'http://testphp.vulnweb.com/AJAX/infoartist.php?id=3%27'
 http.has_sqli(URL)
 ----
 
-.Resultado de ejecucion ex1.py
-image::ex1.png[ex1]
+.Resultado de ejecución ex1_open.py
+[source, bash]
+----
+$ python ex1_open.py
+Loading modules...
+2018-02-09 11:15:22,273 - FLUIDAsserts - INFO - OPEN: http://testphp.vulnweb.com/AJAX/infoartist.php?id=3%27 Bad text present, Details=Warning.*mysql_.*
+----
 
-.ex2.py: Verificar fuerza bruta en formulario de login
+
+.ex1_close.py: Verificar inyección SQL ya solucionada
 [source, python, linenum]
 ----
 """
-Check if it's possible to bruteforce a login form
+Test a SQL Injection vulnerability
 """
 
 from fluidasserts.service import http
 
-URL = 'http://testphp.vulnweb.com/userinfo.php'
-DATA = 'uname=foo&pass=bar'
-OK_TEXT = 'Smith'
-USER_LIST = ['admin', 'test']
-PASS_LIST = ['password', 'test', '123']
+URL = 'http://testphp.vulnweb.com/AJAX/infoartist.php?id=3'
 
-http.can_brute_force(URL, OK_TEXT, 'uname', 'pass', USER_LIST, PASS_LIST, data=DATA)
+http.has_sqli(URL)
 ----
 
-.Resultado de ejecucion ex2.py
-image::ex2.png[ex2]
+.Resultado de ejecución ex1_close.py
+[source, bash]
+----
+$ python ex1_close.py
+Loading modules...
+2018-02-09 11:16:04,923 - FLUIDAsserts - INFO - CLOSE: http://testphp.vulnweb.com/AJAX/infoartist.php?id=3 Bad text not present
+----
 
-.ex3.py: Verificar XSS
+.ex2_open.py: Verificar XSS aun presente
 [source, python, linenum]
 ----
 """
@@ -160,25 +167,71 @@ DATA = 'name=test&text=%3Cscript%3Ealert%28%27Hacked+by+FLUID%27%29%3C%2Fscript%
 http.has_xss(URL, BAD_TEXT, data=DATA)
 ----
 
-.Resultado de ejecucion ex3.py
-image::ex3.png[ex3]
+.Resultado de ejecución ex2_open.py
+[source, bash]
+----
+$ python ex2_open.py
+Loading modules...
+2018-02-09 11:17:55,375 - FLUIDAsserts - INFO - OPEN: http://testphp.vulnweb.com/guestbook.php Bad text present, Details=<script>alert\('Hacked by FLUID'\)</script>
+----
 
-.ex4.py: Verificar si un formulario de login usa HTTPS
+.ex2_close.py: Verificar XSS ya solucionado
 [source, python, linenum]
 ----
 """
-Test if https is enforced on a login form
+Test a XSS vulnerability
 """
 
 from fluidasserts.service import http
 
-URL = 'http://testphp.vulnweb.com/login.php'
+URL = 'http://testphp.vulnweb.com/guestbook.php'
+BAD_TEXT = r"<script>alert\('Hacked by FLUID'\)</script>"
 
-http.is_not_https_required(URL)
+DATA = 'name=test&text=Hacked+by+FLUID&submit=add+message'
+http.has_xss(URL, BAD_TEXT, data=DATA)
 ----
 
-.Resultado de ejecucion ex4.py
-image::ex4.png[ex4]
+.Resultado de ejecución ex2_close.py
+[source, bash]
+----
+$ python ex2_close.py
+Loading modules...
+2018-02-09 11:19:28,075 - FLUIDAsserts - INFO - CLOSE: http://testphp.vulnweb.com/guestbook.php Bad text not present, Details=<script>alert\('Hacked by FLUID'\)</script>
+----
+
+=== Rompiendo el pipeline de Integración Continua
+
+.ex1_open.py: Verificar inyección SQL aun presente
+[source, python, linenum]
+----
+"""
+Test a SQL Injection vulnerability
+"""
+
+from fluidasserts.service import http
+
+URL = 'http://testphp.vulnweb.com/AJAX/infoartist.php?id=3%27'
+
+http.has_sqli(URL)
+----
+
+.Resultado de ejecución rompiendo el pipeline
+[source, bash]
+----
+$ export FA_STRICT="false"
+$ python ex1_open.py
+Loading modules...
+2018-02-09 11:19:55,339 - FLUIDAsserts - INFO - OPEN: http://testphp.vulnweb.com/AJAX/infoartist.php?id=3%27 Bad text present, Details=Warning.*mysql_.*
+$ echo $?
+0
+$ export FA_STRICT="true"
+$ python ex1_open.py
+Loading modules...
+2018-02-09 11:20:07,758 - FLUIDAsserts - INFO - OPEN: http://testphp.vulnweb.com/AJAX/infoartist.php?id=3%27 Bad text present, Details=Warning.*mysql_.*
+$ echo $?
+1
+$
+----
 
 == Licencia
 
