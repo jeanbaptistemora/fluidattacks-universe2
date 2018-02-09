@@ -8,26 +8,59 @@
 
 == Necesidad
 
-Criptografía simétrica en Java
+Implementar criptografía simétrica en +Java+.
 
 == Contexto
 
-A continuación se describen las circunstancias bajo las cuales la siguiente 
-solución tiene sentido:
+A continuación se describen las circunstancias 
+bajo las cuales la siguiente solución tiene sentido:
 
-. Se dispone de un programa realizado en Java 1.4 o superior.
+. Se dispone de un programa realizado en +Java 1.4+ o superior.
 
 == Solución
 
-Para cifrar, descifrar y crear la llave de cifrado, Java proporciona las clases 
-Cipher, KeyGenerator y SecretKey del paquete javax.crypto . A continuación se 
-enumeran las consideraciones que se deben tener en cuenta al momento de implementar el 
-algoritmo de cifrado simétrico AES con un tamaño de clave de 256 bits:
+De manera general, se conoce como criptografía 
+a las técnicas de cifrado o codificado destinadas a alterar 
+las representaciones lingüísticas de ciertos mensajes 
+con el fin de hacerlos ininteligibles a receptores no autorizados. 
+Estas técnicas se utilizan tanto en el arte 
+como en la ciencia y en la tecnología.
 
-. Cree una clase para encapsular los métodos de cifrado y descifrado
-. Importe las clases Cipher, KeyGenerator y SecretKey del paquete javax.crypto.
+Con la aparición de la informática 
+y el uso masivo de las comunicaciones digitales, 
+se han producido un número creciente de problemas de seguridad. 
+Las transacciones que se realizan a través de la red 
+pueden ser interceptadas, y por tanto, 
+la seguridad de esta información debe garantizarse. 
+Este desafío ha hecho que la criptografía 
+se use con el fin de proteger la información 
+y dotar de seguridad a las comunicaciones 
+y a las entidades que se comunican.^<<r1,[1]>>^
+
+Por otro lado, la criptografía simétrica, 
+también llamada criptografía de clave secreta 
+o criptografía de una clave, es un método criptográfico 
+en el cual se usa una misma clave para cifrar y descifrar mensajes 
+en el emisor y el receptor. 
+Las dos partes que se comunican han de ponerse de acuerdo, 
+de antemano, sobre la clave a usar. 
+Una vez que ambas partes tienen acceso a esta clave, 
+el remitente cifra un mensaje usando la clave, 
+lo envía al destinatario, y éste lo descifra con la misma clave.^<<r2,[2]>>^
+
+Para cifrar, descifrar y crear la llave de cifrado, 
++Java+ proporciona las clases +Cipher+, +KeyGenerator+ 
+y +SecretKey+ del paquete +javax.crypto+. 
+A continuación se enumeran las consideraciones 
+que se deben tener en cuenta al momento de implementar 
+el algoritmo de cifrado simétrico +AES+ con un tamaño de clave de +256 bits+:
+
+. Cree una clase para encapsular los métodos de cifrado y descifrado.
+
+. Importe las clases +Cipher+, +KeyGenerator+ 
+y +SecretKey+ del paquete +javax.crypto+.
 +
-.test.py
+.cifrado.java
 [source, java, linenums]
 ----
  import javax.crypto.Cipher;
@@ -35,7 +68,11 @@ algoritmo de cifrado simétrico AES con un tamaño de clave de 256 bits:
  import javax.crypto.SecretKey;
 ----
 
-. Cree el método para generar la llave privada con un tamaño de 256 bits.
+. Cree el método para generar la llave privada con un tamaño de +256 bits+.
+
+. Luego cree un objeto +Cipher+ 
+que referencie a un algoritmo de cifrado simétrico. 
+Para este caso se va hacer referencia al algoritmo +AES+. 
 +
 [source, java, linenums]
 ----
@@ -48,12 +85,10 @@ algoritmo de cifrado simétrico AES con un tamaño de clave de 256 bits:
  cipher.init(Cipher.ENCRYPT_MODE, key);
  byte[] cipherText = cipher.doFinal(secret.getBytes());
 ----
- 
-. Cree un objeto Cipher que referencie a un algoritmo de cifrado simétrico, para 
-este caso se va hacer refencia al algoritmo AES. En el caso en que se desee 
-utilizar el algoritmo Triple DES se debe especificar el valor de desde. [2]
 
 == Referencias
 
-. REQ.0144: Debe utilizarse como mecanismo de cifrado simétrico un tamaño de 
-clave mínimo de 256 bits.
+. [[r1]] link:https://es.wikipedia.org/wiki/Criptograf%C3%ADa[Criptografía]
+. [[r2]] link:https://es.wikipedia.org/wiki/Criptograf%C3%ADa_sim%C3%A9trica[Criptografía simétrica]
+. [[r3]] REQ.0144: Debe utilizarse como mecanismo de cifrado simétrico 
+con un tamaño de clave mínimo de 256 bits.
