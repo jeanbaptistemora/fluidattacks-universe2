@@ -1,7 +1,7 @@
 :slug: kb/windows/brindar-permiso-acceso-recursos/
 :category: windows
-:description: En este instructivo, explicaremos paso a paso cómo dar permisos de acceso sobre recursos de Windows Server 2008 de forma centralizada.
-:keywords: windows, windows server 2008
+:description: Nuestros ethical hackers explican cómo evitar vulnerabilidades de seguridad mediante la configuración segura de permisos en Windows. En este instructivo, explicaremos paso a paso cómo dar permisos de acceso sobre recursos de Windows Server 2008 de forma centralizada.
+:keywords: Seguridad, Permisos, Windows, Windows server 2008, Buenas prácticas, Acceso.
 :kb: yes
 
 = Brindar Permisos de Acceso Sobre Recursos

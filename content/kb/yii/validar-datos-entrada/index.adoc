@@ -1,7 +1,7 @@
 :slug: kb/yii/validar-datos-entrada/
 :category: yii
-:description: TODO
-:keywords: TODO
+:description: Nuestros ethical hackers explican cómo evitar vulnerabilidades de seguridad mediante la programación segura en PHP utilizando el framework Yii. Las aplicaciones deben validar los datos de entrada para evitar el ingreso de código malicioso, como es el caso de ataques XSS, SQLi, CSRF, entre otros.
+:keywords: PHP, Yii, Validar, Datos, Entrada,
 :kb: yes
 
 = Validar Datos de Entrada

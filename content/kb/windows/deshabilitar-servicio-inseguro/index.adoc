@@ -1,7 +1,7 @@
 :slug: kb/windows/deshabilitar-servicio-inseguro/
 :category: windows
-:description: TODO
-:keywords: TODO
+:description: Nuestros ethical hackers explican cómo evitar vulnerabilidades de seguridad mediante la configuración segura de Windows. En este instructivo, explicaremos paso a paso cómo deshabilitar servicios inseguros en un sistema operativo Windows con el fin de evitar el ingreso de malware al equipo.
+:keywords: Windows, Seguridad, Deshabilitar, Servicios, Inseguros, Windows 7.
 :kb: yes
 
 = Deshabilitar Servicios Inseguros

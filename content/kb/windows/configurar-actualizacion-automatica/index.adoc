@@ -1,7 +1,7 @@
 :slug: kb/windows/configurar-actualizacion-automatica/
 :category: windows
-:description: En este instructivo, explicaremos paso a paso cómo actualizar y mantener versiones estables en Windows Server 2008.
-:keywords: windows, windows server 2008
+:description: Nuestros ethical hackers explican cómo evitar vulnerabilidades de seguridad mediante la configuración segura de Windows. En este instructivo, explicaremos paso a paso cómo actualizar y mantener versiones estables del sistema operativo en Windows Server 2008.
+:keywords: Seguridad, Buenas Prácticas, Windows, Windows Server 2008, Actualizaciones, Automáticas.
 :kb: yes
 
 = Configurar Actualizaciones Automáticas

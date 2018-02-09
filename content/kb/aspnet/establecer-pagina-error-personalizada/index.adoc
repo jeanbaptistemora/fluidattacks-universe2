@@ -1,7 +1,7 @@
 :slug: kb/aspnet/establecer-pagina-error-personalizada/
 :category: aspnet
-:description: TODO
-:keywords: TODO
+:description: Nuestros ethical hackers explican cómo evitar vulnerabilidades de seguridad mediante la programación segura en ASPNET al establecer una página de error personalizada. Las páginas de error por defecto pueden revelar información sensible como rutas y nombres de directorios.
+:keywords: ASPNET, Seguridad, Buenas Prácticas, Página, Error, Personalizado.
 :kb: yes
 
 = Establecer página de error personalizada

@@ -1,7 +1,7 @@
 :slug: kb/aspnet/implementar-esquemas-autorizacion/
 :category: aspnet
-:description: TODO
-:keywords: TODO
+:description: Nuestros ethical hackers explican cómo evitar vulnerabilidades de seguridad mediante la programación segura en ASPNET al implementar esquemas de autorización. De esta manera se puede especificar los permisos de los usuarios para evitar que usuarios no autorizados accedan a los recursos.
+:keywords: ASPNET, Seguridad, Esquemas, Autorización, Permisos, Acceso.
 :kb: yes
 
 = Implementar esquemas de autorización

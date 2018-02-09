@@ -1,7 +1,7 @@
 :slug: kb/aspnet/evitar-codigo-duplicado/
 :category: aspnet
-:description: TODO
-:keywords: TODO
+:description: Nuestros ethical hackers explican cómo evitar vulnerabilidades de seguridad mediante la programación segura en ASPNET al evitar código fuente duplicado. El código repetido puede generar potenciales brechas de seguridad en la aplicación y agrega complejidad innecesaria a la misma.
+:keywords: ASPNET, Seguridad, Buenas Prácticas, Evitar, Código, Duplicado.
 :kb: yes
 
 = Evitar código fuente duplicado

@@ -1,7 +1,7 @@
 :slug: kb/aspnet/evitar-divulgacion-banner/
 :category: aspnet
-:description: TODO
-:keywords: TODO
+:description: Nuestros ethical hackers explican cómo evitar vulnerabilidades de seguridad mediante la programación segura en ASPNET al evitar la divulgación de información. El banner grabbing es un método de obtención de información donde el atacante puede conocer la infraestructura detrás de una aplicación.
+:keywords: ASPNET, Seguridad, Evitar, Divulgación, Banner, Buenas Prácticas.
 :kb: yes
 
 = Evitar divulgación de banner
