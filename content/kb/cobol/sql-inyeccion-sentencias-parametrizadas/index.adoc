@@ -4,7 +4,7 @@
 :keywords: cobol, sentencias parametrizadas, sentencias estáticas, inyección sql, vulnerabilidad.
 :kb: yes
 
-= Prevenir SQL Inyección Mediante Sentencias Parametrizadas
+= Prevenir SQLi Mediante Sentencias Parametrizadas
 
 == Necesidad
 
