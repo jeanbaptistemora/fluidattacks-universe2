@@ -311,6 +311,13 @@ article {
   }
 }
 
+.tb-row-responsive {
+  td {
+    display: block;
+    margin: -1px;
+  }
+}
+
 .title {
   color: $darkgray;
   font-size: 16px;

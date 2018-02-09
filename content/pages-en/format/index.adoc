@@ -1022,7 +1022,6 @@ Talking about something else
 |6    |Three items|d
 |====
 
-
 ==== A More Complicated Table
 
 * Source
@@ -1105,6 +1104,64 @@ Back-to-back with previous interval.
 |24-Aug-08 3+^|none
 |====
 
+==== Responsive Table Distributed Horizontally
+
+Use the special class ``tb-row''
+for this type of tables.
+
+* Source
++
+....
+[role="tb-row"]
+.Distribución Horizontal
+[frame="topbot", cols="^s,^,^"]
+|====
+| Row 1 | Item 1 | Item 2
+
+| Row 2 | Item 1 | Item 2
+
+| Row 3 | Item 1 | Item 2
+|====
+....
+
+* Render
++
+[role="tb-row"]
+.Distribución Horizontal
+[frame="topbot", cols="^s,^,^"]
+|====
+| Row 1 | Item 1 | Item 2
+
+| Row 2 | Item 1 | Item 2
+
+| Row 3 | Item 1 | Item 2
+|====
+
+* Source
++
+....
+[role="tb-row"]
+.Distribución Horizontal - Mayor Ancho
+|====
+>m| Row 1 | Item 1 | Item 2 | Item 3 | Item 4
+
+^s| Row 2 | Item 1 | Item 2 | Item 3 | Item 4
+
+| Row 3 | Item 1 | Item 2 | Item 3 | Item 4
+|====
+....
+
+* Render
++
+[role="tb-row"]
+.Distribución Horizontal - Mayor Ancho
+|====
+>m| Row 1 | Item 1 | Item 2 | Item 3 | Item 4
+
+^s| Row 2 | Item 1 | Item 2 | Item 3 | Item 4
+
+| Row 3 | Item 1 | Item 2 | Item 3 | Item 4
+|====
 
 === Questions and Answers
 
