@@ -8,31 +8,64 @@
 
 == Necesidad
 
-Importar un certificado digital o confiar en uno autofirmado (Java)
+Importar un certificado digital o confiar en uno autofirmado en +Java+.
 
 == Contexto
 
-A continuación se describen las circunstancias bajo las cuales la siguiente 
-solución tiene sentido:
+A continuación se describen las circunstancias 
+bajo las cuales la siguiente solución tiene sentido:
 
-. Se desarrolla una aplicación en el lenguaje Java
-. Se posee acceso al keystore de la máquina virtual de Java.
+. Se desarrolla una aplicación en el lenguaje +Java+
+. Se posee acceso al +keystore+ de la máquina virtual de +Java+.
 
 == Solución
 
-. A continuación se describe el procedimiento para importar un certificado 
-digital en el keystore de la máquina virtual de JAVA, con el objetivo que se 
-pueda realizar una conexión SSL/TLS desde una aplicación que corre bajo esta. 
-Para realizar el procedimiento se utiliza la herramienta keytool que se incluye 
-dentro del JDK de JAVA.
-. Keystore de JAVA:  se encuentra ubicado en $JAVA_HOME/jre/lib/security/cacerts 
-y la contraseña predeterminada es changeit
-. Verificar Certificados Instalados que se encuentran instalados en el keystore 
-de la máquina virtual, se utiliza el comando keytool -list -keystore 
-<keystorefile>, este solicitará el password del keystore para poder acceder a 
-este.
+Un certificado digital o certificado electrónico 
+es un fichero informático con una estructura de datos 
+que contiene información sobre una entidad. 
+Este certificado es firmado por otra entidad, 
+considerada por una colección de otras entidades 
+como una autoridad para este tipo de contenido. 
+La firma de la estructura de datos 
+agrupa la información que contiene 
+de forma que no puede ser modificada 
+sin que esta modificación sea detectada.
+
+Los certificados digitales se clasifican en dos tipos: 
+certificados de atributos y certificados de clave pública. 
+Los primeros, normalmente no contienen claves públicas, 
+sino que asocian otro tipo de información 
+a alguna representación de la identidad de una entidad. 
+
+Por su parte, los certificados de clave pública 
+asocian, valga la redundancia, una clave pública 
+a alguna representación de la identidad de una entidad. 
+La clave privada asociada a dicha clave pública 
+está en posesión de dicha entidad. 
+Además, se puede incluir otra información relevante 
+como el periodo de valides, 
+identificación de los algoritmos para los cuales 
+se puede usar la clave pública 
+o políticas y/o restricciones de uso de dicho certificado.^<<r1,[1]>>^
+
+A continuación, se describe el procedimiento para importar 
+un certificado digital en el +keystore+ de la máquina virtual de +JAVA+ 
+con el objetivo que se pueda realizar una conexión +SSL/TLS+ 
+desde una aplicación que corre bajo esta.
+
+. Para realizar el procedimiento se utiliza la herramienta +keytool+ 
+que se incluye dentro del +JDK+ de +JAVA+.
+
+. El +Keystore+ de +JAVA+ se encuentra ubicado 
+en +$JAVA_HOME/jre/lib/security/cacerts+. 
+La contraseña predeterminada es +changeit+.
+
+. Después, se deben verificar los certificados instalados 
+que se encuentran instalados en el +keystore+ de la máquina virtual.
+Para esto se utiliza el comando +keytool -list -keystore <keystorefile>+, 
+éste solicitará el +password+ del +keystore+ para poder accederlo.
 +
-.test.py
+.certificado.bash
 [source, bash, linenums]
 ----
 keytool -list -keystore cacerts
@@ -56,9 +89,11 @@ verisignclass3g2ca, Mar 25, 2004, trustedCertEntry,
 Certificate fingerprint (MD5): A2:33:9B:4C:74:78:73:D4:6C:E7:C1:F3:8D:CB:5C:E9
 ----
 
-. Para importar un certificado al keystore se utiliza el comando 'keytool 
--import -alias <nombre alias del certificado> -keystore <keystorefile> -file 
-<certfile>', este pedirá el password del keystore para poder acceder a este.
+. Para importar un certificado al +keystore+ 
+se utiliza el comando 
++'keytool -import -alias <nombre alias del certificado> 
+-keystore <keystorefile> -file <certfile>'+. 
+éste pedirá el +password+ del +keystore+ para poder acceder a este.
 +
 [source, bash, linenums]
 ----
@@ -83,7 +118,8 @@ Certificate was added to keystore
 
 == Referencias
 
-. https://docs.microsoft.com/en-us/azure/java-add-certificate-ca-store[Adding a Certificate to the Java CA] 
-. https://docs.oracle.com/javase/7/docs/technotes/tools/windows/keytool.html[Key and Certificate Management Tool]
-. REQ.0142: Las funciones de criptografía del sistema deben ser implementadas 
-con mecanismos criptográficos pre-existentes.
+. [[r1]] link:https://es.wikipedia.org/wiki/Certificado_digital[Certificado digital]
+. [[r2]] link:https://docs.microsoft.com/en-us/azure/java-add-certificate-ca-store[Adding a Certificate to the Java CA] 
+. [[r3]] link:https://docs.oracle.com/javase/7/docs/technotes/tools/windows/keytool.html[Key and Certificate Management Tool]
+. [[r4]] REQ.0142: Las funciones de criptografía del sistema 
+deben ser implementadas con mecanismos criptográficos pre-existentes.
