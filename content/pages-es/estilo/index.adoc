@@ -129,6 +129,7 @@ Las excepciones a éstas reglas son:
 
 *Ejemplo:*
 
+. Ejemplo SLB.
 image::slb-example.png[slb]
 
 Para mayor información sobre los SLB y cómo utilizarlos,
@@ -170,7 +171,7 @@ utilizando un bloque de código, no usar imágenes.
 [source, C, linenums]
 ----
 function cool(x){
-	/*Please don't use comments in source code.
+	/*Please use SHORT comments in english when necessary.
 	You must explain your code in the document*/
 	int y;
 	y = x + 1;
@@ -211,8 +212,11 @@ sin incluir cómo programar seguro en el.
 no utilizar textos de otras páginas 
 a menos que sean frases puntuales.
 
-. Los documentos deben tener 
-+metadescription+ (250 a 300 caracteres) y 6 +keywords+.
+. Los documentos deben incluir al inicio la línea 
++:description:+, resumiendo su propósito en 250 a 300 caracteres. 
+
+. Los documentos deben incluir 6 
+link:https://www.inboundcycle.com/blog-de-inbound-marketing/que-es-una-keyword-o-palabra-clave[+:keywords:+].
 
 . Las palabras extranjeras y palabras reservadas
 utilizadas por fuera de bloques de código
@@ -238,7 +242,7 @@ and now I need to cite a reference <<r# ,^[#]^>>
 ----
 
 . Para más información sobre +asciidoc+, 
-consulta nuestra link:../../en/format[página de prueba.]
+consulta nuestra [button]#link:../../en/format[página de formatos permitidos y ejemplos.]# 
 
 == Autores
 
@@ -270,12 +274,10 @@ anteriormente mencionadas.
 . Si no eres parte del equipo de FLUID 
 solo debes enviar a communications@fluid.la tu documento, 
 adjuntando todos los archivos necesarios para crear el +post+.
+Una vez enviado el documento entrará en proceso de evaluación
+para definir si es publicado.
 
 == Términos y condiciones
-
-Una vez se envíe el documento a FLUID (communications@fluid.la) 
-entrará en un proceso de evaluación 
-para definir si es publicado o no.
 
 . FLUID se reserva el derecho de admisión 
 de los documentos enviados.
