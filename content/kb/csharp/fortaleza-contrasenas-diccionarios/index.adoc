@@ -1,0 +1,155 @@
+:slug: kb/csharp/fortaleza-contrasenas-diccionarios/
+:category: csharp
+:description: Nuestros ethical hackers explican como proteger una aplicacion desarrollada en CSharp frente a ataques de cross site scripting.
+:keywords: CSharp, Seguridad, Contraseñas, Diccionarios.
+:kb: yes
+
+= Probar Fortaleza de Contraseñas Usando Diccionarios
+
+== Necesidad
+
+Comprobar fortaleza de contraseñas por medio de diccionarios en +C#+.
+
+== Contexto
+
+A continuación se describen las circunstancias bajo las cuales la siguiente
+solución tiene sentido:
+
+. Se está desarrollando una aplicación en +C#+.
+. Si el lenguaje de programación es +Java+ ver Comprobar fortaleza de
+contraseña por medio de diccionarios (+Java+).
+. Se requiere comprobar la fortaleza de una contraseña
+por medio de diccionarios.<<r1, ^[1]^>>
+. El sistema operativo o el administrador del sistema poseen
+diccionarios con palabras comunes.
+
+== Solución
+
+El código dará solución a la necesidad de comprobar la fortaleza de una
+contraseña al buscarla en diccionarios que contienen palabras comunes.
+
+. Iniciamos el desarrollo de la aplicación importando las clases necesarias y
+definiendo el nombre de nuestra clase:
++
+.ejemplo.cs
+[source, csharp, linenums]
+----
+using System.IO;
+
+public class Dictionary {
+----
+. El método Main será el encargado de llamar al método +isPasswordInDictionary+,
+el cual realiza la búsqueda de la contraseña.
++
+[source, csharp, linenums]
+----
+public static void Main(string[] args)
+   {
+      try
+      {
+----
+
+. Establecemos la ruta del diccionario y se imprime el resultado.
++
+[source, csharp, linenums]
+----
+       string dic = "passwords.txt";
+       System.Console.WriteLine(isPasswordInDictionary(dic, "123"));
+       System.Console.WriteLine(isPasswordInDictionary(dic, "hello"));
+       System.Console.WriteLine(isPasswordInDictionary(dic, "admin"));
+       System.Console.WriteLine(isPasswordInDictionary(dic, "SystEM"));
+       System.Console.WriteLine(isPasswordInDictionary(dic, "Str0n6_P4ssw0rd!"));
+----
+
+. Capturamos las excepciones posibles:
++
+[source, csharp, linenums]
+----
+}
+      catch (FileNotFoundException e)
+      {
+          System.Console.WriteLine("Diccionario no encontrado");
+          System.Console.Error.WriteLine(e.Message);
+      }
+      catch (IOException e)
+      {
+          System.Console.WriteLine("Error de entrada/salida de datos");
+          System.Console.Error.WriteLine(e.Message);
+      }
+    }
+----
+
+. El método principal es el encargado de abrir el archivo de diccionario y
+buscar la contraseña. Retornará falso si la contraseña no se encuentra en el
+diccionario y verdadero en el caso contrario.
+. Iniciamos definiendo los parámetros: +dictionaryFilePath+ que contiene la
+ruta al diccionario y +password+ que es la contraseña.
++
+[source, csharp, linenums]
+----
+public static bool isPasswordInDictionary(string dictionaryFilePath, string password)
+    {
+----
+
+. Se abre el archivo de diccionario con la clase +StreamReader+, la cual
+permite leer archivos de mucho contenido con un buen manejo de memoria.
+Se define igualmente la variable que contendrá la palabra leida del diccionario.
++
+[source, csharp, linenums]
+----
+StreamReader dictionary = new StreamReader(dictionaryFilePath);
+        string word = "";
+----
+
+. Se itera a través de cada palabra en el archivo, si se encuentra dentro de
+la contraseña entonces se retorna verdadero, en otro caso se retorna falso.
+En este caso estamos limitandonos a probar palabras del diccionario con más
+de dos caracteres, para evitar problemas con diccionarios que puedan tener
+letras individuales en la lista de palabras.
++
+[source, csharp, linenums]
+----
+while ((word = dictionary.ReadLine()) != null)
+        {
+            if (word.Length > 2 && (password.IndexOf(word, System.StringComparison.OrdinalIgnoreCase) >= 0))
+            {
+                return true;
+            }
+        }
+        return false;
+     }
+----
+
+. La siguiente es una lista de diccionarios que se recomiendan para hacer la búsqueda:
+
+.. http://dazzlepod.com/uniqpass/[dazzlepod, uniqpass]
+.. http://www.openwall.com/wordlists/[openwall, wordlists]
+.. http://wordlist.sourceforge.net/[sourceforge, wordlist]
+.. http://packetstormsecurity.org/Crackers/wordlists/[packetstormsecurity, Crackerswordlists]
+.. deer-run, cracklib
+
+. Para +GNU/Linux+ se pueden utilizar los diccionarios incluidos con el
+sistema operativo que se encuentran en la ruta +/usr/share/dict/+
+
+El resultado para la anterior aplicación es el siguiente
+
+|====
+|Palabra|Resultado
+|123|true
+|hello|true
+|admin|true
+|SystEM|true
+|Str0n6_P4ssw0rd!|false
+|====
+
+== Descargas
+
+Puedes descargar el código fuente
+pulsando en el siguiente enlace:
+
+. [button]#link:src/ejemplo.cs[ejemplo.cs >>]# contiene
+todas las instrucciones +C#+ del programa.
+
+== Referencias
+
+. [[r1]] REQ.0101: El sistema debe tener la capacidad de validar que ninguna contraseña contenga palabras de diccionario
