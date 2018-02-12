@@ -1,7 +1,7 @@
 :slug: kb/criterio/requisito-seguridad-003/ 
 :category: criterio
-:description: TODO
-:keywords: TODO
+:description: En el presente documento se detallan los requerimientos de seguridad relacionados a los activos de información de la empresa. Los activos de información deben contar con una valoración monetaria para discernir su importancia, su costo de pérdida y determinar controles costo-eficientes.
+:keywords: Requerimiento, Seguridad, Activos, Información, Valoración, Monetaria.
 :kb: yes
 
 = REQ.003 Activo de información valorado en moneda

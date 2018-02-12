@@ -1,7 +1,7 @@
 :slug: kb/criterio/requisito-seguridad-008/ 
 :category: criterio
-:description: TODO
-:keywords: TODO
+:description: En el presente documento se detallan los requerimientos de seguridad relacionados a los activos de información de la empresa. Los riesgos de seguridad de los activos de información deben estar medidos en función de su probabilidad e impacto para determinar el valor real del riesgo.
+:keywords: Requerimiento, Seguridad, Activos de información, Riesgo, Probabilidad, Impacto.
 :kb: yes
 
 = REQ.008 Riesgos medidos por probabilidad e impacto

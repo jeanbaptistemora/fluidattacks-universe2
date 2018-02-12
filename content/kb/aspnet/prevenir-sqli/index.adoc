@@ -1,7 +1,7 @@
 :slug: kb/aspnet/prevenir-sqli/
 :category: aspnet
-:description: TODO
-:keywords: TODO
+:description:  Nuestros ethical hackers explican cómo evitar vulnerabilidades de seguridad mediante la programación segura en ASPNET al prevenir inyección SQL. Cuando se manejan bases de datos relacionales es importante validar las entradas para evitar el ingreso de código malicioso.
+:keywords: ASPNET, Seguridad, SQLi, Validación, Entradas, Buenas Prácticas.
 :kb: yes
 
 = Prevenir inyección SQL

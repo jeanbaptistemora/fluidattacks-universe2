@@ -1,7 +1,7 @@
 :slug: kb/aspnet/liberar-recursos/
 :category: aspnet
-:description: TODO
-:keywords: TODO
+:description: Nuestros ethical hackers explican cómo evitar vulnerabilidades de seguridad mediante la programación segura en ASPNET al liberar recursos. Las aplicaciones normalmente cuentan con un manejo de excepciones, es importante liberar la memoria utilizada para tratarlas mejorando su rendimiento.
+:keywords: ASPNET, Seguridad, Liberar, Recursos, Manejo, Excepciones.
 :kb: yes
 
 = Liberar recursos
