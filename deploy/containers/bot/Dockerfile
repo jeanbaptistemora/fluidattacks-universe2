@@ -11,6 +11,7 @@ ARG drive_authorization
 ARG documentroot
 ARG ssl_cert
 ARG ssl_key
+ARG drive_authorization_client
 
 ENV DEBIAN_FRONTEND noninteractive      # instalación no interactiva
 ENV CI_COMMIT_REF_NAME=$ci_commit_ref_name
@@ -20,6 +21,7 @@ ENV FI_DRIVE_AUTHORIZATION=$drive_authorization
 ENV FI_DOCUMENTROOT=$documentroot
 ENV FI_SSL_CERT=$ssl_cert
 ENV FI_SSL_KEY=$ssl_key
+ENV FI_DRIVE_AUTHORIZATION_CLIENT=$drive_authorization_client
 ENV TZ=America/Bogota
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 

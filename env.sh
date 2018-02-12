@@ -32,4 +32,5 @@
 	env | grep CI_COMMIT_REF_NAME
 	env | grep FI_SSL_KEY
 	env | grep FI_SSL_CERT
+	env | grep FI_DRIVE_AUTHORIZATION_CLIENT
 } > "env".list

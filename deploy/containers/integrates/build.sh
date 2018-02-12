@@ -16,6 +16,8 @@ FI_DRIVE_AUTHORIZATION=$4
 FI_DOCUMENTROOT=$5
 FI_SSL_CERT=$6
 FI_SSL_KEY=$7
+FI_DRIVE_AUTHORIZATION_CLIENT=$8
+
 # Mensaje de inicio
 echo "---### [${SERVER}] Compilando contenedor."
 
@@ -29,5 +31,6 @@ docker build --no-cache --build-arg ci_commit_ref_name="$CI_COMMIT_REF_NAME" \
             --build-arg documentroot="$FI_DOCUMENTROOT" \
             --build-arg ssl_cert="$FI_SSL_CERT" \
             --build-arg ssl_key="$FI_SSL_KEY" \
+            --build-arg drive_authorization_client="$FI_DRIVE_AUTHORIZATION_CLIENT" \
 						-t registry.gitlab.com/fluidsignal/integrates:base .
 rm -rf common
