@@ -1108,12 +1108,13 @@ Back-to-back with previous interval.
 
 Use the special class ``tb-row''
 for this type of tables.
+Avoid using multiline cells.
 
 * Source
 +
 ....
 [role="tb-row"]
-.Distribución Horizontal
+.Horizontal Distribution
 [frame="topbot", cols="^s,^,^"]
 |====
 | Row 1 | Item 1 | Item 2
@@ -1127,7 +1128,7 @@ for this type of tables.
 * Render
 +
 [role="tb-row"]
-.Distribución Horizontal
+.Horizontal Distribution
 [frame="topbot", cols="^s,^,^"]
 |====
 | Row 1 | Item 1 | Item 2
@@ -1141,7 +1142,7 @@ for this type of tables.
 +
 ....
 [role="tb-row"]
-.Distribución Horizontal - Mayor Ancho
+.Horizontal Distriution - More Cols than Rows
 |====
 >m| Row 1 | Item 1 | Item 2 | Item 3 | Item 4
 
@@ -1154,13 +1155,113 @@ for this type of tables.
 * Render
 +
 [role="tb-row"]
-.Distribución Horizontal - Mayor Ancho
+.Horizontal Distriution - More Cols than Rows
 |====
 >m| Row 1 | Item 1 | Item 2 | Item 3 | Item 4
 
 ^s| Row 2 | Item 1 | Item 2 | Item 3 | Item 4
 
 | Row 3 | Item 1 | Item 2 | Item 3 | Item 4
+|====
+
+==== Responsive Table Distributed Vertically
+
+Use the special class ``tb-col''
+for this type of tables.
+Avoid using multiline cells.
+
+* Source
++
+....
+[role="tb-col"]
+.Vertical Distribution - NxN
+[options="header", cols="^,^,^"]
+|====
+| Col 1 | Col 2 | Col 3
+
+| Item 1.1 | Item 1.2 | Item 1.3
+
+| Item 2.1 | Item 2.2 | Item 2.3
+|====
+....
+
+* Render
++
+[role="tb-col"]
+.Vertical Distribution - NxN
+[options="header", cols="^,^,^"]
+|====
+| Col 1 | Col 2 | Col 3
+
+| Item 1.1 | Item 1.2 | Item 1.3
+
+| Item 2.1 | Item 2.2 | Item 2.3
+|====
+
+* Source
++
+....
+[role="tb-col"]
+.Vertical Distribution - MxN, M < N
+[cols="<,^,>,<"]
+|====
+s| Col 1 s| Col 2 s| Col 3 s| Col 4
+
+| Item 2.1.1 | Item 2.1.2 | Item 2.1.3 | Item 2.1.4
+
+| Item 2.2.1 | Item 2.2.2 | Item 2.2.3 | Item 2.2.4
+|====
+....
+
+* Render
++
+[role="tb-col"]
+.Vertical Distribution - MxN, M < N
+[cols="<,^,>,<"]
+|====
+s| Col 1 s| Col 2 s| Col 3 s| Col 4
+
+| Item 2.1.1 | Item 2.1.2 | Item 2.1.3 | Item 2.1.4
+
+| Item 2.2.1 | Item 2.2.2 | Item 2.2.3 | Item 2.2.4
+|====
+
+* Source
++
+....
+[role="tb-col"]
+.Vertical Distribution - MxN, M > N
+|====
+| Col 1 | Col 2 | Col 3
+
+| Item 2.1.1 | Item 2.1.2 | Item 2.1.3
+
+| Item 2.2.1 | Item 2.2.2 | Item 2.2.3
+
+| Item 2.3.1 | Item 2.3.2 | Item 2.3.3
+
+| Item 2.4.1 | Item 2.4.2 | Item 2.4.3
+
+| Item 2.5.1 | Item 2.5.2 | Item 2.5.3
+|====
+....
+
+* Render
++
+[role="tb-col"]
+.Vertical Distribution - MxN, M > N
+|====
+| Col 1 | Col 2 | Col 3
+
+| Item 2.1.1 | Item 2.1.2 | Item 2.1.3
+
+| Item 2.2.1 | Item 2.2.2 | Item 2.2.3
+
+| Item 2.3.1 | Item 2.3.2 | Item 2.3.3
+
+| Item 2.4.1 | Item 2.4.2 | Item 2.4.3
+
+| Item 2.5.1 | Item 2.5.2 | Item 2.5.3
 |====
 
 === Questions and Answers

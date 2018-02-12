@@ -46,6 +46,16 @@ $yellow: rgba(255, 255, 0, 1);
   padding: 15px 10px;
 }
 
+@mixin cell($padding) {
+  border: 1px solid $lightgray;
+  font-size: 21px;
+  padding: $padding;
+
+  p {
+    margin: 10px 0;
+  }
+}
+
 html {
   font-family: $font;
 }
@@ -165,6 +175,8 @@ img {
 
 table {
   border-collapse: collapse;
+  display: block;
+  overflow: auto;
 
   td,
   th {
@@ -236,15 +248,13 @@ article {
 .tableblock {
   margin: 15px auto;
 
-  td,
   th {
-    border: 1px solid $lightgray;
-    font-size: 21px;
-    padding: 10px;
+    @include cell(20px);
+    text-align: center;
+  }
 
-    p {
-      margin: 10px 0;
-    }
+  td {
+    @include cell(10px);
   }
 }
 
@@ -311,8 +321,14 @@ article {
   }
 }
 
-.tb-row-responsive {
-  td {
+.tb-row,
+.tb-col {
+  display: table;
+}
+
+.tb-responsive {
+  td,
+  th {
     display: block;
     margin: -1px;
   }
