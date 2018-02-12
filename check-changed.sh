@@ -31,7 +31,7 @@ error "Number of words in posts out of range. Should be 800>=words<1200."
 
 echo "$CHANGED" | pcregrep '^content/pages.*adoc$' \
   | xargs -r -n 1 ./words.sh \
-  | pcregrep -v '^([4-9]\d\d|^1[0-1]\d\d)\s'
-error "Number of words in pages out of range. Should be 400>=words<1200."
+  | pcregrep -v '^([4-9]\d\d|^1[0-5]\d\d)\s'
+error "Number of words in pages out of range. Should be 400>=words<1600."
 
 exit ${ERRORS}

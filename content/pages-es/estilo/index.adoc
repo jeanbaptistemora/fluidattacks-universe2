@@ -104,7 +104,7 @@ Entre 400 y 800 palabras.
 Entre 800 y 1200 palabras.
 
 . *Para documentos tipo Página:*
-Entre 400 y 1200 palabras.
+Entre 400 y 1600 palabras.
 
 === 5. Saltos de línea semánticos
 
@@ -129,7 +129,7 @@ Las excepciones a éstas reglas son:
 
 *Ejemplo:*
 
-. Ejemplo SLB.
+.Ejemplo SLB.
 image::slb-example.png[slb]
 
 Para mayor información sobre los SLB y cómo utilizarlos,
@@ -202,7 +202,76 @@ image::explotacion.gif[gif]
 *Ejemplo:* Introducción a un lenguaje de programación 
 sin incluir cómo programar seguro en el.
 
-=== 11. Información Adicional
+=== 11. Metadatos
+
+Los metadatos son variables que se incluyen al inicio del documento 
+las cuales influyen en el renderizado final 
+y en cómo los indexa el motor de búsqueda. 
+Puede encontrar más información de las variables en asciidoc
+pulsando [button]#link:../../en/format/#variables[aquí.]#.
+A continuación se presenta una tabla 
+con los metadatos obligatorios en un documento:
+
+.Lista de metadatos presentes en un documento.
+
+[cols="15,10,10,10, 55"]
+|===
+|*Metadato* | *Página* | *KB* | *Post* | *Descripción*
+
+|+:slug:+| Si | Si | Si  
+| Enlace donde se encontrará disponible el documento una vez aceptado. 
+El +slug+ debe ser el nombre en minúscula del artículo, 
+sin espacios, preposiciones, conjunciones o conectores
+y separado por guiones "-".
+
+|+:description:+ | Si | Si | Si 
+| Resumen en 250 a 300 caracteres de la idea principal del documento.
+Esta descripción aparecerá en los resultados de los motores de búsqueda.
+
+|+:keywords:+ | Si | Si | Si
+| Palabras clave del documento a través de las cuales 
+puede ser encontrado por un motor de búsqueda.
+El documento debe incluir 6 +keywords+.
+
+|+:kb:+ | No | Si | No
+| Metadato único de artículos en +Knowledge Base+.
+El único valor aceptado es +yes+.
+
+| +:date:+ | No | No | Si
+| Fecha en la que se realizó el documento.
+
+| +:category:+ | No | No | Si
+| Categoría a la que pertenece el documento.
+Ejemplo: Opinión de seguridad, Buenas Prácticas, etc.
+
+| +:tags:+ | No | No | Si
+| Similar al metadato +:keywords:+ 
+palabras destacables para indexar el documento internamente.
+
+| +:image:+ | No | No | Si
+| Imagen que aparecerá en la vista previa del artículo.
+Esta imagen deberá tener unas dimensiones de 600 x 200 px 
+y no debe superar los 300 Kb de peso.
+
+| +:alt:+ | No | No | Si
+| Descripción de la imagen de la vista previa.
+
+| +:author:+ | No | No | Si
+| Nombre del autor que aparecerá en la parte superior del documento.
+Poner únicamente un nombre y un apellido.
+
+| +:writer:+ | No | No | Si
+| Nombre  y extensión de la imagen que te representa como autor.
+La única extensión permitida es PNG.
+
+| +:name:+ | No | No | Si
+| Nombre que aparecerá bajo la imagen del autor.
+Puede ser tu nombre completo o tu +nickname+.
+
+|===
+
+
+=== 12. Información Adicional
 
 . Si se usan acrónimos se debe incluir entre paréntesis su significado.
 
@@ -211,12 +280,6 @@ sin incluir cómo programar seguro en el.
 . Los párrafos *deben* ser originales, 
 no utilizar textos de otras páginas 
 a menos que sean frases puntuales.
-
-. Los documentos deben incluir al inicio la línea 
-+:description:+, resumiendo su propósito en 250 a 300 caracteres. 
-
-. Los documentos deben incluir 6 
-link:https://www.inboundcycle.com/blog-de-inbound-marketing/que-es-una-keyword-o-palabra-clave[+:keywords:+].
 
 . Las palabras extranjeras y palabras reservadas
 utilizadas por fuera de bloques de código
