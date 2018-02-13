@@ -1,3 +1,9 @@
+/*
+Script used so the line numbers of differente code blocks
+in an article follow a sequential order instead of
+reseting to 1 every time a new code block is declared.
+*/
+
 $(document).ready(function () {
   var lines = document.getElementsByClassName("linenodiv");
   if (lines.length) {

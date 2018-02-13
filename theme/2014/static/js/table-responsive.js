@@ -1,3 +1,12 @@
+/*
+Script that gives responsive capabilities to every table of the site,
+as long as its class is one of the three predefined (tb-row, tb-col, tb-alt).
+It is used to offer a general solution to responsive tables that does not
+hurt design, like making it scrollable.
+It covers the main types of tables, horizontally and vertically distributed
+and a particular one, a table with two columns where the content is alternated
+*/
+
 (function($) {
   $.fn.transpose = function() {
     var diff = $(this)[0].rows[0].cells.length - $(this)[0].rows.length;

@@ -1,3 +1,9 @@
+/*
+Script that uses the <h> tags to build a Table of Contents.
+It uses the Asciidoc division in sections to group the related
+content.
+*/
+
 function getinfo(sect, header, nxt_sect, label) {
   $(sect).each(function() {
     var h = $(this).children(header);

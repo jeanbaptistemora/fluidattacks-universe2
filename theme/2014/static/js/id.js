@@ -1,3 +1,13 @@
+/*
+Script that takes every HTML <h> tag from <h1> to <h5> of the current page
+and uses its text content to create an ID, free of most types of special
+characters, so it can be given to a <span> element prepended to the respective
+<h> tag in order to be used as an anchor. The creation of the span element
+becomes necessary after the menu was fixed to the top of the page, to solve the
+offset problem when jumping to the anchor.
+A link is also created next to the titles to improve accesibility
+*/
+
 (function($) {
   $.fn.idtag = function() {
     for (i = 1; i < 5; i++) {
@@ -27,10 +37,6 @@
   $(document).ready(function() {
     $(this).idtag();
   });
-})(jQuery);
-
-(function($) {
-  $(window).on('resize', $(document).idtag);
 })(jQuery);
 
 $(document).ready(function () {

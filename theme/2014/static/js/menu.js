@@ -1,3 +1,8 @@
+/*
+Script that makes the navigationbar responsive in small screens,
+organizing the content in a dropdown menu.
+*/
+
 (function($) {
 
   $.fn.menumaker = function(options) {

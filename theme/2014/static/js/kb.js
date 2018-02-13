@@ -1,3 +1,11 @@
+/*
+Script to create a dropdown menu containing links to every
+article of the main category clicked in the index of the KB.
+If the category is clicked again, the menu disappears.
+Used to improve the readability and presentation of the KB
+articles.
+*/
+
 var kbcat = document.getElementsByClassName("kb-category");
 var i;
 for (i = 0; i < kbcat.length; i++) {
