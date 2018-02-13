@@ -873,10 +873,9 @@ in the literal block.
 .Code from file
 [source, gherkin, linenums]
 ----
- include::/web/content/pages-en/format/script.feature [] -> No space
+include::/web/content/pages-en/format/script.feature [] -> No space
 ----
 ....
-
 
 * Render
 +
@@ -1108,7 +1107,7 @@ Back-to-back with previous interval.
 
 Use the special class ``tb-row''
 for this type of tables.
-Avoid using multiline cells.
+*DO NOT USE MULTILINE CELLS*.
 
 * Source
 +
@@ -1168,7 +1167,7 @@ Avoid using multiline cells.
 
 Use the special class ``tb-col''
 for this type of tables.
-Avoid using multiline cells.
+*DO NOT USE MULTILINE CELLS*.
 
 * Source
 +
@@ -1263,11 +1262,55 @@ s| Col 1 s| Col 2 s| Col 3 s| Col 4
 
 | Item 2.5.1 | Item 2.5.2 | Item 2.5.3
 |====
+
+==== Responsive Table with Alternated Content - Max. 2 Columns
+
+Use the special class ``tb-alt''
+for this type of table.
+*DO NOT USE MULTILINE CELLS*.
 
 === Questions and Answers
 
 * Source
 +
+....
+[role="tb-alt"]
+.Table with Alternated Content
+[cols="2*^", frame="none"]
+|====
+|Text 1
+|image:doge.png[Doge]
+
+|image:doge.png[Doge]
+|Text 2
+
+|Text 3
+|image:doge.png[Doge]
+
+|image:doge.png[Doge]
+|Text 4
+|====
+....
+
+* Render
++
+[role="tb-alt"]
+.Table with Alternated Content
+[cols="2*^", frame="none"]
+|====
+|Text 1
+|image:doge.png[Doge]
+
+|image:doge.png[Doge]
+|Text 2
+
+|Text 3
+|image:doge.png[Doge]
+
+|image:doge.png[Doge]
+|Text 4
+|====
+
 ....
 [qanda]
 Question 1::

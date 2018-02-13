@@ -93,8 +93,11 @@ $white: rgba(255, 255, 255, 1);
   }
 }
 
-.int-row {
-  text-align: center;
+.integrates {
+  h2 {
+    margin-left: 0;
+    text-align: center;
+  }
 }
 
 @media (min-width: 480px) {
@@ -112,24 +115,6 @@ $white: rgba(255, 255, 255, 1);
 
       p {
         display: inline;
-      }
-    }
-  }
-}
-
-@media (min-width: 600px) {
-  .int-row {
-    display: flex;
-
-    .int-text,
-    .int-img {
-      margin: auto 1%;
-      width: 48%;
-    }
-
-    &:nth-child(even) {
-      .int-text {
-        order: 2;
       }
     }
   }

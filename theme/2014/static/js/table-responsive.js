@@ -29,12 +29,26 @@
   };
 })(jQuery);
 
+(function($) {
+  $.fn.swap = function() {
+    var temp;
+    for (i = 1; i < $(this)[0].rows.length; i+=2) {
+      temp = $(this)[0].rows[i].cells[0].innerHTML;
+      $(this)[0].rows[i].cells[0].innerHTML = $(this)[0].rows[i].cells[1].innerHTML;
+      $(this)[0].rows[i].cells[1].innerHTML = temp;
+    }
+  };
+})(jQuery);
+
 function responsive(tableclass, minsize){
   table = $(document).find(tableclass);
   $(table).each(function () {
     if ($(this)[0].rows[0].cells[0].offsetWidth < minsize && !$(this).hasClass("tb-responsive")) {
       if (tableclass == ".tb-col") {
         $(this).transpose();
+      }
+      if (tableclass == ".tb-alt") {
+        $(this).swap();
       }
       $(this).toggleClass("tb-responsive");
     }
@@ -46,6 +60,9 @@ function responsive(tableclass, minsize){
         }
       }
       else if ($(this)[0].rows[0].cells[0].offsetWidth > minsize * $(this)[0].rows[0].cells.length && $(this).hasClass("tb-responsive")) {
+        if (tableclass == ".tb-alt") {
+          $(this).swap();
+        }
         $(this).toggleClass("tb-responsive");
       }
     }
@@ -56,10 +73,12 @@ function responsive(tableclass, minsize){
   $(window).on('resize', function(){
     responsive(".tb-row", 100);
     responsive(".tb-col", 100);
+    responsive(".tb-alt", 260);
   });
 })(jQuery);
 
 $(document).ready(function() {
   responsive(".tb-row", 100);
-  responsive(".tb-col", 100);  
+  responsive(".tb-col", 100);
+  responsive(".tb-alt", 260);
 });
