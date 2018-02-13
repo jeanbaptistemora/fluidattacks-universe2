@@ -4,8 +4,8 @@
 :tags: security, information, jwt
 :Image: proud-son.png
 :alt: Text editor with code highlighting
-:description: TODO
-:keywords: TODO
+:description: In this article we introduce JSON Web Token (JWT). JWT is a simple, quick way to send secured, digital signed data from one part to another via URL using a base64 algorithm to encode. This data can be signed using different encryption methods, such as public/private  RSA key, HMAC or SHA256.
+:keywords: JSON, Security, Digital signature, Web token, JWT , Information.
 :author: Juan Aguirre
 :writer: juanes
 :name: Juan Esteban Aguirre González

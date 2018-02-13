@@ -4,8 +4,8 @@
 :tags: password, security, challenge
 :Image: storing-password-safely.png
 :alt: Magnifying glass finding password in a set of binary data
-:description: TODO
-:keywords: TODO
+:description: Hash algorithms are often used to secure sensible data. Despite this measure can add extra layers of protection, hash algorithms can be cracked by using huge databases with hashed common words, so it's important to know how to properly secure your data before storing.
+:keywords: Hash, Security, Password, SHA , MD5, HMAC.
 :author: Jonathan Armas
 :writer: johna
 :name: Jonathan Armas

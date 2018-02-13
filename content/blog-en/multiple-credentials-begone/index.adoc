@@ -4,8 +4,8 @@
 :tags: security, credential, saml, standard
 :Image: multiple-credentials.png
 :alt: Several boxes prompting for username and password
-:description: TODO
-:keywords: TODO
+:description: Single Sign On (SSO) services provides an identity and access management to avoid multiple credentials issues. Security Assertion Mark-up Language (SAML)is a popular SSO implementation standard for logging users into applications based on their sessions. Here we explain how to use SAML.
+:keywords: Security, SAML, Credentials, SSO, XML, Risks.
 :author: Juan Aguirre
 :writer: juanes
 :name: Juan Esteban Aguirre González
@@ -94,7 +94,7 @@ the tags is the signature or assertion the system needs. The
 getElementsByTagName() method returns a list of all the selected XML elements
 in the document. We focus on this method because it is the most popular amongst
 developers, probably because of its simplicity.
-.test.py
+.SamlConfig.Java
 [source, java,linenums]
 ----
 NodeList nodes = document.getElementsByTagName("saml:Assertion");

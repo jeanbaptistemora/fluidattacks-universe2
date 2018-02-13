@@ -4,8 +4,8 @@
 :tags: security, test, software
 :Image: sym-exec.png
 :alt: Doll using a magnifying glass while searching through a set of data
-:description: TODO
-:keywords: TODO
+:description: In this article we aim to explain a first approach to symbolic execution. This type of execution is very useful when comes to software assessment because it allows to test our application with multiple types of input, and find errors caused by invalid input data.
+:keywords: Symbolic, Execution, Security, Software, Test,
 :author: Juan Aguirre
 :writer: juanes
 :name: Juan Esteban Aguirre González
@@ -67,7 +67,7 @@ To better understand how symbolic execution works we are going to look at an
 example that illustrates the steps taken by the symbolic execution engine.
 
 Consider the following code:
-.test.py
+.simexec.c
 [source, c,linenums]
 ----
 void myFunct(int a, int b){

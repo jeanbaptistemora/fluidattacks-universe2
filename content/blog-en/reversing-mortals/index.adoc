@@ -4,8 +4,8 @@
 :tags: revert, challenge, engineering
 :Image: reversing-mortals.png
 :alt: Yellow puzzle missing one piece, shown in red
-:description: TODO
-:keywords: TODO
+:description: The world of hacking is pretty extense and it's difficult to know where to start. In this article we provide a first approach of one of the most common hacking applications: reverse engineering by solving a simple but educational cracking challenge using OllyDBG.
+:keywords: Reversing, Reverse Engineering, Debugger, OllyDBG, Hacking, Assembler.
 :author: Juan Aguirre
 :writer: juanes
 :name: Juan Esteban Aguirre González

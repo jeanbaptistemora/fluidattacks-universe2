@@ -4,8 +4,8 @@
 :tags: pythagoras, code, challenge, solve
 :Image: triangles.png
 :alt: Pyramids in the desert
-:description: TODO
-:keywords: TODO
+:description: Programming is awesome, either for fun, learning or work there are multiple tasks that can be accomplished by programming. Here we present one of the programming challenges of CoddeAbbey related to triangle sorting, properly explained with source code.
+:keywords: Triangles, Programming, Challenge, CodeAbbey, Types, Angles.
 :author: Jonathan Armas
 :writer: johna
 :name: Jonathan Armas
@@ -59,7 +59,7 @@ A R O
 
 We calculate first the hypotenuse with the first 2 sides
 
-.test.py
+.triangles.py
 [source, python,linenums]
 ----
 let rec hypo a b = hypot a b;
