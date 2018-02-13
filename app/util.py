@@ -144,7 +144,51 @@ def get_evidence_set(finding):
             "explicacion": finding["desc_evidencia_5"].capitalize()
         })
     return evidence_set
-    
+
+def get_evidence_set_s3(finding, key_list, field_list):
+    evidence_set = []
+    for k in key_list:
+        ruta_evidencia_1 = finding['id'] + "/" + finding['proyecto_fluid'].lower() \
+                            + "-" + finding['id'] + "-" + field_list[0]
+        if "desc_evidencia_1" in finding and \
+            ruta_evidencia_1 in k:
+            evidence_set.append({
+                "id": k.split("/")[1],
+                "explicacion": finding["desc_evidencia_1"].capitalize()
+            })
+        ruta_evidencia_2 = finding['id'] + "/" + finding['proyecto_fluid'].lower() \
+                            + "-" + finding['id'] + "-" + field_list[1]
+        if "desc_evidencia_2" in finding and \
+            ruta_evidencia_2 in k:
+            evidence_set.append({
+                "id":  k.split("/")[1],
+                "explicacion": finding["desc_evidencia_2"].capitalize()
+            })
+        ruta_evidencia_3 = finding['id'] + "/" + finding['proyecto_fluid'].lower() \
+                            + "-" + finding['id'] + "-" + field_list[2]
+        if "desc_evidencia_3" in finding and \
+            ruta_evidencia_3 in finding:
+            evidence_set.append({
+                "id": k.split("/")[1],
+                "explicacion": finding["desc_evidencia_3"].capitalize()
+            })
+        ruta_evidencia_4 = finding['id'] + "/" + finding['proyecto_fluid'].lower() \
+                            + "-" + finding['id'] + "-" + field_list[3]
+        if "desc_evidencia_4" in finding and \
+            ruta_evidencia_4 in finding:
+            evidence_set.append({
+                "id":  k.split("/")[1],
+                "explicacion": finding["desc_evidencia_4"].capitalize()
+            })
+        ruta_evidencia_5 = finding['id'] + "/" + finding['proyecto_fluid'].lower() \
+                            + "-" + finding['id'] + "-" + field_list[4]
+        if "desc_evidencia_5" in finding and \
+            ruta_evidencia_5 in finding:
+            evidence_set.append({
+                "id":  k.split("/")[1],
+                "explicacion": finding["desc_evidencia_5"].capitalize()
+            })
+    return evidence_set
 
 def get_ext_filename(drive_id):
     filename = "/tmp/img_:id".replace(":id", drive_id)

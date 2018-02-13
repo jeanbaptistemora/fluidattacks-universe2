@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 """ Vistas y servicios para FluidIntegrates """
 
+from __future__ import absolute_import
 import os
 import sys
 import re
@@ -8,6 +9,9 @@ import json
 import time
 import pytz
 import rollbar
+import boto3
+from django.core.files.uploadedfile import InMemoryUploadedFile, TemporaryUploadedFile
+from botocore.exceptions import ClientError
 from django.shortcuts import render, redirect
 from django.views.decorators.cache import never_cache
 from django.views.decorators.csrf import csrf_exempt
@@ -34,6 +38,14 @@ from .api.drive import DriveAPI
 from .api.formstack import FormstackAPI
 from magic import Magic
 from datetime import datetime
+from __init__ import FI_AWS_S3_ACCESS_KEY, FI_AWS_S3_SECRET_KEY
+
+
+client_s3 = boto3.client('s3',
+                            aws_access_key_id=FI_AWS_S3_ACCESS_KEY,
+                            aws_secret_access_key=FI_AWS_S3_SECRET_KEY)
+
+bucket_s3 = "fluidintegrates.fluidattacks.com"
 
 @never_cache
 def index(request):
@@ -109,6 +121,7 @@ def logout(request):
     return redirect("/index")
 
 #pylint: disable=too-many-branches
+#pylint: disable=too-many-locals
 @never_cache
 @csrf_exempt
 @authorize(['analyst', 'customer'])
@@ -133,11 +146,24 @@ def project_to_pdf(request, lang, project, doctype):
     findings = util.ord_asc_by_criticidad(findings)
     report_filename = pdf_maker.RESULT_DIR + project
     for finding in findings:
-        evidence_set = util.get_evidence_set(finding)
-        finding["evidence_set"] = evidence_set
-        for evidence in evidence_set:
-            DriveAPI().download_images(evidence["id"])
-            evidence["name"] = "image::../images/"+evidence["id"]+'.png[align="center"]'
+        key_list = key_existing_list(finding['id'])
+        field_list = [FindingDTO().DOC_ACHV1, FindingDTO().DOC_ACHV2, \
+                    FindingDTO().DOC_ACHV3, FindingDTO().DOC_ACHV4, \
+                    FindingDTO().DOC_ACHV5]
+        evidence_set = util.get_evidence_set_s3(finding, key_list, field_list)
+        if evidence_set:
+            finding["evidence_set"] = evidence_set
+            for evidence in evidence_set:
+                client_s3.download_file(bucket_s3, \
+                                        finding['id'] + "/" + evidence["id"], \
+                                        "/usr/src/app/app/documentator/images/" + evidence["id"])
+                evidence['name'] = "image::../images/"+evidence["id"]+'[align="center"]'
+        else:
+            evidence_set = util.get_evidence_set(finding)
+            finding["evidence_set"] = evidence_set
+            for evidence in evidence_set:
+                DriveAPI().download_images(evidence["id"])
+                evidence["name"] = "image::../images/"+evidence["id"]+'.png[align="center"]'
     if doctype == "tech":
         pdf_maker.tech(findings, project)
         report_filename += "_IT.pdf"
@@ -427,101 +453,266 @@ def catch_finding(request, submission_id):
 
 @never_cache
 @csrf_exempt
+@require_http_methods(["GET"])
 @authorize(['analyst', 'customer'])
-def get_evidence(request):
-    drive_id = request.GET.get('id', None)
-    if drive_id is None:
-        rollbar.report_message('Error: Missing evidence image ID', 'error', request)
-        return HttpResponse("Error - Unsent image ID", content_type="text/html")
-    if drive_id not in request.session:
-        rollbar.report_message('Error: Access to evidence denied', 'error', request)
-        return util.response([], 'Access denied', True)
-    if not re.match("[a-zA-Z0-9_-]{20,}", drive_id):
-        rollbar.report_message('Error: Invalid evidence image ID format', 'error', request)
-        return HttpResponse("Error - ID with wrong format", content_type="text/html")
-    drive_api = DriveAPI(drive_id)
-    # pylint: disable=W0622
-    if not drive_api.FILE:
-        rollbar.report_message('Error: Unable to download the evidence image', 'error', request)
-        return HttpResponse("Error - Unable to download the image", content_type="text/html")
-    else:
-        filename = "/tmp/:id.tmp".replace(":id", drive_id)
-        mime = Magic(mime=True)
-        mime_type = mime.from_file(filename)
-        if mime_type == "image/png":
-            with open(filename, "r") as file_obj:
-                return HttpResponse(file_obj.read(), content_type="image/png")
-        elif mime_type == "image/gif":
-            with open(filename, "r") as file_obj:
-                return HttpResponse(file_obj.read(), content_type="image/gif")
-        os.unlink(filename)
+def get_evidences(request):
+    finding_id = request.GET.get('id', None)
+    resp = integrates_dao.get_finding_dynamo(int(finding_id))
+    return util.response(resp, 'Success', False)
 
 @never_cache
 @csrf_exempt
 @authorize(['analyst', 'customer'])
-def get_evidences(request, fileid):
-    drive_id = fileid
-    if drive_id is None:
+def get_evidence(request, findingid, fileid):
+    if fileid is None:
         rollbar.report_message('Error: Missing evidence image ID', 'error', request)
         return HttpResponse("Error - Unsent image ID", content_type="text/html")
-    if drive_id not in request.session:
-        rollbar.report_message('Error: Access to evidence denied', 'error', request)
-        return util.response([], 'Access denied', True)
-    if not re.match("[a-zA-Z0-9_-]{20,}", drive_id):
-        rollbar.report_message('Error: Invalid evidence image ID format', 'error', request)
-        return HttpResponse("Error - ID with wrong format", content_type="text/html")
-    drive_api = DriveAPI(drive_id)
-    # pylint: disable=W0622
-    if not drive_api.FILE:
-        rollbar.report_message('Error: Unable to download the evidence image', 'error', request)
-        return HttpResponse("Error - Unable to download the image", content_type="text/html")
+    key_list = key_existing_list(findingid + "/" + fileid)
+    if key_list:
+        for k in key_list:
+            start = k.find(findingid) + len(findingid) 
+            localfile = "/tmp" + k[start:]
+            ext = {'.png': '.tmp', '.gif': '.tmp'}
+            localtmp = replace_all(localfile, ext)
+            client_s3.download_file(bucket_s3, k, localtmp)
+            mime = Magic(mime=True)
+            mime_type = mime.from_file(localtmp)
+            if mime_type == "image/png":
+                with open(localtmp, "r") as file_obj:
+                    return HttpResponse(file_obj.read(), content_type="image/png")
+            elif mime_type == "image/gif":
+                with open(localtmp, "r") as file_obj:
+                    return HttpResponse(file_obj.read(), content_type="image/gif")
+            os.unlink(localtmp)
     else:
-        filename = "/tmp/:id.tmp".replace(":id", drive_id)
-        mime = Magic(mime=True)
-        mime_type = mime.from_file(filename)
-        if mime_type == "image/png":
-            with open(filename, "r") as file_obj:
-                return HttpResponse(file_obj.read(), content_type="image/png")
-        elif mime_type == "image/gif":
-            with open(filename, "r") as file_obj:
-                return HttpResponse(file_obj.read(), content_type="image/gif")
-        os.unlink(filename)
+        if fileid not in request.session:
+            rollbar.report_message('Error: Access to evidence denied', 'error', request)
+            return util.response([], 'Access denied', True)
+        if not re.match("[a-zA-Z0-9_-]{20,}", fileid):
+            rollbar.report_message('Error: Invalid evidence image ID format', 'error', request)
+            return HttpResponse("Error - ID with wrong format", content_type="text/html")
+        drive_api = DriveAPI(fileid)
+        # pylint: disable=W0622
+        if not drive_api.FILE:
+            rollbar.report_message('Error: Unable to download the evidence image', 'error', request)
+            return HttpResponse("Error - Unable to download the image", content_type="text/html")
+        else:
+            filename = "/tmp/:id.tmp".replace(":id", fileid)
+            mime = Magic(mime=True)
+            mime_type = mime.from_file(filename)
+            if mime_type == "image/png":
+                with open(filename, "r") as file_obj:
+                    return HttpResponse(file_obj.read(), content_type="image/png")
+            elif mime_type == "image/gif":
+                with open(filename, "r") as file_obj:
+                    return HttpResponse(file_obj.read(), content_type="image/gif")
+            os.unlink(filename)
+
+def replace_all(text, dic):
+    for i, j in dic.iteritems():
+        text = text.replace(i, j)
+    return text
+
+@never_cache
+@csrf_exempt
+@require_http_methods(["POST"])
+@authorize(['analyst'])
+def update_evidences_files(request):
+    parameters = request.POST.dict() 
+    upload = request.FILES.get("document", "")
+    if upload.size > 10485760:
+        rollbar.report_message('Error - Image exceeds the size limits', 'error', request)
+        return util.response([], 'Image exceeds the size limits', True)
+    migrate_all_files(parameters, request)
+    mime = Magic(mime=True)
+    if isinstance(upload, TemporaryUploadedFile):
+        mime_type = mime.from_file(upload.temporary_file_path())
+    elif isinstance(upload, InMemoryUploadedFile):
+        mime_type = mime.from_buffer(upload.file.getvalue())
+    fieldname = [['animacion', FindingDTO().ANIMATION], ['explotacion', FindingDTO().EXPLOTATION], \
+                ['ruta_evidencia_1', FindingDTO().DOC_ACHV1], ['ruta_evidencia_2', FindingDTO().DOC_ACHV2], \
+                ['ruta_evidencia_3', FindingDTO().DOC_ACHV3], ['ruta_evidencia_4', FindingDTO().DOC_ACHV4], \
+                ['ruta_evidencia_5', FindingDTO().DOC_ACHV5], ['exploit', FindingDTO().EXPLOIT]]
+    if mime_type == "image/gif" and parameters["id"] == '0':
+        updated = update_file_to_s3(parameters, fieldname[int(parameters["id"])][1], fieldname[int(parameters["id"])][0], upload)            
+        return util.response([], "sended" , updated)
+    elif mime_type == "image/png" and parameters["id"] == '1':
+        updated = update_file_to_s3(parameters, fieldname[int(parameters["id"])][1], fieldname[int(parameters["id"])][0], upload)
+        return util.response([], "sended" , updated)
+    elif mime_type == "image/png" and parameters["id"] in ['2', '3', '4', '5', '6']:
+        updated = update_file_to_s3(parameters, fieldname[int(parameters["id"])][1], fieldname[int(parameters["id"])][0], upload)
+        return util.response([], "sended" , updated)
+    elif (mime_type == "text/x-python" or mime_type == "text/x-c" \
+                or mime_type == "text/plain" or mime_type == "text/html") \
+                    and parameters["id"] == '7':
+        updated = update_file_to_s3(parameters, fieldname[int(parameters["id"])][1], fieldname[int(parameters["id"])][0], upload)
+        return util.response([], "sended" , updated)
+    rollbar.report_message('Error - Extension not allowed', 'error', request)
+    return util.response([], 'Extension not allowed', True)
+
+def key_existing_list(key):
+    """return the key's list if it exist, else list empty"""
+    response = client_s3.list_objects_v2(
+        Bucket=bucket_s3,
+        Prefix=key,
+    )
+    key_list = []
+    for obj in response.get('Contents', []):
+        key_list.append(obj['Key'])
+    return key_list
+
+def send_file_to_s3(filename, parameters, field, fieldname, ext):
+    fileurl = parameters['findingId'] + '/' + parameters['url']
+    fileroute = "/tmp/:id.tmp".replace(":id", filename)
+    namecomplete = fileurl + "-" + field + "-" + filename + ext
+    if os.path.exists(fileroute):        
+        with open(fileroute, "r") as file_obj:
+            try:
+                client_s3.upload_fileobj(file_obj, bucket_s3, namecomplete)
+            except ClientError:
+                rollbar.report_exc_info()
+                integrates_dao.add_finding_dynamo(int(parameters['findingId']), fieldname, namecomplete.split("/")[1], "es_" + fieldname, False)
+                return False
+        resp = integrates_dao.add_finding_dynamo(int(parameters['findingId']), fieldname, namecomplete.split("/")[1], "es_" + fieldname, True)
+        if not resp:
+            integrates_dao.add_finding_dynamo(int(parameters['findingId']), fieldname, namecomplete.split("/")[1], "es_" + fieldname, False)
+        os.unlink(fileroute)
+        return resp        
+    else:
+        integrates_dao.add_finding_dynamo(int(parameters['findingId']), fieldname, namecomplete.split("/")[1], "es_" + fieldname, False)
+        return False
+
+def update_file_to_s3(parameters, field, fieldname, upload):
+    fileurl = parameters['findingId'] + '/' + parameters['url']
+    key_val = fileurl + "-" + field
+    key_list = key_existing_list(key_val)
+    if key_list:
+        for k in key_list:
+            client_s3.delete_object(Bucket=bucket_s3, Key=k)
+    filename = fileurl + "-" + field + "-" + upload.name
+    try:
+        client_s3.upload_fileobj(upload.file, bucket_s3, filename)
+        integrates_dao.add_finding_dynamo(int(parameters['findingId']), fieldname, filename.split("/")[1], "es_" + fieldname, True)
+        return False
+    except ClientError:
+        rollbar.report_exc_info()
+        integrates_dao.add_finding_dynamo(int(parameters['findingId']), fieldname, filename.split("/")[1], "es_" + fieldname, False)
+        return True
+
+def migrate_all_files(parameters, request):
+    fin_dto = FindingDTO()
+    try:
+        api = FormstackAPI()
+        frmreq = api.get_submission(parameters['findingId'])
+        finding = fin_dto.parse(parameters['findingId'], frmreq, request)
+        filename =  parameters['findingId'] + "/" + parameters['url'] + "-" + FindingDTO().ANIMATION
+        folder = key_existing_list(filename)             
+        if "animacion" in finding and parameters["id"] != '0' and not folder:
+            send_file_to_s3(finding["animacion"], parameters, FindingDTO().ANIMATION, "animacion", ".gif")
+        filename =  parameters['findingId'] + "/" + parameters['url'] + "-" + FindingDTO().EXPLOTATION
+        folder = key_existing_list(filename)
+        if "explotacion" in finding and parameters["id"] != '1' and not folder:
+            send_file_to_s3(finding["explotacion"], parameters, FindingDTO().EXPLOTATION, "explotacion", ".png")
+        filename =  parameters['findingId'] + "/" + parameters['url'] + "-" + FindingDTO().DOC_ACHV1
+        folder = key_existing_list(filename)        
+        if "ruta_evidencia_1" in finding and parameters["id"] != '2' and not folder:
+            send_file_to_s3(finding["ruta_evidencia_1"], parameters, FindingDTO().DOC_ACHV1, "ruta_evidencia_1", ".png")
+        filename =  parameters['findingId'] + "/" + parameters['url'] + "-" + FindingDTO().DOC_ACHV2
+        folder = key_existing_list(filename)        
+        if "ruta_evidencia_2" in finding and parameters["id"] != '3' and not folder:
+            send_file_to_s3(finding["ruta_evidencia_2"], parameters, FindingDTO().DOC_ACHV2, "ruta_evidencia_2", ".png")
+        filename =  parameters['findingId'] + "/" + parameters['url'] + "-" + FindingDTO().DOC_ACHV3
+        folder = key_existing_list(filename)        
+        if "ruta_evidencia_3" in finding and parameters["id"] != '4' and not folder:
+            send_file_to_s3(finding["ruta_evidencia_3"], parameters, FindingDTO().DOC_ACHV3, "ruta_evidencia_3", ".png")
+        filename =  parameters['findingId'] + "/" + parameters['url'] + "-" + FindingDTO().DOC_ACHV4
+        folder = key_existing_list(filename)        
+        if "ruta_evidencia_4" in finding and parameters["id"] != '5' and not folder:
+            send_file_to_s3(finding["ruta_evidencia_4"], parameters, FindingDTO().DOC_ACHV4, "ruta_evidencia_4", ".png")
+        filename =  parameters['findingId'] + "/" + parameters['url'] + "-" + FindingDTO().DOC_ACHV5
+        folder = key_existing_list(filename)        
+        if "ruta_evidencia_5" in finding and parameters["id"] != '6' and not folder:
+            send_file_to_s3(finding["ruta_evidencia_5"], parameters, FindingDTO().DOC_ACHV5, "ruta_evidencia_5", ".png")
+        filename =  parameters['findingId'] + "/" + parameters['url'] + "-" + FindingDTO().EXPLOIT
+        folder = key_existing_list(filename)
+        if "exploit" in finding and parameters["id"] != '7' and not folder:
+            send_file_to_s3(finding["exploit"], parameters, FindingDTO().EXPLOIT, "exploit", ".py")
+        filename = parameters['findingId'] + "/" + parameters['url'] + "-" + FindingDTO().REG_FILE
+        folder = key_existing_list(filename)
+        if "registros_archivo" in finding and not folder:
+            drive_api = DriveAPI(finding["registros_archivo"])
+            # pylint: disable=W0622
+            if not drive_api.FILE:
+                rollbar.report_message('Error: Unable to download the file', 'error', request)
+            else:
+                send_file_to_s3(finding["registros_archivo"], parameters, FindingDTO().REG_FILE, "registros_archivo", ".csv")
+    except KeyError:
+        rollbar.report_exc_info(sys.exc_info(), request)
+
+@never_cache
+@require_http_methods(["POST"])
+@authorize(['analyst'])
+def update_evidence_text(request):
+    parameters = request.POST.dict()
+    try:
+        generic_dto = FindingDTO()
+        generic_dto.create_evidence_description(parameters)
+        generic_dto.to_formstack()
+        api = FormstackAPI()
+        request = api.update(generic_dto.request_id, generic_dto.data)
+        if request:
+            return util.response([], 'success', False)
+        rollbar.report_message('Error: An error occurred updating description', 'error', request)
+        return util.response([], 'error', False)
+    except KeyError:
+        rollbar.report_exc_info(sys.exc_info(), request)
+        return util.response([], 'Campos vacios', True)
 
 @never_cache
 @csrf_exempt
 @require_http_methods(["GET"])
 @authorize(['analyst', 'customer'])
 def get_exploit(request):
-    drive_id = request.GET.get('id', None)
-    if drive_id is None:
+    parameters = request.GET.dict()
+    fileid = parameters['id']
+    findingid = parameters['findingid']   
+    if fileid is None:
         rollbar.report_message('Error: Missing exploit ID', 'error', request)
         return HttpResponse("Error - Unsent exploit ID", content_type="text/html")
-    if drive_id not in request.session:
-        rollbar.report_message('Error: Access to exploit denied', 'error', request)
-        return util.response([], 'Access denied', True)
-    if not re.match("[a-zA-Z0-9_-]{20,}", drive_id):
-        rollbar.report_message('Error: Invalid exploit ID format', 'error', request)
-        return HttpResponse("Error - ID with wrong format", content_type="text/html")
-    drive_api = DriveAPI(drive_id)
-    if drive_api.FILE is None:
-        rollbar.report_message('Error: Unable to download the exploit', 'error', request)
-        return HttpResponse("Error - Unable to download the file", content_type="text/html")
-    filename = "/tmp/:id.tmp".replace(":id", drive_id)
-    mime = Magic(mime=True)
-    mime_type = mime.from_file(filename)
-    if mime_type == "text/x-c":
-        with open(filename, "r") as file_obj:
-            return HttpResponse(file_obj.read(), content_type="text/plain")
-    elif mime_type == "text/x-python":
-        with open(filename, "r") as file_obj:
-            return HttpResponse(file_obj.read(), content_type="text/plain")
-    elif mime_type == "text/plain":
-        with open(filename, "r") as file_obj:
-            return HttpResponse(file_obj.read(), content_type="text/plain")
-    elif mime_type == "text/html":
-        with open(filename, "r") as file_obj:
-            return HttpResponse(file_obj.read(), content_type="text/plain")
-    os.unlink(filename)
+    key_list = key_existing_list(findingid + "/" + fileid)
+    if key_list:
+        for k in key_list:
+            start = k.find(findingid) + len(findingid) 
+            localfile = "/tmp" + k[start:]
+            ext = {'.py': '.tmp'}
+            localtmp = replace_all(localfile, ext)
+            client_s3.download_file(bucket_s3, k, localtmp)
+            mime = Magic(mime=True)
+            mime_type = mime.from_file(localtmp)
+            if mime_type == "text/x-python" or mime_type == "text/x-c" \
+                or mime_type == "text/plain" or mime_type == "text/html":
+                with open(localtmp, "r") as file_obj:
+                    return HttpResponse(file_obj.read(), content_type="text/plain")
+            os.unlink(localtmp)
+    else:
+        if fileid not in request.session:
+            rollbar.report_message('Error: Access to exploit denied', 'error', request)
+            return util.response([], 'Access denied', True)
+        if not re.match("[a-zA-Z0-9_-]{20,}", fileid):
+            rollbar.report_message('Error: Invalid exploit ID format', 'error', request)
+            return HttpResponse("Error - ID with wrong format", content_type="text/html")
+        drive_api = DriveAPI(fileid)
+        if drive_api.FILE is None:
+            rollbar.report_message('Error: Unable to download the exploit', 'error', request)
+            return HttpResponse("Error - Unable to download the file", content_type="text/html")
+        filename = "/tmp/:id.tmp".replace(":id", fileid)
+        mime = Magic(mime=True)
+        mime_type = mime.from_file(filename)
+        if mime_type == "text/x-c" or mime_type == "text/x-python" or mime_type == "text/plain" \
+            or mime_type == "text/html":
+            with open(filename, "r") as file_obj:
+                return HttpResponse(file_obj.read(), content_type="text/plain")
+        os.unlink(filename)
 
 @never_cache
 @csrf_exempt

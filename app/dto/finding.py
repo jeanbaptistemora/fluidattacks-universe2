@@ -29,6 +29,7 @@ class FindingDTO(object):
     EXPLOIT = "38307199"
     REG = "53609444"
     REG_NUM = "49412242"
+    REG_FILE = "49412246"
 
     #Atributos descriptivos
     CLASE = "38392454" #detallado
@@ -83,6 +84,28 @@ class FindingDTO(object):
         self.create_description(parameter)
         self.create_cssv2(parameter)
 
+    def create_evidence_description(self, parameter): # noqa: C901
+        """ Convierte los indices de un JSON a indices
+            de Formstack """
+        if "data[id]" in parameter:
+            self.request_id \
+                = parameter["data[id]"]
+        if "data[" + parameter["data[field]"] + "]" in parameter:
+            if parameter["data[field]"] == "desc_evidencia_1":
+                self.data[self.DOC_CMNT1] \
+                = parameter["data[" + parameter["data[field]"] + "]"]
+            if parameter["data[field]"] == "desc_evidencia_2":
+                self.data[self.DOC_CMNT2] \
+                = parameter["data[" + parameter["data[field]"] + "]"]
+            if parameter["data[field]"] == "desc_evidencia_3":
+                self.data[self.DOC_CMNT3] \
+                = parameter["data[" + parameter["data[field]"] + "]"]
+            if parameter["data[field]"] == "desc_evidencia_4":
+                self.data[self.DOC_CMNT4] \
+                = parameter["data[" + parameter["data[field]"] + "]"]
+            if parameter["data[field]"] == "desc_evidencia_5":
+                self.data[self.DOC_CMNT5] \
+                = parameter["data[" + parameter["data[field]"] + "]"]
     def create_description(self, parameter): # noqa: C901
         """ Convierte los indices de un JSON a indices
             de Formstack """
@@ -394,6 +417,11 @@ class FindingDTO(object):
                 self.data["exploit"] = filtered_url
                 if sess_obj is not None:
                     sess_obj.session[filtered_url] = 1
+            if finding["field"] == self.REG_FILE:
+                filtered_url = self.drive_url_filter(finding["value"])
+                self.data["registros_archivo"] = filtered_url
+                if sess_obj is not None:
+                    sess_obj.session[filtered_url] = 1
             if finding["field"] == self.DOC_CMNT1:
                 self.data["desc_evidencia_1"] = finding["value"]
             if finding["field"] == self.DOC_CMNT2:
@@ -411,10 +439,14 @@ class FindingDTO(object):
 
     def drive_url_filter(self, drive):
         """ Obtiene el ID de la imagen de drive """
-        if(drive.find("id=") != -1):
-            new_url = drive.split("id=")[1]
-            if(new_url.find("&") != -1):
-                return new_url.split("&")[0]
+        if(drive.find("s3.amazonaws.com") != -1):
+            new_url = drive.split("/")[5]
+            return new_url
+        else:
+            if(drive.find("id=") != -1):
+                new_url = drive.split("id=")[1]
+                if(new_url.find("&") != -1):
+                    return new_url.split("&")[0]
         return drive
 
     def to_formstack(self):

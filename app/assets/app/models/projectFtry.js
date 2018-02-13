@@ -45,9 +45,24 @@ integrates.factory('projectFtry', function($q, $translate){
          * @member integrates.projectFtry
          * @return {Object}
          */
-        getExploit: function(link){
+        getExploit: function(findingid, id){
             var oops_ac = $translate.instant('proj_alerts.error_text');
-            return $xhr.get($q, link, {}, oops_ac);
+            return $xhr.get($q,  BASE.url + "get_exploit", {
+                findingid: findingid, id: id, _: Math.random()
+            }, oops_ac);
+        },
+        /**
+         * Invoca el servicio para tener las evidencias de un hallazgo
+         * @function getEvidences
+         * @param {String} id
+         * @member integrates.projectFtry
+         * @return {Object}
+         */
+        getEvidences: function(id){
+            var oops_ac = $translate.instant('proj_alerts.error_text');
+            return $xhr.get($q, BASE.url + "get_evidences", {
+                id: id, _: Math.random()
+            },oops_ac)
         },
         /**
          * Invoca el servicio para tener los comentarios de un hallazgo
@@ -208,6 +223,45 @@ integrates.factory('projectFtry', function($q, $translate){
         FindingVerified: function(data){
             var oops_ac = $translate.instant('proj_alerts.error_text');
             return $xhr.post($q, BASE.url + "finding_verified", {
+                data, _: Math.random()
+            },oops_ac);
+        },
+        UpdateEvidenceFiles: function(data, callbackFn, errorFn){
+            try {
+                $.ajax({
+                    url: BASE.url + "update_evidences_files?_"+ Math.random(),
+                    method: "POST",
+                    data: data,
+                    mimeType: "multipart/form-data",
+                    contentType: false,
+                    cache: false,
+                    processData: false,
+                    success: function (response) {
+                        $(".loader").hide();
+                        callbackFn(JSON.parse(response));
+                    },
+                    error: function (xhr, status, response) {
+                        $(".loader").hide();
+                        if(xhr.status == 500){
+                            Rollbar.error("Error: An error ocurred loading data");
+                        }else if(xhr.status == 401){
+                            Rollbar.error("Error: 401 Unauthorized");
+                            location = "error401";
+                        }
+                        errorFn(JSON.parse(response));
+                    }
+                });
+            } catch (e) {
+                if(e.status == 401){
+                    Rollbar.error("Error: 401 Unauthorized");
+                    location = "error401";
+                }
+                Rollbar.error("Error: An error ocurred getting finding by ID", e);
+            }
+        },
+        UpdateEvidenceText: function(data){
+            var oops_ac = $translate.instant('proj_alerts.error_text');
+            return $xhr.post($q, BASE.url + "update_evidence_text", {
                 data, _: Math.random()
             },oops_ac);
         },

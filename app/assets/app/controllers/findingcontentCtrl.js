@@ -63,24 +63,60 @@ integrates.controller("findingcontentCtrl", function($scope, $stateParams, $time
         return this.replace(new RegExp('[' + search + ']', 'g'), replace);
     };
     $scope.findingExploitTab = function(){
-        var url_pre = BASE.url + "get_exploit?id=";
         $scope.hasExploit = false;
-        if($scope.finding.exploit !== undefined && $scope.finding.cierres.length == 0){
-            var url = url_pre + $scope.finding.exploit;
-            var exploit = projectFtry.getExploit(url);
-            $scope.hasExploit = true;
-            exploit.then(function(response){
-                if(!response.error){
-                    response = response.replaceAll("<", "&lt;");
-                    response = response.replaceAll(">", "&gt;");
-                    $scope.exploitURL = response;
-                } else {
-                  Rollbar.error(response.message);
-                }
-            });
-        } else {
-            $scope.hasExploit = false;
-        }
+        var req = projectFtry.getEvidences($scope.finding.id);
+        req.then(function(response){
+            if(!response.error){
+                if(response.data.length > 0){
+                    for (var i = 0; i < response.data.length; i++) {
+                        if(response.data[i].exploit !== undefined 
+                            && response.data[i].es_exploit == true 
+                              && $scope.finding.cierres.length == 0){
+                          var exploit = projectFtry.getExploit($scope.finding.id, response.data[i].exploit);
+                          $scope.hasExploit = true;
+                          exploit.then(function(response){
+                              if(!response.error){
+                                  response = response.replaceAll("<", "&lt;");
+                                  response = response.replaceAll(">", "&gt;");
+                                  $scope.exploitURL = response;
+                              } else {
+                                Rollbar.error(response.message);
+                              }
+                          });
+                        } else if($scope.finding.exploit !== undefined && $scope.finding.cierres.length == 0){
+                            var exploit = projectFtry.getExploit($scope.finding.id, $scope.finding.exploit);
+                            $scope.hasExploit = true;
+                            exploit.then(function(response){
+                                if(!response.error){
+                                    response = response.replaceAll("<", "&lt;");
+                                    response = response.replaceAll(">", "&gt;");
+                                    $scope.exploitURL = response;
+                                } else {
+                                  Rollbar.error(response.message);
+                                }
+                            });
+                        } else {
+                            $scope.hasExploit = false;
+                        }
+                    }
+                } else if($scope.finding.exploit !== undefined && $scope.finding.cierres.length == 0){
+                            var exploit = projectFtry.getExploit($scope.finding.id, $scope.finding.exploit);
+                            $scope.hasExploit = true;
+                            exploit.then(function(response){
+                                if(!response.error){
+                                    response = response.replaceAll("<", "&lt;");
+                                    response = response.replaceAll(">", "&gt;");
+                                    $scope.exploitURL = response;
+                                } else {
+                                  Rollbar.error(response.message);
+                                }
+                            });
+                        } else {
+                            $scope.hasExploit = false;
+                }               
+                
+            }
+        });
     };
     $scope.cssv2Editable = function(){
         if($scope.onlyReadableTab2 == false){
@@ -102,6 +138,30 @@ integrates.controller("findingcontentCtrl", function($scope, $stateParams, $time
         }else{
             $scope.onlyReadableTab3 = false;
         }
+        var inputs = document.querySelectorAll( '.inputfile' );
+        Array.prototype.forEach.call( inputs, function( input )
+        {
+          var label  = input.nextElementSibling,
+            labelVal = label.innerHTML;
+
+          input.addEventListener( 'change', function( e )
+          {
+            var fileName = '';
+            if( this.files && this.files.length > 1 )
+              fileName = ( this.getAttribute( 'data-multiple-caption' ) || '' ).replace( '{count}', this.files.length );
+            else
+              fileName = e.target.value.split( '\\' ).pop();
+
+            if( fileName )
+              label.querySelector( 'span' ).innerHTML = fileName;
+            else
+              label.innerHTML = labelVal;
+          });
+
+          // Firefox bug fix
+          input.addEventListener( 'focus', function(){ input.classList.add( 'has-focus' ); });
+          input.addEventListener( 'blur', function(){ input.classList.remove( 'has-focus' ); });
+        });
     };
     $scope.treatmentEditable = function(){
       if($scope.onlyReadableTab4 == false){
@@ -115,6 +175,13 @@ integrates.controller("findingcontentCtrl", function($scope, $stateParams, $time
           $scope.finding.responsable_tratamiento = $scope.aux.responsable
           $scope.onlyReadableTab4 = false;
       }
+    };
+    $scope.exploitEditable = function(){
+        if($scope.onlyReadableTab5 == false){
+            $scope.onlyReadableTab5 = true;
+        }else{
+            $scope.onlyReadableTab5 = false;
+        }
     };
     $scope.detectNivel = function (){
         $timeout(function(){
@@ -175,10 +242,107 @@ integrates.controller("findingcontentCtrl", function($scope, $stateParams, $time
             }
         });
     };
-    $scope.updateEvidenceText = function(target){
-        console.log(target);
-        $msg.info($translate.instant('search_findings.tab_evidence.alert'));
-        return false;
+    updateEvidencesFiles = function(element){
+        var evImage = $(element).attr('target');
+        var data = {};
+        data.document = $('#evidence'+ evImage).val();
+        if(data.document == ""){
+            var error_ac1 = $translate.instant('proj_alerts.error_textsad');
+            $msg.error(error_ac1);
+            return false;
+        }
+        var data = new FormData();
+        var fileInput = $('#evidence'+ evImage)[0];
+        data.append("id", evImage);
+        data.append("url", $stateParams.project.toLowerCase() + "-" + $scope.finding.id);
+        data.append("findingId", $scope.finding.id);
+        data.append("document", fileInput.files[0]);
+        if(fileInput.files[0].size > 10485760){
+            var error_ac1 = $translate.instant('proj_alerts.file_size');
+            $msg.error(error_ac1);
+            return false;
+        }
+        fileName = fileInput.files[0].name;
+        dots = fileName.split(".");
+        fileType = "." + dots[dots.length-1];
+        evImages = ['1', '2', '3', '4', '5', '6'];
+        if(evImage == '0' && fileType != ".gif"){
+            var error_ac1 = $translate.instant('proj_alerts.file_type_gif');
+            $msg.error(error_ac1);
+            return false;
+        } else if (evImage == '7' && fileType != ".py"){
+            var error_ac1 = $translate.instant('proj_alerts.file_type_py');
+            $msg.error(error_ac1);
+            return false;
+        } else if(evImages.indexOf(evImage) != -1 && fileType != ".png"){
+            var error_ac1 = $translate.instant('proj_alerts.file_type_png');
+            $msg.error(error_ac1);
+            return false;
+        }
+        var responseFunction = function(response){
+          if(!response.error){
+              var updated_at = $translate.instant('proj_alerts.updated_title');
+              var updated_ac = $translate.instant('proj_alerts.updated_cont');
+              $msg.success(updated_ac,updated_at);
+              location.reload();
+          } else{
+              var error_ac1 = $translate.instant('proj_alerts.no_file_update');
+              Rollbar.error("Error: An error occurred updating evidences");
+              $msg.error(error_ac1);
+              return false;
+          }     
+        };
+        var errorFunction = function(response){
+          if(!response.error){
+              var error_ac1 = $translate.instant('proj_alerts.no_file_update');
+              Rollbar.error("Error: An error occurred updating evidences");
+              $msg.error(error_ac1);
+              return false;
+          }      
+        };
+        projectFtry.UpdateEvidenceFiles(data, responseFunction, errorFunction);        
+        return true;
+    };
+    updateEvidenceText = function(element){
+        var evImage = $(element).attr('target');
+        var data = {}
+        data.id = $scope.finding.id;
+        if(evImage == '2'){
+            data.desc_evidencia_1 = $('#evidenceText' + evImage).val();
+            data.field = "desc_evidencia_1";
+        }
+        if(evImage == '3'){
+            data.desc_evidencia_2 = $('#evidenceText' + evImage).val();
+            data.field = "desc_evidencia_2";
+        }
+        if(evImage == '4'){
+            data.desc_evidencia_3 = $('#evidenceText' + evImage).val();
+            data.field = "desc_evidencia_3";
+        }
+        if(evImage == '5'){
+            data.desc_evidencia_4 = $('#evidenceText' + evImage).val();
+            data.field = "desc_evidencia_4";
+        }
+        if(evImage == '6'){
+            data.desc_evidencia_5 = $('#evidenceText' + evImage).val();
+            data.field = "desc_evidencia_5";
+        }
+        var req = projectFtry.UpdateEvidenceText(data);
+        //Capturar la Promisse
+        req.then(function(response){
+            if(!response.error){
+                var updated_at = $translate.instant('proj_alerts.updated_title');
+                var updated_ac = $translate.instant('proj_alerts.updated_cont');
+                $msg.success(updated_ac,updated_at);
+                location.reload();
+            } else {
+                var error_ac1 = $translate.instant('proj_alerts.no_text_update');
+                Rollbar.error("Error: An error occurred updating evidences description");
+                $msg.error(error_ac1);
+                return false;
+            }           
+        });
+        return true;
     };
     $scope.deleteFinding = function(){
             //Obtener datos
@@ -593,7 +757,7 @@ integrates.controller("findingcontentCtrl", function($scope, $stateParams, $time
                           return item.el.attr('title');
                     }
                 }
-            });
+            });           
             //Init auto height in textarea
             if($("#infoItem").hasClass("active")){
               $timeout(function() {
@@ -699,78 +863,232 @@ integrates.controller("findingcontentCtrl", function($scope, $stateParams, $time
         $scope.tabEvidences = [];
         var evidenceList = [];
         var url_pre = window.location.href.split('dashboard#!/')[0] + window.location.href.split('dashboard#!/')[1] + '/';
-        if($scope.finding.animacion !== undefined){
-            var url = url_pre + $scope.finding.animacion;
-            evidenceList.push({
-                "url": url,
-                "desc": $translate.instant('search_findings.tab_evidence.animation_exploit'),
-                "ref": 0
-            });
-        }
-        if($scope.finding.explotacion !== undefined){
-            var url = url_pre + $scope.finding.explotacion;
-            evidenceList.push({
-                "url": url,
-                "desc": $translate.instant('search_findings.tab_evidence.evidence_exploit'),
-                "ref": 1
-            });
-        }
-        if($scope.finding.desc_evidencia_1 !== undefined
-            && $scope.finding.ruta_evidencia_1 !== undefined){
-            var url = url_pre + $scope.finding.ruta_evidencia_1;
-            evidenceList.push({
-                "url": url,
-                "desc": $scope.capitalizeFirstLetter(
-                    $scope.finding.desc_evidencia_1
-                ),
-                "ref": 2
-            });
-        }
-        if($scope.finding.desc_evidencia_2 !== undefined
-            && $scope.finding.ruta_evidencia_2 !== undefined){
-            var url = url_pre + $scope.finding.ruta_evidencia_2;
-            evidenceList.push({
-                "url": url,
-                "desc": $scope.capitalizeFirstLetter(
-                    $scope.finding.desc_evidencia_2
-                ),
-                "ref": 3
-            });
-        }
-        if($scope.finding.desc_evidencia_3 !== undefined
-            && $scope.finding.ruta_evidencia_3 !== undefined){
-            var url = url_pre + $scope.finding.ruta_evidencia_3;
-            evidenceList.push({
-                "url": url,
-                "desc": $scope.capitalizeFirstLetter(
-                    $scope.finding.desc_evidencia_3
-                ),
-                "ref": 4
-            });
-        }
-        if($scope.finding.desc_evidencia_4 !== undefined
-            && $scope.finding.ruta_evidencia_4 !== undefined){
-            var url = url_pre + $scope.finding.ruta_evidencia_4;
-            evidenceList.push({
-                "url": url,
-                "desc": $scope.capitalizeFirstLetter(
-                    $scope.finding.desc_evidencia_4
-                ),
-                "ref": 5
-            });
-        }
-        if($scope.finding.desc_evidencia_5 !== undefined
-            && $scope.finding.ruta_evidencia_5 !== undefined){
-            var url = url_pre + $scope.finding.ruta_evidencia_5;
-            evidenceList.push({
-                "url": url,
-                "desc": $scope.capitalizeFirstLetter(
-                    $scope.finding.desc_evidencia_5
-                ),
-                "ref": 6
-            });
-        }
-        $scope.tabEvidences = evidenceList;
+        var req = projectFtry.getEvidences($scope.finding.id);
+        req.then(function(response){
+            if(!response.error){
+              if(response.data.length > 0){
+                  for (var i = 0; i < response.data.length; i++) {               
+                      if(response.data[i].animacion !== undefined && response.data[i].es_animacion == true){
+                          var url = url_pre + response.data[i].animacion;
+                          evidenceList.push({
+                              "url": url,
+                              "desc": $translate.instant('search_findings.tab_evidence.animation_exploit'),
+                              "ref": 0
+                          });
+                      } else if($scope.finding.animacion !== undefined){
+                          var url = url_pre + $scope.finding.animacion;
+                          evidenceList.push({
+                              "url": url,
+                              "desc": $translate.instant('search_findings.tab_evidence.animation_exploit'),
+                              "ref": 0
+                          });
+                      }
+                      if(response.data[i].explotacion !== undefined && response.data[i].es_explotacion == true){
+                          var url = url_pre + response.data[i].explotacion;
+                          evidenceList.push({
+                              "url": url,
+                              "desc": $translate.instant('search_findings.tab_evidence.evidence_exploit'),
+                              "ref": 1
+                          });
+                      } else if($scope.finding.explotacion !== undefined){
+                          var url = url_pre + $scope.finding.explotacion;
+                          evidenceList.push({
+                              "url": url,
+                              "desc": $translate.instant('search_findings.tab_evidence.evidence_exploit'),
+                              "ref": 1
+                          });
+                      }
+                      if($scope.finding.desc_evidencia_1 !== undefined
+                          && response.data[i].ruta_evidencia_1 !== undefined 
+                            && response.data[i].es_ruta_evidencia_1 == true){
+                          var url = url_pre + response.data[i].ruta_evidencia_1;
+                          evidenceList.push({
+                              "url": url,
+                              "desc": $scope.capitalizeFirstLetter(
+                                  $scope.finding.desc_evidencia_1
+                              ),
+                              "ref": 2
+                          });
+                      } else if($scope.finding.desc_evidencia_1 !== undefined
+                          && $scope.finding.ruta_evidencia_1 !== undefined){
+                          var url = url_pre + $scope.finding.ruta_evidencia_1;
+                          evidenceList.push({
+                              "url": url,
+                              "desc": $scope.capitalizeFirstLetter(
+                                  $scope.finding.desc_evidencia_1
+                              ),
+                              "ref": 2
+                          });
+                      }
+                      if($scope.finding.desc_evidencia_2 !== undefined
+                          && response.data[i].ruta_evidencia_2 !== undefined
+                            && response.data[i].es_ruta_evidencia_2 == true){
+                          var url = url_pre + response.data[i].ruta_evidencia_2;
+                          evidenceList.push({
+                              "url": url,
+                              "desc": $scope.capitalizeFirstLetter(
+                                  $scope.finding.desc_evidencia_2
+                              ),
+                              "ref": 3
+                          });
+                      } else if($scope.finding.desc_evidencia_2 !== undefined
+                          && $scope.finding.ruta_evidencia_2 !== undefined){
+                          var url = url_pre + $scope.finding.ruta_evidencia_2;
+                          evidenceList.push({
+                              "url": url,
+                              "desc": $scope.capitalizeFirstLetter(
+                                  $scope.finding.desc_evidencia_2
+                              ),
+                              "ref": 3
+                          });
+                      }
+                      if($scope.finding.desc_evidencia_3 !== undefined
+                          && response.data[i].ruta_evidencia_3 !== undefined
+                            && response.data[i].es_ruta_evidencia_3 == true){
+                          var url = url_pre + response.data[i].ruta_evidencia_3;
+                          evidenceList.push({
+                              "url": url,
+                              "desc": $scope.capitalizeFirstLetter(
+                                  $scope.finding.desc_evidencia_3
+                              ),
+                              "ref": 4
+                          });
+                      } else if($scope.finding.desc_evidencia_3 !== undefined
+                          && $scope.finding.ruta_evidencia_3 !== undefined){
+                          var url = url_pre + $scope.finding.ruta_evidencia_3;
+                          evidenceList.push({
+                              "url": url,
+                              "desc": $scope.capitalizeFirstLetter(
+                                  $scope.finding.desc_evidencia_3
+                              ),
+                              "ref": 4
+                          });
+                      }
+                      if($scope.finding.desc_evidencia_4 !== undefined
+                          && response.data[i].ruta_evidencia_4 !== undefined
+                            && response.data[i].es_ruta_evidencia_4 == true){
+                          var url = url_pre + response.data[i].ruta_evidencia_4;
+                          evidenceList.push({
+                              "url": url,
+                              "desc": $scope.capitalizeFirstLetter(
+                                  $scope.finding.desc_evidencia_4
+                              ),
+                              "ref": 5
+                          });
+                      } else if($scope.finding.desc_evidencia_4 !== undefined
+                          && $scope.finding.ruta_evidencia_4 !== undefined){
+                          var url = url_pre + $scope.finding.ruta_evidencia_4;
+                          evidenceList.push({
+                              "url": url,
+                              "desc": $scope.capitalizeFirstLetter(
+                                  $scope.finding.desc_evidencia_4
+                              ),
+                              "ref": 5
+                          });
+                      }
+                      if($scope.finding.desc_evidencia_5 !== undefined
+                          && response.data[i].ruta_evidencia_5 !== undefined
+                            && response.data[i].es_ruta_evidencia_5 == true){
+                          var url = url_pre + response.data[i].ruta_evidencia_5;
+                          evidenceList.push({
+                              "url": url,
+                              "desc": $scope.capitalizeFirstLetter(
+                                  $scope.finding.desc_evidencia_5
+                              ),
+                              "ref": 6
+                          });
+                      } else if($scope.finding.desc_evidencia_5 !== undefined
+                          && $scope.finding.ruta_evidencia_5 !== undefined){
+                          var url = url_pre + $scope.finding.ruta_evidencia_5;
+                          evidenceList.push({
+                              "url": url,
+                              "desc": $scope.capitalizeFirstLetter(
+                                  $scope.finding.desc_evidencia_5
+                              ),
+                              "ref": 6
+                          });
+                      }
+                      $scope.tabEvidences = evidenceList;
+                  }
+              } else {
+                  if($scope.finding.animacion !== undefined){
+                        var url = url_pre + $scope.finding.animacion;
+                        evidenceList.push({
+                            "url": url,
+                            "desc": $translate.instant('search_findings.tab_evidence.animation_exploit'),
+                            "ref": 0
+                        });
+                    }
+                    if($scope.finding.explotacion !== undefined){
+                        var url = url_pre + $scope.finding.explotacion;
+                        evidenceList.push({
+                            "url": url,
+                            "desc": $translate.instant('search_findings.tab_evidence.evidence_exploit'),
+                            "ref": 1
+                        });
+                    }
+                    if($scope.finding.desc_evidencia_1 !== undefined
+                        && $scope.finding.ruta_evidencia_1 !== undefined){
+                        var url = url_pre + $scope.finding.ruta_evidencia_1;
+                        evidenceList.push({
+                            "url": url,
+                            "desc": $scope.capitalizeFirstLetter(
+                                $scope.finding.desc_evidencia_1
+                            ),
+                            "ref": 2
+                        });
+                    }
+                    if($scope.finding.desc_evidencia_2 !== undefined
+                        && $scope.finding.ruta_evidencia_2 !== undefined){
+                        var url = url_pre + $scope.finding.ruta_evidencia_2;
+                        evidenceList.push({
+                            "url": url,
+                            "desc": $scope.capitalizeFirstLetter(
+                                $scope.finding.desc_evidencia_2
+                            ),
+                            "ref": 3
+                        });
+                    }
+                    if($scope.finding.desc_evidencia_3 !== undefined
+                        && $scope.finding.ruta_evidencia_3 !== undefined){
+                        var url = url_pre + $scope.finding.ruta_evidencia_3;
+                        evidenceList.push({
+                            "url": url,
+                            "desc": $scope.capitalizeFirstLetter(
+                                $scope.finding.desc_evidencia_3
+                            ),
+                            "ref": 4
+                        });
+                    }
+                    if($scope.finding.desc_evidencia_4 !== undefined
+                        && $scope.finding.ruta_evidencia_4 !== undefined){
+                        var url = url_pre + $scope.finding.ruta_evidencia_4;
+                        evidenceList.push({
+                            "url": url,
+                            "desc": $scope.capitalizeFirstLetter(
+                                $scope.finding.desc_evidencia_4
+                            ),
+                            "ref": 5
+                        });
+                    }
+                    if($scope.finding.desc_evidencia_5 !== undefined
+                        && $scope.finding.ruta_evidencia_5 !== undefined){
+                        var url = url_pre + $scope.finding.ruta_evidencia_5;
+                        evidenceList.push({
+                            "url": url,
+                            "desc": $scope.capitalizeFirstLetter(
+                                $scope.finding.desc_evidencia_5
+                            ),
+                            "ref": 6
+                        });
+                    }
+                    $scope.tabEvidences = evidenceList;              
+              }
+            } else {
+               Rollbar.error(response.message);
+            }
+        });
+        
     };
     $scope.findingCommentTab = function(){
         if($scope.finding.id !== undefined){
@@ -1038,7 +1356,6 @@ integrates.controller("findingcontentCtrl", function($scope, $stateParams, $time
                               data["finding_url"] = $scope.remediatedData.finding_url;
                               var comment = projectFtry.addComment($scope.remediatedData.finding_id, data);
                           }else{
-                            console.log("error", response.data);
                             Rollbar.error("Error: An error occurred when remediating the finding");
                             $msg.error($translate.instant('proj_alerts.error_textsad'));
                          }
@@ -1150,6 +1467,7 @@ integrates.controller("findingcontentCtrl", function($scope, $stateParams, $time
         $scope.onlyReadableTab2 = true;
         $scope.onlyReadableTab3 = true;
         $scope.onlyReadableTab4 = true;
+        $scope.onlyReadableTab5 = true;
         $scope.isManager = userRole != "customer";
         //Defaults para cambiar vistas
         $scope.view = {};

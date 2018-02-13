@@ -456,3 +456,72 @@ def get_remediated_allfindings_dynamo(filter_value):
         else:
             break
     return items
+
+def get_finding_dynamo(finding_id):
+    """Obtiene la informacion de un hallazgo"""
+    table = dynamodb_resource.Table('findings')
+    filter_key = 'finding_id'
+    if filter_key and finding_id:
+        filtering_exp = Key(filter_key).eq(finding_id)
+        response = table.query(KeyConditionExpression=filtering_exp)
+    else:
+        response = table.query()
+    items = response['Items']
+    while True:
+        if response.get('LastEvaluatedKey'):
+            response = table.query(ExclusiveStartKey=response['LastEvaluatedKey'])
+            items += response['Items']
+        else:
+            break
+    return items
+
+def add_finding_dynamo(finding_id, key, value, exist, val):
+    """Crea un hallazgo"""
+    table = dynamodb_resource.Table('findings')
+    item = get_finding_dynamo(finding_id)
+    if item == []:
+        try:
+            response = table.put_item(
+                Item={
+                    'finding_id': finding_id,
+                    key: value,
+                    exist: val              
+                }
+                )
+            resp = response['ResponseMetadata']['HTTPStatusCode'] == 200
+            return resp
+        except ClientError:
+            rollbar.report_exc_info()
+            return False
+    else:
+        try:
+            response = table.update_item(
+                Key={
+                    'finding_id': finding_id,
+                },
+                UpdateExpression='SET ' + key + ' = :val1, ' + exist + '= :val2',
+                ExpressionAttributeValues={
+                    ':val1': value,
+                    ':val2': val
+                }
+            )
+            resp = response['ResponseMetadata']['HTTPStatusCode'] == 200
+            return resp
+        except ClientError:
+            rollbar.report_exc_info()
+            return False
+
+def delete_finding_dynamo(finding_id):
+    """Elimina un hallazgo"""
+    table = dynamodb_resource.Table('findings')
+    try:
+        response = table.delete_item(
+            Key={
+                'finding_id': finding_id,
+            }
+        )
+        resp = response['ResponseMetadata']['HTTPStatusCode'] == 200
+        return resp
+    except ClientError:
+        rollbar.report_exc_info()
+        return False

@@ -572,20 +572,43 @@
                                         </div>
                                       </div>
                                       <div class="panel-footer" style="background-color: #fff;">
+                                        <div class="row" ng-show="!onlyReadableTab3">
+                                            <div class="box" style="text-align: center;">
+                                                <input type="file" 
+                                                    name="evidence{{ev.ref}}[]" 
+                                                    id="evidence{{ev.ref}}" 
+                                                    class="inputfile inputfile-evidence"
+                                                    ng-show="!onlyReadableTab3"
+                                                    enctype="multipart/form-data"
+                                                    accept="image/gif, image/png"/>
+                                            <label for="evidence{{ev.ref}}"><span></span> <strong><i class="glyphicon glyphicon-search"></i> Choose a file&hellip;</strong></label>
+                                            </div>
+                                          <div class="col-sm-12">                                            
+                                              <button ng-show="!onlyReadableTab3"
+                                                      target="{{ev.ref}}" 
+                                                      onclick="updateEvidencesFiles(this);" 
+                                                      class = "btn btn-primary btn-block">
+                                                      <i class="glyphicon glyphicon-cloud-upload"></i>  {{'search_findings.tab_evidence.update' | translate}}
+                                              </button>
+                                          </div>
+                                        </div>
                                         <div class="row">
                                             <label><b>{{'search_findings.tab_evidence.detail' | translate}}</b></label>
                                         </div>
-                                        <div class="row">
+                                        <div class="row">                              
                                             <p ng-show="onlyReadableTab3">{{ev.desc}}</p>
-                                            <textarea class="form-control"
+                                            <div ng-if="ev.ref != '0' && ev.ref != '1'">
+                                                <textarea class="form-control"
                                                       ng-show="!onlyReadableTab3"
                                                       id="evidenceText{{ev.ref}}">{{ev.desc}}</textarea>
-                                            <button class="btn btn-success btn-block"
-                                                    ng-show="!onlyReadableTab3"
-                                                    reference="{{ev.ref}}"
-                                                    ng-click="updateEvidenceText(this);">
-                                                    <i class="glyphicon glyphicon-repeat"></i>  {{'search_findings.tab_evidence.update' | translate}}
-                                            </button>
+                                                <button class="btn btn-success btn-block"
+                                                        ng-show="!onlyReadableTab3"
+                                                        reference="{{ev.ref}}"
+                                                        target="{{ev.ref}}"
+                                                        onclick="updateEvidenceText(this);">
+                                                        <i class="glyphicon glyphicon-repeat"></i>  {{'search_findings.tab_evidence.update' | translate}}
+                                                </button>
+                                            </div>
                                         </div>
                                       </div>
                                     </div>
@@ -597,6 +620,40 @@
                   <!-- End Tab Evidence -->
                   <!-- Start Tab Exploit -->
                   <div id="exploit" class="tab-pane cont" ng-show="hasExploit">
+                    <div class="row" ng-show="isManager" style="margin-bottom: 10px;">
+                        <div class="row">
+                            <div class="col-md-2 col-md-offset-10 col-xs-12 col-sm-12">
+                                <button class="btn btn-primary btn-block"
+                                        ng-click="exploitEditable();">
+                                    <i class="glyphicon glyphicon-edit"></i>  {{'search_findings.tab_evidence.editable' | translate}}
+                                </button>
+                            </div>
+                        </div>                        
+                        <div class="row" style="margin-top: 15px;">
+                            <div class="col-md-4 col-md-offset-6 col-xs-12 col-sm-12">
+                                <div class="box" style="text-align: center;" ng-show="!onlyReadableTab5">
+                                    <input type="file"
+                                            name="evidence7[]"                                        
+                                            id ="evidence7"
+                                            class="inputfile inputfile-evidence"
+                                            ng-show="!onlyReadableTab5"
+                                            enctype="multipart/form-data"
+                                            accept=".py"/>
+                                    <label for="evidence7"><span></span> <strong><i class="glyphicon glyphicon-search"></i> Choose a file&hellip;</strong></label>
+                                </div> 
+                            
+                            </div>
+                        <div class="col-sm-2" style="text-align: center;">         
+                              <button ng-show="!onlyReadableTab5"
+                                      target="7" 
+                                      onclick="updateEvidencesFiles(this);" 
+                                      class = "btn btn-primary btn-block">
+                                      <i class="glyphicon glyphicon-cloud-upload"></i>  {{'search_findings.tab_evidence.update' | translate}}
+                              </button>
+                            </div>
+                        </div>
+                        
+                    </div>
                       <pre prism-highlight source="{{exploitURL}}" class="language-python line-numbers"></pre>
                   </div>
                   <!-- End Tab Exploit -->

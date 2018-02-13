@@ -20126,3 +20126,87 @@ div.dataTables_wrapper div.dataTables_length label select {
   background-color: #72E1F0;
   color: black;
 }
+/* style inputfile evidence */
+.inputfile {
+    width: 0.1px;
+    height: 0.1px;
+    opacity: 0;
+    overflow: hidden;
+    position: absolute;
+    z-index: -1;
+}
+.inputfile + label {
+    max-width: 80%;
+    font-size: 1.25rem;
+    /* 20px */
+    font-weight: 700;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    cursor: pointer;
+    display: inline-block;
+    overflow: hidden;
+    padding: 0.625rem 1.25rem;
+    /* 10px 20px */
+}
+.inputfile:focus + label,
+.inputfile.has-focus + label {
+    outline: 1px dotted #000;
+    outline: -webkit-focus-ring-color auto 5px;
+}
+.inputfile + label * {
+    /* pointer-events: none; */
+    /* in case of FastClick lib use */
+}
+.inputfile + label svg {
+    width: 1em;
+    height: 1em;
+    vertical-align: middle;
+    fill: currentColor;
+    margin-top: -0.25em;
+    /* 4px */
+    margin-right: 0.25em;
+    /* 4px */
+}
+.inputfile-evidence + label {
+    color: #0A62AC;
+}
+.inputfile-evidence + label {
+    border: 1px solid #0A62AC;
+    background-color: #d2e5f4;
+    padding: 0;
+}
+.inputfile-evidence:focus + label,
+.inputfile-evidence.has-focus + label,
+.inputfile-evidence + label:hover {
+    border-color: #063a67;
+}
+.inputfile-evidence + label span,
+.inputfile-evidence + label strong {
+    padding: 0.625rem 1.25rem;
+    /* 10px 20px */
+}
+.inputfile-evidence + label span {
+    width: 200px;
+    min-height: 2em;
+    display: inline-block;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    vertical-align: top;
+}
+.inputfile-evidence + label strong {
+    height: 100%;
+    color: #d2e5f4;
+    background-color: #0A62AC;
+    display: inline-block;
+}
+.inputfile-evidence:focus + label strong,
+.inputfile-evidence.has-focus + label strong,
+.inputfile-evidence + label:hover strong {
+    background-color: #063a67;
+}
+@media screen and (max-width: 50em) {
+  .inputfile-evidence + label strong {
+    display: block;
+  }
+}

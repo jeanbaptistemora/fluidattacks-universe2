@@ -49,3 +49,7 @@ export FI_GITLAB_LOGIN='value'
 export FI_GITLAB_PASSWORD='value'
 # Ruta de la carpeta principal de Integrates en el contenedor y localhost
 export FI_DOCUMENTROOT='value'
+# Llave de acceso al servicio S3 de AWS, necesario para mostrar las evidencias de cada hallazgo.
+export FI_AWS_S3_ACCESS_KEY='value'
+# Llave secreta para el acceso a S3 de AWS, necesario para mostrar las evidencias de cada hallazgo.
+export FI_AWS_S3_SECRET_KEY='value' 
