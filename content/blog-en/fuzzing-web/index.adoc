@@ -1,5 +1,5 @@
 :slug: fuzzing-web/
-:date: 2018-02-08
+:date: 2018-02-09
 :category: challenges
 :tags: SQL, fuzzing, injection
 :Image: cover.png
@@ -33,7 +33,7 @@ But introducing this kind of feature
 implies being very careful about
 how you set up and access that database.
 
-Let's look at +link::http://itsecgames.com/[bWAPP]+, which
+Let's look at +link:http://itsecgames.com/[bWAPP]+, which
 has a movie database, and
 allows us to search for a given title:
 
@@ -103,12 +103,12 @@ There are other kinds of fuzzing:
 desktop application fuzzing,
 both via command-line options
 or the +GUI+ (testing combinations of buttons, inputs, etc.),
-protocol fuzzing and file format fuzzing, at least.<<r0 ,^[0]^>>
+protocol fuzzing and file format fuzzing, at least.<<r1 ,^[1]^>>
 
 In this article,
 we will focus only on web application fuzzing,
 the semi-automated, pseudo-random manipulation
-of +URLs+, forms, user-generated content<<r0 ,^[0]^>>, requests, etc.
+of +URLs+, forms, user-generated content<<r1 ,^[1]^>>, requests, etc.
 We may tackle other kinds in upcoming articles.
 
 For a given fuzzing attack,
@@ -139,7 +139,7 @@ of triggering a bug.
 These are known as 'fuzz vectors'.
 In our case,
 they would be +SQL+ queries.
-Some examples from +OWASP+:<<r1 ,^[1]^>>
+Some examples from +OWASP+:<<r2 ,^[2]^>>
 
 [source,sql]
 ----
@@ -194,7 +194,7 @@ a blessing and a curse of fuzzing:
 sometimes the most simple injections
 produce unexpected outcomes but,
 usually, they don't.
-Thus, fuzzers tend to find only simple bugs<<r0 ,^[0]^>>
+Thus, fuzzers tend to find only simple bugs<<r1 ,^[1]^>>
 but when they do,
 they are real surprises
 like the +Apple+ bug above.
@@ -265,5 +265,5 @@ a potential source of great surprises.
 
 == References
 
-. [[r0]] link:https://www.owasp.org/index.php/Fuzzing[OWASP wiki article on Fuzzing]
-. [[r1]] link:https://www.owasp.org/index.php/OWASP_Testing_Guide_Appendix_C:_Fuzz_Vectors[OWASP Testing Guide appendix - Fuzz vectors]
+. [[r1]] link:https://www.owasp.org/index.php/Fuzzing[OWASP wiki article on Fuzzing]
+. [[r2]] link:https://www.owasp.org/index.php/OWASP_Testing_Guide_Appendix_C:_Fuzz_Vectors[OWASP Testing Guide appendix - Fuzz vectors]
