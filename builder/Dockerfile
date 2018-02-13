@@ -13,8 +13,7 @@ COPY . /app
 # 57-58: Clone the pleican-redirect plugin (aside from the official repository) and make it recognizable as a module
 # 59: Change the default highlighter to Pygments
 # 60: Enable every rule of sass-lint
-# 61-63: Add custom blocks to the asciidoc.conf file
-# 64-72: Erase files and directories that are not needed during runtime
+# 61-68: Erase files and directories that are not needed during runtime
 RUN apt-get update -qq && apt-get install -qqy \
         curl \
         gnupg && \
@@ -58,11 +57,7 @@ RUN apt-get update -qq && apt-get install -qqy \
         echo "from .pelican_redirect import *" > __init__.py && \
     sed -i 's/source-highlight$/pygments/' /etc/asciidoc/asciidoc.conf && \
     sed -i 's/0/1/' /app/node_modules/sass-lint/lib/config/sass-lint.yml && \
-    sed -i '/#\ Paragraph/,+4d' /etc/asciidoc/html5.conf && \
-        head -n 7 /app/asciidoc.conf >> /etc/asciidoc/html5.conf && \
-        tail -n +9 /app/asciidoc.conf >> /etc/asciidoc/asciidoc.conf && \
     cd /app && rm -rf /var/lib/apt/lists/* \
-        asciidoc.conf \
         Dockerfile \
         package.json \
         js-files.txt \
