@@ -4,8 +4,8 @@
 :tags: atacar, rsa, seguridad
 :Image: comportamiento-enemigo.png
 :alt: Persona mitad-ángel mitad-demonio sosteniendo una bolsa de dinero
-:description: TODO
-:keywords: TODO
+:description: En la mayoría de casos los criminales informáticos buscan ocultar su actividad y pasar desapercibidos, sin embargo al conocer los patrones y comportamiento de los usuarios legítimos es posible encontrar señales de alerta al detectar comportamientos que no siguen éstos patrones.
+:keywords: Comportamiento, Patrón, Usuario, Legítimo, Seguridad, Validación.
 :author: Paula Velez
 :writer: paulav
 :name: Paula Velez
@@ -16,7 +16,7 @@
 
 La mayoría de la veces cuando pensamos en fraude electrónico siempre lo 
 asociamos con los bancos, es común que tanto los usuarios como las 
-instituciones nancieras relacionen el fraude con las bancas virtuales porque en 
+instituciones financieras relacionen el fraude con las bancas virtuales porque en 
 la mayoría de los casos reportados siempre están relacionados de alguna forma a 
 bancos y/o tarjetas. Con los avances tecnológicos y la apropiación de la 
 tecnología todos los comercios están migrando a la web, ya que es mucho más 
@@ -55,7 +55,7 @@ Aunque los comportamientos de un atacante siempre tratan de permanecer ocultos,
 existen patrones que los delatan, para esto se debe prestar mayor atención a:
 
 * La velocidad en la navegación, un usuario real interactúa en un tiempo
-especíco con la aplicación cualquier interacción con un tiempo menor debe 
+específico con la aplicación cualquier interacción con un tiempo menor debe 
 considerarse sospechoso, ya que puede tratarse de actividad robótica.
 * El orden de los flujos dentro de las funcionalidades del sistema, es decir un 
 usuario legítimo antes de realizar una transacción no cambia de contraseña y 
@@ -71,7 +71,7 @@ Herramientas para apoyar este tipo de actividades de perlamiento, detección y
 monitoreo existen en el mercado y cada una de ellas se adaptan según la 
 necesidad de la organización pero más allá de una herramienta poderosa se debe 
 tener un conocimiento claro del negocio y entender el comportamiento que tienen 
-los usuarios para identicar con mayor facilidad las acciones que se consideran 
+los usuarios para identificar con mayor facilidad las acciones que se consideran 
 sospechosas. Cualquier estrategia que se decida implementar debería considerar 3 
 puntos claves.
 

@@ -4,8 +4,8 @@
 :tags: reto, esteganografía, solucionar, ocultar
 :Image: estegano.png
 :alt: Lupa buscando información en una imagen de la Mona Lisa
-:description: TODO
-:keywords: TODO
+:description: La esteganografía parece algo sacado de una película de espías, pero en realidad existe. Es el arte de ocultar información en imágenes, videos, audios, archivos de texto y archivos ejecutables a través de diversas técnicas. A continuación abordaremos algunas aplicaciones de la esteganografía. 
+:keywords: Esteganografía, Seguridad, Mensaje , Ocultar, Imagen, Información.
 :author: Alejandro Aguirre
 :writer: alejoa
 :name: Alejandro Aguirre Soto

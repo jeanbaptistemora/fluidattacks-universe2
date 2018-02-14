@@ -4,8 +4,8 @@
 :tags: web, captcha, reto, solucionar
 :Image: captchas.png
 :alt: Formulario de autenticación con captcha
-:description: TODO
-:keywords: TODO
+:description: Los captchas son filtros que tienen como objetivo verificar que el usuario de una aplicación es un humano y no un robot, sin embargo a través de programación y librerías especializadas en tratamiento de imágenes es posible sobrepasarr estos filtros, aquí mostramos un ejemplo de aplicación.
+:keywords: Seguridad, Captcha, Validación, Python, OCR, Web.
 :author: Alejandro Aguirre
 :writer: alejoa
 :name: Alejandro Aguirre Soto

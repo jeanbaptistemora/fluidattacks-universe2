@@ -4,8 +4,8 @@
 :tags: cifrar, reto, solucionar
 :Image: cifradoabc.png
 :alt: Regla de substitución ROT13 en el abecedario, con ejemplo
-:description: TODO
-:keywords: TODO
+:description: El cifrado por sustitución simple, popularmente conocido como ROT13 o cifrado César es uno de los argoritmos más sencillos de cifrado de mensajes utilizado por el mismo Julio Cesár. A pesar de su simplicidad resulta educativo para comprender conceptos y bases de la criptografía.
+:keywords: Seguridad, Criptografía, ROT13, Sustitución, Cifrado, César.
 :author: Alejandro Aguirre
 :writer: alejoa
 :name: Alejandro Aguirre Soto

@@ -4,8 +4,8 @@
 :tags: cifrar, seguridad, criptografía
 :Image: cifrado-preview.png
 :alt: Colección de datos hexadecimales con candados
-:description: TODO
-:keywords: TODO
+:description: La protección de información sensible debe ser una prioridad en cualquier empresa. Mediante el uso de algoritmos de cifrado ésta información puede ser protegida, trayendo consigo muchas ventajas. En este artículo explicamos la importancia del cifrado y sus principales ventajas y desventajas.
+:keywords: Seguridad, Criptografía, Mensaje, Información, Cifrar, Empresa.
 :author: Francisco Bernal
 :writer: pacho
 :name: Francisco Bernal Baquero
@@ -15,7 +15,7 @@
 = D3SCIFR4ND0 UN M3NS4J3
 
 El cifrado es un complemento indispensable para que la información no sea utilizada por quien no queremos, aunque se piense que 
-cifrar es un término moderno la raza humana a cifrado información casi desde sus inicios, desde lenguajes inventados hasta 
+cifrar es un término moderno la raza humana ha cifrado información casi desde sus inicios, desde lenguajes inventados hasta 
 sustitución del orden del alfabeto.
 
 El principio básico del cifrado es proteger los mensajes que se consideran importantes de las personas ajenas, guerras enteras 

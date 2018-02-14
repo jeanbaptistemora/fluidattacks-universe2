@@ -4,8 +4,8 @@
 :tags: database, sqli, reto, solucionar
 :Image: credenciales.png
 :alt: Jeringa desbloqueando una base de datos
-:description: TODO
-:keywords: TODO
+:description: Las bases de datos son frecuentemente utilizadas para muchas aplicaciones y suponen una fuente de información crítica, por ello es necesario garantizar su seguridad. Este artículo muestra una forma de vulnerar una base de datos SQL con una inyección de código para obtener credenciales de acceso.
+:keywords: Seguridad, Base de Datos, Credenciales, SQL, Inyección SQL, Acceso.
 :author: Alejandro Aguirre
 :writer: alejoa
 :name: Alejandro Aguirre Soto

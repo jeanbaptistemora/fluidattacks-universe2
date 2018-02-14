@@ -4,8 +4,8 @@
 :tags: matematica, reto, solucionar
 :Image: division.png
 :alt: Monedas con números de diferentes colores
-:description: TODO
-:keywords: TODO
+:description: A la hora de programar es común encontrar el operador MOD o módulo, que se utiliza en aplicaciones que involucran operaciones matemáticas o algoritmos sencillos para encontrar números primos. En este artículo utilizaremos el operador MOD para resolver un reto de programación de CodeEval.
+:keywords: Matemática, Programación, Módulo, CodeEval, División, Residuo.
 :author: Alejandro Aguirre
 :writer: alejoa
 :name: Alejandro Aguirre Soto

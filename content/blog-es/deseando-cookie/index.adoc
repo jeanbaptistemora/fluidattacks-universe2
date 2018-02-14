@@ -4,8 +4,8 @@
 :tags: seguridad, sesión, cookie, proteger
 :Image: cookie.png
 :alt: Tres galletas con chips de chocolate
-:description: TODO
-:keywords: TODO
+:description: Muchas aplicaciones web utilizan las cookies para almacenar información en ellas, como configuraciones, información de estado y credenciales del usuario por lo cual las cookies son un blanco de ataque. Para proteger las cookies se pueden seguir algunas pautas, que detallaremos en este artículo.
+:keywords: Seguridad, Sesión, Cookie, Buenas Prácticas, Protección, Ataque.
 :author: Paula Velez
 :writer: paulav
 :name: Paula Velez
@@ -32,14 +32,14 @@ manejar políticas de contraseñas para asegurar que un sistema está protegido.
 El manejo de sesiones es un punto crítico en el desarrollo de un sistema ya que 
 muchas veces se utilizan técnicas inadecuadas o simplemente no se tiene en 
 cuenta en la fase de diseño y terminan implementado autenticaciones que 
-terminan reejando una falsa sensación de seguridad.
+terminan reflejando una falsa sensación de seguridad.
 
 Un atacante busca las cookies de sesión como el monstruo come galletas desea 
 las galletas, es por esto que las cookies representan un activo valioso para un 
 sistema ya que estas muchas veces guardan credenciales, información de estados 
 o cualquier otro tipo de información sensible utilizada en la autenticación y 
 un atacante puede tratar de utilizarlas para acceder al sistema suplantando a 
-un usuario válido o en algunos casos modicar su contenido y engañar al servidor 
+un usuario válido o en algunos casos modificar su contenido y engañar al servidor 
 con información falsa.
 
 == ¿Que podemos hacer para proteger las cookies?
@@ -67,9 +67,9 @@ cookie al valor “true” esto cifra la información a nivel de transporte
 utilizando SSL y el atributo “httpOnly” al valor “true” este es un indicador
 adicional de la cabecera de respuesta HTTP con esto la cookie es asegurada para 
 que no sea accedida por un script en el lado del cliente.
-* *Unicidad:* El identicador de sesión debe ser único, aleatorio y no 
+* *Unicidad:* El identificador de sesión debe ser único, aleatorio y no 
 predecible. Con el fin de evitar suplantaciones de identidad. Asegurar que cada 
-usuario obtiene un número identicador de sesión nuevo con cada visita a la 
+usuario obtiene un número identificador de sesión nuevo con cada visita a la 
 aplicación
 
 Con esto no eliminaras el riesgo de que el monstruo consiga la galleta pero

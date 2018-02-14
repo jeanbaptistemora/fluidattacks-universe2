@@ -1,8 +1,8 @@
 :slug: busca-encuentra/
 :date: 2017-12-15
 :category: opiniones
-:description: TODO
-:keywords: TODO
+:description: Las buenas prácticas de programación son pautas que deben tenerse en cuenta a la hora de desarrollar una aplicación, para evitar que ésta sea vulneradas por atacantes. En este artículo se describen algunos tips sencillos para desarrollar aplicaciones seguras.
+:keywords: Web, JavasCript, Seguridad, Credenciales, HTML, Aplicación.
 :author: Luis Arteaga
 :tags: solucionar, browser, reto
 :Image: htmlcode.png

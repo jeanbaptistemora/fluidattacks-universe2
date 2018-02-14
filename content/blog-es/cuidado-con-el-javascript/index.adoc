@@ -1,8 +1,8 @@
 :slug: cuidado-con-el-javascript/
 :date: 2017-12-20
 :category: opiniones
-:description: TODO
-:keywords: TODO
+:description: Los lenguajes de programación han construido el mundo de la web que conocemos hoy en día, entre ellos cabe destacar el uso de JavaScript, uno de los lenguajes más conocidos y utilizados en el desarrollo web. En este artículo utilizaremos JavaScript para solucionar un reto de hacking de hackthis.
+:keywords: JavaScript, Seguridad, Web, Solución, Reto, Hackthis.
 :author: Luis Arteaga
 :tags: solucionar, javascript, reto
 :Image: js-pwd.png
