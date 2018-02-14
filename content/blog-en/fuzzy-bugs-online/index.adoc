@@ -1,4 +1,4 @@
-:slug: fuzzing-web/
+:slug: fuzzy-bugs-online/
 :date: 2018-02-09
 :category: challenges
 :tags: SQL, fuzzing, injection
