@@ -8,62 +8,65 @@
 
 == Necesidad
 
-Establecer el tiempo limite de sesión inactiva en un sistema Unix.
+Establecer el tiempo límite de sesión inactiva en un sistema +Unix+.
 
 == Contexto
 
 A continuación se describen las circunstancias 
 bajo las cuales la siguiente solución tiene sentido:
 
-. Disponer de un sistema operativo conforme con la especificación Unix.
-. Se tiene acceso a la interfaz de comandos (CLI) del sistema en cuestión.
+. Disponer de un sistema operativo conforme a la especificación +Unix+.
+. Se tiene acceso a la interfaz de comandos (+CLI+) del sistema en cuestión.
 
 == Solución
 
-El tiempo limite de sesión o timeout se refiere al periodo de tiempo determinado 
-por el cual una sesión permanecerá activa 
-desde el momento en que el usuario deja de interactuar con determinado sistema. 
-Este limite de tiempo es definido por el administrador del sistema, 
+El tiempo límite de sesión o +timeout+<<r1,^[1]^>>, 
+se refiere al periodo de tiempo determinado 
+por el cual una sesión permanecerá activa. 
+Lo anterior desde el momento en que 
+el usuario deja de interactuar con determinado sistema. 
+Este límite de tiempo es definido por el administrador del sistema, 
 y una vez finaliza, la sesión del usuario que está interactuando con él, 
 se cierra o elimina.
 
-Por seguridad se recomienda fijar un tiempo límite de sesión corto 
+Por seguridad se recomienda fijar un tiempo límite de sesión corto, 
 con el fin de evitar que algún atacante 
 tome posesión de una sesión abandonada por un usuario 
-y comprometa la integridad y/o el funcionamiento del sistema. 
+y comprometa la integridad y/o el funcionamiento del sistema.
 
 . Como se ha explicado, el tiempo de vida de la sesión 
 es el tiempo en que esta estará activa 
 sin que se realice actividad por parte del usuario.
 
-. Este tiempo se especifica en segundos y se parametriza a través de una 
-variable de entorno cuyo nombre varia dependiendo del shell con el cual se este 
-trabajando.
+. Este tiempo se especifica en segundos 
+y se parametriza a través de una variable de entorno 
+cuyo nombre varia dependiendo del +shell+ con el cual se este trabajando.
 
-. Los shells bourne y korn utilizan la variable TMOUT.
+. Los +shells bourne+ y +korn+ utilizan la variable +TMOUT+.
 
-. Para establecer dicha variable a nivel de sistema se debe parametrizar el 
-archivo de inicio de sesión así:
+. Para establecer dicha variable a nivel de sistema 
+se debe parametrizar el archivo de inicio de sesión así<<r2,^[2]^>>:
 +
-.test.py
+.test.sh
 [source, bash, linenums]
 ----
 % cat /etc/profile
 typeset -xr TMOUT=300
 ----
 
-. Con la parametrización anterior se logra que la variable sea definida como de 
-solo lectura (-r), por tal motivo los usuarios no pueden eliminarla o 
-establecerla en un nuevo valor. La variable sea copiada (exportada, -x) a 
-shells hijos del shell actual.
+. Con la parametrización anterior 
+se logra que la variable sea definida como de solo lectura (+-r+), 
+por tal motivo los usuarios no pueden eliminarla o establecerla en un nuevo valor. 
+La variable será copiada (exportada, +-x+) a +shells+ hijos del +shell+ actual.
 
-. Si a nivel de sistema no se define política de tiempo de vida o esta se 
-define pero se le permite a un usuario su redefinición, el usuario podrá 
-parametrizar nuevos valores o la anulación de la política mediante la misma 
-sintaxis anterior pero en el archivo ~/.profile.
+. Si a nivel de sistema no se define política de tiempo de vida 
+o esta se define pero se le permite a un usuario su redefinición, 
+el mismo podrá parametrizar nuevos valores 
+o la anulación de la política 
+mediante la misma sintaxis anterior pero en el archivo +~/.profile+.
 
-. Para verificar el valor actual del tiempo de sesión se puede realizar lo
-siguiente:
+. Para verificar el valor actual del tiempo de sesión 
+se puede realizar lo siguiente:
 +
 [source, bash, linenums]
 ----
@@ -78,9 +81,10 @@ Connection to server closed by remote host.
 Connection to server closed.
 ----
 
-. Es importante aclarar que a pesar de la parametrización anterior, la política 
-puede ser evitada por un usuario, lanzando un nuevo shell que ignore la 
-semántica asociada a la variable de entorno TMOUT:
+. Es importante aclarar que a pesar de la parametrización anterior, 
+la política puede ser evitada por un usuario, 
+lanzando un nuevo +shell+ 
+que ignore la semántica asociada a la variable de entorno +TMOUT+:
 +
 [source, bash, linenums]
 ----
@@ -94,10 +98,10 @@ mié jun 9 16:15:04 COT 2010
 mié jun 9 16:15:13 COT 2010
 ----
 
-. En el ejemplo anterior vemos como un shell tipo c a pesar de tener definida 
-(exportada) la variable de entorno TMOUT, hace caso omiso de su comportamiento.
+. En el ejemplo anterior vemos como un +shell+ tipo +c+ a pesar de tener definida 
+(exportada) la variable de entorno +TMOUT+, hace caso omiso de su comportamiento.
 
 == Referencias
 
-. https://en.wikipedia.org/wiki/Timeout_(computing)[Timeout (computing)]
-. http://rm-rf.es/bash-y-ssh-establecer-timeout-por-inactividad/[Establecer timeout por inactividad]
+. [[r1]] link:https://en.wikipedia.org/wiki/Timeout_(computing)[Timeout (computing)].
+. [[r2]] link:http://rm-rf.es/bash-y-ssh-establecer-timeout-por-inactividad/[Establecer timeout por inactividad].
