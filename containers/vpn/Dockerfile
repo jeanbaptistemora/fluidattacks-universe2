@@ -7,7 +7,7 @@ MAINTAINER FLUID Engineering Team <engineering@fluid.la>
 ENV DEBIAN_FRONTEND noninteractive      # instalación no interactiva
 
 # Instalar software-properties y sudo
-RUN apt-get update && apt-get upgrade -y && apt-get install -y software-properties-common sudo
+RUN apt-get update && apt-get upgrade -y && apt-get install -y --force-yes software-properties-common sudo
 
 # Agrega el playbook
 ADD main.yml /root/
