@@ -36,12 +36,13 @@ RUN rm -r /var/www/html \
     && git clone -b $CI_COMMIT_REF_NAME https://$FI_GITLAB_LOGIN:$FI_GITLAB_PASSWORD@gitlab.com/fluidsignal/integrates.git  /usr/src/app \
     && gem install asciidoctor-pdf --pre \
     && apt-get install -y ruby-dev \
-    && gem install fluentd --no-ri --no-rdoc \
-    && fluentd --setup /etc/fluent \
-    && fluent-gem install eventmachine em-http-request \
-    && rm /etc/fluent/fluent.conf \
-    && mv /usr/src/app/deploy/containers/common/vars/fluent.conf /etc/fluent/ \
-    && mv /usr/src/app/deploy/containers/common/vars/out_rollbar.rb /etc/fluent/plugin/ \
+    && curl -L https://toolbelt.treasuredata.com/sh/install-debian-jessie-td-agent2.sh | sh \
+    && rm /etc/td-agent/td-agent.conf \
+    && mv /usr/src/app/deploy/containers/common/vars/fluent.conf /etc/td-agent/td-agent.conf \
+    && rm /etc/init.d/td-agent \
+    && mv /usr/src/app/deploy/containers/common/vars/td-agent /etc/init.d/td-agent && chmod 0755 /etc/init.d/td-agent  \
+    && mv /usr/src/app/deploy/containers/common/vars/out_rollbar.rb /etc/td-agent/plugin/ \
+    && /usr/sbin/td-agent-gem install eventmachine em-http-request fluent-plugin-rewrite-tag-filter \
     && mkdir /usr/src/app/app/documentator/images  \
     && mkdir /usr/src/app/app/documentator/tpls  \
     && mkdir /usr/src/app/app/documentator/results  \
@@ -60,7 +61,7 @@ EXPOSE 443 24224
 
 # Primer comando
 CMD env > /etc/environment  \
-&& fluentd -d /etc/fluent/fluent.conf \
+&& /etc/init.d/td-agent restart \
 && a2ensite integrates-ssl.conf \
 && a2ensite 000-default.conf \
 && /usr/src/app/manage.py makemigrations \

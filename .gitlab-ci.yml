@@ -63,6 +63,8 @@ manage:
 server_on:
     stage: serveron
     script:
+        - docker stop integrates_test && docker rm integrates_test || true
+        - docker network rm integrates_test || true
         - docker network create --subnet=192.168.200.0/24 integrates_test
         - docker run -d --name "integrates_test" --env-file env.list --network integrates_test --ip 192.168.200.100 -p 8000:8000 -t registry.gitlab.com/fluidsignal/integrates:base python /usr/src/app/manage.py runserver 0.0.0.0:8000
 

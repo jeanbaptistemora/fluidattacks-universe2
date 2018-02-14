@@ -61,10 +61,9 @@ module Fluent
                 record = record['log'] if record.key? 'log'
 
                 EventMachine.run do
-                    record['access_token'] = @access_token
+                    payload = { "access_token" => @access_token , "data" => { "environment" => "production", "body" => { "message" => { "body" =>  record  }}}}
                     headers = { 'X-Rollbar-Access-Token' => @access_token }
-                    req = EventMachine::HttpRequest.new(@endpoint).post(body: record.to_json, head: headers)
-
+                    req = EventMachine::HttpRequest.new(@endpoint).post(body: payload.to_json, head: headers)
                     req.callback do
                         if req.response_header.status != 200
                             $log.warn "rollbar: Got unexpected status code from Rollbar.io api: #{req.response_header.status}"
