@@ -1,4 +1,4 @@
-:slug: fuzzing-c/
+:slug: infinite-monkey-fuzzer/
 :date: 2018-02-12
 :category: opinions
 :tags: fuzzing, application, testing
@@ -15,7 +15,7 @@
 
 = The infinite monkey fuzzer
 
-In our link:../fuzzing-web/[last entry],
+In our link:../fuzzy-bugs-online/[last entry],
 we argued that fuzzing is both ``dumb'' and surprising.
 In this article,
 we'll continue exploring the posibilities of fuzzing.
@@ -295,7 +295,7 @@ link:http://lcamtuf.coredump.cx/afl/#bugs[``bug-o-rama trophy case''].
 
 So there you have it:
 as promised, a more in-depth follow-up
-to our link:../fuzzing-web[initial invitation to fuzzing].
+to our link:../fuzzy-bugs-online/[initial invitation to fuzzing].
 According to +AFL+'s father,
 this technique is both
 very powerful and underappreciated:
