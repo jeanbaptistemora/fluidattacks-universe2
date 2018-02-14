@@ -52,7 +52,7 @@ and a particular one, a table with two columns where the content is alternated
 function responsive(tableclass, minsize){
   table = $(document).find(tableclass);
   $(table).each(function () {
-    if ($(this)[0].rows[0].cells[0].offsetWidth < minsize && !$(this).hasClass("tb-responsive")) {
+    if ($(this)[0].rows[0].cells[$(this)[0].rows[0].cells.length - 1].offsetWidth < minsize && !$(this).hasClass("tb-responsive")) {
       if (tableclass == ".tb-col") {
         $(this).transpose();
       }
