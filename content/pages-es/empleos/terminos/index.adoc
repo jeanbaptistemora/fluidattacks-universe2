@@ -26,12 +26,12 @@ A continuación, nos presentamos como empresa con el fin de que luego puedas tom
 ** Con menos de 40 personas,
 ** Ventas anuales cercanas a 1.5MM USD,
 ** Con sedes en Medellín, Bogotá (Colombia) y en Clayton (North Carolina, U.S.A.).
-++++
-</br>
-++++
+
 * En FLUID todos los sistemas están sujetos a monitoreo mediante link:https://www.timedoctor.com/[sistemas de control automáticos de actividad y tiempo]. Con lo cual buscamos:
 ** Mantener la seguridad de la información de nuestros clientes, 
 ** Ser objetivos, precisos y justos en la evaluación del desempeño.
+
+* En FLUID seguimos un código de ética, el cual puedes conocer haciendo click [button]#link:../../valores[aquí >>]#
 
 == El proceso de selección
 
@@ -52,9 +52,7 @@ A continuación, nos presentamos como empresa con el fin de que luego puedas tom
 . Si continuas y aceptas estos términos estas indicando que entiendes el esfuerzo y dedicación que esto implica y aceptas ser parte de él.
 
 === Fin del proceso 
-++++
-</br>
-++++
+
 . Si durante el proceso no se te notifica de forma explícita del fin del mismo, 
 significa que aún te encuentras en él y por tanto, estás sujeto a análisis para alguna vacante actual o potencial.
 
