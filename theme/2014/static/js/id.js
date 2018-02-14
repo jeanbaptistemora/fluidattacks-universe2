@@ -33,11 +33,21 @@ A link is also created next to the titles to improve accesibility
   };
 })(jQuery);
 
-(function($) {
-  $(document).ready(function() {
-    $(this).idtag();
-  });
+(function($){
+  $.fn.qtag = function() {
+    var question = $(".qlist")[0].children[0].children;
+    var i = 1;
+    $(question).each(function() {
+      $(this).prepend('<span id="Q'+ i +'" class="anchor"></span>');
+      i++;
+    });
+  };
 })(jQuery);
+
+$(document).ready(function() {
+  $(this).idtag();
+  $(this).qtag();
+});
 
 $(document).ready(function () {
         var isChrome = /Chrome/.test(navigator.userAgent) && /Google Inc/.test(navigator.vendor);
