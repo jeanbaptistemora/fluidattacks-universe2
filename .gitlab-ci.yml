@@ -9,11 +9,6 @@ services:
 
 before_script:
     - echo $VAULT > /tmp/.vault.txt
-<<<<<<< HEAD
-    - mkdir terraform/vars && echo $AWS_VARS > terraform/vars/aws.tfvars
-    - echo $KEY_SERVES > terraform/vars/fluidtestingserves.pem
-=======
->>>>>>> d051e4e... Test mkdir in before
     - docker login registry.gitlab.com -u $DOCKER_USER -p $DOCKER_PASS
 
 codequality:
@@ -55,35 +50,8 @@ build_vpn:
 test_terraform:
    stage: test
    before_script:
-<<<<<<< HEAD
-<<<<<<< HEAD
       - mkdir infrastructure/vars && echo $AWS_VARS > infrastructure/vars/aws.tfvars
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
       - aws s3 cp s3://fluidserves/terraform/FLUID_ServesTF.pem infrastructure/vars/FLUID_ServesTF.pem
-=======
-      - echo $KEY_SERVES > infrastructure/vars/fluidtestingserves.pem
-      - apk update && apk add curl
-      - curl -o terraform.zip https://releases.hashicorp.com/terraform/0.11.2/terraform_0.11.2_linux_amd64.zip
-      - unzip terraform.zip && rm terraform.zip
-      - cp terraform /bin/terraform
-      - curl -Lo tflint.zip https://github.com/wata727/tflint/releases/download/v0.5.4/tflint_linux_amd64.zip
-      - unzip tflint.zip && rm tflint.zip
-      - install tflint /bin
->>>>>>> d051e4e... Test mkdir in before
-=======
->>>>>>> 3b4ee5a... Test builder
-=======
-      - mkdir infrastructure/vars && echo $AWS_VARS > infrastructure/vars/aws.tfvars
-      - echo $KEY_SERVES > infrastructure/vars/fluidtestingserves.pem
->>>>>>> 1cb7165... Echo on before again
-=======
-      - aws s3 cp s3://serves/fluidtestingserves.pem infrastructure/vars/fluidtestingserves.pem
->>>>>>> 05362e3... Pull key from aws
-=======
-      - aws s3 cp s3://fluidserves/terraform/FLUID_ServesTF.pem infrastructure/vars/FLUID_ServesTF.pem
->>>>>>> a8416e6... Little changes to master
       - cd infrastructure
    script:
       - terraform init
@@ -117,14 +85,10 @@ deploy_vpn:
         - docker push registry.gitlab.com/fluidsignal/serves/vpn:master
     only:
     - master
-<<<<<<< HEAD
-<<<<<<< HEAD
 
 deploy_terraform:
     stage: deploy
     before_script:
-<<<<<<< HEAD
-<<<<<<< HEAD
         - mkdir infrastructure/vars && echo $AWS_VARS > infrastructure/vars/aws.tfvars
         - aws s3 cp s3://fluidserves/terraform/FLUID_ServesTF.pem infrastructure/vars/FLUID_ServesTF.pem
         - aws s3 cp s3://fluidserves/terraform/terraform.tfstate infrastructure/terraform.tfstate || echo ""
@@ -136,80 +100,3 @@ deploy_terraform:
         - aws s3 cp infrastructure/terraform.tfstate s3://fluidserves/terraform/terraform.tfstate
     only:
     - master
-=======
->>>>>>> ffb44dd... Networking and Instance created, starting DNS routes
-=======
-
-deploy_terraform:
-<<<<<<< HEAD
-   stage: deploy
-   before_script:
-      - mkdir infrastructure/vars && echo $AWS_VARS > infrastructure/vars/aws.tfvars
-      - echo $KEY_SERVES > infrastructure/vars/fluidtestingserves.pem
-      - cd infrastructure
-   script:
-      - terraform init
-      - terraform apply -var-file="vars/aws.tfvars"
-<<<<<<< HEAD
->>>>>>> 63c28d6... Apply to test
-=======
-=======
-    stage: deploy
-    before_script:
-        - mkdir infrastructure/vars && echo $AWS_VARS > infrastructure/vars/aws.tfvars
-        - echo $KEY_SERVES > infrastructure/vars/fluidtestingserves.pem
-=======
->>>>>>> 3b4ee5a... Test builder
-=======
-        - mkdir infrastructure/vars && echo $AWS_VARS > infrastructure/vars/aws.tfvars
-<<<<<<< HEAD
-<<<<<<< HEAD
-        - echo $KEY_SERVES > infrastructure/vars/fluidtestingserves.pem
->>>>>>> 1cb7165... Echo on before again
-=======
-        - aws s3 cp s3://serves/fluidtestingserves.pem infrastructure/vars/fluidtestingserves.pem
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
->>>>>>> 05362e3... Pull key from aws
-=======
-        - aws s3 cp s3://serves/.terraform infrastructure/.terraform || echo ""
-=======
-        - aws s3 cp --recursive s3://serves/.terraform infrastructure/.terraform || echo ""
-<<<<<<< HEAD
->>>>>>> f041d97... Put recursive
-        - aws s3 cp s3://serves/terraform.tfstate infrastructure/terraform.tfstate|| echo ""
->>>>>>> 2d8d680... Use s3 to save and load state
-=======
-        - rm -r infrastructure/.terraform/plugins/ || echo ""
-=======
->>>>>>> 1ba677d... Change file names
-        - aws s3 cp s3://serves/terraform.tfstate infrastructure/terraform.tfstate || echo ""
->>>>>>> 8b757c3... Deleting plugins
-=======
-        - aws s3 cp s3://fluidserves/terraform/FLUID_ServesTF.pem infrastructure/vars/FLUID_ServesTF.pem
-        - aws s3 cp s3://fluidserves/terraform/terraform.tfstate infrastructure/terraform.tfstate || echo ""
->>>>>>> a8416e6... Little changes to master
-        - cd infrastructure
-    script:
-        - terraform init
-<<<<<<< HEAD
-        - terraform apply -var-file="vars/aws.tfvars"
->>>>>>> 4cf9d89... Fix spaces
-=======
-        - terraform apply -auto-approve -var-file="vars/aws.tfvars"
-<<<<<<< HEAD
->>>>>>> 1c3bfd0... Set auto approve
-=======
-    after_script:
-<<<<<<< HEAD
-        - aws s3 cp infrastructure/terraform.tfstate s3://serves/terraform.tfstate
->>>>>>> 2d8d680... Use s3 to save and load state
-    only:
-    - jarmas
->>>>>>> 14c7ae7... Apply to test
-=======
-        - aws s3 cp infrastructure/terraform.tfstate s3://fluidserves/terraform/terraform.tfstate
-    only:
-    - master
->>>>>>> a8416e6... Little changes to master

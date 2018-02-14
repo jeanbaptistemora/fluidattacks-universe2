@@ -10,18 +10,8 @@ RUN apk update && apk add curl && \
       cp terraform /bin/terraform && \
     curl -Lo tflint.zip https://github.com/wata727/tflint/releases/download/v0.5.4/tflint_linux_amd64.zip && \
       unzip tflint.zip && rm tflint.zip && \
-<<<<<<< HEAD
-<<<<<<< HEAD
       install tflint /bin && \
     apk --update add python python-dev py-pip && \
     pip install awscli
-=======
-      install tflint /bin
->>>>>>> 3b4ee5a... Test builder
-=======
-      install tflint /bin && \
-    apk --update add python python-dev py-pip && \
-    pip install awscli
->>>>>>> 05362e3... Pull key from aws
 
 CMD ["bash"]
