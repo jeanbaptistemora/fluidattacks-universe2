@@ -1,4 +1,4 @@
-:slug: document-attack-vectors-gherkin/
+:slug: app-pickle-document-gherkin/
 :date: 2018-02-08
 :category: documentation
 :tags: documentation, vector, software
@@ -70,7 +70,7 @@ a (preferably small) number of steps.
 
 [source,gherkin]
 ----
-include::/web/content/blog-en/document-attack-vectors-gherkin/coffee-example.feature[]
+include::/web/content/blog-en/app-pickle-document-gherkin/coffee-example.feature[]
 ----
 
 As seen above,
@@ -160,7 +160,7 @@ $ command user_input
 ----
 
 In +UNIX+-like operating systems,
-we can use "+;+" to execute one command after another. 
+we can use "+;+" to execute one command after another.
 For example, we can say
 
 [source,bash]
@@ -260,7 +260,7 @@ in +Gherkin+:
 
 [source,gherkin]
 ----
-include::/web/content/blog-en/document-attack-vectors-gherkin/command-injection.feature[]
+include::/web/content/blog-en/app-pickle-document-gherkin/command-injection.feature[]
 ----
 
 We wrap long lines
