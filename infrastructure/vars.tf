@@ -4,6 +4,9 @@ variable "sec_key" {}
 variable "reg" {}
 variable "sreg" {}
 
+# gitlabCI
+variable "ciIP" {}
+
 #EC2 vars
 variable "amiID" {}
 variable "iType" {}

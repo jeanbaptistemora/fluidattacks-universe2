@@ -1,3 +1,5 @@
+variable "ciIP" {}
+
 variable "allow_all_http_ports" {
   default = ["80", "7090", "7001", "443","8081"]
 }
@@ -24,6 +26,16 @@ resource "aws_security_group_rule" "ingress_http" {
   cidr_blocks = ["0.0.0.0/0"]
   from_port   = "${element(var.allow_all_http_ports, count.index)}"
   to_port     = "${element(var.allow_all_http_ports, count.index)}"
+
+  security_group_id = "${aws_security_group.fs_secgroup.id}"
+}
+
+resource "aws_security_group_rule" "ingress_ssh" {
+  type        = "ingress"
+  protocol    = "tcp"
+  cidr_blocks = ["${var.ciIP}/32"]
+  from_port   = "22"
+  to_port     = "22"
 
   security_group_id = "${aws_security_group.fs_secgroup.id}"
 }

@@ -10,6 +10,7 @@ module "createNetwork" {
   source = "./network"
   sreg = "${var.sreg}"
   cdir = "${var.cdir}"
+  ciIP = "${var.ciIP}"
 }
 
 # Create from scratch
