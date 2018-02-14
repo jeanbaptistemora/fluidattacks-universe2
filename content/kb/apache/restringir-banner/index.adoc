@@ -8,25 +8,25 @@
 
 == Necesidad
 
-Restringir la visualización de nombre y versión de Servidor HTTP Apache
+Restringir la visualización de nombre y versión de Servidor +HTTP Apache+
 
 == Contexto
 
 A continuación se describen las circunstancias 
 bajo las cuales la siguiente solución tiene sentido:
 
-. Se utiliza Apache2 como servidor web.
-. Se desea ocultar la información de versión de la plataforma Apache.
+. Se utiliza +Apache2+ como servidor web.
+. Se desea ocultar la información de versión de la plataforma +Apache+.
 
 == Solución
 
-El banner grabbing es una de las formas de conocer 
+El +banner grabbing+ es una de las formas de conocer 
 qué infraestructura o sistema se encuentra 
 detrás de una aplicación web o servicio.
-El método de banner grabbing 
+El método de +banner grabbing+ 
 puede aplicarse sobre cualquier tipo de servicio, cómo por ejemplo, 
-FTP, VNC, HTTP, entre otros.
-En el caso de HTTP es posible conocer el servidor 
++FTP+, +VNC+, +HTTP+, entre otros.
+En el caso de +HTTP+ es posible conocer el servidor 
 que se aloja detrás del sitio web, 
 y en algunos casos es posible conocer la versión del mismo.
 
@@ -41,21 +41,21 @@ asociadas a dicha información, y realizar así,
 un ataque que comprometa confidencialidad, integridad 
 y disponibilidad del servidor. 
 
-. Entonces, para evitar exponer la información en un servidor apache
+. Entonces, para evitar exponer la información en un servidor +apache+
 se recomienda seguir los siguientes pasos.
 
-. En el archivo de configuración httpd.conf 
+. En el archivo de configuración +httpd.conf+ 
 asegúrese de contener las siguientes directivas:
 +
-.test.py
+.httpd.conf
 [source, shell, linenums]
 ----
 ServerSignature Off +
 ServerTokens Prod
 ----
 
-. En caso de no encontrar el archivo httpd.conf 
-editar el archivo security en /etc/apache2/conf.d/
+. En caso de no encontrar el archivo +httpd.conf+ 
+editar el archivo security en +/etc/apache2/conf.d/+
 
 . Después de realizar la modificación en el archivo de configuración 
 se debe reiniciar el servicio:
@@ -65,19 +65,19 @@ se debe reiniciar el servicio:
 % apache2 restart
 ----
 
-. La directiva ServerSignature le indica al Apache 
-que muestre la versión en los errores de requisitos HTTP.
+. La directiva +ServerSignature+ le indica al +Apache+ 
+que muestre la versión en los errores de requisitos +HTTP+.
 
-. La directiva ServerTokens hace que en los encabezados 
-solo se vea: "Server: Apache".
+. La directiva +ServerTokens+ hace que en los encabezados 
+solo se vea: +Server: Apache+.
 
-. Si lo que se desea es que no aparezca el Nombre del "Apache" 
+. Si lo que se desea es que no aparezca el Nombre del +Apache+ 
 o cambiar completamente este valor, lo que necesitará hacer es lo siguiente:
 
-. Descargar el código fuente de Apache.
+. Descargar el código fuente de +Apache+.
 
-. Editar el archivo httpd.h, 
-cambiando el valor de la cadena "Apache" en la línea:
+. Editar el archivo +httpd.h+, 
+cambiando el valor de la cadena +Apache+ en la línea:
 +
 [source, shell, linenums]
 ----
@@ -91,12 +91,12 @@ define SERVER_BASEPRODUCT "Apache"
 define SERVER_BASEPRODUCT "Server"
 ----
 
-. Bajar el servicio Apache, recompilar, reinstalar e iniciar el servicio Apache.
+. Bajar el servicio +Apache+, recompilar, reinstalar e iniciar el servicio +Apache+.
 
 == Referencias
 
-. https://httpd.apache.org/docs/2.4/es/[Documentación Apache]
-. https://www.welivesecurity.com/la-es/2012/11/21/obtener-informacion-de-servidores-web-con-banner-grabbing/[Obtener información de servidores web con banner grabbing]
-. REQ.0272 La información (nombre de producto, versión o configuración) 
-de servicios expuestos no debe ser accesible. 
+. [[r1]] link:https://httpd.apache.org/docs/2.4/es/[Documentación Apache]
+. [[r2]] link:https://www.welivesecurity.com/la-es/2012/11/21/obtener-informacion-de-servidores-web-con-banner-grabbing/[Obtener información de servidores web con banner grabbing]
+. [[r3]] REQ.0272 La información (nombre de producto, 
+versión o configuración) de servicios expuestos no debe ser accesible. 
 (Ej, versiones que se publican al conectarse a un servicio como SSH)
