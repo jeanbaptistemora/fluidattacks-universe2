@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2018-02-09 14:14+0000\n"
+"POT-Creation-Date: 2018-02-14 21:35+0000\n"
 "PO-Revision-Date: 2017-12-21 15:09-0500\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: es\n"
@@ -37,9 +37,8 @@ msgstr "Archivos para"
 
 #: templates/article.html:48 templates/author.html:52 templates/authors.html:28
 #: templates/categories.html:28 templates/category.html:27
-#: templates/footer.html:22 templates/footer.html:42 templates/footer.html:66
-#: templates/footer.html:80 templates/home.html:8
-#: templates/navigationbar.html:22 templates/tag.html:43 templates/tags.html:28
+#: templates/home.html:8 templates/navigationbar.html:22 templates/tag.html:43
+#: templates/tags.html:28
 msgid "Home"
 msgstr "Inicio"
 
@@ -93,7 +92,7 @@ msgid "Articles by"
 msgstr "Artículos por"
 
 #: templates/author.html:53 templates/authors.html:8 templates/authors.html:31
-#: templates/footer.html:46 templates/footer.html:84
+#: templates/footer.html:40
 msgid "Authors"
 msgstr "Autores"
 
@@ -133,170 +132,154 @@ msgstr "Logo de LinkedIn"
 msgid "YouTube logo"
 msgstr "Logo de YouTube"
 
-#: templates/footer.html:17 templates/footer.html:59
+#: templates/footer.html:16
 msgid "About Us"
 msgstr "Nosotros"
 
-#: templates/footer.html:18 templates/footer.html:32 templates/footer.html:33
-#: templates/footer.html:60 templates/footer.html:76 templates/footer.html:77
+#: templates/footer.html:17 templates/navigationbar.html:36
+msgid "#lp-pom-block-876"
+msgstr "es/servicios/#lp-pom-block-1090"
+
+#: templates/footer.html:17 templates/navigationbar.html:36
+msgid "Customers"
+msgstr "Clientes"
+
+#: templates/footer.html:18
+msgid "values"
+msgstr "valores"
+
+#: templates/footer.html:18
+msgid "Values"
+msgstr "Valores"
+
+#: templates/footer.html:19
+msgid "location"
+msgstr "ubicacion"
+
+#: templates/footer.html:19
+msgid "Location"
+msgstr "Ubicación"
+
+#: templates/footer.html:20
+msgid "#lp-pom-block-11"
+msgstr "es/servicios/#lp-pom-block-9"
+
+#: templates/footer.html:20
+msgid "Contact Us"
+msgstr "Contáctenos"
+
+#: templates/footer.html:21
+msgid "terms-use"
+msgstr "terminos-uso"
+
+#: templates/footer.html:21
+msgid "Terms of Use"
+msgstr "Términos de Uso"
+
+#: templates/footer.html:24 templates/footer.html:25 templates/footer.html:26
 #: templates/navigationbar.html:23 templates/navigationbar.html:25
 #: templates/navigationbar.html:26
 msgid "services"
 msgstr "servicios"
 
-#: templates/footer.html:18 templates/footer.html:60
-#: templates/navigationbar.html:23
+#: templates/footer.html:24 templates/navigationbar.html:23
 msgid "Services"
 msgstr "Servicios"
 
-#: templates/footer.html:22 templates/footer.html:66
-#: templates/navigationbar.html:22
-msgid "fluid.la"
-msgstr "fluid.la/es/servicios/"
-
-#: templates/footer.html:23 templates/footer.html:67
-msgid "#lp-pom-block-965"
-msgstr "es/servicios/#lp-pom-block-1000"
-
-#: templates/footer.html:23 templates/footer.html:67
-msgid "Benefits"
-msgstr "Beneficios"
-
-#: templates/footer.html:24 templates/footer.html:68
-#: templates/navigationbar.html:36
-msgid "#lp-pom-block-876"
-msgstr "es/servicios/#lp-pom-block-1090"
-
-#: templates/footer.html:24 templates/footer.html:68
-#: templates/navigationbar.html:36
-msgid "Customers"
-msgstr "Clientes"
-
-#: templates/footer.html:25 templates/footer.html:69
-msgid "values"
-msgstr "valores"
-
-#: templates/footer.html:25 templates/footer.html:69
-msgid "Values"
-msgstr "Valores"
-
-#: templates/footer.html:26 templates/footer.html:70
-msgid "location"
-msgstr "ubicacion"
-
-#: templates/footer.html:26 templates/footer.html:70
-msgid "Location"
-msgstr "Ubicación"
-
-#: templates/footer.html:27 templates/footer.html:71
-msgid "publications"
-msgstr "publicaciones"
-
-#: templates/footer.html:27 templates/footer.html:71
-msgid "Publications"
-msgstr "Publicaciones"
-
-#: templates/footer.html:28 templates/footer.html:72
-msgid "#lp-pom-block-11"
-msgstr "es/servicios/#lp-pom-block-9"
-
-#: templates/footer.html:28 templates/footer.html:72
-msgid "Contact Us"
-msgstr "Contáctenos"
-
-#: templates/footer.html:29 templates/footer.html:73
-msgid "terms-use"
-msgstr "terminos-uso"
-
-#: templates/footer.html:29 templates/footer.html:73
-msgid "Terms of Use"
-msgstr "Términos de Uso"
-
-#: templates/footer.html:32 templates/footer.html:76
+#: templates/footer.html:25 templates/navigationbar.html:25
 msgid "one-shot-hacking"
 msgstr "hacking-puntual"
 
-#: templates/footer.html:32 templates/footer.html:76
-#: templates/navigationbar.html:25
+#: templates/footer.html:25 templates/navigationbar.html:25
 msgid "One-Shot Hacking"
 msgstr "Hacking Puntual"
 
-#: templates/footer.html:33 templates/footer.html:77
-#: templates/navigationbar.html:26
+#: templates/footer.html:26 templates/navigationbar.html:26
 msgid "continuous-hacking"
 msgstr "hacking-continuo"
 
-#: templates/footer.html:33 templates/footer.html:77
-#: templates/navigationbar.html:26
+#: templates/footer.html:26 templates/navigationbar.html:26
 msgid "Continuous Hacking"
 msgstr "Hacking Continuo"
 
-#: templates/footer.html:38 templates/footer.html:49 templates/footer.html:62
-#: templates/footer.html:87 templates/navigationbar.html:37
-msgid "Careers"
-msgstr "Empleos"
+#: templates/footer.html:29 templates/footer.html:30 templates/footer.html:31
+#: templates/footer.html:32 templates/navigationbar.html:29
+#: templates/navigationbar.html:31 templates/navigationbar.html:32
+#: templates/navigationbar.html:33
+msgid "products"
+msgstr "productos"
 
-#: templates/footer.html:43 templates/footer.html:81
+#: templates/footer.html:29 templates/navigationbar.html:29
+msgid "Products"
+msgstr "Productos"
+
+#: templates/footer.html:33
+msgid "Knowledge Base"
+msgstr "Base de Conocimientos"
+
+#: templates/footer.html:37
 msgid "style"
 msgstr "estilo"
 
-#: templates/footer.html:43 templates/footer.html:81
+#: templates/footer.html:37
 msgid "Style"
 msgstr "Estilo"
 
-#: templates/footer.html:44 templates/footer.html:82
+#: templates/footer.html:38
 msgid "topics"
 msgstr "temas"
 
-#: templates/footer.html:44 templates/footer.html:82
+#: templates/footer.html:38
 msgid "Topics"
 msgstr "Temas"
 
-#: templates/footer.html:45 templates/footer.html:83
+#: templates/footer.html:39
 msgid "tags"
 msgstr "etiquetas"
 
-#: templates/footer.html:45 templates/footer.html:83 templates/tag.html:44
-#: templates/tags.html:8 templates/tags.html:31
+#: templates/footer.html:39 templates/tag.html:44 templates/tags.html:8
+#: templates/tags.html:31
 msgid "Tags"
 msgstr "Etiquetas"
 
-#: templates/footer.html:46 templates/footer.html:84
+#: templates/footer.html:40
 msgid "authors"
 msgstr "autores"
 
-#: templates/footer.html:49 templates/footer.html:50 templates/footer.html:51
-#: templates/footer.html:52 templates/footer.html:87 templates/footer.html:88
-#: templates/footer.html:89 templates/footer.html:90
-#: templates/navigationbar.html:37
+#: templates/footer.html:43 templates/footer.html:44 templates/footer.html:45
+#: templates/footer.html:46 templates/navigationbar.html:37
 msgid "careers"
 msgstr "empleos"
 
-#: templates/footer.html:50 templates/footer.html:88
+#: templates/footer.html:43 templates/navigationbar.html:37
+msgid "Careers"
+msgstr "Empleos"
+
+#: templates/footer.html:44
 msgid "reasons"
 msgstr "razones"
 
-#: templates/footer.html:50 templates/footer.html:88
+#: templates/footer.html:44
 msgid "Reasons"
 msgstr "Razones"
 
-#: templates/footer.html:51 templates/footer.html:89
+#: templates/footer.html:45
 msgid "positions"
 msgstr "vacantes"
 
-#: templates/footer.html:51 templates/footer.html:89
+#: templates/footer.html:45
 msgid "Positions"
 msgstr "Vacantes"
 
-#: templates/footer.html:52 templates/footer.html:90
+#: templates/footer.html:46
 msgid "terms"
 msgstr "terminos"
 
-#: templates/footer.html:52 templates/footer.html:90
+#: templates/footer.html:46
 msgid "Terms"
 msgstr "Términos"
 
-#: templates/footer.html:53 templates/footer.html:91
+#: templates/footer.html:47
 msgid "Application"
 msgstr "Aplicación"
 
@@ -363,14 +346,9 @@ msgstr "Lupa"
 msgid "FLUID screw logo"
 msgstr "Tuerca logo de FLUID"
 
-#: templates/navigationbar.html:29 templates/navigationbar.html:31
-#: templates/navigationbar.html:32 templates/navigationbar.html:33
-msgid "products"
-msgstr "productos"
-
-#: templates/navigationbar.html:29
-msgid "Products"
-msgstr "Productos"
+#: templates/navigationbar.html:22
+msgid "fluid.la"
+msgstr "fluid.la/es/servicios/"
 
 #: templates/pagination.html:6
 msgid "Previous"
