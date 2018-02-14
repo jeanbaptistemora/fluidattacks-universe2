@@ -1,8 +1,6 @@
 variable "server" {}
 
-variable "domain" {
-    default="fluid.la."
-}
+variable "domain" {}
 
 resource "aws_route53_zone" "fs_maindomain" {
   name = "${var.domain}"

@@ -5,12 +5,14 @@ provider "aws" {
   region = "${var.reg}"
 }
 
+# Create from scratch
 module "createNetwork" {
   source = "./network"
   sreg = "${var.sreg}"
   cdir = "${var.cdir}"
 }
 
+# Create from scratch
 module "ec2instance" {
   source = "./ec2"
   amiID = "${var.amiID}"
@@ -23,14 +25,25 @@ module "ec2instance" {
   start_all = "${var.start_all}"
 }
 
+# Create from scratch
 # module "r53" {
 #   source = "./dns"
 #   server = "${module.ec2instance.ip}"
+#   domain = "${var.zoneName}"
 # }
-#
+
+# Create from scratch
 # module "iam" {
 #   source = "./iam"
 # }
+
+# existing R53
+module "existing-r53" {
+  source = "./existing-dns"
+  server = "${module.ec2instance.ip}"
+  zone = "${var.hzoneID}"
+  domain = "${var.zoneName}"
+ }
 
 output "instance_ip" {
   value = "${module.ec2instance.ip}"

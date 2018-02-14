@@ -15,3 +15,9 @@ variable "cdir" {}
 # Host Vars
 variable "docker" {}
 variable "start_all" {}
+
+# R35 zonename
+variable "zoneName" {}
+
+# Existing R53
+variable "hzoneID" {}

@@ -9,3 +9,7 @@ kName = "FLUID_ServesTF"
 
 # Network vars
 cdir = "192.168.102.0/24"
+
+# R53 vars
+zoneName = "fluid.la."
+hzoneID = "Z97LJOL6ETZND"
