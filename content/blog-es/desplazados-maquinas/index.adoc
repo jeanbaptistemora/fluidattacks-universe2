@@ -1,0 +1,171 @@
+:slug: desplazados-maquinas/
+:date: 2018-02-13
+:category: opiniones
+:tags: aplicación, detectar, vulnerabilidad, escáner
+:Image: humano-vs-maquina.png
+:alt: Persona jugando ajedrez contra un brazo mecánico
+:description: La detección de vulnerabilidades en manos de una herramienta automática no es suficiente para llegar a la conclusión de que una aplicación es segura. El conocimiento y experiencia de una persona siguen siendo necesarios para complementar el análisis y lograr una evaluación detallada y efectiva de la seguridad de dicha aplicación.
+:keywords: detección de vulnerabilidades, detección manual, detección automática, seguridad, aplicación web
+:author: Andres Cuberos
+:writer: cuberos
+:name: Andrés Cuberos Lopera
+:about1: Ingeniero Electrónico
+:about2: Gusto por disfrutar los momentos pequeños de la vida, como tomarse una cerveza, escuchar música o dormir
+
+= ¿Seremos Desplazados por las Máquinas?
+
+Una pregunta muy común
+que se ve rondando por la Web cada cierto tiempo.
+Suele coincidir con algún avance tecnológico
+donde aparece una nueva máquina capaz de realizar
+algún trabajo con una velocidad y precisión
+que no podría ser igualada
+ni por decenas de personas.
+Esta pregunta cubre preocupaciones
+desde trabajadores que temen perder sus empleos,
+hasta preocupaciones incentivadas por +Hollywood+,
+donde seremos conquistados y oprimidos por ellas.
+
+Dejando a un lado la ciencia ficción,
+el primero ha estado ocurriendo por un buen tiempo.
+Con máquina no nos referimos a un robot
+con la apariencia de un joven Arnold Schwarzenegger con gafas oscuras.
+Puede ser cualquier equipo programado
+para hacer una tarea específica.
+Carros que se manejan solos,
+brazos mecánicos que superan la producción
+de un equipo de trabajadores,
+y en el ambiente de la Seguridad de la Información,
+herramientas que pueden encontrar vulnerabilidades y
+fallas en una aplicación Web.
+¿Qué nos espera a los que nos dedicamos a esto último?
+¿Nos estamos volviendo cada vez más prescindibles?
+
+.El inevitable desenlace que nos muestra +Hollywood+ del avance tecnológico
+image::terminator.png[Robot sosteniendo un arma de fuego, con una explosión detrás]
+
+Afortunadamente, nuestro futuro no es tan oscuro.
+Aunque existen herramientas de detección muy poderosas,
+todavía falta mucho camino
+para poder pensar que seremos reemplazados.
+Según +Netsparker+ <<r1,^[1]^>>
+(un desarrollador de uno de estos analizadores),
+no existe una herramienta capaz de identificar
+las link:https://www.owasp.org/index.php/Top_10-2017_Top_10[10 vulnerabilidades]
+más importantes por sí sola.
+Esto debido a que ellas no pueden saber
+si la aplicación está funcionando como debe,
+si se encuentra alineada a los objetivos comerciales de la empresa,
+si asigna correctamente los privilegios de usuarios,
+o si mantiene cualquier información delicada adecuadamente protegida
+(clasificación que puede variar entre negocios).
+
+No que estas sean las únicas vulnerabilidades que existen.
+Hay un sinnúmero de ellas, pero estas diez fueron
+ clasificadas por +OWASP+ (+Open Web Application Security Project+),
+una entidad que busca generar conciencia sobre
+la seguridad del software, como las que son
+más aprovechadas a la hora de ejecutar un ataque.
+
+Estas herramientas, además, pueden presentar falsos positivos,
+es decir, detectar vulnerabilidades que en realidad no existen.
+También requieren un mayor tiempo
+para actualizarse ante nuevas vulnerabilidades <<r2,^[2]^>>,
+cualidad en la que se quedan atrás de los humanos.
+
+No estamos intentando quitarle el mérito a estos analizadores.
+Son demasiado útiles a la hora de identificar campos,
+detectar errores simples y las vulnerabilidades más comunes <<r3,^[3]^>>.
+Lo que sí queremos es refutar la idea
+de que ellos son suficientes
+para decir que una aplicación web es segura.
+Se debe combinar la herramienta
+con la experiencia de un profesional,
+que pueda cerciorarse que la vulnerabilidad existe
+y que pueda ir más allá de lo técnico.
+
+Para darle peso al argumento anterior,
+hicimos nuestro propio experimento.
+Tomamos la aplicación Web +bWAPP+,
+la cual fue diseñada con vulnerabilidades a propósito,
+y las herramientas +Wapiti+, +W3af+ y +OWASP ZAP+.
+Estas comparten las características
+de ser +Open Source+ y poderse ejecutar por línea de comandos.
+Esto permite implementarlas en un ambiente
+de Integración Continua como +Gitlab+.
+De este pequeño experimento,
+obtuvimos los siguientes resultados:
+
+[role="tb-row"]
+.Análisis de Vulnerabilidades de +bWAPP+
+[cols="^,^,^,^"]
+|====
+s| Herramienta s| Detectadas s| % de Fuga (No Detectadas) s| Tiempo
+
+a|+W3af+ | 28 | 83.5% | 00:02:30
+
+a|+Wapiti+ | 26 | 84.7% | 00:02:00
+
+a|+ZAP-Short+ | 42 | 75.3% | 00:19:00
+
+a|+ZAP-Full+ | 59 | 65.3% | 01:30:00
+|====
+
+En la información anterior,
++ZAP-Short+ se refiere a la herramienta +ZAP+
+únicamente con los +plugins+ de +XSS+ y +SQLi+ habilitados.
++ZAP-Long+ se refiere a la misma herramienta
+con todos sus +plugins+ activados.
+
+.Representación visual del mejor y peor resultado de la Tabla 1- +ZAP-Full+ y +Wapiti+
+image::fuga.png[Comparación de la cobertura de dos analizadores con el alcance de una aplicación]
+
+Como podemos ver, incluso la mejor de las herramientas utlizadas
+dejó por fuera más de la mitad de las vulnerabilidades y,
+entre las encontradas, pueden existir falsos positivos.
+Además, se demoró una hora y media
+en terminar el análisis,
+tiempo que no es adecuado en un ambiente de Integración Continua.
+
+Cabe resaltar, también, que fue necesario
+desactivar la autenticación en la aplicación.
+Esto se hizo para obtener un correcto funcionamiento
+de las herramientas desde la línea de comandos.
+Este hecho no solo aleja el experimento
+de una situación real, sino que también
+deja una capa de la aplicación sin analizar.
+
+Un desarrollador que quisiera ahorrar costos,
+evitando la contratación de analistas de seguridad
+y dependiera únicamente de las herramientas,
+remediaría las vulnerabilidades y adquiriría
+una falsa sensación de seguridad.
+Ignoraría que más de la mitad de errores
+siguen ahí, esperando ser encontrados y explotados
+por un usuario malicioso.
+Así, los recursos que se ahorraron durante el desarrollo
+se verán gastados, con intereses, en la etapa de producción.
+
+== Conclusiones
+
+Sí, la rivalidad humano-máquina ha estado presente
+desde hace mucho, y seguirá estando presente por mucho tiempo.
+Sin embargo, no es necesario verlo
+como una rivalidad en todos los ámbitos.
+En la seguridad de la información,
+más que una rivalidad, puede existir
+una relación complementaria, donde la herramienta
+ayuda al analista en las tareas repetitivas
+y éste añade su instinto y experiencia
+para detectar de manera efectiva el mayor número de vulnerabilidades.
+Logrando así, ofrecer un mayor nivel de seguridad
+y satisfacción a los desarrolladores de aplicaciones Web.
+
+.Desenlace alternativo a la relación humanos-máquina
+image::coexistencia.png[Apretón de manos entre persona y robot]
+
+== Referencias
+
+. [[r1]] link:https://www.netsparker.com/blog/web-security/owasp-top-10-web-security-scanner/[An Automated Scanner That Finds All OWASP Top 10 Security Flaws, Really?]
+. [[r2]] link:http://resources.infosecinstitute.com/automated-tools-vs-a-manual-approach/#gref[Automated Tools vs a Manual Approach]
+. [[r3]] link:https://www.webpronews.com/automatic-web-application-security-scans-or-manual-penetration-testing/[Automatic Web Application Security Scans or Manual Penetration Testing?]
