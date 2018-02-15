@@ -35,12 +35,14 @@ A link is also created next to the titles to improve accesibility
 
 (function($){
   $.fn.qtag = function() {
-    var question = $(".qlist")[0].children[0].children;
-    var i = 1;
-    $(question).each(function() {
-      $(this).prepend('<span id="Q'+ i +'" class="anchor"></span>');
-      i++;
-    });
+    if ($(".qlist").length) {
+      var question = $(".qlist")[0].children[0].children;
+      var i = 1;
+      $(question).each(function() {
+        $(this).prepend('<span id="q'+ i +'" class="anchor"></span>');
+        i++;
+      });      
+    }
   };
 })(jQuery);
 
