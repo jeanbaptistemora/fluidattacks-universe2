@@ -21,6 +21,7 @@ donde aparece una nueva máquina capaz de realizar
 algún trabajo con una velocidad y precisión
 que no podría ser igualada
 ni por decenas de personas.
+
 Esta pregunta cubre preocupaciones
 desde trabajadores que temen perder sus empleos,
 hasta preocupaciones incentivadas por +Hollywood+,
@@ -45,56 +46,91 @@ fallas en una aplicación Web.
 image::terminator.png[Robot sosteniendo un arma de fuego, con una explosión detrás]
 
 Afortunadamente, nuestro futuro no es tan oscuro.
-Aunque existen herramientas de detección muy poderosas,
-todavía falta mucho camino
-para poder pensar que seremos reemplazados.
-Según +Netsparker+ <<r1,^[1]^>>
-(un desarrollador de uno de estos analizadores),
-no existe una herramienta capaz de identificar
-las link:https://www.owasp.org/index.php/Top_10-2017_Top_10[10 vulnerabilidades]
-más importantes por sí sola.
-Esto debido a que ellas no pueden saber
-si la aplicación está funcionando como debe,
-si se encuentra alineada a los objetivos comerciales de la empresa,
-si asigna correctamente los privilegios de usuarios,
-o si mantiene cualquier información delicada adecuadamente protegida
-(clasificación que puede variar entre negocios).
+Aunque existen herramientas automatizadas muy poderosas
+para la detección de vulnerabilidades en aplicaciones Web,
+todavía el rol del ser humano es de vital importancia
+si se desea un análisis de seguridad detallado.
+Todavía existen situaciones donde tenemos la ventaja:
 
-No que estas sean las únicas vulnerabilidades que existen.
-Hay un sinnúmero de ellas, pero estas diez fueron
- clasificadas por +OWASP+ (+Open Web Application Security Project+),
-una entidad que busca generar conciencia sobre
-la seguridad del software, como las que son
-más aprovechadas a la hora de ejecutar un ataque.
+* Las herramientas pueden tener conocimiento de muchas vulnerabilidades,
+saber cómo encontrarlas y qué nivel de riesgo pueden suponer.
+Sin embargo, no poseen esa malicia humana que viene con la experiencia,
+ese instinto que le permite a un analista de seguridad
+identificar qué fallas se pueden combinar
+para crear un vector de ataque que cause un mayor impacto.
+Además de que esta malicia le puede permitir a una persona
+encontrar vulnerabilidades que una máquina pase por alto.
 
-Estas herramientas, además, pueden presentar falsos positivos,
-es decir, detectar vulnerabilidades que en realidad no existen.
-También requieren un mayor tiempo
-para actualizarse ante nuevas vulnerabilidades <<r2,^[2]^>>,
-cualidad en la que se quedan atrás de los humanos.
+* Sí, los analizadores generan un reporte con todos sus hallazgos
+y criticidad pero, ¿qué tan completo es dicho reporte?
+¿Te dice a través de qué campos puede un atacante obtener credenciales?
+¿Te dice cómo aprovechar algún formulario para modificar la base de datos?
+Lastimosamente, no, las herramientas solamente
+determinan la existencia de una falla.
+El "cómo"  puede ser esa falla explotada y aprovechada
+por un atacante para afectar tu situación particular de negocio
+es una habilidad humana, adquirida gracias a la misma malicia y experiencia
+mencionada anteriormente.
 
-No estamos intentando quitarle el mérito a estos analizadores.
-Son demasiado útiles a la hora de identificar campos,
-detectar errores simples y las vulnerabilidades más comunes <<r3,^[3]^>>.
-Lo que sí queremos es refutar la idea
-de que ellos son suficientes
-para decir que una aplicación web es segura.
-Se debe combinar la herramienta
-con la experiencia de un profesional,
-que pueda cerciorarse que la vulnerabilidad existe
-y que pueda ir más allá de lo técnico.
+* Los falsos positivos, tal vez la mayor debilidad de los analizadores,
+reportar el hallazgo de una vulnerabilidad que,
+en realidad, no está presente <<r1,^[1]^>>.
+Un problema muy común en la mayoría de estas herramientas,
+que resulta de lo mencionado en el punto anterior,
+la incapacidad de explotar una falla.
+Una herramienta que no filtre bien los falsos positivos
+puede traer más daño que beneficio.
+Si se utilizó para evitar incurrir en gastos
+contratando un analista de seguridad,
+ahora se tienen X vulnerabilidades encontradas.
+De estas, no se sabe cuántas son falsos positivos.
+Recaerá en el desarrollador,
+alguien que no necesariamente domina el tema de seguridad,
+revisar cuáles efectivamente son fallos y cuáles no.
+¿El remedio fue peor que la enfermedad?
++
+La característica de los falsos positivos
+también es una de las razones por las que estas herramientas
+no son muy utilizadas en ambientes de Integración Continua.
+Si programamos un Integrador a que revise
+cada cambio que se haga en un código,
+y evite el despliegue de la aplicación en caso de encontrar algún fallo,
+los falsos positivos podrían hacer que desplegar la aplicación
+se convierta en toda una odisea.
 
-Para darle peso al argumento anterior,
-hicimos nuestro propio experimento.
-Tomamos la aplicación Web +bWAPP+,
-la cual fue diseñada con vulnerabilidades a propósito,
-y las herramientas +Wapiti+, +W3af+ y +OWASP ZAP+.
-Estas comparten las características
-de ser +Open Source+ y poderse ejecutar por línea de comandos.
-Esto permite implementarlas en un ambiente
-de Integración Continua como +Gitlab+.
-De este pequeño experimento,
-obtuvimos los siguientes resultados:
+* +Netsparker+ (un desarrollador de una de estas herramientas),
+está de acuerdo con esta posición <<r2,^[2]^>>,
+no existe un analizador capaz de detectar
+todas las vulnerabilidades que están clasificadas dentro del
+link:https://www.owasp.org/index.php/Top_10-2017_Top_10[Top 10]
+más críticas.
+Llegan a la conclusión de que un analizador
+no puede saber si la aplicación está funcionando como debe,
+si está alineada con los objetivos de la empresa,
+si la información sensible (que puede variar dependiendo del negocio)
+está siendo correctamente protegida,
+si los privilegios de los usuarios están siendo asignados correctamente,
+y otros casos más donde el criterio humano debe tomar la decisión.
+
+Nuestro objetivo no es quitarle el mérito a estas herramientas,
+pues utilizamos muchas de ellas en nuestra vida profesional
+y son aliados muy poderosos.
+Lo que queremos es purgar la idea
+de que son suficientes para llegar a la conclusión
+de que una aplicación Web es segura.
+
+Para eso, desarrollamos nuestro propio experimento.
+Utilizamos la aplicación Web insegura +bWAPP+
+y los analizadores +W3af+, +Wapiti+ y +OWASP ZAP+.
+Estos últimos comparten las características de ser
++Open Source+ y poderse ejecutar por la línea de comandos.
+Gracias a esto, es posible utilizarlos en un 
+ambiente de Integración Continua.
++bWAPP+ tiene más de 150 vulnerabilidades,
+en el experimento se asumió un total de 170,
+basado en el resultado del análisis de la empresa que la desarrolló
+<<r3,^[3]^>>.
+Veamos cómo les fue a nuestros concursantes:
 
 [role="tb-row"]
 .Análisis de Vulnerabilidades de +bWAPP+
@@ -114,19 +150,8 @@ a|+ZAP-Full+ | 59 | 65.3% | 01:30:00
 En la información anterior,
 +ZAP-Short+ se refiere a la herramienta +ZAP+
 únicamente con los +plugins+ de +XSS+ y +SQLi+ habilitados.
-+ZAP-Long+ se refiere a la misma herramienta
++ZAP-Full+ se refiere a la misma herramienta
 con todos sus +plugins+ activados.
-
-.Representación visual del mejor y peor resultado de la Tabla 1- +ZAP-Full+ y +Wapiti+
-image::fuga.png[Comparación de la cobertura de dos analizadores con el alcance de una aplicación]
-
-Como podemos ver, incluso la mejor de las herramientas utlizadas
-dejó por fuera más de la mitad de las vulnerabilidades y,
-entre las encontradas, pueden existir falsos positivos.
-Además, se demoró una hora y media
-en terminar el análisis,
-tiempo que no es adecuado en un ambiente de Integración Continua.
-
 Cabe resaltar, también, que fue necesario
 desactivar la autenticación en la aplicación.
 Esto se hizo para obtener un correcto funcionamiento
@@ -134,6 +159,22 @@ de las herramientas desde la línea de comandos.
 Este hecho no solo aleja el experimento
 de una situación real, sino que también
 deja una capa de la aplicación sin analizar.
+
+Para facilitar el análisis de resultados,
+tomemos el mejor resultado (+ZAP-Full+) y
+el más bajo (+Wapiti+),
+y comparémoslos con la totalidad de la aplicación,
+veamos qué tanta cobertura se alcanzó.
+
+.Representación visual del mejor y peor resultado de la Tabla 1- +ZAP-Full+ y +Wapiti+
+image::fuga.png[Comparación de la cobertura de dos analizadores con el alcance de una aplicación]
+
+Como podemos ver, incluso la mejor de las herramientas utilizadas
+dejó por fuera más de la mitad de las vulnerabilidades y,
+entre las encontradas, pueden existir falsos positivos.
+Además, se demoró una hora y media
+en terminar el análisis,
+tiempo que no es adecuado en un ambiente de Integración Continua.
 
 Un desarrollador que quisiera ahorrar costos,
 evitando la contratación de analistas de seguridad
@@ -166,6 +207,6 @@ image::coexistencia.png[Apretón de manos entre persona y robot]
 
 == Referencias
 
-. [[r1]] link:https://www.netsparker.com/blog/web-security/owasp-top-10-web-security-scanner/[An Automated Scanner That Finds All OWASP Top 10 Security Flaws, Really?]
-. [[r2]] link:http://resources.infosecinstitute.com/automated-tools-vs-a-manual-approach/#gref[Automated Tools vs a Manual Approach]
-. [[r3]] link:https://www.webpronews.com/automatic-web-application-security-scans-or-manual-penetration-testing/[Automatic Web Application Security Scans or Manual Penetration Testing?]
+. [[r1]] link:http://resources.infosecinstitute.com/automated-tools-vs-a-manual-approach/#gref[Automated Tools vs a Manual Approach]
+. [[r2]] link:https://www.netsparker.com/blog/web-security/owasp-top-10-web-security-scanner/[An Automated Scanner That Finds All OWASP Top 10 Security Flaws, Really?]
+. [[r3]] link:http://www.mmebvba.com/sites/default/files/downloads/bWAPP_sample_report.pdf[BWAPP OWASP TOP TEN 2013 SCAN REPORT SUMMARY]
