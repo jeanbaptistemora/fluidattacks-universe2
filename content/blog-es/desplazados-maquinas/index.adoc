@@ -127,8 +127,7 @@ Estos últimos comparten las características de ser
 +Open Source+ y poderse ejecutar por la línea de comandos.
 Gracias a esto, es posible utilizarlos en un
 ambiente de Integración Continua.
-+bWAPP+ tiene más de 150 vulnerabilidades,
-en el experimento se asumió un total de 170,
+Para +bWAPP+ asumimos un total de vulnerabilidades de 170,
 basado en el resultado del análisis de la empresa que la desarrolló
 <<r4,^[4]^>>.
 Veamos cómo les fue a nuestros concursantes:
