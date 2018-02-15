@@ -14,28 +14,29 @@
 
 = ¿Seremos Desplazados por las Máquinas?
 
-Una pregunta muy común
-que se ve rondando por la Web cada cierto tiempo.
-Suele coincidir con algún avance tecnológico
-donde aparece una nueva máquina capaz de realizar
-algún trabajo con una velocidad y precisión
-que no podría ser igualada
-ni por decenas de personas.
-
-Esta pregunta cubre preocupaciones
-desde trabajadores que temen perder sus empleos,
-hasta preocupaciones incentivadas por +Hollywood+,
-donde seremos conquistados y oprimidos por ellas.
+Han pasado más de 20 años
+desde que Garry Kasparov, el campeón mundial de ajedrez,
+fue derrotado por +Deep Blue+, la supercomputadora diseñada por +IBM+.
+Ese evento fue, para muchos, la prueba de que
+las máquinas habían logrado superar la inteligencia humana <<r1,^[1]^>>.
+Muchas inquietudes surgieron producto de esa creencia,
+inquietudes acerca del avance tecnológico,
+que iban desde trabajadores preocupados por sus empleos,
+hasta creencias más apocalípticas, incentivadas por +Hollywood+,
+donde las máquinas deciden conquistarnos y oprimirnos.
 
 Dejando a un lado la ciencia ficción,
-el primero ha estado ocurriendo por un buen tiempo.
-Con máquina no nos referimos a un robot
+la primera inquietud está bien fundamentada.
+Cada año vemos como salen máquinas al mercado
+que realizan una tarea con una velocidad y precisión
+capaz de superar a decenas de trabajadores experimentados.
+Y con máquina no nos referimos a un robot
 con la apariencia de un joven Arnold Schwarzenegger con gafas oscuras.
 Puede ser cualquier equipo programado
 para hacer una tarea específica.
+
 Carros que se manejan solos,
-brazos mecánicos que superan la producción
-de un equipo de trabajadores,
+brazos mecánicos que reducen costos y aumentan la eficiencia de un proceso,
 y en el ambiente de la Seguridad de la Información,
 herramientas que pueden encontrar vulnerabilidades y
 fallas en una aplicación Web.
@@ -49,7 +50,7 @@ Afortunadamente, nuestro futuro no es tan oscuro.
 Aunque existen herramientas automatizadas muy poderosas
 para la detección de vulnerabilidades en aplicaciones Web,
 todavía el rol del ser humano es de vital importancia
-si se desea un análisis de seguridad detallado.
+si se desea un análisis de seguridad detallado y efectivo.
 Todavía existen situaciones donde tenemos la ventaja:
 
 * Las herramientas pueden tener conocimiento de muchas vulnerabilidades,
@@ -63,25 +64,25 @@ encontrar vulnerabilidades que una máquina pase por alto.
 
 * Sí, los analizadores generan un reporte con todos sus hallazgos
 y criticidad pero, ¿qué tan completo es dicho reporte?
-¿Te dice a través de qué campos puede un atacante obtener credenciales?
+Te dice cuántos campos son afectados por una vulnerabilidad determinada pero,
+¿te dice cuáles de ellos permiten la extracción de información sensible y
+cuáles no?
 ¿Te dice cómo aprovechar algún formulario para modificar la base de datos?
 Lastimosamente, no, las herramientas solamente
 determinan la existencia de una falla.
 El "cómo"  puede ser esa falla explotada y aprovechada
 por un atacante para afectar tu situación particular de negocio
-es una habilidad humana, adquirida gracias a la misma malicia y experiencia
-mencionada anteriormente.
+es una habilidad netamente humana, adquirida gracias a la misma malicia y experiencia mencionada anteriormente.
 
 * Los falsos positivos, tal vez la mayor debilidad de los analizadores,
 reportar el hallazgo de una vulnerabilidad que,
-en realidad, no está presente <<r1,^[1]^>>.
+en realidad, no está presente <<r2,^[2]^>>.
 Un problema muy común en la mayoría de estas herramientas,
-que resulta de lo mencionado en el punto anterior,
-la incapacidad de explotar una falla.
+que resulta de la incapacidad de explotar una falla.
 Una herramienta que no filtre bien los falsos positivos
 puede traer más daño que beneficio.
 Si se utilizó para evitar incurrir en gastos
-contratando un analista de seguridad,
+contratando a un profesional de seguridad,
 ahora se tienen X vulnerabilidades encontradas.
 De estas, no se sabe cuántas son falsos positivos.
 Recaerá en el desarrollador,
@@ -99,12 +100,12 @@ los falsos positivos podrían hacer que desplegar la aplicación
 se convierta en toda una odisea.
 
 * +Netsparker+ (un desarrollador de una de estas herramientas),
-está de acuerdo con esta posición <<r2,^[2]^>>,
+está de acuerdo con esta posición <<r3,^[3]^>>,
 no existe un analizador capaz de detectar
 todas las vulnerabilidades que están clasificadas dentro del
 link:https://www.owasp.org/index.php/Top_10-2017_Top_10[Top 10]
 más críticas.
-Llegan a la conclusión de que un analizador
+Llega a la conclusión de que un analizador
 no puede saber si la aplicación está funcionando como debe,
 si está alineada con los objetivos de la empresa,
 si la información sensible (que puede variar dependiendo del negocio)
@@ -124,12 +125,12 @@ Utilizamos la aplicación Web insegura +bWAPP+
 y los analizadores +W3af+, +Wapiti+ y +OWASP ZAP+.
 Estos últimos comparten las características de ser
 +Open Source+ y poderse ejecutar por la línea de comandos.
-Gracias a esto, es posible utilizarlos en un 
+Gracias a esto, es posible utilizarlos en un
 ambiente de Integración Continua.
 +bWAPP+ tiene más de 150 vulnerabilidades,
 en el experimento se asumió un total de 170,
 basado en el resultado del análisis de la empresa que la desarrolló
-<<r3,^[3]^>>.
+<<r4,^[4]^>>.
 Veamos cómo les fue a nuestros concursantes:
 
 [role="tb-row"]
@@ -159,6 +160,20 @@ de las herramientas desde la línea de comandos.
 Este hecho no solo aleja el experimento
 de una situación real, sino que también
 deja una capa de la aplicación sin analizar.
+
+Otro detalle importante de mencionar es que
+los analizadores no se apuntaron a la página principal,
+como se haría en una prueba real.
+El objetivo del ataque fue una página particular de +bWAPP+
+donde se listaban enlaces a todas las demás páginas de la aplicación.
+De esta manera se logra una identificación completa por parte de la herramienta.
++bWAPP+ utiliza formularios para llegar a las demás páginas,
+por lo que apuntar las herramientas a la página principal
+resultaba en que ninguna página de interés era encontrada.
+Existen herramientas como +Burp+ que solucionan este problema
+mediante la evaluación de formularios <<r5,^[5]^>>,
+pero existen otras que fallan ante esta situación
+debido a su incapacidad de navegar la aplicación.
 
 Para facilitar el análisis de resultados,
 tomemos el mejor resultado (+ZAP-Full+) y
@@ -202,11 +217,22 @@ para detectar de manera efectiva el mayor número de vulnerabilidades.
 Logrando así, ofrecer un mayor nivel de seguridad
 y satisfacción a los desarrolladores de aplicaciones Web.
 
+Parafraseando a Garry Kasparov en su charla de +TED+ <<r6,^[6]^>>,
+donde utiliza como ejemplo un torneo de ajedrez estilo libre
+en el cual jugadores amateurs con tres máquinas comunes
+derrotaron a grandes maestros y supercomputadoras;
+la relación entre humano y máquina, a través de un proceso efectivo,
+es la receta para lograr nuestros sueños más grandes.
+
+
 .Desenlace alternativo a la relación humanos-máquina
 image::coexistencia.png[Apretón de manos entre persona y robot]
 
 == Referencias
 
-. [[r1]] link:http://resources.infosecinstitute.com/automated-tools-vs-a-manual-approach/#gref[Automated Tools vs a Manual Approach]
-. [[r2]] link:https://www.netsparker.com/blog/web-security/owasp-top-10-web-security-scanner/[An Automated Scanner That Finds All OWASP Top 10 Security Flaws, Really?]
-. [[r3]] link:http://www.mmebvba.com/sites/default/files/downloads/bWAPP_sample_report.pdf[BWAPP OWASP TOP TEN 2013 SCAN REPORT SUMMARY]
+. [[r1]] link:https://theconversation.com/twenty-years-on-from-deep-blue-vs-kasparov-how-a-chess-match-started-the-big-data-revolution-76882[Twenty years on from Deep Blue vs Kasparov: how a chess match started the big data revolution]
+. [[r2]] link:http://resources.infosecinstitute.com/automated-tools-vs-a-manual-approach/#gref[Automated Tools vs a Manual Approach]
+. [[r3]] link:https://www.netsparker.com/blog/web-security/owasp-top-10-web-security-scanner/[An Automated Scanner That Finds All OWASP Top 10 Security Flaws, Really?]
+. [[r4]] link:http://www.mmebvba.com/sites/default/files/downloads/bWAPP_sample_report.pdf[BWAPP OWASP TOP TEN 2013 SCAN REPORT SUMMARY]
+. [[r5]] link:https://support.portswigger.net/customer/portal/questions/12285606-spidering-form-submission[Burp Pro - Spidering + Form Submission]
+. [[r6]] link:https://www.ted.com/talks/garry_kasparov_don_t_fear_intelligent_machines_work_with_them[Dont't fear intelligent machines. Work with them - Garry Kasparov en TED]
