@@ -8,14 +8,14 @@
 
 == Necesidad
 
-Estructura condicional en JavaScript
+Estructura condicional en +JavaScript+.
 
 == Contexto
 
 A continuación se describen las circunstancias 
 bajo las cuales la siguiente solución tiene sentido:
 
-. Se utiliza el lenguaje JavaScript.
+. Se utiliza el lenguaje +JavaScript+.
 . Se necesitan implementar estructuras condicionales de manera segura.
 
 == Solución
@@ -25,7 +25,7 @@ para lograr que un algoritmo analice los datos y tome ciertas decisiones.
 Es decir, comparan una variable contra determinado valor o valores,
 para que en base al resultado de esta comparación, 
 se siga un curso de acción dentro del programa.
-Estas pueden ser simples, dobles, múltiples y case.
+Estas pueden ser simples, dobles, múltiples y +case+.
 
 *Simples:* En este tipo de estructuras 
 se limita la ejecución de un bloque de código 
@@ -62,18 +62,19 @@ a las estructuras condicionales múltiples.
 image::case.png[estructura condicional case]
 
 . En esta solución se mirará la manera adecuada 
-de utilizar estas estructuras en el lenguaje JavaScript.
+de utilizar estas estructuras en el lenguaje +JavaScript+.
 
-. En cada estructura condicional empleada en una aplicación JavaScript, 
+. En cada estructura condicional empleada en una aplicación +JavaScript+, 
 se recomienda contemplar todos los posibles escenarios.
-* Para sentencias if debe usarse su correspondiente else [1].
-* Para sentencias switch debe usarse su correspondiente default [2].
+* Para sentencias +if+ debe usarse su correspondiente +else+ ^<<r1,[1]>>^.
+* Para sentencias +switch+ debe usarse 
+su correspondiente +default+ ^<<r2,[2]>>^.
 
-. El siguiente código muestra el uso correcto de la sentencia if. 
+. El siguiente código muestra el uso correcto de la sentencia +if+. 
 Primero creamos una función que nos retornará un número aleatorio 
-entre un rango especificado:
+entre un rango especificado.
 +
-.test.py
+.getRandomInt.js
 [source, js, linenums]
 ----
 function getRandomInt(min, max) {
@@ -82,7 +83,7 @@ function getRandomInt(min, max) {
 ----
 
 . Obtenemos un valor aleatorio entre 0 y 2, 
-y comparamos dicho valor utilizando if/else.
+y comparamos dicho valor utilizando +if/else+.
 +
 [source, js, linenums]
 ----
@@ -95,8 +96,8 @@ if (args <= 1)
 }
 ----
 
-. El siguiente código muestra el uso correcto de la sentencia switch, 
-se debe incluir el caso default:
+. El siguiente código muestra el uso correcto de la sentencia +switch+, 
+se debe incluir el caso +default+.
 +
 [source, js, linenums]
 ----
@@ -115,8 +116,8 @@ switch(val) {
 
 == Referencias
 
-. https://developer.mozilla.org/es/docs/Web/JavaScript/Referencia/Sentencias/switch[switch - JavaScript MDN]
-. https://developer.mozilla.org/es/docs/Web/JavaScript/Referencia/Sentencias/if%2E%2E%2Eelse[if...else - JavaScript MDN]
-. https://es.wikipedia.org/wiki/Sentencia_condicional[Sentencia condicional]
-. REQ.0156 El código debe definir 
+. [[r1]] link:https://developer.mozilla.org/es/docs/Web/JavaScript/Referencia/Sentencias/switch[switch - JavaScript MDN]
+. [[r2]] link:https://developer.mozilla.org/es/docs/Web/JavaScript/Referencia/Sentencias/if%2E%2E%2Eelse[if...else - JavaScript MDN]
+. [[r3]] link:https://es.wikipedia.org/wiki/Sentencia_condicional[Sentencia condicional]
+. [[r4]] link:REQ.0156 El código debe definir 
 opciones por defecto seguras (ej: default en switchs).
