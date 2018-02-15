@@ -1,4 +1,4 @@
-:slug: kb/javascript/ofuscar-codigo-javascript/
+:slug: kb/javascript/ofuscar-codigo/
 :category: javascript
 :description: Nuestros ethical hackers explican cómo evitar vulnerabilidades de seguridad mediante la programación segura en JavaScript al ofuscar el código fuente de la aplicación. Ésto dificulta que un atacante pueda visualizar el código de la aplicación para identificar vulnerabilidades en el mismo.
 :keywords: JavaScript, Seguridad, Ofuscar, Código, Buenas Prácticas, Producción.
@@ -8,17 +8,17 @@
 
 == Necesidad
 
-Se requiere ofuscar el código JavaScript para evitar la legibilidad del código 
-fuente.
+Se requiere ofuscar el código +JavaScript+ 
+para evitar la legibilidad del código fuente.
 
 == Contexto
 
 A continuación se describen las circunstancias 
 bajo las cuales la siguiente solución tiene sentido:
 
-. Construir páginas web mediante el uso de JavaScript.
-. Tener instalado un navegador web 
-(Internet Explorer, Firefox, Chrome, Safari, entre otros)
+. Se desea construir páginas web mediante el uso de +JavaScript+.
+. Se tiene instalado un navegador web 
+(+Internet Explorer+, +Firefox+, +Chrome+, +Safari+, entre otros)
 
 == Solución
 
@@ -35,13 +35,14 @@ y no en etapas de desarrollo.
 pueden ser reversados, por lo cual 
 no intente ocultar información confidencial dentro del código fuente.
 
-. Para esta solución utilizaremos el software libre Packer [1] para ofuscar. 
+. Para esta solución utilizaremos 
+el +software+ libre +Packer+ ^<<r1,[1]>>^ para ofuscar. 
 Existen múltiples versiones de la herramienta 
-pero en este caso utilizaremos la de .NET que funciona en Windows. 
+pero en este caso utilizaremos la de +.NET+ que funciona en +Windows+. 
 
-. Ofuscaremos el siguiente código:
+. Ofuscaremos el siguiente código.
 +
-.test.py
+.add.js
 [source, js, linenums]
 ----
 function add(x, y) { 
@@ -51,11 +52,11 @@ alert(result);
 ----
 
 . En la ventana de la herramienta, pegamos el código que deseamos ofuscar, 
-seleccionamos las opciones deseadas, y por último hacemos clic en Pack.
+seleccionamos las opciones deseadas, y por último hacemos clic en +Pack+.
 +
 image::packer.png[herramienta packer]
 
-. El código generado es el siguiente: 
+. El código generado es el siguiente. 
 +
 [source, js, linenums]
 ----
@@ -73,11 +74,12 @@ eval(function(p,a,c,k,e,d){
 ----
 
 . como se puede ver, su comprensión es difícil 
-en comparación con el código original:
+en comparación con el código original.
 
-. Existen versiones de la herramienta packer 
+. Existen versiones de la herramienta +packer+ 
 que pueden ser usadas desde la interfaz de línea de comando, 
-esto sirve para automatizar el proceso de despliegue de archivos JavaScript.
+esto sirve para automatizar 
+el proceso de despliegue de archivos +JavaScript+.
 
 . En conclusión, la ofuscación de código tiene varias ventajas, 
 sobre todo en cuanto a la seguridad, 
@@ -100,6 +102,7 @@ obligando a trabajar directamente sobre el comprimido.
 
 == Referencias
 
-. http://dean.edwards.name/download/#packer[Parker]
-. https://es.wikipedia.org/wiki/Ofuscaci%C3%B3n[Ofuscación]
-. REQ.0062: El código fuente debe estar ofuscado en ambiente de producción.
+. [[r1]] link:http://dean.edwards.name/download/#packer[Packer]
+. [[r2]] link:https://es.wikipedia.org/wiki/Ofuscaci%C3%B3n[Ofuscación]
+. [[r3]] REQ.0062: El código fuente debe estar ofuscado 
+en ambiente de producción.

@@ -1,4 +1,4 @@
-:slug: kb/html/validar-formulario-html/
+:slug: kb/html/validar-formulario/
 :category: html
 :description: Nuestros ethical hackers explican cómo evitar vulnerabilidades de seguridad mediante la programación segura en HTML al validar formularios. Los errores en formularios suponen una amenaza potencial para las aplicaciones web debido a que pueden llevar código malicioso, como el caso de ataques XSS o SQLi.
 :keywords: HTML, Seguridad, Validar, Formulario, Navegador, Error.
