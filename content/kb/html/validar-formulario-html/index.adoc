@@ -8,20 +8,20 @@
 
 == Necesidad
 
-Validación de formularios en HTML
+Validación de formularios en +HTML+.
 
 == Contexto
 
 A continuación se describen las circunstancias 
 bajo las cuales la siguiente solución tiene sentido:
 
-. Se desea utilizar validación de campos de un formulario HTML.
+. Se desea utilizar validación de campos de un formulario +HTML+.
 . Las versiones de los navegadores utilizados son iguales o superiores 
-a Firefox 10, Chrome 10 o Internet Explorer 10.
+a +Firefox 10+, +Chrome 10+ o +Internet Explorer 10+.
 
 == Solución
 
-Al crear un formulario en HTML, 
+Al crear un formulario en +HTML+, 
 hay que ser consciente de un detalle ineludible: 
 los usuarios se equivocan al rellenar un formulario. 
 Ya sea que dicha equivocación 
@@ -43,22 +43,24 @@ deba modificarla o, en caso contrario,
 no podrá continuar ni enviar el formulario correctamente.
 
 Tradicionalmente, la validación de un formulario 
-se ha hecho siempre en Javascript. 
-Sin embargo, HTML en su versión HTML5 
+se ha hecho siempre en +Javascript+. 
+Sin embargo, +HTML+ en su versión +HTML5+ 
 introduce unos nuevos atributos para formularios 
 que permiten realizar la validación del formulario directamente 
-sin necesidad de recurrir a Javascript.
+sin necesidad de recurrir a +Javascript+.
 
 . Algunos de esos atributos son:
 
-* min: Es un atributo de valor númerico y establece el número mínimo permitido.
-* max: Es un atributo de valor númerico y establece el número máximo permitido.
-* required: Se usa para determinar que un campo es obligatorio,
+* +min+: Es un atributo de valor númerico 
+y establece el número mínimo permitido.
+* +max+: Es un atributo de valor númerico 
+y establece el número máximo permitido.
+* +required+: Se usa para determinar que un campo es obligatorio,
 y por tanto se debe rellenar para enviar formulario.
 
 . Creamos un formulario, con algunos campos que se utilizarán para validación:
 +
-.test.py
+.formulario.html
 [source, html, linenums]
 ----
 <form action="" autocomplete="off">
@@ -72,7 +74,7 @@ y por tanto se debe rellenar para enviar formulario.
 
 . Como se puede ver en este formulario, 
 utilizamos campos de tipo especial, 
-por ejemplo, email, number, url, 
+por ejemplo, +email+, +number+, +url+, 
 los cuales son validados por el navegador de manera automática.
 
 . Podemos observar que, al intentar enviar el formulario 
@@ -89,8 +91,8 @@ debe ser acompañada por una validación del lado del servidor.
 
 == Referencias
 
-. https://developer.mozilla.org/es/docs/Learn/HTML/Forms/Validacion_formulario_datos[Validación de formulario de datos]
-. http://www.um.es/docencia/barzana/DAWEB/Desarrollo-de-aplicaciones-web-teoria-formularios-ejemplo-1.html[DAWeb. Verificación de formularios]
-. REQ.0168: El sistema debe descartar 
+. [[r1]] link:https://developer.mozilla.org/es/docs/Learn/HTML/Forms/Validacion_formulario_datos[Validación de formulario de datos]
+. [[r2]] link:http://www.um.es/docencia/barzana/DAWEB/Desarrollo-de-aplicaciones-web-teoria-formularios-ejemplo-1.html[DAWeb. Verificación de formularios]
+. [[r3]] REQ.0168: El sistema debe descartar 
 toda la información potencialmente insegura 
 que sea recibida por entradas de datos.
