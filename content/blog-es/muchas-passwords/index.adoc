@@ -1,8 +1,8 @@
 :slug: muchas-passwords/
 :date: 2017-05-12
 :category: opiniones
-:description: TODO
-:keywords: TODO
+:description: La autenticación es un proceso necesario para verificar la identidad del usuario, sin embargo, ante la variada cantidad de servicios en Internet y la autenticación ante cada uno de ellos utilizar muchas contraseñas resulta engorroso. Aquí te presentamos una forma segura de reducir tus contraseñas.
+:keywords: Seguridad, Contraseña, Única, Autenticación, OAUTH, OIDC.
 :author: Jhony Villa
 :tags: password, protocolo, implementar
 :Image: password.png

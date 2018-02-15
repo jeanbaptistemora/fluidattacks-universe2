@@ -4,8 +4,8 @@
 :tags: solucionar, reto, herramienta, ocultar
 :Image: gimp-preview.png
 :alt: Ícono de GIMP, un zorro con un pincel en la boca
-:description: TODO
-:keywords: TODO
+:description: GIMP es un software libre para la edición de imágenes y una herramienta poderosa capaz de competir con software propietario. En el siguiente artículo utilizaremos GIMP para resolver un reto de esteganografía que involucra una imagen en formato GIF, revelando un mensaje oculto.
+:keywords: Linux, Herramientas, Gimp, Editor, Imagen, Reto.
 :author: Alejandro Aguirre
 :writer: alejoa
 :name: Alejandro Aguirre Soto

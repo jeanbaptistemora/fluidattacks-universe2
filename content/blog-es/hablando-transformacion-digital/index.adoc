@@ -4,8 +4,8 @@
 :tags: transformar, evolucionar, digital
 :Image: transformacion-digital.png
 :alt: Un sketch con una brújula apuntando a la transformación digital
-:description: TODO
-:keywords: TODO
+:description: La tecnología avanza a pasos agigantados y con ella los retos que supone para los departamentos de TI el estar a la vanguardia en la innovación. En el presente artículo hablaremos acerca de la transformación digital y los cambios que representa para las organizaciones y los gestores de TI. 
+:keywords: Seguridad, TI, Tecnología, Información, Transformación, Innovación.
 :author: Ivan Velez
 :writer: ivanv
 :name: Ivan Velez

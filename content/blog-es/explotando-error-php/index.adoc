@@ -4,8 +4,8 @@
 :tags: php, atacar, reto, solucionar
 :Image: php-exploitation.png
 :alt: Datos hexadecimales con un candado y las letras PHP
-:description: TODO
-:keywords: TODO
+:description: PHP es un lenguaje de programación web ampliamente conocido y utilizado, sin embargo posee algunos inconvenientes de seguridad que pueden ser explotados. En el siguiente artículo presentamos una forma de explotar una vulnerabilidad común de PHP, causada por una mala práctica de programación.
+:keywords: Seguridad, Explotación, Ataque, PHP, Reto, Web.
 :author: Alejandro Aguirre
 :writer: alejoa
 :name: Alejandro Aguirre Soto

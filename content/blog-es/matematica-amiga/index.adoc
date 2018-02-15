@@ -4,8 +4,8 @@
 :tags: matemática, solucionar, programar, reto
 :Image: maths-friend.png
 :alt: Fórmulas trigonométricas
-:description: TODO
-:keywords: TODO
+:description: Para incursionar en el mundo de la seguridad informática el saber programar es una habilidad esencial y gran parte de la programación se basa en la lógica matemática. En este artículo hablaremos de las matemáticas, los modelos matemáticos y su importancia en la seguridad informática.
+:keywords: Programación, Matemática, Algoritmo, Modelos, Optimización, Modelos.
 :author: Camilo Cardona
 :writer: camiloc
 :name: Camilo Cardona

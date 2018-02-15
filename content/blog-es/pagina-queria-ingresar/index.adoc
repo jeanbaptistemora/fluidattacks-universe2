@@ -4,8 +4,8 @@
 :tags: web, seguridad, información
 :Image: pagina.png
 :alt: Teclado con una letra roja que dice GET ME OUT OF HERE
-:description: TODO
-:keywords: TODO
+:description: Los delincuentes informáticos a menudo se aprovechan del afán de los usuarios por utilizar un servicio para crear clones de las páginas a las que buscan ingresar con URLs similares con el fin de robar sus credenciales. A continuación explicamos una forma de detectar y evitar esta práctica.
+:keywords: Seguridad, HTML, Página, Web, Amenaza, HTTPS.
 :author: Francisco Bernal
 :writer: pacho
 :name: Francisco Bernal Baquero

@@ -4,8 +4,8 @@
 :tags: sdlc, modelar, amenaza, concientizar
 :Image: sherlock.png
 :alt: Diagrama de bloques mostrando el proceso de modelado de amenazas
-:description: TODO
-:keywords: TODO
+:description: Los métodos deductivos de Sherlock Holmes pueden ser aplicados en muchos campos, entre ellos, la seguridad informática. En este artículo realizaremos una introducción al modelado de amenazas, en donde, al igual que Sherlock, buscamos anticipar cualquier riesgo antes de tomar una desición.
+:keywords: Seguridad, Modelado, Amenazas, Software, Riesgo, Ataque.
 :author: Camilo Cardona
 :writer: camiloc
 :name: Camilo Cardona

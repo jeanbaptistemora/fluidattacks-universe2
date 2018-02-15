@@ -4,8 +4,8 @@
 :tags: herramienta, proxy, interceptar
 :Image: burp-intercept.png
 :alt: Imagen de inicio del programa Burp
-:description: TODO
-:keywords: TODO
+:description: BurpSuite es un software desarrollado para realizar Pruebas de penetración o Pentesting. Cuenta con una amplia variedad de herramientas y funcionalidades para encontrar vulnerabilidades. En este artículo utilizaremos burp para resolver un reto de hacking al interceptar tráfico de información. 
+:keywords: Seguridad, Software, BurpSuite, Interceptar, Tráfico, Servidor.
 :author: Alejandro Aguirre
 :writer: alejoa
 :name: Alejandro Aguirre Soto

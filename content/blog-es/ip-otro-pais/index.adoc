@@ -4,8 +4,8 @@
 :tags: red, reto, solucionar, herramienta
 :Image: ip.png
 :alt: Poste de dirección con una dirección IP, con el mundo atrás
-:description: TODO
-:keywords: TODO
+:description: En Internet acechan muchos peligros, algunos de los cuales pueden ser evitados. Nuestra actividad en internet puede ser rastreada y nuestra ubicación física conocida gracias a nuestra dirección IP. En este artículo mostraremos como cambiar nuestra IP para mantener el anonimato en la red.
+:keywords: Seguridad, dirección, IP, TOR, VPN, Anonimato.
 :author: Alejandro Aguirre
 :writer: alejoa
 :name: Alejandro Aguirre Soto

@@ -1,8 +1,8 @@
 :slug: navegador-amigo/
 :date: 2017-12-18
 :category: opiniones
-:description: TODO
-:keywords: TODO
+:description: El navegador web o browser, aquella herramienta que nos permite surfear en la red, tiene algunas otras funcionalidades que nos conviene conocer. En este artículo resolveremos un reto de hacking, haciendo uso únicamente de nuestro navegador web de preferencia.
+:keywords: Navegador, Web, Browser, Solución, Reto, Hacking.
 :author: Luis Arteaga
 :tags: solucionar, browser, reto
 :Image: viewhtml.png
