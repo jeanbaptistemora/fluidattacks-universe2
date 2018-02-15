@@ -5,7 +5,7 @@
 :Image: cover.png
 :alt: Orion carrying Cedalion
 :description: A discussion of OWASP top 10 - A9: Using components with known vulnerabilities, in particular free and open software libraries. Comparison with the marketing buzzword Software Composition Analysis. A survey of free tools to do it yourself. Also an apology of free software in component analysis.
-:keywords: software composition analysis, dependency, vulnerability, linux, attack
+:keywords: software composition analysis, dependency, vulnerability, linux, foss
 :author: Rafael Ballestas
 :writer: raballestasr
 :name: Rafael Ballestas
@@ -30,7 +30,7 @@ by link:http://kmkeen.com/pacgraph/[Kylee Keen]:
 .+libpng+ reverse dependencies in +Arch Linux+ (link:libpng-pacgraph.png[click] to view larger)
 image::libpng-pacgraph.png["libpng reverse dependencies",width=800,link="libpng-pacgraph.png"]
 
-More than +14 GiB+ worth of software depend on +libpng+!
+More than +14 GiB+ worth of software depends on +libpng+!
 And that is only in the +Arch Linux+ repositories,
 which is hardly the most popular +Linux+ distribution.
 Also, the library is the official +PNG+ reference library and
@@ -42,6 +42,10 @@ Now, back in 2015 when
 +libpng+ had not yet fixed the low-high palette bug,
 all the programs and libraries above
 were also automatically vulnerable to the same issue.
+Actually this is what happened to +Equifax+
+with a vulnerability in +Apache Struts+.
+Same with many web services that use
++OpenSLL+ with +Heartbleed+.
 
 If this could happen to such flagships as
 link:https://www.gnu.org/software/bash/[+bash+],
@@ -57,114 +61,106 @@ they call it
 Given the rapid adoption of Free and Open Source Software (+FOSS+)
 by large companies,
 all of a sudden dependency vulnerability
-appears to be one hell of a problem.
+appears to be one link:https://en.wikipedia.org/wiki/Dependency_hell[hell] of a problem.
 Or rather, as yuppies would like to point out,
 a ``bussiness opportunity''?
 
 Many providers of so-called
-``software composition analysis''
+``software composition analysis'' (+SCA+)
 (don't google it)
 have since appeared in the security scene.
 Some of them are backed by
-long-standing companies,
+long-standing companies;
 most are not.
-
 In fact this bussiness has gained such momentum,
 that it is expected to grow more than 20% each year
-from now to 2022,
-according to link:https://www.prnewswire.com/news-releases/the-software-composition-analysis-market-is-expected-to-grow-from-usd-1540-million-in-2017-to-usd-3984-million-by-2022-at-a-compound-annual-growth-rate-cagr-of-209-300595028.html[PR Newswire].
+from now
+link:https://www.prnewswire.com/news-releases/the-software-composition-analysis-market-is-expected-to-grow-from-usd-1540-million-in-2017-to-usd-3984-million-by-2022-at-a-compound-annual-growth-rate-cagr-of-209-300595028.html[to 2022].
 
-Worse, it makes the +FOSS+
-that all these company owe to,
+What's worse, it makes the +FOSS+,
+that all these companies owe to,
 look bad.
 Yet its adoption is not slowing down and,
-as we will try to elucidate here,
-it's not its fault, but rather,
-companies' and their advisors'.
+as we will try to show here,
+it's not its fault but rather,
+the dependent app's;
+and also that
+it's not a +FOSS+ thing but rather
+that marketing efforts
+point towards it.
+
+Today's applications use on average
+30+ libraries, which represent up to
+80% of the code.<<r2, [2]>>
+Think of it as your code being only
+a thin layer upon a building of some
+tiny, some larger boxes.
+What +SCA+ does then is look for
+vulnerabilities inside those boxes
+with information from external databases,
+which then become vulnerabilities in your own app:
+
+.+SCA+ scans all the blocks in your app building
+image::depvuln.png["Dependency building"]
 
 Instead of going from
-the alleged solution to the source of the problem,
+the alleged solution towards the source of the problem,
 let's do it backwards.
 
 == The bad
 
-Without going into many details,
-let us use the following working definition of +FOSS+:
-software that can be (and is) developed, used
++FOSS+ is developed and used
 by thousands around the world.
-
 This can be a double-edged blade:
-on the one hand, we have the so-called ``Linus' Law''
-according to which bug-finding and patching
-should be easier as more eyes are involved,
-which makes perfect sense.
+on the one hand,
+according to ``Linus' Law,''
+bug-finding and patching
+should be easier as more eyes are involved.
 
-On the other hand, we have the fact
-that humans make mistakes, and
-the lack of a centralised guiding and reviewing
+On the other hand,
+the lack of centralised guiding
 makes room for bugs.
-A certain empirical study points out that
-beyond nine developers actively working on a piece of software,
-it is more likely to have vulnerabilities than
-if it had fewer developers.<<r4, ^[4]^>>
-
-At any rate, +FOSS+ 'does' have bugs,
-there's no deying that, as do
-other kinds of software.
-If your company's applications depend on
-proprietary software that has vulnerabilities,
-you're just as vulnerable to them as well.
+But then again
+all kinds of software do.
 
 The difference with proprietary software is that,
-because of the more restricted audience,
-the lack of access to the code and their
-testing procedures,
+due to all the restrictions
 it is 'less likely' that their bugs
 will become public as soon as they would be
 on the freer side of things.
+So expect all vulnerabilities to be zero-day.
 
-This is actually 'good':
-if you rely on a piece of free software and
-a vulnerability in it is found,
-you will know as fast as is possible
-and it will likely be fixed just as fast.
+So if the source of the problem is not +FOSS+,
+what is it?
+The main reasons why so many companies
+suffer from +A9+:
 
-But... will you know?
-
-The main reason why so many companies
-are suffering from vulnerabilities inherited from
-free and open source are:
-
-* Ignorance of the dependencies in use.
-* Ignorance of the vulnerabilities recently discovered in dependencies.
-* No active, continuous scanning for vulnerabilities.
+* Not knowing used dependencies.
+* Ignorance of their vulnerabilities.
+* No continuous scanning for bugs.
 * Not testing for compatibility.
-* Not securing those component's configurations.
+* Component misconfiguration.
 
 In essence,
 it all boils down to a lack of communication
-between the user and the +FOSS+ community.
-If you base your company's software on community-maintained libraries,
-the least you can do is keep them up-to-date with the upstream.
+between the user and the source of the componentes.
 
 == The good
 
 So what can you do?
-OWASP recommends
++OWASP+ recommends
 the following guidelines to prevent +A9+:<<r1, ^[1]^>>
 
-* Trim the unnecessary dependencies, features, components etc.
+* Trim unnecessary dependencies, features, components etc.
 That way you have less to check.
 * Continuously monitor components for updates and vulnerability reports.
 * Only obtain components from trusted sources.
-* Make these guidelines into a real company policy,
-so it is done frequently.
+* Make these guidelines into a company policy.
 
 There are specific tools for this purpose:
 they compare the version of the dependency you are using against both
 remote repositories (to check for updates) and
 vulnerability databases (like
-link:https://cve.mitre.org/[CVE] and link:https://nvd.nist.gov/[NVD])
 to find out if any of your dependencies has
 reported vulnerabilitites that have not been fixed yet.
 
@@ -174,9 +170,65 @@ reported vulnerabilitites that have not been fixed yet.
 link:https://www.owasp.org/index.php/OWASP_Dependency_Check[+OWASP Dependency-Check+] tool.
 * There's a link:https://github.com/stevespringett/dependency-check-sonar-plugin/tree/master/examples/single-module-maven[Dependency check] +SonarQube+ plugin.
 
-As you see,
-there is no shortage of +FOSS+ to
-check for the alleged +FOSS+ flaws.
+Note that the language-specific tools
+have to be integrated with the
+appropriate package manager, like
++npm+ or +yarn+ with +retire+.
+
+A bird's eye view of how the process
+should integrate with your development flow is
+depicted by the following diagram provided by +Source:Clear+.
+
+.Integrating +SCA+ in your development flow. Via link:https://www.sourceclear.com/product/[+Source:Clear+].
+image::source-clear-flow.png["Integrating SCA into dev flow"]
+
+We see that every time code is added,
+the whole system gets scanned for
+third-party software vulnerabilities
+and other issues easily identified by
+Static Analysis when code is not available.
+This is done by
+following this procedure:
+
+. The +SCA+ identifies the dependencies
+your software is based on.
+
+. Detect those dependencies versions.
+
+. Check the dependency master repository for updates.
+
+. Check one or several vulnerability databases,
+like link:https://cve.mitre.org/[CVE] and link:https://nvd.nist.gov/[NVD]
+or their own.
+
+. Report the findings.
+
+It is a simple process, really.
+
+Notice that the integration is not fully automatic,
+and it should not be,
+since these tools could (and usually do)
+raise false alarms, so they are reviewed by
+human security experts.
+
+Internally, the process of scanning for
+third party software is the same for both
+proprietary and +FOSS+ software,
+and it is a simple matter of
+querying the vulnerabilities databases
+as described above.
+
+Speaking of integration,
+you may wonder:
+What if my app is deployed inside a container?
+``30% of official images in Docker Hub
+contain high priority security vulnerabilities'',
+according to link:http://pentestit.com/[Pentestit].
+Fortunately, there are tools
+which go into your container and
+perform +SCA+ inside of it (and more), like
+link:http://pentestit.com/anchore-open-source-container-inspection-analysis-system/[Anchore] and
+link:http://pentestit.com/dockerscan-docker-security-analysis-suite/[Dockerscan].
 
 == The ugly
 
