@@ -1,6 +1,6 @@
 :slug: servicios/hacking-continuo/faq/
 :category: servicios
-:description: TODO
+:description: Recopilación de preguntas y respuestas que ayudan a comprender el servicio de Hacking Continuo y cómo este puede beneficiar una organización.
 :keywords: TODO
 
 = Preguntas frecuentes
@@ -9,113 +9,204 @@ A continuación, se encuentran múltiples preguntas que surgen comúnmente cuand
 
 [qanda]
 ¿Qué es hacking continuo?::
-Es el servicio que permite a una organización realizar pruebas de seguridad en etapas tempranas en el ciclo de vida de desarrollo de software. 
-- Minimizando el costo de reparación ya que se realiza cuando la aplicación aún se encuentra en desarrollo y no en ambiente productivo. 
-- Reduciendo el tiempo de certificación de seguridad a cero ya que las pruebas se ejecutan en paralelo al proceso de desarrollo. 
-- Entregando información clara y detallada sobre las vulnerabilidades detectadas en la aplicación para que todos las personas involucradas en el proyecto estén sincronizados acerca de las vulnerabilidades encontradas y atendiendo todas las inquietudes presentadas por los desarrolladores sobre las vulnerabilidades reportadas de forma que puedan trabajar en su remediación sin contratiempos.
+Es el servicio que permite a una organización
+realizar pruebas de seguridad en etapas tempranas en el ciclo de vida de desarrollo de software. 
+Teniendo como objetivo garantizar el 100% de cobertura sobre la aplicación.
+
+¿Qué beneficio tiene aplicar hacking continuo sobre una aplicación?::
+- Minimizar el costo de reparación
+ya que se realiza cuando la aplicación aún se encuentra en desarrollo,
+no en ambiente productivo. 
+- Reducir el tiempo de certificación de seguridad a cero
+ya que las pruebas se ejecutan en paralelo al proceso de desarrollo. 
+- Obtener información clara y detallada
+sobre las vulnerabilidades detectadas en la aplicación
+para que todos las personas involucradas en el proyecto
+estén sincronizados acerca de las vulnerabilidades encontradas,
+atendiendo todas las inquietudes presentadas por los desarrolladores
+sobre las vulnerabilidades reportadas
+de forma que puedan trabajar en su remediación sin contratiempos.
 
 ¿Cuáles son los insumos necesarios para la prestación del servicio?::
 El servicio se puede desarrollar en fases de forma complementaria:
-- Fase 1: El insumo fundamental para el servicio es el acceso a la rama de integración del repositorio de código donde se almacena la aplicación. En esta fase aún no se cuenta con una aplicación desplegada por lo que las pruebas de seguridad se enfocan en el código fuente.
-- Fase 2: Sumado a lo anterior y cuando el proyecto cuenta con una aplicación desplegada (Ambiente de Integración), las pruebas aumentan su cobertura incluyendo pruebas de seguridad sobre la aplicación.
-- Fase 3: Esta fase es transversal a las anteriores y aplica si la infraestructura que soporta la aplicación se encuentra definida como código y almacenada en el repositorio mencionado en la fase 1. En esta fase las se incluye la infraestructura dentro de las pruebas de seguridad.
+- Fase 1: 
+El insumo fundamental para el servicio es el acceso a la rama de integración
+del repositorio de código donde se almacena la aplicación. 
+En esta fase aún no se cuenta con una aplicación desplegada
+por lo que las pruebas de seguridad se enfocan en el código fuente.
+- Fase 2: 
+Sumado a lo anterior y cuando el proyecto cuenta con una aplicación desplegada (Ambiente de Integración),
+las pruebas aumentan su cobertura
+incluyendo pruebas de seguridad sobre la aplicación.
+- Fase 3: 
+Esta fase es transversal a las anteriores. 
+En ésta se incluye la infraestructura dentro de las pruebas de seguridad.
+Solo aplica si la infraestructura que soporta la aplicación se encuentra definida como código.
+Ademas de estar almacenada en el repositorio mencionado en la fase 1.
 
 ¿Qué tipo de pruebas incluye el servicio de Hacking Continuo?::
-El servicio incluye análisis de código fuente, pruebas de seguridad de aplicación(ver Q2) y pruebas de seguridad sobre la infraestructura(ver Q2).
+El servicio incluye análisis de código fuente, 
+pruebas de seguridad de aplicación (<<Q3,Ver pregunta 3>>)
+y pruebas de seguridad sobre la infraestructura (<<Q3,Ver pregunta 3>>).
 
-¿El servicio es automático mediante herramientas o es el resultado de un proceso manual?::
-El servicio es realizado por humanos usando un conjunto de herramientas de asistencia al ataque adquiridas y desarrolladas por FLUID.  Usamos este método pues las herramientas automáticas de detección de vulnerabilidades presentan los siguientes problemas: No detección de la mayoría de vulnerabilidades (detectan un porcentaje mínimo de las existentes), de aquellas que reportan muchas son falsos positivos, las herramientas no son capaces de explotar vulnerabilidades en conjunto, es decir, tomar la vulnerabilidad A y combinarla con B para encontrar un ataque C más grande, las herramientas son incapaces de extraer información de negocio como información de clientes o empleados que le den sentido y peso a la vulnerabilidad.
-
-¿Si el hacking es manual como se hace para no ralentizar ciclos ágiles?::
-El hacking se realiza en primera instancia sobre código por ende esto permite la realización paralela del hacking mientras se continúa el desarrollo, esto mismo minimiza las dependencias de ambientes funcionales y la necesidad de coordinación entre hackers y developers.  Una vez se han encontrado vulnerabilidades, estas son priorizadas por el product owner de un proyecto ágil de acuerdo a su criticidad, y por ende es cuestión de dicha persona determinar que prioriza con los desarrolladores para cada sprint.  Finalmente es importante decir que a menos que se encuentre en una empresa con CI/CD diario no todos los sprints generan código liberable a producción, lo que facilita aun mas el tiempo de remediación.
-
-¿Si el hacking es manual como un proyecto grande puede escalar a medida que se tienen mas y mas desarrolladores?::
-Los niveles de servicio estándar permiten cubrir las necesidades del 95% de las aplicaciones empresariales en desarrollo, sin embargo si existiera el caso en que un equipo requiere que el hacking continuo se mantenga al día con un equipo de desarrollo constante, simplemente en ciertos meses el cliente puede adquirir un ancho de banda más grande para revisar el sistema cuando este crece a velocidades inesperadas
-
-¿Si el hacking es manual como se escala cuando se tiene un portafolio de aplicaciones grande y en constante crecimiento::
-De acuerdo a nuestros históricos, a nuestra capacidad de reclutamiento y formación y a los procesos de innovación que se realizan al interior, FLUID está en capacidad de recibir entre 5 y 10 aplicaciones nuevas cada mes para ser incluidas en el servicio de hacking continuo
-
-¿El costo del servicio varía de acuerdo al alcance o fases desarrolladas?::
-No. El costo del servicio es fijo durante la vigencia del contrato, teniendo en cuenta que si se presenta un cambio de año durante esta vigencia se aplicará un aumento pactado en la oferta comercial.
-
-¿Por qué es necesario el acceso al código almacenado en el repositorio?::
-El servicio de Hacking Continuo se basa en probar siempre la última versión del código, ejecutando pruebas de seguridad de forma continua.
-
-¿Cómo esta limitado el servicio?::
-El servicio se encuentra limitado a 10.000 Deltas mensuales sobre el código fuente.
+¿Cómo está limitado el servicio?::
+El servicio se encuentra limitado a 10.000 deltas mensuales sobre el código fuente.
 
 ¿Qué es un delta?::
-Es la variable que indica un cambio en el código fuente. Esta variación puede ser por la adición o eliminación de alguna línea de código.
+Es la variable que indica un cambio en el código fuente. 
+Esta variación puede ser por la adición o eliminación de alguna línea de código.
 
-¿Si en un mes superó el limite del servicio puedo optar por ampliarlo?::
+¿Si en un mes supero el límite del servicio puedo optar por ampliarlo?::
 Si. Se puede ampliar el alcance para un mes en particular o en general para todo el proyecto.
 
-¿Cuando inicia la prestación del servicio?::
+¿El servicio es automático mediante herramientas o es el resultado de un proceso manual?::
+Las herramientas son incapaces de extraer información de negocio
+como información de clientes o empleados
+que le den sentido y peso a la vulnerabilidad.
+FLUID presta sus servicios con personal experto
+usando un conjunto de herramientas de asistencia al ataque
+adquiridas y desarrolladas por FLUID.
+Usamos este método pues las herramientas automáticas de detección de vulnerabilidades presentan los siguientes problemas: 
+. No detección de la mayoría de vulnerabilidades (detectan un porcentaje mínimo de las existentes).
+. De aquellas que reportan, muchas son falsos positivos.
+. Las herramientas no estan en la capacidad de combinar vulnerabilidades para aumentar el nivel de explotación.
+
+Si el hacking es manual, ¿Cómo se escala cuando se tiene un portafolio de aplicaciones grande y en constante crecimiento?::
+El hacking se realiza en primera instancia sobre código 
+por ende esto permite la realización paralela del hacking mientras se continúa el desarrollo (<<Q3,Ver fase 1 pregunta 3>>), 
+esto mismo minimiza las dependencias de ambientes funcionales y la necesidad de coordinación entre hackers y developers. 
+Una vez se han encontrado vulnerabilidades, estas son priorizadas por el +Product Owner+ de un proyecto ágil de acuerdo a su criticidad.
+Es importante decir que a menos que se encuentre en una empresa con +CI(Continuous Integration)+/+CD(Continuous Delivery)+ diario
+no todos los ciclos de desarrollo generan código liberable a producción, 
+lo que facilita aún más el tiempo de remediación.
+
+Si el hacking es manual, ¿Cómo un proyecto grande puede escalar a medida que se tienen más y más desarrolladores?::
+Los niveles de servicio estándar permiten cubrir las necesidades del 95% de las aplicaciones empresariales en desarrollo. 
+Para el resto de los casos es posible ampliar los límites del servicio (<<Q7,Ver pregunta 7>>) 
+para revisar el sistema cuando este crece a velocidades inesperadas.
+
+Si el hacking es manual, ¿Cómo se escala cuando se tiene un portafolio de aplicaciones grande y en constante crecimiento?::
+De acuerdo a nuestros históricos, capacidad de reclutamiento y formación.
+FLUID está en capacidad de incluir entre 5 y 10 aplicaciones nuevas cada mes en el servicio de hacking continuo.
+
+¿El costo del servicio varía de acuerdo al alcance o fases desarrolladas?::
+No. El costo del servicio es fijo durante la vigencia del contrato, 
+teniendo en cuenta que si se presenta un cambio de año durante esta vigencia se aplicará lo pactado en la oferta comercial.
+
+¿Por qué es necesario el acceso al código almacenado en el repositorio?::
+El servicio de Hacking Continuo se basa en ejecutar pruebas de seguridad de forma continua. 
+Siempre sobre la última versión del código.
+
+¿Cuándo inicia la prestación del servicio?::
 Desde el momento en que se cuente con acceso al repositorio de código fuente.
 
-¿Es posible prestar el servicio de hacking continuo OnPremise?::
+¿Es posible prestar el servicio de hacking continuo +OnPremise+?::
 Dado el modelo operativo que soporta el servicio este solo se puede prestar de forma remota.
 
 ¿Es posible agendar reuniones para realizar seguimiento sobre el servicio?::
-Todas las aplicaciones suscritas al servicio de hacking continuo cuentan con un líder de proyecto atento a atender las reuniones requeridas, coordinando previamente la disponibilidad para la realización de esta. 
+Todas las aplicaciones suscritas al servicio de hacking continuo cuentan con un líder de proyecto 
+atento a atender las reuniones requeridas, 
+coordinando previamente la disponibilidad para la realización de ésta. 
 
 ¿Cómo se determina el avance del proyecto?::
 Se ofrecen métricas que permiten determinar el estado actual del proyecto como lo son:
 . Índice de cobertura sobre el código fuente.
 . Porcentaje de vulnerabilidades remediadas.
 
-¿Cuando terminan la prestación del servicio?::
-El servicio es contratado por un mínimo de 12 meses y es en este momento donde termina la prestación del servicio. 
+¿Cuándo finaliza la prestación del servicio?::
+El servicio es contratado por un mínimo de 12 meses. 
+Renovables automáticamente tras ese periodo.
+La finalización se da en común acuerdo 
+por medio de una solicitud escrita por los canales definidos. 
 
 ¿Puedo cancelar la suscripción en cualquier momento?::
-El servicio puede ser cancelado en cualquier momento a partir del cuarto mes. Se puede solicitar la cancelación por cualquiera de los medios de comunicación definidos en el proyecto.
+El servicio puede ser cancelado en cualquier momento a partir del cuarto mes. 
+Se puede solicitar la cancelación por cualquiera de los medios de comunicación definidos en el proyecto.
 
 ¿Si la cobertura sobre mi aplicación llega a 100% se suspende el servicio hasta que se agregue nuevo código al repositorio?::
-No. Aunque se alcance una cobertura del 100%, realizamos múltiples verificaciones sobre el código ya revisado con el fin de descartar la presencia de falsos negativos. Incluyendo dentro de nuestras verificaciones las vulnerabilidades a componentes de terceros que van siendo publicadas día a día.
+No. Aunque se alcance una cobertura del 100%, realizamos múltiples verificaciones sobre el código ya revisado 
+con el fin de descartar la presencia de falsos negativos. 
+Incluyendo dentro de nuestras verificaciones las vulnerabilidades a componentes de terceros que van siendo publicadas día a día.
 
 ¿Qué es una vulnerabilidad?::
-Es cualquier situación que representa un riesgo de seguridad (Integridad, Disponibilidad, Confidencialidad, No repudio) sobre mi aplicación.
+Es cualquier situación que representa un riesgo de seguridad (Integridad, Disponibilidad, Confidencialidad, No repudio) sobre una aplicación.
 
 ¿Cómo se califica la criticidad técnica de una vulnerabilidad?::
-Usamos el estándar internacional CVSS para obtener una calificación cuantitativa que va de 0 a 10 donde 0 es la más baja y 10 la mas alta. De acuerdo a las características cualitativas de la vulnerabilidad.
+Usamos el estándar internacional https://www.first.org/cvss/[CVSS] para obtener una calificación cuantitativa 
+que va de 0 a 10, donde 0 es la más baja y 10 la más alta.
 
 ¿Cómo obtengo información sobre las vulnerabilidades encontradas en mi aplicación?::
-El servicio de Hacking Continuo cuenta con una plataforma de reporte e interacción llamada FLUIDIntegrates. Así todos los actores de la cadena de valor de un proyecto tienen acceso al detalle de las vulnerabilidades reportadas por FLUID en la prestación del servicio.
+El servicio de Hacking Continuo cuenta con una plataforma de reporte e interacción llamada link:../../../productos/fluidintegrates/[FLUIDIntegrates]. 
+Así todos los actores de la cadena de valor de un proyecto tienen acceso
+al detalle de las vulnerabilidades reportadas por FLUID en la prestación del servicio.
 
 ¿Qué tipo de informes son generados durante la prestación del servicio?::
-Desde FLUIDIntegrates es posible generar un informe técnico en formato Excel y otro en PDF disponibles durante toda la ejecución del proyecto. También se puede generar un informe ejecutivo tipo presentación en formato PDF una vez se finaliza el proyecto.
+Desde link:../../../productos/fluidintegrates/#generar-informes-tecnicos[FLUIDIntegrates] es posible
+generar un informe técnico en formato Excel y otro en PDF disponibles durante toda la ejecución del proyecto. 
+También se puede generar un informe ejecutivo tipo presentación en formato PDF una vez se finaliza el proyecto.
 
 ¿Cúal es el paso siguiente luego de que FLUID reporta una vulnerabilidad?::
-Una vez se reporta la vulnerabilidad el objetivo es que esta sea solucionada. Para esto los desarrolladores cuentan con acceso a FLUIDIntegrates, permitiendo obtener de primera mano la información. Aplicar las correcciones necesarias para remover las vulnerabilidades de la aplicación.
+Una vez se reporta la vulnerabilidad el objetivo es que esta sea solucionada. 
+Para esto los desarrolladores cuentan con acceso a link:../../../productos/fluidintegrates/[FLUIDIntegrates], 
+permitiendo obtener de primera mano la información, 
+aplicando las correcciones necesarias para remover las vulnerabilidades de la aplicación.
 
-¿Cómo sabe FLUID que una vulnerabilidad está remediada?::
-A través de FLUIDIntegrates cualquier usuario con acceso al proyecto podrá solicitar la revisión de las vulnerabilidades corregidas. Una vez se solicita recibimos una notificación que incluye un comentario sobre la solución aplicada, realizamos la verificación de cierre para confirmar la efectividad de la solución aplicada y procedemos a notificar a todo el equipo del proyecto sobre los resultados de la verificación a través de correo electrónico.
+¿Cómo se entera FLUID que una vulnerabilidad está remediada?::
+A través de link:../../../productos/fluidintegrates/[FLUIDIntegrates] cualquier usuario con acceso al proyecto podrá solicitar la revisión de las vulnerabilidades corregidas. 
+Una vez se solicita, recibimos una notificación que incluye un comentario sobre la solución aplicada, 
+realizamos la verificación de cierre 
+confirmando la efectividad de la solución, 
+procediendo a notificar a todo el equipo del proyecto sobre los resultados de la verificación 
+a través de correo electrónico.
 
-¿Cuantas verificaciones de cierre están incluidas en el servicio?::
-El servicio cuenta con verificaciones de cierre ilimitadas
+¿Cuántas verificaciones de cierre están incluidas en el servicio?::
+El servicio cuenta con verificaciones de cierre ilimitadas.
 
-¿Por qué debo avisar acerca del cierre de una vulnerabilidad si FLUID tiene acceso al repositorio de código?::
-Uno de los objetivos del servicio de Hacking Continuo en conjunto con FLUIDIntegrates es mantener una comunicación clara y fluida entre todos los actores del proyecto. Al dar aviso sobre la remediación de una vulnerabilidad no solo se está informando a FLUID si no a todo el equipo del proyecto.
+¿Por qué debo anunciar el cierre de una vulnerabilidad si FLUID tiene acceso al repositorio de código?::
+Uno de los objetivos del servicio de Hacking Continuo en conjunto con link:../../../productos/fluidintegrates/[FLUIDIntegrates] es mantener una comunicación clara y fluida entre todos los actores del proyecto. 
+Al dar aviso sobre la remediación de una vulnerabilidad no solo se está informando a FLUID sino a todo el equipo del proyecto.
 
 ¿Qué pasa si considero que algo no es una vulnerabilidad?::
-Dentro de FLUIDIntegrates contamos con una sección de comentarios tipo foro donde se podrá dar a conocer las razones por las cuales considera que no es una vulnerabilidad. Allí FLUID y los demás integrantes del proyecto podremos establecer un diálogo que nos lleve a determinar la validez de una vulnerabilidad.
+Dentro de link:../../../productos/fluidintegrates/[FLUIDIntegrates] contamos con una sección de comentarios 
+donde se podrá dar a conocer las razones por las cuales considera que no es una vulnerabilidad. 
+Allí FLUID y los demás integrantes del proyecto podremos establecer un diálogo 
+que nos lleve a determinar la validez de una vulnerabilidad.
 
-¿En caso de asumir una vulnerabilidad, se excluye de los informes y FLUIDIntegrates?::
-Dentro de los informes se encuentra información acerca del tratamiento definido para las vulnerabilidades. Teniendo esto en cuenta las vulnerabilidades asumidas permanecen en los diferentes informes con la aclaración sobre su tratamiento.
+¿Todas las vulnerabilidades reportadas deben ser remediadas?::
+La remediación de una vulnerabilidad es una decisión que queda a discreción del cliente. 
+En link:../../../productos/fluidintegrates/[FLUIDIntegrates] se cuenta con la opción de tratamiento 
+donde se define si la vulnerabilidad va a ser remediada o asumida por el cliente. 
+
+¿En caso de asumir una vulnerabilidad, se excluye de los informes y link:../../../productos/fluidintegrates/[FLUIDIntegrates]?::
+Dentro de los informes se encuentra el tratamiento definido para las vulnerabilidades. 
+Teniendo esto en cuenta esto las vulnerabilidades asumidas permanecen en los informes 
+con la aclaración sobre su tratamiento.
 
 ¿Si la aplicación está almacenada en múltiples repositorios pueden ser revisados todos?::
-Es posible realizar la verificación de múltiples repositorios con la única condición de que se hace sobre la misma rama en cada uno de ellos. Si se define que la rama sobre la que se ejecutarán las pruebas es QA esta misma rama debe estar presente en todos los repositorios incluidos dentro del servicio.
+Es posible realizar la verificación de múltiples repositorios 
+con la única condición de que se hace sobre la misma rama en cada uno de ellos. 
+Si se define que la rama sobre la que se ejecutarán las pruebas es QA 
+esta misma rama debe estar presente en todos los repositorios incluidos dentro del servicio.
 
 ¿Si ya tengo código desarrollado hace tiempo es posible usar el servicio?::
 Si es posible. En este escenario se tienen dos opciones:
-. Se realiza un Health Check en el que se revisa todo el código existente hasta la fecha. Posteriormente se continúa con la ejecución del servicio con el código que se vaya agregando después. Esta opción aplica mejor sobre aplicaciones que se encuentran en desarrollo.
-. Comenzar la suscripción con los límites estándar (Ver 10) donde mensualmente iremos aumentando la cobertura hasta alcanzar el 100%. Esta opción aplica mejor para aplicaciones donde no se está desarrollando constantemente.
+. Se realiza un Health Check en el que se revisa todo el código existente hasta la fecha. 
+Posteriormente se continúa con la ejecución normal del servicio con los alcances definidos (<<Q11, ver pregunta 11>>). 
+Esta opción aplica mejor sobre aplicaciones que se encuentran en desarrollo.
+. Comenzar la suscripción con los límites estándar (<<Q10,Ver pregunta 10>>) 
+donde mensualmente iremos aumentando la cobertura hasta alcanzar el 100%. 
+Esta opción aplica mejor para aplicaciones donde no se está desarrollando constantemente.
 
 ¿Los repositorios deben estar en un sistema de control de versiones específico?::
-El servicio de Hacking Continuo se basa en desarrollos que usan GIT como control de versiones. De esta forma se hace necesario el uso de este sistema para la correcta prestación del servicio.
+El servicio de Hacking Continuo se basa en desarrollos que usan GIT como control de versiones. 
+De esta forma se hace necesario el uso de este sistema para la correcta prestación del servicio.
 
 ¿FLUID guarda la información de las vulnerabilidades encontradas?::
-La información se almacena únicamente durante la prestación del servicio. Una vez finalizado el servicio se conserva la información por 7 días hábiles tras los cuales es borrada de todos los sistemas de información de FLUID. 
+La información se almacena únicamente durante la prestación del servicio. 
+Una vez finalizado el servicio se conserva la información por 7 días hábiles 
+tras los cuales es borrada de todos los sistemas de información de FLUID. 
 
 ¿El servicio de Hacking Continuo requiere algún tipo de metodología de desarrollo?::
-No. El servicio de Hacking Continuo es independiente a la metodología de desarrollo utilizada por el cliente. Los resultados entregados por el servicio se convierten en un insumo en la planeación de los ciclos de desarrollo y no es impedimento para continuar con los desarrollos.
+No. El servicio de Hacking Continuo es independiente a la metodología de desarrollo utilizada por el cliente. 
+Los resultados entregados por el servicio se convierten en un insumo en la planeación de los ciclos de desarrollo.
+Por lo tanto no es impedimento para continuar con los desarrollos.
