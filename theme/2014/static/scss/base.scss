@@ -591,6 +591,28 @@ article {
   font-size: 130%;
 }
 
+.tb-fluid {
+  th {
+    background-color: $darkblue;
+    color: $white;
+  }
+
+  tr {
+    &:nth-child(even) {
+      td {
+        background: $lightgray;
+        border-color: $lightergray;
+      }
+    }
+
+    &:nth-child(odd) {
+      td {
+        background: $lightergray;
+      }
+    }
+  }
+}
+
 //sass-lint:disable no-universal-selectors
 *,
 *::before,
