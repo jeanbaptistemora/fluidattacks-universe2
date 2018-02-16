@@ -2,8 +2,8 @@
 :image: analisis-codigo.png
 :alt: Dedo señalando código fuente
 :home: yes
-:description: TODO
-:keywords: TODO
+:description: El objetivo de la presente página es informar a los clientes acerca del servicio de análisis de código fuente así como de los objetivos de dicho análisis. La inspección rigurosa de los profesionales de FLUID, permite encontrar el mayor número de ocurrencias de múltiples fallas de seguridad.
+:keywords: FLUID, Análisis, Código, Fuente, Seguridad, Aplicaciones.
 
 = Análisis de Código Fuente
 

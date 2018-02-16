@@ -1,7 +1,7 @@
 :slug: conferencias/aseguramiento-moviles/
 :category: conferencias
-:description: TODO
-:keywords: TODO
+:description: La presente página tiene como objetivo informar a los clientes sobre el servicio de conferencias ofrecido por FLUID. La conferencia de Aseguramiento de Dispositivos Móviles, tiene por objetivo socializar los riesgos a la seguridad que trae consigo el uso de smartphones.
+:keywords: FLUID, Conferencia, Seguridad, Dispositivos, Móviles, SmartPhone.
 
 = Aseguramiento de Dispositivos Móviles
 

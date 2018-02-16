@@ -1,6 +1,6 @@
 :slug: empleos/
-:description: TODO
-:keywords: TODO
+:description: FLUID siempre está en busca de jóvenes talentos apasionados por la programación y la informática. La siguiente página tiene como objetivo informar a los interesados en ser parte del equipo de trabajo de FLUID sobre el proceso de selección realizado y las etapas que lo componen.
+:keywords: FLUID, Empleo, Proceso, Selección, Etapas, Contratación.
 
 = Empleos
 

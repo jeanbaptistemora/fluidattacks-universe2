@@ -1,7 +1,7 @@
 :slug: empleos/retos-no-tecnicos/
 :category: empleos
-:description: TODO
-:keywords: TODO
+:description: La siguiente página tiene como objetivo informar a los interesados en ser parte del equipo de trabajo de FLUID sobre el proceso de selección realizado. La etapa de retos no técnicos pretende evaluar la capacidad del candidato de analizar, clasificar y evaluar datos.
+:keywords: FLUID, Empleo, Selección, Retos no Técnicos, Análisis, Datos.
 
 = Retos no técnicos
 

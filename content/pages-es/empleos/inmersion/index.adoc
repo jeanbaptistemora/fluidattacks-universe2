@@ -1,7 +1,7 @@
 :slug: empleos/inmersion/
 :category: empleos
-:description: TODO
-:keywords: TODO
+:description: La siguiente página tiene como objetivo informar a los interesados en ser parte del equipo de trabajo de FLUID sobre el proceso de selección realizado. La etapa de inmersión consiste en un entrenamiento remunerado cuya finalidad es adquirir los conocimientos necesarios para desempeñar tu cargo.
+:keywords: FLUID, Empleo, Proceso, Selección, Inmersión, Entrenamiento.
 
 = Inmersión
 

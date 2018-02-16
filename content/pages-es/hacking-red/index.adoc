@@ -2,8 +2,8 @@
 :home: yes
 :image: hacking-infraestructura.png
 :alt: Persona en un computador, visto desde arriba
-:description: Especialistas en Ethical Hacking de infraestructura. Somos hackers que desarrollamos nuestras propias herramientas y exploits, lo que nos permite encontrar todas las vulnerabilidades y reportarlas lo más pronto posible,
-:keywords: ethical hacking infraestructura, ethical hacking, vulnerabilidad
+:description: En FLUID somos especialistas en Ethical Hacking de infraestructura. Somos hackers que desarrollamos nuestras propias herramientas y exploits, lo que nos permite encontrar todas las vulnerabilidades de sus aplicaciones y reportarlas lo más pronto posible.
+:keywords: FLUID, Servicios, Ethical hacking, Infraestructura, Vulnerabilidad, Diagnóstico.
 
 = Ethical Hacking de Infraestructura
 

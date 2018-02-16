@@ -1,7 +1,7 @@
 :slug: conferencias/quemar-el-datacenter/
 :category: conferencias
-:description: TODO
-:keywords: TODO
+:description: Ésta página tiene como objetivo informar a los clientes sobre el servicio de conferencias ofrecido por FLUID. La presente conferencia tiene por objetivo socializar el futuro de la tecnología y el desarrollo de software en los próximos 10 años según la opinión de nuestros expertos.
+:keywords: FLUID, Conferencia, Datacenter, Seguridad, Software, Tecnología.
 
 = Quemar el datacenter - De mascotas a ganado
 

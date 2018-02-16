@@ -1,7 +1,7 @@
 :slug: empleos/terminos/
 :category: empleos
-:description: TODO
-:keywords: TODO
+:description: La siguiente página tiene como objetivo informar a los interesados en ser parte del equipo de trabajo de FLUID sobre el proceso de selección realizado. A continuación presentamos información adicional sobre nuestra empresa para que tomes una desición sobre tu participación en nuestra selección.
+:keywords: FLUID, Empleo, Proceso, Selección, Términos, Empresa.
 
 = Términos
 
