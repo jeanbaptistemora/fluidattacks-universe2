@@ -4,8 +4,8 @@
 :tags: rto, rpo, proteger
 :Image: rto-rpo.png
 :alt: Línea de tiempo entre la transición RTO a RPO luego de incidente
-:description: TODO
-:keywords: TODO
+:description: Las copias de seguridad son una medida que debe estar presente en todas las empresas, debido a que permiten recuperar la información ante una pérdida o daño. Sin embargo es posible darles otro uso, más que solo respaldos de información. ¿Quieres saber más? continua leyendo este artículo.
+:keywords: Respaldo, Copia, Seguridad, Software, RTO, RPO.
 :author: Ivan Velez
 :writer: ivanv
 :name: Ivan Velez

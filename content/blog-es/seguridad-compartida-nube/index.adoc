@@ -4,8 +4,8 @@
 :tags: cloud, aws, seguridad, tercerizar
 :Image: shared-security-cloud.png
 :alt: Hojas con datos binarios bajo una nube, al lado de un candado
-:description: TODO
-:keywords: TODO
+:description: Los servicios de seguridad en la nube están tomando cada vez más fuerza y popularidad. En este artículo presentamos un servicio de seguridad compartida ofrecido por Amazon Web Services (AWT) que implementa diferentes funcionalidades de seguridad para proteger tu información.
+:keywords: Seguridad, Compartir, Servicios, Nube, AWS, Gestión.
 :author: Paula Velez
 :writer: paulav
 :name: Paula Velez

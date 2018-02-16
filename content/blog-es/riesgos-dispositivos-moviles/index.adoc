@@ -4,8 +4,8 @@
 :tags: proteger, seguridad, dispositivo, amenaza
 :Image: moviles.png
 :alt: Celulares y tabletas apilados entre sí
-:description: TODO
-:keywords: TODO
+:description: Los dispositivos móviles, al igual que cualquier otro equipo informático, son vulnerables a ataques por parte de usuarios maliciosos. En este artículo hablaremos sobre la seguridad en equipos móviles y estableceremos pautas para evitar ser una víctima de un robo de información o malware.
+:keywords: Seguridad, Información, Dispositivos Móviles, Recomendaciones, Proteger, Riesgos.
 :author: Jhony Villa
 :writer: jhony
 :name: Jhony Arbey Villa Peña

@@ -4,8 +4,8 @@
 :tags: actualizar, seguridad, versión
 :Image: parchear.png
 :alt: Computador conectado a la palabra UPDATE
-:description: TODO
-:keywords: TODO
+:description: Los procesos de actualización y parcheo son muy importantes para que nuestra aplicación esté a la vanguardia en cuanto a funcionalidad y seguridad. En este artículo planteamos algunas recomendaciones para realizar éstos procesos de forma ordenada y segura, preservando la integridad de los datos.
+:keywords: Seguridad, Malware, Parcheo, Actualización, Recomendación, Organización.
 :author: Juan Jaramillo
 :writer: juanj
 :name: Juan Jaramillo

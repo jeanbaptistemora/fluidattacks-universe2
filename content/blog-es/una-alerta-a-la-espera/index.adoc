@@ -1,8 +1,8 @@
 :slug: una-alerta-a-la-espera/
 :date: 2017-12-22
 :category: opiniones
-:description: TODO
-:keywords: TODO
+:description: Javascript es un lenguaje sencillo, potente y muy popular en aplicaciones web. Sin embargo como cualquier aplicación es necesario tomar medidas de seguridad para no desarrollar aplicaciones vulnerables. En este artículo presentamos un ejemplo de vulnerabilidad de JavaScript causada por su mal uso.
+:keywords: Seguridad, JavaScript, Reto, Hacking, Web, Código.
 :author: Luis Arteaga
 :tags: solucionar, javascript, reto
 :Image: js.png

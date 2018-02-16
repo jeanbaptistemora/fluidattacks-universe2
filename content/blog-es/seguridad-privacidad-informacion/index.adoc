@@ -4,8 +4,8 @@
 :tags: información, privacidad, seguridad, proteger
 :Image: privacidad-info.png
 :alt: Computador accediendo a muchos servicios, enfatizando en la seguridad
-:description: TODO
-:keywords: TODO
+:description: Actualmente existen muchas amenazas a la seguridad e integridad de la información y la protección de datos de usuarios no es responsabilidad única de entidades bancarias. En este artículo explicaremos cómo proteger los datos de tu empresa asegurando su privacidad e integridad.
+:keywords: Seguridad, Privacidad, Protección, Amenazas, Información, Estándar.
 :author: Paula Velez
 :writer: paulav
 :name: Paula Velez

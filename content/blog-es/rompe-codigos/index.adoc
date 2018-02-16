@@ -4,8 +4,8 @@
 :tags: cifrar, criptografía, reto, solucionar
 :Image: rompe-codigos.png
 :alt: Llave con un set de datos hexadecimales detrás de ella
-:description: TODO
-:keywords: TODO
+:description: La Criptografía tiene una gran relevancia en el mundo de la seguridad informática. El cifrar información sensible para que no sea accesible es un paso obligatorio para proteger su integridad. En este artículo presentamos una introducción al mundo de la criptografía solucionando un reto de hacking.
+:keywords: Seguridad, Criptografía, Códigos, Sustitución, Hash, Cifrar.
 :author: Camilo Cardona
 :writer: camiloc
 :name: Camilo Cardona
