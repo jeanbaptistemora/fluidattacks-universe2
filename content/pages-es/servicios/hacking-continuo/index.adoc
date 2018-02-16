@@ -1,7 +1,7 @@
 :slug: servicios/hacking-continuo/
 :category: servicios
-:description: TODO
-:keywords: TODO
+:description: Nuestro servicio de Hacking Continuo busca encontrar todas las vulnerabilidades y reportarlas lo antes posible. A través de la participación en el ciclo de vida de desarollo, estamos en la capacidad de encontrar vulnerabilidades de forma paralalela al desarrollo. Con esto, nuestros clientes podrán reducir los costos de remediación y reducir a cero el tiempo de certificación de seguridad.
+:keywords: hacking, vulnerabilidad
 
 = Hacking Continuo
 
