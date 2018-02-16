@@ -4,6 +4,7 @@
 :keywords: TODO
 
 = Frequently asked questions
+
 Up next are a series of commonly asked questions that come to mind when discussing Continuous Hacking.
 
 [qanda]
