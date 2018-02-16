@@ -8,62 +8,63 @@
 
 == Necesidad
 
-Implementar el servicio de Single-Sign-On en entornos Web
+Implementar el servicio de +Single-Sign-On+ en entornos Web.
 
 == Contexto
 
 A continuación se describen las circunstancias 
 bajo las cuales la siguiente solución tiene sentido:
 
-. Se está desarrollando una aplicación en Java.
-. Se está haciendo uso de OpenSAML 2.x.
+. Se está desarrollando una aplicación en +Java+.
+. Se está haciendo uso de +OpenSAML 2.x+.
 
 == Solución
 
-. El lenguaje SAML (en inglés, Security Assertion Markup Language) 
-es un estándar basado en XML 
+. El lenguaje +SAML+ (en inglés, +Security Assertion Markup Language+) 
+es un estándar basado en +XML+ 
 para el intercambio de datos de autenticación y autorización 
 entre dominios de seguridad, es decir, 
 un proveedor de identidad y un proveedor de servicio.
 
-. El problema esencial que SAML busca resolver 
-es el de aportar el servicio de autenticación única SSO. 
+. El problema esencial que +SAML+ busca resolver 
+es el de aportar el servicio de autenticación única +SSO+. 
 Lo cual es un reto un tanto difícil.
 
-. En SAML el principal (usualmente un usuario o una aplicación de cliente) 
+. En +SAML+ el principal (usualmente un usuario o una aplicación de cliente) 
 se ha autenticado con un proveedor de identidad. 
 El proveedor de identidad provee servicios de autenticación al principal, 
-SAML no especifica la implementación de estos servicios, 
++SAML+ no especifica la implementación de estos servicios, 
 esto es relevante para el principal y el proveedor de identidad.
 
 . El proveedor de servicios depende de que el proveedor de identidad 
 autentique e identifique al principal. 
 Bajo demanda del principal, 
-el proveedor de identidad pasa una aserción SAML al proveedor de servicios. 
+el proveedor de identidad pasa una aserción +SAML+ al proveedor de servicios. 
 Dependiendo de la aserción, 
 el proveedor de servicios toma una decisión de control de acceso.
 
-. SAML es una especificación definida por OASIS. 
+. +SAML+ es una especificación definida por +OASIS+. 
 Y existen diferentes implementaciones de este protocolo. 
-Existen múltiples implementaciones, algunas son:
-* Enterprise Sign On Engine (ESOE)
-* simpleSAMLphp, SAML V2.0 SP, SAML V2.0 IdP
-* Lasso - Liberty Alliance Single Sign-On
-* OpenSSO
-* OpenSAML
-* Shibboleth
-* SourceID
-* ZXID
+También existen múltiples implementaciones, algunas son:
+* +Enterprise Sign On Engine+ (+ESOE+)
+* +simpleSAMLphp+, +SAML V2.0 SP+, +SAML V2.0 IdP+.
+* +Lasso+ - +Liberty Alliance Single Sign-On+.
+* +OpenSSO+
+* +OpenSAML+
+* +Shibboleth+
+* +SourceID+
+* +ZXID+
 
-. Según el autor. La biblioteca OpenSAML es un conjunto de bibliotecas de C++ y 
-Java para soportar a los desarrolladores que trabajan con SAML.
+. Según el autor. La biblioteca +OpenSAML+ 
+es un conjunto de bibliotecas de +C\+\++ y +Java+ 
+para soportar a los desarrolladores que trabajan con +SAML+.
 
 . El primer paso que ha de realizarse 
 antes de usar la biblioteca 
-es invocar el método estático de inicialización bootstrap 
-definido en la clase DefaultBootstrap:
+es invocar el método estático de inicialización +bootstrap+ 
+definido en la clase +DefaultBootstrap+.
 +
-.test.py
+.opensaml.java
 [source, java, linenums]
 ----
 try {
@@ -75,9 +76,9 @@ try {
 ----
 
 . Continuando con la inicialización, 
-es necesario instanciar la clase BasicParserPool 
+es necesario instanciar la clase +BasicParserPool+ 
 de manera que se tenga un objeto capaz de interpretar 
-los mensajes XML que se han de intercambiar:
+los mensajes +XML+ que se han de intercambiar.
 +
 [source, java, linenums]
 ----
@@ -85,11 +86,11 @@ BasicParserPool parserPool = new BasicParserPool();
 parserPool.setNamespaceAware(true);
 ----
 
-. La clase Request define como se comportan las solicitudes a SAML. 
-En este objeto se almacena una lista de AssertionArtifact 
-que son referencias a mensajes de SAML. 
+. La clase +Request+ define como se comportan las solicitudes a +SAML+. 
+En este objeto se almacena una lista de +AssertionArtifact+ 
+que son referencias a mensajes de +SAML+. 
 La siguiente clase muestra 
-como puede manipularse el request para adicionar artifacts:
+como puede manipularse el +request+ para adicionar +artifacts+.
 +
 [source, java, linenums]
 ----
@@ -107,7 +108,8 @@ private static Request buildSAML1ArtifactResolve(String base64Artifact)
 }
 ----
 
-. Para poder enviar la solicitud en formato XML, se debe usar un envolvente:
+. Para poder enviar la solicitud en formato +XML+, 
+se debe usar un envolvente:
 +
 [source, java, linenums]
 ----
@@ -126,9 +128,9 @@ private static Envelope buildSOAP11Envelope(XMLObject payload) {
 ----
 
 . El paso siguiente es crear el contexto de la comunicación 
-usando el protocolo de acceso a objetos simple SOAP, 
-inicializar el protocolo seguro SSL/TLS 
-y obtener un objeto que represente el cliente de las solicitudes:
+usando el protocolo de acceso a objetos simple +SOAP+, 
+inicializar el protocolo seguro +SSL/TLS+ 
+y obtener un objeto que represente el cliente de las solicitudes.
 +
 [source, java, linenums]
 ----
@@ -147,7 +149,7 @@ clientBuilder.setHttpsProtocolSocketFactory(new TLSProtocolSocketFactory(keyMana
 HttpSOAPClient soapClient = new HttpSOAPClient(clientBuilder.buildClient(), parserPool);
 ----
 
-. Con estos datos, es posible intercambiar mensajes de SAML.
+. Con estos datos, es posible intercambiar mensajes de +SAML+.
 +
 [source, java, linenums]
 ----
@@ -358,9 +360,18 @@ class StaticClientKeyManager implements X509KeyManager {
 }
 ----
 
+== Descargas
+
+Puedes descargar el código fuente 
+pulsando en el siguiente enlace:
+
+[button]#link:src/saml.java[SAML1ArtifactResolveExample.java >>]# 
+Código que muestra como usar +opensaml+.
+
 == Referencias
 
-. https://wiki.shibboleth.net/confluence/display/OpenSAML/Home[OpenSAML 2]
-. https://wiki.shibboleth.net/confluence/display/OpenSAML/OSTwoUserManJavaSOAPClientExample[OSTwoUserManJavaSOAPClientExample]
-. REQ.0224: El Proceso de Autenticación unificado (SSO: Single Sign On) debe 
-implementarse mediante protocolos estándar (ej: SAML)
+. [[r1]] link:https://wiki.shibboleth.net/confluence/display/OpenSAML/Home[OpenSAML 2]
+. [[r2]] link:https://wiki.shibboleth.net/confluence/display/OpenSAML/OSTwoUserManJavaSOAPClientExample[OSTwoUserManJavaSOAPClientExample]
+. [[r3]] REQ.0224: El Proceso de Autenticación unificado 
+(SSO: Single Sign On) debe implementarse 
+mediante protocolos estándar (ej: SAML).
