@@ -8,14 +8,14 @@
 
 == Necesidad
 
-Actualización y versiones estables en Windows Server 2008
+Actualización automática en +Windows Server 2008+
 
 == Contexto
 
 A continuación se describen las circunstancias 
 bajo las cuales la siguiente solución tiene sentido:
 
-. Se tiene una máquina bajo el sistema operativo Windows Server 2008.
+. Se tiene una máquina bajo el sistema operativo +Windows Server 2008+.
 . Se desea mantener actualizado el sistema 
 a las últimas versiones estables disponibles.
 
@@ -29,7 +29,7 @@ Por tanto, las actualizaciones del sistema operativo,
 tanto automáticas como manuales, 
 cumplen la función de proteger 
 los diferentes equipos de múltiples amenazas. 
-Esas amenazas pueden ser: los diferentes tipos de malware,
+Esas amenazas pueden ser: los diferentes tipos de +malware+,
 errores del sistema y las diferentes vulnerabilidades.
 Además, las actualizaciones permiten 
 garantizar un funcionamiento rápido y eficaz de la máquina 
@@ -41,38 +41,38 @@ Por otra parte, las actualizaciones son esenciales
 para impedir la acción de amenazas durante la navegación por la red 
 y el intercambio de distintos tipos de archivos.  
 
-. Para actualizar un sistema operativo Windows
+. Para actualizar un sistema operativo +Windows+
 se siguen los siguientes pasos:
 
 . Se ingresa al panel de control.
 
-. Se hace doble clic en el icono de Windows Update.
+. Se hace doble clic en el icono de +Windows Update+.
 +
 image::controlpanel.png[controlpanel]
 
 . Después, se da clic 
-sobre la opción Check for updates(buscar actualizaciones).
+sobre la opción +Check for updates+(buscar actualizaciones).
 +
 image::updates.png[updates]
 
 . Se muestran todas las actualizaciones disponibles. 
 
-. Se selecciona Install updates (instalar actualizaciones), 
-así se actualiza por primera vez el sistema:
+. Se selecciona +Install updates+ (instalar actualizaciones), 
+así se actualiza por primera vez el sistema.
 +
 image::install.png[install-updates]
 
-. Si el sistema tiene configurado UAC (Control de cuentas de usuario), 
-es probable que solicite Usuario y Contraseña, 
+. Si el sistema tiene configurado +UAC+ (Control de cuentas de usuario), 
+es probable que solicite usuario y contraseña, 
 solo se puede continuar si el usuario utilizado tiene los 
 privilegios para cambiar esta configuración.
 
-. Para activar actualizaciones automáticas se usa la opción Change settings 
-y allí se selecciona Install updates automatically (recommended).
-La hora configurada, por defecto, es a las 3:00 a.m de cada día.
+. Para activar actualizaciones automáticas se usa la opción +Change settings+ 
+y allí se selecciona +Install updates automatically (recommended)+.
+La hora configurada, por defecto, es a las +3:00 a.m+ de cada día.
 Esa hora es adecuada 
 si se espera poco trabajo en la máquina a esta hora. 
-Finalmente se hace clic en OK:
+Finalmente se hace clic en +OK+.
 +
 image::configurar.png[configuracion]
 
@@ -88,7 +88,7 @@ además ayuda a optimizar el trabajo de los equipos.
 
 == Referencias
 
-. https://salesystems.es/la-importancia-de-mantener-el-software-actualizado/[La importancia de Mantener el Software Actualizado]
-. https://support.microsoft.com/en-us/help/3067639/how-to-get-an-update-through-windows-update[Actualizar Windows]
-. REQ.0258: Los componentes provistos por terceros 
+. [[r1]] link:https://salesystems.es/la-importancia-de-mantener-el-software-actualizado/[La importancia de Mantener el Software Actualizado]
+. [[r2]] link:https://support.microsoft.com/en-us/help/3067639/how-to-get-an-update-through-windows-update[Actualizar Windows]
+. [[r3]] REQ.0258: Los componentes provistos por terceros 
 deben corresponder a versión es estables, probadas y actualizadas.
