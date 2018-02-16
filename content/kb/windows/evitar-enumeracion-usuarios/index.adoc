@@ -8,17 +8,18 @@
 
 == Necesidad
 
-No mostrar nombres de usuarios existentes requiriendo usuario y contraseña 
-durante el proceso de autenticación en Windows 7.
+No mostrar nombres de usuarios existentes 
+requiriendo usuario y contraseña 
+durante el proceso de autenticación en +Windows 7+.
 
 == Contexto
 
 A continuación se describen las circunstancias 
 bajo las cuales la siguiente solución tiene sentido:
 
-. Se tiene una máquina bajo el sistema operativo Windows 7
+. Se tiene una máquina bajo el sistema operativo +Windows 7+.
 . Opcionalmente se desea propagar la configuración 
-a equipos pertenecientes a un dominio Windows.
+a equipos pertenecientes a un dominio +Windows+.
 
 == Solución
 
@@ -26,17 +27,17 @@ Esta solución pretende evitar que un atacante conozca
 el listado de usuarios existentes 
 para planear un ataque de fuerza bruta o de diccionario.
 
-. Ingresar al sistema y verificar que se solicite como mínimo nombre de
-usuario y contraseña:
+. Ingresar al sistema y verificar que se solicite 
+como mínimo nombre de usuario y contraseña.
 +
 image::login.png[login-enumeracion]
 
-. Para aplicar esta configuración a un dominio por medio de Directorio Activo, 
+. Para aplicar esta configuración a un dominio 
+por medio de +Directorio Activo+, 
 se debe configurar la siguiente ruta usando la solución 
-http://kb.fluid.la/help/directorio-activo-2008-modificar-configuracion-directivas-dominio[Modificar
-configuración de directivas de dominio por medio de Active Directory]
+https://fluid.la/web/es/kb/windows/configuracion-directivas-dominio[Modificar configuración de directivas de dominio]
 +
-.test.py
+.ruta.shell
 [source, shell, linenums]
 ----
 Computer configuration/Windows Settings/Security Settings/LocalPolicies/SecurityOptions
@@ -47,17 +48,18 @@ Computer configuration/Windows Settings/Security Settings/LocalPolicies/Security
 image::ruta.png[ruta]
 
 . Para configurar la política de modo local, 
-se abre el Local Group Policy Editor. 
-Para esto, el usuario debe dar clic en Inicio y ejecutar: gpedit.msc. 
-Luego se debe seguir la ruta mencionada anteriormente. 
-Observará que la misma ruta en un formulario diferente ligeramente 
-que la de los pasos para configuración de equipos 
-pertenecientes a un dominio de Windows:
+se abre el +Local Group Policy Editor+. 
+Para esto, el usuario debe dar clic en +Inicio+, +ejecutar+ 
+y después digitar +gpedit.msc+. 
+Luego, se debe seguir la ruta mencionada anteriormente. 
+Observará que la misma ruta en el formulario difiere ligeramente 
+que la de los pasos para la configuración de equipos 
+pertenecientes a un dominio de +Windows+.
 +
 image::gpedit.png[gpedit]
 
 . Habilite la propiedad de Inicio de sesión interactivo 
-no mostrar el último nombre de usuario:
++No mostrar el último nombre de usuario+.
 +
 image::sesion.png[sesion]
 
@@ -95,9 +97,9 @@ image::login-2.png[login]
 
 == Referencias
 
-. https://blog.rapid7.com/2017/06/15/about-user-enumeration/[About User Enumeration]
-. http://velozityweb.com/blog/all/enumeracion-de-usuarios-y-sistemas/#sthash.Rjwut7vV.dpbs[Enumeración de usuarios y sistemas]
-. REQ.0225: El sistema debe solicitar a cualquier actor que intenta 
-autenticarse, como mínimo un nombre de usuario y una contraseña.
-. REQ.0172: El sistema no debe almacenar información sensible en archivos 
-temporales o en memoria caché.
+. [[r1]] link:https://blog.rapid7.com/2017/06/15/about-user-enumeration/[About User Enumeration]
+. [[r2]] link:http://velozityweb.com/blog/all/enumeracion-de-usuarios-y-sistemas/#sthash.Rjwut7vV.dpbs[Enumeración de usuarios y sistemas]
+. [[r3]] REQ.0225: El sistema debe solicitar a cualquier actor 
+que intenta autenticarse, como mínimo un nombre de usuario y una contraseña.
+. [[r4]] REQ.0172: El sistema no debe almacenar información sensible 
+en archivos temporales o en memoria caché.
