@@ -75,9 +75,9 @@ dentro de las llamadas al sistema.
 
 . Los privilegios definidos para un sistema +AIX+ pueden verse mediante la orden:
 +
-[source, bash, linenums]
+[source, shell, linenums]
 ----
-# lspriv
+% lspriv
 PV_ROOT
 PV_AU_
 PV_AU_ADD
@@ -86,12 +86,13 @@ PV_AU_READ
 ...
 ----
 
-. La orden anterior con el parámetro +-v+ 
+. La orden anterior al ser ejecutada 
+y acompañada del parámetro +-v+ 
 muestra el significado de cada privilegio:
 +
-[source, bash, linenums]
+[source, shell, linenums]
 ----
-# lspriv -v
+% lspriv -v
 PV_ROOT Allows a process to pass any non-SU privilege check.
 PV_AU_ Equivalent to all Auditing privileges (PV_AU_*) combined.
 PV_AU_ADD Allows a process to record/add an audit record.
@@ -99,6 +100,7 @@ PV_AU_ADMIN Allows a process to configure and query the audit system.
 PV_AU_READ Allows a process to read a file marked as an audit file.
 ...
 ----
+
 . Como puede observarse a partir de los nombres de los privilegios, 
 estos forman una jerarquía, 
 de forma que pueda asignarse privilegios 
@@ -109,28 +111,28 @@ a un proceso con granularidad fina (detallada) o gruesa (agrupada).
 .Jerarquía de nombres de privilegios.
 [options="header"]
 |====
-|Privilegio |Significado  |Número de Privilegios
-|PV_NET_.        |Privilegios sobre las llamadas al sistema relacionadas con la red.                   |4.
-|PV_FS_.         |Privilegios sobre las llamadas al sistema relacionadas con sistemas de archivos.     |9.
-|PV_AU_.         |Privilegios sobre las llamadas al sistema relacionadas con auditoria.                |5.
-|PV_KER_.        |Privilegios sobre las llamadas al sistema relacionadas con el núcleo (+kernel+).     |21.
-|PV_PROC_.       |Privilegios sobre las llamadas al sistema relacionadas con los procesos.             |13.
-|PV_DAC_.        |Privilegios sobre las llamadas al sistema relacionadas con los autorización.         |7.
-|PV_SU_.         |Todos los privilegios propios del super-administrador.                               |3.
-|PV_ROOT.        |Todos los privilegios excepto los de +PV_SU_+.                                       |-.
+|Privilegio        |Significado                                                                          |Número de Privilegios
+|+PV_NET_+.        |Privilegios sobre las llamadas al sistema relacionadas con la red.                   |4.
+|+PV_FS_+.         |Privilegios sobre las llamadas al sistema relacionadas con sistemas de archivos.     |9.
+|+PV_AU_+.         |Privilegios sobre las llamadas al sistema relacionadas con auditoria.                |5.
+|+PV_KER_+.        |Privilegios sobre las llamadas al sistema relacionadas con el núcleo (+kernel+).     |21.
+|+PV_PROC_+.       |Privilegios sobre las llamadas al sistema relacionadas con los procesos.             |13.
+|+PV_DAC_+.        |Privilegios sobre las llamadas al sistema relacionadas con los autorización.         |7.
+|+PV_SU_+.         |Todos los privilegios propios del super-administrador.                               |3.
+|+PV_ROOT+.        |Todos los privilegios excepto los de +PV_SU_+.                                       |-.
 |====
 
 . Finalmente puede observarse los privilegios 
 que un programa requiere para ejecutarse mediante la siguiente orden:
 +
-[source, bash, linenums]
+[source, shell, linenums]
 ----
 # tracepriv -ef {comando}
 ----
 . Por ejemplo, para conocer los privilegios necesarios 
 para ejecutar el comando +/usr/bin/chgrp+ se realizará:
 +
-[source, bash, linenums]
+[source, shell, linenums]
 ----
 # touch /tmp/file # cp /usr/bin/chgrp /usr/bin/chgrpr # tracepriv -ef /usr/bin/chgrpr security /tmp/file                   
 557304: Used privileges for /usr/bin/chgrpr: PV_DAC_O PV_FS_CHOWN
