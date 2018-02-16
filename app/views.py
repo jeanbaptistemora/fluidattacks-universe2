@@ -634,7 +634,7 @@ def update_eventuality(request):
         request = api.update(generic_dto.request_id, generic_dto.data)
         if request:
             return util.response([], 'success', False)
-        rollbar.report_message('Error: An error ocurred updating event', 'error', request) 
+        rollbar.report_message('Error: An error ocurred updating event', 'error', request)
         return util.response([], 'error', False)
     except KeyError:
         rollbar.report_exc_info(sys.exc_info(), request)
@@ -658,7 +658,7 @@ def delete_finding(request):
         context["name_finding"] = finding["hallazgo"]
         result = api.delete_submission(submission_id)
         if result is None:
-            rollbar.report_message('Error: An error ocurred deleting finding', 'error', request) 
+            rollbar.report_message('Error: An error ocurred deleting finding', 'error', request)
             return util.response([], 'Error', True)
         to = ["engineering@fluid.la"]
         send_mail_delete_finding(to, context)
@@ -677,7 +677,7 @@ def finding_solved(request):
     remediated = integrates_dao.add_remediated_dynamo(int(parameters['data[finding_id]']), True, parameters['data[project]'], parameters['data[finding_name]'])
     rem_solution = parameters['data[justification]'].replace('\n', ' ')
     if not remediated:
-        rollbar.report_message('Error: An error occurred when remediating the finding', 'error', request) 
+        rollbar.report_message('Error: An error occurred when remediating the finding', 'error', request)
         return util.response([], 'Error', True)
     # Send email parameters
     try:
@@ -710,7 +710,7 @@ def finding_verified(request):
     recipients = integrates_dao.get_project_users(parameters['data[project]'])
     verified = integrates_dao.add_remediated_dynamo(int(parameters['data[finding_id]']), False, parameters['data[project]'], parameters['data[finding_name]'])
     if not verified:
-        rollbar.report_message('Error: An error occurred when verifying the finding', 'error', request) 
+        rollbar.report_message('Error: An error occurred when verifying the finding', 'error', request)
         return util.response([], 'Error', True)
     # Send email parameters
     try:
@@ -781,11 +781,12 @@ def add_comment(request):
     data["data[fullname]"] = request.session["first_name"] + " " + request.session["last_name"]
     comment = integrates_dao.create_comment_dynamo(int(submission_id), email, data)
     if not comment:
-        rollbar.report_message('Error: An error ocurred adding comment', 'error', request) 
+        rollbar.report_message('Error: An error ocurred adding comment', 'error', request)
         return util.response([], 'Error', True)
     try:
-        to = ['concurrent@fluid.la']
-        to.append('ralvarez@fluid.la')        
+        recipients = integrates_dao.get_project_users(data['data[project]'].lower())
+        to = [x[0] for x in recipients]
+        to.append = ['concurrent@fluid.la']
         comment_content = data['data[content]'].replace('\n', ' ')
         context = {
            'project': data['data[project]'],
@@ -795,17 +796,15 @@ def add_comment(request):
            'finding_id': submission_id,
            'comment': comment_content,
             }
-        send_mail_new_comment(to, context)
-        to = ['']
-        if data["data[parent]"] != '0':
-            replayer = integrates_dao.get_replayer_dynamo(int(data["data[parent]"]))
-            for row in replayer:
-                to.append(row['email'])
+        if data["data[parent]"] == '0':
+            send_mail_new_comment(to, context)
+            return util.response([], 'Success', False)
+        elif data["data[parent]"] != '0':
             send_mail_reply_comment(to, context)
-        return util.response([], 'Success', False)
+            return util.response([], 'Success', False)
     except KeyError:
         rollbar.report_exc_info(sys.exc_info(), request)
-        return util.response([], 'Campos vacios', True)    
+        return util.response([], 'Campos vacios', True)
 
 @never_cache
 @require_http_methods(["POST"])
