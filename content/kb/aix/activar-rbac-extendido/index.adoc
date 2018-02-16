@@ -72,9 +72,11 @@ ejecutando la siguiente la orden:
 .test.sh
 [source, bash, linenums]
 ----
- # lsattr -El sys0 -a enhanced_RBAC enhanced_RBAC true Enhanced RBAC Mode True  
+% lsattr -E -l sys0 -a enhanced_RBAC
+true 
 ----
-. En la salida se observa 
++
+En la salida se observa 
 que el modo de control de acceso +RBAC+ extendido se encuentra habilitado.
 
 . Para deshabilitar dicho modo 
@@ -82,13 +84,13 @@ debe ejecutar el siguiente comando:
 +
 [source, bash, linenums]
 ----
-# chdev -l sys0 -a enhanced_RBAC=false sys0 changed
+% chdev -l sys0 -a enhanced_RBAC=false
 ----
 . Finalmente para habilitarlo, debe ejecutar el siguiente comando:
 +
 [source, bash, linenums]
 ----
-# chdev -l sys0 -a enhanced_RBAC=true sys0 changed
+% chdev -l sys0 -a enhanced_RBAC=true
 ----
 
 == Referencias
