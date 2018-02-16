@@ -15,62 +15,66 @@ Dar los permisos de acceso sobre los recursos de forma centralizada.
 A continuación se describen las circunstancias 
 bajo las cuales la siguiente solución tiene sentido:
 
-. Se tiene una máquina con sistema operativo Windows Server 2008.
+. Se tiene una máquina con sistema operativo +Windows Server 2008+.
 
 == Solución
 
-. Se ingresa al Server Manager 
-y se hace clic en File Services y Share and Storage Manager. 
+Para brindar o dar permisos de una manera centralizada
+sobre los recursos del servidor,
+se deben seguir los siguientes pasos:
+
+. Se ingresa al +Server Manager+ 
+y se hace clic en +File Services+ y +Share and Storage Manager+. 
 Luego se da doble clic sobre el recurso compartido 
 como se ve en la imagen.
 +
 image::manager.png[server-manager]
 
-. Allí damos clic sobre las pestaña Permissions
+. Allí damos clic sobre las pestaña +Permissions+.
 +
 image::permisos.png[permisos]
 
 . Aquí debemos definir y diferenciar 
-los tipos de permisos para los recursos:
+los tipos de permisos para los recursos,
+los cuales pueden ser:
 
-. Permisos SMB.
-El control de acceso basado en SMB de un recurso compartido 
+. *Permisos +SMB+*.
+El control de acceso basado en +SMB+ de un recurso compartido 
 se determina a través de dos conjuntos de permisos: 
-Permisos NTFS y permisos de recurso compartido. 
+permisos +NTFS+ y permisos de recurso compartido. 
 Normalmente, los permisos de recurso compartido 
 sólo se usan para el control de acceso en equipos 
-que no usan el sistema de archivos NTFS.
-
-. Los permisos NTFS y los permisos de recurso compartido son independientes 
-en el sentido de que ninguno afecta al otro, 
-y el más restrictivo de los dos 
+que no usan el sistema de archivos +NTFS+.
+ 
+. Los permisos +NTFS+ y los permisos de recurso compartido son independientes 
+en el sentido de que ninguno afecta al otro. 
+* *Nota:* el más restrictivo de los dos 
 será el que se aplique al recurso compartido.
 
 . Si usa Administración de almacenamiento y recursos compartidos, 
 puede especificar permisos compartidos 
-para los recursos compartidos basados en SMB 
-de las siguientes formas:
-
-. Nuevos recursos compartidos. 
-En el Asistente aprovisionar carpetas compartidas. 
-Si selecciona SMB como protocolo de uso compartido, 
-puede especificar los siguientes permisos de acceso basados en SMB 
-en la página Permisos SMB:
+para los recursos compartidos basados en +SMB+ 
+de la siguiente forma:
+* *Nuevos recursos compartidos*. 
+En el Asistente aprovisionar carpetas compartidas 
+si selecciona +SMB+ como protocolo de uso compartido, 
+puede especificar los siguientes permisos de acceso basados en +SMB+ 
+en la página permisos +SMB+.
 
 . Todos los usuarios y grupos sólo tienen acceso de lectura. 
-El permiso resultante será el permiso Lectura para el grupo Todos.
+El permiso resultante será el permiso +LECTURA+ para el grupo +TODOS+.
 
-. Los administradores tienen Control total.
-Todos los otros usuarios y grupos sólo tienen acceso de Lectura. 
-El grupo Administradores tendrá el permiso Control total, 
-mientras que al grupo Todos se le concederá el permiso Lectura.
+. Los administradores tienen control total.
+Todos los otros usuarios y grupos sólo tienen acceso de +LECTURA+. 
+El grupo +ADMINISTRADORES+ tendrá el permiso +CONTROL TOTAL+, 
+mientras que al grupo +TODOS+ se le concederá el permiso +LECTURA+.
 
-. Los administradores tienen Control total. 
-Todos los demás usuarios y grupos sólo tienen acceso de lectura y de escritura. 
-El grupo Administradores tendrá el permiso Control total, 
-mientras que al grupo Todos 
-se le concederá tanto el permiso Lectura 
-como el permiso Escritura.
+. Todos los demás usuarios y grupos 
+sólo tienen acceso de +LECTURA+ y de +ESCRITURA+. 
+El grupo +ADMINISTRADORES+ tendrá el permiso +CONTROL TOTAL+, 
+mientras que al grupo +TODOS+ 
+se le concederá tanto el permiso +LECTURA+ 
+como el permiso +ESCRITURA+.
 
 . Los usuarios y grupos 
 tienen permisos de los recursos compartidos personalizados. 
@@ -78,52 +82,51 @@ Para usar esta opción,
 debe especificar todos los grupos y usuarios 
 que vayan a tener acceso compartido, 
 así como los permisos específicos de recursos compartidos 
-(Control total, Cambiar, Lectura) 
+(+CONTROL TOTAL+, +CAMBIAR+, +LECTURA+) 
 que se concederán o denegarán a cada uno de ellos.
 
 . Recursos compartidos existentes. 
 Puede cambiar los permisos de recurso compartido 
 de una carpeta o volumen compartidos 
-que aparecen enumerados en Protocolo SMB 
-en la ficha Recursos compartidos. 
+que aparecen enumerados en el protocolo +SMB+ 
+en la ficha recursos compartidos. 
 Para modificar los permisos de recurso compartido, 
 seleccione la carpeta o volumen.
-En el panel Actions, haga clic en Properties 
-y en la ficha Permissions, haga clic en Share Permissions.
+En el panel +Actions+, haga clic en +Properties+ 
+y en la ficha Permissions+, haga clic en +Share Permissions+.
 +
 image::permisos-2.png[permisos-recurso]
 
-. Puede configurar los permisos NTFS locales 
+. Puede configurar los permisos +NTFS+ locales 
 para una carpeta o volumen compartido 
-mediante Administración de almacenamiento y recursos compartidos 
+mediante la administración de almacenamiento y recursos compartidos 
 de las formas que se indican a continuación:
-
-. Nuevos recursos compartidos. 
+* *Nuevos recursos compartidos*. 
 En el Asistente para aprovisionar carpetas compartidas, 
 antes de seleccionar un protocolo de uso compartido de red, 
-puede modificar los permisos NTFS 
+puede modificar los permisos +NTFS+ 
 para la carpeta o volumen que va a compartir. 
-Estos permisos NTFS se aplicarán tanto de forma local 
+Estos permisos +NTFS+ se aplicarán tanto de forma local 
 como al obtener acceso al recurso a través de la red. 
-Para modificar los permisos NTFS, 
-en la página Permisos NTFS, seleccione Sí, 
-cambiar los permisos NTFS 
-y, a continuación, haga clic en Editar permisos.
+Para modificar los permisos +NTFS+, 
+en la página permisos +NTFS+, seleccione +Sí+, 
+cambiar los permisos +NTFS+ 
+y, a continuación, haga clic en +Editar permisos+.
 
 . Recursos compartidos existentes. 
-Puede modificar los permisos NTFS 
+Puede modificar los permisos +NTFS+ 
 de una de  las carpetas o volúmenes compartidos 
-de los que aparecen en la ficha Recursos compartidos. 
-Para modificar los permisos NTFS, 
+de los que aparecen en la ficha recursos compartidos. 
+Para modificar los permisos +NTFS+, 
 seleccione la carpeta o volumen, 
-en el panel Actions, haga clic en Properties 
-y en la ficha Permissions, haga clic en NTFS Permissions.
+en el panel +Actions+, haga clic en +Properties+ 
+y en la ficha +Permissions+, haga clic en +NTFS Permissions+.
 
 image::permisos-3.png[permisos.ntfs]
 
 == Referencias
 
-. REQ.0031: El sistema no debe permitir a un actor del sistema, aumentar los 
-privilegios para él mismo.
-. https://technet.microsoft.com/es-es/library/cc770962.aspx[Administrar permisos sobre los recursos]
-. https://technet.microsoft.com/es-es/library/cc772501(v=ws.11).aspx[Establecer los permisos de un recurso compartido]
+. [[r1]] link:https://technet.microsoft.com/es-es/library/cc770962.aspx[Administrar permisos sobre los recursos]
+. [[r2]] link:https://technet.microsoft.com/es-es/library/cc772501(v=ws.11).aspx[Establecer los permisos de un recurso compartido]
+. [[r3]] REQ.0031: El sistema no debe permitir a un actor del sistema, 
+aumentar los privilegios para él mismo.
