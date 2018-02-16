@@ -9,7 +9,7 @@
 == Necesidad
 
 Se requiere realizar un aseguramiento de una máquina 
-con sistema operativo Windows. 
+con sistema operativo +Windows+. 
 Para esto, es necesario verificar 
 que no haya servicios innecesarios ni inseguros corriendo.
 
@@ -18,7 +18,7 @@ que no haya servicios innecesarios ni inseguros corriendo.
 A continuación se describen las circunstancias 
 bajo las cuales la siguiente solución tiene sentido:
 
-. Se tiene un equipo con sistema operativo Windows
+. Se tiene un equipo con sistema operativo +Windows+.
 
 == Solución
 
@@ -34,17 +34,17 @@ o con un canal de comunicación.
 Además, los puertos lógicos 
 proporcionan un espacio para el almacenamiento temporal 
 de la información que se va a transferir 
-entre la localización de memoria y el canal de comunicación. [1]
+entre la localización de memoria y el canal de comunicación ^<<r1,[1]>>^. 
 
 En otras palabras, los puertos lógicos son necesarios 
 para que las aplicaciones o programas 
 que funcionan en un equipo determinado, 
 puedan comunicarse con el exterior. 
 Esta comunicación la hacen virtualmente 
-a través de una conexión TCP o UDP 
+a través de una conexión +TCP+ o +UDP+ 
 y, a su vez, esta conexión puede ser de entrada o salida,
 es decir, envían o reciben información.
-Además, como dato general, un equipo tiene un total de 65535 puertos.
+Además, como dato general, un equipo tiene un total de +65535+ puertos.
 
 Entonces, es fácil suponer que jamás se utilizarán 
 todos los puertos disponibles y, debido a eso, 
@@ -53,40 +53,40 @@ Por otra parte, deshabilitar los puertos innecesarios
 sirve para evitar múltiples problemas de seguridad.
 
 Para deshabilitar los puertos innecesarios 
-en un equipo con Windows instalado se debe:
+en un equipo con +Windows+ instalado se debe:
 
 . Abrir el menú de inicio. 
 
-. Ir a ejecutar/run.
+. Ir a +ejecutar/run+.
 
-. Allí ingresar cmd y presionar ejecutar.
+. Allí ingresar +cmd+ y presionar ejecutar.
 
-. En la consola, ejecutar el comando netstat -an. 
+. En la consola, ejecutar el comando +netstat -an+. 
 En la salida no deberían estar los siguientes servicios:
 +
 image::servicios.png[servicios]
 
 . Adicionalmente, se debe hacer una verificación 
-con la herramienta de servicios de Windows
-haciendo click en Start, Administrative Tools, Services.
+con la herramienta de servicios de +Windows+
+haciendo clic en +Start+, +Administrative Tools+, +Services+.
 
 . Allí se debe verificar que los siguientes servicios 
 se encuentren deshabilitados: 
 
-* Human Interface Device Access
-* Infrared Monitor
-* Intersite Messaging
-* Messenger
-* Network DDE
-* Network DDE DSDM
-* Network News Transfer Protocol (NNTP)
-* Print Server for Macintosh
-* Simple TCP/IP Services
-* Trivial FTP Daemon
-* WinHTTP Web Proxy Auto-Discovery Service
-* Wireless Configuration
+* +Human Interface Device Access+
+* +Infrared Monitor+
+* +Intersite Messaging+
+* +Messenger+
+* +Network DDE+
+* +Network DDE DSDM+
+* +Network News Transfer Protocol+ (+NNTP+)
+* +Print Server for Macintosh+
+* +Simple TCP/IP Services+
+* +Trivial FTP Daemon+
+* +WinHTTP Web Proxy Auto-Discovery Service+
+* +Wireless Configuration+
 
 == Referencias
 
-. https://es.wikipedia.org/wiki/Puerto_(inform%C3%A1tica)[Puerto (informática)]
-. https://support.microsoft.com/es-co/help/813878/how-to-block-specific-network-protocols-and-ports-by-using-ipsec[Deshabilitar protocolos y puertos]
+. [[r1]] link:https://es.wikipedia.org/wiki/Puerto_(inform%C3%A1tica)[Puerto (informática)]
+. [[r2]] link:https://support.microsoft.com/es-co/help/813878/how-to-block-specific-network-protocols-and-ports-by-using-ipsec[Deshabilitar protocolos y puertos]
