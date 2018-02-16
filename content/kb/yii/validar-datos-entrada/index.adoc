@@ -15,8 +15,8 @@ Validar los datos de entrada a la aplicación
 A continuación se describen las circunstancias 
 bajo las cuales la siguiente solución tiene sentido:
 
-. Se utiliza el lenguaje de programación PHP.
-. Se utiliza el framework de desarrollo Yii [1].
+. Se utiliza el lenguaje de programación +PHP+.
+. Se utiliza el +framework+ de desarrollo +Yii+ ^<<r1,[1]>>^.
 
 == Solución
 
@@ -42,23 +42,23 @@ deba modificarla o, en caso contrario,
 no podrá continuar ni enviar el formulario correctamente.
 
 Tradicionalmente, la validación de un formulario 
-se ha hecho siempre en Javascript. 
-Incluso, HTML en su versión HTML5 
+se ha hecho siempre en +Javascript+. 
+Incluso, +HTML+ en su versión +HTML5+ 
 ha introducido nuevos atributos para formularios 
 que permiten realizar la validación del formulario directamente 
 sin necesidad de recurrir a otros lenguajes. 
 Pero, en esta ocasión, los datos serán validados 
-desde el back-end usando el framework YII.
+desde el +back-end+ usando el +framework+ +YII+.
 
 . Se cuenta con un formulario del cual se desean validar sus datos.
 
-. Para validar datos con Yii 
-se hace uso del método rules() 
+. Para validar datos con +YII+ 
+se hace uso del método +rules()+ 
 en los modelos definidos para el uso de la aplicación.
 
 . Un ejemplo se muestra a continuación:
 +
-.test.py
+.rules.php
 [source, php, linenums]
 ----
 /**
@@ -80,22 +80,22 @@ public function rules()
 ----
 
 . En el ejemplo anterior, se puede apreciar 
-el uso de diferentes validaciones del tipo required, 
-email o, incluso, el uso de expresiones regulares.
+el uso de diferentes validaciones del tipo +required+, 
++email+ e, incluso, el uso de expresiones regulares.
 
 . Con la linea 
-array('nombres','match', 'pattern'=>'[\w\s]{3,}', 'allowEmpty'=>false). 
++array('nombres','match', 'pattern'=>'[\w\s]{3,}', 'allowEmpty'=>false)+. 
 Es posible evitar que los datos contengan 
-caracteres innecesarios tales como ('-") entre otros, 
+caracteres innecesarios tales como +('-")+ entre otros, 
 previniendo ciertos vectores de ataque. 
 
-. El validador safe permite evitar que un usuario malintencionado 
+. El validador +safe+ permite evitar que un usuario malintencionado 
 pueda alterar los valores del modelo que no necesariamente 
 tengan una representación en una base de datos. 
 Además previenen que estos datos 
-puedan explotar funciones del método CActiveRecord.
+puedan explotar funciones del método +CActiveRecord+.
 
-. Esta validación se realiza cuando el método validate() 
+. Esta validación se realiza cuando el método +validate()+ 
 es llamado desde el objeto modelo. 
 
 . Este llamado se hace, generalmente, 
@@ -116,7 +116,8 @@ else
 
 == Referencias
 
-. http://www.yiiframework.com/wiki/56/[YII]
-. REQ.0168 El sistema debe descartar 
+. [[r1]] link:http://www.yiiframework.com/wiki/56/[YII]
+. [[r2]] link:http://yiiframeworkespanol.blogspot.com.co/2014/05/validacion-de-formularios.html[Validación de formularios]
+. [[r3]] REQ.0168 El sistema debe descartar 
 toda la información potencialmente insegura 
 que sea recibida por entradas de datos.
