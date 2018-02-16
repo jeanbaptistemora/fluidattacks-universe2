@@ -1,17 +1,19 @@
 :slug: services/continuous-hacking/faq/
 :category: services
-:description: TODO
+:description: A recompilation of questions and answers that help understand the Continuous Hacking service and how it can benefit an organization.
 :keywords: TODO
 
 = Frequently asked questions
-
 Up next are a series of commonly asked questions that come to mind when discussing Continuous Hacking.
 
 [qanda]
 What is Continuous Hacking?::
 The service that allows an organization to implement security testing at an early stage in the software development life cycle.
+The objective of the service is to guarantee 100% coverage of the application.
+
+What benefits does Continuous Hacking give an application?::
 - Minimizing the reparation cost since the test are done when the application is in a development environment and not a productive one.
-- Reducing the certification time to 0 since the test are done along with the development.
+- Reducing the certification time to zero since the test are done along with the development.
 - Giving clear and detailed information about the detected vulnerabilities allowing synchronization amongst all people involved in the project  and resolving all doubts and questions the developers may have regarding the reported vulnerabilities and thus allowing them to fix all issues without any setbacks.
 
 What are the necessary inputs and requirements needed for the service?::
@@ -23,8 +25,21 @@ The service can be offered in the following phases:
 What type of tests does the Continuous Hacking Service include?::
 The service includes source code analysis, application security testing(see Q2) and infrastructure security testing(see Q2).
 
+What limits does the service have?::
+The service has a monthly limit of 10,000 deltas on the source code.
+
+What is a delta?::
+It is the variable that indicates a change in the source code. This variation can either be the addition or removal of a line of code.
+
+If I exceed the monthly limit for the service, can I choose to increase it?::
+Yes. The scope can be increased for a particular month or in general for the duration of the project.
+
 Is the service a series of automated tools or is it the result of a manual process?::
-The service is performed by a human using a series of tools acquired and developed by FLUID that help the exploitation process. We use this method because automated tools present the following problems: Lack of detection of the majority of the vulnerabilities  (they detect a minimal percentage of the existing ones), the ones they do report are mainly false positives, tools are not capable of exploiting a set of vulnerabilities, i.e take vulnerability A and combine it with vulnerability B to form a new and bigger attack vector C, automated tools are not capable of extracting sensitive business information such as client or employee information that add more criticity and value to the vulnerability.
+Automated tools are not capable of extracting sensitive business information such as client or employee information that add more criticity and value to the vulnerability.
+FLUID´s service is performed by an expert using a series of tools acquired and developed by FLUID that help the exploitation process. We use this method because automated tools present the following problems:
+. Lack of detection of the majority of the vulnerabilities  (they detect a minimal percentage of the existing ones).
+. The ones they do report are mainly false positives.
+. Tools are not capable of exploiting a set of vulnerabilities, i.e take vulnerability A and combine it with vulnerability B to form a new and bigger attack vector C. 
 
 If the hacking is done manually, how does FLUID assure agile development cycles are not slowed down?::
 Hacking is first performed on the source code therefore allowing for parallel security testing and development, which minimizes the dependency on functional environments and the need for coordination between hackers and developers. Once vulnerabilities are found they are prioritized by the agile project´s product owner according to their criticity, leaving the decision of what findings are prioritized for each sprint solely to the product owner. At last it is important to clarify that unless that we are dealing with a company with daily CI/CD not all sprint generate code that is eligible for release and deployment on productive environments, which helps improve the remedial time.
@@ -41,19 +56,10 @@ No. There is a fixed cost for the service during the validity of the contract, k
 Why is it necessary to have access to the source code stored in the repository?::
 The Continuous Hacking service is based on always testing the latest version available by executing continuous security testing.
 
-What limits does the service have?::
-The service has a monthly limit of 10,000 deltas.
-
-What is a delta?::
-It is the variable that indicates a change in the source code. This variation can either be the addition or removal of a line of code.
-
-If I exceed the monthly limit for the service, can I choose to increase it?::
-Yes. The scope can be increased for a particular month or in general for the duration of the project.
-
 When does the service begin?::
 From the moment that we have access to the source code and repository.
 
-Is it possible to hire an on premise continuous hacking service?::
+Is it possible to hire an +OnPremise+ continuous hacking service?::
 Given the operational model that supports the service, it can only be given remotely.
 
 Is it possible to schedule follow up meetings?::
@@ -77,7 +83,7 @@ What is a vulnerability?::
 It is any situation that represents a security risk (Integrity, Availability, Confidentiality, Non-repudiation) for the application.
 
 How is the technical criticity of a vulnerability calculated?::
-We use the CVSS international standard to obtain a quantitative measure that goes from 0 to 10, 0 being the lowest and 10 the highest and most critical according to the qualitative characteristics of the vulnerability.
+We use the https://www.first.org/cvss/[CVSS] international standard to obtain a quantitative measure that goes from 0 to 10, 0 being the lowest and 10 the highest and most critical according to the qualitative characteristics of the vulnerability.
 
 How can I obtain information regarding the vulnerabilities found in my application?::
 The Continuous Hacking service has an interactive report platform called FLUIDIntegrates. This allows all project stakeholders to have access to the details of the vulnerabilities reported by FLUID.
@@ -89,7 +95,7 @@ What is the next step after FLUID reports a vulnerability?::
 Once a vulnerability is reported the main objective is for it to be remediated. To achieve this the developers have access to FLUIDIntegrates allowing them to obtain firsthand detailed information regarding the vulnerability in order to apply the necessary corrective measures to eliminate the existing vulnerability from the application.
 
 How does FLUID know a vulnerability has been remediated?::
-Through FLUIDIntegrates, any user with access to the project can request the verification of a remediated vulnerability. Once the verification is requested we receive a notification that includes a comment regarding the applied solution, we perform a closing verification to confirm the effectiveness of the solution and then proceed to notify the whole project team about the results via email.
+Through link:../../../productos/fluidintegrates/[FLUIDIntegrates], any user with access to the project can request the verification of a remediated vulnerability. Once the verification is requested we receive a notification that includes a comment regarding the applied solution, we perform a closing verification to confirm the effectiveness of the solution and then proceed to notify the whole project team about the results via email.
 
 How many closing verifications are included in the service?::
 The service offers unlimited closing verifications.
@@ -100,7 +106,11 @@ One of the objectives of the Continuous Hacking service alongside FLUIDIntegrate
 What happens if I consider something is not a vulnerability?::
 Within FLUIDIntegrates we have a forum like comments section where the client can let FLUID know the reasons for which they consider a finding is not a vulnerability. In this section, FLUID and all other project members can establish a conversation regarding the vulnerability and determine the validity of a vulnerability.
 
-If a vulnerability is assumed by the client, is it excluded from the reports and FLUIDIntegrates?::
+Do all reported vulnerabilities have to be remediated?::
+The remediation of a vulnerability is a decision left to the client's discretion.
+In link:../../../productos/fluidintegrates/[FLUIDIntegrates] there is a treatment option where it is defined if a vulnerability is going to be remediated or assumed by the client.
+
+If a vulnerability is assumed by the client, is it excluded from the reports and link:../../../productos/fluidintegrates/[FLUIDIntegrates]?::
 The reports contain information regarding the treatment given to a vulnerability. With this in mind all assumed vulnerabilities remain in the reports with the clarification of the treatment received.
 
 If the application is stored along multiple repositories, can they all be tested?::
@@ -119,3 +129,5 @@ The information is only kept for the duration of the service. Once the service h
 
 Does the Continuous Hacking service require any development methodology?::
 No. The Continuous Hacking service is independent from the client's development methodology. The results of the service then becomes an input in the planning of future development cycles and does not  prevent the continuation of the development.
+
+
