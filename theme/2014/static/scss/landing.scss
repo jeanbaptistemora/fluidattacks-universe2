@@ -1,0 +1,112 @@
+$benefitblue: rgba(27, 117, 187, 1);
+$darkgray: rgba(102, 102, 102, 1);
+$lightblue: rgba(0, 133, 161, 1);
+$white: rgba(255, 255, 255, 1);
+
+.benefits {
+  align-items: center;
+  background-color: $benefitblue;
+  display: flex;
+  flex-wrap: wrap;
+  padding: 20px 0;
+  width: 100%;
+}
+
+.benefit-header {
+  margin: 10px auto;
+  width: 75%;
+
+  span {
+    color: $white;
+    font-size: 54px;
+  }
+}
+
+.benefit {
+  margin: 10px auto;
+  width: 90%;
+
+  span {
+    color: $white;
+    display: block;
+    font-size: 25px;
+    font-weight: 600;
+  }
+
+  p {
+    color: $white;
+    text-align: center;
+
+    strong {
+      color: $white;
+  	}
+  }
+}
+
+.customers {
+  background-color: $white;
+  padding: 20px 10%;
+
+  p {
+    text-align: center;
+  }
+
+  img {
+    margin: 0 20px;
+  }
+}
+
+.services {
+  background-color: $white;
+  margin-top: 10px;
+  padding: 20px 0;
+
+  p {
+    margin: 20px 10%;
+    text-align: center;
+  }
+}
+
+.serv-offer {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.serv {
+  margin-bottom: 20px;
+  width: 100%;
+
+  a {
+    color: $darkgray;
+    display: block;
+    font-size: 34px;
+    margin: auto;
+    text-transform: uppercase;
+    width: fit-content;
+
+    &:hover {
+      color: $lightblue;
+  	}
+  }
+}
+
+@media (min-width: 600px) {
+  .benefit-header,
+  .benefit,
+  .serv {
+    width: 50%;
+  }
+}
+
+@media (min-width: 860px) {
+  .benefit-header,
+  .benefit {
+    width: 33%;
+  }
+}
+
+@media (min-width: 980px) {
+  .benefits {
+    padding-right: 45px;
+  }
+}

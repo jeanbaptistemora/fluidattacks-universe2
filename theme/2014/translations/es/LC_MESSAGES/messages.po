@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2018-02-14 21:35+0000\n"
+"POT-Creation-Date: 2018-02-16 23:28+0000\n"
 "PO-Revision-Date: 2017-12-21 15:09-0500\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: es\n"
@@ -25,8 +25,8 @@ msgstr "Archivos del Blog"
 #: templates/archives.html:18 templates/article.html:37
 #: templates/author.html:43 templates/authors.html:18
 #: templates/categories.html:18 templates/category.html:18
-#: templates/home.html:22 templates/index.html:22 templates/tag.html:34
-#: templates/tags.html:18
+#: templates/home.html:22 templates/index.html:22 templates/landing.html:21
+#: templates/tag.html:34 templates/tags.html:18
 msgid "Young hacker smiling"
 msgstr "Joven hacker sonriendo"
 
@@ -37,8 +37,8 @@ msgstr "Archivos para"
 
 #: templates/article.html:48 templates/author.html:52 templates/authors.html:28
 #: templates/categories.html:28 templates/category.html:27
-#: templates/home.html:8 templates/navigationbar.html:22 templates/tag.html:43
-#: templates/tags.html:28
+#: templates/home.html:8 templates/landing.html:10
+#: templates/navigationbar.html:22 templates/tag.html:43 templates/tags.html:28
 msgid "Home"
 msgstr "Inicio"
 
@@ -177,16 +177,19 @@ msgid "Terms of Use"
 msgstr "Términos de Uso"
 
 #: templates/footer.html:24 templates/footer.html:25 templates/footer.html:26
+#: templates/landing.html:34 templates/landing.html:38
 #: templates/navigationbar.html:23 templates/navigationbar.html:25
 #: templates/navigationbar.html:26
 msgid "services"
 msgstr "servicios"
 
-#: templates/footer.html:24 templates/navigationbar.html:23
+#: templates/footer.html:24 templates/landing.html:29
+#: templates/navigationbar.html:23
 msgid "Services"
 msgstr "Servicios"
 
-#: templates/footer.html:25 templates/navigationbar.html:25
+#: templates/footer.html:25 templates/landing.html:38
+#: templates/navigationbar.html:25
 msgid "one-shot-hacking"
 msgstr "hacking-puntual"
 
@@ -194,7 +197,8 @@ msgstr "hacking-puntual"
 msgid "One-Shot Hacking"
 msgstr "Hacking Puntual"
 
-#: templates/footer.html:26 templates/navigationbar.html:26
+#: templates/footer.html:26 templates/landing.html:34
+#: templates/navigationbar.html:26
 msgid "continuous-hacking"
 msgstr "hacking-continuo"
 
@@ -302,6 +306,78 @@ msgstr "Ícono de etiqueta"
 #: templates/index.html:63
 msgid "Read More"
 msgstr "Seguir Leyendo"
+
+#: templates/landing.html:30
+msgid ""
+"Using a white-box methodology or code review, either on each application "
+"or the complete suite of applications we detect security issues:"
+msgstr "Usando una metodología de caja blanca o revisión de código, ya sea en cada "
+"aplicación o en el conjunto entero de aplicaciones, detectamos problemas de seguridad:"
+
+#: templates/landing.html:33
+msgid "Two CPUs connected"
+msgstr "Dos CPUs conectadas"
+
+#: templates/landing.html:34
+msgid "<strong>Continuous</strong> Hacking"
+msgstr "Hacking <strong>Continuo</strong>"
+
+#: templates/landing.html:37
+msgid "Window with a code and settings sign"
+msgstr "Ventana con un símbolo de código y de configuración"
+
+#: templates/landing.html:38
+msgid "<strong>One-Shot</strong> Hacking"
+msgstr "Hacking <strong>Puntual</strong>"
+
+#: templates/landing.html:46
+msgid "Why is <strong>FLUID better</strong> for you?"
+msgstr "¿Por qué es <strong>FLUID la mejor opción</strong> para ti?"
+
+#: templates/landing.html:49
+msgid "Magnifying glass analysing code"
+msgstr "Lupa analizando código"
+
+#: templates/landing.html:51
+msgid "Fault <strong>detection</strong> that cause security risks."
+msgstr "<strong>Detección</strong> de fallas que causan riesgos de seguridad"
+
+#: templates/landing.html:54
+msgid "Closing admiration sign"
+msgstr "Signo de admiración final"
+
+#: templates/landing.html:56
+msgid "<strong>Generates security alerts</strong> early."
+msgstr "<strong>Genera alertas de seguridad</strong> en una etapa temprana"
+
+#: templates/landing.html:59
+msgid "Graph showing the increase of earnings"
+msgstr "Gráfica mostrando el incremento de ganancias"
+
+#: templates/landing.html:61
+msgid "<strong>Reduces</strong> losses by security incidents."
+msgstr "<strong>Reduce</strong> las pérdidas por incidentes de seguridad"
+
+#: templates/landing.html:64
+msgid "Hand holding a lock sign"
+msgstr "Mano sosteniendo un símbolo de un candado"
+
+#: templates/landing.html:66
+msgid ""
+"<strong>Generates confidence</strong> in customers and users of the "
+"applications."
+msgstr "<strong>Genera confianza</strong> en clientes y usuarios de las aplicaciones"
+
+#: templates/landing.html:69
+msgid "Hand with the thumb up"
+msgstr "Mano con el pulgar arriba"
+
+#: templates/landing.html:71
+msgid ""
+"Helps improve the <strong>quality</strong> of processes, infrastructure "
+"and staff."
+msgstr "Ayuda a mejorar la <strong>calidad</strong> de los procesos, infraestructura "
+"y personal"
 
 #: templates/location.html:21 templates/location.html:30
 #: templates/location.html:66 templates/location.html:85

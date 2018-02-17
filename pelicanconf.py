@@ -41,6 +41,7 @@ CATEGORIES_URL = 'categories/'
 CATEGORY_SAVE_AS = 'categories/{slug}/index.html'
 CATEGORY_URL = 'categories/{slug}/'
 USE_FOLDER_AS_CATEGORY = False
+LANDING_SAVE_AS = 'landing/index.html'
 
 # Plugins configuration
 PLUGIN_PATHS = ['/app/pelican-plugins']
@@ -58,7 +59,7 @@ PLUGINS = [
            'tag_cloud'
 ]
 RELATED_POSTS_MAX = 3
-DIRECT_TEMPLATES = (('index', 'tags', 'categories', 'archives', 'authors', 'search'))
+DIRECT_TEMPLATES = (('index', 'tags', 'categories', 'archives', 'authors', 'search', 'landing'))
 SITEMAP = {
     'format': 'xml',
     'priorities': {
