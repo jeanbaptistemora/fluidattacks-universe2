@@ -5,6 +5,230 @@
 
 = FLUIDAsserts
 
-This page is not currently available in this language.
+== 1. Description
 
-See the spanish version [button]#link:../../../es/productos/fluidasserts[here >>]#
++FLUIDAsserts+ is an engine to automate the *closing* of security findings
+over execution environments +(DAST)+.
+
+.Flowchart of its use
+image::fluidassertses.png[FLUIDAsserts]
+
+== 2. Execution
+
+=== In a PC
+
+==== Linux
+
+Append the following to the file +~/.pip/pip.conf+
+(The user and password will be provided by us!):
+
+----
+[global]
+index-url = https://<user>:<pass>@fluid.jfrog.io/fluid/api/pypi/python/simple
+----
+
+Then, execute:
+
+[source, bash]
+----
+$ pip install -U fluidasserts
+$ export FA_LICENSE_KEY=<Licence ID>
+$ export FA_USER_EMAIL=<Your e-mail>
+$ export FA_STRICT="false"
+
+$ python exploit.py
+----
+
+==== Windows
+[source, bash]
+----
+> pip install -U fluidasserts
+> set FA_LICENSE_KEY=<Licence ID>
+> set FA_USER_EMAIL=<Your e-mail>
+> set FA_STRICT="false"
+
+> python exploit.py
+----
+
+=== In a CI (Continuous Integration) pipeline
+
+If you have a subscribed application to our *Concurrent Security Tests* service
+which includes the use of +FLUIDAsserts+,
+you may add it to your Continuous Integration pipeline.
+To achieve this, follow the steps listed below:
+
+* Add the environmental variables +USER+, +PASS+, +ORG+ and +APP+.
+Do not worry, their values will be provided by us!:
+
+** +USER+: Name of the user in order to obtain the image
+from our Container Registry
+** +PASS+: The password of the user
+** +ORG+: The name of the organization
+** +APP+: The name of the application
+
+.Example of environmental variables in Gitlab CI
+image::vars.png[Variables de entorno]
+
+* Add a job where the container is executed.
+
+.In Gitlab CI, add:
+[source, yaml]
+----
+fluidasserts:
+    script:
+        - docker login fluid-docker.jfrog.io -u $USER -p $PASS
+        - docker pull fluid-docker.jfrog.io/$ORG:$APP
+        - docker run -e ORG=$ORG -e APP=$APP -e USER=$USER -e PASS=$PASS -e FA_STRICT="true" fluid-docker.jfrog.io/$ORG:$APP
+----
+
+*NOTE:* The variable +FA_STRICT+ must have
+the values +true+ or +false+.
+When it is set to +true+,
+and one of the vulnerabilities remains open,
+the pipeline will break!
+
+== 3. Requirements
+
+=== To execute in a PC
+
+* *Operative system*:
+** Any SO that supports +Python+
+* *Network*:
+** Access to the artifacts repository https://fluid.jfrog.io
+* *Software dependencies*:
+** +Python 3.6+
+
+=== To include in a CI pipeline
+
+* *Operative system*:
+** Any Linux-based distribution that supports +Docker CE+
+** Windows Server with +HyperV+ and +Docker+
+** MacOS
+* *Network*:
+** Access to the Container Registry https://fluid-docker.jfrog.io
+** Access to the integration environment where your application or platform is stored
+* *Software dependencies*:
+** +DockerCE 17+ or superior
+
+=== Commons
+
+* *CPU*: 4 cores @1.8GHz
+* *RAM*: 4GiB DDR3 @1.6Ghz
+* *Disk space*: 10GiB
+
+== 4. Exploit examples
+
+=== SQL Injection
+
+.ex1_open.py: Verify if SQL injection still present
+[source, python, linenum]
+----
+from fluidasserts.service import http
+
+URL = 'http://testphp.vulnweb.com/AJAX/infoartist.php?id=3%27'
+
+http.has_sqli(URL)
+----
+
+.Results from executing ex1_open.py
+[source, bash]
+----
+$ python ex1_open.py
+Loading modules...
+2018-02-09 11:15:22,273 - FLUIDAsserts - INFO - OPEN: http://testphp.vulnweb.com/AJAX/infoartist.php?id=3%27 Bad text present, Details=Warning.*mysql_.*
+----
+
+.ex1_close.py: Verify already solved SQL injection
+[source, python, linenum]
+----
+from fluidasserts.service import http
+
+URL = 'http://testphp.vulnweb.com/AJAX/infoartist.php?id=3'
+
+http.has_sqli(URL)
+----
+
+.Results from executing ex1_close.py
+[source, bash]
+----
+$ python ex1_close.py
+Loading modules...
+2018-02-09 11:16:04,923 - FLUIDAsserts - INFO - CLOSE: http://testphp.vulnweb.com/AJAX/infoartist.php?id=3 Bad text not present
+----
+
+=== Cross-Site Scripting
+
+.ex2_open.py: Verify if XSS still present
+[source, python, linenum]
+----
+from fluidasserts.service import http
+
+URL = 'http://testphp.vulnweb.com/guestbook.php'
+BAD_TEXT = r"<script>alert\('Hacked by FLUID'\)</script>"
+
+DATA = 'name=test&text=%3Cscript%3Ealert%28%27Hacked+by+FLUID%27%29%3C%2Fscript%3E&submit=add+message'
+http.has_xss(URL, BAD_TEXT, data=DATA)
+----
+
+.Results from executing ex2_open.py
+[source, bash]
+----
+$ python ex2_open.py
+Loading modules...
+2018-02-09 11:17:55,375 - FLUIDAsserts - INFO - OPEN: http://testphp.vulnweb.com/guestbook.php Bad text present, Details=<script>alert\('Hacked by FLUID'\)</script>
+----
+
+.ex2_close.py: Verify already solved XSS
+[source, python, linenum]
+----
+from fluidasserts.service import http
+
+URL = 'http://testphp.vulnweb.com/guestbook.php'
+BAD_TEXT = r"<script>alert\('Hacked by FLUID'\)</script>"
+
+DATA = 'name=test&text=Hacked+by+FLUID&submit=add+message'
+http.has_xss(URL, BAD_TEXT, data=DATA)
+----
+
+.Results from executing ex2_close.py
+[source, bash]
+----
+$ python ex2_close.py
+Loading modules...
+2018-02-09 11:19:28,075 - FLUIDAsserts - INFO - CLOSE: http://testphp.vulnweb.com/guestbook.php Bad text not present, Details=<script>alert\('Hacked by FLUID'\)</script>
+----
+
+=== Breaking the Continuous Integration pipeline
+
+.ex1_open.py: Verify if SQL Injection still present
+[source, python, linenum]
+----
+from fluidasserts.service import http
+
+URL = 'http://testphp.vulnweb.com/AJAX/infoartist.php?id=3%27'
+
+http.has_sqli(URL)
+----
+
+.Execution result breaking the pipeline
+[source, bash]
+----
+$ export FA_STRICT="false"
+$ python ex1_open.py
+Loading modules...
+2018-02-09 11:19:55,339 - FLUIDAsserts - INFO - OPEN: http://testphp.vulnweb.com/AJAX/infoartist.php?id=3%27 Bad text present, Details=Warning.*mysql_.*
+$ echo $?
+0
+$ export FA_STRICT="true"
+$ python ex1_open.py
+Loading modules...
+2018-02-09 11:20:07,758 - FLUIDAsserts - INFO - OPEN: http://testphp.vulnweb.com/AJAX/infoartist.php?id=3%27 Bad text present, Details=Warning.*mysql_.*
+$ echo $?
+1
+$
+----
+
+== Licence
+
+Write us at relations@fluid.la to obtain
+information about licences.
