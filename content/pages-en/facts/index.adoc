@@ -1,12 +1,12 @@
 :slug: facts/
-:description: TODO
-:keywords: TODO
+:description: In this page we show some interesting facts about our company. FLUID is an enterprise conformed by highly qualified personnel in several areas of information security. If you want to know more about us here we present some of our main achievements and acknowledgments.
+:keywords: FLUID, Facts, Awards,  Achievements, Acknowledgments, About Us.
 
 = Facts
 
 * We are the first company certified in ISO 27001 in Colombia (2006).
-* We are the first company to have and Integrated Management System with ISO 9K and ISO 27K (2006).
-* We are selected by the Colombian Institute of Science to improve our process based on CMMI-DEV (2009).
-* We win the Hacking National Championship organized by Universidad Pontificia Bolivariana de Medellín (2007).
+* We are the first company to have an Integrated Management System with ISO 9K and ISO 27K (2006).
+* We were selected by the Colombian Institute of Science to improve our process based on CMMI-DEV (2009).
+* We won the Hacking National Championship organized by Universidad Pontificia Bolivariana de Medellín (2007).
 * We discover multiple vulnerabilities in massive deployed software developed in USA, Germany and Spain.
-* We have bilingual personel in all the roles necesary for a project. More than 400 projects with an overall satisfaction superior to 85%.
+* We have bilingual personnel in all the necessary roles for a project. More than 400 projects with an overall satisfaction superior to 85%.
