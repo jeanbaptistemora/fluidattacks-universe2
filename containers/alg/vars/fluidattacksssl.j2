@@ -1,0 +1,98 @@
+<IfModule mod_ssl.c>
+<VirtualHost *:{{ https_port }}>
+    ServerName fluidattacks.com
+    Options  +Indexes +Multiviews +FollowSymLinks
+	ServerAdmin {{ server_admin }}
+	proxyErrorOverride on
+
+    # Sitemap
+        RewriteRule ^/sitemap.xml$                https://fluidattacks.com/web/sitemap.xml    [P,L]
+	    ProxyPassReverse /sitemap.xml  https://fluidattacks.com/web/sitemap.xml
+
+    # Moodle
+        RewriteRule ^/courses(.*)                http://fluidattacks.com:8080$1     [P,L]
+        ProxyPassReverse /courses http://fluidattacks.com:8080
+
+    # Favicon KB
+	    Substitute "s|type=\"image/x-icon\".*href=\".*|type=\"image/x-icon\" href=\"https://app.knowledgeowl.com/app/image/id/54f110f97cb829fd677b23d4/n/favicon_fluid.png\">|i"
+	    Substitute "s|<a href=\"//kb.fluidattacks.com/help/article/link/|<a href=\"//fluidattacks.com/help/article/link/|i"
+
+    # Lineas de negocio
+        Redirect /consulting {{ mainsite2 }}
+        Redirect /testing {{ mainsite2 }}
+        Redirect /intelligence {{ mainsite2 }}
+
+    # Formstack
+        RewriteRule ^/forms(.*)                https://fluidsignal.formstack.com/forms$1     [P,L]
+        ProxyPassReverse /forms https://fluidsignal.formstack.com/forms
+
+    #Integrates
+        RewriteEngine on
+        RewriteRule ^/integrates(.*)$           https://fluidattacks.com:8000/$1        [P,L]
+        ProxyPassReverse /integrates https://fluidattacks.com:8000
+        RewriteRule ^/assets(.*)$           https://fluidattacks.com:8000/assets$1        [P,L]
+        ProxyPassReverse /assets https://fluidattacks.com:8000/assets
+        RewriteRule ^/oauth(.*)$           https://fluidattacks.com:8000/oauth$1        [P,L]
+        ProxyPassReverse /oauth https://fluidattacks.com:8000/oauth
+        RewriteRule ^/index(.*)$           https://fluidattacks.com:8000/index$1        [P,L]
+        ProxyPassReverse /index https://fluidattacks.com:8000/index
+        RewriteRule ^/registration(.*)$           https://fluidattacks.com:8000/registration$1        [P,L]
+        ProxyPassReverse /registration https://fluidattacks.com:8000/registration
+        RewriteRule ^/errors$           https://fluidattacks.com/integrates/error401        [P,L]
+        ProxyPassReverse /errors https://fluidattacks.com/integrates/error401
+
+    # KB - Knowledgeowl
+	    Header edit Location ^http://kb.fluidattacks.com(.*)$ https://fluidattacks.com$1
+        Header edit Set-Cookie kb.fluidattacks.com fluidattacks.com
+        RewriteRule ^/kb$           http://kb.fluidattacks.com/help/readerlogin        [P,L]
+        ProxyPassReverse /kb http://kb.fluidattacks.com/help/readerlogin
+        RewriteRule ^/help(.*)           http://kb.fluidattacks.com/help$1        [P,L]
+        ProxyPassReverse /help http://kb.fluidattacks.com/help
+
+    # Blog
+        RewriteRule ^/web(.*)$           http://web.fluidattacks.com/web$1        [P,L]
+        ProxyPassReverse /web http://web.fluidattacks.com/web
+
+        Substitute "s|http://blog.fluidattacks.com/|https://fluidattacks.com/web/|i"
+
+    AddOutputFilterByType INFLATE;SUBSTITUTE;DEFLATE text/html text/plain text/xml
+        Substitute "s|http://(\w+)\.fluidattacks.com/(.*)|https://$1.fluidattacks.com/$2|i"
+        Substitute "s|http://fluidattacks.com/(.*)|https://fluidattacks.com/$1|i"
+    ErrorLog {{ error_log }}
+    CustomLog {{ custom_log }} combined
+	LogLevel {{ log_level }}
+
+    #Pagina WEB
+        RewriteEngine on
+        RewriteRule ^/services/permanent-hacking                {{ landing }}services/permanent-hacking/ [P]
+        RewriteRule ^/$         {{ landing }} [P]
+        RewriteRule ^/(.*)           {{ landing }}/$1        [P]
+        ProxyPassReverse / {{ landing }}
+        ErrorDocument 401 {{ error401_page }}
+        ErrorDocument 404 {{ error_page }}
+	    ErrorDocument 405 {{ error401_page }}
+        ErrorDocument 500 {{ error500_page }}
+
+    # Configuración SSL
+	    SSLEngine on
+	    SSLProxyEngine on
+        SSLProxyVerify none
+        SSLProxyCheckPeerCN off
+	    SSLProxyCheckPeerName off
+	    SSLProxyCheckPeerExpire off
+	    SSLCertificateFile    /etc/ssl/certs/fluidla.crt
+	    SSLCertificateKeyFile /etc/ssl/private/fluidla.key
+
+	<FilesMatch "\.(cgi|shtml|phtml|php)$">
+		SSLOptions +StdEnvVars
+	</FilesMatch>
+	<Directory /usr/lib/cgi-bin>
+		SSLOptions +StdEnvVars
+	</Directory>
+
+	BrowserMatch ".*MSIE.*" \
+	nokeepalive ssl-unclean-shutdown \
+	downgrade-1.0 force-response-1.0
+
+</VirtualHost>
+</IfModule>

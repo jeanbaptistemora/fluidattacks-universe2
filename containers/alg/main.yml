@@ -66,6 +66,12 @@
       dest: "/etc/apache2/sites-enabled/fluid.la"
       mode: "0644"
 
+   - name: Creando fluidattacks.com
+     template:
+      src: "vars/fluidattacks.j2"
+      dest: "/etc/apache2/sites-enabled/fluidattacks.com"
+      mode: "0644"
+
    - name: Creando www.fluid.la
      template:
       src: "vars/www.fluid.la.j2"
@@ -100,6 +106,12 @@
      template:
       src: "vars/defaultssl.j2"
       dest: "/etc/apache2/sites-enabled/default-ssl"
+      mode: "0644"
+
+   - name: Creando sitio ssl
+     template:
+      src: "vars/fluidattacksssl.j2"
+      dest: "/etc/apache2/sites-enabled/fluidattacks-ssl"
       mode: "0644"
 
    - name: Retirar index
