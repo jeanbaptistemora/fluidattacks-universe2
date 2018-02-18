@@ -1,6 +1,6 @@
 /**
  * @file app.js
- * @author engineering@fluid.la
+ * @author engineering@fluidattacks.com
  */
 /**
  * Obtiene una cookie atraves de su nombre

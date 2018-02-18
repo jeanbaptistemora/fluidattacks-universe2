@@ -1,6 +1,6 @@
 /**
  * @file ProjectCtrl.js
- * @author engineering@fluid.la
+ * @author engineering@fluidattacks.com
  */
 /* Table Formatter */
 function removeHour(value, row, index){

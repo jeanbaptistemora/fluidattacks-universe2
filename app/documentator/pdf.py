@@ -403,7 +403,7 @@ class FindingPDFMaker(object):
         full_project += " [" + project + "]"
         team = "Engineering Team"
         version = "v1.0"
-        team_mail = "engineering@fluid.la"
+        team_mail = "engineering@fluidattacks.com"
         main_pie_filename = self.make_pie_finding(
             findings,
             project,

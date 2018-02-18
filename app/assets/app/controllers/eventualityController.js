@@ -1,6 +1,6 @@
 /**
  * @file eventualityController.js
- * @author engineering@fluid.la
+ * @author engineering@fluidattacks.com
  */
 /**
  * Cambia el formato de una de las columnas de la tabla de eventualidades

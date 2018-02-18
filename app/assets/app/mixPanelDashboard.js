@@ -1,6 +1,6 @@
 /**
  * @file mixPanelDashboard.js
- * @author engineering@fluid.la
+ * @author engineering@fluidattacks.com
  */
 /*
  * Object to control mixpanel calls

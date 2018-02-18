@@ -2,7 +2,7 @@
 from ..dao import integrates_dao
 from ..mailer import send_mail_new_user
 
-FLUID_DOMAIN = '@fluid.la'
+FLUID_DOMAIN = '@fluidattacks.com'
 
 # pylint: disable=W0613
 def create_user(strategy, details, backend, user=None, *args, **kwargs):
@@ -18,8 +18,8 @@ def create_user(strategy, details, backend, user=None, *args, **kwargs):
     if user:
         integrates_dao.update_user_login_dao(user)
     else:
-        to = ["aroldan@fluid.la", "glopez@fluid.la", "projects@fluid.la",
-              "production@fluid.la", "technology@fluid.la"]
+        to = ["aroldan@fluidattacks.com", "glopez@fluidattacks.com", "projects@fluidattacks.com",
+              "production@fluidattacks.com", "technology@fluidattacks.com"]
         name = first_name + ' ' + last_name
         context = {
             'name_user': name,

@@ -1,6 +1,6 @@
 /**
  * @file findingcontentCtrl.js
- * @author engineering@fluid.la
+ * @author engineering@fluidattacks.com
  */
 /**
  * Funciones para administrar el UI del resumen de un hallazgo

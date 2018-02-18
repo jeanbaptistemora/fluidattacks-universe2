@@ -1,7 +1,7 @@
 = FLUIDIntegrates
 :lang:                   es
 :author:                 Enginering Team
-:email:		         engineering@fluid.la
+:email:		         engineering@fluidattacks.com
 :revnumber:              v1.0
 :revdate:                2017
 :toc:                    macro
@@ -154,7 +154,7 @@ Checking connectivity... done.
 [source, console]
 ----
 $ git config --global user.name "Faustino Asprilla"
-$ git config --global user.email fasprilla@fluid.la
+$ git config --global user.email fasprilla@fluidattacks.com
 ----
 
 * Usted puede verificar si los cambios estan registrados mediante la orden:
@@ -162,7 +162,7 @@ $ git config --global user.email fasprilla@fluid.la
 [source, console]
 ----
 $ git config --list
-user.email=fasprilla@fluid.la
+user.email=fasprilla@fluidattacks.com
 user.name=Faustino Asprilla
 alias.ahead=log origin/master..HEAD --oneline
 push.default=matching
@@ -264,7 +264,7 @@ link: _https://www.npmjs.com/_.
 
 * El archivo _**.envrc**_ contiene todas las variables de entorno para el correcto funcionamiento de Integrates,
   por razones de seguridad el archivo no se encuentra en el repositorio. Para una copia por favor contactar a
-  _jrestrepo@fluid.la_.
+  _jrestrepo@fluidattacks.com_.
 
 * Es necesario agregar la siguiente línea:  _**eval "$(direnv hook bash)"**_  al
   final del archivo que se despliega al ejecutar el comando:

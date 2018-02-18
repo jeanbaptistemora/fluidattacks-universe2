@@ -1,6 +1,6 @@
 /**
  * @file dashboardController.js
- * @author engineering@fluid.la
+ * @author engineering@fluidattacks.com
  */
 /**
  * Crea el controlador de las funciones del dashboard

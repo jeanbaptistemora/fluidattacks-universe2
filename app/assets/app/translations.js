@@ -1,6 +1,6 @@
 /**
  * @file translations.js
- * @author engineering@fluid.la
+ * @author engineering@fluidattacks.com
  */
  /**
  * Establece la configuracion de las traducciones de integrates

@@ -320,7 +320,7 @@ def get_eventualities(request):
         return util.response(dataset, 'Success', False)
     elif category == "ID":
         # Only fluid can filter by id
-        if "@fluid.la" not in username:
+        if "@fluidattacks.com" not in username:
             rollbar.report_message('Error: Access to project denied', 'error', request)
             return util.response(dataset, 'Access denied', True)
         if not project.isdigit():
@@ -660,7 +660,7 @@ def delete_finding(request):
         if result is None:
             rollbar.report_message('Error: An error ocurred deleting finding', 'error', request)
             return util.response([], 'Error', True)
-        to = ["engineering@fluid.la"]
+        to = ["engineering@fluidattacks.com"]
         send_mail_delete_finding(to, context)
         return util.response([], 'Success', False)
     except KeyError:
@@ -682,9 +682,9 @@ def finding_solved(request):
     # Send email parameters
     try:
         to = [x[0] for x in recipients]
-        to.append('concurrent@fluid.la')
-        to.append('projects@fluid.la')
-        to.append('ralvarez@fluid.la')
+        to.append('concurrent@fluidattacks.com')
+        to.append('projects@fluidattacks.com')
+        to.append('ralvarez@fluidattacks.com')
         context = {
            'project': parameters['data[project]'],
            'finding_name': parameters['data[finding_name]'],
@@ -715,9 +715,9 @@ def finding_verified(request):
     # Send email parameters
     try:
         to = [x[0] for x in recipients]
-        to.append('concurrent@fluid.la')
-        to.append('projects@fluid.la')
-        to.append('ralvarez@fluid.la')
+        to.append('concurrent@fluidattacks.com')
+        to.append('projects@fluidattacks.com')
+        to.append('ralvarez@fluidattacks.com')
         context = {
            'project': parameters['data[project]'],
            'finding_name': parameters['data[finding_name]'],
@@ -786,7 +786,7 @@ def add_comment(request):
     try:
         recipients = integrates_dao.get_project_users(data['data[project]'].lower())
         to = [x[0] for x in recipients]
-        to.append = ['concurrent@fluid.la']
+        to.append = ['concurrent@fluidattacks.com']
         comment_content = data['data[content]'].replace('\n', ' ')
         context = {
            'project': data['data[project]'],

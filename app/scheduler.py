@@ -18,8 +18,8 @@ def get_new_findings():
             # Send email parameters
             recipients = integrates_dao.get_project_users(project)
             to = [x[0] for x in recipients]
-            to.append('engineering@fluid.la')
-            to.append('projects@fluid.la')
+            to.append('engineering@fluidattacks.com')
+            to.append('projects@fluidattacks.com')
             if new_findings > cur_findings:
                 delta = new_findings - cur_findings
                 gen_dto = FindingDTO()
@@ -47,7 +47,7 @@ def get_remediated_findings():
     """ Envio de correo resumen con los hallazgos pendientes de verificar """
     findings = integrates_dao.get_remediated_allfindings_dynamo(True)
     if findings != []:
-        to = ['concurrent@fluid.la']
+        to = ['concurrent@fluidattacks.com']
         context = {'findings': list()}
         cont = 0
         for finding in findings:

@@ -2,7 +2,7 @@
 FROM debian:jessie-slim
 
 # Dudas sobre la imagen en cuestion
-MAINTAINER FLUID Engineering Team <engineering@fluid.la>
+MAINTAINER FLUID Engineering Team <engineering@fluidattacks.com>
 
 ENV DEBIAN_FRONTEND noninteractive      # instalación no interactiva
 ENV TZ=America/Bogota
