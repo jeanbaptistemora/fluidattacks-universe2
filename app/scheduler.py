@@ -47,7 +47,7 @@ def get_remediated_findings():
     """ Envio de correo resumen con los hallazgos pendientes de verificar """
     findings = integrates_dao.get_remediated_allfindings_dynamo(True)
     if findings != []:
-        to = ['concurrent@fluidattacks.com']
+        to = ['continuous@fluidattacks.com']
         context = {'findings': list()}
         cont = 0
         for finding in findings:
