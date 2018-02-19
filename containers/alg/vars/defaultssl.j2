@@ -54,8 +54,8 @@
         ProxyPassReverse /help http://kb.fluid.la/help
 
     # Blog
-        RewriteRule ^/web(.*)$           http://web.fluid.la/web$1        [P,L]
-        ProxyPassReverse /web http://web.fluid.la/web
+        RewriteRule ^/web(.*)$           https://fluidattacks.com/web$1        [P,L]
+        ProxyPassReverse /web https://fluidattacks.com/web
 
         Substitute "s|http://blog.fluid.la/|https://fluid.la/web/|i"
 
@@ -68,9 +68,10 @@
 
     #Pagina WEB
         RewriteEngine on
-        RewriteRule ^/$         {{ landing }} [P]
-        RewriteRule ^/(.*)           {{ landing }}/$1        [P]
-        ProxyPassReverse / {{ landing }}
+        RewriteRule ^/$         https://fluidattacks.com/ [R]
+        RewriteRule ^/(.*)           https://fluidattacks.com$1        [R]
+        ProxyPassReverse / https://fluidattacks.com/
+        ErrorDocument 401 {{ error_page }}
         ErrorDocument 401 {{ error401_page }}
 	    ErrorDocument 405 {{ error401_page }}
         ErrorDocument 500 {{ error500_page }}

@@ -65,8 +65,9 @@
     #Pagina WEB
         RewriteEngine on
         RewriteRule ^/$         {{ landing }} [P]
-        RewriteRule ^/(.*)           {{ landing }}/$1        [P]
+        RewriteRule ^/(.*)           {{ landing }}$1        [P]
         ProxyPassReverse / {{ landing }}
+        ErrorDocument 401 {{ error_page }}
         ErrorDocument 401 {{ error401_page }}
 	    ErrorDocument 405 {{ error401_page }}
         ErrorDocument 500 {{ error500_page }}
