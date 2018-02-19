@@ -8,7 +8,7 @@ sys.setdefaultencoding("utf-8")
 # Site information
 AUTHOR = 'FLUID'
 SITENAME = 'A Pentesting Company | FLUID'
-SITEURL = 'https://fluid.la/web/en'
+SITEURL = 'https://fluidattacks.com/web/en'
 
 # Theme
 THEME = 'theme/2014'
@@ -81,7 +81,7 @@ JINJA_ENVIRONMENT = {'extensions': ['jinja2.ext.i18n']}
 I18N_SUBSITES = {
     'es': {
         'SITENAME': 'Especialistas en Ethical Hacking | FLUID',
-        'SITEURL': 'https://fluid.la/web/es',
+        'SITEURL': 'https://fluidattacks.com/web/es',
         'OUTPUT_PATH': 'output/web/es',
         'THEME': 'theme/2014',
         'ARTICLE_PATHS': ['blog-es'],
@@ -106,8 +106,8 @@ I18N_SUBSITES = {
     }
 }
 lang_siteurls = {
-     'en': 'https://fluid.la/web/en',
-     'es': 'https://fluid.la/web/es',
+     'en': 'https://fluidattacks.com/web/en',
+     'es': 'https://fluidattacks.com/web/es',
 }
 REDIRECT_SAVE_AS = PAGE_SAVE_AS
 ASSET_BUNDLES = (

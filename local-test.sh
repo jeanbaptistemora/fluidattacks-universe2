@@ -11,7 +11,7 @@ echo "Removing older builds (2/5) . . ."
 rm -rf ./output
 
 echo "Generating build (3/5) . . ."
-sed -i 's/https:\/\/fluid.la/http:\/\/localhost:8000/' pelicanconf.py
+sed -i 's/https:\/\/fluidattacks.com/http:\/\/localhost:8000/' pelicanconf.py
 if [ ! $# -eq 0 ]; then
   sed -i 's/2014/2018/g; s/pages-en/pages-en-2018/g; s/pages-es/pages-es-2018/g' pelicanconf.py
 fi
