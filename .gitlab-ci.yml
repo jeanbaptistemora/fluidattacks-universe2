@@ -69,9 +69,9 @@ manage:
 fluidasserts:
     stage: test
     script:
-        - docker login fluid-docker.jfrog.io -u $CONCURRENT_USER -p $CONCURRENT_PASS
+        - docker login fluid-docker.jfrog.io -u $CONTINUOUS_USER -p $CONTINUOUS_PASS
         - docker pull fluid-docker.jfrog.io/fluid:integrates
-        - docker run --network integrates_test -e ORG=fluid -e APP=integrates -e USER=$CONCURRENT_USER -e PASS=$CONCURRENT_PASS -e FA_STRICT="false" fluid-docker.jfrog.io/fluid:integrates
+        - docker run --network integrates_test -e ORG=fluid -e APP=integrates -e USER=$CONTINUOUS_USER -e PASS=$CONTINUOUS_PASS -e FA_STRICT="false" fluid-docker.jfrog.io/fluid:integrates
 
 Prospector_app:
     stage: test

@@ -242,12 +242,12 @@ integrates.controller("findingcontentCtrl", function($scope, $stateParams, $time
                 } else {
                   $scope.isClosed = false;
                 }
-                if($scope.finding.suscripcion == "Concurrente" || $scope.finding.suscripcion == "Si"){
-                  $scope.isConcurrent = true;
+                if($scope.finding.suscripcion == "Continua" || $scope.finding.suscripcion == "Concurrente" || $scope.finding.suscripcion == "Si"){
+                  $scope.isContinuous = true;
                 } else {
-                  $scope.isConcurrent = false;
+                  $scope.isContinuous = false;
                 }
-                if($scope.finding.suscripcion != 'Concurrente' && $scope.finding.suscripcion != 'Puntual'){
+                if($scope.finding.suscripcion != 'Concurrente' && $scope.finding.suscripcion != 'Puntual' && $scope.finding.suscripcion != 'Continua'){
                   Rollbar.warning("Warning: Finding " + id + " without type");
                 }
                 $scope.aux.responsable = $scope.finding.responsable_tratamiento;
@@ -571,7 +571,7 @@ integrates.controller("findingcontentCtrl", function($scope, $stateParams, $time
                 $scope.onlyReadableTab1 = true;
                 $scope.onlyReadableTab2 = true;
                 $scope.isManager = userRole != "customer";
-                if(!$scope.isManager && !$scope.isAssumed && !$scope.isClosed && $scope.isConcurrent){
+                if(!$scope.isManager && !$scope.isAssumed && !$scope.isClosed && $scope.isContinuous){
                   $('.finding-treatment').show();
                 } else {
                   $('.finding-treatment').hide();
