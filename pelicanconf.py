@@ -8,7 +8,7 @@ sys.setdefaultencoding("utf-8")
 # Site information
 AUTHOR = 'FLUID'
 SITENAME = 'A Pentesting Company | FLUID'
-SITEURL = 'https://fluid.la/web/en'
+SITEURL = 'http://localhost:8000/web/en'
 
 # Theme
 THEME = 'theme/2014'
@@ -43,6 +43,7 @@ CATEGORY_URL = 'categories/{slug}/'
 USE_FOLDER_AS_CATEGORY = False
 INDEX_SAVE_AS = 'blog/index.html'
 LANDING_SAVE_AS = 'index.html'
+ERROR_SAVE_AS = 'error/index.html'
 
 # Plugins configuration
 PLUGIN_PATHS = ['/app/pelican-plugins']
@@ -60,7 +61,7 @@ PLUGINS = [
            'tag_cloud'
 ]
 RELATED_POSTS_MAX = 3
-DIRECT_TEMPLATES = (('index', 'tags', 'categories', 'archives', 'authors', 'search', 'landing'))
+DIRECT_TEMPLATES = (('index', 'tags', 'categories', 'archives', 'authors', 'search', 'landing', 'error'))
 SITEMAP = {
     'format': 'xml',
     'priorities': {
@@ -80,7 +81,7 @@ JINJA_ENVIRONMENT = {'extensions': ['jinja2.ext.i18n']}
 I18N_SUBSITES = {
     'es': {
         'SITENAME': 'Especialistas en Ethical Hacking | FLUID',
-        'SITEURL': 'https://fluid.la/web/es',
+        'SITEURL': 'http://localhost:8000/web/es',
         'OUTPUT_PATH': 'output/web/es',
         'THEME': 'theme/2014',
         'ARTICLE_PATHS': ['blog-es'],
@@ -105,8 +106,8 @@ I18N_SUBSITES = {
     }
 }
 lang_siteurls = {
-     'en': 'https://fluid.la/web/en',
-     'es': 'https://fluid.la/web/es',
+     'en': 'http://localhost:8000/web/en',
+     'es': 'http://localhost:8000/web/es',
 }
 REDIRECT_SAVE_AS = PAGE_SAVE_AS
 ASSET_BUNDLES = (

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2018-02-16 23:28+0000\n"
+"POT-Creation-Date: 2018-02-19 19:46+0000\n"
 "PO-Revision-Date: 2017-12-21 15:09-0500\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: es\n"
@@ -25,8 +25,8 @@ msgstr "Archivos del Blog"
 #: templates/archives.html:18 templates/article.html:37
 #: templates/author.html:43 templates/authors.html:18
 #: templates/categories.html:18 templates/category.html:18
-#: templates/home.html:22 templates/index.html:22 templates/landing.html:21
-#: templates/tag.html:34 templates/tags.html:18
+#: templates/error.html:14 templates/home.html:22 templates/index.html:22
+#: templates/landing.html:21 templates/tag.html:34 templates/tags.html:18
 msgid "Young hacker smiling"
 msgstr "Joven hacker sonriendo"
 
@@ -108,6 +108,73 @@ msgstr "Tiene"
 msgid "comments"
 msgstr "comentarios"
 
+#: templates/error.html:3
+msgid "The page was not found"
+msgstr "La página no ha sido encontrada"
+
+#: templates/error.html:22
+msgid "PAGE NOT FOUND"
+msgstr "PÁGINA NO ENCONTRADA"
+
+#: templates/error.html:23
+msgid "Click the flag to view this page in spanish"
+msgstr "Haz click en la bandera para visualizar esta página en inglés"
+
+#: templates/error.html:25
+msgid "es"
+msgstr "en"
+
+#: templates/error.html:28
+msgid ""
+"It seems nothing was found in this address. Try searching or browsing to "
+"one of the following links"
+msgstr ""
+"Parece que no hay nada indexado en esta dirección. Intenta una búsqueda o"
+" haz click en uno de los siguientes links"
+
+#: templates/error.html:29 templates/footer.html:24 templates/landing.html:29
+#: templates/navigationbar.html:23
+msgid "Services"
+msgstr "Servicios"
+
+#: templates/error.html:31 templates/footer.html:24 templates/footer.html:25
+#: templates/footer.html:26 templates/landing.html:34 templates/landing.html:38
+#: templates/navigationbar.html:23 templates/navigationbar.html:25
+#: templates/navigationbar.html:26
+msgid "services"
+msgstr "servicios"
+
+#: templates/error.html:37 templates/footer.html:29
+#: templates/navigationbar.html:29
+msgid "Products"
+msgstr "Productos"
+
+#: templates/error.html:39 templates/footer.html:29 templates/footer.html:30
+#: templates/footer.html:31 templates/footer.html:32
+#: templates/navigationbar.html:29 templates/navigationbar.html:31
+#: templates/navigationbar.html:32 templates/navigationbar.html:33
+msgid "products"
+msgstr "productos"
+
+#: templates/error.html:45
+msgid "Recent Blog Entries"
+msgstr "Entradas Recientes del Blog"
+
+#: templates/error.html:56
+msgid "Blog Categories"
+msgstr "Categorías del Blo"
+
+#: templates/error.html:64 templates/footer.html:43
+#: templates/navigationbar.html:38
+msgid "Careers"
+msgstr "Empleos"
+
+#: templates/error.html:66 templates/footer.html:43 templates/footer.html:44
+#: templates/footer.html:45 templates/footer.html:46
+#: templates/navigationbar.html:38
+msgid "careers"
+msgstr "empleos"
+
 #: templates/footer.html:4
 msgid "FLUID logo"
 msgstr "Logo de FLUID"
@@ -136,11 +203,12 @@ msgstr "Logo de YouTube"
 msgid "About Us"
 msgstr "Nosotros"
 
-#: templates/footer.html:17 templates/navigationbar.html:36
-msgid "#lp-pom-block-876"
-msgstr "es/servicios/#lp-pom-block-1090"
+#: templates/footer.html:17 templates/navigationbar.html:37
+msgid "customers"
+msgstr "clientes"
 
-#: templates/footer.html:17 templates/navigationbar.html:36
+#: templates/footer.html:17 templates/landing.html:75
+#: templates/navigationbar.html:37
 msgid "Customers"
 msgstr "Clientes"
 
@@ -176,18 +244,6 @@ msgstr "terminos-uso"
 msgid "Terms of Use"
 msgstr "Términos de Uso"
 
-#: templates/footer.html:24 templates/footer.html:25 templates/footer.html:26
-#: templates/landing.html:34 templates/landing.html:38
-#: templates/navigationbar.html:23 templates/navigationbar.html:25
-#: templates/navigationbar.html:26
-msgid "services"
-msgstr "servicios"
-
-#: templates/footer.html:24 templates/landing.html:29
-#: templates/navigationbar.html:23
-msgid "Services"
-msgstr "Servicios"
-
 #: templates/footer.html:25 templates/landing.html:38
 #: templates/navigationbar.html:25
 msgid "one-shot-hacking"
@@ -205,21 +261,6 @@ msgstr "hacking-continuo"
 #: templates/footer.html:26 templates/navigationbar.html:26
 msgid "Continuous Hacking"
 msgstr "Hacking Continuo"
-
-#: templates/footer.html:29 templates/footer.html:30 templates/footer.html:31
-#: templates/footer.html:32 templates/navigationbar.html:29
-#: templates/navigationbar.html:31 templates/navigationbar.html:32
-#: templates/navigationbar.html:33
-msgid "products"
-msgstr "productos"
-
-#: templates/footer.html:29 templates/navigationbar.html:29
-msgid "Products"
-msgstr "Productos"
-
-#: templates/footer.html:33
-msgid "Knowledge Base"
-msgstr "Base de Conocimientos"
 
 #: templates/footer.html:37
 msgid "style"
@@ -249,15 +290,6 @@ msgstr "Etiquetas"
 #: templates/footer.html:40
 msgid "authors"
 msgstr "autores"
-
-#: templates/footer.html:43 templates/footer.html:44 templates/footer.html:45
-#: templates/footer.html:46 templates/navigationbar.html:37
-msgid "careers"
-msgstr "empleos"
-
-#: templates/footer.html:43 templates/navigationbar.html:37
-msgid "Careers"
-msgstr "Empleos"
 
 #: templates/footer.html:44
 msgid "reasons"
@@ -311,8 +343,10 @@ msgstr "Seguir Leyendo"
 msgid ""
 "Using a white-box methodology or code review, either on each application "
 "or the complete suite of applications we detect security issues:"
-msgstr "Usando una metodología de caja blanca o revisión de código, ya sea en cada "
-"aplicación o en el conjunto entero de aplicaciones, detectamos problemas de seguridad:"
+msgstr ""
+"Usando una metodología de caja blanca o revisión de código, ya sea en "
+"cada aplicación o en el conjunto entero de aplicaciones, detectamos "
+"problemas de seguridad:"
 
 #: templates/landing.html:33
 msgid "Two CPUs connected"
@@ -366,7 +400,9 @@ msgstr "Mano sosteniendo un símbolo de un candado"
 msgid ""
 "<strong>Generates confidence</strong> in customers and users of the "
 "applications."
-msgstr "<strong>Genera confianza</strong> en clientes y usuarios de las aplicaciones"
+msgstr ""
+"<strong>Genera confianza</strong> en clientes y usuarios de las "
+"aplicaciones"
 
 #: templates/landing.html:69
 msgid "Hand with the thumb up"
@@ -376,8 +412,19 @@ msgstr "Mano con el pulgar arriba"
 msgid ""
 "Helps improve the <strong>quality</strong> of processes, infrastructure "
 "and staff."
-msgstr "Ayuda a mejorar la <strong>calidad</strong> de los procesos, infraestructura "
-"y personal"
+msgstr ""
+"Ayuda a mejorar la <strong>calidad</strong> de los procesos, "
+"infraestructura y personal"
+
+#: templates/landing.html:77
+msgid ""
+"FLUID has been lending Information Security services in the colombian "
+"market for over 18 years. Up next, we list some of the current clients of"
+" our company."
+msgstr ""
+"FLUID lleva más de 18 años prestando servicios de Seguridad de la "
+"Información en el mercado colombiano. A continuación listamos algunos de "
+"los clientes actuales de nuestra compañía."
 
 #: templates/location.html:21 templates/location.html:30
 #: templates/location.html:66 templates/location.html:85
@@ -421,10 +468,6 @@ msgstr "Lupa"
 #: templates/navigationbar.html:19
 msgid "FLUID screw logo"
 msgstr "Tuerca logo de FLUID"
-
-#: templates/navigationbar.html:22
-msgid "fluid.la"
-msgstr "fluid.la/es/servicios/"
 
 #: templates/pagination.html:6
 msgid "Previous"
