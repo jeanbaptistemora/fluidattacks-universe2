@@ -104,8 +104,8 @@
 	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TZ3ZXPL"
 	height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 	<!-- End Google Tag Manager (noscript) -->
-        <!-- jQuery, Menu, Line Numbers in Source Code -->
-        {% assets filters="uglifyjs", output="static/js/theme.min.js", "/app/node_modules/jquery/dist/jquery.js", "js/menu.js", "js/linenum.js", "js/table-responsive.js" %}
+        <!-- jQuery, Menu, Line Numbers in Source Code, Responsive Tables and Anchors -->
+        {% assets filters="uglifyjs", output="static/js/theme.min.js", "/app/node_modules/jquery/dist/jquery.js", "js/menu.js", "js/linenum.js", "js/table-responsive.js", "js/id.js" %}
           <script type="text/javascript" src="{{ SITEURL }}/{{ ASSET_URL }}"></script>
         {% endassets %} 
     	<!-- Navigation -->
@@ -120,10 +120,6 @@
             </div>
         </div>
     </div>
-    <!-- Anchors -->
-    {% assets filters="uglifyjs", output="static/js/id.min.js", "js/id.js" %}
-      <script type="text/javascript" src="{{ SITEURL }}/{{ ASSET_URL }}"></script>
-    {% endassets %} 
     <!-- Footer -->
     {% include 'footer.html' %}
     <!-- RDStation -->
