@@ -5,7 +5,7 @@ mainsite2: https://fluidattacks.com/
 http_port: 80
 https_port: 443
 server_admin: technology@fluidattacks.com
-error_page: https://fluid.la/web/en/error/
+error_page: https://fluidattacks.com/web/en/error/
 error500_page: https://fluid.la/integrates/error500
 error401_page: /errors/
 servername: fluid.la
