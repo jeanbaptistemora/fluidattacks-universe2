@@ -1,0 +1,233 @@
+:slug: kb/cobol/limitar-vida-util-datos-sensibles/
+:category: java
+:description: Nuestros ethical hackers explican cómo evitar vulnerabilidades de seguridad mediante la creación, manipulación y eliminación correcta de datos, recursos y objetos dentro de un programa Java. Con el fin de evitar que información confidencial disponible en memoria, sea vulnerable y que un atacante pueda aprovecharse de dicha situación.
+:keywords: Java, información, sensible, confidencial, datos, objetos, credenciales, lectura segura, lectura no segura, tiempo de vida.
+:kb: yes
+
+= Limitar el tiempo de vida de datos sensibles
+
+== Necesidad
+
+Eliminar (limpiar) datos, recursos y/o objetos creados 
+por la aplicación cuando ya no estén en uso.
+
+== Contexto
+
+A continuación se describe las circunstancias 
+bajo las cuales la siguiente solución tiene sentido:
+
+. Se está desarrollando una aplicación en +Java+.
+. El código debe eliminar información sensible en memoria.
+. El código debe limitar el tiempo de vida de los objetos creados 
+dentro de la aplicación.
+
+== Solución
+
+Cuando información confidencial está disponible en memoria, 
+ésta puede ser vulnerable 
+y un atacante que pueda ejecutar código malicioso en el mismo sistema, 
+podría acceder a dicha información si la aplicación<<r1,^[1]^>>:
+
+* Utiliza objetos para almacenar información sensible 
+cuyo contenido no es "clareado" o limpiado 
+sino hasta que el recolector de basura los elimina.
+
+* Tiene páginas de memoria 
+que se pueden intercambiar en el disco 
+según lo requiera el sistema operativo 
+(por ejemplo, para realizar tareas de administración de memoria 
+o para admitir la hibernación).
+
+* Mantiene datos sensibles en un búfer (por ejemplo +BufferedReader+), 
+el cual mantiene copias de datos en la caché del sistema operativo o en memoria.
+
+* Basa su flujo de control en la reflexión 
+que permite que las contramedidas 
+eludan la limitación de la vida útil de las variables sensibles.
+
+* Revela datos confidenciales en mensajes de depuración, 
+archivos de registro (+logs+), variables de entorno 
+o mediante volcados de hilos y núcleos.
+
+La fuga de información confidencial 
+es más probable si la memoria que contiene los datos 
+no se borra después de usar dicha información. 
+Para limitar el riesgo de exposición, 
+los programas deben minimizar la vida útil de dichos datos sensibles.
+
+* *Lectura no segura de credenciales:*
+
+. A continuación se describe un código de ejemplo, 
+el cual no cumple con las normas de seguridad expuestas anteriormente:
++
+El siguiente bloque de código +Java+, declara la clase +Password+ 
+y dentro de ella se define el método +Main+:
++
+.password.java
+[source, java, linenums]
+----
+class Password {
+  public static void main (String args[]) throws IOException {
+----
+
+. A continuación se lee la información del nombre de usuario y la contraseña 
+desde la consola y se almacenan como objetos de tipo +String+:
++
+[source, java, linenums]
+----
+    Console c = System.console();
+    if (c == null) {
+      System.err.println("No console.");
+      System.exit(1);
+    }
+ 
+    String username = c.readLine("Enter your user name: ");
+    String password = c.readLine("Enter your password: ");
+ 
+    if (!verify(username, password)) {
+      throw new SecurityException("Invalid Credentials");
+    }
+ 
+  }
+ 
+  // Validación simulada, siempre devuelve +true+
+  private static final boolean verify(String username, String password) {
+    return true;
+  }
+}
+----
++
+En el anterior bloque de código 
+las credenciales permanecen expuestas 
+hasta que el recolector de basura 
+recupera la memoria asociada a dichas cadenas.
+
+* *Lectura segura de credenciales:*
+
+. Con el fin de dar solución a lo anterior, 
+se modificó el bloque de código de tal forma 
+que se utilice el método +Console.readPassword()+ 
+para obtener la contraseña desde la consola:
++
+[source, java, linenums]
+----
+class Password {
+  public static void main (String args[]) throws IOException {
+    Console c = System.console();
+     
+    if (c == null) {
+      System.err.println("No console.");
+      System.exit(1);
+    }
+ 
+    String username = c.readLine("Enter your user name: ");
+    char[] password = c.readPassword("Enter your password: ");
+    boolean isValidUser = verify(username, password);
+ 
+    // limpiar la contraseña
+    Arrays.fill(password,' ');
+ 
+    if (!isValidUser) {
+      throw new SecurityException("Invalid Credentials");
+    }
+ 
+  }
+ 
+  // Validación simulada, siempre devuelve +true+ 
+  private static final boolean verify(String username, char[] password) {
+    return true;
+  }
+}
+----
++
+El método +Console.readPassword()+ permite que la contraseña 
+sea retornada como una secuencia de caracteres 
+en lugar de como un objeto +String+. 
+Por lo tanto, no sobrevivirá a la recolección de elementos no utilizados, 
+incluso si coincide con otra cadena. 
+En consecuencia, el programador puede borrar la contraseña 
+inmediatamente después de su uso.
+
+* *Lectura no segura de ficheros:*
+
+. El siguiente bloque de código +Java+ 
+especifica el método +readData+ 
+donde se declara un objeto de la clase +BufferedReader+<<r2,^[2]^>> 
+cuyo constructor recibe como parámetro un objeto +InputStreamReader+ 
+quien a su vez espera por un nuevo objeto +FileInputStream+. 
+Lo anterior permite leer datos confidenciales 
+desde un archivo:
++
+[source, java, linenums]
+----
+void readData() throws IOException {
+  BufferedReader br = new BufferedReader(new InputStreamReader(
+  new FileInputStream("file")));
+  // Leer desde el fichero
+  String data = br.readLine();
+}
+----
++
+El método +BufferedReader.readLine+ retorna los datos confidenciales 
+como un objeto +String+, 
+los cuales pueden permanecer activos 
+incluso mucho tiempo después de que ya no son necesarios. 
+El método +BufferedReader.read (char [], int, int)+ 
+puede leer y completar una matriz de tipo +char+. 
+Sin embargo, requiere que el programador 
+borre manualmente los datos confidenciales en la matriz después de su uso. 
+Alternativamente, incluso si el +BufferedReader+ 
+fuera a envolver un objeto +FileReader+, 
+sufriría los mismos inconvenientes.
+
+* *Lectura segura de ficheros:*
+
+. Para solucionar lo anterior, 
+se utiliza un búfer +NIO (new I/O)+ asignado directamente 
+para leer datos confidenciales del archivo. 
+Con lo cual, éstos se pueden borrar inmediatamente después del uso 
+y no se almacenan en la memoria caché ni en el búfer en varias ubicaciones. 
+Existe solo en la memoria del sistema:
++
+[source, java, linenums]
+----
+void readData() {
+  int bufferSize = 16 * 1024;
+  byte zeroes = new byte[bufferSize];
+  ByteBuffer buffer = ByteBuffer.allocateDirect(bufferSize);
+  try (FileChannel rdr = (new FileInputStream("file")).getChannel()) {
+    while (rdr.read(buffer) > 0) {
+ 
+      // Hacer algo con el búfer
+ 
+      buffer.clear();
+      buffer.put(zeroes); // sobrescribir el búfer con ceros
+      buffer.clear();
+    }
+  } catch (Throwable e) {
+    // Manejar el error
+  }
+}
+----
++
+Note que la eliminación manual de los datos del búfer es obligatoria 
+porque los búfer directos no son recogidos por el recolector de basura.
+
+== Descargas
+
+Puedes descargar el código fuente 
+pulsando en los siguientes enlaces:
+
+. [button]#link:src/password.java[password.java >>]# contiene 
+todas las instrucciones +Java+ 
+para el manejo de credenciales de manera segura.
+
+. [button]#link:src/readdata.txt[readdata.txt >>]# contiene 
+la definición del método +readData+ 
+el cual puede ser implementado en cualquier clase +Java+ 
+que requiera la manipulación segura de ficheros.
+
+== Referencias
+
+. [[r1]] link:https://wiki.sei.cmu.edu/confluence/display/java/MSC59-J.+Limit+the+lifetime+of+sensitive+data[MSC59-J. Limit the lifetime of sensitive data].
+. [[r2]] link:https://docs.oracle.com/javase/7/docs/api/java/io/BufferedReader.html[Class BufferedReader].
