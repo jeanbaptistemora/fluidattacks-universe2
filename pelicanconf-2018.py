@@ -8,26 +8,26 @@ sys.setdefaultencoding("utf-8")
 # Site information
 AUTHOR = 'FLUID'
 SITENAME = 'A Pentesting Company | FLUID'
-SITEURL = 'https://fluid.la/web/en'
+SITEURL = '/web/en'
 
 # Theme
-THEME = 'theme/2014'
+THEME = 'theme/2018'
 
 # Date and time configuration
 TIMEZONE = 'America/Bogota'
 DEFAULT_DATE_FORMAT = ('%Y-%m-%d')
 DEFAULT_LANG = 'en'
-OUTPUT_PATH = 'output/web/en'
+OUTPUT_PATH = 'public/en'
 
 # URLs format
 PATH = 'content'
 ARTICLE_PATHS = ['blog-en']
-PAGE_PATHS = ['pages-en']
-STATIC_PATHS = ['images', 'files', 'blog-en', 'pages-en']
+PAGE_PATHS = ['pages-en-2018']
+STATIC_PATHS = ['images', 'files', 'blog-en', 'pages-en-2018']
 ARTICLE_URL = 'blog/{slug}'
 ARTICLE_SAVE_AS = 'blog-en/{slug}index.html'
 PAGE_URL = '{slug}'
-PAGE_SAVE_AS = 'pages-en/{slug}index.html'
+PAGE_SAVE_AS = 'pages-en-2018/{slug}index.html'
 TAGS_SAVE_AS = 'tags/index.html'
 TAGS_URL = 'tags/'
 TAG_SAVE_AS = 'tags/{slug}/index.html'
@@ -41,9 +41,6 @@ CATEGORIES_URL = 'categories/'
 CATEGORY_SAVE_AS = 'categories/{slug}/index.html'
 CATEGORY_URL = 'categories/{slug}/'
 USE_FOLDER_AS_CATEGORY = False
-INDEX_SAVE_AS = 'blog/index.html'
-LANDING_SAVE_AS = 'index.html'
-ERROR_SAVE_AS = 'error/index.html'
 
 # Plugins configuration
 PLUGIN_PATHS = ['/app/pelican-plugins']
@@ -61,7 +58,7 @@ PLUGINS = [
            'tag_cloud'
 ]
 RELATED_POSTS_MAX = 3
-DIRECT_TEMPLATES = (('index', 'tags', 'categories', 'archives', 'authors', 'search', 'landing', 'error'))
+DIRECT_TEMPLATES = (('index', 'tags', 'categories', 'archives', 'authors', 'search'))
 SITEMAP = {
     'format': 'xml',
     'priorities': {
@@ -81,14 +78,14 @@ JINJA_ENVIRONMENT = {'extensions': ['jinja2.ext.i18n']}
 I18N_SUBSITES = {
     'es': {
         'SITENAME': 'Especialistas en Ethical Hacking | FLUID',
-        'SITEURL': 'https://fluid.la/web/es',
-        'OUTPUT_PATH': 'output/web/es',
-        'THEME': 'theme/2014',
+        'SITEURL': '/web/es',
+        'OUTPUT_PATH': 'public/es',
+        'THEME': 'theme/2018',
         'ARTICLE_PATHS': ['blog-es'],
-        'PAGE_PATHS': ['pages-es', 'kb'],
-        'PAGE_SAVE_AS': 'pages-es/{slug}index.html',
+        'PAGE_PATHS': ['pages-es-2018', 'kb'],
+        'PAGE_SAVE_AS': 'pages-es-2018/{slug}index.html',
         'ARTICLE_SAVE_AS': 'blog-es/{slug}index.html',
-        'STATIC_PATHS': ['files', 'images', 'blog-es', 'kb', 'pages-es'],
+        'STATIC_PATHS': ['files', 'images', 'blog-es', 'kb', 'pages-es-2018'],
         'GOOGLE_ANALYTICS': 'UA-22974464-4',
         'TAGS_SAVE_AS': 'etiquetas/index.html',
         'TAGS_URL': 'etiquetas/',
@@ -106,8 +103,8 @@ I18N_SUBSITES = {
     }
 }
 lang_siteurls = {
-     'en': 'https://fluid.la/web/en',
-     'es': 'https://fluid.la/web/es',
+     'en': '/web/en',
+     'es': '/web/es',
 }
 REDIRECT_SAVE_AS = PAGE_SAVE_AS
 ASSET_BUNDLES = (
