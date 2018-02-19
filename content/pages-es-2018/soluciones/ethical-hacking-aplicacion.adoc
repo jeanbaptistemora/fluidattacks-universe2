@@ -1,6 +1,6 @@
 :slug: soluciones/ethical-hacking-aplicacion/
-:description: TODO
-:keywords: TODO
+:description: Somos una empresa dedicada a la seguridad de tecnologías de información, Ethical Hacking, pruebas de intrusión, y detección de debilidades y vulnerabilidades de seguridad en aplicaciones. En esta página presentamos nuestro servicio de Ethical Hacking enfocado en aplicaciones.
+:keywords: FLUID, Soluciones, Servicio, Ethical Hacking, Aplicación, Diagnóstico.
 :template: pages-es/soluciones/ethical-hacking-aplicacion
 
 = Ethical hacking aplicacion

@@ -1,6 +1,6 @@
 :slug: nosotros/
-:description: TODO
-:keywords: TODO
+:description: Somos una empresa dedicada a la seguridad de tecnologías de información, Ethical Hacking, pruebas de intrusión, y detección de debilidades y vulnerabilidades de seguridad en aplicaciones. Aquí te presentamos algunas de las ventajas que puedes obtener al permitirnos revisar tus aplicaciones.
+:keywords: FLUID, Información, Nosotros, Empresa, Productos, Servicios.
 :template: pages-es/nosotros
 
 = Nosotros

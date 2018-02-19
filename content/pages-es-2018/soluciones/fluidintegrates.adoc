@@ -1,6 +1,6 @@
 :slug: soluciones/productos/fluidintegrates/
-:description: TODO
-:keywords: TODO
+:description: Somos una empresa dedicada a la seguridad de tecnologías de información, Ethical Hacking, pruebas de intrusión, y detección de debilidades y vulnerabilidades de seguridad en aplicaciones. Aquí presentamos FLUIDIntegrates una plataforma multifuncional que facilita la interacción con los clientes.
+:keywords: FLUID, Soluciones, Servicios, FLUIDIntegrates, Ethical Hacking, Diagnóstico.
 :template: pages-es/soluciones/fluidintegrates
 
 = fluidintegrates
