@@ -41,7 +41,8 @@ CATEGORIES_URL = 'categories/'
 CATEGORY_SAVE_AS = 'categories/{slug}/index.html'
 CATEGORY_URL = 'categories/{slug}/'
 USE_FOLDER_AS_CATEGORY = False
-LANDING_SAVE_AS = 'landing/index.html'
+INDEX_SAVE_AS = 'blog/index.html'
+LANDING_SAVE_AS = 'index.html'
 
 # Plugins configuration
 PLUGIN_PATHS = ['/app/pelican-plugins']

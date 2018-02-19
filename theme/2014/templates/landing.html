@@ -31,11 +31,11 @@
     <div class="serv-offer">
       <div class="serv">
         <img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/serv-1.png" alt="{{ gettext('Two CPUs connected') }}">
-        <a href="../{{ gettext('services') }}/{{ gettext('continuous-hacking') }}/">{{ gettext('<strong>Continuous</strong> Hacking') }}</a>
+        <a href="{{ gettext('services') }}/{{ gettext('continuous-hacking') }}/">{{ gettext('<strong>Continuous</strong> Hacking') }}</a>
       </div>
       <div class="serv">
         <img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/serv-2.png" alt="{{ gettext('Window with a code and settings sign') }}">
-        <a href="../{{ gettext('services') }}/{{ gettext('one-shot-hacking') }}/">{{ gettext('<strong>One-Shot</strong> Hacking') }}</a>
+        <a href="{{ gettext('services') }}/{{ gettext('one-shot-hacking') }}/">{{ gettext('<strong>One-Shot</strong> Hacking') }}</a>
       </div>
     </div>
     <div class="serv-form">
@@ -72,10 +72,35 @@
     </div>
   </div>
   <div class="customers">
-    {% for page in pages if page.clients %}
-      <h1>{{ page.title }}</h1>
-      {{ page.content }}
-    {% endfor %}
+    <h1>{{ gettext('Customers') }}</h1>
+    <div class="paragraph">
+      <p>{{ gettext('FLUID has been lending Information Security services in the colombian market for over 18 years. Up next, we list some of the current clients of our company.') }}</p>
+    </div>
+    <div class="paragraph">
+      <p>
+        <span><img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/customers/bancolombia-logo.png" alt="Bancolombia"></span>
+        <span><img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/customers/aval-logo.png" alt="Aval"></span>
+        <span><img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/customers/bbva-logo.png" alt="BBVA"></span>
+        <span><img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/customers/bancamia-logo.png" alt="Bancamía"></span>
+        <span><img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/customers/colpatria-logo.png" alt="Colpatria"></span>
+        <span><img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/customers/banistmo-logo.png" alt="Banistmo"></span>
+        <span><img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/customers/asb-logo.png" alt="ASB"></span>
+        <span><img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/customers/une-tigo-logo.png" alt="Tigo Une"></span>
+        <span><img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/customers/claro-logo.png" alt="Claro"></span>
+        <span><img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/customers/xm-logo.png" alt="XM"></span>
+        <span><img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/customers/edatel-logo.png" alt="Edatel"></span>
+        <span><img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/customers/celsia-logo.png" alt="Celsia"></span>
+        <span><img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/customers/grupo-argos-logo.png" alt="Grupo Argos"></span>
+        <span><img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/customers/corona-logo.png" alt="Corona"></span>
+        <span><img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/customers/manuelita-logo.png" alt="Manuelita"></span>
+        <span><img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/customers/grupo-exito-logo.png" alt="Grupo Exito"></span>
+        <span><img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/customers/avianca-logo.png" alt="Avianca"></span>
+        <span><img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/customers/sura-logo.png" alt="Sura"></span>
+        <span><img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/customers/choucair-logo.png" alt="Choucair"></span>
+        <span><img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/customers/teraport-logo.png" alt="Teraport"></span>
+        <span><img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/customers/themissinglink-logo.png" alt="The Missing Link"></span>
+      </p>
+    </div>
   </div>
 </div>
 {% endblock content %}

@@ -35,11 +35,10 @@ pages:
   stage: deployment
   environment: staging
   script:
-    - sed -i 's/https:\/\/fluid.la//g; s/2014/2018/g; s/output\/web/public/g; s/pages-es/pages-es-2018/g; s/pages-en/pages-en-2018/g' pelicanconf.py
     - sed -i 's/output\/web/public/g' xmlcombine.sh
     - sed -i 's/output/public/g' html-lint.sh
     - for FILE in $(find . -iname '*.adoc'); do sed -i 's/^include::/include::\/builds\/fluidsignal/g' $FILE; done
-    - pelican --fatal errors --fatal warnings content/
+    - pelican --fatal errors --fatal warnings -s pelicanconf-2018.py content/
     - ./xmlcombine.sh
     - mv public/en/blog-en public/en/blog && mv public/es/blog-es public/es/blog
     - cp -r public/es/pages-es-2018/* public/es/ && rm -rf public/es/pages-es-2018
@@ -63,7 +62,7 @@ deploy:
     # Generate the website, exiting on any error encountered
     - pelican --fatal errors --fatal warnings content/
     # Give the folders, named after the language of its content, a general name in each subsite
-    - mv output/web/en/blog-en output/web/en/blog && mv output/web/es/blog-es output/web/es/blog
+    - mv output/web/en/blog-en/* output/web/en/blog && mv output/web/es/blog-es/* output/web/es/blog
     # Script to generate a complete sitemap of the site
     - ./xmlcombine.sh
     # Remove the language identification used to group documents and images in the same directory

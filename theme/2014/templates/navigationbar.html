@@ -19,7 +19,7 @@
   <img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/screw.png" class="fluid-screw" alt="{{ gettext('FLUID screw logo') }}">
   <div class='cssmenu'>
     <ul class="m-closed">
-      <li><a href="https://{{ gettext('fluid.la') }}" class="m-link">{{ gettext('Home') }}</a></li>
+      <li><a href="{{ SITEURL }}/" class="m-link">{{ gettext('Home') }}</a></li>
       <li class='active'><a href="{{ SITEURL }}/{{ gettext('services') }}/" class="m-link">{{ gettext('Services') }}</a>
         <ul class="sm-closed">
           <li><a href="{{ SITEURL }}/{{ gettext('services') }}/{{ gettext('one-shot-hacking') }}/" class="sm-link">{{ gettext('One-Shot Hacking') }}</a></li>
@@ -34,9 +34,9 @@
           <li><a href="{{ SITEURL }}/kb/" class="sm-link">FLUIDHardens</a></li>
         </ul>
       </li>
-      <li><a href="https://fluid.la/{{ gettext('#lp-pom-block-876') }}" class="m-link">{{ gettext('Customers') }}</a></li>
+      <li><a href="{{ SITEURL }}/#{{ gettext('customers') }}" class="m-link">{{ gettext('Customers') }}</a></li>
       <li><a href="{{ SITEURL }}/{{ gettext('careers') }}/" class="m-link">{{ gettext('Careers') }}</a></li>
-      <li class='active'><a href="{{ SITEURL }}/" class="m-link">Blog</a></li>
+      <li class='active'><a href="{{ SITEURL }}/blog/" class="m-link">Blog</a></li>
     </ul>
   </div>
 </div>

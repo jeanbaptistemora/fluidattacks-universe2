@@ -18,7 +18,7 @@ fi
 
 pybabel compile --directory theme/2014/translations --domain messages
 pelican --fatal errors --fatal warnings content/
-mv output/web/en/blog-en output/web/en/blog && mv output/web/es/blog-es output/web/es/blog
+mv output/web/en/blog-en/* output/web/en/blog && mv output/web/es/blog-es/* output/web/es/blog
 
 echo "Updating sitemap, setting redirect and pages images (4/5) . . ."
 ./xmlcombine.sh
