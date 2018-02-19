@@ -8,14 +8,14 @@
 
 == Necesidad
 
-Comprobar fortaleza de contraseña por medio de diccionarios en Java.
+Comprobar fortaleza de contraseña por medio de diccionarios en +Java+.
 
 == Contexto
 
 A continuación se describen las circunstancias 
 bajo las cuales la siguiente solución tiene sentido:
 
-. Se está desarrollando una aplicación en Java.
+. Se está desarrollando una aplicación en +Java+.
 . Se requiere comprobar la fortaleza 
 de una contraseña por medio de diccionarios.
 . El sistema operativo o el administrador del sistema 
@@ -23,14 +23,14 @@ poseen diccionarios con palabras comunes.
 
 == Solución
 
-. El código dará solución a la necesidad de comprobar 
+El siguiente código dará solución a la necesidad de comprobar 
 la fortaleza de una contraseña 
-al buscarla en diccionarios que contienen palabras comunes.
+al buscarla en diccionarios que contienen palabras comunes:
 
 . Iniciamos el desarrollo de la aplicación importando las clases necesarias 
-y definiendo el nombre de nuestra clase:
+y definiendo el nombre de nuestra clase.
 +
-.test.py
+.Ditionary.java
 [source, java, linenums]
 ----
 import java.io.*;
@@ -38,7 +38,8 @@ import java.io.*;
 public class Dictionary {
 ----
 
-. El método main será el encargado de llamar al método isPasswordInDictionary, 
+. El método +main+ será el encargado de llamar 
+al método +isPasswordInDictionary+, 
 método encargado de hacer la búsqueda de la contraseña.
 +
 [source, java, linenums]
@@ -59,7 +60,7 @@ System.out.println(isPasswordInDictionary(diccionario, "SystEM"));
 System.out.println(isPasswordInDictionary(diccionario, "MyStr0n6_P4assw0rd!"));
 ----
 
-. Capturamos las excepciones posibles:
+. Capturamos las excepciones posibles.
 +
 [source, java, linenums]
 ----
@@ -78,9 +79,9 @@ de abrir el archivo de diccionario y buscar la contraseña.
 Retornará falso si la contraseña no se encuentra en el diccionario, 
 y verdadero en cualquier otro escenario.
 
-. Iniciamos definiendo los parámetros: 
-dictionaryFilePath que contiene la ruta al diccionario 
-y password que es la contraseña. 
+. Iniciamos definiendo los parámetros 
++dictionaryFilePath+ que contiene la ruta al diccionario 
+y +password+ que es la contraseña. 
 El método arroja las excepciones posibles, 
 las cuales deben ser controladas por el método que invocó la llamada.
 +
@@ -90,9 +91,11 @@ public static boolean isPasswordInDictionary(String dictionaryFilePath, String p
    throws FileNotFoundException, IOException {
 ----
 
-. Se abre el archivo del diccionario con la clase BufferedReader, 
-la cual permite leer archivos de mucho contenido con un buen manejo de memoria. 
-Se define igualmente la variable que contendrá la palabra leída del diccionario.
+. Se abre el archivo del diccionario con la clase +BufferedReader+, 
+la cual permite leer archivos de mucho contenido 
+con un buen manejo de memoria. 
+Se define igualmente la variable que contendrá 
+la palabra leída del diccionario.
 +
 [source, java, linenums]
 ----
@@ -120,18 +123,18 @@ para evitar problemas con diccionarios que tengan letras o sílabas.
 
 . La siguiente es una lista de diccionarios 
 que se recomiendan para hacer la búsqueda
-* http://dazzlepod.com/uniqpass/[UNIQPASS v18]
-* http://www.openwall.com/wordlists/[Openwall wordlists collection]
-* http://wordlist.aspell.net/[SCOWL]
-* https://packetstormsecurity.com/Crackers/wordlists/[packet storm]
-* http://www.deer-run.com/~hal/sysadmin/pam_cracklib.html[A Friendly Warning]
+* link:http://dazzlepod.com/uniqpass/[UNIQPASS v18]
+* link:http://www.openwall.com/wordlists/[Openwall wordlists collection]
+* link:http://wordlist.aspell.net/[SCOWL]
+* link:https://packetstormsecurity.com/Crackers/wordlists/[packet storm]
+* link:http://www.deer-run.com/~hal/sysadmin/pam_cracklib.html[A Friendly Warning]
 
-. Para GNU/Linux se recomienda utilizar los diccionarios incluidos 
-con el sistema operativo que se encuentran en la ruta /usr/share/dict/.
+. Para +GNU/Linux+ se recomienda utilizar los diccionarios incluidos 
+con el sistema operativo que se encuentran en la ruta +/usr/share/dict/+.
 
 . El resultado para la anterior aplicación es el siguiente:
 
-[width="30%", options="header,footer", frame="topbot"]
+[width="60%", options="header,footer", frame="topbot"]
 |============================
 |Palabra |Resultado
 |123 |true
@@ -141,8 +144,16 @@ con el sistema operativo que se encuentran en la ruta /usr/share/dict/.
 |My-Str0n6_P4assw0rd! |false
 |===========================
 
-== Código de Ejemplo
+== Descargas
 
-. http://dyzz9obi78pm5.cloudfront.net/app/image/id/54f0d7b07cb8291f577b23dc/n/codigo.zip[Código-1]
-. http://dyzz9obi78pm5.cloudfront.net/app/image/id/54f0d7b57cb8291f577b23de/n/codigoid2011120417374200.zip[Código-2]
-. http://dyzz9obi78pm5.cloudfront.net/app/image/id/54f0d7b97cb82986497b247f/n/diccionario.txt[Diccionario]
+Puedes descargar el código fuente 
+pulsando en el siguiente enlace:
+
+[button]#link:src/dictionary.java[Dictionary.java >>]# 
+Código de Ejemplo.
+
+
+== Referencias
+
+. [[r1]] link:http://web.mit.edu/rhel-doc/4/RH-DOCS/rhel-sg-es-4/s1-wstation-pass.html[Seguridad de contraseñas]
+. [[r2]] link:https://github.com/duyetdev/bruteforce-database[Bruteforce Database - Password dictionaries]
