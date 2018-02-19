@@ -22,14 +22,14 @@ basados en los siguientes requisitos de seguridad para las credenciales:
 A continuación se describen las circunstancias 
 bajo las cuales la siguiente solución tiene sentido:
 
-. Se está desarrollando una aplicación en Java.
+. Se está desarrollando una aplicación en +Java+.
 . La aplicación administra contraseñas de tipo palabra.
 . Se desea validar que la contraseña cumpla con los requisitos de fortaleza.
 
 == Solución
 
-. Para comprobar la fortaleza de una contraseña en Java 
-se debe implementar el método checkPassword 
+. Para comprobar la fortaleza de una contraseña en +Java+ 
+se debe implementar el método +checkPassword+ 
 que tendrá como entrada la contraseña.
 
 . El método retornará falso 
@@ -37,19 +37,19 @@ si la contraseña no cumple con los requisitos de seguridad
 para contraseñas de tipo palabra (longitud igual o mayor a ocho,
 al menos 1 carácter de tipo: numérico, especial, mayúscula, minúscula).
 
-. Se construye el método checkPassword 
+. Se construye el método +checkPassword+
 como público o privado (según la necesidad). 
-El tipo de variable de retorno boolean 
+El tipo de variable de retorno +boolean+ 
 que indica si la contraseña es o no robusta, 
-y el parámetro donde recibe la contraseña a verificar:
+y el parámetro donde recibe la contraseña a verificar.
 +
-.test.py
+.checkPassword.java
 [source, java, linenums]
 ----
 public boolean checkPassword(String password) {
 ----
 
-. A continuación se verifica que la contraseña no esté vacía:
+. A continuación se verifica que la contraseña no esté vacía.
 +
 [source, java, linenums]
 ----
@@ -57,7 +57,7 @@ if (password.equals(""))
   return false;
 ----
 
-. Verificamos que la longitud sea mayor o igual a ocho:
+. Verificamos que la longitud sea mayor o igual a ocho.
 +
 [source, java, linenums]
 ----
@@ -74,7 +74,7 @@ int lower_count = 0, upper_count = 0, numeric_count = 0, special_count = 0;
 ----
 
 . En la lógica del método recorremos la contraseña carácter por carácter 
-y vamos sumando las apariciones según su tipo:
+y vamos sumando las apariciones según su tipo.
 +
 [source, java, linenums]
 ----
@@ -111,7 +111,7 @@ else {
 
 . Algunas pruebas con contraseñas comunes y no comunes:
 
-[width="30%", options="header,footer", frame="topbot"]
+[width="60%", options="header,footer", frame="topbot"]
 |======================
 |Contraseña |Resultado
 |admin |false
@@ -125,12 +125,15 @@ else {
 
 == Referencias
 
-. http://cms.ual.es/UAL/universidad/serviciosgenerales/stic/servicios/recomendaciones/contrase%C3%B1as/index.htm[Recomendaciones de Seguridad Informática: Contraseñas]
-. https://opendatasecurity.io/es/claves-para-crear-contrasenas-seguras/[Claves para crear contraseñas seguras]
-. REQ.0126 Las contraseñas (tipo palabra) deben tener al menos 8 caracteres de 
-longitud.
-. REQ.0127 Las contraseñas (tipo palabra) deben tener al menos 1 letra 
-minúscula.
-. REQ.0128 Las contraseñas (tipo palabra) deben tener al menos 1 letra mayúscula
-. REQ.0129 Las contraseñas (tipo palabra) deben tener al menos 1 dígito.
-. REQ.0130 Las contraseñas (tipo palabra) deben tener al menos 1 carácter especial.
+. [[r1]] link:http://cms.ual.es/UAL/universidad/serviciosgenerales/stic/servicios/recomendaciones/contrase%C3%B1as/index.htm[Recomendaciones de Seguridad Informática: Contraseñas]
+. [[r2]] link:https://opendatasecurity.io/es/claves-para-crear-contrasenas-seguras/[Claves para crear contraseñas seguras]
+. [[r3]] REQ.0126 Las contraseñas (tipo palabra) deben tener 
+al menos 8 caracteres de longitud.
+. [[r4]] REQ.0127 Las contraseñas (tipo palabra) deben tener 
+al menos 1 letra minúscula.
+. [[r5]] REQ.0128 Las contraseñas (tipo palabra) deben tener 
+al menos 1 letra mayúscula
+. [[r6]] REQ.0129 Las contraseñas (tipo palabra) deben tener 
+al menos 1 dígito.
+. [[r7]] REQ.0130 Las contraseñas (tipo palabra) deben tener 
+al menos 1 carácter especial.
