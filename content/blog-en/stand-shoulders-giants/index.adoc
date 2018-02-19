@@ -240,7 +240,7 @@ good for you!
 Here's what you're missing out on:
 
 .``Software Composition Analysis'' providers.
-image:marketing-hype.png["SCA providers collage"]
+image::marketing-hype.png["SCA providers collage"]
 
 All of these industry-leading, award-winning,
 breakthrough-makers, oracles of the tech future
@@ -285,6 +285,6 @@ stick to the tried-and-true.
 
 == References
 
-. [[r1]] OWASP Top 10-2017. Using Components with Known Vulnerabilities. link:https://www.owasp.org/index.php/Top_10-2017_A9-Using_Components_with_Known_Vulnerabilities[Link].
-. [[r2]] Millar, S. (2017). Vulnerability Detection in Open Source Software: The Cure and the Cause. Queen's University Belfast. Available link:https://pure.qub.ac.uk/portal/en/publications/vulnerability-detection-in-open-source-software-the-cure-and-the-cause(94ec148c-80e4-448e-a267-c9ffb992b285).html[here].
-. [[r3]] Williams, J. and Dabirsiaghi, A. (2014). The Unfortunate Reality of Insecure Libraries. Aspect Security. Available link:https://www.contrastsecurity.com/the-unfortunate-reality-of-insecure-libraries[here].
+. [[r1]] link:https://www.owasp.org/index.php/Top_10-2017_A9-Using_Components_with_Known_Vulnerabilities[OWASP Top 10-2017. Using Components with Known Vulnerabilities.]
+. [[r2]] link:https://pure.qub.ac.uk/portal/en/publications/vulnerability-detection-in-open-source-software-the-cure-and-the-cause(94ec148c-80e4-448e-a267-c9ffb992b285).html[Millar, S. (2017). Vulnerability Detection in Open Source Software: The Cure and the Cause. Queen's University Belfast.]
+. [[r3]] link:https://www.contrastsecurity.com/the-unfortunate-reality-of-insecure-libraries[Williams, J. and Dabirsiaghi, A. (2014). The Unfortunate Reality of Insecure Libraries. Aspect Security.]
