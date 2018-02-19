@@ -37,7 +37,7 @@
         "$first_name": "{{ request.session.first_name }}",
         "$last_name": "{{ request.session.last_name }}",
         "$Role": "{{ request.session.role }}",
-        "$Organization": "{{ request.session.company }}",
+        "$Organization": "{{ request.session.company }}".toUpperCase(),
         "$Language": localStorage['lang'],
     });
     var userEmail = "{{ request.session.username }}";
