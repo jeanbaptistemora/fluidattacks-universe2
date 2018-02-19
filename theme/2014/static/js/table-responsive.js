@@ -49,7 +49,7 @@ and a particular one, a table with two columns where the content is alternated
   };
 })(jQuery);
 
-function responsive(tableclass, minsize){
+function responsive(tableclass, minsize, maxsize){
   table = $(document).find(tableclass);
   $(table).each(function () {
     if ($(this)[0].rows[0].cells[$(this)[0].rows[0].cells.length - 1].offsetWidth < minsize && !$(this).hasClass("tb-responsive")) {
@@ -63,12 +63,12 @@ function responsive(tableclass, minsize){
     }
     else {
       if (tableclass == ".tb-col") {
-        if ($(this)[0].rows[0].cells[0].offsetWidth > minsize * $(this)[0].rows.length && $(this).hasClass("tb-responsive")) {
+        if ($(this)[0].rows[0].cells[0].offsetWidth > maxsize * $(this)[0].rows.length && $(this).hasClass("tb-responsive")) {
           $(this).transpose();
           $(this).toggleClass("tb-responsive");
         }
       }
-      else if ($(this)[0].rows[0].cells[0].offsetWidth > minsize * $(this)[0].rows[0].cells.length && $(this).hasClass("tb-responsive")) {
+      else if ($(this)[0].rows[0].cells[0].offsetWidth > maxsize * $(this)[0].rows[0].cells.length && $(this).hasClass("tb-responsive")) {
         if (tableclass == ".tb-alt") {
           $(this).swap();
         }
@@ -80,14 +80,14 @@ function responsive(tableclass, minsize){
 
 (function($) {
   $(window).on('resize', function(){
-    responsive(".tb-row", 100);
-    responsive(".tb-col", 100);
-    responsive(".tb-alt", 260);
+    responsive(".tb-row", 130, 150);
+    responsive(".tb-col", 130, 150);
+    responsive(".tb-alt", 260, 280);
   });
 })(jQuery);
 
 $(document).ready(function() {
-  responsive(".tb-row", 100);
-  responsive(".tb-col", 100);
-  responsive(".tb-alt", 260);
+  responsive(".tb-row", 130, 150);
+  responsive(".tb-col", 130, 150);
+  responsive(".tb-alt", 260, 280);
 });
