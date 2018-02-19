@@ -218,4 +218,4 @@ $
 
 == Licencia
 
-Escríbenos a relations@fluid.la para obtener información de licencias.
+Escríbenos mediante el siguiente [button]#link:https://fluid.la/#lp-pom-block-11[formulario >>]# para obtener información de licencias.
