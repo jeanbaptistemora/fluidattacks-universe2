@@ -1,4 +1,4 @@
-:slug: kb/java/configurar-tiempo-sesion-java/
+:slug: kb/java/configurar-tiempo-sesion/
 :category: java
 :description: Nuestros ethical hackers explican cómo evitar vulnerabilidades de seguridad mediante la programación segura en Java al configurar el tiempo de sesión. Para desarrollar una aplicación segura es recomendable configurar un tiempo de sesión no mayor a 5 minutos.
 :keywords: Java, Seguridad, Buenas Prácticas, Configurar, Tiempo, Sesión.
@@ -8,14 +8,14 @@
 
 == Necesidad
 
-Configurar tiempo de vida de la sesión en Java EE.
+Configurar tiempo de vida de la sesión en +Java EE+.
 
 == Contexto
 
 A continuación se describen las circunstancias 
 bajo las cuales la siguiente solución tiene sentido:
 
-. La aplicación está desarrollada en Java EE versión 1.4 o superior
+. La aplicación está desarrollada en +Java EE+ versión +1.4+ o superior.
 
 == Solución
 
@@ -36,18 +36,18 @@ sin que el usuario tenga que intervenir en ello.
 
 Otra cosa, las sesiones manejan un tiempo de vida 
 el cual determina el tiempo que puede permanecer un usuario inactivo 
-antes de que termine la sesión 
+antes de que termine o finalice la sesión 
 o de que el usuario tenga que iniciar sesión de nuevo.
 
-. En Java las sesiones están representadas por el objeto HttpSession, 
-la cual está presente en el paquete javax.servlet.http. 
+. En +Java+ las sesiones están representadas por el objeto +HttpSession+, 
+el cual está presente en el paquete +javax.servlet.http+. 
 
 . Para poder acceder a una sesión, 
-se debe invocar el método getSession del objetoHttpServletRequest. 
+se debe invocar el método +getSession+ del +objetoHttpServletRequest+. 
 Este método devuelve una referencia de la sesión actual 
-asociada con la solicitud [1].
+asociada con la solicitud ^<<r1,[1]>>^.
 +
-.test.py
+.doPost.java
 [source, java, linenums]
 ----
 public void doPost (HttpServletRequest request, HttpServletResponse response)
@@ -57,10 +57,11 @@ public void doPost (HttpServletRequest request, HttpServletResponse response)
 ----
 
 . Para establecer el tiempo máximo de vida de la sesión 
-se debe utilizar el método setMaxInactiveInterval 
+se debe utilizar el método +setMaxInactiveInterval+ 
 (su valor está dado en segundos) 
-del objeto HttpSession [2].
-Se recomienda que ese tiempo no debe ser superior a cinco minutos.
+del objeto +HttpSession+ ^<<r2,[2]>>^.
+Se recomienda, por seguridad, 
+que el tiempo establecido no deba ser superior a cinco minutos.
 +
 [source, java, linenums]
 ----
@@ -70,8 +71,8 @@ session.setMaxInactiveInterval(300);
 
 . Una forma recomendada de realizar esta configuración 
 es utilizando el archivo de configuración de la aplicación 
-/WEBINF/web.xml empleando el elemento session-config 
-de la siguiente manera [3]:
++/WEBINF/web.xml+ empleando el elemento +session-config+ 
+de la siguiente manera ^<<r3,[3]>>^:
 +
 [source, xml, linenums]
 ----
@@ -80,13 +81,13 @@ de la siguiente manera [3]:
 </session-config>
 ----
 
-. Para este caso el timeout de la sesión está especificado en minutos.
+. Para este caso el +timeout+ de la sesión está especificado en minutos.
 
 == Referencias
 
-. https://docs.oracle.com/javaee/1.4/tutorial/doc/[The J2EETrademarked 1.4 Tutorial]
-. https://docs.oracle.com/javaee/1.4/api/javax/servlet/http/HttpSession.html[Interface HttpSession]
-. http://lineadecodigo.com/java/modificar-time-out-de-sesion/[Modificar time-out de sesión]
-. REQ.0020: El sistema debe cerrar una sesión 
+. [[r1]] link:https://docs.oracle.com/javaee/1.4/tutorial/doc/[The J2EETrademarked 1.4 Tutorial]
+. [[r2]] link:https://docs.oracle.com/javaee/1.4/api/javax/servlet/http/HttpSession.html[Interface HttpSession]
+. [[r3]] link:http://lineadecodigo.com/java/modificar-time-out-de-sesion/[Modificar time-out de sesión]
+. [[r4]] REQ.0020: El sistema debe cerrar una sesión 
 si se presenta un tiempo de inactividad por parte del usuario, 
 superior o igual a 5 minutos.
