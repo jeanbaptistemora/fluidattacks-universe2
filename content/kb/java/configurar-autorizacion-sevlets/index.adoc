@@ -8,16 +8,16 @@
 
 == Necesidad
 
-Autorización para Servlets usando programación (Java)
+Autorización para +Servlets+ usando programación en +Java+
 
 == Contexto
 
 A continuación se describen las circunstancias 
 bajo las cuales la siguiente solución tiene sentido:
 
-. Se dispone de un servidor de aplicaciones o contenedor de Servlets 
-conforme con las especificaciones empresariales de Java 
-que soporte la especificación 3.0 o superior.
+. Se dispone de un servidor de aplicaciones o contenedor de +Servlets+ 
+conforme con las especificaciones empresariales de +Java+ 
+que soporte la especificación +3.0+ o superior.
 
 == Solución
 
@@ -25,12 +25,12 @@ que soporte la especificación 3.0 o superior.
 Este paso dependerá del contenedor de servlets que se esté usando 
 y de la fuente de donde se extraigan los datos. 
 
-. Por ejemplo en Tomcat, y tomando como usuarios 
+. Por ejemplo en +Tomcat+, y tomando como usuarios 
 los definidos para el propio servidor, 
-se deberá agregar en el archivo tomcatusers.xml 
+se deberá agregar en el archivo +tomcatusers.xml+ 
 usuarios con roles específicos, por ejemplo:
 +
-.test.py
+.tomcatusers.xml
 [source, xml, linenums]
 ----
 <tomcat-users>
@@ -45,13 +45,14 @@ usuarios con roles específicos, por ejemplo:
 ----
 
 . Para autenticar los usuarios usando programación, 
-la especificación Servlet 3.0 
-especifica los siguientes métodos de la interfaz HttpServletRequest:
-* login, el cual permite a una aplicación 
+la especificación +Servlet 3.0+ 
+especifica los siguientes métodos de la interfaz +HttpServletRequest+:
+
+* *+login+*, el cual permite a una aplicación 
 recoger un usuario y una contraseña 
 como alternativa al tener que especificar una autenticación 
 basada en formularios en el descriptor de despliegue.
-* logout, el cual permite a una aplicación 
+* *+logout+*, el cual permite a una aplicación 
 reiniciar el identificador de quien hace la petición.
 
 . A continuación se muestra un ejemplo de como usar los métodos. 
@@ -64,11 +65,11 @@ src/test:
 TestLogin.java
 ----
 
-. Se crea el servlet TestLogin.java, 
+. Se crea el +servlet+ +TestLogin.java+, 
 configurando mediante anotaciones cuáles serán los roles permitidos.
 
-. Primero, se especifica que pertenece al paquete test 
-y se importan las clases necesarias para trabajar con servlets HTTP:
+. Primero, se especifica que pertenece al paquete +test+ 
+y se importan las clases necesarias para trabajar con +servlets HTTP+.
 +
 [source, java, linenums]
 ----
@@ -83,15 +84,15 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 ----
 
-. Se especifica que el servlet se llamará TestServlet 
-y que la URL que mapea a este será /TestServlet
+. Se especifica que el +servlet+ se llamará +TestServlet+ 
+y que la +URL+ que mapea a este será +/TestServlet+.
 +
 [source, java, linenums]
 ----
 @WebServlet("/TestLogin")
 ----
 
-. Se crea un servlet típico:
+. Se crea un +servlet+ típico.
 +
 [source, java, linenums]
 ----
@@ -106,7 +107,7 @@ public class TestLogin extends HttpServlet {
       response.setContentType("text/html;charset=UTF-8");
 ----
 
-. Se obtienen los parámetros user y pass pasados usando el método GET:
+. Se obtienen los parámetros +user+ y +pass+ pasados usando el método +GET+.
 +
 [source, java, linenums]
 ----
@@ -114,10 +115,10 @@ String user = request.getParameter("user");
 String pass = request.getParameter("pass");
 ----
 
-. Se hace un login a nivel de programación 
-y se muestra el mensaje "Login exitoso" en caso de una autenticación válida. 
+. Se hace un +login+ a nivel de programación 
+y se muestra el mensaje +Login exitoso+ en caso de una autenticación válida. 
 En caso contrario, se lanzará una excepción 
-y se mostrará el mensaje "Login fallido". 
+y se mostrará el mensaje +Login fallido+. 
 En cualquiera de los dos casos 
 se borrará el identificador de quien hizo la petición.
 +
@@ -140,23 +141,33 @@ se borrará el identificador de quien hizo la petición.
 ----
 
 . Para probar la aplicación, luego de hacer el despliegue 
-se deben pasar por GET los parámetros user y pass:
+se deben pasar por +GET+ los parámetros +user+ y +pass+:
 +
 [source, conf, linenums]
 ----
 http://URL_DESPLIEGUE/TestLogin?user=usuario1&pass=clave1
 ----
 
-. En su aplicación debe evitar usar el método GET 
-para el servlet de autenticación, 
-y en su lugar utilizar el método POST, 
+. En su aplicación debe evitar usar el método +GET+ 
+para el +servlet+ de autenticación, 
+y en su lugar utilizar el método +POST+, 
 esto es con el fin de evitar que las credenciales de sus usuarios 
 queden almacenadas en la bitácora del servidor 
 y en el historial de navegación.
 
+== Descargas
+
+Puedes descargar el código fuente 
+pulsando en el siguiente enlace:
+
+[button]#link:src/testlogin.java[TestLogin.java >>]# 
++Servlet+ que muestra como configurar la autorización
+mediante el uso de +servlets+.
+
 == Referencias
 
-. https://www.ibm.com/support/knowledgecenter/es/SS7K4U_9.0.0/com.ibm.websphere.zseries.doc/ae/cwbs_secauthmodel.html[Modelos de autorización de la seguridad de servicios web]
-. https://docs.oracle.com/javaee/6/tutorial/doc/gjiie.html[The Java EE 6 Tutorial]
-. REQ.00171: El sistema debe restringir el acceso a objetos del sistema que 
-tengan contenido sensible. Solo permitirá acceso a usuarios autorizados.
+. [[r1]] link:https://www.ibm.com/support/knowledgecenter/es/SS7K4U_9.0.0/com.ibm.websphere.zseries.doc/ae/cwbs_secauthmodel.html[Modelos de autorización de la seguridad de servicios web]
+. [[r2]] link:https://docs.oracle.com/javaee/6/tutorial/doc/gjiie.html[The Java EE 6 Tutorial]
+. [[r3]] REQ.00171: El sistema debe restringir el acceso 
+a objetos del sistema que tengan contenido sensible. 
+Solo permitirá acceso a usuarios autorizados.
