@@ -61,7 +61,8 @@ module Fluent
                 record = record['log'] if record.key? 'log'
 
                 EventMachine.run do
-                    payload = { "access_token" => @access_token , "data" => { "environment" => "production", "body" => { "message" => { "body" =>  record  }}}}
+                    parsed_json = JSON.parse(record.to_json)
+                    payload = { "access_token" => @access_token , "data" => { "environment" => "production", "body" => { "message" => { "body" =>  parsed_json["message"], "level" => parsed_json["level"], "client" => parsed_json["client"], "pid" => parsed_json["pid"], "context" => parsed_json["context"] }}}}
                     headers = { 'X-Rollbar-Access-Token' => @access_token }
                     req = EventMachine::HttpRequest.new(@endpoint).post(body: payload.to_json, head: headers)
                     req.callback do
