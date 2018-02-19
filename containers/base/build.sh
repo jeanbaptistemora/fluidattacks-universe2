@@ -14,4 +14,4 @@ SERVER="base"
 echo "---### [${SERVER}] Compilando contenedor."
 
 # construir la imagen
-docker build -t registry.gitlab.com/fluidsignal/serves:${SERVER} containers/${SERVER}
+docker build --no-cache -t registry.gitlab.com/fluidsignal/serves:${SERVER} containers/${SERVER}
