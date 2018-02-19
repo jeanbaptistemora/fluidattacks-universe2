@@ -5,6 +5,81 @@
 
 = Continuous Hacking
 
-This page is currently in development.
+*Find and Report all existing security vulnerabilities within your information technology system.*
 
-Sorry for the inconveniences.
+== Early tests on the SDLC:
+
+* Minimizing the cost of repair.
+* Reducing to zero the time of security certifications.
+* Certifying an effective closure of the vulnerabilities within the continuous integration of the projects.
+
+== Why do we do it??
+
+* *Time to market*: organizations want to release more features in less time.
+* *Range*: accomplish a coverage from 100% without raising the times of releasing.
+* *Mitigation*: close vulnerabilities before releasing new features.
+* *Precision*: expert evolutionary reviews.
+
+== How?
+
+* Continuous Ethical Hacking on the source code and applications. (Expert review)
+* Automate closure of confirmed vulnerabilities.
+
+== Solution
+
+image::solution.png[Solution]
+
+== Transformation
+
+image::transformation.png[Transformation]
+
+== Architecture
+
+image::architecture.png[Architecture]
+
+== Methodology
+
+image::methodology.png[Methodology]
+
+== Benefits
+
+image::benefits.png[Benefits]
+
+== Differentiators
+
+[role="tb-fluid tb-row"]
+[cols="1,2,2", options="header"]
+|====
+| Field
+| FLUID
+| Others
+
+| Revision methods
+| Hybrid (automated program tools + expert manual (OSCP) review)
+| Automated program tools
+
+| Type of findings
+a|* Specific impact to the business.
+* Insecure practices in programming.
+* Alignment to security standards and regulations.
+| Syntactic
+
+| False-positive probability
+| No
+| Yes
+
+| Estimation
+a|* Only what was defined is tested
+* By open ports
+* By entry fields in forms and headers
+* By effective lines of code (higher coverage and rigor)
+| By time without a specific scope
+
+| Exploitation capacity
+|Yes - if access to the requested test application is granted
+|No
+
+| Deliverables
+| Vulnerability to exploitation report and high-level recommendations.
+| Summary report
+|====
