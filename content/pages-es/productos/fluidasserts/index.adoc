@@ -1,7 +1,7 @@
 :slug: productos/fluidasserts/
 :category: productos
-:description: TODO
-:keywords: TODO
+:description: En esta página presentamos nuestros productos más destacados. FLUIDAsserts es un motor de cierre de hallazgos de seguridad sobre ambientes en ejecución, el cual puede ser implementado en un pipeline de CI para evaluar si los hallazgos de seguridad continúan presentes en la aplicación.
+:keywords: FLUID, Productos, FLUIDAsserts, Automatización, Hallazgos, Seguridad.
 
 = FLUIDAsserts
 

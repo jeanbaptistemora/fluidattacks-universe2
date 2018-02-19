@@ -1,6 +1,6 @@
 :slug: ubicacion/
-:description: TODO
-:keywords: TODO
+:description: En esta página presentamos información acerca de la ubicación de las oficinas de FLUID. FLUID es una empresa dedicada a la seguridad de tecnologías de información, Ethical Hacking, pruebas de intrusión, y detección de debilidades y vulnerabilidades de seguridad en aplicaciones.
+:keywords: FLUID, Ubicación, Sede, Información, Oficinas, Localización.
 :location: yes
 
 = Ubicación

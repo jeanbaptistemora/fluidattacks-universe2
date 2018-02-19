@@ -1,6 +1,6 @@
 :slug: valores/
-:description: TODO
-:keywords: TODO
+:description: Esta página establece expectativas sobre cómo los socios, empleados y aliados comerciales actúan frente a las situaciones cotidianas. FLUID está comprometida con un comportamiento íntegro y correcto espera que cada uno actúe cumpliendo la ley y las políticas definidas por la empresa.
+:keywords: FLUID, Valores, Políticas, Ética, Protección, Información.
 
 = Valores
 
