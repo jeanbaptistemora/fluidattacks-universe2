@@ -8,58 +8,58 @@
 
 == Necesidad
 
-Controlar el acceso de un programa Java a los recursos del sistema
+Controlar el acceso de un programa +Java+ a los recursos del sistema.
 
 == Contexto
 
 A continuación se describen las circunstancias 
 bajo las cuales la siguiente solución tiene sentido:
 
-. Tener instalado el Java SE versión 1.4 en adelante.
+. Tener instalado el +Java SE+ versión +1.4+ en adelante.
 
 == Solución
 
-La arquitectura de seguridad de Java 
+La arquitectura de seguridad de +Java+ 
 permite el ajuste sencillo de los permisos que requiere la aplicación 
-usando un fichero de políticas (policy file) 
+usando un fichero de políticas +policy file+ 
 en el cual se definen los permisos que tendrá la aplicación 
 para acceder a los recursos del sistema.
 
 Durante la ejecución de la aplicación, 
 cuando esta solicita acceso a un recurso del sistema, 
 el código de gestión de recursos invoca directa o indirectamente 
-un método especial de la clase AccessControler 
+un método especial de la clase +AccessControler+ 
 el cual evalúa la petición 
 y decide si debe concederse o no el acceso.
 Si se concede el permiso la ejecución continua 
-y si no se lanza una excepción de seguridad[1].
+y si no, se lanza una excepción de seguridad ^<<r1,[1]>>^.
 
 Para establecer una política de seguridad 
 se deben considerar los siguientes aspectos:
 
-. Cree un archivo con el nombre java.policy para la aplicación en cuestión. 
+. Cree un archivo con el nombre +java.policy+ para la aplicación en cuestión. 
 Este debe ser desplegado en el directorio 
-$JAVA_HOME/jre/lib/security/nombreAplicacion/, 
-donde $JAVA_HOME es el directorio raíz del Java 
-y nombreAplicacion es el directorio que corresponde al nombre de la aplicación.
++$JAVA_HOME/jre/lib/security/nombreAplicacion/+, 
+donde +$JAVA_HOME+ es el directorio raíz del +Java+ 
+y +nombreAplicacion+ es el directorio que corresponde al nombre de la aplicación.
 
-. Se debe modificar el archivo $JAVA_HOME/jre/lib/security/java.security 
+. Se debe modificar el archivo +$JAVA_HOME/jre/lib/security/java.security+ 
 con el propósito de ingresar una nueva entrada 
 que especifique la ubicación del archivo de políticas para la aplicación. 
 
 . La localización de los ficheros de configuración 
 se especifica como valores de propiedades 
-cuyos nombres son de la forma policy.url.n donde n es un número.
+cuyos nombres son de la forma +policy.url.n+ donde +n+ es un número.
 Por defecto el sistema tiene definidas las siguientes ubicaciones: 
 +
-.test.py
+.java.security
 [source, shell, linenums]
 ----
 policy.url.1=file:${java.home}/lib/security/java.policy
 policy.url.2=file:${user.home}/.java.policy
 ----
 
-. Para agregar la nueva entrada se debe incluir la siguiente instrucción:
+. Para agregar la nueva entrada se debe incluir la siguiente instrucción.
 +
 [source, shell, linenums]
 ----
@@ -67,11 +67,11 @@ policy.url.3=file:${java.home}/lib/security/nombreAplicacion/java.policy
 ----
 
 . El sistema establece la política de seguridad 
-primero leyendo policy.url.1, 
+primero leyendo +policy.url.1+, 
 e incrementa el número hasta que no encuentra otra entrada. 
 La evaluación es incremental; 
-si se dispone de policy.url.1 y policy.url.3, 
-pero no de policy.url.2, el fichero 3 no se leerá. 
+si se dispone de +policy.url.1+ y +policy.url.3+, 
+pero no de +policy.url.2+, el fichero +3+ no se leerá. 
 Por norma los números de ficheros han de ser correlativos. 
 
 . Un permiso consta de un objetivo y una acción, 
@@ -80,7 +80,7 @@ el objetivo puede ser un directorio o un archivo
 y las acciones pueden ser: leer, escribir, ejecutar y borrar. 
 
 .  Para este caso el permiso que representa 
-el acceso a un directorio del sistema de archivos es java.io.FilePermission.
+el acceso a un directorio del sistema de archivos es +java.io.FilePermission+.
 +
 [source, java, linenums]
 ----
@@ -90,17 +90,17 @@ Grant codeBase "file:/home/sysadmin/-"
 };
 ----
 
-. El campo codeBase indica la ubicación 
+. El campo +codeBase+ indica la ubicación 
 en la que se encuentra el código fuente de la aplicación 
 al cual se le va aplicar la política. 
 
 .  En la regla anterior, se establece que cualquier código 
-bajo la estructura del directorio /home/sysadmin/ 
+bajo la estructura del directorio +/home/sysadmin/+ 
 tiene permisos de solo lectura sobre todos los archivos y subdirectorios 
-que contenga el directorio /home/FLUID/-. 
+que contenga el directorio +/home/FLUID/-+. 
 
 . Para establecer permisos de conexión para acceder a un equipo en la red 
-en un puerto determinado, se debe utilizar la clase SocketPermission 
+en un puerto determinado, se debe utilizar la clase +SocketPermission+ 
 mediante la siguiente política:
 +
 [source, java, linenums]
@@ -112,20 +112,21 @@ Grant codeBase "file:/home/sysadmin/-"
 ----
 
 . Con este permiso se autoriza a la aplicación 
-para que establezca una conexión al puerto 3333 
-con el equipo union.FLUID.com 
+para que establezca una conexión al puerto +3333+ 
+con el equipo +union.FLUID.com+ 
 y además acepte conexiones en ese puerto. 
 
 . Estos son los permisos 
 que se deben configurar inicialmente para la aplicación:
-* PropertyPermission: Permisos para manipular propiedades.
-* FilePermission: Permisos de acceso a archivos o directorios 
+
+* *+PropertyPermission+:* Permisos para manipular propiedades.
+* *+FilePermission+:* Permisos de acceso a archivos o directorios 
 y consta de un nombre de ruta y un conjunto de acciones validas para esa ruta.
-* SocketPermission: Representa un acceso a la red a través de sockets 
-y consta de una dirección de host 
+* *+SocketPermission+:* Representa un acceso a la red a través de +sockets+ 
+y consta de una dirección de +host+ 
 y un conjunto de acciones especificando formas de conectar. 
 
-. PropertyPermission y SocketPermission se establecen de la siguiente manera
+. +PropertyPermission+ y +SocketPermission+ se establecen de la siguiente manera.
 +
 [source, java, linenums]
 ----
@@ -142,9 +143,10 @@ rangoPuertos = numPuerto | -numPuerto | numPuerto-[numPuerto]
 ----
 
 . Ejecutar el gestor de seguridad. 
-Para instalar el gestor de seguridad de Java desde el código de la aplicación, 
-se debe invocar el método setSecurityManager 
-de la clase java.lang.System de la siguiente manera:
+Para instalar el gestor de seguridad de +Java+ 
+desde el código de la aplicación, 
+se debe invocar el método +setSecurityManager+ 
+de la clase +java.lang.System+ de la siguiente manera.
 +
 [source, java, linenums]
 ----
@@ -157,23 +159,24 @@ System.setSecurityManager(securityManager);
 ----
 
 . Para instalar el gestor de seguridad 
-invocándolo desde la maquina virtual de java 
+invocándolo desde la maquina virtual de +java+ 
 se debe ingresar la siguiente instrucción 
-desde la consola de comandos del sistema operativo 
+desde la consola de comandos del sistema operativo. 
 +
 [source, shell, linenums]
 ----
 java -Djava.security.manager nombreAplicacion
 ----
 
-. El argumento -Djava.security.manager 
-habilita la ejecución del gestor de seguridad de Java 
+. El argumento +-Djava.security.manager+ 
+habilita la ejecución del gestor de seguridad de +Java+ 
 con el propósito de ejecutar el código de forma segura.
 
 == Referencias
 
-. https://www.uv.es/sto/cursos/seguridad.java/html/sjava-33.html[Dominios protegidos, modelo de permisos y políticas de seguridad]
-. https://docs.oracle.com/javase/7/docs/technotes/guides/security/PolicyFiles.html[Default Policy Implementation and Policy File Syntax]
-. http://pages.cs.wisc.edu/~horwitz/java-docs/guide/security/permissions.html[Permissions in the JavaTM 2 SDK]
-. REQ.0171: El sistema debe restringir el acceso a objetos del sistema 
-que tengan contenido sensible. Solo permitirá acceso a usuarios autorizados.
+. [[r1]] link:https://www.uv.es/sto/cursos/seguridad.java/html/sjava-33.html[Dominios protegidos, modelo de permisos y políticas de seguridad]
+. [[r2]] link:https://docs.oracle.com/javase/7/docs/technotes/guides/security/PolicyFiles.html[Default Policy Implementation and Policy File Syntax]
+. [[r3]] link:http://pages.cs.wisc.edu/~horwitz/java-docs/guide/security/permissions.html[Permissions in the JavaTM 2 SDK]
+. [[r4]] REQ.0171: El sistema debe restringir el acceso 
+a objetos del sistema que tengan contenido sensible. 
+Solo permitirá acceso a usuarios autorizados.
