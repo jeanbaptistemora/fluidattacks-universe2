@@ -1,6 +1,6 @@
 :slug: publications/
-:description: TODO
-:keywords: TODO
+:description: The main purpose of this page is to describe the different publications and contributions of FLUID to the information security over the years, including conferences, papers, journal articles, press articles and security findings in applications inside and outside Colombia.
+:keywords: FLUID, Publication, Information, Articles, Research, Press.
 
 = Publications
 

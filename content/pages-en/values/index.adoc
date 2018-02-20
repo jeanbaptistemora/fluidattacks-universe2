@@ -1,6 +1,6 @@
 :slug: values/
-:description: TODO
-:keywords: TODO
+:description: In this page we establish the expected behavior of our employees, partners and commercial allies facing everyday situations. In FLUID we are compromised with a correct and honest behavior acting according to the law and the policies defined by the company.
+:keywords: FLUID, Values, Policies, Ethics, Protection, Information.
 
 = Values
 

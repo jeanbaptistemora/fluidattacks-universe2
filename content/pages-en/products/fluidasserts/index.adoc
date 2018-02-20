@@ -1,7 +1,7 @@
 :slug: products/fluidasserts/
 :category: products
-:description: TODO
-:keywords: TODO
+:description: In this page we present the products offered by FLUID. FLUIDAsserts is an engine to automate the closing of security findings over execution environments, which can be implemented in a CI pipeline to determine if a security issue persists in the application.
+:keywords: FLUID, Products, FLUIDAsserts, Ethical Hacking, Pentesting, Security.
 
 = FLUIDAsserts
 
