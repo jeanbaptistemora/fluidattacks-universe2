@@ -1,7 +1,7 @@
 :slug: careers/immersion/
 :category: careers
-:description: TODO
-:keywords: TODO
+:description: The main goal of the following page is to inform potential talents and people interested in working with us about our selection process. The immersion stage is a paid training focused on acquiring the necessary knowledge and skills to solve everyday tasks.
+:keywords: FLUID, Careers, Immersion, Selection, Process, Training
 
 = Immersion
 

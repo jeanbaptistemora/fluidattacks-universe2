@@ -1,7 +1,7 @@
 :slug: careers/reasons/
 :category: careers
-:description: TODO
-:keywords: TODO
+:description: The main goal of the following page is to inform potential talents and people interested in working with us about our selection process. If you wish to be a part of our team, but you still haven't made up your mind, we tell you some reasons why FLUID is an excellent place to work.
+:keywords: FLUID, Careers, Reasons, Selection, Process, About us. 
 
 = Reasons to work with us
 

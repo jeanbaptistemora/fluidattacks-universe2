@@ -1,6 +1,6 @@
 :slug: products/
-:description: TODO
-:keywords: TODO
+:description: The purpose of this page is to present the products offered by FLUID, which focus on helping customers in the security testing process, aiming to improve their experience and allowing us to keep close contact with them. Our star products are FLUIDIntegrates, FLUIDAsserts and FLUIDCommands.
+:keywords: FLUID, Products, Ethical Hacking, Pentesting, Security, Information.
 
 = Products
 

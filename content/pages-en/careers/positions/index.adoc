@@ -1,7 +1,7 @@
 :slug: careers/positions/
 :category: careers
-:description: TODO
-:keywords: TODO
+:description: The main goal of the following page is to inform potential talents and people interested in working with us about our selection process. Here we describe the desired profiles and available positions of our company, if you fit any of them, do not hesitate in applying for it.
+:keywords: FLUID, Careers, Position, Profile, Selection, Process.
 
 = Positions
 

@@ -1,7 +1,7 @@
 :slug: careers/technical-challenges/
 :category: careers
-:description: TODO
-:keywords: TODO
+:description: The main goal of the following page is to inform potential talents and people interested in working with us about our selection process. The technical challenges stage intends to assess the competences of the candidate through programming and hacking exercises.
+:keywords: FLUID, Careers, Selection, Process, Technical Challenges, Training.
 
 = Technical Challenges
 

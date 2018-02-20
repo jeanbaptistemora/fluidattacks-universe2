@@ -1,6 +1,6 @@
 :slug: careers/
-:description: TODO
-:keywords: TODO
+:description: FLUID is always in search of young talents passionate about programming, hacking and are overall interested in information security. The main goal of the following page is to inform potential talents and people interested in being part of our team about our selection process.
+:keywords: FLUID, Careers, Selection, Process, Stages, Hiring.
 
 = Careers
 

@@ -1,6 +1,6 @@
 :slug: format/
-:description: TODO
-:keywords: TODO
+:description: FLUID uses Asciidoc as main extension for several documents and articles in our website. The purpose of this page is to present a compilation of useful Asciidoc commands and allowed formats in order to help our candidates and personnel build their documents in a proper way.
+:keywords: FLUID, Format, Asciidoc, Templates, Tutorial, Document.
 :variable: Asciidoc
 :plus: &#43
 :toc: yes
