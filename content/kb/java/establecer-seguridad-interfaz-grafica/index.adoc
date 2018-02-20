@@ -8,7 +8,7 @@
 
 == Necesidad
 
-Establecer políticas de seguridad mediante interfaz gráfica en Java 
+Establecer políticas de seguridad mediante interfaz gráfica en +Java+ 
 para mantener el principio del mínimo privilegio.
 
 == Contexto
@@ -16,41 +16,41 @@ para mantener el principio del mínimo privilegio.
 A continuación se describen las circunstancias 
 bajo las cuales la siguiente solución tiene sentido:
 
-. Se está desarrollando una aplicación en Java.
+. Se está desarrollando una aplicación en +Java+.
 . Se desea establecer una política de seguridad 
 para mantener el principio del mínimo privilegio.
 
 == Solución
 
-. La plataforma Java fue diseñada con un fuerte énfasis en seguridad. 
-En esencia, el lenguaje Java en sí es de tipo seguro 
+La plataforma +Java+ fue diseñada con un fuerte énfasis en seguridad. 
+En esencia, el lenguaje +Java+ en sí es de tipo seguro 
 y provee un recolector de basura automático, 
 mejorando la robustez del código de la aplicación. 
 Una carga de clases segura y un mecanismo de verificación 
-aseguran que solo código legítimo se ejecute. [1]
+aseguran que solo código legítimo se ejecute ^<<r1,[1]>>^.
 
 . De acuerdo al principio del mínimo privilegio, 
 el código no puede tener más privilegios 
 que aquellos que se tiene para ejecutar una determinada tarea. 
 Debe limitarse el uso de secciones de código que requieran elevar privilegios 
-y establecer políticas de seguridad sobre las clases de la aplicación. [2]
+y establecer políticas de seguridad sobre las clases de la aplicación ^<<r2,[2]>>^.
 
-. La arquitectura de Java permite establecer políticas de seguridad 
+. La arquitectura de +Java+ permite establecer políticas de seguridad 
 sobre funcionalidades potencialmente peligrosas, 
 existen permisos sobre: audio, autenticación, entorno gráfico, delegación, 
 manejo de archivos, registro de eventos, administración de red, credenciales, 
-sockets, SSL, entre otros.
++sockets+, +SSL+, entre otros.
 
-. En el siguiente diagrama se muestra la arquitectura de Java. [3]
+. En el siguiente diagrama se muestra la arquitectura de +Java+ ^<<r3,[3]>>^.
 +
 image::arquitectura.png[arquitectura java]
 
 . Las clases pasan por un primer control 
-donde se verifica que el bytecode esté bien formado. 
+donde se verifica que el +bytecode+ esté bien formado. 
 Luego, el cargador de clase 
 busca y carga dinámicamente la clase si ésta existe, 
-el programador puede usar el paquete de seguridad de Java 
-para establecer permisos en tiempo de ejecución [4]. 
+el programador puede usar el paquete de seguridad de +Java+ 
+para establecer permisos en tiempo de ejecución ^<<r4,[4]>>^. 
 Finalmente, y antes de que se haga la llamada al sistema operativo, 
 el administrador de seguridad y el controlador de acceso, 
 verifican que la aplicación tenga los privilegios necesarios 
@@ -58,14 +58,14 @@ para ejecutar determinadas acciones.
 
 . Este último filtro es definido por la política de seguridad 
 que establece el navegador, 
-la máquina virtual o el administrador del sistema. [5]
+la máquina virtual o el administrador del sistema ^<<r5,[5]>>^.
 
 . A continuación un pequeño ejemplo para evidenciar la política de seguridad.
 
-. Empezamos importando las clases que pertenecen a la biblioteca io 
+. Empezamos importando las clases que pertenecen a la biblioteca +io+ 
 y definiendo el nombre de la clase principal.
 +
-.test.py
+.Politica.java
 [source, java, linenums]
 ----
 import java.io.*;
@@ -73,7 +73,7 @@ import java.io.*;
 public class Politica {
 ----
 
-. Desarrollamos el método principal, el cual llama al método readFile, 
+. Desarrollamos el método principal, el cual llama al método +readFile+, 
 pasándole como ruta un archivo sensible que debería ser de solo lectura.
 +
 [source, java, linenums]
@@ -83,8 +83,8 @@ public static void main(String[] args) {
 }
 ----
 
-. Construimos el método readFile 
-e inicializamos los buffer de lectura y escritura.
+. Construimos el método +readFile+ 
+e inicializamos los +buffer+ de lectura y escritura.
 +
 [source, java, linenums]
 ----
@@ -93,8 +93,8 @@ public static void readFile(String path) {
   BufferedWriter writer = null;
 ----
 
-. Agregamos un bloque try-catch, para capturar las excepciones necesarias. 
-Creamos el objeto file con la ruta del archivo sensible.
+. Agregamos un bloque +try-catch+, para capturar las excepciones necesarias. 
+Creamos el objeto +file+ con la ruta del archivo sensible.
 +
 [source, java, linenums]
 ----
@@ -147,7 +147,7 @@ cerramos los recursos y terminamos el desarrollo de la aplicación:
 }
 ----
 
-. El contenido del archivo sensible es:
+. El contenido del archivo sensible es el mostrado a continuación.
 +
 [source, shell, linenums]
 ----
@@ -156,7 +156,7 @@ dcorrea:123456
 ----
 
 . Al ejecutar por consola la aplicación, 
-nos muestra el contenido y finaliza normalmente:
+nos muestra el contenido y finaliza normalmente.
 +
 [source, shell, linenums]
 ----
@@ -168,13 +168,13 @@ harold:admin
 ----
 
 . El problema radica en que se ha escrito contenido 
-en el archivo sensible "harold:admin", 
+en el archivo sensible +harold:admin+, 
 y esto puede generar problemas de seguridad 
 si la entrada de datos no es correctamente validada. 
 
 . Para eliminar el problema se establecerá la política de seguridad 
 de solo lectura para el archivo sensible, 
-para esto se usará la herramienta policytool que viene con el JDK. [6]
+para esto se usará la herramienta +policytool+ que viene con el +JDK+ ^<<r6,[6]>>.
 
 . En el pantallazo inicial vamos a la opción archivo, 
 y creamos un archivo que contendrá las políticas de seguridad.
@@ -182,16 +182,16 @@ y creamos un archivo que contendrá las políticas de seguridad.
 image::policytool.png[pantalla inicial]
 
 . El siguiente paso es agregar una entrada, para ello, 
-damos clic en Agregar entrada de norma. 
+damos clic en +Agregar entrada de norma+. 
 La base de códigos es la ruta de las clases 
 sobre las cuales aplicaremos la política de seguridad.
 +
 image::policytool-1.png[agregar entrada]
 
-. Aplicaremos una política para el manejo de archivos (FilePermission), 
-el nombre de destino es la ruta del archivo o los archivos 
+. Aplicaremos una política para el manejo de archivos +FilePermission+. 
+El nombre de destino es la ruta del archivo o los archivos 
 sobre los cuales la política tiene efecto, 
-y las acciones read, write, delete, execute.
+y las acciones +read+, +write+, +delete+, +execute+.
 +
 image::policytool-2.png[permisos]
 
@@ -207,7 +207,7 @@ grant codeBase "file:/D:/FLUID/" {
 
 . Para ejecutar la aplicación con la política, 
 se deben especificar los parámetros 
-java.security.manager y java.security.policy:
++java.security.manager+ y +java.security.policy+.
 +
 [source, shell, linenums]
 ----
@@ -222,13 +222,21 @@ se captura la excepción y se muestra el error:
 Write Denied
 ----
 
+== Descargas
+
+Puedes descargar el código fuente 
+pulsando en el siguiente enlace:
+
+[button]#link:src/politica.java[Politica.java >>]# 
+Archivo para mostrar como funciona las restricciones de seguridad.
+
 == Referencias
 
-. https://docs.oracle.com/javase/7/docs/technotes/guides/security/overview/jsoverview.html[Java Security Overview]
-. https://en.wikipedia.org/wiki/Principle_of_least_privilege[Principle of least privilege]
-. https://docstore.mik.ua/orelly/java-ent/security/ch02_01.htm[Chapter 2. Java Language Security]
-. https://docs.oracle.com/javase/7/docs/technotes/guides/security/permissions.html[Permissions in the Java Development Kit]
-. https://docs.oracle.com/javase/7/docs/technotes/guides/security/PolicyFiles.html[Default Policy Implementation and Policy File Syntax]
-. https://docs.oracle.com/javase/tutorial/security/tour1/wstep1.html[Start Policy Tool]
-. REQ.0264: Los privilegios para objetos nuevos 
+. [[r1]] link:https://docs.oracle.com/javase/7/docs/technotes/guides/security/overview/jsoverview.html[Java Security Overview]
+. [[r2]] link:https://en.wikipedia.org/wiki/Principle_of_least_privilege[Principle of least privilege]
+. [[r3]] link:https://docstore.mik.ua/orelly/java-ent/security/ch02_01.htm[Chapter 2. Java Language Security]
+. [[r4]] link:https://docs.oracle.com/javase/7/docs/technotes/guides/security/permissions.html[Permissions in the Java Development Kit]
+. [[r5]] link:https://docs.oracle.com/javase/7/docs/technotes/guides/security/PolicyFiles.html[Default Policy Implementation and Policy File Syntax]
+. [[r6]] link:https://docs.oracle.com/javase/tutorial/security/tour1/wstep1.html[Start Policy Tool]
+. [[r7]] REQ.0264: Los privilegios para objetos nuevos 
 deben establecerse según el principio de mínimo privilegio.
