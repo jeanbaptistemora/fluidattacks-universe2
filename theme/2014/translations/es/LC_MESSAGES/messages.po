@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2018-02-19 19:46+0000\n"
+"POT-Creation-Date: 2018-02-20 00:37+0000\n"
 "PO-Revision-Date: 2017-12-21 15:09-0500\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: es\n"
@@ -42,48 +42,44 @@ msgstr "Archivos para"
 msgid "Home"
 msgstr "Inicio"
 
-#: templates/article.html:49 templates/index.html:45
-msgid "categories"
-msgstr "categorias"
-
-#: templates/article.html:49 templates/categories.html:8
-#: templates/categories.html:31 templates/category.html:28
+#: templates/article.html:50 templates/categories.html:8
+#: templates/categories.html:32 templates/category.html:29
 msgid "Categories"
 msgstr "Categorías"
 
-#: templates/article.html:61
+#: templates/article.html:62
 msgid "User icon"
 msgstr "Ícono de usuario"
 
-#: templates/article.html:65
+#: templates/article.html:66
 msgid "Dialog box icon"
 msgstr "Ícono de globo de diálogo"
 
-#: templates/article.html:65
+#: templates/article.html:66
 msgid "Comment"
 msgstr "Comentar"
 
-#: templates/article.html:68 templates/index.html:44
+#: templates/article.html:69 templates/index.html:44
 msgid "Folder icon"
 msgstr "Ícono de carpeta"
 
-#: templates/article.html:71
+#: templates/article.html:72
 msgid "Calendar icon"
 msgstr "Ícono de calendario"
 
-#: templates/article.html:76
+#: templates/article.html:77
 msgid "Updated on"
 msgstr "Actualizado el"
 
-#: templates/article.html:83
+#: templates/article.html:84
 msgid "Author picture"
 msgstr "Foto del autor"
 
-#: templates/article.html:98
+#: templates/article.html:99
 msgid "Related"
 msgstr "Relacionado"
 
-#: templates/article.html:135
+#: templates/article.html:136
 msgid "Leave a comment"
 msgstr "Haz un comentario"
 
@@ -91,7 +87,7 @@ msgstr "Haz un comentario"
 msgid "Articles by"
 msgstr "Artículos por"
 
-#: templates/author.html:53 templates/authors.html:8 templates/authors.html:31
+#: templates/author.html:54 templates/authors.html:8 templates/authors.html:32
 #: templates/footer.html:40
 msgid "Authors"
 msgstr "Autores"
@@ -170,7 +166,7 @@ msgid "Careers"
 msgstr "Empleos"
 
 #: templates/error.html:66 templates/footer.html:43 templates/footer.html:44
-#: templates/footer.html:45 templates/footer.html:46
+#: templates/footer.html:45 templates/footer.html:46 templates/footer.html:47
 #: templates/navigationbar.html:38
 msgid "careers"
 msgstr "empleos"
@@ -282,8 +278,8 @@ msgstr "Temas"
 msgid "tags"
 msgstr "etiquetas"
 
-#: templates/footer.html:39 templates/tag.html:44 templates/tags.html:8
-#: templates/tags.html:31
+#: templates/footer.html:39 templates/tag.html:45 templates/tags.html:8
+#: templates/tags.html:32
 msgid "Tags"
 msgstr "Etiquetas"
 
@@ -315,10 +311,6 @@ msgstr "terminos"
 msgid "Terms"
 msgstr "Términos"
 
-#: templates/footer.html:47
-msgid "Application"
-msgstr "Aplicación"
-
 #: templates/home.html:47
 msgid "Consult Service"
 msgstr "Consultar Servicio"
@@ -339,6 +331,22 @@ msgstr "Ícono de etiqueta"
 msgid "Read More"
 msgstr "Seguir Leyendo"
 
+#: templates/landing.html:6
+msgid ""
+"We are a company specialized in Ethical Hacking over Applications and "
+"Infrastructure. We are hackers who develop our own tools and exploits, "
+"with the aim of identifying all the vulnerabilities of your applications "
+"and report them as soon as possible"
+msgstr "Somos una compañía especialista en Ethical Hacking de Aplicación e Infraestructura. Somos hackers que "
+"desarrollamos nuestras propias herramientas y exploits, cuyo objetivo identificar todas las vulnerabilidades "
+"de sus aplicaciones y reportarlas lo más pronto posible."
+
+#: templates/landing.html:7
+msgid ""
+"FLUID, Ethical Hacking, Vulnerability, Diagnosis, Application, "
+"Infrastructure"
+msgstr "FLUID, Ethical hacking, Vulnerabildad, Diagnóstico, Aplicación, Infraestructura"
+
 #: templates/landing.html:30
 msgid ""
 "Using a white-box methodology or code review, either on each application "
@@ -348,17 +356,13 @@ msgstr ""
 "cada aplicación o en el conjunto entero de aplicaciones, detectamos "
 "problemas de seguridad:"
 
-#: templates/landing.html:33
-msgid "Two CPUs connected"
-msgstr "Dos CPUs conectadas"
+#: templates/landing.html:33 templates/landing.html:37
+msgid "Service"
+msgstr "Servicio"
 
 #: templates/landing.html:34
 msgid "<strong>Continuous</strong> Hacking"
 msgstr "Hacking <strong>Continuo</strong>"
-
-#: templates/landing.html:37
-msgid "Window with a code and settings sign"
-msgstr "Ventana con un símbolo de código y de configuración"
 
 #: templates/landing.html:38
 msgid "<strong>One-Shot</strong> Hacking"
