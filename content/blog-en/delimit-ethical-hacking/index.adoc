@@ -1,0 +1,79 @@
+:slug: delimit-ethical-hacking/
+:date: 2018-01-09
+:category: opinions
+:tags: Ethical Hacking, Pentesting, Security Testing
+:Image: dimensionar-ethical-hacking.png
+:alt: Person working on the computer while looking at cellphone
+:description: When security flaws are found through an ethical hacking it is important to delimit the scope of the objectives. An ethical hacking can be centered on three aspects: Application, Infrastructure and Source Code. Knowing this, it is possible to establish the target of evaluation for the test.
+:keywords: Security, Hacking, Pentesting, Application, Infrastructure, Code.
+:author: Felipe Gómez
+:writer: fgomez
+:name: Felipe Gomez Arango
+:about1: FLUID Account Manager, Bachelor of Business Management
+:about2: Passionate about technology and security
+:description: In this post we are going to discuss how to properly delimit an Ethical Hacking in order to meet the goals of the organization
+
+= How to properly delimit an Ethical Hacking?
+
+The main problem encountered by an organization
+when they need to perform security testing
+is establishing the boundaries of the test.
+
+Delimiting the scope of a Pentest by time
+is a common mistake
+since it is not possible to know when a test,
+that is measured solely by effort,
+has ended nor whether the results were satisfactory
+or if it was just a big waste of time and resources
+that left no valuable knowledge to the organization.
+
+There are two objectives to evaluate in an Ethical Hacking,
+infrastructure and application.
+These two can be evaluated in an already deployed environment or in a development one
+analyzing the source code.
+
+If what the organization wants is to identify vulnerabilities
+in their applications(web/mobile) and web services
+based on the needs and context of the business,
+in order to generate the biggest business impact possible,
+an Ethical Hacking of Applications should be done.
+
+If what the organization wants is to detect security flaws
+directly in the development,
+identifying bad programming practices
+and intentional errors in the source code
+that can affect the proper functioning of the system,
+a Source Code Analysis should be done.
+
+Finally,
+if what is needed are tests on the underlying infrastructure
+of the systems (Network services/OS),
+looking to exploit specific vulnerabilities of the implemented technology,
+an Ethical Hacking of the Infrastructure should be done.
+
+Once the type of test to be performed is decided,
+the Target of Evaluation or ToE has to be determined
+based on three items.
+
+* **Number of Ports**,
+If what is going to be evaluated is Infrastructure.
+
+* **Number of Input Fields**,
+If the target of the test is the application.
+
+* **Lines of Code**,
+If the risks associated to the development wished to be determined.
+
+Once these scopes are set and clear,
+one can be assured that everything related to that technology
+will be tested,
+as opposed to delimitations that are set based on execution time
+with automated tools that only
+exploit a small percentage of the reported vulnerabilities.
+
+In FLUID, 
+our value proposition goes hand in hand with meeting the promised scope,
+never based on time.
+Our tests are said to be finished when we have evaluated
+the complete target of evaluation.
+
