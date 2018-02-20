@@ -8,7 +8,7 @@
 
 == Necesidad
 
-Filtrar entradas en una aplicación usando expresiones regulares (Java)
+Filtrar entradas en una aplicación usando expresiones regulares en +Java+
 
 == Contexto
 
@@ -20,35 +20,36 @@ para validar la entrada de datos en la aplicación
 
 == Solución
 
-. Las expresiones regulares son usadas dentro de las aplicaciones Java 
+Las expresiones regulares son usadas dentro de las aplicaciones +Java+ 
 para limitar la entrada de datos no confiables 
 evitando que un atacante pueda inyectar código malicioso.
 
-. Las expresiones regulares son una buena manera 
-de validar los campos de texto como nombres, direcciones, números de teléfono 
-y otra información del usuario.
+Las expresiones regulares son una buena manera 
+de validar los campos de texto como nombres, direcciones, 
+números de teléfono y otra información del usuario.
 
-. Se pueden utilizar para forzar la entrada 
+Se pueden utilizar para forzar la entrada 
 (limitando el rango de caracteres de entrada), 
 aplicar reglas de formato, y verificar longitudes.
 
 . El soporte para las expresiones regulares 
-está disponible para las aplicaciones Java 
-mediante el uso del paquete java.util.regex, 
-el cual contiene las clases Pattern, Matcher, y PatternSyntaxException[1].
+está disponible para las aplicaciones +Java+ 
+mediante el uso del paquete +java.util.regex+, 
+el cual contiene las clases 
++Pattern+, +Matcher+, y +PatternSyntaxException+ ^<<r1,[1]>>^.
 
 . Para validar la entrada de datos, 
 primero se debe importar 
-las clases Matcher y Pattern del paquete java.util.regex.
+las clases +Matcher+ y +Pattern+ del paquete +java.util.regex+.
 +
-.test.py
+.Main.java
 [source, java, linenums]
 ----
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 ----
 
-. A continuación, se debe crear una instancia de la clase *Pattern*. 
+. A continuación, se debe crear una instancia de la clase +Pattern+. 
 Esta clase es la representación compilada de una expresión regular.
 +
 [source, java, linenums]
@@ -64,9 +65,9 @@ para los carácteres alfabéticos (mayúsculas y minúsculas),
 carácteres de espacio, la comilla simple y el carácter de punto. 
 Además, la longitud del campo está limitada a 40 carácteres.
 
-. Como paso siguiente, se crea una instancia de Matcher. 
+. Como paso siguiente, se crea una instancia de +Matcher+. 
 Esta entrada es el producto de aplicar un patrón a una cadena de carácteres, 
-mediante la invocación del método Pattern.matcher. 
+mediante la invocación del método +Pattern.matcher+. 
 Esta instancia permite realizar operaciones 
 sobre la secuencia de carácteres que se quiere validar.
 +
@@ -80,7 +81,7 @@ al primer argumento que reciba la aplicación.
 
 . A continuación, se comprueba si la cadena de carácteres 
 cumple o no con el patrón especificado 
-haciendo uso del método matches.
+haciendo uso del método +matches+.
 +
 [source, java, linenums]
 ----
@@ -95,7 +96,7 @@ haciendo uso del método matches.
 }
 ----
 
-. Se compila y ejecuta pasando como parámetro el argumento "hola". 
+. Se compila y ejecuta pasando como parámetro el argumento +hola+. 
 Se puede observar que se ha clasificado la cadena como válida.
 +
 [source, shell, linenums]
@@ -105,7 +106,7 @@ java Main hola
 La cadena SI es válida
 ----
 
-. Ahora, se ejecuta pasando como parámetro el argumento "hola*", 
+. Ahora, se ejecuta pasando como parámetro el argumento +hola*+, 
 con un asterisco al final;
 carácter que no se encuentra en la definición del patrón. 
 Y se observa que se ha clasificado la cadena como NO válida.
@@ -116,7 +117,15 @@ java Main hola*
 La cadena NO es válida
 ----
 
+== Descargas
+
+Puedes descargar el código fuente 
+pulsando en el siguiente enlace:
+
+[button]#link:src/main.java[Main.java >>]# 
+Código que valida entrada de datos por expresión regular.
+
 == Referencias
 
-. https://docs.oracle.com/javase/tutorial/essential/regex/[Regular Expressions]
-. https://docs.oracle.com/javase/7/docs/api/java/util/regex/Pattern.html[Class Pattern]
+. [[r1]] link:https://docs.oracle.com/javase/tutorial/essential/regex/[Regular Expressions]
+. [[r2]] link:https://docs.oracle.com/javase/7/docs/api/java/util/regex/Pattern.html[Class Pattern]
