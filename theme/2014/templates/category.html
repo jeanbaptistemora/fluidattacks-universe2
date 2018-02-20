@@ -15,7 +15,7 @@
     <header class="intro-header" style="background-color: {{ HEADER_COLOR }}">
   {% else %}
     <header class="intro-header"> <!--style="background-image: url('{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/fluid-{{ DEFAULT_LANG }}.png');" >-->
-    <a href="../../"><img src="../../{{ THEME_STATIC_DIR }}/images/fluid-{{ DEFAULT_LANG }}.png" alt="{{ gettext('Young hacker smiling') }}"></a>
+    <a href="{{ SITEURL }}/"><img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/fluid-{{ DEFAULT_LANG }}.png" alt="{{ gettext('Young hacker smiling') }}"></a>
   {% endif %}   
   </header>
   <div class="list-title">
@@ -24,7 +24,8 @@
         <div class="post-heading">
           <div class="breadcrumbs">
             <ul>
-              <li><a href="../../">{{ gettext('Home') }} >>&nbsp;</a></li>
+              <li><a href="{{ SITEURL }}/">{{ gettext('Home') }} >>&nbsp;</a></li>
+              <li><a href="{{ SITEURL }}/blog/">Blog >>&nbsp;</a></li>
               <li><a href="../">{{ gettext('Categories') }}</a></li>
             </ul>
           </div>
