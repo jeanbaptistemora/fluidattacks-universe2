@@ -6,12 +6,12 @@
 	proxyErrorOverride on
 
     # Sitemap
-        RewriteRule ^/sitemap.xml$                https://fluid.la/web/sitemap.xml    [P,L]
-	    ProxyPassReverse /sitemap.xml  https://fluid.la/web/sitemap.xml
+        RewriteRule ^/sitemap.xml$                https://fluidattacks.com/web/sitemap.xml    [R]
+	    ProxyPassReverse /sitemap.xml  https://fluidattacks.com/web/sitemap.xml
 
     # Moodle
-        RewriteRule ^/courses(.*)                http://fluid.la:8080$1     [P,L]
-        ProxyPassReverse /courses http://fluid.la:8080
+        RewriteRule ^/courses(.*)                https://fluidattacks.com:8080$1     [R]
+        ProxyPassReverse /courses https://fluidattacks.com:8080
 
     # Favicon KB
 	    Substitute "s|type=\"image/x-icon\".*href=\".*|type=\"image/x-icon\" href=\"https://app.knowledgeowl.com/app/image/id/54f110f97cb829fd677b23d4/n/favicon_fluid.png\">|i"
