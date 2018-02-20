@@ -8,7 +8,7 @@ server_admin: technology@fluidattacks.com
 error_page: https://fluidattacks.com/web/en/error/
 error500_page: https://fluid.la/integrates/error500
 error401_page: /errors/
-servername: fluid.la
+servername: fluidattacks.com
 landing: https://fluidattacks.com/web/en/
 error_log: /var/log/apache2/error.log
 custom_log: /var/log/apache2/access.log

@@ -17,11 +17,6 @@
 	    Substitute "s|type=\"image/x-icon\".*href=\".*|type=\"image/x-icon\" href=\"https://app.knowledgeowl.com/app/image/id/54f110f97cb829fd677b23d4/n/favicon_fluid.png\">|i"
 	    Substitute "s|<a href=\"//kb.fluidattacks.com/help/article/link/|<a href=\"//fluidattacks.com/help/article/link/|i"
 
-    # Lineas de negocio
-        Redirect /consulting {{ mainsite2 }}
-        Redirect /testing {{ mainsite2 }}
-        Redirect /intelligence {{ mainsite2 }}
-
     # Formstack
         RewriteRule ^/forms(.*)                https://fluidsignal.formstack.com/forms$1     [P,L]
         ProxyPassReverse /forms https://fluidsignal.formstack.com/forms

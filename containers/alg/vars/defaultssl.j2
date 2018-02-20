@@ -21,14 +21,9 @@
         Substitute "s|<ul id=\"menu-menu-superior\" class=\"main-navigation-menu\">|<img src=\"https://fluidsignal.files.wordpress.com/2015/02/fluid-footer.png\" width=215 height=41 class=\"logo-fluid\" /><ul id=\"menu-menu-superior\" class=\"main-navigation-menu\">|i"
         Substitute "s|<nav id=\"footer-links\" class=\"footer-navigation navigation clearfix\" role=\"navigation\">|<img src=\"https://fluidsignal.files.wordpress.com/2015/02/fluid-footer.png\" width=215 height=41 class=\"logo-fluid-footer\" /><nav id=\"footer-links\" class=\"footer-navigation navigation clearfix\" role=\"navigation\">|i"
 
-    # Lineas de negocio
-        Redirect /consulting {{ mainsite }}
-        Redirect /testing {{ mainsite }}
-        Redirect /intelligence {{ mainsite }}
-
     # Formstack
-        RewriteRule ^/forms(.*)                https://fluidsignal.formstack.com/forms$1     [P,L]
-        ProxyPassReverse /forms https://fluidsignal.formstack.com/forms
+        RewriteRule ^/forms(.*)                https://fluidattacks.com/forms$1     [R]
+        ProxyPassReverse /forms https://fluidattacks.com/forms
 
     #Integrates
         RewriteEngine on
@@ -46,12 +41,10 @@
         ProxyPassReverse /errors https://fluid.la/integrates/error401
 
     # KB - Knowledgeowl
-	    Header edit Location ^http://kb.fluid.la(.*)$ https://fluid.la$1
-        Header edit Set-Cookie kb.fluid.la fluid.la
-        RewriteRule ^/kb$           http://kb.fluid.la/help/readerlogin        [P,L]
-        ProxyPassReverse /kb http://kb.fluid.la/help/readerlogin
-        RewriteRule ^/help(.*)           http://kb.fluid.la/help$1        [P,L]
-        ProxyPassReverse /help http://kb.fluid.la/help
+        RewriteRule ^/kb$           http://kb.fluidattacks.com        [R]
+        ProxyPassReverse /kb http://kb.fluidattacks.com
+        RewriteRule ^/help(.*)           http://kb.fluidattacks.com        [R]
+        ProxyPassReverse /help http://kb.fluidattacks.com
 
     # Blog
         RewriteRule ^/web(.*)$           https://fluidattacks.com/web$1        [P,L]
