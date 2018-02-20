@@ -8,38 +8,38 @@
 
 == Necesidad
 
-Establecer esquema de autenticación en servidor para aplicación web (Java)
+Establecer esquema de autenticación en servidor para aplicación web +Java+
 
 == Contexto
 
 A continuación se describen las circunstancias 
 bajo las cuales la siguiente solución tiene sentido
 
-. Se dispone de un servidor de aplicaciones o contenedor de Servlets 
-conforme con las especificaciones empresariales de Java.
+. Se dispone de un servidor de aplicaciones o contenedor de +Servlets+ 
+conforme con las especificaciones empresariales de +Java+.
 . Se conoce como configurar roles de seguridad 
-en el descriptor de despliegue web.xml.
-* De lo contrario, ver Webapp Authorization URL (Java)
+en el descriptor de despliegue +web.xml+.
+* De lo contrario, ver +Webapp Authorization URL+ en +Java+
 . Se ha configurado los roles de seguridad necesarios 
 por la aplicación en el servidor de aplicaciones.
-* Para Tomcat: Tomcat Roles
+* Para +Tomcat+: link:../definir-rol-seguridad-tomcat/[Definir Roles de Seguridad en Tomcat]
 . Se desea emplear un mecanismo genérico de control de acceso.
 * Para conocer una forma alternativa 
-cuando se está utilizando la tecnología de Servlets, 
-ver Access control servlets declarative
+cuando se está utilizando la tecnología de +Servlets+, 
+ver +Access control servlets declarative+
 . Se requiere un diseño personalizado para la pantalla de autenticación.
 
 == Solución
 
 . Inicialmente se configuran los usuarios que tendrán acceso a la aplicación. 
-Este paso dependerá del contenedor de servlets que se esté usando 
+Este paso dependerá del contenedor de +servlets+ que se esté usando 
 y de la fuente de donde se extraigan los datos. 
-Por ejemplo en Tomcat, 
+Por ejemplo en +Tomcat+, 
 y tomando como usuarios los definidos para el propio servidor, 
-se deberá agregar en el archivo tomcatusers.xml 
+se deberá agregar en el archivo +tomcatusers.xml+ 
 usuarios con roles específicos, por ejemplo:
 +
-.test.py
+.tomcatusers.xml
 [source, xml, linenums]
 ----
 <tomcat-users> 
@@ -61,11 +61,11 @@ cerrar.jsp index.jsp login-failed.jsp login.jsp WEB-INF/
 web.xml
 ----
 
-. Se crea el archivo cerrar.jsp, página encargada de invalidar la sesión. 
-Para esto llama el método invalidate del objeto de sesión session.
+. Se crea el archivo +cerrar.jsp+, página encargada de invalidar la sesión. 
+Para esto llama el método +invalidate+ del objeto de sesión +session+.
 
 . La acción solo se lleva a cabo cuando se pasa como parámetro en la petición 
-el valor invalidate en el parámetro action.
+el valor +invalidate+ en el parámetro +action+.
 +
 [source, html,linenums]
 ----
@@ -80,7 +80,7 @@ el valor invalidate en el parámetro action.
         session.invalidate();
 ----
 
-. Luego se obtiene una nueva sesión y se redirecciona a index.jsp.
+. Luego se obtiene una nueva sesión y se redirecciona a +index.jsp+.
 +
 [source, html,linenums]
 ----
@@ -92,10 +92,10 @@ el valor invalidate en el parámetro action.
 </html>
 ----
 
-. Se crea el archivo index.jsp, el cual contendrá la página 
+. Se crea el archivo +index.jsp+, el cual contendrá la página 
 cuyo acceso debe ser restringido.
 
-. Únicamente posee un link hace una petición a cerrar.jsp 
+. Únicamente posee un +link+ y hace una petición a +cerrar.jsp+ 
 con los parámetros para cerrar la sesión.
 +
 [source, html,linenums]
@@ -104,7 +104,7 @@ Esta página puede ser vista solo por usuarios autorizados.
 <br /><a href="cerrar.jsp?action=invalidate">Cerrar sesion</a>
 ----
 
-. Se crea la página que contendrá el formulario de autenticación login.jsp
+. Se crea la página que contendrá el formulario de autenticación +login.jsp+
 +
 [source, html,linenums]
 ----
@@ -115,21 +115,21 @@ Esta página puede ser vista solo por usuarios autorizados.
   <body>
 ----
 
-. En el formulario, la acción corresponde a j_security_check 
+. En el formulario, la acción corresponde a +j_security_check+ 
 no necesita ser programada, sino que el servidor responderá ante esta 
-según se configure el descriptor de despliegue web.xml 
+según se configure el descriptor de despliegue +web.xml+ 
 como se verá más adelante.
 
-. Se usa el método response.encodeURL 
-para que en caso de que las cookies estén deshabilitadas, 
-se mantenga el ID de la sesión como parte de la URL.
+. Se usa el método +response.encodeURL+ 
+para que en caso de que las +cookies+ estén deshabilitadas, 
+se mantenga el +ID+ de la sesión como parte de la +URL+.
 +
 [source, html,linenums]
 ----
 <form method="POST" action='<%= response.encodeURL("j_security_check") %>' >
 ----
  
-. El contenido del formulario incluye los campos j_username y j_password 
+. El contenido del formulario incluye los campos +j_username+ y +j_password+ 
 que son los interpretados por el servidor para determinar el acceso.
 +
 [source, html,linenums]
@@ -150,9 +150,9 @@ que son los interpretados por el servidor para determinar el acceso.
 </html>
 ----
  
-. Se crea el archivo login-failed.jsp que será el mostrado 
+. Se crea el archivo +login-failed.jsp+ que será el mostrado 
 cuando se haga un intento de autenticación erróneo. 
-Esta página simplemente tiene un link de redirección hacia index.jsp.
+Esta página simplemente tiene un link de redirección hacia +index.jsp+.
 +
 [source, html,linenums]
 ----
@@ -168,7 +168,7 @@ Esta página simplemente tiene un link de redirección hacia index.jsp.
 ----
 
 . Finalmente deben ser enlazadas las páginas anteriores 
-desde la especificación estándar de la aplicación web WEB-INF\web.xml
+desde la especificación estándar de la aplicación web +WEB-INF\web.xml+
 +
 [source, xml, linenums]
 ----
@@ -195,20 +195,19 @@ desde la especificación estándar de la aplicación web WEB-INF\web.xml
  </security-constraint>
 ----
  
-. El tag <security-constraint> 
+. El tag +<security-constraint>+ 
 se usa para definir los privilegios de acceso 
-a una colección de recursos usando mapeos de URL [1]. 
+a una colección de recursos usando mapeos de +URL+ ^<<r1,[1]>>^. 
 En este caso se está restringiendo el acceso a todas las direcciones, 
-sin importar si se usa el método GET o POST, 
-solo a usuarios con el rol tomcat. 
-user-data-constraint se dejara con el valor de NONE 
-puesto que no se requieren configuraciones adicionales para SSL.
+sin importar si se usa el método +GET+ o +POST+, 
+solo a usuarios con el rol +tomcat+. 
++user-data-constraint+ se dejara con el valor de +NONE+ 
+puesto que no se requieren configuraciones adicionales para +SSL+.
 
 . Para evitar warnings del tipo 
-"INFO: WARNING: Security role name tomcat used in an <auth-constraint> 
-without being defined in a <security-role>", 
-se debe definir todos los roles usando el tag <security-role> 
-tal como se explica en la solución enlazada en el contexto.
++INFO: WARNING: Security role name tomcat used in an <auth-constraint> 
+without being defined in a <security-role>+, 
+se debe definir todos los roles usando el +tag+ +<security-role>+. 
 +
 [source, xml,linenums]
 ----
@@ -222,7 +221,7 @@ tal como se explica en la solución enlazada en el contexto.
 </web-app>
 ----
 
-. En <login-config> se especifica cual será la página de login 
+. En +<login-config>+ se especifica cual será la página de +login+ 
 a la que se redirigirá 
 cuando no se cuente con los privilegios para acceder a un recurso así 
 como la página de error a la que se redirigirá 
@@ -230,6 +229,5 @@ cuando se intente una autenticación errónea.
 
 == Referencias
 
-. http://jdiezfoto.es/informatica/java-ee-seguridad-en-aplicaciones-web-i/[Java EE: Seguridad en aplicaciones web]
-. https://docs.oracle.com/javaee/6/tutorial/doc/gkbaa.html[Java EE6 Tutorial - Securing Web Applications]
-. Aplicación web de ejemplo de Tomcat 7 (archivo web.xml)
+. [[r1]] link:http://jdiezfoto.es/informatica/java-ee-seguridad-en-aplicaciones-web-i/[Java EE: Seguridad en aplicaciones web]
+. [[r2]] link:https://docs.oracle.com/javaee/6/tutorial/doc/gkbaa.html[Java EE6 Tutorial - Securing Web Applications]
