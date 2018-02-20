@@ -28,18 +28,18 @@ ARTICLE_URL = 'blog/{slug}'
 ARTICLE_SAVE_AS = 'blog-en/{slug}index.html'
 PAGE_URL = '{slug}'
 PAGE_SAVE_AS = 'pages-en-2018/{slug}index.html'
-TAGS_SAVE_AS = 'tags/index.html'
-TAGS_URL = 'tags/'
-TAG_SAVE_AS = 'tags/{slug}/index.html'
-TAG_URL = 'tags/{slug}/'
-AUTHORS_SAVE_AS = 'authors/index.html'
-AUTHORS_URL = 'authors/'
-AUTHOR_SAVE_AS = 'authors/{slug}/index.html'
-AUTHOR_URL = 'authors/{slug}/'
-CATEGORIES_SAVE_AS = 'categories/index.html'
-CATEGORIES_URL = 'categories/'
-CATEGORY_SAVE_AS = 'categories/{slug}/index.html'
-CATEGORY_URL = 'categories/{slug}/'
+TAGS_SAVE_AS = 'blog/tags/index.html'
+TAGS_URL = 'blog/tags/'
+TAG_SAVE_AS = 'blog/tags/{slug}/index.html'
+TAG_URL = 'blog/tags/{slug}/'
+AUTHORS_SAVE_AS = 'blog/authors/index.html'
+AUTHORS_URL = 'blog/authors/'
+AUTHOR_SAVE_AS = 'blog/authors/{slug}/index.html'
+AUTHOR_URL = 'blog/authors/{slug}/'
+CATEGORIES_SAVE_AS = 'blog/categories/index.html'
+CATEGORIES_URL = 'blog/categories/'
+CATEGORY_SAVE_AS = 'blog/categories/{slug}/index.html'
+CATEGORY_URL = 'blog/categories/{slug}/'
 USE_FOLDER_AS_CATEGORY = False
 
 # Plugins configuration
@@ -87,18 +87,18 @@ I18N_SUBSITES = {
         'ARTICLE_SAVE_AS': 'blog-es/{slug}index.html',
         'STATIC_PATHS': ['files', 'images', 'blog-es', 'kb', 'pages-es-2018'],
         'GOOGLE_ANALYTICS': 'UA-22974464-4',
-        'TAGS_SAVE_AS': 'etiquetas/index.html',
-        'TAGS_URL': 'etiquetas/',
-        'TAG_SAVE_AS': 'etiquetas/{slug}/index.html',
-        'TAG_URL': 'etiquetas/{slug}/',
-        'AUTHORS_SAVE_AS': 'autores/index.html',
-        'AUTHORS_URL': 'autores/',
-        'AUTHOR_SAVE_AS': 'autores/{slug}/index.html',
-        'AUTHOR_URL': 'autores/{slug}/',
-        'CATEGORIES_SAVE_AS': 'categorias/index.html',
-        'CATEGORIES_URL': 'categorias/',
-        'CATEGORY_SAVE_AS': 'categorias/{slug}/index.html',
-        'CATEGORY_URL': 'categorias/{slug}/',
+        'TAGS_SAVE_AS': 'blog/etiquetas/index.html',
+        'TAGS_URL': 'blog/etiquetas/',
+        'TAG_SAVE_AS': 'blog/etiquetas/{slug}/index.html',
+        'TAG_URL': 'blog/etiquetas/{slug}/',
+        'AUTHORS_SAVE_AS': 'blog/autores/index.html',
+        'AUTHORS_URL': 'blog/autores/',
+        'AUTHOR_SAVE_AS': 'blog/autores/{slug}/index.html',
+        'AUTHOR_URL': 'blog/autores/{slug}/',
+        'CATEGORIES_SAVE_AS': 'blog/categorias/index.html',
+        'CATEGORIES_URL': 'blog/categorias/',
+        'CATEGORY_SAVE_AS': 'blog/categorias/{slug}/index.html',
+        'CATEGORY_URL': 'blog/categorias/{slug}/',
         'ASCIIDOC_OPTIONS': ['-f /etc/asciidoc/lang-es.conf'],
     }
 }
