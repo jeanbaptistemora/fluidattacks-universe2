@@ -213,7 +213,7 @@ Una vez tenga acceso al repositorio, antes de enviar un Merge Request, por favor
 
 == 8. Informes de avance
 
-Apreciaremos mucho que nos informe de sus avances mínimo 1 vez cada semana, utilizando el [button]#link:https://fluid.la/forms/training[siguiente formulario >>]#.
+Apreciaremos mucho que nos informe de sus avances mínimo 1 vez cada semana, utilizando el [button]#link:https://fluidattacks.com/forms/training[siguiente formulario >>]#.
 Al diligenciar el anterior formulario ,por favor tenga en cuenta lo siguiente:
 . En el campo “Relación”, escoger la opción “Selección”, dado que estas reportando tu avance en medio del proceso de selección
 . Tenga en cuenta su posición en el ranking y su puntaje antes de comenzar el entrenamiento, pues necesitará estos datos al momento de registrar los campos "Ranking Mundial Inicial", "Ranking Colombia Inicial" y "Puntaje/Páginas Inicial"

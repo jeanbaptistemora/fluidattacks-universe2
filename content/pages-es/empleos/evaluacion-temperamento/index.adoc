@@ -12,7 +12,7 @@ Para proceder con este paso, te pedimos el favor de seguir las siguientes instru
 
 . Ingresar al enlace que se te enviará vía e-mail cuando finalices las etapas anteriores.
 +
-O Ingresar al [button]#link:https://fluid.la/forms/profile[siguiente formulario >>]#
+O Ingresar al [button]#link:https://fluidattacks.com/forms/profile[siguiente formulario >>]#
 . Sigue las instrucciones que aparecen en pantalla,
 . Una vez registrado podrá presentar la prueba en 8 minutos, Son 24 preguntas cada una con tiempo máximo de 20 segundos,
 . Una vez finalice podremos ver sus 4 principales fortalezas. Algunas recomendaciones para presentar la prueba son las siguientes:

@@ -75,7 +75,7 @@ vulnerabilidades, esta explotación se realiza con base en los resultados
 obtenidos a través de una herramienta, más no por la malicia y la capacidad 
 de interpretación del entorno por parte del atacante.
 
-.Explotación de SQL injection por acuberos@fluid.la
+.Explotación de SQL injection por acuberos@fluidattacks.com
 image::animacion-de-explotacion.gif[injection]
 
 A diferencia de un análisis de vulnerabilidades, un Pentesting (Ethical 

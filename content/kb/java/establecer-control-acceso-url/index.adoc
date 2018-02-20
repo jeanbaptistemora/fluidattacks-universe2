@@ -20,8 +20,8 @@ conforme con las especificaciones empresariales de +Java+.
 
 . Se han configurado los roles de seguridad necesarios 
 por la aplicación en el servidor de aplicaciones.
-* link:https://fluid.la/web/es/kb/java/definir-rol-seguridad-tomcat/[Definir Roles De Seguridad En Tomcat]
-* link:https://fluid.la/web/es/kb/glassfish/definir-rol-seguridad-glassfish/[Definir Roles De Seguridad En Glassfish]
+* link:https://fluidattacks.com/web/es/kb/java/definir-rol-seguridad-tomcat/[Definir Roles De Seguridad En Tomcat]
+* link:https://fluidattacks.com/web/es/kb/glassfish/definir-rol-seguridad-glassfish/[Definir Roles De Seguridad En Glassfish]
 
 . Se ha configurado la interfaz de autenticación para la aplicación web.
 

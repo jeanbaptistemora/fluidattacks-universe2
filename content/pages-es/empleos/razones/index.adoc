@@ -37,7 +37,7 @@ para las pruebas de seguridad, los estandares ISO/IEC 17025 y el estándar Commo
 FLUID provee servicios de seguridad de la información a algunas de las mayores organizaciones de Colombia. Esto significa 
 que siempre habrá proyectos con grandes retos en los que puedes participar.  Bancolombia, Colpatria, Davivienda, los mayores 
 bancos del país; UNE, ETB, EDATEL, Claro, los mayores ISP del país; y muchos más. Para ver una lista más completa de los 
-clientes, visita la sección https://fluid.la/es/servicios/#lp-pom-block-1090[Clientes].
+clientes, visita la sección https://fluidattacks.com/es/servicios/#lp-pom-block-1090[Clientes].
 
 == Grandes talentos trabajando juntos
 

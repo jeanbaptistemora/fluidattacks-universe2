@@ -46,7 +46,7 @@ posibles errores que representan una amenaza.
 ¿Qué hacer para aprobar el software desarrollado antes de sacarlo al mercado o 
 introducirlos a la organización?
 
-. Introducir la seguridad en el https://fluid.la/site/posts/sdlc-security/[SDLC]
+. Introducir la seguridad en el https://fluidattacks.com/site/posts/sdlc-security/[SDLC]
 (Systems Development Life Cycle)
 . Detectar la mayor cantidad de vulnerabilidades posibles antes de sacarlo al 
 mercado

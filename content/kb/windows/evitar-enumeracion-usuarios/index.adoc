@@ -35,7 +35,7 @@ image::login.png[login-enumeracion]
 . Para aplicar esta configuración a un dominio 
 por medio de +Directorio Activo+, 
 se debe configurar la siguiente ruta usando la solución 
-https://fluid.la/web/es/kb/windows/configuracion-directivas-dominio[Modificar configuración de directivas de dominio]
+https://fluidattacks.com/web/es/kb/windows/configuracion-directivas-dominio[Modificar configuración de directivas de dominio]
 +
 .ruta.shell
 [source, shell, linenums]

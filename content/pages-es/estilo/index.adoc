@@ -335,7 +335,7 @@ en formato +asciidoc+ cumpliendo todas las reglas
 anteriormente mencionadas.
 
 . Si no eres parte del equipo de FLUID 
-solo debes enviar a communications@fluid.la tu documento, 
+solo debes enviar a communications@fluidattacks.com tu documento, 
 adjuntando todos los archivos necesarios para crear el +post+.
 Una vez enviado el documento entrará en proceso de evaluación
 para definir si es publicado.

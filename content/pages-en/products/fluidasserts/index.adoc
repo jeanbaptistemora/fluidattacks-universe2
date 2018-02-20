@@ -230,5 +230,5 @@ $
 
 == Licence
 
-Write us at relations@fluid.la to obtain
+Write us at relations@fluidattacks.com to obtain
 information about licences.

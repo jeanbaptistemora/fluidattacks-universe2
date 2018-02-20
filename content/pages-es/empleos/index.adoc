@@ -52,7 +52,7 @@ Para hacerla requieres haber finalizado la etapa anterior.
 
 [role="a_formLink"]
 Para iniciar, 
-solo debes seguir las instrucciones detalladas [button]#link:https://fluid.la/forms/aplicacion[aquí >>]#
+solo debes seguir las instrucciones detalladas [button]#link:https://fluidattacks.com/forms/aplicacion[aquí >>]#
 
 [role="etapa_h"]
 == 6. Historia
@@ -63,7 +63,7 @@ Para hacerla requieres haber finalizado la etapa anterior.
 
 [role="h_formLink"]
 Para iniciar, 
-solo debes seguir las instrucciones detalladas [button]#link:https://fluid.la/forms/periodo[aquí >>]#
+solo debes seguir las instrucciones detalladas [button]#link:https://fluidattacks.com/forms/periodo[aquí >>]#
 
 ++++
 <script>document.getElementsByClassName("h_formLink")[0].style.display="none",document.getElementsByClassName("a_formLink")[0].style.display="none";var r=window.location.href.split("?")[1];"398453"==r?(document.getElementsByClassName("a_formLink")[0].style.display="block",document.getElementsByClassName("etapa_a")[0].style.backgroundColor="#ffffa6"):"987343"==r?(document.getElementsByClassName("h_formLink")[0].style.display="block",document.getElementsByClassName("etapa_h")[0].style.backgroundColor="#ffffa6"):"0062"==r&&(document.getElementsByClassName("etapa_c")[0].style.backgroundColor="#ffffa6");</script>
