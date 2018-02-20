@@ -46,10 +46,15 @@
         <ul>
           <li><a href="{{ SITEURL }}/">{{ gettext('Home') }} >>&nbsp;</a></li>
             {% if page.kb %}
-              <li><a href="{{ SITEURL }}/kb/">KB >>&nbsp;</a></li>
-              <li><a href="../../#{{ page.category.name }}">{{ page.category }}</a></li>
+              <li><a href="{{ SITEURL }}/kb/">FLUIDHardens >>&nbsp;</a></li>
+              <li><a href="{{ SITEURL }}/kb/#{{ page.category.name }}">{{ page.category }}</a></li>
             {% elif "misc" not in page.category.name %}
-              <li><a href="../../{{ page.category.name }}">{{ page.category }}</a></li>
+              {% if page.category2 %}
+                <li><a href="{{ SITEURL }}/{{ page.category.name }}">{{ page.category }} >>&nbsp;</a></li>
+                <li><a href="{{ SITEURL }}/{{ page.category.name }}/{{ page.category2 }}/">{{ page.category2|replace('-', ' ') }}</a></li>
+              {% else %}
+                <li><a href="{{ SITEURL }}/{{ page.category.name }}">{{ page.category }}</a></li>
+              {% endif %}
             {% endif %}
         </ul>
       </div>
