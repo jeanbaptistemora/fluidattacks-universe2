@@ -8,41 +8,40 @@
 
 == Necesidad
 
-Establecer control de acceso para Servlets 
-usando una forma declarativa con anotaciones (Java)
+Establecer control de acceso para +Servlets+ 
+usando una forma declarativa con anotaciones en +Java+.
 
 == Contexto
 
 A continuación se describen las circunstancias 
 bajo las cuales la siguiente solución tiene sentido:
 
-. Se está desarrollando una aplicación web en Java.
-. Se dispone de un servidor de aplicaciones o contenedor de Servlets 
-conforme con las especificaciones empresariales de Java 
-que soporte la especificación 3.0 o superior.
+. Se está desarrollando una aplicación web en +Java+.
+. Se dispone de un servidor de aplicaciones o contenedor de +Servlets+ 
+conforme con las especificaciones empresariales de +Java+ 
+que soporte la especificación +3.0+ o superior.
 . Se conoce como configurar roles de seguridad 
-en el descriptor de despliegue web.xml.
+en el descriptor de despliegue +web.xml+.
 . Se han configurado los roles de seguridad necesarios 
 por la aplicación en el servidor de aplicaciones.
-* Para https://fluid.la/web/es/kb/java/definir-rol-seguridad-tomcat/[Tomcat]
-* Para https://fluid.la/web/es/kb/glassfish/definir-rol-seguridad-glassfish/[GlassFish]
-. Se desea emplear un mecanismo conveniente para la tecnología de Servlets.
+* Para +tomcat+: link:../definir-rol-seguridad-tomcat/[Definir Roles de Seguridad en Tomcat]
+* Para +glassfish+: link:../../glassfish/definir-rol-seguridad-glassfish/[Definir Roles de Seguridad]
+. Se desea emplear un mecanismo conveniente para la tecnología de +Servlets+.
 * Para emplear un mecanismo genérico de control de acceso 
-https://fluid.la/web/es/kb/java/establecer-control-acceso-url/[establecer control de acceso]
+link:../establecer-control-acceso-url/[Establecer Control de Acceso a URL]
 . Se requiere un diseño personalizado para la pantalla de autenticación.
-. Se conoce cómo trabajar con servlets.
+. Se conoce cómo trabajar con +servlets+.
 
 == Solución
 
 . Inicialmente se configuran los usuarios que tendrán acceso a la aplicación. 
-Este paso dependerá del contenedor de servlets que se esté usando 
+Este paso dependerá del contenedor de +servlets+ que se esté usando 
 y de la fuente de donde se extraigan los datos. 
-Revisar las soluciones del contexto si no se conoce como realizar este proceso.
 
 . A continuación se muestra la estructura de carpetas 
-que debe contener la aplicación:
+que debe contener la aplicación.
 +
-.test.py
+.estructura.bash
 [source, bash, linenums]
 ----
 % ls -R *
@@ -54,11 +53,11 @@ WEB-INF:
 web.xml
 ----
 
-. Se crea el archivo cerrar.jsp, página encargada de invalidar la sesión. 
-Para esto llama el método invalidate del objeto de sesión session.
+. Se crea el archivo +cerrar.jsp+, página encargada de invalidar la sesión. 
+Para esto llama el método +invalidate+ del objeto de sesión +session+.
 
 . La acción solo se lleva a cabo cuando se pasa como parámetro en la petición 
-el valor invalidate en el parámetro action.
+el valor +invalidate+ en el parámetro +action+.
 +
 [source, html, linenums]
 ----
@@ -73,7 +72,7 @@ el valor invalidate en el parámetro action.
        session.invalidate();
 ----
 
-. Luego se obtiene una nueva sesión y se redirecciona a index.jsp
+. Luego se obtiene una nueva sesión y se redirecciona a +index.jsp+
 +
 [source, html, linenums]
 ----
@@ -85,10 +84,10 @@ el valor invalidate en el parámetro action.
 </html>
 ----
 
-. Se crea el archivo index.jsp, 
+. Se crea el archivo +index.jsp+, 
 el cual contendrá la página cuyo acceso debe ser restringido.
 
-. Únicamente posee un link hace una petición a cerrar.jsp 
+. Únicamente posee un +link+ que hace una petición a +cerrar.jsp+ 
 con los parámetros para cerrar la sesión.
 +
 [source, html, linenums]
@@ -98,7 +97,7 @@ Esta página puede ser vista solo por usuarios autorizados.
 <a href="cerrar.jsp?action=invalidate">Cerrar sesion</a>
 ----
 
-. Se crea la página que contendrá el formulario de autenticación login.jsp:
+. Se crea la página que contendrá el formulario de autenticación +login.jsp+.
 +
 [source, html, linenums]
 ----
@@ -109,21 +108,21 @@ Esta página puede ser vista solo por usuarios autorizados.
   <body>
 ----
 
-. En el formulario, la acción que corresponde a j_security_check 
+. En el formulario, la acción que corresponde a +j_security_check+ 
 no necesita ser programada, sino que el servidor responderá ante esta 
-según se configure el descriptor de despliegue web.xml 
+según se configure el descriptor de despliegue +web.xml+ 
 como se verá más adelante.
 
-. Se usa el método response.encodeURL 
-para que en caso de que las cookies estén deshabilitadas, 
-se mantenga el ID de la sesión como parte de la URL.
+. Se usa el método +response.encodeURL+ 
+para que en caso de que las +cookies+ estén deshabilitadas, 
+se mantenga el +ID+ de la sesión como parte de la +URL+.
 +
 [source, html, linenums]
 ----
 <form method="POST" action='<%= response.encodeURL("j_security_check") %>' >
 ----
 
-. El contenido del formulario incluye los campos j_username y j_password 
+. El contenido del formulario incluye los campos +j_username+ y +j_password+ 
 que son los interpretados por el servidor para determinar el acceso.
 +
 [source, html, linenums]
@@ -144,9 +143,9 @@ que son los interpretados por el servidor para determinar el acceso.
 </html>
 ----
 
-. Se crea el archivo login-failed.jsp 
+. Se crea el archivo +login-failed.jsp+ 
 que será el mostrado cuando se haga un intento de autenticación erróneo. 
-Esta página simplemente tiene un link de redirección hacia index.jsp.
+Esta página simplemente tiene un +link+ de redirección hacia +index.jsp+.
 +
 [source, html, linenums]
 ----
@@ -164,7 +163,7 @@ Esta página simplemente tiene un link de redirección hacia index.jsp.
 
 . Se debe especificar cuales son las páginas 
 que componen el mecanismo de autenticación 
-en el descriptor de despliegue WEBINF\web.xml
+en el descriptor de despliegue +WEBINF\web.xml+
 +
 [source, html, linenums]
 ----
@@ -186,16 +185,16 @@ en el descriptor de despliegue WEBINF\web.xml
   </web-app>
 ----
 
-. En <login-config> se especifica cual será la página de login 
+. En +<login-config>+ se especifica cual será la página de +login+ 
 a la que se redirigirá cuando no se cuente con los privilegios 
 para acceder a un recurso así como la página de error a la que se redirigirá 
 cuando se intente una autenticación errónea.
 
-. Se crea el servlet TestServlet.java, 
+. Se crea el servlet +TestServlet.java+, 
 configurando mediante anotaciones cuales serán los roles permitidos. 
 
-. Primero, se especifica que pertenece al paquete test 
-y se importan las clases necesarias para trabajar con servlets HTTP:
+. Primero, se especifica que pertenece al paquete +test+ 
+y se importan las clases necesarias para trabajar con servlets +HTTP+.
 +
 [source, java, linenums]
 ----
@@ -213,21 +212,21 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 ----
 
-. Se especifica que el servlet se llamará TestServlet 
-y que la URL que mapea a este será /TestServlet
+. Se especifica que el +servlet+ se llamará +TestServlet+ 
+y que la +URL+ que mapea a este será +/TestServlet+.
 +
 [source, java, linenums]
 ----
 @WebServlet(name = "TestServlet", urlPatterns = {"/TestServlet"})
 ----
 
-. La anotación @HttpConstraint al interior de la anotación @ServletSecurity
-especifica los roles que serán permitidos para acceder a este servlet.
+. La anotación +@HttpConstraint+ al interior de la anotación +@ServletSecurity+
+especifica los roles que serán permitidos para acceder a este +servlet+.
 
-. Se especifica NONE en el mecanismo de transporte 
-porque no se harán configuraciones de seguridad adicionales tales como SSL. 
-Se usa rolesAllowed para indicar que se permitirá 
-el acceso a los roles rol1 y tomcat.
+. Se especifica +NONE+ en el mecanismo de transporte 
+porque no se harán configuraciones de seguridad adicionales tales como +SSL+. 
+Se usa +rolesAllowed+ para indicar que se permitirá 
+el acceso a los roles +rol1+ y +tomcat+.
 +
 [source, java, linenums]
 ----
@@ -254,10 +253,10 @@ public class TestServlet extends HttpServlet {
 ----
 
 . Opcionalmente, se podría usar la anotación 
-@HttpMethodConstraint dentro de la anotación @ServletSecurity 
-para especificar que métodos HTTP serían permitidos.
++@HttpMethodConstraint+ dentro de la anotación +@ServletSecurity+ 
+para especificar que métodos +HTTP+ serían permitidos.
 
 == Referencias
 
-. http://jdiezfoto.es/informatica/java-ee-seguridad-en-aplicaciones-web-i/[Java EE: Seguridad en aplicaciones web]
-. https://docs.oracle.com/javaee/6/tutorial/doc/gkbaa.html[Java EE6 - Securing Web Applications]
+. [[r1]] link:http://jdiezfoto.es/informatica/java-ee-seguridad-en-aplicaciones-web-i/[Java EE: Seguridad en aplicaciones web]
+. [[r2]] link:https://docs.oracle.com/javaee/6/tutorial/doc/gkbaa.html[Java EE6 - Securing Web Applications]
