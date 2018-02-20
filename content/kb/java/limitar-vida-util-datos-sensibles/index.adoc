@@ -1,4 +1,4 @@
-:slug: kb/cobol/limitar-vida-util-datos-sensibles/
+:slug: kb/java/limitar-vida-util-datos-sensibles/
 :category: java
 :description: Nuestros ethical hackers explican cómo evitar vulnerabilidades de seguridad mediante la creación, manipulación y eliminación correcta de datos, recursos y objetos dentro de un programa Java. Con el fin de evitar que información confidencial disponible en memoria, sea vulnerable y que un atacante pueda aprovecharse de dicha situación.
 :keywords: Java, información, sensible, confidencial, datos, objetos, credenciales, lectura segura, lectura no segura, tiempo de vida.
