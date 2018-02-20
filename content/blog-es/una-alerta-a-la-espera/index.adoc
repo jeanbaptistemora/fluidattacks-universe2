@@ -35,7 +35,7 @@ http://hackthis.co.uk/[hackthis]:
 image::level5.png[reto]
 
 Si deseas conocer la solución a anteriores retos, puedes ingresar al
-https://fluidattacks.com[blog de FLUID] donde encontrarás este y otros artículos
+https://fluidattacks.com/web/es/blog/[blog de FLUID] donde encontrarás este y otros artículos
 interesantes sobre seguridad informática.
 
 Como se aprecia en la anterior imagen, este reto despliega una ventana emergente

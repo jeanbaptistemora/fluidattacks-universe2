@@ -104,7 +104,7 @@ entre número de puerto y nombre del servicio en ^<<r3,[3]>>^.
 == Referencias
 
 . [[r1]] link:https://www.techrepublic.com/blog/10-things/10-plus-windows-7-services-you-may-not-need/[Services you may not need]
-. [[r2]] link:https://fluidattacks.com/web/es/kb/sistemas-operativos/windows/deshabilitar-puerto-innecesario/[Deshabilitar puertos innecesarios]
+. [[r2]] link:https://fluidattacks.com/web/es/kb/windows/deshabilitar-puerto-innecesario/[Deshabilitar puertos innecesarios]
 . [[r3]] link:https://support.microsoft.com/es-es/help/832017/service-overview-and-network-port-requirements-for-windows[Network port requirements for Windows]
 . [[r4]] REQ.0261: La organización debería deshabilitar 
 las funciones inseguras de un servicio.

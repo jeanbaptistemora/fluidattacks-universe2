@@ -40,7 +40,7 @@ años de desarrollo, el editor de imágenes GIMP ha crecido mucho, volviéndose 
 software muy robusto que aguanta ediciones “pesadas” de imágenes, compitiendo 
 así con software privados como los que desarrolla Adobe.
 
-En otros https://fluidattacks.com/site/posts/ocultar-informacion-en-imagenes/[artículos] 
+En otros https://fluidattacks.com/web/es/blog/arte-ocultar-informacion-imagen/[artículos] 
 se ha hablado ya del arte de esconder información en imágenes, esta vez nos 
 enfocaremos en descubrir como hace una imagen para portar información o un 
 mensaje sin necesidad de esconderlo, pero que a simple vista no se vea.
