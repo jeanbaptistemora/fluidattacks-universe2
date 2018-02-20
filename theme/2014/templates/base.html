@@ -18,6 +18,11 @@
         <!-- AddThis Share Bar -->
           <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5a37e74c4b1448ce"></script>
         <!-- End AddThis -->
+        <!-- MixPanel -->
+          {% assets filters="uglifyjs", output="static/js/mixpanel.min.js", "js/mixpanel.js", "js/mixPanelDashboard.js" %}
+            <script type="text/javascript" src="{{ SITEURL }}/{{ ASSET_URL }}"></script>
+          {% endassets %} 
+        <!-- End MixPanel -->
         {% if GOOGLE_SITE_VERIFICATION %}
             <meta name="google-site-verification" content="{{ GOOGLE_SITE_VERIFICATION }}">
         {% endif %}        
@@ -101,13 +106,18 @@
 
 <body>	
 	<!-- Google Tag Manager (noscript) -->
-	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5F96LK3"
-        height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+	  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5F96LK3"
+          height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 	<!-- End Google Tag Manager (noscript) -->
+        <!-- Mixpanel Event -->
+          <script>
+            mixPanelDashboard.trackPageView ("Page View", document.title, window.location.pathname);
+          </script>
+        <!-- End Mixpanel Event -->
         <!-- jQuery, Menu, Line Numbers in Source Code, Responsive Tables and Anchors -->
-        {% assets filters="uglifyjs", output="static/js/theme.min.js", "/app/node_modules/jquery/dist/jquery.js", "js/menu.js", "js/linenum.js", "js/table-responsive.js", "js/id.js" %}
-          <script type="text/javascript" src="{{ SITEURL }}/{{ ASSET_URL }}"></script>
-        {% endassets %} 
+          {% assets filters="uglifyjs", output="static/js/theme.min.js", "/app/node_modules/jquery/dist/jquery.js", "js/menu.js", "js/linenum.js", "js/table-responsive.js", "js/id.js" %}
+            <script type="text/javascript" src="{{ SITEURL }}/{{ ASSET_URL }}"></script>
+          {% endassets %} 
     	<!-- Navigation -->
 	
     {% block header %}{% endblock header %}
