@@ -277,8 +277,8 @@ if DEBUG:
     SOCIAL_AUTH_LOGIN_REDIRECT_URL     = '/registration'
     SOCIAL_AUTH_NEW_USER_REDIRECT_URL = '/registration'
 else:
-    SOCIAL_AUTH_LOGIN_REDIRECT_URL = 'https://fluid.la/integrates/registration'
-    SOCIAL_AUTH_NEW_USER_REDIRECT_URL = 'https://fluid.la/integrates/registration'
+    SOCIAL_AUTH_LOGIN_REDIRECT_URL = 'https://fluidattacks.com/integrates/registration'
+    SOCIAL_AUTH_NEW_USER_REDIRECT_URL = 'https://fluidattacks.com/integrates/registration'
 
 SOCIAL_AUTH_DISCONNECT_REDIRECT_URL = '/index'
 SOCIAL_AUTH_INACTIVE_USER_URL = '/index'

@@ -31,13 +31,13 @@ def get_new_findings():
                         finding_parsed['hallazgo']})
                 context['cantidad'] = str(delta)
                 context['proyecto'] = project[0].upper()
-                context['url_proyecto'] = 'https://fluid.la/integrates/dashboard#!/project/' + project[0].lower()
+                context['url_proyecto'] = 'https://fluidattacks.com/integrates/dashboard#!/project/' + project[0].lower()
                 print(to)
                 send_mail_new_finding(to, context)
             else:
                 context = {
                     'proyecto': project[0].upper(),
-                    'url_proyecto': 'https://fluid.la/integrates/dashboard#!/project/' + project[0].lower(),
+                    'url_proyecto': 'https://fluidattacks.com/integrates/dashboard#!/project/' + project[0].lower(),
                 }
                 print(to)
                 send_mail_change_finding(to, context)
@@ -52,7 +52,7 @@ def get_remediated_findings():
         cont = 0
         for finding in findings:
             context['findings'].append({'finding_name': finding['finding_name'], 'finding_url': \
-                'https://fluid.la/integrates/dashboard#!/project/'+ finding['project'].lower() + '/' + \
+                'https://fluidattacks.com/integrates/dashboard#!/project/'+ finding['project'].lower() + '/' + \
                 str(finding['finding_id']) + '/description', 'project': finding['project'].upper()})
             cont += 1
         context['total'] = cont

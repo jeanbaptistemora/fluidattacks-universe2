@@ -100,7 +100,7 @@ integrates.controller(
                 vector_ataque: "Praesent porta congue lorem sit amet rhoncus. ",
                 solucion_efecto: "Etiam dapibus ultrices ligula a convallis. Vivamus ultricies convallis magna. Praesent metus sem, porttitor sed risus quis, fringilla rutrum arcu.",
                 debilidad: "Fusce iaculis, dolor nec maximus molestie, nisi leo malesuada libero",
-                cwe: "https://fluid.la",
+                cwe: "https://fluidattacks.com",
                 vector_acceso: "0343 | Red Adyacente",
                 autenticacion: "0324 | Ninguna",
                 explotabilidad: "0435 | Conceptual",

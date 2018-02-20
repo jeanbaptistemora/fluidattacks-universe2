@@ -73,6 +73,6 @@ integrates.config(function($sceDelegateProvider) {
     $sceDelegateProvider.resourceUrlWhitelist([
       'self',
       '/assets/views/project/eventualityMdl.html',
-      'https://fluid.la/**',
+      'https://fluidattacks.com/**',
     ]);
 });

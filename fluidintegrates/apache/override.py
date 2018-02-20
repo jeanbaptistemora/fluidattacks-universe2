@@ -4,6 +4,8 @@ from fluidintegrates.settings import * # noqa
 DEBUG = True
 
 ALLOWED_HOSTS = [
+    'www.fluidattacks.com',
+    'fluidattacks.com',
     'www.fluid.la',
     'fluid.la',
     'localhost',
