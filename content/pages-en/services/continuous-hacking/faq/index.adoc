@@ -1,5 +1,6 @@
 :slug: services/continuous-hacking/faq/
 :category: services
+:category2: continuous-hacking
 :description: A recompilation of questions and answers that help understand the Continuous Hacking service and how it can benefit an organization.
 :keywords: TODO
 
