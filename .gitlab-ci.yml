@@ -100,6 +100,7 @@ server_off:
 push_integrates:
     stage: push
     script:
+       - docker login registry.gitlab.com -u $DOCKER_USER -p $DOCKER_PASS
        - docker pull registry.gitlab.com/fluidsignal/integrates:base
        - docker tag registry.gitlab.com/fluidsignal/integrates:base registry.gitlab.com/fluidsignal/integrates:master
        - docker push registry.gitlab.com/fluidsignal/integrates:master
@@ -109,6 +110,7 @@ push_integrates:
 push_bot:
     stage: push
     script:
+        - docker login registry.gitlab.com -u $DOCKER_USER -p $DOCKER_PASS
         - docker pull registry.gitlab.com/fluidsignal/integrates/bot:base
         - docker tag registry.gitlab.com/fluidsignal/integrates/bot:base registry.gitlab.com/fluidsignal/integrates/bot:master
         - docker push registry.gitlab.com/fluidsignal/integrates/bot:master
