@@ -6,11 +6,11 @@ variables:
 services:
    - docker:dind
 
-
 before_script:
-    - echo $VAULT > deploy/containers/.vault.txt
     - sh env.sh
-    - docker login registry.gitlab.com -u $DOCKER_USER -p $DOCKER_PASS
+
+after_script:
+    - rm env.sh
 
 codequality:
   script:
@@ -24,6 +24,7 @@ stages:
     - deps
     - build
     - test
+    - push
     - deploy
 
 build_pretest:
@@ -34,12 +35,14 @@ build_pretest:
 build_deps:
     stage: deps
     script:
+        - docker login registry.gitlab.com -u $DOCKER_USER -p $DOCKER_PASS
         - docker build -t registry.gitlab.com/fluidsignal/integrates:deps deploy/containers/deps
         - docker push registry.gitlab.com/fluidsignal/integrates:deps
 
 build_integrates:
     stage: build
     script:
+        - docker login registry.gitlab.com -u $DOCKER_USER -p $DOCKER_PASS
         - >
           cd deploy/containers/integrates && sh build.sh $CI_COMMIT_REF_NAME $FI_GITLAB_LOGIN $FI_GITLAB_PASSWORD $FI_DRIVE_AUTHORIZATION $FI_DOCUMENTROOT $FI_SSL_CERT $FI_SSL_KEY $FI_DRIVE_AUTHORIZATION_CLIENT
         - docker push registry.gitlab.com/fluidsignal/integrates:base
@@ -47,6 +50,7 @@ build_integrates:
 build_bot:
     stage: build
     script:
+        - docker login registry.gitlab.com -u $DOCKER_USER -p $DOCKER_PASS
         - >
           cd deploy/containers/bot && sh build.sh $CI_COMMIT_REF_NAME $FI_GITLAB_LOGIN $FI_GITLAB_PASSWORD $FI_DRIVE_AUTHORIZATION $FI_DOCUMENTROOT $FI_SSL_CERT $FI_SSL_KEY $FI_DRIVE_AUTHORIZATION_CLIENT
         - docker push registry.gitlab.com/fluidsignal/integrates/bot:base
@@ -54,6 +58,7 @@ build_bot:
 server_on:
     stage: build
     script:
+        - docker login registry.gitlab.com -u $DOCKER_USER -p $DOCKER_PASS
         - docker stop integrates_test && docker rm integrates_test || true
         - docker network rm integrates_test || true
         - docker network create --subnet=192.168.200.0/24 integrates_test
@@ -62,7 +67,7 @@ server_on:
 manage:
     stage: test
     script:
-        - docker pull registry.gitlab.com/fluidsignal/integrates:base
+        - docker login registry.gitlab.com -u $DOCKER_USER -p $DOCKER_PASS
         - docker run --env-file env.list -t registry.gitlab.com/fluidsignal/integrates:base python /usr/src/app/manage.py test app.tests
         - rm env.list
 
@@ -70,20 +75,19 @@ fluidasserts:
     stage: test
     script:
         - docker login fluid-docker.jfrog.io -u $CONTINUOUS_USER -p $CONTINUOUS_PASS
-        - docker pull fluid-docker.jfrog.io/fluid:integrates
         - docker run --network integrates_test -e ORG=fluid -e APP=integrates -e USER=$CONTINUOUS_USER -e PASS=$CONTINUOUS_PASS -e FA_STRICT="false" fluid-docker.jfrog.io/fluid:integrates
 
 Prospector_app:
     stage: test
     script:
-        - docker pull registry.gitlab.com/fluidsignal/integrates:base
+        - docker login registry.gitlab.com -u $DOCKER_USER -p $DOCKER_PASS
         - docker run --env-file env.list -t registry.gitlab.com/fluidsignal/integrates:base prospector -u django /usr/src/app/app
         - rm env.list
 
 Prospector_fluidintegrates:
     stage: test
     script:
-        - docker pull registry.gitlab.com/fluidsignal/integrates:base
+        - docker login registry.gitlab.com -u $DOCKER_USER -p $DOCKER_PASS
         - docker run --env-file env.list -t registry.gitlab.com/fluidsignal/integrates:base prospector -u django /usr/src/app/fluidintegrates
         - rm env.list
 
@@ -93,21 +97,33 @@ server_off:
         - docker stop integrates_test && docker rm integrates_test
         - docker network rm integrates_test
 
-deploy_integrates:
-    stage: deploy
+push_integrates:
+    stage: push
     script:
-        - docker pull registry.gitlab.com/fluidsignal/integrates:base
-        - docker tag registry.gitlab.com/fluidsignal/integrates:base registry.gitlab.com/fluidsignal/integrates:master
-        - docker push registry.gitlab.com/fluidsignal/integrates:master
+       - docker pull registry.gitlab.com/fluidsignal/integrates:base
+       - docker tag registry.gitlab.com/fluidsignal/integrates:base registry.gitlab.com/fluidsignal/integrates:master
+       - docker push registry.gitlab.com/fluidsignal/integrates:master
     only:
     - master
 
-deploy_bot:
-    stage: deploy
+push_bot:
+    stage: push
     script:
         - docker pull registry.gitlab.com/fluidsignal/integrates/bot:base
         - docker tag registry.gitlab.com/fluidsignal/integrates/bot:base registry.gitlab.com/fluidsignal/integrates/bot:master
         - docker push registry.gitlab.com/fluidsignal/integrates/bot:master
+    only:
+    - master
+
+deploy_integrates:
+    stage: deploy
+    image: debian:jessie-slim
+    script:
+       - echo "$FI_SSH_KEY" | base64 -d > "FLUID_Serves.pem" && chmod 600 FLUID_Serves.pem
+       - apt update && apt install -y openssh-client
+       - scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -i FLUID_Serves.pem env.sh admin@fluidattacks.com:/home/admin
+       - ssh -o StrictHostKeyChecking=no -i FLUID_Serves.pem admin@fluidattacks.com 'sudo docker pull registry.gitlab.com/fluidsignal/integrates:master && sudo docker stop integrates && sudo docker rm integrates && sudo docker run -d --env-file env.list -p 8000:443 --name=integrates registry.gitlab.com/fluidsignal/integrates:master'
+       - ssh -o StrictHostKeyChecking=no -i FLUID_Serves.pem admin@fluidattacks.com 'sudo docker pull registry.gitlab.com/fluidsignal/integrates/bot:master && sudo docker stop bot && sudo docker rm bot && sudo docker run -d --env-file env.list --name=bot registry.gitlab.com/fluidsignal/integrates/bot:master && rm env.list'
     only:
     - master
 
