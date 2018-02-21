@@ -1,6 +1,6 @@
 :slug: contact-us/
-:description: TODO
-:keywords: TODO
+:description: In this page we present our contact information, where you can get further details about our products and services. FLUID is a company focused on information security, ethical hacking, penetration testing and vulnerabilities detection over applications.
+:keywords: FLUID, Contact, Information, Company, About us, Security.
 :form: https://fluidattacks.com/forms/contact
 :template: form
 

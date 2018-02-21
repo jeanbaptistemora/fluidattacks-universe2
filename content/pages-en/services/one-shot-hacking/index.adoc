@@ -1,7 +1,7 @@
 :slug: services/one-shot-hacking/
 :category: services
-:description: TODO
-:keywords: TODO
+:description: In this page we present our One Shot Hacking service, which aims to detect and report all vulnerabilities and security issues within your application. The rigorous inspection of our team allow us to detect all existing security findings with no false positives.
+:keywords: FLUID, Services, Ethical Hacking, Pentesting, Security, Application.
 
 = One-Shot Hacking
 

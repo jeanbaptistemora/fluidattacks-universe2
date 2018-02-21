@@ -1,7 +1,7 @@
 :slug: servicios/hacking-puntual/
 :category: servicios
-:description: TODO
-:keywords: TODO
+:description: En esta página presentamos nuestro servicio de Hacking Puntual, mediante el cual nuestro equipo de profesionales se encarga de encontrar y reportar todas las vulnerabilidades y hallazgos de seguridad existentes en la aplicación garantizando la ausencia de falsos positivos.
+:keywords: FLUID, Servicios, Ethical Hacking, Seguridad, Aplicación, Hacking Puntual.
 
 = Hacking Puntual
 
