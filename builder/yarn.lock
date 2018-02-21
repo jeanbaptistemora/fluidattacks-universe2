@@ -416,6 +416,10 @@ has-ansi@^2.0.0:
   dependencies:
     ansi-regex "^2.0.0"
 
+iframe-resizer@^3.5.16:
+  version "3.5.16"
+  resolved "https://registry.yarnpkg.com/iframe-resizer/-/iframe-resizer-3.5.16.tgz#a09ac6afcff6233d96b1865e47c93be7d359dcdf"
+
 ignore@^3.1.2:
   version "3.3.7"
   resolved "https://registry.yarnpkg.com/ignore/-/ignore-3.3.7.tgz#612289bfb3c220e186a58118618d5be8c1bab021"

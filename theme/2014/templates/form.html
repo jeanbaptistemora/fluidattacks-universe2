@@ -1,0 +1,38 @@
+{% extends "index.html" %}
+
+{% block canonical %}<link rel="canonical" href="{{ SITEURL }}/{{ page.url }}"/>{% endblock canonical %}
+
+{% block meta %}
+  <meta name="keywords" content="{{ page.keywords }}">
+  <meta name="description" content="{{ page.description }}">
+{% endblock meta %}
+
+{% block title %}{{ page.title }} | {{ SITENAME }}{% endblock title %}
+
+{% block header %}
+  <!-- Page Header -->
+  {% include "navigationbar.html" %}
+  {% if HEADER_COVER %}
+    <header class="intro-header" style="background-image: url('{{ HEADER_COVER }}')">
+  {% elif HEADER_COLOR %}
+    <header class="intro-header" style="background-color: {{ HEADER_COLOR }}">
+  {% else %}
+    <header class="intro-header"> <!--style="background-image: url('{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/fluid-{{ DEFAULT_LANG }}.png');" >-->
+    <a href="{{ SITEURL }}/"><img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/fluid-{{ DEFAULT_LANG }}.png" alt="{{ gettext('Young hacker smiling') }}"></a>
+  {% endif %}   
+  </header>
+{% endblock header %}
+
+{% block content %}   
+  <div class="divpage">         
+    <article>
+      <div class="breadcrumbs">
+        <ul>
+          <li><a href="{{ SITEURL }}/">{{ gettext('Home') }}</a></li>
+        </ul>
+      </div>
+      <iframe id="ifrmContact" onload="iFrameResize({log:false})" width="100%" src={{ page.form }} frameborder="0"></iframe>
+      <br>
+    </article>
+  </div>	
+{% endblock content %}

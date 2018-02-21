@@ -114,7 +114,7 @@
           </script>
         <!-- End Mixpanel Event -->
         <!-- jQuery, Menu, Line Numbers in Source Code, Responsive Tables and Anchors -->
-          {% assets filters="uglifyjs", output="static/js/theme.min.js", "/app/node_modules/jquery/dist/jquery.js", "js/menu.js", "js/linenum.js", "js/table-responsive.js", "js/id.js" %}
+          {% assets filters="uglifyjs", output="static/js/theme.min.js", "/app/node_modules/jquery/dist/jquery.js", "/app/node_modules/iframe-resizer/js/iframeResizer.js", "js/menu.js", "js/linenum.js", "js/table-responsive.js", "js/id.js" %}
             <script type="text/javascript" src="{{ SITEURL }}/{{ ASSET_URL }}"></script>
           {% endassets %} 
     	<!-- Navigation -->
