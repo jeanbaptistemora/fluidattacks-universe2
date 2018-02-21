@@ -1,6 +1,6 @@
 :slug: clients/
-:description: TODO
-:keywords: TODO
+:description: FLUID is a company focused on information security, ethical hacking, penetration testing and vulnerabilities detection in applications. Our company has been offering its services to the colombian market for over 18 years. Here we present a list of our current clients.
+:keywords: FLUID, Information, Clients, About us, Company, Satisfaction.
 :template: pages-en/clients
 
 = Clients

@@ -1,6 +1,6 @@
 :slug: solutions/ethical-hacking-application/
-:description: TODO
-:keywords: TODO
+:description: FLUID is a company focused on information security, ethical hacking, penetration testing and vulnerabilities detection in applications with over 18 years of trajectory in the colombian market. The purpose of this page is to present our ethical hacking service over applications.
+:keywords: FLUID, Solutions, Services, Ethical Hacking, Application, Pentesting.
 :template: pages-en/solutions/ethical-hacking-application
 
 = Ethical hacking application

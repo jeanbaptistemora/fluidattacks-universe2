@@ -1,6 +1,6 @@
 :slug: home/
-:description: TODO
-:keywords: TODO
+:description: FLUID is a company focused on information security, ethical hacking, pentesting and vulnerabilities detection in applications with over 18 years of trajectory in the colombian market. Our professional team develop their own tools to ensure the detection of all existing vulnerabilities.
+:keywords: FLUID, Home, Pentesting, Ethical Hacking, Security, Application.
 :template: pages-en/home
 
 = Home

@@ -1,6 +1,6 @@
 :slug: solutions/source-code-analysis/
-:description: TODO
-:keywords: TODO
+:description: FLUID is a company focused on information security, ethical hacking, penetration testing and vulnerabilities detection in applications with over 18 years of trajectory in the colombian market. The purpose of this page is to present our source code analysis service.
+:keywords: FLUID, Solutions, Service, Code, Analysis, Diagnosis, Security.
 :template: pages-en/solutions/source-code-analysis
 
 = Source code analysis

@@ -1,6 +1,6 @@
 :slug: test-style/
-:description: TODO
-:keywords: TODO
+:description: In this page we present several Asciidoc styles and functionalities. FLUID uses Aciidoc as format extension for all the documents and articles in our blog and website and here you can find some guidelines and commands to customize your Asciidoc document.
+:keywords: FLUID, Asciidoc, Style, Functionalities, Documentation, Cheat Sheet.
 :eth: no
 :variable: Asciidoc
 :plus: &#43
