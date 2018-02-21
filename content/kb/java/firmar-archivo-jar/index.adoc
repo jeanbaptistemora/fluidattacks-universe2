@@ -8,45 +8,45 @@
 
 == Necesidad
 
-Firmar archivos JAR (firmar código móvil)
+Firmar archivos +JAR+ (firmar código móvil)
 
 == Contexto
 
 A continuación se describen las circunstancias 
 bajo las cuales la siguiente solución tiene sentido:
 
-. Se tiene código Java empaquetado en archivos JAR.
+. Se tiene código +Java+ empaquetado en archivos +JAR+.
 
 == Solución
 
-. Un archivo JAR (por sus siglas en inglés, Java ARchive) 
+Un archivo +JAR+ (por sus siglas en inglés, +Java +ARchive+) 
 es un tipo de archivo que permite ejecutar aplicaciones escritas 
-en el lenguaje de programación Java. 
+en el lenguaje de programación +Java+. 
 
-. La firma de un archivo JAR tiene como objetivo 
+La firma de un archivo +JAR+ tiene como objetivo 
 permitir a la persona que lo ejecuta 
 la verificación de la identidad de su creador 
 con el fin de que ella pueda discernir si la aplicación es confiable o no, 
 y por tanto hacer uso de la misma. 
-En pocas palabras, El firmado digital de un JAR 
-permite garantizar la integridad y el no repudio del software 
+En pocas palabras, El firmado digital de un +JAR+ 
+permite garantizar la integridad y el no repudio del +software+ 
 por parte de la persona que lo utilizará.
 
-. La firma del archivo JAR se hace a través de un certificado digital, 
+La firma del archivo +JAR+ se hace a través de un certificado digital, 
 este se define como un fichero informático 
 generado por una entidad de servicios de certificación 
 que asocia unos datos de identidad a una persona física, organismo o empresa, 
 confirmando de esta manera su identidad digital. 
 
-. Además, los certificados se deben almacenar en keystores 
+Además, los certificados se deben almacenar en +keystores+ 
 y para un mejor uso, cada certificado puede ser referenciado mediante un alias, 
 que, por lo general, suele ser el nombre de la persona que firma la clave.    
 
 . Para cuestiones de ejemplo, 
-se utilizará la siguiente clase que será empaquetada en un JAR 
-y que además contiene un método sensible:
+se utilizará la siguiente clase que será empaquetada en un +JAR+. 
+Además, esta clase contiene un método sensible.
 +
-.test.py
+.CLI.java
 [source, java, linenums]
 ----
 package com.FLUID;
@@ -66,7 +66,7 @@ class CLI
 
 . Lo primero que se debe hacer 
 es generar un par de certificados (llave pública y privada) 
-y almacenarlos en un keystore:
+los cuales deben ser almacenados en un +keystore+.
 +
 [source, shell, linenums]
 ----
@@ -74,7 +74,7 @@ keytool -keystore keystore -alias FLUID -genkey \  -dname "cn=Technology, ou=Eng
   o=FLUIDsignal Group, c=CO" \ -keypass keypass -storepass storepass
 ----
 
-. Luego, se procede a compilar la clase:
+. Luego, se procede a compilar la clase.
 +
 [source, shell, linenums]
 ----
@@ -82,7 +82,7 @@ export CLASSPATH=src
 javac src/com/FLUID/CLI.java
 ----
 
-. Se crea el archivo MANIFEST.MF requerido al momento de crear el .jar:
+. Se debe crear el archivo +MANIFEST.MF+ requerido al momento de crear el +.jar+.
 +
 [source, shell, linenums]
 ----
@@ -93,8 +93,8 @@ Name: com/FLUID/
 Sealed: true
 ----
 
-. Se empaqueta entonces el programa compilado en un archivo JAR, 
-paquete-1.0.jar el cual usaremos para firmar:
+. Se empaqueta entonces el programa compilado en un archivo +JAR+. 
+El archivo será +paquete-1.0.jar+, el cual usaremos para firmar.
 +
 [source, shell, linenums]
 ----
@@ -107,7 +107,8 @@ adding: com/FLUID/CLI.class(in = 551) (out= 348)(deflated 36%)
 ----
 
 . Finalmente, procedemos a firmar el paquete generado 
-paquete-1.0.jar con el alias FLUID alojado en el keystore previamente creado:
++paquete-1.0.jar+ con el alias +FLUID+ 
+alojado en el +keystore+ previamente creado:
 +
 [source, shell, linenums]
 ----
@@ -115,7 +116,7 @@ jarsigner -keystore keystore -storepass storepass -keypass keypass \
    -signedjar paquete-firmado-1.0.jar paquete-1.0.jar FLUID
 ----
 
-. Se procede a ejecutar el programa para verificar su funcionamiento:
+. Se procede a ejecutar el programa para verificar su funcionamiento.
 +
 [source, shell, linenums]
 ----
@@ -123,9 +124,9 @@ $ java -jar paquete-1.0.jar
 public static void main
 ----
 
-. Adicionalmente, es posible utilizar la herramienta jarsigner 
+. Adicionalmente, es posible utilizar la herramienta +jarsigner+ 
 para verificar la firma de un paquete. 
-Para el ejemplo, se verificará la firma de paquete paquete-1.0.jar:
+Para el ejemplo, se verificará la firma de paquete +paquete-1.0.jar+.
 +
 [source, shell, linenums]
 ----
@@ -152,9 +153,9 @@ $ jarsigner -keystore keystore -certs -verbose -verify paquete-firmado-1.0.jar
 
 == Referencias
 
-. https://docs.oracle.com/javase/tutorial/security/toolsign/signer.html[Steps for the Code Signer]
-. https://docs.oracle.com/javase/tutorial/deployment/jar/signing.html[Signing JAR Files]
-. https://es.wikipedia.org/wiki/Java_Archive[Java Archive]
-. https://es.wikipedia.org/wiki/Certificado_digital[Certificado digital]
-. REQ.0173: Debe utilizarse firmas digitales para garantizar la autenticidad de 
-información sensible.
+. [[r1]] link:https://docs.oracle.com/javase/tutorial/security/toolsign/signer.html[Steps for the Code Signer]
+. [[r2]] link:https://docs.oracle.com/javase/tutorial/deployment/jar/signing.html[Signing JAR Files]
+. [[r3]] link:https://es.wikipedia.org/wiki/Java_Archive[Java Archive]
+. [[r4]] link:https://es.wikipedia.org/wiki/Certificado_digital[Certificado digital]
+. [[r5]] REQ.0173: Debe utilizarse firmas digitales para garantizar 
+la autenticidad de información sensible.
