@@ -28,9 +28,6 @@ RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 # Agrega las variables
 ADD common/vars* /root/vars
 
-# Agrega el vault
-ADD .vault.txt /root/
-
 # Cambia al directorio root
 WORKDIR /root/
 

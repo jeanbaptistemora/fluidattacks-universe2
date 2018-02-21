@@ -22,7 +22,6 @@ FI_DRIVE_AUTHORIZATION_CLIENT=$8
 echo "---### [${SERVER}] Compilando contenedor."
 
 # construir la imagen
-cp ../.vault.txt .
 cp -a ../common .
 docker build --no-cache --build-arg ci_commit_ref_name="$CI_COMMIT_REF_NAME" \
             --build-arg gitlab_login="$FI_GITLAB_LOGIN" \
