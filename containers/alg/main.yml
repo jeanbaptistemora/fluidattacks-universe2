@@ -78,6 +78,12 @@
       dest: "/etc/apache2/sites-enabled/www.fluid.la"
       mode: "0644"
 
+   - name: Creando www.fluidattacks.com
+     template:
+      src: "vars/www.fluidattacks.com.j2"
+      dest: "/etc/apache2/sites-enabled/www.fluidattacks.com"
+      mode: "0644"
+
    - name: Creando fluidsignal.com
      template:
       src: "vars/fluidsignal.com.j2"

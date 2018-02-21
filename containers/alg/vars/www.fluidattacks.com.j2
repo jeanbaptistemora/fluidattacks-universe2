@@ -1,0 +1,18 @@
+<VirtualHost *:{{ http_port }}>
+        ServerName www.fluidattacks.com
+        ServerAdmin {{ server_admin }}
+        Options  +Indexes +Multiviews +FollowSymLinks
+        Redirect / {{ mainsite2 }}
+        ErrorLog {{ error_log }}
+        CustomLog {{ custom_log }} combined
+</VirtualHost>
+<VirtualHost *:443>
+        ServerName www.fluidattacks.com
+        ServerAdmin {{ server_admin }}
+        Options  +Indexes +Multiviews +FollowSymLinks
+        Redirect / {{ mainsite2 }}
+        ErrorLog {{ error_log }}
+        CustomLog {{ custom_log }} combined
+</VirtualHost>
+
+
