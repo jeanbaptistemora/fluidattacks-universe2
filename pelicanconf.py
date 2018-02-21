@@ -121,9 +121,6 @@ ASSET_BUNDLES = (
 # Disqus
 DISQUS_SITENAME = 'fluidsignal'
 
-# Google Analytics
-GOOGLE_ANALYTICS = 'UA-22974464-4'
-
 # Feed generation is usually not desired when developing
 FEED_ALL_ATOM = None
 CATEGORY_FEED_ATOM = None
