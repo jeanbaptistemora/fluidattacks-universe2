@@ -786,7 +786,7 @@ def add_comment(request):
     try:
         recipients = integrates_dao.get_project_users(data['data[project]'].lower())
         to = [x[0] for x in recipients]
-        to.append = ('continuous@fluidattacks.com')
+        to.append('continuous@fluidattacks.com')
         comment_content = data['data[content]'].replace('\n', ' ')
         context = {
            'project': data['data[project]'],
