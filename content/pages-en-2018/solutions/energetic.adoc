@@ -1,6 +1,6 @@
 :slug: solutions/energetic/
-:description: TODO
-:keywords: TODO
+:description: FLUID is a company focused on information security, ethical hacking, penetration testing and vulnerabilities detection in applications with over 18 years of experience in the colombian market. The purpose of this page is to present our contributions and solutions related to energetic sector.
+:keywords: FLUID, Solutions, Energetic, Customers, Security, Contributions.
 :template: pages-en/solutions/energetic
 
 = Energético

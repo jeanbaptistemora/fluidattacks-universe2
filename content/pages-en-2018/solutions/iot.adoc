@@ -1,6 +1,6 @@
 :slug: solutions/expertis/iot/
-:description: TODO
-:keywords: TODO
+:description: FLUID is a company focused on information security, ethical hacking, penetration testing and vulnerabilities detection in applications. The purpose of this page is to present our main contributions and solutions related to Internet of Things (IoT) technologies.
+:keywords: FLUID, Solutions, IoT, Customers, Security, Contributions.
 :template: pages-en/solutions/iot
 
 = Iot

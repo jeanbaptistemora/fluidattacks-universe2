@@ -1,6 +1,6 @@
 :slug: solutions/project-methodology/
-:description: TODO
-:keywords: TODO
+:description: FLUID is a company focused on information security, ethical hacking, penetration testing and vulnerabilities detection in applications. The project methodology aims to make a rigorous inspection of the code in search of all existing security findings within the application.
+:keywords: FLUID, Solutions, Project, Methodology, Application, Security.
 :template: pages-en/solutions/project-methodology
 
 = Project methodology
