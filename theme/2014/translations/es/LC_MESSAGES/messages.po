@@ -158,7 +158,7 @@ msgstr "Entradas Recientes del Blog"
 
 #: templates/error.html:56
 msgid "Blog Categories"
-msgstr "Categorías del Blo"
+msgstr "Categorías del Blog"
 
 #: templates/error.html:64 templates/footer.html:43
 #: templates/navigationbar.html:38
