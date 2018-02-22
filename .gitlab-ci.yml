@@ -81,9 +81,12 @@ deploy:
     - mv output/web/en/redirect/index.html output/web/ && rmdir output/web/en/redirect/
     # Set robots.txt
     - mv robots.txt output/web/
-    # Upload generated output to S3 bucket
-    - aws s3 rm --recursive s3://web.fluidattacks.com
-    - aws s3 cp --recursive --acl=public-read-write output/ s3://web.fluidattacks.com
+    # Erase content of the S3 bucket
+    - aws s3 rm --recursive "s3://$S3_BUCKET_NAME"
+    # Set 301 redirects
+    - ./amz-redirect.sh
+    # Upload content to S3 bucket
+    - aws s3 cp --recursive --acl=public-read-write output/ "s3://$S3_BUCKET_NAME"
   artifacts:
     when: on_success
     expire_in: 18 hrs
