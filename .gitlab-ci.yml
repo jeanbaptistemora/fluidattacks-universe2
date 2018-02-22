@@ -21,6 +21,7 @@ builder:
 checks:
   stage: lint
   script:
+    - if curl --fail -Lo artifacts.zip --header Private-Token:$DOCKER_PASSWD https://gitlab.com/api/v4/projects/$CI_PROJECT_ID/jobs/artifacts/$CI_COMMIT_REF_NAME/download?job=$CI_JOB_NAME; then unzip artifacts.zip; else echo "There are no artifacts"; fi
     - ./check-changed.sh
     - ./check-all.sh
     - ./sass-lint.sh
@@ -28,6 +29,11 @@ checks:
     - for FILE in $(find . -iname '*.adoc'); do sed -i 's/^include::/include::\/builds\/fluidsignal/g' $FILE; done
     - pelican --fatal errors --fatal warnings content/
     - ./html-lint.sh
+  artifacts:
+    when: on_success
+    expire_in: 18 hrs
+    paths:
+      - cache/
   except:
     - master
 
@@ -35,6 +41,7 @@ pages:
   stage: deployment
   environment: staging
   script:
+    - if curl --fail -Lo artifacts.zip --header Private-Token:$DOCKER_PASSWD https://gitlab.com/api/v4/projects/$CI_PROJECT_ID/jobs/artifacts/$CI_COMMIT_REF_NAME/download?job=deploy; then unzip artifacts.zip; else echo "There are no artifacts"; fi
     - sed -i 's/output\/web/public/g' xmlcombine.sh
     - sed -i 's/output/public/g' html-lint.sh
     - for FILE in $(find . -iname '*.adoc'); do sed -i 's/^include::/include::\/builds\/fluidsignal/g' $FILE; done
@@ -55,6 +62,8 @@ deploy:
   stage: deployment
   environment: production
   script:
+    # Download cache from previous builds
+    - if curl --fail -Lo artifacts.zip --header Private-Token:$DOCKER_PASSWD https://gitlab.com/api/v4/projects/$CI_PROJECT_ID/jobs/artifacts/$CI_COMMIT_REF_NAME/download?job=$CI_JOB_NAME; then unzip artifacts.zip; else echo "There are no artifacts"; fi
     # Generate file for localization of the site
     - pybabel compile --directory theme/2014/translations/ --domain messages
     # Fix links to successfully include files
@@ -75,5 +84,10 @@ deploy:
     # Upload generated output to S3 bucket
     - aws s3 rm --recursive s3://web.fluidattacks.com
     - aws s3 cp --recursive --acl=public-read-write output/ s3://web.fluidattacks.com
+  artifacts:
+    when: on_success
+    expire_in: 18 hrs
+    paths:
+      - cache/
   only:
     - master

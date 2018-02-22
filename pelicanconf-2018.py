@@ -115,6 +115,11 @@ ASSET_BUNDLES = (
   ], {'filters': 'scss'}),
 )
 
+# Cache Settings
+CHECK_MODIFIED_METHOD = 'md5'
+CACHE_CONTENT = True
+LOAD_CONTENT_CACHE = True
+
 # Disqus
 DISQUS_SITENAME = 'fluidsignal'
 

@@ -6,14 +6,14 @@ COPY . /app
 
 # 18-20: Install basic dependencies to set sources lists 
 # 22-23: Set sources for NodeJS and Yarn
-# 24-46: Install all necessarty dependencies
-# 47-48: Download tidy-html binary and install it
-# 49-52: Clone the necessaty JS files from the Tipue repository in order to run the plugin
-# 53-56: Clone just the plugins that are being used in this project with Pelican 
-# 57-58: Clone the pleican-redirect plugin (aside from the official repository) and make it recognizable as a module
-# 59: Change the default highlighter to Pygments
-# 60: Enable every rule of sass-lint
-# 61-68: Erase files and directories that are not needed during runtime
+# 24-47: Install all necessarty dependencies
+# 48-49: Download tidy-html binary and install it
+# 50-53: Clone the necessaty JS files from the Tipue repository in order to run the plugin
+# 54-57: Clone just the plugins that are being used in this project with Pelican 
+# 58-59: Clone the pleican-redirect plugin (aside from the official repository) and make it recognizable as a module
+# 60: Change the default highlighter to Pygments
+# 61: Enable every rule of sass-lint
+# 62-69: Erase files and directories that are not needed during runtime
 RUN apt-get update -qq && apt-get install -qqy \
         curl \
         gnupg && \
@@ -35,6 +35,7 @@ RUN apt-get update -qq && apt-get install -qqy \
         python-pip \
         python-setuptools \
         ruby-full \
+        unzip \
         yarn && \
         pip install --upgrade \
             pip \
