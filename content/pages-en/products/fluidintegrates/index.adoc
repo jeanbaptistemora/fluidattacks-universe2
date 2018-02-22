@@ -5,14 +5,14 @@
 
 = FLUIDIntegrates
 
-System where all interested parties in the project's chain of value come together
-(hacker, developer, project managers, auditors, product managers, etc).
-It aims to bring the developer and the hacker closer together,
-so the vulnerabilities can be remediated
-in an efficient manner.
-It also provides real-time information
-about the security state of the systems
-to the decision makers.
+System where all the project's stakeholders come together
+(hacker, developer, project managers, auditors, product owner, etc).
+It aims to bring the developer and the hacker closer together
+in order to remediate all reported vulnerabilities
+in an effective and efficient manner.
+It also provides the decision makers
+with real time information
+regarding the state of their system´s security.
 
 [role="integrates tb-alt"]
 [cols=2, frame="none"]
@@ -20,60 +20,60 @@ to the decision makers.
 a|== Easy and Fast Authentication
 
 User credentials are not stored.
-The authentication is federated, thus allowing the authentication with corporate users.
+Federated identity, thus allowing authentication with corporate users.
 a|image::authentication.png[Authentication]
 
 a|image::main-menu.png[Main Menu]
 a|== Main Menu
 
-The dashboard allows the users to have direct access to all of their projects.
-It is also possible to visualize the eventualities associated to each one of the projects.
+The dashboard allows users direct access to all their projects.
+It is also possible to visualize the events associated to each one of the projects.
 
-a|== View Real-Time Eventualities
+a|== View Real-Time Events
 
-The events that prevent the development of the project
-can be known in real-time.
-a|image::eventualities.png[Eventualities]
+All events that inhibit the execution of the project
+can be viewed in real time.
+a|image::eventualities.png[Events]
 
 a|image::graphs.png[Graphs]
 
-a|== Graps of the Project Status
+a|== Project Status Graphs
 
 The current state of the reported vulnerabilities can be visualized.
-Thus allowing to:
+Easily allowing to:
 
 * Prioritize vulnerabilities by their confirmed exploitability
 * Indicate which are vulnerabilities and how many are security issues or hygiene issues.
 * Know how many vulnerabilities have been remediated and how many remain open.
 
-a|== Project Metrics
+a|== Project Statistics
 
 They allow to perform a follow-up of the current state of the project.
-Some of the used metrics are:
+Some of the used statistics are:
 
 * The amount of detected vulnerabilities.
-* The current criticality of the project.
+* The current severity of the project.
 * Remediated vulnerabilities.
-a|image::metrics.png[Metrics]
+a|image::metrics.png[Statistics]
 
 a|image::technical-report.png[Technical Report]
 a|== Generate Technical Reports
 
 This document provides detailed information of each vulnerability.
-It has great usefulness for the technical staff when remediating
-the reported security flaws.
+It is of great use to all technical personnel
+when it comes to remediating the reported security flaws.
 
 a|== Generate Executive Reports
 
 This document provides summarized and organized information.
-Thus, it may be useful for every person interested in the project's chain of value.
+Thus, it may be useful for all the project's stakeholders.
 
 a|image::executive-report.png[Executive Report]
 
 a|image::prioritize-remediation.png[Prioritize Remediation]
 a|== Prioritize Remediation
 
-Vulnerabilities can be prioritized according to several parameters.
+Vulnerabilities can be prioritized based on several parameters.
 This with the aim of knowing which require an inmediate solution.
 Some of these parameters are:
 
@@ -85,14 +85,15 @@ by the client.
 
 a|== Visualize Vulnerabilities
 
-Each vulnerability has information about its current state,
-as well as its criticality, type and report date.
+Each vulnerability has information regarding its current state,
+as well as its severity, type and report date.
 a|image::vulnerabilities.png[Vulnerabilities]
 
 a|image::vulnerability-description.png[Vulnerability Description]
 a|== Vulnerability Description
 
-The technical detail can be found, which allows the understanding
+Contains technical details
+that allow for a better understanding
 of the nature of the vulnerability,
 location of the security issues,
 unfulfilled requirements,
@@ -114,9 +115,10 @@ image::treatment.png[Treatment]
 a|image::vulnerability-severity.png[Vulnerability Severity]
 a|== Vulnerability Severity
 
-The technical assessment of the vulnerability is shown,
-based on the CVSS standard (Common Vulnerability Scoring System).
-This with the aim of determining the criticality of the vulnerability.
+The technical score
+according to the international CVSS (Common Vulnerability Scoring System) standard
+is shown.
+This with the aim of determining the severity of the vulnerability.
 
 a|== Vulnerability Evidences
 
@@ -144,29 +146,29 @@ a|image::timeline.png[Timeline]
 a|image::vulnerability-comments.png[Vulnerability Comments]
 a|== Solution of Doubts regarding the Vulnerabilities
 
-The users of the project's chain of value, FLUID included,
+The project's stakeholders, FLUID included,
 may exchange insights, doubts or observations
 regarding the vulnerability in question.
-This section helps the developers to understand where the issue is located,
-so a solution can be applied.
+This section helps the developers understand where the issue is located
+in order to apply a solution.
 
 a|== Chat with Us
 
-It allows te users to solve doubts regarding the vulnerabilities
+It allows the users to solve doubts regarding the vulnerabilities
 or the platform itself.
 
-The engineering team will reply in less than 4 hours in a 8 a.m-5 p.m work schedule.
+The engineering team will reply in less than 4 hours during business hours(8a.m - 5p.m).
 A notification will also be sent via e-mail
-once a reply to the question has been made.
+once a reply to the question has been posted.
 a|image::chat.png[Chat]
 
 a|image::mail.png[Mail]
 a|== Notifications via e-mail
 
-Notifications are sent via e-mail to the users of the project's chain of value.
+Notifications are sent via e-mail to the project's stakeholders.
 Some of them are:
 
-* Weekly, regarding new reported vulnrabilities.
+* Weekly, regarding new reported vulnerabilities.
 * When a user comments in a specific vulnerability.
 * When a user reports that a vulnerability has been remediated.
 * When a validation of the remediation of a vulnerability is made.
@@ -175,6 +177,7 @@ a|== Knowledge Base
 
 Users have access to FLUID's Knowledge Base (link:../../kb/[KB]).
 Here they can find examples about how to fulfill the security requirements
-that are checked in the tests performed.
+that are verified in the tests performed.
 a|image::knowledge-base.png[Knowledge Base]
 |====
+
