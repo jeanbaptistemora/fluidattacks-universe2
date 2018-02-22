@@ -1,4 +1,4 @@
-:slug: productos/fluidintegrates/
+:slug: productos/integrates/
 :category: productos
 :description: En esta página presentamos nuestros productos más destacados. FLUIDIntegrates es un sistema que busca acercar a todos los interesados al proyecto al hacker, permitiendo registrar e informar sobre los hallazgos de seguridad encontrados en la aplicación de forma fácil, rápida y eficiente.
 :keywords: FLUID, Productos, FLUIDIntegrates, Hallazgos, Seguridad, Cliente.
@@ -126,7 +126,7 @@ a|== Exploit de la Vulnerabilidad
 Se muestra el *script* usado para la explotación de la vulnerabilidad.
 Este puede ser reutilizado para validar las correcciones aplicadas.
 
-Si el usuario cuenta con una licencia del producto link:../fluidasserts/[FLUIDAsserts],
+Si el usuario cuenta con una licencia del producto link:../asserts/[FLUIDAsserts],
 podrá reproducir la vulnerabilidad.
 
 a|== Línea de Tiempo de la Vulnerabilidad

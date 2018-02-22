@@ -136,23 +136,23 @@ Usamos el estándar internacional https://www.first.org/cvss/[CVSS] para obtener
 que va de 0 a 10, donde 0 es la más baja y 10 la más alta.
 
 ¿Cómo obtengo información sobre las vulnerabilidades encontradas en mi aplicación?::
-El servicio de Hacking Continuo cuenta con una plataforma de reporte e interacción llamada link:../../../productos/fluidintegrates/[FLUIDIntegrates].
+El servicio de Hacking Continuo cuenta con una plataforma de reporte e interacción llamada link:../../../productos/integrates/[FLUIDIntegrates].
 Así todos los actores de la cadena de valor de un proyecto tienen acceso
 al detalle de las vulnerabilidades reportadas por FLUID en la prestación del servicio.
 
 ¿Qué tipo de informes son generados durante la prestación del servicio?::
-Desde link:../../../productos/fluidintegrates/#generar-informes-tecnicos[FLUIDIntegrates] es posible
+Desde link:../../../productos/integrates/#generar-informes-tecnicos[FLUIDIntegrates] es posible
 generar un informe técnico en formato Excel y otro en PDF disponibles durante toda la ejecución del proyecto.
 También se puede generar un informe ejecutivo tipo presentación en formato PDF una vez se finaliza el proyecto.
 
 ¿Cúal es el paso siguiente luego de que FLUID reporta una vulnerabilidad?::
 Una vez se reporta la vulnerabilidad el objetivo es que esta sea solucionada.
-Para esto los desarrolladores cuentan con acceso a link:../../../productos/fluidintegrates/[FLUIDIntegrates],
+Para esto los desarrolladores cuentan con acceso a link:../../../productos/integrates/[FLUIDIntegrates],
 permitiendo obtener de primera mano la información,
 aplicando las correcciones necesarias para remover las vulnerabilidades de la aplicación.
 
 ¿Cómo se entera FLUID que una vulnerabilidad está remediada?::
-A través de link:../../../productos/fluidintegrates/[FLUIDIntegrates] cualquier usuario con acceso al proyecto podrá solicitar la revisión de las vulnerabilidades corregidas.
+A través de link:../../../productos/integrates/[FLUIDIntegrates] cualquier usuario con acceso al proyecto podrá solicitar la revisión de las vulnerabilidades corregidas.
 Una vez se solicita, recibimos una notificación que incluye un comentario sobre la solución aplicada,
 realizamos la verificación de cierre
 confirmando la efectividad de la solución,
@@ -163,21 +163,21 @@ a través de correo electrónico.
 El servicio cuenta con verificaciones de cierre ilimitadas.
 
 ¿Por qué debo anunciar el cierre de una vulnerabilidad si FLUID tiene acceso al repositorio de código?::
-Uno de los objetivos del servicio de Hacking Continuo en conjunto con link:../../../productos/fluidintegrates/[FLUIDIntegrates] es mantener una comunicación clara y fluida entre todos los actores del proyecto.
+Uno de los objetivos del servicio de Hacking Continuo en conjunto con link:../../../productos/integrates/[FLUIDIntegrates] es mantener una comunicación clara y fluida entre todos los actores del proyecto.
 Al dar aviso sobre la remediación de una vulnerabilidad no solo se está informando a FLUID sino a todo el equipo del proyecto.
 
 ¿Qué pasa si considero que algo no es una vulnerabilidad?::
-Dentro de link:../../../productos/fluidintegrates/[FLUIDIntegrates] contamos con una sección de comentarios
+Dentro de link:../../../productos/integrates/[FLUIDIntegrates] contamos con una sección de comentarios
 donde se podrá dar a conocer las razones por las cuales considera que no es una vulnerabilidad.
 Allí FLUID y los demás integrantes del proyecto podremos establecer un diálogo
 que nos lleve a determinar la validez de una vulnerabilidad.
 
 ¿Todas las vulnerabilidades reportadas deben ser remediadas?::
 La remediación de una vulnerabilidad es una decisión que queda a discreción del cliente.
-En link:../../../productos/fluidintegrates/[FLUIDIntegrates] se cuenta con la opción de tratamiento
+En link:../../../productos/integrates/[FLUIDIntegrates] se cuenta con la opción de tratamiento
 donde se define si la vulnerabilidad va a ser remediada o asumida por el cliente.
 
-¿En caso de asumir una vulnerabilidad, se excluye de los informes y link:../../../productos/fluidintegrates/[FLUIDIntegrates]?::
+¿En caso de asumir una vulnerabilidad, se excluye de los informes y link:../../../productos/integrates/[FLUIDIntegrates]?::
 Dentro de los informes se encuentra el tratamiento definido para las vulnerabilidades.
 Teniendo esto en cuenta esto las vulnerabilidades asumidas permanecen en los informes
 con la aclaración sobre su tratamiento.

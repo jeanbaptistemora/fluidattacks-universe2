@@ -4,10 +4,10 @@
 
 = Products
 
-== link:fluidintegrates/[FLUIDIntegrates]
+== link:integrates/[FLUIDIntegrates]
 
-== link:fluidasserts/[FLUIDAsserts]
+== link:asserts/[FLUIDAsserts]
 
-== link:fluidcommands/[FLUIDCommands]
+== link:commands/[FLUIDCommands]
 
 == link:../kb/[FLUIDHardens]

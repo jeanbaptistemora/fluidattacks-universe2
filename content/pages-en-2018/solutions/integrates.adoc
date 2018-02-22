@@ -1,6 +1,6 @@
-:slug: solutions/products/fluidintegrates/
+:slug: solutions/products/integrates/
 :description: FLUIDIntegrates is a system which provides all interested parties information and updates about the current state of the project, the number of security findings discovered and its criticality, occurrences, among other information in order to keep close contact with our customers.
 :keywords: FLUID, Solutions, Products, FLUIDIntegrates, Application, Testing.
-:template: pages-en/solutions/fluidintegrates
+:template: pages-en/solutions/integrates
 
-= fluidintegrates
+= FLUIDIntegrates

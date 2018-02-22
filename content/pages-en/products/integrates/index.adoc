@@ -1,4 +1,4 @@
-:slug: products/fluidintegrates/
+:slug: products/integrates/
 :category: products
 :description: FLUIDIntegrates is a system which provides all interested parties information and updates about the current state of the project, the number of security findings discovered and its criticality, occurrences, among other information in order to keep close contact with our customers.
 :keywords: FLUID, Products, FLUIDIntegrates, Ethical Hacking, Pentesting, Security.
@@ -132,7 +132,7 @@ a|== Vulnerability Exploit
 The *script* used to exploit the vulnerability is shown.
 This can be reused to validate the applied corrections.
 
-If the user has acquired a licence of the product link:../fluidasserts/[FLUIDAsserts],
+If the user has acquired a licence of the product link:../asserts/[FLUIDAsserts],
 he may reproduce the vulnerability.
 
 a|== Timeline of the Vulnerability

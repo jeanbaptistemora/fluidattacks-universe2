@@ -81,6 +81,6 @@ a|* Tamaño total del código fuente
 |No
 
 |Entregables
-|Plataforma Web - [button]#link:../../productos/fluidintegrates/[FLUIDIntegrates >>]# (Exploit, Evidencias de explotación, Recomendaciones generales)
+|Plataforma Web - [button]#link:../../productos/integrates/[FLUIDIntegrates >>]# (Exploit, Evidencias de explotación, Recomendaciones generales)
 |Informe resumen
 |====

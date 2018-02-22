@@ -1,39 +1,37 @@
-:slug: products/fluidasserts/
-:category: products
-:description: In this page we present the products offered by FLUID. FLUIDAsserts is an engine to automate the closing of security findings over execution environments, which can be implemented in a CI pipeline to determine if a security issue persists in the application.
-:keywords: FLUID, Products, FLUIDAsserts, Ethical Hacking, Pentesting, Security.
+:slug: productos/asserts/
+:category: productos
+:description: En esta página presentamos nuestros productos más destacados. FLUIDAsserts es un motor de cierre de hallazgos de seguridad sobre ambientes en ejecución, el cual puede ser implementado en un pipeline de CI para evaluar si los hallazgos de seguridad continúan presentes en la aplicación.
+:keywords: FLUID, Productos, FLUIDAsserts, Automatización, Hallazgos, Seguridad.
 
 = FLUIDAsserts
 
-== 1. Description
+== 1. Descripción
 
-+FLUIDAsserts+ is an engine to automate the *closing* of security findings
-over execution environments +(DAST)+.
++FLUIDAsserts+ es un motor de automatización de *cierre* de hallazgos de seguridad sobre ambientes en ejecución +(DAST)+.
 
-.Flowchart of its use
+.Flujo de uso
 image::fluidassertses.png[FLUIDAsserts]
 
-== 2. Execution
+== 2. Ejecución
 
-=== In a PC
+=== En un PC
 
 ==== Linux
 
-Append the following to the file +~/.pip/pip.conf+
-(The user and password will be provided by us!):
+Agregar en el archivo +~/.pip/pip.conf+ lo siguiente (¡El usuario y password serán entregados por nosotros!):
 
 ----
 [global]
 index-url = https://<user>:<pass>@fluid.jfrog.io/fluid/api/pypi/python/simple
 ----
 
-Then, execute:
+Luego ejecutar:
 
 [source, bash]
 ----
 $ pip install -U fluidasserts
-$ export FA_LICENSE_KEY=<Licence ID>
-$ export FA_USER_EMAIL=<Your e-mail>
+$ export FA_LICENSE_KEY=<ID de licencia>
+$ export FA_USER_EMAIL=<Tu correo electrónico>
 $ export FA_STRICT="false"
 
 $ python exploit.py
@@ -43,35 +41,29 @@ $ python exploit.py
 [source, bash]
 ----
 > pip install -U fluidasserts
-> set FA_LICENSE_KEY=<Licence ID>
-> set FA_USER_EMAIL=<Your e-mail>
+> set FA_LICENSE_KEY=<ID de licencia>
+> set FA_USER_EMAIL=<Tu correo electrónico>
 > set FA_STRICT="false"
 
 > python exploit.py
 ----
 
-=== In a CI (Continuous Integration) pipeline
+=== En un pipeline de CI
 
-If you have subscribed an application to our *Continuous Hacking Service*
-which includes the use of +FLUIDAsserts+,
-you may add it to your Continuous Integration pipeline.
-To achieve this, follow the steps listed below:
+Si tienes una aplicación suscrita a nuestro servicio de *Pruebas Concurrentes de Seguridad* que incluya el uso de +FLUIDAsserts+, puedes agregarlo a tu pipeline de integración contínua. Para eso, debes seguir los siguientes pasos:
 
-* Add the required environment variables +USER+, +PASS+, +ORG+ and +APP+.
-Do not worry, their values will be provided by us!:
+* Agregar las variables de entorno +USER+, +PASS+, +ORG+ y +APP+. No te preocupes, ¡los valores serán entregados por nosotros!:
+** +USER+: Nombre de usuario para obtener la imagen de nuestro registro de contenedores
+** +PASS+: Contraseña del usuario
+** +ORG+: Nombre de la compañía
+** +APP+: Nombre de la aplicación
 
-** +USER+: Name of the user in order to obtain the image
-from our Container Registry
-** +PASS+: The password of the user
-** +ORG+: The name of the organization
-** +APP+: The name of the application
-
-.Example of environment variables in Gitlab CI
+.Ejemplo de variables en un ambiente Gitlab CI
 image::vars.png[Variables de entorno]
 
-* Add a job where the container is executed.
+* Agregar un job donde se ejecute el contenedor.
 
-.In Gitlab CI, add:
+.En Gitlab CI, agregar:
 [source, yaml]
 ----
 fluidasserts:
@@ -81,46 +73,42 @@ fluidasserts:
         - docker run -e ORG=$ORG -e APP=$APP -e USER=$USER -e PASS=$PASS -e FA_STRICT="true" fluid-docker.jfrog.io/$ORG:$APP
 ----
 
-*NOTE:* The variable +FA_STRICT+ must have
-the values +true+ or +false+.
-When it is set to +true+,
-and one of the vulnerabilities remains open,
-the pipeline will break!
+*NOTA:* La variable +FA_STRICT+ debe tener los valores +true+ o +false+. Si es +true+ y alguna de las vulnerabilidades está abierta, ¡el pipeline se romperá!
 
-== 3. Requirements
+== 3. Requerimientos
 
-=== To execute in a PC
+=== Para ejecutar en un PC
 
-* *Operating system*:
-** Any SO that supports +Python+
-* *Network*:
-** Access to the artifacts repository https://fluid.jfrog.io
-* *Software dependencies*:
+* *Sistema operativo*:
+** Cualquier SO que soporte Python
+* *Red*:
+** Acceso al repositorio de artefactos https://fluid.jfrog.io
+* *Dependencias de software*:
 ** +Python 3.6+
 
-=== To include in a CI pipeline
+=== Para integrar en un pipeline de CI
 
-* *Operating system*:
-** Any Linux-based distribution that supports +Docker CE+
-** Windows Server with +HyperV+ and +Docker+
+* *Sistema operativo*:
+** Cualquier distribución basada en Linux que soporte +DockerCE+
+** Windows Server con +HyperV+ y +Docker+
 ** MacOS
-* *Network*:
-** Access to the Container Registry https://fluid-docker.jfrog.io
-** Access to the integration environment where your application or platform is stored
-* *Software dependencies*:
-** +DockerCE 17+ or superior
+* *Red*:
+** Acceso al registro de contenedores https://fluid-docker.jfrog.io
+** Acceso al ambiente de integración donde tengas la aplicación o plataforma
+* *Dependencias de software*:
+** +DockerCE 17+ ó superior
 
-=== Commons
+=== Comunes
 
 * *CPU*: 4 cores @1.8GHz
 * *RAM*: 4GiB DDR3 @1.6Ghz
-* *Disk space*: 10GiB
+* *Espacio en disco*: 10GiB
 
-== 4. Exploit examples
+== 4. Ejemplos de exploits
 
-=== SQL Injection
+=== Inyección SQL
 
-.ex1_open.py: Verify if SQL injection still present
+.ex1_open.py: Verificar inyección SQL aun presente
 [source, python, linenum]
 ----
 from fluidasserts.service import http
@@ -130,7 +118,7 @@ URL = 'http://testphp.vulnweb.com/AJAX/infoartist.php?id=3%27'
 http.has_sqli(URL)
 ----
 
-.Results from executing ex1_open.py
+.Resultado de ejecución ex1_open.py
 [source, bash]
 ----
 $ python ex1_open.py
@@ -138,7 +126,7 @@ Loading modules...
 2018-02-09 11:15:22,273 - FLUIDAsserts - INFO - OPEN: http://testphp.vulnweb.com/AJAX/infoartist.php?id=3%27 Bad text present, Details=Warning.*mysql_.*
 ----
 
-.ex1_close.py: Verify remediated SQL injection
+.ex1_close.py: Verificar inyección SQL ya solucionada
 [source, python, linenum]
 ----
 from fluidasserts.service import http
@@ -148,7 +136,7 @@ URL = 'http://testphp.vulnweb.com/AJAX/infoartist.php?id=3'
 http.has_sqli(URL)
 ----
 
-.Results from executing ex1_close.py
+.Resultado de ejecución ex1_close.py
 [source, bash]
 ----
 $ python ex1_close.py
@@ -158,7 +146,7 @@ Loading modules...
 
 === Cross-Site Scripting
 
-.ex2_open.py: Verify if XSS is still present
+.ex2_open.py: Verificar XSS aun presente
 [source, python, linenum]
 ----
 from fluidasserts.service import http
@@ -170,7 +158,7 @@ DATA = 'name=test&text=%3Cscript%3Ealert%28%27Hacked+by+FLUID%27%29%3C%2Fscript%
 http.has_xss(URL, BAD_TEXT, data=DATA)
 ----
 
-.Results from executing ex2_open.py
+.Resultado de ejecución ex2_open.py
 [source, bash]
 ----
 $ python ex2_open.py
@@ -178,7 +166,7 @@ Loading modules...
 2018-02-09 11:17:55,375 - FLUIDAsserts - INFO - OPEN: http://testphp.vulnweb.com/guestbook.php Bad text present, Details=<script>alert\('Hacked by FLUID'\)</script>
 ----
 
-.ex2_close.py: Verify remediated XSS
+.ex2_close.py: Verificar XSS ya solucionado
 [source, python, linenum]
 ----
 from fluidasserts.service import http
@@ -190,7 +178,7 @@ DATA = 'name=test&text=Hacked+by+FLUID&submit=add+message'
 http.has_xss(URL, BAD_TEXT, data=DATA)
 ----
 
-.Results from executing ex2_close.py
+.Resultado de ejecución ex2_close.py
 [source, bash]
 ----
 $ python ex2_close.py
@@ -198,9 +186,9 @@ Loading modules...
 2018-02-09 11:19:28,075 - FLUIDAsserts - INFO - CLOSE: http://testphp.vulnweb.com/guestbook.php Bad text not present, Details=<script>alert\('Hacked by FLUID'\)</script>
 ----
 
-=== Breaking the Continuous Integration pipeline
+=== Rompiendo el pipeline de Integración Continua
 
-.ex1_open.py: Verify if SQL Injection is still present
+.ex1_open.py: Verificar inyección SQL aun presente
 [source, python, linenum]
 ----
 from fluidasserts.service import http
@@ -210,7 +198,7 @@ URL = 'http://testphp.vulnweb.com/AJAX/infoartist.php?id=3%27'
 http.has_sqli(URL)
 ----
 
-.Execution result breaking the pipeline
+.Resultado de ejecución rompiendo el pipeline
 [source, bash]
 ----
 $ export FA_STRICT="false"
@@ -228,8 +216,6 @@ $ echo $?
 $
 ----
 
-== Licence
+== Licencia
 
-Write us at relations@fluidattacks.com to obtain
-information about licences.
-
+Escríbenos mediante el siguiente [button]#link:https://fluidattacks.com/#lp-pom-block-11[formulario >>]# para obtener información de licencias.
