@@ -36,7 +36,7 @@ build_deps:
     stage: deps
     script:
         - docker login registry.gitlab.com -u $DOCKER_USER -p $DOCKER_PASS
-        - docker build -t registry.gitlab.com/fluidsignal/integrates:deps deploy/containers/deps
+        - docker build --cache-from registry.gitlab.com/fluidsignal/integrates:deps -t registry.gitlab.com/fluidsignal/integrates:deps deploy/containers/deps
         - docker push registry.gitlab.com/fluidsignal/integrates:deps
 
 build_integrates:
