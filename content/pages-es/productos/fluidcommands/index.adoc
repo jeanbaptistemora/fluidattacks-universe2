@@ -1,7 +1,7 @@
 :slug: productos/fluidcommands/
 :category: productos
-:description: TODO
-:keywords: TODO
+:description: El propósito de esta página es presentar los productos ofrecidos por FLUID. FLUIDCommands es un producto de tipo troyano con command & control utilizado para realizar pruebas de intrusión en equipos críticos, con el fin de detectar y reportar vulnerabilidades en las aplicaciones.
+:keywords: FLUID, Productos, FLUIDCommands, Seguridad, Pentesting, Aplicaciones.
 
 = FLUIDCommands
 
