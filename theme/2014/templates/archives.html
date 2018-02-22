@@ -5,7 +5,13 @@
   <meta name="description" content="TODO">
 {% endblock meta %}
 
-{% block title %}{{ gettext('Blog archives') }} | {{ SITENAME }}{% endblock %}
+{% block title %}
+  {% if DEFAULT_LANG == "en" %}
+{{ gettext('Blog Archives') }} | {{ SITENAME }}
+  {% else %}
+{{ gettext('Blog Archives') }} | {{ AUTHOR }}
+  {% endif %}
+{% endblock %}
 
 {% block header %}
   {% include "navigationbar.html" %}

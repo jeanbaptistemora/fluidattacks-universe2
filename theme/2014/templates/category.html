@@ -5,7 +5,7 @@
   <meta name="description" content="TODO">
 {% endblock meta %}
 
-{% block title %}{{ gettext('Articles in the category') }} {{ category.name|replace("-", " ") }} | FLUID{% endblock %}
+{% block title %}{{ gettext('Articles in the category') }} {{ category.name|replace("-", " ")|capitalize }} | {{ AUTHOR }}{% endblock %}
 
 {% block header %}
   {% include "navigationbar.html" %}

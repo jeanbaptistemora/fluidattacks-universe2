@@ -10,18 +10,18 @@
 {% block title %}
   {% set TITLE = 0 %}
   {% if DEFAULT_LANG == "en" %}
-    {% if article.title|length < 30 %}
+    {% if article.title|length < 23 %}
 {{ article.title }} | {{ SITENAME }}
       {% set TITLE = 1 %}
     {% endif %}
   {% else %}
-    {% if article.title|length < 21 %}
+    {% if article.title|length < 11 %}
 {{ article.title }} | {{ SITENAME }}
       {% set TITLE =1 %}
     {% endif %}
   {% endif %}
   {% if TITLE == 0 %}
-{{ article.title }} | FLUID
+{{ article.title }} | {{ AUTHOR }}
   {% endif %}
 {% endblock title %}
 

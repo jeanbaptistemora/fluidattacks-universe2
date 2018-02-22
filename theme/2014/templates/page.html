@@ -9,19 +9,23 @@
 
 {% block title %}
   {% set TITLE = 0 %}
-  {% if DEFAULT_LANG == "en" %}
-    {% if page.title|length < 30 %}
+  {% if page.hardens %}
+{{ page.title }} | {{ page.category|capitalize }}
+  {% set TITLE = 1 %}
+  {% endif %}
+  {% if DEFAULT_LANG == "en" and not TITLE %}
+    {% if page.title|length < 23 %}
 {{ page.title }} | {{ SITENAME }}
       {% set TITLE = 1 %}
     {% endif %}
   {% else %}
-    {% if page.title|length < 21 %}
+    {% if page.title|length < 11 and not TITLE %}
 {{ page.title }} | {{ SITENAME }}
       {% set TITLE =1 %}
     {% endif %}
   {% endif %}
   {% if TITLE == 0 %}
-{{ page.title }} | FLUID
+{{ page.title }} | {{ AUTHOR }}
   {% endif %}
 {% endblock title %}
 
@@ -91,7 +95,7 @@
       	  <script type="text/javascript" src="{{ SITEURL }}/{{ ASSET_URL }}"></script>
     	{% endassets %} 
       {% endif %}
-      {% if DISQUS_SITENAME and SITEURL and page.hardens %}
+      {% if DISQUS_SITENAME and SITEURL and 	page.hardens %}
         <hr class="hrcoments">
         <div class="comments">
           <h3>{{ gettext('Leave a comment') }}</h3>

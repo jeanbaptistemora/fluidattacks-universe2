@@ -6,8 +6,8 @@ reload(sys)
 sys.setdefaultencoding("utf-8")
 
 # Site information
-AUTHOR = 'FLUID'
-SITENAME = 'A Pentesting Company | FLUID'
+AUTHOR = 'FLUIDAttacks'
+SITENAME = 'A Pentesting Company | FLUIDAttacks'
 SITEURL = 'https://fluidattacks.com/web/en'
 
 # Theme
@@ -80,7 +80,7 @@ DEFAULT_PAGINATION = 12
 JINJA_ENVIRONMENT = {'extensions': ['jinja2.ext.i18n']}
 I18N_SUBSITES = {
     'es': {
-        'SITENAME': 'Especialistas en Ethical Hacking | FLUID',
+        'SITENAME': 'Especialistas en Ethical Hacking | FLUIDAttacks',
         'SITEURL': 'https://fluidattacks.com/web/es',
         'OUTPUT_PATH': 'output/web/es',
         'THEME': 'theme/2014',

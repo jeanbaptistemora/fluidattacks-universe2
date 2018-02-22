@@ -8,18 +8,13 @@
 {% block title %}
   {% set TITLE = 0 %}
   {% if DEFAULT_LANG == "en" %}
-    {% if tag.name|length < 25 %}
-{{ gettext('Tag') }} {{ tag }} | {{ SITENAME }}
+    {% if tag.name|length < 20 %}
+{{ gettext('Tag') }} {{ tag|capitalize }} | {{ SITENAME }}
       {% set TITLE = 1 %}
-    {% endif %}
-  {% else %}
-    {% if tag.name|length < 11 %}
-{{ gettext('Tag') }} {{ tag }} | {{ SITENAME }}
-      {% set TITLE =1 %}
     {% endif %}
   {% endif %}
   {% if TITLE == 0 %}
-{{ gettext('Tag') }} {{ tag }} | FLUID
+{{ gettext('Tag') }} {{ tag|capitalize }} | {{ AUTHOR }}
   {% endif %}
 {% endblock %}
 

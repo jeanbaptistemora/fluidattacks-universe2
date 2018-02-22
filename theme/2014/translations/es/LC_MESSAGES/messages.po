@@ -19,7 +19,7 @@ msgstr ""
 "Generated-By: Babel 2.5.1\n"
 
 #: templates/archives.html:8
-msgid "Blog archives"
+msgid "Blog Archives"
 msgstr "Archivos del Blog"
 
 #: templates/archives.html:18 templates/article.html:37

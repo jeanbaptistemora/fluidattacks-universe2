@@ -1,6 +1,12 @@
 {% extends "base.html" %}
 
-{% block title %}{{ gettext('The page was not found') }}&nbsp;|&nbsp;{{ SITENAME }}{% endblock title %}
+{% block title %}
+  {% if DEFAULT_LANG == "en" %}
+{{ gettext('The page was not found') }} | {{ SITENAME }}
+  {% else %}
+{{ gettext('The page was not found') }} | {{ AUTHOR }}
+  {% endif %}
+{% endblock title %}
 
 {% block header %}
   <!-- Page Header -->

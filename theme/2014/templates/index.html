@@ -5,7 +5,13 @@
   <meta name="description" content="TODO">
 {% endblock meta %}
 
-{% block title %}{{ gettext('Blog Home') }} | {{ SITENAME }}{% endblock %}
+{% block title %}
+  {% if DEFAULT_LANG == "en" %}
+{{ gettext('Blog Home') }} | {{ SITENAME }}
+  {% else %}
+{{ gettext('Blog Home') }} | {{ AUTHOR }}
+  {% endif %}
+{% endblock %}
 
 {% block canonical %}<link rel="canonical" href="{{ SITEURL }}/"/>{% endblock canonical %}
 
