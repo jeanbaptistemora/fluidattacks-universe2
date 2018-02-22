@@ -8,31 +8,34 @@
 
 == Necesidad
 
-Evitar código fuente duplicado en ASP.Net.
+Evitar código fuente duplicado en +ASP.Net+.
 
 == Contexto
 
 A continuación se describe las circunstancias 
 bajo las cuales la siguiente solución tiene sentido:
 
-. Se está desarrollando una aplicación en ASP.Net.
+. Se está desarrollando una aplicación en +ASP.Net+.
 
 . Se desea evitar código fuente duplicado en la aplicación.
 
 == Solución
 
-. Es común encontrar código duplicado 
+. El código duplicado es una secuencia de código 
+que ocurre más de una vez, 
+ya sea en el mismo programa, 
+o en diferentes programas realizados por la misma entidad <<r1, ^[1]^>>.
+Es común encontrar código duplicado 
 en diferentes tipos de aplicaciones, 
 esta duplicación representa trabajo, 
-riesgo 
-y complejidad adicional, 
+riesgo y complejidad adicional, 
 por lo que evitar duplicar código fuente 
-es importante para mantener la seguridad de la aplicación [2]. 
+es importante para mantener la seguridad de la aplicación <<r2, ^[2]^>>. 
 A continuación se presenta un ejemplo
 en el cual se declara una nueva clase 
 y una constante para depurar los mensajes:
 +
-.test.py
+.MyApp.java
 [source, java, linenums]
 ----
   class Reuse
@@ -40,8 +43,7 @@ y una constante para depurar los mensajes:
         private static bool DEBUG = true;
 ----
 +
-. El método _main_ llama a dos métodos 
-que generan errores, 
+. El método +main+ llama a dos métodos que generan errores, 
 estos errores son impresos en pantalla 
 si la constante de depuración tiene valor verdadero:
 +
@@ -54,12 +56,10 @@ si la constante de depuración tiene valor verdadero:
         }
 ----
 +
-. El primer método arroja un error de división por cero.
- Se puede apreciar 
- que los mensajes de error 
- son impresos a través de la salida _e_, 
- con la causa 
- y el mensaje de excepción:
+. El primer método arroja un error de división por cero. 
+Se puede apreciar que los mensajes de error 
+son impresos a través de la salida +e+, 
+con la causa y el mensaje de excepción:
 +
 [source, java,linenums]
 ----
@@ -79,7 +79,7 @@ si la constante de depuración tiene valor verdadero:
 ----
 +
 . Igualmente se define un segundo método
- que arroja la excepción la clase _Integer_ 
+ que arroja la excepción la clase +Integer+ 
  con la cual termina el programa:
 +
 [source,java,linenums]
@@ -125,22 +125,8 @@ y una constante para depurar los mensajes:
     {
         private static bool DEBUG = true;
 ----
-+
-. El método main llama a dos métodos que generan errores, 
-estos errores son impresos en pantalla 
-si la constante de depuración tiene el valor verdadero:
-+
-[source,java, linenums]
-----
-        static void Main(string[] args)
-        {
-            divisionPorCero();
-            integerParseInt();
 
-        }
-----
-+
-. El método _showError_ se encargará de ahora en adelante
+. El método +showError+ se encargará de ahora en adelante
  de manejar los mensajes de error. 
  Un cambio en este método se ve reflejado en todas sus demás llamadas:
 +
@@ -156,7 +142,7 @@ si la constante de depuración tiene el valor verdadero:
         }
 ----
 +
-. Ahora ambos métodos llaman al método _showError_:
+. Ahora ambos métodos llaman al método +showError+:
 +
 [source,java,linenums]
 ----
@@ -184,5 +170,6 @@ si la constante de depuración tiene el valor verdadero:
 
 == Referencias
 
-. http://ptgmedia.pearsoncmg.com/images/9780137081073/samplepages/0137081073.pdf[The Clean Coder: A Code of Conduct for Professional Programmers]
-. REQ.0157: El código fuente no debe tener funciones, métodos o clases repetidas.
+. [[r1]] link:https://en.wikipedia.org/wiki/Duplicate_code[Duplicate Code - Wikipedia].
+. [[r2]] REQ.0157: El código fuente no debe tener funciones, métodos o clases repetidas.
+. [[r3]] link:http://ptgmedia.pearsoncmg.com/images/9780137081073/samplepages/0137081073.pdf[The Clean Coder: A Code of Conduct for Professional Programmers].
