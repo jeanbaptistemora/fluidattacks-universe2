@@ -5,24 +5,24 @@
 
 = Continuous Hacking
 
-*Find and Report all existing security vulnerabilities within your information technology system.*
+*Find all existing vulnerabilities and report them as soon as possible.*
 
-== Early tests on the SDLC:
+== Early tests in the SDLC:
 
-* Minimizing the cost of repair.
-* Reducing to zero the time of security certifications.
+* Minimizing the cost of remediation.
+* Reducing security certification time to zero.
 * Certifying an effective closure of the vulnerabilities within the continuous integration of the projects.
 
 == Why do we do it??
 
 * *Time to market*: organizations want to release more features in less time.
-* *Range*: accomplish a coverage from 100% without raising the times of releasing.
+* *Coverage*: accomplish a coverage of 100% without increasing release times.
 * *Mitigation*: close vulnerabilities before releasing new features.
 * *Precision*: expert evolutionary reviews.
 
 == How?
 
-* Continuous Ethical Hacking on the source code and applications. (Expert review)
+* Continuous Ethical Hacking on the source code, applications and infrastructure. (Expert review)
 * Automate closure of confirmed vulnerabilities.
 
 == Solution
@@ -55,13 +55,14 @@ image::benefits.png[Benefits]
 | Others
 
 | Revision methods
-| Hybrid (automated program tools + expert manual (OSCP) review)
-| Automated program tools
+| Hybrid (automated tools +  expert(OSCP) manual review)
+| Automated tools
 
 | Type of findings
-a|* Specific impact to the business.
-* Insecure practices in programming.
+a|* Of a specific business impact.
+* Insecure programming practices.
 * Alignment to security standards and regulations.
+* Zero Day Vulnerabilities
 | Syntactic
 
 | False-positive probability
@@ -71,15 +72,15 @@ a|* Specific impact to the business.
 | Estimation
 a|* Only what was defined is tested
 * By open ports
-* By entry fields in forms and headers
+* By input fields in forms and headers
 * By effective lines of code (higher coverage and rigor)
 | By time without a specific scope
 
 | Exploitation capacity
-|Yes - if access to the requested test application is granted
+|Yes - if access to the deployed application is granted
 |No
 
 | Deliverables
-| Vulnerability to exploitation report and high-level recommendations.
+| Web - FLUIDIntegrates(Exploit evidence, exploit code and high-level recommendations).
 | Summary report
 |====
