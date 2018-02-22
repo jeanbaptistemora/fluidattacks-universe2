@@ -10,4 +10,4 @@
 
 == link:commands/[FLUIDCommands]
 
-== link:../kb/[FLUIDHardens]
+== link:hardens/[FLUIDHardens]

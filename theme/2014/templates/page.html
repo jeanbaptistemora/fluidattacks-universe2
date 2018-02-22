@@ -45,9 +45,9 @@
       <div class="breadcrumbs">
         <ul>
           <li><a href="{{ SITEURL }}/">{{ gettext('Home') }} >>&nbsp;</a></li>
-            {% if page.kb %}
-              <li><a href="{{ SITEURL }}/kb/">FLUIDHardens >>&nbsp;</a></li>
-              <li><a href="{{ SITEURL }}/kb/#{{ page.category.name }}">{{ page.category }}</a></li>
+            {% if page.hardens %}
+              <li><a href="{{ SITEURL }}/hardens/">Hardens >>&nbsp;</a></li>
+              <li><a href="{{ SITEURL }}/hardens/#{{ page.category.name }}">{{ page.category }}</a></li>
             {% elif "misc" not in page.category.name %}
               {% if page.category2 %}
                 <li><a href="{{ SITEURL }}/{{ page.category.name }}">{{ page.category }} >>&nbsp;</a></li>
@@ -63,13 +63,13 @@
       {% if page.location %}
         {% include 'location.html' %}
       {% endif %}
-      {% if page.kbindex %}
-        {% include 'kb.html'%}
+      {% if page.hardensindex %}
+        {% include 'hardens.html'%}
       {% endif %}
       <br>
-      {% if page.kb %}
-        {% for kbpage in pages if kbpage.kb and kbpage.category == page.category %}
-          {% if kbpage.slug == page.slug and (loop.previtem != undefined or loop.nextitem != undefined) %}
+      {% if page.hardens %}
+        {% for hardenspage in pages if hardenspage.hardens and hardenspage.category == page.category %}
+          {% if hardenspage.slug == page.slug and (loop.previtem != undefined or loop.nextitem != undefined) %}
             <div class="article-nav">
               <div class="prev-article">
                 {% if loop.previtem != undefined %}
@@ -91,7 +91,7 @@
       	  <script type="text/javascript" src="{{ SITEURL }}/{{ ASSET_URL }}"></script>
     	{% endassets %} 
       {% endif %}
-      {% if DISQUS_SITENAME and SITEURL and "kb/" in page.slug and not page.kbindex %}
+      {% if DISQUS_SITENAME and SITEURL and page.hardens %}
         <hr class="hrcoments">
         <div class="comments">
           <h3>{{ gettext('Leave a comment') }}</h3>

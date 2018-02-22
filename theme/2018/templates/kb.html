@@ -6,7 +6,7 @@
 {% endassets %} 
 {% endblock customcss %}
 
-{% block canonical %}<link rel="canonical" href="{{ SITEURL }}/kb/"/>{% endblock canonical %}
+{% block canonical %}<link rel="canonical" href="{{ SITEURL }}/hardens/"/>{% endblock canonical %}
 {% block title %}{{ SITENAME }}{% endblock title %}
 
 {% block header %}
@@ -29,7 +29,7 @@
 
     			<div class="accordion kb-accordion" id="accordion" role="tablist">
 
-					{% for page in pages if page.kb %}
+					{% for page in pages if page.hardens %}
 					{% if loop.first %}
 					
 					<div class="card">
@@ -41,8 +41,8 @@
 						<div id="tab-{{ loop.index }}" class="collapse" role="tabpanel" aria-labelledby="heading-tab-{{ loop.index }}" data-parent="#accordion">
 							<div class="card-body">
 								<ul>
-									{% for kbarticle in pages if kbarticle.kb and kbarticle.category == cat%}
-									<li><a href="../{{ kbarticle.slug }}">{{ kbarticle.title }}</a></li>
+									{% for hardensarticle in pages if hardensarticle.hardens and hardensarticle.category == cat%}
+									<li><a href="../{{ hardensarticle.slug }}">{{ hardensarticle.title }}</a></li>
 									{% endfor %}
 								</ul>
 							</div>
@@ -61,8 +61,8 @@
 						<div id="tab-{{ loop.index }}" class="collapse" role="tabpanel" aria-labelledby="heading-tab-{{ loop.index }}" data-parent="#accordion">
 							<div class="card-body">
 								<ul>
-									{% for kbarticle in pages if kbarticle.kb and kbarticle.category == cat%}
-									<li><a href="../{{ kbarticle.slug }}">{{ kbarticle.title }}</a></li>
+									{% for hardensarticle in pages if hardensarticle.hardens and hardensarticle.category == cat%}
+									<li><a href="../{{ hardensarticle.slug }}">{{ hardensarticle.title }}</a></li>
 									{% endfor %}
 								</ul>
 							</div>

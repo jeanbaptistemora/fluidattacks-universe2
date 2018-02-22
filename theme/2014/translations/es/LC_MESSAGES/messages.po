@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2018-02-20 00:37+0000\n"
+"POT-Creation-Date: 2018-02-22 19:45+0000\n"
 "PO-Revision-Date: 2017-12-21 15:09-0500\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: es\n"
@@ -25,7 +25,7 @@ msgstr "Archivos del Blog"
 #: templates/archives.html:18 templates/article.html:37
 #: templates/author.html:43 templates/authors.html:18
 #: templates/categories.html:18 templates/category.html:18
-#: templates/error.html:14 templates/home.html:22 templates/index.html:22
+#: templates/form.html:21 templates/home.html:22 templates/index.html:22
 #: templates/landing.html:21 templates/tag.html:34 templates/tags.html:18
 msgid "Young hacker smiling"
 msgstr "Joven hacker sonriendo"
@@ -37,7 +37,7 @@ msgstr "Archivos para"
 
 #: templates/article.html:48 templates/author.html:52 templates/authors.html:28
 #: templates/categories.html:28 templates/category.html:27
-#: templates/home.html:8 templates/landing.html:10
+#: templates/form.html:31 templates/home.html:8 templates/landing.html:10
 #: templates/navigationbar.html:22 templates/tag.html:43 templates/tags.html:28
 msgid "Home"
 msgstr "Inicio"
@@ -104,73 +104,6 @@ msgstr "Tiene"
 msgid "comments"
 msgstr "comentarios"
 
-#: templates/error.html:3
-msgid "The page was not found"
-msgstr "La página no ha sido encontrada"
-
-#: templates/error.html:22
-msgid "PAGE NOT FOUND"
-msgstr "PÁGINA NO ENCONTRADA"
-
-#: templates/error.html:23
-msgid "Click the flag to view this page in spanish"
-msgstr "Haz click en la bandera para visualizar esta página en inglés"
-
-#: templates/error.html:25
-msgid "es"
-msgstr "en"
-
-#: templates/error.html:28
-msgid ""
-"It seems nothing was found in this address. Try searching or browsing to "
-"one of the following links"
-msgstr ""
-"Parece que no hay nada indexado en esta dirección. Intenta una búsqueda o"
-" haz click en uno de los siguientes links"
-
-#: templates/error.html:29 templates/footer.html:24 templates/landing.html:29
-#: templates/navigationbar.html:23
-msgid "Services"
-msgstr "Servicios"
-
-#: templates/error.html:31 templates/footer.html:24 templates/footer.html:25
-#: templates/footer.html:26 templates/landing.html:34 templates/landing.html:38
-#: templates/navigationbar.html:23 templates/navigationbar.html:25
-#: templates/navigationbar.html:26
-msgid "services"
-msgstr "servicios"
-
-#: templates/error.html:37 templates/footer.html:29
-#: templates/navigationbar.html:29
-msgid "Products"
-msgstr "Productos"
-
-#: templates/error.html:39 templates/footer.html:29 templates/footer.html:30
-#: templates/footer.html:31 templates/footer.html:32
-#: templates/navigationbar.html:29 templates/navigationbar.html:31
-#: templates/navigationbar.html:32 templates/navigationbar.html:33
-msgid "products"
-msgstr "productos"
-
-#: templates/error.html:45
-msgid "Recent Blog Entries"
-msgstr "Entradas Recientes del Blog"
-
-#: templates/error.html:56
-msgid "Blog Categories"
-msgstr "Categorías del Blog"
-
-#: templates/error.html:64 templates/footer.html:43
-#: templates/navigationbar.html:38
-msgid "Careers"
-msgstr "Empleos"
-
-#: templates/error.html:66 templates/footer.html:43 templates/footer.html:44
-#: templates/footer.html:45 templates/footer.html:46 templates/footer.html:47
-#: templates/navigationbar.html:38
-msgid "careers"
-msgstr "empleos"
-
 #: templates/footer.html:4
 msgid "FLUID logo"
 msgstr "Logo de FLUID"
@@ -225,10 +158,6 @@ msgid "Location"
 msgstr "Ubicación"
 
 #: templates/footer.html:20
-msgid "#lp-pom-block-11"
-msgstr "es/servicios/#lp-pom-block-9"
-
-#: templates/footer.html:20
 msgid "Contact Us"
 msgstr "Contáctenos"
 
@@ -239,6 +168,18 @@ msgstr "terminos-uso"
 #: templates/footer.html:21
 msgid "Terms of Use"
 msgstr "Términos de Uso"
+
+#: templates/footer.html:24 templates/footer.html:25 templates/footer.html:26
+#: templates/landing.html:34 templates/landing.html:38
+#: templates/navigationbar.html:23 templates/navigationbar.html:25
+#: templates/navigationbar.html:26
+msgid "services"
+msgstr "servicios"
+
+#: templates/footer.html:24 templates/landing.html:29
+#: templates/navigationbar.html:23
+msgid "Services"
+msgstr "Servicios"
 
 #: templates/footer.html:25 templates/landing.html:38
 #: templates/navigationbar.html:25
@@ -257,6 +198,17 @@ msgstr "hacking-continuo"
 #: templates/footer.html:26 templates/navigationbar.html:26
 msgid "Continuous Hacking"
 msgstr "Hacking Continuo"
+
+#: templates/footer.html:29 templates/footer.html:30 templates/footer.html:31
+#: templates/footer.html:32 templates/navigationbar.html:29
+#: templates/navigationbar.html:31 templates/navigationbar.html:32
+#: templates/navigationbar.html:33
+msgid "products"
+msgstr "productos"
+
+#: templates/footer.html:29 templates/navigationbar.html:29
+msgid "Products"
+msgstr "Productos"
 
 #: templates/footer.html:37
 msgid "style"
@@ -286,6 +238,16 @@ msgstr "Etiquetas"
 #: templates/footer.html:40
 msgid "authors"
 msgstr "autores"
+
+#: templates/footer.html:43 templates/footer.html:44 templates/footer.html:45
+#: templates/footer.html:46 templates/footer.html:47
+#: templates/navigationbar.html:38
+msgid "careers"
+msgstr "empleos"
+
+#: templates/footer.html:43 templates/navigationbar.html:38
+msgid "Careers"
+msgstr "Empleos"
 
 #: templates/footer.html:44
 msgid "reasons"
@@ -337,15 +299,19 @@ msgid ""
 "Infrastructure. We are hackers who develop our own tools and exploits, "
 "with the aim of identifying all the vulnerabilities of your applications "
 "and report them as soon as possible"
-msgstr "Somos una compañía especialista en Ethical Hacking de Aplicación e Infraestructura. Somos hackers que "
-"desarrollamos nuestras propias herramientas y exploits, cuyo objetivo identificar todas las vulnerabilidades "
-"de sus aplicaciones y reportarlas lo más pronto posible."
+msgstr ""
+"Somos una compañía especialista en Ethical Hacking de Aplicación e "
+"Infraestructura. Somos hackers que desarrollamos nuestras propias "
+"herramientas y exploits, cuyo objetivo identificar todas las "
+"vulnerabilidades de sus aplicaciones y reportarlas lo más pronto posible."
 
 #: templates/landing.html:7
 msgid ""
 "FLUID, Ethical Hacking, Vulnerability, Diagnosis, Application, "
 "Infrastructure"
-msgstr "FLUID, Ethical hacking, Vulnerabildad, Diagnóstico, Aplicación, Infraestructura"
+msgstr ""
+"FLUID, Ethical hacking, Vulnerabildad, Diagnóstico, Aplicación, "
+"Infraestructura"
 
 #: templates/landing.html:30
 msgid ""
@@ -492,6 +458,34 @@ msgstr "de"
 #: templates/tag.html:12 templates/tag.html:17 templates/tag.html:22
 msgid "Tag"
 msgstr "Etiqueta"
+
+msgid "The page was not found"
+msgstr "La página no ha sido encontrada"
+
+msgid "PAGE NOT FOUND"
+msgstr "PÁGINA NO ENCONTRADA"
+
+msgid "Click the flag to view this page in spanish"
+msgstr "Haz click en la bandera para visualizar esta página en inglés"
+
+msgid "es"
+msgstr "en"
+
+msgid ""
+"It seems nothing was found in this"
+" address. Try searching or browsing "
+"to one of the following links"
+msgstr ""
+"Parece que no hay nada indexado en"
+" esta dirección. Intenta una búsqueda "
+"o haz click en uno de los "
+"siguientes links"
+
+msgid "Recent Blog Entries"
+msgstr "Entradas Recientes del Blog"
+
+msgid "Blog Categories"
+msgstr "Categorías del Blog"
 
 msgid "Search"
 msgstr "Búsqueda"

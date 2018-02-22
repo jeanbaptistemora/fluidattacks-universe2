@@ -169,7 +169,7 @@ Algunas de ellas son:
 
 a|== Base De Conocimiento
 
-Los usuarios tienen acceso a la base de conocimiento (link:../../kb/[KB]) de FLUID.
+Los usuarios tienen acceso al producto de FLUID, (link:../../hardens/[FLUIDHardens]).
 En esta se encuentran ejemplos de cómo cumplir con los requisitos de seguridad
 que son evaluados en las pruebas realizadas.
 a|image::base-conocimiento.png[Base De Conocimiento]

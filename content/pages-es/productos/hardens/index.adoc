@@ -1,0 +1,12 @@
+:slug: productos/hardens/
+:description: TODO
+:keywords: TODO
+:category: productos
+
+= FLUIDHardens
+
+La descripción de este producto no se encuentra actualmente disponible.
+
+Lamentamos las inconveniencias.
+
+Puedes acceder al producto [button]#link:../../hardens/[aquí >>]#

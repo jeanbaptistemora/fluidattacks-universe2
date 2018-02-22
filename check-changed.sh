@@ -19,7 +19,7 @@ echo "$CHANGED" | pcregrep '^content.*adoc$' \
   | pcregrep '^[5-9]\d\s'
 error "LIX readability index out of range. Should be <50."
 
-echo "$CHANGED" | pcregrep '^content/kb.*adoc$' \
+echo "$CHANGED" | pcregrep '^content/hardens.*adoc$' \
   | xargs -r -n 1 ./words.sh \
   | pcregrep -v '^([4-8]\d\d\s)'
 error "Number of words in KB text out of range. Should be 400>=words<800."

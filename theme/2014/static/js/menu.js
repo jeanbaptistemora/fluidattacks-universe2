@@ -26,7 +26,7 @@ organizing the content in a dropdown menu.
         multiTg = function() {
           cssmenu.find(".has-sub").prepend('<span class="submenu-button"></span>');
           cssmenu.find('.submenu-button').on('click', function() {
-            if ($(window).width() < 830) {
+            if ($(window).width() < 865) {
               $(this).toggleClass('submenu-opened');
               $(this).siblings('ul').toggleClass('sm-opened');
             }
@@ -41,7 +41,7 @@ organizing the content in a dropdown menu.
         resizeFix = function() {
           var mainmenu = cssmenu.find('.menu-button');
           var submenu = cssmenu.find('.submenu-button');
-          if ($( window ).width() >= 830) {
+          if ($( window ).width() >= 865) {
             if (!cssmenu.children('ul').hasClass('m-opened')) {
               cssmenu.children('ul').toggleClass('m-opened')
             }
@@ -50,7 +50,7 @@ organizing the content in a dropdown menu.
             }
           }
 
-          if ($(window).width() < 830) {
+          if ($(window).width() < 865) {
             cssmenu.children('ul').removeClass('m-opened');
             cssmenu.find('ul li ul').removeClass('sm-opened');
             mainmenu.removeClass('menu-opened');

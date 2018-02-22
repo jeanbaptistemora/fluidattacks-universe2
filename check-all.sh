@@ -39,8 +39,8 @@ if find content | egrep '.*[A-Z].*'; then echo -e "${GC}ERRORES: Rutas siempre e
 # Check that files names do not have spaces in them
 if find content -iname '* *' | egrep '.*'; then echo -e "${GC}ERRORES: Rutas sin espacio. Usar guión alto \"-\".${NC}"; ERRORS=1;fi
 
-# slugs más largos de 50 + raíz superan requisito de URL<=76
-if grep -E -n -r --include "*.adoc" "^:slug: .{50,}" content; then echo 'ERRORES: URL debe ser de máximo 76 caracteres.'; ERRORS=1;fi
+# slugs más largos de 50 + raíz superan requisito de URL<76
+if grep -E -n -r --include "*.adoc" "^:slug: .{44,}" content; then echo -e "${GC}ERRORES: El \"slug\" debe tener maximo 43 caracteres${NC}"; ERRORS=1;fi
 
 # Check that 4 - delimit the code block, not more, not less
 if  pcregrep --color -nr --include='\.adoc' '^-{5,}' content; then echo -e "${GC}ERRORES: Delimitador de bloque debe ser 4 exactamente.${NC}"; ERRORS=1;fi
@@ -49,7 +49,7 @@ if  pcregrep --color -nr --include='\.adoc' '^-{5,}' content; then echo -e "${GC
 if pcregrep --color -nr --include='\.adoc' '\[start' content; then echo -e "${GC}ERRORES: No usar el atributo \"start\" para la enumeración de listas. Utilizar el caracter '+' para concatenar el contenido de cada numeral${NC}"; ERRORS=1;fi
 
 # Check that the slug ends in a '/'
-if pcregrep --color -nr --include='\.adoc' 'slug:.*[a-z]$' content; then echo -e "${GC}ERRORES: El \"slug\" del artículo debe terminar en '/'${NC}"; ERRORS=1;fi
+if pcregrep --color -nr --include='\.adoc' '^:slug:.*[a-z]$' content; then echo -e "${GC}ERRORES: El \"slug\" del artículo debe terminar en '/'${NC}"; ERRORS=1;fi
 
 # requiere pcregrep para busqueda multilinea
 # if pcregrep -M -n -r --include='\.adoc$' '^\[source,.*\n[^.].*\n[^-]' content; then echo 'ERRORES: Source sin caption de archivo ".file.py (parte a)" y delimitadores "----".'; ERRORS=1;fi
@@ -67,7 +67,7 @@ if pcregrep --color -nr --include='\.adoc' '^= [A-Z].*\"' content; then echo -e 
 if pcregrep --color -Lnr --include='\.adoc' '^:alt:.*' content/blog*; then echo -e "${GC}ERRORES: Los artículos deben llevar meta-descripción \"alt\" para su imagen representativa${NC}"; ERRORS=1;fi
 
 # Check that code does not follow inmmediatly after a paragraph in the KB
-if pcregrep --color -Mnr --include='\.adoc' '^[a-zA-Z0-9].*\n.*\[source' content/kb; then echo -e "${GC}ERRORES: Los bloques de código deben estar separados del párrafo por un '+'${NC}"; ERRORS=1;fi
+if pcregrep --color -Mnr --include='\.adoc' '^[a-zA-Z0-9].*\n.*\[source' content/hardens; then echo -e "${GC}ERRORES: Los bloques de código deben estar separados del párrafo por un '+'${NC}"; ERRORS=1;fi
 
 # Check that the title of the website does not have more than 60 characters (Once "| FLUID" is attached)
 if pcregrep --color -ru --include='\.adoc' '^= [A-Z¿¡].{52}' content; then echo -e "${GC}ERRORES: Los títulos deben tener máximo 52 caracteres${NC}"; ERRORS=1;fi
