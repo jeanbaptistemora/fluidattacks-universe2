@@ -1,6 +1,6 @@
 :slug: soluciones/expertis/iot/
-:description: TODO
-:keywords: TODO
+:description: FLUID es una compañía especializada en seguridad informática, ethical hacking, pruebas de intrusión y detección de vulnerabilidades en aplicaciones. En esta página presentamos nuestras soluciones que involucran Internet de las cosas (IoT) y nuestros clientes satisfechos.
+:keywords: FLUID, Soluciones, Internet, IoT, Clientes, Protección.  
 :template: pages-es/soluciones/iot
 
 = Iot

@@ -1,6 +1,6 @@
 :slug: soluciones/transporte/
-:description: TODO
-:keywords: TODO
+:description: FLUID es una compañía especializada en seguridad informática, ethical hacking, pruebas de intrusión y detección de vulnerabilidades en aplicaciones con más de 18 años prestando sus servicios en el mercado colombiano. En esta página presentamos nuestros aportes y soluciones al sector de transporte.
+:keywords: FLUID, Soluciones, Transporte, Clientes, Protección, Seguridad.
 :template: pages-es/soluciones/transporte
 
 = Transporte

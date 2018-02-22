@@ -1,6 +1,6 @@
 :slug: soluciones/metodologia-por-proyecto/
-:description: TODO
-:keywords: TODO
+:description: La metodología por proyecto permite una inspección rigurosa del código por parte de nuestros profesionales. Nuestro equipo de hackers desarrolla sus propias herramientas y exploits para garantizar el hallazgo de todas las vulnerabilidades existentes en la aplicación sin falsos positivos.
+:keywords: FLUID, Soluciones, Metodología, Proyecto, Clientes, Seguridad.
 :template: pages-es/soluciones/metodologia-por-proyecto
 
 = Metodología por proyecto
