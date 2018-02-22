@@ -8,28 +8,48 @@
 
 == Necesidad
 
-Evitar código muerto en ASP.Net
+Evitar código muerto en +ASP.Net+.
 
 == Contexto
 
 A continuación se describe las circunstancias 
 bajo las cuales la siguiente solución tiene sentido:
 
-. Se está desarrollando en ASP.Net.
+. Se está desarrollando en +ASP.Net+.
 
 == Solución
 
-. El código muerto se refiere a secciones de código 
+El código fuente que compone las aplicaciones web 
+a menudo es bastante extenso, 
+por lo cual es posible que contenga código muerto o en desuso.
+El código muerto se refiere a secciones de código 
 que son cargadas en memoria o interpretadas 
 pero que nunca son usadas,
 se refiere también a secciones de código olvidadas 
 que si no son eliminadas 
-pueden ocasionar problemas de seguridad. 
-En el siguiente código se muestra un ejemplo de código muerto:
-Definimos la nueva clase e
-importamos las clases necesarias desde la biblioteca IO:
+pueden ocasionar problemas de seguridad <<r1, ^[1]^>>. 
+Una sección de código muerto 
+puede ser utilizada por un usuario malicioso
+para vulnerar la aplicación, 
+obteniendo información sensible 
+o afectando negativamente su funcionamiento.
+
+Una buena práctica de programación consiste en evitar
+que código en desuso termine en la aplicación final. 
+Lo anterior trae consigo otras ventajas 
+como reducir el tiempo de compilación, 
+mejorar la mantenibilidad de la aplicación <<r2, ^[2]^>> 
+y disminuir la complejidad y extensión del código fuente.
+A continuación presentamos un ejemplo de código muerto
+y el riesgo al que podría estar expuesto su aplicación 
+en caso de no eliminarlo.
+
+. Definimos la nueva clase e
+importamos las clases necesarias desde la biblioteca IO.
+La clase contendrá dos métodos para listar directorios, 
+de los cuales sólo se utiliza uno a lo largo de la aplicación:
 +
-.test.py
+.MyApp.java
 [source,java,linenums]
 ----
 using System;
@@ -45,10 +65,10 @@ using System.Diagnostics;
     {
 ----
 
-. En el método main encontramos el llamado al método _listarArchivos_, 
+. En el método +main+ encontramos el llamado al método +listarArchivos+, 
 el cual retorna la lista de archivos según el parámetro de la ruta. 
-Entre comentarios podemos ver 
-una forma antigua de retornar los archivos a través del método _ejecutar_, 
+Entre comentarios podemos ver una forma antigua 
+de retornar los archivos a través del método +ejecutar+, 
 el cual hace el llamado al sistema operativo del comando especificado.
 +
 [source,java,linenums]
@@ -64,7 +84,7 @@ el cual hace el llamado al sistema operativo del comando especificado.
 ----
 
 . El método seguro para listar los archivos es 
-a través del uso de la clase _Directory.GetFile_:
+a través del uso de la clase +Directory.GetFile+:
 +
 [source,java,linenums]
 ----
@@ -82,15 +102,14 @@ a través del uso de la clase _Directory.GetFile_:
 ----
 
 . El antiguo método y que no ha sido comentado, 
- hace un llamado a Process,
- el cual invoca al sistema operativo 
- y ejecuta el comando especificado. 
- Si este método no es eliminado del código, 
- al compilarlo, 
- se mantiene 
- y puede ser usado por clases externas con contenido malicioso. 
- La misma funcionalidad del código
- podría permitir a un atacante escalar privilegios en el servidor.
+hace un llamado a +Process+, 
+el cual invoca al sistema operativo 
+y ejecuta el comando especificado. 
+Si este método no es eliminado del código, 
+al compilarlo, se mantiene 
+y puede ser usado por clases externas con contenido malicioso. 
+La misma funcionalidad del código 
+podría permitir a un atacante escalar privilegios en el servidor.
 +
 [source,java,linenums]
 ----
@@ -111,4 +130,6 @@ a través del uso de la clase _Directory.GetFile_:
 
 == Referencias
 
-. REQ.0158: Las funciones, métodos o clases deben ser invocadas en algún escenario funcional del sistema.
+. [[r1]] link:https://en.wikipedia.org/wiki/Dead_code[Dead Code - Wikipedia].
+. [[r2]] link:http://blog.utopicainformatica.com/2010/12/codigo-muerto.html[Código muerto].
+. [[r3]] REQ.0158: Las funciones, métodos o clases deben ser invocadas en algún escenario funcional del sistema.
