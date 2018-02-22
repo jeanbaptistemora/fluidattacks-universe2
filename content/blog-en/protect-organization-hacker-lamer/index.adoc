@@ -14,7 +14,7 @@
 
 = Protect your company against Hackers, not Lamers
 
-Without a doubt, the recent events in relation the infringement of privacy such as the theft of personal information from celebrities, the Sony, Target and Equifax hacks and the big ransomware that affected Telefonica, make us reflect about how organizations protect their information.
+Without a doubt, the recent events in relation to the infringement of privacy such as the theft of personal information from celebrities, the Sony, Target and Equifax hacks and the big ransomware that affected Telefonica, make us reflect about how organizations protect their information.
 
 All of this in addition to an economy that is overturned by the digital era, where technological platforms are increasingly more immersed in the business core and where all changes or the time to market has to be faster and faster every time, increases the risks that a company is exposed to, even more so when the company looks to protect it self only to meet required standards and not actually being conscious of what is going on or what they are protecting themselves against.
 
@@ -50,6 +50,8 @@ Once all of the above scopes are clear, one can be at ease knowing that everythi
 
 Up next a table that will help us synthesize all the items described above:
 
+[role="tb-fluid tb-row"]
+[options="header"]
 .Comparative table Pentesting Vs Vulnerability Analysis
 |===
 | Aspect | Pentesting (FLUID) | Vulnerability Analysis (Others)
