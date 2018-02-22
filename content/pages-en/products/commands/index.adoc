@@ -1,8 +1,8 @@
 :slug: products/commands/
 :category: products
-:description: The purpose of this page is to present the products offered by FLUID. FLUIDCommands is a trojan type product with command and control features used for penetration testing over critical equipments. Its main goal is to detect and report vulnerabilities and security findings in the application.
-:keywords: FLUID, Products, FLUIDCommands, Security, Pentesting, Application.
-= FLUIDCommands
+:description: The purpose of this page is to present the products offered by FLUID. Commands is a trojan type product with command and control features used for penetration testing over critical equipments. Its main goal is to detect and report vulnerabilities and security findings in the application.
+:keywords: FLUID, Products, Commands, Security, Pentesting, Application.
+= Commands
 
 This page is currently in development.
 

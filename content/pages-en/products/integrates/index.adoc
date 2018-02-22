@@ -1,9 +1,9 @@
 :slug: products/integrates/
 :category: products
-:description: FLUIDIntegrates is a system which provides all interested parties information and updates about the current state of the project, the number of security findings discovered and its criticality, occurrences, among other information in order to keep close contact with our customers.
-:keywords: FLUID, Products, FLUIDIntegrates, Ethical Hacking, Pentesting, Security.
+:description: Integrates is a system which provides all interested parties information and updates about the current state of the project, the number of security findings discovered and its criticality, occurrences, among other information in order to keep close contact with our customers.
+:keywords: FLUID, Products, Integrates, Ethical Hacking, Pentesting, Security.
 
-= FLUIDIntegrates
+= Integrates
 
 System where all the project's stakeholders come together
 (hacker, developer, project managers, auditors, product owner, etc).
@@ -132,7 +132,7 @@ a|== Vulnerability Exploit
 The *script* used to exploit the vulnerability is shown.
 This can be reused to validate the applied corrections.
 
-If the user has acquired a licence of the product link:../asserts/[FLUIDAsserts],
+If the user has acquired a licence of the product link:../asserts/[Asserts],
 he may reproduce the vulnerability.
 
 a|== Timeline of the Vulnerability
@@ -175,7 +175,7 @@ Some of them are:
 
 a|== Knowledge Base
 
-Users have access to FLUID's product (link:../../hardens/[FLUIDHardens]).
+Users have access to FLUID's product (link:../../hardens/[Hardens]).
 Here they can find examples about how to fulfill the security requirements
 that are verified in the tests performed.
 a|image::knowledge-base.png[Knowledge Base]

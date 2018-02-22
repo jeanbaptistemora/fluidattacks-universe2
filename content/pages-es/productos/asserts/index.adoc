@@ -1,16 +1,16 @@
 :slug: productos/asserts/
 :category: productos
-:description: En esta página presentamos nuestros productos más destacados. FLUIDAsserts es un motor de cierre de hallazgos de seguridad sobre ambientes en ejecución, el cual puede ser implementado en un pipeline de CI para evaluar si los hallazgos de seguridad continúan presentes en la aplicación.
-:keywords: FLUID, Productos, FLUIDAsserts, Automatización, Hallazgos, Seguridad.
+:description: En esta página presentamos nuestros productos más destacados. Asserts es un motor de cierre de hallazgos de seguridad sobre ambientes en ejecución, el cual puede ser implementado en un pipeline de CI para evaluar si los hallazgos de seguridad continúan presentes en la aplicación.
+:keywords: FLUID, Productos, Asserts, Automatización, Hallazgos, Seguridad.
 
-= FLUIDAsserts
+= Asserts
 
 == 1. Descripción
 
-+FLUIDAsserts+ es un motor de automatización de *cierre* de hallazgos de seguridad sobre ambientes en ejecución +(DAST)+.
++Asserts+ es un motor de automatización de *cierre* de hallazgos de seguridad sobre ambientes en ejecución +(DAST)+.
 
 .Flujo de uso
-image::fluidassertses.png[FLUIDAsserts]
+image::fluidassertses.png[Asserts]
 
 == 2. Ejecución
 
@@ -50,7 +50,7 @@ $ python exploit.py
 
 === En un pipeline de CI
 
-Si tienes una aplicación suscrita a nuestro servicio de *Pruebas Concurrentes de Seguridad* que incluya el uso de +FLUIDAsserts+, puedes agregarlo a tu pipeline de integración contínua. Para eso, debes seguir los siguientes pasos:
+Si tienes una aplicación suscrita a nuestro servicio de *Pruebas Concurrentes de Seguridad* que incluya el uso de +Asserts+, puedes agregarlo a tu pipeline de integración contínua. Para eso, debes seguir los siguientes pasos:
 
 * Agregar las variables de entorno +USER+, +PASS+, +ORG+ y +APP+. No te preocupes, ¡los valores serán entregados por nosotros!:
 ** +USER+: Nombre de usuario para obtener la imagen de nuestro registro de contenedores

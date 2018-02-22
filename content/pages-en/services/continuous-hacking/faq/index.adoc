@@ -90,31 +90,31 @@ How is the technical criticity of a vulnerability calculated?::
 We use the https://www.first.org/cvss/[CVSS] international standard to obtain a quantitative measure that goes from 0 to 10, 0 being the lowest and 10 the highest and most critical according to the qualitative characteristics of the vulnerability.
 
 How can I obtain information regarding the vulnerabilities found in my application?::
-The Continuous Hacking service has an interactive report platform called link:../../../products/integrates/[FLUIDIntegrates]. This allows all project stakeholders to have access to the details of the vulnerabilities reported by FLUID.
+The Continuous Hacking service has an interactive report platform called link:../../../products/integrates/[Integrates]. This allows all project stakeholders to have access to the details of the vulnerabilities reported by FLUID.
 
 What types of reports are generated during the service?::
-From link:../../../products/integrates/[FLUIDIntegrates] it is possible to generate a technical report in Excel and PDF formats during the execution of the project. Once the project has ended, it is possible to generate a presentation style executive report in a PDF format.
+From link:../../../products/integrates/[Integrates] it is possible to generate a technical report in Excel and PDF formats during the execution of the project. Once the project has ended, it is possible to generate a presentation style executive report in a PDF format.
 
 What is the next step after FLUID reports a vulnerability?::
-Once a vulnerability is reported, the main objective is for it to be remediated. To achieve this, the developers have access to link:../../../products/integrates/[FLUIDIntegrates], allowing them to obtain firsthand detailed information regarding the vulnerability in order to apply the necessary corrective measures to eliminate the existing vulnerability from the application.
+Once a vulnerability is reported, the main objective is for it to be remediated. To achieve this, the developers have access to link:../../../products/integrates/[Integrates], allowing them to obtain firsthand detailed information regarding the vulnerability in order to apply the necessary corrective measures to eliminate the existing vulnerability from the application.
 
 How does FLUID know a vulnerability has been remediated?::
-Through link:../../../products/integrates/[FLUIDIntegrates], any user with access to the project can request the verification of a remediated vulnerability. Once the verification is requested, we receive a notification that includes a comment regarding the applied solution, we perform a closing verification to confirm the effectiveness of the solution, and then proceed to notify the whole project team about the results via email.
+Through link:../../../products/integrates/[Integrates], any user with access to the project can request the verification of a remediated vulnerability. Once the verification is requested, we receive a notification that includes a comment regarding the applied solution, we perform a closing verification to confirm the effectiveness of the solution, and then proceed to notify the whole project team about the results via email.
 
 How many closing verifications are included in the service?::
 The service offers unlimited closing verifications.
 
 Why do I need to notify the remediation of a vulnerability if FLUID has access to the source code repositories?::
-One of the objectives of the Continuous Hacking service alongside link:../../../products/integrates/[FLUIDIntegrates] is to maintain a clear and fluent communication between all parties involved in the project. When the client notifies the remediation of a vulnerability, he is not only notifying FLUID but the whole project team.
+One of the objectives of the Continuous Hacking service alongside link:../../../products/integrates/[Integrates] is to maintain a clear and fluent communication between all parties involved in the project. When the client notifies the remediation of a vulnerability, he is not only notifying FLUID but the whole project team.
 
 What happens if I consider something is not a vulnerability?::
-Within link:../../../products/integrates/[FLUIDIntegrates] we have a forum-like comments section where the client can let FLUID know the reasons for which they consider a finding is not a vulnerability. In this section, FLUID and all other project members can establish a conversation regarding the vulnerability and determine the validity of a vulnerability.
+Within link:../../../products/integrates/[Integrates] we have a forum-like comments section where the client can let FLUID know the reasons for which they consider a finding is not a vulnerability. In this section, FLUID and all other project members can establish a conversation regarding the vulnerability and determine the validity of a vulnerability.
 
 Do all reported vulnerabilities have to be remediated?::
 The remediation of a vulnerability is a decision left to the client's discretion.
-In link:../../../products/integrates/[FLUIDIntegrates], there is a treatment option where it is defined if a vulnerability is going to be remediated or assumed by the client.
+In link:../../../products/integrates/[Integrates], there is a treatment option where it is defined if a vulnerability is going to be remediated or assumed by the client.
 
-If a vulnerability is assumed by the client, is it excluded from the reports and link:../../../products/integrates/[FLUIDIntegrates]?::
+If a vulnerability is assumed by the client, is it excluded from the reports and link:../../../products/integrates/[Integrates]?::
 The reports contain information regarding the treatment given to a vulnerability. With this in mind, all assumed vulnerabilities remain in the reports with the clarification of the treatment received.
 
 If the application is stored along multiple repositories, can they all be tested?::

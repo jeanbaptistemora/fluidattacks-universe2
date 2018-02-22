@@ -3,4 +3,4 @@
 :keywords: FLUID, KB, Base, Conocimiento, Información, Artículos.
 :hardensindex: yes
 
-= FLUIDHardens
+= Hardens

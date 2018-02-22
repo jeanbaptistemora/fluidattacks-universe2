@@ -81,6 +81,6 @@ a|* Only what was defined is tested
 |No
 
 | Deliverables
-| Web - FLUIDIntegrates(Exploit evidence, exploit code and high-level recommendations).
+| Web - Integrates(Exploit evidence, exploit code and high-level recommendations).
 | Summary report
 |====

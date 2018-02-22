@@ -1,9 +1,9 @@
 :slug: productos/integrates/
 :category: productos
-:description: En esta página presentamos nuestros productos más destacados. FLUIDIntegrates es un sistema que busca acercar a todos los interesados al proyecto al hacker, permitiendo registrar e informar sobre los hallazgos de seguridad encontrados en la aplicación de forma fácil, rápida y eficiente.
-:keywords: FLUID, Productos, FLUIDIntegrates, Hallazgos, Seguridad, Cliente.
+:description: En esta página presentamos nuestros productos más destacados. Integrates es un sistema que busca acercar a todos los interesados al proyecto al hacker, permitiendo registrar e informar sobre los hallazgos de seguridad encontrados en la aplicación de forma fácil, rápida y eficiente.
+:keywords: FLUID, Productos, Integrates, Hallazgos, Seguridad, Cliente.
 
-= FLUIDIntegrates
+= Integrates
 
 Sistema donde confluyen todos los interesados
 (hacker, desarrolladores, gerentes de proyectos, auditores, gerentes de producto, etc),
@@ -126,7 +126,7 @@ a|== Exploit de la Vulnerabilidad
 Se muestra el *script* usado para la explotación de la vulnerabilidad.
 Este puede ser reutilizado para validar las correcciones aplicadas.
 
-Si el usuario cuenta con una licencia del producto link:../asserts/[FLUIDAsserts],
+Si el usuario cuenta con una licencia del producto link:../asserts/[Asserts],
 podrá reproducir la vulnerabilidad.
 
 a|== Línea de Tiempo de la Vulnerabilidad
@@ -169,7 +169,7 @@ Algunas de ellas son:
 
 a|== Base De Conocimiento
 
-Los usuarios tienen acceso al producto de FLUID, (link:../../hardens/[FLUIDHardens]).
+Los usuarios tienen acceso al producto de FLUID, (link:../../hardens/[Hardens]).
 En esta se encuentran ejemplos de cómo cumplir con los requisitos de seguridad
 que son evaluados en las pruebas realizadas.
 a|image::base-conocimiento.png[Base De Conocimiento]

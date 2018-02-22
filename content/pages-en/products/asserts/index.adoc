@@ -1,17 +1,17 @@
 :slug: products/asserts/
 :category: products
-:description: In this page we present the products offered by FLUID. FLUIDAsserts is an engine to automate the closing of security findings over execution environments, which can be implemented in a CI pipeline to determine if a security issue persists in the application.
-:keywords: FLUID, Products, FLUIDAsserts, Ethical Hacking, Pentesting, Security.
+:description: In this page we present the products offered by FLUID. Asserts is an engine to automate the closing of security findings over execution environments, which can be implemented in a CI pipeline to determine if a security issue persists in the application.
+:keywords: FLUID, Products, Asserts, Ethical Hacking, Pentesting, Security.
 
-= FLUIDAsserts
+= Asserts
 
 == 1. Description
 
-+FLUIDAsserts+ is an engine to automate the *closing* of security findings
++Asserts+ is an engine to automate the *closing* of security findings
 over execution environments +(DAST)+.
 
 .Flowchart of its use
-image::fluidassertses.png[FLUIDAsserts]
+image::fluidassertses.png[Asserts]
 
 == 2. Execution
 
@@ -53,7 +53,7 @@ $ python exploit.py
 === In a CI (Continuous Integration) pipeline
 
 If you have subscribed an application to our *Continuous Hacking Service*
-which includes the use of +FLUIDAsserts+,
+which includes the use of +Asserts+,
 you may add it to your Continuous Integration pipeline.
 To achieve this, follow the steps listed below:
 

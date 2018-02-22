@@ -3,7 +3,7 @@
 :keywords: TODO
 :category: products
 
-= FLUIDHardens
+= Hardens
 
 The description of this product is currently unavailable.
 
