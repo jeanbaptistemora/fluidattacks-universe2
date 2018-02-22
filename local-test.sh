@@ -30,7 +30,7 @@ mv output/web/en/redirect/index.html output/web/ && rmdir output/web/en/redirect
 cp robots.txt output/web/
 # Undo changes made to the file and change permissions of the files used by the container as root
 git checkout -- pelicanconf.py pelicanconf-2018.py
-chmod -R a+rwX {output/,pelicanconf.py,pelicanconf-2018.py}
+chmod -R a+rwX {output/,pelicanconf.py,pelicanconf-2018.py,cache/}
 rm *.pyc
 
 echo "Starting local HTTP server on port 8000 (5/5) . . ."

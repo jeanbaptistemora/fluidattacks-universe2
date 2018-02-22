@@ -5,3 +5,4 @@ pelican-plugins/
 webtest.sh
 .babel.cfg.swp
 messages.mo
+cache/
