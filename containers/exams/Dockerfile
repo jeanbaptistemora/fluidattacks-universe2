@@ -29,4 +29,4 @@ RUN ansible-playbook main.yml --vault-password-file .vault.txt
 EXPOSE 80
 
 # Primer comando
-CMD /usr/sbin/apache2ctl -D FOREGROUND
+CMD /usr/sbin/apache2ctl -D FOREGROUND && php /var/www/html/admin/cli/purge_caches.php
