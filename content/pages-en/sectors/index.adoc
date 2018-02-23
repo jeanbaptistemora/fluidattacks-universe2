@@ -1,6 +1,6 @@
 :slug: sectors/
-:description: TODO
-:keywords: TODO
+:description: FLUID is a company focused on information security, ethical hacking, penetration testing and vulnerabilities detection in applications with over 18 years of experience in the colombian market. In this page we present our contributions to the sectors we work with.
+:keywords: FLUID, Information, Solutions, Sectors, Security, Ethical Hacking.
 
 = Sectors
 
