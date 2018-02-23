@@ -27,8 +27,8 @@
 
     #Integrates
         RewriteEngine on
-        RewriteRule ^/integrates(.*)$           https://fluidattacks.com$1        [R]
-        ProxyPassReverse /integrates https://fluidattacks.com
+        RewriteRule ^/integrates(.*)$           https://fluidattacks.com/integrates$1        [R]
+        ProxyPassReverse /integrates https://fluidattacks.com/integrates
         RewriteRule ^/assets(.*)$           https://fluidattacks.com/assets$1        [R]
         ProxyPassReverse /assets https://fluidattacks.com/assets
         RewriteRule ^/oauth(.*)$           https://fluidattacks.com/oauth$1        [R]
