@@ -1,4 +1,4 @@
-PATTERN="output"
+PATTERN="output/"
 PATTERN2="/index.html"
 
 for FILE in $(find output -iname '*.html'); do
@@ -6,7 +6,7 @@ for FILE in $(find output -iname '*.html'); do
 	NAME=${STRING/$PATTERN2/}
 	if [[ ! $NAME = *".html" ]]; then
 		aws s3api put-object --acl public-read-write \
-		--bucket $S3_BUCKET --key $NAME --content-type text/html \
-		--website-redirect-location "$NAME/"
+		--bucket $S3_BUCKET_NAME --key $NAME --content-type text/html \
+		--website-redirect-location "/$NAME/";
 	fi;	
 done
