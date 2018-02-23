@@ -78,10 +78,10 @@ if pcregrep -Lr --include='\.adoc' ':keywords:' content; then echo -e "${GC}ERRO
 # Check that the every .adoc has description defined
 if pcregrep -Lr --include='\.adoc' ':description:' content; then echo -e "${GC}ERRORES: El atributo \":description:\" debe estar definido en el .adoc${NC}"; ERRORS=1;fi
 
-# Check that the meta description has a minimum lenght of 50 characters and a maximum length of 300 characters
+# Check that the meta description has a minimum lenght of 250 characters and a maximum length of 300 characters
 for FILE in $(find content -iname '*.adoc'); do
-  if cat $FILE | tr -d "\n" | pcregrep --color -o '([^:description: ].{300,}\n)'; then
-    echo -e "${GC}Descriptions must have a maximum lenght of 300 characters. The previous description belongs to the file \"$FILE\"${NC}";
+  if cat $FILE | pcregrep --color -o '(?<=:description: ).{307,}$|(?<=:description: ).{0,249}$'; then
+    echo -e "${GC}Descriptions must in [250-300] characters range. The previous description belongs to the file \"$FILE\"${NC}";
     ERRORS=1;
   fi
 #  if cat $FILE | tr -d "\n" | pcregrep --color -o ':description: .{1,49}:key'; then
