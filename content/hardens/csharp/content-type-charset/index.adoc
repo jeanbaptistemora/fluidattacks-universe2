@@ -1,7 +1,7 @@
 :slug: hardens/csharp/content-type-charset/
 :category: csharp
-:description: Nuestros ethical hackers explican la manera para establecer las cabeceras content-type y charset de una aplicación desarrollada en C#.
-:keywords: CSharp, Seguridad, Charset, Content-Type.
+:description: Nuestros ethical hackers explican cómo evitar vulnerabilidades de seguridad mediante la programación segura en C Sharp al establecer las cabeceras content-type y charset de una aplicación desarrollada para evitar ataques que utilizan diferentes codificaciones, como el HTTP Request Smuggling.
+:keywords: C Sharp, Seguridad, Charset, Content-Type, Buenas Prácticas, HTTP Request Smuggling.
 :hardens: yes
 
 = Establecer Content-Type y Charset en C&#35;

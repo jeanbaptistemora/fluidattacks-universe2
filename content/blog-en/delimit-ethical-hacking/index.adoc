@@ -8,10 +8,9 @@
 :keywords: Security, Hacking, Pentesting, Application, Infrastructure, Code.
 :author: Felipe Gómez
 :writer: fgomez
-:name: Felipe Gomez Arango
+:name: Felipe Gómez Arango
 :about1: FLUID Account Manager, Bachelor of Business Management
 :about2: Passionate about technology and security
-:description: In this post we are going to discuss how to properly delimit an Ethical Hacking in order to meet the goals of the organization
 
 = How to properly delimit an Ethical Hacking?
 

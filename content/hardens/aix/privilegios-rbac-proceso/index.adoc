@@ -1,7 +1,7 @@
 :slug: hardens/aix/privilegios-rbac-proceso/
 :category: aix
-:description: Nuestros ethical hackers explican cómo evitar vulnerabilidades de seguridad mediante la asignación segura de privilegios root a usuarios no privilegiados con el fin de que puedan ejecutar tareas administrativas en sistemas AIX.
-:keywords: AIX, seguridad, RBAC, CLI, sistema operativo, privilegios, comando, root.
+:description: Nuestros ethical hackers explican cómo evitar vulnerabilidades de seguridad mediante la asignación segura de privilegios root a usuarios no privilegiados. Es importante establecer privilegios para restringir el acceso a partes críticas de la aplicación a usuarios sin permisos.
+:keywords: AIX, seguridad, RBAC, CLI, privilegios, root.
 :hardens: yes
 
 = Conocer los Privilegios RBAC de un Proceso

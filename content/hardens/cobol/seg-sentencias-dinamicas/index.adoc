@@ -1,7 +1,7 @@
 :slug: hardens/cobol/seg-sentencias-dinamicas/
 :category: cobol
-:description: Nuestros ethical hackers explican cómo evitar vulnerabilidades de seguridad al momento de usar sentencias SQL dinámicas.
-:keywords: z/OS, OS/400, sentencias dinámicas, sql, base de datos, procesador, procedimientos almacenados.
+:description: Nuestros ethical hackers explican cómo evitar vulnerabilidades de seguridad  mediante la programación segura en COBOL al utilizar sentencias SQL dinámicas. Al utilizar bases de datos es importante definir privilegios estáticos, para evitar que los mismos usuarios puedan escalar privilegios.
+:keywords: COBOL, Sentencias Dinámicas, SQL, Base de Datos, Procesador, Procedimientos Almacenados.
 :hardens: yes
 
 = Establecer Seguridad en Sentencias Dinámicas

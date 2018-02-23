@@ -12,7 +12,6 @@
 :about1: Account Manager de FLUID, Administrador de Empresas
 :about2: Apasionado por la tecnología y la seguridad
 :figure-caption: Imagen
-:description: En este post veremos como se debe dimensionar adecuadamente un Ethical hacking para que la prueba pueda cumplir el objetivo en la organización
 
 = ¿Cómo dimensionar adecuadamente un Ethical Hacking?
 

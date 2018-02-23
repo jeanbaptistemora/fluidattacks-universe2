@@ -4,7 +4,7 @@
 :tags: aplicación, detectar, vulnerabilidad, escáner
 :Image: humano-vs-maquina.png
 :alt: Persona jugando ajedrez contra un brazo mecánico
-:description: La detección de vulnerabilidades en manos de una herramienta automática no es suficiente para llegar a la conclusión de que una aplicación es segura. El conocimiento y experiencia de una persona siguen siendo necesarios para complementar el análisis y lograr una evaluación detallada y efectiva de la seguridad de dicha aplicación.
+:description: La detección de vulnerabilidades en manos de una herramienta automática no es suficiente para concluir que una aplicación es segura. El conocimiento y experiencia de una persona siguen siendo necesarios para lograr una evaluación efectiva de la seguridad de dicha aplicación.
 :keywords: detección de vulnerabilidades, detección manual, detección automática, seguridad, aplicación web
 :author: Andres Cuberos
 :writer: cuberos

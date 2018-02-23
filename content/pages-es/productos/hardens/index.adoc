@@ -1,6 +1,6 @@
 :slug: productos/hardens/
-:description: TODO
-:keywords: TODO
+:description: El propósito de esta página es presentar los productos ofrecidos por FLUID. FLUIDHardens es una gran recopilación de artículos desarrollados por nuestro equipo de profesionales relacionados a la seguridad informática, buenas prácticas de programación y ethical hacking. 
+:keywords: FLUID, Productos, FLUIDHardens, Información, Seguridad, Ethical Hacking.
 :category: productos
 
 = Hardens

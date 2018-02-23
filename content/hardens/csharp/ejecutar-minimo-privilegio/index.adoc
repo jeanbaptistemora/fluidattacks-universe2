@@ -1,7 +1,7 @@
 :slug: hardens/csharp/ejecutar-minimo-privilegio/
 :category: csharp
-:description: Nuestros ethical hackers explican como aplicar el principio de mínimos privilegios en una aplicación desarrollada en C#.
-:keywords: C#, Seguridad, Desarrollo, Privilegios.
+:description: Nuestros ethical hackers explican cómo evitar vulnerabilidades de seguridad mediante la programación segura en C Sharp al aplicar el principio de mínimo privilegio. Los privilegios en las aplicaciones deben otorgarse la menor cantidad de tiempo a la menor cantidad de código.
+:keywords: C Sharp, Seguridad, Desarrollo, Mínimo, Privilegio, Programación.
 :hardens: yes
 
 = Ejecutar aplicaciones con el mínimo privilegio
