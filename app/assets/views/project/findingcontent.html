@@ -560,8 +560,31 @@
                         <div class="row">
                             <div ng-repeat="ev in tabEvidences">
                                 <div class="col-md-4 col-sm-6 col-xs-12 equalHeight">
-                                    <div class="panel panel-default">
+                                    <div class="panel panel-default" ng-show="onlyReadableTab3" ng-if="ev.desc != ''">
                                       <div class="panel-body">
+                                        <div mag-thumb="inner-inline" mag-flow="inline">
+                                            <a ng-href="{{ev.url || ''}}" title="{{ev.desc}}">
+                                                <img ng-src="{{ev.url || ''}}"
+                                                    style="max-width:100%;"
+                                                    class="integrates-image img-thumbnail img-responsive"
+                                                    width="600" height="600"/>
+                                            </a>
+                                        </div>                                        
+                                      </div>
+                                      <div class="panel-footer" style="background-color: #fff;">                                        
+                                        <div class="row">
+                                            <label><b>{{'search_findings.tab_evidence.detail' | translate}}</b></label>
+                                        </div>
+                                        <div class="row">                              
+                                            <p ng-show="onlyReadableTab3">{{ev.desc}}</p>                                            
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <div class="panel panel-default" ng-show="!onlyReadableTab3">
+                                      <div class="panel-body">
+                                        <div class="row" style="text-align: center;">
+                                            <label><b>{{ev.name || ''}}</b></label>
+                                        </div>
                                         <div mag-thumb="inner-inline" mag-flow="inline">
                                             <a ng-href="{{ev.url || ''}}" title="{{ev.desc}}">
                                                 <img ng-src="{{ev.url || ''}}"
@@ -572,7 +595,7 @@
                                         </div>
                                       </div>
                                       <div class="panel-footer" style="background-color: #fff;">
-                                        <div class="row" ng-show="!onlyReadableTab3">
+                                        <div class="row">
                                             <div class="box" style="text-align: center;">
                                                 <input type="file" 
                                                     name="evidence{{ev.ref}}[]" 
@@ -583,24 +606,16 @@
                                                     accept="image/gif, image/png"/>
                                             <label for="evidence{{ev.ref}}"><span></span> <strong><i class="glyphicon glyphicon-search"></i> Choose a file&hellip;</strong></label>
                                             </div>
-                                          <div class="col-sm-12">                                            
-                                              <button ng-show="!onlyReadableTab3"
-                                                      target="{{ev.ref}}" 
-                                                      onclick="updateEvidencesFiles(this);" 
-                                                      class = "btn btn-primary btn-block">
-                                                      <i class="glyphicon glyphicon-cloud-upload"></i>  {{'search_findings.tab_evidence.update' | translate}}
-                                              </button>
-                                          </div>
                                         </div>
                                         <div class="row">
                                             <label><b>{{'search_findings.tab_evidence.detail' | translate}}</b></label>
-                                        </div>
-                                        <div class="row">                              
-                                            <p ng-show="onlyReadableTab3">{{ev.desc}}</p>
-                                            <div ng-if="ev.ref != '0' && ev.ref != '1'">
+                                        </div>                                        
+                                        <div class="row">
+                                            <div>
                                                 <textarea class="form-control"
                                                       ng-show="!onlyReadableTab3"
-                                                      id="evidenceText{{ev.ref}}">{{ev.desc}}</textarea>
+                                                      id="evidenceText{{ev.ref}}"
+                                                      ng-if="ev.ref != '0' && ev.ref != '1'">{{ev.desc}}</textarea>
                                                 <button class="btn btn-success btn-block"
                                                         ng-show="!onlyReadableTab3"
                                                         reference="{{ev.ref}}"

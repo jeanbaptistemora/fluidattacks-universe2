@@ -162,6 +162,66 @@ integrates.controller("findingcontentCtrl", function($scope, $stateParams, $time
           input.addEventListener( 'focus', function(){ input.classList.add( 'has-focus' ); });
           input.addEventListener( 'blur', function(){ input.classList.remove( 'has-focus' ); });
         });
+        $scope.evidenceDescription = [$('#evidenceText0').val(), $('#evidenceText1').val(), $('#evidenceText2').val(), 
+                                      $('#evidenceText3').val(), $('#evidenceText4').val(), $('#evidenceText5').val(), 
+                                      $('#evidenceText6').val()];
+        var refList = []
+        for(var i = 0; i < $scope.tabEvidences.length; i++) {
+            refList.push($scope.tabEvidences[i].ref);
+        }
+        var evidencesList = []
+        if(refList.indexOf(0) == -1) {
+            $scope.tabEvidences.push({
+                "name": $translate.instant('search_findings.tab_evidence.animation_exploit'),
+                "desc": "",
+                "ref": 0
+            });
+        }
+        if(refList.indexOf(1) == -1) {
+            $scope.tabEvidences.push({
+                "name": $translate.instant('search_findings.tab_evidence.evidence_exploit'),
+                "desc": "",
+                "ref": 1
+            });
+        }
+        if(refList.indexOf(2) == -1) {
+            $scope.tabEvidences.push({
+                "name": $translate.instant('search_findings.tab_evidence.evidence_name') + ' 1',
+                "desc": "",
+                "ref": 2
+            });
+        }
+        if(refList.indexOf(3) == -1) {
+            $scope.tabEvidences.push({
+                "name": $translate.instant('search_findings.tab_evidence.evidence_name') + ' 2',
+                "desc": "",
+                "ref": 3
+            });
+        }
+        if(refList.indexOf(4) == -1) {
+            $scope.tabEvidences.push({
+                "name": $translate.instant('search_findings.tab_evidence.evidence_name') + ' 3',
+                "desc": "",
+                "ref": 4
+            });
+        }
+        if(refList.indexOf(5) == -1) {
+            $scope.tabEvidences.push({
+                "name": $translate.instant('search_findings.tab_evidence.evidence_name') + ' 4',
+                "desc": "",
+                "ref": 5
+            });
+        }
+        if(refList.indexOf(6) == -1) {
+            $scope.tabEvidences.push({
+                "name": $translate.instant('search_findings.tab_evidence.evidence_name') + ' 5',
+                "desc": "",
+                "ref": 6
+            });
+        }
+        $scope.tabEvidences.sort(function (a, b) {
+          return a.ref - b.ref;
+        });
     };
     $scope.treatmentEditable = function(){
       if($scope.onlyReadableTab4 == false){
@@ -182,6 +242,30 @@ integrates.controller("findingcontentCtrl", function($scope, $stateParams, $time
         }else{
             $scope.onlyReadableTab5 = false;
         }
+        var inputs = document.querySelectorAll( '.inputfile' );
+        Array.prototype.forEach.call( inputs, function( input )
+        {
+          var label  = input.nextElementSibling,
+            labelVal = label.innerHTML;
+
+          input.addEventListener( 'change', function( e )
+          {
+            var fileName = '';
+            if( this.files && this.files.length > 1 )
+              fileName = ( this.getAttribute( 'data-multiple-caption' ) || '' ).replace( '{count}', this.files.length );
+            else
+              fileName = e.target.value.split( '\\' ).pop();
+
+            if( fileName )
+              label.querySelector( 'span' ).innerHTML = fileName;
+            else
+              label.innerHTML = labelVal;
+          });
+
+          // Firefox bug fix
+          input.addEventListener( 'focus', function(){ input.classList.add( 'has-focus' ); });
+          input.addEventListener( 'blur', function(){ input.classList.remove( 'has-focus' ); });
+        });
     };
     $scope.detectNivel = function (){
         $timeout(function(){
@@ -292,10 +376,11 @@ integrates.controller("findingcontentCtrl", function($scope, $stateParams, $time
         var responseFunction = function(response){
           if(!response.error){
               var updated_at = $translate.instant('proj_alerts.updated_title');
-              var updated_ac = $translate.instant('proj_alerts.updated_cont');
+              var updated_ac = $translate.instant('proj_alerts.updated_cont_file');
               $msg.success(updated_ac,updated_at);
               location.reload();
-          } else{
+              return true;
+          } else {
               var error_ac1 = $translate.instant('proj_alerts.no_file_update');
               Rollbar.error("Error: An error occurred updating evidences");
               $msg.error(error_ac1);
@@ -311,48 +396,61 @@ integrates.controller("findingcontentCtrl", function($scope, $stateParams, $time
           }      
         };
         projectFtry.UpdateEvidenceFiles(data, responseFunction, errorFunction);        
-        return true;
     };
     updateEvidenceText = function(element){
         var evImage = $(element).attr('target');
         var data = {}
         data.id = $scope.finding.id;
-        if(evImage == '2'){
-            data.desc_evidencia_1 = $('#evidenceText' + evImage).val();
-            data.field = "desc_evidencia_1";
-        }
-        if(evImage == '3'){
-            data.desc_evidencia_2 = $('#evidenceText' + evImage).val();
-            data.field = "desc_evidencia_2";
-        }
-        if(evImage == '4'){
-            data.desc_evidencia_3 = $('#evidenceText' + evImage).val();
-            data.field = "desc_evidencia_3";
-        }
-        if(evImage == '5'){
-            data.desc_evidencia_4 = $('#evidenceText' + evImage).val();
-            data.field = "desc_evidencia_4";
-        }
-        if(evImage == '6'){
-            data.desc_evidencia_5 = $('#evidenceText' + evImage).val();
-            data.field = "desc_evidencia_5";
-        }
-        var req = projectFtry.UpdateEvidenceText(data);
-        //Capturar la Promisse
-        req.then(function(response){
-            if(!response.error){
-                var updated_at = $translate.instant('proj_alerts.updated_title');
-                var updated_ac = $translate.instant('proj_alerts.updated_cont');
-                $msg.success(updated_ac,updated_at);
-                location.reload();
+        var description = $('#evidenceText' + evImage).val();
+        var file = $('#evidence'+ evImage).val();
+        if(description == '' || $scope.evidenceDescription[evImage] == description){
+            if(file != ''){
+                updateEvidencesFiles(element);
             } else {
-                var error_ac1 = $translate.instant('proj_alerts.no_text_update');
-                Rollbar.error("Error: An error occurred updating evidences description");
-                $msg.error(error_ac1);
                 return false;
-            }           
-        });
-        return true;
+            }            
+        } else {
+            if(evImage == '2'){
+              data.desc_evidencia_1 = description;
+              data.field = "desc_evidencia_1";
+            }
+            if(evImage == '3'){
+                data.desc_evidencia_2 = description;
+                data.field = "desc_evidencia_2";
+            }
+            if(evImage == '4'){
+                data.desc_evidencia_3 = description;
+                data.field = "desc_evidencia_3";
+            }
+            if(evImage == '5'){
+                data.desc_evidencia_4 = description;
+                data.field = "desc_evidencia_4";
+            }
+            if(evImage == '6'){
+                data.desc_evidencia_5 = description;
+                data.field = "desc_evidencia_5";
+            }
+            var req = projectFtry.UpdateEvidenceText(data);
+            //Capturar la Promisse
+            req.then(function(response){
+                if(!response.error){
+                    var updated_at = $translate.instant('proj_alerts.updated_title');
+                    var updated_ac = $translate.instant('proj_alerts.updated_cont_description');
+                    $msg.success(updated_ac,updated_at);
+                    if(file != ''){
+                        updateEvidencesFiles(element);
+                    } else {
+                        location.reload();
+                    }                                        
+                    return true;
+                } else {
+                    var error_ac1 = $translate.instant('proj_alerts.no_text_update');
+                    Rollbar.error("Error: An error occurred updating evidences description");
+                    $msg.error(error_ac1);
+                    return false;
+                }           
+            });
+        }        
     };
     $scope.deleteFinding = function(){
             //Obtener datos
@@ -882,6 +980,7 @@ integrates.controller("findingcontentCtrl", function($scope, $stateParams, $time
                           var url = url_pre + response.data[i].animacion;
                           evidenceList.push({
                               "url": url,
+                              "name": $translate.instant('search_findings.tab_evidence.animation_exploit'), 
                               "desc": $translate.instant('search_findings.tab_evidence.animation_exploit'),
                               "ref": 0
                           });
@@ -889,6 +988,7 @@ integrates.controller("findingcontentCtrl", function($scope, $stateParams, $time
                           var url = url_pre + $scope.finding.animacion;
                           evidenceList.push({
                               "url": url,
+                              "name": $translate.instant('search_findings.tab_evidence.animation_exploit'),
                               "desc": $translate.instant('search_findings.tab_evidence.animation_exploit'),
                               "ref": 0
                           });
@@ -897,6 +997,7 @@ integrates.controller("findingcontentCtrl", function($scope, $stateParams, $time
                           var url = url_pre + response.data[i].explotacion;
                           evidenceList.push({
                               "url": url,
+                              "name": $translate.instant('search_findings.tab_evidence.evidence_exploit'),
                               "desc": $translate.instant('search_findings.tab_evidence.evidence_exploit'),
                               "ref": 1
                           });
@@ -904,6 +1005,7 @@ integrates.controller("findingcontentCtrl", function($scope, $stateParams, $time
                           var url = url_pre + $scope.finding.explotacion;
                           evidenceList.push({
                               "url": url,
+                              "name": $translate.instant('search_findings.tab_evidence.evidence_exploit'),
                               "desc": $translate.instant('search_findings.tab_evidence.evidence_exploit'),
                               "ref": 1
                           });
@@ -913,6 +1015,7 @@ integrates.controller("findingcontentCtrl", function($scope, $stateParams, $time
                             && response.data[i].es_ruta_evidencia_1 == true){
                           var url = url_pre + response.data[i].ruta_evidencia_1;
                           evidenceList.push({
+                              "name": $translate.instant('search_findings.tab_evidence.evidence_name') + ' 1',
                               "url": url,
                               "desc": $scope.capitalizeFirstLetter(
                                   $scope.finding.desc_evidencia_1
@@ -923,6 +1026,7 @@ integrates.controller("findingcontentCtrl", function($scope, $stateParams, $time
                           && $scope.finding.ruta_evidencia_1 !== undefined){
                           var url = url_pre + $scope.finding.ruta_evidencia_1;
                           evidenceList.push({
+                              "name": $translate.instant('search_findings.tab_evidence.evidence_name') + ' 1',
                               "url": url,
                               "desc": $scope.capitalizeFirstLetter(
                                   $scope.finding.desc_evidencia_1
@@ -935,6 +1039,7 @@ integrates.controller("findingcontentCtrl", function($scope, $stateParams, $time
                             && response.data[i].es_ruta_evidencia_2 == true){
                           var url = url_pre + response.data[i].ruta_evidencia_2;
                           evidenceList.push({
+                              "name": $translate.instant('search_findings.tab_evidence.evidence_name') + ' 2',
                               "url": url,
                               "desc": $scope.capitalizeFirstLetter(
                                   $scope.finding.desc_evidencia_2
@@ -945,6 +1050,7 @@ integrates.controller("findingcontentCtrl", function($scope, $stateParams, $time
                           && $scope.finding.ruta_evidencia_2 !== undefined){
                           var url = url_pre + $scope.finding.ruta_evidencia_2;
                           evidenceList.push({
+                              "name": $translate.instant('search_findings.tab_evidence.evidence_name') + ' 2',
                               "url": url,
                               "desc": $scope.capitalizeFirstLetter(
                                   $scope.finding.desc_evidencia_2
@@ -957,6 +1063,7 @@ integrates.controller("findingcontentCtrl", function($scope, $stateParams, $time
                             && response.data[i].es_ruta_evidencia_3 == true){
                           var url = url_pre + response.data[i].ruta_evidencia_3;
                           evidenceList.push({
+                              "name": $translate.instant('search_findings.tab_evidence.evidence_name') + ' 3',
                               "url": url,
                               "desc": $scope.capitalizeFirstLetter(
                                   $scope.finding.desc_evidencia_3
@@ -967,6 +1074,7 @@ integrates.controller("findingcontentCtrl", function($scope, $stateParams, $time
                           && $scope.finding.ruta_evidencia_3 !== undefined){
                           var url = url_pre + $scope.finding.ruta_evidencia_3;
                           evidenceList.push({
+                              "name": $translate.instant('search_findings.tab_evidence.evidence_name') + ' 3',
                               "url": url,
                               "desc": $scope.capitalizeFirstLetter(
                                   $scope.finding.desc_evidencia_3
@@ -979,6 +1087,7 @@ integrates.controller("findingcontentCtrl", function($scope, $stateParams, $time
                             && response.data[i].es_ruta_evidencia_4 == true){
                           var url = url_pre + response.data[i].ruta_evidencia_4;
                           evidenceList.push({
+                              "name": $translate.instant('search_findings.tab_evidence.evidence_name') + ' 4',
                               "url": url,
                               "desc": $scope.capitalizeFirstLetter(
                                   $scope.finding.desc_evidencia_4
@@ -989,6 +1098,7 @@ integrates.controller("findingcontentCtrl", function($scope, $stateParams, $time
                           && $scope.finding.ruta_evidencia_4 !== undefined){
                           var url = url_pre + $scope.finding.ruta_evidencia_4;
                           evidenceList.push({
+                              "name": $translate.instant('search_findings.tab_evidence.evidence_name') + ' 4',
                               "url": url,
                               "desc": $scope.capitalizeFirstLetter(
                                   $scope.finding.desc_evidencia_4
@@ -1001,6 +1111,7 @@ integrates.controller("findingcontentCtrl", function($scope, $stateParams, $time
                             && response.data[i].es_ruta_evidencia_5 == true){
                           var url = url_pre + response.data[i].ruta_evidencia_5;
                           evidenceList.push({
+                              "name": $translate.instant('search_findings.tab_evidence.evidence_name') + ' 5',
                               "url": url,
                               "desc": $scope.capitalizeFirstLetter(
                                   $scope.finding.desc_evidencia_5
@@ -1011,6 +1122,7 @@ integrates.controller("findingcontentCtrl", function($scope, $stateParams, $time
                           && $scope.finding.ruta_evidencia_5 !== undefined){
                           var url = url_pre + $scope.finding.ruta_evidencia_5;
                           evidenceList.push({
+                              "name": $translate.instant('search_findings.tab_evidence.evidence_name') + ' 5',
                               "url": url,
                               "desc": $scope.capitalizeFirstLetter(
                                   $scope.finding.desc_evidencia_5
@@ -1025,6 +1137,7 @@ integrates.controller("findingcontentCtrl", function($scope, $stateParams, $time
                         var url = url_pre + $scope.finding.animacion;
                         evidenceList.push({
                             "url": url,
+                            "name": $translate.instant('search_findings.tab_evidence.animation_exploit'),
                             "desc": $translate.instant('search_findings.tab_evidence.animation_exploit'),
                             "ref": 0
                         });
@@ -1033,6 +1146,7 @@ integrates.controller("findingcontentCtrl", function($scope, $stateParams, $time
                         var url = url_pre + $scope.finding.explotacion;
                         evidenceList.push({
                             "url": url,
+                            "name": $translate.instant('search_findings.tab_evidence.evidence_exploit'),
                             "desc": $translate.instant('search_findings.tab_evidence.evidence_exploit'),
                             "ref": 1
                         });
@@ -1042,6 +1156,7 @@ integrates.controller("findingcontentCtrl", function($scope, $stateParams, $time
                         var url = url_pre + $scope.finding.ruta_evidencia_1;
                         evidenceList.push({
                             "url": url,
+                            "name": $translate.instant('search_findings.tab_evidence.evidence_name') + ' 1',
                             "desc": $scope.capitalizeFirstLetter(
                                 $scope.finding.desc_evidencia_1
                             ),
@@ -1053,6 +1168,7 @@ integrates.controller("findingcontentCtrl", function($scope, $stateParams, $time
                         var url = url_pre + $scope.finding.ruta_evidencia_2;
                         evidenceList.push({
                             "url": url,
+                            "name": $translate.instant('search_findings.tab_evidence.evidence_name') + ' 2',
                             "desc": $scope.capitalizeFirstLetter(
                                 $scope.finding.desc_evidencia_2
                             ),
@@ -1064,6 +1180,7 @@ integrates.controller("findingcontentCtrl", function($scope, $stateParams, $time
                         var url = url_pre + $scope.finding.ruta_evidencia_3;
                         evidenceList.push({
                             "url": url,
+                            "name": $translate.instant('search_findings.tab_evidence.evidence_name') + ' 3',
                             "desc": $scope.capitalizeFirstLetter(
                                 $scope.finding.desc_evidencia_3
                             ),
@@ -1075,6 +1192,7 @@ integrates.controller("findingcontentCtrl", function($scope, $stateParams, $time
                         var url = url_pre + $scope.finding.ruta_evidencia_4;
                         evidenceList.push({
                             "url": url,
+                            "name": $translate.instant('search_findings.tab_evidence.evidence_name') + ' 4',
                             "desc": $scope.capitalizeFirstLetter(
                                 $scope.finding.desc_evidencia_4
                             ),
@@ -1086,6 +1204,7 @@ integrates.controller("findingcontentCtrl", function($scope, $stateParams, $time
                         var url = url_pre + $scope.finding.ruta_evidencia_5;
                         evidenceList.push({
                             "url": url,
+                            "name": $translate.instant('search_findings.tab_evidence.evidence_name') + ' 5',
                             "desc": $scope.capitalizeFirstLetter(
                                 $scope.finding.desc_evidencia_5
                             ),
