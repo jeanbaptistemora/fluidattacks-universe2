@@ -8,6 +8,10 @@
     # Sitemap
         RewriteRule ^/sitemap.xml$                https://fluidattacks.com/web/sitemap.xml    [P,L]
 	    ProxyPassReverse /sitemap.xml  https://fluidattacks.com/web/sitemap.xml
+    
+    # Robot
+        RewriteRule ^/robots.txt$                https://fluidattacks.com/web/robots.txt    [P,L]
+	    ProxyPassReverse /robots.txt  https://fluidattacks.com/web/robots.txt       
 
     # Moodle
         RewriteRule ^/courses(.*)                http://fluidattacks.com:8080$1     [P,L]

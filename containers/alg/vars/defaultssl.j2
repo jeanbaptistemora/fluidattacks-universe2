@@ -10,8 +10,8 @@
 	    ProxyPassReverse /sitemap.xml  https://fluidattacks.com/web/sitemap.xml
 
     # Moodle
-        RewriteRule ^/courses(.*)                https://fluidattacks.com:8080$1     [R]
-        ProxyPassReverse /courses https://fluidattacks.com:8080
+        RewriteRule ^/courses(.*)                https://fluidattacks.com/courses$1     [R]
+        ProxyPassReverse /courses https://fluidattacks.com/courses
 
     # Favicon KB
 	    Substitute "s|type=\"image/x-icon\".*href=\".*|type=\"image/x-icon\" href=\"https://app.knowledgeowl.com/app/image/id/54f110f97cb829fd677b23d4/n/favicon_fluid.png\">|i"
@@ -27,18 +27,18 @@
 
     #Integrates
         RewriteEngine on
-        RewriteRule ^/integrates(.*)$           https://fluid.la:8000/$1        [P,L]
-        ProxyPassReverse /integrates https://fluid.la:8000
-        RewriteRule ^/assets(.*)$           https://fluid.la:8000/assets$1        [P,L]
-        ProxyPassReverse /assets https://fluid.la:8000/assets
-        RewriteRule ^/oauth(.*)$           https://fluid.la:8000/oauth$1        [P,L]
-        ProxyPassReverse /oauth https://fluid.la:8000/oauth
-        RewriteRule ^/index(.*)$           https://fluid.la:8000/index$1        [P,L]
-        ProxyPassReverse /index https://fluid.la:8000/index
-        RewriteRule ^/registration(.*)$           https://fluid.la:8000/registration$1        [P,L]
-        ProxyPassReverse /registration https://fluid.la:8000/registration
-        RewriteRule ^/errors$           https://fluid.la/integrates/error401        [P,L]
-        ProxyPassReverse /errors https://fluid.la/integrates/error401
+        RewriteRule ^/integrates(.*)$           https://fluidattacks.com$1        [R]
+        ProxyPassReverse /integrates https://fluidattacks.com
+        RewriteRule ^/assets(.*)$           https://fluidattacks.com/assets$1        [R]
+        ProxyPassReverse /assets https://fluidattacks.com/assets
+        RewriteRule ^/oauth(.*)$           https://fluidattacks.com/oauth$1        [R]
+        ProxyPassReverse /oauth https://fluidattacks.com/oauth
+        RewriteRule ^/index(.*)$           https://fluidattacks.com/index$1        [R]
+        ProxyPassReverse /index https://fluidattacks.com/index
+        RewriteRule ^/registration(.*)$           https://fluidattacks.com/registration$1        [R]
+        ProxyPassReverse /registration https://fluidattacks.com/registration
+        RewriteRule ^/errors$           https://fluidattacks.com/integrates/error401        [R]
+        ProxyPassReverse /errors https://fluidattacks.com/integrates/error401
 
     # KB - Knowledgeowl
         RewriteRule ^/kb$           http://kb.fluidattacks.com        [R]
@@ -47,10 +47,10 @@
         ProxyPassReverse /help http://kb.fluidattacks.com
 
     # Blog
-        RewriteRule ^/web(.*)$           https://fluidattacks.com/web$1        [P,L]
+        RewriteRule ^/web(.*)$           https://fluidattacks.com/web$1        [R]
         ProxyPassReverse /web https://fluidattacks.com/web
 
-        Substitute "s|http://blog.fluid.la/|https://fluid.la/web/|i"
+        Substitute "s|http://web.fluidattacks.com|https://fluidattacks.com/web/|i"
 
     AddOutputFilterByType INFLATE;SUBSTITUTE;DEFLATE text/html text/plain text/xml
         Substitute "s|http://(\w+)\.fluid.la/(.*)|https://$1.fluid.la/$2|i"
