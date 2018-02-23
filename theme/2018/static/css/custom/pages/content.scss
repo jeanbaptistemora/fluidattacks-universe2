@@ -1,7 +1,7 @@
 @import '../mixins';
 
 header {
-  background-image: url('../../images/pages/content/cover.jpg');
+  background-image: url('../../images/pages/content/cover.png');
 }
 
 .col-white {
@@ -12,15 +12,15 @@ header {
 
 .success-cases {
   background: $white;
-  margin: 100px 0 50px;
+  margin: 50px 0;
   padding: 80px 0 40px;
   text-align: center;
 }
 
 .icon-mobile-app {
-  left: -130px;
-  position: absolute;
-  top: -120px;
+  float: left;
+  margin-left: -130px;
+  margin-top: -60px;
 }
 
 .icon-security {
@@ -109,4 +109,27 @@ header {
       }
     }
   }
+}
+
+.col-lg-5 {
+  flex: 0 0 100%;
+  max-width: 100%;
+}
+
+.col-lg-6 {
+  flex: 0 0 48%;
+  max-width: 48%;
+}
+
+.objectives {
+  padding-bottom: 0;
+
+  .sectionbody {
+    display: flex;
+    justify-content: space-between;
+  }
+}
+
+.criteria {
+  padding-top: 0;
 }

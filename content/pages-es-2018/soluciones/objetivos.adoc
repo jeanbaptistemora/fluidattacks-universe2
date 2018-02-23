@@ -1,0 +1,9 @@
+:slug: objetivos/
+
+= Objetivos
+
+[role="col-lg-6 d-flex pad-0-mob col-white"]
+Detectar el mayor número de ocurrencias posible de vulnerabilidades de seguridad clásicas no intencionales como SQL injection, XSS, manipulación de URL, control de límites o fallas de control de acceso mediante un análisis exhaustivo de todo el código fuente de una aplicación incluida en el alcance del proyecto.
+
+[role="col-lg-6 d-flex pad-0-mob col-white"]
+Detectar el mayor número de ocurrencias posible de vulnerabilidades de seguridad clásicas no intencionales como SQL injection, XSS, manipulación de URL, control de límites o fallas de control de acceso mediante un análisis exhaustivo de todo el código fuente de una aplicación incluida en el alcance del proyecto.

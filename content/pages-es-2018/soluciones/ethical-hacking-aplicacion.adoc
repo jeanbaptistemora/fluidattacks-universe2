@@ -1,6 +1,21 @@
 :slug: soluciones/ethical-hacking-aplicacion/
 :description: Somos una empresa dedicada a la seguridad de tecnologías de información, Ethical Hacking, pruebas de intrusión, y detección de debilidades y vulnerabilidades de seguridad en aplicaciones. En esta página presentamos nuestro servicio de Ethical Hacking enfocado en aplicaciones.
 :keywords: FLUID, Soluciones, Servicio, Ethical Hacking, Aplicación, Diagnóstico.
-:template: pages-es/soluciones/ethical-hacking-aplicacion
+:objectives: yes
+:criteria: yes
+:proposal: yes
+:success: yes
 
 = Ethical hacking aplicacion
+
+Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias cuando un impresordesconocido usó una galería de textos y los mezcló de tal manera que logró hacer un libro.
+
+Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias cuando un impresordesconocido usó una galería de textos y los mezcló de tal manera que logró hacer un libro.
+
+== Aplicaciones Móviles
+
+Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias cuando un impresordesconocido usó una galería de textos y los mezcló de tal manera que logró hacer un libro.
+
+Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias cuando un impresordesconocido usó una galería de textos y los mezcló de tal manera que logró hacer un libro.
+
+Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias cuando un impresordesconocido usó una galería de textos y los mezcló de tal manera que logró hacer un libro.

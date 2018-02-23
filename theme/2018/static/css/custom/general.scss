@@ -19,7 +19,7 @@ body {
 }
 
 header {
-  background-image: url('../../images/blog/cover.jpg');
+  background-image: url('../../images/blog/cover.png');
   background-size: cover;
   padding-bottom: 300px;
   padding-top: 70px;
@@ -27,7 +27,7 @@ header {
   &.pelican-page {
 
     &:not(.header-home) {
-      background-image: url('../../images/global/cover.jpg');
+      background-image: url('../../images/global/cover.png');
     }
   }
 
