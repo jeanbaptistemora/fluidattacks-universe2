@@ -51,7 +51,6 @@ pages:
     - cp -r public/es/pages-es-2018/* public/es/ && rm -rf public/es/pages-es-2018
     - cp -r public/en/pages-en-2018/* public/en/ && rm -rf public/en/pages-en-2018
     - mv public/en/redirect/index.html public/ && rmdir public/en/redirect/
-    - ./html-lint.sh
   artifacts:
     paths:
       - public
