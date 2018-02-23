@@ -520,9 +520,6 @@ def replace_all(text, dic):
 def update_evidences_files(request):
     parameters = request.POST.dict() 
     upload = request.FILES.get("document", "")
-    if upload.size > 10485760:
-        rollbar.report_message('Error - Image exceeds the size limits', 'error', request)
-        return util.response([], 'Image exceeds the size limits', True)
     migrate_all_files(parameters, request)
     mime = Magic(mime=True)
     if isinstance(upload, TemporaryUploadedFile):
@@ -534,17 +531,29 @@ def update_evidences_files(request):
                 ['ruta_evidencia_3', FindingDTO().DOC_ACHV3], ['ruta_evidencia_4', FindingDTO().DOC_ACHV4], \
                 ['ruta_evidencia_5', FindingDTO().DOC_ACHV5], ['exploit', FindingDTO().EXPLOIT]]
     if mime_type == "image/gif" and parameters["id"] == '0':
+        if upload.size > 10485760:
+            rollbar.report_message('Error - File exceeds the size limits', 'error', request)
+            return util.response([], 'Image exceeds the size limits', True)
         updated = update_file_to_s3(parameters, fieldname[int(parameters["id"])][1], fieldname[int(parameters["id"])][0], upload)            
         return util.response([], "sended" , updated)
     elif mime_type == "image/png" and parameters["id"] == '1':
+        if upload.size > 2097152:
+            rollbar.report_message('Error - File exceeds the size limits', 'error', request)
+            return util.response([], 'Image exceeds the size limits', True)
         updated = update_file_to_s3(parameters, fieldname[int(parameters["id"])][1], fieldname[int(parameters["id"])][0], upload)
         return util.response([], "sended" , updated)
     elif mime_type == "image/png" and parameters["id"] in ['2', '3', '4', '5', '6']:
+        if upload.size > 2097152:
+            rollbar.report_message('Error - File exceeds the size limits', 'error', request)
+            return util.response([], 'Image exceeds the size limits', True)
         updated = update_file_to_s3(parameters, fieldname[int(parameters["id"])][1], fieldname[int(parameters["id"])][0], upload)
         return util.response([], "sended" , updated)
     elif (mime_type == "text/x-python" or mime_type == "text/x-c" \
                 or mime_type == "text/plain" or mime_type == "text/html") \
                     and parameters["id"] == '7':
+        if upload.size > 1048576:
+            rollbar.report_message('Error - File exceeds the size limits', 'error', request)
+            return util.response([], 'Image exceeds the size limits', True)
         updated = update_file_to_s3(parameters, fieldname[int(parameters["id"])][1], fieldname[int(parameters["id"])][0], upload)
         return util.response([], "sended" , updated)
     rollbar.report_message('Error - Extension not allowed', 'error', request)

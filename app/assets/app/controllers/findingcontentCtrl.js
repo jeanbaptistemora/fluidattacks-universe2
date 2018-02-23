@@ -257,24 +257,34 @@ integrates.controller("findingcontentCtrl", function($scope, $stateParams, $time
         data.append("url", $stateParams.project.toLowerCase() + "-" + $scope.finding.id);
         data.append("findingId", $scope.finding.id);
         data.append("document", fileInput.files[0]);
-        if(fileInput.files[0].size > 10485760){
+        fileName = fileInput.files[0].name;
+        dots = fileName.split(".");
+        fileType = "." + dots[dots.length-1];
+        if((fileType == ".png" || fileType == ".PNG") && fileInput.files[0].size > 2097152){
+            var error_ac1 = $translate.instant('proj_alerts.file_size_png');
+            $msg.error(error_ac1);
+            return false;
+        }
+        if((fileType == ".gif" || fileType == ".GIF") && fileInput.files[0].size > 10485760){
             var error_ac1 = $translate.instant('proj_alerts.file_size');
             $msg.error(error_ac1);
             return false;
         }
-        fileName = fileInput.files[0].name;
-        dots = fileName.split(".");
-        fileType = "." + dots[dots.length-1];
+        if((fileType == ".py" || fileType == ".PY") && fileInput.files[0].size > 1048576){
+            var error_ac1 = $translate.instant('proj_alerts.file_size_py');
+            $msg.error(error_ac1);
+            return false;
+        }
         evImages = ['1', '2', '3', '4', '5', '6'];
-        if(evImage == '0' && fileType != ".gif"){
+        if(evImage == '0' && (fileType != ".gif" && fileType != ".GIF")){
             var error_ac1 = $translate.instant('proj_alerts.file_type_gif');
             $msg.error(error_ac1);
             return false;
-        } else if (evImage == '7' && fileType != ".py"){
+        } else if (evImage == '7' && (fileType != ".py"  && fileType != ".PY")){
             var error_ac1 = $translate.instant('proj_alerts.file_type_py');
             $msg.error(error_ac1);
             return false;
-        } else if(evImages.indexOf(evImage) != -1 && fileType != ".png"){
+        } else if(evImages.indexOf(evImage) != -1 && (fileType != ".png" && fileType != ".PNG")){
             var error_ac1 = $translate.instant('proj_alerts.file_type_png');
             $msg.error(error_ac1);
             return false;
