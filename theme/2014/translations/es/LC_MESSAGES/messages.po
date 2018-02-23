@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2018-02-23 15:19+0000\n"
+"POT-Creation-Date: 2018-02-23 23:19+0000\n"
 "PO-Revision-Date: 2017-12-21 15:09-0500\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: es\n"
@@ -18,6 +18,21 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.5.1\n"
 
+#: templates/archives.html:4
+msgid ""
+"Here you can find the latest articles posted to the blog, which are "
+"related to the field of Information Security. These articles may aim to "
+"share an opinion about a security matter, to solve a challenge related to"
+" this very subject or may just offer general information"
+msgstr "Aquí puedes encontrar los artículos más recientes publicados en el blog, "
+"los cuales están relacionados con el campo de Seguridad de Información. Estos artículos "
+"pueden buscar compartir una opinión acerca de un tema de seguridad, resolver un reto "
+"relacionado a este mismo tema, o simplemente ofrecer ínformación general"
+
+#: templates/archives.html:5
+msgid "Information, Security, Archives, Latest, Articles, Blog"
+msgstr "Información, Seguridad, Archivos, Recientes, Artículos, Blog"
+
 #: templates/archives.html:10 templates/archives.html:12
 msgid "Blog Archives"
 msgstr "Archivos del Blog"
@@ -25,7 +40,7 @@ msgstr "Archivos del Blog"
 #: templates/archives.html:24 templates/article.html:37
 #: templates/author.html:27 templates/authors.html:18
 #: templates/categories.html:18 templates/category.html:18
-#: templates/error.html:20 templates/form.html:37 templates/home.html:22
+#: templates/error.html:25 templates/form.html:37 templates/home.html:22
 #: templates/index.html:28 templates/landing.html:21 templates/tag.html:29
 #: templates/tags.html:18
 msgid "Young hacker smiling"
@@ -84,6 +99,22 @@ msgstr "Relacionado"
 msgid "Leave a comment"
 msgstr "Haz un comentario"
 
+#: templates/author.html:4
+msgid "Here you can find all the articles written by the author"
+msgstr "Acá puedes encontrar todos los artículos escritos por el autor"
+
+#: templates/author.html:4
+msgid ""
+"The articles are ordered by publishing date, starting with the last one. "
+"They offer information about the different topics in the field of "
+"Information Security."
+msgstr "Los artículos se encuentran ordenados por fecha de publicación. "
+"Ofrecen información acerca de diferentes temas en el campo de la Seguridad de la Información."
+
+#: templates/author.html:5
+msgid "Author, Article, Information, Security, Blog, Publising, Date"
+msgstr "Autor, Artículo, Información, Seguridad, Blog, Publicación, Fecha"
+
 #: templates/author.html:8
 msgid "Articles by"
 msgstr "Artículos por"
@@ -92,6 +123,49 @@ msgstr "Artículos por"
 #: templates/footer.html:40
 msgid "Authors"
 msgstr "Autores"
+
+#: templates/authors.html:4
+msgid ""
+"Here you can find the list of all the authors that have contributed to "
+"the blog by publishing an article which may have an opinion, a solution "
+"to a challenge, or just general information related to many topics in the"
+" field of Information Security"
+msgstr "Aquí puedes encontrar una lista de todos los autores que han contribuido "
+"al blog publicando algún artículo, que puede contener una opinión, una solución a un reto, "
+"o simplemente información general relacionada a diversos temas en el campo de la Seguridad "
+"de la Información"
+
+#: templates/authors.html:5
+msgid "Authors, Blog, Publish, Article, Information, Security"
+msgstr "Autores, Blog, Publicar, Artículo, Información, Seguridad"
+
+#: templates/categories.html:4
+msgid ""
+"Here you can find the list of categories used to classify the articles of"
+" the blog. They are all related to the field of Information Security and "
+"may range from an opinion related to a certain topic, or a solution to a "
+"challenge, all the way to just general information"
+msgstr "Aquí puedes encontrar una lista de las categorías utilizadas para clasificar "
+"los artículos del blog. Todos los artículos se relacionan con el campo de la Seguridad "
+"de la Información y pueden tratar desde una opinión sobre un tema específico, o una solución "
+"a un reto, hasta información general"
+
+#: templates/category.html:4
+msgid ""
+"Here you can find all the articles of the blog which are related to the "
+"category"
+msgstr "Aquí puedes encontrar todos los artículos del blog que se relacionan con la categoría"
+
+#: templates/category.html:4 templates/tag.html:4
+msgid ""
+"The articles are ordered according to their publishing date and may "
+"address different subjets related to the field of Information Security"
+msgstr "Los artículos se encuentran ordenados de acuerdo a su fecha de publicación "
+"y pueden tratar diferentes temas relacionados con el campo de la Seguridad de la Información"
+
+#: templates/category.html:5
+msgid "Article, Category, Blog, Information, Security, Date"
+msgstr "Artículo, Categoría, Blog, Información, Seguridad, Fecha"
 
 #: templates/category.html:8
 msgid "Articles in the category"
@@ -105,23 +179,36 @@ msgstr "Tiene"
 msgid "comments"
 msgstr "comentarios"
 
-#: templates/error.html:5 templates/error.html:7
+#: templates/error.html:4
+msgid ""
+"An error occured. The page you requested does not exist or is not "
+"available at the moment. Here you can find links to most of the relevant "
+"content of the website"
+msgstr "Ha ocurrido un error. La página que buscaste no existe o no se encuentra "
+"disponible en el momento. Aquí puedes encontrar enlaces al contenido más relevante "
+"del sitio web"
+
+#: templates/error.html:5
+msgid "Error, Request, Page, Availability, Links, Content"
+msgstr "Error, Petición, Página, Disponibilidad, Enlace, Contenido"
+
+#: templates/error.html:10 templates/error.html:12
 msgid "The page was not found"
 msgstr "La página no ha sido encontrada"
 
-#: templates/error.html:28
+#: templates/error.html:33
 msgid "PAGE NOT FOUND"
 msgstr "PÁGINA NO ENCONTRADA"
 
-#: templates/error.html:29
+#: templates/error.html:34
 msgid "Click the flag to view this page in spanish"
 msgstr "Haz click en la bandera para visualizar esta página en inglés"
 
-#: templates/error.html:31
+#: templates/error.html:36
 msgid "es"
 msgstr "en"
 
-#: templates/error.html:34
+#: templates/error.html:39
 msgid ""
 "It seems nothing was found in this address. Try searching or browsing to "
 "one of the following links"
@@ -129,24 +216,24 @@ msgstr ""
 "Parece que no hay nada indexado en esta dirección. Intenta una búsqueda o"
 " haz click en uno de los siguientes links"
 
-#: templates/error.html:35 templates/footer.html:24 templates/landing.html:29
+#: templates/error.html:40 templates/footer.html:24 templates/landing.html:29
 #: templates/navigationbar.html:23
 msgid "Services"
 msgstr "Servicios"
 
-#: templates/error.html:37 templates/footer.html:24 templates/footer.html:25
+#: templates/error.html:42 templates/footer.html:24 templates/footer.html:25
 #: templates/footer.html:26 templates/landing.html:34 templates/landing.html:38
 #: templates/navigationbar.html:23 templates/navigationbar.html:25
 #: templates/navigationbar.html:26
 msgid "services"
 msgstr "servicios"
 
-#: templates/error.html:43 templates/footer.html:29
+#: templates/error.html:48 templates/footer.html:29
 #: templates/navigationbar.html:29
 msgid "Products"
 msgstr "Productos"
 
-#: templates/error.html:45 templates/footer.html:29 templates/footer.html:30
+#: templates/error.html:50 templates/footer.html:29 templates/footer.html:30
 #: templates/footer.html:31 templates/footer.html:32 templates/footer.html:33
 #: templates/navigationbar.html:29 templates/navigationbar.html:31
 #: templates/navigationbar.html:32 templates/navigationbar.html:33
@@ -154,20 +241,20 @@ msgstr "Productos"
 msgid "products"
 msgstr "productos"
 
-#: templates/error.html:51
+#: templates/error.html:56
 msgid "Recent Blog Entries"
 msgstr "Entradas Recientes del Blog"
 
-#: templates/error.html:62
+#: templates/error.html:67
 msgid "Blog Categories"
 msgstr "Categorías del Blog"
 
-#: templates/error.html:70 templates/footer.html:43
+#: templates/error.html:75 templates/footer.html:43
 #: templates/navigationbar.html:38
 msgid "Careers"
 msgstr "Empleos"
 
-#: templates/error.html:72 templates/footer.html:43 templates/footer.html:44
+#: templates/error.html:77 templates/footer.html:43 templates/footer.html:44
 #: templates/footer.html:45 templates/footer.html:46 templates/footer.html:47
 #: templates/navigationbar.html:38
 msgid "careers"
@@ -367,9 +454,42 @@ msgstr "transporte"
 msgid "Transportation"
 msgstr "Transporte"
 
+#: templates/home.html:4 templates/landing.html:6
+msgid ""
+"We are a company specialized in Ethical Hacking over Applications and "
+"Infrastructure. We are hackers who develop our own tools and exploits, "
+"with the aim of identifying all the vulnerabilities of your applications "
+"and report them as soon as possible"
+msgstr ""
+"Somos una compañía especialista en Ethical Hacking de Aplicación e "
+"Infraestructura. Somos hackers que desarrollamos nuestras propias "
+"herramientas y exploits, cuyo objetivo identificar todas las "
+"vulnerabilidades de sus aplicaciones y reportarlas lo más pronto posible."
+
+#: templates/home.html:5 templates/landing.html:7
+msgid ""
+"FLUID, Ethical Hacking, Vulnerability, Diagnosis, Application, "
+"Infrastructure"
+msgstr ""
+"FLUID, Ethical hacking, Vulnerabildad, Diagnóstico, Aplicación, "
+"Infraestructura"
+
 #: templates/home.html:47
 msgid "Consult Service"
 msgstr "Consultar Servicio"
+
+#: templates/index.html:4
+msgid ""
+"Here you can find all the articles published to the blog, which may "
+"address an opinion, a solution to a challenge, or just general "
+"information, all related to the field of Information Security."
+msgstr "Aquí puedes encontrar todos los artículos publicados en el blog, "
+"que opueden tratar una opinión, una solución a un reto, o simplemente información "
+"general, todo relacionado con el campo de Seguridad de la Información"
+
+#: templates/index.html:5
+msgid "Articles, Blog, Opinion, Challenge, Information, Security"
+msgstr "Artículos, Blog, Opinión, Reto, Información, Seguridad"
 
 #: templates/index.html:10 templates/index.html:12
 msgid "Blog Home"
@@ -386,26 +506,6 @@ msgstr "Ícono de etiqueta"
 #: templates/index.html:69
 msgid "Read More"
 msgstr "Seguir Leyendo"
-
-#: templates/landing.html:6
-msgid ""
-"We are a company specialized in Ethical Hacking over Applications and "
-"Infrastructure. We are hackers who develop our own tools and exploits, "
-"with the aim of identifying all the vulnerabilities of your applications "
-"and report them as soon as possible"
-msgstr ""
-"Somos una compañía especialista en Ethical Hacking de Aplicación e "
-"Infraestructura. Somos hackers que desarrollamos nuestras propias "
-"herramientas y exploits, cuyo objetivo identificar todas las "
-"vulnerabilidades de sus aplicaciones y reportarlas lo más pronto posible."
-
-#: templates/landing.html:7
-msgid ""
-"FLUID, Ethical Hacking, Vulnerability, Diagnosis, Application, "
-"Infrastructure"
-msgstr ""
-"FLUID, Ethical hacking, Vulnerabildad, Diagnóstico, Aplicación, "
-"Infraestructura"
 
 #: templates/landing.html:30
 msgid ""
@@ -549,9 +649,30 @@ msgstr "Página"
 msgid "of"
 msgstr "de"
 
+#: templates/tag.html:4
+msgid ""
+"Here you can find all the articles of the blog which are related to the "
+"tag"
+msgstr "Aquí puedes encontrar todos los artículos relacionados con la etiqueta"
+
+#: templates/tag.html:5
+msgid "Article, Tag, Blog, Information, Security, Date"
+msgstr "Artículo, Etiqueta, Blog, Información, Seguridad, Fecha"
+
 #: templates/tag.html:12 templates/tag.html:17
 msgid "Tag"
 msgstr "Etiqueta"
+
+#: templates/tags.html:4
+msgid ""
+"Here you can find the list of tags used to classify the articles of the "
+"blog. These articles are all related to the field of Information Security"
+" and may range from an opinion related to a certain topic, or a solution "
+"to a challenge, all the way to just general information"
+msgstr "Aquí puedes encontrar una lista de etiquetas utilizadas para clasificar "
+"los artículos del blog. Estos artículos están relacionados con el tema de Seguridad "
+"de la Información y pueden tratar temas desde una opinión sobre un tema específico,
+"o una solución a un reto, hasta simplemente información general"
 
 msgid "Search"
 msgstr "Búsqueda"

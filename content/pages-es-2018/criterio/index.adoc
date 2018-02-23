@@ -1,4 +1,6 @@
 :slug: criterio/
+:description: FLUID es una empresa dedicada a la seguridad de tecnologías de información, Ethical Hacking, pruebas de intrusión, y detección de debilidades y vulnerabilidades de seguridad en aplicaciones. Aquí mostramos la filosofía bajo la cual se basa nuestro criterio de seguridad.
+:keywords: FLUID, Clientes, Información, Aplicaciones, Acerca de, Ethical Hacking.
 
 = Criterio de Seguridad
 

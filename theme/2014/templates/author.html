@@ -1,8 +1,8 @@
 {% extends "index.html" %}
 
 {% block meta %}
-  <meta name="keywords" content="TODO">
-  <meta name="description" content="TODO">
+  <meta name="keywords" content="{{ gettext('Here you can find all the articles written by the author') }} {{ author }}.{{ gettext('The articles are ordered by publishing date, starting with the last one. They offer information about the different topics in the field of Information Security.') }}">
+  <meta name="description" content="{{ gettext('Author, Article, Information, Security, Blog, Publising, Date') }}">
 {% endblock meta %}
 
 {% block title %}{{ gettext('Articles by') }} {{ author }} | {{ AUTHOR }}{% endblock %}

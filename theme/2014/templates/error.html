@@ -1,5 +1,10 @@
 {% extends "base.html" %}
 
+{% block meta %}
+  <meta name="keywords" content="{{ gettext('An error occured. The page you requested does not exist or is not available at the moment. Here you can find links to most of the relevant content of the website') }}.">
+  <meta name="description" content="{{ gettext('Error, Request, Page, Availability, Links, Content') }}">
+{% endblock meta %}
+
 {% block title %}
   {% if DEFAULT_LANG == "en" %}
 {{ gettext('The page was not found') }} | {{ SITENAME }}

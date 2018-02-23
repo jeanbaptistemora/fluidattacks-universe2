@@ -1,8 +1,8 @@
 {% extends "index.html" %}
 
 {% block meta %}
-  <meta name="keywords" content="TODO">
-  <meta name="description" content="TODO">
+  <meta name="keywords" content="{{ gettext('Here you can find all the articles of the blog which are related to the tag') }} {{ tag|capitalize }}. {{ gettext('The articles are ordered according to their publishing date and may address different subjets related to the field of Information Security') }}.">
+  <meta name="description" content="{{ gettext('Article, Tag, Blog, Information, Security, Date') }}">
 {% endblock meta %}
 
 {% block title %}
