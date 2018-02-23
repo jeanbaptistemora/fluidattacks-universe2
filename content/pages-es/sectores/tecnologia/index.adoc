@@ -1,0 +1,10 @@
+:slug: sectores/tecnologia/
+:category: sectores
+:description: TODO
+:keywords: TODO
+
+= Tecnología
+
+Esta página se encuentra actualmente en desarrollo.
+
+Nos disculpamos por cualquier inconveniente que esto pueda causar.

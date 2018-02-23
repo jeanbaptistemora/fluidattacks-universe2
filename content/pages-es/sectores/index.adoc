@@ -1,0 +1,19 @@
+:slug: sectores/
+:description: TODO
+:keywords: TODO
+
+= Sectores
+
+== link:financiero/[Financero]
+
+== link:comunicaciones/[Comunicaciones]
+
+== link:comercial/[Comercial]
+
+== link:tecnologia/[Tecnología]
+
+== link:energia/[Energía]
+
+== link:industrial/[Industrial]
+
+== link:transporte/[Transporte]

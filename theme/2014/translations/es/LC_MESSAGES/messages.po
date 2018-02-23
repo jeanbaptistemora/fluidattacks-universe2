@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2018-02-22 19:45+0000\n"
+"POT-Creation-Date: 2018-02-23 15:19+0000\n"
 "PO-Revision-Date: 2017-12-21 15:09-0500\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: es\n"
@@ -18,27 +18,28 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.5.1\n"
 
-#: templates/archives.html:8
+#: templates/archives.html:10 templates/archives.html:12
 msgid "Blog Archives"
 msgstr "Archivos del Blog"
 
-#: templates/archives.html:18 templates/article.html:37
-#: templates/author.html:43 templates/authors.html:18
+#: templates/archives.html:24 templates/article.html:37
+#: templates/author.html:27 templates/authors.html:18
 #: templates/categories.html:18 templates/category.html:18
-#: templates/form.html:21 templates/home.html:22 templates/index.html:22
-#: templates/landing.html:21 templates/tag.html:34 templates/tags.html:18
+#: templates/error.html:20 templates/form.html:37 templates/home.html:22
+#: templates/index.html:28 templates/landing.html:21 templates/tag.html:29
+#: templates/tags.html:18
 msgid "Young hacker smiling"
 msgstr "Joven hacker sonriendo"
 
-#: templates/archives.html:28 templates/period_archives.html:8
+#: templates/archives.html:34 templates/period_archives.html:8
 #: templates/period_archives.html:23
 msgid "Archives for"
 msgstr "Archivos para"
 
-#: templates/article.html:48 templates/author.html:52 templates/authors.html:28
+#: templates/article.html:48 templates/author.html:36 templates/authors.html:28
 #: templates/categories.html:28 templates/category.html:27
-#: templates/form.html:31 templates/home.html:8 templates/landing.html:10
-#: templates/navigationbar.html:22 templates/tag.html:43 templates/tags.html:28
+#: templates/form.html:47 templates/home.html:8 templates/landing.html:10
+#: templates/navigationbar.html:22 templates/tag.html:38 templates/tags.html:28
 msgid "Home"
 msgstr "Inicio"
 
@@ -59,7 +60,7 @@ msgstr "Ícono de globo de diálogo"
 msgid "Comment"
 msgstr "Comentar"
 
-#: templates/article.html:69 templates/index.html:44
+#: templates/article.html:69 templates/index.html:50
 msgid "Folder icon"
 msgstr "Ícono de carpeta"
 
@@ -83,11 +84,11 @@ msgstr "Relacionado"
 msgid "Leave a comment"
 msgstr "Haz un comentario"
 
-#: templates/author.html:12 templates/author.html:17 templates/author.html:22
+#: templates/author.html:8
 msgid "Articles by"
 msgstr "Artículos por"
 
-#: templates/author.html:54 templates/authors.html:8 templates/authors.html:32
+#: templates/author.html:38 templates/authors.html:8 templates/authors.html:32
 #: templates/footer.html:40
 msgid "Authors"
 msgstr "Autores"
@@ -103,6 +104,74 @@ msgstr "Tiene"
 #: templates/comments.html:1
 msgid "comments"
 msgstr "comentarios"
+
+#: templates/error.html:5 templates/error.html:7
+msgid "The page was not found"
+msgstr "La página no ha sido encontrada"
+
+#: templates/error.html:28
+msgid "PAGE NOT FOUND"
+msgstr "PÁGINA NO ENCONTRADA"
+
+#: templates/error.html:29
+msgid "Click the flag to view this page in spanish"
+msgstr "Haz click en la bandera para visualizar esta página en inglés"
+
+#: templates/error.html:31
+msgid "es"
+msgstr "en"
+
+#: templates/error.html:34
+msgid ""
+"It seems nothing was found in this address. Try searching or browsing to "
+"one of the following links"
+msgstr ""
+"Parece que no hay nada indexado en esta dirección. Intenta una búsqueda o"
+" haz click en uno de los siguientes links"
+
+#: templates/error.html:35 templates/footer.html:24 templates/landing.html:29
+#: templates/navigationbar.html:23
+msgid "Services"
+msgstr "Servicios"
+
+#: templates/error.html:37 templates/footer.html:24 templates/footer.html:25
+#: templates/footer.html:26 templates/landing.html:34 templates/landing.html:38
+#: templates/navigationbar.html:23 templates/navigationbar.html:25
+#: templates/navigationbar.html:26
+msgid "services"
+msgstr "servicios"
+
+#: templates/error.html:43 templates/footer.html:29
+#: templates/navigationbar.html:29
+msgid "Products"
+msgstr "Productos"
+
+#: templates/error.html:45 templates/footer.html:29 templates/footer.html:30
+#: templates/footer.html:31 templates/footer.html:32 templates/footer.html:33
+#: templates/navigationbar.html:29 templates/navigationbar.html:31
+#: templates/navigationbar.html:32 templates/navigationbar.html:33
+#: templates/navigationbar.html:34
+msgid "products"
+msgstr "productos"
+
+#: templates/error.html:51
+msgid "Recent Blog Entries"
+msgstr "Entradas Recientes del Blog"
+
+#: templates/error.html:62
+msgid "Blog Categories"
+msgstr "Categorías del Blog"
+
+#: templates/error.html:70 templates/footer.html:43
+#: templates/navigationbar.html:38
+msgid "Careers"
+msgstr "Empleos"
+
+#: templates/error.html:72 templates/footer.html:43 templates/footer.html:44
+#: templates/footer.html:45 templates/footer.html:46 templates/footer.html:47
+#: templates/navigationbar.html:38
+msgid "careers"
+msgstr "empleos"
 
 #: templates/footer.html:4
 msgid "FLUID logo"
@@ -169,18 +238,6 @@ msgstr "terminos-uso"
 msgid "Terms of Use"
 msgstr "Términos de Uso"
 
-#: templates/footer.html:24 templates/footer.html:25 templates/footer.html:26
-#: templates/landing.html:34 templates/landing.html:38
-#: templates/navigationbar.html:23 templates/navigationbar.html:25
-#: templates/navigationbar.html:26
-msgid "services"
-msgstr "servicios"
-
-#: templates/footer.html:24 templates/landing.html:29
-#: templates/navigationbar.html:23
-msgid "Services"
-msgstr "Servicios"
-
 #: templates/footer.html:25 templates/landing.html:38
 #: templates/navigationbar.html:25
 msgid "one-shot-hacking"
@@ -198,17 +255,6 @@ msgstr "hacking-continuo"
 #: templates/footer.html:26 templates/navigationbar.html:26
 msgid "Continuous Hacking"
 msgstr "Hacking Continuo"
-
-#: templates/footer.html:29 templates/footer.html:30 templates/footer.html:31
-#: templates/footer.html:32 templates/navigationbar.html:29
-#: templates/navigationbar.html:31 templates/navigationbar.html:32
-#: templates/navigationbar.html:33
-msgid "products"
-msgstr "productos"
-
-#: templates/footer.html:29 templates/navigationbar.html:29
-msgid "Products"
-msgstr "Productos"
 
 #: templates/footer.html:37
 msgid "style"
@@ -230,7 +276,7 @@ msgstr "Temas"
 msgid "tags"
 msgstr "etiquetas"
 
-#: templates/footer.html:39 templates/tag.html:45 templates/tags.html:8
+#: templates/footer.html:39 templates/tag.html:40 templates/tags.html:8
 #: templates/tags.html:32
 msgid "Tags"
 msgstr "Etiquetas"
@@ -238,16 +284,6 @@ msgstr "Etiquetas"
 #: templates/footer.html:40
 msgid "authors"
 msgstr "autores"
-
-#: templates/footer.html:43 templates/footer.html:44 templates/footer.html:45
-#: templates/footer.html:46 templates/footer.html:47
-#: templates/navigationbar.html:38
-msgid "careers"
-msgstr "empleos"
-
-#: templates/footer.html:43 templates/navigationbar.html:38
-msgid "Careers"
-msgstr "Empleos"
 
 #: templates/footer.html:44
 msgid "reasons"
@@ -273,23 +309,81 @@ msgstr "terminos"
 msgid "Terms"
 msgstr "Términos"
 
+#: templates/footer.html:50 templates/footer.html:51 templates/footer.html:52
+#: templates/footer.html:53 templates/footer.html:54 templates/footer.html:55
+#: templates/footer.html:56 templates/footer.html:57
+msgid "sectors"
+msgstr "sectores"
+
+#: templates/footer.html:50
+msgid "Sectors"
+msgstr "Sectores"
+
+#: templates/footer.html:51
+msgid "financial"
+msgstr "financiero"
+
+#: templates/footer.html:51
+msgid "Financial"
+msgstr "Financiero"
+
+#: templates/footer.html:52
+msgid "communications"
+msgstr "comunicaciones"
+
+#: templates/footer.html:52
+msgid "Communications"
+msgstr "Comunicaciones"
+
+#: templates/footer.html:53
+msgid "consumer"
+msgstr "comercial"
+
+#: templates/footer.html:53
+msgid "Consumer"
+msgstr "Comercial"
+
+#: templates/footer.html:54
+msgid "technology"
+msgstr "tecnologia"
+
+#: templates/footer.html:54
+msgid "Technology"
+msgstr "Tecnología"
+
+#: templates/footer.html:55
+msgid "utilities"
+msgstr "energia"
+
+#: templates/footer.html:55
+msgid "Utilities"
+msgstr "Energía"
+
+#: templates/footer.html:57
+msgid "transportation"
+msgstr "transporte"
+
+#: templates/footer.html:57
+msgid "Transportation"
+msgstr "Transporte"
+
 #: templates/home.html:47
 msgid "Consult Service"
 msgstr "Consultar Servicio"
 
-#: templates/index.html:8
+#: templates/index.html:10 templates/index.html:12
 msgid "Blog Home"
 msgstr "Inicio del Blog"
 
-#: templates/index.html:40
+#: templates/index.html:46
 msgid "Quill icon"
 msgstr "Ícono de pluma"
 
-#: templates/index.html:46
+#: templates/index.html:52
 msgid "Tag icon"
 msgstr "Ícono de etiqueta"
 
-#: templates/index.html:63
+#: templates/index.html:69
 msgid "Read More"
 msgstr "Seguir Leyendo"
 
@@ -455,37 +549,9 @@ msgstr "Página"
 msgid "of"
 msgstr "de"
 
-#: templates/tag.html:12 templates/tag.html:17 templates/tag.html:22
+#: templates/tag.html:12 templates/tag.html:17
 msgid "Tag"
 msgstr "Etiqueta"
-
-msgid "The page was not found"
-msgstr "La página no ha sido encontrada"
-
-msgid "PAGE NOT FOUND"
-msgstr "PÁGINA NO ENCONTRADA"
-
-msgid "Click the flag to view this page in spanish"
-msgstr "Haz click en la bandera para visualizar esta página en inglés"
-
-msgid "es"
-msgstr "en"
-
-msgid ""
-"It seems nothing was found in this"
-" address. Try searching or browsing "
-"to one of the following links"
-msgstr ""
-"Parece que no hay nada indexado en"
-" esta dirección. Intenta una búsqueda "
-"o haz click en uno de los "
-"siguientes links"
-
-msgid "Recent Blog Entries"
-msgstr "Entradas Recientes del Blog"
-
-msgid "Blog Categories"
-msgstr "Categorías del Blog"
 
 msgid "Search"
 msgstr "Búsqueda"

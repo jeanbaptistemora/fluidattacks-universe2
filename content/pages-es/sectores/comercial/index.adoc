@@ -1,0 +1,10 @@
+:slug: sectores/comercial/
+:category: sectores
+:description: TODO
+:keywords: TODO
+
+= Comercial
+
+Esta página se encuentra actualmente en desarrollo.
+
+Nos disculpamos por cualquier inconveniente que esto pueda causar.

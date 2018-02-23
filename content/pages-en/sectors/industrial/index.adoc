@@ -1,0 +1,10 @@
+:slug: sectors/industrial/
+:category: sectors
+:description: TODO
+:keywords: TODO
+
+= Industrial
+
+This page is currently under development.
+
+We apologize for any inconvenience this may cause.

@@ -1,0 +1,10 @@
+:slug: sectors/technology/
+:category: sectors
+:description: TODO
+:keywords: TODO
+
+= Technology
+
+This page is currently under development.
+
+We apologize for any inconvenience this may cause.
