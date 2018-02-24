@@ -1,7 +1,7 @@
 :slug: hardens/java/definir-charset-content-type/
 :category: java
 :description: Nuestros ethical hackers explican cómo evitar vulnerabilidades de seguridad mediante la programación segura en Java al definir los parámetros Charset y Content-Type. Éstos parámetros permiten definir el conjunto de caracteres utilizados por el navegador y ayudan a prevenir el XSS.
-:keywords: Java, Seguridad, Charset, Content-Type, Servlets
+:keywords: Java, Seguridad, Charset, Content-Type, Servlets, XSS.
 :hardens: yes
 
 = Definir Character-Set y Content-Type Usando Servlets

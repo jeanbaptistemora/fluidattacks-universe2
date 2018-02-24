@@ -1,7 +1,7 @@
 :slug: hardens/aspnet/configurar-charset-http/
 :category: aspnet
 :description: Nuestros ethical hackers explican cómo evitar vulnerabilidades de seguridad mediante la configuración segura del parámetro Charset en ASP.NET. Esto permite reforzar la protección contra ataques de tipo HTTP Request Smuggling así como exploits que usan Unicode.
-:keywords: ASP.NET, Seguridad, Charset, HTPP, HTTP Request Smuggling, Codificación, Configuración.
+:keywords: ASP.NET, Seguridad, Charset, HTTP Request Smuggling, Codificación, Configuración.
 :hardens: yes
 
 = Configurar charset de HTTP

@@ -1,7 +1,7 @@
 :slug: hardens/cobol/validar-datos-variables/
 :category: cobol
-:description: Nuestros ethical hackers explican cómo evitar vulnerabilidades de seguridad mediante la programación segura en cobol al explicar en detalle cómo se deben validar adecuadamente los diferentes tipos de datos ingresados por el usuario, los cuales pueden provocar un mal funcionamiento del sistema.
-:keywords: validar, validación, cobol, clase, tipo de dato, SPECIAL-NAMES, clase.
+:description: Nuestros ethical hackers explican cómo evitar vulnerabilidades de seguridad mediante la programación segura en COBOL al explicar en detalle cómo se deben validar adecuadamente los diferentes tipos de datos ingresados por el usuario, los cuales pueden provocar un mal funcionamiento del sistema.
+:keywords: Validar, Variables, COBOL, Clase, Datos, SPECIAL-NAMES.
 :hardens: yes
 
 = Validar Datos en Variables

@@ -1,7 +1,7 @@
 :slug: hardens/aix/activar-rbac-extendido/
 :category: aix
 :description: Nuestros ethical hackers explican cómo evitar vulnerabilidades de seguridad mediante la configuración segura del modo RBAC incluido en los sistemas AIX, donde un atacante puede aprovecharse de una mala configuración de dicho modo, accediendo a funcionalidades críticas dentro del sistema.
-:keywords: AIX, Seguridad, RBAC, CLI, sistema operativo, habilitar, deshabilitar.
+:keywords: AIX, Seguridad, RBAC, CLI, Sistema Operativo, Habilitar.
 :hardens: yes
 
 = Activar RBAC Extendido

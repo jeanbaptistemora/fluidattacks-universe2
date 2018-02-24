@@ -1,7 +1,7 @@
 :slug: hardens/java/filtrar-entrada-datos-regex/
 :category: java
 :description: Nuestros ethical hackers explican cómo evitar vulnerabilidades de seguridad mediante la programación segura en Java al filtrar entrada de datos usando expresiones regulares. Los datos de entrada de las aplicaciones deben ser validados para evitar ataques del tipos XSS, SQLi o XPATH.
-:keywords: Java, Seguridad, Filtrar, Datos, Regex, Validación, Entrada.
+:keywords: Java, Seguridad, Datos, Regex, Validación, Entrada.
 :hardens: yes
 
 = Filtrar Entrada de Datos Usando Expresión Regular

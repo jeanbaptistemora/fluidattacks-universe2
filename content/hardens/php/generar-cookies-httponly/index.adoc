@@ -1,7 +1,7 @@
 :slug: hardens/php/generar-cookies-httponly/
 :category: php
 :description: Nuestros ethical hackers explican cómo evitar vulnerabilidades de seguridad mediante la programación segura en PHP al generar cookies con HTTPOnly. Las cookies deben ser aseguradas debido a que contienen información que puede ser usada por un atacante para suplantar la identidad de un usuario.
-:keywords: PHP, Generar, Cookies, HTTPOnly, Seguridad.
+:keywords: PHP, Servidor, Generar, Cookies, HTTPOnly, Seguridad.
 :hardens: yes
 
 = Generar Cookies con HttpOnly

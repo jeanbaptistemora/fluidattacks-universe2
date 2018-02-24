@@ -1,7 +1,7 @@
 :slug: hardens/scala/limitar-tiempo-vida/
 :category: scala
 :description: Nuestros ethical hackers explican cómo evitar vulnerabilidades de seguridad mediante la creación, manipulación y eliminación correcta de datos o recursos dentro de un programa scala, con el fin de evitar que información confidencial disponible en memoria, sea vulnerable.
-:keywords: scala, información sensible, información confidencial, datos, buffer, búfer, credenciales, lectura segura.
+:keywords: Scala, Información Sensible, Datos, Buffer, Credenciales, Lectura segura.
 :hardens: yes
 
 = Limitar el tiempo de vida de datos sensibles

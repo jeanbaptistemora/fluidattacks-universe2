@@ -1,7 +1,7 @@
 :slug: hardens/cobol/sqli-sentencia-parametrizada/
 :category: cobol
-:description: Nuestros ethical hackers explican cómo evitar vulnerabilidades de seguridad mediante la programación segura en cobol al evitar que un intruso pueda realizar ataques de inyección sql para acceder a información relevante almacenada en la base de datos.
-:keywords: cobol, sentencias parametrizadas, sentencias estáticas, inyección sql, vulnerabilidad.
+:description: Nuestros ethical hackers explican cómo evitar vulnerabilidades de seguridad mediante la programación segura en COBOL al evitar que un intruso pueda realizar ataques de inyección sql para acceder a información relevante almacenada en la base de datos.
+:keywords: COBOL, Sentencias Parametrizadas, Sentencias Estáticas, Inyección SQL, Vulnerabilidad, Seguridad.
 :hardens: yes
 
 = Prevenir SQLi Mediante Sentencias Parametrizadas
