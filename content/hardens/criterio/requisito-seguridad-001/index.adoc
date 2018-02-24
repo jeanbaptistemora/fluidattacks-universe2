@@ -63,7 +63,7 @@ image::diag1-req001.png[Diagrama1]
 == Soluciones
 
 * Consultoría - Establecer el Inventario de Activos de Información.
-* Consultoría- Determinar la granuralidad de activo de información.
+* Consultoría- Determinar la granularidad de activo de información.
 * Consultoría - Determinar el Propietario de un Activo de Información​.
 * Consultoría - Responder a cuestionario inventario activos de información​.
 * ISO 27005 - Gestión de riesgos para un SGSI con ISO 27005.
