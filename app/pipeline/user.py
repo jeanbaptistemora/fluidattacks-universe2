@@ -19,7 +19,7 @@ def create_user(strategy, details, backend, user=None, *args, **kwargs):
         integrates_dao.update_user_login_dao(user)
     else:
         to = ["aroldan@fluidattacks.com", "glopez@fluidattacks.com", "projects@fluidattacks.com",
-              "production@fluidattacks.com", "technology@fluidattacks.com"]
+              "production@fluidattacks.com", "technology@fluidattacks.com", "ralvarez@fluidattacks.com"]
         name = first_name + ' ' + last_name
         context = {
             'name_user': name,
