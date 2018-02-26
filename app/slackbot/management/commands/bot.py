@@ -10,6 +10,7 @@ from django.core.management.base import BaseCommand
 from django.conf import settings
 # pylint: disable=F0401
 from app.dao import integrates_dao
+from app.mailer import send_mail_add_access
 
 # constants
 BOT_ID = 'U7H8PVATA'
@@ -114,6 +115,11 @@ syntax to use near ''' at line 1. Run this in your bash console \
                     integrates_dao.assign_company(user, company)
                 if integrates_dao.add_access_to_project_dao(user, project):
                     output = '*[OK]* Added access to *%s* to project *%s*.' % (user, project)
+                    to = [user]
+                    context = {
+                        'project': project,
+                    }
+                    send_mail_add_access(to, context)
                 else:
                     output = '*[FAIL]* Failed to give access. Verify the \
 email address and that the project *%s* is created.' % (project)

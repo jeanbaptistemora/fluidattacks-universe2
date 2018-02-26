@@ -48,3 +48,6 @@ def send_mail_verified_finding(email_to, context):
 
 def send_mail_new_remediated(email_to, context):
     __send_mail('newremediatefindingintegrates', email_to, context=context)
+
+def send_mail_add_access(email_to, context):
+    __send_mail('addaccessintegrates', email_to, context=context)
