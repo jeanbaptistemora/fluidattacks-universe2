@@ -7,6 +7,8 @@
 
 {% block title %}{{ gettext('Articles in the category') }} {{ category.name|replace("-", " ")|capitalize }} | {{ AUTHOR }}{% endblock %}
 
+{% block canonical %}<link rel="canonical" href="{{ SITEURL }}/{{ category.url }}">{% endblock canonical %}
+
 {% block header %}
   {% include "navigationbar.html" %}
   {% if HEADER_COVER %}

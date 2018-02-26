@@ -13,6 +13,8 @@
   {% endif %}
 {% endblock title %}
 
+{% block canonical %}<link rel="canonical" href="{{ SITEURL }}/error/">{% endblock canonical %}
+
 {% block header %}
   <!-- Page Header -->
   {% include "navigationbar.html" %}

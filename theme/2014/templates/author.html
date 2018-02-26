@@ -7,6 +7,8 @@
 
 {% block title %}{{ gettext('Articles by') }} {{ author }} | {{ AUTHOR }}{% endblock %}
 
+{% block canonical %}<link rel="canonical" href="{{ SITEURL }}/{{ author.url }}">{% endblock canonical %}
+
 {% block opengraph %}
   {{ super() }}
   <meta property="og:title" content="{{ SITENAME }} - Articles by {{ author }}">

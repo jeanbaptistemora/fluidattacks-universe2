@@ -7,6 +7,8 @@
 
 {% block title %}{{ gettext('Authors') }} | {{ SITENAME }}{% endblock title %}
 
+{% block canonical %}<link rel="canonical" href="{{ SITEURL }}/blog/{{ gettext('authors') }}/">{% endblock canonical %}
+
 {% block header %}
   {% include "navigationbar.html" %}
   {% if HEADER_COVER %}

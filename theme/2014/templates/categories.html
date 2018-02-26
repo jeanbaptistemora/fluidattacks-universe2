@@ -7,6 +7,8 @@
 
 {% block title %}{{ gettext('Categories') }} | {{ SITENAME }}{% endblock %}
 
+{% block canonical %}<link rel="canonical" href="{{ SITEURL }}/{{ gettext('categories') }}/">{% endblock canonical %}
+
 {% block header %}
   {% include "navigationbar.html" %}
   {% if HEADER_COVER %}

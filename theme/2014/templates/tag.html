@@ -18,6 +18,8 @@
   {% endif %}
 {% endblock %}
 
+{% block canonical %}<link rel="canonical" href="{{ SITEURL }}/{{ tag.url }}">{% endblock canonical %}
+
 {% block header %}
   {% include "navigationbar.html" %}
   {% if HEADER_COVER %}
