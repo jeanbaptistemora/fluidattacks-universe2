@@ -367,7 +367,7 @@ Place a word in single quotes
 +
 ....
 `word'
-.... 
+....
 
 * Render
 +
@@ -381,7 +381,7 @@ Place a word in double quotes
 +
 ....
 ``word''
-.... 
+....
 
 * Render
 +
@@ -389,7 +389,7 @@ Place a word in double quotes
 
 === Superscripts
 
-Place a word, 
+Place a word,
 or part of a word,
 as a superscript
 
@@ -405,7 +405,7 @@ as a superscript
 
 === Subscripts
 
-Place a word, 
+Place a word,
 or part of a word,
 as a subscript
 
@@ -505,7 +505,7 @@ to execute it once rendered. +
 Do not use this method,
 since the idea of Pelican
 is to separate content from style,
-so focus only on content in the .adocs 
+so focus only on content in the .adocs
 
 * Source
 +
@@ -769,7 +769,7 @@ A literal block is delimited by 4 dots before and after the content
 Hello
 ....
 
-==== Litearl - Option 2 - Do not use
+==== Literal - Option 2 - Do not use
 
 Setting a blank space as the first character of a line
 
@@ -1269,8 +1269,6 @@ Use the special class ``tb-alt''
 for this type of table.
 *DO NOT USE MULTILINE CELLS*.
 
-=== Questions and Answers
-
 * Source
 +
 ....
@@ -1311,13 +1309,14 @@ for this type of table.
 |Text 4
 |====
 
+=== Questions and Answers
+
 ....
 [qanda]
 Question 1::
    Answer 1
 Question 2::
-   Answer 2nse.
-       . Repeat.
+   Answer 2
 ....
 
 * Render
@@ -1326,8 +1325,7 @@ Question 2::
 Question 1::
    Answer 1
 Question 2::
-   Answer 2nse.
-       . Repeat.
+   Answer 2
 
 === Definitions
 
