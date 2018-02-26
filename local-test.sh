@@ -28,6 +28,8 @@ cp -r output/web/es/pages-es*/* output/web/es/ && rm -rf output/web/es/pages-es*
 cp -r output/web/en/pages-en*/* output/web/en/ && rm -rf output/web/en/pages-en*
 mv output/web/en/redirect/index.html output/web/ && rmdir output/web/en/redirect/
 cp robots.txt output/web/
+# Organize images of articles with draft status
+./draft.sh
 # Undo changes made to the file and change permissions of the files used by the container as root
 git checkout -- pelicanconf.py pelicanconf-2018.py
 chmod -R a+rwX {output/,pelicanconf.py,pelicanconf-2018.py,cache/}

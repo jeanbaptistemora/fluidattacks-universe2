@@ -43,7 +43,7 @@ pages:
   script:
     - if curl --fail -Lo artifacts.zip --header Private-Token:$DOCKER_PASSWD https://gitlab.com/api/v4/projects/$CI_PROJECT_ID/jobs/artifacts/$CI_COMMIT_REF_NAME/download?job=deploy; then unzip artifacts.zip; else echo "There are no artifacts"; fi
     - sed -i 's/output\/web/public/g' xmlcombine.sh
-    - sed -i 's/output/public/g' html-lint.sh
+    - sed -i 's/output/public/g' html-lint.sh draft.sh
     - for FILE in $(find . -iname '*.adoc'); do sed -i 's/^include::/include::\/builds\/fluidsignal/g' $FILE; done
     - pelican --fatal errors --fatal warnings -s pelicanconf-2018.py content/
     - ./xmlcombine.sh
@@ -51,6 +51,7 @@ pages:
     - cp -r public/es/pages-es-2018/* public/es/ && rm -rf public/es/pages-es-2018
     - cp -r public/en/pages-en-2018/* public/en/ && rm -rf public/en/pages-en-2018
     - mv public/en/redirect/index.html public/ && rmdir public/en/redirect/
+    - ./draft.sh
   artifacts:
     paths:
       - public
@@ -80,6 +81,8 @@ deploy:
     - mv output/web/en/redirect/index.html output/web/ && rmdir output/web/en/redirect/
     # Set robots.txt
     - mv robots.txt output/web/
+    # Organize images of articles with draft status
+    - ./draft.sh
     # Erase content of the S3 bucket
     - aws s3 rm --recursive "s3://$S3_BUCKET_NAME"
     # Set 301 redirects
