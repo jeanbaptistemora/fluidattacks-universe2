@@ -69,8 +69,8 @@ integrates.controller("findingcontentCtrl", function($scope, $stateParams, $time
             if(!response.error){
                 if(response.data.length > 0){
                     for (var i = 0; i < response.data.length; i++) {
-                        if(response.data[i].exploit !== undefined 
-                            && response.data[i].es_exploit == true 
+                        if(response.data[i].exploit !== undefined
+                            && response.data[i].es_exploit == true
                               && $scope.finding.cierres.length == 0){
                           var exploit = projectFtry.getExploit($scope.finding.id, response.data[i].exploit);
                           $scope.hasExploit = true;
@@ -113,8 +113,8 @@ integrates.controller("findingcontentCtrl", function($scope, $stateParams, $time
                             });
                         } else {
                             $scope.hasExploit = false;
-                }               
-                
+                }
+
             }
         });
     };
@@ -162,8 +162,8 @@ integrates.controller("findingcontentCtrl", function($scope, $stateParams, $time
           input.addEventListener( 'focus', function(){ input.classList.add( 'has-focus' ); });
           input.addEventListener( 'blur', function(){ input.classList.remove( 'has-focus' ); });
         });
-        $scope.evidenceDescription = [$('#evidenceText0').val(), $('#evidenceText1').val(), $('#evidenceText2').val(), 
-                                      $('#evidenceText3').val(), $('#evidenceText4').val(), $('#evidenceText5').val(), 
+        $scope.evidenceDescription = [$('#evidenceText0').val(), $('#evidenceText1').val(), $('#evidenceText2').val(),
+                                      $('#evidenceText3').val(), $('#evidenceText4').val(), $('#evidenceText5').val(),
                                       $('#evidenceText6').val()];
         var refList = []
         for(var i = 0; i < $scope.tabEvidences.length; i++) {
@@ -385,7 +385,7 @@ integrates.controller("findingcontentCtrl", function($scope, $stateParams, $time
               Rollbar.error("Error: An error occurred updating evidences");
               $msg.error(error_ac1);
               return false;
-          }     
+          }
         };
         var errorFunction = function(response){
           if(!response.error){
@@ -393,9 +393,9 @@ integrates.controller("findingcontentCtrl", function($scope, $stateParams, $time
               Rollbar.error("Error: An error occurred updating evidences");
               $msg.error(error_ac1);
               return false;
-          }      
+          }
         };
-        projectFtry.UpdateEvidenceFiles(data, responseFunction, errorFunction);        
+        projectFtry.UpdateEvidenceFiles(data, responseFunction, errorFunction);
     };
     updateEvidenceText = function(element){
         var evImage = $(element).attr('target');
@@ -408,7 +408,7 @@ integrates.controller("findingcontentCtrl", function($scope, $stateParams, $time
                 updateEvidencesFiles(element);
             } else {
                 return false;
-            }            
+            }
         } else {
             if(evImage == '2'){
               data.desc_evidencia_1 = description;
@@ -441,16 +441,16 @@ integrates.controller("findingcontentCtrl", function($scope, $stateParams, $time
                         updateEvidencesFiles(element);
                     } else {
                         location.reload();
-                    }                                        
+                    }
                     return true;
                 } else {
                     var error_ac1 = $translate.instant('proj_alerts.no_text_update');
                     Rollbar.error("Error: An error occurred updating evidences description");
                     $msg.error(error_ac1);
                     return false;
-                }           
+                }
             });
-        }        
+        }
     };
     $scope.deleteFinding = function(){
             //Obtener datos
@@ -865,7 +865,7 @@ integrates.controller("findingcontentCtrl", function($scope, $stateParams, $time
                           return item.el.attr('title');
                     }
                 }
-            });           
+            });
             //Init auto height in textarea
             if($("#infoItem").hasClass("active")){
               $timeout(function() {
@@ -975,12 +975,12 @@ integrates.controller("findingcontentCtrl", function($scope, $stateParams, $time
         req.then(function(response){
             if(!response.error){
               if(response.data.length > 0){
-                  for (var i = 0; i < response.data.length; i++) {               
+                  for (var i = 0; i < response.data.length; i++) {
                       if(response.data[i].animacion !== undefined && response.data[i].es_animacion == true){
                           var url = url_pre + response.data[i].animacion;
                           evidenceList.push({
                               "url": url,
-                              "name": $translate.instant('search_findings.tab_evidence.animation_exploit'), 
+                              "name": $translate.instant('search_findings.tab_evidence.animation_exploit'),
                               "desc": $translate.instant('search_findings.tab_evidence.animation_exploit'),
                               "ref": 0
                           });
@@ -1011,7 +1011,7 @@ integrates.controller("findingcontentCtrl", function($scope, $stateParams, $time
                           });
                       }
                       if($scope.finding.desc_evidencia_1 !== undefined
-                          && response.data[i].ruta_evidencia_1 !== undefined 
+                          && response.data[i].ruta_evidencia_1 !== undefined
                             && response.data[i].es_ruta_evidencia_1 == true){
                           var url = url_pre + response.data[i].ruta_evidencia_1;
                           evidenceList.push({
@@ -1211,13 +1211,13 @@ integrates.controller("findingcontentCtrl", function($scope, $stateParams, $time
                             "ref": 6
                         });
                     }
-                    $scope.tabEvidences = evidenceList;              
+                    $scope.tabEvidences = evidenceList;
               }
             } else {
                Rollbar.error(response.message);
             }
         });
-        
+
     };
     $scope.findingCommentTab = function(){
         if($scope.finding.id !== undefined){

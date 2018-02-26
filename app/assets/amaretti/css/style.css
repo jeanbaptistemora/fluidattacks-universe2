@@ -7293,9 +7293,9 @@ button.close {
   }
 }
 /* General styles for the modal */
-/* 
+/*
 Styles for the html/body for special modal where we want 3d effects
-Note that we need a container wrapping all content on the page for the 
+Note that we need a container wrapping all content on the page for the
 perspective effects (not including the modals and the overlay).
 */
 .modal-perspective,
@@ -20208,5 +20208,10 @@ div.dataTables_wrapper div.dataTables_length label select {
 @media screen and (max-width: 50em) {
   .inputfile-evidence + label strong {
     display: block;
+  }
+}
+@media (max-width: 767px) {
+   ul.no-title-responsive {
+     display: none;
   }
 }

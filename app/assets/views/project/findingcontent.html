@@ -569,14 +569,14 @@
                                                     class="integrates-image img-thumbnail img-responsive"
                                                     width="600" height="600"/>
                                             </a>
-                                        </div>                                        
+                                        </div>
                                       </div>
-                                      <div class="panel-footer" style="background-color: #fff;">                                        
+                                      <div class="panel-footer" style="background-color: #fff;">
                                         <div class="row">
                                             <label><b>{{'search_findings.tab_evidence.detail' | translate}}</b></label>
                                         </div>
-                                        <div class="row">                              
-                                            <p ng-show="onlyReadableTab3">{{ev.desc}}</p>                                            
+                                        <div class="row">
+                                            <p ng-show="onlyReadableTab3">{{ev.desc}}</p>
                                         </div>
                                       </div>
                                     </div>
@@ -597,9 +597,9 @@
                                       <div class="panel-footer" style="background-color: #fff;">
                                         <div class="row">
                                             <div class="box" style="text-align: center;">
-                                                <input type="file" 
-                                                    name="evidence{{ev.ref}}[]" 
-                                                    id="evidence{{ev.ref}}" 
+                                                <input type="file"
+                                                    name="evidence{{ev.ref}}[]"
+                                                    id="evidence{{ev.ref}}"
                                                     class="inputfile inputfile-evidence"
                                                     ng-show="!onlyReadableTab3"
                                                     enctype="multipart/form-data"
@@ -609,7 +609,7 @@
                                         </div>
                                         <div class="row">
                                             <label><b>{{'search_findings.tab_evidence.detail' | translate}}</b></label>
-                                        </div>                                        
+                                        </div>
                                         <div class="row">
                                             <div>
                                                 <textarea class="form-control"
@@ -643,31 +643,31 @@
                                     <i class="glyphicon glyphicon-edit"></i>  {{'search_findings.tab_evidence.editable' | translate}}
                                 </button>
                             </div>
-                        </div>                        
+                        </div>
                         <div class="row" style="margin-top: 15px;">
                             <div class="col-md-4 col-md-offset-6 col-xs-12 col-sm-12">
                                 <div class="box" style="text-align: center;" ng-show="!onlyReadableTab5">
                                     <input type="file"
-                                            name="evidence7[]"                                        
+                                            name="evidence7[]"
                                             id ="evidence7"
                                             class="inputfile inputfile-evidence"
                                             ng-show="!onlyReadableTab5"
                                             enctype="multipart/form-data"
                                             accept=".py"/>
                                     <label for="evidence7"><span></span> <strong><i class="glyphicon glyphicon-search"></i> Choose a file&hellip;</strong></label>
-                                </div> 
-                            
+                                </div>
+
                             </div>
-                        <div class="col-sm-2" style="text-align: center;">         
+                        <div class="col-sm-2" style="text-align: center;">
                               <button ng-show="!onlyReadableTab5"
-                                      target="7" 
-                                      onclick="updateEvidencesFiles(this);" 
+                                      target="7"
+                                      onclick="updateEvidencesFiles(this);"
                                       class = "btn btn-primary btn-block">
                                       <i class="glyphicon glyphicon-cloud-upload"></i>  {{'search_findings.tab_evidence.update' | translate}}
                               </button>
                             </div>
                         </div>
-                        
+
                     </div>
                       <pre prism-highlight source="{{exploitURL}}" class="language-python line-numbers"></pre>
                   </div>
@@ -721,7 +721,7 @@
                   </div>
                   <!-- End Tab Tracking -->
                   <!-- Start Tab Comment -->
-                  <div id="comment" class="tab-pane cont">                                         
+                  <div id="comment" class="tab-pane cont">
                     <div id="comments-container"></div>
                   </div>
                   <!-- End Tab Comment -->

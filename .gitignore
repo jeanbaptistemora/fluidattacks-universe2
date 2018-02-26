@@ -21,3 +21,4 @@ deploy/.terraform
 deploy/terraform.tfstate
 *.envrc
 env.list
+config/drive_client_secret.json
