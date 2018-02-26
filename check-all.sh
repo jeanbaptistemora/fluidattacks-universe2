@@ -81,13 +81,19 @@ if pcregrep -Lr --include='\.adoc' ':description:' content; then echo -e "${GC}E
 # Check that the meta description has a minimum lenght of 250 characters and a maximum length of 300 characters
 for FILE in $(find content -iname '*.adoc'); do
   if cat $FILE | pcregrep --color -o '(?<=:description: ).{307,}$|(?<=:description: ).{0,249}$'; then
-    echo -e "${GC}Descriptions must in [250-300] characters range. The previous description belongs to the file \"$FILE\"${NC}";
+    echo -e "${GC}Descriptions must be in [250-300] characters range. The previous description belongs to the file \"$FILE\"${NC}";
     ERRORS=1;
+  fi  
+
+# Check if there are exactly 6 keywords
+  NUMKEYWS=$(cat $FILE | pcregrep -o '(?<=^:keywords:).*' | tr , \\n | wc -l)
+  if [ $NUMKEYWS -ne 6 ]; then
+  	cat $FILE | pcregrep --color -o '(?<=^:keywords:).*';
+  	echo -e "${GC}There must be exactly 6 keywords. Please correct the file \"$FILE\"${NC}";
+  	ERRORS=1;
   fi
-#  if cat $FILE | tr -d "\n" | pcregrep --color -o ':description: .{1,49}:key'; then
-#    echo -e "${GC}Descriptions must have a minimum lenght of 50 characters. The previous description belongs to the file \"$FILE\"${NC}";
-#    ERRORS=1;
-#  fi
+
+# Check if first source code has title
   if pcregrep --color -Mq '^\[source' $FILE; then
     if ! pcregrep --color -Mq '^\..*\n\[source' $FILE; then
       echo -e "${GC}El primer código fuente del artículo \"$FILE\" debe llevar título.${NC}";
