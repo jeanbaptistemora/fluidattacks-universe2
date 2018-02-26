@@ -1,7 +1,13 @@
+//sass-lint:disable max-file-line-count
 $darkblue: rgba(29, 79, 114, 1);
 $dottedblue: rgba(66, 139, 202, 1);
+$gray: rgba(128, 128, 128, 1);
+$menublack: rgba(7, 27, 47, 1);
+$menublackopacity: rgba(7, 27, 47, .2);
 $menublue: rgba(20, 88, 142, 1);
 $submenublue: rgba(27, 117, 187, 1);
+$transparent: rgba(0, 0, 0, 0);
+$transparentblack: rgba(0, 0, 0, .5);
 $white: rgba(255, 255, 255, 1);
 
 @mixin link {
@@ -17,7 +23,7 @@ $white: rgba(255, 255, 255, 1);
 
 @mixin menu-pseudo {
   content: '';
-  left: 115px;
+  left: 235px;
   position: absolute;
   width: 20px;
 }
@@ -176,8 +182,10 @@ $white: rgba(255, 255, 255, 1);
 .fluid-screw {
   float: left;
   left: 2px;
+  margin-right: 20px;
   position: relative;
-  top: 20px;
+  top: 22px;
+  width: 150px;
   z-index: 2;
 }
 
@@ -191,10 +199,15 @@ $white: rgba(255, 255, 255, 1);
   padding-top: 72px;
 }
 
-@media (min-width: 880px) {
+@media (min-width: 990px) {
+  .intro-header {
+    padding-top: 0;
+  }
+
   .cssmenu {
-    border-bottom: 5px solid $darkblue;
+    background-color: transparent;
     height: 72px;
+    transition: background-color .2s;
   }
 
   .has-sub {
@@ -204,8 +217,9 @@ $white: rgba(255, 255, 255, 1);
 
     &:hover {
       ul {
-        background: $menublue;
+        background: $menublack;
         display: block;
+        transition: background-color .2s;
       }
 
       &::before {
@@ -231,13 +245,27 @@ $white: rgba(255, 255, 255, 1);
   }
 
   .m-opened {
-    background: $menublue;
+    background-color: $menublackopacity;
     border-top: 0;
+    min-height: 72px;
+    transition: background-color .2s;
 
     li {
+      border-top: 0;
       display: inline-block;
-      padding-top: 5px;
+      min-height: 72px;
+      padding-top: 7px;
       width: auto;
+
+      &:hover {
+        background-color: $transparentblack;
+      }
+    }
+  }
+
+  .m-link {
+    &:hover {
+      background-color: $transparent;
     }
   }
 
@@ -251,6 +279,8 @@ $white: rgba(255, 255, 255, 1);
     position: absolute;
 
     li {
+      border-top: 1px dotted $gray;
+      min-height: 61px;
       min-width: 260px;
       padding-top: 0;
     }
@@ -258,5 +288,34 @@ $white: rgba(255, 255, 255, 1);
 
   .fluid-screw {
     left: 6px;
+    margin-right: 5px;
+  }
+
+  .css-scrolled {
+    background-color: $menublue;
+    border-bottom: 5px solid $darkblue;
+    transition: background-color .2s;
+  }
+
+  .m-scrolled {
+    background-color: $menublue;
+    min-height: auto;
+    transition: background-color .2s;
+
+    li {
+      min-height: auto;
+
+      &:hover {
+        background-color: $darkblue;
+      }
+    }
+  }
+
+  .has-sub-scrolled {
+    &:hover {
+      ul {
+        background: $menublue;
+      }
+    }
   }
 }

@@ -41,7 +41,7 @@ organizing the content in a dropdown menu.
         resizeFix = function() {
           var mainmenu = cssmenu.find('.menu-button');
           var submenu = cssmenu.find('.submenu-button');
-          if ($( window ).width() >= 865) {
+          if ($( window ).width() >= 975) {
             if (!cssmenu.children('ul').hasClass('m-opened')) {
               cssmenu.children('ul').toggleClass('m-opened')
             }
@@ -50,7 +50,7 @@ organizing the content in a dropdown menu.
             }
           }
 
-          if ($(window).width() < 865) {
+          if ($(window).width() < 975) {
             cssmenu.children('ul').removeClass('m-opened');
             cssmenu.find('ul li ul').removeClass('sm-opened');
             mainmenu.removeClass('menu-opened');
@@ -65,10 +65,24 @@ organizing the content in a dropdown menu.
 })(jQuery);
 
 (function($){
-$(document).ready(function(){
-$(".cssmenu").menumaker({
-   title: "Menu",
-   format: "multitoggle"
-});
-});
+  $(document).ready(function(){
+    $(".cssmenu").menumaker({
+       title: "Menu",
+       format: "multitoggle"
+    });
+  });
 })(jQuery);
+
+$(document).scroll(function () {
+  var ScrollTop = $(document).scrollTop();
+  if (ScrollTop == 0 && $(".css-scrolled").length) {
+    $(".css-scrolled").toggleClass("css-scrolled");
+    $(".m-scrolled").toggleClass("m-scrolled");
+    $(".has-sub-scrolled").toggleClass("has-sub-scrolled");    
+  }
+  else if (ScrollTop > 0 && !$(".css-scrolled").length) {
+    $(".cssmenu").toggleClass("css-scrolled");
+    $(".m-opened").toggleClass("m-scrolled");
+    $(".has-sub").toggleClass("has-sub-scrolled");
+  }
+});
