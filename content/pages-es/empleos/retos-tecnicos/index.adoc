@@ -6,30 +6,47 @@
 
 = Retos Técnicos
 
-Esta etapa que vamos a comenzar ahora es una etapa que ocurrirá durante el resto del proceso de selección, es decir, es paralela a las demás etapas del proceso (entrevistas, exámenes, pruebas psicotécnicas, etc), y por ende entre más avance desde ahora en ella, mayor es la probabilidad que cuando finalicen las demás etapas usted ya tenga finalizado el proceso y pueda ser evaluado antes que los demás participantes.
+Esta etapa es paralela a las demás etapas del proceso (entrevistas, exámenes, pruebas psicotécnicas, etc.) y 
+por ende, entre más avance desde ahora en ella, 
+mayor es la probabilidad que cuando finalicen las demás etapas, 
+usted pueda ser evaluado antes que los demás participantes.
 
-Esta etapa también es una especie de salvavidas en el proceso de selección, pues usted puede no estar graduado, no tener experiencia, o que el resultado de su examen de conocimiento actual sea bajo, pero fue capaz de finalizar esta etapa, usted evidenciará que tiene la competencia más valiosa: aprender de cosas nuevas sobre la marcha y aplicarlas para resolver problemas reales. Esto, con la calidad humana, tiene mayor peso que todo lo demás.
+También puede considerarse como una especie de salvavidas en el proceso, 
+pues usted puede no estar graduado, no tener experiencia, 
+o que el resultado de su examen de conocimiento sea bajo, 
+pero si fue capaz de finalizar esta etapa, 
+usted evidenciará que tiene la competencia más valiosa: 
+aprender de cosas nuevas sobre la marcha y aplicarlas para resolver problemas reales. 
+Esto, con la calidad humana, que tiene mayor peso que todo lo demás.
 
 == 1. Objetivos
 
-En esta etapa se busca que usted evidencie mediante ejercicios prácticos sus competencias técnicas en problemas parecidos a los que enfrentará en FLUID, y con las cuales podrá solucionar de forma efectiva problemas de nuestros clientes en el ámbito de la seguridad. También demuestra que usted será un compañero valioso para enriquecer a los miembros actuales del equipo de trabajo.
+En esta etapa se busca que usted evidencie mediante ejercicios prácticos sus competencias técnicas en problemas parecidos a los que enfrentará en FLUID, 
+y con las cuales podrá solucionar de forma efectiva problemas de nuestros clientes en el ámbito de la seguridad. 
+También demuestra que usted será un compañero valioso para enriquecer a los miembros actuales del equipo de trabajo.
 
-Los retos técnicos se dividen en dos categorías, retos de hacking y retos de programación. Con los primeros usted demuestra su habilidad y astucia para sobrepasar controles de seguridad, con los segundos usted demuestra que está en capacidad de rápidamente entender un programa, comprender un lenguaje, y por ende le será más fácil auditar código fuente y encontrar vulnerabilidades.
+Los retos técnicos se dividen en retos de hacking y retos de programación. 
+Con los primeros usted demuestra su habilidad y astucia para sobrepasar controles de seguridad, 
+con los segundos usted demuestra que está en capacidad de rápidamente entender un programa, 
+comprender un lenguaje y por ende, le será más fácil auditar código fuente y encontrar vulnerabilidades.
 
-Para los retos de programación usted puede utilizar la plataforma Codeabbey. Para los retos de hacking usted puede utilizar cualquier sitio indexado por Wechall (no aplica la resolución de retos tipo adivinanzas o juegos mentales, solo retos que impliquen destreza técnica).
+Para los retos de programación usted puede utilizar la plataforma Codeabbey. 
+Para los retos de hacking usted puede utilizar cualquier sitio indexado por Wechall 
+(no aplican retos tipo adivinanzas o similares, solo retos que impliquen destreza técnica).
 
-El envío de soluciones se deberá realizar a través de nuestro repositorio Git, en el cual FLUID realiza sus procesos de selección y
-formación de personal.  La filosofia es fomentar el aprendizaje a partir de la solución activa de problemas y desestimular el aprendizaje pasivo.
+La filosofía es fomentar el aprendizaje a partir de la solución activa de problemas y 
+desestimular el aprendizaje pasivo.
 
-El repositorio contiene las soluciones a retos computacionales publicos construidos en el contexto anterior.  Al hacer los retos publicos buscamos los siguientes objetivos:
+El repositorio contiene las soluciones a retos computacionales públicos construidos en el contexto anterior. 
+Al hacer los retos públicos buscamos:
 
 . Fomentar la solución de retos no resueltos,
 
-. Si el reto esta resuelto, fomentar la solución del reto de otra forma,
+. Si el reto está resuelto, fomentar la solución del reto de otra forma,
 
-. Si el reto esta resuelto, hacer evidente la similitud de la nueva solución.
+. Si el reto está resuelto, hacer evidente la similitud de la nueva solución.
 
-. Darle vida a las soluciones financiadas por FLUID,
+. Darles vida a las soluciones financiadas por FLUID,
 
 . Permitir a terceros visualizar los entregables de nuestro equipo.
 
@@ -40,51 +57,67 @@ del desarrollo de las personas en formación,
 
 . Desde etapas tempranas familiarizar a potenciales talentos con las
 herramientas (git, asciidoc, python, gherkin, etc) y conceptos
-(automatización, pruebas de unidad, integración continua, "linting") que
+(automatización, pruebas de unidad, integración continua, linting, etc.) que
 utilizarán en su labor diaria en FLUID,
 
 . Hacer visible a la comunidad y al equipo los resultados propios (presión de
 pares).
 
-
 == 2. Requerimientos previos
 
-. Registrarse en GitLab usando su correo electronico personal y creando el ID de
+. Registrarse en GitLab usando su correo electrónico personal y creando el ID de
 *GitLab* que más le guste.
-. Unirte a nuestro https://join.slack.com/t/autonomicmind/shared_invite/enQtMjg4ODI4NjM3MjY3LWUxMTNmMjk3MDdkMDAzYWY0ZjQ3MzNlYjUzZjM3NTM3MDVmYTliN2YyNGViZGUyNzUxOTAzNTdmZDQ5NWNjNGI[canal de Slack], en donde encontrará personal de FLUID y otros candidatos actualmente en esta etapa, quienes podrán guiarlo con soluciones a dudas puntuales o inconvenientes que le surjan.
-. Solicitarnos el permiso de acceso al repositorio vía Slack presentándote a los demás con el siguiente mensaje:
+
+. Unirse a nuestro link:https://join.slack.com/t/autonomicmind/shared_invite/enQtMjg4ODI4NjM3MjY3LWUxMTNmMjk3MDdkMDAzYWY0ZjQ3MzNlYjUzZjM3NTM3MDVmYTliN2YyNGViZGUyNzUxOTAzNTdmZDQ5NWNjNGI[canal de Slack], 
+en donde encontrará personal de FLUID y otros candidatos actualmente en esta etapa, 
+quienes podrán guiarlo en caso de tener dudas o inconvenientes.
+
+. Solicitar el permiso de acceso al repositorio vía Slack presentándote a los demás con el siguiente mensaje:
 [quote]
 ____________________________________________________________________
-He leído y entendido toda la documentación de los retos técnicos, acepto las condiciones y por ende solicito acceso al repo Git con mi usuario [nombreDeUsuario] en gitlab
+He leído y entendido toda la documentación de los retos técnicos, 
+acepto las condiciones y por ende solicito acceso al repo Git con mi usuario [nombreDeUsuario] en GitLab
 ____________________________________________________________________
 
 == 3. Instrucciones
 
-. Identifique 40 retos que tienen solución en Internet pero no en nuestro repositorio (también denominados OTHERS),
-. Resuelva 10 retos de programación que no tienen solución, ni en nuestro repositorio ni identificada (punto 1),
-. Resuelva 10 retos de hacking que no tienen solución, ni en nuestro repositorio ni identificada (punto 1).
+. Identifique 40 retos que tienen solución en Internet, pero no en nuestro repositorio (también denominados OTHERS),
+
+.. Los enlaces de los OTHERS deben ser enlaces directos (HTTP 200) y sin redirección (HTTP 302).
+
+. Resuelva 10 retos de programación que no tienen solución, 
+ni en nuestro repositorio ni identificada (punto 1),
+
+.. Para retos de programación, 
+una solución es válida si no ha sido resuelta en el lenguaje que usted pretende solucionarlo. 
+
+. Resuelva 10 retos de hacking que no tienen solución, 
+ni en nuestro repositorio ni identificada (punto 1).
 
 == 4. Repositorio
 
-El repositorio donde usted debe enviar sus soluciones es el siguiente: https://gitlab.com/autonomicmind/training/. Por favor lea atentamente las siguientes pautas para trabajar en este repositorio Git:
+El repositorio donde usted debe enviar sus soluciones es el siguiente: link:https://gitlab.com/autonomicmind/training/[click aquí]
+Por favor lea atentamente las siguientes pautas para trabajar en este repositorio Git:
 
-* *Contenido*: Utilizar espacios en vez de tabuladores.  Parametrice su editor de texto
-favorito para que le facilite esta tarea.
+* *Contenido*: Utilizar espacios en vez de tabuladores. 
+Parametrice su editor de texto favorito para que le facilite esta tarea.
 
-* *Programas*: Para las soluciones a retos que correspondan a código fuente debe
-utilizarse la extensión y guias de estilo propias del lenguaje. Adicionalmente
-utilizar los *linters* correspondientes en la configuración estandar más
-estricta posible.
+* *Programas*: Para las soluciones a retos que correspondan a código fuente debe 
+utilizarse la extensión y guías de estilo propias del lenguaje. 
+Adicionalmente utilizar los *linters* correspondientes en la 
+configuración estándar más estricta posible.
 
-* *Integración continua (CI / CD)*: Es importante mencionar que el formato es reforzado mediante
-scripts que se encuentran en el repositorio, y que se encuentran disponibles
-para que usted los utilice y mejore.  Del mismo modo estos scripts son
-utilizados en el proceso de integración continua para verificar su estricto
-cumplimiento antes de recibir satisfactoriamente las soluciones enviadas por
-usted. Puede ver todas las bitacoras de compilación historicas y de otros
-participantes https://gitlab.com/autonomicmind/training/pipelines[aquí].
+* *Integración continua (CI / CD)*: El formato es reforzado mediante 
+scripts que se encuentran en el repositorio y que se encuentran disponibles
+para que usted los utilice y mejore. 
+Estos scripts son utilizados en el proceso de integración 
+continua para verificar su estricto cumplimiento antes de recibir 
+satisfactoriamente las soluciones enviadas por usted. 
+Puede ver todas las bitácoras de compilación históricas y de otros
+participantes link:https://gitlab.com/autonomicmind/training/pipelines[aquí].
 
-* *Estructura del repositorio:* Los soluciones a los retos se almacenan en la carpeta llamada **challenges**. En esta carpeta se debe manejar la siguiente estructura:
+* *Estructura del repositorio:* Los soluciones a los retos se almacenan en la carpeta llamada *challenges*.
+En esta carpeta se debe manejar la siguiente estructura:
 
 ** sitio (directorio)
 *** código del reto (directorio)
@@ -98,8 +131,8 @@ participantes https://gitlab.com/autonomicmind/training/pipelines[aquí].
 ***** link:https://gitlab.com/autonomicmind/training/tree/master/challenges/codeabbey/005/henryval.java[henryval.java]
 
 * El nombramiento de todos los archivos y directorios, a excepción de sus
-archivos, debe realizarse en minuscula, sin caracteres especiales y en caso
-excepcional de requerir espacios usar *-* (guion) como sustituto.
+archivos, debe realizarse en minúscula, sin caracteres especiales y en caso de requerir
+espacios usar *-* (guion) como sustituto.
 
 * *Archivos Especiales:* En algunas carpetas de la estructura se encuentran algunos archivos
 especiales de control:
@@ -110,114 +143,129 @@ Este archivo solo debe contener una linea y visitar el enlace debe
 generar la respuesta 200 (sin redirección).
 
 ** *DATA.txt:* Contiene los casos de prueba con los cuales se han verificado
-los retos.  En muchos casos provienen del sitio original, pero durante
-el desarrollo se crear otros que pueden ser necesarios. Este archivo
-solo debe contener casos de prueba que sea inmediatamente procesables
-por cualquier archivo de solución.
+los retos. Este archivo solo debe contener casos de prueba que sea 
+inmediatamente procesables por cualquier archivo de solución.
 
-** *OTHERS.txt:* Contiene los enlaces (uno por linea) a las soluciones a dicho
+** *OTHERS.txt:* Contiene los enlaces (uno por línea) a las soluciones a dicho
 reto que se encuentran en Internet y que no deben leerse ni utilizarse
-como referencia para resolver el reto.  Este archivo permite que un script
-automatico realice el analisis de similitud con los retos enviados por los
-candidatos.
+como referencia para resolver el reto. 
+Este archivo permite que un script automático realice el análisis de similitud 
+con los retos enviados por los candidatos.
 
-** *LANG.txt:* Este archivo solo existe para algunos sitios de retos,
-especialmente para sitios de retos de programación.  Cuando existe indica
-los lenguajes de programación que pueden ser usados para resolver retos
-de las subcarpetas donde se encuentra el archivo.  Si contiene multiples
-lenguajes significa que debe utilizarse de forma secuencial (round robin)
-cada lenguaje para construir más soluciones de dicha subcarpeta.
+** *LANG.txt:* Cuando existe indica los lenguajes de programación que 
+pueden ser usados para resolver retos de las subcarpetas donde se 
+encuentra el archivo. 
+Si contiene múltiples lenguajes significa que debe utilizarse de forma 
+secuencial (round robin) cada lenguaje para construir más soluciones 
+de dicha subcarpeta.
 
 == 5. Versionamiento
 
-Todos los archivos relacionados con la resolución de retos, se deben almacenar en este repositorio GIT en la estructura
-de retos indicada.
-{nbsp} +
-{nbsp} +
-Se espera que por cada reto usted realice un commit que agrupe los cambios
-correspondientes a la solución y que gradualmente usted realice **merge
-requests** a la rama **master** del repositorio en cuestión para solicitar
-la inclusión de sus soluciones. Los
-https://gitlab.com/autonomicmind/training/merge_requests[merge request] pendientes de
-revisión y aprobación, asi como todos los realizados en el pasado pueden
-verse en el enlace indicado.
-{nbsp} +
-{nbsp} +
-Para cada **merge request** que usted envíe, se realiza un proceso de
-integración continua que verifica de forma automatica el cumplimiento de
-algunas de las reglas indicadas en este documento.  Solo cuando el proceso
-de integración pasa sin errores (en verde), su **merge request** es integrado
-al repositorio.  Los resultados de la integración pueden verse siempre en
-https://gitlab.com/autonomicmind/training/pipelines[GitLab-CI].
+A tener en cuenta:
+
+* Los cambios se deben realizar en una *rama personal*,
+la cual debe llevar el mismo nombre de su usuario en GitLab.
+
+* Todos los archivos relacionados con la resolución de retos deben respetar la link:#repositorio[estructura indicada].
+
+* Si una de sus soluciones de hacking requiere un script adicional,
+deberá incluirlo en el mismo directorio.
+
+* Por cada reto usted deberá realizar un commit que agrupe los cambios
+correspondientes a la solución y a los *OTHERS* (2 por cada reto) y luego,
+un *merge request* para solicitar la inclusión de sus soluciones.
+
+* Un *merge request* debe tener un solo commit.
+
+* El mensaje del commit debe tener el siguiente link:https://gitlab.com/autonomicmind/training/blob/master/templates/commit-msg.txt[formato].
+
+Los link:https://gitlab.com/autonomicmind/training/merge_requests[merge request] 
+pendientes de revisión y aprobación, 
+así como todos los realizados en el pasado pueden verse en el enlace indicado.
+
+Para cada *merge request* que usted envíe, se realiza un proceso de
+integración continua que verifica automáticamente el cumplimiento de
+algunas de las reglas aquí definidas.  
+Solo cuando el proceso de integración pasa sin errores (en verde), 
+su *merge request* es integrado al repositorio. 
+Los resultados de la integración pueden verse siempre en
+link:https://gitlab.com/autonomicmind/training/pipelines[GitLab-CI].
 
 == 6. Local Builds:
 
-El GitLab Runner es una herramienta que realiza la integración continua del repositorio cada vez que se introduce un cambio. La herramienta se ejecuta automaticamente en la plataforma de GitLab, pero es posible correr integraciones locales con el fin de identificar errores antes de hacer commits o merge requests al repositorio. Para esto, se debe instalar el GitLab Runner en el equipo, de la siguiente manera:
+Es posible correr integraciones locales con el fin de identificar errores antes de hacer push o merge requests al repositorio. 
+Para esto, se deben ejecutar los siguientes comandos:
 
-* *En Sistemas Operativos Linux:*
+* *En Sistemas Operativos GNU/Linux:*
 
 . Instalar curl,
 
     sudo apt-get update
     sudo apt-get install curl
 
-. Instalar https://docs.docker.com/engine/installation/#server[Docker], escogiendo
-la versión correspondiente a la distribución de Linux,
-. Añadir el repositorio oficial de GitLab,
+. Instalar Nix,
 
-    curl -L https://packages.gitlab.com/install/repositories/runner/gitlab-runner/script.deb.sh | sudo bash
+    curl https://nixos.org/nix/install | sh
 
-. Instalar el Runner,
+. Definir sus credenciales de acceso,
 
-    sudo apt-get install gitlab-runner
+    export DOCKER_USER=usuarioEnGitlab
+    export DOCKER_PASS=contraseñaEnGitlab
 
-. Ir al directorio donde se encuentra clonado el repositorio de training,
+. Compilar y probar
 
-    cd ~/example/training
+    ./build.nix
 
-. Revisar que se está trabajando sobre la rama correspondiente al talento,
-
-    git branch
-
-. Si no es así, cambiar a la rama del talento,
-
-    git checkout rama_talento
-
-. Luego, ejecutar la integración con los siguientes comandos,
-
-    gitlab-ci-multi-runner exec docker precommit_job
-    gitlab-ci-multi-runner exec docker scons_job
-
-. Si la integración fue exitosa, añadir los cambios, hacer commit y subir los
-archivos a la rama del talento (si no fue exitosa, corregir el error y ejecutar
-los dos comandos anteriores),
+. Si la integración fue exitosa (Job succeeded), añadir los cambios, hacer commit y 
+a su rama personal. 
+Si no fue exitosa, corregir el error y compilar nuevamente,
 
     git add .
     git commit -m "Ejemplo"
-    git push origin rama_talento
+    git push origin ramaPersonal
 
-. Por último, hacer merge request a la rama master. Un https://gitlab.com/autonomicmind/training/merge_requests/171[ejemplo] de un ** merge request**.
+. Por último, hacer merge request a la rama master. 
+Un link:https://gitlab.com/autonomicmind/training/merge_requests/750[ejemplo] de un *merge request*.
 
-* *En Sistemas Operativos Windows:* La forma de ejecutar la integración desde Docker no se encuentra todavía disponible para Windows y, al basarse la integración en Linux, esto hace que el proceso en Windows sea más complicado. Se sugiere instalar un software de virtualización (https://my.vmware.com/en/web/vmware/free#desktop_end_user_computing/vmware_workstation_player/14_0[VMware],
-https://www.virtualbox.org/wiki/Downloads[Virtualbox]) y crear una máquina virtual
-basada en una distribución de Linux (e.g. https://www.ubuntu.com/download/desktop[Ubuntu],
-o la de su preferencia) y aplicar el proceso descrito anteriormente para Sistemas
+* *En Sistemas Operativos Windows:* La forma de ejecutar la integración no se encuentra todavía disponible para Windows y 
+al basarse la integración en Linux, 
+esto hace que el proceso en Windows sea más complicado. 
+Se sugiere instalar un software de virtualización (link:https://my.vmware.com/en/web/vmware/free#desktop_end_user_computing/vmware_workstation_player/14_0[VMware],
+link:https://www.virtualbox.org/wiki/Downloads[Virtualbox]) y crear una máquina virtual
+basada en una distribución de Linux (e.g. link:https://www.ubuntu.com/download/desktop[Ubuntu],
+o la de su preferencia) y aplicar el proceso descrito anteriormente para Sistemas 
 Operativos Linux.
 
 == 7. Recomendaciones
 
-La clave para cumplir los 3 objetivos enunciados es primero crear 40 archivos OTHERS.txt en carpetas de retos que no lo tengan. Luego buscar retos que no tengan solución ni en OTHERS.txt ni en el repositorio, y trabajar en resolver el reto en la respectiva plataforma. Para retos de lenguajes de programación, una solución es válida si no ha sido resuelta en el lenguaje que usted pretende solucionarlo. Una sugerencia es seleccionar un lenguaje no muy usado y resolver los retos en dicho lenguaje.
+Para cumplir los link:#instrucciones[3 objetivos enunciados] se sugiere primero crear 40 archivos OTHERS.txt en carpetas de retos que no lo tengan. 
+Luego buscar retos que no tengan solución ni en OTHERS.txt ni en el repositorio y
+trabajar en resolver el reto en la respectiva plataforma.
 
-Apreciamos que envíe los 40+10+10 archivos a medida que avances en los retos, que para cada conjunto de archivos de un reto se tenga un commit separado, y finalmente que esto se haga en el menor tiempo posible. Este proceso de cualquier forma le ayudará a que su perfil en Internet como hacker y como programador mejore, por ende no solo será un mecanismo de aprendizaje, sino que su reputación mejorará también.
+Al momento de solucionar retos de programación, 
+se sugiere usar un lenguaje no muy usado y 
+resolver los retos en dicho lenguaje.
 
-Una vez tenga acceso al repositorio, antes de enviar un Merge Request, por favor lea los siguientes https://gitlab.com/autonomicmind/training/wikis/home[requisitos].
+Una vez tenga acceso al repositorio, 
+antes de enviar un Merge Request, 
+por favor lea los siguientes link:https://gitlab.com/autonomicmind/training/wikis/home[requisitos].
+
+Otros sitios para entrenar:
+
+. link:http://codecondo.com/coding-challenges/[]
+. link:https://www.reddit.com/r/learnprogramming/comments/244yqk/sites_like_project_euler/[]
 
 == 8. Informes de avance
 
-Apreciaremos mucho que nos informe de sus avances mínimo 1 vez cada semana, utilizando el [button]#link:https://fluidattacks.com/forms/training[siguiente formulario >>]#.
-Al diligenciar el anterior formulario ,por favor tenga en cuenta lo siguiente:
-. En el campo “Relación”, escoger la opción “Selección”, dado que estas reportando tu avance en medio del proceso de selección
-. Tenga en cuenta su posición en el ranking y su puntaje antes de comenzar el entrenamiento, pues necesitará estos datos al momento de registrar los campos "Ranking Mundial Inicial", "Ranking Colombia Inicial" y "Puntaje/Páginas Inicial"
+Apreciaremos mucho que nos informe de sus avances mínimo 1 vez cada semana,
+mediante el siguiente[button]#link:https://fluidattacks.com/forms/training[formulario >>]#.
+Al diligenciar el informe, 
+por favor presente lo siguiente:
+
+. En el campo “Relación”, escoger la opción “Selección”.
+. Tenga en cuenta su posición en el ranking y su puntaje antes de comenzar el entrenamiento, 
+pues necesitará estos datos al momento de registrar los campos "Ranking Mundial Inicial", 
+"Ranking Colombia Inicial" y "Puntaje/Páginas Inicial"
 . Los puntajes o posiciones en el ranking finales puede obtenerlos de la siguiente forma:
 
 * En Codeabbey (Para retos de programación):
@@ -232,62 +280,58 @@ image::ranking-wechall.png[Ranking en Wechall]
 
 == 9. Fin de la etapa
 
-Esta etapa finaliza cuando usted haya completado los objetivos anteriormente mencionados y nos envíe vía e-mail los 40+10+10 archivos referentes a las soluciones realizadas por usted.
+Esta etapa finaliza cuando usted haya completado los objetivos anteriormente mencionados y 
+nos envíe vía e-mail los 40+10+10 archivos referentes a las soluciones realizadas por usted.
 
-Por favor tenga en cuenta que durante esta etapa la continuidad es fundamental ya que *de no haber movimiento en 14 días calendario, se dará por terminado el proceso de selección*. Usted puede volver a presentarse, sin embargo deberá comenzar desde la primera etapa nuevamente.
+Por favor tenga en cuenta que durante esta etapa la continuidad es fundamental, 
+ya que *de no haber movimiento en 14 días calendario, 
+se dará por terminado el proceso de selección*. 
 
-* Entiendase movimiento como push al repositorio git.
+Usted puede volver a presentarse, sin embargo, 
+deberá comenzar desde la primera etapa nuevamente.
+
+* Entiéndase movimiento como push al repositorio git.
 
 == 10. Preguntas
 
-* Antes de realizar una pregunta, le rogamos encarecidamente leer nuevamente
-este documento, las instrucciones enviadas por correo (de aplicar) y las
-https://gitlab.com/autonomicmind/training/issues?scope=all&utf8=%E2%9C%93&state=closed[preguntas
-realizadas en el pasado] por otros participantes.
+* Antes de realizar una pregunta, por favor lea nuevamente este documento y 
+las link:https://fluidattacks.com/web/es/empleos/faq/[preguntas realizadas en el pasado] por otros participantes.
 
-* Recuerda que también puedes realizar preguntas puntuales en nuestro https://join.slack.com/t/autonomicmind/shared_invite/enQtMjg4ODI4NjM3MjY3LWUxMTNmMjk3MDdkMDAzYWY0ZjQ3MzNlYjUzZjM3NTM3MDVmYTliN2YyNGViZGUyNzUxOTAzNTdmZDQ5NWNjNGI[canal de Slack].
-
-* Otros sitios para entrenar:
-
-. http://codecondo.com/coding-challenges/
-. https://www.reddit.com/r/learnprogramming/comments/244yqk/sites_like_project_euler/
+* Puede expresar sus dudas en el canal *#general* de nuestro link:https://join.slack.com/t/autonomicmind/shared_invite/enQtMjg4ODI4NjM3MjY3LWUxMTNmMjk3MDdkMDAzYWY0ZjQ3MzNlYjUzZjM3NTM3MDVmYTliN2YyNGViZGUyNzUxOTAzNTdmZDQ5NWNjNGI[Slack].
 
 == 11. Propiedad Intelectual
-
-* Los derechos patrimoniales sobre el contenido de este repositorio se encuentran definidos en el archivo https://gitlab.com/autonomicmind/training/blob/master/COPYRIGHT.txt[COPYRIGHT].
+ 
+* Los derechos patrimoniales sobre el contenido de este repositorio se encuentran definidos en el archivo link:https://gitlab.com/autonomicmind/training/blob/master/COPYRIGHT.txt[COPYRIGHT].
 * La licencia y privilegios que tienen los usuarios de este repositorio
-se encuentran definidos en el archivo https://gitlab.com/autonomicmind/training/blob/master/LICENSE.txt[LICENSE].
-* Realizar un **merge request** al mismo implica la cesión de derechos
-patrimoniales.  Por ende la información aqui contenida puede ser usada
-por el propietario (FLUID) para cualquier fin comercial,
+se encuentran definidos en el archivo link:https://gitlab.com/autonomicmind/training/blob/master/LICENSE.txt[LICENSE]. 
+* Realizar un *merge request* implica la cesión de derechos patrimoniales.
+Por ende, la información aquí contenida puede ser usada
+por FLUID para cualquier fin comercial,
 siempre preservando los derechos morales de sus autores.
 
 === Plagio
 
-La idea de tener las soluciones disponibles para su visualización propone un reto para el plagio, ¿cómo mostrarle al mundo las soluciones y evitar el plagio?  El plagio no es un problema técnico, es un problema moral
-de atribuirse lo que no fue realizado por uno mismo como propio.
-{nbsp} +
-{nbsp} +
-Para evitar el plagio precisamente buscamos la visibilidad y la declaración
-explicita de autoría de cada algoritmo en un lugar centralizado, de esta
-forma queda evidencia clara de la atribución y puede ser sometido a
-escrutinio publico el acto de plagio.
-{nbsp} +
-{nbsp} +
-Es decir, el modelo actual propuesto, evita el plagio a partir de la
-transparencia total.  No hay que hacer nada mas, cada **merge request** es una
-declaración de autoria y la ubicación de la solución en el lugar donde
-facilite el calculo de similaridad le hace a un humano encontrar el
-plagio.
-{nbsp} +
-{nbsp} +
-De todas formas FLUID trabaja activamente en aplicar tecnicas de detección
-de similitud algoritmica sobre todo el código que sea enviado.  En particular
-usando:
+Tener las soluciones disponibles para su visualización propone un reto para el plagio, 
+¿cómo mostrarle al mundo las soluciones y evitar el plagio?
+El plagio no es un problema técnico, 
+es un problema moral de atribuirse lo que no fue realizado por uno mismo como propio. 
 
-* https://theory.stanford.edu/~aiken/moss/[MOSS]
-* https://en.wikipedia.org/wiki/Plagiarism_detection[Plagiarism Detection Theory]
-* https://www.plagaware.com/[PlagAware]
-* https://www.safe-corp.com/products_codematch.htm[Code Match]
+Para evitar el plagio buscamos la visibilidad y la declaración
+explicita de autoría de cada algoritmo en un lugar centralizado y así, 
+queda evidencia clara de la atribución y puede ser sometido a 
+escrutinio público el acto de plagio.
 
-De no desear continuar en el proceso de selección, por favor indicarnos vía e-mail que deseas retirarte del mismo y no vas a realizar la etapa de retos informáticos.
+Es decir, el modelo actual propuesto evita el plagio a partir de la 
+transparencia total. 
+
+Igualmente, FLUID trabaja activamente en aplicar técnicas de detección
+de similitud algorítmica sobre todo el código que sea enviado. 
+En particular usando: 
+
+* link:https://theory.stanford.edu/~aiken/moss/[MOSS]
+* link:https://en.wikipedia.org/wiki/Plagiarism_detection[Plagiarism Detection Theory]
+* link:https://www.plagaware.com/[PlagAware]
+* link:https://www.safe-corp.com/products_codematch.htm[Code Match]
+
+En caso de no desear continuar con el proceso, 
+puede escribirnos vía e-mail a careers@autonomicmind.co
