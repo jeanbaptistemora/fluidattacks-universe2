@@ -1,0 +1,75 @@
+:slug: hardens/criterio/requisito-seguridad-999/
+:category: criterio
+:description: En el presente documento se detallan los requerimientos de seguridad relacionados al manejo adecuado de información sensible dentro de un programa. La información confidencial no debe permanecer ni en memoria ni en variables u objetos después de haber sido utilizada.
+:keywords: memoria, búfer, tiempo de vida, datos sensibles, información sensible, atacante.
+:hardens: yes
+
+= REQ.999 Limitar tiempo de vida de datos sensibles
+
+== Nombre Completo
+
+La aplicación debe limpiar/eliminar datos, recursos y/o objetos 
+creados por la misma cuando ya no estén en uso.
+
+== Descripción
+
+La protección inadecuada de datos sensibles, 
+puede conducir a vulnerabilidades que afectan 
+la confidencialidad, la disponibilidad e integridad de la información 
+durante todo su ciclo de vida.<<r1,^[1]^>> 
+Esta fuga de información confidencial 
+es más probable si la memoria que contiene los datos 
+no es borrada después de usar dicha información.
+
+== Guía de implementación
+
+Cuando información confidencial está disponible en memoria, 
+ésta puede ser vulnerable 
+y un atacante que pueda ejecutar código malicioso en el mismo sistema, 
+podría acceder a dicha información. 
+Por lo tanto, la aplicación debe evitar:<<r2,^[2]^>>
+
+* El uso de objetos para almacenar información sensible 
+cuyo contenido no sea eliminado o limpiado 
+sino hasta que el recolector de basura los elimine.
+
+* Emplear páginas de memoria 
+que se puedan intercambiar en el disco 
+según lo requiera el sistema operativo. 
+Por ejemplo, para realizar tareas de administración de memoria 
+o para admitir la hibernación.
+
+* Mantener datos sensibles en un +búfer+. 
+Lo anterior debido a que un búfer 
+mantiene copias de datos en la caché del sistema operativo o en memoria.
+
+* Basar su flujo de control en la reflexión. 
+Esto puesto que permite que las contramedidas 
+eludan la limitación de la vida útil de las variables sensibles.
+
+* Revelar datos confidenciales en mensajes de depuración, 
+archivos de registro (+logs+), variables de entorno 
+o mediante volcados de hilos y núcleos.
+
+Por lo anterior, para limitar el riesgo de exposición, 
+los programas deben minimizar la vida útil de dichos datos sensibles.
+
+== Soluciones aplicables
+
+* *+COBOL+* link:../../cobol/liberar-recursos/[Liberar Recursos].
+* *+COBOL+* link:../../cobol/mensajes-error-autenticacion/[Evitar Emitir Mensajes de Errores en Autenticación].
+* *+ASP.NET+* link:../../aspnet/error-manera-segura/[Presentar error de manera segura].
+* *+ASP.NET+* link:../../aspnet/evitar-codigo-muerto/[Evitar código muerto].
+* *+JAVA+* link:../../java/limitar-vida-datos-sensibles/[Limitar el tiempo de vida de datos sensibles].
+* *+SCALA+* link:../../scala/limitar-tiempo-vida/[Limitar el tiempo de vida de datos sensibles].
+
+== Casos de abuso
+
+Un atacante que pueda ejecutar código malicioso en el mismo sistema, 
+podría acceder a información confidencial 
+si esta se encuentra disponible en memoria.
+
+== Referencias
+
+. [[r1]] link:https://www.owasp.org/index.php/Category:Sensitive_Data_Protection_Vulnerability[Category:Sensitive Data Protection Vulnerability].
+. [[r2]] link:https://wiki.sei.cmu.edu/confluence/display/java/MSC59-J.+Limit+the+lifetime+of+sensitive+data[MSC59-J. Limit the lifetime of sensitive data].
