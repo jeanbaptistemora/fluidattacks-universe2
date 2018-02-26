@@ -1,8 +1,7 @@
-:slug: hardens/criterio/requisito-seguridad-004/ 
-:category: criterio
+:slug: rules/004/
 :description: En el presente documento se detallan los requerimientos de seguridad relacionados a los activos de información de la empresa. Se deben identificar y documentar las amenazas relacionadas a cada activo de información para tomar decisiones sobre los riesgos de seguridad de los activos.
 :keywords: Requerimiento, Seguridad, Activos, Información, Documentación, Amenazas.
-:hardens: yes
+:rules: yes
 
 = REQ.004 Identificar amenazas asociadas a activo
 

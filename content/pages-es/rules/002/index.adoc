@@ -1,8 +1,7 @@
-:slug: hardens/criterio/requisito-seguridad-002/ 
-:category: criterio
+:slug: rules/002/
 :description: En el presente documento se detallan los requerimientos de seguridad relacionados a los activos de información de la empresa. Todos los activos de información deben estar asociados a un responsable, de esta manera se garantiza la ejecución de controles de seguridad para protegerlo.
 :keywords: Requerimiento, Seguridad, Activos, Información, Asignación, Responsable.
-:hardens: yes
+:rules: yes
 
 = REQ.002 Activo de información asociado a responsable
 

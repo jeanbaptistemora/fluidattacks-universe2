@@ -1,8 +1,7 @@
-:slug: hardens/criterio/requisito-seguridad-001/ 
-:category: criterio
+:slug: rules/001/
 :description: En el presente documento se detallan los requerimientos de seguridad relacionados a los activos de información de la empresa. Todos los activos de información deben estar debidamente identificados para protegerlos de posibles riesgos y permitir establecer controles de seguridad.
 :keywords: Requerimiento, Seguridad, Activos, Información, Identificación, Clasificación.
-:hardens: yes
+:rules: yes
 
 = REQ.001 Activos de información identificados
 

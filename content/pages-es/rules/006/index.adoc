@@ -1,8 +1,7 @@
-:slug: hardens/criterio/requisito-seguridad-006/ 
-:category: criterio
+:slug: rules/006/
 :description: En el presente documento se detallan los requerimientos de seguridad relacionados a los activos de información de la empresa. Las amenazas identificadas deben ser medidas en términos de ocurrencia, con el fin de mitigar las amenazas con mayor probabilidad de materialización.
 :keywords: Requerimiento, Seguridad, Activos, Información, Amenazas, Ocurrencia.
-:hardens: yes
+:rules: yes
 
 = REQ.006 Amenazas medidas en términos de ocurrencia
 
