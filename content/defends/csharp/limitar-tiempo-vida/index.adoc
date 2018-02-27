@@ -1,0 +1,267 @@
+:slug: defends/csharp/limitar-tiempo-vida/
+:category: csharp
+:description: Nuestros ethical hackers explican cómo evitar vulnerabilidades de seguridad mediante la creación, manipulación y eliminación correcta de datos, recursos y objetos dentro de un programa C#, evitando que información disponible en memoria sea manipulada.
+:keywords: c#, información sensible, información confidencial, memoria, búfer, lectura segura.
+:defends: yes
+
+= Limitar el tiempo de vida de datos sensibles
+
+== Necesidad
+
+Eliminar (limpiar) datos y/o recursos una vez no estén en uso.
+
+== Contexto
+
+A continuación se describe las circunstancias 
+bajo las cuales la siguiente solución tiene sentido:
+
+. Se está desarrollando una aplicación en +C#+.
+. El código debe eliminar información sensible en memoria.
+. La aplicación debe limpiar/eliminar datos, recursos 
+y/o objetos creados por la misma cuando ya no estén en uso,<<r1,^[1]^>> 
+limitando así su tiempo de vida.
+
+== Solución
+
+* *Lectura segura de credenciales:*
+
+. El siguiente bloque de código +C#+, 
+declara la clase +Password+ 
+y dentro de ella se define el método +Main+:
++
+.password.cs
+[source, csharp, linenums]
+----
+using System;
+using System.Security;
+
+class Password
+{
+    static void Main(string[] args)
+    {
+----
++
+A continuación se lee desde la consola 
+las credenciales de acceso para un usuario, 
+solicitando el nombre de usuario 
+y su respectiva contraseña. 
+Dichas credenciales son almacenadas 
+en las variables +loginid+ y +password+ respectivamente:
++
+[source, csharp, linenums]
+----
+        Console.WriteLine("Ingresa tu nombre de usuario: ");
+        var loginid = Console.ReadLine();
+        Console.WriteLine("Ingresa tu contraseña: ");
+        var password = Console.ReadLine();
+----
++
+Posterior a ello, convertimos la cadena que contiene la contraseña 
+en un +array+ de caracteres (+char[] myArray+) 
+mediante el método +ToCharArray()+. 
+Y mediante el método +verify+ que recibe el nombre usuario y contraseña, 
+simulamos el proceso de validación del usuario para una plataforma en particular 
+(el lector debe implementar este método de acuerdo a sus necesidades):
++
+[source, csharp, linenums]
+----
+        char[] mArray = password.ToCharArray();
+
+		bool isValidUser = verify(loginid, mArray);
+
+		// limpiar la contraseña
+		MyArray.Fill(mArray,' ');
+
+		if (!isValidUser)
+		{
+			throw new SecurityException("Invalid Credentials");
+		}
+	}
+
+	// Validación simulada, siempre devuelve true
+	private static bool verify(string username, char[] password)
+	{
+		return true;
+	}
+}
+----
++
+Como se observa en el anterior bloque de código, 
+una vez no son necesarias las credenciales de usuario, 
+éstas son inmediatamente sobrescritas 
+o eliminadas de memoria mediante el método +MyArray.Fill+ 
+de la clase +MyArray+. 
+La implementación de dicha clase es la siguiente:
++
+[source, csharp, linenums]
+----
+internal static class MyArray
+{
+	
+	internal static void Fill<T>(T[] array, T value)
+	{
+		for (int i = 0; i < array.Length; i++)
+		{
+			array[i] = value;
+		}
+	}
+	
+}
+----
++
+De lo anterior, el método +Fill+ 
+es el encargado de sobrescribir 
+el +array+ de caracteres (+T[] array+) 
+que recibe como primer parámetro, 
+es decir, la contraseña, 
+por el caracter incluido en el segundo parámetro (+T value+).
+
+* *Lectura segura de ficheros:*
++
+En esta sección se va a implementar un programa 
+el cual permite la lectura segura de ficheros 
+almacenados en el ordenador:
+
+. En primer lugar se define el nombre de la clase +MyReadFile+ 
+dentro del espacio de nombre +mytest+:
++
+.myreadfile.cs
+[source, csharp, linenums]
+----
+using System;
+using System.IO;
+using System.Text;
+
+namespace mytest
+{
+	class MyReadFile
+	{
+----
+
+. A continuación se define el método +ReadFile+:
++
+[source, csharp, linenums]
+----
+static void ReadFile(string fileName){
+----
++
+Dicho método permite la lectura segura de ficheros 
+mediante un objeto de la clase +FileStream+ 
+(esta clase almacena los datos en el búfer 
+para obtener un mejor rendimiento<<r2,^[2]^>>), 
+recibiendo como parámetro el +string fileName+ 
+el cual representa la ruta 
+donde se encuentra almacenado el fichero en el ordenador.
+
+. En primer lugar creamos una instancia 
+de la clase +FileStream+ (el objeto +js+):
++
+[source, csharp, linenums]
+----
+FileStream fs = new FileStream(fileName,FileMode.Open,FileAccess.Read);
+----
++
+En este caso, el constructor<<r3,^[3]^>> de dicha clase recibe tres argumentos:
+
+** *+string Path:+* ruta relativa o absoluta del archivo a ser procesado. 
+En este caso la variable +fileName+.
+
+** *+FileMode mode:+* especifica cómo debería ser procesado el archivo 
+por el sistema operativo. 
+Existen varias constantes para este argumento,<<r4,^[4]^>> 
+en este caso se utiliza el valor +Open+, 
+lo cual implica que el sistema operativo 
+debe abrir un fichero existente en el ordenador.
+
+** *+FileAccess access:+* constante que determina 
+cómo puede obtener acceso al archivo el objeto +FileStream+. 
+Existen tres constantes para este argumento,<<r5,^[5]^>> 
+en este caso se utiliza el valor +Read+, 
+lo cual implica acceso de lectura al fichero.
+
+. Luego procesamos el fichero a leer:
++
+[source, csharp, linenums]
+----
+
+			if(fs.CanRead){
+
+				byte[] buffer = new byte[fs.Length];
+				int bytesread = fs.Read(buffer,0,buffer.Length);
+----
++
+Mediante el método +CanRead+ 
+se verifica si el flujo de datos actual admite lectura de los mismos. 
+Posterior a ello, el método +Read+ 
+de la clase +FileStream+ recibe tres parámetros:
+
+** +*byte[] array:*+ contiene la matriz de bytes 
+especificada con los valores entre +offset+ y +(offset + count - 1)+. 
+En este caso le pasamos la variable +buffer+.
+
+** +*int offset:*+ desplazamiento de bytes en el parámetro +array+ 
+donde se colocarán los bytes leídos. 
+En este caso 0.
+
+** +*int count:*+ número máximo de bytes que se pueden leer. 
+En este caso le pasamos +buffer.Length+.
+
+. Posterior a ello, mediante la sentencia +Console.WriteLine+ 
+se imprime en pantalla el contenido del fichero leído.
++
+[source, csharp, linenums]
+----
+				Console.WriteLine(Encoding.ASCII.GetString(buffer,0,bytesread));
+			}
+			fs.Flush();//limpiamos el búfer
+			fs.Close();
+
+		}
+----
++
+Finalmente, una vez no es necesario la lectura del fichero, 
+se limpia el búfer de datos mediante el método +Flush+. 
+Y por último mediante el método +close+ se cierra el archivo leído 
+y se libera los recursos asociados al flujo de datos del archivo actual.
+
+. Para llamar al método +ReadFile+, 
+dentro del método +Main+ realizamos la llamada al mismo, 
+pasando como argumento la variable +fileText+ 
+que contiene la ruta al fichero a ser leído:
++
+[source, csharp, linenums]
+----
+public static void Main (string[] args)
+		{
+			string fileText = @"texto.txt";
+			ReadFile(fileText);
+		}
+	}
+}
+----
+
+Puedes encontrar soluciones similares 
+para los siguientes lenguajes: <<r6,Java>>, <<r7,Scala>>.
+
+== Descargas
+
+Puedes descargar el código fuente 
+pulsando en los siguientes enlaces:
+
+. [button]#link:src/password.cs[password.cs >>]# contiene 
+las instrucciones +C#+ para el manejo de credenciales de manera segura.
+
+. [button]#link:src/myreadfile.cs[myreadfile.cs >>]# contiene 
+las instrucciones +C#+ para la lectura de un fichero desde un búfer.
+
+== Referencias
+
+. [[r1]] REQ.999: La aplicación debe 
+limpiar/eliminar datos, recursos y/o objetos creados por la misma 
+cuando ya no estén en uso.
+. [[r2]] link:https://msdn.microsoft.com/es-es/library/system.io.filestream(v=vs.110).aspx[Clase FileStream].
+. [[r3]] link:https://msdn.microsoft.com/es-es/library/tyhc0kft(v=vs.110).aspx[Constructor FileStream (String, FileMode, FileAccess)].
+. [[r4]] link:https://msdn.microsoft.com/en-us/en-en/library/system.io.filemode(v=vs.110).aspx[FileMode Enumeration].
+. [[r5]] link:https://msdn.microsoft.com/en-us/en-en/library/4z36sx0f(v=vs.110).aspx[FileAccess Enumeration].
+. [[r6]] link:../../java/limitar-vida-datos-sensibles/[Java-Limitar el tiempo de vida de datos sensibles].
+. [[r7]] link:../../scala/limitar-tiempo-vida/[Scala-Limitar el tiempo de vida de datos sensibles].
