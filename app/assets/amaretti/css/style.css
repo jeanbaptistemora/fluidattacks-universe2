@@ -6531,6 +6531,18 @@ button.close {
     width: 900px;
   }
 }
+@media (max-width: 767px) {
+  .modal-dialog {
+    width: 300px;
+    margin: 15px auto;
+  }
+  .modal-content {
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+  }
+  .modal-sm {
+    width: 200px;
+  }
+}
 .tooltip {
   position: absolute;
   z-index: 1070;
