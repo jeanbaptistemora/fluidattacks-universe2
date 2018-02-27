@@ -249,6 +249,77 @@ def get_findings_amount(project):
         return 0
     return row[0]
 
+def get_vulns_by_project_dynamo(project_name):
+    """Obtiene la informacion de un hallazgo"""
+    table = dynamodb_resource.Table('findings_email')
+    filter_key = 'project_name'
+    if filter_key and project_name:
+        filtering_exp = Key(filter_key).eq(project_name)
+        response = table.query(KeyConditionExpression=filtering_exp)
+    else:
+        response = table.query()
+    items = response['Items']
+    while True:
+        if response.get('LastEvaluatedKey'):
+            response = table.query(ExclusiveStartKey=response['LastEvaluatedKey'])
+            items += response['Items']
+        else:
+            break
+    return items
+
+def get_vulns_by_id_dynamo(project_name, unique_id):
+    """Obtiene la informacion de un hallazgo"""
+    table = dynamodb_resource.Table('findings_email')
+    filter_key = 'project_name'
+    filter_sort = 'unique_id'
+    if filter_key and project_name and filter_sort and unique_id :
+        response = table.query(KeyConditionExpression=Key(filter_key).eq(project_name) & Key(filter_sort).eq(unique_id))
+    else:
+        response = table.query()
+    items = response['Items']
+    while True:
+        if response.get('LastEvaluatedKey'):
+            response = table.query(ExclusiveStartKey=response['LastEvaluatedKey'])
+            items += response['Items']
+        else:
+            break
+    return items
+
+def add_or_update_vulns_dynamo(project_name, unique_id, vuln_hoy):
+    """Crea o actualiza una vulnerabilidad"""
+    table = dynamodb_resource.Table('findings_email')
+    item = get_vulns_by_id_dynamo(project_name, unique_id)
+    if item == []:
+        try:
+            response = table.put_item(
+                Item={
+                    'project_name': project_name,
+                    'unique_id': int(unique_id),
+                    'vuln_hoy': int(vuln_hoy),
+                }
+                )
+            resp = response['ResponseMetadata']['HTTPStatusCode'] == 200
+            return resp
+        except ClientError:
+            rollbar.report_exc_info()
+            return False
+    else:
+        try:
+            response = table.update_item(
+                Key={
+                    'project_name': project_name,
+                    'unique_id': int(unique_id),
+                },
+                UpdateExpression='SET vuln_hoy = :val1',
+                ExpressionAttributeValues={
+                    ':val1': int(vuln_hoy)
+                }
+            )
+            resp = response['ResponseMetadata']['HTTPStatusCode'] == 200
+            return resp
+        except ClientError:
+            rollbar.report_exc_info()
+            return False
 
 def update_findings_amount(project, amount):
     """Actualiza el numero de hallazgos en el proyecto."""
@@ -410,9 +481,9 @@ def add_remediated_dynamo(finding_id, remediated, project, finding_name):
             response = table.put_item(
                 Item={
                     'finding_id': finding_id,
-                    'remediated': remediated, 
+                    'remediated': remediated,
                     'project': project,
-                    'finding_name': finding_name,               
+                    'finding_name': finding_name,
                 }
                 )
             resp = response['ResponseMetadata']['HTTPStatusCode'] == 200
@@ -485,7 +556,7 @@ def add_finding_dynamo(finding_id, key, value, exist, val):
                 Item={
                     'finding_id': finding_id,
                     key: value,
-                    exist: val              
+                    exist: val
                 }
                 )
             resp = response['ResponseMetadata']['HTTPStatusCode'] == 200

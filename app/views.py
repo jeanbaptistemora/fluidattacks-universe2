@@ -451,6 +451,36 @@ def catch_finding(request, submission_id):
         rollbar.report_message('Error: An error occurred catching finding', 'error', request)
         return None
 
+def finding_vulnerabilities(submission_id):
+    finding = []
+    state = {'estado': 'Abierto'}
+    fin_dto = FindingDTO()
+    cls_dto = ClosingDTO()
+    api = FormstackAPI()
+    if str(submission_id).isdigit() is True:
+        finding = fin_dto.parse_vulns_by_id(
+            submission_id,
+            api.get_submission(submission_id)
+        )
+        closingreqset = api.get_closings_by_id(submission_id)["submissions"]
+        findingcloseset = []
+        for closingreq in closingreqset:
+            closingset = cls_dto.parse(api.get_submission(closingreq["id"]))
+            findingcloseset.append(closingset)
+            state = closingset
+        finding["estado"] = state["estado"]
+        finding["cierres"] = findingcloseset
+        finding['cardinalidad_total'] = finding['cardinalidad']
+        if 'abiertas' in state:
+            finding['cardinalidad'] = state['abiertas']
+        else:
+            if state['estado'] == 'Cerrado':
+                finding['donde'] = '-'
+        return finding
+    else:
+        rollbar.report_message('Error: An error occurred catching finding', 'error')
+        return None
+
 @never_cache
 @csrf_exempt
 @require_http_methods(["GET"])
@@ -470,7 +500,7 @@ def get_evidence(request, findingid, fileid):
     key_list = key_existing_list(findingid + "/" + fileid)
     if key_list:
         for k in key_list:
-            start = k.find(findingid) + len(findingid) 
+            start = k.find(findingid) + len(findingid)
             localfile = "/tmp" + k[start:]
             ext = {'.png': '.tmp', '.gif': '.tmp'}
             localtmp = replace_all(localfile, ext)
@@ -518,7 +548,7 @@ def replace_all(text, dic):
 @require_http_methods(["POST"])
 @authorize(['analyst'])
 def update_evidences_files(request):
-    parameters = request.POST.dict() 
+    parameters = request.POST.dict()
     upload = request.FILES.get("document", "")
     migrate_all_files(parameters, request)
     mime = Magic(mime=True)
@@ -534,7 +564,7 @@ def update_evidences_files(request):
         if upload.size > 10485760:
             rollbar.report_message('Error - File exceeds the size limits', 'error', request)
             return util.response([], 'Image exceeds the size limits', True)
-        updated = update_file_to_s3(parameters, fieldname[int(parameters["id"])][1], fieldname[int(parameters["id"])][0], upload)            
+        updated = update_file_to_s3(parameters, fieldname[int(parameters["id"])][1], fieldname[int(parameters["id"])][0], upload)
         return util.response([], "sended" , updated)
     elif mime_type == "image/png" and parameters["id"] == '1':
         if upload.size > 2097152:
@@ -574,7 +604,7 @@ def send_file_to_s3(filename, parameters, field, fieldname, ext):
     fileurl = parameters['findingId'] + '/' + parameters['url']
     fileroute = "/tmp/:id.tmp".replace(":id", filename)
     namecomplete = fileurl + "-" + field + "-" + filename + ext
-    if os.path.exists(fileroute):        
+    if os.path.exists(fileroute):
         with open(fileroute, "r") as file_obj:
             try:
                 client_s3.upload_fileobj(file_obj, bucket_s3, namecomplete)
@@ -586,7 +616,7 @@ def send_file_to_s3(filename, parameters, field, fieldname, ext):
         if not resp:
             integrates_dao.add_finding_dynamo(int(parameters['findingId']), fieldname, namecomplete.split("/")[1], "es_" + fieldname, False)
         os.unlink(fileroute)
-        return resp        
+        return resp
     else:
         integrates_dao.add_finding_dynamo(int(parameters['findingId']), fieldname, namecomplete.split("/")[1], "es_" + fieldname, False)
         return False
@@ -615,7 +645,7 @@ def migrate_all_files(parameters, request):
         frmreq = api.get_submission(parameters['findingId'])
         finding = fin_dto.parse(parameters['findingId'], frmreq, request)
         filename =  parameters['findingId'] + "/" + parameters['url'] + "-" + FindingDTO().ANIMATION
-        folder = key_existing_list(filename)             
+        folder = key_existing_list(filename)
         if "animacion" in finding and parameters["id"] != '0' and not folder:
             send_file_to_s3(finding["animacion"], parameters, FindingDTO().ANIMATION, "animacion", ".gif")
         filename =  parameters['findingId'] + "/" + parameters['url'] + "-" + FindingDTO().EXPLOTATION
@@ -623,23 +653,23 @@ def migrate_all_files(parameters, request):
         if "explotacion" in finding and parameters["id"] != '1' and not folder:
             send_file_to_s3(finding["explotacion"], parameters, FindingDTO().EXPLOTATION, "explotacion", ".png")
         filename =  parameters['findingId'] + "/" + parameters['url'] + "-" + FindingDTO().DOC_ACHV1
-        folder = key_existing_list(filename)        
+        folder = key_existing_list(filename)
         if "ruta_evidencia_1" in finding and parameters["id"] != '2' and not folder:
             send_file_to_s3(finding["ruta_evidencia_1"], parameters, FindingDTO().DOC_ACHV1, "ruta_evidencia_1", ".png")
         filename =  parameters['findingId'] + "/" + parameters['url'] + "-" + FindingDTO().DOC_ACHV2
-        folder = key_existing_list(filename)        
+        folder = key_existing_list(filename)
         if "ruta_evidencia_2" in finding and parameters["id"] != '3' and not folder:
             send_file_to_s3(finding["ruta_evidencia_2"], parameters, FindingDTO().DOC_ACHV2, "ruta_evidencia_2", ".png")
         filename =  parameters['findingId'] + "/" + parameters['url'] + "-" + FindingDTO().DOC_ACHV3
-        folder = key_existing_list(filename)        
+        folder = key_existing_list(filename)
         if "ruta_evidencia_3" in finding and parameters["id"] != '4' and not folder:
             send_file_to_s3(finding["ruta_evidencia_3"], parameters, FindingDTO().DOC_ACHV3, "ruta_evidencia_3", ".png")
         filename =  parameters['findingId'] + "/" + parameters['url'] + "-" + FindingDTO().DOC_ACHV4
-        folder = key_existing_list(filename)        
+        folder = key_existing_list(filename)
         if "ruta_evidencia_4" in finding and parameters["id"] != '5' and not folder:
             send_file_to_s3(finding["ruta_evidencia_4"], parameters, FindingDTO().DOC_ACHV4, "ruta_evidencia_4", ".png")
         filename =  parameters['findingId'] + "/" + parameters['url'] + "-" + FindingDTO().DOC_ACHV5
-        folder = key_existing_list(filename)        
+        folder = key_existing_list(filename)
         if "ruta_evidencia_5" in finding and parameters["id"] != '6' and not folder:
             send_file_to_s3(finding["ruta_evidencia_5"], parameters, FindingDTO().DOC_ACHV5, "ruta_evidencia_5", ".png")
         filename =  parameters['findingId'] + "/" + parameters['url'] + "-" + FindingDTO().EXPLOIT
@@ -684,14 +714,14 @@ def update_evidence_text(request):
 def get_exploit(request):
     parameters = request.GET.dict()
     fileid = parameters['id']
-    findingid = parameters['findingid']   
+    findingid = parameters['findingid']
     if fileid is None:
         rollbar.report_message('Error: Missing exploit ID', 'error', request)
         return HttpResponse("Error - Unsent exploit ID", content_type="text/html")
     key_list = key_existing_list(findingid + "/" + fileid)
     if key_list:
         for k in key_list:
-            start = k.find(findingid) + len(findingid) 
+            start = k.find(findingid) + len(findingid)
             localfile = "/tmp" + k[start:]
             ext = {'.py': '.tmp'}
             localtmp = replace_all(localfile, ext)

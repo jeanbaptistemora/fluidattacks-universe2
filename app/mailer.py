@@ -18,8 +18,8 @@ def __send_mail(template_name, email_to, context):
         )
     mandrill_client.messages.send_template(template_name, [], message)
 
-def send_mail_new_finding(email_to, context):
-    __send_mail('newfindingintegrates', email_to, context=context)
+def send_mail_new_vulnerabilities(email_to, context):
+    __send_mail('newvulnerabilitiesintegrates', email_to, context=context)
 
 
 def send_mail_change_finding(email_to, context):

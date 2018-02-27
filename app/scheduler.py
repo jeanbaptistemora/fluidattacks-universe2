@@ -2,46 +2,45 @@
 
 # pylint: disable=E0402
 from .dao import integrates_dao
-from .dto.finding import FindingDTO
 from .api.formstack import FormstackAPI
-from .mailer import send_mail_new_finding, send_mail_change_finding, send_mail_new_remediated
+from .mailer import send_mail_new_vulnerabilities, send_mail_new_remediated
+from . import views
 
-def get_new_findings():
+def get_new_vulnerabilities():
     """ Envio de correo resumen con los hallazgos de un proyecto """
     projects = integrates_dao.get_registered_projects()
     api = FormstackAPI()
     for project in projects:
+        old_findings = integrates_dao.get_vulns_by_project_dynamo(project[0].lower())
         finding_requests = api.get_findings(project)["submissions"]
-        new_findings = len(finding_requests)
-        cur_findings = integrates_dao.get_findings_amount(project)
-        if new_findings != cur_findings:
-            # Send email parameters
+        if len(old_findings) != len(finding_requests):
+            delta = abs(len(old_findings) - len(finding_requests))
+            for finding in finding_requests[-delta:]:
+                integrates_dao.add_or_update_vulns_dynamo(project[0].lower(),int(finding['id']), 0)
+            old_findings = integrates_dao.get_vulns_by_project_dynamo(project[0].lower())
+        context = {'findings': list()}
+        delta_total = 0
+        for row in old_findings:
+            act_finding = views.finding_vulnerabilities(str(row['unique_id']))
+            delta = int(act_finding['cardinalidad'])-int(row['vuln_hoy'])
+            if int(act_finding['cardinalidad']) > int(row['vuln_hoy']):
+                finding_text = act_finding['hallazgo'] + '(+' + str(delta) +')'
+                context['findings'].append({'nombre_hallazgo': finding_text })
+                delta_total = delta_total + abs(delta)
+                integrates_dao.add_or_update_vulns_dynamo(project[0].lower(),row['unique_id'], int(act_finding['cardinalidad']))
+            elif int(act_finding['cardinalidad']) < int(row['vuln_hoy']):
+                finding_text = act_finding['hallazgo'] + '(' + str(delta) +')'
+                context['findings'].append({'nombre_hallazgo': finding_text })
+                delta_total = delta_total + abs(delta)
+                integrates_dao.add_or_update_vulns_dynamo(project[0].lower(),row['unique_id'], int(act_finding['cardinalidad']))
+        if delta_total !=0:
+            context['proyecto'] = project[0].upper()
+            context['url_proyecto'] = 'https://fluidattacks.com/integrates/dashboard#!/project/' + project[0].lower()
             recipients = integrates_dao.get_project_users(project)
             to = [x[0] for x in recipients]
             to.append('engineering@fluidattacks.com')
             to.append('projects@fluidattacks.com')
-            if new_findings > cur_findings:
-                delta = new_findings - cur_findings
-                gen_dto = FindingDTO()
-                context = {'findings': list()}
-                for finding in finding_requests[-delta:]:
-                    formstack_request = api.get_submission(finding["id"])
-                    finding_parsed = gen_dto.parse_description_mail(formstack_request)
-                    context['findings'].append({'nombre_hallazgo':
-                        finding_parsed['hallazgo']})
-                context['cantidad'] = str(delta)
-                context['proyecto'] = project[0].upper()
-                context['url_proyecto'] = 'https://fluidattacks.com/integrates/dashboard#!/project/' + project[0].lower()
-                print(to)
-                send_mail_new_finding(to, context)
-            else:
-                context = {
-                    'proyecto': project[0].upper(),
-                    'url_proyecto': 'https://fluidattacks.com/integrates/dashboard#!/project/' + project[0].lower(),
-                }
-                print(to)
-                send_mail_change_finding(to, context)
-            integrates_dao.update_findings_amount(project[0], new_findings)
+            send_mail_new_vulnerabilities(to, context)
 
 def get_remediated_findings():
     """ Envio de correo resumen con los hallazgos pendientes de verificar """

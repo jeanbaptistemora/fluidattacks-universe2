@@ -241,6 +241,12 @@ class FindingDTO(object):
         self.parse_evidence_info(request_arr, sess_obj)
         return self.data
 
+    def parse_vulns_by_id(self, submission_id, request_arr):
+        self.data = dict()
+        self.data["id"] = submission_id
+        self.data["timestamp"] = request_arr["timestamp"]
+        self.parse_description(request_arr)
+        return self.data
 
     def parse_description(self, request_arr): # noqa: C901
         "Convierte la descripcion de un hallazgo en formstack"
@@ -323,6 +329,14 @@ class FindingDTO(object):
         for finding in request_arr["data"]:
             if finding["field"] == self.HALLAZGO:
                 self.data["hallazgo"] = finding["value"]
+        return self.data
+
+    def parse_description_vuln(self, request_arr): # noqa: C901
+        "Convierte la descripcion de un hallazgo en formstack"
+        self.data["timestamp"] = request_arr["timestamp"]
+        for finding in request_arr["data"]:
+            if finding["field"] == self.CARDINALIDAD:
+                self.data["cardinalidad"] = finding["value"]
         return self.data
 
     def parse_cssv2(self, request_arr): # noqa: C901
