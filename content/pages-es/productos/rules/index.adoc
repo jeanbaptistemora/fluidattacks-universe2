@@ -11,7 +11,7 @@ según el apetito al riesgo de cada organización.
 FLUIDRules permite determinar qué se prueba y qué no, 
 qué es una vulnerabilidad y qué no, 
 adicionalmente es la base para determinar 
-que tan riguroso fue un hackeo 
+qué tan riguroso fue un hackeo 
 basado en los requisitos probados y no probados. 
 Los requisitos de seguridad son independientes del tipo de tecnología 
 y son redactados como objetivos concretos y comprensibles. 
