@@ -6,6 +6,15 @@
 
 = Commands
 
-This page is currently in development.
-
-Sorry for the inconvenience.
+Trojan developed completely by +FLUIDAttacks+ 
+to penetrate in depth work stations 
+and critical servers during the One Shot Hacking service. 
+The goal is to take full control of critical equipment 
+and through a central command center 
+coordinate more complex hacks in depth. 
++FLUIDCommands+ allows to capture sound, screen, keyboard, 
+files, network traffic, among others. 
+During the attack, it avoids being detected 
+by +AntiX+ and +SOC+ controls 
+and at the end of the test it is uninstalled 
+without leaving any collateral effect. 

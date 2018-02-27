@@ -6,6 +6,15 @@
 
 = Commands
 
-En el momento, esta página se encuentra en desarrollo.
-
-Lamentamos los inconvenientes.
+Troyano desarrollado completamente por +FLUIDAttacks+ 
+para penetrar en profundidad estaciones de trabajo 
+y servidores críticos durante el servicio de Hacking Puntual. 
+El objetivo es tomar el control total de equipos críticos
+y mediante un centro de comando central 
+coordinar hackeos en profundidad mas complejos. 
++FLUIDCommands+ permite capturar sonido, pantalla, teclado, 
+archivos, trafico de red, entre otros. 
+Durante el ataque evita ser detectado 
+por los controles +AntiX+ y +SOC+ 
+y al finalizar la prueba es desinstalado 
+sin dejar efecto colateral alguno.
