@@ -1262,6 +1262,7 @@ integrates.controller("findingcontentCtrl", function($scope, $stateParams, $time
                         data["finding_name"] = $scope.finding.hallazgo;
                         data["project"] = $scope.finding.proyecto_fluid;
                         data["finding_url"] = window.location.href;
+                        data["remediated"] = false;
                         var comment = projectFtry.addComment($scope.finding.id, data);
                         comment.then(function(response){
                           if(!response.error){
@@ -1483,6 +1484,7 @@ integrates.controller("findingcontentCtrl", function($scope, $stateParams, $time
                               data["finding_name"] = $scope.remediatedData.finding_name;
                               data["project"] = $scope.remediatedData.project;
                               data["finding_url"] = $scope.remediatedData.finding_url;
+                              data["remediated"] = true;
                               var comment = projectFtry.addComment($scope.remediatedData.finding_id, data);
                           }else{
                             Rollbar.error("Error: An error occurred when remediating the finding");

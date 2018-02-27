@@ -1026,11 +1026,14 @@ def add_comment(request):
            'finding_id': submission_id,
            'comment': comment_content,
             }
-        if data["data[parent]"] == '0':
-            send_mail_new_comment(to, context)
-            return util.response([], 'Success', False)
-        elif data["data[parent]"] != '0':
-            send_mail_reply_comment(to, context)
+        if data["data[remediated]"] != "true":
+            if data["data[parent]"] == '0':
+                send_mail_new_comment(to, context)
+                return util.response([], 'Success', False)
+            elif data["data[parent]"] != '0':
+                send_mail_reply_comment(to, context)
+                return util.response([], 'Success', False)
+        else:
             return util.response([], 'Success', False)
     except KeyError:
         rollbar.report_exc_info(sys.exc_info(), request)
