@@ -12,9 +12,9 @@
 {% block language %}
   {% if DEFAULT_LANG == "en" %}
     <link rel="alternate" href="{{ SITEURL }}/blog/categories/" hreflang="en-us" />
-    <link rel="alternate" href="{{ SUBSITEURL }}/blog/{{ gettext('categories') }}/" hreflang="es-co" />
+    <link rel="alternate" href="{{ SUBSITEURL }}/blog/{{ gettext('categories') }}/" hreflang="es" />
   {% else %}
-    <link rel="alternate" href="{{ SITEURL }}/blog/categorias/" hreflang="es-co" />
+    <link rel="alternate" href="{{ SITEURL }}/blog/categorias/" hreflang="es" />
     <link rel="alternate" href="{{ SUBSITEURL }}/blog/{{ gettext('categorias') }}/" hreflang="en-us" />
   {% endif %}
 {% endblock language %}

@@ -29,10 +29,10 @@
   {% if DEFAULT_LANG == "en" %}
     <link rel="alternate" href="{{ SITEURL }}/{{ page.url }}" hreflang="en-us" />
     {% if page.translation %}
-      <link rel="alternate" href="{{ SUBSITEURL }}/{{ page.traslation }}" hreflang="es-co" />
+      <link rel="alternate" href="{{ SUBSITEURL }}/{{ page.traslation }}" hreflang="es" />
     {% endif %}
   {% else %}
-    <link rel="alternate" href="{{ SITEURL }}/{{ page.url }}" hreflang="es-co" />
+    <link rel="alternate" href="{{ SITEURL }}/{{ page.url }}" hreflang="es" />
     {% if page.translation %}
       <link rel="alternate" href="{{ SUBSITEURL }}/{{ page.traslation }}" hreflang="en-us" />
     {% endif %}

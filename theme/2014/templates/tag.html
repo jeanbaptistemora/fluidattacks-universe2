@@ -23,9 +23,9 @@
 {% block language %}
   {% if DEFAULT_LANG == "en" %}
     <link rel="alternate" href="{{ SITEURL }}/{{ tag.url }}" hreflang="en-us" />
-    <link rel="alternate" href="{{ SUBSITEURL }}/blog/{{ gettext('tags') }}/{{ tag }}/" hreflang="es-co" />
+    <link rel="alternate" href="{{ SUBSITEURL }}/blog/{{ gettext('tags') }}/{{ tag }}/" hreflang="es" />
   {% else %}
-    <link rel="alternate" href="{{ SITEURL }}/{{ tag.url }}" hreflang="es-co" />
+    <link rel="alternate" href="{{ SITEURL }}/{{ tag.url }}" hreflang="es" />
     <link rel="alternate" href="{{ SUBSITEURL }}/blog/{{ gettext('etiquetas') }}/{{ tag }}/" hreflang="en-us" />
   {% endif %}
 {% endblock language %}
