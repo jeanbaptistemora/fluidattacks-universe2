@@ -46,12 +46,12 @@ lo cual es recomendado.)
 
 * Criticidad del proceso al que corresponde.
 
-* Dueño, responsable o propietario del activo (link:../requisito-seguridad-002/[REQ. 002]).
+* Dueño, responsable o propietario del activo (link:../002/[REQ. 002]).
 
 * Clasificación del activo en cuanto a la confidencialidad, 
 disponibilidad e integridad del mismo.
 
-* Valor del activo teniendo en cuenta su clasificación (link:../requisito-seguridad-003/[REQ. 003]).
+* Valor del activo teniendo en cuenta su clasificación (link:../003/[REQ. 003]).
 
 . Es recomendable que la identificación de los activos 
 la realice el responsable de cada proceso de la organización, 
@@ -88,4 +88,5 @@ puede ser tardía e impactar en mayor medida a la organización.
 
 == Referencias
 
-. https://www.iso.org/isoiec-27001-information-security.html[Serie de normas ISO/IEC 27000]
+. link:https://www.iso.org/isoiec-27001-information-security.html[Serie de normas ISO/IEC 27000].
+. link:https://www.pmg-ssi.com/2017/02/realizar-inventario-activos-de-informacion/[¿Cómo realizar un inventario de activos de información?].

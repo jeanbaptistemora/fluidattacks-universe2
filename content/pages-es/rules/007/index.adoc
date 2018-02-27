@@ -39,7 +39,7 @@ el impacto que puede generar
 el hecho de que un activo de información 
 se vea amenazado o vulnerado,
 se cuente con una valoración económica de dicho activo 
-(link:../requisito-seguridad-003/[REQ.003]).
+(link:../003/[REQ.003]).
 Esto facilita enormemente la tarea 
 de clasificar y valorar los riesgos,
 buscando proteger con mayor severidad
@@ -90,4 +90,5 @@ al no determinar el impacto real.
 
 == Referencias
 
-. https://www.iso.org/isoiec-27001-information-security.html[Serie de normas ISO/IEC 27000]
+. link:https://www.iso.org/isoiec-27001-information-security.html[Serie de normas ISO/IEC 27000].
+. link:https:https://www.pmg-ssi.com/2015/04/iso-27001-amenazas-y-vulnerabilidades/[Amenazas y vulnerabilidades ISO 27001].

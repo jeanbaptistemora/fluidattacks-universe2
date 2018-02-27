@@ -86,4 +86,5 @@ y su probabilidad de ocurrencia.
 
 == Referencias
 
-. https://www.iso.org/isoiec-27001-information-security.html[Serie de normas ISO/IEC 27000]
+. link:https://www.iso.org/isoiec-27001-information-security.html[Serie de normas ISO/IEC 27000].
+. link:https://www.pmg-ssi.com/2017/01/iso-27005-como-identificar-los-riesgos/[¿Cómo Identificar los Riesgos?]

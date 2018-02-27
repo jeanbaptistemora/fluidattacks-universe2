@@ -88,5 +88,5 @@ no fue previamente identificada.
 
 == Referencias
 
-. https://www.iso.org/isoiec-27001-information-security.html[Serie de normas ISO/IEC 27000]
-. https://www.microsoft.com/en-us/sdl/adopt/threatmodeling.aspx[Microsoft: Modelado de Amenazas]
+. link:https://www.iso.org/isoiec-27001-information-security.html[Serie de normas ISO/IEC 27000].
+. link:https://www.microsoft.com/en-us/sdl/adopt/threatmodeling.aspx[Microsoft: Modelado de Amenazas].

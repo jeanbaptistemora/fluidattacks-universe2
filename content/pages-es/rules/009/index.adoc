@@ -88,5 +88,5 @@ debido a la falta de identificación de todos los actores.
 
 == Referencias
 
-. https://www.iso.org/isoiec-27001-information-security.html[Serie de normas ISO/IEC 27000.]
-. https://www.owasp.org/index.php/Modelado_de_Amenazas[Modelado de amenazas.]
+. link:https://www.iso.org/isoiec-27001-information-security.html[Serie de normas ISO/IEC 27000.]
+. link:https://www.owasp.org/index.php/Modelado_de_Amenazas[Modelado de amenazas.]

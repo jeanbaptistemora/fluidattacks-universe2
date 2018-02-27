@@ -94,6 +94,6 @@ no cuentan con un responsable asignado.
 
 == Referencias
 
-. http://www.pmg-ssi.com/2015/05/como-clasificar-los-activos-de-seguridad-en-un-sgsi/[SGSI - ¿Cómo clasificar los activos de seguridad en un SGSI?]
+. link:http://www.pmg-ssi.com/2015/05/como-clasificar-los-activos-de-seguridad-en-un-sgsi/[SGSI - ¿Cómo clasificar los activos de seguridad en un SGSI?].
 
-. https://www.iso.org/isoiec-27001-information-security.html[Serie de normas ISO/IEC 27000]
+. link:https://www.iso.org/isoiec-27001-information-security.html[Serie de normas ISO/IEC 27000].

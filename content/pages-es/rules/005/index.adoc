@@ -36,8 +36,8 @@ pueden ser explotadas generando así una brecha de seguridad,
 que puede comprometer la integridad de los activos y de la empresa en sí.
 
 . Para definir si un activo de información es vulnerable,
-es necesario contar con un catálogo actualizado de amenazas (link:../requisito-seguridad-004/[REQ.004]) 
-y una lista de activos de la organización (link:../requisito-seguridad-001/[REQ.001]).
+es necesario contar con un catálogo actualizado de amenazas (link:../004/[REQ.004]) 
+y una lista de activos de la organización (link:../001/[REQ.001]).
 Una vez se cuente con ambos, 
 se realiza una evaluación de la posibilidad de materialización
 de las amenazas presentes en el catálogo 
@@ -83,4 +83,6 @@ no fue previamente identificada.
 
 == Referencias
 
-. https://www.iso.org/isoiec-27001-information-security.html[Serie de normas ISO/IEC 27000]
+. link:https://www.iso.org/isoiec-27001-information-security.html[Serie de normas ISO/IEC 27000].
+. link:https://www.pmg-ssi.com/2015/04/iso-27001-amenazas-y-vulnerabilidades/[Amenazas y vulnerabilidades - ISO 27001].
+

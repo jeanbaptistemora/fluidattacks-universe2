@@ -107,4 +107,6 @@ de forma que sean costo-eficientes.
 
 == Referencias
 
-. https://app.knowledgeowl.com/hardens/article-preview/id/54e3799f7cb82979702e0753/aid/5733cba932131c4f22e402a8[Serie de normas ISO/IEC 27000]
+. link:https://es.wikipedia.org/wiki/ISO/IEC_27000-series[Wikipedia - Normas ISO/IEC 27000].
+. link:https://www.iso.org/isoiec-27001-information-security.html[Serie de normas ISO/IEC 27000].
+
