@@ -6,14 +6,14 @@
 
 = Defends
 
-FLUIDHardens is a set of detailed procedures 
+FLUIDDefends is a set of detailed procedures 
 that allow you to program safely, 
 configure technology components in a secure manner 
 and fix security vulnerabilities found by us. 
 The procedures contain screenshots and commented snippets of code, 
 explaining the procedure step by step. 
 The complete programs are also easily downloadable and compilable. 
-With FLUIDHardens you can remedy the vulnerabilities 
+With FLUIDDefends you can remedy the vulnerabilities 
 that we find in the shortest possible time.
 
 You can access the product [button]#link:../../defends/[here >>]#
