@@ -7,77 +7,42 @@
 
 == 1. Objetivo
 
-La charla genera un espacio de reflexión ante riesgos a los 
+La charla genera un espacio de reflexión ante riesgos a los
 cuales está expuesta la información y los usuarios de teléfonos inteligentes.
 
 == 2. Contenido
 
-Durante la charla se repasa un conjunto de riesgos a la información relacionados 
-con el uso de smartphones de manera que cada asistente pueda conocerlo, 
+Durante la charla se repasa un conjunto de riesgos a la información relacionados
+con el uso de smartphones de manera que cada asistente pueda conocerlo,
 saber sus implicaciones y los controles que podría aplicar si desea tratarlo
 
 
 == 3. Experiencia
 
-Esta conferencia se ha presentado desde hace 5 años en grandes empresas de la región como: 
-link:https://www.grupobancolombia.com/wps/portal/personas[Bancolombia], link:https://www.negocioleonisa.com/wps/portal/colombia[Leonisa], 
+Esta conferencia se ha presentado desde hace 5 años en grandes empresas de la región como:
+link:https://www.grupobancolombia.com/wps/portal/personas[Bancolombia], link:https://www.negocioleonisa.com/wps/portal/colombia[Leonisa],
 link:http://www.tuya.com.co/[Tuya] y link:http://www.celsia.com/[Celsia].
 
 == 4. ¿Dónde?
 
-Podemos dictar la conferencia a domicilio en sus instalaciones. 
+Podemos dictar la conferencia a domicilio en sus instalaciones.
 
-Las charlas pueden ser en Medellín con un público de mínimo 10 personas. 
+Las charlas pueden ser en Medellín con un público de mínimo 10 personas.
 Para otras ciudades en Colombia, Centroamérica, Ecuador y Perú se debe contar con 20 asistentes
 
-== 5. ¿Cuándo? 
-
-Acordaremos la fecha en que se dictará, es cuestión de que nos indiques tres posibles horarios 
-para realizarla y nosotros seleccionamos una.
+== 5. Duración
 
 La conferencia tiene una duración de dos horas (Es posible variar su duración entre 1½ horas y 2½ horas).
 
 == 6. Público
 
-La conferencia es apta para público con básico o poco conocimiento técnico. 
-Deben ser usuarios de smartphone. 
+La conferencia es apta para público con básico o poco conocimiento técnico.
+Deben ser usuarios de smartphone.
 El límite de asistentes es 30 personas
 
-== 7. Detalles
+== 7. Expositor
 
-. *Inversión:* $0 COP, FLUID se encarga de todos los costos correspondientes excepto el lugar y el tiempo 
-de los asistentes. Si no se pueden cumplir los requisitos mínimos de número de asistentes y perfil de los mismos, 
-la inversión de la conferencia en Medellín es de $1.025.324 COP, en otras ciudades del país 2X, y 3X fuera de Colombia.
-
-. *Material:* El material se le envia solo a los asistentes que diligencien la evaluación de satisfacción 1 día después de la conferencia.
-
-== 8. Requisitos
-
-A continuación describimos los aspectos que requerimos se cumplan en su totalidad para poder dictar la conferencia sin ningún contratiempo:
-
-. Todos los asistentes antes de retirarse DEBEN diligenciar por Internet una evaluación de satisfacción de 2 minutos.
-
-. FLUID PODRÁ invitar hasta 4 asistentes adicionales a los de su organización.
-
-. Los asistentes DEBEN usar celular, pero NO portátiles durante el tiempo de la conferencia.
-
-. Todos los asistentes DEBEN tener previamente acceso a la totalidad de esta invitación de forma que puedan decidir voluntariamente si asistir o no.
-
-. El expositor DEBE poder ingresar 30 minutos antes al lugar de la conferencia a conectar equipos, 
-hacer pruebas de conectividad WiFi y así empezar a la hora en punto la conferencia.
-
-. *Conexión HDMI física:*  La presentación se hace desde un portatil Linux con animaciones, 
-por ende no son soportados conectores inalámbricos HDMI que requieren instalación de Drivers Windows.
-
-. *Acceso a Google Drive via WiFi:* La presentación dispone de animaciones y videos solo disponibles si el portatil de presentación 
-puede conectarse a Internet mediante una WiFi que permita conexión a Google Drive. 
-
-. No incluir personas remotamente. 
-La conferencia es muy dinámica y por ende depende mucho de la interacción cara a cara con el público.
-
-== 9. Expositor
-
-Licenciado en Educación, con experiencia de 15 años. 
-Socio fundador de FLUID. 
+Licenciado en Educación, con experiencia de 15 años.
+Socio fundador de FLUID.
 Auditor de Sistemas de Seguridad de la Información
 

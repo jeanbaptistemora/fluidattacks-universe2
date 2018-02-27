@@ -1,0 +1,9 @@
+:slug: talks/
+:description: This page aims to inform the customers about the conference service offered by FLUID. These conferences address subjects related to the Information Security and are prepared by experienced professionals in the field.
+:keywords: FLUID, Conference, Security, Experience, Information, Service
+
+= Talks
+
+This page is currently not available in this language.
+
+To view the version in spanish, click [button]#link:../../es/conferencias/[here >>]#
