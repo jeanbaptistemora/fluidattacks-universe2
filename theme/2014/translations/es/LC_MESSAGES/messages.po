@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2018-02-27 02:02+0000\n"
+"POT-Creation-Date: 2018-02-27 02:40+0000\n"
 "PO-Revision-Date: 2017-12-21 15:09-0500\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: es\n"
@@ -40,7 +40,7 @@ msgid "Blog Archives"
 msgstr "Archivos del Blog"
 
 #: templates/archives.html:34 templates/article.html:51
-#: templates/author.html:39 templates/authors.html:30
+#: templates/author.html:37 templates/authors.html:30
 #: templates/categories.html:30 templates/category.html:28
 #: templates/error.html:37 templates/form.html:51 templates/home.html:28
 #: templates/index.html:26 templates/landing.html:31 templates/tag.html:41
@@ -48,12 +48,11 @@ msgstr "Archivos del Blog"
 msgid "Young hacker smiling"
 msgstr "Joven hacker sonriendo"
 
-#: templates/archives.html:44 templates/period_archives.html:8
-#: templates/period_archives.html:23
+#: templates/archives.html:44
 msgid "Archives for"
 msgstr "Archivos para"
 
-#: templates/article.html:62 templates/author.html:48 templates/authors.html:40
+#: templates/article.html:62 templates/author.html:46 templates/authors.html:40
 #: templates/categories.html:40 templates/category.html:37
 #: templates/form.html:61 templates/home.html:10 templates/landing.html:8
 #: templates/navigationbar.html:22 templates/tag.html:50 templates/tags.html:40
@@ -62,6 +61,7 @@ msgstr "Inicio"
 
 #: templates/article.html:64 templates/categories.html:8
 #: templates/categories.html:44 templates/category.html:39
+#: templates/footer.html:41
 msgid "Categories"
 msgstr "Categorías"
 
@@ -123,17 +123,8 @@ msgstr "Autor, Artículo, Información, Seguridad, Blog, Publicación, Fecha"
 msgid "Articles by"
 msgstr "Artículos por"
 
-#: templates/author.html:15 templates/authors.html:10 templates/authors.html:15
-#: templates/footer.html:41
-msgid "authors"
-msgstr "autores"
-
-#: templates/author.html:18 templates/authors.html:18
-msgid "autores"
-msgstr "authors"
-
-#: templates/author.html:50 templates/authors.html:8 templates/authors.html:44
-#: templates/footer.html:41
+#: templates/author.html:48 templates/authors.html:8 templates/authors.html:44
+#: templates/footer.html:40
 msgid "Authors"
 msgstr "Autores"
 
@@ -153,6 +144,14 @@ msgstr ""
 msgid "Authors, Blog, Publish, Article, Information, Security"
 msgstr "Autores, Blog, Publicar, Artículo, Información, Seguridad"
 
+#: templates/authors.html:10 templates/authors.html:15 templates/footer.html:40
+msgid "authors"
+msgstr "autores"
+
+#: templates/authors.html:18
+msgid "autores"
+msgstr "authors"
+
 #: templates/categories.html:4
 msgid ""
 "Here you can find the list of categories used to classify the articles of"
@@ -167,6 +166,7 @@ msgstr ""
 "información general"
 
 #: templates/categories.html:10 templates/categories.html:15
+#: templates/footer.html:41
 msgid "categories"
 msgstr "categorias"
 
@@ -279,18 +279,18 @@ msgstr "Entradas Recientes del Blog"
 msgid "Blog Categories"
 msgstr "Categorías del Blog"
 
-#: templates/error.html:87 templates/footer.html:44
+#: templates/error.html:87 templates/footer.html:46
 #: templates/navigationbar.html:39
 msgid "Careers"
 msgstr "Empleos"
 
-#: templates/error.html:89 templates/footer.html:44 templates/footer.html:45
-#: templates/footer.html:46 templates/footer.html:47 templates/footer.html:48
+#: templates/error.html:89 templates/footer.html:46 templates/footer.html:47
+#: templates/footer.html:48 templates/footer.html:49 templates/footer.html:50
 #: templates/navigationbar.html:39
 msgid "careers"
 msgstr "empleos"
 
-#: templates/footer.html:4
+#: templates/footer.html:4 templates/navigationbar.html:19
 msgid "FLUID logo"
 msgstr "Logo de FLUID"
 
@@ -389,95 +389,99 @@ msgstr "temas"
 msgid "Topics"
 msgstr "Temas"
 
-#: templates/footer.html:40 templates/tag.html:26 templates/tags.html:10
+#: templates/footer.html:42 templates/tag.html:26 templates/tags.html:10
 #: templates/tags.html:15
 msgid "tags"
 msgstr "etiquetas"
 
-#: templates/footer.html:40 templates/tag.html:52 templates/tags.html:8
+#: templates/footer.html:42 templates/tag.html:52 templates/tags.html:8
 #: templates/tags.html:44
 msgid "Tags"
 msgstr "Etiquetas"
 
-#: templates/footer.html:45
+#: templates/footer.html:43
+msgid "Format"
+msgstr "Formato"
+
+#: templates/footer.html:47
 msgid "reasons"
 msgstr "razones"
 
-#: templates/footer.html:45
+#: templates/footer.html:47
 msgid "Reasons"
 msgstr "Razones"
 
-#: templates/footer.html:46
+#: templates/footer.html:48
 msgid "positions"
 msgstr "vacantes"
 
-#: templates/footer.html:46
+#: templates/footer.html:48
 msgid "Positions"
 msgstr "Vacantes"
 
-#: templates/footer.html:47
+#: templates/footer.html:49
 msgid "terms"
 msgstr "terminos"
 
-#: templates/footer.html:47
+#: templates/footer.html:49
 msgid "Terms"
 msgstr "Términos"
 
-#: templates/footer.html:51 templates/footer.html:52 templates/footer.html:53
-#: templates/footer.html:54 templates/footer.html:55 templates/footer.html:56
-#: templates/footer.html:57 templates/footer.html:58
+#: templates/footer.html:53 templates/footer.html:54 templates/footer.html:55
+#: templates/footer.html:56 templates/footer.html:57 templates/footer.html:58
+#: templates/footer.html:59 templates/footer.html:60
 msgid "sectors"
 msgstr "sectores"
 
-#: templates/footer.html:51
+#: templates/footer.html:53
 msgid "Sectors"
 msgstr "Sectores"
 
-#: templates/footer.html:52
+#: templates/footer.html:54
 msgid "financial"
 msgstr "financiero"
 
-#: templates/footer.html:52
+#: templates/footer.html:54
 msgid "Financial"
 msgstr "Financiero"
 
-#: templates/footer.html:53
+#: templates/footer.html:55
 msgid "communications"
 msgstr "comunicaciones"
 
-#: templates/footer.html:53
+#: templates/footer.html:55
 msgid "Communications"
 msgstr "Comunicaciones"
 
-#: templates/footer.html:54
+#: templates/footer.html:56
 msgid "consumer"
 msgstr "comercial"
 
-#: templates/footer.html:54
+#: templates/footer.html:56
 msgid "Consumer"
 msgstr "Comercial"
 
-#: templates/footer.html:55
+#: templates/footer.html:57
 msgid "technology"
 msgstr "tecnologia"
 
-#: templates/footer.html:55
+#: templates/footer.html:57
 msgid "Technology"
 msgstr "Tecnología"
 
-#: templates/footer.html:56
+#: templates/footer.html:58
 msgid "utilities"
 msgstr "energia"
 
-#: templates/footer.html:56
+#: templates/footer.html:58
 msgid "Utilities"
 msgstr "Energía"
 
-#: templates/footer.html:58
+#: templates/footer.html:60
 msgid "transportation"
 msgstr "transporte"
 
-#: templates/footer.html:58
+#: templates/footer.html:60
 msgid "Transportation"
 msgstr "Transporte"
 
@@ -658,10 +662,6 @@ msgstr "Buscar en el sitio..."
 msgid "Magnifying glass"
 msgstr "Lupa"
 
-#: templates/navigationbar.html:19
-msgid "FLUID screw logo"
-msgstr "Tuerca logo de FLUID"
-
 #: templates/pagination.html:6
 msgid "Previous"
 msgstr "Anterior"
@@ -709,6 +709,9 @@ msgstr ""
 "sobre un tema específicoo una solución a un reto, hasta simplemente "
 "información general"
 
-msgid "Search"
-msgstr "Búsqueda"
+#~ msgid "FLUID screw logo"
+#~ msgstr "Tuerca logo de FLUID"
+
+#~ msgid "Search"
+#~ msgstr "Búsqueda"
 
