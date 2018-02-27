@@ -60,21 +60,36 @@
 {% block content %}   
   <div class="divpage">         
     <article>
-      <div class="breadcrumbs">
-        <ul>
-          <li><a href="{{ SITEURL }}/">{{ gettext('Home') }} >>&nbsp;</a></li>
-            {% if page.defends %}
-              <li><a href="{{ SITEURL }}/defends/">Defends >>&nbsp;</a></li>
-              <li><a href="{{ SITEURL }}/defends/#{{ page.category.name }}">{{ page.category }}</a></li>
-            {% elif "misc" not in page.category.name %}
-              {% if page.category2 %}
-                <li><a href="{{ SITEURL }}/{{ page.category.name }}">{{ page.category }} >>&nbsp;</a></li>
-                <li><a href="{{ SITEURL }}/{{ page.category.name }}/{{ page.category2 }}/">{{ page.category2|replace('-', ' ') }}</a></li>
-              {% else %}
-                <li><a href="{{ SITEURL }}/{{ page.category.name }}">{{ page.category }}</a></li>
+      <div class="nav-info">
+        <div class="breadcrumbs">
+          <ul>
+            <li><a href="{{ SITEURL }}/">{{ gettext('Home') }} >>&nbsp;</a></li>
+              {% if page.defends %}
+                <li><a href="{{ SITEURL }}/defends/">Defends >>&nbsp;</a></li>
+                <li><a href="{{ SITEURL }}/defends/#{{ page.category.name }}">{{ page.category }}</a></li>
+              {% elif "misc" not in page.category.name %}
+                {% if page.category2 %}
+                  <li><a href="{{ SITEURL }}/{{ page.category.name }}">{{ page.category }} >>&nbsp;</a></li>
+                  <li><a href="{{ SITEURL }}/{{ page.category.name }}/{{ page.category2 }}/">{{ page.category2|replace('-', ' ') }}</a></li>
+                {% else %}
+                  <li><a href="{{ SITEURL }}/{{ page.category.name }}">{{ page.category }}</a></li>
+                {% endif %}
               {% endif %}
-            {% endif %}
-        </ul>
+          </ul>
+        </div>
+        {% if DEFAULT_LANG == "en" %}
+          {% if page.translate %}
+            <div class="translate">
+              <img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/es.png" alt="Spain flag"><a href="{{ SUBSITEURL }}/{{ page.translate }}" class="button">Translate >></a>
+            </div>
+          {% endif %}
+        {% else %}
+          {% if page.translate %}
+            <div class="translate">
+              <img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/en.png" alt="Bandera de Estados Unidos"><a href="{{ SUBSITEURL }}/{{ page.translate }}" class="button">Traducir >></a>
+            </div>
+          {% endif %}
+        {% endif %}
       </div>
       <h1>{{ page.title }}</h1>
       {{ page.content }}

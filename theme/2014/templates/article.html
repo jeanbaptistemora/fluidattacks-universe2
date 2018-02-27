@@ -57,14 +57,29 @@
   <!-- Post Content -->
   <div class="divarticle">
     <article>
-      <div class="breadcrumbs">
-        <ul>
-          <li><a href="{{ SITEURL }}/">{{ gettext('Home') }} >>&nbsp;</a></li>
-          <li><a href="{{SITEURL}}/blog/">Blog >>&nbsp;</a></li>
-          <li><a href="{{SITEURL}}/{{ category.url }}../">{{ gettext('Categories') }} >>&nbsp;</a></li>
-          <li><a href="{{ SITEURL }}/{{ category.url }}">{{ article.category|replace("-", " ") }}</a></li>
-        </ul>
-      </div> 
+      <div class="nav-info">
+        <div class="breadcrumbs">
+          <ul>
+            <li><a href="{{ SITEURL }}/">{{ gettext('Home') }} >>&nbsp;</a></li>
+            <li><a href="{{SITEURL}}/blog/">Blog >>&nbsp;</a></li>
+            <li><a href="{{SITEURL}}/{{ category.url }}../">{{ gettext('Categories') }} >>&nbsp;</a></li>
+            <li><a href="{{ SITEURL }}/{{ category.url }}">{{ article.category|replace("-", " ") }}</a></li>
+          </ul>
+        </div> 
+        {% if DEFAULT_LANG == "en" %}
+          {% if article.translate %}
+            <div class="translate">
+              <img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/es.png" alt="Spain flag"><a href="{{ SUBSITEURL }}/blog/{{ article.translate }}" class="button">Translate >></a>
+            </div>
+          {% endif %}
+        {% else %}
+          {% if article.translate %}
+            <div class="translate">
+              <img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/en.png" alt="Bandera de Estados Unidos"><a href="{{ SUBSITEURL }}/blog/{{ article.translate }}" class="button">Traducir >></a>
+            </div>
+          {% endif %}
+        {% endif %}
+      </div>
       <h1>{{ article.title }}</h1>
       {% if article.headline %}
         <h3 class="subheading">{{ article.headline }}</h3>
@@ -85,6 +100,20 @@
 	  <td class="meta-data">
             <img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/calendar2.png" alt="{{ gettext('Calendar icon') }}"><p>{{ article.locale_date }}</p><br/>
           </td>
+          <!--
+          {% if DEFAULT_LANG == "en" %}
+            {% if article.translate %}
+              <td class="meta-data">
+                <a href="{{ SUBSITEURL }}/blog/{{ article.translate }}"><img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/es.png" alt="Spain flag"></a>
+              </td>
+            {% endif %}
+          {% else %}
+            {% if article.translate %}
+              <td class="meta-data">
+                <a href="{{ SUBSITEURL }}/blog/{{ article.translate }}"><img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/en.png" alt="Bandera de Estados Unidos"></a>
+              </td>
+            {% endif %}
+          {% endif %} -->
         </tr>  
       </table>
       {% if article.modified %}

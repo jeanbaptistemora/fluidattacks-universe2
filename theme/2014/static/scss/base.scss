@@ -529,10 +529,21 @@ article {
   text-decoration: line-through;
 }
 
+.nav-info {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+}
+
+.translate {
+  text-align: center;
+
+  a {
+    font-size: 17px;
+  }
+}
+
 .breadcrumbs {
-  float: left;
-  margin: 0 20px 20px 0;
-  width: 100%;
 
   ul {
     list-style: none;
