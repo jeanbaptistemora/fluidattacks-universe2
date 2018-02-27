@@ -543,7 +543,7 @@ msgstr "Seguir Leyendo"
 #: templates/landing.html:40
 msgid ""
 "Using a white-box methodology or code review, either on each application "
-"or the complete suite of applications we detect security issues:"
+"or the complete suite of applications, we detect security issues:"
 msgstr ""
 "Usando una metodología de caja blanca o revisión de código, ya sea en "
 "cada aplicación o en el conjunto entero de aplicaciones, detectamos "
@@ -595,11 +595,9 @@ msgstr "Mano sosteniendo un símbolo de un candado"
 
 #: templates/landing.html:76
 msgid ""
-"<strong>Generates confidence</strong> in customers and users of the "
-"applications."
+"<strong>Generates confidence</strong> in customers and application users applications."
 msgstr ""
-"<strong>Genera confianza</strong> en clientes y usuarios de las "
-"aplicaciones"
+"<strong>Genera confianza</strong> en clientes y usuarios de las aplicaciones"
 
 #: templates/landing.html:79
 msgid "Hand with the thumb up"
@@ -615,13 +613,14 @@ msgstr ""
 
 #: templates/landing.html:87
 msgid ""
-"FLUID has been lending Information Security services in the colombian "
-"market for over 18 years. Up next, we list some of the current clients of"
-" our company."
+"FLUID has been providing Information Security services in the Colombian "
+"market for over 18 years. Below, we list some of"
+"our customers."
+
 msgstr ""
 "FLUID lleva más de 18 años prestando servicios de Seguridad de la "
 "Información en el mercado colombiano. A continuación listamos algunos de "
-"los clientes actuales de nuestra compañía."
+"algunos de nuestros clientes.."
 
 #: templates/location.html:21 templates/location.html:30
 #: templates/location.html:66 templates/location.html:85
