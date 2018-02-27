@@ -13,63 +13,68 @@ creados por la misma cuando ya no estén en uso.
 
 == Descripción
 
-La protección inadecuada de datos sensibles, 
-puede conducir a vulnerabilidades que afectan 
-la confidencialidad, la disponibilidad e integridad de la información 
+El presente criterio de seguridad 
+trata sobre la protección inadecuada de datos sensibles, 
+los cuales, pueden conducir a vulnerabilidades 
+que podrían afectar tanto la confidencialidad, la disponibilidad 
+e integridad de la información 
 durante todo su ciclo de vida.<<r1,^[1]^>> 
 Esta fuga de información confidencial 
 es más probable si la memoria que contiene los datos 
 no es borrada después de usar dicha información.
 
-== Guía de implementación
+== Implementación
 
-Cuando información confidencial está disponible en memoria, 
-ésta puede ser vulnerable 
-y un atacante que pueda ejecutar código malicioso en el mismo sistema, 
-podría acceder a dicha información. 
-Por lo tanto, la aplicación debe evitar:<<r2,^[2]^>>
+Por lo anterior, para el presente criterio de seguridad, 
+se recomienda seguir las siguientes pautas:<<r2,^[2]^>>
 
-* El uso de objetos para almacenar información sensible 
-cuyo contenido no sea eliminado o limpiado 
-sino hasta que el recolector de basura los elimine.
+. Si un programa hace uso de un recurso 
+como por ejemplo un archivo de texto plano, una imagen, etc., 
+después de usar dicho recurso, 
+se debe cerrar el acceso al mismo lo antes posible.
 
-* Emplear páginas de memoria 
-que se puedan intercambiar en el disco 
-según lo requiera el sistema operativo. 
-Por ejemplo, para realizar tareas de administración de memoria 
-o para admitir la hibernación.
+. Cuando un programa haga uso de una conexión 
+a una base de datos por ejemplo, 
+después de usar dicha conexión, 
+esta debe ser cerrada tan pronto sea posible.
 
-* Mantener datos sensibles en un +búfer+. 
-Lo anterior debido a que un búfer 
-mantiene copias de datos en la caché del sistema operativo o en memoria.
+. Si existen variables en el búfer de memoria, 
+estas deben ser sobrescritas antes de ser liberadas.
 
-* Basar su flujo de control en la reflexión. 
-Esto puesto que permite que las contramedidas 
-eludan la limitación de la vida útil de las variables sensibles.
+. Si en memoria existen objetos creados dentro de la aplicación, 
+estos deben ser destruidos por esta una vez no sean necesarios.
 
-* Revelar datos confidenciales en mensajes de depuración, 
-archivos de registro (+logs+), variables de entorno 
-o mediante volcados de hilos y núcleos.
+. En general, cualquier recurso, variable, objeto, conexión, etc., 
+debe ser destruido sin esperar a que el recolector de basura los elimine.
 
-Por lo anterior, para limitar el riesgo de exposición, 
+De acuerdo a lo anterior, para limitar el riesgo 
+de exposición de información confidencial, 
 los programas deben minimizar la vida útil de dichos datos sensibles.
 
-== Soluciones aplicables
+== Soluciones
 
-* *+COBOL+* link:../../cobol/liberar-recursos/[Liberar Recursos].
-* *+COBOL+* link:../../cobol/mensajes-error-autenticacion/[Evitar Emitir Mensajes de Errores en Autenticación].
-* *+ASP.NET+* link:../../aspnet/error-manera-segura/[Presentar error de manera segura].
-* *+ASP.NET+* link:../../aspnet/evitar-codigo-muerto/[Evitar código muerto].
-* *+JAVA+* link:../../java/limitar-vida-datos-sensibles/[Limitar el tiempo de vida de datos sensibles].
-* *+SCALA+* link:../../scala/limitar-tiempo-vida/[Limitar el tiempo de vida de datos sensibles].
+. *+COBOL+* link:../../defends/cobol/liberar-recursos/[Liberar Recursos].
+. *+JAVA+* link:../../defends/java/limitar-vida-datos-sensibles/[Limitar el tiempo de vida de datos sensibles].
+. *+SCALA+* link:../../defends/scala/limitar-tiempo-vida/[Limitar el tiempo de vida de datos sensibles].
 
 == Casos de abuso
 
-Un atacante que pueda ejecutar código malicioso en el mismo sistema, 
+A continuación se describen dos casos de abuso, 
+los cuales, son aplicables para el presente criterio de seguridad:
+
+. Un atacante que logre entrar 
+y pueda ejecutar código malicioso en el mismo sistema, 
 podría acceder a información confidencial 
 si esta se encuentra disponible en memoria.
+
+. Cuando se produce un volcado de memoria (+core dump+),^<<r3,[3]>>,<<r4,[4]>>^ 
+se generan archivos que podrían contener información confidencial 
+como contraseñas, si estos se encontraban en memoria 
+al momento de producirse el fallo.
 
 == Referencias
 
 . [[r1]] link:https://www.owasp.org/index.php/Category:Sensitive_Data_Protection_Vulnerability[Category:Sensitive Data Protection Vulnerability].
 . [[r2]] link:https://wiki.sei.cmu.edu/confluence/display/java/MSC59-J.+Limit+the+lifetime+of+sensitive+data[MSC59-J. Limit the lifetime of sensitive data].
+. [[r3]] link:https://en.wikipedia.org/wiki/Core_dump[Core dump].
+. [[r4]] link:http://www.unixguide.net/linux/faq/07.13.shtml[What Is a "core" File?].
