@@ -1,7 +1,7 @@
 :slug: application-hacking/
 :description: This page describes our Hacking Service over applications. Its main goal is to detect and report all vulnerabilities and security issues within the application, informing the customer the criticality and number of occurrences of each finding as soon as possible.
 :keywords: FLUID, Services, Application, Pentesting, Exploit, Ethical Hacking.
-:translate: hacking-aplicacion/
+// :translate: hacking-aplicacion/
 
 = Ethical Hacking over Applications
 

@@ -2,7 +2,7 @@
 :category: careers
 :description: The main goal of the following page is to inform potential talents and people interested in working with us about our selection process. The portfolio is a document which contains your main academic achievements, samples and results of your most outstanding projects.
 :keywords: FLUID, Careers, Portfolio, Selection, Process, Documentation.
-:translate: empleos/portafolio/
+// :translate: empleos/portafolio/
 
 = Portfolio
 

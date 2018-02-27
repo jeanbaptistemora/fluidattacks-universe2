@@ -4,7 +4,7 @@
 :alt: Persona en un computador, visto desde arriba
 :description: En FLUID somos especialistas en Ethical Hacking de infraestructura. Somos hackers que desarrollamos nuestras propias herramientas y exploits, lo que nos permite encontrar todas las vulnerabilidades de sus aplicaciones y reportarlas lo más pronto posible.
 :keywords: FLUID, Servicios, Ethical hacking, Infraestructura, Vulnerabilidad, Diagnóstico.
-:translate: network-hacking/
+// :translate: network-hacking/
 
 = Ethical Hacking de Infraestructura
 

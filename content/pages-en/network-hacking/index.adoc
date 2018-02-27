@@ -1,7 +1,7 @@
 :slug: network-hacking/
 :description: FLUID is a company focused on information security, ethical hacking, penetration testing and vulnerabilities detection in applications. Here we develop our own tools and exploits in order to ensure the detection of all the security issues in your application, reporting them as soon as possible.
 :keywords: FLUID, Services, Network, Hacking, Infrastructure, Ethical Hacking.
-:translate: hacking-red/
+// :translate: hacking-red/
 
 = Ethical Hacking over Infrastructure
 

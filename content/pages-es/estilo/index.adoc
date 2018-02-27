@@ -1,7 +1,7 @@
 :slug: estilo/
 :description: Nuestros ethical hackers explican los criterios necesarios para la aceptación y posterior publicación de un documento en el blog de FLUID a través de un documento guía. Además se abordan algunos temas referentes a asciidoc y pautas a tener en cuenta a la hora de construir un documento.
 :keywords: Editorial, Guía, Artículos, Asciidoc, Criterios, Aceptación.
-:translate: style/
+// :translate: style/
 
 = Estilo
 
@@ -235,8 +235,8 @@ puede ser encontrado por un motor de búsqueda.
 El documento debe incluir 6 +keywords+.
 
 |+:translate:+ | Si | Si | Si
-| Atributo que indica si se encuentra disponible una versión traducida 
-del documento dentro de la página de FLUID. 
+| Atributo que indica si se encuentra disponible una versión traducida
+del documento dentro de la página de FLUID.
 En caso afirmativo se debe incluir el +slug+ del documento traducido.
 
 |+:defends:+ | No | Si | No
@@ -275,7 +275,7 @@ La única extensión permitida es PNG.
 Puede ser tu nombre completo o tu +nickname+.
 
 | +:about1:+ | No | No | Si
-| Información primaria del autor: 
+| Información primaria del autor:
 formación académica, experiencia, cargo (si aplica).
 
 | +:about2:+ | No | No | Si

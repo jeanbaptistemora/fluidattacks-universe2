@@ -2,7 +2,7 @@
 :category: sectores
 :description: FLUID es una compañía especializada en seguridad informática, ethical hacking, pruebas de intrusión y detección de vulnerabilidades en aplicaciones con más de 18 años prestando sus servicios en el mercado colombiano. Aquí presentamos nuestras soluciones en el sector de las comunicaciones.
 :keywords: FLUID, Seguridad, Soluciones, Comunicaciones, Pentesting, Ethical Hacking.
-:translate: sectors/communications/
+// :translate: sectors/communications/
 
 = Comunicaciones
 

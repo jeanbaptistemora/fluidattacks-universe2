@@ -2,7 +2,7 @@
 :category: empleos
 :description: La siguiente página tiene como objetivo informar a los interesados en ser parte del equipo de trabajo de FLUID sobre el proceso de selección realizado. A continuación presentamos los documentos requeridos para el procedimiento de vinculación con la empresa.
 :keywords: FLUID, Empleo, Proceso, Selección, Vinculación, Requerimientos.
-:translate: careers/legalization/
+// :translate: careers/legalization/
 
 = Vinculación
 

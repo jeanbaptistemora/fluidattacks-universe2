@@ -2,7 +2,7 @@
 :category: careers
 :description: The main goal of the following page is to inform potential talents and people interested in working with us about our selection process. Here we present a Frequently Asked Questions (FAQ) section which intends to guide our candidates through the selection process.
 :keywords: FLUID, Careers, Selection, Process, FAQ, Questions.
-:translate: empleos/faq/
+// :translate: empleos/faq/
 
 = Frequently Asked Questions (FAQ)
 

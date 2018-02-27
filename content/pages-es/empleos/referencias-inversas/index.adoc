@@ -2,7 +2,7 @@
 :category: empleos
 :description: La siguiente página tiene como objetivo informar a los interesados en ser parte del equipo de trabajo de FLUID sobre el proceso de selección realizado. La etapa de referencias cruzadas consiste en la validación de referencias de los empleos anteriores del candidato a través de dos de sus jefes.
 :keywords: FLUID, Empleo, Proceso, Selección, Referencias, Inversas.
-:translate: careers/reverse-references/
+// :translate: careers/reverse-references/
 
 = Referencias Inversas
 
