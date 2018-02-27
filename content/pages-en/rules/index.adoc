@@ -1,0 +1,10 @@
+:slug: rules/
+:category: rules
+:description: The purpose of this page is to present the products offered by FLUID. Rules is a recompilation of several security criteria developed by FLUID, based in different international standards in order to assure the information security of the company in different areas.
+:keywords: FLUID, Products, Rules, Criteria, Security, Applications.
+
+= Rules
+
+This page is not currently available in this language.
+
+See the spanish version [button]#link:../../es/rules/[here >>]#
