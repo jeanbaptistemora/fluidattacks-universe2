@@ -15,6 +15,8 @@ It also provides the decision makers
 with real time information
 regarding the state of their system´s security.
 
+You can access the product [button]#link:../../../../integrates[here >>]#
+
 [role="integrates tb-alt"]
 [cols=2, frame="none"]
 |====
