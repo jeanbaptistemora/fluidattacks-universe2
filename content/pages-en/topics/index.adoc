@@ -5,6 +5,21 @@
 
 = Topics
 
-This page is not currently available in this language.
+Our blog articles seek to cover different topics
+related to security and/or topics of interest in the world of +IT+,
+they can also reflect the author's opinion
+about a specific issue related to security.
+If you want to collaborate and you do not have a topic clear,
+in this section we give you ideas
+and once they are covered by an article
+we update the +# TrendingTopics+ list.
+Among the topics of interest are:
 
-See the spanish version [button]#link:../../es/temas/[here >>]#
+* Correctness by Construction (CbyC).
+* Security Development Lifecycle (SDL).
+* Comprehensive Software Development Model.
+* Lightweight Application Security Process (CLASP).
+* TSP-Secure (Team Software Process for Secure SW/Dev).
+* CoSMo ―Conceptual Security Modeling.
+* UMLSec.
+* OpenSource Web shells without collateral effects.
