@@ -3,6 +3,7 @@
 :category2: continuous-hacking
 :description: Our Continuous Hacking service aims to detect and report all the vulnerabilities in your application as soon as possible. In this page we present a recompilation of questions and answers that help understand the Continuous Hacking service and how it can benefit an organization.
 :keywords: FLUID, Services, Continuos Hacking, Ethical Hacking, FAQ, Questions.
+:translate: servicios/hacking-continuo/faq/
 
 = Frequently asked questions
 

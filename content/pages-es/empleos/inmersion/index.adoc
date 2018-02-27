@@ -2,22 +2,23 @@
 :category: empleos
 :description: La siguiente página tiene como objetivo informar a los interesados en ser parte del equipo de trabajo de FLUID sobre el proceso de selección realizado. La etapa de inmersión consiste en un entrenamiento remunerado cuya finalidad es adquirir los conocimientos necesarios para desempeñar tu cargo.
 :keywords: FLUID, Empleo, Proceso, Selección, Inmersión, Entrenamiento.
+:translate: careers/immersion/
 
 = Inmersión
 
-A esta altura del proceso estamos a pocos pasos de culminar. Este nuevo paso, para el cual usted ha sido seleccionado entre más de 100 candidatos, busca que usted haga parte en un auto-entrenamiento intensivo en retos de programación y hacking financiado por FLUID llamado “Inmersión”. 
+A esta altura del proceso estamos a pocos pasos de culminar. Este nuevo paso, para el cual usted ha sido seleccionado entre más de 100 candidatos, busca que usted haga parte en un auto-entrenamiento intensivo en retos de programación y hacking financiado por FLUID llamado “Inmersión”.
 
-El objetivo de esta etapa es que usted alcance los más altos niveles de fortaleza técnica. Esto previo a efectuar pruebas reales de seguridad sobre sistemas financieros y de telecomunicaciones, así como validar sus competencias humanas y de trabajo en equipo cerca a otros hackers que ya se encuentran en nuestra organización. 
+El objetivo de esta etapa es que usted alcance los más altos niveles de fortaleza técnica. Esto previo a efectuar pruebas reales de seguridad sobre sistemas financieros y de telecomunicaciones, así como validar sus competencias humanas y de trabajo en equipo cerca a otros hackers que ya se encuentran en nuestra organización.
 
-Por lo extenso del proceso, FLUID, para esta etapa, busca independiente del avance en puntos y ranking, que usted reciba una remuneración por el tiempo invertido en el proceso. 
+Por lo extenso del proceso, FLUID, para esta etapa, busca independiente del avance en puntos y ranking, que usted reciba una remuneración por el tiempo invertido en el proceso.
 
-Los términos del contrato de entrenamiento para esta etapa de Inmersión son los siguientes: 
+Los términos del contrato de entrenamiento para esta etapa de Inmersión son los siguientes:
 
 == Inicio
 
 Este proceso comienza cuando usted tenga listo todo lo siguiente:
 
-. Usuario en https://gitlab.com/[GitLab] y acceso a https://gitlab.com/autonomicmind/training[nuestro repositorio] (previamente solicitado) 
+. Usuario en https://gitlab.com/[GitLab] y acceso a https://gitlab.com/autonomicmind/training[nuestro repositorio] (previamente solicitado)
 . Se registre como tercero en el siguiente [button]#https://fluidattacks.com/forms/tercero[formulario >>]# con el RUT anexo,
 . Entregue en PDF escaneado la copia de la Tarjeta Profesional o el recibo de comienzo de trámite de la misma, aplica si usted ya tiene título de pregrado.
 . Lea y acepte las condiciones de almacenamiento de resultados de entrenamiento que se encuentran https://gitlab.com/autonomicmind/training/blob/master/README.adoc[aquí]
@@ -126,7 +127,7 @@ forma secuencial, manteniendo la indentación original y utilizando el
 resaltado de código (syntax highlighting) propio de GitLab y AsciiDoc:
 
 .test.py
-[source,python] 
+[source,python]
 ----
 print('Hola mundo')
 ----

@@ -2,6 +2,7 @@
 :category: empleos
 :description: La siguiente página tiene como objetivo informar a los interesados en ser parte del equipo de trabajo de FLUID sobre el proceso de selección realizado. La etapa de retos técnicos consiste en evaluar las competencias del candidato mediante ejercicios prácticos de programación y hacking.
 :keywords: FLUID, Empleos, Proceso, Selección, Retos, Técnicos.
+:translate: careers/technical-challenges/
 
 = Retos Técnicos
 
@@ -67,15 +68,15 @@ ____________________________________________________________________
 
 El repositorio donde usted debe enviar sus soluciones es el siguiente: https://gitlab.com/autonomicmind/training/. Por favor lea atentamente las siguientes pautas para trabajar en este repositorio Git:
 
-* *Contenido*: Utilizar espacios en vez de tabuladores.  Parametrice su editor de texto 
+* *Contenido*: Utilizar espacios en vez de tabuladores.  Parametrice su editor de texto
 favorito para que le facilite esta tarea.
 
-* *Programas*: Para las soluciones a retos que correspondan a código fuente debe 
+* *Programas*: Para las soluciones a retos que correspondan a código fuente debe
 utilizarse la extensión y guias de estilo propias del lenguaje. Adicionalmente
-utilizar los *linters* correspondientes en la configuración estandar más 
+utilizar los *linters* correspondientes en la configuración estandar más
 estricta posible.
 
-* *Integración continua (CI / CD)*: Es importante mencionar que el formato es reforzado mediante 
+* *Integración continua (CI / CD)*: Es importante mencionar que el formato es reforzado mediante
 scripts que se encuentran en el repositorio, y que se encuentran disponibles
 para que usted los utilice y mejore.  Del mismo modo estos scripts son
 utilizados en el proceso de integración continua para verificar su estricto
@@ -91,21 +92,21 @@ participantes https://gitlab.com/autonomicmind/training/pipelines[aquí].
 
 ** Un ejemplo de esta estructura es:
 
-*** link:https://gitlab.com/autonomicmind/training/tree/master/challenges/codeabbey/[codeabbey] 
-**** link:https://gitlab.com/autonomicmind/training/tree/master/challenges/codeabbey/005/[005] 
-***** link:https://gitlab.com/autonomicmind/training/tree/master/challenges/codeabbey/005/john2104.ml[john2104.ml] 
-***** link:https://gitlab.com/autonomicmind/training/tree/master/challenges/codeabbey/005/henryval.java[henryval.java] 
+*** link:https://gitlab.com/autonomicmind/training/tree/master/challenges/codeabbey/[codeabbey]
+**** link:https://gitlab.com/autonomicmind/training/tree/master/challenges/codeabbey/005/[005]
+***** link:https://gitlab.com/autonomicmind/training/tree/master/challenges/codeabbey/005/john2104.ml[john2104.ml]
+***** link:https://gitlab.com/autonomicmind/training/tree/master/challenges/codeabbey/005/henryval.java[henryval.java]
 
-* El nombramiento de todos los archivos y directorios, a excepción de sus 
+* El nombramiento de todos los archivos y directorios, a excepción de sus
 archivos, debe realizarse en minuscula, sin caracteres especiales y en caso
 excepcional de requerir espacios usar *-* (guion) como sustituto.
 
 * *Archivos Especiales:* En algunas carpetas de la estructura se encuentran algunos archivos
 especiales de control:
 
-** *LINK.txt:* Contiene la URL al enunciado del reto en la plataforma 
+** *LINK.txt:* Contiene la URL al enunciado del reto en la plataforma
 correspondiente (link:/challenges/codeeval/easy/235/LINK.txt[Ejemplo]).
-Este archivo solo debe contener una linea y visitar el enlace debe 
+Este archivo solo debe contener una linea y visitar el enlace debe
 generar la respuesta 200 (sin redirección).
 
 ** *DATA.txt:* Contiene los casos de prueba con los cuales se han verificado
@@ -123,8 +124,8 @@ candidatos.
 ** *LANG.txt:* Este archivo solo existe para algunos sitios de retos,
 especialmente para sitios de retos de programación.  Cuando existe indica
 los lenguajes de programación que pueden ser usados para resolver retos
-de las subcarpetas donde se encuentra el archivo.  Si contiene multiples 
-lenguajes significa que debe utilizarse de forma secuencial (round robin) 
+de las subcarpetas donde se encuentra el archivo.  Si contiene multiples
+lenguajes significa que debe utilizarse de forma secuencial (round robin)
 cada lenguaje para construir más soluciones de dicha subcarpeta.
 
 == 5. Versionamiento
@@ -133,10 +134,10 @@ Todos los archivos relacionados con la resolución de retos, se deben almacenar 
 de retos indicada.
 {nbsp} +
 {nbsp} +
-Se espera que por cada reto usted realice un commit que agrupe los cambios 
-correspondientes a la solución y que gradualmente usted realice **merge 
+Se espera que por cada reto usted realice un commit que agrupe los cambios
+correspondientes a la solución y que gradualmente usted realice **merge
 requests** a la rama **master** del repositorio en cuestión para solicitar
-la inclusión de sus soluciones. Los 
+la inclusión de sus soluciones. Los
 https://gitlab.com/autonomicmind/training/merge_requests[merge request] pendientes de
 revisión y aprobación, asi como todos los realizados en el pasado pueden
 verse en el enlace indicado.
@@ -188,7 +189,7 @@ la versión correspondiente a la distribución de Linux,
     gitlab-ci-multi-runner exec docker scons_job
 
 . Si la integración fue exitosa, añadir los cambios, hacer commit y subir los
-archivos a la rama del talento (si no fue exitosa, corregir el error y ejecutar 
+archivos a la rama del talento (si no fue exitosa, corregir el error y ejecutar
 los dos comandos anteriores),
 
     git add .
@@ -200,7 +201,7 @@ los dos comandos anteriores),
 * *En Sistemas Operativos Windows:* La forma de ejecutar la integración desde Docker no se encuentra todavía disponible para Windows y, al basarse la integración en Linux, esto hace que el proceso en Windows sea más complicado. Se sugiere instalar un software de virtualización (https://my.vmware.com/en/web/vmware/free#desktop_end_user_computing/vmware_workstation_player/14_0[VMware],
 https://www.virtualbox.org/wiki/Downloads[Virtualbox]) y crear una máquina virtual
 basada en una distribución de Linux (e.g. https://www.ubuntu.com/download/desktop[Ubuntu],
-o la de su preferencia) y aplicar el proceso descrito anteriormente para Sistemas 
+o la de su preferencia) y aplicar el proceso descrito anteriormente para Sistemas
 Operativos Linux.
 
 == 7. Recomendaciones
@@ -219,7 +220,7 @@ Al diligenciar el anterior formulario ,por favor tenga en cuenta lo siguiente:
 . Tenga en cuenta su posición en el ranking y su puntaje antes de comenzar el entrenamiento, pues necesitará estos datos al momento de registrar los campos "Ranking Mundial Inicial", "Ranking Colombia Inicial" y "Puntaje/Páginas Inicial"
 . Los puntajes o posiciones en el ranking finales puede obtenerlos de la siguiente forma:
 
-* En Codeabbey (Para retos de programación): 
+* En Codeabbey (Para retos de programación):
 
 image::ranking-mundial-codeabbey.png[Ranking mundial]
 
@@ -252,10 +253,10 @@ realizadas en el pasado] por otros participantes.
 . https://www.reddit.com/r/learnprogramming/comments/244yqk/sites_like_project_euler/
 
 == 11. Propiedad Intelectual
- 
+
 * Los derechos patrimoniales sobre el contenido de este repositorio se encuentran definidos en el archivo https://gitlab.com/autonomicmind/training/blob/master/COPYRIGHT.txt[COPYRIGHT].
-* La licencia y privilegios que tienen los usuarios de este repositorio 
-se encuentran definidos en el archivo https://gitlab.com/autonomicmind/training/blob/master/LICENSE.txt[LICENSE]. 
+* La licencia y privilegios que tienen los usuarios de este repositorio
+se encuentran definidos en el archivo https://gitlab.com/autonomicmind/training/blob/master/LICENSE.txt[LICENSE].
 * Realizar un **merge request** al mismo implica la cesión de derechos
 patrimoniales.  Por ende la información aqui contenida puede ser usada
 por el propietario (FLUID) para cualquier fin comercial,
@@ -264,16 +265,16 @@ siempre preservando los derechos morales de sus autores.
 === Plagio
 
 La idea de tener las soluciones disponibles para su visualización propone un reto para el plagio, ¿cómo mostrarle al mundo las soluciones y evitar el plagio?  El plagio no es un problema técnico, es un problema moral
-de atribuirse lo que no fue realizado por uno mismo como propio. 
+de atribuirse lo que no fue realizado por uno mismo como propio.
 {nbsp} +
 {nbsp} +
 Para evitar el plagio precisamente buscamos la visibilidad y la declaración
 explicita de autoría de cada algoritmo en un lugar centralizado, de esta
-forma queda evidencia clara de la atribución y puede ser sometido a 
+forma queda evidencia clara de la atribución y puede ser sometido a
 escrutinio publico el acto de plagio.
 {nbsp} +
 {nbsp} +
-Es decir, el modelo actual propuesto, evita el plagio a partir de la 
+Es decir, el modelo actual propuesto, evita el plagio a partir de la
 transparencia total.  No hay que hacer nada mas, cada **merge request** es una
 declaración de autoria y la ubicación de la solución en el lugar donde
 facilite el calculo de similaridad le hace a un humano encontrar el
@@ -282,7 +283,7 @@ plagio.
 {nbsp} +
 De todas formas FLUID trabaja activamente en aplicar tecnicas de detección
 de similitud algoritmica sobre todo el código que sea enviado.  En particular
-usando: 
+usando:
 
 * https://theory.stanford.edu/~aiken/moss/[MOSS]
 * https://en.wikipedia.org/wiki/Plagiarism_detection[Plagiarism Detection Theory]

@@ -1,7 +1,8 @@
 :slug: empleos/evaluacion-conocimientos/
 :category: empleos
-:description: La siguiente página tiene como objetivo informar a los interesados en ser parte del equipo de trabajo de FLUID sobre el proceso de selección realizado. Ésta prueba pretende evaluar los conocimientos del candidato en diferentes áreas para determinar si se ajustan al perfil requerido. 
+:description: La siguiente página tiene como objetivo informar a los interesados en ser parte del equipo de trabajo de FLUID sobre el proceso de selección realizado. Ésta prueba pretende evaluar los conocimientos del candidato en diferentes áreas para determinar si se ajustan al perfil requerido.
 :keywords: FLUID, Empleo, Selección, Evaluación, Prueba, Conocimiento.
+:translate: careers/knowledge-test/
 
 = Evaluación de conocimientos
 
@@ -22,7 +23,7 @@ Los pasos para realizar el examen son los siguientes:
 . Descarga el siguiente [button]#link:../../files/fluidexams.zip[software de seguridad >>]# para presentar el examen.
 
  IMPORTANTE: Por favor termina de leer los demás pasos antes de ejecutar el aplicativo
- 
+
 . Descomprimir el archivo .ZIP descargado y luego instalar en Windows el archivo con nombre "SafeExamBrowserInstaller.exe". El teclado puede cambiar su configuracion, y quedar en ingles, por lo que debe validar si es necesario volverlo a configurar para que quede en español.
 . Verifica que estas conectado a Internet y que tengas una conexión estable.
 . En cualquier momento puedes salir del aplicativo con el botón que está situado en la parte inferior derecha de la pantalla.

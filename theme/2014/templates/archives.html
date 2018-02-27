@@ -13,6 +13,16 @@
   {% endif %}
 {% endblock %}
 
+{% block language %}
+  {% if DEFAULT_LANG == "en" %}
+    <link rel="alternate" href="{{ SITEURL }}/archives.html" hreflang="en-us" />
+    <link rel="alternate" href="{{ SUBSITEURL }}/archives.html" hreflang="es-co" />
+  {% else %}
+    <link rel="alternate" href="{{ SITEURL }}/archives.html" hreflang="es-co" />
+    <link rel="alternate" href="{{ SUBSITEURL }}/archives.html" hreflang="en-us" />
+  {% endif %}
+{% endblock language %}
+
 {% block header %}
   {% include "navigationbar.html" %}
   {% if HEADER_COVER %}

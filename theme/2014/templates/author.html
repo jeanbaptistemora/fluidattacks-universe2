@@ -9,6 +9,14 @@
 
 {% block canonical %}<link rel="canonical" href="{{ SITEURL }}/{{ author.url }}">{% endblock canonical %}
 
+{% block language %}
+  {% if DEFAULT_LANG == "en" %}
+    <link rel="alternate" href="{{ SITEURL }}/{{ author.url}}" hreflang="en-us" />
+  {% else %}
+    <link rel="alternate" href="{{ SITEURL }}/{{ author.url}}" hreflang="es-co" />
+  {% endif %}
+{% endblock language %}
+
 {% block opengraph %}
   {{ super() }}
   <meta property="og:title" content="{{ SITENAME }} - Articles by {{ author }}">

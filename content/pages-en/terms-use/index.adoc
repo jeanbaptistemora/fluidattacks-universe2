@@ -1,6 +1,7 @@
 :slug: terms-use/
 :description: The main purpose of the following page is to describe the Terms of Use of our web site. Here we detail the restrictions, warranties, intellectual property rights, limitations, agreements, jurisdiction and all topics related to the FLUID website content.
 :keywords: FLUID, Terms, Use, Website, Rights, Restrictions.
+:translate: terminos-uso/
 
 = Terms of Use
 

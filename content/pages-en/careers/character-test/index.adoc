@@ -2,6 +2,7 @@
 :category: careers
 :description: The main goal of the following page is to inform potential talents and people interested in working with us about our selection process. The character test evaluates your strengths in order to determine whether the candidate matches the required profile.
 :keywords: FLUID, Careers, Selection, Character, Test, Strengths.
+:translate: empleos/evaluacion-temperamento/
 
 = Character Test
 

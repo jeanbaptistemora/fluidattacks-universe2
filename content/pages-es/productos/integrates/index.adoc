@@ -2,6 +2,7 @@
 :category: productos
 :description: En esta página presentamos nuestros productos más destacados. Integrates es un sistema que busca acercar a todos los interesados al proyecto al hacker, permitiendo registrar e informar sobre los hallazgos de seguridad encontrados en la aplicación de forma fácil, rápida y eficiente.
 :keywords: FLUID, Productos, Integrates, Hallazgos, Seguridad, Cliente.
+:translate: products/integrates/
 
 = Integrates
 

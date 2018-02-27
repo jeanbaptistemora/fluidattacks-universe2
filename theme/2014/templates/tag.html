@@ -20,6 +20,16 @@
 
 {% block canonical %}<link rel="canonical" href="{{ SITEURL }}/{{ tag.url }}">{% endblock canonical %}
 
+{% block language %}
+  {% if DEFAULT_LANG == "en" %}
+    <link rel="alternate" href="{{ SITEURL }}/{{ tag.url }}" hreflang="en-us" />
+    <link rel="alternate" href="{{ SUBSITEURL }}/blog/{{ gettext('tags') }}/{{ tag }}/" hreflang="es-co" />
+  {% else %}
+    <link rel="alternate" href="{{ SITEURL }}/{{ tag.url }}" hreflang="es-co" />
+    <link rel="alternate" href="{{ SUBSITEURL }}/blog/{{ gettext('etiquetas') }}/{{ tag }}/" hreflang="en-us" />
+  {% endif %}
+{% endblock language %}
+
 {% block header %}
   {% include "navigationbar.html" %}
   {% if HEADER_COVER %}

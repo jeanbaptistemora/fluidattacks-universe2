@@ -2,6 +2,7 @@
 :category: careers
 :description: The main goal of the following page is to inform potential talents and people interested in working with us about our selection process. This stage aims to test the knowledge of the candidate in different fields in order to determine if fits with the required profile.
 :keywords: FLUID, Careers, Knowledge, Test, Selection, Process.
+:translate: empleos/evaluacion-conocimientos/
 
 = Knowledge Test
 
@@ -17,10 +18,10 @@ The steps to submit the exam are the following:
 
 == Install SafeExamBrowser
 
-. Download the following [button]#link:../../files/fluidexams.zip[security software >>]# to present the exam. 
+. Download the following [button]#link:../../files/fluidexams.zip[security software >>]# to present the exam.
 
  IMPORTANT: Please finish reading all the steps before you execute the program.
- 
+
 . Decompress the .ZIP file downloaded and then install “SafeExamBrowserInstaller.exe”. The keyboard may change its configuration and set its language to English, so you may need to check if its necessary to change it back to Spanish.
 . Verify your internet connection and make sure it is stable.
 . You can close the program in any moment by using the button located in the bottom right side of the screen.

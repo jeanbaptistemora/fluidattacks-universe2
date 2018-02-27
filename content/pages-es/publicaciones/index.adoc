@@ -1,22 +1,23 @@
 :slug: publicaciones/
 :description: En esta página presentamos las principales publicaciones que ha tenido FLUID a lo largo de los años. Dentro de éstas publicaciones se cuentan los artículos en revistas y congresos internacionales, los artículos de prensa, los hallazgos destacables en software dentro y fuera del país y más.
 :keywords: FLUID, Publicaciones, Conferencias, Papers, Prensa, Proyectos.
+:translate: publications/
 
 = Publicaciones
 
 == Conferencias
 
-Para la propagación de conocimiento en seguridad de la información, FLUID dicta conferencias gratuitas en las 
-instalaciones de cualquier organización, los temas de estas tertulias y el procedimiento de realización se encuentra en la 
+Para la propagación de conocimiento en seguridad de la información, FLUID dicta conferencias gratuitas en las
+instalaciones de cualquier organización, los temas de estas tertulias y el procedimiento de realización se encuentra en la
 pagina de tertulias.
 
 == Papers
 
-FLUID en su labor de investigación ha publicado los siguientes artículos en revistas y congresos internacionales 
+FLUID en su labor de investigación ha publicado los siguientes artículos en revistas y congresos internacionales
 relacionados con seguridad de la información:
 
-* Modelo de ataques y riesgo residual para desbordamientos de buffer, Juan Rafael Alvarez (FLUID) y Juan Guillermo 
-Lalinde. Ph.D. (Universidad EAFIT) Congreso Iberoamericano de Seguridad Informática, Universidad Federico Santamaria, Valparaiso, 
+* Modelo de ataques y riesgo residual para desbordamientos de buffer, Juan Rafael Alvarez (FLUID) y Juan Guillermo
+Lalinde. Ph.D. (Universidad EAFIT) Congreso Iberoamericano de Seguridad Informática, Universidad Federico Santamaria, Valparaiso,
 Chile, 2006. Transparencias
 
 == Prensa
@@ -28,9 +29,9 @@ FLUID ha publicado a través de su historia múltiples artículos en prensa. Aqu
 
 == Estandarización
 
-FLUID apoya activamente la función de normalización delegada por la Super Intendencia de Industria y Comercio en el 
-Icontec. Para esto FLUID hace parte del Comite 181: Técnicas de Seguridad en Tecnologías de la información, que se 
-reúne mensualmente en la sede principal del Icontec en Bogotá para realizar la homologación para Colombia de estándares internacionales 
+FLUID apoya activamente la función de normalización delegada por la Super Intendencia de Industria y Comercio en el
+Icontec. Para esto FLUID hace parte del Comite 181: Técnicas de Seguridad en Tecnologías de la información, que se
+reúne mensualmente en la sede principal del Icontec en Bogotá para realizar la homologación para Colombia de estándares internacionales
 relacionados con la seguridad de la información.
 
 FLUID ha participado en la homologación de los siguientes estándares internacionales a Normas Técnicas Colombianas (NTC):
@@ -47,18 +48,18 @@ FLUID en el marco de múltiples proyectos que incluyen los servicios de pruebas 
 de código fuente ha encontrado vulnerabilidades de seguridad sobre aplicaciones y servicios de uso masivo.
 
 * *Fuera del país:*
-Actualmente FLUID ha encontrado tres vulnerabilidades de seguridad en software construido fuera del pais. 
-Estas vulnerabilidades se encuentran en etapa de reparación por parte del proveedor y FLUID se encuentra a la espera 
+Actualmente FLUID ha encontrado tres vulnerabilidades de seguridad en software construido fuera del pais.
+Estas vulnerabilidades se encuentran en etapa de reparación por parte del proveedor y FLUID se encuentra a la espera
 de la autorización del mismo para proceder con la divulgación.
-Este comportamiento se sigue en atención al proceso de divulgación responsable de vulnerabilidades sugerido por las buenas 
-practicas de seguridad vigentes, y una vez esta autorización sea emitida se procederá a realizar la divulgación y solicitud 
+Este comportamiento se sigue en atención al proceso de divulgación responsable de vulnerabilidades sugerido por las buenas
+practicas de seguridad vigentes, y una vez esta autorización sea emitida se procederá a realizar la divulgación y solicitud
 respectiva de los códigos CVE.
-Por el momento es procedente indicar que las vulnerabilidades fueron encontradas sobre productos de software construidos en 
-Estados Unidos, España y Alemania. Dando muestras del talento Colombiano y el aporte de nuestro país a la seguridad de la 
+Por el momento es procedente indicar que las vulnerabilidades fueron encontradas sobre productos de software construidos en
+Estados Unidos, España y Alemania. Dando muestras del talento Colombiano y el aporte de nuestro país a la seguridad de la
 información en el mundo.
 
 * *En Colombia:*
-Adicional a las múltiples vulnerabilidades encontradas por FLUID sobre software construidos a la medida para empresas 
+Adicional a las múltiples vulnerabilidades encontradas por FLUID sobre software construidos a la medida para empresas
 particulares. FLUID ha encontrado 1 vulnerabilidad sobre un servicio de uso masivo construido en nuestro país.
-Igual que las tres vulnerabilidades encontradas en el exterior, esta se encuentra en etapa de reparación y FLUID se 
+Igual que las tres vulnerabilidades encontradas en el exterior, esta se encuentra en etapa de reparación y FLUID se
 encuentra a la espera de la autorización del proveedor para proceder a realizar la debida divulgación y solicitud del código CVE.

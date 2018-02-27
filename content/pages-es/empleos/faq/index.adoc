@@ -2,6 +2,7 @@
 :category: empleos
 :description: La siguiente página tiene como objetivo informar a los interesados en ser parte del equipo de trabajo de FLUID sobre el proceso de selección realizado. En esta sección respondemos a las preguntas más frecuentes de nuestros candidatos en proceso de selección.
 :keywords: FLUID, FAQ, Preguntas, Frecuentes, Empleos, Selección.
+:translate: careers/faq/
 
 = Preguntas frecuentes
 
@@ -24,13 +25,13 @@ Ya me había postulado para una vacante, ¿lo puedo hacer de nuevo para otro per
 	Si lo puedes hacer y en caso de haber pasado más de seis meses desde tu última postulación, debes hacer el proceso de nuevo desde el principio, en caso de no haber pasado los seis meses, nos escribes un correo a careers@autonomicmind.co informándonos que quieres aplicar a otro perfil.
 
 ¿Me puedo postular para dos vacantes diferentes?::
-	Si, haces el proceso una sola vez y nos escribes a cuáles vacantes deseas aplicar al correo careers@autonomicmind.co               
+	Si, haces el proceso una sola vez y nos escribes a cuáles vacantes deseas aplicar al correo careers@autonomicmind.co
 
 No me funciona la aplicación de examen, ¿qué puedo hacer?::
 	Prueba ejecutando la aplicación como administrador. Si el problema persiste puedes intentarlo desde otro PC.
 
 No llegó el adjunto para el análisis de datos, ¿cómo lo obtengo?::
-	Intenta descargarlo desde [button]#link:../retos-no-tecnicos/hallazgos-open-data.tar.bz2[aquí >>]# 
+	Intenta descargarlo desde [button]#link:../retos-no-tecnicos/hallazgos-open-data.tar.bz2[aquí >>]#
 
 Se me pasó el tiempo para el examen, ¿qué puedo hacer?::
 	De tener un motivo justificado (bloqueos de la aplicación, reinicios inesperados del pc, problemas de conexión) puedes escribirnos vía e-mail a careers@autonomicmind.co indicándonos que sucedió y nosotros te indicaremos como proceder.

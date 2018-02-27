@@ -2,6 +2,7 @@
 :category: products
 :description: Integrates is a system which provides all interested parties information and updates about the current state of the project, the number of security findings discovered and its criticality, occurrences, among other information in order to keep close contact with our customers.
 :keywords: FLUID, Products, Integrates, Ethical Hacking, Pentesting, Security.
+:translate: productos/integrates/
 
 = Integrates
 

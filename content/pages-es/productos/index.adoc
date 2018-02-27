@@ -1,6 +1,7 @@
 :slug: productos/
 :description: FLUID tiene a su disposición una serie de productos que tienen como finalidad ayudar al cliente durante el proceso de pruebas de seguridad, mejorar su experiencia y acercar al cliente con el hacker. Nuestros productos más destacados son Integrates, Asserts y Commands.
 :keywords: FLUID, Productos, Pruebas, Software, Hallazgos, Seguridad.
+:translate: products/
 
 = Productos
 

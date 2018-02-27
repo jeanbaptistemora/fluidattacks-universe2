@@ -1,54 +1,55 @@
 :slug: valores/
 :description: Esta página establece expectativas sobre cómo los socios, empleados y aliados comerciales actúan frente a las situaciones cotidianas. FLUID está comprometida con un comportamiento íntegro y correcto espera que cada uno actúe cumpliendo la ley y las políticas definidas por la empresa.
 :keywords: FLUID, Valores, Políticas, Ética, Protección, Información.
+:translate: values/
 
 = Valores
 
 == 1. Propósito y alcance
 
-Esta página establece expectativas sobre cómo los socios, 
-empleados y aliados comerciales actúan frente a las situaciones cotidianas. 
-FLUID está comprometida con un comportamiento íntegro y correcto espera que 
+Esta página establece expectativas sobre cómo los socios,
+empleados y aliados comerciales actúan frente a las situaciones cotidianas.
+FLUID está comprometida con un comportamiento íntegro y correcto espera que
 cada uno actúe cumpliendo la ley y las políticas definidas por la empresa.
-Se espera de cada uno comprensión y acatamiento. 
-El incumplimiento de los principios aquí expresados podrá generar sanciones 
+Se espera de cada uno comprensión y acatamiento.
+El incumplimiento de los principios aquí expresados podrá generar sanciones
 civiles y/o penales y puede acarrear el fin de la relación con FLUID.
 
 == 2. Principios
 
-FLUID es una empresa colombiana, que cree firmemente en sus fundamentos, los 
-promueve y defiende. Nuestros principios no se negocian. 
+FLUID es una empresa colombiana, que cree firmemente en sus fundamentos, los
+promueve y defiende. Nuestros principios no se negocian.
 
 Estos son, en orden de prioridad:
 
-* La *HONESTIDAD*, la verdad para FLUID es el bien mayor que prima sobre todo lo demás. 
-Las acciones y palabras de cada uno deben reflejar legitimidad, 
+* La *HONESTIDAD*, la verdad para FLUID es el bien mayor que prima sobre todo lo demás.
+Las acciones y palabras de cada uno deben reflejar legitimidad,
 el fraude es considerado una falta grave.
-* El *EQUIPO*, los resultados en FLUID son conseguidos mediante el trabajo colaborativo 
-de su personal. 
-Por consiguiente, promovemos el trato digno y respetuoso a cada uno con igualdad de 
+* El *EQUIPO*, los resultados en FLUID son conseguidos mediante el trabajo colaborativo
+de su personal.
+Por consiguiente, promovemos el trato digno y respetuoso a cada uno con igualdad de
 oportunidades.
-* La *DISCIPLINA*, entendida como la suma del cabal cumplimiento de los compromisos, 
+* La *DISCIPLINA*, entendida como la suma del cabal cumplimiento de los compromisos,
 la dedicación, el empeño y la perseverancia.
 
 == 3. Ética
 
-En nuestra empresa importa el proceso más que el resultado. 
-Es por esto que rechazamos prácticas como el soborno, el monopolio y la competencia desleal. 
-Por el contrario, favorecemos prácticas empresariales justas, así como promovemos el 
-apoyo a nuestros empleados y aliados. 
+En nuestra empresa importa el proceso más que el resultado.
+Es por esto que rechazamos prácticas como el soborno, el monopolio y la competencia desleal.
+Por el contrario, favorecemos prácticas empresariales justas, así como promovemos el
+apoyo a nuestros empleados y aliados.
 
 Cada uno de nuestros empleados está afiliado a seguridad social por el 100% de su salario.
-Nuestra jornada laboral está limitada a lo establecido por la ley colombiana, sin embargo, 
+Nuestra jornada laboral está limitada a lo establecido por la ley colombiana, sin embargo,
 en los casos en los que se ve excedida, los empleados pueden solicitar su compensación.
-Rechazamos el trabajo infantil. 
+Rechazamos el trabajo infantil.
 
 == 4. Protección de información
 
-Estamos en permanente monitoreo y gestión de los riesgos relacionados con la información 
+Estamos en permanente monitoreo y gestión de los riesgos relacionados con la información
 de nuestros clientes.
 
 == 5. Reportes y denuncias
 
-Pueden ser reportados hechos relacionados con el incumplimiento de nuestros valores en 
+Pueden ser reportados hechos relacionados con el incumplimiento de nuestros valores en
 la dirección etica@fluidattacks.com

@@ -2,10 +2,11 @@
 :category: empleos
 :description: La siguiente página tiene como objetivo informar a los interesados en ser parte del equipo de trabajo de FLUID sobre el proceso de selección realizado. La etapa de retos no técnicos pretende evaluar la capacidad del candidato de analizar, clasificar y evaluar datos.
 :keywords: FLUID, Empleo, Selección, Retos no Técnicos, Análisis, Datos.
+:translate: careers/non-technical-challenges/
 
 = Retos no técnicos
 
-A continuación el detalle de la etapa denominada Análisis de Datos del proceso de selección para ser parte del equipo de trabajo de FLUID. 
+A continuación el detalle de la etapa denominada Análisis de Datos del proceso de selección para ser parte del equipo de trabajo de FLUID.
 
 El objetivo de esta etapa es determinar sus habilidades para:
 
@@ -43,7 +44,7 @@ Este documento debe entregarse vía e-mail (careers@autonomicmind.co) en no más
 
 Los datos que le son entregados son de carácter confidencial y por ende tanto el informe que usted elabore como la información compartida solo debe ser analizada y procesada por usted. De igual forma se espera que el informe sea realizado solo por usted y sea 100% de su autoría. Si usted siente que requiere de ayuda de personas para realizar esta tarea, esta es una pista de que las necesidades actuales de FLUID no se acomodan a su perfil actual. Este tipo de actividades son la base de filosofía de gestión de proyectos y equipos en FLUID (gestión basada en datos y métricas), por ende esta actividad no es más que una simulación de lo que será su día a día.
 
-Si usted en el formulario de aplicación indicó que puede exponer en ingles fluido seleccionando "Si", el informe debe entregarlo totalmente diligenciado en ingles. 
+Si usted en el formulario de aplicación indicó que puede exponer en ingles fluido seleccionando "Si", el informe debe entregarlo totalmente diligenciado en ingles.
 
 Todos los datos entregados a los candidatos en el proceso de selección son los mismos, sin embargo por razones de seguridad y para controlar la fuga de información existen datos que fueron específicamente cambiados para cada candidato de forma que pueda ante una eventual fuga de información identificarse el origen de la fuga.
 

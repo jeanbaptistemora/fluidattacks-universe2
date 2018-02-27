@@ -6,6 +6,16 @@
   <meta name="description" content="{{ gettext('Results, Search, Pages, String, Links, Request') }}">
 {% endblock meta %}
 
+{% block language %}
+  {% if DEFAULT_LANG == "en" %}
+    <link rel="alternate" href="{{ SITEURL }}/search.html" hreflang="en-us" />
+    <link rel="alternate" href="{{ SUBSITEURL }}/search.html" hreflang="es-co" />
+  {% else %}
+    <link rel="alternate" href="{{ SITEURL }}/search.html" hreflang="es-co" />
+    <link rel="alternate" href="{{ SUBSITEURL }}/search.html" hreflang="en-us" />
+  {% endif %}
+{% endblock language %}
+
 {% block header %}
   <!-- Search PLugin -->
   {% assets filters="uglifyjs", output="static/js/tipuesearch.min.js", "/app/js/tipuesearch/tipuesearch.js", "/app/js/tipuesearch/tipuesearch_set.js" %}

@@ -9,6 +9,16 @@
 
 {% block canonical %}<link rel="canonical" href="{{ SITEURL }}/{{ gettext('categories') }}/">{% endblock canonical %}
 
+{% block language %}
+  {% if DEFAULT_LANG == "en" %}
+    <link rel="alternate" href="{{ SITEURL }}/blog/categories/" hreflang="en-us" />
+    <link rel="alternate" href="{{ SUBSITEURL }}/blog/{{ gettext('categories') }}/" hreflang="es-co" />
+  {% else %}
+    <link rel="alternate" href="{{ SITEURL }}/blog/categorias/" hreflang="es-co" />
+    <link rel="alternate" href="{{ SUBSITEURL }}/blog/{{ gettext('categorias') }}/" hreflang="en-us" />
+  {% endif %}
+{% endblock language %}
+
 {% block header %}
   {% include "navigationbar.html" %}
   {% if HEADER_COVER %}

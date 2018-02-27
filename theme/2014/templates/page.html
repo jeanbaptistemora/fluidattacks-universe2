@@ -29,6 +29,20 @@
 
 {% block canonical %}<link rel="canonical" href="{{ SITEURL }}/{{ page.url }}">{% endblock canonical %}
 
+{% block language %}
+  {% if DEFAULT_LANG == "en" %}
+    <link rel="alternate" href="{{ SITEURL }}/{{ page.url }}" hreflang="en-us" />
+    {% if page.translate %}
+      <link rel="alternate" href="{{ SUBSITEURL }}/{{ page.translate }}" hreflang="es-co" />
+    {% endif %}
+  {% else %}
+    <link rel="alternate" href="{{ SITEURL }}/{{ page.url }}" hreflang="es-co" />
+    {% if page.translate %}
+      <link rel="alternate" href="{{ SUBSITEURL }}/{{ page.translate }}" hreflang="en-us" />
+    {% endif %}
+  {% endif %}
+{% endblock language %}
+
 {% block header %}
   <!-- Page Header -->
   {% include "navigationbar.html" %}

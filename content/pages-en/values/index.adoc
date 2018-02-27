@@ -1,13 +1,14 @@
 :slug: values/
 :description: This page sets the expectations regarding the behaviour of partners, employees and allies in everyday situations. FLUID is committed to always having an integral and correct behaviour and expects all members to act in accordance with the law and company policies.
 :keywords: FLUID, Values, Policies, Ethics, Protection, Information.
+:translate: valores/
 
 = Values
 
 == 1. Purpose and Scope
 
 This page sets the expectations
-regarding the behaviour of partners, employees and allies in everyday situations. 
+regarding the behaviour of partners, employees and allies in everyday situations.
 FLUID is committed to always having an integral and correct behaviour
 and expects all members to act in accordance with the law and company policies.
 Understanding and compliance is expected from everyone.

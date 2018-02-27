@@ -9,6 +9,7 @@ sys.setdefaultencoding("utf-8")
 AUTHOR = 'FLUIDAttacks'
 SITENAME = 'A Pentesting Company | FLUIDAttacks'
 SITEURL = 'https://fluidattacks.com/web/en'
+SUBSITEURL = 'https://fluidattacks.com/web/es'
 
 # Theme
 THEME = 'theme/2014'
@@ -84,6 +85,7 @@ I18N_SUBSITES = {
     'es': {
         'SITENAME': 'Especialistas en Ethical Hacking | FLUIDAttacks',
         'SITEURL': 'https://fluidattacks.com/web/es',
+        'SUBSITEURL': 'https://fluidattacks.com/web/en',
         'OUTPUT_PATH': 'output/web/es',
         'THEME': 'theme/2014',
         'ARTICLE_PATHS': ['blog-es'],

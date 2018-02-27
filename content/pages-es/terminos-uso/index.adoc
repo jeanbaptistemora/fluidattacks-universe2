@@ -1,6 +1,7 @@
 :slug: terminos-uso/
 :description: En la siguiente página presentamos los términos y condiciones de uso de nuestra página web. Aquí se detallan las restricciones, los derechos de propiedad intelectual, las garantías, variaciones, acuerdos, legislación y todo lo relacionado al contenido del sitio.
 :keywords: FLUID, Términos, Uso, Página, Web, Restricciones.
+:translate: terms-use/
 
 = Términos de Uso
 

@@ -1,6 +1,7 @@
 :slug: products/
 :description: The purpose of this page is to present the products offered by FLUID, which focus on helping customers in the security testing process, aiming to improve their experience and allowing us to keep close contact with them. Our star products are Integrates, Asserts and Commands.
 :keywords: FLUID, Products, Ethical Hacking, Pentesting, Security, Information.
+:translate: productos/
 
 = Products
 

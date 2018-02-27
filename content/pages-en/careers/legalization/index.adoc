@@ -2,6 +2,7 @@
 :category: careers
 :description: The main goal of the following page is to inform potential talents and people interested in working with us about our selection process. In this stage we present the required documentation to formally legalize your selection once you have succeeded all the previous stages.
 :keywords: FLUID, Careers, Legalization, Selection, Process, Requirements.
+:translate: empleos/vinculacion/
 
 = Legalization
 

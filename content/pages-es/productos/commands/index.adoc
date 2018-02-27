@@ -2,6 +2,7 @@
 :category: productos
 :description: El propósito de esta página es presentar los productos ofrecidos por FLUID. Commands es un producto de tipo troyano con command & control utilizado para realizar pruebas de intrusión en equipos críticos, con el fin de detectar y reportar vulnerabilidades en las aplicaciones.
 :keywords: FLUID, Productos, Commands, Seguridad, Pentesting, Aplicaciones.
+:translate: products/commands/
 
 = Commands
 

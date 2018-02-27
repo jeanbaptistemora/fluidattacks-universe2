@@ -9,6 +9,16 @@
 
 {% block canonical %}<link rel="canonical" href="{{ SITEURL }}/blog/{{ gettext('authors') }}/">{% endblock canonical %}
 
+{% block language %}
+  {% if DEFAULT_LANG == "en"%}
+    <link rel="alternate" href="{{ SITEURL }}/blog/authors/" hreflang="en-us" />
+    <link rel="alternate" href="{{ SUBSITEURL }}/blog/{{ gettext('authors') }}/" hreflang="es-co" />
+  {% else %}
+    <link rel="alternate" href="{{ SITEURL }}/blog/autores" hreflang="es-co" />
+    <link rel="alternate" href="{{ SUBSITEURL }}/blog/{{ gettext('autores') }}/" hreflang="en-us" />
+  {% endif %}
+{% endblock language %}
+
 {% block header %}
   {% include "navigationbar.html" %}
   {% if HEADER_COVER %}

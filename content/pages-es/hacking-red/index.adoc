@@ -4,58 +4,59 @@
 :alt: Persona en un computador, visto desde arriba
 :description: En FLUID somos especialistas en Ethical Hacking de infraestructura. Somos hackers que desarrollamos nuestras propias herramientas y exploits, lo que nos permite encontrar todas las vulnerabilidades de sus aplicaciones y reportarlas lo más pronto posible.
 :keywords: FLUID, Servicios, Ethical hacking, Infraestructura, Vulnerabilidad, Diagnóstico.
+:translate: network-hacking/
 
 = Ethical Hacking de Infraestructura
 
-Realizar pruebas sobre la infraestructura que soportan los sistemas (Servicios de red/SO), 
+Realizar pruebas sobre la infraestructura que soportan los sistemas (Servicios de red/SO),
 buscando explotar vulnerabilidades específicas de la tecnología evaluada.
-Posteriormente suministrar soluciones documentadas que permitan al cliente 
+Posteriormente suministrar soluciones documentadas que permitan al cliente
 realizar la respectiva remediación.
 
 == Objetivos
 
-* Realizar el diagnóstico técnico de las vulnerabilidades y 
+* Realizar el diagnóstico técnico de las vulnerabilidades y
 proponer soluciones para prevenir la inclusión de nuevas.
-* Articular la priorización de la solución de 
+* Articular la priorización de la solución de
 vulnerabilidades encontradas mediante su clasificación por criticidad.
-* Contextualizar las vulnerabilidades encontradas 
+* Contextualizar las vulnerabilidades encontradas
 en el marco del negocio de la organización.
 
 == Beneficios
 
 * Detección de fallas que crean riesgos de seguridad.
 * Mejora en la calidad y el tiempo de desarrollo.
-* Personal clasificado en el top 200 de hackers en el mundo 
+* Personal clasificado en el top 200 de hackers en el mundo
 y en el top 10 de Colombia.
 * Entendimiento de los requisitos propios de cada solución.
 * Disminución de incidentes de seguridad.
 * Perfil de requisitos de seguridad en constante actualización.
-* Personal con certificaciones prácticas (OSCP y OSWP) 
+* Personal con certificaciones prácticas (OSCP y OSWP)
 y estudios relacionados a temas de seguridad.
 * Recomendaciones de alto nivel.
 * Informes de avance durante la ejecución del proyecto.
 
 == Detalles del servicio
 
-* Informes de avance: 
-se envía un correo diariamente 
+* Informes de avance:
+se envía un correo diariamente
 donde se muestra el avance del proyecto.
 Este informe contiene:
-** Información general del proyecto: 
-Técnica de prueba, 
-el objetivo de evaluación total y 
+** Información general del proyecto:
+Técnica de prueba,
+el objetivo de evaluación total y
 el avance ponderado.
-** Métricas: 
-cobertura, 
-rigurosidad, 
-concentración y 
+** Métricas:
+cobertura,
+rigurosidad,
+concentración y
 documentación.
-** Resultados parciales: 
-Se especifican de forma general 
+** Resultados parciales:
+Se especifican de forma general
 los hallazgos encontrados y sus cardinalidades
 * Una (1) reunión de entrega formal presentando el informe ejecutivo.
-* Una (1) prueba de cierre, 
-a ser ejecutada únicamente antes de 3 meses, 
+* Una (1) prueba de cierre,
+a ser ejecutada únicamente antes de 3 meses,
 contados a partir de la fecha de entrega de resultados de la prueba de búsqueda.
 * Una (1) reunión de entrega formal de los resultados de la prueba de cierre.
 
@@ -65,35 +66,35 @@ image::../../theme/images/escenario.png[Escenarios de la Prueba Ethical Hacking]
 
 
 **Escenario 1: Usuario anónimo desde Internet**
-En esta etapa, 
-se enumeran los posibles blancos de sitios Web externos 
-de propiedad de la compañía. 
-Luego se ejecuta una prueba tipo Caja Negra 
+En esta etapa,
+se enumeran los posibles blancos de sitios Web externos
+de propiedad de la compañía.
+Luego se ejecuta una prueba tipo Caja Negra
 de las aplicaciones e infraestructura que las soportan.
 
-**Escenario 2: Usuario desde Internet**+	
-En esta etapa, 
-la compañía selecciona los sistemas críticos expuestos a internet y 
+**Escenario 2: Usuario desde Internet**+
+En esta etapa,
+la compañía selecciona los sistemas críticos expuestos a internet y
 proporciona credenciales de acceso no privilegiadas,
 para que se haga una prueba tipo Caja Gris de
 las aplicaciones e infraestructura que las soportan.
 
 **Escenario 3: Usuario anónimo desde red interna**+
-Esta etapa, 
+Esta etapa,
 consiste en una prueba inicial tipo caja negra para verificar los controles que existen
 actualmente en la red corporativa y las aplicaciones críticas para el negocio.
 
 **Escenario 4: Usuario desde red interna**
 En esta etapa,
 la compañía proporciona credenciales de red no privilegiadas.
-Luego se ejecuta una prueba tipo caja gris sobre 
+Luego se ejecuta una prueba tipo caja gris sobre
 las aplicaciones misionales y la infraestructura que las soportan.
 
 **Retest**
-En esta fase se hará un retest de cada vulnerabilidad 
+En esta fase se hará un retest de cada vulnerabilidad
 encontrada en la ejecución del proyecto.
-Esto es para verificar la efectividad de la solución. 
-Esta fase se ejecutará luego de la remediación de las vulnerabilidades, 
+Esto es para verificar la efectividad de la solución.
+Esta fase se ejecutará luego de la remediación de las vulnerabilidades,
 en un plazo máximo de 90 días después de la entrega de resultados.
 
 == Entregables
@@ -110,7 +111,7 @@ en un plazo máximo de 90 días después de la entrega de resultados.
 * Requisitos incumplidos.
 * Evidencia.
 * Recomendación general
-.^|Informe Ejecutivo |Este informe es un análisis gerencial del número de vulnerabilidades, su criticidad y afectación teniendo en cuenta el impacto que representa cada una sobre los objetivos de negocio de la organización. 
+.^|Informe Ejecutivo |Este informe es un análisis gerencial del número de vulnerabilidades, su criticidad y afectación teniendo en cuenta el impacto que representa cada una sobre los objetivos de negocio de la organización.
 .^|Evidencias |Cada hallazgo reportado tiene las evidencias de su explotación. (.gif)|
 |====
 

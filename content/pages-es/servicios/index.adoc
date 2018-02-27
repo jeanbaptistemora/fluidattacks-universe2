@@ -1,6 +1,7 @@
 :slug: servicios/
 :description: En la siguiente página presentamos los principales servicios ofrecidos por FLUID. Las pruebas enfocadas en hacking tienen como objetivo encontrar y reportar todas las vulnerabilidades de seguridad presentes en una aplicación, de forma que el cliente las conozca y pueda decidir cómo afrontarlas.
 :keywords: FLUID, Servicios, Hacking, Hallazgo, Seguridad, Aplicación.
+:translate: services/
 
 = Servicios
 

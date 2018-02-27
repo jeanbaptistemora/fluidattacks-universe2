@@ -2,5 +2,6 @@
 :description: FLUID is a company focused on information security, ethical hacking, penetration testing and vulnerabilities detection in applications. The purpose of this page is to present additional information about the location of FLUID offices in Colombia and USA.
 :keywords: FLUID, Location, Office, HQ, HeadQuarters, Contact.
 :location: yes
+:translate: ubicacion/
 
 = Location

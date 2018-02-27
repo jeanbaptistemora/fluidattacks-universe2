@@ -6,6 +6,7 @@
 :alt: Person working on the computer while looking at cellphone
 :description: When security flaws are found through an ethical hacking it is important to delimit the scope of the objectives. An ethical hacking can be centered on three aspects: Application, Infrastructure and Source Code. Knowing this, it is possible to establish the target of evaluation for the test.
 :keywords: Security, Hacking, Pentesting, Application, Infrastructure, Code.
+:translate: dimensionar-ethical-hacking/
 :author: Felipe Gómez
 :writer: fgomez
 :name: Felipe Gómez Arango
@@ -70,7 +71,7 @@ as opposed to delimitations that are set based on execution time
 with automated tools that only
 exploit a small percentage of the reported vulnerabilities.
 
-In FLUID, 
+In FLUID,
 our value proposition goes hand in hand with meeting the promised scope,
 never based on time.
 Our tests are said to be finished when we have evaluated

@@ -2,6 +2,7 @@
 :category: products
 :description: In this page we present the products offered by FLUID. Asserts is an engine to automate the closing of security findings over execution environments, which can be implemented in a CI pipeline to determine if a security issue persists in the application.
 :keywords: FLUID, Products, Asserts, Ethical Hacking, Pentesting, Security.
+:translate: productos/asserts/
 
 = Asserts
 

@@ -2,6 +2,7 @@
 :category: careers
 :description: The main goal of the following page is to inform potential talents and people interested in working with us about our selection process. This stage of the selection process aims to validate the provided references of the candidate about his/her previous jobs.
 :keywords: FLUID, Careers, Reverse, References, Selection, Process.
+:translate: empleos/referencias-inversas/
 
 = Reverse References
 

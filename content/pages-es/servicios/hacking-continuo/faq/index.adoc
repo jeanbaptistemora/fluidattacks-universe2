@@ -2,6 +2,7 @@
 :category: servicios
 :description: El servicio de Hacking Continuo busca reportar todas las vulnerabilidades durante el ciclo de vida de desarrollo. En esta página presentamos una recopilación de preguntas y respuestas que ayudan a comprender el servicio de Hacking Continuo y cómo este puede beneficiar una organización.
 :keywords: FLUID, Hacking Continuo, FAQ, Ethical Hacking, Servicios, Aplicación.
+:translate: services/continuous-hacking/faq/
 
 = Preguntas frecuentes
 

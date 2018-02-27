@@ -1,6 +1,7 @@
 :slug: estilo/
 :description: Nuestros ethical hackers explican los criterios necesarios para la aceptación y posterior publicación de un documento en el blog de FLUID a través de un documento guía. Además se abordan algunos temas referentes a asciidoc y pautas a tener en cuenta a la hora de construir un documento.
 :keywords: Editorial, Guía, Artículos, Asciidoc, Criterios, Aceptación.
+:translate: style/
 
 = Estilo
 

@@ -1,6 +1,7 @@
 :slug: code-analysis/
 :description: This pages describes our Source Code Analysis service. The rigorous inspection of the code made by our professionals, together with our tools, allow us to detect and report the maximum number of vulnerabilities and security flaws in your application as soon as possible.
 :keywords: FLUID, Services, Code, Analysis, Applications, Security.
+:translate: analisis-codigo/
 
 = Source Code Analysis
 

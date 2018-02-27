@@ -15,6 +15,16 @@
 
 {% block canonical %}<link rel="canonical" href="{{ SITEURL }}/error/">{% endblock canonical %}
 
+{% block language %}
+  {% if DEFAULT_LANG == "en" %}
+    <link rel="alternate" href="{{ SITEURL }}/error/" hreflang="en-us" />
+    <link rel="alternate" href="{{ SUBSITEURL }}/error/" hreflang="es-co" />
+  {% else %}
+    <link rel="alternate" href="{{ SITEURL }}/error/" hreflang="es-co" />
+    <link rel="alternate" href="{{ SUBSITEURL }}/error/" hreflang="en-us" />
+  {% endif %}
+{% endblock language %}
+
 {% block header %}
   <!-- Page Header -->
   {% include "navigationbar.html" %}

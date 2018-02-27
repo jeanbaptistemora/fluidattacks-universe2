@@ -1,6 +1,7 @@
 :slug: temas/
 :description: El Blog de FLUID consta de una gran variedad de temas enfocados principalmente en la seguridad informática, la tecnologías de la información, las buenas prácticas de programación y más. Si te interesan éstos temas y quieres un espacio para dar tu opinión envíanos tu artículo.
 :keywords: FLUID, Temas, Seguridad, TI, Artículos, Blog.
+:translate: topics/
 
 = Temas
 
