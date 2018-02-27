@@ -234,6 +234,11 @@ Esta descripción aparecerá en los resultados de los motores de búsqueda.
 puede ser encontrado por un motor de búsqueda.
 El documento debe incluir 6 +keywords+.
 
+|+:translate:+ | Si | Si | Si
+| Atributo que indica si se encuentra disponible una versión traducida 
+del documento dentro de la página de FLUID. 
+En caso afirmativo se debe incluir el +slug+ del documento traducido.
+
 |+:defends:+ | No | Si | No
 | Metadato único de artículos en +Knowledge Base+.
 El único valor aceptado es +yes+.
@@ -268,6 +273,14 @@ La única extensión permitida es PNG.
 | +:name:+ | No | No | Si
 | Nombre que aparecerá bajo la imagen del autor.
 Puede ser tu nombre completo o tu +nickname+.
+
+| +:about1:+ | No | No | Si
+| Información primaria del autor: 
+formación académica, experiencia, cargo (si aplica).
+
+| +:about2:+ | No | No | Si
+| Información adicional del autor:
+gustos, intereses, enlaces a blog personal o perfiles.
 
 |===
 
