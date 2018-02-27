@@ -234,7 +234,7 @@ Esta descripción aparecerá en los resultados de los motores de búsqueda.
 puede ser encontrado por un motor de búsqueda.
 El documento debe incluir 6 +keywords+.
 
-|+:hardens:+ | No | Si | No
+|+:defends:+ | No | Si | No
 | Metadato único de artículos en +Knowledge Base+.
 El único valor aceptado es +yes+.
 

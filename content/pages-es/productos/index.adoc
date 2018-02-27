@@ -11,6 +11,6 @@
 
 == link:commands/[Commands]
 
-== link:hardens/[Hardens]
+== link:defends/[Defends]
 
 == link:rules/[Rules]

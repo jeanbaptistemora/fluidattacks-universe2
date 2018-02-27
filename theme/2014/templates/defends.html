@@ -1,0 +1,28 @@
+{% for defendspage in pages if defendspage.defends %}
+  {% if loop.first %}
+    <a class="defends-category">
+      <h2>{{ defendspage.category }}</h2>
+    </a>
+    {% set cat = defendspage.category %}
+    <div class="defendspanel">
+      {% for defendsarticle in pages if defendsarticle.defends and defendsarticle.category == cat%}
+        <a href="../{{ defendsarticle.slug }}"><h3>{{ defendsarticle.title }}</h3></a>
+      {% endfor %}
+    </div>  
+  {% else %}
+    {% if defendspage.category != loop.previtem.category %}
+      <a class="defends-category">
+        <h2>{{ defendspage.category }}</h2>
+      </a>
+      {% set cat = defendspage.category %}
+      <div class="defendspanel">
+        {% for defendsarticle in pages if defendsarticle.defends and defendsarticle.category == cat%}
+          <a href="../{{ defendsarticle.slug }}"><h3>{{ defendsarticle.title }}</h3></a>
+        {% endfor %}
+      </div>  
+    {% endif %}
+  {% endif %}
+{% endfor %}
+{% assets filters="uglifyjs", output="static/js/defends.min.js", "js/defends.js" %}
+  <script src="{{ SITEURL }}/{{ ASSET_URL }}"></script>
+{% endassets %}

@@ -1,0 +1,171 @@
+:slug: defends/scala/limitar-tiempo-vida/
+:category: scala
+:description: Nuestros ethical hackers explican cómo evitar vulnerabilidades de seguridad mediante la creación, manipulación y eliminación correcta de datos o recursos dentro de un programa scala, con el fin de evitar que información confidencial disponible en memoria, sea vulnerable.
+:keywords: Scala, Información Sensible, Datos, Buffer, Credenciales, Lectura segura.
+:defends: yes
+
+= Limitar el tiempo de vida de datos sensibles
+
+== Necesidad
+
+Eliminar (limpiar) datos o recursos una vez no estén en uso.
+
+== Contexto
+
+A continuación se describe las circunstancias 
+bajo las cuales la siguiente solución tiene sentido:
+
+. Se está desarrollando una aplicación en +scala+.
+. El código debe eliminar información sensible en memoria.
+
+== Solución
+
+La protección inadecuada de datos sensibles, 
+puede conducir a vulnerabilidades que afectan 
+la confidencialidad e integridad de información 
+durante todo su ciclo de vida. 
+Situación preocupante cuando los datos confidenciales 
+no están destinados a ser revelados o modificados 
+por cualquier usuario de la aplicación.
+
+Además, un atacante que pueda ejecutar código malicioso en el mismo sistema, 
+podría acceder a dicha información si la aplicación<<r1,^[1]^>>:
+
+* Utiliza objetos para almacenar información sensible 
+cuyo contenido no es "clareado" o limpiado de manera oportuna.
+
+* Tiene páginas de memoria 
+que se pueden intercambiar en el disco 
+según lo requiera el sistema operativo 
+(por ejemplo, para realizar tareas de administración de memoria 
+o para admitir la hibernación).
+
+* Mantiene datos sensibles en un búfer (por ejemplo +ArrayBuffer+), 
+el cual mantiene copias de datos en memoria. 
+Donde la fuga de información 
+es el resultado de una limpieza insuficiente de la memoria.
+
+* Revela datos confidenciales en mensajes de depuración, 
+archivos de registro (+logs+), variables de entorno 
+o mediante volcados de hilos y núcleos.
+
+La fuga de información confidencial 
+es más probable si la memoria que contiene los datos 
+no se borra después de usar dicha información. 
+Para limitar el riesgo de exposición, 
+los programas deben minimizar la vida útil de dichos datos sensibles.
+
+* *Limpiar contenido de un +ArrayBuffer+:*
+
+. A continuación se describe un sencillo código de ejemplo demostrativo, 
+donde se explica la manera de "clarear" o limpiar 
+datos almacenados dentro de un +ArrayBuffer+<<r2,^[2]^>>:
++
+.test.scala
+[source, scala, linenums]
+----
+var a = ArrayBuffer(1,2,3,4,5)
+a.clear
+----
++
+En el anterior bloque de código 
+mediante el método +clear+, 
+es posible eliminar todos los elementos de un +ArrayBuffer+. 
+Esto podría ser útil 
+en el caso de tener almacenado 
+dentro de un +ArrayBuffer+ información confidencial como contraseñas.
+
+* *Lectura segura de credenciales:*
+
+. El siguiente bloque de código 
+permite la lectura segura de credenciales ingresados desde la consola:
++
+.password.scala
+[source, scala, linenums]
+----
+//remover si no es necesario
+import scala.collection.JavaConversions._
+
+object Password {
+
+  def main(args: Array[String]): Unit = {
+    val c: Console = System.console()
+    if (c == null) {
+      System.err.println("No console.")
+      System.exit(1)
+    }
+    val username: String = c.readLine("Enter your user name: ")
+    val password: Array[Char] = c.readPassword("Enter your password: ")
+    val isValidUser: Boolean = verify(username, password)
+    // limpiar la contraseña
+    Arrays.fill(password, ' ')
+    if (!isValidUser) {
+      throw new SecurityException("Invalid Credentials")
+    }
+  }
+
+  // Validación simulada, siempre devuelve true
+  private def verify(username: String, password: Array[Char]): Boolean = true
+
+}
+----
++
+El método +Console.readPassword()+ permite que la contraseña 
+sea retornada como una secuencia de caracteres. 
+En consecuencia, el programador puede borrar la contraseña 
+inmediatamente después de su uso.
+
+* *Lectura segura de ficheros:*
+
+. El siguiente bloque de código +scala+ especifica el método +readData+. 
+En él se declara un búfer de +bytes+ directo 
+mediante el método +ByteBuffer.allocateDirect()+ 
+especificando el tamaño del mismo. 
+Posterior a ello, a través de +FileInputStream+ 
+se obtiene un flujos de +bytes+ de datos de un archivo. 
+Por último, mediante un ciclo +while+ se lee el contenido 
+de dicho archivo almacenado en el búfer.
++
+[source, scala, linenums]
+----
+def readData(): Unit = {
+    val bufferSize: Int = 16 * 1024
+    val zeroes: Byte = Array.ofDim[Byte](bufferSize)
+    val buffer: ByteBuffer = ByteBuffer.allocateDirect(bufferSize)
+    try {
+      for (rdr <- managed((new FileInputStream("file")).getChannel))
+        while (rdr.read(buffer) > 0) {
+
+          // Hacer algo con el búfer
+
+          buffer.clear()           
+          buffer.put(zeroes) // sobrescribir el búfer con ceros
+          buffer.clear()
+        }
+
+
+    } catch {
+      case e: Throwable => {}
+
+    }
+}
+----
++
+Note que dentro del ciclo +while+ 
+se lleva a cabo la eliminación manual de los datos del búfer.
+
+== Descargas
+
+Puedes descargar el código fuente 
+pulsando en el siguiente enlace:
+
+. [button]#link:src/password.scala[password.scala >>]# contiene 
+las instrucciones +scala+ para el manejo de credenciales de manera segura.
+
+. [button]#link:src/readdata.txt[readdata.txt >>]# contiene 
+las instrucciones +scala+ para la lectura de un fichero desde un búfer.
+
+== Referencias
+
+. [[r1]] link:https://www.owasp.org/index.php/Category:Sensitive_Data_Protection_Vulnerability[Sensitive Data Protection Vulnerability].
+. [[r2]] link:http://www.bigdataanalyst.in/wp-content/uploads/2015/07/Scala-Cookbook.pdf[Scala Cookbook].

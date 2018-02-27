@@ -12,18 +12,18 @@ Cada activo de información debe estar valorado en términos monetarios
 
 == Descripción
 
-La organización debe valorar en términos monetarios 
-los activos de información previamente identificados 
-teniendo en cuenta el valor que representa para el negocio. 
-Esto permitirá discernir la importancia del activo 
-así como el costo de la pérdida del activo 
+La organización debe valorar en términos monetarios
+los activos de información previamente identificados
+teniendo en cuenta el valor que representa para el negocio.
+Esto permitirá discernir la importancia del activo
+así como el costo de la pérdida del activo
 y determinar controles costo-eficientes.
 
 == Implementación
 
-La asignación de valor de los activos de información 
+La asignación de valor de los activos de información
 es un tema complejo debido a que son bienes intangibles.
-Los activos de información intangibles incluyen, 
+Los activos de información intangibles incluyen,
 pero no se limitan a:
 
 * Conocimiento.
@@ -41,15 +41,15 @@ pero no se limitan a:
 * Ética.
 * Productividad.
 
-Inicialmente en procesos de gestión de activos inmaduros, 
-la organización puede optar por una valoración cualitativa 
-teniendo en cuenta los criterios de clasificación definidos, 
-sin embargo, en la medida en que la organización 
-perfecciona los procesos lo más recomendable 
-es optar por una definición económica 
+Inicialmente en procesos de gestión de activos inmaduros,
+la organización puede optar por una valoración cualitativa
+teniendo en cuenta los criterios de clasificación definidos,
+sin embargo, en la medida en que la organización
+perfecciona los procesos lo más recomendable
+es optar por una definición económica
 del valor de sus activos de información.
 
-Para definir el valor del activo la organización 
+Para definir el valor del activo la organización
 se pueden tener en cuenta los siguientes criterios:
 
 * El valor de la información en el mercado.
@@ -60,8 +60,8 @@ se pueden tener en cuenta los siguientes criterios:
 
 * El valor de conservación de la información.
 
-Teniendo en cuenta estas variables 
-la organización puede definir una fórmula 
+Teniendo en cuenta estas variables
+la organización puede definir una fórmula
 para establecer el valor económico de sus activos.
 
 == Diagrama
@@ -84,13 +84,13 @@ image::diag1-req003.png[Diagrama req003]
 
 == Casos de abuso
 
-Un usuario empleado o anónimo ejecuta acciones 
-las cuales van en contravía de la seguridad 
-de cualquier activo de la organización. 
-Dada la situación anterior no es posible determinar 
-el valor de los controles 
+Un usuario empleado o anónimo ejecuta acciones
+las cuales van en contravía de la seguridad
+de cualquier activo de la organización.
+Dada la situación anterior no es posible determinar
+el valor de los controles
 que se deben implementar para la protección
-de los activos de información 
+de los activos de información
 de forma que sean costo-eficientes.
 
 == Atributos
