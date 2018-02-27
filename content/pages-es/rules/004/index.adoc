@@ -1,4 +1,5 @@
 :slug: rules/004/
+:category: rules
 :description: En el presente documento se detallan los requerimientos de seguridad relacionados a los activos de información de la empresa. Se deben identificar y documentar las amenazas relacionadas a cada activo de información para tomar decisiones sobre los riesgos de seguridad de los activos.
 :keywords: Requerimiento, Seguridad, Activos, Información, Documentación, Amenazas.
 :rules: yes

@@ -1,4 +1,5 @@
 :slug: rules/009/
+:category: rules
 :description: En el presente documento se detallan los requerimientos de seguridad relacionados a los activos de información de la empresa. Se deben identificar los posibles atacantes capaces de vulnerar los activos, esto influye a la hora de considerar los controles de seguridad y la probabilidad del riesgo.
 :keywords: Requerimiento, Seguridad, Activos de información, Atacantes, Control, Riesgo.
 :rules: yes

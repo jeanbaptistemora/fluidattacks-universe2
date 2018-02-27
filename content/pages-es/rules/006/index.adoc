@@ -1,4 +1,5 @@
 :slug: rules/006/
+:category: rules
 :description: En el presente documento se detallan los requerimientos de seguridad relacionados a los activos de información de la empresa. Las amenazas identificadas deben ser medidas en términos de ocurrencia, con el fin de mitigar las amenazas con mayor probabilidad de materialización.
 :keywords: Requerimiento, Seguridad, Activos, Información, Amenazas, Ocurrencia.
 :rules: yes

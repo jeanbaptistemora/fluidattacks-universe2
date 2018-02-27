@@ -1,8 +1,8 @@
-:slug: hardens/criterio/requisito-seguridad-999/
-:category: criterio
+:slug: rules/999/
+:category: rules
 :description: En el presente documento se detallan los requerimientos de seguridad relacionados al manejo adecuado de información sensible dentro de un programa. La información confidencial no debe permanecer ni en memoria ni en variables u objetos después de haber sido utilizada.
 :keywords: memoria, búfer, tiempo de vida, datos sensibles, información sensible, atacante.
-:hardens: yes
+:rules: yes
 
 = REQ.999 Limitar tiempo de vida de datos sensibles
 

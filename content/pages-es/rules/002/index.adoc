@@ -1,4 +1,5 @@
 :slug: rules/002/
+:category: rules
 :description: En el presente documento se detallan los requerimientos de seguridad relacionados a los activos de información de la empresa. Todos los activos de información deben estar asociados a un responsable, de esta manera se garantiza la ejecución de controles de seguridad para protegerlo.
 :keywords: Requerimiento, Seguridad, Activos, Información, Asignación, Responsable.
 :rules: yes

@@ -1,4 +1,5 @@
 :slug: rules/007/
+:category: rules
 :description: En el presente documento se detallan los requerimientos de seguridad relacionados a los activos de información de la empresa. Las amenazas identificadas deben ser medidas en términos de su impacto, con el fin de mitigar las amenazas que afecten en mayor medida a la organización.
 :keywords: Requerimiento, Seguridad, Activos, Información, Amenazas, Impacto.
 :rules: yes

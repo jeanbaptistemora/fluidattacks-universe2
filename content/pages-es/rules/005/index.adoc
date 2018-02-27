@@ -1,4 +1,5 @@
 :slug: rules/005/
+:category: rules
 :description: En el presente documento se detallan los requerimientos de seguridad relacionados a los activos de información de la empresa. Se deben identificar todas las posibles vulnerabilidades de los sistemas que interactúen con activos de información para establecer medidas de seguridad apropiadas.
 :keywords: Requerimiento, Seguridad, Activos, Información, Identificar, Vulnerabilidades.
 :rules: yes
