@@ -258,7 +258,7 @@ Otros sitios para entrenar:
 == 8. Informes de avance
 
 Apreciaremos mucho que nos informe de sus avances mínimo 1 vez cada semana,
-mediante el siguiente[button]#link:https://fluidattacks.com/forms/training[formulario >>]#.
+mediante el siguiente[button]#link:../../../../forms/training[formulario >>]#.
 Al diligenciar el informe, 
 por favor presente lo siguiente:
 
@@ -295,7 +295,7 @@ deberá comenzar desde la primera etapa nuevamente.
 == 10. Preguntas
 
 * Antes de realizar una pregunta, por favor lea nuevamente este documento y 
-las link:https://fluidattacks.com/web/es/empleos/faq/[preguntas realizadas en el pasado] por otros participantes.
+las link:../faq[preguntas realizadas en el pasado] por otros participantes.
 
 * Puede expresar sus dudas en el canal *#general* de nuestro link:https://join.slack.com/t/autonomicmind/shared_invite/enQtMjg4ODI4NjM3MjY3LWUxMTNmMjk3MDdkMDAzYWY0ZjQ3MzNlYjUzZjM3NTM3MDVmYTliN2YyNGViZGUyNzUxOTAzNTdmZDQ5NWNjNGI[Slack].
 
