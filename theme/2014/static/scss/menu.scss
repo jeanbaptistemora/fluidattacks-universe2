@@ -23,7 +23,7 @@ $white: rgba(255, 255, 255, 1);
 
 @mixin menu-pseudo {
   content: '';
-  left: 235px;
+  left: 185px;
   position: absolute;
   width: 20px;
 }
@@ -81,7 +81,7 @@ $white: rgba(255, 255, 255, 1);
   border-bottom: 5px solid $darkblue;
   cursor: pointer;
   font-size: 20px;
-  padding: 26px 50px 21px;
+  padding: 26px 115px 21px;
   position: relative;
   z-index: 1;
 
@@ -184,8 +184,8 @@ $white: rgba(255, 255, 255, 1);
   left: 2px;
   margin-right: 20px;
   position: relative;
-  top: 23px;
-  width: 150px;
+  top: 27px;
+  width: 100px;
   z-index: 2;
 }
 
@@ -197,6 +197,20 @@ $white: rgba(255, 255, 255, 1);
 
 .intro-header {
   padding-top: 72px;
+}
+
+@media (min-width: 400px) {
+  .fluid-screw {
+    top: 23px;
+    width: 150px;
+  }
+
+  .menu-button {
+    &::before,
+    &::after {
+      left: 235px;
+    }
+  }
 }
 
 @media (min-width: 900px) {
