@@ -56,10 +56,12 @@
 {% block content %}   
   <div class="divpage">         
     <article>
-      <div class="breadcrumbs">
-        <ul>
-          <li><a href="{{ SITEURL }}/">{{ gettext('Home') }}</a></li>
-        </ul>
+      <div class="nav-info">
+        <div class="breadcrumbs">
+          <ul>
+            <li><a href="{{ SITEURL }}/">{{ gettext('Home') }}</a></li>
+          </ul>
+        </div>
       </div>
       <iframe id="ifrmContact" onload="iFrameResize({log:false})" width="100%" src={{ page.form }} frameborder="0"></iframe>
       <br>
