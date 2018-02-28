@@ -113,7 +113,7 @@ let's do it backwards.
 by thousands around the world.
 This can be a double-edged blade:
 on the one hand,
-according to ``Linus' Law,''
+according to ``Linus's Law,''
 bug-finding and patching
 should be easier as more eyes are involved.
 
