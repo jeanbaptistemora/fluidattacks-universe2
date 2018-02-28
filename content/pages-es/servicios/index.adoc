@@ -8,3 +8,5 @@
 == link:hacking-puntual/[Hacking Puntual]
 
 == link:hacking-continuo/[Hacking Continuo]
+
+== link:faq/[Preguntas Frecuentes]
