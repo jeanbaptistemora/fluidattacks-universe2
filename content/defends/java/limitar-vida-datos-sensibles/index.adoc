@@ -1,66 +1,36 @@
 :slug: defends/java/limitar-vida-datos-sensibles/
 :category: java
-:description: Nuestros ethical hackers explican cómo evitar vulnerabilidades de seguridad mediante la creación, manipulación y eliminación correcta de datos, recursos y objetos dentro de un programa Java. Con el fin de evitar que información confidencial disponible en memoria sea vulnerada por un atacante.
-:keywords: Java, información, confidencial, credenciales, lectura segura, tiempo de vida.
+:description: Nuestros ethical hackers explican cómo evitar vulnerabilidades de seguridad mediante la creación, manipulación y eliminación correcta de datos, recursos y objetos dentro de un programa Java, evitando que información disponible en memoria sea manipulada.
+:keywords: java, datos sensibles, datos confidenciales, lectura segura, memoria, tiempo de vida.
 :defends: yes
 
 = Limitar el tiempo de vida de datos sensibles
 
 == Necesidad
 
-Eliminar (limpiar) datos, recursos y/o objetos creados
-por la aplicación cuando ya no estén en uso.
+Eliminar (limpiar) datos, recursos 
+y/o objetos creados por la aplicación 
+cuando ya no estén en uso.
 
 == Contexto
 
-A continuación se describe las circunstancias
+A continuación se describe las circunstancias 
 bajo las cuales la siguiente solución tiene sentido:
 
 . Se está desarrollando una aplicación en +Java+.
 . El código debe eliminar información sensible en memoria.
-. El código debe limitar el tiempo de vida de los objetos creados
-dentro de la aplicación.
+. La aplicación debe limpiar/eliminar datos, recursos 
+y/o objetos creados por la misma cuando ya no estén en uso,<<r1,^[1]^>> 
+limitando así su tiempo de vida.
 
 == Solución
 
-Cuando información confidencial está disponible en memoria,
-ésta puede ser vulnerable
-y un atacante que pueda ejecutar código malicioso en el mismo sistema,
-podría acceder a dicha información si la aplicación<<r1,^[1]^>>:
-
-* Utiliza objetos para almacenar información sensible
-cuyo contenido no es "clareado" o limpiado
-sino hasta que el recolector de basura los elimina.
-
-* Tiene páginas de memoria
-que se pueden intercambiar en el disco
-según lo requiera el sistema operativo
-(por ejemplo, para realizar tareas de administración de memoria
-o para admitir la hibernación).
-
-* Mantiene datos sensibles en un búfer (por ejemplo +BufferedReader+),
-el cual mantiene copias de datos en la caché del sistema operativo o en memoria.
-
-* Basa su flujo de control en la reflexión
-que permite que las contramedidas
-eludan la limitación de la vida útil de las variables sensibles.
-
-* Revela datos confidenciales en mensajes de depuración,
-archivos de registro (+logs+), variables de entorno
-o mediante volcados de hilos y núcleos.
-
-La fuga de información confidencial
-es más probable si la memoria que contiene los datos
-no se borra después de usar dicha información.
-Para limitar el riesgo de exposición,
-los programas deben minimizar la vida útil de dichos datos sensibles.
-
 * *Lectura no segura de credenciales:*
-
-. A continuación se describe un código de ejemplo,
-el cual no cumple con las normas de seguridad expuestas anteriormente:
 +
-El siguiente bloque de código +Java+, declara la clase +Password+
+A continuación se describe un código de ejemplo en +Java+, 
+el cual permite leer las credenciales de un usuario desde la consola:
+
+. Se declara la clase +Password+ 
 y dentro de ella se define el método +Main+:
 +
 .password.java
@@ -70,93 +40,132 @@ class Password {
   public static void main (String args[]) throws IOException {
 ----
 
-. A continuación se lee la información del nombre de usuario y la contraseña
-desde la consola y se almacenan como objetos de tipo +String+:
+. Se crea un objeto de la clase +Console+ 
+mediante el método estático +console+<<r2,^[2]^>> de la clase +System+:
 +
 [source, java, linenums]
 ----
     Console c = System.console();
+----
+. Una vez creado dicho objeto, 
+se verifica si este es nulo, 
+es caso de serlo, 
+se detiene la ejecución del programa 
+mediante el método estático +exit+:<<r3,^[3]^>>
++
+[source, java, linenums]
+----
     if (c == null) {
       System.err.println("No console.");
       System.exit(1);
     }
+----
++
+El valor de 1 dentro de dicho método 
+se utiliza para indicar 
+que la ejecución del programa falló, 
+0 en caso de ejecución exitosa.
 
-    String username = c.readLine("Enter your user name: ");
-    String password = c.readLine("Enter your password: ");
+. Se lee la información del nombre de usuario 
+y la contraseña desde la consola mediante el método +readLine+<<r4,^[4]^>> 
+de la clase +Console+. 
+Las cadenas retornadas por dicho método 
+se almacenan como objetos de tipo +String+:
++
+[source, java, linenums]
+----
+    String username = c.readLine("Ingresa tu nombre de usuario: ");
+    String password = c.readLine("Ingresa tu contraseña: ");
+----
 
+. Mediante el método +verify+ que recibe el nombre usuario y contraseña, 
+simulamos el proceso de validación del usuario 
+(el lector debe implementar este método de acuerdo a sus necesidades):
++
+[source, java, linenums]
+----
     if (!verify(username, password)) {
       throw new SecurityException("Invalid Credentials");
     }
-
+ 
   }
-
-  // Validación simulada, siempre devuelve +true+
+ 
+  // Validación simulada, siempre devuelve true
   private static final boolean verify(String username, String password) {
     return true;
   }
 }
 ----
 +
-En el anterior bloque de código
-las credenciales permanecen expuestas
-hasta que el recolector de basura
+En el anterior bloque de código 
+las credenciales permanecen expuestas 
+hasta que el recolector de basura 
 recupera la memoria asociada a dichas cadenas.
 
 * *Lectura segura de credenciales:*
 
-. Con el fin de dar solución a lo anterior,
-se modificó el bloque de código de tal forma
-que se utilice el método +Console.readPassword()+
-para obtener la contraseña desde la consola:
+. Para dar solución a lo anterior, 
+se modificó el bloque de código de tal forma 
+que se utilizó en primera medida 
+el método +readPassword()+<<r5,^[5]^>> 
+(el cual retorna un +array+ de caracteres) 
+para obtener la contraseña desde la consola 
+sin imprimir los caracteres en pantalla:
 +
 [source, java, linenums]
 ----
 class Password {
   public static void main (String args[]) throws IOException {
     Console c = System.console();
-
+     
     if (c == null) {
       System.err.println("No console.");
       System.exit(1);
     }
-
+ 
     String username = c.readLine("Enter your user name: ");
     char[] password = c.readPassword("Enter your password: ");
-    boolean isValidUser = verify(username, password);
+----
++
+El método +readPassword()+ permite que la contraseña 
+sea retornada como una secuencia de caracteres 
+en lugar de como un objeto +String+. 
+Por lo tanto, no sobrevivirá a la recolección de elementos no utilizados, 
+incluso si coincide con otra cadena. 
+En consecuencia, el programador puede borrar la contraseña 
+inmediatamente después de su uso.
 
+. En segunda medida, se sobrescriben o limpian los datos 
+mediante el método estático +fill+<<r6,^[6]^>> de la clase +Arrays+:
++
+[source, java, linenums]
+----
+    boolean isValidUser = verify(username, password);
+ 
     // limpiar la contraseña
     Arrays.fill(password,' ');
-
+ 
     if (!isValidUser) {
       throw new SecurityException("Invalid Credentials");
     }
-
+ 
   }
-
-  // Validación simulada, siempre devuelve +true+
+ 
+  // Validación simulada, siempre devuelve true 
   private static final boolean verify(String username, char[] password) {
     return true;
   }
 }
 ----
-+
-El método +Console.readPassword()+ permite que la contraseña
-sea retornada como una secuencia de caracteres
-en lugar de como un objeto +String+.
-Por lo tanto, no sobrevivirá a la recolección de elementos no utilizados,
-incluso si coincide con otra cadena.
-En consecuencia, el programador puede borrar la contraseña
-inmediatamente después de su uso.
 
 * *Lectura no segura de ficheros:*
 
-. El siguiente bloque de código +Java+
-especifica el método +readData+
-donde se declara un objeto de la clase +BufferedReader+<<r2,^[2]^>>
-cuyo constructor recibe como parámetro un objeto +InputStreamReader+
-quien a su vez espera por un nuevo objeto +FileInputStream+.
-Lo anterior permite leer datos confidenciales
-desde un archivo:
+. El siguiente bloque de código +Java+ 
+especifica el método +readData+ 
+donde se declara un objeto de la clase +BufferedReader+<<r7,^[7]^>> 
+cuyo constructor recibe como parámetro un objeto +InputStreamReader+ 
+quien a su vez espera por un nuevo objeto +FileInputStream+. 
+Lo anterior permite leer datos desde un archivo:
 +
 [source, java, linenums]
 ----
@@ -168,66 +177,100 @@ void readData() throws IOException {
 }
 ----
 +
-El método +BufferedReader.readLine+ retorna los datos confidenciales
-como un objeto +String+,
-los cuales pueden permanecer activos
-incluso mucho tiempo después de que ya no son necesarios.
-El método +BufferedReader.read (char [], int, int)+
-puede leer y completar una matriz de tipo +char+.
-Sin embargo, requiere que el programador
-borre manualmente los datos confidenciales en la matriz después de su uso.
-Alternativamente, incluso si el +BufferedReader+
-fuera a envolver un objeto +FileReader+,
-sufriría los mismos inconvenientes.
+El método +readLine+ retorna los datos 
+como un objeto +String+, 
+los cuales pueden permanecer activos 
+incluso mucho tiempo después de que ya no son necesarios. 
 
 * *Lectura segura de ficheros:*
++
+Para solucionar lo anterior, 
+se utiliza un búfer +NIO (new I/O)+ asignado directamente 
+para leer datos confidenciales desde el archivo. 
+Con lo cual, éstos se pueden borrar inmediatamente después de su uso 
+y no se almacenan en la memoria caché ni en el búfer en varias ubicaciones. 
+Existen solo en la memoria del sistema.
 
-. Para solucionar lo anterior,
-se utiliza un búfer +NIO (new I/O)+ asignado directamente
-para leer datos confidenciales del archivo.
-Con lo cual, éstos se pueden borrar inmediatamente después del uso
-y no se almacenan en la memoria caché ni en el búfer en varias ubicaciones.
-Existe solo en la memoria del sistema:
+. En primer lugar, declaramos una variable llamada +zeroes+ de tipo +byte+ 
+cuyo tamaño está determinado por la variable +bufferSize+:
++
+.test.java
+[source, java, linenums]
+----
+class Test {
+  public static void main (String args[]) throws IOException {
+	void readData() {
+	  int bufferSize = 16 * 1024;
+	  byte zeroes = new byte[bufferSize];
+----
+. Posterior a ello, asignamos al objeto +buffer+ de tipo +ByteBuffer+ 
+un nuevo búfer de +byte+ directo (+NIO+), 
+cuya capacidad es determinada por la variable +bufferSize:+
 +
 [source, java, linenums]
 ----
-void readData() {
-  int bufferSize = 16 * 1024;
-  byte zeroes = new byte[bufferSize];
   ByteBuffer buffer = ByteBuffer.allocateDirect(bufferSize);
-  try (FileChannel rdr = (new FileInputStream("file")).getChannel()) {
-    while (rdr.read(buffer) > 0) {
-
-      // Hacer algo con el búfer
-
-      buffer.clear();
-      buffer.put(zeroes); // sobrescribir el búfer con ceros
-      buffer.clear();
-    }
-  } catch (Throwable e) {
-    // Manejar el error
-  }
+----
+. Mediante el método +getChannel+ de la clase +FileInputStream+, 
+se retorna un objeto +FileChannel+ 
+asociado al flujo de datos de entrada actual. 
+Dicho objeto es asignado a la variable +rdr+ del mismo tipo:
++
+[source, java, linenums]
+----
+try (FileChannel rdr = (new FileInputStream("file")).getChannel()) {
+----
+. Por último, dentro de un ciclo +while+ 
+leemos los datos del búfer, lo limpiamos 
+y lo sobrescribimos con ceros:
++
+[source, java, linenums]
+----
+	    while (rdr.read(buffer) > 0) {
+	 
+	      // Hacer algo con el búfer
+	 
+	      buffer.clear();
+	      buffer.put(zeroes); // sobrescribir el búfer con ceros
+	      buffer.clear();
+	    }
+	  } catch (Throwable e) {
+	    // Manejar el error
+	  }
+	}
+  }	
 }
 ----
 +
-Note que la eliminación manual de los datos del búfer es obligatoria
+Note que la eliminación manual de los datos del búfer es obligatoria 
 porque los búfer directos no son recogidos por el recolector de basura.
+
+Puedes encontrar soluciones similares 
+para los siguientes lenguajes: <<r8,C#>>, <<r9,Scala>>.
 
 == Descargas
 
-Puedes descargar el código fuente
+Puedes descargar el código fuente 
 pulsando en los siguientes enlaces:
 
-. [button]#link:src/password.java[password.java >>]# contiene
-todas las instrucciones +Java+
+. [button]#link:src/password.java[password.java >>]# contiene 
+todas las instrucciones +Java+ 
 para el manejo de credenciales de manera segura.
 
-. [button]#link:src/readdata.txt[readdata.txt >>]# contiene
-la definición del método +readData+
-el cual puede ser implementado en cualquier clase +Java+
-que requiera la manipulación segura de ficheros.
+. [button]#link:src/test.java[test.java >>]# contiene 
+la definición del método +readData+ 
+cuyo fin es la manipulación segura de ficheros.
 
 == Referencias
 
-. [[r1]] link:https://wiki.sei.cmu.edu/confluence/display/java/MSC59-J.+Limit+the+lifetime+of+sensitive+data[MSC59-J. Limit the lifetime of sensitive data].
-. [[r2]] link:https://docs.oracle.com/javase/7/docs/api/java/io/BufferedReader.html[Class BufferedReader].
+. [[r1]] REQ.999: La aplicación debe 
+limpiar/eliminar datos, recursos y/o objetos creados por la misma 
+cuando ya no estén en uso.
+. [[r2]] link:https://docs.oracle.com/javase/7/docs/api/java/lang/System.html#console()[Class System-console].
+. [[r3]] link:https://docs.oracle.com/javase/7/docs/api/java/lang/System.html#exit(int)[Class System-exit].
+. [[r4]] link:https://docs.oracle.com/javase/7/docs/api/java/io/Console.html#readLine()[Class Console-readLine].
+. [[r5]] link:https://docs.oracle.com/javase/7/docs/api/java/io/Console.html#readPassword()[Class Console-readPassword].
+. [[r6]] link:https://docs.oracle.com/javase/7/docs/api/java/util/Arrays.html[Class Arrays].
+. [[r7]] link:https://docs.oracle.com/javase/7/docs/api/java/io/BufferedReader.html[Class BufferedReader].
+. [[r8]] link:../../csharp/limitar-tiempo-vida/[C#-Limitar el tiempo de vida de datos sensibles].
+. [[r9]] link:../../scala/limitar-tiempo-vida/[Scala-Limitar el tiempo de vida de datos sensibles].
