@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2018-02-27 20:12+0000\n"
+"POT-Creation-Date: 2018-02-28 14:22+0000\n"
 "PO-Revision-Date: 2017-12-21 15:09-0500\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: es\n"
@@ -52,15 +52,15 @@ msgstr "Joven hacker sonriendo"
 msgid "Archives for"
 msgstr "Archivos para"
 
-#: templates/article.html:63 templates/author.html:46 templates/authors.html:40
-#: templates/categories.html:40 templates/category.html:37
-#: templates/form.html:61 templates/home.html:10 templates/landing.html:8
-#: templates/navigationbar.html:22 templates/tag.html:50 templates/tags.html:40
+#: templates/article.html:63 templates/author.html:47 templates/authors.html:41
+#: templates/categories.html:41 templates/category.html:38
+#: templates/form.html:62 templates/home.html:10 templates/landing.html:8
+#: templates/navigationbar.html:22 templates/tag.html:51 templates/tags.html:41
 msgid "Home"
 msgstr "Inicio"
 
 #: templates/article.html:65 templates/categories.html:8
-#: templates/categories.html:44 templates/category.html:39
+#: templates/categories.html:46 templates/category.html:40
 #: templates/footer.html:42
 msgid "Categories"
 msgstr "Categorías"
@@ -123,7 +123,7 @@ msgstr "Autor, Artículo, Información, Seguridad, Blog, Publicación, Fecha"
 msgid "Articles by"
 msgstr "Artículos por"
 
-#: templates/author.html:48 templates/authors.html:8 templates/authors.html:44
+#: templates/author.html:49 templates/authors.html:8 templates/authors.html:46
 #: templates/footer.html:41
 msgid "Authors"
 msgstr "Autores"
@@ -402,8 +402,8 @@ msgstr "Temas"
 msgid "tags"
 msgstr "etiquetas"
 
-#: templates/footer.html:43 templates/tag.html:52 templates/tags.html:8
-#: templates/tags.html:44
+#: templates/footer.html:43 templates/tag.html:53 templates/tags.html:8
+#: templates/tags.html:46
 msgid "Tags"
 msgstr "Etiquetas"
 
@@ -621,10 +621,9 @@ msgstr ""
 msgid ""
 "FLUID has been providing Information Security services in the colombian "
 "market for over 18 years. Below, we list some of our customers."
-msgstr "FLUID lleva más de 18 años "
-"prestando servicios de Seguridad de la"
-" Información en el mercado colombiano. "
-"A continuación listamos algunos de "
+msgstr ""
+"FLUID lleva más de 18 años prestando servicios de Seguridad de la "
+"Información en el mercado colombiano. A continuación listamos algunos de "
 "algunos de nuestros clientes."
 
 #: templates/location.html:21 templates/location.html:30
@@ -655,8 +654,8 @@ msgid "Postal Code"
 msgstr "Código Postal"
 
 #: templates/location.html:33 templates/location.html:88
-msgid "Villorio Building"
-msgstr "Edificio Villorio"
+msgid "Avenida Chile Building"
+msgstr "Edificio Avenida Chile"
 
 #: templates/navigationbar.html:12
 msgid "Search this site..."
