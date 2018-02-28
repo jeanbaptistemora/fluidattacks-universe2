@@ -715,3 +715,11 @@ msgstr ""
 msgid "Search"
 msgstr "Búsqueda"
 
+msgid "People"
+msgstr "Personas"
+
+msgid "people"
+msgstr "personas"
+
+
+

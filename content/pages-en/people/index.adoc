@@ -1,0 +1,9 @@
+:slug: people/
+:category: people
+:description: FLUID is a company focused on ethical hacking, pentesting and vulnerabilities detection in applications with over 18 year of experience providing our services to the colombian market. The purpose of this page is to present the members that make up our work team.
+:keywords: FLUID, Team, People, Profiles, Experience, Members.
+:translate: personas/
+
+= People
+
+. link:ralvarez/[Rafael Alvarez]
