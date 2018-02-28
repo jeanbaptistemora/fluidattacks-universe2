@@ -24,18 +24,18 @@ para la creación de identificadores únicos.
 == Solución
 
 El identificador único universal, 
-o UUID por sus siglas en inglés, 
+o +UUID+ por sus siglas en inglés, 
 es un estándar que especifica 
 como debe ser un número que pueda considerarse 
 para identificar 'inequívocamente' transacciones o recursos.
 El término de único se refiere en realidad 
 a una baja probabilidad de crear dos números iguales. 
-"Luego de generar 1 billón de UUIDs 
+Luego de generar 1 billón de +UUID+ 
 cada segundo por los siguientes 100 años, 
 la probabilidad de crear uno que esté duplicado 
 sería cerca del 50%" <<r1,^[1]^>>.
 
-Un UUID está conformado por 
+Un +UUID+ está conformado por 
 5 grupos de dígitos en formato hexadecimal de 
 longitud 8-4-4-4-12 respectivamente separados por guiones, 
 para un total de 36 caracteres (32 dígitos y 4 guiones).
