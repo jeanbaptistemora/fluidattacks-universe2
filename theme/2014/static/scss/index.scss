@@ -100,7 +100,19 @@ $white: rgba(255, 255, 255, 1);
 }
 
 @media (min-width: 960px) {
+  .divindex {
+    justify-content: unset;
+  }
+
   .blog-post {
     width: 32%;
+
+    &:nth-child(3n + 1) {
+      margin-right: 2%;
+    }
+
+    &:nth-child(3n + 3) {
+      margin-left: 2%;
+    }
   }
 }
