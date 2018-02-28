@@ -8,11 +8,15 @@ $(document).ready(function () {
   var lines = document.getElementsByClassName("linenodiv");
   if (lines.length) {
     for (i = 1; i < lines.length; i++) {
-      var linenum = lines[i].innerText.split("\n").length - 1;
+      var linenum = lines[i].innerHTML.split('\n').length;
       var newlinenum = "";
+      var lastnum = parseInt(lines[i-1].innerHTML.split('\n')[lines[i-1].innerHTML.split('\n').length - 1].replace(/\D/g, '')); 
       for (j = 1; j <= linenum; j++) {
-        var num = parseInt(lines[i-1].innerText.split("\n")[lines[i-1].innerText.split("\n").length - 2]) + j;
-        newlinenum = newlinenum + num.toString() + "\n";
+        var num = lastnum + j;
+        newlinenum += num.toString();
+        if (j != linenum) {
+        	newlinenum += '\n';
+        }
       }
       lines[i].innerHTML = "<pre>" + newlinenum + "</pre>";
     }
