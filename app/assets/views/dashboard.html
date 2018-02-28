@@ -1,6 +1,6 @@
 <script type="text/javascript">
   $(document).ready(function () {
-            var simpleText = 'Last login: ' + lastLogin;
+            var simpleText = 'Last login: ' + lastLogin.split(".")[0];
             $("#lastLogin").text(simpleText);
         });
 </script>

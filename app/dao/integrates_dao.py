@@ -1,6 +1,5 @@
 from __future__ import absolute_import
 from django.db import connections
-from django.utils import timezone
 from django.db.utils import OperationalError
 from boto3 import resource
 from boto3.dynamodb.conditions import Key
@@ -9,10 +8,11 @@ from botocore.exceptions import ClientError
 from __init__ import FI_AWS_DYNAMODB_ACCESS_KEY
 from __init__ import FI_AWS_DYNAMODB_SECRET_KEY
 import rollbar
+from datetime import datetime
 
 def create_user_dao(email, username='-', first_name='-', last_name='-'):
     role = 'None'
-    last_login = timezone.now()
+    last_login = datetime.now()
     date_joined = last_login
 
     with connections['integrates'].cursor() as cursor:
@@ -56,7 +56,7 @@ def create_project_dao(project=None, description=None):
 
 
 def update_user_login_dao(email):
-    last_login = timezone.now()
+    last_login = datetime.now()
 
     with connections['integrates'].cursor() as cursor:
         query = 'UPDATE users SET last_login=%s WHERE email = %s'
