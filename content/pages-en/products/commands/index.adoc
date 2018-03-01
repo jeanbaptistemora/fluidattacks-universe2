@@ -1,20 +1,84 @@
 :slug: products/commands/
 :category: products
-:description: The purpose of this page is to present the products offered by FLUID. Commands is a trojan type product with command and control features used for penetration testing over critical equipments. Its main goal is to detect and report vulnerabilities and security findings in the application.
+:description: Commands is FLUIDAttacks´ cyberweapon used for in depth penetration testing of work stations and critical servers. It looks to take full control of multiple critical systems in order to create a network of infected nodes that can be controled from a command and control center.
 :keywords: FLUID, Products, Commands, Security, Pentesting, Application.
 :translate: productos/commands/
 
 = Commands
 
-Trojan developed completely by +FLUIDAttacks+ 
-to penetrate in depth work stations 
-and critical servers during the One Shot Hacking service. 
-The goal is to take full control of critical equipment 
-and through a central command center 
-coordinate more complex hacks in depth. 
-+FLUIDCommands+ allows to capture sound, screen, keyboard, 
-files, network traffic, among others. 
-During the attack, it avoids being detected 
-by +AntiX+ and +SOC+ controls 
-and at the end of the test it is uninstalled 
-without leaving any collateral effect. 
+Cyberweapon developed completely by +FLUIDAttacks+
+for in depth penetration of work stations and critical servers
+during the Pentests where its use is authorized.
+
+image::commands.png[Encrypted Commands source]
+
+== Purpose
+
+We are not only interested in finding a vulnerability
+but also showing the client the pottential risks it implies
+and the direct impact it has on the business.
+To do this, we look to take full control of multiple critical systems
+in order to create a network of infected nodes
+and be able to control them
+to obtain sensitive information or further infect other nodes.
+
+== How we do it
+
+In order to be able to use +FLUIDCommands+
+we first need administrative access to the vulnerable system,
+this we achieve through the manual tests that our experts execute.
+Once administrative access is obtained
+we can proceed to remotely infect the machine.
+With the first machine compromised and under our control
+we can now expand and infect other connected nodes
+or focus on the machine at hand
+and do an in-depth search in look of sensitive information
+or new and bigger attack vectors.
+It is important to note that the commands cyberweapon
+is never installed on the vulnerable system as a service
+nor an automatic running task.
+Once all tests have concluded
+it is remotely uninstalled
+without any collateral damage.
+
+== Command and Control Center
+
++FLUIDCommands+ counts with a Command and Control Center
+from which we can send orders/commands to our botnet of infected nodes.
+The Command and Control Center communicates with all infected nodes
+through a reverse proxy using ICMP
+giving us always have full control over our cyberweapon.
+Having only one node infected,
+commands can remotely spread to neighbouring systems.
+
+== Features
+
+[role="integrates tb-alt"]
+[cols=2, frame="none"]
+|====
+a|=== src command
+
+Through the scr command we can take a screen capture of the infected machine
+without alerting the victim.
+a|image::scrshot-min.png[Screen shot]
+
+a|=== exec command
+
+This allows us to remotely execute any command available through cmd on the infected machine.
+a|image::exec.png[Command execution]
+
+a|=== echo command
+
+This command is used to test the connection and assure we have control of the infected node.
+It echos back whatever we pass to it.
+a|image::echo.png[echo]
+
+|====
+
+== Detection Evasion
+
+Our cyberweapon avoids being detected
+by all +AntiX+ and +SOC+ controls
+by masking all requests and commands
+under a familiar and trusted protocol.
+
