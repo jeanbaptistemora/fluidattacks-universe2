@@ -105,7 +105,7 @@ de la aplicación y se establece el formato de contraseña en +Hashed+.
 . [[r2]] link:https://msdn.microsoft.com/es-es/library/system.web.security.sqlmembershipprovider.passwordformat(v=vs.110).aspx[Password Format]
 . [[r3]] link:https://msdn.microsoft.com/en-us/library/system.security.cryptography.hashalgorithm.aspx[HashAlgorithm Class]
 . [[r4]] link:https://msdn.microsoft.com/es-es/library/system.security.cryptography.randomnumbergenerator.aspx[RandomNumberGenerator Class]
-. [[r5]] REQ.0132: El sistema debe almacenar las contraseñas con diferentes derivaciones de clave (+Salt+).
-. [[r6]] REQ.0133: Las derivaciones de clave (+Salt+), deben ser aleatorias y de mínimo 48 bits.
-. [[r7]] REQ.0142: Las funciones de criptografía del sistema deben ser implementadas con mecanismos criptográficos pre-existentes.
-. [[r8]] REQ.0145: Debe utilizarse funciones resumen con un tamaño mínimo de 256 bits.
+. [[r5]] link:../../../rules/132[REQ.132 Almacenar contraseñas con Salt].
+. [[r6]] link:../../../rules/133[REQ.133 Derivaciones de clave aleatorias].
+. [[r7]] link:../../../rules/142[REQ.142 Utilizar mecanismos pre-existentes].
+. [[r8]] link:../../../rules/145[REQ.0145: Funciones resumen de tamaño definido].

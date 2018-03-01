@@ -30,6 +30,17 @@
 . link:018/[REQ.018: Garantizar cumplimiento requisitos].
 . link:019/[REQ.019: Permitir auditorías de cliente].
 
+== Credenciales de acceso
+
+. link:132/[REQ.132 Almacenar contraseñas con Salt].
+. link:133/[REQ.133 Derivaciones de clave aleatorias].
+
+== Criptografía
+
+. link:142/[REQ.142 Utilizar mecanismos pre-existentes].
+. link:145/[REQ.0145: Funciones resumen de tamaño definido].
+
+
 == Datos
 
 . link:171/[REQ.171 Restringir objetos del sistema].
