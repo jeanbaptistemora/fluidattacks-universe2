@@ -30,11 +30,14 @@
 . link:018/[REQ.018: Garantizar cumplimiento requisitos].
 . link:019/[REQ.019: Permitir auditorías de cliente].
 
-== Sistema Operativo
-
-. link:272/[REQ.272: Información de servicios inaccesible]
-
-
 == Datos
 
+. link:171/[REQ.171 Restringir objetos del sistema].
 . link:999/[REQ 999: Limitar tiempo de vida datos sensibles].
+
+== Sistema Operativo
+
+. link:272/[REQ.272: Información de servicios inaccesible].
+
+
+

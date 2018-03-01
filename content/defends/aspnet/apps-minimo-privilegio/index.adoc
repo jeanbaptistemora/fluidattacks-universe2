@@ -134,4 +134,4 @@ colocó en la pila no se detectará nunca.
 
 . [[r2]] link:https://msdn.microsoft.com/es-es/library/system.security.codeaccesspermission.permitonly.aspx[Microsoft, CodeAccessPermission PermitOnly].
 
-. [[r3]] REQ.0171: El sistema debe restringir el acceso a objetos del sistema que tengan contenido sensible. Solo permitirá acceso a usuarios autorizados.
+. [[r3]] link:../../../rules/171/[REQ.171 Restringir objetos del sistema].

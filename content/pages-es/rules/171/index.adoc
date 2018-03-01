@@ -1,0 +1,19 @@
+:slug: rules/171/
+:category: rules
+:description: En el presente documento se detallan los requerimientos de seguridad relacionados a los datos sensibles de la organización. El objetivo del presente requerimiento de seguridad es establecer la importancia de restringir el acceso de información sensible únicamente a usuarios autorizados.
+:keywords: Requerimiento, Seguridad, Datos, Autorización, Restricción, Información.
+:rules: yes
+
+= REQ.171 Restringir objetos del sistema
+
+== Nombre Completo
+
+El sistema debe restringir el acceso a objetos del sistema 
+que tengan contenido sensible. 
+Solo permitirá acceso a usuarios autorizados. 
+
+
+== Descripción
+
+Este artículo está en construcción.
+Lamentamos los inconvenientes.
