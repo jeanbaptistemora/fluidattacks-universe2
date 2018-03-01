@@ -38,8 +38,11 @@
 == Criptografía
 
 . link:142/[REQ.142 Utilizar mecanismos pre-existentes].
-. link:145/[REQ.0145: Funciones resumen de tamaño definido].
+. link:145/[REQ.145: Funciones resumen de tamaño definido].
 
+== Código Fuente
+
+. link:155/[REQ.155 Salidas codificadas].
 
 == Datos
 
