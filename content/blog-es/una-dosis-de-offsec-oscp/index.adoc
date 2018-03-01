@@ -21,12 +21,12 @@ Certificaciones que evalúan tus conocimientos de forma teórica como
 +CEH+ o +GIAC GPEN+ y otras que evalúan tus habilidades bajo la
 práctica tales como lo son +OSCP+ u +OSCE+.
 A lo largo de este artículo describiré cual fue mi experiencia realizando
-mi primera certificación, porque la elegí y algunos consejos para el examen.
+mi primera certificación, por qué la elegí y algunos consejos para el examen.
 Desde un terreno menos técnico ya que desde este enfoque existen muchos
 artículos que se detallan y extienden mejor.
 
-Esta es mi representación de lo que paso a lo largo del camino de
-*+Try Harder+*, para al final llegar a las puertas de lo que denomine como
+Esta es mi representación de lo que pasó a lo largo del camino de
+*+Try Harder+*, para al final llegar a las puertas de lo que denominé como
 "la gran batalla".
 
 image::logo-oscp.png[Logo de Offensive Security]
@@ -48,7 +48,7 @@ la consigan tengan verdaderas habilidades de miembros de un Red Team,
 explotando vulnerabilidades a través de diferentes metodologías y
 técnicas y no solo limitandose a usar herramientas de escaneo.
 Para aprobar es necesario conseguir 70 puntos en un tiempo de 24 horas, se
-cuenta tambien con un laboratorio de 30, 60 ó 90 días,
+cuenta también con un laboratorio de 30, 60 ó 90 días,
 depende de la elección que se haga.
 
 == El camino
@@ -69,7 +69,7 @@ Aunque no es posible para mi entrar en detalles sobre el examen,
 ciertamente fue una batalla ardua y difícil,
 no puedo decir que se presentó como algo fácil para mí.
 Programé el examen 15 días después de terminar mis 30 días de laboratorio,
-tiempo que use para reforzar habilidades y
+tiempo que usé para reforzar habilidades y
 técnicas que sabía podría ser mi punto débil,
 como escalamiento de privilegios y Buffer overflow.
 
@@ -128,10 +128,10 @@ agujero de conejo.
 === Si no fue a la primera es un deber volver a intentarlo.
 
 En mi caso ya sea por preparación o por fortuna lo he logrado al primer
-intento, pero esto significa poco, es fácil caer en un agujero de conejo, o que
-el cansancio nos nuble el pensamiento, si es el caso de no poder pasarlo a la
-primera y si este hubiera sido mi caso, hubiera sido un deber volverlo
-a intentar.
+intento, pero esto significa poco, es fácil caer en un agujero de conejo,
+o que el cansancio nos nuble el pensamiento,
+si es el caso de no poder pasarlo a la primera y si este hubiera sido mi caso,
+hubiera sido un deber volverlo a intentar.
 *¡Volver a la batalla!*
 
 [quote]
@@ -140,7 +140,7 @@ a intentar.
 
 == Enseñanza final
 
-Al final y luego de 45 días de _“sufrimiento”_ todo a valido 100% la pena, el
+Al final y luego de 45 días de _“sufrimiento”_ todo ha valido 100% la pena, el
 conocimiento que se adquiere luego del curso y el examen es exponencial,
 eso fue lo más importante para mi, y por supuesto obtener la certificación.
 La verdad el examen es difícil pero no  imposible, y  si se pierde a la primera
@@ -153,6 +153,6 @@ tener en cuenta que estos no están diseñados para solo quedarse allí y
 apoyarse tan solo en ellos, es necesario investigar e indagar por recursos
 adicionales y ser muy autodidactas y proactivos_*.
 
-El reto ha terminado. aunque no es final, es simplemente el
+El reto ha terminado. Aunque no es final, es simplemente el
 comienzo, el comienzo del aprendizaje, aún existe mucho por aprender y otras
 batallas por sortear para ser un miembro real y destacado de un +Red Team+.
