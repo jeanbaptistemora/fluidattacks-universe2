@@ -11,7 +11,7 @@
 +Asserts+ is an engine to automate the *closing* of security findings
 over execution environments +(DAST)+.
 
-.Flowchart of its use
+.Use flow
 image::fluidassertses.png[Asserts]
 
 == 2. Execution
@@ -20,12 +20,13 @@ image::fluidassertses.png[Asserts]
 
 ==== Linux
 
-Append the following to the file +~/.pip/pip.conf+
+Make sure the file +~/.pip/pip.conf+ exists and have the following content
 (The user and password will be provided by us!):
 
 ----
 [global]
-index-url = https://<user>:<pass>@fluid.jfrog.io/fluid/api/pypi/python/simple
+index-url = https://pypi.python.org/simple/
+extra-index-url = https://<user>:<key>@fluid.jfrog.io/fluid/api/pypi/python/simple
 ----
 
 Then, execute:
@@ -41,6 +42,16 @@ $ python exploit.py
 ----
 
 ==== Windows
+
+Make sure the file +%APPDATA%\pip\pip.ini+ exists and have the
+following content (The user and password will be provided by us!):
+
+----
+[global]
+index-url = https://pypi.python.org/simple/
+extra-index-url = https://<user>:<key>@fluid.jfrog.io/fluid/api/pypi/python/simple
+----
+
 [source, bash]
 ----
 > pip install -U fluidasserts
@@ -53,16 +64,15 @@ $ python exploit.py
 
 === In a CI (Continuous Integration) pipeline
 
-If you have subscribed an application to our *Continuous Hacking Service*
+If you have an application subscribed to our *Continuous Hacking Service*
 which includes the use of +Asserts+,
 you may add it to your Continuous Integration pipeline.
-To achieve this, follow the steps listed below:
+To achieve this, follow these steps:
 
 * Add the required environment variables +USER+, +PASS+, +ORG+ and +APP+.
-Do not worry, their values will be provided by us!:
+Don't worry, the values will be provided by us!:
 
-** +USER+: Name of the user in order to obtain the image
-from our Container Registry
+** +USER+: Name of the user from our Container Registry
 ** +PASS+: The password of the user
 ** +ORG+: The name of the organization
 ** +APP+: The name of the application
@@ -95,7 +105,7 @@ the pipeline will break!
 * *Operating system*:
 ** Any SO that supports +Python+
 * *Network*:
-** Access to the artifacts repository https://fluid.jfrog.io
+** Access to the Artifacts Repository https://fluid.jfrog.io
 * *Software dependencies*:
 ** +Python 3.6+
 
@@ -107,7 +117,7 @@ the pipeline will break!
 ** MacOS
 * *Network*:
 ** Access to the Container Registry https://fluid-docker.jfrog.io
-** Access to the integration environment where your application or platform is stored
+** Access to the integration environment where your application or platform is running
 * *Software dependencies*:
 ** +DockerCE 17+ or superior
 
@@ -121,7 +131,7 @@ the pipeline will break!
 
 === SQL Injection
 
-.ex1_open.py: Verify if SQL injection still present
+.ex1_open.py: Verify if SQL injection is still present
 [source, python, linenum]
 ----
 from fluidasserts.service import http
@@ -139,7 +149,7 @@ Loading modules...
 2018-02-09 11:15:22,273 - FLUIDAsserts - INFO - OPEN: http://testphp.vulnweb.com/AJAX/infoartist.php?id=3%27 Bad text present, Details=Warning.*mysql_.*
 ----
 
-.ex1_close.py: Verify remediated SQL injection
+.ex1_close.py: Verify closed SQL injection
 [source, python, linenum]
 ----
 from fluidasserts.service import http
@@ -179,7 +189,7 @@ Loading modules...
 2018-02-09 11:17:55,375 - FLUIDAsserts - INFO - OPEN: http://testphp.vulnweb.com/guestbook.php Bad text present, Details=<script>alert\('Hacked by FLUID'\)</script>
 ----
 
-.ex2_close.py: Verify remediated XSS
+.ex2_close.py: Verify closed XSS
 [source, python, linenum]
 ----
 from fluidasserts.service import http
@@ -232,5 +242,5 @@ $
 == Licence
 
 Write us at relations@fluidattacks.com to obtain
-information about licences.
+information about licenses.
 
