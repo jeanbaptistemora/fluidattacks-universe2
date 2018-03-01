@@ -1,0 +1,17 @@
+:slug: rules/014/
+:category: rules
+:description: En el presente documento se detallan los requerimientos de seguridad relacionados a los activos de información de la empresa. El objetivo de este requerimiento de seguridad es profundizar en la importancia de establecer medios seguros para el transporte de información física.
+:keywords: Requerimiento, Seguridad, Activos, Información, Física , Transporte.
+:rules: yes
+
+= REQ.014 Medio seguro para información física
+
+== Nombre Completo
+
+La organización debe garantizar un medio seguro de transporte 
+para la información física.
+
+== Descripción
+
+Este artículo está en construcción.
+Lamentamos los inconvenientes.

@@ -1,0 +1,17 @@
+:slug: rules/010/
+:category: rules
+:description: En el presente documento se detallan los requerimientos de seguridad relacionados a los activos de información de la empresa. El objetivo de este requerimiento de seguridad es establecer pautas para definir el proceso de reclasificación de activos de información de la empresa.
+:keywords: Requerimiento, Seguridad, Activos, Información, Proceso, Reclasificación.
+:rules: yes
+
+= REQ.010 Proceso reclasificación definido.
+
+== Nombre Completo
+
+REQ.0010 Debe estar definido el proceso 
+para poder reclasificar los activos de información.
+
+== Descripción
+
+Este artículo está en construcción.
+Lamentamos los inconvenientes.

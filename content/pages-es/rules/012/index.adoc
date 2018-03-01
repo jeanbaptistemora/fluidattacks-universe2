@@ -1,0 +1,17 @@
+:slug: rules/012/
+:category: rules
+:description: En el presente documento se detallan los requerimientos de seguridad relacionados a los activos de información de la empresa. El objetivo de este requerimiento de seguridad es profundizar en la importancia de clasificar y priorizar las vulnerabilidades detectadas en los activos.
+:keywords: Requerimiento, Seguridad, Activos, Información, Priorizar ,Vulnerabilidades.
+:rules: yes
+
+= REQ.012 Priorizar Vulnerabilidades de activos
+
+== Nombre Completo
+
+Las vulnerabilidades halladas en los activos de información 
+deben estar priorizadas según la criticidad de cada vulnerabilidad.
+
+== Descripción
+
+Este artículo está en construcción.
+Lamentamos los inconvenientes.
