@@ -51,6 +51,7 @@ class FindingDTO(object):
     RIESGO = "38193362"
     REQUISITOS = "38254586"
     SOLUCION_EFECTO = "38619077"
+    KB = "38861739"
     TIPO = "38392454"
     ACTOR = "38606398"
     CATEGORIA = "46956845"
@@ -291,6 +292,8 @@ class FindingDTO(object):
                 self.data["requisitos"] = finding["value"]
             if finding["field"] == self.SOLUCION_EFECTO:
                 self.data["solucion_efecto"] = finding["value"]
+            if finding["field"] == self.KB:
+                self.data["kb"] = finding["value"]
             if finding["field"] == self.TIPO:
                 self.data["tipo"] = finding["value"]
             if finding["field"] == self.SISTEMA_COMPROMETIDO:

@@ -3,7 +3,8 @@
 # pylint: disable=E0402
 from .dao import integrates_dao
 from .api.formstack import FormstackAPI
-from .mailer import send_mail_new_vulnerabilities, send_mail_new_remediated
+from .mailer import send_mail_new_vulnerabilities, send_mail_new_remediated, \
+                    send_mail_age_finding, send_mail_age_kb_finding
 from . import views
 
 def get_new_vulnerabilities():
@@ -56,3 +57,48 @@ def get_remediated_findings():
             cont += 1
         context['total'] = cont
         send_mail_new_remediated(to, context)
+
+def get_age_notifications():
+    projects = integrates_dao.get_registered_projects()
+    api = FormstackAPI()
+    for project in projects:
+        recipients = integrates_dao.get_project_users(project)
+        to = [x[0] for x in recipients]
+        to.append('continuous@fluidattacks.com')
+        finding_requests = api.get_findings(project)["submissions"]
+        for finding in finding_requests:
+            finding_parsed = views.finding_vulnerabilities(finding["id"])
+            if finding_parsed["edad"] != "-":
+                age = int(finding_parsed["edad"])
+                context = {
+                    'project': project[0].upper(),
+                    'finding': finding["id"],
+                    'finding_name': finding_parsed["hallazgo"],
+                    'finding_url': 'https://fluidattacks.com/integrates/dashboard#!/project/' + project[0].lower() \
+                                    + '/' + finding["id"] + '/description',
+                    'finding_comment': 'https://fluidattacks.com/integrates/dashboard#!/project/' + project[0].lower() \
+                                    + '/' + finding["id"] + '/comments',
+                    'project_url': 'https://fluidattacks.com/integrates/dashboard#!/project/' + project[0].lower()
+                    }
+                if "kb" in finding_parsed:
+                    if "https://fluidattacks.com/web/es/defends" in finding_parsed["kb"]:
+                        context["kb"] = finding_parsed["kb"]
+                if age == 240:
+                    context["age"] = age
+                elif age == 180:
+                    context["age"] = age
+                elif age == 120:
+                    context["age"] = age
+                elif age == 90:
+                    context["age"] = age
+                elif age == 60:
+                    context["age"] = age
+                elif age == 30:
+                    context["age"] = age
+                elif age == 15:
+                    context["age"] = age
+                if "age" in context:
+                    if "kb" in context:
+                        send_mail_age_kb_finding(to, context)
+                    else:
+                        send_mail_age_finding(to, context)

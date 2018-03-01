@@ -476,6 +476,18 @@ def finding_vulnerabilities(submission_id):
         else:
             if state['estado'] == 'Cerrado':
                 finding['donde'] = '-'
+        if state['estado'] == 'Cerrado':
+            finding['donde'] = '-'
+            finding['edad'] = '-'
+        else:
+            tzn = pytz.timezone('America/Bogota')
+            finding_date = datetime.strptime(
+                finding["timestamp"].split(" ")[0],
+                '%Y-%m-%d'
+            )
+            finding_date = finding_date.replace(tzinfo=tzn).date()
+            final_date = (datetime.now(tz=tzn).date() - finding_date)
+            finding['edad'] = ":n".replace(":n", str(final_date.days))
         return finding
     else:
         rollbar.report_message('Error: An error occurred catching finding', 'error')
