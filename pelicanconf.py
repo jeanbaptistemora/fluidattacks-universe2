@@ -79,6 +79,7 @@ SITEMAP = {
     }
 }
 DEFAULT_PAGINATION = 12
+ASCIIDOC_CMD = 'asciidoc'
 # Line that allows the localization of the site (traslation)
 JINJA_ENVIRONMENT = {'extensions': ['jinja2.ext.i18n']}
 I18N_SUBSITES = {
