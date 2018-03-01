@@ -18,17 +18,21 @@
 . link:009/[REQ 009: Identificar posibles atacantes].
 . link:010/[REQ.010 Proceso reclasificación definido].
 . link:011/[REQ 011: REQ.011 Activos clasificados según criticidad.].
-. link:012/[REQ.012 Priorizar Vulnerabilidades de activos].
-. link:013/[REQ.013 Garantizar corrección de vulnerabilidades].
-. link:014/[REQ.014 Medio seguro para información física].
+. link:012/[REQ.012: Priorizar Vulnerabilidades de activos].
+. link:013/[REQ.013: Garantizar corrección de vulnerabilidades].
+. link:014/[REQ.014: Medio seguro para información física].
 
 == Acuerdos de nivel de servicio
 
-. link:015/[REQ.015 Acuerdos a nivel de servicio con terceros].
-. link:016/[REQ.016 Acuerdos de confiabilidad con terceros].
-. link:017/[REQ.017 Definir penalizaciones por incumplimiento].
-. link:018/[REQ.018 Garantizar cumplimiento requisitos].
-. link:019/[REQ.019 Permitir auditorías de cliente].
+. link:015/[REQ.015: Acuerdos a nivel de servicio con terceros].
+. link:016/[REQ.016: Acuerdos de confiabilidad con terceros].
+. link:017/[REQ.017: Definir penalizaciones por incumplimiento].
+. link:018/[REQ.018: Garantizar cumplimiento requisitos].
+. link:019/[REQ.019: Permitir auditorías de cliente].
+
+== Sistema Operativo
+
+. link:272/[REQ.272: Información de servicios inaccesible]
 
 
 == Datos
