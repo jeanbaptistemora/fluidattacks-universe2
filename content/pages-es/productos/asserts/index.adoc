@@ -19,11 +19,13 @@ image::fluidassertses.png[Asserts]
 
 ==== Linux
 
-Agregar en el archivo +~/.pip/pip.conf+ lo siguiente (¡El usuario y password serán entregados por nosotros!):
+Asegúrate que el archivo +~/.pip/pip.conf+ exista y tenga lo siguiente
+(¡El usuario y password serán entregados por nosotros!):
 
 ----
 [global]
-index-url = https://<user>:<pass>@fluid.jfrog.io/fluid/api/pypi/python/simple
+index-url = https://pypi.python.org/simple/
+extra-index-url = https://<user>:<key>@fluid.jfrog.io/fluid/api/pypi/python/simple
 ----
 
 Luego ejecutar:
@@ -39,6 +41,16 @@ $ python exploit.py
 ----
 
 ==== Windows
+
+Asegúrate que el archivo +%APPDATA%\pip\pip.ini+ exista y tenga lo siguiente
+(¡El usuario y password serán entregados por nosotros!):
+
+----
+[global]
+index-url = https://pypi.python.org/simple/
+extra-index-url = https://<user>:<key>@fluid.jfrog.io/fluid/api/pypi/python/simple
+----
+
 [source, bash]
 ----
 > pip install -U fluidasserts
