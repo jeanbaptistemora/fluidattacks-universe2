@@ -1,0 +1,17 @@
+:slug: rules/156/
+:category: rules
+:description: En el presente documento se detallan los requerimientos de seguridad relacionados al código fuente que compone a las aplicaciones de la compañía. En este requerimiento se establece la importancia de definir opciones por defecto seguras cuando se utilizan condicionales.
+:keywords: Requerimiento, Seguridad, Código Fuente, Condicionales, Seguros, Default.
+:rules: yes
+
+= REQ.156 Opciones por defecto seguras
+
+== Nombre Completo
+
+El código debe definir opciones 
+por defecto seguras (ej: default en switchs). 
+
+== Descripción
+
+Este artículo está en construcción.
+Lamentamos los inconvenientes.

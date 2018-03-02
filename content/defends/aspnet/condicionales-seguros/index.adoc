@@ -159,4 +159,4 @@ Segunda opción seleccionada.
 
 . [[r1]] link:https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/keywords/if-else[if-else (MSDN)].
 . [[r2]] link:https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/keywords/switch[switch (MSDN)].
-. [[r3]] REQ.0156: El código debe definir opciones por defecto seguras (ej: +default+ en +switchs+).
+. [[r3]] link:../../../rules/156[REQ.156 Opciones por defecto seguras].
