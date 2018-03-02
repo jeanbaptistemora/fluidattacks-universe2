@@ -50,6 +50,7 @@
 * link:142/[REQ.142 Utilizar mecanismos pre-existentes].
 * link:143/[REQ.143 Cifrado asimétrico de tamaño mínimo].
 * link:145/[REQ.145 Funciones resumen de tamaño mínimo].
+* link:219/[REQ.219 Usar mecanismos criptográficos seguros].
 
 == Fuente
 
@@ -61,13 +62,13 @@
 == Datos
 
 * link:171/[REQ.171 Restringir objetos del sistema].
+* link:172/[REQ.172 Almacenar datos de forma segura].
 * link:173/[REQ.173 Utilizar firmas digitales].
 * link:999/[REQ.999 Limitar tiempo de vida datos sensibles].
 
 == Números Aleatorios
 
 * link:218/[REQ.218 Aleatorios generados uniformemente]
-* link:219/[REQ.219 Usar mecanismos criptográficos seguros].
 
 == Sistema Operativo
 
