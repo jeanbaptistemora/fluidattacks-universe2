@@ -1,20 +1,21 @@
 :slug: products/rules/
 :category: products
-:description: The purpose of this page is to present the products offered by FLUID. Rules is a recompilation of several security criteria developed by FLUID, based in different international standards in order to assure the information security of the company in different areas.
+:description: The purpose of this page is to present the products offered by FLUID. Rules is a recompilation of several security criteria developed by FLUID, based on different international standards in order to assure information security in different areas of the company.
 :keywords: FLUID, Products, Rules, Criteria, Security, Applications.
 
 = Rules
 
 FLUIDRules is a set of security requirements 
-that allow you to parameterize a hack 
+that allow you to parameterize a pentest 
 according to the risk appetite of each organization. 
-FLUIDRules allows you to determine what is tested and what is not, 
-what is a vulnerability and what is not, 
-additionally, it is the basis to determine how rigorous a hack was 
-based on proven and unproven requirements. 
-The security requirements are independent of the technology type 
+FLUIDRules allows you to determine what will be tested and what won't, 
+what is a vulnerability and what is not. 
+In addition to this,
+it is also the basis to determine how rigorous a pentest was 
+based on tested and untested requirements. 
+The security requirements are independent of the type of technology being used
 and are written as specific and understandable objectives. 
-In some way are the commandments that you agree to comply 
-and therefore in our hacking services we determine if these are met or not.
+In a way they are the security commandments that you agree to follow and comply with 
+and therefore, in our hacking services, we determine if these are met or not.
 
 You can access the product [button]#link:../../rules/[here >>]#
