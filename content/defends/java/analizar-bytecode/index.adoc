@@ -199,5 +199,5 @@ that are created by evaluation of an expression"+.
 
 . [[r1]] link:https://es.wikipedia.org/wiki/Bytecode_Java[Bytecode Java]
 . [[r2]] link:http://download.oracle.com/otndocs/jcp/jls-7-mr3-fullv-oth-JSpec[Java Language Specification 7]
-. [[r13] REQ.0159: El código debe utilizar contenedores 
+. [[r3]] REQ.0159: El código debe utilizar contenedores 
 o estructuras de datos optimizadas.
