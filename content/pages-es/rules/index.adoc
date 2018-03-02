@@ -37,6 +37,11 @@
 
 == Credenciales
 
+* link:126/[REQ.126 Contraseñas con al menos 8 caracteres].
+* link:127/[REQ.127 Contraseñas con al menos 1 minúscula].
+* link:128/[REQ.128 Contraseñas con al menos 1 mayúscula].
+* link:129/[REQ.129 Contraseñas con al menos 1 dígito].
+* link:130/[REQ.130 Contraseñas con al menos 1 carácter especial].
 * link:132/[REQ.132 Almacenar contraseñas con Salt].
 * link:133/[REQ.133 Derivaciones de clave aleatorias].
 
@@ -49,8 +54,8 @@
 
 * link:155/[REQ.155 Salidas codificadas].
 * link:156/[REQ.156 Opciones por defecto seguras].
-* link:157/[REQ.0157 Evitar redundancia de código].
-* link:158/[REQ.0158 Evitar código en desuso].
+* link:157/[REQ.157 Evitar redundancia de código].
+* link:158/[REQ.158 Evitar código en desuso].
 
 == Datos
 

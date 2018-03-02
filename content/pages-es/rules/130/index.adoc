@@ -1,0 +1,17 @@
+:slug: rules/130/
+:category: rules
+:description: En el presente documento se detallan los requerimientos de seguridad relacionados a las credenciales de acceso a información sensible de la organización. En este requerimiento se establece la importancia de definir contraseñas seguras con al menos un carácter especial.
+:keywords: Requerimiento, Seguridad, Contraseñas, Caracteres, Especiales, Palabra.
+:rules: yes
+
+= REQ.130 Contraseñas con al menos 1 carácter especial
+
+== Nombre
+
+Las contraseñas (tipo palabra) 
+deben tener al menos 1 carácter especial.
+
+
+== Soluciones
+
+. +ASPNET+ link:../../defends/aspnet/fortaleza-contrasenas/[Comprobar fortaleza de contraseñas].

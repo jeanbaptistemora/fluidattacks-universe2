@@ -4,7 +4,7 @@
 :keywords: Requerimiento, Seguridad, Código Fuente, Desuso, Funciones, Clases.
 :rules: yes
 
-= REQ.0158 Evitar código en desuso
+= REQ.158 Evitar código en desuso
 
 == Nombre
 

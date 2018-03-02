@@ -4,7 +4,7 @@
 :keywords: Requerimiento, Seguridad, Código Fuente, Métodos, Clases, Repetidos.
 :rules: yes
 
-= REQ.0157 Evitar redundancia de código
+= REQ.157 Evitar redundancia de código
 
 == Nombre
 
