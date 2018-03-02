@@ -171,5 +171,5 @@ y una constante para depurar los mensajes:
 == Referencias
 
 . [[r1]] link:https://en.wikipedia.org/wiki/Duplicate_code[Duplicate Code - Wikipedia].
-. [[r2]] REQ.0157: El código fuente no debe tener funciones, métodos o clases repetidas.
+. [[r2]] link:../../../rules/157/[REQ.0157 Evitar redundancia de código].
 . [[r3]] link:http://ptgmedia.pearsoncmg.com/images/9780137081073/samplepages/0137081073.pdf[The Clean Coder: A Code of Conduct for Professional Programmers].
