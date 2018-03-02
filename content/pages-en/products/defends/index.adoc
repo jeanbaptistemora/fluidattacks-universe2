@@ -1,5 +1,5 @@
 :slug: products/defends/
-:description: The purpose of this page is to present the products offered by FLUID. FLUIDDefends is a compilation of articles created by our professional team related to information security, good programming practices and ethical hacking, which aims to help customers to secure their applications.
+:description: The purpose of this page is to present the products offered by FLUID. FLUIDDefends is a compilation of articles created by our team of experts related to information security, good programming practices and ethical hacking, which aim to help our customers secure their applications.
 :keywords: FLUID, Products, FLUIDDefends, Information, Security, Ethical Hacking.
 :category: products
 :translate: productos/defends/
@@ -7,13 +7,13 @@
 = Defends
 
 FLUIDDefends is a set of detailed procedures 
-that allow you to program safely, 
-configure technology components in a secure manner 
-and fix security vulnerabilities found by us. 
-The procedures contain screenshots and commented snippets of code, 
-explaining the procedure step by step. 
-The complete programs are also easily downloadable and compilable. 
-With FLUIDDefends you can remedy the vulnerabilities 
-that we find in the shortest possible time.
+that allow you to develop secure applications,
+configure technological components in a secure manner 
+and fix security vulnerabilities found and reported by us. 
+The procedures contain screenshots and commented snippets of code 
+explaining the procedure step by step.
+The complete code examples are easily downloadable and compilable. 
+With FLUIDDefends you can remediate the vulnerabilities 
+that we report in the shortest possible time.
 
 You can access the product [button]#link:../../defends/[here >>]#
