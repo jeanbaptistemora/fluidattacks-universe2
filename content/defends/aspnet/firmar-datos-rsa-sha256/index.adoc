@@ -52,7 +52,7 @@ y el +hash+ correspondiente <<r1, ^[1]^>>.
 A continuación se presenta una porción de código
 con el procedimiento anteriormente descrito:
 +
-.test.py
+.Certificates.java
 [source,java,linenums]
 ----
 X509Certificate2 publicCert = new X509Certificate2(@"C:\mycertificate.cer");
@@ -115,4 +115,4 @@ if (!key.VerifyData(data, CryptoConfig.MapNameToOID("SHA256"), sig))
 
 . [[r1]] link:https://stackoverflow.com/questions/7444586/how-can-i-sign-a-file-using-rsa-and-sha256-with-net[StackOverFlow, Sign a File Using RSA and Sha256 with .NET]
 . [[r2]] link:https://msdn.microsoft.com/es-es/library/system.security.cryptography.rsacryptoserviceprovider(v=vs.80).aspx[Microsoft, RSACryptoServiceProvider]
-. REQ.0173: Debe utilizarse firmas digitales para garantizar la autenticidad de información sensible
+. [[r3]] link:../../../rules/173/[REQ.173 Utilizar firmas digitales].

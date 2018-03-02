@@ -1,0 +1,17 @@
+:slug: rules/173/
+:category: rules
+:description: En el presente documento se detallan los requerimientos de seguridad relacionados a los datos sensibles de la organización. El objetivo del presente requerimiento de seguridad es establecer la importancia de utilizar firmas digitales para garantizar la autenticidad de la información.
+:keywords: Requerimiento, Seguridad, Datos, Firmas Digitales, Autenticidad, Información.
+:rules: yes
+
+= REQ.173 Utilizar firmas digitales
+
+== Nombre
+
+Debe utilizarse firmas digitales 
+para garantizar la autenticidad de información sensible 
+
+
+== Soluciones
+
+. +ASPNET+ link:../../defends/aspnet/firmar-datos-rsa-sha256/[Firmar datos con RSA y SHA256].
