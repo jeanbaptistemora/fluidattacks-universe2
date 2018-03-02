@@ -9,3 +9,12 @@
 This page is currently under development.
 
 We apologize for any inconvenience this may cause.
+
+
+[width="60%"]
+|=======
+a|image::logo-banistmo.png[logo banistmo, 300, 100] a|image::logo-banistmo.png[logo banistmo, 300, 100] a|image::logo-banistmo.png[logo banistmo, 300, 100]
+a|image::logo-banistmo.png[logo banistmo, 300, 100] a|image::logo-banistmo.png[logo banistmo, 300, 100] a|image::logo-banistmo.png[logo banistmo, 300, 100]
+a|image::logo-banistmo.png[logo banistmo, 300, 100] a|image::logo-banistmo.png[logo banistmo, 300, 100] a|image::logo-banistmo.png[logo banistmo, 300, 100]
+|=======
+
