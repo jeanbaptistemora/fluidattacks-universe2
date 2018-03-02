@@ -435,6 +435,24 @@ msgstr "terminos"
 msgid "Terms"
 msgstr "Términos"
 
+msgid "Knowledge test"
+msgstr "Conocimientos"
+
+msgid "knowledge-test"
+msgstr "evaluacion-conocimientos"
+
+msgid "Challenges"
+msgstr "Retos"
+
+msgid "technical-challenges"
+msgstr "retos-tecnicos"
+
+msgid "Immersion"
+msgstr "Inmersión"
+
+msgid "immersion"
+msgstr "inmersion"
+
 #: templates/footer.html:54 templates/footer.html:55 templates/footer.html:56
 #: templates/footer.html:57 templates/footer.html:58 templates/footer.html:59
 #: templates/footer.html:60 templates/footer.html:61
