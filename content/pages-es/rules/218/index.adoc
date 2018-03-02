@@ -1,0 +1,16 @@
+:slug: rules/218/
+:category: rules
+:description: En el presente documento se detallan los requerimientos de seguridad relacionados a los números aleatorios. En este requerimiento se establece la importancia de generar números aleatorios criptográficamente seguros siguiendo una distribución uniforme.
+:keywords: Requerimiento, Seguridad, Generación, Aleatorios, Seguros, Uniformes.
+:rules: yes
+
+= REQ.218 Aleatorios generados uniformemente
+
+== Nombre
+
+Los números aleatorios generados 
+deben seguir una distribución uniforme. 
+
+== Soluciones
+
+. +ASPNET+ link:../../defends/aspnet/generar-identificador-unico/[Generar identificador único para transacción].

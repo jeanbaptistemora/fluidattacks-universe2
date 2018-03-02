@@ -118,10 +118,10 @@ Copyright (C) Microsoft Corporation. All rights reserved.
 
 == Referencias
 
-. [[r1]] link:https://en.wikipedia.org/w/index.php?title=Universally_unique_identifier&oldid=457875938[Universally unique identifier, Wikipedia]
+. [[r1]] link:https://en.wikipedia.org/w/index.php?title=Universally_unique_identifier&oldid=457875938[Universally unique identifier, Wikipedia].
 
-. [[r2]] link:https://es.wikipedia.org/wiki/Identificador_%C3%BAnico_global[Identificador Único Global]
+. [[r2]] link:https://es.wikipedia.org/wiki/Identificador_%C3%BAnico_global[Identificador Único Global].
 
-. [[r3]] link:https://msdn.microsoft.com/en-us/library/system.guid.newguid.aspx[Guid.NewGuid Method]
+. [[r3]] link:https://msdn.microsoft.com/en-us/library/system.guid.newguid.aspx[Guid.NewGuid Method].
 
-. [[r4]] REQ.0218: Los números aleatorios generados deben seguir una distribución uniforme.
+. [[r4]] link:../../../rules/218/[REQ.218 Aleatorios generados uniformemente].

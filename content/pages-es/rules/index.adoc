@@ -55,8 +55,8 @@
 
 * link:155/[REQ.155 Salidas codificadas].
 * link:156/[REQ.156 Opciones por defecto seguras].
-* link:157/[REQ.157 Evitar redundancia de código].
-* link:158/[REQ.158 Evitar código en desuso].
+* link:157/[REQ.157 Eliminar código redundante].
+* link:158/[REQ.158 Eliminar código muerto].
 
 == Datos
 
@@ -66,6 +66,7 @@
 
 == Números Aleatorios
 
+* link:218/[REQ.218 Aleatorios generados uniformemente]
 * link:219/[REQ.219 Usar mecanismos criptográficos seguros].
 
 == Sistema Operativo
