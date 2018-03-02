@@ -4,16 +4,20 @@ WORKDIR /app
 
 COPY . /app
 
-# 18-20: Install basic dependencies to set sources lists 
-# 22-23: Set sources for NodeJS and Yarn
-# 24-47: Install all necessarty dependencies
-# 48-49: Download tidy-html binary and install it
-# 50-53: Clone the necessaty JS files from the Tipue repository in order to run the plugin
-# 54-57: Clone just the plugins that are being used in this project with Pelican 
-# 58-59: Clone the pleican-redirect plugin (aside from the official repository) and make it recognizable as a module
-# 60: Change the default highlighter to Pygments
-# 61: Enable every rule of sass-lint
-# 62-69: Erase files and directories that are not needed during runtime
+# 21-23: Install basic dependencies to set sources lists 
+# 24-26: Set sources for NodeJS and Yarn
+# 27-51: Install all necessarty dependencies
+# 52-53: Download tidy-html binary and install it
+# 54-55: Download Java Runtime Environment needed to generate PlantUML diagrams
+# 56-59: Clone the necessaty JS files from the Tipue repository in order to run the plugin
+# 60-63: Clone just the plugins that are being used in this project with Pelican 
+# 64-65: Clone the pelican-redirect plugin (aside from the official repository) and make it recognizable as a module
+# 66: Change the default highlighter to Pygments
+# 67: Enable every rule of sass-lint
+# 68-69: Download and install the PlantUML filter for Asciidoc
+# 70-75: Add a variable to the Asciidoc Reader with the source path and reference it in the filters
+# 76-85: Erase files and directories that are not needed during runtime
+
 RUN apt-get update -qq && apt-get install -qqy \
         curl \
         gnupg && \
@@ -25,6 +29,7 @@ RUN apt-get update -qq && apt-get install -qqy \
         diction \
         gcc \
         git \
+        graphviz \
         libcurl4-openssl-dev \
         libffi-dev \
         libssl-dev \
@@ -46,6 +51,8 @@ RUN apt-get update -qq && apt-get install -qqy \
         yarn install && \
     curl -sSLo tidy.deb https://github.com/htacg/tidy-html5/releases/download/5.4.0/tidy-5.4.0-64bit.deb && \
         dpkg -i tidy.deb && \
+    curl -sSLo java.tar.gz http://javadl.oracle.com/webapps/download/AutoDL?BundleId=230532_2f38c3b165be4555a1fa6e98c45e0808 && \
+        tar zxvf java.tar.gz && \
     mkdir js && cd js && \
         git init && git remote add origin https://github.com/Tipue/Tipue-Search.git && \
         git config core.sparsecheckout true && cat ../js-files.txt >> .git/info/sparse-checkout && \
@@ -57,17 +64,27 @@ RUN apt-get update -qq && apt-get install -qqy \
     git clone --depth=1 https://github.com/slinkp/pelican-redirect.git && cd pelican-redirect && git reset --hard f00004c && \
         echo "from .pelican_redirect import *" > __init__.py && \
     sed -i 's/source-highlight$/pygments/' /etc/asciidoc/asciidoc.conf && \
-    sed -i 's/0/1/' /app/node_modules/sass-lint/lib/config/sass-lint.yml && \
-    cd /app && rm -rf /var/lib/apt/lists/* \
+    sed -i 's/0/1/' /app/node_modules/sass-lint/lib/config/sass-lint.yml && cd /app && \
+    curl -sSLo plantuml.zip https://storage.googleapis.com/google-code-archive-downloads/v2/code.google.com/asciidoc-plantuml/plantuml.zip && \
+        asciidoc --filter install plantuml.zip /etc/asciidoc/filters/ && \
+    sed -i 's/\+\ options/\+\ options\ \+\ \['\''-a\ path=%s'\''\ %\ adoc_path\]/; \
+        s/ad\ =/adoc_path\ =\ source_path.replace\('\''\/index.adoc'\'',\ '\'\''\)\n\tad\ =/' \
+        pelican-plugins/asciidoc_reader/asciidoc_reader.py && \
+        for FILE in $(find /etc/asciidoc/filters -iname '*.conf'); do \
+            sed -i 's/\"{outdir'".*"'\"/\"{path}\/{target}\"/' $FILE; \
+        done && \
+    rm -rf /var/lib/apt/lists/* \
         Dockerfile \
         package.json \
+        java.tar.gz \
         js-files.txt \
+        plantuml.zip \
         plugin_list.txt \
         requirements.txt \
         tidy.deb \
         yarn.lock 
 
 # Add the uglifyjs program to the PATH
-ENV PATH=$PATH:/app/node_modules/uglify-js/bin/:/app/node_modules/sass-lint/bin/
+ENV PATH=$PATH:/app/node_modules/uglify-js/bin/:/app/node_modules/sass-lint/bin/:/app/jre1.8.0_161/bin/
 
 CMD ["bash"]
