@@ -1,27 +1,27 @@
 :slug: rules/999/
 :category: rules
-:description: En el presente documento se detallan los requerimientos de seguridad relacionados al manejo adecuado de información sensible dentro de un programa. La información confidencial no debe permanecer ni en memoria ni en variables u objetos después de haber sido utilizada.
+:description: En el presente documento se detallan los requerimientos de seguridad relacionados al manejo adecuado de información sensible vinculada a un recurso utilizado dentro de un programa. La información confidencial no debe permanecer en memoria después de haber utilizado dicho recurso.
 :keywords: memoria, búfer, tiempo de vida, datos sensibles, información sensible, atacante.
 :rules: yes
 
-= REQ.999 Limitar tiempo de vida de datos sensibles
+= REQ.999 Limitar tiempo de vida de recursos
 
-== Nombre
+== Nombre Completo
 
-La aplicación debe limpiar/eliminar datos, recursos y/o objetos 
-creados por la misma cuando ya no estén en uso.
+La aplicación debe liberar recursos una vez no estén en uso.
 
 == Descripción
 
 El presente criterio de seguridad 
-trata sobre la protección inadecuada de datos sensibles, 
-los cuales, pueden conducir a vulnerabilidades 
+trata sobre la protección inadecuada de datos sensibles 
+asociados a un recurso almacenado en un computador. 
+Los cuales, pueden conducir a vulnerabilidades 
 que podrían afectar tanto la confidencialidad, la disponibilidad 
 e integridad de la información 
 durante todo su ciclo de vida.<<r1,^[1]^>> 
 Esta fuga de información confidencial 
 es más probable si la memoria que contiene los datos 
-no es borrada después de usar dicha información.
+no es borrada después de usar dicho recurso.
 
 == Implementación
 
@@ -33,29 +33,29 @@ como por ejemplo un archivo de texto plano, una imagen, etc.,
 después de usar dicho recurso, 
 se debe cerrar el acceso al mismo lo antes posible.
 
-. Cuando un programa haga uso de una conexión 
-a una base de datos por ejemplo, 
-después de usar dicha conexión, 
-esta debe ser cerrada tan pronto sea posible.
+. Si existen datos en el búfer de memoria asociados a un recurso, 
+estos deben ser sobrescritos antes de liberar dicho recurso.
 
-. Si existen variables en el búfer de memoria, 
-estas deben ser sobrescritas antes de ser liberadas.
+. Si en memoria existen variables 
+u objetos creados dentro de la aplicación, 
+y que además, almacenan datos asociados a un recurso específico, 
+estos deben ser destruidos por la misma aplicación una vez no sean necesarios.
 
-. Si en memoria existen objetos creados dentro de la aplicación, 
-estos deben ser destruidos por esta una vez no sean necesarios.
-
-. En general, cualquier recurso, variable, objeto, conexión, etc., 
+. En general, todo recurso que sea utilizado 
+y almacenado en memoria por la aplicación, 
 debe ser destruido sin esperar a que el recolector de basura los elimine.
 
 De acuerdo a lo anterior, para limitar el riesgo 
 de exposición de información confidencial, 
-los programas deben minimizar la vida útil de dichos datos sensibles.
+los programas deben minimizar la vida útil 
+de cualquier información sensible en memoria.
 
 == Soluciones
 
 . *+COBOL+* link:../../defends/cobol/liberar-recursos/[Liberar Recursos].
-. *+JAVA+* link:../../defends/java/limitar-vida-datos-sensibles/[Limitar el tiempo de vida de datos sensibles].
-. *+SCALA+* link:../../defends/scala/limitar-tiempo-vida/[Limitar el tiempo de vida de datos sensibles].
+. *+JAVA+* link:../../defends/java/limitar-vida-recurso/[Limitar tiempo de vida de recursos].
+. *+SCALA+* link:../../defends/scala/limitar-vida-recurso/[Limitar tiempo de vida de recursos].
+. *+CSHARP+* link:../../defends/csharp/limitar-vida-recurso/[Limitar tiempo de vida de recursos].
 
 == Casos de abuso
 
