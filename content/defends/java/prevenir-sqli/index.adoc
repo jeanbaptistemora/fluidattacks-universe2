@@ -8,35 +8,36 @@
 
 == Necesidad
 
-Prevenir SQL Injection utilizando PreparedStatement (Java)
+Prevenir +SQL Injection+ utilizando +PreparedStatement+ en +Java+
 
 == Contexto
 
 A continuación se describen las circunstancias 
 bajo las cuales la siguiente solución tiene sentido:
 
-. Se cuenta con una aplicación programada en Java.
+. Se cuenta con una aplicación programada en +Java+.
 . La aplicación utiliza una base de datos relacional.
-. Se conoce como usar la clase PreparedStatement.
+. Se conoce como usar la clase +PreparedStatement+.
 . Se busca proteger la aplicación, no determinar si ésta es vulnerable.
 
 == Solución
 
-. Para evitar este tipo de situación 
-se debe tener en cuenta la siguiente estrategia.
+. Para evitar un ataque +sqli+ 
+se debe tener en cuenta la siguiente estrategia:
+
 * Todas las consultas deben ser parametrizadas.
 * Todo dato dinámico debe ser vinculado explícitamente 
 a las consultas parametrizadas.
 * La concatenación de cadenas (variables alfanuméricas) 
-nunca debe  usarse para generar SQL dinámico.
+nunca debe  usarse para generar +SQL+ dinámico.
 
 . Cuando deba generar SQL dinámico 
-valide todas las entradas que conformarán las partes de la sentencia SQL 
+valide todas las entradas que conformarán las partes de la sentencia +SQL+ 
 de manera que no se puedan inyectar subconsultas 
 o modificaciones a la consulta original.
 
 . Consulte la posibilidad de incluir librerías de protección 
-de ataques tales como HDIV. [2]
+de ataques tales como +HDIV+ ^<<r2,[2]>>^.
 
 . Cuando esté asignando los privilegios que el usuario de conexión 
 de la aplicación tendría sobre el esquema de su base de datos, 
@@ -46,16 +47,17 @@ Adicionalmente, los privilegios deberían ser finamente seleccionados
 de manera que sólo acceda a los objetos que debe acceder. 
 Recuerde el principio del menor privilegio.
 
-. El método adecuado para prevenir ataques de inyección SQL en Java 
+. El método adecuado para prevenir ataques de inyección +SQL+ en +Java+ 
 es usar comandos preparados o procedimientos almacenados parametrizados 
 en lugar de incluir directamente 
-la entrada del usuario en una instrucción SQL. 
+la entrada del usuario en una instrucción +SQL+. 
 Las declaraciones preparadas automáticamente se escapan de metacaracteres 
 como son la comilla simple y los caracteres punto y coma. 
-El siguiente segmento de código muestra como usar 
-la clase java.sql.PreparedStatement en lugar de java.sql.Statement. 
+
+. El siguiente segmento de código muestra como usar 
+la clase +java.sql.PreparedStatement+ en lugar de +java.sql.Statement+. 
 +
-.test.py
+.preparedstatement.java
 [source, java,linenums]
 ----
 String selectStatement = "SELECT * FROM User WHERE userId =? ";
@@ -64,10 +66,11 @@ prepStmt.setString(1, userId);
 ResultSet rs = prepStmt.executeQuery();
 ----
  
-. Nótese que la solución es independiente del gestor de bases de datos utilizado.
+. Nótese que la solución 
+es independiente del gestor de bases de datos utilizado.
 
 . A continuación se presenta una aplicación web de ejemplo 
-protegida ante SQL Injection. 
+protegida ante +SQL Injection+. 
 Primero se creará la base de datos ejemplo, 
 con una única tabla llamada datos con la siguiente información.
 +
@@ -84,14 +87,14 @@ mysql> select * from datos;
 +------+-----------+
 ----
  
-. Para esto primero creamos la base de datos ejemplo:
+. Para esto, primero creamos la base de datos ejemplo.
 +
 [source, bash, linenums]
 ----
 % echo "create database ejemplo;" | mysql -u root -p
 ----
  
-. Luego ejecutamos las siguientes instrucciones 
+. Luego ejecutamos las siguientes instrucciones, 
 de tal forma que se cree la tabla con los datos requeridos.
 +
 [source, sql,linenums]
@@ -117,8 +120,8 @@ INSERT INTO `datos` VALUES
 UNLOCK TABLES;
 ----
  
-. Para esto lo más sencillo es crear, por ejemplo, 
-un archivo llamado db.sql donde se copia ese contenido 
+. Para esto, lo más sencillo es crear, por ejemplo, 
+un archivo llamado +db.sql+ donde se copia ese contenido 
 y posteriormente se ejecuta.
 +
 [source, bash, linenums]
@@ -141,10 +144,10 @@ lib/ web.xml  +
 mysql-connector-java-5.0.8-bin.jar
 ----
 
-. El archivo web.xml es un descriptor típico de despligue q
-ue incluso puede ser ignorado para contenedores de servlets 
-con soporte de la especificación versión igual o superior a 3.0. 
-En nuestro caso se utilizará:
+. El archivo +web.xml+ es un descriptor típico de despligue 
+que incluso puede ser ignorado para contenedores de +servlets+ 
+con soporte de la especificación igual o superior a +3.0+. 
+En nuestro caso se utilizará.
 +
 [source, xml, linenums]]
 ----
@@ -156,15 +159,15 @@ En nuestro caso se utilizará:
  </web-app>
 ----
  
-. El jar que contiene el driver de conexión a MySQL 
+. El +jar+ que contiene el +driver+ de conexión a +MySQL+ 
 puede descargarse desde el sitio oficial. 
 Este debe ser accesible por el servidor de aplicaciones. 
 Una forma sencilla de conseguirlo 
-es incluir el jar en la carpeta WEB-INF/lib del proyecto.
+es incluir el +jar+ en la carpeta +WEB-INF/lib+ del proyecto.
 
-. El archivo index.jsp se muestra a continuación. 
-Primero se realiza el import de las clases en el paquete java.sql, 
-tales como PreparedStatement y ResultSet entre otras.
+. El archivo +index.jsp+ se muestra a continuación. 
+Primero se realiza el +import+ de las clases en el paquete +java.sql+, 
+tales como +PreparedStatement+ y +ResultSet+ entre otras.
 +
 [source, html,linenums]
 ----
@@ -176,8 +179,8 @@ tales como PreparedStatement y ResultSet entre otras.
    <%@ page import="java.sql.*;" %>
 ----
  
-. Se establece la conexión usando como usuario root, contraseña Prog=seg 
-y base de datos ejemplo.
+. Se establece la conexión usando como usuario +root+, 
+contraseña +Prog=seg+ y la base de datos ejemplo.
 +
 [source, java,linenums]
 ----
@@ -191,14 +194,14 @@ y base de datos ejemplo.
 ----
   
 . Se crea la consulta especificando que el parámetro 
-será el valor que se comparará con el campo cod:
+será el valor que se comparará con el campo +cod+.
 +
 [source, java,linenums]
 ----
 String selectStatement = "SELECT cod , nombre FROM datos WHERE cod=?";
 ----
  
-. Se obtiene por método get el id de la ciudad que se desea visualizar, 
+. Se obtiene por método +GET+ el +id+ de la ciudad que se desea visualizar, 
 y se utiliza para parametrizar la consulta.
 +
 [source, java,linenums]
@@ -208,7 +211,7 @@ prepStmt = conexion.prepareStatement(selectStatement);
 prepStmt.setString(1, id);
 ----
 
-. Se ejecuta la consulta y se muestran los valores obtenidos:
+. Se ejecuta la consulta y se muestra los valores obtenidos.
 +
 [source, java,linenums]
 ----
@@ -242,7 +245,7 @@ prepStmt.setString(1, id);
 </html>
 ----
 
-. Para utilizar la aplicación, basta con pasar por método GET 
+. Para utilizar la aplicación, basta con pasar por método +GET+ 
 el código de la ciudad que se desea visualizar.
 +
 [source, shell, linenums]
@@ -250,14 +253,14 @@ el código de la ciudad que se desea visualizar.
 http://localhost:8080/sqli/index.jsp?id=2
 ---- 
 
-. Pueden intentarse ataques tales como 1 or 1=1 
+. Pueden intentarse ataques tales como +1 or 1=1+ 
 para comprobar que la aplicación no presenta fallas de inyección.
 
 == Referencias
 
-. http://www.owasp.org/index.php/Preventing_SQL_Injection_in_Java
-. http://hdiv.org/
-. REQ.0164: Debe usarse construcciones parametrizadas 
+. [[r1]] link:https://www.owasp.org/index.php/Preventing_SQL_Injection_in_Java[SQL Injection Prevention Cheat Sheet]
+. [[r2]] link:http://hdiv.org/[HDVI]
+. [[r3]] REQ.0164: Debe usarse construcciones parametrizadas 
 o procedimientos almacenados parametrizados 
 para la creación dinámica de sentencias 
 (ej: java.sql.PreparedStatement)
