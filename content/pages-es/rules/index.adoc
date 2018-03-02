@@ -7,17 +7,17 @@
 
 == Activos de Información:
 
-* link:001/[REQ 001 Activos de información identificados].
-* link:002/[REQ 002 Activo de información asociado a responsable].
-* link:003/[REQ 003 Activo de información valorado en moneda].
-* link:004/[REQ 004 Identificar amenazas asociadas a activo].
-* link:005/[REQ 005 Identificar posibles vulnerabilidades].
-* link:006/[REQ 006 Amenazas medidas en términos de ocurrencia].
-* link:007/[REQ 007 Amenazas medidas en términos de impacto].
-* link:008/[REQ 008 Riesgos medidos por probabilidad e impacto].
-* link:009/[REQ 009 Identificar posibles atacantes].
+* link:001/[REQ.001 Activos de información identificados].
+* link:002/[REQ.002 Activo de información asociado a responsable].
+* link:003/[REQ.003 Activo de información valorado en moneda].
+* link:004/[REQ.004 Identificar amenazas asociadas a activo].
+* link:005/[REQ.005 Identificar posibles vulnerabilidades].
+* link:006/[REQ.006 Amenazas medidas en términos de ocurrencia].
+* link:007/[REQ.007 Amenazas medidas en términos de impacto].
+* link:008/[REQ.008 Riesgos medidos por probabilidad e impacto].
+* link:009/[REQ.009 Identificar posibles atacantes].
 * link:010/[REQ.010 Proceso reclasificación definido].
-* link:011/[REQ 011 Activos clasificados según criticidad.].
+* link:011/[REQ.011 Activos clasificados según criticidad.].
 * link:012/[REQ.012 Priorizar vulnerabilidades de activos].
 * link:013/[REQ.013 Garantizar corrección de vulnerabilidades].
 * link:014/[REQ.014 Medio seguro para información física].
@@ -48,6 +48,7 @@
 == Criptografía
 
 * link:142/[REQ.142 Utilizar mecanismos pre-existentes].
+* link:143/[REQ.143 Cifrado asimétrico de tamaño mínimo].
 * link:145/[REQ.145 Funciones resumen de tamaño mínimo].
 
 == Fuente
@@ -61,7 +62,11 @@
 
 * link:171/[REQ.171 Restringir objetos del sistema].
 * link:173/[REQ.173 Utilizar firmas digitales].
-* link:999/[REQ 999 Limitar tiempo de vida datos sensibles].
+* link:999/[REQ.999 Limitar tiempo de vida datos sensibles].
+
+== Números Aleatorios
+
+* link:219/[REQ.219 Usar mecanismos criptográficos seguros].
 
 == Sistema Operativo
 
