@@ -50,6 +50,7 @@
 * link:155/[REQ.155 Salidas codificadas].
 * link:156/[REQ.156 Opciones por defecto seguras].
 * link:157/[REQ.0157 Evitar redundancia de código].
+* link:158/[REQ.0158 Evitar código en desuso].
 
 == Datos
 
