@@ -7,7 +7,7 @@
 :description: OSCP es una de las certificaciones más queridas y reconocidas en el mundo de la seguridad informática, creada por offensive security. Este es el viaje a través del camino de Try Harder, mi experiencia, conclusiones, lo bueno y lo malo, y algunos consejos que considero apropiados
 :keywords: certificaciones, oscp, offensive, seguridad, red team, explotación
 :author: Camilo Cardona
-:writer: ccardona
+:writer: camiloc
 :name: Camilo Cardona Hernandez
 :about1: Ingeniero de sistemas y computación, OSCP, OSWP
 :about2: "No tengo talentos especiales, pero sí soy profundamente curioso" Albert Einstein
