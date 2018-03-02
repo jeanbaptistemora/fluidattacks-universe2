@@ -104,6 +104,6 @@ if (Response.Charset == "utf-8")
 
 . [[r2]] link:https://msdn.microsoft.com/en-us/library/system.web.httpresponse.contenttype.aspx[Microsoft, HttpResponse.ContentType.]
 
-. [[r3]] REQ.0039: Los archivos generados de forma dinámica por el sistema deben tener definido un +Content-Type+ explícito.
+. [[r3]] link:../../../rules/039[REQ.039 Definir Content Type Explícito].
 
-. [[r4]] REQ.0040: Los archivos generados de forma dinámica por el sistema deben tener definido un +Character-Set+ explícito.
+. [[r4]] link:../../../rules/040[REQ.040 Definir Charset Explícito].

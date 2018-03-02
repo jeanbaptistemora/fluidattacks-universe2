@@ -30,6 +30,11 @@
 . link:018/[REQ.018: Garantizar cumplimiento requisitos].
 . link:019/[REQ.019: Permitir auditorías de cliente].
 
+== Archivos
+
+. link:039/[REQ.039 Definir Content Type Explícito].
+. link:040/[REQ.040 Definir Charset Explícito].
+
 == Credenciales de acceso
 
 . link:132/[REQ.132 Almacenar contraseñas con Salt].
