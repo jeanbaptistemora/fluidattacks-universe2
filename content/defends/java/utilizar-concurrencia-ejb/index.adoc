@@ -8,37 +8,38 @@
 
 == Necesidad
 
-Utilizar concurrencia en una aplicación usando EJB en Java
+Utilizar concurrencia en una aplicación usando +EJB+ en +Java+
 
 == Contexto
 
 A continuación se describen las circunstancias 
 bajo las cuales la siguiente solución tiene sentido:
 
-. Se tiene una aplicación java Java EE 1.6.
-. Se tiene un servidor de aplicaciones WebLogic 10.3.
-. Se desea implementar la tecnología EJB.
+. Se tiene una aplicación en +Java EE 1.6+.
+. Se tiene un servidor de aplicaciones +WebLogic 10.3+.
+. Se desea implementar la tecnología +EJB+.
 
 == Solución
 
-EJB o Enterprise JavaBeans 
++EJB+ o +Enterprise JavaBeans+ 
 son una de las interfaces de programación de aplicaciones 
 que forman parte del estándar 
-de construcción de aplicaciones empresariales J2EE. 
+de construcción de aplicaciones empresariales +J2EE+. 
 Estas proporcionan un modelo de componente distribuido estándar 
 del lado del servidor con el objetivo de dotar al programador 
 de un modelo que le permita abstraerse 
 de los problemas generales de una aplicación empresarial. 
 
-. Se generará un EJB de sesión sin estado utilizando las anotaciones de EJB3.
+. Se generará un +EJB+ de sesión sin estado 
+utilizando las anotaciones de +EJB3+.
 
-. Lo primero que se hará es crear el EJB, este necesita 2 clases, 
-la interface y el Bean como tal, 
-que serán incluidas en el paquete Especialista.
+. Lo primero que se hará es crear el +EJB+, este necesita dos clases, 
+la +interface+ y el +Bean+ como tal, 
+que serán incluidas en el paquete +Especialista+.
 
-. Clase de la interface de negocio: Concurrencia.java:
+. Clase de la interface de negocio: +Concurrencia.java+.
 +
-.test.py
+.Concurrencia.java
 [source, java,linenums]
 ----
 package Especialista;
@@ -55,8 +56,8 @@ public interface Concurrencia {
 }
 ----
 
-. Clase del EJB: ConcurrenciaBean, 
-aquí es donde se ejecutara toda la lógica transaccional
+. Clase del +EJB+: +ConcurrenciaBean+, 
+aquí es donde se ejecutara toda la lógica transaccional.
 +
 [source, java,linenums]
 ----
@@ -105,13 +106,13 @@ public class ConcurrenciaBean {
 }
 ----
 
-. ACLARACIÓN: Los System.out.println() constituyen una situación 
+. *ACLARACIÓN:* Los +System.out.println()+ constituyen una situación 
 en una auditoría de código fuente, en este caso, 
-esta función se hace para ver el funcionamiento de los EJB en la solución.
+esta función se hace para ver el funcionamiento de los +EJB+ en la solución.
 
 . Para que el proyecto funcione 
-hay que agregarle la librería de el weblogic para el manejo de EJB, 
-por lo general esta librería se encuentra en:
+hay que agregarle la librería de el +weblogic+ para el manejo de +EJB+, 
+por lo general esta librería se encuentra en la ruta.
 +
 [source, shell,linenums]
 ----
@@ -122,12 +123,14 @@ por lo general esta librería se encuentra en:
 +
 image::ejb.png[estructura del proyecto]
 
-. Una vez el proyecto esté sin errores se exporta a un JAR.
+. Una vez el proyecto esté sin errores se exporta a un +JAR+.
 
-. Se despliega el EJB en el servidor de aplicaciones y se inicia el mismo.
+. Se despliega el +EJB+ en el servidor de aplicaciones y se inicia el mismo.
 
-. Ahora se creará una aplicación web Java, que en este caso tendrá un servlet 
-y una clase encargada de llamar el EJB haciendo conexión con el WebLogic.
+. Ahora se creará una aplicación web +Java+, 
+que en este caso tendrá un +servlet+ 
+y una clase encargada de llamar el +EJB+ 
+haciendo conexión con el +WebLogic+.
 
 . Clase Servlet: 
 +
@@ -155,7 +158,8 @@ public class Servlet extends HttpServlet {
 }
 ----
 
-. Clase Cliente: esta clase es la que se encarga de hacer el llamado al EJB
+. Clase +Cliente+: esta clase es la que se encarga 
+de hacer el llamado al +EJB+.
 +
 [source, java,linenums]
 ----
@@ -202,10 +206,11 @@ public class Cliente {
 }
 ----
 
-. Hay que recordar que se debe montar el paquete Especialista en este proyecto 
-para que el ID no arroje ningún tipo de errores.
+. Hay que recordar que se debe montar 
+el paquete +Especialista+ en este proyecto 
+para que el +ID+ no arroje ningún tipo de error.
 
-. En el archivo web.xml se le agregan los descriptores del Servlet
+. En el archivo +web.xml+ se le agregan los descriptores del +Servlet+.
 +
 [source, xml,linenums]
 ----
@@ -239,15 +244,32 @@ para que el ID no arroje ningún tipo de errores.
 +
 image::estructura.png[estructura del proyecto]
 
-. Una vez el proyecto esté sin errores se exporta a un WAR.
+. Una vez el proyecto esté sin errores se exporta a un +WAR+.
 
-. Se despliega la aplicación en el servidor Weblogic.
+. Se despliega la aplicación en el servidor +Weblogic+.
 
 . Por último se corre el servlet para que haga el llamado al EJB.
 
+== Descargas
+
+Puedes descargar el código fuente 
+pulsando en los siguientes enlaces:
+
+[button]#link:src/concurrencia.java[Concurrencia.java >>]# 
+Interfaz Concurrencia.
+
+[button]#link:src/concurrenciabean.java[ConcurrenciaBean.java >>]# 
+Clase Concurrencia.
+
+[button]#link:src/servlet.java[Servlet.java >>]# 
+Clase Servlet.
+
+[button]#link:src/cliente.java[Cliente.java >>]# 
+Clase Cliente.
+
 == Referencias
 
-. https://docs.oracle.com/cd/E11035_01/wls100/ejb30/index.html[Programming WebLogic Enterprise JavaBeans, Version 3.0]
-. http://wiki.eclipse.org/EclipseLink/Examples/JPA/WebLogic_Web_Tutorial[WebLogic Web Tutorial]
-. REQ.0159: El código debe utilizar contenedores 
+. [[r1]] link:https://docs.oracle.com/cd/E11035_01/wls100/ejb30/index.html[Programming WebLogic Enterprise JavaBeans, Version 3.0]
+. [[r2]] link:http://wiki.eclipse.org/EclipseLink/Examples/JPA/WebLogic_Web_Tutorial[WebLogic Web Tutorial]
+. [[r3]] REQ.0159: El código debe utilizar contenedores 
 o estructuras de datos optimizadas.
