@@ -4,13 +4,12 @@
 :keywords: Requerimiento, Seguridad, Criptografía, Funciones, Resumen, Tamaño.
 :rules: yes
 
-= REQ.0145: Funciones resumen de tamaño definido
+= REQ.0145: Funciones resumen de tamaño mínimo
 
-== Nombre Completo
+== Nombre
 
 Debe utilizarse funciones resumen con un tamaño mínimo de 256 bits.
 
-== Descripción
+== Soluciones
 
-Este artículo está en construcción.
-Lamentamos los inconvenientes.
+. +ASPNET+ link:../../defends/aspnet/cifrar-contrasenas-con-salt/[Cifrar contraseñas con salt].

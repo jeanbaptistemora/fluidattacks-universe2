@@ -6,14 +6,14 @@
 
 = REQ.013 Garantizar corrección de vulnerabilidades
 
-== Nombre Completo
+== Nombre
 
 La organización debe asegurar 
 que cada una de las vulnerabilidades 
 identificadas en los activos de información 
 sea corregida y comprobada su corrección.
 
-== Descripción
+== Soluciones
 
 Este artículo está en construcción.
 Lamentamos los inconvenientes.

@@ -7,57 +7,57 @@
 
 == Activos de Información:
 
-. link:001/[REQ 001: Activos de información identificados].
-. link:002/[REQ 002: Activo de información asociado a responsable].
-. link:003/[REQ 003: Activo de información valorado en moneda].
-. link:004/[REQ 004: Identificar amenazas asociadas a activo].
-. link:005/[REQ 005: Identificar posibles vulnerabilidades].
-. link:006/[REQ 006: Amenazas medidas en términos de ocurrencia].
-. link:007/[REQ 007: Amenazas medidas en términos de impacto].
-. link:008/[REQ 008: Riesgos medidos por probabilidad e impacto].
-. link:009/[REQ 009: Identificar posibles atacantes].
-. link:010/[REQ.010 Proceso reclasificación definido].
-. link:011/[REQ 011: REQ.011 Activos clasificados según criticidad.].
-. link:012/[REQ.012: Priorizar Vulnerabilidades de activos].
-. link:013/[REQ.013: Garantizar corrección de vulnerabilidades].
-. link:014/[REQ.014: Medio seguro para información física].
+* link:001/[REQ 001 Activos de información identificados].
+* link:002/[REQ 002 Activo de información asociado a responsable].
+* link:003/[REQ 003 Activo de información valorado en moneda].
+* link:004/[REQ 004 Identificar amenazas asociadas a activo].
+* link:005/[REQ 005 Identificar posibles vulnerabilidades].
+* link:006/[REQ 006 Amenazas medidas en términos de ocurrencia].
+* link:007/[REQ 007 Amenazas medidas en términos de impacto].
+* link:008/[REQ 008 Riesgos medidos por probabilidad e impacto].
+* link:009/[REQ 009 Identificar posibles atacantes].
+* link:010/[REQ.010 Proceso reclasificación definido].
+* link:011/[REQ 011 Activos clasificados según criticidad.].
+* link:012/[REQ.012 Priorizar vulnerabilidades de activos].
+* link:013/[REQ.013 Garantizar corrección de vulnerabilidades].
+* link:014/[REQ.014 Medio seguro para información física].
 
 == Acuerdos de nivel de servicio
 
-. link:015/[REQ.015: Acuerdos a nivel de servicio con terceros].
-. link:016/[REQ.016: Acuerdos de confiabilidad con terceros].
-. link:017/[REQ.017: Definir penalizaciones por incumplimiento].
-. link:018/[REQ.018: Garantizar cumplimiento requisitos].
-. link:019/[REQ.019: Permitir auditorías de cliente].
+* link:015/[REQ.015 Acuerdos a nivel de servicio con terceros].
+* link:016/[REQ.016 Acuerdos de confiabilidad con terceros].
+* link:017/[REQ.017 Definir penalizaciones por incumplimiento].
+* link:018/[REQ.018 Garantizar cumplimiento requisitos].
+* link:019/[REQ.019 Permitir auditorías de cliente].
 
 == Archivos
 
-. link:039/[REQ.039 Definir Content Type Explícito].
-. link:040/[REQ.040 Definir Charset Explícito].
+* link:039/[REQ.039 Definir content type explícito].
+* link:040/[REQ.040 Definir charset explícito].
 
-== Credenciales de acceso
+== Credenciales
 
-. link:132/[REQ.132 Almacenar contraseñas con Salt].
-. link:133/[REQ.133 Derivaciones de clave aleatorias].
+* link:132/[REQ.132 Almacenar contraseñas con Salt].
+* link:133/[REQ.133 Derivaciones de clave aleatorias].
 
 == Criptografía
 
-. link:142/[REQ.142 Utilizar mecanismos pre-existentes].
-. link:145/[REQ.145: Funciones resumen de tamaño definido].
+* link:142/[REQ.142 Utilizar mecanismos pre-existentes].
+* link:145/[REQ.145 Funciones resumen de tamaño mínimo].
 
-== Código Fuente
+== Fuente
 
-. link:155/[REQ.155 Salidas codificadas].
-. link:156/[REQ.156 Opciones por defecto seguras].
+* link:155/[REQ.155 Salidas codificadas].
+* link:156/[REQ.156 Opciones por defecto seguras].
 
 == Datos
 
-. link:171/[REQ.171 Restringir objetos del sistema].
-. link:999/[REQ 999: Limitar tiempo de vida datos sensibles].
+* link:171/[REQ.171 Restringir objetos del sistema].
+* link:999/[REQ 999 Limitar tiempo de vida datos sensibles].
 
 == Sistema Operativo
 
-. link:272/[REQ.272: Información de servicios inaccesible].
+* link:272/[REQ.272 Información de servicios inaccesible].
 
 
 

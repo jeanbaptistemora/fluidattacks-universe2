@@ -4,14 +4,13 @@
 :keywords: Requerimiento, Seguridad, Archivos, Charset, Explícito, Seguridad.
 :rules: yes
 
-= REQ.040 Definir Charset Explícito
+= REQ.040 Definir charset explícito
 
-== Nombre Completo
+== Nombre
 
 Los archivos generados de forma dinámica por el sistema 
 deben tener definido un Character-Set explícito. 
 
-== Descripción
+== Soluciones
 
-Este artículo está en construcción.
-Lamentamos los inconvenientes.
+. +ASPNET+ link:../../defends/aspnet/content-type-charset/[Establecer content type y charset].

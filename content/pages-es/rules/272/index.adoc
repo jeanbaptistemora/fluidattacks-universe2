@@ -6,14 +6,13 @@
 
 = REQ.272 Información de servicios inaccesible
 
-== Nombre Completo
+== Nombre
 
 La información (nombre de producto, 
 versión o configuración) de servicios expuestos no debe ser accesible. 
 (Ej, versiones que se publican al conectarse a un servicio como SSH)
 
 
-== Descripción
+== Soluciones
 
-Este artículo está en construcción.
-Lamentamos los inconvenientes.
+. +Apache+ link:../../defends/apache/restringir-banner/[Restringir Banner].

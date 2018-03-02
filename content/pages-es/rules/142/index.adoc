@@ -6,12 +6,11 @@
 
 = REQ.142 Utilizar mecanismos pre-existentes
 
-== Nombre Completo
+== Nombre
 
 Las funciones de criptografía del sistema 
 deben ser implementadas con mecanismos criptográficos pre-existentes.
 
-== Descripción
+== Soluciones
 
-Este artículo está en construcción.
-Lamentamos los inconvenientes.
+. +ASPNET+ link:../../defends/aspnet/cifrar-contrasenas-con-salt/[Cifrar contraseñas con salt].

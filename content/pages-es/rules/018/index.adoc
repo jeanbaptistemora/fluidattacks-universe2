@@ -6,13 +6,13 @@
 
 = REQ.018 Garantizar cumplimiento requisitos
 
-== Nombre Completo
+== Nombre
 
 Los proveedores de la organización 
 deben asegurar que sus terceras partes 
 cumplen los requisitos definidos
 
-== Descripción
+== Soluciones
 
 Este artículo está en construcción.
 Lamentamos los inconvenientes.

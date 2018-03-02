@@ -6,13 +6,13 @@
 
 = REQ.016 Acuerdos de confiabilidad con terceros
 
-== Nombre Completo
+== Nombre
 
 La organización debe tener un acuerdo de nivel de servicio 
 de confiabilidad con todos los terceros 
 con los cuales comparte información
 
-== Descripción
+== Soluciones
 
 Este artículo está en construcción.
 Lamentamos los inconvenientes.

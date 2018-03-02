@@ -6,12 +6,12 @@
 
 = REQ.014 Medio seguro para información física
 
-== Nombre Completo
+== Nombre
 
 La organización debe garantizar un medio seguro de transporte 
 para la información física.
 
-== Descripción
+== Soluciones
 
 Este artículo está en construcción.
 Lamentamos los inconvenientes.

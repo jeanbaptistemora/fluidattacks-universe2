@@ -6,12 +6,12 @@
 
 = REQ.019 Permitir auditorías de cliente
 
-== Nombre Completo
+== Nombre
 
 Proveedores de la organización deben permitir auditorías 
 de cliente en el alcance relacionado.
 
-== Descripción
+== Soluciones
 
 Este artículo está en construcción.
 Lamentamos los inconvenientes.

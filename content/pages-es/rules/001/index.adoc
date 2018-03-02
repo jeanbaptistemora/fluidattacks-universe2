@@ -6,7 +6,7 @@
 
 = REQ.001 Activos de información identificados
 
-== Nombre Completo
+== Nombre
 
 Los activos de información del sistema deben estar identificados
 

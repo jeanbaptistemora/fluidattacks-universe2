@@ -6,7 +6,7 @@
 
 = REQ.999 Limitar tiempo de vida de datos sensibles
 
-== Nombre Completo
+== Nombre
 
 La aplicación debe limpiar/eliminar datos, recursos y/o objetos 
 creados por la misma cuando ya no estén en uso.

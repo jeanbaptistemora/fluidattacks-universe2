@@ -4,14 +4,13 @@
 :keywords: Requerimiento, Seguridad, Archivos, Content Type, Explícito, Seguridad.
 :rules: yes
 
-= REQ.039 Definir Content Type Explícito
+= REQ.039 Definir content type explícito
 
-== Nombre Completo
+== Nombre
 
 Los archivos generados de forma dinámica por el sistema 
 deben tener definido un Content-Type explícito.
 
-== Descripción
+== Soluciones
 
-Este artículo está en construcción.
-Lamentamos los inconvenientes.
+. +ASPNET+ link:../../defends/aspnet/content-type-charset/[Establecer content type y charset].

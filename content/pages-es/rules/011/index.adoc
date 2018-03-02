@@ -6,7 +6,7 @@
 
 = REQ.011 Activos clasificados según criticidad.
 
-== Nombre Completo
+== Nombre
 
 Los activos de información deben estar clasificados 
 de acuerdo a su nivel de confidencialidad y de criticidad.

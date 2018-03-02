@@ -6,13 +6,12 @@
 
 = REQ.155 Salidas codificadas
 
-== Nombre Completo
+== Nombre 
 
 La salida de información del sistema 
 debe estar codificada en el lenguaje correspondiente (escaping). 
 
 
-== Descripción
+== Soluciones
 
-Este artículo está en construcción.
-Lamentamos los inconvenientes.
+. +ASPNET+ link:../../defends/aspnet/codificar-salida/[Codificar Salida].

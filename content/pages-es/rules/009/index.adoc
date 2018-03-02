@@ -6,7 +6,7 @@
 
 = REQ.009 Identificar posibles atacantes
 
-== Nombre Completo
+== Nombre
 
 Los posibles atacantes del sistema deben estar identificados
 

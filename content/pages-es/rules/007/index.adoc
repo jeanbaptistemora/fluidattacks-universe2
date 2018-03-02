@@ -6,7 +6,7 @@
 
 = REQ.007 Amenazas medidas en términos de impacto
 
-== Nombre Completo
+== Nombre
 
 Cada amenaza sobre un activo de información debe ser medida en términos de su impacto
 

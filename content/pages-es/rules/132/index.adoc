@@ -6,13 +6,12 @@
 
 = REQ.132 Almacenar contraseñas con Salt
 
-== Nombre Completo
+== Nombre
 
 El sistema debe almacenar las contraseñas 
 con diferentes derivaciones de clave (Salt). 
 
 
-== Descripción
+== Soluciones
 
-Este artículo está en construcción.
-Lamentamos los inconvenientes.
+. +ASPNET+ link:../../defends/aspnet/cifrar-contrasenas-con-salt/[Cifrar contraseñas con salt].

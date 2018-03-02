@@ -6,13 +6,12 @@
 
 = REQ.133 Derivaciones de clave aleatorias
 
-== Nombre Completo
+== Nombre
 
 Las derivaciones de clave (Salt), 
 deben ser aleatorias y de mínimo 48 bits.
 
 
-== Descripción
+== Soluciones
 
-Este artículo está en construcción.
-Lamentamos los inconvenientes.
+. +ASPNET+ link:../../defends/aspnet/cifrar-contrasenas-con-salt/[Cifrar contraseñas con salt].

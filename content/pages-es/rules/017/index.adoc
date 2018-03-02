@@ -6,13 +6,13 @@
 
 = REQ.017 Definir penalizaciones por incumplimiento
 
-== Nombre Completo
+== Nombre
 
 La organización debe definir penalizaciones 
 para ser aplicadas por el incumplimiento 
 en los acuerdos de niveles de servicio
 
-== Descripción
+== Soluciones
 
 Este artículo está en construcción.
 Lamentamos los inconvenientes.

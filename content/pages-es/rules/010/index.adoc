@@ -6,12 +6,12 @@
 
 = REQ.010 Proceso reclasificación definido.
 
-== Nombre Completo
+== Nombre
 
 REQ.0010 Debe estar definido el proceso 
 para poder reclasificar los activos de información.
 
-== Descripción
+== Soluciones
 
 Este artículo está en construcción.
 Lamentamos los inconvenientes.

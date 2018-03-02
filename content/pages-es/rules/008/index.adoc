@@ -6,7 +6,7 @@
 
 = REQ.008 Riesgos medidos por probabilidad e impacto
 
-== Nombre Completo
+== Nombre
 
 Cada riesgo de seguridad de información, debe estar medido en función de su probabilidad e impacto
 
