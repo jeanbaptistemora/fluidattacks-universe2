@@ -1,0 +1,16 @@
+:slug: rules/026/
+:category: rules
+:description: En el presente documento se detallan los requerimientos de seguridad relacionados al manejo de sesiones y variables de sesión de las aplicaciones. En este requerimiento se establece la importancia de utilizar cookies con atributos de seguridad, como HttpOnly o Secure.
+:keywords: Requerimiento, Seguridad, Sesiones, Cookies, Atributos, HttpOnly.
+:rules: yes
+
+= REQ.026 Cookies con atributos de seguridad
+
+== Nombre
+
+Las cookies de sesión de aplicaciones Web 
+deben tener atributos de seguridad (HttpOnly, Secure). 
+
+== Soluciones
+
+. +ASPNET+ link:../../defends/aspnet/usar-cookies-httponly/[Usar cookies HTTPOnly].

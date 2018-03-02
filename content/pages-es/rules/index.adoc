@@ -30,6 +30,10 @@
 * link:018/[REQ.018 Garantizar cumplimiento requisitos].
 * link:019/[REQ.019 Permitir auditorías de cliente].
 
+== Administración de Sesiones
+
+* link:026/[REQ.026 Cookies con atributos de seguridad].
+
 == Archivos
 
 * link:039/[REQ.039 Definir content type explícito].
