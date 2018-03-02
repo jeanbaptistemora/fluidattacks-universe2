@@ -68,7 +68,9 @@ def get_age_notifications():
         finding_requests = api.get_findings(project)["submissions"]
         for finding in finding_requests:
             finding_parsed = views.finding_vulnerabilities(finding["id"])
-            if finding_parsed["edad"] != "-":
+            if "suscripcion" not in finding_parsed:
+                pass
+            elif finding_parsed["suscripcion"] == "Continua" and finding_parsed["edad"] != "-":
                 age = int(finding_parsed["edad"])
                 context = {
                     'project': project[0].upper(),
@@ -83,21 +85,9 @@ def get_age_notifications():
                 if "kb" in finding_parsed:
                     if "https://fluidattacks.com/web/es/defends" in finding_parsed["kb"]:
                         context["kb"] = finding_parsed["kb"]
-                if age == 240:
+                ages = [15, 30, 60, 90, 120, 180, 240]
+                if age in ages:
                     context["age"] = age
-                elif age == 180:
-                    context["age"] = age
-                elif age == 120:
-                    context["age"] = age
-                elif age == 90:
-                    context["age"] = age
-                elif age == 60:
-                    context["age"] = age
-                elif age == 30:
-                    context["age"] = age
-                elif age == 15:
-                    context["age"] = age
-                if "age" in context:
                     if "kb" in context:
                         send_mail_age_kb_finding(to, context)
                     else:
