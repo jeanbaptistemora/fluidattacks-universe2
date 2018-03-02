@@ -30,7 +30,7 @@ a|image::main-menu.png[Main Menu]
 a|== Main Menu
 
 The dashboard allows users direct access to all their projects.
-It is also possible to visualize the events associated to each one of the projects.
+It is also possible to view the events associated to each one of the projects.
 
 a|== View Real-Time Events
 
@@ -42,7 +42,7 @@ a|image::graphs.png[Graphs]
 
 a|== Project Status Graphs
 
-The current state of the reported vulnerabilities can be visualized.
+You can view the current state of the reported vulnerabilities.
 Easily allowing to:
 
 * Prioritize vulnerabilities by their confirmed exploitability
@@ -86,7 +86,7 @@ by the client.
 * *Status:* Open, closed or partially closed.
 * *Treatment:* Assumed, pending or remediate.
 
-a|== Visualize Vulnerabilities
+a|== View Vulnerabilities
 
 Each vulnerability has information regarding its current state,
 as well as its severity, type and report date.
@@ -130,7 +130,7 @@ In some cases, the exploitation process is shown by the means of an animation.
 a|image::vulnerability-evidence.gif[Vulnerability Evidence]
 
 a|image::vulnerability-exploitation.png[Vulnerability Exploitation]
-a|== Vulnerability Exploit
+a|== Exploit
 
 The *script* used to exploit the vulnerability is shown.
 This can be reused to validate the applied corrections.
