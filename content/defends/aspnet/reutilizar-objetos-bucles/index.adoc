@@ -101,4 +101,4 @@ sin necesidad de realmente crear uno nuevo.
 
 . [[r1]] link:https://msdn.microsoft.com/en-us/library/3457w616.aspx[Creating Reusable Elements with ASP.NET User Controls]
 . [[r2]] link:https://msdn.microsoft.com/es-es/library/2839d5h5(v=vs.110).aspx[Microsoft, Utilizar la clase StringBuilder]
-. [[r3]] REQ.0159: El código debe utilizar contenedores o estructuras de datos optimizadas.
+. [[r3]] link:../../../rules/159/[REQ.159 Utilizar estructuras optimizadas].

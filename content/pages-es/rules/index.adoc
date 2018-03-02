@@ -58,6 +58,7 @@
 * link:156/[REQ.156 Opciones por defecto seguras].
 * link:157/[REQ.157 Eliminar código redundante].
 * link:158/[REQ.158 Eliminar código muerto].
+* link:159/[REQ.159 Utilizar estructuras optimizadas].
 
 == Datos
 
