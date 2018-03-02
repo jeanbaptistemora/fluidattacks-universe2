@@ -8,7 +8,7 @@ namespace mytest
 	{
 		static void ReadFile(string fileName){
 
-			FileStream fs = new FileStream(fileName,FileMode. .Open,FileAccess.Read);
+			FileStream fs = new FileStream(fileName,FileMode.Open,FileAccess.Read);
 
 			if(fs.CanRead){
 
