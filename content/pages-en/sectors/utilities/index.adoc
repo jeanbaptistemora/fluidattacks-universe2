@@ -6,6 +6,7 @@
 
 = Utilities
 
-This page is currently under development.
-
-We apologize for any inconvenience this may cause.
+[width="99%", cols="^.^,^.^", grid="none", frame="none"]
+|=======
+|image:logo-internexa.png[logo internexa, 250, 220] |image:logo-xm.png[logo xm, 240, 190]
+|=======

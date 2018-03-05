@@ -6,6 +6,8 @@
 
 = Consumer
 
-This page is currently under development.
-
-We apologize for any inconvenience this may cause.
+[frame="none", cols="^.^,^.^"]
+|=======
+|image:logo-exito.png[logo exito, 290, 170] |image:logo-semana.png[logo semana, 300, 90]
+2+|image:logo-tml.png[logo tml, 280, 100]
+|=======
