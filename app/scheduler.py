@@ -65,6 +65,7 @@ def get_age_notifications():
         recipients = integrates_dao.get_project_users(project)
         to = [x[0] for x in recipients]
         to.append('continuous@fluidattacks.com')
+        to.append('ralvarez@fluidattacks.com')
         finding_requests = api.get_findings(project)["submissions"]
         for finding in finding_requests:
             finding_parsed = views.finding_vulnerabilities(finding["id"])
