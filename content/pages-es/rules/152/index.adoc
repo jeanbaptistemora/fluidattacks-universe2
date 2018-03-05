@@ -1,0 +1,16 @@
+:slug: rules/152/
+:category: rules
+:description: En el presente documento se detallan los requerimientos de seguridad relacionados al código fuente que compone a las aplicaciones de la compañía. En este requerimiento se establece la importancia de compilar o interpretar el código de forma estricta en ambientes de producción.
+:keywords: Requerimiento, Seguridad, Código Fuente, Compilación, Interpretación, Estricta.
+:rules: yes
+
+= REQ.152 Compilación estricta
+
+== Nombre 
+
+El código debe compilarse o interpretarse de forma estricta.
+
+
+== Soluciones
+
+. +COBOL+ link:../../defends/cobol/compilar-programa-estricta/[Compilar Programa de Forma Estricta].

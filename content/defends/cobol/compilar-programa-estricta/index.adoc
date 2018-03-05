@@ -125,8 +125,7 @@ todas las instrucciones +COBOL+ del programa.
 
 == Referencias
 
-. [[r1]] REQ.0152: El código debe compilarse
-o interpretarse de forma estricta.
+. [[r1]] link:../../../rules/152/[REQ.152 Compilación estricta].
 . [[r2]] link:https://www.ibm.com/support/knowledgecenter/en/ssw_ibm_i_72/cl/crtcblpgm.htm[Create COBOL Program].
 . [[r3]] link:http://www.escobol.com/modules.php?name=Sections&op=printpage&artid=12[Environment Division].
 . [[r4]] link:http://www.escobol.com/modules.php?name=Sections&op=printpage&artid=13[Data Division].
