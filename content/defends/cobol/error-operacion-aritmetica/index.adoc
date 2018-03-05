@@ -149,12 +149,8 @@ todas las instrucciones +COBOL+ con la variable +W01-TOTALAMOUNT+ redefinida
 
 == Referencias
 
-. [[r1]] REQ.0149: El código fuente de un sistema
-no debe realizar funciones diferentes
-a las que han sido especificadas
-en los requisitos funcionales (puertas traseras).
-. [[r2]] REQ.0077: El sistema no debe registrar información sensible
-en un evento excepcional de una bitácora.
+. [[r1]] link:../../../rules/149/[REQ.149 Eliminar puertas traseras].
+. [[r2]] link:../../../rules/077/[REQ.077 No registrar datos sensibles en bitácoras].
 . [[r3]] link:https://www.ibm.com/support/knowledgecenter/en/ssw_ibm_i_73/rzasb/iddiv.htm[IBM - Identification Division].
 . [[r4]] link:http://www.escobol.com/modules.php?name=Sections&op=viewarticle&artid=11[Identification Division].
 . [[r5]] link:http://www.mainframestechhelp.com/tutorials/cobol/cobol-procedure-division.htm[COBOL Procedure Division].

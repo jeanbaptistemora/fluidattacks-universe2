@@ -39,6 +39,11 @@
 * link:039/[REQ.039 Definir content type explícito].
 * link:040/[REQ.040 Definir charset explícito].
 
+
+== Bitácoras
+
+* link:077/[REQ.077 No registrar datos sensibles en bitácoras].
+
 == Credenciales
 
 * link:126/[REQ.126 Contraseñas con al menos 8 caracteres].
@@ -58,6 +63,7 @@
 
 == Fuente
 
+* link:149/[REQ.149 Eliminar puertas traseras].
 * link:152/[REQ.152 Compilación estricta].
 * link:154/[REQ.154 Código ofuscado].
 * link:155/[REQ.155 Salidas codificadas].
