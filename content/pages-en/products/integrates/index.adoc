@@ -147,7 +147,7 @@ This section is of great utility to know the effectiveness of the closing cycles
 a|image::timeline.png[Timeline]
 
 a|image::vulnerability-comments.png[Vulnerability Comments]
-a|== Solution of Doubts regarding the Vulnerabilities
+a|== Doubts regarding the Vulnerabilities
 
 The project's stakeholders, FLUID included,
 may exchange insights, doubts or observations
