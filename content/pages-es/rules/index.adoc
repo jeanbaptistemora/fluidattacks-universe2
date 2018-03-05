@@ -65,6 +65,7 @@
 
 * link:149/[REQ.149 Eliminar puertas traseras].
 * link:152/[REQ.152 Compilación estricta].
+* link:153/[REQ.153 Codificación Actualizada].
 * link:154/[REQ.154 Código ofuscado].
 * link:155/[REQ.155 Salidas codificadas].
 * link:156/[REQ.156 Opciones por defecto seguras].

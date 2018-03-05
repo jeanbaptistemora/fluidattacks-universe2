@@ -110,8 +110,6 @@ con un tipo de dato numérico o numérico editado.
 
 == Referencias
 
-. [[r1]] REQ.0153: La codificación del sistema 
-debe estar implementada en una versión de un lenguaje de programación
-estable, actualizada, probada y libre de vulnerabilidades conocidas.
+. [[r1]] link:../../../rules/153/[REQ.153 Codificación Actualizada].
 . [[r2]] link:https://supportline.microfocus.com/documentation/books/sx20books/atobsl.htm[Summary of obsolete language elements].
 . [[r3]] link:https://www.ibm.com/support/knowledgecenter/SS6SG3_4.2.0/com.ibm.entcobol.doc_4.2/PGandLR/rlpreobs.htm[Obsolete language elements].
