@@ -15,19 +15,19 @@
 
 = El método de Sherlock: Modelando amenazas
 
-Sherlock Holmes el gran detective inglés era conocido por su gran inteligencia 
-y más que eso porque podía anticipar cualquier riesgo o situación embarazosa 
-antes de tomar una decisión, desde el siguiente movimiento del enemigo en un 
-combate hasta las trampas que le acechaban a él o a su compañero Watson; esta 
-es la definición más simple sobre modelado de amenazas, el arte de prevenir los 
-riesgos que pueden entorpecer nuestros objetivos, teniendo un panorama de lo que 
-*posiblemente podría salir mal* pero dejando de lado a nuestro amigo inglés y 
-adentrándonos en el mundo del desarrollo del software y las tecnologías de la 
-información diremos que el modelado de amenazas o conocido en inglés como 
-https://news.asis.io/sites/default/files/Threat%20Modeling.pdf[Threat modeling] 
-es el proceso en donde se trata de anticipar todos los posibles riesgos o 
-factores que influyen en el buen funcionamiento de una aplicación o sistema, 
-permitiendo así encontrar y clasificar en grupos los posibles ataques y dando 
+Sherlock Holmes el gran detective inglés era conocido por su gran inteligencia
+y más que eso porque podía anticipar cualquier riesgo o situación embarazosa
+antes de tomar una decisión, desde el siguiente movimiento del enemigo en un
+combate hasta las trampas que le acechaban a él o a su compañero Watson; esta
+es la definición más simple sobre modelado de amenazas, el arte de prevenir los
+riesgos que pueden entorpecer nuestros objetivos, teniendo un panorama de lo que
+*posiblemente podría salir mal* pero dejando de lado a nuestro amigo inglés y
+adentrándonos en el mundo del desarrollo del software y las tecnologías de la
+información diremos que el modelado de amenazas o conocido en inglés como
+https://news.asis.io/sites/default/files/Threat%20Modeling.pdf[Threat modeling]
+es el proceso en donde se trata de anticipar todos los posibles riesgos o
+factores que influyen en el buen funcionamiento de una aplicación o sistema,
+permitiendo así encontrar y clasificar en grupos los posibles ataques y dando
 al cliente productos más seguros.
 
 [quote]
@@ -35,112 +35,200 @@ al cliente productos más seguros.
 
 == En la práctica
 
-En el mundo ideal y entre las buenas prácticas de desarrollo seguro de software 
-(SDLC) deben existir dos clases de modelado, el modelado de diseño que se forja 
-a través de UML (Unified Model Language) en donde están los diagramas de clases, 
-diagramas de procesos, diagramas de casos de uso, entre muchos otros, y en 
-segundo lugar debe estar el modelado de amenazas en donde se busca verificar 
-todas las decisiones desde arquitectura, desarrollo e implementación que 
-posiblemente afecten la seguridad del aplicativo, con el fin de encontrar bugs 
+En el mundo ideal y entre las buenas prácticas de desarrollo seguro de software
+(SDLC) deben existir dos clases de modelado, el modelado de diseño que se forja
+a través de UML (Unified Model Language) en donde están los diagramas de clases,
+diagramas de procesos, diagramas de casos de uso, entre muchos otros, y en
+segundo lugar debe estar el modelado de amenazas en donde se busca verificar
+todas las decisiones desde arquitectura, desarrollo e implementación que
+posiblemente afecten la seguridad del aplicativo, con el fin de encontrar bugs
 a temprana edad y de esta forma establecer los posibles casos de abusos.
 
 .Ciclo del modelado de amenazas
-image::sherlock.png[ciclo]
+["graphviz", "diagram-amenazas.png"]
+----
+digraph modelando_amenazas {
+  layout=circo;
+  node [shape = box, style = "filled, rounded"];
+  splines="curved";
+  node0 [label="Visión", color="blue"];
+  node1 [label="Diagrama", color="green"];
+  node2 [label="Identificar Amenazas", color="#61a818"];
+  node3 [label="Mitigar", color="yellow"];
+  node4 [label="Validar", fillcolor="orange"];
+  node0 -> node1;
+  node1 -> node2;
+  node2 -> node3;
+  node3 -> node4;
+  node4 -> node1;
+}
+----
 
 == El corazón del método
 
-Sin importar el framework o técnica que estemos usando para llevar a cabo el 
-modelado de amenazas siempre se deben hacer las siguientes preguntas para 
+Sin importar el framework o técnica que estemos usando para llevar a cabo el
+modelado de amenazas siempre se deben hacer las siguientes preguntas para
 verificar que estamos sobre el camino correcto.
 
 === 1. ¿Que estamos construyendo?
 
-En esta primera fase debemos tener el panorama general de nuestro sistema o 
-aplicación, ver cada uno de los componentes y sus interacciones, establecer las 
-fronteras y los flujos del sistema, los privilegios, entre otros, como se 
+En esta primera fase debemos tener el panorama general de nuestro sistema o
+aplicación, ver cada uno de los componentes y sus interacciones, establecer las
+fronteras y los flujos del sistema, los privilegios, entre otros, como se
 muestra a continuación.
 
 .Representación básica de abstracción de una aplicación
-image::2.png[abstraccion]
+["graphviz", "diagrama-abstraccion.png"]
+----
+digraph abstraccion_aplicacion {
+  dpi = 300
+  rankdir = LR
+
+  subgraph cluster_0 {
+    label = "Fuera del Boundary: Internet"
+    style = "dashed"
+    node0 [label="Visión", shape="box", style="rounded"]
+    node1 [label="Navegador"]
+  }
+
+  subgraph cluster_1 {
+    label = "Boundary: Data Center Corporativo"
+    style = "dashed"
+    node2 [label="Aplicación Web"]
+    node3 [label="Web Server"]
+  }
+
+  subgraph cluster_2 {
+    label = "Boundary: Almacenamiento de Datos"
+    style = "dashed"
+    node4 [label="Base de Datos"]
+  }
+
+  node0 -> node1
+  node1 -> node2:nw [label="Petición"]
+  node2 -> node1:se [label="Respuesta"]
+  node2 -> node3
+  node3 -> node4
+}
+----
 
 === 2. ¿Que podría salir mal?
 
-En esta fase se establecen todos los posibles riesgos asociados a cada componente 
-y frontera establecida anteriormente y aunque existen varias metodologías para 
-descubrir riesgos, una de la más usada es STRIDE establecida por OWASP y que se 
+En esta fase se establecen todos los posibles riesgos asociados a cada componente
+y frontera establecida anteriormente y aunque existen varias metodologías para
+descubrir riesgos, una de la más usada es STRIDE establecida por OWASP y que se
 divide en las siguientes subcategorías.
 
-* *Spoofing:* Todas las amenazas asociadas a suplantación de identidad debido a 
-faltas de recursos de autenticación, políticas de credenciales débiles, 
+* *Spoofing:* Todas las amenazas asociadas a suplantación de identidad debido a
+faltas de recursos de autenticación, políticas de credenciales débiles,
 sistemas anti-CSRF ineficientes, entre otros.
-* *Tampering:* Todas las amenazas asociadas a manipulación de información debido a 
+* *Tampering:* Todas las amenazas asociadas a manipulación de información debido a
 métodos de transmisión inseguros, cookies y cabeceras inseguras, entre otros.
-* *Repudiation:* Todas las amenazas asociadas a la evasión de responsabilidades y 
-uso de los recursos del sistema de forma anónima, ¿los logs del sistema 
+* *Repudiation:* Todas las amenazas asociadas a la evasión de responsabilidades y
+uso de los recursos del sistema de forma anónima, ¿los logs del sistema
 almacenan todas las bitácoras y no son manipulables?
-* *Information Disclosure:* Todas las amenazas asociadas a fuga de información del 
+* *Information Disclosure:* Todas las amenazas asociadas a fuga de información del
 sistema o del negocio.
-* *Denial of service:* Todas las amenazas asociadas a la disponibilidad de los 
+* *Denial of service:* Todas las amenazas asociadas a la disponibilidad de los
 servicios.
-* *Elevation of privilege:* Todas las amenazas asociadas a acceso a recursos 
+* *Elevation of privilege:* Todas las amenazas asociadas a acceso a recursos
 protegidos, ejecución de comandos, entre otros.
 
 .Detección de posibles amenazas
-image::3.png[amenaza]
+["graphviz", "diagrama-deteccion.png"]
+----
+digraph deteccion_amenazas {
+  dpi = 300
+  rankdir = LR
+  node5 [label="Autenticación", shape="box", style="rounded", color="red"]
+  node6 [label="Logs del Sistema", shape="box", style="rounded", color="red"]
 
-La anterior figura nos muestra un ejemplo básico de búsqueda y relación de 
+  subgraph cluster_0 {
+    label = "Fuera del Boundary: Internet"
+    style = "dashed"
+    node0 [label="Visión", shape="box", style="rounded"]
+    node1 [label="Navegador"]
+  }
+
+  subgraph cluster_1 {
+    label = "Boundary: Data Center Corporativo"
+    style = "dashed"
+    node2 [label="Aplicación Web"]
+    node3 [label="Web Server"]
+  }
+
+  subgraph cluster_2 {
+    label = "Boundary: Almacenamiento de Datos"
+    style = "dashed"
+    node4 [label="Base de Datos"]
+  }
+
+  node0 -> node1
+  node1 -> node2 [label="Petición"]
+  node1 -> node2 [label=<<font color="red">Peticiones Malformadas</font>>, color="red"]
+  node2 -> node1 [label="Respuesta"]
+  node2 -> node3
+  node3 -> node4
+  node3 -> node4 [label=<<font color="red">Fallo en la Conexión</font>>, color="red"]
+  node5 -> node2 [label=<<font color="red">Fallo Contraseña</font>>, color="red"]
+  node5 -> node2 [label=<<font color="red">Ataques Fuerza Bruta</font>>, color="red"]
+  node6 -> node4 [label=<<font color="red">Manipulación Logs</font>> color="red"]
+}
+----
+
+La anterior figura nos muestra un ejemplo básico de búsqueda y relación de
 posibles amenazas con los componentes del sistema.
 
 === 3. ¿Que se debe hacer con esas cosas que pueden salir mal?
 
-Luego de establecer el diagrama de riesgos el siguiente paso es gestionar las 
-estrategias y técnicas que se usarán para mitigar las amenazas, en la siguiente 
-tabla se ve un pequeño ejemplo de cómo posiblemente se puedan establecer 
+Luego de establecer el diagrama de riesgos el siguiente paso es gestionar las
+estrategias y técnicas que se usarán para mitigar las amenazas, en la siguiente
+tabla se ve un pequeño ejemplo de cómo posiblemente se puedan establecer
 controles para la mitigación.
 
 [cols="^2,^2,^2",options="header"]
 |===
 | Componente afectado | Estrategia de mitigación | Técnica de mitigación
-| Fuga de información de los logs del sistema | Cifrado de información sensible | Uso de cifrado simétrico usando AES 
-| Manipulación de los logs | Principio del mínimo privilegio | Establecer los permisos sobre cada directorio y archivo. 
+| Fuga de información de los logs del sistema | Cifrado de información sensible | Uso de cifrado simétrico usando AES
+| Manipulación de los logs | Principio del mínimo privilegio | Establecer los permisos sobre cada directorio y archivo.
 
 |===
 
 === 4. ¿Se hizo un trabajo decente en el análisis?
 
-El nivel de abstracción y detalle que se haya llevado en la primera fase es 
-esencial para un buen análisis, al igual que las estrategias y técnicas usadas 
-para encontrar y mitigar las amenazas, de esta segunda parte no profundizaremos 
-mucho pues el tema se puede extender, pero la retroalimentación es también una 
+El nivel de abstracción y detalle que se haya llevado en la primera fase es
+esencial para un buen análisis, al igual que las estrategias y técnicas usadas
+para encontrar y mitigar las amenazas, de esta segunda parte no profundizaremos
+mucho pues el tema se puede extender, pero la retroalimentación es también una
 fase importante para llevar a cabo un modelado de amenazas eficiente.
 
 == Estrategias
 
-Existen algunas técnicas que los expertos suelen usar para encontrar y establecer 
+Existen algunas técnicas que los expertos suelen usar para encontrar y establecer
 posibles amenazas, entre ellas las más comunes son:
 
-* Los 5 porque: Este método busca encontrar la causa de la causa por el cual 
-sucede un problema, aplicada a esta área los analistas se centran en 
+* Los 5 porque: Este método busca encontrar la causa de la causa por el cual
+sucede un problema, aplicada a esta área los analistas se centran en
 encontrar las amenazas y sus posibles causas.
-* Diagrama de https://en.wikipedia.org/wiki/Ishikawa_diagram[Ishikawa]: Este método 
-busca encontrar la causa y efecto de un problema ayudando a establecer una posible 
+* Diagrama de https://en.wikipedia.org/wiki/Ishikawa_diagram[Ishikawa]: Este método
+busca encontrar la causa y efecto de un problema ayudando a establecer una posible
 decisión.
-* EoP game: Un juego creado por Microsoft en donde se buscan encontrar amenazas 
+* EoP game: Un juego creado por Microsoft en donde se buscan encontrar amenazas
 de forma interactiva.
-* Lluvia de ideas: Este método busca que todos los expertos en el área “piensen 
+* Lluvia de ideas: Este método busca que todos los expertos en el área “piensen
 como el atacante” y den ideas acerca de las posibles amenazas.
 * Librería de ataques: Contempla listas con los posibles patrones de ataques.
 
 [quote]
 “El mejor ajedrecista es el que anticipa el movimiento de su rival”
 
-Lo que se vio a lo largo de este post es una pequeña introducción al modelado 
-de amenazas, pues el proceso está conformado por otros sub-procesos, 
-estrategias, técnicas y herramientas que pueden extenderse en muchas páginas, 
-por el momento podemos concluir que este es un proceso fundamental en el 
-desarrollo seguro de software, aunque hay que tener claro que esta aplica a 
-varias áreas por no decir cualquiera, además que nos ofrece varios beneficios 
-entre ellos que nos deja ver un panorama general sobre los requisitos de 
-seguridad, nos permiten encontrar posibles fallos de manera temprana lo que 
-disminuye los costos del proyecto y por ultimo nos permiten entregar al cliente 
+Lo que se vio a lo largo de este post es una pequeña introducción al modelado
+de amenazas, pues el proceso está conformado por otros sub-procesos,
+estrategias, técnicas y herramientas que pueden extenderse en muchas páginas,
+por el momento podemos concluir que este es un proceso fundamental en el
+desarrollo seguro de software, aunque hay que tener claro que esta aplica a
+varias áreas por no decir cualquiera, además que nos ofrece varios beneficios
+entre ellos que nos deja ver un panorama general sobre los requisitos de
+seguridad, nos permiten encontrar posibles fallos de manera temprana lo que
+disminuye los costos del proyecto y por ultimo nos permiten entregar al cliente
 productos de mayor calidad.
