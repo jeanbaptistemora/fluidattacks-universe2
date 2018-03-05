@@ -54,6 +54,4 @@ CMD env > /etc/environment  \
 && a2ensite 000-default.conf \
 && /usr/src/app/manage.py makemigrations \
 && /usr/src/app/manage.py migrate \
-&& /usr/src/app/manage.py crontab add \
-&& service cron start \
 && /usr/src/app/manage.py bot
