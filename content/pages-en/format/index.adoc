@@ -1472,6 +1472,9 @@ digraph finite_state_machine {
 }
 ----
 
+You can use this link:http://www.webgraphviz.com/[GraphViz Live Editor]
+to generate graphs and view examples.
+
 * Source
 +
 ....
@@ -1501,6 +1504,9 @@ BlockProcessor <|-- DiagramBlock
 DiagramBlock <|-- DitaaBlock
 DiagramBlock <|-- PlantUmlBlock
 ----
+
+You can use this link:https://www.planttext.com/[PlantUML Live Editor]
+to see the rendered graph for your source code.
 
 == References
 
