@@ -1,0 +1,16 @@
+:slug: rules/154/
+:category: rules
+:description: En el presente documento se detallan los requerimientos de seguridad relacionados al código fuente que compone a las aplicaciones de la compañía. En este requerimiento se establece la importancia de ofuscar el código fuente en ambientes de producción.
+:keywords: Requerimiento, Seguridad, Código Fuente, Ofuscar, Ambiente, Producción.
+:rules: yes
+
+= REQ.154 Código ofuscado
+
+== Nombre 
+
+El código fuente debe estar ofuscado en ambiente de producción. 
+
+
+== Soluciones
+
+. +COBOL+ link:../../defends/cobol/cifrar-codigo-fuente/[Cifrar Código Fuente].

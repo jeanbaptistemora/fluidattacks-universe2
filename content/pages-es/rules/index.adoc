@@ -58,6 +58,7 @@
 
 == Fuente
 
+* link:154/[REQ.154 Código ofuscado].
 * link:155/[REQ.155 Salidas codificadas].
 * link:156/[REQ.156 Opciones por defecto seguras].
 * link:157/[REQ.157 Eliminar código redundante].
