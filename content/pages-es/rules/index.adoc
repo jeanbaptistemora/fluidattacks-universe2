@@ -46,6 +46,7 @@
 
 == Credenciales
 
+* link:125/[REQ.125 Contraseñas con al menos 3 palabras].
 * link:126/[REQ.126 Contraseñas con al menos 8 caracteres].
 * link:127/[REQ.127 Contraseñas con al menos 1 minúscula].
 * link:128/[REQ.128 Contraseñas con al menos 1 mayúscula].

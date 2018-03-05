@@ -1,0 +1,17 @@
+:slug: rules/125/
+:category: rules
+:description: En el presente documento se detallan los requerimientos de seguridad relacionados a las credenciales de acceso a información sensible de la organización. En este requerimiento se establece la importancia de definir contraseñas tipo frase de al menos 3 palabras de longitud.
+:keywords: Requerimiento, Seguridad, Contraseñas, Frase, Palabras, Longitud
+:rules: yes
+
+= REQ.125 Contraseñas con al menos 3 palabras
+
+== Nombre
+
+Las contraseñas (tipo frase -preferido-) 
+deben tener al menos 3 palabras de longitud. 
+
+
+== Soluciones
+
+. +COBOL+ link:../../defends/cobol/fortaleza-contrasena-frase/[Comprobar Fortaleza de Contraseña Tipo Frase].

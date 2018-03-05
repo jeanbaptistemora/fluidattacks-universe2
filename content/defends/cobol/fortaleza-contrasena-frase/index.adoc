@@ -181,8 +181,7 @@ todas las instrucciones +COBOL+ del programa.
 
 == Referencias
 
-. [[r1]] REQ.0125: Las contraseñas (tipo frase -preferido-)
-deben tener al menos 3 palabras de longitud.
+. [[r1]] link:../../../rules/125/[REQ.125 Contraseñas con al menos 3 palabras].
 . [[r2]] link:http://www.escobol.com/modules.php?name=Sections&op=printpage&artid=11[Identification Division].
 . [[r3]] link:http://www.escobol.com/modules.php?name=Sections&op=printpage&artid=13[Data Division].
 . [[r4]] link:http://www.escobol.com/modules.php?name=Sections&op=printpage&artid=14[Procedure Division].
