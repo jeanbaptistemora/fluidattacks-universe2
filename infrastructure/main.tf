@@ -23,7 +23,7 @@ module "ec2instance" {
   kName = "${var.kName}"
 
   docker = "${var.docker}"
-  start_all = "${var.start_all}"
+
 }
 
 # Create from scratch
@@ -38,13 +38,9 @@ module "ec2instance" {
 #   source = "./iam"
 # }
 
-# existing R53
-module "existing-r53" {
-  source = "./existing-dns"
-  server = "${module.ec2instance.ip}"
-  zone = "${var.hzoneID}"
-  domain = "${var.zoneName}"
- }
+output "variable_ip" {
+  value = "server=\"${module.ec2instance.ip}\""
+}
 
 output "instance_ip" {
   value = "${module.ec2instance.ip}"

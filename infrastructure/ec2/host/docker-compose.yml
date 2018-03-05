@@ -9,17 +9,10 @@ services:
     image: registry.gitlab.com/fluidsignal/serves/exams:master
     ports:
       - "8080:80"
-  integrates:
-    image: registry.gitlab.com/fluidsignal/integrates:master
-    ports:
-      - "8000:443"
   vpn:
     image: registry.gitlab.com/fluidsignal/serves/vpn:master
     ports:
       - "8081:443"
-  bot:
-    image: registry.gitlab.com/fluidsignal/integrates/bot:master
-
   watchtower:
     image: v2tec/watchtower
     volumes:

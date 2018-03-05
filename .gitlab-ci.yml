@@ -47,16 +47,16 @@ build_vpn:
         - sh containers/vpn/build.sh
         - docker push registry.gitlab.com/fluidsignal/serves/vpn:base
 
-#test_terraform:
-#   stage: test
-#   before_script:
-#      - mkdir infrastructure/vars && echo $AWS_VARS > infrastructure/vars/aws.tfvars
-##      - aws s3 cp s3://fluidserves/terraform/FLUID_ServesTF.pem infrastructure/vars/FLUID_ServesTF.pem
-#      - cd infrastructure
-#   script:
-#      - terraform init
-##      - tflint --var-file="vars/aws.tfvars"
-#      - terraform plan -var-file="vars/aws.tfvars"
+test_terraform:
+   stage: test
+   before_script:
+      - mkdir infrastructure/vars && echo $AWS_VARS > infrastructure/vars/aws.tfvars
+      - aws s3 cp s3://fluidserves/terraform/FLUID_Serves.pem infrastructure/vars/FLUID_Serves.pem
+      - cd infrastructure
+   script:
+      - terraform init
+      - tflint --var-file="vars/aws.tfvars"
+      - terraform plan -var-file="vars/aws.tfvars"
 
 
 deploy_alg:
@@ -86,17 +86,24 @@ deploy_vpn:
     only:
     - master
 
-#deploy_terraform:
-#    stage: deploy
-#    before_script:
-#        - mkdir infrastructure/vars && echo $AWS_VARS > infrastructure/vars/aws.tfvars
-#        - aws s3 cp s3://fluidserves/terraform/FLUID_ServesTF.pem infrastructure/vars/FLUID_ServesTF.pem
-#        - aws s3 cp s3://fluidserves/terraform/terraform.tfstate infrastructure/terraform.tfstate || echo ""
-#        - cd infrastructure
-##    script:
-#        - terraform init
-#        - terraform apply -auto-approve -var-file="vars/aws.tfvars"
-#    after_script:
-#        - aws s3 cp infrastructure/terraform.tfstate s3://fluidserves/terraform/terraform.tfstate
-#    only:
-#    - master
+deploy_terraform:
+    stage: deploy
+    before_script:
+        - mkdir infrastructure/vars && echo $AWS_VARS > infrastructure/vars/aws.tfvars
+        - cp infrastructure/vars/aws.tfvars infrastructure/existing-dns
+        - aws s3 cp s3://fluidserves/terraform/FLUID_Serves.pem infrastructure/vars/FLUID_Serves.pem
+        - aws s3 cp s3://fluidserves/terraform/terraform.tfstate infrastructure/terraform.tfstate || echo ""
+        - cd infrastructure
+    script:
+        - terraform init
+        - terraform apply -auto-approve -var-file="vars/aws.tfvars"
+        - terraform output instance_ip > ip.txt
+        - terraform output variable_ip >> existing-dns/terraform.tfvars
+        - if ! [ -n "${IS_TRIGGER}" ]; then curl -X POST -F token=$TRIGGER_TOKEN -F ref=jarmas -F "variables[IS_TRIGGER]=true" -F "variables[NEW_SERVES]=$(cat ip.txt)" https://gitlab.com/api/v4/projects/4620828/trigger/pipeline; fi
+        - cd existing-dns
+        - terraform init
+        - if [ -n "${IS_TRIGGER}" ]; then terraform apply -auto-approve -var-file="aws.tfvars"; fi
+    after_script:
+        - aws s3 cp infrastructure/terraform.tfstate s3://fluidserves/terraform/terraform.tfstate
+    only:
+    - master

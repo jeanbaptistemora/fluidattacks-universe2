@@ -1,5 +1,4 @@
 variable "docker" {}
-variable "start_all" {}
 
 variable "allow_host_http_ports" {
   default = ["8080", "8000"]
@@ -27,17 +26,19 @@ resource "aws_eip_association" "eip_assoc" {
       source      = "ec2/host/script.sh"
       destination = "/tmp/script.sh"
     }
-
+    provisioner "file" {
+        source      = "ec2/host/start.sh"
+        destination = "/tmp/start.sh"
+      }
   provisioner "file" {
       source      = "ec2/host/docker-compose.yml"
       destination = "/tmp/docker-compose.yml"
     }
-
   provisioner "remote-exec" {
        inline = [
            "sh /tmp/script.sh",
            "${var.docker}",
-           "${var.start_all}"
+           "sh /tmp/start.sh"
        ]
    }
 }
