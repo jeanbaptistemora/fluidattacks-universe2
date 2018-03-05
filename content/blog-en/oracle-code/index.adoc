@@ -1,6 +1,6 @@
 :slug: oracle-code/
 :date: 2018-03-02
-:category: opinions
+:category: techniques
 :tags: testing, application, detect
 :Image: oracle.png
 :alt: Pythia and supplicant in the Oracle of Delphi
@@ -26,6 +26,7 @@ according to link:https://lgtm.com/blog/code_as_data[Oege de Moor]
 from link:https://semmle.com/[Semmle],
 is obvious:
 treat code 'as data'.
+
 This idea is not really new:
 Already in 1983, Mark Linton discussed
 that programmers select 'views'
@@ -61,7 +62,7 @@ the database for a program's source code
 will be even more so.
 Thus the query system must be
 as advanced, but not so much
-that it would impact performance.
+that it would hurt performance.
 
 == Databases out of programs
 
@@ -86,7 +87,7 @@ syntactic structure of the code.
 Consider this +Ada+ snippet from Linton's thesis:<<r1, ^[1]^>>
 
 .Sample +Ada+ code.
-[source,ada]
+[source,ada,numbered]
 ----
 prevmax := max;
 if a > b then
@@ -110,9 +111,12 @@ The +AST+ would be like this:
 image::ast.png["Abstract syntax tree",width=800]
 
 Next, how do we make a database out of this?
-+Semmle+ does not tell much about the process,
-since obviously the magic behind their product must be there,
-but let's try to infer from Linton's ideas.
+Neither +Semmle+ nor
+other players in the 'application intelligence' field
+such as link:http://www.castsoftware.com/[CAST] and link:http://modernsystems.com/[Modern Systems]
+tell us much about the process,
+since obviously the magic behind their products must be there,
+but let's try to learn it ourselves from Linton's ideas.
 
 For the purposes of this article,
 it suffices to think of a database as
@@ -130,28 +134,28 @@ So you get an idea of the complexity
 of such a database.
 
 For the code snippet above,
-Linton shows the link:https://www2.eecs.berkeley.edu/Pubs/TechRpts/1983/CSD-83-164.pdf#page=31[actual tables]
+Linton shows the link:https://www2.eecs.berkeley.edu/Pubs/TechRpts/1983/CSD-83-164.pdf#page=32[actual tables]
 and relations cut to the
 most relevant parts.
 I'll try to simplify that further
 by reducing it to
-an informal entity-relation diagram.
+an informal link:https://en.wikipedia.org/wiki/Entity%E2%80%93relationship_model[entity-relationship diagram].
 Here you can read unlabeled relations
 as `have' or `is' (generic relations).
 
 .ER diagram for a simple code snippet
 image::er.png["ER diagram for program database"]
 
-The most basic entity here is the +statement+,
+The most basic entity is the +statement+,
 which is basically every line of code.
-It can consist of a conditional,
-an assigment or maybe a function call.
-An assigment, in turn,
-sets the value of the left-hand side variable
+It can be a +conditional+,
+an +assignment+ or maybe a function call (+fcalls+).
+An +assigment+, in turn,
+sets the value of the left-hand-side variable
 to that of the right side.
-Variables are related to the entity
-type (like +int+, +String+, etc)
-and have names, of course.
++Variables+ are related to the entity
++type+ (v.g. +int+, +String+, etc)
+and +name+.
 
 This is only a subset of
 our already reduced model of the database.
@@ -165,7 +169,8 @@ according to Oege de Moor.
 This justifies our previous claim
 that a powerful query language is
 needed to work with such a database.
-And the guys at Semmle set out to do just that.
+And the guys at +Semmle+ set out to do just that,
+and that is what differentiates them from competitors.
 
 == A query language to rule them all
 
@@ -174,9 +179,9 @@ but more powerful,
 including Object-Oriented Programming (+OOP+) constructs
 and be able to compose queries
 using logical connectors and quantifiers,
-like the logical programming language +Prolog+.
+like the logical programming language link:http://www.learnprolognow.org/[+Prolog+].
 However, this would add too much overhead,
-so a simpler sublanguage called +Datalog+
+so a smaller subset called link:http://www.learndatalogtoday.org/[+Datalog+]
 was chosen as the basis for the tailor-made +QL+ language.
 
 This query language can be used to locate
@@ -189,7 +194,7 @@ So, let's look for classes that declare an +equals()+ method
 but not a +hashCode()+ method using +QL+:
 
 .+QL+ example from <<r2, [2]>>.
-[source,sql]
+[source,sql,numbered]
 ----
 from Class c
 where c.declaresMethod("equals") and
@@ -207,11 +212,12 @@ In +QL+, one can:
 
 * define and use 'predicates' in queries
 (expressions that can be true or false depending on the parameters),
+
 * use logical quantifiers (for all, exists) in
 order to simplify aggregation and grouping
-(find the number of lines of code in a given package)
-Analogous +SQL+ queries would take many more lines
-comprising several selects, groupings and joins.
+(find the number of lines of code in a given package),
+which is complicated in +SQL+
+
 * define generic queries that can be
 inherited and overridden, just like in +OOP+
 
@@ -225,25 +231,31 @@ to an omniscient oracle,
 you can really bring the ``data age''
 into your development flow.
 
-You can use the code as data approach to:
+You can use the 'code-as-data' approach to:
 
 * increase productivity by computing metrics
 about the development process,
+
 * ensure the following of coding standards and
 whichever development model your team has chosen,
+
 * objectively determine the quality of the code, and
+
 * find security bugs and vulnerabilites.
 
-This last item is what interests us most.
-+Semmle+ maintains a public queries link:https://github.com/lgtmhq/lgtm-queries[repository],
-a website with general 'rules' that should be
-followed for some of the supported languages.
+This is what interests us most.
++Semmle+ maintains a public queries link:https://github.com/lgtmhq/lgtm-queries[repository] and
+a website with general link:https://help.semmle.com/wiki/display/SD/Semmle+standard+rules['rules'] that should be
+followed for some of the supported languages,
+namely, +Java+, +C+, +Python+ and some of their derivatives
+(see link:https://help.semmle.com/wiki/pages/viewpage.action?pageId=6848559[+Semmle FAQ+] for details).
 Included are some security guidelines,
 with their corresponding +CWE+.
 For example,
-we can detect +XSS+ in +java+ with this query:
+we can detect +XSS+ in +Java+ with this query:
 
-[source,sql]
+.+Java XSS+ detection query
+[source,sql,numbered]
 ----
 import semmle.code.java.security.XSS
 from XssSink sink, RemoteUserInput source
@@ -256,7 +268,7 @@ And it would detect this kind of vulnerable code,
 which does not properly validate user input:
 
 .+XSS+-vulnerable +Java+ code. Via link:https://help.semmle.com/wiki/pages/viewpage.action?pageId=1607941[Semmle]
-[source,java]
+[source,java,numbered]
 ----
 public class XSS extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -273,9 +285,10 @@ That's what the +QL+ language is for.
 You just write your own query.
 
 To wrap this up with more spectacular examples,
-here is the query to find +Heartbleed+-like vulnerabilities:
+here is a query to find link:http://heartbleed.com/[+Heartbleed+]-like vulnerabilities:
 
-[source,sql]
+.+QL+ to detect +Heartbleed+
+[source,sql,numbered]
 ----
 from FunctionCall memcpy, Struct s, Field f, Field g, float perc
 where f = s.getAField() and g = s.getAField() and
@@ -296,22 +309,24 @@ in addition to built-in ones.
 See the full query and a discussion at
 link:https://semmle.com/developing-a-custom-analysis-to-find-heartbleed-like-security-vulnerabilities/[Semmle].
 
-The +Apache Struts+ vulnerability +CVE-2017-9805+,
-related but not to be confused with +CVE-2017-5638+,
-the one that was exploited in the +equifax+ breach,
-was link:https://lgtm.com/blog/apache_struts_CVE-2017-9805_announcement[found] and announced by link:https://lgtm.com/[+lgtm.com+],
-the free-for-open-source-projects kid sibling to +Semmle+.
+The +Apache Struts+ vulnerability link:https://nvd.nist.gov/vuln/detail/CVE-2017-9805[+CVE-2017-9805+]
+-- related but not to be confused with link:https://nvd.nist.gov/vuln/detail/CVE-2017-5638[+CVE-2017-5638+] --
+the one that was exploited in the +Equifax+ link:https://www.equifaxsecurity2017.com/[breach],
+was link:https://lgtm.com/blog/apache_struts_CVE-2017-9805_announcement[found] and announced by link:https://lgtm.com/[+lgtm.com+].
+Through this service +FOSS+ projects can take advantage of
++Semmle+'s technologies in application intelligence,
+as long as their repository is open on +GitHub+.
 
 The basic idea is simple enough:
 look for deserialization of untrusted (i.e. user-controlled) data.
 In this particular case,
 we're interested in the flow of data from
-a ContentTypeHandler which gets the input
+a +ContentTypeHandler+ which gets the input
 to an unsafe deserialization method.
 The query text reflects just this idea:
 
 .See link:https://lgtm.com/blog/finding_unsafe_deserialization_with_ql[Finding Unsafe Deserialization with QL.]
-[source,sql]
+[source,sql,numbered]
 ----
 from ContentTypeHandlerInput source, UnsafeDeserializationSink sink
 where source.flowsTo(sink)
