@@ -14,3 +14,4 @@ por defecto seguras (ej: default en switchs).
 == Soluciones
 
 . +ASPNET+ link:../../defends/aspnet/condicionales-seguros/[Establecer condicionales seguros].
+. +COBOL+ link:../../defends/cobol/estructuras-condicionales/[Usar Estructuras Condicionales].

@@ -165,10 +165,8 @@ la implementación del código anterior.
 
 == Referencias
 
-. [[r1]] REQ.0156: El código debe definir
-opciones por defecto seguras (ej: default en sentencias switch).
-. [[r2]] REQ.0163: Las variables del código fuente
-deben estar inicializadas de forma explícita.
+. [[r1]] link:../../../rules/156/[REQ.156 Opciones por defecto seguras].
+. [[r2]] link:../../../rules/163/[REQ.163 Variables inicializadas explícitamente].
 . [[r3]] link:https://www.ibm.com/support/knowledgecenter/SSQ2R2_9.1.1/com.ibm.ent.dbt.zos.doc/rmdita/rcmdeva.html[EVALUATE command (COBOL)].
 . [[r4]] link:http://www.fluffycat.com/COBOL/Evaluate/[COBOL Evaluate].
 . [[r5]] link:https://www.ibm.com/support/knowledgecenter/en/SS6SG3_4.2.0/com.ibm.entcobol.doc_4.2/PGandLR/tasks/tpctl05.htm[Using nested IF statements].

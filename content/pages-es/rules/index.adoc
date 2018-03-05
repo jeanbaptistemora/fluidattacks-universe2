@@ -71,6 +71,7 @@
 * link:157/[REQ.157 Eliminar código redundante].
 * link:158/[REQ.158 Eliminar código muerto].
 * link:159/[REQ.159 Utilizar estructuras optimizadas].
+* link:163/[REQ.163 Variables inicializadas explícitamente].
 
 == Datos
 
