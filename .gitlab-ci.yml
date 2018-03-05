@@ -21,7 +21,7 @@ builder:
 checks:
   stage: lint
   script:
-    - if curl --fail -Lo artifacts.zip --header Private-Token:$DOCKER_PASSWD https://gitlab.com/api/v4/projects/$CI_PROJECT_ID/jobs/artifacts/$CI_COMMIT_REF_NAME/download?job=$CI_JOB_NAME; then unzip artifacts.zip; else echo "There are no artifacts"; fi
+    - if curl --fail -Lo artifacts.zip --header Private-Token:$DOCKER_PASSWD https://gitlab.com/api/v4/projects/$CI_PROJECT_ID/jobs/artifacts/$CI_COMMIT_REF_NAME/download?job=$CI_JOB_NAME; then unzip artifacts.zip && rm artifacts.zip; else echo "There are no artifacts"; fi
     - ./check-changed.sh
     - ./check-all.sh
     - ./sass-lint.sh
@@ -65,7 +65,7 @@ deploy:
   environment: production
   script:
     # Download cache from previous builds
-    - if curl --fail -Lo artifacts.zip --header Private-Token:$DOCKER_PASSWD https://gitlab.com/api/v4/projects/$CI_PROJECT_ID/jobs/artifacts/$CI_COMMIT_REF_NAME/download?job=$CI_JOB_NAME; then unzip artifacts.zip; else echo "There are no artifacts"; fi
+    - if curl --fail -Lo artifacts.zip --header Private-Token:$DOCKER_PASSWD https://gitlab.com/api/v4/projects/$CI_PROJECT_ID/jobs/artifacts/$CI_COMMIT_REF_NAME/download?job=$CI_JOB_NAME; then unzip artifacts.zip && rm artifacts.zip; else echo "There are no artifacts"; fi
     # Generate file for localization of the site
     - pybabel compile --directory theme/2014/translations/ --domain messages
     # Fix links to successfully include files
