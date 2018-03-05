@@ -85,10 +85,14 @@ deploy:
     - mv robots.txt output/web/
     # Organize images of articles with draft status
     - ./draft.sh
-    # Erase content of the S3 bucket
-    - aws s3 rm --recursive "s3://$S3_BUCKET_NAME"
     # Upload content to S3 bucket
-    - aws s3 cp --recursive --acl=public-read-write output/ "s3://$S3_BUCKET_NAME"
+    - aws s3 cp --recursive --acl=public-read-write output/web/ "s3://$S3_BUCKET_NAME/webnew"
+    # Change the name of the current folder in production
+    - aws s3 mv --recursive "s3://$S3_BUCKET_NAME/web" "s3://$S3_BUCKET_NAME/webold"
+    # Change the name of the new folder passed to production
+    - aws s3 mv --recursive "s3://$S3_BUCKET_NAME/webnew" "s3://$S3_BUCKET_NAME/web"
+    # Erase content of the S3 bucket
+    - aws s3 rm --recursive "s3://$S3_BUCKET_NAME/webold" && aws s3 rm "s3://$S3_BUCKET_NAME/web"
     # Set 301 redirects
     - ./amz-redirect.sh
     # Erase output folder to reduce artifact size since it is untracked
