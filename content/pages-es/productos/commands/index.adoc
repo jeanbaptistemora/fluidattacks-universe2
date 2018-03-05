@@ -1,20 +1,98 @@
 :slug: productos/commands/
 :category: productos
-:description: El propósito de esta página es presentar los productos ofrecidos por FLUID. Commands es un producto de tipo troyano con command & control utilizado para realizar pruebas de intrusión en equipos críticos, con el fin de detectar y reportar vulnerabilidades en las aplicaciones.
+:description: Commands es un producto de tipo troyano con command & control utilizado para realizar pruebas de intrusión en equipos críticos. Busca tomar control total de múltiples sistemas críticos para crear una red de nodos infectados que pueda ser controlada desde un centro de mando y control.
 :keywords: FLUID, Productos, Commands, Seguridad, Pentesting, Aplicaciones.
 :translate: products/commands/
 
 = Commands
 
-Troyano desarrollado completamente por +FLUIDAttacks+ 
-para penetrar en profundidad estaciones de trabajo 
-y servidores críticos durante el servicio de Hacking Puntual. 
-El objetivo es tomar el control total de equipos críticos
-y mediante un centro de comando central 
-coordinar hackeos en profundidad mas complejos. 
-+FLUIDCommands+ permite capturar sonido, pantalla, teclado, 
-archivos, trafico de red, entre otros. 
-Durante el ataque evita ser detectado 
-por los controles +AntiX+ y +SOC+ 
-y al finalizar la prueba es desinstalado 
-sin dejar efecto colateral alguno.
+Troyano desarrollado completamente por +FLUIDAttacks+
+para penetrar en profundidad estaciones de trabajo
+y servidores críticos durante las pruebas de intrusión
+en nuestro servicio de Hacking Puntual
+donde su uso es autorizado.
+
+Más información acerca de nuestro servicio de Hacking Puntual [button]#link:../../servicios/hacking-puntual/[aqui >>]#
+
+[role="integrates tb-alt"]
+[cols=2, frame="none"]
+|====
+a|== Objetivo
+
+En FLUID no estamos únicamente interesados en encontrar y reportar una vulnerabilidad
+si no también en mostrar a nuestros clientes
+los riesgos potenciales que esta implica
+y el impacto de negocio que tiene.
+Para esto, buscamos tomar el control total de multiples sistemas criticos
+y así crear una red de nodos infectados
+para obtener información sensible o infectar aún más nodos.
+a|image::botnet.png[Botnet]
+
+a|image::how-its-done.png[Como lo hacemos]
+a|== Como lo hacemos
+
+Para poder usar +FLUIDCommands+
+primero necesitamos tener acceso administrativos al sistema vulnerable,
+esto lo logramos a través de las pruebas manuales que ejecutan nuestros expertos.
+Una vez se logre el acceso administrativo
+podemos proceder a infectar remotamente la máquina.
+Teniendo un nodo comprometido y bajo nuestro control
+podemos expandirnos e infectar otros nodos
+o concentrarnos en la máquina comprometida
+para penetrar en profundidad en busca de información sensible
+y vectores de ataque más críticos.
+
+a|== Cero Efectos Colaterales
+
+Es importante resaltar que nuestro troyano +FLUIDCommands+
+nunca queda instalado en el sistema vulnerable
+como un servicio ni como una tarea programada.
+Una vez hayan finalizado todas las pruebas,
+se desinstala remotamente
+sin dejar rastro alguno ni efectos colaterales.
+a|image::no-traces.png[Cero Daños, cero rastros]
+
+a|image::command-control.png[Centro de Mando y Control]
+a|== Centro de Mando y Control
+
++FLUIDCommands+ cuenta con su propio Centro de Mando y Control
+desde el cual se pueden enviar órdenes y comandos
+a nuestra red de nodos infectados.
+El Centro de Mando y Control usa una comunicación cifrada
+a través de un proxy reverso ICMP,
+dándonos siempre control total sobre nuestro troyano.
+Con un solo nodo infectado,
++FLUIDCommands+ puede replicarse en sistemas adjacentes.
+
+a|== Función de Captura
+
+* Captura de pantalla: A través del comando scr podemos tomar pantallazos de la máquina infectada sin alertar la víctima.
+* Captura de Audio: Usando el comando mic podemos abrir el micrófono de la víctima y capturar audio en vivo.
+* Keylogger: El comando keylog nos permite capturar y logear todas las teclas presionadas en la máquina de la víctima
+para luego extraer información sensible como credenciales o números de tarjetas de crédito.
+a|image::scrshot-min.png[Captura de Pantalla]
+
+a|image::exec.png[Ejecución de Comandos]
+a|== Función Exec
+
+Esta función nos permite ejecutar de manera remota cualquier comando disponible a través del cmd en la máquina infectada.
+
+
+a|== Función echo
+
+Este comando se usa para probar la conexión
+y garantizar que tengamos control sobre el nodo infectado.
+Responde todo lo que se le pase como parametro al comando.
+a|image::echo.png[echo]
+
+a|image::av-evasion.png[Evasión de Detección]
+a|== Evasión de Detección
+
+Nuestro troyano siempre evita ser detectado
+por todo tipo de controles
++AntiX+ y +SOC+
+enmascarando todas sus peticiones y comandos
+bajo un protocolo conocido y de confianza.
+
+|====
+
