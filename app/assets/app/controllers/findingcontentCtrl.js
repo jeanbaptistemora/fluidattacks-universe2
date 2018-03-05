@@ -80,7 +80,7 @@ integrates.controller("findingcontentCtrl", function($scope, $stateParams, $time
                                   response = response.replaceAll(">", "&gt;");
                                   $scope.exploitURL = response;
                               } else {
-                                Rollbar.error(response.message);
+                                Rollbar.error("Error: An error occurred loading exploit from S3");
                               }
                           });
                         } else if($scope.finding.exploit !== undefined && $scope.finding.cierres.length == 0){
@@ -92,7 +92,7 @@ integrates.controller("findingcontentCtrl", function($scope, $stateParams, $time
                                     response = response.replaceAll(">", "&gt;");
                                     $scope.exploitURL = response;
                                 } else {
-                                  Rollbar.error(response.message);
+                                  Rollbar.error("Error: An error occurred loading exploit");
                                 }
                             });
                         } else {
@@ -108,7 +108,7 @@ integrates.controller("findingcontentCtrl", function($scope, $stateParams, $time
                                     response = response.replaceAll(">", "&gt;");
                                     $scope.exploitURL = response;
                                 } else {
-                                  Rollbar.error(response.message);
+                                  Rollbar.error("Error: An error occurred loading exploit");
                                 }
                             });
                         } else {
@@ -1214,7 +1214,7 @@ integrates.controller("findingcontentCtrl", function($scope, $stateParams, $time
                     $scope.tabEvidences = evidenceList;
               }
             } else {
-               Rollbar.error(response.message);
+               Rollbar.error("Error: An error occurred loading evidences");
             }
         });
 

@@ -263,7 +263,7 @@ integrates.controller(
                             if (json == [] || json == {}) throw "error";
                             if(project.trim() == "") throw "error";
                         }catch(e){
-                            Rollbar.error("Error: An error ocurred generating the technical report");
+                            Rollbar.error("Error: An error ocurred generating the technical report", e);
                             generateDoc = false;
                         }
                         if(generateDoc == false) return false;

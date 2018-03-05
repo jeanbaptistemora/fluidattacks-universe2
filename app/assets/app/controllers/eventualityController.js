@@ -228,7 +228,7 @@ integrates.controller("eventualityController", function($scope, $uibModal, $tran
                             integrates.updateEvntRow($scope.evnt);
                             $uibModalInstance.dismiss('cancel');
                         }else{
-                            Rollbar.error(response.message);
+                            Rollbar.error("Error: An error occurred updating events");
                             $.gritter.add({
                                 title: 'Error!',
                                 text: response.message,
@@ -351,7 +351,7 @@ integrates.controller("eventualityController", function($scope, $uibModal, $tran
                         sticky: false,
                     });
                 }else{
-                    Rollbar.error(data.message);
+                    Rollbar.error("Error: An error occurred searching events");
                      $.gritter.add({
                         title: 'Error',
                         text: data.message,
