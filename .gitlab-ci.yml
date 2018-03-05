@@ -29,7 +29,9 @@ checks:
     - for FILE in $(find . -iname '*.adoc'); do sed -i 's/^include::/include::\/builds\/fluidsignal/g' $FILE; done
     - pelican --fatal errors --fatal warnings content/
     - ./html-lint.sh
+    - rm -rf output/
   artifacts:
+    untracked: true
     when: on_success
     expire_in: 18 hrs
     paths:
@@ -89,7 +91,10 @@ deploy:
     - aws s3 cp --recursive --acl=public-read-write output/ "s3://$S3_BUCKET_NAME"
     # Set 301 redirects
     - ./amz-redirect.sh
+    # Erase output folder to reduce artifact size since it is untracked
+    - rm -rf output/
   artifacts:
+    untracked: true
     when: on_success
     expire_in: 18 hrs
     paths:
