@@ -15,4 +15,5 @@ en un evento excepcional de una bitácora.
 == Soluciones
 
 . +COBOL+ link:../../defends/cobol/error-operacion-aritmetica/[Manejar Errores en Operaciones Aritméticas].
+. +COBOL+ link:../../defends/cobol/error-operacion-texto/[Manejar Errores en Operaciones de Texto].
 
