@@ -99,7 +99,7 @@ deploy_terraform:
         - terraform apply -auto-approve -var-file="vars/aws.tfvars"
         - terraform output instance_ip > ip.txt
         - terraform output variable_ip >> existing-dns/terraform.tfvars
-        - if ! [ -n "${IS_TRIGGER}" ]; then curl -X POST -F token=$TRIGGER_TOKEN -F ref=jarmas -F "variables[IS_TRIGGER]=true" -F "variables[NEW_SERVES]=$(cat ip.txt)" https://gitlab.com/api/v4/projects/4620828/trigger/pipeline; fi
+        - if ! [ -n "${IS_TRIGGER}" ]; then curl -X POST -F token=$TRIGGER_TOKEN -F ref=master -F "variables[IS_TRIGGER]=true" -F "variables[NEW_SERVES]=$(cat ip.txt)" https://gitlab.com/api/v4/projects/4620828/trigger/pipeline; fi
         - cd existing-dns
         - terraform init
         - if [ -n "${IS_TRIGGER}" ]; then terraform apply -auto-approve -var-file="aws.tfvars"; fi
