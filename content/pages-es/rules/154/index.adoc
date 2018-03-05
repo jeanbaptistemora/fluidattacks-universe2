@@ -14,3 +14,4 @@ El código fuente debe estar ofuscado en ambiente de producción.
 == Soluciones
 
 . +COBOL+ link:../../defends/cobol/cifrar-codigo-fuente/[Cifrar Código Fuente].
+. +COBOL+ link:../../defends/cobol/enmascarar-texto/[Enmascarar Texto].
