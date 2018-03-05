@@ -140,7 +140,7 @@ serves_trigger:
     stage: deploy
     image: debian:jessie-slim
     script:
-        - apt update && apt install -y openssh-client
+        - apt update && apt install -y openssh-client curl
         - if [ -n "${IS_TRIGGER}" ]; then echo "$FI_SSH_KEY" | base64 -d > "FLUID_Serves.pem" && chmod 600 FLUID_Serves.pem; fi
         - if [ -n "${IS_TRIGGER}" ]; then scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -i FLUID_Serves.pem env.list admin@$NEW_SERVES:/home/admin; fi
         - if [ -n "${IS_TRIGGER}" ]; then ssh -o StrictHostKeyChecking=no -i FLUID_Serves.pem admin@$NEW_SERVES 'sudo docker pull registry.gitlab.com/fluidsignal/integrates:master && (sudo docker stop integrates || echo "") && (sudo docker rm integrates || echo "") && sudo docker run -d --env-file env.list -p 8000:443 --name=integrates registry.gitlab.com/fluidsignal/integrates:master'; fi
