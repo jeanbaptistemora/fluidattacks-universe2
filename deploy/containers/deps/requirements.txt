@@ -34,3 +34,4 @@ matplotlib
 awscli
 pyOpenSSL==17.5.0
 rollbar==0.13.17
+mixpanel

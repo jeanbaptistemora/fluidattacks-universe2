@@ -11,6 +11,7 @@ from django.conf import settings
 # pylint: disable=F0401
 from app.dao import integrates_dao
 from app.mailer import send_mail_add_access
+from mixpanel import Mixpanel
 
 # constants
 BOT_ID = 'U7H8PVATA'
@@ -120,6 +121,11 @@ syntax to use near ''' at line 1. Run this in your bash console \
                         'project': project,
                     }
                     send_mail_add_access(to, context)
+                    mp = Mixpanel(settings.MIXPANEL_API_TOKEN)
+                    mp.track(user, 'BOT_AddAccess', {
+                        'Project': project,
+                        'Organization': company
+                    })
                 else:
                     output = '*[FAIL]* Failed to give access. Verify the \
 email address and that the project *%s* is created.' % (project)
@@ -140,6 +146,8 @@ syntax to use near ''' at line 1. Run this in your bash console \
             else:
                 if integrates_dao.create_project_dao(project, description):
                     output = '*[OK]* Created project *%s* *"%s"*.' % (project, description)
+                    mp = Mixpanel(settings.MIXPANEL_API_TOKEN)
+                    mp.track(project, 'BOT_AddProject')
                 else:
                     output = '*[FAIL]* Project *%s* already exists.' % (project)
         except ValueError:
@@ -158,6 +166,10 @@ syntax to use near ''' at line 1. Run this in your bash console \
             else:
                 if integrates_dao.remove_access_project_dao(user, project):
                     output = '*[OK]* Removed access to *%s* to project *%s*.' % (user, project)
+                    mp = Mixpanel(settings.MIXPANEL_API_TOKEN)
+                    mp.track(user, 'BOT_RemoveAccess', {
+                        'Project': project,
+                    })
                 else:
                     output = '*[FAIL]* Failed to remove access. Verify the \
 email address *%s* and that the project *%s* is created.' % (user, project)
