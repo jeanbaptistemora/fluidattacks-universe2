@@ -1,8 +1,8 @@
 {% extends "index.html" %}
 
 {% block meta %}
-  <meta name="keywords" content="{{ article.keywords }}">
   <meta name="description" content="{{ article.description }}">
+  <meta name="keywords" content="{{ article.keywords }}">
 {% endblock meta %}
 
 {% block title %}
@@ -12,7 +12,7 @@
 {{ article.title }} | {{ SITENAME }}
       {% set TITLE = 1 %}
     {% endif %}
-  {% else %}
+  {% elif DEFAULT_LANG == "es" %}
     {% if article.title|length < 11 %}
 {{ article.title }} | {{ SITENAME }}
       {% set TITLE =1 %}
@@ -31,7 +31,7 @@
     {% if article.translate %}
       <link rel="alternate" href="{{ SUBSITEURL }}/blog/{{ article.translate }}" hreflang="es" />
     {% endif %}
-  {% else %}
+  {% elif DEFAULT_LANG == "es" %}
     <link rel="alternate" href="{{ SITEURL }}/{{ article.url }}" hreflang="es" />
     {% if article.translate %}
       <link rel="alternate" href="{{ SUBSITEURL }}/blog/{{ article.translate }}" hreflang="en-us" />
@@ -48,7 +48,7 @@
     <header class="intro-header" style="background-color: {{ HEADER_COLOR }}">
   {% else %}
     <header class="intro-header"> <!--style="background-image: url('/{{ THEME_STATIC_DIR }}/images/fluid-{{ DEFAULT_LANG }}.png');" >-->
-    <a href="{{ SITEURL }}/"><img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/fluid-{{ DEFAULT_LANG }}.png" alt="{{ gettext('Young hacker smiling') }}"></a>
+    <a href="{{ SITEURL }}/"><img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/fluid-{{ DEFAULT_LANG }}.png" alt="{{ gettext('Header-img-alt') }}"></a>
   {% endif %}   
   </header>
 {% endblock header %}
@@ -60,9 +60,9 @@
       <div class="nav-info">
         <div class="breadcrumbs">
           <ul>
-            <li><a href="{{ SITEURL }}/">{{ gettext('Home') }} >>&nbsp;</a></li>
+            <li><a href="{{ SITEURL }}/">{{ gettext('Breadcrumb-0') }} >>&nbsp;</a></li>
             <li><a href="{{SITEURL}}/blog/">Blog >>&nbsp;</a></li>
-            <li><a href="{{SITEURL}}/{{ category.url }}../">{{ gettext('Categories') }} >>&nbsp;</a></li>
+            <li><a href="{{SITEURL}}/{{ category.url }}../">{{ gettext('Articles-breadcrumb-1') }} >>&nbsp;</a></li>
             <li><a href="{{ SITEURL }}/{{ category.url }}">{{ article.category|replace("-", " ") }}</a></li>
           </ul>
         </div> 
@@ -72,7 +72,7 @@
               <img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/es.png" alt="Spain flag"><a href="{{ SUBSITEURL }}/blog/{{ article.translate }}" class="button">Translate >></a>
             </div>
           {% endif %}
-        {% else %}
+        {% elif DEFAULT_LANG == "es" %}
           {% if article.translate %}
             <div class="translate">
               <img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/en.png" alt="Bandera de Estados Unidos"><a href="{{ SUBSITEURL }}/blog/{{ article.translate }}" class="button">Traducir >></a>
@@ -88,43 +88,24 @@
         <tr>
           <td class="meta-data">
             {% for author in article.authors %}
-              <img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/user.png" alt="{{ gettext('User icon') }}"><a href="../../{{ author.url }}">{{ author }}</a>
+              <img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/user.png" alt="{{ gettext('Articles-icon-alt-1') }}"><a href="../../{{ author.url }}">{{ author }}</a>
             {% endfor %}<br/>
           </td>
           <td class="meta-data"> 
-            <img src="{{ SITEURL}}/{{ THEME_STATIC_DIR }}/images/comment.png" alt="{{ gettext('Dialog box icon') }}"><a href="./#disqus_thread">{{ gettext('Comment') }}</a><br/>
+            <img src="{{ SITEURL}}/{{ THEME_STATIC_DIR }}/images/comment.png" alt="{{ gettext('Articles-icon-alt-2') }}"><a href="./#disqus_thread">{{ gettext('Articles-icon-msg-1') }}</a><br/>
           </td>
           <td class="meta-data">
-            <img src="{{ SITEURL}}/{{ THEME_STATIC_DIR }}/images/folder.png" alt="{{ gettext('Folder icon') }}"><a href="../../{{ category.url }}">{{ article.category|replace("-", " ") }}</a><br/>
+            <img src="{{ SITEURL}}/{{ THEME_STATIC_DIR }}/images/folder.png" alt="{{ gettext('Articles-icon-alt-3') }}"><a href="../../{{ category.url }}">{{ article.category|replace("-", " ") }}</a><br/>
           </td>
 	  <td class="meta-data">
-            <img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/calendar2.png" alt="{{ gettext('Calendar icon') }}"><p>{{ article.locale_date }}</p><br/>
+            <img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/calendar2.png" alt="{{ gettext('Articles-icon-alt-4') }}"><p>{{ article.locale_date }}</p><br/>
           </td>
-          <!--
-          {% if DEFAULT_LANG == "en" %}
-            {% if article.translate %}
-              <td class="meta-data">
-                <a href="{{ SUBSITEURL }}/blog/{{ article.translate }}"><img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/es.png" alt="Spain flag"></a>
-              </td>
-            {% endif %}
-          {% else %}
-            {% if article.translate %}
-              <td class="meta-data">
-                <a href="{{ SUBSITEURL }}/blog/{{ article.translate }}"><img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/en.png" alt="Bandera de Estados Unidos"></a>
-              </td>
-            {% endif %}
-          {% endif %} -->
         </tr>  
       </table>
-      {% if article.modified %}
-        <span class="meta">{{ gettext('Updated on') }} {{ article.locale_modified }}</span>
-      {% endif %}
-      {% import 'translations.html' as translations with context %}
-      {{ translations.translations_for(article) }}
       {{ article.content }}	
       <br/>
       <div class="authorimg">
-        <img class="imgwriter" src="{{ SITEURL }}/images/authors/{{ article.writer }}.png" alt="{{ gettext('Author picture') }}">
+        <img class="imgwriter" src="{{ SITEURL }}/images/authors/{{ article.writer }}.png" alt="{{ gettext('Articles-author-alt') }}">
       </div>
       <table class="authorinfo">
         <tr><td>
@@ -139,7 +120,7 @@
       </table>
       <br/>
       {% if article.related_posts %}		
-        <h4>{{ gettext('Related') }}</h4>
+        <h4>{{ gettext('Articles-related-sect') }}</h4>
           <section class="sect-related">
             {% for related_post in article.related_posts %}
               <div class="related">	
@@ -176,7 +157,7 @@
        {% if DISQUS_SITENAME and SITEURL %}
          <hr class="hrcoments">
          <div class="comments">
-           <h3>{{ gettext('Leave a comment') }}</h3>
+           <h3>{{ gettext('Articles-disqus-sect') }}</h3>
            <div id="disqus_thread"></div>
            {% if DEFAULT_LANG == "es" %}
              <script type="text/javascript">
@@ -192,7 +173,7 @@
                  (d.head || d.body).appendChild(dsq);
                })();
              </script>
-           {% else %}
+           {% elif DEFAULT_LANG == "en" %}
              <script type="text/javascript">
                var disqus_config = function () {
                  this.page.identifier = "{{ article.slug }}";

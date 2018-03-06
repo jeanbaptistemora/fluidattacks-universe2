@@ -28,6 +28,7 @@ checks:
     - pybabel compile --directory theme/2014/translations/ --domain messages
     - for FILE in $(find . -iname '*.adoc'); do sed -i 's/^include::/include::\/builds\/fluidsignal/g' $FILE; done
     - pelican --fatal errors --fatal warnings content/
+    - rm -rf output/web/de
     - ./html-lint.sh
     - rm -rf output/
   artifacts:
@@ -72,6 +73,8 @@ deploy:
     - for FILE in $(find . -iname '*.adoc'); do sed -i 's/^include::/include::\/builds\/fluidsignal/g' $FILE; done
     # Generate the website, exiting on any error encountered
     - pelican --fatal errors --fatal warnings content/
+    # Remove dummy folder used to translate messages to english as well
+    - rm -rf output/web/de
     # Give the folders, named after the language of its content, a general name in each subsite
     - mv output/web/en/blog-en/* output/web/en/blog && mv output/web/es/blog-es/* output/web/es/blog
     # Script to generate a complete sitemap of the site

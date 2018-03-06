@@ -1,18 +1,18 @@
 {% extends "index.html" %}
 
 {% block meta %}
-  <meta name="keywords" content="{{ gettext('Here you can find all the articles of the blog which are related to the category') }} {{ category.name|replace('-', ' ')|capitalize }}. {{ gettext('The articles are ordered according to their publishing date and may address different subjets related to the field of Information Security') }}.">
-  <meta name="description" content="{{ gettext('Article, Category, Blog, Information, Security, Date') }}">
+  <meta name="description" content="{{ gettext('Category-metadescription-1') }} {{ category.name|replace('-', ' ')|capitalize }}. {{ gettext('Category-metadescription-2') }}.">
+  <meta name="keywords" content="{{ gettext('Category-keywords') }}">
 {% endblock meta %}
 
-{% block title %}{{ gettext('Articles in the category') }} {{ category.name|replace("-", " ")|capitalize }} | {{ AUTHOR }}{% endblock %}
+{% block title %}{{ gettext('Category-title') }} {{ category.name|replace("-", " ")|capitalize }} | {{ AUTHOR }}{% endblock %}
 
 {% block canonical %}<link rel="canonical" href="{{ SITEURL }}/{{ category.url }}">{% endblock canonical %}
 
 {% block language %}
   {% if DEFAULT_LANG == "en" %}
     <link rel="alternate" href="{{ SITEURL }}/{{ category.url }}" hreflang="en-us" />
-  {% else %}
+  {% elif DEFAULT_LANG == "es" %}
     <link rel="alternate" href="{{ SITEURL }}/{{ category.url }}" hreflang="es" />
   {% endif %}
 {% endblock language %}
@@ -25,7 +25,7 @@
     <header class="intro-header" style="background-color: {{ HEADER_COLOR }}">
   {% else %}
     <header class="intro-header"> <!--style="background-image: url('{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/fluid-{{ DEFAULT_LANG }}.png');" >-->
-    <a href="{{ SITEURL }}/"><img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/fluid-{{ DEFAULT_LANG }}.png" alt="{{ gettext('Young hacker smiling') }}"></a>
+    <a href="{{ SITEURL }}/"><img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/fluid-{{ DEFAULT_LANG }}.png" alt="{{ gettext('Header-img-alt') }}"></a>
   {% endif %}   
   </header>
   <div class="list-title">
@@ -35,9 +35,9 @@
           <div class="nav-info">
             <div class="breadcrumbs">
               <ul>
-                <li><a href="{{ SITEURL }}/">{{ gettext('Home') }} >>&nbsp;</a></li>
+                <li><a href="{{ SITEURL }}/">{{ gettext('Breadcrumb-0') }} >>&nbsp;</a></li>
                 <li><a href="{{ SITEURL }}/blog/">Blog >>&nbsp;</a></li>
-                <li><a href="../">{{ gettext('Categories') }}</a></li>
+                <li><a href="../">{{ gettext('Category-breadcrumb-1') }}</a></li>
               </ul>
             </div>
           </div>

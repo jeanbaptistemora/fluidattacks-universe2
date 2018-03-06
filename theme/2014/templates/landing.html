@@ -1,11 +1,11 @@
 {% extends "index.html" %}
 
 {% block meta %}
-  <meta name="description" content="{{ gettext('We are a company specialized in Ethical Hacking over Applications and Infrastructure. We are hackers who develop our own tools and exploits, with the aim of identifying all the vulnerabilities of your applications and report them as soon as possible') }}.">
-  <meta name="keywords" content="{{ gettext('FLUID, Ethical Hacking, Vulnerability, Diagnosis, Application, Infrastructure')}}.">
+  <meta name="description" content="{{ gettext('Landing-metadescription') }}.">
+  <meta name="keywords" content="{{ gettext('Landing-keywords')}}.">
 {% endblock meta %}
 
-{% block title %}{{ gettext('Home') }} | {{ SITENAME }}{% endblock title %}
+{% block title %}{{ gettext('Landing-title') }} | {{ SITENAME }}{% endblock title %}
 
 {% block canonical %}<link rel="canonical" href="{{ SITEURL }}/">{% endblock canonical %}
 
@@ -13,7 +13,7 @@
   {% if DEFAULT_LANG == "en" %}
     <link rel="alternate" href="{{ SITEURL }}/" hreflang="en-us" />
     <link rel="alternate" href="{{ SUBSITEURL }}/" hreflang="es" />
-  {% else %}
+  {% elif DEFAULT_LANG == "es" %}
     <link rel="alternate" href="{{ SITEURL }}/" hreflang="es" />
     <link rel="alternate" href="{{ SUBSITEURL }}/" hreflang="en-us" />
   {% endif%}
@@ -28,7 +28,7 @@
     <header class="intro-header" style="background-color: {{ HEADER_COLOR }}">
   {% else %}
     <header class="intro-header"> <!--style="background-image: url('{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/fluid-{{ DEFAULT_LANG }}.png');" >-->
-    <a href="{{ SITEURL }}/"><img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/fluid-{{ DEFAULT_LANG }}.png" alt="{{ gettext('Young hacker smiling') }}"></a>
+    <a href="{{ SITEURL }}/"><img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/fluid-{{ DEFAULT_LANG }}.png" alt="{{ gettext('Header-img-alt') }}"></a>
   {% endif %}   
   </header>
 {% endblock header %}
@@ -36,16 +36,16 @@
 {% block content %}
 <div class="home">
   <div class="services">
-    <h1>{{ gettext('Services') }}</h1>
-    <p>{{ gettext('Using a white-box methodology or code review, either on each application or the complete suite of applications, we detect security issues:') }}</p>
+    <h1>{{ gettext('Index-header-1') }}</h1>
+    <p>{{ gettext('Index-msg-1') }}</p>
     <div class="serv-offer">
       <div class="serv">
-        <img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/service-1.png" alt="{{ gettext('Service') }}">
-        <h1><a href="{{ SITEURL }}/{{ gettext('services') }}/{{ gettext('continuous-hacking') }}/">{{ gettext('<strong>Continuous</strong> Hacking') }}</a></h1>
+        <img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/service-1.png" alt="{{ gettext('Index-img-alt') }}">
+        <h1><a href="{{ SITEURL }}/{{ gettext('Index-cat-1') }}/{{ gettext('Index-serv-1') }}/">{{ gettext('Index-header-2') }}</a></h1>
       </div>
       <div class="serv">
-        <img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/service-2.png" alt="{{ gettext('Service') }}">
-        <h1><a href="{{SITEURL}}/{{ gettext('services') }}/{{ gettext('one-shot-hacking') }}/">{{ gettext('<strong>One-Shot</strong> Hacking') }}</a></h1>
+        <img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/service-2.png" alt="{{ gettext('Index-img-alt') }}">
+        <h1><a href="{{SITEURL}}/{{ gettext('Index-cat-1') }}/{{ gettext('Index-serv-2') }}/">{{ gettext('Index-header-3') }}</a></h1>
       </div>
     </div>
     <div class="serv-form">
@@ -53,38 +53,38 @@
   </div>
   <div class="benefits">
     <div class="benefit-header">
-      <span>{{ gettext('Why is <strong>FLUID better</strong> for you?') }}</span>
+      <span>{{ gettext('Index-bnft-header') }}</span>
     </div>
     <div class="benefit">
-     <img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/benefit-1.png" alt="{{ gettext('Magnifying glass analysing code') }}">
+     <img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/benefit-1.png" alt="{{ gettext('Index-img-alt-2') }}">
      <span>1</span>
-     <p>{{ gettext('Fault <strong>detection</strong> that cause security risks.') }}</p>
+     <p>{{ gettext('Index-bnft-1') }}</p>
     </div>
     <div class="benefit">
-     <img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/benefit-2.png" alt="{{ gettext('Closing admiration sign') }}">
+     <img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/benefit-2.png" alt="{{ gettext('Index-img-alt-3') }}">
      <span>2</span>
-     <p>{{ gettext('<strong>Generates security alerts</strong> early.') }}</p>
+     <p>{{ gettext('Index-bnft-2') }}</p>
     </div>
     <div class="benefit">
-     <img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/benefit-3.png" alt="{{ gettext('Graph showing the increase of earnings') }}">
+     <img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/benefit-3.png" alt="{{ gettext('Index-img-alt-4') }}">
      <span>3</span>
-     <p>{{ gettext('<strong>Reduces</strong> losses by security incidents.') }}</p>
+     <p>{{ gettext('Index-bnft-3') }}</p>
     </div>
     <div class="benefit">
-     <img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/benefit-4.png" alt="{{ gettext('Hand holding a lock sign') }}">
+     <img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/benefit-4.png" alt="{{ gettext('Index-img-alt-5') }}">
      <span>4</span>
-     <p>{{ gettext('<strong>Generates confidence</strong> in customers and application users.') }}</p>
+     <p>{{ gettext('Index-bnft-4') }}</p>
     </div>
     <div class="benefit">
-     <img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/benefit-5.png" alt="{{ gettext('Hand with the thumb up') }}">
+     <img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/benefit-5.png" alt="{{ gettext('Index-img-alt-6') }}">
      <span>5</span>
-     <p>{{ gettext('Helps improve the <strong>quality</strong> of processes, infrastructure and staff.') }}</p>
+     <p>{{ gettext('Index-bnft-5') }}</p>
     </div>
   </div>
   <div class="customers">
-    <h1>{{ gettext('Customers') }}</h1>
+    <h1>{{ gettext('Index-header-4') }}</h1>
     <div class="paragraph">
-      <p>{{ gettext('FLUID has been providing Information Security services in the colombian market for over 18 years. Below, we list some of our customers.') }}</p>
+      <p>{{ gettext('Index-msg-2') }}</p>
     </div>
     <div class="paragraph">
       <p>

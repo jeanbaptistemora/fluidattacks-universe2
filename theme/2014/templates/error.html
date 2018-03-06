@@ -1,15 +1,15 @@
 {% extends "base.html" %}
 
 {% block meta %}
-  <meta name="keywords" content="{{ gettext('An error occured. The page you requested does not exist or is not available at the moment. Here you can find links to most of the relevant content of the website') }}.">
-  <meta name="description" content="{{ gettext('Error, Request, Page, Availability, Links, Content') }}">
+  <meta name="description" content="{{ gettext('Error-metadescription') }}.">
+  <meta name="keywords" content="{{ gettext('Error-keywords') }}">
 {% endblock meta %}
 
 {% block title %}
   {% if DEFAULT_LANG == "en" %}
-{{ gettext('The page was not found') }} | {{ SITENAME }}
-  {% else %}
-{{ gettext('The page was not found') }} | {{ AUTHOR }}
+{{ gettext('Error-title') }} | {{ SITENAME }}
+  {% elif DEFAULT_LANG == "es" %}
+{{ gettext('Error-title') }} | {{ AUTHOR }}
   {% endif %}
 {% endblock title %}
 
@@ -19,7 +19,7 @@
   {% if DEFAULT_LANG == "en" %}
     <link rel="alternate" href="{{ SITEURL }}/error/" hreflang="en-us" />
     <link rel="alternate" href="{{ SUBSITEURL }}/error/" hreflang="es" />
-  {% else %}
+  {% elif DEFAULT_LANG == "es" %}
     <link rel="alternate" href="{{ SITEURL }}/error/" hreflang="es" />
     <link rel="alternate" href="{{ SUBSITEURL }}/error/" hreflang="en-us" />
   {% endif %}
@@ -34,7 +34,7 @@
     <header class="intro-header" style="background-color: {{ HEADER_COLOR }}">
   {% else %}
     <header class="intro-header"> <!--style="background-image: url('/{{ THEME_STATIC_DIR }}/images/fluid-{{ DEFAULT_LANG }}.png');" >-->
-    <a href="{{ SITEURL }}/"><img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/fluid-{{ DEFAULT_LANG }}.png" alt="{{ gettext('Young hacker smiling') }}"></a>
+    <a href="{{ SITEURL }}/"><img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/fluid-{{ DEFAULT_LANG }}.png" alt="{{ gettext('Header-img-alt') }}"></a>
   {% endif %}   
   </header>
 {% endblock header %}
@@ -42,30 +42,30 @@
 {% block content %}
   <div class="divpage">
     <article>
-      <h1>ERROR 404: {{ gettext('PAGE NOT FOUND') }}</h1>
-      <p>{{ gettext('Click the flag to view this page in spanish') }}
+      <h1>ERROR 404: {{ gettext('Error-header-1') }}</h1>
+      <p>{{ gettext('Error-msg-1') }}
         <span>
-          <a href="{{ SITEURL }}/../{{ gettext('es') }}/error/"><img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/{{ gettext('es') }}.png" alt="gettext('Spain flag') }}"></a>
+          <a href="{{ SITEURL }}/../{{ gettext('Lang') }}/error/"><img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/{{ gettext('Lang') }}.png" alt="{{ gettext('Flag-alt') }}"></a>
         </span>
       </p>
-      <p>{{ gettext('It seems nothing was found in this address. Try searching or browsing to one of the following links') }}:</p>
-      <h2>{{ gettext('Services') }}</h2>
+      <p>{{ gettext('Error-msg-2') }}:</p>
+      <h2>{{ gettext('Error-header-2') }}</h2>
         <ul class="ulist">  
-          {% for page in pages if page.category.name == gettext('services') %}
+          {% for page in pages if page.category.name == gettext('Error-cat-1') %}
             <li>
               <p><a href="{{ SITEURL }}/{{ page.url }}">{{ page.title }}</a></p>
             </li>
           {% endfor %}
         </ul>
-        <h2>{{ gettext('Products') }}</h2>
+        <h2>{{ gettext('Error-header-3') }}</h2>
         <ul class="ulist">  
-          {% for page in pages if page.category.name == gettext('products') %}
+          {% for page in pages if page.category.name == gettext('Error-cat-2') %}
             <li>
               <p><a href="{{ SITEURL }}/{{ page.url }}">{{ page.title }}</a></p>
             </li>
           {% endfor %}
         </ul>
-        <h2>{{ gettext('Recent Blog Entries') }}</h2> 
+        <h2>{{ gettext('Error-header-4') }}</h2> 
         {% set recent = articles if not all_articles else all_articles %}
         <ul class="ulist">
           {% for article in recent %}
@@ -76,7 +76,7 @@
             {% endif %}
           {% endfor %}
         </ul>
-  	<h2>{{ gettext('Blog Categories') }}</h2>
+  	<h2>{{ gettext('Error-header-5') }}</h2>
         <ul class="ulist">  
           {% for category, articles in categories %}
             <li>
@@ -84,9 +84,9 @@
             </li>
           {% endfor %}
         </ul>
-        <h2>{{ gettext('Careers') }}</h2>
+        <h2>{{ gettext('Error-header-6') }}</h2>
         <ul class="ulist">  
-          {% for page in pages if page.category.name == gettext('careers') %}
+          {% for page in pages if page.category.name == gettext('Error-cat-3') %}
             <li>
               <p><a href="{{ SITEURL }}/{{ page.url }}">{{ page.title }}</a></p>
             </li>

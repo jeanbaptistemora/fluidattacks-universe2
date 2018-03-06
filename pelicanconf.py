@@ -7,9 +7,6 @@ sys.setdefaultencoding("utf-8")
 
 # Site information
 AUTHOR = 'FLUIDAttacks'
-SITENAME = 'A Pentesting Company | FLUIDAttacks'
-SITEURL = 'https://fluidattacks.com/web/en'
-SUBSITEURL = 'https://fluidattacks.com/web/es'
 
 # Theme
 THEME = 'theme/2014'
@@ -17,32 +14,19 @@ THEME = 'theme/2014'
 # Date and time configuration
 TIMEZONE = 'America/Bogota'
 DEFAULT_DATE_FORMAT = ('%Y-%m-%d')
-DEFAULT_LANG = 'en'
-OUTPUT_PATH = 'output/web/en'
+DEFAULT_LANG = 'de'
+OUTPUT_PATH = 'output/web/de'
 
 # URLs format
 PATH = 'content'
-ARTICLE_PATHS = ['blog-en']
-PAGE_PATHS = ['pages-en']
-STATIC_PATHS = ['images', 'files', 'blog-en', 'pages-en']
+ARTICLE_PATHS = ['blog']
+PAGE_PATHS = ['pages']
 ARTICLE_URL = 'blog/{slug}'
-ARTICLE_SAVE_AS = 'blog-en/{slug}index.html'
+ARTICLE_SAVE_AS = 'blog/{slug}index.html'
 PAGE_URL = '{slug}'
-PAGE_SAVE_AS = 'pages-en/{slug}index.html'
+PAGE_SAVE_AS = 'pages/{slug}index.html'
 DRAFT_URL = 'drafts/{slug}'
 DRAFT_SAVE_AS = 'drafts/{slug}index.html'
-TAGS_SAVE_AS = 'blog/tags/index.html'
-TAGS_URL = 'blog/tags/'
-TAG_SAVE_AS = 'blog/tags/{slug}/index.html'
-TAG_URL = 'blog/tags/{slug}/'
-AUTHORS_SAVE_AS = 'blog/authors/index.html'
-AUTHORS_URL = 'blog/authors/'
-AUTHOR_SAVE_AS = 'blog/authors/{slug}/index.html'
-AUTHOR_URL = 'blog/authors/{slug}/'
-CATEGORIES_SAVE_AS = 'blog/categories/index.html'
-CATEGORIES_URL = 'blog/categories/'
-CATEGORY_SAVE_AS = 'blog/categories/{slug}/index.html'
-CATEGORY_URL = 'blog/categories/{slug}/'
 USE_FOLDER_AS_CATEGORY = False
 INDEX_SAVE_AS = 'blog/index.html'
 LANDING_SAVE_AS = 'index.html'
@@ -82,6 +66,30 @@ DEFAULT_PAGINATION = 12
 # Line that allows the localization of the site (traslation)
 JINJA_ENVIRONMENT = {'extensions': ['jinja2.ext.i18n']}
 I18N_SUBSITES = {
+    'en': {
+        'SITENAME': 'A Pentesting Company | FLUIDAttacks',
+        'SITEURL': 'https://fluidattacks.com/web/en',
+        'SUBSITEURL': 'https://fluidattacks.com/web/es',
+        'OUTPUT_PATH': 'output/web/en',
+        'THEME': 'theme/2014',
+        'ARTICLE_PATHS': ['blog-en'],
+        'PAGE_PATHS': ['pages-en'],
+        'PAGE_SAVE_AS': 'pages-en/{slug}index.html',
+        'ARTICLE_SAVE_AS': 'blog-en/{slug}index.html',
+        'STATIC_PATHS': ['files', 'images', 'blog-en', 'pages-en'],
+        'TAGS_SAVE_AS': 'blog/tags/index.html',
+        'TAGS_URL': 'blog/tags/',
+        'TAG_SAVE_AS': 'blog/tags/{slug}/index.html',
+        'TAG_URL': 'blog/tags/{slug}/',
+        'AUTHORS_SAVE_AS': 'blog/authors/index.html',
+        'AUTHORS_URL': 'blog/authors/',
+        'AUTHOR_SAVE_AS': 'blog/authors/{slug}/index.html',
+        'AUTHOR_URL': 'blog/authors/{slug}/',
+        'CATEGORIES_SAVE_AS': 'blog/categories/index.html',
+        'CATEGORIES_URL': 'blog/categories/',
+        'CATEGORY_SAVE_AS': 'blog/categories/{slug}/index.html',
+        'CATEGORY_URL': 'blog/categories/{slug}/',
+    },
     'es': {
         'SITENAME': 'Especialistas en Ethical Hacking | FLUIDAttacks',
         'SITEURL': 'https://fluidattacks.com/web/es',
@@ -93,7 +101,6 @@ I18N_SUBSITES = {
         'PAGE_SAVE_AS': 'pages-es/{slug}index.html',
         'ARTICLE_SAVE_AS': 'blog-es/{slug}index.html',
         'STATIC_PATHS': ['files', 'images', 'blog-es', 'defends', 'pages-es'],
-        'GOOGLE_ANALYTICS': 'UA-22974464-4',
         'TAGS_SAVE_AS': 'blog/etiquetas/index.html',
         'TAGS_URL': 'blog/etiquetas/',
         'TAG_SAVE_AS': 'blog/etiquetas/{slug}/index.html',
@@ -109,7 +116,7 @@ I18N_SUBSITES = {
         'ASCIIDOC_OPTIONS': ['-f /etc/asciidoc/lang-es.conf'],
     }
 }
-lang_siteurls = {
+SUBSITE_LANG = {
      'en': 'https://fluidattacks.com/web/en',
      'es': 'https://fluidattacks.com/web/es',
 }

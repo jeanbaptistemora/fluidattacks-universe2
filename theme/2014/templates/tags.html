@@ -1,21 +1,21 @@
 {% extends "base.html" %}
 
 {% block meta %}
-  <meta name="keywords" content="{{ gettext('Here you can find the list of tags used to classify the articles of the blog. These articles are all related to the field of Information Security and may range from an opinion related to a certain topic, or a solution to a challenge, all the way to just general information') }}">
-  <meta name="description" content="Tag, Classify, Articles, Blog, Information, Security">
+  <meta name="description" content="{{ gettext('Tags-metadescrition') }}">
+  <meta name="keywords" content="{{ gettext('Tags-keywords') }}">
 {% endblock meta %}
 
-{% block title %}{{ gettext('Tags') }} | {{ SITENAME }}{% endblock %}
+{% block title %}{{ gettext('Tags-title') }} | {{ SITENAME }}{% endblock %}
 
-{% block canonical %}<link rel="canonical" href="{{ SITEURL }}/blog/{{ gettext('tags') }}/">{% endblock canonical %}
+{% block canonical %}<link rel="canonical" href="{{ SITEURL }}/blog/{{ gettext('Tags-canonical') }}/">{% endblock canonical %}
 
 {% block language %}
   {% if DEFAULT_LANG == "en" %}
     <link rel="alternate" href="{{ SITEURL }}/blog/tags/" hreflang="en-us" />
-    <link rel="alternate" href="{{ SUBSITEURL }}/blog/{{ gettext('tags') }}/" hreflang="es" />
-  {% else %}
+    <link rel="alternate" href="{{ SUBSITEURL }}/blog/etiquetas/" hreflang="es" />
+  {% elif DEFAULT_LANG == "es" %}
     <link rel="alternate" href="{{ SITEURL }}/blog/etiquetas/" hreflang="es" />
-    <link rel="alternate" href="{{ SUBSITEURL }}/blog/{{ gettext('etiquetas') }}/" hreflang="en-us" />
+    <link rel="alternate" href="{{ SUBSITEURL }}/blog/tags/" hreflang="en-us" />
   {% endif %}
 {% endblock language %}
 
@@ -27,7 +27,7 @@
     <header class="intro-header" style="background-color: {{ HEADER_COLOR }}">
   {% else %}
     <header class="intro-header"> <!--style="background-image: url('{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/fluid-{{ DEFAULT_LANG }}.png');" >-->
-    <a href="{{ SITEURL }}/"><img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/fluid-{{ DEFAULT_LANG }}.png" alt="{{ gettext('Young hacker smiling') }}"></a>
+    <a href="{{ SITEURL }}/"><img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/fluid-{{ DEFAULT_LANG }}.png" alt="{{ gettext('Header-img-alt') }}"></a>
   {% endif %}   
   </header>
 {% endblock header %}
@@ -38,12 +38,12 @@
       <div class="nav-info">
         <div class="breadcrumbs">
           <ul>
-            <li><a href="{{ SITEURL }}">{{ gettext('Home') }} >>&nbsp;</a></li>
+            <li><a href="{{ SITEURL }}">{{ gettext('Breadcrumb-0') }} >>&nbsp;</a></li>
             <li><a href="{{ SITEURL }}/blog/">Blog</a></li>
           </ul>
         </div>
       </div>
-      <h1>{{ gettext('Tags') }}:</h1>
+      <h1>{{ gettext('Tags-header') }}:</h1>
       <div class="preamble">
         <ul class="tagcloud">
           {% for tag in tag_cloud %}

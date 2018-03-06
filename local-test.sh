@@ -20,6 +20,7 @@ if [ ! $# -eq 0 ]; then
 else
   pelican --fatal errors --fatal warnings content/
 fi
+rm -rf output/web/de
 mv output/web/en/blog-en/* output/web/en/blog && mv output/web/es/blog-es/* output/web/es/blog
 
 echo "Updating sitemap, setting redirect and pages images (4/5) . . ."

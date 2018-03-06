@@ -1,15 +1,15 @@
 {% extends "base.html" %}
 
 {% block meta %}
-  <meta name="keywords" content="{{ gettext('Here you can find the latest articles posted to the blog, which are related to the field of Information Security. These articles may aim to share an opinion about a security matter, to solve a challenge related to this very subject or may just offer general information') }}.">
-  <meta name="description" content="{{ gettext('Information, Security, Archives, Latest, Articles, Blog') }}">
+  <meta name="description" content="{{ gettext('Archives-metadescription') }}.">
+  <meta name="keywords" content="{{ gettext('Archives-keywords') }}">
 {% endblock meta %}
 
 {% block title %}
   {% if DEFAULT_LANG == "en" %}
-{{ gettext('Blog Archives') }} | {{ SITENAME }}
+{{ gettext('Archives-title') }} | {{ SITENAME }}
   {% else %}
-{{ gettext('Blog Archives') }} | {{ AUTHOR }}
+{{ gettext('Archives-title') }} | {{ AUTHOR }}
   {% endif %}
 {% endblock %}
 
@@ -17,7 +17,7 @@
   {% if DEFAULT_LANG == "en" %}
     <link rel="alternate" href="{{ SITEURL }}/archives.html" hreflang="en-us" />
     <link rel="alternate" href="{{ SUBSITEURL }}/archives.html" hreflang="es" />
-  {% else %}
+  {% elif DEFAULT_LANG == "es" %}
     <link rel="alternate" href="{{ SITEURL }}/archives.html" hreflang="es" />
     <link rel="alternate" href="{{ SUBSITEURL }}/archives.html" hreflang="en-us" />
   {% endif %}
@@ -31,7 +31,7 @@
     <header class="intro-header" style="background-color: {{ HEADER_COLOR }}">
   {% else %}
     <header class="intro-header"> <!--style="background-image: url('{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/fluid-{{ DEFAULT_LANG }}.png');" >-->
-    <a href="{{ SITEURL }}/"><img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/fluid-{{ DEFAULT_LANG }}.png" alt="{{ gettext('Young hacker smiling') }}"></a>
+    <a href="{{ SITEURL }}/"><img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/fluid-{{ DEFAULT_LANG }}.png" alt="{{ gettext('Header-img-alt') }}"></a>
   {% endif %}   
   </header>
 {% endblock header %}
@@ -41,7 +41,7 @@
     <div class="row">
       <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
         <div class="post-heading">
-          <h1>{{ gettext('Archives for') }} {{ SITENAME }}</h1>
+          <h1>{{ gettext('Arcives-msg-1') }} {{ SITENAME }}</h1>
         </div>
       </div>
     </div>

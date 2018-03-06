@@ -1,20 +1,20 @@
 {% extends "index.html" %}
 
 {% block meta %}
-  <meta name="keywords" content="{{ gettext('Here you can find all the articles of the blog which are related to the tag') }} {{ tag|capitalize }}. {{ gettext('The articles are ordered according to their publishing date and may address different subjets related to the field of Information Security') }}.">
-  <meta name="description" content="{{ gettext('Article, Tag, Blog, Information, Security, Date') }}">
+  <meta name="description" content="{{ gettext('Tag-metadescription-1') }} {{ tag|capitalize }}. {{ gettext('Tag-metadescription-2') }}.">
+  <meta name="keywords" content="{{ gettext('Tag-keywords') }}">
 {% endblock meta %}
 
 {% block title %}
   {% set TITLE = 0 %}
   {% if DEFAULT_LANG == "en" %}
     {% if tag.name|length < 20 %}
-{{ gettext('Tag') }} {{ tag|capitalize }} | {{ SITENAME }}
+{{ gettext('Tag-title') }} {{ tag|capitalize }} | {{ SITENAME }}
       {% set TITLE = 1 %}
     {% endif %}
   {% endif %}
   {% if TITLE == 0 %}
-{{ gettext('Tag') }} {{ tag|capitalize }} | {{ AUTHOR }}
+{{ gettext('Tag-title') }} {{ tag|capitalize }} | {{ AUTHOR }}
   {% endif %}
 {% endblock %}
 
@@ -23,10 +23,10 @@
 {% block language %}
   {% if DEFAULT_LANG == "en" %}
     <link rel="alternate" href="{{ SITEURL }}/{{ tag.url }}" hreflang="en-us" />
-    <link rel="alternate" href="{{ SUBSITEURL }}/blog/{{ gettext('tags') }}/{{ tag }}/" hreflang="es" />
-  {% else %}
+    <link rel="alternate" href="{{ SUBSITEURL }}/blog/etiquetas/{{ tag }}/" hreflang="es" />
+  {% elif DEFAULT_LANG == "es" %}
     <link rel="alternate" href="{{ SITEURL }}/{{ tag.url }}" hreflang="es" />
-    <link rel="alternate" href="{{ SUBSITEURL }}/blog/{{ gettext('etiquetas') }}/{{ tag }}/" hreflang="en-us" />
+    <link rel="alternate" href="{{ SUBSITEURL }}/blog/tags/{{ tag }}/" hreflang="en-us" />
   {% endif %}
 {% endblock language %}
 
@@ -38,7 +38,7 @@
     <header class="intro-header" style="background-color: {{ HEADER_COLOR }}">
   {% else %}
     <header class="intro-header"> <!--style="background-image: url('{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/fluid-{{ DEFAULT_LANG }}.png');" >-->
-    <a href="{{ SITEURL }}/"><img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/fluid-{{ DEFAULT_LANG }}.png" alt="{{ gettext('Young hacker smiling') }}"></a>
+    <a href="{{ SITEURL }}/"><img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/fluid-{{ DEFAULT_LANG }}.png" alt="{{ gettext('Header-img-alt') }}"></a>
   {% endif %}   
   </header>
   <div class="list-title">
@@ -48,9 +48,9 @@
           <div class="nav-info">
             <div class="breadcrumbs">
               <ul>
-                <li><a href="{{ SITEURL }}/">{{ gettext('Home') }} >>&nbsp;</a></li>
+                <li><a href="{{ SITEURL }}/">{{ gettext('Breadcrumb-0') }} >>&nbsp;</a></li>
                 <li><a href="{{ SITEURL }}/blog/">Blog >>&nbsp;</a></li>
-                <li><a href="../">{{ gettext('Tags') }}</a></li>
+                <li><a href="../">{{ gettext('Tag-breadcrumb-1') }}</a></li>
               </ul>
             </div>
           </div>

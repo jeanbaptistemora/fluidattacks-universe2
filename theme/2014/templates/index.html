@@ -1,15 +1,15 @@
 {% extends "base.html" %}
 
 {% block meta %}
-  <meta name="keywords" content="{{ gettext('Here you can find all the articles published to the blog, which may address an opinion, a solution to a challenge, or just general information, all related to the field of Information Security.') }}">
-  <meta name="description" content="{{ gettext('Articles, Blog, Opinion, Challenge, Information, Security') }}">
+  <meta name="description" content="{{ gettext('Index-metadescription') }}">
+  <meta name="keywords" content="{{ gettext('Index-keywords') }}">
 {% endblock meta %}
 
 {% block title %}
   {% if DEFAULT_LANG == "en" %}
-{{ gettext('Blog Home') }} | {{ SITENAME }}
-  {% else %}
-{{ gettext('Blog Home') }} | {{ AUTHOR }}
+{{ gettext('Index-title') }} | {{ SITENAME }}
+  {% elif DEFAULT_LANG == "es" %}
+{{ gettext('Index-title') }} | {{ AUTHOR }}
   {% endif %}
 {% endblock %}
 
@@ -23,7 +23,7 @@
     <header class="intro-header" style="background-color: {{ HEADER_COLOR }}">
   {% else %}
     <header class="intro-header"> <!--style="background-image: url('{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/fluid-{{ DEFAULT_LANG }}.png');" >-->
-    <a href="{{ SITEURL }}/"><img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/fluid-{{ DEFAULT_LANG }}.png" alt="{{ gettext('Young hacker smiling') }}"></a>
+    <a href="{{ SITEURL }}/"><img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/fluid-{{ DEFAULT_LANG }}.png" alt="{{ gettext('Header-img-alt') }}"></a>
   {% endif %}   
     </header>
 {% endblock header %}
@@ -41,13 +41,13 @@
               {{ article.title }}
             </h1>
           </a>
-          <img class="imgprev" src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/icon.png" alt="{{ gettext('Quill icon') }}">
+          <img class="imgprev" src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/icon.png" alt="{{ gettext('Index-icon-alt-1') }}">
           {% for author in article.authors %}
             <a class="aautor" href="{{ SITEURL }}/{{ author.url }}">{{ author }}</a>
           {% endfor %}
-          &nbsp;&nbsp;<img class="imgprev" src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/folder.png" alt="{{ gettext('Folder icon') }}">
+          &nbsp;&nbsp;<img class="imgprev" src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/folder.png" alt="{{ gettext('Index-icon-alt-2') }}">
           <a class="aautor" href="{{ SITEURL }}/{{ article.category.url }}">{{ article.category|replace("-", " ") }}</a>
-          &nbsp;&nbsp;<img class="imgprev" src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/tags.png" alt="{{ gettext('Tag icon') }}">
+          &nbsp;&nbsp;<img class="imgprev" src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/tags.png" alt="{{ gettext('Index-icon-alt-3') }}">
           {% for tag in article.tags %}
             {% if loop.last %}
               <a class="aautor" href="{{ SITEURL }}/{{ tag.url }}">{{ tag }}</a>
@@ -64,7 +64,7 @@
           </p>
           <br><br>
           <div class="divread">
-            <a class="button" href="{{ SITEURL }}/{{ article.url }}">{{ gettext('Read More') }} >></a>
+            <a class="button" href="{{ SITEURL }}/{{ article.url }}">{{ gettext('Index-msg-btn') }} >></a>
           </div>
         </div>
       </div>

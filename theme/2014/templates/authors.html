@@ -1,21 +1,21 @@
 {% extends "base.html" %}
 
 {% block meta %}
-  <meta name="keywords" content="{{ gettext('Here you can find the list of all the authors that have contributed to the blog by publishing an article which may have an opinion, a solution to a challenge, or just general information related to many topics in the field of Information Security') }}.">
-  <meta name="description" content="{{ gettext('Authors, Blog, Publish, Article, Information, Security') }}">
+  <meta name="description" content="{{ gettext('Authors-metadescription') }}.">
+  <meta name="keywords" content="{{ gettext('Authors-keywords') }}">
 {% endblock meta %}
 
-{% block title %}{{ gettext('Authors') }} | {{ SITENAME }}{% endblock title %}
+{% block title %}{{ gettext('Authors-title') }} | {{ SITENAME }}{% endblock title %}
 
-{% block canonical %}<link rel="canonical" href="{{ SITEURL }}/blog/{{ gettext('authors') }}/">{% endblock canonical %}
+{% block canonical %}<link rel="canonical" href="{{ SITEURL }}/blog/{{ gettext('Authors-canonical') }}/">{% endblock canonical %}
 
 {% block language %}
   {% if DEFAULT_LANG == "en"%}
     <link rel="alternate" href="{{ SITEURL }}/blog/authors/" hreflang="en-us" />
-    <link rel="alternate" href="{{ SUBSITEURL }}/blog/{{ gettext('authors') }}/" hreflang="es" />
-  {% else %}
-    <link rel="alternate" href="{{ SITEURL }}/blog/autores" hreflang="es" />
-    <link rel="alternate" href="{{ SUBSITEURL }}/blog/{{ gettext('autores') }}/" hreflang="en-us" />
+    <link rel="alternate" href="{{ SUBSITEURL }}/blog/autores/" hreflang="es" />
+  {% elif DEFAULT_LANG == "es" %}
+    <link rel="alternate" href="{{ SITEURL }}/blog/autores/" hreflang="es" />
+    <link rel="alternate" href="{{ SUBSITEURL }}/blog/authors/" hreflang="en-us" />
   {% endif %}
 {% endblock language %}
 
@@ -27,7 +27,7 @@
     <header class="intro-header" style="background-color: {{ HEADER_COLOR }}">
   {% else %}
     <header class="intro-header"> <!--style="background-image: url('{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/fluid-{{ DEFAULT_LANG }}.png');" >-->
-    <a href="{{ SITEURL }}/"><img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/fluid-{{ DEFAULT_LANG }}.png" alt="{{ gettext('Young hacker smiling') }}"></a>
+    <a href="{{ SITEURL }}/"><img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/fluid-{{ DEFAULT_LANG }}.png" alt="{{ gettext('Header-img-alt') }}"></a>
   {% endif %}   
   </header>
 {% endblock header %}
@@ -38,12 +38,12 @@
       <div class="nav-info">
         <div class="breadcrumbs">
           <ul>
-            <li><a href="{{ SITEURL }}/">{{ gettext('Home') }} >>&nbsp;</a></li>
+            <li><a href="{{ SITEURL }}/">{{ gettext('Breadcrumb-0') }} >>&nbsp;</a></li>
             <li><a href="{{ SITEURL }}/blog/">Blog</a></li>
           </ul>
         </div>
       </div>
-      <h1>{{ gettext('Authors') }}:</h1>
+      <h1>{{ gettext('Authors-header') }}:</h1>
       <div class="preamble">
         <div class="itemlist">
           <ul>

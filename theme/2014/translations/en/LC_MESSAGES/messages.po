@@ -1,17 +1,17 @@
-# Spanish translations for PROJECT.
-# Copyright (C) 2017 ORGANIZATION
+# English translations for PROJECT.
+# Copyright (C) 2018 ORGANIZATION
 # This file is distributed under the same license as the PROJECT project.
-# FIRST AUTHOR <EMAIL@ADDRESS>, 2017.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2018.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
 "POT-Creation-Date: 2018-03-06 16:19+0000\n"
-"PO-Revision-Date: 2017-12-21 15:09-0500\n"
+"PO-Revision-Date: 2018-03-06 13:42+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language: es\n"
-"Language-Team: es <LL@li.org>\n"
+"Language: en\n"
+"Language-Team: en <LL@li.org>\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
@@ -21,19 +21,18 @@ msgstr ""
 #: templates/archives.html:4
 msgid "Archives-metadescription"
 msgstr ""
-"Aquí puedes encontrar los artículos más recientes publicados en el blog, "
-"los cuales están relacionados con el campo de Seguridad de Información. "
-"Estos artículos pueden buscar compartir una opinión acerca de un tema de "
-"seguridad, resolver un reto relacionado a este mismo tema, o simplemente "
-"ofrecer ínformación general"
+"Here you can find the latest articles posted to the blog, which are "
+"related to the field of Information Security. These articles may aim to "
+"share an opinion about a security matter, to solve a challenge related to"
+" this very subject or may just offer general information"
 
 #: templates/archives.html:5
 msgid "Archives-keywords"
-msgstr "Información, Seguridad, Archivos, Recientes, Artículos, Blog"
+msgstr "Information, Security, Archives, Latest, Articles, Blog"
 
 #: templates/archives.html:10 templates/archives.html:12
 msgid "Archives-title"
-msgstr "Archivos del Blog"
+msgstr "Blog Archives"
 
 #: templates/archives.html:34 templates/article.html:51
 #: templates/author.html:37 templates/authors.html:30
@@ -42,842 +41,839 @@ msgstr "Archivos del Blog"
 #: templates/index.html:26 templates/landing.html:31 templates/page.html:55
 #: templates/tag.html:41 templates/tags.html:30
 msgid "Header-img-alt"
-msgstr "Joven hacker sonriendo"
+msgstr "Young hacker smiling"
 
 #: templates/archives.html:44
 msgid "Arcives-msg-1"
-msgstr "Archivos para"
+msgstr "Archives for"
 
 #: templates/article.html:63 templates/author.html:47 templates/authors.html:41
 #: templates/categories.html:41 templates/category.html:38
 #: templates/form.html:62 templates/page.html:66 templates/search.html:44
 #: templates/tag.html:51 templates/tags.html:41
 msgid "Breadcrumb-0"
-msgstr "Inicio"
+msgstr "Home"
 
 #: templates/article.html:65
 msgid "Articles-breadcrumb-1"
-msgstr "Categorías"
+msgstr "Categories"
 
 #: templates/article.html:91
 msgid "Articles-icon-alt-1"
-msgstr "Ícono de usuario"
+msgstr "User icon"
 
 #: templates/article.html:95
 msgid "Articles-icon-alt-2"
-msgstr "Ícono de globo de diálogo"
+msgstr "Dialog box icon"
 
 #: templates/article.html:95
 msgid "Articles-icon-msg-1"
-msgstr "Comentar"
+msgstr "Comment"
 
 #: templates/article.html:98
 msgid "Articles-icon-alt-3"
-msgstr "Ícono de carpeta"
+msgstr "Folder icon"
 
 #: templates/article.html:101
 msgid "Articles-icon-alt-4"
-msgstr "Ícono de calendario"
+msgstr "Calendar icon"
 
 #: templates/article.html:122
 msgid "Articles-author-alt"
-msgstr "Foto del autor"
+msgstr "Author picture"
 
 #: templates/article.html:137
 msgid "Articles-related-sect"
-msgstr "Relacionado"
+msgstr "Related"
 
 #: templates/article.html:174
 msgid "Articles-disqus-sect"
-msgstr "Haz un comentario"
+msgstr "Leave a comment"
 
 #: templates/author.html:4
 msgid "Author-metadescription-1"
-msgstr "Acá puedes encontrar todos los artículos escritos por el autor"
+msgstr "Here you can find all the articles written by the author"
 
 #: templates/author.html:4
 msgid "Author-metadescription-2"
 msgstr ""
-"Los artículos se encuentran ordenados por fecha de publicación. Ofrecen "
-"información acerca de diferentes temas en el campo de la Seguridad de la "
-"Información."
+"The articles are ordered by publishing date, starting with the last one. "
+"They offer information about the different topics in the field of "
+"Information Security."
 
 #: templates/author.html:5
 msgid "Author-keywords"
-msgstr "Autor, Artículo, Información, Seguridad, Blog, Publicación, Fecha"
+msgstr "Author, Article, Information, Security, Blog, Publising, Date"
 
 #: templates/author.html:8
 msgid "Articles-title"
-msgstr "Artículos por"
+msgstr "Articles by"
 
 #: templates/author.html:49
 msgid "Author-breadcrumb-1"
-msgstr "Autores"
+msgstr "Authors"
 
 #: templates/authors.html:4
 msgid "Authors-metadescription"
 msgstr ""
-"Aquí puedes encontrar una lista de todos los autores que han contribuido "
-"al blog publicando algún artículo, que puede contener una opinión, una "
-"solución a un reto, o simplemente información general relacionada a "
-"diversos temas en el campo de la Seguridad de la Información"
+"Here you can find the list of all the authors that have contributed to "
+"the blog by publishing an article which may have an opinion, a solution "
+"to a challenge, or just general information related to many topics in the"
+" field of Information Security"
 
 #: templates/authors.html:5
 msgid "Authors-keywords"
-msgstr "Autores, Blog, Publicar, Artículo, Información, Seguridad"
+msgstr "Authors, Blog, Publish, Article, Information, Security"
 
 #: templates/authors.html:8
 msgid "Authors-title"
-msgstr "Autores"
+msgstr "Authors"
 
 #: templates/authors.html:10
 msgid "Authors-canonical"
-msgstr "autores"
+msgstr "authors"
 
 #: templates/authors.html:46
 msgid "Authors-header"
-msgstr "Autores"
+msgstr "Authors"
 
 #: templates/categories.html:4
 msgid "Categories-metadescription"
 msgstr ""
-"Aquí puedes encontrar una lista de las categorías utilizadas para "
-"clasificar los artículos del blog. Todos los artículos se relacionan con "
-"el campo de la Seguridad de la Información y pueden tratar desde una "
-"opinión sobre un tema específico, o una solución a un reto, hasta "
-"información general"
+"Here you can find the list of categories used to classify the articles of"
+" the blog. They are all related to the field of Information Security and "
+"may range from an opinion related to a certain topic, or a solution to a "
+"challenge, all the way to just general information"
 
 #: templates/categories.html:5
 msgid "Categories-keywords"
-msgstr "Categoría, Clasificar, Artículo, Blog, Información, Seguridad"
+msgstr "Category, Classify, Articles, Blog, Information, Security"
 
 #: templates/categories.html:8
 msgid "Categories-title"
-msgstr "Categorías"
+msgstr "Categories"
 
 #: templates/categories.html:10
 msgid "Categories-canonical"
-msgstr "categorias"
+msgstr "categories"
 
 #: templates/categories.html:46
 msgid "Categories-header"
-msgstr "Categorías"
+msgstr "Categories"
 
 #: templates/category.html:4
 msgid "Category-metadescription-1"
 msgstr ""
-"Aquí puedes encontrar todos los artículos del blog que se relacionan con "
-"la categoría"
+"Here you can find all the articles of the blog which are related to the "
+"category"
 
 #: templates/category.html:4
 msgid "Category-metadescription-2"
 msgstr ""
+"The articles are ordered according to their publishing date and may "
+"address different subjets related to the field of Information Security"
 
 #: templates/category.html:5
 msgid "Category-keywords"
-msgstr "Artículo, Categoría, Blog, Información, Seguridad, Fecha"
+msgstr "Article, Category, Blog, Information, Security, Date"
 
 #: templates/category.html:8
 msgid "Category-title"
-msgstr "Artículos en la categoría"
+msgstr "Articles in the category"
 
 #: templates/category.html:40
 msgid "Category-breadcrumb-1"
-msgstr "Categorías"
+msgstr "Categories"
 
 #: templates/comments.html:1
 msgid "Comment-msg-1"
-msgstr "Tiene"
+msgstr "There are"
 
 #: templates/comments.html:1
 msgid "Comment-msg-2"
-msgstr "comentarios"
+msgstr "comments"
 
 #: templates/error.html:4
 msgid "Error-metadescription"
 msgstr ""
-"Ha ocurrido un error. La página que buscaste no existe o no se encuentra "
-"disponible en el momento. Aquí puedes encontrar enlaces al contenido más "
-"relevante del sitio web"
+"An error occured. The page you requested does not exist or is not "
+"available at the moment. Here you can find links to most of the relevant "
+"content of the website"
 
 #: templates/error.html:5
 msgid "Error-keywords"
-msgstr "Error, Petición, Página, Disponibilidad, Enlace, Contenido"
+msgstr "Error, Request, Page, Availability, Links, Content"
 
 #: templates/error.html:10 templates/error.html:12
 msgid "Error-title"
-msgstr "La página no ha sido encontrada"
+msgstr "The page was not found"
 
 #: templates/error.html:45
 msgid "Error-header-1"
-msgstr "PÁGINA NO ENCONTRADA"
+msgstr "PAGE NOT FOUND"
 
 #: templates/error.html:46
 msgid "Error-msg-1"
-msgstr "Haz click en la bandera para visualizar esta página en inglés"
+msgstr "Click the flag to view this page in spanish"
 
 #: templates/error.html:48
 msgid "Lang"
-msgstr "en"
+msgstr "es"
 
 #: templates/error.html:48
 msgid "Flag-alt"
-msgstr "Bandera de Estados Unidos"
+msgstr "Spain Flag"
 
 #: templates/error.html:51
 msgid "Error-msg-2"
 msgstr ""
-"Parece que no hay nada indexado en esta dirección. Intenta una búsqueda o"
-" haz click en uno de los siguientes links"
+"It seems nothing was found in this address. Try searching or browsing to "
+"one of the following links"
 
 #: templates/error.html:52
 msgid "Error-header-2"
-msgstr "Servicio"
+msgstr "Services"
 
 #: templates/error.html:54
 msgid "Error-cat-1"
-msgstr "servicios"
+msgstr "services"
 
 #: templates/error.html:60
 msgid "Error-header-3"
-msgstr "Productos"
+msgstr "Products"
 
 #: templates/error.html:62
 msgid "Error-cat-2"
-msgstr "producto"
+msgstr "products"
 
 #: templates/error.html:68
 msgid "Error-header-4"
-msgstr "Entradas Recientes del Blog"
+msgstr "Recent Blog Entries"
 
 #: templates/error.html:79
 msgid "Error-header-5"
-msgstr "Categorías del Blog"
+msgstr "Blog Categories"
 
 #: templates/error.html:87
 msgid "Error-header-6"
-msgstr "Empleos"
+msgstr "Careers"
 
 #: templates/error.html:89
 msgid "Error-cat-3"
-msgstr "empleos"
+msgstr "careers"
 
 #: templates/footer.html:4
 msgid "Footer-logo-1"
-msgstr "Logo de FLUID"
+msgstr "FLUID logo"
 
 #: templates/footer.html:7
 msgid "Footer-logo-2"
-msgstr "Logo de Twitter"
+msgstr "Twitter logo"
 
 #: templates/footer.html:8
 msgid "Footer-logo-3"
-msgstr "Logo de Facebook"
+msgstr "Facebook logo"
 
 #: templates/footer.html:9
 msgid "Footer-logo-4"
-msgstr "Logo de Google Plus"
+msgstr "Google Plus logo"
 
 #: templates/footer.html:10
 msgid "Footer-logo-5"
-msgstr "Logo de LinkedIn"
+msgstr "LinkedIn logo"
 
 #: templates/footer.html:11
 msgid "Footer-logo-6"
-msgstr "Logo de YouTube"
+msgstr "YouTube logo"
 
 #: templates/footer.html:16
 msgid "Footer-header-1"
-msgstr "Nosotros"
+msgstr "About Us"
 
 #: templates/footer.html:17
 msgid "Footer-link-1.1"
-msgstr "clientes"
+msgstr "customers"
 
 #: templates/footer.html:17
 msgid "Footer-subtitle-1.1"
-msgstr "Clientes"
+msgstr "Customers"
 
 #: templates/footer.html:18
 msgid "Footer-link-1.2"
-msgstr "valores"
+msgstr "values"
 
 #: templates/footer.html:18
 msgid "Footer-subtitle-1.2"
-msgstr "Valores"
+msgstr "Values"
 
 #: templates/footer.html:19
 msgid "Footer-link-1.3"
-msgstr "conferencias"
+msgstr "talks"
 
 #: templates/footer.html:19
 msgid "Footer-subtitle-1.3"
-msgstr "Conferencia"
+msgstr "Talks"
 
 #: templates/footer.html:20
 msgid "Footer-link-1.4"
-msgstr "personas"
+msgstr "people"
 
 #: templates/footer.html:20
 msgid "Footer-subtitle-1.4"
-msgstr "Personas"
+msgstr "People"
 
 #: templates/footer.html:21
 msgid "Footer-link-1.5"
-msgstr "ubicacion"
+msgstr "location"
 
 #: templates/footer.html:21
 msgid "Footer-subtitle-1.5"
-msgstr "Ubicación"
+msgstr "Location"
 
 #: templates/footer.html:22
 msgid "Footer-subtitle-1.6"
-msgstr "Contáctenos"
+msgstr "Contact Us"
 
 #: templates/footer.html:23
 msgid "Footer-link-1.7"
-msgstr "terminos-uso"
+msgstr "terms-use"
 
 #: templates/footer.html:23
 msgid "Footer-subtitle-1.7"
-msgstr "Términos de Uso"
+msgstr "Terms of Use"
 
 #: templates/footer.html:26 templates/footer.html:27 templates/footer.html:28
 #: templates/footer.html:29
 msgid "Footer-cat-1"
-msgstr "servicios"
+msgstr "services"
 
 #: templates/footer.html:26
 msgid "Footer-header-2"
-msgstr "Servicios"
+msgstr "Services"
 
 #: templates/footer.html:27
 msgid "Footer-link-2.1"
-msgstr "hacking-puntual"
+msgstr "one-shot-hacking"
 
 #: templates/footer.html:27
 msgid "Footer-subtitle-2.1"
-msgstr "Hacking Puntual"
+msgstr "One-Shot Hacking"
 
 #: templates/footer.html:28
 msgid "Footer-link-2.2"
-msgstr "hacking-continuo"
+msgstr "continuous-hacking"
 
 #: templates/footer.html:28
 msgid "Footer-subtitle-2.2"
-msgstr "Hacking Continuo"
+msgstr "Continuous Hacking"
 
 #: templates/footer.html:32 templates/footer.html:33 templates/footer.html:34
 #: templates/footer.html:35 templates/footer.html:36 templates/footer.html:37
 msgid "Footer-cat-2"
-msgstr "productos"
+msgstr "products"
 
 #: templates/footer.html:32
 msgid "Footer-header-3"
-msgstr "Productos"
+msgstr "Products"
 
 #: templates/footer.html:41
 msgid "Footer-link-3.1"
-msgstr "estilo"
+msgstr "style"
 
 #: templates/footer.html:41
 msgid "Footer-subtitle-3.1"
-msgstr "Estilo"
+msgstr "Style"
 
 #: templates/footer.html:42
 msgid "Footer-link-3.2"
-msgstr "temas"
+msgstr "topics"
 
 #: templates/footer.html:42
 msgid "Footer-subtitle-3.2"
-msgstr "Temas"
+msgstr "Topics"
 
 #: templates/footer.html:43
 msgid "Footer-link-3.3"
-msgstr "autores"
+msgstr "authors"
 
 #: templates/footer.html:43
 msgid "Footer-subtitle-3.3"
-msgstr "Autores"
+msgstr "Authors"
 
 #: templates/footer.html:44
 msgid "Footer-link-3.4"
-msgstr "categorias"
+msgstr "categories"
 
 #: templates/footer.html:44
 msgid "Footer-subtitle-3.4"
-msgstr "Categorías"
+msgstr "Categories"
 
 #: templates/footer.html:45
 msgid "Footer-link-3.5"
-msgstr "etiquetas"
+msgstr "tags"
 
 #: templates/footer.html:45
 msgid "Footer-subtitle-3.5"
-msgstr "Etiquetas"
+msgstr "Tags"
 
 #: templates/footer.html:46
 msgid "Footer-subtitle-3.6"
-msgstr "Formato"
+msgstr "Format"
 
 #: templates/footer.html:49 templates/footer.html:50 templates/footer.html:51
 #: templates/footer.html:52 templates/footer.html:53 templates/footer.html:54
 #: templates/footer.html:55 templates/footer.html:56
 msgid "Footer-cat-3"
-msgstr "empleos"
+msgstr "careers"
 
 #: templates/footer.html:49
 msgid "Footer-header-4"
-msgstr "Empleos"
+msgstr "Careers"
 
 #: templates/footer.html:50
 msgid "Footer-link-4.1"
-msgstr "razones"
+msgstr "reasons"
 
 #: templates/footer.html:50
 msgid "Footer-subtitle-4.1"
-msgstr "Razones"
+msgstr "Reasons"
 
 #: templates/footer.html:51
 msgid "Footer-link-4.2"
-msgstr "vacantes"
+msgstr "positions"
 
 #: templates/footer.html:51
 msgid "Footer-subtitle-4.2"
-msgstr "Vacantes"
+msgstr "Positions"
 
 #: templates/footer.html:52
 msgid "Footer-link-4.3"
-msgstr "terminos"
+msgstr "terms"
 
 #: templates/footer.html:52
 msgid "Footer-subtitle-4.3"
-msgstr "Términos"
+msgstr "Terms"
 
 #: templates/footer.html:53
 msgid "Footer-link-4.4"
-msgstr "evaluacion-conocimientos"
+msgstr "knowledge-test"
 
 #: templates/footer.html:53
 msgid "Footer-subtitle-4.4"
-msgstr "Conocimientos"
+msgstr "Knowledge test"
 
 #: templates/footer.html:54
 msgid "Footer-link-4.5"
-msgstr "retos-tecnicos"
+msgstr "technical-challenges"
 
 #: templates/footer.html:54
 msgid "Footer-subtitle-4.5"
-msgstr "Retos"
+msgstr "Challenges"
 
 #: templates/footer.html:55
 msgid "Footer-link-4.6"
-msgstr "inmersion"
+msgstr "immersion"
 
 #: templates/footer.html:55
 msgid "Footer-subtitle-4.6"
-msgstr "Inmersion"
+msgstr "Immersion"
 
 #: templates/footer.html:59 templates/footer.html:60 templates/footer.html:61
 #: templates/footer.html:62 templates/footer.html:63 templates/footer.html:64
 #: templates/footer.html:65 templates/footer.html:66
 msgid "Footer-cat-4"
-msgstr "sectores"
+msgstr "sectors"
 
 #: templates/footer.html:59
 msgid "Footer-header-5"
-msgstr "Sectores"
+msgstr "Sectors"
 
 #: templates/footer.html:60
 msgid "Footer-link-5.1"
-msgstr "financiero"
+msgstr "financial"
 
 #: templates/footer.html:60
 msgid "Footer-subtitle-5.1"
-msgstr "Financiero"
+msgstr "Financial"
 
 #: templates/footer.html:61
 msgid "Footer-link-5.2"
-msgstr "comunicaciones"
+msgstr "communications"
 
 #: templates/footer.html:61
 msgid "Footer-subtitle-5.2"
-msgstr "Comunicaciones"
+msgstr "Communications"
 
 #: templates/footer.html:62
 msgid "Footer-link-5.3"
-msgstr "comercial"
+msgstr "consumer"
 
 #: templates/footer.html:62
 msgid "Footer-subtitle-5.3"
-msgstr "Comercial"
+msgstr "Consumer"
 
 #: templates/footer.html:63
 msgid "Footer-link-5.4"
-msgstr "tecnologia"
+msgstr "technology"
 
 #: templates/footer.html:63
 msgid "Footer-subtitle-5.4"
-msgstr "Tecnología"
+msgstr "Technology"
 
 #: templates/footer.html:64
 msgid "Footer-link-5.5"
-msgstr "energia"
+msgstr "utilities"
 
 #: templates/footer.html:64
 msgid "Footer-subtitle-5.5"
-msgstr "Energía"
+msgstr "Utilities"
 
 #: templates/footer.html:66
 msgid "Footer-link-5.7"
-msgstr "transporte"
+msgstr "transportation"
 
 #: templates/footer.html:66
 msgid "Footer-subtitle-5.7"
-msgstr "Transporte"
+msgstr "Transportation"
 
 #: templates/home.html:4
 msgid "Home-metadescription"
 msgstr ""
-"Somos una compañía especialista en Ethical Hacking de Aplicación e "
-"Infraestructura. Somos hackers que desarrollamos nuestras propias "
-"herramientas y exploits, cuyo objetivo identificar todas las "
-"vulnerabilidades de sus aplicaciones y reportarlas lo más pronto posible."
+"We are a company specialized in Ethical Hacking over Applications and "
+"Infrastructure. We are hackers who develop our own tools and exploits, "
+"with the aim of identifying all the vulnerabilities of your applications "
+"and report them as soon as possible"
 
 #: templates/home.html:5
 msgid "Home-keywords"
 msgstr ""
-"FLUID, Ethical hacking, Vulnerabilidad, Diagnóstico, Aplicación, "
-"Infraestructura"
+"FLUID, Ethical Hacking, Vulnerability, Diagnosis, Application, "
+"Infrastructure"
 
 #: templates/home.html:8
 msgid "Home-title"
-msgstr "Inicio"
+msgstr "Home"
 
 #: templates/home.html:51
 msgid "Home-msg-btn"
-msgstr "Consultar Servicio"
+msgstr "Consult Service"
 
 #: templates/index.html:4
 msgid "Index-metadescription"
 msgstr ""
-"Aquí puedes encontrar todos los artículos publicados en el blog, que "
-"opueden tratar una opinión, una solución a un reto, o simplemente "
-"información general, todo relacionado con el campo de Seguridad de la "
-"Información"
+"Here you can find all the articles published to the blog, which may "
+"address an opinion, a solution to a challenge, or just general "
+"information, all related to the field of Information Security."
 
 #: templates/index.html:5
 msgid "Index-keywords"
-msgstr "Artículos, Blog, Opinión, Reto, Información, Seguridad"
+msgstr "Articles, Blog, Opinion, Challenge, Information, Security"
 
 #: templates/index.html:10 templates/index.html:12
 msgid "Index-title"
-msgstr "Inicio del Blog"
+msgstr "Blog Home"
 
 #: templates/index.html:44
 msgid "Index-icon-alt-1"
-msgstr "Ícono de pluma"
+msgstr "Quill icon"
 
 #: templates/index.html:48
 msgid "Index-icon-alt-2"
-msgstr "Ícono de carpeta"
+msgstr "Folder icon"
 
 #: templates/index.html:50
 msgid "Index-icon-alt-3"
-msgstr "Ícono de etiqueta"
+msgstr "Tag icon"
 
 #: templates/index.html:67
 msgid "Index-msg-btn"
-msgstr "Seguir Leyendo"
+msgstr "Read More"
 
 #: templates/landing.html:4
 msgid "Landing-metadescription"
 msgstr ""
-"Somos una compañía especialista en Ethical Hacking de Aplicación e "
-"Infraestructura. Somos hackers que desarrollamos nuestras propias "
-"herramientas y exploits, cuyo objetivo identificar todas las "
-"vulnerabilidades de sus aplicaciones y reportarlas lo más pronto posible."
+"We are a company specialized in Ethical Hacking over Applications and "
+"Infrastructure. We are hackers who develop our own tools and exploits, "
+"with the aim of identifying all the vulnerabilities of your applications "
+"and report them as soon as possible"
 
 #: templates/landing.html:5
 msgid "Landing-keywords"
 msgstr ""
-"FLUID, Ethical hacking, Vulnerabilidad, Diagnóstico, Aplicación, "
-"Infraestructura"
+"FLUID, Ethical Hacking, Vulnerability, Diagnosis, Application, "
+"Infrastructure"
 
 #: templates/landing.html:8
 msgid "Landing-title"
-msgstr "Inicio"
+msgstr "Home"
 
 #: templates/landing.html:39
 msgid "Index-header-1"
-msgstr "Servicios"
+msgstr "Services"
 
 #: templates/landing.html:40
 msgid "Index-msg-1"
 msgstr ""
-"Usando una metodología de caja blanca o revisión de código, ya sea en "
-"cada aplicación o en el conjunto entero de aplicaciones, detectamos "
-"problemas de seguridad:"
+"Using a white-box methodology or code review, either on each application "
+"or the complete suite of applications, we detect security issues:"
 
 #: templates/landing.html:43 templates/landing.html:47
 msgid "Index-img-alt"
-msgstr "Servicio"
+msgstr "Service"
 
 #: templates/landing.html:44 templates/landing.html:48
 msgid "Index-cat-1"
-msgstr "servicios"
+msgstr "services"
 
 #: templates/landing.html:44
 msgid "Index-serv-1"
-msgstr "hacking-continuo"
+msgstr "continuous-hacking"
 
 #: templates/landing.html:44
 msgid "Index-header-2"
-msgstr "Hacking <strong>Continuo</strong>"
+msgstr "<strong>Continuous</strong> Hacking"
 
 #: templates/landing.html:48
 msgid "Index-serv-2"
-msgstr "hacking-puntual"
+msgstr "one-shot-hacking"
 
 #: templates/landing.html:48
 msgid "Index-header-3"
-msgstr "Hacking <strong>Puntual</strong>"
+msgstr "<strong>One-Shot</strong> Hacking"
 
 #: templates/landing.html:56
 msgid "Index-bnft-header"
-msgstr "¿Por qué es <strong>FLUID la mejor opción</strong> para ti?"
+msgstr "Why is <strong>FLUID better</strong> for you?"
 
 #: templates/landing.html:59
 msgid "Index-img-alt-2"
-msgstr "Lupa analizando código"
+msgstr "Magnifying glass analysing code"
 
 #: templates/landing.html:61
 msgid "Index-bnft-1"
-msgstr "<strong>Detección</strong> de fallas que causan riesgos de seguridad."
+msgstr "Faults <strong>detection</strong> that cause security risks."
 
 #: templates/landing.html:64
 msgid "Index-img-alt-3"
-msgstr "Signo de admiración final"
+msgstr "Closing admiration sign"
 
 #: templates/landing.html:66
 msgid "Index-bnft-2"
-msgstr "<strong>Genera alertas de seguridad</strong> en una etapa temprana."
+msgstr "<strong>Generates security alerts</strong> in an early stage."
 
 #: templates/landing.html:69
 msgid "Index-img-alt-4"
-msgstr "Gráfica mostrando el incremento de ganancias"
+msgstr "Graph showing the increase of earnings"
 
 #: templates/landing.html:71
 msgid "Index-bnft-3"
-msgstr "<strong>Reduce</strong> las pérdidas por incidentes de seguridad."
+msgstr "<strong>Reduces</strong> losses due to security incidents."
 
 #: templates/landing.html:74
 msgid "Index-img-alt-5"
-msgstr "Mano sosteniendo un símbolo de un candado"
+msgstr "Hand holding a lock sign"
 
 #: templates/landing.html:76
 msgid "Index-bnft-4"
-msgstr "<strong>Genera confianza</strong> en clientes y usuarios de la aplicación"
+msgstr "<strong>Generates confidence</strong> in customers and application users."
 
 #: templates/landing.html:79
 msgid "Index-img-alt-6"
-msgstr "Mano con el pulgar arriba"
+msgstr "Hand with the thumb up"
 
 #: templates/landing.html:81
 msgid "Index-bnft-5"
 msgstr ""
-"Ayuda a mejorar la <strong>calidad</strong> de los procesos, "
-"infraestructura y personal"
+"Helps improve the <strong>quality</strong> of processes, infrastructure "
+"and staff."
 
 #: templates/landing.html:85
 msgid "Index-header-4"
-msgstr "Clientes"
+msgstr "Customers"
 
 #: templates/landing.html:87
 msgid "Index-msg-2"
 msgstr ""
-"FLUID lleva más de 18 años prestando servicios de Seguridad de la "
-"Información en el mercado colombiano. A continuación listamos algunos de "
-"algunos de nuestros clientes."
+"FLUID has been providing Information Security services in the colombian "
+"market for over 18 years. Below, we list some of our customers."
 
 #: templates/location.html:21 templates/location.html:30
 #: templates/location.html:66 templates/location.html:85
 msgid "Location-tel"
-msgstr "Teléfono fijo"
+msgstr "Land line"
 
 #: templates/location.html:22 templates/location.html:31
 #: templates/location.html:39 templates/location.html:67
 #: templates/location.html:86 templates/location.html:104
 msgid "Location-cel"
-msgstr "Celular"
+msgstr "Mobile"
 
 #: templates/location.html:24 templates/location.html:69
 msgid "CO-Md-building"
-msgstr "Edificio Forum"
+msgstr "Forum Building"
 
 #: templates/location.html:25 templates/location.html:34
 #: templates/location.html:41 templates/location.html:70
 #: templates/location.html:89 templates/location.html:106
 msgid "Location-office"
-msgstr "Oficina"
+msgstr "Office"
 
 #: templates/location.html:26 templates/location.html:35
 #: templates/location.html:42 templates/location.html:71
 #: templates/location.html:90 templates/location.html:107
 msgid "Location-ZIP"
-msgstr "Código Postal"
+msgstr "Postal Code"
 
 #: templates/location.html:33 templates/location.html:88
 msgid "CO-Bg-building"
-msgstr "Edificio Avenida Chile"
+msgstr "Avenida Chile Building"
 
 #: templates/navigationbar.html:12
 msgid "Navb-search-msg"
-msgstr "Buscar en el sitio..."
+msgstr "Search this site..."
 
 #: templates/navigationbar.html:14
 msgid "Navb-img-alt-1"
-msgstr "Lupa"
+msgstr "Magnifying glass"
 
 #: templates/navigationbar.html:19
 msgid "Navb-logo"
-msgstr "Logo de FLUID"
+msgstr "FLUID logo"
 
 #: templates/navigationbar.html:22
 msgid "Navb-opt-1"
-msgstr "Inicio"
+msgstr "Home"
 
 #: templates/navigationbar.html:23 templates/navigationbar.html:25
 #: templates/navigationbar.html:26
 msgid "Navb-cat-1"
-msgstr "servicios"
+msgstr "services"
 
 #: templates/navigationbar.html:23
 msgid "Navb-opt-2"
-msgstr "Servicios"
+msgstr "Services"
 
 #: templates/navigationbar.html:25
 msgid "Navb-link-2.1"
-msgstr "hacking-puntual"
+msgstr "one-shot-hacking"
 
 #: templates/navigationbar.html:25
 msgid "Navb-opt-2.1"
-msgstr "Hacking Puntual"
+msgstr "One Shot Hacking"
 
 #: templates/navigationbar.html:26
 msgid "Navb-link-2.2"
-msgstr "hacking-continuo"
+msgstr "continuous-hacking"
 
 #: templates/navigationbar.html:26
 msgid "Navb-opt-2.2"
-msgstr "Hacking Continuo"
+msgstr "Continuous Hacking"
 
 #: templates/navigationbar.html:29 templates/navigationbar.html:31
 #: templates/navigationbar.html:32 templates/navigationbar.html:33
 #: templates/navigationbar.html:34 templates/navigationbar.html:35
 msgid "Navb-cat-2"
-msgstr "productos"
+msgstr "products"
 
 #: templates/navigationbar.html:29
 msgid "Navb-opt-3"
-msgstr "Productos"
+msgstr "Products"
 
 #: templates/navigationbar.html:38
 msgid "Navb-link-4"
-msgstr "clientes"
+msgstr "customers"
 
 #: templates/navigationbar.html:38
 msgid "Navb-opt-4"
-msgstr "Clientes"
+msgstr "Customers"
 
 #: templates/navigationbar.html:39
 msgid "Navb-link-5"
-msgstr "empleos"
+msgstr "careers"
 
 #: templates/navigationbar.html:39
 msgid "Navb-opt-5"
-msgstr "Empleos"
+msgstr "Careers"
 
 #: templates/page.html:130
 msgid "Page-disqus-sect"
-msgstr "Haz un comentario"
+msgstr "Leave a comment"
 
 #: templates/pagination.html:6
 msgid "Pagination-prev"
-msgstr "Anterior"
+msgstr "Previous"
 
 #: templates/pagination.html:9
 msgid "Pagination-nxt"
-msgstr "Siguiente"
+msgstr "Next"
 
 #: templates/pagination.html:13
 msgid "Pagination-msg-1"
-msgstr "Página"
+msgstr "Page"
 
 #: templates/pagination.html:13
 msgid "Pagination-msg-2"
-msgstr "de"
+msgstr "of"
 
 #: templates/search.html:4
 msgid "Search-metadescription"
 msgstr ""
-"Esta página muestra los resultados de la búsqueda realizada. En ella se "
-"enlazan todas las páginas que contengan la cadena de caracteres buscada "
-"Si la cadena no fue encontrada, no se listará nada, intenta navegando "
-"a través del menú o el pie de página"
+"This page shows the results of the requested search. It lists links to all "
+"the pages that contain the string searched. If the string was not found, no "
+"articles will be listed, try browsing using the menu or the footer"
 
 #: templates/search.html:5
 msgid "Search-keywords"
-msgstr "Resultados, Buscar, Páginas, Cadena, Enlaces, Peticiones"
+msgstr "Results, Search, Pages, String, Links, Request"
 
 #: templates/search.html:8
 msgid "Search-title"
-msgstr "Búsqueda"
+msgstr "Search"
 
 #: templates/tag.html:4
 msgid "Tag-metadescription-1"
-msgstr "Aquí puedes encontrar todos los artículos relacionados con la etiqueta"
+msgstr ""
+"Here you can find all the articles of the blog which are related to the "
+"tag"
 
 #: templates/tag.html:4
 msgid "Tag-metadescription-2"
 msgstr ""
-"Los artículos se encuentran ordenados de acuerdo a su fecha de publicación, y "
-"pueden tratar diferentes temas relacionados al campo de la Seguridad de la "
-"Información"
+"The articles are ordered according to their publishing date and may "
+"address different subjets related to the field of Information Security"
 
 #: templates/tag.html:5
 msgid "Tag-keywords"
-msgstr "Artículo, Etiqueta, Blog, Información, Seguridad, Fecha"
+msgstr "Article, Tag, Blog, Information, Security, Date"
 
 #: templates/tag.html:12 templates/tag.html:17
 msgid "Tag-title"
-msgstr "Etiqueta"
+msgstr "Tag"
 
 #: templates/tag.html:53
 msgid "Tag-breadcrumb-1"
-msgstr "Etiquetas"
+msgstr "Tags"
 
 #: templates/tags.html:4
 msgid "Tags-metadescrition"
 msgstr ""
-"Aquí puedes encontrar una lista de etiquetas utilizadas para clasificar "
-"los artículos del blog. Estos artículos están relacionados con el tema de"
-" Seguridad de la Información y pueden tratar temas desde una opinión "
-"sobre un tema específicoo una solución a un reto, hasta simplemente "
-"información general"
+"Here you can find the list of tags used to classify the articles of the "
+"blog. These articles are all related to the field of Information Security"
+" and may range from an opinion related to a certain topic, or a solution "
+"to a challenge, all the way to just general information"
 
 #: templates/tags.html:5
 msgid "Tags-keywords"
-msgstr "Etiqueta, Clasificar, Artículos, Blog, Información, Seguridad"
+msgstr "Tag, Classify, Articles, Blog, Information, Security"
 
 #: templates/tags.html:8
 msgid "Tags-title"
-msgstr "Etiquetas"
+msgstr "Tags"
 
 #: templates/tags.html:10
 msgid "Tags-canonical"
-msgstr "etiquetas"
+msgstr "tags"
 
 #: templates/tags.html:46
 msgid "Tags-header"
-msgstr "Etiquetas"
+msgstr "Tags"

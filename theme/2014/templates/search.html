@@ -1,16 +1,17 @@
 {% extends "index.html" %}
-{% block title %}{{ gettext('Search') }} | {{ SITENAME }}{% endblock %}
 
 {% block meta %}
-  <meta name="keywords" content="{{ gettext('This page shows the results of the requested search. It lists links to all the pages that contain the string searched. If the string was not found, no articles will be listed, try browsing using the menu or the footer') }}.">
-  <meta name="description" content="{{ gettext('Results, Search, Pages, String, Links, Request') }}">
+  <meta name="description" content="{{ gettext('Search-metadescription') }}.">
+  <meta name="keywords" content="{{ gettext('Search-keywords') }}">
 {% endblock meta %}
+
+{% block title %}{{ gettext('Search-title') }} | {{ SITENAME }}{% endblock %}
 
 {% block language %}
   {% if DEFAULT_LANG == "en" %}
     <link rel="alternate" href="{{ SITEURL }}/search.html" hreflang="en-us" />
     <link rel="alternate" href="{{ SUBSITEURL }}/search.html" hreflang="es" />
-  {% else %}
+  {% elif DEFAULT_LANG == "es" %}
     <link rel="alternate" href="{{ SITEURL }}/search.html" hreflang="es" />
     <link rel="alternate" href="{{ SUBSITEURL }}/search.html" hreflang="en-us" />
   {% endif %}
@@ -40,7 +41,7 @@
       <div class="nav-info">
         <div class="breadcrumbs">
           <ul>
-            <li><a href="{{ SITEURL }}/">{{ gettext('Home') }}</a></li>
+            <li><a href="{{ SITEURL }}/">{{ gettext('Breadcrumb-0') }}</a></li>
           </ul>
         </div>
       </div>
