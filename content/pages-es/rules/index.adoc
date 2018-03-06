@@ -91,6 +91,10 @@
 
 * link:218/[REQ.218 Aleatorios generados uniformemente].
 
+== Autenticación
+
+* link:221/[REQ.221 Respuestas de autenticación adecuadas].
+
 == Sistema Operativo
 
 * link:272/[REQ.272 Información de servicios inaccesible].
