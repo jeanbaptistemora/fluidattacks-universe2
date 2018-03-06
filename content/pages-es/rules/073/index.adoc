@@ -1,0 +1,17 @@
+:slug: rules/073/
+:category: rules
+:description: En el presente documento se detallan los requerimientos de seguridad relacionados con las bitácoras que registran eventos relevantes. En este requerimiento se establece la importancia de registrar los niveles de severidad para los eventos excepcionales y de seguridad.
+:keywords: Requerimiento, Seguridad, Bitácoras, Registrar, Momento, Ocurrencia.
+:rules: yes
+
+= REQ.073 Registrar momento de ocurrencia de eventos
+
+== Nombre 
+
+El sistema debe registrar el momento exacto de ocurrencia 
+(Fecha, hora, segundos, milisegundos, y zona horaria) 
+para cada evento excepcional y de seguridad. 
+
+== Soluciones
+
+. +COBOL+ link:../../defends/cobol/registrar-excepciones-ile/[Registrar Excepciones ILE].

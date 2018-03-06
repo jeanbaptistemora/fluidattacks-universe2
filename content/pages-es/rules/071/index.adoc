@@ -1,0 +1,16 @@
+:slug: rules/071/
+:category: rules
+:description: En el presente documento se detallan los requerimientos de seguridad relacionados con las bitácoras que registran eventos relevantes. En este requerimiento se establece la importancia de registrar los niveles de severidad para los eventos excepcionales y de seguridad.
+:keywords: Requerimiento, Seguridad, Bitácoras, Registrar, Severidad, Eventos.
+:rules: yes
+
+= REQ.071 Registrar niveles de severidad de eventos
+
+== Nombre 
+
+El sistema debe registrar el nivel de severidad 
+para cada evento excepcional y de seguridad. 
+
+== Soluciones
+
+. +COBOL+ link:../../defends/cobol/registrar-excepciones-ile/[Registrar Excepciones ILE].
