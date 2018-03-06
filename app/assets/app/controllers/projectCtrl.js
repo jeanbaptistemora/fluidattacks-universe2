@@ -541,6 +541,7 @@ integrates.controller(
                     $scope.view.project = true;
                     if(!response.error){
                         //Tracking Mixpanel
+                        mixPanelDashboard.trackSearch("SearchFinding", userEmail, project);
                         $scope.data = response.data;
                         for(var i = 0; i< $scope.data.length;i++){
                            switch ($scope.data[i].actor) {
@@ -846,8 +847,7 @@ integrates.controller(
                              default:
                                $scope.data[i].tratamiento = $translate.instant('finding_formstack.treatment_header.default');;
                            }
-                        };
-                        mixPanelDashboard.trackSearch("SearchFinding", userEmail, project);
+                        }
                         $timeout($scope.mainGraphexploitPieChart, 200);
                         $timeout($scope.mainGraphtypePieChart, 200);
                         $timeout($scope.mainGraphstatusPieChart, 200);
@@ -887,7 +887,9 @@ integrates.controller(
                             $scope.view.project = false;
                             $scope.view.finding = false;
                         }
-                    }else{
+                    } else {
+                        $scope.view.project = false;
+                        $scope.view.finding = false;
                         Rollbar.error("Error: Project not found");
                         $msg.error($translate.instant('proj_alerts.not_found'));
                     }
@@ -977,6 +979,7 @@ integrates.controller(
                         $('[data-toggle="tooltip"]').tooltip();
                     }else{
                         Rollbar.error("Error: Event not found");
+                        $msg.error($translate.instant('proj_alerts.not_found'));
                     }
                 });
             }

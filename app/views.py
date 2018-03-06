@@ -394,6 +394,9 @@ def get_findings(request):
     finreqset = api.get_findings(project)["submissions"]
     for submission_id in finreqset:
         finding = catch_finding(request, submission_id["id"])
+        if finding['vulnerabilidad'].lower() == 'masked':
+            rollbar.report_message('Warning: Project masked', 'warning', request)
+            return util.response([], 'Project masked', True)
         if finding['proyecto_fluid'].lower() == project.lower():
             findings.append(finding)
     return util.response(findings, 'Success', False)
