@@ -5,7 +5,7 @@
 
 = Rules
 
-== Activos:
+== Activos
 
 * link:001/[REQ.001 Activos de información identificados].
 * link:002/[REQ.002 Activo de información asociado a responsable].
@@ -22,7 +22,7 @@
 * link:013/[REQ.013 Garantizar corrección de vulnerabilidades].
 * link:014/[REQ.014 Medio seguro para información física].
 
-== Acuerdos:
+== Acuerdos
 
 * link:015/[REQ.015 Acuerdos a nivel de servicio con terceros].
 * link:016/[REQ.016 Acuerdos de confiabilidad con terceros].
@@ -30,22 +30,22 @@
 * link:018/[REQ.018 Garantizar cumplimiento requisitos].
 * link:019/[REQ.019 Permitir auditorías de cliente].
 
-== Sesiones:
+== Sesiones
 
 * link:026/[REQ.026 Cookies con atributos de seguridad].
 
-== Archivos:
+== Archivos
 
 * link:033/[REQ.033 Parámetros sin datos sensibles].
 * link:039/[REQ.039 Definir content type explícito].
 * link:040/[REQ.040 Definir charset explícito].
 
 
-== Bitácoras:
+== Bitácoras
 
 * link:077/[REQ.077 No registrar datos sensibles en bitácoras].
 
-== Credenciales:
+== Credenciales
 
 * link:125/[REQ.125 Contraseñas con al menos 3 palabras].
 * link:126/[REQ.126 Contraseñas con al menos 8 caracteres].
@@ -58,14 +58,14 @@
 * link:133/[REQ.133 Derivaciones de clave aleatorias].
 * link:997/[REQ.997 Contraseñas sin palabras de diccionario]
 
-== Criptografía:
+== Criptografía
 
 * link:142/[REQ.142 Utilizar mecanismos pre-existentes].
 * link:143/[REQ.143 Cifrado asimétrico de tamaño mínimo].
 * link:145/[REQ.145 Funciones resumen de tamaño mínimo].
 * link:219/[REQ.219 Usar mecanismos criptográficos seguros].
 
-== Fuente:
+== Fuente
 
 * link:149/[REQ.149 Eliminar puertas traseras].
 * link:152/[REQ.152 Compilación estricta].
@@ -79,7 +79,7 @@
 * link:162/[REQ.162 Cerrar recursos no utilizados].
 * link:163/[REQ.163 Variables inicializadas explícitamente].
 
-== Datos:
+== Datos
 
 * link:171/[REQ.171 Restringir objetos del sistema].
 * link:172/[REQ.172 Almacenar datos de forma segura].
@@ -87,11 +87,11 @@
 * link:998/[REQ.998 Limitar tiempo de vida de variables].
 * link:999/[REQ.999 Limitar tiempo de vida de recursos].
 
-== Aleatorios:
+== Aleatorios
 
 * link:218/[REQ.218 Aleatorios generados uniformemente].
 
-== Sistema Operativo:
+== Sistema Operativo
 
 * link:272/[REQ.272 Información de servicios inaccesible].
 
