@@ -169,6 +169,7 @@ Algunas de ellas son:
 * Cuando un usuario realiza un comentario sobre una vulnerabilidad.
 * Cuando un usuario informa que ya fue remediada una vulnerabilidad.
 * Cuando se verifica la remediación de una vulnerabilidad.
+* Cuando un hallazgo cumple más de 15 días de reportado y no ha sido tratado.
 
 a|== Base De Conocimiento
 
