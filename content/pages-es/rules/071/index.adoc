@@ -14,3 +14,4 @@ para cada evento excepcional y de seguridad.
 == Soluciones
 
 . +COBOL+ link:../../defends/cobol/registrar-excepciones-ile/[Registrar Excepciones ILE].
+. +COBOL+ link:../../defends/cobol/registrar-excepciones-opm/[Registrar Excepciones OPM].

@@ -316,11 +316,7 @@ las instrucciones para capturar y procesar el error generado desde +cblerr1+.
 
 == Referencias
 
-. [[r1]] REQ.0070: El sistema debe registrar 
-todos los eventos excepcionales y de seguridad 
-en una o varias bitácoras.
-. [[r2]] REQ.0071: El sistema debe registrar 
-el nivel de severidad 
-para cada evento excepcional y de seguridad.
+. [[r1]] link:../../../rules/070/[REQ.070 Registrar eventos en bitácoras].
+. [[r2]] link:../../../rules/071/[REQ.071 Registrar niveles de severidad de eventos].
 . [[r3]] link:https://www.ibm.com/support/knowledgecenter/ssw_i5_54/apis/qpdloger.htm[Log Software Error (QPDLOGER) API].
 . [[r4]] link:https://www.ibm.com/support/knowledgecenter/ssw_ibm_i_71/apis/QLRSETCE.htm[Set COBOL Error Handler (QLRSETCE) API].
