@@ -268,8 +268,7 @@ todas las instrucciones +COBOL+ del programa.
 
 == Referencias
 
-. [[r1]] REQ.0101: El sistema debe tener la capacidad de validar
-que ninguna contraseña contenga palabras de diccionario.
+. [[r1]] link:../../../rules/997/[REQ.997 Contraseñas sin palabras de diccionario]
 . [[r2]] link:http://dazzlepod.com/uniqpass/[Dazzlepod Uniqpass].
 . [[r3]] link:http://www.openwall.com/wordlists/[Openwall Wordlist].
 . [[r4]] link:http://wordlist.aspell.net/[Wordlist project].

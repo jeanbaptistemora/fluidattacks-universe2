@@ -1,0 +1,17 @@
+:slug: rules/997/
+:category: rules
+:description: En el presente documento se detallan los requerimientos de seguridad relacionados a las credenciales de acceso a información sensible de la organización. En este requerimiento se establece la importancia de validar que las contraseñas no contengan palabras de diccionario.
+:keywords: Requerimiento, Seguridad, Contraseñas, Palabras, Comunes, Diccionario.
+:rules: yes
+
+= REQ.997 Contraseñas sin palabras de diccionario
+
+== Nombre 
+
+El sistema debe tener la capacidad de validar 
+que ninguna contraseña contenga palabras de diccionario. 
+
+
+== Soluciones
+
+. +COBOL+ link:../../defends/cobol/fortaleza-diccionario/[Comprobar Fortaleza Diccionario].
