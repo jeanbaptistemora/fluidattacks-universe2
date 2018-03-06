@@ -6,7 +6,7 @@
 
 = REQ.998 Limitar tiempo de vida de variables
 
-== Nombre Completo
+== Nombre
 
 La aplicación debe eliminar/sobrescribir variables 
 una vez no estén en uso.
