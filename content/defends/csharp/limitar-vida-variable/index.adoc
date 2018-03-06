@@ -42,7 +42,6 @@ class Password
     static void Main(string[] args)
     {
 ----
-+
 . A continuación se lee desde la consola 
 las credenciales de acceso para un usuario, 
 solicitando el nombre de usuario 
@@ -57,7 +56,6 @@ en las variables +loginid+ y +password+ respectivamente:
         Console.WriteLine("Ingresa tu contraseña: ");
         var password = Console.ReadLine();
 ----
-+
 . Posterior a ello, convertimos la cadena que contiene la contraseña 
 en un +array+ de caracteres (+char[] myArray+) 
 mediante el método +ToCharArray()+. 
@@ -70,16 +68,21 @@ simulamos el proceso de validación del usuario para una plataforma en particula
         char[] mArray = password.ToCharArray();
 
         bool isValidUser = verify(loginid, mArray);
-
-        // limpiar la contraseña
-        MyArray.Fill(mArray,' ');
-
+----
+. Como se observa en el siguiente bloque de código, 
+una vez no son necesarias las credenciales de usuario, 
+éstas son inmediatamente sobrescritas 
+o eliminadas de memoria mediante el método +MyArray.Fill+ 
+de la clase +MyArray+. 
++
+[source, csharp, linenums]
+----
+        MyArray.Fill(mArray,' '); // limpiar la contraseña
         if (!isValidUser)
         {
             throw new SecurityException("Credenciales no validas");
         }
     }
-
     // Validación simulada, siempre devuelve true
     private static bool verify(string username, char[] password)
     {
@@ -87,13 +90,7 @@ simulamos el proceso de validación del usuario para una plataforma en particula
     }
 }
 ----
-+
-. Como se observa en el anterior bloque de código, 
-una vez no son necesarias las credenciales de usuario, 
-éstas son inmediatamente sobrescritas 
-o eliminadas de memoria mediante el método +MyArray.Fill+ 
-de la clase +MyArray+. 
-La implementación de dicha clase es la siguiente:
+. La implementación de la clase +MyArray+ es la siguiente:
 +
 [source, csharp, linenums]
 ----
@@ -164,8 +161,6 @@ para el manejo de credenciales de manera segura.
 
 == Referencias
 
-. [[r1]] link:../../../rules/998/[REQ.998:] La aplicación 
-debe eliminar/sobrescribir variables 
-una vez no estén en uso.
+. [[r1]] link:../../../rules/998/[REQ.998 Limitar tiempo de vida de variables].
 . *+JAVA+* link:../../java/limitar-vida-variable/[Limitar tiempo de vida de variables].
 . *+SCALA+* link:../../scala/limitar-vida-variable/[Limitar tiempo de vida de variables].
