@@ -190,8 +190,7 @@ el código explicado anteriormente para trabajar con atributos de objetos.
 
 == Referencias
 
-. [[r1]] REQ.0173: Debe utilizarse firmas digitales 
-para garantizar la autenticidad de información sensible.
+. [[r1]] link:../../../rules/173/[REQ.173 Utilizar firmas digitales].
 . [[r2]] link:https://www.ibm.com/support/knowledgecenter/ssw_i5_54/apis/qusrobjd.htm[Retrieve Object Description (QUSROBJD) API].
 . [[r3]] link:https://www.ibm.com/support/knowledgecenter/en/ssw_ibm_i_73/rzasb/iddiv.htm[IBM - Identification Division].
 . [[r4]] link:http://www.escobol.com/modules.php?name=Sections&op=viewarticle&artid=11[Identification Division].

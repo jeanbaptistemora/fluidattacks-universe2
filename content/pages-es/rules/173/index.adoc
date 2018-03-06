@@ -15,3 +15,4 @@ para garantizar la autenticidad de información sensible
 == Soluciones
 
 . +ASPNET+ link:../../defends/aspnet/firmar-datos-rsa-sha256/[Firmar datos con RSA y SHA256].
+. +COBOL+ link:../../defends/cobol/obtener-atributos/[Obtener Atributos].
