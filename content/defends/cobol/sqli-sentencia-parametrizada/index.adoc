@@ -278,9 +278,7 @@ mediante sentencias estáticas.
 
 == Referencias
 
-. [[r1]] REQ.0168: El sistema debe descartar
-toda la información potencialmente insegura
-que sea recibida por entradas de datos.
+. [[r1]] link:../../../rules/168/[REQ.168 Descartar información insegura].
 . [[r2]] link:https://www.ibm.com/support/knowledgecenter/en/ssw_ibm_i_73/rzasb/iddiv.htm[Identification Division].
 . [[r3]] link:http://www.escobol.com/modules.php?name=Sections&op=viewarticle&artid=13[Data Division].
 . [[r4]] link:https://www.ibm.com/support/knowledgecenter/SSQ2R2_9.1.1/com.ibm.ent.cbl.zos.doc/PGandLR/ref/rlpds.html[Procedure division structure].

@@ -85,6 +85,7 @@
 * link:159/[REQ.159 Utilizar estructuras optimizadas].
 * link:162/[REQ.162 Cerrar recursos no utilizados].
 * link:163/[REQ.163 Variables inicializadas explícitamente].
+* link:168/[REQ.168 Descartar información insegura].
 
 == Datos
 

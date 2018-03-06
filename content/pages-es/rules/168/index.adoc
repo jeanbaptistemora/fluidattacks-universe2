@@ -1,0 +1,16 @@
+:slug: rules/168/
+:category: rules
+:description: En el presente documento se detallan los requerimientos de seguridad relacionados al código fuente que compone a las aplicaciones de la compañía. En este requerimiento se establece la importancia de descartar la información potencialmente insegura recibida por entradas de la aplicación.
+:keywords: Requerimiento, Seguridad, Código Fuente, Descartar, Información, Insegura.
+:rules: yes
+
+= REQ.168 Descartar información insegura
+
+== Nombre
+
+El sistema debe descartar toda la información 
+potencialmente insegura que sea recibida por entradas de datos.
+
+== Soluciones
+
+. +COBOL+ link:../../defends/cobol/sqli-sentencia-parametrizada/[Prevenir SQLi Mediante Sentencias Parametrizadas].
