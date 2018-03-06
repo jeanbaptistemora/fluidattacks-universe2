@@ -88,7 +88,7 @@
 
 == Números Aleatorios
 
-* link:218/[REQ.218 Aleatorios generados uniformemente]
+* link:218/[REQ.218 Aleatorios generados uniformemente].
 
 == Sistema Operativo
 

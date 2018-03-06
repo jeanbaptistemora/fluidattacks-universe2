@@ -182,8 +182,7 @@ para generar los números aleatorios.
 
 == Referencias
 
-. [[r1]] REQ.0218: Los números aleatorios generados 
-deben seguir una distribución uniforme.
+. [[r1]] link:../../../rules/218/[REQ.218 Aleatorios generados uniformemente].
 . [[r2]] link:https://www.ibm.com/support/knowledgecenter/en/ssw_ibm_i_73/rzasb/iddiv.htm[IBM - Identification Division].
 . [[r3]] link:http://www.escobol.com/modules.php?name=Sections&op=viewarticle&artid=11[Identification Division].
 . [[r4]] link:https://www.ibm.com/support/knowledgecenter/en/ssw_ibm_i_73/rzasb/datdivs.htm[Data Division Structure].
