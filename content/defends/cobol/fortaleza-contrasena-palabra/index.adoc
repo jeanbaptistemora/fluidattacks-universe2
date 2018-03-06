@@ -274,16 +274,10 @@ todas las instrucciones +COBOL+ del programa.
 
 == Referencias
 
-. [[r1]] REQ.0126: Las contraseñas (tipo palabra)
-deben tener al menos 8 caracteres de longitud.
-. [[r2]] REQ.0127: Las contraseñas (tipo palabra)
-deben tener al menos 1 letra minúscula.
-. [[r3]] REQ.0128: Las contraseñas (tipo palabra)
-deben tener al menos 1 letra mayúscula.
-. [[r4]] REQ.0129: Las contraseñas (tipo palabra)
-deben tener al menos 1 dígito.
-. [[r5]] REQ.0130: Las contraseñas (tipo palabra)
-deben tener al menos 1 carácter especial.
-. [[r6]] REQ.0131: Las contraseñas de acceso de un sistema a otro
-deben tener una longitud superior a 20 caracteres.
+. [[r1]] link:../../../rules/126/[REQ.126 Contraseñas con al menos 8 caracteres].
+. [[r2]] link:../../../rules/127/[REQ.127 Contraseñas con al menos 1 minúscula].
+. [[r3]] link:../../../rules/128/[REQ.128 Contraseñas con al menos 1 mayúscula].
+. [[r4]] link:../../../rules/129/[REQ.129 Contraseñas con al menos 1 dígito].
+. [[r5]] link:../../../rules/130/[REQ.130 Contraseñas con al menos 1 carácter especial].
+. [[r6]] link:../../../rules/131/[REQ.131 Contraseñas de más de 20 caracteres].
 . [[r7]] link:https://www.paypal.com/us/selfhelp/article/Tips-for-creating-a-secure-password-FAQ3152[Tips for creating a secure password].

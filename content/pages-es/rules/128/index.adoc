@@ -15,3 +15,4 @@ deben tener al menos 1 letra mayúscula.
 == Soluciones
 
 . +ASPNET+ link:../../defends/aspnet/fortaleza-contrasenas/[Comprobar fortaleza de contraseñas].
+. +COBOL+ link:../../defends/cobol/fortaleza-contrasena-palabra/[Comprobar Fortaleza de Contraseñas Tipo Palabra].
