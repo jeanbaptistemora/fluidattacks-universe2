@@ -1,6 +1,6 @@
 :slug: defends/java/limitar-vida-recurso/
 :category: java
-:description: Nuestros ethical hackers explican cómo evitar vulnerabilidades de seguridad mediante la creación, manipulación y eliminación correcta de datos, recursos y objetos dentro de un programa Java, evitando que información disponible en memoria sea manipulada.
+:description: Nuestros ethical hackers explican cómo evitar vulnerabilidades de seguridad mediante la creación, manipulación y eliminación correcta de recursos dentro de un programa Java, evitando que información disponible en memoria pueda ser capturada por usuarios no autorizados.
 :keywords: java, datos sensibles, datos confidenciales, lectura segura, memoria, tiempo de vida.
 :defends: yes
 
@@ -8,7 +8,7 @@
 
 == Necesidad
 
-Eliminar (limpiar) datos, recursos 
+Eliminar (limpiar) recursos 
 dentro de la aplicación 
 cuando ya no estén en uso.
 
@@ -19,7 +19,7 @@ bajo las cuales la siguiente solución tiene sentido:
 
 . Se está desarrollando una aplicación en +Java+ versión 8.0 o superior.
 . El código debe eliminar información sensible en memoria.
-. La aplicación debe recursos cuando ya no estén en uso,<<r1,^[1]^>> 
+. La aplicación debe liberar recursos cuando ya no estén en uso,<<r1,^[1]^>> 
 limitando así su tiempo de vida.
 
 == Solución
@@ -84,7 +84,7 @@ Dicho objeto es asignado a la variable +rdr+ del mismo tipo:
 +
 [source, java, linenums]
 ----
-try (FileChannel rdr = (new FileInputStream("file")).getChannel()) {
+try (FileChannel rdr = (new FileInputStream("file.txt")).getChannel()) {
 ----
 . Iniciamos la lectura del búfer:
 +
@@ -130,10 +130,10 @@ y ejecutar el comando +javac+:
 ----
 ~$ cd /home/user/proyecto/
 ~/home/user/proyecto$ ls
-~/home/user/proyecto$ Test.java
+~/home/user/proyecto$ Test.java file.txt
 ~/home/user/proyecto$ javac Test.java
 ~/home/user/proyecto$ ls
-~/home/user/proyecto$ Test.java Test.class
+~/home/user/proyecto$ Test.java Test.class file.txt
 ----
 . Luego de compilar el programa correctamente, 
 se obtiene el +bytecode+ (archivo +.class+) del programa 
@@ -159,7 +159,7 @@ javaTest
 == Descargas
 
 Puedes descargar el código fuente 
-pulsando en los siguientes enlaces:
+pulsando en el siguiente enlace:
 
 . [button]#link:src/test.java[Test.java >>]# contiene 
 la definición del método +readData+ 
@@ -167,7 +167,6 @@ cuyo fin es la manipulación segura de ficheros.
 
 == Referencias
 
-. [[r1]] link:../../../rules/999/[REQ.999:] La aplicación 
-debe liberar recursos una vez no estén en uso.
+. [[r1]] link:../../../rules/999/[REQ.999 Limitar tiempo de vida de recursos].
 . *+CSHARP+* link:../../csharp/limitar-vida-recurso/[Limitar tiempo de vida de recursos].
 . *+SCALA+* link:../../scala/limitar-vida-recurso/[Limitar tiempo de vida de recursos].
