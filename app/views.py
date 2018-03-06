@@ -331,10 +331,10 @@ def get_eventualities(request):
     api = FormstackAPI()
     if not has_access_to_project(username, project):
         rollbar.report_message('Error: Access to project denied', 'error', request)
-        return util.response(dataset, 'a', True)
+        return util.response(dataset, 'Access to project denied', True)
     if project is None:
         rollbar.report_message('Error: Empty fields in project', 'error', request)
-        return util.response(dataset, 'Campos Vacios', True)
+        return util.response(dataset, 'Empty fields in project', True)
     if category == "Name":
         submissions = api.get_eventualities(project)
         frmset = submissions["submissions"]
@@ -348,12 +348,14 @@ def get_eventualities(request):
         # Only fluid can filter by id
         if "@fluidattacks.com" not in username:
             rollbar.report_message('Error: Access to project denied', 'error', request)
-            return util.response(dataset, 'Access denied', True)
+            return util.response(dataset, 'Access to project denied', True)
         if not project.isdigit():
             rollbar.report_message('Error: ID is not a number', 'error', request)
-            return util.response(dataset, 'Campos vacios', True)
-        submission = api.get_submission(row["id"])
-        evtset = evt_dto.parse(row["id"], submission)
+            return util.response(dataset, 'ID is not a number', True)
+        submission = api.get_submission(project)
+        if 'error' in submission:
+            return util.response(dataset, 'Event does not exist', True)
+        evtset = evt_dto.parse(project, submission)
         dataset.append(evtset)
         return util.response(dataset, 'Success', False)
     else:
