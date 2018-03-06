@@ -167,8 +167,7 @@ cuyo fin es la manipulación segura de ficheros.
 
 == Referencias
 
-. [[r1]] link:../../../rules/999/[REQ.999:] La aplicación debe 
-limpiar/eliminar datos, recursos y/o objetos creados por la misma 
-cuando ya no estén en uso.
+. [[r1]] link:../../../rules/999/[REQ.999:] La aplicación 
+debe liberar recursos una vez no estén en uso.
 . *+CSHARP+* link:../../csharp/limitar-vida-recurso/[Limitar tiempo de vida de recursos].
 . *+SCALA+* link:../../scala/limitar-vida-recurso/[Limitar tiempo de vida de recursos].
