@@ -3,7 +3,7 @@ import scala.collection.JavaConversions._
 object Password {
 
   def main(args: Array[String]): Unit = {
-    val c: Console = System.console()
+    val c = System.console()
     if (c == null) {
       System.err.println("No console.")
       System.exit(1)
@@ -12,7 +12,9 @@ object Password {
     val password: Array[Char] = c.readPassword("Enter your password: ")
     val isValidUser: Boolean = verify(username, password)
     // limpiar la contraseña
-    Arrays.fill(password, ' ')
+    for( a <- 0 to (password.length - 1) ) {
+         password(a) = '0'
+      }
     if (!isValidUser) {
       throw new SecurityException("Invalid Credentials")
     }
