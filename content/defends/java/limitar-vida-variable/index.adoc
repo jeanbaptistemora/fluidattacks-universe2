@@ -158,7 +158,6 @@ de la clase +Arrays+:
   }
 }
 ----
-
 . Para ejecutar el anterior programa, 
 desde la terminal se debe ubicar primero en el directorio del proyecto 
 (en este caso la ruta es +/home/user/proyecto/+), 
@@ -196,14 +195,12 @@ Ingresa tu contraseña: *******
 Puedes descargar el código fuente 
 pulsando en el siguiente enlace:
 
-. [button]#link:src/Password.java[Password.java >>]# contiene 
+. [button]#link:src/password.java[Password.java >>]# contiene 
 todas las instrucciones +Java+ 
 para el manejo de credenciales de manera segura.
 
 == Referencias
 
-. [[r1]] link:../../../rules/998/[REQ.998:] La aplicación 
-debe eliminar/sobrescribir variables 
-una vez no estén en uso.
+. [[r1]] link:../../../rules/998/[REQ.998 Limitar tiempo de vida de variables].
 . *+CSHARP+* link:../../csharp/limitar-vida-variable/[Limitar tiempo de vida de variables].
 . *+SCALA+* link:../../scala/limitar-vida-variable/[Limitar tiempo de vida de variables].
