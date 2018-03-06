@@ -34,6 +34,10 @@
 
 * link:026/[REQ.026 Cookies con atributos de seguridad].
 
+== Sistema
+
+* link:031/[REQ.031 Administrar modificaciones de privilegios].
+
 == Archivos
 
 * link:033/[REQ.033 Parámetros sin datos sensibles].
@@ -100,6 +104,7 @@
 
 == Sistema Operativo
 
+* link:264/[REQ.264 Usar principio mínimo privilegio].
 * link:272/[REQ.272 Información de servicios inaccesible].
 
 

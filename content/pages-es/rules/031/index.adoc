@@ -1,0 +1,16 @@
+:slug: rules/031/
+:category: rules
+:description: En el presente documento se detallan los requerimientos de seguridad relacionados a la administración de los sistemas. El objetivo del presente requerimiento es definir la importancia de implementar medidas para evitar que un actor del sistema aumente los privilegios para él mismo.
+:keywords: Requerimiento, Seguridad, Sistema, Privilegios, Actor, Administración.
+:rules: yes
+
+= REQ.031 Administrar modificaciones de privilegios
+
+== Nombre
+
+El sistema no debe permitir a un actor del sistema 
+aumentar los privilegios para él mismo. 
+
+== Soluciones
+
+. +COBOL+ link:../../defends/cobol/seg-sentencias-dinamicas/[Establecer Seguridad en Sentencias Dinámicas].
