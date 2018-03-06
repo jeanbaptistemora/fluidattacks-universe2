@@ -16,3 +16,4 @@ para la generación de números aleatorios usados en procesos críticos
 == Soluciones
 
 . +ASPNET+ link:../../defends/aspnet/generar-aleatorios-seguros/[Generar aleatorios seguros].
+. +COBOL+ link:../../defends/cobol/generar-llaves/[Generar llaves].
