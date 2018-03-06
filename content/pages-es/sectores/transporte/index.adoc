@@ -6,6 +6,7 @@
 
 = Transporte
 
-Esta página se encuentra actualmente en desarrollo.
-
-Nos disculpamos por cualquier inconveniente que esto pueda causar.
+[frame="none", cols="^.^"]
+|=======
+|image:logo-avianca.png[logo avianca, 390, 120]
+|=======

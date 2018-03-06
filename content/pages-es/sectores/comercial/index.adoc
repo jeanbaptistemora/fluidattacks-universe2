@@ -6,6 +6,8 @@
 
 = Comercial
 
-Esta página se encuentra actualmente en desarrollo.
-
-Nos disculpamos por cualquier inconveniente que esto pueda causar.
+[frame="none", cols="^.^,^.^"]
+|=======
+|image:logo-exito.png[logo exito, 290, 170] |image:logo-semana.png[logo semana, 300, 90]
+2+|image:logo-tml.png[logo tml, 280, 100]
+|=======

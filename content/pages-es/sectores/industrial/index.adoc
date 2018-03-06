@@ -6,6 +6,7 @@
 
 = Industrial
 
-Esta página se encuentra actualmente en desarrollo.
-
-Nos disculpamos por cualquier inconveniente que esto pueda causar.
+[frame="none", cols="^.^,^.^"]
+|=======
+|image:logo-corona.png[logo corona, 300, 55] |image:logo-manuelita.png[logo manuelita, 300, 70]
+|=======

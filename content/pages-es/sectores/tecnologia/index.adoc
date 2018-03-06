@@ -6,6 +6,9 @@
 
 = Tecnología
 
-Esta página se encuentra actualmente en desarrollo.
-
-Nos disculpamos por cualquier inconveniente que esto pueda causar.
+[frame="none", cols="^.^,^.^,^.^"]
+|=======
+|image:logo-conexia.png[logo conexia, 290, 100] |image:logo-ceiba.png[logo ceiba, 270, 120] |image:logo-psl.png[logo psl, 300, 100]
+|image:logo-arus.png[logo arus, 280, 100] |image:logo-intergrupo.png[logo intergrupo, 300, 100] |image:logo-komet.png[logo komet, 300, 90]
+| |image:logo-creative.png[logo creative, 300, 100] |
+|=======

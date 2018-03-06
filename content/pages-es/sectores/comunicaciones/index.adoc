@@ -6,6 +6,8 @@
 
 = Comunicaciones
 
-Esta página se encuentra actualmente en desarrollo.
+[width="99%", cols="^.^", grid="none", frame="none"]
+|=======
+|image:logo-tigo.png[logo tigo, 400, 210]
+|=======
 
-Nos disculpamos por cualquier inconveniente que esto pueda causar.
