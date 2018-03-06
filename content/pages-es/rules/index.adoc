@@ -17,7 +17,7 @@
 * link:008/[REQ.008 Riesgos medidos por probabilidad e impacto].
 * link:009/[REQ.009 Identificar posibles atacantes].
 * link:010/[REQ.010 Proceso reclasificación definido].
-* link:011/[REQ.011 Activos clasificados según criticidad.].
+* link:011/[REQ.011 Activos clasificados según criticidad].
 * link:012/[REQ.012 Priorizar vulnerabilidades de activos].
 * link:013/[REQ.013 Garantizar corrección de vulnerabilidades].
 * link:014/[REQ.014 Medio seguro para información física].
@@ -30,7 +30,7 @@
 * link:018/[REQ.018 Garantizar cumplimiento requisitos].
 * link:019/[REQ.019 Permitir auditorías de cliente].
 
-== Administración de Sesiones
+== Sesiones
 
 * link:026/[REQ.026 Cookies con atributos de seguridad].
 
@@ -86,7 +86,7 @@
 * link:998/[REQ.998 Limitar tiempo de vida de variables].
 * link:999/[REQ.999 Limitar tiempo de vida de recursos].
 
-== Números Aleatorios
+== Aleatorios
 
 * link:218/[REQ.218 Aleatorios generados uniformemente].
 
