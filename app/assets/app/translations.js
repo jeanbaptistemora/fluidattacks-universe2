@@ -156,6 +156,9 @@ integrates.config(['$translateProvider', function($translateProvider) {
               'animation_exploit':'Exploitation animation',
               'evidence_exploit':'Exploitation evidence'
             },
+            'tab_records':{
+              'records_name': 'Records'
+            },
             'tab_comments':{
               'comments_name':'Comments'
             },
@@ -652,6 +655,9 @@ integrates.config(['$translateProvider', function($translateProvider) {
               'alert':'En desarrollo...',
               'animation_exploit':'Animación de explotación',
               'evidence_exploit':'Evidencia de explotación'
+            },
+            'tab_records':{
+              'records_name': 'Registros'
             },
             'tab_comments':{
               'comments_name':'Comentarios'

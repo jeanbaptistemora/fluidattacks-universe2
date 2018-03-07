@@ -90,6 +90,10 @@
                       <a href="#tracking" data-toggle="tab" aria-expanded="true">
                       <i class="icon s7-graph1"></i>&nbsp;Tracking</a>
                   </li>
+                  <li id="recordsItem" class="" style="font-size:16px;" ng-show="hasRecords" ng-click="urlRecords();">
+                      <a href="#records" data-toggle="tab" aria-expanded="true">
+                      <i class="icon s7-notebook"></i>&nbsp;{{'search_findings.tab_records.records_name' | translate}}</a>
+                  </li>
                   <li id="commentItem" style="font-size:16px;" ng-click="urlComments();">
                       <a href="#comment" data-toggle="tab">
                       <i class="icon s7-comment"></i>&nbsp;{{'search_findings.tab_comments.comments_name' | translate}}</a>
@@ -718,6 +722,25 @@
                       </div>
                   </div>
                   <!-- End Tab Tracking -->
+                  <!-- Start Tab Record -->
+                  <div id="records" class="tab-pane cont" ng-show="hasRecords">
+                      <div class="row">
+                          <table id="recordsTable"
+                                   data-click-to-select="false"
+                                   data-classes="table table-hover table-striped"
+                                   data-striped="true"
+                                   data-show-columns="true"
+                                   data-cookie="true"
+                                   data-show-export="true"
+                                   data-export-types="['sql', 'excel', 'csv', 'json']"
+                                   data-pagination="true"
+                                   data-search="true"
+                                   data-page-size="15"
+                                   data-toolbar="#toolbar">
+                          </table>
+                      </div>
+                  </div>
+                  <!-- End Tab Record -->
                   <!-- Start Tab Comment -->
                   <div id="comment" class="tab-pane cont">
                     <div id="comments-container"></div>
@@ -771,6 +794,7 @@
     }
     #vulnerabilities thead tr{ background-color: #337ab7; color:white;  }
     #eventualities thead tr{ background-color: #337ab7; color:white;  }
+    #recordsTable thead tr{ background-color: #337ab7; color:white;  }
 
 </style>
 <!-- End CommonStyles -->

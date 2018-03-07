@@ -53,6 +53,11 @@ integrates.config(function($stateProvider, $urlRouterProvider) {
             templateUrl: 'assets/views/project/findingcontent.html',
             controller: 'findingcontentCtrl'
         })
+        .state('FindingRecords', {
+            url: '/project/:project/:id/records',
+            templateUrl: 'assets/views/project/findingcontent.html',
+            controller: 'findingcontentCtrl'
+        })
         .state('FindingComments', {
             url: '/project/:project/:id/comments',
             templateUrl: 'assets/views/project/findingcontent.html',

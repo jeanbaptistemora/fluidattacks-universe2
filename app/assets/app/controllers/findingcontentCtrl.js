@@ -833,6 +833,7 @@ integrates.controller("findingcontentCtrl", function($scope, $stateParams, $time
                 $scope.findingInformationTab();
                 $scope.findingEvidenceTab();
                 $scope.findingExploitTab();
+                $scope.findingRecordsTab();
                 $scope.findingCommentTab();
                 //Control de campos para tipos de hallazgo
                 $scope.esDetallado = false;
@@ -1283,6 +1284,106 @@ integrates.controller("findingcontentCtrl", function($scope, $stateParams, $time
             });
         }
     };
+    $scope.findingRecordsTab = function(){
+        $scope.hasRecords = false;
+        var req = projectFtry.getEvidences($scope.finding.id);
+        req.then(function(response){
+            if(!response.error){
+                if(response.data.length > 0){
+                    for (var i = 0; i < response.data.length; i++) {
+                        if(response.data[i].registros_archivo !== undefined
+                            && response.data[i].es_registros_archivo == true){
+                            var record = projectFtry.getRecords($scope.finding.id, response.data[i].registros_archivo);
+                            $scope.hasRecords = true;
+                            record.then(function(response){
+                                if(!response.error){
+                                    var dataCols = []
+                                    for(var i in response.data[0]){
+                                        dataCols.push({
+                                            field: i,
+                                            title: i
+                                        });
+                                    }
+                                    $("#recordsTable").bootstrapTable('destroy');
+                                    $("#recordsTable").bootstrapTable({
+                                        columns: dataCols,
+                                        data: response.data,
+                                        cookieIdTable: "recordsTableCookie",
+                                        cookie: true,
+                                        exportDataType: "all"
+                                    });
+                                    $("#recordsTable").bootstrapTable('refresh');
+                                } else {
+                                    Rollbar.error("Error: An error occurred loading record from S3");
+                                    var error_ac1 = $translate.instant('proj_alerts.error_textsad');
+                                    $msg.error(error_ac1);
+                                }
+                            });
+                        } else if($scope.finding.registros_archivo !== undefined){
+                            var record = projectFtry.getRecords($scope.finding.id, $scope.finding.registros_archivo);
+                            $scope.hasRecords = true;
+                            record.then(function(response){
+                                if(!response.error){
+                                    var dataCols = []
+                                    for(var i in response.data[0]){
+                                        dataCols.push({
+                                            field: i,
+                                            title: i
+                                        });
+                                    }
+                                    $("#recordsTable").bootstrapTable('destroy');
+                                    $("#recordsTable").bootstrapTable({
+                                        columns: dataCols,
+                                        data: response.data,
+                                        cookieIdTable: "recordsTableCookie",
+                                        cookie: true,
+                                        exportDataType: "all"
+                                    });
+                                    $("#recordsTable").bootstrapTable('refresh');
+                                } else {
+                                    Rollbar.error("Error: An error occurred loading record");
+                                    var error_ac1 = $translate.instant('proj_alerts.error_textsad');
+                                    $msg.error(error_ac1);
+                                }
+                            });
+                        } else {
+                            $scope.hasRecords = false;
+                        }
+                    }
+                } else if($scope.finding.registros_archivo !== undefined){
+                        var record = projectFtry.getRecords($scope.finding.id, $scope.finding.registros_archivo);
+                        $scope.hasRecords = true;
+                        record.then(function(response){
+                            if(!response.error){
+                                var dataCols = []
+                                for(var i in response.data[0]){
+                                    dataCols.push({
+                                        field: i,
+                                        title: i
+                                    });
+                                }
+                                $("#recordsTable").bootstrapTable('destroy');
+                                $("#recordsTable").bootstrapTable({
+                                    columns: dataCols,
+                                    data: response.data,
+                                    cookieIdTable: "recordsTableCookie",
+                                    cookie: true,
+                                    exportDataType: "all"
+                                });
+                                $("#recordsTable").bootstrapTable('refresh');
+                            } else {
+                                Rollbar.error("Error: An error occurred loading record");
+                                var error_ac1 = $translate.instant('proj_alerts.error_textsad');
+                                $msg.error(error_ac1);
+                            }
+                        });
+                    } else {
+                        $scope.hasRecords = false;
+                }
+
+            }
+        });
+    };
     $scope.findingCalculateSeveridad = function(){
         if(!isNaN($scope.finding.severidad)){
             var severidad = parseFloat($scope.finding.severidad);
@@ -1586,6 +1687,9 @@ integrates.controller("findingcontentCtrl", function($scope, $stateParams, $time
     $scope.urlExploit = function(){
         location.replace(window.location.href.split($stateParams.id)[0] + $stateParams.id + "/exploit")
      };
+    $scope.urlRecords = function(){
+        location.replace(window.location.href.split($stateParams.id)[0] + $stateParams.id + "/records")
+     };
      $scope.urlComments = function(){
         location.replace(window.location.href.split($stateParams.id)[0] + $stateParams.id + "/comments")
      };
@@ -1700,6 +1804,24 @@ integrates.controller("findingcontentCtrl", function($scope, $stateParams, $time
           $("#exploit").addClass("active");
           //Tracking mixpanel
           mixPanelDashboard.trackFindingDetailed("FindingExploit", userName, userEmail, org, projt, $scope.finding.id);
+        }
+        if (window.location.hash.indexOf('records') !== -1){
+          $("#infoItem").removeClass("active");
+          $("#info").removeClass("active");
+          $("#cssv2Item").removeClass("active");
+          $("#cssv2").removeClass("active");
+          $("#trackingItem").removeClass("active");
+          $("#tracking").removeClass("active");
+          $("#evidenceItem").removeClass("active");
+          $("#evidence").removeClass("active");
+          $("#exploitItem").removeClass("active");
+          $("#exploit").removeClass("active");
+          $("#commentItem").removeClass("active");
+          $("#comment").removeClass("active");
+          $("#recordsItem").addClass("active");
+          $("#records").addClass("active");
+          //Tracking mixpanel
+          mixPanelDashboard.trackFindingDetailed("FindingRecords", userName, userEmail, org, projt, $scope.finding.id);
         }
         if (window.location.hash.indexOf('comments') !== -1){
           $("#infoItem").removeClass("active");

@@ -10,6 +10,7 @@ import time
 import pytz
 import rollbar
 import boto3
+import csv
 from django.core.files.uploadedfile import InMemoryUploadedFile, TemporaryUploadedFile
 from botocore.exceptions import ClientError
 from django.shortcuts import render, redirect
@@ -769,6 +770,73 @@ def get_exploit(request):
             with open(filename, "r") as file_obj:
                 return HttpResponse(file_obj.read(), content_type="text/plain")
         os.unlink(filename)
+
+@never_cache
+@csrf_exempt
+@require_http_methods(["GET"])
+@authorize(['analyst', 'customer'])
+def get_records(request):
+    parameters = request.GET.dict()
+    fileid = parameters['id']
+    findingid = parameters['findingid']
+    if fileid is None:
+        rollbar.report_message('Error: Missing record file ID', 'error', request)
+        return util.response([], 'Unsent record file ID', True)
+    key_list = key_existing_list(findingid + "/" + fileid)
+    if key_list:
+        for k in key_list:
+            start = k.find(findingid) + len(findingid)
+            localfile = "/tmp" + k[start:]
+            ext = {'.py': '.tmp'}
+            localtmp = replace_all(localfile, ext)
+            client_s3.download_file(bucket_s3, k, localtmp)
+            mime = Magic(mime=True)
+            mime_type = mime.from_file(localtmp)
+            resp = []
+            if mime_type == "text/plain":
+                with open(localtmp, "r") as file_obj:
+                    csvReader = csv.reader(file_obj, lineterminator="\n")
+                    header = csvReader.next()
+                    for row in csvReader:
+                        dicTok = list_to_dict(header, row)
+                        resp.append(dicTok)
+                    return util.response(resp, 'Success', False)
+            os.unlink(localtmp)
+    else:
+        if fileid not in request.session:
+            rollbar.report_message('Error: Access to record file denied', 'error', request)
+            return util.response([], 'Access denied', True)
+        if not re.match("[a-zA-Z0-9_-]{20,}", fileid):
+            rollbar.report_message('Error: Invalid record file ID format', 'error', request)
+            return util.response([], 'ID with wrong format', True)
+        drive_api = DriveAPI(fileid)
+        if drive_api.FILE is None:
+            rollbar.report_message('Error: Unable to download the record file', 'error', request)
+            return util.response([], 'Unable to download the file', True)
+        filename = "/tmp/:id.tmp".replace(":id", fileid)
+        mime = Magic(mime=True)
+        mime_type = mime.from_file(filename)
+        resp = []
+        if mime_type == "text/plain":
+            with open(filename, "r") as file_obj:
+                csvReader = csv.reader(file_obj, lineterminator="\n")
+                header = csvReader.next()
+                for row in csvReader:
+                    dicTok = list_to_dict(header, row)
+                    resp.append(dicTok)
+                return util.response(resp, 'Success', False)
+        os.unlink(filename)
+
+def list_to_dict(header, li):
+    dct = {}
+    cont = 0
+    for item in li:
+        if header[cont] == "":
+            dct[cont] = item
+        else:
+            dct[header[cont]] = item
+        cont += 1
+    return dct
 
 @never_cache
 @csrf_exempt

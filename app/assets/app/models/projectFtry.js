@@ -52,6 +52,20 @@ integrates.factory('projectFtry', function($q, $translate){
             }, oops_ac);
         },
         /**
+         * Invoca el servicio para tener el exploit de un hallazgo
+         * @function getRecords
+         * @param {String} findingid
+         * @param {String} id
+         * @member integrates.projectFtry
+         * @return {Object}
+         */
+        getRecords: function(findingid, id){
+            var oops_ac = $translate.instant('proj_alerts.error_text');
+            return $xhr.get($q,  BASE.url + "get_records", {
+                findingid: findingid, id: id, _: Math.random()
+            }, oops_ac);
+        },
+        /**
          * Invoca el servicio para tener las evidencias de un hallazgo
          * @function getEvidences
          * @param {String} id
