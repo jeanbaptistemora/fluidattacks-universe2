@@ -78,12 +78,18 @@ if pcregrep -Lr --include='\.adoc' ':keywords:' content; then echo -e "${GC}ERRO
 # Check that the every .adoc has description defined
 if pcregrep -Lr --include='\.adoc' ':description:' content; then echo -e "${GC}ERRORES: El atributo \":description:\" debe estar definido en el .adoc${NC}"; ERRORS=1;fi
 
+# Check that the diagram names start with the word "diagram"
+if pcregrep -r '"(graphviz|plantuml)",\s?"(?!diagram).*\.png' content; then
+	echo -e "${GC}The name of the diagrams must start with the word \"diagram\"${NC}";
+	ERRORS=1;
+fi;
+
 # Check that the meta description has a minimum lenght of 250 characters and a maximum length of 300 characters
 for FILE in $(find content -iname '*.adoc'); do
   if cat $FILE | pcregrep --color -o '(?<=:description: ).{307,}$|(?<=:description: ).{0,249}$'; then
     echo -e "${GC}Descriptions must be in [250-300] characters range. The previous description belongs to the file \"$FILE\"${NC}";
     ERRORS=1;
-  fi  
+  fi
 
 # Check if there are exactly 6 keywords
   NUMKEYWS=$(cat $FILE | pcregrep -o '(?<=^:keywords:).*' | tr , \\n | wc -l)
