@@ -1,0 +1,15 @@
+:slug: rules/266/
+:category: rules
+:description: En el presente documento se detallan los requerimientos de seguridad relacionados a los sistemas operativos manejados dentro de la organización. El objetivo del presente requerimiento es definir la importancia de deshabilitar las funciones inseguras de un sistema.
+:keywords: Requerimiento, Seguridad, Sistema Operativo, Deshabilitar, Funciones, Inseguras.
+:rules: yes
+
+= REQ.266 Deshabilitar funciones inseguras
+
+== Nombre
+
+La organización debe deshabilitar 
+las funciones inseguras de un sistema. 
+(hardening de sistemas)
+
+== Soluciones

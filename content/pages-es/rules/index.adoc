@@ -112,6 +112,7 @@
 == Sistema Operativo
 
 * link:264/[REQ.264 Usar principio mínimo privilegio].
+* link:266/[REQ.266 Deshabilitar funciones inseguras].
 * link:272/[REQ.272 Información de servicios inaccesible].
 
 
