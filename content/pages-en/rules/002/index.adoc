@@ -10,7 +10,7 @@
 
 All information assets must have an owner clearly defined.
 
-== Descripción
+== Description
 
 Once the organization
 has identified each and every asset,
