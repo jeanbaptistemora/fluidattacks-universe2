@@ -108,4 +108,4 @@ todas las instrucciones +C#+ del programa.
 
 . [[r1]] link:http://www.microsoft.com/download/en/search.aspx?q=antixss[Microsoft, Antixss]
 . [[r2]] link:http://msdn.microsoft.com/en-us/library/aa973813.aspx[Microsoft, Anti- Cross Site Scripting Library]
-. [[r3]] REQ.0155: La salida de información del sistema debe estar codificada en el lenguaje correspondiente (+escaping+).
+. [[r3]] link:../../../rules/155/[REQ.155 Salidas codificadas].

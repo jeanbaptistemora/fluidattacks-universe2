@@ -16,3 +16,4 @@ debe estar codificada en el lenguaje correspondiente (escaping).
 
 . +ASPNET+ link:../../defends/aspnet/codificar-salida/[Codificar Salida].
 . +COBOL+ link:../../defends/cobol/prevenir-xss/[Prevenir Cross Site Scripting].
+. +Csharp+ link:../../defends/csharp/proteger-aplicacion-xss/[Proteger Aplicación de Ataques de XSS].
