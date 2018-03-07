@@ -4,19 +4,20 @@ WORKDIR /app
 
 COPY . /app
 
-# 21-23: Install basic dependencies to set sources lists 
-# 24-26: Set sources for NodeJS and Yarn
-# 27-51: Install all necessarty dependencies
-# 52-53: Download tidy-html binary and install it
-# 54-55: Download Java Runtime Environment needed to generate PlantUML diagrams
-# 56-59: Clone the necessaty JS files from the Tipue repository in order to run the plugin
-# 60-63: Clone just the plugins that are being used in this project with Pelican 
-# 64-65: Clone the pelican-redirect plugin (aside from the official repository) and make it recognizable as a module
-# 66: Change the default highlighter to Pygments
-# 67: Enable every rule of sass-lint
-# 68-69: Download and install the PlantUML filter for Asciidoc
-# 70-75: Add a variable to the Asciidoc Reader with the source path and reference it in the filters
-# 76-85: Erase files and directories that are not needed during runtime
+# 22-24: Install basic dependencies to set sources lists 
+# 25-27: Set sources for NodeJS and Yarn
+# 28-52: Install all necessarty dependencies
+# 53-54: Download tidy-html binary and install it
+# 55-56: Download Java Runtime Environment needed to generate PlantUML diagrams
+# 57-60: Clone the necessaty JS files from the Tipue repository in order to run the plugin
+# 61-64: Clone just the plugins that are being used in this project with Pelican 
+# 65-66: Clone the pelican-redirect plugin (aside from the official repository) and make it recognizable as a module
+# 67: Change the default highlighter to Pygments
+# 68: Enable every rule of sass-lint
+# 69-70: Download and install the PlantUML filter for Asciidoc
+# 71-76: Add a variable to the Asciidoc Reader with the source path and reference it in the filters
+# 77: Set Charset in the execution of plantuml.jar
+# 78-86: Erase files and directories that are not needed during runtime
 
 RUN apt-get update -qq && apt-get install -qqy \
         curl \
@@ -73,6 +74,7 @@ RUN apt-get update -qq && apt-get install -qqy \
         for FILE in $(find /etc/asciidoc/filters -iname '*.conf'); do \
             sed -i 's/\"{outdir'".*"'\"/\"{path}\/{target}\"/' $FILE; \
         done && \
+    sed -i 's/-T%s/-T%s\ -charset\ UTF-8/' /etc/asciidoc/filters/plantuml/acplantuml.py && \
     rm -rf /var/lib/apt/lists/* \
         Dockerfile \
         package.json \
