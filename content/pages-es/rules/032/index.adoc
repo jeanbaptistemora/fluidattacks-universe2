@@ -1,0 +1,15 @@
+:slug: rules/032/
+:category: rules
+:description: En el presente documento se detallan los requerimientos de seguridad relacionados al manejo de archivos dentro de la organización. En este requerimiento se establece la importancia de evitar exponer identificadores de sesión en URLs y mensajes presentados al usuario.
+:keywords: Requerimiento, Seguridad, Archivos, Identificadores, Sesión, Mensajes.
+:rules: yes
+
+= REQ.032 Evitar exponer identificadores de sesión
+
+== Nombre
+
+El sistema no debe exponer identificadores de sesión 
+en URLs y mensajes presentados al usuario.
+
+
+== Soluciones

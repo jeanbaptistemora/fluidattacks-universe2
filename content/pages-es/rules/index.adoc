@@ -40,6 +40,7 @@
 
 == Archivos
 
+* link:032/[REQ.032 Evitar exponer identificadores de sesión].
 * link:033/[REQ.033 Parámetros sin datos sensibles].
 * link:039/[REQ.039 Definir content type explícito].
 * link:040/[REQ.040 Definir charset explícito].

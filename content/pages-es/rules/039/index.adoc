@@ -1,7 +1,7 @@
 :slug: rules/039/
 :category: rules
 :description: En el presente documento se detallan los requerimientos de seguridad relacionados al manejo de archivos dentro de la organización. En este requerimiento se establece la importancia de definir un Content Type explícito en archivos generados de forma dinámica.
-:keywords: Requerimiento, Seguridad, Archivos, Content Type, Explícito, Seguridad.
+:keywords: Requerimiento, Seguridad, Archivos, Dinámicos, Content Type, Explícito.
 :rules: yes
 
 = REQ.039 Definir content type explícito
