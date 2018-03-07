@@ -14,3 +14,4 @@ no deben estar habilitados en producción.
 == Soluciones
 
 . +COBOL+ link:../../defends/cobol/usar-opciones-depuracion/[Usar Adecuadamente Opciones de Depuración].
+. +Csharp+ link:../../defends/csharp/depurar-programas/[Depuración de programas en C#].

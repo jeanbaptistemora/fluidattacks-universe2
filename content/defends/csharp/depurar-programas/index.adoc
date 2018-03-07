@@ -136,4 +136,4 @@ todas las instrucciones +C#+ del programa.
 == Referencias
 
 . [[r1]] link:http://msdn.microsoft.com/en-us/library/gg145030.aspx[System.Diagnostics Namespaces]
-. [[r2]] REQ.0072: Los eventos con severidad de depuración no deben estar habilitados en producción.
+. [[r2]] link:../../../rules/072/[REQ.072 Eventos con severidad deshabilitados].
