@@ -81,34 +81,38 @@ muestra a continuación.
 ["graphviz", "diagrama-abstraccion.png"]
 ----
 digraph abstraccion_aplicacion {
-  dpi = 300
-  rankdir = LR
-
+  ranksep=1.3
+  rankdir=TB
   subgraph cluster_0 {
-    label = "Fuera del Boundary: Internet"
-    style = "dashed"
-    node0 [label="Visión", shape="box", style="rounded"]
-    node1 [label="Navegador"]
+    N0 N1
+    style="dashed"
+    label="Fuera del Boundary: Internet"
+    N0 -> N1
   }
 
   subgraph cluster_1 {
-    label = "Boundary: Data Center Corporativo"
-    style = "dashed"
-    node2 [label="Aplicación Web"]
-    node3 [label="Web Server"]
+    N2 N3
+    style="dashed"
+    label="Boundary: Data Center Corporativo"
+    edge [dir=back]
+    N3 -> N2
   }
 
   subgraph cluster_2 {
-    label = "Boundary: Almacenamiento de Datos"
-    style = "dashed"
-    node4 [label="Base de Datos"]
-  }
+    style="dashed"
+    label="Boundary: Almacenamiento de Datos"
+    N4
+    }
 
-  node0 -> node1
-  node1 -> node2:nw [label="Petición"]
-  node2 -> node1:se [label="Respuesta"]
-  node2 -> node3
-  node3 -> node4
+  N1 -> N2 [constraint="false", label="Petición"]
+  N2:s -> N1:s [constraint="false" label="Respuesta"]
+  N3 -> N4 [constraint="false"]
+
+  N0 [label="Visión", shape="box", style="rounded"]
+  N1 [label="Navegador"]
+  N2 [label="Aplicación Web"]
+  N3 [label="Web Server"]
+  N4 [label="Base de Datos"]
 }
 ----
 
@@ -138,41 +142,45 @@ protegidos, ejecución de comandos, entre otros.
 ["graphviz", "diagrama-deteccion.png"]
 ----
 digraph deteccion_amenazas {
-  dpi = 300
-  rankdir = LR
-  node5 [label="Autenticación", shape="box", style="rounded", color="red"]
-  node6 [label="Logs del Sistema", shape="box", style="rounded", color="red"]
-
+  ranksep=1.3
+  rankdir=TB
   subgraph cluster_0 {
-    label = "Fuera del Boundary: Internet"
-    style = "dashed"
-    node0 [label="Visión", shape="box", style="rounded"]
-    node1 [label="Navegador"]
+    N0 N1
+    style="dashed"
+    label="Fuera del Boundary: Internet"
+    N0 -> N1
   }
 
   subgraph cluster_1 {
-    label = "Boundary: Data Center Corporativo"
-    style = "dashed"
-    node2 [label="Aplicación Web"]
-    node3 [label="Web Server"]
+    N2 N3
+    style="dashed"
+    label="Boundary: Data Center Corporativo"
+    edge [dir=back]
+    N3 -> N2
   }
 
   subgraph cluster_2 {
-    label = "Boundary: Almacenamiento de Datos"
-    style = "dashed"
-    node4 [label="Base de Datos"]
-  }
+    style="dashed"
+    label="Boundary: Almacenamiento de Datos"
+    N4
+    }
 
-  node0 -> node1
-  node1 -> node2 [label="Petición"]
-  node1 -> node2 [label=<<font color="red">Peticiones Malformadas</font>>, color="red"]
-  node2 -> node1 [label="Respuesta"]
-  node2 -> node3
-  node3 -> node4
-  node3 -> node4 [label=<<font color="red">Fallo en la Conexión</font>>, color="red"]
-  node5 -> node2 [label=<<font color="red">Fallo Contraseña</font>>, color="red"]
-  node5 -> node2 [label=<<font color="red">Ataques Fuerza Bruta</font>>, color="red"]
-  node6 -> node4 [label=<<font color="red">Manipulación Logs</font>> color="red"]
+  N1 -> N2 [constraint="false", label="Petición"]
+  N1:ne -> N2 [constraint="false", label=<<font color="red">Peticiones Malformadas</font>>, color="red"]
+  N2:s -> N1:s [constraint="false" label="Respuesta"]
+  N3 -> N4 [constraint="false"]
+  N2 -> N6 [dir=back, label=<<font color="red">Fallo<br/>Contraseña</font>>, color="red"]
+  N2:e -> N6:e [dir=back, constraint="false", label=<<font color="red">Ataque<br/>Fuerza Bruta</font>>, color="red"]
+  N3:se -> N4 [constraint="false", label=<<font color="red">Fallo en la Conexión</font>>, color="red"]
+  N4 -> N5 [dir=back, label=<<font color="red">Manipulación<br/>de Logs</font>>, color="red"]
+
+  N0 [label="Visión", shape="box", style="rounded"]
+  N1 [label="Navegador"]
+  N2 [label="Aplicación Web"]
+  N3 [label="Web Server"]
+  N4 [label="Base de Datos"]
+  N5 [label="Logs del Sistema", shape="box", style="rounded", color="red"]
+  N6   [label="Autenticación", shape="box", style="rounded", color="red"]
 }
 ----
 
