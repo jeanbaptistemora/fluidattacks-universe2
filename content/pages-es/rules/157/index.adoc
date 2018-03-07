@@ -14,3 +14,4 @@ El código fuente no debe tener funciones, métodos o clases repetidas.
 
 . +ASPNET+ link:../../defends/aspnet/evitar-codigo-duplicado/[Evitar código fuente duplicado].
 . +COBOL+ link:../../defends/cobol/eliminar-codigo-repetido/[Eliminar Código Repetido].
+. +Csharp+ link:../../defends/csharp/codigo-fuente-duplicado/[Evitar código fuente duplicado en C#].
