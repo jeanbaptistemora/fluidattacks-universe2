@@ -1,0 +1,193 @@
+:slug: requiem-password/
+:date: 2018-03-07
+:category: opinions
+:tags: password, credential, security
+:Image: cover.png
+:alt: Weak bicycle lock with words
+:description: A comparison between having weak or complicated passwords that expire periodically versus having a single strong passphrase, possibly used in conjunction with password managers. We also discuss the memorability of complicated passwords vs randomly generated passphrases with diceware.
+:keywords: passphrase, password, security, cracking, policy, diceware
+:author: Rafael Ballestas
+:writer: raballestasr
+:name: Rafael Ballestas
+:about1: Mathematician
+:about2: with an itch for CS
+
+= Requiem for a p455w0rD
+
+What would you rather have at your home door:
+a simple, weak key that needs to be changed every other week,
+or a one-time-setup, state-of-the-art, virtually unpickable cruciform key?
+
+.Lock key comparison via link:http://www.locksmithledger.com/article/10837014/locksmithing-etc-jan-2013[Locksmith Ledger].
+image::key-comparison.png["Weak vs strong key"]
+
+If the answer is obvious to you, read on.
+That's just the difference
+between rotating short  passwords vs
+having one good, long passphrase:
+the first may be convenient and easy to carry around,
+and easily replaceable if lost,
+while the latter might be difficult to wield at first,
+but once you get used to it,
+makes an unbreakable defense.
+
+Now, the password is not dead,
+as some folks at link:https://news.microsoft.com/features/whats-solution-growing-problem-passwords-says-microsoft/[Microsoft] claim
+in order to favor other kinds of authentication.
+A long password with a healthy mix of
+upper- and lowercase letters and special symbols
+is still pretty tough to guess or crack.
+But they are hard to remember,
+and that leads to frequent password forgets and resets.
+Thus most people tend to resort to
+short, easy to crack passwords.
+See the 2017 link:https://www.cnet.com/news/worst-passwords-2017-star-wars-splashdata-list/[Splash Data 100 worst passwords (+PDF+)] to see the problem.
+These are vulnerable to
+link:https://en.wikipedia.org/wiki/Brute-force_attack[brute-forcing], link:https://en.wikipedia.org/wiki/Dictionary_attack[dictionary attacks] and link:../storing-password-safely[rainbow tables],
+to name a few of the ways they can be cracked.
+
+In order to avoid these situations,
+some organisations choose to implement
+password policies that require users to
+include special symbols or to
+change passwords frequently.
+But that is not without its problems,
+either <<r1, ^[1]^ >>:
+users tend to circumvent these impositions
+in different ways, such as:
+
+* replacing letters by similar numbers (v.g. +o+ -> +0+, +t+ -> +7+)
+* reverting their old password back and forth (+qwerty+ -> +ytrewq+)
+* switching beetwen simple passwords (+pass+ -> +word+),
+* altering a standard password (+password+ -> +password1+ -> ...),
+* not avoiding it, thus getting a very complicated password, but keeping it written down in a piece of paper (danger!).
+
+Furthermore, with the plethora of distributed services around,
+it is not uncommon for
+a single person to have to deal with dozens of passwords,
+leading to the reuse of the same weak ones,
+which makes the situation even worse.
+
+Possible solutions to the problem with many accounts are link:../multiple-credentials-begone/[Single-Sign-On services] and password managers such as link:https://keepass.info/[Keepass].
+But these are sometimes infeasible,
+for example to login to your computer,
+since you cannot run any software beforehand.
+And if you do use a password manager,
+the main password to unlock it should be very strong
+because if it falls, so do all others.
+The same argument goes for encrypted files or disks and email.
+In these mission-critical cases,
+what you want is a 'passphrase'.
+
+Like the name suggests,
+a 'passphrase' is a sentence that you use to gain access,
+just like a password.
+Since they are usually much longer than password,
+the mere number of them is considerably larger,
+making them harder to guess or crack.
+It's as simple as that.
+
+You could argue that
+you already have a password that is long enough.
+But does it make any sense as a 'word'?
+Is it easy to remember?
+Most likely not,
+since you probably had to include some symbols
+that bear no relation to the word.
+In contrast, passphrases are made up of regular words
+which you can remember by linking them somehow.
+This comic from +xkcd+ sums it up:
+
+.Passphrases are easier to remember and harder to crack. Adapted from the original at link:https://xkcd.com/936/[xkcd].
+image::xkcdpw.png["A comic about passwords vs passphrases"]
+
+As you see, you can use mnemonic techniques
+to remember your passphrase,
+even if it might seem absurd at first.
+Research shows that even 56-bit codes
+can be learned within 36 tries <<r2, ^[2]^>>
+using a technique called 'spaced repetition'.
+This also illustrates the problem with
+difficult-to-satisfy password policies:
+they force people to end up with
+absurd, hard to remember passwords with
+nonsensical number and letter combos.
+
+By now you might be convinced that passwords are the way to go.
+But it's not as simple as just grabbing any four words.
+In order to beat attackers using dictionary and brute force attacks,
+you want to make your passphrase as random as possible,
+i.e., it should have a high 'entropy'.
+Even if you choose some words that you think are random,
+the inherent structure of language and of our brains
+implies that we'd be fooling ourselves,
+and that the chosen phrase is not as random as it might seem.
+
+So how do I go about creating a really random, strong passphrase?
+Look for true real-word randomness.
+The easiest way to go would be rolling a die many times
+writing down the results,
+and somehow make that into words.
+But if you map throws from a 26-sided die to letters,
+the words you'll get will be nonsense.
+Instead of that, you can use a dictionary
+that maps sequences of die rolls to actual english words,
+something like this:
+
+.Some words from a link:http://world.std.com/~reinhold/dicewarewordlist.pdf[+Diceware+ dictionary].
+----
+26114 -> fluid
+32236 -> hack
+52416 -> rule
+52133 -> risk
+----
+
+Thus if you roll first a 2, then a 6, ... and a 4,
+the first word in your passphrase will be +fluid+.
+Do this four to seven times and
+your passphrase will be pretty strong.
+Why? Consider this question:
+how many words are there to choose from?
+From an alphabet with 26 letters,
+and allowing words from two to six letters,
+we can make more than 12 million words.
+However some of those wouldn't make sense,
+such as +zzy+ or +edls+,
+so word dictionaries like the one above
+avoid them and only take real english words.
+That particular one is modest:
+it contains only 7,776 words.
+
+But that is enough when you combine them.
+There are 7,776^2^ two-word passphrases, and so on.
+Thus with merely five words we'd have
+7,776^5^ which is around 28 quintillions (28 and 18 zeroes).
+Asumming a trillion (1 and 12 zeroes) guesses per second,
+such a passphrase would take about half a year to crack.
+Append three zeroes for each extra word, being conservative,
+so a seven word passphrase would take about half a million years to crack.
+
+Do keep in mind that
+while passphrases do have the advantages of
+being harder to crack and
+easier to remember than complex passwords,
+you don't have to use them for everything.
+Regular, even easy passwords
+still have their place and,
+contrary to popular wisdom,
+can be recycled and reused,
+according to <<r3, [3]>>.
+There is plenty of room for debate here and
+of course, there is no consensus as to
+what constitutes the best practise,
+but now that you know both sides of the coin
+you can choose what is most appropriate
+for each situation.
+
+== References
+
+. [[r1]] link:https://queue.acm.org/detail.cfm?id=2422416[Cheswick, William (2012). 'ACM Queue' 10 (12).]
+
+. [[r2]] link:https://www.usenix.org/system/files/conference/usenixsecurity14/sec14-paper-bonneau.pdf[Bonneau, J. and Schechter, S. (2014) Towards reliable storage of 56-bit secretes in human memory. 'Proceedings of the 23^rd^ USENIX Security Symposium'.]
+
+. [[r3]] link:https://www.microsoft.com/en-us/research/wp-content/uploads/2016/02/passwordPortfolios.pdf[Florencio, D et al. (2014). Password portfolios and the finite-effort user: Sustainably managing large numbers of accounts. 'USENIX Security', August 20-22.]
