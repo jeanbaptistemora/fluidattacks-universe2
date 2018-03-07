@@ -194,7 +194,6 @@ las instrucciones del programa principal.
 
 == Referencias
 
-. [[r1]] REQ.0159: El código debe utilizar contenedores 
-o estructuras de datos optimizadas.
+. [[r1]] link:../../../rules/159/[REQ.159 Utilizar estructuras optimizadas].
 . [[r2]] link:https://www.ibm.com/support/knowledgecenter/ssw_i5_54/books/sc092539.pdf[ILE COBOL Reference, página 586].
 . [[r3]] link:https://www.ibm.com/support/knowledgecenter/SSAE4W_9.0.0/com.ibm.etools.iseries.langref.doc/c0925395663.htm[COPY Statement - Format 1].

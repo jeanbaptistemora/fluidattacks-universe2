@@ -13,3 +13,4 @@ El código debe utilizar contenedores o estructuras de datos optimizadas.
 == Soluciones
 
 . +ASPNET+ link:../../defends/aspnet/reutilizar-objetos-bucles/[Reutilizar objetos en bucles].
+. +COBOL+ link:../../defends/cobol/usar-estructuras-optimizadas/[Usar Estructuras Optimizadas].
