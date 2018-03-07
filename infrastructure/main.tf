@@ -18,6 +18,7 @@ module "ec2instance" {
   source = "./ec2"
   amiID = "${var.amiID}"
   iType = "${var.iType}"
+  sreg = "${var.sreg}"
   sgId = "${module.createNetwork.sgId}"
   snetId = "${module.createNetwork.snetId}"
   kName = "${var.kName}"

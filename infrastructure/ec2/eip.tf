@@ -34,6 +34,19 @@ resource "aws_eip_association" "eip_assoc" {
       source      = "ec2/host/docker-compose.yml"
       destination = "/tmp/docker-compose.yml"
     }
+    provisioner "file" {
+        source      = "ec2/host/docker_pull.sh"
+        destination = "/tmp/docker_pull.sh"
+      }
+      provisioner "file" {
+          source      = "ec2/host/login.sh"
+          destination = "/tmp/login.sh"
+        }
+        provisioner "file" {
+            source      = "ec2/host/cronjob"
+            destination = "/tmp/cronjob"
+          }
+
   provisioner "remote-exec" {
        inline = [
            "sh /tmp/script.sh",

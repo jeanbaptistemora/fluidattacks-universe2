@@ -96,6 +96,7 @@ deploy_terraform:
         - cd infrastructure
     script:
         - terraform init
+        - echo docker login registry.gitlab.com -u $DOCKER_USER -p $DOCKER_PASS >> ec2/host/login.sh
         - terraform apply -auto-approve -var-file="vars/aws.tfvars"
         - terraform output instance_ip > ip.txt
         - terraform output variable_ip >> existing-dns/terraform.tfvars
