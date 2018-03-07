@@ -1,6 +1,6 @@
 :slug: rules/004/
 :category: rules
-:description: This document contains the details of the security requirements related to a company's information assets. All threats to the assets must be identified and documented in order to make decisions regarding the asset's security risks.
+:description: This document contains the details of the security requirements related to a company's information assets. All threats to the information assets must be clearly identified and documented in order to make informed decisions regarding the asset's security risks.
 :keywords: Requirement, Security, Assets, Information, Documentation, Threats.
 :rules: yes
 
