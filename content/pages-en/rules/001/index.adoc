@@ -60,7 +60,7 @@ image::diag1-req001.png[Diagram1]
 
 == Solutions
 
-* Consulting - Setting the Information Asset Inventory.
+* Consulting - Define the Information Asset Inventory.
 * Consulting - Defining the Information Asset Granularity.
 * Consulting - Establishing the Owner of an Information Asset.
 * Consulting - Answering the Information Asset Inventory Questionnaire.
@@ -70,7 +70,7 @@ image::diag1-req001.png[Diagram1]
 == Abuse Cases
 
 An anonymous person or employee executes actions
-that attempt against the security of any of the organization's assets,
+that attempt against the security of any of the organization's information assets,
 since the impact of the assets is unknown
 the incident can´t be put in terms of value/cost.
 In consequence, the incident´s solution
@@ -81,7 +81,7 @@ can come late or cause a greater impact to the organization.
 . Layer: Resource Layer
 . Asset: Information Assets
 . Scope: Adherence
-. Fase: Analysis
+. Phase: Analysis
 . Type of Control: Procedure
 
 == References
