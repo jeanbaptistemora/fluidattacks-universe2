@@ -6,6 +6,7 @@
 
 = Energía
 
-Esta página se encuentra actualmente en desarrollo.
-
-Nos disculpamos por cualquier inconveniente que esto pueda causar.
+[width="99%", cols="^.^,^.^", grid="none", frame="none"]
+|=======
+|image:logo-internexa.png[logo internexa, 220, 180] |image:logo-xm.png[logo xm, 230, 180]
+|=======

@@ -8,5 +8,5 @@
 
 [width="99%", cols="^.^,^.^", grid="none", frame="none"]
 |=======
-|image:logo-internexa.png[logo internexa, 250, 220] |image:logo-xm.png[logo xm, 240, 190]
+|image:logo-internexa.png[logo internexa, 220, 180] |image:logo-xm.png[logo xm, 230, 180]
 |=======
