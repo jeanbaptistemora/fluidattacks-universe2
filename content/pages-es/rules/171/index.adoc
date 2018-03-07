@@ -17,3 +17,4 @@ Solo permitirá acceso a usuarios autorizados.
 
 . +ASPNET+ link:../../defends/aspnet/apps-minimo-privilegio/[Ejecutar aplicaciones con mínimo privilegio].
 . +COBOL+ link:../../defends/cobol/seg-sentencias-dinamicas/[Establecer Seguridad en Sentencias Dinámicas].
+. +Csharp+ link:../../defends/csharp/ejecutar-minimo-privilegio/[Ejecutar aplicaciones con el mínimo privilegio].
