@@ -53,6 +53,10 @@
 * link:073/[REQ.073 Registrar momento de ocurrencia de eventos].
 * link:077/[REQ.077 No registrar datos sensibles en bitácoras].
 
+== Correo Electrónico
+
+* link:114/[REQ.114 Garantizar unicidad de correos].
+
 == Credenciales
 
 * link:125/[REQ.125 Contraseñas con al menos 3 palabras].

@@ -224,10 +224,7 @@ las validaciones de correo electrónico explicadas anteriormente.
 
 == Referencias
 
-. [[r1]] REQ.0114: Sistemas que empleen cuentas de correo 
-para el registro de usuarios 
-deben garantizar la unicidad de los correos, 
-siguiendo el estándar de la estructura de dirección de correo RFC822.
+. [[r1]] link:../../../rules/114/[REQ.114 Garantizar unicidad de correos].
 . [[r2]] link:https://www.ibm.com/support/knowledgecenter/en/ssw_ibm_i_73/rzasb/iddiv.htm[Identification Division].
 . [[r3]] link:http://www.escobol.com/modules.php?name=Sections&op=viewarticle&artid=13[Data Division].
 . [[r4]] link:https://www.ibm.com/support/knowledgecenter/SSQ2R2_9.1.1/com.ibm.ent.cbl.zos.doc/PGandLR/ref/rlpds.html[Procedure division structure].
