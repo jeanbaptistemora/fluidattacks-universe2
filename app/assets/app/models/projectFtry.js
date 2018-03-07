@@ -201,6 +201,19 @@ integrates.factory('projectFtry', function($q, $translate){
             },oops_ac);
         },
         /**
+         * Invoca el servicio para mostrar la severidad total del proyecto
+         * @function RemediatedView
+         * @param {String} project
+         * @member integrates.projectFtry
+         * @return {Object}s
+         */
+        TotalSeverity: function(project){
+            var oops_ac = $translate.instant('proj_alerts.error_text');
+            return $xhr.get($q, BASE.url + "total_severity", {
+                project: project, _: Math.random()
+            },oops_ac);
+        },
+        /**
          * Invoca el servicio para mostrar si fue remediado un hallazgo
          * @function RemediatedView
          * @param {JSON} data

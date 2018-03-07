@@ -145,7 +145,7 @@ integrates.controller(
             });
             $("#total_cardinalidad").html(cardinalidad);
             $("#total_hallazgos").html(data.data.length);
-            var total_criticidad = 0;
+            var severity = 0;
             data.data.forEach(function(i){
                 try{
                     if(i.tipo_hallazgo == "Seguridad"){
@@ -159,13 +159,27 @@ integrates.controller(
                         var Resol = parseFloat(i.nivel_resolucion.split(" | ")[0]);
                         var Confi = parseFloat(i.nivel_confianza.split(" | ")[0]);
                         var BaseScore = (((0.6*(10.41*(1-(1-ImpCon)*(1-ImpInt)*(1-ImpDis))))+(0.4*(20*AccCom*Auth*AccVec))-1.5)*1.176);
-                        total_criticidad += BaseScore * parseFloat(i.cardinalidad_total);
+                        severity += BaseScore * parseFloat(i.cardinalidad_total);
                     }
                 }catch(e){
                     Rollbar.error("Error: An error ocurred calculating cardinality", e);
                 }
             });
-            $("#total_criticidad").html(total_criticidad.toFixed(0));
+            var req = projectFtry.TotalSeverity($scope.project.toLowerCase());
+            req.then(function(response){
+                if(!response.error){
+                    if(response.data.length > 0){
+                        for (var i = 0; i < response.data.length; i++) {
+                            var target = (parseInt(response.data[i].lines) / 1000) + (parseInt(response.data[i].fields) / 4);
+                            var total_severity = (severity / ((4.611 * target) + 43.221)) * 100;
+                            $("#total_criticidad").html("n%".replace("n", total_severity.toFixed(0)));
+                        }
+                    } else {
+                        var total_severity = severity;
+                        $("#total_criticidad").html(total_severity.toFixed(0));
+                    }
+                }
+            });            
             $("#total_efectividad").html("n%".replace("n", (((1-(cardinalidad/cardinalidad_total))*100).toFixed(2).toString())));
         };
         $scope.capitalizeFirstLetter = function(string) {

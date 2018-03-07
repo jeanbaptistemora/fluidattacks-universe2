@@ -38,6 +38,7 @@ urlpatterns = [
     # Consumo de servicios de formstack
     url(r'^get_finding/?\.*$', views.get_finding, name='get_finding'),
     url(r'^get_findings/?\.*$', views.get_findings, name='get_findings'),
+    url(r'^total_severity/?\.*$', views.total_severity, name='total_severity'),
     url(r'^get_eventualities/?\.*$',
         views.get_eventualities, name='get_eventualities'),
     url(r'^get_evidences/?\.*$', views.get_evidences, name='get_evidences'),

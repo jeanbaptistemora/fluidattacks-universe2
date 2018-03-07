@@ -1067,3 +1067,12 @@ def delete_comment(request):
         rollbar.report_message('Error: An error ocurred deleting comment', 'error', request)
         return util.response([], 'Error', True)
     return util.response([], 'Success', False)
+
+@never_cache
+@csrf_exempt
+@require_http_methods(["GET"])
+@authorize(['analyst', 'customer'])
+def total_severity(request):
+    project = request.GET.get('project', "")
+    toe = integrates_dao.get_toe_dynamo(project)
+    return util.response(toe, 'Success', False)

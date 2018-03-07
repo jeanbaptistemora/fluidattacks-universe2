@@ -596,3 +596,21 @@ def delete_finding_dynamo(finding_id):
     except ClientError:
         rollbar.report_exc_info()
         return False
+
+def get_toe_dynamo(project):
+    """Obtiene el toe de un proyecto"""
+    table = dynamodb_resource.Table('toe')
+    filter_key = 'project'
+    if filter_key and project:
+        filtering_exp = Key(filter_key).eq(project)
+        response = table.query(KeyConditionExpression=filtering_exp)
+    else:
+        response = table.query()
+    items = response['Items']
+    while True:
+        if response.get('LastEvaluatedKey'):
+            response = table.query(ExclusiveStartKey=response['LastEvaluatedKey'])
+            items += response['Items']
+        else:
+            break
+    return items
