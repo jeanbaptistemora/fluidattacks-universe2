@@ -1,0 +1,16 @@
+:slug: rules/072/
+:category: rules
+:description: En el presente documento se detallan los requerimientos de seguridad relacionados con las bitácoras que registran eventos relevantes. En este requerimiento se establece la importancia de deshabilitar los eventos con severidad de depuración en un ambiente de producción.
+:keywords: Requerimiento, Seguridad, Bitácoras, Eventos, Severidad, Producción.
+:rules: yes
+
+= REQ.072 Eventos con severidad deshabilitados
+
+== Nombre 
+
+Los eventos con severidad de depuración 
+no deben estar habilitados en producción. 
+
+== Soluciones
+
+. +COBOL+ link:../../defends/cobol/usar-opciones-depuracion/[Usar Adecuadamente Opciones de Depuración].

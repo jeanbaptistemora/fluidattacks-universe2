@@ -137,8 +137,7 @@ la implementación del código depurado anteriormente.
 
 == Referencias
 
-. [[r1]] REQ.0072: Los eventos con severidad de depuración 
-no deben estar habilitados en producción.
+. [[r1]] link:../../../rules/072/[REQ.072 Eventos con severidad deshabilitados].
 . [[r2]] link:http://www.mainframestechhelp.com/tutorials/cobol/cobol-configuration-section.htm[COBOL Configuration Section].
 . [[r3]] link:https://www.ibm.com/support/knowledgecenter/en/ssw_ibm_i_73/rzasb/iddiv.htm[Identification Division - Format].
 . [[r4]] link:https://www.ibm.com/support/knowledgecenter/en/ssw_ibm_i_72/rzasb/envcon.htm[Environment Division].
