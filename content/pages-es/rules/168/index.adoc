@@ -14,3 +14,4 @@ potencialmente insegura que sea recibida por entradas de datos.
 == Soluciones
 
 . +COBOL+ link:../../defends/cobol/sqli-sentencia-parametrizada/[Prevenir SQLi Mediante Sentencias Parametrizadas].
+. +COBOL+ link:../../defends/cobol/validar-datos-variables/[Validar Datos en Variables].

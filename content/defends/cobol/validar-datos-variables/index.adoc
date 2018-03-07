@@ -201,9 +201,7 @@ la implementación del código depurado anteriormente.
 
 == Referencias
 
-. [[r1]] REQ.0168: El sistema debe descartar 
-toda la información potencialmente insegura 
-que sea recibida por entradas de datos.
+. [[r1]] link:../../../rules/168/[REQ.168 Descartar información insegura].
 . [[r2]] link:https://www.ibm.com/support/knowledgecenter/ssw_i5_54/books/sc092539.pdf[ILE COBOL Reference].
 . [[r3]] link:https://www.ibm.com/support/knowledgecenter/SS4QVT_8.5.1/com.ibm.etools.iseries.langref.doc/c0925395104.htm[SPECIAL-NAMES Paragraph].
 . [[r4]] link:https://www.ibm.com/support/knowledgecenter/en/ssw_ibm_i_73/rzasb/iddiv.htm[Identification Division].
