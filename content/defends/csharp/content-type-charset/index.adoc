@@ -79,5 +79,5 @@ if (Response.Charset == "utf-8")
 
 . [[r1]] link:https://msdn.microsoft.com/en-us/library/system.web.httpresponse.contenttype.aspx[Microsoft, httpresponse.contenttype]
 . [[r2]] link:https://www.owasp.org/index.php/Security_Headers[OWASP, Security Headers]
-. [[r3]] REQ.0039: Los archivos generados de forma dinámica por el sistema deben tener definido un Content-Type explícito.
-. [[r4]] REQ.0040: Los archivos generados de forma dinámica por el sistema deben tener definido un Character-Set explícito.
+. [[r3]] link:../../../rules/039/[REQ.039 Definir content type explícito].
+. [[r4]] link:../../../rules/040/[REQ.040 Definir charset explícito].
