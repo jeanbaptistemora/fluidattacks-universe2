@@ -15,3 +15,4 @@ que ninguna contraseña contenga palabras de diccionario.
 == Soluciones
 
 . +COBOL+ link:../../defends/cobol/fortaleza-diccionario/[Comprobar Fortaleza Diccionario].
+. +Csharp+ link:../../defends/csharp/fortaleza-contrasenas-dic/[Probar Fortaleza de Contraseñas Usando Diccionarios].

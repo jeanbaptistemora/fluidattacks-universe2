@@ -69,7 +69,7 @@
 * link:131/[REQ.131 Contraseñas de más de 20 caracteres].
 * link:132/[REQ.132 Almacenar contraseñas con Salt].
 * link:133/[REQ.133 Derivaciones de clave aleatorias].
-* link:997/[REQ.997 Contraseñas sin palabras de diccionario]
+* link:997/[REQ.997 Contraseñas sin palabras de diccionario].
 
 == Criptografía
 
