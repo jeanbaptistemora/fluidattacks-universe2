@@ -6,7 +6,8 @@
 
 = Transporte
 
-[frame="none", cols="^.^"]
+[frame="none", cols="^.^,^.^"]
 |=======
-|image:logo-avianca.png[logo avianca, 390, 120]
+|image:logo-avianca.png[logo avianca, 390, 120, link=https://www.avianca.com/co/es/]
+|*Avianca* es la marca comercial que representa a las aerolíneas latinoamericanas integradas en Avianca Holdings S.A. Especializadas en el transporte de pasajeros y carga, atención directa en más de 100 destinos en 26 países de América y Europa a bordo de una moderna flota de 172 aeronaves de corto, mediano y largo alcance.
 |=======
