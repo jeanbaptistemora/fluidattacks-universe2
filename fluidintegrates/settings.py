@@ -265,6 +265,7 @@ ANALYTICAL_AUTO_IDENTIFY = False
 # Intercom
 INTERCOM_APPID = FI_INTERCOM_APPID
 INTERCOM_SECURE_KEY = FI_INTERCOM_SECURE_KEY
+INTERCOM_USER_DATA_CLASS = 'app.pipeline.intercom_custom_data.IntercomUserData'
 INTERCOM_INCLUDE_USERID = False
 INTERCOM_CUSTOM_DATA_CLASSES = [
     'app.pipeline.intercom_custom_data.IntercomCustomData',
