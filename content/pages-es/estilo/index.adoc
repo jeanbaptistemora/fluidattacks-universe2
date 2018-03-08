@@ -163,6 +163,10 @@ se establecen las siguientes reglas:
 . El código fuente debe ser en inglés.
 . No está permitido repetir un fragmento de código
 que ya se haya usado en la guía.
+. Identar utilizando 2 espacios en lugar de tabulaciones. 
+A menos que el lenguaje indique lo contrario.
+. El código debe estar enumerado.
+Para ello añadir el parámetro +linenums+ al bloque de +source+.
 . Añadir las líneas de código al +post+
 utilizando un bloque de código, no usar imágenes.
 
@@ -172,12 +176,12 @@ utilizando un bloque de código, no usar imágenes.
 [source, C, linenums]
 ----
 function cool(x){
-	/*Please use SHORT comments in english when necessary.
-	You must explain your code in the document*/
-	int y;
-	y = x + 1;
-	return y;
-	//And remember, do NOT exceed 8 lines ;)
+  /*Please use SHORT comments in english when necessary.
+  You must explain your code in the document*/
+  int y;
+  y = x + 1;
+  return y;
+  //And remember, do NOT exceed 8 lines ;)
 }
 ----
 
