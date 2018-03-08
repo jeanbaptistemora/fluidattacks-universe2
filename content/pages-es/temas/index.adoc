@@ -19,7 +19,30 @@ Dentro de los temas de interés se encuentran:
 * Security Development Lifecycle (SDL).
 * Comprehensive Software Development Model.
 * Lightweight Application Security Process (CLASP).
-* TSP-Secure (Team Software Process for Secure SW/Dev).
+* TSP Secure (Team Software Process for Secure SW/Dev).
 * CoSMo ―Conceptual Security Modeling.
 * UMLSec.
 * Web shells opensource sin efectos colaterales.
+* Cracking simple de claves no reversibles.
+* Cracking con rainbow tables.
+* Cómo detener un ddos de forma efectiva sin proxys.
+* Función de hashing recomendada.
+* Función de cifrado asimétrico recomendada.
+* Función de cifrado simétrico recomendada.
+* Beast attack.
+* Poodle sslv3.
+* Poodle tls.
+* Hearblead attack.
+* Bitcoin blockchain security issues.
+* Ethereum security issues.
+* Stellar security issues.
+* Misra estandar.
+* API throttling .
+* Bearer authentication.
+* SOAP Basic authentication.
+* SOAP Digest authentication.
+* Infraestructura inmutable.
+* Blue team.
+* Red team.
+* Purple team.
+* Machine learning para busqueda de vulnerabilidades.

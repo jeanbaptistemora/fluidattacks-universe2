@@ -23,3 +23,27 @@ Among the topics of interest are:
 * CoSMo ―Conceptual Security Modeling.
 * UMLSec.
 * OpenSource Web shells without collateral effects.
+* Simple cracking of non-reversible keys.
+* Cracking with rainbow tables.
+* How to stop effectively a ddos without proxies.
+* Recommended hashing function.
+* Recommended asymmetric encryption function.
+* Recommended symmetric encryption function.
+* Beast attack.
+* Poodle sslv3.
+* Poodle tls.
+* Hearblead attack.
+* Bitcoin blockchain security issues.
+* Ethereum security issues.
+* Stellar security issues.
+* Misra Standard. 
+* API throttling.
+* Bearer authentication.
+* SOAP Basic authentication.
+* SOAP Digest authentication.
+* Immutable infrastructure.
+* Blue team
+* Red team
+* Purple team
+* Machine learning for vulnerabilities searching.
+
