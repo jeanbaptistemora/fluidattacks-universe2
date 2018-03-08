@@ -38,6 +38,8 @@ build_deps:
         - docker login registry.gitlab.com -u $DOCKER_USER -p $DOCKER_PASS
         - docker build --cache-from registry.gitlab.com/fluidsignal/integrates:deps -t registry.gitlab.com/fluidsignal/integrates:deps deploy/containers/deps
         - docker push registry.gitlab.com/fluidsignal/integrates:deps
+    except:
+    - triggers
 
 build_integrates:
     stage: build
@@ -46,6 +48,8 @@ build_integrates:
         - >
           cd deploy/containers/integrates && sh build.sh $CI_COMMIT_REF_NAME $FI_GITLAB_LOGIN $FI_GITLAB_PASSWORD $FI_DRIVE_AUTHORIZATION $FI_DOCUMENTROOT $FI_SSL_CERT $FI_SSL_KEY $FI_DRIVE_AUTHORIZATION_CLIENT
         - docker push registry.gitlab.com/fluidsignal/integrates:base
+    except:
+    - triggers
 
 build_bot:
     stage: build
@@ -54,6 +58,8 @@ build_bot:
         - >
           cd deploy/containers/bot && sh build.sh $CI_COMMIT_REF_NAME $FI_GITLAB_LOGIN $FI_GITLAB_PASSWORD $FI_DRIVE_AUTHORIZATION $FI_DOCUMENTROOT $FI_SSL_CERT $FI_SSL_KEY $FI_DRIVE_AUTHORIZATION_CLIENT
         - docker push registry.gitlab.com/fluidsignal/integrates/bot:base
+    except:
+    - triggers
 
 server_on:
     stage: build
@@ -63,6 +69,8 @@ server_on:
         - docker network rm integrates_test || true
         - docker network create --subnet=192.168.200.0/24 integrates_test
         - docker run -d --name "integrates_test" --env-file env.list --network integrates_test --ip 192.168.200.100 -p 8000:8000 -t registry.gitlab.com/fluidsignal/integrates:base python /usr/src/app/manage.py runserver 0.0.0.0:8000
+    except:
+    - triggers
 
 manage:
     stage: test
@@ -70,12 +78,16 @@ manage:
         - docker login registry.gitlab.com -u $DOCKER_USER -p $DOCKER_PASS
         - docker run --env-file env.list -t registry.gitlab.com/fluidsignal/integrates:base python /usr/src/app/manage.py test app.tests
         - rm env.list
+    except:
+    - triggers
 
 fluidasserts:
     stage: test
     script:
         - docker login fluid-docker.jfrog.io -u $CONTINUOUS_USER -p $CONTINUOUS_PASS
         - docker run --network integrates_test -e ORG=fluid -e APP=integrates -e USER=$CONTINUOUS_USER -e PASS=$CONTINUOUS_PASS -e FA_STRICT="false" fluid-docker.jfrog.io/fluid:integrates
+    except:
+    - triggers
 
 Prospector_app:
     stage: test
@@ -83,6 +95,8 @@ Prospector_app:
         - docker login registry.gitlab.com -u $DOCKER_USER -p $DOCKER_PASS
         - docker run --env-file env.list -t registry.gitlab.com/fluidsignal/integrates:base prospector -u django /usr/src/app/app
         - rm env.list
+    except:
+    - triggers
 
 Prospector_fluidintegrates:
     stage: test
@@ -90,12 +104,16 @@ Prospector_fluidintegrates:
         - docker login registry.gitlab.com -u $DOCKER_USER -p $DOCKER_PASS
         - docker run --env-file env.list -t registry.gitlab.com/fluidsignal/integrates:base prospector -u django /usr/src/app/fluidintegrates
         - rm env.list
+    except:
+    - triggers
 
 server_off:
     stage: deploy
     script:
         - docker stop integrates_test && docker rm integrates_test
         - docker network rm integrates_test
+    except:
+    - triggers
 
 push_integrates:
     stage: push
@@ -106,6 +124,8 @@ push_integrates:
        - docker push registry.gitlab.com/fluidsignal/integrates:master
     only:
     - master
+    except:
+    - triggers
 
 push_bot:
     stage: push
@@ -116,6 +136,8 @@ push_bot:
         - docker push registry.gitlab.com/fluidsignal/integrates/bot:master
     only:
     - master
+    except:
+    - triggers
 
 deploy_integrates:
     stage: deploy
@@ -128,6 +150,8 @@ deploy_integrates:
        - ssh -o StrictHostKeyChecking=no -i FLUID_Serves.pem admin@fluidattacks.com 'sudo docker pull registry.gitlab.com/fluidsignal/integrates/bot:master && sudo docker stop bot && sudo docker rm bot && sudo docker run -d --env-file env.list --name=bot registry.gitlab.com/fluidsignal/integrates/bot:master && rm env.list'
     only:
     - master
+    except:
+    - triggers
 
 deploy_rollbar:
     stage: deploy
@@ -135,16 +159,18 @@ deploy_rollbar:
         - docker run -d -e FI_ROLLBAR_ACCESS_TOKEN=$FI_ROLLBAR_ACCESS_TOKEN -e FI_ROLLBAR_ENVIRONMENT=$FI_ROLLBAR_ENVIRONMENT -e FI_ROLLBAR_REVISION=$CI_COMMIT_SHA -e FI_ROLLBAR_LOCAL_USERNAME=$CI_COMMIT_REF_NAME registry.gitlab.com/fluidsignal/integrates:deps curl https://api.rollbar.com/api/1/deploy/ -F access_token=$FI_ROLLBAR_ACCESS_TOKEN -F environment=$FI_ROLLBAR_ENVIRONMENT -F revision=$CI_COMMIT_SHA -F local_username=$CI_COMMIT_REF_NAME
     only:
     - master
+    except:
+    - triggers
 
 serves_trigger:
     stage: deploy
     image: debian:jessie-slim
     script:
         - apt update && apt install -y openssh-client curl
-        - if [ -n "${IS_TRIGGER}" ]; then echo "$FI_SSH_KEY" | base64 -d > "FLUID_Serves.pem" && chmod 600 FLUID_Serves.pem; fi
-        - if [ -n "${IS_TRIGGER}" ]; then scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -i FLUID_Serves.pem env.list admin@$NEW_SERVES:/home/admin; fi
-        - if [ -n "${IS_TRIGGER}" ]; then ssh -o StrictHostKeyChecking=no -i FLUID_Serves.pem admin@$NEW_SERVES 'sudo docker pull registry.gitlab.com/fluidsignal/integrates:master && (sudo docker stop integrates || echo "") && (sudo docker rm integrates || echo "") && sudo docker run -d --env-file env.list -p 8000:443 --name=integrates registry.gitlab.com/fluidsignal/integrates:master'; fi
-        - if [ -n "${IS_TRIGGER}" ]; then ssh -o StrictHostKeyChecking=no -i FLUID_Serves.pem admin@$NEW_SERVES 'sudo docker pull registry.gitlab.com/fluidsignal/integrates/bot:master && (sudo docker stop bot || echo "") && (sudo docker rm bot || echo "") && sudo docker run -d --env-file env.list --name=bot registry.gitlab.com/fluidsignal/integrates/bot:master && rm env.list'; fi
-        - if [ -n "${IS_TRIGGER}" ]; then curl -X POST -F token=$TRIGGER_TOKEN -F ref=master -F "variables[IS_TRIGGER]=true" https://gitlab.com/api/v4/projects/4593051/trigger/pipeline; fi
+        - echo "$FI_SSH_KEY" | base64 -d > "FLUID_Serves.pem" && chmod 600 FLUID_Serves.pem
+        - scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -i FLUID_Serves.pem env.list admin@$NEW_SERVES:/home/admin
+        - ssh -o StrictHostKeyChecking=no -i FLUID_Serves.pem admin@$NEW_SERVES 'sudo docker pull registry.gitlab.com/fluidsignal/integrates:master && (sudo docker stop integrates || echo "") && (sudo docker rm integrates || echo "") && sudo docker run -d --env-file env.list -p 8000:443 --name=integrates registry.gitlab.com/fluidsignal/integrates:master'
+        - ssh -o StrictHostKeyChecking=no -i FLUID_Serves.pem admin@$NEW_SERVES 'sudo docker pull registry.gitlab.com/fluidsignal/integrates/bot:master && (sudo docker stop bot || echo "") && (sudo docker rm bot || echo "") && sudo docker run -d --env-file env.list --name=bot registry.gitlab.com/fluidsignal/integrates/bot:master && rm env.list'
+        - curl -X POST -F token=$TRIGGER_TOKEN -F ref=master -F "variables[IS_TRIGGER]=true" https://gitlab.com/api/v4/projects/4593051/trigger/pipeline
     only:
-    - master
+    - triggers
