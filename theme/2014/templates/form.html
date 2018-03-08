@@ -62,6 +62,19 @@
             <li><a href="{{ SITEURL }}/">{{ gettext('Breadcrumb-0') }}</a></li>
           </ul>
         </div>
+        {% if DEFAULT_LANG == "en" %}
+          {% if page.translate %}
+            <div class="translate">
+              <img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/es.png" alt="Spain flag"><a href="{{ SUBSITEURL }}/{{ page.translate }}" class="button">Translate >></a>
+            </div>
+          {% endif %}
+        {% elif DEFAULT_LANG == "es" %}
+          {% if page.translate %}
+            <div class="translate">
+              <img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/en.png" alt="Bandera de Estados Unidos"><a href="{{ SUBSITEURL }}/{{ page.translate }}" class="button">Traducir >></a>
+            </div>
+          {% endif %}
+        {% endif %}
       </div>
       <iframe id="ifrmContact" onload="iFrameResize({log:false})" width="100%" src={{ page.form }} frameborder="0"></iframe>
       <br>

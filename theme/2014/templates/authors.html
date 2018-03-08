@@ -41,7 +41,16 @@
             <li><a href="{{ SITEURL }}/">{{ gettext('Breadcrumb-0') }} >>&nbsp;</a></li>
             <li><a href="{{ SITEURL }}/blog/">Blog</a></li>
           </ul>
-        </div>
+        </div> 
+        {% if DEFAULT_LANG == "en" %}
+          <div class="translate">
+            <img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/es.png" alt="Spain flag"><a href="{{ SUBSITEURL }}/blog/autores/" class="button">Traducir >></a>
+          </div>
+        {% elif DEFAULT_LANG == "es" %}
+          <div class="translate">
+            <img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/en.png" alt="Bandera de Estados Unidos"><a href="{{ SUBSITEURL }}/blog/authors/" class="button">Translate >></a>
+          </div>
+        {% endif %}
       </div>
       <h1>{{ gettext('Authors-header') }}:</h1>
       <div class="preamble">
