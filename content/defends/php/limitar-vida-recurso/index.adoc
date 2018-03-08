@@ -17,7 +17,7 @@ cuando ya no estén en uso.
 A continuación se describe las circunstancias 
 bajo las cuales la siguiente solución tiene sentido:
 
-. Se está desarrollando una aplicación en +PHP+ versión 7.0 o superior.
+. Se está desarrollando una aplicación en +PHP+ versión +7.0+ o superior.
 . El código debe eliminar información sensible en memoria.
 . La aplicación debe liberar recursos cuando ya no estén en uso,<<r1,^[1]^>> 
 limitando así su tiempo de vida.
@@ -64,8 +64,8 @@ y lo imprimimos en pantalla:
 +
 [source, php, linenums]
 ----
-   $line = fgets($myresource);
-   echo $line;
+  $line = fgets($myresource);
+  echo $line;
 }
 ----
 . Por último, una vez ha terminado el procesamiento del recurso, 
@@ -73,7 +73,7 @@ se procede a cerrar el flujo asociado al mismo:
 +
 [source, php, linenums]
 ----
-   fclose($myresource);
+  fclose($myresource);
 ----
 +
 Nota: +PHP+ ofrece alternativas 
@@ -88,16 +88,14 @@ solo se realice si el archivo se abre correctamente.
 
 . Para ejecutar el anterior programa, 
 desde la terminal se debe ubicar primero en el directorio del proyecto 
-(en este caso la ruta es +/home/user/proyecto/+), 
 y ejecutar el comando +php+ 
 (se debe instalar previamente +PHP+):
 +
 [source, bash, linenums]
 ----
-~$ cd /home/user/proyecto/
-~/home/user/proyecto$ ls
-~/home/user/proyecto$ fopen.php test.txt
-~/home/user/proyecto$ php fopen.php
+$ ls
+fopen.php test.txt
+$ php fopen.php
 ----
 . La salida en consola luego de ejecutar el programa es la siguiente 
 (en este caso el contenido del fichero 
@@ -142,7 +140,7 @@ Dicha función se detendrá al final del archivo
 o cuando alcance la longitud especificada, lo que ocurra primero.
 
 . Por último, cerramos el flujo asociado al recurso 
-y se imprime el contenido de la variable +$content+ en pantalla;
+y se imprime el contenido de la variable +$content+ en pantalla:
 +
 [source, php, linenums]
 ----
