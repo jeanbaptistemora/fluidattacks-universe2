@@ -23,7 +23,6 @@ $white: rgba(255, 255, 255, 1);
 
 @mixin menu-pseudo {
   content: '';
-  left: 185px;
   position: absolute;
   width: 20px;
 }
@@ -77,13 +76,15 @@ $white: rgba(255, 255, 255, 1);
 }
 
 .menu-button {
-  @include link;
   border-bottom: 5px solid $darkblue;
   cursor: pointer;
-  font-size: 20px;
-  padding: 26px 115px 21px;
+  min-height: 72px;
   position: relative;
   z-index: 1;
+
+  &:hover {
+    background-color: $darkblue;
+  }
 
   &::before {
     @include menu-pseudo;
@@ -207,13 +208,6 @@ $white: rgba(255, 255, 255, 1);
   .fluid-screw {
     top: 23px;
     width: 150px;
-  }
-
-  .menu-button {
-    &::before,
-    &::after {
-      left: 235px;
-    }
   }
 }
 

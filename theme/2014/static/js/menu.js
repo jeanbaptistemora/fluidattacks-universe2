@@ -8,13 +8,12 @@ organizing the content in a dropdown menu.
   $.fn.menumaker = function(options) {
       
       var cssmenu = $(this), settings = $.extend({
-        title: "Menu",
         format: "dropdown",
         sticky: false
       }, options);
 
       return this.each(function() {
-        cssmenu.prepend('<div class="menu-button">' + settings.title + '</div>');
+        cssmenu.prepend('<div class="menu-button"></div>');
         $(this).find(".menu-button").on('click', function(){
           $(this).toggleClass('menu-opened');
           var mainmenu = $(this).next('ul');
@@ -67,7 +66,6 @@ organizing the content in a dropdown menu.
 (function($){
   $(document).ready(function(){
     $(".cssmenu").menumaker({
-       title: "Menu",
        format: "multitoggle"
     });
   });
