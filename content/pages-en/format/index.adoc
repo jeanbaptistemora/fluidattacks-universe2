@@ -1425,6 +1425,8 @@ diagram-process.png
 ----
 digraph finite_state_machine {
   rankdir=LR;
+  label="Análisis de un Proceso"
+  labelloc=top
   size="8,5"
   node [shape = doublecircle]; LR_0 LR_3 LR_4 LR_8;
   node [shape = circle];
@@ -1452,6 +1454,8 @@ digraph finite_state_machine {
 ----
 digraph finite_state_machine {
   rankdir=LR;
+  label="Análisis de un Proceso"
+  labelloc=top
   size="8,5"
   node [shape = doublecircle]; LR_0 LR_3 LR_4 LR_8;
   node [shape = circle];
@@ -1480,14 +1484,18 @@ to generate graphs and view examples.
 ....
 ["plantuml", "diagram-classes.png"]
 ----
-class BlockProcessor
-class DiagramBlock
-class DitaaBlock
-class PlantUmlBlock
+autonumber
+skinparam sequenceArrowThickness 2
+skinparam roundcorner 40
+skinparam maxmessagesize 250
+== Descripción de un Proceso ==
 
-BlockProcessor <|-- DiagramBlock
-DiagramBlock <|-- DitaaBlock
-DiagramBlock <|-- PlantUmlBlock
+Elemento1 -> Elemento2: Acción-1
+
+Elemento3 -> Elemento4: Acción_2
+
+Elemento5 -> Elemento6: Acción 3
+
 ----
 ....
 
@@ -1495,14 +1503,18 @@ DiagramBlock <|-- PlantUmlBlock
 +
 ["plantuml", "diagram-classes.png"]
 ----
-class BlockProcessor
-class DiagramBlock
-class DitaaBlock
-class PlantUmlBlock
+autonumber
+skinparam sequenceArrowThickness 2
+skinparam roundcorner 40
+skinparam maxmessagesize 250
+== Descripción de un Proceso ==
 
-BlockProcessor <|-- DiagramBlock
-DiagramBlock <|-- DitaaBlock
-DiagramBlock <|-- PlantUmlBlock
+Elemento1 -> Elemento2: Acción-1
+
+Elemento3 -> Elemento4: Acción_2
+
+Elemento5 -> Elemento6: Acción 3
+
 ----
 
 You can use this link:https://www.planttext.com/[PlantUML Live Editor]
