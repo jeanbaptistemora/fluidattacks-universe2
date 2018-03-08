@@ -23,8 +23,6 @@ module "ec2instance" {
   snetId = "${module.createNetwork.snetId}"
   kName = "${var.kName}"
 
-  docker = "${var.docker}"
-
 }
 
 # Create from scratch

@@ -1,2 +1,0 @@
-*/5 * * * * /usr/local/bin/docker_pull.sh
-0 */8 * * * /usr/local/bin/login.sh
