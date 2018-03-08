@@ -6,11 +6,7 @@
 {% endblock meta %}
 
 {% block title %}
-  {% if DEFAULT_LANG == "en" %}
 {{ gettext('Index-title') }} | {{ SITENAME }}
-  {% elif DEFAULT_LANG == "es" %}
-{{ gettext('Index-title') }} | {{ AUTHOR }}
-  {% endif %}
 {% endblock %}
 
 {% block header %}

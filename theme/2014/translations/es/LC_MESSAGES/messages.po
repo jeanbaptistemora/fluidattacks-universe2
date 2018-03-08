@@ -572,7 +572,7 @@ msgstr "Artículos, Blog, Opinión, Reto, Información, Seguridad"
 
 #: templates/index.html:10 templates/index.html:12
 msgid "Index-title"
-msgstr "Inicio del Blog"
+msgstr "Blog"
 
 #: templates/index.html:44
 msgid "Index-icon-alt-1"
