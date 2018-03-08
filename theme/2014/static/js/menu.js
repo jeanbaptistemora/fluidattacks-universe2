@@ -40,7 +40,7 @@ organizing the content in a dropdown menu.
         resizeFix = function() {
           var mainmenu = cssmenu.find('.menu-button');
           var submenu = cssmenu.find('.submenu-button');
-          if ($( window ).width() >= 955) {
+          if ($( window ).width() >= 805) {
             if (!cssmenu.children('ul').hasClass('m-opened')) {
               cssmenu.children('ul').toggleClass('m-opened')
             }
@@ -49,7 +49,7 @@ organizing the content in a dropdown menu.
             }
           }
 
-          if ($(window).width() < 955) {
+          if ($(window).width() < 805) {
             cssmenu.children('ul').removeClass('m-opened');
             cssmenu.find('ul li ul').removeClass('sm-opened');
             mainmenu.removeClass('menu-opened');

@@ -743,10 +743,6 @@ msgstr "Lupa"
 msgid "Navb-logo"
 msgstr "Logo de FLUID"
 
-#: templates/navigationbar.html:22
-msgid "Navb-opt-1"
-msgstr "Inicio"
-
 #: templates/navigationbar.html:23 templates/navigationbar.html:25
 #: templates/navigationbar.html:26
 msgid "Navb-cat-1"
