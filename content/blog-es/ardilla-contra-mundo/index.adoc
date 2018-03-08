@@ -14,7 +14,7 @@
 
 = SQRL, una ardilla contra el mundo
 
-+SQRL+ por sus siglas en inglés *_(Secure Quick Reliable Login)_* apodado +Squirrel+, 
++SQRL+ por sus siglas en inglés _(+Secure Quick Reliable Login+)_ apodado +Squirrel+, 
 es una solución potencial a los problemas 
 asociados con el uso del modelo más popular de autenticación (usuario/contraseña) en los sitios web, 
 pasando al uso de códigos +QR+ seguros y firmas criptográficas 
@@ -75,7 +75,7 @@ asociada se haya utilizado para firmar la +URL+.
 
 +SQRL+ utiliza criptografía asimétrica para proporcionar seguridad. 
 El cliente tiene una llave maestra que representa su identidad completa a través de Internet. 
-Un par de claves públicas/privadas se genera utilizando el algoritmo de resumen +HMAC+ *_(SHA-256)_*. 
+Un par de claves públicas/privadas se genera utilizando el algoritmo de resumen +HMAC+ _(+SHA-256+)_. 
 
 La llave maestra y el nombre de dominio (el sitio web en el que el usuario intenta autenticarse), 
 son cifrados para derivar una clave privada que se manipula para derivar una llave pública. 
@@ -94,13 +94,13 @@ digraph G {
 ----
 
 Para el proceso de login, el usuario envía una solicitud al servidor. 
-El servidor responde de vuelta un +Token+ 
+El servidor responde de vuelta un +token+ 
 generado de forma segura codificado en un código +QR+. 
 La aplicación +SQRL+ escanea el código 
 para generar el par de claves públicas/privadas para ese sitio, 
-firma el +Token+ con la clave privada específica del sitio 
+firma el +token+ con la clave privada específica del sitio 
 y luego envía una solicitud al servidor 
-que contiene la clave pública específica del sitio y el +Token+ firmado. 
+que contiene la clave pública específica del sitio y el +token+ firmado. 
 El servidor verifica la firma usando la clave pública 
 y luego almacena la clave pública para validar al usuario en el futuro.
 
@@ -162,7 +162,7 @@ image::ardilla-comiendo.gif[Squirrel masticando comida]
 
 Una de las ventajas más notables del +SQRL+, 
 es que elimina la necesidad de que un tercero gestione las credenciales de los usuarios 
-y evita que estos terceros como *_(OAuth2, OpenID, SAML 2.0)_* guarden este tipo de informaciónsecreta.
+y evita que estos terceros como _(+OAuth2+, +OpenID+, +SAML 2.0+)_ guarden este tipo de informaciónsecreta.
 
 == Conclusiones
 
@@ -174,7 +174,7 @@ sino que también protege contra la reutilización de contraseñas y/o contrase�
 y en cierta medida la suplantación de identidad.
 
 Hasta ahora el protocolo tiene algunas consideraciones de seguridad 
-como ataques de tipo +MitM+ *_(Man in the Middle)_*, 
+como ataques de tipo +MitM+ _(+Man in the Middle+)_, 
 suplantaciones de dominio usando +DNS+ poisoning e ingeniería social. 
 Aunque sus vectores de ataque son más complicados de ejecutar. 
 
