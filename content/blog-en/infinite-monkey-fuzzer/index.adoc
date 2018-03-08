@@ -1,6 +1,6 @@
 :slug: infinite-monkey-fuzzer/
 :date: 2018-02-12
-:category: opinions
+:category: techniques
 :tags: fuzzing, application, testing
 :Image: inf-monkey.png
 :alt: Infinite Monkey Theorem

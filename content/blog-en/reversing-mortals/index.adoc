@@ -1,6 +1,6 @@
 :slug: reversing-mortals/
 :date: 2017-04-25
-:category: challenges
+:category: techniques
 :tags: revert, challenge, engineering
 :Image: reversing-mortals.png
 :alt: Yellow puzzle missing one piece, shown in red

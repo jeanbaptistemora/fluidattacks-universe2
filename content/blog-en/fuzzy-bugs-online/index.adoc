@@ -1,6 +1,6 @@
 :slug: fuzzy-bugs-online/
 :date: 2018-02-09
-:category: challenges
+:category: techniques
 :tags: SQL, fuzzing, injection
 :Image: cover.png
 :alt: Fuzzy caterpillar

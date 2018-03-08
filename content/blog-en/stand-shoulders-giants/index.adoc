@@ -1,6 +1,6 @@
 :slug: stand-shoulders-giants/
 :date: 2018-02-14
-:category: opinions
+:category: techniques
 :tags: testing, dependency, vulnerability
 :Image: cover.png
 :alt: Orion carrying Cedalion

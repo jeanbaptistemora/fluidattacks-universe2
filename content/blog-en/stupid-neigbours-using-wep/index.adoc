@@ -1,6 +1,6 @@
 :slug: stupid-neigbours-using-wep/
 :date: 2017-04-24
-:category: challenges
+:category: techniques
 :tags: wep, wifi, encryption, challenge
 :Image: stupid-wep.png
 :alt: Hand touching the Wireless icon
