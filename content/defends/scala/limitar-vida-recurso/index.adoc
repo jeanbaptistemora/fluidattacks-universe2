@@ -60,7 +60,7 @@ corresponde a la ruta del fichero o recurso a leer:
 +
 [source, scala, linenums]
 ----
-    val filename = "exampleone.txt"
+  val filename = "exampleone.txt"
 ----
 . A través del método +scala.io.Source.fromFile+ 
 y de un ciclo +for+ 
@@ -69,9 +69,9 @@ y se imprime en pantalla:
 +
 [source, scala, linenums]
 ----
-     for (line <-Source.fromFile(filename).getLines) {
-       println(line)
-     }
+    for (line <-Source.fromFile(filename).getLines) {
+      println(line)
+    }
   }
 }
 ----
@@ -87,7 +87,7 @@ deja el archivo o recurso abierto en el búfer.
 .readfiletwo.scala
 [source, scala, linenums]
 ----
-import scala.io.Source
+  import scala.io.Source
 ----
 . Posterior a lo anterior, 
 se procede a crear un objeto tipo link:https://en.wikipedia.org/wiki/Singleton_pattern[+Singleton+] llamado +ReadFileTwo+. 
@@ -106,16 +106,16 @@ corresponde a la ruta del fichero o recurso a leer:
 +
 [source, scala, linenums]
 ----
-    val bufferedSource = Source.fromFile("exampletwo.txt")
+  val bufferedSource = Source.fromFile("exampletwo.txt")
 ----
 . Se lee el contenido del fichero línea por línea 
 y se imprime en pantalla:
 +
 [source, scala, linenums]
 ----
-for (line <- bufferedSource.getLines) {
-  println(line)
-}
+  for (line <- bufferedSource.getLines) {
+    println(line)
+  }
 ----
 . Por último, cerramos el recurso abierto una vez éste no sea necesario:
 +
@@ -127,18 +127,16 @@ for (line <- bufferedSource.getLines) {
 ----
 . Para ejecutar el anterior programa, 
 desde la terminal se debe ubicar primero en el directorio del proyecto 
-(en este caso la ruta es +/home/user/proyecto/+), 
 y ejecutar el comando +scalac+ 
 (se debe tener instalado +Scala+ previamente):
 +
 [source, bash, linenums]
 ----
-~$ cd /home/user/proyecto/
-~/home/user/proyecto$ ls
-~/home/user/proyecto$ ReadFileTwo.scala exampletwo.txt
-~/home/user/proyecto$ scalac ReadFileTwo.scala
-~/home/user/proyecto$ ls
-~/home/user/proyecto$ ReadFileTwo.scala ReadFileTwo.class ReadFileTwo$.class ReadFileTwo$$anonfun$main$1.class exampletwo.txt
+$ ls
+exampletwo.txt ReadFileTwo.scala
+$ scalac ReadFileTwo.scala
+$ ls
+exampletwo.txt ReadFileTwo.class ReadFileTwo.scala ReadFileTwo$.class ReadFileTwo$$anonfun$main$1.class
 ----
 . Luego de compilar el programa correctamente, 
 se obtiene el +bytecode+ (archivo +.class+) del programa 
@@ -146,7 +144,7 @@ y se procede a ejecutar el mismo mediante el comando +scala+:
 +
 [source, bash, linenums]
 ----
-~/home/user/proyecto$ scala ReadFileTwo
+$ scala ReadFileTwo
 ----
 . La salida en consola luego de ejecutar el programa es la siguiente 
 (en este caso el contenido del fichero 
@@ -154,7 +152,6 @@ son contraseñas de prueba):
 +
 [source, bash, linenums]
 ----
-~/home/user/proyecto$
 Contrasenas:
 FLUIDtest
 admin123
@@ -174,3 +171,4 @@ las instrucciones +Scala+ para la manipulación segura de ficheros.
 . [[r1]] link:../../../rules/999/[REQ.999 Limitar tiempo de vida de recursos].
 . *+CSHARP+* link:../../csharp/limitar-vida-recurso/[Limitar tiempo de vida de recursos].
 . *+JAVA+* link:../../java/limitar-vida-recurso/[Limitar tiempo de vida de recursos].
+. *+PHP+* link:../../php/limitar-vida-recurso/[Limitar tiempo de vida de recursos].
