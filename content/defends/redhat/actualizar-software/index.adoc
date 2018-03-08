@@ -92,7 +92,7 @@ image::verificar.png[verificacion]
 
 == Referencias
 
-. http://www.redhat.com/security/
-. https://www.cyberciti.biz/faq/rhel-centos-fedora-linux-yum-command-howto/
-. REQ.0258: Los componentes provistos por terceros 
+. [[r1]] link:http://www.redhat.com/security/[Redhat].
+. [[r2]] link:https://www.cyberciti.biz/faq/rhel-centos-fedora-linux-yum-command-howto/[How to use yum command on CentOS RHEL].
+. [[r3]] REQ.0258: Los componentes provistos por terceros 
 deben corresponder a versiones estables, probadas y actualizadas.

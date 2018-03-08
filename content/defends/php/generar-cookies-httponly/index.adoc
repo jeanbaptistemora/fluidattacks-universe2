@@ -101,7 +101,7 @@ bool setcookie ( string $name [, string $value [, int $expire= 0 [, string $path
 
 == Referencias
 
-. https://www.owasp.org/index.php/HttpOnly#Using_PHP_to_set_HttpOnly[Using PHP to set HttpOnly].
-. https://developer.mozilla.org/es/docs/Web/HTTP/Cookies[HTTP cookies].
+. link:https://www.owasp.org/index.php/HttpOnly#Using_PHP_to_set_HttpOnly[Using PHP to set HttpOnly].
+. link:https://developer.mozilla.org/es/docs/Web/HTTP/Cookies[HTTP cookies].
 . REQ.0026 Las cookies de sesión de aplicaciones Web 
 deben tener atributos de seguridad (HttpOnly, Secure).

@@ -109,9 +109,9 @@ end
 
 == Referencias
 
-. https://es.wikipedia.org/wiki/Sistema_binario[Wikipedia, la Enciclopedia libre]
+. [[r1]] link:https://es.wikipedia.org/wiki/Sistema_binario[Sistema Binario, Wikipedia].
 
 == Link del reto
 
-https://www.codeeval.com/open_challenges/16/[Contando unos]
+link:https://www.codeeval.com/open_challenges/16/[Contando unos]
 

@@ -36,8 +36,8 @@ computer, open it up and look down the CPU, that is a debugger, it
 shows you what is really happening under everything.
 
 To understand the basics of reversing, we will take a look at a great challenge
-for beginners. On this site I found really good examples to start with.
-http://yoire.com/?mo=Challenges&path=challenges/reversing[Yoire.com Reversing]
+for beginners. On this site I found really good examples to start with: 
+link:http://yoire.com/?mo=Challenges&path=challenges/reversing[Yoire Reversing]
 
 == Yoire Challenge: Crackme Average
 
@@ -148,7 +148,7 @@ image::image8.png[comparison]
 We have the hex values: 63, 68, 61, 72, 62, 79, 63, 68, 61, 72. And note that
 if the last jump is not taken then we will land in the correct serial portion
 of the code.
-Now all we need to do is pull out our handy http://www.asciitable.com/[ascii
+Now all we need to do is pull out our handy link:http://www.asciitable.com/[ascii
 table] and figure out the serial.
 'c''h''a''r''b''y''c''h''a''r' we have our answer. Let's test it out.
 
@@ -166,5 +166,5 @@ knowledge based on real life reversing situations.
 
 == Challenge Link
 
-http://yoire.com/challenges/reversing/pe/03_crackme_average.php[Yoire Crackme
+link:http://yoire.com/challenges/reversing/pe/03_crackme_average.php[Yoire Crackme
 Avg]

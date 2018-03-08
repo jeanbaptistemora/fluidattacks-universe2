@@ -169,5 +169,5 @@ el módulo permite que la petición sea procesada.
 
 == Referencias
 
-. https://msdn.microsoft.com/en-us/library/yfe5dwc2(v=vs.100).aspx[Seguridad en la autenticación ASP.NET]
-. https://msdn.microsoft.com/en-us/library/wce3kxhd(v=vs.100).aspx[Autorización ASP.NET]
+. link:https://msdn.microsoft.com/en-us/library/yfe5dwc2(v=vs.100).aspx[Seguridad en la autenticación ASP.NET]
+. link:https://msdn.microsoft.com/en-us/library/wce3kxhd(v=vs.100).aspx[Autorización ASP.NET]

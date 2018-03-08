@@ -120,29 +120,19 @@ security have transformed the healthcare IT mindset from “Why move to the
 public cloud?” to “What should we move, how do we do it?”" (ClearDATA, 2016).
 
 Technology advances everyday, your enterprise must keep up with it. Here is a
-great article that gives you http://www.networkworld.com/article/3121967/cloud-computing/9-keys-to-having-a-hipaa-compliant-cloud.html[
+great article that gives you link:http://www.networkworld.com/article/3121967/cloud-computing/9-keys-to-having-a-hipaa-compliant-cloud.html[
 9 Tips on securing your hospital's information on the cloud]
 
 == References
 
-. Butler, B. (2016, September 20). Why this hospital is moving to Amazon’s cloud.
-Retrieved April 27, 2017, from
-http://www.networkworld.com/article/3121957/cloud-computing/why-this-hospital-is-moving-to-amazon-s-cloud.html
+. [[r1]] link:http://www.networkworld.com/article/3121957/cloud-computing/why-this-hospital-is-moving-to-amazon-s-cloud.html[Why this hospital is moving to Amazon’s cloud].
 
-. ClearDATA. (2016, January 01). 5 Risks Hospitals Face When Using The Public
-Cloud. Retrieved April 27, 2017, from
-https://assets.sourcemedia.com/2c/ec/ab05b5b44513a7fc8170f0f6f75e/5-risks-hospitals-face-when-using-the-public-cloud-hit.pdf
+. [[r2]] link:https://assets.sourcemedia.com/2c/ec/ab05b5b44513a7fc8170f0f6f75e/5-risks-hospitals-face-when-using-the-public-cloud-hit.pdf[ClearDATA. 5 Risks Hospitals Face When Using The Public Cloud].
 
-. Filkins, B. (2011, September 01). Cloudy with a Chance of Better Health Care.
-Retrieved April 27, 2017, from
-https://www.sans.org/reading-room/whitepapers/analyst/cloudy-chance-health-care-security-compliance-fundamentals-protecting-e-h-35055
+. [[r3]] link:https://www.sans.org/reading-room/whitepapers/analyst/cloudy-chance-health-care-security-compliance-fundamentals-protecting-e-h-35055[Filkins, B. Cloudy with a Chance of Better Health Care].
 
-. Rouse, M. (2015, April 01). HIPAA (Health Insurance Portability and
-Accountability Act). Retrieved April 27, 2017, from
-http://searchhealthit.techtarget.com/definition/HITECH-Act
+. [[r4]] link:http://searchhealthit.techtarget.com/definition/HITECH-Act[Rouse, M. HIPAA, Health Insurance Portability and Accountability Act].
 
-. Rouse, M. (2015, April 01). HITECH Act. Retrieved April 27, 2017, from
-http://searchhealthit.techtarget.com/definition/HITECH-Act
+. [[r5]] link:http://searchhealthit.techtarget.com/definition/HITECH-Act[Rouse, M. HITECH Act].
 
-. Salesforce. (2016, January 01). SaaS: Software as a Service. Retrieved April
-27, 2017, from https://www.salesforce.com/saas/
+. [[r6]] link:https://www.salesforce.com/saas/[Salesforce. SaaS: Software as a Service].

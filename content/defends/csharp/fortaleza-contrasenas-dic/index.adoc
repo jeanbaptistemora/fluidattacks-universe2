@@ -122,10 +122,10 @@ while ((word = dictionary.ReadLine()) != null)
 
 . La siguiente es una lista de diccionarios que se recomiendan para hacer la búsqueda:
 
-.. http://dazzlepod.com/uniqpass/[dazzlepod, uniqpass]
-.. http://www.openwall.com/wordlists/[openwall, wordlists]
-.. http://wordlist.sourceforge.net/[sourceforge, wordlist]
-.. http://packetstormsecurity.org/Crackers/wordlists/[packetstormsecurity, Crackerswordlists]
+.. link:http://dazzlepod.com/uniqpass/[dazzlepod, uniqpass]
+.. link:http://www.openwall.com/wordlists/[openwall, wordlists]
+.. link:http://wordlist.sourceforge.net/[sourceforge, wordlist]
+.. link:http://packetstormsecurity.org/Crackers/wordlists/[packetstormsecurity, Crackerswordlists]
 .. deer-run, cracklib
 
 . Para +GNU/Linux+ se pueden utilizar los diccionarios incluidos con el

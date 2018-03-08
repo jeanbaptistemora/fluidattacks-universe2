@@ -44,12 +44,12 @@ combination of characters.
 In this challenge, they give us a hash that needs to be cracked, and then 
 answered it with the password on clear text.
 
-.Challenge on http://www.yashira.org/index.php?mode=Retos&resp=inforeto&level=3[Yashira]
+.Challenge on link:http://www.yashira.org/index.php?mode=Retos&resp=inforeto&level=3[Yashira]
 image::reto.png[reto]
 
 We could use a rainbow table to crack this hash but it will need a huge 
 database or an algorithm that uses every hash and password to compare. On the 
-contrary, we could use https://crackstation.net/[crackstation] to do this task. 
+contrary, we could use link:https://crackstation.net/[crackstation] to do this task. 
 It only needs the hash and the site cracks it with its own database.
 
 .crackstation hashing solver

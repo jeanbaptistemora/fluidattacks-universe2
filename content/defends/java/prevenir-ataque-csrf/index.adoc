@@ -65,9 +65,11 @@ Para instalarlo se deben considerar los siguientes pasos:
 de la aplicación de la siguiente forma:
 +
 [source, shell, linenums]
+----
 ${PROJECT}/WEB-INF/lib/Owasp.CsrfGuard.jar
 ${PROJECT}/WEB-INF/Owasp.CsrfGuard.properties
 ${PROJECT}/WEB-INF/Owasp.CsrfGuard.js
+----
 
 . Modificar el archivo +Owasp.CsrfGuard.properties+
 para indicar que archivos no requieren ser protegidos.
@@ -77,11 +79,13 @@ Después del +=+ se debe especificar un patrón para especificar las paginas.
 Algunos ejemplos:
 +
 [source, shell, linenums]
+----
 org.owasp.csrfguard.unprotected.Default=/ProgSeg/
 org.owasp.csrfguard.unprotected.Index=/ProgSeg/index.jsp
 org.owasp.csrfguard.unprotected.MiServlet=/ProgSeg/MiServlet
 org.owasp.csrfguard.unprotected.Html=*.html
 org.owasp.csrfguard.unprotected.Public=/ProgSeg/Public/*
+----
 
 . También se debe configurar 
 el descriptor de despliegue +web.xml+,
@@ -92,6 +96,7 @@ indicando la ruta del archivo +Owasp.CsrfGuard.properties+
 que contiene las propiedades de configuración de la biblioteca.
 +
 [source, xml,linenums]
+----
 <web-app reloadable="true" version="3.0"
  xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
  http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd">
@@ -99,6 +104,7 @@ que contiene las propiedades de configuración de la biblioteca.
    <param-name>Owasp.CsrfGuard.Config</param-name>
    <param-value>WEB-INF/Owasp.CsrfGuard.properties</param-value>
  </context-param>
+----
 
 . Luego se declara y se habilita el +HttpSessionListener+ de +CSRFGuard+.
 Esto se hace usando como nombre de la clase
@@ -108,9 +114,11 @@ e inicializar el contexto de +CsrfGuard+
 para todas las nuevas +HttpSessions+.
 +
 [source, xml,linenums]
+----
 <listener>
  <listener-class>org.owasp.csrfguard.CsrfGuardListener</listener-class>
 </listener>
+----
 
 . Se debe agregar un filtro en el archivo descriptor +web.xml+.
 Los filtros de +Java EE+ proporcionan la capacidad para interceptar,
@@ -120,10 +128,12 @@ Para que la aplicación haga uso de +OWASP CSRFGuard+,
 se debe declarar el filtro y los parámetros de configuración.
 +
 [source, xml,linenums]
+----
 <filter>
   <filter-name>CSRFGuard</filter-name>
   <filter-class>org.owasp.csrfguard.CsrfGuardFilter</filter-class>
 </filter>
+----
 
 . Se debe agregar un mapeo para el nuevo filtro ingresado.
 Después de haber declarado el filtro en el descriptor,
@@ -131,20 +141,25 @@ se debe especificar a que recurso el filtro estará asociado.
 Se puede configurar el filtro para que manipule todas las solicitudes
 que reciba un +servlet+ específico o un patrón +URL+.
 
-. La siguiente declaración indica que manipule
-todos los +request+ direccionados a cualquier página.
+. Configurar adecuadamente los +request+:
 +
-[source, xml,linenums]
+[source, xml, linenums]
+----
 <filter-mapping>
   <filter-name>CSRFGuard</filter-name>
   <url-pattern>/*</url-pattern>
 </filter-mapping>
 </web-app>
+----
+
+
+La declaración anterior indica que manipule
+todos los +request+ direccionados a cualquier página.
 
 == Referencias
 
-. [[r1]] link:https://cwe.mitre.org/data/definitions/352.html[CWE-352: Cross-Site Request Forgery (CSRF)]
-. [[r2]] link:https://www.owasp.org/index.php/Category:OWASP_CSRFGuard_Project[OWASP CSRFGuard Project]
+. [[r1]] link:https://cwe.mitre.org/data/definitions/352.html[CWE-352: Cross-Site Request Forgery (CSRF)].
+. [[r2]] link:https://www.owasp.org/index.php/Category:OWASP_CSRFGuard_Project[OWASP CSRFGuard Project].
 . [[r3]] REQ.0169 La aplicación debe garantizar
 que las peticiones que ejecuten transacciones 
 no sigan un patrón discernible.

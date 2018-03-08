@@ -44,10 +44,10 @@ ello son dispositivos o S.O con las siguientes combinaciones:
 Lo que haría un atacante en este caso es crear un diccionario con todas las
 posibles credenciales que tenga el dispositivo o aplicación que haya 
 identificado y realizar un ataque de fuerza bruta, como lo vemos en el primer 
-ejercicio Weak password en https://www.root-me.org/?lang=es[root-me.org]
+ejercicio Weak password en link:https://www.root-me.org/?lang=es[root-me.org]
 
 Para esto podemos usar uno de los muchos diccionarios que hay internet o crear
-uno propio con recursos como http://www.defaultpassword.com/[defaultpassword] 
+uno propio con recursos como link:http://www.defaultpassword.com/[defaultpassword] 
 y con las herramientas descritas anteriormente podemos realizar un ataque de 
 fuerza bruta.
 

@@ -24,7 +24,8 @@ integra para garantizar un despliegue continuo, donde la construcción, prueba y
 liberación de software sea más rápido y eficiente. Como todos hacen parte del 
 equipo ¿En que momento debemos llamar al equipo de seguridad?
 
-.Getting the Sec into DevSecOps – Whose Job is it Really? by https://info.whitehatsec.com/1116-Webinar-451SecuringDevOps-LP.html[WhiteHat Secuity]
+.Getting the Sec into DevSecOps – Whose Job is it Really? by 
+link:https://info.whitehatsec.com/1116-Webinar-451SecuringDevOps-LP.html[WhiteHat Secuity]
 image::sdlc1.png[sdlc]
 
 Para empezar dejemos claro a qué nos referimos con DevOps porque conceptos y 
@@ -37,7 +38,7 @@ se reduzcan los costos y con una altísima frecuencia de releases.
 DevOps es una metodología de desarrollo con un conjunto de prácticas destinadas 
 a reducir la brecha entre Desarrollo y Operaciones, enfatizando comunicación y 
 colaboración, integración continua, garantía de calidad y entrega con 
-Despliegue automatizado – https://dl.acm.org/citation.cfm?id=2962707[Jabbari, Ramtin]
+Despliegue automatizado – link:https://dl.acm.org/citation.cfm?id=2962707[Jabbari, Ramtin]
 
 Utilizando DevOps tenemos muchos puntos claros, pero hablemos especícamente de 
 tres y como logrando estos nos aumenta el tiempo para incluir la seguridad en 
@@ -68,5 +69,5 @@ reputación.
 *Nota:* Un punto clave de DevOps es automatizar y para esto lo mejor es saber 
 que herramientas usar y a partir del contexto de nuestro sistema priorizar y 
 elegir la que mejor se acomode, una buena guía para elegir es evaluar la tabla 
-periódica de https://xebialabs.com/periodic-table-of-devops-tools/[DevOps] v2 
+periódica de link:https://xebialabs.com/periodic-table-of-devops-tools/[DevOps] v2 
 (Actualizada a Julio-2016)

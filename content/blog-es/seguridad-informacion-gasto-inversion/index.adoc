@@ -48,7 +48,7 @@ costo/beneficio y que la seguridad de la información debe ser visto como un
 proceso, de los muchos procesos que pueden manejar una empresa y no un gasto 
 como algunos lo ven.
 
-.Seguridad en latinoamerica Rescatado de http://www.portantier.com
+.Seguridad en latinoamerica Rescatado de link:http://www.portantier.com[Portantier].
 image::informacion.png[latinoamerica]
 
 Obviamente un sistema de seguridad de la información debe estar limitado por un 

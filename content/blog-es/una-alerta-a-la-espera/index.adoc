@@ -29,13 +29,13 @@ web hackthis. En especial, a un reto que involucra análisis de código JavaScri
 
 En esta ocasión y continuando con el análisis de scripts de JavaScript, daremos
 solución al reto 5 de la categoría _Main_ del sitio 
-http://hackthis.co.uk/[hackthis]:
+link:http://hackthis.co.uk/[hackthis]:
 
 .hackthis: nivel 5 de la categoría MAIN
 image::level5.png[reto]
 
-Si deseas conocer la solución a anteriores retos, puedes ingresar al
-https://fluidattacks.com/web/es/blog/[blog de FLUID] donde encontrarás este y otros artículos
+Si deseas conocer la solución a anteriores retos, puedes ingresar al 
+link:https://fluidattacks.com/web/es/blog/[blog de FLUID] donde encontrarás este y otros artículos
 interesantes sobre seguridad informática.
 
 Como se aprecia en la anterior imagen, este reto despliega una ventana emergente
@@ -110,7 +110,7 @@ image::main5-2.gif[solucion-2]
 
 La tercer forma requiere el uso de la herramienta _Scratchpad_, la cual es
 exclusiva de Firefox. Para los usuarios de Google Chrome y Chromium existen
-alternativas como https://goo.gl/Ebgfse[Scratch JS]. Podemos acceder a ella
+alternativas como link:https://goo.gl/Ebgfse[Scratch JS]. Podemos acceder a ella
 mediante el atajo _shift+F4_ o pulsando en _tools\->Web Developer\->Scratchpad_ .
 
 Una vez desplegada la herramienta, debemos escribir el siguiente script de JS:
@@ -129,8 +129,8 @@ el reto en cuestión:
 image::main5-3.gif[solucion-3]
 
 Estas son todas las soluciones que conozco hasta el momento sin utilizar algún
-plugin o programa externo como https://goo.gl/h4Mvdr[Tamper Data] o
-https://goo.gl/GT6GZC[Burp Suite] respectivamente.
+plugin o programa externo como link:https://goo.gl/h4Mvdr[Tamper Data] o 
+link:https://goo.gl/GT6GZC[Burp Suite] respectivamente.
 
 Para terminar y tal como lo mencioné en una entrada anterior, en ningún caso
 debemos almacenar credenciales de usuario o información restringida en el código

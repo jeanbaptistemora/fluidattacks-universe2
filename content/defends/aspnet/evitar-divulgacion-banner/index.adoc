@@ -207,5 +207,5 @@ para una aplicación +ASP.NET+:
 
 == Referencias
 
-. [[r1]]https://msdn.microsoft.com/en-us/library/system.web.configuration.httpruntimesection.enableversionheader(v=vs.110).aspx[enableVersionHeader Property]
+. [[r1]] link:https://msdn.microsoft.com/en-us/library/system.web.configuration.httpruntimesection.enableversionheader(v=vs.110).aspx[enableVersionHeader Property]
 . [[r2]] link:https://msdn.microsoft.com/es-es/library/[Microsoft, Catalogo de Referencia y API]

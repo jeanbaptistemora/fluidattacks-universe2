@@ -36,8 +36,8 @@ other malicious operations on the user's machine under the guise of the
 vulnerable site (OWASP, 2016).
 
 To explain a specific XSS prevention method and one of the ways we can bypass
-this control we will be looking at a really cool challenge from our pals at
-http://halls-of-valhalla.org/beta/challenges[Halls of Valhalla].
+this control we will be looking at a really cool challenge from our pals at 
+link:http://halls-of-valhalla.org/beta/challenges[Halls of Valhalla].
 
 == Halls of Valhalla Challenge: XSS4
 
@@ -81,7 +81,7 @@ the XSS vulnerability.
 
 OWASP provides very helpful and complete documentation on various security
 topics. For attacks it provides great cheat sheets that can guide you in the
-testing process. Here is https://www.owasp.org/index.php/Main_Page[Their
+testing process. Here is link:https://www.owasp.org/index.php/Main_Page[Their
 Official Homepage] for a look into the many topics and resources OWASP offers.
 
 After further research on filter evasion, we can find that the strip_tags()
@@ -129,10 +129,8 @@ complete XSS filter.
 
 == References
 
-. OWASP. (2016, June 04). Cross-Site Scripting (XSS). Retrieved April 26, 2017,
-from https://www.owasp.org/index.php/Cross-site_Scripting_(XSS)
+. [[r1]] link:https://www.owasp.org/index.php/Cross-site_Scripting_(XSS)[OWASP. Cross-Site Scripting (XSS)].
 
 == Challenge Link
 
-http://halls-of-valhalla.org/challenges/xss/xss4.php[Halls of Valhalla
-XSS4]
+link:http://halls-of-valhalla.org/challenges/xss/xss4.php[Halls of Valhalla XSS4]

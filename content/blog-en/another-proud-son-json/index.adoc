@@ -40,7 +40,7 @@ user has access to certain routes, services or resources.
 signature is calculated based on the body and the payload of the JWT which
 allows a party to know if the message has been tampered with (Auth0, 2015).
 
-.JWT Structure example - https://jwt.io/
+.JWT Structure example - link:https://jwt.io/[JWT]
 image::image1.png[jwt-structure]
 
 The JWT is made up of three parts that are separated by a single dot. Remember
@@ -94,7 +94,7 @@ is encoded to transform the data structure and allow transportation following a
 standard definition. The data is signed to verify authenticity which lets me
 know if a message has been tampered with but it does not prevent it.
 
-Here is a great article on how to https://stormpath.com/blog/jwt-the-right-way[
+Here is a great article on how to link:https://stormpath.com/blog/jwt-the-right-way[
 Use JWT The Right Way!]
 
 Other alternatives like SAML (Security Assertion Mark-up Language) imply larger
@@ -103,12 +103,8 @@ are looking to guarantee the authenticity of the data being transported.
 
 == References
 
-. Auth0. (2015, January 1). Introduction to JSON Web Tokens. Retrieved May 3,
-2017, from https://jwt.io/introduction/
+. [[r1]] link:https://jwt.io/introduction/[Auth0. (2015, January 1). Introduction to JSON Web Tokens. Retrieved May 3, 2017]
 
-. Internet Engineering Task Force IETF. (2015, May 1). RFC 7519. Retrieved May 3,
-2017, from https://tools.ietf.org/html/rfc7519
+. [[r2]] link:https://tools.ietf.org/html/rfc7519[Internet Engineering Task Force IETF. (2015, May 1). RFC 7519. Retrieved May 3, 2017]
 
-. Stecky, M. (2016, May 16). 5 Easy Steps to Understanding JSON Web Tokens.
-Retrieved May 3, 2017, from
-https://medium.com/vandium-software/5-easy-steps-to-understanding-json-web-tokens-jwt-1164c0adfcec
+. [[r3]] link:https://medium.com/vandium-software/5-easy-steps-to-understanding-json-web-tokens-jwt-1164c0adfcec[Stecky, M. (2016, May 16). 5 Easy Steps to Understanding JSON Web Tokens. Retrieved May 3, 2017]
