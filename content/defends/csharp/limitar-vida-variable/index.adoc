@@ -39,8 +39,8 @@ using System.Security;
 
 class Password
 {
-    static void Main(string[] args)
-    {
+  static void Main(string[] args)
+  {
 ----
 . A continuación se lee desde la consola 
 las credenciales de acceso para un usuario, 
@@ -51,10 +51,10 @@ en las variables +loginid+ y +password+ respectivamente:
 +
 [source, csharp, linenums]
 ----
-        Console.WriteLine("Ingresa tu nombre de usuario: ");
-        var loginid = Console.ReadLine();
-        Console.WriteLine("Ingresa tu contraseña: ");
-        var password = Console.ReadLine();
+  Console.WriteLine("Ingresa tu nombre de usuario: ");
+  var loginid = Console.ReadLine();
+  Console.WriteLine("Ingresa tu contraseña: ");
+  var password = Console.ReadLine();
 ----
 . Posterior a ello, convertimos la cadena que contiene la contraseña 
 en un +array+ de caracteres (+char[] myArray+) 
@@ -65,29 +65,29 @@ simulamos el proceso de validación del usuario para una plataforma en particula
 +
 [source, csharp, linenums]
 ----
-        char[] mArray = password.ToCharArray();
+  char[] mArray = password.ToCharArray();
 
-        bool isValidUser = verify(loginid, mArray);
+  bool isValidUser = verify(loginid, mArray);
 ----
 . Como se observa en el siguiente bloque de código, 
 una vez no son necesarias las credenciales de usuario, 
 éstas son inmediatamente sobrescritas 
 o eliminadas de memoria mediante el método +MyArray.Fill+ 
-de la clase +MyArray+. 
+de la clase +MyArray+.
 +
 [source, csharp, linenums]
 ----
-        MyArray.Fill(mArray,' '); // limpiar la contraseña
-        if (!isValidUser)
-        {
-            throw new SecurityException("Credenciales no validas");
-        }
-    }
-    // Validación simulada, siempre devuelve true
-    private static bool verify(string username, char[] password)
+    MyArray.Fill(mArray,' '); // limpiar la contraseña
+    if (!isValidUser)
     {
-       return true;
+      throw new SecurityException("Credenciales no validas");
     }
+  }
+  // Validación simulada, siempre devuelve true
+  private static bool verify(string username, char[] password)
+  {
+    return true;
+  }
 }
 ----
 . La implementación de la clase +MyArray+ es la siguiente:
@@ -97,13 +97,13 @@ de la clase +MyArray+.
 internal static class MyArray
 {
 
-    internal static void Fill<T>(T[] array, T value)
+  internal static void Fill<T>(T[] array, T value)
+  {
+    for (int i = 0; i < array.Length; i++)
     {
-        for (int i = 0; i < array.Length; i++)
-        {
-            array[i] = value;
-        }
+      array[i] = value;
     }
+  }
 
 }
 ----
@@ -117,7 +117,6 @@ por el caracter incluido en el segundo parámetro (+T value+).
 
 . Para ejecutar el anterior programa, 
 desde la terminal se debe ubicar primero en el directorio del proyecto 
-(en este caso la ruta es +/home/user/proyecto/+), 
 y, en el caso de sistemas basados en +Linux+ 
 se debe instalar los comandos +mcs+ y +mono+ 
 los cuales permiten ejecutar aplicaciones desarrolladas en +C#+ desde +Linux+. 
@@ -125,12 +124,11 @@ Ejecutamos el comando +mcs+ seguido del nombre del archivo:
 +
 [source, bash, linenums]
 ----
-~$ cd /home/user/proyecto/
-~/home/user/proyecto$ ls
-~/home/user/proyecto$ Password.cs
-~/home/user/proyecto$ mcs Password.cs
-~/home/user/proyecto$ ls
-~/home/user/proyecto$ Password.cs Password.exe
+$ ls
+Password.cs
+$ mcs Password.cs
+$ ls
+Password.cs Password.exe
 ----
 . Luego de compilar el programa correctamente, 
 se obtiene el +bytecode+ (archivo +.exe+) del programa 
@@ -138,7 +136,7 @@ y se procede a ejecutar el mismo mediante el comando +mono+:
 +
 [source, bash, linenums]
 ----
-~/home/user/proyecto$ mono Password.exe
+$ mono Password.exe
 ----
 . La salida en consola luego de ejecutar el programa es la siguiente:
 +
