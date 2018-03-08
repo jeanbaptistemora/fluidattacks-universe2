@@ -84,22 +84,22 @@ Dicho objeto es asignado a la variable +rdr+ del mismo tipo:
 +
 [source, java, linenums]
 ----
-try (FileChannel rdr = (new FileInputStream("file.txt")).getChannel()) {
+  try (FileChannel rdr = (new FileInputStream("file.txt")).getChannel()) {
 ----
 . Iniciamos la lectura del búfer:
 +
 [source, java, linenums]
 ----
-      while (rdr.read(buffer) > 0) {
-        buffer.flip();
+  while (rdr.read(buffer) > 0) {
+    buffer.flip();
 ----
 . Imprimimos en pantalla el contenido del búfer:
 +
 [source, java, linenums]
 ----
-        while(buffer.hasRemaining()){
-          System.out.print((char) buffer.get());
-        }
+  while(buffer.hasRemaining()){
+    System.out.print((char) buffer.get());
+  }
 ----
 . Por último, limpiamos y sobrescribimos con ceros 
 el contenido del búfer:
@@ -123,17 +123,15 @@ porque los búfer directos no son recogidos por el recolector de basura.
 
 . Para ejecutar el anterior programa, 
 desde la terminal se debe ubicar primero en el directorio del proyecto 
-(en este caso la ruta es +/home/user/proyecto/+), 
 y ejecutar el comando +javac+:
 +
 [source, bash, linenums]
 ----
-~$ cd /home/user/proyecto/
-~/home/user/proyecto$ ls
-~/home/user/proyecto$ Test.java file.txt
-~/home/user/proyecto$ javac Test.java
-~/home/user/proyecto$ ls
-~/home/user/proyecto$ Test.java Test.class file.txt
+$ ls
+file.txt Test.java
+$ javac Test.java
+$ ls
+file.txt Test.class Test.java
 ----
 . Luego de compilar el programa correctamente, 
 se obtiene el +bytecode+ (archivo +.class+) del programa 
@@ -141,7 +139,7 @@ y se procede a ejecutar el mismo mediante el comando +java+:
 +
 [source, bash, linenums]
 ----
-~/home/user/proyecto$ java Test.class
+$ java Test.class
 ----
 . La salida en consola luego de ejecutar el programa es la siguiente 
 (en este caso el contenido del fichero 
@@ -149,7 +147,6 @@ son contraseñas de prueba):
 +
 [source, bash, linenums]
 ----
-~/home/user/proyecto$
 Contrasenas:
 FLUIDtest
 admin123
@@ -170,3 +167,4 @@ cuyo fin es la manipulación segura de ficheros.
 . [[r1]] link:../../../rules/999/[REQ.999 Limitar tiempo de vida de recursos].
 . *+CSHARP+* link:../../csharp/limitar-vida-recurso/[Limitar tiempo de vida de recursos].
 . *+SCALA+* link:../../scala/limitar-vida-recurso/[Limitar tiempo de vida de recursos].
+. *+PHP+* link:../../php/limitar-vida-recurso/[Limitar tiempo de vida de recursos].
