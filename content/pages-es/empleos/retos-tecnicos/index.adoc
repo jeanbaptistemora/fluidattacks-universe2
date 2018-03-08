@@ -65,8 +65,8 @@ pares).
 
 == 2. Requerimientos previos
 
-. Registrarse en GitLab usando su correo electrónico personal y creando el ID de
-*GitLab* que más le guste.
+. Registrarse en GitLab usando su correo electrónico personal y creando el ID de usuario que más le guste.
+Este ID no debe ser mayor a *12* caracteres.
 
 . Unirse a nuestro link:https://join.slack.com/t/autonomicmind/shared_invite/enQtMjg4ODI4NjM3MjY3LWUxMTNmMjk3MDdkMDAzYWY0ZjQ3MzNlYjUzZjM3NTM3MDVmYTliN2YyNGViZGUyNzUxOTAzNTdmZDQ5NWNjNGI[canal de Slack], 
 en donde encontrará personal de FLUID y otros candidatos actualmente en esta etapa, 
