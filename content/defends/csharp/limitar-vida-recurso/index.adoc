@@ -107,8 +107,8 @@ especificada con los valores entre +offset+ y +(offset + count - 1)+.
 En este caso le pasamos la variable +buffer+.
 
 ** +*int offset:*+ desplazamiento de bytes en el parámetro +array+ 
-donde se colocarán los bytes leídos. 
-En este caso 0.
+donde se colocarán los bytes leídos, 
+en este caso 0.
 
 ** +*int count:*+ número máximo de bytes que se pueden leer. 
 En este caso le pasamos +buffer.Length+.
@@ -118,7 +118,7 @@ se imprime en pantalla el contenido del fichero leído.
 +
 [source, csharp, linenums]
 ----
-       Console.WriteLine(Encoding.ASCII.GetString(buffer,0,bytesread));
+      Console.WriteLine(Encoding.ASCII.GetString(buffer,0,bytesread));
     }
     fs.Flush();//limpiamos el búfer
     fs.Close();
@@ -140,15 +140,14 @@ que contiene la ruta al fichero a ser leído:
 ----
     public static void Main (string[] args)
     {
-       string fileText = @"texto.txt";
-       ReadFile(fileText);
+      string fileText = @"texto.txt";
+      ReadFile(fileText);
     }
   }
 }
 ----
 . Para ejecutar el anterior programa, 
 desde la terminal se debe ubicar primero en el directorio del proyecto 
-(en este caso la ruta es +/home/user/proyecto/+), 
 y, en el caso de sistemas basados en +Linux+ 
 se debe instalar los comandos +mcs+ y +mono+ 
 los cuales permiten ejecutar aplicaciones desarrolladas en +C#+ desde +Linux+. 
@@ -156,12 +155,11 @@ Ejecutamos el comando +mcs+ seguido del nombre del archivo:
 +
 [source, bash, linenums]
 ----
-~$ cd /home/user/proyecto/
-~/home/user/proyecto$ ls
-~/home/user/proyecto$ myreadfile.cs texto.txt
-~/home/user/proyecto$ mcs myreadfile.cs
-~/home/user/proyecto$ ls
-~/home/user/proyecto$ myreadfile.cs myreadfile.exe texto.txt
+$ ls
+myreadfile.cs texto.txt
+$ mcs myreadfile.cs
+$ ls
+myreadfile.cs myreadfile.exe texto.txt
 ----
 . Luego de compilar el programa correctamente, 
 se obtiene el +bytecode+ (archivo +.exe+) del programa 
@@ -169,7 +167,7 @@ y se procede a ejecutar el mismo mediante el comando +mono+:
 +
 [source, bash, linenums]
 ----
-~/home/user/proyecto$ mono myreadfile.exe
+$ mono myreadfile.exe
 ----
 . La salida en consola luego de ejecutar el programa es la siguiente 
 (en este caso el contenido del fichero 
@@ -177,7 +175,6 @@ son contraseñas de prueba):
 +
 [source, bash, linenums]
 ----
-~/home/user/proyecto$
 Contrasenas:
 FLUIDtest
 admin123
@@ -197,3 +194,4 @@ las instrucciones +C#+ para la lectura de un fichero desde un búfer.
 . [[r1]] link:../../../rules/999/[REQ.999 Limitar tiempo de vida de recursos].
 . *+JAVA+* link:../../java/limitar-vida-recurso/[Limitar tiempo de vida de recursos].
 . *+SCALA+* link:../../scala/limitar-vida-recurso/[Limitar tiempo de vida de recursos].
+. *+PHP+* link:../../php/limitar-vida-recurso/[Limitar tiempo de vida de recursos].
