@@ -36,8 +36,8 @@ y dentro de ella se define el método +Main+:
 .password.java
 [source, java, linenums]
 ----
-class Password {
-  public static void main (String args[]) throws IOException {
+  class Password {
+    public static void main (String args[]) throws IOException {
 ----
 
 . Se crea un objeto de la clase +Console+ 
@@ -45,7 +45,7 @@ mediante el método estático link:https://docs.oracle.com/javase/7/docs/api/jav
 +
 [source, java, linenums]
 ----
-    Console c = System.console();
+  Console c = System.console();
 ----
 . Una vez creado dicho objeto, 
 se verifica si este es nulo, 
@@ -55,10 +55,10 @@ mediante el método estático link:https://docs.oracle.com/javase/7/docs/api/jav
 +
 [source, java, linenums]
 ----
-    if (c == null) {
-      System.err.println("No console.");
-      System.exit(1);
-    }
+  if (c == null) {
+    System.err.println("No console.");
+    System.exit(1);
+  }
 ----
 +
 El valor de 1 dentro de dicho método 
@@ -74,8 +74,8 @@ se almacenan como objetos de tipo +String+:
 +
 [source, java, linenums]
 ----
-    String username = c.readLine("Ingresa tu nombre de usuario: ");
-    String password = c.readLine("Ingresa tu contraseña: ");
+  String username = c.readLine("Ingresa tu nombre de usuario: ");
+  String password = c.readLine("Ingresa tu contraseña: ");
 ----
 
 . Mediante el método +verify+ que recibe el nombre usuario y contraseña, 
@@ -142,16 +142,16 @@ de la clase +Arrays+:
 [source, java, linenums]
 ----
     boolean isValidUser = verify(username, password);
- 
+
     // limpiar la contraseña
     Arrays.fill(password,' ');
- 
+
     if (!isValidUser) {
       throw new SecurityException("Invalid Credentials");
     }
- 
+
   }
- 
+
   // Validación simulada, siempre devuelve true 
   private static final boolean verify(String username, char[] password) {
     return true;
@@ -160,17 +160,15 @@ de la clase +Arrays+:
 ----
 . Para ejecutar el anterior programa, 
 desde la terminal se debe ubicar primero en el directorio del proyecto 
-(en este caso la ruta es +/home/user/proyecto/+), 
 y ejecutar el comando +javac+:
 +
 [source, bash, linenums]
 ----
-~$ cd /home/user/proyecto/
-~/home/user/proyecto$ ls
-~/home/user/proyecto$ Password.java
-~/home/user/proyecto$ javac Password.java
-~/home/user/proyecto$ ls
-~/home/user/proyecto$ Password.java Password.class
+$ ls
+Password.java
+$ javac Password.java
+$ ls
+Password.java Password.class
 ----
 . Luego de compilar el programa correctamente, 
 se obtiene el +bytecode+ (archivo +.class+) del programa 
@@ -178,14 +176,13 @@ y se procede a ejecutar el mismo mediante el comando +java+:
 +
 [source, bash, linenums]
 ----
-~/home/user/proyecto$ java Password.class
+$ java Password.class
 ----
 . La salida en consola luego de ejecutar el programa es la siguiente 
 (los símbolos '*' son simbólicos ya que en pantalla no se verá nada):
 +
 [source, bash, linenums]
 ----
-~/home/user/proyecto$
 Ingresa tu nombre de usuario: FLUIDtest
 Ingresa tu contraseña: *******
 ----
