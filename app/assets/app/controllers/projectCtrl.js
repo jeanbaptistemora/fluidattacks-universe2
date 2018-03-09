@@ -83,16 +83,12 @@ integrates.controller(
         $scope.alertHeader = function(company, project){
           var req = projectFtry.getAlerts(company, project);
           req.then(function(response){
-              if(!response.error){
-                if (response.data[0].status_act=='1'){
+              if(!response.error && response.data.length > 0){
+                if (response.data.status_act=='1'){
                    var html = '<div class="alert alert-danger-2">';
                    html += '<strong>Atención! </strong>' + response.data[0].message + '</div>';
                    document.getElementById('header_alert').innerHTML = html;
                  }
-               }else{
-                 var error_ac1 = $translate.instant('proj_alerts.error_textsad');
-                 Rollbar.error("Error: An error occurred getting company alerts");
-                 $msg.error(error_ac1);
                }
              });
            };
