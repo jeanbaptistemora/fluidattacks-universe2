@@ -190,31 +190,33 @@ let us compare some typical authentication policies:
 .Authentication policy comparison
 [options="header"]
 |====
-| Type | Min. length | Variety | Minimal example | Time to brute-force
+| Type | Minimum length | Variety | Minimal example | Time to brute-force
 | Password | 8 characters | upper lower num special | +Pas$w0rd+ | 9 hours
 | Password | 14 characters | upper lower num special | +Pas$w0rddddddd+ | 204 million (e6) years
-| Passphrase | 4 words x 4 letters | non-random | +fluid hacks rule risk+ | 41 quadrillion (e15) years
-| Passphrase | 4 words x 5 letters | random | +debased heron passes native+ | 343 septillion (e24) years
+| Passphrase | 4 words x 4 letters | non-random lower | +fluid hacks rule risk+ | 41 quadrillion (e15) years
+| Passphrase | 4 words x 5 letters | random lower | +debased heron passes native+ | 343 septillion (e24) years
 |====
 
 Just the time to brute-force gives us an idea of
 the relative strength of these sample password policies:
-the first is essentially useless,
+the first is essentially useless
 since an unaware user can set very easy passwords.
-14 combined characters is not too bad, but
-could easily via dictionary attacks
+Fourteen combined characters is not too bad, but
+could be obtained via dictionary attacks
 or guessing from user info.
 Even a non-random, relatively short passphrase
-is literally a billion (e9) times better.
+is literally a billion (e9) times better,
+but could still be guessed.
 And a short, but highly entropic passphrase is a billion times better
-than the last, which could probably be guessed.
-High-entropy ensured guessability is at a minimum.
+than the last.
 
 ''''
 
-Here is our concrete recommendation:
+Our concrete recommendation:
 a randomly-generated, 44-bit
-(the lowest setting in link:https://getapassphrase.com/generate/[geatpassphrase.com], which amounts to 4 or 5 words 3 to 8 letters in length)
+(the lowest setting in
+link:https://getapassphrase.com/generate/[getapassphrase.com],
+i.e. 4 or 5 words 3 to 8 letters in length)
 beats any complicated password policy
 and is easier to remember.
 Change it every three to six months
@@ -222,17 +224,17 @@ at your discretion,
 whatever makes your users happy.
 
 Do keep in mind that
-while passphrases do have the advantages of
+while passphrases have the advantages of
 being harder to crack and
 easier to remember than complex passwords,
-you don't have to use them for everything.
+you needn't use them for everything.
 Regular, even easy passwords
 still have their place and,
 contrary to popular wisdom,
 can be recycled and reused,
 according to <<r3, [3]>>.
-There is plenty of room for debate here and
-of course, there is no consensus as to
+There is plenty of debate and
+of course no consensus as to
 what constitutes the best practice,
 but now that you know both sides of the coin
 you can choose what is most appropriate
