@@ -1,0 +1,45 @@
+:slug: rules/086/
+:category: rules
+:description: En el presente documento se detallan los requerimientos de seguridad relacionados al manejo de certificados digitales obtenidos por una determinada entidad u organización, incluyendo una descripción general y la importancia de la renovación de los mismos.
+:keywords: certificado digital, caso de abuso, man-in-the-middle, entidad certificadora, caducidad, renovación.
+:rules: yes
+
+= REQ.086 Limitar vigencia de certificados digitales
+
+== Nombre
+
+La organización no debe utilizar certificados digitales 
+con una vigencia superior a un año.
+
+== Descripción
+
+El presente criterio de seguridad trata sobre 
+la importancia de limitar el tiempo de vida de certificados digitales<<r1,^[1]^>> 
+para una determinada entidad u organización. 
+Los certificados digitales, son documentos electrónicos expedidos 
+por una autoridad de certificación 
+la cual garantiza que una entidad es realmente quien dice ser.
+
+== Implementación
+
+Por lo anterior, para el presente criterio de seguridad, 
+se recomienda que una vez pasado un año 
+desde que una determinada entidad adquirió su certificado digital, 
+ésta realice el respectivo procedimiento 
+de renovación ante la entidad certificadora competente.
+
+== Casos de abuso
+
+A continuación se describe un caso de abuso, 
+el cual, es aplicable para el presente criterio de seguridad:
+
+. Un certificado digital caducado 
+le permite a un atacante realizar ataques +man-in-the-middle+<<r2,^[2]^>> 
+especialmente cuando un usuario 
+ignora las advertencias de seguridad desplegadas por una aplicación 
+(por ejemplo las mostradas por un navegador +web+).
+
+== Referencias
+
+. [[r1]] link:https://www.owasp.org/index.php/Certificate_and_Public_Key_Pinning[Certificate and Public Key Pinning].
+. [[r2]] link:https://www.owasp.org/index.php/Man-in-the-middle_attack[Man-in-the-middle attack].

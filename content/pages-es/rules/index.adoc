@@ -54,6 +54,10 @@
 * link:073/[REQ.073 Registrar momento de ocurrencia de eventos].
 * link:077/[REQ.077 No registrar datos sensibles en bitácoras].
 
+== Certificados digitales
+
+* link:086/[REQ.086 Limitar vigencia de certificados digitales].
+
 == Correo Electrónico
 
 * link:114/[REQ.114 Garantizar unicidad de correos].
