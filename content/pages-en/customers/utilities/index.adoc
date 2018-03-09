@@ -1,0 +1,12 @@
+:slug: customers/utilities/
+:category: customers
+:description: FLUID is a company focused on information security, ethical hacking, penetration testing and vulnerabilities detection in applications with over 18 years of experience in the colombian market. In this page we present our contributions to the utilities sector.
+:keywords: FLUID, Utilities, Security, Ethical Hacking, Information, Pentesting.
+:translate: clientes/energia/
+
+= Utilities
+
+[width="99%", cols="^.^,^.^", grid="none", frame="none"]
+|=======
+|image:logo-internexa.png[logo internexa, 220, 180] |image:logo-xm.png[logo xm, 230, 180]
+|=======

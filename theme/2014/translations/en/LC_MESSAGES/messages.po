@@ -482,11 +482,11 @@ msgstr "Immersion"
 #: templates/footer.html:62 templates/footer.html:63 templates/footer.html:64
 #: templates/footer.html:65 templates/footer.html:66
 msgid "Footer-cat-4"
-msgstr "sectors"
+msgstr "customers"
 
 #: templates/footer.html:59
 msgid "Footer-header-5"
-msgstr "Sectors"
+msgstr "Customers"
 
 #: templates/footer.html:60
 msgid "Footer-link-5.1"

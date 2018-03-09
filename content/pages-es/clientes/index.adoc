@@ -1,0 +1,20 @@
+:slug: clientes/
+:description: FLUID es una compañía especializada en seguridad informática, ethical hacking, pruebas de intrusión y detección de vulnerabilidades en aplicaciones con más de 18 años prestando sus servicios en el mercado colombiano. En esta página presentamos los sectores en los cuales nos especializamos.
+:keywords: FLUID, Seguridad, Clientes, Información, Pentesting, Ethical Hacking.
+:translate: customers/
+
+= Clientes
+
+== link:financiero/[Financero]
+
+== link:comunicaciones/[Comunicaciones]
+
+== link:comercial/[Comercial]
+
+== link:tecnologia/[Tecnología]
+
+== link:energia/[Energía]
+
+== link:industrial/[Industrial]
+
+== link:transporte/[Transporte]

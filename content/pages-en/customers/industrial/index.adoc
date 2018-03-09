@@ -1,0 +1,12 @@
+:slug: customers/industrial/
+:category: customers
+:description: FLUID is a company focused on information security, ethical hacking, penetration testing and vulnerabilities detection in applications with over 18 years of experience in the colombian market. In this page we present our contributions to the industrial sector.
+:keywords: FLUID, Security, Industrial, Information, Ethical Hacking, Pentesting.
+:translate: clientes/industrial/
+
+= Industrial
+
+[frame="none", cols="^.^,^.^"]
+|=======
+|image:logo-corona.png[logo corona, 300, 55] |image:logo-manuelita.png[logo manuelita, 300, 70]
+|=======
