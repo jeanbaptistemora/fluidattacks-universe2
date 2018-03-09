@@ -6,6 +6,11 @@ provider "aws" {
 }
 
 # Create from scratch
+module "iam" {
+  source = "./iam"
+}
+
+#Create from scratch
 module "createNetwork" {
   source = "./network"
   sreg = "${var.sreg}"
@@ -32,10 +37,7 @@ module "ec2instance" {
 #   domain = "${var.zoneName}"
 # }
 
-# Create from scratch
-# module "iam" {
-#   source = "./iam"
-# }
+
 
 output "variable_ip" {
   value = "server=\"${module.ec2instance.ip}\""
