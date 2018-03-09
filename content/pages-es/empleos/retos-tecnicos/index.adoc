@@ -7,7 +7,7 @@
 
 = Retos Técnicos
 
-Esta etapa es paralela a las demás etapas del proceso (entrevistas, exámenes, pruebas psicotécnicas, etc.) y 
+Esta etapa es paralela a las demás etapas del proceso y 
 por ende, entre más avance desde ahora en ella, 
 mayor es la probabilidad que cuando finalicen las demás etapas, 
 usted pueda ser evaluado antes que los demás participantes.
@@ -29,7 +29,8 @@ También demuestra que usted será un compañero valioso para enriquecer a los m
 Los retos técnicos se dividen en retos de hacking y retos de programación. 
 Con los primeros usted demuestra su habilidad y astucia para sobrepasar controles de seguridad, 
 con los segundos usted demuestra que está en capacidad de rápidamente entender un programa, 
-comprender un lenguaje y por ende, le será más fácil auditar código fuente y encontrar vulnerabilidades.
+comprender un lenguaje y por ende, 
+le será más fácil auditar código fuente y encontrar vulnerabilidades.
 
 Para los retos de programación usted puede utilizar la plataforma Codeabbey. 
 Para los retos de hacking usted puede utilizar cualquier sitio indexado por Wechall 
@@ -91,9 +92,16 @@ ni en nuestro repositorio ni identificada (punto 1),
 
 .. Para retos de programación, 
 una solución es válida si no ha sido resuelta en el lenguaje que usted pretende solucionarlo. 
+.. Entiéndase programación como cualquier reto disponible en Codeabbey,.
 
 . Resuelva 10 retos de hacking que no tienen solución, 
 ni en nuestro repositorio ni identificada (punto 1).
+
+.. Para retos de hacking,
+una solución es válida si no tiene solución en la carpeta del reto en el repositorio ni está 
+indexada en el archivo OTHERS.txt
+.. Entiéndase hacking por cualquier reto técnico de wechall.net o sus sitios relacionados,
+.. No se entiende por hacking retos matemáticos o de adivinanzas relacionados en wechall.net (brainquest),
 
 == 4. Repositorio
 
@@ -108,7 +116,7 @@ utilizarse la extensión y guías de estilo propias del lenguaje.
 Adicionalmente utilizar los *linters* correspondientes en la 
 configuración estándar más estricta posible.
 
-* *Integración continua (CI / CD)*: El formato es reforzado mediante 
+* *Integración continua*: El formato es reforzado mediante 
 scripts que se encuentran en el repositorio y que se encuentran disponibles
 para que usted los utilice y mejore. 
 Estos scripts son utilizados en el proceso de integración 
@@ -139,15 +147,15 @@ espacios usar *-* (guion) como sustituto.
 especiales de control:
 
 ** *LINK.txt:* Contiene la URL al enunciado del reto en la plataforma
-correspondiente (link:/challenges/codeeval/easy/235/LINK.txt[Ejemplo]).
+correspondiente (link:https://gitlab.com/autonomicmind/training/blob/master/challenges/codeeval/easy/235/LINK.txt[Ejemplo]).
 Este archivo solo debe contener una linea y visitar el enlace debe
-generar la respuesta 200 (sin redirección).
+generar la respuesta HTTP 200 (sin redirección).
 
 ** *DATA.txt:* Contiene los casos de prueba con los cuales se han verificado
 los retos. Este archivo solo debe contener casos de prueba que sea 
 inmediatamente procesables por cualquier archivo de solución.
 
-** *OTHERS.txt:* Contiene los enlaces (uno por línea) a las soluciones a dicho
+** *OTHERS.txt:* Contiene los enlaces a las soluciones a dicho
 reto que se encuentran en Internet y que no deben leerse ni utilizarse
 como referencia para resolver el reto. 
 Este archivo permite que un script automático realice el análisis de similitud 
@@ -160,21 +168,27 @@ Si contiene múltiples lenguajes significa que debe utilizarse de forma
 secuencial (round robin) cada lenguaje para construir más soluciones 
 de dicha subcarpeta.
 
-== 5. Versionamiento
+== 5. Envío
 
-A tener en cuenta:
+Antes de realizar un Merge Request (MR), 
+por favor verifique que cumple con los siguientes criterios:
 
 * Los cambios se deben realizar en una *rama personal*,
 la cual debe llevar el mismo nombre de su usuario en GitLab.
 
-* Todos los archivos relacionados con la resolución de retos deben respetar la link:#repositorio[estructura indicada].
+* Todos los archivos relacionados con la resolución de retos deben respetar 
+la link:#repositorio[estructura indicada].
 
 * Si una de sus soluciones de hacking requiere un script adicional,
 deberá incluirlo en el mismo directorio.
 
 * Por cada reto usted deberá realizar un commit que agrupe los cambios
-correspondientes a la solución y a los *OTHERS* (2 por cada reto) y luego,
+correspondientes a la solución y a los *OTHERS* (10 por cada reto) y luego,
 un *merge request* para solicitar la inclusión de sus soluciones.
+
+** Si está subiendo soluciones de hacking, los enlaces de los OTHERS deben ser a soluciones de hacking de terceros,
+** Si está subiendo soluciones de programación, los enlaces de los OTHERS deben ser a soluciones de programación de terceros,
+** No se debe repetir lenguajes de programación en las soluciones enlazadas de los OTHERS
 
 * Un *merge request* debe tener un solo commit.
 
@@ -192,7 +206,7 @@ su *merge request* es integrado al repositorio.
 Los resultados de la integración pueden verse siempre en
 link:https://gitlab.com/autonomicmind/training/pipelines[GitLab-CI].
 
-== 6. Local Builds:
+== 6. Builds locales
 
 Es posible correr integraciones locales con el fin de identificar errores antes de hacer push o merge requests al repositorio. 
 Para esto, se deben ejecutar los siguientes comandos:
@@ -279,7 +293,7 @@ image::ranking-colombia-codeabbey.png[Ranking Colombia]
 
 image::ranking-wechall.png[Ranking en Wechall]
 
-== 9. Fin de la etapa
+== 9. Fin
 
 Esta etapa finaliza cuando usted haya completado los objetivos anteriormente mencionados y 
 nos envíe vía e-mail los 40+10+10 archivos referentes a las soluciones realizadas por usted.
