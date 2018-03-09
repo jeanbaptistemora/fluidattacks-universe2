@@ -1,0 +1,12 @@
+:slug: rules/088/
+:category: rules
+:description: En el presente documento se detallan los requerimientos de seguridad relacionados al manejo de certificados digitales del lado del cliente en el proceso de autenticación cuando el sistema maneja información relevante para el modelo de negocio de la organización.
+:keywords: certificado digital, caso de abuso, certificado cliente, autenticación, caducidad, información relevante.
+:rules: yes
+
+= REQ.088 Requerir certificados digitales de cliente
+
+== Nombre
+
+Un sistema con información crítica para el negocio 
+debe requerir certificados digitales de cliente en el proceso de autenticación.
