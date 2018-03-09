@@ -63,6 +63,7 @@ class FindingDTO(object):
     TRATAMIENTO = "59350064"
     RAZON_TRATAMIENTO = "59351642"
     RESPONSABLE_TRATAMIENTO = "59381058"
+    BTS_EXTERNO = "56614832"
 
     #Atributos CssV2
     VECTOR_ACCESO = "38529247"
@@ -181,6 +182,9 @@ class FindingDTO(object):
         if "data[responsable_tratamiento]" in parameter:
             self.data[self.RESPONSABLE_TRATAMIENTO] \
                 = parameter["data[responsable_tratamiento]"]
+        if "data[bts_externo]" in parameter:
+            self.data[self.BTS_EXTERNO] \
+                = parameter["data[bts_externo]"]
 
     def create_cssv2(self, parameter):
         """ Convierte los indices de un JSON a indices
@@ -318,6 +322,8 @@ class FindingDTO(object):
                 self.data["razon_tratamiento"] = finding["value"]
             if finding["field"] == self.RESPONSABLE_TRATAMIENTO:
                 self.data["responsable_tratamiento"] = finding["value"]
+            if finding["field"] == self.BTS_EXTERNO:
+                self.data["bts_externo"] = finding["value"]
             if finding["field"] == self.CWE:
                 try:
                     value = int(finding["value"])

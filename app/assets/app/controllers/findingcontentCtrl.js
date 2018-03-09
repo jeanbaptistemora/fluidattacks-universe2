@@ -224,15 +224,18 @@ integrates.controller("findingcontentCtrl", function($scope, $stateParams, $time
         });
     };
     $scope.treatmentEditable = function(){
+      $scope.goDown()
       if($scope.onlyReadableTab4 == false){
           $scope.finding.responsable_tratamiento = userEmail;
           $scope.onlyReadableTab4 = true;
           $scope.finding.tratamiento = $scope.aux.tratamiento
           $scope.finding.razon_tratamiento = $scope.aux.razon
+          $scope.finding.bts_externo = $scope.aux.bts
       }else if($scope.onlyReadableTab4 == true){
           $scope.finding.tratamiento = $scope.aux.tratamiento
           $scope.finding.razon_tratamiento = $scope.aux.razon
           $scope.finding.responsable_tratamiento = $scope.aux.responsable
+          $scope.finding.bts_externo = $scope.aux.bts
           $scope.onlyReadableTab4 = false;
       }
     };
@@ -535,6 +538,10 @@ integrates.controller("findingcontentCtrl", function($scope, $stateParams, $time
     $scope.goUp = function(){
          $('html, body').animate({ scrollTop: 0 }, 'fast');
      };
+    $scope.goDown = function(){
+         window.scrollTo(0,document.body.scrollHeight);
+     };
+
     $scope.loadFindingByID = function(id){
         var findingObj = undefined;
         var req = findingFactory.getVulnById(id);
@@ -563,6 +570,7 @@ integrates.controller("findingcontentCtrl", function($scope, $stateParams, $time
                   Rollbar.warning("Warning: Finding " + id + " without type");
                 }
                 $scope.aux.responsable = $scope.finding.responsable_tratamiento;
+                $scope.aux.bts = $scope.finding.bts_externo;
                    switch ($scope.finding.actor) {
                      case "​Cualquier persona en Internet":
                        $scope.finding.actor = $translate.instant('finding_formstack.actor.any_internet');;
@@ -1541,6 +1549,7 @@ integrates.controller("findingcontentCtrl", function($scope, $stateParams, $time
               tratamiento: $scope.finding.tratamiento,
               razon_tratamiento: $scope.finding.razon_tratamiento,
               responsable_tratamiento: $scope.finding.responsable_tratamiento,
+              bts_externo: $scope.finding.bts_externo,
           };
           var modalInstance = $uibModal.open({
               templateUrl: BASE.url + 'assets/views/project/confirmMdl.html',

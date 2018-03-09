@@ -127,7 +127,13 @@
                               </div>
                               <div class="finding-treatment row table-row" style="display: none;">
                                 <div class="row">
-                                  <div class="col-md-2 col-md-offset-10 col-xs-12 col-sm-12">
+                                  <div class="col-md-2 col-md-offset-3 col-xs-12 col-sm-12"> 
+                                      <button  id="edit" class="btn btn-primary btn-block"
+                                            ng-click="treatmentEditable();"
+                                            <i class="glyphicon glyphicon-edit"></i>{{'search_findings.tab_description.edit_treatment' | translate}}
+                                      </button>
+                                  </div>
+                                  <div class="col-md-2 col-md-offset-4 col-xs-12 col-sm-12">
                                       <button id="Treatment" class="btn btn-primary btn-block"
                                               ng-click="findingSolved();"
                                               ng-disabled="isRemediated">
@@ -324,11 +330,18 @@
                               </div>
                               <div class="row table-row">
                                   <div class="col-md-3 col-xs-12 col-sm-12 table-head"><label><b>{{'search_findings.tab_description.weakness' | translate}}</b></label></div>
-                                  <div class="col-md-9 col-xs-12 col-sm-12 table-desc">
+                                  <div class="col-md-3 col-xs-12 col-sm-12 table-desc">
                                       <p ng-show="onlyReadableTab1">{{finding.cwe}}</p>
                                       <input type="text" class="form-control"
                                              ng-show="!onlyReadableTab1"
                                              ng-model="finding.cwe">
+                                  </div>
+                                  <div class="col-md-3 col-xs-12 col-sm-12 table-head"><label><b>{{'search_findings.tab_description.bts_external' | translate}}</b></label></div>
+                                  <div class="col-md-3 col-xs-12 col-sm-12 table-desc">
+                                      <p ng-show="onlyReadableTab4">{{finding.bts_externo}}</p>
+                                      <input type="text" class="form-control"
+                                             ng-show="!onlyReadableTab4"
+                                             ng-model="finding.bts_externo">
                                   </div>
                               </div>
                               <div class="row table-row">
@@ -360,23 +373,14 @@
                               <div class="row table-row" ng-show="!isManager">
                                 <div class="row">
                                   <div class="col-md-2 col-md-offset-10 col-xs-12 col-sm-12">
-                                      <button id="edit" class="btn btn-primary btn-block"
-                                              ng-click="treatmentEditable();"
-                                              <i class="glyphicon glyphicon-edit"></i>  {{'search_findings.tab_description.edit_treatment' | translate}}
-                                      </button>
+                                    <button class="btn btn-success btn-block"
+                                            ng-show="!onlyReadableTab4"
+                                            ng-click="updateTreatment();"
+                                            <i class="glyphicon glyphicon-repeat"></i>  {{'search_findings.tab_description.update_treatment' | translate}}
+                                    </button>
                                   </div>
-                              </div>
-                              <br>
-                              <div class="row">
-                                <div class="col-md-2 col-md-offset-10 col-xs-12 col-sm-12">
-                                  <button class="btn btn-success btn-block"
-                                          ng-show="!onlyReadableTab4"
-                                          ng-click="updateTreatment();"
-                                          <i class="glyphicon glyphicon-repeat"></i>  {{'search_findings.tab_description.update_treatment' | translate}}
-                                  </button>
                                 </div>
                               </div>
-                            </div>
                          </div>
                       </div>
                   </div>
