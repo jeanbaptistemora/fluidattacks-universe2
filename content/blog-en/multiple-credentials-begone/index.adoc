@@ -1,6 +1,6 @@
 :slug: multiple-credentials-begone/
 :date: 2017-04-28
-:category: opinions
+:category: identity
 :tags: security, credential, saml, standard
 :Image: multiple-credentials.png
 :alt: Several boxes prompting for username and password

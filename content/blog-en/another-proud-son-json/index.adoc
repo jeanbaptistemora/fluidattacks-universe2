@@ -1,6 +1,6 @@
 :slug: another-proud-son-json/
 :date: 2017-05-04
-:category: opinions
+:category: identity
 :tags: security, information, jwt
 :Image: proud-son.png
 :alt: Text editor with code highlighting
