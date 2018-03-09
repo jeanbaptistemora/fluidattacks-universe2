@@ -1,6 +1,6 @@
 :slug: protect-organization-hacker-lamer/
 :date: 2017-12-18
-:category: opinions
+:category: philosophy
 :tags: security, protect, information
 :Image: lamers.png
 :alt: Hands typing in a text editor

@@ -1,6 +1,6 @@
 :slug: desplazados-maquinas/
 :date: 2018-02-13
-:category: opiniones
+:category: filosofía
 :tags: aplicación, detectar, vulnerabilidad, escáner
 :Image: humano-vs-maquina.png
 :alt: Persona jugando ajedrez contra un brazo mecánico

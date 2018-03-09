@@ -1,6 +1,6 @@
 :slug: dimensionar-ethical-hacking/
 :date: 2018-01-09
-:category: opiniones
+:category: filosofía
 :tags: Ethical Hacking, Pentesting, Pruebas de seguridad
 :Image: dimensionar-ethical-hacking.png
 :alt: Persona trabajando en el computador, viendo el celular

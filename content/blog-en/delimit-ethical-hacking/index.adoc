@@ -1,6 +1,6 @@
 :slug: delimit-ethical-hacking/
 :date: 2018-01-09
-:category: opinions
+:category: philosophy
 :tags: Ethical Hacking, Pentesting, Security Testing
 :Image: dimensionar-ethical-hacking.png
 :alt: Person working on the computer while looking at cellphone
