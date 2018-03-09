@@ -43,9 +43,6 @@ integrates.controller(
         $translate, projectFtry) {
 
         $scope.init = function(){
-            var org = Organization.toUpperCase();
-            var projt = $stateParams.project.toUpperCase();
-            $scope.alertHeader(org, projt);
             var project = $stateParams.project;
             var findingId = $stateParams.finding;
             $scope.userRole = userRole;
@@ -97,7 +94,7 @@ integrates.controller(
                  Rollbar.error("Error: An error occurred getting company alerts");
                  $msg.error(error_ac1);
                }
-             })
+             });
            };
         $scope.testFinding = function(){
             $scope.finding = {
@@ -581,6 +578,9 @@ integrates.controller(
                             $msg.error($translate.instant('proj_alerts.not_found'));
                         } else {
                             $scope.data = response.data;
+                            var org = Organization.toUpperCase();
+                            var projt = $stateParams.project.toUpperCase();
+                            $scope.alertHeader(org, projt);
                             for(var i = 0; i< $scope.data.length;i++){
                                switch ($scope.data[i].actor) {
                                  case "​Cualquier persona en Internet":

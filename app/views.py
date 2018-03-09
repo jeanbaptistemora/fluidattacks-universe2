@@ -1176,6 +1176,4 @@ def set_alerts(request):
     company_name = request.POST.get('company', None)
     project_name = request.POST.get('project', None)
     resp = integrates_dao.set_company_alert_dynamo(message, company_name, project_name)
-    print resp
-    print 'HOLAAAAAA'
     return util.response(resp, 'Success', False)
