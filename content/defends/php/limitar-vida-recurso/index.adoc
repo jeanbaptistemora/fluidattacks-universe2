@@ -38,7 +38,8 @@ la cual, contiene la referencia o ubicación al fichero a ser leído:
 .fopen.php
 [source, php, linenums]
 ----
-$myresource = fopen("test.txt","r");
+<?php
+  $myresource = fopen("test.txt","r");
 ----
 +
 Como se observa, en esta ocasión +fopen+ recibe dos parámetros: 
@@ -74,6 +75,7 @@ se procede a cerrar el flujo asociado al mismo:
 [source, php, linenums]
 ----
   fclose($myresource);
+?>
 ----
 +
 Nota: +PHP+ ofrece alternativas 
@@ -117,7 +119,8 @@ la cual, contiene la referencia o ubicación al fichero a ser leído:
 .fread.php
 [source, php, linenums]
 ----
-$myfile = fopen("test.txt","r");
+<?php
+  $myfile = fopen("test.txt","r");
 ----
 +
 Al igual que como se hizo anteriormente, 
@@ -128,7 +131,7 @@ se especifica los argumentos para el método +fread+:
 +
 [source, php, linenums]
 ----
-$content = fread($myfile, filesize($myfile));
+$content = fread($myfile, filesize("test.txt"));
 ----
 +
 El primer argumento corresponde al fichero a leer 
@@ -144,8 +147,9 @@ y se imprime el contenido de la variable +$content+ en pantalla:
 +
 [source, php, linenums]
 ----
-fclose($myfile);
-print $content;
+  fclose($myfile);
+  print $content;
+?>
 ----
 
 . La salida en consola, será la misma que la obtenida para +fopen+.

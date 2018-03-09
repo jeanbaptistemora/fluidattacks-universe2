@@ -1,8 +1,9 @@
-$myresource = fopen("test.txt","r");
+<?php
+  $myresource = fopen("test.txt","r");
 
-while (!feof($myresource)) {
-   $line = fgets($myresource);
-   echo $line;
-}
+  while (!feof($myresource)) {
+    $line = fgets($myresource);
+    echo $line;
+  }
 
-fclose($myresource);
+  fclose($myresource);
