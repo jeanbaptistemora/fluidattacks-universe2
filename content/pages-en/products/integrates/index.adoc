@@ -135,8 +135,11 @@ a|== Exploit
 The *script* used to exploit the vulnerability is shown.
 This can be reused to validate the applied corrections.
 
-If the user has acquired a licence of the product link:../asserts/[Asserts],
-he may reproduce the vulnerability.
+If the user has acquired a licence of the product [button]#link:../asserts/[Asserts>>]#,
+he may reproduce the attack that takes advantage of the vulnerability
+and determine autonomously if it was already remedied.
+When you reproduce an attack, the code that exploits the vulnerability
+is injected into the application.
 
 a|== Timeline of the Vulnerability
 
@@ -179,8 +182,8 @@ Some of them are:
 
 a|== Knowledge Base
 
-Users have access to FLUID's product (link:../../defends/[Defends]).
-Here they can find examples about how to fulfill the security requirements
+Users have access to FLUID's product [button]#link:../../defends/[Defends>>]# 
+where they can find examples about how to fulfill the security requirements
 that are verified in the tests performed.
 a|image::knowledge-base.png[Knowledge Base]
 |====

@@ -129,8 +129,11 @@ a|== Exploit de la Vulnerabilidad
 Se muestra el *script* usado para la explotación de la vulnerabilidad.
 Este puede ser reutilizado para validar las correcciones aplicadas.
 
-Si el usuario cuenta con una licencia del producto link:../asserts/[Asserts],
-podrá reproducir la vulnerabilidad.
+Si el usuario cuenta con una licencia del producto [button]#link:../asserts/[Asserts>>]#,
+podrá reproducir el ataque que aprovecha la vulnerabilidad 
+y determinar autónomamente si ya fue remediado.
+Al reproducir un ataque, el código que explota la vulnerabilidad
+es inyectado a la aplicación.
 
 a|== Línea de Tiempo de la Vulnerabilidad
 
@@ -173,8 +176,8 @@ Algunas de ellas son:
 
 a|== Base De Conocimiento
 
-Los usuarios tienen acceso al producto de FLUID, (link:../../defends/[Defends]).
-En esta se encuentran ejemplos de cómo cumplir con los requisitos de seguridad
+Los usuarios tienen acceso al producto de FLUID, [button]#link:../../defends/[Defends>>]#,
+el cual contiene ejemplos de cómo cumplir con los requisitos de seguridad
 que son evaluados en las pruebas realizadas.
 a|image::base-conocimiento.png[Base De Conocimiento]
 |====
