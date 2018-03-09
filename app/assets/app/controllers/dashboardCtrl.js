@@ -159,6 +159,5 @@ integrates.controller("dashboardCtrl", function($scope, $uibModal, $timeout,
         $scope.initMyProjects();
         $scope.initMyEventualities();
     };
-
     $scope.init();
 });

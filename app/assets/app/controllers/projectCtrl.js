@@ -43,6 +43,9 @@ integrates.controller(
         $translate, projectFtry) {
 
         $scope.init = function(){
+            var org = Organization.toUpperCase();
+            var projt = $stateParams.project.toUpperCase();
+            $scope.alertHeader(org, projt);
             var project = $stateParams.project;
             var findingId = $stateParams.finding;
             $scope.userRole = userRole;
@@ -80,6 +83,22 @@ integrates.controller(
             $scope.mainGraphstatusPieChart;
             $('html, body').animate({ scrollTop: $scope.currentScrollPosition }, 'fast');
         };
+        $scope.alertHeader = function(company, project){
+          var req = projectFtry.getAlerts(company, project);
+          req.then(function(response){
+              if(!response.error){
+                if (response.data[0].status_act=='1'){
+                   var html = '<div class="alert alert-danger-2">';
+                   html += '<strong>Atención! </strong>' + response.data[0].message + '</div>';
+                   document.getElementById('header_alert').innerHTML = html;
+                 }
+               }else{
+                 var error_ac1 = $translate.instant('proj_alerts.error_textsad');
+                 Rollbar.error("Error: An error occurred getting company alerts");
+                 $msg.error(error_ac1);
+               }
+             })
+           };
         $scope.testFinding = function(){
             $scope.finding = {
                 proyecto_fluid: "Integrates",
@@ -179,7 +198,7 @@ integrates.controller(
                         $("#total_criticidad").html(total_severity.toFixed(0));
                     }
                 }
-            });            
+            });
             $("#total_efectividad").html("n%".replace("n", (((1-(cardinalidad/cardinalidad_total))*100).toFixed(2).toString())));
         };
         $scope.capitalizeFirstLetter = function(string) {

@@ -1156,3 +1156,26 @@ def total_severity(request):
     project = request.GET.get('project', "")
     toe = integrates_dao.get_toe_dynamo(project)
     return util.response(toe, 'Success', False)
+
+@never_cache
+@csrf_exempt
+@require_http_methods(["GET"])
+@authorize(['analyst', 'customer'])
+def get_alerts(request):
+    company = request.GET.get('company', None)
+    project = request.GET.get('project', None)
+    resp = integrates_dao.get_company_alert_dynamo(company, project)
+    return util.response(resp, 'Success', False)
+
+@never_cache
+@csrf_exempt
+@require_http_methods(["POST"])
+@authorize(['analyst', 'customer'])
+def set_alerts(request):
+    message = request.POST.get('message', None)
+    company_name = request.POST.get('company', None)
+    project_name = request.POST.get('project', None)
+    resp = integrates_dao.set_company_alert_dynamo(message, company_name, project_name)
+    print resp
+    print 'HOLAAAAAA'
+    return util.response(resp, 'Success', False)

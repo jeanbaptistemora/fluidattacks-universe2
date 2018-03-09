@@ -772,7 +772,7 @@ integrates.config(['$translateProvider', function($translateProvider) {
           'file_type_csv': 'El archivo debe ser de tipo .csv',
           'file_type_png': 'La imagen debe ser de tipo .png',
           'no_file_update': 'Falló al actualizar el archivo',
-          'no_text_update': 'Falló al actualizar la descripción', 
+          'no_text_update': 'Falló al actualizar la descripción',
           'access_denied': 'Acceso Denegado'
         },
         'tab_container':{

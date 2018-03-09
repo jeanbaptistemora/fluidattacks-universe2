@@ -374,6 +374,74 @@ def add_or_update_vulns_dynamo(project_name, unique_id, vuln_hoy):
             rollbar.report_exc_info()
             return False
 
+def get_company_alert_dynamo(company_name, project_name):
+    """Obtiene la informacion de un hallazgo"""
+    company_name=company_name.lower()
+    project_name=project_name.lower()
+    table = dynamodb_resource.Table('alerts_by_company')
+    filter_key = 'company_name'
+    filter_sort = 'project_name'
+    if filter_key and company_name and filter_sort and project_name :
+        response = table.query(KeyConditionExpression=Key(filter_key).eq(company_name) & Key(filter_sort).eq(project_name))
+    else:
+        response = table.query()
+    items = response['Items']
+    while True:
+        if response.get('LastEvaluatedKey'):
+            response = table.query(ExclusiveStartKey=response['LastEvaluatedKey'])
+            items += response['Items']
+        else:
+            break
+    return items
+
+def set_company_alert_dynamo(message, company_name, project_name):
+    """Crea, actualiza o activa una alerta para una empresa"""
+    project = project_name.lower()
+    with connections['integrates'].cursor() as cursor:
+        query = 'SELECT * FROM projects WHERE project=%s'
+        cursor.execute(query, (project,))
+        row = cursor.fetchone()
+        if row is None:
+            # Project already exists.
+            return False
+    company_name=company_name.lower()
+    project_name=project_name.lower()
+    table = dynamodb_resource.Table('alerts_by_company')
+    item = get_company_alert_dynamo(company_name, project_name)
+    if item == []:
+        try:
+            response = table.put_item(
+                Item={
+                    'message': message,
+                    'company_name': company_name,
+                    'project_name': project_name,
+                    'status': '1',
+                }
+                )
+            resp = response['ResponseMetadata']['HTTPStatusCode'] == 200
+            return resp
+        except ClientError:
+            rollbar.report_exc_info()
+            return False
+    else:
+        try:
+            response = table.update_item(
+                Key={
+                    'company_name': company_name,
+                    'project_name': project_name,
+                },
+                UpdateExpression='SET message = :val1, status_act = :val2',
+                ExpressionAttributeValues={
+                    ':val1': str(message),
+                    ':val2': '1',
+                }
+            )
+            resp = response['ResponseMetadata']['HTTPStatusCode'] == 200
+            return resp
+        except ClientError:
+            rollbar.report_exc_info()
+            return False
+
 def update_findings_amount(project, amount):
     """Actualiza el numero de hallazgos en el proyecto."""
     with connections['integrates'].cursor() as cursor:
@@ -441,7 +509,6 @@ def get_comments_dynamo(finding_id):
         response = table.query()
     items = response['Items']
     while True:
-        print len(response['Items'])
         if response.get('LastEvaluatedKey'):
             response = table.query(ExclusiveStartKey=response['LastEvaluatedKey'])
             items += response['Items']
@@ -517,7 +584,6 @@ def get_remediated_dynamo(finding_id):
         response = table.query()
     items = response['Items']
     while True:
-        print len(response['Items'])
         if response.get('LastEvaluatedKey'):
             response = table.query(ExclusiveStartKey=response['LastEvaluatedKey'])
             items += response['Items']
@@ -573,7 +639,6 @@ def get_remediated_allfindings_dynamo(filter_value):
 
     items = response['Items']
     while True:
-        print len(response['Items'])
         if response.get('LastEvaluatedKey'):
             response = table.scan(ExclusiveStartKey=response['LastEvaluatedKey'])
             items += response['Items']

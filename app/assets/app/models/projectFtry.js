@@ -292,5 +292,18 @@ integrates.factory('projectFtry', function($q, $translate){
                 data, _: Math.random()
             },oops_ac);
         },
+        /**
+         * Invoca el servicio para tener las alertas de una compañia
+         * @function getEvidences
+         * @param {String} id
+         * @member integrates.projectFtry
+         * @return {Object}
+         */
+        getAlerts: function(company, project){
+            var oops_ac = $translate.instant('proj_alerts.error_text');
+            return $xhr.get($q, BASE.url + "get_alerts", {
+                company: company, project: project, _: Math.random()
+            },oops_ac)
+        },
     }
 });

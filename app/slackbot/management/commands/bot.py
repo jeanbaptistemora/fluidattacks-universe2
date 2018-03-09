@@ -21,7 +21,8 @@ VALID_COMMANDS = ['add_access',
                   'remove_access',
                   'unregister_user',
                   'list_projects',
-                  'list_users']
+                  'list_users',
+                  'set_alert']
 BOT_NAME = 'integrates'
 CMD_SEP = ' '
 CHANNEL = 'fluidintegrates'
