@@ -1357,8 +1357,7 @@ integrates.controller("findingcontentCtrl", function($scope, $stateParams, $time
                                         columns: dataCols,
                                         data: response.data,
                                         cookieIdTable: "recordsTableCookie",
-                                        cookie: true,
-                                        exportDataType: "all"
+                                        cookie: true
                                     });
                                     $("#recordsTable").bootstrapTable('refresh');
                                 } else {
@@ -1384,8 +1383,7 @@ integrates.controller("findingcontentCtrl", function($scope, $stateParams, $time
                                         columns: dataCols,
                                         data: response.data,
                                         cookieIdTable: "recordsTableCookie",
-                                        cookie: true,
-                                        exportDataType: "all"
+                                        cookie: true
                                     });
                                     $("#recordsTable").bootstrapTable('refresh');
                                 } else {
@@ -1415,8 +1413,7 @@ integrates.controller("findingcontentCtrl", function($scope, $stateParams, $time
                                     columns: dataCols,
                                     data: response.data,
                                     cookieIdTable: "recordsTableCookie",
-                                    cookie: true,
-                                    exportDataType: "all"
+                                    cookie: true
                                 });
                                 $("#recordsTable").bootstrapTable('refresh');
                             } else {
