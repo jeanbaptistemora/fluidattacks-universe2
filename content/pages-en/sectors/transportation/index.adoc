@@ -6,7 +6,19 @@
 
 = Transportation
 
-[frame="none", cols="^.^"]
-|=======
-|image:logo-avianca.png[logo avianca, 390, 120]
-|=======
+[role="transportation tb-alt"]
+[cols=2, frame="none"]
+|====
+a|image:logo-avianca.png[logo avianca, 390, 110, link=https://www.avianca.com/co/es/]
+
+a|== Avianca
+
+Commercial brand that represents the Latin American airlines 
+integrated in Avianca Holdings S.A. 
+Specialized in the transport of passengers and cargo, 
+direct service in more than 100 destinations 
+in 26 countries of America and Europe 
+aboard a modern fleet of 172 aircraft 
+of short, medium and long range.
+
+|====
