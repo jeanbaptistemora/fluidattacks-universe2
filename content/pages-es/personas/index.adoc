@@ -5,4 +5,5 @@
 
 = Personas
 
-. link:ralvarez/[Rafael Alvarez]
+. link:ralvarez/[Rafael Alvarez].
+. link:jarmas/[Jonathan Armas].
