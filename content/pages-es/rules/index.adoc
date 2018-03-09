@@ -56,7 +56,8 @@
 
 == Certificados digitales
 
-* link:086/[REQ.086 Limitar vigencia de certificados digitales].
+* link:088/[REQ.088 Requerir certificados digitales de cliente].
+* link:089/[REQ.089 Limitar vigencia de certificados digitales].
 
 == Correo Electrónico
 

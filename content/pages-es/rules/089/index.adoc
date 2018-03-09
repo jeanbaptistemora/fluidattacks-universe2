@@ -1,10 +1,10 @@
-:slug: rules/086/
+:slug: rules/089/
 :category: rules
 :description: En el presente documento se detallan los requerimientos de seguridad relacionados al manejo de certificados digitales obtenidos por una determinada entidad u organización, incluyendo una descripción general y la importancia de la renovación de los mismos.
 :keywords: certificado digital, caso de abuso, man-in-the-middle, entidad certificadora, caducidad, renovación.
 :rules: yes
 
-= REQ.086 Limitar vigencia de certificados digitales
+= REQ.089 Limitar vigencia de certificados digitales
 
 == Nombre
 
