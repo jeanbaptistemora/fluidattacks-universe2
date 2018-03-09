@@ -267,6 +267,37 @@ integrates.controller("findingcontentCtrl", function($scope, $stateParams, $time
           input.addEventListener( 'blur', function(){ input.classList.remove( 'has-focus' ); });
         });
     };
+    $scope.recordsEditable = function(){
+        if($scope.onlyReadableTab6 == false){
+            $scope.onlyReadableTab6 = true;
+        }else{
+            $scope.onlyReadableTab6 = false;
+        }
+        var inputs = document.querySelectorAll( '.inputfile' );
+        Array.prototype.forEach.call( inputs, function( input )
+        {
+          var label  = input.nextElementSibling,
+            labelVal = label.innerHTML;
+
+          input.addEventListener( 'change', function( e )
+          {
+            var fileName = '';
+            if( this.files && this.files.length > 1 )
+              fileName = ( this.getAttribute( 'data-multiple-caption' ) || '' ).replace( '{count}', this.files.length );
+            else
+              fileName = e.target.value.split( '\\' ).pop();
+
+            if( fileName )
+              label.querySelector( 'span' ).innerHTML = fileName;
+            else
+              label.innerHTML = labelVal;
+          });
+
+          // Firefox bug fix
+          input.addEventListener( 'focus', function(){ input.classList.add( 'has-focus' ); });
+          input.addEventListener( 'blur', function(){ input.classList.remove( 'has-focus' ); });
+        });
+    };
     $scope.detectNivel = function (){
         $timeout(function(){
             $scope.$apply();
@@ -359,6 +390,11 @@ integrates.controller("findingcontentCtrl", function($scope, $stateParams, $time
             $msg.error(error_ac1);
             return false;
         }
+        if((fileType == ".csv" || fileType == ".CSV") && fileInput.files[0].size > 1048576){
+            var error_ac1 = $translate.instant('proj_alerts.file_size_py');
+            $msg.error(error_ac1);
+            return false;
+        }
         evImages = ['1', '2', '3', '4', '5', '6'];
         if(evImage == '0' && (fileType != ".gif" && fileType != ".GIF")){
             var error_ac1 = $translate.instant('proj_alerts.file_type_gif');
@@ -366,6 +402,10 @@ integrates.controller("findingcontentCtrl", function($scope, $stateParams, $time
             return false;
         } else if (evImage == '7' && (fileType != ".py"  && fileType != ".PY")){
             var error_ac1 = $translate.instant('proj_alerts.file_type_py');
+            $msg.error(error_ac1);
+            return false;
+        } else if (evImage == '8' && (fileType != ".csv"  && fileType != ".CSV")){
+            var error_ac1 = $translate.instant('proj_alerts.file_type_csv');
             $msg.error(error_ac1);
             return false;
         } else if(evImages.indexOf(evImage) != -1 && (fileType != ".png" && fileType != ".PNG")){
@@ -1703,6 +1743,7 @@ integrates.controller("findingcontentCtrl", function($scope, $stateParams, $time
         $scope.onlyReadableTab3 = true;
         $scope.onlyReadableTab4 = true;
         $scope.onlyReadableTab5 = true;
+        $scope.onlyReadableTab6 = true;
         $scope.isManager = userRole != "customer";
         //Defaults para cambiar vistas
         $scope.view = {};

@@ -265,6 +265,7 @@ integrates.config(['$translateProvider', function($translateProvider) {
           'file_size_py': 'The file size must be less than 1mb',
           'file_type_gif': 'The image must be .gif type',
           'file_type_py': 'The file must be .py type',
+          'file_type_csv': 'The file must be .csv type',
           'file_type_png': 'The image must be .png type', 
           'no_file_update': 'Failed to update the file', 
           'no_text_update': 'Failed to update the description'
@@ -765,6 +766,7 @@ integrates.config(['$translateProvider', function($translateProvider) {
           'file_size_py': 'El archivo debe tener un tamaño menor a 1mb',
           'file_type_gif': 'La imagen debe ser de tipo .gif',
           'file_type_py': 'El archivo debe ser de tipo .py',
+          'file_type_csv': 'El archivo debe ser de tipo .csv',
           'file_type_png': 'La imagen debe ser de tipo .png', 
           'no_file_update': 'Falló al actualizar el archivo',
           'no_text_update': 'Falló al actualizar la descripción'

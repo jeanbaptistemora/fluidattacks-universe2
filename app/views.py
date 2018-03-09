@@ -574,10 +574,12 @@ def update_evidences_files(request):
         mime_type = mime.from_file(upload.temporary_file_path())
     elif isinstance(upload, InMemoryUploadedFile):
         mime_type = mime.from_buffer(upload.file.getvalue())
-    fieldname = [['animacion', FindingDTO().ANIMATION], ['explotacion', FindingDTO().EXPLOTATION], \
-                ['ruta_evidencia_1', FindingDTO().DOC_ACHV1], ['ruta_evidencia_2', FindingDTO().DOC_ACHV2], \
-                ['ruta_evidencia_3', FindingDTO().DOC_ACHV3], ['ruta_evidencia_4', FindingDTO().DOC_ACHV4], \
-                ['ruta_evidencia_5', FindingDTO().DOC_ACHV5], ['exploit', FindingDTO().EXPLOIT]]
+    fieldNum = FindingDTO()
+    fieldname = [['animacion', fieldNum.ANIMATION], ['explotacion', fieldNum.EXPLOTATION], \
+                ['ruta_evidencia_1', fieldNum.DOC_ACHV1], ['ruta_evidencia_2', fieldNum.DOC_ACHV2], \
+                ['ruta_evidencia_3', fieldNum.DOC_ACHV3], ['ruta_evidencia_4', fieldNum.DOC_ACHV4], \
+                ['ruta_evidencia_5', fieldNum.DOC_ACHV5], ['exploit', fieldNum.EXPLOIT], \
+                ['registros_archivo', fieldNum.REG_FILE]]
     if mime_type == "image/gif" and parameters["id"] == '0':
         if upload.size > 10485760:
             rollbar.report_message('Error - File exceeds the size limits', 'error', request)
@@ -601,7 +603,13 @@ def update_evidences_files(request):
                     and parameters["id"] == '7':
         if upload.size > 1048576:
             rollbar.report_message('Error - File exceeds the size limits', 'error', request)
-            return util.response([], 'Image exceeds the size limits', True)
+            return util.response([], 'File exceeds the size limits', True)
+        updated = update_file_to_s3(parameters, fieldname[int(parameters["id"])][1], fieldname[int(parameters["id"])][0], upload)
+        return util.response([], "sended" , updated)
+    elif mime_type == "text/plain" and parameters["id"] == '8':
+        if upload.size > 1048576:
+            rollbar.report_message('Error - File exceeds the size limits', 'error', request)
+            return util.response([], 'File exceeds the size limits', True)
         updated = update_file_to_s3(parameters, fieldname[int(parameters["id"])][1], fieldname[int(parameters["id"])][0], upload)
         return util.response([], "sended" , updated)
     rollbar.report_message('Error - Extension not allowed', 'error', request)
@@ -662,47 +670,42 @@ def migrate_all_files(parameters, request):
         api = FormstackAPI()
         frmreq = api.get_submission(parameters['findingId'])
         finding = fin_dto.parse(parameters['findingId'], frmreq, request)
-        filename =  parameters['findingId'] + "/" + parameters['url'] + "-" + FindingDTO().ANIMATION
+        filename =  parameters['findingId'] + "/" + parameters['url'] + "-" + fin_dto.ANIMATION
         folder = key_existing_list(filename)
         if "animacion" in finding and parameters["id"] != '0' and not folder:
-            send_file_to_s3(finding["animacion"], parameters, FindingDTO().ANIMATION, "animacion", ".gif")
-        filename =  parameters['findingId'] + "/" + parameters['url'] + "-" + FindingDTO().EXPLOTATION
+            send_file_to_s3(finding["animacion"], parameters, fin_dto.ANIMATION, "animacion", ".gif")
+        filename =  parameters['findingId'] + "/" + parameters['url'] + "-" + fin_dto.EXPLOTATION
         folder = key_existing_list(filename)
         if "explotacion" in finding and parameters["id"] != '1' and not folder:
-            send_file_to_s3(finding["explotacion"], parameters, FindingDTO().EXPLOTATION, "explotacion", ".png")
-        filename =  parameters['findingId'] + "/" + parameters['url'] + "-" + FindingDTO().DOC_ACHV1
+            send_file_to_s3(finding["explotacion"], parameters, fin_dto.EXPLOTATION, "explotacion", ".png")
+        filename =  parameters['findingId'] + "/" + parameters['url'] + "-" + fin_dto.DOC_ACHV1
         folder = key_existing_list(filename)
         if "ruta_evidencia_1" in finding and parameters["id"] != '2' and not folder:
-            send_file_to_s3(finding["ruta_evidencia_1"], parameters, FindingDTO().DOC_ACHV1, "ruta_evidencia_1", ".png")
-        filename =  parameters['findingId'] + "/" + parameters['url'] + "-" + FindingDTO().DOC_ACHV2
+            send_file_to_s3(finding["ruta_evidencia_1"], parameters, fin_dto.DOC_ACHV1, "ruta_evidencia_1", ".png")
+        filename =  parameters['findingId'] + "/" + parameters['url'] + "-" + fin_dto.DOC_ACHV2
         folder = key_existing_list(filename)
         if "ruta_evidencia_2" in finding and parameters["id"] != '3' and not folder:
-            send_file_to_s3(finding["ruta_evidencia_2"], parameters, FindingDTO().DOC_ACHV2, "ruta_evidencia_2", ".png")
-        filename =  parameters['findingId'] + "/" + parameters['url'] + "-" + FindingDTO().DOC_ACHV3
+            send_file_to_s3(finding["ruta_evidencia_2"], parameters, fin_dto.DOC_ACHV2, "ruta_evidencia_2", ".png")
+        filename =  parameters['findingId'] + "/" + parameters['url'] + "-" + fin_dto.DOC_ACHV3
         folder = key_existing_list(filename)
         if "ruta_evidencia_3" in finding and parameters["id"] != '4' and not folder:
-            send_file_to_s3(finding["ruta_evidencia_3"], parameters, FindingDTO().DOC_ACHV3, "ruta_evidencia_3", ".png")
-        filename =  parameters['findingId'] + "/" + parameters['url'] + "-" + FindingDTO().DOC_ACHV4
+            send_file_to_s3(finding["ruta_evidencia_3"], parameters, fin_dto.DOC_ACHV3, "ruta_evidencia_3", ".png")
+        filename =  parameters['findingId'] + "/" + parameters['url'] + "-" + fin_dto.DOC_ACHV4
         folder = key_existing_list(filename)
         if "ruta_evidencia_4" in finding and parameters["id"] != '5' and not folder:
-            send_file_to_s3(finding["ruta_evidencia_4"], parameters, FindingDTO().DOC_ACHV4, "ruta_evidencia_4", ".png")
-        filename =  parameters['findingId'] + "/" + parameters['url'] + "-" + FindingDTO().DOC_ACHV5
+            send_file_to_s3(finding["ruta_evidencia_4"], parameters, fin_dto.DOC_ACHV4, "ruta_evidencia_4", ".png")
+        filename =  parameters['findingId'] + "/" + parameters['url'] + "-" + fin_dto.DOC_ACHV5
         folder = key_existing_list(filename)
         if "ruta_evidencia_5" in finding and parameters["id"] != '6' and not folder:
-            send_file_to_s3(finding["ruta_evidencia_5"], parameters, FindingDTO().DOC_ACHV5, "ruta_evidencia_5", ".png")
-        filename =  parameters['findingId'] + "/" + parameters['url'] + "-" + FindingDTO().EXPLOIT
+            send_file_to_s3(finding["ruta_evidencia_5"], parameters, fin_dto.DOC_ACHV5, "ruta_evidencia_5", ".png")
+        filename =  parameters['findingId'] + "/" + parameters['url'] + "-" + fin_dto.EXPLOIT
         folder = key_existing_list(filename)
         if "exploit" in finding and parameters["id"] != '7' and not folder:
-            send_file_to_s3(finding["exploit"], parameters, FindingDTO().EXPLOIT, "exploit", ".py")
-        filename = parameters['findingId'] + "/" + parameters['url'] + "-" + FindingDTO().REG_FILE
+            send_file_to_s3(finding["exploit"], parameters, fin_dto.EXPLOIT, "exploit", ".py")
+        filename = parameters['findingId'] + "/" + parameters['url'] + "-" + fin_dto.REG_FILE
         folder = key_existing_list(filename)
-        if "registros_archivo" in finding and not folder:
-            drive_api = DriveAPI(finding["registros_archivo"])
-            # pylint: disable=W0622
-            if not drive_api.FILE:
-                rollbar.report_message('Error: Unable to download the file', 'error', request)
-            else:
-                send_file_to_s3(finding["registros_archivo"], parameters, FindingDTO().REG_FILE, "registros_archivo", ".csv")
+        if "registros_archivo" in finding and parameters["id"] != '8' and not folder:
+            send_file_to_s3(finding["registros_archivo"], parameters, fin_dto.REG_FILE, "registros_archivo", ".csv")
     except KeyError:
         rollbar.report_exc_info(sys.exc_info(), request)
 
@@ -830,6 +833,15 @@ def get_records(request):
 def list_to_dict(header, li):
     dct = {}
     cont = 0
+    if len(header) < len(li):
+        dif  = len(li) - len(header)
+        for x in range(dif): # pylint: disable=unused-variable
+            header.append("")
+    elif len(header) > len(li):
+        dif  = len(header) - len(li)
+        for x in range(dif): # pylint: disable=unused-variable
+            li.append("")
+
     for item in li:
         if header[cont] == "":
             dct[cont] = item
