@@ -54,12 +54,12 @@
 * link:073/[REQ.073 Registrar momento de ocurrencia de eventos].
 * link:077/[REQ.077 No registrar datos sensibles en bitácoras].
 
-== Certificados digitales
+== Certificados
 
 * link:088/[REQ.088 Requerir certificados digitales de cliente].
 * link:089/[REQ.089 Limitar vigencia de certificados digitales].
 
-== Correo Electrónico
+== Correos
 
 * link:114/[REQ.114 Garantizar unicidad de correos].
 
@@ -100,9 +100,9 @@
 
 == Datos
 
-* link:171/[REQ.171 Restringir objetos del sistema].
 * link:172/[REQ.172 Almacenar datos de forma segura].
 * link:173/[REQ.173 Utilizar firmas digitales].
+* link:176/[REQ.176 Restringir objetos del sistema].
 * link:180/[REQ.180 Información sensible cifrada].
 * link:998/[REQ.998 Limitar tiempo de vida de variables].
 * link:999/[REQ.999 Limitar tiempo de vida de recursos].
