@@ -17,6 +17,8 @@ bajo las cuales la siguiente solución tiene sentido:
 
 . Se utiliza el servidor de aplicaciones +GlassFish+.
 . Se desea configurar usuarios y roles en el +Realm+ de +GlassFish+.
+. El sistema debe restringir el acceso a objetos del sistema
+que tengan contenido sensible.<<r1,[1]>>
 
 == 	Solución
 
@@ -25,15 +27,15 @@ desarrollado por +Sun Microsystems+
 y que implementa las tecnologías definidas en la plataforma +Java EE+
 además permite ejecutar aplicaciones que siguen esta especificación.
 Es gratuito, de código libre y se distribuye bajo un licenciamiento dual
-a través de la licencia +CDDL+ y la +GNU GPL+ ^<<r1,[1]>>.
+a través de la licencia +CDDL+ y la +GNU GPL+ <<r2,[2]>>.
 
 Cuando se está diseñando una aplicación web, o sistema en general,
 se debe conocer los tipos de usuarios que tendrán acceso al mismo,
 y una vez determinados quienes serán los usuarios, hay que definir
-cúales serán los roles que tendrán en la aplicación.
+cuáles serán los roles que tendrán en la aplicación.
 
 Según lo anterior, es posible decir que un usuario,
-en general, es una persona, un componente de +software+ o incluso un servicio.
+en general, es una persona, un componente de +software+ o incluso un servicio.<<r3,[3]>>
 
 Por otra parte, un rol es un nivel de autorización definido para la aplicación
 el cual será asignado a uno o varios usuarios
@@ -54,13 +56,13 @@ así como permisos para editarla.
 En este ejemplo se podrían definir, al menos,
 dos roles: empleado y administrador;
 Los usuarios con el rol de empleado
-solo podrán ver su propia informaión.
-No obstante, los usuarios del rol administrador
-puede ver y editar toda la información de todos los empleados.
+solo podrán ver su propia información.
+No obstante, los usuarios bajo el rol de administrador,
+pueden ver y editar toda la información de todos los empleados.
 
 Para crear un nuevo usuario seguimos los siguientes pasos:
 
-. Iniciamos sesión en la consola de administrador de +GlassFish+.
+. Iniciamos sesión en la link:https://docs.oracle.com/cd/E19798-01/821-1841/bnbxr/index.html[consola de administrador] de +GlassFish+.
 
 . Expandimos el nodo de +Security -> Realms -> File+.
 +
@@ -74,9 +76,6 @@ image::opcion.png[manage users]
 
 == Referencias
 
-. [[r1]] link:https://es.wikipedia.org/wiki/GlassFish[GlassFish]
-. [[r2]] link:https://docs.oracle.com/cd/E19316-01/820-4335/abloe/index.html[Understanding Users, Groups, Roles, and Realms]
-. [[r3]] link:https://docs.oracle.com/cd/E19798-01/821-1841/bnbxr/index.html[Managing Users and Groups on the GlassFish Server]
-. [[r4]] REQ.0171: El sistema debe restringir el acceso a objetos del sistema
-que tengan contenido sensible.
-Solo permitirá acceso a usuarios autorizados.
+. [[r1]] link:../../../rules/176/[REQ.176 Restringir objetos del sistema].
+. [[r2]] link:https://es.wikipedia.org/wiki/GlassFish[GlassFish].
+. [[r3]] link:https://docs.oracle.com/cd/E19316-01/820-4335/abloe/index.html[Understanding Users, Groups, Roles, and Realms].
