@@ -178,8 +178,9 @@ def has_access_to_project_dao(email, project_name):
             has_access = cursor.fetchone()
         else:
             return False
-    if has_access[0] is 1:
-        return True
+    if has_access is not None:
+        if has_access[0] == 1:
+            return True
     return False
 
 def remove_all_access_to_project_dao(project_name=None):
