@@ -1,6 +1,6 @@
 :slug: metodo-sherlock-modelando-amenazas/
 :date: 2017-01-24
-:category: opiniones
+:category: ataques
 :tags: sdlc, modelar, amenaza, concientizar
 :Image: sherlock.png
 :alt: Diagrama de bloques mostrando el proceso de modelado de amenazas

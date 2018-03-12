@@ -1,6 +1,6 @@
 :slug: interceptando-burp/
 :date: 2017-01-30
-:category: opiniones
+:category: ataques
 :tags: herramienta, proxy, interceptar
 :Image: burp-intercept.png
 :alt: Imagen de inicio del programa Burp
