@@ -147,7 +147,7 @@ deploy_integrates:
        - apt update && apt install -y openssh-client
        - scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -i FLUID_Serves.pem env.list admin@fluidattacks.com:/home/admin
        - ssh -o StrictHostKeyChecking=no -i FLUID_Serves.pem admin@fluidattacks.com 'sudo docker pull registry.gitlab.com/fluidsignal/integrates:master && sudo docker stop integrates && sudo docker rm integrates && sudo docker run -d --env-file env.list -p 8000:443 --name=integrates registry.gitlab.com/fluidsignal/integrates:master'
-       - ssh -o StrictHostKeyChecking=no -i FLUID_Serves.pem admin@fluidattacks.com 'sudo docker pull registry.gitlab.com/fluidsignal/integrates/bot:master && sudo docker stop bot && sudo docker rm bot && sudo docker run -d --env-file env.list --name=bot registry.gitlab.com/fluidsignal/integrates/bot:master && rm env.list'
+       - ssh -o StrictHostKeyChecking=no -i FLUID_Serves.pem admin@fluidattacks.com 'sudo docker pull registry.gitlab.com/fluidsignal/integrates/bot:master && sudo docker stop bot && sudo docker rm bot && sudo docker run -d --env-file env.list --restart always --name=bot registry.gitlab.com/fluidsignal/integrates/bot:master && rm env.list'
     only:
     - master
     except:
@@ -170,7 +170,7 @@ serves_trigger:
         - echo "$FI_SSH_KEY" | base64 -d > "FLUID_Serves.pem" && chmod 600 FLUID_Serves.pem
         - scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -i FLUID_Serves.pem env.list admin@$NEW_SERVES:/home/admin
         - ssh -o StrictHostKeyChecking=no -i FLUID_Serves.pem admin@$NEW_SERVES 'sudo docker pull registry.gitlab.com/fluidsignal/integrates:master && (sudo docker stop integrates || echo "") && (sudo docker rm integrates || echo "") && sudo docker run -d --env-file env.list -p 8000:443 --name=integrates registry.gitlab.com/fluidsignal/integrates:master'
-        - ssh -o StrictHostKeyChecking=no -i FLUID_Serves.pem admin@$NEW_SERVES 'sudo docker pull registry.gitlab.com/fluidsignal/integrates/bot:master && (sudo docker stop bot || echo "") && (sudo docker rm bot || echo "") && sudo docker run -d --env-file env.list --name=bot registry.gitlab.com/fluidsignal/integrates/bot:master && rm env.list'
+        - ssh -o StrictHostKeyChecking=no -i FLUID_Serves.pem admin@$NEW_SERVES 'sudo docker pull registry.gitlab.com/fluidsignal/integrates/bot:master && (sudo docker stop bot || echo "") && (sudo docker rm bot || echo "") && sudo docker run -d --env-file env.list --restart always --name=bot registry.gitlab.com/fluidsignal/integrates/bot:master && rm env.list'
         - curl -X POST -F token=$TRIGGER_TOKEN -F ref=master -F "variables[IS_TRIGGER]=true" https://gitlab.com/api/v4/projects/4593051/trigger/pipeline
     only:
     - triggers
