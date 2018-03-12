@@ -63,6 +63,14 @@ ese día no se hacen retos ni se reporta tiempo de entrenamiento con la herramie
 . El tercer día hábil de cada semana, 
 usted deberá entrenar la máxima dedicación posible,
 
+=== Intentos fallidos
+
+Al igual que en la etapa de link:../retos-tecnicos[retos técnicos], 
+aplicará el tope de 10 MR fallidos, 
+incluyendo los acumulados en dicha etapa.
+
+Puede ver más detalles [button]#link:../retos-tecnicos/#intentos-fallidos[aquí >>]#
+
 == Reportes
 
 . Debe reportar todo el tiempo dedicado mediante la herramienta asignada en modo automático,

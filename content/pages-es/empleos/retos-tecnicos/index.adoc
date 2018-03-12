@@ -206,6 +206,17 @@ su *merge request* es integrado al repositorio.
 Los resultados de la integración pueden verse siempre en
 link:https://gitlab.com/autonomicmind/training/pipelines[GitLab-CI].
 
+=== Intentos fallidos
+
+Un merge request (MR) puede ser rechazado en caso de incumplimiento de los criterios anteriormente mencionados.
+Por favor tenga en cuenta lo siguiente:
+
+* Un MR cuenta como fallido cuando se rechaza por cuestiones que están adecuadamente detalladas en la documentación y que aun así se incumplen.
+* No se reabre un MR. 
+Si su MR fue rechazado, deberá crear uno nuevo tras haber realizado las respectivas correcciones.
+* Todo participante tiene hasta 10 intentos de MR fallidos. 
+El proceso se dará por terminado en caso de llegar a este tope.
+
 == 6. Builds locales
 
 Es posible correr integraciones locales con el fin de identificar errores antes de hacer push o merge requests al repositorio. 
