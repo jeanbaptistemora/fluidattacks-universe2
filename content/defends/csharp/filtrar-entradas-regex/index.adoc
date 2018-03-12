@@ -4,7 +4,7 @@
 :keywords: C Sharp, Buenas Prácticas, Inyección, Filtrado, Entradas, Expresiones Regulares.
 :defends: yes
 
-= Filtrar entradas usando Expresiones Regulares en C#
+= Filtrar entradas usando Expresiones Regulares
 
 == Necesidad
 

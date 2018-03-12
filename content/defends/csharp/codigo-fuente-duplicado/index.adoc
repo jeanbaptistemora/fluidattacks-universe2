@@ -4,7 +4,7 @@
 :keywords: C Sharp, Buenas Prácticas, Código, Duplicado, Excepciones, Depuración.
 :defends: yes
 
-= Evitar código fuente duplicado en C#
+= Evitar código fuente duplicado
 
 == Necesidad
 

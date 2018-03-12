@@ -4,7 +4,7 @@
 :keywords: C Sharp, Seguridad, Charset, Content-Type, Buenas Prácticas, HTTP Request Smuggling.
 :defends: yes
 
-= Establecer Content-Type y Charset en C&#35;
+= Establecer Content-Type y Charset
 
 == Necesidad
 

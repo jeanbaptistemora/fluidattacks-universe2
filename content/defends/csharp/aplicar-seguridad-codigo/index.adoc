@@ -4,7 +4,7 @@
 :keywords: C Sharp, Buenas Prácticas, .NET Framework, Politicas, Permisos, Grupos.
 :defends: yes
 
-= Aplicar seguridad a nivel de código en C#
+= Aplicar seguridad a nivel de código
 
 == Necesidad
 
