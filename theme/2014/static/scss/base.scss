@@ -624,6 +624,11 @@ article {
   }
 }
 
+.post-heading {
+  margin: auto;
+  max-width: 95ch;
+}
+
 //sass-lint:disable no-universal-selectors
 *,
 *::before,
