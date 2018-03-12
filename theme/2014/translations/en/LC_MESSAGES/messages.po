@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2018-03-06 16:19+0000\n"
+"POT-Creation-Date: 2018-03-12 16:17+0000\n"
 "PO-Revision-Date: 2018-03-06 13:42+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: en\n"
@@ -38,7 +38,7 @@ msgstr "Blog Archives"
 #: templates/author.html:37 templates/authors.html:30
 #: templates/categories.html:30 templates/category.html:28
 #: templates/error.html:37 templates/form.html:51 templates/home.html:26
-#: templates/index.html:26 templates/landing.html:31 templates/page.html:55
+#: templates/index.html:22 templates/landing.html:31 templates/page.html:55
 #: templates/tag.html:41 templates/tags.html:30
 msgid "Header-img-alt"
 msgstr "Young hacker smiling"
@@ -78,15 +78,15 @@ msgstr "Folder icon"
 msgid "Articles-icon-alt-4"
 msgstr "Calendar icon"
 
-#: templates/article.html:122
+#: templates/article.html:108
 msgid "Articles-author-alt"
 msgstr "Author picture"
 
-#: templates/article.html:137
+#: templates/article.html:123
 msgid "Articles-related-sect"
 msgstr "Related"
 
-#: templates/article.html:174
+#: templates/article.html:160
 msgid "Articles-disqus-sect"
 msgstr "Leave a comment"
 
@@ -133,7 +133,7 @@ msgstr "Authors"
 msgid "Authors-canonical"
 msgstr "authors"
 
-#: templates/authors.html:46
+#: templates/authors.html:55
 msgid "Authors-header"
 msgstr "Authors"
 
@@ -157,7 +157,7 @@ msgstr "Categories"
 msgid "Categories-canonical"
 msgstr "categories"
 
-#: templates/categories.html:46
+#: templates/categories.html:55
 msgid "Categories-header"
 msgstr "Categories"
 
@@ -376,165 +376,173 @@ msgstr "products"
 msgid "Footer-header-3"
 msgstr "Products"
 
-#: templates/footer.html:41
-msgid "Footer-link-3.1"
-msgstr "style"
-
-#: templates/footer.html:41
-msgid "Footer-subtitle-3.1"
-msgstr "Style"
-
-#: templates/footer.html:42
-msgid "Footer-link-3.2"
-msgstr "topics"
-
-#: templates/footer.html:42
-msgid "Footer-subtitle-3.2"
-msgstr "Topics"
-
-#: templates/footer.html:43
-msgid "Footer-link-3.3"
-msgstr "authors"
-
-#: templates/footer.html:43
-msgid "Footer-subtitle-3.3"
-msgstr "Authors"
-
-#: templates/footer.html:44
-msgid "Footer-link-3.4"
-msgstr "categories"
-
-#: templates/footer.html:44
-msgid "Footer-subtitle-3.4"
-msgstr "Categories"
-
-#: templates/footer.html:45
-msgid "Footer-link-3.5"
-msgstr "tags"
-
-#: templates/footer.html:45
-msgid "Footer-subtitle-3.5"
-msgstr "Tags"
-
-#: templates/footer.html:46
-msgid "Footer-subtitle-3.6"
-msgstr "Format"
-
-#: templates/footer.html:49 templates/footer.html:50 templates/footer.html:51
-#: templates/footer.html:52 templates/footer.html:53 templates/footer.html:54
-#: templates/footer.html:55 templates/footer.html:56
-msgid "Footer-cat-3"
-msgstr "careers"
-
-#: templates/footer.html:49
-msgid "Footer-header-4"
-msgstr "Careers"
-
-#: templates/footer.html:50
-msgid "Footer-link-4.1"
-msgstr "reasons"
-
-#: templates/footer.html:50
-msgid "Footer-subtitle-4.1"
-msgstr "Reasons"
-
-#: templates/footer.html:51
-msgid "Footer-link-4.2"
-msgstr "positions"
-
-#: templates/footer.html:51
-msgid "Footer-subtitle-4.2"
-msgstr "Positions"
-
-#: templates/footer.html:52
-msgid "Footer-link-4.3"
-msgstr "terms"
-
-#: templates/footer.html:52
-msgid "Footer-subtitle-4.3"
-msgstr "Terms"
-
-#: templates/footer.html:53
-msgid "Footer-link-4.4"
-msgstr "knowledge-test"
-
-#: templates/footer.html:53
-msgid "Footer-subtitle-4.4"
-msgstr "Knowledge test"
-
-#: templates/footer.html:54
-msgid "Footer-link-4.5"
-msgstr "technical-challenges"
-
-#: templates/footer.html:54
-msgid "Footer-subtitle-4.5"
-msgstr "Challenges"
-
-#: templates/footer.html:55
-msgid "Footer-link-4.6"
-msgstr "immersion"
-
-#: templates/footer.html:55
-msgid "Footer-subtitle-4.6"
-msgstr "Immersion"
-
-#: templates/footer.html:59 templates/footer.html:60 templates/footer.html:61
-#: templates/footer.html:62 templates/footer.html:63 templates/footer.html:64
-#: templates/footer.html:65 templates/footer.html:66
+#: templates/footer.html:41 templates/footer.html:42 templates/footer.html:43
+#: templates/footer.html:44 templates/footer.html:45 templates/footer.html:46
+#: templates/footer.html:47 templates/footer.html:48
 msgid "Footer-cat-4"
 msgstr "customers"
 
-#: templates/footer.html:59
+#: templates/footer.html:41
 msgid "Footer-header-5"
 msgstr "Customers"
 
-#: templates/footer.html:60
+#: templates/footer.html:42
 msgid "Footer-link-5.1"
 msgstr "financial"
 
-#: templates/footer.html:60
+#: templates/footer.html:42
 msgid "Footer-subtitle-5.1"
 msgstr "Financial"
 
-#: templates/footer.html:61
+#: templates/footer.html:43
 msgid "Footer-link-5.2"
 msgstr "communications"
 
-#: templates/footer.html:61
+#: templates/footer.html:43
 msgid "Footer-subtitle-5.2"
 msgstr "Communications"
 
-#: templates/footer.html:62
+#: templates/footer.html:44
 msgid "Footer-link-5.3"
 msgstr "consumer"
 
-#: templates/footer.html:62
+#: templates/footer.html:44
 msgid "Footer-subtitle-5.3"
 msgstr "Consumer"
 
-#: templates/footer.html:63
+#: templates/footer.html:45
 msgid "Footer-link-5.4"
 msgstr "technology"
 
-#: templates/footer.html:63
+#: templates/footer.html:45
 msgid "Footer-subtitle-5.4"
 msgstr "Technology"
 
-#: templates/footer.html:64
+#: templates/footer.html:46
 msgid "Footer-link-5.5"
 msgstr "utilities"
 
-#: templates/footer.html:64
+#: templates/footer.html:46
 msgid "Footer-subtitle-5.5"
 msgstr "Utilities"
 
-#: templates/footer.html:66
+#: templates/footer.html:48
 msgid "Footer-link-5.7"
 msgstr "transportation"
 
-#: templates/footer.html:66
+#: templates/footer.html:48
 msgid "Footer-subtitle-5.7"
 msgstr "Transportation"
+
+#: templates/footer.html:53
+msgid "Footer-link-3.4"
+msgstr "categories"
+
+#: templates/footer.html:53
+msgid "Footer-subtitle-3.4"
+msgstr "Categories"
+
+#: templates/footer.html:54
+msgid "Footer-link-3.5"
+msgstr "tags"
+
+#: templates/footer.html:54
+msgid "Footer-subtitle-3.5"
+msgstr "Tags"
+
+#: templates/footer.html:55
+msgid "Footer-link-3.3"
+msgstr "authors"
+
+#: templates/footer.html:55
+msgid "Footer-subtitle-3.3"
+msgstr "Authors"
+
+#: templates/footer.html:56
+msgid "Footer-link-3.2"
+msgstr "topics"
+
+#: templates/footer.html:56
+msgid "Footer-subtitle-3.2"
+msgstr "Topics"
+
+#: templates/footer.html:57
+msgid "Footer-link-3.1"
+msgstr "style"
+
+#: templates/footer.html:57
+msgid "Footer-subtitle-3.1"
+msgstr "Style"
+
+#: templates/footer.html:58
+msgid "Footer-subtitle-3.6"
+msgstr "Format"
+
+#: templates/footer.html:61 templates/footer.html:62 templates/footer.html:63
+#: templates/footer.html:64 templates/footer.html:65 templates/footer.html:66
+#: templates/footer.html:67 templates/footer.html:68
+msgid "Footer-cat-3"
+msgstr "careers"
+
+#: templates/footer.html:61
+msgid "Footer-header-4"
+msgstr "Careers"
+
+#: templates/footer.html:62
+msgid "Footer-link-4.1"
+msgstr "reasons"
+
+#: templates/footer.html:62
+msgid "Footer-subtitle-4.1"
+msgstr "Reasons"
+
+#: templates/footer.html:63
+msgid "Footer-link-4.2"
+msgstr "positions"
+
+#: templates/footer.html:63
+msgid "Footer-subtitle-4.2"
+msgstr "Positions"
+
+#: templates/footer.html:64
+msgid "Footer-link-4.3"
+msgstr "terms"
+
+#: templates/footer.html:64
+msgid "Footer-subtitle-4.3"
+msgstr "Terms"
+
+#: templates/footer.html:65
+msgid "Footer-link-4.4"
+msgstr "knowledge-test"
+
+#: templates/footer.html:65
+msgid "Footer-subtitle-4.4"
+msgstr "Knowledge test"
+
+#: templates/footer.html:66
+msgid "Footer-link-4.5"
+msgstr "technical-challenges"
+
+#: templates/footer.html:66
+msgid "Footer-subtitle-4.5"
+msgstr "Challenges"
+
+#: templates/footer.html:67
+msgid "Footer-link-4.6"
+msgstr "immersion"
+
+#: templates/footer.html:67
+msgid "Footer-subtitle-4.6"
+msgstr "Immersion"
+
+#: templates/footer.html:73
+msgid "Footer-stat-msg-1"
+msgstr "Check the status of FLUIDAttacks services - "
+
+#: templates/footer.html:74
+msgid "Footer-stat-msg-2"
+msgstr "Here"
 
 #: templates/home.html:4
 msgid "Home-metadescription"
@@ -569,23 +577,23 @@ msgstr ""
 msgid "Index-keywords"
 msgstr "Articles, Blog, Opinion, Challenge, Information, Security"
 
-#: templates/index.html:10 templates/index.html:12
+#: templates/index.html:9
 msgid "Index-title"
 msgstr "Blog"
 
-#: templates/index.html:44
+#: templates/index.html:40
 msgid "Index-icon-alt-1"
 msgstr "Quill icon"
 
-#: templates/index.html:48
+#: templates/index.html:44
 msgid "Index-icon-alt-2"
 msgstr "Folder icon"
 
-#: templates/index.html:50
+#: templates/index.html:46
 msgid "Index-icon-alt-3"
 msgstr "Tag icon"
 
-#: templates/index.html:67
+#: templates/index.html:63
 msgid "Index-msg-btn"
 msgstr "Read More"
 
@@ -740,54 +748,54 @@ msgstr "Magnifying glass"
 msgid "Navb-logo"
 msgstr "FLUID logo"
 
-#: templates/navigationbar.html:23 templates/navigationbar.html:25
-#: templates/navigationbar.html:26
+#: templates/navigationbar.html:22 templates/navigationbar.html:24
+#: templates/navigationbar.html:25
 msgid "Navb-cat-1"
 msgstr "services"
 
-#: templates/navigationbar.html:23
+#: templates/navigationbar.html:22
 msgid "Navb-opt-2"
 msgstr "Services"
 
-#: templates/navigationbar.html:25
+#: templates/navigationbar.html:24
 msgid "Navb-link-2.1"
 msgstr "one-shot-hacking"
 
-#: templates/navigationbar.html:25
+#: templates/navigationbar.html:24
 msgid "Navb-opt-2.1"
 msgstr "One Shot Hacking"
 
-#: templates/navigationbar.html:26
+#: templates/navigationbar.html:25
 msgid "Navb-link-2.2"
 msgstr "continuous-hacking"
 
-#: templates/navigationbar.html:26
+#: templates/navigationbar.html:25
 msgid "Navb-opt-2.2"
 msgstr "Continuous Hacking"
 
-#: templates/navigationbar.html:29 templates/navigationbar.html:31
-#: templates/navigationbar.html:32 templates/navigationbar.html:33
-#: templates/navigationbar.html:34 templates/navigationbar.html:35
+#: templates/navigationbar.html:28 templates/navigationbar.html:30
+#: templates/navigationbar.html:31 templates/navigationbar.html:32
+#: templates/navigationbar.html:33 templates/navigationbar.html:34
 msgid "Navb-cat-2"
 msgstr "products"
 
-#: templates/navigationbar.html:29
+#: templates/navigationbar.html:28
 msgid "Navb-opt-3"
 msgstr "Products"
 
-#: templates/navigationbar.html:38
+#: templates/navigationbar.html:37
 msgid "Navb-link-4"
 msgstr "customers"
 
-#: templates/navigationbar.html:38
+#: templates/navigationbar.html:37
 msgid "Navb-opt-4"
 msgstr "Customers"
 
-#: templates/navigationbar.html:39
+#: templates/navigationbar.html:38
 msgid "Navb-link-5"
 msgstr "careers"
 
-#: templates/navigationbar.html:39
+#: templates/navigationbar.html:38
 msgid "Navb-opt-5"
 msgstr "Careers"
 
@@ -814,9 +822,10 @@ msgstr "of"
 #: templates/search.html:4
 msgid "Search-metadescription"
 msgstr ""
-"This page shows the results of the requested search. It lists links to all "
-"the pages that contain the string searched. If the string was not found, no "
-"articles will be listed, try browsing using the menu or the footer"
+"This page shows the results of the requested search. It lists links to "
+"all the pages that contain the string searched. If the string was not "
+"found, no articles will be listed, try browsing using the menu or the "
+"footer"
 
 #: templates/search.html:5
 msgid "Search-keywords"
@@ -870,6 +879,7 @@ msgstr "Tags"
 msgid "Tags-canonical"
 msgstr "tags"
 
-#: templates/tags.html:46
+#: templates/tags.html:55
 msgid "Tags-header"
 msgstr "Tags"
+

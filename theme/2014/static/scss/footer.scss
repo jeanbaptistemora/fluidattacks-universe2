@@ -1,5 +1,6 @@
 $darkblue: rgba(29, 79, 114, 1);
 $darkergray: rgba(46, 42, 37, 1);
+$footerblack: rgba(27, 24, 21, 1);
 $lightblue: rgba(0, 133, 161, 1);
 $white: rgba(255, 255, 255, 1);
 
@@ -69,5 +70,20 @@ $white: rgba(255, 255, 255, 1);
   .navfoot {
     margin-left: 30px;
     width: 100%;
+  }
+}
+
+.status-div {
+  background-color: $footerblack;
+  color: $white;
+  text-align: center;
+}
+
+.status-link {
+  color: $white;
+  text-decoration: underline;
+
+  &:hover {
+    color: $lightblue;
   }
 }
