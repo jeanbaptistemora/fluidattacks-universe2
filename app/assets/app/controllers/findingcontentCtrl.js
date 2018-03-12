@@ -1337,6 +1337,11 @@ integrates.controller("findingcontentCtrl", function($scope, $stateParams, $time
         var req = projectFtry.getEvidences($scope.finding.id);
         req.then(function(response){
             if(!response.error){
+                if(localStorage['lang'] === "en"){
+                  var vlang = 'en-US';
+                } else {
+                  var vlang = 'es-CO';
+                }
                 if(response.data.length > 0){
                     for (var i = 0; i < response.data.length; i++) {
                         if(response.data[i].registros_archivo !== undefined
@@ -1354,6 +1359,7 @@ integrates.controller("findingcontentCtrl", function($scope, $stateParams, $time
                                     }
                                     $("#recordsTable").bootstrapTable('destroy');
                                     $("#recordsTable").bootstrapTable({
+                                        locale: vlang,
                                         columns: dataCols,
                                         data: response.data,
                                         cookieIdTable: "recordsTableCookie",
@@ -1380,6 +1386,7 @@ integrates.controller("findingcontentCtrl", function($scope, $stateParams, $time
                                     }
                                     $("#recordsTable").bootstrapTable('destroy');
                                     $("#recordsTable").bootstrapTable({
+                                        locale: vlang,
                                         columns: dataCols,
                                         data: response.data,
                                         cookieIdTable: "recordsTableCookie",
@@ -1410,6 +1417,7 @@ integrates.controller("findingcontentCtrl", function($scope, $stateParams, $time
                                 }
                                 $("#recordsTable").bootstrapTable('destroy');
                                 $("#recordsTable").bootstrapTable({
+                                    locale: vlang,
                                     columns: dataCols,
                                     data: response.data,
                                     cookieIdTable: "recordsTableCookie",
