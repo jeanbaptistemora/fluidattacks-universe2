@@ -1,6 +1,6 @@
 :slug: default-password/
 :date: 2016-07-13
-:category: opiniones
+:category: retos
 :tags: seguridad, password, atacar
 :Image: default-password.png
 :alt: Símbolo de prohibición sobre la contraseña por defecto
