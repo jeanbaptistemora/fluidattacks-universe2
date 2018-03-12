@@ -24,6 +24,6 @@ resource "aws_iam_policy_attachment" "fluidserves-attach" {
 
 resource "aws_iam_policy_attachment" "SSO_Finance-attach" {
   name       = "SSO_Finance-attachment"
-  roles     = ["SSO_Finance"]
+  roles     = ["${var.ssofinance}"]
   policy_arn = "${aws_iam_policy.SSO_Finance.arn}"
 }
