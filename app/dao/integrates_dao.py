@@ -142,9 +142,9 @@ def add_access_to_project_dao(email, project_name):
             project_id = None
 
         if project_id and user_id:
-            query = 'INSERT INTO project_access(user_id, project_id) VALUES(%s, %s)'
+            query = 'INSERT INTO project_access(user_id, project_id, has_access) VALUES(%s, %s, %s)'
             try:
-                cursor.execute(query, (user_id[0], project_id[0]))
+                cursor.execute(query, (user_id[0], project_id[0], 1))
                 return True
             except OperationalError:
                 rollbar.report_exc_info()
