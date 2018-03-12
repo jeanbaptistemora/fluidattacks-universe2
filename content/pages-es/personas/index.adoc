@@ -7,3 +7,4 @@
 
 . link:ralvarez/[Rafael Alvarez].
 . link:jarmas/[Jonathan Armas].
+. link:john-gomez/[John Gómez].
