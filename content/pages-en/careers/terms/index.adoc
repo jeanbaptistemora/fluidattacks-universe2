@@ -2,9 +2,9 @@
 :category: careers
 :description: The main goal of the following page is to inform people interested in working with us about our selection process. Here we describe the overall selection process we carry out and present additional information about our company, in order to motivate you to participate in our selection process.
 :keywords: FLUID, Careers, Terms, Selection, Process, Company.
-// :translate: empleos/terminos/
+:translate: empleos/terminos/
 
-= Terms of the Selection Process
+= Terms
 
 This page is not currently available in this language.
 
