@@ -1,7 +1,7 @@
 :slug: topics/
 :description: In FLUID's website you can find a large variety of topics related to information security, information technologies, good programming practices and more. This page aims to become a space where everyone can share their opinions, if you wish to share yours, do not hesitate to send us your article.
 :keywords: FLUID, Website, Topics, Blog, Opinion, Security.
-// :translate: temas/
+:translate: temas/
 
 = Topics
 
@@ -12,9 +12,40 @@ about a specific issue related to security.
 If you want to collaborate and you do not have a topic clear,
 in this section we give you ideas
 and once they are covered by an article
-we update the +# TrendingTopics+ list.
+we update the +#TrendingTopics+ list.
 Among the topics of interest are:
 
+== Attacks
+
+* Beast attack.
+* Poodle sslv3.
+* Poodle tls.
+* Hearblead attack.
+* Simple cracking of non-reversible keys.
+* Cracking with rainbow tables.
+* Web shells without collateral effects.
+
+== Recommendations
+
+* API throttling.
+* Recommended hashing function.
+* Recommended asymmetric encryption function.
+* Recommended symmetric encryption function.
+* How to stop effectively a ddos without proxies.
+
+== Concepts
+
+* Immutable infrastructure.
+* Red team.
+* Blue team.
+* Purple team.
+
+== Standards
+
+* Misra Standard.
+* Bearer authentication.
+* SOAP Basic authentication.
+* SOAP Digest authentication.
 * Correctness by Construction (CbyC).
 * Security Development Lifecycle (SDL).
 * Comprehensive Software Development Model.
@@ -22,28 +53,10 @@ Among the topics of interest are:
 * TSP-Secure (Team Software Process for Secure SW/Dev).
 * CoSMo ―Conceptual Security Modeling.
 * UMLSec.
-* OpenSource Web shells without collateral effects.
-* Simple cracking of non-reversible keys.
-* Cracking with rainbow tables.
-* How to stop effectively a ddos without proxies.
-* Recommended hashing function.
-* Recommended asymmetric encryption function.
-* Recommended symmetric encryption function.
-* Beast attack.
-* Poodle sslv3.
-* Poodle tls.
-* Hearblead attack.
+
+== Summary
+
 * Bitcoin blockchain security issues.
 * Ethereum security issues.
 * Stellar security issues.
-* Misra Standard. 
-* API throttling.
-* Bearer authentication.
-* SOAP Basic authentication.
-* SOAP Digest authentication.
-* Immutable infrastructure.
-* Blue team
-* Red team
-* Purple team
 * Machine learning for vulnerabilities searching.
-

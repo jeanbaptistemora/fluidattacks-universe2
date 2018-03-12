@@ -1,7 +1,7 @@
 :slug: temas/
 :description: El Blog de FLUID consta de una gran variedad de temas enfocados principalmente en la seguridad informática, la tecnologías de la información, las buenas prácticas de programación y más. Si te interesan éstos temas y quieres un espacio para dar tu opinión envíanos tu artículo.
 :keywords: FLUID, Temas, Seguridad, TI, Artículos, Blog.
-// :translate: topics/
+:translate: topics/
 
 = Temas
 
@@ -15,34 +15,49 @@ y una vez sean cubiertas por un articulo
 vamos actualizando la lista +#TrendingTopics+.
 Dentro de los temas de interés se encuentran:
 
-* Correctness by Construction (CbyC).
-* Security Development Lifecycle (SDL).
-* Comprehensive Software Development Model.
-* Lightweight Application Security Process (CLASP).
-* TSP Secure (Team Software Process for Secure SW/Dev).
-* CoSMo ―Conceptual Security Modeling.
-* UMLSec.
-* Web shells opensource sin efectos colaterales.
-* Cracking simple de claves no reversibles.
-* Cracking con rainbow tables.
-* Cómo detener un ddos de forma efectiva sin proxys.
-* Función de hashing recomendada.
-* Función de cifrado asimétrico recomendada.
-* Función de cifrado simétrico recomendada.
+== Ataques
+
 * Beast attack.
 * Poodle sslv3.
 * Poodle tls.
 * Hearblead attack.
-* Bitcoin blockchain security issues.
-* Ethereum security issues.
-* Stellar security issues.
-* Misra estandar.
-* API throttling .
-* Bearer authentication.
-* SOAP Basic authentication.
-* SOAP Digest authentication.
+* Cracking simple de claves no reversibles.
+* Cracking con rainbow tables.
+* Web shells sin efectos colaterales.
+
+== Recomendaciones
+
+* API throttling.
+* Función hashing recomendada.
+* Función de cifrado asimétrico recomendada.
+* Función de cifrado simétrico recomendada.
+* Cómo detener efectivamente un ddos sin proxies.
+
+== Conceptos
+
 * Infraestructura inmutable.
-* Blue team.
 * Red team.
+* Blue team.
 * Purple team.
-* Machine learning para busqueda de vulnerabilidades.
+
+== Estándares
+
+* Estándar Misra.
+* Autenticación basada en token. 
+* Autenticación básica SOAP.
+* Autenticación SOAP Digest .
+* Correctness by Construction (CbyC).
+* Security Development Lifecycle (SDL).
+* Comprehensive Software Development Model.
+* Lightweight Application Security Process (CLASP).
+* TSP-Secure (Team Software Process for Secure SW/Dev).
+* CoSMo ―Conceptual Security Modeling.
+* UMLSec.
+
+== Resumen
+
+* Problemas de seguridad de Bitcoin blockchain.
+* Problemas de seguridad de Ethereum.
+* Problemas de seguridad de Stellar.
+* Búsqueda de vulnerabilidades con machine learning.
+
