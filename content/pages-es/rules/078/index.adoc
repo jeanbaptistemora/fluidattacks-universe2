@@ -1,10 +1,10 @@
-:slug: rules/072/
+:slug: rules/078/
 :category: rules
 :description: En el presente documento se detallan los requerimientos de seguridad relacionados con las bitácoras que registran eventos relevantes. En este requerimiento se establece la importancia de deshabilitar los eventos con severidad de depuración en un ambiente de producción.
 :keywords: Requerimiento, Seguridad, Bitácoras, Eventos, Severidad, Producción.
 :rules: yes
 
-= REQ.072 Eventos con severidad deshabilitados
+= REQ.078 Eventos con severidad deshabilitados
 
 == Nombre 
 
