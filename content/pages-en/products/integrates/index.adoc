@@ -149,7 +149,13 @@ and the different closing cycles performed.
 This section is of great utility to know the effectiveness of the closing cycles performed.
 a|image::timeline.png[Timeline]
 
-a|image::vulnerability-comments.png[Vulnerability Comments]
+a|image::records.png[Compromised Records]
+a|== Compromised Records
+
+Information such as names, identifiers, balances, products, etc.
+that was compromised during the execution of security tests,
+through the exploitation of a vulnerability.
+
 a|== Doubts regarding the Vulnerabilities
 
 The project's stakeholders, FLUID included,
@@ -157,7 +163,9 @@ may exchange insights, doubts or observations
 regarding the vulnerability in question.
 This section helps the developers understand where the issue is located
 in order to apply a solution.
+a|image::vulnerability-comments.png[Vulnerability Comments]
 
+a|image::chat.png[Chat]
 a|== Chat with Us
 
 It allows the users to solve doubts regarding the vulnerabilities
@@ -166,9 +174,7 @@ or the platform itself.
 The engineering team will reply in less than 4 hours during business hours(8a.m - 5p.m).
 A notification will also be sent via e-mail
 once a reply to the question has been posted.
-a|image::chat.png[Chat]
 
-a|image::mail.png[Mail]
 a|== Notifications via e-mail
 
 Notifications are sent via e-mail to the project's stakeholders.
@@ -179,12 +185,13 @@ Some of them are:
 * When a user reports that a vulnerability has been remediated.
 * When a validation of the remediation of a vulnerability is made.
 * When a vulnerability is more than 15 days old and has not been treated.
+a|image::mail.png[Mail]
 
+a|image::knowledge-base.png[Knowledge Base]
 a|== Knowledge Base
 
-Users have access to FLUID's product [button]#link:../../defends/[Defends>>]# 
+Users have access to FLUID's product [button]#link:../../defends/[Defends>>]#
 where they can find examples about how to fulfill the security requirements
 that are verified in the tests performed.
-a|image::knowledge-base.png[Knowledge Base]
 |====
 

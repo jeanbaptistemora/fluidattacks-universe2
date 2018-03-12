@@ -130,7 +130,7 @@ Se muestra el *script* usado para la explotación de la vulnerabilidad.
 Este puede ser reutilizado para validar las correcciones aplicadas.
 
 Si el usuario cuenta con una licencia del producto [button]#link:../asserts/[Asserts>>]#,
-podrá reproducir el ataque que aprovecha la vulnerabilidad 
+podrá reproducir el ataque que aprovecha la vulnerabilidad
 y determinar autónomamente si ya fue remediado.
 Al reproducir un ataque, el código que explota la vulnerabilidad
 es inyectado a la aplicación.
@@ -143,7 +143,13 @@ y los diferentes ciclos de cierre realizados.
 Esta sección es de gran utilidad para conocer la efectividad de los ciclos de cierre realizados.
 a|image::linea-tiempo.png[Linea De Tiempo]
 
-a|image::comentarios-vulnerabilidad.png[Comentarios De La Vulnerabilidad]
+a|image::registros.png[Registros Comprometidos]
+a|== Registros Comprometidos
+
+Información como nombres, identificadores, saldos, productos, etc.
+que fue comprometida durante la ejecución de las pruebas de seguridad,
+por medio de la explotación de una vulnerabilidad.
+
 a|== Aclaraciones de Dudas Sobre las Vulnerabilidades
 
 Los usuarios de la cadena de valor del proyecto incluyendo a FLUID,
@@ -151,7 +157,9 @@ pueden intercambiar apreciaciones,
 dudas u observaciones sobre la vulnerabilidad en cuestión.
 Esta sección es de gran utilidad para que los desarrolladores entiendan dónde se encuentra el problema,
 y así puedan darle una solución.
+a|image::comentarios-vulnerabilidad.png[Comentarios De La Vulnerabilidad]
 
+a|image::chat.png[Chat]
 a|== Chatea con Nosotros
 
 Le permite a los usuarios resolver dudas con respecto a las vulnerabilidades
@@ -160,9 +168,7 @@ o de la plataforma en sí.
 El equipo de ingeniería contestará en menos de 4 horas en horario 8x5.
 También se enviará una notificación al correo electrónico
 cuando le den respuesta a las dudas realizadas.
-a|image::chat.png[Chat]
 
-a|image::correo.png[Correo]
 a|== Notificaciones Por Correo
 
 Se envían notificaciones vía correo electrónico a los usuarios de la cadena de valor del proyecto.
@@ -173,11 +179,12 @@ Algunas de ellas son:
 * Cuando un usuario informa que ya fue remediada una vulnerabilidad.
 * Cuando se verifica la remediación de una vulnerabilidad.
 * Cuando un hallazgo cumple más de 15 días de reportado y no ha sido tratado.
+a|image::correo.png[Correo]
 
+a|image::base-conocimiento.png[Base De Conocimiento]
 a|== Base De Conocimiento
 
 Los usuarios tienen acceso al producto de FLUID, [button]#link:../../defends/[Defends>>]#,
 el cual contiene ejemplos de cómo cumplir con los requisitos de seguridad
 que son evaluados en las pruebas realizadas.
-a|image::base-conocimiento.png[Base De Conocimiento]
 |====
