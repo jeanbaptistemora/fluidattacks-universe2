@@ -26,8 +26,8 @@ error "Number of words in KB text out of range. Should be 400>=words<800."
 
 echo "$CHANGED" | pcregrep '^content/blog.*adoc$' \
   | xargs -r -n 1 ./words.sh \
-  | pcregrep -v '^([8-9]\d\d|^1[0-1]\d\d)\s'
-error "Number of words in posts out of range. Should be 800>=words<1200."
+  | pcregrep -v '^([8-9]\d\d|^1[0-5]\d\d)\s'
+error "Number of words in posts out of range. Should be 800>=words<1600."
 
 echo "$CHANGED" | pcregrep '^content/pages.*adoc$' \
   | xargs -r -n 1 ./words.sh \

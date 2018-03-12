@@ -102,7 +102,7 @@ Los documentos tienen límites estrictos en su longitud :
 Entre 400 y 800 palabras.
 
 . *Para documentos tipo Post:*
-Entre 800 y 1200 palabras.
+Entre 800 y 1600 palabras.
 
 . *Para documentos tipo Página:*
 Entre 400 y 1600 palabras.
