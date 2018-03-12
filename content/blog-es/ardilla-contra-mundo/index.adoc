@@ -1,6 +1,6 @@
 :slug: ardilla-contra-mundo/
 :date: 2018-03-06
-:category: Identidad
+:category: identidad
 :tags: seguridad, criptografía, protocolo, autenticación
 :Image: usuario-password.png
 :alt: logo SQRL, Secure +QR+ Login
