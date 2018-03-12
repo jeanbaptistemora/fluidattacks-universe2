@@ -17,6 +17,8 @@ bajo las cuales la siguiente solución tiene sentido:
 
 . Se utiliza el servidor de aplicaciones +GlassFish+.
 . Se desea cambiar la configuración del modo depuración.
+. Los eventos con severidad de depuración 
+no deben estar habilitados en producción.<<r1,^[1]^>>
 
 == Solución
 
@@ -26,10 +28,10 @@ Este servidor implementa las tecnologías definidas
 en la plataforma +Java EE+.
 Además, permite ejecutar aplicaciones que siguen dicha especificación.
 Es gratuito, de código libre y se distribuye bajo un licenciamiento dual
-a través de la licencia +CDDL+ y la +GNU GPL+ ^<<r1,[1]>>^.
+a través de la licencia +CDDL+ y la +GNU GPL+.<<r2,^[2]^>>
 
 Por otra parte, la depuración es el proceso de identificar
-y corregir errores de programación.
+y corregir errores de programación.<<r3,^[3]^>>
 Si bien, esto no es un problema,
 puesto que es absolutamente necesario
 para poder ir mejorando cada vez una aplicación,
@@ -58,7 +60,7 @@ que pueda ser usada en contra de la organización.
 
 En está solución se explicará
 como mantener desactivada la opción de depuración
-en un servidor de aplicaciones +glassfish+.
+en un servidor de aplicaciones +glassfish+.<<r4,^[4]^>>
 
 . Para desactivarla, hay que ingresar a la consola de administración web.
 
@@ -74,8 +76,7 @@ image::glassfish.png[glassfish]
 
 == Referencias
 
-. [[r1]] link:https://es.wikipedia.org/wiki/GlassFish[GlassFish]
-. [[r2]] link:https://es.wikipedia.org/wiki/Depuraci%C3%B3n_de_programas[Depuración de programas]
-. [[r3]] link:https://javaee.github.io/glassfish/doc/5.0/security-guide.pdf[GlassFish Server Open Source Edition: Security Guide]
-. [[r4]] REQ.0072: Los eventos con severidad de depuración
-no deben estar habilitados en producción.
+. [[r1]] link:../../../rules/078/[REQ.078 Eventos con severidad deshabilitados].
+. [[r2]] link:https://es.wikipedia.org/wiki/GlassFish[GlassFish].
+. [[r3]] link:https://es.wikipedia.org/wiki/Depuraci%C3%B3n_de_programas[Depuración de programas].
+. [[r4]] link:https://javaee.github.io/glassfish/doc/5.0/security-guide.pdf[GlassFish Server Open Source Edition: Security Guide].
