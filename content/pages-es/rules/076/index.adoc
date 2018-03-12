@@ -1,10 +1,10 @@
-:slug: rules/071/
+:slug: rules/076/
 :category: rules
 :description: En el presente documento se detallan los requerimientos de seguridad relacionados con las bitácoras que registran eventos relevantes. En este requerimiento se establece la importancia de registrar los niveles de severidad para los eventos excepcionales y de seguridad.
 :keywords: Requerimiento, Seguridad, Bitácoras, Registrar, Severidad, Eventos.
 :rules: yes
 
-= REQ.071 Registrar niveles de severidad de eventos
+= REQ.076 Registrar niveles de severidad de eventos
 
 == Nombre 
 
