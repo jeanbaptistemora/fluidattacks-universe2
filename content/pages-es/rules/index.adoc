@@ -46,7 +46,7 @@
 * link:129/[REQ.129 Contraseñas con al menos 1 dígito].
 * link:130/[REQ.130 Contraseñas con al menos 1 carácter especial].
 * link:131/[REQ.131 Contraseñas de más de 20 caracteres].
-* link:132/[REQ.132 Contraseñas con al menos 3 palabras].
+* link:132/[REQ.132 Contraseñas con al menos 4 palabras].
 * link:133/[REQ.133 Derivaciones de clave aleatorias].
 * link:134/[REQ.134 Almacenar contraseñas con Salt].
 * link:997/[REQ.997 Contraseñas sin palabras de diccionario].

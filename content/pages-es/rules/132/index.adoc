@@ -1,19 +1,19 @@
 :slug: rules/132/
 :category: rules
-:description: En el presente documento se detallan los requerimientos de seguridad relacionados a las credenciales de acceso a información sensible de la organización. En este requerimiento se establece la importancia de definir contraseñas tipo frase de al menos 3 palabras de longitud.
+:description: En el presente documento se detallan los requerimientos de seguridad relacionados a las credenciales de acceso a información sensible de la organización. En este requerimiento se establece la importancia de definir contraseñas tipo frase de al menos 4 palabras de longitud.
 :keywords: contraseña, contraseña tipo frase, longitud contraseña, palabras de longitud, secuencia de palabras, seguridad contraseña.
 :rules: yes
 
-= REQ.132 Contraseñas con al menos 3 palabras
+= REQ.132 Contraseñas con al menos 4 palabras
 
 == Nombre
 
-Las contraseñas (tipo frase) deben tener al menos 3 palabras de longitud.
+Las contraseñas (tipo frase) deben tener al menos 4 palabras de longitud.
 
 == Descripción
 
 El presente criterio de seguridad trata sobre 
-la importancia de establecer al menos tres (3) palabras de longitud 
+la importancia de establecer al menos cuatro (4) palabras de longitud 
 para todas las contraseñas tipo frase. 
 Entendiendo estas últimas, como una secuencia de palabras<<r1,^[1]^>> 
 cuya longitud es superior pero de mayor seguridad 
@@ -30,6 +30,7 @@ para diferentes plataformas o lenguajes de programación:
 . *+JAVA+* link:../../defends/java/fortaleza-contrasena-dic/[Comprobar Fortaleza de Contraseña con Diccionarios].
 . *+ASPNET+* link:../../defends/aspnet/fortaleza-contrasenas/[Comprobar fortaleza de contraseñas].
 . *+COBOL+* link:../../defends/cobol/fortaleza-contrasena-frase/[Comprobar Fortaleza de Contraseña Tipo Frase].
+. *+BLOG+* link:../../../en/blog/requiem-password/[Requiem for a p455w0rD].
 
 == Referencias
 
