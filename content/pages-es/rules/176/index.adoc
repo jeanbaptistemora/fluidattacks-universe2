@@ -4,7 +4,7 @@
 :keywords: Requerimiento, Seguridad, Datos, Autorización, Restricción, Información.
 :rules: yes
 
-= REQ.171 Restringir objetos del sistema
+= REQ.176 Restringir objetos del sistema
 
 == Nombre
 
