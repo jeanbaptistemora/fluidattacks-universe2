@@ -1533,11 +1533,11 @@ integrates.controller("findingcontentCtrl", function($scope, $stateParams, $time
      };
      $scope.updateTreatment = function(){
           //Obtener datos
-          if ($scope.aux.razon === $scope.finding.razon_tratamiento){
+          if ($scope.aux.razon === $scope.finding.razon_tratamiento && $scope.finding.tratamiento !== 'Pendiente'){
             $msg.error($translate.instant('proj_alerts.differ_comment'));
-          } else if ($scope.finding.razon_tratamiento === '') {
+          } else if ($scope.finding.razon_tratamiento === '' && $scope.finding.tratamiento !== 'Pendiente') {
             $msg.error($translate.instant('proj_alerts.empty_comment'))
-          } else if ($scope.finding.razon_tratamiento.length < 50 || $scope.finding.razon_tratamiento.length > 80) {
+          } else if (($scope.finding.razon_tratamiento.length < 50  || $scope.finding.razon_tratamiento.length > 80) && $scope.finding.tratamiento !== 'Pendiente') {
             $msg.error($translate.instant('proj_alerts.short_comment'))
           } else {
           $scope.finding.responsable_tratamiento = userEmail;
