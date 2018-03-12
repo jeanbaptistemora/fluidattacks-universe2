@@ -143,6 +143,10 @@ En esta carpeta se debe manejar la siguiente estructura:
 archivos, debe realizarse en minúscula, sin caracteres especiales y en caso de requerir
 espacios usar *-* (guion) como sustituto.
 
+* Los códigos correspondientes a soluciones de retos de programación deberán cumplir con lo siguiente:
+** En comentarios multilínea al inicio del programa deben estar el snippet de los comandos de compilación utilizados y la salida correspondiente en modo CLI.
+** En comentarios multilínea al final del programa deben estar el snippet de los comandos de ejecucion utilizados y la salida correspondiente en modo CLI.
+
 * *Archivos Especiales:* En algunas carpetas de la estructura se encuentran algunos archivos
 especiales de control:
 
