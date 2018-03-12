@@ -1,6 +1,6 @@
 :slug: veo-no-veo/
 :date: 2017-12-19
-:category: opiniones
+:category: retos
 :description: Los navegadores son el medio mediante el cual accedemos a la información de Internet y poseen algunas funcionalidades que quizás desconozcamos. En este artículo profundizaremos un poco más en el uso del navegador para inspeccionar código y resolver un reto de hacking.
 :keywords: Seguridad, Web, Reto, Hacking, Navegador, HTML.
 :author: Luis Arteaga
