@@ -1,10 +1,10 @@
-:slug: rules/073/
+:slug: rules/079/
 :category: rules
 :description: En el presente documento se detallan los requerimientos de seguridad relacionados con las bitácoras que registran eventos relevantes. En este requerimiento se establece la importancia de registrar los niveles de severidad para los eventos excepcionales y de seguridad.
 :keywords: Requerimiento, Seguridad, Bitácoras, Registrar, Momento, Ocurrencia.
 :rules: yes
 
-= REQ.073 Registrar momento de ocurrencia de eventos
+= REQ.079 Registrar momento de ocurrencia de eventos
 
 == Nombre 
 
