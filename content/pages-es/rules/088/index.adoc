@@ -4,7 +4,7 @@
 :keywords: certificado digital, caso de abuso, certificado cliente, autenticación, caducidad, información relevante.
 :rules: yes
 
-= REQ.088 Requerir certificados digitales de cliente
+= REQ.088 Requerir certificados de cliente
 
 == Nombre
 

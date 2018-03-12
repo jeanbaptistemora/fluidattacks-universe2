@@ -5,31 +5,6 @@
 
 = Rules
 
-== Activos
-
-* link:001/[REQ.001 Activos de información identificados].
-* link:002/[REQ.002 Activo de información asociado a responsable].
-* link:003/[REQ.003 Activo de información valorado en moneda].
-* link:004/[REQ.004 Identificar amenazas asociadas a activo].
-* link:005/[REQ.005 Identificar posibles vulnerabilidades].
-* link:006/[REQ.006 Amenazas medidas en términos de ocurrencia].
-* link:007/[REQ.007 Amenazas medidas en términos de impacto].
-* link:008/[REQ.008 Riesgos medidos por probabilidad e impacto].
-* link:009/[REQ.009 Identificar posibles atacantes].
-* link:010/[REQ.010 Proceso reclasificación definido].
-* link:011/[REQ.011 Activos clasificados según criticidad].
-* link:012/[REQ.012 Priorizar vulnerabilidades de activos].
-* link:013/[REQ.013 Garantizar corrección de vulnerabilidades].
-* link:014/[REQ.014 Medio seguro para información física].
-
-== Acuerdos
-
-* link:015/[REQ.015 Acuerdos a nivel de servicio con terceros].
-* link:016/[REQ.016 Acuerdos de confiabilidad con terceros].
-* link:017/[REQ.017 Definir penalizaciones por incumplimiento].
-* link:018/[REQ.018 Garantizar cumplimiento requisitos].
-* link:019/[REQ.019 Permitir auditorías de cliente].
-
 == Sesiones
 
 * link:026/[REQ.026 Cookies con atributos de seguridad].
@@ -56,8 +31,8 @@
 
 == Certificados
 
-* link:088/[REQ.088 Requerir certificados digitales de cliente].
-* link:089/[REQ.089 Limitar vigencia de certificados digitales].
+* link:088/[REQ.088 Requerir certificados de cliente].
+* link:089/[REQ.089 Limitar vigencia de certificados].
 
 == Correos
 
@@ -65,15 +40,15 @@
 
 == Credenciales
 
-* link:125/[REQ.125 Contraseñas con al menos 3 palabras].
 * link:126/[REQ.126 Contraseñas con al menos 8 caracteres].
 * link:127/[REQ.127 Contraseñas con al menos 1 minúscula].
 * link:128/[REQ.128 Contraseñas con al menos 1 mayúscula].
 * link:129/[REQ.129 Contraseñas con al menos 1 dígito].
 * link:130/[REQ.130 Contraseñas con al menos 1 carácter especial].
 * link:131/[REQ.131 Contraseñas de más de 20 caracteres].
-* link:132/[REQ.132 Almacenar contraseñas con Salt].
+* link:132/[REQ.132 Contraseñas con al menos 3 palabras].
 * link:133/[REQ.133 Derivaciones de clave aleatorias].
+* link:134/[REQ.134 Almacenar contraseñas con Salt].
 * link:997/[REQ.997 Contraseñas sin palabras de diccionario].
 
 == Criptografía
@@ -115,11 +90,33 @@
 
 * link:221/[REQ.221 Respuestas de autenticación adecuadas].
 
-== Sistema Operativo
+== Sistema
 
 * link:264/[REQ.264 Usar principio mínimo privilegio].
 * link:266/[REQ.266 Deshabilitar funciones inseguras].
 * link:272/[REQ.272 Información de servicios inaccesible].
 
+== Activos
 
+* link:001/[REQ.001 Activos de información identificados].
+* link:002/[REQ.002 Activo de información asociado a responsable].
+* link:003/[REQ.003 Activo de información valorado en moneda].
+* link:004/[REQ.004 Identificar amenazas asociadas a activo].
+* link:005/[REQ.005 Identificar posibles vulnerabilidades].
+* link:006/[REQ.006 Amenazas medidas en términos de ocurrencia].
+* link:007/[REQ.007 Amenazas medidas en términos de impacto].
+* link:008/[REQ.008 Riesgos medidos por probabilidad e impacto].
+* link:009/[REQ.009 Identificar posibles atacantes].
+* link:010/[REQ.010 Proceso reclasificación definido].
+* link:011/[REQ.011 Activos clasificados según criticidad].
+* link:012/[REQ.012 Priorizar vulnerabilidades de activos].
+* link:013/[REQ.013 Garantizar corrección de vulnerabilidades].
+* link:014/[REQ.014 Medio seguro para información física].
 
+== Acuerdos
+
+* link:015/[REQ.015 Acuerdos a nivel de servicio con terceros].
+* link:016/[REQ.016 Acuerdos de confiabilidad con terceros].
+* link:017/[REQ.017 Definir penalizaciones por incumplimiento].
+* link:018/[REQ.018 Garantizar cumplimiento requisitos].
+* link:019/[REQ.019 Permitir auditorías de cliente].

@@ -1,0 +1,17 @@
+:slug: rules/134/
+:category: rules
+:description: En el presente documento se detallan los requerimientos de seguridad relacionados a las credenciales de acceso a información sensible de la organización. En este requerimiento se establece la importancia de almacenar las contraseñas con derivaciones de clave.
+:keywords: Requerimiento, Seguridad, Credenciales, Acceso, Contraseñas, Salt.
+:rules: yes
+
+= REQ.132 Almacenar contraseñas con Salt
+
+== Nombre
+
+El sistema debe almacenar las contraseñas 
+con diferentes derivaciones de clave (Salt). 
+
+
+== Soluciones
+
+. +ASPNET+ link:../../defends/aspnet/cifrar-contrasenas-con-salt/[Cifrar contraseñas con salt].

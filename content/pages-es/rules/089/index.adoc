@@ -4,7 +4,7 @@
 :keywords: certificado digital, caso de abuso, man-in-the-middle, entidad certificadora, caducidad, renovación.
 :rules: yes
 
-= REQ.089 Limitar vigencia de certificados digitales
+= REQ.089 Limitar vigencia de certificados
 
 == Nombre
 
