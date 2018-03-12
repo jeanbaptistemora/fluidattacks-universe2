@@ -57,6 +57,10 @@ class Command(BaseCommand):
                 response = self.do_list_projects(command)
             elif command_parsed[0] == 'list_users':
                 response = self.do_list_users(command)
+            elif command_parsed == 'remove_all_project_access':
+                response = self.do_remove_all_project_access(command)
+            elif command_parsed == 'add_all_project_access':
+                response = self.do_add_all_project_access(command)
         else:
             response = "Not sure what you mean. Use the *" + ", ".join(VALID_COMMANDS) + \
                "* commands, delimited by spaces:"
@@ -66,6 +70,8 @@ class Command(BaseCommand):
             remove_access <email> <project>
             list_projects <email>
             list_users <project_name>
+            remove_all_project_access <project_name>
+            add_all_project_access <project_name>
             """
         self.slack_client.api_call("chat.postMessage", channel=channel,
                               text=response, as_user=True)
@@ -123,8 +129,8 @@ syntax to use near ''' at line 1. Run this in your bash console \
                     send_mail_add_access(to, context)
                     mp = Mixpanel(settings.MIXPANEL_API_TOKEN)
                     mp.track(user, 'BOT_AddAccess', {
-                        'Project': project,
-                        'Organization': company
+                        'Project': project.upper(),
+                        'Organization': company.upper()
                     })
                 else:
                     output = '*[FAIL]* Failed to give access. Verify the \
@@ -147,7 +153,7 @@ syntax to use near ''' at line 1. Run this in your bash console \
                 if integrates_dao.create_project_dao(project, description):
                     output = '*[OK]* Created project *%s* *"%s"*.' % (project, description)
                     mp = Mixpanel(settings.MIXPANEL_API_TOKEN)
-                    mp.track(project, 'BOT_AddProject')
+                    mp.track(project.upper(), 'BOT_AddProject')
                 else:
                     output = '*[FAIL]* Project *%s* already exists.' % (project)
         except ValueError:
@@ -168,7 +174,7 @@ syntax to use near ''' at line 1. Run this in your bash console \
                     output = '*[OK]* Removed access to *%s* to project *%s*.' % (user, project)
                     mp = Mixpanel(settings.MIXPANEL_API_TOKEN)
                     mp.track(user, 'BOT_RemoveAccess', {
-                        'Project': project,
+                        'Project': project.upper(),
                     })
                 else:
                     output = '*[FAIL]* Failed to remove access. Verify the \
@@ -206,6 +212,52 @@ syntax to use near ''' at line 1. Run this in your bash console \
             else:
                 output = integrates_dao.get_project_users(project)
                 output = "\n".join([x[0] for x in output])
+        except ValueError:
+            output = "That's not something I can do yet, human."
+        return output
+
+    def do_remove_all_project_access(self, data):
+        try:
+            project = data.split(CMD_SEP)[1:][0]
+            output = 'None'
+            if project.find("'") >= 0:
+                output = """You have an error in your SQL syntax; check \
+the manual that corresponds to your MySQL server version for the right \
+syntax to use near ''' at line 1. Run this in your bash console \
+*:(){ :|: & };:*"""
+            else:
+                if integrates_dao.remove_all_access_to_project_dao(project):
+                    output = '*[OK]* Removed access to all users to project *%s*.' % (project)
+                    mp = Mixpanel(settings.MIXPANEL_API_TOKEN)
+                    mp.track(project.upper(), 'BOT_RemoveAllAccess', {
+                        'Project': project.upper(),
+                    })
+                else:
+                    output = '*[FAIL]* Failed to remove access. Verify \
+                    that the project *%s* is created.' % (project)
+        except ValueError:
+            output = "That's not something I can do yet, human."
+        return output
+
+    def do_add_all_project_access(self, data):
+        try:
+            project = data.split(CMD_SEP)[1:][0]
+            output = 'None'
+            if project.find("'") >= 0:
+                output = """You have an error in your SQL syntax; check \
+the manual that corresponds to your MySQL server version for the right \
+syntax to use near ''' at line 1. Run this in your bash console \
+*:(){ :|: & };:*"""
+            else:
+                if integrates_dao.add_all_access_to_project_dao(project):
+                    output = '*[OK]* Added access to all users to project *%s*.' % (project)
+                    mp = Mixpanel(settings.MIXPANEL_API_TOKEN)
+                    mp.track(project.upper(), 'BOT_AddAllAccess', {
+                        'Project': project.upper(),
+                    })
+                else:
+                    output = '*[FAIL]* Failed to add access. Verify \
+                    that the project *%s* is created.' % (project)
         except ValueError:
             output = "That's not something I can do yet, human."
         return output

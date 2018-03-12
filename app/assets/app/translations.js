@@ -269,7 +269,8 @@ integrates.config(['$translateProvider', function($translateProvider) {
           'file_type_csv': 'The file must be .csv type',
           'file_type_png': 'The image must be .png type',
           'no_file_update': 'Failed to update the file',
-          'no_text_update': 'Failed to update the description'
+          'no_text_update': 'Failed to update the description',
+          'access_denied': 'Access Denied'
         },
         'tab_container':{
           'findings': 'Findings',
@@ -771,7 +772,8 @@ integrates.config(['$translateProvider', function($translateProvider) {
           'file_type_csv': 'El archivo debe ser de tipo .csv',
           'file_type_png': 'La imagen debe ser de tipo .png',
           'no_file_update': 'Falló al actualizar el archivo',
-          'no_text_update': 'Falló al actualizar la descripción'
+          'no_text_update': 'Falló al actualizar la descripción', 
+          'access_denied': 'Acceso Denegado'
         },
         'tab_container':{
           'findings': 'Hallazgos',

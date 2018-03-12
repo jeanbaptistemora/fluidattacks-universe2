@@ -910,8 +910,13 @@ integrates.controller(
                     } else {
                         $scope.view.project = false;
                         $scope.view.finding = false;
-                        Rollbar.error("Error: Project not found");
-                        $msg.error($translate.instant('proj_alerts.not_found'));
+                        if(response.message == "Access denied"){
+                            Rollbar.error("Error: Access to project denied");
+                            $msg.error($translate.instant('proj_alerts.access_denied'));
+                        } else {
+                            Rollbar.error("Error: Project not found");
+                            $msg.error($translate.instant('proj_alerts.not_found'));
+                        }
                     }
                 });
                 reqEventualities.then(function(response){
@@ -998,8 +1003,13 @@ integrates.controller(
                         $("#search_section").show();
                         $('[data-toggle="tooltip"]').tooltip();
                     }else{
-                        Rollbar.error("Error: Event not found");
-                        $msg.error($translate.instant('proj_alerts.not_found'));
+                        if(response.message == "Access to project denied"){
+                            Rollbar.error("Error: Access to event denied");
+                            $msg.error($translate.instant('proj_alerts.access_denied'));
+                        } else {
+                            Rollbar.error("Error: Event not found");
+                            $msg.error($translate.instant('proj_alerts.not_found'));
+                        }
                     }
                 });
             }

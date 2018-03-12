@@ -172,15 +172,68 @@ def has_access_to_project_dao(email, project_name):
             return False
 
         if project_id and user_id:
-            query = 'SELECT * FROM project_access WHERE user_id = %s and \
+            query = 'SELECT has_access FROM project_access WHERE user_id = %s and \
     project_id = %s'
             cursor.execute(query, (user_id[0], project_id[0],))
             has_access = cursor.fetchone()
         else:
             return False
-
-    if has_access is not None:
+    if has_access[0] is 1:
         return True
+    return False
+
+def remove_all_access_to_project_dao(project_name=None):
+    """Quita el permiso de acceso a todos los usuarios de un projecto"""
+    if project_name:
+        project_name = project_name.lower()
+
+        with connections['integrates'].cursor() as cursor:
+            query = 'SELECT id FROM projects WHERE project = %s'
+            try:
+                cursor.execute(query, (project_name,))
+                project_id = cursor.fetchone()
+            except OperationalError:
+                rollbar.report_exc_info()
+                return False
+
+            if project_id:
+                query = 'UPDATE project_access SET has_access=0 WHERE project_id = %s'
+                try:
+                    cursor.execute(query, (project_id[0],))
+                    cursor.fetchone()
+                    return True
+                except OperationalError:
+                    rollbar.report_exc_info()
+                    return False
+            else:
+                return False
+    return False
+
+def add_all_access_to_project_dao(project_name=None):
+    """Agrega permiso de acceso a todos los usuarios de un projecto"""
+    if project_name:
+        project_name = project_name.lower()
+
+        with connections['integrates'].cursor() as cursor:
+            query = 'SELECT id FROM projects WHERE project = %s'
+            try:
+                cursor.execute(query, (project_name,))
+                project_id = cursor.fetchone()
+            except OperationalError:
+                rollbar.report_exc_info()
+                return False
+
+            if project_id:
+                query = 'UPDATE project_access SET has_access=1 WHERE project_id = %s'
+                try:
+                    cursor.execute(query, (project_id[0],))
+                    cursor.fetchone()
+                    return True
+                except OperationalError:
+                    rollbar.report_exc_info()
+                    return False
+            else:
+                return False
     return False
 
 def register(email):
