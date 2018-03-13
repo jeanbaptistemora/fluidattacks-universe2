@@ -105,6 +105,7 @@
 * link:005/[REQ.005 Activo de información valorado en moneda].
 * link:006/[REQ.006 Identificar amenazas asociadas a activo].
 * link:007/[REQ.007 Identificar posibles vulnerabilidades].
+* link:008/[REQ.008 Generar modelo de amenazas del sistema].
 * link:009/[REQ.009 Amenazas medidas en términos de ocurrencia].
 * link:010/[REQ.010 Amenazas medidas en términos de impacto].
 * link:011/[REQ.011 Riesgos medidos por probabilidad e impacto].
