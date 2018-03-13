@@ -5,8 +5,10 @@
 
 = Services
 
-== link:one-shot-hacking/[One-Shot Hacking]
+== link:one-shot-hacking/[One-Shot Hacking].
 
-== link:continuous-hacking/[Continuous Hacking]
+== link:continuous-hacking/[Continuous Hacking].
 
-== link:faq/[Frequently Asked Questions]
+== link:comparative/[Comparative].
+
+== link:faq/[Frequently Asked Questions].

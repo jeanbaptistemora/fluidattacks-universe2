@@ -5,8 +5,10 @@
 
 = Servicios
 
-== link:hacking-puntual/[Hacking Puntual]
+== link:hacking-puntual/[Hacking Puntual].
 
-== link:hacking-continuo/[Hacking Continuo]
+== link:hacking-continuo/[Hacking Continuo].
 
-== link:faq/[Preguntas Frecuentes]
+== link:comparativo/[Comparativo].
+
+== link:faq/[Preguntas Frecuentes].

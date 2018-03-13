@@ -1,0 +1,85 @@
+:slug: services/comparative/
+:category: services
+:description: Our Ethical Hacking and Pentesting services seek to find and report all the security vulnerabilities present in your application. It is important to distinguish between a penetration testing performed by FLUID and a vulnerability analysis using automated tools.
+:keywords: FLUID, Ethical Hacking, Pentesting, Analysis, Vulnerabilities, Comparison.
+:translate: servicios/comparativo/
+
+= Comparative
+
+{description} To this end, we present the following comparative table:
+
+.Comparative table Pentesting Vs Vulnerability Analysis
+[role="tb-fluid tb-row"]
+[cols="1,2,2", options="header"]
+|====
+| Aspect 
+| Pentesting (FLUIDAttacks) 
+| Vulnerability Analysis (Others)
+
+| Revision Method 
+| Hybrid (Automated tools + manual expert revision) 
+| Static (Automated tools only)
+
+| Model 
+| +RedTeam+ 
+| Vulnerability Analysis with selective exploitation
+
+| Coverage 
+| Variable Coverage 
+| Variable Coverage
+
+| Scope Definition 
+| Based on open +TCP+ ports 
+and visible or invisible form input fields, 
+Application headers 
+| Based on +IP/Host+ to test and +URLs+
+
+| Professional Profile
+a|* +OSCP+
+* +OSWP+
+* +CEH+ 
+| +CEH+
+
+| Retest 
+| Yes 
+| No
+
+| Exploitation 
+| 100% 
+| Variable
+
+| False Positives 
+| No 
+| Yes (~20%)
+
+| Creation of Own Exploits 
+| Yes 
+| No
+
+| +ZERO DAY+ Vulnerabilities
+| Yes 
+| No
+
+| Finding Types 
+a|* Of a specific business impact
+* Insecure programming practices 
+* Alignment with security standards and regulations 
+a|* Based on signatures
+* Syntax
+
+| Leaks (Yield) 
+| 0% of the target of evaluation 
+| ~65% of the target of evaluation
+
+| Type of Evidences 
+a|* Images 
+* GIFs  
+* short video 
+a|* Automated tool output
+* Images
+
+| Deliverables 
+a|* Exploit Evidence High-level 
+*Remediation suggestions 
+| Summary report
+|====

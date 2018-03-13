@@ -1,0 +1,86 @@
+:slug: servicios/comparativo/
+:category: servicios
+:description: Nuestros servicios de Ethical Hacking y Pentesting buscan encontrar y reportar todas las vulnerabilidades de seguridad presentes en su aplicación. Es importante diferenciar entre una prueba de intrusión realizada por FLUID y un análisis de vulnerabilidades que utiliza herramientas automatizadas.
+:keywords: FLUID, Ethical Hacking, Pentesting, Análisis, Vulnerabilidades, Comparación.
+:translate: services/comparative/
+
+= Comparativo
+
+{description} Para tal fin presentamos la siguiente tabla comparativa:
+
+.Comparación entre una prueba de intrusión de FLUID y un análisis común de vulnerabilidades.
+[role="tb-fluid tb-row"]
+[cols="1,2,2", options="header"]
+|====
+| Aspecto
+| Pentesting (FLUIDAttacks)
+| Análisis de Vulnerabilidades (Otros)
+
+| Método de revisión
+| Híbrido (Herramientas + revisión manual experta)
+| Estático (Solo herramientas)
+
+| Modelo 
+| +RedTeam+ 
+| Análisis de vulnerabilidades con explotación selectiva
+
+| Cobertura 
+| Cobertura Variable 
+| Cobertura Variable
+
+| Definición de Alcance 
+| Basada en puertos abiertos +TCP+ 
+y campos de entrada de formularios, visibles, 
+invisibles y cabeceras en Aplicaciones 
+| Basada en +IP/Host+ a probar y +URLs+
+
+| Perfil Profesionales 
+a|* +OSCP+
+* +OSWP+
+* +CEH+ 
+| +CEH+
+
+| +Retest+ 
+| Si 
+| No
+
+| Explotación 
+| 100% 
+| Variable
+
+| Falsos Positivos 
+| No 
+| Si (~20%)
+
+| Generación +exploits+ propios 
+| Si 
+| No
+
+| Vulnerabilidades +ZERO DAY+ 
+| Si 
+| No
+
+| Tipo de Hallazgos 
+a|* De impacto específicos del negocio 
+* Prácticas inseguras de programación 
+* Alineación a estándares
+* regulaciones de seguridad 
+a|* Basado en firmas 
+* Sintácticos
+
+| Fugas (+Yield+) 
+| 0% sobre el objetivo de prueba 
+| ~65% sobre el objetivo de prueba
+
+| Tipo de Evidencia 
+a|* Imágenes 
+* GIF 
+* Video corto 
+a|* Salidas de Herramienta
+* Imágenes
+
+| Entregables 
+a|* Evidencias de explotación 
+* Recomendación general
+| Informe resumen
+|====
