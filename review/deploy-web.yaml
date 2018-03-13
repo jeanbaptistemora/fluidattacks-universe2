@@ -1,0 +1,32 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: web-service-$CI_COMMIT_REF_SLUG
+  namespace: gitlab-managed-apps
+spec:
+  ports:
+  - port: 80
+    targetPort: 80
+  selector:
+    app: web-$CI_COMMIT_REF_SLUG
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: review-$CI_COMMIT_REF_SLUG
+  namespace: gitlab-managed-apps
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: web-$CI_COMMIT_REF_SLUG
+    spec:
+      containers:
+      - name: fluidweb
+        image: registry.gitlab.com/fluidsignal/web:$CI_COMMIT_REF_SLUG
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 80
+      imagePullSecrets:
+      - name: gitlab-reg

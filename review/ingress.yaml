@@ -1,0 +1,16 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: ingress-review
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    nginx.ingress.kubernetes.io/ssl-redirect: "false"
+  namespace: gitlab-managed-apps
+spec:
+  rules:
+  - http:
+      paths:
+      - backend:
+          serviceName: web-service-$CI_COMMIT_REF_SLUG
+          servicePort: 80
+        path: /$CI_COMMIT_REF_SLUG

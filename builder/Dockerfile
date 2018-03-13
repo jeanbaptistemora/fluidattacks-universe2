@@ -20,14 +20,23 @@ COPY . /app
 # 78-86: Erase files and directories that are not needed during runtime
 
 RUN apt-get update -qq && apt-get install -qqy \
+        apt-transport-https \
+        ca-certificates \
         curl \
-        gnupg && \
+        gnupg2 \
+        software-properties-common && \
     curl -sL https://deb.nodesource.com/setup_9.x | bash - && \
         echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list && \  
         curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - && \
+    curl -fsSL https://download.docker.com/linux/$(. /etc/os-release; echo "$ID")/gpg | apt-key add - && \
+    add-apt-repository \
+       "deb [arch=amd64] https://download.docker.com/linux/$(. /etc/os-release; echo "$ID") \
+       $(lsb_release -cs) \
+       stable" && \
     apt-get update && apt-get install -qqy --no-install-recommends \
         asciidoc \
         diction \
+        docker-ce \
         gcc \
         git \
         graphviz \
