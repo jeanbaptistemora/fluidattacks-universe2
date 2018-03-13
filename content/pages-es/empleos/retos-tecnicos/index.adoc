@@ -177,26 +177,26 @@ de dicha subcarpeta.
 Antes de realizar un Merge Request (MR), 
 por favor verifique que cumple con los siguientes criterios:
 
-* Los cambios se deben realizar en una *rama personal*,
+. Los cambios se deben realizar en una *rama personal*,
 la cual debe llevar el mismo nombre de su usuario en GitLab.
 
-* Todos los archivos relacionados con la resolución de retos deben respetar 
+. Todos los archivos relacionados con la resolución de retos deben respetar 
 la link:#repositorio[estructura indicada].
 
-* Si una de sus soluciones de hacking requiere un script adicional,
+. Si una de sus soluciones de hacking requiere un script adicional,
 deberá incluirlo en el mismo directorio.
 
-* Por cada reto usted deberá realizar un commit que agrupe los cambios
+. Por cada reto usted deberá realizar un commit que agrupe los cambios
 correspondientes a la solución y a los *OTHERS* (10 por cada reto) y luego,
 un *merge request* para solicitar la inclusión de sus soluciones.
 
-** Si está subiendo soluciones de hacking, los enlaces de los OTHERS deben ser a soluciones de hacking de terceros,
-** Si está subiendo soluciones de programación, los enlaces de los OTHERS deben ser a soluciones de programación de terceros,
-** No se debe repetir lenguajes de programación en las soluciones enlazadas de los OTHERS
+.. Si está subiendo soluciones de hacking, los enlaces de los OTHERS deben ser a soluciones de hacking de terceros,
+.. Si está subiendo soluciones de programación, los enlaces de los OTHERS deben ser a soluciones de programación de terceros,
+.. No se debe repetir lenguajes de programación en las soluciones enlazadas de los OTHERS
 
-* Un *merge request* debe tener un solo commit.
+. Un *merge request* debe tener un solo commit.
 
-* El mensaje del commit debe tener el siguiente link:https://gitlab.com/autonomicmind/training/blob/master/templates/commit-msg.txt[formato].
+. El mensaje del commit debe tener el siguiente link:https://gitlab.com/autonomicmind/training/blob/master/templates/commit-msg.txt[formato].
 
 Los link:https://gitlab.com/autonomicmind/training/merge_requests[merge request] 
 pendientes de revisión y aprobación, 
