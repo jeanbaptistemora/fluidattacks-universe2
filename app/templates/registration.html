@@ -106,6 +106,14 @@
                                }
                             </script>
                         {% else %}
+                            <script>
+                                if (location.toString().indexOf("localhost:8000") == -1)
+                                    mixpanel.track(
+                                        "Registered User", {
+                                            "Email": "{{ request.session.username }}",
+                                        }
+                                    );
+                            </script>
                             <p>You do not have authorization for login yet. Please contact FLUID's staff to get access.</p>
                         {% endif %}
                     </span>
