@@ -223,7 +223,55 @@ Si contiene múltiples lenguajes significa que debe utilizarse de forma
 secuencial (round robin) cada lenguaje para construir más soluciones 
 de dicha subcarpeta.
 
-== 6. Builds locales
+== 6. Recomendaciones
+
+Para cumplir los objetivos enunciados, 
+se sugiere buscar retos que no tengan solución ni en OTHERS.txt ni en el repositorio y
+trabajar en resolver el reto en la respectiva plataforma.
+
+Al momento de solucionar retos de programación, 
+se sugiere usar un lenguaje no muy usado y 
+resolver los retos en dicho lenguaje.
+
+== 7. Informes de avance
+
+Apreciaremos mucho que nos informe de sus avances mínimo 1 vez cada semana,
+mediante el siguiente [button]#link:../../../../forms/training[formulario >>]#.
+Al diligenciar el informe, 
+por favor presente lo siguiente:
+
+. En el campo “Relación”, escoger la opción “Selección”.
+. Tenga en cuenta su posición en el ranking y su puntaje antes de comenzar el entrenamiento, 
+pues necesitará estos datos al momento de registrar los campos "Ranking Mundial Inicial", 
+"Ranking Colombia Inicial" y "Puntaje/Páginas Inicial"
+. Los puntajes o posiciones en el ranking finales puede obtenerlos de la siguiente forma:
+
+* En Codeabbey (Para retos de programación):
+
+image::ranking-mundial-codeabbey.png[Ranking mundial]
+
+image::ranking-colombia-codeabbey.png[Ranking Colombia]
+
+* En Wechall (Para retos de hacking):
+
+image::ranking-wechall.png[Ranking en Wechall]
+
+== 8. Fin
+
+Esta etapa finaliza cuando usted haya completado los objetivos anteriormente mencionados y 
+nos envíe vía e-mail los 40+10+10 archivos referentes a las soluciones realizadas por usted.
+
+Por favor tenga en cuenta que durante esta etapa la continuidad es fundamental, 
+ya que *de no haber movimiento (push al repositorio git) en 14 días calendario, 
+se dará por terminado el proceso de selección*. 
+
+Usted puede volver a presentarse, sin embargo, 
+deberá comenzar desde la primera etapa nuevamente.
+
+En caso de no desear continuar con el proceso, 
+puede escribirnos vía e-mail a careers@autonomicmind.co
+
+== 9. Builds locales
 
 Es posible correr integraciones locales con el fin de identificar errores antes de hacer push o merge requests al repositorio. 
 Para esto, se deben ejecutar los siguientes comandos:
@@ -267,54 +315,6 @@ link:https://www.virtualbox.org/wiki/Downloads[Virtualbox]) y crear una máquina
 basada en una distribución de Linux (e.g. link:https://www.ubuntu.com/download/desktop[Ubuntu],
 o la de su preferencia) y aplicar el proceso descrito anteriormente para Sistemas 
 Operativos Linux.
-
-== 7. Recomendaciones
-
-Para cumplir los objetivos enunciados, 
-se sugiere buscar retos que no tengan solución ni en OTHERS.txt ni en el repositorio y
-trabajar en resolver el reto en la respectiva plataforma.
-
-Al momento de solucionar retos de programación, 
-se sugiere usar un lenguaje no muy usado y 
-resolver los retos en dicho lenguaje.
-
-== 8. Informes de avance
-
-Apreciaremos mucho que nos informe de sus avances mínimo 1 vez cada semana,
-mediante el siguiente [button]#link:../../../../forms/training[formulario >>]#.
-Al diligenciar el informe, 
-por favor presente lo siguiente:
-
-. En el campo “Relación”, escoger la opción “Selección”.
-. Tenga en cuenta su posición en el ranking y su puntaje antes de comenzar el entrenamiento, 
-pues necesitará estos datos al momento de registrar los campos "Ranking Mundial Inicial", 
-"Ranking Colombia Inicial" y "Puntaje/Páginas Inicial"
-. Los puntajes o posiciones en el ranking finales puede obtenerlos de la siguiente forma:
-
-* En Codeabbey (Para retos de programación):
-
-image::ranking-mundial-codeabbey.png[Ranking mundial]
-
-image::ranking-colombia-codeabbey.png[Ranking Colombia]
-
-* En Wechall (Para retos de hacking):
-
-image::ranking-wechall.png[Ranking en Wechall]
-
-== 9. Fin
-
-Esta etapa finaliza cuando usted haya completado los objetivos anteriormente mencionados y 
-nos envíe vía e-mail los 40+10+10 archivos referentes a las soluciones realizadas por usted.
-
-Por favor tenga en cuenta que durante esta etapa la continuidad es fundamental, 
-ya que *de no haber movimiento (push al repositorio git) en 14 días calendario, 
-se dará por terminado el proceso de selección*. 
-
-Usted puede volver a presentarse, sin embargo, 
-deberá comenzar desde la primera etapa nuevamente.
-
-En caso de no desear continuar con el proceso, 
-puede escribirnos vía e-mail a careers@autonomicmind.co
 
 == 10. Preguntas
 
