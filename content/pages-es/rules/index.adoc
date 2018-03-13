@@ -100,6 +100,7 @@
 
 * link:001/[REQ.001 Activos de información identificados].
 * link:002/[REQ.002 Identificar dependencias o componentes].
+* link:003/[REQ.003 Definir arquitectura del sistema].
 * link:004/[REQ.004 Activo de información asociado a responsable].
 * link:005/[REQ.005 Activo de información valorado en moneda].
 * link:006/[REQ.006 Identificar amenazas asociadas a activo].
