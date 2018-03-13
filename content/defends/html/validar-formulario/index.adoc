@@ -18,6 +18,9 @@ bajo las cuales la siguiente solución tiene sentido:
 . Se desea utilizar validación de campos de un formulario +HTML+.
 . Las versiones de los navegadores utilizados son iguales o superiores 
 a +Firefox 10+, +Chrome 10+ o +Internet Explorer 10+.
+. El sistema debe descartar 
+toda la información potencialmente insegura 
+que sea recibida por entradas de datos.<<r1,[1]>>
 
 == Solución
 
@@ -47,7 +50,7 @@ se ha hecho siempre en +Javascript+.
 Sin embargo, +HTML+ en su versión +HTML5+ 
 introduce unos nuevos atributos para formularios 
 que permiten realizar la validación del formulario directamente 
-sin necesidad de recurrir a +Javascript+.
+sin necesidad de recurrir a +Javascript+.^<<r2,[2]>>,<<r3,[3]>>^
 
 . Algunos de esos atributos son:
 
@@ -84,15 +87,13 @@ aparecen diversos errores en el formulario:
 image::formulario.png[errores en formulario]
 
 . En el caso que el navegador utilizado no sea reciente, 
-no se realizará ninguna validación de los campos de los formularios
+no se realizará ninguna validación de los campos de los formularios.
 
 . Toda validación que se haga desde el cliente 
 debe ser acompañada por una validación del lado del servidor.
 
 == Referencias
 
-. [[r1]] link:https://developer.mozilla.org/es/docs/Learn/HTML/Forms/Validacion_formulario_datos[Validación de formulario de datos]
-. [[r2]] link:http://www.um.es/docencia/barzana/DAWEB/Desarrollo-de-aplicaciones-web-teoria-formularios-ejemplo-1.html[DAWeb. Verificación de formularios]
-. [[r3]] REQ.0168: El sistema debe descartar 
-toda la información potencialmente insegura 
-que sea recibida por entradas de datos.
+. [[r1]] link:../../../rules/173/[REQ.173 Descartar información insegura].
+. [[r2]] link:https://developer.mozilla.org/es/docs/Learn/HTML/Forms/Validacion_formulario_datos[Validación de formulario de datos].
+. [[r3]] link:http://www.um.es/docencia/barzana/DAWEB/Desarrollo-de-aplicaciones-web-teoria-formularios-ejemplo-1.html[DAWeb. Verificación de formularios].
