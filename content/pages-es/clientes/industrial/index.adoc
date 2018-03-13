@@ -10,3 +10,30 @@
 |=======
 |image:logo-corona.png[logo corona, 300, 55] |image:logo-manuelita.png[logo manuelita, 300, 70]
 |=======
+
+
+[role="industrial tb-alt"]
+[cols=2, frame="none"]
+|====
+a|image:logo-corona.png[logo corona, 300, 55, link=https://www.corona.co]
+
+a|== Corona
+
+Corona es una multinacional colombiana con 135 años de historia empresarial.
+Está compuesta por seis unidades estratégicas de negocio dedicadas a la manufactura y
+comercialización de productos para el hogar y la construcción. Cuenta con 19 plantas de
+manufactura en Colombia, 3 en Estados Unidos, 3 en Centro América, 3 en México y una en Brasil.
+Exporta sus productos a diversos mercados alrededor del mundo, incluyendo Estados Unidos,
+Canadá, México, Brasil, Chile, Venezuela, Centro América, el Caribe, Italia, España y el Reino Unido.
+
+a|image:logo-manuelita.png[logo manuelita, 300, 70, link=http://www.manuelita.com/perfil-corporativo]
+
+a|== Manuelita
+
+Manuelita es una organización agroindustrial diversificada,
+multilatina de origen colombiano, consolidada como una organización agroindustrial diversificada,
+cuya estrategia se basa en un modelo de negocio sostenible. Elabora productos de naturaleza agroindustrial,
+elaborados a partir de fuentes renovables, mediante el uso sostenible de los recursos naturales,
+con un impacto positivo sobre el bienestar de las comunidades vecinas.
+
+|====

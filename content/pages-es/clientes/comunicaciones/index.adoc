@@ -6,8 +6,17 @@
 
 = Comunicaciones
 
-[width="99%", cols="^.^", grid="none", frame="none"]
-|=======
-|image:logo-tigo.png[logo tigo, 400, 210]
-|=======
+[role="Comunicaciones tb-alt"]
+[cols=2, frame="none"]
+|====
+a|image:logo-tigo.png[logo tigo, 400, 210, link=https://www.tigo.com.co/nuestra-compania]
 
+a|== Tigo UNE
+
+UNE EPM Telecomunicaciones es una empresa Colombiana que presta servicios integrados de
+telecomunicaciones, con participación accionaria del Grupo Millicom y el Grupo EPM.
+De la mano de sus empresas filiales, incluyendo a Colombia Móvil, Edatel y Orbitel,
+UNE cubre más del 70% de la población urbana y está presente en 767 municipios
+de los 32 departamentos del territorio nacional.
+
+|====
