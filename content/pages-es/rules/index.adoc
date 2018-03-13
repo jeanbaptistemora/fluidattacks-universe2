@@ -99,24 +99,25 @@
 == Activos
 
 * link:001/[REQ.001 Activos de información identificados].
-* link:002/[REQ.002 Activo de información asociado a responsable].
-* link:003/[REQ.003 Activo de información valorado en moneda].
-* link:004/[REQ.004 Identificar amenazas asociadas a activo].
-* link:005/[REQ.005 Identificar posibles vulnerabilidades].
-* link:006/[REQ.006 Amenazas medidas en términos de ocurrencia].
-* link:007/[REQ.007 Amenazas medidas en términos de impacto].
-* link:008/[REQ.008 Riesgos medidos por probabilidad e impacto].
-* link:009/[REQ.009 Identificar posibles atacantes].
-* link:010/[REQ.010 Proceso reclasificación definido].
-* link:011/[REQ.011 Activos clasificados según criticidad].
-* link:012/[REQ.012 Priorizar vulnerabilidades de activos].
-* link:013/[REQ.013 Garantizar corrección de vulnerabilidades].
-* link:014/[REQ.014 Medio seguro para información física].
+* link:002/[REQ.002 Identificar dependencias o componentes].
+* link:004/[REQ.004 Activo de información asociado a responsable].
+* link:005/[REQ.005 Activo de información valorado en moneda].
+* link:006/[REQ.006 Identificar amenazas asociadas a activo].
+* link:007/[REQ.007 Identificar posibles vulnerabilidades].
+* link:009/[REQ.009 Amenazas medidas en términos de ocurrencia].
+* link:010/[REQ.010 Amenazas medidas en términos de impacto].
+* link:011/[REQ.011 Riesgos medidos por probabilidad e impacto].
+* link:012/[REQ.012 Identificar posibles atacantes].
+* link:013/[REQ.013 Proceso reclasificación definido].
+* link:014/[REQ.014 Activos clasificados según criticidad].
+* link:015/[REQ.015 Priorizar vulnerabilidades de activos].
+* link:016/[REQ.016 Garantizar corrección de vulnerabilidades].
+* link:017/[REQ.017 Medio seguro para información física].
 
 == Acuerdos
 
-* link:015/[REQ.015 Acuerdos a nivel de servicio con terceros].
-* link:016/[REQ.016 Acuerdos de confiabilidad con terceros].
-* link:017/[REQ.017 Definir penalizaciones por incumplimiento].
-* link:018/[REQ.018 Garantizar cumplimiento requisitos].
-* link:019/[REQ.019 Permitir auditorías de cliente].
+* link:018/[REQ.018 Acuerdos a nivel de servicio con terceros].
+* link:019/[REQ.019 Acuerdos de confiabilidad con terceros].
+* link:020/[REQ.020 Definir penalizaciones por incumplimiento].
+* link:021/[REQ.021 Garantizar cumplimiento requisitos].
+* link:022/[REQ.022 Permitir auditorías de cliente].

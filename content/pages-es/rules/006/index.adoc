@@ -1,83 +1,82 @@
 :slug: rules/006/
 :category: rules
-:description: En el presente documento se detallan los requerimientos de seguridad relacionados a los activos de información de la empresa. Las amenazas identificadas deben ser medidas en términos de ocurrencia, con el fin de mitigar las amenazas con mayor probabilidad de materialización.
-:keywords: Requerimiento, Seguridad, Activos, Información, Amenazas, Ocurrencia.
+:description: En el presente documento se detallan los requerimientos de seguridad relacionados a los activos de información de la empresa. Se deben identificar y documentar las amenazas relacionadas a cada activo de información para tomar decisiones sobre los riesgos de seguridad de los activos.
+:keywords: Requerimiento, Seguridad, Activos, Información, Documentación, Amenazas.
 :rules: yes
 
-= REQ.006 Amenazas medidas en términos de ocurrencia
+= REQ.006 Identificar amenazas asociadas a activo
 
 == Nombre
 
-Cada amenaza sobre un activo de información debe ser medida en términos de su probabilidad de ocurrencia
+Las amenazas asociadas a un activo de información deben estar identificadas y documentadas
 
 == Descripción
 
-Luego de identificar la posibles amenazas
-y establecer un catálogo de amenazas 
-para todos los activos de la organización
-es necesario estudiar cuáles son las amenazas
-que puedan aprovechar posibles vulnerabilidades 
-en el activo de información y afectarlo negativamente. 
-Para ello se debe determinar la periodicidad 
-con la cual esta amenaza puede generarse. 
-Cuando la amenaza se puede presentar con mayor frecuencia, 
-mayor es la probabilidad de la materialización de un riesgo. 
+La organización debe modelar una estructura o representación 
+que incluya toda la información que afecta la integridad, 
+disponibilidad y confidencialidad de los activos de la compañía. 
+Una vez capturada, organizada y procesada esta información, 
+la organización está en la potestad 
+de tomar decisiones informadas 
+sobre los riesgos de seguridad de los activos.
 
 == Implementación
 
-La probabilidad de ocurrencia de la amenaza es 
-proporcional a la exposición. 
-Un activo más expuesto a la amenaza 
-tiene mayor probabilidad de afectación
-y por ende, mayor riesgo de ser vulnerado.
+. Una amenaza es un factor externo al activo 
+que puede aprovechar una debilidad de éste 
+y así producir un daño. 
+Cuando las amenazas se conocen 
+se puede monitorear su comportamiento 
+para establecer una respuesta inmediata 
+en caso de intensificar su actividad. 
+De la misma forma es posible identificar 
+posibles debilidades o vulnerabilidades 
+que puedan ser aprovechadas por la amenaza 
+y establecer controles para reducirla.
 
-Al la hora de determinar qué tan probable 
-es el hecho de que se presente una amenaza, 
-existen muchas variables que se deben tener en cuenta 
-y que pueden tener mayor o menor peso en relación 
-a cómo afectan determinados activos.
-Entre dichas variables se cuentan 
-los factores físicos y lógicos, 
-de índole externa e interna.
-Esto se traduce a determinar la accesibilidad 
-de un activo de información 
-con base en oportunidades de acceso al dominio,
-asumiendo una situación en donde el atacante
-posee los recursos y las capacidades
-para vulnerar el activo en cuestión.
-Las oportunidades de acceso al dominio
-se definen como:
+. Se suele dividir las amenazas existentes según su ámbito de acción:
 
-* Accesibilidad física presencial. 
-* Accesibilidad física cualificada. 
-* Accesibilidad lógica competencial. 
-* Accesibilidad lógica instrumental.
+* Desastre del entorno (Seguridad Física).
+* Amenazas del sistema (Seguridad Lógica).
+* Amenazas en la red (Comunicaciones).
+* Amenazas de personas (Personal interno y externo).
 
-Para encontrar la probabilidad de ocurrencia, 
-la organización puede hacer uso 
-de los datos históricos de incidentes. 
-En caso de no tener un historial de incidentes 
-puede tomar como referencia los datos generados 
-por otras entidades del mismo sector.
+La identificación de amenazas se realiza 
+para cada uno de los activos identificados. 
+La organización puede identificar inicialmente las amenazas 
+evaluando los incidentes sucedidos históricamente, 
+determinando cuáles fueron las causas externas 
+que se establecieron y pusieron en riesgo la integridad del activo. 
+Posterior a la identificación de las causas,
+es altamente recomendable documentarlas en un catálogo de amenazas.
+
+Se recomienda que las amenazas se clasifiquen para tipos de activos 
+de forma que el catálogo pueda ser usado fácilmente 
+para la identificación de riesgos.
+
+Es importante que el catálogo de amenazas 
+se encuentre actualizado de forma que 
+se puedan tener en cuenta en la evaluación de riesgos. 
 
 == Diagrama
 
-image::diag1.png[Diagrama1] 
+image::diag1.png[Diagrama 1]
 
 == Soluciones
 
-* ISO 27005 - Gestión de riesgos para un SGSI con ISO 27005.
-* Consultoría - Aprender teoría básica de riesgos.
+* Consultoría - Aprender Teoría Básica de Riesgos
+* ISO 27005 - Gestión de riesgos para un SGSI con ISO 27005
 
 == Casos de abuso
 
 Un usuario empleado o anónimo 
-ejecuta acciones las cuales van en contravía 
-de la seguridad de cualquier activo de la organización. 
-Debido a la situación anteriormente descrita, 
-el control establecido no fue eficiente 
-debido a una falla en la valoración de riesgo 
-al no determinar el impacto real para la organización. 
+ejecuta acciones las cuales van 
+en contravía de la seguridad 
+de cualquier activo de la organización. 
+Debido a esta situación 
+los controles definidos para su protección 
+no son efectivos puesto que la amenaza que representa 
+no fue previamente identificada.
 
 == Atributos
 
@@ -90,4 +89,4 @@ al no determinar el impacto real para la organización.
 == Referencias
 
 . link:https://www.iso.org/isoiec-27001-information-security.html[Serie de normas ISO/IEC 27000].
-. link:https:https://www.pmg-ssi.com/2015/04/iso-27001-amenazas-y-vulnerabilidades/[Amenazas y vulnerabilidades ISO 27001].
+. link:https://www.microsoft.com/en-us/sdl/adopt/threatmodeling.aspx[Microsoft: Modelado de Amenazas].

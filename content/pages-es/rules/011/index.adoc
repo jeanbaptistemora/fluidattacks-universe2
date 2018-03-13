@@ -1,57 +1,59 @@
 :slug: rules/011/
 :category: rules
-:description: En el presente documento se detallan los requerimientos de seguridad relacionados a los activos de información de la empresa. Todos los activos de información de la compañía deben estar clasificados de acuerdo a su nivel de confidencialidad y de criticidad.
-:keywords: Requerimiento, Seguridad, Activos, Información, Criticidad, Confidencialidad.
+:description: En el presente documento se detallan los requerimientos de seguridad relacionados a los activos de información de la empresa. Los riesgos de seguridad de los activos de información deben estar medidos en función de su probabilidad e impacto para determinar el valor real del riesgo.
+:keywords: Requerimiento, Seguridad, Activos de información, Riesgo, Probabilidad, Impacto.
 :rules: yes
 
-= REQ.011 Activos clasificados según criticidad.
+= REQ.011 Riesgos medidos por probabilidad e impacto
 
 == Nombre
 
-Los activos de información deben estar clasificados 
-de acuerdo a su nivel de confidencialidad y de criticidad.
+Cada riesgo de seguridad de información, debe estar medido en función de su probabilidad e impacto
 
 == Descripción
 
-La clasificación de activos de información 
-con base a su nivel de confidencialidad y criticidad
-tiene como objetivo asegurar que la información 
-recibe los niveles de protección adecuados. 
-Al realizar un análisis de criticidad <<r1, ^[1]^>> 
-es posible jerarquizar a los activos de información 
-de la empresa facilitando la toma de decisiones.
-Para implementar un análisis de criticidad 
-es necesario definir un alcance y propósito, 
-seleccionar criterios de evaluación y clasificación adecuados, 
-y establecer un método de evaluación para la jerarquización de activos 
-teniendo en cuenta varios factores 
-estudiados en requerimientos anteriores.
-Una vez los activos han sido clasificados
-se determina el manejo que se les da
-y los controles necesarios para su protección.
+El valor de un riesgo debe tener en cuenta 
+el impacto ocasionado en una posible materialización 
+y la probabilidad realista de ocurrencia del mismo.
 
-Con lo anteriormente mencionado también es posible determinar 
-el nivel de seguridad y la rigurosidad de los controles. 
-Los activos de información más críticos 
-en la mayoría de los casos necesitarán medidas de seguridad estrictas 
-para proteger su integridad.
+== Implementación
 
+. Para determinar la valoración de un riesgo 
+es necesario tener en cuenta 
+la variable de impacto, debido a que es indispensable conocer 
+cuáles son las consecuencias 
+de la materialización de un riesgo para la organización. 
+Adicionalmente la variable probabilidad determina 
+qué tan frecuente el riesgo puede materializarse. 
+Al combinar las dos variables podemos determinar 
+el valor real de un riesgo.
 
-== Guía de implementación
+. En muchas ocasiones encontramos riesgos 
+que se materializan frecuentemente 
+pero los impactos causados son mínimos. 
+Al tener en cuenta únicamente la variable probabilidad de ocurrencia 
+es  posible apresurarse a definir controles 
+que son demasiado costosos 
+en comparación con los daños causados, 
+o por el contrario, al concentrarse únicamente en el impacto 
+y no estudiar adecuadamente el riesgo y la frecuencia de ocurrencia, 
+implementar controles para evitar amenazas
+con una probabilidad mínima de ocurrencia.
+Esto puede terminar causando pérdidas para la organización, 
+por lo cual es importante determinar 
+un criterio de valoración que le permita a la organización 
+equilibrar las variables según su necesidad.
 
-Para realizar la clasificación de los activos 
-la organización debe definir un criterio con los parámetros 
-que les permita a los responsables de los activos 
-realizar una clasificación objetiva.
-
-Para definir los criterios de clasificación 
-es recomendable que la organización tenga en cuenta valores 
-para los parámetros de Confidencialidad, Integridad y Disponibilidad, 
-así mismo como el valor de activo. 
-Con criterios de clasificación para estas variables 
-la clasificación puede dar una priorización objetiva 
-que servirá para tener en cuenta en los procesos de gestión de riesgos 
-y gestión de la continuidad del negocio. 
+. La determinación de la valoración 
+se realiza generalmente a través de un diagrama de calor 
+donde se nivelan dos variables: riesgos altos y bajos. 
+Cuando la organización tiene un apetito de riesgo alto, 
+ésto se muestra en el diagrama de calor 
+como una zona mayor para los riesgos bajos. 
+Por otra parte, cuando la organización 
+tiene un apetito de riesgo bajo, 
+determina en el diagrama de calor 
+una zona mayor para los riesgos altos. 
 
 == Diagrama
 
@@ -59,28 +61,30 @@ image::diag1.png[Diagrama1]
 
 == Soluciones
 
-. Consultoría - Determinar valor de información.
-. Consultoría - Establecer Inventario de Activos de Información.
+* ISO 27005 - Gestión de riesgos para un SGSI con ISO 27005.
+* Consultoría - Aprender teoría básica de riesgos.
 
 == Casos de abuso
 
-Un usuario empleado o anónimo ejecuta acciones 
-las cuales van en contravía de la seguridad de un activo de la organización, 
-los controles establecidos no son suficientes 
-debido a que se desconoce la clasificación del activo. 
+Un usuario empleado o anónimo 
+ejecuta acciones las cuales 
+van en contravía de la seguridad 
+de cualquier activo de la organización. 
+Debido a la situación descrita anteriormente, 
+el control establecido no fue eficiente 
+debido a una falla en la valoración de riesgo 
+al no tener en cuenta las variables de impacto 
+y su probabilidad de ocurrencia. 
 
 == Atributos
 
 * Capa: Capa de Recursos.
 * Activo: Activos de Información.
 * Alcance: Adherencia.
-* Fase: Diseño.
+* Fase: Análisis.
 * Tipo de Control: Procedimiento.
 
 == Referencias
 
-. [[r1]] link:https://reliabilityweb.com/sp/articles/entry/el-analisis-de-criticidad-una-metodologia-para-mejorar-la-confiabilidad-ope[Análisis de criticidad].
-. [[r2]] link:https://www.iso.org/isoiec-27001-information-security.html[Serie de normas ISO/IEC 27000].
-
-
-
+. link:https://www.iso.org/isoiec-27001-information-security.html[Serie de normas ISO/IEC 27000].
+. link:https://www.pmg-ssi.com/2017/01/iso-27005-como-identificar-los-riesgos/[¿Cómo Identificar los Riesgos?]

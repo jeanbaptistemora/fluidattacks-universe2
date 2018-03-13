@@ -1,88 +1,112 @@
 :slug: rules/005/
 :category: rules
-:description: En el presente documento se detallan los requerimientos de seguridad relacionados a los activos de información de la empresa. Se deben identificar todas las posibles vulnerabilidades de los sistemas que interactúen con activos de información para establecer medidas de seguridad apropiadas.
-:keywords: Requerimiento, Seguridad, Activos, Información, Identificar, Vulnerabilidades.
+:description: En el presente documento se detallan los requerimientos de seguridad relacionados a los activos de información de la empresa. Los activos de información deben contar con una valoración monetaria para discernir su importancia, su costo de pérdida y determinar controles costo-eficientes.
+:keywords: Requerimiento, Seguridad, Activos, Información, Valoración, Monetaria.
 :rules: yes
 
-= REQ.005 Identificar posibles vulnerabilidades 
+= REQ.005 Activo de información valorado en moneda
 
 == Nombre
 
-Los sistemas que interactúen con un activo de información deben tener identificadas las posibles vulnerabilidades que sobre ellos apliquen y que sean conocidas
+Cada activo de información debe estar valorado en términos monetarios
 
 == Descripción
 
-La organización debe realizar de forma constante y regular
-una identificación de las vulnerabilidades 
-asociadas a sus activos de información.
-Esto último con el fin de evaluar los riesgos que representan 
-y poder generar los controles apropiados para cada caso.
-
-Una vulnerabilidad de seguridad se define
-como la posibilidad o potencialidad 
-de que se materialice una amenaza 
-sobre un activo de información de la organización.
+La organización debe valorar en términos monetarios
+los activos de información previamente identificados
+teniendo en cuenta el valor que representa para el negocio.
+Esto permitirá discernir la importancia del activo
+así como el costo de la pérdida del activo
+y determinar controles costo-eficientes.
 
 == Implementación
 
-. Identificación de vulnerabilidades: 
-Las vulnerabilidades asociadas a los activos de información 
-pueden surgir ya sea a través de defectos 
-o debilidades de seguridad, 
-de diseño, de implementación 
-o de controles mal concebidos o implementados. 
-Éstas vulnerabilidades por definición 
-pueden ser explotadas generando así una brecha de seguridad, 
-que puede comprometer la integridad de los activos y de la empresa en sí.
+La asignación de valor de los activos de información
+es un tema complejo debido a que son bienes intangibles.
+Los activos de información intangibles incluyen,
+pero no se limitan a:
 
-. Para definir si un activo de información es vulnerable,
-es necesario contar con un catálogo actualizado de amenazas (link:../004/[REQ.004]) 
-y una lista de activos de la organización (link:../001/[REQ.001]).
-Una vez se cuente con ambos, 
-se realiza una evaluación de la posibilidad de materialización
-de las amenazas presentes en el catálogo 
-para cada uno de los activos identificados.
-Esto permite definir controles de seguridad
-los cuales tienen por objetivo mitigar la posibilidad
-de que una amenaza se presente o reducir el impacto
-sobre los activos de información 
-en caso de presentarse dicha amenaza. 
+* Conocimiento.
+* Relaciones.
+* Secretos comerciales.
+* Licencias.
+* Patentes.
+* Experiencia.
+* Conocimientos técnicos.
+* Imagen corporativa.
+* Marca.
+* Reputación comercial.
+* Confianza de los clientes.
+* Ventaja competitiva.
+* Ética.
+* Productividad.
 
-. El objetivo del presente requerimiento de seguridad 
-es identificar y generar un listado de vulnerabilidades 
-(defectos o vulnerabilidades) 
-que pueden permitir la materialización 
-de amenazas potenciales y diferenciadas.
+Inicialmente en procesos de gestión de activos inmaduros,
+la organización puede optar por una valoración cualitativa
+teniendo en cuenta los criterios de clasificación definidos,
+sin embargo, en la medida en que la organización
+perfecciona los procesos lo más recomendable
+es optar por una definición económica
+del valor de sus activos de información.
+
+Para definir el valor del activo la organización
+se pueden tener en cuenta los siguientes criterios:
+
+* El valor de la información en el mercado.
+
+* El valor de reposición por pérdida.
+
+* El valor del impacto producido por la pérdida.
+
+* El valor de conservación de la información.
+
+Teniendo en cuenta estas variables
+la organización puede definir una fórmula
+para establecer el valor económico de sus activos.
 
 == Diagrama
 
-image:diag1.png[Diagrama1]
+image::diag1-req003.png[Diagrama req003]
 
 == Soluciones
 
+* Consultoría - Determinar el valor de la información.
+
+* Consultoría - Establecer Inventario de Activos de Información.
+
 * ISO 27005 - Gestión de riesgos para un SGSI con ISO 27005.
-* Consultoría - Aprender teoría básica de riesgos.
+
+* Consultoría - Determinar Propietario de un Activo de Información​.
+
+* Consultoría - Responder a cuestionario inventario activos de información​.
+
+* ISO 27003 - ​Guía ISO 27003
 
 == Casos de abuso
 
-Un usuario empleado o anónimo ejecuta acciones 
-las cuales van en contravía de la seguridad 
-de cualquier activo de la organización. 
-Debido a la situación anteriormente descrita 
-los controles definidos para su protección 
-no son efectivos puesto que la vulnerabilidad que representa 
-no fue previamente identificada.
+Un usuario empleado o anónimo ejecuta acciones
+las cuales van en contravía de la seguridad
+de cualquier activo de la organización.
+Dada la situación anterior no es posible determinar
+el valor de los controles
+que se deben implementar para la protección
+de los activos de información
+de forma que sean costo-eficientes.
 
 == Atributos
 
 * Capa: Capa de Recursos.
+
 * Activo: Activos de Información.
+
 * Alcance: Adherencia.
+
 * Fase: Análisis.
+
 * Tipo de Control: Procedimiento.
 
 == Referencias
 
+. link:https://es.wikipedia.org/wiki/ISO/IEC_27000-series[Wikipedia - Normas ISO/IEC 27000].
 . link:https://www.iso.org/isoiec-27001-information-security.html[Serie de normas ISO/IEC 27000].
-. link:https://www.pmg-ssi.com/2015/04/iso-27001-amenazas-y-vulnerabilidades/[Amenazas y vulnerabilidades - ISO 27001].
 

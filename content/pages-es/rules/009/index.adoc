@@ -1,68 +1,68 @@
 :slug: rules/009/
 :category: rules
-:description: En el presente documento se detallan los requerimientos de seguridad relacionados a los activos de información de la empresa. Se deben identificar los posibles atacantes capaces de vulnerar los activos, esto influye a la hora de considerar los controles de seguridad y la probabilidad del riesgo.
-:keywords: Requerimiento, Seguridad, Activos de información, Atacantes, Control, Riesgo.
+:description: En el presente documento se detallan los requerimientos de seguridad relacionados a los activos de información de la empresa. Las amenazas identificadas deben ser medidas en términos de ocurrencia, con el fin de mitigar las amenazas con mayor probabilidad de materialización.
+:keywords: Requerimiento, Seguridad, Activos, Información, Amenazas, Ocurrencia.
 :rules: yes
 
-= REQ.009 Identificar posibles atacantes
+= REQ.009 Amenazas medidas en términos de ocurrencia
 
 == Nombre
 
-Los posibles atacantes del sistema deben estar identificados
+Cada amenaza sobre un activo de información debe ser medida en términos de su probabilidad de ocurrencia
 
 == Descripción
 
-Una parte fundamental del modelado de amenazas 
-es una caracterización de los diferentes grupos de actores 
-que podrían ser capaces de atacar el sistema. 
-Estos grupos pueden influir 
-en la probabilidad de ocurrencia de los riesgos 
-y en la disposición de los controles aplicables. 
+Luego de identificar la posibles amenazas
+y establecer un catálogo de amenazas 
+para todos los activos de la organización
+es necesario estudiar cuáles son las amenazas
+que puedan aprovechar posibles vulnerabilidades 
+en el activo de información y afectarlo negativamente. 
+Para ello se debe determinar la periodicidad 
+con la cual esta amenaza puede generarse. 
+Cuando la amenaza se puede presentar con mayor frecuencia, 
+mayor es la probabilidad de la materialización de un riesgo. 
 
 == Implementación
 
-Un atacante se define como una entidad 
-capaz de poner en peligro o vulnerar 
-a los activos de información de la organización.
-Los posibles atacantes pueden ser elementos
-de índole externa o interna,
-sin embargo, un atacante no necesariamente 
-vulnera a los activos de forma intencionada.
-Por ejemplo, pueden existir casos 
-en los que un empleado, de forma involuntaria,
-represente una amenaza para un activo de información,
-ya sea por falta de experiencia, 
-falta de entrenamiento, 
-o simplemente a causa de un error humano.
-De la misma forma, es necesario tener en cuenta también
-escenarios en donde el atacante,
-vulnera a los activos de forma intencionada.
+La probabilidad de ocurrencia de la amenaza es 
+proporcional a la exposición. 
+Un activo más expuesto a la amenaza 
+tiene mayor probabilidad de afectación
+y por ende, mayor riesgo de ser vulnerado.
 
-Los atacantes de un sistema son los actores responsables 
-de la existencia de la amenaza. 
-Un ejemplo de posibles atacantes se muestra a continuación:
+Al la hora de determinar qué tan probable 
+es el hecho de que se presente una amenaza, 
+existen muchas variables que se deben tener en cuenta 
+y que pueden tener mayor o menor peso en relación 
+a cómo afectan determinados activos.
+Entre dichas variables se cuentan 
+los factores físicos y lógicos, 
+de índole externa e interna.
+Esto se traduce a determinar la accesibilidad 
+de un activo de información 
+con base en oportunidades de acceso al dominio,
+asumiendo una situación en donde el atacante
+posee los recursos y las capacidades
+para vulnerar el activo en cuestión.
+Las oportunidades de acceso al dominio
+se definen como:
 
-* Atacante = Naturaleza, Amenaza = Terremoto.
-* Atacante = Hacker, Amenaza = Exploit de metaexploit.
-* Atacante = Empleado, Amenaza = Falta de entrenamiento en el manejo del activo.
+* Accesibilidad física presencial. 
+* Accesibilidad física cualificada. 
+* Accesibilidad lógica competencial. 
+* Accesibilidad lógica instrumental.
 
-Un mismo actor puede actuar como atacante 
-en diferentes tipos de amenaza, 
-el objetivo es conocer el comportamiento del atacante 
-ante cada una de ellas.
-
-La identificación de atacantes 
-se realiza como parte del modelo de amenazas 
-o el establecimiento del catálogo de amenazas. 
-La idea a la hora de establecer a los atacantes,
-es identificar a los activos de información vulnerables,
-cuya probabilidad de ocurrencia e impacto sean más críticos
-y tomar medidas de seguridad para mitigar los riesgos de amenaza
-ante diferentes actores, en diferentes tipos de escenarios.
+Para encontrar la probabilidad de ocurrencia, 
+la organización puede hacer uso 
+de los datos históricos de incidentes. 
+En caso de no tener un historial de incidentes 
+puede tomar como referencia los datos generados 
+por otras entidades del mismo sector.
 
 == Diagrama
 
-image::diag1.png[Diagrama1]
+image::diag1.png[Diagrama1] 
 
 == Soluciones
 
@@ -74,9 +74,10 @@ image::diag1.png[Diagrama1]
 Un usuario empleado o anónimo 
 ejecuta acciones las cuales van en contravía 
 de la seguridad de cualquier activo de la organización. 
-Debido a la situación descrita anteriormente, 
-la amenaza no se había detectado 
-debido a la falta de identificación de todos los actores. 
+Debido a la situación anteriormente descrita, 
+el control establecido no fue eficiente 
+debido a una falla en la valoración de riesgo 
+al no determinar el impacto real para la organización. 
 
 == Atributos
 
@@ -88,5 +89,5 @@ debido a la falta de identificación de todos los actores.
 
 == Referencias
 
-. link:https://www.iso.org/isoiec-27001-information-security.html[Serie de normas ISO/IEC 27000.]
-. link:https://www.owasp.org/index.php/Modelado_de_Amenazas[Modelado de amenazas.]
+. link:https://www.iso.org/isoiec-27001-information-security.html[Serie de normas ISO/IEC 27000].
+. link:https:https://www.pmg-ssi.com/2015/04/iso-27001-amenazas-y-vulnerabilidades/[Amenazas y vulnerabilidades ISO 27001].

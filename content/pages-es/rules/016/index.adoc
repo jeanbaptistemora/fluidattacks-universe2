@@ -1,16 +1,17 @@
 :slug: rules/016/
 :category: rules
-:description: En el presente documento se detallan los requerimientos de seguridad relacionados a los activos de información de la empresa. El objetivo de este requerimiento de seguridad es definir la importancia de los acuerdos de confiabilidad con terceros con los cuales se comparte información.
-:keywords: Requerimiento, Seguridad, Acuerdos, Confiabilidad, Terceros, Información. 
+:description: En el presente documento se detallan los requerimientos de seguridad relacionados a los activos de información de la empresa. El objetivo de este requerimiento de seguridad es profundizar en la importancia de la corrección de las vulnerabilidades detectadas en los activos.
+:keywords: Requerimiento, Seguridad, Activos, Información, Corrección, Vulnerabilidades.
 :rules: yes
 
-= REQ.016 Acuerdos de confiabilidad con terceros
+= REQ.016 Garantizar corrección de vulnerabilidades
 
 == Nombre
 
-La organización debe tener un acuerdo de nivel de servicio 
-de confiabilidad con todos los terceros 
-con los cuales comparte información
+La organización debe asegurar 
+que cada una de las vulnerabilidades 
+identificadas en los activos de información 
+sea corregida y comprobada su corrección.
 
 == Soluciones
 

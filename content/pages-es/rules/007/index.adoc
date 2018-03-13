@@ -1,69 +1,62 @@
 :slug: rules/007/
 :category: rules
-:description: En el presente documento se detallan los requerimientos de seguridad relacionados a los activos de información de la empresa. Las amenazas identificadas deben ser medidas en términos de su impacto, con el fin de mitigar las amenazas que afecten en mayor medida a la organización.
-:keywords: Requerimiento, Seguridad, Activos, Información, Amenazas, Impacto.
+:description: En el presente documento se detallan los requerimientos de seguridad relacionados a los activos de información de la empresa. Se deben identificar todas las posibles vulnerabilidades de los sistemas que interactúen con activos de información para establecer medidas de seguridad apropiadas.
+:keywords: Requerimiento, Seguridad, Activos, Información, Identificar, Vulnerabilidades.
 :rules: yes
 
-= REQ.007 Amenazas medidas en términos de impacto
+= REQ.007 Identificar posibles vulnerabilidades 
 
 == Nombre
 
-Cada amenaza sobre un activo de información debe ser medida en términos de su impacto
+Los sistemas que interactúen con un activo de información deben tener identificadas las posibles vulnerabilidades que sobre ellos apliquen y que sean conocidas
 
 == Descripción
 
-Luego de identificar la posibles amenazas
-y establecer un catálogo de amenazas 
-para todos los activos de la organización, 
-es necesario estudiar cuáles son las amenazas
-que puedan aprovechar posibles vulnerabilidades 
-en el activo de información y afectarlo negativamente. 
-Para ello se debe determinar el impacto 
-que causaría en la confidencialidad,
-integridad y disponibilidad del activo
-y la forma en la cual afectaría 
-el funcionamiento normal de la organización. 
+La organización debe realizar de forma constante y regular
+una identificación de las vulnerabilidades 
+asociadas a sus activos de información.
+Esto último con el fin de evaluar los riesgos que representan 
+y poder generar los controles apropiados para cada caso.
+
+Una vulnerabilidad de seguridad se define
+como la posibilidad o potencialidad 
+de que se materialice una amenaza 
+sobre un activo de información de la organización.
 
 == Implementación
 
-. Determinar el impacto que causaría una determinada amenaza, 
-es una tarea compleja, debido a que los activos de información 
-corresponden a bienes intangibles. 
-Las organizaciones pueden optar inicialmente 
-por una valoración cualitativa, 
-donde se definen unos criterios de valoración del impacto 
-y bajo estos criterios se valora el impacto ocasionado.
-Sin embargo, es altamente recomendable 
-que al momento de establecer 
-el impacto que puede generar 
-el hecho de que un activo de información 
-se vea amenazado o vulnerado,
-se cuente con una valoración económica de dicho activo 
-(link:../003/[REQ.003]).
-Esto facilita enormemente la tarea 
-de clasificar y valorar los riesgos,
-buscando proteger con mayor severidad
-a los activos más críticos 
-o cuya amenaza cause mayor impacto dentro la organización.
+. Identificación de vulnerabilidades: 
+Las vulnerabilidades asociadas a los activos de información 
+pueden surgir ya sea a través de defectos 
+o debilidades de seguridad, 
+de diseño, de implementación 
+o de controles mal concebidos o implementados. 
+Éstas vulnerabilidades por definición 
+pueden ser explotadas generando así una brecha de seguridad, 
+que puede comprometer la integridad de los activos y de la empresa en sí.
 
-. Para determinar el impacto de una vulnerabilidad 
-las organizaciones pueden tener en cuenta:
+. Para definir si un activo de información es vulnerable,
+es necesario contar con un catálogo actualizado de amenazas (link:../004/[REQ.004]) 
+y una lista de activos de la organización (link:../001/[REQ.001]).
+Una vez se cuente con ambos, 
+se realiza una evaluación de la posibilidad de materialización
+de las amenazas presentes en el catálogo 
+para cada uno de los activos identificados.
+Esto permite definir controles de seguridad
+los cuales tienen por objetivo mitigar la posibilidad
+de que una amenaza se presente o reducir el impacto
+sobre los activos de información 
+en caso de presentarse dicha amenaza. 
 
-* El valor de activo o activos perjudicados.
-* Los retrasos operativos o reprocesos causados.
-* El impacto en la imagen de la organización.
-* Multas o sanciones en las que se incurra.
-
-. Una vez conocidos los impactos,
-la organización está en capacidad de determinar 
-el nivel de riesgo que está dispuesta a asumir,
-así como las posibles modificaciones a los procesos,
-que contribuyan directamente a la mejora 
-de la seguridad de los activos involucrados.
+. El objetivo del presente requerimiento de seguridad 
+es identificar y generar un listado de vulnerabilidades 
+(defectos o vulnerabilidades) 
+que pueden permitir la materialización 
+de amenazas potenciales y diferenciadas.
 
 == Diagrama
 
-image::diag1.png[Diagrama1]
+image:diag1.png[Diagrama1]
 
 == Soluciones
 
@@ -75,10 +68,10 @@ image::diag1.png[Diagrama1]
 Un usuario empleado o anónimo ejecuta acciones 
 las cuales van en contravía de la seguridad 
 de cualquier activo de la organización. 
-Debido a la situación descrita anteriormente 
-el control establecido no fue eficiente 
-debido a una falla en la valoración de riesgo 
-al no determinar el impacto real. 
+Debido a la situación anteriormente descrita 
+los controles definidos para su protección 
+no son efectivos puesto que la vulnerabilidad que representa 
+no fue previamente identificada.
 
 == Atributos
 
@@ -91,4 +84,5 @@ al no determinar el impacto real.
 == Referencias
 
 . link:https://www.iso.org/isoiec-27001-information-security.html[Serie de normas ISO/IEC 27000].
-. link:https:https://www.pmg-ssi.com/2015/04/iso-27001-amenazas-y-vulnerabilidades/[Amenazas y vulnerabilidades ISO 27001].
+. link:https://www.pmg-ssi.com/2015/04/iso-27001-amenazas-y-vulnerabilidades/[Amenazas y vulnerabilidades - ISO 27001].
+

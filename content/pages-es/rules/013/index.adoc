@@ -1,17 +1,15 @@
 :slug: rules/013/
 :category: rules
-:description: En el presente documento se detallan los requerimientos de seguridad relacionados a los activos de información de la empresa. El objetivo de este requerimiento de seguridad es profundizar en la importancia de la corrección de las vulnerabilidades detectadas en los activos.
-:keywords: Requerimiento, Seguridad, Activos, Información, Corrección, Vulnerabilidades.
+:description: En el presente documento se detallan los requerimientos de seguridad relacionados a los activos de información de la empresa. El objetivo de este requerimiento de seguridad es establecer pautas para definir el proceso de reclasificación de activos de información de la empresa.
+:keywords: Requerimiento, Seguridad, Activos, Información, Proceso, Reclasificación.
 :rules: yes
 
-= REQ.013 Garantizar corrección de vulnerabilidades
+= REQ.013 Proceso reclasificación definido.
 
 == Nombre
 
-La organización debe asegurar 
-que cada una de las vulnerabilidades 
-identificadas en los activos de información 
-sea corregida y comprobada su corrección.
+Debe estar definido el proceso 
+para poder reclasificar los activos de información.
 
 == Soluciones
 
