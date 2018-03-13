@@ -1547,28 +1547,42 @@ integrates.controller("findingcontentCtrl", function($scope, $stateParams, $time
          });
      };
      $scope.validateTreatment = function(){
-       if ($scope.aux.tratamiento !== $scope.finding.tratamiento){
-          $scope.finding.razon_tratamiento = '';
-       }
+       if ($scope.aux.razon === $scope.finding.razon_tratamiento){
+         $msg.error($translate.instant('proj_alerts.differ_comment'));
+         return 'false'
+       } else if ($scope.finding.razon_tratamiento === '') {
+         $msg.error($translate.instant('proj_alerts.empty_comment'))
+         return 'false'
+       } else if ($scope.finding.razon_tratamiento.length < 50  || $scope.finding.razon_tratamiento.length > 80) {
+         $msg.error($translate.instant('proj_alerts.short_comment'))
+         return 'false'
+       } else {
+          $scope.finding.responsable_tratamiento = userEmail;
+          return 'true' }
      };
      $scope.updateTreatment = function(){
-          //Obtener datos
-          if ($scope.aux.razon === $scope.finding.razon_tratamiento && $scope.finding.tratamiento !== 'Pendiente'){
-            $msg.error($translate.instant('proj_alerts.differ_comment'));
-          } else if ($scope.finding.razon_tratamiento === '' && $scope.finding.tratamiento !== 'Pendiente') {
-            $msg.error($translate.instant('proj_alerts.empty_comment'))
-          } else if (($scope.finding.razon_tratamiento.length < 50  || $scope.finding.razon_tratamiento.length > 80) && $scope.finding.tratamiento !== 'Pendiente') {
-            $msg.error($translate.instant('proj_alerts.short_comment'))
-          } else {
-          $scope.finding.responsable_tratamiento = userEmail;
-          newData = {
+          var flag = 'false';
+          if ($scope.finding.tratamiento === 'Pendiente' && $scope.aux.razon !== $scope.finding.razon_tratamiento) {
+            if ($scope.validateTreatment()==='true') {
+              flag = 'true'
+            } else { flag = 'false' };
+        } else if (($scope.finding.tratamiento !== 'Pendiente' && $scope.aux.razon !== $scope.finding.razon_tratamiento) ||
+          ($scope.finding.tratamiento !== 'Pendiente' && $scope.aux.razon === $scope.finding.razon_tratamiento)) {
+              if ($scope.validateTreatment()==='true') {
+                flag = 'true'
+              } else { flag = 'false' };
+        } else if ($scope.finding.tratamiento === 'Pendiente' && $scope.aux.razon === $scope.finding.razon_tratamiento) {
+              flag = 'true'
+          };
+          if (flag === 'true'){
+            newData = {
               id: $scope.finding.id,
               tratamiento: $scope.finding.tratamiento,
               razon_tratamiento: $scope.finding.razon_tratamiento,
               responsable_tratamiento: $scope.finding.responsable_tratamiento,
               bts_externo: $scope.finding.bts_externo,
-          };
-          var modalInstance = $uibModal.open({
+            };
+            var modalInstance = $uibModal.open({
               templateUrl: BASE.url + 'assets/views/project/confirmMdl.html',
               animation: true,
               backdrop: 'static',
@@ -1599,7 +1613,7 @@ integrates.controller("findingcontentCtrl", function($scope, $stateParams, $time
                   };
               }
           });
-        }
+        };
     };
     $scope.findingSolved = function(){
         //Obtener datos
