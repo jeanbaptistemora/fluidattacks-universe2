@@ -10,8 +10,3 @@
 
 Las dependencias o componentes 
 con los que interopera un sistema de información deben estar identificados.
-
-== Soluciones
-
-Este artículo está en construcción.
-Lamentamos los inconvenientes.
