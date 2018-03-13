@@ -1,0 +1,27 @@
+:slug: rules/008/
+:category: rules
+:description: En el presente documento se detallan los requerimientos de seguridad relacionados a los activos de información de la empresa. Todos los activos de información deben estar asociados a un responsable, de esta manera se garantiza la ejecución de controles de seguridad para protegerlo.
+:keywords: Requerimiento, Seguridad, Activos, Información, Asignación, Responsable.
+:rules: yes
+
+= REQ.008 Generar modelo de amenazas del sistema
+
+== Nombre
+
+La organización debe generar un modelo de amenazas para el sistema, 
+donde se identifiquen las posibles amenazas 
+y debe cubrir +STRIDE+ 
+(+Spoofing+, +Tampering+, +Repudiation+, +Information Disclosure+, 
++Denial of Service+, +Elevation of Privilege+).
+
+== Soluciones
+
+La presente sección contiene enlaces a artículos 
+cuyo contenido es propiedad de +FLUID+. 
+El objetivo es dar a conocer al público 
+la implementación del actual requerimiento de seguridad 
+para diferentes plataformas o lenguajes de programación:
+
+. *+HACKING+* link:../../defends/hacking/evitar-ataque-dos/[Evitar Ataque de Denegación de Servicio].
+. *+CSHARP+* link:../../defends/csharp/ejecutar-minimo-privilegio/[Ejecutar aplicaciones con el mínimo privilegio].
+. *+ASPNET+* link:../../defends/aspnet/apps-minimo-privilegio/[Ejecutar aplicaciones con mínimo privilegio].
