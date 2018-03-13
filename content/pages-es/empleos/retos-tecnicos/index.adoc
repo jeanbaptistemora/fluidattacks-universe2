@@ -74,7 +74,7 @@ Este ID no debe ser mayor a *12* caracteres.
 en donde encontrará personal de FLUID y otros candidatos actualmente en esta etapa, 
 quienes podrán guiarlo en caso de tener dudas o inconvenientes.
 
-. Solicitar el permiso de acceso al repositorio vía Slack presentándote a los demás con el siguiente mensaje:
+. Solicitar el permiso de acceso al repositorio vía Slack presentándote a los demás en el canal *#general* con el siguiente mensaje:
 [quote]
 ____________________________________________________________________
 He leído y entendido toda la documentación de los retos técnicos, 
