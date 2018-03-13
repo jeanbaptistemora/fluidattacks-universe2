@@ -320,6 +320,9 @@ deberá comenzar desde la primera etapa nuevamente.
 
 * Entiéndase movimiento como push al repositorio git.
 
+En caso de no desear continuar con el proceso, 
+puede escribirnos vía e-mail a careers@autonomicmind.co
+
 == 10. Preguntas
 
 * Antes de realizar una pregunta, por favor lea nuevamente este documento y 
@@ -360,6 +363,3 @@ En particular usando:
 * link:https://en.wikipedia.org/wiki/Plagiarism_detection[Plagiarism Detection Theory]
 * link:https://www.plagaware.com/[PlagAware]
 * link:https://www.safe-corp.com/products_codematch.htm[Code Match]
-
-En caso de no desear continuar con el proceso, 
-puede escribirnos vía e-mail a careers@autonomicmind.co
