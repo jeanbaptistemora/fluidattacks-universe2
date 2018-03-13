@@ -312,13 +312,11 @@ Esta etapa finaliza cuando usted haya completado los objetivos anteriormente men
 nos envíe vía e-mail los 40+10+10 archivos referentes a las soluciones realizadas por usted.
 
 Por favor tenga en cuenta que durante esta etapa la continuidad es fundamental, 
-ya que *de no haber movimiento en 14 días calendario, 
+ya que *de no haber movimiento (push al repositorio git) en 14 días calendario, 
 se dará por terminado el proceso de selección*. 
 
 Usted puede volver a presentarse, sin embargo, 
 deberá comenzar desde la primera etapa nuevamente.
-
-* Entiéndase movimiento como push al repositorio git.
 
 En caso de no desear continuar con el proceso, 
 puede escribirnos vía e-mail a careers@autonomicmind.co
