@@ -99,7 +99,60 @@ indexada en el archivo OTHERS.txt
 .. Entiéndase hacking por cualquier reto técnico de wechall.net o sus sitios relacionados,
 .. No se entiende por hacking retos matemáticos o de adivinanzas relacionados en wechall.net (brainquest),
 
-== 4. Repositorio
+== 4. Envío
+
+Antes de realizar un Merge Request (MR), 
+por favor verifique que cumple con los siguientes criterios:
+
+. Los cambios se deben realizar en una *rama personal*,
+la cual debe llevar el mismo nombre de su usuario en GitLab.
+
+. Todos los archivos relacionados con la resolución de retos deben respetar 
+la link:#repositorio[estructura indicada].
+
+. Si una de sus soluciones de hacking requiere un script adicional,
+deberá incluirlo en el mismo directorio.
+
+. Por cada reto usted deberá realizar un commit que agrupe los cambios
+correspondientes a la solución y 10 retos que tienen solución en Internet, 
+pero no en el repositorio (OTHERS) y luego,
+un *merge request* para solicitar la inclusión de sus soluciones.
+
+.. Los enlaces de los OTHERS deben ser enlaces directos (HTTP 200) y sin redirección (HTTP 302). 
+.. Si está subiendo soluciones de hacking, los enlaces de los OTHERS deben ser a soluciones de hacking de terceros,
+.. Si está subiendo soluciones de programación, los enlaces de los OTHERS deben ser a soluciones de programación de terceros,
+.. No se debe repetir lenguajes de programación en las soluciones enlazadas de los OTHERS
+
+. Un *merge request* debe tener un solo commit.
+
+. El mensaje del commit debe tener el siguiente link:https://gitlab.com/autonomicmind/training/blob/master/templates/commit-msg.txt[formato].
+
+. Adicionalmente, las soluciones que envíe deben cumplir con los siguientes link:https://gitlab.com/autonomicmind/training/wikis/home[requisitos]
+
+Los link:https://gitlab.com/autonomicmind/training/merge_requests[merge request] 
+pendientes de revisión y aprobación, 
+así como todos los realizados en el pasado pueden verse en el enlace indicado.
+
+Para cada *merge request* que usted envíe, se realiza un proceso de
+integración continua que verifica automáticamente el cumplimiento de
+algunas de las reglas aquí definidas.  
+Solo cuando el proceso de integración pasa sin errores (en verde), 
+su *merge request* es integrado al repositorio. 
+Los resultados de la integración pueden verse siempre en
+link:https://gitlab.com/autonomicmind/training/pipelines[GitLab-CI].
+
+=== Intentos fallidos
+
+Un merge request (MR) puede ser rechazado en caso de incumplimiento de los criterios anteriormente mencionados.
+Por favor tenga en cuenta lo siguiente:
+
+* Un MR cuenta como fallido cuando se rechaza por cuestiones que están adecuadamente detalladas en la documentación y que aun así se incumplen.
+* No se reabre un MR. 
+Si su MR fue rechazado, deberá crear uno nuevo tras haber realizado las respectivas correcciones.
+* Todo participante tiene hasta 10 intentos de MR fallidos. 
+El proceso se dará por terminado en caso de llegar a este tope.
+
+== 5. Repositorio
 
 El repositorio donde usted debe enviar sus soluciones es el siguiente: link:https://gitlab.com/autonomicmind/training/[click aquí]
 Por favor lea atentamente las siguientes pautas para trabajar en este repositorio Git:
@@ -167,59 +220,6 @@ encuentra el archivo.
 Si contiene múltiples lenguajes significa que debe utilizarse de forma 
 secuencial (round robin) cada lenguaje para construir más soluciones 
 de dicha subcarpeta.
-
-== 5. Envío
-
-Antes de realizar un Merge Request (MR), 
-por favor verifique que cumple con los siguientes criterios:
-
-. Los cambios se deben realizar en una *rama personal*,
-la cual debe llevar el mismo nombre de su usuario en GitLab.
-
-. Todos los archivos relacionados con la resolución de retos deben respetar 
-la link:#repositorio[estructura indicada].
-
-. Si una de sus soluciones de hacking requiere un script adicional,
-deberá incluirlo en el mismo directorio.
-
-. Por cada reto usted deberá realizar un commit que agrupe los cambios
-correspondientes a la solución y 10 retos que tienen solución en Internet, 
-pero no en el repositorio (OTHERS) y luego,
-un *merge request* para solicitar la inclusión de sus soluciones.
-
-.. Los enlaces de los OTHERS deben ser enlaces directos (HTTP 200) y sin redirección (HTTP 302). 
-.. Si está subiendo soluciones de hacking, los enlaces de los OTHERS deben ser a soluciones de hacking de terceros,
-.. Si está subiendo soluciones de programación, los enlaces de los OTHERS deben ser a soluciones de programación de terceros,
-.. No se debe repetir lenguajes de programación en las soluciones enlazadas de los OTHERS
-
-. Un *merge request* debe tener un solo commit.
-
-. El mensaje del commit debe tener el siguiente link:https://gitlab.com/autonomicmind/training/blob/master/templates/commit-msg.txt[formato].
-
-. Adicionalmente, las soluciones que envíe deben cumplir con los siguientes link:https://gitlab.com/autonomicmind/training/wikis/home[requisitos]
-
-Los link:https://gitlab.com/autonomicmind/training/merge_requests[merge request] 
-pendientes de revisión y aprobación, 
-así como todos los realizados en el pasado pueden verse en el enlace indicado.
-
-Para cada *merge request* que usted envíe, se realiza un proceso de
-integración continua que verifica automáticamente el cumplimiento de
-algunas de las reglas aquí definidas.  
-Solo cuando el proceso de integración pasa sin errores (en verde), 
-su *merge request* es integrado al repositorio. 
-Los resultados de la integración pueden verse siempre en
-link:https://gitlab.com/autonomicmind/training/pipelines[GitLab-CI].
-
-=== Intentos fallidos
-
-Un merge request (MR) puede ser rechazado en caso de incumplimiento de los criterios anteriormente mencionados.
-Por favor tenga en cuenta lo siguiente:
-
-* Un MR cuenta como fallido cuando se rechaza por cuestiones que están adecuadamente detalladas en la documentación y que aun así se incumplen.
-* No se reabre un MR. 
-Si su MR fue rechazado, deberá crear uno nuevo tras haber realizado las respectivas correcciones.
-* Todo participante tiene hasta 10 intentos de MR fallidos. 
-El proceso se dará por terminado en caso de llegar a este tope.
 
 == 6. Builds locales
 
