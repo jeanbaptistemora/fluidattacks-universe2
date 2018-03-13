@@ -127,6 +127,8 @@ un *merge request* para solicitar la inclusión de sus soluciones.
 
 . El mensaje del commit debe tener el siguiente link:https://gitlab.com/autonomicmind/training/blob/master/templates/commit-msg.txt[formato].
 
+. Antes de abrir un MR debe esperar que la integración termine satisfactoriamente (en verde)
+
 . Adicionalmente, las soluciones que envíe deben cumplir con los siguientes link:https://gitlab.com/autonomicmind/training/wikis/home[requisitos]
 
 Los link:https://gitlab.com/autonomicmind/training/merge_requests[merge request] 
