@@ -1,10 +1,18 @@
 
+# module "users" {
+#   source = "./users"
+# }
+
 module "providers" {
   source = "./providers"
 }
 
 module "groups" {
   source = "./groups"
+  # fis3integration = "${module.users.fis3integration}"
+  # fluidintegratesdynamo = "${module.users.fluidintegratesdynamo}"
+  # fluidservess3 = "${module.users.fluidservess3}"
+  # fws3user = "${module.users.fws3user}"
 }
 
 module "roles" {

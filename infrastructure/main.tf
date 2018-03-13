@@ -30,6 +30,17 @@ module "ec2instance" {
 
 }
 
+# For Sura
+module "ec2-peer" {
+  source = "./ec2"
+  amiID = "${var.amiID}"
+  iType = "${var.iType}"
+  sreg = "${var.sreg}"
+  sgId = "sg-992bc3e4"
+  snetId = "subnet-6a606433"
+  kName = "${var.kName}"
+}
+
 # Create from scratch
 # module "r53" {
 #   source = "./dns"
@@ -40,9 +51,9 @@ module "ec2instance" {
 
 
 output "variable_ip" {
-  value = "server=\"${module.ec2instance.ip}\""
+  value = "server=\"${module.ec2-peer.ip}\""
 }
 
 output "instance_ip" {
-  value = "${module.ec2instance.ip}"
+  value = "${module.ec2-peer.ip}"
 }
