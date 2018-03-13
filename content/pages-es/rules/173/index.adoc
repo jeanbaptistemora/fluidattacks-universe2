@@ -1,10 +1,10 @@
-:slug: rules/168/
+:slug: rules/173/
 :category: rules
 :description: En el presente documento se detallan los requerimientos de seguridad relacionados al código fuente que compone a las aplicaciones de la compañía. En este requerimiento se establece la importancia de descartar la información potencialmente insegura recibida por entradas de la aplicación.
 :keywords: Requerimiento, Seguridad, Código Fuente, Descartar, Información, Insegura.
 :rules: yes
 
-= REQ.168 Descartar información insegura
+= REQ.173 Descartar información insegura
 
 == Nombre
 
