@@ -71,13 +71,13 @@
 * link:159/[REQ.159 Utilizar estructuras optimizadas].
 * link:162/[REQ.162 Cerrar recursos no utilizados].
 * link:163/[REQ.163 Variables inicializadas explícitamente].
-* link:168/[REQ.168 Descartar información insegura].
+* link:173/[REQ.173 Descartar información insegura].
 
 == Datos
 
-* link:173/[REQ.173 Utilizar firmas digitales].
 * link:176/[REQ.176 Restringir objetos del sistema].
 * link:177/[REQ.177 Almacenar datos de forma segura].
+* link:178/[REQ.178 Utilizar firmas digitales].
 * link:180/[REQ.180 Información sensible cifrada].
 * link:998/[REQ.998 Limitar tiempo de vida de variables].
 * link:999/[REQ.999 Limitar tiempo de vida de recursos].
