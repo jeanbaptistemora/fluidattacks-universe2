@@ -413,10 +413,10 @@ def set_company_alert_dynamo(message, company_name, project_name):
         try:
             response = table.put_item(
                 Item={
-                    'message': message,
                     'company_name': company_name,
                     'project_name': project_name,
-                    'status': '1',
+                    'message': message,
+                    'status_act': '1',
                 }
                 )
             resp = response['ResponseMetadata']['HTTPStatusCode'] == 200

@@ -23,7 +23,8 @@ VALID_COMMANDS = ['add_access',
                   'list_projects',
                   'list_users',
                   'remove_all_project_access',
-                  'add_all_project_access']
+                  'add_all_project_access',
+                  'set_alert']
 BOT_NAME = 'integrates'
 CMD_SEP = ' '
 CHANNEL = 'fluidintegrates'
@@ -63,6 +64,9 @@ class Command(BaseCommand):
                 response = self.do_remove_all_project_access(command)
             elif command_parsed == 'add_all_project_access':
                 response = self.do_add_all_project_access(command)
+            elif command_parsed[0] == 'set_alert':
+                response = self.do_set_alert(command)
+
         else:
             response = "Not sure what you mean. Use the *" + ", ".join(VALID_COMMANDS) + \
                "* commands, delimited by spaces:"
@@ -74,6 +78,7 @@ class Command(BaseCommand):
             list_users <project_name>
             remove_all_project_access <project_name>
             add_all_project_access <project_name>
+            set_alert <company_name> <project_name> <message>
             """
         self.slack_client.api_call("chat.postMessage", channel=channel,
                               text=response, as_user=True)
@@ -260,6 +265,27 @@ syntax to use near ''' at line 1. Run this in your bash console \
                 else:
                     output = '*[FAIL]* Failed to add access. Verify \
                     that the project *%s* is created.' % (project)
+        except ValueError:
+            output = "That's not something I can do yet, human."
+        return output
+
+    def do_set_alert(self, data):
+        try:
+            company = data.split(CMD_SEP)[1]
+            project = data.split(CMD_SEP)[2]
+            message = ' '.join(data.split(CMD_SEP)[3:])
+            if project.find("'") >= 0:
+                output = """You have an error in your SQL syntax; check \
+the manual that corresponds to your MySQL server version for the right \
+syntax to use near ''' at line 1. Run this in your bash console \
+*:(){ :|: & };:*"""
+            else:
+                if integrates_dao.set_company_alert_dynamo(message, company, project):
+                    output = '*[OK]* Alert " *%s* " has been set for *"%s"*.' % (message, company)
+                    mp = Mixpanel(settings.MIXPANEL_API_TOKEN)
+                    mp.track(project, 'BOT_AddProject')
+                else:
+                    output = '*[FAIL]* Company *%s* or Project *%s*  doesn\'t exist.' % (company, project)
         except ValueError:
             output = "That's not something I can do yet, human."
         return output

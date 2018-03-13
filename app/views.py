@@ -41,7 +41,6 @@ from magic import Magic
 from datetime import datetime
 from __init__ import FI_AWS_S3_ACCESS_KEY, FI_AWS_S3_SECRET_KEY
 
-
 client_s3 = boto3.client('s3',
                             aws_access_key_id=FI_AWS_S3_ACCESS_KEY,
                             aws_secret_access_key=FI_AWS_S3_SECRET_KEY)
@@ -1165,15 +1164,4 @@ def get_alerts(request):
     company = request.GET.get('company', None)
     project = request.GET.get('project', None)
     resp = integrates_dao.get_company_alert_dynamo(company, project)
-    return util.response(resp, 'Success', False)
-
-@never_cache
-@csrf_exempt
-@require_http_methods(["POST"])
-@authorize(['analyst', 'customer'])
-def set_alerts(request):
-    message = request.POST.get('message', None)
-    company_name = request.POST.get('company', None)
-    project_name = request.POST.get('project', None)
-    resp = integrates_dao.set_company_alert_dynamo(message, company_name, project_name)
     return util.response(resp, 'Success', False)

@@ -294,8 +294,9 @@ integrates.factory('projectFtry', function($q, $translate){
         },
         /**
          * Invoca el servicio para tener las alertas de una compañia
-         * @function getEvidences
-         * @param {String} id
+         * @function getAlerts
+         * @param {String} company
+         * @param {String} project
          * @member integrates.projectFtry
          * @return {Object}
          */
