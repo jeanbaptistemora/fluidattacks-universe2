@@ -20,6 +20,9 @@ en ciertos campos con información crítica.
 
 . Se necesita deshabilitar la +caché+ en todos los campos de un formulario.
 
+. El sistema no debe almacenar información sensible 
+en archivos temporales o en memoria caché.<<r1,[1]>>
+
 == Solución
 
 Para empezar, un formulario web es aquel
@@ -38,11 +41,11 @@ como los campos de busqueda de,
 valga la redundancia, los buscadores web.
 
 Los formularios web están definidos
-en lenguajes de programación como +HTML+, +Perl+, +Java+ o +.NET+.
+en +HTML+ y apoyados en lenguajes de programación como +Perl+, +Java+ o +.NET+.
 Las implementaciones de estos lenguajes
 usualmente invocan automáticamente los idiomas de la interfaz de usuario
 y otras de sus características, tales como el diseño estructural y tema,
-minimizando el tiempo, el costo y el tiempo de programación. ^<<r1,[1]>>^
+minimizando el tiempo, el costo y el tiempo de programación.<<r2,[2]>>
 
 Por otro lado, la +caché+ en un formulario es la encargada
 de almacenar en la +memoria+ del +navegador+
@@ -64,8 +67,8 @@ en una aplicación web se debe:
 
 . Usar la opción +autocomplete=off+
 en el campo que no se desea guardar +caché+
-mediante código +HTML+ especificando el atributo
-+autocomplete+ en cada etiqueta +input+.
+mediante etiquetas +HTML+ especificando el atributo
++autocomplete+ en cada etiqueta +input+.<<r3,[3]>>
 +
 .formulario.html
 [source, html,linenums]
@@ -94,7 +97,7 @@ mediante código +HTML+ especificando el atributo
 
 . En el caso que se requiera desactivar la +caché+
 para todas las entradas en el formulario,
-el atributo +autocomplete+ se usa en la etiqueta de formulario,
+el atributo +autocomplete+ se usa en la etiqueta de formulario,<<r4,[4]>>
 no es necesario en este caso especificar el atributo en cada +input+.
 +
 [source, html,linenums]
@@ -105,8 +108,7 @@ no es necesario en este caso especificar el atributo en cada +input+.
 
 == Referencias
 
-. [[r1]] link:https://es.wikipedia.org/wiki/Formulario_web[Formulario web]
-. [[r2]] link:https://html.com/attributes/input-autocomplete/[INPUT AUTOCOMPLETE]
-. [[r3]] link:http://ryanfarley.com/blog/archive/2005/02/23/1739.aspx[Disabling Auto-Complete on ASP.NET Forms]
-. [[r4]] REQ.0172 El sistema no debe almacenar información sensible
-en archivos temporales o en memoria caché.
+. [[r1]] link:../../../rules/177/[REQ.177 Almacenar datos de forma segura].
+. [[r2]] link:https://es.wikipedia.org/wiki/Formulario_web[Formulario web].
+. [[r3]] link:https://html.com/attributes/input-autocomplete/[INPUT AUTOCOMPLETE].
+. [[r4]] link:http://ryanfarley.com/blog/archive/2005/02/23/1739.aspx[Disabling Auto-Complete on ASP.NET Forms].
