@@ -278,11 +278,6 @@ Al momento de solucionar retos de programación,
 se sugiere usar un lenguaje no muy usado y 
 resolver los retos en dicho lenguaje.
 
-Otros sitios para entrenar:
-
-. link:http://codecondo.com/coding-challenges/[]
-. link:https://www.reddit.com/r/learnprogramming/comments/244yqk/sites_like_project_euler/[]
-
 == 8. Informes de avance
 
 Apreciaremos mucho que nos informe de sus avances mínimo 1 vez cada semana,
