@@ -83,10 +83,6 @@ ____________________________________________________________________
 
 == 3. Instrucciones
 
-. Identifique 40 retos que tienen solución en Internet, pero no en nuestro repositorio (también denominados OTHERS),
-
-.. Los enlaces de los OTHERS deben ser enlaces directos (HTTP 200) y sin redirección (HTTP 302).
-
 . Resuelva 10 retos de programación que no tienen solución, 
 ni en nuestro repositorio ni identificada (punto 1),
 
@@ -187,9 +183,11 @@ la link:#repositorio[estructura indicada].
 deberá incluirlo en el mismo directorio.
 
 . Por cada reto usted deberá realizar un commit que agrupe los cambios
-correspondientes a la solución y a los *OTHERS* (10 por cada reto) y luego,
+correspondientes a la solución y 10 retos que tienen solución en Internet, 
+pero no en el repositorio (OTHERS) y luego,
 un *merge request* para solicitar la inclusión de sus soluciones.
 
+.. Los enlaces de los OTHERS deben ser enlaces directos (HTTP 200) y sin redirección (HTTP 302). 
 .. Si está subiendo soluciones de hacking, los enlaces de los OTHERS deben ser a soluciones de hacking de terceros,
 .. Si está subiendo soluciones de programación, los enlaces de los OTHERS deben ser a soluciones de programación de terceros,
 .. No se debe repetir lenguajes de programación en las soluciones enlazadas de los OTHERS
@@ -197,6 +195,8 @@ un *merge request* para solicitar la inclusión de sus soluciones.
 . Un *merge request* debe tener un solo commit.
 
 . El mensaje del commit debe tener el siguiente link:https://gitlab.com/autonomicmind/training/blob/master/templates/commit-msg.txt[formato].
+
+. Adicionalmente, las soluciones que envíe deben cumplir con los siguientes link:https://gitlab.com/autonomicmind/training/wikis/home[requisitos]
 
 Los link:https://gitlab.com/autonomicmind/training/merge_requests[merge request] 
 pendientes de revisión y aprobación, 
@@ -268,17 +268,13 @@ Operativos Linux.
 
 == 7. Recomendaciones
 
-Para cumplir los link:#instrucciones[3 objetivos enunciados] se sugiere primero crear 40 archivos OTHERS.txt en carpetas de retos que no lo tengan. 
-Luego buscar retos que no tengan solución ni en OTHERS.txt ni en el repositorio y
+Para cumplir los objetivos enunciados, 
+se sugiere buscar retos que no tengan solución ni en OTHERS.txt ni en el repositorio y
 trabajar en resolver el reto en la respectiva plataforma.
 
 Al momento de solucionar retos de programación, 
 se sugiere usar un lenguaje no muy usado y 
 resolver los retos en dicho lenguaje.
-
-Una vez tenga acceso al repositorio, 
-antes de enviar un Merge Request, 
-por favor lea los siguientes link:https://gitlab.com/autonomicmind/training/wikis/home[requisitos].
 
 Otros sitios para entrenar:
 
