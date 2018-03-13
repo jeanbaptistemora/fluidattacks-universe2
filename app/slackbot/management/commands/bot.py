@@ -60,9 +60,9 @@ class Command(BaseCommand):
                 response = self.do_list_projects(command)
             elif command_parsed[0] == 'list_users':
                 response = self.do_list_users(command)
-            elif command_parsed == 'remove_all_project_access':
+            elif command_parsed[0] == 'remove_all_project_access':
                 response = self.do_remove_all_project_access(command)
-            elif command_parsed == 'add_all_project_access':
+            elif command_parsed[0] == 'add_all_project_access':
                 response = self.do_add_all_project_access(command)
             elif command_parsed[0] == 'set_alert':
                 response = self.do_set_alert(command)
