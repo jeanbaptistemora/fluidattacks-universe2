@@ -8,7 +8,7 @@ data "aws_iam_policy_document" "sso-policy" {
     principals {
       type = "Federated"
       identifiers = [
-        "arn:aws:iam::205810638802:saml-provider/OneLogin"
+        "${var.sso}"
       ]
     }
     condition {

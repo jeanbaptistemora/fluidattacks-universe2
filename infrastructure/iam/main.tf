@@ -1,10 +1,16 @@
 
+module "providers" {
+  source = "./providers"
+}
+
 module "groups" {
   source = "./groups"
 }
 
 module "roles" {
   source = "./roles"
+  sso = "${module.providers.sso}"
+  ssofinance = "${module.providers.ssofinance}"
 }
 
 module "policies" {

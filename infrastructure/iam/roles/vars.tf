@@ -1,0 +1,2 @@
+variable "sso" {}
+variable "ssofinance" {}
