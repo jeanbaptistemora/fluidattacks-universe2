@@ -17,6 +17,11 @@ bajo las cuales la siguiente solución tiene sentido:
 
 . Se utiliza el servidor de aplicaciones +GlassFish+.
 . Se desea revisar la bitácora.
+. El sistema debe registrar el nivel de severidad 
+para cada evento excepcional y de seguridad.<<r1,[1]>>
+. El sistema debe registrar el momento exacto de ocurrencia
+(Fecha, hora, segundos, milisegundos y zona horaria) 
+para cada evento excepcional y de seguridad.<<r2,[2]>>
 
 == Solución
 
@@ -25,7 +30,7 @@ o en una base de datos de todos los acontecimientos (eventos o acciones)
 que afectan a un proceso particular 
 (aplicación, actividad de una red informática, etc.). 
 De esta forma constituye una evidencia 
-del comportamiento del sistema ^<<r1,[1]>>^.
+del comportamiento del sistema.<<r3,[3]>>
 
 Generalmente los acontecimientos vienen anotados 
 con el momento exacto o +data+ (fecha, hora, minuto, segundo) 
@@ -40,12 +45,12 @@ El uso de bitácoras puede servir para:
 
 * Análisis forense.
 * Detección de intrusos.
-* Depuración de errores. 
-* Motorización. 
-* Cumplir con las leyes establecidas. 
+* Depuración de errores.
+* Motorización.
+* Cumplir con las leyes establecidas.
 * Auditoría.
 
-Por otro lado, los logs pueden contener información confidencial 
+Por otro lado, los +logs+ pueden contener información confidencial 
 que no debe ser revelada por privacidad e incluso seguridad del sistema. 
 En estos casos es necesaria proteger la confidencialidad de la información
 haciendo uso de métodos de cifrado y demás.
@@ -53,7 +58,7 @@ haciendo uso de métodos de cifrado y demás.
 Teniendo en cuenta lo anterior, es conveniente revisar constantemente
 las bitácoras del servidor. 
 En está solución se explorará la manera de hacerlo
-en un servidor +Glassfish+.
+en un servidor +Glassfish+.<<r4,[4]>>
 
 . Primero, abrimos la consola de administración web de +GlassFish+.
 
@@ -84,10 +89,7 @@ _ThreadID=188;_ThreadName=Thread-2;|Attempting to load ESAPI.properties via file
 
 == Referencias
 
-. [[r1]] link:https://es.wikipedia.org/wiki/Log_(inform%C3%A1tica)[Log (informática)]
-. [[r2]] link: https://docs.oracle.com/cd/E19798-01/821-1761/abgax/index.html[Examining Log Files]
-. [[r3]] REQ.0070: El sistema debe registrar el nivel de severidad 
-para cada evento excepcional y de seguridad.
-. [[r4]] REQ.0073: El sistema debe registrar el momento exacto de ocurrencia
-(Fecha, hora, segundos, milisegundos y zona horaria) 
-para cada evento excepcional y de seguridad.
+. [[r1]] link:../../../rules/076/[REQ.076 Registrar niveles de severidad de eventos].
+. [[r2]] link:../../../rules/079/[REQ.079 Eventos con severidad deshabilitados].
+. [[r3]] link:https://es.wikipedia.org/wiki/Log_(inform%C3%A1tica)[Log (informática)].
+. [[r4]] link:https://docs.oracle.com/cd/E19798-01/821-1761/abgax/index.html[Examining Log Files].
