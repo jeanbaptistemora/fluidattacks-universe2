@@ -55,7 +55,6 @@
         Substitute "s|http://blog.fluidattacks.com/|https://fluidattacks.com/web/|i"
 
     AddOutputFilterByType INFLATE;SUBSTITUTE;DEFLATE text/html text/plain text/xml
-        Substitute "s|http://(\w+)\.fluidattacks.com/(.*)|https://$1.fluidattacks.com/$2|i"
         Substitute "s|http://fluidattacks.com/(.*)|https://fluidattacks.com/$1|i"
     ErrorLog {{ error_log }}
     CustomLog {{ custom_log }} combined
