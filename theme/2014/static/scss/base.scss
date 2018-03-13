@@ -629,6 +629,10 @@ article {
   max-width: 95ch;
 }
 
+.translate-inactive {
+  opacity: .4;
+}
+
 //sass-lint:disable no-universal-selectors
 *,
 *::before,

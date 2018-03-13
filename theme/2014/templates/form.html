@@ -65,13 +65,15 @@
         {% if DEFAULT_LANG == "en" %}
           {% if page.translate %}
             <div class="translate">
-              <img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/es.png" alt="Spain flag"><a href="{{ SUBSITEURL }}/{{ page.translate }}" class="button">Translate >></a>
+              <a href="{{ SITEURL }}/{{ page.url }}"><img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/en.png" alt="United States flag"></a>
+              <a href="{{ SUBSITEURL }}/{{ page.translate }}"><img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/es.png" alt="Spain flag" class="translate-inactive"></a>
             </div>
           {% endif %}
         {% elif DEFAULT_LANG == "es" %}
           {% if page.translate %}
             <div class="translate">
-              <img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/en.png" alt="Bandera de Estados Unidos"><a href="{{ SUBSITEURL }}/{{ page.translate }}" class="button">Traducir >></a>
+              <a href="{{ SUBSITEURL }}/{{ page.translate }}"><img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/en.png" alt="United States flag" class="translate-inactive"></a>
+              <a href="{{ SITEURL }}/{{ page.url }}"><img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/es.png" alt="Spain flag"></a>
             </div>
           {% endif %}
         {% endif %}

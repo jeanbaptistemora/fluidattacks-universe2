@@ -44,11 +44,13 @@
         </div> 
         {% if DEFAULT_LANG == "en" %}
           <div class="translate">
-            <img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/es.png" alt="Spain flag"><a href="{{ SUBSITEURL }}/blog/autores/" class="button">Traducir >></a>
+            <a href="{{ SITEURL }}/blog/authors/"><img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/en.png" alt="United States flag"></a>
+            <a href="{{ SUBSITEURL }}/blog/autores/"><img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/es.png" alt="Spain flag" class="translate-inactive"></a>
           </div>
         {% elif DEFAULT_LANG == "es" %}
           <div class="translate">
-            <img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/en.png" alt="Bandera de Estados Unidos"><a href="{{ SUBSITEURL }}/blog/authors/" class="button">Translate >></a>
+            <a href="{{ SUBSITEURL }}/blog/authors/"><img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/en.png" alt="United States flag" class="translate-inactive"></a>
+            <a href="{{ SITEURL }}/blog/autores/"><img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/es.png" alt="Spain flag"></a>
           </div>
         {% endif %}
       </div>

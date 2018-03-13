@@ -69,13 +69,15 @@
         {% if DEFAULT_LANG == "en" %}
           {% if article.translate %}
             <div class="translate">
-              <img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/es.png" alt="Spain flag"><a href="{{ SUBSITEURL }}/blog/{{ article.translate }}" class="button">Translate >></a>
+              <a href="{{ SITEURL }}/{{ article.url }}"><img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/en.png" alt="United States flag"></a>
+              <a href="{{ SUBSITEURL }}/blog/{{ article.translate }}"><img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/es.png" alt="Spain flag" class="translate-inactive"></a>
             </div>
           {% endif %}
         {% elif DEFAULT_LANG == "es" %}
           {% if article.translate %}
             <div class="translate">
-              <img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/en.png" alt="Bandera de Estados Unidos"><a href="{{ SUBSITEURL }}/blog/{{ article.translate }}" class="button">Traducir >></a>
+              <a href="{{ SUBSITEURL }}/{{ article.translate }}"><img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/en.png" alt="United States flag" class="translate-inactive"></a>
+              <a href="{{ SITEURL }}/blog/{{ article.url }}"><img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/es.png" alt="Spain flag"></a>
             </div>
           {% endif %}
         {% endif %}
