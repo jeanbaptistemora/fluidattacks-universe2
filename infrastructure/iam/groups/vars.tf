@@ -1,3 +1,3 @@
 variable "fis3integration" {}
-# variable "fluidservess3" {}
-# variable "fws3user" {}
+variable "examss3" {}
+variable "fws3user" {}

@@ -10,8 +10,8 @@ module "providers" {
 module "groups" {
   source = "./groups"
   fis3integration = "${module.users.fis3integration}"
-  # fluidservess3 = "${module.users.fluidservess3}"
-  # fws3user = "${module.users.fws3user}"
+  examss3 = "${module.users.examss3}"
+  fws3user = "${module.users.fws3user}"
 }
 
 module "roles" {

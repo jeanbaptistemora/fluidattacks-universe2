@@ -13,15 +13,12 @@ resource "aws_iam_user" "fluidintegratesdynamo" {
   path = "/"
 }
 
-# resource "aws_iam_user" "fluidcountconsumer" {
-#   name = "fluidcount_consumer"
-#   path = "/"
-# }
-# resource "aws_iam_user" "fluidservess3" {
-#   name = "fluidserves_s3"
-#   path = "/"
-# }
-# resource "aws_iam_user" "fws3user" {
-#   name = "FW_S3_USER"
-#   path = "/"
-# }
+resource "aws_iam_user" "fws3user" {
+  name = "FW_S3_USER"
+  path = "/"
+}
+
+resource "aws_iam_user" "examss3" {
+  name = "FS_EXAMS_S3"
+  path = "/"
+}
