@@ -281,34 +281,39 @@ Para esto, se deben ejecutar los siguientes comandos:
 
 * *En Sistemas Operativos GNU/Linux:*
 
-. Instalar curl,
+.Instalar curl
+[source, bash, linenums]
+----
+sudo apt-get update
+sudo apt-get install curl
+----
 
-    sudo apt-get update
-    sudo apt-get install curl
+.Instalar Nix
+[source, bash, linenums]
+----
+curl https://nixos.org/nix/install | sh
+----
 
-. Instalar Nix,
+.Definir sus credenciales de acceso
+[source, bash, linenums]
+----
+export DOCKER_USER=usuarioEnGitlab
+export DOCKER_PASS=contraseñaEnGitlab
+----
 
-    curl https://nixos.org/nix/install | sh
+.Compilar y probar
+[source, bash, linenums]
+----
+./build.nix
+----
 
-. Definir sus credenciales de acceso,
-
-    export DOCKER_USER=usuarioEnGitlab
-    export DOCKER_PASS=contraseñaEnGitlab
-
-. Compilar y probar
-
-    ./build.nix
-
-. Si la integración fue exitosa (Job succeeded), añadir los cambios, hacer commit y 
-a su rama personal. 
-Si no fue exitosa, corregir el error y compilar nuevamente,
-
-    git add .
-    git commit -m "Ejemplo"
-    git push origin ramaPersonal
-
-. Por último, hacer merge request a la rama master. 
-Un link:https://gitlab.com/autonomicmind/training/merge_requests/750[ejemplo] de un *merge request*.
+.Si la integración fue exitosa, hacer commit y añadir los cambios a su rama personal
+[source, bash, linenums]
+----
+git add .
+git commit -m "Ejemplo"
+git push origin ramaPersonal
+----
 
 * *En Sistemas Operativos Windows:* La forma de ejecutar la integración no se encuentra todavía disponible para Windows y 
 al basarse la integración en Linux, 
