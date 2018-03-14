@@ -12,8 +12,57 @@ El sistema debe cerrar una sesión
 si se presenta un tiempo de inactividad por parte del usuario, 
 superior o igual a 5 minutos.
 
+== Descripción
+
+Un sistema que cuente con autenticación e inicio de sesión 
+puede mantener la misma abierta por un tiempo indefinido 
+si no existe un control automático de cerrado de sesión 
+y el usuario no la cierra manualmente. 
+El no controlar los tiempos de cierre 
+puede permitir a un atacante 
+aprovechar sesiones desatendidas y ejecutar acciones 
+a nombre del usuario autenticado sin su autorización 
+y alterar información confidencial asociada a cuentas, 
+este riesgo puede aumentar su criticidad notablemente 
+si el sistema permite el ingreso a usuarios administradores 
+con privilegios altos, pues afectaría la integridad, confidencialidad 
+y disponibilidad del sistema, sus usuarios 
+y de la información que contiene.
+
+== Implementación
+
+. Fijar los tiempos de sesión: 
+Dependiendo de las necesidades del negocio 
+y/o de las políticas de manejo de sesiones de la compañía 
+se deben configurar los tiempos de finalización de sesiones desatendidas 
+a un tiempo prudencial (recomendado de 5 minutos o cercano).<<r1,^[1]^>>
+
 == Soluciones
 
 . +ASPNET+ link:../../defends/aspnet/limitar-tiempo-sesion/[Limitar tiempo de sesión].
 . +JAVA+ link:../../defends/java/configurar-tiempo-sesion/[Configurar Tiempo de Sesión].
 . +AIX+ link:../../defends/aix/tiempo-limite-sesion/[Establecer Tiempo Límite para Sesión Inactiva].
+
+== Casos de abuso
+
+. Un usuario empleado o anónimo 
+toma control de una cuenta desatendida 
+por otro usuario sin su autorización.^<<r2,[2]>>,<<r3,[3]>>^
+
+. En un servidor +web+ muchas sesiones abiertas durante un tiempo muy alto 
+obligan al servidor a consumir mucha memoria desplegando 
+y manteniendo los objetos de sesión.
+
+== Atributos
+
+. Capa: Capa de Aplicación
+. Activo: Administración de sesiones
+. Alcance: Adherencia
+. Fase: Operación
+. Tipo de Control: Procedimiento
+
+== Referencias
+
+. [[r1]] link:http://www.certicamara.com/download/correspondencia/20121005_Anexos_12_circular_042_de_2012.pdf[CAPÍTULO DÉCIMO SEGUNDO: REQUERIMIENTOS MÍNIMOS DE SEGURIDAD Y CALIDAD PARA LA REALIZACIÓN DE OPERACIONES].
+. [[r2]] link:https://pcinetwork.org/forum/index.php?threads/pci-dss-3-0-6-5-10-broken-authentication-and-session-management.667/[[PCI DSS 3.0\] 6.5.10 Broken authentication and session management].
+. [[r3]] link:https://www.owasp.org/index.php/Top_10_2013-A2-Broken_Authentication_and_Session_Management[Top 10 2013-A2-Broken Authentication and Session Management].
