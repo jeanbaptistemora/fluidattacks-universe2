@@ -1,7 +1,7 @@
 :slug: fuzzy-bugs-online/
 :date: 2018-02-09
 :category: techniques
-:tags: SQL, fuzzing, injection
+:tags: sql, fuzzing, injection
 :Image: cover.png
 :alt: Fuzzy caterpillar
 :description: How to perform basic fuzz testing on web applications. Especifically we fuzz over SQL injections on a vulnerable DB search site from bWAPP, using OWASP ZAProxy, obtaining mixed results. Only the most trivial injections succeded. We also show an example of an injection not feasible via fuzzing.

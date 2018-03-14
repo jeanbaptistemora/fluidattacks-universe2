@@ -1,7 +1,7 @@
 :slug: hablemos-teoria-seguridad-informatica/
 :date: 2017-05-30
 :category: opiniones
-:tags: seguridad, teoria, definir
+:tags: seguridad, teoría, definir
 :Image: theory-preview.png
 :alt: Caricatura de un hacker entrando a un computador por el cable de Internet
 :description: El mundo de la seguridad informática es bastante extenso e interesante, y cada vez más cobra más importancia dados los avances tecnológicos actuales. Si eres nuevo en este campo y te interesa aprender más sobre la terminología y conceptos básicos, tenemos lo que buscas en este artículo.
