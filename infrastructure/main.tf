@@ -6,6 +6,11 @@ provider "aws" {
 }
 
 # Create from scratch
+module "bucket" {
+  source = "./bucket"
+}
+
+# Create from scratch
 module "iam" {
   source = "./iam"
 }
