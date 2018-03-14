@@ -13,8 +13,8 @@
 [cols="1,2,2", options="header"]
 |====
 | Aspecto
-| Pentesting (FLUIDAttacks)
-| Análisis de Vulnerabilidades (Otros)
+| FLUIDAttacks
+| Otros
 
 | Método de revisión
 | Híbrido (Herramientas + revisión manual experta)
@@ -25,32 +25,29 @@
 | Análisis de vulnerabilidades con explotación selectiva
 
 | Cobertura 
-| Cobertura Variable 
-| Cobertura Variable
+| Conocida (acordada o resultante)
+| Desconocida
 
 | Definición de Alcance 
-| Basada en puertos abiertos +TCP+ 
-y campos de entrada de formularios, visibles, 
-invisibles y cabeceras en Aplicaciones 
-| Basada en +IP/Host+ a probar y +URLs+
+a|* Para infraestructura, según puertos abiertos +TCP+ y +UDP+.
+* Para aplicaciones, según entradas (campos visible, ocultos y cabeceras) 
+a|* Para infraestructura, según direcciones IP
+* Para aplicaciones, según el número de aplicaciones.
 
-| Perfil Profesionales 
+| Perfiles Profesionales 
 a|* +OSCP+
 * +OSWP+
 * +CEH+ 
-| +CEH+
+| Ninguno
 
-| +Retest+ 
-| Si 
+
+| Registros Comprometidos
+| Si
 | No
 
 | Explotación 
 | 100% 
 | Variable
-
-| Falsos Positivos 
-| No 
-| Si (~20%)
 
 | Generación +exploits+ propios 
 | Si 
@@ -60,11 +57,15 @@ a|* +OSCP+
 | Si 
 | No
 
+| Falsos Positivos 
+| No 
+| Si (~20%)
+
 | Tipo de Hallazgos 
 a|* De impacto específicos del negocio 
 * Prácticas inseguras de programación 
 * Alineación a estándares
-* regulaciones de seguridad 
+* Regulaciones de seguridad 
 a|* Basado en firmas 
 * Sintácticos
 
@@ -74,13 +75,13 @@ a|* Basado en firmas
 
 | Tipo de Evidencia 
 a|* Imágenes 
-* GIF 
-* Video corto 
+* GIF animado
 a|* Salidas de Herramienta
 * Imágenes
 
 | Entregables 
-a|* Evidencias de explotación 
-* Recomendación general
-| Informe resumen
+| Sistema web de documentación en tiempo real 
+[button]#link:../../productos/integrates/[FLUIDIntegrates]#
+a|* Documento en word realizado manualmente.
+* Informes de herramientas sin descartar falsos positivos
 |====

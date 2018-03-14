@@ -13,8 +13,8 @@
 [cols="1,2,2", options="header"]
 |====
 | Aspect 
-| Pentesting (FLUIDAttacks) 
-| Vulnerability Analysis (Others)
+| FLUIDAttacks
+| Others
 
 | Revision Method 
 | Hybrid (Automated tools + manual expert revision) 
@@ -25,32 +25,30 @@
 | Vulnerability Analysis with selective exploitation
 
 | Coverage 
-| Variable Coverage 
-| Variable Coverage
+| Known (arranged or resulting)
+| Unknown
 
 | Scope Definition 
-| Based on open +TCP+ ports 
-and visible or invisible form input fields, 
-Application headers 
-| Based on +IP/Host+ to test and +URLs+
+a|* For infrastructure, according to +TCP+ and +UDP+ open ports
+* For applications, according to inputs 
+(visible fields, hidden fields, and headers)
+a|* For infrastructure, according to IP addresses.
+* For applications, according to application numbers.
+
 
 | Professional Profile
 a|* +OSCP+
 * +OSWP+
 * +CEH+ 
-| +CEH+
+| None
 
-| Retest 
-| Yes 
+| Compromised Records
+| Yes
 | No
 
 | Exploitation 
 | 100% 
 | Variable
-
-| False Positives 
-| No 
-| Yes (~20%)
 
 | Creation of Own Exploits 
 | Yes 
@@ -59,6 +57,10 @@ a|* +OSCP+
 | +ZERO DAY+ Vulnerabilities
 | Yes 
 | No
+
+| False Positives 
+| No 
+| Yes (~20%)
 
 | Finding Types 
 a|* Of a specific business impact
@@ -73,13 +75,13 @@ a|* Based on signatures
 
 | Type of Evidences 
 a|* Images 
-* GIFs  
-* short video 
+* Animated GIF  
 a|* Automated tool output
 * Images
 
 | Deliverables 
-a|* Exploit Evidence High-level 
-*Remediation suggestions 
-| Summary report
+| Real-time documentation web system
+[button]#link:../../products/integrates/[FLUIDIntegrates]#
+a|* Word document manually made.
+* Tool reports without discarding false positives
 |====
