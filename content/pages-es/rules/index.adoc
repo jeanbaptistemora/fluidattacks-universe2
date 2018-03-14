@@ -8,6 +8,7 @@
 == Sesiones
 
 * link:023/[REQ.023 Cerrar sesión de un usuario inactivo].
+* link:024/[REQ.024 Transferir información con objetos de sesión].
 * link:026/[REQ.026 Cookies con atributos de seguridad].
 
 == Sistema
