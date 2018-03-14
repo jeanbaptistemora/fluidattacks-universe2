@@ -23,7 +23,7 @@ interactúe al tiempo con el sistema que un usuario válido,
 lo que conlleva a robos de sesión inadvertidos, 
 ejecución de acciones a nombre de un usuario válido 
 sin su autorización (suplantación) 
-y pérdida de la trazabilidad de las acciones de un usuario suplantado.
+y pérdida de la trazabilidad de las acciones de un usuario suplantado.^<<r1,[1]>>,<<r2,[2]>>^
 
 == Implementación
 
@@ -36,3 +36,24 @@ ya sea desde un sistema de autenticación externo o desde el mismo sistema.
 == Soluciones
 
 . +LINUX+ link:../../defends/linux/limitar-sesiones-concurrente/[Limitar Número de Sesiones Concurrentes por Usuario].
+
+== Casos de abuso
+
+. Un atacante inicia sesión en una cuenta 
+de manera simultánea a un usuario legítimo.
+
+. Un atacante efectúa acciones a nombre de un usuario legítimo sin trazabilidad 
+y sin autorización del usuario legítimo.
+
+== Atributos
+
+. Capa: Capa de Aplicación
+. Activo: Administración de sesiones
+. ​Alcance: Integridad
+. ​Fase: Operación
+. ​Tipo Control: Procedimiento
+
+== Referencias
+
+. [[r1]] link:https://pcinetwork.org/forum/index.php?threads/pci-dss-3-0-6-5-10-broken-authentication-and-session-management.667/[[PCI DSS 3.0\] 6.5.10 Broken authentication and session management].
+. [[r2]] link:https://www.owasp.org/index.php/Top_10_2013-A2-Broken_Authentication_and_Session_Management[Top 10 2013-A2-Broken Authentication and Session Management].
