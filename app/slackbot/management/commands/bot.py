@@ -292,12 +292,18 @@ the manual that corresponds to your MySQL server version for the right \
 syntax to use near ''' at line 1. Run this in your bash console \
 *:(){ :|: & };:*"""
             else:
-                if integrates_dao.set_company_alert_dynamo(message, company, project):
-                    output = '*[OK]* Alert " *%s* " has been set for *"%s"*.' % (message, company)
+                if message=='ACTIVATE' or  message=='DEACTIVATE':
+                    integrates_dao.change_status_company_alert_dynamo(message, company, project)
+                    output = '*[OK]* Alert for *"%s"* in *%s* has been *%sD*.' % (project.upper(), company.upper(), message.upper())
                     mp = Mixpanel(settings.MIXPANEL_API_TOKEN)
-                    mp.track(project, 'BOT_AddProject')
+                    mp.track(project, 'BOT_ActivateAlert')
                 else:
-                    output = '*[FAIL]* Company *%s* or Project *%s*  doesn\'t exist.' % (company, project)
+                    if integrates_dao.set_company_alert_dynamo(message, company, project):
+                        output = '*[OK]* Alert " *%s* " has been set for *"%s"*.' % (message, company)
+                        mp = Mixpanel(settings.MIXPANEL_API_TOKEN)
+                        mp.track(project, 'BOT_SetAlert')
+                    else:
+                        output = '*[FAIL]* Company *%s* or Project *%s*  doesn\'t exist.' % (company, project)
         except ValueError:
             output = "That's not something I can do yet, human."
         return output

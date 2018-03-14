@@ -382,10 +382,16 @@ def get_company_alert_dynamo(company_name, project_name):
     table = dynamodb_resource.Table('alerts_by_company')
     filter_key = 'company_name'
     filter_sort = 'project_name'
-    if filter_key and company_name and filter_sort and project_name :
-        response = table.query(KeyConditionExpression=Key(filter_key).eq(company_name) & Key(filter_sort).eq(project_name))
+    if project_name == 'all':
+        if filter_key and company_name:
+            response = table.query(KeyConditionExpression=Key(filter_key).eq(company_name))
+        else:
+            response = table.query()
     else:
-        response = table.query()
+        if filter_key and company_name and filter_sort and project_name :
+            response = table.query(KeyConditionExpression=Key(filter_key).eq(company_name) & Key(filter_sort).eq(project_name))
+        else:
+            response = table.query()
     items = response['Items']
     while True:
         if response.get('LastEvaluatedKey'):
@@ -398,13 +404,14 @@ def get_company_alert_dynamo(company_name, project_name):
 def set_company_alert_dynamo(message, company_name, project_name):
     """Crea, actualiza o activa una alerta para una empresa"""
     project = project_name.lower()
-    with connections['integrates'].cursor() as cursor:
-        query = 'SELECT * FROM projects WHERE project=%s'
-        cursor.execute(query, (project,))
-        row = cursor.fetchone()
-        if row is None:
-            # Project already exists.
-            return False
+    if project != 'all':
+        with connections['integrates'].cursor() as cursor:
+            query = 'SELECT * FROM projects WHERE project=%s'
+            cursor.execute(query, (project,))
+            row = cursor.fetchone()
+            if row is None:
+                # Project already exists.
+                return False
     company_name=company_name.lower()
     project_name=project_name.lower()
     table = dynamodb_resource.Table('alerts_by_company')
@@ -425,20 +432,46 @@ def set_company_alert_dynamo(message, company_name, project_name):
             rollbar.report_exc_info()
             return False
     else:
+        for a in item:
+            try:
+                response = table.update_item(
+                    Key={
+                        'company_name': a['company_name'],
+                        'project_name': a['project_name'],
+                    },
+                    UpdateExpression='SET message = :val1, status_act = :val2',
+                    ExpressionAttributeValues={
+                        ':val1': str(message),
+                        ':val2': '1',
+                    }
+                )
+            except ClientError:
+                rollbar.report_exc_info()
+                return False
+        resp = response['ResponseMetadata']['HTTPStatusCode'] == 200
+        return resp
+
+def change_status_company_alert_dynamo(message,company_name, project_name):
+    """Activa o desativa la alerta de una empresa"""
+    message = message.lower()
+    company_name=company_name.lower()
+    project_name=project_name.lower()
+    table = dynamodb_resource.Table('alerts_by_company')
+    if (project_name=='all' and message=='deactivate') or (project_name!='all' and message=='deactivate'):
+        status = '0'
+    else:
+        status = '1'
+    item = get_company_alert_dynamo(company_name, project_name)
+    for a in item:
+        payload = { 'company_name': a['company_name'], 'project_name': a['project_name'], }
         try:
-            response = table.update_item(
-                Key={
-                    'company_name': company_name,
-                    'project_name': project_name,
-                },
-                UpdateExpression='SET message = :val1, status_act = :val2',
+            table.update_item(
+                Key=payload,
+                UpdateExpression='SET status_act = :val1',
                 ExpressionAttributeValues={
-                    ':val1': str(message),
-                    ':val2': '1',
-                }
-            )
-            resp = response['ResponseMetadata']['HTTPStatusCode'] == 200
-            return resp
+                    ':val1': status,
+                    }
+                )
         except ClientError:
             rollbar.report_exc_info()
             return False
