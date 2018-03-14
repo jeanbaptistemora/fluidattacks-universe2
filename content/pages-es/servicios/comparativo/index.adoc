@@ -21,7 +21,7 @@
 | Estático (Solo herramientas)
 
 | Modelo 
-| +RedTeam+ 
+| +Red Team+ 
 | Análisis de vulnerabilidades con explotación selectiva
 
 | Cobertura 
@@ -31,7 +31,7 @@
 | Definición de Alcance 
 a|* Para infraestructura, según puertos abiertos +TCP+ y +UDP+.
 * Para aplicaciones, según entradas (campos visible, ocultos y cabeceras) 
-a|* Para infraestructura, según direcciones IP
+a|* Para infraestructura, según direcciones +IP+.
 * Para aplicaciones, según el número de aplicaciones.
 
 | Perfiles Profesionales 
@@ -69,19 +69,19 @@ a|* De impacto específicos del negocio
 a|* Basado en firmas 
 * Sintácticos
 
-| Fugas (+Yield+) 
+| link:../../blog/desplazados-maquinas/[Fugas (+Yield+)] 
 | 0% sobre el objetivo de prueba 
 | ~65% sobre el objetivo de prueba
 
 | Tipo de Evidencia 
 a|* Imágenes 
-* GIF animado
+* +GIF+ animado
 a|* Salidas de Herramienta
 * Imágenes
 
 | Entregables 
 | Sistema web de documentación en tiempo real 
-[button]#link:../../productos/integrates/[FLUIDIntegrates]#
+[button]#link:../../productos/integrates/[FLUIDIntegrates>>]#
 a|* Documento en word realizado manualmente.
 * Informes de herramientas sin descartar falsos positivos
 |====
