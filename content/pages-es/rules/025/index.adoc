@@ -1,0 +1,38 @@
+:slug: rules/025/
+:category: rules
+:description: En el presente documento se detallan los requerimientos de seguridad relacionados a la gestión adecuada de sesiones concurrentes en un sistema que permita el acceso simultáneo de usuarios a sus servicios, evitando así, que un usuario mal intencionado interactúe al tiempo con un usuario válido.
+:keywords: Requerimiento, Seguridad, sesión de usuario, sesiones concurrentes, robo de sesión, credenciales.
+:rules: yes
+
+= REQ.025 Controlar sesiones concurrentes
+
+== Nombre
+
+Las sesiones concurrentes de un sistema se deben controlar o informar.
+
+== Descripción
+
+Un sistema que maneja sesiones de acceso autenticadas 
+y asociadas a usuarios únicos 
+puede permitir el acceso simultaneo a sus servicios 
+mediante el uso de las mismas credenciales, 
+esto supone varios riesgos para el servicio, la información 
+y los usuarios del sistema 
+al permitir que un usuario mal intencionado 
+interactúe al tiempo con el sistema que un usuario válido, 
+lo que conlleva a robos de sesión inadvertidos, 
+ejecución de acciones a nombre de un usuario válido 
+sin su autorización (suplantación) 
+y pérdida de la trazabilidad de las acciones de un usuario suplantado.
+
+== Implementación
+
+. Limitar o eliminar la concurrencia en sesiones: 
+Configurar en el sistema según su naturaleza 
+la opción de controlar la conexión simultanea 
+utilizando las mismas credenciales 
+ya sea desde un sistema de autenticación externo o desde el mismo sistema.
+
+== Soluciones
+
+. +LINUX+ link:../../defends/linux/limitar-sesiones-concurrente/[Limitar Número de Sesiones Concurrentes por Usuario].
