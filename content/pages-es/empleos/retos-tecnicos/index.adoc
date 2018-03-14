@@ -248,9 +248,20 @@ pues necesitará estos datos al momento de registrar los campos "Ranking Mundial
 
 * En Codeabbey (Para retos de programación):
 
-image::ranking-mundial-codeabbey.png[Ranking mundial]
+.. Ranking mundial
 
-image::ranking-colombia-codeabbey.png[Ranking Colombia]
+... Ir a la pestaña "Ranking" en la página de codeabbey: image:ranking-mundial-codeabbey.png[Ranking mundial codeabbey]
+
+... Baje hasta el final de la página y allí encontrará su posición en el ranking mundial: image:ranking-mundial-codeabbey-2.png[Ranking mundial codeabbey]
+
+.. Ranking Colombia
+
+... Estando en la pestaña "Ranking", seleccionar el país image:ranking-colombia-codeabbey.png[Ranking Colombia]
+
+... La página no muestra directamente su posición, por lo que deberá realizar el conteo manualmente.
+Puede facilitar la tarea teniendo en cuenta que cada página muestra 50 usuarios.
+Deberá avanzar a la siguiente página hasta encontrar su nombre de usuario en el tablero de ranking
+image:ranking-colombia-codeabbey-2.png[Ranking Colombia codeabbey]
 
 * En Wechall (Para retos de hacking):
 
