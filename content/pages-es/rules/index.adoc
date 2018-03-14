@@ -72,6 +72,10 @@
 * link:173/[REQ.173 Descartar información insegura].
 * link:302/[REQ.302 Declarar explícitamente dependencias].
 
+== Servicios
+
+* link:262/[REQ.262 Verificar componentes de terceros].
+
 == Datos
 
 * link:176/[REQ.176 Restringir objetos del sistema].
