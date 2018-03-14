@@ -269,7 +269,7 @@ def assign_company(email, company):
 def get_project_users(project):
     """Trae los usuarios interesados de un proyecto."""
     with connections['integrates'].cursor() as cursor:
-        query = 'SELECT users.email FROM users LEFT JOIN project_access \
+        query = 'SELECT users.email, project_access.has_access FROM users LEFT JOIN project_access \
 ON users.id = project_access.user_id WHERE project_access.project_id=(SELECT id FROM \
 projects where project=%s)'
         try:
@@ -284,8 +284,8 @@ projects where project=%s)'
 def get_projects_by_user(user_id):
     """Trae los usuarios interesados de un proyecto."""
     with connections['integrates'].cursor() as cursor:
-        query = "SELECT projects.project, projects.description FROM \
-project_access INNER JOIN users ON project_access.user_id=users.id \
+        query = "SELECT projects.project, projects.description, project_access.has_access \
+FROM project_access INNER JOIN users ON project_access.user_id=users.id \
 INNER JOIN projects ON project_access.project_id=projects.id \
 WHERE users.email=%s ORDER BY projects.project ASC"
         cursor.execute(query, (user_id,))

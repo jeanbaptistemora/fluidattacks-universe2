@@ -202,7 +202,13 @@ syntax to use near ''' at line 1. Run this in your bash console \
 *:(){ :|: & };:*"""
             else:
                 output = integrates_dao.get_projects_by_user(user)
-                output = "\n".join([x[0] + ": " + x[1] for x in output])
+                aux = []
+                for x in output:
+                    if x[2] == 1:
+                        aux.append(x[0] + ": " + x[1] + " - Active")
+                    else:
+                        aux.append(x[0] + ": " + x[1] + " - Suspended")
+                output = "\n".join(aux)
         except ValueError:
             output = "That's not something I can do yet, human."
         return output
@@ -218,7 +224,13 @@ syntax to use near ''' at line 1. Run this in your bash console \
 *:(){ :|: & };:*"""
             else:
                 output = integrates_dao.get_project_users(project)
-                output = "\n".join([x[0] for x in output])
+                aux = []
+                for x in output:
+                    if x[1] == 1:
+                        aux.append(x[0] + " - Active")
+                    else:
+                        aux.append(x[0] + " - Suspended")
+                output = "\n".join(aux)
         except ValueError:
             output = "That's not something I can do yet, human."
         return output
