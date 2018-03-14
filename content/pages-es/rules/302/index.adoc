@@ -1,0 +1,13 @@
+:slug: rules/302/
+:category: rules
+:description: En el presente documento se detallan los requerimientos de seguridad relacionados al manejo o importación adecuada de librerías o dependencias mediante un archivo explícito. Dependencias cuyo origen, debe provenir de repositorios confiables y en lo posible oficiales.
+:keywords: Requerimiento, Seguridad, Archivos, dependencias, código fuente, librerías.
+:rules: yes
+
+= REQ.302 Declarar explícitamente dependencias
+
+== Nombre
+
+Las dependencias (software de terceros/librerías) 
+deben ser declaradas explícitamente (nombre y versión) 
+en un archivo dentro del código fuente.

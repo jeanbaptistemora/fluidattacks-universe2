@@ -19,7 +19,6 @@
 * link:039/[REQ.039 Definir content type explícito].
 * link:040/[REQ.040 Definir charset explícito].
 
-
 == Bitácoras
 
 * link:070/[REQ.070 Registrar eventos en bitácoras].
@@ -71,6 +70,7 @@
 * link:162/[REQ.162 Cerrar recursos no utilizados].
 * link:163/[REQ.163 Variables inicializadas explícitamente].
 * link:173/[REQ.173 Descartar información insegura].
+* link:302/[REQ.302 Declarar explícitamente dependencias].
 
 == Datos
 
