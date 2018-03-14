@@ -16,3 +16,4 @@ superior o igual a 5 minutos.
 
 . +ASPNET+ link:../../defends/aspnet/limitar-tiempo-sesion/[Limitar tiempo de sesión].
 . +JAVA+ link:../../defends/java/configurar-tiempo-sesion/[Configurar Tiempo de Sesión].
+. +AIX+ link:../../defends/aix/tiempo-limite-sesion/[Establecer Tiempo Límite para Sesión Inactiva].
