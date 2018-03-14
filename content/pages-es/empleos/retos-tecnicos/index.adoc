@@ -235,16 +235,8 @@ resolver los retos en dicho lenguaje.
 
 == 7. Informes de avance
 
-Apreciaremos mucho que nos informe de sus avances mínimo 1 vez cada semana,
-mediante el siguiente [button]#link:../../../../forms/training[formulario >>]#.
-Al diligenciar el informe, 
-por favor presente lo siguiente:
-
-. En el campo “Relación”, escoger la opción “Selección”.
-. Tenga en cuenta su posición en el ranking y su puntaje antes de comenzar el entrenamiento, 
-pues necesitará estos datos al momento de registrar los campos "Ranking Mundial Inicial", 
-"Ranking Colombia Inicial" y "Puntaje/Páginas Inicial"
-. Los puntajes o posiciones en el ranking finales puede obtenerlos de la siguiente forma:
+El formato indicado para los commits (ver link:#envio[reglas de envío]) permitirá evidenciar su progreso en esta etapa.
+Para diligenciar dicho formato, puede obtener los puntajes y posiciones en el ranking de cada plataforma de la siguiente forma:
 
 * En Codeabbey (Para retos de programación):
 
