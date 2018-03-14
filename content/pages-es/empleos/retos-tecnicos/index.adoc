@@ -258,8 +258,8 @@ image::ranking-wechall.png[Ranking en Wechall]
 
 == 8. Fin
 
-Esta etapa finaliza cuando usted haya completado los objetivos anteriormente mencionados y 
-nos envíe vía e-mail los 40+10+10 archivos referentes a las soluciones realizadas por usted.
+Esta etapa finaliza cuando usted haya completado los objetivos anteriormente mencionados y nos envíe
+vía e-mail (careers@autonomicmind.co) los archivos correspondientes a sus soluciones.
 
 Por favor tenga en cuenta que durante esta etapa la continuidad es fundamental, 
 ya que *de no haber movimiento (push al repositorio git) en 14 días calendario, 
