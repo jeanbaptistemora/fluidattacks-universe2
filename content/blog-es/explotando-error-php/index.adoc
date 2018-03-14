@@ -14,7 +14,7 @@
 
 = Explotando un simple error de PHP
 
-El lenguaje de programación https://es.wikipedia.org/wiki/PHP[PHP] nace en el 
+El lenguaje de programación link:https://es.wikipedia.org/wiki/PHP[PHP] nace en el 
 año 1995 con el objetivo de hacer mas interactivas las páginas web 
 incorporándose directamente en un documento HTML. Fue uno de los primeros
 lenguajes de programación implementado en el lado del servidor y puede ser
@@ -54,21 +54,24 @@ caso la variable se llama ip, seguida del igual = seguido del número de ip que
 tiene acceso 213.75.238.147.
 
 * la petición quedaría: ?ip=213.75.238.147.
-* si la url del reto es: https://www.net-force.nl/challenge/level402/protected.php
-* La url con el exploit quedaría: https://www.net-force.nl/challenge/level402/protected.php?ip=213.75.238.147.
+* si la url del reto es +https://www.net-force.nl/challenge/level402/protected.php+
+* La url con el exploit quedaría +https://www.net-force.nl/challenge/level402/protected.php?ip=213.75.238.147+.
 
 Y efectivamente penetramos el sitio web y pasamos al segundo paso de este reto.
 
 .Segundo paso del reto
 image::solucion.png[solucion]
 
-Como se ve en la Figura2 se da click en link Proceed para proceder, pero 
+Como se ve en la Figura 2 se da click en link Proceed para proceder, pero 
 sorpresivamente se muestra otra página web con Acceso denegado. Para resolver
 este segundo paso es necesario tener curl instalado en el ordenador y estudiar 
-la url en cuestión https://net-force.nl/challenge/level402/auth.php
+la url en cuestión: +https://net-force.nl/challenge/level402/auth.php+.
 
-[quote]
+.challenge.sh
+[source, bash, linenums]
+----
 curl -I https://net-force.nl/challenge/level402/auth.php
+----
 
 .Utilizando curl
 image::curl.png[curl]
@@ -81,7 +84,7 @@ no pasa nada, entonces suponemos que se debe cambiar el no por yes para
 acceder.
 
 La url quede de la siguiente manera: 
-* https://net-force.nl/challenge/level402/auth.php?show=yes
+* +https://net-force.nl/challenge/level402/auth.php?show=yes+
 
 === Éxito: este reto ha sido resuelto!
 

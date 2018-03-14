@@ -18,7 +18,8 @@ El resguardo de la información plantea grandes retos a las organizaciones, la
 línea entre el cumplimiento y la capacidad de recuperación se hace difusa con 
 las tecnologías actuales, y nos plantea nuevas posibilidades a los 
 profesionales de TI. Leyendo el informe del cuadrante de Gartner referente al 
-software de backup y restauración (ID: https://www.gartner.com/doc/3337721/magic-quadrant-data-center-backup[G00280391]), 
+software de backup y restauración 
+(ID: link:https://www.gartner.com/doc/3337721/magic-quadrant-data-center-backup[G00280391]), 
 comprendí que lo que nos  espera en temas de copias de seguridad es amplio y 
 sera todo un reto para las áreas de tecnología en las organizaciones.
 

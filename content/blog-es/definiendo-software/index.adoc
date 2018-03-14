@@ -82,7 +82,8 @@ Definidos por Software las capas de infraestructura de TI, que incluyen los
 elementos claves de redes, almacenamiento y servidores, así como también la 
 administración.
 
-.Software Defined Environments: https://www-935.ibm.com/services/nl/nl/it-services/systems/server-services/software-defined-environment/index.html[IBM]
+.Software Defined Environments: 
+link:https://www-935.ibm.com/services/nl/nl/it-services/systems/server-services/software-defined-environment/index.html[IBM]
 image::sdeibm.png[SDE]
 
 * *El Almacenamiento Definido por Software (SDS):* Unifica el almacenamiento para 

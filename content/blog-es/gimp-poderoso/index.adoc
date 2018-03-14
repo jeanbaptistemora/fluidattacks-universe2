@@ -30,17 +30,17 @@ creado con diversos fines en estos editores para manipular las imágenes,
 dándole así el mayor gusto a los publicistas o diseñadores gráficos que 
 trabajan en la edición digital.
 
-.Programa de manipulación de imágenes de GNU – https://www.gimp.org/[GIMP]
+.Programa de manipulación de imágenes de GNU – link:https://www.gimp.org/[GIMP]
 image::gimp.png[gimp]
 
 Este artículo se concentrará en un famoso editor de imágenes llamado 
-https://www.gimp.org/[GIMP]. GIMP no es más que un ambicioso proyecto de 
+link:https://www.gimp.org/[GIMP]. GIMP no es más que un ambicioso proyecto de 
 software libre que se puede descargar gratuitamente desde su sitio web. Con los 
 años de desarrollo, el editor de imágenes GIMP ha crecido mucho, volviéndose un
 software muy robusto que aguanta ediciones “pesadas” de imágenes, compitiendo 
 así con software privados como los que desarrolla Adobe.
 
-En otros https://fluidattacks.com/web/es/blog/arte-ocultar-informacion-imagen/[artículos] 
+En otros link:https://fluidattacks.com/web/es/blog/arte-ocultar-informacion-imagen/[artículos] 
 se ha hablado ya del arte de esconder información en imágenes, esta vez nos 
 enfocaremos en descubrir como hace una imagen para portar información o un 
 mensaje sin necesidad de esconderlo, pero que a simple vista no se vea.
@@ -50,7 +50,7 @@ mensaje sin necesidad de esconderlo, pero que a simple vista no se vea.
 En este reto nos dan una imagen en formato GIF y nos dicen que no pestañemos 
 pues esta imagen nos mostrará la solución.
 
-.Imagen del Reto – http://www.hacker.org/challenge/chal.php?id=88[Hacker.org]
+.Imagen del Reto – link:http://www.hacker.org/challenge/chal.php?id=88[Hacker.org]
 image::reto.png[reto]
 
 Por la misma naturaleza del formato GIF que es un formato de imagen que permite 

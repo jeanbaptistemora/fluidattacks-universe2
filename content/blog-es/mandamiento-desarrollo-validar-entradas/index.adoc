@@ -43,7 +43,7 @@ image::validar-datos.png[validar]
 Para demostrar el paso a paso de esta falla y que sea más claro para el lector,
 resolveremos un ejercicio practico.
 
-natas 10 en http://overthewire.org/wargames/[overthewire.org]
+natas 10 en link:http://overthewire.org/wargames/[overthewire.org]
 
 En la siguiente figura tenemos el código fuente de la aplicación, la cual busca
 palabras claves en un archivo.

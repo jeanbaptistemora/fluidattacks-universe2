@@ -15,9 +15,9 @@
 = Linux de nuestro lado
 
 Linux es un sistema operativo muy maleable y es que al ser un sistema operativo
-basado en licencia https://opensource.com/resources/what-open-source[_open source_]
+basado en licencia link:https://opensource.com/resources/what-open-source[_open source_]
 hay distribuciones; prácticamente para cada aspecto profesional que se le
-ocurra, desde una distribución http://blog.desdelinux.net/aperture-linux-la-distribucion-para-fotografos/[especializada para fotógrafos]
+ocurra, desde una distribución link:http://blog.desdelinux.net/aperture-linux-la-distribucion-para-fotografos/[especializada para fotógrafos]
 hasta:: herramientas para prueba de penetración _pentest_ y seguridad informática
 y es que Linux se ha convirtiendo en la mejor opción para hallar
 vulnerabilidades:: en un sistema, un pentest es un ataque a un sistema
@@ -28,7 +28,7 @@ deben ser notificados:: al propietario del sistema afectado, con los resultados
 de estos pentest se evalúan los potenciales impactos a la seguridad e
 integridad de la:: información y sugerir medidas para contrarrestar los ataques.
 
-.Logo de Linux footnote:[Imagen tomada de http://www.unixforum.co.uk/[Foro UNIX]]
+.Logo de Linux footnote:[Imagen tomada de link:http://www.unixforum.co.uk/[Foro UNIX]]
 image::linux-header.png[logo]
 
 == ¿Por qué usar Linux?
@@ -45,16 +45,16 @@ La reputación de Linux como sistema operativo seguro se ha mantenido desde sus 
 * Linux desde sus inicios ha sido multitarea y multiusuario concepto que Windows tardo más de dos décadas en implementar.
 
 
-== https://www.kali.org/[Kali Linux]
+== link:https://www.kali.org/[Kali Linux]
 
 .Escritorio de Kali
 image::kali-linux-16553-1.png[kali]
 
 Kali Linux es derivado de las distribuciones Debian, actualmente está siendo
-mantenida por https://www.offensive-security.com/[_Offensive Security Ltd_].
+mantenida por link:https://www.offensive-security.com/[_Offensive Security Ltd_].
 Fue desarrollada por Mati Aharoni y Devon Kearns, es la versión actualizada de
 BackTrack. Es una de las distros más completas con una suite de
-http://tools.kali.org/tools-listing[aplicaciones especializadas] desde análisis
+link:http://tools.kali.org/tools-listing[aplicaciones especializadas] desde análisis
 forense hasta análisis de vulnerabilidades.
 
 Requisitos de instalación::
@@ -63,13 +63,13 @@ Requisitos de instalación::
 * Lectora de CD/DVD / Soporte para iniciar desde una memoria USB
 
 
-== http://www.pentoo.ch/[Pentoo]
+== link:http://www.pentoo.ch/[Pentoo]
 
-.Escritorio de pentoo footnote:[Imagen tomada de https://bytescode.wordpress.com/[BytesCode]]
+.Escritorio de pentoo footnote:[Imagen tomada de link:https://bytescode.wordpress.com/[BytesCode]]
 image::pentoo.png[pentoo]
 
 Pentoo es un Live CD y Live USB diseñada para pentest y evaluación de
-seguridad. Se basa en https://www.gentoo.org/[Linux Gentoo], pentoo está
+seguridad. Se basa en link:https://www.gentoo.org/[Linux Gentoo], pentoo está
 disponible en LiveCD de 32 y 64 bits, Pentoo está también disponible como una
 superposición de una instalación existente de Gentoo, se destacan de Pentoo sus
 paquetes de inyección Wifi y un sinfín de herramientas para pentest.
@@ -77,17 +77,18 @@ paquetes de inyección Wifi y un sinfín de herramientas para pentest.
 Pentoo es en palabras simples una instalación de gentoo con herramientas
 personalizadas, kernel personalizado, y características como:
 
-. Kernel endurecido con parches http://www.thegeekstuff.com/2013/05/linux-aufs/[aufs]
-. https://www.xfce.org/[XFCE4]
-. Soporte de _cracking_ de https://www.exploit-db.com/docs/24909.pdf[Cuda] / https://developer.nvidia.com/opencl[OPENCL] con herramientas de desarrollo
+. Kernel endurecido con parches link:http://www.thegeekstuff.com/2013/05/linux-aufs/[aufs]
+. link:https://www.xfce.org/[XFCE4]
+. Soporte de _cracking_ de link:https://www.exploit-db.com/docs/24909.pdf[Cuda] / 
+link:https://developer.nvidia.com/opencl[OPENCL] con herramientas de desarrollo
 
 
-== https://backbox.org/[BackBox Linux]
+== link:https://backbox.org/[BackBox Linux]
 
-.Escritorio de BackBox footnote:[Imagen tomada de http://www.subhashdasyam.com[SubHashDasyam]]
+.Escritorio de BackBox footnote:[Imagen tomada de link:http://www.subhashdasyam.com[SubHashDasyam]]
 image::backbox-linux-2-5.png[backbox]
 
-BackBox está basado en https://www.ubuntu.com[Ubuntu] y diseñado para realizar
+BackBox está basado en link:https://www.ubuntu.com[Ubuntu] y diseñado para realizar
 pentest, respuesta a incidentes e informática forense. El objetivo principal de
 BackBox es proveer una alternativa altamente modificable y un buen desempeño de
 sistema.
@@ -105,9 +106,9 @@ Requisitos de instalación::
 * Para las arquitecturas i386 y amd64, un mínimo de 512 MB de RAM.
 * Lectora de CD/DVD / Soporte para iniciar desde una memoria USB
 
-== https://www.parrotsec.org/[Parrot Security OS]
+== link:https://www.parrotsec.org/[Parrot Security OS]
 
-.Escritorio de Parrot footnote:[Imagen tomada de http://linux.softwsp.com[Softwsp]]
+.Escritorio de Parrot footnote:[Imagen tomada de link:http://linux.softwsp.com[Softwsp]]
 image::parrot-security-os-linux-008.png[parrot]
 
 Es un sistema operativo basado en la nube para realizar pentest, informática
@@ -118,9 +119,9 @@ pentesting, viene provisto de las herramientas más profesionales combinadas con
 una forma fácil de uso en un entorno ligero y rápido para el pentest y una
 ventaja es que este sistema operativo está adaptado también para el uso diario.
 
-== https://blackarch.org/[BlackArch Linux]
+== link:https://blackarch.org/[BlackArch Linux]
 
-.Escritorio BlackArch footnote:[Imagen tomada de http://lamiradadelreplicante.com/[LaMiradaDelReplicante]]
+.Escritorio BlackArch footnote:[Imagen tomada de link:http://lamiradadelreplicante.com/[LaMiradaDelReplicante]]
 image::blackarchlinux-image2.png[blackarch]
 
 BlackArch es una expansión ligera de Arch Linux para pentesters e
@@ -135,9 +136,9 @@ Requisitos de instalación::
 * Para las arquitecturas i386 y amd64, un mínimo de 256 MB de RAM.
 * Lectora de CD/DVD / Soporte para iniciar desde una memoria USB.
 
-== http://bugtraq-team.com/[Bugtraq]
+== link:http://bugtraq-team.com/[Bugtraq]
 
-.Escritorio Bugtraq footnote:[Imagen tomada de http://lamiradadelreplicante.com/[LaMiradaDelReplicante]]
+.Escritorio Bugtraq footnote:[Imagen tomada de link:http://lamiradadelreplicante.com/[LaMiradaDelReplicante]]
 image::blackarchlinux-image2.png[blackarch-2]
 
 Disponible en Debian, se dedica exclusivamente a la seguridad informática. Su comunidad se centra en temas que traten sobre discusiones de vulnerabilidad, anuncios de seguridad, métodos de explotación, etc... Bugtraq lo conforma hackers experimentados y desarrolladores que ofrecen servicios para la ética y las pruebas de intrusión.
@@ -161,5 +162,5 @@ seguro para todos.
 
 == Referencias
 
-. http://www.itproportal.com/2016/02/02/the-top-10-linux-security-distros/[ITProPortal]
-. http://www.techradar.com/news/10-best-linux-distros-for-privacy-fiends-and-security-buffs[TechRadar]
+. [[r1]] link:http://www.itproportal.com/2016/02/02/the-top-10-linux-security-distros/[ITProPortal].
+. [[r2]] link:http://www.techradar.com/news/10-best-linux-distros-for-privacy-fiends-and-security-buffs[TechRadar].

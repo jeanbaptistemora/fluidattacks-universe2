@@ -30,7 +30,7 @@ hacker que fácilmente puede aprovecharse de esta vulnerabilidad y, en el peor d
 los casos, anular completamente dicho servicio.
 
 Por lo tanto hoy, continuando con nuestras sesiones sobre soluciones a retos de
-https://www.hackthis.co.uk[hackthis], daremos solución a un reto en el cual
+link:https://www.hackthis.co.uk[hackthis], daremos solución a un reto en el cual
 debemos interpretar una ruta relativa.
 
 == Rutas Relativas y Absolutas
@@ -43,7 +43,7 @@ image::folders.png[ejemplo]
 
 Todo servidor al igual que nuestra computadora, organiza los archivos y carpetas
 en un sistema denominado sistema de archivos. Imaginemos que tenemos un sitio web
-cuyo dominio o dirección es: *https://www.mipagina.com* y que contiene los
+cuyo dominio o dirección es: +https://www.mipagina.com+ y que contiene los
 directorios mostrados en la anterior imagen.
 
 Por ejemplo, las páginas _pagina2.html_ y _pagina3.html_ se encuentran a un
@@ -52,7 +52,7 @@ En este caso, si pagina2.html dentro de su contenido referencia mediante un
 enlace a pagina3.html, las url absoluta y relativa (respecto a pagina2.html) para
 pagina3.html quedarían de la siguiente manera:
 
- url absoluta: https://www.mipagina.com/a/a2/pagina3.html
+ url absoluta: +https://www.mipagina.com/a/a2/pagina3.html+
  url relativa: pagina3.html
 
 Como podemos ver, para este caso, fue mucho más sencillo definir una ruta
@@ -69,7 +69,7 @@ caracteres dentro la url relativa: *../* .
 Por lo tanto, las url absoluta y relativa (respecto a pagina1.html) para
 pagina4.html quedarían de la siguiente manera:
 
- url absoluta: https://www.mipagina.com/c/pagina4.html
+ url absoluta: +https://www.mipagina.com/c/pagina4.html+
  url relativa: ../c/pagina4.html
 
 Podemos subir los niveles que queramos en la jerarquía de carpetas, simplemente
@@ -79,7 +79,7 @@ Supongamos que deseamos enlazar a _pagina4.html_ desde _pagina2.html_ . En este
 caso, la url absoluta y relativa (respecto a pagina2.html) para pagina4.html
 quedarían así:
 
- url absoluta: https://www.mipagina.com/c/pagina4.html
+ url absoluta: +https://www.mipagina.com/c/pagina4.html+
  url relativa: ../../c/pagina4.html
 
 == Reto: Main Level 4
@@ -102,10 +102,10 @@ Al analizar dicha información podemos intuir de que se trata de una url relativ
 tal y como vimos en la sección anterior. Si nos fijamos al inicio de dicha ruta,
 podemos ver que sube dos niveles y luego accede a la carpeta _extras_ donde se
 encuentra un archivo llamado _ssap.xml_ . Por lo tanto, si la ruta del reto es
-_https://www.hackthis.co.uk/levels/main/4_ al aplicar la ruta relativa debemos
++https://www.hackthis.co.uk/levels/main/4+ al aplicar la ruta relativa debemos
 subir desde las carpetas "4" y "main" hasta la carpeta "levels". Una vez estando
 ahí, podemos completar la ruta de la siguiente manera:
- https://www.hackthis.co.uk/levels/extras/ssap.xml
++https://www.hackthis.co.uk/levels/extras/ssap.xml+
 
 Accedemos a dicha url para obtener:
 

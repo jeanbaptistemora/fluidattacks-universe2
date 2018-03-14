@@ -46,7 +46,8 @@ posibles errores que representan una amenaza.
 ¿Qué hacer para aprobar el software desarrollado antes de sacarlo al mercado o 
 introducirlos a la organización?
 
-. Introducir la seguridad en el https://fluidattacks.com/web/es/blog/seguridad-sdlc/[SDLC]
+. Introducir la seguridad en el 
+link:https://fluidattacks.com/web/es/blog/seguridad-sdlc/[SDLC]
 (Systems Development Life Cycle)
 . Detectar la mayor cantidad de vulnerabilidades posibles antes de sacarlo al 
 mercado
@@ -57,7 +58,8 @@ licencia, vulnerabilidades conocidas, tiempos de actualización, soporte, etc)
 . Utilizar técnicas que ayuden a detectar vulnerabilidades en el desarrollo 
 tanto antes de liberarlo como en el proceso de adquisición.
 
-.Secure Software Requires the Right Tools – https://onlinexperiences.com[Jonathan Knudsen]
+.Secure Software Requires the Right Tools – 
+link:https://onlinexperiences.com[Jonathan Knudsen]
 image::2.png[secure]
 
 Las herramientas que pueden hacer parte del robot army están separadas por el 
@@ -101,7 +103,8 @@ seguro y se debe tener un proceso que detecte todos estos cambios.
 Applications have an average of 46 components, and knowing which ones you are 
 using is necessary to defend yourself when major vulnerabilities are announced. 
 This is why several compliance regulations require inventories of third-party 
-code so that you can address risks. – https://www.veracode.com/products/software-composition-analysis[Veracode]
+code so that you can address risks. – 
+link:https://www.veracode.com/products/software-composition-analysis[Veracode]
 
 Como fábrica o usuario final siempre se debe velar por minimizar al 100 el 
 riesgo en un producto o dentro de la organización ya que ningún software es 

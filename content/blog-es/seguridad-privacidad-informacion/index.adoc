@@ -37,7 +37,8 @@ buscan regular y estandarizar a los responsables de proteger la PII, con esto
 más el Habeas Data los usuarios nos podemos sentir tranquilos porque están 
 velando adecuadamente por nuestros derechos.
 
-.Como usuarios entregamos mucha información y los sistemas deben entregar las herramientas para controlarla adecuadamente: http://www.androidsis.com/las-nuevas-herramientas-de-google-para-darte-mas-control-sobre-tu-privacidad-y-seguridad/[androsis]
+.Como usuarios entregamos mucha información y los sistemas deben entregar las herramientas para controlarla adecuadamente: 
+link:http://www.androidsis.com/las-nuevas-herramientas-de-google-para-darte-mas-control-sobre-tu-privacidad-y-seguridad/[androsis]
 image::privacidad-info.png[privacidad]
 
 *Generalidades* claves de varias regulaciones de privacidad a nivel de seguridad 
@@ -103,8 +104,10 @@ tratamiento de datos personales.
 Adicional a esto se implementó el *RNBD* (Registro Nacional de Bases de Datos) 
 este es el directorio público de las bases de datos sujetas a tratamiento que 
 operan en el país, el cual será administrado por la Superintendencia de 
-Industria y Comercio y será de libre consulta para los ciudadanos (http://www.sic.gov.co/registro-nacional-de-bases-de-datos[SIC]) 
-De acuerdo con el Artículo 2.2.2.26.2.1 del http://wp.presidencia.gov.co/sitios/normativa/decretos/2015/Decretos2015/DECRETO%201074%20DEL%2026%20DE%20MAYO%20DE%202015.pdf[Decreto 1074 del 2015] 
+Industria y Comercio y será de libre consulta para los ciudadanos 
+(link:http://www.sic.gov.co/registro-nacional-de-bases-de-datos[SIC]) 
+De acuerdo con el Artículo 2.2.2.26.2.1 del 
+link:http://wp.presidencia.gov.co/sitios/normativa/decretos/2015/Decretos2015/DECRETO%201074%20DEL%2026%20DE%20MAYO%20DE%202015.pdf[Decreto 1074 del 2015] 
 la información mínima que se debe entregar en el RNBD es la siguiente:
 
 . Datos de identificación, ubicación y contacto del Responsable del Tratamiento 
@@ -117,7 +120,7 @@ Tratamiento de la base de datos.
 . Política de Tratamiento de la información.
 
 En general como las leyes anteriores existen otras disposiciones como la 
-http://www.alcaldiabogota.gov.co/sisjur/normas/Norma1.jsp?i=34488[Ley 1266 de 2008] 
+link:http://www.alcaldiabogota.gov.co/sisjur/normas/Norma1.jsp?i=34488[Ley 1266 de 2008] 
 en la que se especifican las disposiciones generales del Hábeas Data y se 
 regula el manejo de la información contenida en bases de datos personales. Puede 
 parecer mucho por hacer pero lo importante es tener claro qué información se 

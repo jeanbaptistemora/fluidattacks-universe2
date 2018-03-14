@@ -26,7 +26,7 @@ entrenamiento y educación una estrategia inteligente al momento de concebir un
 plan de seguridad y cuales son las diferencias entre cada una de las metodologías.
 
 [quote]
-“Los humanos son frecuentemente la primera y última línea de la seguridad” https://www.sans.org/[SANS Institute]
+“Los humanos son frecuentemente la primera y última línea de la seguridad” link:https://www.sans.org/[SANS Institute]
 
 == La preparación es el primer paso
 
@@ -98,7 +98,7 @@ el retorno de la inversión y pues con un poco de entrenamiento se pueden mitiga
 muchas de las amenazas de seguridad que involucran al talento humano como los es 
 la ingeniería social y los fallos por errores o negligencias.
 
-.Encuesta sobre la frecuencia con que los empleados reciben entrenamiento sobre amenazas de seguridad en las organizaciones: https://www.mimecast.com/[Mimecast]
+.Encuesta sobre la frecuencia con que los empleados reciben entrenamiento sobre amenazas de seguridad en las organizaciones: link:https://www.mimecast.com/[Mimecast]
 image::encuesta.png[encuesta]
 
 La anterior es una encuesta llevada a cabo en el Reino Unido sobre la frecuencia 
@@ -108,7 +108,7 @@ tales como ingeniería social.
 Conociendo ya un poco de como funciona SETA, cual es su importancia y porque 
 algunos programas de seguridad fallan, expertos en el campo han establecido 7 
 pasos fundamentales para el buen desarrollo de un plan de entrenamiento. 
-(http://csrc.nist.gov/publications/nistpubs/800-12/handbook.pdf[NIST])
+(link:http://csrc.nist.gov/publications/nistpubs/800-12/handbook.pdf[NIST])
 
 . Identificar el alcance, las metas y los objetivos del programa
 . Identificar el personal de entrenamiento

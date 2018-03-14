@@ -53,7 +53,7 @@ que de seguro te serán muy útiles.
 Pueden ser varios los motivos por los cuales podrías preferir hacer uso de las
 herramientas incluídas por defecto en tu navegador, en lugar de usar sofisticados
 paquetes de software como por ejemplo:
-https://goo.gl/LDcRk4[Burp Suite]. Sin embargo, en mi opinión, las principales
+link:https://goo.gl/LDcRk4[Burp Suite]. Sin embargo, en mi opinión, las principales
 razones por las que deberías usarlas (sobre todo si tienes un equipo limitado)
 son las siguientes: permiten ahorrar recursos de tu máquina como espacio de
 almacenamiento, uso innecesario de memoria RAM y de CPU. O simplemente porque
@@ -65,7 +65,7 @@ cumplen perfectamente con la función o tarea que necesitas realizar.
 Con el fin de dar a conocer uno de los tantos usos que se le pueden dar a las
 herramientas incluidas en un navegador web, en esta oportunidad daremos solución
 al reto 1 de la categoría _MAIN_ del sitio web:
-*https://www.hackthis.co.uk/[hackthis]*, el cual, permite validar tus
+*link:https://www.hackthis.co.uk/[hackthis]*, el cual, permite validar tus
 habilidades para superar controles de seguridad en diferentes categorías. Una
 vez registrados en hackthis, podremos acceder a todos los retos disponibles:
 
@@ -79,19 +79,19 @@ image::level1.png[reto]
 
 Como se aprecia en la anterior imagen, este reto solicita credenciales de acceso
 válidas tanto para el usuario como su contraseña. Para este nivel básico, usaré
-https://www.mozilla.org/en-US/firefox/new/[Firefox] ya que me siento más cómodo
+link:https://www.mozilla.org/en-US/firefox/new/[Firefox] ya que me siento más cómodo
 trabajando en él. Pero tu puedes usar el que más te guste, para los usuarios de
 Windows además de Firefox existen alternativas como:
-https://goo.gl/hbFNXs[Google Chrome] y Microsoft Edge (el sucesor de Internet
-Explorer), y, para los usuarios de mac existe https://goo.gl/goCaqK[Safari].
+link:https://goo.gl/hbFNXs[Google Chrome] y Microsoft Edge (el sucesor de Internet
+Explorer), y, para los usuarios de mac existe link:https://goo.gl/goCaqK[Safari].
 
 Existen diversas formas de resolver este reto, pero en esta ocasión lo haremos
 mediante el uso del _visualizador de código fuente_. El código fuente de un
 sitio web, es un conjunto de etiquetas conocidas como:
-etiquetas *https://www.w3schools.com/html/[html]*, hojas de estilos en cascada
-(*https://www.w3schools.com/css/[CSS]*-Cascading Stylesheets) y algunas veces,
+etiquetas *link:https://www.w3schools.com/html/[html]*, hojas de estilos en cascada
+(*link:https://www.w3schools.com/css/[CSS]*-Cascading Stylesheets) y algunas veces,
 segmentos de código denominados scripts de 
-*https://www.w3schools.com/js/[JavaScript]*.
+*link:https://www.w3schools.com/js/[JavaScript]*.
 Podemos acceder a dicha herramienta pulsando el atajo _Ctrol+U_ o haciendo click
 derecho en el navegador y seleccionando la opción _"View Page Source"_ (en
 algunos casos puede aparecer distinto, dependiendo del navegador utilizado y el

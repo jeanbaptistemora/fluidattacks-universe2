@@ -58,7 +58,7 @@ el desarrollo de una red de comunicaciones distribuida de baja latencia y
 superpuesta sobre internet (Ver Referencias). El navegador tor nos permite 
 navegar en internet anonimamente haciendo un puente de IPs para cambiar de 
 dirección IP y en consecuencia cambiar de país de conexión. Se puede descargar 
-gratuitamente desde su página web: https://www.torproject.org/download/download[Tor browser]
+gratuitamente desde su página web: link:https://www.torproject.org/download/download[Tor browser]
 
 image::tor.png[tor]
 
@@ -71,7 +71,7 @@ image::puente.png[proxy]
 == Reto HaxTor Nivel 8
 
 En este reto nos dicen que la contraseña se encuentra en la siguiente página 
-web: https://hax.tor.hu/level8/the_password/index.jpg[password level 8] pero 
+web: link:https://hax.tor.hu/level8/the_password/index.jpg[password level 8] pero 
 una vez ingresamos a esta página, nos muestra el siguiente mensaje: oops, 
 directory needs .hu host to see. Es decir tenemos que ingresar desde un host 
 ubicado en Hungría para poder ver la contraseña. Porque la extensión .hu es 

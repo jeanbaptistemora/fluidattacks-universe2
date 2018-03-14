@@ -35,7 +35,8 @@ es un punto de información representado en bits. Transformando el bit menos
 signicativo de cada pixel podemos obtener una sola imagen que oculta a otra 
 imagen.
 
-.Imagen donde se ve la combinación de dos imágenes en una sola,https://upload.wikimedia.org/wikipedia/commons/a/a2/Lsb-example.JPG[wikipedia]
+.Imagen donde se ve la combinación de dos imágenes en una sola, 
+link:https://upload.wikimedia.org/wikipedia/commons/a/a2/Lsb-example.JPG[wikipedia]
 image::lsb-example.png[lsb]
 
 El segundo método consiste en simplemente poner el mensaje dentro de la 
@@ -49,11 +50,11 @@ método.
 Este reto consiste en descubrir el mensaje oculto dentro de una imagen, sólo 
 nos proporcionan la siguiente imagen:
 
-.Imagen del reto, http://challengeland.co/Dashboard/[Challengeland]
+.Imagen del reto, link:http://challengeland.co/Dashboard/[Challengeland]
 image::image1.png[reto]
 
 Ahora nos disponemos a abrir la imagen con un editor de texto, para este caso 
-se utilizará el https://wiki.gnome.org/Apps/Gedit[Gedit], que es el editor de 
+se utilizará el link:https://wiki.gnome.org/Apps/Gedit[Gedit], que es el editor de 
 texto por defecto de GNOME.
 
 .Imagen abierta con el Gedit

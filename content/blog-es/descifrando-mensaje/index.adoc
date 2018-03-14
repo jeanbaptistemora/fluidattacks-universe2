@@ -19,7 +19,8 @@ cifrar es un término moderno la raza humana ha cifrado información casi desde 
 sustitución del orden del alfabeto.
 
 El principio básico del cifrado es proteger los mensajes que se consideran importantes de las personas ajenas, guerras enteras 
-se han perdido por cifrados deficientes (https://hipertextual.com/2011/07/la-maquina-enigma-el-sistema-de-cifrado-que-puso-en-jaque-a-europa[Máquina Enigma]).
+se han perdido por cifrados deficientes 
+(link:https://hipertextual.com/2011/07/la-maquina-enigma-el-sistema-de-cifrado-que-puso-en-jaque-a-europa[Máquina Enigma]).
 En resumen, el cifrado de la información tiene una gran importancia a la hora de proteger los datos y la información que recibimos 
 frente ataques contra nuestra red.
 
@@ -42,12 +43,12 @@ que la existencia del contenido sea conocida.
 
 Es un cifrado que consiste en usar una clave que tanto el emisor como el receptor conocen.
 
-.Cifrado simétrico- https://www.ibiblio.org/[ibiblio]
+.Cifrado simétrico- link:https://www.ibiblio.org/[ibiblio]
 image::simetrico.gif[simetrico]
 
-Este algoritmo realiza operaciones de http://unicrom.com/compuerta-xor-o-exclusiva/[XOR] (Or exclusivo)
-https://es.khanacademy.org/computing/computer-science/cryptography/modarithmetic/a/modular-addition-and-subtraction[suma modular] y
-https://msdn.microsoft.com/es-es/library/336xbhcz.aspx[desplazamiento de bits]. Es un cifrado en bloque de tamaño variable, cifras 
+Este algoritmo realiza operaciones de link:http://unicrom.com/compuerta-xor-o-exclusiva/[XOR] (Or exclusivo)
+link:https://es.khanacademy.org/computing/computer-science/cryptography/modarithmetic/a/modular-addition-and-subtraction[suma modular] y
+link:https://msdn.microsoft.com/es-es/library/336xbhcz.aspx[desplazamiento de bits]. Es un cifrado en bloque de tamaño variable, cifras 
 de bloques de texto de 32, 64 o 128 bits.
 
 *Características*
@@ -66,17 +67,17 @@ Es el estándar más avanzado del momento, su cifrado se basa en 128, 192 y 256 
 
 * Se trabaja a nivel de byte para reflejar los coeficientes de los polinomios.
 * Tiene sus propias operaciones aritméticas.
-* No es de tipo http://cifradofeistel.blogspot.com.co/[Feistel]
+* No es de tipo link:http://cifradofeistel.blogspot.com.co/[Feistel]
 
 === BlowFish
 
 Es de clave variable, cifra bloques de texto de 64 bits, el tamaño de clave va desde los 32 a los 448 bits, genera 18 sub-claves 
-de 32 bits y cuatro https://es.wikipedia.org/wiki/Cajas-S[cajas-S] de 9*32 bits, en total 4168 bytes.
+de 32 bits y cuatro link:https://es.wikipedia.org/wiki/Cajas-S[cajas-S] de 9*32 bits, en total 4168 bytes.
 
 *Características*
 
 * Usa una función con las cuatro cajas-S y operaciones aritméticas básicas y XOR. Para su funcionamiento se requieren solo 5K.
-* Es muy rápido a comparación de http://es.ccm.net/contents/130-introduccion-al-cifrado-mediante-des[DES] (Data Encryption Standard).
+* Es muy rápido a comparación de link:http://es.ccm.net/contents/130-introduccion-al-cifrado-mediante-des[DES] (Data Encryption Standard).
 * Su concepto es simple.
 * La longitud de clave es su fuerte.
 
@@ -86,7 +87,7 @@ Este método usa un par de claves para el envío de mensajes. Estas claves perte
 el mensaje. Una clave es pública y la otra es privada, el emisor cifra el mensaje con la clave pública y el receptor descifra 
 el mensaje con la clave privada.
 
-.Cifrado Asimétrico- https://msdn.microsoft.com/en-us/library/ff650720.aspx[Microsoft]
+.Cifrado Asimétrico- link:https://msdn.microsoft.com/en-us/library/ff650720.aspx[Microsoft]
 image::asimetrico.png[asimetrico]
 
 * *RSA* (Rivest, Shamir y Adleman): Los mensajes enviados usando este algoritmo se representan mediante números y el funcionamiento
@@ -105,7 +106,7 @@ número primo y G (que es un valor entre 1 y P-1)
 Cifrar no es un proceso difícil el coste no es exagerado y los beneficios se muestran inmediatamente. Cifrar en la actualidad 
 es un proceso más fácil que en el pasado, las herramientas de cifrado son más comunes, así como desarrolladores de software 
 que desarrollan soluciones personalizadas de cifrado para empresas de todos los tamaños y hacerlo de la forma correcta además 
-de garantizar la protección de datos -lo cual es un http://www.constitucioncolombia.com/titulo-2/capitulo-1/articulo-15[derecho fundamental],
+de garantizar la protección de datos -lo cual es un link:http://www.constitucioncolombia.com/titulo-2/capitulo-1/articulo-15[derecho fundamental],
 respalda la seguridad de los valores de la compañía y otorgar confianza en los clientes.
 
 == Desventajas de cifrar la información
@@ -118,12 +119,12 @@ es muy común para contraseñas muy difíciles de recordar. Adicionalmente la ca
 la información puede afectar fácilmente el rendimiento de un proceso, debido a la cantidad de procesamiento que supone un cifrado 
 fuerte, aunque a través del tiempo la potencia de los ordenadores ha ido aumentando y por ende se ha disminuido el tiempo de cifrado, 
 pero aún sigue representando un problema, sobretodo cuando día a día van vulnerando cifrados de gran rendimiento como sucedió con 
-https://security.googleblog.com/2017/02/announcing-first-sha1-collision.html[SHA-1] que aunque no era seguro si era muy popular.
+link:https://security.googleblog.com/2017/02/announcing-first-sha1-collision.html[SHA-1] que aunque no era seguro si era muy popular.
 
 == ¿Qué empresas deben cifrar la información?
 
 Se podría decir que la deben cifrar todas aquellas empresas que traten datos personales en sus bases de datos, empresas que 
-acepten el http://computerhoy.com/noticias/moviles/que-es-byod-ventajas-e-inconvenientes-7250[BYOD] (Bring Your Own Device), y 
+acepten el link:http://computerhoy.com/noticias/moviles/que-es-byod-ventajas-e-inconvenientes-7250[BYOD] (Bring Your Own Device), y 
 todas aquellas empresas que desean mejorar su seguridad más allá de lo requerido. 
 
 Para reducir el riesgo de fuga de información, las amenazas internas y otros ataques maliciosos, es recomendable utilizar el 

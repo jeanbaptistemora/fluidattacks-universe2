@@ -40,7 +40,7 @@ utilización de estas famosas galletas informáticas.
 
 == Reto
 
-En este reto de http://challengeland.co/Challenges/Basic/b5961b4554[ChallengeLand] 
+En este reto de link:http://challengeland.co/Challenges/Basic/b5961b4554[ChallengeLand] 
 solo nos muestran una imagen de una galleta con gafas de sol! y no nos dicen 
 nada más, como es una galleta inferimos que se trata de una cookie (galleta en 
 inglés).

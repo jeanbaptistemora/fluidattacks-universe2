@@ -24,7 +24,7 @@ riesgos que pueden entorpecer nuestros objetivos, teniendo un panorama de lo que
 *posiblemente podría salir mal* pero dejando de lado a nuestro amigo inglés y
 adentrándonos en el mundo del desarrollo del software y las tecnologías de la
 información diremos que el modelado de amenazas o conocido en inglés como
-https://news.asis.io/sites/default/files/Threat%20Modeling.pdf[Threat modeling]
+link:https://news.asis.io/sites/default/files/Threat%20Modeling.pdf[Threat modeling]
 es el proceso en donde se trata de anticipar todos los posibles riesgos o
 factores que influyen en el buen funcionamiento de una aplicación o sistema,
 permitiendo así encontrar y clasificar en grupos los posibles ataques y dando
@@ -218,7 +218,7 @@ posibles amenazas, entre ellas las más comunes son:
 * Los 5 porque: Este método busca encontrar la causa de la causa por el cual
 sucede un problema, aplicada a esta área los analistas se centran en
 encontrar las amenazas y sus posibles causas.
-* Diagrama de https://en.wikipedia.org/wiki/Ishikawa_diagram[Ishikawa]: Este método
+* Diagrama de link:https://en.wikipedia.org/wiki/Ishikawa_diagram[Ishikawa]: Este método
 busca encontrar la causa y efecto de un problema ayudando a establecer una posible
 decisión.
 * EoP game: Un juego creado por Microsoft en donde se buscan encontrar amenazas

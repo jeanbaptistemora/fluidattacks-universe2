@@ -60,7 +60,8 @@ mezcla con la inteligencia en la nube para evaluar el comportamiento de las
 aplicaciones por lo que si detecta que la aplicación hace cosas que no se 
 ajustan a un uso normal, la bloquea y la expulsa de la Tienda Windows.
 
-.Ejemplo de SmartScreen – https://docs.microsoft.com/es-es/windows/threat-protection/overview-of-threat-mitigations-in-windows-10[Fuente]
+.Ejemplo de SmartScreen – 
+link:https://docs.microsoft.com/es-es/windows/threat-protection/overview-of-threat-mitigations-in-windows-10[Fuente]
 image::smartscreen.png[ejemplo]
 
 == Windows Hello
