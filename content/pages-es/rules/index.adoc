@@ -12,10 +12,6 @@
 * link:025/[REQ.025 Controlar sesiones concurrentes].
 * link:026/[REQ.026 Cookies con atributos de seguridad].
 
-== Sistema
-
-* link:031/[REQ.031 Administrar modificaciones de privilegios].
-
 == Archivos
 
 * link:032/[REQ.032 Evitar exponer identificadores de sesión].
@@ -95,6 +91,7 @@
 
 == Sistema
 
+* link:035/[REQ.035 Administrar modificaciones de privilegios].
 * link:264/[REQ.264 Usar principio mínimo privilegio].
 * link:266/[REQ.266 Deshabilitar funciones inseguras].
 * link:272/[REQ.272 Información de servicios inaccesible].
