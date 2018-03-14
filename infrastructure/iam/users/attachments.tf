@@ -3,7 +3,12 @@ resource "aws_iam_user_policy_attachment" "dynamo-attach" {
     policy_arn = "arn:aws:iam::aws:policy/AmazonDynamoDBFullAccess"
 }
 
-resource "aws_iam_user_policy_attachment" "cloudwatch-attach" {
-    user       = "${aws_iam_user.cloudwatch.name}"
-    policy_arn = "arn:aws:iam::aws:policy/service-role/AmazonAPIGatewayPushToCloudWatchLogs"
+resource "aws_iam_group_membership" "cloudwatch" {
+  name = "cloudwatch-group-membership"
+
+  users = [
+    "${aws_iam_user.cloudwatch.name}"
+  ]
+
+  group = "CloudWatch"
 }

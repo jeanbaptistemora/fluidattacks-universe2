@@ -7,7 +7,7 @@ resource "aws_iam_group_membership" "fis3integration" {
   name = "fis3integration-membership"
 
   users = [
-    "FI_S3INTEGRATION",
+    "${var.fis3integration}",
   ]
 
   group = "${aws_iam_group.fis3integration.name}"

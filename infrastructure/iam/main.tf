@@ -1,7 +1,7 @@
 
-# module "users" {
-#   source = "./users"
-# }
+module "users" {
+  source = "./users"
+}
 
 module "providers" {
   source = "./providers"
@@ -9,8 +9,7 @@ module "providers" {
 
 module "groups" {
   source = "./groups"
-  # fis3integration = "${module.users.fis3integration}"
-  # fluidintegratesdynamo = "${module.users.fluidintegratesdynamo}"
+  fis3integration = "${module.users.fis3integration}"
   # fluidservess3 = "${module.users.fluidservess3}"
   # fws3user = "${module.users.fws3user}"
 }

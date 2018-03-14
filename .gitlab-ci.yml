@@ -113,6 +113,7 @@ deploy_terraform:
         - echo "$FI_SSH_KEY" | base64 -d > infrastructure/vars/FLUID_Serves.pem
         - echo $SSO_XML > infrastructure/vars/SSO.xml
         - echo $SSO_FINANCE_XML > infrastructure/vars/SSOFinance.xml
+        - echo sudo docker login registry.gitlab.com -u $DOCKER_USER -p $DOCKER_PASS >> infrastructure/ec2/host/script.sh
         - aws s3 cp $S3_BUCKET/terraform/terraform.tfstate infrastructure/terraform.tfstate || echo ""
         - cd infrastructure
     script:
