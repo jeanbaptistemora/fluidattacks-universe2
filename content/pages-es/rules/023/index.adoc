@@ -1,0 +1,18 @@
+:slug: rules/023/
+:category: rules
+:description: En el presente documento se detallan los requerimientos de seguridad relacionados a la gestión de sesiones de usuarios de un sistema, estableciendo los lineamientos para determinar cuándo es necesario cerrar una sesión si existe inactividad por parte del usuario durante cierto periodo de tiempo.
+:keywords: Requerimiento, Seguridad, sesión de usuario, cerrar sesión, inactividad, periodo de tiempo.
+:rules: yes
+
+= REQ.023 Cerrar sesión de un usuario inactivo
+
+== Nombre 
+
+El sistema debe cerrar una sesión 
+si se presenta un tiempo de inactividad por parte del usuario, 
+superior o igual a 5 minutos.
+
+== Soluciones
+
+. +ASPNET+ link:../../defends/aspnet/limitar-tiempo-sesion/[Limitar tiempo de sesión].
+. +JAVA+ link:../../defends/java/configurar-tiempo-sesion/[Configurar Tiempo de Sesión].
