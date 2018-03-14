@@ -180,11 +180,11 @@ a|== Notifications via e-mail
 Notifications are sent via e-mail to the project's stakeholders.
 Some of them are:
 
-* Weekly, regarding new reported vulnerabilities.
+* Weekly, regarding changes in vulnerabilities.
 * When a user comments in a specific vulnerability.
 * When a user reports that a vulnerability has been remediated.
 * When a validation of the remediation of a vulnerability is made.
-* When a vulnerability is more than 15 days old and has not been treated.
+* When a vulnerability reaches a certain age (15, 30, 60 days old ...) and has not been treated.
 a|image::mail.png[Mail]
 
 a|image::knowledge-base.png[Knowledge Base]

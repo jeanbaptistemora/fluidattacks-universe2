@@ -174,11 +174,11 @@ a|== Notificaciones Por Correo
 Se envían notificaciones vía correo electrónico a los usuarios de la cadena de valor del proyecto.
 Algunas de ellas son:
 
-* Cada semana se informa sobre las nuevas vulnerabilidades reportadas.
+* Cada semana se informa sobre los cambios en las vulnerabilidades del proyecto.
 * Cuando un usuario realiza un comentario sobre una vulnerabilidad.
 * Cuando un usuario informa que ya fue remediada una vulnerabilidad.
 * Cuando se verifica la remediación de una vulnerabilidad.
-* Cuando un hallazgo cumple más de 15 días de reportado y no ha sido tratado.
+* Cuando una vulnerabilidad cumple cierta edad (15, 30, 60 días...) y no ha sido remediada.
 a|image::correo.png[Correo]
 
 a|image::base-conocimiento.png[Base De Conocimiento]
