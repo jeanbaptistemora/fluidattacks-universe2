@@ -26,7 +26,7 @@ En esta etapa se busca que usted evidencie mediante ejercicios prácticos sus co
 y con las cuales podrá solucionar de forma efectiva problemas de nuestros clientes en el ámbito de la seguridad. 
 También demuestra que usted será un compañero valioso para enriquecer a los miembros actuales del equipo de trabajo.
 
-Los retos técnicos se dividen en retos de hacking y retos de programación. 
+Los retos técnicos se dividen en retos de +hacking+ y retos de programación. 
 Con los primeros usted demuestra su habilidad y astucia para sobrepasar controles de seguridad, 
 con los segundos usted demuestra que está en capacidad de rápidamente entender un programa, 
 comprender un lenguaje y por ende, 
@@ -50,12 +50,12 @@ Al hacer los retos públicos buscamos:
 
 Los efectos colaterales de esta decisión permiten a FLUID:
 
-. Utilizar la infraestructura de GitLab para analizar la calidad y velocidad
+. Utilizar la infraestructura de +GitLab+ para analizar la calidad y velocidad
 del desarrollo de las personas en formación,
 
 . Desde etapas tempranas familiarizar a potenciales talentos con las
-herramientas (git, asciidoc, python, gherkin, etc) y conceptos
-(automatización, pruebas de unidad, integración continua, linting, etc.) que
+herramientas (+git+, +AsciiDoc+, +python+, +gherkin+, etc) y conceptos
+(automatización, pruebas de unidad, integración continua, +linting+, etc.) que
 utilizarán en su labor diaria en FLUID,
 
 . Hacer visible a la comunidad y al equipo los resultados propios (presión de
@@ -63,18 +63,18 @@ pares).
 
 == 2. Requerimientos previos
 
-. Registrarse en GitLab usando su correo electrónico personal y creando el ID de usuario que más le guste.
+. Registrarse en +GitLab+ usando su correo electrónico personal y creando el ID de usuario que más le guste.
 Este ID no debe ser mayor a *12* caracteres.
 
 . Unirse a nuestro link:https://join.slack.com/t/autonomicmind/shared_invite/enQtMjg4ODI4NjM3MjY3LWUxMTNmMjk3MDdkMDAzYWY0ZjQ3MzNlYjUzZjM3NTM3MDVmYTliN2YyNGViZGUyNzUxOTAzNTdmZDQ5NWNjNGI[canal de Slack], 
 en donde encontrará personal de FLUID y otros candidatos actualmente en esta etapa, 
 quienes podrán guiarlo en caso de tener dudas o inconvenientes.
 
-. Solicitar el permiso de acceso al repositorio vía Slack presentándote a los demás en el canal *#general* con el siguiente mensaje:
+. Solicitar el permiso de acceso al repositorio vía +Slack+ presentándote a los demás en el canal *#general* con el siguiente mensaje:
 [quote]
 ____________________________________________________________________
 He leído y entendido toda la documentación de los retos técnicos, 
-acepto las condiciones y por ende solicito acceso al repo Git con mi usuario [nombreDeUsuario] en GitLab
+acepto las condiciones y por ende solicito acceso al repo +git+ con mi usuario [nombreDeUsuario] en +GitLab+
 ____________________________________________________________________
 
 == 3. Instrucciones
@@ -84,16 +84,16 @@ ni en nuestro repositorio ni identificada (punto 1),
 
 .. Para retos de programación, 
 una solución es válida si no ha sido resuelta en el lenguaje que usted pretende solucionarlo. 
-... Entiéndase programación como cualquier reto disponible en Codeabbey,.
+... Entiéndase programación como cualquier reto disponible en +Codeabbey+,.
 
-. Resuelva 10 retos de hacking que no tienen solución, 
+. Resuelva 10 retos de +hacking+ que no tienen solución, 
 ni en nuestro repositorio ni identificada (punto 1).
 
-.. Para retos de hacking,
+.. Para retos de +hacking+,
 una solución es válida si no tiene solución en la carpeta del reto en el repositorio ni está 
-indexada en el archivo OTHERS.txt
+indexada en el archivo +OTHERS+
 
-.. Entiéndase retos de hacking por:
+.. Entiéndase retos de +hacking+ por:
 ... Cualquier reto técnico (no matemático ni de adivinanzas) de [button]#link:wechall.net[wechall >>]# o sus sitios relacionados,
 ... Cualquier explotación en sistemas (ToE) vulnerables intencionalmente listados en:
 .... [button]#link:https://www.owasp.org/index.php/OWASP_Vulnerable_Web_Applications_Directory_Project#Off-Line_apps[OWASP Off-Line apps >>]#
@@ -102,50 +102,50 @@ indexada en el archivo OTHERS.txt
 
 == 4. Envío
 
-Antes de realizar un Merge Request (MR), 
+Antes de realizar un +Merge Request+ (+MR+), 
 por favor verifique que cumple con los siguientes criterios:
 
 . Los cambios se deben realizar en una *rama personal*,
-la cual debe llevar el mismo nombre de su usuario en GitLab.
+la cual debe llevar el mismo nombre de su usuario en +GitLab+.
 
 . Todos los archivos relacionados con la resolución de retos deben respetar 
 la link:#repositorio[estructura indicada].
 
-. Si una de sus soluciones de hacking requiere un script adicional,
+. Si una de sus soluciones de +hacking+ requiere un script adicional,
 deberá incluirlo en el mismo directorio.
 
-. Por cada reto usted deberá realizar un commit que agrupe los cambios
+. Por cada reto usted deberá realizar un +commit+ que agrupe los cambios
 correspondientes a la solución y 10 retos que tienen solución en Internet, 
-pero no en el repositorio (OTHERS) y luego,
-un *merge request* para solicitar la inclusión de sus soluciones.
+pero no en el repositorio (+OTHERS+) y luego,
+un +merge request+ para solicitar la inclusión de sus soluciones.
 
-.. Los enlaces de los OTHERS deben ser enlaces directos (HTTP 200) y sin redirección (HTTP 302). 
-.. Si está subiendo soluciones de hacking, los enlaces de los OTHERS deben ser a soluciones de hacking de terceros,
-.. Si está subiendo soluciones de programación, los enlaces de los OTHERS deben ser a soluciones de programación de terceros,
-.. No se debe repetir lenguajes de programación en las soluciones enlazadas de los OTHERS
+.. Los enlaces de los +OTHERS+ deben ser enlaces directos (+HTTP 200+) y sin redirección (+HTTP 302+). 
+.. Si está subiendo soluciones de +hacking+, los enlaces de los +OTHERS+ deben ser a soluciones de +hacking+ de terceros,
+.. Si está subiendo soluciones de programación, los enlaces de los +OTHERS+ deben ser a soluciones de programación de terceros,
+.. No se debe repetir lenguajes de programación en las soluciones enlazadas de los +OTHERS+
 
-. Un *merge request* debe tener un solo commit.
+. Un +merge request+ debe tener un solo +commit+.
 
-. El mensaje del commit debe tener el siguiente 
+. El mensaje del +commit+ debe tener el siguiente 
 link:https://gitlab.com/autonomicmind/training/blob/master/templates/commit-msg.txt[formato].
 
-. Antes de abrir un MR debe esperar que la integración termine satisfactoriamente (en verde)
+. Antes de abrir un +MR+ debe esperar que la integración termine satisfactoriamente (en verde)
 
 . Adicionalmente, las soluciones que envíe deben cumplir con los siguientes 
 link:https://gitlab.com/autonomicmind/training/wikis/home[requisitos]
 
-Tenga en cuenta que no se reabre un MR. 
-Si su MR fue rechazado, deberá crear uno nuevo tras haber realizado las respectivas correcciones.
+Tenga en cuenta que no se reabre un +MR+. 
+Si su +MR+ fue rechazado, deberá crear uno nuevo tras haber realizado las respectivas correcciones.
 
 Los link:https://gitlab.com/autonomicmind/training/merge_requests[merge request] 
 pendientes de revisión y aprobación, 
 así como todos los realizados en el pasado pueden verse en el enlace indicado.
 
-Para cada *merge request* que usted envíe, se realiza un proceso de
+Para cada +merge request+ que usted envíe, se realiza un proceso de
 integración continua que verifica automáticamente el cumplimiento de
 algunas de las reglas aquí definidas.  
 Solo cuando el proceso de integración pasa sin errores (en verde), 
-su *merge request* es integrado al repositorio. 
+su +merge request+ es integrado al repositorio. 
 Los resultados de la integración pueden verse siempre en
 link:https://gitlab.com/autonomicmind/training/pipelines[GitLab-CI].
 
@@ -153,14 +153,14 @@ link:https://gitlab.com/autonomicmind/training/pipelines[GitLab-CI].
 
 El repositorio donde usted debe enviar sus soluciones es el siguiente: 
 link:https://gitlab.com/autonomicmind/training/[click aquí]
-Por favor lea atentamente las siguientes pautas para trabajar en este repositorio Git:
+Por favor lea atentamente las siguientes pautas para trabajar en este repositorio +git+:
 
 * *Contenido*: Utilizar espacios en vez de tabuladores. 
 Parametrice su editor de texto favorito para que le facilite esta tarea.
 
 * *Programas*: Para las soluciones a retos que correspondan a código fuente debe 
 utilizarse la extensión y guías de estilo propias del lenguaje. 
-Adicionalmente utilizar los *linters* correspondientes en la 
+Adicionalmente utilizar los +linters+ correspondientes en la 
 configuración estándar más estricta posible.
 
 * *Integración continua*: El formato es reforzado mediante 
@@ -188,7 +188,7 @@ Un ejemplo de esta estructura es:
 **** link:https://gitlab.com/autonomicmind/training/blob/master/systems/bwapp/a1-command-injection/raballestasr.feature[raballestasr.feature]
 
 
-*challenges*: Carpeta para almacenar retos de programación y hacking. 
+*challenges*: Carpeta para almacenar retos de programación y +hacking+. 
 Se debe manejar la siguiente estructura:
 
 ** sitio (directorio)
@@ -210,8 +210,8 @@ archivos, debe realizarse en minúscula, sin caracteres especiales y en caso de 
 espacios usar *-* (guion) como sustituto.
 
 * Los códigos correspondientes a soluciones de retos de programación deberán cumplir con lo siguiente:
-** En comentarios multilínea al inicio del programa deben estar el snippet de los comandos de compilación utilizados y la salida correspondiente en modo CLI.
-** En comentarios multilínea al final del programa deben estar el snippet de los comandos de ejecucion utilizados y la salida correspondiente en modo CLI.
+** En comentarios multilínea al inicio del programa deben estar el snippet de los comandos de compilación utilizados y la salida correspondiente en modo +CLI+.
+** En comentarios multilínea al final del programa deben estar el snippet de los comandos de ejecucion utilizados y la salida correspondiente en modo +CLI+.
 
 * *Archivos Especiales:* En algunas carpetas de la estructura se encuentran algunos archivos
 especiales de control:
@@ -220,7 +220,7 @@ especiales de control:
 correspondiente 
 (link:https://gitlab.com/autonomicmind/training/blob/master/challenges/codeeval/easy/235/LINK.txt[Ejemplo]).
 Este archivo solo debe contener una linea y visitar el enlace debe
-generar la respuesta HTTP 200 (sin redirección).
+generar la respuesta +HTTP 200+ (sin redirección).
 
 ** *DATA.txt:* Contiene los casos de prueba con los cuales se han verificado
 los retos. Este archivo solo debe contener casos de prueba que sea 
@@ -236,7 +236,7 @@ con los retos enviados por los candidatos.
 pueden ser usados para resolver retos de las subcarpetas donde se 
 encuentra el archivo. 
 Si contiene múltiples lenguajes significa que debe utilizarse de forma 
-secuencial (round robin) cada lenguaje para construir más soluciones 
+secuencial (+round robin+) cada lenguaje para construir más soluciones 
 de dicha subcarpeta.
 
 ** *SPEC.txt* (Solo para retos de systems): Contiene las especificaciones de la
@@ -246,7 +246,7 @@ Puede ver un ejemplo link:https://gitlab.com/autonomicmind/training/blob/master/
 == 6. Recomendaciones
 
 Para cumplir los objetivos enunciados, 
-se sugiere buscar retos que no tengan solución ni en OTHERS.txt ni en el repositorio y
+se sugiere buscar retos que no tengan solución ni en +OTHERS+ ni en el repositorio y
 trabajar en resolver el reto en la respectiva plataforma.
 
 Al momento de solucionar retos de programación, 
@@ -258,11 +258,11 @@ resolver los retos en dicho lenguaje.
 El formato indicado para los commits (ver link:#envio[reglas de envío]) permitirá evidenciar su progreso en esta etapa.
 Para diligenciar dicho formato, puede obtener los puntajes y posiciones en el ranking de cada plataforma de la siguiente forma:
 
-* En Codeabbey (Para retos de programación):
+* En +Codeabbey+ (Para retos de programación):
 
 .. Ranking mundial
 
-... Ir a la pestaña "Ranking" en la página de codeabbey: image:ranking-mundial-codeabbey.png[Ranking mundial codeabbey]
+... Ir a la pestaña "Ranking" en la página de +codeabbey+: image:ranking-mundial-codeabbey.png[Ranking mundial codeabbey]
 
 ... Baje hasta el final de la página y allí encontrará su posición en el ranking mundial: image:ranking-mundial-codeabbey-2.png[Ranking mundial codeabbey]
 
@@ -275,7 +275,7 @@ Puede facilitar la tarea teniendo en cuenta que cada página muestra 50 usuarios
 Deberá avanzar a la siguiente página hasta encontrar su nombre de usuario en el tablero de ranking
 image:ranking-colombia-codeabbey-2.png[Ranking Colombia codeabbey]
 
-* En Wechall (Para retos de hacking):
+* En +Wechall+ (Para retos de +hacking+):
 
 image::ranking-wechall.png[Ranking en Wechall]
 
@@ -285,14 +285,14 @@ Esta etapa finaliza cuando usted haya completado los objetivos anteriormente men
 vía e-mail (careers@autonomicmind.co) los archivos correspondientes a sus soluciones.
 
 Por favor tenga en cuenta que durante esta etapa la continuidad es fundamental, 
-ya que *de no haber movimiento (push al repositorio git) en 14 días calendario, 
+ya que *de no haber movimiento (push al repositorio +git+) en 14 días calendario, 
 se dará por terminado el proceso de selección*. 
 
-El proceso también se dará por terminado en caso de llegar al tope de MR fallidos.
+El proceso también se dará por terminado en caso de llegar al tope de +MR+ fallidos.
 
-. Un MR cuenta como fallido cuando se rechaza por cuestiones que están adecuadamente detalladas en la documentación y que aun así se incumplen.
+. Un +MR+ cuenta como fallido cuando se rechaza por cuestiones que están adecuadamente detalladas en la documentación y que aun así se incumplen.
 
-. Todo participante tiene hasta 10 intentos de MR fallidos. 
+. Todo participante tiene hasta 10 intentos de +MR+ fallidos. 
 
 
 Usted puede volver a presentarse, sin embargo, 
@@ -306,7 +306,7 @@ puede escribirnos vía e-mail a careers@autonomicmind.co
 Es posible correr integraciones locales con el fin de identificar errores antes de hacer push o merge requests al repositorio. 
 Para esto, se deben ejecutar los siguientes comandos:
 
-* *En Sistemas Operativos GNU/Linux:*
+* *En Sistemas Operativos +GNU/Linux+:*
 
 .Instalar curl
 [source, bash, linenums]
@@ -334,7 +334,7 @@ export DOCKER_PASS=contraseñaEnGitlab
 ./build.nix
 ----
 
-.Si la integración fue exitosa, hacer commit y añadir los cambios a su rama personal
+.Si la integración fue exitosa, hacer +commit+ y añadir los cambios a su rama personal
 [source, bash, linenums]
 ----
 git add .
@@ -342,15 +342,15 @@ git commit -m "Ejemplo"
 git push origin ramaPersonal
 ----
 
-* *En Sistemas Operativos Windows:* La forma de ejecutar la integración no se encuentra todavía disponible para Windows y 
-al basarse la integración en Linux, 
-esto hace que el proceso en Windows sea más complicado. 
+* *En Sistemas Operativos +Windows+:* La forma de ejecutar la integración no se encuentra todavía disponible para Windows y 
+al basarse la integración en +Linux+, 
+esto hace que el proceso en +Windows+ sea más complicado. 
 Se sugiere instalar un software de virtualización 
 (link:https://my.vmware.com/en/web/vmware/free#desktop_end_user_computing/vmware_workstation_player/14_0[VMware],
 link:https://www.virtualbox.org/wiki/Downloads[Virtualbox]) y crear una máquina virtual
-basada en una distribución de Linux (e.g. link:https://www.ubuntu.com/download/desktop[Ubuntu],
+basada en una distribución de +Linux+ (e.g. link:https://www.ubuntu.com/download/desktop[Ubuntu],
 o la de su preferencia) y aplicar el proceso descrito anteriormente para Sistemas 
-Operativos Linux.
+Operativos +Linux+.
 
 == 10. Preguntas
 
@@ -364,7 +364,7 @@ las link:../faq[preguntas realizadas en el pasado] por otros participantes.
 * Los derechos patrimoniales sobre el contenido de este repositorio se encuentran definidos en el archivo link:https://gitlab.com/autonomicmind/training/blob/master/COPYRIGHT.txt[COPYRIGHT].
 * La licencia y privilegios que tienen los usuarios de este repositorio
 se encuentran definidos en el archivo link:https://gitlab.com/autonomicmind/training/blob/master/LICENSE.txt[LICENSE]. 
-* Realizar un *merge request* implica la cesión de derechos patrimoniales.
+* Realizar un +merge request+ implica la cesión de derechos patrimoniales.
 Por ende, la información aquí contenida puede ser usada
 por FLUID para cualquier fin comercial,
 siempre preservando los derechos morales de sus autores.
