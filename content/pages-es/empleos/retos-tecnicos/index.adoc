@@ -88,7 +88,7 @@ ni en nuestro repositorio ni identificada (punto 1),
 
 .. Para retos de programación, 
 una solución es válida si no ha sido resuelta en el lenguaje que usted pretende solucionarlo. 
-.. Entiéndase programación como cualquier reto disponible en Codeabbey,.
+... Entiéndase programación como cualquier reto disponible en Codeabbey,.
 
 . Resuelva 10 retos de hacking que no tienen solución, 
 ni en nuestro repositorio ni identificada (punto 1).
@@ -96,8 +96,13 @@ ni en nuestro repositorio ni identificada (punto 1).
 .. Para retos de hacking,
 una solución es válida si no tiene solución en la carpeta del reto en el repositorio ni está 
 indexada en el archivo OTHERS.txt
-.. Entiéndase hacking por cualquier reto técnico de wechall.net o sus sitios relacionados,
-.. No se entiende por hacking retos matemáticos o de adivinanzas relacionados en wechall.net (brainquest),
+
+.. Entiéndase retos de hacking por:
+... Cualquier reto técnico (no matemático ni de adivinanzas) de [button]#link:wechall.net[wechall >>]# o sus sitios relacionados,
+... Cualquier explotación en sistemas (ToE) vulnerables intencionalmente listados en:
+.... [button]#link:https://www.owasp.org/index.php/OWASP_Vulnerable_Web_Applications_Directory_Project#Off-Line_apps[OWASP Off-Line apps >>]#
+.... [button]#link:https://www.owasp.org/index.php/OWASP_Vulnerable_Web_Applications_Directory_Project#Virtual_Machines_or_ISOs[OWASP VMs / ISOs >>]#
+.... [button]#link:https://www.owasp.org/index.php/OWASP_Vulnerable_Web_Applications_Directory_Project#On-Line_apps[OWASP On-Line apps >>]#
 
 == 4. Envío
 
@@ -171,20 +176,39 @@ satisfactoriamente las soluciones enviadas por usted.
 Puede ver todas las bitácoras de compilación históricas y de otros
 participantes link:https://gitlab.com/autonomicmind/training/pipelines[aquí].
 
-* *Estructura del repositorio:* Los soluciones a los retos se almacenan en la carpeta llamada *challenges*.
-En esta carpeta se debe manejar la siguiente estructura:
+* *Estructura del repositorio:* Los soluciones a los retos se almacenan en las siguientes carpetas:
+
+*systems*: carpeta exclusiva para retos de explotación de sistemas vulnerables y se debe manejar la siguiente estructura:
+
+** nombre del sistema o caja vulnerada (directorio)
+*** nombre de la explotación realizada (directorio)
+**** suloginenGitLab.feature (archivo de solución)
+{nbsp} 
+
+Un ejemplo de esta estructura es:
+
+** link:https://gitlab.com/autonomicmind/training/tree/master/systems/bwapp[bwapp]
+*** link:https://gitlab.com/autonomicmind/training/tree/master/systems/bwapp/a1-command-injection[a1-command-injection]
+**** link:https://gitlab.com/autonomicmind/training/blob/master/systems/bwapp/a1-command-injection/raballestasr.feature[raballestasr.feature]
+
+
+*challenges*: Carpeta para almacenar retos de programación y hacking. 
+Se debe manejar la siguiente estructura:
 
 ** sitio (directorio)
 *** código del reto (directorio)
 **** suloginenGitLab.extensión (archivo de solución)
+{nbsp}
 
-** Un ejemplo de esta estructura es:
+Un ejemplo de esta estructura es:
 
-*** link:https://gitlab.com/autonomicmind/training/tree/master/challenges/codeabbey/[codeabbey]
-**** link:https://gitlab.com/autonomicmind/training/tree/master/challenges/codeabbey/005/[005]
-***** link:https://gitlab.com/autonomicmind/training/tree/master/challenges/codeabbey/005/john2104.ml[john2104.ml]
-***** link:https://gitlab.com/autonomicmind/training/tree/master/challenges/codeabbey/005/henryval.java[henryval.java]
+** link:https://gitlab.com/autonomicmind/training/tree/master/challenges/codeabbey/[codeabbey]
+*** link:https://gitlab.com/autonomicmind/training/tree/master/challenges/codeabbey/005/[005]
+**** link:https://gitlab.com/autonomicmind/training/tree/master/challenges/codeabbey/005/john2104.ml[john2104.ml]
+**** link:https://gitlab.com/autonomicmind/training/tree/master/challenges/codeabbey/005/henryval.java[henryval.java]
 
+{nbsp}
+ 
 * El nombramiento de todos los archivos y directorios, a excepción de sus
 archivos, debe realizarse en minúscula, sin caracteres especiales y en caso de requerir
 espacios usar *-* (guion) como sustituto.
@@ -218,6 +242,10 @@ encuentra el archivo.
 Si contiene múltiples lenguajes significa que debe utilizarse de forma 
 secuencial (round robin) cada lenguaje para construir más soluciones 
 de dicha subcarpeta.
+
+** *SPEC.txt* (Solo para retos de systems): Contiene las especificaciones de la
+máquina vulnerable con la que se está trabajando.
+Puede ver un ejemplo link:https://gitlab.com/autonomicmind/training/blob/master/systems/bwapp/SPEC.txt[aquí]
 
 == 6. Recomendaciones
 
