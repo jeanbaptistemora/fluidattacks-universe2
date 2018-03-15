@@ -223,7 +223,9 @@ integrates.config(['$translateProvider', function($translateProvider) {
           'finding': 'Finding'
         },
         'technical_report_mod':{
-          'title': 'Technical Reports'
+          'title': 'Technical Reports',
+          'body_1': 'Technical report is protected by password. The password is the date of  report\'s PDF generation and your username.',
+          'body_2': 'Example: someone@fluidattacks.com generates the technical report on 03/15/2018 therefore, the password is 15032018someone'
         },
         'executive_report_mod':{
           'title': 'Executive Reports',
@@ -726,7 +728,9 @@ integrates.config(['$translateProvider', function($translateProvider) {
           'finding': 'Hallazgo'
         },
         'technical_report_mod':{
-          'title': 'Informes Técnicos'
+          'title': 'Informes Técnicos',
+          'body_1': 'El reporte técnico está protegido por contraseña. La contraseña es la fecha del día de generación del informe y su nombre de usuario.',
+          'body_2': 'Ejemplo: alguien@fluidattacks.com genera el reporte técnico en la fecha 15/03/2018 por lo tanto, la contraseña es 15032018alguien'
         },
         'executive_report_mod':{
           'title': 'Informes Ejecutivos',

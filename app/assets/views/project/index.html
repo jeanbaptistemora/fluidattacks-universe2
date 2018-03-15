@@ -37,7 +37,9 @@
     <div class="modal-header">
         <h3 class="modal-title" id="modal-title">{{'technical_report_mod.title' | translate}}</h3>
     </div>
-    <div class="modal-body" id="modal-body">
+    <div class="modal-body" id="modal-body" style="padding-top:1px!important; color:red;">
+        <p class='text-center'>{{'technical_report_mod.body_1' | translate}}</p>
+        <p class='text-center'>{{'technical_report_mod.body_2' | translate}}</p>
         <button class="btn btn-success" ng-click="findingMatrizXLSReport();">XLS</button>
         <button class="btn btn-danger" ng-click="findingMatrizPDFReport();">PDF</button>
     </div>
