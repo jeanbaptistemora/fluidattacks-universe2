@@ -102,7 +102,7 @@ location of the security issues,
 unfulfilled requirements,
 risks and recommendations for the solution.
 
-a|== Remediation / Treatment
+a|== Request Verification / Treatment
 
 Clients may request the revision ^1^ of a vulnerability that has been corrected,
 and document ^2^ its treatment.
@@ -111,7 +111,7 @@ For the documentation, the client has the following options:
 * *Assumed:* The client assumes the risk that implies not solving the security issue.
 * *Pending:* The client still has not decided whether to assume or to remediate the vulnerability.
 * *Remediate:* The client will solve the security issue.
-a|image::remediation.png[Remediation]
+a|image::request-verification.png[Request Verification]
 
 image::treatment.png[Treatment]
 

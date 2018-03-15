@@ -97,7 +97,7 @@ donde se encuentran los problemas de seguridad,
 requisitos incumplidos,
 riesgos y recomendaciones de solución.
 
-a|== Remediación / Tratamiento
+a|== Solicitar Verificación / Tratamiento
 
 Los clientes pueden solicitar la revisión^1^ de una vulnerabilidad que ha sido corregida
 y documentar^2^ el tratamiento de esta.
@@ -106,7 +106,7 @@ Para la documentación el cliente tiene las siguientes opciones:
 * *Asumido:* El cliente asume el riesgo que implica no solucionar el problema de seguridad.
 * *Pendiente:* El cliente aun no tiene claro si asumirá o remediará la vulnerabilidad.
 * *Remediar:* El cliente solucionará el problema de seguridad.
-a|image::remediacion.png[Remediación]
+a|image::solicitar-verificacion.png[Solicitar Verificación]
 
 image::tratamiento.png[Tratamiento]
 
