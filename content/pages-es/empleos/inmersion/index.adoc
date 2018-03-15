@@ -61,15 +61,7 @@ en las instalaciones de la compañía,
 . Si por algún motivo de salud o personal no es posible ir a la oficina a realizar los retos de forma presencial, 
 ese día no se hacen retos ni se reporta tiempo de entrenamiento con la herramienta asignada.
 . El tercer día hábil de cada semana, 
-usted deberá entrenar la máxima dedicación posible,
-
-=== Intentos fallidos
-
-Al igual que en la etapa de link:../retos-tecnicos[retos técnicos], 
-aplicará el tope de 10 MR fallidos, 
-incluyendo los acumulados en dicha etapa.
-
-Puede ver más detalles [button]#link:../retos-tecnicos/#intentos-fallidos[aquí >>]#
+usted deberá entrenar la máxima dedicación posible
 
 == Reportes
 
@@ -117,9 +109,13 @@ las [button]#link:../retos-tecnicos/#envio[reglas de envío >>]#.,
 con indicaciones variables que midan su capacidad 
 de seguir instrucciones y desarrollar actividades bajo presión. 
 
-. Se acepten en el repositorio 10 artículos publicables en el blog que cumplan la link:../../estilo/[línea editorial].
+. Se acepten en el repositorio 10 artículos publicables en el blog.
 
-. Para la elaboración de artículos deberá tener en cuenta lo siguiente:
+Al igual que en la etapa de link:../retos-tecnicos[retos técnicos], 
+aplicará el tope de 10 MR fallidos, 
+incluyendo los acumulados en dicha etapa.
+
+Puede ver más detalles [button]#link:../retos-tecnicos/#intentos-fallidos[aquí >>]#
 
 === Artículos
 
