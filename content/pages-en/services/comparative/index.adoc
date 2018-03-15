@@ -1,6 +1,6 @@
 :slug: services/comparative/
 :category: services
-:description: Our Ethical Hacking and Pentesting services seek to find and report all the security vulnerabilities present in your application. It is important to distinguish between a penetration testing performed by FLUID and a vulnerability analysis using automated tools.
+:description: Our Ethical Hacking and Pentesting services seek to find and report all the present security vulnerabilities in your application. It is important to distinguish between a penetration testing performed by FLUID and a vulnerability analysis using automated tools.
 :keywords: FLUID, Ethical Hacking, Pentesting, Analysis, Vulnerabilities, Comparison.
 :translate: servicios/comparativo/
 
@@ -12,25 +12,25 @@
 [role="tb-fluid tb-row"]
 [cols="1,2,2", options="header"]
 |====
-| Aspect 
+| Aspect
 | FLUIDAttacks
 | Others
 
-| Revision Method 
-| Hybrid (Automated tools + manual expert revision) 
+| Revision Method
+| Hybrid (Automated tools + manual expert revision)
 | Static (Automated tools only)
 
-| Model 
-| +Red Team+ 
+| Model
+| +Red Team+
 | Vulnerability Analysis with selective exploitation
 
-| Coverage 
+| Coverage
 | Known (arranged or resulting)
 | Unknown
 
-| Scope Definition 
+| Scope Definition
 a|* For infrastructure, according to +TCP+ and +UDP+ open ports
-* For applications, according to inputs 
+* For applications, according to inputs
 (visible fields, hidden fields, and headers)
 a|* For infrastructure, according to +IP+ addresses.
 * For applications, according to number of applications.
@@ -39,49 +39,49 @@ a|* For infrastructure, according to +IP+ addresses.
 | Professional Profile
 a|* +OSCP+
 * +OSWP+
-* +CEH+ 
+* +CEH+
 | None
 
 | Compromised Records
 | Yes
 | No
 
-| Exploitation 
-| 100% 
+| Exploitation
+| 100%
 | Variable
 
-| Creation of Own Exploits 
-| Yes 
+| Creation of Own Exploits
+| Yes
 | No
 
 | +ZERO DAY+ Vulnerabilities
-| Yes 
+| Yes
 | No
 
-| False Positives 
-| No 
+| False Positives
+| No
 | Yes (~20%)
 
-| Finding Types 
+| Finding Types
 a|* Of a specific business impact
-* Insecure programming practices 
-* Alignment with security standards and regulations 
+* Insecure programming practices
+* Alignment with security standards and regulations
 a|* Based on signatures
-* Syntax
+* Syntax-based
 
-| link:../../blog/replaced-machines/[Leaks (Yield)] 
-| 0% of the target of evaluation 
+| link:../../blog/replaced-machines/[Leaks (Yield)]
+| 0% of the target of evaluation
 | ~65% of the target of evaluation
 
-| Type of Evidences 
-a|* Images 
-* Animated +GIF+  
+| Type of Evidences
+a|* Images
+* Animated +GIF+
 a|* Automated tool output
 * Images
 
-| Deliverables 
+| Deliverables
 | Real-time documentation web system
 [button]#link:../../products/integrates/[FLUIDIntegrates>>]#
-a|* Word document manually made.
+a|* Manually-made Word document.
 * Tool reports without discarding false positives
 |====
