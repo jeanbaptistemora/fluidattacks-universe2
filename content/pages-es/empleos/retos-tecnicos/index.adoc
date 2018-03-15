@@ -32,10 +32,6 @@ con los segundos usted demuestra que está en capacidad de rápidamente entender
 comprender un lenguaje y por ende, 
 le será más fácil auditar código fuente y encontrar vulnerabilidades.
 
-Para los retos de programación usted puede utilizar la plataforma Codeabbey. 
-Para los retos de hacking usted puede utilizar cualquier sitio indexado por Wechall 
-(no aplican retos tipo adivinanzas o similares, solo retos que impliquen destreza técnica).
-
 La filosofía es fomentar el aprendizaje a partir de la solución activa de problemas y 
 desestimular el aprendizaje pasivo.
 
