@@ -10,3 +10,4 @@ zone2 = "Z97LJOL6ETZND"
 
 # S3 vars
 bucket = "web.fluidattacks.com"
+bucket-integrates = "fluidintegrates.fluidattacks.com"
