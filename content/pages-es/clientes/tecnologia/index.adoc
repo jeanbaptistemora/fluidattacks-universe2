@@ -6,9 +6,55 @@
 
 = Tecnología
 
-[frame="none", cols="^.^,^.^,^.^"]
-|=======
-|image:logo-conexia.png[logo conexia, 290, 100] |image:logo-ceiba.png[logo ceiba, 270, 120] |image:logo-psl.png[logo psl, 300, 100]
-|image:logo-arus.png[logo arus, 280, 100] |image:logo-intergrupo.png[logo intergrupo, 300, 100] |image:logo-komet.png[logo komet, 300, 90]
-| |image:logo-creative.png[logo creative, 300, 100] |
-|=======
+[role="Tecnologia tb-alt"]
+[cols=2, frame="none"]
+|====
+a|image:logo-komet.png[logo komet, 300, 80, link=https://www.kometsales.com/]
+
+a|== Kometsales
+
+Komet es una plataforma web para la industria de las flores que simplifica y 
+automatiza procesos de ventas, compras y logística. Proporcionamos las herramientas 
+necesarias para simplificar las operaciones diarias, conectando los principales socios 
+de la industria y brindando además tranquilidad y confianza a nuestros clientes
+
+a|== Conexia
+
+Conexia es una empresa de servicios focalizada en la industria de la salud, 
+que nace a partir de una visión de desarrollar una solución integral capaz de conectar 
+a todos sus participantes. Su mercado está compuesto por todas aquellas organizaciones 
+que tienen como objetivo brindar un servicio de salud a la población; ya sean entidades 
+públicas, empresas de medicina privada, prestadores, cooperativas, sindicales y aseguradoras.
+
+a|image:logo-conexia.png[logo conexia, 290, 90, link=http://conexia.com/es/index.html]
+
+a|image:logo-ceiba.png[logo ceiba, 270, 120, link=https://www.ceiba.com.co/es]
+
+a|== Ceiba Software
+
+Compañía con 9 años en el mercado y 185 ingenieros, especializada en la construcción 
+e integración de soluciones de software en diversas tecnologías.  Buscan generar 
+mayor valor en el negocio de sus clientes administrando los proyectos bajo metodologías 
+ágiles combinando tres elementos fundamentales: Sólida capacidad técnica, Diversas
+herramientas de software y Conocimiento en verticales de industria.
+
+a|== PSL
+
+Conexia es una empresa de servicios focalizada en la industria de la salud, 
+que nace a partir de una visión de desarrollar una solución integral capaz de conectar 
+a todos sus participantes. Su mercado está compuesto por todas aquellas organizaciones 
+que tienen como objetivo brindar un servicio de salud a la población; ya sean entidades 
+públicas, empresas de medicina privada, prestadores, cooperativas, sindicales y aseguradoras.
+
+a|image:logo-psl.png[logo psl, 300, 100, link=http://www.psl.com.co/]
+
+a|image:logo-creative.png[logo creative, 300, 100, link=http://www.ctnd.com/]
+
+a|== Cre8tive
+
+Cre8tive Technology and Design ha desarrollado e implementado sistemas 
+de Gestión de Calidad para documentar las mejores prácticas de negocio, 
+satisfacer los requerimientos y expectativas de los clientes y mejorar la gestión 
+global de la compañía.
+
+|====
