@@ -1,0 +1,16 @@
+:slug: rules/168/
+:category: rules
+:description: En el presente documento se detallan los requerimientos de seguridad relacionados al código fuente que compone a las aplicaciones de la compañía. En este requerimiento se establece la importancia de definir explícitamente las variables utilizadas a lo largo de la aplicación.
+:keywords: Requerimiento, Seguridad, Código Fuente, Variables, Inicialización, Explícita.
+:rules: yes
+
+= REQ.168 Variables inicializadas explícitamente
+
+== Nombre
+
+Las variables del código fuente 
+deben estar inicializadas de forma explícita. 
+
+== Soluciones
+
+. +COBOL+ link:../../defends/cobol/estructuras-condicionales/[Usar Estructuras Condicionales].

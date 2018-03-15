@@ -1,18 +1,11 @@
 :slug: rules/153/
 :category: rules
-:description: En el presente documento se detallan los requerimientos de seguridad relacionados al código fuente que compone a las aplicaciones de la compañía. En este requerimiento se establece la importancia de implementar la codificación del sistema con una versión estable y actualizada.
-:keywords: Requerimiento, Seguridad, Código Fuente, Codificación, Estable, Actualizada.
+:description: En el presente documento se detallan los requerimientos de seguridad relacionados a la manipulación o gestión de transacciones, las cuales en lo posible, deben realizarse fuera de banda. Algunos ejemplos de este tipo de transacciones son los correos, +sms+, etc.
+:keywords: requerimiento, seguridad, transacción, banda, correo, sms.
 :rules: yes
 
-= REQ.153 Codificación Actualizada
+= REQ.153 Transacciones fuera de banda
 
 == Nombre
 
-La codificación del sistema 
-debe estar implementada en una versión 
-de un lenguaje de programación estable, 
-actualizada, probada y libre de vulnerabilidades conocidas. 
-
-== Soluciones
-
-. +COBOL+ link:../../defends/cobol/evitar-elementos-obsoletos/[Evitar Elementos Obsoletos].
+La transacción debe confirmarse fuera de banda (+SMS+, correo, entre otros).
