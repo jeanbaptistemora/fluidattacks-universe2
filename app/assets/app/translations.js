@@ -123,7 +123,7 @@ integrates.config(['$translateProvider', function($translateProvider) {
               'edit_treatment': 'Edit',
               'update_treatment': 'Update',
               'update_treatmodal': 'Update Treatment',
-              'remediated': 'Remediated',
+              'remediated': 'Request Verification',
               'remediated_finding': 'Finding remediated',
               'verified': 'Verified',
               'verified_finding': 'Finding verified'
@@ -626,7 +626,7 @@ integrates.config(['$translateProvider', function($translateProvider) {
               'edit_treatment': 'Editar',
               'update_treatment': 'Actualizar',
               'update_treatmodal': 'Actualizar Tratamiento',
-              'remediated': 'Remediado',
+              'remediated': 'Solicitar Verificación',
               'remediated_finding': 'Hallazgo remediado',
               'verified': 'Verificado',
               'verified_finding': 'Hallazgo verificado'
