@@ -1,17 +1,16 @@
 :slug: rules/157/
 :category: rules
-:description: En el presente documento se detallan los requerimientos de seguridad relacionados al código fuente que compone a las aplicaciones de la compañía. En este requerimiento se establece la importancia de evitar las funciones, métodos o clases repetidas dentro del código fuente.
-:keywords: Requerimiento, Seguridad, Código Fuente, Métodos, Clases, Repetidos.
+:description: En el presente documento se detallan los requerimientos de seguridad relacionados al código fuente que compone a las aplicaciones de la compañía. En este requerimiento se establece la importancia de compilar o interpretar el código de forma estricta en ambientes de producción.
+:keywords: Requerimiento, Seguridad, Código Fuente, Compilación, Interpretación, Estricta.
 :rules: yes
 
-= REQ.157 Eliminar código redundante
+= REQ.157 Compilación estricta
 
-== Nombre
+== Nombre 
 
-El código fuente no debe tener funciones, métodos o clases repetidas.
+El código debe compilarse o interpretarse de forma estricta.
 
 == Soluciones
 
-. +ASPNET+ link:../../defends/aspnet/evitar-codigo-duplicado/[Evitar código fuente duplicado].
-. +COBOL+ link:../../defends/cobol/eliminar-codigo-repetido/[Eliminar Código Repetido].
-. +Csharp+ link:../../defends/csharp/codigo-fuente-duplicado/[Evitar código fuente duplicado en C#].
+. +COBOL+ link:../../defends/cobol/compilar-programa-estricta/[Compilar Programa de Forma Estricta].
+. +COBOL+ link:../../defends/cobol/enmascarar-texto/[Enmascarar Texto].

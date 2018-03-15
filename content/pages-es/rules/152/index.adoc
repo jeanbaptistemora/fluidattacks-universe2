@@ -1,17 +1,11 @@
 :slug: rules/152/
 :category: rules
-:description: En el presente documento se detallan los requerimientos de seguridad relacionados al código fuente que compone a las aplicaciones de la compañía. En este requerimiento se establece la importancia de compilar o interpretar el código de forma estricta en ambientes de producción.
-:keywords: Requerimiento, Seguridad, Código Fuente, Compilación, Interpretación, Estricta.
+:description: En el presente documento se detallan los requerimientos de seguridad relacionados a la manipulación de sentencias de código, cuyo fin sea realizar conexiones a bases de datos, enfocándose en la reutilización de las mismas y evitar posibles vulnerabilidades o sobrecargar de código a la aplicación.
+:keywords: requerimiento, seguridad, conexión, base de datos, reutilizar, vulnerabilidad.
 :rules: yes
 
-= REQ.152 Compilación estricta
+= REQ.152 Reutilizar conexiones a bases de datos
 
-== Nombre 
+== Nombre
 
-El código debe compilarse o interpretarse de forma estricta.
-
-
-== Soluciones
-
-. +COBOL+ link:../../defends/cobol/compilar-programa-estricta/[Compilar Programa de Forma Estricta].
-. +COBOL+ link:../../defends/cobol/enmascarar-texto/[Enmascarar Texto].
+El sistema debe reutilizar las conexiones a la base de datos.

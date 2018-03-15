@@ -59,16 +59,17 @@
 == Fuente
 
 * link:149/[REQ.149 Eliminar puertas traseras].
-* link:152/[REQ.152 Compilación estricta].
+* link:152/[REQ.152 Reutilizar conexiones a bases de datos].
 * link:153/[REQ.153 Codificación Actualizada].
 * link:154/[REQ.154 Código ofuscado].
 * link:155/[REQ.155 Salidas codificadas].
 * link:156/[REQ.156 Opciones por defecto seguras].
-* link:157/[REQ.157 Eliminar código redundante].
+* link:157/[REQ.157 Compilación estricta].
 * link:158/[REQ.158 Eliminar código muerto].
 * link:159/[REQ.159 Utilizar estructuras optimizadas].
-* link:162/[REQ.162 Cerrar recursos no utilizados].
+* link:162/[REQ.162 Eliminar código redundante].
 * link:163/[REQ.163 Variables inicializadas explícitamente].
+* link:167/[REQ.167 Cerrar recursos no utilizados].
 * link:173/[REQ.173 Descartar información insegura].
 * link:302/[REQ.302 Declarar explícitamente dependencias].
 
