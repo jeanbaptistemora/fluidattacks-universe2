@@ -8,9 +8,9 @@ metadata:
   namespace: gitlab-managed-apps
 spec:
   rules:
-  - http:
+  - host: $CI_PROJECT_NAME-$CI_COMMIT_REF_SLUG.$ENV_DNS
+    http:
       paths:
       - backend:
           serviceName: web-service-$CI_COMMIT_REF_SLUG
           servicePort: 80
-        path: /$CI_COMMIT_REF_SLUG

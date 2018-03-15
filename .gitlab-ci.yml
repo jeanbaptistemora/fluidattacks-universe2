@@ -31,7 +31,7 @@ checks:
     - ./sass-lint.sh
     - pybabel compile --directory theme/2014/translations/ --domain messages
     - for FILE in $(find . -iname '*.adoc'); do sed -i 's/^include::/include::\/builds\/fluidsignal/g' $FILE; done
-    - sed -i 's/https:\/\/fluidattacks\.com/http:\/\/'"$KUBE_IP\/$CI_COMMIT_REF_SLUG"'/g' pelicanconf.py
+    - sed -i 's/https:\/\/fluidattacks\.com/http:\/\/'"$CI_PROJECT_NAME-$CI_COMMIT_REF_SLUG.$ENV_DNS"'/g' pelicanconf.py
     - pelican --fatal errors --fatal warnings content/
     - mv output/web/en/blog-en/* output/web/en/blog && mv output/web/es/blog-es/* output/web/es/blog
     - ./xmlcombine.sh
@@ -41,8 +41,8 @@ checks:
     - mv robots.txt output/web/
     - rm -rf output/web/de
     - ./html-lint.sh
-    - mkdir -p review/output/$CI_COMMIT_REF_SLUG/
-    - mv output/web review/output/$CI_COMMIT_REF_SLUG/
+    - mkdir -p review/output/
+    - mv output/web review/output/
     - docker login $CI_REGISTRY -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD
     - docker build --no-cache -t $CI_REGISTRY/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME:$CI_COMMIT_REF_SLUG review/
     - docker push $CI_REGISTRY/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME:$CI_COMMIT_REF_SLUG
@@ -63,7 +63,7 @@ review-web:
     - ./review/cluster-config.sh
   environment:
     name: review/$CI_COMMIT_REF_SLUG
-    url: http://$KUBE_IP/$CI_COMMIT_REF_SLUG/web/en/
+    url: http://$CI_PROJECT_NAME-$CI_COMMIT_REF_SLUG.$ENV_DNS/web/en/
     on_stop: stop-review
   except:
     - master
@@ -77,7 +77,7 @@ stop-review:
     - kubectl config set-context $(kubectl config current-context) --namespace=gitlab-managed-apps
     - kubectl delete deployment review-$CI_COMMIT_REF_SLUG
     - kubectl delete service web-service-$CI_COMMIT_REF_SLUG;
-    - kubectl get ingress ingress-review -o yaml | tac | sed '/\/'"$CI_COMMIT_REF_SLUG"'/,+3d' | tac > current-ingress.yaml
+    - kubectl get ingress ingress-review -o yaml | sed '/\.'"$CI_COMMIT_REF_SLUG"'/,+5d' > current-ingress.yaml
     - kubectl delete ingress ingress-review
     - if kubectl get deployments | grep 'review-*'; then kubectl create -f current-ingress.yaml; fi
   when: manual
