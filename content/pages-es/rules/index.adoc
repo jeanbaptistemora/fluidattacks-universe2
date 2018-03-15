@@ -10,7 +10,7 @@
 * link:023/[REQ.023 Cerrar sesión de un usuario inactivo].
 * link:024/[REQ.024 Transferir información con objetos de sesión].
 * link:025/[REQ.025 Controlar sesiones concurrentes].
-* link:026/[REQ.026 Cookies con atributos de seguridad].
+* link:029/[REQ.029 Cookies con atributos de seguridad].
 
 == Archivos
 
