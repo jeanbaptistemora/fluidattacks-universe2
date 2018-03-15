@@ -133,6 +133,9 @@ link:https://gitlab.com/autonomicmind/training/blob/master/templates/commit-msg.
 . Adicionalmente, las soluciones que envíe deben cumplir con los siguientes 
 link:https://gitlab.com/autonomicmind/training/wikis/home[requisitos]
 
+Tenga en cuenta que no se reabre un MR. 
+Si su MR fue rechazado, deberá crear uno nuevo tras haber realizado las respectivas correcciones.
+
 Los link:https://gitlab.com/autonomicmind/training/merge_requests[merge request] 
 pendientes de revisión y aprobación, 
 así como todos los realizados en el pasado pueden verse en el enlace indicado.
@@ -144,17 +147,6 @@ Solo cuando el proceso de integración pasa sin errores (en verde),
 su *merge request* es integrado al repositorio. 
 Los resultados de la integración pueden verse siempre en
 link:https://gitlab.com/autonomicmind/training/pipelines[GitLab-CI].
-
-=== Intentos fallidos
-
-Un merge request (MR) puede ser rechazado en caso de incumplimiento de los criterios anteriormente mencionados.
-Por favor tenga en cuenta lo siguiente:
-
-* Un MR cuenta como fallido cuando se rechaza por cuestiones que están adecuadamente detalladas en la documentación y que aun así se incumplen.
-* No se reabre un MR. 
-Si su MR fue rechazado, deberá crear uno nuevo tras haber realizado las respectivas correcciones.
-* Todo participante tiene hasta 10 intentos de MR fallidos. 
-El proceso se dará por terminado en caso de llegar a este tope.
 
 == 5. Repositorio
 
@@ -271,6 +263,13 @@ vía e-mail (careers@autonomicmind.co) los archivos correspondientes a sus soluc
 Por favor tenga en cuenta que durante esta etapa la continuidad es fundamental, 
 ya que *de no haber movimiento (push al repositorio git) en 14 días calendario, 
 se dará por terminado el proceso de selección*. 
+
+El proceso también se dará por terminado en caso de llegar al tope de MR fallidos.
+
+. Un MR cuenta como fallido cuando se rechaza por cuestiones que están adecuadamente detalladas en la documentación y que aun así se incumplen.
+
+. Todo participante tiene hasta 10 intentos de MR fallidos. 
+
 
 Usted puede volver a presentarse, sin embargo, 
 deberá comenzar desde la primera etapa nuevamente.
