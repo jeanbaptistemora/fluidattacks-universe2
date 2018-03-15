@@ -127,38 +127,10 @@ La elaboración de artículos tiene como objetivo familiarizar a futuros talento
 relevante para la audiencia de FLUID. Por tal motivo estos deben adherirse
 a la línea editorial definida link:../../estilo/[aquí].
 
-Para la generación de documentos y artículos para el blog (carpeta
-articles) el lenguaje que debe utilizarse es AsciiDoc.
-Estos archivos deben finalizar siempre con la extensión .adoc
-Un ejemplo más detallado de uso de AsciiDoc se encuentra
-link:https://github.com/opendevise/asciidoc-samples/blob/master/demo.adoc[aquí].
-
-Tenga especial atención con los requisitos de numero de palabras y de índice
-de legibilidad LIX. Estos requisitos son verificados estrictamente por el
-integrador continuo. Si quiere calcular usted mismo estas métricas puede
-utilizar las herramientas wc y diction (comando style).
-
-En función de la calidad de los artículos, FLUID puede decidir publicarlos
-inmediata o posteriormente en nuestro blog y anunciar su publicación a los
-clientes suscritos al mismo. 
-Una medida de la calidad del contenido generado
-por usted es el número de artículos que resultan publicados.
-
-* *Artículos cón código*: Si en algún momento le es solicitado explícitamente
-realizar la solución de un reto de programación como parte de un artículo de
-blog (estilo programación literal), este debe hacerse también en AsciiDoc
-(asc), presentar en la versión documento el código fuente sin comentarios, 
-de forma secuencial, manteniendo la indentación original y utilizando el
-resaltado de código (syntax highlighting) propio de GitLab y AsciiDoc:
-
-.test.py
-[source,python]
-----
-print('Hola mundo')
-----
-
-Este es un link:../../blog/que-ruta-mas-insegura/[ejemplo] de un
-artículo que cumple totalmente con estas indicaciones.
+Para la generación de documentos y artículos para el blog,
+el lenguaje que debe utilizarse es AsciiDoc.
+Podrá encontrar documentación y algunos ejemplos de uso de AsciiDoc 
+link:../../../en/format/[aquí].
 
 Los artículos deben subirse al repositorio que le indicaremos al entrar en esta etapa.
 
