@@ -79,7 +79,7 @@ stop-review:
     - kubectl delete service web-service-$CI_COMMIT_REF_SLUG;
     - kubectl get ingress ingress-review -o yaml | tac | sed '/\/'"$CI_COMMIT_REF_SLUG"'/,+3d' | tac > current-ingress.yaml
     - kubectl delete ingress ingress-review
-    - kubectl create -f current-ingress.yaml
+    - if kubectl get deployments | grep 'review-*'; then kubectl create -f current-ingress.yaml; fi
   when: manual
   environment:
     name: review/$CI_COMMIT_REF_SLUG
