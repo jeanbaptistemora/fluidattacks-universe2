@@ -133,4 +133,4 @@ los pasos necesarios para enmascarar el texto explicado anteriormente.
 . [[r3]] link:http://www.escobol.com/modules.php?name=Sections&op=printpage&artid=14[Procedure Division].
 . [[r4]] link:https://www.ibm.com/support/knowledgecenter/SSQ2R2_14.0.0/com.ibm.etools.cbl.win.doc/topics/rlpsacce.htm[ACCEPT statement].
 . [[r5]] link:https://supportline.microfocus.com/Documentation/AcucorpProducts/docs/v6_online_doc/gtman3/gt3678.htm[ACUCOBOL-GT Reference Manual].
-. [[r6]] link:../../../rules/154/[REQ.154 Código ofuscado].
+. [[r6]] link:../../../rules/159/[REQ.159 Código ofuscado].

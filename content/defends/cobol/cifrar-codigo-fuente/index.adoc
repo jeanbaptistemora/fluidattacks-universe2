@@ -154,7 +154,7 @@ todas las instrucciones +COBOL+ del programa.
 
 == Referencias
 
-. [[r1]] link:../../../rules/154/[REQ.154 Código ofuscado].
+. [[r1]] link:../../../rules/159/[REQ.159 Código ofuscado].
 . [[r2]] link:http://www.escobol.com/modules.php?name=Sections&op=printpage&artid=13[Data Division].
 . [[r3]] link:http://www.escobol.com/modules.php?name=Sections&op=printpage&artid=14[Procedure Division].
 . [[r4]] link:https://www.ibm.com/support/knowledgecenter/ssw_ibm_i_71/rbam6/encdbgview.htm[Encrypting the debug listing view].

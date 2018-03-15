@@ -1,16 +1,17 @@
 :slug: rules/159/
 :category: rules
-:description: En el presente documento se detallan los requerimientos de seguridad relacionados al código fuente que compone a las aplicaciones de la compañía. En este requerimiento se establece la importancia de utilizar contenedores o estructuras de datos optimizados.
-:keywords: Requerimiento, Seguridad, Código Fuente, Estructuras, Contenedores, Optimización.
+:description: En el presente documento se detallan los requerimientos de seguridad relacionados al código fuente que compone a las aplicaciones de la compañía. En este requerimiento se establece la importancia de ofuscar el código fuente en ambientes de producción.
+:keywords: Requerimiento, Seguridad, Código Fuente, Ofuscar, Ambiente, Producción.
 :rules: yes
 
-= REQ.159 Utilizar estructuras optimizadas
+= REQ.159 Código ofuscado
 
-== Nombre
+== Nombre 
 
-El código debe utilizar contenedores o estructuras de datos optimizadas. 
+El código fuente debe estar ofuscado en ambiente de producción. 
+
 
 == Soluciones
 
-. +ASPNET+ link:../../defends/aspnet/reutilizar-objetos-bucles/[Reutilizar objetos en bucles].
-. +COBOL+ link:../../defends/cobol/usar-estructuras-optimizadas/[Usar Estructuras Optimizadas].
+. +COBOL+ link:../../defends/cobol/cifrar-codigo-fuente/[Cifrar Código Fuente].
+. +COBOL+ link:../../defends/cobol/enmascarar-texto/[Enmascarar Texto].

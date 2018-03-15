@@ -1,0 +1,16 @@
+:slug: rules/164/
+:category: rules
+:description: En el presente documento se detallan los requerimientos de seguridad relacionados al código fuente que compone a las aplicaciones de la compañía. En este requerimiento se establece la importancia de utilizar contenedores o estructuras de datos optimizados.
+:keywords: Requerimiento, Seguridad, Código Fuente, Estructuras, Contenedores, Optimización.
+:rules: yes
+
+= REQ.164 Utilizar estructuras optimizadas
+
+== Nombre
+
+El código debe utilizar contenedores o estructuras de datos optimizadas. 
+
+== Soluciones
+
+. +ASPNET+ link:../../defends/aspnet/reutilizar-objetos-bucles/[Reutilizar objetos en bucles].
+. +COBOL+ link:../../defends/cobol/usar-estructuras-optimizadas/[Usar Estructuras Optimizadas].
