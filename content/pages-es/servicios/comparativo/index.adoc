@@ -48,7 +48,7 @@ maximizando el nivel de profundidad de la prueba.
 
 
 | Registros Comprometidos
-| {si}
+| {si} link:../../productos/integrates/#registros-comprometidos[Ejemplo]
 | {no}
 
 | Explotación 
