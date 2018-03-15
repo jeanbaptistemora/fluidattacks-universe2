@@ -47,7 +47,7 @@ posibles errores que representan una amenaza.
 introducirlos a la organización?
 
 . Introducir la seguridad en el 
-link:https://fluidattacks.com/web/es/blog/seguridad-sdlc/[SDLC]
+link:../seguridad-sdlc/[SDLC]
 (Systems Development Life Cycle)
 . Detectar la mayor cantidad de vulnerabilidades posibles antes de sacarlo al 
 mercado

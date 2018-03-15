@@ -40,7 +40,7 @@ No alcancé a enviar el análisis de datos, ¿qué puedo hacer?::
 	De tener un motivo justificado puedes escribirnos vía e-mail a careers@autonomicmind.co indicándonos por qué no lo realizaste en el plazo dado y solicitando una nueva fecha de entrega.
 
 ¿Qué pongo en el portafolio?::
-	Las instrucciones y pautas para la elaboración del portafolio las puedes encontrar link:https://fluidattacks.com/web/es/empleos/portafolio/[aquí]
+	Las instrucciones y pautas para la elaboración del portafolio las puedes encontrar link:../portafolio/[aquí]
 
 No tengo visa, ¿qué pongo en ese campo?::
 	Este campo no es obligatorio, no lo diligencies si no tienes visa.
