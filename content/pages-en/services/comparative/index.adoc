@@ -3,6 +3,8 @@
 :description: Our Ethical Hacking and Pentesting services seek to find and report all the present security vulnerabilities in your application. It is important to distinguish between a penetration testing performed by FLUID and a vulnerability analysis using automated tools.
 :keywords: FLUID, Ethical Hacking, Pentesting, Analysis, Vulnerabilities, Comparison.
 :translate: servicios/comparativo/
+:yes: image:yes.png[yes]
+:no: image:no.png[no]
 
 = Comparative
 
@@ -32,6 +34,7 @@
 a|* For infrastructure, according to +TCP+ and +UDP+ open ports
 * For applications, according to inputs
 (visible fields, hidden fields, and headers)
+* For source code, according to strictly effectives lines of code (+LoC+).
 a|* For infrastructure, according to +IP+ addresses.
 * For applications, according to number of applications.
 
@@ -39,28 +42,76 @@ a|* For infrastructure, according to +IP+ addresses.
 | Professional Profile
 a|* +OSCP+
 * +OSWP+
-* +CEH+
+* +CEH+ 
+
+Additionally our hackers are excellent programmers, 
+allowing us to maximize the depth of the tests
 | None
 
 | Compromised Records
-| Yes
-| No
+| {yes}
+| {no}
 
 | Exploitation
 | 100%
 | Variable
 
 | Creation of Own Exploits
-| Yes
-| No
+| {yes} Using our own exploitation engine.
+[button]#link:../../products/asserts/[Asserts>>]# .
+link:../../products/integrates/#exploit[Example]
+| {no}
 
 | +ZERO DAY+ Vulnerabilities
-| Yes
-| No
+| {yes}
+| {no}
 
 | False Positives
-| No
-| Yes (~20%)
+| {no}
+| {yes} (~20%)
+
+| Remediation Support
+a|* During the project you can request clarifications 
+directly to our hackers via
+[button]#link:../../products/integrates/[Integrates>>]# 
+* You can use our detailed remediation guides via
+[button]#link:../../products/defends/[Defends>>]# 
+| {no}
+
+| Strictness
+a|* You decide the security requirements 
+that we will check in the inspection process (profiling) 
+through our product [button]#link:../../products/rules/[Rules>>]# 
+* Additionally you will know the exact strictness of the hacking
+(For inspected and non inspected code)
+| Non parameterizable and unknown
+
+| Targets
+a|* Applications
+* +APIs+
+* Mobile apps
+* Servers
+* Networks
+* +IoT+ Devices
+* Industrial Control Systems(+ICS+)
+* Security Operations Centers (+SOC+)
+| Web
+
+| Inspection Cycles
+| Multiple cyles in our service 
+[button]#link:../../services/continuous-hacking/[Continuous Hacking>>]#
+| Only 1
+
+| Environments
+a|* Production
+* Staging
+* Integration
+| Production
+
+| Vulnerability correlation
+| By combining vulnerabilities +A+ and +B+ we are able to find 
+a new vulnerability +C+ of greater impact which may compromise more registers.
+| Only detects vulnerabilities +A+ and +B+ but it's not able to correlate them. 
 
 | Finding Types
 a|* Of a specific business impact
@@ -75,13 +126,14 @@ a|* Based on signatures
 
 | Type of Evidences
 a|* Images
-* Animated +GIF+
+* Animated +GIFs+. Example
+link:../../products/integrates/#vulnerability-evidences[Example]
 a|* Automated tool output
 * Images
 
 | Deliverables
 | Real-time documentation web system
-[button]#link:../../products/integrates/[FLUIDIntegrates>>]#
+[button]#link:../../products/integrates/[Integrates>>]#
 a|* Manually-made Word document.
 * Tool reports without discarding false positives
 |====

@@ -3,6 +3,8 @@
 :description: Nuestros servicios de Ethical Hacking y Pentesting buscan encontrar y reportar todas las vulnerabilidades de seguridad presentes en su aplicación. Es importante diferenciar entre una prueba de intrusión realizada por FLUID y un análisis de vulnerabilidades que utiliza herramientas automatizadas.
 :keywords: FLUID, Ethical Hacking, Pentesting, Análisis, Vulnerabilidades, Comparación.
 :translate: services/comparative/
+:si: image:yes.png[si]
+:no: image:no.png[no]
 
 = Comparativo
 
@@ -30,36 +32,85 @@
 
 | Definición de Alcance 
 a|* Para infraestructura, según puertos abiertos +TCP+ y +UDP+.
-* Para aplicaciones, según entradas (campos visible, ocultos y cabeceras) 
+* Para aplicaciones, según entradas (campos visible, ocultos y cabeceras)
+* Para código fuente, según líneas de código (+LoC+) estrictamente efectivas. 
 a|* Para infraestructura, según direcciones +IP+.
 * Para aplicaciones, según el número de aplicaciones.
 
 | Perfiles Profesionales 
-a|* +OSCP+
-* +OSWP+
+a|* link:../../blog/una-dosis-de-offsec-oscp/[+OSCP+]
+* link:../../blog/el-retorno-al-camino-oswp/[+OSWP+]
 * +CEH+ 
+
+Adicionalmente nuestros hackers son programadores excelentes 
+maximizando el nivel de profundidad de la prueba.
 | Ninguno
 
 
 | Registros Comprometidos
-| Si
-| No
+| {si}
+| {no}
 
 | Explotación 
 | 100% 
 | Variable
 
 | Generación +exploits+ propios 
-| Si 
-| No
+| {si} Usando nuesto motor de explotacion propio 
+[button]#link:../../productos/asserts/[Asserts>>]# .
+link:../../productos/integrates/#exploit-de-la-vulnerabilidad[Ejemplo]
+| {no}
 
 | Vulnerabilidades +ZERO DAY+ 
-| Si 
-| No
+| {si} 
+| {no}
 
 | Falsos Positivos 
-| No 
-| Si (~20%)
+| {no} 
+| {si} (~20%)
+
+| Soporte de Remediación.
+a|* Durante el proyecto puede solicitar aclaraciones 
+directamente a los hackers mediante 
+[button]#link:../../productos/integrates/[Integrates>>]# 
+* Puede utilizar nuestras guias detalladas de remedicion 
+mediante [button]#link:../../productos/defends/[Defends>>]# 
+| {no}
+
+| Rigurosidad
+a|* Usted decide los requisitos de seguridad 
+que revisaremos en el hacking (perfilamiento) 
+a través de nuestro producto [button]#link:../../productos/rules/[Rules>>]# 
+* Además sabrá la rigurosidad exacta del hackeo 
+(lo revisado y lo no revisado).
+| No parametrizable y desconocida.
+
+| Objetivos
+a|* Aplicaciones
+* +APIs+
+* Apps Móviles
+* Servidores
+* Redes
+* Dispositivos +IoT+
+* Sistemas de control industrial (+ICS+)
+* Centros de operaciones en seguridad (+SOC+)
+a|Web
+
+| Ciclos de Revisión
+| Multiples en nuestro servicio 
+[button]#link:../../servicios/hacking-continuo/[Continuous Hacking>>]#
+| Solo 1
+
+| Ambientes
+a|* Producción
+* Pruebas
+* Integración
+| Producción
+
+| Correlación de Vulnerabilidades
+| Combinando las vulnerabilidades +A+ y +B+ encontrar una +C+ 
+de mayor impacto que permite comprometer más registros.
+| Solo detecta vulnerabilidades +A+ y +B+ pero no puede correlacionarlas.
 
 | Tipo de Hallazgos 
 a|* De impacto específicos del negocio 
@@ -75,13 +126,14 @@ a|* Basado en firmas
 
 | Tipo de Evidencia 
 a|* Imágenes 
-* +GIF+ animado
+* +GIF+ animado. 
+link:../../productos/integrates/#evidencias-de-la-vulnerabilidad[Ejemplo]
 a|* Salidas de Herramienta
 * Imágenes
 
 | Entregables 
 | Sistema web de documentación en tiempo real 
-[button]#link:../../productos/integrates/[FLUIDIntegrates>>]#
+[button]#link:../../productos/integrates/[Integrates>>]#
 a|* Documento en word realizado manualmente.
 * Informes de herramientas sin descartar falsos positivos
 |====
