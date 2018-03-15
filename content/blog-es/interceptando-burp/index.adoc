@@ -15,7 +15,7 @@
 = Interceptando con burp
 
 Burp Suite es un software creado por la compañia 
-https://portswigger.net/burp/[PortSwigger] Web Security con el fin de proveer 
+link:https://portswigger.net/burp/[PortSwigger] Web Security con el fin de proveer 
 herramientas para los test de penetración o Penetration testing en seguridad 
 informática. Es ampliamente usado entre la comunidad especializada en seguridad 
 ya que sus herramientas son bastante robustas y completas, además de que tiene 
@@ -58,7 +58,8 @@ agen:
 image::configuracion-navegador.png[navegador]
 
 Luego debemos activar el certificado de seguridad para permitir que Burp
-intercepte el tráfico. SImplemente nos dirigimos a http://burp/ y descargamos
+intercepte el tráfico. Simplemente nos dirigimos a 
+link:http://burp/[la página de +burp+] y descargamos
 el certificado CA certificate ubicado en la esquina superior derecha:
 
 .CA Certificate

@@ -87,7 +87,7 @@ What is a vulnerability?::
 It is any situation that represents a security risk (Integrity, Availability, Confidentiality, Non-repudiation) for the application.
 
 How is the technical criticity of a vulnerability calculated?::
-We use the https://www.first.org/cvss/[CVSS] international standard to obtain a quantitative measure that goes from 0 to 10, 0 being the lowest and 10 the highest and most critical according to the qualitative characteristics of the vulnerability.
+We use the link:https://www.first.org/cvss/[CVSS] international standard to obtain a quantitative measure that goes from 0 to 10, 0 being the lowest and 10 the highest and most critical according to the qualitative characteristics of the vulnerability.
 
 How can I obtain information regarding the vulnerabilities found in my application?::
 The Continuous Hacking service has an interactive report platform called link:../../../products/integrates/[Integrates]. This allows all project stakeholders to have access to the details of the vulnerabilities reported by FLUID.

@@ -41,7 +41,7 @@ que apenas está aprendiendo sobre buenas prácticas de desarrollo +web+.
 
 Los ejemplos presentados aquí, 
 son soluciones a retos de seguridad informática 
-del sitio +web+ https://www.hackthis.co.uk/[+hackthis+], el cual, 
+del sitio +web+ link:https://www.hackthis.co.uk/[+hackthis+], el cual, 
 permite validar tus habilidades 
 para superar controles de seguridad en diferentes categorías. 
 En esta oportunidad, daremos solución a los retos 1,2 y 6 
@@ -64,9 +64,9 @@ Para este nivel básico,
 podemos hacer uso de herramientas precargadas en los navegadores +web+ 
 como es el visualizador de código fuente. 
 El código fuente de un sitio +web+, 
-es un conjunto de etiquetas conocidas como etiquetas https://www.w3schools.com/html/[+html+], 
-hojas de estilos en cascada (https://www.w3schools.com/css/[+CSS+]-+Cascading Stylesheets+) 
-y algunas veces, segmentos de código denominados +scripts+ de https://www.w3schools.com/js/[+JS+]. 
+es un conjunto de etiquetas conocidas como etiquetas link:https://www.w3schools.com/html/[+html+], 
+hojas de estilos en cascada (link:https://www.w3schools.com/css/[+CSS+]-+Cascading Stylesheets+) 
+y algunas veces, segmentos de código denominados +scripts+ de link:https://www.w3schools.com/js/[+JS+]. 
 Podemos acceder a dicha herramienta 
 pulsando el atajo +Ctrol+U+ o haciendo +click+ derecho en el navegador 
 y seleccionando la opción +"View Page Source"+ 

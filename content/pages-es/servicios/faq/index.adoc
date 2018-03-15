@@ -133,7 +133,7 @@ Incluyendo dentro de nuestras verificaciones las vulnerabilidades a componentes 
 Es cualquier situación que representa un riesgo de seguridad (Integridad, Disponibilidad, Confidencialidad, No repudio) sobre una aplicación.
 
 ¿Cómo se califica la criticidad técnica de una vulnerabilidad?::
-Usamos el estándar internacional https://www.first.org/cvss/[CVSS] para obtener una calificación cuantitativa
+Usamos el estándar internacional link:https://www.first.org/cvss/[CVSS] para obtener una calificación cuantitativa
 que va de 0 a 10, donde 0 es la más baja y 10 la más alta.
 
 ¿Cómo obtengo información sobre las vulnerabilidades encontradas en mi aplicación?::

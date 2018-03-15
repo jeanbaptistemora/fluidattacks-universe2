@@ -140,4 +140,4 @@ al acceso a la información y protección de la misma.
 
 == Bibliografía
 
-OpenID Foundation. (2017). OpenID Connect. Obtenido de http://openid.net/connect/
+. [[r1]] link:http://openid.net/connect/[OpenID Foundation. (2017). OpenID Connect.]

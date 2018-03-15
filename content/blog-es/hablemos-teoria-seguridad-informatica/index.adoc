@@ -38,9 +38,10 @@ lograrlo, la seguridad informática está fundamentada en dos objetivos:
 
 * Proteger la infraestructura tecnológica (el conjunto de hardware y software sobre el que funcionan 
 los diferentes servicios proporcionados por los sistemas informáticos)
-* Salvaguardar toda la información de la cual hace uso un sistema (http://web.iti.upv.es/actualidadtic/2003/07/2003-07-seguridad.pdf[Galdámez, 2003])
+* Salvaguardar toda la información de la cual hace uso un sistema 
+(link:http://web.iti.upv.es/actualidadtic/2003/07/2003-07-seguridad.pdf[Galdámez, 2003])
 
-Estos objetivos están sostenidos en los principios básicos de confiabilidad, disponibilidad, integridad, eficiencia y no repudio (https://www.ecured.cu/Seguridad_Inform%C3%A1tica[Ecured, 2017])
+Estos objetivos están sostenidos en los principios básicos de confiabilidad, disponibilidad, integridad, eficiencia y no repudio (link:https://www.ecured.cu/Seguridad_Inform%C3%A1tica[Ecured, 2017])
 
 Aclarando la definición de seguridad informática, pasaré a explicar qué es lo que se entiende por 
 acceso no autorizado. Este término se refiere al ingreso de manera indebida y sin permiso, mediante 
@@ -74,7 +75,8 @@ equipo está infectado por algún virus y para poder eliminarlo, exige determina
 == Ingeniería social
 
 Se define como el empleo de técnicas psicológicas y tecnológicas con el fin de lograr que las 
-víctimas revelen información que no debería ser revelada. (Como se comentaba en https://lordjhony.github.io/2017/05/16/las-cadenas-y-sus-eslabones-introduccion-a-la-ingenieria-social.html[artículos anteriores]).
+víctimas revelen información que no debería ser revelada. (Como se comentaba en 
+link:https://lordjhony.github.io/2017/05/16/las-cadenas-y-sus-eslabones-introduccion-a-la-ingenieria-social.html[artículos anteriores]).
 
 == Bloqueo o denegación de servicio
 

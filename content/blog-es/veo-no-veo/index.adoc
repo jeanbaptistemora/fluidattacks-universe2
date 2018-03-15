@@ -42,7 +42,7 @@ anterior para el reto 1 de la misma categoría:
 .hackthis: nivel 2 de la categoría MAIN
 image::level2.png[reto]
 
-Al igual que el https://goo.gl/NRxUPF[reto 1], en este se solicita ingresar
+Al igual que el link:https://goo.gl/NRxUPF[reto 1], en este se solicita ingresar
 credenciales válidas para un determinado usuario. Solo que esta vez haremos uso
 de una nueva herramienta incorporada en los navegadores web:
 _"Inspect Element"_ (o inspeccionar elemento si tu sistema operativo está en
@@ -86,7 +86,7 @@ el navegador:
 image::level2answer4.png[solucion-3]
 
 Puedes leer sobre el formato de colores RGB y probar con otros en
-https://goo.gl/cjpNSu[este enlace].
+link:https://goo.gl/cjpNSu[este enlace].
 
 Por último, y una vez explicado el paso a paso con las distintas formas de
 resolver un mismo reto, se incluye una pequeña animación, la cual, muestra todo

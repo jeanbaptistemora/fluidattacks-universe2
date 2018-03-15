@@ -95,7 +95,7 @@ fluidasserts:
 * *Sistema operativo*:
 ** Cualquier SO que soporte Python
 * *Red*:
-** Acceso al repositorio de artefactos https://fluid.jfrog.io
+** Acceso al repositorio de artefactos link:https://fluid.jfrog.io[aquí].
 * *Dependencias de software*:
 ** +Python 3.6+
 
@@ -106,7 +106,7 @@ fluidasserts:
 ** Windows Server con +HyperV+ y +Docker+
 ** MacOS
 * *Red*:
-** Acceso al registro de contenedores https://fluid-docker.jfrog.io
+** Acceso al registro de contenedores link:https://fluid-docker.jfrog.io[aquí].
 ** Acceso al ambiente de integración donde tengas la aplicación o plataforma
 * *Dependencias de software*:
 ** +DockerCE 17+ ó superior

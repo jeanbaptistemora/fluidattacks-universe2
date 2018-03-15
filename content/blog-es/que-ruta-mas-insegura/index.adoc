@@ -52,8 +52,9 @@ En este caso, si pagina2.html dentro de su contenido referencia mediante un
 enlace a pagina3.html, las url absoluta y relativa (respecto a pagina2.html) para
 pagina3.html quedarían de la siguiente manera:
 
- url absoluta: +https://www.mipagina.com/a/a2/pagina3.html+
- url relativa: pagina3.html
+
+url absoluta: +https://www.mipagina.com/a/a2/pagina3.html+
+url relativa: pagina3.html
 
 Como podemos ver, para este caso, fue mucho más sencillo definir una ruta
 relativa para pagina3.html que una absoluta.
@@ -69,8 +70,8 @@ caracteres dentro la url relativa: *../* .
 Por lo tanto, las url absoluta y relativa (respecto a pagina1.html) para
 pagina4.html quedarían de la siguiente manera:
 
- url absoluta: +https://www.mipagina.com/c/pagina4.html+
- url relativa: ../c/pagina4.html
+url absoluta: +https://www.mipagina.com/c/pagina4.html+
+url relativa: ../c/pagina4.html
 
 Podemos subir los niveles que queramos en la jerarquía de carpetas, simplemente
 anidando expresiones *../* . El siguiente ejemplo aclara esta situación:
@@ -79,8 +80,8 @@ Supongamos que deseamos enlazar a _pagina4.html_ desde _pagina2.html_ . En este
 caso, la url absoluta y relativa (respecto a pagina2.html) para pagina4.html
 quedarían así:
 
- url absoluta: +https://www.mipagina.com/c/pagina4.html+
- url relativa: ../../c/pagina4.html
+url absoluta: +https://www.mipagina.com/c/pagina4.html+
+url relativa: ../../c/pagina4.html
 
 == Reto: Main Level 4
 

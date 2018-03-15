@@ -60,13 +60,13 @@ recibió su aprobación de estándar.
 
 Oauth, como su nombre lo dice, es un protocolo abierto que permite la autorización 
 segura de una API, de manera estándar y simple, para interactuar con aplicaciones 
-de escritorio, móviles y sitios web (https://tools.ietf.org/html/rfc5849[IETF, 2010]). 
+de escritorio, móviles y sitios web (link:https://tools.ietf.org/html/rfc5849[IETF, 2010]). 
 Aunque, dos años después este estándar fue reemplazado por una evolución del mismo 
 oauth 2.0 que añadió características tales como la dependencia de transporte de datos 
 mediante el uso de HTTPS, una mayor flexibilidad en su uso y una centralización en el 
-uso de las diferentes claves (https://tools.ietf.org/html/rfc6750[IETF, 2012]).
+uso de las diferentes claves (link:https://tools.ietf.org/html/rfc6750[IETF, 2012]).
 
-.Funcionamiento de OAUTH- https://community.saas.hpe.com/t5/Security-Research/Low-Hanging-Threats-to-OAuth-Security/ba-p/301565#.WT6hBWiGPIV[HP]
+.Funcionamiento de OAUTH- link:https://community.saas.hpe.com/t5/Security-Research/Low-Hanging-Threats-to-OAuth-Security/ba-p/301565#.WT6hBWiGPIV[HP]
 image::oauth.png[funcionamiento]
 
 Para explicar el funcionamiento de oauth haré uso de un ejemplo básico, que no 

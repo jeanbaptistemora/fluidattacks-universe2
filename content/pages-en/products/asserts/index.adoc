@@ -105,7 +105,7 @@ the pipeline will break!
 * *Operating system*:
 ** Any SO that supports +Python+
 * *Network*:
-** Access to the Artifacts Repository https://fluid.jfrog.io
+** Access to the Artifacts Repository link:https://fluid.jfrog.io[here].
 * *Software dependencies*:
 ** +Python 3.6+
 
@@ -116,7 +116,7 @@ the pipeline will break!
 ** Windows Server with +HyperV+ and +Docker+
 ** MacOS
 * *Network*:
-** Access to the Container Registry https://fluid-docker.jfrog.io
+** Access to the Container Registry link:https://fluid-docker.jfrog.io[here].
 ** Access to the integration environment where your application or platform is running
 * *Software dependencies*:
 ** +DockerCE 17+ or superior

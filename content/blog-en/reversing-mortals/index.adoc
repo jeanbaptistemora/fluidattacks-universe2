@@ -49,7 +49,7 @@ image::image1.png[challenge]
 
 To accomplish our task we need a debugger. The debugger we will be using is the
 very well known OllyDbg. A complete installation guide and user manual can be
-found at http://www.ollydbg.de/[The official Olly Dbg] website.
+found at link:http://www.ollydbg.de/[The official Olly Dbg] website.
 Keep in mind that olly cannot be used to reverse all executable files, it
 focuses on binary code analysis. As you run into more difficult reversing
 challenges, you will learn to use other tools whether it be to compliment olly

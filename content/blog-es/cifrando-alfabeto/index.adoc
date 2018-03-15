@@ -16,13 +16,13 @@
 
 == Cifrado por sustitución
 
-El cifrado por sustitución es uno de los más comunes y más inseguros que existen
- en *criptografía*, simplemente se sustituyen cada una de las letras de un texto
- por otras letras conservando un orden dado de manera que si cambiamos la letra 
-*a* por la letra *m* de una palabra del texto, todas las letras *a* de todas las
- palabras del texto se transformarán por la letra *m*. Es un cifrado muy
- inseguro para textos largos, debido a que la persona que lo quiera descifrar
- puede inferir las letras originales por la repetición de estas en el texto.
+El cifrado por sustitución es uno de los más comunes y más inseguros que existen 
+en *criptografía*, simplemente se sustituyen cada una de las letras de un texto 
+por otras letras conservando un orden dado de manera que si cambiamos la letra 
+*a* por la letra *m* de una palabra del texto, todas las letras *a* de todas las 
+palabras del texto se transformarán por la letra *m*. Es un cifrado muy 
+inseguro para textos largos, debido a que la persona que lo quiera descifrar 
+puede inferir las letras originales por la repetición de estas en el texto.
 
 == Reto en CodeEval 121
 
@@ -109,9 +109,9 @@ encriptación sólo se usa con fines educativos o académicos.
 
 == Referencias
 
-. https://es.wikipedia.org/wiki/Cifrado_por_sustituci%C3%B3n[Cifrado por sustitución]
+. [[r1]] link:https://es.wikipedia.org/wiki/Cifrado_por_sustituci%C3%B3n[Cifrado por sustitución]
 
 == Link del reto
 
-https://www.codeeval.com/open_challenges/121/[Lost In Translation]
+link:https://www.codeeval.com/open_challenges/121/[Lost In Translation]
 

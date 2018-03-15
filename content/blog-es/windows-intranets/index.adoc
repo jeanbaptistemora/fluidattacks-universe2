@@ -26,7 +26,8 @@ que usar diferentes recursos pertenecientes a la organización surgiendo de esta
 Una intranet es una red privada que utiliza todas las funcionalidades y recursos de Internet de tal manera que concede el 
 intercambio de información de forma rápida y, como su nombre lo dice, privada y controlada dentro de una organización.
 
-.What is an Intranet?- https://axerosolutions.com/intranet-software/what-is-an-intranet.aspx[Axero]
+.What is an Intranet?- 
+link:https://axerosolutions.com/intranet-software/what-is-an-intranet.aspx[Axero]
 image::intranet.png[intranet]
 
 Pero así como usa todos los beneficios de Internet, en igual medida, también se ve afectado por todos los riesgos de seguridad 
@@ -34,7 +35,7 @@ que tiene el primero. Uno de esos riesgos es que personas no autorizadas ingrese
 información confidencial y sensible para la empresa. Una forma de dar solución a los posibles problemas de acceso no autorizado 
 en una intranet, es usar la Autenticación Integrada de Windows, más conocida por sus siglas en inglés IWA.
 
-https://technet.microsoft.com/es-es/library/hh831472(v=ws.11).aspx[IWA] es un método robusto de autenticación desarrollado por 
+link:https://technet.microsoft.com/es-es/library/hh831472(v=ws.11).aspx[IWA] es un método robusto de autenticación desarrollado por 
 Microsoft que proporciona métodos de identificación automáticos entre un usuario y un recurso compartido alojado en un servidor 
 el cual está dentro de un dominio de Windows accedido mediante un directorio activo. Cabe mencionar que esos recursos puede ser 
 el permiso para acceder a un sitio web determinado. Además, se debe explicar que un directorio activo es un servicio, establecido 

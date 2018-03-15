@@ -31,7 +31,7 @@ como funcionan estas técnicas.
 Los cifrados por sustitución son la base de los algoritmos modernos, fueron
 muy usados durante la guerra, e indescifrables en su época, pero hoy en día
 muy fáciles de romper, solo sabiendo 
-https://es.wikipedia.org/wiki/Frecuencia_de_aparici%C3%B3n_de_letras[El principio de frecuencia del uso de letras],
+link:https://es.wikipedia.org/wiki/Frecuencia_de_aparici%C3%B3n_de_letras[El principio de frecuencia del uso de letras],
 por ejemplo:
 
 En el lenguaje español como en el ingles las letras que más se repiten es la 
@@ -42,7 +42,7 @@ y así sucesivamente.
 
 === Ejercicio
 
-* Crypt level 4 de https://www.hackthis.co.uk/[hackthis.co.uk]
+* Crypt level 4 de link:https://www.hackthis.co.uk/[hackthis.co.uk]
 
 [quote]
 Dc, gdcl cl h lcrcshn ckqh gz sqwqs guz. Gdcl gcrq qhyd sqggqn cl hllcomqk h 
@@ -67,7 +67,7 @@ de algoritmos de Digest como *MD5* y *SHA1*, existiendo módulos como *crypto++*
 que  nos permite implementar algoritmos más robustos para proteger nuestra 
 información. Todos los retos donde encontremos datos cifrados con algoritmos 
 como MD5, SHA1 y *NTLM* (algoritmo de cifrado de Windows), los podemos descifrar 
-rápidamente con herramientas como https://hashkiller.co.uk/[hashkiller.co.uk].
+rápidamente con herramientas como link:https://hashkiller.co.uk/[hashkiller.co.uk].
 
 En realidad MD5 y SHA1 son una buena idea, pero no para cifrar información como 
 contraseñas como lo hacen muchos en sus bases de datos, si no para verificar la 
@@ -83,7 +83,7 @@ image::1.png[validacion]
 Existen muchas herramientas para descifrar archivos pero entre las más 
 populares tenemos:
 
-* John de ripper
+* John the ripper
 * ophcrack
 
 Estas dos herramientas son importantes para tratar de descifrar archivos, la

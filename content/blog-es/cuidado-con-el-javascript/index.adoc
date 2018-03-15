@@ -17,11 +17,11 @@
 
 El mundo de la web tal como se conoce hoy en día, ha sido posible gracias a los
 avances tecnológicos. O entre otras cosas, gracias al grado de madurez que han
-alcanzado los diferentes https://goo.gl/9ict5K[lenguajes de programación] con los
+alcanzado los diferentes link:https://goo.gl/9ict5K[lenguajes de programación] con los
 que se desarrolla la web en la actualidad.
 
-Con el pasar de los días, salen al mercado nuevos lenguajes y
-https://goo.gl/rjcdL3[frameworks], los cuales facilitan el trabajo a los
+Con el pasar de los días, salen al mercado nuevos lenguajes y 
+link:https://goo.gl/rjcdL3[frameworks], los cuales facilitan el trabajo a los
 desarrolladores. Sin embargo, así mismo, cada vez se descubren nuevas
 vulnerabilidades para estas tecnologías, las cuales son aprovechadas por
 diferentes individuos conocidos como hackers, cuyo fin es aprovecharse de dichas
@@ -30,7 +30,7 @@ sitio web (o aplicación), o, en el peor de los casos, anular completamente dich
 servicio.
 
 En esta oportunidad, y continuando con una serie de artículos sobre soluciones a
-retos de https://www.hackthis.co.uk[hackthis], hablaremos un poco sobre las
+retos de link:https://www.hackthis.co.uk[hackthis], hablaremos un poco sobre las
 precauciones que se deben tener en cuenta al trabajar con JavaScript; sobre todo
 en cuanto a malos hábitos se refiere.
 
@@ -45,8 +45,8 @@ el pasar de los años, JS ha mostrado un alto grado de madurez permitiéndonos
 experimentar la web tal y como la conocemos hoy en día. Es tal su acogida, que es
 uno de los lenguajes de programación con más variaciones (sino el que más) de
 frameworks existentes en el mercado. Como por ejemplo:
-https://angular.io/[Angular.js], https://vuejs.org/[Vue.js] y
-https://jquery.com/[jQuery], solo por nombrar algunos.
+link:https://angular.io/[Angular.js], link:https://vuejs.org/[Vue.js] y
+link:https://jquery.com/[jQuery], solo por nombrar algunos.
 
 == Reto: Main Level 3
 
@@ -81,7 +81,7 @@ image::script-level3.png[jquery]
 Trataré de explicar el anterior script de jQuery de la manera más clara y sobre
 todo, más sencilla posible:
 
-En primer lugar se ejecuta una https://goo.gl/BRkKou[función anónima], la cual
+En primer lugar se ejecuta una link:https://goo.gl/BRkKou[función anónima], la cual
 captura el elemento html con el id (un identificador único para cada etiqueta)
 igual a _level-form_. Posterior a ello, cuando el usuario pulsa el botón
 _Submit_, se ejecuta un evento que en este caso tiene el mismo nombre que el

@@ -30,7 +30,7 @@ estas pueden almacenar datos de personas, productos, precios o datos más
 sensibles como direcciones de nuestros clientes, tarjetas de crédito y sus
 contraseñas. Teniendo esto en mente el tema a tratar es la inyección SQL.
 
-.Bases de datos footnote:[Imagen tomada de http://www.tecniplanet.net[Tecniplanet]]
+.Bases de datos footnote:[Imagen tomada de link:http://www.tecniplanet.net[Tecniplanet]]
 image::database.png[footnote]
 
 == ¿Qué es una inyección SQL?
@@ -179,5 +179,5 @@ consulta SQL existe una vulnerabilidad a nuestro sistema.
 
 == Referencia
 
-. http://php.net/manual/es/security.database.sql-injection.php[PHP]
-. https://technet.microsoft.com/es-es/library/ms161953(v=sql.105).aspx[Microsoft Technet]
+. [[r1]] link:http://php.net/manual/es/security.database.sql-injection.php[PHP]
+. [[r2]] link:https://technet.microsoft.com/es-es/library/ms161953(v=sql.105).aspx[Microsoft Technet]

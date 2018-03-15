@@ -24,8 +24,8 @@ Chile, 2006. Transparencias
 
 FLUID ha publicado a través de su historia múltiples artículos en prensa. Aquí se encuentran algunos de ellos:
 
-* http://www.elcolombiano.com/historico/evite_el_secuestro_de_su_celular-CGEC_34886[Evite el secuestro de su celular (El Colombiano)]
-* http://www.elcolombiano.com/historico/internet_seguro_y_confiable-KJEC_46693[Internet seguro y confiable (El Colombiano)]
+* link:http://www.elcolombiano.com/historico/evite_el_secuestro_de_su_celular-CGEC_34886[Evite el secuestro de su celular (El Colombiano)]
+* link:http://www.elcolombiano.com/historico/internet_seguro_y_confiable-KJEC_46693[Internet seguro y confiable (El Colombiano)]
 
 == Estandarización
 

@@ -42,13 +42,14 @@ decir, el control de acceso a las API de los recursos de AWS y las aplicaciones
 que van a utilizar. Al final del día AWS te entrega la “bóveda” y el cliente es 
 quien controla las visitas.
 
-.Quién es responsable de que dentro de los servicios de AWS – https://media.amazonwebservices.com/AWS_Security_Best_Practices.pdf[Referencia]
+.Quién es responsable de que dentro de los servicios de AWS – 
+link:https://media.amazonwebservices.com/AWS_Security_Best_Practices.pdf[Referencia]
 image::aws-services.png[aws]
 
 == Funcionalidades de Seguridad
 
 * Acceso seguro con un protocolo TLS desarrollado por AWS (TLS -> API)
-** S2N: https://github.com/awslabs/s2n[]
+** link:https://github.com/awslabs/s2n[S2N]
 * Firewall Integrado – Grupos de seguridad
 ** Estan distribuidos para cada uno de los accesos a los recursos en AWS
 ** Cerrados por defecto, es el cliente el que define las políticas de acceso a 

@@ -97,9 +97,9 @@ debes notificarnos vía e-mail a careers@autonomicmind.co
 . *Retos Técnicos*: El objetivo de esta etapa
 es evidenciar en la práctica tu potencial para aprender,
 investigar y resolver diferentes tipos de problemas a los que nos enfrentamos diariamente.
-Nuestros talentos actuales están en el https://www.wechall.net/country_ranking/for/31/Colombia[TOP10 de Colombia],
+Nuestros talentos actuales están en el link:https://www.wechall.net/country_ranking/for/31/Colombia[TOP10 de Colombia],
 e incluso,
-algunos de ellos están en el https://www.wechall.net/ranking[TOP100 Mundial].
+algunos de ellos están en el link:https://www.wechall.net/ranking[TOP100 Mundial].
 Esto es obligatorio para perfiles técnicos y requiere un esfuerzo estimado de 4 a 16 horas según tu conocimiento.
 Para hacerla requieres haber finalizado la etapa anterior.
 Para iniciar,
