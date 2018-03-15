@@ -99,6 +99,24 @@ for FILE in $(find content -iname '*.adoc'); do
   	ERRORS=1;
   fi
 
+#Check that every URL starts with link:
+  if sh exttxt.sh $FILE | pcregrep --color '(\s|\w|\()http(s)?://'; then
+    echo -e "${GC}URLs must start with 'link:'. Please correct the file \"$FILE\"${NC}";
+    ERRORS=1;
+  fi
+
+#Check that every URL has a short name between brackets:
+  if sh exttxt.sh $FILE | pcregrep --color 'link:http(s)?://'; then
+    echo -e "${GC}URLs must have a short name between brackets. Please correct the file \"$FILE\"${NC}";
+    ERRORS=1;
+  fi
+
+#Check that local URLs always uses relative paths:
+  if cat $FILE | pcregrep --color 'http(s)?://fluidattacks.com/web'; then
+    echo -e "${GC}Local URLs must use relative paths. Please correct the file \"$FILE\"${NC}";
+    ERRORS=1;
+  fi
+
 # Check if first source code has title
   if pcregrep --color -Mq '^\[source' $FILE; then
     if ! pcregrep --color -Mq '^\..*\n\[source' $FILE; then
