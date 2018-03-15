@@ -159,8 +159,8 @@
                                   </div>                                  
                               </div>
                               <div class="row table-row" ng-show="isManager && !onlyReadableTab1">
-                                  <div class="col-md-3 col-xs-12 col-sm-12 table-head"><label><b>{{'search_findings.tab_description.type' | translate}}</b></label></div>
-                                  <div class="col-md-9 col-xs-12 col-sm-12 table-desc">
+                                  <div class="col-md-2 col-xs-12 col-sm-12 table-head"><label><b>{{'search_findings.tab_description.type' | translate}}</b></label></div>
+                                  <div class="col-md-10 col-xs-12 col-sm-12 table-desc">
                                       <p ng-show="onlyReadableTab1">{{finding.nivel}}</p>
                                       <select ng-model="finding.nivel"
                                               ng-show="!onlyReadableTab1"
@@ -172,8 +172,8 @@
                                   </div>
                               </div>
                               <div class="row table-row">
-                                  <div class="col-md-3 col-xs-12 col-sm-12 table-head"><label><b>{{'search_findings.tab_description.title' | translate}}</b></label></div>
-                                  <div class="col-md-9 col-xs-12 col-sm-12 table-desc">
+                                  <div class="col-md-2 col-xs-12 col-sm-12 table-head"><label><b>{{'search_findings.tab_description.title' | translate}}</b></label></div>
+                                  <div class="col-md-10 col-xs-12 col-sm-12 table-desc">
                                       <p ng-show="onlyReadableTab1">{{finding.hallazgo}}</p>
                                       <input type="text" class="form-control"
                                              ng-show="!onlyReadableTab1"
@@ -181,8 +181,8 @@
                                   </div>
                               </div>
                               <div class="row table-row">
-                                  <div class="col-md-3 col-xs-12 col-sm-12 table-head"><label><b>{{'search_findings.tab_description.stage' | translate}}</b></label></div>
-                                  <div class="col-md-3 col-xs-12 col-sm-12 table-desc">
+                                  <div class="col-md-2 col-xs-12 col-sm-12 table-head"><label><b>{{'search_findings.tab_description.stage' | translate}}</b></label></div>
+                                  <div class="col-md-4 col-xs-12 col-sm-12 table-desc">
                                       <p ng-show="onlyReadableTab1">{{finding.escenario}}</p>
                                       <select ng-model="finding.escenario"
                                               ng-show="!onlyReadableTab1"
@@ -191,8 +191,8 @@
                                                   value="{{item.name}}">{{item.name}}</option>
                                       </select>
                                   </div>
-                                  <div class="col-md-3 col-xs-12 col-sm-12 table-head"><label><b>Actor</b></label></div>
-                                  <div class="col-md-3 col-xs-12 col-sm-12 table-desc">
+                                  <div class="col-md-2 col-xs-12 col-sm-12 table-head"><label><b>Actor</b></label></div>
+                                  <div class="col-md-4 col-xs-12 col-sm-12 table-desc">
                                       <p ng-show="onlyReadableTab1">{{finding.actor}}</p>
                                       <select ng-model="finding.actor"
                                               ng-show="!onlyReadableTab1"
@@ -203,8 +203,8 @@
                                   </div>
                               </div>
                               <div class="row table-row" ng-show="esDetallado">
-                                  <div class="col-md-3 col-xs-12 col-sm-12 table-head"><label><b>{{'search_findings.tab_description.category' | translate}}</b></label></div>
-                                  <div class="col-md-3 col-xs-12 col-sm-12 table-desc">
+                                  <div class="col-md-2 col-xs-12 col-sm-12 table-head"><label><b>{{'search_findings.tab_description.category' | translate}}</b></label></div>
+                                  <div class="col-md-4 col-xs-12 col-sm-12 table-desc">
                                       <p ng-show="onlyReadableTab1">{{finding.categoria}}</p>
                                       <select ng-model="finding.categoria"
                                               ng-show="!onlyReadableTab1"
@@ -215,8 +215,8 @@
                                           </option>
                                       </select>
                                   </div>
-                                  <div class="col-md-3 col-xs-12 col-sm-12 table-head"><label><b>{{'search_findings.tab_description.risk' | translate}}</b></label></div>
-                                  <div class="col-md-3 col-xs-12 col-sm-12 table-desc">
+                                  <div class="col-md-2 col-xs-12 col-sm-12 table-head"><label><b>{{'search_findings.tab_description.risk' | translate}}</b></label></div>
+                                  <div class="col-md-4 col-xs-12 col-sm-12 table-desc">
                                       <p ng-show="onlyReadableTab1">{{finding.valor_riesgo}}</p>
                                       <input type="text" class="form-control"
                                              ng-show="!onlyReadableTab1"
@@ -224,8 +224,8 @@
                                   </div>
                               </div>
                               <div class="row table-row" ng-show="esDetallado">
-                                  <div class="col-md-3 col-xs-12 col-sm-12 table-head"><label><b>{{'search_findings.tab_description.probability' | translate}}</b></label></div>
-                                  <div class="col-md-3 col-xs-12 col-sm-12 table-desc">
+                                  <div class="col-md-2 col-xs-12 col-sm-12 table-head"><label><b>{{'search_findings.tab_description.probability' | translate}}</b></label></div>
+                                  <div class="col-md-4 col-xs-12 col-sm-12 table-desc">
                                       <p ng-show="onlyReadableTab1">{{finding.probabilidad}}</p>
                                       <select ng-model="finding.probabilidad"
                                               ng-show="!onlyReadableTab1"
@@ -237,8 +237,8 @@
                                           </option>
                                       </select>
                                   </div>
-                                  <div class="col-md-3 col-xs-12 col-sm-12 table-head"><label><b>{{'search_findings.tab_description.severity' | translate}}</b></label></div>
-                                  <div class="col-md-3 col-xs-12 col-sm-12 table-desc">
+                                  <div class="col-md-2 col-xs-12 col-sm-12 table-head"><label><b>{{'search_findings.tab_description.severity' | translate}}</b></label></div>
+                                  <div class="col-md-4 col-xs-12 col-sm-12 table-desc">
                                       <p ng-show="onlyReadableTab1">{{finding.severidad}}</p>
                                       <input type="text" class="form-control"
                                              ng-show="!onlyReadableTab1"
@@ -248,8 +248,8 @@
                                   </div>
                               </div>
                               <div class="row table-row">
-                                  <div class="col-md-3 col-xs-12 col-sm-12 table-head"><label><b>{{'search_findings.tab_description.description' | translate}}</b></label></div>
-                                  <div class="col-md-9 col-xs-12 col-sm-12 table-desc">
+                                  <div class="col-md-2 col-xs-12 col-sm-12 table-head"><label><b>{{'search_findings.tab_description.description' | translate}}</b></label></div>
+                                  <div class="col-md-10 col-xs-12 col-sm-12 table-desc">
                                       <p ng-show="onlyReadableTab1">{{finding.vulnerabilidad}}</p>
                                       <textarea class="form-control no-resize"
                                                 ng-show="!onlyReadableTab1"
@@ -257,8 +257,8 @@
                                   </div>
                               </div>
                               <div class="row table-row">
-                                  <div class="col-md-3 col-xs-12 col-sm-12 table-head"><label><b>{{'search_findings.tab_description.requirements' | translate}}</b></label></div>
-                                  <div class="col-md-9 col-xs-12 col-sm-12 table-desc">
+                                  <div class="col-md-2 col-xs-12 col-sm-12 table-head"><label><b>{{'search_findings.tab_description.requirements' | translate}}</b></label></div>
+                                  <div class="col-md-10 col-xs-12 col-sm-12 table-desc">
                                       <p ng-show="onlyReadableTab1">{{finding.requisitos}}</p>
                                       <textarea class="form-control no-resize"
                                                 ng-show="!onlyReadableTab1"
@@ -266,8 +266,8 @@
                                   </div>
                               </div>
                               <div class="row table-row">
-                                  <div class="col-md-3 col-xs-12 col-sm-12 table-head"><label><b>{{'search_findings.tab_description.where' | translate}}</b></label></div>
-                                  <div class="col-md-9 col-xs-12 col-sm-12 table-desc">
+                                  <div class="col-md-2 col-xs-12 col-sm-12 table-head"><label><b>{{'search_findings.tab_description.where' | translate}}</b></label></div>
+                                  <div class="col-md-10 col-xs-12 col-sm-12 table-desc">
                                       <textarea msd-elastic class="form-control" rows="4"
                                                 ng-show="onlyReadableTab1"
                                                 disabled style="margin-bottom: 5px;"
@@ -278,8 +278,8 @@
                                   </div>
                               </div>
                               <div class="row table-row" ng-show="!onlyReadableTab1">
-                                  <div class="col-md-3 col-xs-12 col-sm-12 table-head"><label><b>{{'search_findings.tab_description.cardinality' | translate}}</b></label></div>
-                                  <div class="col-md-9 col-xs-12 col-sm-12 table-desc">
+                                  <div class="col-md-2 col-xs-12 col-sm-12 table-head"><label><b>{{'search_findings.tab_description.cardinality' | translate}}</b></label></div>
+                                  <div class="col-md-10 col-xs-12 col-sm-12 table-desc">
                                       <p ng-show="onlyReadableTab1">{{finding.cardinalidad}}</p>
                                       <input type="text" class="form-control"
                                              ng-show="!onlyReadableTab1"
@@ -287,15 +287,15 @@
                                   </div>
                               </div>
                               <div class="row table-row">
-                                  <div class="col-md-3 col-xs-12 col-sm-12 table-head"><label><b>{{'search_findings.tab_description.vectors' | translate}}</b></label></div>
-                                  <div class="col-md-3 col-xs-12 col-sm-12 table-desc">
+                                  <div class="col-md-2 col-xs-12 col-sm-12 table-head"><label><b>{{'search_findings.tab_description.vectors' | translate}}</b></label></div>
+                                  <div class="col-md-4 col-xs-12 col-sm-12 table-desc">
                                       <p ng-show="onlyReadableTab1">{{finding.vector_ataque}}</p>
                                       <textarea class="form-control no-resize"
                                                 ng-show="!onlyReadableTab1"
                                                 ng-model="finding.vector_ataque">{{finding.vector_ataque}}</textarea>
                                   </div>
-                                  <div class="col-md-3 col-xs-12 col-sm-12 table-head"><label><b>{{'search_findings.tab_description.threat' | translate}}</b></label></div>
-                                  <div class="col-md-3 col-xs-12 col-sm-12 table-desc">
+                                  <div class="col-md-2 col-xs-12 col-sm-12 table-head"><label><b>{{'search_findings.tab_description.threat' | translate}}</b></label></div>
+                                  <div class="col-md-4 col-xs-12 col-sm-12 table-desc">
                                       <p ng-show="onlyReadableTab1">{{finding.amenaza}}</p>
                                       <textarea class="form-control no-resize"
                                                 ng-show="!onlyReadableTab1"
@@ -303,15 +303,15 @@
                                   </div>
                               </div>
                               <div class="row table-row">
-                                  <div class="col-md-3 col-xs-12 col-sm-12 table-head"><label><b>{{'search_findings.tab_description.recommendation' | translate}}</b></label></div>
-                                  <div class="col-md-3 col-xs-12 col-sm-12 table-desc">
+                                  <div class="col-md-2 col-xs-12 col-sm-12 table-head"><label><b>{{'search_findings.tab_description.recommendation' | translate}}</b></label></div>
+                                  <div class="col-md-4 col-xs-12 col-sm-12 table-desc">
                                       <p ng-show="onlyReadableTab1">{{finding.solucion_efecto}}</p>
                                       <textarea class="form-control no-resize"
                                                 ng-show="!onlyReadableTab1"
                                                 ng-model="finding.solucion_efecto">{{finding.solucion_efecto}}</textarea>
                                   </div>
-                                  <div class="col-md-3 col-xs-12 col-sm-12 table-head"><label><b>{{'search_findings.tab_description.system' | translate}}</b></label></div>
-                                  <div class="col-md-3 col-xs-12 col-sm-12 table-desc">
+                                  <div class="col-md-2 col-xs-12 col-sm-12 table-head"><label><b>{{'search_findings.tab_description.system' | translate}}</b></label></div>
+                                  <div class="col-md-4 col-xs-12 col-sm-12 table-desc">
                                       <p ng-show="onlyReadableTab1">{{finding.sistema_comprometido}}</p>
                                       <textarea class="form-control no-resize"
                                                 ng-show="!onlyReadableTab1"
@@ -319,15 +319,15 @@
                                   </div>
                               </div>
                               <div class="row table-row">
-                                  <div class="col-md-3 col-xs-12 col-sm-12 table-head"><label><b>{{'search_findings.tab_description.records' | translate}}</b></label></div>
-                                  <div class="col-md-3 col-xs-12 col-sm-12 table-desc">
+                                  <div class="col-md-2 col-xs-12 col-sm-12 table-head"><label><b>{{'search_findings.tab_description.records' | translate}}</b></label></div>
+                                  <div class="col-md-4 col-xs-12 col-sm-12 table-desc">
                                       <p ng-show="onlyReadableTab1">{{finding.registros}}</p>
                                       <textarea class="form-control no-resize"
                                                 ng-show="!onlyReadableTab1"
                                                 ng-model="finding.registros">{{finding.registros}}</textarea>
                                   </div>
-                                  <div class="col-md-3 col-xs-12 col-sm-12 table-head"><label><b>{{'search_findings.tab_description.totalrecords' | translate}}</b></label></div>
-                                  <div class="col-md-3 col-xs-12 col-sm-12 table-desc">
+                                  <div class="col-md-2 col-xs-12 col-sm-12 table-head"><label><b>{{'search_findings.tab_description.totalrecords' | translate}}</b></label></div>
+                                  <div class="col-md-4 col-xs-12 col-sm-12 table-desc">
                                       <p ng-show="onlyReadableTab1">{{finding.registros_num}}</p>
                                       <textarea class="form-control no-resize"
                                                 ng-show="!onlyReadableTab1"
@@ -335,15 +335,15 @@
                                   </div>
                               </div>
                               <div class="row table-row">
-                                  <div class="col-md-3 col-xs-12 col-sm-12 table-head"><label><b>{{'search_findings.tab_description.weakness' | translate}}</b></label></div>
-                                  <div class="col-md-3 col-xs-12 col-sm-12 table-desc">
+                                  <div class="col-md-2 col-xs-12 col-sm-12 table-head"><label><b>{{'search_findings.tab_description.weakness' | translate}}</b></label></div>
+                                  <div class="col-md-4 col-xs-12 col-sm-12 table-desc">
                                       <p ng-show="onlyReadableTab1">{{finding.cwe}}</p>
                                       <input type="text" class="form-control"
                                              ng-show="!onlyReadableTab1"
                                              ng-model="finding.cwe">
                                   </div>
-                                  <div class="col-md-3 col-xs-12 col-sm-12 table-head"><label><b>{{'search_findings.tab_description.bts_external' | translate}}</b></label></div>
-                                  <div class="col-md-3 col-xs-12 col-sm-12 table-desc">
+                                  <div class="col-md-2 col-xs-12 col-sm-12 table-head"><label><b>{{'search_findings.tab_description.bts_external' | translate}}</b></label></div>
+                                  <div class="col-md-4 col-xs-12 col-sm-12 table-desc">
                                       <p ng-show="onlyReadableTab4">{{finding.bts_externo}}</p>
                                       <input type="text" class="form-control"
                                              ng-show="!onlyReadableTab4"
@@ -351,8 +351,8 @@
                                   </div>
                               </div>
                               <div class="row table-row">
-                                  <div class="col-md-3 col-xs-12 col-sm-12 table-head" ng-show="!onlyReadableTab4"><label><b>{{'search_findings.tab_description.treatment' | translate}}</b></label></div>
-                                  <div class="col-md-3 col-xs-12 col-sm-12 table-desc" ng-show="!onlyReadableTab4">
+                                  <div class="col-md-2 col-xs-12 col-sm-12 table-head" ng-show="!onlyReadableTab4"><label><b>{{'search_findings.tab_description.treatment' | translate}}</b></label></div>
+                                  <div class="col-md-4 col-xs-12 col-sm-12 table-desc" ng-show="!onlyReadableTab4">
                                       <p ng-show="onlyReadableTab4"ng-show="!onlyReadableTab4">{{finding.tratamiento}}</p>
                                       <select ng-model="finding.tratamiento"
                                               ng-show="!onlyReadableTab4"
@@ -363,15 +363,15 @@
                                           </option>
                                       </select>
                                   </div>
-                                  <div class="col-md-3 col-xs-12 col-sm-12 table-head"><label><b>{{'search_findings.tab_description.treat_justification' | translate}}</b></label></div>
-                                  <div class="col-md-3 col-xs-12 col-sm-12 table-desc">
+                                  <div class="col-md-2 col-xs-12 col-sm-12 table-head"><label><b>{{'search_findings.tab_description.treat_justification' | translate}}</b></label></div>
+                                  <div class="col-md-4 col-xs-12 col-sm-12 table-desc">
                                       <p ng-show="onlyReadableTab4">{{finding.razon_tratamiento}}</p>
                                       <textarea class="form-control no-resize"
                                                 ng-show="!onlyReadableTab4"
                                                 ng-model="finding.razon_tratamiento">{{finding.razon_tratamiento}}</textarea>
                                   </div>
-                                  <div class="col-md-3 col-xs-12 col-sm-12 table-head"><label><b>{{'search_findings.tab_description.treat_manager' | translate}}</b></label></div>
-                                  <div class="col-md-3 col-xs-12 col-sm-12 table-desc">
+                                  <div class="col-md-2 col-xs-12 col-sm-12 table-head"><label><b>{{'search_findings.tab_description.treat_manager' | translate}}</b></label></div>
+                                  <div class="col-md-4 col-xs-12 col-sm-12 table-desc">
                                       <p>{{finding.responsable_tratamiento}}</p>
                                   </div>
                               </div>
