@@ -61,11 +61,12 @@
 * link:152/[REQ.152 Reutilizar conexiones a bases de datos].
 * link:153/[REQ.153 Transacciones fuera de banda].
 * link:154/[REQ.154 Eliminar puertas traseras].
-* link:155/[REQ.155 Salidas codificadas].
+* link:155/[REQ.155 Aplicación libre de código malicioso].
 * link:156/[REQ.156 Opciones por defecto seguras].
 * link:157/[REQ.157 Compilación estricta].
 * link:158/[REQ.158 Codificación Actualizada].
 * link:159/[REQ.159 Código ofuscado].
+* link:160/[REQ.160 Salidas codificadas].
 * link:162/[REQ.162 Eliminar código redundante].
 * link:163/[REQ.163 Eliminar código muerto].
 * link:164/[REQ.164 Utilizar estructuras optimizadas].

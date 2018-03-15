@@ -1,19 +1,11 @@
 :slug: rules/155/
 :category: rules
-:description: En el presente documento se detallan los requerimientos de seguridad relacionados al código fuente que compone a las aplicaciones de la compañía. En este requerimiento se establece la importancia de codificar las salidas arrojadas por la aplicación a través del escaping.
-:keywords: Requerimiento, Seguridad, Código Fuente, Salidas, Codificar, Escaping.
+:description: En el presente documento se detallan los requerimientos de seguridad relacionados a la gestión adecuada de código fuente que compone a una determinada aplicación. Lo anterior, debido a que una aplicación puede importar o estar compuesta de secciones de código malicioso desarrolladas por terceros.
+:keywords: Requerimiento, Seguridad, Código Fuente, Requisitos Funcionales, Diferentes, Puertas Traseras.
 :rules: yes
 
-= REQ.155 Salidas codificadas
+= REQ.155 Aplicación libre de código malicioso
 
-== Nombre 
+== Nombre
 
-La salida de información del sistema 
-debe estar codificada en el lenguaje correspondiente (escaping). 
-
-
-== Soluciones
-
-. +ASPNET+ link:../../defends/aspnet/codificar-salida/[Codificar Salida].
-. +COBOL+ link:../../defends/cobol/prevenir-xss/[Prevenir Cross Site Scripting].
-. +Csharp+ link:../../defends/csharp/proteger-aplicacion-xss/[Proteger Aplicación de Ataques de XSS].
+El código de la aplicación debe estar libre de código malicioso.

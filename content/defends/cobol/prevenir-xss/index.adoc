@@ -179,6 +179,6 @@ la implementación del código para prevenir ataques de +XSS+.
 
 == Referencias
 
-. [[r1]] link:../../../rules/155/[REQ.155 Salidas codificadas].
+. [[r1]] link:../../../rules/160/[REQ.160 Salidas codificadas].
 . [[r2]] link:https://www.w3schools.com/html/html_entities.asp[HTML Entities].
 . [[r3]] link:https://www.owasp.org/index.php/XSS_(Cross_Site_Scripting)_Prevention_Cheat_Sheet[XSS (Cross Site Scripting) Prevention Cheat Sheet].
