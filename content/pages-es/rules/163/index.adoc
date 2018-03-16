@@ -1,10 +1,10 @@
 :slug: rules/163/
 :category: rules
-:description: En el presente documento se detallan los requerimientos de seguridad relacionados al código fuente que compone a las aplicaciones de la compañía. En este requerimiento se establece la importancia de evitar las funciones, métodos o clases en desuso dentro del código.
-:keywords: Requerimiento, Seguridad, Código Fuente, Desuso, Funciones, Clases.
+:description: En el presente documento se detallan los requerimientos de seguridad relacionados al código fuente que compone a las aplicaciones de la compañía. En este requerimiento se establece la importancia de llamar a funciones, métodos o clases dentro de un escenario funcional del sistema.
+:keywords: Requerimiento, Seguridad, Código Fuente, Métodos, Funciones, Clases.
 :rules: yes
 
-= REQ.163 Eliminar código muerto
+= REQ.163 Invocar en escenario funcional
 
 == Nombre
 

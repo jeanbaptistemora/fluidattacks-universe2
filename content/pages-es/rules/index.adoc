@@ -69,7 +69,7 @@
 * link:160/[REQ.160 Salidas codificadas].
 * link:161/[REQ.161 Opciones por defecto seguras].
 * link:162/[REQ.162 Eliminar código redundante].
-* link:163/[REQ.163 Eliminar código muerto].
+* link:163/[REQ.163 Invocar en escenario funcional].
 * link:164/[REQ.164 Utilizar estructuras optimizadas].
 * link:167/[REQ.167 Cerrar recursos no utilizados].
 * link:168/[REQ.168 Variables inicializadas explícitamente].

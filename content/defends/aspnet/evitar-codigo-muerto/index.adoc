@@ -132,4 +132,4 @@ podría permitir a un atacante escalar privilegios en el servidor.
 
 . [[r1]] link:https://en.wikipedia.org/wiki/Dead_code[Dead Code - Wikipedia].
 . [[r2]] link:http://blog.utopicainformatica.com/2010/12/codigo-muerto.html[Código muerto].
-. [[r3]] link:../../../rules/158/[REQ.0158 Eliminar código muerto].
+. [[r3]] link:../../../rules/163/[REQ.163 Invocar en escenario funcional].
