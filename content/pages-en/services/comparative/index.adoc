@@ -1,0 +1,39 @@
+:slug: services/comparative/
+:category: services
+:description: Our Ethical Hacking and Pentesting services seek to find and report all the present security vulnerabilities in your application. It is important to distinguish between the different services we offer in order to select the service that fits your needs.
+:keywords: FLUID, Ethical Hacking, Comparison, One Shot Hacking, Continuous Hacking, Pentesting.
+:translate: servicios/comparativo/
+:yes: image:yes.png[yes]
+:no: image:no.png[no]
+
+= Comparative
+
+{description} To this end we present the following table:
+
+.Comparison between Continuous and One Shot Hacking services.
+[role="tb-fluid tb-row"]
+[cols="1,2,2", options="header"]
+|====
+| Aspects
+| Continuous Hacking
+| One Shot Hacking
+
+a|==== Inspection Cycles
+| Multiples
+| Only +1+
+
+a|==== Remediation Support
+| {yes} 
+| {no}
+
+a|==== Average duration
+| Minimum +52+ weeks
+| Between +1+ and +12+ weeks
+
+a|==== Coverage
+a|* Always 100% {yes} 
+* We can start simultaneously with production 
+or get up to date later in the project
+a|* No more than +10K+ deltas {no} 
+* Only agreed coverage
+|====

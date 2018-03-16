@@ -1,0 +1,38 @@
+:slug: servicios/comparativo/
+:category: servicios
+:description: Nuestros servicios de Ethical Hacking y Pentesting buscan encontrar y reportar todas las vulnerabilidades de seguridad presentes en su aplicación. Es importante distinguir las características que componen nuestros servicios de Hacking continuo y Hacking puntual.
+:keywords: FLUID, Ethical Hacking, Comparación, Hacking Puntual, Hacking continuo, Pentesting.
+:translate: services/comparative/
+:si: image:yes.png[si]
+:no: image:no.png[no]
+
+= Comparativo
+
+{description} Para ello presentamos la siguiente tabla comparativa:
+
+.Comparación entre los servicios de Hacking puntual y Hacking continuo de FLUID.
+[role="tb-fluid tb-row"]
+[cols="1,2,2", options="header"]
+|====
+a|==== Aspectos
+| Hacking Continuo
+| Hacking Puntual
+
+a|==== Ciclos de revisión 
+| Múltiples
+| Solo 1
+
+a|==== Soporte en la remediación
+| {si} 
+| {no}
+
+a|==== Duracion tipica
+| +52+ semanas mínimo
+| Entre +1+ y +12+ semanas
+
+a|==== Cobertura
+a|* 100% siempre {si} 
+* Iniciamos paralelo a desarrollo o desatraso
+a|* No cambia a mas de +10K+ deltas {no} 
+* Solo la cobertura acordada
+|====

@@ -9,6 +9,8 @@
 
 == link:hacking-continuo/[Hacking Continuo].
 
+== link:diferenciadores/[Diferenciadores]
+
 == link:comparativo/[Comparativo].
 
 == link:faq/[Preguntas Frecuentes].

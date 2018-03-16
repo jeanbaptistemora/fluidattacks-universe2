@@ -375,6 +375,14 @@ msgstr "differentiators"
 msgid "Footer-subtitle-2.3"
 msgstr "Differentiators"
 
+#: templates/footer.html:30
+msgid "Footer-link-2.4"
+msgstr "comparative"
+
+#: templates/footer.html:30
+msgid "Footer-subtitle-2.4"
+msgstr "Comparative"
+
 #: templates/footer.html:32 templates/footer.html:33 templates/footer.html:34
 #: templates/footer.html:35 templates/footer.html:36 templates/footer.html:37
 msgid "Footer-cat-2"
