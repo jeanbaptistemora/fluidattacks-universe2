@@ -18,11 +18,11 @@
 | FLUIDAttacks
 | Others
 
-a|== Revision Method
+a|==== Revision Method
 | Hybrid (Automated tools + manual expert revision)
 | Static (Automated tools only)
 
-a|== Professional Profile
+a|==== Professional Profile
 a|* +OSCP+
 * +OSWP+
 * +CEH+ 
@@ -31,11 +31,11 @@ Additionally our hackers are excellent programmers,
 allowing us to maximize the depth of the tests
 | None
 
-a|== Model
+a|==== Model
 | +Red Team+
 | Vulnerability Analysis with selective exploitation
 
-a|== Targets
+a|==== Targets
 a|* Applications
 * +APIs+
 * Mobile apps
@@ -46,7 +46,7 @@ a|* Applications
 * Security Operations Centers (+SOC+)
 | Web
 
-a|== Scope Definition
+a|==== Scope Definition
 a|* For infrastructure, according to +TCP+ and +UDP+ open ports
 * For applications, according to inputs
 (visible fields, hidden fields, and headers)
@@ -54,11 +54,11 @@ a|* For infrastructure, according to +TCP+ and +UDP+ open ports
 a|* For infrastructure, according to +IP+ addresses.
 * For applications, according to number of applications.
 
-a|== Coverage
+a|==== Coverage
 | Known (arranged or resulting)
 | Unknown
 
-a|== Strictness
+a|==== Strictness
 a|* You decide the security requirements 
 that we will check in the inspection process (profiling) 
 through our product [button]#link:../../products/rules/[Rules>>]# 
@@ -66,63 +66,63 @@ through our product [button]#link:../../products/rules/[Rules>>]#
 (For inspected and non inspected code)
 | Non parameterizable and unknown
 
-a|== Environments
+a|==== Environments
 a|* Production
 * Staging
 * Integration
 | Production
 
-a|== Finding Types
+a|==== Finding Types
 a|* Of a specific business impact
 * Insecure programming practices
 * Alignment with security standards and regulations
 a|* Based on signatures
 * Syntax-based
 
-a|== Type of Evidences
+a|==== Type of Evidences
 a|* Images
 * Animated +GIFs+.
 link:../../products/integrates/#vulnerability-evidences[Example]
 a|* Automated tool output
 * Images
 
-a|== ZERO DAY Vulnerabilities
+a|==== ZERO DAY Vulnerabilities
 | {yes}
 | {no}
 
-a|== False Positives
+a|==== False Positives
 | {yes} 0%
 | {no} ~20%
 
-a|== Exploitation
+a|==== Exploitation
 | 100%
 | Variable
 
-a|== Creation of Own Exploits
+a|==== Creation of Own Exploits
 | {yes} Using our own exploitation engine.
 [button]#link:../../products/asserts/[Asserts>>]# .
 link:../../products/integrates/#exploit[Example]
 | {no}
 
-a|== Vulnerability correlation
+a|==== Vulnerability correlation
 | By combining vulnerabilities +A+ and +B+ we are able to find 
 a new vulnerability +C+ of greater impact which may compromise more registers.
 | Only detects vulnerabilities +A+ and +B+ but it's not able to correlate them. 
 
-a|== Compromised Records
+a|==== Compromised Records
 | {yes} link:../../products/integrates/#compromised-records[Example]
 | {no}
 
-a|== Inspection Cycles
+a|==== Inspection Cycles
 | Multiple cyles in our service 
 [button]#link:../../services/continuous-hacking/[Continuous Hacking>>]#
 | Only 1
 
-a|== link:../../blog/replaced-machines/[Leaks (Yield)]
+a|==== link:../../blog/replaced-machines/[Leaks (Yield)]
 | 0% of the target of evaluation
 | ~65% of the target of evaluation
 
-a|== Remediation Support
+a|==== Remediation Support
 a|* During the project you can request clarifications 
 directly to our hackers via
 [button]#link:../../products/integrates/[Integrates>>]# 
@@ -130,7 +130,7 @@ directly to our hackers via
 [button]#link:../../products/defends/[Defends>>]# 
 | {no}
 
-a|== Deliverables
+a|==== Deliverables
 | Real-time documentation web system
 [button]#link:../../products/integrates/[Integrates>>]#
 a|* Manually-made Word document.
