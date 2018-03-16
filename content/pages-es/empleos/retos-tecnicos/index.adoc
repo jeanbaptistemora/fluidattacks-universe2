@@ -84,7 +84,7 @@ ni en nuestro repositorio ni identificada (punto 1),
 
 .. Para retos de programación,
 una solución es válida si no ha sido resuelta en el lenguaje que usted pretende solucionarlo.
-... Entiéndase programación como cualquier reto disponible en +Codeabbey+,.
+... Entiéndase programación como cualquier reto disponible en [button]#link:http://www.codeabbey.com/[Codeabbey >>]#.
 
 . Resuelva 10 retos de +hacking+ que no tienen solución,
 ni en nuestro repositorio ni identificada (punto 1).
