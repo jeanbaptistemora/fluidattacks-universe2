@@ -122,7 +122,7 @@ todas las instrucciones +COBOL+ del programa.
 
 == Referencias
 
-. [[r1]] link:../../../rules/157/[REQ.157 Eliminar código redundante].
+. [[r1]] link:../../../rules/162/[REQ.162 Eliminar código redundante].
 . [[r2]] link:https://www.ibm.com/support/knowledgecenter/SSAE4W_9.0.0/com.ibm.etools.iseries.langref.doc/c0925395663.htm[COPY Statement - Format 1].
 . [[r3]] link:https://www.ibm.com/support/knowledgecenter/SSQ2R2_9.5.1/com.ibm.etools.cbl.win.doc/topics/rlcdscop.htm[COPY statement].
 . [[r4]] link:https://www.ibm.com/support/knowledgecenter/SSAE4W_9.0.0/com.ibm.etools.iseries.langref.doc/c0925395102.htm[WITH DEBUGGING MODE Clause].
