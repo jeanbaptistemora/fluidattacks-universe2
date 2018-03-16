@@ -79,6 +79,7 @@
 * link:171/[REQ.171 Remover comentarios en producción].
 * link:172/[REQ.172 Cifrar cadenas de conexión].
 * link:173/[REQ.173 Descartar información insegura].
+* link:174/[REQ.174 Transacciones sin patrón discernible].
 * link:302/[REQ.302 Declarar explícitamente dependencias].
 
 == Servicios
