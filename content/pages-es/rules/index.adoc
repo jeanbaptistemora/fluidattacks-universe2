@@ -77,6 +77,7 @@
 * link:169/[REQ.169 Usar construcciones parametrizadas].
 * link:170/[REQ.170 Asociar tipo a variables].
 * link:171/[REQ.171 Remover comentarios en producción].
+* link:172/[REQ.172 Cifrar cadenas de conexión].
 * link:173/[REQ.173 Descartar información insegura].
 * link:302/[REQ.302 Declarar explícitamente dependencias].
 

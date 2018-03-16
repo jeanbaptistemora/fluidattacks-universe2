@@ -1,0 +1,13 @@
+:slug: rules/172/
+:category: rules
+:description: En el presente documento se detallan los requerimientos de seguridad relacionados al cifrado seguro de cadenas de conexión a bases de datos. Dicho cifrado se debe realizar en archivos de configuración los cuales deben ir separados del código fuente que compone a la aplicación.
+:keywords: Requerimiento, Seguridad, Código Fuente, Bases de datos, Conexión, Cifrado.
+:rules: yes
+
+= REQ.172 Cifrar cadenas de conexión
+
+== Nombre
+
+Las cadenas de conexión a la base de datos 
+deben de estar cifradas en un archivo de configuración 
+separado del código fuente.
