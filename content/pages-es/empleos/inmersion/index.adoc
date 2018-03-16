@@ -99,7 +99,7 @@ Esta etapa termina cuando:
 . Se acepten en el repositorio 100 nuevas soluciones de hacking
 
 . Se acepten en el repositorio 100 nuevas soluciones de programación
-
++ 
 *IMPORTANTE:* Todas las soluciones que usted envíe deben cumplir con
 las [button]#link:../retos-tecnicos/#envio[reglas de envío >>]#.,
 
