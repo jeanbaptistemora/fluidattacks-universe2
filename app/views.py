@@ -8,7 +8,7 @@ import re
 import pytz
 import rollbar
 import boto3
-import csv
+import io
 from django.core.files.uploadedfile import InMemoryUploadedFile, TemporaryUploadedFile
 from botocore.exceptions import ClientError
 from django.shortcuts import render, redirect
@@ -38,6 +38,7 @@ from .api.drive import DriveAPI
 from .api.formstack import FormstackAPI
 from magic import Magic
 from datetime import datetime
+from backports import csv
 from __init__ import FI_AWS_S3_ACCESS_KEY, FI_AWS_S3_SECRET_KEY
 
 client_s3 = boto3.client('s3',
@@ -747,8 +748,8 @@ def get_records(request):
             mime_type = mime.from_file(localtmp)
             resp = []
             if mime_type == "text/plain":
-                with open(localtmp, "r") as file_obj:
-                    csvReader = csv.reader(file_obj, lineterminator="\n")
+                with io.open(localtmp, "r") as file_obj:
+                    csvReader = csv.reader(file_obj)
                     header = csvReader.next()
                     for row in csvReader:
                         dicTok = list_to_dict(header, row)
@@ -771,8 +772,8 @@ def get_records(request):
         mime_type = mime.from_file(filename)
         resp = []
         if mime_type == "text/plain":
-            with open(filename, "r") as file_obj:
-                csvReader = csv.reader(file_obj, lineterminator="\n")
+            with io.open(filename, "r") as file_obj:
+                csvReader = csv.reader(file_obj)
                 header = csvReader.next()
                 for row in csvReader:
                     dicTok = list_to_dict(header, row)

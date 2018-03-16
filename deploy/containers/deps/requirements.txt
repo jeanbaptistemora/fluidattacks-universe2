@@ -36,3 +36,4 @@ pyOpenSSL==17.5.0
 rollbar==0.13.17
 mixpanel
 pypdf==1.13
+backports.csv==1.0.5
