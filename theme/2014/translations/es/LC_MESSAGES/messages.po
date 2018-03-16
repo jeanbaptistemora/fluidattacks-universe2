@@ -371,11 +371,11 @@ msgstr "Hacking Continuo"
 
 #: templates/footer.html:28
 msgid "Footer-link-2.3"
-msgstr "comparativo"
+msgstr "diferenciadores"
 
 #: templates/footer.html:29
 msgid "Footer-subtitle-2.3"
-msgstr "Comparativo"
+msgstr "Diferenciadores"
 
 #: templates/footer.html:32 templates/footer.html:33 templates/footer.html:34
 #: templates/footer.html:35 templates/footer.html:36 templates/footer.html:37

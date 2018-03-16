@@ -369,11 +369,11 @@ msgstr "Continuous Hacking"
 
 #: templates/footer.html:29
 msgid "Footer-link-2.3"
-msgstr "comparative"
+msgstr "differentiators"
 
 #: templates/footer.html:29
 msgid "Footer-subtitle-2.3"
-msgstr "Comparative"
+msgstr "Differentiators"
 
 #: templates/footer.html:32 templates/footer.html:33 templates/footer.html:34
 #: templates/footer.html:35 templates/footer.html:36 templates/footer.html:37

@@ -1,12 +1,12 @@
-:slug: servicios/comparativo/
+:slug: servicios/diferenciadores/
 :category: servicios
 :description: Nuestros servicios de Ethical Hacking y Pentesting buscan encontrar y reportar todas las vulnerabilidades de seguridad presentes en su aplicación. Es importante diferenciar entre una prueba de intrusión realizada por FLUID y un análisis de vulnerabilidades que utiliza herramientas automatizadas.
 :keywords: FLUID, Ethical Hacking, Pentesting, Análisis, Vulnerabilidades, Comparación.
-:translate: services/comparative/
+:translate: services/differentiators/
 :si: image:yes.png[si]
 :no: image:no.png[no]
 
-= Comparativo
+= Diferenciadores
 
 {description} Para tal fin presentamos la siguiente tabla comparativa:
 
