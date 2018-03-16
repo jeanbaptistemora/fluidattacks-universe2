@@ -290,56 +290,48 @@ msgstr "YouTube logo"
 msgid "Footer-header-1"
 msgstr "About Us"
 
-#: templates/footer.html:17
-msgid "Footer-link-1.1"
-msgstr "customers"
-
-#: templates/footer.html:17
-msgid "Footer-subtitle-1.1"
-msgstr "Customers"
-
 #: templates/footer.html:18
-msgid "Footer-link-1.2"
+msgid "Footer-link-1.1"
 msgstr "values"
 
 #: templates/footer.html:18
-msgid "Footer-subtitle-1.2"
+msgid "Footer-subtitle-1.1"
 msgstr "Values"
 
 #: templates/footer.html:19
-msgid "Footer-link-1.3"
+msgid "Footer-link-1.2"
 msgstr "talks"
 
 #: templates/footer.html:19
-msgid "Footer-subtitle-1.3"
+msgid "Footer-subtitle-1.2"
 msgstr "Talks"
 
 #: templates/footer.html:20
-msgid "Footer-link-1.4"
+msgid "Footer-link-1.3"
 msgstr "people"
 
 #: templates/footer.html:20
-msgid "Footer-subtitle-1.4"
+msgid "Footer-subtitle-1.3"
 msgstr "People"
 
 #: templates/footer.html:21
-msgid "Footer-link-1.5"
+msgid "Footer-link-1.4"
 msgstr "location"
 
 #: templates/footer.html:21
-msgid "Footer-subtitle-1.5"
+msgid "Footer-subtitle-1.4"
 msgstr "Location"
 
 #: templates/footer.html:22
-msgid "Footer-subtitle-1.6"
+msgid "Footer-subtitle-1.5"
 msgstr "Contact Us"
 
 #: templates/footer.html:23
-msgid "Footer-link-1.7"
+msgid "Footer-link-1.6"
 msgstr "terms-use"
 
 #: templates/footer.html:23
-msgid "Footer-subtitle-1.7"
+msgid "Footer-subtitle-1.6"
 msgstr "Terms of Use"
 
 #: templates/footer.html:26 templates/footer.html:27 templates/footer.html:28
