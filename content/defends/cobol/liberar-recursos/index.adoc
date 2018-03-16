@@ -222,7 +222,7 @@ tal como se explicó antes.
 
 == Referencias
 
-. [[r1]] link:../../../rules/162/[REQ.162 Cerrar recursos no utilizados].
+. [[r1]] link:../../../rules/167/[REQ.167 Cerrar recursos no utilizados].
 . [[r2]] link:https://www.ibm.com/support/knowledgecenter/SSQ2R2_9.1.1/com.ibm.ent.cbl.zos.doc/PGandLR/ref/rlpsclos.html[CLOSE statement].
 . [[r3]] link:https://www.ibm.com/support/knowledgecenter/en/SSAE4W_9.1.1/com.ibm.etools.iseries.langref.doc/c0925395371.htm[CLOSE Statement Considerations].
 . [[r4]] link:https://www.ibm.com/support/knowledgecenter/en/ssw_ibm_i_73/rzasb/iddiv.htm[IBM - Identification Division].
