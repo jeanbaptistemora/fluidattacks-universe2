@@ -35,6 +35,9 @@
           <a href="{{ SITEURL }}/{{ article.url }}" rel="bookmark" title="Permalink to {{ article.title|striptags }}">
             <h1 class="post-title">
               {{ article.title }}
+              {% if article.subtitle %}
+              : {{ article.subtitle }}
+              {% endif %}
             </h1>
           </a>
           <img class="imgprev" src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/icon.png" alt="{{ gettext('Index-icon-alt-1') }}">

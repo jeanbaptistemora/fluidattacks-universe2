@@ -1,5 +1,6 @@
 :slug: gherkin-steroids/
 :date: 2018-03-13
+:subtitle: How to document detailed attack vectors
 :category: documentation
 :tags: documentation, vector, software
 :image: cover.png

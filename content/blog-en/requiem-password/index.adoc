@@ -1,5 +1,6 @@
 :slug: requiem-password/
 :date: 2018-03-07
+:subtitle: Why passphrases are better than passwords
 :category: identity
 :tags: password, credential, security
 :image: cover.png

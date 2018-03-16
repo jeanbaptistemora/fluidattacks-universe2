@@ -1,5 +1,6 @@
 :slug: oracle-code/
 :date: 2018-03-02
+:subtitle: About code as data
 :category: techniques
 :tags: testing, application, detect
 :image: oracle.png

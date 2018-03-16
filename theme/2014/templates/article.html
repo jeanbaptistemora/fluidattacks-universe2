@@ -82,7 +82,7 @@
           {% endif %}
         {% endif %}
       </div>
-      <h1>{{ article.title }}</h1>
+      <h1>{{ article.title }}{% if article.subtitle %}: {{ article.subtitle }}{% endif %}</h1>
       {% if article.headline %}
         <h3 class="subheading">{{ article.headline }}</h3>
       {% endif %}
