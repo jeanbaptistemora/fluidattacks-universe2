@@ -14,4 +14,4 @@ en archivos temporales o en memoria caché.
 
 == Soluciones
 
-. +ASPNET+ link:../../defends/aspnet/prevenir-paginas-cache/[Prevenir almacenamiento de páginas en caché].
+. +ASPNET+ link:../../defends/aspnet/prevenir-pagina-cache/[Prevenir almacenamiento de páginas en caché].
