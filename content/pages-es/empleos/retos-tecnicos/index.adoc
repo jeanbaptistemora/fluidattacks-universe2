@@ -213,6 +213,11 @@ espacios usar *-* (guion) como sustituto.
 ** En comentarios multilínea al inicio del programa deben estar el snippet de los comandos de compilación utilizados y la salida correspondiente en modo +CLI+.
 ** En comentarios multilínea al final del programa deben estar el snippet de los comandos de ejecucion utilizados y la salida correspondiente en modo +CLI+.
 
+* Las soluciones de retos de hacking deberán documentarse de acuerdo a lo siguiente:
+** link:../../../en/blog/gherkin-steroids/[Guía para el uso de gherkin]
++ 
+Opcionalmente, puede tener en cuenta el siguiente link:../../../en/blog/app-pickle-document-gherkin/[artículo]
+
 * *Archivos Especiales:* En algunas carpetas de la estructura se encuentran algunos archivos
 especiales de control:
 
