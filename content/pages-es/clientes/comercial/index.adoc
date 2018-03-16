@@ -36,4 +36,14 @@ información, prestan servicios para infraestructuras, seguridad, backup/recuper
 de desastres, comunicaciones y servicios en la nube. Reconocido como líder de la industria 
 y acreditado con los más altos niveles en el diseño, entrega y soporte de las últimas tecnologías.
 
+a|== Grupo Uribe
+
+El Grupo Uribe es un grupo textil colombiano, de tendencia familiar, fundado en 1907 
+por el patriarca, John Uribe. Sus hijos y los hijos de sus hijos han contribuido durante 
+décadas al desarrollo y fortalecimiento del negocio. El grupo tiene la representación, 
+producción y comercialización para Colombia y el caribe de marcas internacionales como Chevignon,
+Naf Naf, Americanino, Esprit, Rifle, American Eagle, Mother Care, American Brands, LBT, entre otras.
+
+a|image:logo-uribe.png[logo uribe, 280, 120]
+
 |====

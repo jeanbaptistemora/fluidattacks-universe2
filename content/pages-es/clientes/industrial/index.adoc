@@ -30,4 +30,32 @@ con un impacto positivo sobre el bienestar de las comunidades vecinas.
 
 a|image:logo-manuelita.png[logo manuelita, 300, 70, link=http://www.manuelita.com/perfil-corporativo]
 
+a|image:logo-cadena.png[logo cadena, 290, 110, link=http://www.cadena.com.co/es/home.aspx]
+
+a|== Cadena
+
+Cadena brinda a sus clientes soluciones confiables para simplificar sus procesos críticos a 
+través de la tecnología, incrementando su eficiencia, sostenibilidad y rentabilidad. Tienen 
+conocimiento de los procesos clave del negocio del cliente, integran las capacidades propias y de terceros.
+
+a|== Sodimac
+
+Sodimac es una empresa que opera en el retail. Busca satisfacer al cliente a través de múltiples
+puntos de contacto y canales de venta que aseguran nuestro modelo de negocio Omnicanal (Tiendas, Internet y Teléfono). 
+Su actividad se focaliza en desarrollar y proveer soluciones a los proyectos de remodelación y construcción 
+de sus clientes, además de satisfacer las necesidades de mejoramiento y decoración de sus hogares, 
+ofreciendo excelencia en el servicio, integridad en su trabajo y un fuerte compromiso con la comunidad.
+
+a|image:logo-sodimac.png[logo sodimac, 300, 100, link=http://www.homecenter.com.co/homecenter-co/mashomecenter/nuestra-empresa]
+
+a|image:logo-francol.png[logo francol, 300, 110, link=http://www.lafrancol.com/nuestra-empresa/]
+
+a|== LAFRANCOL
+
+LAFRANCOL fabricantes y distribuidores a nivel nacional e internacional productos farmacéuticos
+y alimentos funcionales de consumo humano con los más altos niveles de calidad. Cuentan con el 
+reconocimiento de la efectividad y seguridad de sus compuestos ante el cuerpo médico y la sociedad 
+de la salud, LAFRANCOL ha ido creciendo sostenidamente durante casi 100 años alcanzando una posición de 
+liderazgo en la industria farmacéutica nacional, tanto por su volumen de ventas como por su imagen de calidad. 
+
 |====
