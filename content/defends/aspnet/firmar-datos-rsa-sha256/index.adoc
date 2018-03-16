@@ -115,4 +115,4 @@ if (!key.VerifyData(data, CryptoConfig.MapNameToOID("SHA256"), sig))
 
 . [[r1]] link:https://stackoverflow.com/questions/7444586/how-can-i-sign-a-file-using-rsa-and-sha256-with-net[StackOverFlow, Sign a File Using RSA and Sha256 with .NET]
 . [[r2]] link:https://msdn.microsoft.com/es-es/library/system.security.cryptography.rsacryptoserviceprovider(v=vs.80).aspx[Microsoft, RSACryptoServiceProvider]
-. [[r3]] link:../../../rules/173/[REQ.173 Utilizar firmas digitales].
+. [[r3]] link:../../../rules/178/[REQ.178 Utilizar firmas digitales].
