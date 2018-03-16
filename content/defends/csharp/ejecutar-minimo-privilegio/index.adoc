@@ -107,5 +107,4 @@ la pila no se detectará nunca.
 . [[r1]] link:http://searchsecurity.techtarget.com/definition/principle-of-least-privilege-POLP[What is principle of least privilege (POLP)?]
 . [[r2]] link:http://msdn.microsoft.com/es-es/library/system.security.codeaccesspermission.permitonly.aspx[Microsoft, codeaccesspermission.permitonly]
 . [[r3]] link:https://www.codeproject.com/Articles/5724/Understanding-NET-Code-Access-Security[CodeProject, Understanding .NET Code Access Security]
-. [[r4]] link:../../../rules/171/[REQ.171 Restringir objetos del sistema].
-
+. [[r4]] link:../../../rules/176/[REQ.176 Restringir objetos del sistema].
