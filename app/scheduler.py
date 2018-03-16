@@ -19,21 +19,24 @@ def get_new_vulnerabilities():
             for finding in finding_requests[-delta:]:
                 integrates_dao.add_or_update_vulns_dynamo(project[0].lower(),int(finding['id']), 0)
             old_findings = integrates_dao.get_vulns_by_project_dynamo(project[0].lower())
-        context = {'findings': list()}
+        context = {'findings': list(), 'findings_working_on': list()}
         delta_total = 0
-        for row in old_findings:
-            act_finding = views.finding_vulnerabilities(str(row['unique_id']))
-            delta = int(act_finding['cardinalidad'])-int(row['vuln_hoy'])
-            if int(act_finding['cardinalidad']) > int(row['vuln_hoy']):
+        for finding in finding_requests:
+            row = integrates_dao.get_vulns_by_id_dynamo(project[0].lower(), int(finding['id']))
+            act_finding = views.finding_vulnerabilities(str(finding['id']))
+            if act_finding["edad"] != "-" and act_finding["estado"] != "Cerrado" and act_finding["tratamiento"] == "Pendiente":
+                context['findings_working_on'].append({'hallazgo_pendiente': (act_finding['hallazgo'] + '(+' + (int(act_finding["edad"])) +'dia(s) )') })
+            delta = int(act_finding['cardinalidad'])-int(row[0]['vuln_hoy'])
+            if int(act_finding['cardinalidad']) > int(row[0]['vuln_hoy']):
                 finding_text = act_finding['hallazgo'] + '(+' + str(delta) +')'
                 context['findings'].append({'nombre_hallazgo': finding_text })
                 delta_total = delta_total + abs(delta)
-                integrates_dao.add_or_update_vulns_dynamo(project[0].lower(),row['unique_id'], int(act_finding['cardinalidad']))
-            elif int(act_finding['cardinalidad']) < int(row['vuln_hoy']):
+                integrates_dao.add_or_update_vulns_dynamo(project[0].lower(),finding['id'], int(act_finding['cardinalidad']))
+            elif int(act_finding['cardinalidad']) < int(row[0]['vuln_hoy']):
                 finding_text = act_finding['hallazgo'] + '(' + str(delta) +')'
                 context['findings'].append({'nombre_hallazgo': finding_text })
                 delta_total = delta_total + abs(delta)
-                integrates_dao.add_or_update_vulns_dynamo(project[0].lower(),row['unique_id'], int(act_finding['cardinalidad']))
+                integrates_dao.add_or_update_vulns_dynamo(project[0].lower(),finding['id'], int(act_finding['cardinalidad']))
         if delta_total !=0:
             context['proyecto'] = project[0].upper()
             context['url_proyecto'] = 'https://fluidattacks.com/integrates/dashboard#!/project/' + project[0].lower()
