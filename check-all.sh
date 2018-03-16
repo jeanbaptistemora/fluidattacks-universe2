@@ -76,13 +76,19 @@ if pcregrep -Lnr --include='\.adoc' ':description:' content; then echo -e "${GC}
 if pcregrep -nr '"(graphviz|plantuml)",\s?"(?!diagram).*\.png' content; then
 	echo -e "${GC}The name of the diagrams must start with the word \"diagram\".${NC}";
 	ERRORS=1;
-fi;
+fi
 
 # Check that translation names finish with '/'
 if pcregrep --color -nr --include='\.adoc' '^:translate.*(?<!/)$' content; then
 	echo -e "${GC}The name of the translated file must end in '/'.${NC}";
 	ERRORS=1;
-fi;
+fi
+
+# Check all Asciidoc metadata are lowercase
+if pcregrep --color -nr --include='\.adoc' '^:[A-Z]' content; then
+	echo -e "${GC}All metadata attributes in asciidoc files must be lowercase.${NC}"
+	ERRORS=1;
+fi
 
 # Check that the meta description has a minimum lenght of 250 characters and a maximum length of 300 characters
 for FILE in $(find content -iname '*.adoc'); do

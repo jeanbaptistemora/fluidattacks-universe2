@@ -2,7 +2,7 @@
 :date: 2017-01-31
 :category: opiniones
 :tags: seta, concientizar, seguridad
-:Image: pilares.png
+:image: pilares.png
 :alt: Tres diagramas circulares mostrando relación personas-procesos-tecnología
 :description: Los empleados son el alma de la empresa y como tal es necesario que sepan como actuar ante las diferentes situaciones que pueden poner en peligro la seguridad informática de la organización. A continuación se presenta la metodología de enseñanza SETA para concientización de riesgos informáticos.
 :keywords: Seguridad, SETA, Entrenamiento, Educación, Amenazas, Tecnología.

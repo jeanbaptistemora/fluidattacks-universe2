@@ -5,7 +5,7 @@
 :keywords: Seguridad, Contraseña, Única, Autenticación, OAUTH, OIDC.
 :author: Jhony Villa
 :tags: password, protocolo, implementar
-:Image: password.png
+:image: password.png
 :alt: Muchos cuadros de diálogo revueltos, esperando la contraseña
 :writer: jhony
 :name: Jhony Arbey Villa Peña

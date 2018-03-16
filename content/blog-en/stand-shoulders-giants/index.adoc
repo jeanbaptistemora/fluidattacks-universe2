@@ -2,7 +2,7 @@
 :date: 2018-02-14
 :category: techniques
 :tags: testing, dependency, vulnerability
-:Image: cover.png
+:image: cover.png
 :alt: Orion carrying Cedalion
 :description: A discussion of OWASP top 10 - A9: Using components with known vulnerabilities, in particular free and open software libraries. Comparison with the marketing buzzword Software Composition Analysis. A survey of free tools to do it yourself. Also an apology of free software in component analysis.
 :keywords: Software composition, Analysis, Dependency, Vulnerability, Linux, Foss.

@@ -2,7 +2,7 @@
 :date: 2016-07-25
 :category: opiniones
 :tags: programar, validar, software, seguridad
-:Image: validar-datos.png
+:image: validar-datos.png
 :alt: Caricatura acerca de validar las entradas a bases de datos
 :description: Un error común del desarrollador es no validar las entradas a su aplicación, permitiéndole a usuarios maliciosos realizar ataques de tipo XSS o SQLi. En este artículo hablaremos acerca de la validación de entradas de usuarios y su repercusión en la seguridad de la aplicación.
 :keywords: Seguridad, Desarrollo, Validar, Entradas, Software, Web.

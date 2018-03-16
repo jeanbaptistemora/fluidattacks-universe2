@@ -5,7 +5,7 @@
 :keywords: Seguridad, Web, Reto, Hacking, Navegador, HTML.
 :author: Luis Arteaga
 :tags: solucionar, browser, reto
-:Image: html-search.png
+:image: html-search.png
 :alt: Lupa investigando un código HTML
 :writer: stiwar
 :name: Luis Arteaga

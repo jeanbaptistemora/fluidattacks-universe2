@@ -2,7 +2,7 @@
 :date: 2018-03-13
 :category: documentation
 :tags: documentation, vector, software
-:Image: cover.png
+:image: cover.png
 :alt: Pickled cucumbers
 :description: How to use Gherkin to document attack vectors in vulnerable applications using more advanced keywords from the Gherkin syntax. We propose a template to be used in the static and dynamic detection and exploitation of vulnerable applications. Follow-up to a previous entry with Gherkin basics.
 :keywords: gherkin, attack vector, documentation, report, vulnerability, inclusion.

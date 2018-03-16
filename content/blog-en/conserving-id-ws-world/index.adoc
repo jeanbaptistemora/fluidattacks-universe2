@@ -2,7 +2,7 @@
 :date: 2017-05-02
 :category: identity
 :tags: web, security, information
-:Image: identity.png
+:image: identity.png
 :alt: Line of Lego stormtroopers with one facing the opposite direction
 :description: In this article we present a secured way to exchange information between different web services using the realms of the Web Service Federation (WSF). WSF provides several mechanisms to ensure a secure message exchange such as WS Trust encapsulation mechanism to define a trusty token.
 :keywords: Web Service, Security, Information, Message exchange, Application, WS Federation.

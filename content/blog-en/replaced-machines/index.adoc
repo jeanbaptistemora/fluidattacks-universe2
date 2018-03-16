@@ -2,7 +2,7 @@
 :date: 2018-02-13
 :category: philosophy
 :tags: application, detect, vulnerability, scanner
-:Image: human-vs-machine.png
+:image: human-vs-machine.png
 :alt: Person playing chess against a robotic arm
 :description: Vulnerability detection at the hands of an automated tool is not enough to reach the conclusion that an app is secure. The knowledge and experience of a person are still necessary to compliment the analysis and achieve an effective and detailed evaluation of the security of said application.
 :keywords: Vulnerability Detection, Manual Detection, Automatic Detection, Security, Web Application, Automated Tools.

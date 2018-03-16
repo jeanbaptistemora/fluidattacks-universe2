@@ -5,7 +5,7 @@
 :author: Jhony Villa
 :category: opiniones
 :tags: intranet, iwa, windows
-:Image: iwa.png
+:image: iwa.png
 :alt: Diagrama con flechas que muestran la interacción usuario-servidor
 :writer: jhony
 :name: Jhony Arbey Villa Peña

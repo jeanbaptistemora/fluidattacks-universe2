@@ -5,7 +5,7 @@
 :keywords: Web, JavasCript, Seguridad, Credenciales, HTML, Aplicación.
 :author: Luis Arteaga
 :tags: solucionar, browser, reto
-:Image: htmlcode.png
+:image: htmlcode.png
 :alt: Snippet de código en HTML
 :writer: stiwar
 :name: Luis Arteaga

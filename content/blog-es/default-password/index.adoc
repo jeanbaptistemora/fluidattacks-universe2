@@ -2,7 +2,7 @@
 :date: 2016-07-13
 :category: retos
 :tags: seguridad, password, atacar
-:Image: default-password.png
+:image: default-password.png
 :alt: Símbolo de prohibición sobre la contraseña por defecto
 :description: En algunas ocasiones los administradores no modifican las credenciales por defecto de las aplicaciones, esto es un error grave debido a que facilita a los atacantes ingresar utilizando un ataque de diccionario. A continuación se muestra un ejemplo de robo de credenciales por defecto. 
 :keywords: Seguridad, Contraseña, Default, Credenciales, Buenas Prácticas, 

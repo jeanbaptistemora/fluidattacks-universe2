@@ -2,7 +2,7 @@
 :date: 2016-08-23
 :category: opiniones
 :tags: seguridad, usabilidad, concientizar
-:Image: security.png
+:image: security.png
 :alt: Caricatura acerca de políticas de seguridad
 :description: La seguridad de la información no debe verse como algo complejo y difícil de implementar, por el contrario, muchas veces los métodos simples son más eficaces. En este artículo presentamos algunas recomendaciones de seguridad para proteger la información de la empresa, de forma simple y eficiente.
 :keywords: Medidas, Seguridad, Complejidad, Simple, Protección, Información.

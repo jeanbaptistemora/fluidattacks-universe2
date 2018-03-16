@@ -2,7 +2,7 @@
 :date: 2016-12-24
 :category: retos
 :tags: web, ocultar, reto, solucionar
-:Image: directorios-ocultos.png
+:image: directorios-ocultos.png
 :alt: Carpeta con archivos, cerrada con llave
 :description: Los directorios brindan información de la infraestructura y la distribución de la aplicación, información que, mal utilizada puede resultar peligrosa. En este artículo mostraremos una forma de buscar directorios ocultos dentro de una aplicación para resolver un reto de hacking.
 :keywords: Seguridad, Directorio, Oculto, Web, Buscador,

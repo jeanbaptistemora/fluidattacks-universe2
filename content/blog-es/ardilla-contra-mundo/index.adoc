@@ -2,7 +2,7 @@
 :date: 2018-03-06
 :category: identidad
 :tags: seguridad, criptografía, protocolo, autenticación
-:Image: usuario-password.png
+:image: usuario-password.png
 :alt: logo SQRL, Secure +QR+ Login
 :description: Más que una simple ardilla, SQRl es la promesa que quiere dar solución a la paradoja de la autenticación segura en sitios web con códigos +QR+ seguros generados por firmas criptográficas, en un equilibrio entre usabilidad y seguridad, SQRL quiere cambiar el modo en que nos autenticamos en Internet.
 :keywords: SQRL, autenticación, seguridad, usabilidad, protocolo, cripografía

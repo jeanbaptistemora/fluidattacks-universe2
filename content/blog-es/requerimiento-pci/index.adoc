@@ -2,7 +2,7 @@
 :date: 2016-10-18
 :category: opiniones
 :tags: protocolo, proteger, seguridad
-:Image: pci.png
+:image: pci.png
 :alt: Tarjetas de crédito con la palabra PCI DSS 3.2
 :description: Las transacciones que utilizan tarjetas y dinero electrónico deben estar sujetas a medidas de seguridad que permitan salvaguardar una compra. En este artículo hablaremos de la actualización del estándar industrial PCI 3.2 introduciendo una nueva medida de seguridad para éstas transacciones.
 :keywords: Seguridad, Tarjetas, Transacciones, PCI, Estándar, WAF.

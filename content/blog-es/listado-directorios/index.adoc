@@ -5,7 +5,7 @@
 :author: Jhony Villa
 :category: retos
 :tags: configurar, indexof, reto
-:Image: indexof.png
+:image: indexof.png
 :alt: Archivador de documentos con etiquetas por letra
 :writer: jhony
 :name: Jhony Arbey Villa Peña

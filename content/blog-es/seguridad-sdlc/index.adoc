@@ -2,7 +2,7 @@
 :date: 2016-12-06
 :category: opiniones
 :tags: devops, sdlc, programar
-:Image: sdlc.png
+:image: sdlc.png
 :alt: Flechas con las diferentes etapas del SDLC formando un círculo
 :description: La seguridad no debe verse como un valor agregado sino como un pilar alrededor del cual se debe desarrollar. En este artículo profundizamos ésta filosofía detallando cómo integrar la seguridad en el proceso de desarrollo de software para evitar pérdidas causadas por ataques informáticos. 
 :keywords: Seguridad, Ciclo de Vida, Información, Software, DevOps, Desarrollo.

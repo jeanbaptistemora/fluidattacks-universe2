@@ -2,7 +2,7 @@
 :date: 2016-10-11
 :category: retos
 :tags: información, herramienta, reto, solucionar
-:Image: banner.png
+:image: banner.png
 :alt: Página de resultados luego de hacer una búsqueda
 :description: Banner grabbing es una técnica para recolectar información de un sistema a través del análisis de los servicios que corren en sus puertos. Ésto puede ser utilizado por un atacante para encontrar servicios vulnerables. A continuación se presenta un ejemplo de aplicación de banner grabbing.
 :keywords: Seguridad, Banner Grabbing, Recolectar, Información, Web, Ataque.

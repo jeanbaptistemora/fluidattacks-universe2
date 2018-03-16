@@ -2,7 +2,7 @@
 :date: 2017-03-07
 :category: opiniones
 :tags: sde, sdlc, software, definir
-:Image: definiendo-software.png
+:image: definiendo-software.png
 :alt: Programandor trabajando en 3 monitores las etapas de diseño de software
 :description: Definir por software componentes de operación resulta muy ventajoso. Para ello se puede utilizar un Entorno Definido por Software (SDE). Los SDE ofrecen una alternativa para la infraestructura centrada en hardware utilizando una interfaz programable y una plataforma común.
 :keywords: Seguridad, SDE, SDLC, Software, Definir, Componentes.

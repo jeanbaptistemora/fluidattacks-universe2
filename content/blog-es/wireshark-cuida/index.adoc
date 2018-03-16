@@ -2,7 +2,7 @@
 :date: 2017-03-08
 :category: ataques
 :tags: seguridad, monitorear, red, herramienta
-:Image: wireshark-representative.png
+:image: wireshark-representative.png
 :alt: Una señal que se combina con el símbolo de Wireshark
 :description: Wireshark es un potente sniffer que cuenta con una gran cantidad de funcionalidades que nos pueden resultar útiles. En este artículo utilizaremos Wireshark para analizar los cambios en el tráfico de nuestra conexión y detectar posibles ataques externos o equipos infectados.
 :keywords: Seguridad, Wireshark, Sniffer, Protección, Monitorear, Tráfico.

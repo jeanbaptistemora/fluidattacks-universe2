@@ -2,7 +2,7 @@
 :date: 2016-12-20
 :category: opiniones
 :tags: sdlc, software, seguridad
-:Image: risks-third-parties.png
+:image: risks-third-parties.png
 :alt: Empresario con un holograma de servicios de red protegidos
 :description: En la industria del desarrollo de software es cada vez más común partir de productos de terceros para reducir los tiempos de producción, sin embargo ésto puede traer consigo problemas de seguridad. En este artículo te presentamos algunas pautas útiles si utilizas esta práctica.
 :keywords: Seguridad, Riesgo, Software, Producto, Prueba, Vulnerabilidades.

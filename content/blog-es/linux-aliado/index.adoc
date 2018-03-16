@@ -2,7 +2,7 @@
 :date: 2017-03-07
 :category: opiniones
 :tags: linux, probar, versión
-:Image: linux.png
+:image: linux.png
 :alt: Tarjeta electrónica con un botón central con el símbolo de Linux
 :description: Los profesionales y aficionados al pentesting requieren de herramientas que faciliten sus tareas, y la elección de un sistema operativo adecuado es una decisión primordial. En este artículo presentamos varias versiones de Linux pensadas para pentesting que te pueden resultar útiles. 
 :keywords: Seguridad, Versión, Linux, Pentesting, SO, Distribución.

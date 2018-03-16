@@ -5,7 +5,7 @@
 :keywords: Seguridad, JavaScript, Reto, Hacking, Web, Código.
 :author: Luis Arteaga
 :tags: solucionar, javascript, reto
-:Image: js.png
+:image: js.png
 :alt: Lupa encontrando la contraseña en un set de datos binarios
 :writer: stiwar
 :name: Luis Arteaga

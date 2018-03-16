@@ -2,7 +2,7 @@
 :date: 2016-08-23
 :category: opiniones
 :tags: invertir, seguridad, información
-:Image: information-security-expense-investment.png
+:image: information-security-expense-investment.png
 :alt: Teclado con una tecla roja que dice INFORMATION SECURITY
 :description: Toda empresa se encuentra en riesgo de ser saboteada al sufrir una pérdida de información, ésto supone también una pérdida de trabajo, tiempo y dinero. Por ello es necesario preguntarse si asegurar la información representa un gasto o una inversión necesaria para la protección de la empresa.
 :keywords: Seguridad, Información, Sistemas, Inversión, Protección, Empresa.

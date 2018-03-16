@@ -2,7 +2,7 @@
 :date: 2017-12-18
 :category: philosophy
 :tags: security, protect, information
-:Image: lamers.png
+:image: lamers.png
 :alt: Hands typing in a text editor
 :description: There are many tools capable of detecting vulnerabilities in applications, however, opposed to Pentesting, these tools never cover 100% of possible abuse cases and also report a great number of false positives. In this article we will discuss the importance of Pentesting when protecting our applications.
 :keywords: Security, Lamer, Pentesting, Vulnerabilities, Ethical Hacking, ToE.

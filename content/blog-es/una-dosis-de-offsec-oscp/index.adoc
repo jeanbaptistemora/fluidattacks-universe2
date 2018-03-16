@@ -2,7 +2,7 @@
 :date: 2018-02-12
 :category: certificaciones
 :tags: red team, pentesting, certificaciones, offensive, examenes seguridad
-:Image: oscp-exam.png
+:image: oscp-exam.png
 :alt: logo OSCP, certificación
 :description: OSCP es una de las certificaciones más queridas y reconocidas en el mundo de la seguridad informática, creada por offensive security. Este es el viaje a través del camino de Try Harder, mi experiencia, conclusiones, lo bueno y lo malo, y algunos consejos que considero apropiados
 :keywords: certificaciones, oscp, offensive, seguridad, red team, explotación

@@ -2,7 +2,7 @@
 :date: 2016-11-01
 :category: opiniones
 :tags: crimeware, iot, seguridad, atacar
-:Image: crimenware.png
+:image: crimenware.png
 :alt: Ladrón entrando a un computador como si fuera una caja fuerte
 :description: El internet de las cosas (IoT) permite que cada dispositivo electrónico esté conectado a Internet, lo cual supone una enorme facilidad de acceso a la información. Sin embargo ésto también puede ser utilizado por criminales cibernéticos para obtener información y cometer delitos informáticos.
 :keywords: Seguridad, IoT, Crimeware, Internet, Dispositivos, Software. 

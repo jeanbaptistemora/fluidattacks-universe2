@@ -2,7 +2,7 @@
 :date: 2017-04-26
 :category: challenges
 :tags: xss, web, protect, challenge
-:Image: xss.png
+:image: xss.png
 :alt: Computer with four padlocks, one unlocked
 :description: Web security nowadays is a matter of concern. Web applications can be attacked by injecting malicious code within the user input so it is important to take measures to avoid this kind of attacks. In this article we explain how to avoid one of the most common attacks: Cross Site Scripting (XSS).
 :keywords: Security, Input, Cross Site Scripting, XSS, Web, Risks.

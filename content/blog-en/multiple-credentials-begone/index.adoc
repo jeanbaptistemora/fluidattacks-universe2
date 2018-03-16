@@ -2,7 +2,7 @@
 :date: 2017-04-28
 :category: identity
 :tags: security, credential, saml, standard
-:Image: multiple-credentials.png
+:image: multiple-credentials.png
 :alt: Several boxes prompting for username and password
 :description: Single Sign On (SSO) services provides an identity and access management to avoid multiple credentials issues. Security Assertion Mark-up Language (SAML)is a popular SSO implementation standard for logging users into applications based on their sessions. Here we explain how to use SAML.
 :keywords: Security, SAML, Credentials, SSO, XML, Risks.

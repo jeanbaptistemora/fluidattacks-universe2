@@ -2,7 +2,7 @@
 :date: 2017-03-07
 :category: retos
 :tags: sqli, database, reto, solucionar
-:Image: database.png
+:image: database.png
 :alt: Red de computadores usando diferentes bases de datos conectadas al mundo
 :description: Las bases de datos son fuentes de información sensible y como tal deben estar protegidas. El principal medio para vulnerar una base de datos es a través de una inyección SQL. En el siguiente artículo se abordan y detallan las inyecciones SQL, así como la forma de reconocerlas y evitarlas.
 :keywords: Seguridad, Bases de datos, Inyección SQL, Información, SQL, Protección.

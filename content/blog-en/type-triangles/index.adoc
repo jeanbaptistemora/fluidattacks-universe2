@@ -2,7 +2,7 @@
 :date: 2017-01-05
 :category: challenges
 :tags: pythagoras, code, challenge, solve
-:Image: triangles.png
+:image: triangles.png
 :alt: Pyramids in the desert
 :description: Programming is awesome, either for fun, learning or work there are multiple tasks that can be accomplished by programming. Here we present one of the programming challenges of CoddeAbbey related to triangle sorting, properly explained with source code.
 :keywords: Triangles, Programming, Challenge, CodeAbbey, Types, Angles.

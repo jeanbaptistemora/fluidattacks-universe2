@@ -2,7 +2,7 @@
 :date: 2017-04-24
 :category: techniques
 :tags: wep, wifi, encryption, challenge
-:Image: stupid-wep.png
+:image: stupid-wep.png
 :alt: Hand touching the Wireless icon
 :description: The Wired Equivalent Privacy (WEP) is a now deprecated security algorithm which was intended to secure Wifi networks. However it is well known this algorithm had plenty security issues that could be exploited. In this article we explain how to crack a WEP algorithm by analyzing its traffic.
 :keywords: Security, WEP, Wifi, Password, Encription, Network.

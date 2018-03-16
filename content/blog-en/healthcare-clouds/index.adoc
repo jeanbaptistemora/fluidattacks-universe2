@@ -2,7 +2,7 @@
 :date: 2017-04-27
 :category: opinions
 :tags: cloud, protect, health
-:Image: health-cloud.png
+:image: health-cloud.png
 :alt: The word Health Insurance being lift up to the sky by balloons
 :description: Technology advances nowadays allow us to exchange accurate, near real time information using the cloud. This advantage can benefit many enterprises and Healthcare institutions are no exception, however cloud-based systems may carry security issues that must be considered. Here we explain them.
 :keywords: Health care, Cloud, Information, Risks, Security, Protect.

@@ -5,7 +5,7 @@
 :keywords: Navegador, Web, Browser, Solución, Reto, Hacking.
 :author: Luis Arteaga
 :tags: solucionar, browser, reto
-:Image: viewhtml.png
+:image: viewhtml.png
 :alt: Dedo índice señalando un snippet de código HTML
 :writer: stiwar
 :name: Luis Arteaga

@@ -2,7 +2,7 @@
 :date: 2016-12-24
 :category: retos
 :tags: cookie, reto, solucionar, herramienta
-:Image: cookie-cool.png
+:image: cookie-cool.png
 :alt: Galleta usando gafas de sol de marco verde
 :description: Las cookies informáticas contienen información de las preferencias y configuraciones de un usuario. Normalmente son usadas para hacer más práctica la navegación web sin embargo, también pueden ser utilizadas para el mal. A continuación resolveremos un reto de hacking utilizando las cookies.
 :keywords: Cookie, Seguridad, Web, Hacking, Reto, Challengeland.

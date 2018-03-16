@@ -2,7 +2,7 @@
 :date: 2017-12-18
 :category: filosofía
 :tags: seguridad, proteger, información
-:Image: lamers.png
+:image: lamers.png
 :alt: Manos tecleando en un editor de texto
 :description: Existen herramientas capaces de detectar vulnerabilidades en aplicaciones, sin embargo, a diferencia del Pentesting, éstas no abarcan el 100% de los casos además de presentar falsos positivos. En este artículo hablaremos de la importancia del Pentesting en la protección de aplicaciones.
 :keywords: Seguridad, Lamer, Pentesting, Vulnerabilidades, Ethical Hacking, ToE.

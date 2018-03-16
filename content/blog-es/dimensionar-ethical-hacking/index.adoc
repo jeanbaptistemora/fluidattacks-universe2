@@ -2,7 +2,7 @@
 :date: 2018-01-09
 :category: filosofía
 :tags: ethical hacking, pentesting, pruebas de seguridad
-:Image: dimensionar-ethical-hacking.png
+:image: dimensionar-ethical-hacking.png
 :alt: Persona trabajando en el computador, viendo el celular
 :description: Cuando se encuentran fallos de seguridad a través del ethical hacking es importante dimensionar los alcances de los objetivos. Un ethical hacking puede ser enfocado en 3 aspectos: Aplicación, Infraestructura y Código. Conociendo ésto es posible establecer el objetivo de evaluación de la prueba.
 :keywords: Seguridad, Hacking, Pentesting, Aplicación, Infraestructura, Código.

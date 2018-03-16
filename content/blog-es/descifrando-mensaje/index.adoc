@@ -2,7 +2,7 @@
 :date: 2017-04-04
 :category: opiniones
 :tags: cifrar, seguridad, criptografía
-:Image: cifrado-preview.png
+:image: cifrado-preview.png
 :alt: Colección de datos hexadecimales con candados
 :description: La protección de información sensible debe ser una prioridad en cualquier empresa. Mediante el uso de algoritmos de cifrado ésta información puede ser protegida, trayendo consigo muchas ventajas. En este artículo explicamos la importancia del cifrado y sus principales ventajas y desventajas.
 :keywords: Seguridad, Criptografía, Mensaje, Información, Cifrar, Empresa.

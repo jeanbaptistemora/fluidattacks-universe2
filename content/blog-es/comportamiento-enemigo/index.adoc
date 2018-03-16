@@ -2,7 +2,7 @@
 :date: 2016-11-08
 :category: opiniones
 :tags: atacar, rsa, seguridad
-:Image: comportamiento-enemigo.png
+:image: comportamiento-enemigo.png
 :alt: Persona mitad-ángel mitad-demonio sosteniendo una bolsa de dinero
 :description: En la mayoría de casos los criminales informáticos buscan ocultar su actividad y pasar desapercibidos, sin embargo al conocer los patrones y comportamiento de los usuarios legítimos es posible encontrar señales de alerta al detectar comportamientos que no siguen éstos patrones.
 :keywords: Comportamiento, Patrón, Usuario, Legítimo, Seguridad, Validación.

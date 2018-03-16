@@ -2,7 +2,7 @@
 :date: 2017-05-17
 :category: ataques
 :tags: probar, software, funcionalidad
-:Image: disculpe-senor.png
+:image: disculpe-senor.png
 :alt: Lupa buscando insectos(bugs) en un monitor
 :description: Las pruebas de software se realizan cuando se busca verificar la funcionalidad de la aplicación, se pueden realizar pruebas de seguridad donde se busca encontrar fallos que pueden comprometer la integridad del sistema. A continuación detallaremos algunas formas de probar un software.
 :keywords: Seguridad, Pruebas, Software, Testing, Funcionalidad, Ejecución.

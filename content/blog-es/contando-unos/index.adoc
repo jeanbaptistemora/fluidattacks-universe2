@@ -2,7 +2,7 @@
 :date: 2016-12-24
 :category: retos
 :tags: binario, reto, programar
-:Image: contando-unos.png
+:image: contando-unos.png
 :alt: Colección de datos binarios, mostrados en verde
 :description: El sistema binario es el lenguaje de las computadoras y la base de todas las tecnologías actuales y es por ello que es importante entender su funcionamiento. A continuación se presenta un sencillo ejercicio que involucra los sistemas binario y decimal para solucionar un reto de programación.
 :keywords: Informática, Binario, Decimal, Programación, Ruby, Codeeval.
