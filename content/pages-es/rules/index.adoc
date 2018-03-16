@@ -80,6 +80,7 @@
 * link:172/[REQ.172 Cifrar cadenas de conexión].
 * link:173/[REQ.173 Descartar información insegura].
 * link:174/[REQ.174 Transacciones sin patrón discernible].
+* link:175/[REQ.175 Proteger página de clickjacking].
 * link:302/[REQ.302 Declarar explícitamente dependencias].
 
 == Servicios

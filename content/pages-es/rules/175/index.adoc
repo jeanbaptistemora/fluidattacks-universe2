@@ -1,0 +1,12 @@
+:slug: rules/175/
+:category: rules
+:description: En el presente documento se detallan los requerimientos de seguridad relacionados a la importancia de proteger los sitios web de ser secuestrados mediante la técnica de clickjacking, evitando así, que sus usuarios ejecuten acciones maliciosas sin previo conocimiento.
+:keywords: Requerimiento, Seguridad, Página web, Clickjacking, Proteger, Embebida.
+:rules: yes
+
+= REQ.175 Proteger página de clickjacking
+
+== Nombre
+
+Una página +Web+ debe protegerse 
+de ser embebida en sitios maliciosos (+clickjacking+).
