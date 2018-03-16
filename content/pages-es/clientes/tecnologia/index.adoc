@@ -40,11 +40,10 @@ herramientas de software y Conocimiento en verticales de industria.
 
 a|== PSL
 
-Conexia es una empresa de servicios focalizada en la industria de la salud, 
-que nace a partir de una visión de desarrollar una solución integral capaz de conectar 
-a todos sus participantes. Su mercado está compuesto por todas aquellas organizaciones 
-que tienen como objetivo brindar un servicio de salud a la población; ya sean entidades 
-públicas, empresas de medicina privada, prestadores, cooperativas, sindicales y aseguradoras.
+PSL es una organización mundialmente reconocida por la adopción de las mejores prácticas 
+existentes en Ingeniería de Software en el mundo. La compañía cuenta con dos grandes 
+línesa de negocio: Productos y Servicios, entre los cuales ofrece consultoría, desarrollo y 
+mantenimiento de software y servicios de outsourcing (web, móviles, misión crítica). 
 
 a|image:logo-psl.png[logo psl, 300, 100, link=http://www.psl.com.co/]
 
