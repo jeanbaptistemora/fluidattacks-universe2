@@ -119,12 +119,12 @@ Puede ver más detalles [button]#link:../retos-tecnicos/#intentos-fallidos[aquí
 
 La elaboración de artículos tiene como objetivo familiarizar a futuros talentos con contenido
 relevante para la audiencia de FLUID. Por tal motivo estos deben adherirse
-a la línea editorial definida link:../../estilo/[aquí].
+a la línea editorial definida [button]#link:../../estilo/[aquí]#.
 
 Para la generación de documentos y artículos para el blog,
 el lenguaje que debe utilizarse es AsciiDoc.
 Podrá encontrar documentación y algunos ejemplos de uso de AsciiDoc
-link:../../../en/format/[aquí].
+[button]#link:../../../en/format/[aquí]#.
 
 Los artículos deben subirse al repositorio que le indicaremos al entrar en esta etapa.
 
