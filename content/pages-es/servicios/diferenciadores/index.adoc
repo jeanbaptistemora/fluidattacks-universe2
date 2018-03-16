@@ -18,26 +18,11 @@
 | FLUIDAttacks
 | Otros
 
-| Método de revisión
+a|== Método de revisión
 | Híbrido (Herramientas + revisión manual experta)
 | Estático (Solo herramientas)
 
-| Modelo 
-| +Red Team+ 
-| Análisis de vulnerabilidades con explotación selectiva
-
-| Cobertura 
-| Conocida (acordada o resultante)
-| Desconocida
-
-| Definición de Alcance 
-a|* Para infraestructura, según puertos abiertos +TCP+ y +UDP+.
-* Para aplicaciones, según entradas (campos visible, ocultos y cabeceras)
-* Para código fuente, según líneas de código (+LoC+) estrictamente efectivas. 
-a|* Para infraestructura, según direcciones +IP+.
-* Para aplicaciones, según el número de aplicaciones.
-
-| Perfiles Profesionales 
+a|== Perfiles Profesionales 
 a|* link:../../blog/una-dosis-de-offsec-oscp/[+OSCP+]
 * link:../../blog/el-retorno-al-camino-oswp/[+OSWP+]
 * +CEH+ 
@@ -46,46 +31,11 @@ Adicionalmente nuestros hackers son programadores excelentes
 maximizando el nivel de profundidad de la prueba.
 | Ninguno
 
+a|== Modelo 
+| +Red Team+ 
+| Análisis de vulnerabilidades con explotación selectiva
 
-| Registros Comprometidos
-| {si} link:../../productos/integrates/#registros-comprometidos[Ejemplo]
-| {no}
-
-| Explotación 
-| 100% 
-| Variable
-
-| Generación +exploits+ propios 
-| {si} Usando nuesto motor de explotacion propio 
-[button]#link:../../productos/asserts/[Asserts>>]# .
-link:../../productos/integrates/#exploit-de-la-vulnerabilidad[Ejemplo]
-| {no}
-
-| Vulnerabilidades +ZERO DAY+ 
-| {si} 
-| {no}
-
-| Falsos Positivos 
-| {si} 0% 
-| {no} ~20%
-
-| Soporte de Remediación.
-a|* Durante el proyecto puede solicitar aclaraciones 
-directamente a los hackers mediante 
-[button]#link:../../productos/integrates/[Integrates>>]# 
-* Puede utilizar nuestras guias detalladas de remediación 
-mediante [button]#link:../../productos/defends/[Defends>>]# 
-| {no}
-
-| Rigurosidad
-a|* Usted decide los requisitos de seguridad 
-que revisaremos en el hacking (perfilamiento) 
-a través de nuestro producto [button]#link:../../productos/rules/[Rules>>]# 
-* Además sabrá la rigurosidad exacta del hackeo 
-(lo revisado y lo no revisado).
-| No parametrizable y desconocida.
-
-| Objetivos
+a|== Objetivos
 a|* Aplicaciones
 * +APIs+
 * Apps Móviles
@@ -96,23 +46,32 @@ a|* Aplicaciones
 * Centros de operaciones en seguridad (+SOC+)
 a|Web
 
-| Ciclos de Revisión
-| Multiples en nuestro servicio 
-[button]#link:../../servicios/hacking-continuo/[Continuous Hacking>>]#
-| Solo 1
+a|== Definición de Alcance 
+a|* Para infraestructura, según puertos abiertos +TCP+ y +UDP+.
+* Para aplicaciones, según entradas (campos visible, ocultos y cabeceras)
+* Para código fuente, según líneas de código (+LoC+) estrictamente efectivas. 
+a|* Para infraestructura, según direcciones +IP+.
+* Para aplicaciones, según el número de aplicaciones.
 
-| Ambientes
+a|== Cobertura 
+| Conocida (acordada o resultante)
+| Desconocida
+
+a|== Rigurosidad
+a|* Usted decide los requisitos de seguridad 
+que revisaremos en el hacking (perfilamiento) 
+a través de nuestro producto [button]#link:../../productos/rules/[Rules>>]# 
+* Además sabrá la rigurosidad exacta del hackeo 
+(lo revisado y lo no revisado).
+| No parametrizable y desconocida.
+
+a|== Ambientes
 a|* Producción
 * Pruebas
 * Integración
 | Producción
 
-| Correlación de Vulnerabilidades
-| Combinando las vulnerabilidades +A+ y +B+ encontrar una +C+ 
-de mayor impacto que permite comprometer más registros.
-| Solo detecta vulnerabilidades +A+ y +B+ pero no puede correlacionarlas.
-
-| Tipo de Hallazgos 
+a|== Tipo de Hallazgos 
 a|* De impacto específicos del negocio 
 * Prácticas inseguras de programación 
 * Alineación a estándares
@@ -120,18 +79,58 @@ a|* De impacto específicos del negocio
 a|* Basado en firmas 
 * Sintácticos
 
-| link:../../blog/desplazados-maquinas/[Fugas (+Yield+)] 
-| 0% sobre el objetivo de prueba 
-| ~65% sobre el objetivo de prueba
-
-| Tipo de Evidencia 
+a|== Tipo de Evidencia 
 a|* Imágenes 
 * +GIF+ animado. 
 link:../../productos/integrates/#evidencias-de-la-vulnerabilidad[Ejemplo]
 a|* Salidas de Herramienta
 * Imágenes
 
-| Entregables 
+a|== Vulnerabilidades ZERO DAY 
+| {si} 
+| {no}
+
+a|== Falsos Positivos 
+| {si} 0% 
+| {no} ~20%
+
+a|== Explotación 
+| 100% 
+| Variable
+
+a|== Generación exploits propios 
+| {si} Usando nuesto motor de explotacion propio 
+[button]#link:../../productos/asserts/[Asserts>>]# .
+link:../../productos/integrates/#exploit-de-la-vulnerabilidad[Ejemplo]
+| {no}
+
+a|== Correlación de Vulnerabilidades
+| Combinando las vulnerabilidades +A+ y +B+ encontrar una +C+ 
+de mayor impacto que permite comprometer más registros.
+| Solo detecta vulnerabilidades +A+ y +B+ pero no puede correlacionarlas.
+
+a|== Registros Comprometidos
+| {si} link:../../productos/integrates/#registros-comprometidos[Ejemplo]
+| {no}
+
+a|== Ciclos de Revisión
+| Multiples en nuestro servicio 
+[button]#link:../../servicios/hacking-continuo/[Continuous Hacking>>]#
+| Solo 1
+
+a|== link:../../blog/desplazados-maquinas/[Fugas (+Yield+)] 
+| 0% sobre el objetivo de prueba 
+| ~65% sobre el objetivo de prueba
+
+a|== Soporte de Remediación.
+a|* Durante el proyecto puede solicitar aclaraciones 
+directamente a los hackers mediante 
+[button]#link:../../productos/integrates/[Integrates>>]# 
+* Puede utilizar nuestras guias detalladas de remediación 
+mediante [button]#link:../../productos/defends/[Defends>>]# 
+| {no}
+
+a|== Entregables 
 | Sistema web de documentación en tiempo real 
 [button]#link:../../productos/integrates/[Integrates>>]#
 a|* Documento en word realizado manualmente.
