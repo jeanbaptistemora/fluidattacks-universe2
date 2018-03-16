@@ -18,27 +18,41 @@
 | FLUIDAttacks
 | Otros
 
-a|==== Método de revisión
+a|==== Método
 | Híbrido (Herramientas + revisión manual experta)
 | Estático (Solo herramientas)
 
-a|==== Perfiles Profesionales 
+a|==== Metodologías de desarrollo
+a|* Cascada
+* Agil
+* +DevOps+ 
+
+[button]#link:../../servicios/hacking-continuo/[Continuous Hacking>>]# 
+[button]#link:../../productos/integrates/[Integrates>>]# 
+y [button]#link:../../productos/asserts/[Asserts>>]#
+son idóneos para los 2 ultimos casos de uso.
+| Cascada
+
+a|==== Equipo
 a|* link:../../blog/una-dosis-de-offsec-oscp/[+OSCP+]
 * link:../../blog/el-retorno-al-camino-oswp/[+OSWP+]
 * link:../../blog/ceh-el-comienzo-de-la-travesia/[+CEH+] 
 
 Adicionalmente nuestros hackers son programadores excelentes 
 maximizando el nivel de profundidad de la prueba.
-| Ninguno
+| {no} Ninguno
 
 a|==== Modelo 
 | +Red Team+ 
 | Análisis de vulnerabilidades con explotación selectiva
 
 a|==== Objetivos
-a|* Aplicaciones
-* +APIs+
-* Apps Móviles
+a|* Aplicaciones web
+* Aplicaciones móviles (+iPhone+, +Android+)
+* Aplicaciones de escritorio (+GUI+)
+* Aplicaciones en mainframe (+AS400+)
+* Aplicaciones embebidas (datáfonos, cajeros electrónicos)
+* +APIs+ (+SOAP+, +REST+, +GraphQL+)
 * Servidores
 * Redes
 * Dispositivos +IoT+
@@ -46,7 +60,14 @@ a|* Aplicaciones
 * Centros de operaciones en seguridad (+SOC+)
 a|Web
 
-a|==== Definición de Alcance 
+a|==== Foco
+| {si} Nos dedicamos únicamente a hackear, 
+todo el día y en todos los proyectos
+| {no} Sólo de vez en cuando, 
+deben ocuparse de otras cosas además de hackear
+
+
+a|==== Alcance 
 a|* Para infraestructura, según puertos abiertos +TCP+ y +UDP+.
 * Para aplicaciones, según entradas (campos visibles, ocultos y cabeceras)
 * Para código fuente, según líneas de código (+LoC+) estrictamente efectivas. 
@@ -58,19 +79,23 @@ a|* +COBOL+
 * +RPG+
 * +PL1+
 * +TAL+
-| Sin soporte 
+| {no} Sin soporte 
 
 a|==== Cobertura 
 | Conocida (acordada o resultante)
-| Desconocida
+| {no} Desconocida
+
+a|==== Perfilamiento
+| Usted decide los requisitos de seguridad 
+que revisaremos en el hacking (perfilamiento) 
+a través de nuestro producto [button]#link:../../productos/rules/[Rules>>]#
+| {no} No parametrizable
 
 a|==== Rigurosidad
-a|* Usted decide los requisitos de seguridad 
-que revisaremos en el hacking (perfilamiento) 
-a través de nuestro producto [button]#link:../../productos/rules/[Rules>>]# 
-* Además sabrá la rigurosidad exacta del hackeo 
+
+| Usted sabrá la rigurosidad exacta del hackeo 
 (lo revisado y lo no revisado).
-| No parametrizable y desconocida.
+| {no} Desconocida.
 
 a|==== Ambientes
 a|* Integración: 
@@ -106,16 +131,17 @@ a|==== Falsos Positivos
 | {no} ~20%
 
 a|==== Explotación 
-| 100% 
-| Variable
+| {si} Siempre que se tenga un 
+entorno disponible y autorización.
+| {no}
 
-a|==== Generación exploits propios 
+a|==== Exploits personalizados 
 | {si} Usando nuesto motor de explotacion propio 
 [button]#link:../../productos/asserts/[Asserts>>]# .
 link:../../productos/integrates/#exploit-de-la-vulnerabilidad[Ejemplo]
 | {no}
 
-a|==== Correlación de Vulnerabilidades
+a|==== Correlación
 | Combinando las vulnerabilidades +A+ y +B+ encontrar una +C+ 
 de mayor impacto que permite comprometer más registros.
 | Solo detecta vulnerabilidades +A+ y +B+ pero no puede correlacionarlas.
@@ -124,21 +150,23 @@ a|==== Registros Comprometidos
 | {si} link:../../productos/integrates/#registros-comprometidos[Ejemplo]
 | {no}
 
-a|==== Ciclos de Revisión
+a|==== Ciclos
 | Multiples en nuestro servicio 
 [button]#link:../../servicios/hacking-continuo/[Continuous Hacking>>]#
-| Solo 1
+| {no} Solo 1
 
-a|==== link:../../blog/desplazados-maquinas/[Fugas (+Yield+)] 
-| 0% sobre el objetivo de prueba 
-| ~65% sobre el objetivo de prueba
+a|==== link:../../blog/desplazados-maquinas/[Fugas] 
+| 0% sobre el link:#alcance[alcance] acordado
+| ~65% sobre el link:#alcance[alcance] acordado
 
-a|==== Soporte de Remediación.
+a|==== Remediación.
 a|* Durante el proyecto puede solicitar aclaraciones 
 directamente a los hackers mediante 
-[button]#link:../../productos/integrates/[Integrates>>]# 
+[button]#link:../../productos/integrates/[Integrates>>]#. 
+link:../../productos/integrates/#aclaraciones-de-dudas-sobre-las-vulnerabilidades[Ejemplo]
 * Puede utilizar nuestras guias detalladas de remediación 
-mediante [button]#link:../../productos/defends/[Defends>>]# 
+mediante [button]#link:../../productos/defends/[Defends>>]#. 
+link:../../defends/java/limitar-vida-variable/[Ejemplo]
 | {no}
 
 a|==== Entregables 
