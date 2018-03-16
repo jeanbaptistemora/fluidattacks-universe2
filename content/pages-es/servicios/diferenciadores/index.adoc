@@ -30,7 +30,7 @@ a|* Cascada
 [button]#link:../../servicios/hacking-continuo/[Continuous Hacking>>]# 
 [button]#link:../../productos/integrates/[Integrates>>]# 
 y [button]#link:../../productos/asserts/[Asserts>>]#
-son idóneos para los 2 ultimos casos de uso.
+son idóneos para los 2 ultimos casos de uso
 | Cascada
 
 a|==== Equipo
@@ -39,7 +39,7 @@ a|* link:../../blog/una-dosis-de-offsec-oscp/[+OSCP+]
 * link:../../blog/ceh-el-comienzo-de-la-travesia/[+CEH+] 
 
 Adicionalmente nuestros hackers son programadores excelentes 
-maximizando el nivel de profundidad de la prueba.
+maximizando el nivel de profundidad de la prueba
 | {no} Ninguno
 
 a|==== Modelo 
@@ -68,11 +68,11 @@ deben ocuparse de otras cosas además de hackear
 
 
 a|==== Alcance 
-a|* Para infraestructura, según puertos abiertos +TCP+ y +UDP+.
+a|* Para infraestructura, según puertos abiertos +TCP+ y +UDP+
 * Para aplicaciones, según entradas (campos visibles, ocultos y cabeceras)
-* Para código fuente, según líneas de código (+LoC+) estrictamente efectivas. 
-a|* Para infraestructura, según direcciones +IP+.
-* Para aplicaciones, según el número de aplicaciones.
+* Para código fuente, según líneas de código (+LoC+) estrictamente efectivas 
+a|* Para infraestructura, según direcciones +IP+
+* Para aplicaciones, según el número de aplicaciones
 
 a|==== Lenguajes heredados
 a|* +COBOL+ 
@@ -87,25 +87,30 @@ a|==== Cobertura
 
 a|==== Perfilamiento
 | Usted decide los requisitos de seguridad 
-que revisaremos en el hacking (perfilamiento) 
+que revisaremos en el hacking
 a través de nuestro producto [button]#link:../../productos/rules/[Rules>>]#
 | {no} No parametrizable
 
 a|==== Rigurosidad
 
 | Usted sabrá la rigurosidad exacta del hackeo 
-(lo revisado y lo no revisado).
-| {no} Desconocida.
+(lo revisado y lo no revisado)
+| {no} Desconocida
 
 a|==== Ambientes
 a|* Integración: 
 [button]#link:../../servicios/hacking-continuo/[Continuous Hacking>>]# 
 y [button]#link:../../productos/asserts/[Asserts>>]#
-son idóneos en este caso uso.
+son idóneos en este caso de uso
 * Pruebas
 * Producción
 a|* Pruebas
 * Producción
+
+a|==== Ventanas
+| {si} En el servicio de +CH+ los ambientes pueden cambiar constantemente, 
+no estar congelados y no se requiere ventanas para la prueba
+| {no} Se requieren ambientes congelados y ventanas de prueba
 
 a|==== Tipo de Hallazgos 
 a|* De impacto específicos del negocio 
@@ -117,12 +122,12 @@ a|* Basado en firmas
 
 a|==== Tipo de Evidencia 
 a|* Imágenes 
-* +GIF+ animado. 
+* +GIF+ animado 
 link:../../productos/integrates/#evidencias-de-la-vulnerabilidad[Ejemplo]
 a|* Salidas de Herramienta
 * Imágenes
 
-a|==== Vulnerabilidades ZERO DAY 
+a|==== Vulnerabilidades Zero Day 
 | {si} 
 | {no}
 
@@ -132,7 +137,7 @@ a|==== Falsos Positivos
 
 a|==== Explotación 
 | {si} Siempre que se tenga un 
-entorno disponible y autorización.
+entorno disponible y autorización
 | {no}
 
 a|==== Exploits personalizados 
@@ -143,8 +148,8 @@ link:../../productos/integrates/#exploit-de-la-vulnerabilidad[Ejemplo]
 
 a|==== Correlación
 | Combinando las vulnerabilidades +A+ y +B+ encontrar una +C+ 
-de mayor impacto que permite comprometer más registros.
-| Solo detecta vulnerabilidades +A+ y +B+ pero no puede correlacionarlas.
+de mayor impacto que permite comprometer más registros
+| Solo detecta vulnerabilidades +A+ y +B+ pero no puede correlacionarlas
 
 a|==== Registros Comprometidos
 | {si} link:../../productos/integrates/#registros-comprometidos[Ejemplo]
@@ -159,7 +164,7 @@ a|==== link:../../blog/desplazados-maquinas/[Fugas]
 | 0% sobre el link:#alcance[alcance] acordado
 | ~65% sobre el link:#alcance[alcance] acordado
 
-a|==== Remediación.
+a|==== Remediación
 a|* Durante el proyecto puede solicitar aclaraciones 
 directamente a los hackers mediante 
 [button]#link:../../productos/integrates/[Integrates>>]#. 
@@ -172,6 +177,6 @@ link:../../defends/java/limitar-vida-variable/[Ejemplo]
 a|==== Entregables 
 | Sistema web de documentación en tiempo real 
 [button]#link:../../productos/integrates/[Integrates>>]#
-a|* Documento en word realizado manualmente.
+a|* Documento en word realizado manualmente
 * Informes de herramientas sin descartar falsos positivos
 |====

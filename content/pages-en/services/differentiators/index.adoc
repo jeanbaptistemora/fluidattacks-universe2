@@ -30,7 +30,7 @@ a|* Waterfall
 [button]#link:../../services/continuous-hacking/[Continuous Hacking>>]# 
 [button]#link:../../products/integrates/[Integrates>>]# 
 y [button]#link:../../products/asserts/[Asserts>>]#
-fit perfect for the last 2 use cases.
+fit perfect for the last 2 use cases
 | Waterfall
 
 a|==== Team
@@ -61,17 +61,17 @@ a|* Web applications
 | Web
 
 a|==== Focus 
-| {yes} We only hack, all day, all projects, all hackers.
+| {yes} We only hack, all day, all projects, all hackers
 | {no} Only from time to time, 
-because they do others things apart from hacking.
+because they do others things apart from hacking
 
 a|==== Scope
 a|* For infrastructure, according to +TCP+ and +UDP+ open ports
 * For applications, according to inputs
 (visible fields, hidden fields, and headers)
 * For source code, according to strictly effectives lines of code (+LoC+).
-a|* For infrastructure, according to +IP+ addresses.
-* For applications, according to number of applications.
+a|* For infrastructure, according to +IP+ addresses
+* For applications, according to number of applications
 
 a|==== Legacy Languages
 a|* +COBOL+ 
@@ -99,11 +99,16 @@ a|==== Environments
 a|* Integration: 
 [button]#link:../../services/continuous-hacking/[Continuous Hacking>>]# 
 and [button]#link:../../products/asserts/[Asserts>>]#
-fit perfectly in this use case.
+fit perfectly in this use case
 * Staging
 * Production
 a|* Staging
 * Production
+
+a|==== Windows
+| {yes} In the +CH+ service, environments can constantly change, 
+not necessarily are frozen and windows are not required for the tests
+| {no} Frozen environments and test windows are required
 
 a|==== Finding Types
 a|* Of a specific business impact
@@ -133,15 +138,15 @@ and our client authorization
 | {no}
 
 a|==== Custom Exploits
-| {yes} Using our own exploitation engine.
+| {yes} Using our own exploitation engine
 [button]#link:../../products/asserts/[Asserts>>]# .
 link:../../products/integrates/#exploit[Example]
 | {no}
 
 a|==== Correlation
 | By combining vulnerabilities +A+ and +B+ we are able to find 
-a new vulnerability +C+ of greater impact which may compromise more registers.
-| Only detects vulnerabilities +A+ and +B+ but it's not able to correlate them. 
+a new vulnerability +C+ of greater impact which may compromise more registers
+| Only detects vulnerabilities +A+ and +B+ but it's not able to correlate them 
 
 a|==== Compromised Records
 | {yes} link:../../products/integrates/#compromised-records[Example]
@@ -168,6 +173,6 @@ link:../../products/integrates/#doubts-regarding-the-vulnerabilities[Example]
 a|==== Deliverables
 | Real-time documentation web system
 [button]#link:../../products/integrates/[Integrates>>]#
-a|* Manually-made Word document.
+a|* Manually-made Word document
 * Tool reports without discarding false positives
 |====
