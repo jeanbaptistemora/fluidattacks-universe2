@@ -166,4 +166,4 @@ todas las instrucciones +C#+ del programa.
 
 . [[r1]] link:https://www.amazon.com/Clean-Coder-Conduct-Professional-Programmers/dp/0137081073/ref=ntt_at_ep_dpt_2[The Clean Coder: A Code of Conduct for Professional Programmers]
 . [[r2]] link:http://www.informit.com/articles/article.aspx?p=457502&seqNum=5[The Bad Code Spotter's Guide, Repetition]
-. [[r3]] link:../../../rules/157/[REQ.157 Eliminar código redundante].
+. [[r3]] link:../../../rules/162/[REQ.162 Eliminar código redundante].
