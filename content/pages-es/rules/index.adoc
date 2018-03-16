@@ -75,6 +75,7 @@
 * link:167/[REQ.167 Cerrar recursos no utilizados].
 * link:168/[REQ.168 Variables inicializadas explícitamente].
 * link:169/[REQ.169 Usar construcciones parametrizadas].
+* link:170/[REQ.170 Asociar tipo a variables].
 * link:173/[REQ.173 Descartar información insegura].
 * link:302/[REQ.302 Declarar explícitamente dependencias].
 
