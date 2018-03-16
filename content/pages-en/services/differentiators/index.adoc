@@ -42,7 +42,7 @@ a|* Applications
 * Servers
 * Networks
 * +IoT+ Devices
-* Industrial Control Systems(+ICS+)
+* Industrial Control Systems (+ICS+)
 * Security Operations Centers (+SOC+)
 | Web
 
@@ -53,6 +53,13 @@ a|* For infrastructure, according to +TCP+ and +UDP+ open ports
 * For source code, according to strictly effectives lines of code (+LoC+).
 a|* For infrastructure, according to +IP+ addresses.
 * For applications, according to number of applications.
+
+a|==== Legacy Languages
+a|* +COBOL+ 
+* +RPG+
+* +PL1+
+* +TAL+
+| No support
 
 a|==== Coverage
 | Known (arranged or resulting)
@@ -67,10 +74,14 @@ through our product [button]#link:../../products/rules/[Rules>>]#
 | Non parameterizable and unknown
 
 a|==== Environments
-a|* Production
+a|* Integration: 
+[button]#link:../../services/continuous-hacking/[Continuous Hacking>>]# 
+and [button]#link:../../products/asserts/[Asserts>>]#
+fit perfectly in this use case.
 * Staging
-* Integration
-| Production
+* Production
+a|* Staging
+* Production
 
 a|==== Finding Types
 a|* Of a specific business impact

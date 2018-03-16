@@ -25,7 +25,7 @@ a|==== Método de revisión
 a|==== Perfiles Profesionales 
 a|* link:../../blog/una-dosis-de-offsec-oscp/[+OSCP+]
 * link:../../blog/el-retorno-al-camino-oswp/[+OSWP+]
-* +CEH+ 
+* link:../../blog/ceh-el-comienzo-de-la-travesia/[+CEH+] 
 
 Adicionalmente nuestros hackers son programadores excelentes 
 maximizando el nivel de profundidad de la prueba.
@@ -48,10 +48,17 @@ a|Web
 
 a|==== Definición de Alcance 
 a|* Para infraestructura, según puertos abiertos +TCP+ y +UDP+.
-* Para aplicaciones, según entradas (campos visible, ocultos y cabeceras)
+* Para aplicaciones, según entradas (campos visibles, ocultos y cabeceras)
 * Para código fuente, según líneas de código (+LoC+) estrictamente efectivas. 
 a|* Para infraestructura, según direcciones +IP+.
 * Para aplicaciones, según el número de aplicaciones.
+
+a|==== Lenguajes heredados
+a|* +COBOL+ 
+* +RPG+
+* +PL1+
+* +TAL+
+| Sin soporte 
 
 a|==== Cobertura 
 | Conocida (acordada o resultante)
@@ -66,10 +73,14 @@ a través de nuestro producto [button]#link:../../productos/rules/[Rules>>]#
 | No parametrizable y desconocida.
 
 a|==== Ambientes
-a|* Producción
+a|* Integración: 
+[button]#link:../../servicios/hacking-continuo/[Continuous Hacking>>]# 
+y [button]#link:../../productos/asserts/[Asserts>>]#
+son idóneos en este caso uso.
 * Pruebas
-* Integración
-| Producción
+* Producción
+a|* Pruebas
+* Producción
 
 a|==== Tipo de Hallazgos 
 a|* De impacto específicos del negocio 
