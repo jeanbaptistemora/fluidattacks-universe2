@@ -1,0 +1,12 @@
+:slug: rules/166/
+:category: rules
+:description: En el presente documento se detallan los requerimientos de seguridad relacionados a la determinación de la complejidad del código fuente que compone a una aplicación. Determinando la complejidad ciclomática de métodos, fragmentos de código, etc., cuyo valor no debe ser superior al establecido.
+:keywords: Requerimiento, Seguridad, Código Fuente, Complejidad, McCabe, Ciclomática.
+:rules: yes
+
+= REQ.166 Determinar complejidad del código
+
+== Nombre
+
+El código fuente debe contener funciones, métodos o fragmentos de código 
+con una complejidad ciclomática (+McCabe+) inferior a 20.

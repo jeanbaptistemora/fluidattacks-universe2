@@ -71,6 +71,7 @@
 * link:162/[REQ.162 Eliminar código redundante].
 * link:163/[REQ.163 Invocar en escenario funcional].
 * link:164/[REQ.164 Utilizar estructuras optimizadas].
+* link:166/[REQ.166 Determinar complejidad del código].
 * link:167/[REQ.167 Cerrar recursos no utilizados].
 * link:168/[REQ.168 Variables inicializadas explícitamente].
 * link:173/[REQ.173 Descartar información insegura].
