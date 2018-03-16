@@ -286,25 +286,17 @@ image::ranking-wechall.png[Ranking en Wechall]
 
 == 8. Fin
 
-Esta etapa finaliza cuando usted haya completado los objetivos anteriormente mencionados y nos envíe
-vía e-mail (careers@autonomicmind.co) los archivos correspondientes a sus soluciones.
+La etapa de retos técnicos finaliza en cualquiera de las siguientes circunstancias:
 
-Por favor tenga en cuenta que durante esta etapa la continuidad es fundamental,
-ya que *de no haber movimiento (push al repositorio +git+) en 14 días calendario,
-se dará por terminado el proceso de selección*.
+. Usted haya completado los objetivos y envíe vía e-mail los enlaces en +master+ de sus soluciones,
+. De no haber movimiento (push al repositorio git) en 14 días calendario,
+. De haber alcanzado el tope máximo de 10 +MR+ fallidos, esto es, MR que no se le hace +merge+ por 
+cuestiones detalladas en la documentación y que aun así se incumplen.
+. Si usted explícitamente manifiesta mediante e-mail su deseo para retirarse del proceso.
 
-El proceso también se dará por terminado en caso de llegar al tope de +MR+ fallidos.
+En todos los casos la dirección de correo para estos pasos es: careers@autonomicmind.co
 
-. Un +MR+ cuenta como fallido cuando se rechaza por cuestiones que están adecuadamente detalladas en la documentación y que aun así se incumplen.
-
-. Todo participante tiene hasta 10 intentos de +MR+ fallidos.
-
-
-Usted puede volver a presentarse, sin embargo,
-deberá comenzar desde la primera etapa nuevamente.
-
-En caso de no desear continuar con el proceso,
-puede escribirnos vía e-mail a careers@autonomicmind.co
+Usted puede volver a presentarse en cualquier momento y volver a comenzar el proceso haciendo click [button]#link:../../../../forms/aplicacion[aquí >>]#.
 
 == 9. Builds locales
 
