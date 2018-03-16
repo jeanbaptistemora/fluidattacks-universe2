@@ -20,8 +20,6 @@ manufactura en Colombia, 3 en Estados Unidos, 3 en Centro América, 3 en México
 Exporta sus productos a diversos mercados alrededor del mundo, incluyendo Estados Unidos,
 Canadá, México, Brasil, Chile, Venezuela, Centro América, el Caribe, Italia, España y el Reino Unido.
 
-a|image:logo-manuelita.png[logo manuelita, 300, 70, link=http://www.manuelita.com/perfil-corporativo]
-
 a|== Manuelita
 
 Manuelita es una organización agroindustrial diversificada,
@@ -29,5 +27,7 @@ multilatina de origen colombiano, consolidada como una organización agroindustr
 cuya estrategia se basa en un modelo de negocio sostenible. Elabora productos de naturaleza agroindustrial,
 elaborados a partir de fuentes renovables, mediante el uso sostenible de los recursos naturales,
 con un impacto positivo sobre el bienestar de las comunidades vecinas.
+
+a|image:logo-manuelita.png[logo manuelita, 300, 70, link=http://www.manuelita.com/perfil-corporativo]
 
 |====

@@ -6,7 +6,28 @@
 
 = Energía
 
-[width="99%", cols="^.^,^.^", grid="none", frame="none"]
-|=======
-|image:logo-internexa.png[logo internexa, 220, 180] |image:logo-xm.png[logo xm, 230, 180]
-|=======
+[role="energia tb-alt"]
+[cols=2, frame="none"]
+|====
+a|image:logo-internexa.png[logo internexa, 220, 180, link=http://www.internexa.com/Paginas/Home.aspx]
+
+a|== Internexa
+
+Internexa es una compañía colombiana dedicada al negocio de portadores y al sector energético. 
+Cuenta con 48.866 km de red de fibra óptica en Latinoamérica. Sirve a los operadores que prestan 
+servicios de larga distancia, valor agregado, internet, comunicaciones móviles y televisión por cable. 
+Internexa está presente en Colombia, Ecuador, Perú, Chile, Argentina, Brasil y Estados Unidos.
+
+a|== XM
+
+XM, es una empresa ISA especializada en la gestión de sistemas de tiempo real.​ 
+La gestión de sistemas de tiempo real consiste en la planeación, diseño, optimización, 
+puesta en servicio, operación, administración o gerenciamiento de sistemas transaccionales 
+o plataformas tecnológicas, que involucran el intercambio de información con valor agregado, 
+y mercados de bienes y servicios relacionados. XM ofrece servicios en tres áreas: energía, finanzas 
+y transporte. En el sector eléctrico, la empresa opera el Sistema Interconectado Nacional (SIN) 
+de Colombia y administra el mercado mayorista local. 
+
+a|image:logo-xm.png[logo xm, 230, 180, link=https://www.xm.com.co/corporativo/Paginas/Nuestra-empresa/quienes-somos.aspx]
+
+|====
