@@ -22,10 +22,10 @@ function getinfo(sect, header, nxt_sect, label) {
 var newitem = ""
 $(document).ready(function () {
   if ($(".language")[0].innerHTML == "en ") {
-    var ToC = "<nav class=\"table-of-contents\">" + "<h2>Table of Content</h2>" + "<ol class=\"arabic\">";
+    var ToC = "<nav class=\"table-of-contents\">" + "<h2>Content</h2>" + "<ol class=\"arabic\">";
   }
   else {
-    var ToC = "<nav class=\"table-of-contents\">" + "<h2>Tabla de Contenido</h2>" + "<ol class=\"arabic\">";
+    var ToC = "<nav class=\"table-of-contents\">" + "<h2>Contenido</h2>" + "<ol class=\"arabic\">";
   }
   getinfo(".sect1", "h2", ".sect2", "loweralpha");
   ToC += newitem + "</nav>";
