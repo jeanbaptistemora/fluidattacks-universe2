@@ -366,7 +366,7 @@ Por ende, la información aquí contenida puede ser usada
 por FLUID para cualquier fin comercial,
 siempre preservando los derechos morales de sus autores.
 
-=== Plagio
+== Plagio
 
 Tener las soluciones disponibles para su visualización propone un reto para el plagio,
 ¿cómo mostrarle al mundo las soluciones y evitar el plagio?
