@@ -14,7 +14,7 @@ if kubectl get deployments | grep -q "review-$CI_COMMIT_REF_SLUG"; then
 	echo "Erasing previous deployments..."
 	kubectl delete deployment review-$CI_COMMIT_REF_SLUG
 	kubectl delete service web-service-$CI_COMMIT_REF_SLUG;
-	kubectl get ingress ingress-review -o yaml | sed '/'"$CI_PROJECT_NAME-$CI_COMMIT_REF_SLUG"'/,+5d' > current-ingress.yaml
+	kubectl get ingress ingress-review -o yaml | sed '/'"$CI_COMMIT_REF_SLUG.$CI_PROJECT_NAME"'/,+5d' > current-ingress.yaml
 fi
 
 # Deploy pod, service and ingress resource
