@@ -165,7 +165,7 @@ la implementación del código anterior.
 
 == Referencias
 
-. [[r1]] link:../../../rules/156/[REQ.156 Opciones por defecto seguras].
+. [[r1]] link:../../../rules/161/[REQ.161 Opciones por defecto seguras].
 . [[r2]] link:../../../rules/163/[REQ.163 Variables inicializadas explícitamente].
 . [[r3]] link:https://www.ibm.com/support/knowledgecenter/SSQ2R2_9.1.1/com.ibm.ent.dbt.zos.doc/rmdita/rcmdeva.html[EVALUATE command (COBOL)].
 . [[r4]] link:http://www.fluffycat.com/COBOL/Evaluate/[COBOL Evaluate].

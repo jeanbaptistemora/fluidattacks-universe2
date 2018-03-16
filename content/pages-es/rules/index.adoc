@@ -2,7 +2,6 @@
 :category: rules
 :description: El propósito de esta página es presentar los productos ofrecidos por FLUID. Rules es una recopilación de criterios de seguridad desarrollados por FLUID, basados en diferentes estándares internacionales para garantizar la seguridad de la información en diferentes áreas.
 :keywords: FLUID, Productos, Rules, Criterios, Seguridad, Aplicaciones.
-:translate: rules/
 
 = Rules
 
@@ -63,11 +62,12 @@
 * link:153/[REQ.153 Transacciones fuera de banda].
 * link:154/[REQ.154 Eliminar puertas traseras].
 * link:155/[REQ.155 Aplicación libre de código malicioso].
-* link:156/[REQ.156 Opciones por defecto seguras].
+* link:156/[REQ.156 Código sin información sensible].
 * link:157/[REQ.157 Compilación estricta].
 * link:158/[REQ.158 Codificación Actualizada].
 * link:159/[REQ.159 Código ofuscado].
 * link:160/[REQ.160 Salidas codificadas].
+* link:161/[REQ.161 Opciones por defecto seguras].
 * link:162/[REQ.162 Eliminar código redundante].
 * link:163/[REQ.163 Eliminar código muerto].
 * link:164/[REQ.164 Utilizar estructuras optimizadas].

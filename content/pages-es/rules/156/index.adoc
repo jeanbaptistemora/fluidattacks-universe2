@@ -1,17 +1,11 @@
 :slug: rules/156/
 :category: rules
-:description: En el presente documento se detallan los requerimientos de seguridad relacionados al código fuente que compone a las aplicaciones de la compañía. En este requerimiento se establece la importancia de definir opciones por defecto seguras cuando se utilizan condicionales.
-:keywords: Requerimiento, Seguridad, Código Fuente, Condicionales, Seguros, Default.
+:description: En el presente documento se detallan los requerimientos de seguridad relacionados a la gestión adecuada de código fuente que compone a una determinada aplicación. Lo anterior, debido a que el código fuente de una aplicación no debe contener información sensible.
+:keywords: Requerimiento, Seguridad, Código Fuente, Información sensible, Aplicación, Robo de información.
 :rules: yes
 
-= REQ.156 Opciones por defecto seguras
+= REQ.156 Código sin información sensible
 
 == Nombre
 
-El código debe definir opciones 
-por defecto seguras (ej: default en switchs). 
-
-== Soluciones
-
-. +ASPNET+ link:../../defends/aspnet/condicionales-seguros/[Establecer condicionales seguros].
-. +COBOL+ link:../../defends/cobol/estructuras-condicionales/[Usar Estructuras Condicionales].
+El código fuente no debe contener información sensible.

@@ -1,0 +1,18 @@
+:slug: rules/161/
+:category: rules
+:description: En el presente documento se detallan los requerimientos de seguridad relacionados al código fuente que compone a las aplicaciones de la compañía. En este requerimiento se establece la importancia de definir opciones por defecto seguras cuando se utilizan condicionales.
+:keywords: Requerimiento, Seguridad, Código Fuente, Condicionales, Seguros, Default.
+:rules: yes
+
+= REQ.161 Opciones por defecto seguras
+
+== Nombre
+
+El código debe definir opciones por defecto seguras 
+que garanticen fallos seguros en la aplicación. 
+(+try+, +catch/except; default+ en +switches+)
+
+== Soluciones
+
+. +ASPNET+ link:../../defends/aspnet/condicionales-seguros/[Establecer condicionales seguros].
+. +COBOL+ link:../../defends/cobol/estructuras-condicionales/[Usar Estructuras Condicionales].
