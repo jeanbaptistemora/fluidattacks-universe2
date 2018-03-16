@@ -66,14 +66,14 @@ link:../../productos/integrates/#exploit-de-la-vulnerabilidad[Ejemplo]
 | {no}
 
 | Falsos Positivos 
-| {no} 
-| {si} (~20%)
+| {si} 0% 
+| {no} ~20%
 
 | Soporte de Remediación.
 a|* Durante el proyecto puede solicitar aclaraciones 
 directamente a los hackers mediante 
 [button]#link:../../productos/integrates/[Integrates>>]# 
-* Puede utilizar nuestras guias detalladas de remedicion 
+* Puede utilizar nuestras guias detalladas de remediación 
 mediante [button]#link:../../productos/defends/[Defends>>]# 
 | {no}
 

@@ -67,8 +67,8 @@ link:../../products/integrates/#exploit[Example]
 | {no}
 
 | False Positives
-| {no}
-| {yes} (~20%)
+| {yes} 0%
+| {no} ~20%
 
 | Remediation Support
 a|* During the project you can request clarifications 
@@ -126,7 +126,7 @@ a|* Based on signatures
 
 | Type of Evidences
 a|* Images
-* Animated +GIFs+. Example
+* Animated +GIFs+.
 link:../../products/integrates/#vulnerability-evidences[Example]
 a|* Automated tool output
 * Images
