@@ -2,7 +2,7 @@
 :category: empleos
 :description: La siguiente página tiene como objetivo informar a los interesados en ser parte del equipo de trabajo de FLUID sobre el proceso de selección realizado. A continuación se detallan los perfiles laborales deseados para integrarse en nuestro equipo de trabajo.
 :keywords: FLUID, Empleo, Proceso, Selección, Vacantes, Perfiles.
-// :translate: careers/positions/
+:translate: careers/positions/
 
 = Vacantes
 

@@ -2,22 +2,23 @@
 :category: productos
 :description: El propósito de esta página es presentar los productos ofrecidos por FLUID. Rules es una recopilación de criterios de seguridad desarrollados por FLUID, basados en diferentes estándares internacionales para garantizar la seguridad de la información en diferentes áreas.
 :keywords: FLUID, Productos, Rules, Criterios, Seguridad, Aplicaciones.
+:translate: products/rules/
 
 = Rules
 
-FLUIDRules es un conjunto de requisitos de seguridad 
-que permiten parametrizar un hackeo 
-según el apetito al riesgo de cada organización. 
-FLUIDRules permite determinar qué se prueba y qué no, 
-qué es una vulnerabilidad y qué no, 
-adicionalmente es la base para determinar 
-qué tan riguroso fue un hackeo 
-basado en los requisitos probados y no probados. 
-Los requisitos de seguridad son independientes del tipo de tecnología 
-y son redactados como objetivos concretos y comprensibles. 
-De alguna forma son los mandamientos 
-que usted se compromete a cumplir 
-y por ende en nuestro servicios de hacking determinamos 
+FLUIDRules es un conjunto de requisitos de seguridad
+que permiten parametrizar un hackeo
+según el apetito al riesgo de cada organización.
+FLUIDRules permite determinar qué se prueba y qué no,
+qué es una vulnerabilidad y qué no,
+adicionalmente es la base para determinar
+qué tan riguroso fue un hackeo
+basado en los requisitos probados y no probados.
+Los requisitos de seguridad son independientes del tipo de tecnología
+y son redactados como objetivos concretos y comprensibles.
+De alguna forma son los mandamientos
+que usted se compromete a cumplir
+y por ende en nuestro servicios de hacking determinamos
 si estos se cumplen o no.
 
 Puedes acceder al producto [button]#link:../../rules/[aquí >>]#

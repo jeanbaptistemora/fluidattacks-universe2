@@ -2,7 +2,7 @@
 :category: empleos
 :description: Si eres una persona talentosa, apasionada por la programación, el desarrollo de software y la informática  y con muchas ganas de aprender, considera ser parte del equipo de trabajo de FLUID. Si aún no te decides, aquí te presentamos algunas razones por las que FLUID es un gran lugar para trabajar.
 :keywords: FLUID, Empleo, Razones, Trabajar, Proyectos, Clientes.
-// :translate: careers/reasons/
+:translate: careers/reasons/
 
 = Razones para trabajar con nosotros
 

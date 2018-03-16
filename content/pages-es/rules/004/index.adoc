@@ -3,6 +3,7 @@
 :description: En el presente documento se detallan los requerimientos de seguridad relacionados a los activos de información de la empresa. Todos los activos de información deben estar asociados a un responsable, de esta manera se garantiza la ejecución de controles de seguridad para protegerlo.
 :keywords: Requerimiento, Seguridad, Activos, Información, Asignación, Responsable.
 :rules: yes
+:translate: rules/004/
 
 = REQ.004 Activo de información asociado a responsable
 
@@ -12,18 +13,18 @@ Cada activo de información debe estar asociado con un responsable del activo
 
 == Descripción
 
-Una vez la organización ha realizado 
-la identificación de cada uno de los activos, 
-se le debe asignar un responsable o responsables 
-determinadas responsabilidades asociadas 
+Una vez la organización ha realizado
+la identificación de cada uno de los activos,
+se le debe asignar un responsable o responsables
+determinadas responsabilidades asociadas
 a todos los activos inventariados.
-La asignación de responsabilidad garantiza la creación 
-y ejecución de controles de seguridad 
-así como la mejora en los procesos de identificación, 
+La asignación de responsabilidad garantiza la creación
+y ejecución de controles de seguridad
+así como la mejora en los procesos de identificación,
 mitigación y/o remediación de riesgos de seguridad.
 Los activos críticos de información incluyen, pero no se limitan a:
 Información financiera, patentes y propiedad intelectual,
-detalles de los empleados o información 
+detalles de los empleados o información
 confiada a la empresa por terceras partes.
 
 
@@ -31,27 +32,27 @@ confiada a la empresa por terceras partes.
 
 La asignación del responsable del activo de información
 es parte del proceso de gestión de activos de la organización.
-El responsable del activo 
+El responsable del activo
 es el encargado de garantizar la seguridad del activo de información.
 
-Cada uno de los responsables debe tener asociadas 
-unas responsabilidades sobre el activo, 
+Cada uno de los responsables debe tener asociadas
+unas responsabilidades sobre el activo,
 las cuales deben incluir como mínimo:
 
 . Clasificar y valorar el activo de información.
 
 . Establecer los requisitos de seguridad y buenas prácticas
-que se deben garantizar 
-para evitar los posibles riesgos de seguridad 
+que se deben garantizar
+para evitar los posibles riesgos de seguridad
 que puedan comprometer la integridad de dicho activo.
 
-. Establecer, gestionar y aprobar 
+. Establecer, gestionar y aprobar
 los accesos permitidos por los usuarios del activo.
 
-. Garantizar que los requisitos de seguridad 
+. Garantizar que los requisitos de seguridad
 se cumplan para cada uno de los activos de información.
 
-. Identificar y gestionar los posibles riesgos 
+. Identificar y gestionar los posibles riesgos
 que pueden afectar o comprometer la integridad de activos de información.
 
 == Diagrama
@@ -72,12 +73,12 @@ image::diag1-req002.png[Diagrama req002]
 
 == Casos de Abuso
 
-Un usuario empleado o anónimo 
-ejecuta acciones las cuales van 
-en contravía de la seguridad 
-de cualquier activo de información de la organización. 
-El incidente no es gestionado 
-debido a que los activos afectados 
+Un usuario empleado o anónimo
+ejecuta acciones las cuales van
+en contravía de la seguridad
+de cualquier activo de información de la organización.
+El incidente no es gestionado
+debido a que los activos afectados
 no cuentan con un responsable asignado.
 
 == Atributos

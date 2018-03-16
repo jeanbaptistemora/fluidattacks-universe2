@@ -3,6 +3,7 @@
 :description: En el presente documento se detallan los requerimientos de seguridad relacionados a la arquitectura sobre la cual se apoya un sistema. Dado que ésta permite entre otras cosas, tener en cuenta aspectos como la estructura, comportamiento, usabilidad, funcionalidad, rendimiento, reutilización, etc.
 :keywords: requerimiento, seguridad, arquitectura, sistema, componentes, estructura.
 :rules: yes
+:translate: rules/003/
 
 = REQ.003 Definir arquitectura del sistema
 

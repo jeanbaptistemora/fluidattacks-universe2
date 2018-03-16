@@ -4,7 +4,7 @@
 :description: El objetivo de esta página es informar a los clientes sobre los servicios de seguridad informática prestados por FLUID. El servicio de Ethical Hacking de aplicación es realizado por expertos. Somos hackers que desarrollamos nuestras propias herramientas.
 :keywords: FLUID, Servicios, Ethical hacking, Aplicaciones, Vulnerabilidades, Diagnóstico.
 :home: yes
-// :translate: application-hacking/
+:translate: application-hacking/
 
 = Ethical Hacking de Aplicación
 

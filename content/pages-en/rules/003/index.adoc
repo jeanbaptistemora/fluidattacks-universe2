@@ -3,6 +3,7 @@
 :description: This document contains the details of the security requirements related to a company's information assets. Information assets must be appraised and a monetary value set for each of them thus allowing the organization to know the importance and cost of loss and to determine cost effective controls.
 :keywords: Requirement, Security, Assets, Information, Value, Monetary.
 :rules: yes
+:translate: rules/003/
 
 = REQ.003 Monetary Value of Assets is Defined
 

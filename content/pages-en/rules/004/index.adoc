@@ -3,6 +3,7 @@
 :description: This document contains the details of the security requirements related to a company's information assets. All threats to the information assets must be clearly identified and documented in order to make informed decisions regarding the asset's security risks.
 :keywords: Requirement, Security, Assets, Information, Documentation, Threats.
 :rules: yes
+:translate: rules/004/
 
 = REQ.004 Identify threats to assets
 
@@ -72,7 +73,7 @@ image::diag1.png[Diagram 1]
 
 An anonymous person or employee executes actions
 that attempt against the security
-of any of the organization’s information assets. 
+of any of the organization’s information assets.
 Due to this situation
 the controls that were put in place for their protection
 are not effective since the current threat

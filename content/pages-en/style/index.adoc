@@ -1,10 +1,8 @@
 :slug: style/
 :description: The purpose of this page is to establish the main guidelines for the articles and documents published in our website. Also we present the acceptance criteria, the format and structure requirements and all the information you may need if you wish to share your opinion in our blog.
 :keywords: FLUID, Style, Asciidoc, Articles, Requirement, Website.
-// :translate: estilo/
+:translate: estilo/
 
 = Style
 
 This page is not currently available in this language.
-
-See the spanish version [button]#link:../../es/estilo/[here >>]#

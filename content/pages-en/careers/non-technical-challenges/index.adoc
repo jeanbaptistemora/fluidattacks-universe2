@@ -2,10 +2,8 @@
 :category: careers
 :description: The main goal of the following page is to inform potential talents and people interested in working with us about our selection process. The non technical challenges stage pretends to assess the candidate's ability to analyze, sort, assess and select relevant data from a raw input.
 :keywords: FLUID, Careers, Selection, Process, Non Technical Challenges, Training.
-// :translate: empleos/retos-no-tecnicos/
+:translate: empleos/retos-no-tecnicos/
 
 = Non-technical Challenges
 
 This page is not currently available in this language.
-
-See the spanish version [button]#link:../../../es/empleos/retos-no-tecnicos/[here >>]#

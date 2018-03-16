@@ -3,22 +3,22 @@
 :description: La siguiente página tiene como objetivo informar a los interesados en ser parte del equipo de trabajo de FLUID sobre el proceso de selección realizado. La etapa de inmersión consiste en un entrenamiento remunerado cuya finalidad es adquirir los conocimientos necesarios para desempeñar tu cargo.
 :keywords: FLUID, Empleo, Proceso, Selección, Inmersión, Entrenamiento.
 :toc: yes
-// :translate: careers/immersion/
+:translate: careers/immersion/
 
 = Inmersión
 
-A esta altura del proceso estamos a pocos pasos de culminar. 
-Este nuevo paso, para el cual usted ha sido seleccionado entre más de 100 candidatos, 
-busca que usted haga parte en un auto-entrenamiento intensivo en retos de programación y 
-hacking financiado por FLUID llamado “Inmersión”. 
+A esta altura del proceso estamos a pocos pasos de culminar.
+Este nuevo paso, para el cual usted ha sido seleccionado entre más de 100 candidatos,
+busca que usted haga parte en un auto-entrenamiento intensivo en retos de programación y
+hacking financiado por FLUID llamado “Inmersión”.
 
-El objetivo de esta etapa es que usted alcance los más altos niveles de fortaleza técnica. 
-Esto previo a efectuar pruebas reales de seguridad sobre sistemas financieros y de telecomunicaciones, 
-así como validar sus competencias humanas y de trabajo en equipo cerca a otros hackers que 
+El objetivo de esta etapa es que usted alcance los más altos niveles de fortaleza técnica.
+Esto previo a efectuar pruebas reales de seguridad sobre sistemas financieros y de telecomunicaciones,
+así como validar sus competencias humanas y de trabajo en equipo cerca a otros hackers que
 ya se encuentran en nuestra organización.
 
-Por lo extenso del proceso, FLUID, para esta etapa, 
-busca independiente del avance en puntos y ranking, 
+Por lo extenso del proceso, FLUID, para esta etapa,
+busca independiente del avance en puntos y ranking,
 que usted reciba una remuneración por el tiempo invertido en el proceso.
 
 Los términos del contrato de entrenamiento para esta etapa de Inmersión son los siguientes:
@@ -29,14 +29,14 @@ Esta etapa comienza cuando usted:
 
 . Haya finalizado la etapa de link:../retos-tecnicos[retos técnicos]
 . Se registre como tercero en el siguiente [button]#link:../../../../forms/tercero[formulario >>]# con el RUT anexo,
-. Entregue en PDF escaneado la copia de la Tarjeta Profesional o el recibo de comienzo de trámite de la misma 
+. Entregue en PDF escaneado la copia de la Tarjeta Profesional o el recibo de comienzo de trámite de la misma
 (aplica si usted ya tiene título de pregrado).
 . Lea y acepte las condiciones de almacenamiento de resultados de entrenamiento que se encuentran link:../retos-tecnicos/#propiedad-intelectual[aquí].
 
-Otros detalles procedimentales de cómo se llevará a cabo el entrenamiento, 
-que se hace cada día, los lenguajes de programación, 
-la forma de documentación y las herramientas requeridas entre otros, 
-serán revelados el primer día de Inmersión y 
+Otros detalles procedimentales de cómo se llevará a cabo el entrenamiento,
+que se hace cada día, los lenguajes de programación,
+la forma de documentación y las herramientas requeridas entre otros,
+serán revelados el primer día de Inmersión y
 cuando haya finalizado todos los ítems mencionados en esta sección.
 
 En caso de aceptar esta propuesta sólo requerimos que nos indique:
@@ -52,15 +52,15 @@ En caso de aceptar esta propuesta sólo requerimos que nos indique:
 . Los días impares se trabajarán retos de programación.
 . El entrenamiento debe iniciar a las 7:00 am en las instalaciones de FLUID,
 . Debe finalizar el entrenamiento antes de las 6:00PM del día en cuestión,
-. Si por algún motivo excepcional no puede realizar el entrenamiento de forma presencial, 
+. Si por algún motivo excepcional no puede realizar el entrenamiento de forma presencial,
 se deberá definir un horario de entrenamiento semanal para realizarlo de forma remota,
 . El entrenamiento se realizará desde un portátil de su propiedad,
 . Su dedicación diaria se evaluará sobre un tiempo de referencia de 48 horas/semanales,
-. Se espera que usted pueda dedicarse todos los días hábiles de la semana de manera presencial 
+. Se espera que usted pueda dedicarse todos los días hábiles de la semana de manera presencial
 en las instalaciones de la compañía,
-. Si por algún motivo de salud o personal no es posible ir a la oficina a realizar los retos de forma presencial, 
+. Si por algún motivo de salud o personal no es posible ir a la oficina a realizar los retos de forma presencial,
 ese día no se hacen retos ni se reporta tiempo de entrenamiento con la herramienta asignada.
-. El tercer día hábil de cada semana, 
+. El tercer día hábil de cada semana,
 usted deberá entrenar la máxima dedicación posible
 
 == Reportes
@@ -74,8 +74,8 @@ usted deberá entrenar la máxima dedicación posible
 . Se pagará el tiempo reportado a formación con un valor hora de $6.468 COP,
 . Se espera que usted logre una dedicación mínima del 80% (Relación al tiempo de referencia),
 . Si la dedicación total es mayor o menor a lo anterior se pagará proporcional
-. Las primeras 96 horas de entrenamiento reportadas no serán remuneradas y 
-de continuar en la etapa de inmersión luego de estas primeras 96 horas, 
+. Las primeras 96 horas de entrenamiento reportadas no serán remuneradas y
+de continuar en la etapa de inmersión luego de estas primeras 96 horas,
 se garantiza el pago mínimo de las siguientes 96 horas de entrenamiento reportadas,
 . El contrato es un contrato por servicios con pago mensual,
 . Debe pagar la seguridad social correspondiente a estos servicios (como trabajador independiente),
@@ -90,7 +90,7 @@ se garantiza el pago mínimo de las siguientes 96 horas de entrenamiento reporta
 . Al final de cada ciclo puede ocurrir lo siguiente:
 .. No indicar nada, con lo cual puede asumir que el ciclo de formación se renueva una semana más.
 .. Notificar que no deseamos continuar con otro ciclo y por ende suspender el proceso,
-.. Formalizar que no deseamos continuar con otro ciclo, 
+.. Formalizar que no deseamos continuar con otro ciclo,
 debido a que queremos adelantar la etapa siguiente,
 . Lo usual es que se requiera entre 8 y 12 ciclos antes de comenzar la última etapa,
 
@@ -102,17 +102,17 @@ Esta etapa termina cuando:
 
 . Se acepten en el repositorio 100 nuevas soluciones de programación
 
-*IMPORTANTE:* Todas las soluciones que usted envíe deben cumplir con 
+*IMPORTANTE:* Todas las soluciones que usted envíe deben cumplir con
 las [button]#link:../retos-tecnicos/#envio[reglas de envío >>]#.,
 
-. Participe en dos proyectos de entrenamiento sorpresa, 
-con indicaciones variables que midan su capacidad 
-de seguir instrucciones y desarrollar actividades bajo presión. 
+. Participe en dos proyectos de entrenamiento sorpresa,
+con indicaciones variables que midan su capacidad
+de seguir instrucciones y desarrollar actividades bajo presión.
 
 . Se acepten en el repositorio 10 artículos publicables en el blog.
 
-Al igual que en la etapa de link:../retos-tecnicos[retos técnicos], 
-aplicará el tope de 10 MR fallidos, 
+Al igual que en la etapa de link:../retos-tecnicos[retos técnicos],
+aplicará el tope de 10 MR fallidos,
 incluyendo los acumulados en dicha etapa.
 
 Puede ver más detalles [button]#link:../retos-tecnicos/#intentos-fallidos[aquí >>]#
@@ -125,7 +125,7 @@ a la línea editorial definida link:../../estilo/[aquí].
 
 Para la generación de documentos y artículos para el blog,
 el lenguaje que debe utilizarse es AsciiDoc.
-Podrá encontrar documentación y algunos ejemplos de uso de AsciiDoc 
+Podrá encontrar documentación y algunos ejemplos de uso de AsciiDoc
 link:../../../en/format/[aquí].
 
 Los artículos deben subirse al repositorio que le indicaremos al entrar en esta etapa.

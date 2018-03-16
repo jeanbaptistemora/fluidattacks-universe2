@@ -2,7 +2,7 @@
 :category: empleos
 :description: La siguiente página tiene como objetivo informar a los interesados en ser parte del equipo de trabajo de FLUID sobre el proceso de selección realizado. Ésta prueba pretende evaluar el temperamento y las fortalezas del candidato para determinar si se ajustan al perfil requerido.
 :keywords: FLUID, Empleo, Selección, Fortalezas, Prueba, Temperamento.
-// :translate: careers/character-test/
+:translate: careers/character-test/
 
 = Evaluación de Temperamento
 

@@ -2,10 +2,8 @@
 :category: careers
 :description: The main goal of the following page is to inform potential talents and people interested in working with us about our selection process. Here we describe the desired profiles and available positions of our company, if you fit any of them, do not hesitate in applying for it.
 :keywords: FLUID, Careers, Position, Profile, Selection, Process.
-// :translate: empleos/vacantes/
+:translate: empleos/vacantes/
 
 = Positions
 
 This page is not currently available in this language.
-
-See the spanish version [button]#link:../../../es/empleos/vacantes/[here >>]#

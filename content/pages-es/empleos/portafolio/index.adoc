@@ -2,7 +2,7 @@
 :category: empleos
 :description: La siguiente página tiene como objetivo informar a los interesados en ser parte del equipo de trabajo de FLUID sobre el proceso de selección realizado. El portafolio es un documento que contiene tus principales logros académicos, muestras y resultados de tus proyectos más destacables.
 :keywords: FLUID, Empleo, Proceso, Selección, Portafolio, Candidato.
-// :translate: careers/portfolio/
+:translate: careers/portfolio/
 
 = Portafolio
 

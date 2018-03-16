@@ -3,6 +3,7 @@
 :description: This document contains the details of the security requirements related to a company's information assets. Each and every single information asset must have an owner or owners in order to assure the correct execution of the implemented security controls.
 :keywords: Requirement, Security, Assets, Information, Assignment, Responsible.
 :rules: yes
+:translate: rules/002/
 
 = REQ.002 Asset Owners are Defined
 
@@ -70,7 +71,7 @@ image::diag1-req002.png[Req002 Diagram]
 
 An anonymous person or employee
 executes actions that attempt against
-the security of any of the organization’s information assets,  
+the security of any of the organization’s information assets,
 since the affected assets do not have an owner assigned
 the incident is not managed.
 

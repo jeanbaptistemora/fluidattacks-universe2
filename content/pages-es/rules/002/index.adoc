@@ -1,12 +1,13 @@
 :slug: rules/002/
 :category: rules
 :description: En el presente documento se detallan los requerimientos de seguridad relacionados a la importancia que implica la respectiva identificación de componentes o dependencias con los cuales interactúa el sistema de información de la empresa u organización correspondiente.
-:keywords: Requerimiento, Seguridad, dependencias, sistema de información, componentes, interoperabilidad. 
+:keywords: Requerimiento, Seguridad, dependencias, sistema de información, componentes, interoperabilidad.
 :rules: yes
+:translate: rules/002/
 
 = REQ.002 Identificar dependencias o componentes
 
 == Nombre
 
-Las dependencias o componentes 
+Las dependencias o componentes
 con los que interopera un sistema de información deben estar identificados.

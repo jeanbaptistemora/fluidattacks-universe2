@@ -1,7 +1,7 @@
 :slug: estilo/
 :description: Nuestros ethical hackers explican los criterios necesarios para la aceptación y posterior publicación de un documento en el blog de FLUID a través de un documento guía. Además se abordan algunos temas referentes a asciidoc y pautas a tener en cuenta a la hora de construir un documento.
 :keywords: Editorial, Guía, Artículos, Asciidoc, Criterios, Aceptación.
-// :translate: style/
+:translate: style/
 
 = Estilo
 
@@ -163,7 +163,7 @@ se establecen las siguientes reglas:
 . El código fuente debe ser en inglés.
 . No está permitido repetir un fragmento de código
 que ya se haya usado en la guía.
-. Identar utilizando 2 espacios en lugar de tabulaciones. 
+. Identar utilizando 2 espacios en lugar de tabulaciones.
 A menos que el lenguaje indique lo contrario.
 . El código debe estar enumerado.
 Para ello añadir el parámetro +linenums+ al bloque de +source+.

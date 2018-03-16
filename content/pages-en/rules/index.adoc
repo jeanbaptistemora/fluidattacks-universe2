@@ -2,6 +2,7 @@
 :category: rules
 :description: The purpose of this page is to present the products offered by FLUID. Rules is a recompilation of several security criteria developed by FLUID, based on different international standards in order to assure the information security of the company in different areas.
 :keywords: FLUID, Products, Rules, Criteria, Security, Applications.
+:translate: rules/
 
 = Rules
 
@@ -12,5 +13,5 @@
 * link:003/[REQ.003 Monetary Value of Assets is Defined].
 * link:004/[REQ.004 Identify threats to assets].
 
-For a more complete rule set 
-take a look at the spanish version [button]#link:../../es/rules/[here >>]#
+For a more complete rule set
+take a look at the spanish version.
