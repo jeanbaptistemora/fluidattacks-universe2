@@ -265,14 +265,14 @@ al momento de declarar el cursor:
 Puedes descargar el código fuente
 pulsando en los siguientes enlaces:
 
-. [button]#link:src/cobolsql.cob[cobolsql.cob >>]# contiene
+. [button]#link:src/cobolsql.cob[cobolsql.cob]# contiene
 la implementación del código vulnerable.
 
-. [button]#link:src/preparedstatement.cob[preparedstatement.cob >>]# contiene
+. [button]#link:src/preparedstatement.cob[preparedstatement.cob]# contiene
 la implementación del código con la vulnerabilidad corregida
 mediante sentencias parametrizadas.
 
-. [button]#link:src/staticstatement.cob[staticstatement.cob >>]# contiene
+. [button]#link:src/staticstatement.cob[staticstatement.cob]# contiene
 la implementación del código con la vulnerabilidad corregida
 mediante sentencias estáticas.
 

@@ -293,10 +293,10 @@ DDDDDDDDDDDDDDDDDDDDDPPPPPPPPPPPPPPPPPPPPIIIIIIIIII
 Puedes descargar el código fuente 
 pulsando en los siguientes enlaces: 
 
-. [button]#link:src/cblerr2.cbl[cblerr2.cbl >>]# contiene 
+. [button]#link:src/cblerr2.cbl[cblerr2.cbl]# contiene 
 el código que genera el error 
 y que es capturado por +errhdl2+.
-. [button]#link:src/errhdl2.cbl[errhdl2.cbl >>]# contiene 
+. [button]#link:src/errhdl2.cbl[errhdl2.cbl]# contiene 
 las instrucciones para capturar y procesar el error generado desde +cblerr2+.
 
 == Referencias

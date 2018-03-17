@@ -186,10 +186,10 @@ Algunos de ellos están especificados en la siguiente tabla:
 Puedes descargar el código fuente 
 pulsando en los siguientes enlaces: 
 
-. [button]#link:src/qphone.cbl[qphone.cbl >>]# contiene 
+. [button]#link:src/qphone.cbl[qphone.cbl]# contiene 
 una estructura de datos optimizada 
 para el almacenamiento de registros telefónicos.
-. [button]#link:src/cobolcopyb.cbl[cobolcopyb.cbl >>]# contiene 
+. [button]#link:src/cobolcopyb.cbl[cobolcopyb.cbl]# contiene 
 las instrucciones del programa principal.
 
 == Referencias

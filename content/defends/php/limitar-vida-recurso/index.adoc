@@ -159,11 +159,11 @@ y se imprime el contenido de la variable +$content+ en pantalla:
 Puedes descargar el código fuente 
 pulsando en los siguientes enlaces:
 
-. [button]#link:src/fopen.php[fopen.php >>]# contiene 
+. [button]#link:src/fopen.php[fopen.php]# contiene 
 código +PHP+ utilizando el método +fopen+ 
 para la manipulación segura de ficheros.
 
-. [button]#link:src/fread.php[fread.php >>]# contiene 
+. [button]#link:src/fread.php[fread.php]# contiene 
 código +PHP+ utilizando el método +fread+ 
 para la manipulación segura de ficheros.
 

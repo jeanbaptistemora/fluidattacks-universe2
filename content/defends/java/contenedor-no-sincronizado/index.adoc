@@ -110,7 +110,7 @@ FLUIDSIGNAL
 Puedes descargar el código fuente 
 pulsando en el siguiente enlace:
 
-[button]#link:src/main.java[Main.java >>]# 
+[button]#link:src/main.java[Main.java]# 
 Uso de clases no sincronizadas.
 
 == Referencias

@@ -186,7 +186,7 @@ csharpTest
 Puedes descargar el código fuente 
 pulsando en el siguiente enlace:
 
-. [button]#link:src/myreadfile.cs[myreadfile.cs >>]# contiene 
+. [button]#link:src/myreadfile.cs[myreadfile.cs]# contiene 
 las instrucciones +C#+ para la lectura de un fichero desde un búfer.
 
 == Referencias

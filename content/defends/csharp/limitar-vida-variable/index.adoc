@@ -153,7 +153,7 @@ FLUIDpwd
 Puedes descargar el código fuente 
 pulsando en el siguiente enlace:
 
-. [button]#link:src/password.cs[password.cs >>]# contiene 
+. [button]#link:src/password.cs[password.cs]# contiene 
 las instrucciones +C#+ descritas anteriormente 
 para el manejo de credenciales de manera segura.
 

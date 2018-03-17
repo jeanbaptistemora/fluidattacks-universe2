@@ -196,7 +196,7 @@ y la almacenamos en la variable +W01-INPUT+:
 Puedes descargar el código fuente 
 pulsando en el siguiente enlace:
 
-. [button]#link:src/cobolinput.cbl[cobolinput.cbl >>]# contiene 
+. [button]#link:src/cobolinput.cbl[cobolinput.cbl]# contiene 
 la implementación del código depurado anteriormente.
 
 == Referencias

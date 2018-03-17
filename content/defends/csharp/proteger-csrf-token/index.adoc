@@ -155,7 +155,7 @@ a conveniencia cuando se esté desarrollando el aplicativo.
 Puedes descargar el código fuente
 pulsando en el siguiente enlace:
 
-. [button]#link:src/ejemplo.asp[ejemplo.asp >>]# contiene
+. [button]#link:src/ejemplo.asp[ejemplo.asp]# contiene
 todas las instrucciones +C#+ del programa.
 
 == Referencias

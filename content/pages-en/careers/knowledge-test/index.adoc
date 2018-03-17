@@ -12,13 +12,13 @@ The steps to submit the exam are the following:
 
 == Create an account
 
-. Browse to the following [button]#link:https://fluidattacks.com/courses/login/index.php[link >>]#
+. Browse to the following [button]#link:https://fluidattacks.com/courses/login/index.php[link]#
 . Click in “CREATE NEW ACCOUNT” button and fill the form with your information.Please consider that the user name field only admits lowercase letters , and the password must have at least 8 characters, at least 1 digit(s), at least 1 lower case letter(s), at least 1 upper case letter(s), and at least 1 non-alphanumeric character(s) such as as *, -, or #
 . Confirm your email direction following the instructions. Check your inbox and in case you can’t find it there, check the spam folder.
 
 == Install SafeExamBrowser
 
-. Download the following [button]#link:../../files/fluidexams.zip[security software >>]# to present the exam.
+. Download the following [button]#link:../../files/fluidexams.zip[security software]# to present the exam.
 
  IMPORTANT: Please finish reading all the steps before you execute the program.
 

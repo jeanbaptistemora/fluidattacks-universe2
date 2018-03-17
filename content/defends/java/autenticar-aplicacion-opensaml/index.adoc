@@ -365,7 +365,7 @@ class StaticClientKeyManager implements X509KeyManager {
 Puedes descargar el código fuente
 pulsando en el siguiente enlace:
 
-[button]#link:src/saml.java[SAML1ArtifactResolveExample.java >>]#
+[button]#link:src/saml.java[SAML1ArtifactResolveExample.java]#
 Código que muestra como usar +opensaml+.
 
 == Referencias

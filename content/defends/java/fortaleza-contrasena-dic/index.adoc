@@ -149,7 +149,7 @@ con el sistema operativo que se encuentran en la ruta +/usr/share/dict/+.
 Puedes descargar el código fuente
 pulsando en el siguiente enlace:
 
-[button]#link:src/dictionary.java[Dictionary.java >>]#
+[button]#link:src/dictionary.java[Dictionary.java]#
 Código de Ejemplo.
 
 

@@ -17,4 +17,4 @@ Los programas completos también son fácilmente descargables y compilables.
 Con FLUIDDefends usted puede remediar las vulnerabilidades que encontramos 
 en el menor tiempo posible.
 
-Puedes acceder al producto [button]#link:../../defends/[aquí >>]#
+Puedes acceder al producto [button]#link:../../defends/[aquí]#

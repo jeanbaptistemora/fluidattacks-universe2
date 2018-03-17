@@ -143,7 +143,7 @@ con el objetivo de almacenar números más grandes.
 Puedes descargar el código fuente
 pulsando en el siguiente enlace:
 
-. [button]#link:src/cobolonsz.cbl[cobolonsz.cbl >>]# contiene
+. [button]#link:src/cobolonsz.cbl[cobolonsz.cbl]# contiene
 todas las instrucciones +COBOL+ con la variable +W01-TOTALAMOUNT+ redefinida
 (sin desbordamiento).
 

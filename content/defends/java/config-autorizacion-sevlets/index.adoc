@@ -160,7 +160,7 @@ y en el historial de navegación.
 Puedes descargar el código fuente
 pulsando en el siguiente enlace:
 
-[button]#link:src/testlogin.java[TestLogin.java >>]#
+[button]#link:src/testlogin.java[TestLogin.java]#
 +Servlet+ que muestra como configurar la autorización
 mediante el uso de +servlets+.
 

@@ -156,7 +156,7 @@ Random: F`IG9q£þ#    £ #¯¥6 VæU V¼½m8 OÙ
 Puedes descargar el código fuente 
 pulsando en el siguiente enlace:
 
-. [button]#link:src/cobolrnds.cbl[cobolrnds.cbl >>]# contiene 
+. [button]#link:src/cobolrnds.cbl[cobolrnds.cbl]# contiene 
 todas las instrucciones +COBOL+ 
 que generan las llaves como se explicó anteriormente.
 

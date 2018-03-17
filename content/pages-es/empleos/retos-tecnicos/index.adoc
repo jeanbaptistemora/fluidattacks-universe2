@@ -84,7 +84,7 @@ ni en nuestro repositorio ni identificada (punto 1),
 
 .. Para retos de programación,
 una solución es válida si no ha sido resuelta en el lenguaje que usted pretende solucionarlo.
-... Entiéndase programación como cualquier reto disponible en [button]#link:http://www.codeabbey.com/[Codeabbey >>]#.
+... Entiéndase programación como cualquier reto disponible en [button]#link:http://www.codeabbey.com/[Codeabbey]#.
 
 . Resuelva 10 retos de +hacking+ que no tienen solución,
 ni en nuestro repositorio ni identificada (punto 1).
@@ -94,11 +94,11 @@ una solución es válida si no tiene solución en la carpeta del reto en el repo
 indexada en el archivo +OTHERS+
 
 .. Entiéndase retos de +hacking+ por:
-... Cualquier reto técnico (no matemático ni de adivinanzas) de [button]#link:wechall.net[wechall >>]# o sus sitios relacionados,
+... Cualquier reto técnico (no matemático ni de adivinanzas) de [button]#link:wechall.net[wechall]# o sus sitios relacionados,
 ... Cualquier explotación en sistemas (ToE) vulnerables intencionalmente listados en:
-.... [button]#link:https://www.owasp.org/index.php/OWASP_Vulnerable_Web_Applications_Directory_Project#Off-Line_apps[OWASP Off-Line apps >>]#
-.... [button]#link:https://www.owasp.org/index.php/OWASP_Vulnerable_Web_Applications_Directory_Project#Virtual_Machines_or_ISOs[OWASP VMs / ISOs >>]#
-.... [button]#link:https://www.owasp.org/index.php/OWASP_Vulnerable_Web_Applications_Directory_Project#On-Line_apps[OWASP On-Line apps >>]#
+.... [button]#link:https://www.owasp.org/index.php/OWASP_Vulnerable_Web_Applications_Directory_Project#Off-Line_apps[OWASP Off-Line apps]#
+.... [button]#link:https://www.owasp.org/index.php/OWASP_Vulnerable_Web_Applications_Directory_Project#Virtual_Machines_or_ISOs[OWASP VMs / ISOs]#
+.... [button]#link:https://www.owasp.org/index.php/OWASP_Vulnerable_Web_Applications_Directory_Project#On-Line_apps[OWASP On-Line apps]#
 
 == 4. Envío
 
@@ -296,7 +296,7 @@ cuestiones detalladas en la documentación y que aun así se incumplen.
 
 En todos los casos la dirección de correo para estos pasos es: careers@autonomicmind.co
 
-Usted puede volver a presentarse en cualquier momento y volver a comenzar el proceso haciendo click [button]#link:../../../../forms/aplicacion[aquí >>]#.
+Usted puede volver a presentarse en cualquier momento y volver a comenzar el proceso haciendo click [button]#link:../../../../forms/aplicacion[aquí]#.
 
 == 9. Builds locales
 

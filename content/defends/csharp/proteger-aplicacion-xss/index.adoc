@@ -99,9 +99,9 @@ string out_Name = Encoder.HtmlEncode(Request.QueryString["Name"]);
 Puedes descargar el código fuente
 pulsando en el siguiente enlace:
 
-. [button]#link:src/default.aspx[default.asp >>]# contiene
+. [button]#link:src/default.aspx[default.asp]# contiene
 todas las instrucciones +Asp+ del programa.
-. [button]#link:src/default.aspx.cs[default.aspx.cs >>]# contiene
+. [button]#link:src/default.aspx.cs[default.aspx.cs]# contiene
 todas las instrucciones +C#+ del programa.
 
 == Referencias

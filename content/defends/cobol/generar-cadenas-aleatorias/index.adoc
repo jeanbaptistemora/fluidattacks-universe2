@@ -235,7 +235,7 @@ C4ufN1c9c2Pgv6EIIF8yjS6hEh7Un2DLPQNH7taG
 Puedes descargar el código fuente 
 pulsando en el siguiente enlace:
 
-. [button]#link:src/cobolrandf.cbl[cobolrandf.cbl >>]# contiene 
+. [button]#link:src/cobolrandf.cbl[cobolrandf.cbl]# contiene 
 todas las instrucciones +COBOL+ del programa explicado anteriormente.
 
 == Referencias

@@ -14,7 +14,7 @@ El objetivo de esta etapa
 es que conozcas y aceptes los términos y condiciones del proceso de selección,
 Esto es obligatorio y requiere un esfuerzo estimado de 4 a 6 min.
 Para comenzar,
-solo debes seguir las instrucciones detalladas [button]#link:terminos/[aquí >>]#
+solo debes seguir las instrucciones detalladas [button]#link:terminos/[aquí]#
 
 == 2. Razones
 
@@ -22,7 +22,7 @@ El objetivo de esta etapa
 es que conozcas qué hace a FLUID un gran lugar para trabajar.
 Esto es obligatorio y requiere un esfuerzo estimado de 3 a 5 min.
 Para comenzar,
-solo debes hacer click [button]#link:razones/[aquí >>]#
+solo debes hacer click [button]#link:razones/[aquí]#
 
 == 3. Vacantes
 
@@ -32,7 +32,7 @@ o en vacantes que se tienen por parte de AUTONOMIC,
 una empresa Spin Off de FLUID encargada del proceso de reclutamiento.
 Esto es obligatorio y requiere un esfuerzo estimado de 3 a 5 min.
 Para comenzar,
-solo debes hacer click [button]#link:vacantes/[aquí >>]#
+solo debes hacer click [button]#link:vacantes/[aquí]#
 
 == 4. Portafolio
 
@@ -41,7 +41,7 @@ es evidenciar su capacidad de expresarse,
 sintetizar ideas y llamar la atención mediante la elaboración de un portafolio.
 Esto es obligatorio y requiere un esfuerzo estimado de 1 a 2 horas según tu habilidad.
 Para iniciar,
-solo debes seguir las instrucciones detalladas [button]#link:portafolio/[aquí >>]#
+solo debes seguir las instrucciones detalladas [button]#link:portafolio/[aquí]#
 
 [role="etapa_a"]
 == 5. Aplicación
@@ -53,7 +53,7 @@ Para hacerla requieres haber finalizado la etapa anterior.
 
 [role="a_formLink"]
 Para iniciar,
-solo debes seguir las instrucciones detalladas [button]#link:https://fluidattacks.com/forms/aplicacion[aquí >>]#
+solo debes seguir las instrucciones detalladas [button]#link:https://fluidattacks.com/forms/aplicacion[aquí]#
 
 [role="etapa_h"]
 == 6. Historia
@@ -64,7 +64,7 @@ Para hacerla requieres haber finalizado la etapa anterior.
 
 [role="h_formLink"]
 Para iniciar,
-solo debes seguir las instrucciones detalladas [button]#link:https://fluidattacks.com/forms/periodo[aquí >>]#
+solo debes seguir las instrucciones detalladas [button]#link:https://fluidattacks.com/forms/periodo[aquí]#
 
 ++++
 <script>document.getElementsByClassName("h_formLink")[0].style.display="none",document.getElementsByClassName("a_formLink")[0].style.display="none";var r=window.location.href.split("?")[1];"398453"==r?(document.getElementsByClassName("a_formLink")[0].style.display="block",document.getElementsByClassName("etapa_a")[0].style.backgroundColor="#ffffa6"):"987343"==r?(document.getElementsByClassName("h_formLink")[0].style.display="block",document.getElementsByClassName("etapa_h")[0].style.backgroundColor="#ffffa6"):"0062"==r&&(document.getElementsByClassName("etapa_c")[0].style.backgroundColor="#ffffa6");</script>
@@ -76,14 +76,14 @@ es determinar los rasgos preponderantes de tu temperamento y su equilibrio.
 Esto es obligatorio y requiere un esfuerzo estimado de 8 a 10 min.
 Para hacerla no requieres haber finalizado la etapa anterior.
 Para iniciar,
-solo debes seguir las instrucciones detalladas [button]#link:evaluacion-temperamento/[aquí >>]#
+solo debes seguir las instrucciones detalladas [button]#link:evaluacion-temperamento/[aquí]#
 
 . *Conocimientos:* El objetivo de esta etapa
 es evidenciar sus aptitudes y habilidades en distintas áreas.
 Esto es obligatorio y requiere un esfuerzo estimado de 2 a 3 horas según tu conocimiento.
 Para hacerla requieres haber finalizado la evaluación anterior.
 Para iniciar,
-solo debes seguir las instrucciones detalladas [button]#link:evaluacion-conocimientos/[aquí >>]#
+solo debes seguir las instrucciones detalladas [button]#link:evaluacion-conocimientos/[aquí]#
 
 . *Fortalezas:* El objetivo de esta etapa
 es evidenciar sus fortalezas mediante el test Clifton StrengthsFinder.
@@ -103,14 +103,14 @@ algunos de ellos están en el link:https://www.wechall.net/ranking[TOP100 Mundia
 Esto es obligatorio para perfiles técnicos y requiere un esfuerzo estimado de 4 a 16 horas según tu conocimiento.
 Para hacerla requieres haber finalizado la etapa anterior.
 Para iniciar,
-solo debes seguir las instrucciones detalladas [button]#link:retos-tecnicos/[aquí >>]#
+solo debes seguir las instrucciones detalladas [button]#link:retos-tecnicos/[aquí]#
 
 . *Retos No Técnicos*: El objetivo de esta etapa
 es evidenciar sus habilidades para dar solución a retos que aplican a perfiles analíticos y estadísticos.
 Esto es obligatorio para perfiles no técnicos y requiere un esfuerzo estimado de 4 a 16 horas según tu conocimiento.
 Para hacerla requieres haber finalizado la etapa anterior.
 Para iniciar,
-solo debes seguir las instrucciones detalladas [button]#link:retos-no-tecnicos/[aquí >>]#
+solo debes seguir las instrucciones detalladas [button]#link:retos-no-tecnicos/[aquí]#
 
 == 9. Entrevistas
 
@@ -134,7 +134,7 @@ es participar en un auto-entrenamiento intensivo en retos de programación y de 
 financiado por FLUID.
 Esto es obligatorio y el esfuerzo requerido es determinado según tu conocimiento.
 Para iniciar,
-notifícanos vía e-mail a careers@autonomicmind.co y leer las instrucciones detalladas  [button]#link:inmersion/[aquí >>]#
+notifícanos vía e-mail a careers@autonomicmind.co y leer las instrucciones detalladas  [button]#link:inmersion/[aquí]#
 
 == 11. Referencias
 
@@ -142,7 +142,7 @@ El objetivo de esta etapa es validar las referencias de sus empleos anteriores.
 Esto es obligatorio y requiere un esfuerzo estimado de 15 min por llamada.
 Para hacerla requieres haber finalizado la etapa anterior.
 Para iniciar,
-solo debes seguir las instrucciones detalladas [button]#link:referencias-inversas/[aquí >>]#
+solo debes seguir las instrucciones detalladas [button]#link:referencias-inversas/[aquí]#
 
 == 12. Polígrafo
 
@@ -172,7 +172,7 @@ Si tienes dudas, debes expresarlas en el mismo hilo de correo.
 == 15. Vinculación
 
 Ya habiendo llegado a un acuerdo con lo ofertado,
-debes enviarnos vía e-mail los documentos que detallamos [button]#link:vinculacion/[aquí >>]#
+debes enviarnos vía e-mail los documentos que detallamos [button]#link:vinculacion/[aquí]#
 
 Al finalizar, te notificaremos del resultado del proceso.
 Aunque es un proceso largo,
@@ -181,4 +181,4 @@ En algunos casos se hace en menos de dos semanas.
 
 == Preguntas frecuentes
 
-* *¿Tienes dudas?*, puedes leer nuestra sección de preguntas frecuentes [button]#link:faq/[aquí >>]#
+* *¿Tienes dudas?*, puedes leer nuestra sección de preguntas frecuentes [button]#link:faq/[aquí]#

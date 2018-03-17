@@ -12,7 +12,7 @@ y servidores críticos durante las pruebas de intrusión
 en nuestro servicio de Hacking Puntual
 donde su uso es autorizado.
 
-Más información acerca de nuestro servicio de Hacking Puntual [button]#link:../../servicios/hacking-puntual/[aqui >>]#
+Más información acerca de nuestro servicio de Hacking Puntual [button]#link:../../servicios/hacking-puntual/[aqui]#
 
 [role="integrates tb-alt"]
 [cols=2, frame="none"]

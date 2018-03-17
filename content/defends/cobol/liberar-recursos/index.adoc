@@ -213,10 +213,10 @@ y para mantener compatibilidad entre diferentes plataformas:
 Puedes descargar el código fuente 
 pulsando en los siguientes enlaces: 
 
-. [button]#link:src/cobolclsf.cbl[cobolclsf.cbl >>]# contiene 
+. [button]#link:src/cobolclsf.cbl[cobolclsf.cbl]# contiene 
 instrucciones para cerrar correctamente un recurso abierto 
 tal como se explicó antes.
-. [button]#link:src/cobolclsc.cbl[cobolclsc.cbl >>]# contiene 
+. [button]#link:src/cobolclsc.cbl[cobolclsc.cbl]# contiene 
 instrucciones para cerrar correctamente un cursor abierto 
 tal como se explicó antes.
 

@@ -14,13 +14,13 @@ Los pasos para realizar el examen son los siguientes:
 
 == Crear una cuenta
 
-. Ingresar a la siguiente [button]#link:https://fluidattacks.com/courses/login/index.php[dirección web >>]#
+. Ingresar a la siguiente [button]#link:https://fluidattacks.com/courses/login/index.php[dirección web]#
 . Dar click en el botón “CREATE NEW ACCOUNT” y llena el formulario con tu información. Por favor tenga en cuenta que el nombre de usuario solo admite letras en minúsculas, y la contraseña debe ser mayor a 8 caracteres, tener una letra en mayúscula y al menos un carácter no alfanumérico (*,-, o #).
 . Confirmar su dirección de correo siguiendo las instrucciones. Revise su buzón de correo y su carpeta SPAM en caso tal de que no llegue a su bandeja principal.
 
 == Instalar SafeExamBrowser
 
-. Descarga el siguiente [button]#link:../../files/fluidexams.zip[software de seguridad >>]# para presentar el examen.
+. Descarga el siguiente [button]#link:../../files/fluidexams.zip[software de seguridad]# para presentar el examen.
 
  IMPORTANTE: Por favor termina de leer los demás pasos antes de ejecutar el aplicativo
 

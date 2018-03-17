@@ -255,16 +255,16 @@ image::estructura.png[estructura del proyecto]
 Puedes descargar el código fuente 
 pulsando en los siguientes enlaces:
 
-[button]#link:src/concurrencia.java[Concurrencia.java >>]# 
+[button]#link:src/concurrencia.java[Concurrencia.java]# 
 Interfaz Concurrencia.
 
-[button]#link:src/concurrenciabean.java[ConcurrenciaBean.java >>]# 
+[button]#link:src/concurrenciabean.java[ConcurrenciaBean.java]# 
 Clase Concurrencia.
 
-[button]#link:src/servlet.java[Servlet.java >>]# 
+[button]#link:src/servlet.java[Servlet.java]# 
 Clase Servlet.
 
-[button]#link:src/cliente.java[Cliente.java >>]# 
+[button]#link:src/cliente.java[Cliente.java]# 
 Clase Cliente.
 
 == Referencias

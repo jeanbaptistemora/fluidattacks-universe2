@@ -16,4 +16,4 @@ The complete code examples are easily downloadable and compilable.
 With FLUIDDefends you can remediate the vulnerabilities 
 that we report in the shortest possible time.
 
-You can access the product [button]#link:../../defends/[here >>]#
+You can access the product [button]#link:../../defends/[here]#

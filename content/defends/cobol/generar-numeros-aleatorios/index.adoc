@@ -176,7 +176,7 @@ al ejecutar el programa repetidas veces:
 Puedes descargar el código fuente 
 pulsando en el siguiente enlace:
 
-. [button]#link:src/cobolrand.cbl[cobolrand.cbl >>]# contiene 
+. [button]#link:src/cobolrand.cbl[cobolrand.cbl]# contiene 
 todas las instrucciones +COBOL+ 
 para generar los números aleatorios.
 

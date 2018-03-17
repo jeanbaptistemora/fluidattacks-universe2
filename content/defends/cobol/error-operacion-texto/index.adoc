@@ -141,7 +141,7 @@ se despliega en pantalla una advertencia:
 Puedes descargar el código fuente
 pulsando en el siguiente enlace:
 
-. [button]#link:src/cobolof.cbl[cobolof.cbl >>]# contiene
+. [button]#link:src/cobolof.cbl[cobolof.cbl]# contiene
 el código explicado anteriormente sin desbordamiento.
 
 == Referencias

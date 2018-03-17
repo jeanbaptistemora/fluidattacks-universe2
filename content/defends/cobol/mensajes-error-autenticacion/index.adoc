@@ -134,7 +134,7 @@ además de posibles ataques de fuerza bruta:
 Puedes descargar el código fuente
 pulsando en el siguiente enlace:
 
-. [button]#link:src/cobolauth.cbl[cobolauth.cbl >>]# contiene
+. [button]#link:src/cobolauth.cbl[cobolauth.cbl]# contiene
 todas las instrucciones +COBOL+ del programa explicado anteriormente.
 
 == Referencias

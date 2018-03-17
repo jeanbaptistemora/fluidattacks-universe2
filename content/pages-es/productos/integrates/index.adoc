@@ -15,7 +15,7 @@ de manera eficiente y eficaz.
 También brinda información en tiempo real a los tomadores de decisiones
 del estado de seguridad de los sistemas.
 
-Puedes acceder al producto [button]#link:../../../../integrates[aquí >>]#
+Puedes acceder al producto [button]#link:../../../../integrates[aquí]#
 
 [role="integrates tb-alt"]
 [cols=2, frame="none"]
@@ -129,7 +129,7 @@ a|== Exploit de la Vulnerabilidad
 Se muestra el *script* usado para la explotación de la vulnerabilidad.
 Este puede ser reutilizado para validar las correcciones aplicadas.
 
-Si el usuario cuenta con una licencia del producto [button]#link:../asserts/[Asserts>>]#,
+Si el usuario cuenta con una licencia del producto [button]#link:../asserts/[Asserts]#,
 podrá reproducir el ataque que aprovecha la vulnerabilidad
 y determinar autónomamente si ya fue remediado.
 Al reproducir un ataque, el código que explota la vulnerabilidad
@@ -184,7 +184,7 @@ a|image::correo.png[Correo]
 a|image::base-conocimiento.png[Base De Conocimiento]
 a|== Base De Conocimiento
 
-Los usuarios tienen acceso al producto de FLUID, [button]#link:../../defends/[Defends>>]#,
+Los usuarios tienen acceso al producto de FLUID, [button]#link:../../defends/[Defends]#,
 el cual contiene ejemplos de cómo cumplir con los requisitos de seguridad
 que son evaluados en las pruebas realizadas.
 |====

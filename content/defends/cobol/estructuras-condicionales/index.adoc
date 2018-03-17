@@ -160,7 +160,7 @@ a través del uso de la sentencia +ELSE+:
 Puedes descargar el código fuente
 pulsando en el siguiente enlace:
 
-. [button]#link:src/cobolcond.cbl[cobolcond.cbl >>]# contiene
+. [button]#link:src/cobolcond.cbl[cobolcond.cbl]# contiene
 la implementación del código anterior.
 
 == Referencias

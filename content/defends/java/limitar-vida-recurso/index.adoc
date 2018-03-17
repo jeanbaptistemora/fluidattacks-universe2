@@ -158,7 +158,7 @@ javaTest
 Puedes descargar el código fuente 
 pulsando en el siguiente enlace:
 
-. [button]#link:src/test.java[Test.java >>]# contiene 
+. [button]#link:src/test.java[Test.java]# contiene 
 la definición del método +readData+ 
 cuyo fin es la manipulación segura de ficheros.
 

@@ -210,7 +210,7 @@ image::conexion-open.png[conexiones activas]
 Puedes descargar el código fuente 
 pulsando en los siguientes enlaces:
 
-[button]#link:src/connectionpoolfsg.java[ConnectionPoolFSG.java >>]# 
+[button]#link:src/connectionpoolfsg.java[ConnectionPoolFSG.java]# 
 Clase ConnectionPoolFSG.
 
 == Referencias

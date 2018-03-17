@@ -185,7 +185,7 @@ se despliega en pantalla el +ID+ de la excepción:
 Puedes descargar el código fuente 
 pulsando en el siguiente enlace:
 
-. [button]#link:src/cobolobj.cbl[cobolobj.cbl >>]# contiene 
+. [button]#link:src/cobolobj.cbl[cobolobj.cbl]# contiene 
 el código explicado anteriormente para trabajar con atributos de objetos.
 
 == Referencias

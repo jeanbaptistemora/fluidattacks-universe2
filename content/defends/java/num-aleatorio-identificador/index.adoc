@@ -213,13 +213,13 @@ Hr9R7g0cLtTfcPXvQ5g0mOCXyItZKkg0o7ZQLbFsmcQNZHrvtc6gvS8KY2VGq6Es
 Puedes descargar el código fuente
 pulsando en los siguientes enlaces:
 
-[button]#link:src/r.java[R.java >>]#
+[button]#link:src/r.java[R.java]#
 Uso de +Random+.
 
-[button]#link:src/sr.java[SR.java >>]#
+[button]#link:src/sr.java[SR.java]#
 Uso de +SecureRandom+.
 
-[button]#link:src/cli.java[CLI.java >>]#
+[button]#link:src/cli.java[CLI.java]#
 Uso de +nextInt+ y +nextBytes+.
 
 == Referencias

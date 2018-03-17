@@ -99,7 +99,7 @@ vemos que no se modifica el funcionamiento.
 Puedes descargar el código fuente 
 pulsando en el siguiente enlace:
 
-[button]#link:src/main.java[Main.java >>]# 
+[button]#link:src/main.java[Main.java]# 
 Clase Main, define los parámetros y variables locales.
 
 == Referencias

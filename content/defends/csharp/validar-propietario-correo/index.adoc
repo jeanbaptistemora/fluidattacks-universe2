@@ -140,7 +140,7 @@ antes de cierto límite de tiempo para proceder a activar el usuario.
 Puedes descargar el código fuente
 pulsando en el siguiente enlace:
 
-. [button]#link:src/ejemplo.cs[ejemplo.cs >>]# contiene
+. [button]#link:src/ejemplo.cs[ejemplo.cs]# contiene
 todas las instrucciones +C#+ del programa.
 
 == Referencias

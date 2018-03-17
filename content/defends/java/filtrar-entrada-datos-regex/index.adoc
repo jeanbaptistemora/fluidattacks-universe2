@@ -122,7 +122,7 @@ La cadena NO es válida
 Puedes descargar el código fuente
 pulsando en el siguiente enlace:
 
-[button]#link:src/main.java[Main.java >>]#
+[button]#link:src/main.java[Main.java]#
 Código que valida entrada de datos por expresión regular.
 
 == Referencias

@@ -147,7 +147,7 @@ El resultado para la anterior aplicación es el siguiente
 Puedes descargar el código fuente
 pulsando en el siguiente enlace:
 
-. [button]#link:src/ejemplo.cs[ejemplo.cs >>]# contiene
+. [button]#link:src/ejemplo.cs[ejemplo.cs]# contiene
 todas las instrucciones +C#+ del programa.
 
 == Referencias

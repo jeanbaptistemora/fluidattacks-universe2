@@ -231,4 +231,4 @@ $
 
 == Licencia
 
-Escríbenos mediante el siguiente [button]#link:https://fluidattacks.com/#lp-pom-block-11[formulario >>]# para obtener información de licencias.
+Escríbenos mediante el siguiente [button]#link:https://fluidattacks.com/#lp-pom-block-11[formulario]# para obtener información de licencias.

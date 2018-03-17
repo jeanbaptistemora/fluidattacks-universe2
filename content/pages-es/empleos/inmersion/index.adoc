@@ -28,7 +28,7 @@ Los términos del contrato de entrenamiento para esta etapa de Inmersión son lo
 Esta etapa comienza cuando:
 
 . Haya finalizado la etapa de link:../retos-tecnicos[retos técnicos]
-. Se registre como tercero en el siguiente [button]#link:../../../../forms/tercero[formulario >>]# con el RUT anexo,
+. Se registre como tercero en el siguiente [button]#link:../../../../forms/tercero[formulario]# con el RUT anexo,
 . Lea y acepte las condiciones de almacenamiento de resultados de entrenamiento que se encuentran link:../retos-tecnicos/#propiedad-intelectual[aquí].
 . Nos envíe por e-mail (careers@autonomicmind.co):
 .. Un mensaje indicando si acepta o no la propuesta de participar en esta etapa.
@@ -71,12 +71,12 @@ usted deberá entrenar la máxima dedicación posible
 
 La elaboración de artículos tiene como objetivo familiarizar a futuros talentos con contenido
 relevante para la audiencia de FLUID. Por tal motivo estos deben adherirse
-a la línea editorial definida [button]#link:../../estilo/[aquí >>]#.
+a la línea editorial definida [button]#link:../../estilo/[aquí]#.
 
 Para la generación de documentos y artículos para el blog,
 el lenguaje que debe utilizarse es AsciiDoc.
 Podrá encontrar documentación y algunos ejemplos de uso de AsciiDoc
-[button]#link:../../../en/format/[aquí >>]#.
+[button]#link:../../../en/format/[aquí]#.
 
 Los artículos deben subirse al repositorio que le indicaremos al entrar en esta etapa.
 
@@ -114,7 +114,7 @@ Esta etapa termina cuando:
 . Se acepten en el repositorio 100 nuevas soluciones de programación
 + 
 *IMPORTANTE:* Todas las soluciones que usted envíe deben cumplir con
-las [button]#link:../retos-tecnicos/#envio[reglas de envío >>]#.,
+las [button]#link:../retos-tecnicos/#envio[reglas de envío]#.,
 
 . Participe en dos proyectos de entrenamiento sorpresa,
 con indicaciones variables que midan su capacidad
@@ -126,6 +126,6 @@ Al igual que en la etapa de link:../retos-tecnicos[retos técnicos],
 aplicará el tope de 10 MR fallidos,
 incluyendo los acumulados en dicha etapa.
 
-Puede ver más detalles [button]#link:../retos-tecnicos/#intentos-fallidos[aquí >>]#
+Puede ver más detalles [button]#link:../retos-tecnicos/#intentos-fallidos[aquí]#
 
 Si tienes alguna duda no dudes en escribir a careers@autonomicmind.co

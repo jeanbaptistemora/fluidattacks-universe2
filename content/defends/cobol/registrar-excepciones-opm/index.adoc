@@ -308,10 +308,10 @@ indicando que un error de software ha sido detectado:
 Puedes descargar el código fuente 
 pulsando en los siguientes enlaces: 
 
-. [button]#link:src/cblerr1.cbl[cblerr1.cbl >>]# contiene 
+. [button]#link:src/cblerr1.cbl[cblerr1.cbl]# contiene 
 el código que genera el error 
 y que es capturado por +errhdl1+.
-. [button]#link:src/errhdl1.cbl[errhdl1.cbl >>]# contiene 
+. [button]#link:src/errhdl1.cbl[errhdl1.cbl]# contiene 
 las instrucciones para capturar y procesar el error generado desde +cblerr1+.
 
 == Referencias

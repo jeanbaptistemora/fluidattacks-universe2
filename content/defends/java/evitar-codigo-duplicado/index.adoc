@@ -166,10 +166,10 @@ public static void showError(Exception e) {
 Puedes descargar el código fuente
 pulsando en el siguiente enlace:
 
-[button]#link:src/reuse.java[Reuse.java >>]#
+[button]#link:src/reuse.java[Reuse.java]#
 Código que reutiliza lineas.
 
-[button]#link:src/reusegood.java[ReuseGood.java >>]#
+[button]#link:src/reusegood.java[ReuseGood.java]#
 Código que no reutiliza lineas.
 
 == Referencias

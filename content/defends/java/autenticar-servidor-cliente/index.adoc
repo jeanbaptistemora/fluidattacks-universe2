@@ -266,10 +266,10 @@ public class Client
 Puedes descargar el código fuente 
 pulsando en los siguientes enlaces:
 
-[button]#link:src/client.java[client.java >>]# 
+[button]#link:src/client.java[client.java]# 
 Código de autenticación del lado cliente.
 
-[button]#link:src/server.java[server.java >>]# 
+[button]#link:src/server.java[server.java]# 
 Código de autenticación del lado servidor.
 
 == Referencias

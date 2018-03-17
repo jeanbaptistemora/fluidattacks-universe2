@@ -159,6 +159,12 @@ if pcregrep --color -nr --include='\.adoc' '^:[A-Z]' content; then
 	ERRORS=1;
 fi
 
+# Check the character '>' is not used in type button links
+if pcregrep --color -nr --include='\.adoc' '\[button\].*>' content; then
+	echo -e "${GC}The '>>' characters are written by the style and are not needed in the source code.${NC}"
+	ERRORS=1;
+fi
+
 # Check that the meta description has a minimum lenght of 250 characters and a maximum length of 300 characters
 for FILE in $(find content -iname '*.adoc'); do
   if cat $FILE | pcregrep --color -no '(?<=:description: ).{307,}$|(?<=:description: ).{0,249}$'; then

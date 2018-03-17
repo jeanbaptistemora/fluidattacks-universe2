@@ -148,7 +148,7 @@ gLy4=
 Puedes descargar el código fuente 
 pulsando en el siguiente enlace:
 
-[button]#link:src/testbase64.java[TestBase64.java >>]# 
+[button]#link:src/testbase64.java[TestBase64.java]# 
 Clase TestBase64.
 
 == Referencias

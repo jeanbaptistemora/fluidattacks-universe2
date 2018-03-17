@@ -120,4 +120,4 @@ formula and our input is secure
 image::secure-input.png[secure-input]
 image::secure-result.png[secure-result]
 
-The source code of the page for testing can be found [button]#link:csvinjection.zip[here >>]#
+The source code of the page for testing can be found [button]#link:csvinjection.zip[here]#

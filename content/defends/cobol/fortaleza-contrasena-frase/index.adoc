@@ -176,7 +176,7 @@ por lo que el requisito de seguridad se ha cumplido:
 Puedes descargar el código fuente
 pulsando en el siguiente enlace:
 
-. [button]#link:src/cobolpass2.cbl[cobolpass2.cbl >>]# contiene
+. [button]#link:src/cobolpass2.cbl[cobolpass2.cbl]# contiene
 todas las instrucciones +COBOL+ del programa.
 
 == Referencias

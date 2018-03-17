@@ -219,7 +219,7 @@ y antes de eliminar la información de ésta.
 Puedes descargar el código fuente
 pulsando en el siguiente enlace:
 
-[button]#link:src/testremoteuserdata.java[TestRemoteUserData.java >>]#
+[button]#link:src/testremoteuserdata.java[TestRemoteUserData.java]#
 +Servlet+ que implementa la comprobación de identidad.
 
 

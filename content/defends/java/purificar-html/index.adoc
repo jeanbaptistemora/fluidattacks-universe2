@@ -178,7 +178,7 @@ image::salida.png[salida]
 Puedes descargar el código fuente 
 pulsando en el siguiente enlace:
 
-. [button]#link:src/purify.java[purify.java >>]# 
+. [button]#link:src/purify.java[purify.java]# 
 contiene la manera en que se debe usar la biblioteca +Jsoup+.
 
 

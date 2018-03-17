@@ -148,7 +148,7 @@ image::debug-source-code.png[depuracion]
 Puedes descargar el código fuente 
 pulsando en el siguiente enlace:
 
-. [button]#link:src/coboldebug.cbl[coboldebug.cbl >>]# contiene 
+. [button]#link:src/coboldebug.cbl[coboldebug.cbl]# contiene 
 todas las instrucciones +COBOL+ del programa.
 
 

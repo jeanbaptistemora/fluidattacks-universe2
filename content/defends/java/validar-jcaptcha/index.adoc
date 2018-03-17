@@ -249,7 +249,7 @@ public class LoginServlet extends HttpServlet
 Puedes descargar el código fuente 
 pulsando en el siguiente enlace:
 
-[button]#link:src/loginservlet.java[LoginServlet.java >>]# 
+[button]#link:src/loginservlet.java[LoginServlet.java]# 
 Clase LoginServlet.
 
 == Referencias

@@ -127,7 +127,7 @@ y disponibilidad de la información.
 Puedes descargar el código fuente 
 pulsando en el siguiente enlace:
 
-[button]#link:src/dead.java[dead.java >>]# 
+[button]#link:src/dead.java[dead.java]# 
 Clase dead muestra el uso de un método antiguo no eliminado.
 
 == Referencias

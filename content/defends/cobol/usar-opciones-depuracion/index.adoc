@@ -132,7 +132,7 @@ Resultado: 1024
 Puedes descargar el código fuente 
 pulsando en el siguiente enlace:
 
-. [button]#link:src/coboldbg.cbl[coboldbg.cbl >>]# contiene 
+. [button]#link:src/coboldbg.cbl[coboldbg.cbl]# contiene 
 la implementación del código depurado anteriormente.
 
 == Referencias

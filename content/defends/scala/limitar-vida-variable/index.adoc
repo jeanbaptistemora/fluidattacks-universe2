@@ -168,7 +168,7 @@ Ingresa tu contraseña: *******
 Puedes descargar el código fuente 
 pulsando en el siguiente enlace:
 
-. [button]#link:src/password.scala[password.scala >>]# contiene 
+. [button]#link:src/password.scala[password.scala]# contiene 
 las instrucciones +scala+ para el manejo de credenciales de manera segura.
 
 == Referencias

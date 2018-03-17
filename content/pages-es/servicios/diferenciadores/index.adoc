@@ -27,9 +27,9 @@ a|* Cascada
 * Agil
 * +DevOps+ 
 
-[button]#link:../../servicios/hacking-continuo/[Continuous Hacking>>]# 
-[button]#link:../../productos/integrates/[Integrates>>]# 
-y [button]#link:../../productos/asserts/[Asserts>>]#
+[button]#link:../../servicios/hacking-continuo/[Continuous Hacking]# 
+[button]#link:../../productos/integrates/[Integrates]# 
+y [button]#link:../../productos/asserts/[Asserts]#
 son idóneos para los 2 ultimos casos de uso
 | Cascada
 
@@ -88,7 +88,7 @@ a|==== Cobertura
 a|==== Perfilamiento
 | Usted decide los requisitos de seguridad 
 que revisaremos en el hacking
-a través de nuestro producto [button]#link:../../productos/rules/[Rules>>]#
+a través de nuestro producto [button]#link:../../productos/rules/[Rules]#
 | {no} No parametrizable
 
 a|==== Rigurosidad
@@ -99,8 +99,8 @@ a|==== Rigurosidad
 
 a|==== Ambientes
 a|* Integración: 
-[button]#link:../../servicios/hacking-continuo/[Continuous Hacking>>]# 
-y [button]#link:../../productos/asserts/[Asserts>>]#
+[button]#link:../../servicios/hacking-continuo/[Continuous Hacking]# 
+y [button]#link:../../productos/asserts/[Asserts]#
 son idóneos en este caso de uso
 * Pruebas
 * Producción
@@ -142,7 +142,7 @@ entorno disponible y autorización
 
 a|==== Exploits personalizados 
 | {si} Usando nuesto motor de explotacion propio 
-[button]#link:../../productos/asserts/[Asserts>>]# .
+[button]#link:../../productos/asserts/[Asserts]# .
 link:../../productos/integrates/#exploit-de-la-vulnerabilidad[Ejemplo]
 | {no}
 
@@ -157,7 +157,7 @@ a|==== Registros Comprometidos
 
 a|==== Ciclos
 | Multiples en nuestro servicio 
-[button]#link:../../servicios/hacking-continuo/[Continuous Hacking>>]#
+[button]#link:../../servicios/hacking-continuo/[Continuous Hacking]#
 | {no} Solo 1
 
 a|==== link:../../blog/desplazados-maquinas/[Fugas] 
@@ -167,16 +167,16 @@ a|==== link:../../blog/desplazados-maquinas/[Fugas]
 a|==== Remediación
 a|* Durante el proyecto puede solicitar aclaraciones 
 directamente a los hackers mediante 
-[button]#link:../../productos/integrates/[Integrates>>]#. 
+[button]#link:../../productos/integrates/[Integrates]#. 
 link:../../productos/integrates/#aclaraciones-de-dudas-sobre-las-vulnerabilidades[Ejemplo]
 * Puede utilizar nuestras guias detalladas de remediación 
-mediante [button]#link:../../productos/defends/[Defends>>]#. 
+mediante [button]#link:../../productos/defends/[Defends]#. 
 link:../../defends/java/limitar-vida-variable/[Ejemplo]
 | {no}
 
 a|==== Entregables 
 | Sistema web de documentación en tiempo real 
-[button]#link:../../productos/integrates/[Integrates>>]#
+[button]#link:../../productos/integrates/[Integrates]#
 a|* Documento en word realizado manualmente
 * Informes de herramientas sin descartar falsos positivos
 |====

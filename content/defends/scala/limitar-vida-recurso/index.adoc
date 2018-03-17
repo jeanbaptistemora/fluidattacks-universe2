@@ -163,7 +163,7 @@ scalaTest
 Puedes descargar el código fuente 
 pulsando en el siguiente enlace:
 
-. [button]#link:src/readfiletwo.scala[ReadFileTwo.scala >>]# contiene 
+. [button]#link:src/readfiletwo.scala[ReadFileTwo.scala]# contiene 
 las instrucciones +Scala+ para la manipulación segura de ficheros.
 
 == Referencias

@@ -219,7 +219,7 @@ En esta sección debe ser tratado el error:
 Puedes descargar el código fuente 
 pulsando en el siguiente enlace:
 
-. [button]#link:src/cobolemail.cbl[cobolemail.cbl >>]# contiene 
+. [button]#link:src/cobolemail.cbl[cobolemail.cbl]# contiene 
 las validaciones de correo electrónico explicadas anteriormente.
 
 == Referencias

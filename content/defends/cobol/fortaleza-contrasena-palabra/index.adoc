@@ -269,7 +269,7 @@ para contraseñas comunes y no comunes:
 Puedes descargar el código fuente
 pulsando en el siguiente enlace:
 
-. [button]#link:src/cobolpassr.cbl[cobolpassr.cbl >>]# contiene
+. [button]#link:src/cobolpassr.cbl[cobolpassr.cbl]# contiene
 todas las instrucciones +COBOL+ del programa.
 
 == Referencias

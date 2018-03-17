@@ -117,7 +117,7 @@ copiar el código almacenado y contenido en +QSYSINC-QCBLLESRC+
 Puedes descargar el código fuente 
 pulsando en el siguiente enlace:
 
-. [button]#link:src/cobolcopyd.cbl[cobolcopyd.cbl >>]# contiene 
+. [button]#link:src/cobolcopyd.cbl[cobolcopyd.cbl]# contiene 
 todas las instrucciones +COBOL+ del programa.
 
 == Referencias

@@ -27,7 +27,7 @@ Para determinar estas habilidades se le entregarán los hallazgos o vulnerabilid
 
 Usted debe tomar esta hoja de cálculo y construir una presentación (no documento) con transparencias -slides- (no páginas) y entregar en formato PDF (no PPTX), que contenga una breve introducción (no más de 2 slides) y una gráfica por transparencia analizando las gráficas en las dimensiones y combinaciones que usted considere relevantes para que un gerente de una empresa de seguridad de la información como FLUID tome decisiones estratégicas que mejoren la implementación de la misión de la empresa en la sociedad: "Encontrar todas las vulnerabilidades y reportarlas lo antes posible".
 
-Encontrará la hoja de cálculo en el siguiente [button]#link:hallazgos-open-data.tar.bz2[archivo >>]#
+Encontrará la hoja de cálculo en el siguiente [button]#link:hallazgos-open-data.tar.bz2[archivo]#
 
 Cada una de las gráficas debe dar origen al menos a una conclusión y a una recomendación de acción gerencial *concreta* que usted cree que FLUID debe implementar. Al final de la presentación se esperan conclusiones y recomendaciones generales derivadas de las de cada gráfica, pero diferentes (no repetir, si agrupar, si abstraer). El número de transparencias o gráficas es ilimitado, usted puede decidir hacer 10 transparencias con 10 gráficas, o 100 transparencias con 100 gráficas. Lo que será importante es que cada gráfica sea relevante y provea información importante para la gerencia. De ser posible y para minimizar el numero de gráficas y maximizar el numero de variables, utilizar:
 

@@ -263,7 +263,7 @@ luego de ejecutar la aplicación:
 Puedes descargar el código fuente
 pulsando en el siguiente enlace:
 
-. [button]#link:src/cobolcpass.cbl[cobolcpass.cbl >>]# contiene
+. [button]#link:src/cobolcpass.cbl[cobolcpass.cbl]# contiene
 todas las instrucciones +COBOL+ del programa.
 
 == Referencias

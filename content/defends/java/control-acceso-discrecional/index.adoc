@@ -220,19 +220,19 @@ El acceso a Recurso2 por Sujeto1 ha sido denegado
 Puedes descargar el código fuente
 pulsando en los siguientes enlaces:
 
-[button]#link:src/permission.java[Permission.java >>]#
+[button]#link:src/permission.java[Permission.java]#
 Clase Permission.
 
-[button]#link:src/subject.java[Subject.java >>]#
+[button]#link:src/subject.java[Subject.java]#
 Clase Subject.
 
-[button]#link:src/resource.java[Resource.java >>]#
+[button]#link:src/resource.java[Resource.java]#
 Clase Resource.
 
-[button]#link:src/AccessController.java[AccessController.java >>]#
+[button]#link:src/AccessController.java[AccessController.java]#
 Clase AccessController.
 
-[button]#link:src/cli.java[CLI.java >>]#
+[button]#link:src/cli.java[CLI.java]#
 Clase CLI.
 
 == Referencias

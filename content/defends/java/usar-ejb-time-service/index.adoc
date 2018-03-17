@@ -165,10 +165,10 @@ image::log.png[entradas creadas]
 Puedes descargar el código fuente 
 pulsando en los siguientes enlaces:
 
-[button]#link:src/timeservice.java[TimeService.java >>]# 
+[button]#link:src/timeservice.java[TimeService.java]# 
 Clase TimeService.
 
-[button]#link:src/timeservlet.java[TimeServlet.java >>]# 
+[button]#link:src/timeservlet.java[TimeServlet.java]# 
 Clase TimeServlet.
 
 == Referencias

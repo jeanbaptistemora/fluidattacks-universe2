@@ -120,7 +120,7 @@ mediante la instrucción +DISPLAY+.
 Puedes descargar el código fuente
 pulsando en el siguiente enlace:
 
-. [button]#link:src/cobolstr.cbl[cobolstr.cbl >>]# contiene
+. [button]#link:src/cobolstr.cbl[cobolstr.cbl]# contiene
 todas las instrucciones +COBOL+ del programa.
 
 == Referencias

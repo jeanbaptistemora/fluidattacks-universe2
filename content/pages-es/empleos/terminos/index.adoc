@@ -11,7 +11,7 @@ por favor leerlos en detalle.
 
 Si tienes dudas, contáctanos vía e-mail a careers@autonomicmind.co.
 
-Para participar en el proceso, diligencia el siguiente [button]#link:https://fluidattacks.com/forms/seleccion[formulario >>]#
+Para participar en el proceso, diligencia el siguiente [button]#link:https://fluidattacks.com/forms/seleccion[formulario]#
 
 == La empresa
 
@@ -32,7 +32,7 @@ A continuación, nos presentamos como empresa con el fin de que luego puedas tom
 ** Mantener la seguridad de la información de nuestros clientes,
 ** Ser objetivos, precisos y justos en la evaluación del desempeño.
 
-* En FLUID seguimos un código de ética, el cual puedes conocer haciendo click [button]#link:../../valores[aquí >>]#
+* En FLUID seguimos un código de ética, el cual puedes conocer haciendo click [button]#link:../../valores[aquí]#
 
 == El proceso de selección
 

@@ -227,7 +227,7 @@ Write Denied
 Puedes descargar el código fuente
 pulsando en el siguiente enlace:
 
-[button]#link:src/politica.java[Politica.java >>]#
+[button]#link:src/politica.java[Politica.java]#
 Archivo para mostrar como funciona las restricciones de seguridad.
 
 == Referencias

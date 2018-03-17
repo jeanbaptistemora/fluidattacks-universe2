@@ -163,7 +163,7 @@ Válido
 Puedes descargar el código fuente 
 pulsando en el siguiente enlace:
 
-[button]#link:src/main.java[Main.java >>]# 
+[button]#link:src/main.java[Main.java]# 
 Clase Main muestra la validación de +email+ 
 usando expresiones regulares.
 

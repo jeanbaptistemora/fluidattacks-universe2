@@ -130,7 +130,7 @@ donde es necesaria la depuración.
 Puedes descargar el código fuente
 pulsando en el siguiente enlace:
 
-. [button]#link:src/program.cs[program.cs >>]# contiene
+. [button]#link:src/program.cs[program.cs]# contiene
 todas las instrucciones +C#+ del programa.
 
 == Referencias

@@ -27,9 +27,9 @@ a|* Waterfall
 * Agile
 * +DevOps+ 
 
-[button]#link:../../services/continuous-hacking/[Continuous Hacking>>]# 
-[button]#link:../../products/integrates/[Integrates>>]# 
-y [button]#link:../../products/asserts/[Asserts>>]#
+[button]#link:../../services/continuous-hacking/[Continuous Hacking]# 
+[button]#link:../../products/integrates/[Integrates]# 
+y [button]#link:../../products/asserts/[Asserts]#
 fit perfect for the last 2 use cases
 | Waterfall
 
@@ -87,7 +87,7 @@ a|==== Coverage
 a|==== Profiling
 | You decide the security requirements 
 that we will check in the inspection process 
-through our product [button]#link:../../products/rules/[Rules>>]# 
+through our product [button]#link:../../products/rules/[Rules]# 
 | {no} Non parameterizable 
 
 a|==== Strictness
@@ -97,8 +97,8 @@ a|==== Strictness
 
 a|==== Environments
 a|* Integration: 
-[button]#link:../../services/continuous-hacking/[Continuous Hacking>>]# 
-and [button]#link:../../products/asserts/[Asserts>>]#
+[button]#link:../../services/continuous-hacking/[Continuous Hacking]# 
+and [button]#link:../../products/asserts/[Asserts]#
 fit perfectly in this use case
 * Staging
 * Production
@@ -139,7 +139,7 @@ and our client authorization
 
 a|==== Custom Exploits
 | {yes} Using our own exploitation engine
-[button]#link:../../products/asserts/[Asserts>>]# .
+[button]#link:../../products/asserts/[Asserts]# .
 link:../../products/integrates/#exploit[Example]
 | {no}
 
@@ -154,7 +154,7 @@ a|==== Compromised Records
 
 a|==== Cycles
 | Multiple cyles in our service 
-[button]#link:../../services/continuous-hacking/[Continuous Hacking>>]#
+[button]#link:../../services/continuous-hacking/[Continuous Hacking]#
 | {no}  Only 1
 
 a|==== link:../../blog/replaced-machines/[Leaks]
@@ -164,15 +164,15 @@ a|==== link:../../blog/replaced-machines/[Leaks]
 a|==== Remediation
 a|* During the project you can request clarifications 
 directly to our hackers via
-[button]#link:../../products/integrates/[Integrates>>]#. 
+[button]#link:../../products/integrates/[Integrates]#. 
 link:../../products/integrates/#doubts-regarding-the-vulnerabilities[Example]
 * You can use our detailed remediation guides via
-[button]#link:../../products/defends/[Defends>>]# 
+[button]#link:../../products/defends/[Defends]# 
 | {no}
 
 a|==== Deliverables
 | Real-time documentation web system
-[button]#link:../../products/integrates/[Integrates>>]#
+[button]#link:../../products/integrates/[Integrates]#
 a|* Manually-made Word document
 * Tool reports without discarding false positives
 |====
