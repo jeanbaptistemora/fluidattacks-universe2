@@ -1,0 +1,40 @@
+:slug: aliados/
+:category: aliados
+:description: FLUID es una compañía especializada en seguridad informática, ethical hacking, pruebas de intrusión y detección de vulnerabilidades en aplicaciones con más de 18 años prestando sus servicios en el mercado colombiano. En esta página presentamos nuestras soluciones en el sector comercial.
+:keywords: FLUID, Aliados, Comercial, Seguridad, Pentesting, Ethical Hacking.
+:translate: partners/
+
+= Aliados
+
+[role="aliados tb-alt"]
+[cols=2, frame="none"]
+|====
+
+^.^a|image:logo-choucair.png[logo choucair, width=50%, link=http://www.choucairtesting.com/]
+
+a|== Choucair 
+
+Compañía colombiana pionera en software testing creada en 1999 con proyección internacional, 
+la cual ofrece servicios relacionados con pruebas de software para disminuir los riesgos de su 
+operación. El éxito de los servicios prestados por la organización se sustenta en la investigación 
+y el recurso humano calificado, apoyado en una metodología certificada y efectiva. 
+
+a|== Evolution IT
+
+Empresa que promueve, implementa y fortalece la Gestión efectiva de la tecnología 
+de información como pilar de las empresas para mejorar su competitividad mediante servicios 
+de mejor calidad, que ayudan a incrementar su rentabilidad, empleando prácticas de clase 
+mundial y estableciendo relaciones de confianza con los clientes, socios de negocio y colaboradores.
+
+^.^a|image:logo-evolution.png[logo evolution, width=55%, link=http://www.evolution-it.com.co/]
+
+^.^a|image:logo-tml.png[logo tml, width=55%, link=https://www.themissinglink.com.au/]
+
+a|== The missing link
+
+Proveedor de soluciones de tecnología de la información, prestan servicios para 
+infraestructuras, seguridad, backup/recuperación de desastres, comunicaciones y 
+servicios en la nube. Reconocido como líder de la industria y acreditado con los
+más altos niveles en el diseño, entrega y soporte de las últimas tecnologías.
+
+|====

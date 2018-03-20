@@ -26,7 +26,13 @@ Tecnologías de la Información y todas las actividades complementarias.
 
 ^.^a|image:logo-edatel.png[logo edatel, width=50%, link=https://www.edatel.com.co/nuestra-compania/informacion-corporativa/quienes-somos]
 
-^.^a|image:logo-tigo.png[logo tigo, width=40%, link=https://www.tigo.com.co/nuestra-compania]
+^.^a|image:logo-internexa.png[logo internexa, width=40%, link=http://www.internexa.com/Paginas/Home.aspx]
+
+a|== Internexa
+
+Compañía colombiana dedicada al negocio de portadores y al sector energético. 
+Cuenta con 48.866 km de red de fibra óptica en Latinoamérica. Sirve a los operadores que prestan 
+servicios de larga distancia, valor agregado, internet, comunicaciones móviles y televisión por cable. 
 
 a|== Tigo UNE
 
@@ -35,5 +41,6 @@ participación accionaria del Grupo Millicom y el Grupo EPM. De la mano de sus e
 filiales, incluyendo a Colombia Móvil, Edatel y Orbitel, UNE cubre más del 70% de la 
 población urbana y está presente en 767 municipios de los 32 departamentos del territorio nacional.
 
+^.^a|image:logo-tigo.png[logo tigo, width=40%, link=https://www.tigo.com.co/nuestra-compania]
 
 |====

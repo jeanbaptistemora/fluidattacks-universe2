@@ -18,21 +18,13 @@ Costa Rica y Panamá. En el sector de generación, la compañía opera un total 
 plantas hidroeléctricas, 5 termoeléctricas, y un parque eólico, con lo que atiende 
 a 580.000 usuarios residenciales, comerciales e industriales.
 
-a|== Internexa
-
-Compañía colombiana dedicada al negocio de portadores y al sector energético. 
-Cuenta con 48.866 km de red de fibra óptica en Latinoamérica. Sirve a los operadores que prestan 
-servicios de larga distancia, valor agregado, internet, comunicaciones móviles y televisión por cable. 
-
-^.^a|image:logo-internexa.png[logo internexa, width=30%, link=http://www.internexa.com/Paginas/Home.aspx]
-
-^.^a|image:logo-xm.png[logo xm, width=30%, link=https://www.xm.com.co/corporativo/Paginas/Nuestra-empresa/quienes-somos.aspx]
-
 a|== XM
 
 Empresa de ISA especializada en la gestión de sistemas de tiempo real. La gestión de sistemas 
 de tiempo real consiste en la planeación, diseño, optimización, puesta en servicio, operación,
 administración o gerenciamiento de sistemas transaccionales o plataformas tecnológicas, que involucran 
 el intercambio de información con valor agregado, y mercados de bienes y servicios relacionados. 
+
+^.^a|image:logo-xm.png[logo xm, width=30%, link=https://www.xm.com.co/corporativo/Paginas/Nuestra-empresa/quienes-somos.aspx]
 
 |====
