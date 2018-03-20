@@ -1,0 +1,12 @@
+:slug: rules/184/
+:category: rules
+:description: En el presente documento se detallan los requerimientos de seguridad relacionados a la importancia de distorsionar todos aquellos datos que contengan información sensible o relevante para el modelo de negocio, cuando la aplicación no sea el foco principal.
+:keywords: Requerimiento, Seguridad, Datos, Foco, Distorsionar, Aplicación.
+:rules: yes
+
+= REQ.184 Distorsionar datos de aplicación
+
+== Nombre
+
+Los datos deben estar distorsionados 
+si la aplicación no está en foco.
