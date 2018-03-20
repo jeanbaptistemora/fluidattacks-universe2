@@ -1,0 +1,12 @@
+:slug: rules/186/
+:category: rules
+:description: En el presente documento se detallan los requerimientos de seguridad relacionados a la importancia que implica establecer o utilizar el mínimo nivel de privilegios cuando un sistema requiere del acceso a otro sistema o a una base de datos en particular.
+:keywords: Requerimiento, Seguridad, Acceso, Datos, Privilegios, Base de datos.
+:rules: yes
+
+= REQ.186 Utilizar el mínimo nivel de privilegios
+
+== Nombre
+
+El sistema debe utilizar el mínimo nivel de privilegios 
+cuando accede a otro sistema o a bases de datos.
