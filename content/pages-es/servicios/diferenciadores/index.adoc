@@ -20,125 +20,159 @@
 
 a|==== Foco
 | {si} Nos dedicamos únicamente a hackear, 
-todo el día y en todos los proyectos
+todo el día y en todos los proyectos.
 | {no} Sólo de vez en cuando, 
-deben ocuparse de otras cosas además de hackear
+deben ocuparse de otras cosas además de hackear.
 
 a|==== Independencia
 | {si} Solo hackeamos, no remediamos, reparamos, 
 ni instalamos controles de ningún tipo, 
 por ende siempre reportamos con independencia 
-todas las vulnerabilidades
+todas las vulnerabilidades.
 | {no} Dado que otros proveedores desarrollan, mantienen, instalan 
 u operan controles de seguridad como +SOC+, +NAC+, +Firewalls+ etc, 
 no son independientes para reportar las vulnerabilidades 
 de las que ellos son responsables.
 
 a|==== Método
-| Híbrido (Herramientas + revisión manual experta)
-| Estático (Solo herramientas)
+| Híbrido (Herramientas + revisión manual experta).
+| Estático (Solo herramientas).
 
 a|==== Equipo
-a|* link:../../blog/una-dosis-de-offsec-oscp/[+OSCP+]
-* link:../../blog/el-retorno-al-camino-oswp/[+OSWP+]
-* link:../../blog/ceh-el-comienzo-de-la-travesia/[+CEH+] 
+a|* link:../../blog/una-dosis-de-offsec-oscp/[+OSCP+.]
+* link:../../blog/el-retorno-al-camino-oswp/[+OSWP+.]
+* link:../../blog/ceh-el-comienzo-de-la-travesia/[+CEH+.] 
 
 Adicionalmente nuestros hackers son programadores excelentes 
-maximizando el nivel de profundidad de la prueba
-| {no} Ninguno
+maximizando el nivel de profundidad de la prueba.
+| {no} Ninguno.
+
+a|==== Ganadores CTF
+| {si} El 100% de los procesos de selección de proveedores (4) 
+que han realizado +CTF+ (+Capture the Flag+) 
+para seleccionar su proveedor de hacking 
+FLUID ha finalizado en 1er lugar en la evaluación técnica.
+| {no}  Algunas ocasiones no participan en el +CTF+ 
+o quedan en 2do lugar o inferiores.
 
 a|==== Modelo 
-| +Red Team+ 
-| Análisis de vulnerabilidades con explotación selectiva
+| +Red Team+. 
+| Análisis de vulnerabilidades con explotación selectiva.
 
 a|==== Objetivos
-a|* Aplicaciones web
-* Aplicaciones móviles (+iPhone+, +Android+)
-* Aplicaciones de escritorio (+GUI+)
-* Aplicaciones en mainframe (+AS400+)
-* Aplicaciones embebidas (datáfonos, cajeros electrónicos)
-* +APIs+ (+SOAP+, +REST+, +GraphQL+)
-* Servidores
-* Redes
-* Dispositivos +IoT+
-* Sistemas de control industrial (+ICS+)
-* Centros de operaciones en seguridad (+SOC+)
-a|* Aplicaciones web
-* Servidores
-* Redes
+a|* Aplicaciones web.
+* Aplicaciones móviles (+iPhone+, +Android+).
+* Aplicaciones de escritorio (+GUI+).
+* Aplicaciones en mainframe (+AS400+).
+* Aplicaciones embebidas (datáfonos, cajeros electrónicos).
+* +APIs+ (+SOAP+, +REST+, +GraphQL+).
+* Servidores.
+* Redes.
+* Dispositivos +IoT+.
+* Sistemas de control industrial (+ICS+).
+* Centros de operaciones en seguridad (+SOC+).
+a|* Aplicaciones web.
+* Servidores.
+* Redes.
+
+a|==== Técnicas
+a|{si} 1 servicio todas las técnicas:
+
+* +Fuzzing+.
+* +DAST+ (Dynamic Analysis Security Testing). 
+* +SAST+ (Static Analysis Security Testing). 
+* +IAST+ (Interactive Application Security Testing). 
+* +SCA+ (Software Composition Analysis).
+* Revisión manual de código.
+* +Reversing+ (Si no se provee el código fuente).
+* Eliminación de falsos positivos.
+* Explotación con exploits públicos.
+* Explotación con exploits privados.
+* Explotación con exploits personalizados.
+* User enumeration.
+* Password guessing.
+* Password cracking.
+* Infección utilizando troyanos.
+|{no} Solo 1 técnica por producto.
 
 a|==== Alcance 
-a|* Para infraestructura, según puertos abiertos +TCP+ y +UDP+
-* Para aplicaciones, según entradas (campos visibles, ocultos y cabeceras)
-* Para código fuente, según líneas de código (+LoC+) estrictamente efectivas 
-a|* Para infraestructura, según direcciones +IP+
-* Para aplicaciones, según el número de aplicaciones
+a|* Para infraestructura, según puertos abiertos +TCP+ y +UDP+.
+* Para aplicaciones, según entradas (campos visibles, ocultos y cabeceras).
+* Para código fuente, según líneas de código (+LoC+) estrictamente efectivas .
+a|* Para infraestructura, según direcciones +IP+.
+* Para aplicaciones, según el número de aplicaciones.
 
 a|==== Lenguajes heredados
-a|* link:../../defends/#cobol[+COBOL+] 
-* +RPG+
-* +PL1+
-* +TAL+
-| {no} Sin soporte 
+a|* link:../../defends/#cobol[+COBOL+]. 
+* +RPG+.
+* +PL1+.
+* +TAL+.
+| {no} Sin soporte. 
 
 a|==== Metodologías de desarrollo
-a|* Cascada
-* Agil
-* +DevOps+ 
+a|* Cascada.
+* Agil.
+* +DevOps+.
 
 [button]#link:../../servicios/hacking-continuo/[Continuous Hacking]#, 
 [button]#link:../../productos/integrates/[Integrates]# 
 y [button]#link:../../productos/asserts/[Asserts]#
-son idóneos para los 2 ultimos casos de uso
-| Cascada
+son idóneos para los 2 últimos casos de uso.
+| Cascada.
 
 a|==== Cobertura 
-| {si} Conocida (acordada o resultante)
-| {no} Desconocida
+| {si} Conocida (acordada o resultante).
+| {no} Desconocida.
 
 a|==== Perfilamiento
 | {si} Usted decide los requisitos de seguridad 
 que revisaremos en el hacking
-a través de nuestro producto [button]#link:../../productos/rules/[Rules]#
-| {no} No parametrizable
+a través de nuestro producto [button]#link:../../productos/rules/[Rules]#.
+| {no} No parametrizable.
 
 a|==== Rigurosidad
 
-| {si} Usted sabrá la rigurosidad exacta del hackeo 
-(lo revisado y lo no revisado)
-| {no} Desconocida
+| {si} Usted sabrá la rigurosidad exacta del hackeo
+(lo revisado y lo no revisado).
+| {no} Desconocida.
 
 a|==== Ambientes
 a|* Integración: 
 [button]#link:../../servicios/hacking-continuo/[Continuous Hacking]# 
 y [button]#link:../../productos/asserts/[Asserts]#
-son idóneos en este caso de uso
-* Pruebas
-* Producción
-a|* Pruebas
-* Producción
+son idóneos en este caso de uso.
+* Pruebas.
+* Producción.
+a|* Pruebas.
+* Producción.
 
 a|==== Ventanas
-| {si} En el servicio de 
+a|En el servicio de 
 [button]#link:../../servicios/hacking-continuo/[Continuous Hacking]# 
-los ambientes pueden cambiar constantemente, 
-no estar congelados y no se requiere ventanas para la prueba
-| {no} Se requieren ambientes congelados y ventanas de prueba
+los ambientes :
+
+* Pueden cambiar constantemente.
+* No estar congelados.
+* No se requiere ventanas para el hackeo.
+| {no} Se requieren ambientes congelados y ventanas de prueba.
 
 a|==== Tipo de Hallazgos 
-a|* De impacto específicos del negocio 
-* Prácticas inseguras de programación 
-* Alineación a estándares
-* Regulaciones de seguridad 
-a|* Basado en firmas 
-* Sintácticos
+a|* De impacto específicos del negocio.
+* Prácticas inseguras de programación.
+* Alineación a estándares.
+* Regulaciones de seguridad.
+a|* Basado en firmas.
+* Sintácticos.
 
 a|==== Tipo de Evidencia 
-a|* Imágenes 
-* +GIF+ animado 
+a|{si} Algunas de las evidencias más relevantes son:
+* Imágenes del ataque con anotaciones aclaratorias.
+* +GIF+ animado del ataque.
 link:../../productos/integrates/#evidencias-de-la-vulnerabilidad[Ejemplo]
-a|* Salidas de Herramienta
-* Imágenes
+a|{no} En el caso de otros proveedores.
+
+* Imágenes sin anotaciones.
+* Copy-paste de herramientas sin descartar falsos positivos mediante ataques.
 
 a|==== Vulnerabilidades Zero Day 
 | {si} 
@@ -150,40 +184,40 @@ a|==== Falsos Positivos
 
 a|==== Explotación 
 | {si} Siempre que se tenga un 
-entorno disponible y la autorización apropiada
+entorno disponible y la autorización apropiada.
 | {no}
 
 a|==== Exploits personalizados 
 | {si} Usando nuesto motor de explotacion propio 
 [button]#link:../../productos/asserts/[Asserts]#.
-link:../../productos/integrates/#exploit-de-la-vulnerabilidad[Ejemplo]
+link:../../productos/integrates/#exploit-de-la-vulnerabilidad[Ejemplo].
 | {no}
 
 a|==== Correlación
 | {si} Combinando las vulnerabilidades +A+ y +B+ encontrar una +C+ 
-de mayor impacto que permite comprometer más registros
-| {no} Solo detecta vulnerabilidades +A+ y +B+ pero no puede correlacionarlas
+de mayor impacto que permite comprometer más registros.
+| {no} Solo detecta vulnerabilidades +A+ y +B+ pero no puede correlacionarlas.
 
 a|==== Infección
 | {si} En nuestro servicio de 
 [button]#link:../../servicios/hacking-puntual/[Hacking puntual]# 
 se infectan estaciones y servidores críticos 
 con nuestro troyano personalizado 
-[button]#link:../../productos/commands/[Commands]#
+[button]#link:../../productos/commands/[Commands]#.
 | {no} No infectan o no disponen de troyano personalizado.
 
 a|==== Registros Comprometidos
-| {si} link:../../productos/integrates/#registros-comprometidos[Ejemplo]
+| {si} link:../../productos/integrates/#registros-comprometidos[Ejemplo].
 | {no}
 
 a|==== Ciclos
-| {si} Multiples en nuestro servicio 
-[button]#link:../../servicios/hacking-continuo/[Continuous Hacking]#
+| {si} Multiples en nuestro servicio
+[button]#link:../../servicios/hacking-continuo/[Continuous Hacking]#.
 | {no} Solo 1
 
 a|==== link:../../blog/desplazados-maquinas/[Fugas] 
-| {si} 0% sobre el link:#alcance[alcance] acordado
-| {no} ~65% sobre el link:#alcance[alcance] acordado
+| {si} 0% sobre el link:#alcance[alcance] acordado.
+| {no} ~65% sobre el link:#alcance[alcance] acordado.
 
 a|==== Remediación
 a|* Durante el proyecto puede solicitar aclaraciones 
@@ -192,17 +226,17 @@ directamente a los hackers mediante
 link:../../productos/integrates/#aclaraciones-de-dudas-sobre-las-vulnerabilidades[Ejemplo]
 * Puede utilizar nuestras guias detalladas de remediación 
 mediante [button]#link:../../productos/defends/[Defends]#. 
-link:../../defends/java/limitar-vida-variable/[Ejemplo]
+link:../../defends/java/limitar-vida-variable/[Ejemplo].
 | {no}
 
 a|==== Entregables 
 | Sistema web de documentación en tiempo real 
-[button]#link:../../productos/integrates/[Integrates]#
+[button]#link:../../productos/integrates/[Integrates]#.
 a|* Documento en word realizado manualmente
-* Informes de herramientas sin descartar falsos positivos
+* Informes de herramientas sin descartar falsos positivos.
 
 a|==== Precios
-| {si} Precio fijo
-| {no} Precio variable (Tiempo y materiales)
+| {si} Precio fijo.
+| {no} Precio variable (Tiempo y materiales).
 
 |====
