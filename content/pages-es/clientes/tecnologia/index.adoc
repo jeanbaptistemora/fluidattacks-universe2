@@ -9,7 +9,7 @@
 [role="Tecnologia tb-alt"]
 [cols=2, frame="none"]
 |====
-a|image:logo-komet.png[logo komet, 300, 80, link=https://www.kometsales.com/]
+^.^a|image:logo-komet.png[logo komet, width=50%, link=https://www.kometsales.com/]
 
 a|== Kometsales
 
@@ -26,9 +26,9 @@ a todos sus participantes. Su mercado está compuesto por todas aquellas organiz
 que tienen como objetivo brindar un servicio de salud a la población; ya sean entidades 
 públicas, empresas de medicina privada, prestadores, cooperativas, sindicales y aseguradoras.
 
-a|image:logo-conexia.png[logo conexia, 290, 90, link=http://conexia.com/es/index.html]
+^.^a|image:logo-conexia.png[logo conexia, width=50%, link=http://conexia.com/es/index.html]
 
-a|image:logo-ceiba.png[logo ceiba, 270, 120, link=https://www.ceiba.com.co/es]
+^.^a|image:logo-ceiba.png[logo ceiba, width=50%, link=https://www.ceiba.com.co/es]
 
 a|== Ceiba Software
 
@@ -45,9 +45,9 @@ existentes en Ingeniería de Software en el mundo. La compañía cuenta con dos 
 línesa de negocio: Productos y Servicios, entre los cuales ofrece consultoría, desarrollo y 
 mantenimiento de software y servicios de outsourcing (web, móviles, misión crítica). 
 
-a|image:logo-psl.png[logo psl, 300, 100, link=http://www.psl.com.co/]
+^.^a|image:logo-psl.png[logo psl, width=50%, link=http://www.psl.com.co/]
 
-a|image:logo-creative.png[logo creative, 300, 100, link=http://www.ctnd.com/]
+^.^a|image:logo-creative.png[logo creative, width=50%, link=http://www.ctnd.com/]
 
 a|== Cre8tive
 
@@ -62,9 +62,9 @@ la cual ofrece servicios relacionados con pruebas de software para disminuir los
 operación. El éxito de los servicios prestados por la organización se sustenta en la investigación 
 y el recurso humano calificado, apoyado en una metodología certificada y efectiva. 
 
-a|image:logo-choucair.png[logo choucair, 300, 80, link=http://www.choucairtesting.com/]
+^.^a|image:logo-choucair.png[logo choucair, width=50%, link=http://www.choucairtesting.com/]
 
-a|image:logo-s4n.png[logo s4n, 260, 100, link=http://s4n.co/]
+^.^a|image:logo-s4n.png[logo s4n, width=50%, link=http://s4n.co/]
 
 a|== S4n
 
@@ -80,9 +80,9 @@ y servicios integrales basados en tecnología de punta, enfocados a contribuir c
 digital de las organizaciones. Tiene una trayectoria importante en el mercado, gracias al posicionamiento 
 que ha ido obteniendo por más de 20 años de servicio. 
 
-a|image:logo-intergrupo.png[logo intergrupo, 280, 90, link=http://www.intergrupo.com/]
+^.^a|image:logo-intergrupo.png[logo intergrupo, width=50%, link=http://www.intergrupo.com/]
 
-a|image:logo-pragma.png[logo pragma, 180, 100, link=http://www.pragma.com.co/]
+^.^a|image:logo-pragma.png[logo pragma, width=50%, link=http://www.pragma.com.co/]
 
 a|== Pragma
 
@@ -94,8 +94,6 @@ el poder de la tecnología con la estrategia y la creatividad para ofrecer el me
 El portafolio se compone por: Fábrica de Software, Integración y Automatización de Procesos, 
 Agencia Digital, Portales y CERO.
 
-a|image:logo-heinson.png[logo heinson, 230, 180, link=https://www.heinsohn.com.co]
-
 a|== Heinsohn
 
 Empresa con amplio conocimiento en todos los sectores de la industria, con experiencia en las 
@@ -104,13 +102,15 @@ en el mundo como IBM, Oracle, Microsoft, Saba, CA, SAP, entre otros. Casa matriz
 con sedes en siete ciudades del país y sucursales en América Latina y los Estados Unidos. Cumplen con 
 la norma ISO 9001:2000 y están valoradas con el nivel más alto en la calidad de los procesos CMMI Nivel 5, versión 1.3.
 
+^.^a|image:logo-heinson.png[logo heinson, width=50%, link=https://www.heinsohn.com.co]
+
+^.^a|image:logo-arus.png[logo arus, width=50%, link=https://www.arus.com.co/]
+
 a|== Arus
 
 Compañía que entrega soluciones integradas de información, tecnología y conocimiento, con un equipo 
 de expertos comprometidos con las necesidades de las organizaciones. Integradora de recursos, enfocada 
 en entregar una plataforma segura para realizar los pagos de la seguridad social a través de su plataforma, 
 SuAporte, atendiendo las necesidades de forma ágil, oportuna y confiable.
-
-a|image:logo-arus.png[logo arus, 210, 100, link=https://www.arus.com.co/]
 
 |====
