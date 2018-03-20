@@ -96,6 +96,7 @@
 * link:180/[REQ.180 Enmascarar datos].
 * link:181/[REQ.181 Transmitir por medio de protocolos seguros].
 * link:182/[REQ.182 Datos en ubicaciones diferentes].
+* link:183/[REQ.183 Eliminación segura de datos].
 * link:185/[REQ.185 Información sensible cifrada].
 * link:998/[REQ.998 Limitar tiempo de vida de variables].
 * link:999/[REQ.999 Limitar tiempo de vida de recursos].
