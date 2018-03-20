@@ -61,7 +61,7 @@ utilizarán en su labor diaria en FLUID,
 . Hacer visible a la comunidad y al equipo los resultados propios (presión de
 pares).
 
-== 2. Requerimientos previos
+== 2. Requerimientos
 
 . Registrarse en +GitLab+ usando su correo electrónico personal y creando el ID de usuario que más le guste.
 Este ID no debe ser mayor a *12* caracteres.
