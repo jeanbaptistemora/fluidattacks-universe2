@@ -1,0 +1,13 @@
+:slug: rules/182/
+:category: rules
+:description: En el presente documento se detallan los requerimientos de seguridad relacionados a la importancia de separar los datos que componen un sistema. Separando todos aquellos que pertenecen al sistema operativo de los que pertenecen al negocio situándolos en ubicaciones diferentes.
+:keywords: Requerimiento, Seguridad, Sistema operativo, Negocio, Datos, Ubicaciones diferentes.
+:rules: yes
+
+= REQ.182 Datos en ubicaciones diferentes
+
+== Nombre
+
+Los datos del sistema operativo 
+y los datos de negocio 
+deben estar almacenados en ubicaciones diferentes.
