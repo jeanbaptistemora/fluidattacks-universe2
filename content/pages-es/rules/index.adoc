@@ -51,9 +51,10 @@
 
 == Criptografía
 
-* link:142/[REQ.142 Utilizar mecanismos pre-existentes].
+* link:142/[REQ.142 Modificar credenciales de acceso por defecto].
 * link:143/[REQ.143 Cifrado asimétrico de tamaño mínimo].
 * link:145/[REQ.145 Funciones resumen de tamaño mínimo].
+* link:147/[REQ.147 Utilizar mecanismos pre-existentes].
 * link:219/[REQ.219 Usar mecanismos criptográficos seguros].
 
 == Fuente
