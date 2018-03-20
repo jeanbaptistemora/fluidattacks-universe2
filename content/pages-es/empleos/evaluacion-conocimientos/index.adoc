@@ -35,8 +35,12 @@ Los pasos para realizar el examen son los siguientes:
 . Al tener éxito de ingresar, debes ir a la barra de navegación izquierda y buscar la pestaña "Sites home", dar clic en el.
 . Bajas al final de la página y seleccionas “General Knowlegde Exam”.
 . Dar clic en el botón "Enroll me", luego, en la siguiente página, da click en el botón que dice "ATTEMPT QUIZ NOW" para comenzar.
-
- IMPORTANTE: Por favor ten en cuenta que una vez respondas o saltes una pregunta, no podrás volver a ella, por lo que no podrás modificar la respuesta
++ 
+[quote]
+----
+IMPORTANTE: Por favor ten en cuenta que una vez respondas o saltes una pregunta,
+no podrás volver a ella, por lo que no podrás modificar la respuesta
+----
 
 . Al finalizar el examen, buscar en la parte inferior de la aplicativo y dar click "FINISH ATTEMPT" para validar que respondió todas las preguntas
 . Luego, en la parte inferior de la pagina dar click en “Submit all and finish”.
