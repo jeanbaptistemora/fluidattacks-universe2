@@ -4,7 +4,7 @@ sreg = "us-east-1b"
 
 #EC2 Vars
 amiID = "ami-49e5cb5e"
-iType = "t2.medium"
+iType = "t2.large"
 kName = "FLUID_Serves"
 
 # Network vars
