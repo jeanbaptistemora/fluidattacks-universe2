@@ -101,6 +101,7 @@
 * link:185/[REQ.185 Información sensible cifrada].
 * link:186/[REQ.186 Utilizar el mínimo nivel de privilegios].
 * link:187/[REQ.187 Recolección de datos debe ser autorizada].
+* link:188/[REQ.188 Actualizar datos personales].
 * link:998/[REQ.998 Limitar tiempo de vida de variables].
 * link:999/[REQ.999 Limitar tiempo de vida de recursos].
 

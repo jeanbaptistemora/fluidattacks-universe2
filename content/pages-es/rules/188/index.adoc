@@ -1,0 +1,12 @@
+:slug: rules/188/
+:category: rules
+:description: En el presente documento se detallan los requerimientos de seguridad relacionados a la posibilidad de que el mismo usuario pueda actualizar todos aquellos datos relacionados a este. Lo anterior se debe cumplir según lo estipulado en OECD.8 y en ISACA.G31.2.
+:keywords: Requerimiento, Seguridad, Actualizar, Datos, Personal, Usuario.
+:rules: yes
+
+= REQ.188 Actualizar datos personales
+
+== Nombre
+
+Los datos personales deben poder ser actualizados 
+por el usuario (+OECD.8+, +ISACA.G31.2.+).
