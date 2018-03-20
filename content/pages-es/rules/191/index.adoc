@@ -1,0 +1,12 @@
+:slug: rules/191/
+:category: rules
+:description: En el presente documento se detallan los requerimientos de seguridad relacionados a los datos recolectados por un determinado sistema, los cuales, deben ser protegidos con el máximo nivel de protección definido dentro del sistema. Lo anterior se debe cumplir según lo estipulado en ISACA.G31.5.
+:keywords: Requerimiento, Seguridad, Sistema, Datos personales, Nivel de protección, Usuario.
+:rules: yes
+
+= REQ.191 Proteger datos con el máximo nivel
+
+== Nombre
+
+Los datos personales deben protegerse 
+con el máximo nivel de protección definido (+ISACA.G31.5+).
