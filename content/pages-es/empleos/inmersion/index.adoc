@@ -89,7 +89,7 @@ Los artículos deben subirse al repositorio que le indicaremos al entrar en esta
 de continuar en la etapa de inmersión luego de estas primeras 96 horas,
 se garantiza el pago mínimo de las siguientes 96 horas de entrenamiento reportadas,
 . El contrato es un contrato por servicios con pago mensual,
-. Debe pagar la seguridad social correspondiente a estos servicios (como trabajador independiente),
+. Debe pagar la seguridad social correspondiente a estos servicios (como independiente),
 . Debe presentar el 1er día hábil calendario del mes siguiente los documentos que permiten consignar el dinero a su cuenta:
 .. Cuenta de cobro por las horas del mes anterior,
 .. Recibo de pago de la seguridad social por el periodo anterior
