@@ -9,14 +9,31 @@
 [role="Comunicaciones tb-alt"]
 [cols=2, frame="none"]
 |====
-a|image:logo-tigo.png[logo tigo, 400, 210, link=https://www.tigo.com.co/nuestra-compania]
+^.^a|image:logo-claro.png[logo claro, width=40%, link=https://www.claro.com.co/personas/institucional/]
+
+a|== Claro
+
+Empresa operadora de televisión por suscripción y telefonía móvil, filial de Claro en Colombia. 
+Es propiedad del grupo mexicano América Móvil. Actualmente se presenta bajo la marca 
+"Claro Colombia", Comcel se integra a Telmex Colombia S.A para dar paso a la marca de América Móvil; 
+ofreciendo así servicios de telefonía móvil y telefonía fija, además de televisión e internet móvil y fijo.
+
+a|== Edatel
+
+Empresa de Servicios Públicos constituida como sociedad anónima cuyo objeto social 
+principal es la organización, administración y prestación de servicios de telecomunicaciones, 
+Tecnologías de la Información y todas las actividades complementarias.
+
+^.^a|image:logo-edatel.png[logo edatel, width=50%, link=https://www.edatel.com.co/nuestra-compania/informacion-corporativa/quienes-somos]
+
+^.^a|image:logo-tigo.png[logo tigo, width=40%, link=https://www.tigo.com.co/nuestra-compania]
 
 a|== Tigo UNE
 
-UNE EPM Telecomunicaciones es una empresa Colombiana que presta servicios integrados de
-telecomunicaciones, con participación accionaria del Grupo Millicom y el Grupo EPM.
-De la mano de sus empresas filiales, incluyendo a Colombia Móvil, Edatel y Orbitel,
-UNE cubre más del 70% de la población urbana y está presente en 767 municipios
-de los 32 departamentos del territorio nacional.
+Empresa Colombiana que presta servicios integrados de telecomunicaciones, con 
+participación accionaria del Grupo Millicom y el Grupo EPM. De la mano de sus empresas 
+filiales, incluyendo a Colombia Móvil, Edatel y Orbitel, UNE cubre más del 70% de la 
+población urbana y está presente en 767 municipios de los 32 departamentos del territorio nacional.
+
 
 |====

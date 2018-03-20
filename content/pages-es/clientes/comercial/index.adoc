@@ -9,41 +9,41 @@
 [role="comercial tb-alt"]
 [cols=2, frame="none"]
 |====
-a|image:logo-exito.png[logo exito, 290, 170, link=https://www.grupoexito.com.co/es/]
+^.^a|image:logo-exito.png[logo exito, width=40%, link=https://www.grupoexito.com.co/es/]
 
 a|== Grupo Exito
 
-Grupo Éxito es una empresa multinacional colombiana, realiza actividades de 
+Empresa multinacional colombiana, realiza actividades de 
 comercio al detal en Suramérica. Presentes en Colombia con el Grupo Éxito; en 
 Brasil con el Grupo Pão de Açúcar; en Uruguay con los Grupos Disco y Devoto y 
 en Argentina con Libertad
 
-a|== Semana
-
-Publicaciones Semana es un grupo mediático que agrupa las revistas de mayor 
-circulación e influencia en Colombia, buscando posicionar en la opinión pública 
-distintas temáticas de interés nacional. Además, ofrece sus servicios para que 
-compañías y/o entidades del Estado puedan publicar su propia revista.
-
-a|image:logo-semana.png[logo semana, 300, 80, link=http://www.semana.com/]
-
-a|image:logo-tml.png[logo tml, 280, 100, link=https://www.themissinglink.com.au/]
-
-a|== The missing link
-
-The missing link (Australia): Proveedor de soluciones de tecnología de la 
-información, prestan servicios para infraestructuras, seguridad, backup/recuperación 
-de desastres, comunicaciones y servicios en la nube. Reconocido como líder de la industria 
-y acreditado con los más altos niveles en el diseño, entrega y soporte de las últimas tecnologías.
-
 a|== Grupo Uribe
 
-El Grupo Uribe es un grupo textil colombiano, de tendencia familiar, fundado en 1907 
+Grupo textil colombiano, de tendencia familiar, fundado en 1907 
 por el patriarca, John Uribe. Sus hijos y los hijos de sus hijos han contribuido durante 
 décadas al desarrollo y fortalecimiento del negocio. El grupo tiene la representación, 
 producción y comercialización para Colombia y el caribe de marcas internacionales como Chevignon,
 Naf Naf, Americanino, Esprit, Rifle, American Eagle, Mother Care, American Brands, LBT, entre otras.
 
-a|image:logo-uribe.png[logo uribe, 280, 120]
+^.^a|image:logo-uribe.png[logo uribe, width=55%]
+
+^.^a|image:logo-semana.png[logo semana, width=40%, link=http://www.semana.com/]
+
+a|== Semana
+
+Grupo mediático que agrupa las revistas de mayor circulación e influencia en 
+Colombia, buscando posicionar en la opinión pública distintas temáticas de
+interés nacional. Además, ofrece sus servicios para que compañías y/o entidades 
+del Estado puedan publicar su propia revista.
+
+a|== The missing link
+
+Proveedor de soluciones de tecnología de la información, prestan servicios para 
+infraestructuras, seguridad, backup/recuperación de desastres, comunicaciones y 
+servicios en la nube. Reconocido como líder de la industria y acreditado con los
+más altos niveles en el diseño, entrega y soporte de las últimas tecnologías.
+
+^.^a|image:logo-tml.png[logo tml, width=55%, link=https://www.themissinglink.com.au/]
 
 |====
