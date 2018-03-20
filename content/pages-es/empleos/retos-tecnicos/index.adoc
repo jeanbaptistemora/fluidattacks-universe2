@@ -79,26 +79,24 @@ ____________________________________________________________________
 
 == 3. Objetivos
 
-. Resuelva 10 retos de programación que no tienen solución,
-ni en nuestro repositorio ni identificada (punto 1),
+Resuelva 10 retos de programación:
 
-.. Para retos de programación,
-una solución es válida si no ha sido resuelta en el lenguaje que usted pretende solucionarlo.
-... Entiéndase programación como cualquier reto disponible en [button]#link:http://www.codeabbey.com/[Codeabbey]#.
+. Que no tienen solución en el repositorio (carpeta del reto) para el lenguaje elegido por usted, 
+. Que no tienen solución externa indexada (enlaces OTHERS.txt del reto) para el lenguaje elegido por usted,
+. El lenguaje de la solución es uno de los aceptados por [button]#link:http://www.codeabbey.com/[Codeabbey]#.
 
-. Resuelva 10 retos de +hacking+ que no tienen solución,
-ni en nuestro repositorio ni identificada (punto 1).
+Resuelva 10 retos de hacking: 
 
-.. Para retos de +hacking+,
-una solución es válida si no tiene solución en la carpeta del reto en el repositorio ni está
-indexada en el archivo +OTHERS+
+. Que no tienen solución en Gherkin (*.feature) en el repositorio (carpeta del reto), 
+. Que no tienen solución externa indexada (enlaces OTHERS.txt del reto),
+. El lenguaje de la solución es uno de los aceptados por Codeabbey.
 
-.. Entiéndase retos de +hacking+ por:
-... Cualquier reto técnico (no matemático ni de adivinanzas) de [button]#link:wechall.net[wechall]# o sus sitios relacionados,
-... Cualquier explotación en sistemas (ToE) vulnerables intencionalmente listados en:
-.... [button]#link:https://www.owasp.org/index.php/OWASP_Vulnerable_Web_Applications_Directory_Project#Off-Line_apps[OWASP Off-Line apps]#
-.... [button]#link:https://www.owasp.org/index.php/OWASP_Vulnerable_Web_Applications_Directory_Project#Virtual_Machines_or_ISOs[OWASP VMs / ISOs]#
-.... [button]#link:https://www.owasp.org/index.php/OWASP_Vulnerable_Web_Applications_Directory_Project#On-Line_apps[OWASP On-Line apps]#
+. Entiéndase retos de +hacking+ por:
+.. Cualquier reto técnico (no matemático ni de adivinanzas) de [button]#link:wechall.net[wechall]# o sus sitios relacionados,
+.. Cualquier explotación en sistemas (ToE) vulnerables intencionalmente listados en:
+... [button]#link:https://www.owasp.org/index.php/OWASP_Vulnerable_Web_Applications_Directory_Project#Off-Line_apps[OWASP Off-Line apps]#
+... [button]#link:https://www.owasp.org/index.php/OWASP_Vulnerable_Web_Applications_Directory_Project#Virtual_Machines_or_ISOs[OWASP VMs / ISOs]#
+... [button]#link:https://www.owasp.org/index.php/OWASP_Vulnerable_Web_Applications_Directory_Project#On-Line_apps[OWASP On-Line apps]#
 
 == 4. Envío
 
