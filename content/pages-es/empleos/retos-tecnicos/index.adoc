@@ -20,7 +20,7 @@ usted evidenciará que tiene la competencia más valiosa:
 aprender de cosas nuevas sobre la marcha y aplicarlas para resolver problemas reales.
 Esto, con la calidad humana, que tiene mayor peso que todo lo demás.
 
-== 1. Objetivos
+== 1. Filosofía
 
 En esta etapa se busca que usted evidencie mediante ejercicios prácticos sus competencias técnicas en problemas parecidos a los que enfrentará en FLUID,
 y con las cuales podrá solucionar de forma efectiva problemas de nuestros clientes en el ámbito de la seguridad.
@@ -77,7 +77,7 @@ He leído y entendido toda la documentación de los retos técnicos,
 acepto las condiciones y por ende solicito acceso al repo +git+ con mi usuario [nombreDeUsuario] en +GitLab+
 ____________________________________________________________________
 
-== 3. Instrucciones
+== 3. Objetivos
 
 . Resuelva 10 retos de programación que no tienen solución,
 ni en nuestro repositorio ni identificada (punto 1),
