@@ -35,8 +35,8 @@ no son independientes para reportar las vulnerabilidades
 de las que ellos son responsables.
 
 a|==== Método
-| Híbrido (Herramientas + revisión manual experta).
-| Estático (Solo herramientas).
+| {si} Híbrido (Herramientas + revisión manual experta).
+| {no} Estático (Solo herramientas).
 
 a|==== Equipo
 a|* link:../../blog/una-dosis-de-offsec-oscp/[+OSCP+.]
@@ -109,7 +109,7 @@ a|{no}  Ambigüedad o falta de detalle en la superficie de ataque:
 * Para aplicaciones, según el número de aplicaciones.
 
 a|==== Lenguajes heredados
-a|{yes} Hackeamos aplicaciones heredadas 
+a|{si} Hackeamos aplicaciones heredadas 
 construidas en lenguajes antiguos como:
 
 * link:../../defends/#cobol[+COBOL+]. 
@@ -178,7 +178,7 @@ a|{si} Algunas de las evidencias más relevantes son:
 
 * Imágenes del ataque con anotaciones aclaratorias.
 * +GIF+ animado del ataque 
-(link:../../productos/integrates/#evidencias-de-la-vulnerabilidad[Ejemplo]).
+(link:../../productos/integrates/#evidencias-de-la-vulnerabilidad[ejemplo]).
 a|{no} En el caso de otros proveedores.
 
 * Imágenes sin anotaciones.
@@ -200,7 +200,7 @@ entorno disponible y la autorización apropiada.
 a|==== Exploits personalizados 
 | {si} Usando nuesto motor de explotacion propio 
 [button]#link:../../productos/asserts/[Asserts]# 
-(link:../../productos/integrates/#exploit-de-la-vulnerabilidad[Ejemplo]).
+(link:../../productos/integrates/#exploit-de-la-vulnerabilidad[ejemplo]).
 | {no}
 
 a|==== Correlación
@@ -233,14 +233,14 @@ a|==== Remediación
 a|* Durante el proyecto puede solicitar aclaraciones 
 directamente a los hackers mediante 
 [button]#link:../../productos/integrates/[Integrates]# 
-(link:../../productos/integrates/#aclaraciones-de-dudas-sobre-las-vulnerabilidades[Ejemplo]).
+(link:../../productos/integrates/#aclaraciones-de-dudas-sobre-las-vulnerabilidades[ejemplo]).
 * Puede utilizar nuestras guias detalladas de remediación 
 mediante [button]#link:../../productos/defends/[Defends]#  
-(link:../../defends/java/limitar-vida-variable/[Ejemplo]).
+(link:../../defends/java/limitar-vida-variable/[ejemplo]).
 | {no}
 
 a|==== Fin
-|{yes} El servicio finaliza cuando se logre el alcance acordado sin aumentar precios.
+|{si} El servicio finaliza cuando se logre el alcance acordado sin aumentar precios.
 |{no} El servicio finaliza cuando el tiempo acordado se agote, 
 por ende el alcance y cobertura del hackeo 
 es indeterminado al finalizar el servicio.
@@ -251,13 +251,14 @@ a|{si} Sistema web de documentación en tiempo real
 que desde el día 1 del proyecto le permite al cliente autogenerar 
 y ver por cada sistema:
 
-* Informe ejecutivo en PDF (link:../../productos/integrates/#generar-informes-ejecutivos[ejemplo]).
-* Informe técnico en XLS.
-* Informe técnico en PDF (link:../../productos/integrates/#generar-informes-tecnicos[ejemplo]).
+* Informe ejecutivo en +PDF+ (link:../../productos/integrates/#generar-informes-ejecutivos[ejemplo]).
+* Informe técnico en +XLS+.
+* Informe técnico en +PDF+ (link:../../productos/integrates/#generar-informes-tecnicos[ejemplo]).
 * Gráficas sobre la seguridad del sistema (link:../../productos/integrates/#graficas-de-estado-del-proyecto[ejemplo]).
 * Métricas sobre la seguridad del sistema (link:../../productos/integrates/#metricas-del-proyecto[ejemplo]).
 a|{no} Disponibles solo al final del proyecto  
 debido a la manualidad en su elaboración:
+
 * Documento en word realizado manualmente
 * Informes de herramientas sin descartar falsos positivos.
 

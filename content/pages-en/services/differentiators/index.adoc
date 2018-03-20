@@ -32,8 +32,8 @@ they are not independent to report the vulnerabilities
 for which they are responsible.
 
 a|==== Method
-| Hybrid (Automated tools + manual expert revision).
-| Static (Automated tools only).
+| {yes} Hybrid (Automated tools + manual expert revision).
+| {no} Static (Automated tools only).
 
 a|==== Team
 a|* +OSCP+.
@@ -103,6 +103,7 @@ according to +TCP+ and +UDP+ open ports.
 * For binaries, according to the size in +MiB+ 
 of the software previously installed.
 a|{no} Ambiguity or lack of detail in the attack surface:
+
 * For infrastructure, according to +IP+ addresses.
 * For applications, according to number of applications.
 
@@ -172,7 +173,7 @@ a|{yes} Some of the most relevant evidences are:
 
 * Images of the attack with explanatory annotations.
 * Animated +GIFs+ of the attack 
-(link:../../products/integrates/#vulnerability-evidences[Example]).
+(link:../../products/integrates/#vulnerability-evidences[example]).
 a|{no} In the case of other suppliers:
 
 * Images without annotations.
@@ -195,13 +196,13 @@ and the appropriate authorization.
 a|==== Custom Exploits
 | {yes} Using our own exploitation engine
 [button]#link:../../products/asserts/[Asserts]# 
-(link:../../products/integrates/#exploit[Example]).
+(link:../../products/integrates/#exploit[example]).
 | {no}
 
 a|==== Correlation
-| By combining vulnerabilities +A+ and +B+ we are able to find 
+| {yes} By combining vulnerabilities +A+ and +B+ we are able to find 
 a new vulnerability +C+ of greater impact which may compromise more registers.
-| Only detects vulnerabilities +A+ and +B+ but it's not able to correlate them. 
+| {no} Only detects vulnerabilities +A+ and +B+ but it's not able to correlate them. 
 
 a|==== Infection
 | {yes} In our [button]#link:../../services/one-shot-hacking/[One shot hacking]# 
@@ -227,7 +228,7 @@ a|==== Remediation
 a|* During the project you can request clarifications 
 directly to our hackers via
 [button]#link:../../products/integrates/[Integrates]# 
-(link:../../products/integrates/#doubts-regarding-the-vulnerabilities[Example]).
+(link:../../products/integrates/#doubts-regarding-the-vulnerabilities[example]).
 * You can use our detailed remediation guides via
 [button]#link:../../products/defends/[Defends]#.
 | {no}
@@ -237,7 +238,7 @@ a|==== End
 without prices augmentation
 |{no} The service ends when the agreed time runs out, 
 therefore the scope and coverage of the hack 
-is indeterminate at the end of the service.
+are indeterminate at the end of the service.
 
 a|==== Deliverables
 a|{yes} Real-time documentation web system
@@ -245,9 +246,9 @@ a|{yes} Real-time documentation web system
 which allows our customers to auto generate and supervise 
 every system since day 1 of the project:
 
-* Executive report in PDF (link:../../products/integrates/#generate-executive-reports[example]).
-* Technical report in XLS.
-* Technical report in PDF (link:../../products/integrates/#generate-technical-reports[example]).
+* Executive report in +PDF+ (link:../../products/integrates/#generate-executive-reports[example]).
+* Technical report in +XLS+.
+* Technical report in +PDF+ (link:../../products/integrates/#generate-technical-reports[example]).
 * Graphics on the security of the system (link:../../products/integrates/#project-status-graphs[example]).
 * Metrics on the security of the system (link:../../products/integrates/#project-statistics[example]).
 
