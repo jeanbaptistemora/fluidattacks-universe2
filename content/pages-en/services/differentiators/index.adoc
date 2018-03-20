@@ -84,9 +84,9 @@ a|* Waterfall
 * Agile
 * +DevOps+ 
 
-[button]#link:../../services/continuous-hacking/[Continuous Hacking]# 
+[button]#link:../../services/continuous-hacking/[Continuous Hacking]#, 
 [button]#link:../../products/integrates/[Integrates]# 
-y [button]#link:../../products/asserts/[Asserts]#
+and [button]#link:../../products/asserts/[Asserts]#
 fit perfect for the last 2 use cases
 | Waterfall
 
@@ -95,8 +95,8 @@ a|==== Coverage
 | {no} Unknown
 
 a|==== Profiling
-| {yes} You decide the security requirements 
-that we will check in the inspection process 
+| {yes} You decide the security requirements that we will check 
+during the hacking service 
 through our product [button]#link:../../products/rules/[Rules]# 
 | {no} Non parameterizable 
 
@@ -145,7 +145,7 @@ a|==== False Positives
 
 a|==== Exploitation
 | {yes} As long as we have an available environment 
-and our client authorization
+and the appropriate authorization
 | {no}
 
 a|==== Custom Exploits
@@ -176,8 +176,8 @@ a|==== Cycles
 | {no}  Only 1
 
 a|==== link:../../blog/replaced-machines/[Leaks]
-| 0% on the agreed link:#scope[scope]
-| ~65% on the agreed link:#scope[scope]
+| {yes} 0% on the agreed link:#scope[scope]
+| {no} ~65% on the agreed link:#scope[scope]
 
 a|==== Remediation
 a|* During the project you can request clarifications 

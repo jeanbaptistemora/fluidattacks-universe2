@@ -86,7 +86,7 @@ a|* Cascada
 * Agil
 * +DevOps+ 
 
-[button]#link:../../servicios/hacking-continuo/[Continuous Hacking]# 
+[button]#link:../../servicios/hacking-continuo/[Continuous Hacking]#, 
 [button]#link:../../productos/integrates/[Integrates]# 
 y [button]#link:../../productos/asserts/[Asserts]#
 son idóneos para los 2 ultimos casos de uso
@@ -150,7 +150,7 @@ a|==== Falsos Positivos
 
 a|==== Explotación 
 | {si} Siempre que se tenga un 
-entorno disponible y autorización
+entorno disponible y la autorización apropiada
 | {no}
 
 a|==== Exploits personalizados 
