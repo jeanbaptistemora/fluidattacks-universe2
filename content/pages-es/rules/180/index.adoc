@@ -1,13 +1,11 @@
 :slug: rules/180/
 :category: rules
-:description: En el presente documento se detallan los requerimientos de seguridad relacionados a los datos sensibles de la organización. El objetivo del presente requerimiento de seguridad es establecer la importancia de cifrar la información sensible almacenada en el sistema.
-:keywords: Requerimiento, Seguridad, Datos, Información, Sensible, Cifrada
+:description: En el presente documento se detallan los requerimientos de seguridad relacionados a la importancia que implica para cualquier sistema enmascarar sus datos. Por lo tanto, se habla sobre la relevancia de enmascarar todos aquellos datos que pertenezcan a ambientes diferentes a producción.
+:keywords: Requerimiento, Seguridad, Enmascarar, Producción, Datos, Ambiente.
 :rules: yes
 
-= REQ.180 Información sensible cifrada
+= REQ.180 Enmascarar datos
 
 == Nombre
 
-La información sensible almacenada debe estar cifrada.
-
-== Soluciones
+Los datos de ambientes diferentes a producción deben estar enmascarados.

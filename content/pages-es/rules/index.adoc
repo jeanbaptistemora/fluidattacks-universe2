@@ -93,7 +93,8 @@
 * link:177/[REQ.177 Almacenar datos de forma segura].
 * link:178/[REQ.178 Utilizar firmas digitales].
 * link:179/[REQ.179 Definir frecuencia de respaldo].
-* link:180/[REQ.180 Información sensible cifrada].
+* link:180/[REQ.180 Enmascarar datos].
+* link:185/[REQ.185 Información sensible cifrada].
 * link:998/[REQ.998 Limitar tiempo de vida de variables].
 * link:999/[REQ.999 Limitar tiempo de vida de recursos].
 
