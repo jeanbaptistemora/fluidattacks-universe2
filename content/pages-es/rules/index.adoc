@@ -106,6 +106,7 @@
 * link:190/[REQ.190 Usar datos para el propósito indicado].
 * link:191/[REQ.191 Proteger datos con el máximo nivel].
 * link:192/[REQ.192 Cifrar datos de respaldo].
+* link:193/[REQ.193 Separar datos de respaldo de su origen].
 * link:998/[REQ.998 Limitar tiempo de vida de variables].
 * link:999/[REQ.999 Limitar tiempo de vida de recursos].
 

@@ -1,0 +1,12 @@
+:slug: rules/193/
+:category: rules
+:description: En el presente documento se detallan los requerimientos de seguridad relacionados al respaldo de información o datos para un determinado sistema, los cuales, deben ser almacenados en lugares geográficamente distantes respecto al sitio de origen, disminuyendo un posible robo de información.
+:keywords: Requerimiento, Seguridad, Sistema, Datos, Respaldo, Origen.
+:rules: yes
+
+= REQ.193 Separar datos de respaldo de su origen
+
+== Nombre
+
+Los datos de respaldos deben almacenarse 
+fuera del sitio origen (sedes geográficamente distantes).
