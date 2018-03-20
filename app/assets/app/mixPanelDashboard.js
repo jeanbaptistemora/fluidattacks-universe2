@@ -1,3 +1,4 @@
+/*globals mixPanelDashboard:true, location, mixpanel, $ */
 /**
  * @file mixPanelDashboard.js
  * @author engineering@fluidattacks.com
@@ -5,35 +6,38 @@
 /*
  * Object to control mixpanel calls
  */
-mixPanelDashboard = {}; 
+mixPanelDashboard = {};
 /*
  * MixPanel localhost Fixer
  */
-mixPanelDashboard.isProduction = function(){
+var result;
+mixPanelDashboard.isProduction = function () {
     result = false;
-    try{
-        result = location.toString().indexOf("localhost:8000") != -1;
-    }catch(e){
+    try {
+        result = location.toString().indexOf("localhost:8000") !== -1;
+    } catch (e) {
         result = false;
-    }finally{
+    } finally {
         return result;
     }
 };
 
-mixPanelDashboard.trackSearch = function(trackName, userEmail, project){
-    if(mixPanelDashboard.isProduction()) return false;
+mixPanelDashboard.trackSearch = function (trackName, userEmail, project) {
+    if (mixPanelDashboard.isProduction()) { return false; }
     mixpanel.track(
-        trackName, {
+        trackName,
+        {
             "Email": userEmail,
             "Project": project
         }
     );
 };
 
-mixPanelDashboard.trackReadEventuality = function(userName, userEmail, Organization, project, id){
-    if(mixPanelDashboard.isProduction()) return false;
+mixPanelDashboard.trackReadEventuality = function (userName, userEmail, Organization, project, id) {
+    if (mixPanelDashboard.isProduction()) { return false; }
     mixpanel.track(
-        "ReadEventuality", {
+        "ReadEventuality",
+        {
             "Name": userName,
             "Email": userEmail,
             "Organization": Organization,
@@ -43,10 +47,11 @@ mixPanelDashboard.trackReadEventuality = function(userName, userEmail, Organizat
     );
 };
 
-mixPanelDashboard.trackReports = function(trackName, userName, userEmail, Organization, project){
-    if(mixPanelDashboard.isProduction()) return false;
+mixPanelDashboard.trackReports = function (trackName, userName, userEmail, Organization, project) {
+    if (mixPanelDashboard.isProduction()) { return false; }
     mixpanel.track(
-        trackName, {
+        trackName,
+        {
             "Name": userName,
             "Email": userEmail,
             "Organization": Organization,
@@ -55,20 +60,22 @@ mixPanelDashboard.trackReports = function(trackName, userName, userEmail, Organi
     );
 };
 
-mixPanelDashboard.trackFinding = function(trackName, userEmail, id){
-    if(mixPanelDashboard.isProduction()) return false;
+mixPanelDashboard.trackFinding = function (trackName, userEmail, id) {
+    if (mixPanelDashboard.isProduction()) { return false; }
     mixpanel.track(
-        trackName, {
+        trackName,
+        {
             "Email": userEmail,
             "FindingID": id
         }
     );
 };
 
-mixPanelDashboard.trackFindingDetailed = function(trackName, userName, userEmail, Organization, project, id){
-    if(mixPanelDashboard.isProduction()) return false;
+mixPanelDashboard.trackFindingDetailed = function (trackName, userName, userEmail, Organization, project, id) {
+    if (mixPanelDashboard.isProduction()) { return false; }
     mixpanel.track(
-        trackName, {
+        trackName,
+        {
             "Name": userName,
             "Email": userEmail,
             "Organization": Organization,

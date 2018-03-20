@@ -1,3 +1,5 @@
+/*globals integrates, BASE,  $ */
+"use strict";
 /**
  * @file routes.js
  * @author engineering@fluidattacks.com
@@ -9,7 +11,7 @@
  * @param {Object} $urlRouterProvider
  * @return {undefined}
  */
-integrates.config(function($stateProvider, $urlRouterProvider) {
+integrates.config(function ($stateProvider, $urlRouterProvider) {
     $urlRouterProvider.otherwise('home');
 
     $stateProvider
@@ -72,12 +74,12 @@ integrates.config(function($stateProvider, $urlRouterProvider) {
             url: '/forms',
             templateUrl: BASE.url + 'forms',
             controller: 'formCtrl'
-        })
+        });
 });
-integrates.config(function($sceDelegateProvider) {
+integrates.config(function ($sceDelegateProvider) {
     $sceDelegateProvider.resourceUrlWhitelist([
-      'self',
-      '/assets/views/project/eventualityMdl.html',
-      'https://fluidattacks.com/**',
+        'self',
+        '/assets/views/project/eventualityMdl.html',
+        'https://fluidattacks.com/**',
     ]);
 });
