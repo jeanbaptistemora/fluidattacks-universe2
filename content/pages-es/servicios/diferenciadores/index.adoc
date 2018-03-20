@@ -96,14 +96,23 @@ a|{si} 1 servicio todas las técnicas:
 |{no} Solo 1 técnica por producto.
 
 a|==== Alcance 
-a|* Para infraestructura, según puertos abiertos +TCP+ y +UDP+.
+a|{si} Precisión y granularidad en la superficie de ataque:
+
+* Para infraestructura (redes, servidores, etc), 
+según puertos abiertos +TCP+ y +UDP+.
 * Para aplicaciones, según entradas (campos visibles, ocultos y cabeceras).
-* Para código fuente, según líneas de código (+LoC+) estrictamente efectivas .
-a|* Para infraestructura, según direcciones +IP+.
+* Para código fuente, según líneas de código (+LoC+) estrictamente efectivas.
+* Para binarios, según tamaño en +MiB+ del software ya instalado.
+a|{no}  Ambigüedad o falta de detalle en la superficie de ataque:
+
+* Para infraestructura, según direcciones +IP+.
 * Para aplicaciones, según el número de aplicaciones.
 
 a|==== Lenguajes heredados
-a|* link:../../defends/#cobol[+COBOL+]. 
+a|{yes} Hackeamos aplicaciones heredadas 
+construidas en lenguajes antiguos como:
+
+* link:../../defends/#cobol[+COBOL+]. 
 * +RPG+.
 * +PL1+.
 * +TAL+.
@@ -166,9 +175,10 @@ a|* Basado en firmas.
 
 a|==== Tipo de Evidencia 
 a|{si} Algunas de las evidencias más relevantes son:
+
 * Imágenes del ataque con anotaciones aclaratorias.
-* +GIF+ animado del ataque.
-link:../../productos/integrates/#evidencias-de-la-vulnerabilidad[Ejemplo]
+* +GIF+ animado del ataque 
+(link:../../productos/integrates/#evidencias-de-la-vulnerabilidad[Ejemplo]).
 a|{no} En el caso de otros proveedores.
 
 * Imágenes sin anotaciones.
@@ -189,8 +199,8 @@ entorno disponible y la autorización apropiada.
 
 a|==== Exploits personalizados 
 | {si} Usando nuesto motor de explotacion propio 
-[button]#link:../../productos/asserts/[Asserts]#.
-link:../../productos/integrates/#exploit-de-la-vulnerabilidad[Ejemplo].
+[button]#link:../../productos/asserts/[Asserts]# 
+(link:../../productos/integrates/#exploit-de-la-vulnerabilidad[Ejemplo]).
 | {no}
 
 a|==== Correlación
@@ -222,17 +232,33 @@ a|==== link:../../blog/desplazados-maquinas/[Fugas]
 a|==== Remediación
 a|* Durante el proyecto puede solicitar aclaraciones 
 directamente a los hackers mediante 
-[button]#link:../../productos/integrates/[Integrates]#. 
-link:../../productos/integrates/#aclaraciones-de-dudas-sobre-las-vulnerabilidades[Ejemplo]
+[button]#link:../../productos/integrates/[Integrates]# 
+(link:../../productos/integrates/#aclaraciones-de-dudas-sobre-las-vulnerabilidades[Ejemplo]).
 * Puede utilizar nuestras guias detalladas de remediación 
-mediante [button]#link:../../productos/defends/[Defends]#. 
-link:../../defends/java/limitar-vida-variable/[Ejemplo].
+mediante [button]#link:../../productos/defends/[Defends]#  
+(link:../../defends/java/limitar-vida-variable/[Ejemplo]).
 | {no}
 
+a|==== Fin
+|{yes} El servicio finaliza cuando se logre el alcance acordado sin aumentar precios.
+|{no} El servicio finaliza cuando el tiempo acordado se agote, 
+por ende el alcance y cobertura del hackeo 
+es indeterminado al finalizar el servicio.
+
 a|==== Entregables 
-| Sistema web de documentación en tiempo real 
-[button]#link:../../productos/integrates/[Integrates]#.
-a|* Documento en word realizado manualmente
+a|{si} Sistema web de documentación en tiempo real
+[button]#link:../../productos/integrates/[Integrates]#
+que desde el día 1 del proyecto le permite al cliente autogenerar 
+y ver por cada sistema:
+
+* Informe ejecutivo en PDF (link:../../productos/integrates/#generar-informes-ejecutivos[ejemplo]).
+* Informe técnico en XLS.
+* Informe técnico en PDF (link:../../productos/integrates/#generar-informes-tecnicos[ejemplo]).
+* Gráficas sobre la seguridad del sistema (link:../../productos/integrates/#graficas-de-estado-del-proyecto[ejemplo]).
+* Métricas sobre la seguridad del sistema (link:../../productos/integrates/#metricas-del-proyecto[ejemplo]).
+a|{no} Disponibles solo al final del proyecto  
+debido a la manualidad en su elaboración:
+* Documento en word realizado manualmente
 * Informes de herramientas sin descartar falsos positivos.
 
 a|==== Precios

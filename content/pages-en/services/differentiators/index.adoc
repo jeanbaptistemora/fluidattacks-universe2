@@ -24,7 +24,7 @@ a|==== Focus
 because they do other things besides hacking.
 
 a|==== Independence
-| {yes} We only hack, we don't solve, repair nor install any kind of control, 
+| {yes} We don't solve, repair nor install any kind of control, 
 thus we always report all the vulnerabilities with the maximum independence.
 | {no} Since other providers develop, maintain, install 
 or operate security controls such as +SOC+, +NAC+, +Firewalls+ etc, 
@@ -93,15 +93,23 @@ a|{yes} 1 service, all the techniques:
 | {no} Only 1 technique per product.
 
 a|==== Scope
-a|* For infrastructure, according to +TCP+ and +UDP+ open ports.
+a|{yes} Precision and granularity in the attack surface:
+
+* For infrastructure (networks, servers, etc), 
+according to +TCP+ and +UDP+ open ports.
 * For applications, according to inputs
 (visible fields, hidden fields, and headers).
 * For source code, according to strictly effectives lines of code (+LoC+).
-a|* For infrastructure, according to +IP+ addresses.
+* For binaries, according to the size in +MiB+ 
+of the software previously installed.
+a|{no} Ambiguity or lack of detail in the attack surface:
+* For infrastructure, according to +IP+ addresses.
 * For applications, according to number of applications.
 
 a|==== Legacy Languages
-a|* +COBOL+. 
+a|{yes} We hack legacy applications coded in old-established languages, such as:
+
+* +COBOL+. 
 * +RPG+.
 * +PL1+.
 * +TAL+.
@@ -161,9 +169,10 @@ a|* Based on signatures.
 
 a|==== Type of Evidences
 a|{yes} Some of the most relevant evidences are:
+
 * Images of the attack with explanatory annotations.
-* Animated +GIFs+ of the attack.
-link:../../products/integrates/#vulnerability-evidences[Example]
+* Animated +GIFs+ of the attack 
+(link:../../products/integrates/#vulnerability-evidences[Example]).
 a|{no} In the case of other suppliers:
 
 * Images without annotations.
@@ -185,8 +194,8 @@ and the appropriate authorization.
 
 a|==== Custom Exploits
 | {yes} Using our own exploitation engine
-[button]#link:../../products/asserts/[Asserts]#. 
-link:../../products/integrates/#exploit[Example].
+[button]#link:../../products/asserts/[Asserts]# 
+(link:../../products/integrates/#exploit[Example]).
 | {no}
 
 a|==== Correlation
@@ -217,16 +226,35 @@ a|==== link:../../blog/replaced-machines/[Leaks]
 a|==== Remediation
 a|* During the project you can request clarifications 
 directly to our hackers via
-[button]#link:../../products/integrates/[Integrates]#. 
-link:../../products/integrates/#doubts-regarding-the-vulnerabilities[Example]
+[button]#link:../../products/integrates/[Integrates]# 
+(link:../../products/integrates/#doubts-regarding-the-vulnerabilities[Example]).
 * You can use our detailed remediation guides via
 [button]#link:../../products/defends/[Defends]#.
 | {no}
 
+a|==== End
+|{yes} Our service ends when the agreed scope is reached, 
+without prices augmentation
+|{no} The service ends when the agreed time runs out, 
+therefore the scope and coverage of the hack 
+is indeterminate at the end of the service.
+
 a|==== Deliverables
-| Real-time documentation web system
-[button]#link:../../products/integrates/[Integrates]#.
-a|* Manually-made Word document.
+a|{yes} Real-time documentation web system
+[button]#link:../../products/integrates/[Integrates]# 
+which allows our customers to auto generate and supervise 
+every system since day 1 of the project:
+
+* Executive report in PDF (link:../../products/integrates/#generate-executive-reports[example]).
+* Technical report in XLS.
+* Technical report in PDF (link:../../products/integrates/#generate-technical-reports[example]).
+* Graphics on the security of the system (link:../../products/integrates/#project-status-graphs[example]).
+* Metrics on the security of the system (link:../../products/integrates/#project-statistics[example]).
+
+a|{no} Available only at the end of the project due to 
+its manual elaboration.
+
+* Word document.
 * Tool reports without discarding false positives.
 
 a|==== Pricing
