@@ -1,0 +1,12 @@
+:slug: rules/187/
+:category: rules
+:description: En el presente documento se detallan los requerimientos de seguridad relacionados a la recolección activa de datos personales siempre y cuando esta cuente con la respectiva autorización del usuario dueño de la misma. Lo anterior según lo estipulado en OECD.7 y en ISACA.G31.1.
+:keywords: Requerimiento, Seguridad, Acceso, Datos personales, Recolección, Usuario.
+:rules: yes
+
+= REQ.187 Recolección de datos debe ser autorizada
+
+== Nombre
+
+La recolección activa de datos personales debe ser autorizada 
+por el usuario dueño de la información (+OECD.7+, +ISACA.G31.1.+).
