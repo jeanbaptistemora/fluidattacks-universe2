@@ -1,0 +1,12 @@
+:slug: rules/179/
+:category: rules
+:description: En el presente documento se detallan los requerimientos de seguridad relacionados a la importancia que implica realizar copias de seguridad o respaldos de información para un determinado sistema; definiendo un periodo o frecuencia para realizar dicha acción.
+:keywords: Requerimiento, Seguridad, Periodo, Frecuencia, Respaldo, Copia de seguridad.
+:rules: yes
+
+= REQ.179 Definir frecuencia de respaldo
+
+== Nombre
+
+La organización debe definir el periodo de frecuencia 
+para ejecutar el respaldo a cada sistema de información.
