@@ -100,7 +100,7 @@ se garantiza el pago mínimo de las siguientes 96 horas de entrenamiento reporta
 . Inicialmente se le ofrece un primer ciclo de entrenamiento,
 . Al final de cada ciclo puede ocurrir lo siguiente:
 .. No indicar nada, con lo cual puede asumir que el ciclo de formación se renueva una semana más.
-.. Notificar que no deseamos continuar con otro ciclo y por ende suspender el proceso,
+.. Notificar que no deseamos continuar con otro ciclo y por ende finalizar el proceso,
 .. Formalizar que no deseamos continuar con otro ciclo,
 debido a que queremos adelantar la etapa siguiente,
 . Lo usual es que se requiera entre 8 y 12 ciclos antes de comenzar la última etapa,
