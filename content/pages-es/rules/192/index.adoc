@@ -1,0 +1,11 @@
+:slug: rules/192/
+:category: rules
+:description: En el presente documento se detallan los requerimientos de seguridad relacionados al respaldo de información o datos para un determinado sistema, los cuales, antes de ser almacenados, y con el fin de evitar vulnerabilidades de seguridad, deben pasar por un proceso de cifrado seguro.
+:keywords: Requerimiento, Seguridad, Sistema, Datos, Respaldo, Cifrado.
+:rules: yes
+
+= REQ.192 Cifrar datos de respaldo
+
+== Nombre
+
+Los datos de respaldos deben almacenarse cifrados.
