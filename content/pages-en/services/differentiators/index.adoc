@@ -18,20 +18,22 @@
 | FLUIDAttacks
 | Others
 
+a|==== Focus 
+| {yes} We only hack, all day, all projects, all hackers
+| {no} Only from time to time, 
+because they do others things apart from hacking
+
+a|==== Independence
+| {yes} We only hack, we don't solve, repair nor install any kind of control, 
+thus we always report all the vulnerabilities with the maximum independence
+| {no} Since other providers develop, maintain, install 
+or operate security controls such as +SOC+, +NAC+, +Firewalls+ etc, 
+they are not independent to report the vulnerabilities 
+for which they are responsible.
+
 a|==== Method
 | Hybrid (Automated tools + manual expert revision)
 | Static (Automated tools only)
-
-a|==== Development Method
-a|* Waterfall
-* Agile
-* +DevOps+ 
-
-[button]#link:../../services/continuous-hacking/[Continuous Hacking]# 
-[button]#link:../../products/integrates/[Integrates]# 
-y [button]#link:../../products/asserts/[Asserts]#
-fit perfect for the last 2 use cases
-| Waterfall
 
 a|==== Team
 a|* +OSCP+
@@ -58,12 +60,9 @@ a|* Web applications
 * +IoT+ Devices
 * Industrial Control Systems (+ICS+)
 * Security Operations Centers (+SOC+)
-| Web
-
-a|==== Focus 
-| {yes} We only hack, all day, all projects, all hackers
-| {no} Only from time to time, 
-because they do others things apart from hacking
+a|* Web applications
+* Servers
+* Networks
 
 a|==== Scope
 a|* For infrastructure, according to +TCP+ and +UDP+ open ports
@@ -80,18 +79,29 @@ a|* +COBOL+
 * +TAL+
 | {no} No support
 
+a|==== Development Method
+a|* Waterfall
+* Agile
+* +DevOps+ 
+
+[button]#link:../../services/continuous-hacking/[Continuous Hacking]# 
+[button]#link:../../products/integrates/[Integrates]# 
+y [button]#link:../../products/asserts/[Asserts]#
+fit perfect for the last 2 use cases
+| Waterfall
+
 a|==== Coverage
-| Known (arranged or resulting)
+| {yes} Known (arranged or resulting)
 | {no} Unknown
 
 a|==== Profiling
-| You decide the security requirements 
+| {yes} You decide the security requirements 
 that we will check in the inspection process 
 through our product [button]#link:../../products/rules/[Rules]# 
 | {no} Non parameterizable 
 
 a|==== Strictness
-| You will know the exact strictness of the hacking
+| {yes} You will know the exact strictness of the hacking
 (For inspected and non inspected code)
 | {no} Unknown
 
@@ -106,7 +116,8 @@ a|* Staging
 * Production
 
 a|==== Windows
-| {yes} In the +CH+ service, environments can constantly change, 
+| {yes} In the [button]#link:../../services/continuous-hacking/[Continuous Hacking]# 
+service, environments can constantly change, 
 not necessarily are frozen and windows are not required for the tests
 | {no} Frozen environments and test windows are required
 
@@ -148,12 +159,19 @@ a|==== Correlation
 a new vulnerability +C+ of greater impact which may compromise more registers
 | Only detects vulnerabilities +A+ and +B+ but it's not able to correlate them 
 
+a|==== Infection
+| {yes} In our [button]#link:../../services/one-shot-hacking/[One shot hacking]# 
+service we infect stations and critical servers 
+using our custom cyberweapon
+[button]#link:../../products/commands/[Commands]#
+| {no} Don't infect or dispose of custom cyberweapons.
+
 a|==== Compromised Records
 | {yes} link:../../products/integrates/#compromised-records[Example]
 | {no}
 
 a|==== Cycles
-| Multiple cyles in our service 
+| {yes} Multiple cycles in our service 
 [button]#link:../../services/continuous-hacking/[Continuous Hacking]#
 | {no}  Only 1
 
@@ -175,4 +193,9 @@ a|==== Deliverables
 [button]#link:../../products/integrates/[Integrates]#
 a|* Manually-made Word document
 * Tool reports without discarding false positives
+
+a|==== Pricing
+| {yes} Fixed price
+| {no} Variable price (Time and materials)
+
 |====

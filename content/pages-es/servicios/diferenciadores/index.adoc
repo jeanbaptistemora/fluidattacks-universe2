@@ -18,20 +18,25 @@
 | FLUIDAttacks
 | Otros
 
+a|==== Foco
+| {si} Nos dedicamos únicamente a hackear, 
+todo el día y en todos los proyectos
+| {no} Sólo de vez en cuando, 
+deben ocuparse de otras cosas además de hackear
+
+a|==== Independencia
+| {si} Solo hackeamos, no remediamos, reparamos, 
+ni instalamos controles de ningún tipo, 
+por ende siempre reportamos con independencia 
+todas las vulnerabilidades
+| {no} Dado que otros proveedores desarrollan, mantienen, instalan 
+u operan controles de seguridad como +SOC+, +NAC+, +Firewalls+ etc, 
+no son independientes para reportar las vulnerabilidades 
+de las que ellos son responsables.
+
 a|==== Método
 | Híbrido (Herramientas + revisión manual experta)
 | Estático (Solo herramientas)
-
-a|==== Metodologías de desarrollo
-a|* Cascada
-* Agil
-* +DevOps+ 
-
-[button]#link:../../servicios/hacking-continuo/[Continuous Hacking]# 
-[button]#link:../../productos/integrates/[Integrates]# 
-y [button]#link:../../productos/asserts/[Asserts]#
-son idóneos para los 2 ultimos casos de uso
-| Cascada
 
 a|==== Equipo
 a|* link:../../blog/una-dosis-de-offsec-oscp/[+OSCP+]
@@ -58,14 +63,9 @@ a|* Aplicaciones web
 * Dispositivos +IoT+
 * Sistemas de control industrial (+ICS+)
 * Centros de operaciones en seguridad (+SOC+)
-a|Web
-
-a|==== Foco
-| {si} Nos dedicamos únicamente a hackear, 
-todo el día y en todos los proyectos
-| {no} Sólo de vez en cuando, 
-deben ocuparse de otras cosas además de hackear
-
+a|* Aplicaciones web
+* Servidores
+* Redes
 
 a|==== Alcance 
 a|* Para infraestructura, según puertos abiertos +TCP+ y +UDP+
@@ -75,25 +75,36 @@ a|* Para infraestructura, según direcciones +IP+
 * Para aplicaciones, según el número de aplicaciones
 
 a|==== Lenguajes heredados
-a|* +COBOL+ 
+a|* link:../../defends/#cobol[+COBOL+] 
 * +RPG+
 * +PL1+
 * +TAL+
 | {no} Sin soporte 
 
+a|==== Metodologías de desarrollo
+a|* Cascada
+* Agil
+* +DevOps+ 
+
+[button]#link:../../servicios/hacking-continuo/[Continuous Hacking]# 
+[button]#link:../../productos/integrates/[Integrates]# 
+y [button]#link:../../productos/asserts/[Asserts]#
+son idóneos para los 2 ultimos casos de uso
+| Cascada
+
 a|==== Cobertura 
-| Conocida (acordada o resultante)
+| {si} Conocida (acordada o resultante)
 | {no} Desconocida
 
 a|==== Perfilamiento
-| Usted decide los requisitos de seguridad 
+| {si} Usted decide los requisitos de seguridad 
 que revisaremos en el hacking
 a través de nuestro producto [button]#link:../../productos/rules/[Rules]#
 | {no} No parametrizable
 
 a|==== Rigurosidad
 
-| Usted sabrá la rigurosidad exacta del hackeo 
+| {si} Usted sabrá la rigurosidad exacta del hackeo 
 (lo revisado y lo no revisado)
 | {no} Desconocida
 
@@ -108,7 +119,9 @@ a|* Pruebas
 * Producción
 
 a|==== Ventanas
-| {si} En el servicio de +CH+ los ambientes pueden cambiar constantemente, 
+| {si} En el servicio de 
+[button]#link:../../servicios/hacking-continuo/[Continuous Hacking]# 
+los ambientes pueden cambiar constantemente, 
 no estar congelados y no se requiere ventanas para la prueba
 | {no} Se requieren ambientes congelados y ventanas de prueba
 
@@ -142,27 +155,35 @@ entorno disponible y autorización
 
 a|==== Exploits personalizados 
 | {si} Usando nuesto motor de explotacion propio 
-[button]#link:../../productos/asserts/[Asserts]# .
+[button]#link:../../productos/asserts/[Asserts]#.
 link:../../productos/integrates/#exploit-de-la-vulnerabilidad[Ejemplo]
 | {no}
 
 a|==== Correlación
-| Combinando las vulnerabilidades +A+ y +B+ encontrar una +C+ 
+| {si} Combinando las vulnerabilidades +A+ y +B+ encontrar una +C+ 
 de mayor impacto que permite comprometer más registros
-| Solo detecta vulnerabilidades +A+ y +B+ pero no puede correlacionarlas
+| {no} Solo detecta vulnerabilidades +A+ y +B+ pero no puede correlacionarlas
+
+a|==== Infección
+| {si} En nuestro servicio de 
+[button]#link:../../servicios/hacking-puntual/[Hacking puntual]# 
+se infectan estaciones y servidores críticos 
+con nuestro troyano personalizado 
+[button]#link:../../productos/commands/[Commands]#
+| {no} No infectan o no disponen de troyano personalizado.
 
 a|==== Registros Comprometidos
 | {si} link:../../productos/integrates/#registros-comprometidos[Ejemplo]
 | {no}
 
 a|==== Ciclos
-| Multiples en nuestro servicio 
+| {si} Multiples en nuestro servicio 
 [button]#link:../../servicios/hacking-continuo/[Continuous Hacking]#
 | {no} Solo 1
 
 a|==== link:../../blog/desplazados-maquinas/[Fugas] 
-| 0% sobre el link:#alcance[alcance] acordado
-| ~65% sobre el link:#alcance[alcance] acordado
+| {si} 0% sobre el link:#alcance[alcance] acordado
+| {no} ~65% sobre el link:#alcance[alcance] acordado
 
 a|==== Remediación
 a|* Durante el proyecto puede solicitar aclaraciones 
@@ -179,4 +200,9 @@ a|==== Entregables
 [button]#link:../../productos/integrates/[Integrates]#
 a|* Documento en word realizado manualmente
 * Informes de herramientas sin descartar falsos positivos
+
+a|==== Precios
+| {si} Precio fijo
+| {no} Precio variable (Tiempo y materiales)
+
 |====
