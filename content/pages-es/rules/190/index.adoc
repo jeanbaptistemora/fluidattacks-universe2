@@ -1,0 +1,12 @@
+:slug: rules/190/
+:category: rules
+:description: En el presente documento se detallan los requerimientos de seguridad relacionados a los datos recolectados por un determinado sistema, los cuales, sólo deben ser usados para el propósito para el cual fueron recolectados. Lo anterior se debe cumplir según lo estipulado en OECD.10 y en ISACA.G31.4.
+:keywords: Requerimiento, Seguridad, Sistema, Datos personales, Recolección, Propósito.
+:rules: yes
+
+= REQ.190 Usar datos para el propósito indicado
+
+== Nombre
+
+El sistema debe usar los datos personales 
+sólo para el propósito indicado (+OECD.10+, +ISACA.G31.4.+).

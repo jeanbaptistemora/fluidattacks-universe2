@@ -103,6 +103,7 @@
 * link:187/[REQ.187 Recolección de datos debe ser autorizada].
 * link:188/[REQ.188 Actualizar datos personales].
 * link:189/[REQ.189 Especificar recolección de datos personales].
+* link:190/[REQ.190 Usar datos para el propósito indicado].
 * link:998/[REQ.998 Limitar tiempo de vida de variables].
 * link:999/[REQ.999 Limitar tiempo de vida de recursos].
 
