@@ -334,6 +334,14 @@ msgstr "terms-use"
 msgid "Footer-subtitle-1.6"
 msgstr "Terms of Use"
 
+#: templates/footer.html:24
+msgid "Footer-link-1.7"
+msgstr "partners"
+
+#: templates/footer.html:24
+msgid "Footer-subtitle-1.7"
+msgstr "Partners"
+
 #: templates/footer.html:26 templates/footer.html:27 templates/footer.html:28
 #: templates/footer.html:29
 msgid "Footer-cat-1"

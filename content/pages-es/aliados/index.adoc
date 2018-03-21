@@ -1,6 +1,6 @@
 :slug: aliados/
 :category: aliados
-:description: FLUID es una compañía especializada en seguridad informática, ethical hacking, pruebas de intrusión y detección de vulnerabilidades en aplicaciones con más de 18 años prestando sus servicios en el mercado colombiano. En esta página presentamos nuestras soluciones en el sector comercial.
+:description: FLUID es una compañía especializada en seguridad informática, ethical hacking, pruebas de intrusión y detección de vulnerabilidades en aplicaciones con más de 18 años prestando sus servicios en el mercado colombiano. En esta página presentamos nuestros principales aliados comerciales.
 :keywords: FLUID, Aliados, Comercial, Seguridad, Pentesting, Ethical Hacking.
 :translate: partners/
 
@@ -36,5 +36,27 @@ Proveedor de soluciones de tecnología de la información, prestan servicios par
 infraestructuras, seguridad, backup/recuperación de desastres, comunicaciones y 
 servicios en la nube. Reconocido como líder de la industria y acreditado con los
 más altos niveles en el diseño, entrega y soporte de las últimas tecnologías.
+
+a|== GreenSQA
+
+Empresa especializada en pruebas de software, 
+entre ellas se destacan las pruebas de desempeño, 
+pruebas en dispositivos móviles y la automatización de pruebas  
+a través de todo el ciclo de vida de desarrollo del producto, 
+contando con 15 años de experiencia prestando sus servicios.
+
+^.^a|image:logo-greensqa.png[logo greensqa, width=55%, link=http://greensqa.com/]
+
+^.^a|image:logo-newnet.png[logo newnet, width=55%, link=http://www.newnetsa.com/]
+
+a|== NewNet
+
+Empresa colombiana dedicada a prestar servicios y soluciones en +TI+, 
+pionera en el sector de tecnologías de infomación, 
+con más de 20 años de experiencia. 
+Su objetivo es planificar, establecer, implementar, 
+operar, revisar, mantener, y mejorar la gestión tecnológica 
+dentro de un marco de seguridad, servicio, atención y soporte 
+acorde a las necesidades de cada organización.
 
 |====

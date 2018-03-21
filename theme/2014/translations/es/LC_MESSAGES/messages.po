@@ -336,6 +336,14 @@ msgstr "terminos-uso"
 msgid "Footer-subtitle-1.6"
 msgstr "Términos de Uso"
 
+#: templates/footer.html:24
+msgid "Footer-link-1.7"
+msgstr "aliados"
+
+#: templates/footer.html:24
+msgid "Footer-subtitle-1.7"
+msgstr "Aliados"
+
 #: templates/footer.html:26 templates/footer.html:27 templates/footer.html:28
 #: templates/footer.html:29
 msgid "Footer-cat-1"
