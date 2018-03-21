@@ -1,0 +1,11 @@
+:slug: rules/139/
+:category: rules
+:description: En el presente documento se detallan los requerimientos de seguridad relacionados a la importancia de definir la longitud mínima para las claves de un sólo uso dentro del sistema. Por lo tanto, se recomienda establecer un valor superior o igual a 6 caracteres.
+:keywords: Requerimiento, Seguridad, Longitud, Clave, Caracteres, Mínima.
+:rules: yes
+
+= REQ.139 Establecer longitud mínima de clave
+
+== Nombre
+
+Las claves de un sólo uso deben tener una longitud mínima de 6 caracteres.
