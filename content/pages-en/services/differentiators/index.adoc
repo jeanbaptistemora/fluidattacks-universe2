@@ -24,7 +24,7 @@ a|==== Focus
 because they do other things besides hacking.
 
 a|==== Independence
-| {yes} We don't solve, repair nor install any kind of control, 
+| {yes} We don't solve nor install any kind of control, 
 thus we always report all the vulnerabilities with the maximum independence.
 | {no} Since other providers develop, maintain, install 
 or operate security controls such as +SOC+, +NAC+, +Firewalls+ etc, 
@@ -44,13 +44,13 @@ Additionally our hackers are excellent programmers,
 allowing us to maximize the depth of the tests.
 | {no} None.
 
-a|==== CTF winners
-| {yes} In the 100% of the selection processes 
-made by providers (4) using +CTF+ (Capture the flag) 
-to select their hacking provider 
-FLUID has finished in first place in the technical evaluation. 
-| {no} In some occasions they don't participate in the +CTF+ process, 
-or they finish in second place or lower.
+a|==== Winners
+| {yes} We have always finished in *first (1) place in all (4 of 4)*  
+Capture the Flag (+CTF+) events for suppliers selection 
+made by our customers.
+| {no} They finish in second or third place, 
+or even not participate at all 
+when the selection process involves Capture the Flag (+CTF+).
 
 a|==== Model
 | +Red Team+.
@@ -75,13 +75,13 @@ a|* Web applications.
 a|==== Techniques
 a|{yes} 1 service, all the techniques:
 
-* Fuzzing.
-* DAST (Dynamic Analysis Security Testing).
-* SAST (Static Analysis Security Testing).
-* IAST (Interactive Application Security Testing).
-* SCA (Software Composition Analysis).
+* link:../../blog/fuzzy-bugs-online/[Fuzzing].
+* +DAST+ (Dynamic Analysis Security Testing).
+* +SAST+ (Static Analysis Security Testing).
+* +IAST+ (Interactive Application Security Testing).
+* link:../../blog/stand-shoulders-giants/[+SCA+](Software Composition Analysis).
 * Manual code review.
-* Reversing (if source is not provided).
+* link:../../blog/reversing-mortals/[Reversing] (if source is not provided).
 * False positive elimination.
 * Exploitation with public exploits.
 * Exploitation with private exploits.
@@ -92,7 +92,7 @@ a|{yes} 1 service, all the techniques:
 * Trojan infection.
 | {no} Only 1 technique per product.
 
-a|==== Scope
+a|==== link:../../blog/delimit-ethical-hacking/[Scope]
 a|{yes} Precision and granularity in the attack surface:
 
 * For infrastructure (networks, servers, etc), 
@@ -105,7 +105,8 @@ of the software previously installed.
 a|{no} Ambiguity or lack of detail in the attack surface:
 
 * For infrastructure, according to +IP+ addresses.
-* For applications, according to number of applications.
+* For applications, according to the number of screens 
+and forms of the application.
 
 a|==== Legacy Languages
 a|{yes} We hack legacy applications coded in old-established languages, such as:
@@ -128,8 +129,16 @@ fit perfect for the last 2 use cases.
 | Waterfall.
 
 a|==== Coverage
-| {yes} Known (arranged or resulting).
-| {no} Unknown.
+a|{yes} Known:
+
+* In fixed scopes, it is agreed the exact part of the attack surface 
+that will be verified and its proportion with respect to the total.
+
+* In variable scopes, the exact part of the attack surface 
+that was verified and its proportion 
+with respect to the total is reported at the end.
+| {no} Unknown, because they never accurately report 
+what was tested and what was not.
 
 a|==== Profiling
 | {yes} You decide the security requirements that we will check 
@@ -139,7 +148,8 @@ through our product [button]#link:../../products/rules/[Rules]#.
 
 a|==== Strictness
 | {yes} You will know the exact strictness of the hacking
-(For inspected and non inspected code).
+(For inspected and non inspected 
+link:#profiling[profiled] requirements).
 | {no} Unknown.
 
 a|==== Environments
@@ -153,7 +163,7 @@ a|* Staging.
 * Production.
 
 a|==== Windows
-a|In the [button]#link:../../services/continuous-hacking/[Continuous Hacking]# 
+a|{yes} In the [button]#link:../../services/continuous-hacking/[Continuous Hacking]# 
 service environments:
 
 * Can constantly change.
@@ -189,9 +199,11 @@ a|==== False Positives
 | {no} ~20%
 
 a|==== Exploitation
-| {yes} As long as we have an available environment 
-and the appropriate authorization.
-| {no}
+a|{yes} As long as we have: 
+
+* An available environment. 
+* The appropriate authorization.
+| {no} Without possibilities of create and execute exploits.
 
 a|==== Custom Exploits
 | {yes} Using our own exploitation engine
@@ -212,8 +224,21 @@ using our custom cyberweapon
 | {no} Don't infect or dispose of custom cyberweapons.
 
 a|==== Compromised Records
-| {yes} link:../../products/integrates/#compromised-records[Example].
-| {no}
+a|{yes} After discover a vulnerability and exploit it, 
+we extract the business critical information 
+which evidences a high impact allowing us to show 
+the severity of a vulnerability withouth regarding the technical aspect:
+
+* Users.
+* Passwords.
+* Wages.
+* Personal IDs.
+* Credit card numbers.
+* Files in hard disk.
+* Central repositories without password.
+
+link:../../products/integrates/#compromised-records[Example].
+| {no} No record extraction
 
 a|==== Cycles
 | {yes} Multiple cycles in our service 
@@ -233,13 +258,6 @@ directly to our hackers via
 [button]#link:../../products/defends/[Defends]#.
 | {no}
 
-a|==== End
-|{yes} Our service ends when the agreed scope is reached, 
-without prices augmentation
-|{no} The service ends when the agreed time runs out, 
-therefore the scope and coverage of the hack 
-are indeterminate at the end of the service.
-
 a|==== Deliverables
 a|{yes} Real-time documentation web system
 [button]#link:../../products/integrates/[Integrates]# 
@@ -257,6 +275,13 @@ its manual elaboration.
 
 * Word document.
 * Tool reports without discarding false positives.
+
+a|==== End
+|{yes} Our service ends when the agreed scope is reached, 
+without prices augmentation
+|{no} The service ends when the agreed time runs out, 
+therefore the scope and coverage of the hack 
+are indeterminate at the end of the service.
 
 a|==== Pricing
 | {yes} Fixed price.

@@ -25,7 +25,7 @@ todo el día y en todos los proyectos.
 deben ocuparse de otras cosas además de hackear.
 
 a|==== Independencia
-| {si} Solo hackeamos, no remediamos, reparamos, 
+| {si} Solo hackeamos, no remediamos 
 ni instalamos controles de ningún tipo, 
 por ende siempre reportamos con independencia 
 todas las vulnerabilidades.
@@ -47,13 +47,13 @@ Adicionalmente nuestros hackers son programadores excelentes
 maximizando el nivel de profundidad de la prueba.
 | {no} Ninguno.
 
-a|==== Ganadores CTF
-| {si} El 100% de los procesos de selección de proveedores (4) 
-que han realizado +CTF+ (+Capture the Flag+) 
-para seleccionar su proveedor de hacking 
-FLUID ha finalizado en 1er lugar en la evaluación técnica.
-| {no}  Algunas ocasiones no participan en el +CTF+ 
-o quedan en 2do lugar o inferiores.
+a|==== Ganadores
+| {si} Siempre hemos finalizamos en *primer (1) lugar en todos (4 de 4)* 
+los +Capture the Flag+ (+CTF+) de selección de proveedores 
+realizados por nuestros clientes.
+| {no} Finalizan en segundo o tercer lugar 
+e incluso no participan del proceso de selección 
+cuando éste es con +Capture the Flag+ (+CTF+).
 
 a|==== Modelo 
 | +Red Team+. 
@@ -78,13 +78,15 @@ a|* Aplicaciones web.
 a|==== Técnicas
 a|{si} 1 servicio todas las técnicas:
 
-* +Fuzzing+.
+* link:../../../en/blog/fuzzy-bugs-online/[+Fuzzing+].
 * +DAST+ (Dynamic Analysis Security Testing). 
 * +SAST+ (Static Analysis Security Testing). 
 * +IAST+ (Interactive Application Security Testing). 
-* +SCA+ (Software Composition Analysis).
+* link:../../../en/blog/stand-shoulders-giants/[+SCA+] 
+(Software Composition Analysis).
 * Revisión manual de código.
-* +Reversing+ (Si no se provee el código fuente).
+* link:../../../en/blog/reversing-mortals/[+Reversing+] 
+(Si no se provee el código fuente).
 * Eliminación de falsos positivos.
 * Explotación con exploits públicos.
 * Explotación con exploits privados.
@@ -95,7 +97,7 @@ a|{si} 1 servicio todas las técnicas:
 * Infección utilizando troyanos.
 |{no} Solo 1 técnica por producto.
 
-a|==== Alcance 
+a|==== link:../../blog/dimensionar-ethical-hacking/[Alcance]
 a|{si} Precisión y granularidad en la superficie de ataque:
 
 * Para infraestructura (redes, servidores, etc), 
@@ -106,7 +108,8 @@ según puertos abiertos +TCP+ y +UDP+.
 a|{no}  Ambigüedad o falta de detalle en la superficie de ataque:
 
 * Para infraestructura, según direcciones +IP+.
-* Para aplicaciones, según el número de aplicaciones.
+* Para aplicaciones, según el número de pantallas 
+o formularios de la aplicación.
 
 a|==== Lenguajes heredados
 a|{si} Hackeamos aplicaciones heredadas 
@@ -130,8 +133,16 @@ son idóneos para los 2 últimos casos de uso.
 | Cascada.
 
 a|==== Cobertura 
-| {si} Conocida (acordada o resultante).
-| {no} Desconocida.
+a|{si} Conocida: 
+
+* En alcances fijos se acuerda la parte exacta de la superficie de ataque 
+que será verificada y su proporción respecto al total.
+
+* En alcances variables se reporta al final la parte exacta 
+de la superficie de ataque que fue verificada 
+y su proporción respecto al total.
+| {no} Desconocida. Pues nunca reportan con exactitud 
+qué fue probado y qué no fue probado.
 
 a|==== Perfilamiento
 | {si} Usted decide los requisitos de seguridad 
@@ -156,7 +167,7 @@ a|* Pruebas.
 * Producción.
 
 a|==== Ventanas
-a|En el servicio de 
+a|{yes} En el servicio de 
 [button]#link:../../servicios/hacking-continuo/[Continuous Hacking]# 
 los ambientes :
 
@@ -193,12 +204,14 @@ a|==== Falsos Positivos
 | {no} ~20%
 
 a|==== Explotación 
-| {si} Siempre que se tenga un 
-entorno disponible y la autorización apropiada.
-| {no}
+a|{si} Siempre que se tenga: 
+
+* Un entorno disponible.
+* La autorización apropiada.
+| {no} Sin posibilidad de construir y ejecutar exploits.
 
 a|==== Exploits personalizados 
-| {si} Usando nuesto motor de explotacion propio 
+| {si} Usando nuestro motor de explotación propio 
 [button]#link:../../productos/asserts/[Asserts]# 
 (link:../../productos/integrates/#exploit-de-la-vulnerabilidad[ejemplo]).
 | {no}
@@ -217,8 +230,22 @@ con nuestro troyano personalizado
 | {no} No infectan o no disponen de troyano personalizado.
 
 a|==== Registros Comprometidos
-| {si} link:../../productos/integrates/#registros-comprometidos[Ejemplo].
-| {no}
+a|{si} Después de descubrir la vulnerabilidad y explotarla, 
+extraemos la información crítica del negocio 
+que evidencie un alto impacto y permita sin importar lo técnico 
+mostrar la gravedad de la vulnerabilidad:
+
+* Usuarios.
+* Contraseñas
+* Salarios.
+* Cédulas.
+* Tarjetas de crédito.
+* Historial de navegación.
+* Archivos en el disco duro.
+* Repositorios centrales de contraseñas.
+
+link:../../productos/integrates/#registros-comprometidos[Ejemplo].
+| {no} Sin extracción de registros.
 
 a|==== Ciclos
 | {si} Multiples en nuestro servicio
@@ -239,28 +266,33 @@ mediante [button]#link:../../productos/defends/[Defends]#
 (link:../../defends/java/limitar-vida-variable/[ejemplo]).
 | {no}
 
-a|==== Fin
-|{si} El servicio finaliza cuando se logre el alcance acordado sin aumentar precios.
-|{no} El servicio finaliza cuando el tiempo acordado se agote, 
-por ende el alcance y cobertura del hackeo 
-es indeterminado al finalizar el servicio.
-
 a|==== Entregables 
 a|{si} Sistema web de documentación en tiempo real
 [button]#link:../../productos/integrates/[Integrates]#
 que desde el día 1 del proyecto le permite al cliente autogenerar 
 y ver por cada sistema:
 
-* Informe ejecutivo en +PDF+ (link:../../productos/integrates/#generar-informes-ejecutivos[ejemplo]).
+* Informe ejecutivo en +PDF+ 
+(link:../../productos/integrates/#generar-informes-ejecutivos[ejemplo]).
 * Informe técnico en +XLS+.
-* Informe técnico en +PDF+ (link:../../productos/integrates/#generar-informes-tecnicos[ejemplo]).
-* Gráficas sobre la seguridad del sistema (link:../../productos/integrates/#graficas-de-estado-del-proyecto[ejemplo]).
-* Métricas sobre la seguridad del sistema (link:../../productos/integrates/#metricas-del-proyecto[ejemplo]).
+* Informe técnico en +PDF+ 
+(link:../../productos/integrates/#generar-informes-tecnicos[ejemplo]).
+* Gráficas sobre la seguridad del sistema 
+(link:../../productos/integrates/#graficas-de-estado-del-proyecto[ejemplo]).
+* Métricas sobre la seguridad del sistema 
+(link:../../productos/integrates/#metricas-del-proyecto[ejemplo]).
 a|{no} Disponibles solo al final del proyecto  
 debido a la manualidad en su elaboración:
 
 * Documento en word realizado manualmente
 * Informes de herramientas sin descartar falsos positivos.
+
+a|==== Fin
+|{si} El servicio finaliza cuando se logre el alcance acordado 
+sin aumentar precios.
+|{no} El servicio finaliza cuando el tiempo acordado se agote, 
+por ende el alcance y cobertura del hackeo 
+es indeterminado al finalizar el servicio.
 
 a|==== Precios
 | {si} Precio fijo.
