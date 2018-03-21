@@ -1345,6 +1345,44 @@ Term 2:: Definition
 [horizontal]
 Subterm 2.1::: Definition can also be placed horizontally
 
+=== Admonition Elements
+
+* Source
++
+....
+[WARNING]
+The speed limit in this road is 60mph +
+Do not exceed this speed
+
+NOTE: I left the dinner in the oven
+
+[CAUTION]
+Be careful! The floor is slippery!
+
+TIP: You can also make an appointment via our website
+
+[IMPORTANT]
+Be sure to get all of your belongings
+before exiting the vehicle
+....
+
+* Render
++
+[WARNING]
+The speed limit in this road is 60mph +
+Do not exceed this speed
++
+NOTE: I left the dinner in the oven
++
+[CAUTION]
+Be careful! The floor is slippery!
++
+TIP: You can also make an appointment via our website
++
+[IMPORTANT]
+Be sure to get all of your belongings
+before exiting the vehicle
+
 === Horizontal Rule
 
 * Source

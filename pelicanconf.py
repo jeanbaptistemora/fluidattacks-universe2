@@ -89,6 +89,7 @@ I18N_SUBSITES = {
         'CATEGORIES_URL': 'blog/categories/',
         'CATEGORY_SAVE_AS': 'blog/categories/{slug}/index.html',
         'CATEGORY_URL': 'blog/categories/{slug}/',
+        'ASCIIDOC_OPTIONS': ['-a icons', '-a iconsdir=/web/en/images/icons'],
     },
     'es': {
         'SITENAME': 'Especialistas en Ethical Hacking | FLUIDAttacks',
@@ -113,7 +114,7 @@ I18N_SUBSITES = {
         'CATEGORIES_URL': 'blog/categorias/',
         'CATEGORY_SAVE_AS': 'blog/categorias/{slug}/index.html',
         'CATEGORY_URL': 'blog/categorias/{slug}/',
-        'ASCIIDOC_OPTIONS': ['-f /etc/asciidoc/lang-es.conf'],
+        'ASCIIDOC_OPTIONS': ['-f /etc/asciidoc/lang-es.conf', '-a icons', '-a iconsdir=/web/es/images/icons'],
     }
 }
 SUBSITE_LANG = {
