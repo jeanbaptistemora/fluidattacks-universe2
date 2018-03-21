@@ -47,6 +47,7 @@
 * link:132/[REQ.132 Contraseñas con al menos 4 palabras].
 * link:133/[REQ.133 Derivaciones de clave aleatorias].
 * link:134/[REQ.134 Almacenar contraseñas con Salt].
+* link:141/[REQ.141 Forzar proceso de autenticación].
 * link:142/[REQ.142 Modificar credenciales de acceso por defecto].
 * link:143/[REQ.143 Credenciales de acceso únicas].
 * link:144/[REQ.144 Depurar cuentas periódicamente].
