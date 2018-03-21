@@ -150,6 +150,12 @@ class FindingDTO(object):
         if "data[cwe]" in parameter:
             self.data[self.CWE] \
                 = parameter["data[cwe]"]
+        if "data[registros]" in parameter:
+            self.data[self.REG] \
+                = parameter["data[registros]"]
+        if "data[registros_num]" in parameter:
+            self.data[self.REG_NUM] \
+                = parameter["data[registros_num]"]
         if "data[nivel]" in parameter:
             self.data[self.CLASE] \
                 = parameter["data[nivel]"]

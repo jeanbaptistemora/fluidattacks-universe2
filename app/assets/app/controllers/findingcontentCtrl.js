@@ -1503,6 +1503,8 @@ integrates.controller("findingcontentCtrl", function($scope, $stateParams, $time
              solucion_efecto: $scope.finding.solucion_efecto,
              sistema_comprometido: $scope.finding.sistema_comprometido,
              cwe: $scope.finding.cwe,
+             registros: $scope.finding.registros,
+             registros_num: $scope.finding.registros_num,
          };
          if(descData.nivel == "Detallado"){
              //Recalcular Severidad
