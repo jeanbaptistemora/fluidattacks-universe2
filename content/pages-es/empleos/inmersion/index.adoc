@@ -23,6 +23,18 @@ que usted reciba una remuneración por el tiempo invertido en el proceso.
 
 Los términos del contrato de entrenamiento para esta etapa de Inmersión son los siguientes:
 
+== Objetivos
+
+. Aplicando los link:../retos-tecnicos/#objetivos[criterios definidos] en la etapa de retos técnicos:
+.. Resuelva 100 retos de programación
+.. Resuelva 100 retos de hacking
++ 
+*IMPORTANTE:* Todas las soluciones que usted envíe deben cumplir con
+las [button]#link:../retos-tecnicos/#envio[reglas de envío]#.,
+
+. Participe en dos proyectos de entrenamiento sorpresa.
+. Realice 10 artículos publicables en el blog.
+
 == Inicio
 
 Esta etapa comienza cuando:
@@ -108,25 +120,13 @@ debido a que queremos adelantar la etapa siguiente,
 
 == Fin
 
-Esta etapa termina cuando:
+La etapa de inmersión finaliza en cualquiera de las siguientes circunstancias:
 
-. Se acepten en el repositorio 100 nuevas soluciones de hacking
+. Usted haya completado los link:#objetivos[objetivos mencionados]
 
-. Se acepten en el repositorio 100 nuevas soluciones de programación
-+ 
-*IMPORTANTE:* Todas las soluciones que usted envíe deben cumplir con
-las [button]#link:../retos-tecnicos/#envio[reglas de envío]#.,
-
-. Participe en dos proyectos de entrenamiento sorpresa,
-con indicaciones variables que midan su capacidad
-de seguir instrucciones y desarrollar actividades bajo presión.
-
-. Se acepten en el repositorio 10 artículos publicables en el blog.
-
-Al igual que en la etapa de link:../retos-tecnicos[retos técnicos],
-aplicará el tope de 10 MR fallidos,
-incluyendo los acumulados en dicha etapa.
-
-Puede ver más detalles [button]#link:../retos-tecnicos/#intentos-fallidos[aquí]#
+. De haber alcanzado el tope máximo de 10 +MR+ fallidos, 
+esto es, 
++MR+ que no se le hace +merge+ por cuestiones detalladas en la documentación y 
+que aun así se incumplen. 
 
 Si tienes alguna duda no dudes en escribir a careers@autonomicmind.co
