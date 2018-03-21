@@ -36,19 +36,28 @@ a|==== Method
 | {no} Static (Automated tools only).
 
 a|==== Team
-a|* +OSCP+.
+a|{yes} Our hackers are certified in practical hacking in real scenarios:
+
+* +OSCP+.
 * +OSWP+.
 * +CEH+. 
 
-Additionally our hackers are excellent programmers, 
-allowing us to maximize the depth of the tests.
-| {no} None.
+Additionally they are selected and trained through the most demanding
+[button]#link:../../careers/[process]# in the industry, 
+guaranteeing  their ability to program their own tools 
+and audit code in multiple languages, that is to say 
+they are *programmer-hackers*
+
+a|{no} They are certified in theoretical hacking 
+through questions and answers:
+
+* +CEH+.
 
 a|==== Winners
-| {yes} We have always finished in *first (1) place in all (4 of 4)*  
+a| {yes} We have always finished in *first (1) place in all (4 of 4)*  
 Capture the Flag (+CTF+) events for suppliers selection 
 made by our customers.
-| {no} They finish in second or third place, 
+a| {no} They finish in second or third place, 
 or even not participate at all 
 when the selection process involves Capture the Flag (+CTF+).
 
@@ -98,7 +107,7 @@ a|{yes} Precision and granularity in the attack surface:
 * For infrastructure (networks, servers, etc), 
 according to +TCP+ and +UDP+ open ports.
 * For applications, according to inputs
-(visible fields, hidden fields, and headers).
+(visible fields, hidden fields, headers and function parameters).
 * For source code, according to strictly effectives lines of code (+LoC+).
 * For binaries, according to the size in +MiB+ 
 of the software previously installed.
@@ -118,7 +127,9 @@ a|{yes} We hack legacy applications coded in old-established languages, such as:
 | {no} No support.
 
 a|==== Development Method
-a|* Waterfall.
+a|{yes} Integrable with any development method, such as:
+
+* Waterfall.
 * Agile.
 * +DevOps+. 
 
@@ -126,7 +137,28 @@ a|* Waterfall.
 [button]#link:../../products/integrates/[Integrates]# 
 and [button]#link:../../products/asserts/[Asserts]#
 fit perfect for the last 2 use cases.
-| Waterfall.
+a|{no} Integrable with a single development method:
+
+* Waterfall.
+
+a|==== Environments
+a|* Integration: 
+[button]#link:../../services/continuous-hacking/[Continuous Hacking]# 
+and [button]#link:../../products/asserts/[Asserts]#
+fit perfectly in this use case.
+* Staging.
+* Production.
+a|* Staging.
+* Production.
+
+a|==== Windows
+a|{yes} In the [button]#link:../../services/continuous-hacking/[Continuous Hacking]# 
+service environments:
+
+* Can constantly change.
+* Not necessarily are frozen.
+* Windows are not required for hacking.
+| {no} Frozen environments and test windows are required.
 
 a|==== Coverage
 a|{yes} Known:
@@ -151,25 +183,6 @@ a|==== Strictness
 (For inspected and non inspected 
 link:#profiling[profiled] requirements).
 | {no} Unknown.
-
-a|==== Environments
-a|* Integration: 
-[button]#link:../../services/continuous-hacking/[Continuous Hacking]# 
-and [button]#link:../../products/asserts/[Asserts]#
-fit perfectly in this use case.
-* Staging.
-* Production.
-a|* Staging.
-* Production.
-
-a|==== Windows
-a|{yes} In the [button]#link:../../services/continuous-hacking/[Continuous Hacking]# 
-service environments:
-
-* Can constantly change.
-* Not necessarily are frozen.
-* Windows are not required for hacking.
-| {no} Frozen environments and test windows are required.
 
 a|==== Finding Types
 a|* Of a specific business impact.
@@ -211,7 +224,7 @@ a|==== Custom Exploits
 (link:../../products/integrates/#exploit[example]).
 | {no}
 
-a|==== Correlation
+a|==== link:../../blog/protect-organization-hacker-lamer/#diagram[Correlation]
 | {yes} By combining vulnerabilities +A+ and +B+ we are able to find 
 a new vulnerability +C+ of greater impact which may compromise more registers.
 | {no} Only detects vulnerabilities +A+ and +B+ but it's not able to correlate them. 
@@ -256,7 +269,7 @@ directly to our hackers via
 (link:../../products/integrates/#doubts-regarding-the-vulnerabilities[example]).
 * You can use our detailed remediation guides via
 [button]#link:../../products/defends/[Defends]#.
-| {no}
+| {no} No support during remediation phase.
 
 a|==== Deliverables
 a|{yes} Real-time documentation web system
@@ -284,7 +297,7 @@ therefore the scope and coverage of the hack
 are indeterminate at the end of the service.
 
 a|==== Pricing
-| {yes} Fixed price.
-| {no} Variable price (Time and materials).
+| {yes} Fixed according to the agreed scope.
+| {no} Variable (time and materials).
 
 |====

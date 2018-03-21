@@ -38,6 +38,8 @@ image::animacion-de-explotacion.gif[injection]
 
 Unlike a vulnerability analysis, Pentesting (Ethical Hacking), aims to simulate a real attack scenario and procedure in order to compromise the company’s information. Security test look to assess the effectiveness of the implemented controls, whether it be relevant to the infrastructure or the application. This type of tests also allow for a correlation of vulnerabilities which is actually the way a real attacker would look to cause as much damage as possible to the company.
 
+== Diagram
+
 .Findings Map example (Vulnerability correlation)
 image::findings-map.png[Finding]
 

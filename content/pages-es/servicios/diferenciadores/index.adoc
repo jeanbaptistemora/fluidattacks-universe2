@@ -39,19 +39,30 @@ a|==== Método
 | {no} Estático (Solo herramientas).
 
 a|==== Equipo
-a|* link:../../blog/una-dosis-de-offsec-oscp/[+OSCP+.]
+a|{si} Nuestros hackers se encuentran certificados 
+en hacking práctico en escenarios reales:
+
+* link:../../blog/una-dosis-de-offsec-oscp/[+OSCP+.]
 * link:../../blog/el-retorno-al-camino-oswp/[+OSWP+.]
 * link:../../blog/ceh-el-comienzo-de-la-travesia/[+CEH+.] 
 
-Adicionalmente nuestros hackers son programadores excelentes 
-maximizando el nivel de profundidad de la prueba.
-| {no} Ninguno.
+Adicionalmente son seleccionados y entrenados 
+mediante el [button]#link:../../empleos/[proceso]# 
+más exigente en la industria, 
+garantizando su capacidad para programar sus propias herramientas 
+y auditar código en múltiples lenguajes, 
+es decir, son *hackers-programadores*.
+
+a|{no} Se encuentran certificados en hacking teórico 
+mediante preguntas y respuestas:
+
+* +CEH+.
 
 a|==== Ganadores
-| {si} Siempre hemos finalizamos en *primer (1) lugar en todos (4 de 4)* 
+a| {si} Siempre hemos finalizamos en *primer (1) lugar en todos (4 de 4)* 
 los +Capture the Flag+ (+CTF+) de selección de proveedores 
 realizados por nuestros clientes.
-| {no} Finalizan en segundo o tercer lugar 
+a| {no} Finalizan en segundo o tercer lugar 
 e incluso no participan del proceso de selección 
 cuando éste es con +Capture the Flag+ (+CTF+).
 
@@ -102,7 +113,8 @@ a|{si} Precisión y granularidad en la superficie de ataque:
 
 * Para infraestructura (redes, servidores, etc), 
 según puertos abiertos +TCP+ y +UDP+.
-* Para aplicaciones, según entradas (campos visibles, ocultos y cabeceras).
+* Para aplicaciones, según entradas 
+(campos visibles, campos ocultos, cabeceras y parámetros de funciones)
 * Para código fuente, según líneas de código (+LoC+) estrictamente efectivas.
 * Para binarios, según tamaño en +MiB+ del software ya instalado.
 a|{no}  Ambigüedad o falta de detalle en la superficie de ataque:
@@ -122,15 +134,39 @@ construidas en lenguajes antiguos como:
 | {no} Sin soporte. 
 
 a|==== Metodologías de desarrollo
-a|* Cascada.
-* Agil.
+a|{si} Integrables a cualquier metodología de desarrollo:
+
+* Cascada.
+* Ágil.
 * +DevOps+.
 
 [button]#link:../../servicios/hacking-continuo/[Continuous Hacking]#, 
 [button]#link:../../productos/integrates/[Integrates]# 
 y [button]#link:../../productos/asserts/[Asserts]#
 son idóneos para los 2 últimos casos de uso.
-| Cascada.
+a|{no} Integrable a una única metodología de desarrollo:
+
+* Cascada.
+
+a|==== Ambientes
+a|* Integración: 
+[button]#link:../../servicios/hacking-continuo/[Continuous Hacking]# 
+y [button]#link:../../productos/asserts/[Asserts]#
+son idóneos en este caso de uso.
+* Pruebas.
+* Producción.
+a|* Pruebas.
+* Producción.
+
+a|==== Ventanas
+a|{si} En el servicio de 
+[button]#link:../../servicios/hacking-continuo/[Continuous Hacking]# 
+los ambientes:
+
+* Pueden cambiar constantemente.
+* No estar congelados.
+* No se requiere ventanas para el hackeo.
+| {no} Se requieren ambientes congelados y ventanas de prueba.
 
 a|==== Cobertura 
 a|{si} Conocida: 
@@ -155,26 +191,6 @@ a|==== Rigurosidad
 | {si} Usted sabrá la rigurosidad exacta del hackeo
 (lo revisado y lo no revisado).
 | {no} Desconocida.
-
-a|==== Ambientes
-a|* Integración: 
-[button]#link:../../servicios/hacking-continuo/[Continuous Hacking]# 
-y [button]#link:../../productos/asserts/[Asserts]#
-son idóneos en este caso de uso.
-* Pruebas.
-* Producción.
-a|* Pruebas.
-* Producción.
-
-a|==== Ventanas
-a|{yes} En el servicio de 
-[button]#link:../../servicios/hacking-continuo/[Continuous Hacking]# 
-los ambientes :
-
-* Pueden cambiar constantemente.
-* No estar congelados.
-* No se requiere ventanas para el hackeo.
-| {no} Se requieren ambientes congelados y ventanas de prueba.
 
 a|==== Tipo de Hallazgos 
 a|* De impacto específicos del negocio.
@@ -216,7 +232,7 @@ a|==== Exploits personalizados
 (link:../../productos/integrates/#exploit-de-la-vulnerabilidad[ejemplo]).
 | {no}
 
-a|==== Correlación
+a|==== link:../../blog/proteger-organizacion-hacker-lamer/#diagrama[Correlación]
 | {si} Combinando las vulnerabilidades +A+ y +B+ encontrar una +C+ 
 de mayor impacto que permite comprometer más registros.
 | {no} Solo detecta vulnerabilidades +A+ y +B+ pero no puede correlacionarlas.
@@ -264,7 +280,7 @@ directamente a los hackers mediante
 * Puede utilizar nuestras guias detalladas de remediación 
 mediante [button]#link:../../productos/defends/[Defends]#  
 (link:../../defends/java/limitar-vida-variable/[ejemplo]).
-| {no}
+| {no} Sin ningún soporte durante la fase de remediación.
 
 a|==== Entregables 
 a|{si} Sistema web de documentación en tiempo real
@@ -295,7 +311,7 @@ por ende el alcance y cobertura del hackeo
 es indeterminado al finalizar el servicio.
 
 a|==== Precios
-| {si} Precio fijo.
-| {no} Precio variable (Tiempo y materiales).
+| {si} Fijo según el alcance acordado.
+| {no} Variable (tiempo y materiales).
 
 |====

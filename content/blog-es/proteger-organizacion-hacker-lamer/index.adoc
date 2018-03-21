@@ -88,6 +88,8 @@ o aplicación. Adicionalmente, este tipo de pruebas permiten realizar una
 correlación de vulnerabilidades, que no es más que la forma como un atacante
 real busca generar el mayor daño posible a las compañías.
 
+== Diagrama
+
 .Ejemplo de mapa de hallazgos (Correlación de vulnerabilidades)
 image::mapa-hallazgos.png[hallazgo]
 
