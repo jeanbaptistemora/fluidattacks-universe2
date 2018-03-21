@@ -1558,6 +1558,24 @@ Elemento5 -> Elemento6: Acción 3
 You can use this link:https://www.planttext.com/[PlantUML Live Editor]
 to see the rendered graph for your source code.
 
+=== Tooltips
+
+* Source
++
+....
+Term image:{tooltip}[alt="Tooltip icon",title="Additional information about the term"]
+
+Term2 image:{tooltip}[alt="Tooltip icon",title="The description can have
+line breaks in the source code"]
+....
+
+* Render
++
+Term image:{tooltip}[alt="Tooltip icon",title="Additional information about the term"]
++
+Term2 image:{tooltip}[alt="Tooltip icon",title="The description can have
+line breaks in the source code"]
+
 == References
 
 . link:http://powerman.name/doc/asciidoc[Asciidoc Cheat Sheet]
