@@ -1,0 +1,12 @@
+:slug: rules/149/
+:category: rules
+:description: En el presente documento se detallan los requerimientos de seguridad relacionados a la importancia de establecer el tamaño mínimo de cifrado simétrico empleado por una organización. Por lo tanto, se recomienda utilizar un tamaño de clave mínimo de 128 bits.
+:keywords: Requerimiento, Tamaño, Llaves, Simétrico, Cifrado, Bits.
+:rules: yes
+
+= REQ.149 Cifrado simétrico de tamaño mínimo
+
+== Nombre
+
+Debe utilizarse como mecanismo de cifrado simétrico 
+un tamaño de clave mínimo de 128 +bits+.
