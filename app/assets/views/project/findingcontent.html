@@ -84,7 +84,7 @@
                       <a href="#evidence" data-toggle="tab">
                       <i class="icon s7-photo"></i>&nbsp;{{'search_findings.tab_evidence.evidence_name' | translate}}</a>
                   </li>
-                  <li id="exploitItem" style="font-size:16px;" ng-show="hasExploit" ng-click="urlExploit();">
+                  <li id="exploitItem" style="font-size:16px;" ng-show="hasExploit || isManager" ng-click="urlExploit();">
                       <a href="#exploit" data-toggle="tab">
                       <i class="icon s7-file"></i>&nbsp;Exploit</a>
                   </li>
@@ -92,7 +92,7 @@
                       <a href="#tracking" data-toggle="tab" aria-expanded="true">
                       <i class="icon s7-graph1"></i>&nbsp;Tracking</a>
                   </li>
-                  <li id="recordsItem" class="" style="font-size:16px;" ng-show="hasRecords" ng-click="urlRecords();">
+                  <li id="recordsItem" class="" style="font-size:16px;" ng-show="hasRecords || isManager" ng-click="urlRecords();">
                       <a href="#records" data-toggle="tab" aria-expanded="true">
                       <i class="icon s7-notebook"></i>&nbsp;{{'search_findings.tab_records.records_name' | translate}}</a>
                   </li>
@@ -645,7 +645,7 @@
                   </div>
                   <!-- End Tab Evidence -->
                   <!-- Start Tab Exploit -->
-                  <div id="exploit" class="tab-pane cont" ng-show="hasExploit">
+                  <div id="exploit" class="tab-pane cont" ng-show="hasExploit || isManager">
                     <div class="row" ng-show="isManager" style="margin-bottom: 10px;">
                         <div class="row">
                             <div class="col-md-2 col-md-offset-10 col-xs-12 col-sm-12">
@@ -667,7 +667,6 @@
                                             accept=".py"/>
                                     <label for="evidence7"><span></span> <strong><i class="glyphicon glyphicon-search"></i> Choose a file&hellip;</strong></label>
                                 </div>
-
                             </div>
                         <div class="col-sm-2" style="text-align: center;">
                               <button ng-show="!onlyReadableTab5"
@@ -678,9 +677,10 @@
                               </button>
                             </div>
                         </div>
-
                     </div>
-                      <pre prism-highlight source="{{exploitURL}}" class="language-python line-numbers"></pre>
+                    <div ng-show="hasExploit">
+                        <pre prism-highlight source="{{exploitURL}}" class="language-python line-numbers"></pre>
+                    </div>
                   </div>
                   <!-- End Tab Exploit -->
                   <!-- Start Tab Tracking -->
@@ -732,7 +732,7 @@
                   </div>
                   <!-- End Tab Tracking -->
                   <!-- Start Tab Record -->
-                  <div id="records" class="tab-pane cont" ng-show="hasRecords">
+                  <div id="records" class="tab-pane cont" ng-show="hasRecords || isManager">
                       <div class="row" ng-show="isManager" style="margin-bottom: 10px;">
                           <div class="row">
                               <div class="col-md-2 col-md-offset-10 col-xs-12 col-sm-12">
