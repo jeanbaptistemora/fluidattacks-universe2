@@ -132,7 +132,7 @@
      git:
       repo: "git://github.com/moodleou/moodle-quizaccess_safeexambrowser.git"
       dest: "/var/www/html/mod/quiz/accessrule/safeexambrowser"
-      version: "master"
+      version: "v1.1"
 
    - name: Configurar cron
      cron:
