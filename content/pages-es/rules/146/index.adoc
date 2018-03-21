@@ -1,0 +1,11 @@
+:slug: rules/146/
+:category: rules
+:description: En el presente documento se detallan los requerimientos de seguridad relacionados a la importancia de establecer el tiempo de vida en memoria de las llaves criptográficas gestionadas por un determinado sistema. Se recomienda que es estas no permanezcan en la RAM por un tiempo superior a 5 segundos.
+:keywords: Requerimiento, Exponer, Llaves, RAM, Tiempo, Criptográficas.
+:rules: yes
+
+= REQ.146 Establecer tiempo a las llaves
+
+== Nombre
+
+Las llaves criptográficas deben permanecer en +RAM+ máximo 5 segundos.
