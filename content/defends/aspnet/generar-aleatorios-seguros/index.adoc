@@ -122,5 +122,5 @@ string token = Convert.ToBase64String(tokenData);
 
 . [[r1]] link:https://www.segu-info.com.ar/proyectos/p1_generador-numeros.htm[Generadores de números aleatorios]
 . [[r2]] link:https://msdn.microsoft.com/en-us/library/system.security.cryptography.rngcryptoserviceprovider.aspx[Microsoft, RNGCryptosServiceProvider]
-. [[r3]] link:../../../rules/143/[REQ.143 Cifrado asimétrico de tamaño mínimo].
+. [[r3]] link:../../../rules/148/[REQ.148 Cifrado asimétrico de tamaño mínimo].
 . [[r4]] link:../../../rules/219/[REQ.219 Usar mecanismos criptográficos seguros].
