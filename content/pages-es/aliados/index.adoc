@@ -28,14 +28,7 @@ mundial y estableciendo relaciones de confianza con los clientes, socios de nego
 
 ^.^a|image:logo-evolution.png[logo evolution, width=55%, link=http://www.evolution-it.com.co/]
 
-^.^a|image:logo-tml.png[logo tml, width=55%, link=https://www.themissinglink.com.au/]
-
-a|== The missing link
-
-Proveedor de soluciones de tecnología de la información, prestan servicios para 
-infraestructuras, seguridad, backup/recuperación de desastres, comunicaciones y 
-servicios en la nube. Reconocido como líder de la industria y acreditado con los
-más altos niveles en el diseño, entrega y soporte de las últimas tecnologías.
+^.^a|image:logo-greensqa.png[logo greensqa, width=55%, link=http://greensqa.com/]
 
 a|== GreenSQA
 
@@ -44,10 +37,6 @@ entre ellas se destacan las pruebas de desempeño,
 pruebas en dispositivos móviles y la automatización de pruebas  
 a través de todo el ciclo de vida de desarrollo del producto, 
 contando con 15 años de experiencia prestando sus servicios.
-
-^.^a|image:logo-greensqa.png[logo greensqa, width=55%, link=http://greensqa.com/]
-
-^.^a|image:logo-newnet.png[logo newnet, width=55%, link=http://www.newnetsa.com/]
 
 a|== NewNet
 
@@ -58,5 +47,29 @@ Su objetivo es planificar, establecer, implementar,
 operar, revisar, mantener, y mejorar la gestión tecnológica 
 dentro de un marco de seguridad, servicio, atención y soporte 
 acorde a las necesidades de cada organización.
+
+^.^a|image:logo-newnet.png[logo newnet, width=55%, link=http://www.newnetsa.com/]
+
+^.^a|image:logo-teraport.png[logo teraport, width=55%, link=http://teraport.de]
+
+a|== Teraport
+
+Empresa alemana especializada en el desarrollo de software 
+y servicios en el campo del desarrollo de productos virtuales. 
+Expertos en los campos de la industria automotriz, aeroespacial y de fabricación, 
+ofreciendo soluciones específicas y productos estandarizados 
+en relación con el desarrollo, la simulación y la garantía de calidad, 
+así como servicios y consultoría en ingeniería de desarrollo de productos.
+
+a|== The missing link
+
+Proveedor de soluciones australiano enfocado en tecnología de la información, 
+prestan servicios para infraestructuras, seguridad, 
+backup, recuperación de desastres, comunicaciones 
+y servicios en la nube. Reconocido como líder de la industria 
+y acreditado con los más altos niveles en el diseño, 
+entrega y soporte de las últimas tecnologías.
+
+^.^a|image:logo-tml.png[logo tml, width=55%, link=https://www.themissinglink.com.au/]
 
 |====
