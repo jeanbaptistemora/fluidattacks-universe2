@@ -53,13 +53,13 @@ through questions and answers:
 
 * +CEH+.
 
-a|==== Winners
-a|{yes} We have always finished in *first (1) place in all (4 of 4)*  
-Capture the Flag (+CTF+) events for suppliers selection 
-made by our customers.
-a|{no} They finish in second or third place, 
-or even not participate at all 
-when the selection process involves Capture the Flag (+CTF+).
+// Winners
+//{yes} We have always finished in *first (1) place in all (4 of 4)*  
+//Capture the Flag (+CTF+) events for suppliers selection 
+//made by our customers.
+//{no} They finish in second or third place, 
+//or even not participate at all 
+//when the selection process involves Capture the Flag (+CTF+).
 
 a|==== Model
 | +Red Team+.

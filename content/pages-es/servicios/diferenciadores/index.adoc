@@ -58,13 +58,13 @@ mediante preguntas y respuestas:
 
 * +CEH+.
 
-a|==== Ganadores
-a|{si} Siempre hemos finalizamos en *primer (1) lugar en todos (4 de 4)* 
-los +Capture the Flag+ (+CTF+) de selección de proveedores 
-realizados por nuestros clientes.
-a|{no} Finalizan en segundo o tercer lugar 
-e incluso no participan del proceso de selección 
-cuando éste es con +Capture the Flag+ (+CTF+).
+// Ganadores
+//{si} Siempre hemos finalizamos en *primer (1) lugar en todos (4 de 4)* 
+//los +Capture the Flag+ (+CTF+) de selección de proveedores 
+//realizados por nuestros clientes.
+//{no} Finalizan en segundo o tercer lugar 
+//e incluso no participan del proceso de selección 
+//cuando éste es con +Capture the Flag+ (+CTF+).
 
 a|==== Modelo 
 | +Red Team+. 
