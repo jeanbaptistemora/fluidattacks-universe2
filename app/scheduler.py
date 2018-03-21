@@ -25,7 +25,7 @@ def get_new_vulnerabilities():
             row = integrates_dao.get_vulns_by_id_dynamo(project[0].lower(), int(finding['id']))
             act_finding = views.finding_vulnerabilities(str(finding['id']))
             if act_finding["edad"] != "-" and act_finding["estado"] != "Cerrado" and act_finding["tratamiento"] == "Pendiente":
-                context['findings_working_on'].append({'hallazgo_pendiente': (act_finding['hallazgo'] + ' -' + act_finding["edad"] +' dia(s) -'), \
+                context['findings_working_on'].append({'hallazgo_pendiente': (act_finding['hallazgo'] + ' -' + act_finding["edad"] +' day(s)-'), \
                 'url_hallazgo': 'https://fluidattacks.com/integrates/dashboard#!/project/' + project[0].lower() + '/' + str(finding['id'] + '/description')})
             delta = int(act_finding['cardinalidad'])-int(row[0]['vuln_hoy'])
             if int(act_finding['cardinalidad']) > int(row[0]['vuln_hoy']):
