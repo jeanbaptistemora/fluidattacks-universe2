@@ -1,0 +1,15 @@
+:slug: rules/150/
+:category: rules
+:description: En el presente documento se detallan los requerimientos de seguridad relacionados a la criptografía y el proceso de ocultar información sensible. En este requerimiento se establece la importancia de implementar funciones criptográficas con mecanismos existentes.
+:keywords: Requerimiento, Seguridad, Criptografía, Funciones, Resumen, Tamaño.
+:rules: yes
+
+= REQ.150 Funciones resumen de tamaño mínimo
+
+== Nombre
+
+Debe utilizarse funciones resumen con un tamaño mínimo de 256 bits.
+
+== Soluciones
+
+. +ASPNET+ link:../../defends/aspnet/cifrar-contrasenas-con-salt/[Cifrar contraseñas con salt].

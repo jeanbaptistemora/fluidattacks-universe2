@@ -1,15 +1,12 @@
 :slug: rules/145/
 :category: rules
-:description: En el presente documento se detallan los requerimientos de seguridad relacionados a la criptografía y el proceso de ocultar información sensible. En este requerimiento se establece la importancia de implementar funciones criptográficas con mecanismos existentes.
-:keywords: Requerimiento, Seguridad, Criptografía, Funciones, Resumen, Tamaño.
+:description: En el presente documento se detallan los requerimientos de seguridad relacionados a la importancia de proteger las llaves asimétricas privadas o simétricas de todo sistema. Evitando que estas sean expuestas y por ende mitigar de cierta manera, posibles ataques al sistema.
+:keywords: Requerimiento, Exponer, Llaves, Simétrica, Asimétrica, Privada.
 :rules: yes
 
-= REQ.0145: Funciones resumen de tamaño mínimo
+= REQ.145 Proteger llaves del sistema
 
 == Nombre
 
-Debe utilizarse funciones resumen con un tamaño mínimo de 256 bits.
-
-== Soluciones
-
-. +ASPNET+ link:../../defends/aspnet/cifrar-contrasenas-con-salt/[Cifrar contraseñas con salt].
+Las llaves asimétricas privadas o simétricas del sistema deben estar protegidas 
+y no deben ser expuestas.

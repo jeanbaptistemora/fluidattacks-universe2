@@ -54,9 +54,10 @@
 
 == Criptografía
 
-* link:145/[REQ.145 Funciones resumen de tamaño mínimo].
+* link:145/[REQ.145 Proteger llaves del sistema].
 * link:147/[REQ.147 Utilizar mecanismos pre-existentes].
 * link:148/[REQ.148 Cifrado asimétrico de tamaño mínimo].
+* link:150/[REQ.150 Funciones resumen de tamaño mínimo].
 * link:219/[REQ.219 Usar mecanismos criptográficos seguros].
 
 == Fuente
