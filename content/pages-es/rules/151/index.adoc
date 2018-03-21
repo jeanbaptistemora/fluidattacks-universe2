@@ -1,0 +1,12 @@
+:slug: rules/151/
+:category: rules
+:description: En el presente documento se detallan los requerimientos de seguridad relacionados a los lineamientos que se deben seguir en cuanto al uso correcto de la criptografía simétrica. Por lo tanto, se debe utilizar con la criptografía asimétrica pares de claves separados para cifrado y firmado.
+:keywords: Requerimiento, Tamaño, Llaves, Simétrico, Cifrado, Bits.
+:rules: yes
+
+= REQ.151 Claves separadas para cifrado y firmado
+
+== Nombre
+
+Debe utilizarse con la criptografía asimétrica pares de claves 
+separados para cifrado y firmado.

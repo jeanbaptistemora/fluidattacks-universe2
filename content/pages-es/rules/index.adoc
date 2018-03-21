@@ -60,6 +60,7 @@
 * link:148/[REQ.148 Cifrado asimétrico de tamaño mínimo].
 * link:149/[REQ.149 Cifrado simétrico de tamaño mínimo].
 * link:150/[REQ.150 Funciones resumen de tamaño mínimo].
+* link:151/[REQ.151 Claves separadas para cifrado y firmado].
 * link:219/[REQ.219 Usar mecanismos criptográficos seguros].
 
 == Fuente
