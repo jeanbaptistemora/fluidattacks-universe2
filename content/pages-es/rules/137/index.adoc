@@ -1,0 +1,12 @@
+:slug: rules/137/
+:category: rules
+:description: En el presente documento se detallan los lineamientos o requerimientos de seguridad relacionados a la importancia que todo sistema debe dar en cuanto a forzar el cambio de todas aquellas contraseñas temporales después de su primer uso cuando estas sean generadas por un tercero.
+:keywords: Requerimiento, Contraseña, Temporal, Forzar, Cambiar, Sistema.
+:rules: yes
+
+= REQ.137 Cambiar contraseñas temporales de terceros
+
+== Nombre
+
+El sistema debe forzar el cambio de contraseñas temporales 
+generadas por un tercero después de su primer uso.

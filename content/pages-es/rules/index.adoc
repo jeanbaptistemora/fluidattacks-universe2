@@ -47,6 +47,7 @@
 * link:132/[REQ.132 Contraseñas con al menos 4 palabras].
 * link:133/[REQ.133 Derivaciones de clave aleatorias].
 * link:134/[REQ.134 Almacenar contraseñas con Salt].
+* link:137/[REQ.137 Cambiar contraseñas temporales de terceros].
 * link:138/[REQ.138 Definir tiempo de vida contraseña temporal].
 * link:139/[REQ.139 Establecer longitud mínima de clave].
 * link:140/[REQ.140 Establecer tiempo de vida de clave].
