@@ -37,6 +37,18 @@ $white: rgba(255, 255, 255, 1);
   border-top: 3px solid $darkblue;
   margin: 10px 21px;
   padding: 25px;
+
+  article {
+    h1 {
+      margin: 20px 0 10px;
+      text-align: left;
+  	}
+
+    .subtitle {
+      font-size: 25px;
+      font-style: italic;
+    }
+  }
 }
 
 .meta-table {

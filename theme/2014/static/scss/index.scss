@@ -15,6 +15,11 @@ $white: rgba(255, 255, 255, 1);
 
 .divindex {
   margin: 10px 21px 0;
+
+  .subtitle {
+    display: block;
+    font-style: italic;
+  }
 }
 
 .divread {
@@ -68,6 +73,7 @@ $white: rgba(255, 255, 255, 1);
 .post-title {
   font-size: 22px;
   font-weight: 400;
+  margin-bottom: 0;
   text-transform: uppercase;
 
   .anchor-sign {
