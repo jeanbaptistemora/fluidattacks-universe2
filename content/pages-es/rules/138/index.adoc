@@ -1,0 +1,12 @@
+:slug: rules/138/
+:category: rules
+:description: En el presente documento se detallan los requerimientos de seguridad relacionados a la importancia de definir el tiempo de vida máximo para las contraseñas temporales que son generadas para ingreso inicial en el sistema. Por lo tanto, se recomienda establecer un valor que no supere los 120 minutos.
+:keywords: Requerimiento, Contraseña, Temporal, Validez, Máxima, Sistema.
+:rules: yes
+
+= REQ.138 Definir tiempo de vida contraseña temporal
+
+== Nombre
+
+Las contraseñas temporales que son generadas para ingreso inicial en un sistema 
+deben tener una validez máxima de 120 minutos.
