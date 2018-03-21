@@ -1,16 +1,11 @@
 :slug: rules/131/
 :category: rules
-:description: En el presente documento se detallan los requerimientos de seguridad relacionados a las credenciales de acceso a información sensible de la organización. En este requerimiento se establece la importancia de definir contraseñas seguras con más de 20 caracteres de longitud.
-:keywords: Requerimiento, Seguridad, Contraseñas, Longitud, Caracteres, Credenciales.
+:description: En el presente documento se detallan los lineamientos o requerimientos de seguridad relacionados a la importancia que todo sistema debe darle al cambio de contraseña de sus usuarios. Por lo tanto, se debe impedir el cambio de la misma más de una vez el mismo día.
+:keywords: Requerimiento, Contraseña, Cambio, Impedir, Seguridad, Sistema.
 :rules: yes
 
-= REQ.131 Contraseñas de más de 20 caracteres
+= REQ.131 Impedir cambiar contraseña mas de una vez
 
 == Nombre
 
-Las contraseñas de acceso de un sistema a otro 
-deben tener una longitud superior a 20 caracteres. 
-
-== Soluciones
-
-. +COBOL+ link:../../defends/cobol/fortaleza-contrasena-palabra/[Comprobar Fortaleza de Contraseñas Tipo Palabra].
+La contraseña no debe poder cambiarse mas de una vez en un mismo día.

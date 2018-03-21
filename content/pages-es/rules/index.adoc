@@ -43,10 +43,11 @@
 * link:128/[REQ.128 Contraseñas con al menos 1 mayúscula].
 * link:129/[REQ.129 Contraseñas con al menos 1 dígito].
 * link:130/[REQ.130 Contraseñas con al menos 1 carácter especial].
-* link:131/[REQ.131 Contraseñas de más de 20 caracteres].
+* link:131/[REQ.131 Impedir cambiar contraseña mas de una vez].
 * link:132/[REQ.132 Contraseñas con al menos 4 palabras].
-* link:133/[REQ.133 Derivaciones de clave aleatorias].
+* link:133/[REQ.133 Contraseñas de más de 20 caracteres].
 * link:134/[REQ.134 Almacenar contraseñas con Salt].
+* link:135/[REQ.135 Derivaciones de clave aleatorias].
 * link:136/[REQ.136 Forzar cambio de contraseñas temporales].
 * link:137/[REQ.137 Cambiar contraseñas temporales de terceros].
 * link:138/[REQ.138 Definir tiempo de vida contraseña temporal].

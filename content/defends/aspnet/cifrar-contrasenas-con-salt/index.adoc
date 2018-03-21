@@ -105,7 +105,7 @@ de la aplicación y se establece el formato de contraseña en +Hashed+.
 . [[r2]] link:https://msdn.microsoft.com/es-es/library/system.web.security.sqlmembershipprovider.passwordformat(v=vs.110).aspx[Password Format]
 . [[r3]] link:https://msdn.microsoft.com/en-us/library/system.security.cryptography.hashalgorithm.aspx[HashAlgorithm Class]
 . [[r4]] link:https://msdn.microsoft.com/es-es/library/system.security.cryptography.randomnumbergenerator.aspx[RandomNumberGenerator Class]
-. [[r5]] link:../../../rules/132[REQ.132 Almacenar contraseñas con Salt].
-. [[r6]] link:../../../rules/133[REQ.133 Derivaciones de clave aleatorias].
+. [[r5]] link:../../../rules/134[REQ.134 Almacenar contraseñas con Salt].
+. [[r6]] link:../../../rules/135[REQ.135 Derivaciones de clave aleatorias].
 . [[r7]] link:../../../rules/147[REQ.147 Utilizar mecanismos pre-existentes].
 . [[r8]] link:../../../rules/150[REQ.150 Funciones resumen de tamaño mínimo].

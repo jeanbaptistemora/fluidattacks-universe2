@@ -1,0 +1,17 @@
+:slug: rules/135/
+:category: rules
+:description: En el presente documento se detallan los requerimientos de seguridad relacionados a las credenciales de acceso a información sensible de la organización. En este requerimiento se establece la importancia de configurar adecuadamente las derivaciones de clave para las contraseñas.
+:keywords: Requerimiento, Seguridad, Contraseñas, Derivaciones, Clave, Configuración.
+:rules: yes
+
+= REQ.135 Derivaciones de clave aleatorias
+
+== Nombre
+
+Las derivaciones de clave (+Salt+), 
+deben ser aleatorias y de mínimo 48 +bits+.
+
+
+== Soluciones
+
+. +ASPNET+ link:../../defends/aspnet/cifrar-contrasenas-con-salt/[Cifrar contraseñas con salt].

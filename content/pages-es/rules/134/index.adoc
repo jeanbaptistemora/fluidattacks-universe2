@@ -4,13 +4,12 @@
 :keywords: Requerimiento, Seguridad, Credenciales, Acceso, Contraseñas, Salt.
 :rules: yes
 
-= REQ.132 Almacenar contraseñas con Salt
+= REQ.134 Almacenar contraseñas con Salt
 
 == Nombre
 
 El sistema debe almacenar las contraseñas 
-con diferentes derivaciones de clave (Salt). 
-
+con diferentes derivaciones de clave (+Salt+). 
 
 == Soluciones
 
