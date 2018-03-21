@@ -1,0 +1,20 @@
+{
+    "parserOptions": {
+        "ecmaVersion": 6,
+        "sourceType": "module",
+        "ecmaFeatures": {
+            "jsx": true
+        }
+    },
+    "rules": {
+        "for-direction": "error",
+        "getter-return": "error",
+        "no-await-in-loop": "error",
+        "no-compare-neg-zero": "error",
+        "no-cond-assign": "error",
+        "no-console": "error",
+        "no-constant-condition": "error",
+        "no-control-regex": "error"
+
+    }
+}

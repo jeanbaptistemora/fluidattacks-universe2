@@ -89,6 +89,15 @@ fluidasserts:
     except:
     - triggers
 
+js_linter:
+    stage: test
+    script:
+        - docker login registry.gitlab.com -u $DOCKER_USER -p $DOCKER_PASS
+        - docker run --env-file env.list -t registry.gitlab.com/fluidsignal/integrates:base /bin/bash -c "npm install -g  n; n stable; node /usr/src/app/app/assets/node_modules/.bin/eslint /usr/src/app/app/assets/app/."
+        - rm env.list
+    except:
+    - triggers
+
 Prospector_app:
     stage: test
     script:

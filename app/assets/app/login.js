@@ -11,7 +11,7 @@ BASE.url = BASE.production;
 if(location.pathname.indexOf("/integrates") == -1)
     BASE.url = BASE.development;
 //definicion de modulos
-var integrates = angular.module("FluidIntegrates", ['ngSanitize','pascalprecht.translate']); 
+var integrates = angular.module("FluidIntegrates", ['ngSanitize','pascalprecht.translate']);
 
 integrates.config(['$translateProvider', function($translateProvider) {
     var translations = {
@@ -44,9 +44,9 @@ integrates.isProduction = function(){
 };
 /**
  * Crea el controlador de la funcionalidad de autenticacion
- * @name loginController 
- * @param {Object} $scope 
- * @param {integrates.loginFactory} loginFactory 
+ * @name loginController
+ * @param {Object} $scope
+ * @param {integrates.loginFactory} loginFactory
  * @return {undefined}
  */
 integrates.controller("loginController", function($scope, $translate){
@@ -58,15 +58,15 @@ integrates.controller("loginController", function($scope, $translate){
     $scope.login = function(){
         var username = $scope.username;
         var password = $scope.password;
-        if(typeof(username) != "string" 
+        if(typeof(username) != "string"
             || typeof(password) != "string"){
              $.gritter.add({
                 title: '',
                 text: "Usuario/Clave son obligatorios",
                 class_name: 'color warning',
                 sticky: false,
-            }); 
-        }else if(username.trim() == "" 
+            });
+        }else if(username.trim() == ""
             || password.trim() == ""){
             $.gritter.add({
                 title: '',
@@ -89,7 +89,7 @@ integrates.controller("loginController", function($scope, $translate){
                     text: e.message,
                     class_name: 'color '+color,
                     sticky: false,
-                }); 
+                });
                 if(color == "success"){
                     redirector = function(){
                         location = BASE.url + "dashboard";
@@ -108,6 +108,5 @@ integrates.controller("loginController", function($scope, $translate){
 		$translate.use(localStorage['lang']);
     };
 
-    console.clear();
 
 });

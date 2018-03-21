@@ -153,7 +153,6 @@ integrates.factory('findingFactory', function($q,$translate){
               });
           } catch (e) {
               Rollbar.error("Error: An error ocurred generating document", e);
-              console.log('There was an exception: ' + e.message);
               deferred.resolve('exception');
           }
           return deferred.promise
