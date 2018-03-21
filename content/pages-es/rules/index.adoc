@@ -47,6 +47,7 @@
 * link:132/[REQ.132 Contraseñas con al menos 4 palabras].
 * link:133/[REQ.133 Derivaciones de clave aleatorias].
 * link:134/[REQ.134 Almacenar contraseñas con Salt].
+* link:144/[REQ.144 Depurar cuentas periódicamente].
 * link:997/[REQ.997 Contraseñas sin palabras de diccionario].
 
 == Criptografía

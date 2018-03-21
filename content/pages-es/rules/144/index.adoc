@@ -1,0 +1,11 @@
+:slug: rules/144/
+:category: rules
+:description: En el presente documento se detallan los requerimientos de seguridad relacionados a la necesidad que tiene toda organización en cuanto a la depuración de todas las cuentas de usuario. Lo anterior, se debe realizar de manera periódica mitigando posibles cuentas basura o de atacantes al sistema.
+:keywords: Requerimiento, Seguridad, Organización, Cuentas de usuario, Depurar, Periódica.
+:rules: yes
+
+= REQ.144 Depurar cuentas periódicamente
+
+== Nombre
+
+La organización debe depurar las cuentas de usuario de forma periódica.
