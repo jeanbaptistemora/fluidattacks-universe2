@@ -6,10 +6,10 @@
   "author": "Enginering Team",
   "dependencies": {
     "angular-elastic": "^2.5.1",
+    "eslint": "^4.19.0",
     "iframe-resizer": "^3.5.15",
     "jquery-comments_brainkit": "^1.2.8",
     "jquery-match-height": "^0.7.2",
-    "jslint": "^0.12.0",
     "magnific-popup": "^1.1.0",
     "ng-rollbar": "^2.3.8"
   }
