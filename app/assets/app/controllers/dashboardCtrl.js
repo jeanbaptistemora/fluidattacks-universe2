@@ -121,9 +121,6 @@ integrates.controller("dashboardCtrl", function($scope, $uibModal, $timeout,
                case "Ambiente inestable":
                  response.data[i].tipo = $translate.instant('event_formstack.type.uns_ambient');;
                  break;
-               case "Insumos incorrectos o faltantes":
-                 response.data[i].tipo = $translate.instant('event_formstack.type.incor_supplies');;
-                 break;
                default:
                  response.data[i].tipo = $translate.instant('event_formstack.type.unknown');;
              }

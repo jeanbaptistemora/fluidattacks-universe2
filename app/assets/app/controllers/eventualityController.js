@@ -213,10 +213,7 @@ integrates.controller("eventualityController", function($scope, $uibModal, $tran
                             class_name: 'color warning',
                             sticky: false,
                        });
-                   }finally{
-                       if(submit == false){
-                           return false;
-                       }
+                       return false;
                    }
                    eventualityFactory.updateEvnt($scope.evnt).then(function(response){
                         if(!response.error){
@@ -320,9 +317,6 @@ integrates.controller("eventualityController", function($scope, $uibModal, $tran
                                 break;
                             case "Ambiente inestable":
                                 data.data[i].tipo = $translate.instant('event_formstack.type.uns_ambient');;
-                                break;
-                            case "Insumos incorrectos o faltantes":
-                                data.data[i].tipo = $translate.instant('event_formstack.type.incor_supplies');;
                                 break;
                             default:
                                 data.data[i].tipo = $translate.instant('event_formstack.type.unknown');;

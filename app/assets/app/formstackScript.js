@@ -4,13 +4,13 @@ $(document).ready(function(){
         try{
             alertify.log( '<div class="" style="padding: 8px;"><p class="text-center">Recordatorio</p><p class="text-left"> Recuerda personalizar los campos dependiendo de la situación que vas a reportar!</p> </div>');
         } catch(e){
-            
+          return false;
         }
     }
     remember();
     setInterval('remember();',35000);
     document.getElementsByTagName("select")[5].onchange = function(){
-    	v = document.getElementsByTagName("select")[5].value; 
+    	v = document.getElementsByTagName("select")[5].value;
     	if(v == "Verificación") alertify.success('<p class="text-center"> Información: </p> <p class="text-left"> Verificacion debe usarse para reportar hallazgos en chequeos cruzados </p>');
     }
 });
@@ -60,13 +60,13 @@ function showInfo(data,tabletop) {
 				donde.attr("placeholder", obj[i].Donde);
 				debilidad.val(obj[i].CWE.split("/")[5].split(".")[0]);
 				tipo.val(obj[i].Tipo);
-        
+
 		        if(obj[i].Evidente == "Sí"){
 		        	si_evidente.attr('checked', true);
 		        }else{
 		        	no_evidente.attr('checked', true);
 		        }
-        
+
 				if(obj[i].Solucion_KB != "-"){
 					has_solution.attr('checked', true);
 					$("#fsCell38861739").removeClass("fsHidden");
@@ -84,7 +84,7 @@ function showInfo(data,tabletop) {
 					threat.val(obj[i].Amenaza);
 					risk.val(obj[i].Riesgo);
 				}
-	
+
 				//if(obj[i].Exploit == "Sí"){
 				if($("#field38529253").val() == 0.950){
 					exploit.prop("required", true);
@@ -96,7 +96,7 @@ function showInfo(data,tabletop) {
 					evidencia_explotacion.addClass("fsRequired");
 					evidencia_explotacion.attr("aria-required", true);
 					evidencia_explotacion.attr("fsRequired");
-			
+
 				}else{
 					exploit.prop("required",false);
 					exploit.removeClass("fsRequired");
@@ -105,16 +105,16 @@ function showInfo(data,tabletop) {
 					evidencia_explotacion.prop("required", false);
 					evidencia_explotacion.removeClass("fsRequired");
 					evidencia_explotacion.attr("aria-required", false);
-        
+
         			animacion.prop("required", false);
 					animacion.removeClass("fsRequired");
 					animacion.attr("aria-required", false);
 				}
-								
+
 				break;
 			}
 			if(i == obj.length - 1) {
-				description.val(""); 
+				description.val("");
 				requirement.val("");
 				solution.val("");
 				threat.val("");
@@ -193,7 +193,7 @@ $(evidencia_hallazgo).change(function() {
 		alert('El archivo se debe contener la palabra evidencia');
 		evidencia_hallazgo.val("");
 	}
-	
+
 });
 
 $(exploit).change(function() {
