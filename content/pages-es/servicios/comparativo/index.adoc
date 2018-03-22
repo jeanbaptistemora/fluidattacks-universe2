@@ -19,20 +19,86 @@ a|==== Aspectos
 | Hacking Puntual
 
 a|==== Ciclos de revisión 
-| Múltiples
-| Solo 1
+| Múltiples.
+| Solo +1+.
 
 a|==== Soporte en la remediación
 | {si} 
 | {no}
 
-a|==== Duracion tipica
-| +52+ semanas mínimo
-| Entre +1+ y +12+ semanas
+a|==== Duracion típica
+| +12+ a +36+ meses.
+| +1+ a +4+ meses.
+
+a|==== Entrega presencial
+|{no} Todas las entregas de información se realizan vía
+[button]#link:../../productos/integrates/[Integrates]#.
+a|{si} Reuniones de socialización de resultados:
+
+* +1+ reunión virtual de validación.
+* +1+ reunión presencial de socialización final de resultados.
+
+a|==== Tiempo de detección
+a|{si} Temprana
+
+* Las vulnerabilidades son detectadas 
+cerca al momento en que el programador las inyecta.
+
+a|{no} Tardía
+
+* Las vulnerabilidades son detectadas 
+cuando el sistema está próximo a salir a producción.
+
+a|==== Alertas
+|{si} Sistema de alertamiento continuo por email 
+a los lideres de proyecto sobre vulnerabilidades no cerradas.
+|{no} No hay sistema de alertas, solo los informes finales.
+
+a|==== Visión
+|{si} Información de la seguridad de su sistema _al día_.
+|{no}  Información de la seguridad de su sistema _en un momento del tiempo_.
 
 a|==== Cobertura
-a|* 100% siempre {si} 
-* Iniciamos paralelo a desarrollo o desatraso
-a|* No cambia a mas de +10K+ deltas {no} 
-* Solo la cobertura acordada
+a|{si} 100% cuando:
+
+* Comenzamos el hacking en paralelo al desarrollo.
+* Realizamos un hacking de desatraso al inicio. 
+* No se detiene el hacking mientras exista desarrollo.
+* El código no cambie a más de 10K deltas por mes.
+
+a|{no} Acordada al inicio de la prueba.
+
+a|==== Ventanas
+a|{si} En el servicio de 
+[button]#link:../../servicios/hacking-continuo/[Continuous Hacking]# 
+los ambientes:
+
+* Pueden cambiar constantemente.
+* No estar congelados.
+* No se requiere ventanas para el hackeo.
+
+|{no} Se requieren ambientes congelados y ventanas deprueba.
+
+a|==== Infección
+| {no} No se infectan los ambientes con troyanos.
+| {si} Se infectan estaciones y servidores críticos 
+con nuestro troyano personalizado 
+[button]#link:../../productos/commands/[Commands]#. 
+
+a|==== Tasa de remediación
+| {si} Cierre hasta del 80% de las vulnerabilidades reportadas.
+| {no} Cierre máximo del 10% de las vulnerabilidades reportadas.
+
+a|==== Localización
+| Siempre remoto.
+| Remoto en las premisas.
+
+a|==== Tiempo de remediación
+| {si} 2 a 3 semanas.
+| {no} 3 a 4 meses.
+
+a|==== Pago
+| Pago mensual.
+| 1 o 2 pagos.
+
 |====

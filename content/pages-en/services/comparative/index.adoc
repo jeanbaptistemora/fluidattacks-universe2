@@ -19,21 +19,85 @@
 | One Shot Hacking
 
 a|==== Inspection Cycles
-| Multiples
-| Only +1+
+| Multiples.
+| Only +1+.
 
 a|==== Remediation Support
 | {yes} 
 | {no}
 
 a|==== Average duration
-| Minimum +52+ weeks
-| Between +1+ and +12+ weeks
+| Between +12+ and +36+ months.
+| Between +1+ and +4+ months.
+
+a|==== Face-to-face delivery
+|{no} All information deliveries are made via
+[button]#link:../../products/integrates/[Integrates]#.
+a|{yes} Results socialization meetings:
+
+* +1+ Virtual validation meeting.
+* +1+ Face-to-face meeting of final results socialization.
+
+a|==== Detection time
+a|{yes} Early
+
+* Vulnerabilities are detected near the time the programmer injects them.
+
+a|{no} Late
+
+* Vulnerabilities are detected when the system is close to production.
+
+a|==== Alerting
+
+|{yes} Continuous alerting system via email 
+to the project leaders about open vulnerabilities.
+|{no} No alerting system, only final reports.
+
+a|==== Vision
+|{yes} Information about your system security _up to date_.
+|{no} Information about your system security _in a moment of time_.
 
 a|==== Coverage
-a|* Always 100% {yes} 
-* We can start simultaneously with production 
-or get up to date later in the project
-a|* No more than +10K+ deltas {no} 
-* Only agreed coverage
+a|{yes} 100% when:
+
+* We start simultaneously with production. 
+* We make an up to date hacking at the beginning.
+* Hacking does not stop during development stage.
+* Code does not change more than 10K deltas/month.
+
+a|{no} Agreed at the beginning of the test.
+
+a|==== Windows
+a|{yes} In the 
+[button]#link:../../services/continuous-hacking/[Continuous Hacking]# 
+service environments:
+
+* Can constantly change.
+* Not necessarily are frozen.
+* Windows are not required for hacking.
+
+| {no} Frozen environments and test windows are required.
+
+a|==== Infection
+| {no} Environments are not infected with cyberweapons.
+| {yes} Work stations and critical servers 
+are infected with our custom cyberweapon 
+[button]#link:../../products/commands/[Commands]#
+
+a|==== Remediation ratio
+| {yes} Closure of up to 80% of reported vulnerabilities.
+| {no} Maximum closure of 10% of reported vulnerabilities.
+
+a|==== Location
+| Always remote.
+| Remote on premises.
+
+a|==== Time to remediate
+| {yes} 2 or 3 weeks.
+| {no} 3 or 4 months.
+
+a|==== Payment
+| Monthly payment.
+| 1 or 2 payments.
+
 |====
