@@ -1,0 +1,13 @@
+:slug: rules/081/
+:category: rules
+:description: En el presente documento se detallan los requerimientos de seguridad relacionados a la importancia de almacenar las bitácoras al menos durante 5 años desde la ocurrencia del evento en el sistema o lo que disponga la legislación vigente para dicho sistema.
+:keywords: Organización, Bitácora, Sistema, Evento, Legislación, Almacenar.
+:rules: yes
+
+= REQ.081 Almacenar bitácoras según legislación
+
+== Nombre
+
+La organización debe almacenar las bitácoras al menos durante 5 años 
+desde la ocurrencia del evento en el sistema 
+o lo que disponga la legislación vigente para dicho sistema.
