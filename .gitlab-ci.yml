@@ -85,27 +85,6 @@ stop-review:
     name: review/$CI_COMMIT_REF_SLUG
     action: stop
 
-pages:
-  stage: deployment
-  environment: staging
-  script:
-    - if curl --fail -Lo artifacts.zip --header Private-Token:$DOCKER_PASSWD https://gitlab.com/api/v4/projects/$CI_PROJECT_ID/jobs/artifacts/$CI_COMMIT_REF_NAME/download?job=deploy; then unzip artifacts.zip; else echo "There are no artifacts"; fi
-    - sed -i 's/output\/web/public/g' xmlcombine.sh
-    - sed -i 's/output/public/g' html-lint.sh draft.sh
-    - for FILE in $(find . -iname '*.adoc'); do sed -i 's/^include::/include::\/builds\/fluidsignal/g' $FILE; done
-    - pelican --fatal errors --fatal warnings -s pelicanconf-2018.py content/
-    - ./xmlcombine.sh
-    - mv public/en/blog-en public/en/blog && mv public/es/blog-es public/es/blog
-    - cp -r public/es/pages-es-2018/* public/es/ && rm -rf public/es/pages-es-2018
-    - cp -r public/en/pages-en-2018/* public/en/ && rm -rf public/en/pages-en-2018
-    - mv public/en/redirect/index.html public/ && rmdir public/en/redirect/
-    - ./draft.sh
-  artifacts:
-    paths:
-      - public
-  only:
-    - master
-
 deploy:
   stage: deployment
   environment: production

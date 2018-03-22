@@ -1,6 +1,0 @@
-:slug: soluciones/
-:description: Somos una empresa dedicada a la seguridad de tecnologías de información, Ethical Hacking, pruebas de intrusión, y detección de debilidades y vulnerabilidades de seguridad en aplicaciones. En esta página te presentamos nuestras principales soluciones y metodologías.
-:keywords: FLUID, Soluciones, Metodología, Ethical Hacking, Pentesting, TI.
-:template: pages-es/soluciones
-
-= Soluciones

@@ -1,6 +1,0 @@
-:slug: solutions/concurrent-methodology/
-:description: The purpose of this page is to present our concurrent methodology, which aims to continuously detect vulnerabilities and security issues in an early stage of the life cycle. This allow us to cover 100% of the application and report all security findings.
-:keywords: FLUID, Solution, Methodology, Life Cycle, Application, Testing.
-:template: pages-en/solutions/concurrent-methodology
-
-= Concurrent methodology

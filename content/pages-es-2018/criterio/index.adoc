@@ -1,7 +1,0 @@
-:slug: criterio/
-:description: FLUID es una empresa dedicada a la seguridad de tecnologías de información, Ethical Hacking, pruebas de intrusión, y detección de debilidades y vulnerabilidades de seguridad en aplicaciones. Aquí mostramos la filosofía bajo la cual se basa nuestro criterio de seguridad.
-:keywords: FLUID, Clientes, Información, Aplicaciones, Acerca de, Ethical Hacking.
-
-= Criterio de Seguridad
-
-Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias cuando un impresordesconocido usó una galería de textos y los mezcló de tal manera que logró hacer un libro.

@@ -1,6 +1,0 @@
-:slug: soluciones/expertis/infra-critica/
-:description: FLUID es una compañía especializada en seguridad informática, ethical hacking, pruebas de intrusión y detección de vulnerabilidades en aplicaciones con más de 18 años en el mercado colombiano. En esta página presentamos nuestros principales aportes y soluciones a la infraestructura crítica.
-:keywords: FLUID, Soluciones, Infraestructura Crítica, Clientes, Seguridad, Aportes.
-:template: pages-es/soluciones/infraestructura-critica
-
-= Infraestructura critica

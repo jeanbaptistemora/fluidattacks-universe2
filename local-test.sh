@@ -14,12 +14,7 @@ echo "Generating build (3/5) . . ."
 sed -i 's/https:\/\/fluidattacks.com/http:\/\/localhost:8000/' pelicanconf.py
 
 pybabel compile --directory theme/2014/translations --domain messages
-if [ ! $# -eq 0 ]; then
-  sed -i 's/'\''\/web/'\''http:\/\/localhost:8000\/web/g; s/public/output\/web/g' pelicanconf-2018.py
-  pelican --fatal errors --fatal warnings -s pelicanconf-2018.py content/
-else
-  pelican --fatal errors --fatal warnings content/
-fi
+pelican --fatal errors --fatal warnings content/
 rm -rf output/web/de
 mv output/web/en/blog-en/* output/web/en/blog && mv output/web/es/blog-es/* output/web/es/blog
 
@@ -32,8 +27,8 @@ cp robots.txt output/web/
 # Organize images of articles with draft status
 ./draft.sh
 # Undo changes made to the file and change permissions of the files used by the container as root
-git checkout -- pelicanconf.py pelicanconf-2018.py
-chmod -R a+rwX {output/,pelicanconf.py,pelicanconf-2018.py,cache/}
+git checkout -- pelicanconf.py
+chmod -R a+rwX {output/,pelicanconf.py,cache/}
 rm *.pyc
 
 echo "Starting local HTTP server on port 8000 (5/5) . . ."

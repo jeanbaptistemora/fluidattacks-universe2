@@ -1,6 +1,0 @@
-:slug: solutions/
-:description: FLUID is a company focused on information security, ethical hacking, penetration testing and vulnerabilities detection in applications with over 18 years of trajectory in the colombian market. In this page we present our working methodology and solutions.
-:keywords: FLUID, Solutions, Methodology, Ethical Hacking, Security, Pentesting.
-:template: pages-en/solutions
-
-= Solutions

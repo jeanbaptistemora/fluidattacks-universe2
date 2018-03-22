@@ -1,6 +1,0 @@
-:slug: clientes/
-:description: FLUID es una empresa dedicada a la seguridad de tecnologías de información, Ethical Hacking, pruebas de intrusión, y detección de debilidades y vulnerabilidades de seguridad en aplicaciones. Aquí presentamos una lista de nuestros principales clientes.
-:keywords: FLUID, Clientes, Información, Aplicaciones, Acerca de, Ethical Hacking.
-:template: pages-es/clientes
-
-= Clientes

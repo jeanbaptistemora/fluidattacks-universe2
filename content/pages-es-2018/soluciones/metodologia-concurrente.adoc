@@ -1,6 +1,0 @@
-:slug: soluciones/metodologia-concurrente/
-:description: FLUID es una compañía especializada en seguridad informática, ethical hacking, pruebas de intrusión y detección de vulnerabilidades en aplicaciones. La metodología concurrente permite la detección de hallazgos de seguridad en etapas tempranas del desarrollo de la aplicación.
-:keywords: FLUID, Soluciones, Metodologías, Concurrente, Clientes, Seguridad.
-:template: pages-es/soluciones/metodologia-concurrente
-
-= Metodología concurrente

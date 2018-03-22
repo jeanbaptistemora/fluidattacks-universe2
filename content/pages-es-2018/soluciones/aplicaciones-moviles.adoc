@@ -1,6 +1,0 @@
-:slug: soluciones/expertis/aplicaciones-moviles/
-:description: Somos una empresa dedicada a la seguridad de tecnologías de información, Ethical Hacking, pruebas de intrusión, y detección de debilidades y vulnerabilidades de seguridad en aplicaciones. En la siguiente página presentamos nuestro servicio de pruebas a aplicaciones móviles.
-:keywords: FLUID, Soluciones, Aplicaciones, Móviles, Ethical Hacking, Diagnóstico.
-:template: pages-es/soluciones/aplicaciones-moviles
-
-= Aplicaciones móviles

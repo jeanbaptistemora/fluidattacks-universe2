@@ -1,6 +1,0 @@
-:slug: home/
-:description: Somos una compañía especialista en Ethical Hacking de Aplicación e Infraestructura. Somos hackers que desarrollamos nuestras propias herramientas y exploits, cuyo objetivo identificar todas las vulnerabilidades de sus aplicaciones y reportarlas lo más pronto posible.
-:keywords: FLUID, Ethical hacking, Vulnerabildad, Diagnóstico, Aplicación, Infraestructura.TODO
-:template: pages-es/home
-
-= Home

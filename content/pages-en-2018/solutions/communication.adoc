@@ -1,6 +1,0 @@
-:slug: solutions/communication/
-:description: FLUID is a company focused on information security, ethical hacking, penetration testing and vulnerabilities detection in applications with over 18 years of experience in the colombian market. The purpose of this page is to present our contributions and solutions related to communication sector.
-:keywords: FLUID, Solutions, Communication, Customers, Contributions, Security.
-:template: pages-en/solutions/communication
-
-= Communication

@@ -1,6 +1,0 @@
-:slug: soluciones/expertis/infra-corporativa/
-:description: FLUID es una compañía especializada en seguridad informática, ethical hacking, pruebas de intrusión y detección de vulnerabilidades en aplicaciones con más de 18 años prestando sus servicios en el mercado colombiano. Aquí presentamos nuestros aportes y soluciones a la infraestructura corporativa.
-:keywords: FLUID, Metodología, Infraestructura, Soluciones, Corporativo, Seguridad.
-:template: pages-es/soluciones/infraestructura-corporativa
-
-= Infraestructura corporativa

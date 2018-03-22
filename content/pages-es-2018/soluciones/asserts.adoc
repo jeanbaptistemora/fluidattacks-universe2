@@ -1,6 +1,0 @@
-:slug: soluciones/productos/asserts/
-:description: Somos una empresa dedicada a la seguridad de tecnologías de información, Ethical Hacking, pruebas de intrusión, y detección de debilidades y vulnerabilidades de seguridad en aplicaciones. En esta página presentamos nuestro producto Asserts pensado para ayudar a encontrar fallos de seguridad.
-:keywords: FLUID, Soluciones, Productos, Asserts, Diagnóstico, Ethical Hacking.
-:template: pages-es/soluciones/asserts
-
-= Asserts

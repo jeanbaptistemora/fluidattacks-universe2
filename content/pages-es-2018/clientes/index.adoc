@@ -1,6 +1,0 @@
-:slug: casos-exito/
-:description: FLUID es una empresa dedicada a la seguridad de tecnologías de información, Ethical Hacking, pruebas de intrusión, y detección de debilidades y vulnerabilidades de seguridad en aplicaciones. Aquí presentamos una lista de nuestros principales clientes.
-:keywords: FLUID, Clientes, Información, Aplicaciones, Acerca de, Ethical Hacking.
-= Casos de Éxito
-
-FLUID has 15 years of experience providing different types of security services to various companies in the financial, insurance, telecommunications, energy and retail sectors; we have worked with government institutions as well. Below are shown some of the companies which are current customers:

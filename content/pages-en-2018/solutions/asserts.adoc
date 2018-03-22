@@ -1,6 +1,0 @@
-:slug: solutions/products/asserts/
-:description: The purpose of this page is to present the products offered by FLUID. Asserts is an engine to automate the closing of security findings over execution environments, which can be implemented in a CI pipeline to determine if a security issue persists in the application.
-:keywords: FLUID, Solutions, Products, Asserts, Pentesting, Application.
-:template: pages-en/solutions/asserts
-
-= Asserts

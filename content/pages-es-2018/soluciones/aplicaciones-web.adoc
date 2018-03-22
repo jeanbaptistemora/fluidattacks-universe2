@@ -1,6 +1,0 @@
-:slug: soluciones/expertis/aplicaciones-web/
-:description: Somos una empresa dedicada a la seguridad de tecnologías de información, Ethical Hacking, pruebas de intrusión, y detección de debilidades y vulnerabilidades de seguridad en aplicaciones. En esta página presentamos nuestro servicio de pruebas de seguridad en aplicaciones web.
-:keywords: FLUID, Servicios, Aplicaciones, Web, Diagóstico, Ethical Hacking.
-:template: pages-es/soluciones/aplicaciones-web
-
-= Aplicaciones web

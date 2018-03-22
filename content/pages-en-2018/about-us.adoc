@@ -1,6 +1,0 @@
-:slug: about-us/
-:description: FLUID is a company focused on information security, ethical hacking, penetration testing and vulnerabilities detection in applications. The purpose of this page is to present information about us, our clients and the main products and services of our company.
-:keywords: FLUID, Information, About us, Products, Services, Company.
-:template: pages-en/about-us
-
-= About us
