@@ -214,7 +214,7 @@ STATICFILES_DIRS = (
 
 CRONJOBS = [
     ('0 8 * * 1', 'app.scheduler.get_new_vulnerabilities'),
-    ('0 18 * * *', 'app.scheduler.get_remediated_findings'),
+    ('0 7 * * 1-5', 'app.scheduler.get_remediated_findings'),
     ('0 6 * * 1-4', 'app.scheduler.get_age_notifications'),
     ('0 6 * * 5', 'app.scheduler.get_age_weekends_notifications'),
 ]
