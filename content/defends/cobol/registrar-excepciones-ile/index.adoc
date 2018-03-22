@@ -302,6 +302,6 @@ las instrucciones para capturar y procesar el error generado desde +cblerr2+.
 == Referencias
 
 . [[r1]] link:../../../rules/070/[REQ.070 Registrar eventos en bitácoras].
-. [[r2]] link:../../../rules/071/[REQ.071 Registrar niveles de severidad de eventos].
+. [[r2]] link:../../../rules/076/[REQ.076 Registrar niveles de severidad de eventos].
 . [[r3]] link:../../../rules/073/[REQ.073 Registrar momento de ocurrencia de eventos].
 . [[r4]] link:https://www.ibm.com/support/knowledgecenter/ssw_i5_54/apiref/api.pdf[Application programming interface (API) concepts].
