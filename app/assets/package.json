@@ -11,6 +11,7 @@
     "jquery-comments_brainkit": "^1.2.8",
     "jquery-match-height": "^0.7.2",
     "magnific-popup": "^1.1.0",
-    "ng-rollbar": "^2.3.8"
+    "ng-rollbar": "^2.3.8",
+    "tabletop": "^1.5.2"
   }
 }

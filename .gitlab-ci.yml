@@ -102,7 +102,7 @@ Prospector_app:
     stage: test
     script:
         - docker login registry.gitlab.com -u $DOCKER_USER -p $DOCKER_PASS
-        - docker run --env-file env.list -t registry.gitlab.com/fluidsignal/integrates:base prospector -u django /usr/src/app/app
+        - docker run --env-file env.list -t registry.gitlab.com/fluidsignal/integrates:base prospector -u django -p /usr/src/app/app -i node_modules
         - rm env.list
     except:
     - triggers
