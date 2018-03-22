@@ -11,53 +11,59 @@ también pueden reflejar la postura del autor
 ante un tema en específico relacionado con seguridad. 
 Si quieres colaborar y no tienes claro un tema, 
 en esta sección te damos ideas 
-y una vez sean cubiertas por un articulo 
+y una vez sean cubiertas por un artículo 
 vamos actualizando la lista +#TrendingTopics+.
 Dentro de los temas de interés se encuentran:
 
 == Ataques
 
-* Beast attack.
-* Poodle sslv3.
-* Poodle tls.
-* Hearblead attack.
+* Ataque +Beast+.
+* +Poodle sslv3+.
+* +Poodle tls+.
+* Ataque +Hearblead+.
 * Cracking simple de claves no reversibles.
 * Cracking con rainbow tables.
-* Web shells sin efectos colaterales.
+* +Web shells+ sin efectos colaterales.
+* Descarga de archivo reflejado.
 
 == Recomendaciones
 
-* API throttling.
-* Función hashing recomendada.
+* Limitación de solicitudes a las +API+.
+* Función +hashing+ recomendada.
 * Función de cifrado asimétrico recomendada.
 * Función de cifrado simétrico recomendada.
-* Cómo detener efectivamente un ddos sin proxies.
+* Cómo detener efectivamente un +ddos+ sin +proxies+.
+* +IAST+.
+* +DAST+.
+* +SAST+.
+* +SecDevOps+.
 
 == Conceptos
 
 * Infraestructura inmutable.
-* Red team.
-* Blue team.
-* Purple team.
+* +Red team+.
+* +Blue team+.
+* +Purple team+.
+* Captura la bandera.
 
 == Estándares
 
-* Estándar Misra.
-* Autenticación basada en token. 
-* Autenticación básica SOAP.
-* Autenticación SOAP Digest .
-* Correctness by Construction (CbyC).
-* Security Development Lifecycle (SDL).
-* Comprehensive Software Development Model.
-* Lightweight Application Security Process (CLASP).
-* TSP-Secure (Team Software Process for Secure SW/Dev).
-* CoSMo ―Conceptual Security Modeling.
-* UMLSec.
+* Estándar +Misra+.
+* Autenticación basada en +token+. 
+* Autenticación básica +SOAP+.
+* Autenticación +SOAP Digest+ .
+* Corrección por construcción (+CbyC+).
+* Desarrollo seguro de ciclo de vida (+SDL+).
+* Modelo completo de desarrollo de software.
+* Proceso de seguridad de aplicaciones livianas (+CLASP+).
+* Proceso +team software+ para el desarrollo seguro de +software+ (+TSP-Secure+).
+* Modelado de seguridad conceptual (+CoSMo+).
+* +UMLSec+.
 
 == Resumen
 
-* Problemas de seguridad de Bitcoin blockchain.
-* Problemas de seguridad de Ethereum.
-* Problemas de seguridad de Stellar.
-* Búsqueda de vulnerabilidades con machine learning.
-
+* Problemas de seguridad de +Bitcoin blockchain+.
+* Problemas de seguridad de +Ethereum+.
+* Problemas de seguridad de +Stellar+.
+* Búsqueda de vulnerabilidades con +machine learning+.
+* Incidentes asociados a vulnerabilidades.

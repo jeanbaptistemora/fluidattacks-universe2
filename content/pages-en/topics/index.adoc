@@ -18,20 +18,25 @@ Among the topics of interest are:
 == Attacks
 
 * Beast attack.
-* Poodle sslv3.
-* Poodle tls.
+* Poodle +sslv3+.
+* Poodle +tls+.
 * Hearblead attack.
 * Simple cracking of non-reversible keys.
 * Cracking with rainbow tables.
 * Web shells without collateral effects.
+* Reflected file download
 
 == Recommendations
 
-* API throttling.
+* +API+ throttling.
 * Recommended hashing function.
 * Recommended asymmetric encryption function.
 * Recommended symmetric encryption function.
-* How to stop effectively a ddos without proxies.
+* How to stop effectively a +ddos+ without proxies.
+* +IAST+.
+* +DAST+.
+* +SAST+.
+* +SecDevOps+.
 
 == Concepts
 
@@ -39,24 +44,26 @@ Among the topics of interest are:
 * Red team.
 * Blue team.
 * Purple team.
+* Capture the flag.
 
 == Standards
 
-* Misra Standard.
+* +Misra+ Standard.
 * Bearer authentication.
-* SOAP Basic authentication.
-* SOAP Digest authentication.
-* Correctness by Construction (CbyC).
-* Security Development Lifecycle (SDL).
-* Comprehensive Software Development Model.
-* Lightweight Application Security Process (CLASP).
-* TSP-Secure (Team Software Process for Secure SW/Dev).
-* CoSMo ―Conceptual Security Modeling.
-* UMLSec.
+* +SOAP+ basic authentication.
+* +SOAP+ digest authentication.
+* Correctness by Construction (+CbyC+).
+* Security development lifecycle (+SDL+).
+* Comprehensive software development model.
+* Lightweight application security process (+CLASP+).
+* Team software process for secure SW/Dev (+TSP-Secure+).
+* Conceptual security modeling (+CoSMo+).
+* +UMLSec+.
 
 == Summary
 
-* Bitcoin blockchain security issues.
-* Ethereum security issues.
-* Stellar security issues.
+* +Bitcoin blockchain+ security issues.
+* +Ethereum+ security issues.
+* +Stellar+ security issues.
 * Machine learning for vulnerabilities searching.
+* Incidents associated with vulnerabilities.
