@@ -26,6 +26,7 @@
 * link:077/[REQ.077 No registrar datos sensibles en bitácoras].
 * link:078/[REQ.078 Eventos con severidad deshabilitados].
 * link:079/[REQ.079 Registrar momento de ocurrencia de eventos].
+* link:085/[REQ.085 Permitir consultar historial de sesiones].
 * link:086/[REQ.086 Generar alarma en evento de seguridad].
 * link:087/[REQ.087 Registrar llamadas en bitácoras].
 
