@@ -57,8 +57,7 @@ cuando haya finalizado todos los ítems mencionados en esta sección.
 
 == Entrenamientos
 
-. El entrenamiento es auto-dirigido (usted investiga por su propia cuenta sin instrucción alguna),
-. Debe entrenarse de forma independiente (sin ayuda de otro),
+. El entrenamiento es auto-dirigido e independiente (por su propia cuenta sin instrucción o ayuda alguna de otro),
 . Los días pares se trabajarán retos de hacking.
 . Los días impares se trabajarán retos de programación.
 . El entrenamiento debe iniciar a las 7:00 am en las instalaciones de FLUID,
