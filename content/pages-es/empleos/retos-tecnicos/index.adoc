@@ -79,26 +79,30 @@ ____________________________________________________________________
 
 == 3. Objetivos
 
-Resuelva 10 retos de programación:
+* Resuelva 10 retos de programación.
 
-. Que no tienen solución en el repositorio (carpeta del reto) para el lenguaje elegido por usted, 
-. Que no tienen solución externa indexada (enlaces OTHERS.txt del reto) para el lenguaje elegido por usted,
+* Resuelva 10 retos de hacking.
+
+== 4. Criterios
+
+En programación, deben ser retos que:
+
+. No tienen solución en el repositorio (carpeta del reto) para el lenguaje elegido por usted, 
+. No tienen solución externa indexada (enlaces OTHERS.txt del reto) para el lenguaje elegido por usted,
 . El lenguaje de la solución es uno de los aceptados por [button]#link:http://www.codeabbey.com/[Codeabbey]#.
 
-Resuelva 10 retos de hacking: 
+En hacking, deben ser retos que:
 
-. Que no tienen solución en Gherkin (*.feature) en el repositorio (carpeta del reto), 
-. Que no tienen solución externa indexada (enlaces OTHERS.txt del reto),
+. No tienen solución en Gherkin (*.feature) en el repositorio (carpeta del reto), 
+. No tienen solución externa indexada (enlaces OTHERS.txt del reto),
 . El lenguaje de la solución es uno de los aceptados por Codeabbey.
+. Requieran nivel técnico (no matemático ni de adivinanzas) de [button]#link:wechall.net[wechall]# o sus sitios relacionados,
+. (Opcionalmente) correspondan a explotación en sistemas (ToE) vulnerables intencionalmente listados en:
+.. [button]#link:https://www.owasp.org/index.php/OWASP_Vulnerable_Web_Applications_Directory_Project#Off-Line_apps[OWASP Off-Line apps]#
+.. [button]#link:https://www.owasp.org/index.php/OWASP_Vulnerable_Web_Applications_Directory_Project#Virtual_Machines_or_ISOs[OWASP VMs / ISOs]#
+.. [button]#link:https://www.owasp.org/index.php/OWASP_Vulnerable_Web_Applications_Directory_Project#On-Line_apps[OWASP On-Line apps]#
 
-. Entiéndase retos de +hacking+ por:
-.. Cualquier reto técnico (no matemático ni de adivinanzas) de [button]#link:wechall.net[wechall]# o sus sitios relacionados,
-.. Cualquier explotación en sistemas (ToE) vulnerables intencionalmente listados en:
-... [button]#link:https://www.owasp.org/index.php/OWASP_Vulnerable_Web_Applications_Directory_Project#Off-Line_apps[OWASP Off-Line apps]#
-... [button]#link:https://www.owasp.org/index.php/OWASP_Vulnerable_Web_Applications_Directory_Project#Virtual_Machines_or_ISOs[OWASP VMs / ISOs]#
-... [button]#link:https://www.owasp.org/index.php/OWASP_Vulnerable_Web_Applications_Directory_Project#On-Line_apps[OWASP On-Line apps]#
-
-== 4. Envío
+== 5. Envío
 
 Antes de realizar un +Merge Request+ (+MR+),
 por favor verifique que cumple con los siguientes criterios:
@@ -147,7 +151,7 @@ su +merge request+ es integrado al repositorio.
 Los resultados de la integración pueden verse siempre en
 link:https://gitlab.com/autonomicmind/training/pipelines[GitLab-CI].
 
-== 5. Recomendaciones
+== 6. Recomendaciones
 
 Para cumplir los objetivos enunciados,
 se sugiere buscar retos que no tengan solución ni en +OTHERS+ ni en el repositorio y
@@ -157,7 +161,7 @@ Al momento de solucionar retos de programación,
 se sugiere usar un lenguaje no muy usado y
 resolver los retos en dicho lenguaje.
 
-== 6. Repositorio
+== 7. Repositorio
 
 El repositorio donde usted debe enviar sus soluciones es el siguiente:
 link:https://gitlab.com/autonomicmind/training/[click aquí]
@@ -256,7 +260,7 @@ de dicha subcarpeta.
 máquina vulnerable con la que se está trabajando.
 Puede ver un ejemplo link:https://gitlab.com/autonomicmind/training/blob/master/systems/bwapp/SPEC.txt[aquí]
 
-== 7. Informes de avance
+== 8. Informes de avance
 
 El formato indicado para los commits (ver link:#envio[reglas de envío]) permitirá evidenciar su progreso en esta etapa.
 Para diligenciar dicho formato, puede obtener los puntajes y posiciones en el ranking de cada plataforma de la siguiente forma:
@@ -282,7 +286,7 @@ image:ranking-colombia-codeabbey-2.png[Ranking Colombia codeabbey]
 
 image::ranking-wechall.png[Ranking en Wechall]
 
-== 8. Fin
+== 9. Fin
 
 La etapa de retos técnicos finaliza en cualquiera de las siguientes circunstancias:
 
@@ -296,7 +300,7 @@ En todos los casos la dirección de correo para estos pasos es: careers@autonomi
 
 Usted puede volver a presentarse en cualquier momento y volver a comenzar el proceso haciendo click [button]#link:../../../../forms/aplicacion[aquí]#.
 
-== 9. Builds locales
+== 10. Builds locales
 
 Es posible correr integraciones locales con el fin de identificar errores antes de hacer push o merge requests al repositorio.
 Para esto, se deben ejecutar los siguientes comandos:
@@ -347,14 +351,14 @@ basada en una distribución de +Linux+ (e.g. link:https://www.ubuntu.com/downloa
 o la de su preferencia) y aplicar el proceso descrito anteriormente para Sistemas
 Operativos +Linux+.
 
-== 10. Preguntas
+== 11. Preguntas
 
 * Antes de realizar una pregunta, por favor lea nuevamente este documento y
 las link:../faq[preguntas realizadas en el pasado] por otros participantes.
 
 * Puede expresar sus dudas en el canal *#general* de nuestro link:https://join.slack.com/t/autonomicmind/shared_invite/enQtMjg4ODI4NjM3MjY3LWUxMTNmMjk3MDdkMDAzYWY0ZjQ3MzNlYjUzZjM3NTM3MDVmYTliN2YyNGViZGUyNzUxOTAzNTdmZDQ5NWNjNGI[Slack].
 
-== 11. Propiedad Intelectual
+== 12. Propiedad Intelectual
 
 * Los derechos patrimoniales sobre el contenido de este repositorio se encuentran definidos en el archivo link:https://gitlab.com/autonomicmind/training/blob/master/COPYRIGHT.txt[COPYRIGHT].
 * La licencia y privilegios que tienen los usuarios de este repositorio
