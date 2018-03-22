@@ -23,6 +23,7 @@
 
 * link:070/[REQ.070 Registrar eventos en bitácoras].
 * link:076/[REQ.076 Registrar niveles de severidad de eventos].
+* link:077/[REQ.077 No revelar detalles del sistema interno].
 * link:078/[REQ.078 Eventos con severidad deshabilitados].
 * link:079/[REQ.079 Registrar momento de ocurrencia de eventos].
 * link:080/[REQ.080 Impedir modificación de bitácoras].

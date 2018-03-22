@@ -1,0 +1,13 @@
+:slug: rules/077/
+:category: rules
+:description: En el presente documento se detallan los requerimientos de seguridad relacionados a la confidencialidad de información, en cuanto a revelar detalles del sistema interno como stack traces, fragmentos de sentencias SQL y nombres de base de datos o tablas.
+:keywords: Aplicación, Stack traces, SQL, Base de datos, Tablas, Sistema.
+:rules: yes
+
+= REQ.077 No revelar detalles del sistema interno
+
+== Nombre
+
+La aplicación no debe revelar detalles del sistema interno 
+como +stack traces+, fragmentos de sentencias +SQL+ 
+y nombres de base de datos o tablas.
