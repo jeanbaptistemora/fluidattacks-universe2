@@ -527,6 +527,35 @@ def remove_access_project_dao(email=None, project_name=None):
                 return False
     return False
 
+
+def all_users_report(company_name, finish_date):
+    """Extrae el numero de usuarios registrados en integrates"""
+    with connections['integrates'].cursor() as cursor:
+        query = 'SELECT COUNT(id) FROM users WHERE company != %s and \
+        registered = 1 and date_joined <= %s'
+        try:
+            cursor.execute(query, (company_name, finish_date,))
+            rows = cursor.fetchall()
+        except OperationalError:
+            rollbar.report_exc_info()
+            rows = []
+    return rows
+
+
+def logging_users_report(company_name, init_date, finish_date):
+    """Extrae el numero de usuarios logueados en integrates"""
+    with connections['integrates'].cursor() as cursor:
+        query = 'SELECT COUNT(id) FROM users WHERE company != %s and \
+        registered = 1 and last_login >= %s and last_login <= %s'
+        try:
+            cursor.execute(query, (company_name, init_date, finish_date,))
+            rows = cursor.fetchall()
+        except OperationalError:
+            rollbar.report_exc_info()
+            rows = []
+    return rows
+
+
 dynamodb_resource = resource('dynamodb',
                             aws_access_key_id=FI_AWS_DYNAMODB_ACCESS_KEY,
                             aws_secret_access_key=FI_AWS_DYNAMODB_SECRET_KEY,
@@ -766,3 +795,21 @@ def get_toe_dynamo(project):
         else:
             break
     return items
+
+def weekly_report_dynamo(init_date, finish_date, registered_users, logged_users):
+    """Guarda el numero de usuarios registrados y logueados en integrates semanalmente"""
+    table = dynamodb_resource.Table('weekly_report')
+    try:
+        response = table.put_item(
+            Item={
+                'init_date': init_date,
+                'finish_date': finish_date,
+                'registered_users': registered_users,
+                'logged_users': logged_users,
+            }
+            )
+        resp = response['ResponseMetadata']['HTTPStatusCode'] == 200
+        return resp
+    except ClientError:
+        rollbar.report_exc_info()
+        return False

@@ -217,6 +217,7 @@ CRONJOBS = [
     ('0 7 * * 1-5', 'app.scheduler.get_remediated_findings'),
     ('0 6 * * 1-4', 'app.scheduler.get_age_notifications'),
     ('0 6 * * 5', 'app.scheduler.get_age_weekends_notifications'),
+    ('0 5 * * 1', 'app.scheduler.weekly_report'),
 ]
 
 AUTHENTICATION_BACKENDS = (

@@ -6,6 +6,7 @@ from .api.formstack import FormstackAPI
 from .mailer import send_mail_new_vulnerabilities, send_mail_new_remediated, \
                     send_mail_age_finding, send_mail_age_kb_finding
 from . import views
+from datetime import datetime, timedelta
 
 def get_new_vulnerabilities():
     """ Envio de correo resumen con los hallazgos de un proyecto """
@@ -145,3 +146,10 @@ def get_age_weekends_notifications():
                         send_mail_age_kb_finding(to, context)
                     else:
                         send_mail_age_finding(to, context)
+
+def weekly_report():
+    init_date = (datetime.today() - timedelta(days=7)).date()
+    final_date =  (datetime.today() - timedelta(days=1)).date()
+    registered_users = integrates_dao.all_users_report("FLUID", final_date)
+    logged_users = integrates_dao.logging_users_report("FLUID", init_date, final_date)
+    integrates_dao.weekly_report_dynamo(str(init_date), str(final_date), registered_users[0][0], logged_users[0][0])
