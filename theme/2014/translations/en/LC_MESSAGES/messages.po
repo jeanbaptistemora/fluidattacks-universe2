@@ -799,9 +799,68 @@ msgstr "products"
 msgid "Navb-opt-3"
 msgstr "Products"
 
-#: templates/navigationbar.html:37
-msgid "Navb-link-4"
+#: templates/navigationbar.html:37 templates/navigationbar.html:39
+#: templates/navigationbar.html:40 templates/navigationbar.html:41
+#: templates/navigationbar.html:42 templates/navigationbar.html:43
+#: templates/navigationbar.html:44 templates/navigationbar.html:45
+msgid "Navb-cat-4"
 msgstr "customers"
+
+#: templates/navigationbar.html:39
+msgid "Navb-link-4.1"
+msgstr "financial"
+
+#: templates/navigationbar.html:39
+msgid "Navb-opt-4.1"
+msgstr "Financial"
+
+#: templates/navigationbar.html:40
+msgid "Navb-link-4.2"
+msgstr "communications"
+
+#: templates/navigationbar.html:40
+msgid "Navb-opt-4.2"
+msgstr "Communications"
+
+#: templates/navigationbar.html:41
+msgid "Navb-link-4.3"
+msgstr "consumer"
+
+#: templates/navigationbar.html:41
+msgid "Navb-opt-4.3"
+msgstr "Consumer"
+
+#: templates/navigationbar.html:42
+msgid "Navb-link-4.4"
+msgstr "technology"
+
+#: templates/navigationbar.html:42
+msgid "Navb-opt-4.4"
+msgstr "Technology"
+
+#: templates/navigationbar.html:43
+msgid "Navb-link-4.5"
+msgstr "utilities"
+
+#: templates/navigationbar.html:43
+msgid "Navb-opt-4.5"
+msgstr "Utilities"
+
+#: templates/navigationbar.html:44
+msgid "Navb-link-4.6"
+msgstr "industrial"
+
+#: templates/navigationbar.html:44
+msgid "Navb-opt-4.6"
+msgstr "Industrial"
+
+#: templates/navigationbar.html:45
+msgid "Navb-link-4.7"
+msgstr "transportation"
+
+#: templates/navigationbar.html:45
+msgid "Navb-opt-4.7"
+msgstr "Transportation"
 
 #: templates/navigationbar.html:37
 msgid "Navb-opt-4"
