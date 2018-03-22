@@ -1,0 +1,15 @@
+:slug: rules/087/
+:category: rules
+:description: En el presente documento se detallan los requerimientos de seguridad relacionados al registro de información en bitácora como teléfono, fecha, hora, etc., de las llamadas realizadas por personal en lugares donde se lleva a cabo la manipulación de activos de información.
+:keywords: Requerimiento, Bitácora, Línea telefónica, Personal, Fecha, Información.
+:rules: yes
+
+= REQ.087 Registrar llamadas en bitácoras
+
+== Nombre
+
+La organización debe garantizar 
+que las llamadas realizadas por personal en operación desde líneas telefónicas 
+en los lugares donde se manipulan activos de información, 
+deben ser registradas en una bitácora 
+con nombre de quién realiza la llamada, teléfono, fecha y hora.
