@@ -1,0 +1,12 @@
+:slug: rules/086/
+:category: rules
+:description: En el presente documento se detallan los requerimientos de seguridad relacionados a la importancia que se le debe dar al registro de un evento de seguridad considerado sensible por la organización, por lo cual, se debe generar una alarma al ocurrir dicho evento.
+:keywords: Registrar, Bitácora, Evento, Seguridad, Sensible, Alarma.
+:rules: yes
+
+= REQ.086 Generar alarma en evento de seguridad
+
+== Nombre
+
+El registro de un evento de seguridad sensible en bitácora 
+debe generar una alarma.
