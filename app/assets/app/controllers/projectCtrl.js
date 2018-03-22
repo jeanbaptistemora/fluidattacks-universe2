@@ -56,7 +56,7 @@ integrates.controller(
             $scope.view.project = false;
             $scope.view.finding = false;
             //Parametros de ruta
-            if(findingId !== undefined) $scope.findingId = findingId;
+            if(findingId !== undefined) {$scope.findingId = findingId;}
             if(project != undefined
                 && project != "") {
                 $scope.project = project;
@@ -149,6 +149,7 @@ integrates.controller(
             };
         };
         $scope.calculateCardinality = function(data){
+            var total_severity;
             var cardinalidad = 0;
             var cardinalidad_total = 0;
             data.data.forEach(function(i){
@@ -183,11 +184,11 @@ integrates.controller(
                     if(response.data.length > 0){
                         for (var i = 0; i < response.data.length; i++) {
                             var target = parseInt(response.data[i].lines) / 1000 + parseInt(response.data[i].fields) / 4;
-                            var total_severity = severity / (4.611 * target + 43.221) * 100;
+                            total_severity = severity / (4.611 * target + 43.221) * 100;
                             $("#total_criticidad").html("n%".replace("n", total_severity.toFixed(0)));
                         }
                     } else {
-                        var total_severity = severity;
+                        total_severity = severity;
                         $("#total_criticidad").html(total_severity.toFixed(0));
                     }
                 }
@@ -231,14 +232,14 @@ integrates.controller(
                 json = data;
                 generateDoc = true;
                 json = JSON.stringify(JSON.parse(JSON.stringify(json))); //remove indices
-                if (json == undefined) throw "error";
-                if (json == [] || json == {}) throw "error";
-                if(project.trim() == "") throw "error";
+                if (json == undefined) {throw "error";}
+                if (json == [] || json == {}) {throw "error";}
+                if(project.trim() == "") {throw "error";}
             }catch(e){
                 Rollbar.error("Error: An error ocurred generating document", e);
                 generateDoc = false;
             }
-            if(generateDoc == false) return false;
+            if(generateDoc == false) {return false;}
             var req = projectFtry.ProjectDoc(project, json, "IT");
             req.then(function(response){
                 if(!response.error){
@@ -268,7 +269,7 @@ integrates.controller(
                 controller: function($scope, $uibModalInstance, $stateParams, projectFtry){
                     $scope.findingMatrizXLSReport = function(){
                         var project = $stateParams.project;
-                        var lang = localStorage['lang'];
+                        var lang = localStorage.lang;
                         var prjpatt = new RegExp("^[a-zA-Z0-9_]+$");
                         var langpatt = new RegExp("^en|es$");
                         if(prjpatt.test(project)
@@ -288,7 +289,7 @@ integrates.controller(
                     };
                     $scope.findingMatrizPDFReport = function(){
                         var project = $stateParams.project;
-                        var lang = localStorage['lang'];
+                        var lang = localStorage.lang;
                         var prjpatt = new RegExp("^[a-zA-Z0-9_]+$");
                         var langpatt = new RegExp("^en|es$");
                         if(prjpatt.test(project)
@@ -344,7 +345,7 @@ integrates.controller(
                     };
                     $scope.findingMatrizPDFPresentation = function(){
                         var project = $stateParams.project;
-                        var lang = localStorage['lang'];
+                        var lang = localStorage.lang;
                         var prjpatt = new RegExp("^[a-zA-Z0-9_]+$");
                         var langpatt = new RegExp("^en|es$");
                         if(prjpatt.test(project)
@@ -364,7 +365,7 @@ integrates.controller(
                     };
                     $scope.findingMatrizPDFReport = function(){
                         var project = $stateParams.project;
-                        var lang = localStorage['lang'];
+                        var lang = localStorage.lang;
                         var prjpatt = new RegExp("^[a-zA-Z0-9_]+$");
                         var langpatt = new RegExp("^en|es$");
                         if(prjpatt.test(project)
@@ -394,7 +395,7 @@ integrates.controller(
         };
         $scope.generatePDF = function(){
             var project = $scope.project;
-            var lang = localStorage['lang'];
+            var lang = localStorage.lang;
             var prjpatt = new RegExp("^[a-zA-Z0-9_]+$");
             var langpatt = new RegExp("^en|es$");
             if(prjpatt.test(project)
@@ -510,10 +511,11 @@ integrates.controller(
         };
 
         $scope.search = function(){
-            if(localStorage['lang'] === "en"){
-              var vlang = 'en-US';
+            var vlang;
+            if(localStorage.lang === "en"){
+              vlang = 'en-US';
             } else {
-              var vlang = 'es-CO';
+              vlang = 'es-CO';
             }
             var project = $scope.project;
             var filter = $scope.filter;

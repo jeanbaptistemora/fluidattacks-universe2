@@ -12,10 +12,10 @@
  */
 integrates.afectacionFormatter = function(value, row, index){
     if(value === undefined)
-        return "0"; //fix
+        {return "0";} //fix
     if(!isFinite(value))
-        if (value.trim() == "")
-            return "0";
+        {if (value.trim() == "")
+            {return "0";}}
     return value;
 };
 /**
@@ -259,10 +259,11 @@ integrates.controller("eventualityController", function($scope, $uibModal, $tran
      * @return {undefined}
      */
     $scope.searchEvntByName = function(){
-        if(localStorage['lang'] === "en"){
-          var vlang = 'en-US';
+        var vlang;
+        if(localStorage.lang === "en"){
+          vlang = 'en-US';
         } else {
-          var vlang = 'es-CO';
+          vlang = 'es-CO';
         }
         var project = $scope.project;
         var category = $scope.category;

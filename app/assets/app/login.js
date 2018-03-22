@@ -9,7 +9,7 @@ var BASE = { production: "/integrates/",
              development: "/" };
 BASE.url = BASE.production;
 if(location.pathname.indexOf("/integrates") == -1)
-    BASE.url = BASE.development;
+    {BASE.url = BASE.development;}
 //definicion de modulos
 var integrates = angular.module("FluidIntegrates", ['ngSanitize','pascalprecht.translate']);
 
@@ -31,10 +31,10 @@ integrates.config(['$translateProvider', function($translateProvider) {
         }
     };
     $translateProvider.useSanitizeValueStrategy('sanitize');
-    $translateProvider
-    .translations('en', translations)
-    .translations('es', traducciones)
-    .preferredLanguage('en');
+    $translateProvider.
+    translations('en', translations).
+    translations('es', traducciones).
+    preferredLanguage('en');
 }]);
 /*
  * MixPanel localhost Fixer
@@ -103,9 +103,9 @@ integrates.controller("loginController", function($scope, $translate){
     $scope.lang = function (langKey) {
         if(langKey == "es"
 			|| langKey == "en"){
-			localStorage['lang'] = langKey;
+			localStorage.lang = langKey;
 		}
-		$translate.use(localStorage['lang']);
+		$translate.use(localStorage.lang);
     };
 
 

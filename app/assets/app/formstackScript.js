@@ -11,7 +11,7 @@ $(document).ready(function(){
     setInterval('remember();',35000);
     document.getElementsByTagName("select")[5].onchange = function(){
     	v = document.getElementsByTagName("select")[5].value;
-    	if(v == "Verificación") alertify.success('<p class="text-center"> Información: </p> <p class="text-left"> Verificacion debe usarse para reportar hallazgos en chequeos cruzados </p>');
+    	if(v == "Verificación") {alertify.success('<p class="text-center"> Información: </p> <p class="text-left"> Verificacion debe usarse para reportar hallazgos en chequeos cruzados </p>');}
     }
 });
 

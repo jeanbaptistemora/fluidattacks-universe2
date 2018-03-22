@@ -14,63 +14,63 @@
 integrates.config(function ($stateProvider, $urlRouterProvider) {
     $urlRouterProvider.otherwise('home');
 
-    $stateProvider
-        .state('home', {
+    $stateProvider.
+        state('home', {
             url: '/home',
             templateUrl: 'assets/views/dashboard.html',
             controller: 'dashboardCtrl'
-        })
-        .state('ProjectSearch', {
+        }).
+        state('ProjectSearch', {
             url: '/project',
             templateUrl: 'assets/views/project/index.html',
             controller: 'projectCtrl'
-        })
-        .state('ProjectNamed', {
+        }).
+        state('ProjectNamed', {
             url: '/project/:project',
             templateUrl: 'assets/views/project/index.html',
             controller: 'projectCtrl'
-        })
-        .state('FindingDescription', {
+        }).
+        state('FindingDescription', {
             url: '/project/:project/:id/description',
             templateUrl: 'assets/views/project/findingcontent.html',
             controller: 'findingcontentCtrl'
-        })
-        .state('FindingSeverity', {
+        }).
+        state('FindingSeverity', {
             url: '/project/:project/:id/severity',
             templateUrl: 'assets/views/project/findingcontent.html',
             controller: 'findingcontentCtrl'
-        })
-        .state('FindingTracking', {
+        }).
+        state('FindingTracking', {
             url: '/project/:project/:id/tracking',
             templateUrl: 'assets/views/project/findingcontent.html',
             controller: 'findingcontentCtrl'
-        })
-        .state('FindingEvidence', {
+        }).
+        state('FindingEvidence', {
             url: '/project/:project/:id/evidence',
             templateUrl: 'assets/views/project/findingcontent.html',
             controller: 'findingcontentCtrl'
-        })
-        .state('FindingExploit', {
+        }).
+        state('FindingExploit', {
             url: '/project/:project/:id/exploit',
             templateUrl: 'assets/views/project/findingcontent.html',
             controller: 'findingcontentCtrl'
-        })
-        .state('FindingRecords', {
+        }).
+        state('FindingRecords', {
             url: '/project/:project/:id/records',
             templateUrl: 'assets/views/project/findingcontent.html',
             controller: 'findingcontentCtrl'
-        })
-        .state('FindingComments', {
+        }).
+        state('FindingComments', {
             url: '/project/:project/:id/comments',
             templateUrl: 'assets/views/project/findingcontent.html',
             controller: 'findingcontentCtrl'
-        })
-        .state('EventualitiesByName', {
+        }).
+        state('EventualitiesByName', {
             url: '/eventualities-by-name',
             templateUrl: 'assets/views/search/event_by_name.html',
             controller: 'eventualityController'
-        })
-        .state('Forms', {
+        }).
+        state('Forms', {
             url: '/forms',
             templateUrl: BASE.url + 'forms',
             controller: 'formCtrl'

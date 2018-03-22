@@ -52,20 +52,21 @@ integrates.controller("dashboardCtrl", function($scope, $uibModal, $timeout,
     $scope.changeLang = function(langKey){
 		if(langKey == "es"
 			|| langKey == "en"){
-			localStorage['lang'] = langKey;
+			localStorage.lang = langKey;
 		}
-		$translate.use(localStorage['lang']);
+		$translate.use(localStorage.lang);
     mixpanel.identify(userEmail);
     mixpanel.people.set({
-        "$Language": localStorage['lang'],
+        "$Language": localStorage.lang,
     });
     location.reload();
     }
     $scope.initMyProjects = function(){
-        if(localStorage['lang'] === "en"){
-          var vlang = 'en-US';
+        var vlang;
+        if(localStorage.lang === "en"){
+          vlang = 'en-US';
         } else {
-          var vlang = 'es-CO';
+          vlang = 'es-CO';
         }
         $timeout(function() {
           $("#myProjectsTbl").bootstrapTable({
@@ -79,10 +80,11 @@ integrates.controller("dashboardCtrl", function($scope, $uibModal, $timeout,
       });
     };
     $scope.initMyEventualities = function(){
-        if(localStorage['lang'] === "en"){
-          var vlang = 'en-US';
+        var vlang;
+        if(localStorage.lang === "en"){
+          vlang = 'en-US';
         } else {
-          var vlang = 'es-CO';
+          vlang = 'es-CO';
         }
         var aux = $xhr.get($q, BASE.url + "get_myevents", {});
         aux.then(function(response){

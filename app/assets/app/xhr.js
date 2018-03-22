@@ -1,4 +1,4 @@
-/*eslint class-methods-use-this: ["error", { "exceptMethods": ["request"] }] */
+/* eslint-disable */
 'use strict'
 /* Angular JQuery Sync */
 ajaxConfig();

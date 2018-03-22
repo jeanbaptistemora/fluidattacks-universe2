@@ -1022,8 +1022,8 @@ integrates.config(['$translateProvider', function ($translateProvider) {
     if (localStorage.lang === undefined) {
         localStorage.lang = 'en';
     }
-    $translateProvider
-        .translations('en', translations)
-        .translations('es', traducciones)
-        .preferredLanguage(localStorage.lang);
+    $translateProvider.
+        translations('en', translations).
+        translations('es', traducciones).
+        preferredLanguage(localStorage.lang);
 }]);
