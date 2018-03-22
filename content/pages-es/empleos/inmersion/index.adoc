@@ -48,6 +48,7 @@ Esta etapa comienza cuando:
 .. Un PDF escaneado de la copia de la Tarjeta Profesional o el recibo de comienzo de trámite de la misma
 (aplica si usted ya tiene título de pregrado).
 
+[IMPORTANT]
 Otros detalles procedimentales de cómo se llevará a cabo el entrenamiento,
 que se hace cada día, los lenguajes de programación,
 la forma de documentación y las herramientas requeridas entre otros,
