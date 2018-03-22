@@ -14,7 +14,7 @@ function getCookie(name) {
         var cookies = document.cookie.split(';');
         for (var i = 0; i < cookies.length; i++) {
             var cookie = jQuery.trim(cookies[i]);
-            if (cookie.substring(0, name.length + 1) == (name + '=')) {
+            if (cookie.substring(0, name.length + 1) == name + '=') {
                 cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
                 break;
             }
@@ -29,7 +29,7 @@ function getCookie(name) {
  * @return {Boolean}
  */
 function csrfSafeMethod(method) {
-    return (/^(GET|HEAD|OPTIONS)$/.test(method));
+    return /^(GET|HEAD|OPTIONS)$/.test(method);
 }
 /**
  * Verifica si la url dada esta dentro del mismo dominio
@@ -42,9 +42,9 @@ function sameOrigin(url) {
     var protocol = document.location.protocol;
     var sr_origin = '//' + host;
     var origin = protocol + sr_origin;
-    return (url == origin || url.slice(0, origin.length + 1) == origin + '/') ||
+    return url == origin || url.slice(0, origin.length + 1) == origin + '/' ||
         (url == sr_origin || url.slice(0, sr_origin.length + 1) == sr_origin + '/') ||
-        !(/^(\/\/|http:|https:).*/.test(url));
+        !/^(\/\/|http:|https:).*/.test(url);
 }
 /**
  * Agrega la cookie de CSRF a todas las peticiones ajax de la aplicacion

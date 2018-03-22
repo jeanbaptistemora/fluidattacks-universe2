@@ -1,7 +1,8 @@
+/*eslint class-methods-use-this: ["error", { "exceptMethods": ["request"] }] */
 'use strict'
 /* Angular JQuery Sync */
 ajaxConfig();
-var $xhr = new (class xhr {
+var $xhr = new class xhr {
     request($method, $q, $url, $data, text){
         if(!$q) throw "Undefined Promise";
         if(!$url) throw "Undefined URL";
@@ -26,9 +27,9 @@ var $xhr = new (class xhr {
         }
         return deferred.promise;
     }
-    get($q, $url, $data, text = {}){ return this.request("get", $q, $url, $data, text) };
-    post($q, $url, $data, text = {}){ return this.request("post", $q, $url, $data, text) };
-});
+    get($q, $url, $data, text = {}){ return this.request("get", $q, $url, $data, text) }
+    post($q, $url, $data, text = {}){ return this.request("post", $q, $url, $data, text) }
+};
 //Overriding ajax
 $("#full_loader").hide();
 $( document ).ajaxStart(function() { $("#full_loader").show(); });

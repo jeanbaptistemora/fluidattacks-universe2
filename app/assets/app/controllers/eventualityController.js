@@ -286,52 +286,52 @@ integrates.controller("eventualityController", function($scope, $uibModal, $tran
                     for(var i = 0; i< data.data.length;i++){
                         switch (data.data[i].tipo) {
                             case "Autorización para ataque especial":
-                                data.data[i].tipo = $translate.instant('event_formstack.type.auth_attack');;
+                                data.data[i].tipo = $translate.instant('event_formstack.type.auth_attack');
                                 break;
                             case "Alcance difiere a lo aprobado":
-                                data.data[i].tipo = $translate.instant('event_formstack.type.toe_differs');;
+                                data.data[i].tipo = $translate.instant('event_formstack.type.toe_differs');
                                 break;
                             case "Aprobación de alta disponibilidad":
-                                data.data[i].tipo = $translate.instant('event_formstack.type.high_approval');;
+                                data.data[i].tipo = $translate.instant('event_formstack.type.high_approval');
                                 break;
                             case "Insumos incorrectos o faltantes":
-                                data.data[i].tipo = $translate.instant('event_formstack.type.incor_supplies');;
+                                data.data[i].tipo = $translate.instant('event_formstack.type.incor_supplies');
                                 break;
                             case "Cliente suspende explicitamente":
-                                data.data[i].tipo = $translate.instant('event_formstack.type.explic_suspend');;
+                                data.data[i].tipo = $translate.instant('event_formstack.type.explic_suspend');
                                 break;
                             case "Cliente aprueba cambio de alcance":
-                                data.data[i].tipo = $translate.instant('event_formstack.type.approv_change');;
+                                data.data[i].tipo = $translate.instant('event_formstack.type.approv_change');
                                 break;
                             case "Cliente cancela el proyecto/hito":
-                                data.data[i].tipo = $translate.instant('event_formstack.type.cancel_proj');;
+                                data.data[i].tipo = $translate.instant('event_formstack.type.cancel_proj');
                                 break;
                             case "Cliente detecta ataque":
-                                data.data[i].tipo = $translate.instant('event_formstack.type.det_attack');;
+                                data.data[i].tipo = $translate.instant('event_formstack.type.det_attack');
                                 break;
                             case "Otro":
-                                data.data[i].tipo = $translate.instant('event_formstack.type.other');;
+                                data.data[i].tipo = $translate.instant('event_formstack.type.other');
                                 break;
                             case "Ambiente no accesible":
-                                data.data[i].tipo = $translate.instant('event_formstack.type.inacc_ambient');;
+                                data.data[i].tipo = $translate.instant('event_formstack.type.inacc_ambient');
                                 break;
                             case "Ambiente inestable":
-                                data.data[i].tipo = $translate.instant('event_formstack.type.uns_ambient');;
+                                data.data[i].tipo = $translate.instant('event_formstack.type.uns_ambient');
                                 break;
                             default:
-                                data.data[i].tipo = $translate.instant('event_formstack.type.unknown');;
+                                data.data[i].tipo = $translate.instant('event_formstack.type.unknown');
                         }
                         switch (data.data[i].estado) {
                             case "Pendiente":
-                                data.data[i].estado = $translate.instant('event_formstack.status.unsolve');;
+                                data.data[i].estado = $translate.instant('event_formstack.status.unsolve');
                                 break;
                             case "Tratada":
-                                data.data[i].estado = $translate.instant('event_formstack.status.solve');;
+                                data.data[i].estado = $translate.instant('event_formstack.status.solve');
                                 break;
                             default:
-                                data.data[i].estado = $translate.instant('event_formstack.status.unknown');;
+                                data.data[i].estado = $translate.instant('event_formstack.status.unknown');
                         }
-                    };
+                    }
                     $("#eventualities").bootstrapTable('destroy');
                     $("#eventualities").bootstrapTable({data: data.data, locale: vlang});
                     $("#eventualities").bootstrapTable('refresh');

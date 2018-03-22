@@ -58,8 +58,8 @@ integrates.controller("loginController", function($scope, $translate){
     $scope.login = function(){
         var username = $scope.username;
         var password = $scope.password;
-        if(typeof(username) != "string"
-            || typeof(password) != "string"){
+        if(typeof username != "string"
+            || typeof password != "string"){
              $.gritter.add({
                 title: '',
                 text: "Usuario/Clave son obligatorios",
@@ -83,7 +83,7 @@ integrates.controller("loginController", function($scope, $translate){
                     pass: password
                 }
             }).done(function(e){
-                var color = (e.error == true)?"warning":"success";
+                var color = e.error == true?"warning":"success";
                 $.gritter.add({
                     title: '',
                     text: e.message,
