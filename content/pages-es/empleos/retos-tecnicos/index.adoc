@@ -147,7 +147,17 @@ su +merge request+ es integrado al repositorio.
 Los resultados de la integración pueden verse siempre en
 link:https://gitlab.com/autonomicmind/training/pipelines[GitLab-CI].
 
-== 5. Repositorio
+== 5. Recomendaciones
+
+Para cumplir los objetivos enunciados,
+se sugiere buscar retos que no tengan solución ni en +OTHERS+ ni en el repositorio y
+trabajar en resolver el reto en la respectiva plataforma.
+
+Al momento de solucionar retos de programación,
+se sugiere usar un lenguaje no muy usado y
+resolver los retos en dicho lenguaje.
+
+== 6. Repositorio
 
 El repositorio donde usted debe enviar sus soluciones es el siguiente:
 link:https://gitlab.com/autonomicmind/training/[click aquí]
@@ -245,16 +255,6 @@ de dicha subcarpeta.
 ** *SPEC.txt* (Solo para retos de systems): Contiene las especificaciones de la
 máquina vulnerable con la que se está trabajando.
 Puede ver un ejemplo link:https://gitlab.com/autonomicmind/training/blob/master/systems/bwapp/SPEC.txt[aquí]
-
-== 6. Recomendaciones
-
-Para cumplir los objetivos enunciados,
-se sugiere buscar retos que no tengan solución ni en +OTHERS+ ni en el repositorio y
-trabajar en resolver el reto en la respectiva plataforma.
-
-Al momento de solucionar retos de programación,
-se sugiere usar un lenguaje no muy usado y
-resolver los retos en dicho lenguaje.
 
 == 7. Informes de avance
 
