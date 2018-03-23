@@ -1795,8 +1795,6 @@ integrates.controller("findingcontentCtrl", function($scope, $stateParams, $time
         }
         //Inicializacion para consulta de hallazgos
         $scope.configColorPalette();
-        //Asigna el evento buscar al textbox search y tecla enter
-        $scope.configKeyboardView();
         $scope.finding = {};
         $scope.finding = {};
         $scope.finding.id = $stateParams.id;
