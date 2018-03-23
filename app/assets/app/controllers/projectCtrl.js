@@ -195,9 +195,6 @@ integrates.controller(
             });
             $("#total_efectividad").html("n%".replace("n", ((1-cardinalidad/cardinalidad_total)*100).toFixed(2).toString()));
         };
-        $scope.capitalizeFirstLetter = function(string) {
-            return string.charAt(0).toUpperCase() + string.slice(1);
-        }
         $scope.configColorPalette = function(){
             $scope.colors = {};
             $scope.colors.critical = "background-color: #f12;";  //red

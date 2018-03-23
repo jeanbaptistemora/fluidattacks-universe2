@@ -969,16 +969,6 @@ integrates.controller("findingcontentCtrl", function($scope, $stateParams, $time
         $scope.colors.tolerable = "background-color: #ffbf00;"; //yellow
         $scope.colors.ok = "background-color: #008000;"; //green
     };
-    $scope.configKeyboardView = function(){
-        document.onkeypress = function(ev){
-            //Buscar un proyecto
-            if(ev.keyCode === 13){
-                if($('#project').is(':focus')){
-                    $scope.search();
-                }
-            }
-        };
-    };
     $scope.findingCalculateCSSv2 = function(){
         var ImpCon = parseFloat($scope.finding.impacto_confidencialidad.split(" | ")[0]);
         var ImpInt = parseFloat($scope.finding.impacto_integridad.split(" | ")[0]);
