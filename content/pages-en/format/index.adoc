@@ -1560,6 +1560,30 @@ to see the rendered graph for your source code.
 
 === Tooltips
 
+==== Using text
+
+* Source
++
+....
+This sentence has a ver important tooltip:Additional information about the term[Term]. Hover
+over it to see more details!
+
+In this one, tooltip:More details[the sentence itself] is the center of attention.
+
+You could also use links, tooltip:Great Search Engine[link:https://google.com[Google]]
+....
+
+* Render
++
+This sentence has a ver important tooltip:Additional information about the term[Term]. Hover
+over it to see more details!
++
+In this one, tooltip:More details[the sentence itself] is the center of attention.
++
+You could also use links, link:https://google.com[tooltip:Great Search Engine[Google]]
+
+==== Using images
+
 * Source
 +
 ....

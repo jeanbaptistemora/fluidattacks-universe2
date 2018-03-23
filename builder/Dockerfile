@@ -84,7 +84,11 @@ RUN apt-get update -qq && apt-get install -qqy \
             sed -i 's/\"{outdir'".*"'\"/\"{path}\/{target}\"/' $FILE; \
         done && \
     sed -i 's/-T%s/-T%s\ -charset\ UTF-8/' /etc/asciidoc/filters/plantuml/acplantuml.py && \
+    head -n -1 /app/asciidoc.conf | tail -n -2 >> /etc/asciidoc/html5.conf && \
+        export PATTERN=$(head -n 2 /app/asciidoc.conf | tail -n -1 | sed 's/\\/\\\\/g') && \
+        sed -i 's/\[macros\]/\[macros\]\n'"$PATTERN"'/' /etc/asciidoc/asciidoc.conf && \
     rm -rf /var/lib/apt/lists/* \
+        asciidoc.conf \
         Dockerfile \
         package.json \
         java.tar.gz \
