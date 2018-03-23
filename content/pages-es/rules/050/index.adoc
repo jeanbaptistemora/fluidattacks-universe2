@@ -1,0 +1,12 @@
+:slug: rules/050/
+:category: rules
+:description: En el presente documento se detallan los lineamientos o requerimientos de seguridad relacionados al uso y gestión de llamadas a código interpretado. Por lo tanto, se recomienda que dicho código sea llamado a través de dominios controlados por la organización.
+:keywords: JavaScript, Código interpretado, Sistema, Dominios, Requerimiento, Organización.
+:rules: yes
+
+= REQ.050 Controlar llamada a código interpretado
+
+== Nombre
+
+La llamada a código interpretado (+JavaScript+, +CSS+) 
+debe hacerse a dominios controlados por la organización.

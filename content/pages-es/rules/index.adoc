@@ -48,6 +48,7 @@
 
 * link:048/[REQ.048 Componentes con mínimo de dependencias].
 * link:049/[REQ.049 Los Componentes deben usar interfaces].
+* link:050/[REQ.050 Controlar llamada a código interpretado].
 
 == Correos
 
