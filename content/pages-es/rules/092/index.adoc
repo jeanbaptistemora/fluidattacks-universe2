@@ -4,7 +4,7 @@
 :keywords: Certificado, Entidades certificadoras, Aplicaciones, Firma, Requerimiento, Seguridad.
 :rules: yes
 
-= REQ.092 Utilizar certificados coherentes
+= REQ.092 Utilizar certificados externos
 
 == Nombre
 

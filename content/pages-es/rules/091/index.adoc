@@ -1,0 +1,13 @@
+:slug: rules/091/
+:category: rules
+:description: En el presente documento se detallan los lineamientos o requerimientos de seguridad relacionados al uso de certificados, los cuales, se recomienda, deben ir firmados por entidades certificadoras internas válidas cuando estos sean para aplicaciones internas.
+:keywords: Certificado, Entidades certificadoras, Aplicaciones, Firma, Requerimiento, Seguridad.
+:rules: yes
+
+= REQ.091 Utilizar certificados firmados internos
+
+== Nombre
+
+Debe utilizarse certificados firmados 
+por entidades certificadoras internas válidas 
+cuando estos sean para aplicaciones internas.
