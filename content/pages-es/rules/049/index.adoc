@@ -1,0 +1,12 @@
+:slug: rules/049/
+:category: rules
+:description: En el presente documento se detallan los lineamientos o requerimientos de seguridad relacionados al uso y gestión de componentes de un sistema. Por lo tanto, en la medida de lo posible, todo componente debe utilizar interfaces en vez de implementaciones.
+:keywords: Componente, Código fuente, Sistema, Interfaz, Requerimiento, Implementación.
+:rules: yes
+
+= REQ.049 Los Componentes deben usar interfaces
+
+== Nombre
+
+En el código fuente, 
+los componentes deben utilizar interfaces en vez de implementaciones.
