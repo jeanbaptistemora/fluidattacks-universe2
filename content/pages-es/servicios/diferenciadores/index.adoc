@@ -11,7 +11,7 @@
 {description} Para tal fin presentamos la siguiente tabla comparativa:
 
 .Comparación entre una prueba de intrusión de FLUID y un análisis común de vulnerabilidades.
-[role="tb-row"]
+[role="tb-fluid tb-row"]
 [cols="1,2,2", options="header"]
 |====
 | Aspecto

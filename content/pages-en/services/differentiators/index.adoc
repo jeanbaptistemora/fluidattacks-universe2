@@ -11,7 +11,7 @@
 {description} To this end, we present the following comparative table:
 
 .Comparative table Pentesting Vs Vulnerability Analysis
-[role="tb-row"]
+[role="tb-fluid tb-row"]
 [cols="1,2,2", options="header"]
 |====
 | Aspect

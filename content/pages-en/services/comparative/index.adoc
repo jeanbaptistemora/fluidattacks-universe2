@@ -11,7 +11,7 @@
 {description} To this end we present the following table:
 
 .Comparison between Continuous and One Shot Hacking services.
-[role="tb-row"]
+[role="tb-fluid tb-row"]
 [cols="1,2,2", options="header"]
 |====
 | Aspects
