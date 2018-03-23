@@ -80,14 +80,14 @@ function responsive(tableclass, minsize, maxsize){
 
 (function($) {
   $(window).on('resize', function(){
-    responsive(".tb-row", 130, 150);
-    responsive(".tb-col", 130, 150);
+    responsive(".tb-row", 180, 200);
+    responsive(".tb-col", 180, 200);
     responsive(".tb-alt", 260, 280);
   });
 })(jQuery);
 
 $(document).ready(function() {
-  responsive(".tb-row", 130, 150);
-  responsive(".tb-col", 130, 150);
+  responsive(".tb-row", 180, 200);
+  responsive(".tb-col", 180, 200);
   responsive(".tb-alt", 260, 280);
 });
