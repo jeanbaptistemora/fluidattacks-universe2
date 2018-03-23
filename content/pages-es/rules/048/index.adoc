@@ -1,0 +1,12 @@
+:slug: rules/048/
+:category: rules
+:description: En el presente documento se detallan los lineamientos o requerimientos de seguridad relacionados al uso y gestión de componentes de un sistema. Por lo tanto, se recomienda que en el código fuente, un componente debe poseer el menor número de dependencias posible.
+:keywords: Componente, Código fuente, Sistema, Dependencias, Requerimiento, Seguridad.
+:rules: yes
+
+= REQ.048 Componentes con mínimo de dependencias
+
+== Nombre
+
+En el código fuente, 
+un componente debe poseer el menor número de dependencias posible.
