@@ -1,0 +1,12 @@
+:slug: rules/093/
+:category: rules
+:description: En el presente documento se detallan los requerimientos de seguridad relacionados al uso de certificados coherentes al modelo de negocio de la organización. Por lo tanto, los certificados deben contar con una identificación coherente con la organización a la cual se encuentra asociado.
+:keywords: Certificado, Identificación, Organización, Servidor, Servicio, Sistema.
+:rules: yes
+
+= REQ.093 Utilizar certificados coherentes
+
+== Nombre
+
+Debe utilizarse certificados con una identificación coherente con la organización 
+(servicio, servidor, entre otros) a la cual se encuentra asociado.

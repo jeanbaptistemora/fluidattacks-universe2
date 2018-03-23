@@ -21,7 +21,7 @@
 
 == Bitácoras
 
-* link:070/[REQ.070 Registrar eventos en bitácoras].
+* link:075/[REQ.075 Registrar eventos en bitácoras].
 * link:076/[REQ.076 Registrar niveles de severidad de eventos].
 * link:077/[REQ.077 No revelar detalles del sistema interno].
 * link:078/[REQ.078 Eventos con severidad deshabilitados].
@@ -39,6 +39,7 @@
 
 * link:088/[REQ.088 Requerir certificados de cliente].
 * link:089/[REQ.089 Limitar vigencia de certificados].
+* link:093/[REQ.093 Utilizar certificados coherentes].
 
 == Correos
 

@@ -1,15 +1,15 @@
-:slug: rules/070/
+:slug: rules/075/
 :category: rules
 :description: En el presente documento se detallan los requerimientos de seguridad relacionados con las bitácoras que registran eventos relevantes. En este requerimiento se establece la importancia de registrar todos los eventos excepcionales en una o varias bitácoras.
 :keywords: Requerimiento, Seguridad, Bitácoras, Registrar, Eventos, Información.
 :rules: yes
 
-= REQ.070 Registrar eventos en bitácoras
+= REQ.075 Registrar eventos en bitácoras
 
 == Nombre 
 
 El sistema debe registrar todos los eventos excepcionales 
-y de seguridad en una o varias bitácoras. 
+y de seguridad en bitácoras. 
 
 == Soluciones
 
