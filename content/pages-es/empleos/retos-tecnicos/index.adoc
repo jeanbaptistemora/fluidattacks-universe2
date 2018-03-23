@@ -104,53 +104,53 @@ En hacking, deben ser retos que:
 
 == 5. Envío
 
-Antes de realizar un +Merge Request+ (+MR+),
-por favor verifique que cumple con los siguientes criterios:
+Las soluciones se envían mediante +Merge Request+ (+MR+) a la rama +master+ del repositorio +training+.
+Antes de realizar un +MR+ por favor verifique que cumple con los siguientes criterios:
 
-. Los cambios se deben realizar en una *rama personal*,
-la cual debe llevar el mismo nombre de su usuario en +GitLab+.
+. Solo debe trabajar en una rama cuyo nombre es exactamente su nombre de usuario en +gitlab+,
+. Todos los archivos relacionados con la resolución de retos deben respetar la estructura indicada,
+. Si la solución requiere archivos adicionales debe incluirlos en el directorio del reto correspondiente,
+. Cada solución a un reto debe enviarse con 10 soluciones externas (10 +URLs+ en archivos +OTHERS.txt+),
+. La solución y los archivos relacionados deben enviarse en 1 solo +commit+,
+. Cada +commit+ de solución de retos debe ir en 1 solo +MR+,
+. El +MR+ debe realizarse solo cuando su rama ha integrado satisfactoriamente (verde),
+. Si el +MR+ es rechazado no debe reabrirse, deben corregirse los problemas indicados y hacer un nuevo +MR+,
+. El mensaje de +commit+ para enviar la solución de un reto en el cual previamente se tienen 17 soluciones externas y 
+8 soluciones dentro del repo es el siguiente:
 
-. Todos los archivos relacionados con la resolución de retos deben respetar
-la link:#repositorio[estructura indicada].
+  solution: codeabbey, 78 (9.63)   
+  - others: 8 in, 17 out, 0 total.
+  - score: 25665 initial, 25723 final, 58 progress.
+  - global-rank: 797 initial, 795 final, 2 progress.
+  - national-rank: 38 initial, 38 final, 0 progress.
+  - effort: 4.5 hours during challenges phase.
 
-. Si una de sus soluciones de +hacking+ requiere un script adicional,
-deberá incluirlo en el mismo directorio.
+Las reglas para los enlaces (+URLs+) a soluciones externas (+OTHERS.txt+) son las siguientes:
 
-. Por cada reto usted deberá realizar un +commit+ que agrupe los cambios
-correspondientes a la solución y 10 retos que tienen solución en Internet,
-pero no en el repositorio (+OTHERS+) y luego,
-un +merge request+ para solicitar la inclusión de sus soluciones.
+. Deben ser enlaces directos (+HTTP 200+) y sin redirección (+HTTP 302+).
+. No tienen que ser del mismo reto del que se sube la solución,
+. Deben ser de +hacking+ si se está solucionando un reto de +hacking+,
+. Deben ser de programación si se está solucionando un reto de programación,
+.. No debe añadir soluciones externas para un lenguaje del que ya se tenga solución externa,
+.. Dentro de un +OTHERS+ de programación las +URLs+ deben estar ordenadas alfabéticamente por extensión,
+. Si está en +github+ la +URL+ debe ser su versión +raw+ (link:https://raw.githubusercontent.com/[]),
 
-.. Los enlaces de los +OTHERS+ deben ser enlaces directos (+HTTP 200+) y sin redirección (+HTTP 302+).
-.. Si está subiendo soluciones de +hacking+, los enlaces de los +OTHERS+ deben ser a soluciones de +hacking+ de terceros,
-.. Si está subiendo soluciones de programación, los enlaces de los +OTHERS+ deben ser a soluciones de programación de terceros,
-.. No se debe repetir lenguajes de programación en las soluciones enlazadas de los +OTHERS+
+A continuación presentamos los enlaces para diferentes tipos de +MR+:
 
-. Un +merge request+ debe tener un solo +commit+.
+* +MR+ pendientes de aprobación: link:https://gitlab.com/autonomicmind/training/merge_requests?scope=all&utf8=%E2%9C%93&state=opened[click aquí].
+* +MR+ rechazados en el pasado: link:https://gitlab.com/autonomicmind/training/merge_requests?scope=all&utf8=%E2%9C%93&state=closed[click aquí].
 
-. El mensaje del +commit+ debe tener el siguiente
-link:https://gitlab.com/autonomicmind/training/blob/master/templates/commit-msg.txt[formato].
+Ejemplos de +MR+ aceptados en el pasado:
 
-. Antes de abrir un +MR+ debe esperar que la integración termine satisfactoriamente (en verde)
+* +MR+ ejemplares de +hacking+: link:https://gitlab.com/autonomicmind/training/merge_requests/831[Ej. 1], link:https://gitlab.com/autonomicmind/training/merge_requests/734[Ej. 2], link:https://gitlab.com/autonomicmind/training/merge_requests/703/[Ej. 3],
+* +MR+ ejemplares de programación: link:https://gitlab.com/autonomicmind/training/merge_requests/773[Ej. 1], link:https://gitlab.com/autonomicmind/training/merge_requests/750[Ej. 2], link:https://gitlab.com/autonomicmind/training/merge_requests/814[Ej. 3],
 
-. Adicionalmente, las soluciones que envíe deben cumplir con los siguientes
-link:https://gitlab.com/autonomicmind/training/wikis/home[requisitos]
-
-Tenga en cuenta que no se reabre un +MR+.
-Si su +MR+ fue rechazado, deberá crear uno nuevo tras haber realizado las respectivas correcciones.
-
-Los link:https://gitlab.com/autonomicmind/training/merge_requests[merge request]
-pendientes de revisión y aprobación,
-así como todos los realizados en el pasado pueden verse en el enlace indicado.
-
-Para cada +merge request+ que usted envíe, se realiza un proceso de
-integración continua que verifica automáticamente el cumplimiento de
-algunas de las reglas aquí definidas.
-Solo cuando el proceso de integración pasa sin errores (en verde),
-su +merge request+ es integrado al repositorio.
-Los resultados de la integración pueden verse siempre en
-link:https://gitlab.com/autonomicmind/training/pipelines[GitLab-CI].
-
+[NOTE]
+Estos enlaces ejemplares no necesariamente siguen todas las reglas mencionadas pues las reglas evolucionan y 
+por ende en el momento que se hicieron las reglas pudieron ser otras.  
+En ningún momento los ejemplos tienen prioridad sobre las reglas, 
+sin embargo se relacionan como ejemplo para propósitos pedagógicos.
+  
 == 6. Recomendaciones
 
 Para cumplir los objetivos enunciados,
