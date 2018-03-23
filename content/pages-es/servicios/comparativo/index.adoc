@@ -3,8 +3,9 @@
 :description: Nuestros servicios de Ethical Hacking y Pentesting buscan encontrar y reportar todas las vulnerabilidades de seguridad presentes en su aplicación. Es importante distinguir las características que componen nuestros servicios de Hacking continuo y Hacking puntual.
 :keywords: FLUID, Ethical Hacking, Comparación, Hacking Puntual, Hacking continuo, Pentesting.
 :translate: services/comparative/
-:si: image:yes.png[si]
-:no: image:no.png[no]
+:si: image:../../images/icons/yes.png[si]
+:no: image:../../images/icons/no.png[no]
+:info: image:../../images/icons/info.png[info]
 
 = Comparativo
 
@@ -31,7 +32,7 @@ a|==== Duracion típica
 | +1+ a +4+ meses.
 
 a|==== Entrega presencial
-|{no} Todas las entregas de información se realizan vía
+|{info} Todas las entregas de información se realizan vía
 [button]#link:../../productos/integrates/[Integrates]#.
 a|{si} Reuniones de socialización de resultados:
 
@@ -44,7 +45,7 @@ a|{si} Temprana
 * Las vulnerabilidades son detectadas
 cerca al momento en que el programador las inyecta.
 
-a|{no} Tardía
+a|{info} Tardía
 
 * Las vulnerabilidades son detectadas
 cuando el sistema está próximo a salir a producción.
@@ -52,11 +53,11 @@ cuando el sistema está próximo a salir a producción.
 a|==== Alertas
 |{si} Sistema de alertamiento continuo por email
 a los lideres de proyecto sobre vulnerabilidades no cerradas.
-|{no} No hay sistema de alertas, solo los informes finales.
+|{info} No hay sistema de alertas, solo los informes finales.
 
 a|==== Visión
 |{si} Información de la seguridad de su sistema _al día_.
-|{no}  Información de la seguridad de su sistema _en un momento del tiempo_.
+|{info}  Información de la seguridad de su sistema _en un momento del tiempo_.
 
 a|==== Cobertura
 a|{si} 100% cuando:
@@ -66,7 +67,7 @@ a|{si} 100% cuando:
 * No se detiene el hacking mientras exista desarrollo.
 * El código no cambie a más de 10K deltas por mes.
 
-a|{no} Acordada al inicio de la prueba.
+a|{info} Acordada al inicio de la prueba.
 
 a|==== Ventanas
 a|{si} En el servicio de
@@ -77,17 +78,17 @@ los ambientes:
 * No estar congelados.
 * No se requiere ventanas para el hackeo.
 
-|{no} Se requieren ambientes congelados y ventanas deprueba.
+|{info} Se requieren ambientes congelados y ventanas deprueba.
 
 a|==== Infección
-| {no} No se infectan los ambientes con troyanos.
+| {info} No se infectan los ambientes con troyanos.
 | {si} Se infectan estaciones y servidores críticos
 con nuestro troyano personalizado
 [button]#link:../../productos/commands/[Commands]#.
 
 a|==== Tasa de remediación
 | {si} Cierre hasta del 80% de las vulnerabilidades reportadas.
-| {no} Cierre máximo del 10% de las vulnerabilidades reportadas.
+| {info} Cierre máximo del 10% de las vulnerabilidades reportadas.
 
 a|==== Localización
 | Siempre remoto.
@@ -95,7 +96,7 @@ a|==== Localización
 
 a|==== Tiempo de remediación
 | {si} 2 a 3 semanas.
-| {no} 3 a 4 meses.
+| {info} 3 a 4 meses.
 
 a|==== Pago
 | Pago mensual.

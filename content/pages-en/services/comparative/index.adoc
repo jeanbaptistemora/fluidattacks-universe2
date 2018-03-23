@@ -3,8 +3,9 @@
 :description: Our Ethical Hacking and Pentesting services seek to find and report all the present security vulnerabilities in your application. It is important to distinguish between the different services we offer in order to select the service that fits your needs.
 :keywords: FLUID, Ethical Hacking, Comparison, One Shot Hacking, Continuous Hacking, Pentesting.
 :translate: servicios/comparativo/
-:yes: image:yes.png[yes]
-:no: image:no.png[no]
+:yes: image:../../images/icons/yes.png[yes]
+:no: image:../../images/icons/no.png[no]
+:info: image:../../images/icons/info.png[info]
 
 = Comparative
 
@@ -31,7 +32,7 @@ a|==== Average duration
 | Between +1+ and +4+ months.
 
 a|==== Face-to-face delivery
-|{no} All information deliveries are made via
+|{info} All information deliveries are made via
 [button]#link:../../products/integrates/[Integrates]#.
 a|{yes} Results socialization meetings:
 
@@ -43,7 +44,7 @@ a|{yes} Early
 
 * Vulnerabilities are detected near the time the programmer injects them.
 
-a|{no} Late
+a|{info} Late
 
 * Vulnerabilities are detected when the system is close to production.
 
@@ -51,11 +52,11 @@ a|==== Alerting
 
 |{yes} Continuous alerting system via email
 to the project leaders about open vulnerabilities.
-|{no} No alerting system, only final reports.
+|{info} No alerting system, only final reports.
 
 a|==== Vision
 |{yes} Information about your system security _up to date_.
-|{no} Information about your system security _in a moment of time_.
+|{info} Information about your system security _in a moment of time_.
 
 a|==== Coverage
 a|{yes} 100% when:
@@ -65,7 +66,7 @@ a|{yes} 100% when:
 * Hacking does not stop during development stage.
 * Code does not change more than 10K deltas/month.
 
-a|{no} Agreed at the beginning of the test.
+a|{info} Agreed at the beginning of the test.
 
 a|==== Windows
 a|{yes} In the
@@ -76,17 +77,17 @@ service environments:
 * Not necessarily are frozen.
 * Windows are not required for hacking.
 
-| {no} Frozen environments and test windows are required.
+| {info} Frozen environments and test windows are required.
 
 a|==== Infection
-| {no} Environments are not infected with cyberweapons.
+| {info} Environments are not infected with cyberweapons.
 | {yes} Work stations and critical servers
 are infected with our custom cyberweapon
 [button]#link:../../products/commands/[Commands]#
 
 a|==== Remediation ratio
 | {yes} Closure of up to 80% of reported vulnerabilities.
-| {no} Maximum closure of 10% of reported vulnerabilities.
+| {info} Maximum closure of 10% of reported vulnerabilities.
 
 a|==== Location
 | Always remote.
@@ -94,7 +95,7 @@ a|==== Location
 
 a|==== Time to remediate
 | {yes} 2 or 3 weeks.
-| {no} 3 or 4 months.
+| {info} 3 or 4 months.
 
 a|==== Payment
 | Monthly payment.
