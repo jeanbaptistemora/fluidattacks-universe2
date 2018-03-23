@@ -1,3 +1,4 @@
+/*eslint no-magic-numbers: ["error", { "ignore": [500, 401] }]*/
 /**
  * @file projectFtry.js
  * @author engineering@fluidattacks.com
@@ -47,7 +48,7 @@ integrates.factory('projectFtry', function($q, $translate){
          */
         getExploit: function(findingid, id){
             var oops_ac = $translate.instant('proj_alerts.error_text');
-            return $xhr.get($q,  BASE.url + "get_exploit", {
+            return $xhr.get($q, BASE.url + "get_exploit", {
                 findingid: findingid, id: id, _: Math.random()
             }, oops_ac);
         },
@@ -61,7 +62,7 @@ integrates.factory('projectFtry', function($q, $translate){
          */
         getRecords: function(findingid, id){
             var oops_ac = $translate.instant('proj_alerts.error_text');
-            return $xhr.get($q,  BASE.url + "get_records", {
+            return $xhr.get($q, BASE.url + "get_records", {
                 findingid: findingid, id: id, _: Math.random()
             }, oops_ac);
         },

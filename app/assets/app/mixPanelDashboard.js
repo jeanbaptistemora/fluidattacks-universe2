@@ -11,10 +11,11 @@ mixPanelDashboard = {};
  * MixPanel localhost Fixer
  */
 var result;
+var none_int = -1;
 mixPanelDashboard.isProduction = function () {
     result = false;
     try {
-        result = location.toString().indexOf("localhost:8000") !== -1;
+        result = location.toString().indexOf("localhost:8000") !== none_int;
         return result;
     } catch (e) {
         result = false;

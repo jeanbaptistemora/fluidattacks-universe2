@@ -1,3 +1,4 @@
+/*eslint no-magic-numbers: ["error", { "ignore": [-1,0,0.950,1,2,5] }]*/
 var remember = null;
 $(document).ready(function(){
     remember = function(){
@@ -9,8 +10,9 @@ $(document).ready(function(){
     }
     remember();
     setInterval(function() {
+        var timew = 35000;
         remember();
-    }, 35000);
+    }, timew);
     document.getElementsByTagName("select")[5].onchange = function(){
     	v = document.getElementsByTagName("select")[5].value;
     	if(v == "Verificación") {alertify.success('<p class="text-center"> Información: </p> <p class="text-left"> Verificacion debe usarse para reportar hallazgos en chequeos cruzados </p>');}

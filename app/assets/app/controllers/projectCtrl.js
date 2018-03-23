@@ -1,3 +1,4 @@
+/*eslint no-magic-numbers: ["error", { "ignore": [-1,0,0.4,0.6,1,1.176,1.5,2,4,4.611,10,10.41,13,20,43.221,100,200,300,1000,3000] }]*/
 /**
  * @file ProjectCtrl.js
  * @author engineering@fluidattacks.com
@@ -22,7 +23,7 @@ function labelState(value, row, index){
         return "<label class='label label-info' style='background-color: #ffbf00'>Parcialmente cerrado</label>";
     }
         return "<label class='label label-info' style='background-color: #ffbf00'>Partially closed</label>";
-    
+
 }
 /**
  * Controlador de vista de proyectos
@@ -134,7 +135,7 @@ integrates.controller(
             var yyyy = today.getFullYear();
             if(dd<10){ dd='0'+dd; }
             if(mm<10){ mm='0'+mm; }
-            var today = dd+'/'+mm+'/'+yyyy;
+            var new_today = dd+'/'+mm+'/'+yyyy;
             $scope.header = {
                 findingTitle: $scope.finding.hallazgo,
                 findingID: "323932433",
@@ -145,7 +146,7 @@ integrates.controller(
                 findingCount: $scope.finding.cardinalidad,
                 findingStateColor: $scope.colors.critical,
                 findingState: "Abierto",
-                finding: today
+                finding: new_today
             };
         };
         $scope.calculateCardinality = function(data){
@@ -197,8 +198,8 @@ integrates.controller(
         };
         $scope.configColorPalette = function(){
             $scope.colors = {};
-            $scope.colors.critical = "background-color: #f12;";  //red
-            $scope.colors.moderate = "background-color: #f72;";  //orange
+            $scope.colors.critical = "background-color: #f12;"; //red
+            $scope.colors.moderate = "background-color: #f72;"; //orange
             $scope.colors.tolerable = "background-color: #ffbf00;"; //yellow
             $scope.colors.ok = "background-color: #008000;"; //green
         };
@@ -876,7 +877,7 @@ integrates.controller(
                                     $("#exploit").removeClass("active");
                                     //Tracking mixpanel
                                     mixPanelDashboard.trackFinding("ReadFinding", userEmail, row.id);
-                                    $scope.currentScrollPosition =  $(document).scrollTop();
+                                    $scope.currentScrollPosition = $(document).scrollTop();
                                 },
                                 cookieIdTable: "saveId",
                                 cookie: true,

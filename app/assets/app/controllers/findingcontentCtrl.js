@@ -1,3 +1,4 @@
+/*eslint no-magic-numbers: ["error", { "ignore": [-1,0,0.4,0.6,1,1.176,1.5,2,3,4,5,6,6.9,7,9,10.41,20,50,80,100,200,500,1000,10000] }]*/
 /**
  * @file findingcontentCtrl.js
  * @author engineering@fluidattacks.com
@@ -81,33 +82,26 @@ integrates.controller("findingcontentCtrl", function($scope, $stateParams, $time
         req.then(function(response){
             if(!response.error){
                 if(response.data.length > 0){
+                    var resp_function = function(response){
+                        if(!response.error){
+                            responses = response.replaceAll("<", "&lt;");
+                            responses = response.replaceAll(">", "&gt;");
+                            $scope.exploitURL = responses;
+                        } else {
+                          Rollbar.error("Error: An error occurred loading exploit from S3");
+                        }
+                      };
                     for (var i = 0; i < response.data.length; i++) {
                         if(response.data[i].exploit !== undefined
                             && response.data[i].es_exploit == true
                               && $scope.finding.cierres.length == 0){
                           exploit = projectFtry.getExploit($scope.finding.id, response.data[i].exploit);
                           $scope.hasExploit = true;
-                          exploit.then(function(response){
-                              if(!response.error){
-                                  response = response.replaceAll("<", "&lt;");
-                                  response = response.replaceAll(">", "&gt;");
-                                  $scope.exploitURL = response;
-                              } else {
-                                Rollbar.error("Error: An error occurred loading exploit from S3");
-                              }
-                          });
+                          exploit.then(function(response){resp_function(response);});
                         } else if($scope.finding.exploit !== undefined && $scope.finding.cierres.length == 0){
                             exploit = projectFtry.getExploit($scope.finding.id, $scope.finding.exploit);
                             $scope.hasExploit = true;
-                            exploit.then(function(response){
-                                if(!response.error){
-                                    response = response.replaceAll("<", "&lt;");
-                                    response = response.replaceAll(">", "&gt;");
-                                    $scope.exploitURL = response;
-                                } else {
-                                  Rollbar.error("Error: An error occurred loading exploit");
-                                }
-                            });
+                            exploit.then(function(response){resp_function(response);});
                         } else {
                             $scope.hasExploit = false;
                         }
@@ -117,9 +111,9 @@ integrates.controller("findingcontentCtrl", function($scope, $stateParams, $time
                             $scope.hasExploit = true;
                             exploit.then(function(response){
                                 if(!response.error){
-                                    response = response.replaceAll("<", "&lt;");
-                                    response = response.replaceAll(">", "&gt;");
-                                    $scope.exploitURL = response;
+                                    responses = response.replaceAll("<", "&lt;");
+                                    responses = response.replaceAll(">", "&gt;");
+                                    $scope.exploitURL = responses;
                                 } else {
                                   Rollbar.error("Error: An error occurred loading exploit");
                                 }
@@ -154,7 +148,7 @@ integrates.controller("findingcontentCtrl", function($scope, $stateParams, $time
         var inputs = document.querySelectorAll( '.inputfile' );
         Array.prototype.forEach.call( inputs, function( input )
         {
-          var label  = input.nextElementSibling,
+          var label = input.nextElementSibling,
             labelVal = label.innerHTML;
 
           input.addEventListener( 'change', function( e )
@@ -261,7 +255,7 @@ integrates.controller("findingcontentCtrl", function($scope, $stateParams, $time
         var inputs = document.querySelectorAll( '.inputfile' );
         Array.prototype.forEach.call( inputs, function( input )
         {
-          var label  = input.nextElementSibling,
+          var label = input.nextElementSibling,
             labelVal = label.innerHTML;
 
           input.addEventListener( 'change', function( e )
@@ -292,7 +286,7 @@ integrates.controller("findingcontentCtrl", function($scope, $stateParams, $time
         var inputs = document.querySelectorAll( '.inputfile' );
         Array.prototype.forEach.call( inputs, function( input )
         {
-          var label  = input.nextElementSibling,
+          var label = input.nextElementSibling,
             labelVal = label.innerHTML;
 
           input.addEventListener( 'change', function( e )
@@ -376,9 +370,9 @@ integrates.controller("findingcontentCtrl", function($scope, $stateParams, $time
     updateEvidencesFiles = function(element){
         var error_ac1;
         var evImage = $(element).attr('target');
-        var data = {};
-        data.document = $('#evidence'+ evImage).val();
-        if(data.document == ""){
+        var data_p = {};
+        data_p.document = $('#evidence'+ evImage).val();
+        if(data_p.document == ""){
             error_ac1 = $translate.instant('proj_alerts.error_textsad');
             $msg.error(error_ac1);
             return false;
@@ -392,22 +386,26 @@ integrates.controller("findingcontentCtrl", function($scope, $stateParams, $time
         fileName = fileInput.files[0].name;
         dots = fileName.split(".");
         fileType = "." + dots[dots.length-1];
-        if((fileType == ".png" || fileType == ".PNG") && fileInput.files[0].size > 2097152){
+        var png_max_size = 2097152;
+        var gif_max_size = 10485760;
+        var py_max_size = 1048576;
+        var csv_max_size = 1048576;
+        if((fileType == ".png" || fileType == ".PNG") && fileInput.files[0].size > png_max_size){
             error_ac1 = $translate.instant('proj_alerts.file_size_png');
             $msg.error(error_ac1);
             return false;
         }
-        if((fileType == ".gif" || fileType == ".GIF") && fileInput.files[0].size > 10485760){
+        if((fileType == ".gif" || fileType == ".GIF") && fileInput.files[0].size > gif_max_size){
             error_ac1 = $translate.instant('proj_alerts.file_size');
             $msg.error(error_ac1);
             return false;
         }
-        if((fileType == ".py" || fileType == ".PY") && fileInput.files[0].size > 1048576){
+        if((fileType == ".py" || fileType == ".PY") && fileInput.files[0].size > py_max_size){
             error_ac1 = $translate.instant('proj_alerts.file_size_py');
             $msg.error(error_ac1);
             return false;
         }
-        if((fileType == ".csv" || fileType == ".CSV") && fileInput.files[0].size > 1048576){
+        if((fileType == ".csv" || fileType == ".CSV") && fileInput.files[0].size > csv_max_size){
             error_ac1 = $translate.instant('proj_alerts.file_size_py');
             $msg.error(error_ac1);
             return false;
@@ -417,11 +415,11 @@ integrates.controller("findingcontentCtrl", function($scope, $stateParams, $time
             error_ac1 = $translate.instant('proj_alerts.file_type_gif');
             $msg.error(error_ac1);
             return false;
-        } else if (evImage == '7' && (fileType != ".py"  && fileType != ".PY")){
+        } else if (evImage == '7' && (fileType != ".py" && fileType != ".PY")){
             error_ac1 = $translate.instant('proj_alerts.file_type_py');
             $msg.error(error_ac1);
             return false;
-        } else if (evImage == '8' && (fileType != ".csv"  && fileType != ".CSV")){
+        } else if (evImage == '8' && (fileType != ".csv" && fileType != ".CSV")){
             error_ac1 = $translate.instant('proj_alerts.file_type_csv');
             $msg.error(error_ac1);
             return false;
@@ -964,8 +962,8 @@ integrates.controller("findingcontentCtrl", function($scope, $stateParams, $time
     };
     $scope.configColorPalette = function(){
         $scope.colors = {};
-        $scope.colors.critical = "background-color: #f12;";  //red
-        $scope.colors.moderate = "background-color: #f72;";  //orange
+        $scope.colors.critical = "background-color: #f12;"; //red
+        $scope.colors.moderate = "background-color: #f72;"; //orange
         $scope.colors.tolerable = "background-color: #ffbf00;"; //yellow
         $scope.colors.ok = "background-color: #008000;"; //green
     };
@@ -1350,66 +1348,42 @@ integrates.controller("findingcontentCtrl", function($scope, $stateParams, $time
                   vlang = 'es-CO';
                 }
                 if(response.data.length > 0){
+                    var resp_function = function(response){
+                        if(!response.error){
+                            var dataCols = []
+                            for(var i in response.data[0]){
+                              if ({}.hasOwnProperty.call(response.data[0], i)) {
+                                dataCols.push({
+                                    field: i,
+                                    title: i
+                                });
+                              }
+                            }
+                            $("#recordsTable").bootstrapTable('destroy');
+                            $("#recordsTable").bootstrapTable({
+                                locale: vlang,
+                                columns: dataCols,
+                                data: response.data,
+                                cookieIdTable: "recordsTableCookie",
+                                cookie: true
+                            });
+                            $("#recordsTable").bootstrapTable('refresh');
+                        } else {
+                            Rollbar.error("Error: An error occurred loading record from S3");
+                            var error_ac1 = $translate.instant('proj_alerts.error_textsad');
+                            $msg.error(error_ac1);
+                        }
+                    }
                     for (var i = 0; i < response.data.length; i++) {
                         if(response.data[i].registros_archivo !== undefined
                             && response.data[i].es_registros_archivo == true){
                             record = projectFtry.getRecords($scope.finding.id, response.data[i].registros_archivo);
                             $scope.hasRecords = true;
-                            record.then(function(response){
-                                if(!response.error){
-                                    var dataCols = []
-                                    for(var i in response.data[0]){
-                                      if ({}.hasOwnProperty.call(response.data[0], i)) {
-                                        dataCols.push({
-                                            field: i,
-                                            title: i
-                                        });
-                                      }
-                                    }
-                                    $("#recordsTable").bootstrapTable('destroy');
-                                    $("#recordsTable").bootstrapTable({
-                                        locale: vlang,
-                                        columns: dataCols,
-                                        data: response.data,
-                                        cookieIdTable: "recordsTableCookie",
-                                        cookie: true
-                                    });
-                                    $("#recordsTable").bootstrapTable('refresh');
-                                } else {
-                                    Rollbar.error("Error: An error occurred loading record from S3");
-                                    var error_ac1 = $translate.instant('proj_alerts.error_textsad');
-                                    $msg.error(error_ac1);
-                                }
-                            });
+                            record.then(function(response){resp_function(response);});
                         } else if($scope.finding.registros_archivo !== undefined){
                             record = projectFtry.getRecords($scope.finding.id, $scope.finding.registros_archivo);
                             $scope.hasRecords = true;
-                            record.then(function(response){
-                                if(!response.error){
-                                    var dataCols = []
-                                    for(var i in response.data[0]){
-                                      if ({}.hasOwnProperty.call(response.data[0], i)) {
-                                        dataCols.push({
-                                            field: i,
-                                            title: i
-                                        });
-                                      }
-                                    }
-                                    $("#recordsTable").bootstrapTable('destroy');
-                                    $("#recordsTable").bootstrapTable({
-                                        locale: vlang,
-                                        columns: dataCols,
-                                        data: response.data,
-                                        cookieIdTable: "recordsTableCookie",
-                                        cookie: true
-                                    });
-                                    $("#recordsTable").bootstrapTable('refresh');
-                                } else {
-                                    Rollbar.error("Error: An error occurred loading record");
-                                    var error_ac1 = $translate.instant('proj_alerts.error_textsad');
-                                    $msg.error(error_ac1);
-                                }
-                            });
+                            record.then(function(response){resp_function(response);});
                         } else {
                             $scope.hasRecords = false;
                         }
@@ -1557,7 +1531,7 @@ integrates.controller("findingcontentCtrl", function($scope, $stateParams, $time
        } else if ($scope.finding.razon_tratamiento === '') {
          $msg.error($translate.instant('proj_alerts.empty_comment'))
          return 'false'
-       } else if ($scope.finding.razon_tratamiento.length < 50  || $scope.finding.razon_tratamiento.length > 80) {
+       } else if ($scope.finding.razon_tratamiento.length < 50 || $scope.finding.razon_tratamiento.length > 80) {
          $msg.error($translate.instant('proj_alerts.short_comment'))
          return 'false'
        }

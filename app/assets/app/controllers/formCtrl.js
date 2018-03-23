@@ -21,7 +21,8 @@ integrates.controller(
     //Autocompletar formularios de formstack
     var urlForm = $location.search();
     var urlLength = Object.keys(urlForm).length;
-    if(urlLength > 0 && urlForm.autocomplete == "true"){
+    var url_length = 0;
+    if(urlLength > url_length && urlForm.autocomplete == "true"){
     	//Formulario de avance
     	$("#ifrmProgress").on("load", function(){
     		var iframe = document.getElementById("ifrmProgress");

@@ -1,3 +1,4 @@
+/*eslint no-magic-numbers: ["error", { "ignore": [0, 13] }]*/
 /**
  * @file eventualityController.js
  * @author engineering@fluidattacks.com
@@ -122,7 +123,7 @@ integrates.controller("eventualityController", function($scope, $uibModal, $tran
             return false;
         }
             $scope.currentEventuality = sel[0];
-        
+
         var modalInstance = $uibModal.open({
             animation: true,
             templateUrl: 'ver.html',
@@ -185,7 +186,7 @@ integrates.controller("eventualityController", function($scope, $uibModal, $tran
             return false;
         }
             $scope.currentEventuality = sel[0];
-        
+
 
         var modalInstance = $uibModal.open({
             animation: true,

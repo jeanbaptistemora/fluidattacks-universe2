@@ -1,3 +1,4 @@
+/*eslint no-magic-numbers: ["error", { "ignore": [500, 401] }]*/
 /**
  * @file eventualityFactory.js
  * @author engineering@fluidattacks.com

@@ -1,3 +1,4 @@
+/*eslint no-magic-numbers: ["error", { "ignore": [1, -1, 0] }]*/
 /**
  * @file app.js
  * @author engineering@fluidattacks.com

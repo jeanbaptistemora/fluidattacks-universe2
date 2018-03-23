@@ -1,3 +1,4 @@
+/*eslint no-magic-numbers: ["error", { "ignore": [-1,2000] }]*/
 /**
  * @file login.js
  */
