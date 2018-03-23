@@ -1,15 +1,15 @@
 :slug: rules/020/
 :category: rules
 :description: En el presente documento se detallan los requerimientos de seguridad relacionados a los activos de información de la empresa. En este requerimiento se define la importancia de establecer penalizaciones aplicadas en caso de incumplimiento de un acuerdo a nivel de servicio.
-:keywords: Requerimiento, Seguridad, Penalización, Incumplimiento, Acuerdos, Servicio. 
+:keywords: Requerimiento, Seguridad, Penalización, Incumplimiento, Acuerdos, Servicio.
 :rules: yes
 
 = REQ.020 Definir penalizaciones por incumplimiento
 
 == Nombre
 
-La organización debe definir penalizaciones 
-para ser aplicadas por el incumplimiento 
+La organización debe definir penalizaciones
+para ser aplicadas por el incumplimiento
 en los acuerdos de niveles de servicio
 
 == Soluciones

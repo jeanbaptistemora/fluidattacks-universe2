@@ -8,5 +8,5 @@
 
 == Nombre
 
-El registro de un evento de seguridad sensible en bitácora 
+El registro de un evento de seguridad sensible en bitácora
 debe generar una alarma.

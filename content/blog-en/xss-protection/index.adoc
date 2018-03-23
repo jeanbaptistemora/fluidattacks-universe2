@@ -36,7 +36,7 @@ other malicious operations on the user's machine under the guise of the
 vulnerable site (OWASP, 2016).
 
 To explain a specific XSS prevention method and one of the ways we can bypass
-this control we will be looking at a really cool challenge from our pals at 
+this control we will be looking at a really cool challenge from our pals at
 link:http://halls-of-valhalla.org/beta/challenges[Halls of Valhalla].
 
 == Halls of Valhalla Challenge: XSS4

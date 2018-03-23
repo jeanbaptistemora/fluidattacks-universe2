@@ -28,7 +28,7 @@ Los términos del contrato de entrenamiento para esta etapa de Inmersión son lo
 . Aplicando los link:../retos-tecnicos/#criterios[criterios definidos] en la etapa de retos técnicos:
 .. Resuelva 100 retos de programación
 .. Resuelva 100 retos de hacking
-+ 
++
 *IMPORTANTE:* Todas las soluciones que usted envíe deben cumplir con
 las [button]#link:../retos-tecnicos/#envio[reglas de envío]#.,
 
@@ -124,9 +124,9 @@ La etapa de inmersión finaliza en cualquiera de las siguientes circunstancias:
 
 . Usted haya completado los link:#objetivos[objetivos mencionados]
 
-. De haber alcanzado el tope máximo de 10 +MR+ fallidos, 
-esto es, 
-+MR+ que no se le hace +merge+ por cuestiones detalladas en la documentación y 
-que aun así se incumplen. 
+. De haber alcanzado el tope máximo de 10 +MR+ fallidos,
+esto es,
++MR+ que no se le hace +merge+ por cuestiones detalladas en la documentación y
+que aun así se incumplen.
 
 Si tienes alguna duda no dudes en escribir a careers@autonomicmind.co

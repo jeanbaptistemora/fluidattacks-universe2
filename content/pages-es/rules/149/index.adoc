@@ -8,5 +8,5 @@
 
 == Nombre
 
-Debe utilizarse como mecanismo de cifrado simétrico 
+Debe utilizarse como mecanismo de cifrado simétrico
 un tamaño de clave mínimo de 128 +bits+.

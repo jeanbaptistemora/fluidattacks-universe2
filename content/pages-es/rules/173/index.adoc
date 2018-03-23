@@ -8,7 +8,7 @@
 
 == Nombre
 
-El sistema debe descartar toda la información 
+El sistema debe descartar toda la información
 potencialmente insegura que sea recibida por entradas de datos.
 
 == Soluciones

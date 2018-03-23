@@ -18,17 +18,17 @@
 | FLUIDAttacks
 | Others
 
-a|==== Focus 
+a|==== Focus
 | {yes} We only hack, all day, all projects, all hackers.
-| {no} Only from time to time, 
+| {no} Only from time to time,
 because they do other things besides hacking.
 
 a|==== Independence
-| {yes} We don't solve nor install any kind of control, 
+| {yes} We don't solve nor install any kind of control,
 thus we always report all the vulnerabilities with the maximum independence.
-| {no} Since other providers develop, maintain, install 
-or operate security controls such as +SOC+, +NAC+, +Firewalls+ etc, 
-they are not independent to report the vulnerabilities 
+| {no} Since other providers develop, maintain, install
+or operate security controls such as +SOC+, +NAC+, +Firewalls+ etc,
+they are not independent to report the vulnerabilities
 for which they are responsible.
 
 a|==== Method
@@ -40,25 +40,25 @@ a|{yes} Our hackers are certified in practical hacking in real scenarios:
 
 * +OSCP+.
 * +OSWP+.
-* +CEH+. 
+* +CEH+.
 
 Additionally they are selected and trained through the most demanding
-[button]#link:../../careers/[process]# in the industry, 
-guaranteeing  their ability to program their own tools 
-and audit code in multiple languages, that is to say 
+[button]#link:../../careers/[process]# in the industry,
+guaranteeing  their ability to program their own tools
+and audit code in multiple languages, that is to say
 they are *programmer-hackers*
 
-a|{no} They are certified in theoretical hacking 
+a|{no} They are certified in theoretical hacking
 through questions and answers:
 
 * +CEH+.
 
 // Winners
-//{yes} We have always finished in *first (1) place in all (4 of 4)*  
-//Capture the Flag (+CTF+) events for suppliers selection 
+//{yes} We have always finished in *first (1) place in all (4 of 4)*
+//Capture the Flag (+CTF+) events for suppliers selection
 //made by our customers.
-//{no} They finish in second or third place, 
-//or even not participate at all 
+//{no} They finish in second or third place,
+//or even not participate at all
 //when the selection process involves Capture the Flag (+CTF+).
 
 a|==== Model
@@ -104,23 +104,23 @@ a|{yes} 1 service, all the techniques:
 a|==== link:../../blog/delimit-ethical-hacking/[Scope]
 a|{yes} Precision and granularity in the attack surface:
 
-* For infrastructure (networks, servers, etc), 
+* For infrastructure (networks, servers, etc),
 according to +TCP+ and +UDP+ open ports.
 * For applications, according to inputs
 (visible fields, hidden fields, headers and function parameters).
 * For source code, according to strictly effectives lines of code (+LoC+).
-* For binaries, according to the size in +MiB+ 
+* For binaries, according to the size in +MiB+
 of the software previously installed.
 a|{no} Ambiguity or lack of detail in the attack surface:
 
 * For infrastructure, according to +IP+ addresses.
-* For applications, according to the number of screens 
+* For applications, according to the number of screens
 and forms of the application.
 
 a|==== Legacy Languages
 a|{yes} We hack legacy applications coded in old-established languages, such as:
 
-* +COBOL+. 
+* +COBOL+.
 * +RPG+.
 * +PL1+.
 * +TAL+.
@@ -131,10 +131,10 @@ a|{yes} Integrable with any development method, such as:
 
 * Waterfall.
 * Agile.
-* +DevOps+. 
+* +DevOps+.
 
-[button]#link:../../services/continuous-hacking/[Continuous Hacking]#, 
-[button]#link:../../products/integrates/[Integrates]# 
+[button]#link:../../services/continuous-hacking/[Continuous Hacking]#,
+[button]#link:../../products/integrates/[Integrates]#
 and [button]#link:../../products/asserts/[Asserts]#
 fit perfect for the last 2 use cases.
 a|{no} Integrable with a single development method:
@@ -142,8 +142,8 @@ a|{no} Integrable with a single development method:
 * Waterfall.
 
 a|==== Environments
-a|* Integration: 
-[button]#link:../../services/continuous-hacking/[Continuous Hacking]# 
+a|* Integration:
+[button]#link:../../services/continuous-hacking/[Continuous Hacking]#
 and [button]#link:../../products/asserts/[Asserts]#
 fit perfectly in this use case.
 * Staging.
@@ -152,7 +152,7 @@ a|* Staging.
 * Production.
 
 a|==== Windows
-a|{yes} In the [button]#link:../../services/continuous-hacking/[Continuous Hacking]# 
+a|{yes} In the [button]#link:../../services/continuous-hacking/[Continuous Hacking]#
 service environments:
 
 * Can constantly change.
@@ -163,24 +163,24 @@ service environments:
 a|==== Coverage
 a|{yes} Known:
 
-* In fixed scopes, it is agreed the exact part of the attack surface 
+* In fixed scopes, it is agreed the exact part of the attack surface
 that will be verified and its proportion with respect to the total.
 
-* In variable scopes, the exact part of the attack surface 
-that was verified and its proportion 
+* In variable scopes, the exact part of the attack surface
+that was verified and its proportion
 with respect to the total is reported at the end.
-| {no} Unknown, because they never accurately report 
+| {no} Unknown, because they never accurately report
 what was tested and what was not.
 
 a|==== Profiling
-| {yes} You decide the security requirements that we will check 
-during the hacking service 
-through our product [button]#link:../../products/rules/[Rules]#. 
-| {no} Non parameterizable. 
+| {yes} You decide the security requirements that we will check
+during the hacking service
+through our product [button]#link:../../products/rules/[Rules]#.
+| {no} Non parameterizable.
 
 a|==== Strictness
 | {yes} You will know the exact strictness of the hacking
-(For inspected and non inspected 
+(For inspected and non inspected
 link:#profiling[profiled] requirements).
 | {no} Unknown.
 
@@ -195,7 +195,7 @@ a|==== Type of Evidences
 a|{yes} Some of the most relevant evidences are:
 
 * Images of the attack with explanatory annotations.
-* Animated +GIFs+ of the attack 
+* Animated +GIFs+ of the attack
 (link:../../products/integrates/#vulnerability-evidences[example]).
 a|{no} In the case of other suppliers:
 
@@ -212,34 +212,34 @@ a|==== False Positives
 | {no} ~20%
 
 a|==== Exploitation
-a|{yes} As long as we have: 
+a|{yes} As long as we have:
 
-* An available environment. 
+* An available environment.
 * The appropriate authorization.
 | {no} Without possibilities of create and execute exploits.
 
 a|==== Custom Exploits
 | {yes} Using our own exploitation engine
-[button]#link:../../products/asserts/[Asserts]# 
+[button]#link:../../products/asserts/[Asserts]#
 (link:../../products/integrates/#exploit[example]).
 | {no}
 
 a|==== link:../../blog/protect-organization-hacker-lamer/#diagram[Correlation]
-| {yes} By combining vulnerabilities +A+ and +B+ we are able to find 
+| {yes} By combining vulnerabilities +A+ and +B+ we are able to find
 a new vulnerability +C+ of greater impact which may compromise more registers.
-| {no} Only detects vulnerabilities +A+ and +B+ but it's not able to correlate them. 
+| {no} Only detects vulnerabilities +A+ and +B+ but it's not able to correlate them.
 
 a|==== Infection
-| {yes} In our [button]#link:../../services/one-shot-hacking/[One shot hacking]# 
-service we infect stations and critical servers 
+| {yes} In our [button]#link:../../services/one-shot-hacking/[One shot hacking]#
+service we infect stations and critical servers
 using our custom cyberweapon
 [button]#link:../../products/commands/[Commands]#.
 | {no} Don't infect or dispose of custom cyberweapons.
 
 a|==== Compromised Records
-a|{yes} After discover a vulnerability and exploit it, 
-we extract the business critical information 
-which evidences a high impact allowing us to show 
+a|{yes} After discover a vulnerability and exploit it,
+we extract the business critical information
+which evidences a high impact allowing us to show
 the severity of a vulnerability withouth regarding the technical aspect:
 
 * Users.
@@ -254,7 +254,7 @@ link:../../products/integrates/#compromised-records[Example].
 | {no} No record extraction
 
 a|==== Cycles
-| {yes} Multiple cycles in our service 
+| {yes} Multiple cycles in our service
 [button]#link:../../services/continuous-hacking/[Continuous Hacking]#.
 | {no}  Only 1.
 
@@ -263,9 +263,9 @@ a|==== link:../../blog/replaced-machines/[Leaks]
 | {no} ~65% on the agreed link:#scope[scope].
 
 a|==== Remediation
-a|* During the project you can request clarifications 
+a|* During the project you can request clarifications
 directly to our hackers via
-[button]#link:../../products/integrates/[Integrates]# 
+[button]#link:../../products/integrates/[Integrates]#
 (link:../../products/integrates/#doubts-regarding-the-vulnerabilities[example]).
 * You can use our detailed remediation guides via
 [button]#link:../../products/defends/[Defends]#.
@@ -273,8 +273,8 @@ directly to our hackers via
 
 a|==== Deliverables
 a|{yes} Real-time documentation web system
-[button]#link:../../products/integrates/[Integrates]# 
-which allows our customers to auto generate and supervise 
+[button]#link:../../products/integrates/[Integrates]#
+which allows our customers to auto generate and supervise
 every system since day 1 of the project:
 
 * Executive report in +PDF+ (link:../../products/integrates/#generate-executive-reports[example]).
@@ -283,17 +283,17 @@ every system since day 1 of the project:
 * Graphics on the security of the system (link:../../products/integrates/#project-status-graphs[example]).
 * Metrics on the security of the system (link:../../products/integrates/#project-statistics[example]).
 
-a|{no} Available only at the end of the project due to 
+a|{no} Available only at the end of the project due to
 its manual elaboration.
 
 * Word document.
 * Tool reports without discarding false positives.
 
 a|==== End
-|{yes} Our service ends when the agreed scope is reached, 
+|{yes} Our service ends when the agreed scope is reached,
 without prices augmentation
-|{no} The service ends when the agreed time runs out, 
-therefore the scope and coverage of the hack 
+|{no} The service ends when the agreed time runs out,
+therefore the scope and coverage of the hack
 are indeterminate at the end of the service.
 
 a|==== Pricing

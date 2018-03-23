@@ -8,6 +8,6 @@
 
 == Nombre
 
-El sistema debe soportar la eliminación segura de datos sensibles 
-cuando estos ya no son requeridos, 
+El sistema debe soportar la eliminación segura de datos sensibles
+cuando estos ya no son requeridos,
 de tal forma que no puedan ser recuperados.

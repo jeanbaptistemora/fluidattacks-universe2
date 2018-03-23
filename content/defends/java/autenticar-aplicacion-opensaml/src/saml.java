@@ -39,7 +39,7 @@ public class SAML1ArtifactResolveExample {
     String clientTLSCertificateResourceName = "client.crt";
     try {
       DefaultBootstrap.bootstrap();
-    } 
+    }
     catch (ConfigurationException e) {
       e.printStackTrace();
     }
@@ -69,7 +69,7 @@ public class SAML1ArtifactResolveExample {
     }
 	catch (SOAPException e) {
       e.printStackTrace();
-    } 
+    }
 	catch (SecurityException e) {
       e.printStackTrace();
     }
@@ -78,7 +78,7 @@ public class SAML1ArtifactResolveExample {
     System.out.println("SOAP Response was:");
     System.out.println(XMLHelper.prettyPrintXML(soapResponse.getDOM()));
   }
-  
+
   private static Envelope buildSOAP11Envelope(XMLObject payload) {
     XMLObjectBuilderFactory bf = Configuration.getBuilderFactory();
     Envelope envelope = (Envelope)bf.getBuilder(Envelope.DEFAULT_ELEMENT_NAME)
@@ -89,7 +89,7 @@ public class SAML1ArtifactResolveExample {
     envelope.setBody(body);
     return envelope;
   }
- 
+
   private static Request buildSAML1ArtifactResolve(String base64Artifact)
   {
     XMLObjectBuilderFactory bf = Configuration.getBuilderFactory();
@@ -102,7 +102,7 @@ public class SAML1ArtifactResolveExample {
     // add other data to Request as appropriate
     return request;
   }
- 
+
   private static X509Credential getClientTLSCred(String clientTLSPrivateKeyResourceName,
     String clientTLSCertificateResourceName) {
       PrivateKey privateKey = null;
@@ -114,10 +114,10 @@ public class SAML1ArtifactResolveExample {
         cert = X509Util.decodeCertificate(DatatypeHelper.inputstreamToString
 		   (SAML1ArtifactResolveExample.class.getResourceAsStream
 		     (clientTLSCertificateResourceName),null).getBytes()).iterator().next();
-      } 
+      }
 	  catch (KeyException e) {
         e.printStackTrace();
-      } 
+      }
 	  catch (IOException e) {
         e.printStackTrace();
       }
@@ -132,44 +132,44 @@ class StaticClientKeyManager implements X509KeyManager {
   private static final String clientAlias = "myStaticAlias";
   private PrivateKey privateKey;
   private X509Certificate cert;
-  
+
   public StaticClientKeyManager(PrivateKey newPrivateKey, X509Certificate newCert) {
     privateKey = newPrivateKey;
     cert = newCert;
   }
   /** {@inheritDoc} */
-  
+
   public String chooseClientAlias(String[] as, Principal[] aprincipal, Socket socket) {
     System.out.println("chooseClientAlias");
     return clientAlias;
   }
   /** {@inheritDoc} */
- 
+
   public String chooseServerAlias(String s, Principal[] aprincipal, Socketsocket) {
     System.out.println("chooseServerAlias");
-    return null; 
+    return null;
   }
   /** {@inheritDoc} */
- 
+
   public X509Certificate[] getCertificateChain(String s) {
     System.out.println("getCertificateChain");
     return new X509Certificate[] {cert};
   }
   /** {@inheritDoc} */
- 
+
   public String[] getClientAliases(String s, Principal[] aprincipal) {
     System.out.println("getClientAliases");
     return new String[] {clientAlias};
   }
   /** {@inheritDoc} */
- 
+
   public PrivateKey getPrivateKey(String s) {
     System.out.println("getPrivateKey");
     return privateKey;
   }
-  
+
   /** {@inheritDoc} */
- 
+
   public String[] getServerAliases(String s, Principal[] aprincipal) {
     System.out.println("getServerAliases");
     return null;

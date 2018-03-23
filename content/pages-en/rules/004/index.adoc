@@ -91,4 +91,3 @@ was not previously identified.
 
 . link:https://www.iso.org/isoiec-27001-information-security.html[ISO/IEC 27000 Norms and Standards].
 . link:https://www.microsoft.com/en-us/sdl/adopt/threatmodeling.aspx[Microsoft: Threat Model].
-

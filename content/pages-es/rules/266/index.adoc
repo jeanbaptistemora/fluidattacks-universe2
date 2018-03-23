@@ -8,8 +8,8 @@
 
 == Nombre
 
-La organización debe deshabilitar 
-las funciones inseguras de un sistema. 
+La organización debe deshabilitar
+las funciones inseguras de un sistema.
 (hardening de sistemas)
 
 == Soluciones

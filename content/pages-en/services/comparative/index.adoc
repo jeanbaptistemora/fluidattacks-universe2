@@ -23,7 +23,7 @@ a|==== Inspection Cycles
 | Only +1+.
 
 a|==== Remediation Support
-| {yes} 
+| {yes}
 | {no}
 
 a|==== Average duration
@@ -49,7 +49,7 @@ a|{no} Late
 
 a|==== Alerting
 
-|{yes} Continuous alerting system via email 
+|{yes} Continuous alerting system via email
 to the project leaders about open vulnerabilities.
 |{no} No alerting system, only final reports.
 
@@ -60,7 +60,7 @@ a|==== Vision
 a|==== Coverage
 a|{yes} 100% when:
 
-* We start simultaneously with production. 
+* We start simultaneously with production.
 * We make an up to date hacking at the beginning.
 * Hacking does not stop during development stage.
 * Code does not change more than 10K deltas/month.
@@ -68,8 +68,8 @@ a|{yes} 100% when:
 a|{no} Agreed at the beginning of the test.
 
 a|==== Windows
-a|{yes} In the 
-[button]#link:../../services/continuous-hacking/[Continuous Hacking]# 
+a|{yes} In the
+[button]#link:../../services/continuous-hacking/[Continuous Hacking]#
 service environments:
 
 * Can constantly change.
@@ -80,8 +80,8 @@ service environments:
 
 a|==== Infection
 | {no} Environments are not infected with cyberweapons.
-| {yes} Work stations and critical servers 
-are infected with our custom cyberweapon 
+| {yes} Work stations and critical servers
+are infected with our custom cyberweapon
 [button]#link:../../products/commands/[Commands]#
 
 a|==== Remediation ratio

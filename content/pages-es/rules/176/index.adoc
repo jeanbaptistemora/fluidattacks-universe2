@@ -8,9 +8,9 @@
 
 == Nombre
 
-El sistema debe restringir el acceso a objetos del sistema 
-que tengan contenido sensible. 
-Solo permitirá acceso a usuarios autorizados. 
+El sistema debe restringir el acceso a objetos del sistema
+que tengan contenido sensible.
+Solo permitirá acceso a usuarios autorizados.
 
 
 == Soluciones

@@ -113,14 +113,14 @@ variable $sql hace referencia a un objeto DBI-
 
 .test.py
 [source,perl,linenums]
-----  
-$query = $sql->prepare 
-   ( 
-         "SELECT * FROM usuarios WHERE nombre = " 
-     . 
-         $sql->quote($nombre_usuario) 
+----
+$query = $sql->prepare
+   (
+         "SELECT * FROM usuarios WHERE nombre = "
+     .
+         $sql->quote($nombre_usuario)
     );
----- 
+----
 
 == En PHP
 
@@ -130,7 +130,7 @@ siguientes caracteres:  \x00 \n \r \' \" y \x1a. Con lo cual garantiza que los
 datos sean seguros antes de enviar una consulta a MySQL.
 
 [source, shell, linenums]
----- 
+----
 <?php
 $enlace = mysql_connect('mysql_host', 'mysql_usuario', 'mysql_contrasenya')
     OR die(mysql_error());

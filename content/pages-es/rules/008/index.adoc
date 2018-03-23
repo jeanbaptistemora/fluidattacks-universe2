@@ -8,18 +8,18 @@
 
 == Nombre
 
-La organización debe generar un modelo de amenazas para el sistema, 
-donde se identifiquen las posibles amenazas 
-y debe cubrir +STRIDE+ 
-(+Spoofing+, +Tampering+, +Repudiation+, +Information Disclosure+, 
+La organización debe generar un modelo de amenazas para el sistema,
+donde se identifiquen las posibles amenazas
+y debe cubrir +STRIDE+
+(+Spoofing+, +Tampering+, +Repudiation+, +Information Disclosure+,
 +Denial of Service+, +Elevation of Privilege+).
 
 == Soluciones
 
-La presente sección contiene enlaces a artículos 
-cuyo contenido es propiedad de +FLUID+. 
-El objetivo es dar a conocer al público 
-la implementación del actual requerimiento de seguridad 
+La presente sección contiene enlaces a artículos
+cuyo contenido es propiedad de +FLUID+.
+El objetivo es dar a conocer al público
+la implementación del actual requerimiento de seguridad
 para diferentes plataformas o lenguajes de programación:
 
 . *+HACKING+* link:../../defends/hacking/evitar-ataque-dos/[Evitar Ataque de Denegación de Servicio].

@@ -8,8 +8,8 @@
 
 == Nombre
 
-Los privilegios para objetos nuevos 
-deben establecerse según el principio de mínimo privilegio (umask). 
+Los privilegios para objetos nuevos
+deben establecerse según el principio de mínimo privilegio (umask).
 
 == Soluciones
 

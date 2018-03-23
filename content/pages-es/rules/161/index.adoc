@@ -8,8 +8,8 @@
 
 == Nombre
 
-El código debe definir opciones por defecto seguras 
-que garanticen fallos seguros en la aplicación. 
+El código debe definir opciones por defecto seguras
+que garanticen fallos seguros en la aplicación.
 (+try+, +catch/except; default+ en +switches+)
 
 == Soluciones

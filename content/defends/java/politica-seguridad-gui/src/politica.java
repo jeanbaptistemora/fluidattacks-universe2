@@ -5,7 +5,7 @@ public class Politica {
 	public static void main(String[] args) {
   		readFile("D:\\fluid\\sensible.txt");
 	}
-	
+
 	public static void readFile(String path) {
 		BufferedReader reader = null;
 		BufferedWriter writer = null;

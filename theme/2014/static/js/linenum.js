@@ -10,7 +10,7 @@ $(document).ready(function () {
     for (i = 1; i < lines.length; i++) {
       var linenum = lines[i].innerHTML.split('\n').length;
       var newlinenum = "";
-      var lastnum = parseInt(lines[i-1].innerHTML.split('\n')[lines[i-1].innerHTML.split('\n').length - 1].replace(/\D/g, '')); 
+      var lastnum = parseInt(lines[i-1].innerHTML.split('\n')[lines[i-1].innerHTML.split('\n').length - 1].replace(/\D/g, ''));
       for (j = 1; j <= linenum; j++) {
         var num = lastnum + j;
         newlinenum += num.toString();

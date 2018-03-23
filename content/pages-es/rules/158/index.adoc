@@ -8,10 +8,10 @@
 
 == Nombre
 
-La codificación del sistema 
-debe estar implementada en una versión 
-de un lenguaje de programación estable, 
-actualizada, probada y libre de vulnerabilidades conocidas. 
+La codificación del sistema
+debe estar implementada en una versión
+de un lenguaje de programación estable,
+actualizada, probada y libre de vulnerabilidades conocidas.
 
 == Soluciones
 

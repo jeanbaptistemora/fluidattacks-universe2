@@ -12,24 +12,24 @@
 
 ^.^a|image:logo-choucair.png[logo choucair, width=50%, link=http://www.choucairtesting.com/]
 
-a|== Choucair 
+a|== Choucair
 
-Colombian company pioneer in software testing created in 1999 
-with international projection, which offers services 
-related to software testing to reduce the risks of its operation. 
-The success of the services provided by the organization 
-are based on research and qualified human resources, 
+Colombian company pioneer in software testing created in 1999
+with international projection, which offers services
+related to software testing to reduce the risks of its operation.
+The success of the services provided by the organization
+are based on research and qualified human resources,
 supported by a certified and effective methodology.
 
 a|== Evolution IT
 
-Company that promotes, implements and strengthens 
-the effective management of information technology 
-as a pillar of companies to improve their competitiveness 
-through better quality services, 
-which help increase their profitability, 
-employing world-class practices 
-and establishing relationships of trust with customers, 
+Company that promotes, implements and strengthens
+the effective management of information technology
+as a pillar of companies to improve their competitiveness
+through better quality services,
+which help increase their profitability,
+employing world-class practices
+and establishing relationships of trust with customers,
 business partners and collaborators.
 
 ^.^a|image:logo-evolution.png[logo evolution, width=55%, link=http://www.evolution-it.com.co/]
@@ -38,19 +38,19 @@ business partners and collaborators.
 
 a|== GreenSQA
 
-Company focused on software testing, 
-such as performance tests, 
-tests on different mobile devices and tests automation throughout 
-the life cycle of product development 
+Company focused on software testing,
+such as performance tests,
+tests on different mobile devices and tests automation throughout
+the life cycle of product development
 with 15 years of experience lending its services.
 
 a|== NewNet
-Colombian company dedicated to provide services and solutions in +IT+, 
-a pioneer in the field of information technology, 
-with more than 20 years of experience. 
-Its objective is to plan, establish, implement, operate, 
-review, maintain, and improve technological management 
-within a framework of security, service, support and support 
+Colombian company dedicated to provide services and solutions in +IT+,
+a pioneer in the field of information technology,
+with more than 20 years of experience.
+Its objective is to plan, establish, implement, operate,
+review, maintain, and improve technological management
+within a framework of security, service, support and support
 according to the needs of each organization.
 
 ^.^a|image:logo-newnet.png[logo newnet, width=55%, link=http://www.newnetsa.com/]
@@ -59,19 +59,19 @@ according to the needs of each organization.
 
 a|== Teraport
 
-German company specialized in software development 
-and services in the field of virtual product development. 
-Experts in automotive, aerospace and manufacturing industries fields, 
-offering specific solutions and standardized products regarding development, 
-simulation and quality assurance 
+German company specialized in software development
+and services in the field of virtual product development.
+Experts in automotive, aerospace and manufacturing industries fields,
+offering specific solutions and standardized products regarding development,
+simulation and quality assurance
 as well as services and consulting in product development engineering.
 
 a|== The missing link
 
-Australian provider of information technology solutions, 
-provide services for infrastructure, security, backup, disaster recovery, 
-communications and cloud services. 
-Recognized as a leader industry and accredited with the highest levels 
+Australian provider of information technology solutions,
+provide services for infrastructure, security, backup, disaster recovery,
+communications and cloud services.
+Recognized as a leader industry and accredited with the highest levels
 in design, delivery and support of the latest technologies.
 
 ^.^a|image:logo-tml.png[logo tml, width=55%, link=https://www.themissinglink.com.au/]

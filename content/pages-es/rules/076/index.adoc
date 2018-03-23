@@ -6,10 +6,10 @@
 
 = REQ.076 Registrar niveles de severidad de eventos
 
-== Nombre 
+== Nombre
 
-El sistema debe registrar el nivel de severidad 
-para cada evento excepcional y de seguridad. 
+El sistema debe registrar el nivel de severidad
+para cada evento excepcional y de seguridad.
 
 == Soluciones
 

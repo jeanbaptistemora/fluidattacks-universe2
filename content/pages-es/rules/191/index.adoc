@@ -8,5 +8,5 @@
 
 == Nombre
 
-Los datos personales deben protegerse 
+Los datos personales deben protegerse
 con el máximo nivel de protección definido (+ISACA.G31.5+).

@@ -12,31 +12,31 @@ Usar adecuadamente las opciones de depuración que provee +COBOL+.
 
 == Contexto
 
-A continuación se describe las circunstancias 
+A continuación se describe las circunstancias
 bajo las cuales la siguiente solución tiene sentido:
 
 . Se está desarrollando una aplicación en +COBOL+.
-. El desarrollador desea depurar el flujo de la aplicación 
+. El desarrollador desea depurar el flujo de la aplicación
 sin afectar el programa final.
-. Los eventos con severidad de depuración 
+. Los eventos con severidad de depuración
 no deben estar habilitados en producción<<r1,^[1]^>>.
 
 == Solución
 
-. La cláusula +WITH DEBUGGING MODE+<<r2,^[2]^>> 
-ayuda a los programadores a depurar código 
-mientras la aplicación se encuentra en desarrollo 
-y permite un despliegue transparente de la misma 
+. La cláusula +WITH DEBUGGING MODE+<<r2,^[2]^>>
+ayuda a los programadores a depurar código
+mientras la aplicación se encuentra en desarrollo
+y permite un despliegue transparente de la misma
 a un entorno de producción.
 
-. Esta cláusula causa que cualquier procedimiento usado para depuración 
-(Letra +D+ en la columna 7) sea compilado. 
+. Esta cláusula causa que cualquier procedimiento usado para depuración
+(Letra +D+ en la columna 7) sea compilado.
 Sin esta cláusula, estos procedimientos son tratados como comentarios.
 
-. El siguiente código muestra un ejemplo sencillo 
-donde el programador requiere depurar el programa. 
-Es importante que en entornos de producción 
-no se generen eventos de depuración, 
+. El siguiente código muestra un ejemplo sencillo
+donde el programador requiere depurar el programa.
+Es importante que en entornos de producción
+no se generen eventos de depuración,
 ya que podría afectar la disponibilidad de la aplicación.
 
 . Se da inicio a la aplicación definiendo la división +IDENTIFICATION DIVISION+<<r3,^[3]^>>:
@@ -50,9 +50,9 @@ ya que podría afectar la disponibilidad de la aplicación.
       ******************
        PROGRAM-ID. COBOLDBG.
 ----
-. En la división +ENVIRONMENT DIVISION+<<r4,^[4]^>> 
-especificamos el modo +WITH DEBUGGING+ 
-dentro de la sección +CONFIGURATION SECTION+. 
+. En la división +ENVIRONMENT DIVISION+<<r4,^[4]^>>
+especificamos el modo +WITH DEBUGGING+
+dentro de la sección +CONFIGURATION SECTION+.
 Dicho modo debe ser desactivado en entornos de producción:
 +
 [source,cobol,linenums]
@@ -64,8 +64,8 @@ Dicho modo debe ser desactivado en entornos de producción:
        CONFIGURATION SECTION.
        SOURCE-COMPUTER. IBM-ISERIES WITH DEBUGGING MODE.
 ----
-. En la división +DATA DIVISION+<<r5,^[5]^>> definimos dos variables, 
-una llamada +CONTADOR+ y otra denominada +RESULTADO+ 
+. En la división +DATA DIVISION+<<r5,^[5]^>> definimos dos variables,
+una llamada +CONTADOR+ y otra denominada +RESULTADO+
 que llevará el resultado de una operación matemática:
 +
 [source,cobol,linenums]
@@ -78,10 +78,10 @@ que llevará el resultado de una operación matemática:
        01 RESULTADO  PIC 9(04) VALUE 1.
        01 CONTADOR   PIC 9(02).
 ----
-. Iteramos sobre la variable +CONTADOR+ 9 veces, 
-multiplicando la variable +RESULTADO+ por 2. 
-Note como la columna 7 de la sentencia +DISPLAY+ tiene la letra +D+. 
-Si el modo +WITH DEBUGGING+ está activado, esta línea es compilada, 
+. Iteramos sobre la variable +CONTADOR+ 9 veces,
+multiplicando la variable +RESULTADO+ por 2.
+Note como la columna 7 de la sentencia +DISPLAY+ tiene la letra +D+.
+Si el modo +WITH DEBUGGING+ está activado, esta línea es compilada,
 en caso contrario, la línea es tratada como un comentario:
 +
 [source,cobol,linenums]
@@ -129,10 +129,10 @@ Resultado: 1024
 
 == Descargas
 
-Puedes descargar el código fuente 
+Puedes descargar el código fuente
 pulsando en el siguiente enlace:
 
-. [button]#link:src/coboldbg.cbl[coboldbg.cbl]# contiene 
+. [button]#link:src/coboldbg.cbl[coboldbg.cbl]# contiene
 la implementación del código depurado anteriormente.
 
 == Referencias

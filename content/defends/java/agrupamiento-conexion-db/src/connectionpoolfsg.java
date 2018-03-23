@@ -6,7 +6,7 @@ import org.apache.tomcat.jdbc.pool.*;
 
 public class ConnectionPoolFSG extends HttpServlet {
 	private Connection con = null;
-	
+
 	public void init(ServletConfig config) throws ServletException {
   		super.init(config);
   		try {
@@ -25,14 +25,14 @@ public class ConnectionPoolFSG extends HttpServlet {
     		throw new ServletException(e);
   		}
 	}
-	
+
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
    		response.setContentType("text/html");
    		HtmlSQLResult result = new HtmlSQLResult("SELECT id, name, password FROM users",con);
    		PrintWriter out = response.getWriter();
    		out.println(result);
 	}
-	
+
 	public void destroy() {
   		try {
     		if (con != null) {
@@ -43,4 +43,3 @@ public class ConnectionPoolFSG extends HttpServlet {
     	// Silently ignore -- there's nothing to be done.
   	}
 }
-	

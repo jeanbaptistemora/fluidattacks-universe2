@@ -1,6 +1,6 @@
 :slug: rules/177/
 :category: rules
-:description: En el presente documento se detallan los requerimientos de seguridad relacionados a los datos sensibles de la organización. El objetivo del presente requerimiento de seguridad es establecer la importancia de evitar almacenar información sensible en caché o archivos temporales. 
+:description: En el presente documento se detallan los requerimientos de seguridad relacionados a los datos sensibles de la organización. El objetivo del presente requerimiento de seguridad es establecer la importancia de evitar almacenar información sensible en caché o archivos temporales.
 :keywords: Requerimiento, Seguridad, Datos, Caché, Memoria, Temporal.
 :rules: yes
 
@@ -8,8 +8,8 @@
 
 == Nombre
 
-El sistema no debe almacenar información sensible 
-en archivos temporales o en memoria caché. 
+El sistema no debe almacenar información sensible
+en archivos temporales o en memoria caché.
 
 
 == Soluciones

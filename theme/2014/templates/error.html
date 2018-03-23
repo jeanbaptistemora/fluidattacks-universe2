@@ -35,7 +35,7 @@
   {% else %}
     <header class="intro-header"> <!--style="background-image: url('/{{ THEME_STATIC_DIR }}/images/fluid-{{ DEFAULT_LANG }}.png');" >-->
     <a href="{{ SITEURL }}/"><img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/fluid-{{ DEFAULT_LANG }}.png" alt="{{ gettext('Header-img-alt') }}"></a>
-  {% endif %}   
+  {% endif %}
   </header>
 {% endblock header %}
 
@@ -50,7 +50,7 @@
       </p>
       <p>{{ gettext('Error-msg-2') }}:</p>
       <h2>{{ gettext('Error-header-2') }}</h2>
-        <ul class="ulist">  
+        <ul class="ulist">
           {% for page in pages if page.category.name == gettext('Error-cat-1') %}
             <li>
               <p><a href="{{ SITEURL }}/{{ page.url }}">{{ page.title }}</a></p>
@@ -58,14 +58,14 @@
           {% endfor %}
         </ul>
         <h2>{{ gettext('Error-header-3') }}</h2>
-        <ul class="ulist">  
+        <ul class="ulist">
           {% for page in pages if page.category.name == gettext('Error-cat-2') %}
             <li>
               <p><a href="{{ SITEURL }}/{{ page.url }}">{{ page.title }}</a></p>
             </li>
           {% endfor %}
         </ul>
-        <h2>{{ gettext('Error-header-4') }}</h2> 
+        <h2>{{ gettext('Error-header-4') }}</h2>
         {% set recent = articles if not all_articles else all_articles %}
         <ul class="ulist">
           {% for article in recent %}
@@ -77,7 +77,7 @@
           {% endfor %}
         </ul>
   	<h2>{{ gettext('Error-header-5') }}</h2>
-        <ul class="ulist">  
+        <ul class="ulist">
           {% for category, articles in categories %}
             <li>
               <p><a href="{{ SITEURL }}/{{ category.url }}">{{ category|capitalize }}</a></p>
@@ -85,7 +85,7 @@
           {% endfor %}
         </ul>
         <h2>{{ gettext('Error-header-6') }}</h2>
-        <ul class="ulist">  
+        <ul class="ulist">
           {% for page in pages if page.category.name == gettext('Error-cat-3') %}
             <li>
               <p><a href="{{ SITEURL }}/{{ page.url }}">{{ page.title }}</a></p>

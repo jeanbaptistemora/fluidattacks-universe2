@@ -8,6 +8,6 @@
 
 == Nombre
 
-La transmisión de información sensible 
-o la ejecución de funciones sensibles 
+La transmisión de información sensible
+o la ejecución de funciones sensibles
 debe hacerse a través de protocolos seguros.

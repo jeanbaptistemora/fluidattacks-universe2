@@ -87,13 +87,13 @@ ____________________________________________________________________
 
 En programación, deben ser retos que:
 
-. No tienen solución en el repositorio (carpeta del reto) para el lenguaje elegido por usted, 
+. No tienen solución en el repositorio (carpeta del reto) para el lenguaje elegido por usted,
 . No tienen solución externa indexada (enlaces OTHERS.txt del reto) para el lenguaje elegido por usted,
 . El lenguaje de la solución es uno de los aceptados por [button]#link:http://www.codeabbey.com/[Codeabbey]#.
 
 En hacking, deben ser retos que:
 
-. No tienen solución en Gherkin (*.feature) en el repositorio (carpeta del reto), 
+. No tienen solución en Gherkin (*.feature) en el repositorio (carpeta del reto),
 . No tienen solución externa indexada (enlaces OTHERS.txt del reto),
 . El lenguaje de la solución es uno de los aceptados por Codeabbey.
 . Requieran nivel técnico (no matemático ni de adivinanzas) de [button]#link:wechall.net[wechall]# o sus sitios relacionados,
@@ -115,10 +115,10 @@ Antes de realizar un +MR+ por favor verifique que cumple con los siguientes crit
 . Cada +commit+ de solución de retos debe ir en 1 solo +MR+,
 . El +MR+ debe realizarse solo cuando su rama ha integrado satisfactoriamente (verde),
 . Si el +MR+ es rechazado no debe reabrirse, deben corregirse los problemas indicados y hacer un nuevo +MR+,
-. El mensaje de +commit+ para enviar la solución de un reto en el cual previamente se tienen 17 soluciones externas y 
+. El mensaje de +commit+ para enviar la solución de un reto en el cual previamente se tienen 17 soluciones externas y
 8 soluciones dentro del repo es el siguiente:
 
-  solution: codeabbey, 78 (9.63)   
+  solution: codeabbey, 78 (9.63)
   - others: 8 in, 17 out, 0 total.
   - score: 25665 initial, 25723 final, 58 progress.
   - global-rank: 797 initial, 795 final, 2 progress.
@@ -146,11 +146,11 @@ Ejemplos de +MR+ aceptados en el pasado:
 * +MR+ ejemplares de programación: link:https://gitlab.com/autonomicmind/training/merge_requests/773[Ej. 1], link:https://gitlab.com/autonomicmind/training/merge_requests/750[Ej. 2], link:https://gitlab.com/autonomicmind/training/merge_requests/814[Ej. 3],
 
 [NOTE]
-Estos enlaces ejemplares no necesariamente siguen todas las reglas mencionadas pues las reglas evolucionan y 
-por ende en el momento que se hicieron las reglas pudieron ser otras.  
-En ningún momento los ejemplos tienen prioridad sobre las reglas, 
+Estos enlaces ejemplares no necesariamente siguen todas las reglas mencionadas pues las reglas evolucionan y
+por ende en el momento que se hicieron las reglas pudieron ser otras.
+En ningún momento los ejemplos tienen prioridad sobre las reglas,
 sin embargo se relacionan como ejemplo para propósitos pedagógicos.
-  
+
 == 6. Recomendaciones
 
 Para cumplir los objetivos enunciados,
@@ -227,7 +227,7 @@ espacios usar *-* (guion) como sustituto.
 
 * Las soluciones de retos de hacking deberán documentarse de acuerdo a lo siguiente:
 ** link:../../../en/blog/gherkin-steroids/[Guía para el uso de gherkin]
-+ 
++
 Opcionalmente, puede tener en cuenta el siguiente link:../../../en/blog/app-pickle-document-gherkin/[artículo]
 
 * *Archivos Especiales:* En algunas carpetas de la estructura se encuentran algunos archivos
@@ -292,7 +292,7 @@ La etapa de retos técnicos finaliza en cualquiera de las siguientes circunstanc
 
 . Usted haya completado los link:#objetivos[objetivos] y envíe vía +email+ los enlaces en +master+ de sus soluciones,
 . De no haber movimiento (+push+ al repositorio +git+) en 14 días calendario,
-. De haber alcanzado el tope máximo de 10 +MR+ fallidos, esto es, +MR+ que no se le hace +merge+ por 
+. De haber alcanzado el tope máximo de 10 +MR+ fallidos, esto es, +MR+ que no se le hace +merge+ por
 cuestiones detalladas en la documentación y que aun así se incumplen.
 . Si usted explícitamente manifiesta mediante +email+ su deseo para retirarse del proceso.
 

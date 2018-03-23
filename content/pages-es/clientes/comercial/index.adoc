@@ -13,16 +13,16 @@
 
 a|== Grupo Exito
 
-Empresa multinacional colombiana, realiza actividades de 
-comercio al detal en Suramérica. Presentes en Colombia con el Grupo Éxito; en 
-Brasil con el Grupo Pão de Açúcar; en Uruguay con los Grupos Disco y Devoto y 
+Empresa multinacional colombiana, realiza actividades de
+comercio al detal en Suramérica. Presentes en Colombia con el Grupo Éxito; en
+Brasil con el Grupo Pão de Açúcar; en Uruguay con los Grupos Disco y Devoto y
 en Argentina con Libertad
 
 a|== Grupo Uribe
 
-Grupo textil colombiano, de tendencia familiar, fundado en 1907 
-por el patriarca, John Uribe. Sus hijos y los hijos de sus hijos han contribuido durante 
-décadas al desarrollo y fortalecimiento del negocio. El grupo tiene la representación, 
+Grupo textil colombiano, de tendencia familiar, fundado en 1907
+por el patriarca, John Uribe. Sus hijos y los hijos de sus hijos han contribuido durante
+décadas al desarrollo y fortalecimiento del negocio. El grupo tiene la representación,
 producción y comercialización para Colombia y el caribe de marcas internacionales como Chevignon,
 Naf Naf, Americanino, Esprit, Rifle, American Eagle, Mother Care, American Brands, LBT, entre otras.
 
@@ -32,9 +32,9 @@ Naf Naf, Americanino, Esprit, Rifle, American Eagle, Mother Care, American Brand
 
 a|== Semana
 
-Grupo mediático que agrupa las revistas de mayor circulación e influencia en 
+Grupo mediático que agrupa las revistas de mayor circulación e influencia en
 Colombia, buscando posicionar en la opinión pública distintas temáticas de
-interés nacional. Además, ofrece sus servicios para que compañías y/o entidades 
+interés nacional. Además, ofrece sus servicios para que compañías y/o entidades
 del Estado puedan publicar su propia revista.
 
 |====

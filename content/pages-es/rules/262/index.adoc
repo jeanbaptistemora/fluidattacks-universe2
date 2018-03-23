@@ -8,45 +8,45 @@
 
 == Nombre
 
-Los componentes provistos por terceros 
+Los componentes provistos por terceros
 deben corresponder a versiones estables, probadas y actualizadas.
 
 == Descripción
 
-. La organización debe garantizar que todos sus productos 
-y en general los provistos por terceros 
-están actualizados a su última versión estable y probada, 
-de esta forma se mitiga 
+. La organización debe garantizar que todos sus productos
+y en general los provistos por terceros
+están actualizados a su última versión estable y probada,
+de esta forma se mitiga
 el riesgo de vulnerabilidades reportadas en versiones anteriores.
 
-. Cuando un producto cambia de versión 
-se deben revisar las mejoras implementadas 
-para verificar si solucionaron o implementaron un nuevo control de seguridad 
+. Cuando un producto cambia de versión
+se deben revisar las mejoras implementadas
+para verificar si solucionaron o implementaron un nuevo control de seguridad
 ante una vulnerabilidad conocida.
 
 == Implementación
 
-. Identificar todos los componentes 
-que hacen parte de la plataforma tecnológica, 
-incluyendo sistemas operativos, versiones, dependencias, identificación lógica 
-y física, funcionalidades y quien es el encargado. 
+. Identificar todos los componentes
+que hacen parte de la plataforma tecnológica,
+incluyendo sistemas operativos, versiones, dependencias, identificación lógica
+y física, funcionalidades y quien es el encargado.
 Este inventario se debe mantener actualizado.
 
-. Monitorear la seguridad de todos los componentes identificados 
-en bases de datos públicas, 
-implementado alertas ante vulnerabilidades públicas 
-sobre los productos que maneja la organización 
+. Monitorear la seguridad de todos los componentes identificados
+en bases de datos públicas,
+implementado alertas ante vulnerabilidades públicas
+sobre los productos que maneja la organización
 y determinar el nivel de afectación ante la vulnerabilidad reportada.
 
-. Aplicar las actualizaciones necesarias 
-teniendo en cuenta el tipo de vulnerabilidad, el componente afectado 
+. Aplicar las actualizaciones necesarias
+teniendo en cuenta el tipo de vulnerabilidad, el componente afectado
 y la clasificación del riesgo dentro de la organización.
 
-. Establecer políticas de seguridad sobre los componentes utilizados, 
-requiriendo versiones actualizadas. +Software+ específicos, pruebas de seguridad 
-y sus respectivas licencias; 
-incluir políticas internas para deshabilitar funcionalidades no utilizadas 
-y actualizar configuraciones por defecto 
+. Establecer políticas de seguridad sobre los componentes utilizados,
+requiriendo versiones actualizadas. +Software+ específicos, pruebas de seguridad
+y sus respectivas licencias;
+incluir políticas internas para deshabilitar funcionalidades no utilizadas
+y actualizar configuraciones por defecto
 que puedan representar un riesgo para la organización.
 
 == Soluciones
@@ -58,9 +58,9 @@ que puedan representar un riesgo para la organización.
 
 == Casos de abuso
 
-. Un atacante consigue la información técnica de un producto en específico 
-y si el servicio/+software+ se encuentra desactualizado, 
-existe la posibilidad de que ya hayan +exploits+<<r1,^[1]^>> publicados 
+. Un atacante consigue la información técnica de un producto en específico
+y si el servicio/+software+ se encuentra desactualizado,
+existe la posibilidad de que ya hayan +exploits+<<r1,^[1]^>> publicados
 para atacar vulnerabilidades conocidas del producto desactualizado.
 
 == Atributos

@@ -8,7 +8,7 @@
       {% for defendsarticle in pages if defendsarticle.defends and defendsarticle.category == cat%}
         <a href="../{{ defendsarticle.slug }}"><h3>{{ defendsarticle.title }}</h3></a>
       {% endfor %}
-    </div>  
+    </div>
   {% else %}
     {% if defendspage.category != loop.previtem.category %}
       <a class="defends-category">
@@ -19,7 +19,7 @@
         {% for defendsarticle in pages if defendsarticle.defends and defendsarticle.category == cat%}
           <a href="../{{ defendsarticle.slug }}"><h3>{{ defendsarticle.title }}</h3></a>
         {% endfor %}
-      </div>  
+      </div>
     {% endif %}
   {% endif %}
 {% endfor %}

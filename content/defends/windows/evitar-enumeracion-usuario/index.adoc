@@ -34,7 +34,7 @@ image::login.png[login-enumeracion]
 
 . Para aplicar esta configuración a un dominio
 por medio de +Directorio Activo+,
-se debe configurar la siguiente ruta 
+se debe configurar la siguiente ruta
 modificando la configuración de directivas de dominio:
 +
 .ruta.shell

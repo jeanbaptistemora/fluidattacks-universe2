@@ -8,8 +8,8 @@
 
 == Nombre
 
-Debe utilizarse firmas digitales 
-para garantizar la autenticidad de información sensible 
+Debe utilizarse firmas digitales
+para garantizar la autenticidad de información sensible
 
 
 == Soluciones

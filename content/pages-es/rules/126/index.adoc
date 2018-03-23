@@ -8,8 +8,8 @@
 
 == Nombre
 
-Las contraseñas (tipo palabra) 
-deben tener al menos 8 caracteres de longitud. 
+Las contraseñas (tipo palabra)
+deben tener al menos 8 caracteres de longitud.
 
 
 == Soluciones

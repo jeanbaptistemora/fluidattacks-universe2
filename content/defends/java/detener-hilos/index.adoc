@@ -12,7 +12,7 @@ Detener hilos de manera segura en +Java+.
 
 == Contexto
 
-A continuación se describen las circunstancias 
+A continuación se describen las circunstancias
 bajo las cuales la siguiente solución tiene sentido:
 
 . Se está aprovechando la característica de múltiples hilos de +Java+.
@@ -20,44 +20,44 @@ bajo las cuales la siguiente solución tiene sentido:
 
 == Solución
 
-Se entiende por hilos o +threads+ a una secuencia de tareas encadenadas, 
-es decir, tareas que se ejecutan simultáneamente de manera independiente. 
-Los hilos poseen un estado de ejecución 
-y pueden sincronizarse entre ellos 
-para evitar problemas de compartición de recursos. 
-Generalmente, cada hilo tiene una tarea específica y determinada, 
+Se entiende por hilos o +threads+ a una secuencia de tareas encadenadas,
+es decir, tareas que se ejecutan simultáneamente de manera independiente.
+Los hilos poseen un estado de ejecución
+y pueden sincronizarse entre ellos
+para evitar problemas de compartición de recursos.
+Generalmente, cada hilo tiene una tarea específica y determinada,
 como forma de aumentar la eficiencia del uso del procesador.
 
-Los hilos tienden a ser usados para realizar trabajos interactivos 
+Los hilos tienden a ser usados para realizar trabajos interactivos
 y en segundo plano, procesamiento asíncrono,
-aceleración de la ejecución de un sistema, 
+aceleración de la ejecución de un sistema,
 y estructuración modular de los programas.
 
-En esta solución se verá la manera adecuada 
-de detener los hilos o +threads+ 
+En esta solución se verá la manera adecuada
+de detener los hilos o +threads+
 de forma segura en una aplicación +Java+.
 
-. Usualmente, para poder utilizarlos en +Java+ 
-es necesario crear clases que extienden a la clase +Thread+, 
-y reescribir el método principal +run()+. 
-El método +run()+, por lo general, 
-es el que se va a ejecutar principalmente 
+. Usualmente, para poder utilizarlos en +Java+
+es necesario crear clases que extienden a la clase +Thread+,
+y reescribir el método principal +run()+.
+El método +run()+, por lo general,
+es el que se va a ejecutar principalmente
 al iniciar un hilo o +Thread+.
 
-. Entonces, en una aplicación donde se utilicen los hilos, 
-es muy factible que exista la necesidad de detener 
-las tareas que están realizando estos +threads+. 
-Para eso se suelen usar los métodos +stop()+ y +suspend()+. 
-No obstante el uso de estos métodos es considerado obsoleto por +Java+ 
+. Entonces, en una aplicación donde se utilicen los hilos,
+es muy factible que exista la necesidad de detener
+las tareas que están realizando estos +threads+.
+Para eso se suelen usar los métodos +stop()+ y +suspend()+.
+No obstante el uso de estos métodos es considerado obsoleto por +Java+
 ya que son inseguros, por ende no se deberían usar.
 
-. Por tanto, se recomienda que la mayoría de usos del método +stop()+ 
-deben ser reemplazados por código 
-que simplemente modifique alguna variable 
-para indicarle al hilo que debería dejar de ejecutarse. 
-Entonces, el hilo debe revisar el valor de esta variable regularmente, 
-y retornar de su método +run()+ 
-si la variable le indica que debe detenerse. 
+. Por tanto, se recomienda que la mayoría de usos del método +stop()+
+deben ser reemplazados por código
+que simplemente modifique alguna variable
+para indicarle al hilo que debería dejar de ejecutarse.
+Entonces, el hilo debe revisar el valor de esta variable regularmente,
+y retornar de su método +run()+
+si la variable le indica que debe detenerse.
 Esta variable debe ser +volatile+.
 
 . Por ejemplo, suponiendo que la aplicación contiene el siguiente código.
@@ -111,7 +111,7 @@ public void run() {
 
 . [[r1]] link:https://es.wikipedia.org/wiki/Hilo_(inform%C3%A1tica)[Hilos]
 . [[r2]] link:https://docs.oracle.com/javase/8/docs/technotes/guides/concurrency/threadPrimitiveDeprecation.html[Java Thread Primitive Deprecation]
-. [[r3]] REQ.0153: La codificación del sistema 
-debe estar implementada en una versión 
-de un lenguaje de programación estable, 
+. [[r3]] REQ.0153: La codificación del sistema
+debe estar implementada en una versión
+de un lenguaje de programación estable,
 actualizada, probada y libre de vulnerabilidades conocidas.

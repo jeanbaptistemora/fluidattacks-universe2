@@ -130,5 +130,3 @@ y la capacidad de uso en todos los escenarios esperados.
 
 . [[r1]] link:https://www.codeproject.com/Articles/1116318/Points-to-Secure-Your-ASP-NET-MVC-Applications[Secure Your ASP.NET MVC Applications]
 . [[r2]] link:https://www.infragistics.com/community/blogs/b/brijmishra/posts/9-tips-for-writing-secure-applications-in-asp-net[Tips for Writing Secure Applications in ASP.NET]
-
-

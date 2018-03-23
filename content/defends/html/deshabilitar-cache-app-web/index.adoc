@@ -20,7 +20,7 @@ en ciertos campos con información crítica.
 
 . Se necesita deshabilitar la +caché+ en todos los campos de un formulario.
 
-. El sistema no debe almacenar información sensible 
+. El sistema no debe almacenar información sensible
 en archivos temporales o en memoria caché.<<r1,[1]>>
 
 == Solución

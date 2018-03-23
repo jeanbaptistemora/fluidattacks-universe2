@@ -1,15 +1,15 @@
 :slug: rules/018/
 :category: rules
 :description: En el presente documento se detallan los requerimientos de seguridad relacionados a los activos de información de la empresa. El objetivo de este requerimiento de seguridad es definir la importancia de los acuerdos a nivel de servicio con terceros con los cuales se comparte información.
-:keywords: Requerimiento, Seguridad, Acuerdos, Servicio, Terceros, Información. 
+:keywords: Requerimiento, Seguridad, Acuerdos, Servicio, Terceros, Información.
 :rules: yes
 
 = REQ.018 Acuerdos a nivel de servicio con terceros
 
 == Nombre
 
-La organización debe tener un acuerdo 
-de nivel de servicio de disponibilidad 
+La organización debe tener un acuerdo
+de nivel de servicio de disponibilidad
 con todos los terceros con los cuales comparte información.
 
 == Soluciones

@@ -12,12 +12,12 @@ Validar correo electrónico en +COBOL+.
 
 == Contexto
 
-A continuación se describe las circunstancias 
+A continuación se describe las circunstancias
 bajo las cuales la siguiente solución tiene sentido:
 
 . Se está desarrollando una aplicación en +COBOL+.
-. Debe validarse que el correo electrónico 
-se encuentra asociado a un solo usuario 
+. Debe validarse que el correo electrónico
+se encuentra asociado a un solo usuario
 a pesar del componente entre el +++ y la +@+<<r1,^[1]^>>.
 
 == Solución
@@ -33,19 +33,19 @@ a pesar del componente entre el +++ y la +@+<<r1,^[1]^>>.
       ******************
        PROGRAM-ID. COBOLEMAIL.
 ----
-. En la división +DATA DIVISION+<<r3,^[3]^>> 
-se definen las variables 
+. En la división +DATA DIVISION+<<r3,^[3]^>>
+se definen las variables
 que serán usadas por el programa:
 
 * +W01-EMAIL:+ contiene el email ingresado por entrada estándar.
 
-* +W02-VALIDEMAIL:+ al final del proceso contendrá el correo electrónico final 
-que se debe usar en producción 
+* +W02-VALIDEMAIL:+ al final del proceso contendrá el correo electrónico final
+que se debe usar en producción
 (Correo sin el componente entre +++ y +@+).
 
 * +W03-COUNT:+ variable temporal usada para contar diferentes caracteres.
 
-* +W04-EMAIL:+ variable temporal para almacenar el nombre de usuario 
+* +W04-EMAIL:+ variable temporal para almacenar el nombre de usuario
 y el dominio del correo electrónico proporcionado.
 +
 [source,cobol,linenums]
@@ -63,7 +63,7 @@ y el dominio del correo electrónico proporcionado.
            02 W04-USERNAME PIC X(64).
            02 W04-DOMAIN   PIC X(255).
 ----
-. Iniciamos nuestro programa dentro de la división +PROCEDURE DIVISION+<<r4,^[4]^>> 
+. Iniciamos nuestro programa dentro de la división +PROCEDURE DIVISION+<<r4,^[4]^>>
 aceptando por entrada estándar un correo electrónico:
 +
 [source,cobol,linenums]
@@ -95,9 +95,9 @@ aceptando por entrada estándar un correo electrónico:
 ----
        MOVE 0 TO W03-COUNT
 ----
-. Separamos el correo electrónico a través del arroba, 
-en la primera parte 
-debe quedar el nombre de usuario 
+. Separamos el correo electrónico a través del arroba,
+en la primera parte
+debe quedar el nombre de usuario
 y en la segunda parte el dominio:
 +
 [source,cobol,linenums]
@@ -115,13 +115,13 @@ y en la segunda parte el dominio:
        FOR CHARACTERS
        BEFORE INITIAL SPACE
 ----
-. Si es mayor a cero, 
+. Si es mayor a cero,
 reinicializamos el contador y continuamos con el proceso:
 +
 [source,cobol,linenums]
 ----
        IF W03-COUNT > 0 THEN
-           MOVE 0 TO W03-COUNT                   
+           MOVE 0 TO W03-COUNT
 ----
 . Se cuenta todos los caracteres en la parte del dominio (sin incluir espacios):
 +
@@ -138,7 +138,7 @@ reinicializamos el contador y continuamos con el proceso:
 ----
        IF W03-COUNT > 0 THEN
 ----
-. Enviamos el componente antes del carácter +++ 
+. Enviamos el componente antes del carácter +++
 a la variable +W02-VALIDEMAIL:+
 +
 [source,cobol,linenums]
@@ -147,9 +147,9 @@ a la variable +W02-VALIDEMAIL:+
        DELIMITED BY "+"
        INTO W02-VALIDEMAIL
 ----
-. Por último unimos el usuario con el nombre del dominio, 
-de esta forma separamos el componente entre el +++ y el +@+, 
-evitando que un usuario pueda registrar múltiples cuentas 
+. Por último unimos el usuario con el nombre del dominio,
+de esta forma separamos el componente entre el +++ y el +@+,
+evitando que un usuario pueda registrar múltiples cuentas
 con un único correo válido:
 +
 [source,cobol,linenums]
@@ -164,7 +164,7 @@ con un único correo válido:
 ----
        DISPLAY W02-VALIDEMAIL
 ----
-. Cualquier otra situación puede ser considerada 
+. Cualquier otra situación puede ser considerada
 como un error de correo electrónico:
 +
 [source,cobol,linenums]
@@ -181,7 +181,7 @@ como un error de correo electrónico:
 
        STOP RUN.
 ----
-. Para el ejemplo ilustrativo, se muestra un mensaje de error. 
+. Para el ejemplo ilustrativo, se muestra un mensaje de error.
 En esta sección debe ser tratado el error:
 +
 [source,cobol,linenums]
@@ -216,10 +216,10 @@ En esta sección debe ser tratado el error:
 
 == Descargas
 
-Puedes descargar el código fuente 
+Puedes descargar el código fuente
 pulsando en el siguiente enlace:
 
-. [button]#link:src/cobolemail.cbl[cobolemail.cbl]# contiene 
+. [button]#link:src/cobolemail.cbl[cobolemail.cbl]# contiene
 las validaciones de correo electrónico explicadas anteriormente.
 
 == Referencias

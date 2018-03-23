@@ -8,12 +8,12 @@
 
 == Necesidad
 
-Registrar excepciones en bitácoras 
+Registrar excepciones en bitácoras
 a través del uso del +API OPM+ en +COBOL+ sin usar punteros.
 
 == Contexto
 
-A continuación se describe las circunstancias 
+A continuación se describe las circunstancias
 bajo las cuales la siguiente solución tiene sentido:
 
 . Se está desarrollando una aplicación en +COBOL+.
@@ -23,17 +23,17 @@ bajo las cuales la siguiente solución tiene sentido:
 
 == Solución
 
-En la siguiente solución, 
-+CBLERR1+ causará el error 
-y +ERRHDL1+ se encargará de atrapar la excepción, 
+En la siguiente solución,
++CBLERR1+ causará el error
+y +ERRHDL1+ se encargará de atrapar la excepción,
 a través del uso de la interfaz de programación +QPDLOGER+<<r3,^[3]^>>.
 
 * +CBLERR1+
 
-. Este programa registra un controlador de excepciones para +OPM COBOL+. 
-Luego de registrar exitosamente el controlador, 
-dicho programa genera el error "+data decimal+". 
-Dicha excepción causa que el controlador 
+. Este programa registra un controlador de excepciones para +OPM COBOL+.
+Luego de registrar exitosamente el controlador,
+dicho programa genera el error "+data decimal+".
+Dicha excepción causa que el controlador
 llame al programa definido en su argumento (+ERRHDL1+).
 
 . Se da inicio al programa definiendo la división +IDENTIFICATION DIVISION+.
@@ -47,7 +47,7 @@ llame al programa definido en su argumento (+ERRHDL1+).
       ******************
        PROGRAM-ID. CBLERR1.
 ----
-. En la división +DATA DIVISION+ se declaran las variables: 
+. En la división +DATA DIVISION+ se declaran las variables:
 +
 [source, cobol,linenums]
 ----
@@ -80,9 +80,9 @@ llame al programa definido en su argumento (+ERRHDL1+).
 Del anterior bloque de código identificamos tres estructuras de datos:
 ** +MISC:+ contiene información acerca del programa que controlará la excepción.
 ** +NUMERIC-GROUP:+ contiene las variables que generarán la excepción.
-** +WS-ERROR-HANDLER:+ estructura de datos 
-donde se almacena la información 
-en caso de ocurrencia de error 
+** +WS-ERROR-HANDLER:+ estructura de datos
+donde se almacena la información
+en caso de ocurrencia de error
 al momento de llamar a la interfaz de programación +QLRSETCE+<<r4,^[4]^>>.
 
 . En la división +PROCEDURE DIVISION+ se establece el flujo principal:
@@ -101,8 +101,8 @@ al momento de llamar a la interfaz de programación +QLRSETCE+<<r4,^[4]^>>.
 ----
        MOVE 16 TO BYTES-PROVIDED OF WS-ERROR-HANDLER.
 ----
-. Se llama a la interfaz de programación +QLRSETCE+, 
-la cual registra el punto de salida en caso de excepción 
+. Se llama a la interfaz de programación +QLRSETCE+,
+la cual registra el punto de salida en caso de excepción
 (en este caso se llamará el programa +ERRHDL1+):
 +
 [source, cobol,linenums]
@@ -114,8 +114,8 @@ la cual registra el punto de salida en caso de excepción
              PRIOR-ERROR-HANDLER OF MISC,
              WS-ERROR-HANDLER.
 ----
-. Si ocurre una excepción al llamar la interfaz de programación, 
-se muestra los detalles del error 
+. Si ocurre una excepción al llamar la interfaz de programación,
+se muestra los detalles del error
 y se detiene la ejecución del programa:
 +
 [source, cobol,linenums]
@@ -125,8 +125,8 @@ y se detiene la ejecución del programa:
            STOP RUN
        END-IF.
 ----
-. En este punto ocurre la excepción 
-(se desea sumar el contenido de la variable +X+, 
+. En este punto ocurre la excepción
+(se desea sumar el contenido de la variable +X+,
 pero está inicializada en blanco):
 +
 [source, cobol,linenums]
@@ -138,7 +138,7 @@ pero está inicializada en blanco):
 
 * +ERRHDL1+
 
-. Este programa es el encargado de recibir las excepciones 
+. Este programa es el encargado de recibir las excepciones
 y posteriormente registrarlas a través de la interfaz de programación +QPDLOGER+.
 
 . Se da inicio al programa mediante la división +IDENTIFICATION DIVISION+:
@@ -188,15 +188,15 @@ y posteriormente registrarlas a través de la interfaz de programación +QPDLOGE
 ----
 ** +MISC:+ contiene información variada del programa.
 ** +MESSAGE-INFO:+ es el mensaje de excepción.
-** +OBJECT-LIST:+ contiene datos generales del objeto que causó la excepción, 
-tales como nombre y tipo del objeto, 
+** +OBJECT-LIST:+ contiene datos generales del objeto que causó la excepción,
+tales como nombre y tipo del objeto,
 y el nombre de la biblioteca.
-** +WS-ERROR-HANDLER:+ estructura de datos 
-donde se almacena la información 
-en caso de ocurrencia de error 
+** +WS-ERROR-HANDLER:+ estructura de datos
+donde se almacena la información
+en caso de ocurrencia de error
 al momento de llamar a la interfaz de programación +QPDLOGER+.
 
-. La sección +LINKAGE SECTION+ contiene las variables 
+. La sección +LINKAGE SECTION+ contiene las variables
 que el programa aceptará como argumento:
 +
 [source, cobol,linenums]
@@ -212,10 +212,10 @@ que el programa aceptará como argumento:
        01 MESSAGE-LENGTH       PIC S9(09) BINARY.
        01 SYS-OPTION           PIC  X(01).
 ----
-. En la división +PROCEDURE DIVISION+ 
-se encuentra la lógica del programa, 
-esta división acepta varios argumentos, 
-entre ellos el programa que generó la excepción, 
+. En la división +PROCEDURE DIVISION+
+se encuentra la lógica del programa,
+esta división acepta varios argumentos,
+entre ellos el programa que generó la excepción,
 el +ID+ y descripción de la excepción, entre otros:
 +
 [source, cobol,linenums]
@@ -240,7 +240,7 @@ el +ID+ y descripción de la excepción, entre otros:
        MOVE 16 TO BYTES-PROVIDED OF WS-ERROR-HANDLER.
        MOVE SYS-EXCEPTION-ID TO LOG-EXCEPTION-ID.
 ----
-. Se inicializa las variables de uso general 
+. Se inicializa las variables de uso general
 de acuerdo a la longitud del mensaje recibido en el argumento:
 +
 [source, cobol,linenums]
@@ -255,7 +255,7 @@ de acuerdo a la longitud del mensaje recibido en el argumento:
            MOVE 0 TO NBR-OF-ENTRIES
        END-IF.
 ----
-. Movemos el nombre del objeto 
+. Movemos el nombre del objeto
 y la biblioteca a la estructura de datos +OBJECT-LIST+:
 +
 [source, cobol,linenums]
@@ -263,14 +263,14 @@ y la biblioteca a la estructura de datos +OBJECT-LIST+:
        MOVE PGM-NAME TO OBJECT-NAME.
        MOVE LIB-NAME TO LIBRARY-NAME.
 ----
-. La interfaz de programación +QPDLOGER+, 
-permite a un programa reportar un problema de software al servidor local 
-y proveer la suficiente información para solucionarlo. 
-Cuando la interfaz es llamada, 
-cualquier error es enviado a uno o más +spooled files+, 
-una cadena del síntoma que generó el error es creada, 
-una entrada es creada en el registro de problemas, 
-y un mensaje es enviado a la cola de mensajes +QSYSOPR+, 
+. La interfaz de programación +QPDLOGER+,
+permite a un programa reportar un problema de software al servidor local
+y proveer la suficiente información para solucionarlo.
+Cuando la interfaz es llamada,
+cualquier error es enviado a uno o más +spooled files+,
+una cadena del síntoma que generó el error es creada,
+una entrada es creada en el registro de problemas,
+y un mensaje es enviado a la cola de mensajes +QSYSOPR+,
 indicando que un error de software ha sido detectado:
 +
 [source, cobol,linenums]
@@ -305,13 +305,13 @@ indicando que un error de software ha sido detectado:
 
 == Descargas
 
-Puedes descargar el código fuente 
-pulsando en los siguientes enlaces: 
+Puedes descargar el código fuente
+pulsando en los siguientes enlaces:
 
-. [button]#link:src/cblerr1.cbl[cblerr1.cbl]# contiene 
-el código que genera el error 
+. [button]#link:src/cblerr1.cbl[cblerr1.cbl]# contiene
+el código que genera el error
 y que es capturado por +errhdl1+.
-. [button]#link:src/errhdl1.cbl[errhdl1.cbl]# contiene 
+. [button]#link:src/errhdl1.cbl[errhdl1.cbl]# contiene
 las instrucciones para capturar y procesar el error generado desde +cblerr1+.
 
 == Referencias

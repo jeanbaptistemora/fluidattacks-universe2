@@ -92,4 +92,3 @@ the incident is not managed.
 . link:http://www.pmg-ssi.com/2015/05/como-clasificar-los-activos-de-seguridad-en-un-sgsi/[ISMS - How to classify information assets in an ISMS?].
 
 . link:https://www.iso.org/isoiec-27001-information-security.html[ISO/IEC 27000 Norms and Standards].
-

@@ -8,5 +8,5 @@
 
 == Nombre
 
-El código fuente debe contener funciones, métodos o fragmentos de código 
+El código fuente debe contener funciones, métodos o fragmentos de código
 con una complejidad ciclomática (+McCabe+) inferior a 20.

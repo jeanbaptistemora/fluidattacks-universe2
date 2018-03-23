@@ -8,5 +8,5 @@
 
 == Nombre
 
-Una página +Web+ debe protegerse 
+Una página +Web+ debe protegerse
 de ser embebida en sitios maliciosos (+clickjacking+).

@@ -12,23 +12,23 @@ Validar que las acciones las realiza un humano +Java+
 
 == Contexto
 
-A continuación se describen las circunstancias 
+A continuación se describen las circunstancias
 bajo las cuales la siguiente solución tiene sentido:
 
-. Se dispone de una aplicación +Java+ 
+. Se dispone de una aplicación +Java+
 conforme con la especificación del lenguaje +1.4.2+ o superior.
 . Se va utilizar, como control anti-robot, el producto +JCaptcha+.
 
 == Solución
 
-. Descargue la librería +jcaptcha-1.0-all.jar+ 
+. Descargue la librería +jcaptcha-1.0-all.jar+
 que se encuentra contenida en el archivo +jcaptcha-1.0-bin.zip+ ^<<r1,[1]>>^.
 
-. En el archivo +web.xml+ de la aplicación 
-se debe especificar el +servlet+ 
-que se encargará de generar la imagen +captcha+. 
-Además, debe realizar la validación del texto introducido por el usuario. 
-Para este caso el +servlet+ +com.servlet.identifies.LoginServlet+ 
+. En el archivo +web.xml+ de la aplicación
+se debe especificar el +servlet+
+que se encargará de generar la imagen +captcha+.
+Además, debe realizar la validación del texto introducido por el usuario.
+Para este caso el +servlet+ +com.servlet.identifies.LoginServlet+
 se va a encargar de realizar estas dos funciones.
 +
 .LoginServlet.xml
@@ -49,15 +49,15 @@ se va a encargar de realizar estas dos funciones.
 </servlet-mapping>
 ----
 
-. En el código anterior se utiliza el parámetro +ImageType+. 
-En él se especifica el tipo de archivo de imagen 
+. En el código anterior se utiliza el parámetro +ImageType+.
+En él se especifica el tipo de archivo de imagen
 que se va a enviar al usuario.
 
-. Incluir en la forma de ingreso de información 
-el campo tipo imagen (elemento +html+ +img+), 
-el cual desplegará la imagen que se va mostrar al usuario. 
-Y el campo +valorCaptcha+, 
-que contendrá el texto ingresado por el usuario. 
+. Incluir en la forma de ingreso de información
+el campo tipo imagen (elemento +html+ +img+),
+el cual desplegará la imagen que se va mostrar al usuario.
+Y el campo +valorCaptcha+,
+que contendrá el texto ingresado por el usuario.
 El texto deberá corresponder con el contenido de la imagen.
 +
 [source, html, linenums]
@@ -84,10 +84,10 @@ El texto deberá corresponder con el contenido de la imagen.
   </body>
 ----
 
-. Para generar la imagen +captcha+ se debe utilizar las clases 
-+ImageCaptchaService+ y +DefaultManageableImageCaptchaService+, 
-las cuales están contenidas en el paquete +com.octo.captcha.service.image+. 
-Para este caso, la clase que se va a utilizar 
+. Para generar la imagen +captcha+ se debe utilizar las clases
++ImageCaptchaService+ y +DefaultManageableImageCaptchaService+,
+las cuales están contenidas en el paquete +com.octo.captcha.service.image+.
+Para este caso, la clase que se va a utilizar
 para generar la imagen es +ServicioCaptcha+.
 +
 [source, java, linenums]
@@ -107,18 +107,18 @@ public class ServicioCaptcha
 }
 ----
 
-. Generar la imagen captcha. 
-Para este punto se debe utilizar la clase anteriormente creada 
-para obtener una referencia de la clase +ImageCaptchaService+, 
-la cual, en última instancia, va a ser utilizada 
-para generar la imagen +captcha+. 
-En esta parte se va a implementar el +servlet+ +LoginServlet+ 
-que se encarga de generar y desplegar la imagen +captcha+ 
-como respuesta a una solicitud recibida 
-por el método +GET+ del protocolo +HTTP+. 
-El método +getImageChallengeForID+ de la clase +getImageChallengeForID+ 
-se va a emplear para generar la imagen, 
-pasándole como parámetro el identificador de sesión, 
+. Generar la imagen captcha.
+Para este punto se debe utilizar la clase anteriormente creada
+para obtener una referencia de la clase +ImageCaptchaService+,
+la cual, en última instancia, va a ser utilizada
+para generar la imagen +captcha+.
+En esta parte se va a implementar el +servlet+ +LoginServlet+
+que se encarga de generar y desplegar la imagen +captcha+
+como respuesta a una solicitud recibida
+por el método +GET+ del protocolo +HTTP+.
+El método +getImageChallengeForID+ de la clase +getImageChallengeForID+
+se va a emplear para generar la imagen,
+pasándole como parámetro el identificador de sesión,
 el cual va ser utilizado para el proceso de verificación del +captcha+.
 +
 [source, java, linenums]
@@ -187,12 +187,12 @@ public class LoginServlet extends HttpServlet
 }
 ----
 
-. Validar la respuesta ingresada por el usuario. 
-Una vez enviado la respuesta del usuario 
-mediante el método +POST+ del protocolo +HTTP+ al +servlet+ +LoginServlet+, 
-se verifica por medio del método +validateResponseForID+ 
-de la clase +DefaultManageableImageCaptchaService+ 
-que la respuesta ingresada corresponda con el contenido de la imagen 
+. Validar la respuesta ingresada por el usuario.
+Una vez enviado la respuesta del usuario
+mediante el método +POST+ del protocolo +HTTP+ al +servlet+ +LoginServlet+,
+se verifica por medio del método +validateResponseForID+
+de la clase +DefaultManageableImageCaptchaService+
+que la respuesta ingresada corresponda con el contenido de la imagen
 que se mostró al usuario.
 +
 [source, java, linenums]
@@ -246,10 +246,10 @@ public class LoginServlet extends HttpServlet
 
 == Descargas
 
-Puedes descargar el código fuente 
+Puedes descargar el código fuente
 pulsando en el siguiente enlace:
 
-[button]#link:src/loginservlet.java[LoginServlet.java]# 
+[button]#link:src/loginservlet.java[LoginServlet.java]#
 Clase LoginServlet.
 
 == Referencias
@@ -257,9 +257,9 @@ Clase LoginServlet.
 . [[r1]] link:https://sourceforge.net/projects/jcaptcha/[JCaptcha Project]
 . [[r2]] link:https://www.owasp.org/index.php/JCaptcha_servlet_example[JCaptcha Servlet Example]
 . [[r3]] link:https://www.owasp.org/index.php/Captchas_en_Java[Captchas in Java]
-. [[r4]] REQ.0116: El sistema debe garantizar 
-que la visualización de correos electrónicos expuestos 
+. [[r4]] REQ.0116: El sistema debe garantizar
+que la visualización de correos electrónicos expuestos
 sean vistos por humanos.
-. [[r5]] REQ.0233 El sistema debe garantizar 
-que quien realiza las acciones de registro, autenticación 
+. [[r5]] REQ.0233 El sistema debe garantizar
+que quien realiza las acciones de registro, autenticación
 y reestablecimiento de contraseña es un humano.

@@ -12,42 +12,42 @@ La aplicación debe liberar recursos una vez no estén en uso.
 
 == Descripción
 
-El presente criterio de seguridad 
-trata sobre la protección inadecuada de datos sensibles 
-asociados a un recurso almacenado en un computador. 
-Los cuales, pueden conducir a vulnerabilidades 
-que podrían afectar tanto la confidencialidad, la disponibilidad 
-e integridad de la información 
-durante todo su ciclo de vida.<<r1,^[1]^>> 
-Esta fuga de información confidencial 
-es más probable si la memoria que contiene los datos 
+El presente criterio de seguridad
+trata sobre la protección inadecuada de datos sensibles
+asociados a un recurso almacenado en un computador.
+Los cuales, pueden conducir a vulnerabilidades
+que podrían afectar tanto la confidencialidad, la disponibilidad
+e integridad de la información
+durante todo su ciclo de vida.<<r1,^[1]^>>
+Esta fuga de información confidencial
+es más probable si la memoria que contiene los datos
 no es borrada después de usar dicho recurso.
 
 == Implementación
 
-Por lo anterior, para el presente criterio de seguridad, 
+Por lo anterior, para el presente criterio de seguridad,
 se recomienda seguir las siguientes pautas:<<r2,^[2]^>>
 
-. Si un programa hace uso de un recurso 
-como por ejemplo un archivo de texto plano, una imagen, etc., 
-después de usar dicho recurso, 
+. Si un programa hace uso de un recurso
+como por ejemplo un archivo de texto plano, una imagen, etc.,
+después de usar dicho recurso,
 se debe cerrar el acceso al mismo lo antes posible.
 
-. Si existen datos en el búfer de memoria asociados a un recurso, 
+. Si existen datos en el búfer de memoria asociados a un recurso,
 estos deben ser sobrescritos antes de liberar dicho recurso.
 
-. Si en memoria existen variables 
-u objetos creados dentro de la aplicación, 
-y que además, almacenan datos asociados a un recurso específico, 
+. Si en memoria existen variables
+u objetos creados dentro de la aplicación,
+y que además, almacenan datos asociados a un recurso específico,
 estos deben ser destruidos por la misma aplicación una vez no sean necesarios.
 
-. En general, todo recurso que sea utilizado 
-y almacenado en memoria por la aplicación, 
+. En general, todo recurso que sea utilizado
+y almacenado en memoria por la aplicación,
 debe ser destruido sin esperar a que el recolector de basura los elimine.
 
-De acuerdo a lo anterior, para limitar el riesgo 
-de exposición de información confidencial, 
-los programas deben minimizar la vida útil 
+De acuerdo a lo anterior, para limitar el riesgo
+de exposición de información confidencial,
+los programas deben minimizar la vida útil
 de cualquier información sensible en memoria.
 
 == Soluciones
@@ -59,17 +59,17 @@ de cualquier información sensible en memoria.
 
 == Casos de abuso
 
-A continuación se describen dos casos de abuso, 
+A continuación se describen dos casos de abuso,
 los cuales, son aplicables para el presente criterio de seguridad:
 
-. Un atacante que logre entrar 
-y pueda ejecutar código malicioso en el mismo sistema, 
-podría acceder a información confidencial 
+. Un atacante que logre entrar
+y pueda ejecutar código malicioso en el mismo sistema,
+podría acceder a información confidencial
 si esta se encuentra disponible en memoria.
 
-. Cuando se produce un volcado de memoria (+core dump+),^<<r3,[3]>>,<<r4,[4]>>^ 
-se generan archivos que podrían contener información confidencial 
-como contraseñas, si estos se encontraban en memoria 
+. Cuando se produce un volcado de memoria (+core dump+),^<<r3,[3]>>,<<r4,[4]>>^
+se generan archivos que podrían contener información confidencial
+como contraseñas, si estos se encontraban en memoria
 al momento de producirse el fallo.
 
 == Referencias

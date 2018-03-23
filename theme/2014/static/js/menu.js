@@ -6,7 +6,7 @@ organizing the content in a dropdown menu.
 (function($) {
 
   $.fn.menumaker = function(options) {
-      
+
       var cssmenu = $(this), settings = $.extend({
         format: "dropdown",
         sticky: false
@@ -76,7 +76,7 @@ $(document).scroll(function () {
   if (ScrollTop == 0 && $(".css-scrolled").length) {
     $(".css-scrolled").toggleClass("css-scrolled");
     $(".m-scrolled").toggleClass("m-scrolled");
-    $(".has-sub-scrolled").toggleClass("has-sub-scrolled");    
+    $(".has-sub-scrolled").toggleClass("has-sub-scrolled");
   }
   else if (ScrollTop > 0 && !$(".css-scrolled").length) {
     $(".cssmenu").toggleClass("css-scrolled");

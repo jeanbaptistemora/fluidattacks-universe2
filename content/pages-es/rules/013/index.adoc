@@ -8,7 +8,7 @@
 
 == Nombre
 
-Debe estar definido el proceso 
+Debe estar definido el proceso
 para poder reclasificar los activos de información.
 
 == Soluciones

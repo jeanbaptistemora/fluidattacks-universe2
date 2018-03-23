@@ -8,5 +8,5 @@
 
 == Nombre
 
-En el código fuente, 
+En el código fuente,
 un componente debe poseer el menor número de dependencias posible.

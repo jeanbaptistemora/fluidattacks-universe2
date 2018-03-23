@@ -1,6 +1,6 @@
 :slug: rules/033/
 :category: rules
-:description: En el presente documento se detallan los requerimientos de seguridad relacionados al manejo de archivos dentro de la organización. En este requerimiento se establece la importancia de definir parámetros que no contengan información sensible, como nombres de directorios o rutas. 
+:description: En el presente documento se detallan los requerimientos de seguridad relacionados al manejo de archivos dentro de la organización. En este requerimiento se establece la importancia de definir parámetros que no contengan información sensible, como nombres de directorios o rutas.
 :keywords: Requerimiento, Seguridad, Archivos, Parámetros, Rutas, Directorios.
 :rules: yes
 
@@ -8,8 +8,8 @@
 
 == Nombre
 
-El sistema no debe incluir en parámetros 
-nombres de directorios o rutas de archivos. 
+El sistema no debe incluir en parámetros
+nombres de directorios o rutas de archivos.
 
 == Soluciones
 

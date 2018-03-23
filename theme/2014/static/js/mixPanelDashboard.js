@@ -5,7 +5,7 @@
 /*
  * Object to control mixpanel calls
  */
-mixPanelDashboard = {}; 
+mixPanelDashboard = {};
 /*
  * MixPanel localhost Fixer
  */

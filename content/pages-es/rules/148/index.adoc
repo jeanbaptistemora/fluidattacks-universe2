@@ -8,8 +8,8 @@
 
 == Nombre
 
-Debe utilizarse como mecanismo de cifrado asimétrico 
-un tamaño de clave mínimo de 2048 bits. 
+Debe utilizarse como mecanismo de cifrado asimétrico
+un tamaño de clave mínimo de 2048 bits.
 
 == Soluciones
 

@@ -17,46 +17,46 @@ Uso de +cookies HttpOnly+ en +ASP.NET+ con +C#+.
 
 == Solución
 
-Las +cookies+ son fragmentos de datos 
+Las +cookies+ son fragmentos de datos
 utilizados como métodos de medición de páginas web.
-Éstas son generas por el servidor web 
+Éstas son generas por el servidor web
 y enviadas a los navegadores para ser instaladas.
-Una vez instaladas se encargan de recoger datos 
-sobre el comportamiento y preferencias del usuario 
+Una vez instaladas se encargan de recoger datos
+sobre el comportamiento y preferencias del usuario
 y reenvía éstos datos al servidor.
-Con ésto es posible personalizar el contenido 
+Con ésto es posible personalizar el contenido
 que se muestra al usuario en el navegador de acuerdo a sus gustos
 y su comportamiento en la red <<r1, ^[1]^>>.
 
-Las +cookies+ son comúnmente utilizadas en numerosas aplicaciones web, 
-debido a que resultan bastante útiles 
-para guardar información, configuraciones del usuario 
-y variables para después desplegarlas en distintas páginas 
+Las +cookies+ son comúnmente utilizadas en numerosas aplicaciones web,
+debido a que resultan bastante útiles
+para guardar información, configuraciones del usuario
+y variables para después desplegarlas en distintas páginas
 sin necesidad de una petición +GET+ o +POST+.
 
-Sin embargo, las +cookies+ son también un objetivo de ataque 
+Sin embargo, las +cookies+ son también un objetivo de ataque
 de los criminales informáticos,
-ya que a menudo guardan información 
+ya que a menudo guardan información
 de la sesión de un usuario.
-Esta información en manos de un usuario mal intencionado 
-representa una amenaza a la seguridad de la aplicación, 
-y a la integridad de los datos del usuario, 
-debido a que es posible falsificar una sesión 
+Esta información en manos de un usuario mal intencionado
+representa una amenaza a la seguridad de la aplicación,
+y a la integridad de los datos del usuario,
+debido a que es posible falsificar una sesión
 y efectuar un robo de identidad.
 
-Para incrementar la seguridad de la aplicación 
+Para incrementar la seguridad de la aplicación
 y de las +cookies+ se recurre al método +HttpOnly+
-de +ASP.NET+ el cual tiene por objetivo 
-definir si la +cookie+ es accesible o no 
+de +ASP.NET+ el cual tiene por objetivo
+definir si la +cookie+ es accesible o no
 por un +script+ del usuario <<r2, ^[2]^>>.
 Para ésto se deben seguir los siguientes pasos:
 
-. El mecanismo de protección +HttpOnly+ 
-es usado en situaciones donde no se requiere que las +cookies+ de sesión 
+. El mecanismo de protección +HttpOnly+
+es usado en situaciones donde no se requiere que las +cookies+ de sesión
 estén disponibles en el +DOM+ de la aplicación.
-El siguiente ejemplo muestra cómo implementar +HttpOnly+ 
-Lo primero es modificar el método +Page_Load+ 
-de nuestro sitio para crear una +cookie+, 
+El siguiente ejemplo muestra cómo implementar +HttpOnly+
+Lo primero es modificar el método +Page_Load+
+de nuestro sitio para crear una +cookie+,
 en la cual guardamos el valor de la fecha actual.
 +
 .mypage.cs
@@ -66,14 +66,14 @@ public virtual void Page_Load(object sender, EventArgs e)
 {
    // Create a new HttpCookie.
    HttpCookie myHttpCookie = new HttpCookie("LastVisit", DateTime.Now.ToString());
-   // By default, the HttpOnly property is set to false 
+   // By default, the HttpOnly property is set to false
    // unless specified otherwise in configuration.
    myHttpCookie.Name = "MyHttpCookie";
    Response.AppendCookie(myHttpCookie);
 ----
 
-. Luego creamos una nueva +cookie+, con el mismo valor 
-pero un nombre diferente, 
+. Luego creamos una nueva +cookie+, con el mismo valor
+pero un nombre diferente,
 a la cual modificamos el atributo +HttpOnly+ <<r3, ^[3]^>>.
 +
 [source, java, linenums]
@@ -85,11 +85,11 @@ a la cual modificamos el atributo +HttpOnly+ <<r3, ^[3]^>>.
    myHttpOnlyCookie.HttpOnly = true;
    myHttpOnlyCookie.Name = "MyHttpOnlyCookie";
    Response.AppendCookie(myHttpOnlyCookie);
-}      
+}
 ----
 
-. Del lado del +HTML+, creamos la siguiente función, 
-la cual obtiene las +cookies+ desde +Javascript+ 
+. Del lado del +HTML+, creamos la siguiente función,
+la cual obtiene las +cookies+ desde +Javascript+
 mediante el objeto +document.cookie+.
 +
 [source, java, linenums]
@@ -97,23 +97,23 @@ mediante el objeto +document.cookie+.
 <script type="text/javascript">
 function getCookie(NameOfCookie)
 {
-    if (document.cookie.length > 0) 
-    { 
-        begin = document.cookie.indexOf(NameOfCookie+"="); 
+    if (document.cookie.length > 0)
+    {
+        begin = document.cookie.indexOf(NameOfCookie+"=");
         if (begin != -1)
-        { 
-           begin += NameOfCookie.length+1; 
+        {
+           begin += NameOfCookie.length+1;
            end = document.cookie.indexOf(";", begin);
            if (end == -1) end = document.cookie.length;
-           return unescape(document.cookie.substring(begin, end));       
-        } 
+           return unescape(document.cookie.substring(begin, end));
+        }
     }
-    return null;  
+    return null;
 }
 ----
 
-. Luego con +alert()+ mostramos el valor de ambas +cookies+. 
-Podremos observar que en el segundo mensaje 
+. Luego con +alert()+ mostramos el valor de ambas +cookies+.
+Podremos observar que en el segundo mensaje
 aparecerá +null+ en lugar del valor de la +cookie+.
 +
 [source,java,linenums]
@@ -122,7 +122,7 @@ aparecerá +null+ en lugar del valor de la +cookie+.
  alert("Getting HTTP Cookie: "+getCookie("MyHttpCookie"));
  // Because the cookie is set to HttpOnly, returns null.
  alert("Getting HTTP Only Cookie: "+getCookie("MyHttpOnlyCookie"));
-</script> 
+</script>
 ----
 
 == Referencias

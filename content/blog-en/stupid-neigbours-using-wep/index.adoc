@@ -52,7 +52,7 @@ complete suite of tools that are used to assess Wi-Fi network security.
 Aircrack is a very complete tool that has many usage options, all the options
 are important, they are there for a reason. With the correct options and data,
 aircrack can be used to crack any WEP key within minutes.
-A complete manual on how to install and use this tool can be found at: 
+A complete manual on how to install and use this tool can be found at:
 link:https://www.aircrack-ng.org/doku.php?id=install_aircrack[Aircrack Guide]
 
 WEP has many vulnerabilities and before we can exploit them we should
@@ -133,4 +133,3 @@ over an insecure network. Such protocol include but are not limited to:
 == Challenge Link
 
 link:http://www.yashira.org/index.php?mode=Retos&resp=inforeto&level=182[Yashira WEP Security]
-

@@ -19,29 +19,29 @@ bajo las cuales la siguiente solución tiene sentido:
 . El tipo de objeto a compilar es +CBLLE+.
 . Los eventos excepcionales deben ser registrados en bitácoras<<r1,^[1]^>>.
 . Los eventos excepcionales deben clasificarse por severidad<<r2,^[2]^>>.
-. Los eventos deben contener el momento de ocurrencia 
+. Los eventos deben contener el momento de ocurrencia
 (fecha, hora, segundos, mili-segundos y zona horaria)<<r3,^[3]^>>.
 
 == Solución
 
-En la siguiente solución, 
-+CBLERR2+ causará el error 
-y +ERRHDL2+ se encargará de atrapar la excepción, 
-además de guardar la fecha de ocurrencia exacta, 
-el nombre del miembro y la biblioteca, 
+En la siguiente solución,
++CBLERR2+ causará el error
+y +ERRHDL2+ se encargará de atrapar la excepción,
+además de guardar la fecha de ocurrencia exacta,
+el nombre del miembro y la biblioteca,
 y el +ID+ de la excepción.
 
 * +CBLERR2+
 
-. Este programa registra un controlador de excepciones para +ILE COBOL+. 
-Luego de registrar exitosamente el controlador, 
-dicho programa genera el error "+data decimal+". 
-Dicha excepción causa que el controlador 
+. Este programa registra un controlador de excepciones para +ILE COBOL+.
+Luego de registrar exitosamente el controlador,
+dicho programa genera el error "+data decimal+".
+Dicha excepción causa que el controlador
 llame al programa definido en su argumento (+ERRHDL2+).
 
-. Se da inicio al programa definiendo la división +IDENTIFICATION DIVISION+. 
-La palabra clave +NOMONOPRC+ 
-sirve para indicarle al compilador 
+. Se da inicio al programa definiendo la división +IDENTIFICATION DIVISION+.
+La palabra clave +NOMONOPRC+
+sirve para indicarle al compilador
 que los nombres serán tratados con +case-sensitive+:
 +
 .cblerr2.cbl
@@ -54,8 +54,8 @@ que los nombres serán tratados con +case-sensitive+:
       ******************
        PROGRAM-ID. CBLERR2.
 ----
-. En la división +ENVIRONMENT DIVISION+ 
-se enlaza el programa 
+. En la división +ENVIRONMENT DIVISION+
+se enlaza el programa
 con la interfaz de programación +QInSetCobolErrorHandler+<<r4,^[4]^>>:
 +
 [source, cobol,linenums]
@@ -109,7 +109,7 @@ con la interfaz de programación +QInSetCobolErrorHandler+<<r4,^[4]^>>:
 ----
            SET ERROR-HANDLER TO ENTRY LINKAGE PROGRAM "ERRHDL2".
 ----
-. Hacemos un llamado a la interfaz de programación 
+. Hacemos un llamado a la interfaz de programación
 que se encargará de registrar el nuevo controlador de errores:
 +
 [source, cobol,linenums]
@@ -130,7 +130,7 @@ que se encargará de registrar el nuevo controlador de errores:
 
 * +ERRHDL2+
 
-. Este programa se encarga de recibir la excepción 
+. Este programa se encarga de recibir la excepción
 y almacenarla en el archivo +LOGGER+ de la biblioteca actual.
 
 . Se da inicio al programa definiendo la división +IDENTIFICATION DIVISION+:
@@ -167,7 +167,7 @@ y almacenarla en el archivo +LOGGER+ de la biblioteca actual.
       ********
        DATA DIVISION.
 ----
-. En la sección de archivo 
+. En la sección de archivo
 establecemos el formato para la línea que se almacenará en la bitácora:
 +
 [source, bat,linenums]
@@ -185,7 +185,7 @@ DDDDDDDDDDDDDDDDDDDDDPPPPPPPPPPPPPPPPPPPPIIIIIIIIII
            05 LOG-PGM-IN-ERROR PIC X(20).
            05 LOG-EXCEPTION-ID PIC X(10).
 ----
-. En la sección +LINKAGE SECTION+ 
+. En la sección +LINKAGE SECTION+
 definimos las variables que el programa aceptará como argumento:
 +
 [source, cobol,linenums]
@@ -203,8 +203,8 @@ definimos las variables que el programa aceptará como argumento:
        01 ERR-MODULE-NAME      PIC  X(10).
        01 CBL-PGM-NAME         PIC X(256).
 ----
-. En la sección +WORKING-STORAGE SECTION+ 
-definimos las variables para el manejo de fechas 
+. En la sección +WORKING-STORAGE SECTION+
+definimos las variables para el manejo de fechas
 y errores en el archivo de registro:
 +
 [source, cobol,linenums]
@@ -213,10 +213,10 @@ y errores en el archivo de registro:
        01 WS-CURRENT-DATE      PIC X(21).
        01 LOG-STATUS           PIC 99.
 ----
-. En la división +PROCEDURE DIVISION+ 
-se encuentra la lógica del programa. 
-Esta división acepta varios argumentos, 
-entre ellos el programa que generó la excepción, 
+. En la división +PROCEDURE DIVISION+
+se encuentra la lógica del programa.
+Esta división acepta varios argumentos,
+entre ellos el programa que generó la excepción,
 el +ID+ y descripción de la excepción, entre otros:
 +
 [source, cobol,linenums]
@@ -241,7 +241,7 @@ el +ID+ y descripción de la excepción, entre otros:
 ----
            OPEN EXTEND LOG-FILE.
 ----
-. Obtenemos la fecha exacta (con milisegundos), 
+. Obtenemos la fecha exacta (con milisegundos),
 en la cual ser generó la excepción:
 +
 [source, cobol,linenums]
@@ -266,7 +266,7 @@ en la cual ser generó la excepción:
 +
 [source, cobol,linenums]
 ----
-           CLOSE LOG-FILE. 
+           CLOSE LOG-FILE.
 ----
 . Enviamos la opción +C+ para que el programa continúe:
 +
@@ -275,8 +275,8 @@ en la cual ser generó la excepción:
            MOVE "C" TO SYS-OPTION.
            STOP RUN.
 ----
-. El archivo +LOGGER+ luego de varias pruebas 
-podrá tener el registro exacto de la excepción, 
+. El archivo +LOGGER+ luego de varias pruebas
+podrá tener el registro exacto de la excepción,
 como se puede observar en el siguiente ejemplo:
 +
 [source, bat,linenums]
@@ -290,13 +290,13 @@ DDDDDDDDDDDDDDDDDDDDDPPPPPPPPPPPPPPPPPPPPIIIIIIIIII
 
 == Descargas
 
-Puedes descargar el código fuente 
-pulsando en los siguientes enlaces: 
+Puedes descargar el código fuente
+pulsando en los siguientes enlaces:
 
-. [button]#link:src/cblerr2.cbl[cblerr2.cbl]# contiene 
-el código que genera el error 
+. [button]#link:src/cblerr2.cbl[cblerr2.cbl]# contiene
+el código que genera el error
 y que es capturado por +errhdl2+.
-. [button]#link:src/errhdl2.cbl[errhdl2.cbl]# contiene 
+. [button]#link:src/errhdl2.cbl[errhdl2.cbl]# contiene
 las instrucciones para capturar y procesar el error generado desde +cblerr2+.
 
 == Referencias

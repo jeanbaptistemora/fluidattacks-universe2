@@ -12,21 +12,21 @@ Obtener todos los atributos de un objeto desde +COBOL+.
 
 == Contexto
 
-A continuación se describe las circunstancias 
+A continuación se describe las circunstancias
 bajo las cuales la siguiente solución tiene sentido:
 
 . Se está desarrollando una aplicación en +COBOL+.
 . La aplicación hace uso de algún atributo del objeto sobre el cual opera.
-. Los archivos sobre los cuáles se opera 
+. Los archivos sobre los cuáles se opera
 deben tener un tamaño limitado<<r1,^[1]^>>.
-. Debe utilizarse firmas digitales 
+. Debe utilizarse firmas digitales
 para garantizar la autenticidad de información sensible<<r2,^[2]^>>.
 
 == Solución
 
-. Cada uno de los objetos almacenados 
-en el sistema de archivos +QSYS.LIB+ 
-están asociados a un conjunto de atributos o metadatos 
+. Cada uno de los objetos almacenados
+en el sistema de archivos +QSYS.LIB+
+están asociados a un conjunto de atributos o metadatos
 que contienen información extra del objeto tales como:
 
 * Propietario.
@@ -43,8 +43,8 @@ que contienen información extra del objeto tales como:
 
 * Atributos de autorización, entre otros.
 
-. El objetivo de la siguiente solución 
-es obtener todos los atributos de un objeto 
+. El objetivo de la siguiente solución
+es obtener todos los atributos de un objeto
 haciendo uso de +QUSROBJD+.
 
 . Se inicia definiendo la división +IDENTIFICATION DIVISION+:
@@ -59,26 +59,26 @@ haciendo uso de +QUSROBJD+.
        PROGRAM-ID. COBOLOBJ.
 ----
 +
-En esta división mediante la sentencia +PROGRAM-ID+, 
-se denomina al programa como +COBOLOBJ+. 
-Cabe resaltar que el uso de +IDENTIFICATION DIVISION+ 
-no se limita a establecer el nombre de un programa en +COBOL+. 
-Al final del presente artículo,^<<r3,[3]>>,<<r4,[4]>>^ 
-puede encontrar mayor información 
+En esta división mediante la sentencia +PROGRAM-ID+,
+se denomina al programa como +COBOLOBJ+.
+Cabe resaltar que el uso de +IDENTIFICATION DIVISION+
+no se limita a establecer el nombre de un programa en +COBOL+.
+Al final del presente artículo,^<<r3,[3]>>,<<r4,[4]>>^
+puede encontrar mayor información
 relacionada al uso de dicha división.
 
-. En la división +DATA DIVISION+<<r5,^[5]^>> 
-y dentro de la sección +WORKING-STORAGE SECTION+, 
+. En la división +DATA DIVISION+<<r5,^[5]^>>
+y dentro de la sección +WORKING-STORAGE SECTION+,
 se declaran tres estructuras de datos:
 
-* +DATA-TYPES:+ los diferentes tipos de datos 
+* +DATA-TYPES:+ los diferentes tipos de datos
 para ser reutilizados en las demás variables.
 
-* +REQUIRED-PARAMETER:+ parámetros obligatorios de la biblioteca +QUSROBJD+ 
-que contiene información acerca del nombre del objeto, su tipo 
+* +REQUIRED-PARAMETER:+ parámetros obligatorios de la biblioteca +QUSROBJD+
+que contiene información acerca del nombre del objeto, su tipo
 y biblioteca en la que se encuentra el mismo.
 
-* +OPTIONAL-PARAMETER:+ parámetros opcionales de la biblioteca +QUSROBJD+ 
+* +OPTIONAL-PARAMETER:+ parámetros opcionales de la biblioteca +QUSROBJD+
 que contendrá el detalle del error en caso de que ocurra alguno.
 
 +
@@ -107,17 +107,17 @@ que contendrá el detalle del error en caso de que ocurra alguno.
            02 O-EXCEPTION-DATA   PIC X(240).
 ----
 
-. Copiamos de las estructuras de datos 
-para el llamado a la interfaz de aplicación +QUSROBJD+. 
-Al final de este artículo<<r6,^[6]^>> 
+. Copiamos de las estructuras de datos
+para el llamado a la interfaz de aplicación +QUSROBJD+.
+Al final de este artículo<<r6,^[6]^>>
 puede encontrar más ejemplos relacionados con +QUSROBJD+:
 +
 [source, cobol,linenums]
 ----
        COPY QUSROBJD OF QSYSINC-QCBLLESRC.
 ----
-. Dentro de la división +PROCEDURE DIVISION+<<r7,^[7]^>> 
-y mediante la sentencia +ACCEPT+, 
+. Dentro de la división +PROCEDURE DIVISION+<<r7,^[7]^>>
+y mediante la sentencia +ACCEPT+,
 se obtiene los datos de entrada ingresados por el usuario.
 +
 [source, cobol,linenums]
@@ -136,7 +136,7 @@ se obtiene los datos de entrada ingresados por el usuario.
            DISPLAY "Nombre de la bilbioteca: ".
            ACCEPT R-LIBRARY-NAME.
 ----
-. Se hace el llamado a la biblioteca +QUSROBJD+ 
+. Se hace el llamado a la biblioteca +QUSROBJD+
 usando las estructuras anteriormente definidas:
 +
 [source, cobol,linenums]
@@ -149,8 +149,8 @@ usando las estructuras anteriormente definidas:
            R-OBJECT-TYPE
            OPTIONAL-PARAMETER.
 ----
-. Si la ejecución está libre de errores 
-entonces se verifica el tamaño del objeto 
+. Si la ejecución está libre de errores
+entonces se verifica el tamaño del objeto
 y que éste cuente con firma digital:
 +
 [source, cobol,linenums]
@@ -168,7 +168,7 @@ y que éste cuente con firma digital:
                DISPLAY "Objeto no firmado digitalmente"
            END-IF
 ----
-. En caso de error 
+. En caso de error
 se despliega en pantalla el +ID+ de la excepción:
 +
 [source, cobol,linenums]
@@ -182,10 +182,10 @@ se despliega en pantalla el +ID+ de la excepción:
 
 == Descargas
 
-Puedes descargar el código fuente 
+Puedes descargar el código fuente
 pulsando en el siguiente enlace:
 
-. [button]#link:src/cobolobj.cbl[cobolobj.cbl]# contiene 
+. [button]#link:src/cobolobj.cbl[cobolobj.cbl]# contiene
 el código explicado anteriormente para trabajar con atributos de objetos.
 
 == Referencias

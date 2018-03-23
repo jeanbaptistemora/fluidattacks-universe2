@@ -8,28 +8,28 @@
 
 == Nombre
 
-Las vulnerabilidades halladas en los activos de información 
+Las vulnerabilidades halladas en los activos de información
 deben estar priorizadas según la criticidad de cada vulnerabilidad.
 
 == Descripción
 
-Es necesario definir el mecanismo 
-para establecer la criticidad de una vulnerabilidad 
-de forma que se pueda priorizar la solución, 
-esto permite concentrar recursos en evitar las vulnerabilidades 
+Es necesario definir el mecanismo
+para establecer la criticidad de una vulnerabilidad
+de forma que se pueda priorizar la solución,
+esto permite concentrar recursos en evitar las vulnerabilidades
 que pueden causar mayor impacto de ser explotadas.
 
 == Implementación
 
-Para realizar la labor de asignar criticidad a las vulnerabilidades, 
-existe un estándar internacional denominado 
+Para realizar la labor de asignar criticidad a las vulnerabilidades,
+existe un estándar internacional denominado
 +Common Vulnerability Scoring System ( CVSS ).+<<r1,^[1]^>>
 
-El +CVSS+ intenta asignar puntuaciones de gravedad de las vulnerabilidades, 
-lo que permite dar prioridad a las respuestas 
-y asignar los recursos de acuerdo con criticidad. 
-La puntuación va de 0 a 10, 
-siendo 10 la vulnerabilidad más grave, 
+El +CVSS+ intenta asignar puntuaciones de gravedad de las vulnerabilidades,
+lo que permite dar prioridad a las respuestas
+y asignar los recursos de acuerdo con criticidad.
+La puntuación va de 0 a 10,
+siendo 10 la vulnerabilidad más grave,
 estas se calculan en base a una fórmula que depende de varios parámetros:
 
 * Explotabilidad
@@ -55,7 +55,7 @@ estas se calculan en base a una fórmula que depende de varios parámetros:
 |====
 
 +
-.Autenticación (+Au+): describe el número de veces que un atacante debe autenticarse para explotar la vulnerabilidad. 
+.Autenticación (+Au+): describe el número de veces que un atacante debe autenticarse para explotar la vulnerabilidad.
 [options="header"]
 |====
 |Valor |Descripción |Puntuación
@@ -104,10 +104,10 @@ image::diag1-req015.png[Diagrama req015]
 
 == Casos de abuso
 
-. Un usuario, empleado o anónimo 
-ejecuta acciones en contravía 
-de la seguridad de cualquier activo de la organización, 
-la vulnerabilidad aprovechada no fue solucionada con prioridad 
+. Un usuario, empleado o anónimo
+ejecuta acciones en contravía
+de la seguridad de cualquier activo de la organización,
+la vulnerabilidad aprovechada no fue solucionada con prioridad
 debido a la no identificación adecuada de la criticidad.
 
 == Atributos

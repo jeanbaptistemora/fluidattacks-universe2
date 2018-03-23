@@ -12,7 +12,7 @@ Utilizar concurrencia en una aplicación usando +EJB+ en +Java+
 
 == Contexto
 
-A continuación se describen las circunstancias 
+A continuación se describen las circunstancias
 bajo las cuales la siguiente solución tiene sentido:
 
 . Se tiene una aplicación en +Java EE 1.6+.
@@ -21,20 +21,20 @@ bajo las cuales la siguiente solución tiene sentido:
 
 == Solución
 
-+EJB+ o +Enterprise JavaBeans+ 
-son una de las interfaces de programación de aplicaciones 
-que forman parte del estándar 
-de construcción de aplicaciones empresariales +J2EE+. 
-Estas proporcionan un modelo de componente distribuido estándar 
-del lado del servidor con el objetivo de dotar al programador 
-de un modelo que le permita abstraerse 
-de los problemas generales de una aplicación empresarial. 
++EJB+ o +Enterprise JavaBeans+
+son una de las interfaces de programación de aplicaciones
+que forman parte del estándar
+de construcción de aplicaciones empresariales +J2EE+.
+Estas proporcionan un modelo de componente distribuido estándar
+del lado del servidor con el objetivo de dotar al programador
+de un modelo que le permita abstraerse
+de los problemas generales de una aplicación empresarial.
 
-. Se generará un +EJB+ de sesión sin estado 
+. Se generará un +EJB+ de sesión sin estado
 utilizando las anotaciones de +EJB3+.
 
-. Lo primero que se hará es crear el +EJB+, este necesita dos clases, 
-la +interface+ y el +Bean+ como tal, 
+. Lo primero que se hará es crear el +EJB+, este necesita dos clases,
+la +interface+ y el +Bean+ como tal,
 que serán incluidas en el paquete +Especialista+.
 
 . Clase de la interface de negocio: +Concurrencia.java+.
@@ -56,7 +56,7 @@ public interface Concurrencia {
 }
 ----
 
-. Clase del +EJB+: +ConcurrenciaBean+, 
+. Clase del +EJB+: +ConcurrenciaBean+,
 aquí es donde se ejecutara toda la lógica transaccional.
 +
 [source, java,linenums]
@@ -70,24 +70,24 @@ import javax.ejb.*;
 @Stateless (mappedName="Especialista/Concurrencia" )
 
 public class ConcurrenciaBean {
- 
+
  //proceso de prueba numero 1, hace un retardo en tiempo para simular una transacción
   public long Proceso1(long tipo){
     boolean evento = false;
     while(evento==false)
     {
       if (System.currentTimeMillis() >= tipo)
-      { 
+      {
         evento=true;
       }
 	  else{
         System.out.println("Procesando......");
       }
-    } 
+    }
     long milis =System.currentTimeMillis();
     return milis;
-  } 
-   
+  }
+
    //proceso de prueba numero 2, hace un retardo en tiempo para simular una transacción
    public String Proceso2(long tipo){
      boolean evento = false;
@@ -106,12 +106,12 @@ public class ConcurrenciaBean {
 }
 ----
 
-. *ACLARACIÓN:* Los +System.out.println()+ constituyen una situación 
-en una auditoría de código fuente, en este caso, 
+. *ACLARACIÓN:* Los +System.out.println()+ constituyen una situación
+en una auditoría de código fuente, en este caso,
 esta función se hace para ver el funcionamiento de los +EJB+ en la solución.
 
-. Para que el proyecto funcione 
-hay que agregarle la librería de el +weblogic+ para el manejo de +EJB+, 
+. Para que el proyecto funcione
+hay que agregarle la librería de el +weblogic+ para el manejo de +EJB+,
 por lo general esta librería se encuentra en la ruta.
 +
 [source, shell,linenums]
@@ -127,12 +127,12 @@ image::ejb.png[estructura del proyecto]
 
 . Se despliega el +EJB+ en el servidor de aplicaciones y se inicia el mismo.
 
-. Ahora se creará una aplicación web +Java+, 
-que en este caso tendrá un +servlet+ 
-y una clase encargada de llamar el +EJB+ 
+. Ahora se creará una aplicación web +Java+,
+que en este caso tendrá un +servlet+
+y una clase encargada de llamar el +EJB+
 haciendo conexión con el +WebLogic+.
 
-. Clase Servlet: 
+. Clase Servlet:
 +
 [source, java,linenums]
 ----
@@ -158,7 +158,7 @@ public class Servlet extends HttpServlet {
 }
 ----
 
-. Clase +Cliente+: esta clase es la que se encarga 
+. Clase +Cliente+: esta clase es la que se encarga
 de hacer el llamado al +EJB+.
 +
 [source, java,linenums]
@@ -173,30 +173,30 @@ import Especialista.Concurrencia;
 
 public class Cliente {
   //Se hace el llamado al metodo Carga que es el que inicia el ejb.
-  public void Inicio() {   
+  public void Inicio() {
     long milis=System.currentTimeMillis()+10000;
     System.out.println("inicia Proceso solucion 1");
-    carga(milis);          
+    carga(milis);
   }
-   
+
   public static void carga(long i){
-     //se hace la conexión al weblogic donde se encuentra el ejb 
+     //se hace la conexión al weblogic donde se encuentra el ejb
      Properties prop = new Properties();
      prop.put(Context.INITIAL_CONTEXT_FACTORY,"weblogic.jndi.WLInitialContextFactory");
      //cambiar por la configuracion del servidor de aplicaciones
      prop.put(Context.PROVIDER_URL, "t3://localhost:7001/");
      try {
        //objeto con la información de conexión
-       InitialContext contexto = new InitialContext(prop); 
+       InitialContext contexto = new InitialContext(prop);
        // se le especifica el EJB a ejecutar
-       Object obj = 
+       Object obj =
        contexto.lookup("Especialista.Concurrencia#Especialista.Concurrencia");
        Concurrencia Conc = (Concurrencia) PortableRemoteObject.narrow(obj, Concurrencia.class);
        //se utilizan 2 procesos de el ejb como prueba
        long tipo =i;
        long res =Conc.Proceso1(tipo);
        System.out.println("Pasa a proceso 2");
-       String res2 =Conc.Proceso2(res+10000);   
+       String res2 =Conc.Proceso2(res+10000);
        System.out.println(res2);
      }
 	 catch (NamingException e) {
@@ -206,8 +206,8 @@ public class Cliente {
 }
 ----
 
-. Hay que recordar que se debe montar 
-el paquete +Especialista+ en este proyecto 
+. Hay que recordar que se debe montar
+el paquete +Especialista+ en este proyecto
 para que el +ID+ no arroje ningún tipo de error.
 
 . En el archivo +web.xml+ se le agregan los descriptores del +Servlet+.
@@ -215,10 +215,10 @@ para que el +ID+ no arroje ningún tipo de error.
 [source, xml,linenums]
 ----
 <?xml version="1.0" encoding="UTF-8"?>
-  <web-app id="WebApp_ID" version="2.4" 
+  <web-app id="WebApp_ID" version="2.4"
     xmlns="http://java.sun.com/xml/ns/j2ee"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee 
+    xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee
     http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd">
     <display-name>Solucion2</display-name>
     <welcome-file-list>
@@ -252,24 +252,24 @@ image::estructura.png[estructura del proyecto]
 
 == Descargas
 
-Puedes descargar el código fuente 
+Puedes descargar el código fuente
 pulsando en los siguientes enlaces:
 
-[button]#link:src/concurrencia.java[Concurrencia.java]# 
+[button]#link:src/concurrencia.java[Concurrencia.java]#
 Interfaz Concurrencia.
 
-[button]#link:src/concurrenciabean.java[ConcurrenciaBean.java]# 
+[button]#link:src/concurrenciabean.java[ConcurrenciaBean.java]#
 Clase Concurrencia.
 
-[button]#link:src/servlet.java[Servlet.java]# 
+[button]#link:src/servlet.java[Servlet.java]#
 Clase Servlet.
 
-[button]#link:src/cliente.java[Cliente.java]# 
+[button]#link:src/cliente.java[Cliente.java]#
 Clase Cliente.
 
 == Referencias
 
 . [[r1]] link:https://docs.oracle.com/cd/E11035_01/wls100/ejb30/index.html[Programming WebLogic Enterprise JavaBeans, Version 3.0]
 . [[r2]] link:http://wiki.eclipse.org/EclipseLink/Examples/JPA/WebLogic_Web_Tutorial[WebLogic Web Tutorial]
-. [[r3]] REQ.0159: El código debe utilizar contenedores 
+. [[r3]] REQ.0159: El código debe utilizar contenedores
 o estructuras de datos optimizadas.

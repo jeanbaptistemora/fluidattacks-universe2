@@ -4,7 +4,7 @@
 :tags: security, csv, code, web
 :image: csv.png
 :alt: Blank CSV document icon
-:description: Comma-Separated Values file (CSV) is a common extension in data files used in several application fields. However CSV files present a serious security issue that must be considered before using this extension. In this article we present a CSV vulnerability most people ignore.  
+:description: Comma-Separated Values file (CSV) is a common extension in data files used in several application fields. However CSV files present a serious security issue that must be considered before using this extension. In this article we present a CSV vulnerability most people ignore.
 :keywords: CSV, Security, Vulnerability, Code, Web, Spreadsheet.
 :author: Jonathan Armas
 :writer: johna
@@ -27,11 +27,11 @@ by the spreadsheet program.
 image::csv-example.png[example]
 
 There is a vulnerability in this types of format that the most of programmers
-ignores, that is "CSV Injection". 
-As link:https://www.owasp.org/index.php/CSV-Injection[OWASP] says, 
-it occurs when websites embed untrusted input inside CSV files, 
-when a spreadsheet program is used to open a CSV file, 
-any cell starting with '*=*' is considered as a formula 
+ignores, that is "CSV Injection".
+As link:https://www.owasp.org/index.php/CSV-Injection[OWASP] says,
+it occurs when websites embed untrusted input inside CSV files,
+when a spreadsheet program is used to open a CSV file,
+any cell starting with '*=*' is considered as a formula
 and crafted formulas can be used to malicious attacks.
 
 == CSV Injection Example

@@ -95,4 +95,3 @@ enmascarando todas sus peticiones y comandos
 bajo un protocolo conocido y de confianza.
 
 |====
-

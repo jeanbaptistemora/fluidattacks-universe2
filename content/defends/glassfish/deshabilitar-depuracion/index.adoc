@@ -17,7 +17,7 @@ bajo las cuales la siguiente solución tiene sentido:
 
 . Se utiliza el servidor de aplicaciones +GlassFish+.
 . Se desea cambiar la configuración del modo depuración.
-. Los eventos con severidad de depuración 
+. Los eventos con severidad de depuración
 no deben estar habilitados en producción.<<r1,^[1]^>>
 
 == Solución

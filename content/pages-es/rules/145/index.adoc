@@ -8,5 +8,5 @@
 
 == Nombre
 
-Las llaves asimétricas privadas o simétricas del sistema deben estar protegidas 
+Las llaves asimétricas privadas o simétricas del sistema deben estar protegidas
 y no deben ser expuestas.

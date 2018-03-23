@@ -12,25 +12,25 @@ Las sesiones concurrentes de un sistema se deben controlar o informar.
 
 == Descripción
 
-Un sistema que maneja sesiones de acceso autenticadas 
-y asociadas a usuarios únicos 
-puede permitir el acceso simultaneo a sus servicios 
-mediante el uso de las mismas credenciales, 
-esto supone varios riesgos para el servicio, la información 
-y los usuarios del sistema 
-al permitir que un usuario mal intencionado 
-interactúe al tiempo con el sistema que un usuario válido, 
-lo que conlleva a robos de sesión inadvertidos, 
-ejecución de acciones a nombre de un usuario válido 
-sin su autorización (suplantación) 
+Un sistema que maneja sesiones de acceso autenticadas
+y asociadas a usuarios únicos
+puede permitir el acceso simultaneo a sus servicios
+mediante el uso de las mismas credenciales,
+esto supone varios riesgos para el servicio, la información
+y los usuarios del sistema
+al permitir que un usuario mal intencionado
+interactúe al tiempo con el sistema que un usuario válido,
+lo que conlleva a robos de sesión inadvertidos,
+ejecución de acciones a nombre de un usuario válido
+sin su autorización (suplantación)
 y pérdida de la trazabilidad de las acciones de un usuario suplantado.^<<r1,[1]>>,<<r2,[2]>>^
 
 == Implementación
 
-. Limitar o eliminar la concurrencia en sesiones: 
-Configurar en el sistema según su naturaleza 
-la opción de controlar la conexión simultanea 
-utilizando las mismas credenciales 
+. Limitar o eliminar la concurrencia en sesiones:
+Configurar en el sistema según su naturaleza
+la opción de controlar la conexión simultanea
+utilizando las mismas credenciales
 ya sea desde un sistema de autenticación externo o desde el mismo sistema.
 
 == Soluciones
@@ -39,10 +39,10 @@ ya sea desde un sistema de autenticación externo o desde el mismo sistema.
 
 == Casos de abuso
 
-. Un atacante inicia sesión en una cuenta 
+. Un atacante inicia sesión en una cuenta
 de manera simultánea a un usuario legítimo.
 
-. Un atacante efectúa acciones a nombre de un usuario legítimo sin trazabilidad 
+. Un atacante efectúa acciones a nombre de un usuario legítimo sin trazabilidad
 y sin autorización del usuario legítimo.
 
 == Atributos

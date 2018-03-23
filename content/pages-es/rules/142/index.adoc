@@ -8,5 +8,5 @@
 
 == Nombre
 
-La organización debe modificar 
+La organización debe modificar
 todas las credenciales de acceso por defecto de sistemas empaquetados.

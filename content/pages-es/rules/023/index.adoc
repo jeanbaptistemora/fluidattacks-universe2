@@ -6,35 +6,35 @@
 
 = REQ.023 Cerrar sesión de un usuario inactivo
 
-== Nombre 
+== Nombre
 
-El sistema debe cerrar una sesión 
-si se presenta un tiempo de inactividad por parte del usuario, 
+El sistema debe cerrar una sesión
+si se presenta un tiempo de inactividad por parte del usuario,
 superior o igual a 5 minutos.
 
 == Descripción
 
-Un sistema que cuente con autenticación e inicio de sesión 
-puede mantener la misma abierta por un tiempo indefinido 
-si no existe un control automático de cerrado de sesión 
-y el usuario no la cierra manualmente. 
-El no controlar los tiempos de cierre 
-puede permitir a un atacante 
-aprovechar sesiones desatendidas y ejecutar acciones 
-a nombre del usuario autenticado sin su autorización 
-y alterar información confidencial asociada a cuentas, 
-este riesgo puede aumentar su criticidad notablemente 
-si el sistema permite el ingreso a usuarios administradores 
-con privilegios altos, pues afectaría la integridad, confidencialidad 
-y disponibilidad del sistema, sus usuarios 
+Un sistema que cuente con autenticación e inicio de sesión
+puede mantener la misma abierta por un tiempo indefinido
+si no existe un control automático de cerrado de sesión
+y el usuario no la cierra manualmente.
+El no controlar los tiempos de cierre
+puede permitir a un atacante
+aprovechar sesiones desatendidas y ejecutar acciones
+a nombre del usuario autenticado sin su autorización
+y alterar información confidencial asociada a cuentas,
+este riesgo puede aumentar su criticidad notablemente
+si el sistema permite el ingreso a usuarios administradores
+con privilegios altos, pues afectaría la integridad, confidencialidad
+y disponibilidad del sistema, sus usuarios
 y de la información que contiene.
 
 == Implementación
 
-. Fijar los tiempos de sesión: 
-Dependiendo de las necesidades del negocio 
-y/o de las políticas de manejo de sesiones de la compañía 
-se deben configurar los tiempos de finalización de sesiones desatendidas 
+. Fijar los tiempos de sesión:
+Dependiendo de las necesidades del negocio
+y/o de las políticas de manejo de sesiones de la compañía
+se deben configurar los tiempos de finalización de sesiones desatendidas
 a un tiempo prudencial (recomendado de 5 minutos o cercano).<<r1,^[1]^>>
 
 == Soluciones
@@ -45,12 +45,12 @@ a un tiempo prudencial (recomendado de 5 minutos o cercano).<<r1,^[1]^>>
 
 == Casos de abuso
 
-. Un usuario empleado o anónimo 
-toma control de una cuenta desatendida 
+. Un usuario empleado o anónimo
+toma control de una cuenta desatendida
 por otro usuario sin su autorización.^<<r2,[2]>>,<<r3,[3]>>^
 
-. En un servidor +web+ muchas sesiones abiertas durante un tiempo muy alto 
-obligan al servidor a consumir mucha memoria desplegando 
+. En un servidor +web+ muchas sesiones abiertas durante un tiempo muy alto
+obligan al servidor a consumir mucha memoria desplegando
 y manteniendo los objetos de sesión.
 
 == Atributos

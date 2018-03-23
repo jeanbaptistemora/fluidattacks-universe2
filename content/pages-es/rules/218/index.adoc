@@ -8,8 +8,8 @@
 
 == Nombre
 
-Los números aleatorios generados 
-deben seguir una distribución uniforme. 
+Los números aleatorios generados
+deben seguir una distribución uniforme.
 
 == Soluciones
 

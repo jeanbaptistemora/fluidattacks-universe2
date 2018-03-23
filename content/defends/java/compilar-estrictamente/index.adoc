@@ -12,29 +12,29 @@ Compilar un proyecto desarrollado en +Java+ de forma estricta.
 
 == Contexto
 
-A continuación se describen las condiciones 
+A continuación se describen las condiciones
 bajo las cuales la siguiente solución tiene sentido:
 
 . Se está desarrollando una aplicación en +Java+.
 
 == Solución
 
-Por defecto, +Java+ impone un ambiente de compilación bastante estricto 
-en cuanto al manejo de tipos. 
-Sin embargo, algunas opciones de compilación 
-pueden ser bastante útiles a la hora 
+Por defecto, +Java+ impone un ambiente de compilación bastante estricto
+en cuanto al manejo de tipos.
+Sin embargo, algunas opciones de compilación
+pueden ser bastante útiles a la hora
 de ayudar en la producción de un código más seguro.
 
-. En general, no es buena idea compilar un programa en +Java+ 
-usando miembros o clases obsoletas. 
-La opción +-deprecation+ (o +- Xlint:deprecation+) 
-da mayor información sobre los elementos obsoletos utilizados en el programa. 
+. En general, no es buena idea compilar un programa en +Java+
+usando miembros o clases obsoletas.
+La opción +-deprecation+ (o +- Xlint:deprecation+)
+da mayor información sobre los elementos obsoletos utilizados en el programa.
 Esto puede ayudar a evitar el uso de funciones inseguras.
 
-. De manera general, las advertencias sobre este tipo de situaciones 
+. De manera general, las advertencias sobre este tipo de situaciones
 no deberían ignorarse.
 
-. Por ejemplo, se crea una clase que use 
+. Por ejemplo, se crea una clase que use
 el método +stop+ de la clase +Thread+.
 +
 .stop.java
@@ -48,8 +48,8 @@ class T implements Runnable {
 }
 ----
 
-. Se nota que compilando del modo tradicional, 
-solamente se informa que se está haciendo uso de clases obsoletas, 
+. Se nota que compilando del modo tradicional,
+solamente se informa que se está haciendo uso de clases obsoletas,
 pero no se ofrece mucho detalle al respecto.
 +
 [source, bash, linenums]
@@ -72,7 +72,7 @@ T.java:5: warning: [deprecation] stop() in Thread has been deprecated
 1 warning
 ----
 
-. Se observa que utilizando la opción +-Xlint:deprecation+ 
+. Se observa que utilizando la opción +-Xlint:deprecation+
 se consigue el mismo resultado:
 +
 [source, bash, linenums]
@@ -84,11 +84,11 @@ T.java:5: warning: [deprecation] stop() in Thread has been deprecated
 1 warning
 ----
 
-. Por defecto, +Java+ incluye información de depuración 
-sobre el número de línea y el nombre archivo. 
-Sin embargo, esto puede modificarse 
-para que Java no de tanta información. 
-En producción esto no es deseable 
+. Por defecto, +Java+ incluye información de depuración
+sobre el número de línea y el nombre archivo.
+Sin embargo, esto puede modificarse
+para que Java no de tanta información.
+En producción esto no es deseable
 y se sugiere remover toda la información de depuración
 
 . Por ejemplo, se comparará la ejecución del siguiente código.
@@ -102,9 +102,9 @@ class X {
 }
 ----
 
-. Cuando se compila del modo tradicional, 
-se observa que el mensaje de la excepción 
-informa que el error fue producido en la línea 5 
+. Cuando se compila del modo tradicional,
+se observa que el mensaje de la excepción
+informa que el error fue producido en la línea 5
 en un archivo llamado +X.java.
 +
 [source, bash, linenums]
@@ -115,7 +115,7 @@ Exception in thread "main" java.lang.ArithmeticException: / by zero
  at X.main(X.java:5)
 ----
 
-. Por el contrario, cuando se compila usando la opción +-g:none+, 
+. Por el contrario, cuando se compila usando la opción +-g:none+,
 simplemente se informa que que la fuente es desconocida:
 +
 [source, bash, linenums]
@@ -126,8 +126,8 @@ Exception in thread "main" java.lang.ArithmeticException: / by zero
  at X.main(Unknown Source)
 ----
 
-. Por último, +Java+ permite la generación de archivos clase 
-para los archivos fuente cargados implícitamente. 
+. Por último, +Java+ permite la generación de archivos clase
+para los archivos fuente cargados implícitamente.
 Esto puede ser peligroso, se sugiere deshabilitar esta característica.
 +
 [source, bash, linenums]

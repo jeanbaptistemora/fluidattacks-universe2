@@ -12,30 +12,30 @@ Validar el tipo de dato contenido en una variable en +COBOL+.
 
 == Contexto
 
-A continuación se describe las circunstancias 
+A continuación se describe las circunstancias
 bajo las cuales la siguiente solución tiene sentido:
 
 . Se está desarrollando una aplicación en +COBOL+.
 . Los datos provenientes del usuario deben ser validados.
 . Debe validarse la entrada de información antes de ser usada<<r1,^[1]^>>.
-. Debe validarse la entrada de información en el servidor 
+. Debe validarse la entrada de información en el servidor
 y no sólo en el cliente<<r2,^[2]^>>.
 
 == Solución
 
-. Existen cinco tipos de condiciones simples 
-que pueden ser usadas para tomar decisiones, 
-una de ellas es la denominada condición de clase, 
-con la cual podemos validar que el contenido de las variables 
-pertenezcan al tipo de dato deseado 
+. Existen cinco tipos de condiciones simples
+que pueden ser usadas para tomar decisiones,
+una de ellas es la denominada condición de clase,
+con la cual podemos validar que el contenido de las variables
+pertenezcan al tipo de dato deseado
 y que la aplicación manejará.
 
-. "La condición de clase 
-determina cuando el contenido de un ítem es alfabético, 
-alfabético con minúsculas, alfabético con mayúsculas, numérico 
-o si contiene solo caracteres en el conjunto especificado 
-en la cláusula +"CLASS"+ 
-como se define en el parágrafo +SPECIAL-NAMES+ 
+. "La condición de clase
+determina cuando el contenido de un ítem es alfabético,
+alfabético con minúsculas, alfabético con mayúsculas, numérico
+o si contiene solo caracteres en el conjunto especificado
+en la cláusula +"CLASS"+
+como se define en el parágrafo +SPECIAL-NAMES+
 de la sección +Environment+"<<r3,^[3]^>>.
 
 . Se da inicio a la aplicación definiendo la división +IDENTIFICATION DIVISION+<<r4,^[4]^>>:
@@ -58,7 +58,7 @@ de la sección +Environment+"<<r3,^[3]^>>.
       ***************
        ENVIRONMENT DIVISION.
 ----
-. En +SPECIAL-NAMES+ declaramos una nueva clase llamada +WS-VALID-CHARSET+, 
+. En +SPECIAL-NAMES+ declaramos una nueva clase llamada +WS-VALID-CHARSET+,
 la cual se compone de las letras: A, B, C, D, x, y, z, S, T, 9 y espacio.
 +
 [source,cobol,linenums]
@@ -69,7 +69,7 @@ la cual se compone de las letras: A, B, C, D, x, y, z, S, T, 9 y espacio.
                'x' THRU 'z'
                'S' 'T' '9' ' '.
 ----
-. Dentro de la division +DATA DIVISION+<<r6,^[6]^>> 
+. Dentro de la division +DATA DIVISION+<<r6,^[6]^>>
 definimos la variable +W01-INPUT+ para obtener la entrada del usuario:
 +
 [source,cobol,linenums]
@@ -82,8 +82,8 @@ definimos la variable +W01-INPUT+ para obtener la entrada del usuario:
        WORKING-STORAGE SECTION.
        01 W01-INPUT PIC X(10).
 ----
-. Dentro de la division +PROCEDURE DIVISION+<<r7,^[7]^>> 
-obtenemos la entrada del usuario 
+. Dentro de la division +PROCEDURE DIVISION+<<r7,^[7]^>>
+obtenemos la entrada del usuario
 y la almacenamos en la variable +W01-INPUT+:
 +
 [source,cobol,linenums]
@@ -193,10 +193,10 @@ y la almacenamos en la variable +W01-INPUT+:
 
 == Descargas
 
-Puedes descargar el código fuente 
+Puedes descargar el código fuente
 pulsando en el siguiente enlace:
 
-. [button]#link:src/cobolinput.cbl[cobolinput.cbl]# contiene 
+. [button]#link:src/cobolinput.cbl[cobolinput.cbl]# contiene
 la implementación del código depurado anteriormente.
 
 == Referencias

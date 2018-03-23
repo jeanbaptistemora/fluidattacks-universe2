@@ -12,13 +12,13 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet("/Time")
 public class TimeServlet extends HttpServlet {
   private static final long serialVersionUID = 1L;
- 
+
   @EJB
   private TimeService timerEJB;
   public TimeServlet() {
     super();
   }
-  
+
   protected void doGet(HttpServletRequest request, HttpServletResponse response) throws
      ServletException, IOException {
        response.setContentType("text/html;charset=UTF-8");

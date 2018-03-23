@@ -8,7 +8,7 @@
        01 W03-USERAPP  PIC X(16) VALUE "administrator".
        01 W04-PASSAPP  PIC X(16) VALUE "Admin_123456!".
 
-       PROCEDURE DIVISION.           
+       PROCEDURE DIVISION.
            DISPLAY "Username: ".
            ACCEPT W01-USERNAME.
 
@@ -23,5 +23,5 @@
            ELSE
                DISPLAY "Combinacion no valida"
            END-IF.
-           
+
            STOP RUN.

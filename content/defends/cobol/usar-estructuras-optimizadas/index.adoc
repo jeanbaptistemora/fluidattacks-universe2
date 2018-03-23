@@ -9,38 +9,38 @@
 
 == Necesidad
 
-Usar la instrucción +COPY+ 
+Usar la instrucción +COPY+
 para incluir estructuras de datos optimizadas en +COBOL+.
 
 == Contexto
 
-A continuación se describe las circunstancias 
+A continuación se describe las circunstancias
 bajo las cuales la siguiente solución tiene sentido:
 
 . Se está desarrollando una aplicación en +COBOL+.
-. El código debe utilizar contenedores 
+. El código debe utilizar contenedores
 o estructuras de datos optimizadas<<r1,^[1]^>>.
 
 == Solución
 
-. La sentencia +COPY+ es muy diferente 
-a otras sentencias en +COBOL+. 
-Mientras que otras son ejecutadas en tiempo de ejecución, 
+. La sentencia +COPY+ es muy diferente
+a otras sentencias en +COBOL+.
+Mientras que otras son ejecutadas en tiempo de ejecución,
 la sentencia +COPY+ es ejecutada en tiempo de compilación.
 
-. Esta sentencia es similar a la sentencia +include+ de C/C+\+, 
-el código contenido en el miembro declarado en la sentencia +COPY+ 
-es copiado directamente en el código fuente 
-y posteriormente compilado. 
-Este proceso ayuda a mantener estructuras de datos optimizadas 
+. Esta sentencia es similar a la sentencia +include+ de C/C+\+,
+el código contenido en el miembro declarado en la sentencia +COPY+
+es copiado directamente en el código fuente
+y posteriormente compilado.
+Este proceso ayuda a mantener estructuras de datos optimizadas
 y centralizadas para su posterior uso.
-En la siguiente solución encontrará 
-la forma de copiar código almacenado 
+En la siguiente solución encontrará
+la forma de copiar código almacenado
 en bibliotecas reusables desde +COBOL+.
 
-. Creamos un nuevo miembro llamado +QPHONE+ 
+. Creamos un nuevo miembro llamado +QPHONE+
 en la biblioteca +FLUID+ del archivo +QRPGSRC+.
-Este archivo contiene una estructura de datos optimizada 
+Este archivo contiene una estructura de datos optimizada
 para el almacenamiento de registros telefónicos:
 
 * +PHONE-LAST-NAME:+ Contiene el apellido.
@@ -68,12 +68,12 @@ para el almacenamiento de registros telefónicos:
            05 PHONE-FIRST-NAME PIC X(10).
            05 PHONE-NUMBER     PIC X(10).
 ----
-. En el momento de crear un nuevo programa 
-que requiera el uso de registros telefónicos, 
-se incluye el código reutilizable 
+. En el momento de crear un nuevo programa
+que requiera el uso de registros telefónicos,
+se incluye el código reutilizable
 a través de la sentencia +COPY+.
 
-. Se define el nombre del programa 
+. Se define el nombre del programa
 mediante la división +IDENTIFICATION DIVISION+:
 +
 .cobolcopyb.cbl
@@ -86,22 +86,22 @@ mediante la división +IDENTIFICATION DIVISION+:
        PROGRAM-ID. COBOLCOPYB.
 ----
 +
-En este caso, mediante la sentencia +PROGRAM-ID+ 
+En este caso, mediante la sentencia +PROGRAM-ID+
 se designa al programa bajo el nombre de +COBOLCOPYB+.
 
-. En la división de datos +DATA DIVISION+ 
-hacemos uso de la sentencia COPY 
+. En la división de datos +DATA DIVISION+
+hacemos uso de la sentencia COPY
 la cual debe seguir el siguiente formato^<<r2,[2]>>,<<r3,[3]>>^:
 +
 image::copy-format.png[formato]
 
-. Si +file-name+ no es especificado, 
-el archivo +QCBLLESRC+ es asumido por defecto. 
-Puede especificar el nombre del archivo 
+. Si +file-name+ no es especificado,
+el archivo +QCBLLESRC+ es asumido por defecto.
+Puede especificar el nombre del archivo
 y la biblioteca usando el formato +MYLIB-MYFILE+.
 
-. Copiamos el código contenido 
-en el miembro QPHONE que se encuentra 
+. Copiamos el código contenido
+en el miembro QPHONE que se encuentra
 en la biblioteca +FLUID+ del archivo +QRPGSRC+:
 +
 [source,cobol,linenums]
@@ -135,15 +135,15 @@ en la biblioteca +FLUID+ del archivo +QRPGSRC+:
 
        STOP RUN.
 ----
-. La biblioteca +QSYSINC+ provee todos los archivos de inclusión 
-para las interfaces de programación de aplicaciones 
-incluidas en el sistema operativo. 
-Para el lenguaje de programación +COBOL+, 
-los archivos de inclusión 
+. La biblioteca +QSYSINC+ provee todos los archivos de inclusión
+para las interfaces de programación de aplicaciones
+incluidas en el sistema operativo.
+Para el lenguaje de programación +COBOL+,
+los archivos de inclusión
 se encuentran en la biblioteca +QSYSINC+ del archivo +QCBLLESRC+.
 
-. A través del comando para trabajar con miembros 
-podemos obtener la lista completa 
+. A través del comando para trabajar con miembros
+podemos obtener la lista completa
 de archivos de inclusión para +COBOL+:
 +
 [source,cobol,linenums]
@@ -183,13 +183,13 @@ Algunos de ellos están especificados en la siguiente tabla:
 
 == Descargas
 
-Puedes descargar el código fuente 
-pulsando en los siguientes enlaces: 
+Puedes descargar el código fuente
+pulsando en los siguientes enlaces:
 
-. [button]#link:src/qphone.cbl[qphone.cbl]# contiene 
-una estructura de datos optimizada 
+. [button]#link:src/qphone.cbl[qphone.cbl]# contiene
+una estructura de datos optimizada
 para el almacenamiento de registros telefónicos.
-. [button]#link:src/cobolcopyb.cbl[cobolcopyb.cbl]# contiene 
+. [button]#link:src/cobolcopyb.cbl[cobolcopyb.cbl]# contiene
 las instrucciones del programa principal.
 
 == Referencias

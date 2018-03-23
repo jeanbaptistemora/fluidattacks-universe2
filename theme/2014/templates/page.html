@@ -53,12 +53,12 @@
   {% else %}
     <header class="intro-header"> <!--style="background-image: url('{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/fluid-{{ DEFAULT_LANG }}.png');" >-->
     <a href="{{ SITEURL }}/"><img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/fluid-{{ DEFAULT_LANG }}.png" alt="{{ gettext('Header-img-alt') }}"></a>
-  {% endif %}   
+  {% endif %}
   </header>
 {% endblock header %}
 
-{% block content %}   
-  <div class="divpage">         
+{% block content %}
+  <div class="divpage">
     <article>
       <div class="nav-info">
         <div class="breadcrumbs">
@@ -124,7 +124,7 @@
       {% if page.toc %}
         {% assets filters="uglifyjs", output="static/js/toc.min.js", "js/toc.js" %}
       	  <script type="text/javascript" src="{{ SITEURL }}/{{ ASSET_URL }}"></script>
-    	{% endassets %} 
+    	{% endassets %}
       {% endif %}
       {% if DISQUS_SITENAME and SITEURL and 	page.defends %}
         <hr class="hrcoments">
@@ -163,5 +163,5 @@
         <script id="dsq-count-scr" src="//{{ DISQUS_SITENAME }}.disqus.com/count.js" async></script>
       {% endif %}
     </article>
-  </div>	
+  </div>
 {% endblock content %}

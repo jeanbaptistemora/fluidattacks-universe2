@@ -6,9 +6,9 @@
 
 = REQ.159 Código ofuscado
 
-== Nombre 
+== Nombre
 
-El código fuente debe estar ofuscado en ambiente de producción. 
+El código fuente debe estar ofuscado en ambiente de producción.
 
 
 == Soluciones

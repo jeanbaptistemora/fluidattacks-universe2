@@ -36,7 +36,7 @@ computer, open it up and look down the CPU, that is a debugger, it
 shows you what is really happening under everything.
 
 To understand the basics of reversing, we will take a look at a great challenge
-for beginners. On this site I found really good examples to start with: 
+for beginners. On this site I found really good examples to start with:
 link:http://yoire.com/?mo=Challenges&path=challenges/reversing[Yoire Reversing]
 
 == Yoire Challenge: Crackme Average
@@ -53,7 +53,7 @@ found at link:http://www.ollydbg.de/[The official Olly Dbg] website.
 Keep in mind that olly cannot be used to reverse all executable files, it
 focuses on binary code analysis. As you run into more difficult reversing
 challenges, you will learn to use other tools whether it be to compliment olly
-or substitute it. 
+or substitute it.
 
 The first thing we need to do is understand what the executable file was made
 to do. To do this, download the .exe file on the challenge website. It is a
@@ -63,7 +63,7 @@ environment. If you really trust the source of the file, you can run it on your
 local machine at your own risk.
 
 Once we run the executable, we can see that it prompts us for a serial and it
-gives us two options. Check serial or close. 
+gives us two options. Check serial or close.
 In order to understand what the program does we will just enter any serial and
 check it. We want to see what happens.
 

@@ -8,5 +8,5 @@
 
 == Nombre
 
-El sistema debe forzar el cambio de contraseñas temporales 
+El sistema debe forzar el cambio de contraseñas temporales
 generadas automáticamente después de su primer uso.

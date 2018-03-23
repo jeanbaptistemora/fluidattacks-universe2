@@ -14,21 +14,21 @@
 
 = División Residual
 
-En mátematicas se conoce como residuo a la operación matemática que proporciona 
-lo que sobra de una división entre dos enteros, así pues el residuo de *2/2* es 
-igual a *0* ya que el dos está una sola vez en el dos mas CERO. Pero el residuo 
+En mátematicas se conoce como residuo a la operación matemática que proporciona
+lo que sobra de una división entre dos enteros, así pues el residuo de *2/2* es
+igual a *0* ya que el dos está una sola vez en el dos mas CERO. Pero el residuo
 de *3/2* es igual a *1* ya que el dos está una sola vez en el tres mas UNO.
 
 .Ejemplo
 image::ejemplo.png[ejemplo]
 
-Mas concretamente: "el resto o residuo de una división de dos números enteros 
-es el número que se le ha de restar al dividendo para que sea igual a un 
-determinado número de veces el divisor" (Tomado de 
+Mas concretamente: "el resto o residuo de una división de dos números enteros
+es el número que se le ha de restar al dividendo para que sea igual a un
+determinado número de veces el divisor" (Tomado de
 https://es.wikipedia.org/wiki/Resto[Wikipedia])
 
-En informática la operación conocida como modulus o módulo es la operación que 
-nos da el valor residual de una división. Normalmente la encontramos en varios 
+En informática la operación conocida como modulus o módulo es la operación que
+nos da el valor residual de una división. Normalmente la encontramos en varios
 lenguajes de programación como: %. Por ejemplo:
 
 * 2%2 = 0
@@ -36,23 +36,23 @@ lenguajes de programación como: %. Por ejemplo:
 * 4%2 = 0
 * 5%3 = 2
 
-Está operación es bastante utilizada ya que gracias a ella podemos saber por 
-ejemplo si un número es par o impar, ya que si el residuo de cualquier número 
-entero divido entre dos nos da cero significa que es par. Por el contrario si 
-dividimos cualquier número entero entre dos y el residuo de esta división nos 
-da uno, esto quiere decir que este número es impar. También es muy común 
-utilizar la operación modulus en informática para encontrar de la manera más 
+Está operación es bastante utilizada ya que gracias a ella podemos saber por
+ejemplo si un número es par o impar, ya que si el residuo de cualquier número
+entero divido entre dos nos da cero significa que es par. Por el contrario si
+dividimos cualquier número entero entre dos y el residuo de esta división nos
+da uno, esto quiere decir que este número es impar. También es muy común
+utilizar la operación modulus en informática para encontrar de la manera más
 simple los *números primos*.
 
-A continuación se explica la solución a un reto informático de 
-https://www.codeeval.com/browse/62/[CodeEval] para encontrar el residuo de una 
+A continuación se explica la solución a un reto informático de
+https://www.codeeval.com/browse/62/[CodeEval] para encontrar el residuo de una
 división entre enteros en lenguaje python.
 
 == Codeeval Reto 62
 
-Se debe encontrar el residuo de una división entre enteros, pero con la 
-condición de no utilizar la operación modulus (%). Como entrada nos dan los 
-valores a los cuales les debemos encontrar el residuo de la división separados 
+Se debe encontrar el residuo de una división entre enteros, pero con la
+condición de no utilizar la operación modulus (%). Como entrada nos dan los
+valores a los cuales les debemos encontrar el residuo de la división separados
 por coma:
 
 M,N → M modulus N → M%N

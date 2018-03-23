@@ -59,7 +59,7 @@ public class LoginServlet extends HttpServlet
     outStream.flush();
     outStream.close();
   }
-  
+
   protected void doPost( HttpServletRequest request, HttpServletResponse response )
     throws ServletException, IOException
     {

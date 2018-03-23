@@ -5,9 +5,9 @@ import javax.servlet.http.*;
 import org.jsoup.*;
 import org.jsoup.safety.*;
 
-public class Purify extends HttpServlet 
+public class Purify extends HttpServlet
 {
-	public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException 
+	public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException
 	{
 		PrintWriter out = response.getWriter();
 		String unsafe = request.getParameter("content");
@@ -16,6 +16,6 @@ public class Purify extends HttpServlet
 				.addProtocols("img", "src", new String[] { "http", "https" });
 		String safe = Jsoup.clean(unsafe, basicWithImages);
 		response.setContentType("text/html");
-		out.println(safe); 
+		out.println(safe);
 	}
-}		
+}

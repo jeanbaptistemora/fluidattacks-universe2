@@ -8,9 +8,9 @@
 
 == Nombre
 
-La organización debe asegurar 
-que cada una de las vulnerabilidades 
-identificadas en los activos de información 
+La organización debe asegurar
+que cada una de las vulnerabilidades
+identificadas en los activos de información
 sea corregida y comprobada su corrección.
 
 == Soluciones

@@ -8,5 +8,5 @@
 
 == Nombre
 
-Los datos de respaldos deben almacenarse 
+Los datos de respaldos deben almacenarse
 fuera del sitio origen (sedes geográficamente distantes).

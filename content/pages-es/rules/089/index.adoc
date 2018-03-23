@@ -8,35 +8,35 @@
 
 == Nombre
 
-La organización no debe utilizar certificados digitales 
+La organización no debe utilizar certificados digitales
 con una vigencia superior a un año.
 
 == Descripción
 
-El presente criterio de seguridad trata sobre 
-la importancia de limitar el tiempo de vida de certificados digitales<<r1,^[1]^>> 
-para una determinada entidad u organización. 
-Los certificados digitales, son documentos electrónicos expedidos 
-por una autoridad de certificación 
+El presente criterio de seguridad trata sobre
+la importancia de limitar el tiempo de vida de certificados digitales<<r1,^[1]^>>
+para una determinada entidad u organización.
+Los certificados digitales, son documentos electrónicos expedidos
+por una autoridad de certificación
 la cual garantiza que una entidad es realmente quien dice ser.
 
 == Implementación
 
-Por lo anterior, para el presente criterio de seguridad, 
-se recomienda que una vez pasado un año 
-desde que una determinada entidad adquirió su certificado digital, 
-ésta realice el respectivo procedimiento 
+Por lo anterior, para el presente criterio de seguridad,
+se recomienda que una vez pasado un año
+desde que una determinada entidad adquirió su certificado digital,
+ésta realice el respectivo procedimiento
 de renovación ante la entidad certificadora competente.
 
 == Casos de abuso
 
-A continuación se describe un caso de abuso, 
+A continuación se describe un caso de abuso,
 el cual, es aplicable para el presente criterio de seguridad:
 
-. Un certificado digital caducado 
-le permite a un atacante realizar ataques +man-in-the-middle+<<r2,^[2]^>> 
-especialmente cuando un usuario 
-ignora las advertencias de seguridad desplegadas por una aplicación 
+. Un certificado digital caducado
+le permite a un atacante realizar ataques +man-in-the-middle+<<r2,^[2]^>>
+especialmente cuando un usuario
+ignora las advertencias de seguridad desplegadas por una aplicación
 (por ejemplo las mostradas por un navegador +web+).
 
 == Referencias

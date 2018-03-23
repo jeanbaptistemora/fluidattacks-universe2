@@ -8,5 +8,5 @@
 
 == Nombre
 
-Debe utilizarse certificados con una identificación coherente con la organización 
+Debe utilizarse certificados con una identificación coherente con la organización
 (servicio, servidor, entre otros) a la cual se encuentra asociado.

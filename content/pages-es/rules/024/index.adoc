@@ -8,7 +8,7 @@
 
 == Nombre
 
-Si el sistema debe transferir información entre páginas, 
+Si el sistema debe transferir información entre páginas,
 debe realizarse a través de objetos de sesión.
 
 == Soluciones

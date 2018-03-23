@@ -6,13 +6,12 @@
 
 = REQ.075 Registrar eventos en bitácoras
 
-== Nombre 
+== Nombre
 
-El sistema debe registrar todos los eventos excepcionales 
-y de seguridad en bitácoras. 
+El sistema debe registrar todos los eventos excepcionales
+y de seguridad en bitácoras.
 
 == Soluciones
 
 . +COBOL+ link:../../defends/cobol/registrar-excepciones-ile/[Registrar Excepciones ILE].
 . +COBOL+ link:../../defends/cobol/registrar-excepciones-opm/[Registrar Excepciones OPM].
-

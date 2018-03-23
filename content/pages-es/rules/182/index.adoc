@@ -8,6 +8,6 @@
 
 == Nombre
 
-Los datos del sistema operativo 
-y los datos de negocio 
+Los datos del sistema operativo
+y los datos de negocio
 deben estar almacenados en ubicaciones diferentes.

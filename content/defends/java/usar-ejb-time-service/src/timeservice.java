@@ -14,14 +14,14 @@ import javax.ejb.Singleton;
 
 public class TimeService {
   static Logger log = Logger.getLogger("");
-  
-  @Resource  
-  javax.ejb.TimerService timerService; 
+
+  @Resource
+  javax.ejb.TimerService timerService;
   public void startTimer(){
     timerService.createTimer(20000, "FLUID Timer");
     log.info("FLUID Timer created at: " + new java.util.Date());
   }
-  
+
   @Timeout
   public void delayedAction(Timer timer) {
     try {

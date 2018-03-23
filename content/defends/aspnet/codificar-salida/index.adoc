@@ -1,7 +1,7 @@
 :slug: defends/aspnet/codificar-salida/
 :category: aspnet
 :description: Nuestros ethical hackers explican cómo evitar vulnerabilidades de seguridad mediante la programación segura en ASP.NET para codificar adecuadamente las salidas en aplicaciones web, evitando así la explotación de posibles vulnerabilidades de tipo Cross Site Scripting.
-:keywords: ASP.NET, Seguridad, Codificar, Salida, XSS , Cross Site Scripting. 
+:keywords: ASP.NET, Seguridad, Codificar, Salida, XSS , Cross Site Scripting.
 :defends: yes
 :table-caption: Tabla
 
@@ -13,32 +13,32 @@ Codificar la salida según el lenguaje correspondiente en +ASP.Net+
 
 == Contexto
 
-A continuación se describen las circunstancias 
+A continuación se describen las circunstancias
 bajo las cuales la siguiente solución tiene sentido:
 
 . Se está desarrollando una aplicación en +ASP.Net+.
 
 == Solución
 
-. Los ataques por +Cross Site Scripting+ 
-explotan las vulnerabilidades de las aplicaciones Web 
-que fallan en validar y/o codificar 
-las entradas embebidas en los datos de respuesta. 
-Los usuarios maliciosos pueden inyectar +scripts+ 
-en el lado del cliente a los datos de respuesta 
-causando que el navegador de la víctima 
+. Los ataques por +Cross Site Scripting+
+explotan las vulnerabilidades de las aplicaciones Web
+que fallan en validar y/o codificar
+las entradas embebidas en los datos de respuesta.
+Los usuarios maliciosos pueden inyectar +scripts+
+en el lado del cliente a los datos de respuesta
+causando que el navegador de la víctima
 ejecute códigos posiblemente maliciosos.
 
-. La link:https://www.microsoft.com/en-us/download/details.aspx?id=28589[biblioteca gratuita Anti Cross Site Scripting de Microsoft] 
-puede usarse para proteger a los usuarios de este tipo de ataques <<r1, ^[1]^>>. 
-Antes de abordar el tema 
-de cómo proteger una aplicación de los ataques de +XSS+ 
-es importante resaltar los vectores de ataque 
+. La link:https://www.microsoft.com/en-us/download/details.aspx?id=28589[biblioteca gratuita Anti Cross Site Scripting de Microsoft]
+puede usarse para proteger a los usuarios de este tipo de ataques <<r1, ^[1]^>>.
+Antes de abordar el tema
+de cómo proteger una aplicación de los ataques de +XSS+
+es importante resaltar los vectores de ataque
 que un usuario malicioso puede usar para lanzar dichos ataques.
 
-. Idealmente, se deben ejecutar estas tareas en la etapa de diseño, 
-sin embargo, aún es posible realizar el trabajo en las aplicaciones 
-que ya se encuentren implementadas de esta forma. 
+. Idealmente, se deben ejecutar estas tareas en la etapa de diseño,
+sin embargo, aún es posible realizar el trabajo en las aplicaciones
+que ya se encuentren implementadas de esta forma.
 Dichas tareas se listan a continuación:
 
 * Revisar todo el código que produce salidas.
@@ -46,8 +46,8 @@ Dichas tareas se listan a continuación:
 * Determinar el contexto en el que se usa la entrada no confiable.
 * Codificar la salida de manera apropiada.
 
-. El mejor criterio para determinar si la entrada es confiable 
-es asumir que no lo es. 
+. El mejor criterio para determinar si la entrada es confiable
+es asumir que no lo es.
 Ejemplos de entradas no confiables incluyen:
 
 * Campos de formulario.
@@ -55,8 +55,8 @@ Ejemplos de entradas no confiables incluyen:
 * Contenidos de +cookies+.
 * Encabezados +HTTP+.
 
-. Cuando se identifique que una entrada no es confiable, 
-es importante determinar el método de codificación más apropiado. 
+. Cuando se identifique que una entrada no es confiable,
+es importante determinar el método de codificación más apropiado.
 La siguiente tabla muestra los métodos de codificación asociados <<r2,^[2]^>>:
 +
 .Uso apropiado de métodos de codificación.
@@ -64,14 +64,14 @@ La siguiente tabla muestra los métodos de codificación asociados <<r2,^[2]^>>:
 |*Método de Codificación* | *Cuándo se debe usar*
 
 |+HtmlEncode+
-|Entrada no confiable usada en salida +HTML+ 
+|Entrada no confiable usada en salida +HTML+
 excepto cuando se asigna a un atributo +HTML+.
 
 |+HtmlAttributeEncode+
 |Entrada no confiable se usa en atributos +HTML+
 
 |+XmlEncode+
-|Entrada no confiable usada en salida +XML+ 
+|Entrada no confiable usada en salida +XML+
 excepto cuando se asigne a un atributo +XML+.
 
 |+XmlAttributeEncode+
@@ -99,7 +99,7 @@ excepto cuando se asigne a un atributo +XML+.
 .OutputCoded.java
 [source, java, linenums]
 ----
-string out_Name = Request.QueryString["Name"]; 
+string out_Name = Request.QueryString["Name"];
 ----
 +
 reemplazarlo por:
@@ -108,7 +108,7 @@ reemplazarlo por:
 ----
 string out_Name = Encoder.HtmlEncode(Request.QueryString["Name"]);
 ----
-  
+
 == Referencias
 
 . [[r1]] link:https://www.microsoft.com/en-us/download/search.aspx?q=antixss[Microsoft AntiXSS.]

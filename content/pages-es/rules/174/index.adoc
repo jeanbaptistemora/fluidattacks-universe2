@@ -8,5 +8,5 @@
 
 == Nombre
 
-La aplicación debe garantizar que las peticiones que ejecuten transacciones 
+La aplicación debe garantizar que las peticiones que ejecuten transacciones
 no sigan un patrón discernible.

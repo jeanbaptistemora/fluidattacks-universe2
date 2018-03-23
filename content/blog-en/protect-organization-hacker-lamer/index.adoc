@@ -78,5 +78,3 @@ Syntax
 Fortunately, when a Pentest is done with FLUID, our engineers are fully capable of creating their own exploits due to the emphasis they have on programming. This allows them, in many occasions, to exploit ZERO DAY vulnerabilities and report them as soon as possible in order to allow companies to implement the necessary controls in time.
 
 From now on, when a security test needs to be performed because the organization or the current regulations require it, ask yourself, Do I want to protect myself against a Lamer or a Hacker?
-
-

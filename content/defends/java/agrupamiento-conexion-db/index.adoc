@@ -30,8 +30,8 @@ Cuando la aplicación termina de realizar las operaciones sobre la conexión,
 esta retorna al agrupamiento en espera de ser reutilizada ^<<r1,[1]>>^.
 
 El uso de conexiones a la base de datos, al usar +servlets+,
-se debe hacer por medio del +Connection pool JDBC+ 
-nativo de +Tomcat+ ^<<r2,[2]>>^. 
+se debe hacer por medio del +Connection pool JDBC+
+nativo de +Tomcat+ ^<<r2,[2]>>^.
 
 Algunas características que provee esta biblioteca son:
 
@@ -65,7 +65,7 @@ cuando se establece la conexión por primera vez.
 ----
 
 . Creamos la clase +ConnectionPoolFSG.java+.
-Empezamos importando las clases necesarias 
+Empezamos importando las clases necesarias
 y definiendo el nombre de la clase
 recordar que al ser un +servlet+ se debe extender a +HttpServlet+.
 +
@@ -81,7 +81,7 @@ public class ConnectionPoolFSG extends HttpServlet {
 ----
 
 . Se crea un atributo de tipo +Connection+
-que puede ser usado por cualquier método 
+que puede ser usado por cualquier método
 en el +servlet+ (+GET+, +POST+, +HEAD+, etc).
 +
 [source, java, linenums]
@@ -118,7 +118,7 @@ pool.setInitialSize(10);
 pool.setMaxActive(100);
 ----
 
-. Se configura el protocolo, +hostname+, puerto, 
+. Se configura el protocolo, +hostname+, puerto,
 nombre de la base de datos,
 nombre de usuario y contraseña para la conexión.
 +initialSize+ es el número de conexiones
@@ -126,7 +126,7 @@ que se establecerán cuando el +pool+ es creado
 y +maxActive+ define el número máximo de conexiones
 que puede tener la base de datos.
 
-. Se obtiene la fuente de datos 
+. Se obtiene la fuente de datos
 y se obtiene una de las conexiones del +pool+.
 +
 [source, java, linenums]
@@ -147,7 +147,7 @@ con = dataSource.getConnection();
 }
 ----
 
-. Creamos el método +doGet+ que contiene 
+. Creamos el método +doGet+ que contiene
 una sentencia simple a la base de datos.
 Observemos que en la clase +HtmlSQLResult+, en el segundo parámetro,
 se usa la conexión que se inició en el método +init+.
@@ -207,10 +207,10 @@ image::conexion-open.png[conexiones activas]
 
 == Descargas
 
-Puedes descargar el código fuente 
+Puedes descargar el código fuente
 pulsando en los siguientes enlaces:
 
-[button]#link:src/connectionpoolfsg.java[ConnectionPoolFSG.java]# 
+[button]#link:src/connectionpoolfsg.java[ConnectionPoolFSG.java]#
 Clase ConnectionPoolFSG.
 
 == Referencias
@@ -219,5 +219,5 @@ Clase ConnectionPoolFSG.
 . [[r2]] link:http://people.apache.org/~fhanik/jdbc-pool/jdbc-pool.html[The Tomcat JDBC Connection Pool]
 . [[r3]] link:http://www.tomcatexpert.com/blog/2010/03/22/understanding-jdbc-pool-performance-improvements[Understanding the jdbc-pool]
 . [[r4]] link:http://www.tomcatexpert.com/blog/2010/04/01/configuring-jdbc-pool-high-concurrency[Configuring jdbc-pool]
-. [[r5]] REQ.0147: El sistema debe reutilizar 
+. [[r5]] REQ.0147: El sistema debe reutilizar
 las conexiones a la base de datos.

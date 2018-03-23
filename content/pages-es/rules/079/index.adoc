@@ -6,11 +6,11 @@
 
 = REQ.079 Registrar momento de ocurrencia de eventos
 
-== Nombre 
+== Nombre
 
-El sistema debe registrar el momento exacto de ocurrencia 
-(Fecha, hora, segundos, milisegundos, y zona horaria) 
-para cada evento excepcional y de seguridad. 
+El sistema debe registrar el momento exacto de ocurrencia
+(Fecha, hora, segundos, milisegundos, y zona horaria)
+para cada evento excepcional y de seguridad.
 
 == Soluciones
 

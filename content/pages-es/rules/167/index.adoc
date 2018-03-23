@@ -8,9 +8,9 @@
 
 == Nombre
 
-El código fuente debe estar implementado 
-de tal forma que cierre cualquier recurso 
-que se encuentre abierto y no esté siendo utilizado. 
+El código fuente debe estar implementado
+de tal forma que cierre cualquier recurso
+que se encuentre abierto y no esté siendo utilizado.
 
 == Soluciones
 

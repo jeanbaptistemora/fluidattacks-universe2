@@ -6,10 +6,10 @@
 
 = REQ.154 Eliminar puertas traseras
 
-== Nombre 
+== Nombre
 
-El código fuente de un sistema no debe realizar funciones 
-diferentes a las que han sido especificadas 
+El código fuente de un sistema no debe realizar funciones
+diferentes a las que han sido especificadas
 en los requisitos funcionales (puertas traseras).
 
 == Soluciones

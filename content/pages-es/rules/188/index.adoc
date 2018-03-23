@@ -8,5 +8,5 @@
 
 == Nombre
 
-Los datos personales deben poder ser actualizados 
+Los datos personales deben poder ser actualizados
 por el usuario (+OECD.8+, +ISACA.G31.2.+).

@@ -8,13 +8,13 @@
 
 == Necesidad
 
-Validar el formato de los archivos 
+Validar el formato de los archivos
 que se permiten cargar al sistema en +Java+
 usando el +framework+ +Richfaces+.
 
 == Contexto
 
-A continuación se describen las circunstancias 
+A continuación se describen las circunstancias
 bajo las cuales la siguiente solución tiene sentido:
 
 . La aplicación está contruida en +Java EE 1.5+ en adelante.
@@ -22,43 +22,43 @@ bajo las cuales la siguiente solución tiene sentido:
 
 == Solución
 
-Hoy en día y gracias al incremento exponencial del uso de Internet, 
-tanto las personas como las empresas 
-tienen la opción de buscar y ofrecer infinidad de servicios. 
-Como prueba de ello, están las páginas web que permiten compartir, 
-entre sus usuarios, todo tipo de contenido 
-(imágenes, videos, animaciones, +software+, entre otros). 
-Y, puesto que compartir dichos archivos implica, 
-por lógica, permitir la subida de los mismos a los servidores 
-donde están alojadas las páginas web, 
-es absolutamente necesario contar con algún tipo de control 
+Hoy en día y gracias al incremento exponencial del uso de Internet,
+tanto las personas como las empresas
+tienen la opción de buscar y ofrecer infinidad de servicios.
+Como prueba de ello, están las páginas web que permiten compartir,
+entre sus usuarios, todo tipo de contenido
+(imágenes, videos, animaciones, +software+, entre otros).
+Y, puesto que compartir dichos archivos implica,
+por lógica, permitir la subida de los mismos a los servidores
+donde están alojadas las páginas web,
+es absolutamente necesario contar con algún tipo de control
 que límite la cantidad, forma e incluso el tipo de archivo que se admitirá.
 
-Mencionar que es absolutamente necesario, 
-se debe a que cuando se permite la subida 
-o carga de archivos por parte de los usuarios a una aplicación web, 
-se abre la puerta a nuevas posibilidades de ser víctima 
+Mencionar que es absolutamente necesario,
+se debe a que cuando se permite la subida
+o carga de archivos por parte de los usuarios a una aplicación web,
+se abre la puerta a nuevas posibilidades de ser víctima
 de algún ataque cibernético o, como comúnmente se dice, ser hackeado.
 
-Como se ha mencionado antes, 
-una de las formas de controlar los archivos 
-que son cargados a un servidor web 
-es verificando que los archivos 
-sólo puedan ser de un tipo específico. 
-Por ejemplo, si la aplicación permite que sus usuarios suban imágenes, 
-esta debe controlar que únicamente se admitan 
-archivos tipo +png+, +jpg+, +gif+, 
+Como se ha mencionado antes,
+una de las formas de controlar los archivos
+que son cargados a un servidor web
+es verificando que los archivos
+sólo puedan ser de un tipo específico.
+Por ejemplo, si la aplicación permite que sus usuarios suban imágenes,
+esta debe controlar que únicamente se admitan
+archivos tipo +png+, +jpg+, +gif+,
 entre otras extensiones correspondientes exclusivamente a las imágenes.
 
 Para habilitar la validación de formatos de archivos en +Java EE+
 se debe hacer lo siguiente:
 
 . En esta ocasión se utilizará el +framework+ +RichFaces+.
-+Richfaces+ es una biblioteca de código abierto 
++Richfaces+ es una biblioteca de código abierto
 basada en +Java+ que permite crear aplicaciones web con +Ajax+.
 
 . Para implemtar la validación
-se debe utilizar la propiedad +acceptedTypes+ 
+se debe utilizar la propiedad +acceptedTypes+
 del componente de la siguiente forma ^<<r1,[1]>>^.
 +
 .propiedad.html
@@ -68,7 +68,7 @@ del componente de la siguiente forma ^<<r1,[1]>>^.
 ----
 
 . En la instrucción anterior, se valida que, únicamente,
-los archivos que pueden ser cargados en la aplicación 
+los archivos que pueden ser cargados en la aplicación
 deben ser archivos de texto con extensión +txt+
 o archivos comprimidos con extensión +zip+.
 
@@ -76,5 +76,5 @@ o archivos comprimidos con extensión +zip+.
 
 . [[r1]] link:http://docs.jboss.org/richfaces/latest_3_3_X/en/devguide/html/rich_fileUpload.html[JBoss - Richfile]
 . [[r2]] link:http://richfaces.jboss.org/[RichFaces]
-. [[r3]] REQ.0168: El sistema debe descartar toda la información 
+. [[r3]] REQ.0168: El sistema debe descartar toda la información
 potencialmente insegura que sea recibida por entradas de datos.

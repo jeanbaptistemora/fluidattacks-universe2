@@ -8,5 +8,5 @@
 
 == Nombre
 
-El código fuente debe estar implementado 
+El código fuente debe estar implementado
 de tal forma que todas las variables tengan un tipo de dato asociado.

@@ -76,4 +76,3 @@ our value proposition goes hand in hand with meeting the promised scope,
 never based on time.
 Our tests are said to be finished when we have evaluated
 the complete target of evaluation.
-

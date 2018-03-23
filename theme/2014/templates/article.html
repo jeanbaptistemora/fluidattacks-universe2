@@ -49,7 +49,7 @@
   {% else %}
     <header class="intro-header"> <!--style="background-image: url('/{{ THEME_STATIC_DIR }}/images/fluid-{{ DEFAULT_LANG }}.png');" >-->
     <a href="{{ SITEURL }}/"><img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/fluid-{{ DEFAULT_LANG }}.png" alt="{{ gettext('Header-img-alt') }}"></a>
-  {% endif %}   
+  {% endif %}
   </header>
 {% endblock header %}
 
@@ -65,7 +65,7 @@
             <li><a href="{{SITEURL}}/{{ category.url }}../">{{ gettext('Articles-breadcrumb-1') }} >>&nbsp;</a></li>
             <li><a href="{{ SITEURL }}/{{ category.url }}">{{ article.category|replace("-", " ") }}</a></li>
           </ul>
-        </div> 
+        </div>
         {% if DEFAULT_LANG == "en" %}
           {% if article.translate %}
             <div class="translate">
@@ -96,7 +96,7 @@
               <img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/user.png" alt="{{ gettext('Articles-icon-alt-1') }}"><a href="../../{{ author.url }}">{{ author }}</a>
             {% endfor %}<br/>
           </td>
-          <td class="meta-data"> 
+          <td class="meta-data">
             <img src="{{ SITEURL}}/{{ THEME_STATIC_DIR }}/images/comment.png" alt="{{ gettext('Articles-icon-alt-2') }}"><a href="./#disqus_thread">{{ gettext('Articles-icon-msg-1') }}</a><br/>
           </td>
           <td class="meta-data">
@@ -105,9 +105,9 @@
 	  <td class="meta-data">
             <img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/calendar2.png" alt="{{ gettext('Articles-icon-alt-4') }}"><p>{{ article.locale_date }}</p><br/>
           </td>
-        </tr>  
+        </tr>
       </table>
-      {{ article.content }}	
+      {{ article.content }}
       <br/>
       <div class="authorimg">
         <img class="imgwriter" src="{{ SITEURL }}/images/authors/{{ article.writer }}.png" alt="{{ gettext('Articles-author-alt') }}">
@@ -124,12 +124,12 @@
         </td></tr>
       </table>
       <br/>
-      {% if article.related_posts %}		
+      {% if article.related_posts %}
         <h4>{{ gettext('Articles-related-sect') }}</h4>
           <section class="sect-related">
             {% for related_post in article.related_posts %}
-              <div class="related">	
-	        <img src="{{ SITEURL }}/{{ related_post.url }}{{ related_post.featured_image }}" alt="related_post.alt"><br> 
+              <div class="related">
+	        <img src="{{ SITEURL }}/{{ related_post.url }}{{ related_post.featured_image }}" alt="related_post.alt"><br>
 	        <a href="{{ SITEURL }}/{{ related_post.url }}">{{ related_post.title }}</a>
 	      </div>
             {% endfor %}
@@ -158,7 +158,7 @@
            {% endif %}
          </div>
        </div>
-       <br />	
+       <br />
        {% if DISQUS_SITENAME and SITEURL %}
          <hr class="hrcoments">
          <div class="comments">
@@ -196,5 +196,5 @@
          <script id="dsq-count-scr" src="//{{ DISQUS_SITENAME }}.disqus.com/count.js" async></script>
        {% endif %}
      </article>
-   </div>	
+   </div>
 {% endblock content %}

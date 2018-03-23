@@ -8,5 +8,5 @@
 
 == Nombre
 
-La recolección activa de datos personales debe ser autorizada 
+La recolección activa de datos personales debe ser autorizada
 por el usuario dueño de la información (+OECD.7+, +ISACA.G31.1.+).

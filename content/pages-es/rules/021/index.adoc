@@ -1,15 +1,15 @@
 :slug: rules/021/
 :category: rules
 :description: En el presente documento se detallan los requerimientos de seguridad relacionados a los activos de información de la empresa. En este requerimiento se define la importancia de garantizar el cumplimiento de los requisitos por terceras partes de los proveedores de la organización.
-:keywords: Requerimiento, Seguridad, Acuerdos, Servicio, Terceros, Proveedores. 
+:keywords: Requerimiento, Seguridad, Acuerdos, Servicio, Terceros, Proveedores.
 :rules: yes
 
 = REQ.021 Garantizar cumplimiento requisitos
 
 == Nombre
 
-Los proveedores de la organización 
-deben asegurar que sus terceras partes 
+Los proveedores de la organización
+deben asegurar que sus terceras partes
 cumplen los requisitos definidos
 
 == Soluciones

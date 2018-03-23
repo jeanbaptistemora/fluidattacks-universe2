@@ -8,8 +8,8 @@
 
 == Nombre
 
-Las contraseñas de acceso de un sistema a otro 
-deben tener una longitud superior a 20 caracteres. 
+Las contraseñas de acceso de un sistema a otro
+deben tener una longitud superior a 20 caracteres.
 
 == Soluciones
 

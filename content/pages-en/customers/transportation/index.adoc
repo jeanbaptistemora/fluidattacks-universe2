@@ -13,12 +13,12 @@ a|image:logo-avianca.png[logo avianca, 390, 110, link=https://www.avianca.com/co
 
 a|== Avianca
 
-Commercial brand that represents the Latin American airlines 
-integrated in Avianca Holdings S.A. 
-Specialized in the transport of passengers and cargo, 
-direct service in more than 100 destinations 
-in 26 countries of America and Europe 
-aboard a modern fleet of 172 aircraft 
+Commercial brand that represents the Latin American airlines
+integrated in Avianca Holdings S.A.
+Specialized in the transport of passengers and cargo,
+direct service in more than 100 destinations
+in 26 countries of America and Europe
+aboard a modern fleet of 172 aircraft
 of short, medium and long range.
 
 |====

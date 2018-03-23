@@ -6,11 +6,11 @@
 
 = REQ.114 Garantizar unicidad de correos
 
-== Nombre 
+== Nombre
 
-Sistemas que empleen cuentas de correo para el registro de usuarios 
-deben garantizar la unicidad de los correos, 
-siguiendo el estándar de la estructura de dirección de correo RFC822. 
+Sistemas que empleen cuentas de correo para el registro de usuarios
+deben garantizar la unicidad de los correos,
+siguiendo el estándar de la estructura de dirección de correo RFC822.
 
 == Soluciones
 

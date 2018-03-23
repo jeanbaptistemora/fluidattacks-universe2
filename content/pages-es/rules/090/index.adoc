@@ -8,5 +8,5 @@
 
 == Nombre
 
-El sistema debe utilizar certificados digitales 
+El sistema debe utilizar certificados digitales
 que no se encuentren vencidos.

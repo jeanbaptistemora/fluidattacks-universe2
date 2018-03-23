@@ -1,7 +1,7 @@
 :slug: defends/aspnet/generar-aleatorios-seguros/
 :category: aspnet
 :description: Nuestros ethical hackers explican cómo evitar vulnerabilidades de seguridad mediante la programación segura en ASPNET al generar números aleatorios criptográficamente seguros. Los números aleatorios son utilizados para generar llaves criptográficas por lo que no deben ser replicados fácilmente.
-:keywords: ASPNET, Seguridad, Criptografía, Números, Aleatorios, Seguros. 
+:keywords: ASPNET, Seguridad, Criptografía, Números, Aleatorios, Seguros.
 :defends: yes
 
 = Generar aleatorios seguros
@@ -12,7 +12,7 @@ Generar números aleatorios seguros en +ASP.Net+.
 
 == Contexto
 
-A continuación se describen las circunstancias 
+A continuación se describen las circunstancias
 bajo las cuales la siguiente solución tiene sentido:
 
 . Se está desarrollando una aplicación en +ASP.Net+.
@@ -20,46 +20,46 @@ bajo las cuales la siguiente solución tiene sentido:
 
 == Solución
 
-Los números aleatorios generalmente son utilizados 
-para generar llaves criptográficas 
+Los números aleatorios generalmente son utilizados
+para generar llaves criptográficas
 que sirven para asegurar archivos y documentos.
-Es por eso que es de vital importancia 
+Es por eso que es de vital importancia
 que los números aleatorios sean siempre seguros
-para resistir posibles predicciones 
-o ataques de criptoanalistas <<r1,^[1]^>>. 
+para resistir posibles predicciones
+o ataques de criptoanalistas <<r1,^[1]^>>.
 
-Existen diversas formas de generar números aleatorios, 
-un ejemplo es utilizando generadores físicos, 
-los cuales toman señales aleatorias del ambiente, 
-tales como: 
+Existen diversas formas de generar números aleatorios,
+un ejemplo es utilizando generadores físicos,
+los cuales toman señales aleatorias del ambiente,
+tales como:
 
-* El ruido generado por una fuga de corriente 
+* El ruido generado por una fuga de corriente
 desde un diodo a un transistor.
 
 * El ruido generado al presionar una tecla.
 
 * Señales perceptibles provenientes de alguna fuente de audio.
 
-* Tiempos entre interrupciones. 
+* Tiempos entre interrupciones.
 
 * Y muchos otros más.
 
 Después de obtener la señal aleatoria,
-ésta es procesada a través 
+ésta es procesada a través
 de una función criptográfica Hash
 para obtener el número aleatorio.
 
-Este tipo de generadores poseen la ventaja 
+Este tipo de generadores poseen la ventaja
 de ser verdaderamente aleatorios,
 a diferencia de los generadores pseudo-aleatorios,
 los cuales utilizan algoritmos aleatorios estáticos
-que pueden ser generados a partir de código. 
-De esta manera los números aleatorios 
+que pueden ser generados a partir de código.
+De esta manera los números aleatorios
 generados con un generador físico
-no pueden ser recreados 
+no pueden ser recreados
 por ningún tipo de +software+.
 
-Otra forma de generar números aleatorios 
+Otra forma de generar números aleatorios
 es utilizando generadores basados en código,
 los cuales toman un valor semilla inicial
 para generar una secuencia pseudo aleatoria de números.
@@ -69,15 +69,15 @@ es decir, con las mismas condiciones iniciales
 y el mismo valor semilla
 es posible generar la misma secuencia de números.
 
-Para el caso de este artículo, 
+Para el caso de este artículo,
 se hará uso de la clase +RNGCryptoServiceProvider+
 para generar números aleatorios
 criptográficamente seguros.
 Para ello debemos seguir los siguientes pasos:
 
-. La clase +RNGCryptoServiceProvider+ proporciona 
-un generador de números pseudoaleatorios 
-usando la implementación de un proveedor de servicios criptográficos <<r2, ^[2]^>>. 
+. La clase +RNGCryptoServiceProvider+ proporciona
+un generador de números pseudoaleatorios
+usando la implementación de un proveedor de servicios criptográficos <<r2, ^[2]^>>.
 Esta clase no puede heredarse.
 Inicialmente se usan los siguientes componentes:
 +
@@ -94,7 +94,7 @@ class RNGCSP
     {
 ----
 
-. Luego se crea el objeto 
+. Luego se crea el objeto
 generador de números pseudoaleatorios.
 +
 [source, java, linenums]
@@ -102,7 +102,7 @@ generador de números pseudoaleatorios.
 RandomNumberGenerator rng = new RNGCryptoServiceProvider();
 ----
 
-. El método +GetBytes+ llena un arreglo de bytes 
+. El método +GetBytes+ llena un arreglo de bytes
 con una secuencia de valores aleatorios criptográficamente seguros.
 +
 [source,java,linenums]

@@ -8,10 +8,10 @@
 
 == Nombre
 
-Debe usarse el mecanismo criptográfico más seguro 
-ofrecido por la plataforma (ej: java.security.SecureRandom) 
-para la generación de números aleatorios usados en procesos críticos 
-(ej: generación de ID, mapeo de códigos, llaves). 
+Debe usarse el mecanismo criptográfico más seguro
+ofrecido por la plataforma (ej: java.security.SecureRandom)
+para la generación de números aleatorios usados en procesos críticos
+(ej: generación de ID, mapeo de códigos, llaves).
 
 == Soluciones
 

@@ -15,14 +15,14 @@
 
 = Estrategias Inteligentes: Seta
 
-SETA (_security education and training and awareness_) es una de las herramientas 
-más poderosas para establecer una línea de defensa contra las diferentes riesgos 
-que involucra a los seres humanos como medio para alcanzar un objetivo. Desde el 
-punto de vista de la seguridad, el talento humano HumanOS o simplemente las 
-personas que se encarga de interactuar con tecnologías de la información son 
-vistas como un punto de quiebre de los sistemas de seguridad que protegen nuestros 
-activos; es por ello que en esta ocasión hablaremos de porque se considera el 
-entrenamiento y educación una estrategia inteligente al momento de concebir un 
+SETA (_security education and training and awareness_) es una de las herramientas
+más poderosas para establecer una línea de defensa contra las diferentes riesgos
+que involucra a los seres humanos como medio para alcanzar un objetivo. Desde el
+punto de vista de la seguridad, el talento humano HumanOS o simplemente las
+personas que se encarga de interactuar con tecnologías de la información son
+vistas como un punto de quiebre de los sistemas de seguridad que protegen nuestros
+activos; es por ello que en esta ocasión hablaremos de porque se considera el
+entrenamiento y educación una estrategia inteligente al momento de concebir un
 plan de seguridad y cuales son las diferencias entre cada una de las metodologías.
 
 [quote]
@@ -30,48 +30,48 @@ plan de seguridad y cuales son las diferencias entre cada una de las metodologí
 
 == La preparación es el primer paso
 
-La interacción entre Humanos y las tecnologías de la información es necesaria e 
-inevitable, por esto se considera esta relación y su apropiado tratamiento uno 
-de los factores más importantes que puede hacer la diferencia para que las 
-personas pasen de convertirse en un riesgo para los objetivos de la organización 
-a una medida de protección frente amenazas y es que las personas son un activo 
-que tiene que estar en armonía con los otros dos pilares de las “organizaciones 
-modernas” (los procesos y las tecnologías) es por ello que como activos necesitan 
-estar en mantenimiento y capacitación y muchas organizaciones olvidan esta parte 
-del flujo, enfocando todos los recursos y esfuerzos a mejorar o reforzar otras 
+La interacción entre Humanos y las tecnologías de la información es necesaria e
+inevitable, por esto se considera esta relación y su apropiado tratamiento uno
+de los factores más importantes que puede hacer la diferencia para que las
+personas pasen de convertirse en un riesgo para los objetivos de la organización
+a una medida de protección frente amenazas y es que las personas son un activo
+que tiene que estar en armonía con los otros dos pilares de las “organizaciones
+modernas” (los procesos y las tecnologías) es por ello que como activos necesitan
+estar en mantenimiento y capacitación y muchas organizaciones olvidan esta parte
+del flujo, enfocando todos los recursos y esfuerzos a mejorar o reforzar otras
 áreas del negocio.
 
 .Pilares de las organizaciones modernas
 image::pilares.png[pilar]
 
-Dicho el ¿Que?. Ahora debemos conocer las diferencias entre cada una de las 
-metodologías y su enfoque pues muchos programas de seguridad fallan por no 
-contar con una buena planeación. *¡No es lo mismo educación sexual y 
+Dicho el ¿Que?. Ahora debemos conocer las diferencias entre cada una de las
+metodologías y su enfoque pues muchos programas de seguridad fallan por no
+contar con una buena planeación. *¡No es lo mismo educación sexual y
 entrenamiento sexual!*
 
-En primer lugar la *concienciación* obedece al ¿Que?. Que es los que necesita 
-nuestra organización de nuestro personal, que deberían hacer los Humanos cuando 
-se enfrentan a una situación de seguridad, reconocer una amenaza y saber cual 
-seria la medida a seguir. En segundo lugar está el *entrenamiento* el ¿Cómo?. Como 
-el talento humano pueden reaccionar frente a las diferentes amenazas, cuales son 
-los protocolos a seguir y cómo mitigar un impacto, es aquí donde las habilidades 
-son necesarias y puestas a prueba. En último lugar está la *educación* el ¿Porqué?. 
-Porque es importante que el personal esté preparado ante las amenazas de seguridad 
+En primer lugar la *concienciación* obedece al ¿Que?. Que es los que necesita
+nuestra organización de nuestro personal, que deberían hacer los Humanos cuando
+se enfrentan a una situación de seguridad, reconocer una amenaza y saber cual
+seria la medida a seguir. En segundo lugar está el *entrenamiento* el ¿Cómo?. Como
+el talento humano pueden reaccionar frente a las diferentes amenazas, cuales son
+los protocolos a seguir y cómo mitigar un impacto, es aquí donde las habilidades
+son necesarias y puestas a prueba. En último lugar está la *educación* el ¿Porqué?.
+Porque es importante que el personal esté preparado ante las amenazas de seguridad
 y porque la organización debe tomar este camino de prevención y reacción.
 
 == El enfoque y el aprendizaje
 
-Cada una de las metodologías de enseñanza está enfocada a diferente tipo de 
-personas en donde las habilidades y tareas que cada uno maneje dentro de la 
-organización influye en cuál debe ser su orientación, por ejemplo el 
-entrenamiento necesita de personal con habilidades técnicas, y el aprendizaje 
-se da por medio de un aprendizaje formal y prácticas que pueden clasificarse 
-normalmente en un entrenamiento uno a uno, clases, CB u otros. La educación por 
-otra parte está dirigida a todas las personas que entiendan cuales son los 
-objetivos de la organización es decir el personal no técnico y su aprendizaje 
-se da por medio de seminarios e instrucción teórica y en último lugar la 
-concienciación está enfocado a todas las personas que entiendan sobre amenazas 
-y puedan formular simples respuestas y su aprendizaje se da por medios sociales 
+Cada una de las metodologías de enseñanza está enfocada a diferente tipo de
+personas en donde las habilidades y tareas que cada uno maneje dentro de la
+organización influye en cuál debe ser su orientación, por ejemplo el
+entrenamiento necesita de personal con habilidades técnicas, y el aprendizaje
+se da por medio de un aprendizaje formal y prácticas que pueden clasificarse
+normalmente en un entrenamiento uno a uno, clases, CB u otros. La educación por
+otra parte está dirigida a todas las personas que entiendan cuales son los
+objetivos de la organización es decir el personal no técnico y su aprendizaje
+se da por medio de seminarios e instrucción teórica y en último lugar la
+concienciación está enfocado a todas las personas que entiendan sobre amenazas
+y puedan formular simples respuestas y su aprendizaje se da por medios sociales
 como el uso de campañas de creación de cultura.
 
 .Ejemplo de campañas de concienciación
@@ -79,35 +79,35 @@ image::ejemplo.png[campaña]
 
 == Causas principales de fracaso: el comportamiento y la cultura de cambio
 
-Uno de los problemas que tienen las organizaciones al momento de implementar 
-una campaña de seguridad es el comportamiento del talento humano pues imponer 
-nuevas reglas no será tarea fácil cuando las personas no están acostumbradas al 
-cambio, es por ello que existen otros requisitos a tener en cuenta al momento de 
-crear una cultura de seguridad como por ejemplo la persuasión, pero esto es un 
-tema que se puede extender en otro post, por el momento podemos concluir que el 
-talento humano es de gran importancia en cualquier organización y el nivel de 
-cultura de seguridad debe convertirse en una métrica en el modelo organizacional 
-frente a la seguridad, pues este activo puede convertirse en nuestro aliado o 
+Uno de los problemas que tienen las organizaciones al momento de implementar
+una campaña de seguridad es el comportamiento del talento humano pues imponer
+nuevas reglas no será tarea fácil cuando las personas no están acostumbradas al
+cambio, es por ello que existen otros requisitos a tener en cuenta al momento de
+crear una cultura de seguridad como por ejemplo la persuasión, pero esto es un
+tema que se puede extender en otro post, por el momento podemos concluir que el
+talento humano es de gran importancia en cualquier organización y el nivel de
+cultura de seguridad debe convertirse en una métrica en el modelo organizacional
+frente a la seguridad, pues este activo puede convertirse en nuestro aliado o
 nuestro mayor riesgo.
 
 == ¿Porque es una estrategia inteligente?
 
-Se considera una estrategia de seguridad inteligente pues muchos expertos 
-consideran que la relación costo/beneficio es favorable al momento de verificar 
-el retorno de la inversión y pues con un poco de entrenamiento se pueden mitigar 
-muchas de las amenazas de seguridad que involucran al talento humano como los es 
+Se considera una estrategia de seguridad inteligente pues muchos expertos
+consideran que la relación costo/beneficio es favorable al momento de verificar
+el retorno de la inversión y pues con un poco de entrenamiento se pueden mitigar
+muchas de las amenazas de seguridad que involucran al talento humano como los es
 la ingeniería social y los fallos por errores o negligencias.
 
 .Encuesta sobre la frecuencia con que los empleados reciben entrenamiento sobre amenazas de seguridad en las organizaciones: link:https://www.mimecast.com/[Mimecast]
 image::encuesta.png[encuesta]
 
-La anterior es una encuesta llevada a cabo en el Reino Unido sobre la frecuencia 
-con que los empleados reciben entrenamiento sobre algunas amenazas de seguridad 
+La anterior es una encuesta llevada a cabo en el Reino Unido sobre la frecuencia
+con que los empleados reciben entrenamiento sobre algunas amenazas de seguridad
 tales como ingeniería social.
 
-Conociendo ya un poco de como funciona SETA, cual es su importancia y porque 
-algunos programas de seguridad fallan, expertos en el campo han establecido 7 
-pasos fundamentales para el buen desarrollo de un plan de entrenamiento. 
+Conociendo ya un poco de como funciona SETA, cual es su importancia y porque
+algunos programas de seguridad fallan, expertos en el campo han establecido 7
+pasos fundamentales para el buen desarrollo de un plan de entrenamiento.
 (link:http://csrc.nist.gov/publications/nistpubs/800-12/handbook.pdf[NIST])
 
 . Identificar el alcance, las metas y los objetivos del programa
@@ -118,6 +118,6 @@ pasos fundamentales para el buen desarrollo de un plan de entrenamiento.
 . Mantenimiento de los programas
 . Evaluación de los programas
 
-No debemos olvidar que un programa de seguridad es como construir una casa y un 
-fallo en cualquier columna puede significar la caída de esta, pero al igual 
+No debemos olvidar que un programa de seguridad es como construir una casa y un
+fallo en cualquier columna puede significar la caída de esta, pero al igual
 existen columnas principales y otras secundarias.

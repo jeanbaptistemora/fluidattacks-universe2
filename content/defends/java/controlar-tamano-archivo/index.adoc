@@ -12,7 +12,7 @@ Controlar el tamaño de los archivos en una aplicación +Java EE+.
 
 == Contexto
 
-A continuación se describen las circunstancias 
+A continuación se describen las circunstancias
 bajo las cuales la siguiente solución tiene sentido:
 
 . Se desarrolla una aplicación web en +Java+.
@@ -20,55 +20,55 @@ bajo las cuales la siguiente solución tiene sentido:
 
 == Solución
 
-Hoy en día y gracias al incremento exponencial del uso de Internet, 
-tanto las personas como las empresas 
-tienen la opción de buscar y ofrecer infinidad de servicios. 
-Como prueba de ello, están las páginas web que permiten compartir, 
-entre sus usuarios, todo tipo de contenido 
-(imágenes, videos, animaciones, +software+, entre otros). 
-Y, puesto que compartir dichos archivos implica, 
-por lógica, permitir la subida de los mismos a los servidores 
-donde están alojadas las páginas web, 
-es absolutamente necesario contar con algún tipo de control 
-que límite la cantidad, forma, tamaño 
+Hoy en día y gracias al incremento exponencial del uso de Internet,
+tanto las personas como las empresas
+tienen la opción de buscar y ofrecer infinidad de servicios.
+Como prueba de ello, están las páginas web que permiten compartir,
+entre sus usuarios, todo tipo de contenido
+(imágenes, videos, animaciones, +software+, entre otros).
+Y, puesto que compartir dichos archivos implica,
+por lógica, permitir la subida de los mismos a los servidores
+donde están alojadas las páginas web,
+es absolutamente necesario contar con algún tipo de control
+que límite la cantidad, forma, tamaño
 e incluso el tipo de archivo que se admitirá.
 
-Como se ha mencionado antes, 
-una de las formas de controlar los archivos 
-que son cargados a un servidor web 
-es verificando que los archivos 
-no superen determinado tamaño, 
-esto con el fin de garantizar entre otras cosas, 
-que no se sature la capacidad de almacenamiento del servidor. 
+Como se ha mencionado antes,
+una de las formas de controlar los archivos
+que son cargados a un servidor web
+es verificando que los archivos
+no superen determinado tamaño,
+esto con el fin de garantizar entre otras cosas,
+que no se sature la capacidad de almacenamiento del servidor.
 
 Para habilitar la validación del tamaño de archivos en +Java EE+
 se debe tener en cuenta lo siguiente:
 
-. La versión +3.0+ de la especificación +Java Servlet+ 
-incluye una nueva clase para facilitar 
+. La versión +3.0+ de la especificación +Java Servlet+
+incluye una nueva clase para facilitar
 el manejo de archivos subidos por formularios web.
 
-. La anotación +javax.servlet.annotation.MultipartConfig+ 
-se utiliza para indicarle al servidor de aplicaciones 
-que el +servlet+ espera peticiones 
+. La anotación +javax.servlet.annotation.MultipartConfig+
+se utiliza para indicarle al servidor de aplicaciones
+que el +servlet+ espera peticiones
 en el formato +multipart/form-data+.
 
-. La anotación +MultipartConfig+ soporta 
+. La anotación +MultipartConfig+ soporta
 los siguientes atributos opcionales:
 
-* *+location+:* Una ruta absoluta 
-a una carpeta dentro del sistema. 
-Esta ubicación es usada para almacenar archivos temporalmente 
+* *+location+:* Una ruta absoluta
+a una carpeta dentro del sistema.
+Esta ubicación es usada para almacenar archivos temporalmente
 mientras se procesan las partes.
-* *+fileSizeThreshold+:* Si el archivo supera este tamaño en +bytes+, 
-será temporalmente almacenado en disco. 
+* *+fileSizeThreshold+:* Si el archivo supera este tamaño en +bytes+,
+será temporalmente almacenado en disco.
 El tamaño predeterminado es +0 bytes+.
-* *+MaxFileSize+:* El tamaño máximo de los archivos subidos en +bytes+. 
-Si el tamaño del archivo subido es superior a este, 
+* *+MaxFileSize+:* El tamaño máximo de los archivos subidos en +bytes+.
+Si el tamaño del archivo subido es superior a este,
 se arrojará una excepción +IllegalStateException+.
 
-. Creamos un archivo +HTML+ o +JSP+ 
-el cual contiene el formulario 
+. Creamos un archivo +HTML+ o +JSP+
+el cual contiene el formulario
 que nos permitirá enviar el archivo al +servlet+.
 +
 .formulario.html
@@ -93,19 +93,19 @@ que nos permitirá enviar el archivo al +servlet+.
 </html>
 ----
 
-. En esta solución recibiremos la ruta destino desde el usuario, 
-no es una práctica recomendada, 
+. En esta solución recibiremos la ruta destino desde el usuario,
+no es una práctica recomendada,
 pero se usa para simplificar el ejemplo.
 
-. En el +servlet+, donde aceptaremos las peticiones, 
-agregamos las anotaciones de +WebServlet+ y +MultipartConfig+. 
-En nuestro ejemplo el tamaño máximo permitido 
+. En el +servlet+, donde aceptaremos las peticiones,
+agregamos las anotaciones de +WebServlet+ y +MultipartConfig+.
+En nuestro ejemplo el tamaño máximo permitido
 para un archivo será de +5 MB+.
 +
 [source, java, linenums]
 ----
 @WebServlet(name = "FileUploadServlet", urlPatterns = {"/upload"})
-  @MultipartConfig(location="/tmp", fileSizeThreshold=1024*1024,  maxFileSize=1024*1024*5, 
+  @MultipartConfig(location="/tmp", fileSizeThreshold=1024*1024,  maxFileSize=1024*1024*5,
     maxRequestSize=1024*1024*5*5)
 
 public class FileUploadServlet extends HttpServlet {
@@ -113,12 +113,12 @@ public class FileUploadServlet extends HttpServlet {
   Logger.getLogger(FileUploadServlet.class.getCanonicalName());
 ----
 
-. En el método +processRequest+ 
-se obtiene la ruta destino para el archivo 
-y la parte del archivo desde la petición. 
-Luego llama al método +getFileName+, 
-para obtener el nombre del archivo. 
-Se crea un +FileOutputStream+ 
+. En el método +processRequest+
+se obtiene la ruta destino para el archivo
+y la parte del archivo desde la petición.
+Luego llama al método +getFileName+,
+para obtener el nombre del archivo.
+Se crea un +FileOutputStream+
 y se copia el archivo a la ruta deseada.
 +
 [source, java, linenums]
@@ -167,8 +167,8 @@ protected void processRequest(HttpServletRequest request, HttpServletResponse re
 }
 ----
 
-. Creamos un nuevo método +getFileName+ 
-el cual permite obtener el nombre del archivo 
+. Creamos un nuevo método +getFileName+
+el cual permite obtener el nombre del archivo
 a partir de una de las partes.
 +
 [source, java, linenums]
@@ -186,7 +186,7 @@ private String getFileName(final Part part) {
 }
 ----
 
-. Cuando se intente subir un archivo mayor de +5 MB+ 
+. Cuando se intente subir un archivo mayor de +5 MB+
 obtendremos la siguiente excepción.
 +
 [source, shell, linenums]

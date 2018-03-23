@@ -8,6 +8,6 @@
 
 == Nombre
 
-La organización debe almacenar las bitácoras al menos durante 5 años 
-desde la ocurrencia del evento en el sistema 
+La organización debe almacenar las bitácoras al menos durante 5 años
+desde la ocurrencia del evento en el sistema
 o lo que disponga la legislación vigente para dicho sistema.

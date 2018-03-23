@@ -13,17 +13,17 @@
 
 a|== Celsia
 
-Empresa que genera, transmite, distribuye y vende electricidad en Colombia, 
-Costa Rica y Panamá. En el sector de generación, la compañía opera un total de 21 
-plantas hidroeléctricas, 5 termoeléctricas, y un parque eólico, con lo que atiende 
+Empresa que genera, transmite, distribuye y vende electricidad en Colombia,
+Costa Rica y Panamá. En el sector de generación, la compañía opera un total de 21
+plantas hidroeléctricas, 5 termoeléctricas, y un parque eólico, con lo que atiende
 a 580.000 usuarios residenciales, comerciales e industriales.
 
 a|== XM
 
-Empresa de ISA especializada en la gestión de sistemas de tiempo real. La gestión de sistemas 
+Empresa de ISA especializada en la gestión de sistemas de tiempo real. La gestión de sistemas
 de tiempo real consiste en la planeación, diseño, optimización, puesta en servicio, operación,
-administración o gerenciamiento de sistemas transaccionales o plataformas tecnológicas, que involucran 
-el intercambio de información con valor agregado, y mercados de bienes y servicios relacionados. 
+administración o gerenciamiento de sistemas transaccionales o plataformas tecnológicas, que involucran
+el intercambio de información con valor agregado, y mercados de bienes y servicios relacionados.
 
 ^.^a|image:logo-xm.png[logo xm, width=30%, link=https://www.xm.com.co/corporativo/Paginas/Nuestra-empresa/quienes-somos.aspx]
 

@@ -12,7 +12,7 @@ class AccessController
     }
     else
     {
-      System.out.println("[AccessController] El acceso a " + r.getName() + " por " + s.getName() + 
+      System.out.println("[AccessController] El acceso a " + r.getName() + " por " + s.getName() +
 	     " ha sido denegado");
     }
   }

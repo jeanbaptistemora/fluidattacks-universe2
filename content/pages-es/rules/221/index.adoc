@@ -8,8 +8,8 @@
 
 == Nombre
 
-Las respuestas del sistema a los fallos de autenticación 
-no deben indicar cuál parte de la autenticación fue incorrecta. 
+Las respuestas del sistema a los fallos de autenticación
+no deben indicar cuál parte de la autenticación fue incorrecta.
 
 == Soluciones
 

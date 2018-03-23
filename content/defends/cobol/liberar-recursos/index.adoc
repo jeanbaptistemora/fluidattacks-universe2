@@ -12,7 +12,7 @@ Liberar recursos abiertos en +COBOL+.
 
 == Contexto
 
-A continuación se describe las circunstancias 
+A continuación se describe las circunstancias
 bajo las cuales la siguiente solución tiene sentido:
 
 . Se está desarrollando una aplicación en +COBOL+.
@@ -21,9 +21,9 @@ bajo las cuales la siguiente solución tiene sentido:
 
 == Solución
 
-La sentencia +CLOSE+ en +COBOL+ 
-permite cerrar varios tipos de recursos, 
-entre los cuales se incluyen archivos 
+La sentencia +CLOSE+ en +COBOL+
+permite cerrar varios tipos de recursos,
+entre los cuales se incluyen archivos
 y cursores de la base de datos.
 
 * *Liberar archivos*
@@ -46,12 +46,12 @@ y cursores de la base de datos.
        PROGRAM-ID. COBOLCLSF.
 ----
 +
-Se establece el nombre del programa a +COBOLCLSF+ 
+Se establece el nombre del programa a +COBOLCLSF+
 mediante la sentencia +PROGRAM-ID+.
 
-. En la división +ENVIRONMENT DIVISION+<<r6,^[6]^>> 
-y dentro de la sección +INPUT-OUTPUT SECTION+, 
-se declara el uso del descriptor +TEST-FILE+ 
+. En la división +ENVIRONMENT DIVISION+<<r6,^[6]^>>
+y dentro de la sección +INPUT-OUTPUT SECTION+,
+se declara el uso del descriptor +TEST-FILE+
 el cual es asignado al archivo +TESTFILE+:
 +
 [source,cobol,linenums]
@@ -65,8 +65,8 @@ el cual es asignado al archivo +TESTFILE+:
            SELECT TEST-FILE ASSIGN TO 'TESTFILE'
            ORGANIZATION IS SEQUENTIAL.
 ----
-. En la división +DATA DIVISION+<<r7,^[7]^>> 
-y dentro de la sección +FILE SECTION+, 
+. En la división +DATA DIVISION+<<r7,^[7]^>>
+y dentro de la sección +FILE SECTION+,
 se establece el formato del archivo:
 +
 [source,cobol,linenums]
@@ -80,7 +80,7 @@ se establece el formato del archivo:
        FD TEST-FILE.
        01 TEST-FILE-RECORD PIC X(32).
 ----
-. En la división +PROCEDURE DIVISION+<<r8,^[8]^>> 
+. En la división +PROCEDURE DIVISION+<<r8,^[8]^>>
 se encuentra la lógica del programa:
 +
 [source,cobol,linenums]
@@ -91,14 +91,14 @@ se encuentra la lógica del programa:
        PROCEDURE DIVISION.
        MAIN.
 ----
-. Abrimos el archivo en modo +EXTEND+, 
+. Abrimos el archivo en modo +EXTEND+,
 lo que permite agregar al final del mismo el contenido:
 +
 [source,cobol,linenums]
 ----
        OPEN EXTEND TEST-FILE.
 ----
-. A continuación, se mueve la cadena "Hola mundo" al registro. 
+. A continuación, se mueve la cadena "Hola mundo" al registro.
 Esta operación debe ser realizada luego de abrir el archivo:
 +
 [source,cobol,linenums]
@@ -137,11 +137,11 @@ Esta operación debe ser realizada luego de abrir el archivo:
       ******************
        PROGRAM-ID. COBOLCLSC.
 ----
-. En la división +DATA DIVISION+ 
-se declara la variable 
-para almacenar el nombre de usuario que obtenemos de la base de datos. 
-Igualmente se copia la estructura de datos +SQLCA+ 
-que tiene como propósito 
+. En la división +DATA DIVISION+
+se declara la variable
+para almacenar el nombre de usuario que obtenemos de la base de datos.
+Igualmente se copia la estructura de datos +SQLCA+
+que tiene como propósito
 recibir los mensajes de error producidos por las sentencias:
 +
 [source,cobol,linenums]
@@ -156,7 +156,7 @@ recibir los mensajes de error producidos por las sentencias:
 
        COPY SQLCA OF QSYSINC-QCBLLESRC.
 ----
-. Dentro de la división +PROCEDURE DIVISION+ 
+. Dentro de la división +PROCEDURE DIVISION+
 se declara inicialmente el cursor +C1+:
 +
 [source,cobol,linenums]
@@ -190,9 +190,9 @@ se declara inicialmente el cursor +C1+:
 ----
        DISPLAY "Nombre de usuario: " WS-USERNAME
 ----
-. Finalmente, el proceso de cierre de cursores 
-es realizado automáticamente al finalizar cada programa en +COBOL+, 
-pero se debe realizar en el código por seguridad 
+. Finalmente, el proceso de cierre de cursores
+es realizado automáticamente al finalizar cada programa en +COBOL+,
+pero se debe realizar en el código por seguridad
 y para mantener compatibilidad entre diferentes plataformas:
 +
 [source,cobol,linenums]
@@ -210,14 +210,14 @@ y para mantener compatibilidad entre diferentes plataformas:
 
 == Descargas
 
-Puedes descargar el código fuente 
-pulsando en los siguientes enlaces: 
+Puedes descargar el código fuente
+pulsando en los siguientes enlaces:
 
-. [button]#link:src/cobolclsf.cbl[cobolclsf.cbl]# contiene 
-instrucciones para cerrar correctamente un recurso abierto 
+. [button]#link:src/cobolclsf.cbl[cobolclsf.cbl]# contiene
+instrucciones para cerrar correctamente un recurso abierto
 tal como se explicó antes.
-. [button]#link:src/cobolclsc.cbl[cobolclsc.cbl]# contiene 
-instrucciones para cerrar correctamente un cursor abierto 
+. [button]#link:src/cobolclsc.cbl[cobolclsc.cbl]# contiene
+instrucciones para cerrar correctamente un cursor abierto
 tal como se explicó antes.
 
 == Referencias

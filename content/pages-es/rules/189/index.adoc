@@ -8,5 +8,5 @@
 
 == Nombre
 
-El sistema debe especificar 
+El sistema debe especificar
 el propósito de la recolección de datos personales (+OECD.9+, +ISACA.G31.3.+).

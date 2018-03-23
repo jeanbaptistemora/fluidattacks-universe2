@@ -6,7 +6,7 @@
 
 = REQ.157 Compilación estricta
 
-== Nombre 
+== Nombre
 
 El código debe compilarse o interpretarse de forma estricta.
 

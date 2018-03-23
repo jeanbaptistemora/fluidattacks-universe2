@@ -8,36 +8,36 @@
 
 == Necesidad
 
-Generar un identificador universalmente único 
+Generar un identificador universalmente único
 para identificar inequívocamente una transacción o recurso.
 
 == Contexto
 
-A continuación se describen las circunstancias 
+A continuación se describen las circunstancias
 bajo las cuales la siguiente solución tiene sentido:
 
-. Se pretende utilizar un método estándar 
+. Se pretende utilizar un método estándar
 para la creación de identificadores únicos.
 
 . La aplicación está desarrollada en +ASP.NET+.
 
 == Solución
 
-El identificador único universal, 
-o +UUID+ por sus siglas en inglés, 
-es un estándar que especifica 
-como debe ser un número que pueda considerarse 
+El identificador único universal,
+o +UUID+ por sus siglas en inglés,
+es un estándar que especifica
+como debe ser un número que pueda considerarse
 para identificar 'inequívocamente' transacciones o recursos.
-El término de único se refiere en realidad 
-a una baja probabilidad de crear dos números iguales. 
-Luego de generar 1 billón de +UUID+ 
-cada segundo por los siguientes 100 años, 
-la probabilidad de crear uno que esté duplicado 
+El término de único se refiere en realidad
+a una baja probabilidad de crear dos números iguales.
+Luego de generar 1 billón de +UUID+
+cada segundo por los siguientes 100 años,
+la probabilidad de crear uno que esté duplicado
 sería cerca del 50%" <<r1,^[1]^>>.
 
-Un +UUID+ está conformado por 
-5 grupos de dígitos en formato hexadecimal de 
-longitud 8-4-4-4-12 respectivamente separados por guiones, 
+Un +UUID+ está conformado por
+5 grupos de dígitos en formato hexadecimal de
+longitud 8-4-4-4-12 respectivamente separados por guiones,
 para un total de 36 caracteres (32 dígitos y 4 guiones).
 Un ejemplo de un +UUID+ en su forma canónica es es siguiente:
 
@@ -45,8 +45,8 @@ Un ejemplo de un +UUID+ en su forma canónica es es siguiente:
 550e8400-e29b-41d4-a716-446655440000
 ----
 
-Los +UUIDs+ tienen un campo de aplicación 
-bastante extenso en diferentes áreas. 
+Los +UUIDs+ tienen un campo de aplicación
+bastante extenso en diferentes áreas.
 Entre los ejemplos de aplicación de un UUID se cuenta:
 
 * Identificación y reconocimiento de dispositivos.
@@ -57,10 +57,10 @@ Entre los ejemplos de aplicación de un UUID se cuenta:
 
 * Procesos de construcción de Software.
 
-El identificador global único o +GUID+, 
+El identificador global único o +GUID+,
 es la implementación de +UUID+ de +Microsoft+.
-El +GUID+ es utilizado para distinguir interfaces 
-de componentes software diferentes <<r2, ^[2]^>>, 
+El +GUID+ es utilizado para distinguir interfaces
+de componentes software diferentes <<r2, ^[2]^>>,
 esto quiere decir que dos componentes
 con un mismo nombre y versión,
 puede mostrarse de forma diferente al usuario,
@@ -69,7 +69,7 @@ si tiene un +GUID+ diferente.
 Un +GUID+ es tratado como un objeto,
 cuando es insertado en programas de +Microsoft Office+,
 pero también puede ayudar a identificar
-flujos de audio y video. 
+flujos de audio y video.
 
 . A continuación se muestra como generar un +GUID+ desde programación.
 Para ello se utilizará el método +NewGuid+ de la librería +System+.
@@ -92,9 +92,9 @@ namespace LineaBase
 }
 ----
 
-. Como se observa, basta con llamar el método estático +NewGuid+ 
+. Como se observa, basta con llamar el método estático +NewGuid+
 de la estructura +Guid+ <<r3, ^[3]^>>.
-Se pueden evidenciar diferentes identificadores 
+Se pueden evidenciar diferentes identificadores
 al compilar y ejecutar la aplicación:
 +
 [source,csharp,linenums]

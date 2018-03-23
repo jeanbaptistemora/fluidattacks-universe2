@@ -1,6 +1,6 @@
 :slug: defends/aspnet/reutilizar-objetos-bucles/
 :category: aspnet
-:description: Nuestros ethical hackers explican cómo evitar vulnerabilidades de seguridad mediante la programación segura en ASP.NET al reutilizar objetos ya creados. Ésto mejorará el rendimiento de la aplicación, permitiendo administrar el tiempo de creación del objeto en otras tareas importantes. 
+:description: Nuestros ethical hackers explican cómo evitar vulnerabilidades de seguridad mediante la programación segura en ASP.NET al reutilizar objetos ya creados. Ésto mejorará el rendimiento de la aplicación, permitiendo administrar el tiempo de creación del objeto en otras tareas importantes.
 :keywords: ASP.NET, Seguridad, Reutilizar, Objetos, Configuración, Buenas Prácticas.
 :defends: yes
 
@@ -12,40 +12,40 @@ Reutilizar objetos dentro de un bucle de un programa en +ASP.NET+.
 
 == Contexto
 
-A continuación se describe las circunstancias 
+A continuación se describe las circunstancias
 bajo las cuales la siguiente solución tiene sentido:
 
 . Se está desarrollando una aplicación en +ASP.NET+.
 
 == Solución
 
-. Teniendo en cuenta que +ASP.Net+ usa recolector de basura, 
-y sumado a las características del contexto anterior, 
+. Teniendo en cuenta que +ASP.Net+ usa recolector de basura,
+y sumado a las características del contexto anterior,
 se tienen las siguientes implicaciones <<r1, ^[1]^>>:
 
-* Cada objeto al ser creado 
-requiere recursos de memoria 
+* Cada objeto al ser creado
+requiere recursos de memoria
 para sus variables de instancia.
 
-* Cada objeto al ser creado requiere 
+* Cada objeto al ser creado requiere
 recursos de procesador
 para inicializar las variables de instancia.
 
-* Cada objeto creado es evaluado 
+* Cada objeto creado es evaluado
 para determinar si debe ser eliminado.
 
 * Cada objeto creado podrá ser eliminado en algún momento.
 
-. Dadas las anteriores circunstancias 
-se recomienda reutilizar los objetos creados 
-en un bucle de forma que los recursos demandados 
-por las implicaciones anteriores se minimicen. 
-El siguiente ejemplo ilustra como reutilizar objetos. 
-Inicialmente se define una clase con el método +main+, 
+. Dadas las anteriores circunstancias
+se recomienda reutilizar los objetos creados
+en un bucle de forma que los recursos demandados
+por las implicaciones anteriores se minimicen.
+El siguiente ejemplo ilustra como reutilizar objetos.
+Inicialmente se define una clase con el método +main+,
 dentro del cual se crea una instancia de la clase +StringBuilder+:
 +
-Para utilizar la clase +StringBuilder+ 
-se debe incluir el espacio de nombres +System.Text+. 
+Para utilizar la clase +StringBuilder+
+se debe incluir el espacio de nombres +System.Text+.
 Para ello se importan las librerías +System+ y +System.Text+:
 +
 .test.py
@@ -54,7 +54,7 @@ Para ello se importan las librerías +System+ y +System.Text+:
 using System;
 using System.Text;
 ----
-. Posteriormente, se instancia un objeto 
+. Posteriormente, se instancia un objeto
 de la clase +StringBuilder+, en este caso el objeto +sb+:
 +
 [source, java, linenums]
@@ -65,18 +65,18 @@ static void Main(string[] args)
 ...
 ----
 
-. A pesar de que la clase +StringBuilder+ 
-instancia siempre un objeto dinámico 
-que permite expandir el número de caracteres 
-de la cadena que encapsula, 
-es posible definir un valor personalizado 
+. A pesar de que la clase +StringBuilder+
+instancia siempre un objeto dinámico
+que permite expandir el número de caracteres
+de la cadena que encapsula,
+es posible definir un valor personalizado
 para el número máximo de caracteres que puede contener.
-El valor anteriormente mencionado se define 
-como la capacidad del objeto 
-y difiere de la longitud de la cadena 
+El valor anteriormente mencionado se define
+como la capacidad del objeto
+y difiere de la longitud de la cadena
 contenida en el objeto +StringBuilder+ en dicho momento  <<r2, ^[2]^>>.
 +
-De acuerdo a lo anteriormente dicho, 
+De acuerdo a lo anteriormente dicho,
 se reutilizará el objeto haciendo uso de un bucle +for+.
 De esta manera se evitará instanciar nuevos objetos,
 al definir el número de veces que el objeto será reutilizado.
@@ -92,9 +92,9 @@ for (int i = 0; i < limit; i++) {
 ...
 ----
 
-. Por cada iteración, se está reutilizando la instancia, 
-con el método +Clear()+ se cambia el estado del objeto 
-de modo similar a uno recién creado, 
+. Por cada iteración, se está reutilizando la instancia,
+con el método +Clear()+ se cambia el estado del objeto
+de modo similar a uno recién creado,
 sin necesidad de realmente crear uno nuevo.
 
 == Referencias

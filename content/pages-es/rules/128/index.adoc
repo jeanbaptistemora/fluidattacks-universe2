@@ -8,8 +8,8 @@
 
 == Nombre
 
-Las contraseñas (tipo palabra) 
-deben tener al menos 1 letra mayúscula. 
+Las contraseñas (tipo palabra)
+deben tener al menos 1 letra mayúscula.
 
 
 == Soluciones

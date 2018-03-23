@@ -8,6 +8,6 @@
 
 == Nombre
 
-Debe utilizarse certificados firmados 
-por entidades certificadoras internas válidas 
+Debe utilizarse certificados firmados
+por entidades certificadoras internas válidas
 cuando estos sean para aplicaciones internas.

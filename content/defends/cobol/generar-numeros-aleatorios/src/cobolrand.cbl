@@ -43,7 +43,7 @@
                              (60 * W02-CURRENT-MINUTE) +
                              (3600 * (W02-CURRENT-HOURS + (24 * W03-IDAY))).
            COMPUTE W01-RANDOM = FUNCTION RANDOM(W04-SVAL).
-           
+
            DISPLAY "Numero aleatorio: " W01-RANDOM.
-        
+
            STOP RUN.

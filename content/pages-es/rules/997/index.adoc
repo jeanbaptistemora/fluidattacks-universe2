@@ -6,10 +6,10 @@
 
 = REQ.997 Contraseñas sin palabras de diccionario
 
-== Nombre 
+== Nombre
 
-El sistema debe tener la capacidad de validar 
-que ninguna contraseña contenga palabras de diccionario. 
+El sistema debe tener la capacidad de validar
+que ninguna contraseña contenga palabras de diccionario.
 
 
 == Soluciones

@@ -8,6 +8,6 @@
 
 == Nombre
 
-Las cadenas de conexión a la base de datos 
-deben de estar cifradas en un archivo de configuración 
+Las cadenas de conexión a la base de datos
+deben de estar cifradas en un archivo de configuración
 separado del código fuente.

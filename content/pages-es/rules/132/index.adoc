@@ -12,19 +12,19 @@ Las contraseñas (tipo frase) deben tener al menos 4 palabras de longitud.
 
 == Descripción
 
-El presente criterio de seguridad trata sobre 
-la importancia de establecer al menos cuatro (4) palabras de longitud 
-para todas las contraseñas tipo frase. 
-Entendiendo estas últimas, como una secuencia de palabras<<r1,^[1]^>> 
-cuya longitud es superior pero de mayor seguridad 
+El presente criterio de seguridad trata sobre
+la importancia de establecer al menos cuatro (4) palabras de longitud
+para todas las contraseñas tipo frase.
+Entendiendo estas últimas, como una secuencia de palabras<<r1,^[1]^>>
+cuya longitud es superior pero de mayor seguridad
 que otros tipos de contraseñas.
 
 == Soluciones
 
-La presente sección contiene enlaces a artículos 
-cuyo contenido es propiedad de +FLUID+. 
-El objetivo es dar a conocer al público 
-la implementación del actual requerimiento de seguridad 
+La presente sección contiene enlaces a artículos
+cuyo contenido es propiedad de +FLUID+.
+El objetivo es dar a conocer al público
+la implementación del actual requerimiento de seguridad
 para diferentes plataformas o lenguajes de programación:
 
 . *+JAVA+* link:../../defends/java/fortaleza-contrasena-dic/[Comprobar Fortaleza de Contraseña con Diccionarios].

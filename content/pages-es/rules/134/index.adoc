@@ -8,8 +8,8 @@
 
 == Nombre
 
-El sistema debe almacenar las contraseñas 
-con diferentes derivaciones de clave (+Salt+). 
+El sistema debe almacenar las contraseñas
+con diferentes derivaciones de clave (+Salt+).
 
 == Soluciones
 

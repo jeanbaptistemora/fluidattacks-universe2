@@ -8,5 +8,5 @@
 
 == Nombre
 
-Las contraseñas temporales que son generadas para ingreso inicial en un sistema 
+Las contraseñas temporales que son generadas para ingreso inicial en un sistema
 deben tener una validez máxima de 120 minutos.

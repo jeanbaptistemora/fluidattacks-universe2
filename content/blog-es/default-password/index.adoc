@@ -4,8 +4,8 @@
 :tags: seguridad, password, atacar
 :image: default-password.png
 :alt: Símbolo de prohibición sobre la contraseña por defecto
-:description: En algunas ocasiones los administradores no modifican las credenciales por defecto de las aplicaciones, esto es un error grave debido a que facilita a los atacantes ingresar utilizando un ataque de diccionario. A continuación se muestra un ejemplo de robo de credenciales por defecto. 
-:keywords: Seguridad, Contraseña, Default, Credenciales, Buenas Prácticas, 
+:description: En algunas ocasiones los administradores no modifican las credenciales por defecto de las aplicaciones, esto es un error grave debido a que facilita a los atacantes ingresar utilizando un ataque de diccionario. A continuación se muestra un ejemplo de robo de credenciales por defecto.
+:keywords: Seguridad, Contraseña, Default, Credenciales, Buenas Prácticas,
 :author: Camilo Cardona
 :writer: camiloc
 :name: Camilo Cardona
@@ -24,14 +24,14 @@ errores.
 
 == El reto
 
-Para esto resolveremos los retos que veremos a continuación usando herramientas 
+Para esto resolveremos los retos que veremos a continuación usando herramientas
 como metasploit, medusa y ncrack.
 
 .Errores de capa 8
 image::error.png[error]
 
 Uno de los errores más comunes de los administradores es dejar las credenciales
-de autenticación de las aplicaciones o dispositivos por defecto, ejemplo de 
+de autenticación de las aplicaciones o dispositivos por defecto, ejemplo de
 ello son dispositivos o S.O con las siguientes combinaciones:
 
 * Admin Admin
@@ -42,19 +42,19 @@ ello son dispositivos o S.O con las siguientes combinaciones:
 * Etc
 
 Lo que haría un atacante en este caso es crear un diccionario con todas las
-posibles credenciales que tenga el dispositivo o aplicación que haya 
-identificado y realizar un ataque de fuerza bruta, como lo vemos en el primer 
+posibles credenciales que tenga el dispositivo o aplicación que haya
+identificado y realizar un ataque de fuerza bruta, como lo vemos en el primer
 ejercicio Weak password en link:https://www.root-me.org/?lang=es[root-me.org]
 
 Para esto podemos usar uno de los muchos diccionarios que hay internet o crear
-uno propio con recursos como link:http://www.defaultpassword.com/[defaultpassword] 
-y con las herramientas descritas anteriormente podemos realizar un ataque de 
+uno propio con recursos como link:http://www.defaultpassword.com/[defaultpassword]
+y con las herramientas descritas anteriormente podemos realizar un ataque de
 fuerza bruta.
 
 En este ocasión usaremos ncrack que soporta el protocolo *http*, (igualmente lo
-podríamos hacer con medusa o metasploit). como se ve en la figura 2 y en 
-cuestión de tiempo nos arroja las credenciales que fueron validadas. Es así 
-como en cuestión de tiempo y un poco de astucia al momento de crear los 
+podríamos hacer con medusa o metasploit). como se ve en la figura 2 y en
+cuestión de tiempo nos arroja las credenciales que fueron validadas. Es así
+como en cuestión de tiempo y un poco de astucia al momento de crear los
 diccionarios podríamos conseguir el acceso.
 
 .Ataque de fuerza bruta
@@ -65,11 +65,11 @@ el manual de Linux “man ncrack” o en la fuente oficial.
 
 == La solución
 
-Para mitigar estas amenazas las organizaciones deben tener estipuladas 
-políticas de contraseñas, donde enmarque cuan fuerte debe ser la contraseña, 
-cada cuanto deben cambiarse y cada cuanto deben auditarse. Igualmente las 
-personas deben usar contraseñas fuertes, no usar palabras de diccionarios o 
-palabras con las que puedan relacionarnos como es nuestros gustos, direcciones, 
+Para mitigar estas amenazas las organizaciones deben tener estipuladas
+políticas de contraseñas, donde enmarque cuan fuerte debe ser la contraseña,
+cada cuanto deben cambiarse y cada cuanto deben auditarse. Igualmente las
+personas deben usar contraseñas fuertes, no usar palabras de diccionarios o
+palabras con las que puedan relacionarnos como es nuestros gustos, direcciones,
 fechas u otras.
 
 .Principio de las contraseñas fuertes Fuente: @UofMaryland

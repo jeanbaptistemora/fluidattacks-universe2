@@ -8,31 +8,31 @@
 
 == Necesidad
 
-Eliminar (limpiar) recursos 
-dentro de la aplicación 
+Eliminar (limpiar) recursos
+dentro de la aplicación
 cuando ya no estén en uso.
 
 == Contexto
 
-A continuación se describe las circunstancias 
+A continuación se describe las circunstancias
 bajo las cuales la siguiente solución tiene sentido:
 
 . Se está desarrollando una aplicación en +PHP+ versión +7.0+ o superior.
 . El código debe eliminar información sensible en memoria.
-. La aplicación debe liberar recursos cuando ya no estén en uso,<<r1,^[1]^>> 
+. La aplicación debe liberar recursos cuando ya no estén en uso,<<r1,^[1]^>>
 limitando así su tiempo de vida.
 
 == Solución
 
-+PHP+ es un lenguaje de programación 
-que ofrece gran variedad de opciones al momento de procesar ficheros. 
-En este artículo veremos dos de ellas, 
-la primera mediante la instrucción +fopen+ 
++PHP+ es un lenguaje de programación
+que ofrece gran variedad de opciones al momento de procesar ficheros.
+En este artículo veremos dos de ellas,
+la primera mediante la instrucción +fopen+
 y la segunda mediante +fread+.
 
 * *Lectura segura de ficheros con +fopen+:*
 
-. En primer lugar se declara la variable +$myresource+, 
+. En primer lugar se declara la variable +$myresource+,
 la cual, contiene la referencia o ubicación al fichero a ser leído:
 +
 .fopen.php
@@ -42,25 +42,25 @@ la cual, contiene la referencia o ubicación al fichero a ser leído:
   $myresource = fopen("test.txt","r");
 ----
 +
-Como se observa, en esta ocasión +fopen+ recibe dos parámetros: 
-el primero corresponde a la ruta 
-donde está almacenado el fichero a procesar, 
-y el segundo corresponde al tipo de acceso al mismo. 
-En este caso el valor es +"r"+, 
-lo cual indica acceso de sólo lectura. 
-En el siguiente link:http://php.net/manual/es/function.fopen.php[enlace] 
+Como se observa, en esta ocasión +fopen+ recibe dos parámetros:
+el primero corresponde a la ruta
+donde está almacenado el fichero a procesar,
+y el segundo corresponde al tipo de acceso al mismo.
+En este caso el valor es +"r"+,
+lo cual indica acceso de sólo lectura.
+En el siguiente link:http://php.net/manual/es/function.fopen.php[enlace]
 podrá encontrar mayor información sobre el método +fopen+.
 
-. Mediante el método +feof+ 
-y dentro de un ciclo +while+, 
+. Mediante el método +feof+
+y dentro de un ciclo +while+,
 se verifica que no se ha llegado al final del fichero a leer:
 +
 [source, php, linenums]
 ----
 while (!feof($myresource)) {
 ----
-. Leemos línea por línea 
-el contenido del recurso 
+. Leemos línea por línea
+el contenido del recurso
 y lo imprimimos en pantalla:
 +
 [source, php, linenums]
@@ -69,7 +69,7 @@ y lo imprimimos en pantalla:
   echo $line;
 }
 ----
-. Por último, una vez ha terminado el procesamiento del recurso, 
+. Por último, una vez ha terminado el procesamiento del recurso,
 se procede a cerrar el flujo asociado al mismo:
 +
 [source, php, linenums]
@@ -78,19 +78,19 @@ se procede a cerrar el flujo asociado al mismo:
 ?>
 ----
 +
-Nota: +PHP+ ofrece alternativas 
-para validar si un fichero existe 
-o si tiene los permisos suficientes para el acceso al mismo, 
-para dicho propósito existen los métodos link:http://php.net/manual/es/function.file-exists.php[file_exists] y link:http://php.net/manual/es/function.is-readable.php[is_readable], 
-sin embargo, para efectos prácticos, 
-dichos métodos no son necesarios 
-debido a que +fopen+ devuelve +FALSE+ en caso de error, 
-esto garantizará que el procesamiento de archivos 
+Nota: +PHP+ ofrece alternativas
+para validar si un fichero existe
+o si tiene los permisos suficientes para el acceso al mismo,
+para dicho propósito existen los métodos link:http://php.net/manual/es/function.file-exists.php[file_exists] y link:http://php.net/manual/es/function.is-readable.php[is_readable],
+sin embargo, para efectos prácticos,
+dichos métodos no son necesarios
+debido a que +fopen+ devuelve +FALSE+ en caso de error,
+esto garantizará que el procesamiento de archivos
 solo se realice si el archivo se abre correctamente.
 
-. Para ejecutar el anterior programa, 
-desde la terminal se debe ubicar primero en el directorio del proyecto 
-y ejecutar el comando +php+ 
+. Para ejecutar el anterior programa,
+desde la terminal se debe ubicar primero en el directorio del proyecto
+y ejecutar el comando +php+
 (se debe instalar previamente +PHP+):
 +
 [source, bash, linenums]
@@ -99,8 +99,8 @@ $ ls
 fopen.php test.txt
 $ php fopen.php
 ----
-. La salida en consola luego de ejecutar el programa es la siguiente 
-(en este caso el contenido del fichero 
+. La salida en consola luego de ejecutar el programa es la siguiente
+(en este caso el contenido del fichero
 son contraseñas de prueba):
 +
 [source, bash, linenums]
@@ -113,7 +113,7 @@ PHPTest
 
 * *Lectura segura de ficheros con +fread+:*
 
-. Al igual que con +fopen+, en primer lugar se declara la variable +$myfile+, 
+. Al igual que con +fopen+, en primer lugar se declara la variable +$myfile+,
 la cual, contiene la referencia o ubicación al fichero a ser leído:
 +
 .fread.php
@@ -123,10 +123,10 @@ la cual, contiene la referencia o ubicación al fichero a ser leído:
   $myfile = fopen("test.txt","r");
 ----
 +
-Al igual que como se hizo anteriormente, 
+Al igual que como se hizo anteriormente,
 establecemos acceso de solo lectura al fichero +test.txt+.
 
-. Una vez abierto el recurso, 
+. Una vez abierto el recurso,
 se especifica los argumentos para el método +fread+:
 +
 [source, php, linenums]
@@ -134,15 +134,15 @@ se especifica los argumentos para el método +fread+:
 $content = fread($myfile, filesize("test.txt"));
 ----
 +
-El primer argumento corresponde al fichero a leer 
-y el segundo especifica la cantidad de bytes a ser leídos. 
-Con el fin de garantizar que todo el fichero sea procesado, 
-se emplea el método link:http://php.net/manual/es/function.filesize.php[filesize] 
-especificando el fichero en cuestión. 
-Dicha función se detendrá al final del archivo 
+El primer argumento corresponde al fichero a leer
+y el segundo especifica la cantidad de bytes a ser leídos.
+Con el fin de garantizar que todo el fichero sea procesado,
+se emplea el método link:http://php.net/manual/es/function.filesize.php[filesize]
+especificando el fichero en cuestión.
+Dicha función se detendrá al final del archivo
 o cuando alcance la longitud especificada, lo que ocurra primero.
 
-. Por último, cerramos el flujo asociado al recurso 
+. Por último, cerramos el flujo asociado al recurso
 y se imprime el contenido de la variable +$content+ en pantalla:
 +
 [source, php, linenums]
@@ -156,15 +156,15 @@ y se imprime el contenido de la variable +$content+ en pantalla:
 
 == Descargas
 
-Puedes descargar el código fuente 
+Puedes descargar el código fuente
 pulsando en los siguientes enlaces:
 
-. [button]#link:src/fopen.php[fopen.php]# contiene 
-código +PHP+ utilizando el método +fopen+ 
+. [button]#link:src/fopen.php[fopen.php]# contiene
+código +PHP+ utilizando el método +fopen+
 para la manipulación segura de ficheros.
 
-. [button]#link:src/fread.php[fread.php]# contiene 
-código +PHP+ utilizando el método +fread+ 
+. [button]#link:src/fread.php[fread.php]# contiene
+código +PHP+ utilizando el método +fread+
 para la manipulación segura de ficheros.
 
 == Referencias

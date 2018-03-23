@@ -8,53 +8,53 @@
 
 == Necesidad
 
-Identificar buenas prácticas de programación 
+Identificar buenas prácticas de programación
 relacionadas con las bitácoras de una aplicación.
 
 == Contexto
 
-A continuación se describen las circunstancias 
+A continuación se describen las circunstancias
 bajo las cuales la siguiente solución tiene sentido:
 
-. Se tiene una aplicación web de la cual 
+. Se tiene una aplicación web de la cual
 se desea controlar el uso de bitácoras de una manera correcta.
 
 == Solución
 
-Una bitácora o +log+ es una grabación secuencial en un archivo 
-o en una base de datos de todos los acontecimientos (eventos o acciones) 
-que afectan a un proceso particular 
-(cambio de datos en una aplicación, actividad de una red, 
-acceso a un sistema de información, entre otros). 
-De esta forma constituye una evidencia 
+Una bitácora o +log+ es una grabación secuencial en un archivo
+o en una base de datos de todos los acontecimientos (eventos o acciones)
+que afectan a un proceso particular
+(cambio de datos en una aplicación, actividad de una red,
+acceso a un sistema de información, entre otros).
+De esta forma constituye una evidencia
 del comportamiento del sistema ^<<r1,[1]>>^.
 
-Generalmente los acontecimientos vienen anotados 
-con el momento exacto o +data+ (fecha, hora, minuto, segundo) 
-en el que ocurrió, lo que permite analizar paso a paso 
-la actividad presentada permitiendo realizar 
-un seguimiento casí exacto de dicho acontecimiento. 
-Además, una o más categorizaciones del acontecimiento registrado. 
-Es frecuente usar categorías distintas 
-para distinguir la importancia del acontecimiento 
-estableciendo distintos niveles de registro 
+Generalmente los acontecimientos vienen anotados
+con el momento exacto o +data+ (fecha, hora, minuto, segundo)
+en el que ocurrió, lo que permite analizar paso a paso
+la actividad presentada permitiendo realizar
+un seguimiento casí exacto de dicho acontecimiento.
+Además, una o más categorizaciones del acontecimiento registrado.
+Es frecuente usar categorías distintas
+para distinguir la importancia del acontecimiento
+estableciendo distintos niveles de registro
 los cuales suelen ser: depuración, información, advertencia y error.
 
-El uso de bitácoras puede servir para: 
+El uso de bitácoras puede servir para:
 
 * Análisis forense.
 * Detección de intrusos.
-* Depuración de errores. 
-* Motorización. 
-* Cumplir con las leyes establecidas. 
+* Depuración de errores.
+* Motorización.
+* Cumplir con las leyes establecidas.
 * Auditoría.
 
-Por otro lado, los logs pueden contener información confidencial 
-que no debe ser revelada por privacidad e incluso seguridad del sistema. 
+Por otro lado, los logs pueden contener información confidencial
+que no debe ser revelada por privacidad e incluso seguridad del sistema.
 En estos casos es necesaria proteger la confidencialidad de la información
 haciendo uso de métodos de cifrado y demás.
 
-Por lo tanto, cuando esté generando bitácoras de una aplicación 
+Por lo tanto, cuando esté generando bitácoras de una aplicación
 es necesario tener en cuenta los siguientes lineamientos:
 
 . Deben proveer registro individual de todos los eventos.
@@ -63,19 +63,19 @@ es necesario tener en cuenta los siguientes lineamientos:
 
 . Deben ayudar a determinar acciones sospechosas sobre la aplicación.
 
-. Se debe poder reconstruir una secuencia de eventos 
-después de un incidente de seguridad, 
+. Se debe poder reconstruir una secuencia de eventos
+después de un incidente de seguridad,
 llevando a la identificación del culpable.
 
 . Deben ser útiles en un proceso legal para probar malas intenciones.
 
-. Deben ser difícilmente modificables, 
-además debe existir una copia confiable 
+. Deben ser difícilmente modificables,
+además debe existir una copia confiable
 centralizada de eventos de bitácora.
 
 == Referencias
 
 . [[r1]] link:https://es.wikipedia.org/wiki/Log_(inform%C3%A1tica)[Log (informática)]
 . [[r2]] link:http://www.manageengine.com.mx/Blog/8-habitos-efectivos-para-la-gestion-de-bitacoras-de-ti.html[8 Hábitos Efectivos para la Gestión de Bitácoras de TI]
-. [[r3]] REQ.0070: El sistema debe registrar todos los eventos excepcionales 
+. [[r3]] REQ.0070: El sistema debe registrar todos los eventos excepcionales
 y de seguridad en una o varias bitácoras.

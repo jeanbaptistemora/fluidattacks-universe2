@@ -11,7 +11,7 @@ public class Main {
       Matcher matcher = pattern.matcher(email);
       if (matcher.matches()) {
          System.out.println("Válido");
-	  } 
+	  }
       else {
        System.out.println("NO Válido");
      }

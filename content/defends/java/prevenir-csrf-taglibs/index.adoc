@@ -12,47 +12,47 @@ Prevenir ataques +CSRF+ usando +taglibs+ de +CSRFGuard+ en +Java EE+.
 
 == Contexto
 
-A continuación se describen las circunstancias 
+A continuación se describen las circunstancias
 bajo las cuales la siguiente solución tiene sentido:
 
 . Se está desarrollando una aplicación +Java EE+.
 . Se tiene instalado un contenedor de +servlets+.
 . Se desea utilizar la versión +v3+ de la herramienta +CSRFGuard+.
-. Se cuenta con la herramienta 
+. Se cuenta con la herramienta
 +CSRFGuard v3+ ^<<r1,[1]>>^ instalada y configurada
 . Se entiende el ataque +CSRF+.
 
 == Solución
 
-+Cross Site Request Forgery+ o por sus siglas +CSRF+, 
-es un ataque contra sitios web que fuerza a un usuario, 
-previamente registrado en la aplicación, 
-a ejecutar acciónes de forma no intencionada en la página. 
-Es decir, fuerza al navegador web de la víctima a enviar 
-una petición a una aplicación web vulnerable, entonces, 
-dicha aplicación se encarga de realizar 
-la acción elegida por el atacante a través de la víctima, 
-debido a que la actividad maliciosa 
++Cross Site Request Forgery+ o por sus siglas +CSRF+,
+es un ataque contra sitios web que fuerza a un usuario,
+previamente registrado en la aplicación,
+a ejecutar acciónes de forma no intencionada en la página.
+Es decir, fuerza al navegador web de la víctima a enviar
+una petición a una aplicación web vulnerable, entonces,
+dicha aplicación se encarga de realizar
+la acción elegida por el atacante a través de la víctima,
+debido a que la actividad maliciosa
 será procesada en nombre del usuario legitimo.
 
-Al contrario de los ataques +XSS+, 
-los cuales explotan la confianza del usuario 
-para con un sitio particular; 
-el +Cross Site Request Forgery+ 
-explota la confianza que un sitio web tiene 
+Al contrario de los ataques +XSS+,
+los cuales explotan la confianza del usuario
+para con un sitio particular;
+el +Cross Site Request Forgery+
+explota la confianza que un sitio web tiene
 en un usuario particular.
 
-Se describirá a continuación como emplear 
-la biblioteca +CSRFGuard+ ^<<r2,[2]>>^ 
-para proteger el recurso +accion.html+ 
-de peticiones no generadas desde formularios de la aplicación, 
+Se describirá a continuación como emplear
+la biblioteca +CSRFGuard+ ^<<r2,[2]>>^
+para proteger el recurso +accion.html+
+de peticiones no generadas desde formularios de la aplicación,
 los cuales se encuentran en +index.jsp+.
 
-. Primero, hay que definir aspectos generales de la página 
-como lo es el lenguaje, el tipo de contenido 
-y la forma de codificación. 
-Acto seguido, se incluye el +taglib+ de +CSRFGuard+, 
-usando como prefijo +csrf+ 
+. Primero, hay que definir aspectos generales de la página
+como lo es el lenguaje, el tipo de contenido
+y la forma de codificación.
+Acto seguido, se incluye el +taglib+ de +CSRFGuard+,
+usando como prefijo +csrf+
 para que pueda ser utilizado,
 de forma abreviada, en las líneas siguientes.
 +
@@ -65,7 +65,7 @@ de forma abreviada, en las líneas siguientes.
 <html>
 ----
 
-. En el primer formulario, se debe incluir un campo oculto 
+. En el primer formulario, se debe incluir un campo oculto
 cuyo nombre y valor serán generados dinámicamente por la biblioteca.
 +
 [source, html, linenums]
@@ -80,8 +80,8 @@ cuyo nombre y valor serán generados dinámicamente por la biblioteca.
 <br />
 ----
 
-. El segundo formulario se define usando el +taglib+ +csrf:form+, 
-el cual, automáticamente, se encarga de agregar 
+. El segundo formulario se define usando el +taglib+ +csrf:form+,
+el cual, automáticamente, se encarga de agregar
 un campo oculto análogo al del primer formulario.
 +
 [source, html, linenums]
@@ -94,8 +94,8 @@ un campo oculto análogo al del primer formulario.
 <br />
 ----
 
-. Ambos formularios intentarán hacer una petición +GET+ a +accion.html+ 
-enviando el campo oculto que permitirá 
+. Ambos formularios intentarán hacer una petición +GET+ a +accion.html+
+enviando el campo oculto que permitirá
 comprobar la validez de la solicitud.
 
 . Finalmente se cierran los +tags+ aún abiertos
@@ -106,7 +106,7 @@ comprobar la validez de la solicitud.
 </html>
 ----
 
-. Examinando el código fuente generado para los formularios, 
+. Examinando el código fuente generado para los formularios,
 se puede apreciar el valor de los campos ocultos.
 
 image::formulario.png[formulario]
@@ -115,5 +115,5 @@ image::formulario.png[formulario]
 
 . [[r1]] link:https://www.owasp.org/index.php/Cross-Site_Request_Forgery_(CSRF)[Cross-Site Request Forgery (CSRF)]
 . [[r2]] link:https://www.owasp.org/index.php/Category:OWASP_CSRFGuard_Project[CSRFGuard Project]
-. [[r3]] REQ.0169 La aplicación debe garantizar que las peticiones 
+. [[r3]] REQ.0169 La aplicación debe garantizar que las peticiones
 que ejecuten transacciones no sigan un patrón discernible.

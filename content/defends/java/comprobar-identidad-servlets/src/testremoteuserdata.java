@@ -23,7 +23,7 @@ public class TestRemoteUserData extends HttpServlet {
 	  try {
   		out.println("<h2>Antes de hacer login:</h2>");
   		out.println("IsUserInRole rol1: " + request.isUserInRole("rol1") + "<br>");
-  		out.println("getRemoteUser: " + request.getRemoteUser() + "<br>"); 
+  		out.println("getRemoteUser: " + request.getRemoteUser() + "<br>");
   		principal = request.getUserPrincipal();
   		if( principal != null )
     		remoteUser = principal.getName();

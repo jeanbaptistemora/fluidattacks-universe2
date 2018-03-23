@@ -11,7 +11,7 @@
 
 {% block header %}
   <!-- Page Header -->
-  <!-- Set your background image for this header on the line below. -->        
+  <!-- Set your background image for this header on the line below. -->
   {% include "navigationbar.html" %}
   {% if HEADER_COVER %}
     <header class="intro-header" style="background-image: url('{{ HEADER_COVER }}')">
@@ -20,7 +20,7 @@
   {% else %}
     <header class="intro-header"> <!--style="background-image: url('{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/fluid-{{ DEFAULT_LANG }}.png');" >-->
     <a href="{{ SITEURL }}/"><img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/fluid-{{ DEFAULT_LANG }}.png" alt="{{ gettext('Header-img-alt') }}"></a>
-  {% endif %}   
+  {% endif %}
     </header>
 {% endblock header %}
 
@@ -29,7 +29,7 @@
     {% for article in articles_page.object_list %}
       <div class="blog-post">
         <div class="post-preview">
-          {% if  article.featured_image %}            
+          {% if  article.featured_image %}
              <img src="{{ SITEURL }}/blog/{{ article.slug }}{{ article.featured_image }}" alt="{{ article.alt }}">
           {% endif %}
           <a href="{{ SITEURL }}/{{ article.url }}" rel="bookmark" title="Permalink to {{ article.title|striptags }}">

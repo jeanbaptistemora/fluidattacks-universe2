@@ -8,5 +8,5 @@
 
 == Nombre
 
-El sistema debe permitir a los usuarios autorizados 
+El sistema debe permitir a los usuarios autorizados
 consultar el historial de sesiones establecidas por él mismo.

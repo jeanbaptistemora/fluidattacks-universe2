@@ -8,7 +8,7 @@
 
 == Nombre
 
-Las derivaciones de clave (+Salt+), 
+Las derivaciones de clave (+Salt+),
 deben ser aleatorias y de mínimo 48 +bits+.
 
 

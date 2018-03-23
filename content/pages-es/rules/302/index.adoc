@@ -8,6 +8,6 @@
 
 == Nombre
 
-Las dependencias (software de terceros/librerías) 
-deben ser declaradas explícitamente (nombre y versión) 
+Las dependencias (software de terceros/librerías)
+deben ser declaradas explícitamente (nombre y versión)
 en un archivo dentro del código fuente.

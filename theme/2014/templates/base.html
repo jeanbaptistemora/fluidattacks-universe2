@@ -23,11 +23,11 @@
         <!-- MixPanel -->
           {% assets filters="uglifyjs", output="static/js/mixpanel.min.js", "js/mixpanel.js", "js/mixPanelDashboard.js" %}
             <script type="text/javascript" src="{{ SITEURL }}/{{ ASSET_URL }}"></script>
-          {% endassets %} 
+          {% endassets %}
         <!-- End MixPanel -->
         {% if GOOGLE_SITE_VERIFICATION %}
             <meta name="google-site-verification" content="{{ GOOGLE_SITE_VERIFICATION }}">
-        {% endif %}        
+        {% endif %}
 	<title>{% block title %}{% endblock title %}</title>
         {% block canonical %}{% endblock canonical %}
         {% block language %}{% endblock language %}
@@ -71,7 +71,7 @@
         <link href='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
         <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
 	<link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
-		
+
         <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
         <!--[if lt IE 9]>
@@ -107,7 +107,7 @@
     {% endif %}
 </head>
 
-<body>	
+<body>
         <!-- Mixpanel Event -->
           <script>
             mixPanelDashboard.trackPageView ("Page View", document.title, window.location.pathname);
@@ -116,16 +116,16 @@
         <!-- jQuery, Menu, Line Numbers in Source Code, Responsive Tables and Anchors -->
           {% assets filters="uglifyjs", output="static/js/theme.min.js", "/app/node_modules/jquery/dist/jquery.js", "/app/node_modules/iframe-resizer/js/iframeResizer.js", "js/menu.js", "js/linenum.js", "js/table-responsive.js", "js/id.js" %}
             <script type="text/javascript" src="{{ SITEURL }}/{{ ASSET_URL }}"></script>
-          {% endassets %} 
+          {% endassets %}
     	<!-- Navigation -->
-	
+
     {% block header %}{% endblock header %}
-	
+
     <!-- Main Content -->
     <div class="contbody">
         <div class="row">
-            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">              
-                {% block content %}{% endblock content %}	      
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                {% block content %}{% endblock content %}
             </div>
         </div>
     </div>

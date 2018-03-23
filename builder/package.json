@@ -5,7 +5,6 @@
     "jquery": "^3.3.1",
     "owl.carousel2": "^2.2.1",
     "popper.js": "^1.12.9",
-    "sass-lint": "^1.12.1",
     "uglify-js": "^3.3.8"
   }
 }

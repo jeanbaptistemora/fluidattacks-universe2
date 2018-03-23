@@ -12,18 +12,18 @@
 
 ^.^a|image:logo-choucair.png[logo choucair, width=50%, link=http://www.choucairtesting.com/]
 
-a|== Choucair 
+a|== Choucair
 
-Compañía colombiana pionera en software testing creada en 1999 con proyección internacional, 
-la cual ofrece servicios relacionados con pruebas de software para disminuir los riesgos de su 
-operación. El éxito de los servicios prestados por la organización se sustenta en la investigación 
-y el recurso humano calificado, apoyado en una metodología certificada y efectiva. 
+Compañía colombiana pionera en software testing creada en 1999 con proyección internacional,
+la cual ofrece servicios relacionados con pruebas de software para disminuir los riesgos de su
+operación. El éxito de los servicios prestados por la organización se sustenta en la investigación
+y el recurso humano calificado, apoyado en una metodología certificada y efectiva.
 
 a|== Evolution IT
 
-Empresa que promueve, implementa y fortalece la Gestión efectiva de la tecnología 
-de información como pilar de las empresas para mejorar su competitividad mediante servicios 
-de mejor calidad, que ayudan a incrementar su rentabilidad, empleando prácticas de clase 
+Empresa que promueve, implementa y fortalece la Gestión efectiva de la tecnología
+de información como pilar de las empresas para mejorar su competitividad mediante servicios
+de mejor calidad, que ayudan a incrementar su rentabilidad, empleando prácticas de clase
 mundial y estableciendo relaciones de confianza con los clientes, socios de negocio y colaboradores.
 
 ^.^a|image:logo-evolution.png[logo evolution, width=55%, link=http://www.evolution-it.com.co/]
@@ -32,20 +32,20 @@ mundial y estableciendo relaciones de confianza con los clientes, socios de nego
 
 a|== GreenSQA
 
-Empresa especializada en pruebas de software, 
-entre ellas se destacan las pruebas de desempeño, 
-pruebas en dispositivos móviles y la automatización de pruebas  
-a través de todo el ciclo de vida de desarrollo del producto, 
+Empresa especializada en pruebas de software,
+entre ellas se destacan las pruebas de desempeño,
+pruebas en dispositivos móviles y la automatización de pruebas
+a través de todo el ciclo de vida de desarrollo del producto,
 contando con 15 años de experiencia prestando sus servicios.
 
 a|== NewNet
 
-Empresa colombiana dedicada a prestar servicios y soluciones en +TI+, 
-pionera en el sector de tecnologías de infomación, 
-con más de 20 años de experiencia. 
-Su objetivo es planificar, establecer, implementar, 
-operar, revisar, mantener, y mejorar la gestión tecnológica 
-dentro de un marco de seguridad, servicio, atención y soporte 
+Empresa colombiana dedicada a prestar servicios y soluciones en +TI+,
+pionera en el sector de tecnologías de infomación,
+con más de 20 años de experiencia.
+Su objetivo es planificar, establecer, implementar,
+operar, revisar, mantener, y mejorar la gestión tecnológica
+dentro de un marco de seguridad, servicio, atención y soporte
 acorde a las necesidades de cada organización.
 
 ^.^a|image:logo-newnet.png[logo newnet, width=55%, link=http://www.newnetsa.com/]
@@ -54,20 +54,20 @@ acorde a las necesidades de cada organización.
 
 a|== Teraport
 
-Empresa alemana especializada en el desarrollo de software 
-y servicios en el campo del desarrollo de productos virtuales. 
-Expertos en los campos de la industria automotriz, aeroespacial y de fabricación, 
-ofreciendo soluciones específicas y productos estandarizados 
-en relación con el desarrollo, la simulación y la garantía de calidad, 
+Empresa alemana especializada en el desarrollo de software
+y servicios en el campo del desarrollo de productos virtuales.
+Expertos en los campos de la industria automotriz, aeroespacial y de fabricación,
+ofreciendo soluciones específicas y productos estandarizados
+en relación con el desarrollo, la simulación y la garantía de calidad,
 así como servicios y consultoría en ingeniería de desarrollo de productos.
 
 a|== The missing link
 
-Proveedor de soluciones australiano enfocado en tecnología de la información, 
-prestan servicios para infraestructuras, seguridad, 
-backup, recuperación de desastres, comunicaciones 
-y servicios en la nube. Reconocido como líder de la industria 
-y acreditado con los más altos niveles en el diseño, 
+Proveedor de soluciones australiano enfocado en tecnología de la información,
+prestan servicios para infraestructuras, seguridad,
+backup, recuperación de desastres, comunicaciones
+y servicios en la nube. Reconocido como líder de la industria
+y acreditado con los más altos niveles en el diseño,
 entrega y soporte de las últimas tecnologías.
 
 ^.^a|image:logo-tml.png[logo tml, width=55%, link=https://www.themissinglink.com.au/]

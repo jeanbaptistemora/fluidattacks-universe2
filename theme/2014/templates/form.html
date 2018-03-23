@@ -49,12 +49,12 @@
   {% else %}
     <header class="intro-header"> <!--style="background-image: url('{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/fluid-{{ DEFAULT_LANG }}.png');" >-->
     <a href="{{ SITEURL }}/"><img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/fluid-{{ DEFAULT_LANG }}.png" alt="{{ gettext('Header-img-alt') }}"></a>
-  {% endif %}   
+  {% endif %}
   </header>
 {% endblock header %}
 
-{% block content %}   
-  <div class="divpage">         
+{% block content %}
+  <div class="divpage">
     <article>
       <div class="nav-info">
         <div class="breadcrumbs">
@@ -81,5 +81,5 @@
       <iframe id="ifrmContact" onload="iFrameResize({log:false})" width="100%" src={{ page.form }} frameborder="0"></iframe>
       <br>
     </article>
-  </div>	
+  </div>
 {% endblock content %}

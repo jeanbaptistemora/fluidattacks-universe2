@@ -20,7 +20,7 @@ avances tecnológicos. O entre otras cosas, gracias al grado de madurez que han
 alcanzado los diferentes link:https://goo.gl/9ict5K[lenguajes de programación] con los
 que se desarrolla la web en la actualidad.
 
-Con el pasar de los días, salen al mercado nuevos lenguajes y 
+Con el pasar de los días, salen al mercado nuevos lenguajes y
 link:https://goo.gl/rjcdL3[frameworks], los cuales facilitan el trabajo a los
 desarrolladores. Sin embargo, así mismo, cada vez se descubren nuevas
 vulnerabilidades para estas tecnologías, las cuales son aprovechadas por

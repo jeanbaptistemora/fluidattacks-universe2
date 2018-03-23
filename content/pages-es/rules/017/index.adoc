@@ -8,7 +8,7 @@
 
 == Nombre
 
-La organización debe garantizar un medio seguro de transporte 
+La organización debe garantizar un medio seguro de transporte
 para la información física.
 
 == Soluciones

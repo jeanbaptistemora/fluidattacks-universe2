@@ -12,36 +12,36 @@ Autenticar servidor de red para clientes que no poseen un certificado digital.
 
 == Contexto
 
-A continuación se describen las circunstancias 
+A continuación se describen las circunstancias
 bajo las cuales la siguiente solución tiene sentido:
 
 . Se está desarrollando una aplicación en +Java+.
-. No es práctico o implementable la generación de certificados digitales 
+. No es práctico o implementable la generación de certificados digitales
 del lado del cliente.
 
 == Solución
 
-Los siguientes pasos describen la manera 
-en que un cliente se autentica ante un servidor: 
+Los siguientes pasos describen la manera
+en que un cliente se autentica ante un servidor:
 
 . Las conexiones +SSL+ soportan autenticación de una y dos vías.
 
-. En la autenticación de una vía, 
-el servidor presenta un certificado digital al cliente 
-para probar su identidad. 
+. En la autenticación de una vía,
+el servidor presenta un certificado digital al cliente
+para probar su identidad.
 El cliente realiza dos pasos para validar el certificado:
 * Verifica que el certificado digital fue firmado por una autoridad confiable.
-* Valida que el nombre de +host+ en el certificado 
+* Valida que el nombre de +host+ en el certificado
 coincide con el nombre del servidor
 
 . Si las validaciones son exitosas, se establece la conexión +SSL+.
 
-. Para poder soportar de manera adecuada 
-los requerimientos de la +PKI+ en las conexiones +SSL+, 
-es necesario contar con un sistema 
+. Para poder soportar de manera adecuada
+los requerimientos de la +PKI+ en las conexiones +SSL+,
+es necesario contar con un sistema
 de almacenamiento de material criptográfico.
 
-. La clase +Keystore+ permite administrar esta información. 
+. La clase +Keystore+ permite administrar esta información.
 Como tal, soporta:
 * Claves privadas.
 * Clave secreta (para criptografía simétrica).
@@ -58,13 +58,13 @@ KeyStore keystore = KeyStore.getInstance("JKS");
 keystore.load(new FileInputStream(KEYSTORE), null);
 ----
 
-. Primero se obtiene una instancia de contenedor de tipo +java keystore+, 
+. Primero se obtiene una instancia de contenedor de tipo +java keystore+,
 y se carga el archivo para administrar la información.
 
-. La fábrica abstracta de administradores de claves 
-requiere un tipo de algoritmo a usar. 
-En este caso usamos certificados +X.509+ 
-que son los apropiados para +SSL+. 
+. La fábrica abstracta de administradores de claves
+requiere un tipo de algoritmo a usar.
+En este caso usamos certificados +X.509+
+que son los apropiados para +SSL+.
 Además,inicializamos el administrador con el contenedor de llaves.
 +
 [source, java, linenums]
@@ -74,9 +74,9 @@ KeyManagerFactory kmf = KeyManagerFactory.getInstance("SunX509");
 kmf.init(keystore, null);
 ----
 
-. La fábrica abstracta de administradores de confianza 
-crea objetos que permiten validar 
-la identidad utilizando certificados confiables. 
+. La fábrica abstracta de administradores de confianza
+crea objetos que permiten validar
+la identidad utilizando certificados confiables.
 Su inicialización es similar a la de los administradores de claves.
 +
 [source, java, linenums]
@@ -86,7 +86,7 @@ TrustManagerFactory tmf = TrustManagerFactory.getInstance("SunX509");
 tmf.init(keystore);
 ----
 
-. El paso siguiente es crear una fábrica de fábricas de +sockets+ seguros, 
+. El paso siguiente es crear una fábrica de fábricas de +sockets+ seguros,
 para esto es necesario relacionar los administradores creados previamente.
 +
 [source, java, linenums]
@@ -95,9 +95,9 @@ para esto es necesario relacionar los administradores creados previamente.
 ServerSocketFactory ssf = sslc.getServerSocketFactory();
 ----
 
-. Con la fábrica de +sockets+ de servidores 
-se puede crear el servidor que va a atender las conexiones seguras. 
-Note que para configurar el comportamiento de una vía 
+. Con la fábrica de +sockets+ de servidores
+se puede crear el servidor que va a atender las conexiones seguras.
+Note que para configurar el comportamiento de una vía
 se establece que el cliente no requiere autenticación.
 +
 [source, java, linenums]
@@ -108,7 +108,7 @@ server.setNeedClientAuth(false);
 SSLSocket client = (SSLSocket) server.accept();
 ----
 
-. La clase +SSLServerSocket+ en realidad deriva de +Socket+, 
+. La clase +SSLServerSocket+ en realidad deriva de +Socket+,
 por lo que la comunicación puede hacerse como un +socket+ convencional.
 +
 [source, java, linenums]
@@ -123,13 +123,13 @@ client.close();
 server.close();
 ----
 
-. Es importante aclarar que el servidor y el cliente 
-difieren en la forma que usan el +socket+. 
+. Es importante aclarar que el servidor y el cliente
+difieren en la forma que usan el +socket+.
 Es decir, los clientes invocan objetos de tipo +SSLSocket+
 quién nos va a cifrar la conexión
 +
 [source, java, linenums]
----- 
+----
 SocketFactory sf = sslc.getSocketFactory();
 SSLSocket client = (SSLSocket) sf.createSocket(host, port);
 ----
@@ -154,47 +154,47 @@ public class Server {
     String KEYSTORE = "certs";
     char[] KEYSTOREPW = "storepass".toCharArray();
     char[] KEYPW = "keypass".toCharArray();
-	
+
     // ¿dónde tenemos las claves?
-	
+
     KeyStore keystore = KeyStore.getInstance("JKS");
     keystore.load(new FileInputStream(KEYSTORE), KEYSTOREPW);
-	
+
     // ¿quién nos las va a administrar?
-	
+
     KeyManagerFactory kmf = KeyManagerFactory.getInstance("SunX509");
     vkmf.init(keystore, KEYPW);
-	
+
     // ¿quién nos va a verificar las claves?
     // (no se requiere si no se realiza autenticacion de cliente)
-	
+
     TrustManagerFactory tmf = TrustManagerFactory.getInstance("SunX509");
     tmf.init(keystore);
-	
+
     // ¿cómo nos van a cifrar la conexión?
-	
+
     SSLContext sslc = SSLContext.getInstance("SSLv3");
     sslc.init(kmf.getKeyManagers(), tmf.getTrustManagers(), null);
-    
+
 	// ¿quién nos va a cifrar la conexión?
-    
+
     ServerSocketFactory ssf = sslc.getServerSocketFactory();
     SSLServerSocket server = (SSLServerSocket) ssf.createServerSocket(port);
     server.setNeedClientAuth(false);
-    
+
 	// recibir conexión
-    
+
     SSLSocket client = (SSLSocket) server.accept();
-    
+
 	// leer
-    
+
     BufferedOutputStream outputStream = new BufferedOutputStream(client.getOutputStream());
     outputStream.write("Este es el mensaje enviado".getBytes());
     outputStream.flush();
     System.out.println("Servidor: mensaje enviado.");
-    
+
 	// cerrar
-    
+
 	client.close();
     server.close();
   }
@@ -221,41 +221,41 @@ public class Client
    String host = "localhost";
    int port = 3333;
    String KEYSTORE = "cacerts";
- 
+
    // ¿dónde tenemos las claves?
- 
+
    KeyStore keystore = KeyStore.getInstance("JKS");
    keystore.load(new FileInputStream(KEYSTORE), null);
-   
+
    // ¿quién nos las va a administrar?
-   
+
    KeyManagerFactory kmf = KeyManagerFactory.getInstance("SunX509");
    kmf.init(keystore, null);
-   
+
    // ¿quién nos va a verificar las claves?
-   
+
    TrustManagerFactory tmf = TrustManagerFactory.getInstance("SunX509");
    tmf.init(keystore);
- 
+
    // ¿cómo nos van a cifrar la conexion?
-   
+
    SSLContext sslc = SSLContext.getInstance("SSLv3");
    sslc.init(kmf.getKeyManagers(), tmf.getTrustManagers(), null);
-   
+
    // ¿quién nos va a cifrar la conexion?
-  
+
    SocketFactory sf = sslc.getSocketFactory();
    SSLSocket client = (SSLSocket) sf.createSocket(host, port);
-   
+
    // leer
- 
+
    BufferedInputStream inputStream = new BufferedInputStream(client.getInputStream());
    byte[] message = new byte[64];
    inputStream.read(message);
    System.out.println("Cliente: mensaje: " + new String(message));
-   
+
    // cerrar
-   
+
    client.close();
   }
 }
@@ -263,13 +263,13 @@ public class Client
 
 == Descargas
 
-Puedes descargar el código fuente 
+Puedes descargar el código fuente
 pulsando en los siguientes enlaces:
 
-[button]#link:src/client.java[client.java]# 
+[button]#link:src/client.java[client.java]#
 Código de autenticación del lado cliente.
 
-[button]#link:src/server.java[server.java]# 
+[button]#link:src/server.java[server.java]#
 Código de autenticación del lado servidor.
 
 == Referencias
@@ -278,6 +278,6 @@ Código de autenticación del lado servidor.
 . [[r2]] link:https://docs.oracle.com/javase/6/docs/api/javax/net/ssl/KeyManagerFactory.html[Class KeyManagerFactory]
 . [[r3]] link:https://docs.oracle.com/javase/7/docs/api/javax/net/ServerSocketFactory.html[Class ServerSocketFactory]
 . [[r4]] link:http://www.java2s.com/Code/Java/Network-Protocol/SSL-Server-Socket.htm[SSL Server Socket]
-. [[r5]] REQ.0082: Un sistema con información crítica para el negocio 
-debe requerir certificados digitales de cliente 
+. [[r5]] REQ.0082: Un sistema con información crítica para el negocio
+debe requerir certificados digitales de cliente
 en el proceso de autenticación.

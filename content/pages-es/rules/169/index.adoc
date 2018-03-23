@@ -8,6 +8,6 @@
 
 == Nombre
 
-Debe usarse construcciones parametrizadas 
-o procedimientos almacenados parametrizados 
+Debe usarse construcciones parametrizadas
+o procedimientos almacenados parametrizados
 para la creación dinámica de sentencias (ejemplo: +java.sql.PreparedStatement+)

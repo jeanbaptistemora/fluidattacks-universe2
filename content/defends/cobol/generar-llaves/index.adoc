@@ -8,32 +8,32 @@
 
 == Necesidad
 
-Usar la función criptográfica más segura del lenguaje 
+Usar la función criptográfica más segura del lenguaje
 para la generación de llaves aleatorias en +COBOL+.
 
 == Contexto
 
-A continuación se describe las circunstancias 
+A continuación se describe las circunstancias
 bajo las cuales la siguiente solución tiene sentido:
 
 . Se está desarrollando una aplicación en +COBOL+.
 
-. Debe usarse el mecanismo criptográfico más seguro 
-ofrecido por la plataforma de desarrollo 
-para la generación de números aleatorios, 
-de los cuales se deriven riesgos de seguridad en caso de predecirse el número 
-(ej: Generación de +ID+, mapeo de códigos, llaves), 
+. Debe usarse el mecanismo criptográfico más seguro
+ofrecido por la plataforma de desarrollo
+para la generación de números aleatorios,
+de los cuales se deriven riesgos de seguridad en caso de predecirse el número
+(ej: Generación de +ID+, mapeo de códigos, llaves),
 evaluando previamente un posible impacto en la disponibilidad<<r1,^[1]^>>.
 
 == Solución
 
-. La generación de números pseudoaleatorios 
-es realizada aplicando los conceptos del apéndice 3 de +FIPS 186-1+. 
-El servidor automáticamente genera la semilla 
-usando datos recolectados de la información del sistema 
+. La generación de números pseudoaleatorios
+es realizada aplicando los conceptos del apéndice 3 de +FIPS 186-1+.
+El servidor automáticamente genera la semilla
+usando datos recolectados de la información del sistema
 o usando un coprocesador criptográfico como el +4764+ si está disponible.
 
-. El procedimiento +Qc3GenPRNs+ tiene como propósito 
+. El procedimiento +Qc3GenPRNs+ tiene como propósito
 la generación de números pseudoaleatorios criptográficamente seguros.
 
 . Comenzamos la solución definiendo la división +IDENTIFICATION DIVISION+<<r2,^[2]^>>:
@@ -49,11 +49,11 @@ la generación de números pseudoaleatorios criptográficamente seguros.
        PROGRAM-ID. COBOLRNDS.
 ----
 +
-En esta división mediante la sentencia +PROGRAM-ID+, 
+En esta división mediante la sentencia +PROGRAM-ID+,
 se denomina al programa como +COBOLRNDS+.
 
-. En la división +ENVIRONMENT DIVISION+<<r3,^[3]^>> 
-y dentro de la sección +CONFIGURATION SECTION+, 
+. En la división +ENVIRONMENT DIVISION+<<r3,^[3]^>>
+y dentro de la sección +CONFIGURATION SECTION+,
 enlazamos el procedimiento externo +Qc3GenPRNs+:
 +
 [source,cobol,linenums]
@@ -68,8 +68,8 @@ enlazamos el procedimiento externo +Qc3GenPRNs+:
          SPECIAL-NAMES.
          LINKAGE TYPE PROCEDURE FOR "Qc3GenPRNs".
 ----
-. En la división +DATA DIVISION+<<r4,^[4]^>> 
-se copia las estructuras contenidas en +QC3CCI+ (Manejo criptográfico) 
+. En la división +DATA DIVISION+<<r4,^[4]^>>
+se copia las estructuras contenidas en +QC3CCI+ (Manejo criptográfico)
 y +QUSEC+ (Manejo de errores):
 +
 [source,cobol,linenums]
@@ -83,7 +83,7 @@ y +QUSEC+ (Manejo de errores):
        COPY QC3CCI OF QSYSINC-QCBLLESRC.
        COPY QUSEC OF QSYSINC-QCBLLESRC.
 ----
-. Se declara la variable +WS-RAND-BYTES+, 
+. Se declara la variable +WS-RAND-BYTES+,
 la cual va a almacenar la llave generada aleatoriamente:
 +
 [source,cobol,linenums]
@@ -100,20 +100,20 @@ la cual va a almacenar la llave generada aleatoriamente:
        PROCEDURE DIVISION.
        MAIN.
 ----
-. Se hace un llamado al procedimiento +Qc3GenPRNs+. 
+. Se hace un llamado al procedimiento +Qc3GenPRNs+.
 Los argumentos que espera el procedimiento<<r5,^[5]^>> son:
 
 * +Data:+ La variable donde se va a almacenar el flujo de datos aleatorios.
 
 * +Longitud de datos:+ La longitud de la variable portadora.
 
-* +Tipo:+ Indica el tipo de flujo. 
-0 para la generación de números pseudoaleatorios reales, 
+* +Tipo:+ Indica el tipo de flujo.
+0 para la generación de números pseudoaleatorios reales,
 1 para la generación de números pseudoaleatorios de prueba.
 
-* +Paridad:+ Indica la paridad en cada byte del flujo. 
-0 para no establecer paridad, 
-1 para establecer paridad par y 
+* +Paridad:+ Indica la paridad en cada byte del flujo.
+0 para no establecer paridad,
+1 para establecer paridad par y
 2 para establecer paridad impar.
 
 * +Error:+ Estructura donde se almacena el error en caso de excepción.
@@ -129,7 +129,7 @@ Los argumentos que espera el procedimiento<<r5,^[5]^>> son:
            BY REFERENCE QUS-EC.
 ----
 
-. Se despliega en pantalla el flujo aleatorio 
+. Se despliega en pantalla el flujo aleatorio
 y se detiene la ejecución del programa:
 +
 [source,cobol,linenums]
@@ -138,7 +138,7 @@ y se detiene la ejecución del programa:
 
        STOP RUN.
 ----
-. Algunas de las llaves generadas al ejecutar el programa 
+. Algunas de las llaves generadas al ejecutar el programa
 pueden ser observadas a continuación:
 +
 [source,bat,linenums]
@@ -153,11 +153,11 @@ Random: F`IG9q£þ#    £ #¯¥6 VæU V¼½m8 OÙ
 
 == Descargas
 
-Puedes descargar el código fuente 
+Puedes descargar el código fuente
 pulsando en el siguiente enlace:
 
-. [button]#link:src/cobolrnds.cbl[cobolrnds.cbl]# contiene 
-todas las instrucciones +COBOL+ 
+. [button]#link:src/cobolrnds.cbl[cobolrnds.cbl]# contiene
+todas las instrucciones +COBOL+
 que generan las llaves como se explicó anteriormente.
 
 == Referencias

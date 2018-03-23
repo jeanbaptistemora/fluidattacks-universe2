@@ -8,8 +8,8 @@
 
 == Nombre
 
-Las funciones, métodos o clases 
-deben ser invocadas en algún escenario funcional del sistema. 
+Las funciones, métodos o clases
+deben ser invocadas en algún escenario funcional del sistema.
 
 == Soluciones
 

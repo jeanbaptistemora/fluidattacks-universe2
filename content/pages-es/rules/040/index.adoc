@@ -8,8 +8,8 @@
 
 == Nombre
 
-Los archivos generados de forma dinámica por el sistema 
-deben tener definido un Character-Set explícito. 
+Los archivos generados de forma dinámica por el sistema
+deben tener definido un Character-Set explícito.
 
 == Soluciones
 

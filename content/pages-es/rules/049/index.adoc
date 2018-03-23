@@ -8,5 +8,5 @@
 
 == Nombre
 
-En el código fuente, 
+En el código fuente,
 los componentes deben utilizar interfaces en vez de implementaciones.

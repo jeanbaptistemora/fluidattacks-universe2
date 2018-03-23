@@ -8,50 +8,50 @@
 
 == Nombre
 
-La aplicación debe eliminar/sobrescribir variables 
+La aplicación debe eliminar/sobrescribir variables
 una vez no estén en uso.
 
 == Descripción
 
-El presente criterio de seguridad 
-trata sobre la protección inadecuada de datos sensibles 
-asociados a variables u objetos creados 
-y almacenados en memoria durante la ejecución de un programa, 
-los cuales, pueden conducir a vulnerabilidades 
-que podrían afectar tanto la confidencialidad, la disponibilidad 
-e integridad de la información 
-durante todo su ciclo de vida.<<r1,^[1]^>> 
-Esta fuga de información confidencial es más probable, 
-si la memoria que contiene los datos 
-referenciados por las variables/objetos no es borrada 
+El presente criterio de seguridad
+trata sobre la protección inadecuada de datos sensibles
+asociados a variables u objetos creados
+y almacenados en memoria durante la ejecución de un programa,
+los cuales, pueden conducir a vulnerabilidades
+que podrían afectar tanto la confidencialidad, la disponibilidad
+e integridad de la información
+durante todo su ciclo de vida.<<r1,^[1]^>>
+Esta fuga de información confidencial es más probable,
+si la memoria que contiene los datos
+referenciados por las variables/objetos no es borrada
 después de usar dicha información.
 
 == Implementación
 
-Por lo anterior, para el presente criterio de seguridad, 
+Por lo anterior, para el presente criterio de seguridad,
 se recomienda seguir las siguientes pautas:<<r2,^[2]^>>
 
-. Si existen datos en el búfer de memoria 
-asociados a una o a un conjunto de variables u objetos, 
+. Si existen datos en el búfer de memoria
+asociados a una o a un conjunto de variables u objetos,
 estos deben ser sobrescritos antes de ser destruidos.
 
-. En general, todo contenido referenciado por variables u objetos 
-que sean utilizados y almacenados en memoria por la aplicación, 
-deben ser destruidos o sobrescritos 
+. En general, todo contenido referenciado por variables u objetos
+que sean utilizados y almacenados en memoria por la aplicación,
+deben ser destruidos o sobrescritos
 sin esperar a que el recolector de basura los elimine.
 
-De acuerdo a lo anterior, para limitar el riesgo 
-de exposición de información confidencial, 
-los programas deben minimizar la vida útil 
-de cualquier tipo de variable declarada 
+De acuerdo a lo anterior, para limitar el riesgo
+de exposición de información confidencial,
+los programas deben minimizar la vida útil
+de cualquier tipo de variable declarada
 cuyo contenido sea información sensible en memoria.
 
 == Soluciones
 
-La presente sección contiene enlaces a artículos 
-cuyo contenido es propiedad de +FLUID+. 
-El objetivo es dar a conocer al público 
-la implementación del actual requerimiento de seguridad 
+La presente sección contiene enlaces a artículos
+cuyo contenido es propiedad de +FLUID+.
+El objetivo es dar a conocer al público
+la implementación del actual requerimiento de seguridad
 para diferentes plataformas o lenguajes de programación:
 
 . *+ASPNET+* link:../../defends/aspnet/evitar-codigo-muerto/[Evitar código muerto].
@@ -59,17 +59,17 @@ para diferentes plataformas o lenguajes de programación:
 
 == Casos de abuso
 
-A continuación se describen dos casos de abuso, 
+A continuación se describen dos casos de abuso,
 los cuales, son aplicables para el presente criterio de seguridad:
 
-. Un atacante que logre entrar 
-y pueda ejecutar código malicioso en el mismo sistema, 
-podría acceder a información confidencial 
+. Un atacante que logre entrar
+y pueda ejecutar código malicioso en el mismo sistema,
+podría acceder a información confidencial
 si esta se encuentra disponible en memoria.
 
-. Cuando se produce un volcado de memoria (+core dump+),^<<r3,[3]>>,<<r4,[4]>>^ 
-se generan archivos que podrían contener información confidencial 
-como contraseñas, si estos se encontraban en memoria 
+. Cuando se produce un volcado de memoria (+core dump+),^<<r3,[3]>>,<<r4,[4]>>^
+se generan archivos que podrían contener información confidencial
+como contraseñas, si estos se encontraban en memoria
 al momento de producirse el fallo.
 
 == Referencias

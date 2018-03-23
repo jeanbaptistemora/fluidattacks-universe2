@@ -1,7 +1,7 @@
 :slug: defends/java/evitar-ataque-inyeccion-xpath/
 :category: java
 :description: Nuestros ethical hackers explican cómo evitar vulnerabilidades de seguridad mediante la programación segura en Java al evitar ataques inyección XPATH. Los ataques XPATH se aprovechan de los intérpretes para inyectar consultas maliciosas en las entradas de una aplicación.
-:keywords: Java, Seguridad, Inyección, XPATH, Buenas Prácticas, XML. 
+:keywords: Java, Seguridad, Inyección, XPATH, Buenas Prácticas, XML.
 :defends: yes
 
 =  Evitar Ataques de XPATH Injection
@@ -12,44 +12,44 @@ Evitar ataques de +XPATH Injection+
 
 == Contexto
 
-A continuación se describen las circunstancias 
+A continuación se describen las circunstancias
 bajo las cuales la siguiente solución tiene sentido:
 
 . Se está desarrollando una aplicación con +Java+.
-. Se está desarrollando una aplicación que utiliza 
+. Se está desarrollando una aplicación que utiliza
 el +API+ de interpretación de +XML+ +XPATH+.
 
 == Solución
 
-De manera similar a las +SQL Injection+, 
-los ataques de +XPATH Injection+ se producen 
-cuando un sitio web utiliza la información suministrada por el usuario 
-para construir una consulta +XPATH+ para datos +XML+. 
-Mediante el envío de sentencias intencionalmente mal formadas, 
-un atacante puede descubrir cómo se estructuran los datos +XML+, 
-incluso acceder a todos sus datos. 
-El atacante incluso puede ser capaz de elevar sus privilegios 
-en el sitio web si los datos +XML+ se utilizan para la autenticación. 
+De manera similar a las +SQL Injection+,
+los ataques de +XPATH Injection+ se producen
+cuando un sitio web utiliza la información suministrada por el usuario
+para construir una consulta +XPATH+ para datos +XML+.
+Mediante el envío de sentencias intencionalmente mal formadas,
+un atacante puede descubrir cómo se estructuran los datos +XML+,
+incluso acceder a todos sus datos.
+El atacante incluso puede ser capaz de elevar sus privilegios
+en el sitio web si los datos +XML+ se utilizan para la autenticación.
 
-Las consultas +XML+ se realizan con +XPATH+, 
-un tipo de declaración descriptiva simple 
-que permite la consulta +XML+ para localizar información. 
-Al igual que +SQL+, puede especificar ciertos atributos 
-para encontrar y mostrar patrones para que coincidan. 
-Cuando se hace uso de +XML+ en un sitio web 
-es común aceptar algún tipo de entrada 
-en la cadena de consulta para identificar 
-el contenido a localizar y mostrar en la página. 
+Las consultas +XML+ se realizan con +XPATH+,
+un tipo de declaración descriptiva simple
+que permite la consulta +XML+ para localizar información.
+Al igual que +SQL+, puede especificar ciertos atributos
+para encontrar y mostrar patrones para que coincidan.
+Cuando se hace uso de +XML+ en un sitio web
+es común aceptar algún tipo de entrada
+en la cadena de consulta para identificar
+el contenido a localizar y mostrar en la página.
 
-Por último, hay que saber que +XPATH+ es un lenguaje estándar, 
-y su notación y/o sintaxis es siempre independiente de la implementación, 
-lo que significa que el ataque puede ser automatizado. 
-No hay dialectos diferentes, 
-ya que se lleva a cabo en las solicitudes de las bases de datos +SQL+. 
-Debido a que no existe un control de acceso de nivel, 
-es posible obtener el documento completo. ^<<r1,[1]>>^ 
+Por último, hay que saber que +XPATH+ es un lenguaje estándar,
+y su notación y/o sintaxis es siempre independiente de la implementación,
+lo que significa que el ataque puede ser automatizado.
+No hay dialectos diferentes,
+ya que se lleva a cabo en las solicitudes de las bases de datos +SQL+.
+Debido a que no existe un control de acceso de nivel,
+es posible obtener el documento completo. ^<<r1,[1]>>^
 
-En esa solución se pretende mostrar un ataque +XPATH+ 
+En esa solución se pretende mostrar un ataque +XPATH+
 y como evitarlo en una aplicación desarrollada en +java+.
 
 . Primero considere el siguiente archivo +XML+.
@@ -85,7 +85,7 @@ y como evitarlo en una aplicación desarrollada en +java+.
     </user>
  </users>
 ----
- 
+
 . Ahora bien, es posible fabricar la siguiente consulta de +XPATH+.
 +
 [source, shell, linenums]
@@ -93,8 +93,8 @@ y como evitarlo en una aplicación desarrollada en +java+.
 /users/user[loginID/text()='abc' and password/text()='test123']
 ----
 
-. Si un atacante pudiera controlar las entradas de la consulta, 
-de manera similar a los ataques de +SQL Injection+, 
+. Si un atacante pudiera controlar las entradas de la consulta,
+de manera similar a los ataques de +SQL Injection+,
 podría fabricar una consulta de este tipo.
 +
 [source, shell, linenums]
@@ -102,9 +102,9 @@ podría fabricar una consulta de este tipo.
 /users/user[LoginID/text()='' or '1'='1' and password/text()='' or '1'='1']
 ----
 
-. En el siguiente código, 
-si un atacante puede manipular la entrada a +doLogin+, 
-es posible realizar tautologías que permitan evadir 
+. En el siguiente código,
+si un atacante puede manipular la entrada a +doLogin+,
+es posible realizar tautologías que permitan evadir
 el mecanismo de autenticación.
 +
 [source, java, linenums]
@@ -133,12 +133,12 @@ private boolean doLogin(String loginID, String password)
     }
 ----
 
-. Para prevenir estos ataques, 
-se procede del mismo modo que con los ataques de +SQL Injection+. 
-Es decir, realizando validación de las entradas, 
-sistemas de prevención como +WAF+, 
-inspección de datos en las diferentes capas. 
-Por ejemplo, en el servidor Web +Apache+ se puede usar 
+. Para prevenir estos ataques,
+se procede del mismo modo que con los ataques de +SQL Injection+.
+Es decir, realizando validación de las entradas,
+sistemas de prevención como +WAF+,
+inspección de datos en las diferentes capas.
+Por ejemplo, en el servidor Web +Apache+ se puede usar
 el +Mod_Security SecFilterSelective THE_REQUEST "(\'|\")")+.
 Ademas, es importante usar parametrización en las consultas.
 +
@@ -148,13 +148,13 @@ declare variable $loginID as xs:string external;
 declare variable $password as xs:string external;
 //users/user[@loginID=$loginID and @password=$password]
 ----
- 
-. Para utilizar consultas parametrizadas se requiere emplear +XQuery+, 
-que es un super conjunto de +XPATH+. 
-XQuery básicamente permite utilizar archivos +XML+ 
-como si fuesen bases de datos. 
-Java no soporta de modo nativo +XQuery+, 
-pero existen parseadores gratuitos 
+
+. Para utilizar consultas parametrizadas se requiere emplear +XQuery+,
+que es un super conjunto de +XPATH+.
+XQuery básicamente permite utilizar archivos +XML+
+como si fuesen bases de datos.
+Java no soporta de modo nativo +XQuery+,
+pero existen parseadores gratuitos
 como el referenciado en ^<<r3,[3]>>^.
 
 . El código completo usando +AWT+ sería:
@@ -175,7 +175,7 @@ public class XpathInjectionExample {
     self= new XpathInjectionExample();
     self.printForm();
   }
-  
+
   public static void doLogin() {
     boolean auth = false;
     try {
@@ -189,12 +189,12 @@ public class XpathInjectionExample {
     } catch (XPathExpressionException e1) {
         System.out.println("XPathExpressionException");
     }
-    if (auth) 
+    if (auth)
 		self.lbl2.setText("Autenticacion exitosa");
-    else 
+    else
 		self.lbl2.setText("Usuario y/o Contrasena invalida");
   }
-  
+
   private boolean doLogin(String loginID, String password)
      throws ParserConfigurationException,
        SAXException, IOException, XPathExpressionException
@@ -218,7 +218,7 @@ public class XpathInjectionExample {
        else
          {return false;}
   }
-  
+
   private void printForm() {
     al = new myActionListener();
     frm=new Frame("Autenticacion");
@@ -252,7 +252,7 @@ public class XpathInjectionExample {
     p1.add(lbl2);
     frm.add(p1,BorderLayout.NORTH);
   }
-  
+
   // miembros del GUI
   private Frame frm;
   private Label lbl;
@@ -283,6 +283,6 @@ class myActionListener implements ActionListener {
 . [[r1]] link:https://es.wikipedia.org/wiki/Inyecci%C3%B3n_XPath[XPATH Injection]
 . [[r2]] link:https://www.owasp.org/index.php/XPATH_Injection[XPath injection]
 . [[r3]] link:https://sourceforge.net/projects/saxon/files/latest/download?source=files[Saxon Home Edition (HE) (open source)]
-. [[r4]] REQ.0168: El sistema debe descartar 
-toda la información potencialmente insegura 
+. [[r4]] REQ.0168: El sistema debe descartar
+toda la información potencialmente insegura
 que sea recibida por entradas de datos.

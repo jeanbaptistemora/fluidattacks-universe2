@@ -1,14 +1,14 @@
 :slug: rules/022/
 :category: rules
 :description: En el presente documento se detallan los requerimientos de seguridad relacionados a los activos de información de la empresa. En este requerimiento de seguridad se define la importancia de permitir las auditorías de cliente en el alcance relacionado.
-:keywords: Requerimiento, Seguridad, Acuerdos, Servicio, Auditorías, Cliente. 
+:keywords: Requerimiento, Seguridad, Acuerdos, Servicio, Auditorías, Cliente.
 :rules: yes
 
 = REQ.022 Permitir auditorías de cliente
 
 == Nombre
 
-Proveedores de la organización deben permitir auditorías 
+Proveedores de la organización deben permitir auditorías
 de cliente en el alcance relacionado.
 
 == Soluciones

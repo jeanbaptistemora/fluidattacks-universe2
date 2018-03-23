@@ -8,12 +8,12 @@
 
 == Necesidad
 
-Declarar variables locales o parámetros de funciones 
+Declarar variables locales o parámetros de funciones
 como constantes en +Java+.
 
 == Contexto
 
-A continuación se describen las circunstancias 
+A continuación se describen las circunstancias
 bajo las cuales la siguiente solución tiene sentido:
 
 . La aplicación está desarrollada en +Java+.
@@ -22,42 +22,42 @@ bajo las cuales la siguiente solución tiene sentido:
 
 == Solución
 
-El análisis estático de software 
-es un análisis que se realiza sin ejecutar el programa como tal, 
-es decir, el análisis se realiza de manera automática 
+El análisis estático de software
+es un análisis que se realiza sin ejecutar el programa como tal,
+es decir, el análisis se realiza de manera automática
 sobre fragmentos del código fuente y no sobre todo el código como tal.
 
-Algunos compiladores, durante la realización del análisis estático, 
-pueden inferir o determinar cuales variables, en realidad, 
-son constantes (no cambian) a lo largo de la ejecución de todo el programa, 
-y por ende tratarlas como tal ^<<r1,[1]>>, <<r2,[2]>>^. 
-Lo anterior lo hace codificando el valor de la constante 
-dentro de la instrucción del ensamblador 
-como un valor inmediato, es decir, 
+Algunos compiladores, durante la realización del análisis estático,
+pueden inferir o determinar cuales variables, en realidad,
+son constantes (no cambian) a lo largo de la ejecución de todo el programa,
+y por ende tratarlas como tal ^<<r1,[1]>>, <<r2,[2]>>^.
+Lo anterior lo hace codificando el valor de la constante
+dentro de la instrucción del ensamblador
+como un valor inmediato, es decir,
 dentro de la instrucción.
 
-. Esta optimización tiene las siguientes ventajas: 
-* Disminución del número de instrucciones del programa. 
-Dado que no se requiere ejecutar operaciones de carga 
+. Esta optimización tiene las siguientes ventajas:
+* Disminución del número de instrucciones del programa.
+Dado que no se requiere ejecutar operaciones de carga
 y almacenamiento de la memoria a los registros.
-* Disminución del número de memoria ocupado. 
+* Disminución del número de memoria ocupado.
 Dado que no se requiere separar memoria para variables.
 
-. Teniendo en consideración la necesidad 
-y el contexto de la presente solución, 
-es recomendable definir las variables locales 
-y los parámetros de una función 
+. Teniendo en consideración la necesidad
+y el contexto de la presente solución,
+es recomendable definir las variables locales
+y los parámetros de una función
 o métodos como constantes.
-Es decir, una vez inicializadas no pueden cambiar su valor. 
-De esta forma el compilador puede realizar optimizaciones 
-durante la generación del código que mejoran 
+Es decir, una vez inicializadas no pueden cambiar su valor.
+De esta forma el compilador puede realizar optimizaciones
+durante la generación del código que mejoran
 el rendimiento de la aplicación.
 
-. Adicionalmente, desde el punto de vista de la calidad del código, 
-también se considera una excelente practica no reutilizar parámetros 
+. Adicionalmente, desde el punto de vista de la calidad del código,
+también se considera una excelente practica no reutilizar parámetros
 durante el cuerpo de una función.
 
-. Los parámetros y variables locales de un método 
+. Los parámetros y variables locales de un método
 pueden definirse de la siguiente manera.
 +
 .Main.java
@@ -77,10 +77,10 @@ class Main {
 }
 ----
 
-. Note como en el método imprimir se usó el modificador final 
+. Note como en el método imprimir se usó el modificador final
 para el parámetro mensaje y para la variable local limite.
 
-. Compilando y ejecutando el programa, 
+. Compilando y ejecutando el programa,
 vemos que no se modifica el funcionamiento.
 +
 [source, shell, linenums]
@@ -96,10 +96,10 @@ vemos que no se modifica el funcionamiento.
 
 == Descargas
 
-Puedes descargar el código fuente 
+Puedes descargar el código fuente
 pulsando en el siguiente enlace:
 
-[button]#link:src/main.java[Main.java]# 
+[button]#link:src/main.java[Main.java]#
 Clase Main, define los parámetros y variables locales.
 
 == Referencias

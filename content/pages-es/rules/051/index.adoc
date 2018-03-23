@@ -4,7 +4,7 @@
 :keywords: Almacenar, Código fuente, Sistema, Repositorio, Requerimiento, Seguridad.
 :rules: yes
 
-= REQ.051 Almacenar código fuente en repositorio 
+= REQ.051 Almacenar código fuente en repositorio
 
 == Nombre
 

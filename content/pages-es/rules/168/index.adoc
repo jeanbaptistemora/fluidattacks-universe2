@@ -8,8 +8,8 @@
 
 == Nombre
 
-Las variables del código fuente 
-deben estar inicializadas de forma explícita. 
+Las variables del código fuente
+deben estar inicializadas de forma explícita.
 
 == Soluciones
 

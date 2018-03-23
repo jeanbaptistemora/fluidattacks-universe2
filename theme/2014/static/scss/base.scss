@@ -1,4 +1,4 @@
-//sass-lint:disable max-file-line-count
+//scss-lint:disable max-file-line-count
 $aqua: rgba(0, 255, 255, 1);
 $black: rgba(0, 0, 0, 1);
 $blue: rgba(0, 0, 255, 1);
@@ -618,17 +618,17 @@ article {
 
   tr {
     &:nth-child(even) {
-      td {
-        background: $lightgray;
-        border-color: $lightergray;
-      }
+      background-color: $lightgray;
     }
 
     &:nth-child(odd) {
-      td {
-        background: $lightergray;
-      }
+      background-color: $lightergray;
     }
+  }
+
+  td {
+    background-color: unset;
+    border-color: $white;
   }
 }
 
@@ -685,13 +685,13 @@ article {
   }
 }
 
-//sass-lint:disable no-universal-selectors
+//scss-lint:disable no-universal-selectors
 *,
 *::before,
 *::after {
   box-sizing: border-box;
 }
-//sass-lint:enable no-universal-selectors
+//scss-lint:enable no-universal-selectors
 
 @media (min-width: 770px) {
   h1 {

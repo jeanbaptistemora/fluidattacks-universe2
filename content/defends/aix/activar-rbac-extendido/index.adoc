@@ -12,7 +12,7 @@ Activar +RBAC+ extendido en +AIX+.
 
 == Contexto
 
-A continuación se describen las circunstancias 
+A continuación se describen las circunstancias
 bajo las cuales la siguiente solución tiene sentido:
 
 . Se dispone de un sistema operativo +AIX+ versión 6.1 o superior.
@@ -21,65 +21,65 @@ bajo las cuales la siguiente solución tiene sentido:
 
 == Solución
 
-El modo +RBAC (Role Based Access Control)+ extendido de +AIX+ 
-permite establecer un control de acceso granular, 
-con el fin de otorgar privilegios administrativos 
-sobre funciones especificas del sistema operativo. 
-Lo anterior sin requerir otorgar la contraseña de +root+ 
-o establecer permisos +SUID+. 
-Donde un permiso o privilegio 
-es un mecanismo utilizado 
+El modo +RBAC (Role Based Access Control)+ extendido de +AIX+
+permite establecer un control de acceso granular,
+con el fin de otorgar privilegios administrativos
+sobre funciones especificas del sistema operativo.
+Lo anterior sin requerir otorgar la contraseña de +root+
+o establecer permisos +SUID+.
+Donde un permiso o privilegio
+es un mecanismo utilizado
 para otorgar una funcionalidad extra en las llamadas al sistema.
 
-Es importante resaltar la diferencia entre privilegios y autorizaciones. 
-Ambos se utilizan para controlar 
-ciertas excepciones permitidas en la política de seguridad dentro del sistema. 
-La diferencia entre estos radica en que, 
-los privilegios se asocian con procesos específicos, 
-mientras que los segundos 
-se asocian con los usuarios a través de roles. 
-Las autorizaciones residen con un rol 
-y el usuario que tiene el rol, 
-además no dependen del programa que se está ejecutando. 
-Por su parte, los privilegios residen en el programa 
-y proporcionan el mecanismo 
+Es importante resaltar la diferencia entre privilegios y autorizaciones.
+Ambos se utilizan para controlar
+ciertas excepciones permitidas en la política de seguridad dentro del sistema.
+La diferencia entre estos radica en que,
+los privilegios se asocian con procesos específicos,
+mientras que los segundos
+se asocian con los usuarios a través de roles.
+Las autorizaciones residen con un rol
+y el usuario que tiene el rol,
+además no dependen del programa que se está ejecutando.
+Por su parte, los privilegios residen en el programa
+y proporcionan el mecanismo
 para ajustar la política de seguridad del sistema.
 
-Dentro del núcleo (+kernel+) de +AIX+<<r1,^[1]^>>, 
-los privilegios se definen 
-como +bits+ individuales de una máscara de +bits+ 
-que controlan el acceso a las operaciones con privilegios. 
-El +kernel+ determina si el proceso 
-tiene el +bit+ de privilegios asociado requerido, 
-para luego conceder o denegar la solicitud. 
+Dentro del núcleo (+kernel+) de +AIX+<<r1,^[1]^>>,
+los privilegios se definen
+como +bits+ individuales de una máscara de +bits+
+que controlan el acceso a las operaciones con privilegios.
+El +kernel+ determina si el proceso
+tiene el +bit+ de privilegios asociado requerido,
+para luego conceder o denegar la solicitud.
 
-Los privilegios son asignados a invocaciones de comandos 
-a través de la base de datos de comandos con privilegios 
-y dichos privilegios son utilizados 
-para el control de acceso a dispositivos 
+Los privilegios son asignados a invocaciones de comandos
+a través de la base de datos de comandos con privilegios
+y dichos privilegios son utilizados
+para el control de acceso a dispositivos
 por medio de la base de datos de dispositivos con privilegios.
 
-Por lo tanto, en el presente artículo, 
-se habla sobre el modo +RBAC+ extendido de +AIX+. 
-Explicando cómo comprobar el estado, 
+Por lo tanto, en el presente artículo,
+se habla sobre el modo +RBAC+ extendido de +AIX+.
+Explicando cómo comprobar el estado,
 habilitar e inhabilitar a dicho modo:
 
-. El modo +RBAC+ extendido está activado por defecto 
-en sistemas +AIX+ versión 6.1 o superior<<r2,^[2]^>>. 
-Pero es posible verificar el estado actual del mismo 
+. El modo +RBAC+ extendido está activado por defecto
+en sistemas +AIX+ versión 6.1 o superior<<r2,^[2]^>>.
+Pero es posible verificar el estado actual del mismo
 ejecutando la siguiente la orden:
 +
 .test.sh
 [source, bash, linenums]
 ----
 % lsattr -E -l sys0 -a enhanced_RBAC
-true 
+true
 ----
 +
-En la salida se observa 
+En la salida se observa
 que el modo de control de acceso +RBAC+ extendido se encuentra habilitado.
 
-. Para deshabilitar dicho modo 
+. Para deshabilitar dicho modo
 debe ejecutar el siguiente comando:
 +
 [source, bash, linenums]

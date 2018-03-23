@@ -8,5 +8,5 @@
 
 == Nombre
 
-La organización debe definir el periodo de frecuencia 
+La organización debe definir el periodo de frecuencia
 para ejecutar el respaldo a cada sistema de información.

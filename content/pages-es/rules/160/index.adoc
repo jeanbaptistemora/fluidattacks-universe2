@@ -6,10 +6,10 @@
 
 = REQ.160 Salidas codificadas
 
-== Nombre 
+== Nombre
 
-La salida de información del sistema 
-debe estar codificada en el lenguaje correspondiente (+escaping+). 
+La salida de información del sistema
+debe estar codificada en el lenguaje correspondiente (+escaping+).
 
 
 == Soluciones

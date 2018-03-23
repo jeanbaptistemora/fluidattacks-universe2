@@ -22,7 +22,7 @@ accessing to everyone’s passwords. One of the most common methods of storing
 passwords on rest is hashing, it’s a mathematical function that transforms data
 into a fixed-length value or key that represents the original data.
 
-You can use hashing algorithms to reinforce integrity and also to store 
+You can use hashing algorithms to reinforce integrity and also to store
 passwords, as long as the data never changes. The resulting hash will always be
 the same. By comparing hashes created at two different times you can determine
 if the original data is still the same. Passwords are often stored as hashes,
@@ -34,38 +34,38 @@ entered the correct password. The most common hashing algorithms are MD5
 Authentication Code).
 
 However, hashing has a vulnerability, rainbow tables. Which are huge databases
-of precomputed hashes, and it helps crackers to discover passwords comparing 
+of precomputed hashes, and it helps crackers to discover passwords comparing
 thehash of a stolen password with the database. Some of these tables are bigger
 that 160 GB in size, and they include hashes for almost every possible
 combination of characters.
 
 == Challenge Yashira Hash 3
 
-In this challenge, they give us a hash that needs to be cracked, and then 
+In this challenge, they give us a hash that needs to be cracked, and then
 answered it with the password on clear text.
 
 .Challenge on link:http://www.yashira.org/index.php?mode=Retos&resp=inforeto&level=3[Yashira]
 image::reto.png[reto]
 
-We could use a rainbow table to crack this hash but it will need a huge 
-database or an algorithm that uses every hash and password to compare. On the 
-contrary, we could use link:https://crackstation.net/[crackstation] to do this task. 
+We could use a rainbow table to crack this hash but it will need a huge
+database or an algorithm that uses every hash and password to compare. On the
+contrary, we could use link:https://crackstation.net/[crackstation] to do this task.
 It only needs the hash and the site cracks it with its own database.
 
 .crackstation hashing solver
 image::crackstation.png[crackstation]
 
 It then discovers the clear text password of the hash given, telling us that it
-is SHA1. It uses colors to indicate if the search was successful, if a partial 
+is SHA1. It uses colors to indicate if the search was successful, if a partial
 a partial match was found or if no password was found at all
 
 .Solution given by crackstation
 image::solved.png[solved]
 
-To protect against these types of attacks, developers and systems 
-administrators should add security measures additional to hash such as salt. 
-Salting passwords prevent rainbow table attacks adding a set of random data at 
-the end of the password before hashing it. These additional characters add 
-complexity to the password and cause that password attacks that compare hashes 
-to fail. Some of the common methods of salting are Bcrypt and PBKDF2 
+To protect against these types of attacks, developers and systems
+administrators should add security measures additional to hash such as salt.
+Salting passwords prevent rainbow table attacks adding a set of random data at
+the end of the password before hashing it. These additional characters add
+complexity to the password and cause that password attacks that compare hashes
+to fail. Some of the common methods of salting are Bcrypt and PBKDF2
 (Password-Based Key Derivation Function 2).

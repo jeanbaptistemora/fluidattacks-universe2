@@ -8,5 +8,5 @@
 
 == Nombre
 
-Los datos deben estar distorsionados 
+Los datos deben estar distorsionados
 si la aplicación no está en foco.

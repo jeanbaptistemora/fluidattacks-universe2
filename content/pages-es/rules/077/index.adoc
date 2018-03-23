@@ -8,6 +8,6 @@
 
 == Nombre
 
-La aplicación no debe revelar detalles del sistema interno 
-como +stack traces+, fragmentos de sentencias +SQL+ 
+La aplicación no debe revelar detalles del sistema interno
+como +stack traces+, fragmentos de sentencias +SQL+
 y nombres de base de datos o tablas.

@@ -10,7 +10,7 @@
        PROCEDURE DIVISION.
        MAIN.
            DISPLAY PLANET-NUMBER, " - ", PLANET-NAME.
-           
+
            PERFORM 3 TIMES
                COMPUTE PLANET-NUMBER = PLANET-NUMBER + 2
                EVALUATE PLANET-NUMBER
@@ -38,5 +38,5 @@
            ELSE
                DISPLAY "Tipo de planeta desconocido"
            END-IF
-           
+
            STOP RUN.

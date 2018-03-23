@@ -8,5 +8,5 @@
 
 == Nombre
 
-Debe utilizarse con la criptografía asimétrica pares de claves 
+Debe utilizarse con la criptografía asimétrica pares de claves
 separados para cifrado y firmado.

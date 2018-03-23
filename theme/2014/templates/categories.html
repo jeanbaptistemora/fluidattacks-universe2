@@ -28,7 +28,7 @@
   {% else %}
     <header class="intro-header"> <!--style="background-image: url('{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/fluid-{{ DEFAULT_LANG }}.png');" >-->
     <a href="{{ SITEURL }}/"><img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/fluid-{{ DEFAULT_LANG }}.png" alt="{{ gettext('Header-img-alt') }}"></a>
-  {% endif %}   
+  {% endif %}
   </header>
 {% endblock header %}
 
@@ -41,7 +41,7 @@
             <li><a href="{{ SITEURL }}/">{{ gettext('Breadcrumb-0') }} >>&nbsp;</a></li>
             <li><a href="{{ SITEURL }}/blog/">Blog</a></li>
           </ul>
-        </div> 
+        </div>
         {% if DEFAULT_LANG == "en" %}
           <div class="translate">
             <a href="{{ SITEURL }}/blog/categories/"><img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/en.png" alt="United States flag"></a>

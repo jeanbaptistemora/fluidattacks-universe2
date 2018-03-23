@@ -108,5 +108,3 @@ en *Java* y cumple con los mismos requerimientos que *DirSearch*.
 == Link del reto
 
 link:http://challengeland.co/Realistic/216cb95883/[ChallengeLand Realistic 05]
-
-

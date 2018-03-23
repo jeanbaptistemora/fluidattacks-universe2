@@ -14,17 +14,17 @@
 
 a|== Cadena
 
-Organización que brinda a sus clientes soluciones confiables para simplificar sus procesos críticos a 
-través de la tecnología, incrementando su eficiencia, sostenibilidad y rentabilidad. Tienen 
+Organización que brinda a sus clientes soluciones confiables para simplificar sus procesos críticos a
+través de la tecnología, incrementando su eficiencia, sostenibilidad y rentabilidad. Tienen
 conocimiento de los procesos clave del negocio del cliente, integran las capacidades propias y de terceros.
 
 a|== Corona
 
-Multinacional colombiana con 135 años de historia empresarial. Está compuesta por seis unidades 
-estratégicas de negocio dedicadas a la manufactura y comercialización de productos para el hogar y 
-la construcción. Cuenta con 19 plantas de manufactura en Colombia, 3 en Estados Unidos, 3 en 
+Multinacional colombiana con 135 años de historia empresarial. Está compuesta por seis unidades
+estratégicas de negocio dedicadas a la manufactura y comercialización de productos para el hogar y
+la construcción. Cuenta con 19 plantas de manufactura en Colombia, 3 en Estados Unidos, 3 en
 Centro América, 3 en México y una en Brasil. Exporta sus productos a diversos mercados alrededor del
-mundo, incluyendo Estados Unidos, Canadá, México, Brasil, Chile, Venezuela, Centro América, 
+mundo, incluyendo Estados Unidos, Canadá, México, Brasil, Chile, Venezuela, Centro América,
 el Caribe, Italia, España y el Reino Unido.
 
 ^.^a|image:logo-corona.png[logo corona, width=50%, link=https://www.corona.co]
@@ -33,17 +33,17 @@ el Caribe, Italia, España y el Reino Unido.
 
 a|== Grupo Argos
 
-Matriz del Grupo Empresarial de inversiones sostenibles en infraestructura. 
+Matriz del Grupo Empresarial de inversiones sostenibles en infraestructura.
 Su naturaleza jurídica corresponde a una sociedad anónima, inscrita en la Bolsa de Valores
 de Colombia, al igual que sus filiales Argos (cemento), Celsia (energía) y Odinsa (concesiones viales y aeroportuarias).
 
 a|== LAFRANCOL
 
 Fabricantes y distribuidores a nivel nacional e internacional productos farmacéuticos
-y alimentos funcionales de consumo humano con los más altos niveles de calidad. Cuentan con el 
-reconocimiento de la efectividad y seguridad de sus compuestos ante el cuerpo médico y la sociedad 
-de la salud, LAFRANCOL ha ido creciendo sostenidamente durante casi 100 años alcanzando una posición de 
-liderazgo en la industria farmacéutica nacional, tanto por su volumen de ventas como por su imagen de calidad. 
+y alimentos funcionales de consumo humano con los más altos niveles de calidad. Cuentan con el
+reconocimiento de la efectividad y seguridad de sus compuestos ante el cuerpo médico y la sociedad
+de la salud, LAFRANCOL ha ido creciendo sostenidamente durante casi 100 años alcanzando una posición de
+liderazgo en la industria farmacéutica nacional, tanto por su volumen de ventas como por su imagen de calidad.
 
 ^.^a|image:logo-francol.png[logo francol, width=45%, link=http://www.lafrancol.com/nuestra-empresa/]
 
@@ -51,17 +51,17 @@ liderazgo en la industria farmacéutica nacional, tanto por su volumen de ventas
 
 a|== Manuelita
 
-Organización agroindustrial diversificada, multilatina de origen colombiano, consolidada como 
+Organización agroindustrial diversificada, multilatina de origen colombiano, consolidada como
 una organización agroindustrial diversificada, cuya estrategia se basa en un modelo de negocio sostenible.
-Elabora productos de naturaleza agroindustrial, elaborados a partir de fuentes renovables, mediante el 
+Elabora productos de naturaleza agroindustrial, elaborados a partir de fuentes renovables, mediante el
 uso sostenible de los recursos naturales, con un impacto positivo sobre el bienestar de las comunidades vecinas.
 
 a|== Sodimac
 
-Empresa que opera en el retail. Busca satisfacer al cliente a través de múltiples puntos de contacto 
-y canales de venta que aseguran nuestro modelo de negocio Omnicanal (Tiendas, Internet y Teléfono). 
-Su actividad se focaliza en desarrollar y proveer soluciones a los proyectos de remodelación y construcción 
-de sus clientes, además de satisfacer las necesidades de mejoramiento y decoración de sus hogares, 
+Empresa que opera en el retail. Busca satisfacer al cliente a través de múltiples puntos de contacto
+y canales de venta que aseguran nuestro modelo de negocio Omnicanal (Tiendas, Internet y Teléfono).
+Su actividad se focaliza en desarrollar y proveer soluciones a los proyectos de remodelación y construcción
+de sus clientes, además de satisfacer las necesidades de mejoramiento y decoración de sus hogares,
 ofreciendo excelencia en el servicio, integridad en su trabajo y un fuerte compromiso con la comunidad.
 
 ^.^a|image:logo-sodimac.png[logo sodimac, width=50%, link=http://www.homecenter.com.co/homecenter-co/mashomecenter/nuestra-empresa]

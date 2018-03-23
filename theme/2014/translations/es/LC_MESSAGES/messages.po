@@ -962,4 +962,3 @@ msgstr "etiquetas"
 #: templates/tags.html:55
 msgid "Tags-header"
 msgstr "Etiquetas"
-

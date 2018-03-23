@@ -18,12 +18,12 @@ a|==== Aspectos
 | Hacking Continuo
 | Hacking Puntual
 
-a|==== Ciclos de revisión 
+a|==== Ciclos de revisión
 | Múltiples.
 | Solo +1+.
 
 a|==== Soporte en la remediación
-| {si} 
+| {si}
 | {no}
 
 a|==== Duracion típica
@@ -41,16 +41,16 @@ a|{si} Reuniones de socialización de resultados:
 a|==== Tiempo de detección
 a|{si} Temprana
 
-* Las vulnerabilidades son detectadas 
+* Las vulnerabilidades son detectadas
 cerca al momento en que el programador las inyecta.
 
 a|{no} Tardía
 
-* Las vulnerabilidades son detectadas 
+* Las vulnerabilidades son detectadas
 cuando el sistema está próximo a salir a producción.
 
 a|==== Alertas
-|{si} Sistema de alertamiento continuo por email 
+|{si} Sistema de alertamiento continuo por email
 a los lideres de proyecto sobre vulnerabilidades no cerradas.
 |{no} No hay sistema de alertas, solo los informes finales.
 
@@ -62,15 +62,15 @@ a|==== Cobertura
 a|{si} 100% cuando:
 
 * Comenzamos el hacking en paralelo al desarrollo.
-* Realizamos un hacking de desatraso al inicio. 
+* Realizamos un hacking de desatraso al inicio.
 * No se detiene el hacking mientras exista desarrollo.
 * El código no cambie a más de 10K deltas por mes.
 
 a|{no} Acordada al inicio de la prueba.
 
 a|==== Ventanas
-a|{si} En el servicio de 
-[button]#link:../../servicios/hacking-continuo/[Continuous Hacking]# 
+a|{si} En el servicio de
+[button]#link:../../servicios/hacking-continuo/[Continuous Hacking]#
 los ambientes:
 
 * Pueden cambiar constantemente.
@@ -81,9 +81,9 @@ los ambientes:
 
 a|==== Infección
 | {no} No se infectan los ambientes con troyanos.
-| {si} Se infectan estaciones y servidores críticos 
-con nuestro troyano personalizado 
-[button]#link:../../productos/commands/[Commands]#. 
+| {si} Se infectan estaciones y servidores críticos
+con nuestro troyano personalizado
+[button]#link:../../productos/commands/[Commands]#.
 
 a|==== Tasa de remediación
 | {si} Cierre hasta del 80% de las vulnerabilidades reportadas.

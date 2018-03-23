@@ -7,7 +7,7 @@ public class dead {
   		// método nuevo
   		listarArchivos("/home/fluid");
 	}
-	
+
 	public static void listarArchivos(String ruta) {
   		File dir = new File(ruta);
 		String[] archivos = dir.list();
@@ -20,7 +20,7 @@ public class dead {
     		System.out.println("La ruta no existe");
   		}
 	}
-	
+
 	public static void ejecutar(String comando) throws Exception {
    	 	String linea = "";
     	String resultado = "";

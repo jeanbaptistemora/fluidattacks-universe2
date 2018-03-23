@@ -8,27 +8,27 @@
 
 == Necesidad
 
-Eliminar (limpiar) datos, variables 
-y/o objetos creados por la aplicación 
+Eliminar (limpiar) datos, variables
+y/o objetos creados por la aplicación
 cuando ya no estén en uso.
 
 == Contexto
 
-A continuación se describe las circunstancias 
+A continuación se describe las circunstancias
 bajo las cuales la siguiente solución tiene sentido:
 
 . Se está desarrollando una aplicación en +C#+ versión 5.0 o superior.
 . El código debe eliminar información sensible en memoria.
-. La aplicación debe limpiar/eliminar datos, variables 
-y/o objetos creados por la misma cuando ya no estén en uso,<<r1,^[1]^>> 
+. La aplicación debe limpiar/eliminar datos, variables
+y/o objetos creados por la misma cuando ya no estén en uso,<<r1,^[1]^>>
 limitando así su tiempo de vida.
 
 == Solución
 
 * *Lectura segura de credenciales:*
 
-. El siguiente bloque de código +C#+, 
-declara la clase +Password+ 
+. El siguiente bloque de código +C#+,
+declara la clase +Password+
 y dentro de ella se define el método +Main+:
 +
 .password.cs
@@ -42,11 +42,11 @@ class Password
   static void Main(string[] args)
   {
 ----
-. A continuación se lee desde la consola 
-las credenciales de acceso para un usuario, 
-solicitando el nombre de usuario 
-y su respectiva contraseña. 
-Dichas credenciales son almacenadas 
+. A continuación se lee desde la consola
+las credenciales de acceso para un usuario,
+solicitando el nombre de usuario
+y su respectiva contraseña.
+Dichas credenciales son almacenadas
 en las variables +loginid+ y +password+ respectivamente:
 +
 [source, csharp, linenums]
@@ -56,11 +56,11 @@ en las variables +loginid+ y +password+ respectivamente:
   Console.WriteLine("Ingresa tu contraseña: ");
   var password = Console.ReadLine();
 ----
-. Posterior a ello, convertimos la cadena que contiene la contraseña 
-en un +array+ de caracteres (+char[] myArray+) 
-mediante el método +ToCharArray()+. 
-Y mediante el método +verify+ que recibe el nombre usuario y contraseña, 
-simulamos el proceso de validación del usuario para una plataforma en particular 
+. Posterior a ello, convertimos la cadena que contiene la contraseña
+en un +array+ de caracteres (+char[] myArray+)
+mediante el método +ToCharArray()+.
+Y mediante el método +verify+ que recibe el nombre usuario y contraseña,
+simulamos el proceso de validación del usuario para una plataforma en particular
 (el lector debe implementar este método de acuerdo a sus necesidades):
 +
 [source, csharp, linenums]
@@ -69,10 +69,10 @@ simulamos el proceso de validación del usuario para una plataforma en particula
 
   bool isValidUser = verify(loginid, mArray);
 ----
-. Como se observa en el siguiente bloque de código, 
-una vez no son necesarias las credenciales de usuario, 
-éstas son inmediatamente sobrescritas 
-o eliminadas de memoria mediante el método +MyArray.Fill+ 
+. Como se observa en el siguiente bloque de código,
+una vez no son necesarias las credenciales de usuario,
+éstas son inmediatamente sobrescritas
+o eliminadas de memoria mediante el método +MyArray.Fill+
 de la clase +MyArray+.
 +
 [source, csharp, linenums]
@@ -108,18 +108,18 @@ internal static class MyArray
 }
 ----
 +
-De lo anterior, el método +Fill+ 
-es el encargado de sobrescribir 
-el +array+ de caracteres (+T[] array+) 
-que recibe como primer parámetro, 
-es decir, la contraseña, 
+De lo anterior, el método +Fill+
+es el encargado de sobrescribir
+el +array+ de caracteres (+T[] array+)
+que recibe como primer parámetro,
+es decir, la contraseña,
 por el caracter incluido en el segundo parámetro (+T value+).
 
-. Para ejecutar el anterior programa, 
-desde la terminal se debe ubicar primero en el directorio del proyecto 
-y, en el caso de sistemas basados en +Linux+ 
-se debe instalar los comandos +mcs+ y +mono+ 
-los cuales permiten ejecutar aplicaciones desarrolladas en +C#+ desde +Linux+. 
+. Para ejecutar el anterior programa,
+desde la terminal se debe ubicar primero en el directorio del proyecto
+y, en el caso de sistemas basados en +Linux+
+se debe instalar los comandos +mcs+ y +mono+
+los cuales permiten ejecutar aplicaciones desarrolladas en +C#+ desde +Linux+.
 Ejecutamos el comando +mcs+ seguido del nombre del archivo:
 +
 [source, bash, linenums]
@@ -130,8 +130,8 @@ $ mcs Password.cs
 $ ls
 Password.cs Password.exe
 ----
-. Luego de compilar el programa correctamente, 
-se obtiene el +bytecode+ (archivo +.exe+) del programa 
+. Luego de compilar el programa correctamente,
+se obtiene el +bytecode+ (archivo +.exe+) del programa
 y se procede a ejecutar el mismo mediante el comando +mono+:
 +
 [source, bash, linenums]
@@ -142,19 +142,19 @@ $ mono Password.exe
 +
 [source, bash, linenums]
 ----
-Ingresa tu nombre de usuario: 
+Ingresa tu nombre de usuario:
 FLUIDuser
-Ingresa tu contraseña: 
+Ingresa tu contraseña:
 FLUIDpwd
 ----
 
 == Descargas
 
-Puedes descargar el código fuente 
+Puedes descargar el código fuente
 pulsando en el siguiente enlace:
 
-. [button]#link:src/password.cs[password.cs]# contiene 
-las instrucciones +C#+ descritas anteriormente 
+. [button]#link:src/password.cs[password.cs]# contiene
+las instrucciones +C#+ descritas anteriormente
 para el manejo de credenciales de manera segura.
 
 == Referencias

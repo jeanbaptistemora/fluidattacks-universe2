@@ -8,7 +8,7 @@
 
 == Nombre
 
-Las contraseñas (tipo palabra) 
+Las contraseñas (tipo palabra)
 deben tener al menos 1 carácter especial.
 
 

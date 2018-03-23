@@ -154,4 +154,3 @@ Wikipedia]
 == Link del reto
 
 . link:http://challengeland.co/Challenges/Captcha/60e9d06ada[ChallengeLand Captcha 02]
-

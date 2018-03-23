@@ -28,13 +28,13 @@ web hackthis. En especial, a un reto que involucra análisis de código JavaScri
 == Reto: Main Level 5
 
 En esta ocasión y continuando con el análisis de scripts de JavaScript, daremos
-solución al reto 5 de la categoría _Main_ del sitio 
+solución al reto 5 de la categoría _Main_ del sitio
 link:http://hackthis.co.uk/[hackthis]:
 
 .hackthis: nivel 5 de la categoría MAIN
 image::level5.png[reto]
 
-Si deseas conocer la solución a anteriores retos, puedes ingresar al 
+Si deseas conocer la solución a anteriores retos, puedes ingresar al
 link:../categorias/retos/[blog de FLUID] donde encontrarás este y otros artículos
 interesantes sobre seguridad informática.
 
@@ -129,11 +129,11 @@ el reto en cuestión:
 image::main5-3.gif[solucion-3]
 
 Estas son todas las soluciones que conozco hasta el momento sin utilizar algún
-plugin o programa externo como link:https://goo.gl/h4Mvdr[Tamper Data] o 
+plugin o programa externo como link:https://goo.gl/h4Mvdr[Tamper Data] o
 link:https://goo.gl/GT6GZC[Burp Suite] respectivamente.
 
 Para terminar y tal como lo mencioné en una entrada anterior, en ningún caso
 debemos almacenar credenciales de usuario o información restringida en el código
-de la página web, sin importar si esta contiene código JS o html puro. Ya que, 
+de la página web, sin importar si esta contiene código JS o html puro. Ya que,
 como vimos, el cliente puede manipular el código fuente del sitio desde un
 navegador.

@@ -8,8 +8,8 @@
 
 == Nombre
 
-El sistema no debe permitir a un actor del sistema, 
-aumentar los privilegios para él mismo. 
+El sistema no debe permitir a un actor del sistema,
+aumentar los privilegios para él mismo.
 
 == Soluciones
 

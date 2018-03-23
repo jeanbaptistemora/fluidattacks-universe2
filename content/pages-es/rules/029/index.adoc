@@ -8,46 +8,46 @@
 
 == Nombre
 
-Las +cookies+ de sesión de aplicaciones Web 
+Las +cookies+ de sesión de aplicaciones Web
 deben tener atributos de seguridad (+HttpOnly+, +Secure+).
 
 == Descripción
 
-Cuando se cuenta con una aplicación Web que maneja sesiones, 
-se pueden utilizar diferentes atributos 
-para mejorar la seguridad asociada a las +cookies+ que manejan estas sesiones, 
-los atributos +HttpOnly+ y +Secure+ respectivamente 
-previenen el robo de la +cookie+ de sesión 
-al denegar la visibilidad de la misma desde el navegador 
-(a pesar de que se empleen ataques del tipo +Cross Site Scripting [XSS]+) 
-y forzar el envío de la +cookie+ 
-solamente cuando la petición es cifrada (usando +HTTPS+), 
-de esta forma se mitiga en gran medida el robo de sesiones 
+Cuando se cuenta con una aplicación Web que maneja sesiones,
+se pueden utilizar diferentes atributos
+para mejorar la seguridad asociada a las +cookies+ que manejan estas sesiones,
+los atributos +HttpOnly+ y +Secure+ respectivamente
+previenen el robo de la +cookie+ de sesión
+al denegar la visibilidad de la misma desde el navegador
+(a pesar de que se empleen ataques del tipo +Cross Site Scripting [XSS]+)
+y forzar el envío de la +cookie+
+solamente cuando la petición es cifrada (usando +HTTPS+),
+de esta forma se mitiga en gran medida el robo de sesiones
 y por consiguiente aumenta la integridad de la aplicación.
 
 == Implementación
 
-. Implementar el atributo +HttpOnly:+ 
-Si el atributo +HttpOnly+ 
-es incluido en el encabezado de respuesta +HTTP+, 
-la +cookie+ no puede ser accedida usando +scripts+ del lado del cliente. 
-Como resultado, incluso si existe una vulnerabilidad de link:https://cwe.mitre.org/data/definitions/87.html[+cross-site scripting (XSS)+] 
-y un usuario accidentalmente accede al enlace que explota esta vulnerabilidad, 
+. Implementar el atributo +HttpOnly:+
+Si el atributo +HttpOnly+
+es incluido en el encabezado de respuesta +HTTP+,
+la +cookie+ no puede ser accedida usando +scripts+ del lado del cliente.
+Como resultado, incluso si existe una vulnerabilidad de link:https://cwe.mitre.org/data/definitions/87.html[+cross-site scripting (XSS)+]
+y un usuario accidentalmente accede al enlace que explota esta vulnerabilidad,
 el navegador no revelará la +cookie+ a un tercero.
 +
-Si un navegador no soporta +HttpOnly+ 
-y el sitio web intenta poner el atributo +HttpOnly+, 
-dicho será ignorado por el navegador 
-creando así una +cookie+ tradicional accesible por +script+. 
-Como resultado, la +cookie+ (típicamente una +cookie+ de sesión) 
+Si un navegador no soporta +HttpOnly+
+y el sitio web intenta poner el atributo +HttpOnly+,
+dicho será ignorado por el navegador
+creando así una +cookie+ tradicional accesible por +script+.
+Como resultado, la +cookie+ (típicamente una +cookie+ de sesión)
 se vuelve vulnerable a robo o modificación por un +script+ malicioso.
 
-. Implementar el atributo +Secure:+ 
-El atributo link:https://cwe.mitre.org/data/definitions/614.html[+secure+] es una opción 
-que puede ser aplicada desde el servidor de aplicación 
-cuando se envía una nueva +cookie+ al usuario por una respuesta +HTTP+. 
-El propósito del atributo +secure+ 
-es prevenir que la +cookies+ puedan visualizarse por terceros no autorizados 
+. Implementar el atributo +Secure:+
+El atributo link:https://cwe.mitre.org/data/definitions/614.html[+secure+] es una opción
+que puede ser aplicada desde el servidor de aplicación
+cuando se envía una nueva +cookie+ al usuario por una respuesta +HTTP+.
+El propósito del atributo +secure+
+es prevenir que la +cookies+ puedan visualizarse por terceros no autorizados
 debido a la trasmisión de la +cookie+ en texto plano.
 
 == Soluciones
@@ -57,15 +57,15 @@ debido a la trasmisión de la +cookie+ en texto plano.
 
 == Casos de abuso
 
-. Un atacante genera un +script+ que es ejecutado 
-sin conocimiento de causa por un usuario válido autenticado en la aplicación 
-sin los atributos +HTTPOnly+ y +Secure+, 
-el +script+ reenvía información al atacante^<<r1,[1]>>,<<r2,[2]>>^ 
+. Un atacante genera un +script+ que es ejecutado
+sin conocimiento de causa por un usuario válido autenticado en la aplicación
+sin los atributos +HTTPOnly+ y +Secure+,
+el +script+ reenvía información al atacante^<<r1,[1]>>,<<r2,[2]>>^
 conteniendo la +cookie+ de sesión que se utiliza para robar la misma.
 
-. Un atacante link:https://puppet.com/security/cve/cve-2013-4964[captura datos] de una comunicación por el protocolo +HTTP+ 
-mediante un ataque de +Man in The Middle (MiTM)+ 
-interceptando solicitudes y respuestas del protocolo no cifrado 
+. Un atacante link:https://puppet.com/security/cve/cve-2013-4964[captura datos] de una comunicación por el protocolo +HTTP+
+mediante un ataque de +Man in The Middle (MiTM)+
+interceptando solicitudes y respuestas del protocolo no cifrado
 y extrayendo la +cookie+ de sesión que se utiliza para robar la misma.
 
 == Atributos

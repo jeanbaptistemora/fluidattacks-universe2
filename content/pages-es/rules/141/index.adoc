@@ -8,9 +8,9 @@
 
 == Nombre
 
-El sistema debe forzar a un usuario 
-a realizar nuevamente el proceso de autenticación 
-o invalidar la sesión en el sistema 
-una vez que haya ocurrido un cambio en el estado del usuario 
-(cambio o restauración de su contraseña, bloqueo, borrado del usuario, 
+El sistema debe forzar a un usuario
+a realizar nuevamente el proceso de autenticación
+o invalidar la sesión en el sistema
+una vez que haya ocurrido un cambio en el estado del usuario
+(cambio o restauración de su contraseña, bloqueo, borrado del usuario,
 deshabilitación del usuario, etc).
