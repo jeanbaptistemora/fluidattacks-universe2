@@ -50,6 +50,7 @@
 * link:049/[REQ.049 Los Componentes deben usar interfaces].
 * link:050/[REQ.050 Controlar llamada a código interpretado].
 * link:051/[REQ.051 Almacenar código fuente en repositorio].
+* link:052/[REQ.052 Identificar componentes críticos].
 
 == Correos
 

@@ -1,0 +1,11 @@
+:slug: rules/052/
+:category: rules
+:description: En el presente documento se detallan los lineamientos o requerimientos de seguridad a seguir relacionados al uso y gestión de componentes de un sistema. Por lo tanto, en todo sistema, los componentes críticos para la seguridad deben ser identificados.
+:keywords: Componente, Identificar, Sistema, Crítico, Requerimiento, Seguridad.
+:rules: yes
+
+= REQ.052 Identificar componentes críticos
+
+== Nombre
+
+Los componentes críticos para la seguridad deben identificarse (+TCB+).
