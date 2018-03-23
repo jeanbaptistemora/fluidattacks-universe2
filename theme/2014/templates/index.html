@@ -36,10 +36,10 @@
             <h1 class="post-title">
               {{ article.title }}
             </h1>
-              {% if article.subtitle %}
-                <span class="subtitle">{{ article.subtitle }}</span>
-              {% endif %}
-          </a><br/>
+          </a>
+          {% if article.subtitle %}
+            <span class="subtitle">{{ article.subtitle }}</span>
+          {% endif %}<br/>
           <img class="imgprev" src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/icon.png" alt="{{ gettext('Index-icon-alt-1') }}">
           {% for author in article.authors %}
             <a class="aautor" href="{{ SITEURL }}/{{ author.url }}">{{ author }}</a>
