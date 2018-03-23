@@ -20,9 +20,9 @@ function labelState(value, row, index){
         return "<label class='label label-danger' style='background-color: #f22;'>Open</label>";
     }else if(value == "Parcialmente cerrado"){
         return "<label class='label label-info' style='background-color: #ffbf00'>Parcialmente cerrado</label>";
-    }else{
-        return "<label class='label label-info' style='background-color: #ffbf00'>Partially closed</label>";
     }
+        return "<label class='label label-info' style='background-color: #ffbf00'>Partially closed</label>";
+    
 }
 /**
  * Controlador de vista de proyectos

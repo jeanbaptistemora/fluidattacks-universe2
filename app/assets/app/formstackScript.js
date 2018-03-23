@@ -8,7 +8,9 @@ $(document).ready(function(){
         }
     }
     remember();
-    setInterval('remember();',35000);
+    setInterval(function() {
+        remember();
+    }, 35000);
     document.getElementsByTagName("select")[5].onchange = function(){
     	v = document.getElementsByTagName("select")[5].value;
     	if(v == "Verificación") {alertify.success('<p class="text-center"> Información: </p> <p class="text-left"> Verificacion debe usarse para reportar hallazgos en chequeos cruzados </p>');}
@@ -19,7 +21,7 @@ function isUpperCase(str) {
     return str === str.toUpperCase();
 }
 
-String.prototype.capitalizeFirstLetter = function() {
+String.prototype.capitalizeFirstLetter = function() { /*eslint no-extend-native: ["error", { "exceptions": ["String"] }]*/
     return this.charAt(0).toUpperCase() + this.slice(1);
 }
 
@@ -190,7 +192,7 @@ $(evidencia_hallazgo).change(function() {
 	var hallazgo_upload = $(evidencia_hallazgo).val().split("\\")[2].split(".")[0];
     var substring = "evidencia";
 	if(hallazgo_upload.indexOf(substring) === -1){
-		alert('El archivo se debe contener la palabra evidencia');
+    $msg.error( 'El archivo se debe contener la palabra evidencia');
 		evidencia_hallazgo.val("");
 	}
 
@@ -199,7 +201,7 @@ $(evidencia_hallazgo).change(function() {
 $(exploit).change(function() {
 	var exploit_upload = $(exploit).val().split("\\")[2].split(".")[0];
 	if(exploit_upload != "exploit"){
-		alert("El archivo se debe llamar: exploit")
+    $msg.error( 'El archivo se debe llamar: exploit');
 		exploit.val("");
 	}
 	else{
@@ -210,7 +212,7 @@ $(exploit).change(function() {
 $(evidencia_explotacion).change(function() {
 	var explotacion_upload = $(evidencia_explotacion).val().split("\\")[2].split(".")[0];
 	if(explotacion_upload != "evidencia-de-explotacion"){
-		alert("El archivo se debe llamar: evidencia-de-explotacion")
+    $msg.error( 'El archivo se debe llamar: evidencia-de-explotacion');
 		evidencia_explotacion.val("");
 	}else{
 		evidencia_explotacion.attr("aria-invalid", false);
@@ -220,7 +222,7 @@ $(evidencia_explotacion).change(function() {
 $(animacion).change(function() {
 	var animacion_upload = $(animacion).val().split("\\")[2].split(".")[0];
 	if(animacion_upload != "animacion-de-explotacion"){
-		alert("El archivo se debe llamar: animacion-de-explotacion")
+    $msg.error( 'El archivo se debe llamar: animacion-de-explotacion');
 		animacion.val("");
 	}else{
 		animacion.attr("aria-invalid", false);
@@ -230,7 +232,7 @@ $(animacion).change(function() {
 $(solution_pdf).change(function() {
 	var sol_upload = $(solution_pdf).val().split("\\")[2].split(".")[0];
 	if(sol_upload != "solucion"){
-		alert("El archivo se debe llamar: solucion")
+    $msg.error( 'El archivo se debe llamar: solucion');
 		solution_pdf.val("");
 	}
 });

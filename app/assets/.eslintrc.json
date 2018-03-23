@@ -47,7 +47,27 @@
         "curly": "error",
         "default-case": "error",
         "dot-location": "error",
-        "dot-notation": "error"
-
+        "dot-notation": "error",
+        "guard-for-in": "error",
+        "no-alert": "error",
+        "no-caller": "error",
+        "no-case-declarations": "error",
+        "no-div-regex": "error",
+        "no-else-return": "error",
+        "no-empty-function": "error",
+        "no-empty-pattern": "error",
+        "no-eq-null": "error",
+        "no-eval": "error",
+        "no-extend-native": "error",
+        "no-extra-bind": "error",
+        "no-extra-label": "error",
+        "no-fallthrough": "error",
+        "no-floating-decimal": "error",
+        "no-global-assign": "error",
+        "no-implicit-coercion": "error",
+        "no-implicit-globals": "error",
+        "no-implied-eval": "error",
+        "no-iterator": "error",
+        "no-labels": "error"
     }
 }

@@ -120,9 +120,9 @@ integrates.controller("eventualityController", function($scope, $uibModal, $tran
                     sticky: false,
             });
             return false;
-        }else{
-            $scope.currentEventuality = sel[0];
         }
+            $scope.currentEventuality = sel[0];
+        
         var modalInstance = $uibModal.open({
             animation: true,
             templateUrl: 'ver.html',
@@ -183,9 +183,9 @@ integrates.controller("eventualityController", function($scope, $uibModal, $tran
                 sticky: false,
             });
             return false;
-        }else{
-            $scope.currentEventuality = sel[0];
         }
+            $scope.currentEventuality = sel[0];
+        
 
         var modalInstance = $uibModal.open({
             animation: true,

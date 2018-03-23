@@ -55,7 +55,7 @@ integrates.controller("findingcontentCtrl", function($scope, $stateParams, $time
 
         $scope.header.findingCount = $scope.finding.cardinalidad;
     };
-    String.prototype.replaceAll = function(search, replace)
+    String.prototype.replaceAll = function(search, replace) /*eslint no-extend-native: ["error", { "exceptions": ["String"] }]*/
     {
         if (replace === undefined) {
             return this.toString();
@@ -437,12 +437,12 @@ integrates.controller("findingcontentCtrl", function($scope, $stateParams, $time
               $msg.success(updated_ac,updated_at);
               location.reload();
               return true;
-          } else {
+          }
               error_ac1 = $translate.instant('proj_alerts.no_file_update');
               Rollbar.error("Error: An error occurred updating evidences");
               $msg.error(error_ac1);
               return false;
-          }
+
         };
         var errorFunction = function(response){
           if(!response.error){
@@ -500,12 +500,12 @@ integrates.controller("findingcontentCtrl", function($scope, $stateParams, $time
                         location.reload();
                     }
                     return true;
-                } else {
+                }
                     var error_ac1 = $translate.instant('proj_alerts.no_text_update');
                     Rollbar.error("Error: An error occurred updating evidences description");
                     $msg.error(error_ac1);
                     return false;
-                }
+
             });
         }
     };
@@ -1359,10 +1359,12 @@ integrates.controller("findingcontentCtrl", function($scope, $stateParams, $time
                                 if(!response.error){
                                     var dataCols = []
                                     for(var i in response.data[0]){
+                                      if ({}.hasOwnProperty.call(response.data[0], i)) {
                                         dataCols.push({
                                             field: i,
                                             title: i
                                         });
+                                      }
                                     }
                                     $("#recordsTable").bootstrapTable('destroy');
                                     $("#recordsTable").bootstrapTable({
@@ -1386,10 +1388,12 @@ integrates.controller("findingcontentCtrl", function($scope, $stateParams, $time
                                 if(!response.error){
                                     var dataCols = []
                                     for(var i in response.data[0]){
+                                      if ({}.hasOwnProperty.call(response.data[0], i)) {
                                         dataCols.push({
                                             field: i,
                                             title: i
                                         });
+                                      }
                                     }
                                     $("#recordsTable").bootstrapTable('destroy');
                                     $("#recordsTable").bootstrapTable({
@@ -1417,10 +1421,12 @@ integrates.controller("findingcontentCtrl", function($scope, $stateParams, $time
                             if(!response.error){
                                 var dataCols = []
                                 for(var i in response.data[0]){
+                                  if ({}.hasOwnProperty.call(response.data[0], i)) {
                                     dataCols.push({
                                         field: i,
                                         title: i
                                     });
+                                  }
                                 }
                                 $("#recordsTable").bootstrapTable('destroy');
                                 $("#recordsTable").bootstrapTable({
@@ -1554,9 +1560,9 @@ integrates.controller("findingcontentCtrl", function($scope, $stateParams, $time
        } else if ($scope.finding.razon_tratamiento.length < 50  || $scope.finding.razon_tratamiento.length > 80) {
          $msg.error($translate.instant('proj_alerts.short_comment'))
          return 'false'
-       } else {
+       }
           $scope.finding.responsable_tratamiento = userEmail;
-          return 'true' }
+          return 'true'
      };
      $scope.updateTreatment = function(){
           var flag = 'false';
