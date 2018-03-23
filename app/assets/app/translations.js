@@ -12,7 +12,7 @@
  */
 integrates.config(['$translateProvider', function ($translateProvider) {
     $translateProvider.useSanitizeValueStrategy('sanitizeParameters');
-    var translations, traducciones;
+    var translations = {}, traducciones = {};
     translations = {
         'logout': {
             'message': 'Are you sure?',

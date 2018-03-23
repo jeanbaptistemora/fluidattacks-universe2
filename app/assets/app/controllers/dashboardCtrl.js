@@ -62,7 +62,7 @@ integrates.controller("dashboardCtrl", function($scope, $uibModal, $timeout,
     location.reload();
     }
     $scope.initMyProjects = function(){
-        var vlang;
+        var vlang = 'en-US';
         if(localStorage.lang === "en"){
           vlang = 'en-US';
         } else {
@@ -80,7 +80,7 @@ integrates.controller("dashboardCtrl", function($scope, $uibModal, $timeout,
       });
     };
     $scope.initMyEventualities = function(){
-        var vlang;
+        var vlang = 'en-US';
         if(localStorage.lang === "en"){
           vlang = 'en-US';
         } else {

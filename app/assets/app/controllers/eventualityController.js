@@ -200,10 +200,11 @@ integrates.controller("eventualityController", function($scope, $uibModal, $tran
                 $scope.evnt.afectacion = parseInt(currentEventuality.afectacion);
 
                 $scope.okModalEditar = function(){
+                   var neg = "negativo";
                    submit = false;
                    try{
                        if($scope.evnt.afectacion == undefined){
-                           throw "negativo";
+                           throw neg;
                        }
                        submit = true;
                    }catch(e){
@@ -260,7 +261,7 @@ integrates.controller("eventualityController", function($scope, $uibModal, $tran
      * @return {undefined}
      */
     $scope.searchEvntByName = function(){
-        var vlang;
+        var vlang = 'en-US';
         if(localStorage.lang === "en"){
           vlang = 'en-US';
         } else {

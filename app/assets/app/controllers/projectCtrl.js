@@ -76,9 +76,9 @@ integrates.controller(
         $scope.goBack = function(){
             $scope.view.project = true;
             $scope.view.finding = false;
-            $scope.mainGraphexploitPieChart;
-            $scope.mainGraphtypePieChart;
-            $scope.mainGraphstatusPieChart;
+            $scope.mainGraphexploitPieChart();
+            $scope.mainGraphtypePieChart();
+            $scope.mainGraphstatusPieChart();
             $('html, body').animate({ scrollTop: $scope.currentScrollPosition }, 'fast');
         };
         $scope.alertHeader = function(company, project){
@@ -150,7 +150,7 @@ integrates.controller(
             };
         };
         $scope.calculateCardinality = function(data){
-            var total_severity;
+            var total_severity = 0;
             var cardinalidad = 0;
             var cardinalidad_total = 0;
             data.data.forEach(function(i){
@@ -229,10 +229,11 @@ integrates.controller(
             try{
                 json = data;
                 generateDoc = true;
+                var err = "error";
                 json = JSON.stringify(JSON.parse(JSON.stringify(json))); //remove indices
-                if (json == undefined) {throw "error";}
-                if (json == [] || json == {}) {throw "error";}
-                if(project.trim() == "") {throw "error";}
+                if (json == undefined) {throw err;}
+                if (json == [] || json == {}) {throw err;}
+                if(project.trim() == "") {throw err;}
             }catch(e){
                 Rollbar.error("Error: An error ocurred generating document", e);
                 generateDoc = false;
@@ -509,7 +510,7 @@ integrates.controller(
         };
 
         $scope.search = function(){
-            var vlang;
+            var vlang = 'en-US';
             if(localStorage.lang === "en"){
               vlang = 'en-US';
             } else {

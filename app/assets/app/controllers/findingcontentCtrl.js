@@ -77,7 +77,7 @@ integrates.controller("findingcontentCtrl", function($scope, $stateParams, $time
        };
     $scope.findingExploitTab = function(){
         $scope.hasExploit = false;
-        var exploit;
+        var exploit = {};
         var req = projectFtry.getEvidences($scope.finding.id);
         req.then(function(response){
             if(!response.error){
@@ -368,7 +368,7 @@ integrates.controller("findingcontentCtrl", function($scope, $stateParams, $time
         });
     };
     updateEvidencesFiles = function(element){
-        var error_ac1;
+        var error_ac1 = ' ';
         var evImage = $(element).attr('target');
         var data_p = {};
         data_p.document = $('#evidence'+ evImage).val();
@@ -1020,7 +1020,7 @@ integrates.controller("findingcontentCtrl", function($scope, $stateParams, $time
     };
     $scope.findingEvidenceTab = function(){
         $scope.tabEvidences = [];
-        var url;
+        var url = '';
         var evidenceList = [];
         var url_pre = window.location.href.split('dashboard#!/')[0] + window.location.href.split('dashboard#!/')[1] + '/';
         var req = projectFtry.getEvidences($scope.finding.id);
@@ -1337,8 +1337,8 @@ integrates.controller("findingcontentCtrl", function($scope, $stateParams, $time
     };
     $scope.findingRecordsTab = function(){
         $scope.hasRecords = false;
-        var vlang;
-        var record;
+        var vlang = 'en-US';
+        var record = {};
         var req = projectFtry.getEvidences($scope.finding.id);
         req.then(function(response){
             if(!response.error){
@@ -1425,7 +1425,7 @@ integrates.controller("findingcontentCtrl", function($scope, $stateParams, $time
         });
     };
     $scope.findingCalculateSeveridad = function(){
-        var severidad;
+        var severidad = 0;
         if(!isNaN($scope.finding.severidad)){
             severidad = parseFloat($scope.finding.severidad);
             if (severidad < 0 || severidad > 5){

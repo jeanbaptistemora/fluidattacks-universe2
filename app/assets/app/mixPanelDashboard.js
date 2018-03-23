@@ -10,7 +10,7 @@ mixPanelDashboard = {};
 /*
  * MixPanel localhost Fixer
  */
-var result;
+var result = false;
 var none_int = -1;
 mixPanelDashboard.isProduction = function () {
     result = false;
