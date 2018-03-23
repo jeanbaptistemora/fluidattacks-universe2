@@ -1,0 +1,13 @@
+:slug: rules/092/
+:category: rules
+:description: En el presente documento se detallan los lineamientos o requerimientos de seguridad relacionados al uso de certificados, los cuales, se recomienda, deben ir firmados por entidades certificadoras externas válidas cuando estos sean para aplicaciones externas.
+:keywords: Certificado, Entidades certificadoras, Aplicaciones, Firma, Requerimiento, Seguridad.
+:rules: yes
+
+= REQ.092 Utilizar certificados coherentes
+
+== Nombre
+
+Debe utilizarse certificados firmados 
+por entidades certificadoras externas válidas 
+cuando estos sean para aplicaciones externas.

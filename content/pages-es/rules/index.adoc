@@ -39,6 +39,7 @@
 
 * link:088/[REQ.088 Requerir certificados de cliente].
 * link:089/[REQ.089 Limitar vigencia de certificados].
+* link:092/[REQ.092 Utilizar certificados firmados].
 * link:093/[REQ.093 Utilizar certificados coherentes].
 
 == Correos
