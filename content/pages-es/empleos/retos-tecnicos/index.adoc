@@ -109,7 +109,7 @@ Los códigos correspondientes a soluciones de retos de programación deberán cu
 Las soluciones de retos de hacking deberán documentarse de acuerdo a lo siguiente:
 
 . link:../../../en/blog/gherkin-steroids/[Guía para el uso de gherkin]
-+ 
++
 Opcionalmente, puede tener en cuenta el siguiente link:../../../en/blog/app-pickle-document-gherkin/[artículo]
 
 == 5. Envío
