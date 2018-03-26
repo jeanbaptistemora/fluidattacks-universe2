@@ -1,6 +1,7 @@
 :slug: comportamiento-enemigo/
 :date: 2016-11-08
 :category: opiniones
+:subtitle: Las señales de alerta de los criminales informáticos
 :tags: atacar, rsa, seguridad
 :image: comportamiento-enemigo.png
 :alt: Persona mitad-ángel mitad-demonio sosteniendo una bolsa de dinero

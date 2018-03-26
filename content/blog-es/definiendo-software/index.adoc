@@ -1,6 +1,7 @@
 :slug: definiendo-software/
 :date: 2017-03-07
 :category: opiniones
+:subtitle: Cómo utilizar un entorno definido por software
 :tags: sde, sdlc, software, definir
 :image: definiendo-software.png
 :alt: Programandor trabajando en 3 monitores las etapas de diseño de software

@@ -1,6 +1,7 @@
 :slug: apis-seguras/
 :date: 2017-05-02
 :category: identidad
+:subtitle: Cómo garantizar la seguridad de sus APIs
 :tags: api, protocolo, intercambiar, información
 :image: oauth-preview.png
 :alt: Interacción entre el usuario y el sistema en un esquema OAuth

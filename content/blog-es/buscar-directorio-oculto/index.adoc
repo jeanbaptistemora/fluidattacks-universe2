@@ -1,6 +1,7 @@
 :slug: buscar-directorio-oculto/
 :date: 2016-12-24
 :category: retos
+:subtitle: La importancia de los directorios en una aplicación
 :tags: web, ocultar, reto, solucionar
 :image: directorios-ocultos.png
 :alt: Carpeta con archivos, cerrada con llave

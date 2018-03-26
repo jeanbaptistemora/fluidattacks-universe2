@@ -1,6 +1,7 @@
 :slug: banner-grabbing/
 :date: 2016-10-11
 :category: retos
+:subtitle: Los peligros del banner grabbing
 :tags: información, herramienta, reto, solucionar
 :image: banner.png
 :alt: Página de resultados luego de hacer una búsqueda

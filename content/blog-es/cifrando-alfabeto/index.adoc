@@ -1,6 +1,7 @@
 :slug: cifrando-alfabeto/
 :date: 2016-12-24
 :category: retos
+:subtitle: Estableciendo las bases de la criptografía
 :tags: cifrar, reto, solucionar
 :image: cifradoabc.png
 :alt: Regla de substitución ROT13 en el abecedario, con ejemplo

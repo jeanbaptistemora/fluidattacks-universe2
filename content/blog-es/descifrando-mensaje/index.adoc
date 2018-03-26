@@ -1,6 +1,7 @@
 :slug: descifrando-mensaje/
 :date: 2017-04-04
 :category: opiniones
+:subtitle: La importancia del cifrado de información
 :tags: cifrar, seguridad, criptografía
 :image: cifrado-preview.png
 :alt: Colección de datos hexadecimales con candados

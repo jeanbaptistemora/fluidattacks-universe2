@@ -1,6 +1,7 @@
 :slug: desplazados-maquinas/
 :date: 2018-02-13
 :category: filosofía
+:subtitle: Detección automática vs detección manual
 :tags: aplicación, detectar, vulnerabilidad, escáner
 :image: humano-vs-maquina.png
 :alt: Persona jugando ajedrez contra un brazo mecánico

@@ -1,6 +1,7 @@
 :slug: deseando-cookie/
 :date: 2016-09-13
 :category: opiniones
+:subtitle: Las cookies y el robo de identidad
 :tags: seguridad, sesión, cookie, proteger
 :image: cookie.png
 :alt: Tres galletas con chips de chocolate

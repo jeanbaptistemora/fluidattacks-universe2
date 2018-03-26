@@ -1,6 +1,7 @@
 :slug: contando-unos/
 :date: 2016-12-24
 :category: retos
+:subtitle: Solucionando un reto binario
 :tags: binario, reto, programar
 :image: contando-unos.png
 :alt: Colección de datos binarios, mostrados en verde

@@ -1,10 +1,11 @@
 :slug: captcha-misteriosa/
 :date: 2017-01-01
 :category: retos
+:subtitle: Cómo sobrepasar filtros captcha
 :tags: web, captcha, reto, solucionar
 :image: captchas.png
 :alt: Formulario de autenticación con captcha
-:description: Los captchas son filtros que tienen como objetivo verificar que el usuario de una aplicación es un humano y no un robot, sin embargo a través de programación y librerías especializadas en tratamiento de imágenes es posible sobrepasarr estos filtros, aquí mostramos un ejemplo de aplicación.
+:description: Los captchas son filtros que tienen como objetivo verificar que el usuario de una aplicación es un humano y no un robot, sin embargo a través de programación y librerías especializadas en tratamiento de imágenes es posible sobrepasar estos filtros, aquí mostramos un ejemplo de aplicación.
 :keywords: Seguridad, Captcha, Validación, Python, OCR, Web.
 :author: Alejandro Aguirre
 :writer: alejoa
