@@ -41,18 +41,17 @@ Esta etapa comienza cuando:
 
 . Haya finalizado la etapa de link:../retos-tecnicos[retos técnicos]
 . Se registre como tercero en el siguiente [button]#link:../../../../forms/tercero[formulario]# de acuerdo a estas indicaciones:
-.. Razón social: Ingrese su nombre completo.
-.. RUT: Seguir las instrucciones en la link:https://www.dian.gov.co/impuestos/personas/Paginas/rut.aspx[página web de la DIAN] y adjunte el documento PDF.
-.. Concepto: Ingrese su primer nombre y la inicial de su primer apellido.
-.. Relación: Cliente.
-.. Plazo de pago: 30 días.
-.. Formas de pago: Ordinario.
-.. Recepción y días de recepción: Primer día de cada mes.
-.. Diligencia: Ingrese su correo electrónico personal (el mismo con el que ha estado realizando el proceso de selección).
-{nbsp}
-[NOTE]
-Los campos que no se especifiquen aquí, no son obligatorios y no deben ser diligenciados.
-{nbsp}
+
+.. *Razón social:* Ingrese su nombre completo.
+.. *RUT:* Seguir las instrucciones en la link:https://www.dian.gov.co/impuestos/personas/Paginas/rut.aspx[página web de la DIAN] y adjunte el documento PDF.
+.. *Concepto:* Ingrese su primer nombre y la inicial de su primer apellido.
+.. *Relación:* Cliente.
+.. *Plazo de pago:* 30 días.
+.. *Formas de pago:* Ordinario.
+.. *Recepción y días de recepción:* Primer día de cada mes.
+.. *Diligencia:* Ingrese su correo electrónico personal (el mismo con el que ha estado realizando el proceso de selección).
+.. Los campos que no se especifiquen aquí, no son obligatorios y no deben ser diligenciados.
+
 . Lea y acepte las condiciones de almacenamiento de resultados de entrenamiento que se encuentran link:../retos-tecnicos/#propiedad-intelectual[aquí].
 . Nos envíe por e-mail (careers@autonomicmind.co):
 .. Un mensaje indicando si acepta o no la propuesta de participar en esta etapa.

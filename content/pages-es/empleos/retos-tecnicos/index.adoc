@@ -128,12 +128,16 @@ Antes de realizar un +MR+ por favor verifique que cumple con los siguientes crit
 . El mensaje de +commit+ para enviar la solución de un reto en el cual previamente se tienen 17 soluciones externas y
 8 soluciones dentro del repo es el siguiente:
 
-  solution: codeabbey, 78 (9.63)
-  - others: 8 in, 17 out, 0 total.
-  - score: 25665 initial, 25723 final, 58 progress.
-  - global-rank: 797 initial, 795 final, 2 progress.
-  - national-rank: 38 initial, 38 final, 0 progress.
-  - effort: 4.5 hours during challenges phase.
+[source, text]
+----
+solution: codeabbey, 78 (9.63)
+
+- others: 8 in, 17 out, 0 total.
+- score: 25665 initial, 25723 final, 58 progress.
+- global-rank: 797 initial, 795 final, 2 progress.
+- national-rank: 38 initial, 38 final, 0 progress.
+- effort: 4.5 hours during challenges phase.
+----
 
 Las reglas para los enlaces (+URLs+) a soluciones externas (+OTHERS.txt+) son las siguientes:
 
