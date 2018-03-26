@@ -1,0 +1,13 @@
+:slug: rules/208/
+:category: rules
+:description: En el presente documento se detallan los requerimientos de seguridad relacionados al registro de dispositivos móviles dentro de la red móvil celular. Por lo tanto, dichos dispositivos deben tener el IMEI registrado ante el operador de telefonía móvil celular autorizado.
+:keywords: Dispositivo móvil, Red celular, IMEI, Discos, Particiones, Requerimiento.
+:rules: yes
+
+= REQ.208 Registrar dispositivo en la red celular
+
+== Nombre
+
+Los dispositivos que se conectan a la red celular
+deben tener el +IMEI+ registrado
+ante el operador de telefonía móvil celular autorizado.
