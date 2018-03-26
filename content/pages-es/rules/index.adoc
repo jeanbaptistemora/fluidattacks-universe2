@@ -52,6 +52,7 @@
 * link:051/[REQ.051 Almacenar código fuente en repositorio].
 * link:052/[REQ.052 Identificar componentes críticos].
 * link:053/[REQ.053 Gestionar casos de abuso del sistema].
+* link:054/[REQ.054 Documentar dependencia entre casos de abuso].
 
 == Correos
 
