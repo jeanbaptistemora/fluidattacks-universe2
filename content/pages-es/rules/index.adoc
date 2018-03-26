@@ -44,6 +44,10 @@
 * link:092/[REQ.092 Utilizar certificados firmados externos].
 * link:093/[REQ.093 Utilizar certificados coherentes].
 
+== Dispositivos
+
+* link:205/[REQ.205 Configurar PIN].
+
 == Arquitectura
 
 * link:048/[REQ.048 Componentes con mínimo de dependencias].
