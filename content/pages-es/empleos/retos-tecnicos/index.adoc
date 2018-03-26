@@ -278,10 +278,15 @@ de dicha subcarpeta.
 máquina vulnerable con la que se está trabajando.
 Puede ver un ejemplo link:https://gitlab.com/autonomicmind/training/blob/master/systems/bwapp/SPEC.txt[aquí]
 
-== 9. Informes de avance
+== 9. Puntaje
 
-El formato indicado para los commits (ver link:#envio[reglas de envío]) permitirá evidenciar su progreso en esta etapa.
-Para diligenciar dicho formato, puede obtener los puntajes y posiciones en el ranking de cada plataforma de la siguiente forma:
+A medida que realice soluciones a retos,
+debe reportar el puntaje,
+ranking y score obtenidos,
+lo cual permitirá evidenciar su progreso en esta etapa.
+Todos estos datos deben ir en el +commit message+ de acuerdo al formato indicado en las link:#envio[reglas de envío]
+
+Puede obtener los puntajes y posiciones en el ranking de cada plataforma de la siguiente forma:
 
 * En +Codeabbey+ (Para retos de programación):
 
