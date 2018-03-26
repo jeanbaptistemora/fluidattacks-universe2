@@ -13,4 +13,6 @@
 
 == link:comparativo/[Comparativo].
 
+== link:certificaciones/[Certificaciones].
+
 == link:faq/[Preguntas Frecuentes].

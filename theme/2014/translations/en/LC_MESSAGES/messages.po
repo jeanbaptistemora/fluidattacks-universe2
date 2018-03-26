@@ -383,6 +383,14 @@ msgstr "comparative"
 msgid "Footer-subtitle-2.4"
 msgstr "Comparative"
 
+#: templates/footer.html:31
+msgid "Footer-link-2.5"
+msgstr "certifications"
+
+#: templates/footer.html:31
+msgid "Footer-subtitle-2.5"
+msgstr "Certifications"
+
 #: templates/footer.html:32 templates/footer.html:33 templates/footer.html:34
 #: templates/footer.html:35 templates/footer.html:36 templates/footer.html:37
 msgid "Footer-cat-2"
