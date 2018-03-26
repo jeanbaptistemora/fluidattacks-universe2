@@ -134,6 +134,8 @@ Las reglas para los enlaces (+URLs+) a soluciones externas (+OTHERS.txt+) son la
 .. Dentro de un +OTHERS+ de programación las +URLs+ deben estar ordenadas alfabéticamente por extensión,
 . Si está en +github+ la +URL+ debe ser su versión +raw+ (link:https://raw.githubusercontent.com/[]),
 
+== 6. Ejemplos
+
 A continuación presentamos los enlaces para diferentes tipos de +MR+:
 
 * +MR+ pendientes de aprobación: [button]#link:https://gitlab.com/autonomicmind/training/merge_requests?scope=all&utf8=%E2%9C%93&state=opened[click aquí]#.
@@ -141,8 +143,17 @@ A continuación presentamos los enlaces para diferentes tipos de +MR+:
 
 Ejemplos de +MR+ aceptados en el pasado:
 
-* +MR+ ejemplares de +hacking+: [button]#link:https://gitlab.com/autonomicmind/training/merge_requests/831[1]#, [button]#link:https://gitlab.com/autonomicmind/training/merge_requests/734[2]#, [button]#link:https://gitlab.com/autonomicmind/training/merge_requests/703/[3]#,
-* +MR+ ejemplares de programación: [button]#link:https://gitlab.com/autonomicmind/training/merge_requests/773[1]#, [button]#link:https://gitlab.com/autonomicmind/training/merge_requests/750[2]#, [button]#link:https://gitlab.com/autonomicmind/training/merge_requests/814[3]#,
+* +MR+ ejemplares de +hacking+:
+
+** [button]#link:https://gitlab.com/autonomicmind/training/merge_requests/831[1]#,
+** [button]#link:https://gitlab.com/autonomicmind/training/merge_requests/734[2]#,
+** [button]#link:https://gitlab.com/autonomicmind/training/merge_requests/703/[3]#
+
+* +MR+ ejemplares de programación:
+
+** [button]#link:https://gitlab.com/autonomicmind/training/merge_requests/773[1]#,
+** [button]#link:https://gitlab.com/autonomicmind/training/merge_requests/750[2]#,
+** [button]#link:https://gitlab.com/autonomicmind/training/merge_requests/814[3]#
 
 [NOTE]
 Estos enlaces ejemplares no necesariamente siguen todas las reglas mencionadas pues las reglas evolucionan y
@@ -150,7 +161,7 @@ por ende en el momento que se hicieron las reglas pudieron ser otras.
 En ningún momento los ejemplos tienen prioridad sobre las reglas,
 sin embargo se relacionan como ejemplo para propósitos pedagógicos.
 
-== 6. Recomendaciones
+== 7. Recomendaciones
 
 Para cumplir los objetivos enunciados,
 se sugiere buscar retos que no tengan solución ni en +OTHERS+ ni en el repositorio y
@@ -160,13 +171,13 @@ Al momento de solucionar retos de programación,
 se sugiere usar un lenguaje no muy usado y
 resolver los retos en dicho lenguaje.
 
-== 7. Repositorio
+== 8. Repositorio
 
 El repositorio donde usted debe enviar sus soluciones es el siguiente:
 link:https://gitlab.com/autonomicmind/training/[click aquí]
 Por favor lea atentamente las siguientes pautas para trabajar en este repositorio +git+:
 
-=== 7.1 Generalidades
+=== 8.1 Generalidades
 
 * *Contenido*: Utilizar espacios en vez de tabuladores.
 Parametrice su editor de texto favorito para que le facilite esta tarea.
@@ -185,7 +196,7 @@ satisfactoriamente las soluciones enviadas por usted.
 Puede ver todas las bitácoras de compilación históricas y de otros
 participantes link:https://gitlab.com/autonomicmind/training/pipelines[aquí].
 
-=== 7.2 Estructura
+=== 8.2 Estructura
 
 Los soluciones a los retos se almacenan en las siguientes carpetas:
 
@@ -233,7 +244,7 @@ espacios usar *-* (guion) como sustituto.
 +
 Opcionalmente, puede tener en cuenta el siguiente link:../../../en/blog/app-pickle-document-gherkin/[artículo]
 
-=== 7.3 Archivos Especiales
+=== 8.3 Archivos Especiales
 
 En algunas carpetas de la estructura se encuentran algunos archivos
 especiales de control:
@@ -265,7 +276,7 @@ de dicha subcarpeta.
 máquina vulnerable con la que se está trabajando.
 Puede ver un ejemplo link:https://gitlab.com/autonomicmind/training/blob/master/systems/bwapp/SPEC.txt[aquí]
 
-== 8. Informes de avance
+== 9. Informes de avance
 
 El formato indicado para los commits (ver link:#envio[reglas de envío]) permitirá evidenciar su progreso en esta etapa.
 Para diligenciar dicho formato, puede obtener los puntajes y posiciones en el ranking de cada plataforma de la siguiente forma:
@@ -291,7 +302,7 @@ image:ranking-colombia-codeabbey-2.png[Ranking Colombia codeabbey]
 
 image::ranking-wechall.png[Ranking en Wechall]
 
-== 9. Fin
+== 10. Fin
 
 La etapa de retos técnicos finaliza en cualquiera de las siguientes circunstancias:
 
@@ -305,7 +316,7 @@ En todos los casos la dirección de correo para estos pasos es: careers@autonomi
 
 Usted puede volver a presentarse en cualquier momento y volver a comenzar el proceso haciendo click [button]#link:../../../../forms/aplicacion[aquí]#.
 
-== 10. Builds locales
+== 11. Builds locales
 
 Es posible correr integraciones locales con el fin de identificar errores antes de hacer push o merge requests al repositorio.
 Para esto, se deben ejecutar los siguientes comandos:
@@ -356,14 +367,14 @@ basada en una distribución de +Linux+ (e.g. link:https://www.ubuntu.com/downloa
 o la de su preferencia) y aplicar el proceso descrito anteriormente para Sistemas
 Operativos +Linux+.
 
-== 11. Preguntas
+== 12. Preguntas
 
 * Antes de realizar una pregunta, por favor lea nuevamente este documento y
 las link:../faq[preguntas realizadas en el pasado] por otros participantes.
 
 * Puede expresar sus dudas en el canal *#general* de nuestro link:https://join.slack.com/t/autonomicmind/shared_invite/enQtMjg4ODI4NjM3MjY3LWUxMTNmMjk3MDdkMDAzYWY0ZjQ3MzNlYjUzZjM3NTM3MDVmYTliN2YyNGViZGUyNzUxOTAzNTdmZDQ5NWNjNGI[Slack].
 
-== 12. Propiedad Intelectual
+== 13. Propiedad Intelectual
 
 * Los derechos patrimoniales sobre el contenido de este repositorio se encuentran definidos en el archivo link:https://gitlab.com/autonomicmind/training/blob/master/COPYRIGHT.txt[COPYRIGHT].
 * La licencia y privilegios que tienen los usuarios de este repositorio
@@ -373,7 +384,7 @@ Por ende, la información aquí contenida puede ser usada
 por FLUID para cualquier fin comercial,
 siempre preservando los derechos morales de sus autores.
 
-== Plagio
+== 14. Plagio
 
 Tener las soluciones disponibles para su visualización propone un reto para el plagio,
 ¿cómo mostrarle al mundo las soluciones y evitar el plagio?
