@@ -52,6 +52,7 @@
 * link:208/[REQ.208 Registrar dispositivo en la red celular].
 * link:209/[REQ.209 Gestionar contraseña en caché].
 * link:210/[REQ.210 Eliminar información de dispositivos móviles].
+* link:211/[REQ.211 Establecer políticas de seguridad].
 
 == Arquitectura
 

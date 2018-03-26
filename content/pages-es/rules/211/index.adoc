@@ -1,0 +1,13 @@
+:slug: rules/211/
+:category: rules
+:description: En el presente documento se detallan los requerimientos de seguridad relacionados al establecimiento de políticas de seguridad de una organización. Por lo tanto, los dispositivos móviles deben estar restringidos y limitados de forma centralizada por dichas políticas de seguridad.
+:keywords: Dispositivo móvil, Centralizar, Restringir, Centralizar, Políticas de seguridad, Organización.
+:rules: yes
+
+= REQ.211 Establecer políticas de seguridad
+
+== Nombre
+
+Los dispositivos móviles deben estar restringidos
+y limitados de forma centralizada
+por políticas de seguridad definidas por la organización.
