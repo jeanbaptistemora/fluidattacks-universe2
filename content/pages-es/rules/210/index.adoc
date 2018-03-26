@@ -1,0 +1,12 @@
+:slug: rules/210/
+:category: rules
+:description: En el presente documento se detallan los requerimientos de seguridad relacionados al proceso de autenticación dentro de una aplicación. Por lo tanto, la información de los dispositivos móviles debe ser eliminada después de 10 intentos fallidos en el proceso de autenticación.
+:keywords: Dispositivo móvil, Intentos, Contraseña, Información, Autenticación, Fallido.
+:rules: yes
+
+= REQ.210 Eliminar información de dispositivos móviles
+
+== Nombre
+
+La información de los dispositivos móviles
+deberá ser eliminada después de 10 intentos fallidos de la autenticación.
