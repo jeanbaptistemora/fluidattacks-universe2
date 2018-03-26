@@ -95,7 +95,6 @@ En hacking, deben ser retos que:
 
 . No tienen solución en Gherkin (*.feature) en el repositorio (carpeta del reto),
 . No tienen solución externa indexada (enlaces OTHERS.txt del reto),
-. El lenguaje de la solución es uno de los aceptados por Codeabbey.
 . Requieran nivel técnico (no matemático ni de adivinanzas) de [button]#link:wechall.net[wechall]# o sus sitios relacionados,
 . (Opcionalmente) correspondan a explotación en sistemas (ToE) vulnerables intencionalmente listados en:
 .. [button]#link:https://www.owasp.org/index.php/OWASP_Vulnerable_Web_Applications_Directory_Project#Off-Line_apps[OWASP Off-Line apps]#
