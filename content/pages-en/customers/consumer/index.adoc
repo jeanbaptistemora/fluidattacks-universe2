@@ -8,6 +8,6 @@
 
 [frame="none", cols="^.^,^.^"]
 |=======
-|image:logo-exito.png[logo exito, 290, 170] |image:logo-semana.png[logo semana, 300, 90]
-2+|image:logo-tml.png[logo tml, 280, 100]
+|image:logo-exito.png[alt="Logo Exito",link="https://www.exito.com/"] |image:logo-semana.png[alt="Logo Semana",link="http://www.semana.com/"]
+2+|image:logo-tml.png[alt="Logo The Missing Link",link="https://www.themissinglink.com.au/"]
 |=======

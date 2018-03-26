@@ -9,7 +9,7 @@
 [role="energia tb-alt"]
 [cols=2, frame="none"]
 |====
-^.^a|image:logo-celsia.png[logo celsia, width=30%, link=http://www.celsia.com/]
+^.^a|image:logo-celsia.png[alt="Logo Celsia",link="http://www.celsia.com/"]
 
 a|== Celsia
 
@@ -25,6 +25,6 @@ de tiempo real consiste en la planeación, diseño, optimización, puesta en ser
 administración o gerenciamiento de sistemas transaccionales o plataformas tecnológicas, que involucran
 el intercambio de información con valor agregado, y mercados de bienes y servicios relacionados.
 
-^.^a|image:logo-xm.png[logo xm, width=30%, link=https://www.xm.com.co/corporativo/Paginas/Nuestra-empresa/quienes-somos.aspx]
+^.^a|image:logo-xm.png[alt="Logo XM",link="https://www.xm.com.co/corporativo/Paginas/Nuestra-empresa/quienes-somos.aspx"]
 
 |====

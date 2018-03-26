@@ -8,7 +8,7 @@
 
 [frame="none", cols="^.^,^.^,^.^"]
 |=======
-|image:logo-conexia.png[logo conexia, 290, 100] |image:logo-ceiba.png[logo ceiba, 270, 120] |image:logo-psl.png[logo psl, 300, 100]
-|image:logo-arus.png[logo arus, 280, 100] |image:logo-intergrupo.png[logo intergrupo, 300, 100] |image:logo-komet.png[logo komet, 300, 90]
-| |image:logo-creative.png[logo creative, 300, 100] |
+|image:logo-conexia.png[alt="Logo Conexia",link="http://conexia.com/es/index.html"] |image:logo-ceiba.png[alt="Logo Ceiba",link="https://www.ceiba.com.co/en/"] |image:logo-psl.png[alt="Logo PSL", link="http://psl.com.co/"]
+|image:logo-arus.png[alt="Logo Arus",link="https://www.arus.com.co/"] |image:logo-intergrupo.png[alt="Logo Intergrupo",link="http://www.intergrupo.com/"] |image:logo-komet.png[alt="Logo KometSales",link="https://www.kometsales.com/"]
+| |image:logo-creative.png[alt="Logo Creative",link="http://www.ctnd.com/"] |
 |=======

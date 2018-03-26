@@ -10,7 +10,7 @@
 [cols=2, frame="none"]
 |====
 
-^.^a|image:logo-cadena.png[logo cadena, width=60%, link=http://www.cadena.com.co/es/home.aspx]
+^.^a|image:logo-cadena.png[alt="Logo Cadena",link="http://www.cadena.com.co/es/home.aspx"]
 
 a|== Cadena
 
@@ -27,9 +27,9 @@ Centro América, 3 en México y una en Brasil. Exporta sus productos a diversos 
 mundo, incluyendo Estados Unidos, Canadá, México, Brasil, Chile, Venezuela, Centro América,
 el Caribe, Italia, España y el Reino Unido.
 
-^.^a|image:logo-corona.png[logo corona, width=50%, link=https://www.corona.co]
+^.^a|image:logo-corona.png[alt="Logo Corona",link="https://www.corona.co"]
 
-^.^a|image:logo-argos.png[logo argos, width=60%, link=https://www.grupoargos.com/es-es/]
+^.^a|image:logo-argos.png[alt="Logo Argos",link="https://www.grupoargos.com/es-es/"]
 
 a|== Grupo Argos
 
@@ -45,9 +45,9 @@ reconocimiento de la efectividad y seguridad de sus compuestos ante el cuerpo m�
 de la salud, LAFRANCOL ha ido creciendo sostenidamente durante casi 100 años alcanzando una posición de
 liderazgo en la industria farmacéutica nacional, tanto por su volumen de ventas como por su imagen de calidad.
 
-^.^a|image:logo-francol.png[logo francol, width=45%, link=http://www.lafrancol.com/nuestra-empresa/]
+^.^a|image:logo-francol.png[alt="Logo Francol",link="http://www.lafrancol.com/nuestra-empresa/"]
 
-^.^a|image:logo-manuelita.png[logo manuelita, width=60%, link=http://www.manuelita.com/perfil-corporativo]
+^.^a|image:logo-manuelita.png[alt="Logo Manuelita",link="http://www.manuelita.com/perfil-corporativo"]
 
 a|== Manuelita
 
@@ -64,6 +64,6 @@ Su actividad se focaliza en desarrollar y proveer soluciones a los proyectos de 
 de sus clientes, además de satisfacer las necesidades de mejoramiento y decoración de sus hogares,
 ofreciendo excelencia en el servicio, integridad en su trabajo y un fuerte compromiso con la comunidad.
 
-^.^a|image:logo-sodimac.png[logo sodimac, width=50%, link=http://www.homecenter.com.co/homecenter-co/mashomecenter/nuestra-empresa]
+^.^a|image:logo-sodimac.png[alt="Logo Sodimac",link="http://www.homecenter.com.co/homecenter-co/mashomecenter/nuestra-empresa"]
 
 |====

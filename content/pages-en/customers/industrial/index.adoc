@@ -8,5 +8,5 @@
 
 [frame="none", cols="^.^,^.^"]
 |=======
-|image:logo-corona.png[logo corona, 300, 55] |image:logo-manuelita.png[logo manuelita, 300, 70]
+|image:logo-corona.png[alt="Logo Corona",link="https://www.corona.co/"] |image:logo-manuelita.png[alt="Logo Manuelita", link="http://www.manuelita.com/"]
 |=======

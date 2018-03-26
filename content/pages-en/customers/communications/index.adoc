@@ -8,5 +8,5 @@
 
 [width="99%", cols="^.^", grid="none", frame="none"]
 |=======
-|image:logo-tigo.png[logo tigo, 400, 210]
+|image:logo-tigo.png[alt="Logo Tigo",link="https://www.tigo.com.co/"]
 |=======

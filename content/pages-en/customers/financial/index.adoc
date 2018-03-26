@@ -8,8 +8,8 @@
 
 [frame="none", cols="^.^,^.^,^.^"]
 |=======
-|image:logo-bancolombia.png[logo bancolombia, 290, 110] |image:logo-aval.png[logo aval, 300, 110] |image:logo-bbva.png[logo bbva, 300, 100]
-|image:logo-colpatria.png[logo colpatria, 280, 70] |image:logo-banistmo.png[logo banistmo, 300, 100] |image:logo-pacifico.png[logo pacifico, 290, 210]
-|image:logo-ach.png[logo ach, 270, 150] |image:logo-deceval.png[logo deceval, 300, 100] |image:logo-sura.png[logo sura, 290, 110]
-3+|image:logo-proteccion.png[logo proteccion, 270, 90]
+|image:logo-bancolombia.png[alt="Logo Bancolombia",link="https://www.grupobancolombia.com/wps/portal/personas"] |image:logo-aval.png[alt="Logo Aval",link="https://www.grupoaval.com/wps/portal/grupo-aval/aval/"] |image:logo-bbva.png[alt="Logo BBVA",link="https://www.bbva.com.co/"]
+|image:logo-colpatria.png[alt="Logo Colpatria",link="https://www.colpatria.com/"] |image:logo-banistmo.png[alt="Logo Banistmo",link="https://www.banistmo.com/en"] |image:logo-pacifico.png[alt="Logo Banco del Pacifico",link="https://www.bancodelpacifico.com/inicio.aspx"]
+|image:logo-ach.png[alt="Logo ACH",link="https://www.achcolombia.com.co/inicio"] |image:logo-deceval.png[alt="Logo Deceval",link="https://www.deceval.com.co/portal/page/portal/Home"] |image:logo-sura.png[alt="Logo Sura",link="https://www.segurossura.com.co/paginas/default.aspx"]
+3+|image:logo-proteccion.png[alt="Logo Proteccion",link="https://www.proteccion.com/wps/portal/proteccion"]
 |=======

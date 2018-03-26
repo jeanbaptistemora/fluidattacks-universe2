@@ -9,7 +9,7 @@
 [role="comercial tb-alt"]
 [cols=2, frame="none"]
 |====
-^.^a|image:logo-exito.png[logo exito, width=40%, link=https://www.grupoexito.com.co/es/]
+^.^a|image:logo-exito.png[alt="Logo Exito",link="https://www.grupoexito.com.co/es/"]
 
 a|== Grupo Exito
 
@@ -26,9 +26,9 @@ décadas al desarrollo y fortalecimiento del negocio. El grupo tiene la represen
 producción y comercialización para Colombia y el caribe de marcas internacionales como Chevignon,
 Naf Naf, Americanino, Esprit, Rifle, American Eagle, Mother Care, American Brands, LBT, entre otras.
 
-^.^a|image:logo-uribe.png[logo uribe, width=55%]
+^.^a|image:logo-uribe.png[Logo Uribe]
 
-^.^a|image:logo-semana.png[logo semana, width=40%, link=http://www.semana.com/]
+^.^a|image:logo-semana.png[alt="Logo Semana",link="http://www.semana.com/"]
 
 a|== Semana
 

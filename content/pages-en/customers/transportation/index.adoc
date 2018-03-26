@@ -9,7 +9,7 @@
 [role="transportation tb-alt"]
 [cols=2, frame="none"]
 |====
-a|image:logo-avianca.png[logo avianca, 390, 110, link=https://www.avianca.com/co/es/]
+a|image:logo-avianca.png[alt="Logo Avianca",link="https://www.avianca.com/co/es/"]
 
 a|== Avianca
 

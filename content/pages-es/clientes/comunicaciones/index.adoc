@@ -9,7 +9,7 @@
 [role="Comunicaciones tb-alt"]
 [cols=2, frame="none"]
 |====
-^.^a|image:logo-claro.png[logo claro, width=40%, link=https://www.claro.com.co/personas/institucional/]
+^.^a|image:logo-claro.png[alt="Logo Claro",link="https://www.claro.com.co/personas/institucional/"]
 
 a|== Claro
 
@@ -24,9 +24,9 @@ Empresa de Servicios Públicos constituida como sociedad anónima cuyo objeto so
 principal es la organización, administración y prestación de servicios de telecomunicaciones,
 Tecnologías de la Información y todas las actividades complementarias.
 
-^.^a|image:logo-edatel.png[logo edatel, width=50%, link=https://www.edatel.com.co/nuestra-compania/informacion-corporativa/quienes-somos]
+^.^a|image:logo-edatel.png[alt="Logo Edatel",link="https://www.edatel.com.co/nuestra-compania/informacion-corporativa/quienes-somos"]
 
-^.^a|image:logo-internexa.png[logo internexa, width=40%, link=http://www.internexa.com/Paginas/Home.aspx]
+^.^a|image:logo-internexa.png[alt="Logo Internexa",link="http://www.internexa.com/Paginas/Home.aspx"]
 
 a|== Internexa
 
@@ -41,6 +41,6 @@ participación accionaria del Grupo Millicom y el Grupo EPM. De la mano de sus e
 filiales, incluyendo a Colombia Móvil, Edatel y Orbitel, UNE cubre más del 70% de la
 población urbana y está presente en 767 municipios de los 32 departamentos del territorio nacional.
 
-^.^a|image:logo-tigo.png[logo tigo, width=40%, link=https://www.tigo.com.co/nuestra-compania]
+^.^a|image:logo-tigo.png[alt="Logo Tigo",link="https://www.tigo.com.co/nuestra-compania"]
 
 |====

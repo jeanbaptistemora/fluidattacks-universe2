@@ -9,7 +9,7 @@
 [role="Financiero tb-alt"]
 [cols=2, frame="none"]
 |====
-^.^a|image:logo-bancamia.png[logo bancamia, width=50%, link=https://www.bancamia.com.co/sobre-nosotros]
+^.^a|image:logo-bancamia.png[alt="Logo Bancamia",link="https://www.bancamia.com.co/sobre-nosotros"]
 
 a|== Bancamia
 
@@ -26,9 +26,9 @@ en la ciudad de Panamá, con instituciones provenientes de más de 30 países. E
 estructura financiera amplia y una importancia capital para la vida económica del país,
 lo cual es garantía de su permanencia y estabilidad.
 
-^.^a|image:logo-pacifico.png[logo pacifico, width=40%, link=https://www.bancodelpacifico.com/grupo-banco-del-pacifico/banco-del-pacifico-panama.aspx]
+^.^a|image:logo-pacifico.png[alt="Logo Banco del Pacifico",link="https://www.bancodelpacifico.com/grupo-banco-del-pacifico/banco-del-pacifico-panama.aspx"]
 
-^.^a|image:logo-banistmo.png[logo banistmo, width=50%, link=https://www.banistmo.com/quienes-somos]
+^.^a|image:logo-banistmo.png[alt="Logo Banistmo",link="https://www.banistmo.com/quienes-somos"]
 
 a|== Banistmo
 
@@ -43,9 +43,9 @@ de la eurozona por rentabilidad y eficiencia; es la primera entidad financiera
 de México y cuenta además con una sólida posición en España y con franquicias líderes
 en América del Sur y en la región.
 
-^.^a|image:logo-bbva.png[logo bbva, width=40%, link=https://www.bbva.com.co/]
+^.^a|image:logo-bbva.png[alt="Logo BBVA",link="https://www.bbva.com.co/"]
 
-^.^a|image:logo-cfa.png[logo CFA, width=60%, link=http://www.cfa.com.co/]
+^.^a|image:logo-cfa.png[alt="Logo CFA",link="http://www.cfa.com.co/"]
 
 a|== CFA
 
@@ -61,9 +61,9 @@ de dicho sector. Ofrecen servicios financieros y a través de la Red Coopcentral
 plataformas tecnológicas que permiten prestar servicios transaccionales a los asociados de
 las entidades que la conforman.
 
-^.^a|image:logo-coopcentral.png[logo coopcentral, width=50%, link=https://www.coopcentral.com.co/coopcentral/index.php/corpora]
+^.^a|image:logo-coopcentral.png[alt="Logo Coopcentral",link="https://www.coopcentral.com.co/coopcentral/index.php/corpora"]
 
-^.^a|image:logo-colpatria.png[logo colpatria, width=60%, link=https://www.colpatria.com/Acerca-de/banco-colpatria/informacion-institucional/nuestra-organizacion]
+^.^a|image:logo-colpatria.png[alt="Logo Colpatria",link="https://www.colpatria.com/Acerca-de/banco-colpatria/informacion-institucional/nuestra-organizacion"]
 
 a|== Colpatria
 
@@ -80,9 +80,9 @@ valores de contenido crediticio, de participación, representativos de mercancí
 financieros que se encuentren inscritos en el Registro Nacional de Valores y Emisores,
 ya sea que se emitan, negocien o registren localmente o en el exterior.
 
-^.^a|image:logo-deceval.png[logo deceval, width=50%, link=https://www.deceval.com.co/portal/page/portal/Home/Empresa/Quienes_Somos]
+^.^a|image:logo-deceval.png[alt="Logo Deceval",link="https://www.deceval.com.co/portal/page/portal/Home/Empresa/Quienes_Somos"]
 
-^.^a|image:logo-aval.png[logo aval, width=50%, link=https://www.grupoaval.com/wps/portal/grupo-aval/aval/acerca-nosotros]
+^.^a|image:logo-aval.png[alt="Logo Aval",link="https://www.grupoaval.com/wps/portal/grupo-aval/aval/acerca-nosotros"]
 
 a|== Grupo AVAL
 
@@ -98,9 +98,9 @@ Bancolombia es una organización financiera colombiana, perteneciente al Grupo S
 a su vez parte del Grupo Empresarial Antioqueño, es el banco privado más grande de Colombia
 (por el tamaño de su patrimonio y activos) y uno de los más grandes de América.
 
-^.^a|image:logo-bancolombia.png[logo bancolombia, width=50%, link=https://www.grupobancolombia.com/wps/portal/acerca-de]
+^.^a|image:logo-bancolombia.png[alt="Logo Bancolombia",link="https://www.grupobancolombia.com/wps/portal/acerca-de"]
 
-^.^a|image:logo-proteccion.png[logo proteccion, width=50%, link=https://www.proteccion.com/wps/portal/proteccion/web/home/corporativo-accionistas/acerca-proteccion/que-es-proteccion]
+^.^a|image:logo-proteccion.png[alt="Logo Proteccion",link="https://www.proteccion.com/wps/portal/proteccion/web/home/corporativo-accionistas/acerca-proteccion/que-es-proteccion"]
 
 a|== Protección
 
@@ -117,6 +117,6 @@ Financieros Diversos, que forma parte del Índice de Sostenibilidad Dow Jones co
 cual se reconocen a las compañías que se destacan a nivel mundial por sus buenas
 prácticas en materia económica, ambiental y social.
 
-^.^a|image:logo-sura.png[logo sura, width=50%, link=https://www.gruposura.com/corporativo/Paginas/default.aspx]
+^.^a|image:logo-sura.png[alt="Logo Sura",link="https://www.gruposura.com/corporativo/Paginas/default.aspx"]
 
 |====

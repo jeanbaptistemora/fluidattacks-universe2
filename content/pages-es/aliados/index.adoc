@@ -10,7 +10,7 @@
 [cols=2, frame="none"]
 |====
 
-^.^a|image:logo-choucair.png[logo choucair, width=50%, link=http://www.choucairtesting.com/]
+^.^a|image:logo-choucair.png[alt="Logo Choucair",link="http://www.choucairtesting.com/"]
 
 a|== Choucair
 
@@ -26,9 +26,9 @@ de información como pilar de las empresas para mejorar su competitividad median
 de mejor calidad, que ayudan a incrementar su rentabilidad, empleando prácticas de clase
 mundial y estableciendo relaciones de confianza con los clientes, socios de negocio y colaboradores.
 
-^.^a|image:logo-evolution.png[logo evolution, width=55%, link=http://www.evolution-it.com.co/]
+^.^a|image:logo-evolution.png[alt="Logo Evolution",link="http://www.evolution-it.com.co/"]
 
-^.^a|image:logo-greensqa.png[logo greensqa, width=55%, link=http://greensqa.com/]
+^.^a|image:logo-greensqa.png[alt="Logo GreenSQA",link="http://greensqa.com/"]
 
 a|== GreenSQA
 
@@ -48,9 +48,9 @@ operar, revisar, mantener, y mejorar la gestión tecnológica
 dentro de un marco de seguridad, servicio, atención y soporte
 acorde a las necesidades de cada organización.
 
-^.^a|image:logo-newnet.png[logo newnet, width=55%, link=http://www.newnetsa.com/]
+^.^a|image:logo-newnet.png[alt="Logo NewNet",link="http://www.newnetsa.com/"]
 
-^.^a|image:logo-teraport.png[logo teraport, width=55%, link=http://teraport.de]
+^.^a|image:logo-teraport.png[alt="Logo Teraport",link="http://teraport.de"]
 
 a|== Teraport
 
@@ -70,6 +70,6 @@ y servicios en la nube. Reconocido como líder de la industria
 y acreditado con los más altos niveles en el diseño,
 entrega y soporte de las últimas tecnologías.
 
-^.^a|image:logo-tml.png[logo tml, width=55%, link=https://www.themissinglink.com.au/]
+^.^a|image:logo-tml.png[alt="Logo The Missing Link",link="https://www.themissinglink.com.au/"]
 
 |====
