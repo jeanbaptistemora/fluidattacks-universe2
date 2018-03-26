@@ -10,45 +10,6 @@
 [cols=2, frame="none"]
 |====
 
-^.^a|image:logo-ceh.png[logo ceh, width=50%]
-
-a|== Ethical Hacker Certificado (CEH)
-
-Certificación de +EC-Council+ reconocida a nivel internacional,
-la cual acredita los conocimientos de las principales técnicas de hacking,
-así como de auditoría de seguridad de sistemas de información.
-Esta certificación es actualizada de forma periódica,
-incorporando las últimas técnicas y metodologías referentes a este campo.
-
-a|== Auditor certificado en sistemas de información (CISA)
-
-Certificación que valida las habilidades y experticia de un profesional
-en los campos de auditoría, control y seguridad de la información.
-Con esta certificación se verifica la capacidad
-de evaluar vulnerabilidades, informar sobre el cumplimiento
-y validar y mejorar los controles de seguridad en una empresa.
-
-^.^a|image:logo-cisa.png[logo cisa, width=50%]
-
-^.^a|image:logo-cism.png[logo cism, width=50%]
-
-a|== Gerente certificado en seguridad de la información (CISM)
-
-Certificación enfocada en la gestión,
-la cual promueve prácticas internacionales de seguridad
-y acredita personas que administran, diseñan, supervisan
-y evalúan la seguridad de la información de una empresa.
-
-a|== Profesional certificado en seguridad de sistemas de información (CISSP)
-
-Certificación de alto nivel profesional,
-la cual tiene como objetivo ayudar a las empresas
-a reconocer a los profesionales con formación
-en el área de seguridad de la información.
-Es ampliamente reconocida y acreditada a nivel mundial.
-
-^.^a|image:logo-cissp.png[logo cissp, width=50%]
-
 ^.^a|image:logo-oscp.png[logo oscp]
 
 a|== Profesional certificado en seguridad ofensiva (OSCP)
@@ -60,6 +21,57 @@ Esta certificación es una de las pocas que requiere evidencia
 de las habilidades en la parte práctica
 a través de una prueba de penetración.
 
+a|== Profesional en seguridad ofensiva inalámbrica (OSWP)
+
+Actualmente considerada la única certificación práctica
+de ataques inalámbricos en el campo de la seguridad informática.
+Los retos establecidos por +OSWP+ buscan probar las habilidades prácticas
+para realizar auditorías inalámbricas +802.11+
+utilizando herramientas de código libre, a través de un examen práctico.
+
+^.^a|image:logo-oswp.png[logo oswp, width=50%]
+
+^.^a|image:logo-ceh.png[logo ceh, width=50%]
+
+a|== Ethical Hacker Certificado (CEH)
+
+Certificación de +EC-Council+ reconocida a nivel internacional,
+la cual acredita los conocimientos de las principales técnicas de hacking,
+así como de auditoría de seguridad de sistemas de información.
+Esta certificación es actualizada de forma periódica,
+incorporando las últimas técnicas y metodologías referentes a este campo.
+
+a|== Profesional certificado en seguridad de sistemas de información (CISSP)
+
+Certificación de alto nivel profesional,
+la cual tiene como objetivo ayudar a las empresas
+a reconocer a los profesionales con formación
+en el área de seguridad de la información.
+Es ampliamente reconocida y acreditada a nivel mundial.
+
+^.^a|image:logo-cissp.png[logo cissp, width=50%]
+
+^.^a|image:logo-cism.png[logo cism, width=50%]
+
+a|== Gerente certificado en seguridad de la información (CISM)
+
+Certificación enfocada en la gestión,
+la cual promueve prácticas internacionales de seguridad
+y acredita personas que administran, diseñan, supervisan
+y evalúan la seguridad de la información de una empresa.
+
+a|== Auditor certificado en sistemas de información (CISA)
+
+Certificación que valida las habilidades y experticia de un profesional
+en los campos de auditoría, control y seguridad de la información.
+Con esta certificación se verifica la capacidad
+de evaluar vulnerabilidades, informar sobre el cumplimiento
+y validar y mejorar los controles de seguridad en una empresa.
+
+^.^a|image:logo-cisa.png[logo cisa, width=50%]
+
+^.^a|image:logo-comptia.png[logo comptia]
+
 a|== CompTIA Security+
 
 Certificación en la que se confía mundialmente
@@ -69,7 +81,5 @@ Como referencia de mejores prácticas en seguridad de +TI+,
 esta certificación aborda los principios esenciales de seguridad de redes
 y gestión de riesgos, lo que la convierte en un punto de partida importante
 para una carrera en seguridad de +TI+.
-
-^.^a|image:logo-comptia.png[logo comptia]
 
 |====
