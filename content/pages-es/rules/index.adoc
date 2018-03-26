@@ -55,6 +55,7 @@
 * link:054/[REQ.054 Documentar dependencia entre casos de abuso].
 * link:055/[REQ.055 Documentar casos de seguridad del sistema].
 * link:056/[REQ.056 Establecer caso de abuso de control].
+* link:057/[REQ.057 Relacionar casos de abuso].
 
 == Correos
 
