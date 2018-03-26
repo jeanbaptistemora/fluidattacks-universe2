@@ -48,6 +48,7 @@
 
 * link:205/[REQ.205 Configurar PIN].
 * link:206/[REQ.206 Configurar protocolos de comunicación].
+* link:207/[REQ.207 Cifrar particiones de discos].
 
 == Arquitectura
 

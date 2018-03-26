@@ -1,0 +1,13 @@
+:slug: rules/207/
+:category: rules
+:description: En el presente documento se detallan los lineamientos o requerimientos de seguridad relacionados al cifrado y particiones de discos duros. Por lo tanto, en dispositivos portátiles y en móviles, el sistema debe permitir el cifrado y particiones de discos.
+:keywords: Dispositivo móvil, Sistema, Cifrado, Discos, Particiones, Requerimiento.
+:rules: yes
+
+= REQ.207 Cifrar particiones de discos
+
+== Nombre
+
+En dispositivos portátiles y móviles,
+el sistema debe permitir el cifrado de discos
+y particiones de discos.
