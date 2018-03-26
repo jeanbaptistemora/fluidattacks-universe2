@@ -1,6 +1,7 @@
 :slug: delimit-ethical-hacking/
 :date: 2018-01-09
 :category: philosophy
+:subtitle: Defining the scope of your objectives
 :tags: ethical hacking, pentesting, security testing
 :image: dimensionar-ethical-hacking.png
 :alt: Person working on the computer while looking at cellphone

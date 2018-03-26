@@ -1,6 +1,7 @@
 :slug: xss-protection/
 :date: 2017-04-26
 :category: challenges
+:subtitle: How to protect your applications from XSS
 :tags: xss, web, protect, challenge
 :image: xss.png
 :alt: Computer with four padlocks, one unlocked

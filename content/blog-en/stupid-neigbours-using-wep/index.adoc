@@ -1,6 +1,7 @@
 :slug: stupid-neigbours-using-wep/
 :date: 2017-04-24
 :category: techniques
+:subtitle: How to crack a WEP encryption
 :tags: wep, wifi, encryption, challenge
 :image: stupid-wep.png
 :alt: Hand touching the Wireless icon

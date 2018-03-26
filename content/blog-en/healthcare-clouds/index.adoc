@@ -1,6 +1,7 @@
 :slug: healthcare-clouds/
 :date: 2017-04-27
 :category: opinions
+:subtitle: Cloud based systems and their issues
 :tags: cloud, protect, health
 :image: health-cloud.png
 :alt: The word Health Insurance being lift up to the sky by balloons

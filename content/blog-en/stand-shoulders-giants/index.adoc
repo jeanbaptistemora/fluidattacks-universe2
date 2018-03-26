@@ -1,6 +1,7 @@
 :slug: stand-shoulders-giants/
 :date: 2018-02-14
 :category: techniques
+:subtitle: Free and open libraries to perform security analysis
 :tags: testing, dependency, vulnerability
 :image: cover.png
 :alt: Orion carrying Cedalion

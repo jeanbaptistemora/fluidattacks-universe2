@@ -1,5 +1,6 @@
 :slug: another-proud-son-json/
 :date: 2017-05-04
+:subtitle: A quick, secured way to send data
 :category: identity
 :tags: security, information, jwt
 :image: proud-son.png

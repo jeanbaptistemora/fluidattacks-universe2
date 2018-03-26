@@ -1,6 +1,7 @@
 :slug: fuzzy-bugs-online/
 :date: 2018-02-09
 :category: techniques
+:subtitle: Performing fuzz testing over web applications
 :tags: sql, fuzzing, injection
 :image: cover.png
 :alt: Fuzzy caterpillar

@@ -1,6 +1,7 @@
 :slug: infinite-monkey-fuzzer/
 :date: 2018-02-12
 :category: techniques
+:subtitle: Fuzz testing using American Fuzzy Lop
 :tags: fuzzing, application, testing
 :image: inf-monkey.png
 :alt: Infinite Monkey Theorem

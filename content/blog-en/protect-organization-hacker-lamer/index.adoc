@@ -1,6 +1,7 @@
 :slug: protect-organization-hacker-lamer/
 :date: 2017-12-18
 :category: philosophy
+:subtitle: The importance of a proper pentesting
 :tags: security, protect, information
 :image: lamers.png
 :alt: Hands typing in a text editor

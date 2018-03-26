@@ -1,6 +1,7 @@
 :slug: conserving-id-ws-world/
 :date: 2017-05-02
 :category: identity
+:subtitle: Multiple secure mechanisms in a single service
 :tags: web, security, information
 :image: identity.png
 :alt: Line of Lego stormtroopers with one facing the opposite direction

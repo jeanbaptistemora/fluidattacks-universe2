@@ -1,6 +1,7 @@
 :slug: multiple-credentials-begone/
 :date: 2017-04-28
 :category: identity
+:subtitle: How to properly use single sign on services
 :tags: security, credential, saml, standard
 :image: multiple-credentials.png
 :alt: Several boxes prompting for username and password

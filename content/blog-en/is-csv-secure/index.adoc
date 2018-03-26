@@ -1,6 +1,7 @@
 :slug: is-csv-secure/
 :date: 2017-12-22
 :category: techniques
+:subtitle: Vulnerabilities in CSV files
 :tags: security, csv, code, web
 :image: csv.png
 :alt: Blank CSV document icon

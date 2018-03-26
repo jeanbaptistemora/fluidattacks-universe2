@@ -1,6 +1,7 @@
 :slug: symbolic-execution-mortals/
 :date: 2017-05-04
 :category: techniques
+:subtitle: What is it and how it works
 :tags: security, test, software
 :image: sym-exec.png
 :alt: Doll using a magnifying glass while searching through a set of data
