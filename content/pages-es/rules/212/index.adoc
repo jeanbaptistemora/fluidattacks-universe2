@@ -1,0 +1,14 @@
+:slug: rules/212/
+:category: rules
+:description: En el presente documento se detallan los requerimientos de seguridad relacionados a las interfaces de comunicación implementadas en un dispositivo móvil. Dichas interfaces permiten el acceso a Internet y deben permanecer apagadas cuando el equipo esté conectado a la red de la organización.
+:keywords: Dispositivo móvil, Interfaces, Comunicación, Dispositivo móvil, Plan de datos, Organización.
+:rules: yes
+
+= REQ.212 Apagar interfaces de comunicación
+
+== Nombre
+
+Las interfaces de comunicación de los dispositivos móviles
+que permiten acceso a +Internet+ mediante un plan de datos,
+deben permanecer apagadas cuando el equipo esté conectado
+a la red de la organización.

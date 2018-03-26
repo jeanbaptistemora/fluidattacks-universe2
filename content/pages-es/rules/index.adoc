@@ -53,6 +53,7 @@
 * link:209/[REQ.209 Gestionar contraseña en caché].
 * link:210/[REQ.210 Eliminar información de dispositivos móviles].
 * link:211/[REQ.211 Establecer políticas de seguridad].
+* link:212/[REQ.212 Apagar interfaces de comunicación].
 
 == Arquitectura
 
