@@ -136,13 +136,13 @@ Las reglas para los enlaces (+URLs+) a soluciones externas (+OTHERS.txt+) son la
 
 A continuación presentamos los enlaces para diferentes tipos de +MR+:
 
-* +MR+ pendientes de aprobación: link:https://gitlab.com/autonomicmind/training/merge_requests?scope=all&utf8=%E2%9C%93&state=opened[click aquí].
-* +MR+ rechazados en el pasado: link:https://gitlab.com/autonomicmind/training/merge_requests?scope=all&utf8=%E2%9C%93&state=closed[click aquí].
+* +MR+ pendientes de aprobación: [button]#link:https://gitlab.com/autonomicmind/training/merge_requests?scope=all&utf8=%E2%9C%93&state=opened[click aquí]#.
+* +MR+ rechazados en el pasado: [button]#link:https://gitlab.com/autonomicmind/training/merge_requests?scope=all&utf8=%E2%9C%93&state=closed[click aquí]#.
 
 Ejemplos de +MR+ aceptados en el pasado:
 
-* +MR+ ejemplares de +hacking+: link:https://gitlab.com/autonomicmind/training/merge_requests/831[Ej. 1], link:https://gitlab.com/autonomicmind/training/merge_requests/734[Ej. 2], link:https://gitlab.com/autonomicmind/training/merge_requests/703/[Ej. 3],
-* +MR+ ejemplares de programación: link:https://gitlab.com/autonomicmind/training/merge_requests/773[Ej. 1], link:https://gitlab.com/autonomicmind/training/merge_requests/750[Ej. 2], link:https://gitlab.com/autonomicmind/training/merge_requests/814[Ej. 3],
+* +MR+ ejemplares de +hacking+: [button]#link:https://gitlab.com/autonomicmind/training/merge_requests/831[1]#, [button]#link:https://gitlab.com/autonomicmind/training/merge_requests/734[2]#, [button]#link:https://gitlab.com/autonomicmind/training/merge_requests/703/[3]#,
+* +MR+ ejemplares de programación: [button]#link:https://gitlab.com/autonomicmind/training/merge_requests/773[1]#, [button]#link:https://gitlab.com/autonomicmind/training/merge_requests/750[2]#, [button]#link:https://gitlab.com/autonomicmind/training/merge_requests/814[3]#,
 
 [NOTE]
 Estos enlaces ejemplares no necesariamente siguen todas las reglas mencionadas pues las reglas evolucionan y
