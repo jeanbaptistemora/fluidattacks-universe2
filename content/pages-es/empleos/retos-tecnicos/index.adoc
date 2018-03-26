@@ -101,6 +101,17 @@ En hacking, deben ser retos que:
 .. [button]#link:https://www.owasp.org/index.php/OWASP_Vulnerable_Web_Applications_Directory_Project#Virtual_Machines_or_ISOs[OWASP VMs / ISOs]#
 .. [button]#link:https://www.owasp.org/index.php/OWASP_Vulnerable_Web_Applications_Directory_Project#On-Line_apps[OWASP On-Line apps]#
 
+Los códigos correspondientes a soluciones de retos de programación deberán cumplir con lo siguiente:
+
+. En comentarios multilínea al inicio del programa deben estar el snippet de los comandos de compilación utilizados y la salida correspondiente en modo +CLI+.
+. En comentarios multilínea al final del programa deben estar el snippet de los comandos de ejecucion utilizados y la salida correspondiente en modo +CLI+.
+
+Las soluciones de retos de hacking deberán documentarse de acuerdo a lo siguiente:
+
+. link:../../../en/blog/gherkin-steroids/[Guía para el uso de gherkin]
++ 
+Opcionalmente, puede tener en cuenta el siguiente link:../../../en/blog/app-pickle-document-gherkin/[artículo]
+
 == 5. Envío
 
 Las soluciones se envían mediante +Merge Request+ (+MR+) a la rama +master+ del repositorio +training+.
@@ -234,15 +245,6 @@ Un ejemplo de esta estructura es:
 * El nombramiento de todos los archivos y directorios, a excepción de sus
 archivos, debe realizarse en minúscula, sin caracteres especiales y en caso de requerir
 espacios usar *-* (guion) como sustituto.
-
-* Los códigos correspondientes a soluciones de retos de programación deberán cumplir con lo siguiente:
-** En comentarios multilínea al inicio del programa deben estar el snippet de los comandos de compilación utilizados y la salida correspondiente en modo +CLI+.
-** En comentarios multilínea al final del programa deben estar el snippet de los comandos de ejecucion utilizados y la salida correspondiente en modo +CLI+.
-
-* Las soluciones de retos de hacking deberán documentarse de acuerdo a lo siguiente:
-** link:../../../en/blog/gherkin-steroids/[Guía para el uso de gherkin]
-+
-Opcionalmente, puede tener en cuenta el siguiente link:../../../en/blog/app-pickle-document-gherkin/[artículo]
 
 === 8.3 Archivos Especiales
 
