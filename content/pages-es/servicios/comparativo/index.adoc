@@ -12,7 +12,7 @@
 {description} Para ello presentamos la siguiente tabla comparativa:
 
 .Comparación entre los servicios de Hacking puntual y Hacking continuo de FLUID.
-[role="aliados tb-alt"]
+[role="tb-row"]
 [cols=3]
 |====
 | *Aspectos*

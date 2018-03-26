@@ -12,7 +12,7 @@
 {description} To this end we present the following table:
 
 .Comparison between Continuous and One Shot Hacking services.
-[role="aliados tb-alt"]
+[role="tb-row"]
 [cols=3]
 |====
 | *Aspects*

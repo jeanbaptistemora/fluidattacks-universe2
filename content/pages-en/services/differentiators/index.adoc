@@ -11,7 +11,7 @@
 {description} To this end, we present the following comparative table:
 
 .Comparative table Pentesting Vs Vulnerability Analysis
-[role="aliados tb-alt"]
+[role="tb-row"]
 [cols=3]
 |====
 | *Aspect*
