@@ -50,6 +50,7 @@
 * link:206/[REQ.206 Configurar protocolos de comunicación].
 * link:207/[REQ.207 Cifrar particiones de discos].
 * link:208/[REQ.208 Registrar dispositivo en la red celular].
+* link:209/[REQ.209 Gestionar contraseña en caché].
 
 == Arquitectura
 
