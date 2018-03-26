@@ -685,6 +685,12 @@ article {
   }
 }
 
+.icon {
+  img {
+    min-width: 48px;
+  }
+}
+
 //scss-lint:disable no-universal-selectors
 *,
 *::before,
