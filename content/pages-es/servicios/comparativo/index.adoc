@@ -13,11 +13,11 @@
 
 .Comparación entre los servicios de Hacking puntual y Hacking continuo de FLUID.
 [role="aliados tb-alt"]
-[cols=3, frame="none"]
+[cols=3]
 |====
-| Aspectos
-| Hacking Continuo
-| Hacking Puntual
+| *Aspectos*
+| link:../hacking-continuo/[*Hacking Continuo*]
+| link:../hacking-puntual/[*Hacking Puntual*]
 
 a|==== Ciclos de revisión
 | Múltiples.

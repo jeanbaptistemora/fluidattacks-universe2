@@ -12,11 +12,11 @@
 
 .Comparación entre una prueba de intrusión de FLUID y un análisis común de vulnerabilidades.
 [role="aliados tb-alt"]
-[cols=3, frame="none"]
+[cols=3]
 |====
-| Aspecto
-| FLUIDAttacks
-| Otros
+| *Aspecto*
+| *FLUIDAttacks*
+| *Otros*
 
 a|==== Foco
 | {si} Nos dedicamos únicamente a hackear,

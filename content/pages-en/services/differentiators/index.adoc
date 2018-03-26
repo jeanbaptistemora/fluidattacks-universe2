@@ -12,11 +12,11 @@
 
 .Comparative table Pentesting Vs Vulnerability Analysis
 [role="aliados tb-alt"]
-[cols=3, frame="none"]
+[cols=3]
 |====
-| Aspect
-| FLUIDAttacks
-| Others
+| *Aspect*
+| *FLUIDAttacks*
+| *Others*
 
 a|==== Focus
 | {yes} We only hack, all day, all projects, all hackers.

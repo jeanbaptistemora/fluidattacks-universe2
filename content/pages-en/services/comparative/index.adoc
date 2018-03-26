@@ -13,11 +13,11 @@
 
 .Comparison between Continuous and One Shot Hacking services.
 [role="aliados tb-alt"]
-[cols=3, frame="none"]
+[cols=3]
 |====
-| Aspects
-| Continuous Hacking
-| One Shot Hacking
+| *Aspects*
+| link:../continuous-hacking/[*Continuous Hacking*]
+| link:../one-shot-hacking/[*One Shot Hacking*]
 
 a|==== Inspection Cycles
 | Multiples.
