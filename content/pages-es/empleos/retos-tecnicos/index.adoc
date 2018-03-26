@@ -107,7 +107,7 @@ Las soluciones se envían mediante +Merge Request+ (+MR+) a la rama +master+ del
 Antes de realizar un +MR+ por favor verifique que cumple con los siguientes criterios:
 
 . Solo debe trabajar en una rama cuyo nombre es exactamente su nombre de usuario en +gitlab+,
-. Todos los archivos relacionados con la resolución de retos deben respetar la estructura indicada,
+. Todos los archivos relacionados con la resolución de retos deben respetar la [button]#link:#estructura[estructura indicada]#,
 . Si la solución requiere archivos adicionales debe incluirlos en el directorio del reto correspondiente,
 . Cada solución a un reto debe enviarse con 10 soluciones externas (10 +URLs+ en archivos +OTHERS.txt+),
 . La solución y los archivos relacionados deben enviarse en 1 solo +commit+,
@@ -166,6 +166,8 @@ El repositorio donde usted debe enviar sus soluciones es el siguiente:
 link:https://gitlab.com/autonomicmind/training/[click aquí]
 Por favor lea atentamente las siguientes pautas para trabajar en este repositorio +git+:
 
+=== 7.1 Generalidades
+
 * *Contenido*: Utilizar espacios en vez de tabuladores.
 Parametrice su editor de texto favorito para que le facilite esta tarea.
 
@@ -183,7 +185,9 @@ satisfactoriamente las soluciones enviadas por usted.
 Puede ver todas las bitácoras de compilación históricas y de otros
 participantes link:https://gitlab.com/autonomicmind/training/pipelines[aquí].
 
-* *Estructura del repositorio:* Los soluciones a los retos se almacenan en las siguientes carpetas:
+=== 7.2 Estructura
+
+Los soluciones a los retos se almacenan en las siguientes carpetas:
 
 *systems*: carpeta exclusiva para retos de explotación de sistemas vulnerables y se debe manejar la siguiente estructura:
 
@@ -229,7 +233,9 @@ espacios usar *-* (guion) como sustituto.
 +
 Opcionalmente, puede tener en cuenta el siguiente link:../../../en/blog/app-pickle-document-gherkin/[artículo]
 
-* *Archivos Especiales:* En algunas carpetas de la estructura se encuentran algunos archivos
+=== 7.3 Archivos Especiales
+
+En algunas carpetas de la estructura se encuentran algunos archivos
 especiales de control:
 
 ** *LINK.txt:* Contiene la URL al enunciado del reto en la plataforma
