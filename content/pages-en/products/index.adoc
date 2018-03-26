@@ -9,6 +9,8 @@
 
 == link:asserts/[Asserts]
 
-== link:commands/[Commands]
+== link:rules/[Rules]
 
 == link:defends/[Defends]
+
+== link:commands/[Commands]
