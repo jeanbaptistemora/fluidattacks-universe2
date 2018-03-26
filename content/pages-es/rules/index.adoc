@@ -47,6 +47,7 @@
 == Dispositivos
 
 * link:205/[REQ.205 Configurar PIN].
+* link:206/[REQ.206 Configurar protocolos de comunicación].
 
 == Arquitectura
 

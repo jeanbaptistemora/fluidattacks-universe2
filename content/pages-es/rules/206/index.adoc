@@ -1,0 +1,14 @@
+:slug: rules/206/
+:category: rules
+:description: En el presente documento se detallan los requerimientos de seguridad relacionados a la gestión de los protocolos de comunicación empleados por los dispositivos móviles en la transferencia de datos. Por lo tanto, estos deben permanecer ocultos, configurados con credenciales o permanecer apagados.
+:keywords: Dispositivo móvil, Protocolo, Intercambio, Datos, Bluetooth, NFC.
+:rules: yes
+
+= REQ.206 Configurar protocolos de comunicación
+
+== Nombre
+
+Protocolos de comunicación de los dispositivos móviles
+que permiten intercambio de datos
+(+Bluetooth+, +NFC+, +Tethering+) deben permanecer ocultas,
+configurado con credenciales o permanecer apagadas.
