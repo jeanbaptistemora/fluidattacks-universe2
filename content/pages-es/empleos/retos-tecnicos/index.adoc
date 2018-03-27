@@ -104,8 +104,6 @@ Las soluciones de retos de hacking deberán cumplir con lo siguiente:
 .. [button]#link:https://www.owasp.org/index.php/OWASP_Vulnerable_Web_Applications_Directory_Project#Virtual_Machines_or_ISOs[OWASP VMs / ISOs]#
 .. [button]#link:https://www.owasp.org/index.php/OWASP_Vulnerable_Web_Applications_Directory_Project#On-Line_apps[OWASP On-Line apps]#
 .  El formato Gherkin a utilizar debe adherirse estricamente a lo descrito [button]#link:../../../en/blog/gherkin-steroids/[aquí]#
-+
-Opcionalmente, puede tener en cuenta el siguiente link:../../../en/blog/app-pickle-document-gherkin/[artículo]
 
 == 5. Envío
 
