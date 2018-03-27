@@ -1,0 +1,13 @@
+:slug: rules/254/
+:category: rules
+:description: En el presente documento se detallan los lineamientos o requerimientos de seguridad relacionados a la administración segura de redes inalámbricas de toda organización. Por lo tanto, se debe cambiar el nombre por defecto de fábrica del SSID de la red inalámbrica.
+:keywords: Fábrica, SSID, Cambiar, Inalámbrica, Nombre, Organización.
+:rules: yes
+
+= REQ.254 Cambiar nombre de SSID
+
+== Nombre
+
+La organización debe cambiar
+el nombre por defecto de fábrica
+del +SSID+ de la red inalámbrica.
