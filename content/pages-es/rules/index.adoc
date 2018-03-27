@@ -61,6 +61,7 @@
 
 * link:215/[REQ.215 Eliminar reglas redundantes].
 * link:216/[REQ.216 Eliminar objetos de red en desuso].
+* link:217/[REQ.217 Eliminar reglas desactivadas del firewall].
 
 == Arquitectura
 

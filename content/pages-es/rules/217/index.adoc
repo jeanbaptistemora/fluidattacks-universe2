@@ -1,0 +1,12 @@
+:slug: rules/217/
+:category: rules
+:description: En el presente documento se detallan los lineamientos o requerimientos de seguridad relacionados al uso eficiente de las reglas que componen la configuración de un firewall. Por lo tanto, cuando dichas reglas son desactivadas, no deben permanecer en dicha configuración.
+:keywords: Firewall, Reglas, Eliminar, Desactivar, Configuración, Equipo.
+:rules: yes
+
+= REQ.217 Eliminar reglas desactivadas del firewall
+
+== Nombre
+
+Las reglas desactivadas no deben permanecer
+en la configuración del equipo de +firewall+.
