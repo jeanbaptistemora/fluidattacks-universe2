@@ -237,7 +237,7 @@ debe realizarse en minúscula,
 sin caracteres especiales y
 en caso de requerir espacios usar *-* (guion) como sustituto.
 
-=== 9.2 Archivos Especiales
+=== 9.2 Archivos
 
 En algunas carpetas de la estructura se encuentran algunos archivos
 especiales de control:
