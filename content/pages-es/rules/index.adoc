@@ -55,6 +55,7 @@
 * link:211/[REQ.211 Establecer políticas de seguridad].
 * link:212/[REQ.212 Apagar interfaces de comunicación].
 * link:213/[REQ.213 Permitir ubicación geográfica].
+* link:214/[REQ.214 Permitir destruir datos].
 
 == Arquitectura
 
