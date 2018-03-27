@@ -51,12 +51,12 @@ Además sabrá la rigurosidad exacta del hackeo (lo revisado y lo no revisado).
 
 ^.^a|image:img5.png[alt="img5", width="55%"]
 
-a|== Duración Específica
+a|== Duración específica
 
 Dependiendo del tamaño de la prueba típicamente estas
 toman entre +1+ y +4+ semanas.
 
-a|== Seguimiento Personalizado
+a|== Seguimiento personalizado
 
 Cada proyecto tiene asignado un +project manager+
 a través del cual los clientes pueden gestionar todo lo necesario
@@ -134,7 +134,7 @@ los hallazgos reportados en nuestra plataforma
 
 ^.^a|image:img15.png[alt="img15", width="55%"]
 
-a|== Soporte de Remediación.
+a|== Soporte de remediación.
 
 Durante el proyecto es posible solicitar aclaraciones
 directamente a los hackers mediante
