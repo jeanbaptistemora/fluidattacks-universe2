@@ -156,19 +156,20 @@ deben incluir la referencia.
 
 === 8. Explicaciones con código fuente
 
-Para los documentos que utilicen código fuente,
-se establecen las siguientes reglas:
+El código fuente siempre debe:
 
-. El código no debe tener más de 8 líneas.
-. El código fuente debe ser en inglés.
-. No está permitido repetir un fragmento de código
-que ya se haya usado en la guía.
-. Identar utilizando 2 espacios en lugar de tabulaciones.
-A menos que el lenguaje indique lo contrario.
-. El código debe estar enumerado.
-Para ello añadir el parámetro +linenums+ al bloque de +source+.
-. Añadir las líneas de código al +post+
-utilizando un bloque de código, no usar imágenes.
+. Estar en inglés (incluso los comentarios).
+. Identar utilizando +2+ espacios en lugar de tabulaciones,
+a menos que el lenguaje requiera lo contrario.
+
+Los fragmentos de código fuente embebidos en documentos siempre deben:
+
+. Estar enumerados. Para ello añadir el parámetro +linenums+
+al bloque de +source+.
+. No debe tener más de +8+ líneas.
+. No está permitido repetir un fragmento que ya se haya usado en la guía.
+. Añadir las líneas de código al +post+ utilizando un bloque de código,
+no usar imágenes.
 
 *Ejemplo:*
 
@@ -242,6 +243,9 @@ El documento debe incluir 6 +keywords+.
 | Atributo que indica si se encuentra disponible una versión traducida
 del documento dentro de la página de FLUID.
 En caso afirmativo se debe incluir el +slug+ del documento traducido.
+
+|+:subtitle:+ | Si | Si | Si
+| Subtitulo corto que indique concretamente la finalidad del documento.
 
 |+:defends:+ | No | Si | No
 | Metadato único de artículos en +Knowledge Base+.
