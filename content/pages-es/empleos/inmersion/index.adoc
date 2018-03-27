@@ -98,7 +98,19 @@ usted deberá entrenar la máxima dedicación posible.
 . Debe diligenciar el [button]#link:../../../../forms/training[reporte de entrenamiento]# antes de finalizar la jornada.
 . El fraude deparará en la finalización inmediata del proceso de selección
 
-== 7. Pagos
+== 7. Ciclos
+
+. El entrenamiento se realizará en ciclos o iteraciones de semana calendario,
+. Inicialmente se le ofrece un primer ciclo de entrenamiento,
+. Al final de cada ciclo puede ocurrir lo siguiente:
+.. No indicar nada, con lo cual puede asumir que el ciclo de formación se renueva una semana más.
+.. Notificar que no deseamos continuar con otro ciclo y por ende finalizar el proceso,
+.. Formalizar que no deseamos continuar con otro ciclo,
+debido a que queremos adelantar la etapa siguiente,
+. Lo usual es que se requiera entre 8 y 16 ciclos para finalizar esta etapa
+.. Esto es meramente un estimado pues depende enteramente de su dedicación y rendimiento.
+
+== 8. Pagos
 
 . Se pagará el tiempo reportado a formación con un valor hora de $6.468 COP,
 . Se espera que usted logre una dedicación mínima del 80% (Relación al tiempo de referencia),
@@ -111,18 +123,6 @@ se garantiza el pago mínimo de las siguientes 96 horas de entrenamiento reporta
 . Debe presentar el 1er día hábil calendario del mes siguiente los documentos que permiten consignar el dinero a su cuenta:
 .. Cuenta de cobro por las horas del mes anterior,
 .. Recibo de pago de la seguridad social por el periodo anterior
-
-== 8. Ciclos
-
-. El entrenamiento se realizará en ciclos o iteraciones de semana calendario,
-. Inicialmente se le ofrece un primer ciclo de entrenamiento,
-. Al final de cada ciclo puede ocurrir lo siguiente:
-.. No indicar nada, con lo cual puede asumir que el ciclo de formación se renueva una semana más.
-.. Notificar que no deseamos continuar con otro ciclo y por ende finalizar el proceso,
-.. Formalizar que no deseamos continuar con otro ciclo,
-debido a que queremos adelantar la etapa siguiente,
-. Lo usual es que se requiera entre 8 y 16 ciclos para finalizar esta etapa
-.. Esto es meramente un estimado pues depende enteramente de su dedicación y rendimiento.
 
 == 9. Fin
 
