@@ -135,6 +135,8 @@ solution: codeabbey, 78 (9.63)
 - effort: 4.5 hours during challenges phase.
 ----
 
+== 6. Externas
+
 Las reglas para los enlaces (+URLs+) a soluciones externas (+OTHERS.txt+) son las siguientes:
 
 . Deben ser enlaces directos (+HTTP 200+) y sin redirección (+HTTP 302+).
@@ -145,7 +147,7 @@ Las reglas para los enlaces (+URLs+) a soluciones externas (+OTHERS.txt+) son la
 .. Dentro de un +OTHERS+ de programación las +URLs+ deben estar ordenadas alfabéticamente por extensión,
 . Si está en +github+ la +URL+ debe ser su versión +raw+ (link:https://raw.githubusercontent.com/[]),
 
-== 6. Ejemplos
+== 7. Ejemplos
 
 A continuación presentamos los enlaces para diferentes tipos de +MR+:
 
@@ -168,7 +170,7 @@ por ende en el momento que se hicieron las reglas pudieron ser otras.
 En ningún momento los ejemplos tienen prioridad sobre las reglas,
 sin embargo se relacionan como ejemplo para propósitos pedagógicos.
 
-== 7. Recomendaciones
+== 8. Recomendaciones
 
 Para cumplir los objetivos enunciados,
 se sugiere buscar retos que no tengan solución ni en +OTHERS+ ni en el repositorio y
@@ -178,13 +180,13 @@ Al momento de solucionar retos de programación,
 se sugiere usar un lenguaje no muy usado y
 resolver los retos en dicho lenguaje.
 
-== 8. Repositorio
+== 9. Repositorio
 
 El envío de soluciones se realizará en el siguiente [button]#link:https://gitlab.com/autonomicmind/training/[repositorio git]#
 
 Es ideal que usted se familiarice con el versionamiento y la estructura que detallamos a continuación.
 
-=== 8.1 Estructura
+=== 9.1 Estructura
 
 Los soluciones a los retos se almacenan en las siguientes carpetas:
 
@@ -223,7 +225,7 @@ Un ejemplo de esta estructura es:
 archivos, debe realizarse en minúscula, sin caracteres especiales y en caso de requerir
 espacios usar *-* (guion) como sustituto.
 
-=== 8.2 Archivos Especiales
+=== 9.2 Archivos Especiales
 
 En algunas carpetas de la estructura se encuentran algunos archivos
 especiales de control:
@@ -255,7 +257,7 @@ de dicha subcarpeta.
 máquina vulnerable con la que se está trabajando.
 Puede ver un ejemplo link:https://gitlab.com/autonomicmind/training/blob/master/systems/bwapp/SPEC.txt[aquí]
 
-== 9. Puntaje
+== 10. Puntaje
 
 A medida que realice soluciones a retos,
 debe reportar el puntaje,
@@ -286,7 +288,7 @@ image:ranking-colombia-codeabbey-2.png[Ranking Colombia codeabbey]
 
 image::ranking-wechall.png[Ranking en Wechall]
 
-== 10. Fin
+== 11. Fin
 
 La etapa de retos técnicos finaliza en cualquiera de las siguientes circunstancias:
 
@@ -304,7 +306,7 @@ Si usted fue retirado por alguna de estas circunstancias, exceptuando las dos ú
 puede volver a presentarse en cualquier momento y
 volver a comenzar el proceso haciendo click [button]#link:../../../../forms/aplicacion[aquí]#.
 
-== 11. Builds locales
+== 12. Builds locales
 
 Es posible correr integraciones locales con el fin de identificar errores antes de hacer push o merge requests al repositorio.
 Para esto, se deben ejecutar los siguientes comandos:
@@ -355,14 +357,14 @@ basada en una distribución de +Linux+ (e.g. link:https://www.ubuntu.com/downloa
 o la de su preferencia) y aplicar el proceso descrito anteriormente para Sistemas
 Operativos +Linux+.
 
-== 12. Preguntas
+== 13. Preguntas
 
 * Antes de realizar una pregunta, por favor lea nuevamente este documento y
 las link:../faq[preguntas realizadas en el pasado] por otros participantes.
 
 * Puede expresar sus dudas en el canal *#general* de nuestro link:https://join.slack.com/t/autonomicmind/shared_invite/enQtMjg4ODI4NjM3MjY3LWUxMTNmMjk3MDdkMDAzYWY0ZjQ3MzNlYjUzZjM3NTM3MDVmYTliN2YyNGViZGUyNzUxOTAzNTdmZDQ5NWNjNGI[Slack].
 
-== 13. Propiedad
+== 14. Propiedad
 
 * Los derechos patrimoniales sobre el contenido de este repositorio se encuentran definidos en el archivo link:https://gitlab.com/autonomicmind/training/blob/master/COPYRIGHT.txt[COPYRIGHT].
 * La licencia y privilegios que tienen los usuarios de este repositorio
@@ -372,7 +374,7 @@ Por ende, la información aquí contenida puede ser usada
 por FLUID para cualquier fin comercial,
 siempre preservando los derechos morales de sus autores.
 
-== 14. Plagio
+== 15. Plagio
 
 Tener las soluciones disponibles para su visualización propone un reto para el plagio,
 ¿cómo mostrarle al mundo las soluciones y evitar el plagio?
