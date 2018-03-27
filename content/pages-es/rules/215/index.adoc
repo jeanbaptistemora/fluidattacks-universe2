@@ -1,0 +1,11 @@
+:slug: rules/215/
+:category: rules
+:description: En el presente documento se detallan los lineamientos o requerimientos de seguridad relacionados a la seguridad dentro de la red de una determinada organización por medio de un firewall. Por lo tanto, en toda red no deben existir reglas de +firewall+ redundantes u opuestas.
+:keywords: Firewall, Seguridad, Red, Reglas, Redundante, Opuesta.
+:rules: yes
+
+= REQ.215 Eliminar reglas redundantes
+
+== Nombre
+
+No deben existir reglas de +firewall+ redundantes u opuestas.

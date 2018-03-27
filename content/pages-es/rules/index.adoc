@@ -57,6 +57,10 @@
 * link:213/[REQ.213 Permitir ubicación geográfica].
 * link:214/[REQ.214 Permitir destruir datos].
 
+== Firewall
+
+* link:215/[REQ.215 Eliminar reglas redundantes].
+
 == Arquitectura
 
 * link:048/[REQ.048 Componentes con mínimo de dependencias].
