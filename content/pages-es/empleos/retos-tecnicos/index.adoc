@@ -98,10 +98,10 @@ Las soluciones de retos de programación deberán cumplir con lo siguiente:
 
 Las soluciones de retos de hacking deberán cumplir con lo siguiente:
 
-. No deben tener solución en Gherkin (*.feature) en el repositorio (carpeta del reto),
+. No deben tener solución en +Gherkin+ (+*.feature+) en el repositorio (carpeta del reto),
 . No deben tener solución externa indexada (enlaces OTHERS.txt del reto),
 . Deben ser retos que requieran nivel técnico (no matemático ni de adivinanzas) de [button]#link:wechall.net[wechall]# o sus sitios relacionados,
-. (Opcionalmente) Pueden ser retos que correspondan explotación en sistemas (ToE) vulnerables intencionalmente listados en:
+. (Opcionalmente) Pueden ser retos que correspondan explotación en sistemas (+ToE+) vulnerables intencionalmente listados en:
 .. [button]#link:https://www.owasp.org/index.php/OWASP_Vulnerable_Web_Applications_Directory_Project#Off-Line_apps[OWASP Off-Line apps]#
 .. [button]#link:https://www.owasp.org/index.php/OWASP_Vulnerable_Web_Applications_Directory_Project#Virtual_Machines_or_ISOs[OWASP VMs / ISOs]#
 .. [button]#link:https://www.owasp.org/index.php/OWASP_Vulnerable_Web_Applications_Directory_Project#On-Line_apps[OWASP On-Line apps]#
