@@ -32,8 +32,8 @@ que usted reciba una remuneración por el tiempo invertido en el proceso.
 
 == 3. Criterios
 
-. Para los retos los mismos link:../retos-tecnicos/#criterios[criterios] de la etapa de retos.
-. Para los artículos los criterios definidos en la link:../../estilo[guía de estilo].
+. Para los retos los mismos [button]#link:../retos-tecnicos/#criterios[criterios]# de la etapa de retos.
+. Para los artículos los criterios definidos en la [button]#link:../../estilo[guía de estilo]#.
 
 == 4. Inicio
 
