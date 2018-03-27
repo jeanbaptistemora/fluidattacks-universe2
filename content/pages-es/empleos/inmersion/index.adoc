@@ -12,7 +12,7 @@ Este nuevo paso, para el cual usted ha sido seleccionado entre más de 100 candi
 busca que usted haga parte en un auto-entrenamiento intensivo en retos de programación y
 hacking financiado por FLUID llamado “Inmersión”.
 
-== Filosofía
+== 1. Filosofía
 
 El objetivo de esta etapa es que usted alcance los más altos niveles de fortaleza técnica.
 Esto previo a efectuar pruebas reales de seguridad sobre sistemas financieros y de telecomunicaciones,
@@ -23,19 +23,19 @@ Por lo extenso del proceso, FLUID, para esta etapa,
 busca independiente del avance en puntos y ranking,
 que usted reciba una remuneración por el tiempo invertido en el proceso.
 
-== Objetivos
+== 2. Objetivos
 
 . Resuelva 100 retos de programación,
 . Resuelva 100 retos de hacking,
 . Finalice 2 proyectos de entrenamiento sorpresa,
 . Publique 10 artículos en el blog,
 
-== Criterios
+== 3. Criterios
 
 . Para los retos los mismos link:../retos-tecnicos/#criterios[criterios] de la etapa de retos.
 . Para los artículos los criterios definidos en la link:../../estilo[guía de estilo].
 
-== Inicio
+== 4. Inicio
 
 Esta etapa comienza cuando:
 
@@ -74,7 +74,7 @@ la forma de documentación y las herramientas requeridas entre otros,
 serán revelados el primer día de Inmersión y
 cuando haya finalizado todos los ítems mencionados en esta sección.
 
-== Entrenamientos
+== 5. Entrenamientos
 
 . El entrenamiento es auto-dirigido e independiente (por su propia cuenta sin instrucción o ayuda alguna de otro),
 . Los días pares se trabajarán retos de hacking.
@@ -92,13 +92,13 @@ ese día no se hacen retos ni se reporta tiempo de entrenamiento con la herramie
 . El tercer día hábil de cada semana,
 usted deberá entrenar la máxima dedicación posible
 
-== Reportes
+== 6. Reportes
 
 . Debe reportar todo el tiempo dedicado mediante la herramienta asignada en modo automático,
 . Debe diligenciar el [button]#link:../../../../forms/training[reporte de entrenamiento]# antes de finalizar la jornada.
 . El fraude deparará en la finalización inmediata del proceso de selección
 
-== Artículos
+== 7. Artículos
 
 La elaboración de artículos tiene como objetivo familiarizar a futuros talentos con contenido
 relevante para la audiencia de FLUID. Por tal motivo estos deben adherirse
@@ -111,7 +111,7 @@ Podrá encontrar documentación y algunos ejemplos de uso de AsciiDoc
 
 Los artículos deben subirse al repositorio que le indicaremos al entrar en esta etapa.
 
-== Pagos
+== 8. Pagos
 
 . Se pagará el tiempo reportado a formación con un valor hora de $6.468 COP,
 . Se espera que usted logre una dedicación mínima del 80% (Relación al tiempo de referencia),
@@ -125,7 +125,7 @@ se garantiza el pago mínimo de las siguientes 96 horas de entrenamiento reporta
 .. Cuenta de cobro por las horas del mes anterior,
 .. Recibo de pago de la seguridad social por el periodo anterior
 
-== Ciclos
+== 9. Ciclos
 
 . El entrenamiento se realizará en ciclos o iteraciones de semana calendario,
 . Inicialmente se le ofrece un primer ciclo de entrenamiento,
@@ -137,7 +137,7 @@ debido a que queremos adelantar la etapa siguiente,
 . Lo usual es que se requiera entre 8 y 12 ciclos para finalizar esta etapa
 .. Esto es meramente un estimado pues depende enteramente de su dedicación y rendimiento.
 
-== Fin
+== 10. Fin
 
 La etapa de inmersión finaliza en cualquiera de las siguientes circunstancias:
 
