@@ -60,6 +60,7 @@
 == Firewall
 
 * link:215/[REQ.215 Eliminar reglas redundantes].
+* link:216/[REQ.216 Eliminar objetos de red en desuso].
 
 == Arquitectura
 

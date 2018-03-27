@@ -1,0 +1,12 @@
+:slug: rules/216/
+:category: rules
+:description: En el presente documento se detallan los lineamientos o requerimientos de seguridad relacionados al uso eficiente de los objetos de red dentro de un firewall. Por lo tanto, aquellos elementos que no sean usados deben ser eliminados de la configuración de los equipos de firewall.
+:keywords: Firewall, Seguridad, Objetos, Red, Configuración, Eliminar.
+:rules: yes
+
+= REQ.216 Eliminar objetos de red en desuso
+
+== Nombre
+
+Los objetos de red que no sean usados
+deben ser eliminados de la configuración de los equipos de +firewall+.
