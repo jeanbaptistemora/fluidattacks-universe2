@@ -66,7 +66,7 @@ pares).
 Para comenzar esta etapa, usted deberá:
 
 . Registrarse en +GitLab+ usando su correo electrónico personal y creando el ID de usuario que más le guste.
-Este ID no debe ser mayor a *12* caracteres.
+Este ID no debe ser mayor a *12* caracteres y solo estar compuesto de letras minúsculas y/o números.
 
 . Unirse a nuestro link:https://join.slack.com/t/autonomicmind/shared_invite/enQtMjg4ODI4NjM3MjY3LWUxMTNmMjk3MDdkMDAzYWY0ZjQ3MzNlYjUzZjM3NTM3MDVmYTliN2YyNGViZGUyNzUxOTAzNTdmZDQ5NWNjNGI[canal de Slack],
 en donde encontrará personal de FLUID y otros candidatos actualmente en esta etapa,
