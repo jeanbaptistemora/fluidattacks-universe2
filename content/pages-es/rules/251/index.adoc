@@ -1,0 +1,11 @@
+:slug: rules/251/
+:category: rules
+:description: En el presente documento se detallan los lineamientos o requerimientos de seguridad relacionados a la administración segura de redes inalámbricas de toda organización. Por lo tanto, los puntos de acceso no deben usar la dirección +IP+ configurada de fábrica.
+:keywords: Red, IP, Punto de acceso, Inalámbrico, Dirección, Requerimiento.
+:rules: yes
+
+= REQ.251 Cambiar IP del punto de acceso
+
+== Nombre
+
+Los puntos de acceso no deben usar la dirección +IP+ configurada de fábrica.
