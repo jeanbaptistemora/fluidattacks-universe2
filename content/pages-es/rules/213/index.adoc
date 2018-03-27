@@ -1,0 +1,12 @@
+:slug: rules/213/
+:category: rules
+:description: En el presente documento se detallan los lineamientos o requerimientos de seguridad relacionados a la ubicación geográfica de dispositivos móviles. Por lo tanto, dichos dispositivos deben permitir su ubicación geográfica de forma remota en caso de pérdida.
+:keywords: Dispositivo móvil, Ubicación, Remota, Geográfica, Pérdida, Requerimiento.
+:rules: yes
+
+= REQ.213 Permitir ubicación geográfica
+
+== Nombre
+
+El dispositivo móvil debe permitir su ubicación geográfica
+de forma remota en caso de pérdida.
