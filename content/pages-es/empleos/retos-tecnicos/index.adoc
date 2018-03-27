@@ -128,6 +128,7 @@ Antes de realizar un +MR+ por favor verifique que cumple con los siguientes crit
 del cual previamente se tienen 17 soluciones externas (+out+) y 8 dentro del repo (+in+)
 y que tardó 4.5 horas de esfuerzo en resolverse durante la fase de retos (+challenges+) es el siguiente:
 
+.commit-msg.txt
 [source, text]
 ----
 solution: codeabbey, 78 (9.63)
