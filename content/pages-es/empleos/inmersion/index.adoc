@@ -121,7 +121,7 @@ se garantiza el pago mínimo de las siguientes 96 horas de entrenamiento reporta
 .. Notificar que no deseamos continuar con otro ciclo y por ende finalizar el proceso,
 .. Formalizar que no deseamos continuar con otro ciclo,
 debido a que queremos adelantar la etapa siguiente,
-. Lo usual es que se requiera entre 8 y 12 ciclos para finalizar esta etapa
+. Lo usual es que se requiera entre 8 y 16 ciclos para finalizar esta etapa
 .. Esto es meramente un estimado pues depende enteramente de su dedicación y rendimiento.
 
 == 9. Fin
