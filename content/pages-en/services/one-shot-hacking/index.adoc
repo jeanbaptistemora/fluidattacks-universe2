@@ -141,17 +141,14 @@ using our [button]#link:../../products/integrates/[Integrates]# product.
 
 a|== Remediation
 
-During the project, customers can request clarifications
-directly from our hackers
-via [button]#link:../../products/integrates/[Integrates]#.
-
 Customers can use our detailed remediation guides
 via [button]#link:../../products/defends/[Defends]#.
 
-a|== Secured reports delivery
+a|== Reports delivered by secure vault
 
-Definitive reports delivery with evidences
-through a secured file transfer website
+Final report versions along with all evidences gathered
+are delivered to customers using a secure file transfer website.
+
 
 ^.^a|image:img16.png[alt="img16", width="55%"]
 
@@ -159,34 +156,35 @@ through a secured file transfer website
 
 a|== Report validation meeting
 
-Meeting with the technical team in order to validate the reports
-and listen to observations.
-This meeting can arranged face-to-face or remote,
-according to the customer needs.
+Each Ethical Hacking test includes a meeting
+with customer's technical team to validate reports.
+If there are any observations these are addressed.
+Meeting can take place personally or remotely according to customer's need.
 
-a|== Deliver meeting
+a|== Report presentation meeting
 
-Formal presentation of executive reports to all the stakeholders.
-It consists of two face-to-face meetings: one for results validation
-and another for overall socialization.
+Formal executive report presentation meeting,
+where all project stakeholders can take part of it.
+It can take place personally or remotely according to customer's need.
 
 ^.^a|image:img18.png[alt="img18", width="55%"]
 
 ^.^a|image:img19.png[alt="img19", width="55%"]
 
-a|== Secured information erase
+a|== Information gets deleted securely
 
-+7+ business days after the final approval of the reports,
-all information is erased from our systems
++7+ days after customer's final report approval
+all information gathered during Ethical Hacking
+is deleted securely from all our systems.
 
-a|== Closure verification (Optional)
+a|== Remediation validation
 
-A single cycle validation of the status of the findings is made
-up to +3+ months after the final approval of the initial reports.
-To arrange this, it is necessary that the customer shares the initial reports again
-and guarantees access to the testing environment.
-The validation only covers the findings which were previously reported,
-new vulnerabilities are not searched.
+Up to 3 months after final report approval,
+customers can request a remediation validation cycle
+to check if findings originally reported were correctly repaired.
+In order to arrange this, customer must provide system access
+and share final reports once again.
+In remediation cycle system does not get tested for new vulnerabilities.
 
 ^.^a|image:img20.png[alt="img20", width="55%"]
 

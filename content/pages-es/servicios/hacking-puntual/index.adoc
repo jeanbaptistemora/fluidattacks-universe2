@@ -11,7 +11,7 @@ y problemas de seguridad de una versión específica de un sistema.
 La inspección rigurosa de nuestro equipo
 permite detectar todos los hallazgos de seguridad sin falsos positivos.
 
-[role="aliados tb-alt"]
+[role="tb-alt"]
 [cols=2, frame="none"]
 |====
 
