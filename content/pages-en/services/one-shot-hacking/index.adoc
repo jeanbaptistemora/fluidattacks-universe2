@@ -6,6 +6,186 @@
 
 = One-Shot Hacking
 
-This page is currently in development.
+The One Shot Hacking service aims to detect and report all vulnerabilities
+and security issues within one specific version of your application.
+The rigorous inspection carried out by our team allows us to detect
+all existing security issues with no false positives.
 
-Sorry for the inconveniences.
+[role="tb-alt"]
+[cols=2, frame="none"]
+|====
+
+a|== Testing Techniques
+It's possible to perform source code,
+application or infrastructure Ethical Hacking.
+Customers are able to choose which testing technique
+suit best their needs regarding each system requiring security assessment.
+
+^.^a|image:img2.png[alt="img2", width="55%"]
+
+^.^a|image:img3.png[alt="img3", width="55%"]
+
+a|== Coverage
+
+Ethical Hacking can be done to achieve specific coverage,
+variable coverage or full coverage.
+
+Specific coverage refers to a system where we are able to assess its total size
+(application fields, lines of code, open ports)
+and then customer chooses to cover only a specific percentage of the system.
+
+Variable coverage refers to a system where we are not able to assess its size
+and specific scope is predefined
+(fixed number of application fields, lines of code or open ports),
+testing ends when the target size is achieved,
+regardless of the total size the system has.
+
+Full coverage refers to a system where we are able to assess its total size
+(application fields, lines of code, open ports)
+and then customer chooses to cover the entire system.
+
+a|== Strictness
+
+Customers are able to decide which security requirements will be tested
+on each Ethical Hacking (Profiling)
+through our [button]#link:../../products/rules/[Rules]# product
+
+Customers will know exactly Ethical Hacking strictness for each test
+(For inspected and non inspected profiled requirements).
+
+^.^a|image:img4.png[alt="img4", width="55%"]
+
+^.^a|image:img5.png[alt="img5", width="55%"]
+
+a|== Specific length
+
+Depending on system size a typical Ethical hacking
+lasts between +1+ and +4+ weeks.
+
+a|== Personalized follow up
+
+Each project will have a project manager for customers
+to pass on their needs before, during and after execution.
+
+^.^a|image:img6.png[alt="img6", width="55%"]
+
+^.^a|image:img7.png[alt="img7", width="55%"]
+
+a|== Scheduled Ethical Hacking
+
+After all requirements to start Ethical hacking have been met,
+each test will have a defined start date and end date.
+
+a|== Testing environments
+
+Customers are able to choose one testing environment
+from its available software environments
+(productions, development, integration, etc.)
+
+^.^a|image:img8.png[alt="img8", width="55%"]
+
+^.^a|image:img9.png[alt="img9", width="55%"]
+
+a|== Highly trained hacking team
+
+Our hackers are certified in practical hacking in real scenarios,
+they also have security related studies,
+they are able to perform manual testing and also use tools
+to guarantee reporting findings of several types
+including findings with specific business impact,
+findings regarding insecure programming practices,
+findings regarding standard alignment and security regulation compliance,
+enabling us to detect +Zero Day+ findings,
+all with no false positives reports.
+
+a|== Exploitation
+
+As long as we have access to deployed applications and customer authorization,
+using our own exploitation engine [button]#link:../../products/asserts/[Asserts]#.
+
+^.^a|image:img10.png[alt="img10", width="55%"]
+
+^.^a|image:img11.png[alt="img11", width="55%"]
+
+a|== Critical information extraction
+
+Whenever findings make it possible to get information,
+all compromised records are extracted to maximize finding impact
+and compromise sensible information.
+
+a|== Infection
+
+Whenever findings make it possible, infrastructure gets infected
+with malicious files in order to get additional information,
+infect servers and verify network controls.
+We use +Shells+ and customized Trojans with previous customer authorization.
+
+^.^a|image:img12.png[alt="img12", width="55%"]
+
+^.^a|image:img13.png[alt="img13", width="55%"]
+
+a|== Daily progress reports
+
+Daily progress reports are sent via e-mail,
+report includes coverage, strictness, partial result and overall progress.
+
+a|== Finding follow up using Integrates
+
+Customers can check on finding status during project execution
+using our [button]#link:../../products/integrates/[Integrates]# product.
+
+^.^a|image:img14.png[alt="img14", width="55%"]
+
+^.^a|image:img15.png[alt="img15", width="55%"]
+
+a|== Remediation
+
+During the project customers can request clarifications directly to our hackers
+via [button]#link:../../products/integrates/[Integrates]#.
+
+Customers can use our detailed remediation guides
+via [button]#link:../../products/defends/[Defends]#.
+
+a|== Secured reports delivery
+
+Definitive reports delivery with evidences
+through a secured file transfer website
+
+^.^a|image:img16.png[alt="img16", width="55%"]
+
+^.^a|image:img17.png[alt="img17", width="55%"]
+
+a|== Report validation meeting
+
+Meeting with the technical team in order to validate the reports
+and listen to observations.
+This meeting can be made face-to-face or remote,
+according to the customer needs.
+
+a|== Deliver meeting
+
+Formal presentation of executive reports to all the stakeholders.
+It consists of two face to face meetings: one for results validation
+and another for overall socialization.
+
+^.^a|image:img18.png[alt="img18", width="55%"]
+
+^.^a|image:img19.png[alt="img19", width="55%"]
+
+a|== Secured information erase
+
++7+ business days after the final approval of the reports
+all the information of our systems is erased
+
+a|== Closure verification (Optional)
+
+A single cycle validation of the status of the findings is made
+up to +3+ months after the final approval of the initial reports,
+for this it is necessary that the customer shares the initial reports again
+and guarantees access to the testing environment.
+New vulnerabilities are not searched,
+only what has been previously found is validated.
+
+^.^a|image:img20.png[alt="img20", width="55%"]
+
+|====
