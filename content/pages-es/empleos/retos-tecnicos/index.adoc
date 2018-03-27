@@ -115,7 +115,7 @@ Antes de realizar un +MR+ por favor verifique que cumple con los siguientes crit
 . Solo debe trabajar en una rama cuyo nombre es exactamente su nombre de usuario en +gitlab+,
 . Todos los archivos relacionados con la resolución de retos deben respetar la [button]#link:#estructura[estructura indicada]#,
 . Si la solución requiere archivos adicionales debe incluirlos en el directorio del reto correspondiente,
-. Cada solución a un reto debe enviarse con 10 soluciones externas (10 +URLs+ en archivos +OTHERS.txt+),
+. Cada solución a un reto debe enviarse con 10 link:#externas[soluciones externas] (10 +URLs+ en archivos +OTHERS.txt+),
 . La solución y los archivos relacionados deben enviarse en 1 solo +commit+,
 . Cada +commit+ de solución de retos debe ir en 1 solo +MR+,
 . El +MR+ debe realizarse solo cuando su rama ha integrado satisfactoriamente (verde),
