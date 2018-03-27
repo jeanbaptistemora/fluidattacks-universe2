@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 # Define green color and no color
 GC='\033[0;32m'
 NC='\033[0m'
@@ -5,42 +7,42 @@ ERRORS=0
 
 # Check use of incorrect names to address the company
 if pcregrep --color -nr --include='\.adoc' -e 'Fluid|Fluidsignal\ Group|fluidsignal|\ fluid[)}\ \]]' content; then
-  echo -e "${GC}\nThe only accepted name is FLUID.${NC}"
+  echo -e "${GC}\\nThe only accepted name is FLUID.${NC}"
   ERRORS=1;
 fi
 
 # Check blank spaces after headers
 if pcregrep --color -Mrn --include='\.adoc' '^=.*.[A-Z].*.*\n.*[A-Z]' content ; then
-  echo -e "${GC}\nLeave a blank space after a header.${NC}"
+  echo -e "${GC}\\nLeave a blank space after a header.${NC}"
   ERRORS=1;
 fi
 
 # Check that the references are numerated
 if pcregrep --color -Mnr '^== Referenc.*.*\n.*\n[A-Za-z]' content; then
-  echo -e "${GC}\nReferences must be numbered.${NC}"
+  echo -e "${GC}\\nReferences must be numbered.${NC}"
   ERRORS=1;
 fi
 
 # Check there are not any articles with the .asc extension
-if find content -iname '*.asc' | egrep '.*'; then
+if find content -iname '*.asc' | grep -E './.*'; then
   echo -e "${GC}Extension \".asc\" not supported.${NC}"
   ERRORS=1;
 fi
 
 # Check that names do not have underscore
-if find content -iname '*_*' | egrep '.*'; then
+if find content -iname '*_*' | grep -E './.*'; then
   echo -e "${GC}Use hyphen '-' instead of underscore '_' for filenames.${NC}"
   ERRORS=1;
 fi
 
 # Check every image is in PNG format
-if find . -name '*.jpg' -o -name '*.jpeg' -o -name '*.svg' | egrep '.*'; then
+if find . -name '*.jpg' -o -name '*.jpeg' -o -name '*.svg' | grep -E './.*'; then
   echo -e "${GC}Image format must be \"png\".${NC}"
   ERRORS=1;
 fi
 
 # Check every image fits the size limit
-if find . -name '*.png' -size +300k | egrep '.*'; then
+if find . -name '*.png' -size +300k | grep -E './.*'; then
   echo -e "${GC}Images cannot have a size over 300kB.${NC}"
   ERRORS=1;
 fi
@@ -58,19 +60,19 @@ if pcregrep --color -Mnr --include='\.adoc' 'image::.*\n\.[a-zA-Z]' content; the
 fi
 
 # Check no uppercase characters are used in the filenames
-if find content | egrep '.*[A-Z].*'; then
+if find content | grep -E '.*[A-Z].*'; then
   echo -e "${GC}Filenames must always be lowercase.${NC}"
   ERRORS=1;
 fi
 
 # Check that filenames do not have spaces in them
-if find content -iname '* *' | egrep '.*'; then
+if find content -iname '* *' | grep -E './.*'; then
   echo -e "${GC}Filenames must not have spaces in them, use hyphen \"-\" instead.${NC}"
   ERRORS=1;
 fi
 
 # Check that slugs have under 44 characters
-if grep -E -n -r --include "*.adoc" "^:slug: .{44,}" content; then
+if pcregrep --color -nr --include='\.adoc' "^:slug: .{44,}" content; then
   echo -e "${GC}The \"slug\" can have 43 characters maximum.${NC}"
   ERRORS=1;
 fi
@@ -166,45 +168,45 @@ if pcregrep --color -nr --include='\.adoc' '\[button\].*>' content; then
 fi
 
 # Check that the meta description has a minimum lenght of 250 characters and a maximum length of 300 characters
-for FILE in $(find content -iname '*.adoc'); do
-  if cat $FILE | pcregrep --color -no '(?<=:description: ).{307,}$|(?<=:description: ).{0,249}$'; then
+while IFS= read -r FILE; do
+  if pcregrep --color -no '(?<=:description: ).{307,}$|(?<=:description: ).{0,249}$' "$FILE"; then
     echo -e "${GC}Descriptions must be in the [250-300] characters range. The previous description belongs to the file \"$FILE\".${NC}";
     ERRORS=1;
   fi
 
 # Check if there are exactly 6 keywords
-  NUMKEYWS=$(cat $FILE | pcregrep -no '(?<=^:keywords:).*' | tr , \\n | wc -l)
-  if [ $NUMKEYWS -ne 6 ]; then
-    cat $FILE | pcregrep --color -no '(?<=^:keywords:).*';
+  NUMKEYWS="$(pcregrep -no '(?<=^:keywords:).*' "$FILE" | tr , \\n | wc -l)"
+  if [ "$NUMKEYWS" -ne 6 ]; then
+    pcregrep --color -no '(?<=^:keywords:).*' "$FILE";
     echo -e "${GC}There must be exactly 6 keywords. Please correct the file \"$FILE\".${NC}";
     ERRORS=1;
   fi
 
 #Check that every URL starts with link:
-  if sh exttxt.sh $FILE | pcregrep --color -n '(\s|\w|\()http(s)?://'; then
+  if sh exttxt.sh "$FILE" | pcregrep --color -n '(\s|\w|\()http(s)?://'; then
     echo -e "${GC}URLs must start with 'link:'. Please correct the file \"$FILE\".${NC}";
     ERRORS=1;
   fi
 
 #Check that every URL has a short name between brackets:
-  if sh exttxt.sh $FILE | pcregrep --color -n 'link:http(s)?://'; then
+  if sh exttxt.sh "$FILE" | pcregrep --color -n 'link:http(s)?://'; then
     echo -e "${GC}URLs must have a short name between brackets. Please correct the file \"$FILE\".${NC}";
     ERRORS=1;
   fi
 
 #Check that local URLs always uses relative paths:
-  if cat $FILE | pcregrep --color -n 'http(s)?://fluidattacks.com/web'; then
+  if pcregrep --color -n 'http(s)?://fluidattacks.com/web' "$FILE"; then
     echo -e "${GC}Local URLs must use relative paths. Please correct the file \"$FILE\".${NC}";
     ERRORS=1;
   fi
 
 # Check if first source code has title
-  if pcregrep --color -Mnq '^\[source' $FILE; then
-    if ! pcregrep --color -Mnq '^\..*\n\[source' $FILE; then
+  if pcregrep --color -Mnq '^\[source' "$FILE"; then
+    if ! pcregrep --color -Mnq '^\..*\n\[source' "$FILE"; then
       echo -e "${GC}The first code block of an article must have a title.${NC}";
       ERRORS=1;
     fi
   fi
-done
+done < <(find content -iname '*.adoc')
 
 exit $ERRORS

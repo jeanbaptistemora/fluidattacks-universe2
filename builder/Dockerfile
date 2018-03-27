@@ -35,6 +35,7 @@ RUN apt-get update -qq && \
        python-setuptools \
        ruby-full \
        unzip \
+       xz-utils \
        yarn && \
 
     # Install Pelican, along with the necessary Python, Javascript and Ruby packages to execute it
@@ -89,6 +90,12 @@ RUN apt-get update -qq && \
         http://javadl.oracle.com/webapps/download/AutoDL?BundleId=230532_2f38c3b165be4555a1fa6e98c45e0808 && \
         tar zxvf java.tar.gz && \
 
+    # Download and install shellcheck to lint shell sripts
+    curl -sSLo shellcheck.tar.xz \
+        https://storage.googleapis.com/shellcheck/shellcheck-stable.linux.x86_64.tar.xz && \
+        tar xvf shellcheck.tar.xz && \
+        mv shellcheck-stable/shellcheck /bin/shellcheck && \
+
     # Set Pygments as the default source-highlighter
     sed -i 's/source-highlight$/pygments/' /etc/asciidoc/asciidoc.conf && cd /app && \
 
@@ -126,6 +133,8 @@ RUN apt-get update -qq && \
         plantuml.zip \
         plugin_list.txt \
         requirements.txt \
+        shellcheck.tar.xz \
+        shellcheck-stable \
         tidy.deb \
         yarn.lock
 

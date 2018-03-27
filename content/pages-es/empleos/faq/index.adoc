@@ -12,14 +12,14 @@ sus respectivas respuestas
 
 [qanda]
 ¿Por qué si ya apliqué en un portal de empleo, no me invitan al proceso?::
-	Una vez que apliques a una de nuestras vacantes en alguno de los portales en los cuales estamos registrados,
+  Una vez que apliques a una de nuestras vacantes en alguno de los portales en los cuales estamos registrados,
   nos tomamos de 1 a 2 días en identificar candidatos potenciales,
   clasificar e invitar vía e-mail.
   Si por algún motivo no has sido invitado pasados 2 días (excluyendo fines de semana) y
   consideras que tu perfil encaja con lo descrito en la vacante puedes escribirnos a careers@autonomicmind.co.
 
 La aplicación del examen no me deja salir de Moodle, ¿qué puedo hacer?::
-	Si ya finalizaste el examen,
+  Si ya finalizaste el examen,
   da click en el botón que está situado en la parte inferior derecha de la pantalla para salir.
   Si esto no funciona puedes intentar reiniciando el equipo con tranquilidad,
   pues ya para este momento habrás enviado el examen y
@@ -33,7 +33,7 @@ No sé para cuál vacante me postulé, ¿cómo puedo averiguarlo?::
 
 Ya me había postulado para una vacante, ¿lo puedo hacer de nuevo para otro perfil o para el mismo?::
 <<<<<<< 97e1cb44b589803a8c6702fe706e59486186a24e
-	Si lo puedes hacer y en caso de haber pasado más de seis meses desde tu última postulación,
+  Si lo puedes hacer y en caso de haber pasado más de seis meses desde tu última postulación,
   debes hacer el proceso de nuevo desde el principio, en caso de no haber pasado los seis meses,
   nos escribes un correo a careers@autonomicmind.co informándonos que quieres aplicar a otro perfil.
 =======
@@ -45,7 +45,7 @@ Ya me había postulado para una vacante, ¿lo puedo hacer de nuevo para otro per
 
 No me funciona la aplicación de examen, ¿qué puedo hacer?::
 <<<<<<< 97e1cb44b589803a8c6702fe706e59486186a24e
-	Prueba ejecutando la aplicación como administrador.
+  Prueba ejecutando la aplicación como administrador.
   Si el problema persiste puedes intentarlo desde otro PC.
 =======
   Prueba ejecutando la aplicación como administrador. Si el problema persiste puedes intentarlo desde otro PC.
@@ -56,12 +56,12 @@ No llegó el adjunto para el análisis de datos, ¿cómo lo obtengo?::
 
 Se me pasó el tiempo para el examen, ¿qué puedo hacer?::
 <<<<<<< 97e1cb44b589803a8c6702fe706e59486186a24e
-	De tener un motivo justificado (bloqueos de la aplicación, reinicios inesperados del pc, problemas de conexión)
+  De tener un motivo justificado (bloqueos de la aplicación, reinicios inesperados del pc, problemas de conexión)
   puedes escribirnos vía e-mail a careers@autonomicmind.co indicándonos que sucedió y
   nosotros te indicaremos como proceder.
 
 No alcancé a enviar el análisis de datos, ¿qué puedo hacer?::
-	De tener un motivo justificado puedes escribirnos vía e-mail a careers@autonomicmind.co indicándonos por qué no lo realizaste en el plazo dado y
+  De tener un motivo justificado puedes escribirnos vía e-mail a careers@autonomicmind.co indicándonos por qué no lo realizaste en el plazo dado y
   solicitando una nueva fecha de entrega.
 =======
   De tener un motivo justificado (bloqueos de la aplicación, reinicios inesperados del pc, problemas de conexión) puedes escribirnos vía e-mail a careers@autonomicmind.co indicándonos que sucedió y nosotros te indicaremos como proceder.
@@ -75,37 +75,37 @@ No alcancé a enviar el análisis de datos, ¿qué puedo hacer?::
 
 No tengo visa, ¿qué pongo en ese campo?::
 <<<<<<< 97e1cb44b589803a8c6702fe706e59486186a24e
-	Este campo no es obligatorio,
+  Este campo no es obligatorio,
   no lo diligencies si no tienes visa.
 
 ¿Qué hago cuando termine la prueba de temperamento?::
-	Cuando termines la prueba puedes proceder con la siguiente etapa (Evaluación de conocimientos).
+  Cuando termines la prueba puedes proceder con la siguiente etapa (Evaluación de conocimientos).
   Momentos después te estaremos enviando tus resultados vía e-mail.
 
 ¿Tengo que hacer la prueba del polígrafo?::
-	En la gran mayoría de los casos esta prueba no es obligatoria durante el proceso de selección,
+  En la gran mayoría de los casos esta prueba no es obligatoria durante el proceso de selección,
   sin embargo, debido a que nuestro negocio principal es la seguridad de la información,
   puede que durante este proceso de selección o su relación laboral sea necesario la presentación de este tipo de pruebas.
 
 ¿Tengo que hacer la prueba de Gallup?::
-	Esta prueba solo se solicita en algunos casos, por lo tanto,
+  Esta prueba solo se solicita en algunos casos, por lo tanto,
   basta con que nos notifiques vía e-mail que has llegado a esta etapa y
   nosotros te indicaremos como proceder.
 
 ¿En este proceso se realiza algún estudio de riesgos con mis datos?::
-	Si, en la etapa previa a la contratación,
+  Si, en la etapa previa a la contratación,
   se realiza una confirmación de los datos del candidato en centrales de riesgo y otras referencias.
 
 No he dicho en mi empresa que estoy en otro proceso, ¿es obligatoria la etapa de referencias inversas?::
-	Si es obligatoria y al ser en una etapa avanzada en el proceso de selección,
+  Si es obligatoria y al ser en una etapa avanzada en el proceso de selección,
   previa a la contratación, es necesario que se tengan claras las expectativas de todas las partes.
 
 ¿Soy muy tímido para exponer en público, es obligatorio hacer la audición?::
-	Esta etapa es de carácter opcional en el proceso, sin embargo,
+  Esta etapa es de carácter opcional en el proceso, sin embargo,
   debes tener en cuenta que en nuestro equipo de trabajo mantener una buena comunicación es fundamental independiente del rol que vayas a desempeñar en la empresa.
 
 ¿Es obligatorio realizar todas las etapas del proceso?::
-	A medida que avances en el proceso de selección y
+  A medida que avances en el proceso de selección y
   dependiendo para que vacante estás postulado se te darán indicaciones al respecto.
 
 ¿La oferta salarial tendrá el valor que tengo como expectativa?::

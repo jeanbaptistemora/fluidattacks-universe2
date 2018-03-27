@@ -1,4 +1,5 @@
-#!/bin/bash
+#!/usr/bin/env bash
+
 # Script to generate a sitemap fiel that covers the entire website
 
 # Main file that has the main URLs of the site predefined

@@ -16,3 +16,7 @@ repos:
   - id: remove-crlf
   - id: remove-tabs
     args: [ --whitespaces-count, '2' ]
+- repo: https://github.com/detailyang/pre-commit-shell
+  rev: 1.0.2
+  hooks:
+  - id: shell-lint

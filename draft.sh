@@ -1,14 +1,25 @@
-grep -qr ':status: draft' content
+#!/usr/bin/env bash
 
-if [ $? -eq 0 ]; then
+# Check if there are articles with draft status
+if grep -qr ':status: draft' content; then
+
   echo "Organizing images in draft articles..."
-  FILES=$(find output -iname '*.html')
+  FILES="$(find output -iname '*.html')"
 
-  for DRAFT in $(grep -lr ':status: draft' content); do
-    PATTERN=$(echo $DRAFT | sed -e 's/.*-e.\///' -e 's/\/index\.adoc//')
-    TARGET_DIR=$(grep -l $PATTERN $FILES | sed 's/index\.html//')
-    SRC_DIR=$(grep -l $PATTERN $FILES | sed 's/drafts/blog/; s/index\.html//');
-    mv $SRC_DIR* $TARGET_DIR;
+  # Get the filenames of every article with draft status
+  grep -lr ':status: draft' content | while IFS= read -r DRAFT; do
+
+    # Extract the slug of the articles
+    PATTERN=$(echo "$DRAFT" | sed -e 's/.*-e.\///' -e 's/\/index\.adoc//')
+
+    # Locate the folder of the output .html of the article draft
+    TARGET_DIR=$(grep -l "$PATTERN" "$FILES" | sed 's/index\.html//')
+
+    # Locate the folder where the images of the article draft were saved
+    SRC_DIR=$(grep -l "$PATTERN" "$FILES" | sed 's/drafts/blog/; s/index\.html//');
+
+    # Move the images to the folder of the output .html of the draft article
+    mv "$SRC_DIR*" "$TARGET_DIR";
   done;
 else
   echo "There are no draft articles";
