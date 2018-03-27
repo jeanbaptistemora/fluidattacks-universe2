@@ -54,10 +54,18 @@ Esta etapa comienza cuando:
 
 . Lea y acepte las condiciones de almacenamiento de resultados de entrenamiento que se encuentran link:../retos-tecnicos/#propiedad-intelectual[aquí].
 . Nos envíe por e-mail (careers@autonomicmind.co):
-.. Un mensaje indicando si acepta o no la propuesta de participar en esta etapa.
+.. Indicando si acepta o no la propuesta de participar en esta etapa.
 .. La fecha en la cual puede comenzar la etapa de inmersión en nuestras instalaciones.
 .. Un PDF escaneado de la copia de la Tarjeta Profesional o el recibo de comienzo de trámite de la misma
-(aplica si usted ya tiene título de pregrado).
+(aplica si usted ya tiene título de pregrado). Ejemplo:
+
+[quote]
+____________________________________________________________________
+He leído y entendido toda la documentación y términos de la etapa de inmersión,
+acepto la propuesta y confirmo que puedo iniciar en la fecha dd/mm/aaaa.
+
+Adjunto: Tarjeta_Profesional.pdf
+____________________________________________________________________
 
 [IMPORTANT]
 Otros detalles procedimentales de cómo se llevará a cabo el entrenamiento,
