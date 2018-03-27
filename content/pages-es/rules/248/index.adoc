@@ -1,0 +1,12 @@
+:slug: rules/248/
+:category: rules
+:description: En el presente documento se detallan los lineamientos o requerimientos de seguridad relacionados al uso seguro de redes inalámbricas dentro de una red privada. Por lo tanto, el nombre del SSID de la red inalámbrica no debe contener palabras de diccionario.
+:keywords: Red, SSID, Palabras, Inalámbrica, Diccionario, Seguridad.
+:rules: yes
+
+= REQ.248 SSID sin palabras de diccionario
+
+== Nombre
+
+El nombre del +SSID+ de la red inalámbrica
+no debe contener palabras de diccionario.

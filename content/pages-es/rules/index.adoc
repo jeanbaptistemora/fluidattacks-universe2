@@ -144,6 +144,7 @@
 == Redes inalámbricas
 
 * link:247/[REQ.247 Ocultar SSID en redes privadas].
+* link:248/[REQ.248 SSID sin palabras de diccionario].
 
 == Servicios
 
