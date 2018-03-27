@@ -79,8 +79,8 @@ cuando haya finalizado todos los ítems mencionados en esta sección.
 . El entrenamiento es auto-dirigido e independiente (por su propia cuenta sin instrucción o ayuda alguna de otro),
 . Los días pares se trabajarán retos de hacking.
 . Los días impares se trabajarán retos de programación.
-. El entrenamiento debe iniciar a las 7:00 am en las instalaciones de FLUID,
-. Debe finalizar el entrenamiento antes de las 6:00PM del día en cuestión,
+. El entrenamiento debe iniciar a las 7:00 AM en las instalaciones de FLUID,
+. Debe finalizar el entrenamiento antes de las 6:00 PM del día en cuestión,
 . Si por algún motivo excepcional no puede realizar el entrenamiento de forma presencial,
 se deberá definir un horario de entrenamiento semanal para realizarlo de forma remota,
 . El entrenamiento se realizará desde un portátil de su propiedad,
@@ -90,7 +90,7 @@ en las instalaciones de la compañía,
 . Si por algún motivo de salud o personal no es posible ir a la oficina a realizar los retos de forma presencial,
 ese día no se hacen retos ni se reporta tiempo de entrenamiento con la herramienta asignada.
 . El tercer día hábil de cada semana,
-usted deberá entrenar la máxima dedicación posible
+usted deberá entrenar la máxima dedicación posible.
 
 == 6. Reportes
 
