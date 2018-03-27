@@ -1,7 +1,7 @@
 :slug: busca-encuentra/
 :date: 2017-12-15
 :category: retos
-:subtitle: Solucionando un reto de hacking
+:subtitle: Extrayendo información del código fuente
 :description: Las buenas prácticas de programación son pautas que deben tenerse en cuenta a la hora de desarrollar una aplicación, para evitar que ésta sea vulneradas por atacantes. En este artículo se describen algunos tips sencillos para desarrollar aplicaciones seguras.
 :keywords: Web, JavasCript, Seguridad, Credenciales, HTML, Aplicación.
 :author: Luis Arteaga
