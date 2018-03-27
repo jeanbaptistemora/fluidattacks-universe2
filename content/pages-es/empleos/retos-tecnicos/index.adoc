@@ -95,6 +95,8 @@ Las soluciones de retos de programación deberán cumplir con lo siguiente:
 . Los comandos de compilación y/o +linting+ utilizados y su salida deben estar al inicio del código fuente en comentarios multilínea.
 . Los comandos de ejecución utilizados y su salida deben estar al final del código fuente en comentarios multilínea.
 . El código fuente de la solución debe seguir los parámetros de estilo de [button]#link:../../estilo/#explicaciones-con-codigo-fuente[esta guía]#.
+. Si la solución opera sobre un conjunto de datos de entrada,
+estos no deben estar quemados en código.
 
 Las soluciones de retos de hacking deberán cumplir con lo siguiente:
 
