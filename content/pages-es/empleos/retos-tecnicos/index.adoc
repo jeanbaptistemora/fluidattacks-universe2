@@ -188,26 +188,7 @@ El envío de soluciones se realizará en el siguiente [button]#link:https://gitl
 
 Es ideal que usted se familiarice con el versionamiento y la estructura que detallamos a continuación.
 
-=== 8.1 Generalidades
-
-* *Contenido*: Utilizar espacios en vez de tabuladores.
-Parametrice su editor de texto favorito para que le facilite esta tarea.
-
-* *Programas*: Para las soluciones a retos que correspondan a código fuente debe
-utilizarse la extensión y guías de estilo propias del lenguaje.
-Adicionalmente utilizar los +linters+ correspondientes en la
-configuración estándar más estricta posible.
-
-* *Integración continua*: El formato es reforzado mediante
-scripts que se encuentran en el repositorio y que se encuentran disponibles
-para que usted los utilice y mejore.
-Estos scripts son utilizados en el proceso de integración
-continua para verificar su estricto cumplimiento antes de recibir
-satisfactoriamente las soluciones enviadas por usted.
-Puede ver todas las bitácoras de compilación históricas y de otros
-participantes link:https://gitlab.com/autonomicmind/training/pipelines[aquí].
-
-=== 8.2 Estructura
+=== 8.1 Estructura
 
 Los soluciones a los retos se almacenan en las siguientes carpetas:
 
@@ -246,7 +227,7 @@ Un ejemplo de esta estructura es:
 archivos, debe realizarse en minúscula, sin caracteres especiales y en caso de requerir
 espacios usar *-* (guion) como sustituto.
 
-=== 8.3 Archivos Especiales
+=== 8.2 Archivos Especiales
 
 En algunas carpetas de la estructura se encuentran algunos archivos
 especiales de control:
