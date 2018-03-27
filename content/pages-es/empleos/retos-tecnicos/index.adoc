@@ -258,6 +258,7 @@ reto que se encuentran en Internet y que no deben leerse ni utilizarse
 como referencia para resolver el reto.
 Este archivo permite que un script automático realice el análisis de similitud
 con los retos enviados por los candidatos.
+Deben cumplir con lo indicado [button]#link:#externas[aquí]#
 
 ** *LANG.txt:* Cuando existe indica los lenguajes de programación que
 pueden ser usados para resolver retos de las subcarpetas donde se
