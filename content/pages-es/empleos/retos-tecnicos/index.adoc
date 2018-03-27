@@ -383,7 +383,7 @@ las link:../faq[preguntas realizadas en el pasado] por otros participantes.
 
 * Puede expresar sus dudas en el canal *#general* de nuestro link:https://join.slack.com/t/autonomicmind/shared_invite/enQtMjg4ODI4NjM3MjY3LWUxMTNmMjk3MDdkMDAzYWY0ZjQ3MzNlYjUzZjM3NTM3MDVmYTliN2YyNGViZGUyNzUxOTAzNTdmZDQ5NWNjNGI[Slack].
 
-== 13. Propiedad Intelectual
+== 13. Propiedad
 
 * Los derechos patrimoniales sobre el contenido de este repositorio se encuentran definidos en el archivo link:https://gitlab.com/autonomicmind/training/blob/master/COPYRIGHT.txt[COPYRIGHT].
 * La licencia y privilegios que tienen los usuarios de este repositorio
