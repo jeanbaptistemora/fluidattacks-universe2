@@ -321,7 +321,9 @@ cuestiones detalladas en la documentación y que aun así se incumplen.
 
 En todos los casos la dirección de correo para estos pasos es: careers@autonomicmind.co
 
-Usted puede volver a presentarse en cualquier momento y volver a comenzar el proceso haciendo click [button]#link:../../../../forms/aplicacion[aquí]#.
+Si usted fue retirado por alguna de estas circunstancias, exceptuando las dos últimas,
+puede volver a presentarse en cualquier momento y
+volver a comenzar el proceso haciendo click [button]#link:../../../../forms/aplicacion[aquí]#.
 
 == 11. Builds locales
 
