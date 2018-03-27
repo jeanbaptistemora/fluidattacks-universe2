@@ -318,9 +318,9 @@ Si usted fue retirado por alguna de estas circunstancias, exceptuando las dos ú
 puede volver a presentarse en cualquier momento y
 volver a comenzar el proceso haciendo click [button]#link:../../../../forms/aplicacion[aquí]#.
 
-== 12. Builds locales
+== 12. Builds
 
-Es posible correr integraciones locales con el fin de identificar errores antes de hacer push o merge requests al repositorio.
+Es posible correr integraciones locales con el fin de identificar errores antes de hacer +push+ o +merge requests+ al repositorio.
 Para esto, se deben ejecutar los siguientes comandos:
 
 * *En Sistemas Operativos +GNU/Linux+:*
