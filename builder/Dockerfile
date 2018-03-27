@@ -25,7 +25,9 @@ RUN apt-get update -qq && \
     apt-get install -qqy --no-install-recommends \
        diction \
        docker-ce \
+       gcc \
        git \
+       make \
        nodejs \
        pcregrep \
        python-dev \
@@ -35,22 +37,14 @@ RUN apt-get update -qq && \
        unzip \
        yarn && \
 
-    # Install and update dependencies needed to build Python packages
+    # Install Pelican, along with the necessary Python, Javascript and Ruby packages to execute it
     apt-get install -qqy --no-install-recommends \
-        gcc \
-        libcurl4-openssl-dev \
-        libffi-dev \
-        libssl-dev \
-        make && \
+        asciidoc \
+        graphviz && \
     pip install --upgrade \
         pip \
         setuptools \
         wheel && \
-
-    # Install Pelican, along with the necessary Python, Javascript and Ruby packages to execute it
-    apt-get install -qqy --no-install-recommends \
-        asciidoc \
-        graphviz \
     pip install -r requirements.txt && \
     yarn install && \
     gem install -N sass && \
@@ -119,9 +113,6 @@ RUN apt-get update -qq && \
         apt-transport-https \
         gcc \
         gnupg2 \
-        libcurl4-openssl-dev \
-        libffi-dev \
-        libssl-dev \
         make \
         software-properties-common \
         yarn && \
