@@ -1,0 +1,12 @@
+:slug: rules/247/
+:category: rules
+:description: En el presente documento se detallan los lineamientos o requerimientos de seguridad relacionados al uso seguro de redes inalámbricas dentro de una red privada. Por lo tanto, las redes privadas deben tener deshabilitada la publicación del SSID (Service Set Identifier).
+:keywords: Red, SSID, Privada, Deshabilitar, Publicación, Service Set Identifier.
+:rules: yes
+
+= REQ.247 Ocultar SSID en redes privadas
+
+== Nombre
+
+Las redes privadas deben tener deshabilitada
+la publicación del +SSID+ (+Service Set Identifier+).

@@ -141,6 +141,10 @@
 * link:175/[REQ.175 Proteger página de clickjacking].
 * link:302/[REQ.302 Declarar explícitamente dependencias].
 
+== Redes inalámbricas
+
+* link:247/[REQ.247 Ocultar SSID en redes privadas].
+
 == Servicios
 
 * link:262/[REQ.262 Verificar componentes de terceros].
