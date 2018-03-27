@@ -33,7 +33,7 @@ public class Cliente {
        String res2 =Conc.Proceso2(res+10000);
        System.out.println(res2);
      }
-	 catch (NamingException e) {
+   catch (NamingException e) {
        // evento excepcional a tratar cuando entre a producción.
      }
    }

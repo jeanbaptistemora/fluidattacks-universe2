@@ -26,27 +26,36 @@ La aplicación del examen no me deja salir de Moodle, ¿qué puedo hacer?::
   no se perderá ningún dato.
 
 No tengo RUT, ¿cómo puedo diligenciar el formulario de tercero?::
-	En la link:http://www.dian.gov.co/contenidos/servicios/rut.html[página de la DIAN] se explica cómo sacarlo por primera vez o como actualizarlo
+  En la link:http://www.dian.gov.co/contenidos/servicios/rut.html[página de la DIAN] se explica cómo sacarlo por primera vez o como actualizarlo
 
 No sé para cuál vacante me postulé, ¿cómo puedo averiguarlo?::
-	Escribir cualquier duda u observación respecto al proceso de selección al correo careers@autonomicmind.co.
+  Escribir cualquier duda u observación respecto al proceso de selección al correo careers@autonomicmind.co.
 
 Ya me había postulado para una vacante, ¿lo puedo hacer de nuevo para otro perfil o para el mismo?::
+<<<<<<< 97e1cb44b589803a8c6702fe706e59486186a24e
 	Si lo puedes hacer y en caso de haber pasado más de seis meses desde tu última postulación,
   debes hacer el proceso de nuevo desde el principio, en caso de no haber pasado los seis meses,
   nos escribes un correo a careers@autonomicmind.co informándonos que quieres aplicar a otro perfil.
+=======
+  Si lo puedes hacer y en caso de haber pasado más de seis meses desde tu última postulación, debes hacer el proceso de nuevo desde el principio, en caso de no haber pasado los seis meses, nos escribes un correo a careers@autonomicmind.co informándonos que quieres aplicar a otro perfil.
+>>>>>>> Fix issue #917
 
 ¿Me puedo postular para dos vacantes diferentes?::
-	Si, haces el proceso una sola vez y nos escribes a cuáles vacantes deseas aplicar al correo careers@autonomicmind.co
+  Si, haces el proceso una sola vez y nos escribes a cuáles vacantes deseas aplicar al correo careers@autonomicmind.co
 
 No me funciona la aplicación de examen, ¿qué puedo hacer?::
+<<<<<<< 97e1cb44b589803a8c6702fe706e59486186a24e
 	Prueba ejecutando la aplicación como administrador.
   Si el problema persiste puedes intentarlo desde otro PC.
+=======
+  Prueba ejecutando la aplicación como administrador. Si el problema persiste puedes intentarlo desde otro PC.
+>>>>>>> Fix issue #917
 
 No llegó el adjunto para el análisis de datos, ¿cómo lo obtengo?::
-	Intenta descargarlo desde [button]#link:../retos-no-tecnicos/hallazgos-open-data.tar.bz2[aquí]#
+  Intenta descargarlo desde [button]#link:../retos-no-tecnicos/hallazgos-open-data.tar.bz2[aquí]#
 
 Se me pasó el tiempo para el examen, ¿qué puedo hacer?::
+<<<<<<< 97e1cb44b589803a8c6702fe706e59486186a24e
 	De tener un motivo justificado (bloqueos de la aplicación, reinicios inesperados del pc, problemas de conexión)
   puedes escribirnos vía e-mail a careers@autonomicmind.co indicándonos que sucedió y
   nosotros te indicaremos como proceder.
@@ -54,11 +63,18 @@ Se me pasó el tiempo para el examen, ¿qué puedo hacer?::
 No alcancé a enviar el análisis de datos, ¿qué puedo hacer?::
 	De tener un motivo justificado puedes escribirnos vía e-mail a careers@autonomicmind.co indicándonos por qué no lo realizaste en el plazo dado y
   solicitando una nueva fecha de entrega.
+=======
+  De tener un motivo justificado (bloqueos de la aplicación, reinicios inesperados del pc, problemas de conexión) puedes escribirnos vía e-mail a careers@autonomicmind.co indicándonos que sucedió y nosotros te indicaremos como proceder.
+
+No alcancé a enviar el análisis de datos, ¿qué puedo hacer?::
+  De tener un motivo justificado puedes escribirnos vía e-mail a careers@autonomicmind.co indicándonos por qué no lo realizaste en el plazo dado y solicitando una nueva fecha de entrega.
+>>>>>>> Fix issue #917
 
 ¿Qué pongo en el portafolio?::
-	Las instrucciones y pautas para la elaboración del portafolio las puedes encontrar link:../portafolio/[aquí]
+  Las instrucciones y pautas para la elaboración del portafolio las puedes encontrar link:../portafolio/[aquí]
 
 No tengo visa, ¿qué pongo en ese campo?::
+<<<<<<< 97e1cb44b589803a8c6702fe706e59486186a24e
 	Este campo no es obligatorio,
   no lo diligencies si no tienes visa.
 
@@ -118,3 +134,27 @@ solo desempeño, equidad interna y capacidad de cumplir con dichos compromisos.
   . Mantener el salario si consideramos que su escala y desempeño son apropiados y no han pasado más de 12 meses,
   . Ajuste por inflación si su escala de desempeño se considera apropiada y han pasado más 12 meses,
   . Un incremento en la escala a partir de la fecha definida si su desempeño actual supera su escala actual.
+=======
+  Este campo no es obligatorio, no lo diligencies si no tienes visa.
+
+¿Qué hago cuando termine la prueba de temperamento?::
+  Cuando termines la prueba puedes proceder con la siguiente etapa (Evaluación de conocimientos). Momentos después te estaremos enviando tus resultados vía e-mail.
+
+¿Tengo que hacer la prueba del polígrafo?::
+  En la gran mayoría de los casos esta prueba no es obligatoria durante el proceso de selección, sin embargo, debido a que nuestro negocio principal es la seguridad de la información, puede que durante este proceso de selección o su relación laboral sea necesario la presentación de este tipo de pruebas.
+
+¿Tengo que hacer la prueba de Gallup?::
+  Esta prueba solo se solicita en algunos casos, por lo tanto, basta con que nos notifiques vía e-mail que has llegado a esta etapa y nosotros te indicaremos como proceder.
+
+¿En este proceso se realiza algún estudio de riesgos con mis datos?::
+  Si, en la etapa previa a la contratación, se realiza una confirmación de los datos del candidato en centrales de riesgo y otras referencias.
+
+No he dicho en mi empresa que estoy en otro proceso, ¿es obligatoria la etapa de referencias inversas?::
+  Si es obligatoria y al ser en una etapa avanzada en el proceso de selección, previa a la contratación, es necesario que se tengan claras las expectativas de todas las partes.
+
+¿Soy muy tímido para exponer en público, es obligatorio hacer la audición?::
+  Esta etapa es de carácter opcional en el proceso, sin embargo, debes tener en cuenta que en nuestro equipo de trabajo mantener una buena comunicación es fundamental independiente del rol que vayas a desempeñar en la empresa.
+
+¿Es obligatorio realizar todas las etapas del proceso?::
+  A medida que avances en el proceso de selección y dependiendo para que vacante estás postulado se te darán indicaciones al respecto.
+>>>>>>> Fix issue #917

@@ -20,7 +20,7 @@ bajo las cuales la siguiente solución tiene sentido:
 . El sistema debe restringir el acceso a objetos del sistema
 que tengan contenido sensible.<<r1,[1]>>
 
-== 	Solución
+==   Solución
 
 +GlassFish+ es un servidor de aplicaciones de +software+ libre
 desarrollado por +Sun Microsystems+

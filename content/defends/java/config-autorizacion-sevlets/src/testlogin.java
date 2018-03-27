@@ -16,11 +16,11 @@ public class TestLogin extends HttpServlet {
   }
 
   protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-  	PrintWriter out = response.getWriter();
+    PrintWriter out = response.getWriter();
     response.setContentType("text/html;charset=UTF-8");
-	String user = request.getParameter("user");
-	String pass = request.getParameter("pass");
-	try {
+  String user = request.getParameter("user");
+  String pass = request.getParameter("pass");
+  try {
      request.login(user, pass);
      out.println("Login exitoso");
     }

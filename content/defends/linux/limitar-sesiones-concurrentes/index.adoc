@@ -128,5 +128,5 @@ y por tanto, no admite la nueva conexión.
 . [[r2]] link:https://es.wikipedia.org/wiki/Multiusuario[Multiusuario]
 . [[r3]] link:https://www.hardmaniacos.com/sesiones-remotas-en-linux/[Sesiones remotas en Linux]
 . [[r4]] link:https://inteligenciaux.wordpress.com/2010/09/14/aseguramiento-ssh-linux/[Aseguramiento SSH Linux]
-. [[r5]] REQ.0025:	Las sesiones concurrentes de un sistema
+. [[r5]] REQ.0025:  Las sesiones concurrentes de un sistema
 se deben controlar o informar.

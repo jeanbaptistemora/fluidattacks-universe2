@@ -80,7 +80,7 @@ public void run() {
     try {
       thisThread.sleep(interval);
     }
-	catch (InterruptedException e){}
+  catch (InterruptedException e){}
     repaint();
   }
 }
@@ -101,7 +101,7 @@ public void run() {
     try {
       thisThread.sleep(interval);
     }
-	catch (InterruptedException e){}
+  catch (InterruptedException e){}
     repaint();
   }
 }

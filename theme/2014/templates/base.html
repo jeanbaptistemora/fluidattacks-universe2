@@ -8,7 +8,7 @@
         <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
         <!-- Meta Description -->
         {% block meta %}{% endblock meta %}
-	<!-- Global site tag (gtag.js) - Google Analytics -->
+  <!-- Global site tag (gtag.js) - Google Analytics -->
           <script async src="https://www.googletagmanager.com/gtag/js?id=UA-22974464-4"></script>
           <script>
             window.dataLayer = window.dataLayer || [];
@@ -28,7 +28,7 @@
         {% if GOOGLE_SITE_VERIFICATION %}
             <meta name="google-site-verification" content="{{ GOOGLE_SITE_VERIFICATION }}">
         {% endif %}
-	<title>{% block title %}{% endblock title %}</title>
+  <title>{% block title %}{% endblock title %}</title>
         {% block canonical %}{% endblock canonical %}
         {% block language %}{% endblock language %}
         <link rel="shortcut icon" type="image/x-icon" href="https://secure.gravatar.com/blavatar/f82913ee12d603d8a6a348614916a1d9?s=32" sizes="16x16" />
@@ -63,14 +63,14 @@
         {% endif %}
     {% endfor %}
         <!-- Compress and Minify CSS files and bundle from SASS files -->
-	{% assets filters="scss, cssmin", output="static/css/theme.min.css", "scss/base.scss", "scss/landing.scss", "scss/article.scss", "scss/defends.scss", "scss/pages.scss", "scss/index.scss", "scss/monokai.scss", "scss/menu.scss", "scss/tipuesearch.scss", "scss/footer.scss" %}
-	 <link rel="stylesheet" type="text/css" href="{{ SITEURL }}/{{ ASSET_URL }}">
-	{% endassets %}
+  {% assets filters="scss, cssmin", output="static/css/theme.min.css", "scss/base.scss", "scss/landing.scss", "scss/article.scss", "scss/defends.scss", "scss/pages.scss", "scss/index.scss", "scss/monokai.scss", "scss/menu.scss", "scss/tipuesearch.scss", "scss/footer.scss" %}
+   <link rel="stylesheet" type="text/css" href="{{ SITEURL }}/{{ ASSET_URL }}">
+  {% endassets %}
         <!-- Custom Fonts -->
         <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
         <link href='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
         <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
-	<link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
 
         <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -80,15 +80,15 @@
         <![endif]-->
     {% endblock head %}
 
-	{% block opengraph %}
+  {% block opengraph %}
             {% for admin in FACEBOOK_ADMINS %}
                 <meta property="fb:admins" content="{{ admin }}" >
             {% endfor %}
             {% for LOC in LOCALE %}
                 <meta property="og:locale" content="{{ LOC }}">
             {% endfor %}
-		<meta property="og:site_name" content="{{ SITENAME }}">
-	{% endblock opengraph %}
+    <meta property="og:site_name" content="{{ SITENAME }}">
+  {% endblock opengraph %}
     {% block twitter_card %}
         {% for name,link in SOCIAL if name in ['twitter'] %}
             <meta name="twitter:card" content="summary_large_image">
@@ -117,7 +117,7 @@
           {% assets filters="uglifyjs", output="static/js/theme.min.js", "/app/node_modules/jquery/dist/jquery.js", "/app/node_modules/iframe-resizer/js/iframeResizer.js", "js/menu.js", "js/linenum.js", "js/table-responsive.js", "js/id.js" %}
             <script type="text/javascript" src="{{ SITEURL }}/{{ ASSET_URL }}"></script>
           {% endassets %}
-    	<!-- Navigation -->
+      <!-- Navigation -->
 
     {% block header %}{% endblock header %}
 

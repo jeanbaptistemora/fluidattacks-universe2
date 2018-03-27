@@ -17,7 +17,7 @@ public class ConcurrenciaBean {
       {
         evento=true;
       }
-	  else{
+    else{
         System.out.println("Procesando......");
       }
     }
@@ -34,7 +34,7 @@ public class ConcurrenciaBean {
        {
          evento=true;
        }
-	   else {
+     else {
          System.out.println("Procesando222222......");
        }
      }

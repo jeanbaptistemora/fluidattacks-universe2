@@ -50,17 +50,17 @@ all the values are base64 encoded (header.payload.signature).
 1. Header
   a. Algorithm
      This refers to the algorithm used to sign the token.
-	 Usually HMAC SHA256 or RSA.
+   Usually HMAC SHA256 or RSA.
   b. Type
      Refers to the type of token. In this case "JWT".
 2. Payload:
   a. Claims (Names are only 3 characters long)
      Statements about the user/entity and any additional metadata.
-	 Types of claims:
+   Types of claims:
      i)   Reserved: Predefined but not mandatory.
-	 ii)  Public  : Defined by the user. Should be defined in a collision
-	                resistant namespace.
-	 iii) Private : Custom created to share information between parties.
+   ii)  Public  : Defined by the user. Should be defined in a collision
+                  resistant namespace.
+   iii) Private : Custom created to share information between parties.
 3. Signature:
   This is made by taking the encoded header, payload and secret/key and using
   the algorithm specified in the header to sign it.

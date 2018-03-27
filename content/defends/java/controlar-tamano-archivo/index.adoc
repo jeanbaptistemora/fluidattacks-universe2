@@ -146,14 +146,14 @@ protected void processRequest(HttpServletRequest request, HttpServletResponse re
       writer.println("New file " + fileName + " created at " + path);
       LOGGER.log(Level.INFO, "File {0} being uploaded to {1}", new Object[]{fileName, path});
     }
-	catch (FileNotFoundException fne) {
+  catch (FileNotFoundException fne) {
       writer.println("You either did not specify a file to upload or are " +
         "trying to upload a file to a protected or nonexistentlocation.");
       writer.println("<br/> ERROR: " + fne.getMessage());
       LOGGER.log(Level.SEVERE, "Problems during file upload. Error: {0}",
         new Object[]{fne.getMessage()});
     }
-	finally {
+  finally {
       if (out != null) {
         out.close();
       }

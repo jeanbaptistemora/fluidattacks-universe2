@@ -139,7 +139,7 @@ cerramos los recursos y terminamos el desarrollo de la aplicación:
          writer.close();
        }
      }
-	 catch (IOException e) {
+   catch (IOException e) {
        System.err.println("I/O Exception");
      }
    }

@@ -250,10 +250,10 @@ public class SAML1ArtifactResolveExample {
     try {
       soapClient.send(serverEndpoint, soapContext);
     }
-	catch (SOAPException e) {
+  catch (SOAPException e) {
       e.printStackTrace();
     }
-	catch (SecurityException e) {
+  catch (SecurityException e) {
       e.printStackTrace();
     }
     // Access the SOAP response envelope
@@ -293,18 +293,18 @@ public class SAML1ArtifactResolveExample {
       try {
         privateKey = SecurityHelper.decodePrivateKey(DatatypeHelper.inputstreamToString(
           SAML1ArtifactResolveExample.class.getResourceAsStream
-		    (clientTLSPrivateKeyResourceName),null).getBytes(), null);
+        (clientTLSPrivateKeyResourceName),null).getBytes(), null);
         cert = X509Util.decodeCertificate(DatatypeHelper.inputstreamToString
-		   (SAML1ArtifactResolveExample.class.getResourceAsStream
-		     (clientTLSCertificateResourceName),null).getBytes()).iterator().next();
+       (SAML1ArtifactResolveExample.class.getResourceAsStream
+         (clientTLSCertificateResourceName),null).getBytes()).iterator().next();
       }
-	  catch (KeyException e) {
+    catch (KeyException e) {
         e.printStackTrace();
       }
-	  catch (IOException e) {
+    catch (IOException e) {
         e.printStackTrace();
       }
-	  catch (CertificateException e) {
+    catch (CertificateException e) {
         e.printStackTrace();
       }
       return SecurityHelper.getSimpleCredential(cert, privateKey);

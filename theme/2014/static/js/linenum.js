@@ -15,7 +15,7 @@ $(document).ready(function () {
         var num = lastnum + j;
         newlinenum += num.toString();
         if (j != linenum) {
-        	newlinenum += '\n';
+          newlinenum += '\n';
         }
       }
       lines[i].innerHTML = "<pre>" + newlinenum + "</pre>";

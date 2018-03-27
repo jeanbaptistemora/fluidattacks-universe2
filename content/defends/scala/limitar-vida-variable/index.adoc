@@ -113,7 +113,7 @@ simulamos el proceso de validación del usuario
 +
 [source, scala, linenums]
 ----
-	val isValidUser: Boolean = verify(username, password)
+  val isValidUser: Boolean = verify(username, password)
     // limpiar la contraseña
     for( a <- 0 to (password.length - 1) ) {
          password(a) = '0'

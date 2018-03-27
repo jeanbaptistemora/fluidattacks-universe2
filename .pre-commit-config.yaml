@@ -1,12 +1,18 @@
 exclude: '^$'
 fail_fast: false
 repos:
--   repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v1.2.3
-    hooks:
-    -   id: trailing-whitespace
-    -   id: end-of-file-fixer
--   repo: https://github.com/pre-commit/mirrors-scss-lint
-    rev: v0.57.0
-    hooks:
-    -   id: scss-lint
+- repo: https://github.com/pre-commit/pre-commit-hooks
+  rev: v1.2.3
+  hooks:
+  - id: trailing-whitespace
+  - id: end-of-file-fixer
+- repo: https://github.com/pre-commit/mirrors-scss-lint
+  rev: v0.57.0
+  hooks:
+  - id: scss-lint
+- repo: https://github.com/Lucas-C/pre-commit-hooks
+  rev: v1.1.5
+  hooks:
+  - id: remove-crlf
+  - id: remove-tabs
+    args: [ --whitespaces-count, '2' ]

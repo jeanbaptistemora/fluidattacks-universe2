@@ -123,10 +123,10 @@
       {% endif %}
       {% if page.toc %}
         {% assets filters="uglifyjs", output="static/js/toc.min.js", "js/toc.js" %}
-      	  <script type="text/javascript" src="{{ SITEURL }}/{{ ASSET_URL }}"></script>
-    	{% endassets %}
+          <script type="text/javascript" src="{{ SITEURL }}/{{ ASSET_URL }}"></script>
+      {% endassets %}
       {% endif %}
-      {% if DISQUS_SITENAME and SITEURL and 	page.defends %}
+      {% if DISQUS_SITENAME and SITEURL and   page.defends %}
         <hr class="hrcoments">
         <div class="comments">
           <h3>{{ gettext('Page-disqus-sect') }}</h3>

@@ -190,9 +190,9 @@ public class XpathInjectionExample {
         System.out.println("XPathExpressionException");
     }
     if (auth)
-		self.lbl2.setText("Autenticacion exitosa");
+    self.lbl2.setText("Autenticacion exitosa");
     else
-		self.lbl2.setText("Usuario y/o Contrasena invalida");
+    self.lbl2.setText("Usuario y/o Contrasena invalida");
   }
 
   private boolean doLogin(String loginID, String password)

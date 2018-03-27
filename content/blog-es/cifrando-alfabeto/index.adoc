@@ -70,19 +70,19 @@ abecedario *descifrado*
 ----
 while read line || [[ -n "$line" ]]; do
    ENCRYPTED=('b' 'c' 'd' 'e' 'f' 'g' 'h' 'i' 'j' 'k'
-	'l' 'm' 'n' 'o' 'p' 'q' 'r' 's' 't' 'u' 'v' 'w' 'x' 'y' 'z' 'a' ' ');
+  'l' 'm' 'n' 'o' 'p' 'q' 'r' 's' 't' 'u' 'v' 'w' 'x' 'y' 'z' 'a' ' ');
    DECRYPTED=('h' 'e' 's' 'o' 'c' 'v' 'x' 'd' 'u' 'i'
-	'g' 'l' 'b' 'k' 'r' 'z' 't' 'n' 'w' 'j' 'p' 'f' 'm' 'a' 'q' 'y' ' ');
+  'g' 'l' 'b' 'k' 'r' 'z' 't' 'n' 'w' 'j' 'p' 'f' 'm' 'a' 'q' 'y' ' ');
 ----
 
 * Tomamos las letras del *texto* cifrado (entrada del programa)
 
 [source,bash,linenums]
 ----
-	len=${#line};
-	for ((i=0; i<=len; i++))
-	do
-		CH=${line:$i:${i+1}};
+  len=${#line};
+  for ((i=0; i<=len; i++))
+  do
+    CH=${line:$i:${i+1}};
 ----
 
 * Buscamos la posición de cada una de estas letras en el diccionario del
@@ -92,10 +92,10 @@ abecedario *cifrado* y guardamos esta posición
 
 [source,bash,linenums]
 ----
-		for k in "${!ENCRYPTED[@]}"; do
-			if [[ "${ENCRYPTED[$k]}" = "$CH" ]]; then
-			echo -n "${DECRYPTED[$k]}";
-       		fi
+    for k in "${!ENCRYPTED[@]}"; do
+      if [[ "${ENCRYPTED[$k]}" = "$CH" ]]; then
+      echo -n "${DECRYPTED[$k]}";
+           fi
 ----
 
 Resolver este reto no ha sido muy díficil debido a que el reto mismo

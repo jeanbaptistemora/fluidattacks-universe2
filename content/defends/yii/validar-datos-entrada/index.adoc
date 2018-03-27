@@ -71,11 +71,11 @@ public function rules()
   // will receive user inputs.
   return array(
     array('ciudad_id, nombres, identificacion, email, genero','required',
-	  'message'=>'Este campo es requerido'),
+    'message'=>'Este campo es requerido'),
     array('nombres', 'match', 'pattern'=>'[\w\s]*', 'allowEmpty'=>false),
     array('email', 'email'),
     array('id, ciudad_id, nombres, identificacion, email, estado, genero',
-	  'safe','on'=>'search'), );
+    'safe','on'=>'search'), );
 }
 ----
 

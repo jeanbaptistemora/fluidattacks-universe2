@@ -102,7 +102,7 @@
           <td class="meta-data">
             <img src="{{ SITEURL}}/{{ THEME_STATIC_DIR }}/images/folder.png" alt="{{ gettext('Articles-icon-alt-3') }}"><a href="../../{{ category.url }}">{{ article.category|replace("-", " ") }}</a><br/>
           </td>
-	  <td class="meta-data">
+    <td class="meta-data">
             <img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/calendar2.png" alt="{{ gettext('Articles-icon-alt-4') }}"><p>{{ article.locale_date }}</p><br/>
           </td>
         </tr>
@@ -129,9 +129,9 @@
           <section class="sect-related">
             {% for related_post in article.related_posts %}
               <div class="related">
-	        <img src="{{ SITEURL }}/{{ related_post.url }}{{ related_post.featured_image }}" alt="related_post.alt"><br>
-	        <a href="{{ SITEURL }}/{{ related_post.url }}">{{ related_post.title }}</a>
-	      </div>
+          <img src="{{ SITEURL }}/{{ related_post.url }}{{ related_post.featured_image }}" alt="related_post.alt"><br>
+          <a href="{{ SITEURL }}/{{ related_post.url }}">{{ related_post.title }}</a>
+        </div>
             {% endfor %}
          </section>
        {% endif %}

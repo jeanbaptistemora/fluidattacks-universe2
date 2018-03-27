@@ -176,26 +176,26 @@ public class Server {
     SSLContext sslc = SSLContext.getInstance("SSLv3");
     sslc.init(kmf.getKeyManagers(), tmf.getTrustManagers(), null);
 
-	// ¿quién nos va a cifrar la conexión?
+  // ¿quién nos va a cifrar la conexión?
 
     ServerSocketFactory ssf = sslc.getServerSocketFactory();
     SSLServerSocket server = (SSLServerSocket) ssf.createServerSocket(port);
     server.setNeedClientAuth(false);
 
-	// recibir conexión
+  // recibir conexión
 
     SSLSocket client = (SSLSocket) server.accept();
 
-	// leer
+  // leer
 
     BufferedOutputStream outputStream = new BufferedOutputStream(client.getOutputStream());
     outputStream.write("Este es el mensaje enviado".getBytes());
     outputStream.flush();
     System.out.println("Servidor: mensaje enviado.");
 
-	// cerrar
+  // cerrar
 
-	client.close();
+  client.close();
     server.close();
   }
 }

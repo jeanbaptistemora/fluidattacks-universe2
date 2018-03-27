@@ -20,7 +20,7 @@ What benefits does Continuous Hacking have, when apllied to an application?::
 
 What are the necessary inputs and requirements needed for the service?::
 The service can be offered in the following phases:
-- Phase 1: The most important input needed for the service is access to the integration branch of the repository where the application's source code is stored. In this phase, there still does not exist a deployed application and, therefore,	 the security testing focuses on the source code.
+- Phase 1: The most important input needed for the service is access to the integration branch of the repository where the application's source code is stored. In this phase, there still does not exist a deployed application and, therefore,   the security testing focuses on the source code.
 - Phase 2: In addition to the prior, and when the project has a deployed application (Integration Environment), the tests coverage increases to include application security testing.
 - Phase 3: This phase is transversal to the others and applies only if the infrastructure that supports the application is defined as code and kept in the repository mentioned in Phase 1. This phase includes infrastructure in the security testing.
 
