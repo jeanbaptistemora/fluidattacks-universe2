@@ -1,7 +1,6 @@
 :slug: fuzzy-bugs-online/
 :date: 2018-02-09
 :category: techniques
-:subtitle: Performing fuzz testing over web applications
 :tags: sql, fuzzing, injection
 :image: cover.png
 :alt: Fuzzy caterpillar
@@ -16,11 +15,10 @@
 
 = Fuzzy bugs online
 
-Web fuzzing is a technique
+Web fuzzing is an automated, computerized technique
 to find bugs and vulnerabilities
-in an automated fashion.
-If you thought protecting your site
-was a matter of boring attackers by
+within a computer system.
+If you think protecting your site is a matter of simply
 blocking the most common types of malicious requests,
 think again.
 Read on.
@@ -28,10 +26,10 @@ Read on.
 == Injecting +SQL+ into a vulnerable site
 
 A fairly common situation is a website
-which provides the ability to search, add, and remove
-elements from a database.
+providing the ability to search, add, and remove
+information from a database.
 But introducing this kind of feature
-implies being very careful about
+demands great care in
 how you set up and access that database.
 
 Let's look at +link:http://itsecgames.com/[bWAPP]+, which
@@ -41,17 +39,17 @@ allows us to search for a given title:
 .+bWAPP+'s movie search site
 image::scr-bwapp-movie-search.png["bWAPP screenshot - movie search"]
 
-It looks like this site takes the user input
-as a +POST+ request,
-searches the database for that term,
-and prints back the result in table form.
+It looks like the site takes the user's input
+as a +POST+ request, then
+searches the database for that request,
+and finally prints back the result in table form.
 We can tell it's a +POST+ request
 since there is nothing in the +URL+ that hints +GET+
-(other than the huge title that says +POST+,
-of course, but that wouldn't be there in a real app).
+(consider that the huge +POST+ title
+wouldn't be there in a real app).
 
 Let's check that using the +OWASP ZAP+ proxy.
-Indeed, we see that the request is +POST+:
+Indeed, we can see and confirm that the request is +POST+:
 
 .+POST+ request when you search for a movie
 ....
@@ -74,9 +72,9 @@ For example, if we change it to:
 Iron Man' OR 1=1;
 ----
 
-Then we should get all entries in the table,
-since the +1=1+ is always true,
-making the overall condition true.
+Because the +1=1+ is always true,
+making the overall condition true,
+we should get all entries in the table,
 
 But it doesn't happen. We get an error:
 
@@ -87,39 +85,42 @@ syntax to use near '%'' at line 1
 ....
 
 Well, at least now we know for sure
-they are using +MySQL+.
+they are using +MySQL+,
+because we can see it in the error message.
 
-There are infinitely many strings we could try to use
+There are infinitely many strings
+(sequences of characters)
+we could try to use
 in order to complete the unknown +SQL+ query
 the server is asking from the database.
 
-What if we could try a bunch of them all at once
-in an automated fashion?
+What if we could try a bunch of them,
+at the same time, automatically?
 
 Well, that's what ``fuzzing'' is all about.
 
-== Web fuzzing
+== Web application fuzzing
 
 There are other kinds of fuzzing:
-desktop application fuzzing,
-both via command-line options
-or the +GUI+ (testing combinations of buttons, inputs, etc.),
-protocol fuzzing and file format fuzzing, at least.<<r1 ,^[1]^>>
+desktop application fuzzing
+using command-line
+or graphical interfaces
+(testing combinations of buttons, inputs, etc.),
+protocol fuzzing, file format fuzzing, and more.<<r1 ,^[1]^>>
 
-In this article,
-we will focus only on web application fuzzing,
+In this article
+we will focus only on web application fuzzing which is
 the semi-automated, pseudo-random manipulation
 of +URLs+, forms, user-generated content<<r1 ,^[1]^>>, requests, etc.
-We may tackle other kinds in upcoming articles.
+We may tackle other kinds of fuzzing in future articles.
 
 For a given fuzzing attack,
-the most comprehensive and sure-fire way of
-doing it
-would be to try every possible combination.
+the most comprehensive and sure-fire way to succeed
+would be to try every possible input.
 For example,
-if we're fuzzing on an input string,
-we should try every posible string,
-starting with the empty string.
+if we're fuzzing an input string,
+we should try every possible string,
+beginning with the empty string.
 This is due to the fact
 that sometimes programs have unexpected reactions
 to odd input,
@@ -128,14 +129,14 @@ where you could log in as root
 by pressing the login button enough times
 (see link:https://nvd.nist.gov/vuln/detail/CVE-2017-13872#vulnDescriptionTitle[CVE-2017-13872] for more info).
 
-But this approach is not really feasible or practical:
+But this ``try everything'' approach is not really feasible or practical:
 the space complexity of such an attempt
 would be enormous.
 Thus we must bound the so-called
 'explorable solutions space'.
 This is usually achieved by limiting
-the tried inputs
-to values that have a higher probability
+the input attempts to values
+that have a statistically higher probability
 of triggering a bug.
 These are known as 'fuzz vectors'.
 In our case,
@@ -160,20 +161,25 @@ a healthy dose of fuzz vectors,
 as does ours,
 the +OWASP ZAP Fuzzer+.
 All we need to do is
-selected the string we want to fuzz over,
-invoke the fuzzer,
-select the 'payloads',
-which is just a fancy word to mean
-loading up the fuzz vectors.
-+ZAP+ includes several of those by default,
-and we will use the +SQL+ injection vector
+
+. select the string we want to fuzz,
+
+. invoke the fuzzer,
+
+. select the 'payloads', i.e.
+the fuzz vectors, and
+
+. run the fuzzer.
+
++ZAP+ includes several of those by default;
+we will use the +SQL+ injection vector
 from +jbrofuzz+:
 
 .How to run +ZAP+ fuzzer
 image::anim-run-zap-fuzzer.gif["Running ZAP fuzzer"]
 
-The +SQL+ queries inserted by the fuzzer
-that were successful are marked with the state ``reflected'' in the list:
+Successfully injected +SQL+ queries
+are marked with the state ``reflected'' in the list:
 
 .Reflected +SQL+ injections in fuzz testing
 image::scr-reflected-fuzzed-injections.png["bWAPP fuzz testing - reflected SQL injections"]
@@ -190,23 +196,22 @@ whatever' OR (something truthy)
 
 which simply show all entries in the table +movies+.
 
-That is, at the same time,
-a blessing and a curse of fuzzing:
-sometimes the most simple injections
-produce unexpected outcomes but,
-usually, they don't.
-Thus, fuzzers tend to find only simple bugs<<r1 ,^[1]^>>
-but when they do,
+When fuzzing, this is both
+a blessing and a curse.
+Usually, they don't, but occasionally
+the simplest injections
+reveal unexpected outcomes,
+and when they do,
 they are real surprises
-like the +Apple+ bug above.
+such as the +Apple+ bug mentioned above.
 
 == Comparison with manual injection
 
-With some information about the app
+With information about the app
 and the database structure,
 we can inject more effective queries.
-For example, suppose that
-you've otherwise found out that
+For example, suppose
+you've found out that
 there is another table called +users+
 and we want to see what's in there.
 
@@ -243,26 +248,24 @@ activated, admin FROM users;#
 ----
 
 Then we get the most of the users' info
-(passwords are hashed, but still)
+(passwords are hashed, but can be
+link:../storing-passwords-safely/[recovered]).
 
 .Succesful manual +SQL+ injection
 image::scr-succesful-sqli.png["bWAPP SQL injection screenshot showing passwords"]
 
 ''''
 
-So that's fuzzing in the context of web applications,
-in a nutshell.
-We have only covered the tip of the iceberg here,
-but hopefully this introduction has been as useful to you
-as it would have been to me at the time.
-
-Fuzz testing,
-as our last queries show,
-does not replace human methods,
-but adds a sometimes useful extra point of view.
-As mentioned before,
-its greatest weakness is also
+By itself fuzz testing
+cannot replace human expertise in the equation but
+it adds an important additional point of view.
+As seen in the +Mac OS+ example,
+its greatest weakness can be
 a potential source of great surprises.
+We have merely glimpsed the
+tip of the iceberg here,
+but hope you find
+this short introduction helpful.
 
 == References
 
