@@ -6,82 +6,220 @@
 
 = Hacking Continuo
 
-== Encontrar Todas las Vulnerabilidades y Reportarlas lo Antes Posible
+Las pruebas continuas buscan detectar y reportar todas las vulnerabilidades
+y problemas de seguridad de un sistema
+durante todo el ciclo de desarrollo del mismo,
+nuestra participación durante este periodo
+nos permite derectar hallazgos de seguridad de forma continua
+en múltiples versiones del sistema que se está desarrollando
+sin reportar falsos positivos,
+así como verificar su corrección efectiva
+antes de la salida a producción del sistema.
 
-=== Pruebas tempranas en el SDLC:
-
-* Minimizando el costo de reparación.
-* Reduciendo a cero el tiempo de certificación en seguridad.
-* Confirmando el cierre efectivo de las vulnerabilidades durante la integración continua de los
-proyectos.
-
-=== ¿Por qué lo hacemos?
-
-* +Time to market+, las organizaciones buscan liberar más funcionalidades en menos tiempo.
-* Cobertura, lograr una cobertura del 100% sin aumentar los tiempos de liberación.
-* Mitigación, cerrar vulnerabilidades antes de liberar nuevas funcionalidades.
-* Rigurosidad, revisión evolutiva por manos expertas.
-
-=== ¿Cómo?
-
-* +Hacking+ Ético continuo sobre el código fuente y las aplicaciones. (Revisión experta)
-* Automatización del cierre de vulnerabilidades confirmadas.
-
-== Solución
-
-image::solucion.png[Solución]
-
-== Transformación
-
-image::transformacion.png[Transformación]
-
-== Arquitectura
-
-image::arquitectura.png[Arquitectura]
-
-== Metodología
-
-image::metodologia.png[Metodología]
-
-== Beneficios
-
-image::beneficios.png[Beneficios]
-
-== Comparativo
-
-[role="tb-fluid tb-row"]
-[cols="1,2,2", options="header"]
+[role="tb-alt"]
+[cols=2, frame="none"]
 |====
-| Aspecto
-| FLUID
-| Otros
 
-| Método de revisión
-| Híbrido (Herramientas + revisión manual experta)
-| Estático (Solo herramientas)
+a|== Pruebas antes que exista ambiente
 
-|Tipo de hallazgos
-a|* De impacto específico del negocio
-* Prácticas inseguras de programación
-* Alineación a estándares y regulaciones de seguridad
-* Vulnerabilidades +*_"Zero Day"_*+
-|Sintácticos
+Se puede iniciar con las revisiones de seguridad
+desde el inicio del desarrollo
+o incluso antes de contar con un ambiente funcional,
+ya que se revisa el código fuente publicado
+en el repositorio de código del proyecto.
 
-|Posibilidad de falsos positivos
-|No
-|Sí
+^.^a|image:img2.png[alt="img2", width="55%"]
 
-|Estimación
-a|* Únicamente líneas de código efectivas
-* Por campos de entrada de formularios, visibles, invisibles y cabeceras (mayor cobertura y rigurosidad)
-a|* Tamaño total del código fuente
-* Por pantallas o aplicación (menor cobertura y rigurosidad)
+^.^a|image:img3.png[alt="img3", width="55%"]
 
-|Capacidad de explotación
-|Sí (Si se tiene acceso a la aplicación desplegada)
-|No
+a|== Tipos de prueba
 
-|Entregables
-|Plataforma Web - [button]#link:../../productos/integrates/[Integrates]# (Exploit, Evidencias de explotación, Recomendaciones generales)
-|Informe resumen
+* *Hacking Continuo Integral:* Se realizan pruebas de aplicación,
+infraestructura y análisis de código fuente
+cuando se tiene acceso tanto al repositorio en +GIT+
+como al ambiente de integración.
+
+
+* *Hacking Continuo Limitado:* Se realizan pruebas de aplicación
+o análisis de código fuente
+cuando se tiene acceso solo al ambiente de integración
+o a un repositorio no +GIT+.
+
+a|== Límite de prueba mensual
+
+El alcance mensual en todos los escenarios
+es hasta +10+ repos y +10K+ deltas mes.
+En caso de solo contar con el ambiente (aplicación)
+el alcance mensual es hasta +10+ entradas nuevas mes.
+
+^.^a|image:img4.png[alt="img4", width="55%"]
+
+^.^a|image:img5.png[alt="img5", width="55%"]
+
+a|== Cobertura
+
+El propósito es probar la totalidad del sistema
+durante el tiempo de la suscripción logrando una cobertura del +100%+,
+cuando el proyecto inicia en conjunto con el desarrollo se prueba
+y finaliza de forma paralela
+mientras que el desarrollo no supere las +10K+ deltas al mes.
+Cuando se superan las +10K+ deltas hay +2+ opciones:
+
+* Solicitar la revisión de deltas adicionales.
+
+* Desplazar la revisión en el tiempo.
+Con esa última opción las pruebas de seguridad
+no terminarían en forma paralela al desarrollo.
+
+a|== Healthcheck
+
+Si al iniciar una suscripción ya hay desarrollos previos
+es necesario hacer un desatraso o +healthcheck+
+con el fin de revisar la totalidad de las líneas
+o campos desarrollados hasta el momento de la toma de la suscripción
+en los primeros +3+ meses para ponerse al día
+y en los meses siguientes continuar con la prueba
+de forma paralela al desarrollo
+(El +healthcheck+ tendrá un costo adicioal a la suscripción).
+
+^.^a|image:img6.png[alt="img6", width="55%"]
+
+^.^a|image:img7.png[alt="img7", width="55%"]
+
+a|== Rigurosidad
+
+Es posible que el cliente decida los requisitos de seguridad que se revisarán
+en el hacking (perfilamiento) a través de nuestro producto
+[button]#link:../../productos/rules/[Rules]#.
+
+Además sabrá la rigurosidad exacta del hackeo
+(lo revisado y lo no revisado).
+
+a|== Duración
+
+La suscripción se contrata por espacio mínimo de un año
+
+
+^.^a|image:img8.png[alt="img8", width="55%"]
+
+^.^a|image:img9.png[alt="img9", width="55%"]
+
+a|== Comunicación a través de Integrates
+
+Toda la comunicación del proyecto se hace a través de
+[button]#link:../../productos/integrates/[Integrates]#,
+mediante las funcionalidades de Chat y de comentarios.
+
+a|== Ambientes de prueba
+
+Es posible elegir un único ambiente de pruebas entre producción,
+pruebas e integración con el servicio básico.
+También es posible adicionar ambientes
+para verificación de cierre hallazgos por un cargo adicional.
+
+^.^a|image:img10.png[alt="img10", width="55%"]
+
+^.^a|image:img11.png[alt="img11", width="55%"]
+
+a|== Equipo de hacking altamente calificado
+
+Personal con certificaciones prácticas
+y estudios relacionados en temas de seguridad,
+realiza pruebas manuales y con herramientas
+para garantizar el reporte de hallazgos de impacto específicos del negocio,
+prácticas inseguras de programación,
+alineación a estándares y regulaciones de seguridad sin falsos positivos,
+posibilitando la detección de vulnerabilidades +Zero Day+.
+
+a|== Explotación de hallazgos
+
+Siempre que se tenga acceso a la aplicación desplegada
+y se cuente con autorización por parte del cliente
+para la afectación de ambientes
+usando nuestro motor de explotación propio
+[button]#link:../../productos/asserts/[Asserts]#.
+
+^.^a|image:img12.png[alt="img12", width="55%"]
+
+^.^a|image:img13.png[alt="img13", width="55%"]
+
+a|== Extracción de información crítica
+
+En los hallazgos donde es posible se extraen todos los registros comprometidos
+con el fin de maximizar el impacto generado
+y comprometer información sensible.
+
+a|== Infección
+
+De ser posible se compromete la infraestructura
+con el uso de archivos maliciosos con el fin de obtener información adicional,
+comprometer servidores y verificar controles a nivel de red.
+Se hace uso de +shells+ y +troyanos+ personalizados
+con previa autorización por parte del cliente.
+
+^.^a|image:img14.png[alt="img14", width="55%"]
+
+^.^a|image:img15.png[alt="img15", width="55%"]
+
+a|== Seguimiento de hallazgos a través de Integrates
+
+Durante la ejecución del proyecto es posible verificar los hallazgos reportados
+en nuestra plataforma [button]#link:../../productos/integrates/[Integrates]#,
+así como visualizar en tiempo real estadísticas del proyecto,
+del estado de remediación de los hallazgos,
+clasificar los hallazgos por edad, entre otros.
+
+a|== Verificación de cierre
+
+Se realizan múltiples ciclos validación de estado de los hallazgos
+durante la ejecución de la suscripción,
+para esto es necesario que se defina un tratamiento
+en nuestra plataforma [button]#link:../../productos/integrates/[Integrates]#
+así como la solucitud de la verificación del mismo,
+se pueden hacer tantos ciclos de cierre como sean necesarios
+para garantizar que el hallazgo sea solucionado efectivamente.
+
+^.^a|image:img16.png[alt="img16", width="55%"]
+
+^.^a|image:img17.png[alt="img17", width="55%"]
+
+a|== Soporte de Remediación.
+
+Durante el proyecto es posible solicitar aclaraciones
+directamente a los hackers
+mediante [button]#link:../../productos/integrates/[Integrates]#.
+
+Es posible utilizar nuestras guias detalladas de remediación
+mediante [button]#link:../../productos/defends/[Defends]#.
+
+a|== Generar Informes Técnicos y ejecutivos desde Integrates
+
+En el informe técnico se encuentra
+la información detallada de cada vulnerabilidad.
+Es de gran utilidad para el personal técnico
+a la hora de darle una solución a las fallas de seguridad reportadas.
+
+En el informe ejecutivo se encuentra la información resumida y organizada.
+De tal manera que pueda ser de utilidad
+para todas las personas en la cadena de valor del proyecto.
+
+^.^a|image:img18.png[alt="img18", width="55%"]
+
+^.^a|image:img19.png[alt="img19", width="55%"]
+
+a|== Borrado seguro de información
+
++7+ días hábiles luego de la aprobación final de los informes
+se borra toda la información de nuestros sistemas.
+
 |====
+
+* To check on differences between our services
+and other providers take a look at our differentiators
+[button]#link:../differentiators/[here]#.
+
+* To check on differences between our One-shot hacking
+and Continuous hacking take a look at our comparative
+[button]#link:../comparative/[here]#.
+
+~Icons designed by Eucalyp from Flaticon~
