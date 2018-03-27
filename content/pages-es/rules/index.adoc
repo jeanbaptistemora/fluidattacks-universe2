@@ -148,6 +148,7 @@
 * link:249/[REQ.249 Ubicar puntos de acceso].
 * link:250/[REQ.250 Administrar puntos de acceso].
 * link:251/[REQ.251 Cambiar IP del punto de acceso].
+* link:252/[REQ.252 Configurar cifrado de clave].
 
 == Servicios
 

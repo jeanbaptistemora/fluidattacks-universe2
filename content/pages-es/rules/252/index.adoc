@@ -1,0 +1,12 @@
+:slug: rules/252/
+:category: rules
+:description: En el presente documento se detallan los lineamientos o requerimientos de seguridad relacionados a la protección de claves de redes inalámbricas de toda organización. Por lo tanto, se debe preferir el uso de los métodos de cifrado de clave WPA2 Personal o WPA2 Enterprise.
+:keywords: Seguridad, Personal, Clave, Inalámbrico, WPA2, Enterprise.
+:rules: yes
+
+= REQ.252 Configurar cifrado de clave
+
+== Nombre
+
+Se debe preferir el uso de los métodos de cifrado de clave +WPA2+ Personal
+o +WPA2 Enterprise+ (+802.1x+).
