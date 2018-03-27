@@ -54,18 +54,23 @@ RUN apt-get update -qq && apt-get install -qqy \
     curl -sSLo tidy.deb https://github.com/htacg/tidy-html5/releases/download/5.4.0/tidy-5.4.0-64bit.deb && \
         dpkg -i tidy.deb && \
 
-    # Download TipueSearch (only the needed .js), Pelican-Plugins (only the ones used), Pelican-Redirect and
-    # PlantUML from their repositories
+    # Download only the necessary .js to implement TipueSearch plugin, from its repository
     mkdir js && cd js && \
         git init && git remote add origin https://github.com/Tipue/Tipue-Search.git && \
         git config core.sparsecheckout true && cat ../js-files.txt >> .git/info/sparse-checkout && \
         git pull origin master && git reset --hard  e14a5b6 && cd ../ && \
+
+    # Download only the plugins used in the site, from the Pelican-Plugins repository
     mkdir pelican-plugins && cd pelican-plugins && \
         git init && git remote add origin https://github.com/getpelican/pelican-plugins.git && \
         git config core.sparsecheckout true && cat ../plugin_list.txt >> .git/info/sparse-checkout && \
         git pull origin master && git reset --hard 3924d5b && \
+
+    # Download the Pelican-Redirect plugin and initialize it so it is recognized as a Python module
     git clone --depth=1 https://github.com/slinkp/pelican-redirect.git && cd pelican-redirect && git reset --hard f00004c && \
         echo "from .pelican_redirect import *" > __init__.py && \
+
+    # Download the PlantUML filter for Asciidoc and install it
     curl -sSLo plantuml.zip https://storage.googleapis.com/google-code-archive-downloads/v2/code.google.com/asciidoc-plantuml/plantuml.zip && \
         asciidoc --filter install plantuml.zip /etc/asciidoc/filters/ && \
 
