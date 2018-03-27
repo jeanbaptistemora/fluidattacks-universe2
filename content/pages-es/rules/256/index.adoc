@@ -1,0 +1,12 @@
+:slug: rules/256/
+:category: rules
+:description: En el presente documento se detallan los requerimientos de seguridad relacionados a la administración lógica de la red de una determinada organización. Por lo tanto, los servidores con aplicaciones o contenido sólo deben tener acceso a los puertos que les permitan cumplir su propósito.
+:keywords: Servidor, Contenido, Aplicaciones, Puerto, Seguridad, Acceso.
+:rules: yes
+
+= REQ.256 Servidores con acceso a puertos necesarios
+
+== Nombre
+
+Los servidores con aplicaciones o contenido
+sólo deben tener acceso a los puertos que les permitan cumplir su propósito.

@@ -155,6 +155,7 @@
 == Redes lógicas
 
 * link:255/[REQ.255 Permitir acceso sólo en puertos necesarios].
+* link:256/[REQ.256 Servidores con acceso a puertos necesarios].
 
 == Servicios
 
