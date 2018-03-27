@@ -186,3 +186,13 @@ solo se valida lo ya encontrado previamente
 ^.^a|image:img20.png[alt="img20", width="55%"]
 
 |====
+
+* Si desea conocer las diferencias entre nuestros servicios
+y otros proveedores puede conocer nuestros diferenciadores
+[button]#link:../diferenciadores/[aquí]#.
+
+* Si desea conocer las diferencias entre nuestros servicios
+puede ver nuestra tabla comparativa
+[button]#link:../comparativo/[aquí]#.
+
+~Íconos diseñados por Eucalyp de Flaticon~

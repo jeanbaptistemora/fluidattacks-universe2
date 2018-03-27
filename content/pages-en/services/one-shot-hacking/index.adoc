@@ -191,3 +191,13 @@ new vulnerabilities are not searched.
 ^.^a|image:img20.png[alt="img20", width="55%"]
 
 |====
+
+* To check on differences between our services
+and other providers take a look at our differentiators
+[button]#link:../differentiators/[here]#.
+
+* To check on differences between our One-shot hacking
+and Continuous hacking take a look at our comparative
+[button]#link:../comparative/[here]#.
+
+~Icons designed by Eucalyp from Flaticon~
