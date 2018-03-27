@@ -154,17 +154,13 @@ A continuación presentamos los enlaces para diferentes tipos de +MR+:
 
 Ejemplos de +MR+ aceptados en el pasado:
 
-* +MR+ ejemplares de +hacking+:
+* +MR+ ejemplares de +hacking+: [button]#link:https://gitlab.com/autonomicmind/training/merge_requests/831[1]#,
+[button]#link:https://gitlab.com/autonomicmind/training/merge_requests/734[2]#,
+[button]#link:https://gitlab.com/autonomicmind/training/merge_requests/703/[3]#
 
-** [button]#link:https://gitlab.com/autonomicmind/training/merge_requests/831[1]#,
-** [button]#link:https://gitlab.com/autonomicmind/training/merge_requests/734[2]#,
-** [button]#link:https://gitlab.com/autonomicmind/training/merge_requests/703/[3]#
-
-* +MR+ ejemplares de programación:
-
-** [button]#link:https://gitlab.com/autonomicmind/training/merge_requests/773[1]#,
-** [button]#link:https://gitlab.com/autonomicmind/training/merge_requests/750[2]#,
-** [button]#link:https://gitlab.com/autonomicmind/training/merge_requests/814[3]#
+* +MR+ ejemplares de programación: [button]#link:https://gitlab.com/autonomicmind/training/merge_requests/773[1]#,
+[button]#link:https://gitlab.com/autonomicmind/training/merge_requests/750[2]#,
+[button]#link:https://gitlab.com/autonomicmind/training/merge_requests/814[3]#
 
 [NOTE]
 Estos enlaces ejemplares no necesariamente siguen todas las reglas mencionadas pues las reglas evolucionan y
