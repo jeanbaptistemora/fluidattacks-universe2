@@ -12,6 +12,8 @@ Este nuevo paso, para el cual usted ha sido seleccionado entre más de 100 candi
 busca que usted haga parte en un auto-entrenamiento intensivo en retos de programación y
 hacking financiado por FLUID llamado “Inmersión”.
 
+== Filosofía
+
 El objetivo de esta etapa es que usted alcance los más altos niveles de fortaleza técnica.
 Esto previo a efectuar pruebas reales de seguridad sobre sistemas financieros y de telecomunicaciones,
 así como validar sus competencias humanas y de trabajo en equipo cerca a otros hackers que
@@ -20,8 +22,6 @@ ya se encuentran en nuestra organización.
 Por lo extenso del proceso, FLUID, para esta etapa,
 busca independiente del avance en puntos y ranking,
 que usted reciba una remuneración por el tiempo invertido en el proceso.
-
-Los términos del contrato de entrenamiento para esta etapa de Inmersión son los siguientes:
 
 == Objetivos
 
