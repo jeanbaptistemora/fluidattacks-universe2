@@ -152,6 +152,10 @@
 * link:253/[REQ.253 Filtrar acceso a la red].
 * link:254/[REQ.254 Cambiar nombre de SSID].
 
+== Redes lógicas
+
+* link:255/[REQ.255 Permitir acceso sólo en puertos necesarios].
+
 == Servicios
 
 * link:262/[REQ.262 Verificar componentes de terceros].
