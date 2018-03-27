@@ -214,12 +214,12 @@ se borra toda la información de nuestros sistemas.
 
 |====
 
-* To check on differences between our services
-and other providers take a look at our differentiators
-[button]#link:../differentiators/[here]#.
+* Si desea conocer las diferencias entre nuestros servicios
+y otros proveedores puede conocer nuestros diferenciadores
+[button]#link:../diferenciadores/[aquí]#.
 
-* To check on differences between our One-shot hacking
-and Continuous hacking take a look at our comparative
-[button]#link:../comparative/[here]#.
+* Si desea conocer las diferencias entre nuestros servicios
+puede ver nuestra tabla comparativa
+[button]#link:../comparativo/[aquí]#.
 
-~Icons designed by Eucalyp from Flaticon~
+~Íconos diseñados por Eucalyp de Flaticon~
