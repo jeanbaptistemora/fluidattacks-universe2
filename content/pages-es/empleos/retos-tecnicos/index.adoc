@@ -123,8 +123,8 @@ Antes de realizar un +MR+ por favor verifique que cumple con los siguientes crit
 . El +MR+ debe realizarse solo cuando su rama ha integrado satisfactoriamente (verde),
 . Si el +MR+ es rechazado no debe reabrirse, deben corregirse los problemas indicados y hacer un nuevo +MR+,
 . El mensaje de +commit+ para enviar la solución de un reto de complejidad 9.63,
-del cual previamente se tienen 17 soluciones externas (out) y 8 dentro del repo (in)
-y que tardó 4.5 horas de esfuerzo en resolverse durante la fase de retos (challenges) es el siguiente:
+del cual previamente se tienen 17 soluciones externas (+out+) y 8 dentro del repo (+in+)
+y que tardó 4.5 horas de esfuerzo en resolverse durante la fase de retos (+challenges+) es el siguiente:
 
 [source, text]
 ----
