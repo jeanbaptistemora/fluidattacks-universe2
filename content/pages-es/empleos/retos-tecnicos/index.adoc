@@ -174,14 +174,19 @@ sin embargo se relacionan como ejemplo para propósitos pedagógicos.
 
 == 8. Recomendaciones
 
-Para cumplir los objetivos enunciados,
+. Para cumplir los objetivos enunciados,
 se sugiere buscar retos que no tengan solución ni en +OTHERS+ ni en el repositorio y
 trabajar en resolver el reto en la respectiva plataforma.
 Para esto, puede apoyarse usando el siguiente link:https://gitlab.com/autonomicmind/training/blob/master/utility.sh[script].
 
-Al momento de solucionar retos de programación,
+. Al momento de solucionar retos de programación,
 se sugiere usar un lenguaje no muy usado y
 resolver los retos en dicho lenguaje.
+
+. Solucionar un reto e inmediatamente hacer su envío.
+No acumule soluciones en su computador sin enviarlas,
+pues de este modo usted nunca tendrá realimentación de lo que esta haciendo de forma errónea y
+le puede generar por ende múltiples reprocesos tener que corregir sus soluciones luego.
 
 == 9. Repositorio
 
