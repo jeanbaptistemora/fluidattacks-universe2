@@ -313,11 +313,13 @@ image::ranking-wechall.png[Ranking en Wechall]
 
 La etapa de retos técnicos finaliza en cualquiera de las siguientes circunstancias:
 
-. Usted haya completado los link:#objetivos[objetivos] y envíe vía +email+ los enlaces en +master+ de sus soluciones,
-. De no haber movimiento (+push+ al repositorio +git+) en 14 días calendario,
+. Usted haya completado los link:#objetivos[objetivos] y envíe vía +email+ los enlaces en +master+ de sus soluciones.
+. De no haber movimiento (+push+ al repositorio +git+) en 14 días calendario.
 . De haber alcanzado el tope máximo de 10 +MR+ fallidos, esto es, +MR+ que no se le hace +merge+ por
 cuestiones detalladas en la documentación y que aun así se incumplen.
 . Si usted explícitamente manifiesta mediante +email+ su deseo para retirarse del proceso.
+. Si usted presenta como propias soluciones totales o parciales realizadas por otra persona (plagio).
+. Si usted realiza soluciones a retos con ayuda de terceros.
 
 En todos los casos la dirección de correo para estos pasos es: careers@autonomicmind.co
 
