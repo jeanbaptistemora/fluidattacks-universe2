@@ -175,6 +175,7 @@ sin embargo se relacionan como ejemplo para propósitos pedagógicos.
 Para cumplir los objetivos enunciados,
 se sugiere buscar retos que no tengan solución ni en +OTHERS+ ni en el repositorio y
 trabajar en resolver el reto en la respectiva plataforma.
+Para esto, puede apoyarse usando el siguiente link:https://gitlab.com/autonomicmind/training/blob/master/utility.sh[script]. 
 
 Al momento de solucionar retos de programación,
 se sugiere usar un lenguaje no muy usado y
