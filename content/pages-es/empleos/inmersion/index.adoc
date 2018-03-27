@@ -25,15 +25,15 @@ Los términos del contrato de entrenamiento para esta etapa de Inmersión son lo
 
 == Objetivos
 
-. Aplicando los link:../retos-tecnicos/#criterios[criterios definidos] en la etapa de retos técnicos:
-.. Resuelva 100 retos de programación
-.. Resuelva 100 retos de hacking
-+
-*IMPORTANTE:* Todas las soluciones que usted envíe deben cumplir con
-las [button]#link:../retos-tecnicos/#envio[reglas de envío]#.,
+. Resuelva 100 retos de programación,
+. Resuelva 100 retos de hacking,
+. Finalice 2 proyectos de entrenamiento sorpresa,
+. Publique 10 artículos en el blog,
 
-. Participe en dos proyectos de entrenamiento sorpresa.
-. Realice 10 artículos publicables en el blog.
+== Criterios
+
+. Para los retos los mismos link:../retos-tecnicos/#criterios[criterios] de la etapa de retos.
+. Para los artículos los criterios definidos en la link:../../estilo[guía de estilo].
 
 == Inicio
 
