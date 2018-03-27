@@ -92,8 +92,8 @@ Las soluciones de retos de programación deberán cumplir con lo siguiente:
 . No deben tener solución en el repositorio (carpeta del reto) para el lenguaje elegido por usted,
 . No deben tener solución externa indexada (enlaces OTHERS.txt del reto) para el lenguaje elegido por usted,
 . El lenguaje de la solución es uno de los aceptados por [button]#link:http://www.codeabbey.com/[Codeabbey]#.
-. En comentarios multilínea al inicio del programa deben estar el snippet de los comandos de compilación utilizados y la salida correspondiente en modo +CLI+.
-. En comentarios multilínea al final del programa deben estar el snippet de los comandos de ejecucion utilizados y la salida correspondiente en modo +CLI+.
+. Los comandos de compilación y/o +linting+ utilizados y su salida deben estar al inicio del código fuente en comentarios multilínea.
+. Los comandos de ejecución utilizados y su salida deben estar al final del código fuente en comentarios multilínea.
 . El código fuente de la solución debe seguir los parámetros de estilo de [button]#link:../../estilo/#explicaciones-con-codigo-fuente[esta guía]#.
 
 Las soluciones de retos de hacking deberán cumplir con lo siguiente:
@@ -177,7 +177,7 @@ sin embargo se relacionan como ejemplo para propósitos pedagógicos.
 Para cumplir los objetivos enunciados,
 se sugiere buscar retos que no tengan solución ni en +OTHERS+ ni en el repositorio y
 trabajar en resolver el reto en la respectiva plataforma.
-Para esto, puede apoyarse usando el siguiente link:https://gitlab.com/autonomicmind/training/blob/master/utility.sh[script]. 
+Para esto, puede apoyarse usando el siguiente link:https://gitlab.com/autonomicmind/training/blob/master/utility.sh[script].
 
 Al momento de solucionar retos de programación,
 se sugiere usar un lenguaje no muy usado y
