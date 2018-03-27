@@ -85,30 +85,25 @@ ____________________________________________________________________
 
 == 4. Criterios
 
-En programación, deben ser retos que:
+Las soluciones de retos de programación deberán cumplir con lo siguiente:
 
-. No tienen solución en el repositorio (carpeta del reto) para el lenguaje elegido por usted,
-. No tienen solución externa indexada (enlaces OTHERS.txt del reto) para el lenguaje elegido por usted,
+. No deben tener solución en el repositorio (carpeta del reto) para el lenguaje elegido por usted,
+. No deben tener solución externa indexada (enlaces OTHERS.txt del reto) para el lenguaje elegido por usted,
 . El lenguaje de la solución es uno de los aceptados por [button]#link:http://www.codeabbey.com/[Codeabbey]#.
-
-En hacking, deben ser retos que:
-
-. No tienen solución en Gherkin (*.feature) en el repositorio (carpeta del reto),
-. No tienen solución externa indexada (enlaces OTHERS.txt del reto),
-. Requieran nivel técnico (no matemático ni de adivinanzas) de [button]#link:wechall.net[wechall]# o sus sitios relacionados,
-. (Opcionalmente) correspondan a explotación en sistemas (ToE) vulnerables intencionalmente listados en:
-.. [button]#link:https://www.owasp.org/index.php/OWASP_Vulnerable_Web_Applications_Directory_Project#Off-Line_apps[OWASP Off-Line apps]#
-.. [button]#link:https://www.owasp.org/index.php/OWASP_Vulnerable_Web_Applications_Directory_Project#Virtual_Machines_or_ISOs[OWASP VMs / ISOs]#
-.. [button]#link:https://www.owasp.org/index.php/OWASP_Vulnerable_Web_Applications_Directory_Project#On-Line_apps[OWASP On-Line apps]#
-
-Los códigos correspondientes a soluciones de retos de programación deberán cumplir con lo siguiente:
-
 . En comentarios multilínea al inicio del programa deben estar el snippet de los comandos de compilación utilizados y la salida correspondiente en modo +CLI+.
 . En comentarios multilínea al final del programa deben estar el snippet de los comandos de ejecucion utilizados y la salida correspondiente en modo +CLI+.
 
-Las soluciones de retos de hacking deberán documentarse de acuerdo a lo siguiente:
 
-. link:../../../en/blog/gherkin-steroids/[Guía para el uso de gherkin]
+Las soluciones de retos de hacking deberán cumplir con lo siguiente:
+
+. No deben tener solución en Gherkin (*.feature) en el repositorio (carpeta del reto),
+. No deben tener solución externa indexada (enlaces OTHERS.txt del reto),
+. Deben ser retos que requieran nivel técnico (no matemático ni de adivinanzas) de [button]#link:wechall.net[wechall]# o sus sitios relacionados,
+. (Opcionalmente) Pueden ser retos que correspondan explotación en sistemas (ToE) vulnerables intencionalmente listados en:
+.. [button]#link:https://www.owasp.org/index.php/OWASP_Vulnerable_Web_Applications_Directory_Project#Off-Line_apps[OWASP Off-Line apps]#
+.. [button]#link:https://www.owasp.org/index.php/OWASP_Vulnerable_Web_Applications_Directory_Project#Virtual_Machines_or_ISOs[OWASP VMs / ISOs]#
+.. [button]#link:https://www.owasp.org/index.php/OWASP_Vulnerable_Web_Applications_Directory_Project#On-Line_apps[OWASP On-Line apps]#
+.  El formato Gherkin a utilizar debe adherirse estricamente a lo descrito [button]#link:../../../en/blog/gherkin-steroids/[aquí]#
 +
 Opcionalmente, puede tener en cuenta el siguiente link:../../../en/blog/app-pickle-document-gherkin/[artículo]
 
