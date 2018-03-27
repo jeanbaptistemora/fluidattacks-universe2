@@ -221,9 +221,11 @@ Un ejemplo de esta estructura es:
 
 {nbsp}
 
-* El nombramiento de todos los archivos y directorios, a excepción de sus
-archivos, debe realizarse en minúscula, sin caracteres especiales y en caso de requerir
-espacios usar *-* (guion) como sustituto.
+El nombramiento de todos los archivos y directorios,
+a excepción de sus link:#92-archivos-especiales[archivos especiales],
+debe realizarse en minúscula,
+sin caracteres especiales y
+en caso de requerir espacios usar *-* (guion) como sustituto.
 
 === 9.2 Archivos Especiales
 
