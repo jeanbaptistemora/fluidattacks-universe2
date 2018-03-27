@@ -74,7 +74,7 @@ la forma de documentación y las herramientas requeridas entre otros,
 serán revelados el primer día de Inmersión y
 cuando haya finalizado todos los ítems mencionados en esta sección.
 
-== 5. Entrenamientos
+== 5. Condiciones
 
 . El entrenamiento es auto-dirigido e independiente (por su propia cuenta sin instrucción o ayuda alguna de otro),
 . Los días pares se trabajarán retos de hacking.
