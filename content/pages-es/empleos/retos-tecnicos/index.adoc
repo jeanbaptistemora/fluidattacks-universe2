@@ -120,14 +120,15 @@ Antes de realizar un +MR+ por favor verifique que cumple con los siguientes crit
 . Cada +commit+ de solución de retos debe ir en 1 solo +MR+,
 . El +MR+ debe realizarse solo cuando su rama ha integrado satisfactoriamente (verde),
 . Si el +MR+ es rechazado no debe reabrirse, deben corregirse los problemas indicados y hacer un nuevo +MR+,
-. El mensaje de +commit+ para enviar la solución de un reto en el cual previamente se tienen 17 soluciones externas y
-8 soluciones dentro del repo es el siguiente:
+. El mensaje de +commit+ para enviar la solución de un reto de complejidad 9.63,
+del cual previamente se tienen 17 soluciones externas (out) y 8 dentro del repo (in)
+y que tardó 4.5 horas de esfuerzo en resolverse durante la fase de retos (challenges) es el siguiente:
 
 [source, text]
 ----
 solution: codeabbey, 78 (9.63)
 
-- others: 8 in, 17 out, 0 total.
+- others: 8 in, 17 out, 25 total.
 - score: 25665 initial, 25723 final, 58 progress.
 - global-rank: 797 initial, 795 final, 2 progress.
 - national-rank: 38 initial, 38 final, 0 progress.
