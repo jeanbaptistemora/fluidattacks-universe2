@@ -81,9 +81,9 @@ ____________________________________________________________________
 
 == 3. Objetivos
 
-* Resuelva 10 retos de programación.
+. Resuelva 10 retos de programación.
 
-* Resuelva 10 retos de hacking.
+. Resuelva 10 retos de hacking.
 
 == 4. Criterios
 
