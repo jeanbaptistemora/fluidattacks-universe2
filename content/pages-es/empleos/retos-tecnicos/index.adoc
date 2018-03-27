@@ -184,9 +184,9 @@ resolver los retos en dicho lenguaje.
 
 == 8. Repositorio
 
-El repositorio donde usted debe enviar sus soluciones es el siguiente:
-link:https://gitlab.com/autonomicmind/training/[click aquí]
-Por favor lea atentamente las siguientes pautas para trabajar en este repositorio +git+:
+El envío de soluciones se realizará en el siguiente [button]#link:https://gitlab.com/autonomicmind/training/[repositorio git]#
+
+Es ideal que usted se familiarice con el versionamiento y la estructura que detallamos a continuación.
 
 === 8.1 Generalidades
 
