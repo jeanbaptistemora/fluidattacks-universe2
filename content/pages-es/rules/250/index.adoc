@@ -1,0 +1,12 @@
+:slug: rules/250/
+:category: rules
+:description: En el presente documento se detallan los requerimientos de seguridad relacionados a la administración segura de redes inalámbricas. Por lo tanto, la administración del punto de acceso inalámbrico debe estar habilitada sólo en un puerto físico del equipo.
+:keywords: Red, Puerto Físico, Punto de acceso, Inalámbrico, Habilitar, Administración.
+:rules: yes
+
+= REQ.250 Administrar puntos de acceso
+
+== Nombre
+
+La administración del punto de acceso inalámbrico
+debe estar habilitada sólo en un puerto físico del equipo.
