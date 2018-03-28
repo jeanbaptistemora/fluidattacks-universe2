@@ -12,7 +12,7 @@
 
 .Comparación entre una prueba de intrusión de FLUID y un análisis común de vulnerabilidades.
 [role="tb-row"]
-[cols=3]
+[cols="15,45,40"]
 |====
 | *Aspecto*
 | *FLUIDAttacks*

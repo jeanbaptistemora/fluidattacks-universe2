@@ -13,7 +13,7 @@
 
 .Comparison between Continuous and One Shot Hacking services.
 [role="tb-row"]
-[cols=3]
+[cols="15,45,40"]
 |====
 | *Aspects*
 | link:../continuous-hacking/[*Continuous Hacking*]

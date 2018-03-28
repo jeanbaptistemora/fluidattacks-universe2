@@ -13,7 +13,7 @@
 
 .Comparación entre los servicios de Hacking puntual y Hacking continuo de FLUID.
 [role="tb-row"]
-[cols=3]
+[cols="15,45,40"]
 |====
 | *Aspectos*
 | link:../hacking-continuo/[*Hacking Continuo*]

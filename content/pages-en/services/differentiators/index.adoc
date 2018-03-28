@@ -12,7 +12,7 @@
 
 .Comparative table Pentesting Vs Vulnerability Analysis
 [role="tb-row"]
-[cols=3]
+[cols="15,45,40"]
 |====
 | *Aspect*
 | *FLUIDAttacks*
