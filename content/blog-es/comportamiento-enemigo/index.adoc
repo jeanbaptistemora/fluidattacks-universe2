@@ -36,10 +36,6 @@ es por esto que analizar el comportamiento de los usuarios se convierte en un
 punto clave para descubrir posibles fraudes y de esta manera evitarlo antes de
 que logre afectar a la organización y/o dañar a los usuarios legítimos.
 
-.Vision for fraud and risk management –
-link:https://globalsummit.rsa.com/wp-content/uploads/2015/09/RSA%E2%80%99s-Vision-For-Fraud-And-Risk-Management.pdf[RSA]
-image::1.png[fraud-risk]
-
 La realidad es que las amenazas no se anuncian abiertamente, sino todo lo
 contrario tienden a ocultar sus actividades entre las acciones de los usuarios
 legítimos. Sin embargo, un atacante al final va a terminar haciendo algo fuera
@@ -88,6 +84,7 @@ sin castigar la experiencia de los usuarios.
 
 .Top retailers affected by e-commerce fraud –
 link:https://www.rsa.com/en-us/resources/2017-global-fraud-and-cybercrime-forecast[RSA]
+
 image::objetivo.png[e-commerce]
 
 Para finalizar es importante tener claro que no solo los bancos son
