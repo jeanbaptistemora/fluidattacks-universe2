@@ -201,26 +201,28 @@ Es ideal que usted se familiarice con el versionamiento y la estructura que deta
 
 Los soluciones a los retos se almacenan en las siguientes carpetas:
 
-[role="tb-row"]
-[frame="topbot", cols="^.^s,^.^,,"]
+[role="tb-col"]
+[frame="topbot"]
 |====
-| Carpeta | Descripción ^| Estructura ^| Ejemplo
+^.^s| Carpeta ^.^| challenges ^.^| system
 
-| challenges
+^.^s| Descripción
 | Carpeta para almacenar retos de programación y +hacking+.
+| Carpeta exclusiva para retos de explotación de sistemas vulnerables
+
+^.^s| Estructura
 a| * sitio (directorio)
 ** código del reto (directorio)
-*** suloginenGitLab.extensión (archivo de solución)
+*** loginGitLab.ext (archivo de solución)
+a| * nombre del sistema o caja vulnerada (directorio)
+** nombre de la explotación realizada (directorio)
+*** loginGitLab.feature (archivo de solución)
+
+^.^s| Ejemplo
 a| * link:https://gitlab.com/autonomicmind/training/tree/master/challenges/codeabbey/[codeabbey]
 ** link:https://gitlab.com/autonomicmind/training/tree/master/challenges/codeabbey/005/[005]
 *** link:https://gitlab.com/autonomicmind/training/tree/master/challenges/codeabbey/005/john2104.ml[john2104.ml]
 *** link:https://gitlab.com/autonomicmind/training/tree/master/challenges/codeabbey/005/henryval.java[henryval.java]
-
-| systems
-| carpeta exclusiva para retos de explotación de sistemas vulnerables
-a| * nombre del sistema o caja vulnerada (directorio)
-** nombre de la explotación realizada (directorio)
-*** suloginenGitLab.feature (archivo de solución)
 a| * link:https://gitlab.com/autonomicmind/training/tree/master/systems/bwapp[bwapp]
 *** link:https://gitlab.com/autonomicmind/training/tree/master/systems/bwapp/a1-command-injection[a1-command-injection]
 **** link:https://gitlab.com/autonomicmind/training/blob/master/systems/bwapp/a1-command-injection/raballestasr.feature[raballestasr.feature]
