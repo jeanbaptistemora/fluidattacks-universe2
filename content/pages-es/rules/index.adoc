@@ -171,6 +171,7 @@
 * link:262/[REQ.262 Verificar componentes de terceros].
 * link:263/[REQ.263 Establecer mecanismos de protección].
 * link:264/[REQ.264 Establecer autenticación en recursos].
+* link:265/[REQ.265 Restringir acceso a procesos críticos].
 
 == Datos
 
