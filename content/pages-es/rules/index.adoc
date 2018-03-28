@@ -163,6 +163,7 @@
 == Redes sociales
 
 * link:260/[REQ.260 Utilizar correos alternos].
+* link:261/[REQ.261 No exponer información corporativa].
 
 == Servicios
 

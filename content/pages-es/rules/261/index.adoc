@@ -1,0 +1,12 @@
+:slug: rules/261/
+:category: rules
+:description: En el presente documento se detallan los requerimientos de seguridad relacionados al uso adecuado de redes sociales por parte del personal de una determinada organización. Por lo tanto, no se debe exponer información corporativa en las cuentas personales de redes sociales.
+:keywords: Corporativa, Personal, Red Social, Cuenta, Registrar, Seguridad.
+:rules: yes
+
+= REQ.261 No exponer información corporativa
+
+== Nombre
+
+En las cuentas personales de redes sociales
+no se debe exponer información corporativa.
