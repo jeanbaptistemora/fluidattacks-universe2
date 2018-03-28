@@ -1,0 +1,13 @@
+:slug: rules/268/
+:category: rules
+:description: En el presente documento se detallan los lineamientos o requerimientos de seguridad relacionados al empleo de software de terceros. Por lo tanto, el software complementario debe utilizar firmas digitales emitidas por el fabricante para garantizar su autenticidad.
+:keywords: Software, Drivers, Kernel, Firma Digital, Fabricante, Autenticidad.
+:rules: yes
+
+= REQ.268 Utilizar software autenticado
+
+== Nombre
+
+El +software+ complementario (+drivers+, módulos de +kernel+, etc)
+debe utilizar firmas digitales emitidas por el fabricante
+para garantizar su autenticidad.
