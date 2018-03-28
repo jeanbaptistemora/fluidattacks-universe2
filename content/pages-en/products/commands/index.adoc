@@ -9,9 +9,8 @@
 Cyberweapon developed completely by +FLUIDAttacks+
 for in depth penetration of work stations and critical servers
 during the Pentests where its use is authorized
-in our One-Shot Hacking Service.
+in our [button]#link:../../services/one-shot-hacking/[One-Shot Hacking]# Service.
 
-More information about our One-Shot Hacking Service [button]#link:../../services/one-shot-hacking/[here]#
 
 [role="integrates tb-alt"]
 [cols=2, frame="none"]
