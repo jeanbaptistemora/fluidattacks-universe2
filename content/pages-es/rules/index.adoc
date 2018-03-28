@@ -156,6 +156,7 @@
 
 * link:255/[REQ.255 Permitir acceso sólo en puertos necesarios].
 * link:256/[REQ.256 Servidores con acceso a puertos necesarios].
+* link:257/[REQ.257 Acceso basado en credenciales de usuario].
 
 == Servicios
 

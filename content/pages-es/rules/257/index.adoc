@@ -1,0 +1,13 @@
+:slug: rules/257/
+:category: rules
+:description: En el presente documento se detallan los requerimientos de seguridad relacionados a la administración lógica de la red de una determinada organización. Por lo tanto, el acceso físico a la red para los usuarios debe asignarse con base en las credenciales del usuario en la organización.
+:keywords: Acceso, Red, Usuario, Credenciales, Físico, NAC.
+:rules: yes
+
+= REQ.257 Acceso basado en credenciales de usuario
+
+== Nombre
+
+El acceso físico a la red para los usuarios
+debe asignarse con base en las credenciales del usuario
+en la organización - +NAC+ (ej: +802.1x+).
