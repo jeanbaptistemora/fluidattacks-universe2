@@ -29,13 +29,24 @@ el Caribe, Italia, España y el Reino Unido.
 
 ^.^a|image:logo-corona.png[alt="Logo Corona",link="https://www.corona.co"]
 
-^.^a|image:logo-argos.png[alt="Logo Argos",link="https://www.grupoargos.com/es-es/"]
+^.^a|image:logo-creative.png[alt="Logo Creative",link="http://www.cre8software.com/"]
+
+a|== Cre8tive
+
+Empresa con experiencia en la fabricación y venta de muebles con un software dedicado a
+la fabricación de muebles y ventas minoristas de muebles. Tiene integración con un sistema
+de contabilidad, hoy QuickBooks, y se puede integrar con otros para que haya integridad
+con las transacciones y la publicación automática.
 
 a|== Grupo Argos
 
 Matriz del Grupo Empresarial de inversiones sostenibles en infraestructura.
 Su naturaleza jurídica corresponde a una sociedad anónima, inscrita en la Bolsa de Valores
 de Colombia, al igual que sus filiales Argos (cemento), Celsia (energía) y Odinsa (concesiones viales y aeroportuarias).
+
+^.^a|image:logo-argos.png[alt="Logo Argos",link="https://www.grupoargos.com/es-es/"]
+
+^.^a|image:logo-francol.png[alt="Logo Francol",link="http://www.lafrancol.com/nuestra-empresa/"]
 
 a|== LAFRANCOL
 
@@ -45,10 +56,6 @@ reconocimiento de la efectividad y seguridad de sus compuestos ante el cuerpo m�
 de la salud, LAFRANCOL ha ido creciendo sostenidamente durante casi 100 años alcanzando una posición de
 liderazgo en la industria farmacéutica nacional, tanto por su volumen de ventas como por su imagen de calidad.
 
-^.^a|image:logo-francol.png[alt="Logo Francol",link="http://www.lafrancol.com/nuestra-empresa/"]
-
-^.^a|image:logo-manuelita.png[alt="Logo Manuelita",link="http://www.manuelita.com/perfil-corporativo"]
-
 a|== Manuelita
 
 Organización agroindustrial diversificada, multilatina de origen colombiano, consolidada como
@@ -56,14 +63,15 @@ una organización agroindustrial diversificada, cuya estrategia se basa en un mo
 Elabora productos de naturaleza agroindustrial, elaborados a partir de fuentes renovables, mediante el
 uso sostenible de los recursos naturales, con un impacto positivo sobre el bienestar de las comunidades vecinas.
 
-a|== Sodimac
+^.^a|image:logo-manuelita.png[alt="Logo Manuelita",link="http://www.manuelita.com/perfil-corporativo"]
 
-Empresa que opera en el retail. Busca satisfacer al cliente a través de múltiples puntos de contacto
-y canales de venta que aseguran nuestro modelo de negocio Omnicanal (Tiendas, Internet y Teléfono).
-Su actividad se focaliza en desarrollar y proveer soluciones a los proyectos de remodelación y construcción
-de sus clientes, además de satisfacer las necesidades de mejoramiento y decoración de sus hogares,
-ofreciendo excelencia en el servicio, integridad en su trabajo y un fuerte compromiso con la comunidad.
+^.^a|image:logo-odinsa.png[alt="Logo Odinsa",link="https://www.odinsa.com/quienes-somos/"]
 
-^.^a|image:logo-sodimac.png[alt="Logo Sodimac",link="http://www.homecenter.com.co/homecenter-co/mashomecenter/nuestra-empresa"]
+a|== Odinsa
+
+Filial del Grupo Argos, es una compañía colombiana dedicada a la estructuración, promoción,
+gestión y desarrollo de proyectos de infraestructura viales y aeroportuarios, con presencia en
+Colombia, Ecuador, Aruba y República Dominicana, que se ha convertido en un vehículo para
+la conectividad regional y una fuente de desarrollo.
 
 |====

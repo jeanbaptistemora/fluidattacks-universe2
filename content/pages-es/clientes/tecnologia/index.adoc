@@ -38,16 +38,6 @@ a todos sus participantes. Su mercado está compuesto por todas aquellas organiz
 que tienen como objetivo brindar un servicio de salud a la población; ya sean entidades
 públicas, empresas de medicina privada, prestadores, cooperativas, sindicales y aseguradoras.
 
-a|== Cre8tive
-
-Empresa que ha desarrollado e implementado sistemas de Gestión de Calidad
-para documentar las mejores prácticas de negocio, satisfacer los requerimientos
-y expectativas de los clientes y mejorar la gestión global de la compañía.
-
-^.^a|image:logo-creative.png[alt="Logo Creative",link="http://www.ctnd.com/"]
-
-^.^a|image:logo-heinson.png[alt="Logo Heinson",link="https://www.heinsohn.com.co"]
-
 a|== Heinsohn
 
 Empresa con amplio conocimiento en todos los sectores de la industria, con experiencia en las
@@ -56,16 +46,16 @@ en el mundo como IBM, Oracle, Microsoft, Saba, CA, SAP, entre otros. Casa matriz
 con sedes en siete ciudades del país y sucursales en América Latina y los Estados Unidos. Cumplen con
 la norma ISO 9001:2000 y están valoradas con el nivel más alto en la calidad de los procesos CMMI Nivel 5, versión 1.3.
 
+^.^a|image:logo-heinson.png[alt="Logo Heinson",link="https://www.heinsohn.com.co"]
+
+^.^a|image:logo-indra.png[alt="Logo Indra",link="https://www.indracompany.com/"]
+
 a|== Indra
 
 Una de las principales compañías globales de tecnología y consultoría para las
 operaciones clave de los negocios. Proveedor líder mundial de soluciones propias
 en segmentos específicos de los mercados de Transporte y Defensa, y la empresa líder
 en Tecnologías de la Información en España y Latinoamérica.
-
-^.^a|image:logo-indra.png[alt="Logo Indra",link="https://www.indracompany.com/"]
-
-^.^a|image:logo-intergrupo.png[alt="Logo Intergrupo",link="http://www.intergrupo.com/"]
 
 a|== Intergrupo
 
@@ -74,16 +64,16 @@ y servicios integrales basados en tecnología de punta, enfocados a contribuir c
 digital de las organizaciones. Tiene una trayectoria importante en el mercado, gracias al posicionamiento
 que ha ido obteniendo por más de 20 años de servicio.
 
+^.^a|image:logo-intergrupo.png[alt="Logo Intergrupo",link="http://www.intergrupo.com/"]
+
+^.^a|image:logo-komet.png[alt="Logo KometSales",link="https://www.kometsales.com/"]
+
 a|== Kometsales
 
 Plataforma web para la industria de las flores que simplifica y
 automatiza procesos de ventas, compras y logística. Proporcionamos las herramientas
 necesarias para simplificar las operaciones diarias, conectando los principales socios
 de la industria y brindando además tranquilidad y confianza a nuestros clientes.
-
-^.^a|image:logo-komet.png[alt="Logo KometSales",link="https://www.kometsales.com/"]
-
-^.^a|image:logo-pragma.png[alt="Logo Pragma",link="http://www.pragma.com.co/"]
 
 a|== Pragma
 
@@ -92,16 +82,16 @@ con sedes en Bogotá, Medellín y Cali, integradas por un staff de profesionales
 por creativos e ingenieros. El portafolio se compone por: Fábrica de Software, Integración
 y Automatización de Procesos, Agencia Digital, Portales y CERO.
 
+^.^a|image:logo-pragma.png[alt="Logo Pragma",link="http://www.pragma.com.co/"]
+
+^.^a|image:logo-psl.png[alt="Logo PSL",link="http://www.psl.com.co/"]
+
 a|== PSL
 
 Organización mundialmente reconocida por la adopción de las mejores prácticas
 existentes en Ingeniería de Software en el mundo. La compañía cuenta con dos grandes
 línesa de negocio: Productos y Servicios, entre los cuales ofrece consultoría, desarrollo y
 mantenimiento de software y servicios de outsourcing (web, móviles, misión crítica).
-
-^.^a|image:logo-psl.png[alt="Logo PSL",link="http://www.psl.com.co/"]
-
-^.^a|image:logo-s4n.png[alt="Logo S4N",link="http://s4n.co/"]
 
 a|== S4N
 
@@ -110,13 +100,15 @@ implementando soluciones de software que superen desafíos de negocios y tengan 
 la creación de valor. Proveedores de servicios de tecnología que busca transformar las organizaciones
 y mejorar la vida de la gente mediante el aprovechamiento de las tecnologías y las nuevas tendencias.
 
+^.^a|image:logo-s4n.png[alt="Logo S4N",link="http://s4n.co/"]
+
+^.^a|image:logo-vm.png[alt="Logo VM2020",link="https://www.vm2020.com/"]
+
 a|== VM2020
 
 Organización con tecnología en las áreas de Recuperación de Desastres y Resistencia Cibernética.
 Con VM2020 se pueden aumentar los niveles de preparación, validar planes de respuesta
 a incidentes en condiciones reales, alinear la continuidad del negocio y las prácticas cibernéticas,
 cumplir con los requisitos de cumplimiento y obtener tiempos de recuperación confiables y predecibles.
-
-^.^a|image:logo-vm.png[alt="Logo VM2020",link="https://www.vm2020.com/"]
 
 |====
