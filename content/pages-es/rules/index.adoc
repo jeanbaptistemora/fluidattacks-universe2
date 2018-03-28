@@ -158,6 +158,7 @@
 * link:256/[REQ.256 Servidores con acceso a puertos necesarios].
 * link:257/[REQ.257 Acceso basado en credenciales de usuario].
 * link:258/[REQ.258 Filtrar el contenido de sitios web].
+* link:259/[REQ.259 Segmentar la red de la organización].
 
 == Servicios
 
