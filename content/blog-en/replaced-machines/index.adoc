@@ -14,7 +14,7 @@
 :about1: Electronic Engineer
 :about2: Enjoy the small things in life like a good beer, music and sleep
 
-= Will We Be Replaced By Machines?
+= Will machines replace us?
 
 More than 20 years have passed
 since Garry Kasparov, the chess world champion,

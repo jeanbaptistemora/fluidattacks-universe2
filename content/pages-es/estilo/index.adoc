@@ -20,7 +20,7 @@ pero que aporte conocimientos sobre temas de seguridad.
 == Temáticas
 
 Los temas del blog están orientados
-únicamente a temas de seguridad y TI,
+únicamente a temas de seguridad y +TI+,
 aunque hay situaciones que aunque no son de seguridad
 pueden ser tratadas como tal:
 
@@ -31,6 +31,8 @@ que debe invertir en la seguridad.
 Puedes explicar la forma segura de utilizarlo.
 
 3. Explicación de un concepto resolviendo un reto de seguridad.
+
+También puedes consultar nuestra link:../temas/[lista de temas].
 
 == Perfil del lector
 
@@ -51,7 +53,7 @@ image::lector.png[lector]
 === 1. Título
 
 El título del documento debe llamar la atención del lector.
-*No debe exceder los 30 caracteres*
+*No debe exceder los 35 caracteres*
 
 . Convertir el tema del documento en algo divertido o curioso. Puede ser en modo de pregunta.
 +
@@ -248,7 +250,7 @@ En caso afirmativo se debe incluir el +slug+ del documento traducido.
 
 |+:subtitle:+ | Si | Si | Si
 | Subtitulo corto que indique concretamente la finalidad del documento.
-*No debe exceder los 50 caracteres*.
+*No debe exceder los 55 caracteres*.
 
 |+:defends:+ | No | Si | No
 | Metadato único de artículos en +Knowledge Base+.

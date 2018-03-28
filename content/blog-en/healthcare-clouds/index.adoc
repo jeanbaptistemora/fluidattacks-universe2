@@ -1,7 +1,7 @@
 :slug: healthcare-clouds/
 :date: 2017-04-27
 :category: opinions
-:subtitle: Cloud based systems and their issues
+:subtitle: Cloud based systems in healthcare and their issues
 :tags: cloud, protect, health
 :image: health-cloud.png
 :alt: The word Health Insurance being lift up to the sky by balloons
@@ -13,12 +13,13 @@
 :about1: Computer Engineer
 :about2: Netflix and hack.
 
-= Healthcare in the clouds, not just the prices
+= Healthcare in the clouds
 
 .Healthcare in the cloud
 image::image1.png[healthcare]
 
-With the fast pace in which technology advances nowadays and the many
+The healthcare nowadays is in the clouds, and not just the prices.
+With the fast pace in which technology advances and the many
 different solutions that are offered to all types of users, enterprises across
 all sectors are either in the cloud, transitioning to the cloud, or thinking
 about making the idea of cloud a reality. Hospitals and healthcare providers

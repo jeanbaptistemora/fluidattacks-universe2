@@ -1,7 +1,7 @@
 :slug: type-triangles/
 :date: 2017-01-05
 :category: challenges
-:subtitle: Using programming for classifying them
+:subtitle: Solving CodeAbbey Pythagorean Theorem challenge
 :tags: pythagoras, code, challenge, solve
 :image: triangles.png
 :alt: Pyramids in the desert

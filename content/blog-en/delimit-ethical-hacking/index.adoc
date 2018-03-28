@@ -1,7 +1,7 @@
 :slug: delimit-ethical-hacking/
 :date: 2018-01-09
 :category: philosophy
-:subtitle: Defining the scope of your objectives
+:subtitle: How to define the scope of your objectives
 :tags: ethical hacking, pentesting, security testing
 :image: dimensionar-ethical-hacking.png
 :alt: Person working on the computer while looking at cellphone
@@ -14,7 +14,7 @@
 :about1: FLUID Account Manager, Bachelor of Business Management
 :about2: Passionate about technology and security
 
-= How to properly delimit an Ethical Hacking?
+= Delimiting an Ethical Hacking
 
 The main problem encountered by an organization
 when they need to perform security testing

@@ -1,7 +1,7 @@
 :slug: protect-organization-hacker-lamer/
 :date: 2017-12-18
 :category: philosophy
-:subtitle: The importance of a proper pentesting
+:subtitle: Protect your company against Hackers, not Lamers
 :tags: security, protect, information
 :image: lamers.png
 :alt: Hands typing in a text editor
@@ -14,7 +14,7 @@
 :about1: FLUID Account Manager, Bachelor of Business Management
 :about2: Passionate about technology and security
 
-= Protect your company against Hackers, not Lamers
+= The importance of pentesting
 
 Without a doubt, the recent events in relation to the infringement of privacy such as the theft of personal information from celebrities, the Sony, Target and Equifax hacks and the big ransomware that affected Telefonica, make us reflect about how organizations protect their information.
 

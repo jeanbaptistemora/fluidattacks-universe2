@@ -1,7 +1,7 @@
 :slug: stupid-neigbours-using-wep/
 :date: 2017-04-24
 :category: techniques
-:subtitle: How to crack a WEP encryption
+:subtitle: Solving Yashira WEP Security challenge
 :tags: wep, wifi, encryption, challenge
 :image: stupid-wep.png
 :alt: Hand touching the Wireless icon
@@ -13,7 +13,7 @@
 :about1: Computer Engineer
 :about2: Netflix and hack.
 
-= Stupid neighbours still using WEP encryption
+= Stupid neighbours using WEP
 
 Wi-Fi security has not always been the best. The first attempt at securing
 Wi-Fi access points was termed Wired Equivalent Privacy (WEP). WEP is a

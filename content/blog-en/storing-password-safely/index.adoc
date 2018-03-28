@@ -1,7 +1,7 @@
 :slug: storing-password-safely/
 :date: 2017-01-02
 :category: challenges
-:subtitle: The correct use of hash algorithms
+:subtitle: Solving Yashira hash challenge 3
 :tags: password, security, challenge
 :image: storing-password-safely.png
 :alt: Magnifying glass finding password in a set of binary data

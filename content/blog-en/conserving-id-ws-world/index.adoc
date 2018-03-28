@@ -1,7 +1,7 @@
 :slug: conserving-id-ws-world/
 :date: 2017-05-02
 :category: identity
-:subtitle: Multiple secure mechanisms in a single service
+:subtitle: Using WS-Security to secure  your web apps
 :tags: web, security, information
 :image: identity.png
 :alt: Line of Lego stormtroopers with one facing the opposite direction
@@ -13,7 +13,7 @@
 :about1: Computer Engineer
 :about2: Netflix and hack.
 
-= Conserving your identity in a Web Service world
+= Conserving your identity
 
 In the digital era everything is or has a web application. Web apps are no
 longer just about content delivery, they have evolved to solve complex business

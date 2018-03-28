@@ -1,6 +1,6 @@
 :slug: app-pickle-document-gherkin/
 :date: 2018-02-08
-:subtitle: A new way to document vulnerabilities
+:subtitle: Documenting vulnerabilities with gherkin
 :category: documentation
 :tags: documentation, vector, software
 :image: cover.png
@@ -14,7 +14,7 @@
 :about2: with an itch for CS
 :source-highlighter: pygments
 
-= Is your app in a pickle? Document it with a Gherkin!
+= Is your app in a pickle?
 
 +link:https://github.com/cucumber/cucumber/wiki/Gherkin[Gherkin]+
 is a simple language that
