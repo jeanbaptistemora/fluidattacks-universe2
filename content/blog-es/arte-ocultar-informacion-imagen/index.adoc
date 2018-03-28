@@ -1,7 +1,7 @@
 :slug: arte-ocultar-informacion-imagen/
 :date: 2016-10-25
 :category: retos
-:subtitle: Abordando un reto de esteganografía
+:subtitle: Solución al reto Steganography 1 de Challengeland
 :tags: reto, esteganografía, solucionar, ocultar
 :image: estegano.png
 :alt: Lupa buscando información en una imagen de la Mona Lisa
@@ -13,7 +13,7 @@
 :about1: Ingeniero mecatrónico, Escuela de Ingeniería de Antioquia, Maestría en Simulación de sistemas fluidos, Arts et Métiers Paristech, Francia, Java programming specialization, Duke University , USA
 :about2: Apasionado por el conocimiento, el arte y la ciencia.
 
-= El arte de ocultar información en las imágenes
+= Ocultando información en imágenes
 
 La esteganografía es el campo de estudio que se encarga de ocultar mensajes en
 objetos, con el propósito de crear un mensaje encubierto cuyo medio de

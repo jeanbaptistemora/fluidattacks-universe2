@@ -1,7 +1,7 @@
 :slug: ardilla-contra-mundo/
 :date: 2018-03-06
 :category: identidad
-:subtitle: Mejorando la seguridad de la autenticación
+:subtitle: Ventajas de SQRL sobre las contraseñas convencionales
 :tags: seguridad, criptografía, protocolo, autenticación
 :image: usuario-password.png
 :alt: logo SQRL, Secure +QR+ Login

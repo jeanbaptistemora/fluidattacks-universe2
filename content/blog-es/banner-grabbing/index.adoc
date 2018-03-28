@@ -1,7 +1,7 @@
 :slug: banner-grabbing/
 :date: 2016-10-11
 :category: retos
-:subtitle: Los peligros del banner grabbing
+:subtitle: Solución a retos de dareyoumind y hackthis
 :tags: información, herramienta, reto, solucionar
 :image: banner.png
 :alt: Página de resultados luego de hacer una búsqueda
@@ -13,7 +13,7 @@
 :about1: Ingeniero de sistemas y computación, OSCP, OSWP
 :about2: "No tengo talentos especiales, pero sí soy profundamente curioso" Albert Einstein.
 
-= Exponiendo la información de tus servicios
+= Información de servicios revelada
 
 +Banner grabbing+ es una técnica que se usa para recolectar información de un
 sistema, esto se hace a través del análisis de los servicios que corren en los

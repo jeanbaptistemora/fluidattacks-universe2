@@ -13,7 +13,7 @@
 :about1: Ingeniero de sistemas y computación, OSCP, OSWP
 :about2: "No tengo talentos especiales, pero sí soy profundamente curioso" Albert Einstein
 
-= La amenaza fantasma: IoT y Crimeware
+= Amenaza fantasma: IoT y Crimeware
 
 Con el uso de nuevas tecnologías llega igualmente nuevas responsabilidades
 y retos frente a la seguridad y protección de nuestros actvos,
