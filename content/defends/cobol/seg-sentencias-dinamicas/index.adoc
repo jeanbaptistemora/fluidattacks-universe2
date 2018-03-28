@@ -136,7 +136,7 @@ y sentencia +SQL+ controlada por el procesador +SQL+.
 
 == Referencias
 
-. [[r1]] link:../../../rules/264/[REQ.264 Usar principio mínimo privilegio].
+. [[r1]] link:../../../rules/269/[REQ.269 Usar principio mínimo privilegio].
 . [[r2]] link:../../../rules/031/[REQ.031 Administrar modificaciones de privilegios].
 . [[r3]] link:../../../rules/176/[REQ.176 Restringir objetos del sistema].
 . [[r4]] link:http://www.redbooks.ibm.com/abstracts/sg246418.html[DB2 for z/OS and OS/390 : Squeezing the Most Out of Dynamic SQL].

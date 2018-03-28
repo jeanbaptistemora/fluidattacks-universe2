@@ -1,0 +1,16 @@
+:slug: rules/269/
+:category: rules
+:description: En el presente documento se detallan los requerimientos de seguridad relacionados a los sistemas operativos manejados dentro de la organización. El objetivo del presente requerimiento es definir la importancia de establecer el principio de mínimo privilegio para objetos nuevos.
+:keywords: Requerimiento, Seguridad, Sistema Operativo, Principio, Mínimo, Privilegio.
+:rules: yes
+
+= REQ.269 Usar principio mínimo privilegio
+
+== Nombre
+
+Los privilegios para objetos nuevos
+deben establecerse según el principio de mínimo privilegio (+umask+).
+
+== Soluciones
+
+. +COBOL+ link:../../defends/cobol/seg-sentencias-dinamicas/[Establecer Seguridad en Sentencias Dinámicas].

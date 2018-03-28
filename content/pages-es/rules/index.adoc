@@ -170,6 +170,7 @@
 
 * link:262/[REQ.262 Verificar componentes de terceros].
 * link:263/[REQ.263 Establecer mecanismos de protección].
+* link:264/[REQ.264 Establecer autenticación en recursos].
 
 == Datos
 
@@ -205,8 +206,8 @@
 == Sistema
 
 * link:035/[REQ.035 Administrar modificaciones de privilegios].
-* link:264/[REQ.264 Usar principio mínimo privilegio].
 * link:266/[REQ.266 Deshabilitar funciones inseguras].
+* link:269/[REQ.269 Usar principio mínimo privilegio].
 * link:272/[REQ.272 Información de servicios inaccesible].
 
 == Activos
