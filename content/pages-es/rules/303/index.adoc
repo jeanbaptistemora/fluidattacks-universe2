@@ -1,0 +1,12 @@
+:slug: rules/303/
+:category: rules
+:description: En el presente documento se detallan los requerimientos de seguridad relacionados al despliegue seguro de aplicaciones para dispositivos móviles. Por lo tanto, el despliegue de tales aplicaciones debe realizarse en tiendas virtuales oficiales y confiables.
+:keywords: Despliegue, Aplicaciones, Tienda Virtual, Confiable, Oficial, Marketplace.
+:rules: yes
+
+= REQ.303 Desplegar aplicaciones en tiendas confiables
+
+== Nombre
+
+El despliegue de las aplicaciones
+debe hacerse en tiendas virtuales (+marketplace+) oficiales y confiables.

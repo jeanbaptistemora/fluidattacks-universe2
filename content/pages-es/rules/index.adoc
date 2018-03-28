@@ -56,6 +56,7 @@
 * link:212/[REQ.212 Apagar interfaces de comunicación].
 * link:213/[REQ.213 Permitir ubicación geográfica].
 * link:214/[REQ.214 Permitir destruir datos].
+* link:303/[REQ.303 Desplegar aplicaciones en tiendas confiables].
 
 == Firewall
 
