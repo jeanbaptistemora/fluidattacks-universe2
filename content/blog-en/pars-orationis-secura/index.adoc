@@ -1,6 +1,6 @@
 :slug: pars-orationis-secura/
 :date: 2018-03-22
-:subtitle: Using parsers to detect code flaws
+:subtitle: Using parser combinators to detect flaws
 :category: techniques
 :tags: detect, injection, scanner
 :image: cover.png
