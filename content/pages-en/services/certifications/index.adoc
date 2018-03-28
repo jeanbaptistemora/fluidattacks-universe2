@@ -21,7 +21,7 @@ This certification is a hands-on penetration testing,
 requiring holders to successfully attack and penetrate
 various live machines in a safe lab environment.
 
-a|== Offensive security wireless professional (OSWP)
+a|== Offensive Security Wireless Professional (OSWP)
 
 The only practical wireless attacks certification in the security field today.
 The +OSWP+ challenges seek to prove the practical ability
