@@ -1,0 +1,7 @@
+:slug: suscripcion/
+:description: En esta página presentamos el formulario de suscripción a nuestro blog, el cual trata diversos temas relacionados con la seguridad informática. FLUID es una compañía dedicada a la seguridad de la información, hacking ético, pruebas de penetración y detección de vulnerabilidades en aplicaciones.
+:keywords: FLUID, Suscripción, Información, Compañía, Blog, Seguridad.
+:form: https://fluidattacks.com/forms/suscripcion
+:template: form
+
+= Suscríbete a nuestro Blog!

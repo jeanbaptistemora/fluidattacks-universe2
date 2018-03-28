@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2018-03-28 14:18+0000\n"
+"POT-Creation-Date: 2018-03-28 23:18+0000\n"
 "PO-Revision-Date: 2018-03-06 13:42+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: en\n"
@@ -315,253 +315,257 @@ msgid "Footer-subtitle-1.3"
 msgstr "People"
 
 #: templates/footer.html:20
-msgid "Footer-link-1.7"
+msgid "Footer-link-1.4"
 msgstr "partners"
 
 #: templates/footer.html:20
-msgid "Footer-subtitle-1.7"
+msgid "Footer-subtitle-1.4"
 msgstr "Partners"
 
 #: templates/footer.html:21
-msgid "Footer-link-1.4"
+msgid "Footer-link-1.5"
 msgstr "location"
 
 #: templates/footer.html:21
-msgid "Footer-subtitle-1.4"
+msgid "Footer-subtitle-1.5"
 msgstr "Location"
 
 #: templates/footer.html:22
-msgid "Footer-subtitle-1.5"
+msgid "Footer-subtitle-1.6"
 msgstr "Contact Us"
 
-#: templates/footer.html:25 templates/footer.html:26 templates/footer.html:27
-#: templates/footer.html:28 templates/footer.html:29 templates/footer.html:30
-#: templates/footer.html:31
+#: templates/footer.html:23
+msgid "Footer-subtitle-1.7"
+msgstr "Subscribe"
+
+#: templates/footer.html:26 templates/footer.html:27 templates/footer.html:28
+#: templates/footer.html:29 templates/footer.html:30 templates/footer.html:31
+#: templates/footer.html:32
 msgid "Footer-cat-1"
 msgstr "services"
 
-#: templates/footer.html:25
+#: templates/footer.html:26
 msgid "Footer-header-2"
 msgstr "Services"
 
-#: templates/footer.html:26
+#: templates/footer.html:27
 msgid "Footer-link-2.1"
 msgstr "one-shot-hacking"
 
-#: templates/footer.html:26
+#: templates/footer.html:27
 msgid "Footer-subtitle-2.1"
 msgstr "One-Shot Hacking"
 
-#: templates/footer.html:27
+#: templates/footer.html:28
 msgid "Footer-link-2.2"
 msgstr "continuous-hacking"
 
-#: templates/footer.html:27
+#: templates/footer.html:28
 msgid "Footer-subtitle-2.2"
 msgstr "Continuous Hacking"
 
-#: templates/footer.html:28
+#: templates/footer.html:29
 msgid "Footer-link-2.3"
 msgstr "differentiators"
 
-#: templates/footer.html:28
+#: templates/footer.html:29
 msgid "Footer-subtitle-2.3"
 msgstr "Differentiators"
 
-#: templates/footer.html:29
+#: templates/footer.html:30
 msgid "Footer-link-2.4"
 msgstr "comparative"
 
-#: templates/footer.html:29
+#: templates/footer.html:30
 msgid "Footer-subtitle-2.4"
 msgstr "Comparative"
 
-#: templates/footer.html:30
+#: templates/footer.html:31
 msgid "Footer-link-2.5"
 msgstr "certifications"
 
-#: templates/footer.html:30
+#: templates/footer.html:31
 msgid "Footer-subtitle-2.5"
 msgstr "Certifications"
 
-#: templates/footer.html:34 templates/footer.html:35 templates/footer.html:36
-#: templates/footer.html:37 templates/footer.html:38 templates/footer.html:39
+#: templates/footer.html:35 templates/footer.html:36 templates/footer.html:37
+#: templates/footer.html:38 templates/footer.html:39 templates/footer.html:40
 msgid "Footer-cat-2"
 msgstr "products"
 
-#: templates/footer.html:34
+#: templates/footer.html:35
 msgid "Footer-header-3"
 msgstr "Products"
 
-#: templates/footer.html:43 templates/footer.html:44 templates/footer.html:45
-#: templates/footer.html:46 templates/footer.html:47 templates/footer.html:48
-#: templates/footer.html:49 templates/footer.html:50
+#: templates/footer.html:44 templates/footer.html:45 templates/footer.html:46
+#: templates/footer.html:47 templates/footer.html:48 templates/footer.html:49
+#: templates/footer.html:50 templates/footer.html:51
 msgid "Footer-cat-4"
 msgstr "customers"
 
-#: templates/footer.html:43
+#: templates/footer.html:44
 msgid "Footer-header-5"
 msgstr "Customers"
 
-#: templates/footer.html:44
+#: templates/footer.html:45
 msgid "Footer-link-5.1"
 msgstr "financial"
 
-#: templates/footer.html:44
+#: templates/footer.html:45
 msgid "Footer-subtitle-5.1"
 msgstr "Financial"
 
-#: templates/footer.html:45
+#: templates/footer.html:46
 msgid "Footer-link-5.2"
 msgstr "communications"
 
-#: templates/footer.html:45
+#: templates/footer.html:46
 msgid "Footer-subtitle-5.2"
 msgstr "Communications"
 
-#: templates/footer.html:46
+#: templates/footer.html:47
 msgid "Footer-link-5.3"
 msgstr "consumer"
 
-#: templates/footer.html:46
+#: templates/footer.html:47
 msgid "Footer-subtitle-5.3"
 msgstr "Consumer"
 
-#: templates/footer.html:47
+#: templates/footer.html:48
 msgid "Footer-link-5.4"
 msgstr "technology"
 
-#: templates/footer.html:47
+#: templates/footer.html:48
 msgid "Footer-subtitle-5.4"
 msgstr "Technology"
 
-#: templates/footer.html:48
+#: templates/footer.html:49
 msgid "Footer-link-5.5"
 msgstr "utilities"
 
-#: templates/footer.html:48
+#: templates/footer.html:49
 msgid "Footer-subtitle-5.5"
 msgstr "Utilities"
 
-#: templates/footer.html:50
+#: templates/footer.html:51
 msgid "Footer-link-5.7"
 msgstr "transportation"
 
-#: templates/footer.html:50
+#: templates/footer.html:51
 msgid "Footer-subtitle-5.7"
 msgstr "Transportation"
 
-#: templates/footer.html:55
+#: templates/footer.html:56
 msgid "Footer-link-3.4"
 msgstr "categories"
 
-#: templates/footer.html:55
+#: templates/footer.html:56
 msgid "Footer-subtitle-3.4"
 msgstr "Categories"
 
-#: templates/footer.html:56
+#: templates/footer.html:57
 msgid "Footer-link-3.5"
 msgstr "tags"
 
-#: templates/footer.html:56
+#: templates/footer.html:57
 msgid "Footer-subtitle-3.5"
 msgstr "Tags"
 
-#: templates/footer.html:57
+#: templates/footer.html:58
 msgid "Footer-link-3.3"
 msgstr "authors"
 
-#: templates/footer.html:57
+#: templates/footer.html:58
 msgid "Footer-subtitle-3.3"
 msgstr "Authors"
 
-#: templates/footer.html:58
+#: templates/footer.html:59
 msgid "Footer-link-3.2"
 msgstr "topics"
 
-#: templates/footer.html:58
+#: templates/footer.html:59
 msgid "Footer-subtitle-3.2"
 msgstr "Topics"
 
-#: templates/footer.html:59
+#: templates/footer.html:60
 msgid "Footer-link-3.1"
 msgstr "style"
 
-#: templates/footer.html:59
+#: templates/footer.html:60
 msgid "Footer-subtitle-3.1"
 msgstr "Style"
 
-#: templates/footer.html:60
+#: templates/footer.html:61
 msgid "Footer-subtitle-3.6"
 msgstr "Format"
 
-#: templates/footer.html:63 templates/footer.html:64 templates/footer.html:65
-#: templates/footer.html:66 templates/footer.html:67 templates/footer.html:68
-#: templates/footer.html:69 templates/footer.html:70
+#: templates/footer.html:64 templates/footer.html:65 templates/footer.html:66
+#: templates/footer.html:67 templates/footer.html:68 templates/footer.html:69
+#: templates/footer.html:70 templates/footer.html:71
 msgid "Footer-cat-3"
 msgstr "careers"
 
-#: templates/footer.html:63
+#: templates/footer.html:64
 msgid "Footer-header-4"
 msgstr "Careers"
 
-#: templates/footer.html:64
+#: templates/footer.html:65
 msgid "Footer-link-4.1"
 msgstr "reasons"
 
-#: templates/footer.html:64
+#: templates/footer.html:65
 msgid "Footer-subtitle-4.1"
 msgstr "Reasons"
 
-#: templates/footer.html:65
+#: templates/footer.html:66
 msgid "Footer-link-4.2"
 msgstr "positions"
 
-#: templates/footer.html:65
+#: templates/footer.html:66
 msgid "Footer-subtitle-4.2"
 msgstr "Positions"
 
-#: templates/footer.html:66
+#: templates/footer.html:67
 msgid "Footer-link-4.3"
 msgstr "terms"
 
-#: templates/footer.html:66
+#: templates/footer.html:67
 msgid "Footer-subtitle-4.3"
 msgstr "Terms"
 
-#: templates/footer.html:67
+#: templates/footer.html:68
 msgid "Footer-link-4.4"
 msgstr "knowledge-test"
 
-#: templates/footer.html:67
+#: templates/footer.html:68
 msgid "Footer-subtitle-4.4"
 msgstr "Knowledge test"
 
-#: templates/footer.html:68
+#: templates/footer.html:69
 msgid "Footer-link-4.5"
 msgstr "technical-challenges"
 
-#: templates/footer.html:68
+#: templates/footer.html:69
 msgid "Footer-subtitle-4.5"
 msgstr "Challenges"
 
-#: templates/footer.html:69
+#: templates/footer.html:70
 msgid "Footer-link-4.6"
 msgstr "immersion"
 
-#: templates/footer.html:69
+#: templates/footer.html:70
 msgid "Footer-subtitle-4.6"
 msgstr "Immersion"
 
-#: templates/footer.html:76
+#: templates/footer.html:77
 msgid "Footer-stat-msg-1"
 msgstr "Service status"
 
-#: templates/footer.html:79
+#: templates/footer.html:81
 msgid "Footer-status-link-1"
 msgstr "terms-use"
 
-#: templates/footer.html:79
+#: templates/footer.html:81
 msgid "Footer-stat-msg-2"
 msgstr "Terms of Use"
 
