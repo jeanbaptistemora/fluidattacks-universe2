@@ -685,9 +685,16 @@ article {
   }
 }
 
-.icon {
-  img {
-    min-width: 48px;
+.admonitionblock {
+  .icon {
+    img {
+      min-width: 48px;
+    }
+  }
+
+  .content {
+    font-size: 18px;
+    line-height: 29.75px;
   }
 }
 
@@ -746,6 +753,11 @@ article {
     }
   }
 
+  .admonitionblock {
+    .content {
+      font-size: 21px;
+    }
+  }
 }
 
 @media(min-width: 980px) {
