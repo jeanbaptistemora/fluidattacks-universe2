@@ -1,0 +1,12 @@
+:slug: rules/258/
+:category: rules
+:description: En el presente documento se detallan los requerimientos de seguridad relacionados a la administración lógica de la red de una determinada organización. Por lo tanto, la organización debe filtrar el contenido de sitios web accedidos desde una ubicación perteneciente a la misma entidad.
+:keywords: Organización, Contenido, Filtrar, Proxy, Web, Entidad.
+:rules: yes
+
+= REQ.258 Filtrar el contenido de sitios web
+
+== Nombre
+
+La organización debe filtrar el contenido de sitios +web+
+accedidos desde una ubicación perteneciente a la misma entidad. (+Proxy+ de salida).
