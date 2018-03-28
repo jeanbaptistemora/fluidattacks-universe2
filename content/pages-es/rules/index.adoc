@@ -211,6 +211,7 @@
 * link:035/[REQ.035 Administrar modificaciones de privilegios].
 * link:268/[REQ.268 Utilizar software autenticado].
 * link:269/[REQ.269 Usar principio mínimo privilegio].
+* link:270/[REQ.270 Emplear usuarios con privilegios].
 * link:272/[REQ.272 Información de servicios inaccesible].
 
 == Activos
