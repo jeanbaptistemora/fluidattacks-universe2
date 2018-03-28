@@ -50,6 +50,14 @@ $white: rgba(255, 255, 255, 1);
   }
 }
 
+.status-link {
+  color: $white;
+
+  &:hover {
+    color: $lightblue;
+  }
+}
+
 @media (min-width: 480px) {
   .colfoot {
     width: 33%;
@@ -77,13 +85,4 @@ $white: rgba(255, 255, 255, 1);
   background-color: $footerblack;
   color: $white;
   text-align: center;
-}
-
-.status-link {
-  color: $white;
-  text-decoration: underline;
-
-  &:hover {
-    color: $lightblue;
-  }
 }
