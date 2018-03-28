@@ -90,5 +90,5 @@ además ayuda a optimizar el trabajo de los equipos.
 
 . [[r1]] link:https://salesystems.es/la-importancia-de-mantener-el-software-actualizado/[La importancia de Mantener el Software Actualizado]
 . [[r2]] link:https://support.microsoft.com/en-us/help/3067639/how-to-get-an-update-through-windows-update[Actualizar Windows]
-. [[r3]] REQ.0258: Los componentes provistos por terceros
-deben corresponder a versión es estables, probadas y actualizadas.
+. [[r3]] REQ.0262: Los componentes provistos por terceros
+deben corresponder a versiones estables, probadas y actualizadas.

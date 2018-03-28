@@ -9,7 +9,5 @@
 == Nombre
 
 La organización debe deshabilitar
-las funciones inseguras de un sistema.
-(hardening de sistemas)
-
-== Soluciones
+las funciones inseguras de un sistema
+(hardening de sistemas).

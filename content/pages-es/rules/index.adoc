@@ -169,6 +169,7 @@
 == Servicios
 
 * link:262/[REQ.262 Verificar componentes de terceros].
+* link:263/[REQ.263 Establecer mecanismos de protección].
 
 == Datos
 

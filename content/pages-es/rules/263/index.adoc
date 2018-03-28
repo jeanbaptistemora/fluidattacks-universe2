@@ -1,0 +1,12 @@
+:slug: rules/263/
+:category: rules
+:description: En el presente documento se detallan los requerimientos de seguridad relacionados al mecanismo de protección establecidos en un determinado sistema. Por lo tanto, dichos mecanismos deben proveer al sistema protección contra robots que indexen información, landings o recursos.
+:keywords: Sistema, Protección, Robots, Landings, Recursos, Información.
+:rules: yes
+
+= REQ.263 Establecer mecanismos de protección
+
+== Nombre
+
+El sistema debe tener mecanismos de protección contra +robots+
+que indexen información, +landings+ o recursos.

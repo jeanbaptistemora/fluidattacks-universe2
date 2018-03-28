@@ -19,6 +19,8 @@ A continuación se describen las circunstancias
 bajo las cuales la siguiente solución tiene sentido:
 
 . Se tiene un equipo con sistema operativo +Windows+.
+. La organización debe deshabilitar
+las funciones innecesarias de un sistema^<<r1,[1]>>^.
 
 == Solución
 
@@ -34,7 +36,7 @@ o con un canal de comunicación.
 Además, los puertos lógicos
 proporcionan un espacio para el almacenamiento temporal
 de la información que se va a transferir
-entre la localización de memoria y el canal de comunicación ^<<r1,[1]>>^.
+entre la localización de memoria y el canal de comunicación^<<r2,[2]>>^.
 
 En otras palabras, los puertos lógicos son necesarios
 para que las aplicaciones o programas
@@ -53,7 +55,7 @@ Por otra parte, deshabilitar los puertos innecesarios
 sirve para evitar múltiples problemas de seguridad.
 
 Para deshabilitar los puertos innecesarios
-en un equipo con +Windows+ instalado se debe:
+en un equipo con +Windows+ instalado se debe:^<<r3,[3]>>^
 
 . Abrir el menú de inicio.
 
@@ -88,5 +90,6 @@ se encuentren deshabilitados:
 
 == Referencias
 
-. [[r1]] link:https://es.wikipedia.org/wiki/Puerto_(inform%C3%A1tica)[Puerto (informática)]
-. [[r2]] link:https://support.microsoft.com/es-co/help/813878/how-to-block-specific-network-protocols-and-ports-by-using-ipsec[Deshabilitar protocolos y puertos]
+. [[r1]] REQ.0267: La organización debe deshabilitar las funciones innecesarias de un sistema.
+. [[r2]] link:https://es.wikipedia.org/wiki/Puerto_(inform%C3%A1tica)[Puerto (informática)].
+. [[r3]] link:https://support.microsoft.com/es-co/help/813878/how-to-block-specific-network-protocols-and-ports-by-using-ipsec[Deshabilitar protocolos y puertos].
