@@ -172,6 +172,8 @@
 * link:263/[REQ.263 Establecer mecanismos de protección].
 * link:264/[REQ.264 Establecer autenticación en recursos].
 * link:265/[REQ.265 Restringir acceso a procesos críticos].
+* link:266/[REQ.266 Deshabilitar funciones inseguras].
+* link:267/[REQ.267 Deshabilitar funciones innecesarias].
 
 == Datos
 
@@ -207,7 +209,6 @@
 == Sistema
 
 * link:035/[REQ.035 Administrar modificaciones de privilegios].
-* link:266/[REQ.266 Deshabilitar funciones inseguras].
 * link:269/[REQ.269 Usar principio mínimo privilegio].
 * link:272/[REQ.272 Información de servicios inaccesible].
 
