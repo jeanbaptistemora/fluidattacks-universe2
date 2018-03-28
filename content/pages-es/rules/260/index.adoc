@@ -1,0 +1,12 @@
+:slug: rules/260/
+:category: rules
+:description: En el presente documento se detallan los requerimientos de seguridad relacionados al uso adecuado de redes sociales por parte del personal de una determinada organización. Por lo tanto, debe utilizarse correos diferentes al corporativo para registrar cuentas en redes sociales.
+:keywords: Organización, Correo, Red Social, Cuenta, Registrar, LinkedIn.
+:rules: yes
+
+= REQ.260 Utilizar correos alternos
+
+== Nombre
+
+Debe utilizarse correos diferentes al corporativo
+para registrar cuentas en redes sociales (aún en +LinkedIn+).

@@ -160,6 +160,10 @@
 * link:258/[REQ.258 Filtrar el contenido de sitios web].
 * link:259/[REQ.259 Segmentar la red de la organización].
 
+== Redes sociales
+
+* link:260/[REQ.260 Utilizar correos alternos].
+
 == Servicios
 
 * link:262/[REQ.262 Verificar componentes de terceros].
