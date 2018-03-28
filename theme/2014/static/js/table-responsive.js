@@ -19,7 +19,7 @@ and a particular one, a table with two columns where the content is alternated
     for (j = 0; j < $(this)[0].rows[0].cells.length; j++) {
       newrows[j] = "";
       for (z = 0 ; z < $(this)[0].rows.length; z++) {
-        newrows[j] += $(this)[0].rows[z].innerHTML.split("\n")[j + 1] + "\n";
+        newrows[j] += "<t" + $(this)[0].rows[z].innerHTML.split("<t")[j + 1];
       }
     }
     for (i = 0; i < $(this)[0].rows.length; i++) {
@@ -52,25 +52,28 @@ and a particular one, a table with two columns where the content is alternated
 function responsive(tableclass, minsize, maxsize){
   table = $(document).find(tableclass);
   $(table).each(function () {
-    if ($(this)[0].rows[0].cells[$(this)[0].rows[0].cells.length - 1].offsetWidth < minsize && !$(this).hasClass("tb-responsive")) {
-      if (tableclass == ".tb-col") {
-        $(this).transpose();
-      }
-      if (tableclass == ".tb-alt") {
+    if (tableclass == ".tb-alt") {
+      if ($(this)[0].rows[0].cells[$(this)[0].rows[0].cells.length - 1].offsetWidth < minsize && !$(this).hasClass("tb-responsive")) {
         $(this).swap();
+        $(this).toggleClass("tb-responsive");
       }
-      $(this).toggleClass("tb-responsive");
+      if ($(this)[0].rows[0].cells[0].offsetWidth > maxsize * 2 && $(this).hasClass("tb-responsive")) {
+        $(this).swap();
+        $(this).toggleClass("tb-responsive");
+      }
     }
     else {
-      if (tableclass == ".tb-col") {
-        if ($(this)[0].rows[0].cells[0].offsetWidth > maxsize * $(this)[0].rows.length && $(this).hasClass("tb-responsive")) {
+      var left = $(this)[0].offsetLeft;
+      var right = $(window).width() - $(this)[0].offsetWidth - left + 20 * $(this).parents("li").length;
+      if (left - right > 5) {
+        if (tableclass == ".tb-col") {
           $(this).transpose();
-          $(this).toggleClass("tb-responsive");
         }
+        $(this).toggleClass("tb-responsive");
       }
-      else if ($(this)[0].rows[0].cells[0].offsetWidth > maxsize * $(this)[0].rows[0].cells.length && $(this).hasClass("tb-responsive")) {
-        if (tableclass == ".tb-alt") {
-          $(this).swap();
+      else if ((($(this)[0].rows[0].cells[0].offsetWidth > maxsize * $(this)[0].rows[0].cells.length) || ($(this)[0].offsetWidth > 800)) && $(this).hasClass("tb-responsive")) {
+        if (tableclass == ".tb-col") {
+          $(this).transpose();
         }
         $(this).toggleClass("tb-responsive");
       }
@@ -80,14 +83,14 @@ function responsive(tableclass, minsize, maxsize){
 
 (function($) {
   $(window).on('resize', function(){
-    responsive(".tb-row", 180, 200);
-    responsive(".tb-col", 180, 200);
-    responsive(".tb-alt", 260, 280);
+    responsive(".tb-row", 0, 200);
+    responsive(".tb-col", 0, 200);
+    responsive(".tb-alt", 300, 305);
   });
 })(jQuery);
 
 $(document).ready(function() {
-  responsive(".tb-row", 180, 200);
-  responsive(".tb-col", 180, 200);
-  responsive(".tb-alt", 260, 280);
+  responsive(".tb-row", 0, 200);
+  responsive(".tb-col", 0, 200);
+  responsive(".tb-alt", 300, 305);
 });
