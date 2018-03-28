@@ -227,7 +227,7 @@ a| * link:https://gitlab.com/autonomicmind/training/tree/master/systems/bwapp[bw
 |====
 
 El nombramiento de todos los archivos y directorios,
-a excepción de sus link:#92-archivos-especiales[archivos especiales],
+a excepción de sus link:#92-archivos[archivos especiales],
 debe realizarse en minúscula,
 sin caracteres especiales y
 en caso de requerir espacios usar *-* (guion) como sustituto.
