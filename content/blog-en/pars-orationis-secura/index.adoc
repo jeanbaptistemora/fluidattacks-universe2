@@ -220,7 +220,7 @@ Some people, when confronted with a problem,
 think "I know, I'll use regular expressions."
 Now they have two problems.
 
-== Learning the 'parsertongue'
+== Learning the parser-tongue
 
 Now that we've opted out of regular expressions,
 we have to choose a parser.
@@ -458,29 +458,24 @@ of these matches to be an actual +SQL+ injection ('false positives')
 and maybe some files contain effective +SQL+ injections
 have 'escaped' our scrutiny.
 
-In the +bugs.txt+ file,
-+bWAPP+ classifies 18 bugs as +SQL+ injection
-in 22 files whose names start with +sqli_+.
-Out of those,
-our parser found 0 +SQL+ queries in 3 files,
-some non-dangerous queries in 8 files,
-which gives an approximate 'yield' of 85%.
+To find the ratio of discovered vulnerabilities
+to existing ones (the 'yield'), let us use the
+link:http://www.mmebvba.com/sites/default/files/downloads/bWAPP_sample_report.pdf[Netsparker report on bWAPP]
+as a reference.
+This report lists 57 +SQL+ injections.
+Compared to our 56, that gives us a 'yield' of 98%.
+Not too shabby for our simple parser.
+Hence the 'escapes', the ratio of what we did not find
+to the number of existing vulnerabilities,
+is 2% in this case.
 
-Some of those +SQL+ injections were not found
-because of self-imposed limitations on the parser.
-For example,
-one of those queries uses the +?+ +SQL+ wildcard,
-which we did not consider.
-Another is called +SQL injection - Drupal+,
-which (1) refers to a +../drupal+ folder
-that our copy of +bWAPP+ lacks because
-(2) this bug is +bee-box+ only.
-
-However, considering that we found 56 (!)
-dangerous concatenations in queries,
-out of 18 expected, that's not too bad.
-Even counting all bugs listed as ``injections'',
-which are 41, our report is still a good number.
+These numbers should be taken with a grain of salt, though, since
+some of these vulnerabilities may be considered
++XSS+ or +CSRF+ depending on the source.
+Despite that our criterion is clear:
+all those we found are +SQL+ queries with concatenations,
+and all of those can be injected,
+however hard or easy.
 
 Of course, there are bound to be some false positives.
 However, given the parser design,
@@ -503,7 +498,8 @@ zero false positives.
 
 == Appendix: Full SQLi parser
 
-Download link:code and test cases.+
+Download link:./sqli-parser.py[code] and
+link:./test-cases.lst[test cases].
 Run from the root of the tested +PHP+ server.
 
 .+sqli_parser.py+
