@@ -25,7 +25,7 @@ deseados son las cookies de un sistema, ya que usualmente son las que
 intervienen en el proceso de autenticación; y si el objetivo del atacante es
 entrar al sistema la conseguir la cookie es un buen punto de partida.
 
-image::cookie-monster.png[monster]
+image::cookie-monster.png[cookie monster]
 
 Por esta razón el buen (seguro) manejo de la sesiones en todos los sistemas
 tanto internos como externos es primordial, ya que no es solo poner un login y

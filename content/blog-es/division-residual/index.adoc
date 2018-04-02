@@ -73,32 +73,42 @@ M,N → M modulus N → M%N
 .remainder.py
 [source, python,linenums]
 ----
-# This script calculates the remainder of a division without using the modulo operator (%) already defined
-# The divisor will never be equal to 0 (no input validation needed)
-# For positive integers only
+# encoding: utf-8
 # Solution by Goso (Alejandro Aguirre Soto)
 
-import sys    # Importamos la librería necesaria
-class Modulus:    # llamamos a nuestra clase Modulus
-    with open(sys.argv[1], 'r') as test_cases:  # We get the input values
-     for test in test_cases:      # And store them in the variable test_cases
-     # We're gonna iterate the input line by line using a "for" cycle
-     # First, we implement line "20,6", then line "2,3" and so on...
-     # One line at time
+import sys #<1>
 
-      num = test.split(",")    # We separate the numbers by comma in num[] array
-      num1 = int(num[0])    # Number 1 (Dividend) will be stored in the variable num1
-      num2 = int(num[1])    # Number 2 (Divisor) will be stored in the variable num2
-      modu = num1- (num2*(num1/num2))  # In the variable "modu" we calculate the remainder as follows:
-      # We calculate standard "/" division between de dividend and the divisor
-      # in order to know the number of times num2 contains num1
-      # and we multiply that number of times with the divisor
-      # looking for the closest approach to the dividend
-      # and we calculate the difference between the original dividend and the previous operation
-      # the diference between the dividend and divisor is the remainder
-      # if the remainder is 0, then the division is exact
-
-      print(modu)    # we print the remainder
-
-    # Here ends our script
+#expected input: num1,num2
+test = sys.argv[1] #<2>
+num = test.split(",")  #<3>
+num1 = int(num[0]) #<4>
+num2 = int(num[1]) #<5>
+modu = num1 - (num2*(num1/num2)) #<6>
+print(modu) #<7>
+# Here ends our script
 ----
+
+=== Explicación
+
+El +script+ anterior calcula el residuo de la división
+sin hacer uso del operador módulo (+%+) definido en el lenguaje.
+El divisor nunca será +0+ por lo que no requiere de una validación de entradas.
+La entradas válidas son dos enteros positivos,
+separados por una coma, sin espacios.
+A continuación se presenta una explicación del código:
+
+. Importamos la librería +sys+ para recibir los parámetros del programa.
+. Leemos la entrada y la almacenamos en la variable +test+.
+. Separamos los números por coma en el array +num[]+.
+. El primer número (dividendo) se almacena en la variable +num1+.
+. El segundo número (divisor) se almacena en la variable +num2+.
+. En la variable +modu+ calculamos el residuo de la siguiente manera:
++
+* Calculamos la división normal +/+ entre el dividendo y el divisor
+para saber la cantidad de veces que +num2+ esta contenido en +num1+.
+* Esa cantidad de veces la multiplicamos por el número divisor
+con el fin de obtener una aproximación al dividendo.
+* El número 1 (dividendo) lo restamos a la operación anterior.
+La diferencia entre el dividendo y divisor es el residuo.
+* Si el residuo es +0+ la división es exacta.
+. Finalmente mostramos el residuo calculado.
