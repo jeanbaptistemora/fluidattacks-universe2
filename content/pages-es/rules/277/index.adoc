@@ -1,0 +1,18 @@
+:slug: rules/277/
+:category: rules
+:description: En el presente documento se detallan los requerimientos de seguridad relacionados a los sistemas operativos manejados dentro de la organización. El objetivo del presente requerimiento es definir la importancia de ocultar la información de los servicios expuestos a terceras partes.
+:keywords: Requerimiento, Seguridad, Sistema Operativo, Servicios, Expuestos, Accesibilidad.
+:rules: yes
+
+= REQ.277 Información de servicios inaccesible
+
+== Nombre
+
+La información (nombre de producto,
+versión o configuración) de servicios expuestos no debe ser accesible.
+(Ej, versiones que se publican al conectarse a un servicio como SSH)
+
+
+== Soluciones
+
+. +Apache+ link:../../defends/apache/restringir-banner/[Restringir Banner].

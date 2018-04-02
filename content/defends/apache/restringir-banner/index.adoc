@@ -97,4 +97,4 @@ define SERVER_BASEPRODUCT "Server"
 
 . [[r1]] link:https://httpd.apache.org/docs/2.4/es/[Documentación Apache].
 . [[r2]] link:https://www.welivesecurity.com/la-es/2012/11/21/obtener-informacion-de-servidores-web-con-banner-grabbing/[Obtener información de servidores web con banner grabbing].
-. [[r3]] link:../../../rules/272/[REQ.272 Información de servicios inaccesible].
+. [[r3]] link:../../../rules/277/[REQ.277 Información de servicios inaccesible].

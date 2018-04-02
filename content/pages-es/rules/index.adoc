@@ -213,7 +213,8 @@
 * link:269/[REQ.269 Usar principio mínimo privilegio].
 * link:270/[REQ.270 Emplear usuarios con privilegios].
 * link:271/[REQ.271 Restringir el uso de compiladores].
-* link:272/[REQ.272 Información de servicios inaccesible].
+* link:272/[REQ.272 Diferenciar modos de gestión].
+* link:277/[REQ.277 Información de servicios inaccesible].
 
 == Activos
 

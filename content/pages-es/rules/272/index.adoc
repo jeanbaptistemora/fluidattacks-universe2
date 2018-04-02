@@ -1,18 +1,12 @@
 :slug: rules/272/
 :category: rules
-:description: En el presente documento se detallan los requerimientos de seguridad relacionados a los sistemas operativos manejados dentro de la organización. El objetivo del presente requerimiento es definir la importancia de ocultar la información de los servicios expuestos a terceras partes.
-:keywords: Requerimiento, Seguridad, Sistema Operativo, Servicios, Expuestos, Accesibilidad.
+:description: En el presente documento se detallan los requerimientos de seguridad relacionados a la gestión segura de un sistema en distintos modos. Por lo tanto, se recomienda que en todo sistema se diferencie la gestión en modo privilegiado del modo no privilegiado.
+:keywords: Organización, Gestión, Sistema, Modo, Seguridad, Privilegiado.
 :rules: yes
 
-= REQ.272 Información de servicios inaccesible
+= REQ.272 Diferenciar modos de gestión
 
 == Nombre
 
-La información (nombre de producto,
-versión o configuración) de servicios expuestos no debe ser accesible.
-(Ej, versiones que se publican al conectarse a un servicio como SSH)
-
-
-== Soluciones
-
-. +Apache+ link:../../defends/apache/restringir-banner/[Restringir Banner].
+El sistema debe diferenciar la gestión en modo privilegiado
+del modo no privilegiado (fondo rojo, +prompt+ rojo).
