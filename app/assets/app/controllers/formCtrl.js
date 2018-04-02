@@ -11,13 +11,13 @@
  * @return {undefined}
  */
 integrates.controller(
-    "formCtrl",
-    function(
-        $scope, $location,
-        $uibModal, $timeout,
-        $state, $stateParams,
-        $translate, projectFtry
-) {
+  "formCtrl",
+  function(
+    $scope, $location,
+    $uibModal, $timeout,
+    $state, $stateParams,
+    $translate, projectFtry
+  ) {
 
     //Autocompletar formularios de formstack
     var urlForm = $location.search();
@@ -27,7 +27,7 @@ integrates.controller(
     	//Formulario de avance
     	$("#ifrmProgress").on("load", function(){
     		var iframe = document.getElementById("ifrmProgress");
-			var innerDoc = iframe.contentDocument || iframe.contentWindow.document;
+        var innerDoc = iframe.contentDocument || iframe.contentWindow.document;
     		if (urlForm["Tipo de Avance"] == "Proyecto"){
     			//InnerDoc.getElementById("field43795015_1").setAttribute("checked", true);
     			innerDoc.getElementById("field28635595").value = urlForm.Talento;
@@ -77,5 +77,5 @@ integrates.controller(
     		}
 	    });
     }
-}
+  }
 );

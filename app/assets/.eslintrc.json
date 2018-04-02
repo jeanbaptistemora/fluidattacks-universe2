@@ -72,7 +72,7 @@
         "no-lone-blocks": "error",
         "no-loop-func": "error",
         "no-magic-numbers": "error",
-        "no-multi-spaces": "error",
+        "no-multi-spaces": ["error", { "ignoreEOLComments": false }],
         "no-multi-str": "error",
         "no-new": "error",
         "no-new-func": "error",
@@ -144,6 +144,7 @@
         "id-blacklist": "error",
         "id-match": "error",
         "implicit-arrow-linebreak": "error",
+        "indent": ["error", 2],
         "jsx-quotes": "error",
         "key-spacing": "error",
         "keyword-spacing": "error"
