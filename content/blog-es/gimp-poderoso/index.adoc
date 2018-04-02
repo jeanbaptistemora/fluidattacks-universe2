@@ -1,6 +1,7 @@
 :slug: gimp-poderoso/
 :date: 2016-11-29
 :category: retos
+:subtitle: Solución al reto 88 de hacker.org
 :tags: solucionar, reto, herramienta, ocultar
 :image: gimp-preview.png
 :alt: Ícono de GIMP, un zorro con un pincel en la boca

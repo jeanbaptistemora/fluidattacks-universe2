@@ -1,7 +1,7 @@
 :slug: default-password/
 :date: 2016-07-13
 :category: retos
-:subtitle: Cómo evitar un robo de credenciales
+:subtitle: Solución al reto weak password de Rootme
 :tags: seguridad, password, atacar
 :image: default-password.png
 :alt: Símbolo de prohibición sobre la contraseña por defecto

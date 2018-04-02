@@ -1,6 +1,7 @@
 :slug: interceptando-burp/
 :date: 2017-01-30
 :category: ataques
+:subtitle: Cómo alterar las peticiones entre servidor y navegador
 :tags: herramienta, proxy, interceptar
 :image: burp-intercept.png
 :alt: Imagen de inicio del programa Burp

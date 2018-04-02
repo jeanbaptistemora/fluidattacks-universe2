@@ -1,7 +1,7 @@
 :slug: consiguiendo-credenciales/
 :date: 2016-12-24
 :category: retos
-:subtitle: El peligro de la inyección SQL
+:subtitle: Solución al Reto 2 de RedTiger Hackit
 :tags: database, sqli, reto, solucionar
 :image: credenciales.png
 :alt: Jeringa desbloqueando una base de datos

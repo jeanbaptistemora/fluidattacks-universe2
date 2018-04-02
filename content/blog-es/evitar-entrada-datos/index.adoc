@@ -1,6 +1,7 @@
 :slug: evitar-entrada-datos/
 :date: 2017-03-07
 :category: retos
+:subtitle: La amenaza de SQLi y cómo evitarla
 :tags: sqli, database, reto, solucionar
 :image: database.png
 :alt: Red de computadores usando diferentes bases de datos conectadas al mundo
@@ -12,7 +13,7 @@
 :about1: Ingeniero Electrónico.
 :about2: Programador en Python y Ruby, siempre dispuesto a aprender.
 
-= ¿Cómo evitar que entren a mis datos?
+= ¿Cómo proteger mis datos?
 
 Una base de datos es un software capaz de organizar información con el objetivo
 que un computador pueda seleccionar de una forma rápida los elementos que
@@ -62,7 +63,7 @@ usuario:
 .Inyección a un formulario
 image::paso1.gif[inyeccion-form]
 
-== Qué paso
+== Qué pasó
 
 El código usado para realizar este ingreso sin tener acceso a su contraseña es
 (Or 1 = 1) y lo que le está indicando; a la base de datos es básicamente una

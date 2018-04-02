@@ -1,6 +1,7 @@
 :slug: introduccion-ingenieria-social/
 :date: 2017-05-16
 :category: opiniones
+:subtitle: Inicios en la ingeniería social
 :tags: concientizar, ingeniería, social, amenaza
 :image: ingenieriasocial.png
 :alt: Mano manejando una marioneta que está interactuando con otras marionetas
@@ -12,7 +13,7 @@
 :about1: Ingeniero en Sistemas.
 :about2: Apasionado por las redes la música y la seguridad.
 
-= Cadenas y eslabones: Inicio en la ingeniería social
+= Cadenas y eslabones
 
 [quote]
 “Una cadena es tan fuerte como el más débil de sus eslabones”. Thomas Reid.

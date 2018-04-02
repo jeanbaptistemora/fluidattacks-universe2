@@ -1,6 +1,7 @@
 :slug: el-retorno-al-camino-oswp/
 :date: 2018-03-06
 :category: certificaciones
+:subtitle: Experiencias sobre la certificación OSWP
 :tags: red team, wireless, certificaciones, offensive
 :image: logo-wifu.png
 :alt: Logo de OSWP

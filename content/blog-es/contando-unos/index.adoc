@@ -1,7 +1,7 @@
 :slug: contando-unos/
 :date: 2016-12-24
 :category: retos
-:subtitle: Sistemas decimales y binarios en la programación
+:subtitle: Solución al reto 16 de CodeEval
 :tags: binario, reto, programar
 :image: contando-unos.png
 :alt: Colección de datos binarios, mostrados en verde

@@ -13,7 +13,7 @@
 :about1: Ingeniero de sistemas, C|EH
 :about2: "Los sueños son mentiras que algún día dejarán de serlo"
 
-= SQRL, una ardilla contra el mundo
+= Una ardilla contra el mundo
 
 +SQRL+ por sus siglas en inglés _(+Secure Quick Reliable Login+)_ apodado +Squirrel+,
 es una solución potencial a los problemas

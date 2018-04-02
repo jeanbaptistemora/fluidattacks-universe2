@@ -1,6 +1,7 @@
 :slug: linux-aliado/
 :date: 2017-03-07
 :category: opiniones
+:subtitle: Distribuciones y seguridad informática
 :tags: linux, probar, versión
 :image: linux.png
 :alt: Tarjeta electrónica con un botón central con el símbolo de Linux

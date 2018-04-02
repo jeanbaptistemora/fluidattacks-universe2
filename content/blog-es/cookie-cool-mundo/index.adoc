@@ -1,7 +1,7 @@
 :slug: cookie-cool-mundo/
 :date: 2016-12-24
 :category: retos
-:subtitle: Los peligros de las cookies
+:subtitle: Solución al reto basic 8 de Challengeland
 :tags: cookie, reto, solucionar, herramienta
 :image: cookie-cool.png
 :alt: Galleta usando gafas de sol de marco verde

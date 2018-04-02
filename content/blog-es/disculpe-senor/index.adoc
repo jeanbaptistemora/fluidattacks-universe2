@@ -1,6 +1,7 @@
 :slug: disculpe-senor/
 :date: 2017-05-17
 :category: ataques
+:subtitle: Acerca de la ejecución simbólica y pruebas Concolic
 :tags: probar, software, funcionalidad
 :image: disculpe-senor.png
 :alt: Lupa buscando insectos(bugs) en un monitor
@@ -12,7 +13,7 @@
 :about1: Ingeniero en Sistemas.
 :about2: Apasionado por las redes la música y la seguridad.
 
-= Disculpe, hice este software, y no sé cómo probarlo
+= No sé cómo probar un software
 
 En un mundo globalizado que está en constante expansión, surge la necesidad de
 transmitir y tratar todo tipo de información de manera constante, ágil y segura.

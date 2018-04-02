@@ -1,6 +1,7 @@
 :slug: explotando-error-php/
 :date: 2016-12-24
 :category: retos
+:subtitle: Solución al reto 402 de NetForce
 :tags: php, atacar, reto, solucionar
 :image: php-exploitation.png
 :alt: Datos hexadecimales con un candado y las letras PHP

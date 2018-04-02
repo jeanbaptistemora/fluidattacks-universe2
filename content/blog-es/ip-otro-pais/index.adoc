@@ -1,6 +1,7 @@
 :slug: ip-otro-pais/
 :date: 2016-12-24
 :category: retos
+:subtitle: Solución al reto 8 de HaxTor
 :tags: red, reto, solucionar, herramienta
 :image: ip.png
 :alt: Poste de dirección con una dirección IP, con el mundo atrás

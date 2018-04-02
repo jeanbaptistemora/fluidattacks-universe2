@@ -1,6 +1,7 @@
 :slug: hablando-transformacion-digital/
 :date: 2016-11-15
 :category: opiniones
+:subtitle: La revolución introducida por las TI
 :tags: transformar, evolucionar, digital
 :image: transformacion-digital.png
 :alt: Un sketch con una brújula apuntando a la transformación digital
@@ -12,7 +13,7 @@
 :about1: Ingeniero de sistemas con mas de 25 años de experiencia, en estrategia, diseño y operación de TI.
 :about2: Linkedin
 
-= Hablando un poco de la transformación digital
+= Acerca de la transformación digital
 
 Como gestores de TI, el negocio nos pide centrar nuestros esfuerzos en tres
 líneas de visión permanente: la tecnología con temas de punta como el cloud,
