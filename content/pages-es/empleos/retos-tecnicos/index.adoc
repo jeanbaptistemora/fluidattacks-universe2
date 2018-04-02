@@ -257,13 +257,6 @@ Este archivo permite que un script automático realice el análisis de similitud
 con los retos enviados por los candidatos.
 Deben cumplir con lo indicado [button]#link:#externas[aquí]#
 
-** *LANG.txt:* Cuando existe indica los lenguajes de programación que
-pueden ser usados para resolver retos de las subcarpetas donde se
-encuentra el archivo.
-Si contiene múltiples lenguajes significa que debe utilizarse de forma
-secuencial (+round robin+) cada lenguaje para construir más soluciones
-de dicha subcarpeta.
-
 ** *SPEC.txt* (Solo para retos de systems): Contiene las especificaciones de la
 máquina vulnerable con la que se está trabajando.
 Puede ver un ejemplo link:https://gitlab.com/autonomicmind/training/blob/master/systems/bwapp/SPEC.txt[aquí]
