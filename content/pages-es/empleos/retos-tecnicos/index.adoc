@@ -90,7 +90,7 @@ ____________________________________________________________________
 Las soluciones de retos de programación deberán cumplir con lo siguiente:
 
 . No deben tener solución en el repositorio (carpeta del reto) para el lenguaje elegido por usted,
-. No deben tener solución externa indexada (enlaces OTHERS.txt del reto) para el lenguaje elegido por usted,
+. No deben tener solución externa indexada (enlaces OTHERS.lst del reto) para el lenguaje elegido por usted,
 . El lenguaje de la solución es uno de los aceptados por [button]#link:http://www.codeabbey.com/[Codeabbey]#.
 . Los comandos de compilación y/o +linting+ utilizados y su salida deben estar al inicio del código fuente en comentarios multilínea.
 . Los comandos de ejecución utilizados y su salida deben estar al final del código fuente en comentarios multilínea.
@@ -101,7 +101,7 @@ estos no deben estar quemados en código.
 Las soluciones de retos de hacking deberán cumplir con lo siguiente:
 
 . No deben tener solución en +Gherkin+ (+*.feature+) en el repositorio (carpeta del reto),
-. No deben tener solución externa indexada (enlaces OTHERS.txt del reto),
+. No deben tener solución externa indexada (enlaces OTHERS.lst del reto),
 . Deben ser retos que requieran nivel técnico (no matemático ni de adivinanzas) de [button]#link:http://www.wechall.net/[wechall]# o sus sitios relacionados,
 . (Opcionalmente) Pueden ser retos que correspondan explotación en sistemas (+ToE+) vulnerables intencionalmente listados en:
 .. [button]#link:https://www.owasp.org/index.php/OWASP_Vulnerable_Web_Applications_Directory_Project#Off-Line_apps[OWASP Off-Line apps]#
@@ -120,7 +120,7 @@ Antes de realizar un +MR+ por favor verifique que cumple con los siguientes crit
 . Solo debe trabajar en una rama cuyo nombre es exactamente su nombre de usuario en +gitlab+,
 . Todos los archivos relacionados con la resolución de retos deben respetar la [button]#link:#estructura[estructura indicada]#,
 . Si la solución requiere archivos adicionales debe incluirlos en el directorio del reto correspondiente,
-. Cada solución a un reto debe enviarse con 10 link:#externas[soluciones externas] (10 +URLs+ en archivos +OTHERS.txt+),
+. Cada solución a un reto debe enviarse con 10 link:#externas[soluciones externas] (10 +URLs+ en archivos +OTHERS.lst+),
 . La solución y los archivos relacionados deben enviarse en 1 solo +commit+,
 . Cada +commit+ de solución de retos debe ir en 1 solo +MR+,
 . El +MR+ debe realizarse solo cuando su rama ha integrado satisfactoriamente (verde),
@@ -143,7 +143,7 @@ solution: codeabbey, 78 (9.63)
 
 == 6. Externas
 
-Las reglas para los enlaces (+URLs+) a soluciones externas (+OTHERS.txt+) son las siguientes:
+Las reglas para los enlaces (+URLs+) a soluciones externas (+OTHERS.lst+) son las siguientes:
 
 . Deben ser enlaces directos (+HTTP 200+) y sin redirección (+HTTP 302+).
 . No tienen que ser del mismo reto del que se sube la solución,
@@ -240,17 +240,17 @@ en caso de requerir espacios usar *-* (guion) como sustituto.
 En algunas carpetas de la estructura se encuentran algunos archivos
 especiales de control:
 
-** *LINK.txt:* Contiene la URL al enunciado del reto en la plataforma
+** *LINK.lst:* Contiene la URL al enunciado del reto en la plataforma
 correspondiente
 (link:https://gitlab.com/autonomicmind/training/blob/master/challenges/codeeval/easy/235/LINK.txt[Ejemplo]).
 Este archivo solo debe contener una linea y visitar el enlace debe
 generar la respuesta +HTTP 200+ (sin redirección).
 
-** *DATA.txt:* Contiene los casos de prueba con los cuales se han verificado
+** *DATA.lst:* Contiene los casos de prueba con los cuales se han verificado
 los retos. Este archivo solo debe contener casos de prueba que sea
 inmediatamente procesables por cualquier archivo de solución.
 
-** *OTHERS.txt:* Contiene los enlaces a las soluciones a dicho
+** *OTHERS.lst:* Contiene los enlaces a las soluciones a dicho
 reto que se encuentran en Internet y que no deben leerse ni utilizarse
 como referencia para resolver el reto.
 Este archivo permite que un script automático realice el análisis de similitud
