@@ -102,8 +102,8 @@ public void init(ServletConfig config) throws ServletException {
 ----
 
 . Creamos las nuevas propiedades del +pool+
-
-* *Advertencia:* Las configuraciones de la base de datos
++
+** *Advertencia:* Las configuraciones de la base de datos
 deben estar almacenadas en su configuración respectiva,
 por simplicidad en la solución se ponen dentro del código
 +
