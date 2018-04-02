@@ -18,9 +18,9 @@ Dentro de los temas de interés se encuentran:
 == Ataques
 
 * Ataque +Beast+.
-* +Poodle sslv3+.
-* +Poodle tls+.
-* Ataque +Hearblead+.
+* +Poodle +SSL v3+.
+* +Poodle TLS+.
+* Ataque link:http://heartbleed.com/[+Heartbleed+].
 * Cracking simple de claves no reversibles.
 * Cracking con rainbow tables.
 * +Web shells+ sin efectos colaterales.
@@ -37,6 +37,13 @@ Dentro de los temas de interés se encuentran:
 * +DAST+.
 * +SAST+.
 * +SecDevOps+.
+* Por qué utilizamos +monorepo+?
+* Por qué utilizamos +trunk based development+?
+* Por qué utilizamos entrega continua?
+* Por qué utilizamos infraestructura como código?
+* Por qué utilizamos +staticgen+?
+* Por qué utilizamos +SLB+?
+* Por qué utilizamos +asciidoc+?
 
 == Conceptos
 
@@ -45,6 +52,7 @@ Dentro de los temas de interés se encuentran:
 * +Blue team+.
 * +Purple team+.
 * Captura la bandera.
+* +NixOS+.
 
 == Estándares
 

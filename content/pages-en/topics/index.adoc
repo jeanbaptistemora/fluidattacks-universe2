@@ -18,9 +18,9 @@ Among the topics of interest are:
 == Attacks
 
 * Beast attack.
-* Poodle +sslv3+.
-* Poodle +tls+.
-* Hearblead attack.
+* Poodle +SSL v3+.
+* Poodle +TLS+.
+* link:http://heartbleed.com/[Heartbleed] attack.
 * Simple cracking of non-reversible keys.
 * Cracking with rainbow tables.
 * Web shells without collateral effects.
@@ -37,6 +37,13 @@ Among the topics of interest are:
 * +DAST+.
 * +SAST+.
 * +SecDevOps+.
+* Why we use monorepo?
+* Why we use trunk based development?
+* Why we use continuous delivery?
+* Why we use infrastructure as code?
+* Why we use +staticgen+?
+* Why we use +SLB+?
+* Why we use +asciidoc+?
 
 == Concepts
 
@@ -45,6 +52,7 @@ Among the topics of interest are:
 * Blue team.
 * Purple team.
 * Capture the flag.
+* +NixOS+
 
 == Standards
 
