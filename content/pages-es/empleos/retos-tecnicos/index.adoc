@@ -61,31 +61,13 @@ utilizarán en su labor diaria en +FLUIDAttacks+,
 . Hacer visible a la comunidad y al equipo los resultados propios (presión de
 pares).
 
-== 2. Inicio
-
-Para comenzar esta etapa, usted deberá:
-
-. Registrarse en +GitLab+ usando su correo electrónico personal y creando el ID de usuario que más le guste.
-Este ID no debe ser mayor a *12* caracteres y solo estar compuesto de letras minúsculas y/o números.
-
-. Unirse a nuestro link:https://join.slack.com/t/autonomicmind/shared_invite/enQtMjg4ODI4NjM3MjY3LWUxMTNmMjk3MDdkMDAzYWY0ZjQ3MzNlYjUzZjM3NTM3MDVmYTliN2YyNGViZGUyNzUxOTAzNTdmZDQ5NWNjNGI[canal de Slack],
-en donde encontrará personal de +FLUIDAttacks+ y otros candidatos actualmente en esta etapa,
-quienes podrán guiarlo en caso de tener dudas o inconvenientes.
-
-. Solicitar el permiso de acceso al repositorio vía +Slack+ presentándote a los demás en el canal *#general* con el siguiente mensaje:
-[quote]
-____________________________________________________________________
-He leído y entendido toda la documentación de los retos técnicos,
-acepto las condiciones y por ende solicito acceso al repo +git+ con mi usuario [nombreDeUsuario] en +GitLab+
-____________________________________________________________________
-
-== 3. Objetivos
+== 2. Objetivos
 
 . Resuelva 10 retos de programación.
 
 . Resuelva 10 retos de hacking.
 
-== 4. Criterios
+== 3. Criterios
 
 Las soluciones de retos de programación deberán cumplir con lo siguiente:
 
@@ -112,7 +94,7 @@ Las soluciones de retos de hacking deberán cumplir con lo siguiente:
 . El código fuente de la solución debe seguir los parámetros de estilo de [button]#link:../../estilo/#explicaciones-con-codigo-fuente[esta guía]#.
 . La solución debe haber pasado sin errores ni +warnings+ por un +linter+ del lenguaje correspondiente en su configuración más estricta posible.
 
-== 5. Envío
+== 4. Envío
 
 Las soluciones se envían mediante +Merge Request+ (+MR+) a la rama +master+ del repositorio +training+.
 Antes de realizar un +MR+ por favor verifique que cumple con los siguientes criterios:
@@ -141,7 +123,7 @@ solution: codeabbey, 78 (9.63)
 - effort: 4.5 hours during challenges phase.
 ----
 
-== 6. Externas
+== 5. Externas
 
 Las reglas para los enlaces (+URLs+) a soluciones externas (+OTHERS.lst+) son las siguientes:
 
@@ -153,7 +135,7 @@ Las reglas para los enlaces (+URLs+) a soluciones externas (+OTHERS.lst+) son la
 .. Dentro de un +OTHERS+ de programación las +URLs+ deben estar ordenadas alfabéticamente por extensión,
 . Si está en +github+ la +URL+ debe ser su versión +raw+ (link:https://raw.githubusercontent.com/[]),
 
-== 7. Ejemplos
+== 6. Ejemplos
 
 A continuación presentamos los enlaces para diferentes tipos de +MR+:
 
@@ -176,7 +158,7 @@ por ende en el momento que se hicieron las reglas pudieron ser otras.
 En ningún momento los ejemplos tienen prioridad sobre las reglas,
 sin embargo se relacionan como ejemplo para propósitos pedagógicos.
 
-== 8. Recomendaciones
+== 7. Recomendaciones
 
 . Para cumplir los objetivos enunciados,
 se sugiere buscar retos que no tengan solución ni en +OTHERS+ ni en el repositorio y
@@ -192,13 +174,13 @@ No acumule soluciones en su computador sin enviarlas,
 pues de este modo usted nunca tendrá realimentación de lo que esta haciendo de forma errónea y
 le puede generar por ende múltiples reprocesos tener que corregir sus soluciones luego.
 
-== 9. Repositorio
+== 8. Repositorio
 
 El envío de soluciones se realizará en el siguiente [button]#link:https://gitlab.com/autonomicmind/training/[repositorio git]#
 
 Es ideal que usted se familiarice con el versionamiento y la estructura que detallamos a continuación.
 
-=== 9.1 Estructura
+=== 8.1 Estructura
 
 Los soluciones a los retos se almacenan en las siguientes carpetas:
 
@@ -230,12 +212,12 @@ a| * link:https://gitlab.com/autonomicmind/training/tree/master/systems/bwapp[bw
 |====
 
 El nombramiento de todos los archivos y directorios,
-a excepción de sus link:#92-archivos[archivos especiales],
+a excepción de sus link:#82-archivos[archivos especiales],
 debe realizarse en minúscula,
 sin caracteres especiales y
 en caso de requerir espacios usar *-* (guion) como sustituto.
 
-=== 9.2 Archivos
+=== 8.2 Archivos
 
 En algunas carpetas de la estructura se encuentran algunos archivos
 especiales de control:
@@ -261,7 +243,7 @@ Deben cumplir con lo indicado [button]#link:#externas[aquí]#
 máquina vulnerable con la que se está trabajando.
 Puede ver un ejemplo link:https://gitlab.com/autonomicmind/training/blob/master/systems/bwapp/SPEC.txt[aquí]
 
-== 10. Puntaje
+== 9. Puntaje
 
 A medida que realice soluciones a retos,
 debe reportar el puntaje,
@@ -291,6 +273,24 @@ image:ranking-colombia-codeabbey-2.png[Ranking Colombia codeabbey]
 * En +Wechall+ (Para retos de +hacking+):
 
 image::ranking-wechall.png[Ranking en Wechall]
+
+== 10. Inicio
+
+Para comenzar esta etapa, usted deberá:
+
+. Registrarse en +GitLab+ usando su correo electrónico personal y creando el ID de usuario que más le guste.
+Este ID no debe ser mayor a *12* caracteres y solo estar compuesto de letras minúsculas y/o números.
+
+. Unirse a nuestro link:https://join.slack.com/t/autonomicmind/shared_invite/enQtMjg4ODI4NjM3MjY3LWUxMTNmMjk3MDdkMDAzYWY0ZjQ3MzNlYjUzZjM3NTM3MDVmYTliN2YyNGViZGUyNzUxOTAzNTdmZDQ5NWNjNGI[canal de Slack],
+en donde encontrará personal de +FLUIDAttacks+ y otros candidatos actualmente en esta etapa,
+quienes podrán guiarlo en caso de tener dudas o inconvenientes.
+
+. Solicitar el permiso de acceso al repositorio vía +Slack+ presentándote a los demás en el canal *#general* con el siguiente mensaje:
+[quote]
+____________________________________________________________________
+He leído y entendido toda la documentación de los retos técnicos,
+acepto las condiciones y por ende solicito acceso al repo +git+ con mi usuario [nombreDeUsuario] en +GitLab+
+____________________________________________________________________
 
 == 11. Fin
 
