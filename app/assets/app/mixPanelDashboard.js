@@ -7,24 +7,31 @@
  * Object to control mixpanel calls
  */
 mixPanelDashboard = {};
+
 /*
  * MixPanel localhost Fixer
  */
 var result = false;
 var none_int = -1;
-mixPanelDashboard.isProduction = function () {
+mixPanelDashboard.isProduction = function () 
+{
   result = false;
-  try {
+  try 
+  {
     result = location.toString().indexOf("localhost:8000") !== none_int;
     return result;
-  } catch (e) {
+  }
+  catch (e) 
+  {
     result = false;
     return result;
   }
 };
 
-mixPanelDashboard.trackSearch = function (trackName, userEmail, project) {
-  if (mixPanelDashboard.isProduction()) {
+mixPanelDashboard.trackSearch = function (trackName, userEmail, project) 
+{
+  if (mixPanelDashboard.isProduction()) 
+  {
     return false; 
   }
   mixpanel.track(
@@ -36,8 +43,10 @@ mixPanelDashboard.trackSearch = function (trackName, userEmail, project) {
   );
 };
 
-mixPanelDashboard.trackReadEventuality = function (userName, userEmail, Organization, project, id) {
-  if (mixPanelDashboard.isProduction()) {
+mixPanelDashboard.trackReadEventuality = function (userName, userEmail, Organization, project, id) 
+{
+  if (mixPanelDashboard.isProduction()) 
+  {
     return false; 
   }
   mixpanel.track(
@@ -52,8 +61,10 @@ mixPanelDashboard.trackReadEventuality = function (userName, userEmail, Organiza
   );
 };
 
-mixPanelDashboard.trackReports = function (trackName, userName, userEmail, Organization, project) {
-  if (mixPanelDashboard.isProduction()) {
+mixPanelDashboard.trackReports = function (trackName, userName, userEmail, Organization, project) 
+{
+  if (mixPanelDashboard.isProduction()) 
+  {
     return false; 
   }
   mixpanel.track(
@@ -67,8 +78,10 @@ mixPanelDashboard.trackReports = function (trackName, userName, userEmail, Organ
   );
 };
 
-mixPanelDashboard.trackFinding = function (trackName, userEmail, id) {
-  if (mixPanelDashboard.isProduction()) {
+mixPanelDashboard.trackFinding = function (trackName, userEmail, id) 
+{
+  if (mixPanelDashboard.isProduction()) 
+  {
     return false; 
   }
   mixpanel.track(
@@ -80,8 +93,10 @@ mixPanelDashboard.trackFinding = function (trackName, userEmail, id) {
   );
 };
 
-mixPanelDashboard.trackFindingDetailed = function (trackName, userName, userEmail, Organization, project, id) {
-  if (mixPanelDashboard.isProduction()) {
+mixPanelDashboard.trackFindingDetailed = function (trackName, userName, userEmail, Organization, project, id) 
+{
+  if (mixPanelDashboard.isProduction()) 
+  {
     return false; 
   }
   mixpanel.track(

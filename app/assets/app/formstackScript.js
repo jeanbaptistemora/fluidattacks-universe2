@@ -1,31 +1,41 @@
 /*eslint no-magic-numbers: ["error", { "ignore": [-1,0,0.950,1,2,5] }]*/
 var remember = null;
-$(document).ready(function(){
-  remember = function(){
-    try {
+$(document).ready(function()
+{
+  remember = function()
+  {
+    try 
+    {
       alertify.log( '<div class="" style="padding: 8px;"><p class="text-center">Recordatorio</p><p class="text-left"> Recuerda personalizar los campos dependiendo de la situación que vas a reportar!</p> </div>');
-    } catch (e){
+    }
+    catch (e)
+    {
       return false;
     }
   }
   remember();
-  setInterval(function() {
+  setInterval(function() 
+  {
     var timew = 35000;
     remember();
   }, timew);
-  document.getElementsByTagName("select")[5].onchange = function(){
+  document.getElementsByTagName("select")[5].onchange = function()
+  {
     	v = document.getElementsByTagName("select")[5].value;
-    	if (v == "Verificación") {
+    	if (v == "Verificación") 
+    {
       alertify.success('<p class="text-center"> Información: </p> <p class="text-left"> Verificacion debe usarse para reportar hallazgos en chequeos cruzados </p>'); 
     }
   }
 });
 
-function isUpperCase(str) {
+function isUpperCase(str) 
+{
   return str === str.toUpperCase();
 }
 
-String.prototype.capitalizeFirstLetter = function() { /*eslint no-extend-native: ["error", { "exceptions": ["String"] }]*/
+String.prototype.capitalizeFirstLetter = function() 
+{ /*eslint no-extend-native: ["error", { "exceptions": ["String"] }]*/
   return this.charAt(0).toUpperCase() + this.slice(1);
 }
 
@@ -52,13 +62,17 @@ var public_spreadsheet_url = 'https://docs.google.com/spreadsheets/d/1L37WnF6eno
 
 
 
-function showInfo(data, tabletop) {
+function showInfo(data, tabletop) 
+{
   obj = $.parseJSON(JSON.stringify(data));
-  $("#field32201810").change(function() {
+  $("#field32201810").change(function() 
+  {
     var title = $("#field32201810").val();
-    for (var i = 0; i < obj.length; i++) {
+    for (var i = 0; i < obj.length; i++) 
+    {
 
-      if (obj[i].Titulo == title) {
+      if (obj[i].Titulo == title) 
+      {
 
         description.val(obj[i].Descripcion);
         requirement.val(obj[i].Requisito);
@@ -67,32 +81,40 @@ function showInfo(data, tabletop) {
         debilidad.val(obj[i].CWE.split("/")[5].split(".")[0]);
         tipo.val(obj[i].Tipo);
 
-		        if (obj[i].Evidente == "Sí"){
+		        if (obj[i].Evidente == "Sí")
+        {
 		        	si_evidente.attr('checked', true);
-		        } else {
+		        }
+        else 
+        {
 		        	no_evidente.attr('checked', true);
 		        }
 
-        if (obj[i].Solucion_KB != "-"){
+        if (obj[i].Solucion_KB != "-")
+        {
           has_solution.attr('checked', true);
           $("#fsCell38861739").removeClass("fsHidden");
           $("#fsCell38307753").removeClass("fsHidden");
           solution_pdf.removeAttr("disabled");
           solution_kb.val(obj[i].Solucion_KB);
-        } else {
+        }
+        else 
+        {
           has_no_solution.attr('checked', true);
           $("#fsCell38861739").addClass("fsHidden");
           $("#fsCell38307753").addClass("fsHidden");
           solution_pdf.attr("disabled");
         }
 
-        if ($("#field38392454").val() == "Detallado"){
+        if ($("#field38392454").val() == "Detallado")
+        {
           threat.val(obj[i].Amenaza);
           risk.val(obj[i].Riesgo);
         }
 
         //If(obj[i].Exploit == "Sí"){
-        if ($("#field38529253").val() == 0.950){
+        if ($("#field38529253").val() == 0.950)
+        {
           exploit.prop("required", true);
           exploit.addClass("fsRequired");
           exploit.attr("aria-required", true);
@@ -103,7 +125,9 @@ function showInfo(data, tabletop) {
           evidencia_explotacion.attr("aria-required", true);
           evidencia_explotacion.attr("fsRequired");
 
-        } else {
+        }
+        else 
+        {
           exploit.prop("required", false);
           exploit.removeClass("fsRequired");
           exploit.attr("aria-required", false);
@@ -119,7 +143,8 @@ function showInfo(data, tabletop) {
 
         break;
       }
-      if (i == obj.length - 1) {
+      if (i == obj.length - 1) 
+      {
         description.val("");
         requirement.val("");
         solution.val("");
@@ -137,105 +162,142 @@ function showInfo(data, tabletop) {
 }
 
 Tabletop.init( { key: public_spreadsheet_url, callback: showInfo, simpleSheet: true, prettyColumnNames: true} );
-$(donde).focusout(function() {
+$(donde).focusout(function() 
+{
   	donde.val($.trim(donde.val()));
 });
 
-$(requirement).focusout(function() {
+$(requirement).focusout(function() 
+{
   	requirement.val($.trim(requirement.val()));
-  	if (requirement.val()[requirement.val().length - 1] != "."){
+  	if (requirement.val()[requirement.val().length - 1] != ".")
+  {
   		requirement.val(requirement.val() + ".");
   	}
-  	if (isUpperCase(requirement.val()[0]) == false){
+  	if (isUpperCase(requirement.val()[0]) == false)
+  {
   		requirement.val(requirement.val().capitalizeFirstLetter());
   	}
 });
 
-$(description).focusout(function() {
+$(description).focusout(function() 
+{
   	description.val($.trim(description.val()));
-  	if (description.val()[description.val().length - 1] != "."){
+  	if (description.val()[description.val().length - 1] != ".")
+  {
   		description.val(description.val() + ".");
   	}
-  	if (isUpperCase(description.val()[0]) == false){
+  	if (isUpperCase(description.val()[0]) == false)
+  {
   		description.val(description.val().capitalizeFirstLetter());
   	}
 
   	description.val(description.val());
 });
 
-$(solution).focusout(function() {
+$(solution).focusout(function() 
+{
   	solution.val($.trim(solution.val()));
-  	if (solution.val()[solution.val().length - 1] != "."){
+  	if (solution.val()[solution.val().length - 1] != ".")
+  {
   		solution.val(solution.val() + ".");
   	}
-  	if (isUpperCase(solution.val()[0]) == false){
+  	if (isUpperCase(solution.val()[0]) == false)
+  {
   		solution.val(solution.val().capitalizeFirstLetter());
   	}
 });
 
-$(risk).focusout(function() {
+$(risk).focusout(function() 
+{
   	risk.val($.trim(risk.val()));
-  	if (risk.val()[risk.val().length - 1] != "."){
+  	if (risk.val()[risk.val().length - 1] != ".")
+  {
   		risk.val(risk.val() + ".");
   	}
-  	if (isUpperCase(risk.val()[0]) == false){
+  	if (isUpperCase(risk.val()[0]) == false)
+  {
   		risk.val(risk.val().capitalizeFirstLetter());
   	}
 });
 
-$(threat).focusout(function() {
+$(threat).focusout(function() 
+{
   	threat.val($.trim(threat.val()));
-  	if (threat.val()[threat.val().length - 1] != "."){
+  	if (threat.val()[threat.val().length - 1] != ".")
+  {
   		threat.val(threat.val() + ".");
   	}
-  	if (isUpperCase(threat.val()[0]) == false){
+  	if (isUpperCase(threat.val()[0]) == false)
+  {
   		threat.val(threat.val().capitalizeFirstLetter());
   	}
 });
 
-$(evidencia_hallazgo).change(function() {
-  var hallazgo_upload = $(evidencia_hallazgo).val().split("\\")[2].split(".")[0];
+$(evidencia_hallazgo).change(function() 
+{
+  var hallazgo_upload = $(evidencia_hallazgo).val().
+    split("\\")[2].split(".")[0];
   var substring = "evidencia";
-  if (hallazgo_upload.indexOf(substring) === -1){
+  if (hallazgo_upload.indexOf(substring) === -1)
+  {
     $msg.error( 'El archivo se debe contener la palabra evidencia');
     evidencia_hallazgo.val("");
   }
 
 });
 
-$(exploit).change(function() {
-  var exploit_upload = $(exploit).val().split("\\")[2].split(".")[0];
-  if (exploit_upload != "exploit"){
+$(exploit).change(function() 
+{
+  var exploit_upload = $(exploit).val().
+    split("\\")[2].split(".")[0];
+  if (exploit_upload != "exploit")
+  {
     $msg.error( 'El archivo se debe llamar: exploit');
     exploit.val("");
-  } else {
+  }
+  else 
+  {
     exploit.attr("aria-invalid", false);
   }
 });
 
-$(evidencia_explotacion).change(function() {
-  var explotacion_upload = $(evidencia_explotacion).val().split("\\")[2].split(".")[0];
-  if (explotacion_upload != "evidencia-de-explotacion"){
+$(evidencia_explotacion).change(function() 
+{
+  var explotacion_upload = $(evidencia_explotacion).val().
+    split("\\")[2].split(".")[0];
+  if (explotacion_upload != "evidencia-de-explotacion")
+  {
     $msg.error( 'El archivo se debe llamar: evidencia-de-explotacion');
     evidencia_explotacion.val("");
-  } else {
+  }
+  else 
+  {
     evidencia_explotacion.attr("aria-invalid", false);
   }
 });
 
-$(animacion).change(function() {
-  var animacion_upload = $(animacion).val().split("\\")[2].split(".")[0];
-  if (animacion_upload != "animacion-de-explotacion"){
+$(animacion).change(function() 
+{
+  var animacion_upload = $(animacion).val().
+    split("\\")[2].split(".")[0];
+  if (animacion_upload != "animacion-de-explotacion")
+  {
     $msg.error( 'El archivo se debe llamar: animacion-de-explotacion');
     animacion.val("");
-  } else {
+  }
+  else 
+  {
     animacion.attr("aria-invalid", false);
   }
 });
 
-$(solution_pdf).change(function() {
-  var sol_upload = $(solution_pdf).val().split("\\")[2].split(".")[0];
-  if (sol_upload != "solucion"){
+$(solution_pdf).change(function() 
+{
+  var sol_upload = $(solution_pdf).val().
+    split("\\")[2].split(".")[0];
+  if (sol_upload != "solucion")
+  {
     $msg.error( 'El archivo se debe llamar: solucion');
     solution_pdf.val("");
   }

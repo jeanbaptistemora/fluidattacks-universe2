@@ -9,13 +9,17 @@
  * @param {String} name
  * @return {String}
  */
-function getCookie(name) {
+function getCookie(name) 
+{
   var cookieValue = null;
-  if (document.cookie && document.cookie != '') {
+  if (document.cookie && document.cookie != '') 
+  {
     var cookies = document.cookie.split(';');
-    for (var i = 0; i < cookies.length; i++) {
+    for (var i = 0; i < cookies.length; i++) 
+    {
       var cookie = jQuery.trim(cookies[i]);
-      if (cookie.substring(0, name.length + 1) == name + '=') {
+      if (cookie.substring(0, name.length + 1) == name + '=') 
+      {
         cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
         break;
       }
@@ -23,22 +27,26 @@ function getCookie(name) {
   }
   return cookieValue;
 }
+
 /**
  * Verifica el metodo por el cual se va a enviar una peticion de cookie
  * @function csrfSafeMethod
  * @param {String} method
  * @return {Boolean}
  */
-function csrfSafeMethod(method) {
+function csrfSafeMethod(method) 
+{
   return /^(GET|HEAD|OPTIONS)$/.test(method);
 }
+
 /**
  * Verifica si la url dada esta dentro del mismo dominio
  * @function sameOrigin
  * @param {String} url
  * @return {Boolean}
  */
-function sameOrigin(url) {
+function sameOrigin(url) 
+{
   var host = document.location.host;
   var protocol = document.location.protocol;
   var sr_origin = '//' + host;
@@ -47,43 +55,54 @@ function sameOrigin(url) {
         (url == sr_origin || url.slice(0, sr_origin.length + 1) == sr_origin + '/') ||
         !/^(\/\/|http:|https:).*/.test(url);
 }
+
 /**
  * Agrega la cookie de CSRF a todas las peticiones ajax de la aplicacion
  * @function ajaxConfig
  * @return {undefined}
  */
-function ajaxConfig(){
+function ajaxConfig()
+{
   $.ajaxSetup({
-    beforeSend: function(xhr, settings) {
-      if (!csrfSafeMethod(settings.type) && sameOrigin(settings.url)) {
+    beforeSend: function(xhr, settings) 
+    {
+      if (!csrfSafeMethod(settings.type) && sameOrigin(settings.url)) 
+      {
         var csrftoken = getCookie('csrftoken');
         xhr.setRequestHeader("X-CSRFToken", csrftoken);
       }
     }
   });
 }
+
 /*
  * Establece la ruta principal para las peticiones ajax
  */
 var BASE = { production: "/integrates/",
   development: "/" };
 BASE.url = BASE.production;
-if (location.pathname.indexOf("/integrates") == -1) {
+if (location.pathname.indexOf("/integrates") == -1) 
+{
   BASE.url = BASE.development; 
 }
 var $msg = {};
-$msg.success = function(text, title){
+$msg.success = function(text, title)
+{
   $.gritter.add({ title: title, text: text, class_name: 'color info', sticky: false });
 };
-$msg.error = function(text, title = "Oops!"){
+$msg.error = function(text, title = "Oops!")
+{
   $.gritter.add({ title: title, text: text, class_name: 'color danger', sticky: false });
 };
-$msg.info = function(text, title){
+$msg.info = function(text, title)
+{
   $.gritter.add({ title: title, text: text, class_name: 'color info', sticky: false });
 };
-$msg.warning = function(text, title){
+$msg.warning = function(text, title)
+{
   $.gritter.add({ title: title, text: text, class_name: 'color warning', sticky: false });
 };
+
 /**
  * Crea integrates como una aplicacion de angular
  * @module {AngularJS} FluidIntegrates
@@ -101,7 +120,8 @@ var integrates = angular.module("FluidIntegrates", [
 
 integrates.config([
   'RollbarProvider',
-  function(RollbarProvider) {
+  function(RollbarProvider) 
+  {
     isProduction = location.toString().indexOf("localhost:8000") == -1;
     RollbarProvider.init({
       accessToken: "cad6d1f7ecda480ba003e29f0428d44e",

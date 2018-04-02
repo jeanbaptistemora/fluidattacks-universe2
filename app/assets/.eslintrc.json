@@ -129,7 +129,7 @@
         "array-element-newline": "error",
         "no-sync": "error",
         "block-spacing": "error",
-        "brace-style": "error",
+        "brace-style": ["error", "allman", { "allowSingleLine": false }],
         "capitalized-comments": "error",
         "comma-dangle": "error",
         "comma-spacing": "error",
@@ -147,7 +147,23 @@
         "indent": ["error", 2],
         "jsx-quotes": "error",
         "key-spacing": "error",
-        "keyword-spacing": "error"
+        "keyword-spacing": "error",
+        "line-comment-position": "error",
+        "linebreak-style": "error",
+        "lines-around-comment": "error",
+        "lines-between-class-members": "error",
+        "max-depth": "error",
+        "max-nested-callbacks": "error",
+        "max-statements-per-line": "error",
+        "multiline-comment-style": "error",
+        "multiline-ternary": "error",
+        "new-parens": "error",
+        "newline-per-chained-call": "error",
+        "no-array-constructor": "error",
+        "no-bitwise": "error",
+        "no-continue": "error",
+        "no-inline-comments": "error",
+        "no-lonely-if": "error"
 
     }
 }

@@ -1,5 +1,6 @@
 /*globals integrates,localStorage, traducciones:true, $ */
 "use strict";
+
 /**
  * @file translations.js
  * @author engineering@fluidattacks.com
@@ -12,7 +13,8 @@
  */
 integrates.config([
   '$translateProvider',
-  function ($translateProvider) {
+  function ($translateProvider) 
+  {
     $translateProvider.useSanitizeValueStrategy('sanitizeParameters');
     var translations = {}, traducciones = {};
     translations = {
@@ -1021,7 +1023,8 @@ integrates.config([
         'duplicated': 'Está Duplicado'
       }
     };
-    if (typeof localStorage.lang === "undefined") {
+    if (typeof localStorage.lang === "undefined") 
+    {
       localStorage.lang = 'en';
     }
     $translateProvider.

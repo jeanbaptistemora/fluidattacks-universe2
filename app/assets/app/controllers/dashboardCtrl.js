@@ -13,23 +13,29 @@ integrates.controller("dashboardCtrl", function(
   $scope, $uibModal, $timeout,
   $state, $stateParams, $q,
   $translate
-) {
+) 
+{
+
   /**
-     * Redirecciona a un usuario para cerrar la sesion
-     * @function logout
-     * @member integrates.dashboardCtrl
-     * @return {undefined}
-     */
-  $scope.logout = function(){
+   * Redirecciona a un usuario para cerrar la sesion
+   * @function logout
+   * @member integrates.dashboardCtrl
+   * @return {undefined}
+   */
+  $scope.logout = function()
+  {
     var modalInstance = $uibModal.open({
       animation: true,
       templateUrl: 'logout.html',
       windowClass: 'modal avance-modal',
-      controller: function($scope, $uibModalInstance){
-        $scope.closeModalLogout = function(){
+      controller: function($scope, $uibModalInstance)
+      {
+        $scope.closeModalLogout = function()
+        {
           $uibModalInstance.dismiss('cancel');
         }
-        $scope.okModalLogout = function(){
+        $scope.okModalLogout = function()
+        {
           location = BASE.url + "logout";
         }
       },
@@ -38,22 +44,25 @@ integrates.controller("dashboardCtrl", function(
       }
     });
   }
-  /**
-     * Obtiene los proyectos asignados
-     * @function changeLang
-     * @member integrates.dashboardCtrl
-     * @return {undefined}
-     */
 
   /**
-     * Cambia el lenguaje del dashboard
-     * @function changeLang
-     * @member integrates.dashboardCtrl
-     * @return {undefined}
-     */
-  $scope.changeLang = function(langKey){
+   * Obtiene los proyectos asignados
+   * @function changeLang
+   * @member integrates.dashboardCtrl
+   * @return {undefined}
+   */
+
+  /**
+   * Cambia el lenguaje del dashboard
+   * @function changeLang
+   * @member integrates.dashboardCtrl
+   * @return {undefined}
+   */
+  $scope.changeLang = function(langKey)
+  {
     if (langKey == "es"
-			|| langKey == "en"){
+			|| langKey == "en")
+    {
       localStorage.lang = langKey;
     }
     $translate.use(localStorage.lang);
@@ -63,35 +72,48 @@ integrates.controller("dashboardCtrl", function(
     });
     location.reload();
   }
-  $scope.initMyProjects = function(){
+  $scope.initMyProjects = function()
+  {
     var vlang = 'en-US';
-    if (localStorage.lang === "en"){
+    if (localStorage.lang === "en")
+    {
       vlang = 'en-US';
-    } else {
+    }
+    else 
+    {
       vlang = 'es-CO';
     }
-    $timeout(function() {
+    $timeout(function() 
+    {
       $("#myProjectsTbl").bootstrapTable({
         locale: vlang,
         url: BASE.url+"get_myprojects",
-        onClickRow: function(row, elem){
+        onClickRow: function(row, elem)
+        {
           $state.go("ProjectNamed", {project: row.project});
         }
       });
       $("#myProjectsTbl").bootstrapTable("refresh");
     });
   };
-  $scope.initMyEventualities = function(){
+  $scope.initMyEventualities = function()
+  {
     var vlang = 'en-US';
-    if (localStorage.lang === "en"){
+    if (localStorage.lang === "en")
+    {
       vlang = 'en-US';
-    } else {
+    }
+    else 
+    {
       vlang = 'es-CO';
     }
     var aux = $xhr.get($q, BASE.url + "get_myevents", {});
-    aux.then(function(response){
-      for (var i = 0; i< response.data.length;i++){
-        switch (response.data[i].tipo) {
+    aux.then(function(response)
+    {
+      for (var i = 0; i< response.data.length;i++)
+      {
+        switch (response.data[i].tipo) 
+        {
         case "Autorización para ataque especial":
           response.data[i].tipo = $translate.instant('event_formstack.type.auth_attack');
           break;
@@ -132,18 +154,21 @@ integrates.controller("dashboardCtrl", function(
       $("#myEventsTbl").bootstrapTable({
         locale: vlang,
         data: response.data,
-        onClickRow: function(row, elem){
+        onClickRow: function(row, elem)
+        {
           var modalInstance = $uibModal.open({
             animation: true,
             templateUrl: 'ver.html',
             windowClass: 'modal avance-modal',
-            controller: function($scope, data, $uibModalInstance){
+            controller: function($scope, data, $uibModalInstance)
+            {
               $scope.evnt = data;
               //Tracking mixpanel
               var org = Organization.toUpperCase();
               var projt = $scope.evnt.proyecto_fluid.toUpperCase();
               mixPanelDashboard.trackReadEventuality(userName, userEmail, org, projt, $scope.evnt.id);
-              $scope.close = function(){
+              $scope.close = function()
+              {
                 $uibModalInstance.close();
               }
             },
@@ -156,7 +181,8 @@ integrates.controller("dashboardCtrl", function(
       $("#myEventsTbl").bootstrapTable("refresh");
     });
   };
-  $scope.init = function(){
+  $scope.init = function()
+  {
     $scope.initMyProjects();
     $scope.initMyEventualities();
   };
