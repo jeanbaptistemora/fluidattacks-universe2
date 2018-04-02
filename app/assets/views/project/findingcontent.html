@@ -344,7 +344,7 @@
                                   </div>
                                   <div class="col-md-2 col-xs-12 col-sm-12 table-head"><label><b>{{'search_findings.tab_description.bts_external' | translate}}</b></label></div>
                                   <div class="col-md-4 col-xs-12 col-sm-12 table-desc">
-                                      <p ng-show="onlyReadableTab4">{{finding.bts_externo}}</p>
+                                      <a ng-href="{{finding.bts_externo || ''}}" ng-show="onlyReadableTab4">{{finding.bts_externo || ''}}</a>
                                       <input type="text" class="form-control"
                                              ng-show="!onlyReadableTab4"
                                              ng-model="finding.bts_externo">

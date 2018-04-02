@@ -1874,16 +1874,16 @@ integrates.controller("findingcontentCtrl", function(
     }
     else if ($scope.finding.razon_tratamiento === '') 
     {
-      $msg.error($translate.instant('proj_alerts.empty_comment'))
+      $msg.error($translate.instant('proj_alerts.empty_comment'));
       return false;
     }
     else if ($scope.finding.razon_tratamiento.length < 50 || $scope.finding.razon_tratamiento.length > 80) 
     {
-      $msg.error($translate.instant('proj_alerts.short_comment'))
+      $msg.error($translate.instant('proj_alerts.short_comment'));
       return false;
     }
     $scope.finding.responsable_tratamiento = userEmail;
-    return true
+    return true;
   };
   $scope.updateTreatment = function()
   {
