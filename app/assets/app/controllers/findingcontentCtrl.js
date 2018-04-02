@@ -1537,36 +1537,26 @@ integrates.controller("findingcontentCtrl", function(
   $scope.validateTreatment = function(){
     if ($scope.aux.razon === $scope.finding.razon_tratamiento){
       $msg.error($translate.instant('proj_alerts.differ_comment'));
-      return 'false'
+      return false;
     } else if ($scope.finding.razon_tratamiento === '') {
       $msg.error($translate.instant('proj_alerts.empty_comment'))
-      return 'false'
+      return false;
     } else if ($scope.finding.razon_tratamiento.length < 50 || $scope.finding.razon_tratamiento.length > 80) {
       $msg.error($translate.instant('proj_alerts.short_comment'))
-      return 'false'
+      return false;
     }
     $scope.finding.responsable_tratamiento = userEmail;
-    return 'true'
+    return true
   };
   $scope.updateTreatment = function(){
-    var flag = 'false';
-    if ($scope.finding.tratamiento === 'Pendiente' && $scope.aux.razon !== $scope.finding.razon_tratamiento) {
-      if ($scope.validateTreatment()==='true') {
-        flag = 'true'
-      } else {
-        flag = 'false'
-      }
-    } else if ($scope.finding.tratamiento !== 'Pendiente' && $scope.aux.razon !== $scope.finding.razon_tratamiento ||
-          $scope.finding.tratamiento !== 'Pendiente' && $scope.aux.razon === $scope.finding.razon_tratamiento) {
-      if ($scope.validateTreatment()==='true') {
-        flag = 'true'
-      } else {
-        flag = 'false'
-      }
-    } else if ($scope.finding.tratamiento === 'Pendiente' && $scope.aux.razon === $scope.finding.razon_tratamiento) {
-      flag = 'true'
+    var flag = false;
+    if ($scope.aux.tratamiento === $scope.finding.tratamiento && $scope.aux.razon === $scope.finding.razon_tratamiento && 
+      $scope.aux.bts !== $scope.finding.bts_externo) {
+      flag = true;
+    } else if ($scope.validateTreatment()) {
+      flag = true;
     }
-    if (flag === 'true'){
+    if (flag === true){
       newData = {
         id: $scope.finding.id,
         tratamiento: $scope.finding.tratamiento,
