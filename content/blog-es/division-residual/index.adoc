@@ -70,35 +70,35 @@ M,N → M modulus N → M%N
 * 2 → el 3 está 0 veces en el 2  → 0*3 = 0  → y le falta 2  para llegar a 2
 * 1 → el 3 está 2 veces en el 7  → 2*3 = 6  → y le falta 1  para llegar a 7
 
-.test.py
+.remainder.py
 [source, python,linenums]
 ----
-# Programa para calcular el residuo de una división sin utilizar el operador % propio del lenguaje
-# Nos dicen que no nos preocupemos por el divisor que nunca va a ser igual a cero
-# Para enteros positivos solamente
-# Solución por GoSo (Alejandro Aguirre Soto)
+# This script calculates the remainder of a division without using the modulo operator (%) already defined
+# The divisor will never be equal to 0 (no input validation needed)
+# For positive integers only
+# Solution by Goso (Alejandro Aguirre Soto)
 
-import sys            # Importamos la librería necesaria
-class Modulus:            # llamamos a nuestra clase Modulus
-  with open(sys.argv[1], 'r') as test_cases:  # Obtenemos los valores de entrada
-    for test in test_cases:      # y los guardamos en la variable test_cases
-              # Vamos a iterar por cada línea de entrada con un ciclo for
-              # Es decir primero implementamos la línea "20,6", luego la "2,3"  y asi..
-              # Una línea a la vez
+import sys    # Importamos la librería necesaria
+class Modulus:    # llamamos a nuestra clase Modulus
+    with open(sys.argv[1], 'r') as test_cases:  # We get the input values
+     for test in test_cases:      # And store them in the variable test_cases
+     # We're gonna iterate the input line by line using a "for" cycle
+     # First, we implement line "20,6", then line "2,3" and so on...
+     # One line at time
 
-      num = test.split(",")    # Separamos los números por la coma en el arreglo num[]
-      num1 = int(num[0])    # el número 1 (Dividendo) estará en la variable num1
-      num2 = int(num[1])    # el número 2 (Divisor) estará en la variable num2
-      modu = num1- (num2*(num1/num2))  # en la variable modu calculamos el residuo de la siguiente manera:
-              # calculamos la división normal "/" entre el dividendo y el divisor
-              # para saber la cantidad de veces que num2 esta contenido en num1
-              # esa cantidad de veces la multiplicamos por el número divisor
-              # con el fin de acercarnos lo mas posible al dividendo
-              # y el número 1 (dividendo) lo restamos a la operación anterior
-              # la diferencia entre el dividendo y divisor es el residuo
-              # si el residuo es 0 la división es exacta
+      num = test.split(",")    # We separate the numbers by comma in num[] array
+      num1 = int(num[0])    # Number 1 (Dividend) will be stored in the variable num1
+      num2 = int(num[1])    # Number 2 (Divisor) will be stored in the variable num2
+      modu = num1- (num2*(num1/num2))  # In the variable "modu" we calculate the remainder as follows:
+      # We calculate standard "/" division between de dividend and the divisor
+      # in order to know the number of times num2 contains num1
+      # and we multiply that number of times with the divisor
+      # looking for the closest approach to the dividend
+      # and we calculate the difference between the original dividend and the previous operation
+      # the diference between the dividend and divisor is the remainder
+      # if the remainder is 0, then the division is exact
 
-      print(modu)      # mostramos el residuo
+      print(modu)    # we print the remainder
 
-# acá finaliza nuestro programa
+    # Here ends our script
 ----

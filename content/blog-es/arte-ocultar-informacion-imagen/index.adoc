@@ -38,6 +38,7 @@ imagen.
 
 .Imagen donde se ve la combinación de dos imágenes en una sola,
 link:https://upload.wikimedia.org/wikipedia/commons/a/a2/Lsb-example.JPG[wikipedia]
+
 image::lsb-example.png[lsb]
 
 El segundo método consiste en simplemente poner el mensaje dentro de la
