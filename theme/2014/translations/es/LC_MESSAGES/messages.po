@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2018-03-28 23:18+0000\n"
+"POT-Creation-Date: 2018-04-02 14:29+0000\n"
 "PO-Revision-Date: 2017-12-21 15:09-0500\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: es\n"
@@ -337,228 +337,228 @@ msgstr "Ubicación"
 msgid "Footer-subtitle-1.6"
 msgstr "Contáctanos"
 
-#: templates/footer.html:23
-msgid "Footer-subtitle-1.7"
-msgstr "Suscríbete"
-
-#: templates/footer.html:26 templates/footer.html:27 templates/footer.html:28
-#: templates/footer.html:29 templates/footer.html:30 templates/footer.html:31
-#: templates/footer.html:32
+#: templates/footer.html:25 templates/footer.html:26 templates/footer.html:27
+#: templates/footer.html:28 templates/footer.html:29 templates/footer.html:30
+#: templates/footer.html:31
 msgid "Footer-cat-1"
 msgstr "servicios"
 
-#: templates/footer.html:26
+#: templates/footer.html:25
 msgid "Footer-header-2"
 msgstr "Servicios"
 
-#: templates/footer.html:27
+#: templates/footer.html:26
 msgid "Footer-link-2.1"
 msgstr "hacking-puntual"
 
-#: templates/footer.html:27
+#: templates/footer.html:26
 msgid "Footer-subtitle-2.1"
 msgstr "Hacking Puntual"
 
-#: templates/footer.html:28
+#: templates/footer.html:27
 msgid "Footer-link-2.2"
 msgstr "hacking-continuo"
 
-#: templates/footer.html:28
+#: templates/footer.html:27
 msgid "Footer-subtitle-2.2"
 msgstr "Hacking Continuo"
 
-#: templates/footer.html:29
+#: templates/footer.html:28
 msgid "Footer-link-2.3"
 msgstr "diferenciadores"
 
-#: templates/footer.html:29
+#: templates/footer.html:28
 msgid "Footer-subtitle-2.3"
 msgstr "Diferenciadores"
 
-#: templates/footer.html:30
+#: templates/footer.html:29
 msgid "Footer-link-2.4"
 msgstr "comparativo"
 
-#: templates/footer.html:30
+#: templates/footer.html:29
 msgid "Footer-subtitle-2.4"
 msgstr "Comparativo"
 
-#: templates/footer.html:31
+#: templates/footer.html:30
 msgid "Footer-link-2.5"
 msgstr "certificaciones"
 
-#: templates/footer.html:31
+#: templates/footer.html:30
 msgid "Footer-subtitle-2.5"
 msgstr "Certificaciones"
 
-#: templates/footer.html:35 templates/footer.html:36 templates/footer.html:37
-#: templates/footer.html:38 templates/footer.html:39 templates/footer.html:40
+#: templates/footer.html:34 templates/footer.html:35 templates/footer.html:36
+#: templates/footer.html:37 templates/footer.html:38 templates/footer.html:39
 msgid "Footer-cat-2"
 msgstr "productos"
 
-#: templates/footer.html:35
+#: templates/footer.html:34
 msgid "Footer-header-3"
 msgstr "Productos"
 
-#: templates/footer.html:44 templates/footer.html:45 templates/footer.html:46
-#: templates/footer.html:47 templates/footer.html:48 templates/footer.html:49
-#: templates/footer.html:50 templates/footer.html:51
-msgid "Footer-cat-4"
+#: templates/footer.html:43 templates/footer.html:44 templates/footer.html:45
+#: templates/footer.html:46 templates/footer.html:47 templates/footer.html:48
+#: templates/footer.html:49 templates/footer.html:50
+msgid "Footer-cat-3"
 msgstr "clientes"
 
-#: templates/footer.html:44
-msgid "Footer-header-5"
+#: templates/footer.html:43
+msgid "Footer-header-4"
 msgstr "Clientes"
 
-#: templates/footer.html:45
-msgid "Footer-link-5.1"
+#: templates/footer.html:44
+msgid "Footer-link-4.1"
 msgstr "financiero"
 
-#: templates/footer.html:45
-msgid "Footer-subtitle-5.1"
+#: templates/footer.html:44
+msgid "Footer-subtitle-4.1"
 msgstr "Financiero"
 
-#: templates/footer.html:46
-msgid "Footer-link-5.2"
+#: templates/footer.html:45
+msgid "Footer-link-4.2"
 msgstr "comunicaciones"
 
-#: templates/footer.html:46
-msgid "Footer-subtitle-5.2"
+#: templates/footer.html:45
+msgid "Footer-subtitle-4.2"
 msgstr "Comunicaciones"
 
-#: templates/footer.html:47
-msgid "Footer-link-5.3"
+#: templates/footer.html:46
+msgid "Footer-link-4.3"
 msgstr "comercial"
 
-#: templates/footer.html:47
-msgid "Footer-subtitle-5.3"
+#: templates/footer.html:46
+msgid "Footer-subtitle-4.3"
 msgstr "Comercial"
 
-#: templates/footer.html:48
-msgid "Footer-link-5.4"
+#: templates/footer.html:47
+msgid "Footer-link-4.4"
 msgstr "tecnologia"
 
-#: templates/footer.html:48
-msgid "Footer-subtitle-5.4"
+#: templates/footer.html:47
+msgid "Footer-subtitle-4.4"
 msgstr "Tecnología"
 
-#: templates/footer.html:49
-msgid "Footer-link-5.5"
+#: templates/footer.html:48
+msgid "Footer-link-4.5"
 msgstr "energia"
 
-#: templates/footer.html:49
-msgid "Footer-subtitle-5.5"
+#: templates/footer.html:48
+msgid "Footer-subtitle-4.5"
 msgstr "Energía"
 
-#: templates/footer.html:51
-msgid "Footer-link-5.7"
+#: templates/footer.html:50
+msgid "Footer-link-4.7"
 msgstr "transporte"
 
-#: templates/footer.html:51
-msgid "Footer-subtitle-5.7"
+#: templates/footer.html:50
+msgid "Footer-subtitle-4.7"
 msgstr "Transporte"
 
+#: templates/footer.html:55
+msgid "Footer-subtitle-5.1"
+msgstr "Suscríbete"
+
 #: templates/footer.html:56
-msgid "Footer-link-3.4"
+msgid "Footer-link-5.2"
 msgstr "categorias"
 
 #: templates/footer.html:56
-msgid "Footer-subtitle-3.4"
+msgid "Footer-subtitle-5.2"
 msgstr "Categorías"
 
 #: templates/footer.html:57
-msgid "Footer-link-3.5"
+msgid "Footer-link-5.3"
 msgstr "etiquetas"
 
 #: templates/footer.html:57
-msgid "Footer-subtitle-3.5"
+msgid "Footer-subtitle-5.3"
 msgstr "Etiquetas"
 
 #: templates/footer.html:58
-msgid "Footer-link-3.3"
+msgid "Footer-link-5.4"
 msgstr "autores"
 
 #: templates/footer.html:58
-msgid "Footer-subtitle-3.3"
+msgid "Footer-subtitle-5.4"
 msgstr "Autores"
 
 #: templates/footer.html:59
-msgid "Footer-link-3.2"
+msgid "Footer-link-5.5"
 msgstr "temas"
 
 #: templates/footer.html:59
-msgid "Footer-subtitle-3.2"
+msgid "Footer-subtitle-5.5"
 msgstr "Temas"
 
 #: templates/footer.html:60
-msgid "Footer-link-3.1"
+msgid "Footer-link-5.6"
 msgstr "estilo"
 
 #: templates/footer.html:60
-msgid "Footer-subtitle-3.1"
+msgid "Footer-subtitle-5.6"
 msgstr "Estilo"
 
 #: templates/footer.html:61
-msgid "Footer-subtitle-3.6"
+msgid "Footer-subtitle-5.7"
 msgstr "Formato"
 
 #: templates/footer.html:64 templates/footer.html:65 templates/footer.html:66
 #: templates/footer.html:67 templates/footer.html:68 templates/footer.html:69
 #: templates/footer.html:70 templates/footer.html:71
-msgid "Footer-cat-3"
+msgid "Footer-cat-4"
 msgstr "empleos"
 
 #: templates/footer.html:64
-msgid "Footer-header-4"
+msgid "Footer-header-6"
 msgstr "Empleos"
 
 #: templates/footer.html:65
-msgid "Footer-link-4.1"
+msgid "Footer-link-6.1"
 msgstr "razones"
 
 #: templates/footer.html:65
-msgid "Footer-subtitle-4.1"
+msgid "Footer-subtitle-6.1"
 msgstr "Razones"
 
 #: templates/footer.html:66
-msgid "Footer-link-4.2"
+msgid "Footer-link-6.2"
 msgstr "vacantes"
 
 #: templates/footer.html:66
-msgid "Footer-subtitle-4.2"
+msgid "Footer-subtitle-6.2"
 msgstr "Vacantes"
 
 #: templates/footer.html:67
-msgid "Footer-link-4.3"
+msgid "Footer-link-6.3"
 msgstr "terminos"
 
 #: templates/footer.html:67
-msgid "Footer-subtitle-4.3"
+msgid "Footer-subtitle-6.3"
 msgstr "Términos"
 
 #: templates/footer.html:68
-msgid "Footer-link-4.4"
+msgid "Footer-link-6.4"
 msgstr "evaluacion-conocimientos"
 
 #: templates/footer.html:68
-msgid "Footer-subtitle-4.4"
+msgid "Footer-subtitle-6.4"
 msgstr "Conocimientos"
 
 #: templates/footer.html:69
-msgid "Footer-link-4.5"
+msgid "Footer-link-6.5"
 msgstr "retos-tecnicos"
 
 #: templates/footer.html:69
-msgid "Footer-subtitle-4.5"
+msgid "Footer-subtitle-6.5"
 msgstr "Retos"
 
 #: templates/footer.html:70
-msgid "Footer-link-4.6"
+msgid "Footer-link-6.6"
 msgstr "inmersion"
 
 #: templates/footer.html:70
-msgid "Footer-subtitle-4.6"
-msgstr "Inmersion"
+msgid "Footer-subtitle-6.6"
+msgstr "Inmersión"
 
 #: templates/footer.html:77
 msgid "Footer-stat-msg-1"
