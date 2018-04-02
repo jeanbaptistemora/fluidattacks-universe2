@@ -1,7 +1,7 @@
 :slug: empleos/faq/
 :category: empleos
-:description: La siguiente página tiene como objetivo informar a los interesados en ser parte del equipo de trabajo de FLUID sobre el proceso de selección realizado. En esta sección respondemos a las preguntas más frecuentes de nuestros candidatos en proceso de selección.
-:keywords: FLUID, FAQ, Preguntas, Frecuentes, Empleos, Selección.
+:description: La siguiente página tiene como objetivo informar a los interesados en ser parte del equipo de trabajo de FLUIDAttacks sobre el proceso de selección realizado. En esta sección respondemos a las preguntas más frecuentes de nuestros candidatos en proceso de selección.
+:keywords: FLUIDAttacks, FAQ, Preguntas, Frecuentes, Empleos, Selección.
 :translate: careers/faq/
 
 = Preguntas frecuentes
@@ -109,16 +109,16 @@ No he dicho en mi empresa que estoy en otro proceso, ¿es obligatoria la etapa d
   dependiendo para que vacante estás postulado se te darán indicaciones al respecto.
 
 ¿La oferta salarial tendrá el valor que tengo como expectativa?::
-  La expectativa salarial es importante saberla y FLUID la respeta como expectativa.
+  La expectativa salarial es importante saberla y +FLUIDAttacks+ la respeta como expectativa.
   El valor del salario estará definido por:
   . El desempeño en el cargo, para nuevos talentos el desempeño es proyectado según la información obtenida durante el proceso,
   . La equivalencia de dicho desempeño con talentos que ya se encuentran en la organización, es decir,
   manteniendo la equidad interna, esto es, a mayor desempeño mayor salario y
   personas de desempeño equivalente tendrán salario equivalente,
-  . La capacidad de FLUID de pagar en el tiempo los salarios de todo el equipo.
+  . La capacidad de +FLUIDAttacks+ de pagar en el tiempo los salarios de todo el equipo.
 +
 En este sentido, es posible que la oferta salarial que hagamos no tenga relación con su expectativa,
-pues FLUID no considera para su escala salarial, experiencia, formación, jerarquía, títulos y demás,
+pues +FLUIDAttacks+ no considera para su escala salarial, experiencia, formación, jerarquía, títulos y demás,
 solo desempeño, equidad interna y capacidad de cumplir con dichos compromisos.
 
 ¿Qué deducciones se hará de mi salario?::
@@ -127,7 +127,7 @@ solo desempeño, equidad interna y capacidad de cumplir con dichos compromisos.
   por ejemplo: link:http://www.elempleo.com/co/calculadora-salarial/[Calculadora-Salarial]
 
 ¿Cambiará mi salario cada año?::
-  FLUID realiza de forma automática la revisión de desempeño y
+  +FLUIDAttacks+ realiza de forma automática la revisión de desempeño y
   de salario al finalizar los 12 meses desde el último cambio de salario.
   Usted puede por su parte solicitar dicha revisión cuando lo considere necesario.
   La revisión puede dar lugar a 3 posibilidades:

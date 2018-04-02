@@ -1,22 +1,22 @@
 :slug: empleos/razones/
 :category: empleos
-:description: Si eres una persona talentosa, apasionada por la programación, el desarrollo de software y la informática  y con muchas ganas de aprender, considera ser parte del equipo de trabajo de FLUID. Si aún no te decides, aquí te presentamos algunas razones por las que FLUID es un gran lugar para trabajar.
-:keywords: FLUID, Empleo, Razones, Trabajar, Proyectos, Clientes.
+:description: Si eres una persona talentosa, apasionada por el desarrollo de software, la informática y con muchas ganas de aprender, considera ser parte del equipo de trabajo de FLUIDAttacks. Aquí te presentamos algunas razones por las que FLUIDAttacks es un gran lugar para trabajar.
+:keywords: FLUIDAttacks, Empleo, Razones, Trabajar, Proyectos, Clientes.
 :translate: careers/reasons/
 
 = Razones para trabajar con nosotros
 
-FLUID es un gran lugar para trabajar. Esto esto se debe a que:
++FLUIDAttacks+ es un gran lugar para trabajar. Esto esto se debe a que:
 
 == Hacker que hace sus propias herramientas
 
 Cuando tenemos proyectos son hackeando aplicaciones o redes de empresas, cuando no tenemos proyectos realizamos desarrollo
 de software de nuestras propias herramientas. Buscamos por ende hackers apasionados por el desarrollo y la programación.
 Nuestras tecnologías favoritas son Linux, Git, Python, Docker, Ansible y Amazon Web Services. Si no las dominas no importa,
-en FLUID importa es tu capacidad de aprender autónomamente sobre los diversos retos que nos enfrentamos día a día, la disciplina
+en +FLUIDAttacks+ importa es tu capacidad de aprender autónomamente sobre los diversos retos que nos enfrentamos día a día, la disciplina
 con los que los enfrentas, la honestidad para decir lo que hay que decir y la colaboración sin pretender ser más que nadie.
 Si quieres participar del proceso de selección más retador que existe, y del cual pase lo que pase aprenderás más que en ninguna
-otra empresa, te invitamos a conocerlo y ver por tu mismo que en FLUID vale más hacer que saber.
+otra empresa, te invitamos a conocerlo y ver por tu mismo que en +FLUIDAttacks+ vale más hacer que saber.
 Nuestro proceso de selección es guiado mediante Git, es retroalimentado a través de un integrador continuo y además permite subir
 tu ranking mundial en programación y hacking, así como tu perfil de GitLab.
 No tienes que estar graduado, no tienes que ser de ninguna carrera particular, ni tener experiencia específica. Lo único que
@@ -29,13 +29,13 @@ permiten estar conociendo múltiples organizaciones, problemas diferentes, méto
 
 == Mejora continua basada en Estándares Internacionales
 
-FLUID fue la primera empresa en Colombia en obtener la certificación ISO/IEC 27001 (Seguridad de la Información) al mismo
++FLUIDAttacks+ fue la primera empresa en Colombia en obtener la certificación ISO/IEC 27001 (Seguridad de la Información) al mismo
 tiempo que obtuvo la certificación ISO 9001. Además, nuestro proceso de mejora continua utiliza como modelo de referencia,
 para las pruebas de seguridad, los estandares ISO/IEC 17025 y el estándar Common Criteria.
 
 == Trabaja con los grandes
 
-FLUID provee servicios de seguridad de la información a algunas de las mayores organizaciones de Colombia. Esto significa
++FLUIDAttacks+ provee servicios de seguridad de la información a algunas de las mayores organizaciones de Colombia. Esto significa
 que siempre habrá proyectos con grandes retos en los que puedes participar.  Bancolombia, Colpatria, Davivienda, los mayores
 bancos del país; UNE, ETB, EDATEL, Claro, los mayores ISP del país; y muchos más. Para ver una lista más completa de los
 clientes, visita la sección link:../../clientes[Clientes].
@@ -43,18 +43,18 @@ clientes, visita la sección link:../../clientes[Clientes].
 == Grandes talentos trabajando juntos
 
 Nuestro componente más valioso es la gente, y nos sentimos orgullosos de nuestro gran equipo de trabajo. De hecho, es un equipo
-bastante joven con un promedio de edad de 25 años. Creemos que los talentos en nuestro equipo hacen de FLUID un lugar muy
+bastante joven con un promedio de edad de 25 años. Creemos que los talentos en nuestro equipo hacen de +FLUIDAttacks+ un lugar muy
 competitivo para trabajar y al mismo tiempo aprender y desarrollar tus habilidades.
-Los primeros tres desarrolladores de Debian en Colombia trabajan con FLUID, el mayor porcentaje de colombianos certificados
+Los primeros tres desarrolladores de Debian en Colombia trabajan con +FLUIDAttacks+, el mayor porcentaje de colombianos certificados
 en CEH y OSCP están en nuestra organización, la mayoría de los miembros del equipo campeón latinoamericano de wargames de
 seguridad trabajan en nuestra organización. Adicionalmente nuestro personal cuenta con certificaciones importantes como
 C|EH, OSCP, CISA, CISM, ABCP, GISP y CISSP, CompTIA Security+, ITIL.
 
 == Responsables socialmente
 
-FLUID adicionalmente es consciente de que las organizaciones, independiente de su tamaño y sector, deben retribuir a la sociedad
-permanentemente. Por tal motivo FLUID participa como organización y estimula activamente a sus talentos a apoyar a la educación de
-los mas necesitados a través de la organización Dividendo por Colombia. Además, FLUID separa los residuos en vidrio, papel,
++FLUIDAttacks+ adicionalmente es consciente de que las organizaciones, independiente de su tamaño y sector, deben retribuir a la sociedad
+permanentemente. Por tal motivo +FLUIDAttacks+ participa como organización y estimula activamente a sus talentos a apoyar a la educación de
+los mas necesitados a través de la organización Dividendo por Colombia. Además, +FLUIDAttacks+ separa los residuos en vidrio, papel,
 plástico y ordinarios para beneficio de la comunidad y los recicladores.
 
 == Ex-empleados
@@ -78,7 +78,7 @@ de Ph.D en el mismo instituto.
 
 Creemos firmemente en el Software Libre. Es por eso que toda nuestra plataforma de TI está basada en Software Libre y
 nuestros desarrollos de software internos siempre son liberados bajo licencias GPL.
-Cada servidor y cada portátil en FLUID corre Open Source Software y como estándar se entregan los equipos con una
+Cada servidor y cada portátil en +FLUIDAttacks+ corre Open Source Software y como estándar se entregan los equipos con una
 instalación de Debian o Ubuntu (aunque algunos prefieren pasarse a FreeBSD, OpenBSD o Arch).
 Si quieres conocer más acerca del software libre que hemos desarrollado visita la sección de Software. Nos gusta mucho hacer
 nuevos desarrollos y tenemos personas programando en Python, Typescript, Ansible, Dockerfile, Terraform y muchos otros lenguajes.
@@ -96,6 +96,6 @@ ofrecido los temas de Linux Básico, Principios de Seguridad de la Información 
 
 == Computador Portátil
 
-A cada empleado de FLUID se le asigna un computador portátil. Puedes llevarlo a donde quieras, escoger tu distribución o sistema
-operativo y convertir en un computador personal de verdad. El computador deberá cumplir las políticas de uso de FLUID y deberá
+A cada empleado de +FLUIDAttacks+ se le asigna un computador portátil. Puedes llevarlo a donde quieras, escoger tu distribución o sistema
+operativo y convertir en un computador personal de verdad. El computador deberá cumplir las políticas de uso de +FLUIDAttacks+ y deberá
 tener en funcionamiento un sistema de control de tiempos mientras se está trabajando.

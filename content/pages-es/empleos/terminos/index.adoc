@@ -1,7 +1,7 @@
 :slug: empleos/terminos/
 :category: empleos
-:description: La siguiente página tiene como objetivo informar a los interesados en ser parte del equipo de trabajo de FLUID sobre el proceso de selección realizado. A continuación presentamos información adicional sobre nuestra empresa para que tomes una desición sobre tu participación en nuestra selección.
-:keywords: FLUID, Empleo, Proceso, Selección, Términos, Empresa.
+:description: La siguiente página tiene como objetivo informar a los interesados en ser parte del equipo de trabajo de FLUIDAttacks sobre el proceso de selección realizado. A continuación presentamos información sobre la empresa y los términos a tener en cuenta si deseas participar.
+:keywords: FLUIDAttacks, Empleo, Proceso, Selección, Términos, Empresa.
 :translate: careers/terms/
 
 = Términos
@@ -28,16 +28,16 @@ A continuación, nos presentamos como empresa con el fin de que luego puedas tom
 ** Ventas anuales cercanas a 1.5MM USD,
 ** Con sedes en Medellín, Bogotá (Colombia) y en Clayton (North Carolina, U.S.A.).
 
-* En FLUID todos los sistemas están sujetos a monitoreo mediante link:https://www.timedoctor.com/[sistemas de control automáticos de actividad y tiempo]. Con lo cual buscamos:
+* En +FLUIDAttacks+ todos los sistemas están sujetos a monitoreo mediante link:https://www.timedoctor.com/[sistemas de control automáticos de actividad y tiempo]. Con lo cual buscamos:
 ** Mantener la seguridad de la información de nuestros clientes,
 ** Ser objetivos, precisos y justos en la evaluación del desempeño.
 
-* En FLUID seguimos un código de ética, el cual puedes conocer haciendo click [button]#link:../../valores[aquí]#
+* En +FLUIDAttacks+ seguimos un código de ética, el cual puedes conocer haciendo click [button]#link:../../valores[aquí]#
 
 == El proceso de selección
 
 . Mediante este proceso, se busca encontrar y contratar el 10% más alto de la población para cada rol y rango salarial requerido.
-. Con este proceso, FLUID desea seleccionar sólo a los mejores para construir un equipo:
+. Con este proceso, +FLUIDAttacks+ desea seleccionar sólo a los mejores para construir un equipo:
 ** Élite,
 ** Duradero,
 ** Disciplinado,
@@ -76,7 +76,7 @@ Esto se debe a que:
 ** Para nosotros es una de mayor prioridad la equidad de los salarios de las personas de nuestro equipo actual y la coherencia de esta remuneración con su desempeño.
 ** Es posible que nuestra percepción de tu desempeño potencial no concuerde con tu expectativa salarial inicial.
 
-. Al aceptar estos términos y condiciones, aceptas ser recomendado para vacantes no solo de FLUID sino también para vacantes en nuestros aliados de negocio.
+. Al aceptar estos términos y condiciones, aceptas ser recomendado para vacantes no solo de +FLUIDAttacks+ sino también para vacantes en nuestros aliados de negocio.
 
 . Por defecto tus registros permanecerán en nuestra base de datos para futuras ofertas.
 ** Si deseas que se eliminen los datos recolectados, debes indicarlo vía e-mail a careers@autonomicmind.co.

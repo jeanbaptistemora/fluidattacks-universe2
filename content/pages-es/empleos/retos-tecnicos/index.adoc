@@ -1,7 +1,7 @@
 :slug: empleos/retos-tecnicos/
 :category: empleos
-:description: La siguiente página tiene como objetivo informar a los interesados en ser parte del equipo de trabajo de FLUID sobre el proceso de selección realizado. La etapa de retos técnicos consiste en evaluar las competencias del candidato mediante ejercicios prácticos de programación y hacking.
-:keywords: FLUID, Empleos, Proceso, Selección, Retos, Técnicos.
+:description: La siguiente página tiene como objetivo informar a los interesados en ser parte del equipo de trabajo de FLUIDAttacks sobre el proceso de selección realizado. La etapa de retos técnicos consiste en evaluar las competencias del candidato mediante ejercicios prácticos de programación y hacking.
+:keywords: FLUIDAttacks, Empleos, Proceso, Selección, Retos, Técnicos.
 :toc: yes
 :translate: careers/technical-challenges/
 
@@ -22,7 +22,7 @@ Esto, con la calidad humana, que tiene mayor peso que todo lo demás.
 
 == 1. Filosofía
 
-En esta etapa se busca que usted evidencie mediante ejercicios prácticos sus competencias técnicas en problemas parecidos a los que enfrentará en FLUID,
+En esta etapa se busca que usted evidencie mediante ejercicios prácticos sus competencias técnicas en problemas parecidos a los que enfrentará en +FLUIDAttacks+,
 y con las cuales podrá solucionar de forma efectiva problemas de nuestros clientes en el ámbito de la seguridad.
 También demuestra que usted será un compañero valioso para enriquecer a los miembros actuales del equipo de trabajo.
 
@@ -44,11 +44,11 @@ Al hacer los retos públicos buscamos:
 
 . Si el reto está resuelto, hacer evidente la similitud de la nueva solución.
 
-. Darles vida a las soluciones financiadas por FLUID,
+. Darles vida a las soluciones financiadas por +FLUIDAttacks+,
 
 . Permitir a terceros visualizar los entregables de nuestro equipo.
 
-Los efectos colaterales de esta decisión permiten a FLUID:
+Los efectos colaterales de esta decisión permiten a +FLUIDAttacks+:
 
 . Utilizar la infraestructura de +GitLab+ para analizar la calidad y velocidad
 del desarrollo de las personas en formación,
@@ -56,7 +56,7 @@ del desarrollo de las personas en formación,
 . Desde etapas tempranas familiarizar a potenciales talentos con las
 herramientas (+git+, +AsciiDoc+, +python+, +gherkin+, etc) y conceptos
 (automatización, pruebas de unidad, integración continua, +linting+, etc.) que
-utilizarán en su labor diaria en FLUID,
+utilizarán en su labor diaria en +FLUIDAttacks+,
 
 . Hacer visible a la comunidad y al equipo los resultados propios (presión de
 pares).
@@ -69,7 +69,7 @@ Para comenzar esta etapa, usted deberá:
 Este ID no debe ser mayor a *12* caracteres y solo estar compuesto de letras minúsculas y/o números.
 
 . Unirse a nuestro link:https://join.slack.com/t/autonomicmind/shared_invite/enQtMjg4ODI4NjM3MjY3LWUxMTNmMjk3MDdkMDAzYWY0ZjQ3MzNlYjUzZjM3NTM3MDVmYTliN2YyNGViZGUyNzUxOTAzNTdmZDQ5NWNjNGI[canal de Slack],
-en donde encontrará personal de FLUID y otros candidatos actualmente en esta etapa,
+en donde encontrará personal de +FLUIDAttacks+ y otros candidatos actualmente en esta etapa,
 quienes podrán guiarlo en caso de tener dudas o inconvenientes.
 
 . Solicitar el permiso de acceso al repositorio vía +Slack+ presentándote a los demás en el canal *#general* con el siguiente mensaje:
@@ -382,7 +382,7 @@ las link:../faq[preguntas realizadas en el pasado] por otros participantes.
 se encuentran definidos en el archivo link:https://gitlab.com/autonomicmind/training/blob/master/LICENSE.txt[LICENSE].
 * Realizar un +merge request+ implica la cesión de derechos patrimoniales.
 Por ende, la información aquí contenida puede ser usada
-por FLUID para cualquier fin comercial,
+por +FLUIDAttacks+ para cualquier fin comercial,
 siempre preservando los derechos morales de sus autores.
 
 == 15. Plagio
@@ -400,7 +400,7 @@ escrutinio público el acto de plagio.
 Es decir, el modelo actual propuesto evita el plagio a partir de la
 transparencia total.
 
-Igualmente, FLUID trabaja activamente en aplicar técnicas de detección
+Igualmente, +FLUIDAttacks+ trabaja activamente en aplicar técnicas de detección
 de similitud algorítmica sobre todo el código que sea enviado.
 En particular usando:
 

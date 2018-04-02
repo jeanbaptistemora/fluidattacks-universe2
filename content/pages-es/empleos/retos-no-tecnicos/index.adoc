@@ -1,13 +1,13 @@
 :slug: empleos/retos-no-tecnicos/
 :category: empleos
-:description: La siguiente página tiene como objetivo informar a los interesados en ser parte del equipo de trabajo de FLUID sobre el proceso de selección realizado. La etapa de retos no técnicos pretende evaluar la capacidad del candidato de analizar, clasificar y evaluar datos.
-:keywords: FLUID, Empleo, Selección, Retos no Técnicos, Análisis, Datos.
+:description: La siguiente página tiene como objetivo informar a los interesados en ser parte del equipo de trabajo de FLUIDAttacks sobre el proceso de selección realizado. La etapa de retos no técnicos pretende evaluar la capacidad del candidato de analizar, clasificar y evaluar datos.
+:keywords: FLUIDAttacks, Empleo, Selección, Retos no Técnicos, Análisis, Datos.
 :toc: yes
 :translate: careers/non-technical-challenges/
 
 = Retos no técnicos
 
-A continuación el detalle de la etapa denominada Análisis de Datos del proceso de selección para ser parte del equipo de trabajo de FLUID.
+A continuación el detalle de la etapa denominada Análisis de Datos del proceso de selección para ser parte del equipo de trabajo de FLUIDAttacks.
 
 El objetivo de esta etapa es determinar sus habilidades para:
 
@@ -23,13 +23,13 @@ El objetivo de esta etapa es determinar sus habilidades para:
 * Realizar nuevas preguntas a partir de este proceso,
 * Iterar en este proceso varias veces hasta determinar que se encuentra satisfecho.
 
-Para determinar estas habilidades se le entregarán los hallazgos o vulnerabilidades encontradas por FLUID en los últimos meses. Estas se entregaran en una hoja de calculo de la cual fueron eliminadas o enmascarados los datos confidenciales. Posiblemente la hoja contenga datos incompletos, posiblemente contenga datos irrelevantes, posiblemente contenga datos inconsistentes, proceda como consideré más apropiado de acuerdo al objetivo.
+Para determinar estas habilidades se le entregarán los hallazgos o vulnerabilidades encontradas por +FLUIDAttacks+ en los últimos meses. Estas se entregaran en una hoja de calculo de la cual fueron eliminadas o enmascarados los datos confidenciales. Posiblemente la hoja contenga datos incompletos, posiblemente contenga datos irrelevantes, posiblemente contenga datos inconsistentes, proceda como consideré más apropiado de acuerdo al objetivo.
 
-Usted debe tomar esta hoja de cálculo y construir una presentación (no documento) con transparencias -slides- (no páginas) y entregar en formato PDF (no PPTX), que contenga una breve introducción (no más de 2 slides) y una gráfica por transparencia analizando las gráficas en las dimensiones y combinaciones que usted considere relevantes para que un gerente de una empresa de seguridad de la información como FLUID tome decisiones estratégicas que mejoren la implementación de la misión de la empresa en la sociedad: "Encontrar todas las vulnerabilidades y reportarlas lo antes posible".
+Usted debe tomar esta hoja de cálculo y construir una presentación (no documento) con transparencias -slides- (no páginas) y entregar en formato PDF (no PPTX), que contenga una breve introducción (no más de 2 slides) y una gráfica por transparencia analizando las gráficas en las dimensiones y combinaciones que usted considere relevantes para que un gerente de una empresa de seguridad de la información como +FLUIDAttacks+ tome decisiones estratégicas que mejoren la implementación de la misión de la empresa en la sociedad: "Encontrar todas las vulnerabilidades y reportarlas lo antes posible".
 
 Encontrará la hoja de cálculo en el siguiente [button]#link:hallazgos-open-data.tar.bz2[archivo]#
 
-Cada una de las gráficas debe dar origen al menos a una conclusión y a una recomendación de acción gerencial *concreta* que usted cree que FLUID debe implementar. Al final de la presentación se esperan conclusiones y recomendaciones generales derivadas de las de cada gráfica, pero diferentes (no repetir, si agrupar, si abstraer). El número de transparencias o gráficas es ilimitado, usted puede decidir hacer 10 transparencias con 10 gráficas, o 100 transparencias con 100 gráficas. Lo que será importante es que cada gráfica sea relevante y provea información importante para la gerencia. De ser posible y para minimizar el numero de gráficas y maximizar el numero de variables, utilizar:
+Cada una de las gráficas debe dar origen al menos a una conclusión y a una recomendación de acción gerencial *concreta* que usted cree que +FLUIDAttacks+ debe implementar. Al final de la presentación se esperan conclusiones y recomendaciones generales derivadas de las de cada gráfica, pero diferentes (no repetir, si agrupar, si abstraer). El número de transparencias o gráficas es ilimitado, usted puede decidir hacer 10 transparencias con 10 gráficas, o 100 transparencias con 100 gráficas. Lo que será importante es que cada gráfica sea relevante y provea información importante para la gerencia. De ser posible y para minimizar el numero de gráficas y maximizar el numero de variables, utilizar:
 
 * Barras apiladas,
 * Datos en eje Y y eje X,
@@ -43,7 +43,7 @@ Usted puede hacer todas las preguntas que considere necesarias vía e-mail a car
 
 Este documento debe entregarse vía e-mail (careers@autonomicmind.co) en no más de 7 días calendario después de haber finalizado la etapa anterior. Usted puede solicitar extensiones para la entrega, si envía los avances parciales a la fecha y realiza esta solicitud 2 días antes del vencimiento del plazo. El incumplimiento de estos plazos se dará como razón para finalización del proceso de selección.
 
-Los datos que le son entregados son de carácter confidencial y por ende tanto el informe que usted elabore como la información compartida solo debe ser analizada y procesada por usted. De igual forma se espera que el informe sea realizado solo por usted y sea 100% de su autoría. Si usted siente que requiere de ayuda de personas para realizar esta tarea, esta es una pista de que las necesidades actuales de FLUID no se acomodan a su perfil actual. Este tipo de actividades son la base de filosofía de gestión de proyectos y equipos en FLUID (gestión basada en datos y métricas), por ende esta actividad no es más que una simulación de lo que será su día a día.
+Los datos que le son entregados son de carácter confidencial y por ende tanto el informe que usted elabore como la información compartida solo debe ser analizada y procesada por usted. De igual forma se espera que el informe sea realizado solo por usted y sea 100% de su autoría. Si usted siente que requiere de ayuda de personas para realizar esta tarea, esta es una pista de que las necesidades actuales de +FLUIDAttacks+ no se acomodan a su perfil actual. Este tipo de actividades son la base de filosofía de gestión de proyectos y equipos en +FLUIDAttacks+ (gestión basada en datos y métricas), por ende esta actividad no es más que una simulación de lo que será su día a día.
 
 Si usted en el formulario de aplicación indicó que puede exponer en ingles fluido seleccionando "Si", el informe debe entregarlo totalmente diligenciado en ingles.
 

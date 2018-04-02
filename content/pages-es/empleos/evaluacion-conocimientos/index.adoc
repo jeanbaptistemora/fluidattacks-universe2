@@ -1,7 +1,7 @@
 :slug: empleos/evaluacion-conocimientos/
 :category: empleos
-:description: La siguiente página tiene como objetivo informar a los interesados en ser parte del equipo de trabajo de FLUID sobre el proceso de selección realizado. Ésta prueba pretende evaluar los conocimientos del candidato en diferentes áreas para determinar si se ajustan al perfil requerido.
-:keywords: FLUID, Empleo, Selección, Evaluación, Prueba, Conocimiento.
+:description: La siguiente página tiene como objetivo informar a los interesados en ser parte del equipo de trabajo de FLUIDAttacks sobre el proceso de selección realizado. Ésta prueba pretende evaluar los conocimientos del candidato en diferentes áreas para determinar si se ajustan al perfil requerido.
+:keywords: FLUIDAttacks, Empleo, Selección, Evaluación, Prueba, Conocimiento.
 :translate: careers/knowledge-test/
 
 = Evaluación de conocimientos

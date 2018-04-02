@@ -1,7 +1,7 @@
 :slug: empleos/portafolio/
 :category: empleos
-:description: La siguiente página tiene como objetivo informar a los interesados en ser parte del equipo de trabajo de FLUID sobre el proceso de selección realizado. El portafolio es un documento que contiene tus principales logros académicos, muestras y resultados de tus proyectos más destacables.
-:keywords: FLUID, Empleo, Proceso, Selección, Portafolio, Candidato.
+:description: La siguiente página tiene como objetivo informar a los interesados en ser parte del equipo de trabajo de FLUIDAttacks sobre el proceso de selección realizado. El portafolio es un documento que contiene tus principales logros académicos, muestras y resultados de tus proyectos más destacables.
+:keywords: FLUIDAttacks, Empleo, Proceso, Selección, Portafolio, Candidato.
 :translate: careers/portfolio/
 
 = Portafolio
@@ -38,4 +38,4 @@ Los requisitos que se esperan del documento son los siguientes:
 
 El propósito de este documento es ver su capacidad de expresarse sobre si mismo, sintetizar ideas y llamar la atención.
 
-No seguir estas indicaciones evidenciará dificultad para seguir instrucciones o poco interés para el proceso en FLUID y por tal motivo sera finalizado el proceso de forma inmediata.
+No seguir estas indicaciones evidenciará dificultad para seguir instrucciones o poco interés para el proceso en +FLUIDAttacks+ y por tal motivo sera finalizado el proceso de forma inmediata.
