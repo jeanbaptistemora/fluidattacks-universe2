@@ -68,8 +68,9 @@ function ajaxConfig(){
 var BASE = { production: "/integrates/",
              development: "/" };
 BASE.url = BASE.production;
-if(location.pathname.indexOf("/integrates") == -1)
-    {BASE.url = BASE.development;}
+if (location.pathname.indexOf("/integrates") == -1) {
+ BASE.url = BASE.development; 
+}
 var $msg = {};
 $msg.success = function(text, title){
     $.gritter.add({ title: title, text: text, class_name: 'color info', sticky: false });

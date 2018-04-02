@@ -1,6 +1,6 @@
 var scenario = [
 {
-    name: "Anónimo desde Internet",
+    name: "Anónimo desde Internet"
 },
 {
     name: "Anónimo desde Intranet"
@@ -30,13 +30,13 @@ var categories = [
     name: "Actualizar y configurar las líneas base de seguridad de los componentes"
 },
 {
-    name: "Definir el modelo de autorización considerando el principio de mínimo privilegio",
+    name: "Definir el modelo de autorización considerando el principio de mínimo privilegio"
 },
 {
-    name: "Desempeño",
+    name: "Desempeño"
 },
 {
-    name: "Eventualidad",
+    name: "Eventualidad"
 },
 {
     name: "Evitar exponer la información técnica de la aplicación, servidores y plataformas"
@@ -76,22 +76,22 @@ var probabilities = [
     value: 100
 },
 {
-    name:"75% Fácil de vulnerar",
+    name: "75% Fácil de vulnerar",
     value: 75
 },
 {
-    name:"50% Posible de vulnerar",
+    name: "50% Posible de vulnerar",
     value: 50
 },
 {
-    name:"25% Difícil de vulnerar",
+    name: "25% Difícil de vulnerar",
     value: 25
 }
 ];
 
 var actor = [
 {
-    name: "​Cualquier persona en Internet",
+    name: "​Cualquier persona en Internet"
 },
 {
     name: "Cualquier cliente de la organización"

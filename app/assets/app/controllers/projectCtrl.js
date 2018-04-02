@@ -5,21 +5,21 @@
  */
 /* Table Formatter */
 function removeHour(value, row, index){
-    if(value.indexOf(":") != -1){
+    if (value.indexOf(":") != -1){
         return value.split(" ")[0];
     }
     return value;
 }
 function labelState(value, row, index){
-    if(value == "Cerrado"){
+    if (value == "Cerrado"){
         return "<label class='label label-success' style='background-color: #31c0be'>Cerrado</label>";
-    }else if(value == "Closed"){
+    } else if (value == "Closed"){
         return "<label class='label label-success' style='background-color: #31c0be'>Closed</label>";
-    }else if(value == "Abierto"){
+    } else if (value == "Abierto"){
         return "<label class='label label-danger' style='background-color: #f22;'>Abierto</label>";
-    }else if(value == "Open"){
+    } else if (value == "Open"){
         return "<label class='label label-danger' style='background-color: #f22;'>Open</label>";
-    }else if(value == "Parcialmente cerrado"){
+    } else if (value == "Parcialmente cerrado"){
         return "<label class='label label-info' style='background-color: #ffbf00'>Parcialmente cerrado</label>";
     }
         return "<label class='label label-info' style='background-color: #ffbf00'>Partially closed</label>";
@@ -41,7 +41,8 @@ integrates.controller(
         $scope, $location,
         $uibModal, $timeout,
         $state, $stateParams,
-        $translate, projectFtry) {
+        $translate, projectFtry
+) {
 
         $scope.init = function(){
             var project = $stateParams.project;
@@ -57,8 +58,10 @@ integrates.controller(
             $scope.view.project = false;
             $scope.view.finding = false;
             //Parametros de ruta
-            if(typeof findingId !== "undefined") {$scope.findingId = findingId;}
-            if(typeof project != "undefined"
+            if (typeof findingId !== "undefined") {
+ $scope.findingId = findingId; 
+}
+            if (typeof project != "undefined"
                 && project != "") {
                 $scope.project = project;
                 $scope.search();
@@ -84,7 +87,7 @@ integrates.controller(
         $scope.alertHeader = function(company, project){
           var req = projectFtry.getAlerts(company, project);
           req.then(function(response){
-              if(!response.error && response.data.length > 0){
+              if (!response.error && response.data.length > 0){
                 if (response.data.status_act=='1'){
                    var html = '<div class="alert alert-danger-2">';
                    html += '<strong>Atención! </strong>' + response.data[0].message + '</div>';
@@ -133,8 +136,12 @@ integrates.controller(
             var dd = today.getDate();
             var mm = today.getMonth()+1; //January is 0!
             var yyyy = today.getFullYear();
-            if(dd<10){ dd='0'+dd; }
-            if(mm<10){ mm='0'+mm; }
+            if (dd<10){
+ dd='0'+dd; 
+}
+            if (mm<10){
+ mm='0'+mm; 
+}
             var new_today = dd+'/'+mm+'/'+yyyy;
             $scope.header = {
                 findingTitle: $scope.finding.hallazgo,
@@ -161,8 +168,8 @@ integrates.controller(
             $("#total_hallazgos").html(data.data.length);
             var severity = 0;
             data.data.forEach(function(i){
-                try{
-                    if(i.tipo_hallazgo == "Seguridad"){
+                try {
+                    if (i.tipo_hallazgo == "Seguridad"){
                         var ImpCon = parseFloat(i.impacto_confidencialidad.split(" | ")[0]);
                         var ImpInt = parseFloat(i.impacto_integridad.split(" | ")[0]);
                         var ImpDis = parseFloat(i.impacto_disponibilidad.split(" | ")[0]);
@@ -175,14 +182,14 @@ integrates.controller(
                         var BaseScore = (0.6*(10.41*(1-(1-ImpCon)*(1-ImpInt)*(1-ImpDis)))+0.4*(20*AccCom*Auth*AccVec)-1.5)*1.176;
                         severity += BaseScore * parseFloat(i.cardinalidad_total);
                     }
-                }catch(e){
+                } catch (e){
                     Rollbar.error("Error: An error ocurred calculating cardinality", e);
                 }
             });
             var req = projectFtry.TotalSeverity($scope.project.toLowerCase());
             req.then(function(response){
-                if(!response.error){
-                    if(response.data.length > 0){
+                if (!response.error){
+                    if (response.data.length > 0){
                         for (var i = 0; i < response.data.length; i++) {
                             var target = parseInt(response.data[i].lines) / 1000 + parseInt(response.data[i].fields) / 4;
                             total_severity = severity / (4.611 * target + 43.221) * 100;
@@ -198,16 +205,16 @@ integrates.controller(
         };
         $scope.configColorPalette = function(){
             $scope.colors = {};
-            $scope.colors.critical = "background-color: #f12;"; //red
-            $scope.colors.moderate = "background-color: #f72;"; //orange
-            $scope.colors.tolerable = "background-color: #ffbf00;"; //yellow
-            $scope.colors.ok = "background-color: #008000;"; //green
+            $scope.colors.critical = "background-color: #f12;"; //Red
+            $scope.colors.moderate = "background-color: #f72;"; //Orange
+            $scope.colors.tolerable = "background-color: #ffbf00;"; //Yellow
+            $scope.colors.ok = "background-color: #008000;"; //Green
         };
         $scope.configKeyboardView = function(){
             document.onkeypress = function(ev){
                 //Buscar un proyecto
-                if(ev.keyCode === 13){
-                    if($('#project').is(':focus')){
+                if (ev.keyCode === 13){
+                    if ($('#project').is(':focus')){
                         $scope.search();
                     }
                 }
@@ -216,9 +223,9 @@ integrates.controller(
         $scope.generateFullDoc = function(){
             var project = $scope.project;
             var data = $("#vulnerabilities").bootstrapTable('getData');
-            for(i=0; i < data.length-1; i++){
-                for(j=i+1; j < data.length; j++){
-                    if(parseFloat(data[i].criticidad) < parseFloat(data[j].criticidad)){
+            for (i=0; i < data.length-1; i++){
+                for (j=i+1; j < data.length; j++){
+                    if (parseFloat(data[i].criticidad) < parseFloat(data[j].criticidad)){
                         aux = data[i];
                         data[i] = data[j];
                         data[j] = aux;
@@ -226,27 +233,35 @@ integrates.controller(
                 }
             }
             var generateDoc = true;
-            try{
+            try {
                 json = data;
                 generateDoc = true;
                 var err = "error";
-                json = JSON.stringify(JSON.parse(JSON.stringify(json))); //remove indices
-                if (typeof json == "undefined") {throw err;}
-                if (json == [] || json == {}) {throw err;}
-                if(project.trim() == "") {throw err;}
-            }catch(e){
+                json = JSON.stringify(JSON.parse(JSON.stringify(json))); //Remove indices
+                if (typeof json == "undefined") {
+ throw err; 
+}
+                if (json == [] || json == {}) {
+ throw err; 
+}
+                if (project.trim() == "") {
+ throw err; 
+}
+            } catch (e){
                 Rollbar.error("Error: An error ocurred generating document", e);
                 generateDoc = false;
             }
-            if(generateDoc == false) {return false;}
+            if (generateDoc == false) {
+ return false; 
+}
             var req = projectFtry.ProjectDoc(project, json, "IT");
             req.then(function(response){
-                if(!response.error){
+                if (!response.error){
                     var url = BASE.url + "export_autodoc?project=" + $scope.project;
                     url += "&format=IT";
-                    if(navigator.userAgent.indexOf("Firefox") == -1){
+                    if (navigator.userAgent.indexOf("Firefox") == -1){
                         $scope.downloadURL = url;
-                    }else{
+                    } else {
                         win = window.open(url, '__blank');
                     }
                 } else {
@@ -271,17 +286,17 @@ integrates.controller(
                         var lang = localStorage.lang;
                         var prjpatt = new RegExp("^[a-zA-Z0-9_]+$");
                         var langpatt = new RegExp("^en|es$");
-                        if(prjpatt.test(project)
+                        if (prjpatt.test(project)
                             && langpatt.test(lang)){
                             //Tracking mixpanel
                             mixPanelDashboard.trackReports("TechnicalReportXLS", userName, userEmail, org, projt);
                             var url = BASE.url + "xls/"+ lang + "/project/" + project;
-                            if(navigator.userAgent.indexOf("Firefox") == -1){
+                            if (navigator.userAgent.indexOf("Firefox") == -1){
                                 downLink = document.createElement("a");
                                 downLink.target = "_blank";
                                 downLink.href = url;
                                 downLink.click();
-                            }else{
+                            } else {
                                 win = window.open(url, '__blank');
                             }
                         }
@@ -291,17 +306,17 @@ integrates.controller(
                         var lang = localStorage.lang;
                         var prjpatt = new RegExp("^[a-zA-Z0-9_]+$");
                         var langpatt = new RegExp("^en|es$");
-                        if(prjpatt.test(project)
+                        if (prjpatt.test(project)
                             && langpatt.test(lang)){
                             //Tracking mixpanel
                             mixPanelDashboard.trackReports("TechnicalReportPDF", userName, userEmail, org, projt);
                             var url = BASE.url + "pdf/"+ lang + "/project/" + project + "/tech/";
-                            if(navigator.userAgent.indexOf("Firefox") == -1){
+                            if (navigator.userAgent.indexOf("Firefox") == -1){
                                 downLink = document.createElement("a");
                                 downLink.target = "_blank";
                                 downLink.href = url;
                                 downLink.click();
-                            }else{
+                            } else {
                                 win = window.open(url, '__blank');
                             }
                         }
@@ -331,9 +346,9 @@ integrates.controller(
                     $scope.init = function(){
                         $("#hasPresentation").hide();
                         $("#hasPresentationMsg").show();
-                        $.get(BASE.url+"check_pdf/project/"+$stateParams.project,function(r){
-                            if(!r.error){
-                                if(r.data.enable){
+                        $.get(BASE.url+"check_pdf/project/"+$stateParams.project, function(r){
+                            if (!r.error){
+                                if (r.data.enable){
                                     $("#hasPresentation").show();
                                     $("#hasPresentationMsg").hide();
                                 }
@@ -347,17 +362,17 @@ integrates.controller(
                         var lang = localStorage.lang;
                         var prjpatt = new RegExp("^[a-zA-Z0-9_]+$");
                         var langpatt = new RegExp("^en|es$");
-                        if(prjpatt.test(project)
+                        if (prjpatt.test(project)
                             && langpatt.test(lang)){
                             //Tracking mixpanel
                             mixPanelDashboard.trackReports("ExecutivePDFPresentation", userName, userEmail, org, projt);
                             var url = BASE.url + "pdf/"+ lang + "/project/" + project + "/presentation/";
-                            if(navigator.userAgent.indexOf("Firefox") == -1){
+                            if (navigator.userAgent.indexOf("Firefox") == -1){
                                 downLink = document.createElement("a");
                                 downLink.target = "_blank";
                                 downLink.href = url;
                                 downLink.click();
-                            }else{
+                            } else {
                                 win = window.open(url, '__blank');
                             }
                         }
@@ -367,17 +382,17 @@ integrates.controller(
                         var lang = localStorage.lang;
                         var prjpatt = new RegExp("^[a-zA-Z0-9_]+$");
                         var langpatt = new RegExp("^en|es$");
-                        if(prjpatt.test(project)
+                        if (prjpatt.test(project)
                             && langpatt.test(lang)){
                             //Tracking mixpanel
                             mixPanelDashboard.trackReports("ExecutivePDFReport", userName, userEmail, org, projt);
                             var url = BASE.url + "pdf/"+ lang + "/project/" + project + "/executive/";
-                            if(navigator.userAgent.indexOf("Firefox") == -1){
+                            if (navigator.userAgent.indexOf("Firefox") == -1){
                                 downLink = document.createElement("a");
                                 downLink.target = "_blank";
                                 downLink.href = url;
                                 downLink.click();
-                            }else{
+                            } else {
                                 win = window.open(url, '__blank');
                             }
                         }
@@ -397,20 +412,20 @@ integrates.controller(
             var lang = localStorage.lang;
             var prjpatt = new RegExp("^[a-zA-Z0-9_]+$");
             var langpatt = new RegExp("^en|es$");
-            if(prjpatt.test(project)
+            if (prjpatt.test(project)
                 && langpatt.test(lang)){
                 var url = BASE.url + "doc/"+ lang + "/project/" + project;
-                if(navigator.userAgent.indexOf("Firefox") == -1){
+                if (navigator.userAgent.indexOf("Firefox") == -1){
                     $scope.downloadURL = url;
-                }else{
+                } else {
                      win = window.open(url, '__blank');
                 }
             }
         };
         $scope.downloadDoc = function(){
-            if(typeof $scope.downloadURL == "undefined"){
+            if (typeof $scope.downloadURL == "undefined"){
                 $timeout($scope.downloadDoc, 3000);
-            }else{
+            } else {
                 downLink = document.createElement("a");
                 downLink.target = "_blank";
                 downLink.href = $scope.downloadURL;
@@ -423,10 +438,10 @@ integrates.controller(
             var total_hig = 0;
             currData.forEach(function(val, i){
                 tipo = val.tipo_hallazgo;
-                if(val.estado != "Cerrado" && val.estado != "Closed"){
-                    if(tipo == "Seguridad"){
+                if (val.estado != "Cerrado" && val.estado != "Closed"){
+                    if (tipo == "Seguridad"){
                         total_seg += 1;
-                    }else{
+                    } else {
                         total_hig += 1;
                     }
                 }
@@ -441,7 +456,7 @@ integrates.controller(
                 resize: true,
                 data: [
                   {label: total_segLabel, value: total_seg, color: "#ff1a1a"},
-                  {label: total_higLabel, value: total_hig, color: "#31c0be"},
+                  {label: total_higLabel, value: total_hig, color: "#31c0be"}
                 ]
             });
         };
@@ -451,10 +466,10 @@ integrates.controller(
             var nonexploit = 0;
             currData.forEach(function(val, i){
                 explotable = val.explotabilidad;
-                if(val.estado != "Cerrado" && val.estado != "Closed"){
-                    if(explotable == "1.000 | Alta: No se requiere exploit o se puede automatizar" || explotable == "0.950 | Funcional: Existe exploit" || explotable == "1.000 | High: Exploit is not required or it can be automated" || explotable == "0.950 | Functional: There is an exploit" ){
+                if (val.estado != "Cerrado" && val.estado != "Closed"){
+                    if (explotable == "1.000 | Alta: No se requiere exploit o se puede automatizar" || explotable == "0.950 | Funcional: Existe exploit" || explotable == "1.000 | High: Exploit is not required or it can be automated" || explotable == "0.950 | Functional: There is an exploit" ){
                         exploit ++;
-                    }else{
+                    } else {
                         nonexploit ++;
                     }
                 }
@@ -469,7 +484,7 @@ integrates.controller(
                 resize: true,
                 data: [
                   {label: exploitLabel, value: exploit, color: "#ff1a1a"},
-                  {label: nonexploitLabel, value: nonexploit, color: "#31c0be"},
+                  {label: nonexploitLabel, value: nonexploit, color: "#31c0be"}
                 ]
             });
         };
@@ -482,11 +497,11 @@ integrates.controller(
             currData.forEach(function(val, i){
                 estado = val.estado;
                 total ++;
-                if(estado == "Abierto" || estado == "Open" ){
+                if (estado == "Abierto" || estado == "Open" ){
                     open++;
-                }else if(estado == "Cerrado" || estado == "Closed"){
+                } else if (estado == "Cerrado" || estado == "Closed"){
                     close++;
-                }else{
+                } else {
                     partial++;
                 }
             });
@@ -511,7 +526,7 @@ integrates.controller(
 
         $scope.search = function(){
             var vlang = 'en-US';
-            if(localStorage.lang === "en"){
+            if (localStorage.lang === "en"){
               vlang = 'en-US';
             } else {
               vlang = 'es-CO';
@@ -519,17 +534,17 @@ integrates.controller(
             var project = $scope.project;
             var filter = $scope.filter;
             var finding = $scope.findingId;
-            if(typeof project === "undefined"
+            if (typeof project === "undefined"
                 || project === ""){
                 var attention_at = $translate.instant('proj_alerts.attent_title');
                 var attention_ac = $translate.instant('proj_alerts.attent_cont');
-                $msg.warning(attention_ac,attention_at);
+                $msg.warning(attention_ac, attention_at);
                 return false;
             }
-            if($stateParams.project != $scope.project){
+            if ($stateParams.project != $scope.project){
                 $state.go("ProjectNamed", {project: $scope.project});
-            }else{
-                /* handling presentation button */
+            } else {
+                /* Handling presentation button */
                 $scope.view.project = false;
                 $scope.view.finding = false;
                 var search_at = $translate.instant('proj_alerts.search_title');
@@ -539,10 +554,10 @@ integrates.controller(
                 var reqEventualities = projectFtry.EventualityByName(project, "Name");
                 reqProject.then(function(response){
                     $scope.view.project = true;
-                    if(!response.error){
+                    if (!response.error){
                         //Tracking Mixpanel
                         mixPanelDashboard.trackSearch("SearchFinding", userEmail, project);
-                        if(response.data.length == 0){
+                        if (response.data.length == 0){
                             $scope.view.project = false;
                             $scope.view.finding = false;
                             $msg.error($translate.instant('proj_alerts.not_found'));
@@ -551,7 +566,7 @@ integrates.controller(
                             var org = Organization.toUpperCase();
                             var projt = $stateParams.project.toUpperCase();
                             $scope.alertHeader(org, projt);
-                            for(var i = 0; i< $scope.data.length;i++){
+                            for (var i = 0; i< $scope.data.length;i++){
                                switch ($scope.data[i].actor) {
                                  case "​Cualquier persona en Internet":
                                    $scope.data[i].actor = $translate.instant('finding_formstack.actor.any_internet');
@@ -890,7 +905,7 @@ integrates.controller(
                             $('[data-toggle="tooltip"]').tooltip();
                             $scope.calculateCardinality({data: $scope.data});
 
-                            if(typeof $stateParams.finding !== "undefined"){
+                            if (typeof $stateParams.finding !== "undefined"){
                                 $scope.finding.id = $stateParams.finding;
                                 $scope.view.project = false;
                                 $scope.view.finding = false;
@@ -899,7 +914,7 @@ integrates.controller(
                     } else {
                         $scope.view.project = false;
                         $scope.view.finding = false;
-                        if(response.message == "Access denied"){
+                        if (response.message == "Access denied"){
                             Rollbar.error("Error: Access to project denied");
                             $msg.error($translate.instant('proj_alerts.access_denied'));
                         } else {
@@ -909,8 +924,8 @@ integrates.controller(
                     }
                 });
                 reqEventualities.then(function(response){
-                    if(!response.error){
-                      for(var i = 0; i< response.data.length;i++){
+                    if (!response.error){
+                      for (var i = 0; i< response.data.length;i++){
                          switch (response.data[i].tipo) {
                            case "Autorización para ataque especial":
                              response.data[i].tipo = $translate.instant('event_formstack.type.auth_attack');
@@ -988,8 +1003,8 @@ integrates.controller(
                         //MANEJO DEL UI
                         $("#search_section").show();
                         $('[data-toggle="tooltip"]').tooltip();
-                    }else{
-                        if(response.message == "Access to project denied"){
+                    } else {
+                        if (response.message == "Access to project denied"){
                             Rollbar.error("Error: Access to event denied");
                             $msg.error($translate.instant('proj_alerts.access_denied'));
                         } else {
@@ -1009,16 +1024,16 @@ integrates.controller(
                 controller: function($scope, $uibModalInstance){
                     var auxiliar = $("#vulnerabilities").bootstrapTable('getData');
                     var data = auxiliar;
-                    for(i=0; i < data.length; i++){
+                    for (i=0; i < data.length; i++){
                         data[i].atributos = 0;
                         data[i].link = window.location.href.split('project/')[0] + 'project/' + data[i].proyecto_fluid.toLowerCase() + '/' + data[i].id + '/description';
                         if (typeof data[i].registros !== 'undefined' && data[i].registros !== ''){
                           data[i].atributos = 1 + (data[i].registros.match(/\n/g)||[]).length;
                         }
                     }
-                    for(i=0; i < data.length-1; i++){
-                        for(j=i+1; j < data.length; j++){
-                           if(parseFloat(data[i].criticidad) < parseFloat(data[j].criticidad)){
+                    for (i=0; i < data.length-1; i++){
+                        for (j=i+1; j < data.length; j++){
+                           if (parseFloat(data[i].criticidad) < parseFloat(data[j].criticidad)){
                                 aux = data[i];
                                 data[i] = data[j];
                                 data[j] = aux;
@@ -1028,7 +1043,9 @@ integrates.controller(
                     $scope.rows = data;
                     $scope.closeModalAvance = function(){
                         $uibModalInstance.close();
-                        $timeout(function() {$("#vulnerabilities").bootstrapTable('load', auxiliar);},100);
+                        $timeout(function() {
+ $("#vulnerabilities").bootstrapTable('load', auxiliar); 
+}, 100);
                     }
                 },
                 resolve: {

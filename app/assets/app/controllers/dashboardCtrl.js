@@ -9,9 +9,11 @@
  * @param {Object} $uibModal
  * @return {undefined}
  */
-integrates.controller("dashboardCtrl", function($scope, $uibModal, $timeout,
+integrates.controller("dashboardCtrl", function(
+$scope, $uibModal, $timeout,
                                                 $state, $stateParams, $q,
-                                                $translate) {
+                                                $translate
+) {
     /**
      * Redirecciona a un usuario para cerrar la sesion
      * @function logout
@@ -50,20 +52,20 @@ integrates.controller("dashboardCtrl", function($scope, $uibModal, $timeout,
      * @return {undefined}
      */
     $scope.changeLang = function(langKey){
-		if(langKey == "es"
+		if (langKey == "es"
 			|| langKey == "en"){
 			localStorage.lang = langKey;
 		}
 		$translate.use(localStorage.lang);
     mixpanel.identify(userEmail);
     mixpanel.people.set({
-        "$Language": localStorage.lang,
+        "$Language": localStorage.lang
     });
     location.reload();
     }
     $scope.initMyProjects = function(){
         var vlang = 'en-US';
-        if(localStorage.lang === "en"){
+        if (localStorage.lang === "en"){
           vlang = 'en-US';
         } else {
           vlang = 'es-CO';
@@ -81,14 +83,14 @@ integrates.controller("dashboardCtrl", function($scope, $uibModal, $timeout,
     };
     $scope.initMyEventualities = function(){
         var vlang = 'en-US';
-        if(localStorage.lang === "en"){
+        if (localStorage.lang === "en"){
           vlang = 'en-US';
         } else {
           vlang = 'es-CO';
         }
         var aux = $xhr.get($q, BASE.url + "get_myevents", {});
         aux.then(function(response){
-          for(var i = 0; i< response.data.length;i++){
+          for (var i = 0; i< response.data.length;i++){
              switch (response.data[i].tipo) {
                case "Autorización para ataque especial":
                  response.data[i].tipo = $translate.instant('event_formstack.type.auth_attack');

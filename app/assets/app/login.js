@@ -9,9 +9,10 @@
 var BASE = { production: "/integrates/",
              development: "/" };
 BASE.url = BASE.production;
-if(location.pathname.indexOf("/integrates") == -1)
-    {BASE.url = BASE.development;}
-//definicion de modulos
+if (location.pathname.indexOf("/integrates") == -1) {
+ BASE.url = BASE.development; 
+}
+//Definicion de modulos
 var integrates = angular.module("FluidIntegrates", [
 'ngSanitize',
 'pascalprecht.translate'
@@ -65,23 +66,23 @@ integrates.controller("loginController", function($scope, $translate){
     $scope.login = function(){
         var username = $scope.username;
         var password = $scope.password;
-        if(typeof username != "string"
+        if (typeof username != "string"
             || typeof password != "string"){
              $.gritter.add({
                 title: '',
                 text: "Usuario/Clave son obligatorios",
                 class_name: 'color warning',
-                sticky: false,
+                sticky: false
             });
-        }else if(username.trim() == ""
+        } else if (username.trim() == ""
             || password.trim() == ""){
             $.gritter.add({
                 title: '',
                 text: "Usuario/Clave son obligatorios",
                 class_name: 'color warning',
-                sticky: false,
+                sticky: false
             });
-        }else{
+        } else {
             $.ajax({
                 url: BASE.url + "login/",
                 method: "POST",
@@ -95,20 +96,20 @@ integrates.controller("loginController", function($scope, $translate){
                     title: '',
                     text: e.message,
                     class_name: 'color '+color,
-                    sticky: false,
+                    sticky: false
                 });
-                if(color == "success"){
+                if (color == "success"){
                     redirector = function(){
                         location = BASE.url + "dashboard";
                     }
-                    setTimeout(redirector,2000);
+                    setTimeout(redirector, 2000);
                 }
             })
         }
     };
 
     $scope.lang = function (langKey) {
-        if(langKey == "es"
+        if (langKey == "es"
 			|| langKey == "en"){
 			localStorage.lang = langKey;
 		}

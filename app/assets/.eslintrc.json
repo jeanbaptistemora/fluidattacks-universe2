@@ -126,7 +126,27 @@
         "no-sync": "error",
         "array-bracket-newline": "error",
         "array-bracket-spacing": "error",
-        "array-element-newline": "error"
+        "array-element-newline": "error",
+        "no-sync": "error",
+        "block-spacing": "error",
+        "brace-style": "error",
+        "capitalized-comments": "error",
+        "comma-dangle": "error",
+        "comma-spacing": "error",
+        "comma-style": "error",
+        "computed-property-spacing": "error",
+        "consistent-this": "error",
+        "eol-last": "error",
+        "func-call-spacing": "error",
+        "func-name-matching": "error",
+        "func-style": ["error", "declaration"],
+        "function-paren-newline": "error",
+        "id-blacklist": "error",
+        "id-match": "error",
+        "implicit-arrow-linebreak": "error",
+        "jsx-quotes": "error",
+        "key-spacing": "error",
+        "keyword-spacing": "error"
 
     }
 }

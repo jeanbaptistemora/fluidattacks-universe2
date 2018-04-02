@@ -14,15 +14,17 @@
  * @param {Object} ngNotify
  * @return {undefined}
  */
-integrates.controller("findingcontentCtrl", function($scope, $stateParams, $timeout,
-                                                          $uibModal, $translate, $state,
-                                                          ngNotify, findingFactory, projectFtry) {
+integrates.controller("findingcontentCtrl", function(
+  $scope, $stateParams, $timeout,
+  $uibModal, $translate, $state,
+  ngNotify, findingFactory, projectFtry
+) {
     $scope.findingHeaderBuilding = function(){
-        //console.log($scope.finding);
+        //Console.log($scope.finding);
         $scope.header = {};
         var cierres = $scope.finding.cierres;
         var cierresTmp = [];
-        for(var i = 0; i < cierres.length ; i++){
+        for (var i = 0; i < cierres.length ; i++){
             cierre = cierres[i];
             cierre.position = i+1;
             cierresTmp.push(cierre);
@@ -36,29 +38,28 @@ integrates.controller("findingcontentCtrl", function($scope, $stateParams, $time
         $scope.header.findingValue = $scope.finding.criticidad;
         $scope.header.findingTreatment = $scope.finding.tratamiento;
         var findingValue = parseFloat($scope.finding.criticidad);
-        if(findingValue >= 7){
+        if (findingValue >= 7){
             $scope.header.findingValueDescription = $translate.instant('finding_formstack.criticity_header.high');
             $scope.header.findingValueColor = $scope.colors.critical;
-        }else if(findingValue >= 4 && findingValue <= 6.9){
+        } else if (findingValue >= 4 && findingValue <= 6.9){
             $scope.header.findingValueDescription = $translate.instant('finding_formstack.criticity_header.moderate');
             $scope.header.findingValueColor = $scope.colors.moderate;
-        }else{
+        } else {
             $scope.header.findingValueDescription = $translate.instant('finding_formstack.criticity_header.tolerable');
             $scope.header.findingValueColor = $scope.colors.tolerable;
         }
 
-        if($scope.header.findingState == "Abierto" || $scope.header.findingState == "Open" ){
+        if ($scope.header.findingState == "Abierto" || $scope.header.findingState == "Open" ){
             $scope.header.findingStateColor = $scope.colors.critical;
-        }else if($scope.header.findingState == "Parcialmente cerrado" || $scope.header.findingState == "Partially closed"){
+        } else if ($scope.header.findingState == "Parcialmente cerrado" || $scope.header.findingState == "Partially closed"){
             $scope.header.findingStateColor = $scope.colors.moderate;
-        }else{
+        } else {
             $scope.header.findingStateColor = $scope.colors.ok;
         }
 
         $scope.header.findingCount = $scope.finding.cardinalidad;
     };
-    String.prototype.replaceAll = function(search, replace) /*eslint no-extend-native: ["error", { "exceptions": ["String"] }]*/
-    {
+    String.prototype.replaceAll = function(search, replace) { /*eslint no-extend-native: ["error", { "exceptions": ["String"] }]*/
         if (typeof replace === "undefined") {
             return this.toString();
         }
@@ -67,7 +68,7 @@ integrates.controller("findingcontentCtrl", function($scope, $stateParams, $time
     $scope.alertHeader = function(company, project){
       var req = projectFtry.getAlerts(company, project);
       req.then(function(response){
-          if(!response.error && response.data.length > 0){
+          if (!response.error && response.data.length > 0){
             if (response.data[0].status_act=='1'){
                var html = '<div class="alert alert-danger-2">';
                html += '<strong>Atención! </strong>' + response.data[0].message + '</div>';
@@ -81,10 +82,11 @@ integrates.controller("findingcontentCtrl", function($scope, $stateParams, $time
         var exploit = {};
         var req = projectFtry.getEvidences($scope.finding.id);
         req.then(function(response){
-            if(!response.error){
-                if(response.data.length > 0){
+            if (!response.error){
+                if (response.data.length > 0){
+                    /*eslint func-style: ["error", "expression"]*/
                     var resp_function = function(response){
-                        if(!response.error){
+                        if (!response.error){
                             responses = response.replaceAll("<", "&lt;");
                             responses = response.replaceAll(">", "&gt;");
                             $scope.exploitURL = responses;
@@ -93,25 +95,29 @@ integrates.controller("findingcontentCtrl", function($scope, $stateParams, $time
                         }
                       };
                     for (var i = 0; i < response.data.length; i++) {
-                        if(typeof response.data[i].exploit !== "undefined"
+                        if (typeof response.data[i].exploit !== "undefined"
                             && response.data[i].es_exploit == true
                               && $scope.finding.cierres.length == 0){
                           exploit = projectFtry.getExploit($scope.finding.id, response.data[i].exploit);
                           $scope.hasExploit = true;
-                          exploit.then(function(response){resp_function(response);});
-                        } else if(typeof $scope.finding.exploit !== "undefined" && $scope.finding.cierres.length == 0){
+                          exploit.then(function(response){
+ resp_function(response);
+});
+                        } else if (typeof $scope.finding.exploit !== "undefined" && $scope.finding.cierres.length == 0){
                             exploit = projectFtry.getExploit($scope.finding.id, $scope.finding.exploit);
                             $scope.hasExploit = true;
-                            exploit.then(function(response){resp_function(response);});
+                            exploit.then(function(response){
+ resp_function(response);
+});
                         } else {
                             $scope.hasExploit = false;
                         }
                     }
-                } else if(typeof $scope.finding.exploit !== "undefined" && $scope.finding.cierres.length == 0){
+                } else if (typeof $scope.finding.exploit !== "undefined" && $scope.finding.cierres.length == 0){
                             exploit = projectFtry.getExploit($scope.finding.id, $scope.finding.exploit);
                             $scope.hasExploit = true;
                             exploit.then(function(response){
-                                if(!response.error){
+                                if (!response.error){
                                     responses = response.replaceAll("<", "&lt;");
                                     responses = response.replaceAll(">", "&gt;");
                                     $scope.exploitURL = responses;
@@ -127,48 +133,52 @@ integrates.controller("findingcontentCtrl", function($scope, $stateParams, $time
         });
     };
     $scope.cssv2Editable = function(){
-        if($scope.onlyReadableTab2 == false){
+        if ($scope.onlyReadableTab2 == false){
             $scope.onlyReadableTab2 = true;
-        }else{
+        } else {
             $scope.onlyReadableTab2 = false;
         }
     };
     $scope.descriptionEditable = function(){
-        if($scope.onlyReadableTab1 == false){
+        if ($scope.onlyReadableTab1 == false){
             $scope.onlyReadableTab1 = true;
-        }else{
+        } else {
             $scope.onlyReadableTab1 = false;
         }
     };
     $scope.evidenceEditable = function(){
-        if($scope.onlyReadableTab3 == false){
+        if ($scope.onlyReadableTab3 == false){
             $scope.onlyReadableTab3 = true;
-        }else{
+        } else {
             $scope.onlyReadableTab3 = false;
         }
         var inputs = document.querySelectorAll( '.inputfile' );
-        Array.prototype.forEach.call( inputs, function( input )
-        {
+        Array.prototype.forEach.call( inputs, function( input ) {
           var label = input.nextElementSibling,
             labelVal = label.innerHTML;
 
-          input.addEventListener( 'change', function( e )
-          {
+          input.addEventListener( 'change', function( e ) {
             var fileName = '';
-            if( this.files && this.files.length > 1 )
-              {fileName = ( this.getAttribute( 'data-multiple-caption' ) || '' ).replace( '{count}', this.files.length );}
-            else
-              {fileName = e.target.value.split( '\\' ).pop();}
+            if ( this.files && this.files.length > 1 ) {
+ fileName = ( this.getAttribute( 'data-multiple-caption' ) || '' ).replace( '{count}', this.files.length );
+} else {
+ fileName = e.target.value.split( '\\' ).pop();
+}
 
-            if( fileName )
-              {label.querySelector( 'span' ).innerHTML = fileName;}
-            else
-              {label.innerHTML = labelVal;}
+            if ( fileName ) {
+ label.querySelector( 'span' ).innerHTML = fileName;
+} else {
+label.innerHTML = labelVal;
+}
           });
 
           // Firefox bug fix
-          input.addEventListener( 'focus', function(){ input.classList.add( 'has-focus' ); });
-          input.addEventListener( 'blur', function(){ input.classList.remove( 'has-focus' ); });
+          input.addEventListener( 'focus', function(){
+ input.classList.add( 'has-focus' );
+});
+          input.addEventListener( 'blur', function(){
+ input.classList.remove( 'has-focus' );
+});
         });
         $scope.evidenceDescription = [
 $('#evidenceText0').val(),
@@ -180,53 +190,53 @@ $('#evidenceText5').val(),
                                       $('#evidenceText6').val()
 ];
         var refList = []
-        for(var i = 0; i < $scope.tabEvidences.length; i++) {
+        for (var i = 0; i < $scope.tabEvidences.length; i++) {
             refList.push($scope.tabEvidences[i].ref);
         }
         var evidencesList = []
-        if(refList.indexOf(0) == -1) {
+        if (refList.indexOf(0) == -1) {
             $scope.tabEvidences.push({
                 "name": $translate.instant('search_findings.tab_evidence.animation_exploit'),
                 "desc": "",
                 "ref": 0
             });
         }
-        if(refList.indexOf(1) == -1) {
+        if (refList.indexOf(1) == -1) {
             $scope.tabEvidences.push({
                 "name": $translate.instant('search_findings.tab_evidence.evidence_exploit'),
                 "desc": "",
                 "ref": 1
             });
         }
-        if(refList.indexOf(2) == -1) {
+        if (refList.indexOf(2) == -1) {
             $scope.tabEvidences.push({
                 "name": $translate.instant('search_findings.tab_evidence.evidence_name') + ' 1',
                 "desc": "",
                 "ref": 2
             });
         }
-        if(refList.indexOf(3) == -1) {
+        if (refList.indexOf(3) == -1) {
             $scope.tabEvidences.push({
                 "name": $translate.instant('search_findings.tab_evidence.evidence_name') + ' 2',
                 "desc": "",
                 "ref": 3
             });
         }
-        if(refList.indexOf(4) == -1) {
+        if (refList.indexOf(4) == -1) {
             $scope.tabEvidences.push({
                 "name": $translate.instant('search_findings.tab_evidence.evidence_name') + ' 3',
                 "desc": "",
                 "ref": 4
             });
         }
-        if(refList.indexOf(5) == -1) {
+        if (refList.indexOf(5) == -1) {
             $scope.tabEvidences.push({
                 "name": $translate.instant('search_findings.tab_evidence.evidence_name') + ' 4',
                 "desc": "",
                 "ref": 5
             });
         }
-        if(refList.indexOf(6) == -1) {
+        if (refList.indexOf(6) == -1) {
             $scope.tabEvidences.push({
                 "name": $translate.instant('search_findings.tab_evidence.evidence_name') + ' 5',
                 "desc": "",
@@ -239,13 +249,13 @@ $('#evidenceText5').val(),
     };
     $scope.treatmentEditable = function(){
       $scope.goDown()
-      if($scope.onlyReadableTab4 == false){
+      if ($scope.onlyReadableTab4 == false){
           $scope.finding.responsable_tratamiento = userEmail;
           $scope.onlyReadableTab4 = true;
           $scope.finding.tratamiento = $scope.aux.tratamiento
           $scope.finding.razon_tratamiento = $scope.aux.razon
           $scope.finding.bts_externo = $scope.aux.bts
-      }else if($scope.onlyReadableTab4 == true){
+      } else if ($scope.onlyReadableTab4 == true){
           $scope.finding.tratamiento = $scope.aux.tratamiento
           $scope.finding.razon_tratamiento = $scope.aux.razon
           $scope.finding.responsable_tratamiento = $scope.aux.responsable
@@ -254,76 +264,84 @@ $('#evidenceText5').val(),
       }
     };
     $scope.exploitEditable = function(){
-        if($scope.onlyReadableTab5 == false){
+        if ($scope.onlyReadableTab5 == false){
             $scope.onlyReadableTab5 = true;
-        }else{
+        } else {
             $scope.onlyReadableTab5 = false;
         }
         var inputs = document.querySelectorAll( '.inputfile' );
-        Array.prototype.forEach.call( inputs, function( input )
-        {
+        Array.prototype.forEach.call( inputs, function( input ) {
           var label = input.nextElementSibling,
             labelVal = label.innerHTML;
 
-          input.addEventListener( 'change', function( e )
-          {
+          input.addEventListener( 'change', function( e ) {
             var fileName = '';
-            if( this.files && this.files.length > 1 )
-              {fileName = ( this.getAttribute( 'data-multiple-caption' ) || '' ).replace( '{count}', this.files.length );}
-            else
-              {fileName = e.target.value.split( '\\' ).pop();}
+            if ( this.files && this.files.length > 1 ) {
+ fileName = ( this.getAttribute( 'data-multiple-caption' ) || '' ).replace( '{count}', this.files.length );
+} else {
+ fileName = e.target.value.split( '\\' ).pop();
+}
 
-            if( fileName )
-              {label.querySelector( 'span' ).innerHTML = fileName;}
-            else
-              {label.innerHTML = labelVal;}
+            if ( fileName ) {
+label.querySelector( 'span' ).innerHTML = fileName;
+} else {
+label.innerHTML = labelVal;
+}
           });
 
           // Firefox bug fix
-          input.addEventListener( 'focus', function(){ input.classList.add( 'has-focus' ); });
-          input.addEventListener( 'blur', function(){ input.classList.remove( 'has-focus' ); });
+          input.addEventListener( 'focus', function(){
+ input.classList.add( 'has-focus' );
+});
+          input.addEventListener( 'blur', function(){
+ input.classList.remove( 'has-focus' );
+});
         });
     };
     $scope.recordsEditable = function(){
-        if($scope.onlyReadableTab6 == false){
+        if ($scope.onlyReadableTab6 == false){
             $scope.onlyReadableTab6 = true;
-        }else{
+        } else {
             $scope.onlyReadableTab6 = false;
         }
         var inputs = document.querySelectorAll( '.inputfile' );
-        Array.prototype.forEach.call( inputs, function( input )
-        {
+        Array.prototype.forEach.call( inputs, function( input ) {
           var label = input.nextElementSibling,
             labelVal = label.innerHTML;
 
-          input.addEventListener( 'change', function( e )
-          {
+          input.addEventListener( 'change', function( e ) {
             var fileName = '';
-            if( this.files && this.files.length > 1 )
-              {fileName = ( this.getAttribute( 'data-multiple-caption' ) || '' ).replace( '{count}', this.files.length );}
-            else
-              {fileName = e.target.value.split( '\\' ).pop();}
+            if ( this.files && this.files.length > 1 ) {
+ fileName = ( this.getAttribute( 'data-multiple-caption' ) || '' ).replace( '{count}', this.files.length );
+} else {
+fileName = e.target.value.split( '\\' ).pop();
+}
 
-            if( fileName )
-              {label.querySelector( 'span' ).innerHTML = fileName;}
-            else
-              {label.innerHTML = labelVal;}
+            if ( fileName ) {
+ label.querySelector( 'span' ).innerHTML = fileName;
+} else {
+label.innerHTML = labelVal;
+}
           });
 
           // Firefox bug fix
-          input.addEventListener( 'focus', function(){ input.classList.add( 'has-focus' ); });
-          input.addEventListener( 'blur', function(){ input.classList.remove( 'has-focus' ); });
+          input.addEventListener( 'focus', function(){
+ input.classList.add( 'has-focus' );
+});
+          input.addEventListener( 'blur', function(){
+ input.classList.remove( 'has-focus' );
+});
         });
     };
     $scope.detectNivel = function (){
         $timeout(function(){
             $scope.$apply();
-            if($scope.finding.nivel == "Detallado"){
+            if ($scope.finding.nivel == "Detallado"){
                 $scope.esDetallado = true;
-            }else{
+            } else {
                 $scope.esDetallado = false;
             }
-        },200);
+        }, 200);
     };
     $scope.updateCSSv2 = function(){
         //Obtener datos de las listas
@@ -355,13 +373,13 @@ $('#evidenceText5').val(),
                     var req = projectFtry.UpdateCSSv2(updateData);
                     //Capturar la Promisse
                     req.then(function(response){
-                        if(!response.error){
+                        if (!response.error){
                             var updated_at = $translate.instant('proj_alerts.updated_title');
                             var updated_ac = $translate.instant('proj_alerts.updated_cont');
-                            $msg.success(updated_ac,updated_at);
+                            $msg.success(updated_ac, updated_at);
                             $uibModalInstance.close();
                             location.reload();
-                        }else{
+                        } else {
                             var error_ac1 = $translate.instant('proj_alerts.error_textsad');
                             Rollbar.error("Error: An error occurred updating CSSv2");
                             $msg.error(error_ac1);
@@ -379,7 +397,7 @@ $('#evidenceText5').val(),
         var evImage = $(element).attr('target');
         var data_p = {};
         data_p.document = $('#evidence'+ evImage).val();
-        if(data_p.document == ""){
+        if (data_p.document == ""){
             error_ac1 = $translate.instant('proj_alerts.error_textsad');
             $msg.error(error_ac1);
             return false;
@@ -397,22 +415,22 @@ $('#evidenceText5').val(),
         var gif_max_size = 10485760;
         var py_max_size = 1048576;
         var csv_max_size = 1048576;
-        if((fileType == ".png" || fileType == ".PNG") && fileInput.files[0].size > png_max_size){
+        if ((fileType == ".png" || fileType == ".PNG") && fileInput.files[0].size > png_max_size){
             error_ac1 = $translate.instant('proj_alerts.file_size_png');
             $msg.error(error_ac1);
             return false;
         }
-        if((fileType == ".gif" || fileType == ".GIF") && fileInput.files[0].size > gif_max_size){
+        if ((fileType == ".gif" || fileType == ".GIF") && fileInput.files[0].size > gif_max_size){
             error_ac1 = $translate.instant('proj_alerts.file_size');
             $msg.error(error_ac1);
             return false;
         }
-        if((fileType == ".py" || fileType == ".PY") && fileInput.files[0].size > py_max_size){
+        if ((fileType == ".py" || fileType == ".PY") && fileInput.files[0].size > py_max_size){
             error_ac1 = $translate.instant('proj_alerts.file_size_py');
             $msg.error(error_ac1);
             return false;
         }
-        if((fileType == ".csv" || fileType == ".CSV") && fileInput.files[0].size > csv_max_size){
+        if ((fileType == ".csv" || fileType == ".CSV") && fileInput.files[0].size > csv_max_size){
             error_ac1 = $translate.instant('proj_alerts.file_size_py');
             $msg.error(error_ac1);
             return false;
@@ -425,7 +443,7 @@ $('#evidenceText5').val(),
 '5',
 '6'
 ];
-        if(evImage == '0' && (fileType != ".gif" && fileType != ".GIF")){
+        if (evImage == '0' && (fileType != ".gif" && fileType != ".GIF")){
             error_ac1 = $translate.instant('proj_alerts.file_type_gif');
             $msg.error(error_ac1);
             return false;
@@ -437,16 +455,16 @@ $('#evidenceText5').val(),
             error_ac1 = $translate.instant('proj_alerts.file_type_csv');
             $msg.error(error_ac1);
             return false;
-        } else if(evImages.indexOf(evImage) != -1 && (fileType != ".png" && fileType != ".PNG")){
+        } else if (evImages.indexOf(evImage) != -1 && (fileType != ".png" && fileType != ".PNG")){
             error_ac1 = $translate.instant('proj_alerts.file_type_png');
             $msg.error(error_ac1);
             return false;
         }
         var responseFunction = function(response){
-          if(!response.error){
+          if (!response.error){
               var updated_at = $translate.instant('proj_alerts.updated_title');
               var updated_ac = $translate.instant('proj_alerts.updated_cont_file');
-              $msg.success(updated_ac,updated_at);
+              $msg.success(updated_ac, updated_at);
               location.reload();
               return true;
           }
@@ -457,7 +475,7 @@ $('#evidenceText5').val(),
 
         };
         var errorFunction = function(response){
-          if(!response.error){
+          if (!response.error){
               error_ac1 = $translate.instant('proj_alerts.no_file_update');
               Rollbar.error("Error: An error occurred updating evidences");
               $msg.error(error_ac1);
@@ -472,41 +490,41 @@ $('#evidenceText5').val(),
         data.id = $scope.finding.id;
         var description = $('#evidenceText' + evImage).val();
         var file = $('#evidence'+ evImage).val();
-        if(description == '' || $scope.evidenceDescription[evImage] == description){
-            if(file != ''){
+        if (description == '' || $scope.evidenceDescription[evImage] == description){
+            if (file != ''){
                 updateEvidencesFiles(element);
             } else {
                 return false;
             }
         } else {
-            if(evImage == '2'){
+            if (evImage == '2'){
               data.desc_evidencia_1 = description;
               data.field = "desc_evidencia_1";
             }
-            if(evImage == '3'){
+            if (evImage == '3'){
                 data.desc_evidencia_2 = description;
                 data.field = "desc_evidencia_2";
             }
-            if(evImage == '4'){
+            if (evImage == '4'){
                 data.desc_evidencia_3 = description;
                 data.field = "desc_evidencia_3";
             }
-            if(evImage == '5'){
+            if (evImage == '5'){
                 data.desc_evidencia_4 = description;
                 data.field = "desc_evidencia_4";
             }
-            if(evImage == '6'){
+            if (evImage == '6'){
                 data.desc_evidencia_5 = description;
                 data.field = "desc_evidencia_5";
             }
             var req = projectFtry.UpdateEvidenceText(data);
             //Capturar la Promisse
             req.then(function(response){
-                if(!response.error){
+                if (!response.error){
                     var updated_at = $translate.instant('proj_alerts.updated_title');
                     var updated_ac = $translate.instant('proj_alerts.updated_cont_description');
-                    $msg.success(updated_ac,updated_at);
-                    if(file != ''){
+                    $msg.success(updated_ac, updated_at);
+                    if (file != ''){
                         updateEvidencesFiles(element);
                     } else {
                         location.reload();
@@ -540,15 +558,15 @@ $('#evidenceText5').val(),
                         var req = projectFtry.DeleteFinding($scope.vuln);
                         //Capturar la Promisse
                         req.then(function(response){
-                            if(!response.error){
+                            if (!response.error){
                                 var updated_at = $translate.instant('proj_alerts.updated_title');
                                 var updated_ac = $translate.instant('proj_alerts.updated_cont');
-                                $msg.success(updated_ac,updated_at);
+                                $msg.success(updated_ac, updated_at);
                                 $uibModalInstance.close();
                                 $state.go("ProjectNamed", {project: $stateParams.project});
                                 //Tracking mixpanel
                                 mixPanelDashboard.trackFinding("DeleteFinding", userEmail, descData.id);
-                            }else{
+                            } else {
                               var error_ac1 = $translate.instant('proj_alerts.error_textsad');
                               Rollbar.error("Error: An error occurred deleting finding");
                               $msg.error(error_ac1);
@@ -565,33 +583,33 @@ $('#evidenceText5').val(),
          $('html, body').animate({ scrollTop: 0 }, 'fast');
      };
     $scope.goDown = function(){
-         window.scrollTo(0,document.body.scrollHeight);
+         window.scrollTo(0, document.body.scrollHeight);
      };
 
     $scope.loadFindingByID = function(id){
         var req = findingFactory.getVulnById(id);
         req.then(function(response){
-            if(!response.error && $stateParams.project == response.data.proyecto_fluid.toLowerCase()){
+            if (!response.error && $stateParams.project == response.data.proyecto_fluid.toLowerCase()){
                 $scope.finding = response.data;
                 $scope.aux={};
                 $scope.aux.tratamiento = $scope.finding.tratamiento;
                 $scope.aux.razon = $scope.finding.razon_tratamiento;
-                if($scope.finding.tratamiento == "Asumido"){
+                if ($scope.finding.tratamiento == "Asumido"){
                   $scope.isAssumed = true;
                 } else {
                   $scope.isAssumed = false;
                 }
-                if($scope.finding.estado == "Cerrado"){
+                if ($scope.finding.estado == "Cerrado"){
                   $scope.isClosed = true;
                 } else {
                   $scope.isClosed = false;
                 }
-                if($scope.finding.suscripcion == "Continua" || $scope.finding.suscripcion == "Concurrente" || $scope.finding.suscripcion == "Si"){
+                if ($scope.finding.suscripcion == "Continua" || $scope.finding.suscripcion == "Concurrente" || $scope.finding.suscripcion == "Si"){
                   $scope.isContinuous = true;
                 } else {
                   $scope.isContinuous = false;
                 }
-                if($scope.finding.suscripcion != 'Concurrente' && $scope.finding.suscripcion != 'Puntual' && $scope.finding.suscripcion != 'Continua'){
+                if ($scope.finding.suscripcion != 'Concurrente' && $scope.finding.suscripcion != 'Puntual' && $scope.finding.suscripcion != 'Continua'){
                   Rollbar.warning("Warning: Finding " + id + " without type");
                 }
                 $scope.aux.responsable = $scope.finding.responsable_tratamiento;
@@ -910,14 +928,14 @@ $('#evidenceText5').val(),
                 $scope.findingCommentTab();
                 //Control de campos para tipos de hallazgo
                 $scope.esDetallado = false;
-                if($scope.finding.nivel == "Detallado"){
+                if ($scope.finding.nivel == "Detallado"){
                   $scope.esDetallado = true;
                 }
                 //Control de campos editables
                 $scope.onlyReadableTab1 = true;
                 $scope.onlyReadableTab2 = true;
                 $scope.isManager = userRole != "customer";
-                if(!$scope.isManager && !$scope.isAssumed && !$scope.isClosed && $scope.isContinuous){
+                if (!$scope.isManager && !$scope.isAssumed && !$scope.isClosed && $scope.isContinuous){
                   $('.finding-treatment').show();
                 } else {
                   $('.finding-treatment').hide();
@@ -944,7 +962,7 @@ $('#evidenceText5').val(),
                 }
             });
             //Init auto height in textarea
-            if($("#infoItem").hasClass("active")){
+            if ($("#infoItem").hasClass("active")){
               $timeout(function() {
                 $scope.$broadcast("elastic:adjust");
               });
@@ -978,10 +996,10 @@ $('#evidenceText5').val(),
     };
     $scope.configColorPalette = function(){
         $scope.colors = {};
-        $scope.colors.critical = "background-color: #f12;"; //red
-        $scope.colors.moderate = "background-color: #f72;"; //orange
-        $scope.colors.tolerable = "background-color: #ffbf00;"; //yellow
-        $scope.colors.ok = "background-color: #008000;"; //green
+        $scope.colors.critical = "background-color: #f12;"; //Red
+        $scope.colors.moderate = "background-color: #f72;"; //Orange
+        $scope.colors.tolerable = "background-color: #ffbf00;"; //Yellow
+        $scope.colors.ok = "background-color: #008000;"; //Green
     };
     $scope.findingCalculateCSSv2 = function(){
         var ImpCon = parseFloat($scope.finding.impacto_confidencialidad.split(" | ")[0]);
@@ -1022,11 +1040,11 @@ $('#evidenceText5').val(),
         $scope.finding.cardinalidad = parseInt($scope.finding.cardinalidad);
         $scope.finding.criticidad = parseFloat($scope.finding.criticidad);
         $scope.findingCalculateCSSv2();
-        if($scope.finding.nivel == "Detallado"){
+        if ($scope.finding.nivel == "Detallado"){
             $scope.esDetallado = "show-detallado";
             $scope.esGeneral = "hide-detallado";
             $scope.findingCalculateSeveridad();
-        }else{
+        } else {
             $scope.esDetallado = "hide-detallado";
             $scope.esGeneral = "show-detallado";
         }
@@ -1041,10 +1059,10 @@ $('#evidenceText5').val(),
         var url_pre = window.location.href.split('dashboard#!/')[0] + window.location.href.split('dashboard#!/')[1] + '/';
         var req = projectFtry.getEvidences($scope.finding.id);
         req.then(function(response){
-            if(!response.error){
-              if(response.data.length > 0){
+            if (!response.error){
+              if (response.data.length > 0){
                   for (var i = 0; i < response.data.length; i++) {
-                      if(typeof response.data[i].animacion !== "undefined" && response.data[i].es_animacion == true){
+                      if (typeof response.data[i].animacion !== "undefined" && response.data[i].es_animacion == true){
                           url = url_pre + response.data[i].animacion;
                           evidenceList.push({
                               "url": url,
@@ -1052,7 +1070,7 @@ $('#evidenceText5').val(),
                               "desc": $translate.instant('search_findings.tab_evidence.animation_exploit'),
                               "ref": 0
                           });
-                      } else if(typeof $scope.finding.animacion !== "undefined"){
+                      } else if (typeof $scope.finding.animacion !== "undefined"){
                           url = url_pre + $scope.finding.animacion;
                           evidenceList.push({
                               "url": url,
@@ -1061,7 +1079,7 @@ $('#evidenceText5').val(),
                               "ref": 0
                           });
                       }
-                      if(typeof response.data[i].explotacion !== "undefined" && response.data[i].es_explotacion == true){
+                      if (typeof response.data[i].explotacion !== "undefined" && response.data[i].es_explotacion == true){
                           url = url_pre + response.data[i].explotacion;
                           evidenceList.push({
                               "url": url,
@@ -1069,7 +1087,7 @@ $('#evidenceText5').val(),
                               "desc": $translate.instant('search_findings.tab_evidence.evidence_exploit'),
                               "ref": 1
                           });
-                      } else if(typeof $scope.finding.explotacion !== "undefined"){
+                      } else if (typeof $scope.finding.explotacion !== "undefined"){
                           url = url_pre + $scope.finding.explotacion;
                           evidenceList.push({
                               "url": url,
@@ -1078,130 +1096,110 @@ $('#evidenceText5').val(),
                               "ref": 1
                           });
                       }
-                      if(typeof $scope.finding.desc_evidencia_1 !== "undefined"
+                      if (typeof $scope.finding.desc_evidencia_1 !== "undefined"
                           && typeof response.data[i].ruta_evidencia_1 !== "undefined"
                             && response.data[i].es_ruta_evidencia_1 == true){
                           url = url_pre + response.data[i].ruta_evidencia_1;
                           evidenceList.push({
                               "name": $translate.instant('search_findings.tab_evidence.evidence_name') + ' 1',
                               "url": url,
-                              "desc": $scope.capitalizeFirstLetter(
-                                  $scope.finding.desc_evidencia_1
-                              ),
+                              "desc": $scope.capitalizeFirstLetter($scope.finding.desc_evidencia_1),
                               "ref": 2
                           });
-                      } else if(typeof $scope.finding.desc_evidencia_1 !== "undefined"
+                      } else if (typeof $scope.finding.desc_evidencia_1 !== "undefined"
                           && typeof $scope.finding.ruta_evidencia_1 !== "undefined"){
                           url = url_pre + $scope.finding.ruta_evidencia_1;
                           evidenceList.push({
                               "name": $translate.instant('search_findings.tab_evidence.evidence_name') + ' 1',
                               "url": url,
-                              "desc": $scope.capitalizeFirstLetter(
-                                  $scope.finding.desc_evidencia_1
-                              ),
+                              "desc": $scope.capitalizeFirstLetter($scope.finding.desc_evidencia_1),
                               "ref": 2
                           });
                       }
-                      if(typeof $scope.finding.desc_evidencia_2 !== "undefined"
+                      if (typeof $scope.finding.desc_evidencia_2 !== "undefined"
                           && typeof response.data[i].ruta_evidencia_2 !== "undefined"
                             && response.data[i].es_ruta_evidencia_2 == true){
                           url = url_pre + response.data[i].ruta_evidencia_2;
                           evidenceList.push({
                               "name": $translate.instant('search_findings.tab_evidence.evidence_name') + ' 2',
                               "url": url,
-                              "desc": $scope.capitalizeFirstLetter(
-                                  $scope.finding.desc_evidencia_2
-                              ),
+                              "desc": $scope.capitalizeFirstLetter($scope.finding.desc_evidencia_2),
                               "ref": 3
                           });
-                      } else if(typeof $scope.finding.desc_evidencia_2 !== "undefined"
+                      } else if (typeof $scope.finding.desc_evidencia_2 !== "undefined"
                           && typeof $scope.finding.ruta_evidencia_2 !== "undefined"){
                           url = url_pre + $scope.finding.ruta_evidencia_2;
                           evidenceList.push({
                               "name": $translate.instant('search_findings.tab_evidence.evidence_name') + ' 2',
                               "url": url,
-                              "desc": $scope.capitalizeFirstLetter(
-                                  $scope.finding.desc_evidencia_2
-                              ),
+                              "desc": $scope.capitalizeFirstLetter($scope.finding.desc_evidencia_2),
                               "ref": 3
                           });
                       }
-                      if(typeof $scope.finding.desc_evidencia_3 !== "undefined"
+                      if (typeof $scope.finding.desc_evidencia_3 !== "undefined"
                           && typeof response.data[i].ruta_evidencia_3 !== "undefined"
                             && response.data[i].es_ruta_evidencia_3 == true){
                           url = url_pre + response.data[i].ruta_evidencia_3;
                           evidenceList.push({
                               "name": $translate.instant('search_findings.tab_evidence.evidence_name') + ' 3',
                               "url": url,
-                              "desc": $scope.capitalizeFirstLetter(
-                                  $scope.finding.desc_evidencia_3
-                              ),
+                              "desc": $scope.capitalizeFirstLetter($scope.finding.desc_evidencia_3),
                               "ref": 4
                           });
-                      } else if(typeof $scope.finding.desc_evidencia_3 !== "undefined"
+                      } else if (typeof $scope.finding.desc_evidencia_3 !== "undefined"
                           && typeof $scope.finding.ruta_evidencia_3 !== "undefined"){
                           url = url_pre + $scope.finding.ruta_evidencia_3;
                           evidenceList.push({
                               "name": $translate.instant('search_findings.tab_evidence.evidence_name') + ' 3',
                               "url": url,
-                              "desc": $scope.capitalizeFirstLetter(
-                                  $scope.finding.desc_evidencia_3
-                              ),
+                              "desc": $scope.capitalizeFirstLetter($scope.finding.desc_evidencia_3),
                               "ref": 4
                           });
                       }
-                      if(typeof $scope.finding.desc_evidencia_4 !== "undefined"
+                      if (typeof $scope.finding.desc_evidencia_4 !== "undefined"
                           && typeof response.data[i].ruta_evidencia_4 !== "undefined"
                             && response.data[i].es_ruta_evidencia_4 == true){
                           url = url_pre + response.data[i].ruta_evidencia_4;
                           evidenceList.push({
                               "name": $translate.instant('search_findings.tab_evidence.evidence_name') + ' 4',
                               "url": url,
-                              "desc": $scope.capitalizeFirstLetter(
-                                  $scope.finding.desc_evidencia_4
-                              ),
+                              "desc": $scope.capitalizeFirstLetter($scope.finding.desc_evidencia_4),
                               "ref": 5
                           });
-                      } else if(typeof $scope.finding.desc_evidencia_4 !== "undefined"
+                      } else if (typeof $scope.finding.desc_evidencia_4 !== "undefined"
                           && typeof $scope.finding.ruta_evidencia_4 !== "undefined"){
                           url = url_pre + $scope.finding.ruta_evidencia_4;
                           evidenceList.push({
                               "name": $translate.instant('search_findings.tab_evidence.evidence_name') + ' 4',
                               "url": url,
-                              "desc": $scope.capitalizeFirstLetter(
-                                  $scope.finding.desc_evidencia_4
-                              ),
+                              "desc": $scope.capitalizeFirstLetter($scope.finding.desc_evidencia_4),
                               "ref": 5
                           });
                       }
-                      if(typeof $scope.finding.desc_evidencia_5 !== "undefined"
+                      if (typeof $scope.finding.desc_evidencia_5 !== "undefined"
                           && typeof response.data[i].ruta_evidencia_5 !== "undefined"
                             && response.data[i].es_ruta_evidencia_5 == true){
                           url = url_pre + response.data[i].ruta_evidencia_5;
                           evidenceList.push({
                               "name": $translate.instant('search_findings.tab_evidence.evidence_name') + ' 5',
                               "url": url,
-                              "desc": $scope.capitalizeFirstLetter(
-                                  $scope.finding.desc_evidencia_5
-                              ),
+                              "desc": $scope.capitalizeFirstLetter($scope.finding.desc_evidencia_5),
                               "ref": 6
                           });
-                      } else if(typeof $scope.finding.desc_evidencia_5 !== "undefined"
+                      } else if (typeof $scope.finding.desc_evidencia_5 !== "undefined"
                           && typeof $scope.finding.ruta_evidencia_5 !== "undefined"){
                           url = url_pre + $scope.finding.ruta_evidencia_5;
                           evidenceList.push({
                               "name": $translate.instant('search_findings.tab_evidence.evidence_name') + ' 5',
                               "url": url,
-                              "desc": $scope.capitalizeFirstLetter(
-                                  $scope.finding.desc_evidencia_5
-                              ),
+                              "desc": $scope.capitalizeFirstLetter($scope.finding.desc_evidencia_5),
                               "ref": 6
                           });
                       }
                       $scope.tabEvidences = evidenceList;
                   }
               } else {
-                  if(typeof $scope.finding.animacion !== "undefined"){
+                  if (typeof $scope.finding.animacion !== "undefined"){
                         url = url_pre + $scope.finding.animacion;
                         evidenceList.push({
                             "url": url,
@@ -1210,7 +1208,7 @@ $('#evidenceText5').val(),
                             "ref": 0
                         });
                     }
-                    if(typeof $scope.finding.explotacion !== "undefined"){
+                    if (typeof $scope.finding.explotacion !== "undefined"){
                         url = url_pre + $scope.finding.explotacion;
                         evidenceList.push({
                             "url": url,
@@ -1219,63 +1217,53 @@ $('#evidenceText5').val(),
                             "ref": 1
                         });
                     }
-                    if(typeof $scope.finding.desc_evidencia_1 !== "undefined"
+                    if (typeof $scope.finding.desc_evidencia_1 !== "undefined"
                         && typeof $scope.finding.ruta_evidencia_1 !== "undefined"){
                         url = url_pre + $scope.finding.ruta_evidencia_1;
                         evidenceList.push({
                             "url": url,
                             "name": $translate.instant('search_findings.tab_evidence.evidence_name') + ' 1',
-                            "desc": $scope.capitalizeFirstLetter(
-                                $scope.finding.desc_evidencia_1
-                            ),
+                            "desc": $scope.capitalizeFirstLetter($scope.finding.desc_evidencia_1),
                             "ref": 2
                         });
                     }
-                    if(typeof $scope.finding.desc_evidencia_2 !== "undefined"
+                    if (typeof $scope.finding.desc_evidencia_2 !== "undefined"
                         && typeof $scope.finding.ruta_evidencia_2 !== "undefined"){
                         url = url_pre + $scope.finding.ruta_evidencia_2;
                         evidenceList.push({
                             "url": url,
                             "name": $translate.instant('search_findings.tab_evidence.evidence_name') + ' 2',
-                            "desc": $scope.capitalizeFirstLetter(
-                                $scope.finding.desc_evidencia_2
-                            ),
+                            "desc": $scope.capitalizeFirstLetter($scope.finding.desc_evidencia_2),
                             "ref": 3
                         });
                     }
-                    if(typeof $scope.finding.desc_evidencia_3 !== "undefined"
+                    if (typeof $scope.finding.desc_evidencia_3 !== "undefined"
                         && typeof $scope.finding.ruta_evidencia_3 !== "undefined"){
                         url = url_pre + $scope.finding.ruta_evidencia_3;
                         evidenceList.push({
                             "url": url,
                             "name": $translate.instant('search_findings.tab_evidence.evidence_name') + ' 3',
-                            "desc": $scope.capitalizeFirstLetter(
-                                $scope.finding.desc_evidencia_3
-                            ),
+                            "desc": $scope.capitalizeFirstLetter($scope.finding.desc_evidencia_3),
                             "ref": 4
                         });
                     }
-                    if(typeof $scope.finding.desc_evidencia_4 !== "undefined"
+                    if (typeof $scope.finding.desc_evidencia_4 !== "undefined"
                         && typeof $scope.finding.ruta_evidencia_4 !== "undefined"){
                         url = url_pre + $scope.finding.ruta_evidencia_4;
                         evidenceList.push({
                             "url": url,
                             "name": $translate.instant('search_findings.tab_evidence.evidence_name') + ' 4',
-                            "desc": $scope.capitalizeFirstLetter(
-                                $scope.finding.desc_evidencia_4
-                            ),
+                            "desc": $scope.capitalizeFirstLetter($scope.finding.desc_evidencia_4),
                             "ref": 5
                         });
                     }
-                    if(typeof $scope.finding.desc_evidencia_5 !== "undefined"
+                    if (typeof $scope.finding.desc_evidencia_5 !== "undefined"
                         && typeof $scope.finding.ruta_evidencia_5 !== "undefined"){
                         url = url_pre + $scope.finding.ruta_evidencia_5;
                         evidenceList.push({
                             "url": url,
                             "name": $translate.instant('search_findings.tab_evidence.evidence_name') + ' 5',
-                            "desc": $scope.capitalizeFirstLetter(
-                                $scope.finding.desc_evidencia_5
-                            ),
+                            "desc": $scope.capitalizeFirstLetter($scope.finding.desc_evidencia_5),
                             "ref": 6
                         });
                     }
@@ -1288,10 +1276,10 @@ $('#evidenceText5').val(),
 
     };
     $scope.findingCommentTab = function(){
-        if(typeof $scope.finding.id !== "undefined"){
+        if (typeof $scope.finding.id !== "undefined"){
             var comments = projectFtry.getComments($scope.finding.id);
             comments.then(function(response){
-                if(!response.error){
+                if (!response.error){
                     var usersArray = []
                     for (var i = 0; i < response.data.length; i++) {
                       var user = {fullname: "", email: ""};
@@ -1302,7 +1290,9 @@ $('#evidenceText5').val(),
                     var saveComment = function(data) {
                       // Convert pings to human readable format
                       $(data.pings).each(function(index, id) {
-                        var user = usersArray.filter(function(user){return user.id == id})[0];
+                        var user = usersArray.filter(function(user){
+ return user.id == id
+})[0];
                         data.content = data.content.replace('@' + id, '@' + user.fullname);
                       });
                       return data;
@@ -1333,7 +1323,7 @@ $('#evidenceText5').val(),
                         data.remediated = false;
                         var comment = projectFtry.addComment($scope.finding.id, data);
                         comment.then(function(response){
-                          if(!response.error){
+                          if (!response.error){
                             //Tracking mixpanel
                             var org = Organization.toUpperCase();
                             var projt = $stateParams.project.toUpperCase();
@@ -1357,17 +1347,17 @@ $('#evidenceText5').val(),
         var record = {};
         var req = projectFtry.getEvidences($scope.finding.id);
         req.then(function(response){
-            if(!response.error){
-                if(localStorage.lang === "en"){
+            if (!response.error){
+                if (localStorage.lang === "en"){
                   vlang = 'en-US';
                 } else {
                   vlang = 'es-CO';
                 }
-                if(response.data.length > 0){
+                if (response.data.length > 0){
                     var resp_function = function(response){
-                        if(!response.error){
+                        if (!response.error){
                             var dataCols = []
-                            for(var i in response.data[0]){
+                            for (var i in response.data[0]){
                               if ({}.hasOwnProperty.call(response.data[0], i)) {
                                 dataCols.push({
                                     field: i,
@@ -1391,26 +1381,30 @@ $('#evidenceText5').val(),
                         }
                     }
                     for (var i = 0; i < response.data.length; i++) {
-                        if(typeof response.data[i].registros_archivo !== "undefined"
+                        if (typeof response.data[i].registros_archivo !== "undefined"
                             && response.data[i].es_registros_archivo == true){
                             record = projectFtry.getRecords($scope.finding.id, response.data[i].registros_archivo);
                             $scope.hasRecords = true;
-                            record.then(function(response){resp_function(response);});
-                        } else if(typeof $scope.finding.registros_archivo !== "undefined"){
+                            record.then(function(response){
+ resp_function(response);
+});
+                        } else if (typeof $scope.finding.registros_archivo !== "undefined"){
                             record = projectFtry.getRecords($scope.finding.id, $scope.finding.registros_archivo);
                             $scope.hasRecords = true;
-                            record.then(function(response){resp_function(response);});
+                            record.then(function(response){
+ resp_function(response);
+});
                         } else {
                             $scope.hasRecords = false;
                         }
                     }
-                } else if(typeof $scope.finding.registros_archivo !== "undefined"){
+                } else if (typeof $scope.finding.registros_archivo !== "undefined"){
                         record = projectFtry.getRecords($scope.finding.id, $scope.finding.registros_archivo);
                         $scope.hasRecords = true;
                         record.then(function(response){
-                            if(!response.error){
+                            if (!response.error){
                                 var dataCols = []
-                                for(var i in response.data[0]){
+                                for (var i in response.data[0]){
                                   if ({}.hasOwnProperty.call(response.data[0], i)) {
                                     dataCols.push({
                                         field: i,
@@ -1442,33 +1436,33 @@ $('#evidenceText5').val(),
     };
     $scope.findingCalculateSeveridad = function(){
         var severidad = 0;
-        if(!isNaN($scope.finding.severidad)){
+        if (!isNaN($scope.finding.severidad)){
             severidad = parseFloat($scope.finding.severidad);
             if (severidad < 0 || severidad > 5){
                 Rollbar.error("Error: Severity must be an integer bewteen 0 and 5");
                 $msg.error($translate.instant('proj_alerts.error_severity'), "error");
                 return false;
             }
-            try{
+            try {
                 var prob = $scope.finding.probabilidad;
                 severidad = $scope.finding.severidad;
                 prob = prob.split("%")[0];
                 prob = parseFloat(prob)/100.0;
                 severidad = parseFloat(severidad);
                 var vRiesgo = prob*severidad;
-                if(vRiesgo >= 3){
+                if (vRiesgo >= 3){
                     $scope.finding.valor_riesgo = "(:r) Critico".replace(":r", vRiesgo.toFixed(1));
-                }else if(vRiesgo >= 2 && vRiesgo < 3){
+                } else if (vRiesgo >= 2 && vRiesgo < 3){
                     $scope.finding.valor_riesgo = "(:r) Moderado".replace(":r", vRiesgo.toFixed(1));
-                }else{
+                } else {
                     $scope.finding.valor_riesgo = "(:r) Tolerable".replace(":r", vRiesgo.toFixed(1));
                 }
                 return true;
-            }catch(e){
+            } catch (e){
                     $scope.finding.valor_riesgo = "";
                     return false;
             }
-        }else{
+        } else {
             Rollbar.error("Error: Severity must be an integer bewteen 0 and 5");
             $msg.error($translate.instant('proj_alerts.error_severity'), "error");
             return false;
@@ -1496,12 +1490,12 @@ $('#evidenceText5').val(),
              sistema_comprometido: $scope.finding.sistema_comprometido,
              cwe: $scope.finding.cwe,
              registros: $scope.finding.registros,
-             registros_num: $scope.finding.registros_num,
+             registros_num: $scope.finding.registros_num
          };
-         if(descData.nivel == "Detallado"){
+         if (descData.nivel == "Detallado"){
              //Recalcular Severidad
              var choose = $scope.findingCalculateSeveridad();
-             if(!choose){
+             if (!choose){
                  Rollbar.error("Error: An error occurred calculating severity");
                  $msg.error( $translate.instant('proj_alerts.wrong_severity'));
                  return false;
@@ -1519,15 +1513,15 @@ $('#evidenceText5').val(),
                      var req = projectFtry.UpdateDescription(updateData);
                      //Capturar la Promisse
                      req.then(function(response){
-                         if(!response.error){
+                         if (!response.error){
                              var updated_at = $translate.instant('proj_alerts.updated_title');
                              var updated_ac = $translate.instant('proj_alerts.updated_cont');
-                             $msg.success(updated_ac,updated_at);
+                             $msg.success(updated_ac, updated_at);
                              $uibModalInstance.close();
                              location.reload();
                              //Tracking mixpanel
                              mixPanelDashboard.trackFinding("UpdateFinding", userEmail, descData.id);
-                         }else{
+                         } else {
                            Rollbar.error("Error: An error occurred updating description");
                            var error_ac1 = $translate.instant('proj_alerts.error_textsad');
                            $msg.error(error_ac1);
@@ -1559,12 +1553,16 @@ $('#evidenceText5').val(),
           if ($scope.finding.tratamiento === 'Pendiente' && $scope.aux.razon !== $scope.finding.razon_tratamiento) {
             if ($scope.validateTreatment()==='true') {
               flag = 'true'
-            } else { flag = 'false' }
+            } else {
+ flag = 'false'
+}
         } else if ($scope.finding.tratamiento !== 'Pendiente' && $scope.aux.razon !== $scope.finding.razon_tratamiento ||
           $scope.finding.tratamiento !== 'Pendiente' && $scope.aux.razon === $scope.finding.razon_tratamiento) {
               if ($scope.validateTreatment()==='true') {
                 flag = 'true'
-              } else { flag = 'false' }
+              } else {
+ flag = 'false'
+}
         } else if ($scope.finding.tratamiento === 'Pendiente' && $scope.aux.razon === $scope.finding.razon_tratamiento) {
               flag = 'true'
           }
@@ -1574,7 +1572,7 @@ $('#evidenceText5').val(),
               tratamiento: $scope.finding.tratamiento,
               razon_tratamiento: $scope.finding.razon_tratamiento,
               responsable_tratamiento: $scope.finding.responsable_tratamiento,
-              bts_externo: $scope.finding.bts_externo,
+              bts_externo: $scope.finding.bts_externo
             };
             var modalInstance = $uibModal.open({
               templateUrl: BASE.url + 'assets/views/project/confirmMdl.html',
@@ -1588,14 +1586,14 @@ $('#evidenceText5').val(),
                       var req = projectFtry.UpdateTreatment(updateData);
                       //Capturar la Promisse
                       req.then(function(response){
-                          if(!response.error){
+                          if (!response.error){
                               var org = Organization.toUpperCase();
                               var projt = $stateParams.project.toUpperCase();
                               mixPanelDashboard.trackFindingDetailed("FindingUpdateTreatment", userName, userEmail, org, projt, newData.id);
-                              $msg.success($translate.instant('proj_alerts.updated_treat'),$translate.instant('proj_alerts.congratulation'));
+                              $msg.success($translate.instant('proj_alerts.updated_treat'), $translate.instant('proj_alerts.congratulation'));
                               $uibModalInstance.close();
                               location.reload();
-                          }else{
+                          } else {
                             Rollbar.error("Error: An error occurred updating treatment");
                             var error_ac1 = $translate.instant('proj_alerts.error_textsad');
                             $msg.error(error_ac1);
@@ -1617,7 +1615,7 @@ $('#evidenceText5').val(),
             project: $scope.finding.proyecto_fluid,
             finding_url: window.location.href,
             finding_id: $scope.finding.id,
-            finding_vulns: $scope.finding.cardinalidad,
+            finding_vulns: $scope.finding.cardinalidad
          };
          var modalInstance = $uibModal.open({
              templateUrl: BASE.url + 'assets/views/project/remediatedMdl.html',
@@ -1635,14 +1633,14 @@ $('#evidenceText5').val(),
                     $scope.remediatedData.finding_id = mailData.finding_id;
                     $scope.remediatedData.finding_vulns = mailData.finding_vulns;
                     $scope.remediatedData.justification = $scope.remediatedData.justification.trim();
-                    if($scope.remediatedData.justification.length < 100) {
+                    if ($scope.remediatedData.justification.length < 100) {
                       $msg.error($translate.instant('proj_alerts.short_remediated_comment'));
                     } else {
                       //Consumir el servicio
                       var req = projectFtry.FindingSolved($scope.remediatedData);
                       //Capturar la Promisse
                       req.then(function(response){
-                          if(!response.error){
+                          if (!response.error){
                               //Tracking mixpanel
                               var org = Organization.toUpperCase();
                               var projt = descData.project.toUpperCase();
@@ -1661,7 +1659,7 @@ $('#evidenceText5').val(),
                               data.finding_url = $scope.remediatedData.finding_url;
                               data.remediated = true;
                               var comment = projectFtry.addComment($scope.remediatedData.finding_id, data);
-                          }else{
+                          } else {
                             Rollbar.error("Error: An error occurred when remediating the finding");
                             $msg.error($translate.instant('proj_alerts.error_textsad'));
                          }
@@ -1678,12 +1676,12 @@ $('#evidenceText5').val(),
     $scope.remediatedView = function(){
         $scope.isManager = userRole != "customer";
         $scope.isRemediated = true;
-        if(typeof $scope.finding.id !== "undefined"){
+        if (typeof $scope.finding.id !== "undefined"){
             var req = projectFtry.RemediatedView($scope.finding.id);
             req.then(function(response){
-                if(!response.error){
+                if (!response.error){
                   $scope.isRemediated = response.data.remediated;
-                  if($scope.isManager && $scope.isRemediated){
+                  if ($scope.isManager && $scope.isRemediated){
                     $('.finding-verified').show();
                   } else {
                     $('.finding-verified').hide();
@@ -1704,7 +1702,7 @@ $('#evidenceText5').val(),
             project: $scope.finding.proyecto_fluid,
             finding_url: trackingUrl,
             finding_id: $scope.finding.id,
-            finding_vulns: $scope.finding.cardinalidad,
+            finding_vulns: $scope.finding.cardinalidad
         };
         var modalInstance = $uibModal.open({
             templateUrl: BASE.url + 'assets/views/project/confirmMdl.html',
@@ -1718,17 +1716,17 @@ $('#evidenceText5').val(),
                     var req = projectFtry.FindingVerified(mailData);
                     //Capturar la Promisse
                     req.then(function(response){
-                        if(!response.error){
+                        if (!response.error){
                             //Tracking mixpanel
                             var org = Organization.toUpperCase();
                             var projt = descData.project.toUpperCase();
                             mixPanelDashboard.trackFindingDetailed("FindingVerified", userName, userEmail, org, projt, descData.finding_id);
                             var updated_at = $translate.instant('proj_alerts.updated_title');
                             var updated_ac = $translate.instant('proj_alerts.verified_success');
-                            $msg.success(updated_ac,updated_at);
+                            $msg.success(updated_ac, updated_at);
                             $uibModalInstance.close();
                             location.reload();
-                        }else{
+                        } else {
                           Rollbar.error("Error: An error occurred when verifying the finding");
                           $msg.error($translate.instant('proj_alerts.error_textsad'));
                         }
@@ -1784,8 +1782,10 @@ $('#evidenceText5').val(),
         $scope.view.project = false;
         $scope.view.finding = false;
         //Parametros de ruta
-        if(typeof findingId !== "undefined") {$scope.findingId = findingId;}
-        if(typeof project != "undefined"
+        if (typeof findingId !== "undefined") {
+ $scope.findingId = findingId;
+}
+        if (typeof project != "undefined"
             && project != "") {
             $scope.project = project;
         }

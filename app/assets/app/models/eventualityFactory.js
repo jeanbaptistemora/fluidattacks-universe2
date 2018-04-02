@@ -33,20 +33,20 @@ integrates.factory('eventualityFactory', function($q){
                   },
                   error: function (xhr, status) {
                       $(".loader").hide();
-                      if(xhr.status == 500){
+                      if (xhr.status == 500){
                         Rollbar.error("Error: An error ocurred loading data");
                         deferred.resolve({
                             error: null,
                             message: "Error interno cargando datos"
                         });
-                      }else if(xhr.status == 401){
+                      } else if (xhr.status == 401){
                          Rollbar.error("Error: 401 Unauthorized");
                          location = "error401";
                       }
                   }
               });
           } catch (e) {
-              if(e.status == 401){
+              if (e.status == 401){
                   Rollbar.error("Error: 401 Unauthorized");
                   location = "error401";
               }
@@ -76,29 +76,29 @@ integrates.factory('eventualityFactory', function($q){
                   },
                   error: function (xhr, status) {
                       $(".loader").hide();
-                      if(xhr.status == 500){
+                      if (xhr.status == 500){
                         Rollbar.error("Error: An error ocurred loading data");
                         deferred.resolve({
                             error: null,
                             message: "Error interno cargando datos"
                         });
-                      }else if(xhr.status == 401){
+                      } else if (xhr.status == 401){
                          Rollbar.error("Error: 401 Unauthorized");
                          location = "error401";
                       }
                   }
               });
           } catch (e) {
-              if(e.status == 401){
+              if (e.status == 401){
                   Rollbar.error("Error: 401 Unauthorized");
                   location = "error401";
-              }else if(e.status == 500){
+              } else if (e.status == 500){
                   Rollbar.error("Error: An error ocurred loading data");
                   deferred.resolve({
                     error: "undefined",
                     message: "Error interno cargando datos"
                   });
-              }else{
+              } else {
                   Rollbar.error("Error: An error ocurred updating event", e);
                   deferred.resolve({
                     error: "undefined",

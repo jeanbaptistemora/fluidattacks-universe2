@@ -23,7 +23,7 @@ integrates.factory('projectFtry', function($q, $translate){
             var oops_ac = $translate.instant('proj_alerts.error_text');
             return $xhr.get($q, BASE.url + "get_findings", {
                 project: project, filter: filter, _: Math.random()
-            },oops_ac);
+            }, oops_ac);
         },
         /**
          * Invoca el servicio para tener las eventualidades de un proyecto
@@ -37,7 +37,7 @@ integrates.factory('projectFtry', function($q, $translate){
             var oops_ac = $translate.instant('proj_alerts.error_text');
             return $xhr.get($q, BASE.url + "get_eventualities", {
                 project: project, category: category, _: Math.random()
-            },oops_ac);
+            }, oops_ac);
         },
         /**
          * Invoca el servicio para tener el exploit de un hallazgo
@@ -77,7 +77,7 @@ integrates.factory('projectFtry', function($q, $translate){
             var oops_ac = $translate.instant('proj_alerts.error_text');
             return $xhr.get($q, BASE.url + "get_evidences", {
                 id: id, _: Math.random()
-            },oops_ac)
+            }, oops_ac)
         },
         /**
          * Invoca el servicio para tener los comentarios de un hallazgo
@@ -90,7 +90,7 @@ integrates.factory('projectFtry', function($q, $translate){
             var oops_ac = $translate.instant('proj_alerts.error_text');
             return $xhr.get($q, BASE.url + "get_comments", {
                 id: id, _: Math.random()
-            },oops_ac);
+            }, oops_ac);
         },
         /**
          * Invoca el servicio para agregar nuevos comentarios en un hallazgo
@@ -104,7 +104,7 @@ integrates.factory('projectFtry', function($q, $translate){
             var oops_ac = $translate.instant('proj_alerts.error_text');
             return $xhr.post($q, BASE.url + "add_comment", {
                 id: id, data: data, _: Math.random()
-            },oops_ac);
+            }, oops_ac);
         },
         /**
          * Invoca el servicio para eliminar los comentarios en un hallazgo
@@ -118,7 +118,7 @@ integrates.factory('projectFtry', function($q, $translate){
             var oops_ac = $translate.instant('proj_alerts.error_text');
             return $xhr.post($q, BASE.url + "delete_comment", {
                 id: id, data: data, _: Math.random()
-            },oops_ac);
+            }, oops_ac);
         },
         /**
          * Invoca el servicio para tener el detalle de un hallazgo
@@ -131,7 +131,7 @@ integrates.factory('projectFtry', function($q, $translate){
             var oops_ac = $translate.instant('proj_alerts.error_text');
             return $xhr.post($q, BASE.url + "get_finding", {
                 id: id, _: Math.random()
-            },oops_ac);
+            }, oops_ac);
         },
         /**
          * Invoca el servicio para tener el detalle de un hallazgo
@@ -146,7 +146,7 @@ integrates.factory('projectFtry', function($q, $translate){
             var oops_ac = $translate.instant('proj_alerts.error_text');
             return $xhr.post($q, BASE.url + "generate_autodoc", {
                 project: project, data: json, format: format, _: Math.random()
-            },oops_ac);
+            }, oops_ac);
         },
         /**
          * Invoca el servicio para actualizar la seccion
@@ -160,7 +160,7 @@ integrates.factory('projectFtry', function($q, $translate){
             var oops_ac = $translate.instant('proj_alerts.error_text');
             return $xhr.post($q, BASE.url + "update_cssv2", {
                 data, _: Math.random()
-            },oops_ac);
+            }, oops_ac);
         },
         /**
          * Invoca el servicio para actualizar la seccion
@@ -174,7 +174,7 @@ integrates.factory('projectFtry', function($q, $translate){
             var oops_ac = $translate.instant('proj_alerts.error_text');
             return $xhr.post($q, BASE.url + "update_description", {
                 data, _: Math.random()
-            },oops_ac);
+            }, oops_ac);
         },
         /**
          * Invoca el servicio para actualizar el tratamiento de un hallazgo
@@ -187,7 +187,7 @@ integrates.factory('projectFtry', function($q, $translate){
             var oops_ac = $translate.instant('proj_alerts.error_text');
             return $xhr.post($q, BASE.url + "update_treatment", {
                 data, _: Math.random()
-            },oops_ac);
+            }, oops_ac);
         },
         /**
          * Invoca el servicio para actualizar la seccion
@@ -201,7 +201,7 @@ integrates.factory('projectFtry', function($q, $translate){
             var oops_ac = $translate.instant('proj_alerts.error_text');
             return $xhr.post($q, BASE.url + "delete_finding", {
                 data: data, _: Math.random()
-            },oops_ac);
+            }, oops_ac);
         },
         /**
          * @function FindingSolved
@@ -213,7 +213,7 @@ integrates.factory('projectFtry', function($q, $translate){
             var oops_ac = $translate.instant('proj_alerts.error_text');
             return $xhr.post($q, BASE.url + "finding_solved", {
                 data, _: Math.random()
-            },oops_ac);
+            }, oops_ac);
         },
         /**
          * Invoca el servicio para mostrar la severidad total del proyecto
@@ -226,7 +226,7 @@ integrates.factory('projectFtry', function($q, $translate){
             var oops_ac = $translate.instant('proj_alerts.error_text');
             return $xhr.get($q, BASE.url + "total_severity", {
                 project: project, _: Math.random()
-            },oops_ac);
+            }, oops_ac);
         },
         /**
          * Invoca el servicio para mostrar si fue remediado un hallazgo
@@ -239,7 +239,7 @@ integrates.factory('projectFtry', function($q, $translate){
             var oops_ac = $translate.instant('proj_alerts.error_text');
             return $xhr.get($q, BASE.url + "get_remediated", {
                 id: id, _: Math.random()
-            },oops_ac);
+            }, oops_ac);
         },
         /**
          * Invoca el servicio para mostrar si fue verificado un hallazgo
@@ -252,7 +252,7 @@ integrates.factory('projectFtry', function($q, $translate){
             var oops_ac = $translate.instant('proj_alerts.error_text');
             return $xhr.post($q, BASE.url + "finding_verified", {
                 data, _: Math.random()
-            },oops_ac);
+            }, oops_ac);
         },
         UpdateEvidenceFiles: function(data, callbackFn, errorFn){
             try {
@@ -270,9 +270,9 @@ integrates.factory('projectFtry', function($q, $translate){
                     },
                     error: function (xhr, status, response) {
                         $(".loader").hide();
-                        if(xhr.status == 500){
+                        if (xhr.status == 500){
                             Rollbar.error("Error: An error ocurred loading data");
-                        }else if(xhr.status == 401){
+                        } else if (xhr.status == 401){
                             Rollbar.error("Error: 401 Unauthorized");
                             location = "error401";
                         }
@@ -280,7 +280,7 @@ integrates.factory('projectFtry', function($q, $translate){
                     }
                 });
             } catch (e) {
-                if(e.status == 401){
+                if (e.status == 401){
                     Rollbar.error("Error: 401 Unauthorized");
                     location = "error401";
                 }
@@ -291,7 +291,7 @@ integrates.factory('projectFtry', function($q, $translate){
             var oops_ac = $translate.instant('proj_alerts.error_text');
             return $xhr.post($q, BASE.url + "update_evidence_text", {
                 data, _: Math.random()
-            },oops_ac);
+            }, oops_ac);
         },
         /**
          * Invoca el servicio para tener las alertas de una compañia
@@ -305,7 +305,7 @@ integrates.factory('projectFtry', function($q, $translate){
             var oops_ac = $translate.instant('proj_alerts.error_text');
             return $xhr.get($q, BASE.url + "get_alerts", {
                 company: company, project: project, _: Math.random()
-            },oops_ac)
-        },
+            }, oops_ac)
+        }
     }
 });

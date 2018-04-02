@@ -12,11 +12,14 @@
  * @return {String}
  */
 integrates.afectacionFormatter = function(value, row, index){
-    if(typeof value === "undefined")
-        {return "0";} //fix
-    if(!isFinite(value))
-        {if (value.trim() == "")
-            {return "0";}}
+    if (typeof value === "undefined") {
+ return "0";
+} //Fix
+    if (!isFinite(value)) {
+if (value.trim() == "") {
+ return "0"; 
+} 
+}
     return value;
 };
 /**
@@ -28,7 +31,7 @@ integrates.afectacionFormatter = function(value, row, index){
 integrates.evntTotalize = function(data){
     var cardinalidad = 0;
     var afectacion = 0;
-    for(var i = 0; i< data.data.length;i++){
+    for (var i = 0; i< data.data.length;i++){
         auxAfectacion = 0;
         if (data.data[i].afectacion != ""){
             auxAfectacion += parseInt(data.data[i].afectacion);
@@ -47,11 +50,11 @@ integrates.evntTotalize = function(data){
 integrates.updateEvntRow = function(row){
     var data = $("#eventualities").bootstrapTable("getData");
     var newData = [];
-    for(var i=0; i< data.length;i++){
+    for (var i=0; i< data.length;i++){
         delete data[i][i.toString()];
-        if(data[i].id == row.id){
+        if (data[i].id == row.id){
             newData.push(row);
-        }else{
+        } else {
             newData.push(data[i]);
         }
     }
@@ -89,18 +92,16 @@ integrates.controller("eventualityController", function($scope, $uibModal, $tran
     $scope.init = function(){
         $("#search_section").hide();
         $(".loader").hide();
-        document.onkeypress = function(ev){ //asignar funcion a la tecla Enter
-            if(ev.keyCode === 13){
-                if($('#project').is(':focus')){
+        document.onkeypress = function(ev){ //Asignar funcion a la tecla Enter
+            if (ev.keyCode === 13){
+                if ($('#project').is(':focus')){
                     $scope.searchEvntByName();
                 }
             }
         }
-        mixpanel.track(
-        "SearchEventuality", {
-            "Email": userEmail,
-            }
-        );
+        mixpanel.track("SearchEventuality", {
+            "Email": userEmail
+            });
         $scope.view = {};
         $scope.view.event = false;
     }
@@ -112,13 +113,13 @@ integrates.controller("eventualityController", function($scope, $uibModal, $tran
      */
     $scope.openModalVer = function(){
         var sel = $("#eventualities").bootstrapTable('getSelections');
-        if(sel.length == 0){
+        if (sel.length == 0){
             Rollbar.error("Error: No events are selected");
             $.gritter.add({
                 title: 'Error',
                 text: event_select,
                 class_name: 'color warning',
-                    sticky: false,
+                    sticky: false
             });
             return false;
         }
@@ -175,13 +176,13 @@ integrates.controller("eventualityController", function($scope, $uibModal, $tran
      */
     $scope.openModalEditar = function(){
         var sel = $("#eventualities").bootstrapTable('getSelections');
-        if(sel.length == 0){
+        if (sel.length == 0){
             Rollbar.error("Error: No events are selected");
             $.gritter.add({
                 title: 'Error',
                 text: event_select,
                 class_name: 'color warning',
-                sticky: false,
+                sticky: false
             });
             return false;
         }
@@ -202,38 +203,38 @@ integrates.controller("eventualityController", function($scope, $uibModal, $tran
                 $scope.okModalEditar = function(){
                    var neg = "negativo";
                    submit = false;
-                   try{
-                       if(typeof $scope.evnt.afectacion == "undefined"){
+                   try {
+                       if (typeof $scope.evnt.afectacion == "undefined"){
                            throw neg;
                        }
                        submit = true;
-                   }catch(e){
+                   } catch (e){
                         Rollbar.error("Error: Affectation can not be a negative number");
                        $.gritter.add({
                             title: attent_title,
                             text: event_positiveint,
                             class_name: 'color warning',
-                            sticky: false,
+                            sticky: false
                        });
                        return false;
                    }
                    eventualityFactory.updateEvnt($scope.evnt).then(function(response){
-                        if(!response.error){
+                        if (!response.error){
                             $.gritter.add({
                                 title: updated_title,
                                 text: event_updated,
                                 class_name: 'color success',
-                                sticky: false,
+                                sticky: false
                             });
                             integrates.updateEvntRow($scope.evnt);
                             $uibModalInstance.close();
-                        }else{
+                        } else {
                             Rollbar.error("Error: An error occurred updating events");
                             $.gritter.add({
                                 title: 'Error!',
                                 text: response.message,
                                 class_name: 'color warning',
-                                sticky: false,
+                                sticky: false
                             });
                         }
                    });
@@ -262,7 +263,7 @@ integrates.controller("eventualityController", function($scope, $uibModal, $tran
      */
     $scope.searchEvntByName = function(){
         var vlang = 'en-US';
-        if(localStorage.lang === "en"){
+        if (localStorage.lang === "en"){
           vlang = 'en-US';
         } else {
           vlang = 'es-CO';
@@ -278,15 +279,15 @@ integrates.controller("eventualityController", function($scope, $uibModal, $tran
                 title: event_title,
                 text: event_wait,
                 class_name: 'color info',
-                sticky: false,
+                sticky: false
             });
             $(".loader").show();
             $scope.maxRecursiveCall = 5;
             eventualityFactory.getEvntByName(project, category).then(function(data){
-                if(!data.error){
+                if (!data.error){
                     //CONFIGURACION DE TABLA
                     $scope.view.event = true;
-                    for(var i = 0; i< data.data.length;i++){
+                    for (var i = 0; i< data.data.length;i++){
                         switch (data.data[i].tipo) {
                             case "Autorización para ataque especial":
                                 data.data[i].tipo = $translate.instant('event_formstack.type.auth_attack');
@@ -346,20 +347,20 @@ integrates.controller("eventualityController", function($scope, $uibModal, $tran
                         title: event_title,
                         text: updated_title,
                         class_name: 'color success',
-                        sticky: false,
+                        sticky: false
                     });
-                }else{
+                } else {
                     $scope.view.event = false;
                     Rollbar.error("Error: An error occurred searching events");
                      $.gritter.add({
                         title: 'Error',
                         text: data.message,
                         class_name: 'color danger',
-                        sticky: false,
+                        sticky: false
                     });
                 }
             });
-        }else{
+        } else {
             $scope.response = event_required ;
         }
     };

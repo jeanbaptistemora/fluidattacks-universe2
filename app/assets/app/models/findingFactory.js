@@ -9,7 +9,7 @@
  * @param {Object} $q
  * @return {undefined}
  */
-integrates.factory('findingFactory', function($q,$translate){
+integrates.factory('findingFactory', function($q, $translate){
     return {
         /**
          * Invoca el servicio para tener los hallazgos de un proyecto
@@ -47,20 +47,20 @@ integrates.factory('findingFactory', function($q,$translate){
                   },
                   error: function (xhr, status) {
                       $(".loader").hide();
-                      if(xhr.status == 500){
+                      if (xhr.status == 500){
                         Rollbar.error("Error: An error ocurred loading data");
                         deferred.resolve({
                             error: null,
                             message: "Error interno cargando datos"
                         });
-                      }else if(xhr.status == 401){
+                      } else if (xhr.status == 401){
                          Rollbar.error("Error: 401 Unauthorized");
                          location = "error401";
                       }
                   }
               });
           } catch (e) {
-              if(e.status == 401){
+              if (e.status == 401){
                 Rollbar.error("Error: 401 Unauthorized");
                   location = "error401";
               }
@@ -92,20 +92,20 @@ integrates.factory('findingFactory', function($q,$translate){
                   },
                   error: function (xhr, status) {
                       $(".loader").hide();
-                      if(xhr.status == 500){
+                      if (xhr.status == 500){
                         Rollbar.error("Error: An error ocurred loading data");
                         deferred.resolve({
                             error: null,
                             message: "Error interno cargando datos"
                         });
-                      }else if(xhr.status == 401){
+                      } else if (xhr.status == 401){
                          Rollbar.error("Error: 401 Unauthorized");
                          location = "error401";
                       }
                   }
               });
           } catch (e) {
-              if(e.status == 401){
+              if (e.status == 401){
                   Rollbar.error("Error: 401 Unauthorized");
                   location = "error401";
               }
@@ -140,13 +140,13 @@ integrates.factory('findingFactory', function($q,$translate){
                   },
                   error: function (xhr, status) {
                       $(".loader").hide();
-                      if(xhr.status == 500){
+                      if (xhr.status == 500){
                         Rollbar.error("Error: An error ocurred loading data");
                         deferred.resolve({
                             error: null,
                             message: "Error interno cargando datos"
                         });
-                      }else if(xhr.status == 401){
+                      } else if (xhr.status == 401){
                          Rollbar.error("Error: 401 Unauthorized");
                          location = "error401";
                       }
@@ -180,20 +180,20 @@ integrates.factory('findingFactory', function($q,$translate){
                   },
                   error: function (xhr, status) {
                       $(".loader").hide();
-                      if(xhr.status == 500){
+                      if (xhr.status == 500){
                         Rollbar.error("Error: An error ocurred loading data");
                         deferred.resolve({
                             error: null,
                             message: "Error interno cargando datos"
                         });
-                      }else if(xhr.status == 401){
+                      } else if (xhr.status == 401){
                          Rollbar.error("Error: 401 Unauthorized");
                          location = "error401";
                       }
                   }
               });
           } catch (e) {
-              if(e.status == 401){
+              if (e.status == 401){
                   Rollbar.error("Error: 401 Unauthorized");
                   location = "error401";
               }
@@ -223,20 +223,20 @@ integrates.factory('findingFactory', function($q,$translate){
                   },
                   error: function (xhr, status) {
                       $(".loader").hide();
-                      if(xhr.status == 500){
+                      if (xhr.status == 500){
                         Rollbar.error("Error: An error ocurred loading data");
                         deferred.resolve({
                             error: null,
                             message: "Error interno cargando datos"
                         });
-                      }else if(xhr.status == 401){
+                      } else if (xhr.status == 401){
                          Rollbar.error("Error: 401 Unauthorized");
                          location = "error401";
                       }
                   }
               });
           } catch (e) {
-              if(e.status == 401){
+              if (e.status == 401){
                   Rollbar.error("Error: 401 Unauthorized");
                   location = "error401";
               }
@@ -268,25 +268,25 @@ integrates.factory('findingFactory', function($q,$translate){
                     },
                     error: function (xhr, status) {
                         $(".loader").hide();
-                        if(xhr.status == 500){
+                        if (xhr.status == 500){
                             deferred.resolve({
                                 error: null,
                                 message: "Error interno cargando datos"
                             });
-                        }else if(xhr.status == 401){
+                        } else if (xhr.status == 401){
                             location = "error401";
                         }
                     }
                 });
           } catch (e) {
-              if(e.status == 401){
+              if (e.status == 401){
                   location = "error401";
-              }else if(e.status == 500){
+              } else if (e.status == 500){
                   deferred.resolve({
                     error: "undefined",
                     message: "Error interno cargando datos"
                   });
-              }else{
+              } else {
                   deferred.resolve({
                     error: "undefined",
                     message: "Error desconocido"

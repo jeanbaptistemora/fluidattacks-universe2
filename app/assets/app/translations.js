@@ -47,7 +47,7 @@ function ($translateProvider) {
             'filter_menu': {
                 'search': {
                     'placeholder': 'FLUID project name',
-                    'button': 'Search',
+                    'button': 'Search'
                 }
             },
             'filter_labels': {
@@ -286,7 +286,7 @@ function ($translateProvider) {
         'event_by_name': {
             'page_head': {
                 'search': 'Search',
-                'vuln_by_proj': 'Events by project ',
+                'vuln_by_proj': 'Events by project '
             },
             'main_content': {
                 'id': 'ID',
@@ -492,7 +492,7 @@ function ($translateProvider) {
                 'asummed': 'Asummed',
                 'working': 'Working on it',
                 'remediated': 'Remediate'
-            },
+            }
         },
         'registration': {
             'close_session': 'Close Session',
@@ -550,7 +550,7 @@ function ($translateProvider) {
             'filter_menu': {
                 'search': {
                     'placeholder': 'Nombre del proyecto en FLUID',
-                    'button': 'Ejecutar esta busqueda',
+                    'button': 'Ejecutar esta busqueda'
                 }
             },
             'filter_labels': {
@@ -995,7 +995,7 @@ function ($translateProvider) {
                 'asummed': 'Asumido',
                 'working': 'Pendiente',
                 'remediated': 'Remediar'
-            },
+            }
         },
         'registration': {
             'close_session': 'Cerrar Sesión',
