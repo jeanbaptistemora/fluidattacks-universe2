@@ -959,7 +959,7 @@ def finding_solved(request):
         return util.response([], 'Error', True)
     # Send email parameters
     try:
-        to = [x[0] for x in recipients]
+        to = [x[0] for x in recipients if x[1] == 1]
         to.append('continuous@fluidattacks.com')
         to.append('projects@fluidattacks.com')
         to.append('ralvarez@fluidattacks.com')
@@ -992,7 +992,7 @@ def finding_verified(request):
         return util.response([], 'Error', True)
     # Send email parameters
     try:
-        to = [x[0] for x in recipients]
+        to = [x[0] for x in recipients if x[1] == 1]
         to.append('continuous@fluidattacks.com')
         to.append('projects@fluidattacks.com')
         to.append('ralvarez@fluidattacks.com')
@@ -1063,7 +1063,7 @@ def add_comment(request):
         return util.response([], 'Error', True)
     try:
         recipients = integrates_dao.get_project_users(data['data[project]'].lower())
-        to = [x[0] for x in recipients]
+        to = [x[0] for x in recipients if x[1] == 1]
         to.append('continuous@fluidattacks.com')
         comment_content = data['data[content]'].replace('\n', ' ')
         context = {
