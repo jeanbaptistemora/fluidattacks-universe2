@@ -283,12 +283,12 @@ integrates.factory('findingFactory', function($q,$translate){
                   location = "error401";
               }else if(e.status == 500){
                   deferred.resolve({
-                    error: undefined,
+                    error: "undefined",
                     message: "Error interno cargando datos"
                   });
               }else{
                   deferred.resolve({
-                    error: undefined,
+                    error: "undefined",
                     message: "Error desconocido"
                   });
               }

@@ -12,9 +12,14 @@ BASE.url = BASE.production;
 if(location.pathname.indexOf("/integrates") == -1)
     {BASE.url = BASE.development;}
 //definicion de modulos
-var integrates = angular.module("FluidIntegrates", ['ngSanitize','pascalprecht.translate']);
+var integrates = angular.module("FluidIntegrates", [
+'ngSanitize',
+'pascalprecht.translate'
+]);
 
-integrates.config(['$translateProvider', function($translateProvider) {
+integrates.config([
+'$translateProvider',
+function($translateProvider) {
     var translations = {
         'login_message': 'Please log in to proceed.',
         'login_welcome': 'If you are a new user, you must call a FLUID representative to register.',
@@ -36,7 +41,8 @@ integrates.config(['$translateProvider', function($translateProvider) {
     translations('en', translations).
     translations('es', traducciones).
     preferredLanguage('en');
-}]);
+}
+]);
 /*
  * MixPanel localhost Fixer
  */

@@ -95,13 +95,13 @@ integrates.factory('eventualityFactory', function($q){
               }else if(e.status == 500){
                   Rollbar.error("Error: An error ocurred loading data");
                   deferred.resolve({
-                    error: undefined,
+                    error: "undefined",
                     message: "Error interno cargando datos"
                   });
               }else{
                   Rollbar.error("Error: An error ocurred updating event", e);
                   deferred.resolve({
-                    error: undefined,
+                    error: "undefined",
                     message: "Error desconocido"
                   });
               }

@@ -10,7 +10,9 @@
  * @param {Object} $translateProvider
  * @return {undefined}
  */
-integrates.config(['$translateProvider', function ($translateProvider) {
+integrates.config([
+'$translateProvider',
+function ($translateProvider) {
     $translateProvider.useSanitizeValueStrategy('sanitizeParameters');
     var translations = {}, traducciones = {};
     translations = {
@@ -1019,11 +1021,12 @@ integrates.config(['$translateProvider', function ($translateProvider) {
             'duplicated': 'Está Duplicado'
         }
     };
-    if (localStorage.lang === undefined) {
+    if (typeof localStorage.lang === "undefined") {
         localStorage.lang = 'en';
     }
     $translateProvider.
         translations('en', translations).
         translations('es', traducciones).
         preferredLanguage(localStorage.lang);
-}]);
+}
+]);

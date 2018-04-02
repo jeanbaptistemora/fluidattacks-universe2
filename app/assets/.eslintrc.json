@@ -106,7 +106,27 @@
         "yoda": "error",
         "init-declarations": "error",
         "no-catch-shadow": "error",
-        "no-delete-var": "error"
+        "no-delete-var": "error",
+        "no-label-var": "error",
+        "no-restricted-globals": "error",
+        "no-shadow-restricted-names": "error",
+        "no-undef-init": "error",
+        "no-undefined": "error",
+        "no-use-before-define": "error",
+        "callback-return": "error",
+        "global-require": "error",
+        "handle-callback-err": "error",
+        "no-buffer-constructor": "error",
+        "no-mixed-requires": "error",
+        "no-new-require": "error",
+        "no-path-concat": "error",
+        "no-process-env": "error",
+        "no-process-exit": "error",
+        "no-restricted-modules": "error",
+        "no-sync": "error",
+        "array-bracket-newline": "error",
+        "array-bracket-spacing": "error",
+        "array-element-newline": "error"
 
     }
 }

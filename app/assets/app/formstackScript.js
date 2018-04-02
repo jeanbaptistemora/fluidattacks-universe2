@@ -48,7 +48,7 @@ var no_evidente = $('#field49132420_2');
 
 var public_spreadsheet_url = 'https://docs.google.com/spreadsheets/d/1L37WnF6enoC8Ws8vs9sr0G29qBLwbe-3ztbuopu1nvc/pubhtml';
 
-Tabletop.init( { key: public_spreadsheet_url, callback: showInfo, simpleSheet: true , prettyColumnNames: true} );
+
 
 function showInfo(data,tabletop) {
 	obj = $.parseJSON(JSON.stringify(data));
@@ -134,6 +134,7 @@ function showInfo(data,tabletop) {
 	});
 }
 
+Tabletop.init( { key: public_spreadsheet_url, callback: showInfo, simpleSheet: true , prettyColumnNames: true} );
 $(donde).focusout(function() {
   	donde.val($.trim(donde.val()));
 });

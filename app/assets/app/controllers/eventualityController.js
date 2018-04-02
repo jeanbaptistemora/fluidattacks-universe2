@@ -12,7 +12,7 @@
  * @return {String}
  */
 integrates.afectacionFormatter = function(value, row, index){
-    if(value === undefined)
+    if(typeof value === "undefined")
         {return "0";} //fix
     if(!isFinite(value))
         {if (value.trim() == "")
@@ -203,7 +203,7 @@ integrates.controller("eventualityController", function($scope, $uibModal, $tran
                    var neg = "negativo";
                    submit = false;
                    try{
-                       if($scope.evnt.afectacion == undefined){
+                       if(typeof $scope.evnt.afectacion == "undefined"){
                            throw neg;
                        }
                        submit = true;
@@ -269,9 +269,9 @@ integrates.controller("eventualityController", function($scope, $uibModal, $tran
         }
         var project = $scope.project;
         var category = $scope.category;
-        if (project !== undefined
+        if (typeof project !== "undefined"
             && project !== ""
-            && category !== undefined
+            && typeof category !== "undefined"
             && category !== ""){
             $scope.response = "";
             $.gritter.add({

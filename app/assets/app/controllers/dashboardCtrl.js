@@ -11,7 +11,7 @@
  */
 integrates.controller("dashboardCtrl", function($scope, $uibModal, $timeout,
                                                 $state, $stateParams, $q,
-                                                $translate, dashboardFtry) {
+                                                $translate) {
     /**
      * Redirecciona a un usuario para cerrar la sesion
      * @function logout

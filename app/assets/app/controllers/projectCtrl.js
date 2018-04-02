@@ -57,8 +57,8 @@ integrates.controller(
             $scope.view.project = false;
             $scope.view.finding = false;
             //Parametros de ruta
-            if(findingId !== undefined) {$scope.findingId = findingId;}
-            if(project != undefined
+            if(typeof findingId !== "undefined") {$scope.findingId = findingId;}
+            if(typeof project != "undefined"
                 && project != "") {
                 $scope.project = project;
                 $scope.search();
@@ -231,7 +231,7 @@ integrates.controller(
                 generateDoc = true;
                 var err = "error";
                 json = JSON.stringify(JSON.parse(JSON.stringify(json))); //remove indices
-                if (json == undefined) {throw err;}
+                if (typeof json == "undefined") {throw err;}
                 if (json == [] || json == {}) {throw err;}
                 if(project.trim() == "") {throw err;}
             }catch(e){
@@ -408,7 +408,7 @@ integrates.controller(
             }
         };
         $scope.downloadDoc = function(){
-            if($scope.downloadURL == undefined){
+            if(typeof $scope.downloadURL == "undefined"){
                 $timeout($scope.downloadDoc, 3000);
             }else{
                 downLink = document.createElement("a");
@@ -519,7 +519,7 @@ integrates.controller(
             var project = $scope.project;
             var filter = $scope.filter;
             var finding = $scope.findingId;
-            if(project === undefined
+            if(typeof project === "undefined"
                 || project === ""){
                 var attention_at = $translate.instant('proj_alerts.attent_title');
                 var attention_ac = $translate.instant('proj_alerts.attent_cont');
@@ -890,7 +890,7 @@ integrates.controller(
                             $('[data-toggle="tooltip"]').tooltip();
                             $scope.calculateCardinality({data: $scope.data});
 
-                            if($stateParams.finding !== undefined){
+                            if(typeof $stateParams.finding !== "undefined"){
                                 $scope.finding.id = $stateParams.finding;
                                 $scope.view.project = false;
                                 $scope.view.finding = false;
