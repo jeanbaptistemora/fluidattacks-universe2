@@ -215,6 +215,7 @@
 * link:271/[REQ.271 Restringir el uso de compiladores].
 * link:272/[REQ.272 Diferenciar modos de gestión].
 * link:273/[REQ.273 Establecer suite de seguridad segura].
+* link:274/[REQ.274 Establecer alcance de un sistema].
 * link:277/[REQ.277 Información de servicios inaccesible].
 
 == Activos
