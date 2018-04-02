@@ -107,6 +107,7 @@ Las soluciones de retos de hacking deberán cumplir con lo siguiente:
 .. [button]#link:https://www.owasp.org/index.php/OWASP_Vulnerable_Web_Applications_Directory_Project#Off-Line_apps[OWASP Off-Line apps]#
 .. [button]#link:https://www.owasp.org/index.php/OWASP_Vulnerable_Web_Applications_Directory_Project#Virtual_Machines_or_ISOs[OWASP VMs / ISOs]#
 .. [button]#link:https://www.owasp.org/index.php/OWASP_Vulnerable_Web_Applications_Directory_Project#On-Line_apps[OWASP On-Line apps]#
+.. [button]#link:https://www.vulnhub.com/[Vulnhub]#
 .  El formato Gherkin a utilizar debe adherirse estricamente a lo descrito [button]#link:../../../en/blog/gherkin-steroids/[aquí]#
 . El código fuente de la solución debe seguir los parámetros de estilo de [button]#link:../../estilo/#explicaciones-con-codigo-fuente[esta guía]#.
 . La solución debe haber pasado sin errores ni +warnings+ por un +linter+ del lenguaje correspondiente en su configuración más estricta posible.
