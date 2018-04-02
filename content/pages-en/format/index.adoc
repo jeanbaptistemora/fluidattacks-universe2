@@ -856,6 +856,87 @@ Line 2
 Line 3
 ----
 
+If there are multiple code blocks with numbered lines,
+the numbering will be organized sequentially.
+
+* Source
++
+....
+.Code.cpp
+[source, cpp, linenums]
+----
+Line 1
+Line 2
+Line 3
+----
++
+[source, cpp, linenums]
+----
+Line 4
+Line 5
+Line 6
+----
+....
+
+* Render
++
+.Code.cpp
+[source, cpp, linenums]
+----
+Line 1
+Line 2
+Line 3
+----
++
+[source, cpp, linenums]
+----
+Line 4
+Line 5
+Line 6
+----
+
+[NOTE]
+In order to reset the numbering,
+a title must be given to the desired code block.
+
+* Source
++
+....
+.Code1.py
+[source, python, linenums]
+----
+Line 1
+Line 2
+Line 3
+----
++
+.Code2.py
+[source, python, linenums]
+----
+Line 1
+Line 2
+Line 3
+----
+....
+
+* Render
++
+.Code1.py
+[source, python, linenums]
+----
+Line 1
+Line 2
+Line 3
+----
++
+.Code2.py
+[source, python, linenums]
+----
+Line 1
+Line 2
+Line 3
+----
+
 ==== Source Code from file
 
 The path to the file must be absolute
@@ -870,11 +951,11 @@ in the literal block.
 * Source
 +
 ....
-.Code from file
-[source, gherkin, linenums]
-----
-include::/web/content/pages-en/format/script.feature [] -> No space
-----
+ .Code from file
+ [source, gherkin, linenums]
+ ----
+ include::/web/content/pages-en/format/script.feature [] -> No space
+ ----
 ....
 
 * Render
