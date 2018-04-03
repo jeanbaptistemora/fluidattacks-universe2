@@ -158,17 +158,19 @@ deben incluir la referencia.
 . Se deben enviar el medio para subirlo al canal de FLUID en Youtube
 . El vídeo no puede ir solo, debe tener introducción y conclusión.
 
-=== 8. Explicaciones con código fuente
+=== 8. Fuente
 
-El código fuente siempre debe:
+A menos que el lenguaje obligue a lo contrario,
+el código fuente siempre debe:
 
 . Estar en inglés (incluso los comentarios).
-. Identar utilizando +2+ espacios en lugar de tabulaciones,
-a menos que el lenguaje requiera lo contrario.
+. Identar utilizando +2+ espacios en lugar de tabulaciones.
 . Utilizar el estilo de llaves (+brace style+)
 link:https://en.wikipedia.org/wiki/Indentation_style#Variant:_Stroustrup[stroustrup]
 en su variante sin bloques de una línea (+one liners+).
 link:https://eslint.org/docs/rules/brace-style#stroustrup[Ejemplo].
+. Las lineas de todos los archivos de código fuente
+no deben superar los +80+ caracteres de longitud.
 
 Los fragmentos de código fuente embebidos en documentos siempre deben:
 
