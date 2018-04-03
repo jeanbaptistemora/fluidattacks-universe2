@@ -1,6 +1,6 @@
 :slug: listado-directorios/
 :date: 2017-05-23
-:subtitle: Cómo configurar adecuadamente los directorios en Apache
+:subtitle: Cómo configurar adecuadamente los directorios
 :description: Muchos sitios web utilizan Apache como servidor HTTP debido a su simplicidad y fácil manejo. Sin embargo a pesar de que Apache es un servidor potente y seguro, su configuración por defecto no lo es. En este artículo mostraremos una vulnerabilidad común de la configuración por defecto de Apache.
 :keywords: Seguridad, Web, Apache, Listado,  Directorios, Index.
 :author: Jhony Villa

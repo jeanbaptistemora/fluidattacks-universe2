@@ -1,7 +1,7 @@
 :slug: dimensionar-ethical-hacking/
 :date: 2018-01-09
 :category: filosofía
-:subtitle: Cómo definir el alcance de sus objetivos
+:subtitle: Cómo definir el alcance de las pruebas de seguridad
 :tags: ethical hacking, pentesting, pruebas de seguridad
 :image: dimensionar-ethical-hacking.png
 :alt: Persona trabajando en el computador, viendo el celular

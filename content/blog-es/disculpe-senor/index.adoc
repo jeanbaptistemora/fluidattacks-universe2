@@ -1,7 +1,7 @@
 :slug: disculpe-senor/
 :date: 2017-05-17
 :category: ataques
-:subtitle: Acerca de la ejecución simbólica y pruebas Concolic
+:subtitle: Acerca de la ejecución simbólica y concólica
 :tags: probar, software, funcionalidad
 :image: disculpe-senor.png
 :alt: Lupa buscando insectos(bugs) en un monitor

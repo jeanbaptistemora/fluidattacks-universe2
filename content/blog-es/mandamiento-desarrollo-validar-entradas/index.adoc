@@ -1,6 +1,6 @@
 :slug: mandamiento-desarrollo-validar-entradas/
 :date: 2016-07-25
-:category: opiniones
+:category: retos
 :subtitle: Solución al reto 10 de OvertheWire
 :tags: programar, validar, software, seguridad
 :image: validar-datos.png

@@ -3,7 +3,7 @@
 :description: Una Intranet es una red privada que a menudo es utilizada por empresas y que cuenta con todos los beneficios de Internet, sin embargo éste tipo de red también es potencialmente vulnerable a ataques. En este artículo explicamos como implementar una Intranet de forma segura desde Windows.
 :keywords: Red, Privada, Intranet, Windows, Seguridad, Información.
 :author: Jhony Villa
-:category: opiniones
+:category: identidad
 :subtitle: Estableciendo canales seguros de comunicación con IWA
 :tags: intranet, iwa, windows
 :image: iwa.png

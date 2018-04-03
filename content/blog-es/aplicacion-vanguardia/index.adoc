@@ -1,11 +1,11 @@
-:slug: recomendacion-actualizacion-parcheo/
+:slug: aplicacion-vanguardia/
 :date: 2016-09-27
 :category: opiniones
-:subtitle: Cómo mejorar su proceso de actualización y parcheo
+:subtitle: Cómo mejorar su proceso de actualización
 :tags: actualizar, seguridad, versión
-:image: parchear.png
+:image: actualizar.png
 :alt: Computador conectado a la palabra UPDATE
-:description: Los procesos de actualización y parcheo son muy importantes para que nuestra aplicación esté a la vanguardia en cuanto a funcionalidad y seguridad. En este artículo planteamos algunas recomendaciones para realizar éstos procesos de forma ordenada y segura, preservando la integridad de los datos.
+:description: Los procesos de actualización son muy importantes para que nuestra aplicación esté a la vanguardia en cuanto a funcionalidad y seguridad. En este artículo planteamos algunas recomendaciones para realizar éstos procesos de forma ordenada y segura, preservando la integridad de los datos.
 :keywords: Seguridad, Malware, Parcheo, Actualización, Recomendación, Organización.
 :author: Juan Jaramillo
 :writer: juanj
@@ -15,19 +15,19 @@
 
 = Una aplicación a la vanguardia
 
-image::parchear.png[parcheo]
+image::actualizar.png[actualización]
 
 La aparición de amenazas en la Internet es constante, el auge de ataques como
 el ransomware y malware está encendiendo las alarmas de los expertos de
 seguridad, y la necesidad urgente de las organizaciones de protegerse de una
 manera adecuada. Una de las metodologías más adecuadas para la protección
-contra este tipo de amenazas es el parcheo y actualización periódica de los
-sistemas. El problema es que con el lanzamiento de miles de parches cada mes a
-los sistemas operativos y a las aplicaciones, la tarea se convierte en un
-proceso abrumador para muchas organizaciones.
+contra este tipo de amenazas es la actualización periódica de los
+sistemas. El problema es que con el lanzamiento de miles de actualizaciones
+cada mes a los sistemas operativos y a las aplicaciones,
+la tarea se convierte en un proceso abrumador para muchas organizaciones.
 
 He acá una serie de recomendaciones a tener en cuenta cuando se hace el proceso
-de parcheo de aplicaciones dentro de las empresas:
+de actualización de aplicaciones dentro de las empresas:
 
 * Mantenga un inventario actualizado de todos los sistemas productivos de su
 empresa, incluyendo el tipo de sistema operativo, la versión, las direcciones
@@ -36,7 +36,7 @@ herramientas que facilitan este procedimiento, y hágalo de una forma periódica
 * Desarrolle un plan para estandarizar los sistemas de producción a la misma
 versión del sistema operativo y el software de las aplicaciones.
 * Entre menos versiones tenga de este es mucho más simple ejecutar el proceso
-de actualización de parches.
+de actualización.
 * Haga una lista de los controles de seguridad con los que se cuenta
 cortafuegos, enrutadores, antivirus, etc. así como también un respaldo de sus
 configuraciones.
@@ -64,18 +64,24 @@ entorno.
 protecciones perimetrales?
 ** El costo de la mitigación y/o la recuperación.
 
-Finalmente aplique la actualización, ahora que cuenta con un inventario de
-todos sus sistemas, una lista de controles y un mecanismo para recoger las
-alertas y analizar las vulnerabilidades; así como un sistema de clasicación del
-riesgo está en la capacidad de determinar si el parche que salió lo debe
-instalar en su ambiente. Otra cosa importante a tener en cuenta es que debe ser
-probado primero en un ambiente no productivo, esto con el fin de definir si
-existen efectos contraproducentes que afecten en alguna forma el ambiente real;
-una vez probado, instalar el parche en un momento que no afecte la operación y
-que al ser instalado cuente con alguien que haga parte del sistema para que
-realice las pruebas de rigor inmediatamente para controlar que la funcionalidad
-de las aplicaciones actualizadas no se vea afectada.
+Finalmente aplique la actualización,
+ahora que cuenta con un inventario de todos sus sistemas,
+una lista de controles y un mecanismo para recoger las alertas
+y analizar las vulnerabilidades;
+así como un sistema de clasificación del riesgo
+está en la capacidad de determinar si la actualización que salió
+la debe instalar en su ambiente.
+Otra cosa importante a tener en cuenta es que debe ser
+probada primero en un ambiente no productivo,
+esto con el fin de definir si existen efectos contraproducentes
+que afecten en alguna forma el ambiente real;
+una vez probado, instalar la actualización
+en un momento que no afecte la operación y que al ser instalado
+cuente con alguien que haga parte del sistema
+para que realice las pruebas de rigor inmediatamente
+para controlar que la funcionalidad de las aplicaciones actualizadas
+no se vea afectada.
 
-El proceso de actualización de parches puede ser una tarea abrumadora, pero
+El proceso de actualización puede ser una tarea abrumadora, pero
 tomado de una forma sistemática, puede hacer que el proceso sea mucho más
 simple y controlado, evitando daños a su organización.
