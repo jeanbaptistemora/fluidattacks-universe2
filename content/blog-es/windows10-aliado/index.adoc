@@ -1,6 +1,7 @@
 :slug: windows10-aliado/
 :date: 2016-10-04
 :category: opiniones
+:subtitle: Arreglos y mejoras implementados por Windows 10
 :tags: windows, seguridad, proteger
 :image: windows10-allied.png
 :alt: Datos hexadecimales protegidos por un candado, con el logo Windows 10
@@ -13,7 +14,7 @@
 :about2: Viajar para correr es un mundo de posibilidades
 :figure-caption: Imagen
 
-= Windows 10 ¿Un nuevo aliado en seguridad?
+= ¿Un nuevo aliado en seguridad?
 
 Es común que en las organizaciones Windows sea el sistema operativo por defecto
 ya que este poco a poco ha ido monopolizando el mercado empresarial; ha

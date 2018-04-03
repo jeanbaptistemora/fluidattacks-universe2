@@ -4,6 +4,7 @@
 :keywords: Red, Privada, Intranet, Windows, Seguridad, Información.
 :author: Jhony Villa
 :category: opiniones
+:subtitle: Estableciendo canales seguros de comunicación con IWA
 :tags: intranet, iwa, windows
 :image: iwa.png
 :alt: Diagrama con flechas que muestran la interacción usuario-servidor
