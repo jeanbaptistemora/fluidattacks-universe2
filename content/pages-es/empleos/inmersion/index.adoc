@@ -96,7 +96,7 @@ Esta etapa comienza cuando:
 .. *Relación:* Proveedor.
 .. *Certificación bancaria:* Adjuntar el PDF correspondiente.
 Solo se admiten cuentas Bancolombia.
-.. *Plazo de pago:* 30 días.
+.. *Plazo de pago:* 5 días hábiles.
 .. *Formas de pago:* Ordinario.
 .. *Recepción y días de recepción:* Primer día de cada mes.
 .. *Diligencia:* Ingrese su correo electrónico personal (el mismo con el que ha estado realizando el proceso de selección).
