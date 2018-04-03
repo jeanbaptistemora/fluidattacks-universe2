@@ -2,7 +2,7 @@
 
 ERRORS=0
 
-CHANGED=$(git diff HEAD~ --name-only)
+CHANGED=$(git diff HEAD~ --name-status | pcregrep -o '(?<=(M|A)\t).*')
 
 function error {
   echo -e "\\e[1;31m^--${1}\\e[0m\\n" >&2
