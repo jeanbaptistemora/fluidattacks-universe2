@@ -92,6 +92,16 @@ Total: 0 warnings / 0 errors in 1 file
 Primera línea de mi programa
 ----
 . Los comandos de ejecución utilizados y su salida deben estar al final del código fuente en comentarios multilínea.
++
+[source, lua, linenums]
+----
+Última línea de mi programa
+
+--[[
+$ lua5.3 milogin.lua
+(30 164250) (3 13485) (80 28160) (2 2346)
+--]]
+----
 . El código fuente de la solución debe seguir los parámetros de estilo de [button]#link:../../estilo/#explicaciones-con-codigo-fuente[esta guía]#.
 . Si la solución opera sobre un conjunto de datos de entrada,
 estos no deben estar quemados en código.
