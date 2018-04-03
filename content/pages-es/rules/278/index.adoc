@@ -1,0 +1,12 @@
+:slug: rules/278/
+:category: rules
+:description: En el presente documento se detallan los requerimientos de seguridad relacionados al acceso seguro a la BIOS de un sistema perteneciente a una determinada organización. Por lo tanto, dicha organización, debe permitir el acceso a la BIOS únicamente por usuarios autorizados.
+:keywords: Organización, BIOS, Máquina, Configuración, Seguridad, Personal.
+:rules: yes
+
+= REQ.278 Establecer acceso seguro a la BIOS
+
+== Nombre
+
+La organización debe controlar que la configuración del +BIOS+ en las máquinas
+sólo pueda pueda ser accesible por personal autorizado.

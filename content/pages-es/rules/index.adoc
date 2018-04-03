@@ -219,6 +219,7 @@
 * link:275/[REQ.275 Establecer inicio por defecto].
 * link:276/[REQ.276 Establecer rutas de sistema seguras].
 * link:277/[REQ.277 Información de servicios inaccesible].
+* link:278/[REQ.278 Establecer acceso seguro a la BIOS].
 
 == Activos
 
