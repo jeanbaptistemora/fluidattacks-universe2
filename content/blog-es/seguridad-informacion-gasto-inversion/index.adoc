@@ -1,6 +1,7 @@
 :slug: seguridad-informacion-gasto-inversion/
 :date: 2016-08-23
 :category: opiniones
+:subtitle: ¿Vale la pena invertir en ella?
 :tags: invertir, seguridad, información
 :image: information-security-expense-investment.png
 :alt: Teclado con una tecla roja que dice INFORMATION SECURITY
@@ -12,7 +13,7 @@
 :about1: Ingeniero de sistemas y computación, OSCP, OSWP
 :about2: "No tengo talentos especiales, pero sí soy profundamente curioso" Albert Einstein
 
-= Seguridad de la información ¿Gasto o inversión?
+= Seguridad de la información
 
 Un informe del 2014 hecho por el censo Londinense demostró que un 90% de las
 empresas que tienen pérdidas significativas de información se retiran del

@@ -1,6 +1,7 @@
 :slug: seguridad-compartida-nube/
 :date: 2016-09-10
 :category: opiniones
+:subtitle:  Un concepto de la nube
 :tags: cloud, aws, seguridad, tercerizar
 :image: shared-security-cloud.png
 :alt: Hojas con datos binarios bajo una nube, al lado de un candado
@@ -13,7 +14,7 @@
 :about2: Viajar para correr es un mundo de posibilidades
 :figure-caption: Imagen
 
-= Seguridad compartida: un concepto de la nube
+= Seguridad compartida
 
 En la actualidad los servicios y administración de tecnología están pasando a
 manos de terceros, principalmente por reducción de costos y manejo de ciclos

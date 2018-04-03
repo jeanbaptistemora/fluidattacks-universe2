@@ -1,6 +1,7 @@
 :slug: rompe-codigos/
 :date: 2016-08-30
 :category: retos
+:subtitle: Solución al reto Crypt 4 de Hackthis
 :tags: cifrar, criptografía, reto, solucionar
 :image: rompe-codigos.png
 :alt: Llave con un set de datos hexadecimales detrás de ella

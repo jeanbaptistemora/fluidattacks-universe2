@@ -1,6 +1,7 @@
 :slug: muchas-passwords/
 :date: 2017-05-12
 :category: opiniones
+:subtitle: Simplificando la autenticación con OpenID Connect
 :description: La autenticación es un proceso necesario para verificar la identidad del usuario, sin embargo, ante la variada cantidad de servicios en Internet y la autenticación ante cada uno de ellos utilizar muchas contraseñas resulta engorroso. Aquí te presentamos una forma segura de reducir tus contraseñas.
 :keywords: Seguridad, Contraseña, Única, Autenticación, OAUTH, OIDC.
 :author: Jhony Villa
@@ -12,7 +13,7 @@
 :about1: Ingeniero en Sistemas.
 :about2: Apasionado por las redes la música y la seguridad.
 
-= ¡Qué pereza usar tantas contraseñas!
+= ¡Qué pereza tantas contraseñas!
 
 En la actualidad el aumento exponencial en el uso de internet ha impactado
 drásticamente en la seguridad de la información manejada día a día.

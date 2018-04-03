@@ -1,6 +1,7 @@
 :slug: pagina-queria-ingresar/
 :date: 2017-03-08
 :category: opiniones
+:subtitle: Cómo reconocer y evitar páginas fraudulentas
 :tags: web, seguridad, información
 :image: pagina.png
 :alt: Teclado con una letra roja que dice GET ME OUT OF HERE
@@ -12,7 +13,7 @@
 :about1: Ingeniero Electrónico.
 :about2: Programador en Python y Ruby, siempre dispuesto a aprender.
 
-= ¿Sí era la página a la que quería ingresar?
+= ¿Sí era la página que quería?
 
 HTML (HyperText Markup Language) se basa en el lenguaje SGML (Standard Generalized Markup Language) y es el formato de los documentos de la World Wide Web, su origen fue como intercambiador de documentos científicos y técnicos, con la creación de los links se facilitó su intercambio, las compañías fueron creando navegadores -El software necesario para interpretar un documento en HTML-.
 

@@ -1,6 +1,7 @@
 :slug: seguridad-usabilidad/
 :date: 2016-08-23
 :category: opiniones
+:subtitle: Conceptos de seguridad y usabilidad aplicados
 :tags: seguridad, usabilidad, concientizar
 :image: security.png
 :alt: Caricatura acerca de políticas de seguridad
@@ -12,7 +13,7 @@
 :about1: Ingeniero de sistemas y computación, OSCP, OSWP
 :about2: "No tengo talentos especiales, pero sí soy profundamente curioso" Albert Einstein
 
-= Seguridad y usabilidad: keep it simple and secure
+= Keep it simple and secure
 
 Muchas veces tendemos a creer que la seguridad de la información debe ser
 compleja, procesos llevados a cabo por solo unos cuantos mortales, pero es un

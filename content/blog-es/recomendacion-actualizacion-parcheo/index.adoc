@@ -1,6 +1,7 @@
 :slug: recomendacion-actualizacion-parcheo/
 :date: 2016-09-27
 :category: opiniones
+:subtitle: Cómo mejorar su proceso de actualización y parcheo
 :tags: actualizar, seguridad, versión
 :image: parchear.png
 :alt: Computador conectado a la palabra UPDATE
@@ -12,7 +13,7 @@
 :about1: Profesional experto en diversos temas de seguridad de la información, seguridad de redes y sistemas operativos
 :about2: Conocimientos en seguridad informática, modelos, estándares en seguridad de la información e informática forense.
 
-= ¿Cómo mejorar su proceso de actualización y parcheo?
+= Una aplicación a la vanguardia
 
 image::parchear.png[parcheo]
 

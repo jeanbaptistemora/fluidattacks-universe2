@@ -1,6 +1,7 @@
 :slug: que-ruta-mas-insegura/
 :date: 2017-12-21
 :category: retos
+:subtitle: Solución al reto Main 4 de Hackthis
 :description: Las rutas presentes en los directorios de nuestro sitio web pueden ser un medio para que los atacantes accedan a información confidencial. En el siguiente artículo hablaremos sobre la importancia de las rutas y resolveremos un reto de hacking utilizando rutas relativas.
 :keywords: Seguridad, Web, Rutas, Credenciales, Reto, Hacking.
 :author: Luis Arteaga

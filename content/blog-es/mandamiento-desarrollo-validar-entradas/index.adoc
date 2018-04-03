@@ -1,6 +1,7 @@
 :slug: mandamiento-desarrollo-validar-entradas/
 :date: 2016-07-25
 :category: opiniones
+:subtitle: Solución al reto 10 de OvertheWire
 :tags: programar, validar, software, seguridad
 :image: validar-datos.png
 :alt: Caricatura acerca de validar las entradas a bases de datos
@@ -13,7 +14,7 @@
 :about2: "No tengo talentos especiales, pero sí soy profundamente curioso" Albert Einstein
 :figure-caption: Imagen
 
-= Mandamiento #1 del desarrollo: validar entradas
+= Mandamiento #1: validar entradas
 
 La tarea de un programador consiste en desarrollar diariamente módulos o
 funciones con el fin de garantizar el cumplimiento del calendario asignado en

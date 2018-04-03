@@ -1,6 +1,7 @@
 :slug: riesgos-dispositivos-moviles/
 :date: 2017-05-09
 :category: opiniones
+:subtitle: Riesgos en dispositivos móviles
 :tags: proteger, seguridad, dispositivo, amenaza
 :image: moviles.png
 :alt: Celulares y tabletas apilados entre sí
@@ -12,7 +13,7 @@
 :about1: Ingeniero en Sistemas.
 :about2: Apasionado por las redes la música y la seguridad.
 
-= ¿Estás protegido? Riesgos en dispositivos móviles.
+= ¿Estás protegido?
 
 Hace un poco más de diez años, cuando aún era estudiante de colegio, recuerdo
 que en toda la institución sólo había tres alumnos que tenían celular. Eran

@@ -1,6 +1,7 @@
 :slug: metodo-sherlock-modelando-amenazas/
 :date: 2017-01-24
 :category: ataques
+:subtitle: Modelando amenazas
 :tags: sdlc, modelar, amenaza, concientizar
 :image: sherlock.png
 :alt: Diagrama de bloques mostrando el proceso de modelado de amenazas
@@ -13,7 +14,7 @@
 :about2: "No tengo talentos especiales, pero sí soy profundamente curioso" Albert Einstein
 :figure-caption: Imagen
 
-= El método de Sherlock: Modelando amenazas
+= El método de Sherlock
 
 Sherlock Holmes el gran detective inglés era conocido por su gran inteligencia
 y más que eso porque podía anticipar cualquier riesgo o situación embarazosa

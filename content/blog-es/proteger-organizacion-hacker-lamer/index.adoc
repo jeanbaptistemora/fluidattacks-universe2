@@ -1,6 +1,7 @@
 :slug: proteger-organizacion-hacker-lamer/
 :date: 2017-12-18
 :category: filosofía
+:subtitle: Proteja su organización de Hackers, no de Lamers
 :tags: seguridad, proteger, información
 :image: lamers.png
 :alt: Manos tecleando en un editor de texto
@@ -13,7 +14,7 @@
 :about1: Account Manager de FLUID, Administrador de Empresas
 :about2: Apasionado por la tecnología y la seguridad
 
-= Proteja su organización de los Hackers, no de Lamers
+= La importancia del Pentesting
 
 Sin lugar a dudas, los recientes eventos en términos de vulneración de
 privacidad como los robos de información personal a celebridades, hackeos a

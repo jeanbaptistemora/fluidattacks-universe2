@@ -1,6 +1,7 @@
 :slug: matematica-amiga/
 :date: 2016-12-24
 :category: retos
+:subtitle: Solución al algoritmo de Euclides de Mathchall
 :tags: matemática, solucionar, programar, reto
 :image: maths-friend.png
 :alt: Fórmulas trigonométricas

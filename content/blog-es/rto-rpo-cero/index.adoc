@@ -1,6 +1,7 @@
 :slug: rto-rpo-cero/
 :date: 2016-09-06
 :category: opiniones
+:subtitle: Importancia y utilidades de las copias de seguridad
 :tags: rto, rpo, proteger
 :image: rto-rpo.png
 :alt: Línea de tiempo entre la transición RTO a RPO luego de incidente

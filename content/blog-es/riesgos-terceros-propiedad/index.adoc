@@ -1,6 +1,7 @@
 :slug: riesgos-terceros-propiedad/
 :date: 2016-12-20
 :category: opiniones
+:subtitle: Pautas y herramientas para el monitoreo de software
 :tags: sdlc, software, seguridad
 :image: risks-third-parties.png
 :alt: Empresario con un holograma de servicios de red protegidos

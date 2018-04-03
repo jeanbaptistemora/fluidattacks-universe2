@@ -1,6 +1,7 @@
 :slug: seguridad-sdlc/
 :date: 2016-12-06
 :category: opiniones
+:subtitle: Metodologías para el desarrollo seguro de software
 :tags: devops, sdlc, programar
 :image: sdlc.png
 :alt: Flechas con las diferentes etapas del SDLC formando un círculo
@@ -12,7 +13,7 @@
 :about1: Ingeniera en informatica
 :about2: Viajar para correr es un mundo de posibilidades
 
-=  ¿Dónde está la seguridad en el ciclo de vida?
+= Seguridad en el ciclo de vida
 
 La cultura DevOps (Desarrollo + Operaciones) es una tendencia que está
 rompiendo muchos paradigmas con todo el tema de la transformación digital, y

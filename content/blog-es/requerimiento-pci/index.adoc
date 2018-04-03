@@ -1,6 +1,7 @@
 :slug: requerimiento-pci/
 :date: 2016-10-18
 :category: opiniones
+:subtitle: Recordando los requerimientos PCI 3.2
 :tags: protocolo, proteger, seguridad
 :image: pci.png
 :alt: Tarjetas de crédito con la palabra PCI DSS 3.2
@@ -12,7 +13,7 @@
 :about1: Profesional experto en diversos temas de seguridad de la información, seguridad de redes y sistemas operativos
 :about2: Conocimientos en seguridad informática, modelos, estándares en seguridad de la información e informática forense.
 
-= Recordando los requerimientos PCI 3.2
+= Protege tus compras
 
 El pasado 28 de abril del presente año, el Consejo de Estándares de Seguridad
 de la Industria de Pago con Tarjeta (PCI DSS), publicó la nueva versión de su
