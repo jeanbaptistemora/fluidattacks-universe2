@@ -32,7 +32,7 @@ que usted reciba una remuneración por el tiempo invertido en el proceso.
 
 == 3. Condiciones
 
-. Aplican todas las link:../retos-tecnicos/#condiciones[condiciones de la etapa de retos técnicos].
+. Aplican todas las [button]#link:../retos-tecnicos/#condiciones[condiciones]# de la etapa de retos técnicos.
 . Debe reportar todo el tiempo dedicado mediante la herramienta asignada en modo automático.
 . Los días pares se trabajarán retos de hacking.
 . Los días impares se trabajarán retos de programación.
