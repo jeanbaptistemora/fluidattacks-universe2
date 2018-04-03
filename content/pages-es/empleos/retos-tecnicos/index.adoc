@@ -84,11 +84,13 @@ Las soluciones de programación deberán cumplir adicionalmente con lo siguiente
 .milogin.rs
 [source, rust, linenums]
 ----
+/*
 $ rustup run nightly cargo clippy
 Compiling milogin v0.1.0 (file:///../skhorn)
 Finished dev [unoptimized + debuginfo] target(s) in 0.22 secs
 $ rustc milogin.rs
 $
+*/
 
 My solution's first line.
 ----
