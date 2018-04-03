@@ -1,0 +1,13 @@
+:slug: rules/276/
+:category: rules
+:description: En el presente documento se detallan los requerimientos de seguridad relacionados a la configuración segura de variables de sistema. Por lo tanto, este requerimiento sugiere establecer rutas vinculadas a directorios del sistema operativo por encima de las configuradas por el usuario.
+:keywords: Ruta, PATH, Sistema Operativo, Configurar, Seguridad, Usuario.
+:rules: yes
+
+= REQ.276 Establecer rutas de sistema seguras
+
+== Nombre
+
+Las rutas de carga implícita (variables de sistema como +PATH+)
+deben utilizar las rutas de mayor confianza (directorios de sistema operativo)
+antes de las rutas configurables por el usuario.
