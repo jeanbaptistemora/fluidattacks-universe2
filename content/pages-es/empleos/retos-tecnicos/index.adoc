@@ -78,7 +78,7 @@ Las soluciones de retos de programación deberán cumplir con lo siguiente:
 . No deben tener solución en el repositorio (carpeta del reto) para el lenguaje elegido por usted,
 . No deben tener solución externa indexada (enlaces OTHERS.lst del reto) para el lenguaje elegido por usted,
 . El lenguaje de la solución es uno de los aceptados por [button]#link:http://www.codeabbey.com/[Codeabbey]#.
-. Los comandos de compilación y/o +linting+ utilizados y su salida deben estar al inicio del código fuente en comentarios multilínea.
+. Los comandos de *compilación* y/o +linting+ utilizados y su salida deben estar al inicio del código fuente en comentarios multilínea.
 +
 .milogin.lua
 [source, lua, linenums]
