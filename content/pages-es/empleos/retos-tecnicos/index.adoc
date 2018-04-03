@@ -140,7 +140,7 @@ y que tardó 4.5 horas de esfuerzo en resolverse durante la fase de retos (+chal
 .commit-msg.txt
 [source, text]
 ----
-solution: codeabbey, 78 (9.63)
+solution(challenges): codeabbey, 78 (9.63)
 
 - others: 8 in, 17 out, 25 total.
 - score: 25665 initial, 25723 final, 58 progress.
