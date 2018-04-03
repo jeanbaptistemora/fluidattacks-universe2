@@ -36,7 +36,7 @@ no lo trate como +string+ sino que lo interprete como una
 notación cuyo resultado es de tipo numérico.
 
 * En el siguiente fragmento de código se demuestra este tipo de fallas:
-
++
 .incorrecto.php
 [source, php, linenums]
 ----
@@ -56,9 +56,9 @@ else
 
 ?>
 ----
-
++
 Al ejecutar el código anterior obtenemos lo siguiente:
-
++
 .output
 [source, text, linenums]
 ----
@@ -79,7 +79,7 @@ ya que si bien no presenta las fallas vistas anteriormente,
 es posible engañarla en caso de que uno de los valores a comparar sea un arreglo vacío.
 +
 A continuación se encuentra una demostración de esta falla:
-
++
 .incorrecto.php
 [source, php, linenums]
 ----
@@ -99,7 +99,7 @@ else
 
 ?>
 ----
-
++
 .output
 [source, text, linenums]
 ----
