@@ -222,6 +222,7 @@
 * link:278/[REQ.278 Establecer acceso seguro a la BIOS].
 * link:279/[REQ.279 Configurar acceso al inicio del sistema].
 * link:280/[REQ.280 Configurar directorio de proceso de servicio].
+* link:281/[REQ.281 Configurar acceso a variables de entorno].
 
 == Activos
 

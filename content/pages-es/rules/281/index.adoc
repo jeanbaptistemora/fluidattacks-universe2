@@ -1,0 +1,12 @@
+:slug: rules/281/
+:category: rules
+:description: En el presente documento se detallan los requerimientos de seguridad relacionados a la configuración segura de variables de entorno establecidas en un determinado sistema. En este criterio se recomienda que dichas variables sólo puedan ser modificadas por el administrador del sistema.
+:keywords: Variable de Entorno, Modificar, Sistema Operativo, Administrador, Seguridad, Requerimiento.
+:rules: yes
+
+= REQ.281 Configurar acceso a variables de entorno
+
+== Nombre
+
+Las variables de entorno del sistema operativo
+sólo pueden ser modificables por el administrador del sistema.
