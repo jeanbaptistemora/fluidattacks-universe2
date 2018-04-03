@@ -165,6 +165,10 @@ El código fuente siempre debe:
 . Estar en inglés (incluso los comentarios).
 . Identar utilizando +2+ espacios en lugar de tabulaciones,
 a menos que el lenguaje requiera lo contrario.
+. Utilizar el estilo de llaves (+brace style+)
+link:https://en.wikipedia.org/wiki/Indentation_style#Variant:_Stroustrup[stroustrup]
+en su variante sin bloques de una línea (+one liners+).
+link:https://eslint.org/docs/rules/brace-style#stroustrup[Ejemplo].
 
 Los fragmentos de código fuente embebidos en documentos siempre deben:
 
