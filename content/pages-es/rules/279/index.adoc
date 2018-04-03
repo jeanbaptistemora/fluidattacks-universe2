@@ -1,0 +1,14 @@
+:slug: rules/279/
+:category: rules
+:description: En el presente documento se detallan los requerimientos de seguridad relacionados al inicio seguro de todo sistema operativo. Por lo tanto, dicha organización debe permitir el arranque a dicho sistema, únicamente se lleve a cabo por usuarios autorizados.
+:keywords: Organización, Arranque, Sistema Operativo, Bootloader, Seguridad, Personal.
+:rules: yes
+
+= REQ.279 Configurar acceso al inicio del sistema
+
+== Nombre
+
+La organización debe controlar
+que la configuración de inicialización del sistema operativo
+sólo pueda ser accesible por personal autorizado
+(+bootloader+ - sistemas +UNIX/Linux+, +registry+ en +Windows+).
