@@ -8,7 +8,7 @@
 = Inmersión
 
 A esta altura del proceso estamos a pocos pasos de culminar.
-Este nuevo paso, para el cual usted ha sido seleccionado entre más de 100 candidatos,
+Este nuevo paso, para el cual usted ha sido seleccionado entre más de 1580 candidatos,
 busca que usted haga parte en un auto-entrenamiento intensivo en retos de programación y
 hacking financiado por +FLUIDAttacks+ llamado “Inmersión”.
 
