@@ -10,7 +10,19 @@ GC='\033[0;32m'
 NC='\033[0m'
 ERRORS=0
 
-#For spanish blog / defends
+#For defends
+while IFS= read -r FILE; do
+# Check that every article in blog and defends has a valid category
+  ARTCAT=$(pcregrep --color -o '(?<=^:category:\s).*' "$FILE");
+  if ! pcregrep -q "$ARTCAT" categorias.lst; then
+    echo -e "${RD}$ARTCAT";
+    echo -e "${GC}The article does not match any valid category. Please correct the file \"$FILE\"${NC}";
+    ERRORS=1;
+  fi
+done < <(find content/defends -iname '*.adoc')
+
+
+#For spanish blog
 while IFS= read -r FILE; do
 
 # Check that every article in blog and defends has a valid category
@@ -22,7 +34,6 @@ while IFS= read -r FILE; do
   fi
 
 # Check that every article in blog has valid tags
-  if ! pcregrep -q ':defends:' "$FILE" ; then
     ARTTAGS=$(pcregrep -o '(?<=^:tags:\s).*' "$FILE" | sed 's/,\ /\n/g')
     while IFS= read -r TAG; do
       if ! pcregrep -q "$TAG" etiquetas.lst; then
@@ -31,8 +42,26 @@ while IFS= read -r FILE; do
         ERRORS=1;
       fi
     done < <(echo "$ARTTAGS")
+
+#Check that every article in blog has a valid title lenght
+  if pcregrep -o '(?<=^=\s).{37,}' "$FILE"; then
+    echo -e "${GC}The title lenght exceeds 35 characters. Please correct the file \"$FILE\"${NC}"
+    ERRORS=1;
   fi
-done < <(find content/blog-es content/defends -iname '*.adoc')
+
+#Check that every article in blog has a subtitle defined
+  if ! pcregrep -q '^:subtitle:' "$FILE"; then
+    echo -e "${GC}The attribute \"subtitle\" must be defined in every .adoc. Please correct the file \"$FILE\"${NC}"
+    ERRORS=1;
+  fi
+
+#Check that every article in blog has a valid subtitle lenght
+  if pcregrep -o '(?<=^:subtitle: ).{56,}' "$FILE"; then
+    echo -e "${GC}The subtitle lenght exceeds 55 characters. Please correct the file \"$FILE\"${NC}"
+    ERRORS=1;
+  fi
+
+done < <(find content/blog-es -iname '*.adoc')
 
 #For english blog
 while IFS= read -r FILE; do
@@ -54,6 +83,24 @@ while IFS= read -r FILE; do
         ERRORS=1;
       fi
     done < <(echo "$ARTTAGS")
+
+#Check that every article in blog has a valid title lenght
+  if pcregrep -o '(?<=^=\s).{37,}' "$FILE"; then
+    echo -e "${GC}The title lenght exceeds 35 characters. Please correct the file \"$FILE\"${NC}"
+    ERRORS=1;
+  fi
+
+#Check that every article in blog has a subtitle defined
+  if ! pcregrep -q '^:subtitle:' "$FILE"; then
+    echo -e "${GC}The attribute \"subtitle\" must be defined in every .adoc. Please correct the file \"$FILE\"${NC}"
+    ERRORS=1;
+  fi
+
+#Check that every article in blog has a valid subtitle lenght
+  if pcregrep -o '(?<=^:subtitle: ).{56,}' "$FILE"; then
+    echo -e "${GC}The subtitle lenght exceeds 55 characters. Please correct the file \"$FILE\"${NC}"
+    ERRORS=1;
+  fi
 
 done < <(find content/blog-en -iname '*.adoc')
 

@@ -14,7 +14,7 @@
 :about1: Ingeniero Electrónico
 :about2: Gusto por disfrutar los momentos pequeños de la vida, como tomarse una cerveza, escuchar música o dormir
 
-= ¿Seremos Desplazados por las Máquinas?
+= ¿Las Máquinas nos reemplazarán?
 
 Han pasado más de 20 años
 desde que Garry Kasparov, el campeón mundial de ajedrez,
