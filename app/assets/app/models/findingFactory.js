@@ -9,8 +9,9 @@
  * @param {Object} $q
  * @return {undefined}
  */
-integrates.factory('findingFactory', function($q, $translate)
+integrates.factory("findingFactory", function($q, $translate)
 {
+
   return {
 
     /**
@@ -20,12 +21,16 @@ integrates.factory('findingFactory', function($q, $translate)
      * @member integrates.findingFactory
      * @return {Object}
      */
-    getVulnByName: function(project, filter)
+    "getVulnByName": function(project, filter)
     {
-      var oops_ac = $translate.instant('proj_alerts.error_text');
+
+      var oops_ac = $translate.instant("proj_alerts.error_text");
       return $xhr.get($q, BASE.url + "get_findings", {
-        project: project, filter: filter, _: Math.random()
+        "project": project,
+        "filter": filter,
+        "_": Math.random()
       }, oops_ac);
+
     },
 
     /**
@@ -35,53 +40,69 @@ integrates.factory('findingFactory', function($q, $translate)
      * @member integrates.findingFactory
      * @return {Object}
      */
-    getVulnById: function(id)
+    "getVulnById": function(id)
     {
+
       var deferred = $q.defer();
-      try 
+      try
       {
+
         $.ajax({
-          url: BASE.url + "get_finding",
-          method: "POST",
-          data: {
-            id: id,
-            _: Math.random()
+          "url": BASE.url + "get_finding",
+          "method": "POST",
+          "data": {
+            "id": id,
+            "_": Math.random()
           },
-          success: function (response) 
+          "success": function (response)
           {
+
             $(".loader").hide();
             deferred.resolve(response);
+
           },
-          error: function (xhr, status) 
+          "error": function (xhr, status)
           {
+
             $(".loader").hide();
             if (xhr.status == 500)
             {
+
               Rollbar.error("Error: An error ocurred loading data");
               deferred.resolve({
-                error: null,
-                message: "Error interno cargando datos"
+                "error": null,
+                "message": "Error interno cargando datos"
               });
+
             }
             else if (xhr.status == 401)
             {
+
               Rollbar.error("Error: 401 Unauthorized");
               location = "error401";
+
             }
+
           }
         });
+
       }
-      catch (e) 
+      catch (e)
       {
+
         if (e.status == 401)
         {
+
           Rollbar.error("Error: 401 Unauthorized");
           location = "error401";
+
         }
         Rollbar.error("Error: An error ocurred getting finding by ID", e);
-        deferred.resolve('exception');
+        deferred.resolve("exception");
+
       }
       return deferred.promise
+
     },
 
     /**
@@ -91,53 +112,69 @@ integrates.factory('findingFactory', function($q, $translate)
      * @member integrates.findingFactory
      * @return {Object}
      */
-    getIdByProject: function(project)
+    "getIdByProject": function(project)
     {
+
       var deferred = $q.defer();
-      try 
+      try
       {
+
         $.ajax({
-          url: BASE.url + "get_order",
-          method: "GET",
-          data: {
-            project: project,
-            _: Math.random()
+          "url": BASE.url + "get_order",
+          "method": "GET",
+          "data": {
+            "project": project,
+            "_": Math.random()
           },
-          success: function (response) 
+          "success": function (response)
           {
+
             $(".loader").hide();
             deferred.resolve(response);
+
           },
-          error: function (xhr, status) 
+          "error": function (xhr, status)
           {
+
             $(".loader").hide();
             if (xhr.status == 500)
             {
+
               Rollbar.error("Error: An error ocurred loading data");
               deferred.resolve({
-                error: null,
-                message: "Error interno cargando datos"
+                "error": null,
+                "message": "Error interno cargando datos"
               });
+
             }
             else if (xhr.status == 401)
             {
+
               Rollbar.error("Error: 401 Unauthorized");
               location = "error401";
+
             }
+
           }
         });
+
       }
-      catch (e) 
+      catch (e)
       {
+
         if (e.status == 401)
         {
+
           Rollbar.error("Error: 401 Unauthorized");
           location = "error401";
+
         }
         Rollbar.error("Error: An error ocurred getting ID by project", e);
-        deferred.resolve('exception');
+        deferred.resolve("exception");
+
       }
       return deferred.promise
+
     },
 
     /**
@@ -149,49 +186,63 @@ integrates.factory('findingFactory', function($q, $translate)
      * @member integrates.findingFactory
      * @return {Object}
      */
-    generateDoc: function(project, json, format)
+    "generateDoc": function(project, json, format)
     {
+
       var deferred = $q.defer();
-      try 
+      try
       {
+
         $.ajax({
-          url: BASE.url + "generate_autodoc?_"+Math.random(),
-          method: "POST",
-          data: {
-            project: project,
-            data: json,
-            format: format
+          "url": BASE.url + "generate_autodoc?_"+Math.random(),
+          "method": "POST",
+          "data": {
+            "project": project,
+            "data": json,
+            "format": format
           },
-          success: function (response) 
+          "success": function (response)
           {
+
             $(".loader").hide();
             deferred.resolve(response);
+
           },
-          error: function (xhr, status) 
+          "error": function (xhr, status)
           {
+
             $(".loader").hide();
             if (xhr.status == 500)
             {
+
               Rollbar.error("Error: An error ocurred loading data");
               deferred.resolve({
-                error: null,
-                message: "Error interno cargando datos"
+                "error": null,
+                "message": "Error interno cargando datos"
               });
+
             }
             else if (xhr.status == 401)
             {
+
               Rollbar.error("Error: 401 Unauthorized");
               location = "error401";
+
             }
+
           }
         });
+
       }
-      catch (e) 
+      catch (e)
       {
+
         Rollbar.error("Error: An error ocurred generating document", e);
-        deferred.resolve('exception');
+        deferred.resolve("exception");
+
       }
       return deferred.promise
+
     },
 
     /**
@@ -202,51 +253,65 @@ integrates.factory('findingFactory', function($q, $translate)
      * @member integrates.findingFactory
      * @return {Object}
      */
-    updateVuln: function(vuln)
+    "updateVuln": function(vuln)
     {
+
       var deferred = $q.defer();
-      try 
+      try
       {
+
         $.ajax({
-          url: BASE.url + "update_finding",
-          method: "POST",
-          data: {
-            vuln: vuln
-          },
-          success: function (response) 
+          "url": BASE.url + "update_finding",
+          "method": "POST",
+          "data": {"vuln": vuln},
+          "success": function (response)
           {
+
             deferred.resolve(response);
+
           },
-          error: function (xhr, status) 
+          "error": function (xhr, status)
           {
+
             $(".loader").hide();
             if (xhr.status == 500)
             {
+
               Rollbar.error("Error: An error ocurred loading data");
               deferred.resolve({
-                error: null,
-                message: "Error interno cargando datos"
+                "error": null,
+                "message": "Error interno cargando datos"
               });
+
             }
             else if (xhr.status == 401)
             {
+
               Rollbar.error("Error: 401 Unauthorized");
               location = "error401";
+
             }
+
           }
         });
+
       }
-      catch (e) 
+      catch (e)
       {
+
         if (e.status == 401)
         {
+
           Rollbar.error("Error: 401 Unauthorized");
           location = "error401";
+
         }
         Rollbar.error("Error: An error ocurred updating finding", e);
-        deferred.resolve('exception');
+        deferred.resolve("exception");
+
       }
       return deferred.promise
+
     },
 
     /**
@@ -256,51 +321,65 @@ integrates.factory('findingFactory', function($q, $translate)
      * @member integrates.findingFactory
      * @return {Object}
      */
-    deleteVuln: function(vuln)
+    "deleteVuln": function(vuln)
     {
+
       var deferred = $q.defer();
-      try 
+      try
       {
+
         $.ajax({
-          url: BASE.url + "delete_finding",
-          method: "POST",
-          data: {
-            vuln: vuln
-          },
-          success: function (response) 
+          "url": BASE.url + "delete_finding",
+          "method": "POST",
+          "data": {"vuln": vuln},
+          "success": function (response)
           {
+
             deferred.resolve(response);
+
           },
-          error: function (xhr, status) 
+          "error": function (xhr, status)
           {
+
             $(".loader").hide();
             if (xhr.status == 500)
             {
+
               Rollbar.error("Error: An error ocurred loading data");
               deferred.resolve({
-                error: null,
-                message: "Error interno cargando datos"
+                "error": null,
+                "message": "Error interno cargando datos"
               });
+
             }
             else if (xhr.status == 401)
             {
+
               Rollbar.error("Error: 401 Unauthorized");
               location = "error401";
+
             }
+
           }
         });
+
       }
-      catch (e) 
+      catch (e)
       {
+
         if (e.status == 401)
         {
+
           Rollbar.error("Error: 401 Unauthorized");
           location = "error401";
+
         }
         Rollbar.error("Error: An error ocurred deleting finding", e);
-        deferred.resolve('exception');
+        deferred.resolve("exception");
+
       }
       return deferred.promise
+
     },
 
     /**
@@ -311,61 +390,82 @@ integrates.factory('findingFactory', function($q, $translate)
      * @member integrates.findingFactory
      * @return {Object}
      */
-    updateOrderID: function(id, project)
+    "updateOrderID": function(id, project)
     {
+
       var deferred = $q.defer();
-      try 
+      try
       {
+
         $.ajax({
-          url: BASE.url + "update_order",
-          method: "POST",
-          data: {
-            project: project,
-            id: id
+          "url": BASE.url + "update_order",
+          "method": "POST",
+          "data": {
+            "project": project,
+            "id": id
           },
-          success: function (response) 
+          "success": function (response)
           {
+
             deferred.resolve(response);
+
           },
-          error: function (xhr, status) 
+          "error": function (xhr, status)
           {
+
             $(".loader").hide();
             if (xhr.status == 500)
             {
+
               deferred.resolve({
-                error: null,
-                message: "Error interno cargando datos"
+                "error": null,
+                "message": "Error interno cargando datos"
               });
+
             }
             else if (xhr.status == 401)
             {
+
               location = "error401";
+
             }
+
           }
         });
+
       }
-      catch (e) 
+      catch (e)
       {
+
         if (e.status == 401)
         {
+
           location = "error401";
+
         }
         else if (e.status == 500)
         {
+
           deferred.resolve({
-            error: "undefined",
-            message: "Error interno cargando datos"
+            "error": "undefined",
+            "message": "Error interno cargando datos"
           });
+
         }
-        else 
+        else
         {
+
           deferred.resolve({
-            error: "undefined",
-            message: "Error desconocido"
+            "error": "undefined",
+            "message": "Error desconocido"
           });
+
         }
+
       }
       return deferred.promise
+
     }
   }
+
 });

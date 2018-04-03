@@ -4,35 +4,57 @@
  * @author engineering@fluidattacks.com
  */
 /* Table Formatter */
+/**
+ * Function removeHour return date without hour
+ */
 function removeHour(value, row, index)
 {
+
   if (value.indexOf(":") != -1)
   {
+
     return value.split(" ")[0];
+
   }
   return value;
+
 }
+
+/**
+ * Function labelState return html code for specific label
+ */
 function labelState(value, row, index)
 {
+
   if (value == "Cerrado")
   {
+
     return "<label class='label label-success' style='background-color: #31c0be'>Cerrado</label>";
+
   }
   else if (value == "Closed")
   {
+
     return "<label class='label label-success' style='background-color: #31c0be'>Closed</label>";
+
   }
   else if (value == "Abierto")
   {
+
     return "<label class='label label-danger' style='background-color: #f22;'>Abierto</label>";
+
   }
   else if (value == "Open")
   {
+
     return "<label class='label label-danger' style='background-color: #f22;'>Open</label>";
+
   }
   else if (value == "Parcialmente cerrado")
   {
+
     return "<label class='label label-info' style='background-color: #ffbf00'>Parcialmente cerrado</label>";
+
   }
   return "<label class='label label-info' style='background-color: #ffbf00'>Partially closed</label>";
 
@@ -55,11 +77,12 @@ integrates.controller(
     $uibModal, $timeout,
     $state, $stateParams,
     $translate, projectFtry
-  ) 
+  )
   {
 
     $scope.init = function()
     {
+
       var project = $stateParams.project;
       var findingId = $stateParams.finding;
       $scope.userRole = userRole;
@@ -73,15 +96,19 @@ integrates.controller(
       $scope.view.project = false;
       $scope.view.finding = false;
       //Parametros de ruta
-      if (typeof findingId !== "undefined") 
+      if (typeof findingId !== "undefined")
       {
+
         $scope.findingId = findingId;
+
       }
-      if (typeof project != "undefined"
-                && project != "") 
+      if (typeof project != "undefined" &&
+                project != "")
       {
+
         $scope.project = project;
         $scope.search();
+
       }
       //Inicializacion para consulta de hallazgos
       $scope.configColorPalette();
@@ -89,71 +116,85 @@ integrates.controller(
       $scope.configKeyboardView();
       $scope.goUp();
       $scope.finding = {};
+
     };
     $scope.goUp = function()
     {
-      $('html, body').animate({ scrollTop: 0 }, 'fast');
+
+      $("html, body").animate({"scrollTop": 0}, "fast");
+
     };
     $scope.goBack = function()
     {
+
       $scope.view.project = true;
       $scope.view.finding = false;
       $scope.mainGraphexploitPieChart();
       $scope.mainGraphtypePieChart();
       $scope.mainGraphstatusPieChart();
-      $('html, body').animate({ scrollTop: $scope.currentScrollPosition }, 'fast');
+      $("html, body").animate({"scrollTop": $scope.currentScrollPosition}, "fast");
+
     };
     $scope.alertHeader = function(company, project)
     {
+
       var req = projectFtry.getAlerts(company, project);
       req.then(function(response)
       {
+
         if (!response.error && response.data.length > 0)
         {
-          if (response.data.status_act=='1')
+
+          if (response.data.status_act=="1")
           {
-            var html = '<div class="alert alert-danger-2">';
-            html += '<strong>Atención! </strong>' + response.data[0].message + '</div>';
-            document.getElementById('header_alert').innerHTML = html;
+
+            var html = "<div class=\"alert alert-danger-2\">";
+            html += "<strong>Atención! </strong>" + response.data[0].message + "</div>";
+            document.getElementById("header_alert").innerHTML = html;
+
           }
+
         }
+
       });
+
     };
     $scope.testFinding = function()
     {
+
       $scope.finding = {
-        proyecto_fluid: "Integrates",
-        proyecto_cliente: "Integrates",
-        tipo_prueba: "Aplicación",
-        escenario: "Nunc ut nibh non neque semper ornare id sit amet ipsum.",
-        actor: "Praesent pharetra metus eget diam dignissim facilisis",
-        hallazgo: "FIN. 0001 Ejecución Remota de Comandos",
-        categoria: "Fusce iaculis, dolor nec maximus molestie, nisi leo malesuada libero",
-        valor_riesgo: "(3.0) Crítico",
-        probabilidad: "75% Fácil de vulnerar",
-        severidad: "5",
-        vulnerabilidad: "Pellentesque quis sapien luctus, fermentum mauris ac, tincidunt urna. Praesent pharetra metus eget diam dignissim facilisis. Phasellus in dictum dolor, elementum pharetra neque. Duis molestie, dui sit amet dictum efficitur, dolor arcu cursus metus, tempor bibendum justo sem quis velit. Nam sed sem id libero scelerisque pretium sit amet rhoncus diam. In eleifend diam felis, eget rutrum mi tempus a. In ex neque, vehicula vitae congue in, sodales non massa.",
-        requisitos: "REQ000X. Maecenas vitae molestie arcu. Sed ut enim eu mauris fermentum malesuada sed non magna.",
-        cardinalidad: "1023",
-        amenaza: "Maecenas eget metus nec nibh blandit sollicitudin vel convallis diam. Maecenas vestibulum augue vitae risus tincidunt",
-        donde: "Pellentesque quis sapien luctus, fermentum mauris ac, tincidunt urna. Praesent pharetra metus eget diam dignissim facilisis. Phasellus in dictum dolor, elementum pharetra neque. Duis molestie, dui sit amet dictum efficitur, dolor arcu cursus metus, tempor bibendum justo sem quis velit. Nam sed sem id libero scelerisque pretium sit amet rhoncus diam. In eleifend diam felis, eget rutrum mi tempus a. In ex neque, vehicula vitae congue in, sodales non massa",
-        vector_ataque: "Praesent porta congue lorem sit amet rhoncus. ",
-        solucion_efecto: "Etiam dapibus ultrices ligula a convallis. Vivamus ultricies convallis magna. Praesent metus sem, porttitor sed risus quis, fringilla rutrum arcu.",
-        debilidad: "Fusce iaculis, dolor nec maximus molestie, nisi leo malesuada libero",
-        cwe: "https://fluidattacks.com",
-        vector_acceso: "0343 | Red Adyacente",
-        autenticacion: "0324 | Ninguna",
-        explotabilidad: "0435 | Conceptual",
-        nivel_confianza: "4543 | Confirmado",
-        complejidad_acceso: "4542 | Facil",
-        impacto_confidencialidad: "0324 | Alto: Aqui va un texto 1",
-        impacto_integridad: "0324 | Alto: Aqui va un texto 2",
-        impacto_disponibilidad: "0324 | Alto: Aqui va un texto 3",
-        nivel_resolucion: "0233 | Existe porque va un texto 4",
-        sistema_comprometido: "Stiam dapibus ultrices ligula a convallis.",
-        cssv2base: "4.3",
-        criticidad: "5.1",
-        timestamp: "04/06/2017 12:40:24"
+        "proyecto_fluid": "Integrates",
+        "proyecto_cliente": "Integrates",
+        "tipo_prueba": "Aplicación",
+        "escenario": "Nunc ut nibh non neque semper ornare id sit amet ipsum.",
+        "actor": "Praesent pharetra metus eget diam dignissim facilisis",
+        "hallazgo": "FIN. 0001 Ejecución Remota de Comandos",
+        "categoria": "Fusce iaculis, dolor nec maximus molestie, nisi leo malesuada libero",
+        "valor_riesgo": "(3.0) Crítico",
+        "probabilidad": "75% Fácil de vulnerar",
+        "severidad": "5",
+        "vulnerabilidad": "Pellentesque quis sapien luctus, fermentum mauris ac, tincidunt urna. Praesent pharetra metus eget diam dignissim facilisis. Phasellus in dictum dolor, elementum pharetra neque. Duis molestie, dui sit amet dictum efficitur, dolor arcu cursus metus, tempor bibendum justo sem quis velit. Nam sed sem id libero scelerisque pretium sit amet rhoncus diam. In eleifend diam felis, eget rutrum mi tempus a. In ex neque, vehicula vitae congue in, sodales non massa.",
+        "requisitos": "REQ000X. Maecenas vitae molestie arcu. Sed ut enim eu mauris fermentum malesuada sed non magna.",
+        "cardinalidad": "1023",
+        "amenaza": "Maecenas eget metus nec nibh blandit sollicitudin vel convallis diam. Maecenas vestibulum augue vitae risus tincidunt",
+        "donde": "Pellentesque quis sapien luctus, fermentum mauris ac, tincidunt urna. Praesent pharetra metus eget diam dignissim facilisis. Phasellus in dictum dolor, elementum pharetra neque. Duis molestie, dui sit amet dictum efficitur, dolor arcu cursus metus, tempor bibendum justo sem quis velit. Nam sed sem id libero scelerisque pretium sit amet rhoncus diam. In eleifend diam felis, eget rutrum mi tempus a. In ex neque, vehicula vitae congue in, sodales non massa",
+        "vector_ataque": "Praesent porta congue lorem sit amet rhoncus. ",
+        "solucion_efecto": "Etiam dapibus ultrices ligula a convallis. Vivamus ultricies convallis magna. Praesent metus sem, porttitor sed risus quis, fringilla rutrum arcu.",
+        "debilidad": "Fusce iaculis, dolor nec maximus molestie, nisi leo malesuada libero",
+        "cwe": "https://fluidattacks.com",
+        "vector_acceso": "0343 | Red Adyacente",
+        "autenticacion": "0324 | Ninguna",
+        "explotabilidad": "0435 | Conceptual",
+        "nivel_confianza": "4543 | Confirmado",
+        "complejidad_acceso": "4542 | Facil",
+        "impacto_confidencialidad": "0324 | Alto: Aqui va un texto 1",
+        "impacto_integridad": "0324 | Alto: Aqui va un texto 2",
+        "impacto_disponibilidad": "0324 | Alto: Aqui va un texto 3",
+        "nivel_resolucion": "0233 | Existe porque va un texto 4",
+        "sistema_comprometido": "Stiam dapibus ultrices ligula a convallis.",
+        "cssv2base": "4.3",
+        "criticidad": "5.1",
+        "timestamp": "04/06/2017 12:40:24"
       };
       //Begin current Date
       var today = new Date();
@@ -163,45 +204,56 @@ integrates.controller(
       var yyyy = today.getFullYear();
       if (dd<10)
       {
-        dd='0'+dd;
+
+        dd="0"+dd;
+
       }
       if (mm<10)
       {
-        mm='0'+mm;
+
+        mm="0"+mm;
+
       }
-      var new_today = dd+'/'+mm+'/'+yyyy;
+      var new_today = dd+"/"+mm+"/"+yyyy;
       $scope.header = {
-        findingTitle: $scope.finding.hallazgo,
-        findingID: "323932433",
-        findingType: $scope.finding.tipo_prueba,
-        findingValueColor: $scope.colors.critical,
-        findingValue: "8.0",
-        findingValueDescription: "(Alto)",
-        findingCount: $scope.finding.cardinalidad,
-        findingStateColor: $scope.colors.critical,
-        findingState: "Abierto",
-        finding: new_today
+        "findingTitle": $scope.finding.hallazgo,
+        "findingID": "323932433",
+        "findingType": $scope.finding.tipo_prueba,
+        "findingValueColor": $scope.colors.critical,
+        "findingValue": "8.0",
+        "findingValueDescription": "(Alto)",
+        "findingCount": $scope.finding.cardinalidad,
+        "findingStateColor": $scope.colors.critical,
+        "findingState": "Abierto",
+        "finding": new_today
       };
+
     };
     $scope.calculateCardinality = function(data)
     {
+
       var total_severity = 0;
       var cardinalidad = 0;
       var cardinalidad_total = 0;
       data.data.forEach(function(i)
       {
+
         cardinalidad += parseInt(i.cardinalidad);
         cardinalidad_total += parseInt(i.cardinalidad_total);
+
       });
       $("#total_cardinalidad").html(cardinalidad);
       $("#total_hallazgos").html(data.data.length);
       var severity = 0;
       data.data.forEach(function(i)
       {
-        try 
+
+        try
         {
+
           if (i.tipo_hallazgo == "Seguridad")
           {
+
             var ImpCon = parseFloat(i.impacto_confidencialidad.split(" | ")[0]);
             var ImpInt = parseFloat(i.impacto_integridad.split(" | ")[0]);
             var ImpDis = parseFloat(i.impacto_disponibilidad.split(" | ")[0]);
@@ -213,38 +265,55 @@ integrates.controller(
             var Confi = parseFloat(i.nivel_confianza.split(" | ")[0]);
             var BaseScore = (0.6*(10.41*(1-(1-ImpCon)*(1-ImpInt)*(1-ImpDis)))+0.4*(20*AccCom*Auth*AccVec)-1.5)*1.176;
             severity += BaseScore * parseFloat(i.cardinalidad_total);
+
           }
+
         }
         catch (e)
         {
+
           Rollbar.error("Error: An error ocurred calculating cardinality", e);
+
         }
+
       });
       var req = projectFtry.TotalSeverity($scope.project.toLowerCase());
       req.then(function(response)
       {
+
         if (!response.error)
         {
+
           if (response.data.length > 0)
           {
-            for (var i = 0; i < response.data.length; i++) 
+
+            for (var i = 0; i < response.data.length; i++)
             {
+
               var target = parseInt(response.data[i].lines) / 1000 + parseInt(response.data[i].fields) / 4;
               total_severity = severity / (4.611 * target + 43.221) * 100;
               $("#total_criticidad").html("n%".replace("n", total_severity.toFixed(0)));
+
             }
+
           }
-          else 
+          else
           {
+
             total_severity = severity;
             $("#total_criticidad").html(total_severity.toFixed(0));
+
           }
+
         }
+
       });
       $("#total_efectividad").html("n%".replace("n", ((1-cardinalidad/cardinalidad_total)*100).toFixed(2).toString()));
+
     };
     $scope.configColorPalette = function()
     {
+
       $scope.colors = {};
       //Red
       $scope.colors.critical = "background-color: #f12;";
@@ -254,363 +323,503 @@ integrates.controller(
       $scope.colors.tolerable = "background-color: #ffbf00;";
       //Green
       $scope.colors.ok = "background-color: #008000;";
+
     };
     $scope.configKeyboardView = function()
     {
+
       document.onkeypress = function(ev)
       {
+
         //Buscar un proyecto
         if (ev.keyCode === 13)
         {
-          if ($('#project').is(':focus'))
+
+          if ($("#project").is(":focus"))
           {
+
             $scope.search();
+
           }
+
         }
+
       };
+
     };
     $scope.generateFullDoc = function()
     {
+
       var project = $scope.project;
-      var data = $("#vulnerabilities").bootstrapTable('getData');
+      var data = $("#vulnerabilities").bootstrapTable("getData");
       for (i=0; i < data.length-1; i++)
       {
+
         for (j=i+1; j < data.length; j++)
         {
+
           if (parseFloat(data[i].criticidad) < parseFloat(data[j].criticidad))
           {
+
             aux = data[i];
             data[i] = data[j];
             data[j] = aux;
+
           }
+
         }
+
       }
       var generateDoc = true;
-      try 
+      try
       {
+
         json = data;
         generateDoc = true;
         var err = "error";
         //Remove indices
         json = JSON.stringify(JSON.parse(JSON.stringify(json)));
-        if (typeof json == "undefined") 
+        if (typeof json == "undefined")
         {
+
           throw err;
+
         }
-        if (json == [] || json == {}) 
+        if (json == [] || json == {})
         {
+
           throw err;
+
         }
-        if (project.trim() == "") 
+        if (project.trim() == "")
         {
+
           throw err;
+
         }
+
       }
       catch (e)
       {
+
         Rollbar.error("Error: An error ocurred generating document", e);
         generateDoc = false;
+
       }
-      if (generateDoc == false) 
+      if (generateDoc == false)
       {
+
         return false;
+
       }
       var req = projectFtry.ProjectDoc(project, json, "IT");
       req.then(function(response)
       {
+
         if (!response.error)
         {
+
           var url = BASE.url + "export_autodoc?project=" + $scope.project;
           url += "&format=IT";
           if (navigator.userAgent.indexOf("Firefox") == -1)
           {
+
             $scope.downloadURL = url;
+
           }
-          else 
+          else
           {
-            win = window.open(url, '__blank');
+
+            win = window.open(url, "__blank");
+
           }
+
         }
-        else 
+        else if (response.error)
         {
+
           Rollbar.error("Error: An error ocurred generating document");
+
         }
+
       });
       $scope.downloadDoc();
+
     };
     $scope.technicalReportModal = function()
     {
+
       //Tracking mixpanel
       var org = Organization.toUpperCase();
       var projt = $scope.project.toUpperCase();
       mixPanelDashboard.trackReports("TechnicalReports", userName, userEmail, org, projt);
       var modalInstance = $uibModal.open({
-        animation: true,
-        templateUrl: 'technicalReportModal.html',
-        windowClass: 'modal avance-modal',
-        keyboard: false,
-        controller: function($scope, $uibModalInstance, $stateParams, projectFtry)
+        "animation": true,
+        "templateUrl": "technicalReportModal.html",
+        "windowClass": "modal avance-modal",
+        "keyboard": false,
+        "controller": function($scope, $uibModalInstance, $stateParams, projectFtry)
         {
+
           $scope.findingMatrizXLSReport = function()
           {
+
             var project = $stateParams.project;
             var lang = localStorage.lang;
             var prjpatt = new RegExp("^[a-zA-Z0-9_]+$");
             var langpatt = new RegExp("^en|es$");
-            if (prjpatt.test(project)
-                            && langpatt.test(lang))
+            if (prjpatt.test(project) &&
+                            langpatt.test(lang))
             {
+
               //Tracking mixpanel
               mixPanelDashboard.trackReports("TechnicalReportXLS", userName, userEmail, org, projt);
               var url = BASE.url + "xls/"+ lang + "/project/" + project;
               if (navigator.userAgent.indexOf("Firefox") == -1)
               {
+
                 downLink = document.createElement("a");
                 downLink.target = "_blank";
                 downLink.href = url;
                 downLink.click();
+
               }
-              else 
+              else
               {
-                win = window.open(url, '__blank');
+
+                win = window.open(url, "__blank");
+
               }
+
             }
+
           };
           $scope.findingMatrizPDFReport = function()
           {
+
             var project = $stateParams.project;
             var lang = localStorage.lang;
             var prjpatt = new RegExp("^[a-zA-Z0-9_]+$");
             var langpatt = new RegExp("^en|es$");
-            if (prjpatt.test(project)
-                            && langpatt.test(lang))
+            if (prjpatt.test(project) &&
+                            langpatt.test(lang))
             {
+
               //Tracking mixpanel
               mixPanelDashboard.trackReports("TechnicalReportPDF", userName, userEmail, org, projt);
               var url = BASE.url + "pdf/"+ lang + "/project/" + project + "/tech/";
               if (navigator.userAgent.indexOf("Firefox") == -1)
               {
+
                 downLink = document.createElement("a");
                 downLink.target = "_blank";
                 downLink.href = url;
                 downLink.click();
+
               }
-              else 
+              else
               {
-                win = window.open(url, '__blank');
+
+                win = window.open(url, "__blank");
+
               }
+
             }
+
           };
           $scope.closeModalAvance = function()
           {
+
             $uibModalInstance.close();
+
           }
+
         },
-        resolve: {
-          ok: true
-        }
+        "resolve": {"ok": true}
       });
+
     };
     $scope.executiveReportModal = function()
     {
+
       //Tracking mixpanel
       var org = Organization.toUpperCase();
       var projt = $scope.project.toUpperCase();
       mixPanelDashboard.trackReports("ExecutiveReports", userName, userEmail, org, projt);
       var modalInstance = $uibModal.open({
-        animation: true,
-        templateUrl: 'executiveReportModal.html',
-        windowClass: 'modal avance-modal',
-        keyboard: false,
-        controller: function($scope, $uibModalInstance, $stateParams)
+        "animation": true,
+        "templateUrl": "executiveReportModal.html",
+        "windowClass": "modal avance-modal",
+        "keyboard": false,
+        "controller": function($scope, $uibModalInstance, $stateParams)
         {
+
           $("#hasPresentation").hide();
           $("#hasPresentationMsg").show();
           $scope.init = function()
           {
+
             $("#hasPresentation").hide();
             $("#hasPresentationMsg").show();
             $.get(BASE.url+"check_pdf/project/"+$stateParams.project, function(r)
             {
+
               if (!r.error)
               {
+
                 if (r.data.enable)
                 {
+
                   $("#hasPresentation").show();
                   $("#hasPresentationMsg").hide();
+
                 }
+
               }
-              else 
+              else if (r.error)
               {
+
                 Rollbar.error("Error: An error ocurred generating the executive report");
+
               }
+
             });
+
           };
           $scope.findingMatrizPDFPresentation = function()
           {
+
             var project = $stateParams.project;
             var lang = localStorage.lang;
             var prjpatt = new RegExp("^[a-zA-Z0-9_]+$");
             var langpatt = new RegExp("^en|es$");
-            if (prjpatt.test(project)
-                            && langpatt.test(lang))
+            if (prjpatt.test(project) &&
+                            langpatt.test(lang))
             {
+
               //Tracking mixpanel
               mixPanelDashboard.trackReports("ExecutivePDFPresentation", userName, userEmail, org, projt);
               var url = BASE.url + "pdf/"+ lang + "/project/" + project + "/presentation/";
               if (navigator.userAgent.indexOf("Firefox") == -1)
               {
+
                 downLink = document.createElement("a");
                 downLink.target = "_blank";
                 downLink.href = url;
                 downLink.click();
+
               }
-              else 
+              else
               {
-                win = window.open(url, '__blank');
+
+                win = window.open(url, "__blank");
+
               }
+
             }
+
           };
           $scope.findingMatrizPDFReport = function()
           {
+
             var project = $stateParams.project;
             var lang = localStorage.lang;
             var prjpatt = new RegExp("^[a-zA-Z0-9_]+$");
             var langpatt = new RegExp("^en|es$");
-            if (prjpatt.test(project)
-                            && langpatt.test(lang))
+            if (prjpatt.test(project) &&
+                            langpatt.test(lang))
             {
+
               //Tracking mixpanel
               mixPanelDashboard.trackReports("ExecutivePDFReport", userName, userEmail, org, projt);
               var url = BASE.url + "pdf/"+ lang + "/project/" + project + "/executive/";
               if (navigator.userAgent.indexOf("Firefox") == -1)
               {
+
                 downLink = document.createElement("a");
                 downLink.target = "_blank";
                 downLink.href = url;
                 downLink.click();
+
               }
-              else 
+              else
               {
-                win = window.open(url, '__blank');
+
+                win = window.open(url, "__blank");
+
               }
+
             }
+
           };
           $scope.closeModalAvance = function()
           {
+
             $uibModalInstance.close();
+
           }
           $scope.init();
+
         },
-        resolve: {
-          ok: true
-        }
+        "resolve": {"ok": true}
       });
+
     };
     $scope.generatePDF = function()
     {
+
       var project = $scope.project;
       var lang = localStorage.lang;
       var prjpatt = new RegExp("^[a-zA-Z0-9_]+$");
       var langpatt = new RegExp("^en|es$");
-      if (prjpatt.test(project)
-                && langpatt.test(lang))
+      if (prjpatt.test(project) &&
+                langpatt.test(lang))
       {
+
         var url = BASE.url + "doc/"+ lang + "/project/" + project;
         if (navigator.userAgent.indexOf("Firefox") == -1)
         {
+
           $scope.downloadURL = url;
+
         }
-        else 
+        else
         {
-          win = window.open(url, '__blank');
+
+          win = window.open(url, "__blank");
+
         }
+
       }
+
     };
     $scope.downloadDoc = function()
     {
+
       if (typeof $scope.downloadURL == "undefined")
       {
+
         $timeout($scope.downloadDoc, 3000);
+
       }
-      else 
+      else
       {
+
         downLink = document.createElement("a");
         downLink.target = "_blank";
         downLink.href = $scope.downloadURL;
         downLink.click();
+
       }
+
     }
     $scope.mainGraphtypePieChart = function()
     {
+
       var currData = $scope.data;
       var total_seg = 0;
       var total_hig = 0;
       currData.forEach(function(val, i)
       {
+
         tipo = val.tipo_hallazgo;
         if (val.estado != "Cerrado" && val.estado != "Closed")
         {
+
           if (tipo == "Seguridad")
           {
+
             total_seg += 1;
+
           }
-          else 
+          else
           {
+
             total_hig += 1;
+
           }
+
         }
+
       });
-      var seg_transl = $translate.instant('grapType.seg_label');
-      var hig_transl = $translate.instant('grapType.hig_label');
+      var seg_transl = $translate.instant("grapType.seg_label");
+      var hig_transl = $translate.instant("grapType.hig_label");
       total_segLabel = seg_transl + " :n%".replace(":n", (total_seg*100/(total_seg+total_hig)).toFixed(2).toString());
       total_higLabel = hig_transl + " :n%".replace(":n", (total_hig*100/(total_seg+total_hig)).toFixed(2).toString());
       $("#grapType").empty();
       Morris.Donut({
-        element: 'grapType',
-        resize: true,
-        data: [
-          {label: total_segLabel, value: total_seg, color: "#ff1a1a"},
-          {label: total_higLabel, value: total_hig, color: "#31c0be"}
+        "element": "grapType",
+        "resize": true,
+        "data": [
+          {
+            "label": total_segLabel,
+            "value": total_seg,
+            "color": "#ff1a1a"
+          },
+          {
+            "label": total_higLabel,
+            "value": total_hig,
+            "color": "#31c0be"
+          }
         ]
       });
+
     };
     $scope.mainGraphexploitPieChart = function()
     {
+
       var currData = $scope.data;
       var exploit = 0;
       var nonexploit = 0;
       currData.forEach(function(val, i)
       {
+
         explotable = val.explotabilidad;
         if (val.estado != "Cerrado" && val.estado != "Closed")
         {
+
           if (explotable == "1.000 | Alta: No se requiere exploit o se puede automatizar" || explotable == "0.950 | Funcional: Existe exploit" || explotable == "1.000 | High: Exploit is not required or it can be automated" || explotable == "0.950 | Functional: There is an exploit" )
           {
-            exploit ++;
+
+            exploit += 1;
+
           }
-          else 
+          else
           {
-            nonexploit ++;
+
+            nonexploit += 1;
+
           }
+
         }
+
       });
-      var exploit_transl = $translate.instant('grapExploit.exploit_label');
-      var nonexploit_transl = $translate.instant('grapExploit.nonexploit_label');
+      var exploit_transl = $translate.instant("grapExploit.exploit_label");
+      var nonexploit_transl = $translate.instant("grapExploit.nonexploit_label");
       exploitLabel = exploit_transl + " :n%".replace(":n", (exploit*100/(exploit+nonexploit)).toFixed(2).toString());
       nonexploitLabel = nonexploit_transl + " :n%".replace(":n", (nonexploit*100/(exploit+nonexploit)).toFixed(2).toString());
       $("#grapExploit").empty();
       Morris.Donut({
-        element: 'grapExploit',
-        resize: true,
-        data: [
-          {label: exploitLabel, value: exploit, color: "#ff1a1a"},
-          {label: nonexploitLabel, value: nonexploit, color: "#31c0be"}
+        "element": "grapExploit",
+        "resize": true,
+        "data": [
+          {
+            "label": exploitLabel,
+            "value": exploit,
+            "color": "#ff1a1a"
+          },
+          {
+            "label": nonexploitLabel,
+            "value": nonexploit,
+            "color": "#31c0be"
+          }
         ]
       });
+
     };
     $scope.mainGraphstatusPieChart = function()
     {
+
       var currData = $scope.data;
       var total = 0;
       var open = 0;
@@ -618,431 +827,508 @@ integrates.controller(
       var close = 0;
       currData.forEach(function(val, i)
       {
+
         estado = val.estado;
-        total ++;
+        total += 1;
         if (estado == "Abierto" || estado == "Open" )
         {
-          open++;
+
+          open += 1;
+
         }
         else if (estado == "Cerrado" || estado == "Closed")
         {
-          close++;
+
+          close += 1;
+
         }
-        else 
+        else
         {
-          partial++;
+
+          partial += 1;
+
         }
+
       });
       total = parseFloat(total);
-      var open_transl = $translate.instant('grapStatus.open_label');
-      var partial_transl = $translate.instant('grapStatus.partial_label');
-      var close_transl = $translate.instant('grapStatus.close_label');
+      var open_transl = $translate.instant("grapStatus.open_label");
+      var partial_transl = $translate.instant("grapStatus.partial_label");
+      var close_transl = $translate.instant("grapStatus.close_label");
       openLabel = open_transl + " :n%".replace(":n", (open*100/total).toFixed(2).toString());
       partialLabel = partial_transl + " :n%".replace(":n", (partial*100/total).toFixed(2).toString());
       closeLabel = close_transl + " :n%".replace(":n", (close*100/total).toFixed(2).toString());
       $("#grapStatus").empty();
       Morris.Donut({
-        element: 'grapStatus',
-        resize: true,
-        data: [
-          {label: openLabel, value: open, color: "#ff1a1a"},
-          {label: partialLabel, value: partial, color: "#ffbf00"},
-          {label: closeLabel, value: close, color: "#31c0be"}
+        "element": "grapStatus",
+        "resize": true,
+        "data": [
+          {
+            "label": openLabel,
+            "value": open,
+            "color": "#ff1a1a"
+          },
+          {
+            "label": partialLabel,
+            "value": partial,
+            "color": "#ffbf00"
+          },
+          {
+            "label": closeLabel,
+            "value": close,
+            "color": "#31c0be"
+          }
         ]
       });
+
     };
 
     $scope.search = function()
     {
-      var vlang = 'en-US';
+
+      var vlang = "en-US";
       if (localStorage.lang === "en")
       {
-        vlang = 'en-US';
+
+        vlang = "en-US";
+
       }
-      else 
+      else
       {
-        vlang = 'es-CO';
+
+        vlang = "es-CO";
+
       }
       var project = $scope.project;
       var filter = $scope.filter;
       var finding = $scope.findingId;
-      if (typeof project === "undefined"
-                || project === "")
+      if (typeof project === "undefined" ||
+                project === "")
       {
-        var attention_at = $translate.instant('proj_alerts.attent_title');
-        var attention_ac = $translate.instant('proj_alerts.attent_cont');
+
+        var attention_at = $translate.instant("proj_alerts.attent_title");
+        var attention_ac = $translate.instant("proj_alerts.attent_cont");
         $msg.warning(attention_ac, attention_at);
         return false;
+
       }
       if ($stateParams.project != $scope.project)
       {
-        $state.go("ProjectNamed", {project: $scope.project});
+
+        $state.go("ProjectNamed", {"project": $scope.project});
+
       }
-      else 
+      else if ($stateParams.project == $scope.project)
       {
 
         /* Handling presentation button */
         $scope.view.project = false;
         $scope.view.finding = false;
-        var search_at = $translate.instant('proj_alerts.search_title');
-        var search_ac = $translate.instant('proj_alerts.search_cont');
+        var search_at = $translate.instant("proj_alerts.search_title");
+        var search_ac = $translate.instant("proj_alerts.search_cont");
         $msg.info(search_ac, search_at);
         var reqProject = projectFtry.projectByName(project, filter);
         var reqEventualities = projectFtry.EventualityByName(project, "Name");
         reqProject.then(function(response)
         {
+
           $scope.view.project = true;
           if (!response.error)
           {
+
             //Tracking Mixpanel
             mixPanelDashboard.trackSearch("SearchFinding", userEmail, project);
             if (response.data.length == 0)
             {
+
               $scope.view.project = false;
               $scope.view.finding = false;
-              $msg.error($translate.instant('proj_alerts.not_found'));
+              $msg.error($translate.instant("proj_alerts.not_found"));
+
             }
-            else 
+            else
             {
+
               $scope.data = response.data;
               var org = Organization.toUpperCase();
               var projt = $stateParams.project.toUpperCase();
               $scope.alertHeader(org, projt);
               for (var i = 0; i< $scope.data.length;i++)
               {
-                switch ($scope.data[i].actor) 
+
+                switch ($scope.data[i].actor)
                 {
+
                 case "​Cualquier persona en Internet":
-                  $scope.data[i].actor = $translate.instant('finding_formstack.actor.any_internet');
+                  $scope.data[i].actor = $translate.instant("finding_formstack.actor.any_internet");
                   break;
                 case "Cualquier cliente de la organización":
-                  $scope.data[i].actor = $translate.instant('finding_formstack.actor.any_costumer');
+                  $scope.data[i].actor = $translate.instant("finding_formstack.actor.any_costumer");
                   break;
                 case "Solo algunos clientes de la organización":
-                  $scope.data[i].actor = $translate.instant('finding_formstack.actor.some_costumer');
+                  $scope.data[i].actor = $translate.instant("finding_formstack.actor.some_costumer");
                   break;
                 case "Cualquier persona con acceso a la estación":
-                  $scope.data[i].actor = $translate.instant('finding_formstack.actor.any_access');
+                  $scope.data[i].actor = $translate.instant("finding_formstack.actor.any_access");
                   break;
                 case "Cualquier empleado de la organización":
-                  $scope.data[i].actor = $translate.instant('finding_formstack.actor.any_employee');
+                  $scope.data[i].actor = $translate.instant("finding_formstack.actor.any_employee");
                   break;
                 case "Solo algunos empleados":
-                  $scope.data[i].actor = $translate.instant('finding_formstack.actor.some_employee');
+                  $scope.data[i].actor = $translate.instant("finding_formstack.actor.some_employee");
                   break;
                 case "Solo un empleado":
-                  $scope.data[i].actor = $translate.instant('finding_formstack.actor.one_employee');
+                  $scope.data[i].actor = $translate.instant("finding_formstack.actor.one_employee");
                   break;
                 default:
-                  $scope.data[i].actor = $translate.instant('finding_formstack.actor.default');
+                  $scope.data[i].actor = $translate.instant("finding_formstack.actor.default");
+
                 }
-                switch ($scope.data[i].autenticacion) 
+                switch ($scope.data[i].autenticacion)
                 {
+
                 case "0.704 | Ninguna: No se requiere autenticación":
-                  $scope.data[i].autenticacion = $translate.instant('finding_formstack.authentication.any_authen');
+                  $scope.data[i].autenticacion = $translate.instant("finding_formstack.authentication.any_authen");
                   break;
                 case "0.560 | Única: Único punto de autenticación":
-                  $scope.data[i].autenticacion = $translate.instant('finding_formstack.authentication.single_authen');
+                  $scope.data[i].autenticacion = $translate.instant("finding_formstack.authentication.single_authen");
                   break;
                 case "0.450 | Multiple: Multiples puntos de autenticación":
-                  $scope.data[i].autenticacion = $translate.instant('finding_formstack.authentication.multiple_authen');
+                  $scope.data[i].autenticacion = $translate.instant("finding_formstack.authentication.multiple_authen");
                   break;
                 default:
-                  $scope.data[i].autenticacion = $translate.instant('finding_formstack.authentication.default');
+                  $scope.data[i].autenticacion = $translate.instant("finding_formstack.authentication.default");
+
                 }
-                switch ($scope.data[i].categoria) 
+                switch ($scope.data[i].categoria)
                 {
+
                 case "Actualizar y configurar las líneas base de seguridad de los componentes":
-                  $scope.data[i].categoria = $translate.instant('finding_formstack.category.update_base');
+                  $scope.data[i].categoria = $translate.instant("finding_formstack.category.update_base");
                   break;
                 case "Definir el modelo de autorización considerando el principio de mínimo privilegio":
-                  $scope.data[i].categoria = $translate.instant('finding_formstack.category.define_model');
+                  $scope.data[i].categoria = $translate.instant("finding_formstack.category.define_model");
                   break;
                 case "Desempeño":
-                  $scope.data[i].categoria = $translate.instant('finding_formstack.category.performance');
+                  $scope.data[i].categoria = $translate.instant("finding_formstack.category.performance");
                   break;
                 case "Eventualidad":
-                  $scope.data[i].categoria = $translate.instant('finding_formstack.category.event');
+                  $scope.data[i].categoria = $translate.instant("finding_formstack.category.event");
                   break;
                 case "Evitar exponer la información técnica de la aplicación, servidores y plataformas":
-                  $scope.data[i].categoria = $translate.instant('finding_formstack.category.avoid_technical');
+                  $scope.data[i].categoria = $translate.instant("finding_formstack.category.avoid_technical");
                   break;
                 case "Excluir datos sensibles del código fuente y del registro de eventos":
-                  $scope.data[i].categoria = $translate.instant('finding_formstack.category.exclude_data');
+                  $scope.data[i].categoria = $translate.instant("finding_formstack.category.exclude_data");
                   break;
                 case "Fortalecer controles en autenticación y manejo de sesión":
-                  $scope.data[i].categoria = $translate.instant('finding_formstack.category.strengt_authen');
+                  $scope.data[i].categoria = $translate.instant("finding_formstack.category.strengt_authen");
                   break;
                 case "Fortalecer controles en el procesamiento de archivos":
-                  $scope.data[i].categoria = $translate.instant('finding_formstack.category.strengt_process');
+                  $scope.data[i].categoria = $translate.instant("finding_formstack.category.strengt_process");
                   break;
                 case "Fortalecer la protección de datos almacenados relacionados con contraseñas o llaves criptográficas":
-                  $scope.data[i].categoria = $translate.instant('finding_formstack.category.strengt_protect');
+                  $scope.data[i].categoria = $translate.instant("finding_formstack.category.strengt_protect");
                   break;
                 case "Implementar controles para validar datos de entrada":
-                  $scope.data[i].categoria = $translate.instant('finding_formstack.category.validate_input');
+                  $scope.data[i].categoria = $translate.instant("finding_formstack.category.validate_input");
                   break;
                 case "Mantenibilidad":
-                  $scope.data[i].categoria = $translate.instant('finding_formstack.category.maintain');
+                  $scope.data[i].categoria = $translate.instant("finding_formstack.category.maintain");
                   break;
                 case "Registrar eventos para trazabilidad y auditoría":
-                  $scope.data[i].categoria = $translate.instant('finding_formstack.category.record_event');
+                  $scope.data[i].categoria = $translate.instant("finding_formstack.category.record_event");
                   break;
                 case "Utilizar protocolos de comunicación seguros":
-                  $scope.data[i].categoria = $translate.instant('finding_formstack.category.secure_protoc');
+                  $scope.data[i].categoria = $translate.instant("finding_formstack.category.secure_protoc");
                   break;
                 case "Validar la integridad de las transacciones en peticiones HTTP":
-                  $scope.data[i].categoria = $translate.instant('finding_formstack.category.validate_http');
+                  $scope.data[i].categoria = $translate.instant("finding_formstack.category.validate_http");
                   break;
                 default:
-                  $scope.data[i].categoria = $translate.instant('finding_formstack.category.default');
+                  $scope.data[i].categoria = $translate.instant("finding_formstack.category.default");
+
                 }
-                switch ($scope.data[i].complejidad_acceso) 
+                switch ($scope.data[i].complejidad_acceso)
                 {
+
                 case "0.350 | Alto: Se requieren condiciones especiales como acceso administrativo":
-                  $scope.data[i].complejidad_acceso = $translate.instant('finding_formstack.complexity.high_complex');
+                  $scope.data[i].complejidad_acceso = $translate.instant("finding_formstack.complexity.high_complex");
                   break;
                 case "0.610 | Medio: Se requieren algunas condiciones como acceso al sistema":
-                  $scope.data[i].complejidad_acceso = $translate.instant('finding_formstack.complexity.medium_complex');
+                  $scope.data[i].complejidad_acceso = $translate.instant("finding_formstack.complexity.medium_complex");
                   break;
                 case "0.710 | Bajo: No se requiere ninguna condición especial":
-                  $scope.data[i].complejidad_acceso = $translate.instant('finding_formstack.complexity.low_complex');
+                  $scope.data[i].complejidad_acceso = $translate.instant("finding_formstack.complexity.low_complex");
                   break;
                 default:
-                  $scope.data[i].complejidad_acceso = $translate.instant('finding_formstack.complexity.default');
+                  $scope.data[i].complejidad_acceso = $translate.instant("finding_formstack.complexity.default");
+
                 }
-                switch ($scope.data[i].escenario) 
+                switch ($scope.data[i].escenario)
                 {
+
                 case "Anónimo desde Internet":
-                  $scope.data[i].escenario = $translate.instant('finding_formstack.scenario.anon_inter');
+                  $scope.data[i].escenario = $translate.instant("finding_formstack.scenario.anon_inter");
                   break;
                 case "Anónimo desde Intranet":
-                  $scope.data[i].escenario = $translate.instant('finding_formstack.scenario.anon_intra');
+                  $scope.data[i].escenario = $translate.instant("finding_formstack.scenario.anon_intra");
                   break;
                 case "Escaneo de Infraestructura":
-                  $scope.data[i].escenario = $translate.instant('finding_formstack.scenario.infra_scan');
+                  $scope.data[i].escenario = $translate.instant("finding_formstack.scenario.infra_scan");
                   break;
                 case "Extranet usuario no autorizado":
-                  $scope.data[i].escenario = $translate.instant('finding_formstack.scenario.unauth_extra');
+                  $scope.data[i].escenario = $translate.instant("finding_formstack.scenario.unauth_extra");
                   break;
                 case "Internet usuario autorizado":
-                  $scope.data[i].escenario = $translate.instant('finding_formstack.scenario.auth_inter');
+                  $scope.data[i].escenario = $translate.instant("finding_formstack.scenario.auth_inter");
                   break;
                 case "Internet usuario no autorizado":
-                  $scope.data[i].escenario = $translate.instant('finding_formstack.scenario.unauth_inter');
+                  $scope.data[i].escenario = $translate.instant("finding_formstack.scenario.unauth_inter");
                   break;
                 case "Intranet usuario autorizado":
-                  $scope.data[i].escenario = $translate.instant('finding_formstack.scenario.auth_intra');
+                  $scope.data[i].escenario = $translate.instant("finding_formstack.scenario.auth_intra");
                   break;
                 case "Intranet usuario no autorizado":
-                  $scope.data[i].escenario = $translate.instant('finding_formstack.scenario.unauth_inter');
+                  $scope.data[i].escenario = $translate.instant("finding_formstack.scenario.unauth_inter");
                   break;
                 default:
-                  $scope.data[i].escenario = $translate.instant('finding_formstack.scenario.default');
+                  $scope.data[i].escenario = $translate.instant("finding_formstack.scenario.default");
+
                 }
-                switch ($scope.data[i].estado) 
+                switch ($scope.data[i].estado)
                 {
+
                 case "Abierto":
-                  $scope.data[i].estado = $translate.instant('finding_formstack.status.open');
+                  $scope.data[i].estado = $translate.instant("finding_formstack.status.open");
                   break;
                 case "Cerrado":
-                  $scope.data[i].estado = $translate.instant('finding_formstack.status.close');
+                  $scope.data[i].estado = $translate.instant("finding_formstack.status.close");
                   break;
                 case "Parcialmente cerrado":
-                  $scope.data[i].estado = $translate.instant('finding_formstack.status.part_close');
+                  $scope.data[i].estado = $translate.instant("finding_formstack.status.part_close");
                   break;
                 default:
-                  $scope.data[i].estado = $translate.instant('finding_formstack.status.default');
+                  $scope.data[i].estado = $translate.instant("finding_formstack.status.default");
+
                 }
-                switch ($scope.data[i].explotabilidad) 
+                switch ($scope.data[i].explotabilidad)
                 {
+
                 case "0.850 | Improbable: No existe un exploit":
-                  $scope.data[i].explotabilidad = $translate.instant('finding_formstack.exploitability.improbable');
+                  $scope.data[i].explotabilidad = $translate.instant("finding_formstack.exploitability.improbable");
                   break;
                 case "0.900 | Conceptual: Existen pruebas de laboratorio":
-                  $scope.data[i].explotabilidad = $translate.instant('finding_formstack.exploitability.conceptual');
+                  $scope.data[i].explotabilidad = $translate.instant("finding_formstack.exploitability.conceptual");
                   break;
                 case "0.950 | Funcional: Existe exploit":
-                  $scope.data[i].explotabilidad = $translate.instant('finding_formstack.exploitability.functional');
+                  $scope.data[i].explotabilidad = $translate.instant("finding_formstack.exploitability.functional");
                   break;
                 case "1.000 | Alta: No se requiere exploit o se puede automatizar":
-                  $scope.data[i].explotabilidad = $translate.instant('finding_formstack.exploitability.high');
+                  $scope.data[i].explotabilidad = $translate.instant("finding_formstack.exploitability.high");
                   break;
                 default:
-                  $scope.data[i].explotabilidad = $translate.instant('finding_formstack.exploitability.default');
+                  $scope.data[i].explotabilidad = $translate.instant("finding_formstack.exploitability.default");
+
                 }
-                switch ($scope.data[i].explotable) 
+                switch ($scope.data[i].explotable)
                 {
+
                 case "Si":
-                  $scope.data[i].explotable = $translate.instant('finding_formstack.exploitable.yes');
+                  $scope.data[i].explotable = $translate.instant("finding_formstack.exploitable.yes");
                   break;
                 case "No":
-                  $scope.data[i].explotable = $translate.instant('finding_formstack.exploitable.no');
+                  $scope.data[i].explotable = $translate.instant("finding_formstack.exploitable.no");
                   break;
                 default:
-                  $scope.data[i].explotable = $translate.instant('finding_formstack.exploitable.default');
+                  $scope.data[i].explotable = $translate.instant("finding_formstack.exploitable.default");
+
                 }
-                switch ($scope.data[i].impacto_confidencialidad) 
+                switch ($scope.data[i].impacto_confidencialidad)
                 {
+
                 case "0 | Ninguno: No se presenta ningún impacto":
-                  $scope.data[i].impacto_confidencialidad = $translate.instant('finding_formstack.confidenciality.none');
+                  $scope.data[i].impacto_confidencialidad = $translate.instant("finding_formstack.confidenciality.none");
                   break;
                 case "0.275 | Parcial: Se obtiene acceso a la información pero no control sobre ella":
-                  $scope.data[i].impacto_confidencialidad = $translate.instant('finding_formstack.confidenciality.partial');
+                  $scope.data[i].impacto_confidencialidad = $translate.instant("finding_formstack.confidenciality.partial");
                   break;
                 case "0.660 | Completo: Se controla toda la información relacionada con el objetivo":
-                  $scope.data[i].impacto_confidencialidad = $translate.instant('finding_formstack.confidenciality.complete');
+                  $scope.data[i].impacto_confidencialidad = $translate.instant("finding_formstack.confidenciality.complete");
                   break;
                 default:
-                  $scope.data[i].impacto_confidencialidad = $translate.instant('finding_formstack.confidenciality.default');
+                  $scope.data[i].impacto_confidencialidad = $translate.instant("finding_formstack.confidenciality.default");
+
                 }
-                switch ($scope.data[i].impacto_disponibilidad) 
+                switch ($scope.data[i].impacto_disponibilidad)
                 {
+
                 case "0 | Ninguno: No se presenta ningún impacto":
-                  $scope.data[i].impacto_disponibilidad = $translate.instant('finding_formstack.availability.none');
+                  $scope.data[i].impacto_disponibilidad = $translate.instant("finding_formstack.availability.none");
                   break;
                 case "0.275 | Parcial: Se presenta intermitencia en el acceso al objetivo":
-                  $scope.data[i].impacto_disponibilidad = $translate.instant('finding_formstack.availability.partial');
+                  $scope.data[i].impacto_disponibilidad = $translate.instant("finding_formstack.availability.partial");
                   break;
                 case "0.660 | Completo: Hay una caída total del objetivo":
-                  $scope.data[i].impacto_disponibilidad = $translate.instant('finding_formstack.availability.complete');
+                  $scope.data[i].impacto_disponibilidad = $translate.instant("finding_formstack.availability.complete");
                   break;
                 default:
-                  $scope.data[i].impacto_disponibilidad = $translate.instant('finding_formstack.availability.default');
+                  $scope.data[i].impacto_disponibilidad = $translate.instant("finding_formstack.availability.default");
+
                 }
-                switch ($scope.data[i].impacto_integridad) 
+                switch ($scope.data[i].impacto_integridad)
                 {
+
                 case "0 | Ninguno: No se presenta ningún impacto":
-                  $scope.data[i].impacto_integridad = $translate.instant('finding_formstack.integrity.none');
+                  $scope.data[i].impacto_integridad = $translate.instant("finding_formstack.integrity.none");
                   break;
                 case "0.275 | Parcial: Es posible modificar cierta información del objetivo":
-                  $scope.data[i].impacto_integridad = $translate.instant('finding_formstack.integrity.partial');
+                  $scope.data[i].impacto_integridad = $translate.instant("finding_formstack.integrity.partial");
                   break;
                 case "0.660 | Completo: Es posible modificar toda la información del objetivo":
-                  $scope.data[i].impacto_integridad = $translate.instant('finding_formstack.integrity.complete');
+                  $scope.data[i].impacto_integridad = $translate.instant("finding_formstack.integrity.complete");
                   break;
                 default:
-                  $scope.data[i].impacto_integridad = $translate.instant('finding_formstack.integrity.default');
+                  $scope.data[i].impacto_integridad = $translate.instant("finding_formstack.integrity.default");
+
                 }
-                switch ($scope.data[i].nivel_confianza) 
+                switch ($scope.data[i].nivel_confianza)
                 {
+
                 case "0.900 | No confirmado: Existen pocas fuentes que reconocen la vulnerabilidad":
-                  $scope.data[i].nivel_confianza = $translate.instant('finding_formstack.confidence.not_confirm');
+                  $scope.data[i].nivel_confianza = $translate.instant("finding_formstack.confidence.not_confirm");
                   break;
                 case "0.950 | No corroborado: La vulnerabilidad es reconocida por fuentes no oficiales":
-                  $scope.data[i].nivel_confianza = $translate.instant('finding_formstack.confidence.not_corrob');
+                  $scope.data[i].nivel_confianza = $translate.instant("finding_formstack.confidence.not_corrob");
                   break;
                 case "1.000 | Confirmado: La vulnerabilidad es reconocida por el fabricante":
-                  $scope.data[i].nivel_confianza = $translate.instant('finding_formstack.confidence.confirmed');
+                  $scope.data[i].nivel_confianza = $translate.instant("finding_formstack.confidence.confirmed");
                   break;
                 default:
-                  $scope.data[i].nivel_confianza = $translate.instant('finding_formstack.confidence.default');
+                  $scope.data[i].nivel_confianza = $translate.instant("finding_formstack.confidence.default");
+
                 }
-                switch ($scope.data[i].nivel_resolucion) 
+                switch ($scope.data[i].nivel_resolucion)
                 {
+
                 case "0.950 | Paliativa: Existe un parche que no fue publicado por el fabricante":
-                  $scope.data[i].nivel_resolucion = $translate.instant('finding_formstack.resolution.palliative');
+                  $scope.data[i].nivel_resolucion = $translate.instant("finding_formstack.resolution.palliative");
                   break;
                 case "0.870 | Oficial: Existe un parche disponible por el fabricante":
-                  $scope.data[i].nivel_resolucion = $translate.instant('finding_formstack.resolution.official');
+                  $scope.data[i].nivel_resolucion = $translate.instant("finding_formstack.resolution.official");
                   break;
                 case "0.900 | Temporal: Existen soluciones temporales":
-                  $scope.data[i].nivel_resolucion = $translate.instant('finding_formstack.resolution.temporal');
+                  $scope.data[i].nivel_resolucion = $translate.instant("finding_formstack.resolution.temporal");
                   break;
                 case "1.000 | Inexistente: No existe solución":
-                  $scope.data[i].nivel_resolucion = $translate.instant('finding_formstack.resolution.non_existent');
+                  $scope.data[i].nivel_resolucion = $translate.instant("finding_formstack.resolution.non_existent");
                   break;
                 default:
-                  $scope.data[i].nivel_resolucion = $translate.instant('finding_formstack.resolution.default');
+                  $scope.data[i].nivel_resolucion = $translate.instant("finding_formstack.resolution.default");
+
                 }
-                switch ($scope.data[i].probabilidad) 
+                switch ($scope.data[i].probabilidad)
                 {
+
                 case "100% Vulnerado Anteriormente":
-                  $scope.data[i].probabilidad = $translate.instant('finding_formstack.probability.prev_vuln');
+                  $scope.data[i].probabilidad = $translate.instant("finding_formstack.probability.prev_vuln");
                   break;
                 case "75% Fácil de vulnerar":
-                  $scope.data[i].probabilidad = $translate.instant('finding_formstack.probability.easy_vuln');
+                  $scope.data[i].probabilidad = $translate.instant("finding_formstack.probability.easy_vuln");
                   break;
                 case "50% Posible de vulnerar":
-                  $scope.data[i].probabilidad = $translate.instant('finding_formstack.probability.possible_vuln');
+                  $scope.data[i].probabilidad = $translate.instant("finding_formstack.probability.possible_vuln");
                   break;
                 case "25% Difícil de vulnerar":
-                  $scope.data[i].probabilidad = $translate.instant('finding_formstack.probability.diffic_vuln');
+                  $scope.data[i].probabilidad = $translate.instant("finding_formstack.probability.diffic_vuln");
                   break;
                 default:
-                  $scope.data[i].probabilidad = $translate.instant('finding_formstack.probability.default');
+                  $scope.data[i].probabilidad = $translate.instant("finding_formstack.probability.default");
+
                 }
-                switch ($scope.data[i].tipo_hallazgo_cliente) 
+                switch ($scope.data[i].tipo_hallazgo_cliente)
                 {
+
                 case "Higiene":
-                  $scope.data[i].tipo_hallazgo_cliente = $translate.instant('finding_formstack.finding_type.hygiene');
+                  $scope.data[i].tipo_hallazgo_cliente = $translate.instant("finding_formstack.finding_type.hygiene");
                   break;
                 case "Vulnerabilidad":
-                  $scope.data[i].tipo_hallazgo_cliente = $translate.instant('finding_formstack.finding_type.vuln');
+                  $scope.data[i].tipo_hallazgo_cliente = $translate.instant("finding_formstack.finding_type.vuln");
                   break;
                 default:
-                  $scope.data[i].tipo_hallazgo_cliente = $translate.instant('finding_formstack.finding_type.default');
+                  $scope.data[i].tipo_hallazgo_cliente = $translate.instant("finding_formstack.finding_type.default");
+
                 }
-                switch ($scope.data[i].tipo_prueba) 
+                switch ($scope.data[i].tipo_prueba)
                 {
+
                 case "Análisis":
-                  $scope.data[i].tipo_prueba = $translate.instant('finding_formstack.test_method.analysis');
+                  $scope.data[i].tipo_prueba = $translate.instant("finding_formstack.test_method.analysis");
                   break;
                 case "Aplicación":
-                  $scope.data[i].tipo_prueba = $translate.instant('finding_formstack.test_method.app');
+                  $scope.data[i].tipo_prueba = $translate.instant("finding_formstack.test_method.app");
                   break;
                 case "Binario":
-                  $scope.data[i].tipo_prueba = $translate.instant('finding_formstack.test_method.binary');
+                  $scope.data[i].tipo_prueba = $translate.instant("finding_formstack.test_method.binary");
                   break;
                 case "Código":
-                  $scope.data[i].tipo_prueba = $translate.instant('finding_formstack.test_method.code');
+                  $scope.data[i].tipo_prueba = $translate.instant("finding_formstack.test_method.code");
                   break;
                 case "Infraestructura":
-                  $scope.data[i].tipo_prueba = $translate.instant('finding_formstack.test_method.infras');
+                  $scope.data[i].tipo_prueba = $translate.instant("finding_formstack.test_method.infras");
                   break;
                 default:
-                  $scope.data[i].tipo_prueba = $translate.instant('finding_formstack.test_method.default');
+                  $scope.data[i].tipo_prueba = $translate.instant("finding_formstack.test_method.default");
+
                 }
-                switch ($scope.data[i].vector_acceso) 
+                switch ($scope.data[i].vector_acceso)
                 {
+
                 case "0.646 | Red adyacente: Explotable desde el mismo segmento de red":
-                  $scope.data[i].vector_acceso = $translate.instant('finding_formstack.access_vector.adjacent');
+                  $scope.data[i].vector_acceso = $translate.instant("finding_formstack.access_vector.adjacent");
                   break;
                 case "1.000 | Red: Explotable desde Internet":
-                  $scope.data[i].vector_acceso = $translate.instant('finding_formstack.access_vector.network');
+                  $scope.data[i].vector_acceso = $translate.instant("finding_formstack.access_vector.network");
                   break;
                 case "0.395 | Local: Explotable con acceso local al objetivo":
-                  $scope.data[i].vector_acceso = $translate.instant('finding_formstack.access_vector.local');
+                  $scope.data[i].vector_acceso = $translate.instant("finding_formstack.access_vector.local");
                   break;
                 default:
-                  $scope.data[i].vector_acceso = $translate.instant('finding_formstack.access_vector.default');
+                  $scope.data[i].vector_acceso = $translate.instant("finding_formstack.access_vector.default");
+
                 }
-                switch ($scope.data[i].tratamiento) 
+                switch ($scope.data[i].tratamiento)
                 {
+
                 case "Asumido":
-                  $scope.data[i].tratamiento = $translate.instant('finding_formstack.treatment_header.asummed');
+                  $scope.data[i].tratamiento = $translate.instant("finding_formstack.treatment_header.asummed");
                   break;
                 case "Pendiente":
-                  $scope.data[i].tratamiento = $translate.instant('finding_formstack.treatment_header.working');
+                  $scope.data[i].tratamiento = $translate.instant("finding_formstack.treatment_header.working");
                   break;
                 case "Remediar":
-                  $scope.data[i].tratamiento = $translate.instant('finding_formstack.treatment_header.remediated');
+                  $scope.data[i].tratamiento = $translate.instant("finding_formstack.treatment_header.remediated");
                   break;
                 default:
-                  $scope.data[i].tratamiento = $translate.instant('finding_formstack.treatment_header.default');
+                  $scope.data[i].tratamiento = $translate.instant("finding_formstack.treatment_header.default");
+
                 }
+
               }
               $timeout($scope.mainGraphexploitPieChart, 200);
               $timeout($scope.mainGraphtypePieChart, 200);
               $timeout($scope.mainGraphstatusPieChart, 200);
               //CONFIGURACION DE TABLA
-              $("#vulnerabilities").bootstrapTable('destroy');
+              $("#vulnerabilities").bootstrapTable("destroy");
               $("#vulnerabilities").bootstrapTable({
-                locale: vlang,
-                data: $scope.data,
-                onClickRow: function(row, elem)
+                "locale": vlang,
+                "data": $scope.data,
+                "onClickRow": function(row, elem)
                 {
-                  $state.go("FindingDescription", {project: row.proyecto_fluid.toLowerCase(), id: row.id});
+
+                  $state.go("FindingDescription", {
+                    "project": row.proyecto_fluid.toLowerCase(),
+                    "id": row.id
+                  });
                   $("#infoItem").addClass("active");
                   $("#info").addClass("active");
                   $("#cssv2Item").removeClass("active");
@@ -1056,112 +1342,134 @@ integrates.controller(
                   //Tracking mixpanel
                   mixPanelDashboard.trackFinding("ReadFinding", userEmail, row.id);
                   $scope.currentScrollPosition = $(document).scrollTop();
+
                 },
-                cookieIdTable: "saveId",
-                cookie: true,
-                exportDataType: "all"
+                "cookieIdTable": "saveId",
+                "cookie": true,
+                "exportDataType": "all"
               });
-              $("#vulnerabilities").bootstrapTable('refresh');
+              $("#vulnerabilities").bootstrapTable("refresh");
               //MANEJO DEL UI
               $("#search_section").show();
-              $('[data-toggle="tooltip"]').tooltip();
-              $scope.calculateCardinality({data: $scope.data});
+              $("[data-toggle=\"tooltip\"]").tooltip();
+              $scope.calculateCardinality({"data": $scope.data});
 
               if (typeof $stateParams.finding !== "undefined")
               {
+
                 $scope.finding.id = $stateParams.finding;
                 $scope.view.project = false;
                 $scope.view.finding = false;
+
               }
+
             }
+
           }
-          else 
+          else if (response.error)
           {
+
             $scope.view.project = false;
             $scope.view.finding = false;
             if (response.message == "Access denied")
             {
+
               Rollbar.error("Error: Access to project denied");
-              $msg.error($translate.instant('proj_alerts.access_denied'));
+              $msg.error($translate.instant("proj_alerts.access_denied"));
+
             }
-            else 
+            else
             {
+
               Rollbar.error("Error: Project not found");
-              $msg.error($translate.instant('proj_alerts.not_found'));
+              $msg.error($translate.instant("proj_alerts.not_found"));
+
             }
+
           }
+
         });
         reqEventualities.then(function(response)
         {
+
           if (!response.error)
           {
+
             for (var i = 0; i< response.data.length;i++)
             {
-              switch (response.data[i].tipo) 
+
+              switch (response.data[i].tipo)
               {
+
               case "Autorización para ataque especial":
-                response.data[i].tipo = $translate.instant('event_formstack.type.auth_attack');
+                response.data[i].tipo = $translate.instant("event_formstack.type.auth_attack");
                 break;
               case "Alcance difiere a lo aprobado":
-                response.data[i].tipo = $translate.instant('event_formstack.type.toe_differs');
+                response.data[i].tipo = $translate.instant("event_formstack.type.toe_differs");
                 break;
               case "Aprobación de alta disponibilidad":
-                response.data[i].tipo = $translate.instant('event_formstack.type.high_approval');
+                response.data[i].tipo = $translate.instant("event_formstack.type.high_approval");
                 break;
               case "Insumos incorrectos o faltantes":
-                response.data[i].tipo = $translate.instant('event_formstack.type.incor_supplies');
+                response.data[i].tipo = $translate.instant("event_formstack.type.incor_supplies");
                 break;
               case "Cliente suspende explicitamente":
-                response.data[i].tipo = $translate.instant('event_formstack.type.explic_suspend');
+                response.data[i].tipo = $translate.instant("event_formstack.type.explic_suspend");
                 break;
               case "Cliente aprueba cambio de alcance":
-                response.data[i].tipo = $translate.instant('event_formstack.type.approv_change');
+                response.data[i].tipo = $translate.instant("event_formstack.type.approv_change");
                 break;
               case "Cliente cancela el proyecto/hito":
-                response.data[i].tipo = $translate.instant('event_formstack.type.cancel_proj');
+                response.data[i].tipo = $translate.instant("event_formstack.type.cancel_proj");
                 break;
               case "Cliente detecta ataque":
-                response.data[i].tipo = $translate.instant('event_formstack.type.det_attack');
+                response.data[i].tipo = $translate.instant("event_formstack.type.det_attack");
                 break;
               case "Otro":
-                response.data[i].tipo = $translate.instant('event_formstack.type.other');
+                response.data[i].tipo = $translate.instant("event_formstack.type.other");
                 break;
               case "Ambiente no accesible":
-                response.data[i].tipo = $translate.instant('event_formstack.type.inacc_ambient');
+                response.data[i].tipo = $translate.instant("event_formstack.type.inacc_ambient");
                 break;
               case "Ambiente inestable":
-                response.data[i].tipo = $translate.instant('event_formstack.type.uns_ambient');
+                response.data[i].tipo = $translate.instant("event_formstack.type.uns_ambient");
                 break;
               default:
-                response.data[i].tipo = $translate.instant('event_formstack.type.unknown');
+                response.data[i].tipo = $translate.instant("event_formstack.type.unknown");
+
               }
-              switch (response.data[i].estado) 
+              switch (response.data[i].estado)
               {
+
               case "Pendiente":
-                response.data[i].estado = $translate.instant('event_formstack.status.unsolve');
+                response.data[i].estado = $translate.instant("event_formstack.status.unsolve");
                 break;
               case "Tratada":
-                response.data[i].estado = $translate.instant('event_formstack.status.solve');
+                response.data[i].estado = $translate.instant("event_formstack.status.solve");
                 break;
               default:
-                response.data[i].estado = $translate.instant('event_formstack.status.unknown');
+                response.data[i].estado = $translate.instant("event_formstack.status.unknown");
+
               }
+
             }
             mixPanelDashboard.trackSearch("SearchEventuality", userEmail, project);
             //CONFIGURACION DE TABLA
-            $("#tblEventualities").bootstrapTable('destroy');
+            $("#tblEventualities").bootstrapTable("destroy");
             $("#tblEventualities").bootstrapTable({
-              locale: vlang,
-              data: response.data,
-              onClickRow: function(row)
+              "locale": vlang,
+              "data": response.data,
+              "onClickRow": function(row)
               {
+
                 var modalInstance = $uibModal.open({
-                  templateUrl: BASE.url + 'assets/views/project/eventualityMdl.html',
-                  animation: true,
-                  resolve: { evt: row },
-                  backdrop: 'static',
-                  controller: function($scope, $uibModalInstance, evt)
+                  "templateUrl": BASE.url + "assets/views/project/eventualityMdl.html",
+                  "animation": true,
+                  "resolve": {"evt": row},
+                  "backdrop": "static",
+                  "controller": function($scope, $uibModalInstance, evt)
                   {
+
                     $scope.evt = evt;
                     //Tracking mixpanel
                     var org = Organization.toUpperCase();
@@ -1169,89 +1477,122 @@ integrates.controller(
                     mixPanelDashboard.trackReadEventuality(userName, userEmail, org, projt, evt.id);
                     $scope.close = function()
                     {
+
                       $uibModalInstance.close();
+
                     }
+
                   }
                 });
+
               }
             });
-            $("#tblEventualities").bootstrapTable('refresh');
+            $("#tblEventualities").bootstrapTable("refresh");
             //MANEJO DEL UI
             $("#search_section").show();
-            $('[data-toggle="tooltip"]').tooltip();
+            $("[data-toggle=\"tooltip\"]").tooltip();
+
           }
           else if (response.message == "Access to project denied")
           {
+
             Rollbar.error("Error: Access to event denied");
-            $msg.error($translate.instant('proj_alerts.access_denied'));
+            $msg.error($translate.instant("proj_alerts.access_denied"));
+
           }
-          else 
+          else
           {
+
             Rollbar.error("Error: Event not found");
-            $msg.error($translate.instant('proj_alerts.not_found'));
+            $msg.error($translate.instant("proj_alerts.not_found"));
+
           }
+
         });
+
       }
+
     };
     $scope.openModalAvance = function()
     {
+
       var modalInstance = $uibModal.open({
-        animation: true,
-        templateUrl: 'avance.html',
-        windowClass: 'modal avance-modal',
-        keyboard: false,
-        controller: function($scope, $uibModalInstance)
+        "animation": true,
+        "templateUrl": "avance.html",
+        "windowClass": "modal avance-modal",
+        "keyboard": false,
+        "controller": function($scope, $uibModalInstance)
         {
-          var auxiliar = $("#vulnerabilities").bootstrapTable('getData');
+
+          var auxiliar = $("#vulnerabilities").bootstrapTable("getData");
           var data = auxiliar;
           for (i=0; i < data.length; i++)
           {
+
             data[i].atributos = 0;
-            data[i].link = window.location.href.split('project/')[0] + 'project/' + data[i].proyecto_fluid.toLowerCase() + '/' + data[i].id + '/description';
-            if (typeof data[i].registros !== 'undefined' && data[i].registros !== '')
+            data[i].link = window.location.href.split("project/")[0] + "project/" + data[i].proyecto_fluid.toLowerCase() + "/" + data[i].id + "/description";
+            if (typeof data[i].registros !== "undefined" && data[i].registros !== "")
             {
+
               data[i].atributos = 1 + (data[i].registros.match(/\n/g)||[]).length;
+
             }
+
           }
           for (i=0; i < data.length-1; i++)
           {
+
             for (j=i+1; j < data.length; j++)
             {
+
               if (parseFloat(data[i].criticidad) < parseFloat(data[j].criticidad))
               {
+
                 aux = data[i];
                 data[i] = data[j];
                 data[j] = aux;
+
               }
+
             }
+
           }
           $scope.rows = data;
           $scope.closeModalAvance = function()
           {
+
             $uibModalInstance.close();
-            $timeout(function() 
+            $timeout(function()
             {
-              $("#vulnerabilities").bootstrapTable('load', auxiliar);
+
+              $("#vulnerabilities").bootstrapTable("load", auxiliar);
+
             }, 100);
+
           }
+
         },
-        resolve: {
-          ok: true
-        }
+        "resolve": {"ok": true}
       });
+
     };
     $scope.showProjectView = function()
     {
+
       $("#findingView").fadeOut(300);
       $("#projectView").fadeIn(300);
       $(".loader").hide();
+
     };
     $scope.showFindingView = function()
     {
+
       $("#projectView").fadeOut(300);
       $("#findingView").fadeIn(300);
       $(".loader").hide();
+
     };
     $scope.init();
+
   }
 );
