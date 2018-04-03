@@ -1,4 +1,4 @@
-:slug: app-pickle-document-gherkin/
+:slug: app-pickle/
 :date: 2018-02-08
 :subtitle: Documenting vulnerabilities with gherkin
 :category: documentation
@@ -71,7 +71,7 @@ a (preferably small) number of steps.
 
 [source,gherkin]
 ----
-include::/web/content/blog-en/app-pickle-document-gherkin/coffee-example.feature[]
+include::/web/content/blog-en/app-pickle/coffee-example.feature[]
 ----
 
 As seen above,
@@ -261,7 +261,7 @@ in +Gherkin+:
 
 [source,gherkin]
 ----
-include::/web/content/blog-en/app-pickle-document-gherkin/command-injection.feature[]
+include::/web/content/blog-en/app-pickle/command-injection.feature[]
 ----
 
 We wrap long lines

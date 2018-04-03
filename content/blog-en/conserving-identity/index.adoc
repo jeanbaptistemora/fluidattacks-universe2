@@ -1,4 +1,4 @@
-:slug: conserving-id-ws-world/
+:slug: conserving-identity/
 :date: 2017-05-02
 :category: identity
 :subtitle: Using WS-Security to secure  your web apps
