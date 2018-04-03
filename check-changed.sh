@@ -5,8 +5,16 @@
 
 ERRORS=0
 
+PREV_COMMIT=$(curl --header "Private-Token:$DOCKER_PASSWD" \
+"https://gitlab.com/api/v4/projects/$CI_PROJECT_ID/repository/commits/master" \
+| pcregrep -o '(?<="id":")[^,"]*')
+export PREV_COMMIT
+
+echo "$PREV_COMMIT"
+
 # Check files that have been added or modified, respect to the master branch
-CHANGED=$(git diff master... --name-status | pcregrep -o '(?<=(M|A)\t).*')
+CHANGED=$(git diff --name-status "$PREV_COMMIT"  "$CI_COMMIT_SHA" \
+  | pcregrep -o '(?<=(M|A)\t).*')
 
 # Function that displays an error message in red.
 function error {
