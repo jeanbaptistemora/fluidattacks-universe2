@@ -169,8 +169,7 @@ el código fuente siempre debe:
 link:https://en.wikipedia.org/wiki/Indentation_style#Variant:_Stroustrup[stroustrup]
 en su variante sin bloques de una línea (+one liners+).
 link:https://eslint.org/docs/rules/brace-style#stroustrup[Ejemplo].
-. Las lineas de todos los archivos de código fuente
-no deben superar los +80+ caracteres de longitud.
+. Las lineas no deben superar los +80+ caracteres de longitud.
 
 Los fragmentos de código fuente embebidos en documentos siempre deben:
 
