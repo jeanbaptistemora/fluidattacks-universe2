@@ -37,8 +37,8 @@ que usted reciba una remuneración por el tiempo invertido en el proceso.
 . Los días pares se trabajarán retos de hacking.
 . Los días impares se trabajarán retos de programación.
 . El entrenamiento debe iniciar a las 7:00 AM en las instalaciones de +FLUIDAttacks+,
-. Debe enviar como mínimo un MR que sea aceptado en master o un informe de avance estándar
-(cuando no se acepta el MR) antes de las 6:00 PM del día en cuestión,
+. Debe enviar como mínimo un +MR+ que sea aceptado en +master+ o un informe de avance estándar
+(cuando no se acepta el +MR+) antes de las 6:00 PM del día en cuestión,
 . Puede seguir entrenando y reportando tiempo en su lugar de preferencia,
 previo cumplimiento de las 2 reglas anteriores,
 . Si por algún motivo excepcional no puede realizar el entrenamiento de forma presencial,
