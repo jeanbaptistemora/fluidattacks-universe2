@@ -1,0 +1,94 @@
+:slug: defends/php/cifrado-contrasena-salt/
+:category: php
+:description: Nuestros ethical hackers explican cómo evitar vulnerabilidades de seguridad mediante la programación segura en PHP, cifrando contraseñas con SALT aleatorio usando el algoritmo SHA256, reforzando su seguridad al hacerlas más difíciles de romper por atacantes malintencionados.
+:keywords: Php, Seguridad, SALT, Cifrado, SHA256, Random.
+:defends: yes
+
+= Cifrado de contraseña con SALT
+
+== Necesidad
+
+Resumen de mensaje con +salt+ para contraseñas en +PHP+ v5.3
+
+== Contexto
+
+A continuación se describen las circunstancias bajo las cuales la siguiente solución tiene
+sentido:
+
+. Se desarrolla una aplicación en +PHP+ v5.3
+. Se requiere el uso de funciones de resumen (+hash+) para cifrado de
+contraseñas.
+. Se requiere implementar +salt+ al momento de cifrar las contraseñas.
+
+== Solución
+
+Con el fin de mejorar la seguridad de un sistema en el cual se utilizan contraseñas,
+se debe implementar un algoritmo de cifrado en conjunto a un valor +SALT+ generado de forma aleatoria.
+
+La +SALT+ actúa como una +seed+ que permitirá al algoritmo de cifrado tener en cuenta esos valores para
+generar el +hash+ resultante.
+Esto garantiza que la contraseña será mucho más complicada de romper para un atacante y por ende, más segura.
+
+. Vamos a emplear el algoritmo +SHA256+ y para su utilización se debe
+hacer uso de la función de +PHP+ +crypt+ en función del +SALT+.
+. El +SALT+ lo extraemos de manera aleatorio en un alfabeto de 22
+caracteres dentro del arreglo “valores_salt”, para obtener un cifrado
+de mayor calidad.
++
+.ejemplo.php
+[source, php, linenums]
+----
+<?php
+
+$password = 'clave123456';
+$valores_salt = './1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
+$salt = sprintf('$5$rounds=5000$', 7);
+for($i = 0; $i < 22; $i++)
+{
+ $salt .= $valores_salt[mt_rand(0, 63)];
+}
+echo "Contraseña: ".crypt($password, $salt);
+
+?>
+----
++
+. La contraseña cifrada la podemos almacenar en la base de datos, y al
+momento que un usuario se autentique en la aplicación podemos
+comprobar si la clave ingresada es válida con la siguiente instrucción:
++
+.ejemplo.php
+[source, php, linenums]
+----
+<?php
+
+$contrasenarecibida= 'clave123456';
+$passwbd = '$5$rounds=5000$eJXEzCMbmiAjCjuz$yBaYLFSiSrtltKL1G.O65GEdaG.SszQb8vrlz246mV1';
+if( crypt($contrasenarecibida, $passwbd) == $passwbd) {
+ echo 'Es igual, el usuario se ha autenticado.';
+}else{
+ echo "Lo siento, revisa tus credenciales de acceso.";
+}
+
+?>
+----
+
+Los valores generados aleatoriamente que componen la +SALT+ no deben reutilizarse, puesto que podrían facilitar a un atacante
+la tarea romper la contraseña y obtener acceso al sistema.
+Es importante tener en cuenta que en caso de que se requiera almacenar los valores usados como +SALT+ por cada contraseña,
+se debe optar por hacerlo en una base de datos a parte,
+de forma que si la base de datos principal se ve comprometida,
+se pueda evitar accesos al sistema por parte autores maliciosos.
+
+== Referencias
+
+. link:http://php.net/manual/es/function.crypt.php[PHP Crypt]
+. link:http://php.net/manual/es/faq.passwords.php#faq.passwords.salt[Hash de contraseñas seguro]
+. REQ.0132: El sistema debe almacenar las contraseñas con diferentes
+derivaciones de clave (Salt).
+. REQ.0133: Las derivaciones de clave (Salt), deben ser aleatorias y de
+mínimo 48 bits.
+. REQ.0142: Las funciones de criptografía del sistema deben ser
+implementadas con mecanismos criptográficos pre-existentes y
+vigentes.
+. REQ.0145: Debe utilizarse funciones resumen con un tamaño mínimo
+de 256 bits.
