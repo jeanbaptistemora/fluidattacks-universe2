@@ -156,6 +156,10 @@ Las reglas para los enlaces (+URLs+) a soluciones externas (+OTHERS.lst+) son la
 . Deben ser enlaces directos (+HTTP 200+) y sin redirección (+HTTP 302+).
 . No tienen que ser del mismo reto del que se sube la solución,
 . Deben ser de +hacking+ si se está solucionando un reto de +hacking+,
+.. Deben ser +OTHERS.lst+ nuevos, es decir,
+soluciones externas a retos del cual no tengamos solución externa alguna.
+.. Si su solución es de hacking de sistemas (+systems+),
+las soluciones externas deben ser de +hacking+ de sistemas también.
 . Deben ser de programación si se está solucionando un reto de programación,
 .. No debe añadir soluciones externas para un lenguaje del que ya se tenga solución externa,
 .. Dentro de un +OTHERS+ de programación las +URLs+ deben estar ordenadas alfabéticamente por extensión,
