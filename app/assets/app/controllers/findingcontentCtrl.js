@@ -611,6 +611,14 @@ integrates.controller("findingcontentCtrl", function (
   $scope.goDown = function () {
     window.scrollTo(0, document.body.scrollHeight);
   };
+  $scope.hasUrl = function (element) {
+    if (typeof element !== "undefined") {
+      if (element.indexOf("https://") !== -1 || element.indexOf("http://") !== -1) {
+        return true;
+      }
+    }
+    return false;
+  };
 
   $scope.loadFindingByID = function (id) {
     var req = findingFactory.getVulnById(id);
@@ -643,10 +651,8 @@ integrates.controller("findingcontentCtrl", function (
         }
         $scope.aux.responsable = $scope.finding.responsable_tratamiento;
         $scope.aux.bts = $scope.finding.bts_externo;
-        $scope.finding.has_url = false;
-        if ($scope.finding.bts_externo.indexOf("https://") !== -1 || $scope.finding.bts_externo.indexOf("http://") !== -1) {
-          $scope.finding.has_url = true;
-        }
+        $scope.finding.has_url = $scope.hasUrl($scope.finding.bts_externo);
+        $scope.finding.cwe_isurl = $scope.hasUrl($scope.finding.cwe);
         switch ($scope.finding.actor) {
         case "​Cualquier persona en Internet":
           $scope.finding.actor = $translate.instant("finding_formstack.actor.any_internet");

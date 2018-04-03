@@ -337,7 +337,8 @@
                               <div class="row table-row">
                                   <div class="col-md-2 col-xs-12 col-sm-12 table-head"><label><b>{{'search_findings.tab_description.weakness' | translate}}</b></label></div>
                                   <div class="col-md-4 col-xs-12 col-sm-12 table-desc">
-                                      <p ng-show="onlyReadableTab1">{{finding.cwe}}</p>
+                                      <a ng-href="{{finding.cwe || ''}}" target="_blank" ng-show="onlyReadableTab1 && finding.cwe_isurl">{{finding.cwe || ''}}</a>
+                                      <p ng-show="onlyReadableTab1 && !finding.cwe_isurl">{{finding.cwe || ''}}</p>
                                       <input type="text" class="form-control"
                                              ng-show="!onlyReadableTab1"
                                              ng-model="finding.cwe">
