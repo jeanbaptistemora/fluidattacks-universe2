@@ -1,14 +1,17 @@
 /*
-Script used so the line numbers of differente code blocks
+Script used so the line numbers of different code blocks
 in an article follow a sequential order instead of
 reseting to 1 every time a new code block is declared.
+It also resets numbering if the code has a title.
 */
 
 $(document).ready(function () {
   var lines = document.getElementsByClassName("linenodiv");
   if (lines.length) {
     for (i = 1; i < lines.length; i++) {
+      // Resets if code block has title
       if ($(lines[i]).parents(".content").prev().length) {}
+      // Follows sequential order if not
       else {
         var linenum = lines[i].innerHTML.split('\n').length;
         var newlinenum = "";

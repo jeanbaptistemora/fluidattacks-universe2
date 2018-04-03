@@ -1,4 +1,9 @@
 #!/usr/bin/env bash
+
+# This script deploys the website locally through a simple server.
+# It allows the developer to review the changes introduced and
+# avoid unexpected behaviour in the site.
+
 set -e
 
 echo "Deploying FLUID Website (local environment)"
@@ -21,7 +26,8 @@ pelican --fatal errors --fatal warnings content/
 # Remove unused folder created for the default language (de)
 rm -rf output/web/de
 
-# Copy static files (images, code, ...) to the folder of the respective .html article
+# Copy static files (images, code, ...) to the folder of the respective .html
+# article
 mv output/web/en/blog-en/* output/web/en/blog && mv output/web/es/blog-es/* output/web/es/blog
 
 echo "Updating sitemap, setting redirect and pages images (3/4) . . ."
@@ -29,7 +35,8 @@ echo "Updating sitemap, setting redirect and pages images (3/4) . . ."
 # Merge sitemaps from both subsites and the domain path in a single file
 ./xmlcombine.sh
 
-# Copy static files (images, code, ...) to the folder of the respective .html page
+# Copy static files (images, code, ...) to the folder of the respective .html
+# page
 cp -r output/web/es/pages-es*/* output/web/es/ && rm -rf output/web/es/pages-es*
 cp -r output/web/en/pages-en*/* output/web/en/ && rm -rf output/web/en/pages-en*
 

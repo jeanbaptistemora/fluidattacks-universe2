@@ -33,6 +33,7 @@ A link is also created next to the titles to improve accesibility
   };
 })(jQuery);
 
+// Add anchors to pages containing question blocks
 (function($){
   $.fn.qtag = function() {
     if ($(".qlist").length) {
@@ -51,6 +52,7 @@ $(document).ready(function() {
   $(this).qtag();
 });
 
+// Fix issues with anchors in Chrome
 $(document).ready(function () {
         var isChrome = /Chrome/.test(navigator.userAgent) && /Google Inc/.test(navigator.vendor);
         if (window.location.hash && isChrome) {

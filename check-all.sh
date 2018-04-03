@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 
+# This script aims to normalize the content of the site by enforcing a set of
+# rules.
+
 # Define green color and no color
 GC='\033[0;32m'
 NC='\033[0m'
@@ -17,7 +20,7 @@ if pcregrep --color -Mrn --include='\.adoc' '^=.*.[A-Z].*.*\n.*[A-Z]' content ; 
   ERRORS=1;
 fi
 
-# Check that the references are numerated
+# Check that the references are numbered
 if pcregrep --color -Mnr '^== Referenc.*.*\n.*\n[A-Za-z]' content; then
   echo -e "${GC}\\nReferences must be numbered.${NC}"
   ERRORS=1;

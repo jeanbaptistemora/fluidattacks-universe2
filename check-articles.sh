@@ -1,5 +1,9 @@
 #!/usr/bin/env bash
 
+# This script aims to normalize the categories and tags used in blog articles
+# according to a predefined set, in order to better classify related articles
+# and have a more organized and condensed database.
+
 # Define green, red and no color
 RD='\033[0;31m'
 GC='\033[0;32m'

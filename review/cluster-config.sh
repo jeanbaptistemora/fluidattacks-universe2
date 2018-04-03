@@ -1,5 +1,10 @@
 #!/usr/bin/env sh
 
+# This scripts manages the deployment of the Review Apps,
+# which allow to view a live site through a public IP with the
+# changes introduced by the developer, before accepting changes into
+# production.
+
 # Set namespace preference for kubectl commands
 echo "Setting namespace preferences..."
 kubectl config set-context "$(kubectl config current-context)" --namespace=gitlab-managed-apps
@@ -19,9 +24,11 @@ if kubectl get deployments | grep -q "review-$CI_COMMIT_REF_SLUG"; then
   kubectl get ingress ingress-review -o yaml | sed '/'"$CI_COMMIT_REF_SLUG.$CI_PROJECT_NAME"'/,+5d' > current-ingress.yaml
 fi
 
-# Deploy pod, service and ingress resource
+# Prepare manifests by replacing the value of Environmental Variables
 envsubst < review/ingress.yaml > ingress.yaml && mv ingress.yaml review/ingress.yaml
 sed -i 's/CI_COMMIT_REF_SLUG/'"$CI_COMMIT_REF_SLUG"'/g' review/deploy-web.yaml
+
+# Update current ingress resource if it exists, otherwise create it from zero.
 if kubectl get ingress | grep 'review'; then
   if [ ! -f current-ingress.yaml ]; then
     echo "Getting current ingress manifest..."
@@ -34,6 +41,7 @@ if kubectl get ingress | grep 'review'; then
 else
   kubectl create -f review/ingress.yaml;
 fi
-echo "Deploying latest image..."
 
+# Deploy pod and service
+echo "Deploying latest image..."
 kubectl create -f review/deploy-web.yaml

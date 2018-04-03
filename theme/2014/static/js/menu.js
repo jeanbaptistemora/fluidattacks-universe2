@@ -1,6 +1,8 @@
 /*
-Script that makes the navigationbar responsive in small screens,
-organizing the content in a dropdown menu.
+Script that manages the navigation bar, making it responsive in small screens
+by turning it into a drop-down menu.
+It also controls the color change in the bar when it is located at the top
+of the screen
 */
 
 (function($) {
@@ -37,6 +39,7 @@ organizing the content in a dropdown menu.
 
         if (settings.sticky === true) cssmenu.css('position', 'fixed');
 
+        // Change layout depending of window width
         resizeFix = function() {
           var mainmenu = cssmenu.find('.menu-button');
           var submenu = cssmenu.find('.submenu-button');
@@ -71,6 +74,7 @@ organizing the content in a dropdown menu.
   });
 })(jQuery);
 
+// Change color of navigation bar when scrolled
 $(document).scroll(function () {
   var ScrollTop = $(document).scrollTop();
   if (ScrollTop == 0 && $(".css-scrolled").length) {

@@ -20,6 +20,7 @@ for (i = 0; i < defendscat.length; i++) {
   });
 }
 
+// Function to activate menu when redirected with an URL cotaining an anchor
 $(document).ready(function () {
   var anchor = window.location.hash;
   if (anchor != "") {
