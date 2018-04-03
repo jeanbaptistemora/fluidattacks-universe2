@@ -39,7 +39,7 @@ alguna forma por alguno de los consumidores de esta función.
 +PHP+ define una jerarquía de errores posibles, la mayoría de las
 veces es posible utilizar estos errores, en otras ocasiones es
 posible crear errores propios heredando de alguno de estos:
-
++
 ** *+LogicException+*
 *** +BadFunctionCallException+
 *** +BasMethodCallException+
@@ -52,10 +52,11 @@ posible crear errores propios heredando de alguno de estos:
 *** +OverFlowException+
 *** +RangeException+
 *** +UnexpectedValueException+
-+
-Para lanzar un error se utiliza la palabra reservada +throw+.
+
+. Para lanzar un error se utiliza la palabra reservada +throw+.
 Ejemplo de una excepción controlada adecuadamente:
 +
+
 .ejemplo-throw.php
 [source, php, linenums]
 ----
@@ -92,7 +93,7 @@ try {
 diferente que gestione adecuadamente cada tipo de error de forma
 independiente.
 +
-.ejemplo-catch.php
+.ejemplo-multicatch.php
 [source, php, linenums]
 ----
 <?php
