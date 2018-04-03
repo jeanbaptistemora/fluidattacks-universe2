@@ -2,7 +2,7 @@
 
 ERRORS=0
 
-CHANGED=$(git diff HEAD~ --name-status | pcregrep -o '(?<=(M|A)\t).*')
+CHANGED=$(git diff master... --name-status | pcregrep -o '(?<=(M|A)\t).*')
 
 function error {
   echo -e "\\e[1;31m^--${1}\\e[0m\\n" >&2
@@ -34,6 +34,11 @@ if echo "$CHANGED" | pcregrep '^content/pages.*adoc$' \
 | xargs -r -n 1 ./words.sh \
 | pcregrep -v '^([4-9]\d\d|^1[0-5]\d\d)\s'; then
   error "Number of words in pages out of range. Should be 400>=words<1600.";
+fi
+
+if ! echo "$CHANGED" | pcregrep '\.png$' \
+| xargs -r -n 1 optipng |& pcregrep 'optimized'; then
+  error "Some PNG files are not optimized. Run the CLI tool \"optipng\" to optimize them.";
 fi
 
 exit ${ERRORS}
