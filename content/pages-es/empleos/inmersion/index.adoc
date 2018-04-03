@@ -33,6 +33,7 @@ que usted reciba una remuneración por el tiempo invertido en el proceso.
 == 3. Condiciones
 
 . Aplican todas las link:../retos-tecnicos/#condiciones[condiciones de la etapa de retos técnicos].
+. Debe reportar todo el tiempo dedicado mediante la herramienta asignada en modo automático.
 . Los días pares se trabajarán retos de hacking.
 . Los días impares se trabajarán retos de programación.
 . El entrenamiento debe iniciar a las 7:00 AM en las instalaciones de +FLUIDAttacks+,
@@ -56,13 +57,7 @@ usted deberá entrenar la máxima dedicación posible.
 . Para los retos los mismos [button]#link:../retos-tecnicos/#criterios[criterios]# de la etapa de retos.
 . Para los artículos los criterios definidos en la [button]#link:../../estilo[guía de estilo]#.
 
-== 5. Reportes
-
-. Debe reportar todo el tiempo dedicado mediante la herramienta asignada en modo automático,
-. Debe diligenciar el [button]#link:../../../../forms/training[reporte de entrenamiento]# antes de finalizar la jornada.
-. El fraude deparará en la finalización inmediata del proceso de selección
-
-== 6. Ciclos
+== 5. Ciclos
 
 . El entrenamiento se realizará en ciclos o iteraciones de semana calendario,
 . Inicialmente se le ofrece un primer ciclo de entrenamiento,
@@ -74,7 +69,7 @@ debido a que queremos adelantar la etapa siguiente,
 . Lo usual es que se requiera entre 8 y 16 ciclos para finalizar esta etapa
 .. Esto es meramente un estimado pues depende enteramente de su dedicación y rendimiento.
 
-== 7. Pagos
+== 6. Pagos
 
 . Se pagará el tiempo reportado a formación con un valor hora de $6.468 COP,
 . Se espera que usted logre una dedicación mínima del 80% (Relación al tiempo de referencia),
@@ -88,7 +83,7 @@ se garantiza el pago mínimo de las siguientes 96 horas de entrenamiento reporta
 .. Cuenta de cobro por las horas del mes anterior,
 .. Recibo de pago de la seguridad social por el periodo anterior
 
-== 8. Inicio
+== 7. Inicio
 
 Esta etapa comienza cuando:
 
@@ -125,7 +120,7 @@ la forma de documentación y las herramientas requeridas entre otros,
 serán revelados el primer día de Inmersión y
 cuando haya finalizado todos los ítems mencionados en esta sección.
 
-== 9. Fin
+== 8. Fin
 
 La etapa de inmersión finaliza en cualquiera de las siguientes circunstancias:
 
@@ -135,5 +130,7 @@ La etapa de inmersión finaliza en cualquiera de las siguientes circunstancias:
 esto es,
 +MR+ que no se le hace +merge+ por cuestiones detalladas en la documentación y
 que aun así se incumplen.
+
+. De no cumplir las link:#condiciones[condiciones] y link:#criterios[criterios] definidos de la etapa.
 
 Si tienes alguna duda no dudes en escribir a careers@autonomicmind.co
