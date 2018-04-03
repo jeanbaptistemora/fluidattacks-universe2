@@ -279,7 +279,7 @@ Todos estos datos deben ir en el +commit message+ de acuerdo al formato indicado
 
 A continuación, se indica cómo obtener los puntajes y posiciones en el ranking de cada plataforma.
 
-=== 10.1 En retos de programación
+=== 10.1 Programación
 
 . Ranking mundial
 
@@ -296,7 +296,7 @@ Puede facilitar la tarea teniendo en cuenta que cada página muestra 50 usuarios
 Deberá avanzar a la siguiente página hasta encontrar su nombre de usuario en el tablero de ranking
 image:ranking-colombia-codeabbey-2.png[Ranking Colombia codeabbey]
 
-=== 10.2 En retos de hacking
+=== 10.2 Hacking
 
 image::ranking-wechall.png[Ranking en Wechall]
 
