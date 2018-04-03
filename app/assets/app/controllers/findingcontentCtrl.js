@@ -643,6 +643,10 @@ integrates.controller("findingcontentCtrl", function (
         }
         $scope.aux.responsable = $scope.finding.responsable_tratamiento;
         $scope.aux.bts = $scope.finding.bts_externo;
+        $scope.finding.has_url = false;
+        if ($scope.finding.bts_externo.indexOf("https://") !== -1 || $scope.finding.bts_externo.indexOf("http://") !== -1) {
+          $scope.finding.has_url = true;
+        }
         switch ($scope.finding.actor) {
         case "​Cualquier persona en Internet":
           $scope.finding.actor = $translate.instant("finding_formstack.actor.any_internet");
