@@ -216,6 +216,7 @@
 * link:272/[REQ.272 Diferenciar modos de gestión].
 * link:273/[REQ.273 Establecer suite de seguridad segura].
 * link:274/[REQ.274 Establecer alcance de un sistema].
+* link:275/[REQ.275 Establecer inicio por defecto].
 * link:277/[REQ.277 Información de servicios inaccesible].
 
 == Activos

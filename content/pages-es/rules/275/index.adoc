@@ -1,0 +1,13 @@
+:slug: rules/275/
+:category: rules
+:description: En el presente documento se detallan los requerimientos de seguridad relacionados al inicio seguro de todo sistema operativo. Por lo tanto, todo sistema debe establecer que dicho arranque se ejecute principalmente desde el disco duro, de lo contrario se debe definir una contraseña de ingreso.
+:keywords: Máquina, Disco Duro, USB, Contraseña, Seguridad, CD.
+:rules: yes
+
+= REQ.275 Establecer inicio por defecto
+
+== Nombre
+
+Las máquinas deben iniciar por defecto directamente por el disco duro.
+Si se requiere inicio por otro medio (+CD+, +USB+, +Red+)
+se debe requerir contraseña de administración.
