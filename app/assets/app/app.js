@@ -1,4 +1,4 @@
-/*eslint no-magic-numbers: ["error", { "ignore": [1, -1, 0] }]*/
+/* eslint no-magic-numbers: ["error", { "ignore": [1, -1, 0] }]*/
 /**
  * @file app.js
  * @author engineering@fluidattacks.com
@@ -9,31 +9,19 @@
  * @param {String} name
  * @return {String}
  */
-function getCookie(name)
-{
-
+function getCookie (name) {
   var cookieValue = null;
-  if (document.cookie && document.cookie != "")
-  {
-
+  if (document.cookie && document.cookie != "") {
     var cookies = document.cookie.split(";");
-    for (var i = 0; i < cookies.length; i++)
-    {
-
+    for (var i = 0; i < cookies.length; i++) {
       var cookie = jQuery.trim(cookies[i]);
-      if (cookie.substring(0, name.length + 1) == name + "=")
-      {
-
+      if (cookie.substring(0, name.length + 1) == name + "=") {
         cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
         break;
-
       }
-
     }
-
   }
   return cookieValue;
-
 }
 
 /**
@@ -42,11 +30,8 @@ function getCookie(name)
  * @param {String} method
  * @return {Boolean}
  */
-function csrfSafeMethod(method)
-{
-
-  return /^(GET|HEAD|OPTIONS)$/.test(method);
-
+function csrfSafeMethod (method) {
+  return (/^(GET|HEAD|OPTIONS)$/).test(method);
 }
 
 /**
@@ -55,17 +40,14 @@ function csrfSafeMethod(method)
  * @param {String} url
  * @return {Boolean}
  */
-function sameOrigin(url)
-{
-
+function sameOrigin (url) {
   var host = document.location.host;
   var protocol = document.location.protocol;
   var sr_origin = "//" + host;
   var origin = protocol + sr_origin;
   return url == origin || url.slice(0, origin.length + 1) == origin + "/" ||
         (url == sr_origin || url.slice(0, sr_origin.length + 1) == sr_origin + "/") ||
-        !/^(\/\/|http:|https:).*/.test(url);
-
+        !(/^(\/\/|http:|https:).*/).test(url);
 }
 
 /**
@@ -73,24 +55,15 @@ function sameOrigin(url)
  * @function ajaxConfig
  * @return {undefined}
  */
-function ajaxConfig()
-{
-
+function ajaxConfig () {
   $.ajaxSetup({
-    "beforeSend": function(xhr, settings)
-    {
-
-      if (!csrfSafeMethod(settings.type) && sameOrigin(settings.url))
-      {
-
+    "beforeSend": function (xhr, settings) {
+      if (!csrfSafeMethod(settings.type) && sameOrigin(settings.url)) {
         var csrftoken = getCookie("csrftoken");
         xhr.setRequestHeader("X-CSRFToken", csrftoken);
-
       }
-
     }
   });
-
 }
 
 /*
@@ -101,56 +74,41 @@ var BASE = {
   "development": "/"
 };
 BASE.url = BASE.production;
-if (location.pathname.indexOf("/integrates") == -1)
-{
-
+if (location.pathname.indexOf("/integrates") == -1) {
   BASE.url = BASE.development;
-
 }
 var $msg = {};
-$msg.success = function(text, title)
-{
-
+$msg.success = function (text, title) {
   $.gritter.add({
     "title": title,
     "text": text,
     "class_name": "color info",
     "sticky": false
   });
-
 };
-$msg.error = function(text, title = "Oops!")
-{
-
+$msg.error = function (text, title = "Oops!") {
   $.gritter.add({
     "title": title,
     "text": text,
     "class_name": "color danger",
     "sticky": false
   });
-
 };
-$msg.info = function(text, title)
-{
-
+$msg.info = function (text, title) {
   $.gritter.add({
     "title": title,
     "text": text,
     "class_name": "color info",
     "sticky": false
   });
-
 };
-$msg.warning = function(text, title)
-{
-
+$msg.warning = function (text, title) {
   $.gritter.add({
     "title": title,
     "text": text,
     "class_name": "color warning",
     "sticky": false
   });
-
 };
 
 /**
@@ -170,9 +128,7 @@ var integrates = angular.module("FluidIntegrates", [
 
 integrates.config([
   "RollbarProvider",
-  function(RollbarProvider)
-  {
-
+  function (RollbarProvider) {
     isProduction = location.toString().indexOf("localhost:8000") == -1;
     RollbarProvider.init({
       "accessToken": "cad6d1f7ecda480ba003e29f0428d44e",
@@ -180,6 +136,5 @@ integrates.config([
       "captureUncaught": true,
       "payload": {"environment": "production"}
     });
-
   }
 ]);

@@ -1,6 +1,3 @@
-integrates.factory("dashboardFtry", function($q)
-{
-
+integrates.factory("dashboardFtry", function ($q) {
   return {};
-
 });

@@ -1,4 +1,4 @@
-/*globals integrates, BASE,  $ */
+/* globals integrates, BASE,  $ */
 "use strict";
 
 /**
@@ -12,9 +12,7 @@
  * @param {Object} $urlRouterProvider
  * @return {undefined}
  */
-integrates.config(function ($stateProvider, $urlRouterProvider)
-{
-
+integrates.config(function ($stateProvider, $urlRouterProvider) {
   $urlRouterProvider.otherwise("home");
 
   $stateProvider.
@@ -78,15 +76,11 @@ integrates.config(function ($stateProvider, $urlRouterProvider)
       "templateUrl": BASE.url + "forms",
       "controller": "formCtrl"
     });
-
 });
-integrates.config(function ($sceDelegateProvider)
-{
-
+integrates.config(function ($sceDelegateProvider) {
   $sceDelegateProvider.resourceUrlWhitelist([
     "self",
     "/assets/views/project/eventualityMdl.html",
     "https://fluidattacks.com/**"
   ]);
-
 });

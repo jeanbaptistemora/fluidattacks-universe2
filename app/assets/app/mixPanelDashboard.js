@@ -1,4 +1,4 @@
-/*globals mixPanelDashboard:true, location, mixpanel, $ */
+/* globals mixPanelDashboard:true, location, mixpanel, $ */
 /**
  * @file mixPanelDashboard.js
  * @author engineering@fluidattacks.com
@@ -13,35 +13,21 @@ mixPanelDashboard = {};
  */
 var result = false;
 var none_int = -1;
-mixPanelDashboard.isProduction = function ()
-{
-
+mixPanelDashboard.isProduction = function () {
   result = false;
-  try
-  {
-
+  try {
     result = location.toString().indexOf("localhost:8000") !== none_int;
     return result;
-
   }
-  catch (e)
-  {
-
+  catch (e) {
     result = false;
     return result;
-
   }
-
 };
 
-mixPanelDashboard.trackSearch = function (trackName, userEmail, project)
-{
-
-  if (mixPanelDashboard.isProduction())
-  {
-
+mixPanelDashboard.trackSearch = function (trackName, userEmail, project) {
+  if (mixPanelDashboard.isProduction()) {
     return false;
-
   }
   mixpanel.track(
     trackName,
@@ -50,17 +36,11 @@ mixPanelDashboard.trackSearch = function (trackName, userEmail, project)
       "Project": project
     }
   );
-
 };
 
-mixPanelDashboard.trackReadEventuality = function (userName, userEmail, Organization, project, id)
-{
-
-  if (mixPanelDashboard.isProduction())
-  {
-
+mixPanelDashboard.trackReadEventuality = function (userName, userEmail, Organization, project, id) {
+  if (mixPanelDashboard.isProduction()) {
     return false;
-
   }
   mixpanel.track(
     "ReadEventuality",
@@ -72,17 +52,11 @@ mixPanelDashboard.trackReadEventuality = function (userName, userEmail, Organiza
       "EventID": id
     }
   );
-
 };
 
-mixPanelDashboard.trackReports = function (trackName, userName, userEmail, Organization, project)
-{
-
-  if (mixPanelDashboard.isProduction())
-  {
-
+mixPanelDashboard.trackReports = function (trackName, userName, userEmail, Organization, project) {
+  if (mixPanelDashboard.isProduction()) {
     return false;
-
   }
   mixpanel.track(
     trackName,
@@ -93,17 +67,11 @@ mixPanelDashboard.trackReports = function (trackName, userName, userEmail, Organ
       "Project": project
     }
   );
-
 };
 
-mixPanelDashboard.trackFinding = function (trackName, userEmail, id)
-{
-
-  if (mixPanelDashboard.isProduction())
-  {
-
+mixPanelDashboard.trackFinding = function (trackName, userEmail, id) {
+  if (mixPanelDashboard.isProduction()) {
     return false;
-
   }
   mixpanel.track(
     trackName,
@@ -112,17 +80,11 @@ mixPanelDashboard.trackFinding = function (trackName, userEmail, id)
       "FindingID": id
     }
   );
-
 };
 
-mixPanelDashboard.trackFindingDetailed = function (trackName, userName, userEmail, Organization, project, id)
-{
-
-  if (mixPanelDashboard.isProduction())
-  {
-
+mixPanelDashboard.trackFindingDetailed = function (trackName, userName, userEmail, Organization, project, id) {
+  if (mixPanelDashboard.isProduction()) {
     return false;
-
   }
   mixpanel.track(
     trackName,
@@ -134,5 +96,4 @@ mixPanelDashboard.trackFindingDetailed = function (trackName, userName, userEmai
       "FindingID": id
     }
   );
-
 };

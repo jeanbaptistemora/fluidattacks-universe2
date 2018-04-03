@@ -12,31 +12,23 @@
  */
 integrates.controller(
   "formCtrl",
-  function(
+  function (
     $scope, $location,
     $uibModal, $timeout,
     $state, $stateParams,
     $translate, projectFtry
-  )
-  {
-
-    //Autocompletar formularios de formstack
+  ) {
+    // Autocompletar formularios de formstack
     var urlForm = $location.search();
     var urlLength = Object.keys(urlForm).length;
     var url_length = 0;
-    if (urlLength > url_length && urlForm.autocomplete == "true")
-    {
-
-      //Formulario de avance
-      $("#ifrmProgress").on("load", function()
-      {
-
+    if (urlLength > url_length && urlForm.autocomplete == "true") {
+      // Formulario de avance
+      $("#ifrmProgress").on("load", function () {
         var iframe = document.getElementById("ifrmProgress");
         var innerDoc = iframe.contentDocument || iframe.contentWindow.document;
-        if (urlForm["Tipo de Avance"] == "Proyecto")
-        {
-
-          //InnerDoc.getElementById("field43795015_1").setAttribute("checked", true);
+        if (urlForm["Tipo de Avance"] == "Proyecto") {
+          // InnerDoc.getElementById("field43795015_1").setAttribute("checked", true);
           innerDoc.getElementById("field28635595").value = urlForm.Talento;
           innerDoc.getElementById("field47449040").value = urlForm.Bug;
           innerDoc.getElementById("field55821593").value = urlForm["Criticidad a la fecha"];
@@ -73,24 +65,17 @@ integrates.controller(
           innerDoc.getElementById("field56012915").value = urlForm.Visibles;
           innerDoc.getElementById("field57918852").value = urlForm.VulnerabilidadesH;
           innerDoc.getElementById("field28635669").value = urlForm.VulnerabilidadesS;
-
         }
-        else if (urlForm["Tipo de Avance"] == "Standard")
-        {
-
-          //InnerDoc.getElementById("field43795015_2").setAttribute("checked", true);
+        else if (urlForm["Tipo de Avance"] == "Standard") {
+          // InnerDoc.getElementById("field43795015_2").setAttribute("checked", true);
           innerDoc.getElementById("field28635595").value = urlForm.Talento;
           innerDoc.getElementById("field28634672").value = urlForm["Organización"];
           innerDoc.getElementById("field47323254").value = urlForm.Interesado;
           innerDoc.getElementById("field43795060").value = urlForm["Qué Hice Hoy"];
           innerDoc.getElementById("field43795103").value = urlForm["Qué Haré Mañana"];
           innerDoc.getElementById("field43795173").value = urlForm["En Qué Necesito Ayuda"];
-
         }
-
       });
-
     }
-
   }
 );

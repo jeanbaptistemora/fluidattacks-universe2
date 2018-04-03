@@ -1,4 +1,4 @@
-/*eslint no-magic-numbers: ["error", { "ignore": [-1,2000] }]*/
+/* eslint no-magic-numbers: ["error", { "ignore": [-1,2000] }]*/
 /**
  * @file login.js
  */
@@ -11,13 +11,10 @@ var BASE = {
   "development": "/"
 };
 BASE.url = BASE.production;
-if (location.pathname.indexOf("/integrates") == -1)
-{
-
+if (location.pathname.indexOf("/integrates") == -1) {
   BASE.url = BASE.development;
-
 }
-//Definicion de modulos
+// Definicion de modulos
 var integrates = angular.module("FluidIntegrates", [
   "ngSanitize",
   "pascalprecht.translate"
@@ -25,9 +22,7 @@ var integrates = angular.module("FluidIntegrates", [
 
 integrates.config([
   "$translateProvider",
-  function($translateProvider)
-  {
-
+  function ($translateProvider) {
     var translations = {
       "login_message": "Please log in to proceed.",
       "login_welcome": "If you are a new user, you must call a FLUID representative to register.",
@@ -49,18 +44,14 @@ integrates.config([
       translations("en", translations).
       translations("es", traducciones).
       preferredLanguage("en");
-
   }
 ]);
 
 /*
  * MixPanel localhost Fixer
  */
-integrates.isProduction = function()
-{
-
+integrates.isProduction = function () {
   return location.toString().indexOf("localhost:8000") == -1;
-
 };
 
 /**
@@ -70,46 +61,41 @@ integrates.isProduction = function()
  * @param {integrates.loginFactory} loginFactory
  * @return {undefined}
  */
-integrates.controller("loginController", function($scope, $translate)
-{
+integrates.controller("loginController", function ($scope, $translate) {
+  $scope.lang = function (langKey) {
+    if (langKey == "es" || langKey == "en") {
+      localStorage.lang = langKey;
+    }
+    $translate.use(localStorage.lang);
+  };
 
   /**
    * Autentica a un usuario
    * @function login
    * @return {undefined}
    */
-  $scope.login = function()
-  {
-
+  $scope.login = function () {
     var username = $scope.username;
     var password = $scope.password;
     if (typeof username != "string" ||
-            typeof password != "string")
-    {
-
+            typeof password != "string") {
       $.gritter.add({
         "title": "",
         "text": "Usuario/Clave son obligatorios",
         "class_name": "color warning",
         "sticky": false
       });
-
     }
     else if (username.trim() == "" ||
-            password.trim() == "")
-    {
-
+            password.trim() == "") {
       $.gritter.add({
         "title": "",
         "text": "Usuario/Clave son obligatorios",
         "class_name": "color warning",
         "sticky": false
       });
-
     }
-    else
-    {
-
+    else {
       $.ajax({
         "url": BASE.url + "login/",
         "method": "POST",
@@ -117,59 +103,27 @@ integrates.controller("loginController", function($scope, $translate)
           "user": username,
           "pass": password
         }
-      }).done(function(e)
-      {
-
+      }).done(function (e) {
         var color = "warning";
-        if (e.error == true)
-        {
-
-          color="warning";
-
+        if (e.error == true) {
+          color = "warning";
         }
-        else
-        {
-
-          color="success";
-
+        else {
+          color = "success";
         }
         $.gritter.add({
           "title": "",
           "text": e.message,
-          "class_name": "color "+color,
+          "class_name": "color " + color,
           "sticky": false
         });
-        if (color == "success")
-        {
-
-          redirector = function()
-          {
-
+        if (color == "success") {
+          redirector = function () {
             location = BASE.url + "dashboard";
-
-          }
+          };
           setTimeout(redirector, 2000);
-
         }
-
-      })
-
+      });
     }
-
   };
-
-  $scope.lang = function (langKey)
-  {
-
-    if (langKey == "es" || langKey == "en")
-    {
-
-      localStorage.lang = langKey;
-
-    }
-    $translate.use(localStorage.lang);
-
-  };
-
-
 });

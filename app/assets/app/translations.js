@@ -1,4 +1,4 @@
-/*globals integrates,localStorage, traducciones:true, $ */
+/* globals integrates,localStorage, traducciones:true, $ */
 "use strict";
 
 /**
@@ -13,12 +13,10 @@
  */
 integrates.config([
   "$translateProvider",
-  function ($translateProvider)
-  {
-
+  function ($translateProvider) {
     $translateProvider.useSanitizeValueStrategy("sanitizeParameters");
-    var translations = {},
-      traducciones = {};
+    var traducciones = {},
+      translations = {};
     translations = {
       "logout": {
         "message": "Are you sure?",
@@ -1001,16 +999,12 @@ integrates.config([
         "duplicated": "Está Duplicado"
       }
     };
-    if (typeof localStorage.lang === "undefined")
-    {
-
+    if (typeof localStorage.lang === "undefined") {
       localStorage.lang = "en";
-
     }
     $translateProvider.
       translations("en", translations).
       translations("es", traducciones).
       preferredLanguage(localStorage.lang);
-
   }
 ]);
