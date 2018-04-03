@@ -89,13 +89,13 @@ Checking milogin.lua             OK
 Total: 0 warnings / 0 errors in 1 file
 --]]
 
-Primera línea de mi programa
+My solution's first line.
 ----
 . Los comandos de ejecución utilizados y su salida deben estar al final del código fuente en comentarios multilínea.
 +
 [source, lua, linenums]
 ----
-Última línea de mi programa
+My solution's last line.
 
 --[[
 $ lua5.3 milogin.lua
