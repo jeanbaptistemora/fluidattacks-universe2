@@ -94,14 +94,14 @@ My solution's first line.
 ----
 . Los comandos de ejecución utilizados y su salida deben estar al final del código fuente en comentarios multilínea.
 +
-[source, lua, linenums]
+[source, rust, linenums]
 ----
 My solution's last line.
 
---[[
-$ lua5.3 milogin.lua
-(30 164250) (3 13485) (80 28160) (2 2346)
---]]
+/*
+$ ./skhorn
+over obese obese normal obese obese obese obese ...
+*/
 ----
 . Si la solución opera sobre un conjunto de datos de entrada,
 estos no deben estar quemados en código.
