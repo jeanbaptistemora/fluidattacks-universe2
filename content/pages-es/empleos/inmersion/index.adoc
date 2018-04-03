@@ -93,7 +93,9 @@ Esta etapa comienza cuando:
 .. *Razón social:* Ingrese su nombre completo.
 .. *RUT:* Seguir las instrucciones en la link:https://www.dian.gov.co/impuestos/personas/Paginas/rut.aspx[página web de la DIAN] y adjunte el documento PDF.
 .. *Concepto:* Ingrese su primer nombre y la inicial de su primer apellido.
-.. *Relación:* Cliente.
+.. *Relación:* Proveedor.
+.. *Certificación bancaria:* Adjuntar el PDF correspondiente.
+Solo se admiten cuentas Bancolombia.
 .. *Plazo de pago:* 30 días.
 .. *Formas de pago:* Ordinario.
 .. *Recepción y días de recepción:* Primer día de cada mes.
