@@ -16,49 +16,60 @@
 
 = Estrategias Inteligentes: Seta
 
-SETA (_security education and training and awareness_) es una de las herramientas
-más poderosas para establecer una línea de defensa contra las diferentes riesgos
-que involucra a los seres humanos como medio para alcanzar un objetivo. Desde el
-punto de vista de la seguridad, el talento humano HumanOS o simplemente las
-personas que se encarga de interactuar con tecnologías de la información son
-vistas como un punto de quiebre de los sistemas de seguridad que protegen nuestros
-activos; es por ello que en esta ocasión hablaremos de porque se considera el
-entrenamiento y educación una estrategia inteligente al momento de concebir un
-plan de seguridad y cuales son las diferencias entre cada una de las metodologías.
+SETA (_security education and training and awareness_)
+es una de las herramientas más poderosas para establecer una línea de defensa
+contra los diferentes riesgos que involucran a los seres humanos
+como medio para alcanzar un objetivo.
+Desde el punto de vista de la seguridad, el talento humano HumanOS,
+o simplemente, las personas que se encargan de interactuar
+con tecnologías de la información, son vistas como un punto de quiebre
+de los sistemas de seguridad que protegen nuestros activos;
+es por ello que en esta ocasión hablaremos de porqué se considera
+el entrenamiento y educación como una estrategia inteligente
+al momento de concebir un plan de seguridad,
+y cuáles son las diferencias entre cada una de las metodologías.
 
 [quote]
-“Los humanos son frecuentemente la primera y última línea de la seguridad” link:https://www.sans.org/[SANS Institute]
+“Los humanos son frecuentemente la primera y última línea de la seguridad”
+link:https://www.sans.org/[SANS Institute]
 
 == La preparación es el primer paso
 
-La interacción entre Humanos y las tecnologías de la información es necesaria e
-inevitable, por esto se considera esta relación y su apropiado tratamiento uno
-de los factores más importantes que puede hacer la diferencia para que las
-personas pasen de convertirse en un riesgo para los objetivos de la organización
-a una medida de protección frente amenazas y es que las personas son un activo
-que tiene que estar en armonía con los otros dos pilares de las “organizaciones
-modernas” (los procesos y las tecnologías) es por ello que como activos necesitan
-estar en mantenimiento y capacitación y muchas organizaciones olvidan esta parte
-del flujo, enfocando todos los recursos y esfuerzos a mejorar o reforzar otras
+La interacción entre Humanos y las tecnologías de la información
+es necesaria e inevitable, por esto se considera esta relación
+y su apropiado tratamiento uno de los factores más importantes
+que puede hacer la diferencia para que las personas pasen de convertirse
+en un riesgo para los objetivos de la organización,
+a una medida de protección frente amenazas.
+Y es que las personas son un activo que tiene que estar en armonía
+con los otros dos pilares de las “organizaciones modernas”,
+los procesos y las tecnologías, es por ello que como activos
+necesitan estar en mantenimiento y capacitación,
+y muchas organizaciones olvidan esta parte del flujo,
+enfocando todos los recursos y esfuerzos a mejorar o reforzar otras
 áreas del negocio.
 
 .Pilares de las organizaciones modernas
 image::pilares.png[pilar]
 
-Dicho el ¿Que?. Ahora debemos conocer las diferencias entre cada una de las
-metodologías y su enfoque pues muchos programas de seguridad fallan por no
-contar con una buena planeación. *¡No es lo mismo educación sexual y
-entrenamiento sexual!*
+Dicho el ¿Qué?, ahora debemos conocer las diferencias
+entre cada una de las metodologías y su enfoque,
+pues muchos programas de seguridad fallan por no contar
+con una buena planeación.
+*¡No es lo mismo educación sexual y entrenamiento sexual!*
 
-En primer lugar la *concienciación* obedece al ¿Que?. Que es los que necesita
-nuestra organización de nuestro personal, que deberían hacer los Humanos cuando
-se enfrentan a una situación de seguridad, reconocer una amenaza y saber cual
-seria la medida a seguir. En segundo lugar está el *entrenamiento* el ¿Cómo?. Como
-el talento humano pueden reaccionar frente a las diferentes amenazas, cuales son
-los protocolos a seguir y cómo mitigar un impacto, es aquí donde las habilidades
-son necesarias y puestas a prueba. En último lugar está la *educación* el ¿Porqué?.
-Porque es importante que el personal esté preparado ante las amenazas de seguridad
-y porque la organización debe tomar este camino de prevención y reacción.
+En primer lugar, la *concientización* obedece al ¿Qué?.
+Qué es los que necesita nuestra organización de nuestro personal,
+qué deberían hacer los humanos cuando se enfrentan a una situación de seguridad,
+reconocer una amenaza y saber cuál sería la medida a seguir.
+En segundo lugar está el *entrenamiento*, el ¿Cómo?.
+Cómo el talento humano puede reaccionar frente a las diferentes amenazas,
+cuáles son los protocolos a seguir, y cómo mitigar un impacto.
+Es aquí donde las habilidades son necesarias y puestas a prueba.
+En último lugar está la *educación* el ¿Por qué?.
+Por qué es importante que el personal esté preparado
+ante las amenazas de seguridad y por qué la organización debe tomar
+este camino de prevención y reacción.
 
 == El enfoque y el aprendizaje
 
@@ -99,7 +110,7 @@ el retorno de la inversión y pues con un poco de entrenamiento se pueden mitiga
 muchas de las amenazas de seguridad que involucran al talento humano como los es
 la ingeniería social y los fallos por errores o negligencias.
 
-.Encuesta sobre la frecuencia con que los empleados reciben entrenamiento sobre amenazas de seguridad en las organizaciones: link:https://www.mimecast.com/[Mimecast]
+.Encuesta sobre la frecuencia con que los empleados reciben entrenamiento sobre amenazas de seguridad en las organizaciones: (link:https://www.mimecast.com/[Mimecast])
 image::encuesta.png[encuesta]
 
 La anterior es una encuesta llevada a cabo en el Reino Unido sobre la frecuencia

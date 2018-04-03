@@ -210,6 +210,12 @@ while IFS= read -r FILE; do
       ERRORS=1;
     fi
   fi
+
+# Check if source adoc has content past the 80th column
+  #if ./exttxt.sh $FILE | pcregrep --color -nu '.{81,}'; then
+  #  echo -e "${GC}Documents must be wrapped at column 80.${NC}"
+  #  ERRORS=1;
+  #fi
 done < <(find content -iname '*.adoc')
 
 exit $ERRORS

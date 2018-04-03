@@ -54,7 +54,8 @@ que un puerto puede tener 3 estados que pueden ser:
 |===
 | +Open+ |El puerto esta abierto y corre un servicio en él.
 | +Closed+ |El puerto no esta en uso por ningún servicio.
-| +Filtered+ |El puerto esta filtrado ya sea por un +Firewall+ u otro dispositivo o
+| +Filtered+ |El puerto esta filtrado ya sea por un +Firewall+
+u otro dispositivo o
 aplicación que se encarga de filtrar todos los paquetes.
 |===
 
@@ -72,9 +73,9 @@ podemos observar en la parte derecha los servicios que corre la maquina.
 
 image::nmap.png[nmap]
 
-Luego de esto empezamos a realizar la conexión a los puertos para conseguir la
-información, esto lo podemos realizar con la herramienta +netcat+, de la siguiente
-manera:
+Luego de esto, empezamos a realizar la conexión a los puertos
+para conseguir la información, esto lo podemos realizar
+con la herramienta +Netcat+, de la siguiente manera:
 
 [source, bash, linenums]
 ----
@@ -82,7 +83,8 @@ manera:
 % sudo nc dareyourmind.net [port]
 ----
 
-Como se ve en la siguiente figura podemos ver la versión de +SSH+, +FTP+, +smtp+.
+Como se ve en la siguiente figura,
+podemos obtener la versión de +SSH+, +FTP+, +smtp+.
 
 image::netcat.png[netcat]
 
@@ -111,9 +113,10 @@ image::netcat2.png[netcat-2]
 En general existen muchas recomendaciones que pueden surgir frente a este tema,
 pero entre las más importantes están:
 
-* Configurar adecuadamente las directrices de cada aplicación, por ejemplo
-+apache+ tiene la opción de configurar la información que queremos mostrar si hay
-un error, lo ideal seria mostrar la menor información posible.
+* Configurar adecuadamente las directrices de cada aplicación,
+por ejemplo, +Apache+ tiene la opción de configurar la información
+que queremos mostrar si hay un error.
+Lo ideal sería mostrar la menor información posible.
 * Solo usar las aplicaciones y los puertos que sean necesarios. Actualizar los
 paquetes y aplicaciones cada vez que salga una nueva versión estable de las
 mismas.
