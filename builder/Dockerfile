@@ -29,6 +29,7 @@ RUN apt-get update -qq && \
        git \
        make \
        nodejs \
+       optipng \
        pcregrep \
        python-dev \
        python-pip \

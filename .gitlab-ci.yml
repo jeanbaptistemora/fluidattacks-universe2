@@ -112,8 +112,10 @@ deploy:
     - mv robots.txt output/web/
     # Organize images of articles with draft status
     - ./draft.sh
-    # Sync content with S3 bucket to avoid unavailability
-    - aws s3 sync --acl public-read --delete --size-only output/web "s3://$S3_BUCKET_NAME/web"
+    # Compress all HTML, CSS and JS files
+    - while IFS= read -r FILE; do gzip -9 "$FILE" && mv "$FILE.gz" "$FILE"; done < <(find output -type f -name '*.html' -o -name '*.css' -o -name '*.js')
+    # Sync content with S3 bucket to avoid unavailability, declaring compression type
+    - aws s3 sync --acl public-read --delete --size-only --metadata-directive REPLACE --content-type text/html --content-encoding gzip output/web "s3://$S3_BUCKET_NAME/web"
     # Set 301 redirects for URLs without trailing slash
     - ./amz-redirect.sh
     # Erase output folder to reduce artifact size since it is untracked
