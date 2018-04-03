@@ -56,7 +56,7 @@ posible crear errores propios heredando de alguno de estos:
 Para lanzar un error se utiliza la palabra reservada +throw+.
 Ejemplo de una excepción controlada adecuadamente:
 +
-.ejemplo.php
+.ejemplo-throw.php
 [source, php, linenums]
 ----
 <?php
@@ -74,7 +74,7 @@ function inverse($x) {
 . Ubicar estas líneas dentro de un bloque +try/catch+
 Los bloques +try/catch+ son de la siguiente forma:
 +
-.ejemplo.php
+.ejemplo-trycatch.php
 [source, php, linenums]
 ----
 <?php
@@ -92,7 +92,7 @@ try {
 diferente que gestione adecuadamente cada tipo de error de forma
 independiente.
 +
-.ejemplo.php
+.ejemplo-catch.php
 [source, php, linenums]
 ----
 <?php
