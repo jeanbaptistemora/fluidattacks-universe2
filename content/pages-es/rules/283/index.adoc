@@ -1,0 +1,14 @@
+:slug: rules/283/
+:category: rules
+:description: En el presente documento se detallan los requerimientos de seguridad relacionados a la gestión adecuada de usuarios administrativos de un determinado sistema operativo. En este criterio se recomienda deshabilitar el acceso directo con usuarios genéricos administrativos.
+:keywords: Deshabilitar, Administrator, root, UNIX, Windows, Acceso.
+:rules: yes
+
+= REQ.283 Deshabilitar accesos en usuarios genéricos
+
+== Nombre
+
+Se debe deshabilitar el acceso directo
+con usuarios genéricos administrativos
+(+root+ en sistemas +UNIX+,
++Administrator/Administrador+ en sistemas +Windows+) de forma remota.
