@@ -179,7 +179,7 @@ Ejemplos de +MR+ aceptados en el pasado:
 [button]#link:https://gitlab.com/autonomicmind/training/merge_requests/703//diffs[3]#
 
 * +MR+ ejemplares de programación: [button]#link:https://gitlab.com/autonomicmind/training/merge_requests/871/diffs[1]#,
-[button]#link:https://gitlab.com/autonomicmind/training/merge_requests/814/diffs[2]#,
+[button]#link:https://gitlab.com/autonomicmind/training/merge_requests/882/diffs[2]#,
 [button]#link:https://gitlab.com/autonomicmind/training/merge_requests/872/diffs[3]#
 
 [NOTE]
