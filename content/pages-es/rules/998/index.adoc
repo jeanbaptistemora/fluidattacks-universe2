@@ -57,7 +57,7 @@ para diferentes plataformas o lenguajes de programación:
 . *+ASPNET+* link:../../defends/aspnet/evitar-codigo-muerto/[Evitar código muerto].
 . *+ASPNET+* link:../../defends/aspnet/evitar-codigo-duplicado/[Evitar código fuente duplicado].
 
-== Casos de abuso
+== Ataques
 
 A continuación se describen dos casos de abuso,
 los cuales, son aplicables para el presente criterio de seguridad:

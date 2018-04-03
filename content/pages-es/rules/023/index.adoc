@@ -43,7 +43,7 @@ a un tiempo prudencial (recomendado de 5 minutos o cercano).<<r1,^[1]^>>
 . +JAVA+ link:../../defends/java/configurar-tiempo-sesion/[Configurar Tiempo de Sesión].
 . +AIX+ link:../../defends/aix/tiempo-limite-sesion/[Establecer Tiempo Límite para Sesión Inactiva].
 
-== Casos de abuso
+== Ataques
 
 . Un usuario empleado o anónimo
 toma control de una cuenta desatendida

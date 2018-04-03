@@ -57,7 +57,7 @@ de cualquier información sensible en memoria.
 . *+SCALA+* link:../../defends/scala/limitar-vida-recurso/[Limitar tiempo de vida de recursos].
 . *+CSHARP+* link:../../defends/csharp/limitar-vida-recurso/[Limitar tiempo de vida de recursos].
 
-== Casos de abuso
+== Ataques
 
 A continuación se describen dos casos de abuso,
 los cuales, son aplicables para el presente criterio de seguridad:

@@ -67,7 +67,7 @@ image::diag1.png[Diagrama 1]
 * Consultoría - Aprender Teoría Básica de Riesgos
 * ISO 27005 - Gestión de riesgos para un SGSI con ISO 27005
 
-== Casos de abuso
+== Ataques
 
 Un usuario empleado o anónimo
 ejecuta acciones las cuales van

@@ -102,7 +102,7 @@ Las 6 variables se utilizan para calcular la criticidad de la vulnerabilidad con
 +
 image::diag1-req015.png[Diagrama req015]
 
-== Casos de abuso
+== Ataques
 
 . Un usuario, empleado o anónimo
 ejecuta acciones en contravía

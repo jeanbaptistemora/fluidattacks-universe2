@@ -62,7 +62,7 @@ image::diag1.png[Diagrama1]
 . Consultoría - Determinar valor de información.
 . Consultoría - Establecer Inventario de Activos de Información.
 
-== Casos de abuso
+== Ataques
 
 Un usuario empleado o anónimo ejecuta acciones
 las cuales van en contravía de la seguridad de un activo de la organización,

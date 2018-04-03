@@ -55,7 +55,7 @@ debido a la trasmisión de la +cookie+ en texto plano.
 . +ASPNET+ link:../../defends/aspnet/usar-cookies-httponly/[Usar cookies HTTPOnly].
 . +PHP+ link:../../defends/php/generar-cookies-httponly/[Generar Cookies con HttpOnly].
 
-== Casos de abuso
+== Ataques
 
 . Un atacante genera un +script+ que es ejecutado
 sin conocimiento de causa por un usuario válido autenticado en la aplicación

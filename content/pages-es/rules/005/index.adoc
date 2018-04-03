@@ -82,7 +82,7 @@ image::diag1-req003.png[Diagrama req003]
 
 * ISO 27003 - ​Guía ISO 27003
 
-== Casos de abuso
+== Ataques
 
 Un usuario empleado o anónimo ejecuta acciones
 las cuales van en contravía de la seguridad

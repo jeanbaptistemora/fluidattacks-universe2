@@ -28,7 +28,7 @@ desde que una determinada entidad adquirió su certificado digital,
 ésta realice el respectivo procedimiento
 de renovación ante la entidad certificadora competente.
 
-== Casos de abuso
+== Ataques
 
 A continuación se describe un caso de abuso,
 el cual, es aplicable para el presente criterio de seguridad:

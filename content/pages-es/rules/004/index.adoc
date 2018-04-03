@@ -71,7 +71,7 @@ image::diag1-req002.png[Diagrama req002]
 
 * Consultoría - Responder a cuestionario inventario activos de información.
 
-== Casos de Abuso
+== Ataques
 
 Un usuario empleado o anónimo
 ejecuta acciones las cuales van

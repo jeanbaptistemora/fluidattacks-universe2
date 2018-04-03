@@ -56,7 +56,7 @@ que puedan representar un riesgo para la organización.
 . +WINDOWS+ link:../../defends/windows/puerto-innecesario/[Deshabilitar Puertos Innecesarios].
 . +REDHAT+ link:../../defends/redhat/actualizar-software/[Actualizar Software en RedHat].
 
-== Casos de abuso
+== Ataques
 
 . Un atacante consigue la información técnica de un producto en específico
 y si el servicio/+software+ se encuentra desactualizado,

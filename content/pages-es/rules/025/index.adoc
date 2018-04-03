@@ -37,7 +37,7 @@ ya sea desde un sistema de autenticación externo o desde el mismo sistema.
 
 . +LINUX+ link:../../defends/linux/limitar-sesiones-concurrente/[Limitar Número de Sesiones Concurrentes por Usuario].
 
-== Casos de abuso
+== Ataques
 
 . Un atacante inicia sesión en una cuenta
 de manera simultánea a un usuario legítimo.
