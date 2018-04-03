@@ -30,14 +30,9 @@ que usted reciba una remuneración por el tiempo invertido en el proceso.
 . Finalice 2 proyectos de entrenamiento sorpresa,
 . Publique 10 artículos en el blog,
 
-== 3. Criterios
+== 3. Condiciones
 
-. Para los retos los mismos [button]#link:../retos-tecnicos/#criterios[criterios]# de la etapa de retos.
-. Para los artículos los criterios definidos en la [button]#link:../../estilo[guía de estilo]#.
-
-== 4. Condiciones
-
-. El entrenamiento es auto-dirigido e independiente (por su propia cuenta sin instrucción o ayuda alguna de otro),
+. Aplican todas las link:../retos-tecnicos/#condiciones[condiciones de la etapa de retos técnicos].
 . Los días pares se trabajarán retos de hacking.
 . Los días impares se trabajarán retos de programación.
 . El entrenamiento debe iniciar a las 7:00 AM en las instalaciones de +FLUIDAttacks+,
@@ -55,6 +50,11 @@ en las instalaciones de la compañía,
 ese día no se hacen retos ni se reporta tiempo de entrenamiento con la herramienta asignada.
 . El tercer día hábil de cada semana,
 usted deberá entrenar la máxima dedicación posible.
+
+== 4. Criterios
+
+. Para los retos los mismos [button]#link:../retos-tecnicos/#criterios[criterios]# de la etapa de retos.
+. Para los artículos los criterios definidos en la [button]#link:../../estilo[guía de estilo]#.
 
 == 5. Reportes
 
