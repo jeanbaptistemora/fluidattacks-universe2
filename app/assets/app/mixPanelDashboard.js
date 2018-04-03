@@ -11,8 +11,8 @@ mixPanelDashboard = {};
 /*
  * MixPanel localhost Fixer
  */
-var result = false;
-var none_int = -1;
+let result = false;
+const none_int = -1;
 mixPanelDashboard.isProduction = function () {
   result = false;
   try {
@@ -47,7 +47,7 @@ mixPanelDashboard.trackReadEventuality = function (userName, userEmail, Organiza
     {
       "Name": userName,
       "Email": userEmail,
-      "Organization": Organization,
+      Organization,
       "Project": project,
       "EventID": id
     }
@@ -63,7 +63,7 @@ mixPanelDashboard.trackReports = function (trackName, userName, userEmail, Organ
     {
       "Name": userName,
       "Email": userEmail,
-      "Organization": Organization,
+      Organization,
       "Project": project
     }
   );
@@ -91,7 +91,7 @@ mixPanelDashboard.trackFindingDetailed = function (trackName, userName, userEmai
     {
       "Name": userName,
       "Email": userEmail,
-      "Organization": Organization,
+      Organization,
       "Project": project,
       "FindingID": id
     }

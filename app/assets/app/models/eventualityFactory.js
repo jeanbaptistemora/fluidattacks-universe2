@@ -19,20 +19,20 @@ integrates.factory("eventualityFactory", function ($q) {
      * @member integrates.eventualityFactory
      * @return {Object}
      */
-    "getEvntByName": function (project, category) {
-      var deferred = $q.defer();
+    "getEvntByName" (project, category) {
+      const deferred = $q.defer();
       try {
         $.ajax({
-          "url": BASE.url + "get_eventualities",
+          "url": `${BASE.url}get_eventualities`,
           "data": {
-            "project": project,
-            "category": category
+            project,
+            category
           },
-          "success": function (response) {
+          "success" (response) {
             $(".loader").hide();
             deferred.resolve(response);
           },
-          "error": function (xhr, status) {
+          "error" (xhr, status) {
             $(".loader").hide();
             if (xhr.status == 500) {
               Rollbar.error("Error: An error ocurred loading data");
@@ -66,17 +66,17 @@ integrates.factory("eventualityFactory", function ($q) {
      * @member integrates.eventualityFactory
      * @return {Object}
      */
-    "updateEvnt": function (vuln) {
-      var deferred = $q.defer();
+    "updateEvnt" (vuln) {
+      const deferred = $q.defer();
       try {
         $.ajax({
-          "url": BASE.url + "update_eventuality",
+          "url": `${BASE.url}update_eventuality`,
           "method": "POST",
-          "data": {"vuln": vuln},
-          "success": function (response) {
+          "data": {vuln},
+          "success" (response) {
             deferred.resolve(response);
           },
-          "error": function (xhr, status) {
+          "error" (xhr, status) {
             $(".loader").hide();
             if (xhr.status == 500) {
               Rollbar.error("Error: An error ocurred loading data");

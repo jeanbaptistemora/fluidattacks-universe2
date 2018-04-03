@@ -1,5 +1,5 @@
 /* eslint no-magic-numbers: ["error", { "ignore": [-1,0,0.950,1,2,5] }]*/
-var remember = null;
+let remember = null;
 $(document).ready(function () {
   remember = function () {
     try {
@@ -11,7 +11,7 @@ $(document).ready(function () {
   };
   remember();
   setInterval(function () {
-    var timew = 35000;
+    const timew = 35000;
     remember();
   }, timew);
   document.getElementsByTagName("select")[5].onchange = function () {
@@ -33,25 +33,25 @@ String.prototype.capitalizeFirstLetter = function () { /* eslint no-extend-nativ
   return this.charAt(0).toUpperCase() + this.slice(1);
 };
 
-var description = $("#field32202728");
-var requirement = $("#field38254586");
-var solution = $("#field38619077");
-var threat = $("#field38193361");
-var risk = $("#field38193362");
-var donde = $("#field38193357");
-var has_solution = $("#field38861717_1");
-var has_no_solution = $("#field38861717_2");
-var solution_kb = $("#field38861739");
-var tipo = $("#field54319180");
-var debilidad = $("#field38899046");
-var solution_pdf = $("#field38307753");
-var evidencia_hallazgo = $("#field32202896");
-var exploit = $("#field38307199");
-var evidencia_explotacion = $("#field38307222");
-var animacion = $("#field38307272");
-var si_evidente = $("#field49132420_1");
-var no_evidente = $("#field49132420_2");
-var public_spreadsheet_url = "https://docs.google.com/spreadsheets/d/1L37WnF6enoC8Ws8vs9sr0G29qBLwbe-3ztbuopu1nvc/pubhtml";
+const description = $("#field32202728");
+const requirement = $("#field38254586");
+const solution = $("#field38619077");
+const threat = $("#field38193361");
+const risk = $("#field38193362");
+const donde = $("#field38193357");
+const has_solution = $("#field38861717_1");
+const has_no_solution = $("#field38861717_2");
+const solution_kb = $("#field38861739");
+const tipo = $("#field54319180");
+const debilidad = $("#field38899046");
+const solution_pdf = $("#field38307753");
+const evidencia_hallazgo = $("#field32202896");
+const exploit = $("#field38307199");
+const evidencia_explotacion = $("#field38307222");
+const animacion = $("#field38307272");
+const si_evidente = $("#field49132420_1");
+const no_evidente = $("#field49132420_2");
+const public_spreadsheet_url = "https://docs.google.com/spreadsheets/d/1L37WnF6enoC8Ws8vs9sr0G29qBLwbe-3ztbuopu1nvc/pubhtml";
 
 /**
  * Function showInfo return info about findings
@@ -59,8 +59,8 @@ var public_spreadsheet_url = "https://docs.google.com/spreadsheets/d/1L37WnF6eno
 function showInfo (data, tabletop) {
   obj = $.parseJSON(JSON.stringify(data));
   $("#field32201810").change(function () {
-    var title = $("#field32201810").val();
-    for (var i = 0; i < obj.length; i++) {
+    const title = $("#field32201810").val();
+    for (let i = 0; i < obj.length; i++) {
       if (obj[i].Titulo == title) {
         description.val(obj[i].Descripcion);
         requirement.val(obj[i].Requisito);
@@ -147,7 +147,7 @@ $(donde).focusout(function () {
 $(requirement).focusout(function () {
   requirement.val($.trim(requirement.val()));
   if (requirement.val()[requirement.val().length - 1] != ".") {
-    requirement.val(requirement.val() + ".");
+    requirement.val(`${requirement.val()}.`);
   }
   if (isUpperCase(requirement.val()[0]) == false) {
     requirement.val(requirement.val().capitalizeFirstLetter());
@@ -157,7 +157,7 @@ $(requirement).focusout(function () {
 $(description).focusout(function () {
   description.val($.trim(description.val()));
   if (description.val()[description.val().length - 1] != ".") {
-    description.val(description.val() + ".");
+    description.val(`${description.val()}.`);
   }
   if (isUpperCase(description.val()[0]) == false) {
     description.val(description.val().capitalizeFirstLetter());
@@ -168,7 +168,7 @@ $(description).focusout(function () {
 $(solution).focusout(function () {
   solution.val($.trim(solution.val()));
   if (solution.val()[solution.val().length - 1] != ".") {
-    solution.val(solution.val() + ".");
+    solution.val(`${solution.val()}.`);
   }
   if (isUpperCase(solution.val()[0]) == false) {
     solution.val(solution.val().capitalizeFirstLetter());
@@ -178,7 +178,7 @@ $(solution).focusout(function () {
 $(risk).focusout(function () {
   risk.val($.trim(risk.val()));
   if (risk.val()[risk.val().length - 1] != ".") {
-    risk.val(risk.val() + ".");
+    risk.val(`${risk.val()}.`);
   }
   if (isUpperCase(risk.val()[0]) == false) {
     risk.val(risk.val().capitalizeFirstLetter());
@@ -188,7 +188,7 @@ $(risk).focusout(function () {
 $(threat).focusout(function () {
   threat.val($.trim(threat.val()));
   if (threat.val()[threat.val().length - 1] != ".") {
-    threat.val(threat.val() + ".");
+    threat.val(`${threat.val()}.`);
   }
   if (isUpperCase(threat.val()[0]) == false) {
     threat.val(threat.val().capitalizeFirstLetter());
@@ -196,9 +196,9 @@ $(threat).focusout(function () {
 });
 
 $(evidencia_hallazgo).change(function () {
-  var hallazgo_upload = $(evidencia_hallazgo).val().
+  const hallazgo_upload = $(evidencia_hallazgo).val().
     split("\\")[2].split(".")[0];
-  var substring = "evidencia";
+  const substring = "evidencia";
   if (hallazgo_upload.indexOf(substring) === -1) {
     $msg.error("El archivo se debe contener la palabra evidencia");
     evidencia_hallazgo.val("");
@@ -206,7 +206,7 @@ $(evidencia_hallazgo).change(function () {
 });
 
 $(exploit).change(function () {
-  var exploit_upload = $(exploit).val().
+  const exploit_upload = $(exploit).val().
     split("\\")[2].split(".")[0];
   if (exploit_upload != "exploit") {
     $msg.error("El archivo se debe llamar: exploit");
@@ -218,7 +218,7 @@ $(exploit).change(function () {
 });
 
 $(evidencia_explotacion).change(function () {
-  var explotacion_upload = $(evidencia_explotacion).val().
+  const explotacion_upload = $(evidencia_explotacion).val().
     split("\\")[2].split(".")[0];
   if (explotacion_upload != "evidencia-de-explotacion") {
     $msg.error("El archivo se debe llamar: evidencia-de-explotacion");
@@ -230,7 +230,7 @@ $(evidencia_explotacion).change(function () {
 });
 
 $(animacion).change(function () {
-  var animacion_upload = $(animacion).val().
+  const animacion_upload = $(animacion).val().
     split("\\")[2].split(".")[0];
   if (animacion_upload != "animacion-de-explotacion") {
     $msg.error("El archivo se debe llamar: animacion-de-explotacion");
@@ -242,7 +242,7 @@ $(animacion).change(function () {
 });
 
 $(solution_pdf).change(function () {
-  var sol_upload = $(solution_pdf).val().
+  const sol_upload = $(solution_pdf).val().
     split("\\")[2].split(".")[0];
   if (sol_upload != "solucion") {
     $msg.error("El archivo se debe llamar: solucion");

@@ -20,11 +20,11 @@ integrates.factory("projectFtry", function ($q, $translate) {
      * @member integrates.projectFtry
      * @return {Object}
      */
-    "projectByName": function (project, filter) {
-      var oops_ac = $translate.instant("proj_alerts.error_text");
-      return $xhr.get($q, BASE.url + "get_findings", {
-        "project": project,
-        "filter": filter,
+    "projectByName" (project, filter) {
+      const oops_ac = $translate.instant("proj_alerts.error_text");
+      return $xhr.get($q, `${BASE.url}get_findings`, {
+        project,
+        filter,
         "_": Math.random()
       }, oops_ac);
     },
@@ -37,11 +37,11 @@ integrates.factory("projectFtry", function ($q, $translate) {
      * @member integrates.projectFtry
      * @return {Object}
      */
-    "EventualityByName": function (project, category) {
-      var oops_ac = $translate.instant("proj_alerts.error_text");
-      return $xhr.get($q, BASE.url + "get_eventualities", {
-        "project": project,
-        "category": category,
+    "EventualityByName" (project, category) {
+      const oops_ac = $translate.instant("proj_alerts.error_text");
+      return $xhr.get($q, `${BASE.url}get_eventualities`, {
+        project,
+        category,
         "_": Math.random()
       }, oops_ac);
     },
@@ -53,11 +53,11 @@ integrates.factory("projectFtry", function ($q, $translate) {
      * @member integrates.projectFtry
      * @return {Object}
      */
-    "getExploit": function (findingid, id) {
-      var oops_ac = $translate.instant("proj_alerts.error_text");
-      return $xhr.get($q, BASE.url + "get_exploit", {
-        "findingid": findingid,
-        "id": id,
+    "getExploit" (findingid, id) {
+      const oops_ac = $translate.instant("proj_alerts.error_text");
+      return $xhr.get($q, `${BASE.url}get_exploit`, {
+        findingid,
+        id,
         "_": Math.random()
       }, oops_ac);
     },
@@ -70,11 +70,11 @@ integrates.factory("projectFtry", function ($q, $translate) {
      * @member integrates.projectFtry
      * @return {Object}
      */
-    "getRecords": function (findingid, id) {
-      var oops_ac = $translate.instant("proj_alerts.error_text");
-      return $xhr.get($q, BASE.url + "get_records", {
-        "findingid": findingid,
-        "id": id,
+    "getRecords" (findingid, id) {
+      const oops_ac = $translate.instant("proj_alerts.error_text");
+      return $xhr.get($q, `${BASE.url}get_records`, {
+        findingid,
+        id,
         "_": Math.random()
       }, oops_ac);
     },
@@ -86,10 +86,10 @@ integrates.factory("projectFtry", function ($q, $translate) {
      * @member integrates.projectFtry
      * @return {Object}
      */
-    "getEvidences": function (id) {
-      var oops_ac = $translate.instant("proj_alerts.error_text");
-      return $xhr.get($q, BASE.url + "get_evidences", {
-        "id": id,
+    "getEvidences" (id) {
+      const oops_ac = $translate.instant("proj_alerts.error_text");
+      return $xhr.get($q, `${BASE.url}get_evidences`, {
+        id,
         "_": Math.random()
       }, oops_ac);
     },
@@ -101,10 +101,10 @@ integrates.factory("projectFtry", function ($q, $translate) {
      * @member integrates.projectFtry
      * @return {Object}
      */
-    "getComments": function (id) {
-      var oops_ac = $translate.instant("proj_alerts.error_text");
-      return $xhr.get($q, BASE.url + "get_comments", {
-        "id": id,
+    "getComments" (id) {
+      const oops_ac = $translate.instant("proj_alerts.error_text");
+      return $xhr.get($q, `${BASE.url}get_comments`, {
+        id,
         "_": Math.random()
       }, oops_ac);
     },
@@ -117,11 +117,11 @@ integrates.factory("projectFtry", function ($q, $translate) {
      * @member integrates.projectFtry
      * @return {Object}
      */
-    "addComment": function (id, data) {
-      var oops_ac = $translate.instant("proj_alerts.error_text");
-      return $xhr.post($q, BASE.url + "add_comment", {
-        "id": id,
-        "data": data,
+    "addComment" (id, data) {
+      const oops_ac = $translate.instant("proj_alerts.error_text");
+      return $xhr.post($q, `${BASE.url}add_comment`, {
+        id,
+        data,
         "_": Math.random()
       }, oops_ac);
     },
@@ -134,11 +134,11 @@ integrates.factory("projectFtry", function ($q, $translate) {
      * @member integrates.projectFtry
      * @return {Object}
      */
-    "deleteComment": function (id, data) {
-      var oops_ac = $translate.instant("proj_alerts.error_text");
-      return $xhr.post($q, BASE.url + "delete_comment", {
-        "id": id,
-        "data": data,
+    "deleteComment" (id, data) {
+      const oops_ac = $translate.instant("proj_alerts.error_text");
+      return $xhr.post($q, `${BASE.url}delete_comment`, {
+        id,
+        data,
         "_": Math.random()
       }, oops_ac);
     },
@@ -150,10 +150,10 @@ integrates.factory("projectFtry", function ($q, $translate) {
      * @member integrates.projectFtry
      * @return {Object}
      */
-    "FindingById": function (id) {
-      var oops_ac = $translate.instant("proj_alerts.error_text");
-      return $xhr.post($q, BASE.url + "get_finding", {
-        "id": id,
+    "FindingById" (id) {
+      const oops_ac = $translate.instant("proj_alerts.error_text");
+      return $xhr.post($q, `${BASE.url}get_finding`, {
+        id,
         "_": Math.random()
       }, oops_ac);
     },
@@ -167,12 +167,12 @@ integrates.factory("projectFtry", function ($q, $translate) {
      * @member integrates.projectFtry
      * @return {Object}
      */
-    "ProjectDoc": function (project, json, format) {
-      var oops_ac = $translate.instant("proj_alerts.error_text");
-      return $xhr.post($q, BASE.url + "generate_autodoc", {
-        "project": project,
+    "ProjectDoc" (project, json, format) {
+      const oops_ac = $translate.instant("proj_alerts.error_text");
+      return $xhr.post($q, `${BASE.url}generate_autodoc`, {
+        project,
         "data": json,
-        "format": format,
+        format,
         "_": Math.random()
       }, oops_ac);
     },
@@ -185,9 +185,9 @@ integrates.factory("projectFtry", function ($q, $translate) {
      * @member integrates.projectFtry
      * @return {Object}
      */
-    "UpdateCSSv2": function (data) {
-      var oops_ac = $translate.instant("proj_alerts.error_text");
-      return $xhr.post($q, BASE.url + "update_cssv2", {
+    "UpdateCSSv2" (data) {
+      const oops_ac = $translate.instant("proj_alerts.error_text");
+      return $xhr.post($q, `${BASE.url}update_cssv2`, {
         data,
         "_": Math.random()
       }, oops_ac);
@@ -201,9 +201,9 @@ integrates.factory("projectFtry", function ($q, $translate) {
      * @member integrates.projectFtry
      * @return {Object}
      */
-    "UpdateDescription": function (data) {
-      var oops_ac = $translate.instant("proj_alerts.error_text");
-      return $xhr.post($q, BASE.url + "update_description", {
+    "UpdateDescription" (data) {
+      const oops_ac = $translate.instant("proj_alerts.error_text");
+      return $xhr.post($q, `${BASE.url}update_description`, {
         data,
         "_": Math.random()
       }, oops_ac);
@@ -216,9 +216,9 @@ integrates.factory("projectFtry", function ($q, $translate) {
      * @member integrates.projectFtry
      * @return {Object}
      */
-    "UpdateTreatment": function (data) {
-      var oops_ac = $translate.instant("proj_alerts.error_text");
-      return $xhr.post($q, BASE.url + "update_treatment", {
+    "UpdateTreatment" (data) {
+      const oops_ac = $translate.instant("proj_alerts.error_text");
+      return $xhr.post($q, `${BASE.url}update_treatment`, {
         data,
         "_": Math.random()
       }, oops_ac);
@@ -232,10 +232,10 @@ integrates.factory("projectFtry", function ($q, $translate) {
      * @member integrates.projectFtry
      * @return {Object}
      */
-    "DeleteFinding": function (data) {
-      var oops_ac = $translate.instant("proj_alerts.error_text");
-      return $xhr.post($q, BASE.url + "delete_finding", {
-        "data": data,
+    "DeleteFinding" (data) {
+      const oops_ac = $translate.instant("proj_alerts.error_text");
+      return $xhr.post($q, `${BASE.url}delete_finding`, {
+        data,
         "_": Math.random()
       }, oops_ac);
     },
@@ -246,9 +246,9 @@ integrates.factory("projectFtry", function ($q, $translate) {
      * @member integrates.projectFtry
      * @return {Object}s
      */
-    "FindingSolved": function (data) {
-      var oops_ac = $translate.instant("proj_alerts.error_text");
-      return $xhr.post($q, BASE.url + "finding_solved", {
+    "FindingSolved" (data) {
+      const oops_ac = $translate.instant("proj_alerts.error_text");
+      return $xhr.post($q, `${BASE.url}finding_solved`, {
         data,
         "_": Math.random()
       }, oops_ac);
@@ -261,10 +261,10 @@ integrates.factory("projectFtry", function ($q, $translate) {
      * @member integrates.projectFtry
      * @return {Object}s
      */
-    "TotalSeverity": function (project) {
-      var oops_ac = $translate.instant("proj_alerts.error_text");
-      return $xhr.get($q, BASE.url + "total_severity", {
-        "project": project,
+    "TotalSeverity" (project) {
+      const oops_ac = $translate.instant("proj_alerts.error_text");
+      return $xhr.get($q, `${BASE.url}total_severity`, {
+        project,
         "_": Math.random()
       }, oops_ac);
     },
@@ -276,10 +276,10 @@ integrates.factory("projectFtry", function ($q, $translate) {
      * @member integrates.projectFtry
      * @return {Object}s
      */
-    "RemediatedView": function (id) {
-      var oops_ac = $translate.instant("proj_alerts.error_text");
-      return $xhr.get($q, BASE.url + "get_remediated", {
-        "id": id,
+    "RemediatedView" (id) {
+      const oops_ac = $translate.instant("proj_alerts.error_text");
+      return $xhr.get($q, `${BASE.url}get_remediated`, {
+        id,
         "_": Math.random()
       }, oops_ac);
     },
@@ -291,28 +291,28 @@ integrates.factory("projectFtry", function ($q, $translate) {
      * @member integrates.projectFtry
      * @return {Object}s
      */
-    "FindingVerified": function (data) {
-      var oops_ac = $translate.instant("proj_alerts.error_text");
-      return $xhr.post($q, BASE.url + "finding_verified", {
+    "FindingVerified" (data) {
+      const oops_ac = $translate.instant("proj_alerts.error_text");
+      return $xhr.post($q, `${BASE.url}finding_verified`, {
         data,
         "_": Math.random()
       }, oops_ac);
     },
-    "UpdateEvidenceFiles": function (data, callbackFn, errorFn) {
+    "UpdateEvidenceFiles" (data, callbackFn, errorFn) {
       try {
         $.ajax({
-          "url": BASE.url + "update_evidences_files?_" + Math.random(),
+          "url": `${BASE.url}update_evidences_files?_${Math.random()}`,
           "method": "POST",
-          "data": data,
+          data,
           "mimeType": "multipart/form-data",
           "contentType": false,
           "cache": false,
           "processData": false,
-          "success": function (response) {
+          "success" (response) {
             $(".loader").hide();
             callbackFn(JSON.parse(response));
           },
-          "error": function (xhr, status, response) {
+          "error" (xhr, status, response) {
             $(".loader").hide();
             if (xhr.status == 500) {
               Rollbar.error("Error: An error ocurred loading data");
@@ -333,9 +333,9 @@ integrates.factory("projectFtry", function ($q, $translate) {
         Rollbar.error("Error: An error ocurred getting finding by ID", e);
       }
     },
-    "UpdateEvidenceText": function (data) {
-      var oops_ac = $translate.instant("proj_alerts.error_text");
-      return $xhr.post($q, BASE.url + "update_evidence_text", {
+    "UpdateEvidenceText" (data) {
+      const oops_ac = $translate.instant("proj_alerts.error_text");
+      return $xhr.post($q, `${BASE.url}update_evidence_text`, {
         data,
         "_": Math.random()
       }, oops_ac);
@@ -349,11 +349,11 @@ integrates.factory("projectFtry", function ($q, $translate) {
      * @member integrates.projectFtry
      * @return {Object}
      */
-    "getAlerts": function (company, project) {
-      var oops_ac = $translate.instant("proj_alerts.error_text");
-      return $xhr.get($q, BASE.url + "get_alerts", {
-        "company": company,
-        "project": project,
+    "getAlerts" (company, project) {
+      const oops_ac = $translate.instant("proj_alerts.error_text");
+      return $xhr.get($q, `${BASE.url}get_alerts`, {
+        company,
+        project,
         "_": Math.random()
       }, oops_ac);
     }

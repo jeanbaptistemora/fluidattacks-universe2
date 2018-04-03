@@ -19,11 +19,11 @@ integrates.factory("findingFactory", function ($q, $translate) {
      * @member integrates.findingFactory
      * @return {Object}
      */
-    "getVulnByName": function (project, filter) {
-      var oops_ac = $translate.instant("proj_alerts.error_text");
-      return $xhr.get($q, BASE.url + "get_findings", {
-        "project": project,
-        "filter": filter,
+    "getVulnByName" (project, filter) {
+      const oops_ac = $translate.instant("proj_alerts.error_text");
+      return $xhr.get($q, `${BASE.url}get_findings`, {
+        project,
+        filter,
         "_": Math.random()
       }, oops_ac);
     },
@@ -35,21 +35,21 @@ integrates.factory("findingFactory", function ($q, $translate) {
      * @member integrates.findingFactory
      * @return {Object}
      */
-    "getVulnById": function (id) {
-      var deferred = $q.defer();
+    "getVulnById" (id) {
+      const deferred = $q.defer();
       try {
         $.ajax({
-          "url": BASE.url + "get_finding",
+          "url": `${BASE.url}get_finding`,
           "method": "POST",
           "data": {
-            "id": id,
+            id,
             "_": Math.random()
           },
-          "success": function (response) {
+          "success" (response) {
             $(".loader").hide();
             deferred.resolve(response);
           },
-          "error": function (xhr, status) {
+          "error" (xhr, status) {
             $(".loader").hide();
             if (xhr.status == 500) {
               Rollbar.error("Error: An error ocurred loading data");
@@ -83,21 +83,21 @@ integrates.factory("findingFactory", function ($q, $translate) {
      * @member integrates.findingFactory
      * @return {Object}
      */
-    "getIdByProject": function (project) {
-      var deferred = $q.defer();
+    "getIdByProject" (project) {
+      const deferred = $q.defer();
       try {
         $.ajax({
-          "url": BASE.url + "get_order",
+          "url": `${BASE.url}get_order`,
           "method": "GET",
           "data": {
-            "project": project,
+            project,
             "_": Math.random()
           },
-          "success": function (response) {
+          "success" (response) {
             $(".loader").hide();
             deferred.resolve(response);
           },
-          "error": function (xhr, status) {
+          "error" (xhr, status) {
             $(".loader").hide();
             if (xhr.status == 500) {
               Rollbar.error("Error: An error ocurred loading data");
@@ -133,22 +133,22 @@ integrates.factory("findingFactory", function ($q, $translate) {
      * @member integrates.findingFactory
      * @return {Object}
      */
-    "generateDoc": function (project, json, format) {
-      var deferred = $q.defer();
+    "generateDoc" (project, json, format) {
+      const deferred = $q.defer();
       try {
         $.ajax({
-          "url": BASE.url + "generate_autodoc?_" + Math.random(),
+          "url": `${BASE.url}generate_autodoc?_${Math.random()}`,
           "method": "POST",
           "data": {
-            "project": project,
+            project,
             "data": json,
-            "format": format
+            format
           },
-          "success": function (response) {
+          "success" (response) {
             $(".loader").hide();
             deferred.resolve(response);
           },
-          "error": function (xhr, status) {
+          "error" (xhr, status) {
             $(".loader").hide();
             if (xhr.status == 500) {
               Rollbar.error("Error: An error ocurred loading data");
@@ -179,17 +179,17 @@ integrates.factory("findingFactory", function ($q, $translate) {
      * @member integrates.findingFactory
      * @return {Object}
      */
-    "updateVuln": function (vuln) {
-      var deferred = $q.defer();
+    "updateVuln" (vuln) {
+      const deferred = $q.defer();
       try {
         $.ajax({
-          "url": BASE.url + "update_finding",
+          "url": `${BASE.url}update_finding`,
           "method": "POST",
-          "data": {"vuln": vuln},
-          "success": function (response) {
+          "data": {vuln},
+          "success" (response) {
             deferred.resolve(response);
           },
-          "error": function (xhr, status) {
+          "error" (xhr, status) {
             $(".loader").hide();
             if (xhr.status == 500) {
               Rollbar.error("Error: An error ocurred loading data");
@@ -223,17 +223,17 @@ integrates.factory("findingFactory", function ($q, $translate) {
      * @member integrates.findingFactory
      * @return {Object}
      */
-    "deleteVuln": function (vuln) {
-      var deferred = $q.defer();
+    "deleteVuln" (vuln) {
+      const deferred = $q.defer();
       try {
         $.ajax({
-          "url": BASE.url + "delete_finding",
+          "url": `${BASE.url}delete_finding`,
           "method": "POST",
-          "data": {"vuln": vuln},
-          "success": function (response) {
+          "data": {vuln},
+          "success" (response) {
             deferred.resolve(response);
           },
-          "error": function (xhr, status) {
+          "error" (xhr, status) {
             $(".loader").hide();
             if (xhr.status == 500) {
               Rollbar.error("Error: An error ocurred loading data");
@@ -268,20 +268,20 @@ integrates.factory("findingFactory", function ($q, $translate) {
      * @member integrates.findingFactory
      * @return {Object}
      */
-    "updateOrderID": function (id, project) {
-      var deferred = $q.defer();
+    "updateOrderID" (id, project) {
+      const deferred = $q.defer();
       try {
         $.ajax({
-          "url": BASE.url + "update_order",
+          "url": `${BASE.url}update_order`,
           "method": "POST",
           "data": {
-            "project": project,
-            "id": id
+            project,
+            id
           },
-          "success": function (response) {
+          "success" (response) {
             deferred.resolve(response);
           },
-          "error": function (xhr, status) {
+          "error" (xhr, status) {
             $(".loader").hide();
             if (xhr.status == 500) {
               deferred.resolve({

@@ -6,7 +6,7 @@
  *  Seleccion de rutas absolutas para el direccionamiento
  *  de integrates
  */
-var BASE = {
+const BASE = {
   "production": "/integrates/",
   "development": "/"
 };
@@ -15,7 +15,7 @@ if (location.pathname.indexOf("/integrates") == -1) {
   BASE.url = BASE.development;
 }
 // Definicion de modulos
-var integrates = angular.module("FluidIntegrates", [
+const integrates = angular.module("FluidIntegrates", [
   "ngSanitize",
   "pascalprecht.translate"
 ]);
@@ -23,7 +23,7 @@ var integrates = angular.module("FluidIntegrates", [
 integrates.config([
   "$translateProvider",
   function ($translateProvider) {
-    var translations = {
+    const translations = {
       "login_message": "Please log in to proceed.",
       "login_welcome": "If you are a new user, you must call a FLUID representative to register.",
       "button": {
@@ -31,7 +31,7 @@ integrates.config([
         "azure": "Log in with Azure/Office365"
       }
     };
-    var traducciones = {
+    const traducciones = {
       "login_message": "Porfavor ingrese.",
       "login_welcome": "Si eres un usuario nuevo, debes llamar a tu representante de FLUID para registrarte",
       "button": {
@@ -75,8 +75,8 @@ integrates.controller("loginController", function ($scope, $translate) {
    * @return {undefined}
    */
   $scope.login = function () {
-    var username = $scope.username;
-    var password = $scope.password;
+    const username = $scope.username;
+    const password = $scope.password;
     if (typeof username != "string" ||
             typeof password != "string") {
       $.gritter.add({
@@ -97,14 +97,14 @@ integrates.controller("loginController", function ($scope, $translate) {
     }
     else {
       $.ajax({
-        "url": BASE.url + "login/",
+        "url": `${BASE.url}login/`,
         "method": "POST",
         "data": {
           "user": username,
           "pass": password
         }
       }).done(function (e) {
-        var color = "warning";
+        let color = "warning";
         if (e.error == true) {
           color = "warning";
         }
@@ -114,12 +114,12 @@ integrates.controller("loginController", function ($scope, $translate) {
         $.gritter.add({
           "title": "",
           "text": e.message,
-          "class_name": "color " + color,
+          "class_name": `color ${color}`,
           "sticky": false
         });
         if (color == "success") {
           redirector = function () {
-            location = BASE.url + "dashboard";
+            location = `${BASE.url}dashboard`;
           };
           setTimeout(redirector, 2000);
         }

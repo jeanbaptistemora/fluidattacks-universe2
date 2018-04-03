@@ -15,7 +15,7 @@ integrates.controller("dashboardCtrl", function (
   $translate
 ) {
   $scope.initMyProjects = function () {
-    var vlang = "en-US";
+    let vlang = "en-US";
     if (localStorage.lang === "en") {
       vlang = "en-US";
     }
@@ -25,8 +25,8 @@ integrates.controller("dashboardCtrl", function (
     $timeout(function () {
       $("#myProjectsTbl").bootstrapTable({
         "locale": vlang,
-        "url": BASE.url + "get_myprojects",
-        "onClickRow": function (row, elem) {
+        "url": `${BASE.url}get_myprojects`,
+        "onClickRow" (row, elem) {
           $state.go("ProjectNamed", {"project": row.project});
         }
       });
@@ -41,16 +41,16 @@ integrates.controller("dashboardCtrl", function (
    * @return {undefined}
    */
   $scope.logout = function () {
-    var modalInstance = $uibModal.open({
+    const modalInstance = $uibModal.open({
       "animation": true,
       "templateUrl": "logout.html",
       "windowClass": "modal avance-modal",
-      "controller": function ($scope, $uibModalInstance) {
+      "controller" ($scope, $uibModalInstance) {
         $scope.closeModalLogout = function () {
           $uibModalInstance.dismiss("cancel");
         };
         $scope.okModalLogout = function () {
-          location = BASE.url + "logout";
+          location = `${BASE.url}logout`;
         };
       },
       "resolve": {"done": true}
@@ -73,16 +73,16 @@ integrates.controller("dashboardCtrl", function (
     location.reload();
   };
   $scope.initMyEventualities = function () {
-    var vlang = "en-US";
+    let vlang = "en-US";
     if (localStorage.lang === "en") {
       vlang = "en-US";
     }
     else {
       vlang = "es-CO";
     }
-    var aux = $xhr.get($q, BASE.url + "get_myevents", {});
+    const aux = $xhr.get($q, `${BASE.url}get_myevents`, {});
     aux.then(function (response) {
-      for (var i = 0; i < response.data.length; i++) {
+      for (let i = 0; i < response.data.length; i++) {
         switch (response.data[i].tipo) {
         case "Autorización para ataque especial":
           response.data[i].tipo = $translate.instant("event_formstack.type.auth_attack");
@@ -124,16 +124,16 @@ integrates.controller("dashboardCtrl", function (
       $("#myEventsTbl").bootstrapTable({
         "locale": vlang,
         "data": response.data,
-        "onClickRow": function (row, elem) {
-          var modalInstance = $uibModal.open({
+        "onClickRow" (row, elem) {
+          const modalInstance = $uibModal.open({
             "animation": true,
             "templateUrl": "ver.html",
             "windowClass": "modal avance-modal",
-            "controller": function ($scope, data, $uibModalInstance) {
+            "controller" ($scope, data, $uibModalInstance) {
               $scope.evnt = data;
               // Tracking mixpanel
-              var org = Organization.toUpperCase();
-              var projt = $scope.evnt.proyecto_fluid.toUpperCase();
+              const org = Organization.toUpperCase();
+              const projt = $scope.evnt.proyecto_fluid.toUpperCase();
               mixPanelDashboard.trackReadEventuality(userName, userEmail, org, projt, $scope.evnt.id);
               $scope.close = function () {
                 $uibModalInstance.close();

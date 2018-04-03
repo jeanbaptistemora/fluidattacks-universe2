@@ -1,4 +1,4 @@
-var scenario = [
+const scenario = [
   {"name": "Anónimo desde Internet"},
   {"name": "Anónimo desde Intranet"},
   {"name": "Escaneo de Infraestructura"},
@@ -9,7 +9,7 @@ var scenario = [
   {"name": "Intranet usuario no autorizado"}
 ];
 
-var categories = [
+const categories = [
   {"name": "Actualizar y configurar las líneas base de seguridad de los componentes"},
   {"name": "Definir el modelo de autorización considerando el principio de mínimo privilegio"},
   {"name": "Desempeño"},
@@ -26,7 +26,7 @@ var categories = [
   {"name": "Validar la integridad de las transacciones en peticiones HTTP"}
 ];
 
-var probabilities = [
+const probabilities = [
   {
     "name": "100% Vulnerado Anteriormente",
     "value": 100
@@ -45,7 +45,7 @@ var probabilities = [
   }
 ];
 
-var actor = [
+const actor = [
   {"name": "​Cualquier persona en Internet"},
   {"name": "Cualquier cliente de la organización"},
   {"name": "Solo algunos clientes de la organización"},
@@ -55,7 +55,7 @@ var actor = [
   {"name": "Solo un empleado"}
 ];
 
-var accessVector = [
+const accessVector = [
   {
     "value": "0.646",
     "name": "Red adyacente: Explotable desde el mismo segmento de red"
@@ -70,7 +70,7 @@ var accessVector = [
   }
 ];
 
-var accessComplexity = [
+const accessComplexity = [
   {
     "value": "0.350",
     "name": "Alto: Se requieren condiciones especiales como acceso administrativo"
@@ -85,7 +85,7 @@ var accessComplexity = [
   }
 ];
 
-var authentication = [
+const authentication = [
   {
     "name": "Ninguna: No se requiere autenticación",
     "value": "0.704"
@@ -100,7 +100,7 @@ var authentication = [
   }
 ];
 
-var confidenciality = [
+const confidenciality = [
   {
     "name": "Ninguno: No se presenta ningún impacto",
     "value": "0"
@@ -115,7 +115,7 @@ var confidenciality = [
   }
 ];
 
-var integrity = [
+const integrity = [
   {
     "name": "Ninguno: No se presenta ningún impacto",
     "value": "0"
@@ -130,7 +130,7 @@ var integrity = [
   }
 ];
 
-var availability = [
+const availability = [
   {
     "name": "Ninguno: No se presenta ningún impacto",
     "value": "0"
@@ -145,7 +145,7 @@ var availability = [
   }
 ];
 
-var explotability = [
+const explotability = [
   {
     "name": "Improbable: No existe un exploit",
     "value": "0.850"
@@ -164,7 +164,7 @@ var explotability = [
   }
 ];
 
-var resolutionLevel = [
+const resolutionLevel = [
   {
     "name": "Paliativa: Existe un parche que no fue publicado por el fabricante",
     "value": "0.950"
@@ -183,7 +183,7 @@ var resolutionLevel = [
   }
 ];
 
-var realiabilityLevel = [
+const realiabilityLevel = [
   {
     "name": "No confirmado: Existen pocas fuentes que reconocen la vulnerabilidad",
     "value": "0.900"
@@ -198,12 +198,12 @@ var realiabilityLevel = [
   }
 ];
 
-var finding_type = [
+const finding_type = [
   {"name": "Seguridad"},
   {"name": "Higiene"}
 ];
 
-var tratamiento = [
+const tratamiento = [
   {"name": "Asumido"},
   {"name": "Pendiente"},
   {"name": "Remediar"}

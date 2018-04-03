@@ -10,12 +10,12 @@
  * @return {String}
  */
 function getCookie (name) {
-  var cookieValue = null;
+  let cookieValue = null;
   if (document.cookie && document.cookie != "") {
-    var cookies = document.cookie.split(";");
-    for (var i = 0; i < cookies.length; i++) {
-      var cookie = jQuery.trim(cookies[i]);
-      if (cookie.substring(0, name.length + 1) == name + "=") {
+    const cookies = document.cookie.split(";");
+    for (let i = 0; i < cookies.length; i++) {
+      const cookie = jQuery.trim(cookies[i]);
+      if (cookie.substring(0, name.length + 1) == `${name}=`) {
         cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
         break;
       }
@@ -41,12 +41,12 @@ function csrfSafeMethod (method) {
  * @return {Boolean}
  */
 function sameOrigin (url) {
-  var host = document.location.host;
-  var protocol = document.location.protocol;
-  var sr_origin = "//" + host;
-  var origin = protocol + sr_origin;
-  return url == origin || url.slice(0, origin.length + 1) == origin + "/" ||
-        (url == sr_origin || url.slice(0, sr_origin.length + 1) == sr_origin + "/") ||
+  const host = document.location.host;
+  const protocol = document.location.protocol;
+  const sr_origin = `//${host}`;
+  const origin = protocol + sr_origin;
+  return url == origin || url.slice(0, origin.length + 1) == `${origin}/` ||
+        (url == sr_origin || url.slice(0, sr_origin.length + 1) == `${sr_origin}/`) ||
         !(/^(\/\/|http:|https:).*/).test(url);
 }
 
@@ -57,9 +57,9 @@ function sameOrigin (url) {
  */
 function ajaxConfig () {
   $.ajaxSetup({
-    "beforeSend": function (xhr, settings) {
+    "beforeSend" (xhr, settings) {
       if (!csrfSafeMethod(settings.type) && sameOrigin(settings.url)) {
-        var csrftoken = getCookie("csrftoken");
+        const csrftoken = getCookie("csrftoken");
         xhr.setRequestHeader("X-CSRFToken", csrftoken);
       }
     }
@@ -69,7 +69,7 @@ function ajaxConfig () {
 /*
  * Establece la ruta principal para las peticiones ajax
  */
-var BASE = {
+const BASE = {
   "production": "/integrates/",
   "development": "/"
 };
@@ -77,35 +77,35 @@ BASE.url = BASE.production;
 if (location.pathname.indexOf("/integrates") == -1) {
   BASE.url = BASE.development;
 }
-var $msg = {};
+const $msg = {};
 $msg.success = function (text, title) {
   $.gritter.add({
-    "title": title,
-    "text": text,
+    title,
+    text,
     "class_name": "color info",
     "sticky": false
   });
 };
 $msg.error = function (text, title = "Oops!") {
   $.gritter.add({
-    "title": title,
-    "text": text,
+    title,
+    text,
     "class_name": "color danger",
     "sticky": false
   });
 };
 $msg.info = function (text, title) {
   $.gritter.add({
-    "title": title,
-    "text": text,
+    title,
+    text,
     "class_name": "color info",
     "sticky": false
   });
 };
 $msg.warning = function (text, title) {
   $.gritter.add({
-    "title": title,
-    "text": text,
+    title,
+    text,
     "class_name": "color warning",
     "sticky": false
   });
@@ -115,7 +115,7 @@ $msg.warning = function (text, title) {
  * Crea integrates como una aplicacion de angular
  * @module {AngularJS} FluidIntegrates
  */
-var integrates = angular.module("FluidIntegrates", [
+const integrates = angular.module("FluidIntegrates", [
   "ui.router",
   "ui.bootstrap",
   "pascalprecht.translate",

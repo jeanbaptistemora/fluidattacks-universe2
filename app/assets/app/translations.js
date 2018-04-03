@@ -15,7 +15,7 @@ integrates.config([
   "$translateProvider",
   function ($translateProvider) {
     $translateProvider.useSanitizeValueStrategy("sanitizeParameters");
-    var traducciones = {},
+    let traducciones = {},
       translations = {};
     translations = {
       "logout": {

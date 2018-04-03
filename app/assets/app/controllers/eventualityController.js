@@ -30,9 +30,9 @@ integrates.afectacionFormatter = function (value, row, index) {
  * @return {undefined}
  */
 integrates.evntTotalize = function (data) {
-  var cardinalidad = 0;
-  var afectacion = 0;
-  for (var i = 0; i < data.data.length; i++) {
+  const cardinalidad = 0;
+  let afectacion = 0;
+  for (let i = 0; i < data.data.length; i++) {
     auxAfectacion = 0;
     if (data.data[i].afectacion != "") {
       auxAfectacion += parseInt(data.data[i].afectacion);
@@ -50,9 +50,9 @@ integrates.evntTotalize = function (data) {
  * @return {undefined}
  */
 integrates.updateEvntRow = function (row) {
-  var data = $("#eventualities").bootstrapTable("getData");
-  var newData = [];
-  for (var i = 0; i < data.length; i++) {
+  const data = $("#eventualities").bootstrapTable("getData");
+  const newData = [];
+  for (let i = 0; i < data.length; i++) {
     delete data[i][i.toString()];
     if (data[i].id == row.id) {
       newData.push(row);
@@ -64,7 +64,7 @@ integrates.updateEvntRow = function (row) {
   $("#eventualities").bootstrapTable("destroy");
   $("#eventualities").bootstrapTable({"data": newData});
   $("#eventualities").bootstrapTable("refresh");
-  integrates.evntTotalize({"data": data});
+  integrates.evntTotalize({data});
 };
 
 /**
@@ -76,17 +76,17 @@ integrates.updateEvntRow = function (row) {
  * @return {undefined}
  */
 integrates.controller("eventualityController", function ($scope, $uibModal, $translate, eventualityFactory) {
-  var attent_title = $translate.instant("proj_alerts.attent_title");
-  var updated_title = $translate.instant("proj_alerts.updated_title");
-  var event_title = $translate.instant("proj_alerts.event_title");
-  var event_wait = $translate.instant("proj_alerts.event_wait");
-  var event_select = $translate.instant("proj_alerts.event_select");
-  var event_required = $translate.instant("proj_alerts.event_required");
-  var event_internal = $translate.instant("proj_alerts.event_internal");
-  var event_formstack = $translate.instant("proj_alerts.event_formstack");
-  var event_positiveint = $translate.instant("proj_alerts.event_positiveint");
-  var event_updated = $translate.instant("proj_alerts.event_updated");
-  var event_exist = $translate.instant("proj_alerts.event_exist");
+  const attent_title = $translate.instant("proj_alerts.attent_title");
+  const updated_title = $translate.instant("proj_alerts.updated_title");
+  const event_title = $translate.instant("proj_alerts.event_title");
+  const event_wait = $translate.instant("proj_alerts.event_wait");
+  const event_select = $translate.instant("proj_alerts.event_select");
+  const event_required = $translate.instant("proj_alerts.event_required");
+  const event_internal = $translate.instant("proj_alerts.event_internal");
+  const event_formstack = $translate.instant("proj_alerts.event_formstack");
+  const event_positiveint = $translate.instant("proj_alerts.event_positiveint");
+  const event_updated = $translate.instant("proj_alerts.event_updated");
+  const event_exist = $translate.instant("proj_alerts.event_exist");
 
   /**
    * Inicializa las variables del controlador de eventualidades
@@ -117,7 +117,7 @@ integrates.controller("eventualityController", function ($scope, $uibModal, $tra
    * @return {undefined}
    */
   $scope.openModalVer = function () {
-    var sel = $("#eventualities").bootstrapTable("getSelections");
+    const sel = $("#eventualities").bootstrapTable("getSelections");
     if (sel.length == 0) {
       Rollbar.error("Error: No events are selected");
       $.gritter.add({
@@ -130,11 +130,11 @@ integrates.controller("eventualityController", function ($scope, $uibModal, $tra
     }
     $scope.currentEventuality = sel[0];
 
-    var modalInstance = $uibModal.open({
+    const modalInstance = $uibModal.open({
       "animation": true,
       "templateUrl": "ver.html",
       "windowClass": "ver-modal",
-      "controller": function ($scope, $uibModalInstance, currentEventuality) {
+      "controller" ($scope, $uibModalInstance, currentEventuality) {
         if (currentEventuality.afectacion == "") {
           currentEventuality.afectacion = "0";
         }
@@ -145,7 +145,7 @@ integrates.controller("eventualityController", function ($scope, $uibModal, $tra
         };
       },
       "resolve": {
-        "currentEventuality": function () {
+        "currentEventuality" () {
           return $scope.currentEventuality;
         }
       }
@@ -159,11 +159,11 @@ integrates.controller("eventualityController", function ($scope, $uibModal, $tra
    * @return {undefined}
    */
   $scope.openModalAvance = function () {
-    var modalInstance = $uibModal.open({
+    const modalInstance = $uibModal.open({
       "animation": true,
       "templateUrl": "avance.html",
       "windowClass": "modal avance-modal",
-      "controller": function ($scope, $uibModalInstance) {
+      "controller" ($scope, $uibModalInstance) {
         $scope.rows = $("#eventualities").bootstrapTable("getData");
         $scope.closeModalAvance = function () {
           $uibModalInstance.close();
@@ -180,7 +180,7 @@ integrates.controller("eventualityController", function ($scope, $uibModal, $tra
    * @return {undefined}
    */
   $scope.openModalEditar = function () {
-    var sel = $("#eventualities").bootstrapTable("getSelections");
+    const sel = $("#eventualities").bootstrapTable("getSelections");
     if (sel.length == 0) {
       Rollbar.error("Error: No events are selected");
       $.gritter.add({
@@ -194,11 +194,11 @@ integrates.controller("eventualityController", function ($scope, $uibModal, $tra
     $scope.currentEventuality = sel[0];
 
 
-    var modalInstance = $uibModal.open({
+    const modalInstance = $uibModal.open({
       "animation": true,
       "templateUrl": "editar.html",
       "windowClass": "ver-modal",
-      "controller": function ($scope, $uibModalInstance, currentEventuality) {
+      "controller" ($scope, $uibModalInstance, currentEventuality) {
         if (currentEventuality.afectacion == "") {
           currentEventuality.afectacion = "0";
         }
@@ -206,7 +206,7 @@ integrates.controller("eventualityController", function ($scope, $uibModal, $tra
         $scope.evnt.afectacion = parseInt(currentEventuality.afectacion);
 
         $scope.okModalEditar = function () {
-          var neg = "negativo";
+          const neg = "negativo";
           submit = false;
           try {
             if (typeof $scope.evnt.afectacion == "undefined") {
@@ -252,7 +252,7 @@ integrates.controller("eventualityController", function ($scope, $uibModal, $tra
         };
       },
       "resolve": {
-        "currentEventuality": function () {
+        "currentEventuality" () {
           return $scope.currentEventuality;
         }
       }
@@ -270,15 +270,15 @@ integrates.controller("eventualityController", function ($scope, $uibModal, $tra
    * @return {undefined}
    */
   $scope.searchEvntByName = function () {
-    var vlang = "en-US";
+    let vlang = "en-US";
     if (localStorage.lang === "en") {
       vlang = "en-US";
     }
     else {
       vlang = "es-CO";
     }
-    var project = $scope.project;
-    var category = $scope.category;
+    const project = $scope.project;
+    const category = $scope.category;
     if (typeof project !== "undefined" &&
             project !== "" &&
             typeof category !== "undefined" &&
@@ -296,7 +296,7 @@ integrates.controller("eventualityController", function ($scope, $uibModal, $tra
         if (!data.error) {
           // CONFIGURACION DE TABLA
           $scope.view.event = true;
-          for (var i = 0; i < data.data.length; i++) {
+          for (let i = 0; i < data.data.length; i++) {
             switch (data.data[i].tipo) {
             case "Autorización para ataque especial":
               data.data[i].tipo = $translate.instant("event_formstack.type.auth_attack");

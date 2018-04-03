@@ -19,14 +19,14 @@ integrates.controller(
     $translate, projectFtry
   ) {
     // Autocompletar formularios de formstack
-    var urlForm = $location.search();
-    var urlLength = Object.keys(urlForm).length;
-    var url_length = 0;
+    const urlForm = $location.search();
+    const urlLength = Object.keys(urlForm).length;
+    const url_length = 0;
     if (urlLength > url_length && urlForm.autocomplete == "true") {
       // Formulario de avance
       $("#ifrmProgress").on("load", function () {
-        var iframe = document.getElementById("ifrmProgress");
-        var innerDoc = iframe.contentDocument || iframe.contentWindow.document;
+        const iframe = document.getElementById("ifrmProgress");
+        const innerDoc = iframe.contentDocument || iframe.contentWindow.document;
         if (urlForm["Tipo de Avance"] == "Proyecto") {
           // InnerDoc.getElementById("field43795015_1").setAttribute("checked", true);
           innerDoc.getElementById("field28635595").value = urlForm.Talento;
