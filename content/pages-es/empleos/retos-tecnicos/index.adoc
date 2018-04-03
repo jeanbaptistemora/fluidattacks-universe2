@@ -81,14 +81,14 @@ Las soluciones de programación deberán cumplir adicionalmente con lo siguiente
 . El lenguaje de la solución es uno de los aceptados por [button]#link:http://www.codeabbey.com/[Codeabbey]#.
 . Los comandos de *compilación* y/o +linting+ utilizados y su salida deben estar al inicio del código fuente en comentarios multilínea.
 +
-.milogin.lua
-[source, lua, linenums]
+.milogin.rs
+[source, rust, linenums]
 ----
---[[
-$ luacheck milogin.lua
-Checking milogin.lua             OK
-Total: 0 warnings / 0 errors in 1 file
---]]
+$ rustup run nightly cargo clippy
+Compiling milogin v0.1.0 (file:///../skhorn)
+Finished dev [unoptimized + debuginfo] target(s) in 0.22 secs
+$ rustc milogin.rs
+$
 
 My solution's first line.
 ----
