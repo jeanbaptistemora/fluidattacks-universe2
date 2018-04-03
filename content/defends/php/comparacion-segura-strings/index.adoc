@@ -45,12 +45,10 @@ notación cuyo resultado es de tipo numérico.
 $x = "0e123";
 $y = 0;
 
-if ($x == $y)
-{
+if ($x == $y) {
   echo "True".PHP_EOL;
 }
-else
-{
+else {
   echo "False".PHP_EOL;
 }
 
@@ -88,12 +86,10 @@ A continuación se encuentra una demostración de esta falla:
 $x = [];
 $y = "foo";
 
-if (strcmp($x, $y) == 0)
-{
+if (strcmp($x, $y) == 0) {
   echo "True".PHP_EOL;
 }
-else
-{
+else {
   echo "False".PHP_EOL;
 }
 
@@ -127,12 +123,10 @@ tal como se muestra a continuación:
 $x = "0e123";
 $y = 0;
 
-if ($x === $y)
-{
+if ($x === $y) {
   echo "True".PHP_EOL;
 }
-else
-{
+else {
   echo "False".PHP_EOL;
 }
 

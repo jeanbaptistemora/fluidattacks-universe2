@@ -62,14 +62,11 @@ Ejemplo de una excepción controlada adecuadamente:
 ----
 <?php
 
-function inverse($x)
-{
-  if (!$x)
-  {
+function inverse($x) {
+  if (!$x) {
     throw new Exception('Division by zero.');
   }
-  else
-  {
+  else {
     return 1/$x;
   }
 }
@@ -85,12 +82,10 @@ Los bloques +try/catch+ son de la siguiente forma:
 ----
 <?php
 
-try
-{
+try {
   foo();
 }
-catch (Exception $error)
-{
+catch (Exception $error) {
   echo 'Error: ', $error->getMessage(), "\n";
 }
 
@@ -106,17 +101,14 @@ independiente.
 ----
 <?php
 
-try
-{
+try {
   foo(); // throws Domainexception
   bar(); // throws Outofboundsxception
 }
-catch ( *OutOfBoundsException* $error)
-{
+catch ( *OutOfBoundsException* $error) {
   echo 'Error: ', $error->getMessage(), "\n";
 }
-catch ( *DomainException* $error)
-{
+catch ( *DomainException* $error) {
   echo 'Error al intentar realizar la accion: ', $error->getMessage(), "\n";
   recovery();
 }

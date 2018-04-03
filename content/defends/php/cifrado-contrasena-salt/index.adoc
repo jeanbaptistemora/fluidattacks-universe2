@@ -43,10 +43,11 @@ de mayor calidad.
 $password = 'clave123456';
 $valores_salt = './1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
 $salt = sprintf('$5$rounds=5000$', 7);
-for($i = 0; $i < 22; $i++)
-{
+
+for($i = 0; $i < 22; $i++) {
  $salt .= $valores_salt[mt_rand(0, 63)];
 }
+
 echo "Contraseña: ".crypt($password, $salt);
 
 ?>
@@ -63,10 +64,12 @@ comprobar si la clave ingresada es válida con la siguiente instrucción:
 
 $contrasenarecibida= 'clave123456';
 $passwbd = '$5$rounds=5000$eJXEzCMbmiAjCjuz$yBaYLFSiSrtltKL1G.O65GEdaG.SszQb8vrlz246mV1';
-if( crypt($contrasenarecibida, $passwbd) == $passwbd) {
- echo 'Es igual, el usuario se ha autenticado.';
-}else{
- echo "Lo siento, revisa tus credenciales de acceso.";
+
+if(crypt($contrasenarecibida, $passwbd) == $passwbd) {
+  echo 'Es igual, el usuario se ha autenticado.';
+}
+else {
+  echo "Lo siento, revisa tus credenciales de acceso.";
 }
 
 ?>
