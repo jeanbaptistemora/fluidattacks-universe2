@@ -55,7 +55,7 @@ usted deberá entrenar la máxima dedicación posible.
 == 4. Criterios
 
 . Para los retos los mismos [button]#link:../retos-tecnicos/#criterios[criterios]# de la etapa de retos.
-. Para los artículos los criterios definidos en la [button]#link:../../estilo[guía de estilo]#.
+. Para los artículos los criterios definidos en la guía de [button]#link:../../estilo[estilo]#.
 
 == 5. Ciclos
 
