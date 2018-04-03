@@ -1,0 +1,12 @@
+:slug: rules/282/
+:category: rules
+:description: En el presente documento se detallan los requerimientos de seguridad relacionados a la ejecución automática de aplicaciones desarrolladas por agentes externos diferentes a las instaladas en el sistema. En este criterio se recomienda deshabilitar la ejecución automática de dichas aplicaciones.
+:keywords: Ejecución Automática, Aplicaciones, Autorun, Deshabilitar, Seguridad, Requerimiento.
+:rules: yes
+
+= REQ.282 Deshabilitar ejecución automática
+
+== Nombre
+
+Las funcionalidades de ejecución automática de aplicaciones
+en medios removibles debe estar deshabilitada (Deshabilitar +autorun+).
