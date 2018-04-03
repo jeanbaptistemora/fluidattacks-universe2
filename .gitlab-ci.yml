@@ -8,6 +8,7 @@ services:
 
 before_script:
     - sh env.sh
+    - apk update && apk add curl
 
 after_script:
     - rm env.sh
@@ -69,7 +70,8 @@ server_on:
         - docker stop integrates_test && docker rm integrates_test || true
         - docker network rm integrates_test || true
         - docker network create --subnet=192.168.200.0/24 integrates_test
-        - docker run -d --name "integrates_test" --env-file env.list --network integrates_test --ip 192.168.200.100 -p 8000:8000 -t registry.gitlab.com/fluidsignal/integrates:base python /usr/src/app/manage.py runserver 0.0.0.0:8000
+        - docker run -d --name "integrates_test" --env-file env.list --network integrates_test --ip 192.168.200.100 -p 8000:8000 -t registry.gitlab.com/fluidsignal/integrates:base python /usr/src/app/manage.py runsslserver 192.168.200.100.xip.io:8000
+#        - docker run -d --name "integrates_test" --env-file env.list --network integrates_test --ip 192.168.200.100 -p 8000:8000 -t registry.gitlab.com/fluidsignal/integrates:base python /usr/src/app/manage.py runserver 0.0.0.0:8000
     except:
     - triggers
 
@@ -86,6 +88,7 @@ fluidasserts:
     stage: test
     script:
         - docker login fluid-docker.jfrog.io -u $CONTINUOUS_USER -p $CONTINUOUS_PASS
+        - docker pull fluid-docker.jfrog.io/fluid:integrates
         - docker run --network integrates_test -e ORG=fluid -e APP=integrates -e USER=$CONTINUOUS_USER -e PASS=$CONTINUOUS_PASS -e FA_STRICT="false" fluid-docker.jfrog.io/fluid:integrates
     except:
     - triggers
@@ -116,6 +119,28 @@ Prospector_fluidintegrates:
         - rm env.list
     except:
     - triggers
+
+Functional_test:
+    stage: test
+    script:
+        - docker stop chrome && docker rm chrome || true
+        - docker stop selenium-hub && docker rm selenium-hub || true
+        - docker login registry.gitlab.com -u $DOCKER_USER -p $DOCKER_PASS
+        - docker run -d -p 4444:4444 --network integrates_test --ip 192.168.200.101 --name selenium-hub selenium/hub
+        - docker run --name "chrome" --network integrates_test -d -e HUB_PORT_4444_TCP_ADDR=selenium-hub --ip 192.168.200.102 -e HUB_PORT_4444_TCP_PORT=4444  selenium/node-chrome
+        - docker cp selenium_test.py chrome:/selenium_test.py
+        - docker exec --privileged chrome cat selenium_test.py
+        - docker exec --privileged chrome sudo -H apt-get update
+        - docker exec --privileged chrome sudo -H apt-get install -y python2.7 python-pip curl
+        - docker exec --privileged chrome curl -k https://192.168.200.100:8000
+        - docker exec --privileged chrome sudo -H pip install -U pip setuptools
+        - docker exec --privileged chrome sudo -H pip install -U selenium
+        #- docker exec --privileged chrome sudo -H python /selenium_test.py
+        - docker stop chrome && docker rm chrome || true
+        - docker stop selenium-hub && docker rm selenium-hub || true
+    except:
+    - triggers
+
 
 server_off:
     stage: deploy
