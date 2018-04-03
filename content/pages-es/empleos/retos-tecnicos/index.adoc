@@ -255,26 +255,26 @@ ranking y score obtenidos,
 lo cual permitirá evidenciar su progreso en esta etapa.
 Todos estos datos deben ir en el +commit message+ de acuerdo al formato indicado en las link:#envio[reglas de envío]
 
-Puede obtener los puntajes y posiciones en el ranking de cada plataforma de la siguiente forma:
+A continuación, se indica cómo obtener los puntajes y posiciones en el ranking de cada plataforma.
 
-* En +Codeabbey+ (Para retos de programación):
+=== 10.1 En retos de programación
 
-.. Ranking mundial
+. Ranking mundial
 
-... Ir a la pestaña "Ranking" en la página de +codeabbey+: image:ranking-mundial-codeabbey.png[Ranking mundial codeabbey]
+.. Ir a la pestaña "Ranking" en la página de +codeabbey+: image:ranking-mundial-codeabbey.png[Ranking mundial codeabbey]
 
-... Baje hasta el final de la página y allí encontrará su posición en el ranking mundial: image:ranking-mundial-codeabbey-2.png[Ranking mundial codeabbey]
+.. Baje hasta el final de la página y allí encontrará su posición en el ranking mundial: image:ranking-mundial-codeabbey-2.png[Ranking mundial codeabbey]
 
-.. Ranking Colombia
+. Ranking Colombia
 
-... Estando en la pestaña "Ranking", seleccionar el país image:ranking-colombia-codeabbey.png[Ranking Colombia]
+.. Estando en la pestaña "Ranking", seleccionar el país image:ranking-colombia-codeabbey.png[Ranking Colombia]
 
-... La página no muestra directamente su posición, por lo que deberá realizar el conteo manualmente.
+.. La página no muestra directamente su posición, por lo que deberá realizar el conteo manualmente.
 Puede facilitar la tarea teniendo en cuenta que cada página muestra 50 usuarios.
 Deberá avanzar a la siguiente página hasta encontrar su nombre de usuario en el tablero de ranking
 image:ranking-colombia-codeabbey-2.png[Ranking Colombia codeabbey]
 
-* En +Wechall+ (Para retos de +hacking+):
+=== 10.2 En retos de hacking
 
 image::ranking-wechall.png[Ranking en Wechall]
 
