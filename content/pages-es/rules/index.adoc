@@ -228,6 +228,7 @@
 * link:284/[REQ.284 Establecer máximo de conexiones en puerto].
 * link:285/[REQ.285 Evitar costos de procesamiento].
 * link:286/[REQ.286 Definir umbrales en recursos].
+* link:287/[REQ.287 Generar alerta en recursos].
 
 == Activos
 
