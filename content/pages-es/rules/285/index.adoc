@@ -1,0 +1,13 @@
+:slug: rules/285/
+:category: rules
+:description: En el presente documento se detallan los requerimientos de seguridad relacionados al procesamiento dentro de la capa de transporte del modelo OSI. Por lo tanto, en dicha capa, se recomienda que conexiones incompletas tengan el menor costo de procesamiento posible.
+:keywords: Conexión, TCP, Protocolo, Procesamiento, SYNFLOOD, Ataque.
+:rules: yes
+
+= REQ.285 Evitar costos de procesamiento
+
+== Nombre
+
+Las conexiones incompletas, encontradas en los protocolos de transporte
+orientados a conexión (+TCP+),
+deben implicar el menor costo de procesamiento posible (Ataques de +SYNFLOOD+).
