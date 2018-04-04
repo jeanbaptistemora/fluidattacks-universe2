@@ -233,6 +233,7 @@
 * link:289/[REQ.289 Asegurar medios e imágenes del sistema].
 * link:290/[REQ.290 Instalar S.O. desde imagen preconfigurada].
 * link:291/[REQ.291 Establecer hora oficial en equipos].
+* link:292/[REQ.292 Gestionar periféricos de entrada].
 
 == Activos
 
