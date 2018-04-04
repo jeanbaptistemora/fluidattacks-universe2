@@ -9,8 +9,8 @@
 Las pruebas continuas buscan detectar y reportar todas las vulnerabilidades
 y problemas de seguridad de un sistema
 durante todo el ciclo de desarrollo del mismo,
-nuestra participación durante este periodo
-nos permite derectar hallazgos de seguridad de forma continua
+nuestra participación durante este ciclo
+nos permite detectar vulnerabilidades de seguridad de forma continua
 en múltiples versiones del sistema que se está desarrollando
 sin reportar falsos positivos,
 así como verificar su corrección efectiva
@@ -23,9 +23,9 @@ antes de la salida a producción del sistema.
 a|== Pruebas antes que exista ambiente
 
 Se puede iniciar con las revisiones de seguridad
-desde el inicio del desarrollo
-o incluso antes de contar con un ambiente funcional,
-ya que se revisa el código fuente publicado
+desde el inicio del desarrollo,
+incluso antes de contar con un ambiente funcional.
+Ya que se revisa el código fuente directamente
 en el repositorio de código del proyecto.
 
 ^.^a|image:img2.png[alt="img2", width="55%"]
@@ -34,7 +34,8 @@ en el repositorio de código del proyecto.
 
 a|== Tipos de prueba
 
-* *Hacking Continuo Integral:* Se realizan pruebas de aplicación,
+* *Hacking Continuo Integral:* Cuando la infraestructura está como código
+se realizan pruebas de aplicación,
 infraestructura y análisis de código fuente
 cuando se tiene acceso tanto al repositorio en +GIT+
 como al ambiente de integración.
@@ -48,7 +49,7 @@ o a un repositorio no +GIT+.
 a|== Límite de prueba mensual
 
 El alcance mensual en todos los escenarios
-es hasta +10+ repos y +10K+ deltas mes.
+es hasta +10+ repositorios y +10K+ deltas mes.
 En caso de solo contar con el ambiente (aplicación)
 el alcance mensual es hasta +10+ entradas nuevas mes.
 
@@ -74,13 +75,13 @@ no terminarían en forma paralela al desarrollo.
 a|== Healthcheck
 
 Si al iniciar una suscripción ya hay desarrollos previos
-es necesario hacer un desatraso o +healthcheck+
-con el fin de revisar la totalidad de las líneas
-o campos desarrollados hasta el momento de la toma de la suscripción
-en los primeros +3+ meses para ponerse al día
-y en los meses siguientes continuar con la prueba
+es necesario hacer un desatraso o +healthcheck+.
+Esto se realiza con el fin de revisar la totalidad de las líneas
+o campos desarrollados hasta el momento de la toma de la suscripción.
+En los primeros +3+ meses se realiza el desatraso
+y en los meses siguientes se continúa con la pruebas
 de forma paralela al desarrollo
-(El +healthcheck+ tendrá un costo adicioal a la suscripción).
+(El +healthcheck+ tendrá un costo adicional a la suscripción).
 
 ^.^a|image:img6.png[alt="img6", width="55%"]
 
@@ -88,7 +89,7 @@ de forma paralela al desarrollo
 
 a|== Rigurosidad
 
-Es posible que el cliente decida los requisitos de seguridad que se revisarán
+Es posible que el cliente decida cuáles requisitos de seguridad que se revisarán
 en el hacking (perfilamiento) a través de nuestro producto
 [button]#link:../../productos/rules/[Rules]#.
 
@@ -115,7 +116,7 @@ a|== Ambientes de prueba
 Es posible elegir un único ambiente de pruebas entre producción,
 pruebas e integración con el servicio básico.
 También es posible adicionar ambientes
-para verificación de cierre hallazgos por un cargo adicional.
+para verificación de cierre de vulnerabilidades por un cargo adicional.
 
 ^.^a|image:img10.png[alt="img10", width="55%"]
 
@@ -126,12 +127,12 @@ a|== Equipo de hacking altamente calificado
 Personal con certificaciones prácticas
 y estudios relacionados en temas de seguridad,
 realiza pruebas manuales y con herramientas
-para garantizar el reporte de hallazgos de impacto específicos del negocio,
+para garantizar el reporte de vulnerabilidades de impacto específicos del negocio,
 prácticas inseguras de programación,
 alineación a estándares y regulaciones de seguridad sin falsos positivos,
 posibilitando la detección de vulnerabilidades +Zero Day+.
 
-a|== Explotación de hallazgos
+a|== Explotación de vulnerabilidades
 
 Siempre que se tenga acceso a la aplicación desplegada
 y se cuente con autorización por parte del cliente
@@ -145,14 +146,14 @@ usando nuestro motor de explotación propio
 
 a|== Extracción de información crítica
 
-En los hallazgos donde es posible se extraen todos los registros comprometidos
+En las vulnerabilidades donde sea posible se extraen todos los registros comprometidos
 con el fin de maximizar el impacto generado
 y comprometer información sensible.
 
 a|== Infección
 
 De ser posible se compromete la infraestructura
-con el uso de archivos maliciosos con el fin de obtener información adicional,
+con el uso de archivos modificados especialmente con el fin de obtener información adicional,
 comprometer servidores y verificar controles a nivel de red.
 Se hace uso de +shells+ y +troyanos+ personalizados
 con previa autorización por parte del cliente.
@@ -161,22 +162,20 @@ con previa autorización por parte del cliente.
 
 ^.^a|image:img15.png[alt="img15", width="55%"]
 
-a|== Seguimiento de hallazgos a través de Integrates
+a|== Seguimiento de vulnerabilidades a través de Integrates
 
-Durante la ejecución del proyecto es posible verificar los hallazgos reportados
+Durante la ejecución del proyecto es posible verificar las vulnerabilidades reportados
 en nuestra plataforma [button]#link:../../productos/integrates/[Integrates]#,
 así como visualizar en tiempo real estadísticas del proyecto,
-del estado de remediación de los hallazgos,
-clasificar los hallazgos por edad, entre otros.
+del estado de remediación de las vulnerabilidades,
+clasificar las vulnerabilidades por edad, entre otros.
 
 a|== Verificación de cierre
 
-Se realizan múltiples ciclos validación de estado de los hallazgos
-durante la ejecución de la suscripción,
-para esto es necesario que se defina un tratamiento
-en nuestra plataforma [button]#link:../../productos/integrates/[Integrates]#
-así como la solucitud de la verificación del mismo,
-se pueden hacer tantos ciclos de cierre como sean necesarios
+Se realizan múltiples ciclos de verificación
+para actualizar el estado de una vulnerabilidad
+durante la vigencia de la suscripción.
+Se pueden hacer tantos ciclos de cierre como sean necesarios
 para garantizar que el hallazgo sea solucionado efectivamente.
 
 ^.^a|image:img16.png[alt="img16", width="55%"]
