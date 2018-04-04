@@ -1,0 +1,12 @@
+:slug: rules/290/
+:category: rules
+:description: En el presente documento se detallan los requerimientos de seguridad relacionados a la instalación segura de un determinado sistema operativo. Por lo tanto, cuando se requiera instalar un nuevo sistema operativo, se debe realizar dicha acción desde una imagen ya preconfigurada.
+:keywords: Instalación, Nuevo, Imagen, Sistema Operativo, Preconfigurado, Seguridad.
+:rules: yes
+
+= REQ.290 Instalar S.O. desde imagen preconfigurada
+
+== Nombre
+
+La instalación de nuevos sistemas operativos
+debe partir de una imagen preconfigurada.
