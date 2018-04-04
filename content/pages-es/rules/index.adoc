@@ -234,6 +234,7 @@
 * link:290/[REQ.290 Instalar S.O. desde imagen preconfigurada].
 * link:291/[REQ.291 Establecer hora oficial en equipos].
 * link:292/[REQ.292 Gestionar periféricos de entrada].
+* link:293/[REQ.293 Gestionar ejecución de código en stack].
 
 == Activos
 
