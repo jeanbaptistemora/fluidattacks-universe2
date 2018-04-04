@@ -10,8 +10,6 @@ PREV_COMMIT=$(curl --header "Private-Token:$DOCKER_PASSWD" \
 | pcregrep -o '(?<="id":")[^,"]*')
 export PREV_COMMIT
 
-echo "$PREV_COMMIT"
-
 # Check files that have been added or modified, respect to the master branch
 CHANGED=$(git diff --name-status "$PREV_COMMIT"  "$CI_COMMIT_SHA" \
   | pcregrep -o '(?<=(M|A)\t).*')
@@ -54,10 +52,13 @@ if echo "$CHANGED" | pcregrep '^content/pages.*adoc$' \
 fi
 
 # Check that every PNG files has been optimized in filesize
-if ! echo "$CHANGED" | pcregrep '\.png$' \
-| xargs -r -n 1 optipng |& pcregrep 'optimized'; then
-  error "Some PNG files are not optimized. Run the CLI tool \"optipng\" \
-  to optimize them or go to http://compresspng.com/.";
+if echo "$CHANGED" | pcregrep '\.png$'; then
+  if ! echo "$CHANGED" | pcregrep '\.png$'\
+  | xargs -r -n 1 optipng |& pcregrep 'optimized'; then
+    error "Some PNG files are not optimized. Run the CLI tool \"optipng\" \
+    to optimize them or go to http://compresspng.com/."
+    ERRORS=1;
+  fi;
 fi
 
 exit ${ERRORS}
