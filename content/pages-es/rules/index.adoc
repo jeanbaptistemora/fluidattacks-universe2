@@ -238,6 +238,10 @@
 * link:294/[REQ.294 Usar sólo software con licencia].
 * link:295/[REQ.295 Evitar uso de archivos ilegales].
 
+== Control
+
+* link:296/[REQ.296 Establecer alarmas de intrusión física].
+
 == Activos
 
 * link:001/[REQ.001 Activos de información identificados].
