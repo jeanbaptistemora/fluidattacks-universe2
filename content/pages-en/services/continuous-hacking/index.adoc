@@ -43,8 +43,8 @@ access to both +GIT+ repository and integration environment are required.
 * In limited continuous ethical hacking
 customer can choose from application ethical hacking or source code analysis.
 In order to perform limited continuous hacking,
-access to +GIT+ or not +GIT+ repository
-or access to integration environment is required.
+access to +GIT+ repository
+or integration environment is required.
 
 a|== Monthly test limit
 
@@ -62,9 +62,9 @@ a|== Coverage
 
 Service goal is to achieve +100%+ coverage during the entire subscription time,
 when continuous ethical hacking starts with development,
-security testing should also end with development as long as development
-does not exceed monthly +10K+ deltas test limit,
-if development exceeds the limit,
+security testing can also finish together with development as long as development
+does not exceed monthly +10K+ deltas test limit.
+If development exceeds the limit,
 customer can choose between +2+ options:
 
 * Ask for extra monthly revision (with added monthly cost).
@@ -81,7 +81,7 @@ This means we will test all developments up to subscription start point
 plus the monthly test limit to get even with development team
 within first +3+ subscription months,
 and then we’ll continue testing alongside development
-(health will have additional fees).
+(healthcheck will have additional fees).
 
 ^.^a|image:img6.png[alt="img6", width="55%"]
 
@@ -104,7 +104,7 @@ Minimum subscription time to continuous ethical hacking is one year.
 
 ^.^a|image:img9.png[alt="img9", width="55%"]
 
-a|== Communication using Integrates
+a|== Direct and agile communication
 
 All project communication is done through
 [button]#link:../../products/integrates/[Integrates]#,
@@ -149,17 +149,6 @@ Whenever findings make it possible to get information,
 all compromised records are extracted
 to maximize finding impact and compromise sensible information
 
-a|== Infection
-
-Whenever findings allow it, infrastructure gets infected
-with malicious files in order to get additional information,
-infect servers and verify network controls.
-We use +Shells+ and customized +Trojans+ with previous customer authorization.
-
-^.^a|image:img14.png[alt="img14", width="55%"]
-
-^.^a|image:img15.png[alt="img15", width="55%"]
-
 a|== Follow up using Integrates
 
 During project execution customers can check out finding information,
@@ -168,6 +157,10 @@ check on finding remediation status,
 classify findings according age,
 and other functionalities using our
 [button]#link:../../products/integrates/[Integrates]# product.
+
+^.^a|image:img15.png[alt="img15", width="55%"]
+
+^.^a|image:img16.png[alt="img16", width="55%"]
 
 a|== Remediation validation
 
@@ -179,10 +172,6 @@ customers must define a finding treatment
 and then request for finding validation through our
 [button]#link:../../products/integrates/[Integrates]# platform.
 
-^.^a|image:img16.png[alt="img16", width="55%"]
-
-^.^a|image:img17.png[alt="img17", width="55%"]
-
 a|== Remediation support
 
 During the project customers can request clarifications directly to our hackers
@@ -190,6 +179,10 @@ via [button]#link:../../products/integrates/[Integrates]#.
 
 Customers can use our detailed remediation guides
 via [button]#link:../../products/defends/[Defends]#.
+
+^.^a|image:img17.png[alt="img17", width="55%"]
+
+^.^a|image:img18.png[alt="img18", width="55%"]
 
 a|== Generate technical and executive reports from Integrates
 
@@ -199,15 +192,13 @@ when it comes to remediating the reported security flaws.
 Executive report provides summarized and organized information.
 Thus, it may be useful for all the project’s stakeholders.
 
-^.^a|image:img18.png[alt="img18", width="55%"]
-
-^.^a|image:img19.png[alt="img19", width="55%"]
-
 a|== Information gets deleted securely
 
 +7+ days after customer's final report approval
 all information gathered during Ethical Hacking
 is deleted securely from all our systems.
+
+^.^a|image:img19.png[alt="img19", width="55%"]
 
 |====
 

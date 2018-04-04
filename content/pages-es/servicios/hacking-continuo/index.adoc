@@ -34,17 +34,15 @@ en el repositorio de código del proyecto.
 
 a|== Tipos de prueba
 
-* *Hacking Continuo Integral:* Cuando la infraestructura está como código
-se realizan pruebas de aplicación,
-infraestructura y análisis de código fuente
-cuando se tiene acceso tanto al repositorio en +GIT+
-como al ambiente de integración.
-
+* *Hacking Continuo Integral:*
+Se realizan pruebas de aplicación (ambiente de integración),
+infraestructura (si esta como código)
+y análisis de código fuente (repositorio en +GIT+).
 
 * *Hacking Continuo Limitado:* Se realizan pruebas de aplicación
 o análisis de código fuente
 cuando se tiene acceso solo al ambiente de integración
-o a un repositorio no +GIT+.
+o al código fuente.
 
 a|== Límite de prueba mensual
 
@@ -61,10 +59,10 @@ el alcance mensual es hasta +10+ entradas nuevas mes.
 a|== Cobertura
 
 El propósito es probar la totalidad del sistema
-durante el tiempo de la suscripción logrando una cobertura del +100%+,
-cuando el proyecto inicia en conjunto con el desarrollo se prueba
-y finaliza de forma paralela
-mientras que el desarrollo no supere las +10K+ deltas al mes.
+durante el tiempo de la suscripción logrando una cobertura del +100%+.
+Es posible finalizar las pruebas de seguridad en paralelo al desarrollo
+si estas inician en conjunto con el desarrollo
+y mientras el desarrollo no supere las +10K+ deltas al mes.
 Cuando se superan las +10K+ deltas hay +2+ opciones:
 
 * Solicitar la revisión de deltas adicionales.
@@ -78,7 +76,7 @@ a|== Healthcheck
 Si al iniciar una suscripción ya hay desarrollos previos
 es necesario hacer un desatraso o +healthcheck+.
 Esto se realiza con el fin de revisar la totalidad de las líneas
-o campos desarrollados hasta el momento de la toma de la suscripción.
+o entradas desarrolladas hasta el momento de la toma de la suscripción.
 En los primeros +3+ meses se realiza el desatraso
 y en los meses siguientes se continúa con la pruebas
 de forma paralela al desarrollo
@@ -90,7 +88,7 @@ de forma paralela al desarrollo
 
 a|== Rigurosidad
 
-Es posible que el cliente decida cuáles requisitos de seguridad que se revisarán
+Es posible que el cliente decida cuáles requisitos de seguridad se revisarán
 en el hacking (perfilamiento) a través de nuestro producto
 [button]#link:../../productos/rules/[Rules]#.
 
@@ -106,7 +104,7 @@ La suscripción se contrata por espacio mínimo de un año
 
 ^.^a|image:img9.png[alt="img9", width="55%"]
 
-a|== Comunicación a través de Integrates
+a|== Comunicación directa y ágil
 
 Toda la comunicación del proyecto se hace a través de
 [button]#link:../../productos/integrates/[Integrates]#,
@@ -151,18 +149,6 @@ En las vulnerabilidades donde sea posible se extraen todos los registros comprom
 con el fin de maximizar el impacto generado
 y comprometer información sensible.
 
-a|== Infección
-
-De ser posible se compromete la infraestructura
-con el uso de archivos modificados especialmente con el fin de obtener información adicional,
-comprometer servidores y verificar controles a nivel de red.
-Se hace uso de +shells+ y +troyanos+ personalizados
-con previa autorización por parte del cliente.
-
-^.^a|image:img14.png[alt="img14", width="55%"]
-
-^.^a|image:img15.png[alt="img15", width="55%"]
-
 a|== Seguimiento de vulnerabilidades a través de Integrates
 
 Durante la ejecución del proyecto es posible verificar las vulnerabilidades reportados
@@ -170,6 +156,10 @@ en nuestra plataforma [button]#link:../../productos/integrates/[Integrates]#,
 así como visualizar en tiempo real estadísticas del proyecto,
 del estado de remediación de las vulnerabilidades,
 clasificar las vulnerabilidades por edad, entre otros.
+
+^.^a|image:img15.png[alt="img15", width="55%"]
+
+^.^a|image:img16.png[alt="img16", width="55%"]
 
 a|== Verificación de cierre
 
@@ -179,9 +169,6 @@ durante la vigencia de la suscripción.
 Se pueden hacer tantos ciclos de cierre como sean necesarios
 para garantizar que el hallazgo sea solucionado efectivamente.
 
-^.^a|image:img16.png[alt="img16", width="55%"]
-
-^.^a|image:img17.png[alt="img17", width="55%"]
 
 a|== Soporte de Remediación.
 
@@ -191,6 +178,10 @@ mediante [button]#link:../../productos/integrates/[Integrates]#.
 
 Es posible utilizar nuestras guias detalladas de remediación
 mediante [button]#link:../../productos/defends/[Defends]#.
+
+^.^a|image:img17.png[alt="img17", width="55%"]
+
+^.^a|image:img18.png[alt="img18", width="55%"]
 
 a|== Generar Informes Técnicos y ejecutivos desde Integrates
 
@@ -203,14 +194,12 @@ En el informe ejecutivo se encuentra la información resumida y organizada.
 De tal manera que pueda ser de utilidad
 para todas las personas en la cadena de valor del proyecto.
 
-^.^a|image:img18.png[alt="img18", width="55%"]
-
-^.^a|image:img19.png[alt="img19", width="55%"]
-
 a|== Borrado seguro de información
 
 +7+ días hábiles luego de la aprobación final de los informes
 se borra toda la información de nuestros sistemas.
+
+^.^a|image:img19.png[alt="img19", width="55%"]
 
 |====
 
@@ -221,5 +210,7 @@ y otros proveedores puede conocer nuestros diferenciadores
 * Si desea conocer las diferencias entre nuestros servicios
 puede ver nuestra tabla comparativa
 [button]#link:../comparativo/[aquí]#.
+
+
 
 ~Íconos diseñados por Eucalyp de Flaticon~
