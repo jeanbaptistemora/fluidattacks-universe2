@@ -65,7 +65,8 @@ a|{si} 100% cuando:
 * Comenzamos el hacking en paralelo al desarrollo.
 * Realizamos un hacking de desatraso al inicio.
 * No se detiene el hacking mientras exista desarrollo.
-* El código no cambie a más de 10K deltas por mes.
+* El código no cambie a más de 10K
+tooltip:Medida de cambio del código, dada por el número de líneas adicionadas o removidas desde el primer día del mes hasta el último día del mes, respecto al mes anterior[deltas por mes].
 
 a|{info} Acordada al inicio de la prueba.
 
@@ -81,7 +82,7 @@ los ambientes:
 |{info} Se requieren ambientes congelados y ventanas deprueba.
 
 a|==== Infección
-| {info} No se infectan los ambientes con troyanos.
+| {no} No se infectan los ambientes con troyanos.
 | {si} Se infectan estaciones y servidores críticos
 con nuestro troyano personalizado
 [button]#link:../../productos/commands/[Commands]#.
