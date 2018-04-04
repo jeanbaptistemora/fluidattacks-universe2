@@ -1,3 +1,6 @@
+/* global
+integrates, $
+*/
 /**
  * Controlador de vista de formularios
  * @name formCtr

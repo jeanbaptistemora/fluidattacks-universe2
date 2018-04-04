@@ -1,3 +1,6 @@
+/* global
+integrates, $, BASE, mixpanel, userMail, $xhr, Organization, userEmail, mixPanelDashboard, userName
+*/
 /**
  * @file dashboardController.js
  * @author engineering@fluidattacks.com
@@ -50,7 +53,7 @@ integrates.controller("dashboardCtrl", function (
           $uibModalInstance.dismiss("cancel");
         };
         $scope.okModalLogout = function () {
-          location = `${BASE.url}logout`;
+          const location = `${BASE.url}logout`;
         };
       },
       "resolve": {"done": true}

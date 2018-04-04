@@ -1,4 +1,5 @@
 /* eslint no-magic-numbers: ["error", { "ignore": [1, -1, 0] }]*/
+/* global document, jQuery, $, location, angular, isProduction:true */
 /**
  * @file app.js
  * @author engineering@fluidattacks.com

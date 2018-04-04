@@ -1,4 +1,5 @@
 /* eslint no-magic-numbers: ["error", { "ignore": [-1,2000] }]*/
+/* global angular,$, setTimeout,redirector:true, location:true, localStorage */
 /**
  * @file login.js
  */

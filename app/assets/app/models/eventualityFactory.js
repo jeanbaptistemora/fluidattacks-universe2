@@ -1,4 +1,5 @@
 /* eslint no-magic-numbers: ["error", { "ignore": [500, 401] }]*/
+/* global integrates, BASE, $xhr, $, Rollbar, location:true */
 /**
  * @file eventualityFactory.js
  * @author engineering@fluidattacks.com

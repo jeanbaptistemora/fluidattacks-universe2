@@ -1,4 +1,5 @@
 /* eslint no-magic-numbers: ["error", { "ignore": [-1,0,0.950,1,2,5] }]*/
+/* global document, $, alertify, setInterval, timew, Tabletop, v:true, obj:true, $msg */
 let remember = null;
 $(document).ready(function () {
   remember = function () {

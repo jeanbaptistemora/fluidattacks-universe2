@@ -1,4 +1,7 @@
 /* eslint no-magic-numbers: ["error", { "ignore": [0, 13] }]*/
+/* global
+integrates, $, BASE, mixpanel, userMail, $xhr, Organization, userEmail, Rollbar, mixPanelDashboard, userName
+*/
 /**
  * @file eventualityController.js
  * @author engineering@fluidattacks.com
@@ -33,9 +36,9 @@ integrates.evntTotalize = function (data) {
   const cardinalidad = 0;
   let afectacion = 0;
   for (let i = 0; i < data.data.length; i++) {
-    auxAfectacion = 0;
+    let auxAfectacion = 0;
     if (data.data[i].afectacion != "") {
-      auxAfectacion += parseInt(data.data[i].afectacion);
+      auxAfectacion += parseInt(data.data[i].afectacion, 10);
     }
     afectacion += auxAfectacion;
   }
@@ -139,7 +142,7 @@ integrates.controller("eventualityController", function ($scope, $uibModal, $tra
           currentEventuality.afectacion = "0";
         }
         $scope.evnt = currentEventuality;
-        $scope.evnt.afectacion = parseInt(currentEventuality.afectacion);
+        $scope.evnt.afectacion = parseInt(currentEventuality.afectacion, 10);
         $scope.closeModalVer = function () {
           $uibModalInstance.close();
         };
@@ -203,11 +206,11 @@ integrates.controller("eventualityController", function ($scope, $uibModal, $tra
           currentEventuality.afectacion = "0";
         }
         $scope.evnt = currentEventuality;
-        $scope.evnt.afectacion = parseInt(currentEventuality.afectacion);
+        $scope.evnt.afectacion = parseInt(currentEventuality.afectacion, 206);
 
         $scope.okModalEditar = function () {
           const neg = "negativo";
-          submit = false;
+          let submit = false;
           try {
             if (typeof $scope.evnt.afectacion == "undefined") {
               throw neg;

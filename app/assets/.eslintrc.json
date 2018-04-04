@@ -1,4 +1,8 @@
 {
+    "env": {
+        "browser": true,
+        "node": true
+    },
     "parserOptions": {
         "ecmaVersion": 6,
         "sourceType": "module",
@@ -101,7 +105,9 @@
         "no-warning-comments": "error",
         "no-with": "error",
         "prefer-promise-reject-errors": "error",
+        "radix": "error",
         "require-await": "error",
+        "vars-on-top": "error",
         "wrap-iife": "error",
         "yoda": "error",
         "init-declarations": "error",
@@ -110,6 +116,7 @@
         "no-label-var": "error",
         "no-restricted-globals": "error",
         "no-shadow-restricted-names": "error",
+        "no-undef": "error",
         "no-undef-init": "error",
         "no-undefined": "error",
         "no-use-before-define": "error",

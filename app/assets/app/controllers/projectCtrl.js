@@ -1,4 +1,10 @@
 /* eslint no-magic-numbers: ["error", { "ignore": [-1,0,0.4,0.6,1,1.176,1.5,2,4,4.611,10,10.41,13,20,43.221,100,200,300,1000,3000] }]*/
+/* global
+BASE, downLink:true, Morris, estado:true, exploitLabel:true, nonexploitLabel:true, tipo:true,total_higLabel:true,
+explotable:true, total_segLabel:true, openLabel:true, partialLabel:true, integrates, userRole, document, $, $msg, userName,
+userEmail, Rollbar, aux:true, json:true, closeLabel:true, mixPanelDashboard, win:true, window, Organization, i:true, j:true
+*/
+/* eslint-env node*/
 /**
  * @file ProjectCtrl.js
  * @author engineering@fluidattacks.com
@@ -172,8 +178,8 @@ integrates.controller(
       let cardinalidad = 0;
       let cardinalidad_total = 0;
       data.data.forEach(function (i) {
-        cardinalidad += parseInt(i.cardinalidad);
-        cardinalidad_total += parseInt(i.cardinalidad_total);
+        cardinalidad += parseInt(i.cardinalidad, 10);
+        cardinalidad_total += parseInt(i.cardinalidad_total, 10);
       });
       $("#total_cardinalidad").html(cardinalidad);
       $("#total_hallazgos").html(data.data.length);
@@ -203,7 +209,7 @@ integrates.controller(
         if (!response.error) {
           if (response.data.length > 0) {
             for (let i = 0; i < response.data.length; i++) {
-              const target = parseInt(response.data[i].lines) / 1000 + parseInt(response.data[i].fields) / 4;
+              const target = parseInt(response.data[i].lines, 10) / 1000 + parseInt(response.data[i].fields, 10) / 4;
               total_severity = severity / (4.611 * target + 43.221) * 100;
               $("#total_criticidad").html("n%".replace("n", total_severity.toFixed(0)));
             }

@@ -1,5 +1,9 @@
-/* eslint no-magic-numbers: ["error", { "ignore": [-1,0,0.4,0.6,1,1.176,1.5,2,3,4,5,6,6.9,7,9,10.41,20,50,80,100,200,500,1000,10000] }]*/
-/* eslint-env node*/
+/* eslint no-magic-numbers: ["error", { "ignore": [-1,0,0.4,0.6,1,1.176,1.5,2,3,4,5,6,6.9,7,9,10,10.41,20,50,80,100,200,500,1000,10000] }]*/
+/* global
+BASE, document, $, $msg, userName, integrates, userEmail, userName, Rollbar, mixPanelDashboard, userRole, finding_type, actor,
+scenario, authentication, confidenciality, Organization, resolutionLevel, explotability, availability, tratamiento, updateEvidencesFiles:true,
+realiabilityLevel, updateEvidenceText:true, categories, probabilities, accessVector, integrity, accessComplexity
+*/
 /**
  * @file findingcontentCtrl.js
  * @author engineering@fluidattacks.com
@@ -25,7 +29,7 @@ integrates.controller("findingcontentCtrl", function (
     const cierres = $scope.finding.cierres;
     const cierresTmp = [];
     for (let i = 0; i < cierres.length; i++) {
-      cierre = cierres[i];
+      const cierre = cierres[i];
       cierre.position = i + 1;
       cierresTmp.push(cierre);
     }
@@ -91,7 +95,7 @@ integrates.controller("findingcontentCtrl", function (
           /* eslint func-style: ["error", "expression"]*/
           const resp_function = function (response) {
             if (!response.error) {
-              responses = response.replaceAll("<", "&lt;");
+              let responses = response.replaceAll("<", "&lt;");
               responses = response.replaceAll(">", "&gt;");
               $scope.exploitURL = responses;
             }
@@ -126,7 +130,7 @@ integrates.controller("findingcontentCtrl", function (
           $scope.hasExploit = true;
           exploit.then(function (response) {
             if (!response.error) {
-              responses = response.replaceAll("<", "&lt;");
+              let responses = response.replaceAll("<", "&lt;");
               responses = response.replaceAll(">", "&gt;");
               $scope.exploitURL = responses;
             }
@@ -431,9 +435,9 @@ integrates.controller("findingcontentCtrl", function (
     data.append("url", `${$stateParams.project.toLowerCase()}-${$scope.finding.id}`);
     data.append("findingId", $scope.finding.id);
     data.append("document", fileInput.files[0]);
-    fileName = fileInput.files[0].name;
-    dots = fileName.split(".");
-    fileType = `.${dots[dots.length - 1]}`;
+    const fileName = fileInput.files[0].name;
+    const dots = fileName.split(".");
+    const fileType = `.${dots[dots.length - 1]}`;
     const png_max_size = 2097152;
     const gif_max_size = 10485760;
     const py_max_size = 1048576;
@@ -458,7 +462,7 @@ integrates.controller("findingcontentCtrl", function (
       $msg.error(error_ac1);
       return false;
     }
-    evImages = [
+    const evImages = [
       "1",
       "2",
       "3",
@@ -568,7 +572,7 @@ integrates.controller("findingcontentCtrl", function (
   };
   $scope.deleteFinding = function () {
     // Obtener datos
-    descData = {"id": $scope.finding.id};
+    const descData = {"id": $scope.finding.id};
     const modalInstance = $uibModal.open({
       "templateUrl": `${BASE.url}assets/views/project/deleteMdl.html`,
       "animation": true,
@@ -1065,8 +1069,8 @@ integrates.controller("findingcontentCtrl", function (
     const Resol = parseFloat($scope.finding.nivel_resolucion.split(" | ")[0]);
     const Confi = parseFloat($scope.finding.nivel_confianza.split(" | ")[0]);
     const BaseScore = (0.6 * (10.41 * (1 - (1 - ImpCon) * (1 - ImpInt) * (1 - ImpDis))) + 0.4 * (20 * AccCom * Auth * AccVec) - 1.5) * 1.176;
-    Temporal = BaseScore * Explo * Resol * Confi;
-    CVSSGeneral = Temporal;
+    const Temporal = BaseScore * Explo * Resol * Confi;
+    const CVSSGeneral = Temporal;
     $scope.finding.cssv2base = BaseScore.toFixed(1);
     $scope.finding.criticidad = Temporal.toFixed(1);
   };
@@ -1090,8 +1094,8 @@ integrates.controller("findingcontentCtrl", function (
   };
   $scope.findingInformationTab = function () {
     $scope.findingDropDownList();
-    $scope.finding.cardinalidad = parseInt($scope.finding.cardinalidad);
-    $scope.finding.criticidad = parseFloat($scope.finding.criticidad);
+    $scope.finding.cardinalidad = parseInt($scope.finding.cardinalidad, 10);
+    $scope.finding.criticidad = parseFloat($scope.finding.criticidad, 10);
     $scope.findingCalculateCSSv2();
     if ($scope.finding.nivel == "Detallado") {
       $scope.esDetallado = "show-detallado";
@@ -1381,7 +1385,7 @@ integrates.controller("findingcontentCtrl", function (
               }, 500);
             },
             "postComment" (data, success, error) {
-              data.id = parseInt(Math.round(new Date() / 1000).toString() + (Math.random() * 10000).toString(9));
+              data.id = parseInt(Math.round(new Date() / 1000).toString() + (Math.random() * 10000).toString(9), 10);
               data.finding_name = $scope.finding.hallazgo;
               data.project = $scope.finding.proyecto_fluid;
               data.finding_url = window.location.href;
@@ -1547,7 +1551,7 @@ integrates.controller("findingcontentCtrl", function (
   };
   $scope.updateDescription = function () {
     // Obtener datos
-    descData = {
+    const descData = {
       "id": $scope.finding.id,
       "nivel": $scope.finding.nivel,
       "hallazgo": $scope.finding.hallazgo,
@@ -1638,7 +1642,7 @@ integrates.controller("findingcontentCtrl", function (
       flag = true;
     }
     if (flag === true) {
-      newData = {
+      const newData = {
         "id": $scope.finding.id,
         "tratamiento": $scope.finding.tratamiento,
         "razon_tratamiento": $scope.finding.razon_tratamiento,
@@ -1681,7 +1685,7 @@ integrates.controller("findingcontentCtrl", function (
   };
   $scope.findingSolved = function () {
     // Obtener datos
-    descData = {
+    const descData = {
       "user_mail": userEmail,
       "finding_name": $scope.finding.hallazgo,
       "project": $scope.finding.proyecto_fluid,
@@ -1723,7 +1727,7 @@ integrates.controller("findingcontentCtrl", function (
                 $uibModalInstance.close();
                 location.reload();
                 const data = {};
-                data.id = parseInt(Math.round(new Date() / 1000).toString() + (Math.random() * 10000).toString(9));
+                data.id = parseInt(Math.round(new Date() / 1000).toString() + (Math.random() * 10000).toString(9), 10);
                 data.content = $scope.remediatedData.justification;
                 data.parent = 0;
                 data.email = $scope.remediatedData.user_mail;
@@ -1771,7 +1775,7 @@ integrates.controller("findingcontentCtrl", function (
     // Obtener datos
     const currUrl = window.location.href;
     const trackingUrl = currUrl.replace("/description", "/tracking");
-    descData = {
+    const descData = {
       "user_mail": userEmail,
       "finding_name": $scope.finding.hallazgo,
       "project": $scope.finding.proyecto_fluid,

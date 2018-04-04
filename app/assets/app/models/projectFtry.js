@@ -1,4 +1,5 @@
 /* eslint no-magic-numbers: ["error", { "ignore": [500, 401] }]*/
+/* global integrates, BASE, $xhr, location:true, $, Rollbar */
 /**
  * @file projectFtry.js
  * @author engineering@fluidattacks.com
