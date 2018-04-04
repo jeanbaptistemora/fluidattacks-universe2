@@ -229,6 +229,7 @@
 * link:285/[REQ.285 Evitar costos de procesamiento].
 * link:286/[REQ.286 Definir umbrales en recursos].
 * link:287/[REQ.287 Generar alerta en recursos].
+* link:288/[REQ.288 Denegar escritura en medios extraíbles].
 
 == Activos
 
