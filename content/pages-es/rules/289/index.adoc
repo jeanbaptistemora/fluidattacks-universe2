@@ -1,0 +1,12 @@
+:slug: rules/289/
+:category: rules
+:description: En el presente documento se detallan los requerimientos de seguridad relacionados a la gestión segura de cada uno de los medios extraíbles conectados a un determinado equipo. Por lo tanto, ningún sistema operativo debe permitir intercambiar información a través de medios extraíbles.
+:keywords: Organización, Medio, Imagen, Sistema Operativo, Requerimiento, Seguridad.
+:rules: yes
+
+= REQ.289 Asegurar medios e imágenes del sistema
+
+== Nombre
+
+Los medios de instalación e imágenes pre-configuradas de sistemas operativos
+deben estar en un lugar físicamente seguro.
