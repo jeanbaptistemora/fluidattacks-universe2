@@ -1,4 +1,4 @@
-:slug: introduccion-ingenieria-social/
+:slug: cadenas-eslabones/
 :date: 2017-05-16
 :category: opiniones
 :subtitle: Inicios en la ingeniería social

@@ -1,4 +1,4 @@
-:slug: disculpe-senor/
+:slug: probar-software/
 :date: 2017-05-17
 :category: ataques
 :subtitle: Acerca de la ejecución simbólica y concólica

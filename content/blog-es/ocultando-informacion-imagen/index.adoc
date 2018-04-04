@@ -1,4 +1,4 @@
-:slug: arte-ocultar-informacion-imagen/
+:slug: ocultando-informacion-imagen/
 :date: 2016-10-25
 :category: retos
 :subtitle: Solución al reto Steganography 1 de Challengeland

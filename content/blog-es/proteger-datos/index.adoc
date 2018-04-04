@@ -1,4 +1,4 @@
-:slug: evitar-entrada-datos/
+:slug: proteger-datos/
 :date: 2017-03-07
 :category: retos
 :subtitle: La amenaza de SQLi y cómo evitarla

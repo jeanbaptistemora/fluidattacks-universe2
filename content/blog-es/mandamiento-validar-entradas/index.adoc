@@ -1,4 +1,4 @@
-:slug: mandamiento-desarrollo-validar-entradas/
+:slug: mandamiento-validar-entradas/
 :date: 2016-07-25
 :category: retos
 :subtitle: Solución al reto 10 de OvertheWire

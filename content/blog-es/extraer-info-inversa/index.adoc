@@ -1,4 +1,4 @@
-:slug: ingenieria-inversa/
+:slug: extraer-info-inversa/
 :date: 2016-11-22
 :category: retos
 :subtitle: Solución al reto 6 de reversing de ChallengeLand

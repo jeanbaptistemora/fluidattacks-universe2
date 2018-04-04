@@ -1,4 +1,4 @@
-:slug: banner-grabbing/
+:slug: informacion-servicios-revelada/
 :date: 2016-10-11
 :category: retos
 :subtitle: Solución a retos de dareyoumind y hackthis
