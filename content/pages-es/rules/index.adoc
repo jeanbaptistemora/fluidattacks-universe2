@@ -241,6 +241,7 @@
 == Control
 
 * link:296/[REQ.296 Establecer alarmas de intrusión física].
+* link:297/[REQ.297 Fijar sensores en activos de información].
 
 == Activos
 
