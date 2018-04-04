@@ -15,102 +15,117 @@
 
 = ¿Cómo proteger mis datos?
 
-Una base de datos es un software capaz de organizar información con el objetivo
-que un computador pueda seleccionar de una forma rápida los elementos que
-necesite.
+Una base de datos es un +software+ capaz de organizar información,
+con el objetivo que un computador pueda seleccionar, de una forma rápida,
+los elementos que necesite.
 
 Generalmente, las bases de datos se organizan por campos, registros y archivos.
-Un campo es una pieza única de información; un registro es un sistema completo
-de campos; y un archivo es una colección de registros. Por ejemplo, una libreta
-de direcciones es análoga a un archivo. Contiene una lista de registros, cada
-uno de los cuales consiste en tres campos: nombre, dirección, y número de
-teléfono.
+Un campo es una pieza única de información;
+un registro es un sistema completo de campos;
+y un archivo es una colección de registros.
+Por ejemplo, una libreta de direcciones es análoga a un archivo.
+Contiene una lista de registros, cada uno de los cuales consiste en tres campos:
+nombre, dirección, y número de teléfono.
 
 Las bases de datos son herramientas que recopilan y organizan la información,
-estas pueden almacenar datos de personas, productos, precios o datos más
-sensibles como direcciones de nuestros clientes, tarjetas de crédito y sus
-contraseñas. Teniendo esto en mente el tema a tratar es la inyección SQL.
+éstas pueden almacenar datos de personas, productos, precios,
+o datos más sensibles, como direcciones de nuestros clientes,
+tarjetas de crédito y sus contraseñas.
+Teniendo esto en mente, el tema a tratar es la inyección +SQL+.
 
-.Bases de datos footnote:[Imagen tomada de link:http://www.tecniplanet.net[Tecniplanet]]
+.Bases de datos [Imagen tomada de link:http://www.tecniplanet.net[+Tecniplanet+]]
 image::database.png[footnote]
 
 == ¿Qué es una inyección SQL?
 
-Un ataque por inyección SQL como su nombre lo indica consiste en la “inyección”
-de una consulta SQL por medio de los datos desde el cliente hacia un servidor.
-Como dijimos anteriormente una base de datos puede contener información
-sensible de un usuario y un ataque exitoso puede indicarle al servidor que
-revele esta información a un atacante o no solo revelarla, podría editar,
-insertar o eliminar datos.
+Un ataque por inyección +SQL+, como su nombre lo indica,
+consiste en la “inyección” de una consulta +SQL+
+por medio de los datos, desde el cliente hacia un servidor.
+Como dijimos anteriormente, una base de datos
+puede contener información sensible de un usuario,
+y un ataque exitoso puede indicarle al servidor que revele esta información
+a un atacante.
+O no solo revelarla, podría editar, insertar o eliminar datos.
 
-La inyección SQL es común en aplicaciones PHP y ASP esto debido a interfaces
-con funcionalidades obsoletas, la gravedad de un ataque depende en gran medida
-de la creatividad del atacante y en menor medida a las contramedidas tomadas
-para repeler el ataque.
+La inyección +SQL+ es común en aplicaciones +PHP+ y +ASP+.
+Ésto debido a interfaces con funcionalidades obsoletas.
+La gravedad de un ataque depende en gran medida de la creatividad del atacante,
+y en menor medida de las contramedidas tomadas para repeler el ataque.
 
 == ¿Cómo explotar estas características?
 
-Este tipo de ataque se puede realizar de dos formas, ya sea desde un campo de
-formulario o desde una URL y puede realizar varias acciones, desde un ingreso
-por contraseña, hasta revelar información
+Este tipo de ataque se puede realizar de dos formas,
+ya sea desde un campo de formulario, o desde una +URL+,
+y puede realizar varias acciones,
+desde un ingreso por contraseña, hasta revelar información.
 
 
 == ¿Cómo ingresar por medio de un ataque?
 
-En este ejemplo vamos por medio de un ataque de inyección SQL ingresar a un
-usuario:
+En este ejemplo vamos por, medio de un ataque de inyección +SQL+,
+a ingresar con un usuario:
 
 .Inyección a un formulario
 image::paso1.gif[inyeccion-form]
 
-== Qué pasó
+== ¿Qué pasó?
 
-El código usado para realizar este ingreso sin tener acceso a su contraseña es
-(Or 1 = 1) y lo que le está indicando; a la base de datos es básicamente una
-sentencia que siempre es verdadera el problema para la explotación de este
-ataque _Blind SQL injection_ es que realiza:: la búsqueda de usuarios carácter
-por carácter así, por ejemplo, si la contraseña es Hola el código ingresado
-testea letra por letra y acumula en caso:: de un resultado positivo de esta
-manera va guardando la H luego la o hasta dar con la palabra completa.
+El código usado para realizar este ingreso, sin tener acceso a su contraseña,
+es +or 1 = 1+, y lo que le está indicando a la base de datos
+es, básicamente, una sentencia que siempre es verdadera.
+El problema para la explotación de este ataque +Blind SQL Injection+
+es que realiza la búsqueda de usuarios, carácter por carácter así,
+si la contraseña es ``Hola'', el código ingresado prueba letra por letra
+y acumula en caso de obtener un resultado positivo.
+De esta manera, va guardando la `H', luego la `o',
+hasta dar con la palabra completa.
 
-Otro tipo de ataque puede darse por inyección en las URL mostrado a continuación:
+Otro tipo de ataque puede darse
+por inyección en las +URL+, mostrado a continuación:
 
-.Inyección a una URL
+.Inyección a una +URL+
 image::paso2.gif[inyeccion-url]
 
-El código a usar es (’UNION ALL SELECT username, password FROM members WHERE
-admin=1--) Como se puede observar es una petición pidiendo al servidor que
-revele quienes tienen el estatus de administrador en otras palabras
-“administrador=1”. Directamente el servidor interpreta que debe mostrar al(los)
- usuario(s) que son administradores, pero además del usuario necesitamos la
- contraseña que se puede obtener de la siguiente manera:
+El código a usar es
++'UNION ALL SELECT username, password FROM members WHERE admin=1--+.
+Como se puede observar, es una petición pidiendo al servidor
+que revele quiénes tienen permisos de administrador,
+en otras palabras, +administrador=1+.
+Directamente, el servidor interpreta que debe mostrar al(los)
+usuario(s) que son administradores, pero además del usuario,
+necesitamos la contraseña, que se puede obtener de la siguiente manera:
 
 .Buscando la clave del administrador
 image::paso3.gif[clave]
 
-El código a usar es similar al de detectar al administrador (’UNION ALL SELECT
-password, 2 FROM members WHERE username=’bellamond’--); al igual que el anterior
-es simplemente indicarle al servidor que me muestre la contraseña del
-administrador para lograr entrar a su cuenta, aunque la contraseña:: este en SHA1
+El código a usar es similar al de detectar al administrador,
++’UNION ALL SELECT password, 2 FROM members WHERE username=’bellamond’--+.
+Al igual que el anterior, es simplemente indicarle al servidor
+que me muestre la contraseña del administrador
+para lograr entrar a su cuenta.
+Aunque la contraseña esté en +SHA1+,
 lo grave es que el servidor permitió ver la contraseña de un administrador
 
 == ¿Cómo evitar este tipo de ataque?
 
-El principal punto débil de estos ataques es que si dejamos que un usuario
-ingrese cualquier tipo de carácter sin control -para realizar el ataque usamos
-comilla sencilla- un atacante podría aprovecharse de las comillas para declarar
-cadenas de texto que interpreta un servidor.
+El principal punto débil de estos ataques
+es que si dejamos que un usuario ingrese cualquier tipo de carácter sin control
+- para realizar el ataque usamos comilla sencilla +'+ -,
+un atacante podría aprovecharse de las comillas
+para declarar cadenas de texto que interprete el servidor.
 
-Por lo tanto, la solución estándar para evitar que un atacante realice una
-consulta es transformarlas comillas antes de que ingresen al servidor por
-ejemplo una comilla doble debe transformarse a (\”) y así el servidor
-interpretara esto como una comilla doble y no como una solicitud para iniciar
-una consulta, para hacer esto se programa según el lenguaje.
+Por lo tanto, la solución estándar para evitar
+que un atacante realice una consulta, es transformar las comillas
+antes de que ingresen al servidor, por ejemplo,
+una comilla doble debe transformarse a +\”+,
+y así el servidor interpretarś esto como una comilla doble,
+y no como una solicitud para iniciar una consulta.
+Para hacer esto se programa según el lenguaje.
 
 == En Perl
 
-El método quote filtra los caracteres especiales -Esto asumiendo que una
-variable $sql hace referencia a un objeto DBI-
+El método +quote+ filtra los caracteres especiales.
+Esto asumiendo que una variable +$sql+ hace referencia a un objeto +DBI+.
 
 .test.py
 [source,perl,linenums]
@@ -125,10 +140,12 @@ $query = $sql->prepare
 
 == En PHP
 
-La manera más utilizada para evitar este ataque si se está usando MYSQL es con
-la función _mysql_real_escape_string_ la cual coloca barras invertidas ante los
-siguientes caracteres:  \x00 \n \r \' \" y \x1a. Con lo cual garantiza que los
-datos sean seguros antes de enviar una consulta a MySQL.
+La manera más utilizada para evitar este ataque, si se está usando +MYSQL+,
+es con la función +_mysql_real_escape_string_+,
+la cual coloca barras invertidas ante los siguientes caracteres:
++\x00+, +\n+, +\r+, +\'+, +\"+ y +\x1a+.
+Con lo cual garantiza que los datos sean seguros
+antes de enviar una consulta a +MySQL+.
 
 [source, shell, linenums]
 ----
@@ -142,7 +159,7 @@ $query = sprintf("SELECT * FROM usuarios WHERE usuario='%s' AND
 ?>
 ----
 
-Y en caso de usar MySQLi
+Y, en caso de usar +MySQLi+,
 
 [source,php,linenums]
 ----
@@ -152,8 +169,8 @@ $query = $this->query("SELECT * FROM usuarios WHERE nombre = '" . $this->real_es
 $query = $this->mysqli->query("SELECT * FROM usuarios WHERE nombre = '" . $this->mysqli->real_escape_string($nombre) . "'");
 ----
 
-Sin embargo, se recomienda utilizar P.D.O. (PHP Data Object) que ya ofrecen
-consultas preparadas.
+Sin embargo, se recomienda utilizar +P.D.O.+ (+PHP Data Object+),
+que ya ofrecen consultas preparadas.
 
 [source,php,linenums]
 ----
@@ -165,18 +182,19 @@ $result = $statement->fetch();
 
 == Ruby on Rails (RoR)
 
-En RoR, las consultas son verificadas automáticamente por cualquiera de los
-métodos de búsqueda incluidos.
+En +RoR+, las consultas son verificadas automáticamente
+por cualquiera de los métodos de búsqueda incluidos.
 
 [source,ruby,linenums]
 ----
 Project.find consulta := "SELECT * FROM usuarios WHERE nombre = '" + nombreUsuario + "';"
 ----
 
-Estos ataques se pueden evitar en muchos lenguajes distintos, e incluso hay
-lenguajes que por defecto aumenta la dificultad al atacante para explotar esta
-vulnerabilidad, pero lo que se debe tener en cuenta es que donde hay una
-consulta SQL existe una vulnerabilidad a nuestro sistema.
+Estos ataques se pueden evitar en muchos lenguajes distintos,
+e incluso hay lenguajes que, por defecto, aumentan la dificultad al atacante
+para explotar esta vulnerabilidad.
+Lo que se debe tener en cuenta es que donde hay una consulta +SQL+,
+existe una vulnerabilidad a nuestro sistema.
 
 == Referencia
 

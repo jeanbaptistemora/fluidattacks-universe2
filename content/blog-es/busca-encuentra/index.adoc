@@ -202,7 +202,8 @@ la segunda opción contiene el valor de _Ronald_
 y podremos resolver el reto.
 
 Para concluir, *BAJO NINGUNA CIRCUNSTANCIA* se debe almacenar información
-confidencial dentro del código fuente (lo cual es considerado una mala práctica),
+confidencial dentro del código fuente
+(lo cual es considerado una mala práctica),
 sin importar si es +html+, +CSS+ o +JS+.
 Además, si bien es cierto que dominar un lenguaje de programación
 es muy importante, en lo personal,
