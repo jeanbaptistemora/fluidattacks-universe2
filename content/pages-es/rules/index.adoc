@@ -236,6 +236,7 @@
 * link:292/[REQ.292 Gestionar periféricos de entrada].
 * link:293/[REQ.293 Gestionar ejecución de código en stack].
 * link:294/[REQ.294 Usar sólo software con licencia].
+* link:295/[REQ.295 Evitar uso de archivos ilegales].
 
 == Activos
 
