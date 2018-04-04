@@ -232,6 +232,7 @@
 * link:288/[REQ.288 Denegar escritura en medios extraíbles].
 * link:289/[REQ.289 Asegurar medios e imágenes del sistema].
 * link:290/[REQ.290 Instalar S.O. desde imagen preconfigurada].
+* link:291/[REQ.291 Establecer hora oficial en equipos].
 
 == Activos
 

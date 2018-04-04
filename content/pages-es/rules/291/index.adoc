@@ -1,0 +1,13 @@
+:slug: rules/291/
+:category: rules
+:description: En el presente documento se detallan los requerimientos de seguridad relacionados a la correcta configuración de fecha y hora de un determinado sistema operativo. Por lo tanto, se recomienda que todos los equipos estén sincronizados con la hora oficial del país.
+:keywords: Tiempo, Organización, Equipos, Sincronizar, Hora, País.
+:rules: yes
+
+= REQ.291 Establecer hora oficial en equipos
+
+== Nombre
+
+El tiempo de los sistemas
+y equipos de la organización
+debe estar sincronizado con la hora oficial del país.
