@@ -79,11 +79,12 @@ Las soluciones de programación deberán cumplir adicionalmente con lo siguiente
 . No deben tener solución en el repositorio (carpeta del reto) para el lenguaje elegido por usted,
 . No deben tener solución externa indexada (enlaces +OTHERS.lst+ del reto) para el lenguaje elegido por usted,
 . El lenguaje de la solución es uno de los aceptados por [button]#link:http://www.codeabbey.com/[Codeabbey]#.
-. Los comandos de *compilación* y/o +linting+ utilizados y su salida deben estar al inicio del código fuente en comentarios multilínea.
+. Los comandos de *compilación* y/o +linting+ utilizados y su salida deben estar como *preludio* al inicio del código.
 +
 .milogin.rs
 [source, rust, linenums]
 ----
+
 /*
 $ rustup run nightly cargo clippy
 Compiling milogin v0.1.0 (file:///../skhorn)
@@ -94,7 +95,7 @@ $
 
 My solution's first line.
 ----
-. Los comandos de ejecución utilizados y su salida deben estar al final del código fuente en comentarios multilínea.
+. Los comandos de ejecución utilizados y su salida deben estar como *posludio* al final del código.
 +
 [source, rust, linenums]
 ----
