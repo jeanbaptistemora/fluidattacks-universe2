@@ -269,7 +269,8 @@ integrates.config([
         "file_type_png": "The image must be .png type",
         "no_file_update": "Failed to update the file",
         "no_text_update": "Failed to update the description",
-        "access_denied": "Access Denied"
+        "access_denied": "Access Denied",
+        "project_deleted": "Project Deleted"
       },
       "tab_container": {
         "findings": "Findings",
@@ -760,7 +761,8 @@ integrates.config([
         "file_type_png": "La imagen debe ser de tipo .png",
         "no_file_update": "Falló al actualizar el archivo",
         "no_text_update": "Falló al actualizar la descripción",
-        "access_denied": "Acceso Denegado"
+        "access_denied": "Acceso Denegado",
+        "project_deleted": "Projecto Eliminado"
       },
       "tab_container": {
         "findings": "Hallazgos",

@@ -318,6 +318,9 @@ def get_eventualities(request):
 def get_finding(request):
     submission_id = request.POST.get('id', "")
     finding = catch_finding(request, submission_id)
+    if finding['vulnerabilidad'].lower() == 'masked':
+        rollbar.report_message('Warning: Project masked', 'warning', request)
+        return util.response([], 'Project masked', True)
     if finding:
         return util.response(finding, 'Success', False)
     rollbar.report_message('Error: An error occurred getting finding', 'error', request)

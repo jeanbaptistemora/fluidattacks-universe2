@@ -1028,9 +1028,17 @@ integrates.controller("findingcontentCtrl", function (
         });
         $timeout($scope.goUp, 200);
       }
-      else {
-        $msg.error($translate.instant("proj_alerts.no_finding"));
-        Rollbar.error("Error: Finding not found");
+      else if (response.error) {
+        $scope.view.project = false;
+        $scope.view.finding = false;
+        if (response.message == "Project masked") {
+          Rollbar.warning("Warning: Project deleted");
+          $msg.error($translate.instant("proj_alerts.project_deleted"));
+        }
+        else {
+          $msg.error($translate.instant("proj_alerts.no_finding"));
+          Rollbar.warning("Warning: Finding not found");
+        }
         return false;
       }
     });
