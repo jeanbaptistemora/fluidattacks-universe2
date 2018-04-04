@@ -19,16 +19,17 @@
 [quote]
 Este no es el fin...solo el comienzo.
 
-Si han seguido mi primer artículo sobre certificaciones sabrán que ha terminado
-con una frase que va mas o menos como la anterior.
+Si han seguido link:../una-dosis-de-offsec-oscp/[mi primer artículo] sobre certificaciones,
+sabrán que ha terminado con una frase que va más o menos como la anterior.
 Es por ello que quiero compartir la segunda parte de la historia.
-La historia que espero al menos se convierta en trilogia en el mundo de +Offsec+.
+La historia que espero, al menos, se convierta en trilogia
+en el mundo de +Offsec+.
 
 image::logo-wifu.png[logo OSWP]
 
-Hablare sobre mi experiencia realizando el +OSWP+
+Hablaré sobre mi experiencia realizando el +OSWP+
 (+Offensive Security Wireless Professional+),
-¿Por qué la elegí?, Cuál es el retorno de la inversión?,
+¿por qué la elegí?, ¿cuál es el retorno de la inversión?,
 las diferencias y similitudes frente al +OSCP+,
 mitos y verdades sobre el curso.
 ¡*Este es el retorno al camino de +Try Harder+*!
@@ -42,26 +43,26 @@ como lo es actualmente +IoT+, +Deep Learning+,
 Pero estos son  temas para otras ocasiones,
 siguiendo con el nuestro,
 deseaba realizar una nueva certificación,
-una de la cual pudiera aprender  algo nuevo,
-que le diera valor a las pruebas de intrusión y
+una de la cual pudiera aprender algo nuevo,
+que le diera valor a las pruebas de intrusión y,
 sabiendo que es necesario realizar algunas
 "paradas" antes de incursionar en +CTP+ +(Cracking the Perimeter)+,
 he decidido apostar de nuevo por +Offensive Security+,
 esta vez por +WiFu/OSWP+.
 
 Esta es una certificación especializada en redes inalámbricas,
-donde nos enseñan desde las bases acerca del estándar 802.11,
+donde nos enseñan desde las bases acerca del estándar +802.11+,
 hasta técnicas avanzadas en ataques a +Wireless+ y a clientes.
 
 
 == La preparación y el laboratorio
 
 A diferencia del +OSCP+ en este curso no se cuenta con acceso a un laboratorio,
-este se debe montar por cuenta propia,
-ciertamente esto representa una ventaja y una desventaja.
-En primer lugar podrás acomodar mejor tu tiempo frente al curso,
+éste se debe montar por cuenta propia.
+Ciertamente, esto representa una ventaja y una desventaja.
+En primer lugar, podrás acomodar mejor tu tiempo frente al curso,
 sin temor de que llegue ese fatídico día donde caduque el acceso,
-pero por otro lado puede que sea necesario contar con hardware adicional
+pero por otro lado, puede que sea necesario contar con +hardware+ adicional
 para poder realizar todos los ejercicios descritos en los vídeos y el libro.
 
 
@@ -69,8 +70,8 @@ para poder realizar todos los ejercicios descritos en los vídeos y el libro.
 
 Para el examen te dan acceso a una maquina por +SSH+,
 desde allí podremos encontrar las redes inalámbricas que debemos atacar.
-Es necesario conseguir el acceso a *todas* las redes que se nos presentan en
-un lapso de 4 horas y realizar la respectiva documentación.
+Es necesario conseguir el acceso a *todas* las redes que se nos presentan, en
+un lapso de 4 horas, y realizar la respectiva documentación.
 Estas redes tienen diferentes configuraciones,
 diferentes protocolos y posiblemente sea necesario emplear diferentes técnicas
 para comprometerlas.
@@ -83,7 +84,7 @@ para comprometerlas.
 Creo que no,
 a diferencia del +OSCP+ en el examen del +OSWP+ no hay laberintos o acertijos
 que hagan volar tu cabeza.
-*Si cubres todo el material* tendrás grandes probabilidades de pasar el examen
+*Si cubres todo el material*, tendrás grandes probabilidades de pasar el examen
 sin dificultad, aunque en este caso es necesario completar cada reto del examen
 para aprobar.
 *_¡No hay lugar para medias!_*.
@@ -96,7 +97,7 @@ considero que ambos cursos son independientes y paralelos.
 El uno no nos sirve de antesala para el otro,
 como si puede ser +PWK+ y +CTP+,
 pero por lo mismo lo considero especial,
-lo que se cubre en +WiFu+ es totalmente nuevo a las temáticas de +PWK+,
+lo que se cubre en +WiFi+ es totalmente nuevo a las temáticas de +OSCP+,
 dando oportunidad de incursionar en temas totalmente nuevos.
 
 === ¿Por qué pagar por un curso si hay cientos de recursos gratuitos?
@@ -106,9 +107,9 @@ solo puedo hablar desde mi punto de vista.
 Es cierto que existen muchos recursos para aprender de seguridad
 en redes inalámbricas,
 tales como los que ofrece +Securitytube+,
-pero creo que todo lo que venga de offsec
+pero creo que todo lo que venga de +OffSec+
 representa un reto por el cual ir.
-De los distintos exámenes orientado a +Wireless+ es uno de los pocos prácticos,
+De los distintos exámenes orientado a +Wireless+, es uno de los pocos prácticos,
 si no es el único,
 además de que el material cubre en profundidad algunos temas y metodologías
 que ciertamente desconocía,
@@ -116,13 +117,13 @@ como ataques a redes sin usuarios o técnicas de +MiTM+
 
 === ¿Cuál es el ROI de la certificación?
 
-Según mi punto de vista obtener la certificación te da un plus y
+Según mi punto de vista, obtener la certificación te da un plus y
 es reconocida en el medio,
 pero es necesario complementarlo con otra certificación orientada a
 +Pentesting+ tal como +OSCP+, +GIAC GPEN+ o +ECPPT+ para aumentar su valor.
 
-En cuanto a nivel de aprendizaje puedo decir que se aprende bastante en
-cada modulo, que cubre +WEP+, +WPA+, +WPA2+,
+En cuanto a nivel de aprendizaje, puedo decir que se aprende bastante en
+cada módulo, que cubre +WEP+, +WPA+, +WPA2+,
 ataques de +MiTM+, +Cracking+,
 uso herramientas como  +aircrack+, entre otros.
 
@@ -141,5 +142,5 @@ La gente de +OffSec+ nos ofrecen otro buen curso,
 cubrió mis expectativas y lo recomiendo,
 aunque depende de nuestros objetivos el tomarlo o no,
 en lo personal lo aprendido en el curso lo he podido aplicar en diferentes pruebas,
-Así concluye la segunda parte de la historia, el camino de +WiFu+,
+Así concluye la segunda parte de la historia, el camino de +WiFi+,
 aúnque espero no sea la última.

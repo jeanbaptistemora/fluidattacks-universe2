@@ -15,20 +15,22 @@
 
 = Una ardilla contra el mundo
 
-+SQRL+ por sus siglas en inglés _(+Secure Quick Reliable Login+)_ apodado +Squirrel+,
-es una solución potencial a los problemas
-asociados con el uso del modelo más popular de autenticación (usuario/contraseña) en los sitios web,
-pasando al uso de códigos +QR+ seguros y firmas criptográficas
-entre el dominio y el usuario para validar su autenticidad.
++SQRL+, por sus siglas en inglés _(+Secure Quick Reliable Login+)_,
+apodado +Squirrel+, es una solución potencial
+a los problemas asociados con el uso del modelo más popular de autenticación
+(usuario/contraseña) en los sitios web,
+pasando al uso de códigos +QR+ seguros y
+firmas criptográficas entre el dominio y el usuario
+para validar su autenticidad.
 
 image::sqrl-logo.png[Logo sqrl]
 
 +SQRL+ tiene como objetivo reemplazar los nombres de usuario y contraseñas
-porque a pesar de ser nuestra identidad, no podemos confiar en los sitios web
+porque, a pesar de ser nuestra identidad, no podemos confiar en los sitios web
 para mantener nuestra información personal segura.
-Una ventaja del uso de +SQRL+ es que los usuarios solo necesitan recordar una clave maestra
-para la aplicación en lugar de un número elevado de contraseñas
-para todos servicios de autenticación que utilizan.
+Una ventaja del uso de +SQRL+ es que los usuarios solo necesitan
+recordar una clave maestra para la aplicación, en lugar de un número elevado
+de contraseñas para todos servicios de autenticación que utilizan.
 
 == Las contraseñas: ¿Un arma de doble filo?
 
@@ -75,13 +77,18 @@ asociada se haya utilizado para firmar la +URL+.
 === ¿Qué tipo de tecnología usa?
 
 +SQRL+ utiliza criptografía asimétrica para proporcionar seguridad.
-El cliente tiene una llave maestra que representa su identidad completa a través de Internet.
-Un par de claves públicas/privadas se genera utilizando el algoritmo de resumen +HMAC+ _(+SHA-256+)_.
+El cliente tiene una llave maestra que representa su identidad completa
+a través de Internet.
+Un par de claves públicas/privadas se genera
+utilizando el algoritmo de resumen +HMAC+ _(+SHA-256+)_.
 
-La llave maestra y el nombre de dominio (el sitio web en el que el usuario intenta autenticarse),
-son cifrados para derivar una clave privada que se manipula para derivar una llave pública.
-Cada sitio tiene un par de claves pública/privada distintas para diferentes usuarios
-pero el mismo usuario siempre tendrá el mismo par de claves pública/privada para el mismo sitio
+La llave maestra y el nombre de dominio
+(el sitio web en el que el usuario intenta autenticarse),
+son cifrados para derivar una clave privada
+que se manipula para derivar una llave pública.
+Cada sitio tiene un par de claves pública/privada distintas
+para diferentes usuarios, pero el mismo usuario siempre tendrá el mismo par
+de claves pública/privada para el mismo sitio,
 porque la clave maestra y el nombre de dominio nunca cambian.
 
 ["graphviz", "diagram1.png"]
@@ -136,25 +143,32 @@ image::llave-maestra.png[Foto llave maestra]
 
 Los teléfonos sirven como un identificador único
 que reúne el principio del doble factor de autenticación
-_"de algo que usted conoce y algo que usted tiene"_ para una seguridad flexible en capas.
-En pocas palabras, los teléfonos eliminan la necesidad de nombres de usuario y contraseñas.
+_"de algo que usted conoce y algo que usted tiene"_,
+para una seguridad flexible en capas.
+En pocas palabras, los teléfonos eliminan la necesidad
+de nombres de usuario y contraseñas.
 
-La dependencia del smartphone es algo que es muy discutido en muchos foros del protocolo +SQRL+,
-ya que ahí es donde se almacena nuestra llave maestra,
-si el dispositivo es robado o vulnerado por algún tipo de virus para dispositivos inteligentes
-perderíamos nuestra identidad ante todos los sitios registrados en Internet.
+La dependencia del +smartphone+ es algo que es muy discutido
+en muchos foros del protocolo +SQRL+,
+ya que ahí es donde se almacena nuestra llave maestra.
+Si el dispositivo es robado o vulnerado por algún tipo de virus
+para dispositivos inteligentes, perderíamos nuestra identidad
+ante todos los sitios registrados en Internet.
 
 == Equilibrio entre seguridad y usabilidad: ¿Es posible?
 
-El protocolo +SQRL+ tiene unos aumentos notables tanto en seguridad como en usabilidad,
-evita que el usuario teclee su contraseña en algún periférico de entrada,
-suprimiendo el almacenamiento de contraseñas en bases de datos que pueden ser comprometidas.
+El protocolo +SQRL+ tiene unos aumentos notables,
+tanto en seguridad como en usabilidad.
+Evita que el usuario teclee su contraseña en algún periférico de entrada,
+suprimiendo el almacenamiento de contraseñas en bases de datos
+que pueden ser comprometidas.
 
 El protocolo obliga a tener credenciales específicas para cada sitio.
 Así los atacantes no puedan reutilizar las credenciales comprometidas
 en otros sitios evitando la suplantación de identidad.
 
-+SQRL+ reduce el riesgo de un ataque a los usuarios logrando un equilibrio entre usabilidad y seguridad
++SQRL+ reduce el riesgo de un ataque a los usuarios,
+logrando un equilibrio entre usabilidad y seguridad
 sin sacrificar la confidencialidad de la información de los usuarios.
 
 == ¿Qué comen las ardillas?
@@ -162,16 +176,19 @@ sin sacrificar la confidencialidad de la información de los usuarios.
 image::ardilla-comiendo.gif[Squirrel masticando comida]
 
 Una de las ventajas más notables del +SQRL+,
-es que elimina la necesidad de que un tercero gestione las credenciales de los usuarios
-y evita que estos terceros como _(+OAuth2+, +OpenID+, +SAML 2.0+)_ guarden este tipo de informaciónsecreta.
+es que elimina la necesidad de que un tercero
+gestione las credenciales de los usuarios
+y evita que estos terceros, como _(+OAuth2+, +OpenID+, +SAML 2.0+)_
+guarden este tipo de información secreta.
 
 == Conclusiones
 
 +SQRL+ es muy superior a las contraseñas de distintas maneras.
 No solo es más fácil de usar una vez configurado en un sitio web,
-ya que los usuarios no tienen que preocuparse por recordar,volver a escribir o memorizar
-múltiples contraseñas diferentes para cada sitio
-sino que también protege contra la reutilización de contraseñas y/o contraseñas débiles,
+ya que los usuarios no tienen que preocuparse por recordar,
+volver a escribir o memorizar múltiples contraseñas diferentes
+para cada sitio, sino que también protege
+contra la reutilización de contraseñas y/o contraseñas débiles,
 y en cierta medida la suplantación de identidad.
 
 Hasta ahora el protocolo tiene algunas consideraciones de seguridad
@@ -179,8 +196,9 @@ como ataques de tipo +MitM+ _(+Man in the Middle+)_,
 suplantaciones de dominio usando +DNS+ poisoning e ingeniería social.
 Aunque sus vectores de ataque son más complicados de ejecutar.
 
-Lo que quiere lograr el +SQRL+ como 1er factor de autenticación es balancear las falencias
-que existen entre costo-beneficio durante los procesos de autenticación.
+Lo que quiere lograr el +SQRL+ como 1er factor de autenticación
+es balancear las falencias que existen entre costo-beneficio
+durante los procesos de autenticación.
 
 == References
 

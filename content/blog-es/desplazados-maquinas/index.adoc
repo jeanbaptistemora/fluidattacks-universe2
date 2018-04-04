@@ -74,7 +74,8 @@ Lastimosamente, no, las herramientas solamente
 determinan la existencia de una falla.
 El "cómo"  puede ser esa falla explotada y aprovechada
 por un atacante para afectar tu situación particular de negocio
-es una habilidad netamente humana, adquirida gracias a la misma malicia y experiencia mencionada anteriormente.
+es una habilidad netamente humana, adquirida gracias a la misma malicia
+y experiencia mencionada anteriormente.
 
 * Los falsos positivos, tal vez la mayor debilidad de los analizadores,
 reportar el hallazgo de una vulnerabilidad que,
@@ -231,7 +232,8 @@ image::coexistencia.png[Apretón de manos entre persona y robot]
 
 == Referencias
 
-. [[r1]] link:https://theconversation.com/twenty-years-on-from-deep-blue-vs-kasparov-how-a-chess-match-started-the-big-data-revolution-76882[Twenty years on from Deep Blue vs Kasparov: how a chess match started the big data revolution]
+. [[r1]] link:https://theconversation.com/twenty-years-on-from-deep-blue-vs-kasparov-how-a-chess-match-started-the-big-data-revolution-76882[Twenty years on from Deep Blue vs Kasparov:
+how a chess match started the big data revolution]
 . [[r2]] link:http://resources.infosecinstitute.com/automated-tools-vs-a-manual-approach/#gref[Automated Tools vs a Manual Approach]
 . [[r3]] link:https://www.netsparker.com/blog/web-security/owasp-top-10-web-security-scanner/[An Automated Scanner That Finds All OWASP Top 10 Security Flaws, Really?]
 . [[r4]] link:http://www.mmebvba.com/sites/default/files/downloads/bWAPP_sample_report.pdf[BWAPP OWASP TOP TEN 2013 SCAN REPORT SUMMARY]
