@@ -10,7 +10,7 @@
 
 +Asserts+ es un motor de automatización de *cierre* de hallazgos de seguridad sobre ambientes en ejecución +(DAST)+.
 
-.Flujo de uso
+.Caso de uso
 image::fluidassertses.png[Asserts]
 
 == 2. Ejecución

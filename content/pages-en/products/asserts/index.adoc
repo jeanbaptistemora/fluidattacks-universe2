@@ -11,7 +11,7 @@
 +Asserts+ is an engine to automate the *closing* of security findings
 over execution environments +(DAST)+.
 
-.Use flow
+.Use case
 image::fluidassertses.png[Asserts]
 
 == 2. Execution
