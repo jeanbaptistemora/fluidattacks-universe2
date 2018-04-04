@@ -48,10 +48,11 @@ or access to integration environment is required.
 
 a|== Monthly test limit
 
-The monthly scope limit in all scenarios
-is max +10+ repositories and +10K+ deltas per month.
-For limited continuous ethical hacking over applications
-monthly scope is max +10+ new application fields per month.
+The monthly scope for +1+ coherent system,
+with +1+ functional team and +1+ project leader,
+is up to +10+ repositories and +10K+ deltas per month.
+In case of only having the environment (application)
+the monthly scope is up to +10+ new entries per month.
 
 ^.^a|image:img4.png[alt="img4", width="55%"]
 

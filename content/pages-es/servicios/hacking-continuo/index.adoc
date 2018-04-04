@@ -48,7 +48,8 @@ o a un repositorio no +GIT+.
 
 a|== Límite de prueba mensual
 
-El alcance mensual en todos los escenarios
+El alcance mensual para +1+ sistema coherente,
+con +1+ equipo funcional y +1+ líder de proyecto,
 es hasta +10+ repositorios y +10K+ deltas mes.
 En caso de solo contar con el ambiente (aplicación)
 el alcance mensual es hasta +10+ entradas nuevas mes.
