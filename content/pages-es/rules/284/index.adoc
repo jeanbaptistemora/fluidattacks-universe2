@@ -1,0 +1,11 @@
+:slug: rules/284/
+:category: rules
+:description: En el presente documento se detallan los requerimientos de seguridad relacionados a la gestión adecuada de conexiones realizadas a través de un determinado puerto. Por lo tanto, en este criterio se recomienda que dentro de un sistema, todo puerto tenga establecido el máximo de conexiones.
+:keywords: Puerto, Conexión, IP, Requerimiento, Seguridad, Sistema.
+:rules: yes
+
+= REQ.284 Establecer máximo de conexiones en puerto
+
+== Nombre
+
+Un puerto debe tener un límite máximo de conexiones por +IP+ origen.

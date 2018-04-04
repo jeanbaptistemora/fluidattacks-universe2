@@ -225,6 +225,7 @@
 * link:281/[REQ.281 Configurar acceso a variables de entorno].
 * link:282/[REQ.282 Deshabilitar ejecución automática].
 * link:283/[REQ.283 Deshabilitar accesos en usuarios genéricos].
+* link:284/[REQ.284 Establecer máximo de conexiones en puerto].
 
 == Activos
 
