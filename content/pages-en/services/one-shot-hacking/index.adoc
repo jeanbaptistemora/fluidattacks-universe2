@@ -21,9 +21,9 @@ application or infrastructure Ethical Hacking.
 Customers are able to choose which testing technique
 suit best their needs regarding each system requiring security assessment.
 
-^.^a|image:img2.png[alt="img2", width="55%"]
+^.^a|image:ethical-hacking.png[alt="Ethical Hacking", width="55%"]
 
-^.^a|image:img3.png[alt="img3", width="55%"]
+^.^a|image:cobertura.png[alt="Ethical Hacking Scope", width="55%"]
 
 a|== Coverage
 
@@ -54,9 +54,9 @@ through our [button]#link:../../products/rules/[Rules]# product
 Customers will know the exact Ethical Hacking strictness for each test
 (For inspected and non-inspected profiled requirements).
 
-^.^a|image:img4.png[alt="img4", width="55%"]
+^.^a|image:criterio-seguridad.png[alt="Ethical Hacking Security Criteria", width="55%"]
 
-^.^a|image:img5.png[alt="img5", width="55%"]
+^.^a|image:duracion.png[alt="Ethical Hacking estimated time", width="55%"]
 
 a|== Specific length
 
@@ -68,9 +68,9 @@ a|== Follow up
 Each project will have a project manager,
 so customers can express their needs before, during and after execution.
 
-^.^a|image:img6.png[alt="img6", width="55%"]
+^.^a|image:seguimiento-proyecto.png[alt="Ethical Hacking follow up", width="55%"]
 
-^.^a|image:img7.png[alt="img7", width="55%"]
+^.^a|image:ejecucion-programada.png[alt="Scheduled Ethical Hacking", width="55%"]
 
 a|== Scheduled ethical hacking
 
@@ -83,9 +83,9 @@ Customers are able to choose one testing environment
 from their available software environments
 (production, development, integration, etc.)
 
-^.^a|image:img8.png[alt="img8", width="55%"]
+^.^a|image:ambientes-pruebas.png[alt="Ethical Hacking testing evironments", width="55%"]
 
-^.^a|image:img9.png[alt="img9", width="55%"]
+^.^a|image:equipo.png[alt="Ethical Hacking team", width="55%"]
 
 a|== Highly trained hacking team
 
@@ -104,9 +104,9 @@ a|== Exploitation
 As long as we have access to deployed applications and customer authorization,
 using our own exploitation engine [button]#link:../../products/asserts/[Asserts]#.
 
-^.^a|image:img10.png[alt="img10", width="55%"]
+^.^a|image:explotacion.png[alt="Ethical Hacking exploitation", width="55%"]
 
-^.^a|image:img11.png[alt="img11", width="55%"]
+^.^a|image:extraccion.png[alt="Ethical Hacking compromised records", width="55%"]
 
 a|== Critical information extraction
 
@@ -121,9 +121,9 @@ with malicious files in order to get additional information,
 infect servers and verify network controls.
 We use +Shells+ and customized +Trojans+ with previous customer authorization.
 
-^.^a|image:img12.png[alt="img12", width="55%"]
+^.^a|image:infeccion.png[alt="Ethical Hacking Infection", width="55%"]
 
-^.^a|image:img13.png[alt="img13", width="55%"]
+^.^a|image:informes-avance.png[alt="Ethical Hacking Progress reports", width="55%"]
 
 a|== Daily progress reports
 
@@ -135,9 +135,9 @@ a|== Finding follow up using Integrates
 Customers can check out finding status during project execution
 using our [button]#link:../../products/integrates/[Integrates]# product.
 
-^.^a|image:img14.png[alt="img14", width="55%"]
+^.^a|image:integrates.png[alt="Ethical Hacking findings", width="55%"]
 
-^.^a|image:img15.png[alt="img15", width="55%"]
+^.^a|image:remediacion.png[alt="Ethical Hacking Finding Remediation", width="55%"]
 
 a|== Remediation
 
@@ -149,10 +149,9 @@ a|== Reports delivered by secure vault
 Final report versions along with all evidences gathered
 are delivered to customers using a secure file transfer website.
 
+^.^a|image:boveda-segura.png[alt="Ethical Hacking information interchange", width="55%"]
 
-^.^a|image:img16.png[alt="img16", width="55%"]
-
-^.^a|image:img17.png[alt="img17", width="55%"]
+^.^a|image:validacion-informes.png[alt="Ethical Hacking report validation", width="55%"]
 
 a|== Report validation meeting
 
@@ -167,9 +166,9 @@ Formal executive report presentation meeting,
 where all project stakeholders can take part of it.
 It can take place personally or remotely according to customer's need.
 
-^.^a|image:img18.png[alt="img18", width="55%"]
+^.^a|image:reunion-entrega.png[alt="Ethical Hacking validation meeting", width="55%"]
 
-^.^a|image:img19.png[alt="img19", width="55%"]
+^.^a|image:borrado-informacion.png[alt="Ethical Hacking evidence deletion", width="55%"]
 
 a|== Information gets deleted securely
 
@@ -186,7 +185,7 @@ In order to arrange this, customer must provide system access
 and share final reports once again.
 In remediation cycle system does not get tested for new vulnerabilities.
 
-^.^a|image:img20.png[alt="img20", width="55%"]
+^.^a|image:retest.png[alt="Ethical Hacking retest", width="55%"]
 
 |====
 
