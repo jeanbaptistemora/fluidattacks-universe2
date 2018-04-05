@@ -141,6 +141,7 @@ ver como lo que nos enseñan se aplican a espacios reales.
 La gente de +OffSec+ nos ofrecen otro buen curso,
 cubrió mis expectativas y lo recomiendo,
 aunque depende de nuestros objetivos el tomarlo o no,
-en lo personal lo aprendido en el curso lo he podido aplicar en diferentes pruebas,
+en lo personal lo aprendido en el curso
+lo he podido aplicar en diferentes pruebas,
 Así concluye la segunda parte de la historia, el camino de +WiFi+,
 aúnque espero no sea la última.
