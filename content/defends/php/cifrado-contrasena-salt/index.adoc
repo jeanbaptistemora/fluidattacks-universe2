@@ -12,8 +12,8 @@ Resumen de mensaje con +salt+ para contraseñas en +PHP+ v5.3
 
 == Contexto
 
-A continuación se describen las circunstancias bajo las cuales la siguiente solución tiene
-sentido:
+A continuación se describen las circunstancias
+bajo las cuales la siguiente solución tiene sentido:
 
 . Se desarrolla una aplicación en +PHP+ v5.3
 . Se requiere el uso de funciones de resumen (+hash+) para cifrado de
@@ -22,12 +22,15 @@ contraseñas.
 
 == Solución
 
-Con el fin de mejorar la seguridad de un sistema en el cual se utilizan contraseñas,
-se debe implementar un algoritmo de cifrado en conjunto a un valor +SALT+ generado de forma aleatoria.
+Con el fin de mejorar la seguridad de un sistema
+en el cual se utilizan contraseñas, se debe implementar
+un algoritmo de cifrado en conjunto a un valor +SALT+
+generado de forma aleatoria.
 
-La +SALT+ actúa como una +seed+ que permitirá al algoritmo de cifrado tener en cuenta esos valores para
-generar el +hash+ resultante.
-Esto garantiza que la contraseña será mucho más complicada de romper para un atacante y por ende, más segura.
+La +SALT+ actúa como una +seed+ que permitirá al algoritmo de cifrado
+tener en cuenta esos valores para generar el +hash+ resultante.
+Esto garantiza que la contraseña será mucho más complicada de romper
+para un atacante y por ende, más segura.
 
 . Vamos a emplear el algoritmo +SHA256+ y para su utilización se debe
 hacer uso de la función de +PHP+ +crypt+ en función del +SALT+.
@@ -75,9 +78,11 @@ else {
 ?>
 ----
 
-Los valores generados aleatoriamente que componen la +SALT+ no deben reutilizarse, puesto que podrían facilitar a un atacante
-la tarea romper la contraseña y obtener acceso al sistema.
-Es importante tener en cuenta que en caso de que se requiera almacenar los valores usados como +SALT+ por cada contraseña,
+Los valores generados aleatoriamente que componen la +SALT+
+no deben reutilizarse, puesto que podrían facilitar
+a un atacante la tarea romper la contraseña y obtener acceso al sistema.
+Es importante tener en cuenta que en caso de que se requieran almacenar
+los valores usados como +SALT+ por cada contraseña,
 se debe optar por hacerlo en una base de datos a parte,
 de forma que si la base de datos principal se ve comprometida,
 se pueda evitar accesos al sistema por parte autores maliciosos.

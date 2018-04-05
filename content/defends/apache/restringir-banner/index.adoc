@@ -91,7 +91,8 @@ define SERVER_BASEPRODUCT "Apache"
 define SERVER_BASEPRODUCT "Server"
 ----
 
-. Bajar el servicio +Apache+, recompilar, reinstalar e iniciar el servicio +Apache+.
+. Bajar el servicio +Apache+, recompilar, reinstalar
+e iniciar el servicio +Apache+.
 
 == Referencias
 

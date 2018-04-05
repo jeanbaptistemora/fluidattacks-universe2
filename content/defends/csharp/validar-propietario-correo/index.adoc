@@ -147,4 +147,5 @@ todas las instrucciones +C#+ del programa.
 
 . [[r1]] link:http://msdn.microsoft.com/en-us/library/system.net.mail.smtpclient.aspx[SmtpClient Class (MSDN)]
 . [[r2]] link:http://leedumond.com/blog/new-in-net-4-dont-forget-to-dispose-your-smtpclient-instances/[New in .NET 4: Don’t Forget to Dispose() your SmtpClient Instances]
-. [[r3]] REQ.0115: El sistema debe garantizar que el correo electrónico declarado realmente pertenece a la persona en cuestión.
+. [[r3]] REQ.0115: El sistema debe garantizar que el correo electrónico
+declarado realmente pertenece a la persona en cuestión.

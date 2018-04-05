@@ -229,7 +229,8 @@ son aquellos que tengan el rol de +SupervisorNacional+.
 
 == Referencias
 
-. [[r1]] link:https://weblogs.asp.net/scottgu/423703[Configuring ASP.NET 2.0 Application Services to use SQL Server 2000 or SQL Server 2005].
+. [[r1]] link:https://weblogs.asp.net/scottgu/423703[Configuring ASP.NET 2.0 Application Services
+to use SQL Server 2000 or SQL Server 2005].
 
 . [[r2]] link:https://msdn.microsoft.com/es-es/library/ms229862.aspx[Herramienta Registro de SQL Server para ASP.NET (Aspnet_regsql.exe)].
 

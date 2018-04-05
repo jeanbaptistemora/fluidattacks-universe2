@@ -90,6 +90,7 @@ se encuentren deshabilitados:
 
 == Referencias
 
-. [[r1]] REQ.0267: La organización debe deshabilitar las funciones innecesarias de un sistema.
+. [[r1]] REQ.0267: La organización debe deshabilitar
+las funciones innecesarias de un sistema.
 . [[r2]] link:https://es.wikipedia.org/wiki/Puerto_(inform%C3%A1tica)[Puerto (informática)].
 . [[r3]] link:https://support.microsoft.com/es-co/help/813878/how-to-block-specific-network-protocols-and-ports-by-using-ipsec[Deshabilitar protocolos y puertos].

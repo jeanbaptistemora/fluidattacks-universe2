@@ -45,7 +45,8 @@ un usuario que requiera ejecutar dicha llamada al sistema
 o acción privilegiada, requiere:
 
 * Permisos de ejecución en el comando que ejecuta la llamada al sistema.
-* Conocer la contraseña de +root+ para iniciar una +shell+ y ejecutar el comando.
+* Conocer la contraseña de +root+
+para iniciar una +shell+ y ejecutar el comando.
 * O el comando en cuestión debe tener habilitado el bit +SUID+.
 
 . Debido a esta situación,
@@ -73,7 +74,8 @@ que se pueden asignar a un proceso
 y con los cuales se harán las verificaciones correspondientes
 dentro de las llamadas al sistema.
 
-. Los privilegios definidos para un sistema +AIX+ pueden verse mediante la orden:
+. Los privilegios definidos para un sistema +AIX+
+pueden verse mediante la orden:
 +
 [source, shell, linenums]
 ----
@@ -109,17 +111,46 @@ a un proceso con granularidad fina (detallada) o gruesa (agrupada).
 . La jerarquía de privilegios es la siguiente<<r2,^[2]^>>:
 +
 .Jerarquía de nombres de privilegios.
-[options="header"]
+[cols="^,,^",options="header"]
 |====
-|Privilegio        |Significado                                                                          |Número de Privilegios
-|+PV_NET_+.        |Privilegios sobre las llamadas al sistema relacionadas con la red.                   |4.
-|+PV_FS_+.         |Privilegios sobre las llamadas al sistema relacionadas con sistemas de archivos.     |9.
-|+PV_AU_+.         |Privilegios sobre las llamadas al sistema relacionadas con auditoria.                |5.
-|+PV_KER_+.        |Privilegios sobre las llamadas al sistema relacionadas con el núcleo (+kernel+).     |21.
-|+PV_PROC_+.       |Privilegios sobre las llamadas al sistema relacionadas con los procesos.             |13.
-|+PV_DAC_+.        |Privilegios sobre las llamadas al sistema relacionadas con los autorización.         |7.
-|+PV_SU_+.         |Todos los privilegios propios del super-administrador.                               |3.
-|+PV_ROOT+.        |Todos los privilegios excepto los de +PV_SU_+.                                       |-.
+|Privilegio
+|Significado
+|Número de Privilegios
+
+|+PV_NET_+.
+|Privilegios sobre las llamadas al sistema relacionadas con la red.
+|4.
+
+|+PV_FS_+.
+|Privilegios sobre las llamadas al sistema
+relacionadas con sistemas de archivos.
+|9.
+
+|+PV_AU_+.
+|Privilegios sobre las llamadas al sistema relacionadas con auditoria.
+|5.
+
+|+PV_KER_+.
+|Privilegios sobre las llamadas al sistema
+relacionadas con el núcleo (+kernel+).
+|21.
+
+|+PV_PROC_+.
+|Privilegios sobre las llamadas al sistema relacionadas con los procesos.
+|13.
+
+|+PV_DAC_+.
+|Privilegios sobre las llamadas al sistema relacionadas con los autorización.
+|7.
+
+|+PV_SU_+.
+|Todos los privilegios propios del super-administrador.
+|3.
+
+|+PV_ROOT+.
+|Todos los privilegios excepto los de +PV_SU_+.
+|-.
+
 |====
 
 . Finalmente puede observarse los privilegios
@@ -139,8 +170,8 @@ para ejecutar el comando +/usr/bin/chgrp+ se realizará:
 ----
 . Indicando que para ejecutar el comando +/usr/bin/chgrpr+
 los privilegios requeridos para ejecutar el mismo en modo +RBAC+
-(verificación a partir de privilegios
-y no verificación a partir de credenciales +DAC+) son: +PV_DAC_O+ y +PV_FS_CHOWN+.
+(verificación a partir de privilegios y no verificación
+a partir de credenciales +DAC+) son: +PV_DAC_O+ y +PV_FS_CHOWN+.
 
 == Referencias
 

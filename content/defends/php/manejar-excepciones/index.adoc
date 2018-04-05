@@ -126,12 +126,15 @@ Para facilitar esta tarea,
 también se puede considerar el uso de +loggers+ que permitan
 llevar un registro seguro y controlado que pueda ser usado para +debugging+.
 
-* Se debe considerar adicionalmente la implementación de mensajes personalizados desde el +front-end+ para eventos de error, con el fin
-de evitar exponer algún tipo de información que permita a un posible atacante identificar patrones de respuesta a sus
-acciones maliciosas.
+* Se debe considerar adicionalmente la implementación de mensajes personalizados
+desde el +front-end+ para eventos de error,
+con el fin de evitar exponer algún tipo de información
+que permita a un posible atacante identificar patrones de respuesta
+a sus acciones maliciosas.
 
-* Al implementar excepciones se debe evitar repetir código, por lo cual debería centralizarse todos los elementos
-comúnes que se usarán en caso de que una excepción ocurra.
+* Al implementar excepciones se debe evitar repetir código,
+por lo cual deberían centralizarse todos los elementos comúnes
+que se usarán en caso de que una excepción ocurra.
 Puede ver más información al respecto [button]#link:../../java/evitar-codigo-duplicado/[aquí]#
 
 == Referencias

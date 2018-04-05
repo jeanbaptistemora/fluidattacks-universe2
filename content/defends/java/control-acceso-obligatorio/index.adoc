@@ -216,7 +216,8 @@ Clase CLI.
 == Referencias
 
 . [[r1]] link:https://en.wikipedia.org/wiki/Mandatory_access_control[Mandatory access control]
-. [[r2]] link:http://ieeexplore.ieee.org/abstract/document/6913208/?reload=true[Security Enhanced Java: Mandatory Access Control for the Java Virtual Machine]
+. [[r2]] link:http://ieeexplore.ieee.org/abstract/document/6913208/?reload=true[Security Enhanced Java: Mandatory Access Control
+for the Java Virtual Machine]
 . [[r3]] REQ.0171: El sistema debe restringir el acceso a objetos del sistema
 que tengan contenido sensible.
 Solo permitirá acceso a usuarios autorizados.

@@ -28,7 +28,8 @@ se debe utilizar +StringBuffer+ en vez de StringBuilder.
 para representar las cadenas de caracteres:
 
 * *Cadenas mutables:* Una vez instanciada una cadena su valor puede cambiar.
-* *Cadenas inmutables:* Una vez instanciada una cadena su valor no puede cambiar.
+* *Cadenas inmutables:* Una vez instanciada una cadena
+su valor no puede cambiar.
 
 Teniendo en consideración lo anterior,
 es ideal utilizar cadenas inmutables

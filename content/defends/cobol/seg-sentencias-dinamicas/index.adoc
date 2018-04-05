@@ -15,7 +15,8 @@ Seguridad de las sentencias +SQL+ dinámicas para +z/OS+ y +OS/400+.
 A continuación se describe las circunstancias
 bajo las cuales la siguiente solución tiene sentido:
 
-. Se está desarrollando una aplicación en el sistema operativo +z/OS+ o +OS/400+.
+. Se está desarrollando una aplicación
+en el sistema operativo +z/OS+ o +OS/400+.
 . La aplicación hace uso de sentencias dinámicas.
 . Los privilegios para objetos nuevos
 deben establecerse según el principio de mínimo privilegio (+umask+)<<r1,^[1]^>>.
@@ -41,9 +42,13 @@ para ejecutar el programa de procesador de +SQL+.
 que permite ejecutar sentencias de forma libre sin ningún tipo de control.
 
 .Seguridad de las aplicaciones al usar sentencias +SQL+ dinámicas.
-[options="header"]
+[cols=5,options="header"]
 |====
-|¿El procesador de +SQL+ permite ejecución libre de +SQL+? |¿El usuario tiene la autorización de +DB2+ para acceder a los objetos? |Opción de enlace +DYNAMICRULES+ |Implicación de seguridad |Análisis
+|¿El procesador de +SQL+ permite ejecución libre de +SQL+?
+|¿El usuario tiene la autorización de +DB2+ para acceder a los objetos?
+|Opción de enlace +DYNAMICRULES+
+|Implicación de seguridad
+|Análisis
 
 .2+|Sí
 .2+|Sí

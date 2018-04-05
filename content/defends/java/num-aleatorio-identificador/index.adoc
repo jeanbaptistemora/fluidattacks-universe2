@@ -230,4 +230,5 @@ Uso de +nextInt+ y +nextBytes+.
 . [[r4]] link:https://javamex.com/tutorials/random_numbers/generators_overview.shtml[Alternatives to java.util.Random]
 . [[r5]] link:https://docs.oracle.com/javase/7/docs/api/java/security/SecureRandom.html[Class SecureRandom]
 . [[r6]] link:https://www.owasp.org/index.php/Insecure_Randomness[Insecure Randomness]
-. [[r7]] link:http://www.componentix.com/blog/6/using-cryptographically-strong-random-number-generator-with-securerandom-in-java[Using cryptographically strong random number generator with SecureRandom in Java]
+. [[r7]] link:http://www.componentix.com/blog/6/using-cryptographically-strong-random-number-generator-with-securerandom-in-java[Using cryptographically strong random number generator
+with SecureRandom in Java]

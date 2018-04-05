@@ -120,7 +120,8 @@ while ((word = dictionary.ReadLine()) != null)
      }
 ----
 
-. La siguiente es una lista de diccionarios que se recomiendan para hacer la búsqueda:
+. La siguiente es una lista de diccionarios
+que se recomiendan para hacer la búsqueda:
 
 .. link:http://dazzlepod.com/uniqpass/[dazzlepod, uniqpass]
 .. link:http://www.openwall.com/wordlists/[openwall, wordlists]

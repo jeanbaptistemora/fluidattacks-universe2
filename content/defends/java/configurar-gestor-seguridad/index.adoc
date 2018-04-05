@@ -41,7 +41,8 @@ se deben considerar los siguientes aspectos:
 Este debe ser desplegado en el directorio
 +$JAVA_HOME/jre/lib/security/nombreAplicacion/+,
 donde +$JAVA_HOME+ es el directorio raíz del +Java+
-y +nombreAplicacion+ es el directorio que corresponde al nombre de la aplicación.
+y +nombreAplicacion+ es el directorio que corresponde
+al nombre de la aplicación.
 
 . Se debe modificar el archivo +$JAVA_HOME/jre/lib/security/java.security+
 con el propósito de ingresar una nueva entrada
@@ -126,7 +127,8 @@ y consta de un nombre de ruta y un conjunto de acciones validas para esa ruta.
 y consta de una dirección de +host+
 y un conjunto de acciones especificando formas de conectar.
 
-. +PropertyPermission+ y +SocketPermission+ se establecen de la siguiente manera.
+. +PropertyPermission+ y +SocketPermission+ se establecen
+de la siguiente manera.
 +
 [source, java, linenums]
 ----

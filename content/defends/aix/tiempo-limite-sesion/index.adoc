@@ -56,7 +56,8 @@ typeset -xr TMOUT=300
 
 . Con la parametrización anterior
 se logra que la variable sea definida como de solo lectura (+-r+),
-por tal motivo los usuarios no pueden eliminarla o establecerla en un nuevo valor.
+por tal motivo los usuarios no pueden eliminarla
+o establecerla en un nuevo valor.
 La variable será copiada (exportada, +-x+) a +shells+ hijos del +shell+ actual.
 
 . Si a nivel de sistema no se define política de tiempo de vida
@@ -98,8 +99,9 @@ mié jun 9 16:15:04 COT 2010
 mié jun 9 16:15:13 COT 2010
 ----
 
-. En el ejemplo anterior vemos como un +shell+ tipo +c+ a pesar de tener definida
-(exportada) la variable de entorno +TMOUT+, hace caso omiso de su comportamiento.
+. En el ejemplo anterior vemos como un +shell+ tipo +c+,
+a pesar de tener definida(exportada) la variable de entorno +TMOUT+,
+hace caso omiso de su comportamiento.
 
 == Referencias
 

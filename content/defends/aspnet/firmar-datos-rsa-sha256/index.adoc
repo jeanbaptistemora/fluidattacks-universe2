@@ -85,7 +85,8 @@ RSACryptoServiceProvider key = new RSACryptoServiceProvider();
 key.FromXmlString(privateCert.PrivateKey.ToXmlString(true));
 ----
 
-. Una vez que se tiene esto listo, se procede a firmar los datos. Pero antes, se necesitan datos que firmar.
+. Una vez que se tiene esto listo, se procede a firmar los datos.
+Pero antes, se necesitan datos que firmar.
 +
 [source,java,linenums]
 ----

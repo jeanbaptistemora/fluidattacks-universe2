@@ -139,7 +139,8 @@ pero está inicializada en blanco):
 * +ERRHDL1+
 
 . Este programa es el encargado de recibir las excepciones
-y posteriormente registrarlas a través de la interfaz de programación +QPDLOGER+.
+y posteriormente registrarlas a través de la interfaz
+de programación +QPDLOGER+.
 
 . Se da inicio al programa mediante la división +IDENTIFICATION DIVISION+:
 +

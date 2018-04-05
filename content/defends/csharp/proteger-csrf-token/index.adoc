@@ -162,4 +162,5 @@ todas las instrucciones +C#+ del programa.
 
 . [[r1]] link:http://palpapers.plynt.com/issues/2010Apr/secure-coding-aspdotnet-p2/[Palpapers, securecodingaspdotnet]
 . [[r2]] link:http://www.owasp.org/index.php/Cross-Site_Request_Forgery_(CSRF)_Prevention_Cheat_Sheet[owasp, Cross-SiteRequestForgery(CSRF) Prevention Cheat Sheet]
-. [[r3]] REQ.0169: La aplicación debe garantizar que las peticiones que reciba a recursos no sigan un patrón discernible.
+. [[r3]] REQ.0169: La aplicación debe garantizar que las peticiones que reciba
+a recursos no sigan un patrón discernible.

@@ -162,11 +162,16 @@ en la variable final:
 . La siguiente tabla muestra dos cadenas probadas con el programa:
 +
 .Salida obtenida al ejecutar el programa.
-[options="header"]
+[cols=2,options="header"]
 |====
-|Cadena |Resultado
-|<script>alert(document.cookie); </script>  |\&lt;script\&gt;alert(document.cookie);\&nbsp;\&lt;/script\&gt;
-|Valid string<                              |Valid string\&lt;
+|Cadena
+|Resultado
+
+|<script>alert(document.cookie); </script>
+|\&lt;script\&gt;alert(document.cookie);\&nbsp;\&lt;/script\&gt;
+
+|Valid string<
+|Valid string\&lt;
 |====
 
 == Descargas

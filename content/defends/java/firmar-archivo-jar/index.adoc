@@ -82,7 +82,8 @@ export CLASSPATH=src
 javac src/com/FLUID/CLI.java
 ----
 
-. Se debe crear el archivo +MANIFEST.MF+ requerido al momento de crear el +.jar+.
+. Se debe crear el archivo +MANIFEST.MF+
+requerido al momento de crear el +.jar+.
 +
 [source, shell, linenums]
 ----

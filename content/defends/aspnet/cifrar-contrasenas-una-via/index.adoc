@@ -16,7 +16,8 @@ para cifrar información confidencial.
 A continuación se describen las circunstancias
 bajo las cuales la siguiente solución tiene sentido:
 
-. La aplicación esta hecha en cualquier lenguaje del +.NET Framework+ (+C#+, +VB+).
+. La aplicación esta hecha en cualquier lenguaje
+del +.NET Framework+ (+C#+, +VB+).
 . La aplicación requiere cifrar información confidencial.
 
 == Solución

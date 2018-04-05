@@ -28,7 +28,8 @@ Es posible utilizar la Herramienta Registro de +IIS+ de +ASP.NET+
 de un archivo de configuración Web.
 +ASP.NET+ descifrará automáticamente los elementos
 de configuración cifrados al procesar el archivo +Web.config+.
-La herramienta +Aspnet_regiis.exe+ está ubicada en la carpeta +%WINDIR%\Microsoft.NET\Framework\versionNumber+.
+La herramienta +Aspnet_regiis.exe+ está ubicada en la carpeta
++%WINDIR%\Microsoft.NET\Framework\versionNumber+.
 También puede utilizar las clases de configuración protegida
 del espacio de nombres +System.Configuration+
 para cifrar y descifrar secciones

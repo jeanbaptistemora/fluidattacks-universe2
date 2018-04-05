@@ -135,5 +135,7 @@ image::code-group-properties.png[Propiedades del Grupo de Código]
 
 . [[r1]] link:http://www.codeproject.com/Articles/5724/Understanding-NET-Code-Access-Security[Codeproject, Understanding NET Code Access Security]
 . [[r2]] link:https://msdn.microsoft.com/en-us/library/5ayb8fx6(v=vs.100).aspx[How to: Modify Permissions in a Permission Set]
-. [[r3]] REQ.0264: Los privilegios para objetos nuevos deben establecerse según el principio de mínimo privilegio (umask).
-. [[r4]] REQ.0171: El sistema debe restringir el acceso a objetos del sistema que tengan contenido sensible. Solo permitirá acceso a usuarios autorizados.
+. [[r3]] REQ.0264: Los privilegios para objetos nuevos deben establecerse
+según el principio de mínimo privilegio (umask).
+. [[r4]] REQ.0171: El sistema debe restringir el acceso a objetos del sistema
+que tengan contenido sensible. Solo permitirá acceso a usuarios autorizados.

@@ -132,7 +132,8 @@ reinicializamos el contador y continuamos con el proceso:
        FOR CHARACTERS
        BEFORE INITIAL SPACE
 ----
-. Si contiene un nombre de dominio, procedemos a realizar la última parte del proceso:
+. Si contiene un nombre de dominio,
+procedemos a realizar la última parte del proceso:
 +
 [source,cobol,linenums]
 ----

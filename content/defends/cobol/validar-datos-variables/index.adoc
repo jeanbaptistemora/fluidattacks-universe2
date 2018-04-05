@@ -150,9 +150,14 @@ y la almacenamos en la variable +W01-INPUT+:
 . En la siguiente tabla podrá encontrar algunos casos de prueba:
 +
 .Salida obtenida luego de ejecutar el programa para diferentes datos de entrada.
-[options="header"]
+[cols="^,^,^,^,^,^",options="header"]
 |===
-|Entrada |Numérico |Alfabético |Alfabético minus |Alfabético mayus |Clase personalizada
+|Entrada
+|Numérico
+|Alfabético
+|Alfabético minus
+|Alfabético mayus
+|Clase personalizada
 
 |0000001234
 |X
@@ -168,7 +173,7 @@ y la almacenamos en la variable +W01-INPUT+:
 |
 |
 
-|FLUID
+|+FLUIDAttacks+
 |
 |X
 |

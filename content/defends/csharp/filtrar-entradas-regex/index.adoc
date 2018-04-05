@@ -116,4 +116,5 @@ todas las instrucciones +C#+ del programa.
 
 . [[r1]] link:https://msdn.microsoft.com/en-us/library/system.text.regularexpressions.aspx[MSDN System.Text.RegularExpressions Namespace]
 . [[r2]] link:https://docs.microsoft.com/en-us/dotnet/standard/base-types/best-practices[Best Practices for Regular Expressions in .NET]
-. [[r3]] REQ.0168: El sistema debe descartar toda la información potencialmente insegura que sea recibida por entradas de datos.
+. [[r3]] REQ.0168: El sistema debe descartar toda la información
+potencialmente insegura que sea recibida por entradas de datos.

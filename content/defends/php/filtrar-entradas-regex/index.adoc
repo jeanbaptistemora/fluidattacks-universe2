@@ -8,12 +8,13 @@
 
 == Necesidad
 
-Filtrar la entrada de un usuario en una aplicación para evitar problemas de seguridad
+Filtrar la entrada de un usuario en una aplicación
+para evitar problemas de seguridad
 
 == Contexto
 
-A continuación se describen las circunstancias bajo las cuales la siguiente solución tiene
-sentido:
+A continuación se describen las circunstancias
+bajo las cuales la siguiente solución tiene sentido:
 
 . La aplicación está hecha en +PHP+
 . Se tiene acceso para modificar la aplicación
@@ -28,7 +29,8 @@ contenido que se ingrese en las entradas de datos (+input+) de la aplicación.
 +
 Esto muy importante en todo programa,
 pues se debe prevenir posibles intentos
-de ejecución de scripts al usar caracteres que le indiquen al sistema no interpretar
+de ejecución de scripts al usar caracteres
+que le indiquen al sistema no interpretar
 lo ingresado como una +string+,
 sino como código a ejecutar.
 
@@ -135,14 +137,17 @@ con el caracter de escape +\+ para el apóstrofo.
 
 * Tenga en cuenta que las expresiones regulares,
 además de ayudar a prevenir ataques de +XSS+,
-también pueden ser de utilidad para definir ya sea validar campos de forma básica o
-para prevenir fallas similares en campos que alteren las consultas +SQL+ internas.
+también pueden ser de utilidad para definir,
+ya sea validar campos de forma básica, o para prevenir fallas similares
+en campos que alteren las consultas +SQL+ internas.
 
 * Si usted desea conocer más sobre este tema,
 lo invitamos a leer el siguiente artículo del blog de +FLUIDAttacks+,
-elaborado por uno de nuestros ethical hackers: [button]#link:../../../blog/mandamiento-validar-entradas/[Mandamiento #1: validar entradas]#
+elaborado por uno de nuestros ethical hackers:
+[button]#link:../../../blog/mandamiento-validar-entradas/[Mandamiento #1: validar entradas]#
 
-* Para más información sobre el uso de +regex+, puede visitar la link:http://php.net/manual/es/function.preg-match.php[Web oficial de PHP]
+* Para más información sobre el uso de +regex+,
+puede visitar la link:http://php.net/manual/es/function.preg-match.php[Web oficial de PHP]
 
 == Referencias
 

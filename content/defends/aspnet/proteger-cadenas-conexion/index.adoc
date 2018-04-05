@@ -118,7 +118,8 @@ aspnet_regiis -pd "connectionStrings" -app "/AppName"
 
 . [[r2]] link:https://msdn.microsoft.com/es-es/library/bf7sd233(VS.80).aspx[Microsoft, connectionStrings].
 
-. [[r3]] link:https://msdn.microsoft.com/en-us/library/53tyfkaw.aspx[Microsoft, Encrypting Configuration Information Using Protected Configuration].
+. [[r3]] link:https://msdn.microsoft.com/en-us/library/53tyfkaw.aspx[Microsoft, Encrypting Configuration Information
+Using Protected Configuration].
 
 . [[r4]] link:https://msdn.microsoft.com/en-us/library/zhhddkxy.aspx[Microsoft, Encrypting and Decrypting Configurations Sections].
 

@@ -161,4 +161,5 @@ todas las instrucciones +C#+ del programa.
 
 . [[r1]] link:https://msdn.microsoft.com/en-us/library/system.security.cryptography.aes(v=vs.90).aspx[System.Security.Criptography]
 . [[r2]] link:https://www.codeproject.com/Articles/769741/Csharp-AES-bits-Encryption-Library-with-Salt[C# AES 256 bits Encryption Library with Salt]
-. [[r3]] REQ.0144: Debe utilizarse como mecanismo de cifrado simétrico un tamaño de clave mínimo de 256 bits.
+. [[r3]] REQ.0144: Debe utilizarse como mecanismo de cifrado simétrico
+un tamaño de clave mínimo de 256 bits.
