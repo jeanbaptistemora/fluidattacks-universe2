@@ -171,6 +171,7 @@
 * link:239/[REQ.239 Criterio de seguridad con requisitos legales].
 * link:240/[REQ.240 Automatizar revisión de código fuente].
 * link:241/[REQ.241 Definir requisitos de criterio de seguridad].
+* link:242/[REQ.242 Realizar soporte fuera de producción].
 
 == Servicios
 
