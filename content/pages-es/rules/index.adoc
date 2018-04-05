@@ -169,6 +169,7 @@
 == Proceso desarrollo
 
 * link:239/[REQ.239 Criterio de seguridad con requisitos legales].
+* link:240/[REQ.240 Automatizar revisión de código fuente].
 
 == Servicios
 
