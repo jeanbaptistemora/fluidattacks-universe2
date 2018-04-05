@@ -279,7 +279,7 @@ a|==== Cycles
 link:../continuous-hacking/#remediation-validation[^23^].
 | {no}  Only 1.
 
-a|==== link:../../blog/replaced-machines/[Leaks]
+a|==== link:../../blog/replaced-machines/[Escapes]
 | {yes} 0% on the agreed link:#scope[scope].
 | {no} ~65% on the agreed link:#scope[scope].
 
