@@ -1,0 +1,13 @@
+:slug: rules/239/
+:category: rules
+:description: En el presente documento se detallan los requerimientos de seguridad relacionados a la gestión adecuada del proceso de desarrollo con el que cuenta una organización. En este caso, se habla sobre la legalidad de los criterios de seguridad que aplican en la seguridad de información.
+:keywords: Criterio, Seguridad, Organización, Legalidad, Requisito, Información.
+:rules: yes
+
+= REQ.239 Criterio de seguridad con requisitos legales
+
+== Nombre
+
+El criterio de seguridad de la organización
+debe incluir los requisitos legales específicos
+que aplican sobre la seguridad de información.

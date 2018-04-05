@@ -166,6 +166,10 @@
 * link:260/[REQ.260 Utilizar correos alternos].
 * link:261/[REQ.261 No exponer información corporativa].
 
+== Proceso desarrollo
+
+* link:239/[REQ.239 Criterio de seguridad con requisitos legales].
+
 == Servicios
 
 * link:262/[REQ.262 Verificar componentes de terceros].
