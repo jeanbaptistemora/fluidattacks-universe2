@@ -1,0 +1,13 @@
+:slug: rules/228/
+:category: rules
+:description: En el presente documento se detallan los requerimientos de seguridad relacionados a la gestión segura de autenticación de usuarios. En este caso, se recomienda que el proceso de autenticación unificado se lleve a cabo por medio de protocolos estándar.
+:keywords: Protocolo, Estándar, Cuenta Usuario, Autenticación, SSO, SAML.
+:rules: yes
+
+= REQ.228 Autentificar mediante protocolos estándar
+
+== Nombre
+
+El Proceso de Autenticación unificado
+(+SSO: Single Sign On+) debe implementarse
+mediante protocolos estándar (ej: +SAML+).
