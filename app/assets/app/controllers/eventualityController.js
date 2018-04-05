@@ -124,10 +124,10 @@ integrates.controller("eventualityController", function ($scope, $uibModal, $tra
     if (sel.length == 0) {
       Rollbar.error("Error: No events are selected");
       $.gritter.add({
-        "title": "Error",
-        "text": event_select,
         "class_name": "color warning",
-        "sticky": false
+        "sticky": false,
+        "text": event_select,
+        "title": "Error"
       });
       return false;
     }
@@ -135,8 +135,6 @@ integrates.controller("eventualityController", function ($scope, $uibModal, $tra
 
     const modalInstance = $uibModal.open({
       "animation": true,
-      "templateUrl": "ver.html",
-      "windowClass": "ver-modal",
       "controller" ($scope, $uibModalInstance, currentEventuality) {
         if (currentEventuality.afectacion == "") {
           currentEventuality.afectacion = "0";
@@ -151,7 +149,9 @@ integrates.controller("eventualityController", function ($scope, $uibModal, $tra
         "currentEventuality" () {
           return $scope.currentEventuality;
         }
-      }
+      },
+      "templateUrl": "ver.html",
+      "windowClass": "ver-modal"
     });
   };
 
@@ -164,15 +164,15 @@ integrates.controller("eventualityController", function ($scope, $uibModal, $tra
   $scope.openModalAvance = function () {
     const modalInstance = $uibModal.open({
       "animation": true,
-      "templateUrl": "avance.html",
-      "windowClass": "modal avance-modal",
       "controller" ($scope, $uibModalInstance) {
         $scope.rows = $("#eventualities").bootstrapTable("getData");
         $scope.closeModalAvance = function () {
           $uibModalInstance.close();
         };
       },
-      "resolve": {"ok": true}
+      "resolve": {"ok": true},
+      "templateUrl": "avance.html",
+      "windowClass": "modal avance-modal"
     });
   };
 
@@ -187,10 +187,10 @@ integrates.controller("eventualityController", function ($scope, $uibModal, $tra
     if (sel.length == 0) {
       Rollbar.error("Error: No events are selected");
       $.gritter.add({
-        "title": "Error",
-        "text": event_select,
         "class_name": "color warning",
-        "sticky": false
+        "sticky": false,
+        "text": event_select,
+        "title": "Error"
       });
       return false;
     }
@@ -199,8 +199,6 @@ integrates.controller("eventualityController", function ($scope, $uibModal, $tra
 
     const modalInstance = $uibModal.open({
       "animation": true,
-      "templateUrl": "editar.html",
-      "windowClass": "ver-modal",
       "controller" ($scope, $uibModalInstance, currentEventuality) {
         if (currentEventuality.afectacion == "") {
           currentEventuality.afectacion = "0";
@@ -220,20 +218,20 @@ integrates.controller("eventualityController", function ($scope, $uibModal, $tra
           catch (e) {
             Rollbar.error("Error: Affectation can not be a negative number");
             $.gritter.add({
-              "title": attent_title,
-              "text": event_positiveint,
               "class_name": "color warning",
-              "sticky": false
+              "sticky": false,
+              "text": event_positiveint,
+              "title": attent_title
             });
             return false;
           }
           eventualityFactory.updateEvnt($scope.evnt).then(function (response) {
             if (!response.error) {
               $.gritter.add({
-                "title": updated_title,
-                "text": event_updated,
                 "class_name": "color success",
-                "sticky": false
+                "sticky": false,
+                "text": event_updated,
+                "title": updated_title
               });
               integrates.updateEvntRow($scope.evnt);
               $uibModalInstance.close();
@@ -241,10 +239,10 @@ integrates.controller("eventualityController", function ($scope, $uibModal, $tra
             else if (response.error) {
               Rollbar.error("Error: An error occurred updating events");
               $.gritter.add({
-                "title": "Error!",
-                "text": response.message,
                 "class_name": "color warning",
-                "sticky": false
+                "sticky": false,
+                "text": response.message,
+                "title": "Error!"
               });
             }
           });
@@ -258,7 +256,9 @@ integrates.controller("eventualityController", function ($scope, $uibModal, $tra
         "currentEventuality" () {
           return $scope.currentEventuality;
         }
-      }
+      },
+      "templateUrl": "editar.html",
+      "windowClass": "ver-modal"
     });
   };
   $scope.category = "Name";
@@ -288,10 +288,10 @@ integrates.controller("eventualityController", function ($scope, $uibModal, $tra
             category !== "") {
       $scope.response = "";
       $.gritter.add({
-        "title": event_title,
-        "text": event_wait,
         "class_name": "color info",
-        "sticky": false
+        "sticky": false,
+        "text": event_wait,
+        "title": event_title
       });
       $(".loader").show();
       $scope.maxRecursiveCall = 5;
@@ -359,20 +359,20 @@ integrates.controller("eventualityController", function ($scope, $uibModal, $tra
           $("[data-toggle=\"tooltip\"]").tooltip();
           integrates.evntTotalize(data);
           $.gritter.add({
-            "title": event_title,
-            "text": updated_title,
             "class_name": "color success",
-            "sticky": false
+            "sticky": false,
+            "text": updated_title,
+            "title": event_title
           });
         }
         else if (data.error) {
           $scope.view.event = false;
           Rollbar.error("Error: An error occurred searching events");
           $.gritter.add({
-            "title": "Error",
-            "text": data.message,
             "class_name": "color danger",
-            "sticky": false
+            "sticky": false,
+            "text": data.message,
+            "title": "Error"
           });
         }
       });

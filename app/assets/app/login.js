@@ -8,8 +8,8 @@
  *  de integrates
  */
 const BASE = {
-  "production": "/integrates/",
-  "development": "/"
+  "development": "/",
+  "production": "/integrates/"
 };
 BASE.url = BASE.production;
 if (location.pathname.indexOf("/integrates") == -1) {
@@ -25,20 +25,20 @@ integrates.config([
   "$translateProvider",
   function ($translateProvider) {
     const translations = {
-      "login_message": "Please log in to proceed.",
-      "login_welcome": "If you are a new user, you must call a FLUID representative to register.",
       "button": {
-        "google": "Log in with Google",
-        "azure": "Log in with Azure/Office365"
-      }
+        "azure": "Log in with Azure/Office365",
+        "google": "Log in with Google"
+      },
+      "login_message": "Please log in to proceed.",
+      "login_welcome": "If you are a new user, you must call a FLUID representative to register."
     };
     const traducciones = {
-      "login_message": "Porfavor ingrese.",
-      "login_welcome": "Si eres un usuario nuevo, debes llamar a tu representante de FLUID para registrarte",
       "button": {
-        "google": "Ingresar con Google",
-        "azure": "Ingresar con Azure/Office365"
-      }
+        "azure": "Ingresar con Azure/Office365",
+        "google": "Ingresar con Google"
+      },
+      "login_message": "Porfavor ingrese.",
+      "login_welcome": "Si eres un usuario nuevo, debes llamar a tu representante de FLUID para registrarte"
     };
     $translateProvider.useSanitizeValueStrategy("sanitize");
     $translateProvider.
@@ -81,29 +81,29 @@ integrates.controller("loginController", function ($scope, $translate) {
     if (typeof username != "string" ||
             typeof password != "string") {
       $.gritter.add({
-        "title": "",
-        "text": "Usuario/Clave son obligatorios",
         "class_name": "color warning",
-        "sticky": false
+        "sticky": false,
+        "text": "Usuario/Clave son obligatorios",
+        "title": ""
       });
     }
     else if (username.trim() == "" ||
             password.trim() == "") {
       $.gritter.add({
-        "title": "",
-        "text": "Usuario/Clave son obligatorios",
         "class_name": "color warning",
-        "sticky": false
+        "sticky": false,
+        "text": "Usuario/Clave son obligatorios",
+        "title": ""
       });
     }
     else {
       $.ajax({
-        "url": `${BASE.url}login/`,
-        "method": "POST",
         "data": {
-          "user": username,
-          "pass": password
-        }
+          "pass": password,
+          "user": username
+        },
+        "method": "POST",
+        "url": `${BASE.url}login/`
       }).done(function (e) {
         let color = "warning";
         if (e.error == true) {
@@ -113,10 +113,10 @@ integrates.controller("loginController", function ($scope, $translate) {
           color = "success";
         }
         $.gritter.add({
-          "title": "",
-          "text": e.message,
           "class_name": `color ${color}`,
-          "sticky": false
+          "sticky": false,
+          "text": e.message,
+          "title": ""
         });
         if (color == "success") {
           redirector = function () {

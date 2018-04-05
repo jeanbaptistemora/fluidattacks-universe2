@@ -214,50 +214,50 @@ integrates.controller("findingcontentCtrl", function (
     const evidencesList = [];
     if (refList.indexOf(0) == -1) {
       $scope.tabEvidences.push({
-        "name": $translate.instant("search_findings.tab_evidence.animation_exploit"),
         "desc": "",
+        "name": $translate.instant("search_findings.tab_evidence.animation_exploit"),
         "ref": 0
       });
     }
     if (refList.indexOf(1) == -1) {
       $scope.tabEvidences.push({
-        "name": $translate.instant("search_findings.tab_evidence.evidence_exploit"),
         "desc": "",
+        "name": $translate.instant("search_findings.tab_evidence.evidence_exploit"),
         "ref": 1
       });
     }
     if (refList.indexOf(2) == -1) {
       $scope.tabEvidences.push({
-        "name": `${$translate.instant("search_findings.tab_evidence.evidence_name")} 1`,
         "desc": "",
+        "name": `${$translate.instant("search_findings.tab_evidence.evidence_name")} 1`,
         "ref": 2
       });
     }
     if (refList.indexOf(3) == -1) {
       $scope.tabEvidences.push({
-        "name": `${$translate.instant("search_findings.tab_evidence.evidence_name")} 2`,
         "desc": "",
+        "name": `${$translate.instant("search_findings.tab_evidence.evidence_name")} 2`,
         "ref": 3
       });
     }
     if (refList.indexOf(4) == -1) {
       $scope.tabEvidences.push({
-        "name": `${$translate.instant("search_findings.tab_evidence.evidence_name")} 3`,
         "desc": "",
+        "name": `${$translate.instant("search_findings.tab_evidence.evidence_name")} 3`,
         "ref": 4
       });
     }
     if (refList.indexOf(5) == -1) {
       $scope.tabEvidences.push({
-        "name": `${$translate.instant("search_findings.tab_evidence.evidence_name")} 4`,
         "desc": "",
+        "name": `${$translate.instant("search_findings.tab_evidence.evidence_name")} 4`,
         "ref": 5
       });
     }
     if (refList.indexOf(6) == -1) {
       $scope.tabEvidences.push({
-        "name": `${$translate.instant("search_findings.tab_evidence.evidence_name")} 5`,
         "desc": "",
+        "name": `${$translate.instant("search_findings.tab_evidence.evidence_name")} 5`,
         "ref": 6
       });
     }
@@ -372,26 +372,25 @@ integrates.controller("findingcontentCtrl", function (
   $scope.updateCSSv2 = function () {
     // Obtener datos de las listas
     const cssv2Data = {
-      "id": $scope.finding.id,
-      "vector_acceso": $scope.finding.vector_acceso,
-      "impacto_confidencialidad": $scope.finding.impacto_confidencialidad,
+
       "autenticacion": $scope.finding.autenticacion,
-      "impacto_integridad": $scope.finding.impacto_integridad,
+      "complejidad_acceso": $scope.finding.complejidad_acceso,
       "explotabilidad": $scope.finding.explotabilidad,
+      "id": $scope.finding.id,
+      "impacto_confidencialidad": $scope.finding.impacto_confidencialidad,
       "impacto_disponibilidad": $scope.finding.impacto_disponibilidad,
+      "impacto_integridad": $scope.finding.impacto_integridad,
       "nivel_confianza": $scope.finding.nivel_confianza,
       "nivel_resolucion": $scope.finding.nivel_resolucion,
-      "complejidad_acceso": $scope.finding.complejidad_acceso
+      "vector_acceso": $scope.finding.vector_acceso
     };
     // Recalcular CSSV2
     $scope.findingCalculateCSSv2();
     cssv2Data.criticidad = $scope.finding.criticidad;
     // Instanciar modal de confirmacion
     const modalInstance = $uibModal.open({
-      "templateUrl": `${BASE.url}assets/views/project/confirmMdl.html`,
       "animation": true,
       "backdrop": "static",
-      "resolve": {"updateData": cssv2Data},
       "controller" ($scope, $uibModalInstance, updateData) {
         $scope.modalTitle = $translate.instant("confirmmodal.title_cssv2");
         $scope.ok = function () {
@@ -416,7 +415,9 @@ integrates.controller("findingcontentCtrl", function (
         $scope.close = function () {
           $uibModalInstance.close();
         };
-      }
+      },
+      "resolve": {"updateData": cssv2Data},
+      "templateUrl": `${BASE.url}assets/views/project/confirmMdl.html`
     });
   };
   updateEvidencesFiles = function (element) {
@@ -574,10 +575,8 @@ integrates.controller("findingcontentCtrl", function (
     // Obtener datos
     const descData = {"id": $scope.finding.id};
     const modalInstance = $uibModal.open({
-      "templateUrl": `${BASE.url}assets/views/project/deleteMdl.html`,
       "animation": true,
       "backdrop": "static",
-      "resolve": {"updateData": descData},
       "controller" ($scope, $uibModalInstance, updateData, $stateParams, $state) {
         $scope.vuln = {};
         $scope.modalTitle = $translate.instant("confirmmodal.title_finding");
@@ -606,7 +605,9 @@ integrates.controller("findingcontentCtrl", function (
         $scope.close = function () {
           $uibModalInstance.close();
         };
-      }
+      },
+      "resolve": {"updateData": descData},
+      "templateUrl": `${BASE.url}assets/views/project/deleteMdl.html`
     });
   };
   $scope.goUp = function () {
@@ -987,9 +988,6 @@ integrates.controller("findingcontentCtrl", function (
         // Inicializar galeria de evidencias
         $(".popup-gallery").magnificPopup({
           "delegate": "a",
-          "type": "image",
-          "tLoading": "Loading image #%curr%...",
-          "mainClass": "mfp-img-mobile",
           "gallery": {
             "enabled": true,
             "navigateByImgClick": true,
@@ -1003,7 +1001,10 @@ integrates.controller("findingcontentCtrl", function (
             "titleSrc" (item) {
               return item.el.attr("title");
             }
-          }
+          },
+          "mainClass": "mfp-img-mobile",
+          "tLoading": "Loading image #%curr%...",
+          "type": "image"
         });
         // Init auto height in textarea
         if ($("#infoItem").hasClass("active")) {
@@ -1123,37 +1124,37 @@ integrates.controller("findingcontentCtrl", function (
             if (typeof response.data[i].animacion !== "undefined" && response.data[i].es_animacion == true) {
               url = url_pre + response.data[i].animacion;
               evidenceList.push({
-                url,
-                "name": $translate.instant("search_findings.tab_evidence.animation_exploit"),
                 "desc": $translate.instant("search_findings.tab_evidence.animation_exploit"),
-                "ref": 0
+                "name": $translate.instant("search_findings.tab_evidence.animation_exploit"),
+                "ref": 0,
+                url
               });
             }
             else if (typeof $scope.finding.animacion !== "undefined") {
               url = url_pre + $scope.finding.animacion;
               evidenceList.push({
-                url,
-                "name": $translate.instant("search_findings.tab_evidence.animation_exploit"),
                 "desc": $translate.instant("search_findings.tab_evidence.animation_exploit"),
-                "ref": 0
+                "name": $translate.instant("search_findings.tab_evidence.animation_exploit"),
+                "ref": 0,
+                url
               });
             }
             if (typeof response.data[i].explotacion !== "undefined" && response.data[i].es_explotacion == true) {
               url = url_pre + response.data[i].explotacion;
               evidenceList.push({
-                url,
-                "name": $translate.instant("search_findings.tab_evidence.evidence_exploit"),
                 "desc": $translate.instant("search_findings.tab_evidence.evidence_exploit"),
-                "ref": 1
+                "name": $translate.instant("search_findings.tab_evidence.evidence_exploit"),
+                "ref": 1,
+                url
               });
             }
             else if (typeof $scope.finding.explotacion !== "undefined") {
               url = url_pre + $scope.finding.explotacion;
               evidenceList.push({
-                url,
-                "name": $translate.instant("search_findings.tab_evidence.evidence_exploit"),
                 "desc": $translate.instant("search_findings.tab_evidence.evidence_exploit"),
-                "ref": 1
+                "name": $translate.instant("search_findings.tab_evidence.evidence_exploit"),
+                "ref": 1,
+                url
               });
             }
             if (typeof $scope.finding.desc_evidencia_1 !== "undefined" &&
@@ -1161,20 +1162,20 @@ integrates.controller("findingcontentCtrl", function (
                             response.data[i].es_ruta_evidencia_1 == true) {
               url = url_pre + response.data[i].ruta_evidencia_1;
               evidenceList.push({
-                "name": `${$translate.instant("search_findings.tab_evidence.evidence_name")} 1`,
-                url,
                 "desc": $scope.capitalizeFirstLetter($scope.finding.desc_evidencia_1),
-                "ref": 2
+                "name": `${$translate.instant("search_findings.tab_evidence.evidence_name")} 1`,
+                "ref": 2,
+                url
               });
             }
             else if (typeof $scope.finding.desc_evidencia_1 !== "undefined" &&
                           typeof $scope.finding.ruta_evidencia_1 !== "undefined") {
               url = url_pre + $scope.finding.ruta_evidencia_1;
               evidenceList.push({
-                "name": `${$translate.instant("search_findings.tab_evidence.evidence_name")} 1`,
-                url,
                 "desc": $scope.capitalizeFirstLetter($scope.finding.desc_evidencia_1),
-                "ref": 2
+                "name": `${$translate.instant("search_findings.tab_evidence.evidence_name")} 1`,
+                "ref": 2,
+                url
               });
             }
             if (typeof $scope.finding.desc_evidencia_2 !== "undefined" &&
@@ -1182,20 +1183,20 @@ integrates.controller("findingcontentCtrl", function (
                             response.data[i].es_ruta_evidencia_2 == true) {
               url = url_pre + response.data[i].ruta_evidencia_2;
               evidenceList.push({
-                "name": `${$translate.instant("search_findings.tab_evidence.evidence_name")} 2`,
-                url,
                 "desc": $scope.capitalizeFirstLetter($scope.finding.desc_evidencia_2),
-                "ref": 3
+                "name": `${$translate.instant("search_findings.tab_evidence.evidence_name")} 2`,
+                "ref": 3,
+                url
               });
             }
             else if (typeof $scope.finding.desc_evidencia_2 !== "undefined" &&
                           typeof $scope.finding.ruta_evidencia_2 !== "undefined") {
               url = url_pre + $scope.finding.ruta_evidencia_2;
               evidenceList.push({
-                "name": `${$translate.instant("search_findings.tab_evidence.evidence_name")} 2`,
-                url,
                 "desc": $scope.capitalizeFirstLetter($scope.finding.desc_evidencia_2),
-                "ref": 3
+                "name": `${$translate.instant("search_findings.tab_evidence.evidence_name")} 2`,
+                "ref": 3,
+                url
               });
             }
             if (typeof $scope.finding.desc_evidencia_3 !== "undefined" &&
@@ -1203,20 +1204,20 @@ integrates.controller("findingcontentCtrl", function (
                             response.data[i].es_ruta_evidencia_3 == true) {
               url = url_pre + response.data[i].ruta_evidencia_3;
               evidenceList.push({
-                "name": `${$translate.instant("search_findings.tab_evidence.evidence_name")} 3`,
-                url,
                 "desc": $scope.capitalizeFirstLetter($scope.finding.desc_evidencia_3),
-                "ref": 4
+                "name": `${$translate.instant("search_findings.tab_evidence.evidence_name")} 3`,
+                "ref": 4,
+                url
               });
             }
             else if (typeof $scope.finding.desc_evidencia_3 !== "undefined" &&
                           typeof $scope.finding.ruta_evidencia_3 !== "undefined") {
               url = url_pre + $scope.finding.ruta_evidencia_3;
               evidenceList.push({
-                "name": `${$translate.instant("search_findings.tab_evidence.evidence_name")} 3`,
-                url,
                 "desc": $scope.capitalizeFirstLetter($scope.finding.desc_evidencia_3),
-                "ref": 4
+                "name": `${$translate.instant("search_findings.tab_evidence.evidence_name")} 3`,
+                "ref": 4,
+                url
               });
             }
             if (typeof $scope.finding.desc_evidencia_4 !== "undefined" &&
@@ -1224,20 +1225,20 @@ integrates.controller("findingcontentCtrl", function (
                             response.data[i].es_ruta_evidencia_4 == true) {
               url = url_pre + response.data[i].ruta_evidencia_4;
               evidenceList.push({
-                "name": `${$translate.instant("search_findings.tab_evidence.evidence_name")} 4`,
-                url,
                 "desc": $scope.capitalizeFirstLetter($scope.finding.desc_evidencia_4),
-                "ref": 5
+                "name": `${$translate.instant("search_findings.tab_evidence.evidence_name")} 4`,
+                "ref": 5,
+                url
               });
             }
             else if (typeof $scope.finding.desc_evidencia_4 !== "undefined" &&
                           typeof $scope.finding.ruta_evidencia_4 !== "undefined") {
               url = url_pre + $scope.finding.ruta_evidencia_4;
               evidenceList.push({
-                "name": `${$translate.instant("search_findings.tab_evidence.evidence_name")} 4`,
-                url,
                 "desc": $scope.capitalizeFirstLetter($scope.finding.desc_evidencia_4),
-                "ref": 5
+                "name": `${$translate.instant("search_findings.tab_evidence.evidence_name")} 4`,
+                "ref": 5,
+                url
               });
             }
             if (typeof $scope.finding.desc_evidencia_5 !== "undefined" &&
@@ -1245,20 +1246,20 @@ integrates.controller("findingcontentCtrl", function (
                             response.data[i].es_ruta_evidencia_5 == true) {
               url = url_pre + response.data[i].ruta_evidencia_5;
               evidenceList.push({
-                "name": `${$translate.instant("search_findings.tab_evidence.evidence_name")} 5`,
-                url,
                 "desc": $scope.capitalizeFirstLetter($scope.finding.desc_evidencia_5),
-                "ref": 6
+                "name": `${$translate.instant("search_findings.tab_evidence.evidence_name")} 5`,
+                "ref": 6,
+                url
               });
             }
             else if (typeof $scope.finding.desc_evidencia_5 !== "undefined" &&
                           typeof $scope.finding.ruta_evidencia_5 !== "undefined") {
               url = url_pre + $scope.finding.ruta_evidencia_5;
               evidenceList.push({
-                "name": `${$translate.instant("search_findings.tab_evidence.evidence_name")} 5`,
-                url,
                 "desc": $scope.capitalizeFirstLetter($scope.finding.desc_evidencia_5),
-                "ref": 6
+                "name": `${$translate.instant("search_findings.tab_evidence.evidence_name")} 5`,
+                "ref": 6,
+                url
               });
             }
             $scope.tabEvidences = evidenceList;
@@ -1268,69 +1269,69 @@ integrates.controller("findingcontentCtrl", function (
           if (typeof $scope.finding.animacion !== "undefined") {
             url = url_pre + $scope.finding.animacion;
             evidenceList.push({
-              url,
-              "name": $translate.instant("search_findings.tab_evidence.animation_exploit"),
               "desc": $translate.instant("search_findings.tab_evidence.animation_exploit"),
-              "ref": 0
+              "name": $translate.instant("search_findings.tab_evidence.animation_exploit"),
+              "ref": 0,
+              url
             });
           }
           if (typeof $scope.finding.explotacion !== "undefined") {
             url = url_pre + $scope.finding.explotacion;
             evidenceList.push({
-              url,
-              "name": $translate.instant("search_findings.tab_evidence.evidence_exploit"),
               "desc": $translate.instant("search_findings.tab_evidence.evidence_exploit"),
-              "ref": 1
+              "name": $translate.instant("search_findings.tab_evidence.evidence_exploit"),
+              "ref": 1,
+              url
             });
           }
           if (typeof $scope.finding.desc_evidencia_1 !== "undefined" &&
                         typeof $scope.finding.ruta_evidencia_1 !== "undefined") {
             url = url_pre + $scope.finding.ruta_evidencia_1;
             evidenceList.push({
-              url,
-              "name": `${$translate.instant("search_findings.tab_evidence.evidence_name")} 1`,
               "desc": $scope.capitalizeFirstLetter($scope.finding.desc_evidencia_1),
-              "ref": 2
+              "name": `${$translate.instant("search_findings.tab_evidence.evidence_name")} 1`,
+              "ref": 2,
+              url
             });
           }
           if (typeof $scope.finding.desc_evidencia_2 !== "undefined" &&
                         typeof $scope.finding.ruta_evidencia_2 !== "undefined") {
             url = url_pre + $scope.finding.ruta_evidencia_2;
             evidenceList.push({
-              url,
-              "name": `${$translate.instant("search_findings.tab_evidence.evidence_name")} 2`,
               "desc": $scope.capitalizeFirstLetter($scope.finding.desc_evidencia_2),
-              "ref": 3
+              "name": `${$translate.instant("search_findings.tab_evidence.evidence_name")} 2`,
+              "ref": 3,
+              url
             });
           }
           if (typeof $scope.finding.desc_evidencia_3 !== "undefined" &&
                         typeof $scope.finding.ruta_evidencia_3 !== "undefined") {
             url = url_pre + $scope.finding.ruta_evidencia_3;
             evidenceList.push({
-              url,
-              "name": `${$translate.instant("search_findings.tab_evidence.evidence_name")} 3`,
               "desc": $scope.capitalizeFirstLetter($scope.finding.desc_evidencia_3),
-              "ref": 4
+              "name": `${$translate.instant("search_findings.tab_evidence.evidence_name")} 3`,
+              "ref": 4,
+              url
             });
           }
           if (typeof $scope.finding.desc_evidencia_4 !== "undefined" &&
                         typeof $scope.finding.ruta_evidencia_4 !== "undefined") {
             url = url_pre + $scope.finding.ruta_evidencia_4;
             evidenceList.push({
-              url,
-              "name": `${$translate.instant("search_findings.tab_evidence.evidence_name")} 4`,
               "desc": $scope.capitalizeFirstLetter($scope.finding.desc_evidencia_4),
-              "ref": 5
+              "name": `${$translate.instant("search_findings.tab_evidence.evidence_name")} 4`,
+              "ref": 5,
+              url
             });
           }
           if (typeof $scope.finding.desc_evidencia_5 !== "undefined" &&
                         typeof $scope.finding.ruta_evidencia_5 !== "undefined") {
             url = url_pre + $scope.finding.ruta_evidencia_5;
             evidenceList.push({
-              url,
-              "name": `${$translate.instant("search_findings.tab_evidence.evidence_name")} 5`,
               "desc": $scope.capitalizeFirstLetter($scope.finding.desc_evidencia_5),
-              "ref": 6
+              "name": `${$translate.instant("search_findings.tab_evidence.evidence_name")} 5`,
+              "ref": 6,
+              url
             });
           }
           $scope.tabEvidences = evidenceList;
@@ -1349,8 +1350,8 @@ integrates.controller("findingcontentCtrl", function (
           const usersArray = [];
           for (let i = 0; i < response.data.length; i++) {
             const user = {
-              "fullname": "",
-              "email": ""
+              "email": "",
+              "fullname": ""
             };
             user.fullname = response.data[i].fullname;
             user.email = response.data[i].email;
@@ -1367,21 +1368,19 @@ integrates.controller("findingcontentCtrl", function (
             return data;
           };
           $("#comments-container").comments({
-            "roundProfilePictures": true,
-            "textareaRows": 2,
             "enableAttachments": false,
+            "enableEditing": false,
             "enableHashtags": true,
             "enablePinging": false,
             "enableUpvoting": false,
-            "enableEditing": false,
-            "getUsers" (success, error) {
-              setTimeout(function () {
-                success(usersArray);
-              }, 500);
-            },
             "getComments" (success, error) {
               setTimeout(function () {
                 success(response.data);
+              }, 500);
+            },
+            "getUsers" (success, error) {
+              setTimeout(function () {
+                success(usersArray);
               }, 500);
             },
             "postComment" (data, success, error) {
@@ -1405,7 +1404,9 @@ integrates.controller("findingcontentCtrl", function (
                   Rollbar.error("Error: An error occurred adding comment");
                 }
               });
-            }
+            },
+            "roundProfilePictures": true,
+            "textareaRows": 2
           });
         }
       });
@@ -1438,11 +1439,11 @@ integrates.controller("findingcontentCtrl", function (
               }
               $("#recordsTable").bootstrapTable("destroy");
               $("#recordsTable").bootstrapTable({
-                "locale": vlang,
                 "columns": dataCols,
-                "data": response.data,
+                "cookie": true,
                 "cookieIdTable": "recordsTableCookie",
-                "cookie": true
+                "data": response.data,
+                "locale": vlang
               });
               $("#recordsTable").bootstrapTable("refresh");
             }
@@ -1490,11 +1491,11 @@ integrates.controller("findingcontentCtrl", function (
               }
               $("#recordsTable").bootstrapTable("destroy");
               $("#recordsTable").bootstrapTable({
-                "locale": vlang,
                 "columns": dataCols,
-                "data": response.data,
+                "cookie": true,
                 "cookieIdTable": "recordsTableCookie",
-                "cookie": true
+                "data": response.data,
+                "locale": vlang
               });
               $("#recordsTable").bootstrapTable("refresh");
             }
@@ -1552,26 +1553,26 @@ integrates.controller("findingcontentCtrl", function (
   $scope.updateDescription = function () {
     // Obtener datos
     const descData = {
+      "actor": $scope.finding.actor,
+      "amenaza": $scope.finding.amenaza,
+      "cardinalidad": $scope.finding.cardinalidad,
+      "categoria": $scope.finding.categoria,
+      "cwe": $scope.finding.cwe,
+      "donde": $scope.finding.donde,
+      "escenario": $scope.finding.escenario,
+      "hallazgo": $scope.finding.hallazgo,
       "id": $scope.finding.id,
       "nivel": $scope.finding.nivel,
-      "hallazgo": $scope.finding.hallazgo,
-      "cardinalidad": $scope.finding.cardinalidad,
-      "escenario": $scope.finding.escenario,
-      "actor": $scope.finding.actor,
-      "categoria": $scope.finding.categoria,
-      "valor_riesgo": $scope.finding.valor_riesgo,
       "probabilidad": $scope.finding.probabilidad,
-      "severidad": $scope.finding.severidad,
-      "vulnerabilidad": $scope.finding.vulnerabilidad,
-      "requisitos": $scope.finding.requisitos,
-      "donde": $scope.finding.donde,
-      "vector_ataque": $scope.finding.vector_ataque,
-      "amenaza": $scope.finding.amenaza,
-      "solucion_efecto": $scope.finding.solucion_efecto,
-      "sistema_comprometido": $scope.finding.sistema_comprometido,
-      "cwe": $scope.finding.cwe,
       "registros": $scope.finding.registros,
-      "registros_num": $scope.finding.registros_num
+      "registros_num": $scope.finding.registros_num,
+      "requisitos": $scope.finding.requisitos,
+      "severidad": $scope.finding.severidad,
+      "sistema_comprometido": $scope.finding.sistema_comprometido,
+      "solucion_efecto": $scope.finding.solucion_efecto,
+      "valor_riesgo": $scope.finding.valor_riesgo,
+      "vector_ataque": $scope.finding.vector_ataque,
+      "vulnerabilidad": $scope.finding.vulnerabilidad
     };
     if (descData.nivel == "Detallado") {
       // Recalcular Severidad
@@ -1583,10 +1584,8 @@ integrates.controller("findingcontentCtrl", function (
       }
     }
     const modalInstance = $uibModal.open({
-      "templateUrl": `${BASE.url}assets/views/project/confirmMdl.html`,
       "animation": true,
       "backdrop": "static",
-      "resolve": {"updateData": descData},
       "controller" ($scope, $uibModalInstance, updateData) {
         $scope.modalTitle = $translate.instant("confirmmodal.title_description");
         $scope.ok = function () {
@@ -1613,7 +1612,9 @@ integrates.controller("findingcontentCtrl", function (
         $scope.close = function () {
           $uibModalInstance.close();
         };
-      }
+      },
+      "resolve": {"updateData": descData},
+      "templateUrl": `${BASE.url}assets/views/project/confirmMdl.html`
     });
   };
   $scope.validateTreatment = function () {
@@ -1643,17 +1644,15 @@ integrates.controller("findingcontentCtrl", function (
     }
     if (flag === true) {
       const newData = {
+        "bts_externo": $scope.finding.bts_externo,
         "id": $scope.finding.id,
-        "tratamiento": $scope.finding.tratamiento,
         "razon_tratamiento": $scope.finding.razon_tratamiento,
         "responsable_tratamiento": $scope.finding.responsable_tratamiento,
-        "bts_externo": $scope.finding.bts_externo
+        "tratamiento": $scope.finding.tratamiento
       };
       const modalInstance = $uibModal.open({
-        "templateUrl": `${BASE.url}assets/views/project/confirmMdl.html`,
         "animation": true,
         "backdrop": "static",
-        "resolve": {"updateData": newData},
         "controller" ($scope, $uibModalInstance, updateData) {
           $scope.modalTitle = $translate.instant("search_findings.tab_description.update_treatmodal");
           $scope.ok = function () {
@@ -1679,25 +1678,26 @@ integrates.controller("findingcontentCtrl", function (
           $scope.close = function () {
             $uibModalInstance.close();
           };
-        }
+        },
+        "resolve": {"updateData": newData},
+        "templateUrl": `${BASE.url}assets/views/project/confirmMdl.html`
       });
     }
   };
   $scope.findingSolved = function () {
     // Obtener datos
     const descData = {
-      "user_mail": userEmail,
-      "finding_name": $scope.finding.hallazgo,
-      "project": $scope.finding.proyecto_fluid,
-      "finding_url": window.location.href,
       "finding_id": $scope.finding.id,
-      "finding_vulns": $scope.finding.cardinalidad
+      "finding_name": $scope.finding.hallazgo,
+      "finding_url": window.location.href,
+      "finding_vulns": $scope.finding.cardinalidad,
+      "project": $scope.finding.proyecto_fluid,
+      "user_mail": userEmail
     };
     const modalInstance = $uibModal.open({
-      "templateUrl": `${BASE.url}assets/views/project/remediatedMdl.html`,
+
       "animation": true,
       "backdrop": "static",
-      "resolve": {"mailData": descData},
       "controller" ($scope, $uibModalInstance, mailData) {
         $scope.remediatedData = {};
         $scope.modalTitle = $translate.instant("search_findings.tab_description.remediated_finding");
@@ -1747,7 +1747,9 @@ integrates.controller("findingcontentCtrl", function (
         $scope.close = function () {
           $uibModalInstance.close();
         };
-      }
+      },
+      "resolve": {"mailData": descData},
+      "templateUrl": `${BASE.url}assets/views/project/remediatedMdl.html`
     });
   };
   $scope.remediatedView = function () {
@@ -1776,18 +1778,16 @@ integrates.controller("findingcontentCtrl", function (
     const currUrl = window.location.href;
     const trackingUrl = currUrl.replace("/description", "/tracking");
     const descData = {
-      "user_mail": userEmail,
-      "finding_name": $scope.finding.hallazgo,
-      "project": $scope.finding.proyecto_fluid,
-      "finding_url": trackingUrl,
       "finding_id": $scope.finding.id,
-      "finding_vulns": $scope.finding.cardinalidad
+      "finding_name": $scope.finding.hallazgo,
+      "finding_url": trackingUrl,
+      "finding_vulns": $scope.finding.cardinalidad,
+      "project": $scope.finding.proyecto_fluid,
+      "user_mail": userEmail
     };
     const modalInstance = $uibModal.open({
-      "templateUrl": `${BASE.url}assets/views/project/confirmMdl.html`,
       "animation": true,
       "backdrop": "static",
-      "resolve": {"mailData": descData},
       "controller" ($scope, $uibModalInstance, mailData) {
         $scope.modalTitle = $translate.instant("search_findings.tab_description.verified_finding");
         $scope.ok = function () {
@@ -1815,7 +1815,9 @@ integrates.controller("findingcontentCtrl", function (
         $scope.close = function () {
           $uibModalInstance.close();
         };
-      }
+      },
+      "resolve": {"mailData": descData},
+      "templateUrl": `${BASE.url}assets/views/project/confirmMdl.html`
     });
   };
   $scope.goBack = function () {

@@ -114,38 +114,38 @@ integrates.controller(
     };
     $scope.testFinding = function () {
       $scope.finding = {
-        "proyecto_fluid": "Integrates",
-        "proyecto_cliente": "Integrates",
-        "tipo_prueba": "Aplicación",
-        "escenario": "Nunc ut nibh non neque semper ornare id sit amet ipsum.",
         "actor": "Praesent pharetra metus eget diam dignissim facilisis",
-        "hallazgo": "FIN. 0001 Ejecución Remota de Comandos",
-        "categoria": "Fusce iaculis, dolor nec maximus molestie, nisi leo malesuada libero",
-        "valor_riesgo": "(3.0) Crítico",
-        "probabilidad": "75% Fácil de vulnerar",
-        "severidad": "5",
-        "vulnerabilidad": "Pellentesque quis sapien luctus, fermentum mauris ac, tincidunt urna. Praesent pharetra metus eget diam dignissim facilisis. Phasellus in dictum dolor, elementum pharetra neque. Duis molestie, dui sit amet dictum efficitur, dolor arcu cursus metus, tempor bibendum justo sem quis velit. Nam sed sem id libero scelerisque pretium sit amet rhoncus diam. In eleifend diam felis, eget rutrum mi tempus a. In ex neque, vehicula vitae congue in, sodales non massa.",
-        "requisitos": "REQ000X. Maecenas vitae molestie arcu. Sed ut enim eu mauris fermentum malesuada sed non magna.",
-        "cardinalidad": "1023",
         "amenaza": "Maecenas eget metus nec nibh blandit sollicitudin vel convallis diam. Maecenas vestibulum augue vitae risus tincidunt",
-        "donde": "Pellentesque quis sapien luctus, fermentum mauris ac, tincidunt urna. Praesent pharetra metus eget diam dignissim facilisis. Phasellus in dictum dolor, elementum pharetra neque. Duis molestie, dui sit amet dictum efficitur, dolor arcu cursus metus, tempor bibendum justo sem quis velit. Nam sed sem id libero scelerisque pretium sit amet rhoncus diam. In eleifend diam felis, eget rutrum mi tempus a. In ex neque, vehicula vitae congue in, sodales non massa",
-        "vector_ataque": "Praesent porta congue lorem sit amet rhoncus. ",
-        "solucion_efecto": "Etiam dapibus ultrices ligula a convallis. Vivamus ultricies convallis magna. Praesent metus sem, porttitor sed risus quis, fringilla rutrum arcu.",
-        "debilidad": "Fusce iaculis, dolor nec maximus molestie, nisi leo malesuada libero",
-        "cwe": "https://fluidattacks.com",
-        "vector_acceso": "0343 | Red Adyacente",
         "autenticacion": "0324 | Ninguna",
-        "explotabilidad": "0435 | Conceptual",
-        "nivel_confianza": "4543 | Confirmado",
+        "cardinalidad": "1023",
+        "categoria": "Fusce iaculis, dolor nec maximus molestie, nisi leo malesuada libero",
         "complejidad_acceso": "4542 | Facil",
-        "impacto_confidencialidad": "0324 | Alto: Aqui va un texto 1",
-        "impacto_integridad": "0324 | Alto: Aqui va un texto 2",
-        "impacto_disponibilidad": "0324 | Alto: Aqui va un texto 3",
-        "nivel_resolucion": "0233 | Existe porque va un texto 4",
-        "sistema_comprometido": "Stiam dapibus ultrices ligula a convallis.",
-        "cssv2base": "4.3",
         "criticidad": "5.1",
-        "timestamp": "04/06/2017 12:40:24"
+        "cssv2base": "4.3",
+        "cwe": "https://fluidattacks.com",
+        "debilidad": "Fusce iaculis, dolor nec maximus molestie, nisi leo malesuada libero",
+        "donde": "Pellentesque quis sapien luctus, fermentum mauris ac, tincidunt urna. Praesent pharetra metus eget diam dignissim facilisis. Phasellus in dictum dolor, elementum pharetra neque. Duis molestie, dui sit amet dictum efficitur, dolor arcu cursus metus, tempor bibendum justo sem quis velit. Nam sed sem id libero scelerisque pretium sit amet rhoncus diam. In eleifend diam felis, eget rutrum mi tempus a. In ex neque, vehicula vitae congue in, sodales non massa",
+        "escenario": "Nunc ut nibh non neque semper ornare id sit amet ipsum.",
+        "explotabilidad": "0435 | Conceptual",
+        "hallazgo": "FIN. 0001 Ejecución Remota de Comandos",
+        "impacto_confidencialidad": "0324 | Alto: Aqui va un texto 1",
+        "impacto_disponibilidad": "0324 | Alto: Aqui va un texto 3",
+        "impacto_integridad": "0324 | Alto: Aqui va un texto 2",
+        "nivel_confianza": "4543 | Confirmado",
+        "nivel_resolucion": "0233 | Existe porque va un texto 4",
+        "probabilidad": "75% Fácil de vulnerar",
+        "proyecto_cliente": "Integrates",
+        "proyecto_fluid": "Integrates",
+        "requisitos": "REQ000X. Maecenas vitae molestie arcu. Sed ut enim eu mauris fermentum malesuada sed non magna.",
+        "severidad": "5",
+        "sistema_comprometido": "Stiam dapibus ultrices ligula a convallis.",
+        "solucion_efecto": "Etiam dapibus ultrices ligula a convallis. Vivamus ultricies convallis magna. Praesent metus sem, porttitor sed risus quis, fringilla rutrum arcu.",
+        "timestamp": "04/06/2017 12:40:24",
+        "tipo_prueba": "Aplicación",
+        "valor_riesgo": "(3.0) Crítico",
+        "vector_acceso": "0343 | Red Adyacente",
+        "vector_ataque": "Praesent porta congue lorem sit amet rhoncus. ",
+        "vulnerabilidad": "Pellentesque quis sapien luctus, fermentum mauris ac, tincidunt urna. Praesent pharetra metus eget diam dignissim facilisis. Phasellus in dictum dolor, elementum pharetra neque. Duis molestie, dui sit amet dictum efficitur, dolor arcu cursus metus, tempor bibendum justo sem quis velit. Nam sed sem id libero scelerisque pretium sit amet rhoncus diam. In eleifend diam felis, eget rutrum mi tempus a. In ex neque, vehicula vitae congue in, sodales non massa."
       };
       // Begin current Date
       const today = new Date();
@@ -161,16 +161,16 @@ integrates.controller(
       }
       const new_today = `${dd}/${mm}/${yyyy}`;
       $scope.header = {
-        "findingTitle": $scope.finding.hallazgo,
-        "findingID": "323932433",
-        "findingType": $scope.finding.tipo_prueba,
-        "findingValueColor": $scope.colors.critical,
-        "findingValue": "8.0",
-        "findingValueDescription": "(Alto)",
+        "finding": new_today,
         "findingCount": $scope.finding.cardinalidad,
-        "findingStateColor": $scope.colors.critical,
+        "findingID": "323932433",
         "findingState": "Abierto",
-        "finding": new_today
+        "findingStateColor": $scope.colors.critical,
+        "findingTitle": $scope.finding.hallazgo,
+        "findingType": $scope.finding.tipo_prueba,
+        "findingValue": "8.0",
+        "findingValueColor": $scope.colors.critical,
+        "findingValueDescription": "(Alto)"
       };
     };
     $scope.calculateCardinality = function (data) {
@@ -304,9 +304,6 @@ integrates.controller(
       mixPanelDashboard.trackReports("TechnicalReports", userName, userEmail, org, projt);
       const modalInstance = $uibModal.open({
         "animation": true,
-        "templateUrl": "technicalReportModal.html",
-        "windowClass": "modal avance-modal",
-        "keyboard": false,
         "controller" ($scope, $uibModalInstance, $stateParams, projectFtry) {
           $scope.findingMatrizXLSReport = function () {
             const project = $stateParams.project;
@@ -354,7 +351,10 @@ integrates.controller(
             $uibModalInstance.close();
           };
         },
-        "resolve": {"ok": true}
+        "keyboard": false,
+        "resolve": {"ok": true},
+        "templateUrl": "technicalReportModal.html",
+        "windowClass": "modal avance-modal"
       });
     };
     $scope.executiveReportModal = function () {
@@ -364,9 +364,6 @@ integrates.controller(
       mixPanelDashboard.trackReports("ExecutiveReports", userName, userEmail, org, projt);
       const modalInstance = $uibModal.open({
         "animation": true,
-        "templateUrl": "executiveReportModal.html",
-        "windowClass": "modal avance-modal",
-        "keyboard": false,
         "controller" ($scope, $uibModalInstance, $stateParams) {
           $("#hasPresentation").hide();
           $("#hasPresentationMsg").show();
@@ -432,7 +429,10 @@ integrates.controller(
           };
           $scope.init();
         },
-        "resolve": {"ok": true}
+        "keyboard": false,
+        "resolve": {"ok": true},
+        "templateUrl": "executiveReportModal.html",
+        "windowClass": "modal avance-modal"
       });
     };
     $scope.generatePDF = function () {
@@ -483,20 +483,20 @@ integrates.controller(
       total_higLabel = hig_transl + " :n%".replace(":n", (total_hig * 100 / (total_seg + total_hig)).toFixed(2).toString());
       $("#grapType").empty();
       Morris.Donut({
-        "element": "grapType",
-        "resize": true,
         "data": [
           {
+            "color": "#ff1a1a",
             "label": total_segLabel,
-            "value": total_seg,
-            "color": "#ff1a1a"
+            "value": total_seg
           },
           {
+            "color": "#31c0be",
             "label": total_higLabel,
-            "value": total_hig,
-            "color": "#31c0be"
+            "value": total_hig
           }
-        ]
+        ],
+        "element": "grapType",
+        "resize": true
       });
     };
     $scope.mainGraphexploitPieChart = function () {
@@ -520,20 +520,20 @@ integrates.controller(
       nonexploitLabel = nonexploit_transl + " :n%".replace(":n", (nonexploit * 100 / (exploit + nonexploit)).toFixed(2).toString());
       $("#grapExploit").empty();
       Morris.Donut({
-        "element": "grapExploit",
-        "resize": true,
         "data": [
           {
+            "color": "#ff1a1a",
             "label": exploitLabel,
-            "value": exploit,
-            "color": "#ff1a1a"
+            "value": exploit
           },
           {
+            "color": "#31c0be",
             "label": nonexploitLabel,
-            "value": nonexploit,
-            "color": "#31c0be"
+            "value": nonexploit
           }
-        ]
+        ],
+        "element": "grapExploit",
+        "resize": true
       });
     };
     $scope.mainGraphstatusPieChart = function () {
@@ -564,25 +564,25 @@ integrates.controller(
       closeLabel = close_transl + " :n%".replace(":n", (close * 100 / total).toFixed(2).toString());
       $("#grapStatus").empty();
       Morris.Donut({
-        "element": "grapStatus",
-        "resize": true,
         "data": [
           {
+            "color": "#ff1a1a",
             "label": openLabel,
-            "value": open,
-            "color": "#ff1a1a"
+            "value": open
           },
           {
+            "color": "#ffbf00",
             "label": partialLabel,
-            "value": partial,
-            "color": "#ffbf00"
+            "value": partial
           },
           {
+            "color": "#31c0be",
             "label": closeLabel,
-            "value": close,
-            "color": "#31c0be"
+            "value": close
           }
-        ]
+        ],
+        "element": "grapStatus",
+        "resize": true
       });
     };
 
@@ -943,12 +943,15 @@ integrates.controller(
               // CONFIGURACION DE TABLA
               $("#vulnerabilities").bootstrapTable("destroy");
               $("#vulnerabilities").bootstrapTable({
-                "locale": vlang,
+                "cookie": true,
+                "cookieIdTable": "saveId",
                 "data": $scope.data,
+                "exportDataType": "all",
+                "locale": vlang,
                 "onClickRow" (row, elem) {
                   $state.go("FindingDescription", {
-                    "project": row.proyecto_fluid.toLowerCase(),
-                    "id": row.id
+                    "id": row.id,
+                    "project": row.proyecto_fluid.toLowerCase()
                   });
                   $("#infoItem").addClass("active");
                   $("#info").addClass("active");
@@ -963,10 +966,7 @@ integrates.controller(
                   // Tracking mixpanel
                   mixPanelDashboard.trackFinding("ReadFinding", userEmail, row.id);
                   $scope.currentScrollPosition = $(document).scrollTop();
-                },
-                "cookieIdTable": "saveId",
-                "cookie": true,
-                "exportDataType": "all"
+                }
               });
               $("#vulnerabilities").bootstrapTable("refresh");
               // MANEJO DEL UI
@@ -1053,13 +1053,11 @@ integrates.controller(
             // CONFIGURACION DE TABLA
             $("#tblEventualities").bootstrapTable("destroy");
             $("#tblEventualities").bootstrapTable({
-              "locale": vlang,
               "data": response.data,
+              "locale": vlang,
               "onClickRow" (row) {
                 const modalInstance = $uibModal.open({
-                  "templateUrl": `${BASE.url}assets/views/project/eventualityMdl.html`,
                   "animation": true,
-                  "resolve": {"evt": row},
                   "backdrop": "static",
                   "controller" ($scope, $uibModalInstance, evt) {
                     $scope.evt = evt;
@@ -1070,7 +1068,9 @@ integrates.controller(
                     $scope.close = function () {
                       $uibModalInstance.close();
                     };
-                  }
+                  },
+                  "resolve": {"evt": row},
+                  "templateUrl": `${BASE.url}assets/views/project/eventualityMdl.html`
                 });
               }
             });
@@ -1093,9 +1093,6 @@ integrates.controller(
     $scope.openModalAvance = function () {
       const modalInstance = $uibModal.open({
         "animation": true,
-        "templateUrl": "avance.html",
-        "windowClass": "modal avance-modal",
-        "keyboard": false,
         "controller" ($scope, $uibModalInstance) {
           const auxiliar = $("#vulnerabilities").bootstrapTable("getData");
           const data = auxiliar;
@@ -1123,7 +1120,10 @@ integrates.controller(
             }, 100);
           };
         },
-        "resolve": {"ok": true}
+        "keyboard": false,
+        "resolve": {"ok": true},
+        "templateUrl": "avance.html",
+        "windowClass": "modal avance-modal"
       });
     };
     $scope.showProjectView = function () {

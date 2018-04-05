@@ -28,10 +28,10 @@ integrates.controller("dashboardCtrl", function (
     $timeout(function () {
       $("#myProjectsTbl").bootstrapTable({
         "locale": vlang,
-        "url": `${BASE.url}get_myprojects`,
         "onClickRow" (row, elem) {
           $state.go("ProjectNamed", {"project": row.project});
-        }
+        },
+        "url": `${BASE.url}get_myprojects`
       });
       $("#myProjectsTbl").bootstrapTable("refresh");
     });
@@ -46,8 +46,6 @@ integrates.controller("dashboardCtrl", function (
   $scope.logout = function () {
     const modalInstance = $uibModal.open({
       "animation": true,
-      "templateUrl": "logout.html",
-      "windowClass": "modal avance-modal",
       "controller" ($scope, $uibModalInstance) {
         $scope.closeModalLogout = function () {
           $uibModalInstance.dismiss("cancel");
@@ -56,7 +54,9 @@ integrates.controller("dashboardCtrl", function (
           const location = `${BASE.url}logout`;
         };
       },
-      "resolve": {"done": true}
+      "resolve": {"done": true},
+      "templateUrl": "logout.html",
+      "windowClass": "modal avance-modal"
     });
   };
 
@@ -125,13 +125,11 @@ integrates.controller("dashboardCtrl", function (
         }
       }
       $("#myEventsTbl").bootstrapTable({
-        "locale": vlang,
         "data": response.data,
+        "locale": vlang,
         "onClickRow" (row, elem) {
           const modalInstance = $uibModal.open({
             "animation": true,
-            "templateUrl": "ver.html",
-            "windowClass": "modal avance-modal",
             "controller" ($scope, data, $uibModalInstance) {
               $scope.evnt = data;
               // Tracking mixpanel
@@ -142,7 +140,9 @@ integrates.controller("dashboardCtrl", function (
                 $uibModalInstance.close();
               };
             },
-            "resolve": {"data": row}
+            "resolve": {"data": row},
+            "templateUrl": "ver.html",
+            "windowClass": "modal avance-modal"
           });
         }
       });

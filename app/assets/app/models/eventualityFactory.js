@@ -24,14 +24,9 @@ integrates.factory("eventualityFactory", function ($q) {
       const deferred = $q.defer();
       try {
         $.ajax({
-          "url": `${BASE.url}get_eventualities`,
           "data": {
-            project,
-            category
-          },
-          "success" (response) {
-            $(".loader").hide();
-            deferred.resolve(response);
+            category,
+            project
           },
           "error" (xhr, status) {
             $(".loader").hide();
@@ -46,7 +41,12 @@ integrates.factory("eventualityFactory", function ($q) {
               Rollbar.error("Error: 401 Unauthorized");
               location = "error401";
             }
-          }
+          },
+          "success" (response) {
+            $(".loader").hide();
+            deferred.resolve(response);
+          },
+          "url": `${BASE.url}get_eventualities`
         });
       }
       catch (e) {
@@ -71,12 +71,7 @@ integrates.factory("eventualityFactory", function ($q) {
       const deferred = $q.defer();
       try {
         $.ajax({
-          "url": `${BASE.url}update_eventuality`,
-          "method": "POST",
           "data": {vuln},
-          "success" (response) {
-            deferred.resolve(response);
-          },
           "error" (xhr, status) {
             $(".loader").hide();
             if (xhr.status == 500) {
@@ -90,7 +85,12 @@ integrates.factory("eventualityFactory", function ($q) {
               Rollbar.error("Error: 401 Unauthorized");
               location = "error401";
             }
-          }
+          },
+          "method": "POST",
+          "success" (response) {
+            deferred.resolve(response);
+          },
+          "url": `${BASE.url}update_eventuality`
         });
       }
       catch (e) {

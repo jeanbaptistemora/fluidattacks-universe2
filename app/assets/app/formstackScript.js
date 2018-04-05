@@ -136,10 +136,10 @@ function showInfo (data, tabletop) {
 }
 
 Tabletop.init({
-  "key": public_spreadsheet_url,
   "callback": showInfo,
-  "simpleSheet": true,
-  "prettyColumnNames": true
+  "key": public_spreadsheet_url,
+  "prettyColumnNames": true,
+  "simpleSheet": true
 });
 $(donde).focusout(function () {
   donde.val($.trim(donde.val()));

@@ -57,31 +57,31 @@ const actor = [
 
 const accessVector = [
   {
-    "value": "0.646",
-    "name": "Red adyacente: Explotable desde el mismo segmento de red"
+    "name": "Red adyacente: Explotable desde el mismo segmento de red",
+    "value": "0.646"
   },
   {
-    "value": "1.000",
-    "name": "Red: Explotable desde Internet"
+    "name": "Red: Explotable desde Internet",
+    "value": "1.000"
   },
   {
-    "value": "0.395",
-    "name": "Local: Explotable con acceso local al objetivo"
+    "name": "Local: Explotable con acceso local al objetivo",
+    "value": "0.395"
   }
 ];
 
 const accessComplexity = [
   {
-    "value": "0.350",
-    "name": "Alto: Se requieren condiciones especiales como acceso administrativo"
+    "name": "Alto: Se requieren condiciones especiales como acceso administrativo",
+    "value": "0.350"
   },
   {
-    "value": "0.610",
-    "name": "Medio: Se requieren algunas condiciones como acceso al sistema"
+    "name": "Medio: Se requieren algunas condiciones como acceso al sistema",
+    "value": "0.610"
   },
   {
-    "value": "0.710",
-    "name": "Bajo: No se requiere ninguna condición especial"
+    "name": "Bajo: No se requiere ninguna condición especial",
+    "value": "0.710"
   }
 ];
 

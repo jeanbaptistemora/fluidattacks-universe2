@@ -14,104 +14,37 @@ integrates.factory("findingFactory", function ($q, $translate) {
   return {
 
     /**
-     * Invoca el servicio para tener los hallazgos de un proyecto
-     * @function getVulnByName
-     * @param {String} project
+     * Invoca el servicio para eliminar un hallazgo
+     * @function deleteVuln
+     * @param {Object} vuln
      * @member integrates.findingFactory
      * @return {Object}
      */
-    "getVulnByName" (project, filter) {
-      const oops_ac = $translate.instant("proj_alerts.error_text");
-      return $xhr.get($q, `${BASE.url}get_findings`, {
-        project,
-        filter,
-        "_": Math.random()
-      }, oops_ac);
-    },
-
-    /**
-     * Invoca el servicio para tener los hallazgos de un proyecto por id
-     * @function getVulnById
-     * @param {String} id
-     * @member integrates.findingFactory
-     * @return {Object}
-     */
-    "getVulnById" (id) {
+    "deleteVuln" (vuln) {
       const deferred = $q.defer();
       try {
         $.ajax({
-          "url": `${BASE.url}get_finding`,
+          "data": {vuln},
+          "error" (xhr, status) {
+            $(".loader").hide();
+            if (xhr.status == 500) {
+              Rollbar.error("Error: An error ocurred loading data");
+              deferred.resolve({
+                "error": null,
+                "message": "Error interno cargando datos"
+              });
+            }
+            else if (xhr.status == 401) {
+              Rollbar.error("Error: 401 Unauthorized");
+              location = "error401";
+            }
+          },
           "method": "POST",
-          "data": {
-            id,
-            "_": Math.random()
-          },
           "success" (response) {
-            $(".loader").hide();
             deferred.resolve(response);
           },
-          "error" (xhr, status) {
-            $(".loader").hide();
-            if (xhr.status == 500) {
-              Rollbar.error("Error: An error ocurred loading data");
-              deferred.resolve({
-                "error": null,
-                "message": "Error interno cargando datos"
-              });
-            }
-            else if (xhr.status == 401) {
-              Rollbar.error("Error: 401 Unauthorized");
-              location = "error401";
-            }
-          }
-        });
-      }
-      catch (e) {
-        if (e.status == 401) {
-          Rollbar.error("Error: 401 Unauthorized");
-          location = "error401";
-        }
-        Rollbar.error("Error: An error ocurred getting finding by ID", e);
-        deferred.resolve("exception");
-      }
-      return deferred.promise;
-    },
+          "url": `${BASE.url}delete_finding`
 
-    /**
-     * Invoca el servicio para tener el id de un proyecto
-     * @function getIdByProject
-     * @param {String} project
-     * @member integrates.findingFactory
-     * @return {Object}
-     */
-    "getIdByProject" (project) {
-      const deferred = $q.defer();
-      try {
-        $.ajax({
-          "url": `${BASE.url}get_order`,
-          "method": "GET",
-          "data": {
-            project,
-            "_": Math.random()
-          },
-          "success" (response) {
-            $(".loader").hide();
-            deferred.resolve(response);
-          },
-          "error" (xhr, status) {
-            $(".loader").hide();
-            if (xhr.status == 500) {
-              Rollbar.error("Error: An error ocurred loading data");
-              deferred.resolve({
-                "error": null,
-                "message": "Error interno cargando datos"
-              });
-            }
-            else if (xhr.status == 401) {
-              Rollbar.error("Error: 401 Unauthorized");
-              location = "error401";
-            }
-          }
         });
       }
       catch (e) {
@@ -119,7 +52,7 @@ integrates.factory("findingFactory", function ($q, $translate) {
           Rollbar.error("Error: 401 Unauthorized");
           location = "error401";
         }
-        Rollbar.error("Error: An error ocurred getting ID by project", e);
+        Rollbar.error("Error: An error ocurred deleting finding", e);
         deferred.resolve("exception");
       }
       return deferred.promise;
@@ -138,16 +71,10 @@ integrates.factory("findingFactory", function ($q, $translate) {
       const deferred = $q.defer();
       try {
         $.ajax({
-          "url": `${BASE.url}generate_autodoc?_${Math.random()}`,
-          "method": "POST",
           "data": {
-            project,
             "data": json,
-            format
-          },
-          "success" (response) {
-            $(".loader").hide();
-            deferred.resolve(response);
+            format,
+            project
           },
           "error" (xhr, status) {
             $(".loader").hide();
@@ -162,7 +89,13 @@ integrates.factory("findingFactory", function ($q, $translate) {
               Rollbar.error("Error: 401 Unauthorized");
               location = "error401";
             }
-          }
+          },
+          "method": "POST",
+          "success" (response) {
+            $(".loader").hide();
+            deferred.resolve(response);
+          },
+          "url": `${BASE.url}generate_autodoc?_${Math.random()}`
         });
       }
       catch (e) {
@@ -173,22 +106,19 @@ integrates.factory("findingFactory", function ($q, $translate) {
     },
 
     /**
-     * Invoca el servicio para actualizar un hallazgo
-     * @function updateVuln
+     * Invoca el servicio para tener el id de un proyecto
+     * @function getIdByProject
      * @param {String} project
-     * @param {Object} json
      * @member integrates.findingFactory
      * @return {Object}
      */
-    "updateVuln" (vuln) {
+    "getIdByProject" (project) {
       const deferred = $q.defer();
       try {
         $.ajax({
-          "url": `${BASE.url}update_finding`,
-          "method": "POST",
-          "data": {vuln},
-          "success" (response) {
-            deferred.resolve(response);
+          "data": {
+            "_": Math.random(),
+            project
           },
           "error" (xhr, status) {
             $(".loader").hide();
@@ -203,7 +133,13 @@ integrates.factory("findingFactory", function ($q, $translate) {
               Rollbar.error("Error: 401 Unauthorized");
               location = "error401";
             }
-          }
+          },
+          "method": "GET",
+          "success" (response) {
+            $(".loader").hide();
+            deferred.resolve(response);
+          },
+          "url": `${BASE.url}get_order`
         });
       }
       catch (e) {
@@ -211,28 +147,26 @@ integrates.factory("findingFactory", function ($q, $translate) {
           Rollbar.error("Error: 401 Unauthorized");
           location = "error401";
         }
-        Rollbar.error("Error: An error ocurred updating finding", e);
+        Rollbar.error("Error: An error ocurred getting ID by project", e);
         deferred.resolve("exception");
       }
       return deferred.promise;
     },
 
     /**
-     * Invoca el servicio para eliminar un hallazgo
-     * @function deleteVuln
-     * @param {Object} vuln
+     * Invoca el servicio para tener los hallazgos de un proyecto por id
+     * @function getVulnById
+     * @param {String} id
      * @member integrates.findingFactory
      * @return {Object}
      */
-    "deleteVuln" (vuln) {
+    "getVulnById" (id) {
       const deferred = $q.defer();
       try {
         $.ajax({
-          "url": `${BASE.url}delete_finding`,
-          "method": "POST",
-          "data": {vuln},
-          "success" (response) {
-            deferred.resolve(response);
+          "data": {
+            "_": Math.random(),
+            id
           },
           "error" (xhr, status) {
             $(".loader").hide();
@@ -247,7 +181,13 @@ integrates.factory("findingFactory", function ($q, $translate) {
               Rollbar.error("Error: 401 Unauthorized");
               location = "error401";
             }
-          }
+          },
+          "method": "POST",
+          "success" (response) {
+            $(".loader").hide();
+            deferred.resolve(response);
+          },
+          "url": `${BASE.url}get_finding`
         });
       }
       catch (e) {
@@ -255,10 +195,26 @@ integrates.factory("findingFactory", function ($q, $translate) {
           Rollbar.error("Error: 401 Unauthorized");
           location = "error401";
         }
-        Rollbar.error("Error: An error ocurred deleting finding", e);
+        Rollbar.error("Error: An error ocurred getting finding by ID", e);
         deferred.resolve("exception");
       }
       return deferred.promise;
+    },
+
+    /**
+     * Invoca el servicio para tener los hallazgos de un proyecto
+     * @function getVulnByName
+     * @param {String} project
+     * @member integrates.findingFactory
+     * @return {Object}
+     */
+    "getVulnByName" (project, filter) {
+      const oops_ac = $translate.instant("proj_alerts.error_text");
+      return $xhr.get($q, `${BASE.url}get_findings`, {
+        "_": Math.random(),
+        filter,
+        project
+      }, oops_ac);
     },
 
     /**
@@ -273,14 +229,9 @@ integrates.factory("findingFactory", function ($q, $translate) {
       const deferred = $q.defer();
       try {
         $.ajax({
-          "url": `${BASE.url}update_order`,
-          "method": "POST",
           "data": {
-            project,
-            id
-          },
-          "success" (response) {
-            deferred.resolve(response);
+            id,
+            project
           },
           "error" (xhr, status) {
             $(".loader").hide();
@@ -293,7 +244,12 @@ integrates.factory("findingFactory", function ($q, $translate) {
             else if (xhr.status == 401) {
               location = "error401";
             }
-          }
+          },
+          "method": "POST",
+          "success" (response) {
+            deferred.resolve(response);
+          },
+          "url": `${BASE.url}update_order`
         });
       }
       catch (e) {
@@ -312,6 +268,51 @@ integrates.factory("findingFactory", function ($q, $translate) {
             "message": "Error desconocido"
           });
         }
+      }
+      return deferred.promise;
+    },
+
+    /**
+     * Invoca el servicio para actualizar un hallazgo
+     * @function updateVuln
+     * @param {String} project
+     * @param {Object} json
+     * @member integrates.findingFactory
+     * @return {Object}
+     */
+    "updateVuln" (vuln) {
+      const deferred = $q.defer();
+      try {
+        $.ajax({
+          "data": {vuln},
+          "error" (xhr, status) {
+            $(".loader").hide();
+            if (xhr.status == 500) {
+              Rollbar.error("Error: An error ocurred loading data");
+              deferred.resolve({
+                "error": null,
+                "message": "Error interno cargando datos"
+              });
+            }
+            else if (xhr.status == 401) {
+              Rollbar.error("Error: 401 Unauthorized");
+              location = "error401";
+            }
+          },
+          "method": "POST",
+          "success" (response) {
+            deferred.resolve(response);
+          },
+          "url": `${BASE.url}update_finding`
+        });
+      }
+      catch (e) {
+        if (e.status == 401) {
+          Rollbar.error("Error: 401 Unauthorized");
+          location = "error401";
+        }
+        Rollbar.error("Error: An error ocurred updating finding", e);
+        deferred.resolve("exception");
       }
       return deferred.promise;
     }

@@ -17,64 +17,64 @@ integrates.config(function ($stateProvider, $urlRouterProvider) {
 
   $stateProvider.
     state("home", {
-      "url": "/home",
+      "controller": "dashboardCtrl",
       "templateUrl": "assets/views/dashboard.html",
-      "controller": "dashboardCtrl"
+      "url": "/home"
     }).
     state("ProjectSearch", {
-      "url": "/project",
+      "controller": "projectCtrl",
       "templateUrl": "assets/views/project/index.html",
-      "controller": "projectCtrl"
+      "url": "/project"
     }).
     state("ProjectNamed", {
-      "url": "/project/:project",
+      "controller": "projectCtrl",
       "templateUrl": "assets/views/project/index.html",
-      "controller": "projectCtrl"
+      "url": "/project/:project"
     }).
     state("FindingDescription", {
-      "url": "/project/:project/:id/description",
+      "controller": "findingcontentCtrl",
       "templateUrl": "assets/views/project/findingcontent.html",
-      "controller": "findingcontentCtrl"
+      "url": "/project/:project/:id/description"
     }).
     state("FindingSeverity", {
-      "url": "/project/:project/:id/severity",
+      "controller": "findingcontentCtrl",
       "templateUrl": "assets/views/project/findingcontent.html",
-      "controller": "findingcontentCtrl"
+      "url": "/project/:project/:id/severity"
     }).
     state("FindingTracking", {
-      "url": "/project/:project/:id/tracking",
+      "controller": "findingcontentCtrl",
       "templateUrl": "assets/views/project/findingcontent.html",
-      "controller": "findingcontentCtrl"
+      "url": "/project/:project/:id/tracking"
     }).
     state("FindingEvidence", {
-      "url": "/project/:project/:id/evidence",
+      "controller": "findingcontentCtrl",
       "templateUrl": "assets/views/project/findingcontent.html",
-      "controller": "findingcontentCtrl"
+      "url": "/project/:project/:id/evidence"
     }).
     state("FindingExploit", {
-      "url": "/project/:project/:id/exploit",
+      "controller": "findingcontentCtrl",
       "templateUrl": "assets/views/project/findingcontent.html",
-      "controller": "findingcontentCtrl"
+      "url": "/project/:project/:id/exploit"
     }).
     state("FindingRecords", {
-      "url": "/project/:project/:id/records",
+      "controller": "findingcontentCtrl",
       "templateUrl": "assets/views/project/findingcontent.html",
-      "controller": "findingcontentCtrl"
+      "url": "/project/:project/:id/records"
     }).
     state("FindingComments", {
-      "url": "/project/:project/:id/comments",
+      "controller": "findingcontentCtrl",
       "templateUrl": "assets/views/project/findingcontent.html",
-      "controller": "findingcontentCtrl"
+      "url": "/project/:project/:id/comments"
     }).
     state("EventualitiesByName", {
-      "url": "/eventualities-by-name",
+      "controller": "eventualityController",
       "templateUrl": "assets/views/search/event_by_name.html",
-      "controller": "eventualityController"
+      "url": "/eventualities-by-name"
     }).
     state("Forms", {
-      "url": "/forms",
+      "controller": "formCtrl",
       "templateUrl": `${BASE.url}forms`,
-      "controller": "formCtrl"
+      "url": "/forms"
     });
 });
 integrates.config(function ($sceDelegateProvider) {

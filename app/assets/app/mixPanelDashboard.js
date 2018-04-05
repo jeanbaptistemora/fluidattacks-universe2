@@ -45,11 +45,11 @@ mixPanelDashboard.trackReadEventuality = function (userName, userEmail, Organiza
   mixpanel.track(
     "ReadEventuality",
     {
-      "Name": userName,
       "Email": userEmail,
+      "EventID": id,
+      "Name": userName,
       Organization,
-      "Project": project,
-      "EventID": id
+      "Project": project
     }
   );
 };
@@ -61,8 +61,8 @@ mixPanelDashboard.trackReports = function (trackName, userName, userEmail, Organ
   mixpanel.track(
     trackName,
     {
-      "Name": userName,
       "Email": userEmail,
+      "Name": userName,
       Organization,
       "Project": project
     }
@@ -89,11 +89,11 @@ mixPanelDashboard.trackFindingDetailed = function (trackName, userName, userEmai
   mixpanel.track(
     trackName,
     {
-      "Name": userName,
       "Email": userEmail,
+      "FindingID": id,
+      "Name": userName,
       Organization,
-      "Project": project,
-      "FindingID": id
+      "Project": project
     }
   );
 };

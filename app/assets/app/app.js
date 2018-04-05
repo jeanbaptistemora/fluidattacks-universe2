@@ -71,8 +71,8 @@ function ajaxConfig () {
  * Establece la ruta principal para las peticiones ajax
  */
 const BASE = {
-  "production": "/integrates/",
-  "development": "/"
+  "development": "/",
+  "production": "/integrates/"
 };
 BASE.url = BASE.production;
 if (location.pathname.indexOf("/integrates") == -1) {
@@ -81,34 +81,34 @@ if (location.pathname.indexOf("/integrates") == -1) {
 const $msg = {};
 $msg.success = function (text, title) {
   $.gritter.add({
-    title,
-    text,
     "class_name": "color info",
-    "sticky": false
+    "sticky": false,
+    text,
+    title
   });
 };
 $msg.error = function (text, title = "Oops!") {
   $.gritter.add({
-    title,
-    text,
     "class_name": "color danger",
-    "sticky": false
+    "sticky": false,
+    text,
+    title
   });
 };
 $msg.info = function (text, title) {
   $.gritter.add({
-    title,
-    text,
     "class_name": "color info",
-    "sticky": false
+    "sticky": false,
+    text,
+    title
   });
 };
 $msg.warning = function (text, title) {
   $.gritter.add({
-    title,
-    text,
     "class_name": "color warning",
-    "sticky": false
+    "sticky": false,
+    text,
+    title
   });
 };
 
@@ -133,8 +133,8 @@ integrates.config([
     isProduction = location.toString().indexOf("localhost:8000") == -1;
     RollbarProvider.init({
       "accessToken": "cad6d1f7ecda480ba003e29f0428d44e",
-      "enabled": isProduction,
       "captureUncaught": true,
+      "enabled": isProduction,
       "payload": {"environment": "production"}
     });
   }
