@@ -1,0 +1,12 @@
+:slug: rules/229/
+:category: rules
+:description: En el presente documento se detallan los requerimientos de seguridad relacionados a la gestión segura de autenticación de usuarios. En este caso, se recomienda que el sistema solicite por lo menos un nombre de usuario con su respectiva contraseña en cualquier intento de inicio de sesión.
+:keywords: Sistema, Nombre Usuario, Constraseña, Autenticación, Username, Password.
+:rules: yes
+
+= REQ.229 Solicitar credenciales de acceso
+
+== Nombre
+
+El sistema debe solicitar a cualquier actor que intenta autenticarse,
+como mínimo un nombre de usuario y una contraseña.

@@ -224,6 +224,7 @@
 * link:226/[REQ.226 Evitar bloquear cuenta de usuario].
 * link:227/[REQ.227 Desplegar notificación de acceso].
 * link:228/[REQ.228 Autentificar mediante protocolos estándar].
+* link:229/[REQ.229 Solicitar credenciales de acceso].
 
 == Sistema
 
