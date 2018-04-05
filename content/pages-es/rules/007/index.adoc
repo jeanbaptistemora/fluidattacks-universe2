@@ -8,7 +8,9 @@
 
 == Nombre
 
-Los sistemas que interactúen con un activo de información deben tener identificadas las posibles vulnerabilidades que sobre ellos apliquen y que sean conocidas
+Los sistemas que interactúen con un activo de información
+deben tener identificadas las posibles vulnerabilidades
+que sobre ellos apliquen y que sean conocidas
 
 == Descripción
 

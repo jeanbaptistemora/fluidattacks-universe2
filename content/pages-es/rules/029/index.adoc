@@ -31,7 +31,8 @@ y por consiguiente aumenta la integridad de la aplicación.
 Si el atributo +HttpOnly+
 es incluido en el encabezado de respuesta +HTTP+,
 la +cookie+ no puede ser accedida usando +scripts+ del lado del cliente.
-Como resultado, incluso si existe una vulnerabilidad de link:https://cwe.mitre.org/data/definitions/87.html[+cross-site scripting (XSS)+]
+Como resultado, incluso si existe una vulnerabilidad de
+link:https://cwe.mitre.org/data/definitions/87.html[+cross-site scripting (XSS)+]
 y un usuario accidentalmente accede al enlace que explota esta vulnerabilidad,
 el navegador no revelará la +cookie+ a un tercero.
 +
@@ -63,7 +64,8 @@ sin los atributos +HTTPOnly+ y +Secure+,
 el +script+ reenvía información al atacante^<<r1,[1]>>,<<r2,[2]>>^
 conteniendo la +cookie+ de sesión que se utiliza para robar la misma.
 
-. Un atacante link:https://puppet.com/security/cve/cve-2013-4964[captura datos] de una comunicación por el protocolo +HTTP+
+. Un atacante link:https://puppet.com/security/cve/cve-2013-4964[captura datos]
+de una comunicación por el protocolo +HTTP+
 mediante un ataque de +Man in The Middle (MiTM)+
 interceptando solicitudes y respuestas del protocolo no cifrado
 y extrayendo la +cookie+ de sesión que se utiliza para robar la misma.

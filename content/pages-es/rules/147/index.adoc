@@ -9,7 +9,8 @@
 == Nombre
 
 Las funciones de criptografía del sistema
-deben ser implementadas con mecanismos criptográficos pre-existentes  y vigentes.
+deben ser implementadas con mecanismos criptográficos
+pre-existentes  y vigentes.
 
 == Soluciones
 

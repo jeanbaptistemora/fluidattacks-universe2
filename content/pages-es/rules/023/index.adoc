@@ -63,6 +63,7 @@ y manteniendo los objetos de sesión.
 
 == Referencias
 
-. [[r1]] link:http://www.certicamara.com/download/correspondencia/20121005_Anexos_12_circular_042_de_2012.pdf[CAPÍTULO DÉCIMO SEGUNDO: REQUERIMIENTOS MÍNIMOS DE SEGURIDAD Y CALIDAD PARA LA REALIZACIÓN DE OPERACIONES].
+. [[r1]] link:http://www.certicamara.com/download/correspondencia/20121005_Anexos_12_circular_042_de_2012.pdf[CAPÍTULO DÉCIMO SEGUNDO: REQUERIMIENTOS MÍNIMOS DE SEGURIDAD Y CALIDAD
+PARA LA REALIZACIÓN DE OPERACIONES].
 . [[r2]] link:https://pcinetwork.org/forum/index.php?threads/pci-dss-3-0-6-5-10-broken-authentication-and-session-management.667/[[PCI DSS 3.0\] 6.5.10 Broken authentication and session management].
 . [[r3]] link:https://www.owasp.org/index.php/Top_10_2013-A2-Broken_Authentication_and_Session_Management[Top 10 2013-A2-Broken Authentication and Session Management].

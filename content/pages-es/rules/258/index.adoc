@@ -9,4 +9,5 @@
 == Nombre
 
 La organización debe filtrar el contenido de sitios +web+
-accedidos desde una ubicación perteneciente a la misma entidad (+Proxy+ de salida).
+accedidos desde una ubicación perteneciente
+a la misma entidad (+Proxy+ de salida).
