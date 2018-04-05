@@ -162,7 +162,7 @@ que generan las llaves como se explicó anteriormente.
 
 == Referencias
 
-. [[r1]] link:../../../rules/219/[REQ.219 Usar mecanismos criptográficos seguros].
+. [[r1]] link:../../../rules/224/[REQ.224 Usar mecanismos criptográficos seguros].
 . [[r2]] link:https://www.ibm.com/support/knowledgecenter/en/ssw_ibm_i_73/rzasb/iddiv.htm[Identification Division].
 . [[r3]] link:https://www.ibm.com/support/knowledgecenter/en/ssw_ibm_i_72/rzasb/envcon.htm[Environment Division].
 . [[r4]] link:https://www.ibm.com/support/knowledgecenter/en/ssw_ibm_i_73/rzasb/datdivs.htm[Data Division Structure].

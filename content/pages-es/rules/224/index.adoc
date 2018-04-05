@@ -1,17 +1,17 @@
-:slug: rules/219/
+:slug: rules/224/
 :category: rules
 :description: En el presente documento se detallan los requerimientos de seguridad relacionados a los números aleatorios. En este requerimiento se establece la importancia de implementar mecanismos criptográficos seguros para la generación de números aleatorios usados en procesos críticos.
 :keywords: Requerimiento, Seguridad, Aleatorios, Mecanismos, Criptográficos, Seguros.
 :rules: yes
 
-= REQ.219 Usar mecanismos criptográficos seguros
+= REQ.224 Usar mecanismos criptográficos seguros
 
 == Nombre
 
 Debe usarse el mecanismo criptográfico más seguro
-ofrecido por la plataforma (ej: java.security.SecureRandom)
+ofrecido por la plataforma (ej: +java.security.SecureRandom+)
 para la generación de números aleatorios usados en procesos críticos
-(ej: generación de ID, mapeo de códigos, llaves).
+(ej: generación de +ID+, mapeo de códigos, llaves).
 
 == Soluciones
 

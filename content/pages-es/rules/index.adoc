@@ -113,7 +113,6 @@
 * link:149/[REQ.149 Cifrado simétrico de tamaño mínimo].
 * link:150/[REQ.150 Funciones resumen de tamaño mínimo].
 * link:151/[REQ.151 Claves separadas para cifrado y firmado].
-* link:219/[REQ.219 Usar mecanismos criptográficos seguros].
 
 == Fuente
 
@@ -217,10 +216,12 @@
 == Números
 
 * link:223/[REQ.223 Generar números con distribución uniforme].
+* link:224/[REQ.224 Usar mecanismos criptográficos seguros].
 
 == Autenticación
 
 * link:225/[REQ.225 Respuestas de autenticación adecuadas].
+* link:226/[REQ.226 Evitar bloquear cuenta de usuario].
 
 == Sistema
 
