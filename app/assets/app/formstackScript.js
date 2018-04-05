@@ -6,7 +6,7 @@ $(document).ready(function () {
     try {
       alertify.log("<div class=\"\" style=\"padding: 8px;\"><p class=\"text-center\">Recordatorio</p><p class=\"text-left\"> Recuerda personalizar los campos dependiendo de la situación que vas a reportar!</p> </div>");
     }
-    catch (e) {
+    catch (err) {
       return false;
     }
   };
@@ -61,28 +61,28 @@ function showInfo (data, tabletop) {
   obj = $.parseJSON(JSON.stringify(data));
   $("#field32201810").change(function () {
     const title = $("#field32201810").val();
-    for (let i = 0; i < obj.length; i++) {
-      if (obj[i].Titulo == title) {
-        description.val(obj[i].Descripcion);
-        requirement.val(obj[i].Requisito);
-        solution.val(obj[i].Recomendacion);
-        donde.attr("placeholder", obj[i].Donde);
-        debilidad.val(obj[i].CWE.split("/")[5].split(".")[0]);
-        tipo.val(obj[i].Tipo);
-        if (obj[i].Evidente == "Sí") {
+    for (let cont = 0; cont < obj.length; cont++) {
+      if (obj[cont].Titulo == title) {
+        description.val(obj[cont].Descripcion);
+        requirement.val(obj[cont].Requisito);
+        solution.val(obj[cont].Recomendacion);
+        donde.attr("placeholder", obj[cont].Donde);
+        debilidad.val(obj[cont].CWE.split("/")[5].split(".")[0]);
+        tipo.val(obj[cont].Tipo);
+        if (obj[cont].Evidente == "Sí") {
           si_evidente.attr("checked", true);
         }
         else {
           no_evidente.attr("checked", true);
         }
-        if (obj[i].Solucion_KB != "-") {
+        if (obj[cont].Solucion_KB != "-") {
           has_solution.attr("checked", true);
           $("#fsCell38861739").removeClass("fsHidden");
           $("#fsCell38307753").removeClass("fsHidden");
           solution_pdf.removeAttr("disabled");
-          solution_kb.val(obj[i].Solucion_KB);
+          solution_kb.val(obj[cont].Solucion_KB);
         }
-        else if (obj[i].Solucion_KB == "-") {
+        else if (obj[cont].Solucion_KB == "-") {
           has_no_solution.attr("checked", true);
           $("#fsCell38861739").addClass("fsHidden");
           $("#fsCell38307753").addClass("fsHidden");
@@ -90,11 +90,11 @@ function showInfo (data, tabletop) {
         }
 
         if ($("#field38392454").val() == "Detallado") {
-          threat.val(obj[i].Amenaza);
-          risk.val(obj[i].Riesgo);
+          threat.val(obj[cont].Amenaza);
+          risk.val(obj[cont].Riesgo);
         }
 
-        // If(obj[i].Exploit == "Sí"){
+        // If(obj[cont].Exploit == "Sí"){
         if ($("#field38529253").val() == 0.950) {
           exploit.prop("required", true);
           exploit.addClass("fsRequired");
@@ -118,7 +118,7 @@ function showInfo (data, tabletop) {
         }
         break;
       }
-      if (i == obj.length - 1) {
+      if (cont == obj.length - 1) {
         description.val("");
         requirement.val("");
         solution.val("");

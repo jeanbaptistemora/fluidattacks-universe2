@@ -28,9 +28,9 @@ integrates.controller("findingcontentCtrl", function (
     $scope.header = {};
     const cierres = $scope.finding.cierres;
     const cierresTmp = [];
-    for (let i = 0; i < cierres.length; i++) {
-      const cierre = cierres[i];
-      cierre.position = i + 1;
+    for (let cont = 0; cont < cierres.length; cont++) {
+      const cierre = cierres[cont];
+      cierre.position = cont + 1;
       cierresTmp.push(cierre);
     }
     $scope.finding.cierres = cierresTmp;
@@ -103,11 +103,11 @@ integrates.controller("findingcontentCtrl", function (
               Rollbar.error("Error: An error occurred loading exploit from S3");
             }
           };
-          for (let i = 0; i < response.data.length; i++) {
-            if (typeof response.data[i].exploit !== "undefined" &&
-                            response.data[i].es_exploit == true &&
+          for (let cont = 0; cont < response.data.length; cont++) {
+            if (typeof response.data[cont].exploit !== "undefined" &&
+                            response.data[cont].es_exploit == true &&
                               $scope.finding.cierres.length == 0) {
-              exploit = projectFtry.getExploit($scope.finding.id, response.data[i].exploit);
+              exploit = projectFtry.getExploit($scope.finding.id, response.data[cont].exploit);
               $scope.hasExploit = true;
               exploit.then(function (response) {
                 resp_function(response);
@@ -170,16 +170,16 @@ integrates.controller("findingcontentCtrl", function (
     }
     const inputs = document.querySelectorAll(".inputfile");
     Array.prototype.forEach.call(inputs, function (input) {
-      const label = input.nextElementSibling,
-        labelVal = label.innerHTML;
+      const label = input.nextElementSibling;
+      const labelVal = label.innerHTML;
 
-      input.addEventListener("change", function (e) {
+      input.addEventListener("change", function (aux) {
         let fileName = "";
         if (this.files && this.files.length > 1) {
           fileName = (this.getAttribute("data-multiple-caption") || "").replace("{count}", this.files.length);
         }
         else {
-          fileName = e.target.value.split("\\").pop();
+          fileName = aux.target.value.split("\\").pop();
         }
 
         if (fileName) {
@@ -208,8 +208,8 @@ integrates.controller("findingcontentCtrl", function (
       $("#evidenceText6").val()
     ];
     const refList = [];
-    for (let i = 0; i < $scope.tabEvidences.length; i++) {
-      refList.push($scope.tabEvidences[i].ref);
+    for (let cont = 0; cont < $scope.tabEvidences.length; cont++) {
+      refList.push($scope.tabEvidences[cont].ref);
     }
     const evidencesList = [];
     if (refList.indexOf(0) == -1) {
@@ -261,8 +261,8 @@ integrates.controller("findingcontentCtrl", function (
         "ref": 6
       });
     }
-    $scope.tabEvidences.sort(function (a, b) {
-      return a.ref - b.ref;
+    $scope.tabEvidences.sort(function (auxa, auxb) {
+      return auxa.ref - auxb.ref;
     });
   };
   $scope.treatmentEditable = function () {
@@ -291,16 +291,16 @@ integrates.controller("findingcontentCtrl", function (
     }
     const inputs = document.querySelectorAll(".inputfile");
     Array.prototype.forEach.call(inputs, function (input) {
-      const label = input.nextElementSibling,
-        labelVal = label.innerHTML;
+      const label = input.nextElementSibling;
+      const labelVal = label.innerHTML;
 
-      input.addEventListener("change", function (e) {
+      input.addEventListener("change", function (err) {
         let fileName = "";
         if (this.files && this.files.length > 1) {
           fileName = (this.getAttribute("data-multiple-caption") || "").replace("{count}", this.files.length);
         }
         else {
-          fileName = e.target.value.split("\\").pop();
+          fileName = err.target.value.split("\\").pop();
         }
 
         if (fileName) {
@@ -329,16 +329,16 @@ integrates.controller("findingcontentCtrl", function (
     }
     const inputs = document.querySelectorAll(".inputfile");
     Array.prototype.forEach.call(inputs, function (input) {
-      const label = input.nextElementSibling,
-        labelVal = label.innerHTML;
+      const label = input.nextElementSibling;
+      const labelVal = label.innerHTML;
 
-      input.addEventListener("change", function (e) {
+      input.addEventListener("change", function (err) {
         let fileName = "";
         if (this.files && this.files.length > 1) {
           fileName = (this.getAttribute("data-multiple-caption") || "").replace("{count}", this.files.length);
         }
         else {
-          fileName = e.target.value.split("\\").pop();
+          fileName = err.target.value.split("\\").pop();
         }
 
         if (fileName) {
@@ -1069,7 +1069,7 @@ integrates.controller("findingcontentCtrl", function (
     const Explo = parseFloat($scope.finding.explotabilidad.split(" | ")[0]);
     const Resol = parseFloat($scope.finding.nivel_resolucion.split(" | ")[0]);
     const Confi = parseFloat($scope.finding.nivel_confianza.split(" | ")[0]);
-    const BaseScore = (0.6 * (10.41 * (1 - (1 - ImpCon) * (1 - ImpInt) * (1 - ImpDis))) + 0.4 * (20 * AccCom * Auth * AccVec) - 1.5) * 1.176;
+    const BaseScore = ((0.6 * 10.41 * (1 - ((1 - ImpCon) * (1 - ImpInt) * (1 - ImpDis)))) + (0.4 * 20 * AccCom * Auth * AccVec) - 1.5) * 1.176;
     const Temporal = BaseScore * Explo * Resol * Confi;
     const CVSSGeneral = Temporal;
     $scope.finding.cssv2base = BaseScore.toFixed(1);
@@ -1120,9 +1120,9 @@ integrates.controller("findingcontentCtrl", function (
     req.then(function (response) {
       if (!response.error) {
         if (response.data.length > 0) {
-          for (let i = 0; i < response.data.length; i++) {
-            if (typeof response.data[i].animacion !== "undefined" && response.data[i].es_animacion == true) {
-              url = url_pre + response.data[i].animacion;
+          for (let cont = 0; cont < response.data.length; cont++) {
+            if (typeof response.data[cont].animacion !== "undefined" && response.data[cont].es_animacion == true) {
+              url = url_pre + response.data[cont].animacion;
               evidenceList.push({
                 "desc": $translate.instant("search_findings.tab_evidence.animation_exploit"),
                 "name": $translate.instant("search_findings.tab_evidence.animation_exploit"),
@@ -1139,8 +1139,8 @@ integrates.controller("findingcontentCtrl", function (
                 url
               });
             }
-            if (typeof response.data[i].explotacion !== "undefined" && response.data[i].es_explotacion == true) {
-              url = url_pre + response.data[i].explotacion;
+            if (typeof response.data[cont].explotacion !== "undefined" && response.data[cont].es_explotacion == true) {
+              url = url_pre + response.data[cont].explotacion;
               evidenceList.push({
                 "desc": $translate.instant("search_findings.tab_evidence.evidence_exploit"),
                 "name": $translate.instant("search_findings.tab_evidence.evidence_exploit"),
@@ -1158,9 +1158,9 @@ integrates.controller("findingcontentCtrl", function (
               });
             }
             if (typeof $scope.finding.desc_evidencia_1 !== "undefined" &&
-                          typeof response.data[i].ruta_evidencia_1 !== "undefined" &&
-                            response.data[i].es_ruta_evidencia_1 == true) {
-              url = url_pre + response.data[i].ruta_evidencia_1;
+                          typeof response.data[cont].ruta_evidencia_1 !== "undefined" &&
+                            response.data[cont].es_ruta_evidencia_1 == true) {
+              url = url_pre + response.data[cont].ruta_evidencia_1;
               evidenceList.push({
                 "desc": $scope.capitalizeFirstLetter($scope.finding.desc_evidencia_1),
                 "name": `${$translate.instant("search_findings.tab_evidence.evidence_name")} 1`,
@@ -1179,9 +1179,9 @@ integrates.controller("findingcontentCtrl", function (
               });
             }
             if (typeof $scope.finding.desc_evidencia_2 !== "undefined" &&
-                          typeof response.data[i].ruta_evidencia_2 !== "undefined" &&
-                            response.data[i].es_ruta_evidencia_2 == true) {
-              url = url_pre + response.data[i].ruta_evidencia_2;
+                          typeof response.data[cont].ruta_evidencia_2 !== "undefined" &&
+                            response.data[cont].es_ruta_evidencia_2 == true) {
+              url = url_pre + response.data[cont].ruta_evidencia_2;
               evidenceList.push({
                 "desc": $scope.capitalizeFirstLetter($scope.finding.desc_evidencia_2),
                 "name": `${$translate.instant("search_findings.tab_evidence.evidence_name")} 2`,
@@ -1200,9 +1200,9 @@ integrates.controller("findingcontentCtrl", function (
               });
             }
             if (typeof $scope.finding.desc_evidencia_3 !== "undefined" &&
-                          typeof response.data[i].ruta_evidencia_3 !== "undefined" &&
-                            response.data[i].es_ruta_evidencia_3 == true) {
-              url = url_pre + response.data[i].ruta_evidencia_3;
+                          typeof response.data[cont].ruta_evidencia_3 !== "undefined" &&
+                            response.data[cont].es_ruta_evidencia_3 == true) {
+              url = url_pre + response.data[cont].ruta_evidencia_3;
               evidenceList.push({
                 "desc": $scope.capitalizeFirstLetter($scope.finding.desc_evidencia_3),
                 "name": `${$translate.instant("search_findings.tab_evidence.evidence_name")} 3`,
@@ -1221,9 +1221,9 @@ integrates.controller("findingcontentCtrl", function (
               });
             }
             if (typeof $scope.finding.desc_evidencia_4 !== "undefined" &&
-                          typeof response.data[i].ruta_evidencia_4 !== "undefined" &&
-                            response.data[i].es_ruta_evidencia_4 == true) {
-              url = url_pre + response.data[i].ruta_evidencia_4;
+                          typeof response.data[cont].ruta_evidencia_4 !== "undefined" &&
+                            response.data[cont].es_ruta_evidencia_4 == true) {
+              url = url_pre + response.data[cont].ruta_evidencia_4;
               evidenceList.push({
                 "desc": $scope.capitalizeFirstLetter($scope.finding.desc_evidencia_4),
                 "name": `${$translate.instant("search_findings.tab_evidence.evidence_name")} 4`,
@@ -1242,9 +1242,9 @@ integrates.controller("findingcontentCtrl", function (
               });
             }
             if (typeof $scope.finding.desc_evidencia_5 !== "undefined" &&
-                          typeof response.data[i].ruta_evidencia_5 !== "undefined" &&
-                            response.data[i].es_ruta_evidencia_5 == true) {
-              url = url_pre + response.data[i].ruta_evidencia_5;
+                          typeof response.data[cont].ruta_evidencia_5 !== "undefined" &&
+                            response.data[cont].es_ruta_evidencia_5 == true) {
+              url = url_pre + response.data[cont].ruta_evidencia_5;
               evidenceList.push({
                 "desc": $scope.capitalizeFirstLetter($scope.finding.desc_evidencia_5),
                 "name": `${$translate.instant("search_findings.tab_evidence.evidence_name")} 5`,
@@ -1348,13 +1348,13 @@ integrates.controller("findingcontentCtrl", function (
       comments.then(function (response) {
         if (!response.error) {
           const usersArray = [];
-          for (let i = 0; i < response.data.length; i++) {
+          for (let cont = 0; cont < response.data.length; cont++) {
             const user = {
               "email": "",
               "fullname": ""
             };
-            user.fullname = response.data[i].fullname;
-            user.email = response.data[i].email;
+            user.fullname = response.data[cont].fullname;
+            user.email = response.data[cont].email;
             usersArray.push(user);
           }
           const saveComment = function (data) {
@@ -1429,11 +1429,11 @@ integrates.controller("findingcontentCtrl", function (
           const resp_function = function (response) {
             if (!response.error) {
               const dataCols = [];
-              for (const i in response.data[0]) {
-                if ({}.hasOwnProperty.call(response.data[0], i)) {
+              for (const cont in response.data[0]) {
+                if ({}.hasOwnProperty.call(response.data[0], cont)) {
                   dataCols.push({
-                    "field": i,
-                    "title": i
+                    "field": cont,
+                    "title": cont
                   });
                 }
               }
@@ -1453,10 +1453,10 @@ integrates.controller("findingcontentCtrl", function (
               $msg.error(error_ac1);
             }
           };
-          for (let i = 0; i < response.data.length; i++) {
-            if (typeof response.data[i].registros_archivo !== "undefined" &&
-                            response.data[i].es_registros_archivo == true) {
-              record = projectFtry.getRecords($scope.finding.id, response.data[i].registros_archivo);
+          for (let cont = 0; cont < response.data.length; cont++) {
+            if (typeof response.data[cont].registros_archivo !== "undefined" &&
+                            response.data[cont].es_registros_archivo == true) {
+              record = projectFtry.getRecords($scope.finding.id, response.data[cont].registros_archivo);
               $scope.hasRecords = true;
               record.then(function (response) {
                 resp_function(response);
@@ -1469,8 +1469,8 @@ integrates.controller("findingcontentCtrl", function (
                 resp_function(response);
               });
             }
-            else if (typeof $scope.finding.registros_archivo === "undefined" || typeof response.data[i].registros_archivo === "undefined" &&
-                            response.data[i].es_registros_archivo == false) {
+            else if ((typeof $scope.finding.registros_archivo === "undefined" || typeof response.data[cont].registros_archivo === "undefined") &&
+                            response.data[cont].es_registros_archivo == false) {
               $scope.hasRecords = false;
             }
           }
@@ -1481,11 +1481,11 @@ integrates.controller("findingcontentCtrl", function (
           record.then(function (response) {
             if (!response.error) {
               const dataCols = [];
-              for (const i in response.data[0]) {
-                if ({}.hasOwnProperty.call(response.data[0], i)) {
+              for (const cont in response.data[0]) {
+                if ({}.hasOwnProperty.call(response.data[0], cont)) {
                   dataCols.push({
-                    "field": i,
-                    "title": i
+                    "field": cont,
+                    "title": cont
                   });
                 }
               }
@@ -1539,7 +1539,7 @@ integrates.controller("findingcontentCtrl", function (
         }
         return true;
       }
-      catch (e) {
+      catch (err) {
         $scope.finding.valor_riesgo = "";
         return false;
       }

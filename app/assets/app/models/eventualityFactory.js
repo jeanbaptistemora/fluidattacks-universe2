@@ -49,12 +49,12 @@ integrates.factory("eventualityFactory", function ($q) {
           "url": `${BASE.url}get_eventualities`
         });
       }
-      catch (e) {
-        if (e.status == 401) {
+      catch (err) {
+        if (err.status == 401) {
           Rollbar.error("Error: 401 Unauthorized");
           location = "error401";
         }
-        Rollbar.error("Error: An error ocurred getting event by name", e);
+        Rollbar.error("Error: An error ocurred getting event by name", err);
         deferred.resolve("exception");
       }
       return deferred.promise;
@@ -93,12 +93,12 @@ integrates.factory("eventualityFactory", function ($q) {
           "url": `${BASE.url}update_eventuality`
         });
       }
-      catch (e) {
-        if (e.status == 401) {
+      catch (err) {
+        if (err.status == 401) {
           Rollbar.error("Error: 401 Unauthorized");
           location = "error401";
         }
-        else if (e.status == 500) {
+        else if (err.status == 500) {
           Rollbar.error("Error: An error ocurred loading data");
           deferred.resolve({
             "error": "undefined",
@@ -106,7 +106,7 @@ integrates.factory("eventualityFactory", function ($q) {
           });
         }
         else {
-          Rollbar.error("Error: An error ocurred updating event", e);
+          Rollbar.error("Error: An error ocurred updating event", err);
           deferred.resolve({
             "error": "undefined",
             "message": "Error desconocido"

@@ -15,8 +15,8 @@ integrates.config([
   "$translateProvider",
   function ($translateProvider) {
     $translateProvider.useSanitizeValueStrategy("sanitizeParameters");
-    let traducciones = {},
-      translations = {};
+    let traducciones = {};
+    let translations = {};
     translations = {
       "breadcumbs":
    {

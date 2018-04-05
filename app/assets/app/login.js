@@ -104,9 +104,9 @@ integrates.controller("loginController", function ($scope, $translate) {
         },
         "method": "POST",
         "url": `${BASE.url}login/`
-      }).done(function (e) {
+      }).done(function (err) {
         let color = "warning";
-        if (e.error == true) {
+        if (err.error == true) {
           color = "warning";
         }
         else {
@@ -115,7 +115,7 @@ integrates.controller("loginController", function ($scope, $translate) {
         $.gritter.add({
           "class_name": `color ${color}`,
           "sticky": false,
-          "text": e.message,
+          "text": err.message,
           "title": ""
         });
         if (color == "success") {

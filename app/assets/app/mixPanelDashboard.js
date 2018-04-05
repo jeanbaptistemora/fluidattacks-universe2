@@ -19,7 +19,7 @@ mixPanelDashboard.isProduction = function () {
     result = location.toString().indexOf("localhost:8000") !== none_int;
     return result;
   }
-  catch (e) {
+  catch (err) {
     result = false;
     return result;
   }

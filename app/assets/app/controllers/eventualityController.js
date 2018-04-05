@@ -35,10 +35,10 @@ integrates.afectacionFormatter = function (value, row, index) {
 integrates.evntTotalize = function (data) {
   const cardinalidad = 0;
   let afectacion = 0;
-  for (let i = 0; i < data.data.length; i++) {
+  for (let cont = 0; cont < data.data.length; cont++) {
     let auxAfectacion = 0;
-    if (data.data[i].afectacion != "") {
-      auxAfectacion += parseInt(data.data[i].afectacion, 10);
+    if (data.data[cont].afectacion != "") {
+      auxAfectacion += parseInt(data.data[cont].afectacion, 10);
     }
     afectacion += auxAfectacion;
   }
@@ -55,13 +55,13 @@ integrates.evntTotalize = function (data) {
 integrates.updateEvntRow = function (row) {
   const data = $("#eventualities").bootstrapTable("getData");
   const newData = [];
-  for (let i = 0; i < data.length; i++) {
-    delete data[i][i.toString()];
-    if (data[i].id == row.id) {
+  for (let cont = 0; cont < data.length; cont++) {
+    delete data[cont][cont.toString()];
+    if (data[cont].id == row.id) {
       newData.push(row);
     }
     else {
-      newData.push(data[i]);
+      newData.push(data[cont]);
     }
   }
   $("#eventualities").bootstrapTable("destroy");
@@ -215,7 +215,7 @@ integrates.controller("eventualityController", function ($scope, $uibModal, $tra
             }
             submit = true;
           }
-          catch (e) {
+          catch (err) {
             Rollbar.error("Error: Affectation can not be a negative number");
             $.gritter.add({
               "class_name": "color warning",
@@ -299,53 +299,53 @@ integrates.controller("eventualityController", function ($scope, $uibModal, $tra
         if (!data.error) {
           // CONFIGURACION DE TABLA
           $scope.view.event = true;
-          for (let i = 0; i < data.data.length; i++) {
-            switch (data.data[i].tipo) {
+          for (let cont = 0; cont < data.data.length; cont++) {
+            switch (data.data[cont].tipo) {
             case "Autorización para ataque especial":
-              data.data[i].tipo = $translate.instant("event_formstack.type.auth_attack");
+              data.data[cont].tipo = $translate.instant("event_formstack.type.auth_attack");
               break;
             case "Alcance difiere a lo aprobado":
-              data.data[i].tipo = $translate.instant("event_formstack.type.toe_differs");
+              data.data[cont].tipo = $translate.instant("event_formstack.type.toe_differs");
               break;
             case "Aprobación de alta disponibilidad":
-              data.data[i].tipo = $translate.instant("event_formstack.type.high_approval");
+              data.data[cont].tipo = $translate.instant("event_formstack.type.high_approval");
               break;
             case "Insumos incorrectos o faltantes":
-              data.data[i].tipo = $translate.instant("event_formstack.type.incor_supplies");
+              data.data[cont].tipo = $translate.instant("event_formstack.type.incor_supplies");
               break;
             case "Cliente suspende explicitamente":
-              data.data[i].tipo = $translate.instant("event_formstack.type.explic_suspend");
+              data.data[cont].tipo = $translate.instant("event_formstack.type.explic_suspend");
               break;
             case "Cliente aprueba cambio de alcance":
-              data.data[i].tipo = $translate.instant("event_formstack.type.approv_change");
+              data.data[cont].tipo = $translate.instant("event_formstack.type.approv_change");
               break;
             case "Cliente cancela el proyecto/hito":
-              data.data[i].tipo = $translate.instant("event_formstack.type.cancel_proj");
+              data.data[cont].tipo = $translate.instant("event_formstack.type.cancel_proj");
               break;
             case "Cliente detecta ataque":
-              data.data[i].tipo = $translate.instant("event_formstack.type.det_attack");
+              data.data[cont].tipo = $translate.instant("event_formstack.type.det_attack");
               break;
             case "Otro":
-              data.data[i].tipo = $translate.instant("event_formstack.type.other");
+              data.data[cont].tipo = $translate.instant("event_formstack.type.other");
               break;
             case "Ambiente no accesible":
-              data.data[i].tipo = $translate.instant("event_formstack.type.inacc_ambient");
+              data.data[cont].tipo = $translate.instant("event_formstack.type.inacc_ambient");
               break;
             case "Ambiente inestable":
-              data.data[i].tipo = $translate.instant("event_formstack.type.uns_ambient");
+              data.data[cont].tipo = $translate.instant("event_formstack.type.uns_ambient");
               break;
             default:
-              data.data[i].tipo = $translate.instant("event_formstack.type.unknown");
+              data.data[cont].tipo = $translate.instant("event_formstack.type.unknown");
             }
-            switch (data.data[i].estado) {
+            switch (data.data[cont].estado) {
             case "Pendiente":
-              data.data[i].estado = $translate.instant("event_formstack.status.unsolve");
+              data.data[cont].estado = $translate.instant("event_formstack.status.unsolve");
               break;
             case "Tratada":
-              data.data[i].estado = $translate.instant("event_formstack.status.solve");
+              data.data[cont].estado = $translate.instant("event_formstack.status.solve");
               break;
             default:
-              data.data[i].estado = $translate.instant("event_formstack.status.unknown");
+              data.data[cont].estado = $translate.instant("event_formstack.status.unknown");
             }
           }
           $("#eventualities").bootstrapTable("destroy");

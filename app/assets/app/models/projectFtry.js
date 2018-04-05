@@ -199,12 +199,12 @@ integrates.factory("projectFtry", function ($q, $translate) {
           "url": `${BASE.url}update_evidences_files?_${Math.random()}`
         });
       }
-      catch (e) {
-        if (e.status == 401) {
+      catch (err) {
+        if (err.status == 401) {
           Rollbar.error("Error: 401 Unauthorized");
           location = "error401";
         }
-        Rollbar.error("Error: An error ocurred getting finding by ID", e);
+        Rollbar.error("Error: An error ocurred getting finding by ID", err);
       }
     },
 

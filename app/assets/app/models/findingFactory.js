@@ -47,12 +47,12 @@ integrates.factory("findingFactory", function ($q, $translate) {
 
         });
       }
-      catch (e) {
-        if (e.status == 401) {
+      catch (err) {
+        if (err.status == 401) {
           Rollbar.error("Error: 401 Unauthorized");
           location = "error401";
         }
-        Rollbar.error("Error: An error ocurred deleting finding", e);
+        Rollbar.error("Error: An error ocurred deleting finding", err);
         deferred.resolve("exception");
       }
       return deferred.promise;
@@ -98,8 +98,8 @@ integrates.factory("findingFactory", function ($q, $translate) {
           "url": `${BASE.url}generate_autodoc?_${Math.random()}`
         });
       }
-      catch (e) {
-        Rollbar.error("Error: An error ocurred generating document", e);
+      catch (err) {
+        Rollbar.error("Error: An error ocurred generating document", err);
         deferred.resolve("exception");
       }
       return deferred.promise;
@@ -142,12 +142,12 @@ integrates.factory("findingFactory", function ($q, $translate) {
           "url": `${BASE.url}get_order`
         });
       }
-      catch (e) {
-        if (e.status == 401) {
+      catch (err) {
+        if (err.status == 401) {
           Rollbar.error("Error: 401 Unauthorized");
           location = "error401";
         }
-        Rollbar.error("Error: An error ocurred getting ID by project", e);
+        Rollbar.error("Error: An error ocurred getting ID by project", err);
         deferred.resolve("exception");
       }
       return deferred.promise;
@@ -190,12 +190,12 @@ integrates.factory("findingFactory", function ($q, $translate) {
           "url": `${BASE.url}get_finding`
         });
       }
-      catch (e) {
-        if (e.status == 401) {
+      catch (err) {
+        if (err.status == 401) {
           Rollbar.error("Error: 401 Unauthorized");
           location = "error401";
         }
-        Rollbar.error("Error: An error ocurred getting finding by ID", e);
+        Rollbar.error("Error: An error ocurred getting finding by ID", err);
         deferred.resolve("exception");
       }
       return deferred.promise;
@@ -252,11 +252,11 @@ integrates.factory("findingFactory", function ($q, $translate) {
           "url": `${BASE.url}update_order`
         });
       }
-      catch (e) {
-        if (e.status == 401) {
+      catch (err) {
+        if (err.status == 401) {
           location = "error401";
         }
-        else if (e.status == 500) {
+        else if (err.status == 500) {
           deferred.resolve({
             "error": "undefined",
             "message": "Error interno cargando datos"
@@ -306,12 +306,12 @@ integrates.factory("findingFactory", function ($q, $translate) {
           "url": `${BASE.url}update_finding`
         });
       }
-      catch (e) {
-        if (e.status == 401) {
+      catch (err) {
+        if (err.status == 401) {
           Rollbar.error("Error: 401 Unauthorized");
           location = "error401";
         }
-        Rollbar.error("Error: An error ocurred updating finding", e);
+        Rollbar.error("Error: An error ocurred updating finding", err);
         deferred.resolve("exception");
       }
       return deferred.promise;
