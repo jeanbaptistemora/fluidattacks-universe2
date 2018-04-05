@@ -212,6 +212,7 @@
 == Máquinas
 
 * link:221/[REQ.221 Desconectar periféricos innecesarios].
+* link:222/[REQ.222 Denegar acceso a máquina anfitriona].
 
 == Autenticación
 
