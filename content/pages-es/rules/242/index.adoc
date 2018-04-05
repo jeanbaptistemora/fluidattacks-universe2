@@ -9,4 +9,5 @@
 == Nombre
 
 El soporte a las aplicaciones o sistemas debe realizarse
-sólo en ambientes diferentes a producción (desarrollo, pruebas o calidad, +UAT+).
+sólo en ambientes diferentes a producción
+(desarrollo, pruebas o calidad, +UAT+).
