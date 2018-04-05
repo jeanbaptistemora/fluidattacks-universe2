@@ -56,29 +56,34 @@ a|== Duración específica
 Dependiendo del tamaño de la prueba típicamente estas
 toman entre +1+ y +4+ semanas.
 
+a|== Ciclos de prueba
+
+Al ser una prueba a una versión específica
+solo se contará con un ciclo de prueba.
+
+^.^a|image:ciclos.png[alt="Ciclos de prueba de Ethical Hacking", width="55%"]
+
+^.^a|image:seguimiento-proyecto.png[alt="Seguimiento del proyecto de Ethical Hacking", width="55%"]
+
 a|== Seguimiento personalizado
 
 Cada proyecto tiene asignado un +project manager+
 a través del cual los clientes pueden gestionar todo lo necesario
 antes, durante y después de la ejecución.
 
-^.^a|image:seguimiento-proyecto.png[alt="Seguimiento del proyecto de Ethical Hacking", width="55%"]
-
-^.^a|image:ejecucion-programada.png[alt="Ejecución programada de Ethical Hacking", width="55%"]
-
 a|== Ejecución programada
 
 Se acuerda una fecha de inicio y una fecha de fin
 previa confirmación de los insumos necesarios para el inicio.
 
+^.^a|image:ejecucion-programada.png[alt="Ejecución programada de Ethical Hacking", width="55%"]
+
+^.^a|image:ambientes-pruebas.png[alt="Ambientes para Ethical Hacking", width="55%"]
+
 a|== Ambientes de prueba
 
 Es posible elegir un único ambiente de pruebas
 entre producción, pruebas e integración.
-
-^.^a|image:ambientes-pruebas.png[alt="Ambientes para Ethical Hacking", width="55%"]
-
-^.^a|image:equipo.png[alt="Equipo técnico para Ethical Hacking", width="55%"]
 
 a|== Equipo de hacking altamente calificado
 
@@ -90,6 +95,10 @@ prácticas inseguras de programación, alineación a estándares
 y regulaciones de seguridad sin falsos positivos,
 posibilitando la detección de vulnerabilidades +Zero Day+.
 
+^.^a|image:equipo.png[alt="Equipo técnico para Ethical Hacking", width="55%"]
+
+^.^a|image:explotacion.png[alt="Explotación de vulnerabilidades de Ethical Hacking", width="55%"]
+
 a|== Explotación de hallazgos
 
 Siempre que se tenga acceso a la aplicación desplegada
@@ -97,14 +106,14 @@ y se cuente con autorización por parte del cliente
 para la afectación de ambientes
 usando nuestro motor de explotación propio [button]#link:../../productos/asserts/[Asserts]#.
 
-^.^a|image:explotacion.png[alt="Explotación de vulnerabilidades de Ethical Hacking", width="55%"]
-
-^.^a|image:extraccion.png[alt="Información comprometida en Ethical Hacking", width="55%"]
-
 a|== Extracción de información crítica
 
 En los hallazgos donde es posible se extraen todos los registros comprometidos
 con el fin de maximizar el impacto generado y comprometer información sensible.
+
+^.^a|image:extraccion.png[alt="Información comprometida en Ethical Hacking", width="55%"]
+
+^.^a|image:infeccion.png[alt="Infección en Ethical Hacking", width="55%"]
 
 a|== Infección
 
@@ -114,25 +123,21 @@ comprometer servidores y verificar controles a nivel de red.
 Se hace uso de +shells+ y troyanos personalizados
 con previa autorización por parte del cliente.
 
-^.^a|image:infeccion.png[alt="Infección en Ethical Hacking", width="55%"]
-
-^.^a|image:informes-avance.png[alt="Informes de Avance en Ethical Hacking", width="55%"]
-
 a|== Envío diario de informes de avance
 
 Informes de avance diarios al correo electrónico
 con estadísticas de cobertura, rigurosidad,
 resultados parciales y avance ponderado.
 
+^.^a|image:informes-avance.png[alt="Informes de Avance en Ethical Hacking", width="55%"]
+
+^.^a|image:integrates.png[alt="Hallazgos de Ethical Hacking", width="55%"]
+
 a|== Seguimiento de hallazgos a través de Integrates
 
 Durante la ejecución del proyecto es posible verificar
 los hallazgos reportados en nuestra plataforma
 [button]#link:../../productos/integrates/[Integrates]#.
-
-^.^a|image:integrates.png[alt="Hallazgos de Ethical Hacking", width="55%"]
-
-^.^a|image:remediacion.png[alt="Remediar un hallazgo de Ethical Hacking", width="55%"]
 
 a|== Soporte de remediación.
 
@@ -143,14 +148,14 @@ directamente a los hackers mediante
 Es posible utilizar nuestras guias detalladas de remediación
 mediante [button]#link:../../productos/defends/[Defends]#.
 
+^.^a|image:remediacion.png[alt="Remediar un hallazgo de Ethical Hacking", width="55%"]
+
+^.^a|image:boveda-segura.png[alt="Intercambio de información de Ethical Hacking", width="55%"]
+
 a|== Entrega de informes vía bóveda segura
 
 Entrega de versión definitiva de informes con evidencias
 a través de un sitio de transferencia de archivos.
-
-^.^a|image:boveda-segura.png[alt="Intercambio de información de Ethical Hacking", width="55%"]
-
-^.^a|image:validacion-informes.png[alt="Validación de informes de Ethical Hacking", width="55%"]
 
 a|== Reunión de validación de informes
 
@@ -158,20 +163,24 @@ Reunión con el equipo técnico para validar los informes
 y atender observaciones, esta puede hacerse de forma presencial
 o remota según las necesidades del cliente.
 
+^.^a|image:validacion-informes.png[alt="Validación de informes de Ethical Hacking", width="55%"]
+
+^.^a|image:reunion-entrega.png[alt="Reunión de entrega de Ethical Hacking", width="55%"]
+
 a|== Reunión de entrega
 
 Presentación formal de informes ejecutivos a todos los interesados.
 Consta de dos reuniones presenciales: una de validación
 y una de socialización general.
 
-^.^a|image:reunion-entrega.png[alt="Reunión de entrega de Ethical Hacking", width="55%"]
-
-^.^a|image:borrado-informacion.png[alt="Borrado de evidencias de Ethical Hacking", width="55%"]
-
 a|== Borrado seguro de información
 
 +7+ días hábiles luego de la aprobación final de los informes
 se borra toda la información de nuestros sistemas
+
+^.^a|image:borrado-informacion.png[alt="Borrado de evidencias de Ethical Hacking", width="55%"]
+
+^.^a|image:retest.png[alt="Retest de Ethical Hacking", width="55%"]
 
 a|== Verificación de cierre (Opcional)
 
@@ -182,8 +191,6 @@ comparta nuevamente los informes iniciales
 y garantice el acceso al ambiente de pruebas.
 No se buscan nuevas vulnerabilidades,
 solo se valida lo ya encontrado previamente
-
-^.^a|image:retest.png[alt="Retest de Ethical Hacking", width="55%"]
 
 |====
 

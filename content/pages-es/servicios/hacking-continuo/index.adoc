@@ -99,10 +99,17 @@ a|== Duración
 
 La suscripción se contrata por espacio mínimo de un año
 
-
 ^.^a|image:img8.png[alt="img8", width="55%"]
 
-^.^a|image:img9.png[alt="img9", width="55%"]
+^.^a|image:ciclos-continuo.png[alt="Ciclos de prueba de Ethical Hacking", width="55%"]
+
+a|== Ciclos de prueba
+Durante el tiempo de la suscripción se realizan múltiples ciclos de prueba
+a las diferentes versiones del código y/o aplicación
+que se generan durante el desarrollo del sistema,
+nuestro equipo de hacking revisará constantemente
+las funcionalidades del sistema
+incluso cuando ya han sido probadas en versiones anteriores.
 
 a|== Comunicación directa y ágil
 
@@ -110,16 +117,16 @@ Toda la comunicación del proyecto se hace a través de
 [button]#link:../../productos/integrates/[Integrates]#,
 mediante las funcionalidades de Chat y de comentarios.
 
+^.^a|image:img9.png[alt="img9", width="55%"]
+
+^.^a|image:img10.png[alt="img10", width="55%"]
+
 a|== Ambientes de prueba
 
 Es posible elegir un único ambiente de pruebas entre producción,
 pruebas e integración con el servicio básico.
 También es posible adicionar ambientes
 para verificación de cierre de vulnerabilidades por un cargo adicional.
-
-^.^a|image:img10.png[alt="img10", width="55%"]
-
-^.^a|image:img11.png[alt="img11", width="55%"]
 
 a|== Equipo de hacking altamente calificado
 
@@ -131,6 +138,10 @@ prácticas inseguras de programación,
 alineación a estándares y regulaciones de seguridad sin falsos positivos,
 posibilitando la detección de vulnerabilidades +Zero Day+.
 
+^.^a|image:img11.png[alt="img11", width="55%"]
+
+^.^a|image:img12.png[alt="img12", width="55%"]
+
 a|== Explotación de vulnerabilidades
 
 Siempre que se tenga acceso a la aplicación desplegada
@@ -139,15 +150,15 @@ para la afectación de ambientes
 usando nuestro motor de explotación propio
 [button]#link:../../productos/asserts/[Asserts]#.
 
-^.^a|image:img12.png[alt="img12", width="55%"]
-
-^.^a|image:img13.png[alt="img13", width="55%"]
-
 a|== Extracción de información crítica
 
 En las vulnerabilidades donde sea posible se extraen todos los registros comprometidos
 con el fin de maximizar el impacto generado
 y comprometer información sensible.
+
+^.^a|image:img13.png[alt="img13", width="55%"]
+
+^.^a|image:img15.png[alt="img15", width="55%"]
 
 a|== Seguimiento de vulnerabilidades a través de Integrates
 
@@ -157,10 +168,6 @@ así como visualizar en tiempo real estadísticas del proyecto,
 del estado de remediación de las vulnerabilidades,
 clasificar las vulnerabilidades por edad, entre otros.
 
-^.^a|image:img15.png[alt="img15", width="55%"]
-
-^.^a|image:img16.png[alt="img16", width="55%"]
-
 a|== Verificación de cierre
 
 Se realizan múltiples ciclos de verificación
@@ -169,6 +176,9 @@ durante la vigencia de la suscripción.
 Se pueden hacer tantos ciclos de cierre como sean necesarios
 para garantizar que el hallazgo sea solucionado efectivamente.
 
+^.^a|image:img16.png[alt="img16", width="55%"]
+
+^.^a|image:img17.png[alt="img17", width="55%"]
 
 a|== Soporte de Remediación.
 
@@ -178,10 +188,6 @@ mediante [button]#link:../../productos/integrates/[Integrates]#.
 
 Es posible utilizar nuestras guias detalladas de remediación
 mediante [button]#link:../../productos/defends/[Defends]#.
-
-^.^a|image:img17.png[alt="img17", width="55%"]
-
-^.^a|image:img18.png[alt="img18", width="55%"]
 
 a|== Generar Informes Técnicos y ejecutivos desde Integrates
 
@@ -194,12 +200,14 @@ En el informe ejecutivo se encuentra la información resumida y organizada.
 De tal manera que pueda ser de utilidad
 para todas las personas en la cadena de valor del proyecto.
 
+^.^a|image:img18.png[alt="img18", width="55%"]
+
+^.^a|image:img19.png[alt="img19", width="55%"]
+
 a|== Borrado seguro de información
 
 +7+ días hábiles luego de la aprobación final de los informes
 se borra toda la información de nuestros sistemas.
-
-^.^a|image:img19.png[alt="img19", width="55%"]
 
 |====
 
