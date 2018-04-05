@@ -44,7 +44,6 @@ en hacking práctico en escenarios reales:
 
 * link:../../blog/una-dosis-de-offsec-oscp/[+OSCP+.]
 * link:../../blog/el-retorno-al-camino-oswp/[+OSWP+.]
-* link:../../blog/ceh-el-comienzo-de-la-travesia/[+CEH+.]
 
 Adicionalmente son seleccionados y entrenados
 mediante el [button]#link:../../empleos/[proceso]#

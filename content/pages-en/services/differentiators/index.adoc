@@ -40,7 +40,6 @@ a|{yes} Our hackers are certified in practical hacking in real scenarios:
 
 * +OSCP+.
 * +OSWP+.
-* +CEH+.
 
 Additionally they are selected and trained through the most demanding
 [button]#link:../../careers/[process]# in the industry,
