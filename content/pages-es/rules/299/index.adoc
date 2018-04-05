@@ -1,0 +1,13 @@
+:slug: rules/299/
+:category: rules
+:description: En el presente documento se detallan los requerimientos de seguridad relacionados a la gestión adecuada de sistemas de control. En este caso, se recomienda que el sistema de extinción con el que cuenta la organización, esté basado en gases inertes y no en polvo químico ni en agua.
+:keywords: Organización, Extinción, Incendio, Sistema, Gases, Químico.
+:rules: yes
+
+= REQ.299 Garantizar sistema de extinción seguro
+
+== Nombre
+
+La organización debe garantizar que el sistema de extinción de incendios
+debe ser basado en gases inertes
+(nunca en polvo químico ni mucho menos en agua).
