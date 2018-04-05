@@ -139,7 +139,7 @@ todas las instrucciones +COBOL+ del programa explicado anteriormente.
 
 == Referencias
 
-. [[r1]] link:../../../rules/221/[REQ.221 Respuestas de autenticación adecuadas].
+. [[r1]] link:../../../rules/225/[REQ.225 Respuestas de autenticación adecuadas].
 . [[r2]] link:https://www.ibm.com/support/knowledgecenter/en/ssw_ibm_i_73/rzasb/iddiv.htm[IBM - Identification Division].
 . [[r3]] link:http://www.escobol.com/modules.php?name=Sections&op=viewarticle&artid=11[Identification Division].
 . [[r4]] link:https://www.ibm.com/support/knowledgecenter/en/ssw_ibm_i_73/rzasb/datdivs.htm[Data Division Structure].

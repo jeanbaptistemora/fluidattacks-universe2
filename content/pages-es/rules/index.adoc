@@ -209,9 +209,13 @@
 
 * link:218/[REQ.218 Aleatorios generados uniformemente].
 
+== Máquinas
+
+* link:221/[REQ.221 Desconectar periféricos innecesarios].
+
 == Autenticación
 
-* link:221/[REQ.221 Respuestas de autenticación adecuadas].
+* link:225/[REQ.225 Respuestas de autenticación adecuadas].
 
 == Sistema
 

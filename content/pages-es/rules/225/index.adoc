@@ -1,0 +1,16 @@
+:slug: rules/225/
+:category: rules
+:description: En el presente documento se detallan los requerimientos de seguridad relacionados al proceso de autenticación realizado en las aplicaciones. En este requerimiento se establece la importancia de configurar las respuestas de fallos de autenticación de forma segura.
+:keywords: Requerimiento, Seguridad, Autenticación, Fallo, Respuesta, Información.
+:rules: yes
+
+= REQ.225 Respuestas de autenticación adecuadas
+
+== Nombre
+
+Las respuestas del sistema a los fallos de autenticación
+no deben indicar cuál parte de la autenticación fue incorrecta.
+
+== Soluciones
+
+. +COBOL+ link:../../defends/cobol/mensajes-error-autenticacion/[Evitar Emitir Mensajes de Errores en Autenticación].
