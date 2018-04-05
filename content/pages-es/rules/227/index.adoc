@@ -1,0 +1,13 @@
+:slug: rules/227/
+:category: rules
+:description: En el presente documento se detallan los requerimientos de seguridad relacionados a la gestión segura de autenticación de usuarios. En este caso, se recomienda que el sistema despliegue notificaciones de acceso para usuarios autorizados cuando se esté llevando a cabo un proceso de inicio de sesión.
+:keywords: Sistema, Notificación, Cuenta Usuario, Autenticación, Acceso, Autorización.
+:rules: yes
+
+= REQ.227 Desplegar notificación de acceso
+
+== Nombre
+
+El sistema debe notificar a cualquier actor que intenta autenticarse,
+que el acceso en el mismo sistema
+sólo está disponible para usuarios autorizados.

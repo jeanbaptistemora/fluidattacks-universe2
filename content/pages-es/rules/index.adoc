@@ -222,6 +222,7 @@
 
 * link:225/[REQ.225 Respuestas de autenticación adecuadas].
 * link:226/[REQ.226 Evitar bloquear cuenta de usuario].
+* link:227/[REQ.227 Desplegar notificación de acceso].
 
 == Sistema
 
