@@ -25,7 +25,9 @@ because they do other things besides hacking.
 
 a|==== Independence
 | {yes} We don't solve nor install any kind of control,
-thus we always report all the vulnerabilities with the maximum independence.
+thus we always report all the vulnerabilities with the maximum independence
+link:../continuous-hacking/#remediation-support[^1^]
+link:../one-shot-hacking/#remediation[^2^].
 | {no} Since other providers develop, maintain, install
 or operate security controls such as +SOC+, +NAC+, +Firewalls+ etc,
 they are not independent to report the vulnerabilities
@@ -36,7 +38,9 @@ a|==== Method
 | {no} Static (Automated tools only).
 
 a|==== Team
-a|{yes} Our hackers are certified in practical hacking in real scenarios:
+a|{yes} Our hackers are certified in practical hacking in real scenarios
+link:../continuous-hacking/#highly-trained-hacking-team[^3^]
+link:../one-shot-hacking/#highly-trained-hacking-team[^4^]:
 
 * +OSCP+.
 * +OSWP+.
@@ -61,7 +65,9 @@ through questions and answers:
 //when the selection process involves Capture the Flag (+CTF+).
 
 a|==== Model
-| +Red Team+.
+| +Red Team+
+link:../continuous-hacking/#testing-technique[^5^]
+link:../one-shot-hacking/#testing-techniques[^6^].
 | Vulnerability Analysis with selective exploitation.
 
 a|==== Targets
@@ -81,7 +87,11 @@ a|* Web applications.
 * Networks.
 
 a|==== Techniques
-a|{yes} 1 service, all the techniques:
+a|{yes} 1 service, all the techniques
+link:../continuous-hacking/#exploitation[^7^]
+link:../continuous-hacking/#critical-information-extraction[^8^]
+link:../one-shot-hacking/#exploitation[^9^]
+link:../one-shot-hacking/#critical-information-extraction[^10^]:
 
 * link:../../blog/fuzzy-bugs-online/[Fuzzing].
 * +DAST+ (Dynamic Analysis Security Testing).
@@ -101,7 +111,9 @@ a|{yes} 1 service, all the techniques:
 | {no} Only 1 technique per product.
 
 a|==== link:../../blog/delimit-ethical-hacking/[Scope]
-a|{yes} Precision and granularity in the attack surface:
+a|{yes} Precision and granularity in the attack surface
+link:../continuous-hacking/#coverage[^11^]
+link:../one-shot-hacking/#coverage[^12^]:
 
 * For infrastructure (networks, servers, etc),
 according to +TCP+ and +UDP+ open ports.
@@ -144,7 +156,9 @@ a|==== Environments
 a|* Integration:
 [button]#link:../../services/continuous-hacking/[Continuous Hacking]#
 and [button]#link:../../products/asserts/[Asserts]#
-fit perfectly in this use case.
+fit perfectly in this use case
+link:../continuous-hacking/#testing-environments[^13^]
+link:../one-shot-hacking/#testing-environments[^14^].
 * Staging.
 * Production.
 a|* Staging.
@@ -160,7 +174,9 @@ service environments:
 | {no} Frozen environments and test windows are required.
 
 a|==== Coverage
-a|{yes} Known:
+a|{yes} Known
+link:../continuous-hacking/#coverage[^15^]
+link:../one-shot-hacking/#coverage[^16^]:
 
 * In fixed scopes, it is agreed the exact part of the attack surface
 that will be verified and its proportion with respect to the total.
@@ -180,7 +196,9 @@ through our product [button]#link:../../products/rules/[Rules]#.
 a|==== Strictness
 | {yes} You will know the exact strictness of the hacking
 (For inspected and non inspected
-link:#profiling[profiled] requirements).
+link:#profiling[profiled] requirements)
+link:../continuous-hacking/#strictness[^17^]
+link:../one-shot-hacking/#strictness[^18^].
 | {no} Unknown.
 
 a|==== Finding Types
@@ -203,7 +221,7 @@ a|{no} In the case of other suppliers:
 discarding false positives through attacks.
 
 a|==== Zero Day Vulnerabilities
-| {yes}
+| {yes} link:../continuous-hacking/#highly-trained-hacking-team[^19^]
 | {no}
 
 a|==== False Positives
@@ -211,7 +229,9 @@ a|==== False Positives
 | {no} ~20%
 
 a|==== Exploitation
-a|{yes} As long as we have:
+a|{yes} As long as we have
+link:../continuous-hacking/#exploitation[^20^]
+link:../one-shot-hacking/#exploitation[^21^]:
 
 * An available environment.
 * The appropriate authorization.
@@ -223,7 +243,7 @@ a|==== Custom Exploits
 (link:../../products/integrates/#exploit[example]).
 | {no}
 
-a|==== link:../../blog/protect-organization-hacker-lamer/#diagram[Correlation]
+a|==== link:../../blog/importance-pentesting/#diagram[Correlation]
 | {yes} By combining vulnerabilities +A+ and +B+ we are able to find
 a new vulnerability +C+ of greater impact which may compromise more registers.
 | {no} Only detects vulnerabilities +A+ and +B+ but it's not able to correlate them.
@@ -232,7 +252,8 @@ a|==== Infection
 | {yes} In our [button]#link:../../services/one-shot-hacking/[One shot hacking]#
 service we infect stations and critical servers
 using our custom cyberweapon
-[button]#link:../../products/commands/[Commands]#.
+[button]#link:../../products/commands/[Commands]#
+link:../one-shot-hacking/#infection[^22^].
 | {no} Don't infect or dispose of custom cyberweapons.
 
 a|==== Compromised Records
@@ -254,7 +275,8 @@ link:../../products/integrates/#compromised-records[Example].
 
 a|==== Cycles
 | {yes} Multiple cycles in our service
-[button]#link:../../services/continuous-hacking/[Continuous Hacking]#.
+[button]#link:../../services/continuous-hacking/[Continuous Hacking]#
+link:../continuous-hacking/#remediation-validation[^23^].
 | {no}  Only 1.
 
 a|==== link:../../blog/replaced-machines/[Leaks]
@@ -267,14 +289,18 @@ directly to our hackers via
 [button]#link:../../products/integrates/[Integrates]#
 (link:../../products/integrates/#doubts-regarding-the-vulnerabilities[example]).
 * You can use our detailed remediation guides via
-[button]#link:../../products/defends/[Defends]#.
+[button]#link:../../products/defends/[Defends]#
+link:../continuous-hacking/#remediation-support[^24^]
+link:../one-shot-hacking/#remediation[^25^].
 | {no} No support during remediation phase.
 
 a|==== Deliverables
 a|{yes} Real-time documentation web system
 [button]#link:../../products/integrates/[Integrates]#
 which allows our customers to auto generate and supervise
-every system since day 1 of the project:
+every system since day 1 of the project
+link:../continuous-hacking/#generate-technical-and-executive-reports-from-integrates[^26^]
+link:../one-shot-hacking/#daily-progress-reports[^27^]:
 
 * Executive report in +PDF+ (link:../../products/integrates/#generate-executive-reports[example]).
 * Technical report in +XLS+.
@@ -291,6 +317,8 @@ its manual elaboration.
 a|==== End
 |{yes} Our service ends when the agreed scope is reached,
 without prices augmentation
+link:../continuous-hacking/#information-gets-deleted-securely[^28^]
+link:../one-shot-hacking/#information-gets-deleted-securely[^29^]
 |{no} The service ends when the agreed time runs out,
 therefore the scope and coverage of the hack
 are indeterminate at the end of the service.

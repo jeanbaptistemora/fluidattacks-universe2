@@ -28,7 +28,9 @@ a|==== Independencia
 | {si} Solo hackeamos, no remediamos
 ni instalamos controles de ningún tipo,
 por ende siempre reportamos con independencia
-todas las vulnerabilidades.
+todas las vulnerabilidades
+link:../hacking-puntual/#soporte-de-remediacion[^1^]
+link:../hacking-continuo/#soporte-de-remediacion[^2^].
 | {no} Dado que otros proveedores desarrollan, mantienen, instalan
 u operan controles de seguridad como +SOC+, +NAC+, +Firewalls+ etc,
 no son independientes para reportar las vulnerabilidades
@@ -40,7 +42,9 @@ a|==== Método
 
 a|==== Equipo
 a|{si} Nuestros hackers se encuentran certificados
-en hacking práctico en escenarios reales:
+en hacking práctico en escenarios reales
+link:../hacking-puntual/#equipo-de-hacking-altamente-calificado[^3^]
+link:../hacking-continuo/#equipo-de-hacking-altamente-calificado[^4^]:
 
 * link:../../blog/una-dosis-de-offsec-oscp/[+OSCP+.]
 * link:../../blog/el-retorno-al-camino-oswp/[+OSWP+.]
@@ -66,7 +70,9 @@ mediante preguntas y respuestas:
 //cuando éste es con +Capture the Flag+ (+CTF+).
 
 a|==== Modelo
-| +Red Team+.
+| +Red Team+
+link:../hacking-continuo/#tipos-de-prueba[^5^]
+link:../hacking-puntual/#tipos-de-prueba[^6^].
 | Análisis de vulnerabilidades con explotación selectiva.
 
 a|==== Objetivos
@@ -86,7 +92,11 @@ a|* Aplicaciones web.
 * Redes.
 
 a|==== Técnicas
-a|{si} 1 servicio todas las técnicas:
+a|{si} 1 servicio todas las técnicas
+link:../hacking-continuo/#explotacion-de-vulnerabilidades[^7^]
+link:../hacking-continuo/#extraccion-de-informacion-critica[^8^]
+link:../hacking-puntual/#explotacion-de-hallazgos[^9^]
+link:../hacking-puntual/#extraccion-de-informacion-critica[^10^]:
 
 * link:../../../en/blog/fuzzy-bugs-online/[+Fuzzing+].
 * +DAST+ (Dynamic Analysis Security Testing).
@@ -108,7 +118,9 @@ a|{si} 1 servicio todas las técnicas:
 |{no} Solo 1 técnica por producto.
 
 a|==== link:../../blog/dimensionar-ethical-hacking/[Alcance]
-a|{si} Precisión y granularidad en la superficie de ataque:
+a|{si} Precisión y granularidad en la superficie de ataque
+link:../hacking-continuo/#cobertura[^11^]
+link:../hacking-puntual/#cobertura[^12^]:
 
 * Para infraestructura (redes, servidores, etc),
 según puertos abiertos +TCP+ y +UDP+.
@@ -151,7 +163,9 @@ a|==== Ambientes
 a|* Integración:
 [button]#link:../../servicios/hacking-continuo/[Continuous Hacking]#
 y [button]#link:../../productos/asserts/[Asserts]#
-son idóneos en este caso de uso.
+son idóneos en este caso de uso
+link:../hacking-puntual/#ambientes-de-prueba[^13^]
+link:../hacking-continuo/#ambientes-de-prueba[^14^].
 * Pruebas.
 * Producción.
 a|* Pruebas.
@@ -168,7 +182,9 @@ los ambientes:
 | {no} Se requieren ambientes congelados y ventanas de prueba.
 
 a|==== Cobertura
-a|{si} Conocida:
+a|{si} Conocida
+link:../hacking-continuo/#cobertura[^15^]
+link:../hacking-puntual/#cobertura[^16^]:
 
 * En alcances fijos se acuerda la parte exacta de la superficie de ataque
 que será verificada y su proporción respecto al total.
@@ -188,7 +204,9 @@ a través de nuestro producto [button]#link:../../productos/rules/[Rules]#.
 a|==== Rigurosidad
 
 | {si} Usted sabrá la rigurosidad exacta del hackeo
-(lo revisado y lo no revisado).
+(lo revisado y lo no revisado)
+link:../hacking-continuo/#rigurosidad[^17^]
+link:../hacking-puntual/#rigurosidad[^18^].
 | {no} Desconocida.
 
 a|==== Tipo de Hallazgos
@@ -211,7 +229,7 @@ a|{no} En el caso de otros proveedores.
 * Copy-paste de herramientas sin descartar falsos positivos mediante ataques.
 
 a|==== Vulnerabilidades Zero Day
-| {si}
+| {si} link:../hacking-continuo/#equipo-de-hacking-altamente-calificado[^19^]
 | {no}
 
 a|==== Falsos Positivos
@@ -219,7 +237,9 @@ a|==== Falsos Positivos
 | {no} ~20%
 
 a|==== Explotación
-a|{si} Siempre que se tenga:
+a|{si} Siempre que se tenga
+link:../hacking-continuo/#explotacion-de-vulnerabilidades[^20^]
+link:../hacking-puntual/#explotacion-de-hallazgos[^21^]:
 
 * Un entorno disponible.
 * La autorización apropiada.
@@ -231,7 +251,7 @@ a|==== Exploits personalizados
 (link:../../productos/integrates/#exploit-de-la-vulnerabilidad[ejemplo]).
 | {no}
 
-a|==== link:../../blog/proteger-organizacion-hacker-lamer/#diagrama[Correlación]
+a|==== link:../../blog/importancia-pentesting/#diagrama[Correlación]
 | {si} Combinando las vulnerabilidades +A+ y +B+ encontrar una +C+
 de mayor impacto que permite comprometer más registros.
 | {no} Solo detecta vulnerabilidades +A+ y +B+ pero no puede correlacionarlas.
@@ -241,7 +261,8 @@ a|==== Infección
 [button]#link:../../servicios/hacking-puntual/[Hacking puntual]#
 se infectan estaciones y servidores críticos
 con nuestro troyano personalizado
-[button]#link:../../productos/commands/[Commands]#.
+[button]#link:../../productos/commands/[Commands]#
+link:../hacking-puntual/#infeccion[^22^].
 | {no} No infectan o no disponen de troyano personalizado.
 
 a|==== Registros Comprometidos
@@ -264,7 +285,8 @@ link:../../productos/integrates/#registros-comprometidos[Ejemplo].
 
 a|==== Ciclos
 | {si} Multiples en nuestro servicio
-[button]#link:../../servicios/hacking-continuo/[Continuous Hacking]#.
+[button]#link:../../servicios/hacking-continuo/[Continuous Hacking]#
+link:../hacking-continuo/#verificacion-de-cierre[^23^].
 | {no} Solo 1
 
 a|==== link:../../blog/desplazados-maquinas/[Fugas]
@@ -278,14 +300,18 @@ directamente a los hackers mediante
 (link:../../productos/integrates/#aclaraciones-de-dudas-sobre-las-vulnerabilidades[ejemplo]).
 * Puede utilizar nuestras guias detalladas de remediación
 mediante [button]#link:../../productos/defends/[Defends]#
-(link:../../defends/java/limitar-vida-variable/[ejemplo]).
+(link:../../defends/java/limitar-vida-variable/[ejemplo])
+link:../hacking-continuo/#soporte-de-remediacion[^24^]
+link:../hacking-puntual/#soporte-de-remediacion[^25^].
 | {no} Sin ningún soporte durante la fase de remediación.
 
 a|==== Entregables
 a|{si} Sistema web de documentación en tiempo real
 [button]#link:../../productos/integrates/[Integrates]#
 que desde el día 1 del proyecto le permite al cliente autogenerar
-y ver por cada sistema:
+y ver por cada sistema
+link:../hacking-continuo/#generar-informes-tecnicos-y-ejecutivos-desde-integrates[^26^]
+link:../hacking-puntual/#envio-diario-de-informes-de-avance[^27^]:
 
 * Informe ejecutivo en +PDF+
 (link:../../productos/integrates/#generar-informes-ejecutivos[ejemplo]).
@@ -304,7 +330,9 @@ debido a la manualidad en su elaboración:
 
 a|==== Fin
 |{si} El servicio finaliza cuando se logre el alcance acordado
-sin aumentar precios.
+sin aumentar precios
+link:../hacking-continuo/#borrado-seguro-de-informacion[^27^]
+link:../hacking-puntual/#borrado-seguro-de-informacion[^28^].
 |{no} El servicio finaliza cuando el tiempo acordado se agote,
 por ende el alcance y cobertura del hackeo
 es indeterminado al finalizar el servicio.

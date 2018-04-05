@@ -20,24 +20,25 @@
 | link:../one-shot-hacking/[*One Shot Hacking*]
 
 a|==== Inspection Cycles
-| Multiples.
-| Only +1+.
+| Multiples link:../continuous-hacking/#remediation-validation[^1^].
+| Only +1+ link:../one-shot-hacking/#remediation-validation[^1^].
 
 a|==== Remediation Support
-| {yes}
-| {no}
+| {yes} link:../continuous-hacking/#remediation-support[^2^]
+| {no} link:../one-shot-hacking/#remediation[^2^]
 
 a|==== Average duration
-| Between +12+ and +36+ months.
-| Between +1+ and +4+ months.
+| Between +12+ and +36+ months link:../continuous-hacking/#duration[^3^].
+| Between +1+ and +4+ months link:../one-shot-hacking/#specific-length[^3^].
 
 a|==== Face-to-face delivery
 |{info} All information deliveries are made via
-[button]#link:../../products/integrates/[Integrates]#.
+[button]#link:../../products/integrates/[Integrates]#
+link:../continuous-hacking/#direct-and-agile-communication[^4^].
 a|{yes} Results socialization meetings:
 
-* +1+ Virtual validation meeting.
-* +1+ Face-to-face meeting of final results socialization.
+* +1+ Virtual validation meeting link:../one-shot-hacking/#report-validation-meeting[^4^].
+* +1+ Face-to-face meeting of final results socialization link:../one-shot-hacking/#report-presentation-meeting[^5^].
 
 a|==== Detection time
 a|{yes} Early
@@ -51,12 +52,13 @@ a|{info} Late
 a|==== Alerting
 
 |{yes} Continuous alerting system via email
-to the project leaders about open vulnerabilities.
+to the project leaders about open vulnerabilities
+link:../continuous-hacking/#follow-up-using-integrates[^5^].
 |{info} No alerting system, only final reports.
 
 a|==== Vision
-|{yes} Information about your system security _up to date_.
-|{info} Information about your system security _in a moment of time_.
+|{yes} Information about your system security *up to date*.
+|{info} Information about your system security *in a moment of time*.
 
 a|==== Coverage
 a|{yes} 100% when:
@@ -65,9 +67,11 @@ a|{yes} 100% when:
 * We make an up to date hacking at the beginning.
 * Hacking does not stop during development stage.
 * Code does not change more than 10K
-tooltip:Code change measure, given by the number of lines added or removed from the first day of the month until the last day of the month, with compared to the previous month.[deltas/month].
+tooltip:Code change measure, given by the number of lines added or removed from the first day of the month until the last day of the month, with compared to the previous month.[deltas/month]
+link:../continuous-hacking/#coverage[^6^].
 
-a|{info} Agreed at the beginning of the test.
+a|{info} Agreed at the beginning of the test
+link:../one-shot-hacking/#coverage[^6^].
 
 a|==== Windows
 a|{yes} In the
@@ -85,21 +89,22 @@ a|==== Infection
 | {yes} Work stations and critical servers
 are infected with our custom cyberweapon
 [button]#link:../../products/commands/[Commands]#
+link:../one-shot-hacking/#infection[^7^]
 
 a|==== Remediation ratio
-| {yes} Closure of up to 80% of reported vulnerabilities.
-| {info} Maximum closure of 10% of reported vulnerabilities.
+| {yes} Maximum closure of +100%+ of reported vulnerabilities.
+| {yes} Closure of up to +80%+ of reported vulnerabilities.
 
 a|==== Location
 | Always remote.
-| Remote on premises.
+| Remote or on premises.
 
 a|==== Time to remediate
-| {yes} 2 or 3 weeks.
-| {info} 3 or 4 months.
+| {yes} +2+ or +3+ weeks.
+| {info} +3+ or +4+ months.
 
 a|==== Payment
 | Monthly payment.
-| 1 or 2 payments.
+| +1+ or +2+ payments.
 
 |====
