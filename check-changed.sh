@@ -53,7 +53,7 @@ fi
 
 # Check that every PNG files has been optimized in filesize
 if echo "$CHANGED" | pcregrep '\.png$'; then
-  if ! echo "$CHANGED" | pcregrep '\.png$'\
+  if ! echo "$CHANGED" | pcregrep '\.png$' \
   | xargs -r -n 1 optipng |& pcregrep 'optimized'; then
     error "Some PNG files are not optimized. Run the CLI tool \"optipng\" \
     to optimize them or go to http://compresspng.com/."
