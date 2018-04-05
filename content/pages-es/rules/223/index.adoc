@@ -1,0 +1,11 @@
+:slug: rules/223/
+:category: rules
+:description: En el presente documento se detallan los requerimientos de seguridad relacionados a la generación segura de números aleatorios utilizados por un determinado sistema. En este caso, se recomienda que dichos números sigan una distribución de tipo uniforme.
+:keywords: Generar, Aleatorio, Distribución, Números, Uniforme, Seguridad.
+:rules: yes
+
+= REQ.223 Generar números con distribución uniforme
+
+== Nombre
+
+Los números aleatorios generados deben seguir una distribución uniforme.

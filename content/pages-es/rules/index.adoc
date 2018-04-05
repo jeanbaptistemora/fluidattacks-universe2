@@ -214,6 +214,10 @@
 * link:221/[REQ.221 Desconectar periféricos innecesarios].
 * link:222/[REQ.222 Denegar acceso a máquina anfitriona].
 
+== Números
+
+* link:223/[REQ.223 Generar números con distribución uniforme].
+
 == Autenticación
 
 * link:225/[REQ.225 Respuestas de autenticación adecuadas].
