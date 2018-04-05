@@ -1104,7 +1104,7 @@ integrates.controller(
             }
           }
           for (let cont = 0; cont < data.length - 1; cont++) {
-            for (j = i + 1; j < data.length; j++) {
+            for (j = cont + 1; j < data.length; j++) {
               if (parseFloat(data[cont].criticidad) < parseFloat(data[j].criticidad)) {
                 aux = data[cont];
                 data[cont] = data[j];
