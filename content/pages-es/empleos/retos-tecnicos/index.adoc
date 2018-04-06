@@ -269,9 +269,9 @@ a| * nombre del sistema o caja vulnerada (directorio)
 
 ^.^s| Ejemplo
 a| * link:https://gitlab.com/autonomicmind/training/tree/master/challenges/codeabbey/[codeabbey]
-** link:https://gitlab.com/autonomicmind/training/tree/master/challenges/codeabbey/005/[005]
+** link:https://gitlab.com/autonomicmind/training/tree/master/challenges/codeabbey/135/[135]
 *** link:https://gitlab.com/autonomicmind/training/blob/master/challenges/codeabbey/135/skhorn.rs[skhorn.rs]
-*** link:https://gitlab.com/autonomicmind/training/tree/master/challenges/codeabbey/005/henryval.java[henryval.java]
+
 a| * link:https://gitlab.com/autonomicmind/training/tree/master/systems/bwapp[bwapp]
 *** link:https://gitlab.com/autonomicmind/training/tree/master/systems/bwapp/a1-command-injection[a1-command-injection]
 **** link:https://gitlab.com/autonomicmind/training/blob/master/systems/bwapp/a1-command-injection/raballestasr.feature[raballestasr.feature]
