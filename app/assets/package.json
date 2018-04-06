@@ -7,6 +7,8 @@
   "dependencies": {
     "angular-elastic": "^2.5.1",
     "eslint": "^4.19.0",
+    "google-closure-compiler-js": "^20180402.0.0",
+    "gulp": "^3.9.1",
     "iframe-resizer": "^3.5.15",
     "jquery-comments_brainkit": "^1.2.8",
     "jquery-match-height": "^0.7.2",
