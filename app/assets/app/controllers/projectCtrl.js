@@ -88,6 +88,7 @@ integrates.controller(
       $scope.configKeyboardView();
       $scope.goUp();
       $scope.finding = {};
+      $(".equalWidgetHeight").matchHeight();
     };
     $scope.goUp = function () {
       $("html, body").animate({"scrollTop": 0}, "fast");
@@ -181,8 +182,19 @@ integrates.controller(
         cardinalidad += parseInt(cont.cardinalidad, 10);
         cardinalidad_total += parseInt(cont.cardinalidad_total, 10);
       });
-      $("#total_cardinalidad").html(cardinalidad);
-      $("#total_hallazgos").html(data.data.length);
+      $scope.metricsList = [];
+      $scope.metricsList.push({
+        "color": "background-color: #2197d6;",
+        "description": $translate.instant("search_findings.filter_labels.findings"),
+        "icon": "s7-id",
+        "value": data.data.length
+      });
+      $scope.metricsList.push({
+        "color": "background-color: #aa2d30;",
+        "description": $translate.instant("search_findings.filter_labels.cardinalities"),
+        "icon": "s7-unlock",
+        "value": cardinalidad
+      });
       let severity = 0;
       data.data.forEach(function (cont) {
         try {
@@ -211,16 +223,37 @@ integrates.controller(
             for (let cont = 0; cont < response.data.length; cont++) {
               const target = (parseInt(response.data[cont].lines, 10) / 1000) + (parseInt(response.data[cont].fields, 10) / 4);
               total_severity = severity / ((4.611 * target) + 43.221) * 100;
-              $("#total_criticidad").html("n%".replace("n", total_severity.toFixed(0)));
+              $scope.metricsList.push({
+                "color": "background-color: #ef4c43;",
+                "description": $translate.instant("search_findings.filter_labels.criticity"),
+                "icon": "s7-graph1",
+                "value": "n%".replace("n", total_severity.toFixed(0))
+              });
+              $scope.metricsList.push({
+                "color": "background-color: #00cb77;",
+                "description": $translate.instant("search_findings.filter_labels.closure"),
+                "icon": "s7-like2",
+                "value": "n%".replace("n", ((1 - (cardinalidad / cardinalidad_total)) * 100).toFixed(2).toString())
+              });
             }
           }
           else {
             total_severity = severity;
-            $("#total_criticidad").html(total_severity.toFixed(0));
+            $scope.metricsList.push({
+              "color": "background-color: #ef4c43;",
+              "description": $translate.instant("search_findings.filter_labels.criticity"),
+              "icon": "s7-graph1",
+              "value": total_severity.toFixed(0)
+            });
+            $scope.metricsList.push({
+              "color": "background-color: #00cb77;",
+              "description": $translate.instant("search_findings.filter_labels.closure"),
+              "icon": "s7-like2",
+              "value": "n%".replace("n", ((1 - (cardinalidad / cardinalidad_total)) * 100).toFixed(2).toString())
+            });
           }
         }
       });
-      $("#total_efectividad").html("n%".replace("n", ((1 - (cardinalidad / cardinalidad_total)) * 100).toFixed(2).toString()));
     };
     $scope.configColorPalette = function () {
       $scope.colors = {};
@@ -937,6 +970,7 @@ integrates.controller(
                   $scope.data[cont].tratamiento = $translate.instant("finding_formstack.treatment_header.default");
                 }
               }
+              $scope.calculateCardinality({"data": $scope.data});
               $timeout($scope.mainGraphexploitPieChart, 200);
               $timeout($scope.mainGraphtypePieChart, 200);
               $timeout($scope.mainGraphstatusPieChart, 200);
@@ -972,7 +1006,6 @@ integrates.controller(
               // MANEJO DEL UI
               $("#search_section").show();
               $("[data-toggle=\"tooltip\"]").tooltip();
-              $scope.calculateCardinality({"data": $scope.data});
 
               if (typeof $stateParams.finding !== "undefined") {
                 $scope.finding.id = $stateParams.finding;

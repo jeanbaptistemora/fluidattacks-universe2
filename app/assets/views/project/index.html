@@ -67,23 +67,14 @@
     <div class="row">
         <div class="col-md-12" id="search_section">
             <div class="row">
-                <div class="col-md-4 text-center">
-                    <h3>{{'grapExploit.title' | translate}}</h3>
-                    <div id="grapExploit" style="width:250px; height:250px; margin: auto;"></div>
-                </div>
-                <div class="col-md-4 text-center">
-                    <h3>{{'grapType.title' | translate}}</h3>
-                    <div id="grapType" style="width:250px; height:250px; margin: auto;"></div>
-                </div>
-                <div class="col-md-4 text-center">
-                    <h3>{{'grapStatus.title' | translate}}</h3>
-                    <div id="grapStatus" style="width:250px; height:250px; margin: auto;"></div>
-                </div>
-            </div>
-            <div class="row">
                 <div class="tab-container">
-                        <ul class="nav pills-tabs nav-justified" style="background-color: white; border-bottom: 1px #eee solid;">
+                    <ul class="nav pills-tabs nav-justified" style="background-color: white; border-bottom: 1px #eee solid;">
                         <li class="active" style="font-size:15px;">
+                            <a href="#metrics" data-toggle="tab" aria-expanded="false">
+                                <i class="icon s7-graph3"></i>&nbsp; {{'tab_container.metrics' | translate}}
+                            </a>
+                        </li>
+                        <li class="" style="font-size:15px;">
                             <a href="#findings" data-toggle="tab" aria-expanded="false">
                                 <i class="icon s7-light"></i>&nbsp;{{'tab_container.findings' | translate}}
                             </a>
@@ -95,17 +86,43 @@
                         </li>
                     </ul>
                     <div class="tab-content">
-                        <div id="findings" class="tab-pane cont active">
-                            <div class="row container">
-                                <label><b>{{'search_findings.filter_labels.findings' | translate}}</b></label>
-                                <label id="total_hallazgos"></label> &nbsp;&nbsp;&nbsp;
-                                <label><b>{{'search_findings.filter_labels.cardinalities' | translate}}</b></label>
-                                <label id="total_cardinalidad"></label> &nbsp;&nbsp;&nbsp;
-                                <label><b>{{'search_findings.filter_labels.criticity' | translate}}</b></label>
-                                <label id="total_criticidad"></label> &nbsp;&nbsp;&nbsp;
-                                <label><b>{{'search_findings.filter_labels.closure' | translate}}</b></label>
-                                <label id="total_efectividad"></label> &nbsp;&nbsp;&nbsp;
+                        <div id="metrics" class="tab-pane cont active">
+                            <div class="row">
+                                <div class="col-md-4 text-center">
+                                    <h3>{{'grapExploit.title' | translate}}</h3>
+                                    <div id="grapExploit" style="width:250px; height:250px; margin: auto;"></div>
+                                </div>
+                                <div class="col-md-4 text-center">
+                                    <h3>{{'grapType.title' | translate}}</h3>
+                                    <div id="grapType" style="width:250px; height:250px; margin: auto;"></div>
+                                </div>
+                                <div class="col-md-4 text-center">
+                                    <h3>{{'grapStatus.title' | translate}}</h3>
+                                    <div id="grapStatus" style="width:250px; height:250px; margin: auto;"></div>
+                                </div>
                             </div>
+                            <hr>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div ng-repeat="metric in metricsList">
+                                        <div class="col-md-3 col-xs-12">
+                                            <div class="widget-box equalWidgetHeight" style="{{metric.color}} color: #fff;">
+                                                <div class="col-md-4 col-xs-4">
+                                                    <div class="widget-icon">
+                                                        <span class={{metric.icon}}></span>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-8 col-xs-8">
+                                                    <div data-toggle="counter" class="widget-value">{{metric.value}}</div>
+                                                    <div class="widget-desc">{{metric.description}}</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="findings" class="tab-pane cont">
                             <div class="btn-group" >
                                 <script>
                                     $(document).ready(function() {

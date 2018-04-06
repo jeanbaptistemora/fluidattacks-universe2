@@ -549,7 +549,8 @@ integrates.config([
    },
       "tab_container": {
         "eventualities": "Events",
-        "findings": "Findings"
+        "findings": "Findings",
+        "metrics": "Metrics"
       },
       "technical_report_mod":
       {
@@ -1094,7 +1095,8 @@ integrates.config([
    },
       "tab_container": {
         "eventualities": "Eventualidades",
-        "findings": "Hallazgos"
+        "findings": "Hallazgos",
+        "metrics": "Métricas"
       },
       "technical_report_mod":
    {
