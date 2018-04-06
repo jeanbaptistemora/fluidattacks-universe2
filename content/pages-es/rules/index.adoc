@@ -225,6 +225,7 @@
 * link:227/[REQ.227 Desplegar notificación de acceso].
 * link:228/[REQ.228 Autentificar mediante protocolos estándar].
 * link:229/[REQ.229 Solicitar credenciales de acceso].
+* link:230/[REQ.230 Establecer claves de un sólo uso].
 
 == Sistema
 

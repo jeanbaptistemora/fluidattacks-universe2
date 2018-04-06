@@ -1,0 +1,12 @@
+:slug: rules/230/
+:category: rules
+:description: En el presente documento se detallan los requerimientos de seguridad relacionados a la gestión segura de autenticación de usuarios. En este caso, se recomienda que cuando se maneje información crítica, se debe requerir claves de un único uso en procesos de autenticación.
+:keywords: Sistema, Información, Negocio, Autenticación, Clave, Seguridad.
+:rules: yes
+
+= REQ.230 Establecer claves de un sólo uso
+
+== Nombre
+
+Un sistema con información crítica para el negocio
+debe requerir claves de un sólo uso en el proceso de autenticación.
