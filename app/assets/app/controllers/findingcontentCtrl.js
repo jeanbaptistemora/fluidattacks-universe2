@@ -18,6 +18,7 @@ realiabilityLevel, updateEvidenceText:true, categories, probabilities, accessVec
  * @param {Object} ngNotify
  * @return {undefined}
  */
+/** @export */
 integrates.controller("findingcontentCtrl", function (
   $scope, $stateParams, $timeout,
   $uibModal, $translate, $state,

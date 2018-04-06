@@ -1,5 +1,5 @@
 /* eslint no-magic-numbers: ["error", { "ignore": [500, 401] }]*/
-/* global integrates, BASE, $xhr, $, Rollbar, location:true */
+/* global integrates, BASE, $xhr, $, Rollbar, window.location:true */
 /**
  * @file eventualityFactory.js
  * @author engineering@fluidattacks.com
@@ -10,6 +10,7 @@
  * @param {Object} $q
  * @return {undefined}
  */
+/** @export */
 integrates.factory("eventualityFactory", function ($q) {
   return {
 
@@ -39,7 +40,7 @@ integrates.factory("eventualityFactory", function ($q) {
             }
             else if (xhr.status == 401) {
               Rollbar.error("Error: 401 Unauthorized");
-              location = "error401";
+              window.location = "error401";
             }
           },
           "success" (response) {
@@ -52,7 +53,7 @@ integrates.factory("eventualityFactory", function ($q) {
       catch (err) {
         if (err.status == 401) {
           Rollbar.error("Error: 401 Unauthorized");
-          location = "error401";
+          window.location = "error401";
         }
         Rollbar.error("Error: An error ocurred getting event by name", err);
         deferred.resolve("exception");
@@ -83,7 +84,7 @@ integrates.factory("eventualityFactory", function ($q) {
             }
             else if (xhr.status == 401) {
               Rollbar.error("Error: 401 Unauthorized");
-              location = "error401";
+              window.location = "error401";
             }
           },
           "method": "POST",
@@ -96,7 +97,7 @@ integrates.factory("eventualityFactory", function ($q) {
       catch (err) {
         if (err.status == 401) {
           Rollbar.error("Error: 401 Unauthorized");
-          location = "error401";
+          window.location = "error401";
         }
         else if (err.status == 500) {
           Rollbar.error("Error: An error ocurred loading data");

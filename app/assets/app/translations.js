@@ -11,6 +11,7 @@
  * @param {Object} $translateProvider
  * @return {undefined}
  */
+/** @export */
 integrates.config([
   "$translateProvider",
   function ($translateProvider) {

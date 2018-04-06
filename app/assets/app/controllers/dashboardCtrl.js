@@ -12,6 +12,7 @@ integrates, $, BASE, mixpanel, userMail, $xhr, Organization, userEmail, mixPanel
  * @param {Object} $uibModal
  * @return {undefined}
  */
+/** @export */
 integrates.controller("dashboardCtrl", function (
   $scope, $uibModal, $timeout,
   $state, $stateParams, $q,

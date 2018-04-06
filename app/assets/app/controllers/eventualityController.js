@@ -78,6 +78,7 @@ integrates.updateEvntRow = function (row) {
  * @param {integrates.eventualityFactory} eventualityFactory
  * @return {undefined}
  */
+/** @export */
 integrates.controller("eventualityController", function ($scope, $uibModal, $translate, eventualityFactory) {
   const attent_title = $translate.instant("proj_alerts.attent_title");
   const updated_title = $translate.instant("proj_alerts.updated_title");

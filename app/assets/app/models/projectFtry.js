@@ -1,5 +1,5 @@
 /* eslint no-magic-numbers: ["error", { "ignore": [500, 401] }]*/
-/* global integrates, BASE, $xhr, location:true, $, Rollbar */
+/* global integrates, BASE, $xhr, window.location:true, $, Rollbar */
 /**
  * @file projectFtry.js
  * @author engineering@fluidattacks.com
@@ -10,6 +10,7 @@
  * @param {Object} $q
  * @return {undefined}
  */
+/** @export */
 integrates.factory("projectFtry", function ($q, $translate) {
   return {
 
@@ -185,7 +186,7 @@ integrates.factory("projectFtry", function ($q, $translate) {
             }
             else if (xhr.status == 401) {
               Rollbar.error("Error: 401 Unauthorized");
-              location = "error401";
+              window.location = "error401";
             }
             errorFn(JSON.parse(response));
           },
@@ -202,7 +203,7 @@ integrates.factory("projectFtry", function ($q, $translate) {
       catch (err) {
         if (err.status == 401) {
           Rollbar.error("Error: 401 Unauthorized");
-          location = "error401";
+          window.location = "error401";
         }
         Rollbar.error("Error: An error ocurred getting finding by ID", err);
       }

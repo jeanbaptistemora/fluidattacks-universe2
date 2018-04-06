@@ -12,6 +12,7 @@
  * @param {Object} $urlRouterProvider
  * @return {undefined}
  */
+/** @export */
 integrates.config(function ($stateProvider, $urlRouterProvider) {
   $urlRouterProvider.otherwise("home");
 

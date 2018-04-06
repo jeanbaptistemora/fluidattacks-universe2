@@ -13,6 +13,7 @@ integrates, $
  * @param {Object} $projectFtry
  * @return {undefined}
  */
+/** @export */
 integrates.controller(
   "formCtrl",
   function (

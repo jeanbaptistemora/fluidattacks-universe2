@@ -1,6 +1,6 @@
 /* eslint no-magic-numbers: ["error", { "ignore": [-1,0,0.4,0.6,1,1.176,1.5,2,4,4.611,10,10.41,13,20,43.221,100,200,300,1000,3000] }]*/
 /* global
-BASE, downLink:true, Morris, estado:true, exploitLabel:true, nonexploitLabel:true, tipo:true,total_higLabel:true,
+BASE, downLink:true, Morris, estado:true, exploitLabel:true, nonexploitLabel:true, total_higLabel:true,
 explotable:true, total_segLabel:true, openLabel:true, partialLabel:true, integrates, userRole, document, $, $msg, userName,
 userEmail, Rollbar, aux:true, json:true, closeLabel:true, mixPanelDashboard, win:true, window, Organization, i:true, j:true
 */
@@ -14,7 +14,7 @@ userEmail, Rollbar, aux:true, json:true, closeLabel:true, mixPanelDashboard, win
  * Function removeHour return date without hour
  */
 function removeHour (value, row, index) {
-  if (value.indexOf(":") != -1) {
+  if (value.indexOf(":") !== -1) {
     return value.split(" ")[0];
   }
   return value;
@@ -24,19 +24,19 @@ function removeHour (value, row, index) {
  * Function labelState return html code for specific label
  */
 function labelState (value, row, index) {
-  if (value == "Cerrado") {
+  if (value === "Cerrado") {
     return "<label class='label label-success' style='background-color: #31c0be'>Cerrado</label>";
   }
-  else if (value == "Closed") {
+  else if (value === "Closed") {
     return "<label class='label label-success' style='background-color: #31c0be'>Closed</label>";
   }
-  else if (value == "Abierto") {
+  else if (value === "Abierto") {
     return "<label class='label label-danger' style='background-color: #f22;'>Abierto</label>";
   }
-  else if (value == "Open") {
+  else if (value === "Open") {
     return "<label class='label label-danger' style='background-color: #f22;'>Open</label>";
   }
-  else if (value == "Parcialmente cerrado") {
+  else if (value === "Parcialmente cerrado") {
     return "<label class='label label-info' style='background-color: #ffbf00'>Parcialmente cerrado</label>";
   }
   return "<label class='label label-info' style='background-color: #ffbf00'>Partially closed</label>";
@@ -52,6 +52,7 @@ function labelState (value, row, index) {
  * @param {Object} $timeout
  * @return {undefined}
  */
+/** @export */
 integrates.controller(
   "projectCtrl",
   function (
@@ -68,7 +69,7 @@ integrates.controller(
       $scope.onlyReadableTab1 = true;
       $scope.onlyReadableTab2 = true;
       $scope.onlyReadableTab3 = true;
-      $scope.isManager = userRole != "customer";
+      $scope.isManager = userRole !== "customer";
       // Defaults para cambiar vistas
       $scope.view = {};
       $scope.view.project = false;
@@ -77,8 +78,8 @@ integrates.controller(
       if (typeof findingId !== "undefined") {
         $scope.findingId = findingId;
       }
-      if (typeof project != "undefined" &&
-                project != "") {
+      if (typeof project !== "undefined" &&
+                project !== "") {
         $scope.project = project;
         $scope.search();
       }
@@ -105,7 +106,7 @@ integrates.controller(
       const req = projectFtry.getAlerts(company, project);
       req.then(function (response) {
         if (!response.error && response.data.length > 0) {
-          if (response.data.status_act == "1") {
+          if (response.data.status_act === "1") {
             let html = "<div class=\"alert alert-danger-2\">";
             html += `<strong>Atención! </strong>${response.data[0].message}</div>`;
             document.getElementById("header_alert").innerHTML = html;
@@ -198,7 +199,7 @@ integrates.controller(
       let severity = 0;
       data.data.forEach(function (cont) {
         try {
-          if (cont.tipo_hallazgo == "Seguridad") {
+          if (cont.tipo_hallazgo === "Seguridad") {
             const ImpCon = parseFloat(cont.impacto_confidencialidad.split(" | ")[0]);
             const ImpInt = parseFloat(cont.impacto_integridad.split(" | ")[0]);
             const ImpDis = parseFloat(cont.impacto_disponibilidad.split(" | ")[0]);
@@ -295,13 +296,13 @@ integrates.controller(
         const err = "error";
         // Remove indices
         json = JSON.stringify(JSON.parse(JSON.stringify(json)));
-        if (typeof json == "undefined") {
+        if (typeof json === "undefined") {
           throw err;
         }
-        if (json == [] || json == {}) {
+        if (json === [] || json === {}) {
           throw err;
         }
-        if (project.trim() == "") {
+        if (project.trim() === "") {
           throw err;
         }
       }
@@ -309,7 +310,7 @@ integrates.controller(
         Rollbar.error("Error: An error ocurred generating document", err);
         generateDoc = false;
       }
-      if (generateDoc == false) {
+      if (generateDoc === false) {
         return false;
       }
       const req = projectFtry.ProjectDoc(project, json, "IT");
@@ -317,7 +318,7 @@ integrates.controller(
         if (!response.error) {
           let url = `${BASE.url}export_autodoc?project=${$scope.project}`;
           url += "&format=IT";
-          if (navigator.userAgent.indexOf("Firefox") == -1) {
+          if (navigator.userAgent.indexOf("Firefox") === -1) {
             $scope.downloadURL = url;
           }
           else {
@@ -348,7 +349,7 @@ integrates.controller(
               // Tracking mixpanel
               mixPanelDashboard.trackReports("TechnicalReportXLS", userName, userEmail, org, projt);
               const url = `${BASE.url}xls/${lang}/project/${project}`;
-              if (navigator.userAgent.indexOf("Firefox") == -1) {
+              if (navigator.userAgent.indexOf("Firefox") === -1) {
                 downLink = document.createElement("a");
                 downLink.target = "_blank";
                 downLink.href = url;
@@ -369,7 +370,7 @@ integrates.controller(
               // Tracking mixpanel
               mixPanelDashboard.trackReports("TechnicalReportPDF", userName, userEmail, org, projt);
               const url = `${BASE.url}pdf/${lang}/project/${project}/tech/`;
-              if (navigator.userAgent.indexOf("Firefox") == -1) {
+              if (navigator.userAgent.indexOf("Firefox") === -1) {
                 downLink = document.createElement("a");
                 downLink.target = "_blank";
                 downLink.href = url;
@@ -425,7 +426,7 @@ integrates.controller(
               // Tracking mixpanel
               mixPanelDashboard.trackReports("ExecutivePDFPresentation", userName, userEmail, org, projt);
               const url = `${BASE.url}pdf/${lang}/project/${project}/presentation/`;
-              if (navigator.userAgent.indexOf("Firefox") == -1) {
+              if (navigator.userAgent.indexOf("Firefox") === -1) {
                 downLink = document.createElement("a");
                 downLink.target = "_blank";
                 downLink.href = url;
@@ -446,7 +447,7 @@ integrates.controller(
               // Tracking mixpanel
               mixPanelDashboard.trackReports("ExecutivePDFReport", userName, userEmail, org, projt);
               const url = `${BASE.url}pdf/${lang}/project/${project}/executive/`;
-              if (navigator.userAgent.indexOf("Firefox") == -1) {
+              if (navigator.userAgent.indexOf("Firefox") === -1) {
                 downLink = document.createElement("a");
                 downLink.target = "_blank";
                 downLink.href = url;
@@ -476,7 +477,7 @@ integrates.controller(
       if (prjpatt.test(project) &&
                 langpatt.test(lang)) {
         const url = `${BASE.url}doc/${lang}/project/${project}`;
-        if (navigator.userAgent.indexOf("Firefox") == -1) {
+        if (navigator.userAgent.indexOf("Firefox") === -1) {
           $scope.downloadURL = url;
         }
         else {
@@ -485,7 +486,7 @@ integrates.controller(
       }
     };
     $scope.downloadDoc = function () {
-      if (typeof $scope.downloadURL == "undefined") {
+      if (typeof $scope.downloadURL === "undefined") {
         $timeout($scope.downloadDoc, 3000);
       }
       else {
@@ -500,9 +501,9 @@ integrates.controller(
       let total_seg = 0;
       let total_hig = 0;
       currData.forEach(function (val, cont) {
-        tipo = val.tipo_hallazgo;
-        if (val.estado != "Cerrado" && val.estado != "Closed") {
-          if (tipo == "Seguridad") {
+        const tipo = val.tipo_hallazgo;
+        if (val.estado !== "Cerrado" && val.estado !== "Closed") {
+          if (tipo === "Seguridad") {
             total_seg += 1;
           }
           else {
@@ -538,8 +539,8 @@ integrates.controller(
       let nonexploit = 0;
       currData.forEach(function (val, cont) {
         explotable = val.explotabilidad;
-        if (val.estado != "Cerrado" && val.estado != "Closed") {
-          if (explotable == "1.000 | Alta: No se requiere exploit o se puede automatizar" || explotable == "0.950 | Funcional: Existe exploit" || explotable == "1.000 | High: Exploit is not required or it can be automated" || explotable == "0.950 | Functional: There is an exploit") {
+        if (val.estado !== "Cerrado" && val.estado !== "Closed") {
+          if (explotable === "1.000 | Alta: No se requiere exploit o se puede automatizar" || explotable === "0.950 | Funcional: Existe exploit" || explotable === "1.000 | High: Exploit is not required or it can be automated" || explotable === "0.950 | Functional: There is an exploit") {
             exploit += 1;
           }
           else {
@@ -578,10 +579,10 @@ integrates.controller(
       currData.forEach(function (val, cont) {
         estado = val.estado;
         total += 1;
-        if (estado == "Abierto" || estado == "Open") {
+        if (estado === "Abierto" || estado === "Open") {
           open += 1;
         }
-        else if (estado == "Cerrado" || estado == "Closed") {
+        else if (estado === "Cerrado" || estado === "Closed") {
           close += 1;
         }
         else {
@@ -637,10 +638,10 @@ integrates.controller(
         $msg.warning(attention_ac, attention_at);
         return false;
       }
-      if ($stateParams.project != $scope.project) {
+      if ($stateParams.project !== $scope.project) {
         $state.go("ProjectNamed", {"project": $scope.project});
       }
-      else if ($stateParams.project == $scope.project) {
+      else if ($stateParams.project === $scope.project) {
         $scope.view.project = false;
         $scope.view.finding = false;
 
@@ -655,7 +656,7 @@ integrates.controller(
           if (!response.error) {
             // Tracking Mixpanel
             mixPanelDashboard.trackSearch("SearchFinding", userEmail, project);
-            if (response.data.length == 0) {
+            if (response.data.length === 0) {
               $scope.view.project = false;
               $scope.view.finding = false;
               $msg.error($translate.instant("proj_alerts.not_found"));
@@ -1017,11 +1018,11 @@ integrates.controller(
           else if (response.error) {
             $scope.view.project = false;
             $scope.view.finding = false;
-            if (response.message == "Access denied") {
+            if (response.message === "Access denied") {
               Rollbar.warning("Warning: Access to project denied");
               $msg.error($translate.instant("proj_alerts.access_denied"));
             }
-            else if (response.message == "Project masked") {
+            else if (response.message === "Project masked") {
               Rollbar.warning("Warning: Project deleted");
               $msg.error($translate.instant("proj_alerts.project_deleted"));
             }
@@ -1112,7 +1113,7 @@ integrates.controller(
             $("#search_section").show();
             $("[data-toggle=\"tooltip\"]").tooltip();
           }
-          else if (response.message == "Access to project denied") {
+          else if (response.message === "Access to project denied") {
             Rollbar.warning("Warning: Access to event denied");
             $msg.error($translate.instant("proj_alerts.access_denied"));
           }

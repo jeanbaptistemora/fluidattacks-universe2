@@ -1,5 +1,5 @@
 /* eslint no-magic-numbers: ["error", { "ignore": [-1,2000] }]*/
-/* global angular,$, setTimeout,redirector:true, location:true, localStorage */
+/* global angular,$, setTimeout,redirector:true, window.location:true, localStorage */
 /**
  * @file login.js
  */
@@ -12,7 +12,7 @@ const BASE = {
   "production": "/integrates/"
 };
 BASE.url = BASE.production;
-if (location.pathname.indexOf("/integrates") == -1) {
+if (window.location.pathname.indexOf("/integrates") == -1) {
   BASE.url = BASE.development;
 }
 // Definicion de modulos
@@ -52,7 +52,7 @@ integrates.config([
  * MixPanel localhost Fixer
  */
 integrates.isProduction = function () {
-  return location.toString().indexOf("localhost:8000") == -1;
+  return window.location.toString().indexOf("localhost:8000") == -1;
 };
 
 /**
@@ -120,7 +120,7 @@ integrates.controller("loginController", function ($scope, $translate) {
         });
         if (color == "success") {
           redirector = function () {
-            location = `${BASE.url}dashboard`;
+            window.location = `${BASE.url}dashboard`;
           };
           setTimeout(redirector, 2000);
         }
