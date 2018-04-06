@@ -1,0 +1,13 @@
+:slug: rules/231/
+:category: rules
+:description: En el presente documento se detallan los requerimientos de seguridad relacionados a la gestión segura de autenticación de usuarios. En este caso, se recomienda que cuando se maneje información crítica, se cuente con componentes de verificación biométrica en un proceso de autenticación.
+:keywords: Sistema, Información, Negocio, Verificación, Biométrica, Autenticación.
+:rules: yes
+
+= REQ.231 Definir componente verificación biométrica
+
+== Nombre
+
+Un sistema con información crítica para el negocio
+debe tener un componente para verificación biométrica
+durante el proceso de autenticación.
