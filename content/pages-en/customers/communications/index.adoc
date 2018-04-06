@@ -6,7 +6,21 @@
 
 = Communications
 
-[width="99%", cols="^.^", grid="none", frame="none"]
-|=======
-|image:logo-tigo.png[alt="Logo Tigo",link="https://www.tigo.com.co/"]
-|=======
+{description}
+
+[role="Comunicaciones tb-alt"]
+[cols=2, frame="none"]
+|====
+
+^.^a|image:logo-tigo.png[alt="Logo Tigo",link="https://www.tigo.com.co/"]
+
+a|== Tigo UNE
+
+Colombian company that provides integrated telecommunications services,
+with shareholding in the Millicom Group and the EPM Group.
+Hand in hand with its subsidiary companies,
+including Colombia Móvil, Edatel and Orbitel,
+UNE covers more than +70%+ of the urban population
+and is present in +767+ municipalities
+of the +32+ departments of the national territory.
+|====

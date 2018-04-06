@@ -6,6 +6,8 @@
 
 = Comunicaciones
 
+{description}
+
 [role="Comunicaciones tb-alt"]
 [cols=2, frame="none"]
 |====
@@ -13,15 +15,20 @@
 
 a|== Claro
 
-Empresa operadora de televisión por suscripción y telefonía móvil, filial de Claro en Colombia.
-Es propiedad del grupo mexicano América Móvil. Actualmente se presenta bajo la marca
-"Claro Colombia", Comcel se integra a Telmex Colombia S.A para dar paso a la marca de América Móvil;
-ofreciendo así servicios de telefonía móvil y telefonía fija, además de televisión e internet móvil y fijo.
+Empresa operadora de televisión por suscripción y telefonía móvil,
+filial de Claro en Colombia.
+Es propiedad del grupo mexicano América Móvil.
+Actualmente se presenta bajo la marca
+"Claro Colombia", Comcel se integra a Telmex Colombia S.A
+para dar paso a la marca de América Móvil;
+ofreciendo así servicios de telefonía móvil y telefonía fija,
+además de televisión e internet móvil y fijo.
 
 a|== Edatel
 
-Empresa de Servicios Públicos constituida como sociedad anónima cuyo objeto social
-principal es la organización, administración y prestación de servicios de telecomunicaciones,
+Empresa de Servicios Públicos constituida como sociedad anónima
+cuyo objeto social principal es la organización,
+administración y prestación de servicios de telecomunicaciones,
 Tecnologías de la Información y todas las actividades complementarias.
 
 ^.^a|image:logo-edatel.png[alt="Logo Edatel",link="https://www.edatel.com.co/nuestra-compania/informacion-corporativa/quienes-somos"]
@@ -31,15 +38,19 @@ Tecnologías de la Información y todas las actividades complementarias.
 a|== Internexa
 
 Compañía colombiana dedicada al negocio de portadores y al sector energético.
-Cuenta con 48.866 km de red de fibra óptica en Latinoamérica. Sirve a los operadores que prestan
-servicios de larga distancia, valor agregado, internet, comunicaciones móviles y televisión por cable.
+Cuenta con +48.866+ km de red de fibra óptica en Latinoamérica.
+Sirve a los operadores que prestan servicios de larga distancia,
+valor agregado, internet, comunicaciones móviles y televisión por cable.
 
 a|== Tigo UNE
 
-Empresa Colombiana que presta servicios integrados de telecomunicaciones, con
-participación accionaria del Grupo Millicom y el Grupo EPM. De la mano de sus empresas
-filiales, incluyendo a Colombia Móvil, Edatel y Orbitel, UNE cubre más del 70% de la
-población urbana y está presente en 767 municipios de los 32 departamentos del territorio nacional.
+Empresa Colombiana que presta servicios integrados de telecomunicaciones,
+con participación accionaria del Grupo Millicom y el Grupo EPM.
+De la mano de sus empresas filiales,
+incluyendo a Colombia Móvil, Edatel y Orbitel,
+UNE cubre más del +70%+ de la población urbana
+y está presente en +767+ municipios
+de los +32+ departamentos del territorio nacional.
 
 ^.^a|image:logo-tigo.png[alt="Logo Tigo",link="https://www.tigo.com.co/nuestra-compania"]
 
