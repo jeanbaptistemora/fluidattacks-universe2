@@ -262,10 +262,10 @@ Los soluciones a los retos se almacenan en las siguientes carpetas:
 ^.^s| Estructura
 a| * sitio (directorio)
 ** código del reto (directorio)
-*** loginGitLab.ext (archivo de solución)
+*** login-gitlab.ext (archivo de solución)
 a| * nombre del sistema o caja vulnerada (directorio)
 ** nombre de la explotación realizada (directorio)
-*** loginGitLab.feature (archivo de solución)
+*** login-gitlab.feature (archivo de solución)
 
 ^.^s| Ejemplo
 a| * link:https://gitlab.com/autonomicmind/training/tree/master/challenges/codeabbey/[codeabbey]
@@ -279,6 +279,7 @@ a| * link:https://gitlab.com/autonomicmind/training/tree/master/systems/bwapp[bw
 
 El nombramiento de todos los archivos y directorios,
 a excepción de sus link:#82-archivos[archivos especiales],
+no debe superar los +35+ caracteres,
 debe realizarse en minúscula,
 sin caracteres especiales y
 en caso de requerir espacios usar *-* (guion) como sustituto.
@@ -324,7 +325,7 @@ quienes podrán guiarlo en caso de tener dudas o inconvenientes.
 [quote]
 ____________________________________________________________________
 He leído y entendido toda la documentación de los retos técnicos,
-acepto las condiciones y por ende solicito acceso al repo +git+ con mi usuario [nombreDeUsuario] en +GitLab+
+acepto las condiciones y por ende solicito acceso al repo +git+ con mi usuario [nombre-usuario] en +GitLab+
 ____________________________________________________________________
 
 == 12. Fin
@@ -368,8 +369,8 @@ curl https://nixos.org/nix/install | sh
 .Definir sus credenciales de acceso
 [source, bash, linenums]
 ----
-export DOCKER_USER=usuarioEnGitlab
-export DOCKER_PASS=contraseñaEnGitlab
+export DOCKER_USER=usuario-gitlab
+export DOCKER_PASS=contraseña-gitlab
 ----
 
 .Compilar y probar
@@ -383,7 +384,7 @@ export DOCKER_PASS=contraseñaEnGitlab
 ----
 git add .
 git commit -m "Ejemplo"
-git push origin ramaPersonal
+git push origin rama-personal
 ----
 
 * *En Sistemas Operativos +Windows+:* La forma de ejecutar la integración no se encuentra todavía disponible para Windows y
