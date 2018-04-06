@@ -6,8 +6,40 @@
 
 = Consumer
 
-[frame="none", cols="^.^,^.^"]
-|=======
-|image:logo-exito.png[alt="Logo Exito",link="https://www.exito.com/"] |image:logo-semana.png[alt="Logo Semana",link="http://www.semana.com/"]
-2+|image:logo-tml.png[alt="Logo The Missing Link",link="https://www.themissinglink.com.au/"]
+{description}
+
+[role="comercial tb-alt"]
+[cols=2, frame="none"]
+|====
+^.^a|image:logo-exito.png[alt="Logo Exito",link="https://www.exito.com/"]
+
+a|== Éxito Group
+Colombian multinational company,
+carries out retail trade activities in South America.
+Present in Colombia with Grupo Éxito;
+in Brazil with the Pão de Açúcar Group;
+in Uruguay with the Disco and Devoto Groups
+and in Argentina with Libertad
+
+a|== Semana
+Media group of the magazines with the greatest circuliation
+and influence in Colombia,
+seeking to position in the public opinion different
+topics of national interest.
+In addition, it offers its services
+so that companies and/or entities of the State
+can publish their own magazine.
+
+^.^a|image:logo-semana.png[alt="Logo Semana",link="http://www.semana.com/"]
+
+^.^a|image:logo-tml.png[alt="Logo The Missing Link",link="https://www.themissinglink.com.au/"]
+
+a|== The Missing Link
+Australian provider of information technology solutions,
+provide services for infrastructure, security, backup,
+disaster recovery, communications and cloud services.
+Recognized as a leader industry
+and accredited with the highest levels in design, delivery and support
+of the latest technologies.
+
 |=======
