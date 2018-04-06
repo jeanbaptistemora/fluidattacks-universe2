@@ -123,7 +123,40 @@ Las soluciones de retos de hacking deberán cumplir con lo siguiente:
 . El código fuente de la solución debe seguir los parámetros de estilo de [button]#link:../../estilo/#fuente[esta guía]#.
 . La solución debe haber pasado sin errores ni +warnings+ por un +linter+ del lenguaje correspondiente en su configuración más estricta posible.
 
-== 5. Envío
+
+== 5. Puntaje
+
+A medida que realice soluciones a retos,
+debe reportar el puntaje,
+ranking y score obtenidos,
+lo cual permitirá evidenciar su progreso en esta etapa.
+Todos estos datos deben ir en el +commit message+ de acuerdo al formato indicado en las link:#envio[reglas de envío]
+
+A continuación, se indica cómo obtener los puntajes y posiciones en el ranking de cada plataforma.
+
+=== 5.1 Programación
+
+. Ranking mundial
+
+.. Ir a la pestaña "Ranking" en la página de +codeabbey+: image:ranking-mundial-codeabbey.png[Ranking mundial codeabbey]
+
+.. Baje hasta el final de la página y allí encontrará su posición en el ranking mundial: image:ranking-mundial-codeabbey-2.png[Ranking mundial codeabbey]
+
+. Ranking Colombia
+
+.. Estando en la pestaña "Ranking", seleccionar el país image:ranking-colombia-codeabbey.png[Ranking Colombia]
+
+.. La página no muestra directamente su posición, por lo que deberá realizar el conteo manualmente.
+Puede facilitar la tarea teniendo en cuenta que cada página muestra 50 usuarios.
+Deberá avanzar a la siguiente página hasta encontrar su nombre de usuario en el tablero de ranking
+image:ranking-colombia-codeabbey-2.png[Ranking Colombia codeabbey]
+
+=== 5.2 Hacking
+
+image::ranking-wechall.png[Ranking en Wechall]
+
+
+== 6. Envío
 
 Las soluciones se envían mediante +Merge Request+ (+MR+) a la rama +master+ del repositorio +training+.
 Antes de realizar un +MR+ por favor verifique que cumple con los siguientes criterios:
@@ -152,7 +185,7 @@ solution(challenges): codeabbey, 78 (9.63)
 - effort: 4.5 hours during challenges phase.
 ----
 
-== 6. Externas
+== 7. Externas
 
 Las reglas para los enlaces (+URLs+) a soluciones externas (+OTHERS.lst+) son las siguientes:
 
@@ -168,7 +201,7 @@ las soluciones externas deben ser de +hacking+ de sistemas también.
 .. Dentro de un +OTHERS+ de programación las +URLs+ deben estar ordenadas alfabéticamente por extensión,
 . Si está en +github+ la +URL+ debe ser su versión +raw+ (link:https://raw.githubusercontent.com/[]),
 
-== 7. Ejemplos
+== 8. Ejemplos
 
 A continuación presentamos los enlaces para diferentes tipos de +MR+:
 
@@ -191,7 +224,7 @@ por ende en el momento que se hicieron las reglas pudieron ser otras.
 En ningún momento los ejemplos tienen prioridad sobre las reglas,
 sin embargo se relacionan como ejemplo para propósitos pedagógicos.
 
-== 8. Recomendaciones
+== 9. Recomendaciones
 
 . Para cumplir los objetivos enunciados,
 se sugiere buscar retos que no tengan solución ni en +OTHERS+ ni en el repositorio y
@@ -207,13 +240,13 @@ No acumule soluciones en su computador sin enviarlas,
 pues de este modo usted nunca tendrá realimentación de lo que esta haciendo de forma errónea y
 le puede generar por ende múltiples reprocesos tener que corregir sus soluciones luego.
 
-== 9. Repositorio
+== 10. Repositorio
 
 El envío de soluciones se realizará en el siguiente [button]#link:https://gitlab.com/autonomicmind/training/[repositorio git]#
 
 Es ideal que usted se familiarice con el versionamiento y la estructura que detallamos a continuación.
 
-=== 9.1 Estructura
+=== 10.1 Estructura
 
 Los soluciones a los retos se almacenan en las siguientes carpetas:
 
@@ -237,7 +270,7 @@ a| * nombre del sistema o caja vulnerada (directorio)
 ^.^s| Ejemplo
 a| * link:https://gitlab.com/autonomicmind/training/tree/master/challenges/codeabbey/[codeabbey]
 ** link:https://gitlab.com/autonomicmind/training/tree/master/challenges/codeabbey/005/[005]
-*** link:https://gitlab.com/autonomicmind/training/tree/master/challenges/codeabbey/005/john2104.ml[john2104.ml]
+*** link:https://gitlab.com/autonomicmind/training/blob/master/challenges/codeabbey/135/skhorn.rs[skhorn.rs]
 *** link:https://gitlab.com/autonomicmind/training/tree/master/challenges/codeabbey/005/henryval.java[henryval.java]
 a| * link:https://gitlab.com/autonomicmind/training/tree/master/systems/bwapp[bwapp]
 *** link:https://gitlab.com/autonomicmind/training/tree/master/systems/bwapp/a1-command-injection[a1-command-injection]
@@ -250,14 +283,14 @@ debe realizarse en minúscula,
 sin caracteres especiales y
 en caso de requerir espacios usar *-* (guion) como sustituto.
 
-=== 9.2 Archivos
+=== 10.2 Archivos
 
 En algunas carpetas de la estructura se encuentran algunos archivos
 especiales de control:
 
 ** *LINK.lst:* Contiene la URL al enunciado del reto en la plataforma
 correspondiente
-(link:https://gitlab.com/autonomicmind/training/blob/master/challenges/codeeval/easy/235/LINK.txt[Ejemplo]).
+(link:https://gitlab.com/autonomicmind/training/blob/master/challenges/codeabbey/001/LINK.lst[Ejemplo]).
 Este archivo solo debe contener una linea y visitar el enlace debe
 generar la respuesta +HTTP 200+ (sin redirección).
 
@@ -275,37 +308,6 @@ Deben cumplir con lo indicado [button]#link:#externas[aquí]#
 ** *SPEC.txt* (Solo para retos de systems): Contiene las especificaciones de la
 máquina vulnerable con la que se está trabajando.
 Puede ver un ejemplo link:https://gitlab.com/autonomicmind/training/blob/master/systems/bwapp/SPEC.txt[aquí]
-
-== 10. Puntaje
-
-A medida que realice soluciones a retos,
-debe reportar el puntaje,
-ranking y score obtenidos,
-lo cual permitirá evidenciar su progreso en esta etapa.
-Todos estos datos deben ir en el +commit message+ de acuerdo al formato indicado en las link:#envio[reglas de envío]
-
-A continuación, se indica cómo obtener los puntajes y posiciones en el ranking de cada plataforma.
-
-=== 10.1 Programación
-
-. Ranking mundial
-
-.. Ir a la pestaña "Ranking" en la página de +codeabbey+: image:ranking-mundial-codeabbey.png[Ranking mundial codeabbey]
-
-.. Baje hasta el final de la página y allí encontrará su posición en el ranking mundial: image:ranking-mundial-codeabbey-2.png[Ranking mundial codeabbey]
-
-. Ranking Colombia
-
-.. Estando en la pestaña "Ranking", seleccionar el país image:ranking-colombia-codeabbey.png[Ranking Colombia]
-
-.. La página no muestra directamente su posición, por lo que deberá realizar el conteo manualmente.
-Puede facilitar la tarea teniendo en cuenta que cada página muestra 50 usuarios.
-Deberá avanzar a la siguiente página hasta encontrar su nombre de usuario en el tablero de ranking
-image:ranking-colombia-codeabbey-2.png[Ranking Colombia codeabbey]
-
-=== 10.2 Hacking
-
-image::ranking-wechall.png[Ranking en Wechall]
 
 == 11. Inicio
 
