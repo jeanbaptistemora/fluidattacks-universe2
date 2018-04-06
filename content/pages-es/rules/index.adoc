@@ -228,6 +228,7 @@
 * link:230/[REQ.230 Establecer claves de un sólo uso].
 * link:231/[REQ.231 Definir componente verificación biométrica].
 * link:232/[REQ.232 Requerir identidad de equipo].
+* link:233/[REQ.233 No imprimir credenciales de acceso].
 
 == Sistema
 
