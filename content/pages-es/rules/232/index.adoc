@@ -1,0 +1,13 @@
+:slug: rules/232/
+:category: rules
+:description: En el presente documento se detallan los requerimientos de seguridad relacionados a la gestión segura de autenticación de usuarios. En este caso, se recomienda que cuando se maneje información crítica, se requiera la identidad del equipo desde el cual se está autenticando un usuario.
+:keywords: Sistema, Información, Negocio, Identificación, Equipo, Autenticación.
+:rules: yes
+
+= REQ.232 Requerir identidad de equipo
+
+== Nombre
+
+Un sistema con información crítica para el negocio
+debe requerir la identificación del equipo
+desde el cual se autentica un usuario o sistema.
