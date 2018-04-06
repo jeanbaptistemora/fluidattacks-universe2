@@ -230,6 +230,7 @@
 * link:232/[REQ.232 Requerir identidad de equipo].
 * link:233/[REQ.233 No imprimir credenciales de acceso].
 * link:234/[REQ.234 Custodiar credenciales de autenticación].
+* link:235/[REQ.235 Definir interfaz de credenciales].
 
 == Sistema
 
