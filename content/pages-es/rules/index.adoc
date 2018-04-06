@@ -229,6 +229,7 @@
 * link:231/[REQ.231 Definir componente verificación biométrica].
 * link:232/[REQ.232 Requerir identidad de equipo].
 * link:233/[REQ.233 No imprimir credenciales de acceso].
+* link:234/[REQ.234 Custodiar credenciales de autenticación].
 
 == Sistema
 

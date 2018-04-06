@@ -1,0 +1,13 @@
+:slug: rules/234/
+:category: rules
+:description: En el presente documento se detallan los requerimientos de seguridad relacionados a la gestión segura de autenticación de usuarios. En este caso, se recomienda que cuando se maneje información crítica, las credenciales de autenticación sean custodiadas por más de un usuario.
+:keywords: Autenticación, Información, Negocio, Custodiar, Usuarios, Credenciales.
+:rules: yes
+
+= REQ.234 Custodiar credenciales de autenticación
+
+== Nombre
+
+Las credenciales para la autenticación
+a un sistema con información crítica para el negocio
+deben estar bajo la custodia de dos usuarios.
