@@ -231,6 +231,7 @@
 * link:233/[REQ.233 No imprimir credenciales de acceso].
 * link:234/[REQ.234 Custodiar credenciales de autenticación].
 * link:235/[REQ.235 Definir interfaz de credenciales].
+* link:236/[REQ.236 Establecer tiempo de autenticación].
 
 == Sistema
 

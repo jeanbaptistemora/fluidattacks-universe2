@@ -1,0 +1,12 @@
+:slug: rules/236/
+:category: rules
+:description: En el presente documento se detallan los requerimientos de seguridad relacionados a la gestión segura de autenticación de usuarios. En este caso, se recomienda que toda aplicación establezca un tiempo máximo razonable durante el proceso de autenticación de sus usuarios.
+:keywords: Autenticación, Tiempo, Seguridad, Segundos, Usuarios, Límite.
+:rules: yes
+
+= REQ.236 Establecer tiempo de autenticación
+
+== Nombre
+
+El proceso de autenticación
+debe tener un tiempo límite establecido de 30 segundos.
