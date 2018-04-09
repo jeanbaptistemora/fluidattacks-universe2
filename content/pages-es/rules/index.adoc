@@ -88,6 +88,7 @@
 * link:067/[REQ.067 Definir componentes a ser probados].
 * link:068/[REQ.068 Identificar componentes probados].
 * link:069/[REQ.069 Gestionar vulnerabilidades no corregidas].
+* link:070/[REQ.070 Definir pruebas de seguridad automatizadas].
 
 == Correos
 
