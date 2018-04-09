@@ -30,7 +30,7 @@ integrates.controller("dashboardCtrl", function (
       $("#myProjectsTbl").bootstrapTable({
         "locale": vlang,
         "onClickRow" (row, elem) {
-          $state.go("ProjectNamed", {"project": row.project});
+          $state.go("ProjectIndicators", {"project": row.project});
         },
         "url": `${BASE.url}get_myprojects`
       });

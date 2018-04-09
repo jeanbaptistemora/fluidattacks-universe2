@@ -82,6 +82,39 @@ integrates.controller(
                 project !== "") {
         $scope.project = project;
         $scope.search();
+        const org = Organization.toUpperCase();
+        const projt = project.toUpperCase();
+        $(".equalWidgetHeight").matchHeight();
+        if (window.location.hash.indexOf("indicators") !== -1) {
+          $("#indicatorsTab").addClass("active");
+          $("#indicators").addClass("active");
+          $("#findingsTab").removeClass("active");
+          $("#findings").removeClass("active");
+          $("#eventsTab").removeClass("active");
+          $("#eventualities").removeClass("active");
+          // Tracking mixpanel
+          mixPanelDashboard.trackReports("ProjectIndicators", userName, userEmail, org, projt);
+        }
+        if (window.location.hash.indexOf("findings") !== -1) {
+          $("#indicatorsTab").removeClass("active");
+          $("#indicators").removeClass("active");
+          $("#findingsTab").addClass("active");
+          $("#findings").addClass("active");
+          $("#eventsTab").removeClass("active");
+          $("#eventualities").removeClass("active");
+          // Tracking mixpanel
+          mixPanelDashboard.trackReports("ProjectFindings", userName, userEmail, org, projt);
+        }
+        if (window.location.hash.indexOf("events") !== -1) {
+          $("#indicatorsTab").removeClass("active");
+          $("#indicators").removeClass("active");
+          $("#findingsTab").removeClass("active");
+          $("#findings").removeClass("active");
+          $("#eventsTab").addClass("active");
+          $("#eventualities").addClass("active");
+          // Tracking mixpanel
+          mixPanelDashboard.trackReports("ProjectEvents", userName, userEmail, org, projt);
+        }
       }
       // Inicializacion para consulta de hallazgos
       $scope.configColorPalette();
@@ -89,7 +122,6 @@ integrates.controller(
       $scope.configKeyboardView();
       $scope.goUp();
       $scope.finding = {};
-      $(".equalWidgetHeight").matchHeight();
     };
     $scope.goUp = function () {
       $("html, body").animate({"scrollTop": 0}, "fast");
@@ -639,7 +671,7 @@ integrates.controller(
         return false;
       }
       if ($stateParams.project !== $scope.project) {
-        $state.go("ProjectNamed", {"project": $scope.project});
+        $state.go("ProjectIndicators", {"project": $scope.project});
       }
       else if ($stateParams.project === $scope.project) {
         $scope.view.project = false;
@@ -1169,6 +1201,15 @@ integrates.controller(
       $("#projectView").fadeOut(300);
       $("#findingView").fadeIn(300);
       $(".loader").hide();
+    };
+    $scope.urlIndicators = function () {
+      location.replace(`${window.location.href.split($stateParams.project)[0] + $stateParams.project}/indicators`);
+    };
+    $scope.urlFindings = function () {
+      location.replace(`${window.location.href.split($stateParams.project)[0] + $stateParams.project}/findings`);
+    };
+    $scope.urlEvents = function () {
+      location.replace(`${window.location.href.split($stateParams.project)[0] + $stateParams.project}/events`);
     };
     $scope.init();
   }

@@ -592,7 +592,7 @@ integrates.controller("findingcontentCtrl", function (
               const updated_ac = $translate.instant("proj_alerts.updated_cont");
               $msg.success(updated_ac, updated_at);
               $uibModalInstance.close();
-              $state.go("ProjectNamed", {"project": $stateParams.project});
+              $state.go("ProjectFindings", {"project": $stateParams.project});
               // Tracking mixpanel
               mixPanelDashboard.trackFinding("DeleteFinding", userEmail, descData.id);
             }
@@ -1824,7 +1824,7 @@ integrates.controller("findingcontentCtrl", function (
   $scope.goBack = function () {
     $scope.view.project = true;
     $scope.view.finding = false;
-    $state.go("ProjectNamed", {"project": $scope.project});
+    $state.go("ProjectIndicators", {"project": $scope.project});
     $("html, body").animate({"scrollTop": $scope.currentScrollPosition}, "fast");
   };
   $scope.urlDescription = function () {

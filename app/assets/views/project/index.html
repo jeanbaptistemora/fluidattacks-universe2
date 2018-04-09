@@ -69,24 +69,24 @@
             <div class="row">
                 <div class="tab-container">
                     <ul class="nav pills-tabs nav-justified" style="background-color: white; border-bottom: 1px #eee solid;">
-                        <li class="active" style="font-size:15px;">
-                            <a href="#metrics" data-toggle="tab" aria-expanded="false">
-                                <i class="icon s7-graph3"></i>&nbsp; {{'tab_container.metrics' | translate}}
+                        <li id="indicatorsTab" class="active" style="font-size:15px;" ng-click="urlIndicators();">
+                            <a href="#indicators" data-toggle="tab" aria-expanded="false">
+                                <i class="icon s7-graph3"></i>&nbsp; {{'tab_container.indicators' | translate}}
                             </a>
                         </li>
-                        <li class="" style="font-size:15px;">
+                        <li id="findingsTab" class="" style="font-size:15px;" ng-click="urlFindings();">
                             <a href="#findings" data-toggle="tab" aria-expanded="false">
                                 <i class="icon s7-light"></i>&nbsp;{{'tab_container.findings' | translate}}
                             </a>
                         </li>
-                        <li class="" style="font-size:15px;">
+                        <li id="eventsTab" class="" style="font-size:15px;" ng-click="urlEvents();">
                             <a href="#eventualities" data-toggle="tab" aria-expanded="true">
                                 <i class="icon s7-star"></i>&nbsp;{{'tab_container.eventualities' | translate}}
                             </a>
                         </li>
                     </ul>
                     <div class="tab-content">
-                        <div id="metrics" class="tab-pane cont active">
+                        <div id="indicators" class="tab-pane cont active">
                             <div class="row">
                                 <div class="col-md-4 text-center">
                                     <h3>{{'grapExploit.title' | translate}}</h3>

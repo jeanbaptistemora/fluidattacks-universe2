@@ -41,7 +41,7 @@ def get_new_vulnerabilities():
                 integrates_dao.add_or_update_vulns_dynamo(str(project[0].lower()),int(finding['id']), int(act_finding['cardinalidad']))
         if delta_total !=0:
             context['proyecto'] = project[0].upper()
-            context['url_proyecto'] = 'https://fluidattacks.com/integrates/dashboard#!/project/' + project[0].lower()
+            context['url_proyecto'] = 'https://fluidattacks.com/integrates/dashboard#!/project/' + project[0].lower() + '/indicators'
             recipients = integrates_dao.get_project_users(project)
             to = [x[0] for x in recipients if x[1] == 1]
             to.append('engineering@fluidattacks.com')
@@ -86,7 +86,7 @@ def get_age_notifications():
                                     + '/' + finding["id"] + '/description',
                     'finding_comment': 'https://fluidattacks.com/integrates/dashboard#!/project/' + project[0].lower() \
                                     + '/' + finding["id"] + '/comments',
-                    'project_url': 'https://fluidattacks.com/integrates/dashboard#!/project/' + project[0].lower()
+                    'project_url': 'https://fluidattacks.com/integrates/dashboard#!/project/' + project[0].lower() + '/indicators'
                     }
                 if "kb" in finding_parsed:
                     if "https://fluidattacks.com/web/es/defends" in finding_parsed["kb"]:
@@ -122,7 +122,7 @@ def get_age_weekends_notifications():
                                     + '/' + finding["id"] + '/description',
                     'finding_comment': 'https://fluidattacks.com/integrates/dashboard#!/project/' + project[0].lower() \
                                     + '/' + finding["id"] + '/comments',
-                    'project_url': 'https://fluidattacks.com/integrates/dashboard#!/project/' + project[0].lower()
+                    'project_url': 'https://fluidattacks.com/integrates/dashboard#!/project/' + project[0].lower() + '/indicators'
                     }
                 if "kb" in finding_parsed:
                     if "https://fluidattacks.com/web/es/defends" in finding_parsed["kb"]:
