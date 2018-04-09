@@ -33,6 +33,13 @@ or operate security controls such as +SOC+, +NAC+, +Firewalls+ etc,
 they are not independent to report the vulnerabilities
 for which they are responsible.
 
+a|==== Attributes
+|{yes} We verify the basic security attributes:
+Confidentiality, Integrity and Availability,
+but additionally extended attributes such as Non-repudiation and Traceability
+(management of logs and errors).
+|{no} Only Confidentiality, Integrity and Availability.
+
 a|==== Method
 | {yes} Hybrid (Automated tools + manual expert revision).
 | {no} Static (Automated tools only).
@@ -66,7 +73,7 @@ through questions and answers:
 
 a|==== Model
 | +Red Team+
-link:../continuous-hacking/#testing-technique[^5^]
+link:../continuous-hacking/#testing-techniques[^5^]
 link:../one-shot-hacking/#testing-techniques[^6^].
 | Vulnerability Analysis with selective exploitation.
 

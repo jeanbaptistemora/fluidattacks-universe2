@@ -36,6 +36,13 @@ u operan controles de seguridad como +SOC+, +NAC+, +Firewalls+ etc,
 no son independientes para reportar las vulnerabilidades
 de las que ellos son responsables.
 
+a|==== Atributos
+| {si} Verificamos los atributos basicos de seguridad:
+Confidencialidad, Integridad y Disponibilidad,
+pero adicionalmente atributos extendidos como No repudio y Trazabilidad
+(gestion de bitácoras y errores).
+| {no} Solo Confidencialidad, Integridad y Disponibilidad.
+
 a|==== Método
 | {si} Híbrido (Herramientas + revisión manual experta).
 | {no} Estático (Solo herramientas).
