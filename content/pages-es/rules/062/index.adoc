@@ -1,0 +1,13 @@
+:slug: rules/062/
+:category: rules
+:description: En el presente documento se detallan los requerimientos de seguridad relacionados a la gestión de la documentación que prinda soporte en todo sistema de una organización. Por lo tanto, se recomienda que se dedique al menos un capítulo donde se traten temas de seguridad del sistema.
+:keywords: Configuración, Vulnerabilidad, Estándar, Industria, Organización, Seguridad.
+:rules: yes
+
+= REQ.062 Definir configuraciones estándar
+
+== Nombre
+
+Debe definirse configuraciones estándares
+que corrijan todas las vulnerabilidades conocidas
+y que sean consistentes con estándares de la industria (ej: líneas base).
