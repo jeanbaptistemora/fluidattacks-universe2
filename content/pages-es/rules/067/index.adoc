@@ -1,0 +1,12 @@
+:slug: rules/067/
+:category: rules
+:description: En el presente documento se detallan los requerimientos de seguridad relacionados a la gestión segura de los componentes definidos para un determinado sistema. Por lo tanto, dichos componentes a ser probados deben estar definidos al realizar pruebas de caja blanca.
+:keywords: Componente, Sistema, Probar, Caja Blanca, Definir, Seguridad.
+:rules: yes
+
+= REQ.067 Definir componentes a ser probados
+
+== Nombre
+
+Los componentes del sistema que serán probados
+(pruebas de caja blanca) deben estar definidos.

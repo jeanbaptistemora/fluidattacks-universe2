@@ -85,6 +85,7 @@
 * link:064/[REQ.064 Definir requisitos a comprobar].
 * link:065/[REQ.065 Identificar requisitos probados].
 * link:066/[REQ.066 Definir componentes que puedan ser probados].
+* link:067/[REQ.067 Definir componentes a ser probados].
 
 == Correos
 
