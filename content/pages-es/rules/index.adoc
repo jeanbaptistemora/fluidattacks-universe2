@@ -87,6 +87,7 @@
 * link:066/[REQ.066 Definir componentes que puedan ser probados].
 * link:067/[REQ.067 Definir componentes a ser probados].
 * link:068/[REQ.068 Identificar componentes probados].
+* link:069/[REQ.069 Gestionar vulnerabilidades no corregidas].
 
 == Correos
 
