@@ -30,14 +30,37 @@ and one of the largest groups in Central America
 controlling the BAC Credomatic Group,
 also having the largest administrator of pension and severance funds in Colombia.
 
-^.^a|image:logo-aval.png[alt="Logo Aval"]
+^.^a|image:logo-aval.png[alt="Logo Aval",link="https://www.grupoaval.com/wps/portal/grupo-aval/aval/acerca-nosotros"]
 
-^.^a|image:logo-bancolombia.png[alt="Logo Bancolombia"]
+^.^a|image:logo-bancamia.png[alt="Logo Bancamia",link="https://www.bancamia.com.co/sobre-nosotros"]
+
+a|== Bancamía
+
+Bank with a social sense
+that seeks to support the productive development of entrepreneurs
+at the base of the economic pyramid,
+through financial products and services tailored to their needs.
+The Responsible productive finance becomes an effective tool
+for the social and monetary development of the most disadvantaged communities,
+by providing products and services
+aimed at generating income and surplus through the development of a business.
 
 a|== Bancolombia
 Colombian financial organization, belonging to the Sura Group,
 it is the largest private bank in Colombia (due to the size of its assets)
 and one of the largest in America.
+
+^.^a|image:logo-bancolombia.png[alt="Logo Bancolombia",link="https://www.grupobancolombia.com/wps/portal/acerca-de"]
+
+^.^a|image:logo-delta.png[alt="Logo Banco Delta",link="https://www.bandelta.com/"]
+
+a|== Banco Delta
+
+Microfinance Bank of Panama.
+Financing of working capital for micro and small businesses,
+financing of fixed assets (vehicles, machinery and equipment),
+factoring, credit lines, commercial, mortgage and personal loans,
+financial leasing, deposit accounts and debit cards.
 
 a|== Banco del Pacífico
 Part of the International Banking Center integrated in the city of Panama,
@@ -46,9 +69,9 @@ The Center has a broad financial structure
 and a major importance for the economic life of the country,
 which is a guarantee of its permanence and stability.
 
-^.^a|image:logo-pacifico.png[alt="Logo Banco del Pacifico"]
+^.^a|image:logo-pacifico.png[alt="Logo Banco del Pacifico",link="https://www.bancodelpacifico.com/grupo-banco-del-pacifico/banco-del-pacifico-panama.aspx"]
 
-^.^a|image:logo-banistmo.png[alt="Logo Banistmo"]
+^.^a|image:logo-banistmo.png[alt="Logo Banistmo",link="https://www.banistmo.com/quienes-somos"]
 
 a|== Banistmo
 Panamanian organization that has the support of Grupo Bancolombia,
@@ -64,9 +87,31 @@ It is the first financial institution in Mexico
 and also has a strong position in Spain,
 with leading franchises in South America.
 
-^.^a|image:logo-bbva.png[alt="Logo BBVA"]
+^.^a|image:logo-bbva.png[alt="Logo BBVA",link="https://www.bbva.com.co/"]
 
-^.^a|image:logo-colpatria.png[alt="Logo Colpatria"]
+^.^a|image:logo-cfa.png[alt="Logo CFA",link="http://www.cfa.com.co/"]
+
+a|== CFA
+
+Organization resulted of the merge of the cooperatives
++DONMATÍAS+ and +COOBANCOQUIA+
+with the purpose of guaranteeing associates and savers
+the security of all their savings and social contributions,
+being a social and economic alternative for the associates
+of the two cooperatives to channel resources to finance productive activities.
+
+a|== Coopcentral
+
+Bank owned by entities of the solidary sector,
+oriented to the specialized attention.
+They offer financial services and through the Coopcentral Network
+they integrate technological platforms
+that allow to provide transactional services
+to the associates of the entities that comprise it.
+
+^.^a|image:logo-coopcentral.png[alt="Logo Coopcentral",link="https://www.coopcentral.com.co/coopcentral/index.php/corpora"]
+
+^.^a|image:logo-colpatria.png[alt="Logo Colpatria",link="https://www.colpatria.com/Acerca-de/banco-colpatria/informacion-institucional/nuestra-organizacion"]
 
 a|== Colpatria
 Colpatria is a Colombian business group,
@@ -87,9 +132,9 @@ merchandise representatives and financial instruments
 that are registered in the National Registry of Securities and Issuers,
 whether they are issued, negotiated or registered locally or abroad.
 
-^.^a|image:logo-deceval.png[alt="Logo Deceval"]
+^.^a|image:logo-deceval.png[alt="Logo Deceval",link="https://www.deceval.com.co/portal/page/portal/Home/Empresa/Quienes_Somos"]
 
-^.^a|image:logo-proteccion.png[alt="Logo Proteccion"]
+^.^a|image:logo-proteccion.png[alt="Logo Proteccion",link="https://www.proteccion.com/wps/portal/proteccion/web/home/corporativo-accionistas/acerca-proteccion/que-es-proteccion"]
 
 a|== Protección
 
@@ -110,6 +155,6 @@ part of the Dow Jones Sustainability Index,
 which recognizes companies that stand out worldwide
 for their good practices in economic, environmental and social matters.
 
-^.^a|image:logo-sura.png[alt="Logo Sura"]
+^.^a|image:logo-sura.png[alt="Logo Sura",link="https://www.gruposura.com/corporativo/Paginas/default.aspx"]
 
 |====
