@@ -31,6 +31,10 @@ a|==== Duracion típica
 | +12+ a +36+ meses link:../hacking-continuo/#duracion[^3^].
 | +1+ a +4+ meses link:../hacking-puntual/#duracion-especifica[^3^].
 
+a|==== Multiples hackers
+|{si} Durante todo el servicio mínimo +5+ hackers atacan tu sistema.
+|{info} Al menos +2+ hackers realizan el ataque a tu sistema.
+-
 a|==== Entrega presencial
 |{info} Todas las entregas de información se realizan vía
 [button]#link:../../productos/integrates/[Integrates]#

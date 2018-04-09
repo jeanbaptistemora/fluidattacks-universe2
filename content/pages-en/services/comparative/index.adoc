@@ -31,6 +31,10 @@ a|==== Average duration
 | Between +12+ and +36+ months link:../continuous-hacking/#duration[^3^].
 | Between +1+ and +4+ months link:../one-shot-hacking/#specific-length[^3^].
 
+a|==== Multiple hackers
+|{yes} During all the service, at least +5+ hackers attack your system.
+|{info} At least +2+ hackers attack your system.
+
 a|==== Face-to-face delivery
 |{info} All information deliveries are made via
 [button]#link:../../products/integrates/[Integrates]#
