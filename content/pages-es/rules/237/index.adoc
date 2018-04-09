@@ -1,0 +1,14 @@
+:slug: rules/237/
+:category: rules
+:description: En el presente documento se detallan los requerimientos de seguridad relacionados a la gestión segura de autenticación de usuarios. Por lo tanto, el sistema debe garantizar que todas las acciones de usuario sean ejecutadas por un humano y no por robots que ejecutan tareas automatizadas.
+:keywords: Autenticación, Tiempo, Seguridad, Segundos, Usuarios, Límite.
+:rules: yes
+
+= REQ.237 Establecer acciones de usuario seguras
+
+== Nombre
+
+El sistema debe garantizar
+que quien realiza las acciones de registro, autenticación
+y restablecimiento de contraseña es un humano
+(usando +CAPTCHA+ o retrasos incrementales).
