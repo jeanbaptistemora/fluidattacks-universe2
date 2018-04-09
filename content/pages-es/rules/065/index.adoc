@@ -1,0 +1,12 @@
+:slug: rules/065/
+:category: rules
+:description: En el presente documento se detallan los requerimientos de seguridad relacionados a la gestión segura de los requisitos de seguridad definidos para un determinado sistema. Por lo tanto, dichos requisitos probados deben estar identificados luego de realizar las pruebas de caja blanca.
+:keywords: Requisitos, Sistema, Probado, Caja Blanca, Identificar, Seguridad.
+:rules: yes
+
+= REQ.065 Identificar requisitos probados
+
+== Nombre
+
+Los requisitos de seguridad efectivamente probados
+(en pruebas de caja blanca) deben estar identificados.
