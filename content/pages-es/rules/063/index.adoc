@@ -1,0 +1,12 @@
+:slug: rules/063/
+:category: rules
+:description: En el presente documento se detallan los requerimientos de seguridad relacionados a la gestión segura de los requisitos de seguridad definidos para un determinado sistema. Por lo tanto, dichos requisitos deben ser comprobables mediante pruebas de caja blanca.
+:keywords: Requisitos, Sistema, Comprobar, Caja Blanca, Organización, Seguridad.
+:rules: yes
+
+= REQ.063 Comprobar requisitos de seguridad
+
+== Nombre
+
+Los requisitos de seguridad definidos para un sistema
+deben ser comprobables (pruebas de caja blanca).
