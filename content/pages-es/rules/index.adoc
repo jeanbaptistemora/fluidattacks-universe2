@@ -233,6 +233,7 @@
 * link:235/[REQ.235 Definir interfaz de credenciales].
 * link:236/[REQ.236 Establecer tiempo de autenticación].
 * link:237/[REQ.237 Establecer acciones de usuario seguras].
+* link:238/[REQ.238 Establecer restablecimiento seguro].
 
 == Sistema
 
