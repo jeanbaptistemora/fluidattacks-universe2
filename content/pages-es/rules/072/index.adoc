@@ -1,0 +1,12 @@
+:slug: rules/072/
+:category: rules
+:description: En el presente documento se detallan los requerimientos de seguridad relacionados a la gestión de pruebas de seguridad definidos en un sistema. Por lo tanto, para este requerimiento, se debe establecer un tiempo de respuesta máximo de 5 segundos en la concurrencia máxima esperada.
+:keywords: Tiempo, Respuesta, Concurrencia, Segundos, Requerimiento, Seguridad.
+:rules: yes
+
+= REQ.072 Establecer tiempo máximo de respuesta
+
+== Nombre
+
+El tiempo de respuesta con la concurrencia máxima esperada
+debe ser de no más de 5 segundos.
