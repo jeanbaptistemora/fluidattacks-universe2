@@ -78,6 +78,7 @@
 * link:057/[REQ.057 Relacionar casos de abuso].
 * link:058/[REQ.058 Documentar eventos de seguridad].
 * link:059/[REQ.059 Identificar eventos de seguridad].
+* link:060/[REQ.060 Identificar componentes de ataque].
 
 == Correos
 
