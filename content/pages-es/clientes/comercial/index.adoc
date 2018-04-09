@@ -71,4 +71,14 @@ además de satisfacer las necesidades de mejoramiento
 y decoración de sus hogares, ofreciendo excelencia en el servicio,
 integridad en su trabajo y un fuerte compromiso con la comunidad.
 
+a|== The Missing Link
+Proveedor de soluciones australiano enfocado en tecnología de la información,
+prestan servicios para infraestructuras, seguridad, backup,
+recuperación de desastres, comunicaciones y servicios en la nube.
+Reconocido como líder de la industria
+y acreditado con los más altos niveles en el diseño, entrega
+y soporte de las últimas tecnologías.
+
+^.^a|image:logo-tml.png[alt="Logo The Missing Link",link="https://www.themissinglink.com.au/"]
+
 |====

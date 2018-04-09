@@ -21,6 +21,29 @@ in Brazil with the Pão de Açúcar Group;
 in Uruguay with the Disco and Devoto Groups
 and in Argentina with Libertad
 
+a|== Grupo Uribe
+
+Colombian textile group, family trend,
+founded in 1907 by the patriarch, John Uribe.
+Their children and the children of their children have contributed for decades
+to the development and strengthening of the business.
+The group has the representation, production and commercialization
+for Colombia and the Caribbean of international brands such as Chevignon,
+Naf Naf, Americanino, Esprit, Rifle, American Eagle, Mother Care,
+American Brands, LBT, among others.
+
+^.^a|image:logo-uribe.png[Logo Uribe]
+
+^.^a|image:logo-rappi.png[alt="Logo Rappi",link="https://www.rappi.com"]
+
+a|== Rappi
+
+Colombian e-commerce company, founded in Bogotá in 2015.
+The mobile application allows consumers to order groceries,
+food, and drugs from pharmacies,
+but also allows to send cash to someone,
+or to withdraw money from your bank account of an ATM.
+
 a|== Semana
 Media group of the magazines with the greatest circuliation
 and influence in Colombia,
@@ -32,7 +55,20 @@ can publish their own magazine.
 
 ^.^a|image:logo-semana.png[alt="Logo Semana",link="http://www.semana.com/"]
 
-^.^a|image:logo-tml.png[alt="Logo The Missing Link",link="https://www.themissinglink.com.au/"]
+^.^a|image:logo-sodimac.png[alt="Logo Sodimac",link="http://www.homecenter.com.co/homecenter-co/mashomecenter/nuestra-empresa"]
+
+a|== Sodimac
+
+Company that operates in retail.
+It seeks to satisfy the customer through multiple points of contact
+and sales channels that ensure an Omni-channel business model
+(Stores, Internet and Telephone).
+Its activity is focused on developing and providing solutions
+to the remodeling and construction projects of its clients,
+in addition to satisfying the needs of improvement
+and decoration of their homes,
+offering excellence in service, integrity in their work
+and a strong commitment to the community.
 
 a|== The Missing Link
 Australian provider of information technology solutions,
@@ -41,5 +77,7 @@ disaster recovery, communications and cloud services.
 Recognized as a leader industry
 and accredited with the highest levels in design, delivery and support
 of the latest technologies.
+
+^.^a|image:logo-tml.png[alt="Logo The Missing Link",link="https://www.themissinglink.com.au/"]
 
 |=======
