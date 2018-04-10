@@ -1,0 +1,13 @@
+:slug: rules/073/
+:category: rules
+:description: En el presente documento se detallan los requerimientos de seguridad relacionados a la gestión de pruebas de seguridad definidos en un sistema. Por lo tanto, para este requerimiento, en pruebas de concurrencia máxima se debe minimizar su porcentaje de error.
+:keywords: Porcentaje, Error, Máxima, Pruebas, Requerimiento, Seguridad.
+:rules: yes
+
+= REQ.073 Minimizar porcentaje de error
+
+== Nombre
+
+El porcentaje de errores
+con la concurrencia máxima esperada
+debe ser de 0%.
