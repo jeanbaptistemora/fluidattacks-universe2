@@ -1,0 +1,67 @@
+:slug: aliados/condiciones/
+:category: aliados
+:description: FLUID es una compañía especializada en seguridad informática, ethical hacking, pruebas de intrusión y detección de vulnerabilidades en aplicaciones con más de 18 años prestando sus servicios en el mercado colombiano. En esta página presentamos los términos definidos para nuestros aliados.
+:keywords: FLUID, Aliados, Comercial, Seguridad, Ethical Hacking, Condiciones.
+:translate: partners/terms/
+
+= Términos
+
+{description}
+
+. FLUID junto con el ALIADO
+fijarán el precio de venta final en cada cliente.
+
+. El precio final al cliente será el valor base
+para el calculo de la comisión a pagar al ALIADO.
+
+. El porcentaje de comisión se calcula en función del dinero producido
+y recibido del CLIENTE anualmente por los proyectos del ALIADO.
+
+. Todos los ALIADOS inician con un *30% de comisión*
+hasta que transcurran *2 fechas de corte*.
+
+. La *fecha de corte* será el *31 de diciembre* de cada año.
+
+. Después de la segunda fecha de corte,
+y en adelante los siguientes años,
+se evaluará el crecimiento en dinero
+producido y recibido por FLUID entre fechas de corte:
+
+.. Si el crecimiento es igual o mayor al *30%*
+el ALIADO será del *30% de comisión* para el nuevo año.
+
+.. Si es inferior al *30%* la comisión será al *15%* durante el nuevo año.
+
+. Si el ALIADO es el que recauda,
+este debe garantizar que el dinero esté en las cuentas de FLUID
+el *día 15* de cada mes.
+
+. FLUID suspende sus servicios al no recibir pagos
+a partir del *día 16* del mes en curso.
+
+. Si FLUID es quien recauda,
+este debe pagarle al ALIADO a más tardar el *día 15* de cada mes.
+
+. Todos los servicios serán prestados de forma remota.
+
+. En caso de tener que desplazar talentos:
+
+.. FLUID cubre los honorarios del talento y el tiquete.
+
+.. El ALIADO se encarga de desplazamientos, hotel y alimentación.
+
+. FLUID no firma exclusividad con ningún ALIADO.
+
+. El ALIADO debe firmar acuerdo de confidencialidad y de +non solicitation+.
+
+. Cada parte se encarga de pagar sus respectivos impuestos
+con base en la legislación tributaria de US.
+
+. El ALIADO se obliga a informar de manera anticipada
+sobre los potenciales clientes en los que buscará promover
+los servicios profesionales de FLUID.
+
+. FLUID se compromete a no comercializar
+a los prospectos que el ALIADO haya nominado
+si y solo si este último presenta evidencia escrita
+de gestión comercial en plazos que nunca superen los *30 días*.

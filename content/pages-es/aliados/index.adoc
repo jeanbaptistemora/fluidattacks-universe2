@@ -6,6 +6,9 @@
 
 = Aliados
 
+{Description}. Si eres una empresa y te interesa ser nuestro aliado,
+puedes consultar nuestros términos [button]#link:condiciones/[aquí]#.
+
 [role="aliados tb-alt"]
 [cols=2, frame="none"]
 |====
