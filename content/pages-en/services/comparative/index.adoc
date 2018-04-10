@@ -96,8 +96,8 @@ are infected with our custom cyberweapon
 link:../one-shot-hacking/#infection[^7^]
 
 a|==== Remediation ratio
-| {yes} Maximum closure of +100%+ of reported vulnerabilities.
-| {yes} Closure of up to +80%+ of reported vulnerabilities.
+| {yes} Maximum of +100%+ of reported vulnerabilities.
+| {yes} Up to +80%+ of reported vulnerabilities.
 
 a|==== Location
 | Always remote.
