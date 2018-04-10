@@ -1,6 +1,6 @@
 :slug: aliados/condiciones/
 :category: aliados
-:description: FLUID es una compañía especializada en seguridad informática, ethical hacking, pruebas de intrusión y detección de vulnerabilidades en aplicaciones con más de 18 años prestando sus servicios en el mercado colombiano. En esta página presentamos los términos definidos para nuestros aliados.
+:description: Términos de la relación contractual entre FLUIDAttacks y sus aliados. Se especifican las comisiones, fechas de corte, metas a lograr para mantenerse en un rango de comisión, entre otros aspectos. Estos pueden cambiar en cualquier momento y se fijan solo mediante la firma del documento físico.
 :keywords: FLUID, Aliados, Comercial, Seguridad, Ethical Hacking, Condiciones.
 :translate: partners/terms/
 
