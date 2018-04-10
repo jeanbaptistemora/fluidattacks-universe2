@@ -6,45 +6,13 @@ userEmail, Rollbar, aux:true, json:true, closeLabel:true, mixPanelDashboard, win
 */
 /* eslint-env node*/
 /**
- * @file ProjectCtrl.js
+ * @file projectEventsCtrl.js
  * @author engineering@fluidattacks.com
  */
-/* Table Formatter */
-/**
- * Function removeHour return date without hour
- */
-function removeHour (value, row, index) {
-  if (value.indexOf(":") !== -1) {
-    return value.split(" ")[0];
-  }
-  return value;
-}
-
-/**
- * Function labelState return html code for specific label
- */
-function labelState (value, row, index) {
-  if (value === "Cerrado") {
-    return "<label class='label label-success' style='background-color: #31c0be'>Cerrado</label>";
-  }
-  else if (value === "Closed") {
-    return "<label class='label label-success' style='background-color: #31c0be'>Closed</label>";
-  }
-  else if (value === "Abierto") {
-    return "<label class='label label-danger' style='background-color: #f22;'>Abierto</label>";
-  }
-  else if (value === "Open") {
-    return "<label class='label label-danger' style='background-color: #f22;'>Open</label>";
-  }
-  else if (value === "Parcialmente cerrado") {
-    return "<label class='label label-info' style='background-color: #ffbf00'>Parcialmente cerrado</label>";
-  }
-  return "<label class='label label-info' style='background-color: #ffbf00'>Partially closed</label>";
-}
 
 /**
  * Controlador de vista de proyectos
- * @name ProjectCtrl
+ * @name projectEventsCtrl
  * @param {Object} $scope
  * @param {Object} $uibModal
  * @param {Object} $stateParams
@@ -54,7 +22,7 @@ function labelState (value, row, index) {
  */
 /** @export */
 integrates.controller(
-  "projectCtrl",
+  "projectEventsCtrl",
   function (
     $scope, $location,
     $uibModal, $timeout,
@@ -65,6 +33,7 @@ integrates.controller(
       const project = $stateParams.project;
       const findingId = $stateParams.finding;
       $scope.userRole = userRole;
+
       $scope.isManager = userRole !== "customer";
       // Defaults para cambiar vistas
       $scope.view = {};
@@ -78,6 +47,9 @@ integrates.controller(
                 project !== "") {
         $scope.project = project;
         $scope.search();
+        const org = Organization.toUpperCase();
+        const projt = project.toUpperCase();
+        mixPanelDashboard.trackReports("ProjectEvents", userName, userEmail, org, projt);
       }
       // Asigna el evento buscar al textbox search y tecla enter
       $scope.configKeyboardView();
@@ -138,49 +110,12 @@ integrates.controller(
         const search_at = $translate.instant("proj_alerts.search_title");
         const search_ac = $translate.instant("proj_alerts.search_cont");
         $msg.info(search_ac, search_at);
-        const reqProject = projectFtry.projectByName(project, filter);
         const reqEventualities = projectFtry.EventualityByName(project, "Name");
-        reqProject.then(function (response) {
-          $scope.view.project = true;
-          if (!response.error) {
-            // Tracking Mixpanel
-            mixPanelDashboard.trackSearch("SearchFinding", userEmail, project);
-            if (response.data.length === 0) {
-              $scope.view.project = false;
-              $scope.view.finding = false;
-              $msg.error($translate.instant("proj_alerts.not_found"));
-            }
-            else {
-              $scope.data = response.data;
-              const projectData = response.data;
-              const org = Organization.toUpperCase();
-              const projt = $stateParams.project.toUpperCase();
-              $scope.alertHeader(org, projt);
-            }
-          }
-          else if (response.error) {
-            $scope.view.project = false;
-            $scope.view.finding = false;
-            if (response.message === "Access denied") {
-              Rollbar.warning("Warning: Access to project denied");
-              $msg.error($translate.instant("proj_alerts.access_denied"));
-            }
-            else if (response.message === "Project masked") {
-              Rollbar.warning("Warning: Project deleted");
-              $msg.error($translate.instant("proj_alerts.project_deleted"));
-            }
-            else {
-              Rollbar.warning("Warning: Project not found");
-              $msg.error($translate.instant("proj_alerts.not_found"));
-            }
-          }
-        });
         reqEventualities.then(function (response) {
           if (!response.error) {
+            $scope.view.project = true;
             const eventsData = response.data;
-            mixPanelDashboard.trackSearch("SearchEventuality", userEmail, project);
-            $("#search_section").show();
-            $("[data-toggle=\"tooltip\"]").tooltip();
+            $scope.loadEventContent(eventsData, vlang, project);
           }
           else if (response.message === "Access to project denied") {
             Rollbar.warning("Warning: Access to event denied");
@@ -201,6 +136,89 @@ integrates.controller(
     };
     $scope.urlEvents = function () {
       $state.go("ProjectEvents", {"project": $scope.project});
+    };
+    $scope.loadEventContent = function (data, vlang, project) {
+      const org = Organization.toUpperCase();
+      const projt = project.toUpperCase();
+      $scope.alertHeader(org, projt);
+      for (let cont = 0; cont < data.length; cont++) {
+        switch (data[cont].tipo) {
+        case "Autorización para ataque especial":
+          data[cont].tipo = $translate.instant("event_formstack.type.auth_attack");
+          break;
+        case "Alcance difiere a lo aprobado":
+          data[cont].tipo = $translate.instant("event_formstack.type.toe_differs");
+          break;
+        case "Aprobación de alta disponibilidad":
+          data[cont].tipo = $translate.instant("event_formstack.type.high_approval");
+          break;
+        case "Insumos incorrectos o faltantes":
+          data[cont].tipo = $translate.instant("event_formstack.type.incor_supplies");
+          break;
+        case "Cliente suspende explicitamente":
+          data[cont].tipo = $translate.instant("event_formstack.type.explic_suspend");
+          break;
+        case "Cliente aprueba cambio de alcance":
+          data[cont].tipo = $translate.instant("event_formstack.type.approv_change");
+          break;
+        case "Cliente cancela el proyecto/hito":
+          data[cont].tipo = $translate.instant("event_formstack.type.cancel_proj");
+          break;
+        case "Cliente detecta ataque":
+          data[cont].tipo = $translate.instant("event_formstack.type.det_attack");
+          break;
+        case "Otro":
+          data[cont].tipo = $translate.instant("event_formstack.type.other");
+          break;
+        case "Ambiente no accesible":
+          data[cont].tipo = $translate.instant("event_formstack.type.inacc_ambient");
+          break;
+        case "Ambiente inestable":
+          data[cont].tipo = $translate.instant("event_formstack.type.uns_ambient");
+          break;
+        default:
+          data[cont].tipo = $translate.instant("event_formstack.type.unknown");
+        }
+        switch (data[cont].estado) {
+        case "Pendiente":
+          data[cont].estado = $translate.instant("event_formstack.status.unsolve");
+          break;
+        case "Tratada":
+          data[cont].estado = $translate.instant("event_formstack.status.solve");
+          break;
+        default:
+          data[cont].estado = $translate.instant("event_formstack.status.unknown");
+        }
+      }
+      mixPanelDashboard.trackSearch("SearchEventuality", userEmail, project);
+      // CONFIGURACION DE TABLA
+      $("#tblEventualities").bootstrapTable("destroy");
+      $("#tblEventualities").bootstrapTable({
+        data,
+        "locale": vlang,
+        "onClickRow" (row) {
+          const modalInstance = $uibModal.open({
+            "animation": true,
+            "backdrop": "static",
+            "controller" ($scope, $uibModalInstance, evt) {
+              $scope.evt = evt;
+              // Tracking mixpanel
+              const org = Organization.toUpperCase();
+              const projt = project.toUpperCase();
+              mixPanelDashboard.trackReadEventuality(userName, userEmail, org, projt, evt.id);
+              $scope.close = function () {
+                $uibModalInstance.close();
+              };
+            },
+            "resolve": {"evt": row},
+            "templateUrl": `${BASE.url}assets/views/project/eventualityMdl.html`
+          });
+        }
+      });
+      $("#tblEventualities").bootstrapTable("refresh");
+      // MANEJO DEL UI
+      $("#search_section").show();
+      $("[data-toggle=\"tooltip\"]").tooltip();
     };
     $scope.init();
   }

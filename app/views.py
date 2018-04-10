@@ -72,6 +72,24 @@ def forms(request):
     "Vista de formularios para analistas"
     return render(request, "forms.html")
 
+@never_cache
+@authenticate
+def project_indicators(request):
+    "Vista de indicadores"
+    return render(request, "project/indicators.html")
+
+@never_cache
+@authenticate
+def project_findings(request):
+    "Vista de projectos"
+    return render(request, "project/findings.html")
+
+@never_cache
+@authenticate
+def project_events(request):
+    "Vista de eventualidades"
+    return render(request, "project/events.html")
+
 @csrf_exempt
 @never_cache
 @authenticate

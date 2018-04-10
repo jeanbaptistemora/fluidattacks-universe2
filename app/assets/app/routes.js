@@ -27,19 +27,24 @@ integrates.config(function ($stateProvider, $urlRouterProvider) {
       "templateUrl": "assets/views/project/index.html",
       "url": "/project"
     }).
-    state("ProjectIndicators", {
+    state("ProjectNamed", {
       "controller": "projectCtrl",
       "templateUrl": "assets/views/project/index.html",
+      "url": "/project/:project"
+    }).
+    state("ProjectIndicators", {
+      "controller": "projectIndicatorsCtrl",
+      "templateUrl": `${BASE.url}project_indicators`,
       "url": "/project/:project/indicators"
     }).
     state("ProjectFindings", {
-      "controller": "projectCtrl",
-      "templateUrl": "assets/views/project/index.html",
+      "controller": "projectFindingsCtrl",
+      "templateUrl": `${BASE.url}project_findings`,
       "url": "/project/:project/findings"
     }).
     state("ProjectEvents", {
-      "controller": "projectCtrl",
-      "templateUrl": "assets/views/project/index.html",
+      "controller": "projectEventsCtrl",
+      "templateUrl": `${BASE.url}project_events`,
       "url": "/project/:project/events"
     }).
     state("FindingDescription", {

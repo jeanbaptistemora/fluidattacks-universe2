@@ -1,0 +1,113 @@
+<div class="page-head">
+    <ol class="breadcrumb">
+        <li>{% templatetag openvariable %}'search_findings.page_head.breadcrumb.project' | translate {% templatetag closevariable %}</li>
+        <li><a class="text-uppercase">{% templatetag openvariable %} project {% templatetag closevariable %}</a></li>
+    </ol>
+    <div id="header_alert"></div>
+    <div class="text-center">
+        <!-- Start SearchBox -->
+        <div class="row">
+            <div class="col-md-4 col-md-offset-3">
+                <input class="form-control text-center text-uppercase" ng-model="project" id="project" placeholder="{% templatetag openvariable %} 'search_findings.filter_menu.search.placeholder' | translate {% templatetag closevariable %}">
+            </div>
+            <div class="col-md-1">
+                <button class="btn btn-primary form-control" id="search" ng-click="search();" title="{% templatetag openvariable %} 'search_findings.filter_menu.search.button' | translate {% templatetag closevariable %}">
+                    <i class="glyphicon glyphicon-search"></i>&nbsp;</button>
+            </div>
+        </div>
+        <!-- End SearchBox -->
+    </div>
+</div>                    
+<div class="main-content" ng-show="view.project" style="background-color: white;">
+    <div class="row">
+        <div class="col-md-12" id="search_section">
+            <div class="row">
+                <div class="tab-container">
+                    <ul class="nav pills-tabs nav-justified" style="background-color: white; border-bottom: 1px #eee solid;">
+                        <!-- <li id="indicatorsTab" class="active" style="font-size:15px;" ui-sref="Forms" ng-click="urlIndicators();"> -->
+                        <li id="indicatorsTab" class="" style="font-size:15px;" ng-click="urlIndicators();">
+                            <a href="#indicators" data-toggle="tab" aria-expanded="false">
+                                <i class="icon s7-graph3"></i>&nbsp; {% templatetag openvariable %} 'tab_container.indicators' | translate {% templatetag closevariable %}
+                            </a>
+                        </li>
+                        <li id="findingsTab" class="" style="font-size:15px;" ng-click="urlFindings();">
+                            <a href="#findings" data-toggle="tab" aria-expanded="false">
+                                <i class="icon s7-light"></i>&nbsp;{% templatetag openvariable %} 'tab_container.findings' | translate {% templatetag closevariable %}
+                            </a>
+                        </li>
+                        <li id="eventsTab" class="active" style="font-size:15px;" ng-click="urlEvents();">
+                            <a href="#eventualities" data-toggle="tab" aria-expanded="true">
+                                <i class="icon s7-star"></i>&nbsp;{% templatetag openvariable %} 'tab_container.eventualities' | translate {% templatetag closevariable %}
+                            </a>
+                        </li>
+                    </ul>
+                    <div class="tab-content">
+                        <div id="eventualities" class="tab-pane cont active">
+                            <div class="row">
+                                <!-- START: toolbar -->
+                                <div class="btn-group" id="toolbar2">
+                                    <p><b>{% templatetag openvariable %} 'search_findings.eventualities.description' | translate {% templatetag closevariable %}</b></p>
+                                </div>
+                                <div class="col-md-12">
+                                    <table id="tblEventualities" data-classes="table table-hover table-striped" data-striped="true" data-pagination="true" data-page-size="15" data-toolbar="#toolbar2" data-search="true">
+                                        <thead>
+                                            <tr>
+                                                <th data-field="id">{% templatetag openvariable %} 'search_findings.event_table.id' | translate {% templatetag closevariable %}</th>
+                                                <th data-field="fecha" data-sortable="true">{% templatetag openvariable %} 'search_findings.event_table.date' | translate {% templatetag closevariable %}</th>
+                                                <th data-field="tipo">{% templatetag openvariable %} 'search_findings.event_table.type' | translate {% templatetag closevariable %}</th>
+                                                <th data-field="estado" data-sortable="true">{% templatetag openvariable %} 'search_findings.event_table.status' | translate {% templatetag closevariable %}</th>
+                                            </tr>
+                                        </thead>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Start CommonStyles -->
+<style>
+    .bg-critical{ background-color: #F12; }
+    .bg-moderate{ background-color: #F72; }
+    .bg-tolerable{ background-color: #FD2; }
+    .no-resize{ resize: none; height: 100px !important;}
+    .hide-detallado, .fl-hidden { display: none; }
+    .show-detallado, .fl-visible{ display: block;}
+    .pills-tabs > li.active > a,
+    .pills-tabs > li.active > a:hover,
+    .pills-tabs > li.active > a:focus{
+        background-color: #eee;
+        color: #777;
+    }
+    .pills-tabs > li > a,
+    .pills-tabs > li > a:hover,
+    .pills-tabs > li > a:focus{
+        background-color: white;
+        color: #666;
+    }
+    .table-head{
+        text-align: right;
+    }
+    @media (max-width: 768px) {
+        .table-head{
+            text-align: left;
+        }
+    }
+    .table-row{
+        margin-top: 15px;
+        font-size: 14px;
+    }
+    .table-desc{
+        color: #888;
+        text-align: justify;
+        /*border-bottom: 0.5px #DDD solid;*/
+    }
+    #vulnerabilities thead tr{ background-color: #337ab7; color:white;  }
+    #eventualities thead tr{ background-color: #337ab7; color:white;  }
+
+</style>
+<!-- End CommonStyles -->

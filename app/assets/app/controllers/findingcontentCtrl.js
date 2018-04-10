@@ -1824,7 +1824,7 @@ integrates.controller("findingcontentCtrl", function (
   $scope.goBack = function () {
     $scope.view.project = true;
     $scope.view.finding = false;
-    $state.go("ProjectIndicators", {"project": $scope.project});
+    $state.go("ProjectFindings", {"project": $scope.project});
     $("html, body").animate({"scrollTop": $scope.currentScrollPosition}, "fast");
   };
   $scope.urlDescription = function () {
