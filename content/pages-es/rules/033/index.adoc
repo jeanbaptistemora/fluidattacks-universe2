@@ -1,0 +1,13 @@
+:slug: rules/033/
+:category: rules
+:description: En el presente documento se detallan los requerimientos de seguridad relacionados a la administración de los sistemas. Por lo tanto, para el presente requerimiento se recomienda que todo sistema con mecanismo de administración sea accesible sólo por determinados segmentos de red de gestión.
+:keywords: Administración, Sistema, Red, Gestión, Acceso, Seguridad.
+:rules: yes
+
+= REQ.033 Restringir acceso administrativo
+
+== Nombre
+
+Si el sistema posee un mecanismo de administración,
+este debe ser accesible
+sólo desde segmentos de red de gestión o administrativos.
