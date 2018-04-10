@@ -4,7 +4,7 @@
 :keywords: FLUID, Aliados, Comercial, Seguridad, Ethical Hacking, Condiciones.
 :translate: partners/terms/
 
-= Términos
+= Condiciones
 
 {description}
 
@@ -20,7 +20,7 @@ y recibido del CLIENTE anualmente por los proyectos del ALIADO.
 . Todos los ALIADOS inician con un *30% de comisión*
 hasta que transcurran *2 fechas de corte*.
 
-. La *fecha de corte* será el *31 de diciembre* de cada año.
+. La fecha de corte será el *31 de diciembre* de cada año.
 
 . Después de la segunda fecha de corte,
 y en adelante los siguientes años,
@@ -30,17 +30,18 @@ producido y recibido por FLUID entre fechas de corte:
 .. Si el crecimiento es igual o mayor al *30%*
 el ALIADO será del *30% de comisión* para el nuevo año.
 
-.. Si es inferior al *30%* la comisión será al *15%* durante el nuevo año.
+.. Si el crecimiento es inferior al *30%*,
+la comisión será al *15%* durante el nuevo año.
 
 . Si el ALIADO es el que recauda,
 este debe garantizar que el dinero esté en las cuentas de FLUID
-el *día 15* de cada mes.
+el *día calendario 15* de cada mes.
 
 . FLUID suspende sus servicios al no recibir pagos
-a partir del *día 16* del mes en curso.
+a partir del *día calendario 16* del mes en curso.
 
 . Si FLUID es quien recauda,
-este debe pagarle al ALIADO a más tardar el *día 15* de cada mes.
+este debe pagarle al ALIADO a más tardar el *día calendario 15* de cada mes.
 
 . Todos los servicios serán prestados de forma remota.
 

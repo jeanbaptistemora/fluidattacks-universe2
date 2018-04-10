@@ -6,11 +6,13 @@
 
 = Aliados
 
-Nuestros aliados facilitan la entrega de nuestros servicios al cliente final
-en diferentes geografías (Alemania, Australia y Estados Unidos)
-y sectores (Gobierno, Defensa).
-Además completan con nuestra oferta su propio portafolio
-(pruebas funcionales, desarrollo de software)
+Los aliados facilitan la entrega de nuestros servicios al cliente final
+en diferentes geografías
+(Alemania link:#teraport[^1^] , Australia link:#the-missing-link[^2^]
+y Estados Unidos)
+y sectores (Gobierno, Defensa)link:#evolution-it[^3^].
+Además con nuestra oferta complementan su propio portafolio
+(pruebas funcionales, desarrollo de software)link:#choucair[^4^] link:#greensqa[^5^]
 para ofrecer una solución integral.
 Si quieres convertirte en un aliado de +FLUIDAttacks+
 por favor comenzar con la lectura de los
