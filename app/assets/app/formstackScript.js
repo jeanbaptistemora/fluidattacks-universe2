@@ -11,13 +11,13 @@ $(document).ready(function () {
     }
   };
   remember();
+  const timew = 35000;
   setInterval(function () {
-    const timew = 35000;
     remember();
   }, timew);
   document.getElementsByTagName("select")[5].onchange = function () {
-    v = document.getElementsByTagName("select")[5].value;
-    if (v == "Verificación") {
+    const verf = document.getElementsByTagName("select")[5].value;
+    if (verf == "Verificación") {
       alertify.success("<p class=\"text-center\"> Información: </p> <p class=\"text-left\"> Verificacion debe usarse para reportar hallazgos en chequeos cruzados </p>");
     }
   };
@@ -58,7 +58,7 @@ const public_spreadsheet_url = "https://docs.google.com/spreadsheets/d/1L37WnF6e
  * Function showInfo return info about findings
  */
 function showInfo (data, tabletop) {
-  obj = $.parseJSON(JSON.stringify(data));
+  const obj = $.parseJSON(JSON.stringify(data));
   $("#field32201810").change(function () {
     const title = $("#field32201810").val();
     for (let cont = 0; cont < obj.length; cont++) {

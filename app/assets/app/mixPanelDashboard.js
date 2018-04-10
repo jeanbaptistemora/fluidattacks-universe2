@@ -6,7 +6,7 @@
 /*
  * Object to control mixpanel calls
  */
-mixPanelDashboard = {};
+const mixPanelDashboard = {};
 
 /*
  * MixPanel localhost Fixer

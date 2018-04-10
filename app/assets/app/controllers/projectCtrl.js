@@ -313,15 +313,16 @@ integrates.controller(
       const project = $scope.project;
       const data = $("#vulnerabilities").bootstrapTable("getData");
       for (let cont = 0; cont < data.length - 1; cont++) {
-        for (j = cont + 1; j < data.length; j++) {
-          if (parseFloat(data[cont].criticidad) < parseFloat(data[j].criticidad)) {
-            aux = data[cont];
-            data[cont] = data[j];
-            data[j] = aux;
+        for (let incj = cont + 1; incj < data.length; incj++) {
+          if (parseFloat(data[cont].criticidad) < parseFloat(data[incj].criticidad)) {
+            const aux = data[cont];
+            data[cont] = data[incj];
+            data[incj] = aux;
           }
         }
       }
       let generateDoc = true;
+      let json = {};
       try {
         json = data;
         generateDoc = true;
@@ -354,7 +355,7 @@ integrates.controller(
             $scope.downloadURL = url;
           }
           else {
-            win = window.open(url, "__blank");
+            const win = window.open(url, "__blank");
           }
         }
         else if (response.error) {
@@ -382,13 +383,13 @@ integrates.controller(
               mixPanelDashboard.trackReports("TechnicalReportXLS", userName, userEmail, org, projt);
               const url = `${BASE.url}xls/${lang}/project/${project}`;
               if (navigator.userAgent.indexOf("Firefox") === -1) {
-                downLink = document.createElement("a");
+                const downLink = document.createElement("a");
                 downLink.target = "_blank";
                 downLink.href = url;
                 downLink.click();
               }
               else {
-                win = window.open(url, "__blank");
+                const win = window.open(url, "__blank");
               }
             }
           };
@@ -403,13 +404,13 @@ integrates.controller(
               mixPanelDashboard.trackReports("TechnicalReportPDF", userName, userEmail, org, projt);
               const url = `${BASE.url}pdf/${lang}/project/${project}/tech/`;
               if (navigator.userAgent.indexOf("Firefox") === -1) {
-                downLink = document.createElement("a");
+                const downLink = document.createElement("a");
                 downLink.target = "_blank";
                 downLink.href = url;
                 downLink.click();
               }
               else {
-                win = window.open(url, "__blank");
+                const win = window.open(url, "__blank");
               }
             }
           };
@@ -459,13 +460,13 @@ integrates.controller(
               mixPanelDashboard.trackReports("ExecutivePDFPresentation", userName, userEmail, org, projt);
               const url = `${BASE.url}pdf/${lang}/project/${project}/presentation/`;
               if (navigator.userAgent.indexOf("Firefox") === -1) {
-                downLink = document.createElement("a");
+                const downLink = document.createElement("a");
                 downLink.target = "_blank";
                 downLink.href = url;
                 downLink.click();
               }
               else {
-                win = window.open(url, "__blank");
+                const win = window.open(url, "__blank");
               }
             }
           };
@@ -480,13 +481,13 @@ integrates.controller(
               mixPanelDashboard.trackReports("ExecutivePDFReport", userName, userEmail, org, projt);
               const url = `${BASE.url}pdf/${lang}/project/${project}/executive/`;
               if (navigator.userAgent.indexOf("Firefox") === -1) {
-                downLink = document.createElement("a");
+                const downLink = document.createElement("a");
                 downLink.target = "_blank";
                 downLink.href = url;
                 downLink.click();
               }
               else {
-                win = window.open(url, "__blank");
+                const win = window.open(url, "__blank");
               }
             }
           };
@@ -513,7 +514,7 @@ integrates.controller(
           $scope.downloadURL = url;
         }
         else {
-          win = window.open(url, "__blank");
+          const win = window.open(url, "__blank");
         }
       }
     };
@@ -522,7 +523,7 @@ integrates.controller(
         $timeout($scope.downloadDoc, 3000);
       }
       else {
-        downLink = document.createElement("a");
+        const downLink = document.createElement("a");
         downLink.target = "_blank";
         downLink.href = $scope.downloadURL;
         downLink.click();
@@ -545,8 +546,8 @@ integrates.controller(
       });
       const seg_transl = $translate.instant("grapType.seg_label");
       const hig_transl = $translate.instant("grapType.hig_label");
-      total_segLabel = seg_transl + " :n%".replace(":n", (total_seg * 100 / (total_seg + total_hig)).toFixed(2).toString());
-      total_higLabel = hig_transl + " :n%".replace(":n", (total_hig * 100 / (total_seg + total_hig)).toFixed(2).toString());
+      const total_segLabel = seg_transl + " :n%".replace(":n", (total_seg * 100 / (total_seg + total_hig)).toFixed(2).toString());
+      const total_higLabel = hig_transl + " :n%".replace(":n", (total_hig * 100 / (total_seg + total_hig)).toFixed(2).toString());
       $("#grapType").empty();
       Morris.Donut({
         "data": [
@@ -570,7 +571,7 @@ integrates.controller(
       let exploit = 0;
       let nonexploit = 0;
       currData.forEach(function (val, cont) {
-        explotable = val.explotabilidad;
+        const explotable = val.explotabilidad;
         if (val.estado !== "Cerrado" && val.estado !== "Closed") {
           if (explotable === "1.000 | Alta: No se requiere exploit o se puede automatizar" || explotable === "0.950 | Funcional: Existe exploit" || explotable === "1.000 | High: Exploit is not required or it can be automated" || explotable === "0.950 | Functional: There is an exploit") {
             exploit += 1;
@@ -582,8 +583,8 @@ integrates.controller(
       });
       const exploit_transl = $translate.instant("grapExploit.exploit_label");
       const nonexploit_transl = $translate.instant("grapExploit.nonexploit_label");
-      exploitLabel = exploit_transl + " :n%".replace(":n", (exploit * 100 / (exploit + nonexploit)).toFixed(2).toString());
-      nonexploitLabel = nonexploit_transl + " :n%".replace(":n", (nonexploit * 100 / (exploit + nonexploit)).toFixed(2).toString());
+      const exploitLabel = exploit_transl + " :n%".replace(":n", (exploit * 100 / (exploit + nonexploit)).toFixed(2).toString());
+      const nonexploitLabel = nonexploit_transl + " :n%".replace(":n", (nonexploit * 100 / (exploit + nonexploit)).toFixed(2).toString());
       $("#grapExploit").empty();
       Morris.Donut({
         "data": [
@@ -609,7 +610,7 @@ integrates.controller(
       let partial = 0;
       let close = 0;
       currData.forEach(function (val, cont) {
-        estado = val.estado;
+        const estado = val.estado;
         total += 1;
         if (estado === "Abierto" || estado === "Open") {
           open += 1;
@@ -625,9 +626,9 @@ integrates.controller(
       const open_transl = $translate.instant("grapStatus.open_label");
       const partial_transl = $translate.instant("grapStatus.partial_label");
       const close_transl = $translate.instant("grapStatus.close_label");
-      openLabel = open_transl + " :n%".replace(":n", (open * 100 / total).toFixed(2).toString());
-      partialLabel = partial_transl + " :n%".replace(":n", (partial * 100 / total).toFixed(2).toString());
-      closeLabel = close_transl + " :n%".replace(":n", (close * 100 / total).toFixed(2).toString());
+      const openLabel = open_transl + " :n%".replace(":n", (open * 100 / total).toFixed(2).toString());
+      const partialLabel = partial_transl + " :n%".replace(":n", (partial * 100 / total).toFixed(2).toString());
+      const closeLabel = close_transl + " :n%".replace(":n", (close * 100 / total).toFixed(2).toString());
       $("#grapStatus").empty();
       Morris.Donut({
         "data": [
@@ -1170,11 +1171,11 @@ integrates.controller(
             }
           }
           for (let cont = 0; cont < data.length - 1; cont++) {
-            for (j = cont + 1; j < data.length; j++) {
-              if (parseFloat(data[cont].criticidad) < parseFloat(data[j].criticidad)) {
-                aux = data[cont];
-                data[cont] = data[j];
-                data[j] = aux;
+            for (let incj = cont + 1; incj < data.length; incj++) {
+              if (parseFloat(data[cont].criticidad) < parseFloat(data[incj].criticidad)) {
+                const aux = data[cont];
+                data[cont] = data[incj];
+                data[incj] = aux;
               }
             }
           }
