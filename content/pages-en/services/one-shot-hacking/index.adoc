@@ -158,12 +158,12 @@ a|== Reports delivered by secure vault
 Final report versions along with all evidences gathered
 are delivered to customers using a secure file transfer website.
 
-a|== Report validation meeting
+a|== Validation meeting
 
 Each Ethical Hacking test includes a meeting
 with customer's technical team to validate reports.
 If there are any observations these are addressed.
-Meeting can take place personally or remotely according to customer's need.
+Meeting take place remotely.
 
 ^.^a|image:validacion-informes.png[alt="Ethical Hacking report validation", width="55%"]
 

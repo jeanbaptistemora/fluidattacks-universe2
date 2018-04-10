@@ -157,11 +157,11 @@ a|== Entrega de informes vía bóveda segura
 Entrega de versión definitiva de informes con evidencias
 a través de un sitio de transferencia de archivos.
 
-a|== Reunión de validación de informes
+a|== Reunión de validación
 
-Reunión con el equipo técnico para validar los informes
-y atender observaciones, esta puede hacerse de forma presencial
-o remota según las necesidades del cliente.
+Reunión con el equipo técnico
+para validar los informes y atender observaciones.
+La reunión se realiza de manera virtual.
 
 ^.^a|image:validacion-informes.png[alt="Validación de informes de Ethical Hacking", width="55%"]
 
