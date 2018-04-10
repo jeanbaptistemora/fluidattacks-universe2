@@ -44,6 +44,7 @@ Dentro de los temas de interés se encuentran:
 * Por qué utilizamos +staticgen+?
 * Por qué utilizamos +SLB+?
 * Por qué utilizamos +asciidoc+?
+* Refactorizando +JS+ con +linting+.
 
 == Conceptos
 
@@ -53,6 +54,8 @@ Dentro de los temas de interés se encuentran:
 * +Purple team+.
 * Captura la bandera.
 * +NixOS+.
+* +Linters+ como normalizadores.
+* +Linter+ del hombre pobre: +check-all/changed+ y +pcregrep+.
 
 == Estándares
 
