@@ -1,0 +1,12 @@
+:slug: rules/031/
+:category: rules
+:description: En el presente documento se detallan los requerimientos de seguridad relacionados al manejo de sesiones y variables de sesión de las aplicaciones. Por lo tanto, se recomienda que una vez cerrada la sesión del usuario, el sistema elimine toda la información relacionada a este.
+:keywords: Sistema, Cerrar, Sesión, Descartar, Usuario, Datos.
+:rules: yes
+
+= REQ.031 Descartar datos de sesión del usuario
+
+== Nombre
+
+Al cerrarse la sesión de un usuario (automática o manual)
+se debe descartar los datos relacionados con la sesión del usuario.

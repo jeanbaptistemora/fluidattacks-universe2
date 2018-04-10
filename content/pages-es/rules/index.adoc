@@ -15,6 +15,7 @@
 * link:028/[REQ.028 Permitir finalizar sesión de usuario].
 * link:029/[REQ.029 Cookies con atributos de seguridad].
 * link:030/[REQ.030 Evitar reciclaje de objetos de autenticación].
+* link:031/[REQ.031 Descartar datos de sesión del usuario].
 * link:032/[REQ.032 Evitar exponer identificadores de sesión].
 
 == Archivos
