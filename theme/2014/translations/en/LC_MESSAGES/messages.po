@@ -519,11 +519,11 @@ msgstr "Reasons"
 
 #: templates/footer.html:66
 msgid "Footer-link-6.2"
-msgstr "positions"
+msgstr "openings"
 
 #: templates/footer.html:66
 msgid "Footer-subtitle-6.2"
-msgstr "Positions"
+msgstr "Openings"
 
 #: templates/footer.html:67
 msgid "Footer-link-6.3"
