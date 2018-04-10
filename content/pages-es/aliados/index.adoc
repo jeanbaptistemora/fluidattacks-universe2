@@ -6,8 +6,15 @@
 
 = Aliados
 
-{Description}. Si eres una empresa y te interesa ser nuestro aliado,
-puedes consultar nuestros términos [button]#link:condiciones/[aquí]#.
+Nuestros aliados facilitan la entrega de nuestros servicios al cliente final
+en diferentes geografías (Alemania, Australia y Estados Unidos)
+y sectores (Gobierno, Defensa).
+Además completan con nuestra oferta su propio portafolio
+(pruebas funcionales, desarrollo de software)
+para ofrecer una solución integral.
+Si quieres convertirte en un aliado de +FLUIDAttacks+
+por favor comenzar con la lectura de los
+[button]#link:condiciones/[términos]# de nuestro acuerdo general de aliados.
 
 [role="aliados tb-alt"]
 [cols=2, frame="none"]
