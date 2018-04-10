@@ -8,7 +8,7 @@
 
 {description}
 
-. FLUID junto con el ALIADO
+. +FLUIDAttacks+ junto con el ALIADO
 fijarán el precio de venta final en cada cliente.
 
 . El precio final al cliente será el valor base
@@ -25,33 +25,33 @@ hasta que transcurran *2 fechas de corte*.
 . Después de la segunda fecha de corte,
 y en adelante los siguientes años,
 se evaluará el crecimiento en dinero
-producido y recibido por FLUID entre fechas de corte:
+producido y recibido por +FLUIDAttacks+ entre fechas de corte:
 
 .. Si el crecimiento es igual o mayor al *30%*
-el ALIADO será del *30% de comisión* para el nuevo año.
+el ALIADO obtendrá *30% de comisión* para el nuevo año.
 
 .. Si el crecimiento es inferior al *30%*,
-la comisión será al *15%* durante el nuevo año.
+el ALIADO obtendrá *15% de comisión* para el nuevo año.
 
 . Si el ALIADO es el que recauda,
-este debe garantizar que el dinero esté en las cuentas de FLUID
+este debe garantizar que el dinero esté en las cuentas de +FLUIDAttacks+
 el *día calendario 15* de cada mes.
 
-. FLUID suspende sus servicios al no recibir pagos
+. +FLUIDAttacks+ suspende sus servicios al no recibir pagos
 a partir del *día calendario 16* del mes en curso.
 
-. Si FLUID es quien recauda,
+. Si +FLUIDAttacks+ es quien recauda,
 este debe pagarle al ALIADO a más tardar el *día calendario 15* de cada mes.
 
 . Todos los servicios serán prestados de forma remota.
 
 . En caso de tener que desplazar talentos:
 
-.. FLUID cubre los honorarios del talento y el tiquete.
+.. +FLUIDAttacks+ cubre los honorarios del talento y el tiquete.
 
 .. El ALIADO se encarga de desplazamientos, hotel y alimentación.
 
-. FLUID no firma exclusividad con ningún ALIADO.
+. +FLUIDAttacks+ no firma exclusividad con ningún ALIADO.
 
 . El ALIADO debe firmar acuerdo de confidencialidad y de +non solicitation+.
 
@@ -62,7 +62,7 @@ con base en la legislación tributaria de US.
 sobre los potenciales clientes en los que buscará promover
 los servicios profesionales de FLUID.
 
-. FLUID se compromete a no comercializar
+. +FLUIDAttacks+ se compromete a no comercializar
 a los prospectos que el ALIADO haya nominado
 si y solo si este último presenta evidencia escrita
 de gestión comercial en plazos que nunca superen los *30 días*.

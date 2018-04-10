@@ -6,7 +6,19 @@
 
 = Partners
 
-[role="aliados tb-alt"]
+Partners facilitate the delivery of our services to the end customer
+in different geographies (Germany link:#teraport[^1^],
+Australia link:#the-missing-link[^2^] and the United States)
+and sectors (Government, Defense) link:#evolution-it[^3^].
+In addition, with our offer,
+they complete their own portfolio
+(functional tests, software development) link:#choucair[^4^] link:#greensqa[^5^].
+to provide an integral solution.
+If you want to become a partner of +FLUIDAttacks+
+please start by reading the [button]#link:terms/[terms]#
+of our general partner agreement.
+
+[role="tb-alt"]
 [cols=2, frame="none"]
 |====
 

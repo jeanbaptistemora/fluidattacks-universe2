@@ -1,0 +1,67 @@
+:slug: partners/terms/
+:category: partners
+:description: Terms of the contractual relationship between FLUIDAttacks and its partners. Commissions, cut-off dates,  and goals to be achieved to stay within a commission range are specified, among other aspects. These can change at any time and are fixed only by signing the physical document.
+:keywords: FLUID, Partners, Pentesting, Terms, Agreement, Information Security.
+:translate: aliados/condiciones/
+
+= Terms
+
+{description}
+
+. +FLUIDAttacks+ together with the PARTNER
+will set the final sale price for each customer.
+
+. The final price to the customer will be the base value
+for the calculation of the commission to be paid to the PARTNER.
+
+. The commission percentage is calculated based on the profits
+produced and received from the CUSTOMER annually by the PARTNER projects.
+
+. All the PARTNERS start with a *30% commission*
+until *2 cut-off dates* have elapsed.
+
+. The cut-off date will be *December 31* of each year.
+
+. After the second cut-off date, and thereafter the following years,
+the growth in the profits produced and received by +FLUIDAttacks+
+between cut-off dates will be evaluated:
+
+.. If the growth is equal to or greater than *30%*
+the PARTNER will get *30% commission* for the new year.
+
+.. If the growth is less than *30%*
+the PARTNER will get *15% commission* for the new year.
+
+. If the PARTNER is the one that collects,
+it must guarantee that the money is in the +FLUIDAttacks+ account
+on the *calendar day 15* of each month.
+
+. +FLUIDAttacks+ suspends its services by not receiving payments
+as of the *calendar day 16* of the current month.
+
+. If +FLUIDAttacks+ is the one who collects,
+it must pay the PARTNER no later than the *calendar day 15* of each month.
+
+. All services will be provided remotely.
+
+. In case of having to move talents:
+
+.. +FLUIDAttacks+ covers the talent fees and ticket.
+
+.. The PARTNER is responsible for travel, hotel and food.
+
+. +FLUIDAttacks+ does not sign exclusivity with any PARTNER.
+
+. The PARTNER must sign a confidentiality and non-solicitation agreement.
+
+. Each party is responsible for paying their respective taxes
+based on US tax legislation.
+
+. The PARTNER is obliged to inform in advance
+about the potential customers in which +FLUIDAttacks+
+will seek to promote its professional services.
+
+. +FLUIDAttacks+ undertakes not to market to the prospects
+that the PARTNER has nominated if and only if
+the latter presents written evidence of commercial management
+in terms that never exceed *30 days*.
