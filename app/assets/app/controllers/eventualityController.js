@@ -14,7 +14,7 @@ integrates, $, BASE, mixpanel, userMail, $xhr, Organization, userEmail, Rollbar,
  * @param {Number} index
  * @return {String}
  */
-integrates.afectacionFormatter = function (value, row, index) {
+function afectacionFormatter (value, row, index) {
   if (typeof value === "undefined") {
     return "0";
   }
@@ -24,7 +24,7 @@ integrates.afectacionFormatter = function (value, row, index) {
     }
   }
   return value;
-};
+}
 
 /**
  * Calcula la afectacion total para el label resumen
