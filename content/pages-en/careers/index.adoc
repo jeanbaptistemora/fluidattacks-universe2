@@ -1,10 +1,203 @@
 :slug: careers/
-:description: FLUID is always in search of young talents passionate about programming, hacking and are overall interested in information security. The main goal of the following page is to inform potential talents and people interested in being part of our team about our selection process.
-:keywords: FLUID, Careers, Selection, Process, Stages, Hiring.
-:translate: empleos/
+:description: FLUID is always looking for young talents with a passion for programming and Information Technology. This page is meant to inform everyone interested in being part of the FLUID team about the selection process and the various stages that it is made up of.
+:keywords: FLUID, Job, Process, Selection, Stages, Recruitment.
+// :translate: empleos/
 
 = Careers
 
-This page is only available in Spanish language.
-Please click on the Spanish flag in the upper right corner
-to view the corresponding content.
+Here we will explain how you can be a part of our team:
+
+[role="etapa_c"]
+== 1. Terms and Conditions
+
+The goal of this stage
+is for you to understand and accept the terms and conditions of the selection process.
+This is mandatory and requires an estimated effort of 4 to 6 minutes.
+To begin,
+you just have to follow these detailed [button]#link:terminos/[instructions]#
+
+== 2. Reasons
+
+The goal of this stage
+is for you to find out what makes +FLUIDAttacks+ a great place to work.
+This is mandatory and requires an estimated effort of 3 to 5 minutes.
+To begin,
+you just have to click [button]#link:razones/[here]#
+
+== 3. Job Openings
+
+The goal of this stage
+is for you to understand the roles you can have in +FLUIDAttacks+,
+or in openings presented by AUTONOMIC,
+a +FLUIDAttacks+ Spin Off in charge of the recruitment process.
+This is mandatory and requires an estimated effort of 3 to 5 minutes.
+To begin,
+you just have to click [button]#link:vacantes/[here]#
+
+== 4. Portfolio
+
+The goal of this stage
+Is to assess your ability to express yourself,
+synthesize ideas and capture our attention through the elaboration of a portfolio.
+This is mandatory and requires an estimated effort of 1 to 2 hours.
+To begin,
+You just have to follow these detailed [button]#link:portafolio/[instructions]#
+
+[role="etapa_a"]
+== 5. Apply
+
+The goal of this stage
+is that you send us your CV and your expectations.
+This is mandatory and requires an estimated effort of 5 to 10 minutes
+depending on your profile.
+To do this you must first complete the previous stage.
+
+[role="a_formLink"]
+To begin,
+you just have to follow these detailed [button]#link:https://fluidattacks.com/forms/aplicacion[instructions]#
+
+[role="etapa_h"]
+== 6. History
+
+The goal of this stage
+is to register your previous work experience.
+This is optional *If you have no previous experience* and
+requires an estimated effort of 3 to 5 minutes per job prior to this one.
+To do this you must first complete the previous stage.
+
+[role="h_formLink"]
+To begin,
+you just have to follow these detailed [button]#link:https://fluidattacks.com/forms/periodo[instructions]#
+
+++++
+<script>document.getElementsByClassName("h_formLink")[0].style.display="none",document.getElementsByClassName("a_formLink")[0].style.display="none";var r=window.location.href.split("?")[1];"398453"==r?(document.getElementsByClassName("a_formLink")[0].style.display="block",document.getElementsByClassName("etapa_a")[0].style.backgroundColor="#ffffa6"):"987343"==r?(document.getElementsByClassName("h_formLink")[0].style.display="block",document.getElementsByClassName("etapa_h")[0].style.backgroundColor="#ffffa6"):"0062"==r&&(document.getElementsByClassName("etapa_c")[0].style.backgroundColor="#ffffa6");</script>
+++++
+== 7. Evaluations
+
+. *Temperament:* The goal of this stage
+Is to determine preponderant features of your temperament and their balance.
+This is mandatory and requires an estimated effort of 8 to 10 minutes.
+To do this you do not need to finish the previous stage.
+To begin,
+You just have to follow these detailed [button]#link:evaluacion-temperamento/[instructions]#
+
+. *Knowledge:* The goal of this stage
+is to assess your skills and abilities in different areas.
+This is mandatory and requires an estimated effort of 2 to 3 hours
+depending on your knowledge.
+To do this you must first complete the previous stage.
+To begin,
+You just have to follow these detailed [button]#link:evaluacion-conocimientos/[instructions]#
+
+. *Strengths:* The goal of this stage
+Is to assess your strengths through the Clifton Strengths Finder test.
+This is mandatory and requires an estimated effort of 40 to 45 minutes.
+To do this you must first finish the previous stage.
+To begin,
+you must write us an email at careers@autonomicmind.co
+
+== 8. Challenges
+
+. *Technical Challenges*: The goal of this stage
+is to assess your learning potential,
+investigate and solve different types of problems that we face on a daily basis.
+Our current talents are in the link:https://www.wechall.net/country_ranking/for/31/Colombia[TOP10 for Colombia],
+and in fact,
+some of them are in the link:https://www.wechall.net/ranking[TOP100 Worldwide].
+This is mandatory for technical roles and
+requires an estimated effort of 4 to 16 hours according to your skills and knowledge.
+To do this you must first finish the previous stage.
+To begin,
+you just have to follow these detailed [button]#link:retos-tecnicos/[instructions]#
+
+. *Non-Technical Challenges*: The goal of this stage
+is to assess your ability to solve challenges that apply to analytical and statistical profiles.
+This is mandatory for non-technical profiles and
+Requires an estimated effort of 4 to 16 hours according to your skills and knowledge.
+To do this you must first finish the previous stage.
+To begin,
+you just have to follow these detailed [button]#link:retos-no-tecnicos/[instructions]#
+
+== 9. Interview
+
+. *Video Interview:* The goal of this stage
+is to show your interest and desire to be a part of +FLUIDAttacks+
+through a video interview.
+Requires an estimated effort of 25 to 30 minutes.
+To do this you must first finish the previous stage.
+To begin,
+write us an email at careers@autonomicmind.co
+. *On-site Interview:* The goal of this stage
+is to set up a meeting where we can get to know you personally.
+Requires an estimated effort of 25 to 30 minutes.
+To do this you must first finish the previous stage.
+To begin,
+write us an email at careers@autonomicmind.co
+
+== 10. Training
+
+The goal of this stage
+is to take part of an intensive self-training period
+in programming and hacking challenges,
+paid for by +FLUIDAttacks+.
+This is mandatory and requires an effort that is determined based on your knowledge.
+To begin,
+write us an email at careers@autonomicmind.co and read these detailed [button]#link:inmersion/[instructions]#
+
+== 11. References
+
+The goal of this stage
+is to validate the references from your previous jobs.
+This is mandatory and requires an estimated effort of 15 minutes per call.
+To do this you must first finish the previous stage.
+To begin,
+you just have to follow these detailed [button]#link:referencias-inversas/[instructions]#
+
+== 12. Polygraph
+
+The goal of this stage
+is to take a polygraph test.
+Our business is information security,
+for which reason it may be possible that, during the selection process or employment,
+you will be asked to take this type of test.
+This is optional and requires an estimated effort of 2 hours.
+Esto es opcional y el esfuerzo requerido estimado es de 2 horas.
+To do this you must first finish the previous stage.
+To begin,
+write us an email at careers@autonomicmind.co
+
+== 13. Audition
+
+The goal of this stage
+Is for you to show your ability to express yourself
+By presenting a topic of our choice
+To an audience of minimum 3 and maximum 30 people.
+This is optional and requires an estimated effort of 4 hours
+to prepare a 20 minute presentation.
+To do this you do not need to finish the previous stage.
+To begin,
+write us an email at careers@autonomicmind.co
+
+== 14. Offer
+
+If you reach this stage in the process
+we will send you a job offer via email
+detailing the terms and conditions of the offer we have for you.
+If you have doubts
+you must state them in the same email thread.
+
+== 15. Hiring
+
+Once we come to an agreement with the offer,
+you must send us an email with the documents specified
+[button]#link:vinculacion/[here]#
+
+At the end,
+we will notify you with the result of the process.
+Although it is a long process,
+it can be done in a short amount of time.
+In some cases it can take less than 2 weeks.
+
+== Frequently Asked Questions
+
+* *Doubts?*, you can read our FAQ [button]#link:faq/[here]#
