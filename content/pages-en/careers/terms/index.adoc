@@ -1,11 +1,125 @@
 :slug: careers/terms/
 :category: careers
-:description: The main goal of the following page is to inform people interested in working with us about our selection process. Here we describe the overall selection process we carry out and present additional information about our company, in order to motivate you to participate in our selection process.
-:keywords: FLUID, Careers, Terms, Selection, Process, Company.
+:description: This page is meant to inform everyone interested in being part of the FLUIDAttacks team about the selection process. Here we present information about our company and the terms and conditions that need to be accepted if you wish to be part of the team.
+:keywords: FLUIDAttacks, Careers, Process, Selection, Terms, Company.
 :translate: empleos/terminos/
 
 = Terms
 
-This page is only available in Spanish language.
-Please click on the Spanish flag in the upper right corner
-to view the corresponding content.
+In this page we will specify and detail
+the terms and conditions of the selection process,
+please read them carefully.
+
+If you have doubts,
+do not hesitate to write us an email at careers@autonomicmind.co
+
+To take part in the process,
+fill out the following [button]#link:https://fluidattacks.com/forms/seleccion[form]#
+
+== The Company
+
+Next, we will introduce ourselves as a company
+in order to enable you to make an informed decision
+about where you will potentially continue your career.
+
+=== Context
+
+* We are a company:
+
+** Of Colombian origin,
+** Dedicated to information security,
+** Founded in 2001,
+** With under 40 employees,
+** Annual sales of approximately 1.5MM USD,
+** With sites in Medellin, Bogota (Colombia) and Clayton (North Carolina, U.S.A.).
+
+* In +FLUIDAttacks+ all systems are subject to constant monitoring
+through link:https://www.timedoctor.com/[automatic time and activity control systems].
+With which we look to:
+** Assure the security of our clients' information,
+** Be objective, precise and fair in the performance evaluation.
+
+* In +FLUIDAttacks+ we follow an ethics code
+which you can read by clicking [button]#link:../../values[here]#
+
+== The Selection Process
+
+. Through this process,
+we look to find and hire
+the top 10% of the population
+for each required role and salary
+. With this process,
++FLUIDAttacks+ looks to select only the best
+to form a team that is:
+** Elite,
+** Enduring,
+** Disciplined,
+** Responsible,
+** Ethical.
+
+. We have automated many stages of the selection process
+so that you can optimize your time and
+become part of our team faster and easier.
+
+. Most of the process is done online and
+depends on your availability and dedication, therefore
+the duration of the process is 90% in your hands.
+
+. Since our selection process is very detailed and
+different from what you see in other companies,
+we want you to read it very carefully.
+The process is detailed link:../../empleos/[here].
+
+. If you continue and
+Accept these terms
+you are indicating that you understand
+all the effort and dedication
+that this process implies and
+accept to be a part of it.
+
+=== End of the Process
+
+. During the process,
+if it’s termination is never explicitly notified,
+It is understood that you are still a part of it and
+therefore are subject to analysis for any current or potential opening.
+
+== The Candidate
+
+. By accepting these terms and conditions
+you are stating that your current or previous contracts
+do not have any clauses (or that these have expired)
+that forbid you to work in any role in an information security company.
+
+. By accepting these terms and conditions
+You understand that if you sign a contract with us:
+** It will have the following clauses:
+*** Exclusivity,
+*** Non-compete,
+*** No solicitation,
+*** Confidentiality.
+** The previous clauses will be valid during the work relation and
+6 months after the end of the contract.
+
+. In the hiring process
+once you accept our job offer
+you must provide the following
+link:../vinculacion/[information].
+
+. By accepting these terms and conditions
+you understand there exists the possibility that
+our salary proposal will be lower than your salary expectations.
+This is due to:
+** The equity of the salary among our team and
+the coherence of this pay with the person’s performance.
+** It is possible that our perception of your performance
+does not match your initial salary expectations.
+
+. By accepting these terms and conditions
+you accept to being recommended
+for openings not only in +FLUIDAttacks+ but also
+for openings in some of our business allies.
+
+. By default your records will stay in our database for future offers.
+** If you wish to have your data deleted from our database
+you must send us an email indicating so at careers@autonomicmind.co.
