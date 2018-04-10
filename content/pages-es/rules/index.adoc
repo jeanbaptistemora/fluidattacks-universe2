@@ -24,6 +24,7 @@
 == Administración
 
 * link:033/[REQ.033 Restringir acceso administrativo].
+* link:034/[REQ.034 Gestionar cuentas de usuarios].
 
 == Bitácoras
 
