@@ -11,6 +11,7 @@
 * link:024/[REQ.024 Transferir información con objetos de sesión].
 * link:025/[REQ.025 Controlar sesiones concurrentes].
 * link:026/[REQ.026 Cifrar las sesiones en el cliente].
+* link:027/[REQ.027 Permitir bloqueo de sesión de usuario].
 * link:029/[REQ.029 Cookies con atributos de seguridad].
 * link:032/[REQ.032 Evitar exponer identificadores de sesión].
 
