@@ -14,8 +14,8 @@ will set the final sale price for each customer.
 . The final price to the customer will be the base value
 for the calculation of the commission to be paid to the PARTNER.
 
-. The commission percentage is calculated based on the profits
-produced and received from the CUSTOMER annually by the PARTNER projects.
+. The commission percentage is calculated based on annual recognized revenue
+and cash collected from the CUSTOMER annually by the PARTNER projects.
 
 . All the PARTNERS start with a *30% commission*
 until *2 cut-off dates* have elapsed.
@@ -23,13 +23,13 @@ until *2 cut-off dates* have elapsed.
 . The cut-off date will be *December 31* of each year.
 
 . After the second cut-off date, and thereafter the following years,
-the growth in the profits produced and received by +FLUIDAttacks+
+the growth in the revenue recognized and cash collected by +FLUIDAttacks+
 between cut-off dates will be evaluated:
 
-.. If the growth is equal to or greater than *30%*
+.. If the growth is equal to or greater than *30%*,
 the PARTNER will get *30% commission* for the new year.
 
-.. If the growth is less than *30%*
+.. If the growth is less than *30%*,
 the PARTNER will get *15% commission* for the new year.
 
 . If the PARTNER is the one that collects,
@@ -48,7 +48,7 @@ it must pay the PARTNER no later than the *calendar day 15* of each month.
 
 .. +FLUIDAttacks+ covers the talent fees and ticket.
 
-.. The PARTNER is responsible for travel, hotel and food.
+.. The PARTNER is responsible for travel expenses, hotel and food.
 
 . +FLUIDAttacks+ does not sign exclusivity with any PARTNER.
 
@@ -58,10 +58,9 @@ it must pay the PARTNER no later than the *calendar day 15* of each month.
 based on US tax legislation.
 
 . The PARTNER is obliged to inform in advance
-about the potential customers in which +FLUIDAttacks+
-will seek to promote its professional services.
+about the potential customers.
 
 . +FLUIDAttacks+ undertakes not to market to the prospects
 that the PARTNER has nominated if and only if
-the latter presents written evidence of commercial management
+the latter presents written evidence of sales progress
 in terms that never exceed *30 days*.

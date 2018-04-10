@@ -12,7 +12,7 @@ Australia link:#the-missing-link[^2^] and the United States)
 and sectors (Government, Defense) link:#evolution-it[^3^].
 In addition, with our offer,
 they complete their own portfolio
-(functional tests, software development) link:#choucair[^4^] link:#greensqa[^5^].
+(functional tests, software development) link:#choucair[^4^] link:#greensqa[^5^]
 to provide an integral solution.
 If you want to become a partner of +FLUIDAttacks+
 please start by reading the [button]#link:terms/[terms]#
@@ -89,3 +89,7 @@ in design, delivery and support of the latest technologies.
 ^.^a|image:logo-tml.png[alt="Logo The Missing Link",link="https://www.themissinglink.com.au/"]
 
 |====
+
+If you agree with the above conditions
+and wish to start the bonding process as a partner,
+please proceed through the following contact [button]#link:../contact-us/[form]#.

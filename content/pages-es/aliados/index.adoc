@@ -15,8 +15,8 @@ Además con nuestra oferta complementan su propio portafolio
 (pruebas funcionales, desarrollo de software)link:#choucair[^4^] link:#greensqa[^5^]
 para ofrecer una solución integral.
 Si quieres convertirte en un aliado de +FLUIDAttacks+
-por favor comenzar con la lectura de los
-[button]#link:condiciones/[términos]# de nuestro acuerdo general de aliados.
+por favor comenzar con la lectura de las
+[button]#link:condiciones/[condiciones]# de nuestro acuerdo general de aliados.
 
 [role="aliados tb-alt"]
 [cols=2, frame="none"]
@@ -85,3 +85,8 @@ entrega y soporte de las últimas tecnologías.
 ^.^a|image:logo-tml.png[alt="Logo The Missing Link",link="https://www.themissinglink.com.au/"]
 
 |====
+
+Si esta de acuerdo con las condiciones anteriores
+y desea comenzar el proceso de vinculación como aliado
+por favor proceder mediante el siguiente
+[button]#link:../../en/contact-us/[formulario]# de contactenos.

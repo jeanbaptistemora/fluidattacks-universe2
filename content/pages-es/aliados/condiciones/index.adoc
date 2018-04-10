@@ -27,7 +27,7 @@ y en adelante los siguientes años,
 se evaluará el crecimiento en dinero
 producido y recibido por +FLUIDAttacks+ entre fechas de corte:
 
-.. Si el crecimiento es igual o mayor al *30%*
+.. Si el crecimiento es igual o mayor al *30%*,
 el ALIADO obtendrá *30% de comisión* para el nuevo año.
 
 .. Si el crecimiento es inferior al *30%*,
