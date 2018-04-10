@@ -101,9 +101,7 @@ link:../one-shot-hacking/#exploitation[^9^]
 link:../one-shot-hacking/#critical-information-extraction[^10^]:
 
 * link:../../blog/fuzzy-bugs-online/[Fuzzing].
-* +DAST+ (Dynamic Analysis Security Testing).
-* +SAST+ (Static Analysis Security Testing).
-* +IAST+ (Interactive Application Security Testing).
+* Dynamic (+DAST+), Static (+SAST+) and Interactive (+IAST+) Security Testing.
 * link:../../blog/stand-shoulders-giants/[+SCA+](Software Composition Analysis).
 * Manual code review.
 * link:../../blog/reversing-mortals/[Reversing] (if source is not provided).
