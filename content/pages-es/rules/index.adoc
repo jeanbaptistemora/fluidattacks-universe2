@@ -15,7 +15,6 @@
 
 == Archivos
 
-* link:035/[REQ.035 Administrar modificaciones de privilegios].
 * link:036/[REQ.036 No desplegar archivos temporales].
 * link:037/[REQ.037 Parámetros sin datos sensibles].
 * link:039/[REQ.039 Definir content type explícito].
@@ -25,6 +24,7 @@
 
 * link:033/[REQ.033 Restringir acceso administrativo].
 * link:034/[REQ.034 Gestionar cuentas de usuarios].
+* link:035/[REQ.035 Administrar modificaciones de privilegios].
 
 == Bitácoras
 
