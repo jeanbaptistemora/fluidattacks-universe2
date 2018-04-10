@@ -108,12 +108,9 @@ link:../one-shot-hacking/#critical-information-extraction[^10^]:
 * Manual code review.
 * link:../../blog/reversing-mortals/[Reversing] (if source is not provided).
 * False positive elimination.
-* Exploitation with public exploits.
-* Exploitation with private exploits.
-* Exploitation with custom exploits.
+* Exploitation with public, private and custom exploits.
 * User enumeration.
-* Password guessing.
-* Password cracking.
+* Password guessing and cracking.
 * Trojan infection.
 | {no} Only 1 technique per product.
 

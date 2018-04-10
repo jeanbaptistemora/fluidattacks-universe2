@@ -115,12 +115,9 @@ link:../hacking-puntual/#extraccion-de-informacion-critica[^10^]:
 * link:../../../en/blog/reversing-mortals/[+Reversing+]
 (Si no se provee el código fuente).
 * Eliminación de falsos positivos.
-* Explotación con exploits públicos.
-* Explotación con exploits privados.
-* Explotación con exploits personalizados.
+* Explotación con exploits públicos, privados y personalizados.
 * User enumeration.
-* Password guessing.
-* Password cracking.
+* Password guessing y cracking.
 * Infección utilizando troyanos.
 |{no} Solo 1 técnica por producto.
 
