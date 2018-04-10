@@ -6,7 +6,9 @@
 
 = Transportation
 
-[role="transportation tb-alt"]
+{description}
+
+[role="tb-alt"]
 [cols=2, frame="none"]
 |====
 a|image:logo-avianca.png[alt="Logo Avianca",link="https://www.avianca.com/co/es/"]
@@ -17,8 +19,17 @@ Commercial brand that represents the Latin American airlines
 integrated in Avianca Holdings S.A.
 Specialized in the transport of passengers and cargo,
 direct service in more than 100 destinations
-in 26 countries of America and Europe
-aboard a modern fleet of 172 aircraft
+in +26+ countries of America and Europe
+aboard a modern fleet of +172+ aircraft
 of short, medium and long range.
+
+a|== F2X
+
+Union of +2+ Colombian engineering companies,
+with +12+ years of experience and presence in +5+ countries in Latin America.
+Specialized in integrating technological solutions
+for management and operation of road infrastructure.
+
+^.^a|image:logo-f2x.png[alt="Logo F2X",link="https://www.f2x.com.co"]
 
 |====
