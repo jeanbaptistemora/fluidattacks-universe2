@@ -1,11 +1,64 @@
 :slug: careers/portfolio/
 :category: careers
-:description: The main goal of the following page is to inform potential talents and people interested in working with us about our selection process. The portfolio is a document which contains your main academic achievements, samples and results of your most outstanding projects.
-:keywords: FLUID, Careers, Portfolio, Selection, Process, Documentation.
+:description: The following page is meant to inform everyone interested in being part of the +FLUIDAttacks+ team about the selection process. The portfolio is a document that describes your biggest personal, professional and academic achievements, examples and results of your best projects.
+:keywords: FLUIDAttacks, Career, Process, Selection, Portfolio, Candidate.
 :translate: empleos/portafolio/
 
 = Portfolio
 
-This page is only available in Spanish language.
-Please click on the Spanish flag in the upper right corner
-to view the corresponding content.
+Regarding the portfolio,
+we are in the process of creating a document that
+best fits with what is described here.
+This deliverable is imperative for our selection process.
+
+We pretend that the candidate can present
+their best academic and/or professional achievements
+in this document.
+
+We remind you that
+the objectives of the portfolio are:
+
+* Evidence the candidates capacity
+to achieve concrete and outstanding results.
+* Demonstrate the candidates interest in joining the company.
+* See the alignment between the results expected by the company and
+the results the candidate can achieve.
+
+Here are the requirements for the document:
+
+. The portfolio must be delivered in a PDF format
+through the application form.
+However, in this case you can build it and
+send it in an email at careers@autonomicmind.co
+. This document is different from your CV.
+. The portfolio must have at least 5 achievements
+Between personal, professional and academic.
+Each one must be explained in at most 1 page.
+* Designs/Diagrams (network, data, class, circuits, etc).
+* Code examples.
+* Documentation.
+
+. The portfolio can present achievements in different categories
+(source code, designs, documentation, etc).
+. The portfolio must respect copyrights:
+* Quoting relevant sources.
+* Hiding the relation between the result and
+the organization it was created for.
+* Reproducing only part of the achievement
+in order to prevent it’s inadequate use.
+. The portfolio may follow the guidelines for design portfolios
+that apply to simple engineering assignments:
+* Simple
+* Interesting
+* Easy to read
+* Only your best results
+
+The purpose of this document
+is to assess your ability to express yourself,
+synthesize ideas and
+capture our attention.
+
+Failure to complete these instructions
+would evidence difficulty to follow instructions or
+little interest in the +FLUIDAttacks+ process and
+for this reason the process will be terminated immediately.
