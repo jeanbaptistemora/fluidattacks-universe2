@@ -7,7 +7,8 @@
 = Integrates
 
 Sistema donde confluyen todos los interesados
-(hacker, desarrolladores, gerentes de proyectos, auditores, gerentes de producto, etc),
+(hacker, desarrolladores, gerentes de proyectos,
+auditores, gerentes de producto, etc),
 de la cadena de valor del proyecto.
 Busca acercar el desarrollador al hacker,
 de modo que las vulnerabilidades se solucionen
@@ -23,14 +24,16 @@ Puedes acceder al producto [button]#link:../../../../integrates[aquí]#
 a|== Autenticación fácil y rápida
 
 No se guardan las credenciales del usuario.
-La autenticación es federada permitiendo así, la autenticación con usuarios corporativos.
+La autenticación es federada
+permitiendo así la autenticación con usuarios corporativos.
 a|image::autenticacion.png[Autenticación]
 
 a|image::menu-principal.png[Menú Principal]
 a|== Menú principal
 
 El dashboard permite a los usuarios tener acceso directo a todos sus proyectos.
-También es posible visualizar las eventualidades asociadas a cada uno de los proyectos.
+También es posible visualizar las eventualidades
+asociadas a cada uno de los proyectos.
 
 a|== Visualizar Eventualidades en Tiempo Real
 
@@ -42,11 +45,12 @@ a|image::graficas.png[Gráficas]
 
 a|== Gráficas de Estado del Proyecto
 
-Se puede visualizar el estado actual de las vulnerabilidades que han sido reportadas.
-Permitiendo así:
+Se puede visualizar el estado actual
+de las vulnerabilidades que han sido reportadas, permitiendo así:
 
 * Priorizar las vulnerabilidades por su explotabilidad real confirmada.
-* Indicar cuáles son vulnerabilidades y cuántos son problemas de tipo higiene de seguridad.
+* Indicar cuáles son vulnerabilidades
+y cuántos son problemas de tipo higiene de seguridad.
 * Saber cuántas vulnerabilidades han sido solucionados y cuántas aun no.
 
 a|== Métricas del proyecto
@@ -63,12 +67,14 @@ a|image::informe-tecnico.png[Informe Técnico]
 a|== Generar Informes Técnicos
 
 En este documento se encuentra la información detallada de cada vulnerabilidad.
-Es de gran utilidad para el personal técnico a la hora de darle una solución a las fallas de seguridad reportadas.
+Es de gran utilidad para el personal técnico
+a la hora de darle una solución a las fallas de seguridad reportadas.
 
 a|== Generar Informes Ejecutivos
 
 En este documento se encuentra la información resumida y organizada.
-De tal manera que pueda ser de utilidad para todas las personas en la cadena de valor del proyecto.
+De tal manera que pueda ser de utilidad
+para todas las personas en la cadena de valor del proyecto.
 a|image::informe-ejecutivo.png[Informe Ejecutivo]
 
 a|image::priorizar-remediacion.png[Priorizar Remediación]
@@ -78,8 +84,9 @@ Las vulnerabilidades se pueden priorizar de acuerdo a diferentes parámetros.
 Esto con el fin de conocer cuáles necesitan una solución inmediata.
 Algunos parámetros son:
 
-* *La edad:* Tiempo que transcurre entre el reporte de la vulnerabilidad y la solución aplicada por el cliente.
-* *La severidad:* Criticidad de acuerdo al estándar CVSS.
+* *La edad:* Tiempo que transcurre entre el reporte de la vulnerabilidad
+y la solución aplicada por el cliente.
+* *La severidad:* Criticidad de acuerdo al estándar +CVSS+.
 * *El estado:* Abierto, cerrado o parcialmente cerrado.
 * *El tratamiento:* Asumido, pendiente o remediar.
 
@@ -92,19 +99,23 @@ a|image::vulnerabilidades.png[Vulnerabilidades]
 a|image::descripcion-vulnerabilidad.png[Descripción De La Vulnerabilidad]
 a|== Descripción de la Vulnerabilidad
 
-Se encuentra el detalle técnico que permite entender la naturaleza de la vulnerabilidad,
+Se encuentra el detalle técnico
+que permite entender la naturaleza de la vulnerabilidad,
 donde se encuentran los problemas de seguridad,
 requisitos incumplidos,
 riesgos y recomendaciones de solución.
 
 a|== Solicitar Verificación / Tratamiento
 
-Los clientes pueden solicitar la revisión^1^ de una vulnerabilidad que ha sido corregida
+Los clientes pueden solicitar la revisión^1^
+de una vulnerabilidad que ha sido corregida
 y documentar^2^ el tratamiento de esta.
 Para la documentación el cliente tiene las siguientes opciones:
 
-* *Asumido:* El cliente asume el riesgo que implica no solucionar el problema de seguridad.
-* *Pendiente:* El cliente aun no tiene claro si asumirá o remediará la vulnerabilidad.
+* *Asumido:* El cliente asume el riesgo
+que implica no solucionar el problema de seguridad.
+* *Pendiente:* El cliente aun no tiene claro
+si asumirá o remediará la vulnerabilidad.
 * *Remediar:* El cliente solucionará el problema de seguridad.
 a|image::solicitar-verificacion.png[Solicitar Verificación]
 
@@ -114,12 +125,13 @@ a|image::severidad-vulnerabilidad.png[Severidad De La Vulnerabilidad]
 a|== Severidad de la Vulnerabilidad
 
 Se muestra la calificación técnica de la vulnerabilidad
-basado en el estándar CVSS (Common Vulnerability Scoring System).
+basado en el estándar +CVSS+ (Common Vulnerability Scoring System).
 Esto con el fin de determinar la criticidad de la vulnerabilidad.
 
 a|== Evidencias de la Vulnerabilidad
 
-La existencia de una vulnerabilidad se muestra a través de una serie de evidencias (imagenes)
+La existencia de una vulnerabilidad
+se muestra a través de una serie de evidencias (imagenes)
 con su respectiva descripción.
 a|image::evidencia-vulnerabilidad.png[Evidencia De La Vulnerabilidad]
 
@@ -127,7 +139,7 @@ a|image::animacion-explotacion.gif[Animación de Explotación]
 a|== Animación de Explotación
 
 El proceso ejecutado para la explotación de la vulnerabilidad
-se muestra a través de una animación (gif).
+se muestra a través de una animación (+gif+).
 
 a|== Exploit de la Vulnerabilidad
 
@@ -147,7 +159,8 @@ a|== Línea de Tiempo de la Vulnerabilidad
 Se encuentra la evolución de la vulnerabilidad a lo largo del tiempo,
 relacionando las fechas de reporte
 y los diferentes ciclos de cierre realizados.
-Esta sección es de gran utilidad para conocer la efectividad de los ciclos de cierre realizados.
+Esta sección es de gran utilidad
+para conocer la efectividad de los ciclos de cierre realizados.
 
 a|== Registros Comprometidos
 
@@ -162,7 +175,8 @@ a|== Aclaraciones de Dudas Sobre las Vulnerabilidades
 Los usuarios de la cadena de valor del proyecto incluyendo a FLUID,
 pueden intercambiar apreciaciones,
 dudas u observaciones sobre la vulnerabilidad en cuestión.
-Esta sección es de gran utilidad para que los desarrolladores entiendan dónde se encuentra el problema,
+Esta sección es de gran utilidad
+para que los desarrolladores entiendan dónde se encuentra el problema,
 y así puedan darle una solución.
 
 a|== Chatea con Nosotros
@@ -178,14 +192,16 @@ a|image::chat.png[Chat]
 a|image::correo.png[Correo]
 a|== Notificaciones Por Correo
 
-Se envían notificaciones vía correo electrónico a los usuarios de la cadena de valor del proyecto.
+Se envían notificaciones vía correo electrónico
+a los usuarios de la cadena de valor del proyecto.
 Algunas de ellas son:
 
 * Cada semana se informa sobre los cambios en las vulnerabilidades del proyecto.
 * Cuando un usuario realiza un comentario sobre una vulnerabilidad.
 * Cuando un usuario informa que ya fue remediada una vulnerabilidad.
 * Cuando se verifica la remediación de una vulnerabilidad.
-* Cuando una vulnerabilidad cumple cierta edad (15, 30, 60 días...) y no ha sido remediada.
+* Cuando una vulnerabilidad cumple cierta edad
+(15, 30, 60 días...) y no ha sido remediada.
 
 a|== Base De Conocimiento
 
