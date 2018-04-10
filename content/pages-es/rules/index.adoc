@@ -16,6 +16,8 @@
 
 * link:032/[REQ.032 Evitar exponer identificadores de sesión].
 * link:033/[REQ.033 Parámetros sin datos sensibles].
+* link:035/[REQ.035 Administrar modificaciones de privilegios].
+* link:036/[REQ.036 No desplegar archivos temporales].
 * link:039/[REQ.039 Definir content type explícito].
 * link:040/[REQ.040 Definir charset explícito].
 
@@ -254,7 +256,6 @@
 
 == Sistema
 
-* link:035/[REQ.035 Administrar modificaciones de privilegios].
 * link:268/[REQ.268 Utilizar software autenticado].
 * link:269/[REQ.269 Usar principio mínimo privilegio].
 * link:270/[REQ.270 Emplear usuarios con privilegios].
