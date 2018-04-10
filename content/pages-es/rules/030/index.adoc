@@ -1,0 +1,14 @@
+:slug: rules/030/
+:category: rules
+:description: En el presente documento se detallan los requerimientos de seguridad relacionados al manejo de sesiones y variables de sesión de las aplicaciones. Por lo tanto, para el presente requerimiento, se recomienda que el sistema no permita reutilizar objetos vinculados a procesos de autenticación.
+:keywords: Sistema, Objeto, Sesión, Reutilizar, Cookie, Autenticación.
+:rules: yes
+
+= REQ.030 Evitar reciclaje de objetos de autenticación
+
+== Nombre
+
+Se debe controlar que un objeto
+(+id+ de sesión, +cookie+, etc)
+que participe en el proceso de autenticación
+no pueda ser reutilizado.
