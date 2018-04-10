@@ -54,7 +54,7 @@ Además sabrá la rigurosidad exacta del hackeo (lo revisado y lo no revisado).
 a|== Duración específica
 
 Dependiendo del tamaño de la prueba típicamente estas
-toman entre +1+ y +4+ semanas.
+toman entre +1+ y +4+ meses.
 
 a|== Ciclos de prueba
 
