@@ -8,10 +8,11 @@ import requests
 from __init__ import FI_FORMSTACK_TOKENS
 from requests.exceptions import ConnectionError
 from retrying import retry
-from random import randint
+import rollbar
 
 requests.adapters.DEFAULT_RETRIES = 10
 class FormstackAPI(object):
+
 
     headers_config = {}
     SUBMISSION_URL = "https://www.formstack.com/api/v2/submission/:id.json"
@@ -75,19 +76,22 @@ AppleWebKit/537.36 (KHTML, like Gecko) FLUIDIntegrates/1.0'
         """Valida que un token sea valido y lo asigna."""
         ltokens= FI_FORMSTACK_TOKENS.split(',')
         url = "https://www.formstack.com/api/v2/submission/293276999.json"
-        stat = 0
-        while stat == 0:
-            test_token = ltokens[randint(0,(len(ltokens)-1))]
+        for x in range (0, len(ltokens)):
+            test_token = ltokens[x]
             data = {"oauth_token": test_token}
             req = requests.request(
             'GET', url,
             data=data, headers=self.headers_config
             )
-            if req.status_code == 429:
-                stat=0
-            else:
+            if req.status_code != 429:
                 self.TOKEN = test_token
-                stat=1
+                return self.TOKEN
+            else:
+                if x == (len(ltokens)-3):
+                    message = 'Warning: There are only 2 available formstack tokens left for today.'
+                    rollbar.report_message(message, 'error')
+                else:
+                    continue
 
     def delete_submission(self, submission_id):
         """ Elimina un id de submission """
