@@ -26,6 +26,7 @@
 * link:039/[REQ.039 Definir content type explícito].
 * link:040/[REQ.040 Definir charset explícito].
 * link:041/[REQ.041 Depurar archivos de código malicioso].
+* link:042/[REQ.042 Validar formato de archivos].
 
 == Administración
 
