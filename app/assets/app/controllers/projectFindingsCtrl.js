@@ -2,7 +2,8 @@
 /* global
 BASE, downLink:true, Morris, estado:true, exploitLabel:true, nonexploitLabel:true, total_higLabel:true,
 explotable:true, total_segLabel:true, openLabel:true, partialLabel:true, integrates, userRole, document, $, $msg, userName,
-userEmail, Rollbar, aux:true, json:true, closeLabel:true, mixPanelDashboard, win:true, window, Organization, i:true, j:true
+userEmail, Rollbar, aux:true, json:true, closeLabel:true, mixPanelDashboard, win:true, window, Organization, projectData:true, eventsData:true,
+i:true, j:true
 */
 /* eslint-env node*/
 /**
@@ -374,7 +375,7 @@ integrates.controller(
               $msg.error($translate.instant("proj_alerts.not_found"));
             }
             else {
-              const projectData = response.data;
+              projectData = response.data;
               $scope.loadFindingContent(projectData, vlang);
             }
           }

@@ -2,7 +2,8 @@
 /* global
 BASE, downLink:true, Morris, estado:true, exploitLabel:true, nonexploitLabel:true, total_higLabel:true,
 explotable:true, total_segLabel:true, openLabel:true, partialLabel:true, integrates, userRole, document, $, $msg, userName,
-userEmail, Rollbar, aux:true, json:true, closeLabel:true, mixPanelDashboard, win:true, window, Organization, i:true, j:true
+userEmail, Rollbar, aux:true, json:true, closeLabel:true, mixPanelDashboard, win:true, window, Organization, projectData:true, eventsData:true,
+i:true, j:true
 */
 /* eslint-env node*/
 /**
@@ -152,7 +153,7 @@ integrates.controller(
             }
             else {
               $scope.data = response.data;
-              const projectData = response.data;
+              projectData = response.data;
               const org = Organization.toUpperCase();
               const projt = $stateParams.project.toUpperCase();
               $scope.alertHeader(org, projt);
@@ -177,7 +178,7 @@ integrates.controller(
         });
         reqEventualities.then(function (response) {
           if (!response.error) {
-            const eventsData = response.data;
+            eventsData = response.data;
             mixPanelDashboard.trackSearch("SearchEventuality", userEmail, project);
             $("#search_section").show();
             $("[data-toggle=\"tooltip\"]").tooltip();

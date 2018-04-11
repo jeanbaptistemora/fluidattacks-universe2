@@ -2,7 +2,8 @@
 /* global
 BASE, downLink:true, Morris, estado:true, exploitLabel:true, nonexploitLabel:true, total_higLabel:true,
 explotable:true, total_segLabel:true, openLabel:true, partialLabel:true, integrates, userRole, document, $, $msg, userName,
-userEmail, Rollbar, aux:true, json:true, closeLabel:true, mixPanelDashboard, win:true, window, Organization, i:true, j:true
+userEmail, Rollbar, aux:true, json:true, closeLabel:true, mixPanelDashboard, win:true, window, Organization, projectData:true, eventsData:true,
+i:true, j:true
 */
 /* eslint-env node*/
 /**
@@ -317,42 +318,45 @@ integrates.controller(
         const search_at = $translate.instant("proj_alerts.search_title");
         const search_ac = $translate.instant("proj_alerts.search_cont");
         $msg.info(search_ac, search_at);
-        const org = Organization.toUpperCase();
-        const projt = $stateParams.project.toUpperCase();
-        $scope.alertHeader(org, projt);
-        const reqProject = projectFtry.projectByName(project, filter);
-        reqProject.then(function (response) {
+        if (projectData.length > 0 && projectData[0].proyecto_fluid === $scope.project) {
           $scope.view.project = true;
-          if (!response.error) {
-            // Tracking Mixpanel
-            mixPanelDashboard.trackSearch("SearchFinding", userEmail, project);
-            if (response.data.length === 0) {
+          $scope.loadIndicatorsContent(projectData);
+        }
+        else {
+          const reqProject = projectFtry.projectByName(project, filter);
+          reqProject.then(function (response) {
+            $scope.view.project = true;
+            if (!response.error) {
+              // Tracking Mixpanel
+              mixPanelDashboard.trackSearch("SearchFinding", userEmail, project);
+              if (response.data.length === 0) {
+                $scope.view.project = false;
+                $scope.view.finding = false;
+                $msg.error($translate.instant("proj_alerts.not_found"));
+              }
+              else {
+                projectData = response.data;
+                $scope.loadIndicatorsContent(projectData);
+              }
+            }
+            else if (response.error) {
               $scope.view.project = false;
               $scope.view.finding = false;
-              $msg.error($translate.instant("proj_alerts.not_found"));
+              if (response.message === "Access denied") {
+                Rollbar.warning("Warning: Access to project denied");
+                $msg.error($translate.instant("proj_alerts.access_denied"));
+              }
+              else if (response.message === "Project masked") {
+                Rollbar.warning("Warning: Project deleted");
+                $msg.error($translate.instant("proj_alerts.project_deleted"));
+              }
+              else {
+                Rollbar.warning("Warning: Project not found");
+                $msg.error($translate.instant("proj_alerts.not_found"));
+              }
             }
-            else {
-              const projectData = response.data;
-              $scope.loadIndicatorsContent(projectData);
-            }
-          }
-          else if (response.error) {
-            $scope.view.project = false;
-            $scope.view.finding = false;
-            if (response.message === "Access denied") {
-              Rollbar.warning("Warning: Access to project denied");
-              $msg.error($translate.instant("proj_alerts.access_denied"));
-            }
-            else if (response.message === "Project masked") {
-              Rollbar.warning("Warning: Project deleted");
-              $msg.error($translate.instant("proj_alerts.project_deleted"));
-            }
-            else {
-              Rollbar.warning("Warning: Project not found");
-              $msg.error($translate.instant("proj_alerts.not_found"));
-            }
-          }
-        });
+          });
+        }
       }
     };
     $scope.loadIndicatorsContent = function (datatest) {

@@ -2,7 +2,8 @@
 /* global
 BASE, downLink:true, Morris, estado:true, exploitLabel:true, nonexploitLabel:true, total_higLabel:true,
 explotable:true, total_segLabel:true, openLabel:true, partialLabel:true, integrates, userRole, document, $, $msg, userName,
-userEmail, Rollbar, aux:true, json:true, closeLabel:true, mixPanelDashboard, win:true, window, Organization, i:true, j:true
+userEmail, Rollbar, aux:true, json:true, closeLabel:true, mixPanelDashboard, win:true, window, Organization, projectData:true, eventsData:true,
+i:true, j:true
 */
 /* eslint-env node*/
 /**
@@ -114,7 +115,7 @@ integrates.controller(
         reqEventualities.then(function (response) {
           if (!response.error) {
             $scope.view.project = true;
-            const eventsData = response.data;
+            eventsData = response.data;
             $scope.loadEventContent(eventsData, vlang, project);
           }
           else if (response.message === "Access to project denied") {

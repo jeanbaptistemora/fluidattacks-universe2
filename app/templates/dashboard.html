@@ -30,6 +30,8 @@
 
     {% mixpanel %}
     <script>
+    var projectData = [];
+    var eventsData = [];
     mixpanel.identify("{{ request.session.username }}");
     mixpanel.people.set({
         "$email": "{{ request.session.username }}",
