@@ -16,14 +16,14 @@ A continuación se describen las circunstancias
 bajo las cuales la siguiente solución tiene sentido:
 
 . Se está desarrollando una aplicación en +Java+.
-. Se desea evitar código fuente duplicado en la aplicación.
+. Se desea evitar código fuente duplicado en la aplicación.^<<r1,[1]>>,<<r2,[2]>>^
 
 == Solución
 
 Es común encontrar código duplicado en diferentes tipos de aplicaciones,
 esta duplicación representa trabajo, riesgo y complejidad adicional,
 por lo que evitar duplicar código fuente
-es importante para mantener la seguridad de la aplicación ^<<r1,[1]>>^.
+es importante para mantener la seguridad de la aplicación ^<<r3,[3]>>^.
 
 Esta solución presenta una manera de evitar
 duplicar código fuente en aplicaciones +Java+.
@@ -164,7 +164,7 @@ public static void showError(Exception e) {
 == Descargas
 
 Puedes descargar el código fuente
-pulsando en el siguiente enlace:
+pulsando en los siguientes enlaces:
 
 [button]#link:src/reuse.java[Reuse.java]#
 Código que reutiliza lineas.
@@ -174,7 +174,6 @@ Código que no reutiliza lineas.
 
 == Referencias
 
-. [[r1]] link:https://es.wikipedia.org/wiki/C%C3%B3digo_duplicado[Código duplicado]
-. [[r2]] link:../../programacion/evitar-cod-duplicado/[Evitar Código Fuente Duplicado]
-. [[r3]] REQ.0157: El código fuente no debe tener funciones,
-métodos o clases repetidas.
+. [[r1]] link:../../../rules/162/[REQ.162 Eliminar código redundante].
+. [[r2]] link:../../programacion/evitar-cod-duplicado/[Evitar Código Fuente Duplicado].
+. [[r3]] link:https://es.wikipedia.org/wiki/C%C3%B3digo_duplicado[Código duplicado].
