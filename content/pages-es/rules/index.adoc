@@ -64,6 +64,7 @@
 * link:092/[REQ.092 Utilizar certificados firmados externos].
 * link:093/[REQ.093 Utilizar certificados coherentes].
 * link:094/[REQ.094 Especificar reglas de modo declarativo].
+* link:095/[REQ.095 Definir usuarios con privilegios].
 
 == Dispositivos
 
