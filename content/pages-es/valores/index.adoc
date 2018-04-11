@@ -22,34 +22,66 @@ promueve y defiende. Nuestros principios no se negocian.
 
 Estos son, en orden de prioridad:
 
-* La *HONESTIDAD*, la verdad para FLUID es el bien mayor que prima sobre todo lo demás.
+* La *HONESTIDAD*, la verdad para FLUID es el bien mayor
+que prima sobre todo lo demás.
 Las acciones y palabras de cada uno deben reflejar legitimidad,
 el fraude es considerado una falta grave.
-* El *EQUIPO*, los resultados en FLUID son conseguidos mediante el trabajo colaborativo
-de su personal.
-Por consiguiente, promovemos el trato digno y respetuoso a cada uno con igualdad de
-oportunidades.
-* La *DISCIPLINA*, entendida como la suma del cabal cumplimiento de los compromisos,
+* El *EQUIPO*, los resultados en FLUID son conseguidos
+mediante el trabajo colaborativo de su personal.
+Por consiguiente, promovemos el trato digno y respetuoso a cada uno
+con igualdad de oportunidades.
+* La *DISCIPLINA*, entendida como la suma
+del cabal cumplimiento de los compromisos,
 la dedicación, el empeño y la perseverancia.
 
-== 3. Ética
+== 3. Manifestaciones
+
+*A continuación detallamos solo algunos de los comportamientos
+que deben manifestarse como implicación directa
+de la adherencia a nuestro código de ética, nuestro valores y principios*:
+
+. Toda vulnerabilidad detectada es reportada:
+No existen vulnerabilidades que se detectan
+y que se guardan para un futuro uso, personal o de la organización.
+
+. Solo se realizan ataques cuando existe la autorización del cliente
+o en ambientes de prueba personales:
+Ni a modo de prueba, se realizan ataques a terceros
+(compañeros, otras empresas, amigos, etc)
+por fuera de la organización.
+
+. Toda infección realizada durante un ataque se desinfecta:
+Después de finalizar un proyecto todo el software instalado para infectar
+es completamente desinstalado o de no ser posible
+se notifica esta situación al cliente por escrito.
+
+. Toda violación de seguridad de la cual nos enteramos es reportada:
+Si conocemos una violación de seguridad
+ésta debe ser reportada al nivel inmediatamente superior a la persona implicada.
+
+
+== 4. Ética
 
 En nuestra empresa importa el proceso más que el resultado.
-Es por esto que rechazamos prácticas como el soborno, el monopolio y la competencia desleal.
-Por el contrario, favorecemos prácticas empresariales justas, así como promovemos el
-apoyo a nuestros empleados y aliados.
+Es por esto que rechazamos prácticas como el soborno,
+el monopolio y la competencia desleal.
+Por el contrario, favorecemos prácticas empresariales justas,
+así como promovemos el apoyo a nuestros empleados y aliados.
 
-Cada uno de nuestros empleados está afiliado a seguridad social por el 100% de su salario.
-Nuestra jornada laboral está limitada a lo establecido por la ley colombiana, sin embargo,
-en los casos en los que se ve excedida, los empleados pueden solicitar su compensación.
+Cada uno de nuestros empleados
+está afiliado a seguridad social por el +100%+ de su salario.
+Nuestra jornada laboral está limitada a lo establecido por la ley colombiana,
+sin embargo, en los casos en los que se ve excedida,
+los empleados pueden solicitar su compensación.
 Rechazamos el trabajo infantil.
 
-== 4. Protección de información
+== 5. Protección de información
 
-Estamos en permanente monitoreo y gestión de los riesgos relacionados con la información
-de nuestros clientes.
+Estamos en permanente monitoreo y gestión de los riesgos
+relacionados con la información de nuestros clientes.
 
-== 5. Reportes y denuncias
+== 6. Reportes y denuncias
 
-Pueden ser reportados hechos relacionados con el incumplimiento de nuestros valores en
-la dirección etica@fluidattacks.com
+Pueden ser reportados hechos relacionados
+con el incumplimiento de nuestros valores
+en la dirección etica@fluidattacks.com
