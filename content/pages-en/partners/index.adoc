@@ -12,7 +12,7 @@ Australia link:#the-missing-link[^2^] and the United States)
 and sectors (Government, Defense) link:#evolution-it[^3^].
 In addition, with our offer,
 they complete their own portfolio
-(functional tests, software development) link:#choucair[^4^] link:#greensqa[^5^]
+(functional testing link:#choucair[^4^] link:#greensqa[^5^], software development)
 to provide an integral solution.
 If you want to become a partner of +FLUIDAttacks+
 please start by reading the [button]#link:terms/[terms]#

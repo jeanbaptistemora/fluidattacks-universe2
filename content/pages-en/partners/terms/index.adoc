@@ -14,8 +14,9 @@ will set the final sale price for each customer.
 . The final price to the customer will be the base value
 for the calculation of the commission to be paid to the PARTNER.
 
-. The commission percentage is calculated based on annual recognized revenue
-and cash collected from the CUSTOMER annually by the PARTNER projects.
+. The commission percentage is calculated based on the annual cash
+collected by +FLUIDAttacks+ corresponding to the recognized revenue
+of the PARTNERS projects.
 
 . All the PARTNERS start with a *30% commission*
 until *2 cut-off dates* have elapsed.

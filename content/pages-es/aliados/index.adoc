@@ -12,7 +12,7 @@ en diferentes geografías
 y Estados Unidos)
 y sectores (Gobierno, Defensa)link:#evolution-it[^3^].
 Además con nuestra oferta complementan su propio portafolio
-(pruebas funcionales, desarrollo de software)link:#choucair[^4^] link:#greensqa[^5^]
+(pruebas funcionales link:#choucair[^4^] link:#greensqa[^5^], desarrollo de software)
 para ofrecer una solución integral.
 Si quieres convertirte en un aliado de +FLUIDAttacks+
 por favor comenzar con la lectura de las

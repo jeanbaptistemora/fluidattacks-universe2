@@ -14,8 +14,9 @@ fijarán el precio de venta final en cada cliente.
 . El precio final al cliente será el valor base
 para el calculo de la comisión a pagar al ALIADO.
 
-. El porcentaje de comisión se calcula en función del dinero producido
-y recibido del CLIENTE anualmente por los proyectos del ALIADO.
+. El porcentaje de comisión se calcula
+en función del dinero anual recibido por +FLUIDAttacks+
+correspondiente a los proyectos finalizados del ALIADO.
 
 . Todos los ALIADOS inician con un *30% de comisión*
 hasta que transcurran *2 fechas de corte*.
