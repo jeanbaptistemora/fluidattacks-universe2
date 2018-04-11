@@ -3,6 +3,9 @@
 :description: FLUID is a company focused on information security, ethical hacking, penetration testing and vulnerabilities detection with over 18 years providing its services to the colombian market. The purpose of this page is to present our  business partners in the market.
 :keywords: FLUID, Partners, Pentesting, Ethical Hacking, Information Security, Company.
 :translate: aliados/
+:germany: image:../images/icons/germany-flag.png[Germany Flag]
+:usa: image:../images/icons/us-flag.png[USA Flag]
+:australia: image:../images/icons/australia-flag.png[Australia Flag]
 
 = Partners
 
@@ -26,7 +29,7 @@ of our general partner agreement.
 
 a|== Arroyo Consulting
 
-Agile nearshore information technology development firm formed in 2009.
+{usa} Agile nearshore information technology development firm formed in 2009.
 They have offices located in the United States
 and low-cost operation centers located across Latin America in Mexico City,
 Mexico, and Medellín and Bogotá, Colombia.
@@ -80,7 +83,7 @@ according to the needs of each organization.
 
 a|== SBA
 
-Partner firm focused on obtaining rapid sales
+{usa} Partner firm focused on obtaining rapid sales
 while laying the foundation for sustained business growth,
 giving advise and helping to implement what is needed to efficiently succeed
 in the target market(s) both in the short and long-term.
@@ -93,7 +96,7 @@ and capital fundraising.
 
 a|== Teraport
 
-German company specialized in software development
+{germany} German company specialized in software development
 and services in the field of virtual product development.
 Experts in automotive, aerospace and manufacturing industries fields,
 offering specific solutions and standardized products regarding development,
@@ -102,7 +105,7 @@ as well as services and consulting in product development engineering.
 
 a|== The missing link
 
-Australian provider of information technology solutions,
+{australia} Australian provider of information technology solutions,
 provide services for infrastructure, security, backup, disaster recovery,
 communications and cloud services.
 Recognized as a leader industry and accredited with the highest levels

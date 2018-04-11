@@ -3,6 +3,9 @@
 :description: FLUID es una compañía especializada en seguridad informática, ethical hacking, pruebas de intrusión y detección de vulnerabilidades en aplicaciones con más de 18 años prestando sus servicios en el mercado colombiano. En esta página presentamos nuestros principales aliados comerciales.
 :keywords: FLUID, Aliados, Comercial, Seguridad, Pentesting, Ethical Hacking.
 :translate: partners/
+:germany: image:../images/icons/germany-flag.png[Germany Flag]
+:usa: image:../images/icons/us-flag.png[USA Flag]
+:australia: image:../images/icons/australia-flag.png[Australia Flag]
 
 = Aliados
 
@@ -26,7 +29,7 @@ por favor comenzar con la lectura de las
 
 a|== Arroyo Consulting
 
-Firma de desarrollo ágil
+{usa} Firma de desarrollo ágil
 de tecnologías de información +nearshore+ formada en 2009.
 Tienen oficinas ubicadas en los Estados Unidos
 y centros de operación de bajo costo ubicados en América Latina
@@ -82,7 +85,7 @@ dentro de un marco de seguridad, servicio, atención y soporte
 acorde a las necesidades de cada organización.
 
 a|== SBA
-Firma asociada enfocada en obtener ventas rápidas
+{usa} Firma asociada enfocada en obtener ventas rápidas
 mientras sienta las bases para un crecimiento empresarial sostenido,
 asesorando y ayudando a implementar lo que se necesita
 para tener éxito de manera eficiente en el mercado objetivo
@@ -96,7 +99,7 @@ soporte operacional y recaudación de fondos de capital.
 
 a|== Teraport
 
-Empresa alemana especializada en el desarrollo de software
+{germany} Empresa alemana especializada en el desarrollo de software
 y servicios en el campo del desarrollo de productos virtuales.
 Expertos en los campos de la industria automotriz, aeroespacial y de fabricación,
 ofreciendo soluciones específicas y productos estandarizados
@@ -105,7 +108,7 @@ así como servicios y consultoría en ingeniería de desarrollo de productos.
 
 a|== The missing link
 
-Proveedor de soluciones australiano enfocado en tecnología de la información,
+{australia} Proveedor de soluciones australiano enfocado en tecnología de la información,
 prestan servicios para infraestructuras, seguridad,
 backup, recuperación de desastres, comunicaciones
 y servicios en la nube. Reconocido como líder de la industria

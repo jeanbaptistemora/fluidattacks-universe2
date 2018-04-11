@@ -3,6 +3,7 @@
 :description: FLUID is a company focused on information security, ethical hacking, penetration testing and vulnerabilities detection in applications with over 18 years of experience in the colombian market. In this page we present our contributions to the technological sector.
 :keywords: FLUID, Information, Technology, Security, Ethical Hacking, Pentesting.
 :translate: clientes/tecnologia/
+:usa: image:../../images/icons/us-flag.png[USA Flag]
 
 = Technology
 
@@ -48,7 +49,7 @@ providers, cooperatives, trade unions and insurers.
 
 a|== Cre8tive
 
-Trusted business partner with more than +10+ year of experience
+{usa} Trusted business partner with more than +10+ year of experience
 supporting manufacturing best practices
 giving our customers a competitive advantage in your industry.
 They help Aerospace & Defense, Furniture & Fixtures, Fabricated Metals
@@ -138,7 +139,7 @@ and improve people's lives by taking advantage of technologies and new trends.
 
 a|== VM2020
 
-Organization with technology in the areas of Disaster Recovery
+{usa} Organization with technology in the areas of Disaster Recovery
 and Cybernetic Resistance.
 With +VM2020+ you can increase preparedness levels,
 validate response plans to incidents in real conditions,

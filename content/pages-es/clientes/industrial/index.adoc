@@ -3,6 +3,7 @@
 :description: FLUID es una compañía especializada en seguridad informática, ethical hacking, pruebas de intrusión y detección de vulnerabilidades en aplicaciones con más de 18 años prestando sus servicios en el mercado colombiano. En esta página presentamos nuestras soluciones en el sector industrial.
 :keywords: FLUID, Clientes, Sector, Industrial, Seguridad, Pentesting.
 :translate: customers/industrial/
+:usa: image:../../images/icons/us-flag.png[USA Flag]
 
 = Industrial
 
@@ -42,7 +43,7 @@ el Caribe, Italia, España y el Reino Unido.
 
 a|== Cre8tive
 
-Empresa con experiencia en la fabricación y venta de muebles
+{usa} Empresa con experiencia en la fabricación y venta de muebles
 con un software dedicado a la fabricación de muebles
 y ventas minoristas de muebles.
 Tiene integración con un sistema de contabilidad,

@@ -3,6 +3,7 @@
 :description: FLUID is a company focused on information security, ethical hacking, penetration testing and vulnerabilities detection in applications with over 18 years of experience in the colombian market. In this page we present our contributions to the consumer sector.
 :keywords: FLUID, Consumer, Information, Security, Pentesting, Ethical Hacking.
 :translate: clientes/comercial/
+:australia: image:../../images/icons/australia-flag.png[Australia Flag]
 
 = Consumer
 
@@ -71,7 +72,7 @@ offering excellence in service, integrity in their work
 and a strong commitment to the community.
 
 a|== The Missing Link
-Australian provider of information technology solutions,
+{australia} Australian provider of information technology solutions,
 provide services for infrastructure, security, backup,
 disaster recovery, communications and cloud services.
 Recognized as a leader industry

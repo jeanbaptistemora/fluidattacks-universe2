@@ -3,6 +3,7 @@
 :description: FLUID is a company focused on information security, ethical hacking, penetration testing and vulnerabilities detection in applications with over 18 years of experience in the colombian market. In this page we present our contributions to the industrial sector.
 :keywords: FLUID, Security, Industrial, Information, Ethical Hacking, Pentesting.
 :translate: clientes/industrial/
+:usa: image:../../images/icons/us-flag.png[USA Flag]
 
 = Industrial
 
@@ -40,7 +41,7 @@ Central America, the Caribbean, Italy, Spain and the United Kingdom.
 
 a|== Cre8tive
 
-Company with experience in the manufacture and sale of furniture
+{usa} Company with experience in the manufacture and sale of furniture
 with software dedicated to furniture manufacturing and furniture retail sales.
 It has integration with an accounting system, today QuickBooks,
 and can be integrated with others

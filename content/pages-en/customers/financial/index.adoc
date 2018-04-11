@@ -3,6 +3,7 @@
 :description: FLUID is a company focused on information security, ethical hacking, penetration testing and vulnerabilities detection in applications with over 18 years of experience in the colombian market. In this page we present our contributions to the financial sector.
 :keywords: FLUID, Information, Financial, Security, Ethical Hacking, Pentesting.
 :translate: clientes/financiero/
+:panama: image:../../images/icons/panama-flag.png[Panama Flag]
 
 = Financial
 
@@ -56,14 +57,14 @@ and one of the largest in America.
 
 a|== Banco Delta
 
-Microfinance Bank of Panama.
+{panama} Microfinance Bank of Panama.
 Financing of working capital for micro and small businesses,
 financing of fixed assets (vehicles, machinery and equipment),
 factoring, credit lines, commercial, mortgage and personal loans,
 financial leasing, deposit accounts and debit cards.
 
 a|== Banco del Pacífico
-Part of the International Banking Center integrated in the city of Panama,
+{panama} Part of the International Banking Center integrated in the city of Panama,
 with institutions from more than +30+ countries.
 The Center has a broad financial structure
 and a major importance for the economic life of the country,
@@ -74,7 +75,7 @@ which is a guarantee of its permanence and stability.
 ^.^a|image:logo-banistmo.png[alt="Logo Banistmo",link="https://www.banistmo.com/quienes-somos"]
 
 a|== Banistmo
-Panamanian organization that has the support of Grupo Bancolombia,
+{panama} Panamanian organization that has the support of Grupo Bancolombia,
 a financial institution with +140+ years in the market,
 with presence in +10+ countries,
 more than +40+ thousand employees,
