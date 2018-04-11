@@ -25,6 +25,7 @@
 * link:038/[REQ.038 Referenciar archivo mediante ruta absoluta].
 * link:039/[REQ.039 Definir content type explícito].
 * link:040/[REQ.040 Definir charset explícito].
+* link:041/[REQ.041 Depurar archivos de código malicioso].
 
 == Administración
 
