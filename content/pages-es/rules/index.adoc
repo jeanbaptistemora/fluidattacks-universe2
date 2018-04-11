@@ -73,6 +73,7 @@
 * link:098/[REQ.098 Custodiar activos de información].
 * link:099/[REQ.099 Controlar acceso vehícular y de personas].
 * link:100/[REQ.100 Sellar ventanas que contengan activos].
+* link:101/[REQ.101 Asignar carnés y tarjetas a personal].
 
 == Dispositivos
 
