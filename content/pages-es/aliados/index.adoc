@@ -81,6 +81,19 @@ operar, revisar, mantener, y mejorar la gestión tecnológica
 dentro de un marco de seguridad, servicio, atención y soporte
 acorde a las necesidades de cada organización.
 
+a|== SBA
+Firma asociada enfocada en obtener ventas rápidas
+mientras sienta las bases para un crecimiento empresarial sostenido,
+asesorando y ayudando a implementar lo que se necesita
+para tener éxito de manera eficiente en el mercado objetivo
+tanto a corto como a largo plazo.
+Los servicios de SBA incluyen +marketing+, ventas,
+soporte operacional y recaudación de fondos de capital.
+
+^.^a|image:logo-sba.png[alt="Logo SBA",link="http://strategicbusinessalliance.com/"]
+
+^.^a|image:logo-teraport.png[alt="Logo Teraport",link="http://teraport.de"]
+
 a|== Teraport
 
 Empresa alemana especializada en el desarrollo de software
@@ -90,10 +103,6 @@ ofreciendo soluciones específicas y productos estandarizados
 en relación con el desarrollo, la simulación y la garantía de calidad,
 así como servicios y consultoría en ingeniería de desarrollo de productos.
 
-^.^a|image:logo-teraport.png[alt="Logo Teraport",link="http://teraport.de"]
-
-^.^a|image:logo-tml.png[alt="Logo The Missing Link",link="https://www.themissinglink.com.au/"]
-
 a|== The missing link
 
 Proveedor de soluciones australiano enfocado en tecnología de la información,
@@ -102,6 +111,8 @@ backup, recuperación de desastres, comunicaciones
 y servicios en la nube. Reconocido como líder de la industria
 y acreditado con los más altos niveles en el diseño,
 entrega y soporte de las últimas tecnologías.
+
+^.^a|image:logo-tml.png[alt="Logo The Missing Link",link="https://www.themissinglink.com.au/"]
 
 |====
 

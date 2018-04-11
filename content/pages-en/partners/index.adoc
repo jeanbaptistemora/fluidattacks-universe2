@@ -78,6 +78,19 @@ review, maintain, and improve technological management
 within a framework of security, service, support and support
 according to the needs of each organization.
 
+a|== SBA
+
+Partner firm focused on obtaining rapid sales
+while laying the foundation for sustained business growth,
+giving advise and helping to implement what is needed to efficiently succeed
+in the target market(s) both in the short and long-term.
+SBA services include marketing, sales, operational support,
+and capital fundraising.
+
+^.^a|image:logo-sba.png[alt="Logo SBA",link="http://strategicbusinessalliance.com/"]
+
+^.^a|image:logo-teraport.png[alt="Logo Teraport",link="http://teraport.de"]
+
 a|== Teraport
 
 German company specialized in software development
@@ -87,10 +100,6 @@ offering specific solutions and standardized products regarding development,
 simulation and quality assurance
 as well as services and consulting in product development engineering.
 
-^.^a|image:logo-teraport.png[alt="Logo Teraport",link="http://teraport.de"]
-
-^.^a|image:logo-tml.png[alt="Logo The Missing Link",link="https://www.themissinglink.com.au/"]
-
 a|== The missing link
 
 Australian provider of information technology solutions,
@@ -98,6 +107,8 @@ provide services for infrastructure, security, backup, disaster recovery,
 communications and cloud services.
 Recognized as a leader industry and accredited with the highest levels
 in design, delivery and support of the latest technologies.
+
+^.^a|image:logo-tml.png[alt="Logo The Missing Link",link="https://www.themissinglink.com.au/"]
 
 |====
 
