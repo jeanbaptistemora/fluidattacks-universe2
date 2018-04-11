@@ -1,0 +1,12 @@
+:slug: rules/045/
+:category: rules
+:description: En el presente documento se detallan los requerimientos de seguridad relacionados a la gestión de archivos dentro de la organización. Por lo tanto, en este requerimiento se recomienda que se eliminen los metadatos de cualquier archivo antes de que este sea compartido.
+:keywords: Sistema, Metadatos, Archivo, Eliminar, Seguridad, Compartir.
+:rules: yes
+
+= REQ.045 Eliminar metadatos al compartir archivos
+
+== Nombre
+
+Los metadatos de archivos deben ser eliminados
+antes de ser compartidos con un tercero o hacerlos públicos.

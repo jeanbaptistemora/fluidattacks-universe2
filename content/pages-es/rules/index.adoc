@@ -29,6 +29,7 @@
 * link:042/[REQ.042 Validar formato de archivos].
 * link:043/[REQ.043 Definir content type explícito].
 * link:044/[REQ.044 Definir charset explícito].
+* link:045/[REQ.045 Eliminar metadatos al compartir archivos].
 
 == Administración
 
