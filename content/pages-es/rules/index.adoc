@@ -65,6 +65,7 @@
 * link:093/[REQ.093 Utilizar certificados coherentes].
 * link:094/[REQ.094 Especificar reglas de modo declarativo].
 * link:095/[REQ.095 Definir usuarios con privilegios].
+* link:096/[REQ.096 Definir privilegios requeridos de usuario].
 
 == Dispositivos
 
