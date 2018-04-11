@@ -60,7 +60,7 @@ based on US tax legislation.
 . The PARTNER is obliged to inform in advance
 about the potential customers.
 
-. +FLUIDAttacks+ will never approach for sales to the prospects
-that the PARTNER has nominated if and only if
-the latter presents written evidence of sales progress
+. +FLUIDAttacks+ will not approach  the prospects
+that the PARTNER has nominated for sales
+unless the PARTNER fails to provide evidence of sales progress
 in terms that never exceed *30 days*.
