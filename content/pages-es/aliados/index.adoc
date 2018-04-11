@@ -9,10 +9,10 @@
 Los aliados facilitan la entrega de nuestros servicios al cliente final
 en diferentes geografías
 (Alemania link:#teraport[^1^] , Australia link:#the-missing-link[^2^]
-y Estados Unidos)
-y sectores (Gobierno, Defensa)link:#evolution-it[^3^].
+y Estados Unidos link:#arroyo-consulting[^3^])
+y sectores (Gobierno, Defensa)link:#evolution-it[^4^].
 Además con nuestra oferta complementan su propio portafolio
-(pruebas funcionales link:#choucair[^4^] link:#greensqa[^5^], desarrollo de software)
+(pruebas funcionales link:#choucair[^5^] link:#greensqa[^6^], desarrollo de software)
 para ofrecer una solución integral.
 Si quieres convertirte en un aliado de +FLUIDAttacks+
 por favor comenzar con la lectura de las
@@ -22,25 +22,42 @@ por favor comenzar con la lectura de las
 [cols=2, frame="none"]
 |====
 
-^.^a|image:logo-choucair.png[alt="Logo Choucair",link="http://www.choucairtesting.com/"]
+^.^a|image:logo-arroyo.png[alt="Logo Arroyo",link="http://www.arroyo.consulting/"]
+
+a|== Arroyo Consulting
+
+Firma de desarrollo ágil
+de tecnologías de información +nearshore+ formada en 2009.
+Tienen oficinas ubicadas en los Estados Unidos
+y centros de operación de bajo costo ubicados en América Latina
+en Ciudad de México, México y Medellín y Bogotá, Colombia.
+Han entregado exitosamente más de +1000+ proyectos internacionales,
+con socios en una variedad de industrias y sectores.
 
 a|== Choucair
 
-Compañía colombiana pionera en software testing creada en 1999 con proyección internacional,
-la cual ofrece servicios relacionados con pruebas de software para disminuir los riesgos de su
-operación. El éxito de los servicios prestados por la organización se sustenta en la investigación
-y el recurso humano calificado, apoyado en una metodología certificada y efectiva.
+Compañía colombiana pionera en software testing
+creada en 1999 con proyección internacional,
+la cual ofrece servicios relacionados con pruebas de software
+para disminuir los riesgos de su operación.
+El éxito de los servicios prestados por la organización
+se sustenta en la investigación y el recurso humano calificado,
+apoyado en una metodología certificada y efectiva.
 
-a|== Evolution IT
-
-Empresa que promueve, implementa y fortalece la Gestión efectiva de la tecnología
-de información como pilar de las empresas para mejorar su competitividad mediante servicios
-de mejor calidad, que ayudan a incrementar su rentabilidad, empleando prácticas de clase
-mundial y estableciendo relaciones de confianza con los clientes, socios de negocio y colaboradores.
+^.^a|image:logo-choucair.png[alt="Logo Choucair",link="http://www.choucairtesting.com/"]
 
 ^.^a|image:logo-evolution.png[alt="Logo Evolution",link="http://www.evolution-it.com.co/"]
 
-^.^a|image:logo-greensqa.png[alt="Logo GreenSQA",link="http://greensqa.com/"]
+a|== Evolution IT
+
+Empresa que promueve, implementa y fortalece
+la gestión efectiva de la tecnología de información
+como pilar de las empresas para mejorar su competitividad
+mediante servicios de mejor calidad,
+que ayudan a incrementar su rentabilidad,
+empleando prácticas de clase mundial
+y estableciendo relaciones de confianza con los clientes,
+socios de negocio y colaboradores.
 
 a|== GreenSQA
 
@@ -49,6 +66,10 @@ entre ellas se destacan las pruebas de desempeño,
 pruebas en dispositivos móviles y la automatización de pruebas
 a través de todo el ciclo de vida de desarrollo del producto,
 contando con 15 años de experiencia prestando sus servicios.
+
+^.^a|image:logo-greensqa.png[alt="Logo GreenSQA",link="http://greensqa.com/"]
+
+^.^a|image:logo-newnet.png[alt="Logo NewNet",link="http://www.newnetsa.com/"]
 
 a|== NewNet
 
@@ -60,10 +81,6 @@ operar, revisar, mantener, y mejorar la gestión tecnológica
 dentro de un marco de seguridad, servicio, atención y soporte
 acorde a las necesidades de cada organización.
 
-^.^a|image:logo-newnet.png[alt="Logo NewNet",link="http://www.newnetsa.com/"]
-
-^.^a|image:logo-teraport.png[alt="Logo Teraport",link="http://teraport.de"]
-
 a|== Teraport
 
 Empresa alemana especializada en el desarrollo de software
@@ -73,6 +90,10 @@ ofreciendo soluciones específicas y productos estandarizados
 en relación con el desarrollo, la simulación y la garantía de calidad,
 así como servicios y consultoría en ingeniería de desarrollo de productos.
 
+^.^a|image:logo-teraport.png[alt="Logo Teraport",link="http://teraport.de"]
+
+^.^a|image:logo-tml.png[alt="Logo The Missing Link",link="https://www.themissinglink.com.au/"]
+
 a|== The missing link
 
 Proveedor de soluciones australiano enfocado en tecnología de la información,
@@ -81,8 +102,6 @@ backup, recuperación de desastres, comunicaciones
 y servicios en la nube. Reconocido como líder de la industria
 y acreditado con los más altos niveles en el diseño,
 entrega y soporte de las últimas tecnologías.
-
-^.^a|image:logo-tml.png[alt="Logo The Missing Link",link="https://www.themissinglink.com.au/"]
 
 |====
 

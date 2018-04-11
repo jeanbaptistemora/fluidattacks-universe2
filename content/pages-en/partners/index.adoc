@@ -8,11 +8,11 @@
 
 Partners facilitate the delivery of our services to the end customer
 in different geographies (Germany link:#teraport[^1^],
-Australia link:#the-missing-link[^2^] and the United States)
-and sectors (Government, Defense) link:#evolution-it[^3^].
+Australia link:#the-missing-link[^2^] and the United States link:#arroyo-consulting[^3^])
+and sectors (Government, Defense) link:#evolution-it[^4^].
 In addition, with our offer,
 they complete their own portfolio
-(functional testing link:#choucair[^4^] link:#greensqa[^5^], software development)
+(functional testing link:#choucair[^5^] link:#greensqa[^6^], software development)
 to provide an integral solution.
 If you want to become a partner of +FLUIDAttacks+
 please start by reading the [button]#link:terms/[terms]#
@@ -22,7 +22,16 @@ of our general partner agreement.
 [cols=2, frame="none"]
 |====
 
-^.^a|image:logo-choucair.png[alt="Logo Choucair",link="http://www.choucairtesting.com/"]
+^.^a|image:logo-arroyo.png[alt="Logo Arroyo",link="http://www.arroyo.consulting/"]
+
+a|== Arroyo Consulting
+
+Agile nearshore information technology development firm formed in 2009.
+They have offices located in the United States
+and low-cost operation centers located across Latin America in Mexico City,
+Mexico, and Medellín and Bogotá, Colombia.
+They have successfully delivered over +1000+ projects internationally,
+with partners in a variety of industries and sectors.
 
 a|== Choucair
 
@@ -32,6 +41,10 @@ related to software testing to reduce the risks of its operation.
 The success of the services provided by the organization
 are based on research and qualified human resources,
 supported by a certified and effective methodology.
+
+^.^a|image:logo-choucair.png[alt="Logo Choucair",link="http://www.choucairtesting.com/"]
+
+^.^a|image:logo-evolution.png[alt="Logo Evolution",link="http://www.evolution-it.com.co/"]
 
 a|== Evolution IT
 
@@ -44,10 +57,6 @@ employing world-class practices
 and establishing relationships of trust with customers,
 business partners and collaborators.
 
-^.^a|image:logo-evolution.png[alt="Logo Evolution",link="http://www.evolution-it.com.co/"]
-
-^.^a|image:logo-greensqa.png[alt="Logo GreenSQA",link="http://greensqa.com/"]
-
 a|== GreenSQA
 
 Company focused on software testing,
@@ -55,6 +64,10 @@ such as performance tests,
 tests on different mobile devices and tests automation throughout
 the life cycle of product development
 with 15 years of experience lending its services.
+
+^.^a|image:logo-greensqa.png[alt="Logo GreenSQA",link="http://greensqa.com/"]
+
+^.^a|image:logo-newnet.png[alt="Logo NewNet",link="http://www.newnetsa.com/"]
 
 a|== NewNet
 Colombian company dedicated to provide services and solutions in +IT+,
@@ -65,10 +78,6 @@ review, maintain, and improve technological management
 within a framework of security, service, support and support
 according to the needs of each organization.
 
-^.^a|image:logo-newnet.png[alt="Logo NewNet",link="http://www.newnetsa.com/"]
-
-^.^a|image:logo-teraport.png[alt="Logo Teraport",link="http://teraport.de"]
-
 a|== Teraport
 
 German company specialized in software development
@@ -78,6 +87,10 @@ offering specific solutions and standardized products regarding development,
 simulation and quality assurance
 as well as services and consulting in product development engineering.
 
+^.^a|image:logo-teraport.png[alt="Logo Teraport",link="http://teraport.de"]
+
+^.^a|image:logo-tml.png[alt="Logo The Missing Link",link="https://www.themissinglink.com.au/"]
+
 a|== The missing link
 
 Australian provider of information technology solutions,
@@ -85,8 +98,6 @@ provide services for infrastructure, security, backup, disaster recovery,
 communications and cloud services.
 Recognized as a leader industry and accredited with the highest levels
 in design, delivery and support of the latest technologies.
-
-^.^a|image:logo-tml.png[alt="Logo The Missing Link",link="https://www.themissinglink.com.au/"]
 
 |====
 
