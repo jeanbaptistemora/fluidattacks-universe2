@@ -40,26 +40,26 @@ dedication, effort and perseverance.
 
 == 3. Manifestations
 
-*Below we detail only some of the behaviors that should be manifested
+Below we detail only some of the behaviors that should be manifested
 as direct involvement of the adherence to our ethical code,
-our values ​​and principles*:
+our values ​​and principles:
 
-. Any detected vulnerability is reported:
+. *Any detected vulnerability is reported*:
 There are no vulnerabilities that are detected and stored for future use,
 personal or organizational.
 
-. Attacks are only carried out when there is authorization from the client
-or in personal test environments:
+. *Attacks are only carried out when there is authorization from the client
+or in personal test environments*:
 Neither as a test, attacks are made to third parties
 (partners, other companies, friends, etc.)
 outside the organization.
 
-. Any infection made during an attack is disinfected:
+. *Any infection made during an attack is disinfected*:
 After finishing a project all the software installed to infect
 is completely uninstalled or if this is not possible,
 this situation is notified to the client in writing.
 
-. Any security issue that we find out is reported:
+. *Any security issue that we find out is reported*:
 If we know about a security issue
 it must be reported to the level immediately above the person involved.
 

@@ -36,26 +36,26 @@ la dedicación, el empeño y la perseverancia.
 
 == 3. Manifestaciones
 
-*A continuación detallamos solo algunos de los comportamientos
+A continuación detallamos solo algunos de los comportamientos
 que deben manifestarse como implicación directa
-de la adherencia a nuestro código de ética, nuestro valores y principios*:
+de la adherencia a nuestro código de ética, nuestro valores y principios:
 
-. Toda vulnerabilidad detectada es reportada:
+. *Toda vulnerabilidad detectada es reportada*:
 No existen vulnerabilidades que se detectan
 y que se guardan para un futuro uso, personal o de la organización.
 
-. Solo se realizan ataques cuando existe la autorización del cliente
-o en ambientes de prueba personales:
+. *Solo se realizan ataques cuando existe la autorización del cliente
+o en ambientes de prueba personales*:
 Ni a modo de prueba, se realizan ataques a terceros
 (compañeros, otras empresas, amigos, etc)
 por fuera de la organización.
 
-. Toda infección realizada durante un ataque se desinfecta:
+. *Toda infección realizada durante un ataque se desinfecta*:
 Después de finalizar un proyecto todo el software instalado para infectar
 es completamente desinstalado o de no ser posible
 se notifica esta situación al cliente por escrito.
 
-. Toda violación de seguridad de la cual nos enteramos es reportada:
+. *Toda violación de seguridad de la cual nos enteramos es reportada*:
 Si conocemos una violación de seguridad
 ésta debe ser reportada al nivel inmediatamente superior a la persona implicada.
 
