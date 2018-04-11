@@ -31,6 +31,7 @@
 * link:044/[REQ.044 Definir charset explícito].
 * link:045/[REQ.045 Eliminar metadatos al compartir archivos].
 * link:046/[REQ.046 Gestionar integridad de archivos críticos].
+* link:047/[REQ.047 Clasificar archivos críticos para monitoreo].
 
 == Administración
 
