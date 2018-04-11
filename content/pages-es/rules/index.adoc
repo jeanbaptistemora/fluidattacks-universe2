@@ -71,6 +71,7 @@
 * link:096/[REQ.096 Definir privilegios requeridos de usuario].
 * link:097/[REQ.097 Definir modelo de control de acceso].
 * link:098/[REQ.098 Custodiar activos de información].
+* link:099/[REQ.099 Controlar acceso vehícular y de personas].
 
 == Dispositivos
 

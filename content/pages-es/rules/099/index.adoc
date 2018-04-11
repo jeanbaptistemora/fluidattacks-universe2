@@ -1,0 +1,12 @@
+:slug: rules/099/
+:category: rules
+:description: En el presente documento se detallan los requerimientos de seguridad relacionados a la gestión segura en cuanto al control de acceso en una organización. Por lo tanto, se recomienda que toda organización controle el acceso de vehículos y personas en las zonas de parqueo.
+:keywords: Activos, Control, Organización, Acceso, Personas, Vehículos.
+:rules: yes
+
+= REQ.099 Controlar acceso vehícular y de personas
+
+== Nombre
+
+La organización debe llevar control de acceso de vehículos
+y personas en las zonas de parqueaderos.
