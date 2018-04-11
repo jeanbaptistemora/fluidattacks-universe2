@@ -106,4 +106,4 @@ if (Response.Charset == "utf-8")
 
 . [[r3]] link:../../../rules/043[REQ.043 Definir Content Type Explícito].
 
-. [[r4]] link:../../../rules/040[REQ.040 Definir Charset Explícito].
+. [[r4]] link:../../../rules/044[REQ.044 Definir Charset Explícito].

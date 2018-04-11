@@ -24,10 +24,11 @@
 * link:037/[REQ.037 Parámetros sin datos sensibles].
 * link:038/[REQ.038 Referenciar archivo mediante ruta absoluta].
 * link:039/[REQ.039 Establecer tamaño máximo de archivos].
-* link:040/[REQ.040 Definir charset explícito].
+* link:040/[REQ.040 Contrastar formato y extensión de archivos].
 * link:041/[REQ.041 Depurar archivos de código malicioso].
 * link:042/[REQ.042 Validar formato de archivos].
 * link:043/[REQ.043 Definir content type explícito].
+* link:044/[REQ.044 Definir charset explícito].
 
 == Administración
 
