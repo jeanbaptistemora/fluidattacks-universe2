@@ -74,15 +74,6 @@ de Ph.D en el mismo instituto.
   . Sebastian y Juan: Fundadores de Coffee Grid.
   . Jaime: Emprendedor de nuestra empresa aliada en servicio de nube Nuva.
 
-== Open Source
-
-Creemos firmemente en el Software Libre. Es por eso que toda nuestra plataforma de TI está basada en Software Libre y
-nuestros desarrollos de software internos siempre son liberados bajo licencias GPL.
-Cada servidor y cada portátil en +FLUIDAttacks+ corre Open Source Software y como estándar se entregan los equipos con una
-instalación de Debian o Ubuntu (aunque algunos prefieren pasarse a FreeBSD, OpenBSD o Arch).
-Si quieres conocer más acerca del software libre que hemos desarrollado visita la sección de Software. Nos gusta mucho hacer
-nuevos desarrollos y tenemos personas programando en Python, Typescript, Ansible, Dockerfile, Terraform y muchos otros lenguajes.
-
 == Cercanos a la academia
 
 Para nosotros es muy importante mantenernos cerca de la academia. Es por eso que algunos de nuestros empleados dictan o han
