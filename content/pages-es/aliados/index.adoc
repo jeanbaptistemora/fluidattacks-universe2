@@ -9,10 +9,10 @@
 Los aliados facilitan la entrega de nuestros servicios al cliente final
 en diferentes geografías
 (Alemania link:#teraport[^1^] , Australia link:#the-missing-link[^2^]
-y Estados Unidos link:#arroyo-consulting[^3^])
-y sectores (Gobierno, Defensa)link:#evolution-it[^4^].
+y Estados Unidos link:#arroyo-consulting[^3^] link:#sba[^4^])
+y sectores (Gobierno, Defensa)link:#evolution-it[^5^].
 Además con nuestra oferta complementan su propio portafolio
-(pruebas funcionales link:#choucair[^5^] link:#greensqa[^6^], desarrollo de software)
+(pruebas funcionales link:#choucair[^6^] link:#greensqa[^7^], desarrollo de software)
 para ofrecer una solución integral.
 Si quieres convertirte en un aliado de +FLUIDAttacks+
 por favor comenzar con la lectura de las

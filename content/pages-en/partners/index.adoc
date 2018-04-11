@@ -8,11 +8,11 @@
 
 Partners facilitate the delivery of our services to the end customer
 in different geographies (Germany link:#teraport[^1^],
-Australia link:#the-missing-link[^2^] and the United States link:#arroyo-consulting[^3^])
-and sectors (Government, Defense) link:#evolution-it[^4^].
+Australia link:#the-missing-link[^2^] and the United States link:#arroyo-consulting[^3^] link:#sba[^4^])
+and sectors (Government, Defense) link:#evolution-it[^5^].
 In addition, with our offer,
 they complete their own portfolio
-(functional testing link:#choucair[^5^] link:#greensqa[^6^], software development)
+(functional testing link:#choucair[^6^] link:#greensqa[^7^], software development)
 to provide an integral solution.
 If you want to become a partner of +FLUIDAttacks+
 please start by reading the [button]#link:terms/[terms]#

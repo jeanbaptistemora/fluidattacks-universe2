@@ -15,23 +15,22 @@ will set the final sale price for each customer.
 used to calculate the commission to be paid to the PARTNER.
 
 . The commission percentage is calculated based on the annual cash
-collected by +FLUIDAttacks+ corresponding to the recognized revenue
-of the PARTNERS projects.
+collected by +FLUIDAttacks+ corresponding to the PARTNERS projects.
 
 . All the PARTNERS start with a *30% commission*
 until *2 cut-off dates* have elapsed.
 
 . The cut-off date will be *December 31* of each year.
 
-. After the second cut-off date, and thereafter the following years,
-the growth in the revenue recognized and cash collected by +FLUIDAttacks+
-between cut-off dates will be evaluated:
+. Every *15th of January* after the second cut-off date,
+the growth of the cash collected by +FLUIDAttacks+
+between the two previous cut-off dates will be evaluated
+to determine the commission of the year that starts:
 
 .. If the growth is equal to or greater than *30%*,
-the PARTNER will get *30% commission* for the new year.
+the PARTNER will receive a *30% commission*.
 
-.. If the growth is less than *30%*,
-the PARTNER will get *15% commission* for the new year.
+.. Otherwise, the commission will be *15%*.
 
 . If the PARTNER is the one that collects,
 they must guarantee that the money is in the +FLUIDAttacks+ account
