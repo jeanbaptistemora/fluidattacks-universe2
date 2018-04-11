@@ -1,6 +1,6 @@
 :slug: partners/terms/
 :category: partners
-:description: Terms of the contractual relationship between FLUIDAttacks and its partners. Commissions, cut-off dates,  and goals to be achieved to stay within a commission range are specified, among other aspects. These can change at any time and are fixed only by signing the physical document.
+:description: Terms of the contractual relationship between FLUIDAttacks and its partners. Commissions, cut-off dates,  and goals to be achieved to stay within a commission range are specified, among other aspects. These can change at any time and are established only by signing the physical document.
 :keywords: FLUID, Partners, Pentesting, Terms, Agreement, Information Security.
 :translate: aliados/condiciones/
 
@@ -11,8 +11,8 @@
 . +FLUIDAttacks+ together with the PARTNER
 will set the final sale price for each customer.
 
-. The final price to the customer will be the base value
-for the calculation of the commission to be paid to the PARTNER.
+. The final price for the customer will be the base value
+used to calculate the commission to be paid to the PARTNER.
 
 . The commission percentage is calculated based on the annual cash
 collected by +FLUIDAttacks+ corresponding to the recognized revenue
@@ -34,14 +34,14 @@ the PARTNER will get *30% commission* for the new year.
 the PARTNER will get *15% commission* for the new year.
 
 . If the PARTNER is the one that collects,
-it must guarantee that the money is in the +FLUIDAttacks+ account
-on the *calendar day 15* of each month.
+they must guarantee that the money is in the +FLUIDAttacks+ account
+by the *15th calendar day* of each month.
 
-. +FLUIDAttacks+ suspends its services by not receiving payments
-as of the *calendar day 16* of the current month.
+. +FLUIDAttacks+ will suspend its services if they do not receive payments
+as of the *16th calendar day* of the current month.
 
 . If +FLUIDAttacks+ is the one who collects,
-it must pay the PARTNER no later than the *calendar day 15* of each month.
+it must pay the PARTNER no later than the *15th calendar day* of each month.
 
 . All services will be provided remotely.
 
@@ -61,7 +61,7 @@ based on US tax legislation.
 . The PARTNER is obliged to inform in advance
 about the potential customers.
 
-. +FLUIDAttacks+ undertakes not to market to the prospects
+. +FLUIDAttacks+ will never approach for sales to the prospects
 that the PARTNER has nominated if and only if
 the latter presents written evidence of sales progress
 in terms that never exceed *30 days*.

@@ -116,7 +116,7 @@ entrega y soporte de las últimas tecnologías.
 
 |====
 
-Si esta de acuerdo con las condiciones anteriores
+Si está de acuerdo con las [button]#link:condiciones/[condiciones]#
 y desea comenzar el proceso de vinculación como aliado
 por favor proceder mediante el siguiente
 [button]#link:../../en/contact-us/[formulario]# de contactenos.

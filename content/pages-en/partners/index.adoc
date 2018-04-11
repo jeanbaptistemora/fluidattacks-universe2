@@ -112,6 +112,6 @@ in design, delivery and support of the latest technologies.
 
 |====
 
-If you agree with the above conditions
+If you agree the [button]#link:terms/[terms]#
 and wish to start the bonding process as a partner,
-please proceed through the following contact [button]#link:../contact-us/[form]#.
+please proceed through the following contact [button]#link:../contact-us/[form]# .
