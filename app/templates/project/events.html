@@ -46,16 +46,16 @@
                             <div class="row">
                                 <!-- START: toolbar -->
                                 <div class="btn-group" id="toolbar2">
-                                    <p><b>{% templatetag openvariable %} 'search_findings.eventualities.description' | translate {% templatetag closevariable %}</b></p>
+                                    <p><b>{{ search_findings.eventualities.description }}</b></p>
                                 </div>
                                 <div class="col-md-12">
                                     <table id="tblEventualities" data-classes="table table-hover table-striped" data-striped="true" data-pagination="true" data-page-size="15" data-toolbar="#toolbar2" data-search="true">
                                         <thead>
                                             <tr>
-                                                <th data-field="id">{% templatetag openvariable %} 'search_findings.event_table.id' | translate {% templatetag closevariable %}</th>
-                                                <th data-field="fecha" data-sortable="true">{% templatetag openvariable %} 'search_findings.event_table.date' | translate {% templatetag closevariable %}</th>
-                                                <th data-field="tipo">{% templatetag openvariable %} 'search_findings.event_table.type' | translate {% templatetag closevariable %}</th>
-                                                <th data-field="estado" data-sortable="true">{% templatetag openvariable %} 'search_findings.event_table.status' | translate {% templatetag closevariable %}</th>
+                                                <th data-field="id">{{ search_findings.event_table.id }}</th>
+                                                <th data-field="fecha" data-sortable="true">{{ search_findings.event_table.date }}</th>
+                                                <th data-field="tipo">{{ search_findings.event_table.type }}</th>
+                                                <th data-field="estado" data-sortable="true">{{ search_findings.event_table.status }}</th>
                                             </tr>
                                         </thead>
                                     </table>

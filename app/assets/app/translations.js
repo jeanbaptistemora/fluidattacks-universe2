@@ -408,23 +408,6 @@ integrates.config([
    },
       "search_findings":
    {
-     "descriptions":
-      {
-        "description1": "",
-        "description2": "Click",
-        "description3": "on a finding to see more details"
-      },
-     "event_table": {
-       "date": "Date",
-       "id": "ID",
-       "status": "Status",
-       "type": "Type"
-     },
-     "eventualities": {"description": "Click on an event to see more details"},
-     "filter_buttons": {
-       "advance": "Progress",
-       "documentation": "Documentation"
-     },
      "filter_labels":
       {
         "cardinalities": "Open Vulnerabilities",
@@ -531,22 +514,7 @@ integrates.config([
          "close": "Closed Vulnerabilities",
          "finding": "Discovery",
          "open": "Open Vulnerabilities"
-       },
-     "table": {
-       "headings": {
-         "action": "Action",
-         "age": "Age (Days)",
-         "cardinality": "Open Vuln.",
-         "criticity": "Severity",
-         "exploit": "Exploitable",
-         "finding": "Title",
-         "state": "Status",
-         "timestamp": "Date",
-         "treatment": "Treatment",
-         "type": "Type",
-         "vulnerability": "Description"
        }
-     }
    },
       "tab_container": {
         "eventualities": "Events",
@@ -954,23 +922,6 @@ integrates.config([
    },
       "search_findings":
    {
-     "descriptions":
-      {
-        "description1": "Haz",
-        "description2": "click",
-        "description3": "para ver mas detalles del hallazgo"
-      },
-     "event_table": {
-       "date": "Fecha",
-       "id": "ID",
-       "status": "Estado",
-       "type": "Tipo"
-     },
-     "eventualities": {"description": "Haz click para ver el detalle"},
-     "filter_buttons": {
-       "advance": "Avance",
-       "documentation": "Documentacion"
-     },
      "filter_labels":
       {
         "cardinalities": "Vulnerabilidades Abiertas",
@@ -1077,22 +1028,7 @@ integrates.config([
         "close": "Vulnerabilidades Cerradas",
         "finding": "Hallazgo reportado",
         "open": "Vulnerabilidades Abiertas"
-      },
-     "table": {
-       "headings": {
-         "action": "Accion",
-         "age": "Edad (Días)",
-         "cardinality": "Vuln. Abiertas",
-         "criticity": "Severidad",
-         "exploit": "Explotable",
-         "finding": "Titulo",
-         "state": "Estado",
-         "timestamp": "Fecha",
-         "treatment": "Tratamiento",
-         "type": "Tipo",
-         "vulnerability": "Descripcion"
-       }
-     }
+      }
    },
       "tab_container": {
         "eventualities": "Eventualidades",

@@ -39,12 +39,12 @@ integrates.config(function ($stateProvider, $urlRouterProvider) {
     }).
     state("ProjectFindings", {
       "controller": "projectFindingsCtrl",
-      "templateUrl": `${BASE.url}project_findings`,
+      "templateUrl": `${BASE.url}project_findings?l=${localStorage.lang}`,
       "url": "/project/:project/findings"
     }).
     state("ProjectEvents", {
       "controller": "projectEventsCtrl",
-      "templateUrl": `${BASE.url}project_events`,
+      "templateUrl": `${BASE.url}project_events?l=${localStorage.lang}`,
       "url": "/project/:project/events"
     }).
     state("FindingDescription", {

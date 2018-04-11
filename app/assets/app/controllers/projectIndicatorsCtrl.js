@@ -318,7 +318,7 @@ integrates.controller(
         const search_at = $translate.instant("proj_alerts.search_title");
         const search_ac = $translate.instant("proj_alerts.search_cont");
         $msg.info(search_ac, search_at);
-        if (projectData.length > 0 && projectData[0].proyecto_fluid === $scope.project) {
+        if (projectData.length > 0 && projectData[0].proyecto_fluid.toLowerCase() === $scope.project.toLowerCase()) {
           $scope.view.project = true;
           $scope.loadIndicatorsContent(projectData);
         }

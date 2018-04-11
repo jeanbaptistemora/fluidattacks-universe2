@@ -363,39 +363,45 @@ integrates.controller(
         const search_at = $translate.instant("proj_alerts.search_title");
         const search_ac = $translate.instant("proj_alerts.search_cont");
         $msg.info(search_ac, search_at);
-        const reqProject = projectFtry.projectByName(project, filter);
-        reqProject.then(function (response) {
+        if (projectData.length > 0 && projectData[0].proyecto_fluid.toLowerCase() === $scope.project.toLowerCase()) {
           $scope.view.project = true;
-          if (!response.error) {
-            // Tracking Mixpanel
-            mixPanelDashboard.trackSearch("SearchFinding", userEmail, project);
-            if (response.data.length === 0) {
+          $scope.loadFindingContent(projectData, vlang);
+        }
+        else {
+          const reqProject = projectFtry.projectByName(project, filter);
+          reqProject.then(function (response) {
+            $scope.view.project = true;
+            if (!response.error) {
+              // Tracking Mixpanel
+              mixPanelDashboard.trackSearch("SearchFinding", userEmail, project);
+              if (response.data.length === 0) {
+                $scope.view.project = false;
+                $scope.view.finding = false;
+                $msg.error($translate.instant("proj_alerts.not_found"));
+              }
+              else {
+                projectData = response.data;
+                $scope.loadFindingContent(projectData, vlang);
+              }
+            }
+            else if (response.error) {
               $scope.view.project = false;
               $scope.view.finding = false;
-              $msg.error($translate.instant("proj_alerts.not_found"));
+              if (response.message === "Access denied") {
+                Rollbar.warning("Warning: Access to project denied");
+                $msg.error($translate.instant("proj_alerts.access_denied"));
+              }
+              else if (response.message === "Project masked") {
+                Rollbar.warning("Warning: Project deleted");
+                $msg.error($translate.instant("proj_alerts.project_deleted"));
+              }
+              else {
+                Rollbar.warning("Warning: Project not found");
+                $msg.error($translate.instant("proj_alerts.not_found"));
+              }
             }
-            else {
-              projectData = response.data;
-              $scope.loadFindingContent(projectData, vlang);
-            }
-          }
-          else if (response.error) {
-            $scope.view.project = false;
-            $scope.view.finding = false;
-            if (response.message === "Access denied") {
-              Rollbar.warning("Warning: Access to project denied");
-              $msg.error($translate.instant("proj_alerts.access_denied"));
-            }
-            else if (response.message === "Project masked") {
-              Rollbar.warning("Warning: Project deleted");
-              $msg.error($translate.instant("proj_alerts.project_deleted"));
-            }
-            else {
-              Rollbar.warning("Warning: Project not found");
-              $msg.error($translate.instant("proj_alerts.not_found"));
-            }
-          }
-        });
+          });
+        }
       }
     };
     $scope.loadFindingContent = function (datatest, vlang) {
@@ -426,7 +432,7 @@ integrates.controller(
           datatest[cont].actor = $translate.instant("finding_formstack.actor.one_employee");
           break;
         default:
-          datatest[cont].actor = $translate.instant("finding_formstack.actor.default");
+          datatest[cont].actor = datatest[cont].actor;
         }
         switch (datatest[cont].autenticacion) {
         case "0.704 | Ninguna: No se requiere autenticación":
@@ -439,7 +445,7 @@ integrates.controller(
           datatest[cont].autenticacion = $translate.instant("finding_formstack.authentication.multiple_authen");
           break;
         default:
-          datatest[cont].autenticacion = $translate.instant("finding_formstack.authentication.default");
+          datatest[cont].autenticacion = datatest[cont].autenticacion;
         }
         switch (datatest[cont].categoria) {
         case "Actualizar y configurar las líneas base de seguridad de los componentes":
@@ -485,7 +491,7 @@ integrates.controller(
           datatest[cont].categoria = $translate.instant("finding_formstack.category.validate_http");
           break;
         default:
-          datatest[cont].categoria = $translate.instant("finding_formstack.category.default");
+          datatest[cont].categoria = datatest[cont].categoria;
         }
         switch (datatest[cont].complejidad_acceso) {
         case "0.350 | Alto: Se requieren condiciones especiales como acceso administrativo":
@@ -498,7 +504,7 @@ integrates.controller(
           datatest[cont].complejidad_acceso = $translate.instant("finding_formstack.complexity.low_complex");
           break;
         default:
-          datatest[cont].complejidad_acceso = $translate.instant("finding_formstack.complexity.default");
+          datatest[cont].complejidad_acceso = datatest[cont].complejidad_acceso;
         }
         switch (datatest[cont].escenario) {
         case "Anónimo desde Internet":
@@ -526,7 +532,7 @@ integrates.controller(
           datatest[cont].escenario = $translate.instant("finding_formstack.scenario.unauth_inter");
           break;
         default:
-          datatest[cont].escenario = $translate.instant("finding_formstack.scenario.default");
+          datatest[cont].escenario = datatest[cont].escenario;
         }
         switch (datatest[cont].estado) {
         case "Abierto":
@@ -539,7 +545,7 @@ integrates.controller(
           datatest[cont].estado = $translate.instant("finding_formstack.status.part_close");
           break;
         default:
-          datatest[cont].estado = $translate.instant("finding_formstack.status.default");
+          datatest[cont].estado = datatest[cont].estado;
         }
         switch (datatest[cont].explotabilidad) {
         case "0.850 | Improbable: No existe un exploit":
@@ -555,7 +561,7 @@ integrates.controller(
           datatest[cont].explotabilidad = $translate.instant("finding_formstack.exploitability.high");
           break;
         default:
-          datatest[cont].explotabilidad = $translate.instant("finding_formstack.exploitability.default");
+          datatest[cont].explotabilidad = datatest[cont].explotabilidad;
         }
         switch (datatest[cont].explotable) {
         case "Si":
@@ -565,7 +571,7 @@ integrates.controller(
           datatest[cont].explotable = $translate.instant("finding_formstack.exploitable.no");
           break;
         default:
-          datatest[cont].explotable = $translate.instant("finding_formstack.exploitable.default");
+          datatest[cont].explotable = datatest[cont].explotable;
         }
         switch (datatest[cont].impacto_confidencialidad) {
         case "0 | Ninguno: No se presenta ningún impacto":
@@ -578,7 +584,7 @@ integrates.controller(
           datatest[cont].impacto_confidencialidad = $translate.instant("finding_formstack.confidenciality.complete");
           break;
         default:
-          datatest[cont].impacto_confidencialidad = $translate.instant("finding_formstack.confidenciality.default");
+          datatest[cont].impacto_confidencialidad = datatest[cont].impacto_confidencialidad;
         }
         switch (datatest[cont].impacto_disponibilidad) {
         case "0 | Ninguno: No se presenta ningún impacto":
@@ -591,7 +597,7 @@ integrates.controller(
           datatest[cont].impacto_disponibilidad = $translate.instant("finding_formstack.availability.complete");
           break;
         default:
-          datatest[cont].impacto_disponibilidad = $translate.instant("finding_formstack.availability.default");
+          datatest[cont].impacto_disponibilidad = datatest[cont].impacto_disponibilidad;
         }
         switch (datatest[cont].impacto_integridad) {
         case "0 | Ninguno: No se presenta ningún impacto":
@@ -604,7 +610,7 @@ integrates.controller(
           datatest[cont].impacto_integridad = $translate.instant("finding_formstack.integrity.complete");
           break;
         default:
-          datatest[cont].impacto_integridad = $translate.instant("finding_formstack.integrity.default");
+          datatest[cont].impacto_integridad = datatest[cont].impacto_integridad;
         }
         switch (datatest[cont].nivel_confianza) {
         case "0.900 | No confirmado: Existen pocas fuentes que reconocen la vulnerabilidad":
@@ -617,7 +623,7 @@ integrates.controller(
           datatest[cont].nivel_confianza = $translate.instant("finding_formstack.confidence.confirmed");
           break;
         default:
-          datatest[cont].nivel_confianza = $translate.instant("finding_formstack.confidence.default");
+          datatest[cont].nivel_confianza = datatest[cont].nivel_confianza;
         }
         switch (datatest[cont].nivel_resolucion) {
         case "0.950 | Paliativa: Existe un parche que no fue publicado por el fabricante":
@@ -633,7 +639,7 @@ integrates.controller(
           datatest[cont].nivel_resolucion = $translate.instant("finding_formstack.resolution.non_existent");
           break;
         default:
-          datatest[cont].nivel_resolucion = $translate.instant("finding_formstack.resolution.default");
+          datatest[cont].nivel_resolucion = datatest[cont].nivel_resolucion;
         }
         switch (datatest[cont].probabilidad) {
         case "100% Vulnerado Anteriormente":
@@ -649,7 +655,7 @@ integrates.controller(
           datatest[cont].probabilidad = $translate.instant("finding_formstack.probability.diffic_vuln");
           break;
         default:
-          datatest[cont].probabilidad = $translate.instant("finding_formstack.probability.default");
+          datatest[cont].probabilidad = datatest[cont].probabilidad;
         }
         switch (datatest[cont].tipo_hallazgo_cliente) {
         case "Higiene":
@@ -659,7 +665,7 @@ integrates.controller(
           datatest[cont].tipo_hallazgo_cliente = $translate.instant("finding_formstack.finding_type.vuln");
           break;
         default:
-          datatest[cont].tipo_hallazgo_cliente = $translate.instant("finding_formstack.finding_type.default");
+          datatest[cont].tipo_hallazgo_cliente = datatest[cont].tipo_hallazgo_cliente;
         }
         switch (datatest[cont].tipo_prueba) {
         case "Análisis":
@@ -678,7 +684,7 @@ integrates.controller(
           datatest[cont].tipo_prueba = $translate.instant("finding_formstack.test_method.infras");
           break;
         default:
-          datatest[cont].tipo_prueba = $translate.instant("finding_formstack.test_method.default");
+          datatest[cont].tipo_prueba = datatest[cont].tipo_prueba;
         }
         switch (datatest[cont].vector_acceso) {
         case "0.646 | Red adyacente: Explotable desde el mismo segmento de red":
@@ -691,7 +697,7 @@ integrates.controller(
           datatest[cont].vector_acceso = $translate.instant("finding_formstack.access_vector.local");
           break;
         default:
-          datatest[cont].vector_acceso = $translate.instant("finding_formstack.access_vector.default");
+          datatest[cont].vector_acceso = datatest[cont].vector_acceso;
         }
         switch (datatest[cont].tratamiento) {
         case "Asumido":
@@ -704,7 +710,7 @@ integrates.controller(
           datatest[cont].tratamiento = $translate.instant("finding_formstack.treatment_header.remediated");
           break;
         default:
-          datatest[cont].tratamiento = $translate.instant("finding_formstack.treatment_header.default");
+          datatest[cont].tratamiento = datatest[cont].tratamiento;
         }
       }
       // CONFIGURACION DE TABLA

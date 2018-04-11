@@ -82,13 +82,95 @@ def project_indicators(request):
 @authenticate
 def project_findings(request):
     "Vista de projectos"
-    return render(request, "project/findings.html")
+    language = request.GET.get('l', 'en')
+    dicLang = {
+        "search_findings": {
+            "headings": {
+                "action": "Action",
+                "age": "Age (Days)",
+                "cardinality": "Open Vuln.",
+                "criticity": "Severity",
+                "exploit": "Exploitable",
+                "finding": "Title",
+                "state": "Status",
+                "timestamp": "Date",
+                "treatment": "Treatment",
+                "type": "Type",
+                "vulnerability": "Description"
+            },
+            "descriptions": {
+                "description1": "",
+                "description2": "Click",
+                "description3": "on a finding to see more details"
+            },
+            "filter_buttons": {
+               "advance": "Progress",
+               "documentation": "Documentation"
+            },
+        }
+    }
+    if language == "es":
+        dicLang = {
+            "search_findings": {
+                "headings": {
+                    "action": "Accion",
+                    "age": "Edad (Días)",
+                    "cardinality": "Vuln. Abiertas",
+                    "criticity": "Severidad",
+                    "exploit": "Explotable",
+                    "finding": "Titulo",
+                    "state": "Estado",
+                    "timestamp": "Fecha",
+                    "treatment": "Tratamiento",
+                    "type": "Tipo",
+                    "vulnerability": "Descripcion"
+                },
+                "descriptions": {
+                    "description1": "Haz",
+                    "description2": "click",
+                    "description3": "para ver mas detalles del hallazgo"
+                },
+                "filter_buttons": {
+                   "advance": "Avance",
+                   "documentation": "Documentacion"
+                }
+            }
+        }
+    return render(request, "project/findings.html", dicLang)
 
 @never_cache
 @authenticate
 def project_events(request):
     "Vista de eventualidades"
-    return render(request, "project/events.html")
+    language = request.GET.get('l', 'en')
+    dicLang = {
+        "search_findings": {
+            "event_table": {
+               "date": "Date",
+               "id": "ID",
+               "status": "Status",
+               "type": "Type"
+            },
+            "eventualities": {
+                "description": "Click on an event to see more details"
+            }
+        }
+    }
+    if language == "es":
+        dicLang = {
+            "search_findings": {
+                "event_table": {
+                   "date": "Fecha",
+                   "id": "ID",
+                   "status": "Estado",
+                   "type": "Tipo"
+                },
+                "eventualities": {
+                    "description": "Haz click para ver el detalle"
+                }
+            }
+        }
+    return render(request, "project/events.html", dicLang)
 
 @csrf_exempt
 @never_cache
@@ -373,7 +455,7 @@ def get_findings(request):
             findings.append(finding)
     import json
     with open("/tmp/"+project+".txt", "w") as f:
-        f.write(json.dumps(findings))
+        f.write(json.dumps(findings))    
     return util.response(findings, 'Success', False)
 
 def catch_finding(request, submission_id):

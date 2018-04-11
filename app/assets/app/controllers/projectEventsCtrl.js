@@ -111,22 +111,28 @@ integrates.controller(
         const search_at = $translate.instant("proj_alerts.search_title");
         const search_ac = $translate.instant("proj_alerts.search_cont");
         $msg.info(search_ac, search_at);
-        const reqEventualities = projectFtry.EventualityByName(project, "Name");
-        reqEventualities.then(function (response) {
-          if (!response.error) {
-            $scope.view.project = true;
-            eventsData = response.data;
-            $scope.loadEventContent(eventsData, vlang, project);
-          }
-          else if (response.message === "Access to project denied") {
-            Rollbar.warning("Warning: Access to event denied");
-            $msg.error($translate.instant("proj_alerts.access_denied"));
-          }
-          else {
-            Rollbar.warning("Warning: Event not found");
-            $msg.error($translate.instant("proj_alerts.not_found"));
-          }
-        });
+        if (eventsData.length > 0 && eventsData[0].proyecto_fluid.toLowerCase() === $scope.project.toLowerCase()) {
+          $scope.view.project = true;
+          $scope.loadEventContent(eventsData, vlang, project);
+        }
+        else {
+          const reqEventualities = projectFtry.EventualityByName(project, "Name");
+          reqEventualities.then(function (response) {
+            if (!response.error) {
+              $scope.view.project = true;
+              eventsData = response.data;
+              $scope.loadEventContent(eventsData, vlang, project);
+            }
+            else if (response.message === "Access to project denied") {
+              Rollbar.warning("Warning: Access to event denied");
+              $msg.error($translate.instant("proj_alerts.access_denied"));
+            }
+            else {
+              Rollbar.warning("Warning: Event not found");
+              $msg.error($translate.instant("proj_alerts.not_found"));
+            }
+          });
+        }
       }
     };
     $scope.urlIndicators = function () {
@@ -178,7 +184,7 @@ integrates.controller(
           data[cont].tipo = $translate.instant("event_formstack.type.uns_ambient");
           break;
         default:
-          data[cont].tipo = $translate.instant("event_formstack.type.unknown");
+          data[cont].tipo = data[cont].tipo;
         }
         switch (data[cont].estado) {
         case "Pendiente":
@@ -188,7 +194,7 @@ integrates.controller(
           data[cont].estado = $translate.instant("event_formstack.status.solve");
           break;
         default:
-          data[cont].estado = $translate.instant("event_formstack.status.unknown");
+          data[cont].estado = data[cont].estado;
         }
       }
       mixPanelDashboard.trackSearch("SearchEventuality", userEmail, project);
