@@ -34,11 +34,22 @@ they are not independent to report the vulnerabilities
 for which they are responsible.
 
 a|==== Attributes
-|{yes} We verify the basic security attributes:
-Confidentiality, Integrity and Availability,
-but additionally extended attributes such as Non-repudiation and Traceability
-(management of logs and errors).
-|{no} Only Confidentiality, Integrity and Availability.
+a|{yes} We verify the basic security attributes:
+
+* Confidentiality.
+* Integrity.
+* Availability.
+
+Additionally we also verify extended attributes such as:
+
+* Privacy.
+* Non-repudiation.
+* Traceability (logs and errors management).
+a|{no} They only verify:
+
+* Confidentiality.
+* Integrity.
+* Availability.
 
 a|==== Method
 | {yes} Hybrid (Automated tools + manual expert revision).

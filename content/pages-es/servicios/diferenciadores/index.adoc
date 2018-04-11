@@ -37,11 +37,23 @@ no son independientes para reportar las vulnerabilidades
 de las que ellos son responsables.
 
 a|==== Atributos
-| {si} Verificamos los atributos basicos de seguridad:
-Confidencialidad, Integridad y Disponibilidad,
-pero adicionalmente atributos extendidos como No repudio y Trazabilidad
-(gestion de bitácoras y errores).
-| {no} Solo Confidencialidad, Integridad y Disponibilidad.
+a|{si} Verificamos los atributos básicos de seguridad:
+
+* Confidencialidad.
+* Integridad.
+* Disponibilidad.
+
+Adicionalmente, verificamos atributos extendidos como:
+
+* Privacidad.
+* No repudio.
+* Trazabilidad (gestión de bitácoras y errores).
+
+a|{no} Solo verifican:
+
+* Confidencialidad.
+* Integridad.
+* Disponibilidad.
 
 a|==== Método
 | {si} Híbrido (Herramientas + revisión manual experta).
