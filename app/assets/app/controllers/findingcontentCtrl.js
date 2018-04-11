@@ -2,7 +2,7 @@
 /* global
 BASE, document, $, $msg, userName, integrates, userEmail, userName, Rollbar, mixPanelDashboard, userRole, finding_type, actor,
 scenario, authentication, confidenciality, Organization, resolutionLevel, explotability, availability, tratamiento, updateEvidencesFiles:true,
-realiabilityLevel, updateEvidenceText:true, categories, probabilities, accessVector, integrity, accessComplexity
+findingData:true, realiabilityLevel, updateEvidenceText:true, categories, probabilities, accessVector, integrity, accessComplexity
 */
 /**
  * @file findingcontentCtrl.js
@@ -25,7 +25,6 @@ integrates.controller("findingcontentCtrl", function (
   ngNotify, findingFactory, projectFtry
 ) {
   $scope.findingHeaderBuilding = function () {
-    // Console.log($scope.finding);
     $scope.header = {};
     const cierres = $scope.finding.cierres;
     const cierresTmp = [];
@@ -67,6 +66,7 @@ integrates.controller("findingcontentCtrl", function (
     }
 
     $scope.header.findingCount = $scope.finding.cardinalidad;
+    findingData.header = $scope.header;
   };
   String.prototype.replaceAll = function (search, replace) { /* eslint no-extend-native: ["error", { "exceptions": ["String"] }]*/
     if (typeof replace === "undefined") {
@@ -88,6 +88,7 @@ integrates.controller("findingcontentCtrl", function (
   };
   $scope.findingExploitTab = function () {
     $scope.hasExploit = false;
+    findingData.hasExploit = $scope.hasExploit;
     let exploit = {};
     const req = projectFtry.getEvidences($scope.finding.id);
     req.then(function (response) {
@@ -99,6 +100,7 @@ integrates.controller("findingcontentCtrl", function (
               let responses = response.replaceAll("<", "&lt;");
               responses = response.replaceAll(">", "&gt;");
               $scope.exploitURL = responses;
+              findingData.exploitURL = $scope.exploitURL;
             }
             else if (response.error) {
               Rollbar.error("Error: An error occurred loading exploit from S3");
@@ -110,6 +112,7 @@ integrates.controller("findingcontentCtrl", function (
                               $scope.finding.cierres.length == 0) {
               exploit = projectFtry.getExploit($scope.finding.id, response.data[cont].exploit);
               $scope.hasExploit = true;
+              findingData.hasExploit = $scope.hasExploit;
               exploit.then(function (response) {
                 resp_function(response);
               });
@@ -117,23 +120,27 @@ integrates.controller("findingcontentCtrl", function (
             else if (typeof $scope.finding.exploit !== "undefined" && $scope.finding.cierres.length == 0) {
               exploit = projectFtry.getExploit($scope.finding.id, $scope.finding.exploit);
               $scope.hasExploit = true;
+              findingData.hasExploit = $scope.hasExploit;
               exploit.then(function (response) {
                 resp_function(response);
               });
             }
             else {
               $scope.hasExploit = false;
+              findingData.hasExploit = $scope.hasExploit;
             }
           }
         }
         else if (typeof $scope.finding.exploit !== "undefined" && $scope.finding.cierres.length == 0) {
           exploit = projectFtry.getExploit($scope.finding.id, $scope.finding.exploit);
           $scope.hasExploit = true;
+          findingData.hasExploit = $scope.hasExploit;
           exploit.then(function (response) {
             if (!response.error) {
               let responses = response.replaceAll("<", "&lt;");
               responses = response.replaceAll(">", "&gt;");
               $scope.exploitURL = responses;
+              findingData.exploitURL = $scope.exploitURL;
             }
             else if (response.error) {
               Rollbar.error("Error: An error occurred loading exploit");
@@ -142,6 +149,7 @@ integrates.controller("findingcontentCtrl", function (
         }
         else {
           $scope.hasExploit = false;
+          findingData.hasExploit = $scope.hasExploit;
         }
       }
     });
@@ -364,9 +372,11 @@ integrates.controller("findingcontentCtrl", function (
       $scope.$apply();
       if ($scope.finding.nivel == "Detallado") {
         $scope.esDetallado = true;
+        findingData.esDetallado = $scope.esDetallado;
       }
       else {
         $scope.esDetallado = false;
+        findingData.esDetallado = $scope.esDetallado;
       }
     }, 200);
   };
@@ -625,429 +635,459 @@ integrates.controller("findingcontentCtrl", function (
     }
     return false;
   };
-
-  $scope.loadFindingByID = function (id) {
-    const req = findingFactory.getVulnById(id);
-    req.then(function (response) {
-      if (!response.error && $stateParams.project == response.data.proyecto_fluid.toLowerCase()) {
-        $scope.finding = response.data;
-        $scope.aux = {};
-        $scope.aux.tratamiento = $scope.finding.tratamiento;
-        $scope.aux.razon = $scope.finding.razon_tratamiento;
-        if ($scope.finding.tratamiento == "Asumido") {
-          $scope.isAssumed = true;
-        }
-        else {
-          $scope.isAssumed = false;
-        }
-        if ($scope.finding.estado == "Cerrado") {
-          $scope.isClosed = true;
-        }
-        else {
-          $scope.isClosed = false;
-        }
-        if ($scope.finding.suscripcion == "Continua" || $scope.finding.suscripcion == "Concurrente" || $scope.finding.suscripcion == "Si") {
-          $scope.isContinuous = true;
-        }
-        else {
-          $scope.isContinuous = false;
-        }
-        if ($scope.finding.suscripcion != "Concurrente" && $scope.finding.suscripcion != "Puntual" && $scope.finding.suscripcion != "Continua") {
-          Rollbar.warning(`Warning: Finding ${id} without type`);
-        }
-        $scope.aux.responsable = $scope.finding.responsable_tratamiento;
-        $scope.aux.bts = $scope.finding.bts_externo;
-        $scope.finding.has_url = $scope.hasUrl($scope.finding.bts_externo);
-        $scope.finding.cwe_isurl = $scope.hasUrl($scope.finding.cwe);
-        switch ($scope.finding.actor) {
-        case "​Cualquier persona en Internet":
-          $scope.finding.actor = $translate.instant("finding_formstack.actor.any_internet");
-          break;
-        case "Cualquier cliente de la organización":
-          $scope.finding.actor = $translate.instant("finding_formstack.actor.any_costumer");
-          break;
-        case "Solo algunos clientes de la organización":
-          $scope.finding.actor = $translate.instant("finding_formstack.actor.some_costumer");
-          break;
-        case "Cualquier persona con acceso a la estación":
-          $scope.finding.actor = $translate.instant("finding_formstack.actor.any_access");
-          break;
-        case "Cualquier empleado de la organización":
-          $scope.finding.actor = $translate.instant("finding_formstack.actor.any_employee");
-          break;
-        case "Solo algunos empleados":
-          $scope.finding.actor = $translate.instant("finding_formstack.actor.some_employee");
-          break;
-        case "Solo un empleado":
-          $scope.finding.actor = $translate.instant("finding_formstack.actor.one_employee");
-          break;
-        default:
-          $scope.finding.actor = $translate.instant("finding_formstack.actor.default");
-        }
-        switch ($scope.finding.autenticacion) {
-        case "0.704 | Ninguna: No se requiere autenticación":
-          $scope.finding.autenticacion = $translate.instant("finding_formstack.authentication.any_authen");
-          break;
-        case "0.560 | Única: Único punto de autenticación":
-          $scope.finding.autenticacion = $translate.instant("finding_formstack.authentication.single_authen");
-          break;
-        case "0.450 | Multiple: Multiples puntos de autenticación":
-          $scope.finding.autenticacion = $translate.instant("finding_formstack.authentication.multiple_authen");
-          break;
-        default:
-          $scope.finding.autenticacion = $translate.instant("finding_formstack.authentication.default");
-        }
-        switch ($scope.finding.categoria) {
-        case "Actualizar y configurar las líneas base de seguridad de los componentes":
-          $scope.finding.categoria = $translate.instant("finding_formstack.category.update_base");
-          break;
-        case "Definir el modelo de autorización considerando el principio de mínimo privilegio":
-          $scope.finding.categoria = $translate.instant("finding_formstack.category.define_model");
-          break;
-        case "Desempeño":
-          $scope.finding.categoria = $translate.instant("finding_formstack.category.performance");
-          break;
-        case "Eventualidad":
-          $scope.finding.categoria = $translate.instant("finding_formstack.category.event");
-          break;
-        case "Evitar exponer la información técnica de la aplicación, servidores y plataformas":
-          $scope.finding.categoria = $translate.instant("finding_formstack.category.avoid_technical");
-          break;
-        case "Excluir datos sensibles del código fuente y del registro de eventos":
-          $scope.finding.categoria = $translate.instant("finding_formstack.category.exclude_finding");
-          break;
-        case "Fortalecer controles en autenticación y manejo de sesión":
-          $scope.finding.categoria = $translate.instant("finding_formstack.category.strengt_authen");
-          break;
-        case "Fortalecer controles en el procesamiento de archivos":
-          $scope.finding.categoria = $translate.instant("finding_formstack.category.strengt_process");
-          break;
-        case "Fortalecer la protección de datos almacenados relacionados con contraseñas o llaves criptográficas":
-          $scope.finding.categoria = $translate.instant("finding_formstack.category.strengt_protect");
-          break;
-        case "Implementar controles para validar datos de entrada":
-          $scope.finding.categoria = $translate.instant("finding_formstack.category.validate_input");
-          break;
-        case "Mantenibilidad":
-          $scope.finding.categoria = $translate.instant("finding_formstack.category.maintain");
-          break;
-        case "Registrar eventos para trazabilidad y auditoría":
-          $scope.finding.categoria = $translate.instant("finding_formstack.category.record_event");
-          break;
-        case "Utilizar protocolos de comunicación seguros":
-          $scope.finding.categoria = $translate.instant("finding_formstack.category.secure_protoc");
-          break;
-        case "Validar la integridad de las transacciones en peticiones HTTP":
-          $scope.finding.categoria = $translate.instant("finding_formstack.category.validate_http");
-          break;
-        default:
-          $scope.finding.categoria = $translate.instant("finding_formstack.category.default");
-        }
-        switch ($scope.finding.complejidad_acceso) {
-        case "0.350 | Alto: Se requieren condiciones especiales como acceso administrativo":
-          $scope.finding.complejidad_acceso = $translate.instant("finding_formstack.complexity.high_complex");
-          break;
-        case "0.610 | Medio: Se requieren algunas condiciones como acceso al sistema":
-          $scope.finding.complejidad_acceso = $translate.instant("finding_formstack.complexity.medium_complex");
-          break;
-        case "0.710 | Bajo: No se requiere ninguna condición especial":
-          $scope.finding.complejidad_acceso = $translate.instant("finding_formstack.complexity.low_complex");
-          break;
-        default:
-          $scope.finding.complejidad_acceso = $translate.instant("finding_formstack.complexity.default");
-        }
-        switch ($scope.finding.escenario) {
-        case "Anónimo desde Internet":
-          $scope.finding.escenario = $translate.instant("finding_formstack.scenario.anon_inter");
-          break;
-        case "Anónimo desde Intranet":
-          $scope.finding.escenario = $translate.instant("finding_formstack.scenario.anon_intra");
-          break;
-        case "Escaneo de Infraestructura":
-          $scope.finding.escenario = $translate.instant("finding_formstack.scenario.infra_scan");
-          break;
-        case "Extranet usuario no autorizado":
-          $scope.finding.escenario = $translate.instant("finding_formstack.scenario.unauth_extra");
-          break;
-        case "Internet usuario autorizado":
-          $scope.finding.escenario = $translate.instant("finding_formstack.scenario.auth_inter");
-          break;
-        case "Internet usuario no autorizado":
-          $scope.finding.escenario = $translate.instant("finding_formstack.scenario.unauth_inter");
-          break;
-        case "Intranet usuario autorizado":
-          $scope.finding.escenario = $translate.instant("finding_formstack.scenario.auth_intra");
-          break;
-        case "Intranet usuario no autorizado":
-          $scope.finding.escenario = $translate.instant("finding_formstack.scenario.unauth_inter");
-          break;
-        default:
-          $scope.finding.escenario = $translate.instant("finding_formstack.scenario.default");
-        }
-        switch ($scope.finding.estado) {
-        case "Abierto":
-          $scope.finding.estado = $translate.instant("finding_formstack.status.open");
-          break;
-        case "Cerrado":
-          $scope.finding.estado = $translate.instant("finding_formstack.status.close");
-          break;
-        case "Parcialmente cerrado":
-          $scope.finding.estado = $translate.instant("finding_formstack.status.part_close");
-          break;
-        default:
-          $scope.finding.estado = $translate.instant("finding_formstack.status.default");
-        }
-        switch ($scope.finding.explotabilidad) {
-        case "0.850 | Improbable: No existe un exploit":
-          $scope.finding.explotabilidad = $translate.instant("finding_formstack.exploitability.improbable");
-          break;
-        case "0.900 | Conceptual: Existen pruebas de laboratorio":
-          $scope.finding.explotabilidad = $translate.instant("finding_formstack.exploitability.conceptual");
-          break;
-        case "0.950 | Funcional: Existe exploit":
-          $scope.finding.explotabilidad = $translate.instant("finding_formstack.exploitability.functional");
-          break;
-        case "1.000 | Alta: No se requiere exploit o se puede automatizar":
-          $scope.finding.explotabilidad = $translate.instant("finding_formstack.exploitability.high");
-          break;
-        default:
-          $scope.finding.explotabilidad = $translate.instant("finding_formstack.exploitability.default");
-        }
-        switch ($scope.finding.explotable) {
-        case "Si":
-          $scope.finding.explotable = $translate.instant("finding_formstack.exploitable.yes");
-          break;
-        case "No":
-          $scope.finding.explotable = $translate.instant("finding_formstack.exploitable.no");
-          break;
-        default:
-          $scope.finding.explotable = $translate.instant("finding_formstack.exploitable.default");
-        }
-        switch ($scope.finding.impacto_confidencialidad) {
-        case "0 | Ninguno: No se presenta ningún impacto":
-          $scope.finding.impacto_confidencialidad = $translate.instant("finding_formstack.confidenciality.none");
-          break;
-        case "0.275 | Parcial: Se obtiene acceso a la información pero no control sobre ella":
-          $scope.finding.impacto_confidencialidad = $translate.instant("finding_formstack.confidenciality.partial");
-          break;
-        case "0.660 | Completo: Se controla toda la información relacionada con el objetivo":
-          $scope.finding.impacto_confidencialidad = $translate.instant("finding_formstack.confidenciality.complete");
-          break;
-        default:
-          $scope.finding.impacto_confidencialidad = $translate.instant("finding_formstack.confidenciality.default");
-        }
-        switch ($scope.finding.impacto_disponibilidad) {
-        case "0 | Ninguno: No se presenta ningún impacto":
-          $scope.finding.impacto_disponibilidad = $translate.instant("finding_formstack.availability.none");
-          break;
-        case "0.275 | Parcial: Se presenta intermitencia en el acceso al objetivo":
-          $scope.finding.impacto_disponibilidad = $translate.instant("finding_formstack.availability.partial");
-          break;
-        case "0.660 | Completo: Hay una caída total del objetivo":
-          $scope.finding.impacto_disponibilidad = $translate.instant("finding_formstack.availability.complete");
-          break;
-        default:
-          $scope.finding.impacto_disponibilidad = $translate.instant("finding_formstack.availability.default");
-        }
-        switch ($scope.finding.impacto_integridad) {
-        case "0 | Ninguno: No se presenta ningún impacto":
-          $scope.finding.impacto_integridad = $translate.instant("finding_formstack.integrity.none");
-          break;
-        case "0.275 | Parcial: Es posible modificar cierta información del objetivo":
-          $scope.finding.impacto_integridad = $translate.instant("finding_formstack.integrity.partial");
-          break;
-        case "0.660 | Completo: Es posible modificar toda la información del objetivo":
-          $scope.finding.impacto_integridad = $translate.instant("finding_formstack.integrity.complete");
-          break;
-        default:
-          $scope.finding.impacto_integridad = $translate.instant("finding_formstack.integrity.default");
-        }
-        switch ($scope.finding.nivel_confianza) {
-        case "0.900 | No confirmado: Existen pocas fuentes que reconocen la vulnerabilidad":
-          $scope.finding.nivel_confianza = $translate.instant("finding_formstack.confidence.not_confirm");
-          break;
-        case "0.950 | No corroborado: La vulnerabilidad es reconocida por fuentes no oficiales":
-          $scope.finding.nivel_confianza = $translate.instant("finding_formstack.confidence.not_corrob");
-          break;
-        case "1.000 | Confirmado: La vulnerabilidad es reconocida por el fabricante":
-          $scope.finding.nivel_confianza = $translate.instant("finding_formstack.confidence.confirmed");
-          break;
-        default:
-          $scope.finding.nivel_confianza = $translate.instant("finding_formstack.confidence.default");
-        }
-        switch ($scope.finding.nivel_resolucion) {
-        case "0.950 | Paliativa: Existe un parche que no fue publicado por el fabricante":
-          $scope.finding.nivel_resolucion = $translate.instant("finding_formstack.resolution.palliative");
-          break;
-        case "0.870 | Oficial: Existe un parche disponible por el fabricante":
-          $scope.finding.nivel_resolucion = $translate.instant("finding_formstack.resolution.official");
-          break;
-        case "0.900 | Temporal: Existen soluciones temporales":
-          $scope.finding.nivel_resolucion = $translate.instant("finding_formstack.resolution.temporal");
-          break;
-        case "1.000 | Inexistente: No existe solución":
-          $scope.finding.nivel_resolucion = $translate.instant("finding_formstack.resolution.non_existent");
-          break;
-        default:
-          $scope.finding.nivel_resolucion = $translate.instant("finding_formstack.resolution.default");
-        }
-        switch ($scope.finding.probabilidad) {
-        case "100% Vulnerado Anteriormente":
-          $scope.finding.probabilidad = $translate.instant("finding_formstack.probability.prev_vuln");
-          break;
-        case "75% Fácil de vulnerar":
-          $scope.finding.probabilidad = $translate.instant("finding_formstack.probability.easy_vuln");
-          break;
-        case "50% Posible de vulnerar":
-          $scope.finding.probabilidad = $translate.instant("finding_formstack.probability.possible_vuln");
-          break;
-        case "25% Difícil de vulnerar":
-          $scope.finding.probabilidad = $translate.instant("finding_formstack.probability.diffic_vuln");
-          break;
-        default:
-          $scope.finding.probabilidad = $translate.instant("finding_formstack.probability.default");
-        }
-        switch ($scope.finding.tipo_hallazgo_cliente) {
-        case "Higiene":
-          $scope.finding.tipo_hallazgo_cliente = $translate.instant("finding_formstack.finding_type.hygiene");
-          break;
-        case "Vulnerabilidad":
-          $scope.finding.tipo_hallazgo_cliente = $translate.instant("finding_formstack.finding_type.vuln");
-          break;
-        default:
-          $scope.finding.tipo_hallazgo_cliente = $translate.instant("finding_formstack.finding_type.default");
-        }
-        switch ($scope.finding.tipo_prueba) {
-        case "Análisis":
-          $scope.finding.tipo_prueba = $translate.instant("finding_formstack.test_method.analysis");
-          break;
-        case "Aplicación":
-          $scope.finding.tipo_prueba = $translate.instant("finding_formstack.test_method.app");
-          break;
-        case "Binario":
-          $scope.finding.tipo_prueba = $translate.instant("finding_formstack.test_method.binary");
-          break;
-        case "Código":
-          $scope.finding.tipo_prueba = $translate.instant("finding_formstack.test_method.code");
-          break;
-        case "Infraestructura":
-          $scope.finding.tipo_prueba = $translate.instant("finding_formstack.test_method.infras");
-          break;
-        default:
-          $scope.finding.tipo_prueba = $translate.instant("finding_formstack.test_method.default");
-        }
-        switch ($scope.finding.vector_acceso) {
-        case "0.646 | Red adyacente: Explotable desde el mismo segmento de red":
-          $scope.finding.vector_acceso = $translate.instant("finding_formstack.access_vector.adjacent");
-          break;
-        case "1.000 | Red: Explotable desde Internet":
-          $scope.finding.vector_acceso = $translate.instant("finding_formstack.access_vector.network");
-          break;
-        case "0.395 | Local: Explotable con acceso local al objetivo":
-          $scope.finding.vector_acceso = $translate.instant("finding_formstack.access_vector.local");
-          break;
-        default:
-          $scope.finding.vector_acceso = $translate.instant("finding_formstack.access_vector.default");
-        }
-        switch ($scope.finding.tratamiento) {
-        case "Asumido":
-          $scope.finding.tratamiento = $translate.instant("finding_formstack.treatment_header.asummed");
-          break;
-        case "Pendiente":
-          $scope.finding.tratamiento = $translate.instant("finding_formstack.treatment_header.working");
-          break;
-        case "Remediar":
-          $scope.finding.tratamiento = $translate.instant("finding_formstack.treatment_header.remediated");
-          break;
-        default:
-          $scope.finding.tratamiento = $translate.instant("finding_formstack.treatment_header.default");
-        }
-        $scope.findingHeaderBuilding();
-        $scope.remediatedView();
-        $scope.view.project = false;
-        $scope.view.finding = true;
-        $scope.findingInformationTab();
-        $scope.findingEvidenceTab();
-        $scope.findingExploitTab();
-        $scope.findingRecordsTab();
-        $scope.findingCommentTab();
-        // Control de campos para tipos de hallazgo
-        $scope.esDetallado = false;
-        if ($scope.finding.nivel == "Detallado") {
-          $scope.esDetallado = true;
-        }
-        // Control de campos editables
-        $scope.onlyReadableTab1 = true;
-        $scope.onlyReadableTab2 = true;
-        $scope.isManager = userRole != "customer";
-        if (!$scope.isManager && !$scope.isAssumed && !$scope.isClosed && $scope.isContinuous) {
-          $(".finding-treatment").show();
-        }
-        else {
-          $(".finding-treatment").hide();
-        }
-        // Inicializar galeria de evidencias
-        $(".popup-gallery").magnificPopup({
-          "delegate": "a",
-          "gallery": {
-            "enabled": true,
-            "navigateByImgClick": true,
-            "preload": [
-              0,
-              1
-            ]
-          },
-          "image": {
-            "tError": "<a href=\"%url%\">The image #%curr%</a> could not be loaded.",
-            "titleSrc" (item) {
-              return item.el.attr("title");
-            }
-          },
-          "mainClass": "mfp-img-mobile",
-          "tLoading": "Loading image #%curr%...",
-          "type": "image"
-        });
-        // Init auto height in textarea
-        if ($("#infoItem").hasClass("active")) {
-          $timeout(function () {
-            $scope.$broadcast("elastic:adjust");
-          });
-        }
-        $("#trackingItem").on("click", function () {
-          $timeout(function () {
-            $scope.$broadcast("elastic:adjust");
-          });
-        });
-        $("#infoItem").on("click", function () {
-          $timeout(function () {
-            $scope.$broadcast("elastic:adjust");
-          });
-        });
-        $("#edit").on("click", function () {
-          $timeout(function () {
-            $scope.$broadcast("elastic:adjust");
-          });
-        });
-        // Init auto height in panels
-        $("#evidenceItem").on("click", function () {
-          $(".equalHeight").matchHeight();
-        });
-        $timeout($scope.goUp, 200);
-      }
-      else if (response.error) {
-        $scope.view.project = false;
-        $scope.view.finding = false;
-        if (response.message == "Project masked") {
-          Rollbar.warning("Warning: Project deleted");
-          $msg.error($translate.instant("proj_alerts.project_deleted"));
-        }
-        else {
-          $msg.error($translate.instant("proj_alerts.no_finding"));
-          Rollbar.warning("Warning: Finding not found");
-        }
+  $scope.isEmpty = function (obj) {
+    for (const key in obj) {
+      if (Object.prototype.hasOwnProperty.call(obj, key)) {
         return false;
       }
+    }
+    return true;
+  };
+  $scope.loadFindingByID = function (id) {
+    if (!$scope.isEmpty(findingData) && findingData.data.proyecto_fluid.toLowerCase() === $stateParams.project.toLowerCase() &&
+      findingData.data.id === $scope.finding.id) {
+      $scope.view.project = false;
+      $scope.view.finding = true;
+      $scope.finding = findingData.data;
+      $scope.header = findingData.header;
+      $scope.isRemediated = findingData.remediated;
+      $scope.tabEvidences = findingData.tabEvidences;
+      $scope.hasExploit = findingData.hasExploit;
+      $scope.exploitURL = findingData.exploitURL;
+      $scope.hasRecords = findingData.hasRecords;
+      $scope.esDetallado = findingData.esDetallado;
+      $scope.loadFindingContent();
+    }
+    else {
+      const req = findingFactory.getVulnById(id);
+      req.then(function (response) {
+        if (!response.error && $stateParams.project == response.data.proyecto_fluid.toLowerCase()) {
+          findingData.data = response.data;
+          $scope.finding = response.data;
+          $scope.loadFindingContent();
+          $scope.findingHeaderBuilding();
+          $scope.remediatedView();
+          findingData.remediated = $scope.isRemediated;
+          $scope.view.project = false;
+          $scope.view.finding = true;
+          $scope.findingEvidenceTab();
+          $scope.findingExploitTab();
+          $scope.findingRecordsTab();
+          $scope.findingCommentTab();
+        }
+        else if (response.error) {
+          $scope.view.project = false;
+          $scope.view.finding = false;
+          if (response.message == "Project masked") {
+            Rollbar.warning("Warning: Project deleted");
+            $msg.error($translate.instant("proj_alerts.project_deleted"));
+          }
+          else {
+            $msg.error($translate.instant("proj_alerts.no_finding"));
+            Rollbar.warning("Warning: Finding not found");
+          }
+          return false;
+        }
+      });
+    }
+  };
+  $scope.loadFindingContent = function () {
+    $scope.aux = {};
+    $scope.aux.tratamiento = $scope.finding.tratamiento;
+    $scope.aux.razon = $scope.finding.razon_tratamiento;
+    if ($scope.finding.tratamiento == "Asumido") {
+      $scope.isAssumed = true;
+    }
+    else {
+      $scope.isAssumed = false;
+    }
+    if ($scope.finding.estado == "Cerrado") {
+      $scope.isClosed = true;
+    }
+    else {
+      $scope.isClosed = false;
+    }
+    if ($scope.finding.suscripcion == "Continua" || $scope.finding.suscripcion == "Concurrente" || $scope.finding.suscripcion == "Si") {
+      $scope.isContinuous = true;
+    }
+    else {
+      $scope.isContinuous = false;
+    }
+    if ($scope.finding.suscripcion != "Concurrente" && $scope.finding.suscripcion != "Puntual" && $scope.finding.suscripcion != "Continua") {
+      Rollbar.warning(`Warning: Finding ${$scope.finding.id} without type`);
+    }
+    $scope.aux.responsable = $scope.finding.responsable_tratamiento;
+    $scope.aux.bts = $scope.finding.bts_externo;
+    $scope.finding.has_url = $scope.hasUrl($scope.finding.bts_externo);
+    $scope.finding.cwe_isurl = $scope.hasUrl($scope.finding.cwe);
+    switch ($scope.finding.actor) {
+    case "​Cualquier persona en Internet":
+      $scope.finding.actor = $translate.instant("finding_formstack.actor.any_internet");
+      break;
+    case "Cualquier cliente de la organización":
+      $scope.finding.actor = $translate.instant("finding_formstack.actor.any_costumer");
+      break;
+    case "Solo algunos clientes de la organización":
+      $scope.finding.actor = $translate.instant("finding_formstack.actor.some_costumer");
+      break;
+    case "Cualquier persona con acceso a la estación":
+      $scope.finding.actor = $translate.instant("finding_formstack.actor.any_access");
+      break;
+    case "Cualquier empleado de la organización":
+      $scope.finding.actor = $translate.instant("finding_formstack.actor.any_employee");
+      break;
+    case "Solo algunos empleados":
+      $scope.finding.actor = $translate.instant("finding_formstack.actor.some_employee");
+      break;
+    case "Solo un empleado":
+      $scope.finding.actor = $translate.instant("finding_formstack.actor.one_employee");
+      break;
+    default:
+      $scope.finding.actor = $scope.finding.actor;
+    }
+    switch ($scope.finding.autenticacion) {
+    case "0.704 | Ninguna: No se requiere autenticación":
+      $scope.finding.autenticacion = $translate.instant("finding_formstack.authentication.any_authen");
+      break;
+    case "0.560 | Única: Único punto de autenticación":
+      $scope.finding.autenticacion = $translate.instant("finding_formstack.authentication.single_authen");
+      break;
+    case "0.450 | Multiple: Multiples puntos de autenticación":
+      $scope.finding.autenticacion = $translate.instant("finding_formstack.authentication.multiple_authen");
+      break;
+    default:
+      $scope.finding.autenticacion = $scope.finding.autenticacion;
+    }
+    switch ($scope.finding.categoria) {
+    case "Actualizar y configurar las líneas base de seguridad de los componentes":
+      $scope.finding.categoria = $translate.instant("finding_formstack.category.update_base");
+      break;
+    case "Definir el modelo de autorización considerando el principio de mínimo privilegio":
+      $scope.finding.categoria = $translate.instant("finding_formstack.category.define_model");
+      break;
+    case "Desempeño":
+      $scope.finding.categoria = $translate.instant("finding_formstack.category.performance");
+      break;
+    case "Eventualidad":
+      $scope.finding.categoria = $translate.instant("finding_formstack.category.event");
+      break;
+    case "Evitar exponer la información técnica de la aplicación, servidores y plataformas":
+      $scope.finding.categoria = $translate.instant("finding_formstack.category.avoid_technical");
+      break;
+    case "Excluir datos sensibles del código fuente y del registro de eventos":
+      $scope.finding.categoria = $translate.instant("finding_formstack.category.exclude_finding");
+      break;
+    case "Fortalecer controles en autenticación y manejo de sesión":
+      $scope.finding.categoria = $translate.instant("finding_formstack.category.strengt_authen");
+      break;
+    case "Fortalecer controles en el procesamiento de archivos":
+      $scope.finding.categoria = $translate.instant("finding_formstack.category.strengt_process");
+      break;
+    case "Fortalecer la protección de datos almacenados relacionados con contraseñas o llaves criptográficas":
+      $scope.finding.categoria = $translate.instant("finding_formstack.category.strengt_protect");
+      break;
+    case "Implementar controles para validar datos de entrada":
+      $scope.finding.categoria = $translate.instant("finding_formstack.category.validate_input");
+      break;
+    case "Mantenibilidad":
+      $scope.finding.categoria = $translate.instant("finding_formstack.category.maintain");
+      break;
+    case "Registrar eventos para trazabilidad y auditoría":
+      $scope.finding.categoria = $translate.instant("finding_formstack.category.record_event");
+      break;
+    case "Utilizar protocolos de comunicación seguros":
+      $scope.finding.categoria = $translate.instant("finding_formstack.category.secure_protoc");
+      break;
+    case "Validar la integridad de las transacciones en peticiones HTTP":
+      $scope.finding.categoria = $translate.instant("finding_formstack.category.validate_http");
+      break;
+    default:
+      $scope.finding.categoria = $scope.finding.categoria;
+    }
+    switch ($scope.finding.complejidad_acceso) {
+    case "0.350 | Alto: Se requieren condiciones especiales como acceso administrativo":
+      $scope.finding.complejidad_acceso = $translate.instant("finding_formstack.complexity.high_complex");
+      break;
+    case "0.610 | Medio: Se requieren algunas condiciones como acceso al sistema":
+      $scope.finding.complejidad_acceso = $translate.instant("finding_formstack.complexity.medium_complex");
+      break;
+    case "0.710 | Bajo: No se requiere ninguna condición especial":
+      $scope.finding.complejidad_acceso = $translate.instant("finding_formstack.complexity.low_complex");
+      break;
+    default:
+      $scope.finding.complejidad_acceso = $scope.finding.complejidad_acceso;
+    }
+    switch ($scope.finding.escenario) {
+    case "Anónimo desde Internet":
+      $scope.finding.escenario = $translate.instant("finding_formstack.scenario.anon_inter");
+      break;
+    case "Anónimo desde Intranet":
+      $scope.finding.escenario = $translate.instant("finding_formstack.scenario.anon_intra");
+      break;
+    case "Escaneo de Infraestructura":
+      $scope.finding.escenario = $translate.instant("finding_formstack.scenario.infra_scan");
+      break;
+    case "Extranet usuario no autorizado":
+      $scope.finding.escenario = $translate.instant("finding_formstack.scenario.unauth_extra");
+      break;
+    case "Internet usuario autorizado":
+      $scope.finding.escenario = $translate.instant("finding_formstack.scenario.auth_inter");
+      break;
+    case "Internet usuario no autorizado":
+      $scope.finding.escenario = $translate.instant("finding_formstack.scenario.unauth_inter");
+      break;
+    case "Intranet usuario autorizado":
+      $scope.finding.escenario = $translate.instant("finding_formstack.scenario.auth_intra");
+      break;
+    case "Intranet usuario no autorizado":
+      $scope.finding.escenario = $translate.instant("finding_formstack.scenario.unauth_inter");
+      break;
+    default:
+      $scope.finding.escenario = $scope.finding.escenario;
+    }
+    switch ($scope.finding.estado) {
+    case "Abierto":
+      $scope.finding.estado = $translate.instant("finding_formstack.status.open");
+      break;
+    case "Cerrado":
+      $scope.finding.estado = $translate.instant("finding_formstack.status.close");
+      break;
+    case "Parcialmente cerrado":
+      $scope.finding.estado = $translate.instant("finding_formstack.status.part_close");
+      break;
+    default:
+      $scope.finding.estado = $scope.finding.estado;
+    }
+    switch ($scope.finding.explotabilidad) {
+    case "0.850 | Improbable: No existe un exploit":
+      $scope.finding.explotabilidad = $translate.instant("finding_formstack.exploitability.improbable");
+      break;
+    case "0.900 | Conceptual: Existen pruebas de laboratorio":
+      $scope.finding.explotabilidad = $translate.instant("finding_formstack.exploitability.conceptual");
+      break;
+    case "0.950 | Funcional: Existe exploit":
+      $scope.finding.explotabilidad = $translate.instant("finding_formstack.exploitability.functional");
+      break;
+    case "1.000 | Alta: No se requiere exploit o se puede automatizar":
+      $scope.finding.explotabilidad = $translate.instant("finding_formstack.exploitability.high");
+      break;
+    default:
+      $scope.finding.explotabilidad = $scope.finding.explotabilidad;
+    }
+    switch ($scope.finding.explotable) {
+    case "Si":
+      $scope.finding.explotable = $translate.instant("finding_formstack.exploitable.yes");
+      break;
+    case "No":
+      $scope.finding.explotable = $translate.instant("finding_formstack.exploitable.no");
+      break;
+    default:
+      $scope.finding.explotable = $scope.finding.explotable;
+    }
+    switch ($scope.finding.impacto_confidencialidad) {
+    case "0 | Ninguno: No se presenta ningún impacto":
+      $scope.finding.impacto_confidencialidad = $translate.instant("finding_formstack.confidenciality.none");
+      break;
+    case "0.275 | Parcial: Se obtiene acceso a la información pero no control sobre ella":
+      $scope.finding.impacto_confidencialidad = $translate.instant("finding_formstack.confidenciality.partial");
+      break;
+    case "0.660 | Completo: Se controla toda la información relacionada con el objetivo":
+      $scope.finding.impacto_confidencialidad = $translate.instant("finding_formstack.confidenciality.complete");
+      break;
+    default:
+      $scope.finding.impacto_confidencialidad = $scope.finding.impacto_confidencialidad;
+    }
+    switch ($scope.finding.impacto_disponibilidad) {
+    case "0 | Ninguno: No se presenta ningún impacto":
+      $scope.finding.impacto_disponibilidad = $translate.instant("finding_formstack.availability.none");
+      break;
+    case "0.275 | Parcial: Se presenta intermitencia en el acceso al objetivo":
+      $scope.finding.impacto_disponibilidad = $translate.instant("finding_formstack.availability.partial");
+      break;
+    case "0.660 | Completo: Hay una caída total del objetivo":
+      $scope.finding.impacto_disponibilidad = $translate.instant("finding_formstack.availability.complete");
+      break;
+    default:
+      $scope.finding.impacto_disponibilidad = $scope.finding.impacto_disponibilidad;
+    }
+    switch ($scope.finding.impacto_integridad) {
+    case "0 | Ninguno: No se presenta ningún impacto":
+      $scope.finding.impacto_integridad = $translate.instant("finding_formstack.integrity.none");
+      break;
+    case "0.275 | Parcial: Es posible modificar cierta información del objetivo":
+      $scope.finding.impacto_integridad = $translate.instant("finding_formstack.integrity.partial");
+      break;
+    case "0.660 | Completo: Es posible modificar toda la información del objetivo":
+      $scope.finding.impacto_integridad = $translate.instant("finding_formstack.integrity.complete");
+      break;
+    default:
+      $scope.finding.impacto_integridad = $scope.finding.impacto_integridad;
+    }
+    switch ($scope.finding.nivel_confianza) {
+    case "0.900 | No confirmado: Existen pocas fuentes que reconocen la vulnerabilidad":
+      $scope.finding.nivel_confianza = $translate.instant("finding_formstack.confidence.not_confirm");
+      break;
+    case "0.950 | No corroborado: La vulnerabilidad es reconocida por fuentes no oficiales":
+      $scope.finding.nivel_confianza = $translate.instant("finding_formstack.confidence.not_corrob");
+      break;
+    case "1.000 | Confirmado: La vulnerabilidad es reconocida por el fabricante":
+      $scope.finding.nivel_confianza = $translate.instant("finding_formstack.confidence.confirmed");
+      break;
+    default:
+      $scope.finding.nivel_confianza = $scope.finding.nivel_confianza;
+    }
+    switch ($scope.finding.nivel_resolucion) {
+    case "0.950 | Paliativa: Existe un parche que no fue publicado por el fabricante":
+      $scope.finding.nivel_resolucion = $translate.instant("finding_formstack.resolution.palliative");
+      break;
+    case "0.870 | Oficial: Existe un parche disponible por el fabricante":
+      $scope.finding.nivel_resolucion = $translate.instant("finding_formstack.resolution.official");
+      break;
+    case "0.900 | Temporal: Existen soluciones temporales":
+      $scope.finding.nivel_resolucion = $translate.instant("finding_formstack.resolution.temporal");
+      break;
+    case "1.000 | Inexistente: No existe solución":
+      $scope.finding.nivel_resolucion = $translate.instant("finding_formstack.resolution.non_existent");
+      break;
+    default:
+      $scope.finding.nivel_resolucion = $scope.finding.nivel_resolucion;
+    }
+    switch ($scope.finding.probabilidad) {
+    case "100% Vulnerado Anteriormente":
+      $scope.finding.probabilidad = $translate.instant("finding_formstack.probability.prev_vuln");
+      break;
+    case "75% Fácil de vulnerar":
+      $scope.finding.probabilidad = $translate.instant("finding_formstack.probability.easy_vuln");
+      break;
+    case "50% Posible de vulnerar":
+      $scope.finding.probabilidad = $translate.instant("finding_formstack.probability.possible_vuln");
+      break;
+    case "25% Difícil de vulnerar":
+      $scope.finding.probabilidad = $translate.instant("finding_formstack.probability.diffic_vuln");
+      break;
+    default:
+      $scope.finding.probabilidad = $scope.finding.probabilidad;
+    }
+    switch ($scope.finding.tipo_hallazgo_cliente) {
+    case "Higiene":
+      $scope.finding.tipo_hallazgo_cliente = $translate.instant("finding_formstack.finding_type.hygiene");
+      break;
+    case "Vulnerabilidad":
+      $scope.finding.tipo_hallazgo_cliente = $translate.instant("finding_formstack.finding_type.vuln");
+      break;
+    default:
+      $scope.finding.tipo_hallazgo_cliente = $scope.finding.tipo_hallazgo_cliente;
+    }
+    switch ($scope.finding.tipo_prueba) {
+    case "Análisis":
+      $scope.finding.tipo_prueba = $translate.instant("finding_formstack.test_method.analysis");
+      break;
+    case "Aplicación":
+      $scope.finding.tipo_prueba = $translate.instant("finding_formstack.test_method.app");
+      break;
+    case "Binario":
+      $scope.finding.tipo_prueba = $translate.instant("finding_formstack.test_method.binary");
+      break;
+    case "Código":
+      $scope.finding.tipo_prueba = $translate.instant("finding_formstack.test_method.code");
+      break;
+    case "Infraestructura":
+      $scope.finding.tipo_prueba = $translate.instant("finding_formstack.test_method.infras");
+      break;
+    default:
+      $scope.finding.tipo_prueba = $scope.finding.tipo_prueba;
+    }
+    switch ($scope.finding.vector_acceso) {
+    case "0.646 | Red adyacente: Explotable desde el mismo segmento de red":
+      $scope.finding.vector_acceso = $translate.instant("finding_formstack.access_vector.adjacent");
+      break;
+    case "1.000 | Red: Explotable desde Internet":
+      $scope.finding.vector_acceso = $translate.instant("finding_formstack.access_vector.network");
+      break;
+    case "0.395 | Local: Explotable con acceso local al objetivo":
+      $scope.finding.vector_acceso = $translate.instant("finding_formstack.access_vector.local");
+      break;
+    default:
+      $scope.finding.vector_acceso = $scope.finding.vector_acceso;
+    }
+    switch ($scope.finding.tratamiento) {
+    case "Asumido":
+      $scope.finding.tratamiento = $translate.instant("finding_formstack.treatment_header.asummed");
+      break;
+    case "Pendiente":
+      $scope.finding.tratamiento = $translate.instant("finding_formstack.treatment_header.working");
+      break;
+    case "Remediar":
+      $scope.finding.tratamiento = $translate.instant("finding_formstack.treatment_header.remediated");
+      break;
+    default:
+      $scope.finding.tratamiento = $scope.finding.tratamiento;
+    }
+    // Control de campos para tipos de hallazgo
+    $scope.esDetallado = false;
+    findingData.esDetallado = $scope.esDetallado;
+    if ($scope.finding.nivel == "Detallado") {
+      $scope.esDetallado = true;
+      findingData.esDetallado = $scope.esDetallado;
+    }
+    // Control de campos editables
+    $scope.onlyReadableTab1 = true;
+    $scope.onlyReadableTab2 = true;
+    $scope.isManager = userRole != "customer";
+    if (!$scope.isManager && !$scope.isAssumed && !$scope.isClosed && $scope.isContinuous) {
+      $(".finding-treatment").show();
+    }
+    else {
+      $(".finding-treatment").hide();
+    }
+    // Inicializar galeria de evidencias
+    $(".popup-gallery").magnificPopup({
+      "delegate": "a",
+      "gallery": {
+        "enabled": true,
+        "navigateByImgClick": true,
+        "preload": [
+          0,
+          1
+        ]
+      },
+      "image": {
+        "tError": "<a href=\"%url%\">The image #%curr%</a> could not be loaded.",
+        "titleSrc" (item) {
+          return item.el.attr("title");
+        }
+      },
+      "mainClass": "mfp-img-mobile",
+      "tLoading": "Loading image #%curr%...",
+      "type": "image"
     });
+    // Init auto height in textarea
+    if ($("#infoItem").hasClass("active")) {
+      $timeout(function () {
+        $scope.$broadcast("elastic:adjust");
+      });
+    }
+    $("#trackingItem").on("click", function () {
+      $timeout(function () {
+        $scope.$broadcast("elastic:adjust");
+      });
+    });
+    $("#infoItem").on("click", function () {
+      $timeout(function () {
+        $scope.$broadcast("elastic:adjust");
+      });
+    });
+    $("#edit").on("click", function () {
+      $timeout(function () {
+        $scope.$broadcast("elastic:adjust");
+      });
+    });
+    // Init auto height in panels
+    $("#evidenceItem").on("click", function () {
+      $(".equalHeight").matchHeight();
+    });
+    $scope.findingInformationTab();
+    $timeout($scope.goUp, 200);
   };
   $scope.configColorPalette = function () {
     $scope.colors = {};
@@ -1264,6 +1304,7 @@ integrates.controller("findingcontentCtrl", function (
               });
             }
             $scope.tabEvidences = evidenceList;
+            findingData.tabEvidences = evidenceList;
           }
         }
         else {
@@ -1336,10 +1377,12 @@ integrates.controller("findingcontentCtrl", function (
             });
           }
           $scope.tabEvidences = evidenceList;
+          findingData.tabEvidences = evidenceList;
         }
       }
       else if (response.error) {
         Rollbar.error("Error: An error occurred loading evidences");
+        findingData.tabEvidences = evidenceList;
       }
     });
   };
@@ -1415,6 +1458,7 @@ integrates.controller("findingcontentCtrl", function (
   };
   $scope.findingRecordsTab = function () {
     $scope.hasRecords = false;
+    findingData.hasRecords = $scope.hasRecords;
     let vlang = "en-US";
     let record = {};
     const req = projectFtry.getEvidences($scope.finding.id);
@@ -1459,6 +1503,7 @@ integrates.controller("findingcontentCtrl", function (
                             response.data[cont].es_registros_archivo == true) {
               record = projectFtry.getRecords($scope.finding.id, response.data[cont].registros_archivo);
               $scope.hasRecords = true;
+              findingData.hasRecords = $scope.hasRecords;
               record.then(function (response) {
                 resp_function(response);
               });
@@ -1466,6 +1511,7 @@ integrates.controller("findingcontentCtrl", function (
             else if (typeof $scope.finding.registros_archivo !== "undefined") {
               record = projectFtry.getRecords($scope.finding.id, $scope.finding.registros_archivo);
               $scope.hasRecords = true;
+              findingData.hasRecords = $scope.hasRecords;
               record.then(function (response) {
                 resp_function(response);
               });
@@ -1473,6 +1519,7 @@ integrates.controller("findingcontentCtrl", function (
             else if ((typeof $scope.finding.registros_archivo === "undefined" || typeof response.data[cont].registros_archivo === "undefined") &&
                             response.data[cont].es_registros_archivo == false) {
               $scope.hasRecords = false;
+              findingData.hasRecords = $scope.hasRecords;
             }
           }
         }
@@ -1509,6 +1556,7 @@ integrates.controller("findingcontentCtrl", function (
         }
         else if (response.data.length <= 0 || typeof $scope.finding.registros_archivo === "undefined") {
           $scope.hasRecords = false;
+          findingData.hasRecords = $scope.hasRecords;
         }
       }
     });
@@ -1761,6 +1809,7 @@ integrates.controller("findingcontentCtrl", function (
       req.then(function (response) {
         if (!response.error) {
           $scope.isRemediated = response.data.remediated;
+          findingData.remediated = $scope.isRemediated;
           if ($scope.isManager && $scope.isRemediated) {
             $(".finding-verified").show();
           }
@@ -1875,7 +1924,6 @@ integrates.controller("findingcontentCtrl", function (
     // Inicializacion para consulta de hallazgos
     $scope.configColorPalette();
     $scope.finding = {};
-    $scope.finding = {};
     $scope.finding.id = $stateParams.id;
     $scope.loadFindingByID($stateParams.id);
     $scope.goUp();
@@ -1977,6 +2025,7 @@ integrates.controller("findingcontentCtrl", function (
       $("#comment").removeClass("active");
       $("#recordsItem").addClass("active");
       $("#records").addClass("active");
+      $scope.findingRecordsTab();
       // Tracking mixpanel
       mixPanelDashboard.trackFindingDetailed("FindingRecords", userName, userEmail, org, projt, $scope.finding.id);
     }
@@ -1993,6 +2042,7 @@ integrates.controller("findingcontentCtrl", function (
       $("#exploit").removeClass("active");
       $("#commentItem").addClass("active");
       $("#comment").addClass("active");
+      $scope.findingCommentTab();
       // Tracking mixpanel
       mixPanelDashboard.trackFindingDetailed("FindingComments", userName, userEmail, org, projt, $scope.finding.id);
     }

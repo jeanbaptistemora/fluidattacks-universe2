@@ -202,51 +202,6 @@
                                       </select>
                                   </div>
                               </div>
-                              <div class="row table-row" ng-show="esDetallado">
-                                  <div class="col-md-2 col-xs-12 col-sm-12 table-head"><label><b>{{'search_findings.tab_description.category' | translate}}</b></label></div>
-                                  <div class="col-md-4 col-xs-12 col-sm-12 table-desc">
-                                      <p ng-show="onlyReadableTab1">{{finding.categoria}}</p>
-                                      <select ng-model="finding.categoria"
-                                              ng-show="!onlyReadableTab1"
-                                              class="form-control">
-                                          <option ng-repeat="item in list.categories"
-                                                  value="{{item.name}}">
-                                              {{item.name}}
-                                          </option>
-                                      </select>
-                                  </div>
-                                  <div class="col-md-2 col-xs-12 col-sm-12 table-head"><label><b>{{'search_findings.tab_description.risk' | translate}}</b></label></div>
-                                  <div class="col-md-4 col-xs-12 col-sm-12 table-desc">
-                                      <p ng-show="onlyReadableTab1">{{finding.valor_riesgo}}</p>
-                                      <input type="text" class="form-control"
-                                             ng-show="!onlyReadableTab1"
-                                             ng-model="finding.valor_riesgo" disabled/>
-                                  </div>
-                              </div>
-                              <div class="row table-row" ng-show="esDetallado">
-                                  <div class="col-md-2 col-xs-12 col-sm-12 table-head"><label><b>{{'search_findings.tab_description.probability' | translate}}</b></label></div>
-                                  <div class="col-md-4 col-xs-12 col-sm-12 table-desc">
-                                      <p ng-show="onlyReadableTab1">{{finding.probabilidad}}</p>
-                                      <select ng-model="finding.probabilidad"
-                                              ng-show="!onlyReadableTab1"
-                                              ng-change="findingCalculateSeveridad();"
-                                              class="form-control">
-                                          <option ng-repeat="item in list.probability"
-                                                  value="{{item.name}}">
-                                              {{item.name}}
-                                          </option>
-                                      </select>
-                                  </div>
-                                  <div class="col-md-2 col-xs-12 col-sm-12 table-head"><label><b>{{'search_findings.tab_description.severity' | translate}}</b></label></div>
-                                  <div class="col-md-4 col-xs-12 col-sm-12 table-desc">
-                                      <p ng-show="onlyReadableTab1">{{finding.severidad}}</p>
-                                      <input type="text" class="form-control"
-                                             ng-show="!onlyReadableTab1"
-                                             ng-model="finding.severidad"
-                                             ng-bind="finding.severidad"
-                                             ng-blur="calculateSeveridad();">
-                                  </div>
-                              </div>
                               <div class="row table-row">
                                   <div class="col-md-2 col-xs-12 col-sm-12 table-head"><label><b>{{'search_findings.tab_description.description' | translate}}</b></label></div>
                                   <div class="col-md-10 col-xs-12 col-sm-12 table-desc">
