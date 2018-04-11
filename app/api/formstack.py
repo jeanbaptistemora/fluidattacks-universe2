@@ -88,7 +88,7 @@ AppleWebKit/537.36 (KHTML, like Gecko) FLUIDIntegrates/1.0'
                 return self.TOKEN
             else:
                 if x == (len(ltokens)-3):
-                    message = 'Warning: There are only 2 available formstack tokens left for today.'
+                    message = 'Error: There are only 2 available formstack tokens left for today.'
                     rollbar.report_message(message, 'error')
                 else:
                     continue
