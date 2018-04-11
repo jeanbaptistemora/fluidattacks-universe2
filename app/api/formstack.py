@@ -11,12 +11,9 @@ from retrying import retry
 from random import randint
 
 requests.adapters.DEFAULT_RETRIES = 10
-
 class FormstackAPI(object):
 
     headers_config = {}
-    ltokens= FI_FORMSTACK_TOKENS.split(',')
-    TOKEN = ltokens[randint(0,(len(ltokens)-1))]
     SUBMISSION_URL = "https://www.formstack.com/api/v2/submission/:id.json"
     #Finding URL
     FN_URL = "https://www.formstack.com/api/v2/form/1998500/submission.json"
@@ -31,6 +28,7 @@ class FormstackAPI(object):
         """Constructor."""
         self.headers_config['User-Agent'] = 'Mozilla/5.0 (X11; Linux x86_64) \
 AppleWebKit/537.36 (KHTML, like Gecko) FLUIDIntegrates/1.0'
+        self.valid_token()
 
     @retry(retry_on_exception=ConnectionError, stop_max_attempt_number=5)
     def request(self, method, url, data=None):
@@ -72,6 +70,24 @@ AppleWebKit/537.36 (KHTML, like Gecko) FLUIDIntegrates/1.0'
         except TypeError:
             executed_request = None
         return executed_request
+
+    def valid_token(self ):
+        """Valida que un token sea valido y lo asigna."""
+        ltokens= FI_FORMSTACK_TOKENS.split(',')
+        url = "https://www.formstack.com/api/v2/submission/293276999.json"
+        stat = 0
+        while stat == 0:
+            test_token = ltokens[randint(0,(len(ltokens)-1))]
+            data = {"oauth_token": test_token}
+            req = requests.request(
+            'GET', url,
+            data=data, headers=self.headers_config
+            )
+            if req.status_code == 429:
+                stat=0
+            else:
+                self.TOKEN = test_token
+                stat=1
 
     def delete_submission(self, submission_id):
         """ Elimina un id de submission """
