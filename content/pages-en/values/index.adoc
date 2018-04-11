@@ -48,11 +48,19 @@ our values ​​and principles:
 There are no vulnerabilities that are detected and stored for future use,
 personal or organizational.
 
-. *Attacks are only carried out when there is authorization from the client
-or in personal test environments*:
-Neither as a test, attacks are made to third parties
-(partners, other companies, friends, etc.)
-outside the organization.
+. *Attacks are only carried out when there is authorization from the client,
+in personal test environments or environments created to be hacked
+(CTFs, challenge sites, etc)*:
+Neither as a test, nor in time outside labor hours,
+nor outside the organization
+attacks are made to third parties (partners, other companies, friends, etc.).
+
+. *The vulnerabilities found by the hacker are not revealed:*
+The hacker who finds the vulnerability does not tell anyone
+inside +FLUIDAttacks+ or even his family circle,
+about the details or the very existence
+of the vulnerabilities he discovers or knows.
+Only the client and the people in the project should know about them.
 
 . *Any infection made during an attack is disinfected*:
 After finishing a project all the software installed to infect
@@ -60,8 +68,16 @@ is completely uninstalled or if this is not possible,
 this situation is notified to the client in writing.
 
 . *Any security issue that we find out is reported*:
-If we know about a security issue
-it must be reported to the level immediately above the person involved.
+If we know of a security issue, whether accidental or intentional,
+it is communicated in writing or by a witness
+at higher levels of authority of the people involved in the issue.
+
+
+. *Faced an error of any nature, the fault is recognized without excuses*:
+Faced a lack of commitment of any nature
+involving a person of +FLUIDAttacks+ with any third party,
+we recognize the fault immediately, explicitly, directly, face-to-face
+and without excuses before all those affected by said fault.
 
 == 4. Ethics
 
