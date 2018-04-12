@@ -78,6 +78,7 @@
 * link:103/[REQ.103 Gestionar tarjetas de acceso].
 * link:104/[REQ.104 Uniformar a operarios de la organización].
 * link:105/[REQ.105 Evitar fuga de activos].
+* link:106/[REQ.106 Asignar personal a líneas telefónicas].
 
 == Dispositivos
 
