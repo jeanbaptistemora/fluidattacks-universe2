@@ -79,6 +79,7 @@
 * link:104/[REQ.104 Uniformar a operarios de la organización].
 * link:105/[REQ.105 Evitar fuga de activos].
 * link:106/[REQ.106 Asignar personal a líneas telefónicas].
+* link:107/[REQ.107 Realizar requisas continuas].
 
 == Dispositivos
 
