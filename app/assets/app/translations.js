@@ -1,5 +1,5 @@
 /* globals integrates,localStorage, traducciones:true, $ */
-"use strict";
+
 
 /**
  * @file translations.js
@@ -14,7 +14,7 @@
 /** @export */
 integrates.config([
   "$translateProvider",
-  function ($translateProvider) {
+  function config ($translateProvider) {
     $translateProvider.useSanitizeValueStrategy("sanitizeParameters");
     let traducciones = {};
     let translations = {};

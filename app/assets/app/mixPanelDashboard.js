@@ -13,7 +13,7 @@ const mixPanelDashboard = {};
  */
 let result = false;
 const none_int = -1;
-mixPanelDashboard.isProduction = function () {
+mixPanelDashboard.isProduction = function isProduction () {
   result = false;
   try {
     result = location.toString().indexOf("localhost:8000") !== none_int;
@@ -25,7 +25,7 @@ mixPanelDashboard.isProduction = function () {
   }
 };
 
-mixPanelDashboard.trackSearch = function (trackName, userEmail, project) {
+mixPanelDashboard.trackSearch = function trackSearch (trackName, userEmail, project) {
   if (mixPanelDashboard.isProduction()) {
     return false;
   }
@@ -38,7 +38,7 @@ mixPanelDashboard.trackSearch = function (trackName, userEmail, project) {
   );
 };
 
-mixPanelDashboard.trackReadEventuality = function (userName, userEmail, Organization, project, id) {
+mixPanelDashboard.trackReadEventuality = function trackReadEventuality (userName, userEmail, Organization, project, id) {
   if (mixPanelDashboard.isProduction()) {
     return false;
   }
@@ -54,7 +54,7 @@ mixPanelDashboard.trackReadEventuality = function (userName, userEmail, Organiza
   );
 };
 
-mixPanelDashboard.trackReports = function (trackName, userName, userEmail, Organization, project) {
+mixPanelDashboard.trackReports = function trackReports (trackName, userName, userEmail, Organization, project) {
   if (mixPanelDashboard.isProduction()) {
     return false;
   }
@@ -69,7 +69,7 @@ mixPanelDashboard.trackReports = function (trackName, userName, userEmail, Organ
   );
 };
 
-mixPanelDashboard.trackFinding = function (trackName, userEmail, id) {
+mixPanelDashboard.trackFinding = function trackFinding (trackName, userEmail, id) {
   if (mixPanelDashboard.isProduction()) {
     return false;
   }
@@ -82,7 +82,7 @@ mixPanelDashboard.trackFinding = function (trackName, userEmail, id) {
   );
 };
 
-mixPanelDashboard.trackFindingDetailed = function (trackName, userName, userEmail, Organization, project, id) {
+mixPanelDashboard.trackFindingDetailed = function trackFindingDetailed (trackName, userName, userEmail, Organization, project, id) {
   if (mixPanelDashboard.isProduction()) {
     return false;
   }

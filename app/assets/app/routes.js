@@ -1,5 +1,5 @@
 /* globals integrates, BASE,  $ */
-"use strict";
+
 
 /**
  * @file routes.js
@@ -13,7 +13,7 @@
  * @return {undefined}
  */
 /** @export */
-integrates.config(function ($stateProvider, $urlRouterProvider) {
+integrates.config(function config ($stateProvider, $urlRouterProvider) {
   $urlRouterProvider.otherwise("home");
 
   $stateProvider.
@@ -93,7 +93,7 @@ integrates.config(function ($stateProvider, $urlRouterProvider) {
       "url": "/forms"
     });
 });
-integrates.config(function ($sceDelegateProvider) {
+integrates.config(function config ($sceDelegateProvider) {
   $sceDelegateProvider.resourceUrlWhitelist([
     "self",
     "/assets/views/project/eventualityMdl.html",

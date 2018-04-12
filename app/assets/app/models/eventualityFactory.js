@@ -11,7 +11,7 @@
  * @return {undefined}
  */
 /** @export */
-integrates.factory("eventualityFactory", function ($q) {
+integrates.factory("eventualityFactory", function eventualityFactory ($q) {
   return {
 
     /**

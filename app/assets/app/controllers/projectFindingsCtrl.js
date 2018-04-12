@@ -56,13 +56,13 @@ function labelState (value, row, index) {
 /** @export */
 integrates.controller(
   "projectFindingsCtrl",
-  function (
+  function projectFindingsCtrl (
     $scope, $location,
     $uibModal, $timeout,
     $state, $stateParams,
     $translate, projectFtry
   ) {
-    $scope.init = function () {
+    $scope.init = function init () {
       const project = $stateParams.project;
       const findingId = $stateParams.finding;
       $scope.userRole = userRole;
@@ -89,12 +89,12 @@ integrates.controller(
       $scope.goUp();
       $scope.finding = {};
     };
-    $scope.goUp = function () {
+    $scope.goUp = function goUp () {
       $("html, body").animate({"scrollTop": 0}, "fast");
     };
-    $scope.alertHeader = function (company, project) {
+    $scope.alertHeader = function alertHeader (company, project) {
       const req = projectFtry.getAlerts(company, project);
-      req.then(function (response) {
+      req.then(function setAlertHeader (response) {
         if (!response.error && response.data.length > 0) {
           if (response.data.status_act === "1") {
             let html = "<div class=\"alert alert-danger-2\">";
@@ -104,8 +104,8 @@ integrates.controller(
         }
       });
     };
-    $scope.configKeyboardView = function () {
-      document.onkeypress = function (ev) {
+    $scope.configKeyboardView = function configKeyboardView () {
+      document.onkeypress = function onkeypress (ev) {
         // Buscar un proyecto
         if (ev.keyCode === 13) {
           if ($("#project").is(":focus")) {
@@ -114,7 +114,7 @@ integrates.controller(
         }
       };
     };
-    $scope.generateFullDoc = function () {
+    $scope.generateFullDoc = function generateFullDoc () {
       const project = $scope.project;
       const data = $("#vulnerabilities").bootstrapTable("getData");
       for (let cont = 0; cont < data.length - 1; cont++) {
@@ -149,7 +149,7 @@ integrates.controller(
         return false;
       }
       const req = projectFtry.ProjectDoc(project, json, "IT");
-      req.then(function (response) {
+      req.then(function genProjectDoc (response) {
         if (!response.error) {
           let url = `${BASE.url}export_autodoc?project=${$scope.project}`;
           url += "&format=IT";
@@ -166,7 +166,7 @@ integrates.controller(
       });
       $scope.downloadDoc();
     };
-    $scope.technicalReportModal = function () {
+    $scope.technicalReportModal = function technicalReportModal () {
       // Tracking mixpanel
       const org = Organization.toUpperCase();
       const projt = $scope.project.toUpperCase();
@@ -174,7 +174,7 @@ integrates.controller(
       const modalInstance = $uibModal.open({
         "animation": true,
         "controller" ($scope, $uibModalInstance, $stateParams, projectFtry) {
-          $scope.findingMatrizXLSReport = function () {
+          $scope.findingMatrizXLSReport = function findingMatrizXLSReport () {
             const project = $stateParams.project;
             const lang = localStorage.lang;
             const prjpatt = new RegExp("^[a-zA-Z0-9_]+$");
@@ -195,7 +195,7 @@ integrates.controller(
               }
             }
           };
-          $scope.findingMatrizPDFReport = function () {
+          $scope.findingMatrizPDFReport = function findingMatrizPDFReport () {
             const project = $stateParams.project;
             const lang = localStorage.lang;
             const prjpatt = new RegExp("^[a-zA-Z0-9_]+$");
@@ -216,7 +216,7 @@ integrates.controller(
               }
             }
           };
-          $scope.closeModalAvance = function () {
+          $scope.closeModalAvance = function closeModalAvance () {
             $uibModalInstance.close();
           };
         },
@@ -226,7 +226,7 @@ integrates.controller(
         "windowClass": "modal avance-modal"
       });
     };
-    $scope.executiveReportModal = function () {
+    $scope.executiveReportModal = function executiveReportModal () {
       // Tracking mixpanel
       const org = Organization.toUpperCase();
       const projt = $scope.project.toUpperCase();
@@ -236,10 +236,10 @@ integrates.controller(
         "controller" ($scope, $uibModalInstance, $stateParams) {
           $("#hasPresentation").hide();
           $("#hasPresentationMsg").show();
-          $scope.init = function () {
+          $scope.init = function init () {
             $("#hasPresentation").hide();
             $("#hasPresentationMsg").show();
-            $.get(`${BASE.url}check_pdf/project/${$stateParams.project}`, function (cont) {
+            $.get(`${BASE.url}check_pdf/project/${$stateParams.project}`, function showPresentation (cont) {
               if (!cont.error) {
                 if (cont.data.enable) {
                   $("#hasPresentation").show();
@@ -251,7 +251,7 @@ integrates.controller(
               }
             });
           };
-          $scope.findingMatrizPDFPresentation = function () {
+          $scope.findingMatrizPDFPresentation = function findingMatrizPDFPresentation () {
             const project = $stateParams.project;
             const lang = localStorage.lang;
             const prjpatt = new RegExp("^[a-zA-Z0-9_]+$");
@@ -272,7 +272,7 @@ integrates.controller(
               }
             }
           };
-          $scope.findingMatrizPDFReport = function () {
+          $scope.findingMatrizPDFReport = function findingMatrizPDFReport () {
             const project = $stateParams.project;
             const lang = localStorage.lang;
             const prjpatt = new RegExp("^[a-zA-Z0-9_]+$");
@@ -293,7 +293,7 @@ integrates.controller(
               }
             }
           };
-          $scope.closeModalAvance = function () {
+          $scope.closeModalAvance = function closeModalAvance () {
             $uibModalInstance.close();
           };
           $scope.init();
@@ -304,7 +304,7 @@ integrates.controller(
         "windowClass": "modal avance-modal"
       });
     };
-    $scope.generatePDF = function () {
+    $scope.generatePDF = function generatePDF () {
       const project = $scope.project;
       const lang = localStorage.lang;
       const prjpatt = new RegExp("^[a-zA-Z0-9_]+$");
@@ -320,7 +320,7 @@ integrates.controller(
         }
       }
     };
-    $scope.downloadDoc = function () {
+    $scope.downloadDoc = function downloadDoc () {
       if (typeof $scope.downloadURL === "undefined") {
         $timeout($scope.downloadDoc, 3000);
       }
@@ -331,7 +331,7 @@ integrates.controller(
         downLink.click();
       }
     };
-    $scope.search = function () {
+    $scope.search = function search () {
       let vlang = "en-US";
       if (localStorage.lang === "en") {
         vlang = "en-US";
@@ -366,7 +366,7 @@ integrates.controller(
         }
         else {
           const reqProject = projectFtry.projectByName(project, filter);
-          reqProject.then(function (response) {
+          reqProject.then(function loadprojectByName (response) {
             $scope.view.project = true;
             if (!response.error) {
               // Tracking Mixpanel
@@ -401,7 +401,7 @@ integrates.controller(
         }
       }
     };
-    $scope.loadFindingContent = function (datatest, vlang) {
+    $scope.loadFindingContent = function loadFindingContent (datatest, vlang) {
       const org = Organization.toUpperCase();
       const projt = $stateParams.project.toUpperCase();
       $scope.alertHeader(org, projt);
@@ -754,7 +754,7 @@ integrates.controller(
       }
       $scope.data = datatest;
     };
-    $scope.openModalAvance = function () {
+    $scope.openModalAvance = function openModalAvance () {
       const modalInstance = $uibModal.open({
         "animation": true,
         "controller" ($scope, $uibModalInstance) {
@@ -777,9 +777,9 @@ integrates.controller(
             }
           }
           $scope.rows = data;
-          $scope.closeModalAvance = function () {
+          $scope.closeModalAvance = function closeModalAvance () {
             $uibModalInstance.close();
-            $timeout(function () {
+            $timeout(function auxCloseModalAvance () {
               $("#vulnerabilities").bootstrapTable("load", auxiliar);
             }, 100);
           };
@@ -790,13 +790,13 @@ integrates.controller(
         "windowClass": "modal avance-modal"
       });
     };
-    $scope.urlIndicators = function () {
+    $scope.urlIndicators = function urlIndicators () {
       $state.go("ProjectIndicators", {"project": $scope.project});
     };
-    $scope.urlFindings = function () {
+    $scope.urlFindings = function urlFindings () {
       $state.go("ProjectFindings", {"project": $scope.project});
     };
-    $scope.urlEvents = function () {
+    $scope.urlEvents = function urlEvents () {
       $state.go("ProjectEvents", {"project": $scope.project});
     };
     $scope.init();

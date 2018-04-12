@@ -25,13 +25,13 @@ i:true, j:true
 /** @export */
 integrates.controller(
   "projectIndicatorsCtrl",
-  function (
+  function projectIndicatorsCtrl (
     $scope, $location,
     $uibModal, $timeout,
     $state, $stateParams,
     $translate, projectFtry
   ) {
-    $scope.init = function () {
+    $scope.init = function init () {
       const project = $stateParams.project;
       const findingId = $stateParams.finding;
       $scope.userRole = userRole;
@@ -59,12 +59,12 @@ integrates.controller(
       $scope.goUp();
       $scope.finding = {};
     };
-    $scope.goUp = function () {
+    $scope.goUp = function goUp () {
       $("html, body").animate({"scrollTop": 0}, "fast");
     };
-    $scope.alertHeader = function (company, project) {
+    $scope.alertHeader = function alertHeader (company, project) {
       const req = projectFtry.getAlerts(company, project);
-      req.then(function (response) {
+      req.then(function setalertHeader (response) {
         if (!response.error && response.data.length > 0) {
           if (response.data.status_act === "1") {
             let html = "<div class=\"alert alert-danger-2\">";
@@ -74,11 +74,11 @@ integrates.controller(
         }
       });
     };
-    $scope.calculateCardinality = function (data) {
+    $scope.calculateCardinality = function calculateCardinality (data) {
       let total_severity = 0;
       let cardinalidad = 0;
       let cardinalidad_total = 0;
-      data.data.forEach(function (cont) {
+      data.data.forEach(function cardinaliity (cont) {
         cardinalidad += parseInt(cont.cardinalidad, 10);
         cardinalidad_total += parseInt(cont.cardinalidad_total, 10);
       });
@@ -96,7 +96,7 @@ integrates.controller(
         "value": cardinalidad
       });
       let severity = 0;
-      data.data.forEach(function (cont) {
+      data.data.forEach(function calc_severity (cont) {
         try {
           if (cont.tipo_hallazgo === "Seguridad") {
             const ImpCon = parseFloat(cont.impacto_confidencialidad.split(" | ")[0]);
@@ -117,7 +117,7 @@ integrates.controller(
         }
       });
       const req = projectFtry.TotalSeverity($scope.project.toLowerCase());
-      req.then(function (response) {
+      req.then(function calcTotalSeverity (response) {
         if (!response.error) {
           if (response.data.length > 0) {
             for (let cont = 0; cont < response.data.length; cont++) {
@@ -155,8 +155,8 @@ integrates.controller(
         }
       });
     };
-    $scope.configKeyboardView = function () {
-      document.onkeypress = function (ev) {
+    $scope.configKeyboardView = function configKeyboardView () {
+      document.onkeypress = function onkeypress (ev) {
         // Buscar un proyecto
         if (ev.keyCode === 13) {
           if ($("#project").is(":focus")) {
@@ -165,11 +165,11 @@ integrates.controller(
         }
       };
     };
-    $scope.mainGraphtypePieChart = function () {
+    $scope.mainGraphtypePieChart = function mainGraphtypePieChart () {
       const currData = $scope.data;
       let total_seg = 0;
       let total_hig = 0;
-      currData.forEach(function (val, cont) {
+      currData.forEach(function calcChartValue (val, cont) {
         const tipo = val.tipo_hallazgo;
         if (val.estado !== "Cerrado" && val.estado !== "Closed") {
           if (tipo === "Seguridad") {
@@ -202,11 +202,11 @@ integrates.controller(
         "resize": true
       });
     };
-    $scope.mainGraphexploitPieChart = function () {
+    $scope.mainGraphexploitPieChart = function mainGraphexploitPieChart () {
       const currData = $scope.data;
       let exploit = 0;
       let nonexploit = 0;
-      currData.forEach(function (val, cont) {
+      currData.forEach(function calcmainGraphexploit (val, cont) {
         const explotable = val.explotabilidad;
         if (val.estado !== "Cerrado" && val.estado !== "Closed") {
           if (explotable === "1.000 | Alta: No se requiere exploit o se puede automatizar" || explotable === "0.950 | Funcional: Existe exploit" || explotable === "1.000 | High: Exploit is not required or it can be automated" || explotable === "0.950 | Functional: There is an exploit") {
@@ -239,13 +239,13 @@ integrates.controller(
         "resize": true
       });
     };
-    $scope.mainGraphstatusPieChart = function () {
+    $scope.mainGraphstatusPieChart = function mainGraphstatusPieChart () {
       const currData = $scope.data;
       let total = 0;
       let open = 0;
       let partial = 0;
       let close = 0;
-      currData.forEach(function (val, cont) {
+      currData.forEach(function calcmainGraphstatus (val, cont) {
         const estado = val.estado;
         total += 1;
         if (estado === "Abierto" || estado === "Open") {
@@ -289,7 +289,7 @@ integrates.controller(
       });
     };
 
-    $scope.search = function () {
+    $scope.search = function search () {
       let vlang = "en-US";
       if (localStorage.lang === "en") {
         vlang = "en-US";
@@ -324,7 +324,7 @@ integrates.controller(
         }
         else {
           const reqProject = projectFtry.projectByName(project, filter);
-          reqProject.then(function (response) {
+          reqProject.then(function loadIndicator (response) {
             $scope.view.project = true;
             if (!response.error) {
               // Tracking Mixpanel
@@ -359,7 +359,7 @@ integrates.controller(
         }
       }
     };
-    $scope.loadIndicatorsContent = function (datatest) {
+    $scope.loadIndicatorsContent = function loadIndicatorsContent (datatest) {
       const org = Organization.toUpperCase();
       const projt = $stateParams.project.toUpperCase();
       $scope.alertHeader(org, projt);
@@ -378,13 +378,13 @@ integrates.controller(
       }
       $scope.data = datatest;
     };
-    $scope.urlIndicators = function () {
+    $scope.urlIndicators = function urlIndicators () {
       $state.go("ProjectIndicators", {"project": $scope.project});
     };
-    $scope.urlFindings = function () {
+    $scope.urlFindings = function urlFindings () {
       $state.go("ProjectFindings", {"project": $scope.project});
     };
-    $scope.urlEvents = function () {
+    $scope.urlEvents = function urlEvents () {
       $state.go("ProjectEvents", {"project": $scope.project});
     };
     $scope.init();

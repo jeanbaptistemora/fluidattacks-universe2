@@ -11,7 +11,7 @@
  * @return {undefined}
  */
 /** @export */
-integrates.factory("findingFactory", function ($q, $translate) {
+integrates.factory("findingFactory", function findingFactory ($q, $translate) {
   return {
 
     /**

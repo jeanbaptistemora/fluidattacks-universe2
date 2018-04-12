@@ -113,6 +113,7 @@ rules:
   vars-on-top: error
   wrap-iife: error
   yoda: error
+  strict: error
   init-declarations: error
   no-catch-shadow: error
   no-delete-var: error

@@ -1,7 +1,7 @@
 /* eslint no-magic-numbers: ["error", { "ignore": [-1,0,0.950,1,2,5] }]*/
 /* global document, $, alertify, setInterval, timew, Tabletop, v:true, obj:true, $msg */
 let remember = null;
-$(document).ready(function () {
+$(document).ready(function ready () {
   remember = function () {
     try {
       alertify.log("<div class=\"\" style=\"padding: 8px;\"><p class=\"text-center\">Recordatorio</p><p class=\"text-left\"> Recuerda personalizar los campos dependiendo de la situación que vas a reportar!</p> </div>");
@@ -12,10 +12,10 @@ $(document).ready(function () {
   };
   remember();
   const timew = 35000;
-  setInterval(function () {
+  setInterval(function setInterval () {
     remember();
   }, timew);
-  document.getElementsByTagName("select")[5].onchange = function () {
+  document.getElementsByTagName("select")[5].onchange = function onchange () {
     const verf = document.getElementsByTagName("select")[5].value;
     if (verf == "Verificación") {
       alertify.success("<p class=\"text-center\"> Información: </p> <p class=\"text-left\"> Verificacion debe usarse para reportar hallazgos en chequeos cruzados </p>");
@@ -30,7 +30,7 @@ function isUpperCase (str) {
   return str === str.toUpperCase();
 }
 
-String.prototype.capitalizeFirstLetter = function () { /* eslint no-extend-native: ["error", { "exceptions": ["String"] }]*/
+String.prototype.capitalizeFirstLetter = function capitalizeFirstLetter () { /* eslint no-extend-native: ["error", { "exceptions": ["String"] }]*/
   return this.charAt(0).toUpperCase() + this.slice(1);
 };
 
@@ -59,7 +59,7 @@ const public_spreadsheet_url = "https://docs.google.com/spreadsheets/d/1L37WnF6e
  */
 function showInfo (data, tabletop) {
   const obj = $.parseJSON(JSON.stringify(data));
-  $("#field32201810").change(function () {
+  $("#field32201810").change(function change () {
     const title = $("#field32201810").val();
     for (let cont = 0; cont < obj.length; cont++) {
       if (obj[cont].Titulo == title) {
@@ -141,11 +141,11 @@ Tabletop.init({
   "prettyColumnNames": true,
   "simpleSheet": true
 });
-$(donde).focusout(function () {
+$(donde).focusout(function focusoutDonde () {
   donde.val($.trim(donde.val()));
 });
 
-$(requirement).focusout(function () {
+$(requirement).focusout(function focusoutRequirement () {
   requirement.val($.trim(requirement.val()));
   if (requirement.val()[requirement.val().length - 1] != ".") {
     requirement.val(`${requirement.val()}.`);
@@ -155,7 +155,7 @@ $(requirement).focusout(function () {
   }
 });
 
-$(description).focusout(function () {
+$(description).focusout(function focusoutDescription () {
   description.val($.trim(description.val()));
   if (description.val()[description.val().length - 1] != ".") {
     description.val(`${description.val()}.`);
@@ -166,7 +166,7 @@ $(description).focusout(function () {
   description.val(description.val());
 });
 
-$(solution).focusout(function () {
+$(solution).focusout(function focusoutSolution () {
   solution.val($.trim(solution.val()));
   if (solution.val()[solution.val().length - 1] != ".") {
     solution.val(`${solution.val()}.`);
@@ -176,7 +176,7 @@ $(solution).focusout(function () {
   }
 });
 
-$(risk).focusout(function () {
+$(risk).focusout(function focusoutRisk () {
   risk.val($.trim(risk.val()));
   if (risk.val()[risk.val().length - 1] != ".") {
     risk.val(`${risk.val()}.`);
@@ -186,7 +186,7 @@ $(risk).focusout(function () {
   }
 });
 
-$(threat).focusout(function () {
+$(threat).focusout(function focusoutThreat () {
   threat.val($.trim(threat.val()));
   if (threat.val()[threat.val().length - 1] != ".") {
     threat.val(`${threat.val()}.`);
@@ -196,7 +196,7 @@ $(threat).focusout(function () {
   }
 });
 
-$(evidencia_hallazgo).change(function () {
+$(evidencia_hallazgo).change(function changeEvidence () {
   const hallazgo_upload = $(evidencia_hallazgo).val().
     split("\\")[2].split(".")[0];
   const substring = "evidencia";
@@ -206,7 +206,7 @@ $(evidencia_hallazgo).change(function () {
   }
 });
 
-$(exploit).change(function () {
+$(exploit).change(function changeExploit () {
   const exploit_upload = $(exploit).val().
     split("\\")[2].split(".")[0];
   if (exploit_upload != "exploit") {
@@ -218,7 +218,7 @@ $(exploit).change(function () {
   }
 });
 
-$(evidencia_explotacion).change(function () {
+$(evidencia_explotacion).change(function changeExploitation () {
   const explotacion_upload = $(evidencia_explotacion).val().
     split("\\")[2].split(".")[0];
   if (explotacion_upload != "evidencia-de-explotacion") {
@@ -230,7 +230,7 @@ $(evidencia_explotacion).change(function () {
   }
 });
 
-$(animacion).change(function () {
+$(animacion).change(function changeAnimation () {
   const animacion_upload = $(animacion).val().
     split("\\")[2].split(".")[0];
   if (animacion_upload != "animacion-de-explotacion") {
@@ -242,7 +242,7 @@ $(animacion).change(function () {
   }
 });
 
-$(solution_pdf).change(function () {
+$(solution_pdf).change(function changeSolution () {
   const sol_upload = $(solution_pdf).val().
     split("\\")[2].split(".")[0];
   if (sol_upload != "solucion") {

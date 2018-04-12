@@ -23,7 +23,7 @@ const integrates = angular.module("FluidIntegrates", [
 
 integrates.config([
   "$translateProvider",
-  function ($translateProvider) {
+  function config ($translateProvider) {
     const translations = {
       "button": {
         "azure": "Log in with Azure/Office365",
@@ -51,7 +51,7 @@ integrates.config([
 /*
  * MixPanel localhost Fixer
  */
-integrates.isProduction = function () {
+integrates.isProduction = function isProduction () {
   return window.location.toString().indexOf("localhost:8000") == -1;
 };
 
@@ -62,8 +62,8 @@ integrates.isProduction = function () {
  * @param {integrates.loginFactory} loginFactory
  * @return {undefined}
  */
-integrates.controller("loginController", function ($scope, $translate) {
-  $scope.lang = function (langKey) {
+integrates.controller("loginController", function loginController ($scope, $translate) {
+  $scope.lang = function lang (langKey) {
     if (langKey == "es" || langKey == "en") {
       localStorage.lang = langKey;
     }
@@ -75,7 +75,7 @@ integrates.controller("loginController", function ($scope, $translate) {
    * @function login
    * @return {undefined}
    */
-  $scope.login = function () {
+  $scope.login = function login () {
     const username = $scope.username;
     const password = $scope.password;
     if (typeof username != "string" ||
@@ -104,7 +104,7 @@ integrates.controller("loginController", function ($scope, $translate) {
         },
         "method": "POST",
         "url": `${BASE.url}login/`
-      }).done(function (err) {
+      }).done(function done (err) {
         let color = "warning";
         if (err.error == true) {
           color = "warning";
