@@ -75,6 +75,7 @@
 * link:100/[REQ.100 Sellar ventanas que contengan activos].
 * link:101/[REQ.101 Asignar carnés y tarjetas a personal].
 * link:102/[REQ.102 Carné visible dentro de las instalaciones].
+* link:103/[REQ.103 Gestionar tarjetas de acceso].
 
 == Dispositivos
 
