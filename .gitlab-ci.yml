@@ -37,7 +37,7 @@ build_pretest:
 build_deps:
     stage: deps
     script:
-        - echo $DOCKER_PASS | docker login registry.gitlab.com -u $DOCKER_USER --password-stdin
+        - echo "$DOCKER_PASS" | docker login registry.gitlab.com -u "$DOCKER_USER" --password-stdin
         - docker build --cache-from registry.gitlab.com/fluidsignal/integrates:deps -t registry.gitlab.com/fluidsignal/integrates:deps deploy/containers/deps
         - docker push registry.gitlab.com/fluidsignal/integrates:deps
     except:
@@ -46,9 +46,9 @@ build_deps:
 build_integrates:
     stage: build
     script:
-        - echo $DOCKER_PASS | docker login registry.gitlab.com -u $DOCKER_USER --password-stdin
+        - echo "$DOCKER_PASS" | docker login registry.gitlab.com -u "$DOCKER_USER" --password-stdin
         - >
-          cd deploy/containers/integrates && sh build.sh $CI_COMMIT_REF_NAME $FI_GITLAB_LOGIN $FI_GITLAB_PASSWORD $FI_DRIVE_AUTHORIZATION $FI_DOCUMENTROOT $FI_SSL_CERT $FI_SSL_KEY $FI_DRIVE_AUTHORIZATION_CLIENT
+          cd deploy/containers/integrates && sh build.sh "$CI_COMMIT_REF_NAME" "$FI_GITLAB_LOGIN" "$FI_GITLAB_PASSWORD" "$FI_DRIVE_AUTHORIZATION" "$FI_DOCUMENTROOT" "$FI_SSL_CERT" "$FI_SSL_KEY" "$FI_DRIVE_AUTHORIZATION_CLIENT"
         - docker push registry.gitlab.com/fluidsignal/integrates:base
     except:
     - triggers
@@ -56,9 +56,9 @@ build_integrates:
 build_bot:
     stage: build
     script:
-        - echo $DOCKER_PASS | docker login registry.gitlab.com -u $DOCKER_USER --password-stdin
+        - echo "$DOCKER_PASS" | docker login registry.gitlab.com -u "$DOCKER_USER" --password-stdin
         - >
-          cd deploy/containers/bot && sh build.sh $CI_COMMIT_REF_NAME $FI_GITLAB_LOGIN $FI_GITLAB_PASSWORD $FI_DRIVE_AUTHORIZATION $FI_DOCUMENTROOT $FI_SSL_CERT $FI_SSL_KEY $FI_DRIVE_AUTHORIZATION_CLIENT
+          cd deploy/containers/bot && sh build.sh "$CI_COMMIT_REF_NAME" "$FI_GITLAB_LOGIN" "$FI_GITLAB_PASSWORD" "$FI_DRIVE_AUTHORIZATION" "$FI_DOCUMENTROOT" "$FI_SSL_CERT" "$FI_SSL_KEY" "$FI_DRIVE_AUTHORIZATION_CLIENT"
         - docker push registry.gitlab.com/fluidsignal/integrates/bot:base
     except:
     - triggers
@@ -66,19 +66,20 @@ build_bot:
 server_on:
     stage: build
     script:
-        - echo $DOCKER_PASS | docker login registry.gitlab.com -u $DOCKER_USER --password-stdin
+        - echo "$DOCKER_PASS" | docker login registry.gitlab.com -u "$DOCKER_USER" --password-stdin
         - docker stop integrates_test && docker rm integrates_test || true
+        - docker stop chrome && docker rm chrome || true
+        - docker stop selenium-hub && docker rm selenium-hub || true
         - docker network rm integrates_test || true
         - docker network create --subnet=192.168.200.0/24 integrates_test
         - docker run -d --name "integrates_test" --env-file env.list --network integrates_test --ip 192.168.200.100 -p 8000:8000 -t registry.gitlab.com/fluidsignal/integrates:base python /usr/src/app/manage.py runsslserver 192.168.200.100.xip.io:8000
-#        - docker run -d --name "integrates_test" --env-file env.list --network integrates_test --ip 192.168.200.100 -p 8000:8000 -t registry.gitlab.com/fluidsignal/integrates:base python /usr/src/app/manage.py runserver 0.0.0.0:8000
     except:
     - triggers
 
 manage:
     stage: test
     script:
-        - echo $DOCKER_PASS | docker login registry.gitlab.com -u $DOCKER_USER --password-stdin
+        - echo "$DOCKER_PASS" | docker login registry.gitlab.com -u "$DOCKER_USER" --password-stdin
         - docker run --env-file env.list -t registry.gitlab.com/fluidsignal/integrates:base python /usr/src/app/manage.py test app.tests
         - rm env.list
     except:
@@ -87,9 +88,9 @@ manage:
 fluidasserts:
     stage: test
     script:
-        - echo $CONTINUOUS_PASS | docker login fluid-docker.jfrog.io -u $CONTINUOUS_USER --password-stdin 
+        - echo "$CONTINUOUS_PASS" | docker login fluid-docker.jfrog.io -u "$CONTINUOUS_USER" --password-stdin 
         - docker pull fluid-docker.jfrog.io/fluid:integrates
-        - docker run --network integrates_test -e ORG=fluid -e APP=integrates -e USER=$CONTINUOUS_USER -e PASS=$CONTINUOUS_PASS -e FA_STRICT="false" fluid-docker.jfrog.io/fluid:integrates
+        - docker run --network integrates_test -e ORG=fluid -e APP=integrates -e USER="$CONTINUOUS_USER" -e PASS="$CONTINUOUS_PASS" -e FA_STRICT="false" fluid-docker.jfrog.io/fluid:integrates
     except:
     - triggers
 
@@ -105,7 +106,7 @@ js_compiler:
 js_linter:
     stage: test
     script:
-        - echo $DOCKER_PASS | docker login registry.gitlab.com -u $DOCKER_USER --password-stdin
+        - echo "$DOCKER_PASS" | docker login registry.gitlab.com -u "$DOCKER_USER" --password-stdin
         - docker run --env-file env.list -t registry.gitlab.com/fluidsignal/integrates:base /bin/bash -c "npm install -g  n; n stable; node /usr/src/app/app/assets/node_modules/.bin/eslint /usr/src/app/app/assets/app/."
         - rm env.list
     except:
@@ -114,7 +115,7 @@ js_linter:
 Prospector_app:
     stage: test
     script:
-        - echo $DOCKER_PASS | docker login registry.gitlab.com -u $DOCKER_USER --password-stdin
+        - echo "$DOCKER_PASS" | docker login registry.gitlab.com -u "$DOCKER_USER" --password-stdin
         - docker run --env-file env.list -t registry.gitlab.com/fluidsignal/integrates:base prospector -u django -p /usr/src/app/app -i node_modules
         - rm env.list
     except:
@@ -123,7 +124,7 @@ Prospector_app:
 Prospector_fluidintegrates:
     stage: test
     script:
-        - echo $DOCKER_PASS | docker login registry.gitlab.com -u $DOCKER_USER --password-stdin 
+        - echo "$DOCKER_PASS" | docker login registry.gitlab.com -u "$DOCKER_USER" --password-stdin 
         - docker run --env-file env.list -t registry.gitlab.com/fluidsignal/integrates:base prospector -u django /usr/src/app/fluidintegrates
         - rm env.list
     except:
@@ -134,7 +135,7 @@ Functional_test:
     script:
         - docker stop chrome && docker rm chrome || true
         - docker stop selenium-hub && docker rm selenium-hub || true
-        - echo $DOCKER_PASS | docker login registry.gitlab.com -u $DOCKER_USER --password-stdin
+        - echo "$DOCKER_PASS" | docker login registry.gitlab.com -u "$DOCKER_USER" --password-stdin
         - docker run -d -p 4444:4444 --network integrates_test --ip 192.168.200.101 --name selenium-hub selenium/hub
         - docker run --name "chrome" --network integrates_test -d -e HUB_PORT_4444_TCP_ADDR=selenium-hub --ip 192.168.200.102 -e HUB_PORT_4444_TCP_PORT=4444  selenium/node-chrome
         - docker cp selenium_test.py chrome:/selenium_test.py
@@ -145,16 +146,15 @@ Functional_test:
         - docker exec --privileged chrome sudo -H pip install -U pip setuptools
         - docker exec --privileged chrome sudo -H pip install -U selenium
         #- docker exec --privileged chrome sudo -H python /selenium_test.py
-        - docker stop chrome && docker rm chrome || true
-        - docker stop selenium-hub && docker rm selenium-hub || true
     except:
     - triggers
-
 
 server_off:
     stage: deploy
     script:
         - docker stop integrates_test && docker rm integrates_test
+        - docker stop chrome && docker rm chrome || true
+        - docker stop selenium-hub && docker rm selenium-hub || true
         - docker network rm integrates_test
     except:
     - triggers
@@ -162,7 +162,7 @@ server_off:
 push_integrates:
     stage: push
     script:
-       - echo $DOCKER_PASS | docker login registry.gitlab.com -u $DOCKER_USER --password-stdin
+       - echo "$DOCKER_PASS" | docker login registry.gitlab.com -u "$DOCKER_USER" --password-stdin
        - docker pull registry.gitlab.com/fluidsignal/integrates:base
        - docker tag registry.gitlab.com/fluidsignal/integrates:base registry.gitlab.com/fluidsignal/integrates:master
        - docker push registry.gitlab.com/fluidsignal/integrates:master
@@ -174,7 +174,7 @@ push_integrates:
 push_bot:
     stage: push
     script:
-        - echo $DOCKER_PASS | docker login registry.gitlab.com -u $DOCKER_USER --password-stdin
+        - echo "$DOCKER_PASS" | docker login registry.gitlab.com -u "$DOCKER_USER" --password-stdin
         - docker pull registry.gitlab.com/fluidsignal/integrates/bot:base
         - docker tag registry.gitlab.com/fluidsignal/integrates/bot:base registry.gitlab.com/fluidsignal/integrates/bot:master
         - docker push registry.gitlab.com/fluidsignal/integrates/bot:master
@@ -206,14 +206,14 @@ serves_trigger:
         - scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -i FLUID_Serves.pem env.list admin@$NEW_SERVES:/home/admin
         - ssh -o StrictHostKeyChecking=no -i FLUID_Serves.pem admin@$NEW_SERVES 'sudo docker pull registry.gitlab.com/fluidsignal/integrates:master && (sudo docker stop integrates || echo "") && (sudo docker rm integrates || echo "") && sudo docker run -d --env-file env.list -p 8000:443 --name=integrates registry.gitlab.com/fluidsignal/integrates:master'
         - ssh -o StrictHostKeyChecking=no -i FLUID_Serves.pem admin@$NEW_SERVES 'sudo docker pull registry.gitlab.com/fluidsignal/integrates/bot:master && (sudo docker stop bot || echo "") && (sudo docker rm bot || echo "") && sudo docker run -d --env-file env.list --restart always --name=bot registry.gitlab.com/fluidsignal/integrates/bot:master && rm env.list'
-        - curl -X POST -F token=$TRIGGER_TOKEN -F ref=master -F "variables[IS_TRIGGER]=true" https://gitlab.com/api/v4/projects/4593051/trigger/pipeline
+        - curl -X POST -F token="$TRIGGER_TOKEN" -F ref=master -F "variables[IS_TRIGGER]=true" https://gitlab.com/api/v4/projects/4593051/trigger/pipeline
     only:
     - triggers
 
 deploy_rollbar:
     stage: rollbar
     script:
-        - docker run -d -e FI_ROLLBAR_ACCESS_TOKEN=$FI_ROLLBAR_ACCESS_TOKEN -e FI_ROLLBAR_ENVIRONMENT=$FI_ROLLBAR_ENVIRONMENT -e FI_ROLLBAR_REVISION=$CI_COMMIT_SHA -e FI_ROLLBAR_LOCAL_USERNAME=$CI_COMMIT_REF_NAME registry.gitlab.com/fluidsignal/integrates:deps curl https://api.rollbar.com/api/1/deploy/ -F access_token=$FI_ROLLBAR_ACCESS_TOKEN -F environment=$FI_ROLLBAR_ENVIRONMENT -F revision=$CI_COMMIT_SHA -F local_username=$CI_COMMIT_REF_NAME
+        - docker run -d -e FI_ROLLBAR_ACCESS_TOKEN="$FI_ROLLBAR_ACCESS_TOKEN" -e FI_ROLLBAR_ENVIRONMENT="$FI_ROLLBAR_ENVIRONMENT" -e FI_ROLLBAR_REVISION="$CI_COMMIT_SHA" -e FI_ROLLBAR_LOCAL_USERNAME="$CI_COMMIT_REF_NAME" registry.gitlab.com/fluidsignal/integrates:deps curl https://api.rollbar.com/api/1/deploy/ -F access_token=$FI_ROLLBAR_ACCESS_TOKEN -F environment=$FI_ROLLBAR_ENVIRONMENT -F revision=$CI_COMMIT_SHA -F local_username="$CI_COMMIT_REF_NAME"
     only:
     - master
     except:
