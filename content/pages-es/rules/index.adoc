@@ -81,6 +81,7 @@
 * link:106/[REQ.106 Asignar personal a líneas telefónicas].
 * link:107/[REQ.107 Realizar requisas continuas].
 * link:108/[REQ.108 Ubicar casilleros en puntos estratégicos].
+* link:109/[REQ.109 Monitorear áreas restringidas].
 
 == Dispositivos
 
