@@ -27,14 +27,14 @@ se evaluará el crecimiento en el dinero recibido por +FLUIDAttacks+
 entre las ultimas *2 fechas de corte*
 para determinar la comisión del año que empieza:
 
-.. Si el crecimiento es igual o mayor al *30%*,
+.. Si el crecimiento fue igual o mayor al *30%*,
 el ALIADO obtendrá *30% de comisión*.
 
 .. En caso contrario la comisión será del *15%*.
 
 . Si el ALIADO desea agregar por su cuenta más valor al CLIENTE
 la comisión puede ser más alta previo acuerdo mutuo de:
-precio final al cliente, valor a agregar por el ALIADO,
+precio al cliente, valor a agregar por el ALIADO,
 precio final deseado y mínimo,
 y porcentaje de comisión del ALIADO (superior al +30%+).
 
@@ -56,7 +56,8 @@ este debe pagarle al ALIADO a más tardar el *día calendario 15* de cada mes.
 
 . En caso de tener que desplazar talentos:
 
-.. +FLUIDAttacks+ cubre los honorarios del talento y los tiquetes de avión.
+.. +FLUIDAttacks+ cubre los costos de mano de obra de su propio talento
+y los tiquetes de avión.
 
 .. El ALIADO debe cubrir todo lo demás que se requiera.
 
@@ -65,7 +66,7 @@ este debe pagarle al ALIADO a más tardar el *día calendario 15* de cada mes.
 . El ALIADO debe firmar acuerdo de confidencialidad y de +non solicitation+.
 
 . Cada parte se encarga de pagar sus respectivos impuestos
-con base en la legislación tributaria de USA.
+con base en la legislación tributaria de +USA+.
 
 . El ALIADO se obliga a informar de manera anticipada
 sobre los potenciales clientes en los que buscará promover
