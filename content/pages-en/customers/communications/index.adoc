@@ -33,7 +33,16 @@ Information Technology and all complementary activities.
 
 ^.^a|image:logo-edatel.png[alt="Logo Edatel",link="https://www.edatel.com.co/nuestra-compania/informacion-corporativa/quienes-somos"]
 
-^.^a|image:logo-internexa.png[alt="Logo Internexa",link="http://www.internexa.com/Paginas/Home.aspx"]
+^.^a|image:logo-etb.png[alt="Logo ETB",link="https://etb.com/Corporativo/Sobre-ETB#historia", width="70%"]
+
+a|== ETB
+
+The Telecommunications Company of Bogotá,
+has contributed to the growth of Bogotá and Colombia during +132+ years.
+Its objective is to provide integral solutions
+of information and communication technologies,
+contributing to the strengthening of the information society,
+within the framework of corporate social responsibility.
 
 a|== Internexa
 
@@ -41,6 +50,10 @@ Colombian company dedicated to the carrier business and the energy sector.
 It has +48,866+ km of fiber optic network in Latin America.
 It serves operators that provide long distance,
 added value, internet, mobile communications and cable television services.
+
+^.^a|image:logo-internexa.png[alt="Logo Internexa",link="http://www.internexa.com/Paginas/Home.aspx"]
+
+^.^a|image:logo-tigo.png[alt="Logo Tigo",link="https://www.tigo.com.co/"]
 
 a|== Tigo UNE
 
@@ -51,7 +64,5 @@ including Colombia Móvil, Edatel and Orbitel,
 UNE covers more than +70%+ of the urban population
 and is present in +767+ municipalities
 of the +32+ departments of the national territory.
-
-^.^a|image:logo-tigo.png[alt="Logo Tigo",link="https://www.tigo.com.co/"]
 
 |====

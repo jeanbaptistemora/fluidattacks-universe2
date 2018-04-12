@@ -123,6 +123,19 @@ Since 2014, the French insurance company AXA,
 which is the largest insurer in the world,
 acquired +51%+ of the general insurance and life unit.
 
+a|== Davivienda
+
+Recognized banking entity, part of the Bolivar business group,
+whose objective is to generate value for its shareholders, customers,
+collaborators and related third parties,
+based on customer knowledge, risk management, technology,
+processes, innovation, business synergy, business knowledge,
+and emotional handling of bussiness relationships.
+
+^.^a|image:logo-davivienda.png[alt="Logo Davivienda",link="https://www.davivienda.com/wps/portal/personas/nuevo"]
+
+^.^a|image:logo-deceval.png[alt="Logo Deceval",link="https://www.deceval.com.co/portal/page/portal/Home/Empresa/Quienes_Somos"]
+
 a|== Deceval
 
 Centralized Deposit of Securities of Colombia -DECEVAL SA-,
@@ -132,10 +145,6 @@ in deposit of securities of credit content, participation,
 merchandise representatives and financial instruments
 that are registered in the National Registry of Securities and Issuers,
 whether they are issued, negotiated or registered locally or abroad.
-
-^.^a|image:logo-deceval.png[alt="Logo Deceval",link="https://www.deceval.com.co/portal/page/portal/Home/Empresa/Quienes_Somos"]
-
-^.^a|image:logo-proteccion.png[alt="Logo Proteccion",link="https://www.proteccion.com/wps/portal/proteccion/web/home/corporativo-accionistas/acerca-proteccion/que-es-proteccion"]
 
 a|== Protección
 
@@ -148,6 +157,10 @@ with close to +1.6+ million affiliates.
 The company manages three funds for unemployment insurance,
 voluntary pensions and mandatory pensions.
 
+^.^a|image:logo-proteccion.png[alt="Logo Proteccion",link="https://www.proteccion.com/wps/portal/proteccion/web/home/corporativo-accionistas/acerca-proteccion/que-es-proteccion"]
+
+^.^a|image:logo-sura.png[alt="Logo Sura",link="https://www.gruposura.com/corporativo/Paginas/default.aspx"]
+
 a|== Sura
 
 The SURA Business Group is a Latin American company
@@ -155,7 +168,5 @@ in the Miscellaneous Financial Services sector,
 part of the Dow Jones Sustainability Index,
 which recognizes companies that stand out worldwide
 for their good practices in economic, environmental and social matters.
-
-^.^a|image:logo-sura.png[alt="Logo Sura",link="https://www.gruposura.com/corporativo/Paginas/default.aspx"]
 
 |====

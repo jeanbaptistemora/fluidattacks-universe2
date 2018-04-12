@@ -59,10 +59,14 @@ los estandares +ISO/IEC 17025+ y el estándar +Common Criteria+.
 a algunas de las mayores organizaciones de Colombia.
 Esto significa que siempre habrá proyectos
 con grandes retos en los que puedes participar.
-link:../../clientes/financiero/#bancolombia[Bancolombia], link:../../clientes/financiero/#colpatria[Colpatria],
-Davivienda, los mayores
-bancos del país; link:../../clientes/comunicaciones/#tigo-une[+UNE+], ETB,
-link:../../clientes/comunicaciones/#edatel[+EDATEL+], link:../../clientes/comunicaciones/#claro[Claro],
+link:../../clientes/financiero/#bancolombia[Bancolombia],
+link:../../clientes/financiero/#colpatria[Colpatria],
+link:../../clientes/financiero/#davivienda[Davivienda],
+los mayores bancos del país;
+link:../../clientes/comunicaciones/#tigo-une[+UNE+],
+link:../../clientes/comunicaciones/#etb[+ETB+],
+link:../../clientes/comunicaciones/#edatel[+EDATEL+],
+link:../../clientes/comunicaciones/#claro[Claro],
 los mayores ISP del país y muchos más.
 Para ver una lista más completa de los
 clientes, visita la sección link:../../clientes[Clientes].

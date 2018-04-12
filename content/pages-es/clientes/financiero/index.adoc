@@ -129,6 +129,19 @@ En cuanto a los seguros, desde 2014, la aseguradora francesa AXA,
 quien es la mayor aseguradora del mundo,
 adquirio el +51%+ de la unidad de seguros generales y vida.
 
+a|== Davivienda
+
+Reconocida entidad bancaria parte del grupo empresarial Bolivar,
+cuyo objetivo es generar valor para sus accionistas, clientes,
+colaboradores y terceros relacionados, apoyados en el conocimiento del cliente,
+el manejo de riesgos, la tecnología, los procesos, la innovación,
+la sinergia empresarial, el conocimiento del negocio,
+y el manejo emocional de las relaciones.
+
+^.^a|image:logo-davivienda.png[alt="Logo Davivienda",link="https://www.davivienda.com/wps/portal/personas/nuevo"]
+
+^.^a|image:logo-deceval.png[alt="Logo Deceval",link="https://www.deceval.com.co/portal/page/portal/Home/Empresa/Quienes_Somos"]
+
 a|== Deceval
 
 Depósito Centralizado de Valores de Colombia -DECEVAL S.A.-,
@@ -138,10 +151,6 @@ valores de contenido crediticio,
 de participación, representativos de mercancías e instrumentos financieros
 que se encuentren inscritos en el Registro Nacional de Valores y Emisores,
 ya sea que se emitan, negocien o registren localmente o en el exterior.
-
-^.^a|image:logo-deceval.png[alt="Logo Deceval",link="https://www.deceval.com.co/portal/page/portal/Home/Empresa/Quienes_Somos"]
-
-^.^a|image:logo-proteccion.png[alt="Logo Proteccion",link="https://www.proteccion.com/wps/portal/proteccion/web/home/corporativo-accionistas/acerca-proteccion/que-es-proteccion"]
 
 a|== Protección
 
@@ -153,6 +162,10 @@ con cerca de +1,6+ millones de afiliados.
 La empresa administra tres fondos para seguro de cesantía,
 pensiones voluntarias y pensiones obligatorias.
 
+^.^a|image:logo-proteccion.png[alt="Logo Proteccion",link="https://www.proteccion.com/wps/portal/proteccion/web/home/corporativo-accionistas/acerca-proteccion/que-es-proteccion"]
+
+^.^a|image:logo-sura.png[alt="Logo Sura",link="https://www.gruposura.com/corporativo/Paginas/default.aspx"]
+
 a|== Sura
 
 El Grupo Empresarial SURA es una compañía latinoamericana
@@ -160,7 +173,5 @@ del sector Servicios Financieros Diversos,
 que forma parte del Índice de Sostenibilidad +Dow Jones+
 con el cual se reconocen a las compañías que se destacan a nivel mundial
 por sus buenas prácticas en materia económica, ambiental y social.
-
-^.^a|image:logo-sura.png[alt="Logo Sura",link="https://www.gruposura.com/corporativo/Paginas/default.aspx"]
 
 |====

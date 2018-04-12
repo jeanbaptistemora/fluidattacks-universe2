@@ -33,7 +33,16 @@ Tecnologías de la Información y todas las actividades complementarias.
 
 ^.^a|image:logo-edatel.png[alt="Logo Edatel",link="https://www.edatel.com.co/nuestra-compania/informacion-corporativa/quienes-somos"]
 
-^.^a|image:logo-internexa.png[alt="Logo Internexa",link="http://www.internexa.com/Paginas/Home.aspx"]
+^.^a|image:logo-etb.png[alt="Logo ETB",link="https://etb.com/Corporativo/Sobre-ETB#historia", width="70%"]
+
+a|== ETB
+
+La Empresa de Telecomunicaciones de Bogotá,
+ha contribuido con el crecimiento de Bogotá y de Colombia durante +132+ años.
+Su objetivo es entregar soluciones integrales
+de tecnologías de información y comunicaciones,
+contribuyendo al fortalecimiento de la sociedad de la información,
+en el marco de la responsabilidad social corporativa.
 
 a|== Internexa
 
@@ -41,6 +50,10 @@ Compañía colombiana dedicada al negocio de portadores y al sector energético.
 Cuenta con +48.866+ km de red de fibra óptica en Latinoamérica.
 Sirve a los operadores que prestan servicios de larga distancia,
 valor agregado, internet, comunicaciones móviles y televisión por cable.
+
+^.^a|image:logo-internexa.png[alt="Logo Internexa",link="http://www.internexa.com/Paginas/Home.aspx"]
+
+^.^a|image:logo-tigo.png[alt="Logo Tigo",link="https://www.tigo.com.co/nuestra-compania"]
 
 a|== Tigo UNE
 
@@ -51,7 +64,5 @@ incluyendo a Colombia Móvil, Edatel y Orbitel,
 UNE cubre más del +70%+ de la población urbana
 y está presente en +767+ municipios
 de los +32+ departamentos del territorio nacional.
-
-^.^a|image:logo-tigo.png[alt="Logo Tigo",link="https://www.tigo.com.co/nuestra-compania"]
 
 |====
