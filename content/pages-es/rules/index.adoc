@@ -80,6 +80,7 @@
 * link:105/[REQ.105 Evitar fuga de activos].
 * link:106/[REQ.106 Asignar personal a líneas telefónicas].
 * link:107/[REQ.107 Realizar requisas continuas].
+* link:108/[REQ.108 Ubicar casilleros en puntos estratégicos].
 
 == Dispositivos
 
