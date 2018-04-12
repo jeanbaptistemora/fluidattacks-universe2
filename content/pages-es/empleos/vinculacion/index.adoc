@@ -2,7 +2,7 @@
 :category: empleos
 :description: La siguiente página tiene como objetivo informar a los interesados en ser parte del equipo de trabajo de FLUIDAttacks sobre el proceso de selección realizado. A continuación presentamos los documentos requeridos para el procedimiento de vinculación con la empresa.
 :keywords: FLUIDAttacks, Empleo, Proceso, Selección, Vinculación, Requerimientos.
-:translate: careers/legalization/
+:translate: careers/hiring/
 
 = Vinculación
 
@@ -10,7 +10,6 @@ En este paso, requerimos que nos envíes vía e-mail (careers@autonomicmind.co) 
 
 . Foto digital, a color, en fondo blanco, con traje y corbata (hombres),
 . Fotocopia de la cédula -en 1 página las 2 caras-,
-. Fotocopia de la libreta militar -en 1 página las 2 caras- (si eres hombre),
 . Fotocopia de la Tarjeta Profesional -en 1 página las 2 caras- (si tienes pregrado),
 . Fotocopia del diploma de universidad (si tienes pregrado),
 . Fotocopia del diploma de bachiller (si no tienes pregrado),

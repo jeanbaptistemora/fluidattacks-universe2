@@ -1,11 +1,38 @@
 :slug: careers/hiring/
 :category: careers
-:description: The main goal of the following page is to inform potential talents and people interested in working with us about our selection process. In this stage we present the required documentation to formally legalize your selection once you have succeeded all the previous stages.
+:description: The main goal of the following page is to inform potential talents and people interested in working with us about our selection process. In this stage we present the required documentation to formally legalize your selection once you have successfully finished all the previous stages.
 :keywords: FLUID, Careers, Legalization, Selection, Process, Requirements.
 :translate: empleos/vinculacion/
 
 = Hiring
 
-This page is only available in Spanish language.
-Please click on the Spanish flag in the upper right corner
-to view the corresponding content.
+In this stage,
+we require that
+you send us an email at careers@autonomicmind.co
+with a carefully organized .ZIP file
+containing a PDF
+for each the following documents:
+
+. Digital photo, in color, on a white background, with suit and tie (men),
+. Photocopy of a valid government ID -both sides on one page-,
+. Photocopy of your Professional Card -both sides on one page- (in you have degree),
+. Photocopy of your university diploma (if you have a degree),
+. Photocopy of  your high school diploma (if you don’t have a degree),
+. Certificate of current studies (if you are currently enrolled in studies),
+. Photocopy of obtained certifications,
+. Photocopy of relevant courses taken,
+. Your ITIN and SSN (Individual Taxpayer Identification Number and
+Social Security Number),
+. Name of the health care provider you wish to be registered with
+or a certificate of affiliation if you already have one,
+. Full name and ID of your health care beneficiaries,
+. Name of the pensions fund you wish to be registered with
+Or a certificate of affiliation if you already have one,
+. Evidence of attendance to the pre-employment medical exam,
+. Bank account certificate,
+. Marital status, indicating if you have children,
+. Complete home address (Street, house number, name of building,
+town, city, home number, cellphone number)
+
+If you have any doubts,
+please don’t hesitate to contact us at careers@autonomicmind.co
