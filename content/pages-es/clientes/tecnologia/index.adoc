@@ -101,7 +101,7 @@ por más de 20 años de servicio.
 
 a|== Kometsales
 
-Plataforma web para la industria de las flores que simplifica
+{usa} Plataforma web para la industria de las flores que simplifica
 y automatiza procesos de ventas, compras y logística.
 Proporcionan las herramientas necesarias
 para simplificar las operaciones diarias,

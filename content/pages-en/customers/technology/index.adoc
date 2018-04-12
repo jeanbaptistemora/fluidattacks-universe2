@@ -4,6 +4,7 @@
 :keywords: FLUID, Information, Technology, Security, Ethical Hacking, Pentesting.
 :translate: clientes/tecnologia/
 :usa: image:../../images/icons/us-flag.png[USA Flag]
+:spain: image:../../images/icons/spain-flag.png[Spain Flag]
 
 = Technology
 
@@ -75,7 +76,7 @@ of the CMMI Level +5+, version +1.3+ processes.
 
 a|== Indra
 
-One of the leading global technology
+{spain} One of the leading global technology
 and consulting companies for key business operations.
 World leading provider of proprietary solutions in specific segments
 of the Transportation and Defense markets,
@@ -97,7 +98,7 @@ for more than +20+ years of service.
 
 a|== Kometsales
 
-Web platform for the flower industry that simplifies and automates sales,
+{usa} Web platform for the flower industry that simplifies and automates sales,
 purchasing and logistics processes.
 We provide the necessary tools to simplify daily operations,
 connecting the main industry partners
