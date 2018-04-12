@@ -10,39 +10,6 @@ i:true, j:true
  * @file ProjectCtrl.js
  * @author engineering@fluidattacks.com
  */
-/* Table Formatter */
-/**
- * Function removeHour return date without hour
- */
-function removeHour (value, row, index) {
-  if (value.indexOf(":") !== -1) {
-    return value.split(" ")[0];
-  }
-  return value;
-}
-
-/**
- * Function labelState return html code for specific label
- */
-function labelState (value, row, index) {
-  if (value === "Cerrado") {
-    return "<label class='label label-success' style='background-color: #31c0be'>Cerrado</label>";
-  }
-  else if (value === "Closed") {
-    return "<label class='label label-success' style='background-color: #31c0be'>Closed</label>";
-  }
-  else if (value === "Abierto") {
-    return "<label class='label label-danger' style='background-color: #f22;'>Abierto</label>";
-  }
-  else if (value === "Open") {
-    return "<label class='label label-danger' style='background-color: #f22;'>Open</label>";
-  }
-  else if (value === "Parcialmente cerrado") {
-    return "<label class='label label-info' style='background-color: #ffbf00'>Parcialmente cerrado</label>";
-  }
-  return "<label class='label label-info' style='background-color: #ffbf00'>Partially closed</label>";
-}
-
 /**
  * Controlador de vista de proyectos
  * @name ProjectCtrl

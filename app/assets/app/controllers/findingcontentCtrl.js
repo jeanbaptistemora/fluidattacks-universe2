@@ -1143,7 +1143,7 @@ integrates.controller("findingcontentCtrl", function (
   $scope.findingInformationTab = function () {
     $scope.findingDropDownList();
     $scope.finding.cardinalidad = parseInt($scope.finding.cardinalidad, 10);
-    $scope.finding.criticidad = parseFloat($scope.finding.criticidad, 10);
+    $scope.finding.criticidad = parseFloat($scope.finding.criticidad);
     $scope.findingCalculateCSSv2();
     if ($scope.finding.nivel == "Detallado") {
       $scope.esDetallado = "show-detallado";

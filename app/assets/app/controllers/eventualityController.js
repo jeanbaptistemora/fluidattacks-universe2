@@ -12,7 +12,6 @@ integrates, $, BASE, mixpanel, userMail, $xhr, Organization, userEmail, Rollbar,
  * @param {String} value
  * @param {Object} row
  * @param {Number} index
- * @return {String}
  */
 function afectacionFormatter (value, row, index) {
   if (typeof value === "undefined") {
@@ -49,7 +48,7 @@ integrates.evntTotalize = function (data) {
 /**
  * Actualiza una fila de la tabla
  * @function updateEvntRow
- * @param {Object} data
+ * @param {Object} row
  * @return {undefined}
  */
 integrates.updateEvntRow = function (row) {
@@ -118,7 +117,6 @@ integrates.controller("eventualityController", function ($scope, $uibModal, $tra
    * Despliega la modal de ver eventualidad
    * @function openModalVer
    * @member integrates.eventualityController
-   * @return {undefined}
    */
   $scope.openModalVer = function () {
     const sel = $("#eventualities").bootstrapTable("getSelections");
@@ -181,7 +179,6 @@ integrates.controller("eventualityController", function ($scope, $uibModal, $tra
    * Despliega la modal de editar eventualidades
    * @function openModalEditar
    * @member integrates.eventualityController
-   * @return {undefined}
    */
   $scope.openModalEditar = function () {
     const sel = $("#eventualities").bootstrapTable("getSelections");

@@ -1,5 +1,5 @@
 /**
- * @fileoverview 
+ * @fileoverview
  * @externs
  */
 var integrates = {};
@@ -9,7 +9,7 @@ var $translateProvider = {};
 $translateProvider.useSanitizeValueStrategy = function (arg) {};
 $translateProvider.translations = function (arg1, arg2) {};
 $translateProvider.preferredLanguage = function () {};
-var BASE = {}; var $urlRouterProvider = {};
+var BASE = {};    var $urlRouterProvider = {};
 $urlRouterProvider.otherwise = function (arg1) {};
 var $sceDelegateProvider = {};
 $sceDelegateProvider.resourceUrlWhitelist = function (arg1) {};
@@ -28,7 +28,6 @@ var Tipo = {};
 var Solucion_KB = {};
 var Titulo = {};
 var Descripcion = {};
-var Requisito = {};
 var Recomendacion = {};
 var Donde = {};
 var CWE = {};
@@ -51,3 +50,6 @@ var userRole = {};
 var Organization = {};
 var instant = {};
 var post = {};
+var projectData = {};
+var eventsData = {};
+var findingData = {};

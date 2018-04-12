@@ -134,10 +134,7 @@ integrates.controller(
         const err = "error";
         // Remove indices
         json = JSON.stringify(JSON.parse(JSON.stringify(json)));
-        if (typeof json === "undefined") {
-          throw err;
-        }
-        if (json === [] || json === {}) {
+        if (typeof json === "undefined" || json === "") {
           throw err;
         }
         if (project.trim() === "") {
