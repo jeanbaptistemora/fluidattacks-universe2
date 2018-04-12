@@ -1040,6 +1040,12 @@ integrates.controller("findingcontentCtrl", function (
     else {
       $(".finding-treatment").hide();
     }
+    if ($scope.isManager && $scope.isRemediated) {
+      $(".finding-verified").show();
+    }
+    else {
+      $(".finding-verified").hide();
+    }
     // Inicializar galeria de evidencias
     $(".popup-gallery").magnificPopup({
       "delegate": "a",
