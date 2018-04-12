@@ -1,18 +1,21 @@
 :slug: partners/terms/
 :category: partners
-:description: Terms of the contractual relationship between FLUIDAttacks and its partners. Commissions, cut-off dates,  and goals to be achieved to stay within a commission range are specified, among other aspects. These can change at any time and are established only by signing the physical document.
+:description: Terms of the contractual relationship between FLUIDAttacks and its PARTNERS. Commissions, cut-off dates,  and goals to be achieved to stay within a commission range are specified, among other aspects. These can change at any time and are established only by signing the physical document.
 :keywords: FLUID, Partners, Pentesting, Terms, Agreement, Information Security.
 :translate: aliados/condiciones/
 
 = Terms
 
-{description}
+Terms of the contractual relationship between FLUIDAttacks and its PARTNERS (be them channels or integrators). Commissions, cut-off dates,  and goals to be achieved to stay within a commission range are specified, among other aspects. These can change at any time and are established only by signing the physical document.
 
 . +FLUIDAttacks+ together with the PARTNER
 will set the final sale price for each customer.
 
 . The final price for the customer will be the base value
 used to calculate the commission to be paid to the PARTNER.
+
+. +FLUIDAttacks+ will always be a visible brand to the final customer.
+Co-branding is also an option, but white-labeling is not.
 
 . All the PARTNERS start with a *30% commission*
 until *2 cut-off dates* have elapsed.
@@ -28,6 +31,13 @@ to determine the commission of the year that starts:
 the PARTNER will receive a *30% commission*.
 
 .. Otherwise, the commission will be *15%*.
+
+. If the PARTNER wishes to add more value to the customer on their own accord,
+the commission can be higher, with previous mutual agreement of:
+final price to the customer, value that will be added, minimum final price
+and commision percentage for the PARTNER.
+.. This option is also susceptible to the *15%* reduction in the comission
+(*50%* of the minimum *30%*) if there is no yearly growth.
 
 . If the PARTNER is the one that collects,
 they must guarantee that the money is in the +FLUIDAttacks+ account
@@ -57,7 +67,14 @@ based on US tax legislation.
 . The PARTNER is obliged to inform us in advance
 about the potential customers.
 
+. If +FLUIDAttacks+ bills the final customer in Latin America,
+the contractual relationship between the PARTNER and +FLUIDAttacks+
+will be carried out through a Letter of Attorney
+
 . +FLUIDAttacks+ will not approach  the prospects
 that the PARTNER has nominated for sales
 unless the PARTNER fails to provide evidence of sales progress
 in terms that never exceed *30 days*.
+
+. This agreement is reciprocal in its entirety, which means that
+the same clauses apply if +FLUIDAttacks+ successfully sells the PARTNER.
