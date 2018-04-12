@@ -2,7 +2,7 @@
 /* global
 BASE, document, $, $msg, userName, integrates, userEmail, userName, Rollbar, mixPanelDashboard, userRole, finding_type, actor,
 scenario, authentication, confidenciality, Organization, resolutionLevel, explotability, availability, tratamiento, updateEvidencesFiles:true,
-findingData:true, realiabilityLevel, updateEvidenceText:true, categories, probabilities, accessVector, integrity, accessComplexity
+findingData:true, realiabilityLevel, updateEvidenceText:true, categories, probabilities, accessVector, integrity, accessComplexity, projectData:true
 */
 /**
  * @file findingcontentCtrl.js
@@ -1873,6 +1873,7 @@ integrates.controller("findingcontentCtrl", function (
   $scope.goBack = function () {
     $scope.view.project = true;
     $scope.view.finding = false;
+    projectData = [];
     $state.go("ProjectFindings", {"project": $scope.project});
     $("html, body").animate({"scrollTop": $scope.currentScrollPosition}, "fast");
   };
