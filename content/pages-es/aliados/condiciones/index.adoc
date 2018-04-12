@@ -39,7 +39,7 @@ precio final deseado y mínimo,
 y porcentaje de comisión del ALIADO (superior al +30%+).
 
 .. En esta modalidad también aplica la reducción
-de +15%+ puntos porcentuales en la comisión
+de +15+ puntos porcentuales en la comisión
 (+50%+ del +30%+ mínimo) ante el no crecimiento anual.
 
 . Si el ALIADO es el que recauda,
