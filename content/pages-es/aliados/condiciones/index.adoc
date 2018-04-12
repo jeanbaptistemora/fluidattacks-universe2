@@ -34,7 +34,7 @@ el ALIADO obtendrá *30% de comisión*.
 
 . Si el ALIADO desea agregar por su cuenta más valor al CLIENTE
 la comisión puede ser más alta previo acuerdo mutuo de:
-precio al cliente, valor a agregar por el ALIADO,
+valor a agregar por el ALIADO,
 precio final deseado y mínimo,
 y porcentaje de comisión del ALIADO (superior al +30%+).
 
