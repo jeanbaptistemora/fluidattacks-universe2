@@ -1,6 +1,6 @@
 :slug: aliados/condiciones/
 :category: aliados
-:description: Términos de la relación contractual entre FLUIDAttacks y sus aliados. Se especifican las comisiones, fechas de corte, metas a lograr para mantenerse en un rango de comisión, entre otros aspectos. Estos pueden cambiar en cualquier momento y se fijan solo mediante la firma del documento físico.
+:description: Términos de la relación contractual entre FLUIDAttacks y sus ALIADOS (sean canales o integradores). Se especifican las comisiones, fechas de corte, metas, rangos de comisión, entre otros aspectos. Estos pueden cambiar en cualquier momento y se fijan solo mediante la firma del documento físico.
 :keywords: FLUID, Aliados, Comercial, Seguridad, Ethical Hacking, Condiciones.
 :translate: partners/terms/
 
@@ -13,6 +13,9 @@ fijarán el precio de venta final en cada cliente.
 
 . El precio final al cliente será el valor base
 para el calculo de la comisión a pagar al ALIADO.
+
+. +FLUIDAttacks+ siempre será una marca visible al cliente final.
+El +co-branding+ es posible pero no la marca blanca.
 
 . Todos los ALIADOS inician con un *30% de comisión*
 hasta que transcurran *2 fechas de corte*.
@@ -28,6 +31,14 @@ para determinar la comisión del año que empieza:
 el ALIADO obtendrá *30% de comisión*.
 
 .. En caso contrario la comisión será del *15%*.
+
+. Si el ALIADO desea agregar por su cuenta más valor al CLIENTE
+la comisión puede ser más alta previo acuerdo mutuo de:
+precio final al cliente, valor a agregar, precio final mínimo
+y porcentaje de comisión para el ALIADO.
+
+.. En esta modalidad también aplica la reducción de un +15%+ de comisión
+(+50%+ del +30%+ mínimo) ante el no crecimiento anual.
 
 . Si el ALIADO es el que recauda,
 este debe garantizar que el dinero esté en las cuentas de +FLUIDAttacks+
@@ -58,7 +69,15 @@ con base en la legislación tributaria de US.
 sobre los potenciales clientes en los que buscará promover
 los servicios profesionales de FLUID.
 
+. Si +FLUIDAttacks+ es quien factura al cliente final en LATAM,
+la relación contractual entre ALIADO y +FLUIDAttacks+
+será mediante contrato de mandato.
+
 . +FLUIDAttacks+ se compromete a no comercializar
 a los prospectos que el ALIADO haya nominado
 si y solo si este último presenta evidencia escrita
 de gestión comercial en plazos que nunca superen los *30 días*.
+
+. Este acuerdo es enteramente recíproco,
+es decir, las mismas cláusulas aplican
+si +FLUIDAttacks+ comercializa exitosamente al ALIADO.
