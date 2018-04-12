@@ -101,16 +101,16 @@ a|== Teraport
 
 {germany} Empresa alemana especializada en el desarrollo de software
 y servicios en el campo del desarrollo de productos virtuales.
-Expertos en los campos de la industria automotriz, aeroespacial y de fabricación,
-ofreciendo soluciones específicas y productos estandarizados
+Expertos en los campos de la industria automotriz, aeroespacial
+y de fabricación, ofreciendo soluciones específicas y productos estandarizados
 en relación con el desarrollo, la simulación y la garantía de calidad,
 así como servicios y consultoría en ingeniería de desarrollo de productos.
 
 a|== The missing link
 
-{australia} Proveedor de soluciones australiano enfocado en tecnología de la información,
-prestan servicios para infraestructuras, seguridad,
-backup, recuperación de desastres, comunicaciones
+{australia} Proveedor de soluciones australiano enfocado
+en tecnología de la información, prestan servicios para infraestructuras,
+seguridad, backup, recuperación de desastres, comunicaciones
 y servicios en la nube. Reconocido como líder de la industria
 y acreditado con los más altos niveles en el diseño,
 entrega y soporte de las últimas tecnologías.

@@ -67,7 +67,8 @@ Dentro de los temas de interés se encuentran:
 * Desarrollo seguro de ciclo de vida (+SDL+).
 * Modelo completo de desarrollo de software.
 * Proceso de seguridad de aplicaciones livianas (+CLASP+).
-* Proceso +team software+ para el desarrollo seguro de +software+ (+TSP-Secure+).
+* Proceso +team software+ para el desarrollo seguro de +software+
+(+TSP-Secure+).
 * Modelado de seguridad conceptual (+CoSMo+).
 * +UMLSec+.
 

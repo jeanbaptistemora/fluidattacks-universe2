@@ -16,7 +16,9 @@
 ^.^a|image:logo-ach.png[alt="Logo ACH",link="https://www.achcolombia.com.co/inicio"]
 
 a|== ACH Colombia
-Organización creada por empresas del sector financiero que permite el intercambio de transacciones financieras e información entre las compañías que la conforman.
+Organización creada por empresas del sector financiero
+que permite el intercambio de transacciones financieras e información
+entre las compañías que la conforman.
 
 a|== AVAL
 

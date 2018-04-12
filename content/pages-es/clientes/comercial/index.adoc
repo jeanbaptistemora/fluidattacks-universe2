@@ -73,7 +73,8 @@ y decoración de sus hogares, ofreciendo excelencia en el servicio,
 integridad en su trabajo y un fuerte compromiso con la comunidad.
 
 a|== The Missing Link
-{australia} Proveedor de soluciones australiano enfocado en tecnología de la información,
+{australia} Proveedor de soluciones australiano
+enfocado en tecnología de la información,
 prestan servicios para infraestructuras, seguridad, backup,
 recuperación de desastres, comunicaciones y servicios en la nube.
 Reconocido como líder de la industria

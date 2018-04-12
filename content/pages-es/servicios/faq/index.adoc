@@ -66,7 +66,8 @@ Esta variación puede ser por la adición o eliminación de alguna línea de có
 Si. Se puede ampliar el alcance para un mes en particular
 o en general para todo el proyecto.
 
-¿El servicio es automático mediante herramientas o es el resultado de un proceso manual?::
+¿El servicio es automático mediante herramientas
+o es el resultado de un proceso manual?::
 Las herramientas son incapaces de extraer información de negocio
 como información de clientes o empleados
 que le den sentido y peso a la vulnerabilidad.
@@ -81,7 +82,8 @@ de detección de vulnerabilidades presentan los siguientes problemas:
 . Las herramientas no estan en la capacidad de combinar vulnerabilidades
 para aumentar el nivel de explotación.
 
-Si el hacking es manual, ¿Cómo se escala cuando se tiene un portafolio de aplicaciones grande y en constante crecimiento?::
+Si el hacking es manual, ¿Cómo se escala cuando se tiene un portafolio
+de aplicaciones grande y en constante crecimiento?::
 El hacking se realiza en primera instancia sobre código,
 por ende esto permite la realización paralela del hacking
 mientras se continúa el desarrollo (<<q3,Ver fase 1 pregunta 3>>),
@@ -95,7 +97,8 @@ en una empresa con +CI(Continuous Integration)+/+CD(Continuous Delivery)+ diario
 no todos los ciclos de desarrollo generan código liberable a producción,
 lo que facilita aún más el tiempo de remediación.
 
-Si el hacking es manual, ¿Cómo un proyecto grande puede escalar a medida que se tienen más y más desarrolladores?::
+Si el hacking es manual, ¿Cómo un proyecto grande puede escalar
+a medida que se tienen más y más desarrolladores?::
 Los niveles de servicio estándar
 permiten cubrir las necesidades del +95%+
 de las aplicaciones empresariales en desarrollo.
@@ -103,7 +106,8 @@ Para el resto de los casos
 es posible ampliar los límites del servicio (<<q7,Ver pregunta 7>>)
 para revisar el sistema cuando este crece a velocidades inesperadas.
 
-Si el hacking es manual, ¿Cómo se escala cuando se tiene un portafolio de aplicaciones grande y en constante crecimiento?::
+Si el hacking es manual, ¿Cómo se escala cuando se tiene
+un portafolio de aplicaciones grande y en constante crecimiento?::
 De acuerdo a nuestros históricos, capacidad de reclutamiento y formación.
 FLUID está en capacidad de incluir entre +5+ y +10+ aplicaciones nuevas
 cada mes en el servicio de hacking continuo.
@@ -148,7 +152,8 @@ El servicio puede ser cancelado en cualquier momento a partir del cuarto mes.
 Se puede solicitar la cancelación
 por cualquiera de los medios de comunicación definidos en el proyecto.
 
-¿Si la cobertura sobre mi aplicación llega a 100% se suspende el servicio hasta que se agregue nuevo código al repositorio?::
+¿Si la cobertura sobre mi aplicación llega a 100% se suspende el servicio
+hasta que se agregue nuevo código al repositorio?::
 No. Aunque se alcance una cobertura del 100%,
 realizamos múltiples verificaciones sobre el código ya revisado
 con el fin de descartar la presencia de falsos negativos.
@@ -166,7 +171,8 @@ Usamos el estándar internacional link:https://www.first.org/cvss/[CVSS]
 para obtener una calificación cuantitativa
 que va de +0+ a +10+, donde +0+ es la más baja y +10+ la más alta.
 
-¿Cómo obtengo información sobre las vulnerabilidades encontradas en mi aplicación?::
+¿Cómo obtengo información sobre las vulnerabilidades
+encontradas en mi aplicación?::
 El servicio de Hacking Continuo
 cuenta con una plataforma de reporte e interacción
 llamada link:../../../productos/integrates/[Integrates].
@@ -204,10 +210,12 @@ a través de correo electrónico.
 ¿Cuántas verificaciones de cierre están incluidas en el servicio?::
 El servicio cuenta con verificaciones de cierre ilimitadas.
 
-¿Por qué debo anunciar el cierre de una vulnerabilidad si FLUID tiene acceso al repositorio de código?::
+¿Por qué debo anunciar el cierre de una vulnerabilidad si +FLUIDAttacks+
+tiene acceso al repositorio de código?::
 Uno de los objetivos del servicio de Hacking Continuo
 en conjunto con link:../../../productos/integrates/[Integrates]
-es mantener una comunicación clara y fluida entre todos los actores del proyecto.
+es mantener una comunicación clara y fluida
+entre todos los actores del proyecto.
 Al dar aviso sobre la remediación de una vulnerabilidad
 no solo se está informando a FLUID sino a todo el equipo del proyecto.
 
@@ -227,13 +235,15 @@ se cuenta con la opción de tratamiento
 donde se define si la vulnerabilidad va a ser remediada
 o asumida por el cliente.
 
-¿En caso de asumir una vulnerabilidad, se excluye de los informes y link:../../../productos/integrates/[Integrates]?::
+¿En caso de asumir una vulnerabilidad, se excluye de los informes
+e link:../../../productos/integrates/[Integrates]?::
 Dentro de los informes se encuentra
 el tratamiento definido para las vulnerabilidades.
 Teniendo esto en cuenta esto las vulnerabilidades asumidas
 permanecen en los informes con la aclaración sobre su tratamiento.
 
-¿Si la aplicación está almacenada en múltiples repositorios pueden ser revisados todos?::
+¿Si la aplicación está almacenada en múltiples repositorios,
+pueden ser revisados todos?::
 Es posible realizar la verificación de múltiples repositorios
 con la única condición de que se hace sobre la misma rama en cada uno de ellos.
 Si se define que la rama sobre la que se ejecutarán las pruebas es QA
@@ -254,7 +264,8 @@ donde mensualmente iremos aumentando la cobertura hasta alcanzar el +100%+.
 Esta opción aplica mejor para aplicaciones
 donde no se está desarrollando constantemente.
 
-¿Los repositorios deben estar en un sistema de control de versiones específico?::
+¿Los repositorios deben estar en un sistema de control
+de versiones específico?::
 El servicio de Hacking Continuo se basa en desarrollos
 que usan +GIT+ como control de versiones.
 De esta forma se hace necesario el uso de este sistema
@@ -265,14 +276,16 @@ La información se almacena únicamente durante la prestación del servicio.
 Una vez finalizado el servicio se conserva la información por 7 días hábiles
 tras los cuales es borrada de todos los sistemas de información de FLUID.
 
-¿El servicio de Hacking Continuo requiere algún tipo de metodología de desarrollo?::
+¿El servicio de Hacking Continuo requiere algún tipo
+de metodología de desarrollo?::
 No. El servicio de Hacking Continuo
 es independiente a la metodología de desarrollo utilizada por el cliente.
 Los resultados entregados por el servicio
 se convierten en un insumo en la planeación de los ciclos de desarrollo.
 Por lo tanto no es impedimento para continuar con los desarrollos.
 
-FLUIDAttacks realiza demostraciones en teleconferencia de forma periódica? Cuál es el procedimiento para programarlo?::
++FLUIDAttacks+ realiza demostraciones en teleconferencia de forma periódica?
+¿Cuál es el procedimiento para programarlo?::
 Si, hacemos demostraciones frecuentemente.
 Para tal fin solo debe indicarnos los emails de los asistentes
 y +3+ opciones de horario de +1+ hora de duración,

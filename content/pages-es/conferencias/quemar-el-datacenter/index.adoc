@@ -7,13 +7,30 @@
 
 == 1. Objetivo
 
-En este espacio queremos socializar nuestras convicciones sobre lo que creemos será el futuro de la tecnología, el desarrollo de software y la gestión de su ciclo de vida en los próximos 10 años y por ende como se tendrá que adaptar todo el ecosistema de gestión, incluido el que nos compete a nosotros: Pruebas de Seguridad.
+En este espacio queremos socializar nuestras convicciones sobre lo que creemos
+será el futuro de la tecnología, el desarrollo de +software+
+y la gestión de su ciclo de vida en los próximos 10 años y, por ende,
+como se tendrá que adaptar todo el ecosistema de gestión,
+incluido el que nos compete a nosotros: Pruebas de Seguridad.
 
 == 2. Contenido
 
-El mundo del desarrollo de aplicaciones y la administración de infraestructura han sido típicamente dos mundos separados y antagonistas.  Existe una dicotomía entre la apertura al cambio que se pide en el desarrollo y la estabilidad que se les pide a las áreas de infraestructura.  Recientemente vemos como emergen frases extrañas (tecnorrea) como DevOps, perfiles DevOps, como las empresas crean áreas de transformación DevOps pero más allá del ámbito de gobierno (roles, responsabilidades y procesos), ¿cómo esto se traduce en conceptos técnicos simples en espacios adicionales a las aplicaciones?.
+El mundo del desarrollo de aplicaciones y la administración de infraestructura
+han sido típicamente dos mundos separados y antagonistas.
+Existe una dicotomía entre la apertura al cambio que se pide en el desarrollo
+y la estabilidad que se les pide a las áreas de infraestructura.
+Recientemente vemos como emergen frases extrañas (tecnorrea) como +DevOps+,
+perfiles +DevOps+, como las empresas crean áreas de transformación +DevOps+
+pero más allá del ámbito de gobierno (roles, responsabilidades y procesos),
+¿cómo esto se traduce en conceptos técnicos simples
+en espacios adicionales a las aplicaciones?.
 
-En este universo metodológico estamos perdiendo de vista que existe desde hace más de 20 años, y con más criticidad hace 10, una emergencia en lenguajes de programación específicos para infraestructura y redes, que si los dominamos desde el principio, hacen que las prácticas de programación desarrolladas durante medio siglo comiencen a aplicar a la infraestructura:
+En este universo metodológico estamos perdiendo de vista que existe
+desde hace más de 20 años, y con más criticidad hace 10,
+una emergencia en lenguajes de programación específicos
+para infraestructura y redes, que si los dominamos desde el principio,
+hacen que las prácticas de programación desarrolladas durante medio siglo
+comiencen a aplicar a la infraestructura:
 
 * ¿Podemos compilar un servidor?
 * ¿Hacer linting de infraestructura?
@@ -22,7 +39,8 @@ En este universo metodológico estamos perdiendo de vista que existe desde hace 
 * ¿Podemos hacer despliegue continuo de infraestructura?
 * ¿La infraestructura puede ser inmutable y por ende desechable?.
 
-En esta conferencia veremos como el mundo le pertenece a los programadores y como los ambientes son infinitos.
+En esta conferencia veremos cómo el mundo le pertenece a los programadores y
+cómo los ambientes son infinitos.
 
 
 == 3. Experiencia
@@ -66,23 +84,32 @@ link:http://www.mareigua.com/[Mareigua]
 * *Otros espacios abiertos:* link:https://www.rutanmedellin.org/es/[RutaN],
 link:https://www.meetup.com/es/mde-devops[MeetUp-Medellin-DevOps].
 
-En total se han dictado más de *35 charlas* con un total de *878 asistentes* y una *satisfacción global de 165%.*
+En total se han dictado más de *35 charlas* con un total de *878 asistentes*
+y una *satisfacción global de 165%.*
 
 == 4. ¿Dónde?
 
 Podemos dictar la conferencia a domicilio en sus instalaciones.
 
-Las charlas pueden ser en Medellín con un público de mínimo 20 personas y uno de ellos con más de 10 personas a cargo. Para otras ciudades en Colombia, Centro América, Ecuador y Perú se debe contar entre los asistentes 1 persona con más de 20 personas a cargo.
+Las charlas pueden ser en Medellín con un público de mínimo 20 personas
+y uno de ellos con más de 10 personas a cargo.
+Para otras ciudades en Colombia, Centro América, Ecuador y Perú
+se debe contar entre los asistentes 1 persona con más de 20 personas a cargo.
 
 == 5. Duración
 
-La conferencia tiene una duración de 2 horas (no es posible reducir su duración).
+La conferencia tiene una duración de 2 horas
+(no es posible reducir su duración).
 
 == 6. Público
 
-La conferencia es apta para personal técnico y personal gerencial de tecnología.  Ambos perfiles son bienvenidos y su satisfacción es alta indistintamente.  Sin embargo si desea disparar cambios y experimentos dentro de su organización es importante considerar la presencia de personas con poder de decisión.
+La conferencia es apta para personal técnico y personal gerencial de tecnología.
+Ambos perfiles son bienvenidos y su satisfacción es alta indistintamente.
+Sin embargo, si desea disparar cambios y experimentos dentro de su organización,
+es importante considerar la presencia de personas con poder de decisión.
 
-El límite de asistentes está determinado según el espacio del que se disponga.  Se ha realizado en grupos de 20 personas y en auditorios con más de 80 personas.
+El límite de asistentes está determinado según el espacio del que se disponga.
+Se ha realizado en grupos de 20 personas y en auditorios con más de 80 personas.
 
 == 7. Expositor
 

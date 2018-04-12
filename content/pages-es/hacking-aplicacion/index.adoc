@@ -84,8 +84,9 @@ las aplicaciones e infraestructura que las soportan.
 
 **Escenario 3: Usuario anónimo desde red interna**+
 Esta etapa,
-consiste en una prueba inicial tipo caja negra para verificar los controles que existen
-actualmente en la red corporativa y las aplicaciones críticas para el negocio.
+consiste en una prueba inicial tipo caja negra
+para verificar los controles que existen actualmente en la red corporativa
+y las aplicaciones críticas para el negocio.
 
 **Escenario 4: Usuario desde red interna**
 En esta etapa,
@@ -103,8 +104,12 @@ en un plazo máximo de 90 días después de la entrega de resultados.
 == Entregables
 
 .Tabla de entregables
+[cols=3]
 |====
-.^|Informe Técnico |El informe describe de forma detallada cada uno de los resultados hallados durante la ejecución de las pruebas. .3+.^.a|Por cada hallazgo de seguridad:
+.^|Informe Técnico
+|El informe describe de forma detalladacada uno de los resultados hallados
+durante la ejecución de las pruebas.
+.3+.^.a|Por cada hallazgo de seguridad:
 
 * Vulnerabilidad.
 * Vector de ataque.
@@ -114,6 +119,13 @@ en un plazo máximo de 90 días después de la entrega de resultados.
 * Requisitos incumplidos.
 * Evidencia.
 * Recomendación general
-.^|Informe Ejecutivo |Este informe es un análisis gerencial del número de vulnerabilidades, su criticidad y afectación teniendo en cuenta el impacto que representa cada una sobre los objetivos de negocio de la organización.
-.^|Evidencias |Cada hallazgo reportado tiene las evidencias de su explotación. (.gif)|
+
+.^|Informe Ejecutivo
+|Este informe es un análisis gerencial del número de vulnerabilidades,
+su criticidad y afectación teniendo en cuenta el impacto que representa
+cada una sobre los objetivos de negocio de la organización.
+
+.^|Evidencias
+|Cada hallazgo reportado tiene las evidencias de su explotación. (.gif)
+
 |====

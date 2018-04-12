@@ -133,7 +133,8 @@ a|== Equipo de hacking altamente calificado
 Personal con certificaciones prácticas
 y estudios relacionados en temas de seguridad,
 realiza pruebas manuales y con herramientas
-para garantizar el reporte de vulnerabilidades de impacto específicos del negocio,
+para garantizar el reporte de vulnerabilidades
+de impacto específicos del negocio,
 prácticas inseguras de programación,
 alineación a estándares y regulaciones de seguridad sin falsos positivos,
 posibilitando la detección de vulnerabilidades +Zero Day+.
@@ -152,7 +153,8 @@ usando nuestro motor de explotación propio
 
 a|== Extracción de información crítica
 
-En las vulnerabilidades donde sea posible se extraen todos los registros comprometidos
+En las vulnerabilidades donde sea posible se extraen
+todos los registros comprometidos
 con el fin de maximizar el impacto generado
 y comprometer información sensible.
 
@@ -162,8 +164,8 @@ y comprometer información sensible.
 
 a|== Seguimiento de vulnerabilidades a través de Integrates
 
-Durante la ejecución del proyecto es posible verificar las vulnerabilidades reportados
-en nuestra plataforma [button]#link:../../productos/integrates/[Integrates]#,
+Durante la ejecución del proyecto es posible verificar
+las vulnerabilidades reportados en nuestra plataforma [button]#link:../../productos/integrates/[Integrates]#,
 así como visualizar en tiempo real estadísticas del proyecto,
 del estado de remediación de las vulnerabilidades,
 clasificar las vulnerabilidades por edad, entre otros.
