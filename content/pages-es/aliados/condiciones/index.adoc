@@ -17,7 +17,7 @@ para el calculo de la comisión a pagar al ALIADO.
 . +FLUIDAttacks+ siempre será una marca visible al cliente final.
 El +co-branding+ es posible pero no la marca blanca.
 
-. Todos los ALIADOS inician con un *30% de comisión*
+. Todos los ALIADOS inician con un mínimo de *30% de comisión*
 hasta que transcurran *2 fechas de corte*.
 
 . La fecha de corte será el *31 de diciembre* de cada año.
@@ -34,10 +34,12 @@ el ALIADO obtendrá *30% de comisión*.
 
 . Si el ALIADO desea agregar por su cuenta más valor al CLIENTE
 la comisión puede ser más alta previo acuerdo mutuo de:
-precio final al cliente, valor a agregar, precio final mínimo
-y porcentaje de comisión para el ALIADO.
+precio final al cliente, valor a agregar por el ALIADO,
+precio final deseado y mínimo,
+y porcentaje de comisión del ALIADO (superior al +30%+).
 
-.. En esta modalidad también aplica la reducción de un +15%+ de comisión
+.. En esta modalidad también aplica la reducción
+de +15%+ puntos porcentuales en la comisión
 (+50%+ del +30%+ mínimo) ante el no crecimiento anual.
 
 . Si el ALIADO es el que recauda,
@@ -54,22 +56,22 @@ este debe pagarle al ALIADO a más tardar el *día calendario 15* de cada mes.
 
 . En caso de tener que desplazar talentos:
 
-.. +FLUIDAttacks+ cubre los honorarios del talento y el tiquete.
+.. +FLUIDAttacks+ cubre los honorarios del talento y los tiquetes de avión.
 
-.. El ALIADO se encarga de desplazamientos, hotel y alimentación.
+.. El ALIADO debe cubrir todo lo demás que se requiera.
 
 . +FLUIDAttacks+ no firma exclusividad con ningún ALIADO.
 
 . El ALIADO debe firmar acuerdo de confidencialidad y de +non solicitation+.
 
 . Cada parte se encarga de pagar sus respectivos impuestos
-con base en la legislación tributaria de US.
+con base en la legislación tributaria de USA.
 
 . El ALIADO se obliga a informar de manera anticipada
 sobre los potenciales clientes en los que buscará promover
-los servicios profesionales de FLUID.
+los servicios profesionales de +FLUIDAttacks+.
 
-. Si +FLUIDAttacks+ es quien factura al cliente final en LATAM,
+. Si +FLUIDAttacks+ es quien factura al cliente final en +LATAM+,
 la relación contractual entre ALIADO y +FLUIDAttacks+
 será mediante contrato de mandato.
 
