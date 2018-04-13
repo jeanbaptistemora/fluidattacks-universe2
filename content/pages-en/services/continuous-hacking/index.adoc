@@ -154,7 +154,8 @@ a|== Critical information extraction
 
 Whenever findings make it possible to get information,
 all compromised records are extracted
-to maximize finding impact and compromise sensible information
+to maximize finding impact and compromise sensible information.
+[button]#link:../../products/integrates/#compromised-records[Example]#.
 
 ^.^a|image:img13.png[alt="img13", width="55%"]
 

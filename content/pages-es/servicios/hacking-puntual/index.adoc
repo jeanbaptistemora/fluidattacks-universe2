@@ -110,6 +110,7 @@ a|== Extracción de información crítica
 
 En los hallazgos donde es posible se extraen todos los registros comprometidos
 con el fin de maximizar el impacto generado y comprometer información sensible.
+[button]#link:../../productos/integrates/#registros-comprometidos[Ejemplo]#.
 
 ^.^a|image:extraccion.png[alt="Información comprometida en Ethical Hacking", width="55%"]
 
@@ -120,7 +121,8 @@ a|== Infección
 De ser posible se compromete la infraestructura
 con el uso de archivos maliciosos con el fin de obtener información adicional,
 comprometer servidores y verificar controles a nivel de red.
-Se hace uso de +shells+ y troyanos personalizados
+Se hace uso de +shells+ y nuestro troyano personalizado
+[button]#link:../../productos/commands/[Commands]#
 con previa autorización por parte del cliente.
 
 a|== Envío diario de informes de avance

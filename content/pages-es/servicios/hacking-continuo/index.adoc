@@ -157,6 +157,7 @@ En las vulnerabilidades donde sea posible se extraen
 todos los registros comprometidos
 con el fin de maximizar el impacto generado
 y comprometer información sensible.
+[button]#link:../../productos/integrates/#registros-comprometidos[Ejemplo]#.
 
 ^.^a|image:img13.png[alt="img13", width="55%"]
 

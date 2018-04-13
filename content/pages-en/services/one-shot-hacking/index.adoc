@@ -118,6 +118,7 @@ a|== Critical information extraction
 Whenever findings allow the extraction of information,
 all compromised records are extracted to maximize finding impact
 and compromise sensible information.
+[button]#link:../../products/integrates/#compromised-records[Example]#.
 
 ^.^a|image:extraccion.png[alt="Ethical Hacking compromised records", width="55%"]
 
@@ -128,7 +129,9 @@ a|== Infection
 Whenever findings allow it, infrastructure gets infected
 with malicious files in order to get additional information,
 infect servers and verify network controls.
-We use +Shells+ and customized +Trojans+ with previous customer authorization.
+We use +Shells+ and  our customized cyberweapon
+[button]#link:../../products/commands/[Commands]#
+with previous customer authorization.
 
 a|== Daily progress reports
 
