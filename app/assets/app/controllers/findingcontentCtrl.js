@@ -1781,7 +1781,7 @@ integrates.controller("findingcontentCtrl", function (
                 const projt = descData.project.toUpperCase();
                 mixPanelDashboard.trackFindingDetailed("FindingRemediated", userName, userEmail, org, projt, descData.finding_id);
                 $scope.remediated = response.data.remediated;
-                $msg.success($translate.instant("proj_alerts.remediated_success"));
+                $msg.success($translate.instant("proj_alerts.remediated_success"), $translate.instant("proj_alerts.updated_title"));
                 $uibModalInstance.close();
                 location.reload();
                 const data = {};

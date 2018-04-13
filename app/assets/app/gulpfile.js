@@ -1,17 +1,8 @@
-const external_default = require("../externs/externs_default.js");
-const externs_default = external_default.functions;
 const external_verbose = require("../externs/externs_verbose.js");
 const externs_verbose = external_verbose.functions;
 const gulp = require("gulp");
 const compiler = require("google-closure-compiler-js").gulp();
-const options_default = {
-  "compilationLevel": "ADVANCED",
-  "createSourceMap": true,
-  "externs": [{"src": externs_default}],
-  "languageIn": "ECMASCRIPT6",
-  "processCommonJsModules": true,
-  "warningLevel": "DEFAULT"
-};
+
 const options_verbose = {
   "compilationLevel": "ADVANCED",
   "createSourceMap": true,
@@ -22,35 +13,12 @@ const options_verbose = {
   "warningLevel": "VERBOSE"
 };
 
-gulp.task("default", function script () {
-  return gulp.src([
-    "./**/*.js",
-    "!./app.js",
-    "!./translations.js",
-    "!./xhr.js",
-    "!./login.js",
-    "!./externs.js",
-    "!./gulpfile.js",
-    "!./routes.js",
-    "!./models/dashboardFtry.js",
-    "!./models/eventualityFactory.js"
-
-  ]).
-    pipe(compiler(options_default));
-});
-
 gulp.task("verbose", function script () {
   return gulp.src([
-    "./app.js",
-    "./CSSV2.js",
-    "./formstackScript.js",
-    "./mixPanelDashboard.js",
-    "./routes.js",
-    "./translations.js",
-    "./models/dashboardFtry.js",
-    "./models/eventualityFactory.js"
-
-
+    "./**/*.js",
+    "!./gulpfile.js",
+    "!./xhr.js",
+    "!./login.js"
   ]).
     pipe(compiler(options_verbose));
 });

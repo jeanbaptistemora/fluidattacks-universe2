@@ -88,7 +88,7 @@ manage:
 fluidasserts:
     stage: test
     script:
-        - echo "$CONTINUOUS_PASS" | docker login fluid-docker.jfrog.io -u "$CONTINUOUS_USER" --password-stdin 
+        - echo "$CONTINUOUS_PASS" | docker login fluid-docker.jfrog.io -u "$CONTINUOUS_USER" --password-stdin
         - docker pull fluid-docker.jfrog.io/fluid:integrates
         - docker run --network integrates_test -e ORG=fluid -e APP=integrates -e USER="$CONTINUOUS_USER" -e PASS="$CONTINUOUS_PASS" -e FA_STRICT="false" fluid-docker.jfrog.io/fluid:integrates
     except:
@@ -98,7 +98,7 @@ js_compiler:
     stage: test
     script:
         - docker login registry.gitlab.com -u $DOCKER_USER -p $DOCKER_PASS
-        - docker run --env-file env.list -t registry.gitlab.com/fluidsignal/integrates:base /bin/bash -c "npm install -g  n; n stable; cd /usr/src/app/app/assets/app/; /usr/src/app/app/assets/node_modules/.bin/gulp  default verbose"
+        - docker run --env-file env.list -t registry.gitlab.com/fluidsignal/integrates:base /bin/bash -c "npm install -g  n; n stable; cd /usr/src/app/app/assets/app/; /usr/src/app/app/assets/node_modules/.bin/gulp verbose"
         - rm env.list
     except:
     - triggers
@@ -124,7 +124,7 @@ Prospector_app:
 Prospector_fluidintegrates:
     stage: test
     script:
-        - echo "$DOCKER_PASS" | docker login registry.gitlab.com -u "$DOCKER_USER" --password-stdin 
+        - echo "$DOCKER_PASS" | docker login registry.gitlab.com -u "$DOCKER_USER" --password-stdin
         - docker run --env-file env.list -t registry.gitlab.com/fluidsignal/integrates:base prospector -u django /usr/src/app/fluidintegrates
         - rm env.list
     except:
