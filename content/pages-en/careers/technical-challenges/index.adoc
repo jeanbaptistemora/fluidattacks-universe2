@@ -22,33 +22,26 @@ you will show that you have the most valuable competence of all:
 The ability to learn new things on the fly and
 apply them to solve real problems.
 This, along with human warmth and
-strong values, have more weight than everything else.
+strong [button]#link:../../values[values]#,
+have more weight than everything else.
 
-== 1. Filosofía
+== 1. Philosophy
 
-In this stage,
-we want you to evidence your technical skills
-through practical exercises and
-problems similar to the ones you will face in +FLUIDAttacks+,
-with which you will be able to solve,
-in an effective manner,
+In this stage, we want you to evidence your technical skills
+through practical exercises and problems
+similar to the ones you will face in +FLUIDAttacks+,
+with which you will be able to solve in an effective manner,
 our clients’ security issues.
-It also shows that
-you will be a valuable addition
-who can enrich the knowledge
-of the current members of our team.
+It also shows that you will be a valuable addition
+who can enrich the knowledge of the current members of our team.
 
-The technical challenges
-are divided into +hacking+ challenges and
-programming challenges.
-With the former,
-you demonstrate your skill
-and wit to surpass security controls,
-with the latter,
-you show that
-you are able to quickly understand a program, a language and
-thus it will be easier for you to audit source code and
-find vulnerabilities.
+The technical challenges are divided into +hacking+ challenges
+and programming challenges.
+With the former, you demonstrate your skill and wit
+to surpass security controls, with the latter,
+you show that you are able to quickly understand a program,
+a language and thus it will be easier for you to audit source code
+and find vulnerabilities.
 
 The philosophy is to encourage learning
 from the active problem solving and
@@ -88,9 +81,9 @@ the team (peer pressure).
 
 == 2. Objectives
 
-. Solve 10 programming challenges.
+. Solve +10+ programming challenges.
 
-. Solve 10 hacking challenges.
+. Solve +10+ hacking challenges.
 
 == 3. Terms
 
@@ -107,14 +100,13 @@ must additionally comply with the following:
 
 . There must not already exist (in the challenge folder)
 a solution in the language you chose,
-. They must not have an external indexed solution (links + OTHERS.lst + of the challenge)
-for the language chosen by you,
+. They must not have an external indexed solution
+(links + OTHERS.lst + of the challenge) for the language chosen by you,
 . The programming language chosen must be accepted by [button]#link:http://www.codeabbey.com/[Codeabbey]#.
 . The *compilation* and/or +linting+ commands used and
 their output must be included in the *prelude*
 at the beginning of the code.
 
-+
 .milogin.rs
 [source, rust, linenums]
 ----
@@ -215,28 +207,24 @@ to the +master+ branch of the +training+ repository.
 Before sending a +MR+
 please verify that you meet the following criteria:
 
-. You should only work on a branch whose name is exactly your username in +gitlab+,
+. You should only work on a branch
+whose name is exactly your username in +gitlab+.
 . All files related to a challenge’s solution
-must respect the [button]#link:#structure[following structure]#,
+must respect the [button]#link:#structure[following structure]#.
 . If the solutions requires additional files,
-they must be included in the corresponding challenge directory,
+they must be included in the corresponding challenge directory.
 . Each challenge solution must be submitted
-with 10 link:#external[external solutions] (10 +URLs+ in an +OTHERS.lst+ file),
-. The solution and all files associated to it,
-must be all sent in 1 +commit+,
-. The +commit+ for each solution
-Must be sent in only 1 +MR+,
+with +10+ link:#external[external solutions] (+10+ +URLs+ in an +OTHERS.lst+ file).
+. The solution and all files associated to it.
+must be all sent in +1+ +commit+.
+. The +commit+ for each solution must be sent in only +1+ +MR+.
 . The +MR+ must only be sent
-once your branch has successfully finished integrating (green),
-. If the +MR+ is rejected
-it must not be reopened.
-The errors must be fixed and
-the solution sent in a new +MR+ ,
+once your branch has successfully finished integrating (green).
+. If the +MR+ is rejected it must not be reopened.
+The errors must be fixed and the solution sent in a new +MR+.
 . The +commit+ message to send the solution of a challenge
-with a complexity of 9.63,
-with 17 previous external solutions (+out+) and
-8 within the repo (+in+)
-that took 4.5 hours to complete
+with a complexity of +9.63+, with +17+ previous external solutions (+out+)
+and +8+ within the repo (+in+) that took +4.5+ hours to complete
 during the challenges phase is as follows:
 
 .commit-msg.txt
@@ -260,8 +248,8 @@ to external solutions (+OTHERS.lst+) are the following:
 . They don’t need to be solutions to the same challenge you solved,
 . They must be +hacking+ links if you solved a +hacking+ challenge,
 .. The +OTHERS.lst+ must be new links,
-in other words,
-external solutions to challenges to which we have no previous external solutions,
+in other words, external solutions to challenges
+to which we have no previous external solutions,
 .. If you send a +systems+ hacking solution,
 the external solutions must also be of +systems hacking+,
 . They must be programming solutions if you solved a programming challenge,
@@ -394,7 +382,7 @@ To begin this stage, you must:
 
 . Register on +GitLab+ using your personal email and
 a username of your liking.
-Your username must not exceed *12* characters in length and
+Your username must not exceed +12+ characters in length and
 only contain lowercase letters and numbers.
 
 . Joing our link:https://join.slack.com/t/autonomicmind/shared_invite/enQtMjg4ODI4NjM3MjY3LWUxMTNmMjk3MDdkMDAzYWY0ZjQ3MzNlYjUzZjM3NTM3MDVmYTliN2YyNGViZGUyNzUxOTAzNTdmZDQ5NWNjNGI[Slack channel],
@@ -419,8 +407,8 @@ The challenge stage ends under any of the following conditions:
 
 . You have met all link:#objectives[objectives] and
 Sent an +email+ with the links to your solutions in the +master+ branch.
-. If there is no activity (+push+ to the +git+ repo) in 14 calendar days.
-. If you reach the maximum of 10 failed +MR+,
+. If there is no activity (+push+ to the +git+ repo) in +14+ calendar days.
+. If you reach the maximum of +10+ failed +MR+,
 this means the +MR+ was rejected and
 not merged due to its failure to meet the requirements.
 . If you explicitly manifest your desire to end the process in an +email+.
@@ -428,12 +416,10 @@ not merged due to its failure to meet the requirements.
 partial solutions as your own (plagiarism).
 . If you solve a challenge with the help of others.
 
-In all cases,
-the email address for these steps is: careers@autonomicmind.co
+In all cases, the email address for these steps is: careers@autonomicmind.co
 
 If you were removed from the process
-due to any of these circumstances,
-except for the last two,
+due to any of these circumstances, except for the last two,
 You may apply again at any time and
 start over the process by clicking
 [button]#link:../../../../forms/aplicacion[here]#.
@@ -509,7 +495,8 @@ questions in our *#general* link:https://join.slack.com/t/autonomicmind/shared_i
 
 == 15. Property
 
-* The proprietary rights of all content in the repository are defined in the file
+* The proprietary rights of all content
+in the repository are defined in the file
 link:https://gitlab.com/autonomicmind/training/blob/master/COPYRIGHT.txt[COPYRIGHT].
 * The license and privileges that users of this repository have
 are defined in the file
@@ -534,8 +521,7 @@ in a centralized place.
 This provides clear evidence of the attribution of authorship and
 allows for public scrutiny in case of plagiarism.
 
-In other words,
-the current model avoids plagiarism
+In other words, the current model avoids plagiarism
 through total transparency.
 
 +FLUIDAttacks+ actively applies algorithmic similarity detection techniques
