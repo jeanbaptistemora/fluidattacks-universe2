@@ -95,9 +95,10 @@ link:../../services/certifications/#certified-ethical-hacker-(ceh)[+CEH+],
 link:../../services/certifications/#offensive-security-wireless-professional-(oswp)[+OSCP+],
 link:../../services/certifications/#certified-information-systems-auditor-(cisa)[+CISA+],
 link:../../services/certifications/#certified-information-security-manager-(cism)[+CISM+],
-+ABCP+, +GISP+,
+link:../../services/certifications/#giac-information-security-professional-(gisp)[+GISP+],
 link:../../services/certifications/#certified-information-systems-security-professional-(cissp)[+CISSP+]
-link:../../services/certifications/#comptia-security+[+CompTIA Security++] and +ITIL+.
+link:../../services/certifications/#comptia-security+[+CompTIA Security++] and
+link:../../services/certifications/#information-technology-infrastructure-library-certification-(itil)[+ITIL+].
 
 == Socially responsible
 

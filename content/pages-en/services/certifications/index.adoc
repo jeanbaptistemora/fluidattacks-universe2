@@ -79,4 +79,24 @@ this certification addresses the essential principles
 of network security and risk management,
 which makes it an important starting point for a career in +IT+ security.
 
+a|== GIAC Information Security Professional (GISP)
+
+link:https://en.wikipedia.org/wiki/Global_Information_Assurance_Certification[+GIAC+] certification aimed to security professionals that want to demonstrate
+they are qualified for +IT+ systems hands-on roles
+with respect to security tasks.
+Candidates are required to demonstrate an understanding
+of information security beyond simple terminology and concepts.
+
+^.^a|image:logo-gisp.png[logo gisp]
+
+^.^a|image:logo-itil.png[logo itil]
+
+a|== Information Technology Infrastructure Library Certification (ITIL)
+
+Set of detailed practices for +IT+ service management (+ITSM+)
+that focuses on aligning +IT+ services with the needs of business.
++ITIL+ gives detailed descriptions of an extensive set of management procedures
+designed to help organizations
+achieve quality and efficiency in +IT+ operations.
+
 |====

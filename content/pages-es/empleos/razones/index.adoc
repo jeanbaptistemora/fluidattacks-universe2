@@ -89,8 +89,10 @@ Adicionalmente nuestro personal cuenta con certificaciones importantes como
 link:../../servicios/certificaciones/#ethical-hacker-certificado-(ceh)[+CEH+],
 link:../../servicios/certificaciones/#profesional-en-seguridad-ofensiva-inalambrica-(oswp)[+OSCP+],
 link:../../servicios/certificaciones/#auditor-certificado-en-sistemas-de-informacion-(cisa)[+CISA+],
-link:../../servicios/certificaciones/#gerente-certificado-en-seguridad-de-la-informacion-(cism)[+CISM+], +ABCP+, +GISP+
-link:../../servicios/certificaciones/#profesional-certificado-en-seguridad-de-sistemas-de-informacion-(cissp)[+CISSP+], link:../../servicios/certificaciones/#comptia-security+[+CompTIA Security++] e +ITIL+.
+link:../../servicios/certificaciones/#gerente-certificado-en-seguridad-de-la-informacion-(cism)[+CISM+],
+link:../../servicios/certificaciones/#profesional-en-seguridad-de-la-informacion-avalado-por-giac-(gisp)[+GISP+]
+link:../../servicios/certificaciones/#profesional-certificado-en-seguridad-de-sistemas-de-informacion-(cissp)[+CISSP+], link:../../servicios/certificaciones/#comptia-security+[+CompTIA Security++] e
+link:../../servicios/certificaciones/#certificacion-en-bibliotecas-de-infraestructura-de-it-(itil)[+ITIL+].
 
 == Responsables socialmente
 

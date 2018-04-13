@@ -82,4 +82,27 @@ esta certificación aborda los principios esenciales de seguridad de redes
 y gestión de riesgos, lo que la convierte en un punto de partida importante
 para una carrera en seguridad de +TI+.
 
+a|== Profesional en Seguridad de la Información avalado por GIAC (GISP)
+
+Certificación realizada por link:https://en.wikipedia.org/wiki/Global_Information_Assurance_Certification[+GIAC+]
+dirigida a profesionales de seguridad que desean demostrar
+que están calificados para roles prácticos de sistemas +IT+
+con respecto a tareas de seguridad.
+Los candidatos deben demostrar una comprensión
+de la seguridad de la información más allá de terminología y conceptos simples.
+
+^.^a|image:logo-gisp.png[logo gisp]
+
+^.^a|image:logo-itil.png[logo itil]
+
+a|== Certificación en Bibliotecas de Infraestructura de IT (ITIL)
+
+Conjunto de conceptos y buenas prácticas
+usadas para la gestión de servicios de tecnologías de la información,
+el desarrollo de tecnologías de la información
+y las operaciones relacionadas con la misma en general.
++ITIL+ da descripciones detalladas de un extenso conjunto
+de procedimientos de gestión ideados para ayudar a las organizaciones
+a lograr calidad y eficiencia en las operaciones de +TI+.
+
 |====
