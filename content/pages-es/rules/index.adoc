@@ -82,6 +82,7 @@
 * link:107/[REQ.107 Realizar requisas continuas].
 * link:108/[REQ.108 Ubicar casilleros en puntos estratégicos].
 * link:109/[REQ.109 Monitorear áreas restringidas].
+* link:110/[REQ.110 Prevenir robos a la organización].
 
 == Dispositivos
 
