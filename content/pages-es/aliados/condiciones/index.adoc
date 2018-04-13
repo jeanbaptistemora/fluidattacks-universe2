@@ -59,9 +59,7 @@ y primer mes de servicio.
 el CLIENTE o el ALIADO tiene un periodo de gracia
 por no pago de +15+ días calendario antes de la suspensión del servicio.
 
-. Si el ALIADO es el que recauda,
-este debe garantizar que el dinero esté en las cuentas de +FLUIDAttacks+
-el *día calendario 15* de cada mes.
+. Todos los servicios serán prestados de forma remota.
 
 . En el caso excepcional de tener que desplazar talentos:
 
