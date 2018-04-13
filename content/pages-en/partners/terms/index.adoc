@@ -32,14 +32,14 @@ the growth of the cash collected by +FLUIDAttacks+
 between the two previous cut-off dates will be evaluated
 to determine the commission of the year that starts:
 
-.. If the growth is equal to or greater than *30%*,
+.. If the growth was equal to, or greater than *30%*,
 the PARTNER will receive a commission of *30%*.
 
 .. Otherwise, the commission will be of *15%*.
 
 . If the PARTNER wishes to add more value to the customer on their own accord,
 the commission can be higher, with previous mutual agreement of:
-final price to the customer, value that will be added, minimum final price
+added value that will be given by the PARTNER, minimum and desired final price,
 and commision percentage for the PARTNER
 (higher than *30%*).
 .. This option is also susceptible to the *15* percentual points
@@ -60,7 +60,8 @@ it must pay the PARTNER no later than the *15th calendar day* of each month.
 
 . In case the talent has to travel:
 
-.. +FLUIDAttacks+ covers the talent's fees and plane tickets.
+.. +FLUIDAttacks+ covers the workforce expenses of its own talent and the
+plane tickets
 
 .. The PARTNER must cover every additional expense that is required.
 
