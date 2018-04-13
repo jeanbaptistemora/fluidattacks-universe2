@@ -42,19 +42,28 @@ y porcentaje de comisión del ALIADO (superior al +30%+).
 de +15+ puntos porcentuales en la comisión
 (+50%+ del +30%+ mínimo) ante el no crecimiento anual.
 
+. +FLUIDAttacks+ facturará y recaudará desde +USA+ al CLIENTE final
+mediante un sistema automático recurrente por Internet
+que requiere tarjeta de crédito.
+
+.. En cualquier otro escenario o a voluntad del ALIADO,
+este se encargará de facturación y recaudo,
+sin transferir a +FLUIDAttacks+ el riesgo de cartera o mora
+derivado del no pago del CLIENTE final.
+
+. +FLUIDAttacks+ comienza el servicio +1+ día después
+de recibir el dinero correspondiente a configuración
+y primer mes de servicio.
+
+.. Del segundo mes de servicio en adelante,
+el CLIENTE o el ALIADO tiene un periodo de gracia
+por no pago de +15+ días calendario antes de la suspensión del servicio.
+
 . Si el ALIADO es el que recauda,
 este debe garantizar que el dinero esté en las cuentas de +FLUIDAttacks+
 el *día calendario 15* de cada mes.
 
-. +FLUIDAttacks+ suspende sus servicios al no recibir pagos
-a partir del *día calendario 16* del mes en curso.
-
-. Si +FLUIDAttacks+ es quien recauda,
-este debe pagarle al ALIADO a más tardar el *día calendario 15* de cada mes.
-
-. Todos los servicios serán prestados de forma remota.
-
-. En caso de tener que desplazar talentos:
+. En el caso excepcional de tener que desplazar talentos:
 
 .. +FLUIDAttacks+ cubre los costos de mano de obra de su propio talento
 y los tiquetes de avión.
