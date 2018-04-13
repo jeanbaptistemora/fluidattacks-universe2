@@ -55,7 +55,7 @@
                                                 <th data-field="id">{{ search_findings.event_table.id }}</th>
                                                 <th data-field="fecha" data-sortable="true">{{ search_findings.event_table.date }}</th>
                                                 <th data-field="tipo">{{ search_findings.event_table.type }}</th>
-                                                <th data-field="estado" data-sortable="true">{{ search_findings.event_table.status }}</th>
+                                                <th data-field="estado" data-sortable="true" data-formatter="labelEventState">{{ search_findings.event_table.status }}</th>
                                             </tr>
                                         </thead>
                                     </table>

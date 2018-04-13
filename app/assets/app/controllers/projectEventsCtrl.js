@@ -12,6 +12,24 @@ i:true, j:true
  */
 
 /**
+ * Function labelEventState return html code for specific label
+ */
+function labelEventState (value, row, index) {
+  if (value === "Tratada") {
+    return "<label class='label label-success' style='background-color: #31c0be'>Tratada</label>";
+  }
+  else if (value === "Solved") {
+    return "<label class='label label-success' style='background-color: #31c0be'>Solved</label>";
+  }
+  else if (value === "Pendiente") {
+    return "<label class='label label-danger' style='background-color: #f22;'>Pendiente</label>";
+  }
+  else if (value === "Unsolved") {
+    return "<label class='label label-danger' style='background-color: #f22;'>Unsolved</label>";
+  }
+}
+
+/**
  * Controlador de vista de proyectos
  * @name projectEventsCtrl
  * @param {Object} $scope
