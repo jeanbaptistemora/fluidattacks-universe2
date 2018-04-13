@@ -83,6 +83,7 @@
 * link:108/[REQ.108 Ubicar casilleros en puntos estratégicos].
 * link:109/[REQ.109 Monitorear áreas restringidas].
 * link:110/[REQ.110 Prevenir robos a la organización].
+* link:111/[REQ.111 Definir control físico detectivo y disuasivo].
 
 == Dispositivos
 

@@ -1,0 +1,13 @@
+:slug: rules/111/
+:category: rules
+:description: En el presente documento se detallan los requerimientos de seguridad relacionados a la gestión del control de acceso en una organización. Por lo tanto, se recomienda que toda organización cuente con controles físicos detectivos y disuasivos dentro de sus instalaciones.
+:keywords: Controles, Detectivos, Disuasivos, Cámaras, Iluminación, Vigilantes.
+:rules: yes
+
+= REQ.111 Definir control físico detectivo y disuasivo
+
+== Nombre
+
+La organización debe contar con controles físicos detectivos
+y disuasivos en la periferia de las instalaciones
+(Iluminación, cámaras, vigilantes, etc).
