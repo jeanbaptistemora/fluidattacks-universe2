@@ -47,5 +47,5 @@ El límite de asistentes es 30 personas
 == 7. Expositor
 
 Licenciado en Educación, con experiencia de 15 años.
-Socio fundador de FLUID.
+Socio fundador de +FLUIDAttacks+.
 Auditor de Sistemas de Seguridad de la Información

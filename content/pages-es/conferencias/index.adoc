@@ -17,8 +17,8 @@ y nosotros seleccionamos 1.
 
 == Detalles
 
-. *Inversión:* $0 COP, FLUID se encarga de todos los costos correspondientes
-excepto el lugar y el tiempo de los asistentes.
+. *Inversión:* $0 COP, +FLUIDAttacks+ se encarga de todos los costos
+correspondientes, excepto el lugar y el tiempo de los asistentes.
 Si no se pueden cumplir los requisitos mínimos de número de asistentes
 y perfil de los mismos, la inversión de la conferencia en Medellín
 es de $1.025.324 COP, en otras ciudades del país 2X, y 3X fuera de Colombia.
@@ -35,7 +35,8 @@ la conferencia sin ningún contratiempo:
 . Todos los asistentes antes de retirarse DEBEN diligenciar por Internet
 una evaluación de satisfacción de 2 minutos.
 
-. FLUID PODRÁ invitar hasta 4 asistentes adicionales a los de su organización.
+. +FLUIDAttacks+ PODRÁ invitar hasta 4 asistentes adicionales
+a los de su organización.
 
 . Los asistentes NO DEBEN usar celulares ni portátiles
 durante todo el tiempo de la conferencia.

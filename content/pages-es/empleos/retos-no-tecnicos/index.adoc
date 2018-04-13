@@ -7,7 +7,7 @@
 
 = Retos no técnicos
 
-A continuación el detalle de la etapa denominada Análisis de Datos
+A continuación el detalle de la etapa denominada *Análisis de Datos*
 del proceso de selección para ser parte del equipo de trabajo de +FLUIDAttacks+.
 
 El objetivo de esta etapa es determinar sus habilidades para:
@@ -42,7 +42,7 @@ analizando las gráficas en las dimensiones y combinaciones
 que usted considere relevantes para que un gerente de una empresa de seguridad
 de la información como +FLUIDAttacks+ tome decisiones estratégicas
 que mejoren la implementación de la misión de la empresa en la sociedad:
-"Encontrar todas las vulnerabilidades y reportarlas lo antes posible".
+*"Encontrar todas las vulnerabilidades y reportarlas lo antes posible".*
 
 Encontrará la hoja de cálculo en el siguiente [button]#link:hallazgos-open-data.tar.bz2[archivo]#
 
@@ -58,10 +58,10 @@ o 100 transparencias con 100 gráficas.
 Lo que será importante es que cada gráfica sea relevante
 y provea información importante para la gerencia.
 De ser posible y para minimizar el numero de gráficas
-y maximizar el numero de variables, utilizar:
+y maximizar el número de variables, utilizar:
 
 * Barras apiladas,
-* Datos en eje Y y eje X,
+* Datos en eje *Y* y eje *X*,
 * Diagramas de bigotes,
 * Diagramas de pareto,
 * Categorías de "otros" para ignorar muchas categorías irrelevantes.
@@ -70,7 +70,7 @@ Muchas de las gráficas pueden hacerse para todo el período completo
 y sacar conclusiones sobre todo el tiempo de forma global.
 Una posibilidad es hacer métricas o gráficas que muestren la evolución
 de ciertas variables en el tiempo.
-Estas gráficas tienen gran interés e importancia pues no muestran
+Estas gráficas tienen gran interés e importancia, pues no muestran
 este +set+ de datos como una empresa estática que se mueve en unidades anuales,
 sino que se mueve en unidades de mes o trimestre y que evoluciona gradualmente.
 Considere combinar estas gráficas con barras apiladas.
@@ -108,7 +108,7 @@ por ende esta actividad no es más que una simulación
 de lo que será su día a día.
 
 Si usted en el formulario de aplicación indicó que puede exponer
-en inglés fluido seleccionando "Si", el informe debe entregarlo
+en inglés fluido seleccionando *"Si"*, el informe debe entregarlo
 totalmente diligenciado en ingles.
 
 Todos los datos entregados a los candidatos en el proceso de selección

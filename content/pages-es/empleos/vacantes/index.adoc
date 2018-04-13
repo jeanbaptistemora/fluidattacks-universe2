@@ -31,7 +31,7 @@ con conocimiento técnico básico en seguridad de la información
 y algo de experiencia en temas de infraestructura de +TI+ y redes de datos.
 
 Si es certificado +PMP+ (+Project Management Professional+)
-o tiene conocimientos específicos en gestión de proyectos es un valor agregado,
+o tiene conocimientos específicos en gestión de proyectos, es un valor agregado
 más no es indispensable para aplicar a la vacante.
 
 == IT Security Architect
@@ -56,7 +56,7 @@ No es indispensable que sea profesional graduado.
 == IT Support Assistant:
 
 Practicante de áreas relacionadas con sistemas o +software+,
-con conocimiento en manejo de software de ofimática.
+con conocimiento en manejo de +software+ de ofimática.
 
 * *Actividades:*
 ** Brindar acompañamiento y soporte básico de +TI+
@@ -70,15 +70,15 @@ image:logo-autonomic.png[align="center"] <a href="https://www.linkedin.com/compa
 
 == Vacantes en Autonomic
 
-Autonomic es una empresa que presta servicios de reclutamiento especializado
-en talentos con conocimientos en TI, con el objetivo de reclutar
++Autonomic+ es una empresa que presta servicios de reclutamiento especializado
+en talentos con conocimientos en +TI+, con el objetivo de reclutar
 los mejores talentos del sector y así ser la conexión
 entre los talentos y la industria, ayudando a nuestros clientes empresariales
 a alcanzar sus metas de negocio proveyéndoles talentos
 con las capacidades idóneas para sus cargos técnicos,
 mejorar la inserción laboral y la competitividad de las empresas.
 
-Autonomic también se encarga del reclutamiento para +FLUIDAttacks+
++Autonomic+ también se encarga del reclutamiento para +FLUIDAttacks+
 y ofrece sus servicios a empresas del sector de telecomunicaciones,
 financieras y en general que manejen personal con altas capacidades técnicas.
 
@@ -89,7 +89,7 @@ con clientes diferentes a +FLUIDAttacks+:
 
 Entre las tareas a realizar se encuentran:
 
-* Desarrollar aplicaciones web totalmente responsive.
+* Desarrollar aplicaciones web totalmente +responsive+.
 * Tener manejo de +frameworks+ para el diseño de componentes y vistas web.
 * Llevar +mock-ups+ desde un concepto a una solución enfocada
 en la experiencia de usuario.
@@ -105,15 +105,15 @@ y de procesos de prueba y depuración.
 * Experiencia mínima de 3 a 5 años con tecnologías como +JavaScript+, +HTML+,
 +CSS3+, +JSON+ y +AngularJS+.
 * Conocimiento sólido de lo que constituye un bueno diseño de interacción.
-* Experiencia construyendo soluciones web responsive
+* Experiencia construyendo soluciones web +responsive+
 y amigables con dispositivos móviles.
 
 Es deseable:
 
-* Tener conocimientos básicos en back-end.
+* Tener conocimientos básicos en +back-end+.
 * Tener conocimientos en diseño gráfico.
-* Experiencia con las plataformas Microsoft Azure, AWS o equivalentes.
-* Conocimiento de Ruby on Rails, WPF, Unity o C#.
+* Experiencia con las plataformas +Microsoft Azure+, +AWS+ o equivalentes.
+* Conocimiento de +Ruby on Rails+, +WPF+, +Unity+ o +C#+.
 
 == Senior Software Developer
 
@@ -181,7 +181,7 @@ y arquitectura en partes(+tiers+).
 * Entendimiento en +SOA+.
 * Motores de base de datos a gran escala
 (+ORACLE+, +SQL SERVER+, +DB2+, +MYSQL+).
-* Conocimiento en alguna herramienta de load testing:
+* Conocimiento en alguna herramienta de +load testing+:
 ** +JMeter+.
 ** +Neoload+.
 ** +WAPT PRO+.
