@@ -133,7 +133,7 @@ integrates.controller(
                 "color": "background-color: #00cb77;",
                 "description": $translate.instant("search_findings.filter_labels.closure"),
                 "icon": "s7-like2",
-                "value": "n%".replace("n", ((1 - (cardinalidad / cardinalidad_total)) * 100).toFixed(2).toString())
+                "value": "n%".replace("n", Math.round((1 - (cardinalidad / cardinalidad_total)) * 100).toString())
               });
             }
           }
@@ -149,7 +149,7 @@ integrates.controller(
               "color": "background-color: #00cb77;",
               "description": $translate.instant("search_findings.filter_labels.closure"),
               "icon": "s7-like2",
-              "value": "n%".replace("n", ((1 - (cardinalidad / cardinalidad_total)) * 100).toFixed(2).toString())
+              "value": "n%".replace("n", Math.round((1 - (cardinalidad / cardinalidad_total)) * 100).toString())
             });
           }
         }
