@@ -739,7 +739,8 @@ integrates.controller(
           // Tracking mixpanel
           mixPanelDashboard.trackFinding("ReadFinding", userEmail, row.id);
           $scope.currentScrollPosition = $(document).scrollTop();
-        }
+        },
+        "pageSize": 50
       });
       $("#vulnerabilities").bootstrapTable("refresh");
       // MANEJO DEL UI
