@@ -278,7 +278,7 @@ a| * link:https://gitlab.com/autonomicmind/training/tree/master/systems/bwapp[bw
 |====
 
 El nombramiento de todos los archivos y directorios,
-a excepción de sus link:#82-archivos[archivos especiales],
+a excepción de sus link:#102-archivos[archivos especiales],
 no debe superar los +35+ caracteres,
 debe realizarse en minúscula,
 sin caracteres especiales y
