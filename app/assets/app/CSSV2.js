@@ -205,6 +205,7 @@ const finding_type = [
 
 const tratamiento = [
   {"name": "Asumido"},
-  {"name": "Pendiente"},
-  {"name": "Remediar"}
+  {"name": "Nuevo"},
+  {"name": "Remediar"},
+  {"name": "Resuelto"}
 ];

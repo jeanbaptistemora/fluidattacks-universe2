@@ -700,11 +700,14 @@ integrates.controller(
         case "Asumido":
           datatest[cont].tratamiento = $translate.instant("finding_formstack.treatment_header.asummed");
           break;
-        case "Pendiente":
+        case "Nuevo":
           datatest[cont].tratamiento = $translate.instant("finding_formstack.treatment_header.working");
           break;
         case "Remediar":
           datatest[cont].tratamiento = $translate.instant("finding_formstack.treatment_header.remediated");
+          break;
+        case "Resuelto":
+          datatest[cont].tratamiento = $translate.instant("finding_formstack.treatment_header.resolved");
           break;
         default:
           datatest[cont].tratamiento = datatest[cont].tratamiento;

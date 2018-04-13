@@ -1014,11 +1014,14 @@ integrates.controller("findingcontentCtrl", function (
     case "Asumido":
       $scope.finding.tratamiento = $translate.instant("finding_formstack.treatment_header.asummed");
       break;
-    case "Pendiente":
+    case "Nuevo":
       $scope.finding.tratamiento = $translate.instant("finding_formstack.treatment_header.working");
       break;
     case "Remediar":
       $scope.finding.tratamiento = $translate.instant("finding_formstack.treatment_header.remediated");
+      break;
+    case "Resuelto":
+      $scope.finding.tratamiento = $translate.instant("finding_formstack.treatment_header.resolved");
       break;
     default:
       $scope.finding.tratamiento = $scope.finding.tratamiento;

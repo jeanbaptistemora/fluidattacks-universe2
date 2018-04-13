@@ -113,9 +113,10 @@ class CreatorPDF(object):
             "crit_h": "(Alta)",
             "crit_m": "(Media)",
             "crit_l": "(Baja)",
-            "treat_status_wor": "Pendiente",
+            "treat_status_wor": "Nuevo",
             "treat_status_asu": "Asumido",
             "treat_status_rem": "Remediar",
+            "treat_status_res": "Resuelto",
         }
 
     def lang_support_en(self):
@@ -164,9 +165,10 @@ class CreatorPDF(object):
             "crit_h": "(High)",
             "crit_m": "(Moderate)",
             "crit_l": "(Low)",
-            "treat_status_wor": "Working on it",
-            "treat_status_asu": "Assumed",
-            "treat_status_rem": "Remediate",
+            "treat_status_wor": "New",
+            "treat_status_asu": "Accepted",
+            "treat_status_rem": "In Progress",
+            "treat_status_res": "Resolved",
         }
 
     def executive(self, data, project):
@@ -417,12 +419,14 @@ class CreatorPDF(object):
                 finding["tratamiento"] = words["treat_status_wor"]
             elif finding["tratamiento"] == "-":
                 finding["tratamiento"] = words["treat_status_wor"]
-            elif finding["tratamiento"] == "Pendiente":
+            elif finding["tratamiento"] == "Nuevo":
                 finding["tratamiento"] = words["treat_status_wor"]
             elif finding["tratamiento"] == "Asumido":
                 finding["tratamiento"] = words["treat_status_asu"]
             elif finding["tratamiento"] == "Remediar":
                 finding["tratamiento"] = words["treat_status_rem"]
+            elif finding["tratamiento"] == "Resuelto":
+                finding["tratamiento"] = words["treat_status_res"]
         main_pie_filename = "image::../images/" \
             + main_pie_filename \
             + '[width=330, align="center"]'

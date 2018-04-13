@@ -280,10 +280,11 @@ integrates.config([
       },
      "treatment_header":
       {
-        "asummed": "Asummed",
+        "asummed": "Accepted",
         "default": "-",
-        "remediated": "Remediate",
-        "working": "Working on it"
+        "remediated": "In Progress",
+        "resolved": "Resolved",
+        "working": "New"
       }
    },
       "forms":
@@ -796,7 +797,8 @@ integrates.config([
         "asummed": "Asumido",
         "default": "-",
         "remediated": "Remediar",
-        "working": "Pendiente"
+        "resolved": "Resuelto",
+        "working": "Nuevo"
       }
    },
       "forms":
