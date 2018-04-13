@@ -52,7 +52,7 @@ and collect the payment from the USA, through an automatic recurring system
 on the Internet which requires credit card.
 
 .. In any other situation, or if the PARTNER wills to take care of the billing
-and collecting, he will not transfer +FLUIDAttacks+ the amount of money
+and collection, he will not transfer +FLUIDAttacks+ the amount of money
 regarding portfolio risk or arrears
 due to the non-payment of the final customer.
 
@@ -75,10 +75,9 @@ it must pay the PARTNER no later than the *15th calendar day* of each month.
 
 . All services will be provided remotely.
 
-. In case the talent has to travel:
+. In case the +FLUIDAttacks+ employee needs to travel:
 
-.. +FLUIDAttacks+ covers the workforce expenses of its own talent and the
-plane tickets
+.. +FLUIDAttacks+ will pay for the time and air tickets.
 
 .. The PARTNER must cover every additional expense that is required.
 
@@ -99,8 +98,8 @@ will be carried out through a Letter of Attorney
 
 . +FLUIDAttacks+ will not approach  the prospects
 that the PARTNER has nominated for sales
-unless the PARTNER fails to provide evidence of sales progress
-in terms that never exceed *30 days*.
+if the PARTNER provides evidence of sales progress
+every *30 days* or less.
 
 . This agreement is reciprocal in its entirety, which means that
 the same clauses apply if +FLUIDAttacks+ successfully sells the PARTNER.
