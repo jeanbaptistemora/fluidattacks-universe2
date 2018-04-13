@@ -42,9 +42,26 @@ the commission can be higher, with previous mutual agreement of:
 added value that will be given by the PARTNER, minimum and desired final price,
 and commision percentage for the PARTNER
 (higher than *30%*).
+
 .. This option is also susceptible to the *15* percentual points
 reduction in the comission
 (*50%* of the minimum *30%*) if there is no yearly growth.
+
+. +FLUIDAttacks+ will bill the final customer
+and collect the payment from the USA, through an automatic recurring system
+on the Internet which requires credit card.
+
+.. In any other situation, or if the PARTNER wills to take care of the billing
+and collecting, he will not transfer +FLUIDAttacks+ the amount of money
+regarding portfolio risk or arrears
+due to the non-payment of the final customer.
+
+. +FLUIDAttacks+ will start the service *1 day* after receiving the payment
+regarding configuration and first month of service.
+
+. From the second month of service and on, the customer or the PARTNER
+has a grace period of *15 days* without payment
+before the service is suspended
 
 . If the PARTNER is the one that collects,
 they must guarantee that the money is in the +FLUIDAttacks+ account
