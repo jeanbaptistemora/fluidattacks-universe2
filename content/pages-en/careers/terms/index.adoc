@@ -18,20 +18,11 @@ fill out the following [button]#link:https://fluidattacks.com/forms/seleccion[fo
 
 == The Company
 
-Next, we will introduce ourselves as a company
-in order to enable you to make an informed decision
-about where you will potentially continue your career.
+We invite you to read our
+[button]#link:../../about-us[About us]# section
+for more information about +FLUIDAttacks+.
 
 === Context
-
-* We are a company:
-
-** Of Colombian origin,
-** Dedicated to information security,
-** Founded in 2001,
-** With under 40 employees,
-** Annual sales of approximately 1.5MM USD,
-** With sites in Medellin, Bogota (Colombia) and Clayton (North Carolina, U.S.A.).
 
 * In +FLUIDAttacks+ all systems are subject to constant monitoring
 through link:https://www.timedoctor.com/[automatic time and activity control systems].
@@ -51,10 +42,11 @@ for each required role and salary
 . With this process,
 +FLUIDAttacks+ looks to select only the best
 to form a team that is:
-** Elite,
-** Enduring,
-** Disciplined,
-** Responsible,
+
+** Elite.
+** Enduring.
+** Disciplined.
+** Responsible.
 ** Ethical.
 
 . We have automated many stages of the selection process
@@ -70,12 +62,9 @@ different from what you see in other companies,
 we want you to read it very carefully.
 The process is detailed link:../../empleos/[here].
 
-. If you continue and
-Accept these terms
-you are indicating that you understand
-all the effort and dedication
-that this process implies and
-accept to be a part of it.
+. If you continue and accept these terms
+you are indicating that you understand all the effort and dedication
+that this process implies and accept to be a part of it.
 
 === End of the Process
 
@@ -92,13 +81,15 @@ do not have any clauses (or that these have expired)
 that forbid you to work in any role in an information security company.
 
 . By accepting these terms and conditions
-You understand that if you sign a contract with us:
-** It will have the following clauses:
-*** Exclusivity,
-*** Non-compete,
-*** No solicitation,
-*** Confidentiality.
-** The previous clauses will be valid during the work relation.
+You understand that if you sign a contract with us,
+it will have the following clauses:
+
+* Exclusivity.
+* Non-compete.
+* No solicitation.
+* Confidentiality.
++
+The previous clauses will be valid during the work relation.
 
 . In the hiring process
 once you accept our job offer
