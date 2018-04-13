@@ -213,7 +213,7 @@ while IFS= read -r FILE; do
 
 # Check if source adoc has content past the 80th column
   if [[ "$FILE" = *"/blog-es"* ]] || [[ "$FILE" = *"/defends"* ]] \
-  || [[ "$FILE" = *"pages-es/rules"* ]]; then
+  || [[ "$FILE" = *"/pages-es"* ]] ; then
     if ./exttxt.sh "$FILE" | pcregrep --color -nu '.{81,}'; then
       echo -e "${GC}Documents must be wrapped at column 80 in file $FILE.${NC}"
       ERRORS=1;

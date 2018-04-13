@@ -7,102 +7,125 @@
 
 = Inmersión
 
-A esta altura del proceso estamos a pocos pasos de culminar.
-Este nuevo paso, para el cual usted ha sido seleccionado entre más de 1580 candidatos,
-busca que usted haga parte en un auto-entrenamiento intensivo en retos de programación y
-hacking financiado por +FLUIDAttacks+ llamado “Inmersión”.
+A esta altura del proceso, estamos a pocos pasos de culminar.
+Este nuevo paso, para el cual has sido seleccionado
+entre más de 1580 candidatos, busca que hagas parte
+de un auto-entrenamiento intensivo en retos de programación y
++hacking+ financiado por +FLUIDAttacks+, llamado *Inmersión*.
 
 == 1. Filosofía
 
-El objetivo de esta etapa es que usted alcance los más altos niveles de fortaleza técnica.
-Esto previo a efectuar pruebas reales de seguridad sobre sistemas financieros y de telecomunicaciones,
-así como validar sus competencias humanas y de trabajo en equipo cerca a otros hackers que
-ya se encuentran en nuestra organización.
+El objetivo de esta etapa es que alcances
+los más altos niveles de fortaleza técnica,
+ésto previo a efectuar pruebas reales de seguridad
+sobre sistemas financieros y de telecomunicaciones, así como validar
+tus competencias humanas y de trabajo en equipo cerca a otros +hackers+
+que ya se encuentran en nuestra organización.
 
-Por lo extenso del proceso, +FLUIDAttacks+, para esta etapa,
-busca independiente del avance en puntos y ranking,
-que usted reciba una remuneración por el tiempo invertido en el proceso.
+Por lo extenso del proceso, +FLUIDAttacks+ busca, para esta etapa,
+independiente del avance en puntos y ranking,
+que recibas una remuneración por el tiempo invertido en el proceso.
 
 == 2. Objetivos
 
-. Resuelva 100 retos de programación,
-. Resuelva 100 retos de hacking,
-. Finalice 2 proyectos de entrenamiento,
-. Publique 10 artículos en el blog,
+. Resolver 100 retos de programación.
+. Resolver 100 retos de hacking.
+. Finalizar 2 proyectos de entrenamiento.
+. Publicar 10 artículos en el blog.
 
 == 3. Condiciones
 
-. Aplican todas las [button]#link:../retos-tecnicos/#condiciones[condiciones]# de la etapa de retos técnicos.
-. Debe reportar todo el tiempo dedicado mediante la herramienta asignada en modo automático.
-. Los días pares se trabajarán retos de hacking.
+. Aplican todas las [button]#link:../retos-tecnicos/#condiciones[condiciones]#
+de la etapa de retos técnicos.
+. Debes reportar todo el tiempo dedicado
+mediante la herramienta asignada en modo automático.
+. Los días pares se trabajarán retos de +hacking+.
 . Los días impares se trabajarán retos de programación.
-. El entrenamiento debe iniciar a las *7:00 AM* en las instalaciones de +FLUIDAttacks+,
-. Debe enviar como mínimo un +MR+ que sea aceptado en +master+ o un informe de avance estándar
-(cuando no se acepta el +MR+) antes de las *6:00 PM* del día en cuestión,
-. Puede seguir entrenando y reportando tiempo en su lugar de preferencia,
-previo cumplimiento de las 2 reglas anteriores,
-. Si por algún motivo excepcional no puede realizar el entrenamiento de forma presencial,
-se deberá definir un horario de entrenamiento semanal para realizarlo de forma remota,
-. El entrenamiento se realizará desde un portátil de su propiedad,
-. Su dedicación diaria se evaluará sobre un tiempo de referencia de *48 horas/semanales*,
-. Se espera que usted pueda dedicarse todos los días hábiles de la semana de manera presencial
-en las instalaciones de la compañía,
-. Si por algún motivo de salud o personal no es posible ir a la oficina a realizar los retos de forma presencial,
-ese día no se hacen retos ni se reporta tiempo de entrenamiento con la herramienta asignada.
-. El tercer día hábil de cada semana,
-usted deberá entrenar la máxima dedicación posible.
+. El entrenamiento debe iniciar a las *7:00 AM*
+en las instalaciones de +FLUIDAttacks+.
+. Debes enviar como mínimo un +MR+ que sea aceptado en +master+
+o un informe de avance estándar (cuando no se acepta el +MR+)
+antes de las *6:00 PM* del día en cuestión.
+. Puedes seguir entrenando y reportando tiempo en tu lugar de preferencia,
+previo cumplimiento de las 2 reglas anteriores.
+. Si por algún motivo excepcional no puedes realizar
+el entrenamiento de forma presencial, se deberá definir
+un horario de entrenamiento semanal para realizarlo de forma remota.
+. El entrenamiento se realizará desde un portátil de tu propiedad.
+. Tu dedicación diaria se evaluará sobre un tiempo de referencia
+de *48 horas/semanales*.
+. Se espera que puedas dedicarte todos los días hábiles
+de la semana de manera presencial en las instalaciones de la compañía.
+. Si por algún motivo de salud o personal no es posible ir a la oficina
+a realizar los retos de forma presencial, ese día no se hacen retos,
+ni se reporta tiempo de entrenamiento con la herramienta asignada.
+. El tercer día hábil de cada semana, deberás entrenar
+la máxima dedicación posible.
 
 == 4. Criterios
 
-. Para los retos los mismos [button]#link:../retos-tecnicos/#criterios[criterios]# de la etapa de retos.
-. Para los artículos los criterios definidos en la guía de [button]#link:../../estilo[estilo]#.
+. Para los retos, los mismos [button]#link:../retos-tecnicos/#criterios[criterios]#
+de la etapa de retos.
+. Para los artículos, los criterios definidos en la guía de [button]#link:../../estilo[estilo]#
 
 == 5. Ciclos
 
-. El entrenamiento se realizará en ciclos o iteraciones de semana calendario,
-. Inicialmente se le ofrece un *primer ciclo* de entrenamiento,
+. El entrenamiento se realizará en ciclos o iteraciones de semana calendario.
+. Inicialmente, se te ofrece un *primer ciclo* de entrenamiento.
 . Al final de cada ciclo puede ocurrir lo siguiente:
-.. No indicar nada, con lo cual puede asumir que el ciclo de formación se renueva *una semana* más.
-.. Notificar que no deseamos continuar con otro ciclo y por ende finalizar el proceso,
+.. No indicar nada, con lo cual puedes asumir que el ciclo de formación
+se renueva *una semana* más.
+.. Notificar que no deseamos continuar con otro ciclo
+y, por ende, finalizar el proceso.
 .. Formalizar que no deseamos continuar con otro ciclo,
-debido a que queremos adelantar la etapa siguiente,
-. Lo usual es que se requiera entre *8 y 16 ciclos* para finalizar esta etapa
-.. Esto es meramente un estimado pues depende enteramente de su dedicación y rendimiento.
+debido a que queremos adelantar la etapa siguiente.
+. Lo usual es que se requiera entre *8 y 16 ciclos* para finalizar esta etapa.
+.. Esto es meramente un estimado,
+pues depende enteramente de su dedicación y rendimiento.
 
 == 6. Pagos
 
-. Se pagará el tiempo reportado a formación con un valor hora de *$6.468 COP*,
-. Se espera que usted logre una dedicación mínima del *80%* (Relación al tiempo de referencia),
-. Si la dedicación total es mayor o menor a lo anterior se pagará proporcional
-. Las primeras *96 horas* de entrenamiento reportadas no serán remuneradas y
-de continuar en la etapa de inmersión luego de estas primeras *96 horas*,
-se garantiza el pago mínimo de las siguientes *96 horas* de entrenamiento reportadas,
-. El contrato es un contrato por servicios con pago mensual,
-. Debe pagar la seguridad social correspondiente a estos servicios (como independiente),
-. Debe presentar el *1er día hábil* calendario del mes siguiente los documentos que permiten consignar el dinero a su cuenta:
-.. Cuenta de cobro por las horas del mes anterior,
-.. Recibo de pago de la seguridad social por el periodo anterior
+. Se pagará el tiempo reportado a formación con un valor hora de *$6.468 COP*.
+. Se espera que logres una dedicación mínima del *80%*
+(con relación al tiempo de referencia).
+. Si la dedicación total es mayor o menor a lo anterior,
+se pagará de manera proporcional.
+. Las primeras *96 horas* de entrenamiento reportadas no serán remuneradas y,
+de continuar en la etapa de inmersión, luego de estas primeras *96 horas*,
+se garantiza el pago mínimo de las siguientes *96 horas*
+de entrenamiento reportadas.
+. El contrato es un contrato por servicios con pago mensual.
+. Debes pagar la seguridad social correspondiente a estos servicios
+(como independiente).
+. Debes presentar, el *1er día hábil* calendario del mes siguiente,
+los documentos que permiten consignar el dinero a tu cuenta:
+.. Cuenta de cobro por las horas del mes anterior.
+.. Recibo de pago de la seguridad social por el periodo anterior.
 
 == 7. Inicio
 
 Esta etapa comienza cuando:
 
-. Haya finalizado la etapa de link:../retos-tecnicos[retos técnicos]
-. Se registre como tercero en el siguiente [button]#link:../../../../forms/tercero[formulario]# de acuerdo a estas indicaciones:
-
-.. *Razón social:* Ingrese su nombre completo.
-.. *RUT:* Seguir las instrucciones en la link:https://www.dian.gov.co/impuestos/personas/Paginas/rut.aspx[página web de la DIAN] y adjunte el documento PDF.
-.. *Concepto:* Ingrese su primer nombre y la inicial de su primer apellido.
+. Hayas finalizado la etapa de link:../retos-tecnicos[retos técnicos]
+. Te registres como tercero en el siguiente [button]#link:../../../../forms/tercero[formulario]#
+de acuerdo a estas indicaciones:
+.. *Razón social:* Ingresa tu nombre completo.
+.. *+RUT+:* Seguir las instrucciones de la
+link:https://www.dian.gov.co/impuestos/personas/Paginas/rut.aspx[página web de la +DIAN+]
+y adjunta el documento +PDF+.
+.. *Concepto:* Ingresa tu primer nombre y la inicial de tu primer apellido.
 .. *Relación:* Proveedor.
-.. *Certificación bancaria:* Adjuntar el PDF correspondiente.
+.. *Certificación bancaria:* Adjuntar el +PDF+ correspondiente.
 Solo se admiten cuentas Bancolombia.
 .. *Plazo de pago:* 5 días hábiles.
 .. *Formas de pago:* Ordinario.
 .. *Recepción y días de recepción:* Primer día de cada mes.
-.. *Diligencia:* Ingrese su correo electrónico personal (el mismo con el que ha estado realizando el proceso de selección).
-.. Los campos que no se especifiquen aquí, no son obligatorios y no deben ser diligenciados.
-
-. Nos envíe por e-mail (careers@autonomicmind.co) lo siguiente:
+.. *Diligencia:* Ingresa tu correo electrónico personal
+(el mismo con el que has estado realizando el proceso de selección).
+.. Los campos que no se especifiquen aquí no son obligatorios
+y no deben ser diligenciados.
+. Nos envíes por e-mail (careers@autonomicmind.co) lo siguiente:
+.
 [quote]
 ____________________________________________________________________
 He leído y entendido toda la documentación y términos de la etapa de inmersión,
@@ -110,29 +133,30 @@ acepto la propuesta y confirmo que puedo iniciar en la fecha AAAA/MM/DD.
 
 Adjunto:
 
-* TarjetaProfesional.pdf (si es graduado y la tiene)
-* ReciboTramiteTarjetaProfesional.pdf (si es graduado y no la tiene)
-* Ninguno (si no es graduado).
+* TarjetaProfesional.pdf (si eres graduado y la tienes)
+* ReciboTramiteTarjetaProfesional.pdf (si eres graduado y no la tienes)
+* Ninguno (si no eres graduado).
 ____________________________________________________________________
 
 [IMPORTANT]
-Otros detalles procedimentales de cómo se llevará a cabo el entrenamiento,
+Otros detalles procedimentales de cómo se llevará a cabo el entrenamiento
 que se hace cada día, los lenguajes de programación,
-la forma de documentación y las herramientas requeridas entre otros,
+la forma de documentación, y las herramientas requeridas, entre otros,
 serán revelados el primer día de Inmersión y
-cuando haya finalizado todos los ítems mencionados en esta sección.
+cuando hayas finalizado todos los ítems mencionados en esta sección.
 
 == 8. Fin
 
 La etapa de inmersión finaliza en cualquiera de las siguientes circunstancias:
 
-. Usted haya completado los link:#objetivos[objetivos mencionados]
+. Has completado los link:#objetivos[objetivos mencionados]
 
-. De haber alcanzado el tope máximo de 10 +MR+ fallidos,
-esto es,
-+MR+ que no se le hace +merge+ por cuestiones detalladas en la documentación y
-que aun así se incumplen.
+. Has alcanzado el tope máximo de 10 +MR+ fallidos,
+esto es, +MR+ que no se le hace +merge+ por cuestiones detalladas
+en la documentación y que aun así se incumplen.
 
-. De no cumplir las link:#condiciones[condiciones] y link:#criterios[criterios] definidos de la etapa.
+. No estás cumpliendo las link:#condiciones[condiciones]
+y link:#criterios[criterios] definidos de la etapa.
 
-Si tienes alguna duda no dudes en escribir a careers@autonomicmind.co
+Si tienes alguna duda,
+no dudes en escribir a careers@autonomicmind.co

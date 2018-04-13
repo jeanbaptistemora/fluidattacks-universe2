@@ -8,15 +8,15 @@
 = Retos Técnicos
 
 Esta etapa es paralela a las demás etapas del proceso y
-por ende, entre más avance desde ahora en ella,
+por ende, entre más avances desde ahora en ella,
 mayor es la probabilidad que cuando finalicen las demás etapas,
-usted pueda ser evaluado antes que los demás participantes.
+puedas ser evaluado antes que los demás participantes.
 
 También puede considerarse como una especie de salvavidas en el proceso,
-pues usted puede no estar graduado, no tener experiencia,
-o que el resultado de su examen de conocimiento sea bajo,
-pero si fue capaz de finalizar esta etapa,
-usted evidenciará que tiene la competencia más valiosa:
+pues puedes no estar graduado, no tener experiencia,
+o que el resultado de tu examen de conocimiento sea bajo,
+pero si fuiste capaz de finalizar esta etapa,
+habrás evidenciado que tienes la competencia más valiosa:
 aprender de cosas nuevas sobre la marcha
 y aplicarlas para resolver problemas reales.
 Esto, con la calidad humana, y fuertes [button]#link:../../valores[valores]#
@@ -24,21 +24,21 @@ tienen mayor peso que todo lo demás.
 
 == 1. Filosofía
 
-En esta etapa se busca que usted evidencie mediante ejercicios prácticos
-sus competencias técnicas en problemas parecidos
-a los que enfrentará en +FLUIDAttacks+,
-y con las cuales podrá solucionar de forma efectiva
+En esta etapa se busca que evidencies, mediante ejercicios prácticos,
+tus competencias técnicas en problemas parecidos
+a los que enfrentarás en +FLUIDAttacks+,
+y con las cuales podrás solucionar de forma efectiva
 problemas de nuestros clientes en el ámbito de la seguridad.
-También demuestra que usted será un compañero valioso
+También demuestra que serás un compañero valioso
 para enriquecer a los miembros actuales del equipo de trabajo.
 
 Los retos técnicos se dividen en retos de +hacking+ y retos de programación.
-Con los primeros usted demuestra su habilidad y astucia
-para sobrepasar controles de seguridad,
-con los segundos usted demuestra que está en capacidad
+Con los primeros demuestras tu habilidad y astucia
+para sobrepasar controles de seguridad.
+Con los segundos demuestras que estás en capacidad
 de rápidamente entender un programa,
 comprender un lenguaje y por ende,
-le será más fácil auditar código fuente y encontrar vulnerabilidades.
+te será más fácil auditar código fuente y encontrar vulnerabilidades.
 
 La filosofía es fomentar el aprendizaje
 a partir de la solución activa de problemas
@@ -48,13 +48,13 @@ El repositorio contiene las soluciones a retos computacionales públicos
 construidos en el contexto anterior.
 Al hacer los retos públicos buscamos:
 
-. Fomentar la solución de retos no resueltos,
+. Fomentar la solución de retos no resueltos.
 
-. Si el reto está resuelto, fomentar la solución del reto de otra forma,
+. Si el reto está resuelto, fomentar la solución del reto de otra forma.
 
 . Si el reto está resuelto, hacer evidente la similitud de la nueva solución.
 
-. Darles vida a las soluciones financiadas por +FLUIDAttacks+,
+. Darles vida a las soluciones financiadas por +FLUIDAttacks+.
 
 . Permitir a terceros visualizar los entregables de nuestro equipo.
 
@@ -64,7 +64,7 @@ Los efectos colaterales de esta decisión permiten a +FLUIDAttacks+:
 del desarrollo de las personas en formación,
 
 . Desde etapas tempranas familiarizar a potenciales talentos
-con las herramientas (+git+, +AsciiDoc+, +python+, +gherkin+, etc)
+con las herramientas (+Git+, +AsciiDoc+, +Python+, +Gherkin+, etc)
 y conceptos (automatización, pruebas de unidad,
 integración continua, +linting+, etc.)
 que utilizarán en su labor diaria en +FLUIDAttacks+,
@@ -74,32 +74,32 @@ los resultados propios (presión de pares).
 
 == 2. Objetivos
 
-. Resuelva 10 retos de programación.
+. Resolver 10 retos de programación.
 
-. Resuelva 10 retos de hacking.
+. Resolver 10 retos de +hacking+.
 
 == 3. Condiciones
 
 . El entrenamiento es auto-dirigido e independiente
-(por su propia cuenta sin instrucción o ayuda alguna de otro).
+(por tu propia cuenta sin instrucción o ayuda alguna de otro).
 
 == 4. Criterios
 
-Las soluciones de retos independiente de si son de programacion o de hacking
-siempre deben adherirse a la guia de [button]#link:../../estilo/#fuente[estilo]#.
+Las soluciones de retos, independiente si son de programacion o de +hacking+,
+siempre deben adherirse a la guía de [button]#link:../../estilo/#fuente[estilo]#.
 Las soluciones de programación deberán cumplir adicionalmente con lo siguiente:
 
 . No deben tener solución en el repositorio (carpeta del reto)
-para el lenguaje elegido por usted.
+para el lenguaje elegido por ti.
 
 . No deben tener solución externa indexada (enlaces +OTHERS.lst+ del reto)
-para el lenguaje elegido por usted.
+para el lenguaje elegido por ti.
 
-. El lenguaje de la solución es uno de los aceptados por [button]#link:http://www.codeabbey.com/[Codeabbey]#.
+. El lenguaje de la solución es uno de los aceptados por [button]#link:http://www.codeabbey.com/[Codeabbey]#
 
-. Los comandos de *compilación* y/o +linting+ utilizados
-y su salida deben estar como *preludio* al inicio del código.
-
+. Los comandos de *compilación* y/o *+linting+* utilizados,
+y su salida, deben estar como *preludio* al inicio del código.
++
 .milogin.rs
 [source, rust, linenums]
 ----
@@ -114,7 +114,8 @@ $
 
 My solution's first line.
 ----
-. Los comandos de ejecución utilizados y su salida
+
+. Los comandos de ejecución utilizados, y su salida,
 deben estar como *posludio* al final del código.
 +
 [source, rust, linenums]
@@ -126,10 +127,11 @@ $ ./skhorn
 over obese obese normal obese obese obese obese ...
 */
 ----
-. Si la solución opera sobre un conjunto de datos de entrada,
-estos no deben estar quemados en código.
 
-Las soluciones de retos de hacking deberán cumplir con lo siguiente:
+. Si la solución opera sobre un conjunto de datos de entrada,
+éstos no deben estar quemados en código.
+
+Las soluciones de retos de +hacking+ deberán cumplir con lo siguiente:
 
 . No deben tener solución en +Gherkin+ (+*.feature+)
 en el repositorio (carpeta del reto).
@@ -138,9 +140,9 @@ en el repositorio (carpeta del reto).
 
 . Deben ser retos que requieran nivel técnico
 (no matemático ni de adivinanzas)
-de [button]#link:http://www.wechall.net/[wechall]# o sus sitios relacionados,
+de [button]#link:http://www.wechall.net/[wechall]# o sus sitios relacionados.
 
-. (Opcionalmente) Pueden ser retos que correspondan explotación en sistemas
+. (Opcionalmente) Pueden ser retos que correspondan a explotación en sistemas
 (+ToE+) vulnerables intencionalmente listados en:
 
 .. [button]#link:https://www.owasp.org/index.php/OWASP_Vulnerable_Web_Applications_Directory_Project#Off-Line_apps[OWASP Off-Line apps]#
@@ -151,11 +153,11 @@ de [button]#link:http://www.wechall.net/[wechall]# o sus sitios relacionados,
 
 .. [button]#link:https://www.vulnhub.com/[Vulnhub]#
 
-.  El formato Gherkin a utilizar debe adherirse estricamente
+.  El formato +Gherkin+ a utilizar debe adherirse estricamente
 a lo descrito [button]#link:../../../en/blog/gherkin-steroids/[aquí]#
 
 . El código fuente de la solución debe seguir
-los parámetros de estilo de [button]#link:../../estilo/#fuente[esta guía]#.
+los parámetros de estilo de [button]#link:../../estilo/#fuente[esta guía]#
 
 . La solución debe haber pasado sin errores ni +warnings+
 por un +linter+ del lenguaje correspondiente
@@ -163,34 +165,34 @@ en su configuración más estricta posible.
 
 == 5. Puntaje
 
-A medida que realice soluciones a retos,
-debe reportar el puntaje, ranking y score obtenidos,
-lo cual permitirá evidenciar su progreso en esta etapa.
+A medida que realices soluciones a retos,
+debes reportar el puntaje, +ranking+ y +score+ obtenidos,
+lo cual permitirá evidenciar tu progreso en esta etapa.
 Todos estos datos deben ir en el +commit message+
-de acuerdo al formato indicado en las link:#envio[reglas de envío]
+de acuerdo al formato indicado en las link:#envio[reglas de envío].
 
 A continuación, se indica cómo obtener los puntajes
-y posiciones en el ranking de cada plataforma.
+y posiciones en el +ranking+ de cada plataforma.
 
 === 5.1 Programación
 
 . Ranking mundial
 
-.. Ir a la pestaña "Ranking" en la página de +codeabbey+: image:ranking-mundial-codeabbey.png[Ranking mundial codeabbey]
+.. Ir a la pestaña +Ranking+ en la página de +codeabbey+: image:ranking-mundial-codeabbey.png[Ranking mundial codeabbey]
 
-.. Baje hasta el final de la página
-y allí encontrará su posición en el ranking mundial: image:ranking-mundial-codeabbey-2.png[Ranking mundial codeabbey]
+.. Baja hasta el final de la página
+y allí encontrarás tu posición en el +ranking+ mundial: image:ranking-mundial-codeabbey-2.png[Ranking mundial codeabbey]
 
 . Ranking Colombia
 
-.. Estando en la pestaña "Ranking", seleccionar el país image:ranking-colombia-codeabbey.png[Ranking Colombia]
+.. Estando en la pestaña +Ranking+, seleccionar el país image:ranking-colombia-codeabbey.png[Ranking Colombia]
 
-.. La página no muestra directamente su posición,
-por lo que deberá realizar el conteo manualmente.
-Puede facilitar la tarea teniendo en cuenta
+.. La página no muestra directamente tu posición,
+por lo que deberás realizar el conteo manualmente.
+Puedes facilitar la tarea teniendo en cuenta
 que cada página muestra +50+ usuarios.
-Deberá avanzar a la siguiente página hasta encontrar su nombre de usuario
-en el tablero de ranking.
+Deberás avanzar a la siguiente página hasta encontrar tu nombre de usuario
+en el tablero de +ranking+.
 image:ranking-colombia-codeabbey-2.png[Ranking Colombia codeabbey]
 
 === 5.2 Hacking
@@ -202,16 +204,16 @@ image::ranking-wechall.png[Ranking en Wechall]
 Las soluciones se envían mediante +Merge Request+ (+MR+)
 a la rama +master+ del repositorio +training+.
 Antes de realizar un +MR+
-por favor verifique que cumple con los siguientes criterios:
+por favor verifica que cumple con los siguientes criterios:
 
-. Solo debe trabajar en una rama
-cuyo nombre es exactamente su nombre de usuario en +gitlab+.
+. Solo debes trabajar en una rama
+cuyo nombre es exactamente tu nombre de usuario en +Gitlab+.
 
 . Todos los archivos relacionados con la resolución de retos
-deben respetar la [button]#link:#estructura[estructura indicada]#.
+deben respetar la [button]#link:#estructura[estructura indicada]#
 
 . Si la solución requiere archivos adicionales
-debe incluirlos en el directorio del reto correspondiente,
+debes incluirlos en el directorio del reto correspondiente.
 
 . Cada solución a un reto debe enviarse con +10+ link:#externas[soluciones externas]
 (+10+ +URLs+ en archivos +OTHERS.lst+).
@@ -220,7 +222,7 @@ debe incluirlos en el directorio del reto correspondiente,
 
 . Cada +commit+ de solución de retos debe ir en +1+ solo +MR+.
 
-. El +MR+ debe realizarse solo cuando su rama
+. El +MR+ debe realizarse solo cuando tu rama
 ha integrado satisfactoriamente (verde).
 
 . Si el +MR+ es rechazado no debe reabrirse,
@@ -259,19 +261,19 @@ Las reglas para los enlaces (+URLs+) a soluciones externas
 .. Deben ser +OTHERS.lst+ nuevos, es decir,
 soluciones externas a retos del cual no tengamos solución externa alguna.
 
-.. Si su solución es de hacking de sistemas (+systems+),
+.. Si tu solución es de hacking de sistemas (+systems+),
 las soluciones externas deben ser de +hacking+ de sistemas también.
 
 . Los +OTHERS.lst+ deben ser de programación
 si se está solucionando un reto de programación.
 
-.. No debe añadir soluciones externas para un lenguaje
+.. No debes añadir soluciones externas para un lenguaje
 del que ya se tenga solución externa.
 
 .. Dentro de un +OTHERS+ de programación las +URLs+
 deben estar ordenadas alfabéticamente por extensión,
 
-. Si está en +github+ la +URL+ debe ser
+. Si está en +Github+, la +URL+ debe ser
 su versión +raw+ (link:https://raw.githubusercontent.com/[]),
 
 == 8. Ejemplos
@@ -294,7 +296,7 @@ Ejemplos de +MR+ aceptados en el pasado:
 
 [NOTE]
 Estos enlaces ejemplares no necesariamente siguen todas las reglas mencionadas
-pues las reglas evolucionan y por ende en el momento que se hicieron
+pues las reglas evolucionan y por ende, en el momento que se hicieron,
 las reglas pudieron ser otras.
 En ningún momento los ejemplos tienen prioridad sobre las reglas,
 sin embargo se relacionan como ejemplo para propósitos pedagógicos.
@@ -305,25 +307,25 @@ sin embargo se relacionan como ejemplo para propósitos pedagógicos.
 se sugiere buscar retos que no tengan solución
 ni en +OTHERS+ ni en el repositorio
 y trabajar en resolver el reto en la respectiva plataforma.
-Para esto, puede apoyarse usando el siguiente
-link:https://gitlab.com/autonomicmind/training/blob/master/utility.sh[script].
+Para esto, puedes apoyarte usando el siguiente
+link:https://gitlab.com/autonomicmind/training/blob/master/utility.sh[+script+].
 
 . Al momento de solucionar retos de programación,
 se sugiere usar un lenguaje no muy usado y
 resolver los retos en dicho lenguaje.
 
 . Solucionar un reto e inmediatamente hacer su envío.
-No acumule soluciones en su computador sin enviarlas,
-pues de este modo usted nunca tendrá realimentación
-de lo que esta haciendo de forma errónea
-y le puede generar por ende múltiples reprocesos
-tener que corregir sus soluciones luego.
+No acumules soluciones en tu computador sin enviarlas,
+pues de este modo nunca tendrás realimentación
+de lo que estés haciendo de forma errónea
+y te puede generar múltiples reprocesos
+tener que corregir tus soluciones más adelante.
 
 == 10. Repositorio
 
 El envío de soluciones se realizará en el siguiente [button]#link:https://gitlab.com/autonomicmind/training/[repositorio git]#
 
-Es ideal que usted se familiarice con el versionamiento
+Es ideal que te familiarices con el versionamiento
 y la estructura que detallamos a continuación.
 
 === 10.1 Estructura
@@ -358,7 +360,7 @@ a| * link:https://gitlab.com/autonomicmind/training/tree/master/systems/bwapp[bw
 |====
 
 El nombramiento de todos los archivos y directorios,
-a excepción de sus link:#102-archivos[archivos especiales],
+a excepción de tus link:#102-archivos[archivos especiales],
 no debe superar los +35+ caracteres,
 debe realizarse en minúscula,
 sin caracteres especiales y
@@ -369,47 +371,48 @@ en caso de requerir espacios usar *-* (guion) como sustituto.
 En algunas carpetas de la estructura se encuentran algunos archivos
 especiales de control:
 
-** *LINK.lst:* Contiene la URL al enunciado del reto en la plataforma
+** *LINK.lst:* Contiene la +URL+ al enunciado del reto en la plataforma
 correspondiente
-(link:https://gitlab.com/autonomicmind/training/blob/master/challenges/codeabbey/001/LINK.lst[Ejemplo]).
+(link:https://gitlab.com/autonomicmind/training/blob/master/challenges/codeabbey/001/LINK.lst[ejemplo]).
 Este archivo solo debe contener una linea y visitar el enlace debe
 generar la respuesta +HTTP 200+ (sin redirección).
 
 ** *DATA.lst:* Contiene los casos de prueba con los cuales se han verificado
-los retos. Este archivo solo debe contener casos de prueba que sea
+los retos. Este archivo solo debe contener casos de prueba que sean
 inmediatamente procesables por cualquier archivo de solución.
 
 ** *OTHERS.lst:* Contiene los enlaces a las soluciones a dicho
 reto que se encuentran en Internet y que no deben leerse ni utilizarse
 como referencia para resolver el reto.
-Este archivo permite que un script automático realice el análisis de similitud
+Este archivo permite que un +script+ automático realice el análisis de similitud
 con los retos enviados por los candidatos.
 Deben cumplir con lo indicado [button]#link:#externas[aquí]#
 
-** *SPEC.txt* (Solo para retos de systems): Contiene las especificaciones de la
-máquina vulnerable con la que se está trabajando.
-Puede ver un ejemplo link:https://gitlab.com/autonomicmind/training/blob/master/systems/bwapp/SPEC.txt[aquí]
+** *SPEC.txt* (Solo para retos de +systems+): Contiene las especificaciones
+de la máquina vulnerable con la que se está trabajando.
+Puedes ver un ejemplo link:https://gitlab.com/autonomicmind/training/blob/master/systems/bwapp/SPEC.txt[aquí].
 
 == 11. Inicio
 
-Para comenzar esta etapa, usted deberá:
+Para comenzar esta etapa, deberás:
 
-. Registrarse en +GitLab+ usando su correo electrónico personal
-y creando el +ID+ de usuario que más le guste.
+. Registrarte en +GitLab+ usando tu correo electrónico personal
+y creando el +ID+ de usuario que más te guste.
 Este +ID+ no debe ser mayor a *12* caracteres
 y solo estar compuesto de letras minúsculas y/o números.
 
-. Unirse a nuestro link:https://join.slack.com/t/autonomicmind/shared_invite/enQtMjg4ODI4NjM3MjY3LWUxMTNmMjk3MDdkMDAzYWY0ZjQ3MzNlYjUzZjM3NTM3MDVmYTliN2YyNGViZGUyNzUxOTAzNTdmZDQ5NWNjNGI[canal de Slack],
-en donde encontrará personal de +FLUIDAttacks+
+. Unirte a nuestro link:https://join.slack.com/t/autonomicmind/shared_invite/enQtMjg4ODI4NjM3MjY3LWUxMTNmMjk3MDdkMDAzYWY0ZjQ3MzNlYjUzZjM3NTM3MDVmYTliN2YyNGViZGUyNzUxOTAzNTdmZDQ5NWNjNGI[canal de Slack],
+en donde encontrarás personal de +FLUIDAttacks+
 y otros candidatos actualmente en esta etapa,
-quienes podrán guiarlo en caso de tener dudas o inconvenientes.
+quienes podrán guiarte en caso de tener dudas o inconvenientes.
 
 . Solicitar el permiso de acceso al repositorio vía +Slack+
 presentándote a los demás en el canal *#general* con el siguiente mensaje:
 [quote]
 ____________________________________________________________________
 He leído y entendido toda la documentación de los retos técnicos,
-acepto las condiciones y por ende solicito acceso al repo +git+ con mi usuario [nombre-usuario] en +GitLab+
+acepto las condiciones y por ende solicito acceso al repo +Git+
+con mi usuario [nombre-usuario] en +GitLab+
 ____________________________________________________________________
 
 == 12. Fin
@@ -417,30 +420,31 @@ ____________________________________________________________________
 La etapa de retos técnicos finaliza
 en cualquiera de las siguientes circunstancias:
 
-. Usted haya completado los link:#objetivos[objetivos]
-y envíe vía +email+ los enlaces en +master+ de sus soluciones.
+. Has completado los link:#objetivos[objetivos]
+y enviaste vía +email+ los enlaces en +master+ de sus soluciones.
 
-. De no haber movimiento (+push+ al repositorio +git+) en +14+ días calendario.
+. No has tenido movimiento (+push+ al repositorio +Git+)
+en +14+ días calendario.
 
-. De haber alcanzado el tope máximo de +10+ +MR+ fallidos,
+. Has alcanzado el tope máximo de +10+ +MR+ fallidos,
 esto es, +MR+ que no se le hace +merge+
 por cuestiones detalladas en la documentación y que aun así se incumplen.
 
-. Si usted explícitamente manifiesta mediante +email+
-su deseo para retirarse del proceso.
+. Si explícitamente manifiestas mediante +e-mail+
+tu deseo para retirarse del proceso.
 
-. Si usted presenta como propias soluciones totales o parciales
+. Si presentas como propias soluciones totales o parciales
 realizadas por otra persona (plagio).
 
-. Si usted realiza soluciones a retos con ayuda de terceros.
+. Si realizas soluciones a retos con ayuda de terceros.
 
 En todos los casos la dirección de correo
 para estos pasos es: careers@autonomicmind.co
 
-Si usted fue retirado por alguna de estas circunstancias,
+Si fuiste retirado por alguna de estas circunstancias,
 exceptuando las dos últimas,
-puede volver a presentarse en cualquier momento
-y volver a comenzar el proceso haciendo click [button]#link:../../../../forms/aplicacion[aquí]#.
+puedes volver a presentarte en cualquier momento
+y volver a comenzar el proceso haciendo click [button]#link:../../../../forms/aplicacion[aquí]#
 
 == 13. Builds
 
@@ -464,7 +468,7 @@ sudo apt-get install curl
 curl https://nixos.org/nix/install | sh
 ----
 
-.Definir sus credenciales de acceso
+.Definir tus credenciales de acceso
 [source, bash, linenums]
 ----
 export DOCKER_USER=usuario-gitlab
@@ -477,9 +481,7 @@ export DOCKER_PASS=contraseña-gitlab
 ./build.nix
 ----
 
-.Si la integración fue exitosa, hacer +commit+
-y añadir los cambios a su rama personal
-
+.Si la integración fue exitosa, hacer +commit+ y añadir los cambios a tu rama personal
 [source, bash, linenums]
 ----
 git add .
@@ -501,10 +503,10 @@ para Sistemas Operativos +Linux+.
 
 == 14. Preguntas
 
-* Antes de realizar una pregunta, por favor lea nuevamente este documento y
+* Antes de realizar una pregunta, por favor lee nuevamente este documento y
 las link:../faq[preguntas realizadas en el pasado] por otros participantes.
 
-* Puede expresar sus dudas en el canal *#general* de nuestro link:https://join.slack.com/t/autonomicmind/shared_invite/enQtMjg4ODI4NjM3MjY3LWUxMTNmMjk3MDdkMDAzYWY0ZjQ3MzNlYjUzZjM3NTM3MDVmYTliN2YyNGViZGUyNzUxOTAzNTdmZDQ5NWNjNGI[Slack].
+* Puede expresar tus dudas en el canal *#general* de nuestro link:https://join.slack.com/t/autonomicmind/shared_invite/enQtMjg4ODI4NjM3MjY3LWUxMTNmMjk3MDdkMDAzYWY0ZjQ3MzNlYjUzZjM3NTM3MDVmYTliN2YyNGViZGUyNzUxOTAzNTdmZDQ5NWNjNGI[Slack].
 
 == 15. Propiedad
 
