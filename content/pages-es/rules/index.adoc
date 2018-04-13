@@ -85,6 +85,7 @@
 * link:110/[REQ.110 Prevenir robos a la organización].
 * link:111/[REQ.111 Definir control físico detectivo y disuasivo].
 * link:112/[REQ.112 Ubicar bolardos en sitios estratégicos].
+* link:113/[REQ.113 Gestionar puntos de acceso].
 
 == Dispositivos
 
