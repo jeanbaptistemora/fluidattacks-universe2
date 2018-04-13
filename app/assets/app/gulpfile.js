@@ -26,15 +26,31 @@ gulp.task("default", function script () {
   return gulp.src([
     "./**/*.js",
     "!./app.js",
+    "!./translations.js",
     "!./xhr.js",
     "!./login.js",
     "!./externs.js",
-    "!./gulpfile.js"
+    "!./gulpfile.js",
+    "!./routes.js",
+    "!./models/dashboardFtry.js",
+    "!./models/eventualityFactory.js"
+
   ]).
     pipe(compiler(options_default));
 });
 
 gulp.task("verbose", function script () {
-  return gulp.src(["./app.js"]).
+  return gulp.src([
+    "./app.js",
+    "./CSSV2.js",
+    "./formstackScript.js",
+    "./mixPanelDashboard.js",
+    "./routes.js",
+    "./translations.js",
+    "./models/dashboardFtry.js",
+    "./models/eventualityFactory.js"
+
+
+  ]).
     pipe(compiler(options_verbose));
 });
