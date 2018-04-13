@@ -94,7 +94,7 @@ independent (on your own without instruction or assistance from others).
 
 The solutions to challenges,
 regardless if they are hacking or programming,
-must always meet the following [button]#link:../../style/#font[style guideline]#.
+must always meet the following [button]#link:../../style/#font[style]# guideline.
 The programming solutions
 must additionally comply with the following:
 
