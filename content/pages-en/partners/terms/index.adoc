@@ -19,7 +19,7 @@ will set the final sale price for each CUSTOMER.
 . The final price for the CUSTOMER will be the base value
 used to calculate the commission to be paid to the PARTNER.
 
-. +FLUIDAttacks+ will always be a visible brand to the final CUSTOMER.
+. +FLUIDAttacks+ will always be a visible brand to the end CUSTOMER.
 Co-branding is also an option, but white-labeling is not.
 
 . All the PARTNERS start with a minimum commission of *30%*,
@@ -47,14 +47,14 @@ and commision percentage for the PARTNER
 reduction in the comission
 (*50%* of the minimum *30%*) if there is no yearly growth.
 
-. +FLUIDAttacks+ will bill the final CUSTOMER
+. +FLUIDAttacks+ will bill the end CUSTOMER
 and collect the payment from the USA, through an automatic recurring system
 on the Internet which requires credit card.
 
-.. In any other situation, or if the PARTNER wills to take care of the billing
-and collection, he will not transfer +FLUIDAttacks+ the amount of money
-regarding portfolio risk or arrears
-due to the non-payment of the final CUSTOMER.
+.. In any other situation, or at the PARTNER's will,
+the PARTNER will be in charge of billing and collection.
+Any risk or delay derived from the non-payment of the end CUSTOMER
+will not be transfered to +FLUIDAttacks+.
 
 . +FLUIDAttacks+ will start the service *1 day* after receiving the payment
 regarding configuration and first month of service.
@@ -82,7 +82,7 @@ based on the USA tax legislation.
 about the potential CUSTOMERS where +FLUIDAttacks+ professional services
 will be presented.
 
-. If +FLUIDAttacks+ bills the final CUSTOMER in Latin America,
+. If +FLUIDAttacks+ bills the end CUSTOMER in Latin America,
 the contractual relationship between the PARTNER and +FLUIDAttacks+
 will be carried out through a Letter of Attorney
 
