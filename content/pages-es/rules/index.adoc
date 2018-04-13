@@ -86,6 +86,7 @@
 * link:111/[REQ.111 Definir control físico detectivo y disuasivo].
 * link:112/[REQ.112 Ubicar bolardos en sitios estratégicos].
 * link:113/[REQ.113 Gestionar puntos de acceso].
+* link:114/[REQ.114 Denegar acceso con credenciales inactivas].
 
 == Dispositivos
 
@@ -139,7 +140,7 @@
 
 == Correos
 
-* link:114/[REQ.114 Garantizar unicidad de correos].
+* link:121/[REQ.121 Garantizar unicidad de correos].
 
 == Credenciales
 
