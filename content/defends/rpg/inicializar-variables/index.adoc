@@ -28,7 +28,6 @@ que pueden cambian durante la ejecución del programa,
 mientras que las constantes no.
 
 . Existen 15 tipos de datos en el lenguaje de programación +RPG+:
-
 +
 .Tipos de datos en +RPG+.
 [options="header"]
@@ -122,15 +121,14 @@ A continuación puede observar
 la forma de inicializar diferentes tipos de variables
 en el lenguaje de programación +RPG+:
 
-+
-Las variables pueden ser inicializadas explícitamente<<r2,^[2]^>>
+* Las variables pueden ser inicializadas explícitamente<<r2,^[2]^>>
 en el momento de su declaración
 en la especificación de las definiciones
 (Posición 6 con el carácter +D+),
 a través de la palabra clave +INZ+:
 +
-.test.rpg
-[source, rpg, linenums]
+.test.v
+[source, verilog, linenums]
 ----
      DTexto            S             10A   INZ('Caracteres')
      DFecha            S               D   INZ(d'2013-07-04')

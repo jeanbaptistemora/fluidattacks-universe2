@@ -56,8 +56,8 @@ El comando +CLOSE+ finaliza la conexión.
 se puede asignar memoria
 para el posterior almacenamiento de datos:
 +
-.test.rpg
-[source, rpg, linenums]
+.test.v
+[source, verilog, linenums]
 ----
 /FREE
      pointer = %ALLOC(200);
@@ -66,7 +66,7 @@ para el posterior almacenamiento de datos:
 
 . La llamada a +DEALLOC+<<r5,^[5]^>> permite liberar dicho espacio:
 +
-[source, rpg, linenums]
+[source, verilog, linenums]
 ----
 /FREE
      dealloc pointer;
