@@ -68,8 +68,8 @@ JINJA_ENVIRONMENT = {'extensions': ['jinja2.ext.i18n']}
 I18N_SUBSITES = {
     'en': {
         'SITENAME': 'A Pentesting Company | FLUIDAttacks',
-        'SITEURL': 'http://localhost:8000/web/en',
-        'SUBSITEURL': 'http://localhost:8000/web/es',
+        'SITEURL': 'https://fluidattacks.com/web/en',
+        'SUBSITEURL': 'https://fluidattacks.com/web/es',
         'OUTPUT_PATH': 'output/web/en',
         'THEME': 'theme/2014',
         'ARTICLE_PATHS': ['blog-en'],
@@ -94,8 +94,8 @@ I18N_SUBSITES = {
     },
     'es': {
         'SITENAME': 'Especialistas en Ethical Hacking | FLUIDAttacks',
-        'SITEURL': 'http://localhost:8000/web/es',
-        'SUBSITEURL': 'http://localhost:8000/web/en',
+        'SITEURL': 'https://fluidattacks.com/web/es',
+        'SUBSITEURL': 'https://fluidattacks.com/web/en',
         'OUTPUT_PATH': 'output/web/es',
         'THEME': 'theme/2014',
         'ARTICLE_PATHS': ['blog-es'],
@@ -121,8 +121,8 @@ I18N_SUBSITES = {
     }
 }
 SUBSITE_LANG = {
-     'en': 'http://localhost:8000/web/en',
-     'es': 'http://localhost:8000/web/es',
+     'en': 'https://fluidattacks.com/web/en',
+     'es': 'https://fluidattacks.com/web/es',
 }
 REDIRECT_SAVE_AS = PAGE_SAVE_AS
 ASSET_BUNDLES = (
