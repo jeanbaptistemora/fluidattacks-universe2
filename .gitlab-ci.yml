@@ -98,7 +98,7 @@ js_compiler:
     stage: test
     script:
         - docker login registry.gitlab.com -u $DOCKER_USER -p $DOCKER_PASS
-        - docker run --env-file env.list -t registry.gitlab.com/fluidsignal/integrates:base /bin/bash -c "npm install -g  n; n stable; cd /usr/src/app/app/assets/app/; /usr/src/app/app/assets/node_modules/.bin/gulp  script"
+        - docker run --env-file env.list -t registry.gitlab.com/fluidsignal/integrates:base /bin/bash -c "npm install -g  n; n stable; cd /usr/src/app/app/assets/app/; /usr/src/app/app/assets/node_modules/.bin/gulp  default verbose"
         - rm env.list
     except:
     - triggers

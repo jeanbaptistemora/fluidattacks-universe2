@@ -7,8 +7,8 @@
 /**
  * Obtiene una cookie atraves de su nombre
  * @function getCookie
- * @param {String} name
- * @return {String}
+ * @param {string} name
+ * @return {null|string}
  */
 function getCookie (name) {
   let cookieValue = null;
@@ -29,7 +29,7 @@ function getCookie (name) {
  * Verifica el metodo por el cual se va a enviar una peticion de cookie
  * @function csrfSafeMethod
  * @param {String} method
- * @return {Boolean}
+ * @return {boolean}
  */
 function csrfSafeMethod (method) {
   return (/^(GET|HEAD|OPTIONS)$/).test(method);
@@ -39,7 +39,7 @@ function csrfSafeMethod (method) {
  * Verifica si la url dada esta dentro del mismo dominio
  * @function sameOrigin
  * @param {String} url
- * @return {Boolean}
+ * @return {boolean}
  */
 function sameOrigin (url) {
   const host = document.location.host;
@@ -126,11 +126,10 @@ const integrates = angular.module("FluidIntegrates", [
   "monospaced.elastic",
   "tandibar/ng-rollbar"
 ]);
-
 integrates.config([
   "RollbarProvider",
   function (RollbarProvider) {
-    isProduction = location.toString().indexOf("localhost:8000") == -1;
+    const isProduction = location.toString().indexOf("localhost:8000") == -1;
     RollbarProvider.init({
       "accessToken": "cad6d1f7ecda480ba003e29f0428d44e",
       "captureUncaught": true,

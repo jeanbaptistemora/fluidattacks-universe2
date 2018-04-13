@@ -1,22 +1,40 @@
+const external_default = require("../externs/externs_default.js");
+const externs_default = external_default.functions;
+const external_verbose = require("../externs/externs_verbose.js");
+const externs_verbose = external_verbose.functions;
 const gulp = require("gulp");
 const compiler = require("google-closure-compiler-js").gulp();
-const options = {
-  "checksOnly": true,
+const options_default = {
   "compilationLevel": "ADVANCED",
   "createSourceMap": true,
-  "externs": "usr/src/app/app/assets/externs/externs.js",
+  "externs": [{"src": externs_default}],
   "languageIn": "ECMASCRIPT6",
   "processCommonJsModules": true,
   "warningLevel": "DEFAULT"
 };
-// './app/**/*.js'
-gulp.task("script", function () {
+const options_verbose = {
+  "compilationLevel": "ADVANCED",
+  "createSourceMap": true,
+  "env": "BROWSER",
+  "externs": [{"src": externs_verbose}],
+  "languageIn": "ECMASCRIPT6",
+  "processCommonJsModules": true,
+  "warningLevel": "VERBOSE"
+};
+
+gulp.task("default", function script () {
   return gulp.src([
-    ".app/**/*.js",
-    "!./login.js",
+    "./**/*.js",
     "!./app.js",
     "!./xhr.js",
+    "!./login.js",
+    "!./externs.js",
     "!./gulpfile.js"
   ]).
-    pipe(compiler(options));
+    pipe(compiler(options_default));
+});
+
+gulp.task("verbose", function script () {
+  return gulp.src(["./app.js"]).
+    pipe(compiler(options_verbose));
 });
