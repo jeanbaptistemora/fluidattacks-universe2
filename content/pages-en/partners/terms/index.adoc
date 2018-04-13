@@ -14,12 +14,12 @@ These can change at any time and are established
 only by signing the physical document.
 
 . +FLUIDAttacks+ together with the PARTNER
-will set the final sale price for each customer.
+will set the final sale price for each CUSTOMER.
 
-. The final price for the customer will be the base value
+. The final price for the CUSTOMER will be the base value
 used to calculate the commission to be paid to the PARTNER.
 
-. +FLUIDAttacks+ will always be a visible brand to the final customer.
+. +FLUIDAttacks+ will always be a visible brand to the final CUSTOMER.
 Co-branding is also an option, but white-labeling is not.
 
 . All the PARTNERS start with a minimum commission of *30%*,
@@ -37,7 +37,7 @@ the PARTNER will receive a commission of *30%*.
 
 .. Otherwise, the commission will be of *15%*.
 
-. If the PARTNER wishes to add more value to the customer on their own accord,
+. If the PARTNER wishes to add more value to the CUSTOMER on their own accord,
 the commission can be higher, with previous mutual agreement of:
 added value that will be given by the PARTNER, minimum and desired final price,
 and commision percentage for the PARTNER
@@ -47,31 +47,21 @@ and commision percentage for the PARTNER
 reduction in the comission
 (*50%* of the minimum *30%*) if there is no yearly growth.
 
-. +FLUIDAttacks+ will bill the final customer
+. +FLUIDAttacks+ will bill the final CUSTOMER
 and collect the payment from the USA, through an automatic recurring system
 on the Internet which requires credit card.
 
 .. In any other situation, or if the PARTNER wills to take care of the billing
 and collection, he will not transfer +FLUIDAttacks+ the amount of money
 regarding portfolio risk or arrears
-due to the non-payment of the final customer.
+due to the non-payment of the final CUSTOMER.
 
 . +FLUIDAttacks+ will start the service *1 day* after receiving the payment
 regarding configuration and first month of service.
 
-. From the second month of service and on, the customer or the PARTNER
+.. From the second month of service and on, the CUSTOMER or the PARTNER
 has a grace period of *15 days* without payment
-before the service is suspended
-
-. If the PARTNER is the one that collects,
-they must guarantee that the money is in the +FLUIDAttacks+ account
-by the *15th calendar day* of each month.
-
-. +FLUIDAttacks+ will suspend its services if they do not receive payments
-as of the *16th calendar day* of the current month.
-
-. If +FLUIDAttacks+ is the one who collects,
-it must pay the PARTNER no later than the *15th calendar day* of each month.
+before the service is suspended.
 
 . All services will be provided remotely.
 
@@ -89,10 +79,10 @@ it must pay the PARTNER no later than the *15th calendar day* of each month.
 based on the USA tax legislation.
 
 . The PARTNER is obliged to inform in advance
-about the potential customers where +FLUIDAttacks+ professional services
+about the potential CUSTOMERS where +FLUIDAttacks+ professional services
 will be presented.
 
-. If +FLUIDAttacks+ bills the final customer in Latin America,
+. If +FLUIDAttacks+ bills the final CUSTOMER in Latin America,
 the contractual relationship between the PARTNER and +FLUIDAttacks+
 will be carried out through a Letter of Attorney
 
