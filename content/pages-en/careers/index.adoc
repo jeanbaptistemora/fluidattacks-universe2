@@ -10,8 +10,8 @@ Here we will explain how you can be a part of our team:
 [role="etapa_c"]
 == 1. Terms
 
-The goal of this stage
-is for you to understand and accept the terms and conditions of the selection process.
+The goal of this stage is for you to understand and accept
+the terms and conditions of the selection process.
 This is mandatory and requires an estimated effort of 4 to 6 minutes.
 To begin,
 you just have to follow these detailed [button]#link:terms/[instructions]#
@@ -38,7 +38,8 @@ you just have to click [button]#link:openings/[here]#
 
 The goal of this stage
 Is to assess your ability to express yourself,
-synthesize ideas and capture our attention through the elaboration of a portfolio.
+synthesize ideas and capture our attention
+through the elaboration of a portfolio.
 This is mandatory and requires an estimated effort of 1 to 2 hours.
 To begin,
 You just have to follow these detailed [button]#link:portfolio/[instructions]#
@@ -105,15 +106,18 @@ Our current talents are in the link:https://www.wechall.net/country_ranking/for/
 and in fact,
 some of them are in the link:https://www.wechall.net/ranking[TOP100 Worldwide].
 This is mandatory for technical roles and
-requires an estimated effort of 4 to 16 hours according to your skills and knowledge.
+requires an estimated effort of 4 to 16 hours
+according to your skills and knowledge.
 To do this you must first finish the previous stage.
 To begin,
 you just have to follow these detailed [button]#link:technical-challenges/[instructions]#
 
 . *Non-Technical Challenges*: The goal of this stage
-is to assess your ability to solve challenges that apply to analytical and statistical profiles.
+is to assess your ability to solve challenges
+that apply to analytical and statistical profiles.
 This is mandatory for non-technical profiles and
-Requires an estimated effort of 4 to 16 hours according to your skills and knowledge.
+Requires an estimated effort of 4 to 16 hours
+according to your skills and knowledge.
 To do this you must first finish the previous stage.
 To begin,
 you just have to follow these detailed [button]#link:non-technical-challenges/[instructions]#
@@ -140,9 +144,10 @@ The goal of this stage
 is to take part of an intensive self-training period
 in programming and hacking challenges,
 paid for by +FLUIDAttacks+.
-This is mandatory and requires an effort that is determined based on your knowledge.
-To begin,
-write us an email at careers@autonomicmind.co and read these detailed [button]#link:immersion/[instructions]#
+This is mandatory and requires an effort
+that is determined based on your knowledge.
+To begin, write us an email at careers@autonomicmind.co
+and read these detailed [button]#link:immersion/[instructions]#
 
 == 11. References
 
@@ -158,7 +163,8 @@ you just have to follow these detailed [button]#link:reverse-references/[instruc
 The goal of this stage
 is to take a polygraph test.
 Our business is information security,
-for which reason it may be possible that, during the selection process or employment,
+for which reason it may be possible that,
+during the selection process or employment,
 you will be asked to take this type of test.
 This is optional and requires an estimated effort of 2 hours.
 Esto es opcional y el esfuerzo requerido estimado es de 2 horas.

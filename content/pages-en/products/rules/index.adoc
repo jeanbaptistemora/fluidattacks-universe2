@@ -16,7 +16,8 @@ it is also the basis to determine how rigorous a pentest was
 based on tested and untested requirements.
 The security requirements are independent of the type of technology being used
 and are written as specific and understandable objectives.
-In a way they are the security commandments that you agree to follow and comply with
-and therefore, in our hacking services, we determine if these are met or not.
+In a way they are the security commandments
+that you agree to follow and comply with and therefore,
+in our hacking services, we determine if these are met or not.
 
 You can access the product [button]#link:../../rules/[here]#

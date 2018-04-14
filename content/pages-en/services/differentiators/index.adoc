@@ -259,7 +259,8 @@ a|==== Custom Exploits
 a|==== link:../../blog/importance-pentesting/#diagram[Correlation]
 | {yes} By combining vulnerabilities +A+ and +B+ we are able to find
 a new vulnerability +C+ of greater impact which may compromise more registers.
-| {no} Only detects vulnerabilities +A+ and +B+ but it's not able to correlate them.
+| {no} Only detects vulnerabilities +A+ and +B+
+but it's not able to correlate them.
 
 a|==== Infection
 | {yes} In our [button]#link:../../services/one-shot-hacking/[One shot hacking]#

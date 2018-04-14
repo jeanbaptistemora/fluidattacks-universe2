@@ -62,8 +62,8 @@ a|== Coverage
 
 Service goal is to achieve +100%+ coverage during the entire subscription time,
 when continuous ethical hacking starts with development,
-security testing can also finish together with development as long as development
-does not exceed monthly +10K+ deltas test limit.
+security testing can also finish together with development
+as long as development does not exceed monthly +10K+ deltas test limit.
 If development exceeds the limit,
 customer can choose between +2+ options:
 
