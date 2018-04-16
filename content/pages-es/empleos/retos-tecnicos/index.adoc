@@ -229,23 +229,9 @@ ha integrado satisfactoriamente (verde).
 deben corregirse los problemas indicados y hacer un nuevo +MR+.
 
 . El mensaje de +commit+ para enviar la solución
-de un reto de complejidad +9.63+,
-del cual previamente se tienen +17+ soluciones externas
-(+out+) y +8+ dentro del repo (+in+)
-y que tardó +4.5+ horas de esfuerzo en resolverse
-durante la fase de retos (+challenges+) es el siguiente:
-
-.commit-msg.txt
-[source, text]
-----
-solution(challenges): codeabbey, 78 (9.63)
-
-- others: 8 in, 17 out, 25 total.
-- score: 25665 initial, 25723 final, 58 progress.
-- global-rank: 797 initial, 795 final, 2 progress.
-- national-rank: 38 initial, 38 final, 0 progress.
-- effort: 4.5 hours during challenges phase.
-----
+debe adherirse a una de las dos plantillas
+link:https://gitlab.com/autonomicmind/training/blob/master/templates/commit-msg-challenges.txt[para retos de hacking de +wechall+ y retos de programación]
+o link:https://gitlab.com/autonomicmind/training/blob/master/templates/commit-msg-systems.txt[para vulnerabilidades de sistemas].
 
 == 7. Externas
 
@@ -485,7 +471,7 @@ export DOCKER_PASS=contraseña-gitlab
 [source, bash, linenums]
 ----
 git add .
-git commit -m "Ejemplo"
+git commit
 git push origin rama-personal
 ----
 
