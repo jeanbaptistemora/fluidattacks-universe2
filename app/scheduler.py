@@ -28,7 +28,8 @@ def get_new_vulnerabilities():
             if act_finding["edad"] != "-" and act_finding["estado"] != "Cerrado" and "tratamiento" in act_finding:
                 if  act_finding["tratamiento"] == "Nuevo":
                     context['findings_working_on'].append({'hallazgo_pendiente': (act_finding['hallazgo'] + ' -' + act_finding["edad"] +' day(s)-'), \
-                    'url_hallazgo': 'https://fluidattacks.com/integrates/dashboard#!/project/' + project[0].lower() + '/' + str(finding['id'] + '/description')})
+                    'url_hallazgo': 'https://fluidattacks.com/integrates/dashboard#!/project/' + project[0].lower() + '/' + str(finding['id'] + \
+                        '/description')})
             if row != []:
                 delta = int(act_finding['cardinalidad'])-int(row[0]['vuln_hoy'])
                 if int(act_finding['cardinalidad']) > int(row[0]['vuln_hoy']):

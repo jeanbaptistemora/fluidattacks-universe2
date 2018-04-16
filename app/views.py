@@ -212,10 +212,7 @@ def logout(request):
 
     HttpResponse("<script>Intercom('shutdown');</script>")
     try:
-        del(request.session["username"])
-        del(request.session["company"])
-        del(request.session["role"])
-        del(request.session["registered"])
+        request.session.flush()
     except KeyError:
         pass
     return redirect("/index")

@@ -1,5 +1,5 @@
 /* global
-integrates, $, BASE, mixpanel, userMail, $xhr, Organization, userEmail, mixPanelDashboard, userName
+integrates, $, BASE, mixpanel, userMail, $xhr, Organization, userEmail, mixPanelDashboard, userName, projectData:true, eventsData:true, findingData:true
 */
 /**
  * @file dashboardController.js
@@ -49,10 +49,13 @@ integrates.controller("dashboardCtrl", function dashboardCtrl (
       "animation": true,
       "controller" ($scope, $uibModalInstance) {
         $scope.closeModalLogout = function closeModalLogout () {
-          $uibModalInstance.dismiss("cancel");
+          $uibModalInstance.close();
         };
         $scope.okModalLogout = function okModalLogout () {
-          const location = `${BASE.url}logout`;
+          projectData = [];
+          eventsData = [];
+          findingData = {};
+          window.location = `${BASE.url}logout`;
         };
       },
       "resolve": {"done": true},
