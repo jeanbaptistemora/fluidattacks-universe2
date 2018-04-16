@@ -143,6 +143,7 @@ rules:
     - error
     - stroustrup
     - allowSingleLine: false
+  camelcase: error
   capitalized-comments: error
   comma-dangle: error
   comma-spacing: error

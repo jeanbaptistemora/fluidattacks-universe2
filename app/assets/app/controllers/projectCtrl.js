@@ -90,7 +90,7 @@ integrates.controller(
       const finding = $scope.findingId;
       if (typeof project === "undefined" ||
                 project === "") {
-        const attentionAt = $translate.instant("proj_alerts.attent_title");
+        const attentionAt = $translate.instant("proj_alerts.attentTitle");
         const attentionAc = $translate.instant("proj_alerts.attent_cont");
         $msg.warning(attentionAc, attentionAt);
         return false;

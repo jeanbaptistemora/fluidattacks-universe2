@@ -113,7 +113,7 @@ integrates.controller(
       const finding = $scope.findingId;
       if (typeof project === "undefined" ||
                 project === "") {
-        const attentionAt = $translate.instant("proj_alerts.attent_title");
+        const attentionAt = $translate.instant("proj_alerts.attentTitle");
         const attentionAc = $translate.instant("proj_alerts.attent_cont");
         $msg.warning(attentionAc, attentionAt);
         return false;
@@ -169,47 +169,47 @@ integrates.controller(
       for (let cont = 0; cont < data.length; cont++) {
         switch (data[cont].tipo) {
         case "Autorización para ataque especial":
-          data[cont].tipo = $translate.instant("event_formstack.type.auth_attack");
+          data[cont].tipo = $translate.instant("eventFormstack.type.auth_attack");
           break;
         case "Alcance difiere a lo aprobado":
-          data[cont].tipo = $translate.instant("event_formstack.type.toe_differs");
+          data[cont].tipo = $translate.instant("eventFormstack.type.toe_differs");
           break;
         case "Aprobación de alta disponibilidad":
-          data[cont].tipo = $translate.instant("event_formstack.type.high_approval");
+          data[cont].tipo = $translate.instant("eventFormstack.type.high_approval");
           break;
         case "Insumos incorrectos o faltantes":
-          data[cont].tipo = $translate.instant("event_formstack.type.incor_supplies");
+          data[cont].tipo = $translate.instant("eventFormstack.type.incor_supplies");
           break;
         case "Cliente suspende explicitamente":
-          data[cont].tipo = $translate.instant("event_formstack.type.explic_suspend");
+          data[cont].tipo = $translate.instant("eventFormstack.type.explic_suspend");
           break;
         case "Cliente aprueba cambio de alcance":
-          data[cont].tipo = $translate.instant("event_formstack.type.approv_change");
+          data[cont].tipo = $translate.instant("eventFormstack.type.approv_change");
           break;
         case "Cliente cancela el proyecto/hito":
-          data[cont].tipo = $translate.instant("event_formstack.type.cancel_proj");
+          data[cont].tipo = $translate.instant("eventFormstack.type.cancel_proj");
           break;
         case "Cliente detecta ataque":
-          data[cont].tipo = $translate.instant("event_formstack.type.det_attack");
+          data[cont].tipo = $translate.instant("eventFormstack.type.det_attack");
           break;
         case "Otro":
-          data[cont].tipo = $translate.instant("event_formstack.type.other");
+          data[cont].tipo = $translate.instant("eventFormstack.type.other");
           break;
         case "Ambiente no accesible":
-          data[cont].tipo = $translate.instant("event_formstack.type.inacc_ambient");
+          data[cont].tipo = $translate.instant("eventFormstack.type.inacc_ambient");
           break;
         case "Ambiente inestable":
-          data[cont].tipo = $translate.instant("event_formstack.type.uns_ambient");
+          data[cont].tipo = $translate.instant("eventFormstack.type.uns_ambient");
           break;
         default:
           data[cont].tipo = data[cont].tipo;
         }
         switch (data[cont].estado) {
         case "Pendiente":
-          data[cont].estado = $translate.instant("event_formstack.status.unsolve");
+          data[cont].estado = $translate.instant("eventFormstack.status.unsolve");
           break;
         case "Tratada":
-          data[cont].estado = $translate.instant("event_formstack.status.solve");
+          data[cont].estado = $translate.instant("eventFormstack.status.solve");
           break;
         default:
           data[cont].estado = data[cont].estado;

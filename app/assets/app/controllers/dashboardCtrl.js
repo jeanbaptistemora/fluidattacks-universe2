@@ -92,40 +92,40 @@ integrates.controller("dashboardCtrl", function dashboardCtrl (
       for (let cont = 0; cont < response.data.length; cont++) {
         switch (response.data[cont].tipo) {
         case "Autorización para ataque especial":
-          response.data[cont].tipo = $translate.instant("event_formstack.type.auth_attack");
+          response.data[cont].tipo = $translate.instant("eventFormstack.type.auth_attack");
           break;
         case "Alcance difiere a lo aprobado":
-          response.data[cont].tipo = $translate.instant("event_formstack.type.toe_differs");
+          response.data[cont].tipo = $translate.instant("eventFormstack.type.toe_differs");
           break;
         case "Aprobación de alta disponibilidad":
-          response.data[cont].tipo = $translate.instant("event_formstack.type.high_approval");
+          response.data[cont].tipo = $translate.instant("eventFormstack.type.high_approval");
           break;
         case "Insumos incorrectos o faltantes":
-          response.data[cont].tipo = $translate.instant("event_formstack.type.incor_supplies");
+          response.data[cont].tipo = $translate.instant("eventFormstack.type.incor_supplies");
           break;
         case "Cliente suspende explicitamente":
-          response.data[cont].tipo = $translate.instant("event_formstack.type.explic_suspend");
+          response.data[cont].tipo = $translate.instant("eventFormstack.type.explic_suspend");
           break;
         case "Cliente aprueba cambio de alcance":
-          response.data[cont].tipo = $translate.instant("event_formstack.type.approv_change");
+          response.data[cont].tipo = $translate.instant("eventFormstack.type.approv_change");
           break;
         case "Cliente cancela el proyecto/hito":
-          response.data[cont].tipo = $translate.instant("event_formstack.type.cancel_proj");
+          response.data[cont].tipo = $translate.instant("eventFormstack.type.cancel_proj");
           break;
         case "Cliente detecta ataque":
-          response.data[cont].tipo = $translate.instant("event_formstack.type.det_attack");
+          response.data[cont].tipo = $translate.instant("eventFormstack.type.det_attack");
           break;
         case "Otro":
-          response.data[cont].tipo = $translate.instant("event_formstack.type.other");
+          response.data[cont].tipo = $translate.instant("eventFormstack.type.other");
           break;
         case "Ambiente no accesible":
-          response.data[cont].tipo = $translate.instant("event_formstack.type.inacc_ambient");
+          response.data[cont].tipo = $translate.instant("eventFormstack.type.inacc_ambient");
           break;
         case "Ambiente inestable":
-          response.data[cont].tipo = $translate.instant("event_formstack.type.uns_ambient");
+          response.data[cont].tipo = $translate.instant("eventFormstack.type.uns_ambient");
           break;
         default:
-          response.data[cont].tipo = $translate.instant("event_formstack.type.unknown");
+          response.data[cont].tipo = $translate.instant("eventFormstack.type.unknown");
         }
       }
       $("#myEventsTbl").bootstrapTable({

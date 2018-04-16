@@ -79,17 +79,17 @@ integrates.updateEvntRow = function updateEvntRow (row) {
  */
 /** @export */
 integrates.controller("eventualityController", function eventualityController ($scope, $uibModal, $translate, eventualityFactory) {
-  const attent_title = $translate.instant("proj_alerts.attent_title");
-  const updated_title = $translate.instant("proj_alerts.updated_title");
-  const event_title = $translate.instant("proj_alerts.event_title");
-  const event_wait = $translate.instant("proj_alerts.event_wait");
-  const event_select = $translate.instant("proj_alerts.event_select");
-  const event_required = $translate.instant("proj_alerts.event_required");
-  const event_internal = $translate.instant("proj_alerts.event_internal");
-  const event_formstack = $translate.instant("proj_alerts.event_formstack");
-  const event_positiveint = $translate.instant("proj_alerts.event_positiveint");
-  const event_updated = $translate.instant("proj_alerts.event_updated");
-  const event_exist = $translate.instant("proj_alerts.event_exist");
+  const attentTitle = $translate.instant("proj_alerts.attentTitle");
+  const updatedTitle = $translate.instant("proj_alerts.updatedTitle");
+  const eventTitle = $translate.instant("proj_alerts.eventTitle");
+  const eventWait = $translate.instant("proj_alerts.eventWait");
+  const eventSelect = $translate.instant("proj_alerts.eventSelect");
+  const eventRequired = $translate.instant("proj_alerts.eventRequired");
+  const eventInternal = $translate.instant("proj_alerts.eventInternal");
+  const eventFormstack = $translate.instant("proj_alerts.eventFormstack");
+  const eventPositiveint = $translate.instant("proj_alerts.eventPositiveint");
+  const eventUpdated = $translate.instant("proj_alerts.eventUpdated");
+  const eventExist = $translate.instant("proj_alerts.eventExist");
 
   /**
    * Inicializa las variables del controlador de eventualidades
@@ -125,7 +125,7 @@ integrates.controller("eventualityController", function eventualityController ($
       $.gritter.add({
         "class_name": "color warning",
         "sticky": false,
-        "text": event_select,
+        "text": eventSelect,
         "title": "Error"
       });
       return false;
@@ -187,7 +187,7 @@ integrates.controller("eventualityController", function eventualityController ($
       $.gritter.add({
         "class_name": "color warning",
         "sticky": false,
-        "text": event_select,
+        "text": eventSelect,
         "title": "Error"
       });
       return false;
@@ -218,8 +218,8 @@ integrates.controller("eventualityController", function eventualityController ($
             $.gritter.add({
               "class_name": "color warning",
               "sticky": false,
-              "text": event_positiveint,
-              "title": attent_title
+              "text": eventPositiveint,
+              "title": attentTitle
             });
             return false;
           }
@@ -228,8 +228,8 @@ integrates.controller("eventualityController", function eventualityController ($
               $.gritter.add({
                 "class_name": "color success",
                 "sticky": false,
-                "text": event_updated,
-                "title": updated_title
+                "text": eventUpdated,
+                "title": updatedTitle
               });
               integrates.updateEvntRow($scope.evnt);
               $uibModalInstance.close();
@@ -288,8 +288,8 @@ integrates.controller("eventualityController", function eventualityController ($
       $.gritter.add({
         "class_name": "color info",
         "sticky": false,
-        "text": event_wait,
-        "title": event_title
+        "text": eventWait,
+        "title": eventTitle
       });
       $(".loader").show();
       $scope.maxRecursiveCall = 5;
@@ -300,50 +300,50 @@ integrates.controller("eventualityController", function eventualityController ($
           for (let cont = 0; cont < data.data.length; cont++) {
             switch (data.data[cont].tipo) {
             case "Autorización para ataque especial":
-              data.data[cont].tipo = $translate.instant("event_formstack.type.auth_attack");
+              data.data[cont].tipo = $translate.instant("eventFormstack.type.auth_attack");
               break;
             case "Alcance difiere a lo aprobado":
-              data.data[cont].tipo = $translate.instant("event_formstack.type.toe_differs");
+              data.data[cont].tipo = $translate.instant("eventFormstack.type.toe_differs");
               break;
             case "Aprobación de alta disponibilidad":
-              data.data[cont].tipo = $translate.instant("event_formstack.type.high_approval");
+              data.data[cont].tipo = $translate.instant("eventFormstack.type.high_approval");
               break;
             case "Insumos incorrectos o faltantes":
-              data.data[cont].tipo = $translate.instant("event_formstack.type.incor_supplies");
+              data.data[cont].tipo = $translate.instant("eventFormstack.type.incor_supplies");
               break;
             case "Cliente suspende explicitamente":
-              data.data[cont].tipo = $translate.instant("event_formstack.type.explic_suspend");
+              data.data[cont].tipo = $translate.instant("eventFormstack.type.explic_suspend");
               break;
             case "Cliente aprueba cambio de alcance":
-              data.data[cont].tipo = $translate.instant("event_formstack.type.approv_change");
+              data.data[cont].tipo = $translate.instant("eventFormstack.type.approv_change");
               break;
             case "Cliente cancela el proyecto/hito":
-              data.data[cont].tipo = $translate.instant("event_formstack.type.cancel_proj");
+              data.data[cont].tipo = $translate.instant("eventFormstack.type.cancel_proj");
               break;
             case "Cliente detecta ataque":
-              data.data[cont].tipo = $translate.instant("event_formstack.type.det_attack");
+              data.data[cont].tipo = $translate.instant("eventFormstack.type.det_attack");
               break;
             case "Otro":
-              data.data[cont].tipo = $translate.instant("event_formstack.type.other");
+              data.data[cont].tipo = $translate.instant("eventFormstack.type.other");
               break;
             case "Ambiente no accesible":
-              data.data[cont].tipo = $translate.instant("event_formstack.type.inacc_ambient");
+              data.data[cont].tipo = $translate.instant("eventFormstack.type.inacc_ambient");
               break;
             case "Ambiente inestable":
-              data.data[cont].tipo = $translate.instant("event_formstack.type.uns_ambient");
+              data.data[cont].tipo = $translate.instant("eventFormstack.type.uns_ambient");
               break;
             default:
-              data.data[cont].tipo = $translate.instant("event_formstack.type.unknown");
+              data.data[cont].tipo = $translate.instant("eventFormstack.type.unknown");
             }
             switch (data.data[cont].estado) {
             case "Pendiente":
-              data.data[cont].estado = $translate.instant("event_formstack.status.unsolve");
+              data.data[cont].estado = $translate.instant("eventFormstack.status.unsolve");
               break;
             case "Tratada":
-              data.data[cont].estado = $translate.instant("event_formstack.status.solve");
+              data.data[cont].estado = $translate.instant("eventFormstack.status.solve");
               break;
             default:
-              data.data[cont].estado = $translate.instant("event_formstack.status.unknown");
+              data.data[cont].estado = $translate.instant("eventFormstack.status.unknown");
             }
           }
           $("#eventualities").bootstrapTable("destroy");
@@ -359,8 +359,8 @@ integrates.controller("eventualityController", function eventualityController ($
           $.gritter.add({
             "class_name": "color success",
             "sticky": false,
-            "text": updated_title,
-            "title": event_title
+            "text": updatedTitle,
+            "title": eventTitle
           });
         }
         else if (data.error) {
@@ -376,7 +376,7 @@ integrates.controller("eventualityController", function eventualityController ($
       });
     }
     else {
-      $scope.response = event_required;
+      $scope.response = eventRequired;
     }
   };
 

@@ -344,7 +344,7 @@ integrates.controller(
       const finding = $scope.findingId;
       if (typeof project === "undefined" ||
                 project === "") {
-        const attentionAt = $translate.instant("proj_alerts.attent_title");
+        const attentionAt = $translate.instant("proj_alerts.attentTitle");
         const attentionAc = $translate.instant("proj_alerts.attent_cont");
         $msg.warning(attentionAc, attentionAt);
         return false;
@@ -490,18 +490,18 @@ integrates.controller(
         default:
           datatest[cont].categoria = datatest[cont].categoria;
         }
-        switch (datatest[cont].complejidad_acceso) {
+        switch (datatest[cont].complejidadAcceso) {
         case "0.350 | Alto: Se requieren condiciones especiales como acceso administrativo":
-          datatest[cont].complejidad_acceso = $translate.instant("finding_formstack.complexity.high_complex");
+          datatest[cont].complejidadAcceso = $translate.instant("finding_formstack.complexity.high_complex");
           break;
         case "0.610 | Medio: Se requieren algunas condiciones como acceso al sistema":
-          datatest[cont].complejidad_acceso = $translate.instant("finding_formstack.complexity.medium_complex");
+          datatest[cont].complejidadAcceso = $translate.instant("finding_formstack.complexity.medium_complex");
           break;
         case "0.710 | Bajo: No se requiere ninguna condición especial":
-          datatest[cont].complejidad_acceso = $translate.instant("finding_formstack.complexity.low_complex");
+          datatest[cont].complejidadAcceso = $translate.instant("finding_formstack.complexity.low_complex");
           break;
         default:
-          datatest[cont].complejidad_acceso = datatest[cont].complejidad_acceso;
+          datatest[cont].complejidadAcceso = datatest[cont].complejidadAcceso;
         }
         switch (datatest[cont].escenario) {
         case "Anónimo desde Internet":
@@ -570,73 +570,73 @@ integrates.controller(
         default:
           datatest[cont].explotable = datatest[cont].explotable;
         }
-        switch (datatest[cont].impacto_confidencialidad) {
+        switch (datatest[cont].impactoConfidencialidad) {
         case "0 | Ninguno: No se presenta ningún impacto":
-          datatest[cont].impacto_confidencialidad = $translate.instant("finding_formstack.confidenciality.none");
+          datatest[cont].impactoConfidencialidad = $translate.instant("finding_formstack.confidenciality.none");
           break;
         case "0.275 | Parcial: Se obtiene acceso a la información pero no control sobre ella":
-          datatest[cont].impacto_confidencialidad = $translate.instant("finding_formstack.confidenciality.partial");
+          datatest[cont].impactoConfidencialidad = $translate.instant("finding_formstack.confidenciality.partial");
           break;
         case "0.660 | Completo: Se controla toda la información relacionada con el objetivo":
-          datatest[cont].impacto_confidencialidad = $translate.instant("finding_formstack.confidenciality.complete");
+          datatest[cont].impactoConfidencialidad = $translate.instant("finding_formstack.confidenciality.complete");
           break;
         default:
-          datatest[cont].impacto_confidencialidad = datatest[cont].impacto_confidencialidad;
+          datatest[cont].impactoConfidencialidad = datatest[cont].impactoConfidencialidad;
         }
-        switch (datatest[cont].impacto_disponibilidad) {
+        switch (datatest[cont].impactoDisponibilidad) {
         case "0 | Ninguno: No se presenta ningún impacto":
-          datatest[cont].impacto_disponibilidad = $translate.instant("finding_formstack.availability.none");
+          datatest[cont].impactoDisponibilidad = $translate.instant("finding_formstack.availability.none");
           break;
         case "0.275 | Parcial: Se presenta intermitencia en el acceso al objetivo":
-          datatest[cont].impacto_disponibilidad = $translate.instant("finding_formstack.availability.partial");
+          datatest[cont].impactoDisponibilidad = $translate.instant("finding_formstack.availability.partial");
           break;
         case "0.660 | Completo: Hay una caída total del objetivo":
-          datatest[cont].impacto_disponibilidad = $translate.instant("finding_formstack.availability.complete");
+          datatest[cont].impactoDisponibilidad = $translate.instant("finding_formstack.availability.complete");
           break;
         default:
-          datatest[cont].impacto_disponibilidad = datatest[cont].impacto_disponibilidad;
+          datatest[cont].impactoDisponibilidad = datatest[cont].impactoDisponibilidad;
         }
-        switch (datatest[cont].impacto_integridad) {
+        switch (datatest[cont].impactoIntegridad) {
         case "0 | Ninguno: No se presenta ningún impacto":
-          datatest[cont].impacto_integridad = $translate.instant("finding_formstack.integrity.none");
+          datatest[cont].impactoIntegridad = $translate.instant("finding_formstack.integrity.none");
           break;
         case "0.275 | Parcial: Es posible modificar cierta información del objetivo":
-          datatest[cont].impacto_integridad = $translate.instant("finding_formstack.integrity.partial");
+          datatest[cont].impactoIntegridad = $translate.instant("finding_formstack.integrity.partial");
           break;
         case "0.660 | Completo: Es posible modificar toda la información del objetivo":
-          datatest[cont].impacto_integridad = $translate.instant("finding_formstack.integrity.complete");
+          datatest[cont].impactoIntegridad = $translate.instant("finding_formstack.integrity.complete");
           break;
         default:
-          datatest[cont].impacto_integridad = datatest[cont].impacto_integridad;
+          datatest[cont].impactoIntegridad = datatest[cont].impactoIntegridad;
         }
-        switch (datatest[cont].nivel_confianza) {
+        switch (datatest[cont].nivelConfianza) {
         case "0.900 | No confirmado: Existen pocas fuentes que reconocen la vulnerabilidad":
-          datatest[cont].nivel_confianza = $translate.instant("finding_formstack.confidence.not_confirm");
+          datatest[cont].nivelConfianza = $translate.instant("finding_formstack.confidence.not_confirm");
           break;
         case "0.950 | No corroborado: La vulnerabilidad es reconocida por fuentes no oficiales":
-          datatest[cont].nivel_confianza = $translate.instant("finding_formstack.confidence.not_corrob");
+          datatest[cont].nivelConfianza = $translate.instant("finding_formstack.confidence.not_corrob");
           break;
         case "1.000 | Confirmado: La vulnerabilidad es reconocida por el fabricante":
-          datatest[cont].nivel_confianza = $translate.instant("finding_formstack.confidence.confirmed");
+          datatest[cont].nivelConfianza = $translate.instant("finding_formstack.confidence.confirmed");
           break;
         default:
-          datatest[cont].nivel_confianza = datatest[cont].nivel_confianza;
+          datatest[cont].nivelConfianza = datatest[cont].nivelConfianza;
         }
-        switch (datatest[cont].nivel_resolucion) {
+        switch (datatest[cont].nivelResolucion) {
         case "0.950 | Paliativa: Existe un parche que no fue publicado por el fabricante":
-          datatest[cont].nivel_resolucion = $translate.instant("finding_formstack.resolution.palliative");
+          datatest[cont].nivelResolucion = $translate.instant("finding_formstack.resolution.palliative");
           break;
         case "0.870 | Oficial: Existe un parche disponible por el fabricante":
-          datatest[cont].nivel_resolucion = $translate.instant("finding_formstack.resolution.official");
+          datatest[cont].nivelResolucion = $translate.instant("finding_formstack.resolution.official");
           break;
         case "0.900 | Temporal: Existen soluciones temporales":
-          datatest[cont].nivel_resolucion = $translate.instant("finding_formstack.resolution.temporal");
+          datatest[cont].nivelResolucion = $translate.instant("finding_formstack.resolution.temporal");
           break;
         case "1.000 | Inexistente: No existe solución":
-          datatest[cont].nivel_resolucion = $translate.instant("finding_formstack.resolution.non_existent");
+          datatest[cont].nivelResolucion = $translate.instant("finding_formstack.resolution.non_existent");
           break;
         default:
-          datatest[cont].nivel_resolucion = datatest[cont].nivel_resolucion;
+          datatest[cont].nivelResolucion = datatest[cont].nivelResolucion;
         }
         switch (datatest[cont].probabilidad) {
         case "100% Vulnerado Anteriormente":
@@ -654,47 +654,47 @@ integrates.controller(
         default:
           datatest[cont].probabilidad = datatest[cont].probabilidad;
         }
-        switch (datatest[cont].tipo_hallazgo_cliente) {
+        switch (datatest[cont].tipoHallazgoCliente) {
         case "Higiene":
-          datatest[cont].tipo_hallazgo_cliente = $translate.instant("finding_formstack.findingType.hygiene");
+          datatest[cont].tipoHallazgoCliente = $translate.instant("finding_formstack.findingType.hygiene");
           break;
         case "Vulnerabilidad":
-          datatest[cont].tipo_hallazgo_cliente = $translate.instant("finding_formstack.findingType.vuln");
+          datatest[cont].tipoHallazgoCliente = $translate.instant("finding_formstack.findingType.vuln");
           break;
         default:
-          datatest[cont].tipo_hallazgo_cliente = datatest[cont].tipo_hallazgo_cliente;
+          datatest[cont].tipoHallazgoCliente = datatest[cont].tipoHallazgoCliente;
         }
-        switch (datatest[cont].tipo_prueba) {
+        switch (datatest[cont].tipoPrueba) {
         case "Análisis":
-          datatest[cont].tipo_prueba = $translate.instant("finding_formstack.test_method.analysis");
+          datatest[cont].tipoPrueba = $translate.instant("finding_formstack.test_method.analysis");
           break;
         case "Aplicación":
-          datatest[cont].tipo_prueba = $translate.instant("finding_formstack.test_method.app");
+          datatest[cont].tipoPrueba = $translate.instant("finding_formstack.test_method.app");
           break;
         case "Binario":
-          datatest[cont].tipo_prueba = $translate.instant("finding_formstack.test_method.binary");
+          datatest[cont].tipoPrueba = $translate.instant("finding_formstack.test_method.binary");
           break;
         case "Código":
-          datatest[cont].tipo_prueba = $translate.instant("finding_formstack.test_method.code");
+          datatest[cont].tipoPrueba = $translate.instant("finding_formstack.test_method.code");
           break;
         case "Infraestructura":
-          datatest[cont].tipo_prueba = $translate.instant("finding_formstack.test_method.infras");
+          datatest[cont].tipoPrueba = $translate.instant("finding_formstack.test_method.infras");
           break;
         default:
-          datatest[cont].tipo_prueba = datatest[cont].tipo_prueba;
+          datatest[cont].tipoPrueba = datatest[cont].tipoPrueba;
         }
-        switch (datatest[cont].vector_acceso) {
+        switch (datatest[cont].vectorAcceso) {
         case "0.646 | Red adyacente: Explotable desde el mismo segmento de red":
-          datatest[cont].vector_acceso = $translate.instant("finding_formstack.access_vector.adjacent");
+          datatest[cont].vectorAcceso = $translate.instant("finding_formstack.access_vector.adjacent");
           break;
         case "1.000 | Red: Explotable desde Internet":
-          datatest[cont].vector_acceso = $translate.instant("finding_formstack.access_vector.network");
+          datatest[cont].vectorAcceso = $translate.instant("finding_formstack.access_vector.network");
           break;
         case "0.395 | Local: Explotable con acceso local al objetivo":
-          datatest[cont].vector_acceso = $translate.instant("finding_formstack.access_vector.local");
+          datatest[cont].vectorAcceso = $translate.instant("finding_formstack.access_vector.local");
           break;
         default:
-          datatest[cont].vector_acceso = datatest[cont].vector_acceso;
+          datatest[cont].vectorAcceso = datatest[cont].vectorAcceso;
         }
         switch (datatest[cont].tratamiento) {
         case "Asumido":

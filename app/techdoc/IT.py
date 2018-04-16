@@ -134,7 +134,6 @@ class ITReport(object):
 			return "Media"
 		return complexity_access
 
-	
 	def __get_measure(self, metricstr): # noqa
 		""" Extrae el numero de las metricas de cssv2 """
 		try:

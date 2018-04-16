@@ -48,6 +48,29 @@ integrates.config([
      "not_vulnerability": "It is not a Vulnerability"
 
    },
+      "eventFormstack":
+{
+  "status": {
+    "solve": "Solved",
+    "unknown": "-",
+    "unsolve": "Unsolved"
+  },
+  "type":
+   {
+     "approv_change": "Client approves the change of ToE",
+     "auth_attack": "Authorization for special attack",
+     "cancel_proj": "Client cancels the project/milestone",
+     "det_attack": "Client detects an attack",
+     "explic_suspend": "Client explicitly suspends project",
+     "high_approval": "High availability approval",
+     "inacc_ambient": "Inaccessible ambient",
+     "incor_supplies": "Incorrect or missing supplies",
+     "other": "other",
+     "toe_differs": "ToE differs from what was approved",
+     "unknown": "-",
+     "uns_ambient": "Unstable ambient"
+   }
+},
       "event_by_name":
    {
      "btn_group": {
@@ -102,29 +125,6 @@ integrates.config([
         "date": "Date",
         "status": "Status",
         "type": "Type"
-      }
-   },
-      "event_formstack":
-   {
-     "status": {
-       "solve": "Solved",
-       "unknown": "-",
-       "unsolve": "Unsolved"
-     },
-     "type":
-      {
-        "approv_change": "Client approves the change of ToE",
-        "auth_attack": "Authorization for special attack",
-        "cancel_proj": "Client cancels the project/milestone",
-        "det_attack": "Client detects an attack",
-        "explic_suspend": "Client explicitly suspends project",
-        "high_approval": "High availability approval",
-        "inacc_ambient": "Inaccessible ambient",
-        "incor_supplies": "Incorrect or missing supplies",
-        "other": "other",
-        "toe_differs": "ToE differs from what was approved",
-        "unknown": "-",
-        "uns_ambient": "Unstable ambient"
       }
    },
       "executive_report_mod":
@@ -356,23 +356,23 @@ integrates.config([
       "proj_alerts":
    {
      "access_denied": "Access Denied",
+     "attentTitle": "Attention!",
      "attent_cont": "Empty search",
-     "attent_title": "Attention!",
      "congratulation": "Congratulations",
      "differ_comment": "You must enter a new treatment justification",
      "empty_comment": "You must enter a treatment justification!",
      "error_severity": "Severity must be an integer bewteen 0 and 5",
      "error_text": "There is an error",
      "error_textsad": "There is an error :(",
-     "event_exist": "This proyect has no vulnerabilities or does not exist",
-     "event_formstack": "Unable to access Formstack",
-     "event_internal": "Internal error, loading...",
-     "event_positiveint": "Affectation must be a positive integer or zero",
-     "event_required": "Name or ID is required",
-     "event_select": "You must select an event",
-     "event_title": "Searching",
-     "event_updated": "Event updated",
-     "event_wait": "Wait a moment please...",
+     "eventExist": "This proyect has no vulnerabilities or does not exist",
+     "eventFormstack": "Unable to access Formstack",
+     "eventInternal": "Internal error, loading...",
+     "eventPositiveint": "Affectation must be a positive integer or zero",
+     "eventRequired": "Name or ID is required",
+     "eventSelect": "You must select an event",
+     "eventTitle": "Searching",
+     "eventUpdated": "Event updated",
+     "eventWait": "Wait a moment please...",
      "file_size": "The file size must be less than 10mb",
      "file_size_png": "The image size must be less than 2mb",
      "file_size_py": "The file size must be less than 1mb",
@@ -390,10 +390,10 @@ integrates.config([
      "search_title": "News!",
      "short_comment": "You must enter a justification of at least 50 characters and maximum 80 characters",
      "short_remediated_comment": "You must enter a justification of at least 100 characters",
+     "updatedTitle": "Correct!",
      "updated_cont": "Updated ;)",
      "updated_cont_description": "Description Updated ;)",
      "updated_cont_file": "File Updated ;)",
-     "updated_title": "Correct!",
      "updated_treat": "Treatment updated",
      "verified_success": "This finding was marked as verified.",
      "wrong_severity": "You must calculate severity correctly"
@@ -559,6 +559,29 @@ integrates.config([
      "justification": "Justificación",
      "not_vulnerability": "No es una Vulnerabilidad"
    },
+      "eventFormstack":
+{
+  "status": {
+    "solve": "Tratada",
+    "unknown": "-",
+    "unsolve": "Pendiente"
+  },
+  "type":
+   {
+     "approv_change": "Cliente aprueba cambio de alcance",
+     "auth_attack": "Autorización para ataque especial",
+     "cancel_proj": "Cliente cancela el proyecto/hito",
+     "det_attack": "Cliente detecta ataque",
+     "explic_suspend": "Cliente suspende explicitamente",
+     "high_approval": "Aprobación de alta disponibilidad",
+     "inacc_ambient": "Ambiente no accesible",
+     "incor_supplies": "Insumos incorrectos o faltantes",
+     "other": "Otro",
+     "toe_differs": "Alcance difiere a lo aprobado",
+     "unknown": "-",
+     "uns_ambient": "Ambiente inestable"
+   }
+},
       "event_by_name":
    {
      "btn_group": {
@@ -618,29 +641,7 @@ integrates.config([
       }
 
    },
-      "event_formstack":
-   {
-     "status": {
-       "solve": "Tratada",
-       "unknown": "-",
-       "unsolve": "Pendiente"
-     },
-     "type":
-      {
-        "approv_change": "Cliente aprueba cambio de alcance",
-        "auth_attack": "Autorización para ataque especial",
-        "cancel_proj": "Cliente cancela el proyecto/hito",
-        "det_attack": "Cliente detecta ataque",
-        "explic_suspend": "Cliente suspende explicitamente",
-        "high_approval": "Aprobación de alta disponibilidad",
-        "inacc_ambient": "Ambiente no accesible",
-        "incor_supplies": "Insumos incorrectos o faltantes",
-        "other": "Otro",
-        "toe_differs": "Alcance difiere a lo aprobado",
-        "unknown": "-",
-        "uns_ambient": "Ambiente inestable"
-      }
-   },
+
       "executive_report_mod":
    {
      "message": "La documentación del proyecto no ha sido finalizada",
@@ -871,23 +872,23 @@ integrates.config([
       "proj_alerts":
    {
      "access_denied": "Acceso Denegado",
+     "attentTitle": "Cuidado!",
      "attent_cont": "Busqueda vacia",
-     "attent_title": "Cuidado!",
      "congratulation": "Felicidades",
      "differ_comment": "Debes ingresar una nueva justificación del tratamiento",
      "empty_comment": "Debes ingresar una justificación del tratamiento!",
      "error_severity": "La severidad debe ser un numero de 0 a 5",
      "error_text": "Hay un error",
      "error_textsad": "Hay un error :(",
-     "event_exist": "Este proyecto no tiene eventualidades o no existe",
-     "event_formstack": "No se tuvo acceso a Formstack...",
-     "event_internal": "Error interno, cargando datos...",
-     "event_positiveint": "La afectación debe ser un número positivo o cero",
-     "event_required": "El nombre es obligatorio",
-     "event_select": "Debes seleccionar una eventualidad",
-     "event_title": "Consultando",
-     "event_updated": "Eventualidad actualizada",
-     "event_wait": "Un momento por favor...",
+     "eventExist": "Este proyecto no tiene eventualidades o no existe",
+     "eventFormstack": "No se tuvo acceso a Formstack...",
+     "eventInternal": "Error interno, cargando datos...",
+     "eventPositiveint": "La afectación debe ser un número positivo o cero",
+     "eventRequired": "El nombre es obligatorio",
+     "eventSelect": "Debes seleccionar una eventualidad",
+     "eventTitle": "Consultando",
+     "eventUpdated": "Eventualidad actualizada",
+     "eventWait": "Un momento por favor...",
      "file_size": "El archivo debe tener un tamaño menor a 10mb",
      "file_size_png": "La imagen debe tener un tamaño menor a 2mb",
      "file_size_py": "El archivo debe tener un tamaño menor a 1mb",
@@ -905,10 +906,10 @@ integrates.config([
      "search_title": "Noticia!",
      "short_comment": "Debes ingresar una justificación de mínimo 50 caracteres y máximo 80 caracteres",
      "short_remediated_comment": "Debes ingresar una justificación de mínimo 100 caracteres",
+     "updatedTitle": "Correcto!",
      "updated_cont": "Actualizado ;)",
      "updated_cont_description": "Descripción Actualizada ;)",
      "updated_cont_file": "Archivo Actualizado ;)",
-     "updated_title": "Correcto!",
      "updated_treat": "El tratamiento fue actualizado",
      "verified_success": "El hallazgo fue marcado como remediado.",
      "wrong_severity": "Debes calcular correctamente la severidad"

@@ -156,7 +156,7 @@
                                                 <i class="glyphicon glyphicon-edit"></i>   {{'search_findings.tab_description.edit_treatment' | translate}}
                                           </button>
                                       </div>
-                                  </div>                                  
+                                  </div>
                               </div>
                               <div class="row table-row" ng-show="isManager && !onlyReadableTab1">
                                   <div class="col-md-2 col-xs-12 col-sm-12 table-head"><label><b>{{'search_findings.tab_description.type' | translate}}</b></label></div>
@@ -292,19 +292,19 @@
                               <div class="row table-row">
                                   <div class="col-md-2 col-xs-12 col-sm-12 table-head"><label><b>{{'search_findings.tab_description.weakness' | translate}}</b></label></div>
                                   <div class="col-md-4 col-xs-12 col-sm-12 table-desc">
-                                      <a ng-href="{{finding.cwe || ''}}" target="_blank" ng-show="onlyReadableTab1 && finding.cwe_isurl">{{finding.cwe || ''}}</a>
-                                      <p ng-show="onlyReadableTab1 && !finding.cwe_isurl">{{finding.cwe || ''}}</p>
+                                      <a ng-href="{{finding.cwe || ''}}" target="_blank" ng-show="onlyReadableTab1 && finding.cweIsUrl">{{finding.cwe || ''}}</a>
+                                      <p ng-show="onlyReadableTab1 && !finding.cweIsUrl">{{finding.cwe || ''}}</p>
                                       <input type="text" class="form-control"
                                              ng-show="!onlyReadableTab1"
                                              ng-model="finding.cwe">
                                   </div>
                                   <div class="col-md-2 col-xs-12 col-sm-12 table-head"><label><b>{{'search_findings.tab_description.bts_external' | translate}}</b></label></div>
                                   <div class="col-md-4 col-xs-12 col-sm-12 table-desc">
-                                      <a ng-href="{{finding.bts_externo || ''}}" target="_blank" ng-show="onlyReadableTab4 && finding.has_url">{{finding.bts_externo || ''}}</a>
-                                      <p ng-show="onlyReadableTab4 && !finding.has_url">{{finding.bts_externo || ''}}</p>
+                                      <a ng-href="{{finding.btsExterno || ''}}" target="_blank" ng-show="onlyReadableTab4 && finding.hasUrl">{{finding.bts_externo || ''}}</a>
+                                      <p ng-show="onlyReadableTab4 && !finding.hasUrl">{{finding.bts_externo || ''}}</p>
                                       <input type="text" class="form-control"
                                              ng-show="!onlyReadableTab4"
-                                             ng-model="finding.bts_externo">
+                                             ng-model="finding.btsExterno">
                                   </div>
                               </div>
                               <div class="row table-row">
@@ -325,7 +325,7 @@
                                       <p ng-show="onlyReadableTab4">{{finding.razon_tratamiento}}</p>
                                       <textarea class="form-control no-resize"
                                                 ng-show="!onlyReadableTab4"
-                                                ng-model="finding.razon_tratamiento">{{finding.razon_tratamiento}}</textarea>
+                                                ng-model="finding.razonTratamiento">{{finding.razon_tratamiento}}</textarea>
                                   </div>
                                   <div class="col-md-2 col-xs-12 col-sm-12 table-head"><label><b>{{'search_findings.tab_description.treat_manager' | translate}}</b></label></div>
                                   <div class="col-md-4 col-xs-12 col-sm-12 table-desc">
@@ -391,7 +391,7 @@
                                   <div class="col-md-3 col-xs-12 col-sm-12 table-head"><label><b>{{'search_findings.tab_cssv2.confidenciality' | translate}}</b></label></div>
                                   <div class="col-md-9 col-xs-12 col-sm-12 table-desc">
                                       <p ng-show="onlyReadableTab2">{{finding.impacto_confidencialidad}}</p>
-                                      <select ng-model="finding.impacto_confidencialidad"
+                                      <select ng-model="finding.impactoConfidencialidad"
                                               ng-show="!onlyReadableTab2"
                                               ng-change="findingCalculateCSSv2();"
                                               class="form-control">
@@ -405,7 +405,7 @@
                                   <div class="col-md-3 col-xs-12 col-sm-12 table-head"><label><b>{{'search_findings.tab_cssv2.integrity' | translate}}</b></label></div>
                                   <div class="col-md-9 col-xs-12 col-sm-12 table-desc">
                                       <p ng-show="onlyReadableTab2">{{finding.impacto_integridad}}</p>
-                                      <select ng-model="finding.impacto_integridad"
+                                      <select ng-model="finding.impactoIntegridad"
                                               ng-show="!onlyReadableTab2"
                                               ng-change="findingCalculateCSSv2();"
                                               class="form-control">
@@ -420,7 +420,7 @@
                                   <div class="col-md-3 col-xs-12 col-sm-12 table-head"><label><b>{{'search_findings.tab_cssv2.availability' | translate}}</b></label></div>
                                   <div class="col-md-9 col-xs-12 col-sm-12 table-desc">
                                       <p ng-show="onlyReadableTab2">{{finding.impacto_disponibilidad}}</p>
-                                      <select ng-model="finding.impacto_disponibilidad"
+                                      <select ng-model="finding.impactoDisponibilidad"
                                               ng-show="!onlyReadableTab2"
                                               ng-change="findingCalculateCSSv2();"
                                               class="form-control">
@@ -465,7 +465,7 @@
                                   <div class="col-md-3 col-xs-12 col-sm-12 table-head"><label><b>{{'search_findings.tab_cssv2.confidence' | translate}}</b></label></div>
                                   <div class="col-md-9 col-xs-12 col-sm-12 table-desc">
                                       <p ng-show="onlyReadableTab2">{{finding.nivel_confianza}}</p>
-                                      <select ng-model="finding.nivel_confianza"
+                                      <select ng-model="finding.nivelConfianza"
                                               ng-show="!onlyReadableTab2"
                                               ng-change="findingCalculateCSSv2();"
                                               class="form-control">
@@ -480,7 +480,7 @@
                                   <div class="col-md-3 col-xs-12 col-sm-12 table-head"><label><b>{{'search_findings.tab_cssv2.resolution' | translate}}</b></label></div>
                                   <div class="col-md-9 col-xs-12 col-sm-12 table-desc">
                                       <p ng-show="onlyReadableTab2">{{finding.nivel_resolucion}}</p>
-                                      <select ng-model="finding.nivel_resolucion"
+                                      <select ng-model="finding.nivelResolucion"
                                               ng-show="!onlyReadableTab2"
                                               ng-change="findingCalculateCSSv2();"
                                               class="form-control">
@@ -495,7 +495,7 @@
                                   <div class="col-md-3 col-xs-12 col-sm-12 table-head"><label><b>{{'search_findings.tab_cssv2.complexity' | translate}}</b></label></div>
                                   <div class="col-md-9 col-xs-12 col-sm-12 table-desc">
                                       <p ng-show="onlyReadableTab2">{{finding.complejidad_acceso}}</p>
-                                      <select ng-model="finding.complejidad_acceso"
+                                      <select ng-model="finding.complejidadAcceso"
                                               ng-show="!onlyReadableTab2"
                                               ng-change="findingCalculateCSSv2();"
                                               class="form-control">

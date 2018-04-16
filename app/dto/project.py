@@ -39,7 +39,7 @@ class ProjectDTO(object):
         """ Constructor de la clase """
         self.request_id = None
         self.data = dict()
-    
+
     def parse(self, request_arr): # noqa: C901
         self.data["timestamp"] = request_arr["timestamp"]
         self.request_id = request_arr["id"]

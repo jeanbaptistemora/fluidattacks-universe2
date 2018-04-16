@@ -40,7 +40,7 @@ class CreatorPDF(object):
             self.PROJ_TPL = "templates/tech.adoc"
         if(self.doctype == "presentation"):
             self.PROJ_TPL = "templates/presentation.adoc"
-            self.STYLE_DIR = self.PATH + "/resources/presentation_theme"             
+            self.STYLE_DIR = self.PATH + "/resources/presentation_theme"
         reload(sys)
         sys.setdefaultencoding('utf-8')
         self.lang_support()
@@ -186,7 +186,7 @@ class CreatorPDF(object):
         self.create_command(tpl_name)
         print self.command
         os.system(self.command)
-    
+
     def tech(self, data, project, user):
         " Crea el template a renderizar y le aplica el contexto "
         self.fill_project(data, project)

@@ -452,7 +452,7 @@ def get_findings(request):
             findings.append(finding)
     import json
     with open("/tmp/"+project+".txt", "w") as f:
-        f.write(json.dumps(findings))    
+        f.write(json.dumps(findings))
     return util.response(findings, 'Success', False)
 
 def catch_finding(request, submission_id):
@@ -1052,7 +1052,7 @@ def finding_solved(request):
     """ Envia un correo solicitando la revision de un hallazgo """
     parameters = request.POST.dict()
     recipients = integrates_dao.get_project_users(parameters['data[project]'])
-    remediated = integrates_dao.add_remediated_dynamo(int(parameters['data[finding_id]']), True, parameters['data[project]'], parameters['data[finding_name]'])
+    remediated = integrates_dao.add_remediated_dynamo(int(parameters['data[findingId]']), True, parameters['data[project]'], parameters['data[findingName]'])
     rem_solution = parameters['data[justification]'].replace('\n', ' ')
     if not remediated:
         rollbar.report_message('Error: An error occurred when remediating the finding', 'error', request)
@@ -1065,11 +1065,11 @@ def finding_solved(request):
         to.append('ralvarez@fluidattacks.com')
         context = {
            'project': parameters['data[project]'],
-           'finding_name': parameters['data[finding_name]'],
-           'user_mail': parameters['data[user_mail]'],
-           'finding_url': parameters['data[finding_url]'],
-           'finding_id': parameters['data[finding_id]'],
-           'finding_vulns': parameters['data[finding_vulns]'],
+           'finding_name': parameters['data[findingName]'],
+           'user_mail': parameters['data[userMail]'],
+           'finding_url': parameters['data[findingUrl]'],
+           'finding_id': parameters['data[findingId]'],
+           'finding_vulns': parameters['data[findingVulns]'],
            'company': request.session["company"],
            'solution': rem_solution,
             }
@@ -1086,7 +1086,7 @@ def finding_verified(request):
     """ Envia un correo informando que el hallazgo fue verificado """
     parameters = request.POST.dict()
     recipients = integrates_dao.get_project_users(parameters['data[project]'])
-    verified = integrates_dao.add_remediated_dynamo(int(parameters['data[finding_id]']), False, parameters['data[project]'], parameters['data[finding_name]'])
+    verified = integrates_dao.add_remediated_dynamo(int(parameters['data[findingId]']), False, parameters['data[project]'], parameters['data[findingName]'])
     if not verified:
         rollbar.report_message('Error: An error occurred when verifying the finding', 'error', request)
         return util.response([], 'Error', True)
@@ -1098,11 +1098,11 @@ def finding_verified(request):
         to.append('ralvarez@fluidattacks.com')
         context = {
            'project': parameters['data[project]'],
-           'finding_name': parameters['data[finding_name]'],
-           'user_mail': parameters['data[user_mail]'],
-           'finding_url': parameters['data[finding_url]'],
-           'finding_id': parameters['data[finding_id]'],
-           'finding_vulns': parameters['data[finding_vulns]'],
+           'finding_name': parameters['data[findingName]'],
+           'user_mail': parameters['data[userMail]'],
+           'finding_url': parameters['data[findingUrl]'],
+           'finding_id': parameters['data[findingId]'],
+           'finding_vulns': parameters['data[findingVulns]'],
            'company': request.session["company"],
             }
         send_mail_verified_finding(to, context)
@@ -1169,9 +1169,9 @@ def add_comment(request):
         comment_content = data['data[content]'].replace('\n', ' ')
         context = {
            'project': data['data[project]'],
-           'finding_name': data['data[finding_name]'],
+           'finding_name': data['data[findingName]'],
            'user_email': email,
-           'finding_url': data['data[finding_url]'],
+           'finding_url': data['data[findingUrl]'],
            'finding_id': submission_id,
            'comment': comment_content,
             }
