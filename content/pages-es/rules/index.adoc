@@ -141,6 +141,7 @@
 == Correos
 
 * link:115/[REQ.115 Filtrar correos maliciosos].
+* link:116/[REQ.116 Desactivar imágenes de origen desconocido].
 * link:121/[REQ.121 Garantizar unicidad de correos].
 
 == Credenciales
