@@ -142,7 +142,7 @@ en el repositorio (carpeta del reto).
 
 . Deben ser retos que requieran nivel técnico
 (no matemático ni de adivinanzas)
-de [button]#link:http://www.wechall.net/[wechall]# o sus sitios relacionados.
+de [button]#link:http://www.wechall.net/[WeChall]# o sus sitios relacionados.
 
 . (Opcionalmente) Pueden ser retos que correspondan a explotación en sistemas
 (+ToE+) vulnerables intencionalmente listados en:
@@ -199,7 +199,7 @@ image:ranking-colombia-codeabbey-2.png[Ranking Colombia codeabbey]
 
 === 5.2 Hacking
 
-image::ranking-wechall.png[Ranking en Wechall]
+image::ranking-wechall.png[Ranking en WeChall]
 
 == 6. Envío
 
@@ -232,7 +232,7 @@ deben corregirse los problemas indicados y hacer un nuevo +MR+.
 
 . El mensaje de +commit+ para enviar la solución
 debe adherirse a una de las dos plantillas
-link:https://gitlab.com/autonomicmind/training/blob/master/templates/commit-msg-challenges.txt[para retos de hacking de +wechall+ y retos de programación]
+link:https://gitlab.com/autonomicmind/training/blob/master/templates/commit-msg-challenges.txt[para retos de hacking de +WeChall+ y retos de programación]
 o link:https://gitlab.com/autonomicmind/training/blob/master/templates/commit-msg-systems.txt[para vulnerabilidades de sistemas].
 
 == 7. Externas
@@ -352,7 +352,7 @@ a excepción de tus link:#102-archivos[archivos especiales],
 no debe superar los +35+ caracteres,
 debe realizarse en minúscula,
 sin caracteres especiales y
-en caso de requerir espacios usar *-* (guion) como sustituto.
+en caso de requerir espacios usar *-* (guión) como sustituto.
 
 === 10.2 Archivos
 
@@ -376,9 +376,13 @@ Este archivo permite que un +script+ automático realice el análisis de similit
 con los retos enviados por los candidatos.
 Deben cumplir con lo indicado [button]#link:#externas[aquí]#
 
-** *SPEC.txt* (Solo para retos de +systems+): Contiene las especificaciones
-de la máquina vulnerable con la que se está trabajando.
-Puedes ver un ejemplo link:https://gitlab.com/autonomicmind/training/blob/master/systems/bwapp/SPEC.txt[aquí].
+** *SPEC.txt* (en +systems+ y programación)
+y *spec.yml* (en retos de +WeChall+):
+Contiene las especificaciones del sitio de retos o
+máquina vulnerable con la que se está trabajando,
+como número de retos o vulnerabilidades, +URL+ y dificultad.
+Puedes ver un ejemplo
+link:https://gitlab.com/autonomicmind/training/blob/master/systems/bwapp/SPEC.txt[aquí].
 
 == 11. Inicio
 
