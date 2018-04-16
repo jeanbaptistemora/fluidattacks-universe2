@@ -180,6 +180,7 @@
 * link:194/[REQ.194 Determinar permiso de dispositivo a recursos].
 * link:195/[REQ.195 Determinar permiso de sistema a recursos].
 * link:196/[REQ.196 Determinar permiso de aplicación a recursos].
+* link:197/[REQ.197 Denegar permisos a aplicaciones prohibidas].
 
 == Criptografía
 
