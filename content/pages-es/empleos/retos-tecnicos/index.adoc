@@ -74,9 +74,9 @@ los resultados propios (presión de pares).
 
 == 2. Objetivos
 
-. Resolver 10 retos de programación.
+. Resolver +10+ retos de programación.
 
-. Resolver 10 retos de +hacking+.
+. Resolver +10+ retos de +hacking+.
 
 == 3. Condiciones
 

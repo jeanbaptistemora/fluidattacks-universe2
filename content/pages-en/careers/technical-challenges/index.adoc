@@ -144,7 +144,7 @@ Hacking solutions must comply with the following:
 . They must not have a solution in +Gherkin+ (+*.Feature+)
 in the repository (challenge folder).
 . They must not have an external indexed solution
-(links + OTHERS.lst + of the challenge).
+(links +OTHERS.lst+ of the challenge).
 . They must be challenges that
 require a technical level (not mathematical nor riddle) from
 [button]#link:http://www.wechall.net/[WeChall]# or its related sites.
@@ -194,7 +194,7 @@ image:ranking-colombia-codeabbey.png[Country Ranking]
 .. The page doesn’t directly show your position
 so you will have to manually count.
 To make this easier,
-you should take into account that each page shows 50 users.
+you should take into account that each page shows +50+ users.
 
 You must continue to the next page
 until you find your username on the ranking board
@@ -388,7 +388,7 @@ To begin this stage, you must:
 
 . Register on +GitLab+ using your personal email and
 a username of your liking.
-Your username must not exceed +12+ characters in length and
+Your username must not exceed *12* characters in length and
 only contain lowercase letters and numbers.
 
 . Joing our link:https://join.slack.com/t/autonomicmind/shared_invite/enQtMjg4ODI4NjM3MjY3LWUxMTNmMjk3MDdkMDAzYWY0ZjQ3MzNlYjUzZjM3NTM3MDVmYTliN2YyNGViZGUyNzUxOTAzNTdmZDQ5NWNjNGI[Slack channel],
