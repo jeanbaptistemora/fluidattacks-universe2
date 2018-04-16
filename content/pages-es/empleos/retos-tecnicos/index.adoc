@@ -480,12 +480,68 @@ no se encuentra todavía disponible para Windows
 y al basarse la integración en +Linux+,
 esto hace que el proceso en +Windows+ sea más complicado.
 
-Se sugiere instalar un software de virtualización
-(link:https://my.vmware.com/en/web/vmware/free#desktop_end_user_computing/vmware_workstation_player/14_0[VMware],
-link:https://www.virtualbox.org/wiki/Downloads[Virtualbox]) y crear una máquina virtual
-basada en una distribución de +Linux+ (e.g. link:https://www.ubuntu.com/download/desktop[Ubuntu],
-o la de su preferencia) y aplicar el proceso descrito anteriormente
-para Sistemas Operativos +Linux+.
+Se sugiere instalar el software de virtualización
+link:https://www.vagrantup.com/[Vagrant] y
+sobre este, el sistema operativo
+link:https://www.debian.org/[Debian]
+de la siguiente manera:
+
+Instala link:https://www.virtualbox.org/wiki/Downloads[VirtualBox]
+y link:https://www.vagrantup.com/downloads.html[Vagrant]
+de acuerdo a tu versión de +Windows+.
+
+.Crea un directorio para tu +Vagrant box+ y ubícate en él:
+----
+C:\ejemplo\> mkdir mybox
+C:\ejemplo\> cd mybox
+C:\ejemplo\mybox>
+----
+
+.Inicia el +box+ y entra a él:
+----
+C:\ejemplo\mybox> vagrant init debian/stretch64
+C:\ejemplo\mybox> vagrant up
+C:\ejemplo> vagrant ssh
+Linux stretch 4.9.0-6-amd64 #1 SMP Debian 4.9.82-1+deb9u3 (2018-03-02) x86_64
+
+The programs included with the Debian GNU/Linux system are free software;
+the exact distribution terms for each program are described in the
+individual files in /usr/share/doc/*/copyright.
+
+Debian GNU/Linux comes with ABSOLUTELY NO WARRANTY, to the extent
+permitted by applicable law.
+Last login: Mon Apr 16 17:49:58 2018 from 10.0.2.2
+vagrant@stretch:~$
+----
+
+A partir de ese momento ya no estás en +Windows+ sino en +Debian Stretch+.
+
+Instala +Docker+ dentro del +box+:
+
+.Instalar prerrequistos para agregar repositorios a +Debian+
+----
+vagrant@stretch:~$ sudo apt-get update
+vagrant@stretch:~$ sudo apt-get install -y apt-transport-https curl \
+                        ca-certificates software-properties-common
+----
+
+.Agregar el repositorio de +Docker+
+----
+vagrant@stretch:~$ curl -fsSL https://download.docker.com/linux/debian/gpg \
+                        | sudo apt-key add -
+vagrant@stretch:~$ sudo add-apt-repository \
+                   "deb [arch=amd64] https://download.docker.com/linux/debian \
+                   $(lsb_release -cs) stable"
+----
+
+.Instalar y habilitar +Docker+ para el usuario +Vagrant+ del +box+
+----
+vagrant@stretch:~$ sudo apt-get update && sudo apt-get install docker-ce
+vagrant@stretch:~$ sudo usermod -aG docker vagrant
+vagrant@stretch:~$ sudo systemctl start docker && sudo systemctl enable docker
+----
+
+Ya puedes seguir los pasos descritos arriba para correr la integración.
 
 == 14. Preguntas
 
