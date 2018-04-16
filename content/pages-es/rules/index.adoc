@@ -147,6 +147,7 @@
 * link:119/[REQ.119 Ocultar destinatarios].
 * link:120/[REQ.120 Centralizar correos electrónicos].
 * link:121/[REQ.121 Garantizar unicidad de correos].
+* link:122/[REQ.122 Validar propietario de correo].
 
 == Credenciales
 
