@@ -6,7 +6,7 @@
 :image: ceh-logo.png
 :alt: logo CEH, Certified ethical hacker
 :description: CEH es una de las certificaciones más reconocidas en el mercado laboral de la seguridad informática, en esta travesía contaré como fué mi experiencia entre las diferentes fases del proceso de aprendizaje para llegar a realizar un buen método de estudio y lograr conquistar mi primera certificación.
-:keywords: CEH, profesional, certificaciones, ciberseguridad, informatica, experiencia
+:keywords: CEH, Profesional, Certificaciones, Ciberseguridad, Informática, Experiencia
 :author: Santiago Muñoz
 :writer: smunoz
 :name: Santiago Muñoz Ortega

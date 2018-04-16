@@ -6,7 +6,7 @@
 :image: usuario-password.png
 :alt: logo SQRL, Secure +QR+ Login
 :description: Más que una simple ardilla, SQRl es la promesa que quiere dar solución a la paradoja de la autenticación segura en sitios web con códigos +QR+ seguros generados por firmas criptográficas, en un equilibrio entre usabilidad y seguridad, SQRL quiere cambiar el modo en que nos autenticamos en Internet.
-:keywords: SQRL, autenticación, seguridad, usabilidad, protocolo, cripografía
+:keywords: SQRL, Autenticación, Seguridad, Usabilidad, Protocolo, Criptografía
 :author: Santiago Muñoz
 :writer: smunoz
 :name: Santiago Muñoz Ortega

@@ -1,7 +1,7 @@
 :slug: defends/cobol/estructuras-condicionales/
 :category: cobol
 :description: Nuestros ethical hackers explican cómo evitar vulnerabilidades de seguridad mediante la programación segura en COBOL al contemplar todos los escenarios posibles en una estructura condicional que pueda dar origen a comportamientos erróneos dentro de la aplicación.
-:keywords: COBOL, variables, condicionales, inicializar, IF, ELSE.
+:keywords: COBOL, Variables, Condicionales, Inicializar, IF, ELSE.
 :defends: yes
 
 = Usar Estructuras Condicionales

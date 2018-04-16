@@ -1,7 +1,7 @@
 :slug: rules/998/
 :category: rules
 :description: En el presente documento se detallan los requerimientos de seguridad relacionados al manejo adecuado de información sensible vinculada a una o más variables u objetos utilizados por un programa. Dichas variables u objetos no deben permanecer en memoria después de haber sido utilizados.
-:keywords: memoria, búfer, tiempo de vida, datos sensibles, información sensible, atacante.
+:keywords: Memoria, Búfer, Tiempo de vida, Datos sensibles, Información sensible, Atacante.
 :rules: yes
 
 = REQ.998 Limitar tiempo de vida de variables

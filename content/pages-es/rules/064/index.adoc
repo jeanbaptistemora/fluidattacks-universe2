@@ -1,7 +1,7 @@
 :slug: rules/064/
 :category: rules
 :description: En el presente documento se detallan los requerimientos de seguridad relacionados a la gestión segura de los requisitos de seguridad definidos para un determinado sistema. Por lo tanto, dichos requisitos deben estar definidos al momento de realizar las pruebas de caja blanca.
-:keywords: Requisitos, Sistema, comprobar, Caja Blanca, Definir, Seguridad.
+:keywords: Requisitos, Sistema, Comprobar, Caja Blanca, Definir, Seguridad.
 :rules: yes
 
 = REQ.064 Definir requisitos a comprobar

@@ -211,6 +211,15 @@ while IFS= read -r FILE; do
     fi
   fi
 
+# Check that every keyword starts with uppercase
+KEYWD="$(pcregrep -o '(?<=^:keywords:).*' "$FILE" | tr , \\n | tr -d '[:blank:]')";
+for WORD in $KEYWD; do
+  if [[ "$WORD" =~ ^[a-z] ]]; then
+   echo -e "${GC} The keyword \"$WORD\" in the file \"$FILE\" does not start with uppercase.";
+   ERRORS=1;
+  fi
+done
+
 # Check if source adoc has content past the 80th column
   if ./exttxt.sh "$FILE" | pcregrep --color -nu '.{81,}'; then
     echo -e "${GC}Documents must be wrapped at column 80 in file $FILE.${NC}"

@@ -1,7 +1,7 @@
 :slug: rules/003/
 :category: rules
 :description: En el presente documento se detallan los requerimientos de seguridad relacionados a la arquitectura sobre la cual se apoya un sistema. Dado que ésta permite entre otras cosas, tener en cuenta aspectos como la estructura, comportamiento, usabilidad, funcionalidad, rendimiento, reutilización, etc.
-:keywords: requerimiento, seguridad, arquitectura, sistema, componentes, estructura.
+:keywords: Requerimiento, Seguridad, Arquitectura, Sistema, Componentes, Estructura.
 :rules: yes
 :translate: rules/003/
 

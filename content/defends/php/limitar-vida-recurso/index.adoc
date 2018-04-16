@@ -1,7 +1,7 @@
 :slug: defends/php/limitar-vida-recurso/
 :category: php
 :description: Nuestros ethical hackers explican cómo evitar vulnerabilidades de seguridad mediante la creación, manipulación y eliminación correcta de recursos dentro de un programa PHP, evitando que información disponible en memoria pueda ser capturada por usuarios no autorizados.
-:keywords: php, datos sensibles, datos confidenciales, lectura segura, memoria, tiempo de vida.
+:keywords: PHP, Datos sensibles, Datos confidenciales, Lectura segura, Memoria, Tiempo de vida.
 :defends: yes
 
 = Limitar tiempo de vida de recursos
