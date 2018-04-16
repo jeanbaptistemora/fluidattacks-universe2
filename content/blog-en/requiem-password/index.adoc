@@ -41,9 +41,12 @@ But they are hard to remember,
 and that leads to frequent password forgets and resets.
 Thus most people tend to resort to
 short, easy to crack passwords.
-See the 2017 link:https://13639-presscdn-0-80-pagely.netdna-ssl.com/wp-content/uploads/2017/12/Top-100-Worst-Passwords-of-2017a.pdf[Splash Data 100 worst passwords (+PDF+)] to see the problem.
+See the 2017 link:https://13639-presscdn-0-80-pagely.netdna-ssl.com/wp-content/uploads/2017/12/Top-100-Worst-Passwords-of-2017a.pdf[Splash Data 100 worst passwords (+PDF+)]
+to see the problem.
 These are vulnerable to
-link:https://en.wikipedia.org/wiki/Brute-force_attack[brute-forcing], link:https://en.wikipedia.org/wiki/Dictionary_attack[dictionary attacks] and link:../storing-password-safely[rainbow tables],
+link:https://en.wikipedia.org/wiki/Brute-force_attack[brute-forcing],
+link:https://en.wikipedia.org/wiki/Dictionary_attack[dictionary attacks],
+and link:../storing-password-safely[rainbow tables],
 to name a few of the ways they can be cracked.
 
 In order to avoid these situations,
@@ -56,11 +59,13 @@ either <<r1, ^[1]^ >>:
 users tend to circumvent these impositions
 in different ways, such as:
 
-* replacing letters by similar numbers (v.g. +hello+ -> +h3110+, +tigger+ -> +71gg3r+)
+* replacing letters by similar numbers
+(v.g. +hello+ -> +h3110+, +tigger+ -> +71gg3r+)
 * reverting their old password back and forth (+qwerty+ -> +ytrewq+)
 * switching beetwen simple passwords (+pass+ -> +word+),
 * altering a standard password (+password+ -> +password1+ -> ...),
-* not avoiding it, thus getting a very complicated password, but keeping it written down in a piece of paper (danger!).
+* not avoiding it, thus getting a very complicated password,
+but keeping it written down in a piece of paper (danger!).
 
 Furthermore, with the plethora of distributed services around,
 it is not uncommon for
@@ -68,7 +73,9 @@ a single person to have to deal with dozens of passwords,
 leading to the reuse of the same weak ones,
 which makes the situation even worse.
 
-Possible solutions to the problem with many accounts are link:../multiple-credentials-begone/[Single-Sign-On services] and password managers such as link:https://keepass.info/[Keepass].
+Possible solutions to the problem with many accounts are
+link:../multiple-credentials-begone/[Single-Sign-On services]
+and password managers such as link:https://keepass.info/[Keepass].
 But these are sometimes infeasible,
 for example to login to your computer,
 since you cannot run any software beforehand.
@@ -169,7 +176,8 @@ No time to play dice? No problem.
 There are plenty of +FOSS+ solutions to
 generate long, high-entropy passphrases
 on link:https://github.com/search?p=2&q=diceware&type=Repositories&utf8=%3F[GitHub]
-and link:https://getapassphrase.com/[some] link:http://preshing.com/20110811/xkcd-password-generator/[online].
+and link:https://getapassphrase.com/[some]
+link:http://preshing.com/20110811/xkcd-password-generator/[online].
 
 How often should they be rotated?
 Truly randomly generated,
@@ -189,13 +197,37 @@ To illustrate this,
 let us compare some typical authentication policies:
 
 .Authentication policy comparison
-[options="header"]
+[cols=5, options="header"]
 |====
-| Type | Minimum length | Variety | Minimal example | Time to brute-force
-| Password | 8 characters | upper lower num special | +Pas$w0rd+ | 9 hours
-| Password | 14 characters | upper lower num special | +Pas$w0rddddddd+ | 204 million (e6) years
-| Passphrase | 4 words x 4 letters | non-random lower | +fluid hacks rule risk+ | 41 quadrillion (e15) years
-| Passphrase | 4 words x 5 letters | random lower | +debased heron passes native+ | 343 septillion (e24) years
+| Type
+| Minimum length
+| Variety
+| Minimal example
+| Time to brute-force
+
+| Password
+| 8 characters
+| upper lower num special
+| +Pas$w0rd+
+| 9 hours
+
+| Password
+| 14 characters
+| upper lower num special
+| +Pas$w0rddddddd+
+| 204 million (e6) years
+
+| Passphrase
+| 4 words x 4 letters
+| non-random lower
+| +fluid hacks rule risk+
+| 41 quadrillion (e15) years
+
+| Passphrase
+| 4 words x 5 letters
+| random lower
+| +debased heron passes native+
+| 343 septillion (e24) years
 |====
 
 Just the time to brute-force gives us an idea of
@@ -245,6 +277,10 @@ for each situation.
 
 . [[r1]] link:https://queue.acm.org/detail.cfm?id=2422416[Cheswick, William (2012). 'ACM Queue' 10 (12).]
 
-. [[r2]] link:https://www.usenix.org/system/files/conference/usenixsecurity14/sec14-paper-bonneau.pdf[Bonneau, J. and Schechter, S. (2014) Towards reliable storage of 56-bit secretes in human memory. 'Proceedings of the 23^rd^ USENIX Security Symposium'.]
+. [[r2]] link:https://www.usenix.org/system/files/conference/usenixsecurity14/sec14-paper-bonneau.pdf[Bonneau, J. and Schechter, S. (2014) Towards reliable storage
+of 56-bit secretes in human memory.
+'Proceedings of the 23^rd^ USENIX Security Symposium'.]
 
-. [[r3]] link:https://www.microsoft.com/en-us/research/wp-content/uploads/2016/02/passwordPortfolios.pdf[Florencio, D et al. (2014). Password portfolios and the finite-effort user: Sustainably managing large numbers of accounts. 'USENIX Security', August 20-22.]
+. [[r3]] link:https://www.microsoft.com/en-us/research/wp-content/uploads/2016/02/passwordPortfolios.pdf[Florencio, D et al. (2014). Password portfolios and the finite-effort user:
+Sustainably managing large numbers of accounts.
+'USENIX Security', August 20-22.]

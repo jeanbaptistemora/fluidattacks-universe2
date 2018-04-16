@@ -353,6 +353,8 @@ of the code-as-data approach will bring.
 
 == References
 
-. [[r1]] link:https://www2.eecs.berkeley.edu/Pubs/TechRpts/1983/CSD-83-164.pdf[Mark Linton (1983). 'Queries and views of programs using a relational database system'. PhD thesis, UC Berkeley.]
+. [[r1]] link:https://www2.eecs.berkeley.edu/Pubs/TechRpts/1983/CSD-83-164.pdf[Mark Linton (1983). 'Queries and views of programs
+using a relational database system'. PhD thesis, UC Berkeley.]
 
-. [[r2]] link:https://semmle.com/wp-content/uploads/2007/01/scam07.pdf[Oege de Moor et al. (2007). 'QL for source code analysis'. Keynote address. Source Code Analysis and Manipulation.]
+. [[r2]] link:https://semmle.com/wp-content/uploads/2007/01/scam07.pdf[Oege de Moor et al. (2007). 'QL for source code analysis'.
+Keynote address. Source Code Analysis and Manipulation.]

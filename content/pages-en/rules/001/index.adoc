@@ -71,7 +71,8 @@ image::diag1-req001.png[Diagram1]
 == Abuse Cases
 
 An anonymous person or employee executes actions
-that attempt against the security of any of the organization's information assets,
+that attempt against the security
+of any of the organization's information assets,
 since the impact of the assets is unknown
 the incident can´t be put in terms of value/cost.
 In consequence, the incident´s solution

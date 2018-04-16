@@ -56,8 +56,8 @@ There are still situations in which we have the upper hand:
 
 * Tools can have knowledge of many vulnerabilities,
 know how to find them and what risk level they imply.
-However, they do not have that human factor and malice that comes with experience,
-that instinct that allows a security analyst
+However, they do not have that human factor and malice
+that comes with experience, that instinct that allows a security analyst
 to identify which vulnerabilities can be combined
 in order to create a more critical attack vector.
 Malice can also allow a person
@@ -67,12 +67,14 @@ to find vulnerabilities a machine may overlook.
 and criticality but, how complete is said report?
 It tells you how many input fields are affected by a vulnerability but,
 does it tell you which of those inputs allow the extraction of sensitive data?
-Does it tell you how to take advantage of a form in order to modify the database?
+Does it tell you how to take advantage of a form
+in order to modify the database?
 Sadly, the answer is no, automated tools only
 determine the existence of a flaw.
 The "how"  that flaw can be exploited and leveraged
 to an attackers favour in order to affect a particular business scenario
-is strictly a human ability, acquired thanks to the malice we previously mentioned.
+is strictly a human ability,
+acquired thanks to the malice we previously mentioned.
 
 * False positives, perhaps an analyzer´s greatest flaw,
 report the discovery of a vulnerability that,
@@ -227,7 +229,8 @@ image::coexistence.png[Handshake between a human and a robot]
 
 == References
 
-. [[r1]] link:https://theconversation.com/twenty-years-on-from-deep-blue-vs-kasparov-how-a-chess-match-started-the-big-data-revolution-76882[Twenty years on from Deep Blue vs Kasparov: how a chess match started the big data revolution]
+. [[r1]] link:https://theconversation.com/twenty-years-on-from-deep-blue-vs-kasparov-how-a-chess-match-started-the-big-data-revolution-76882[Twenty years on from Deep Blue vs Kasparov:
+how a chess match started the big data revolution]
 . [[r2]] link:http://resources.infosecinstitute.com/automated-tools-vs-a-manual-approach/#gref[Automated Tools vs a Manual Approach]
 . [[r3]] link:https://www.netsparker.com/blog/web-security/owasp-top-10-web-security-scanner/[An Automated Scanner That Finds All OWASP Top 10 Security Flaws, Really?]
 . [[r4]] link:http://www.mmebvba.com/sites/default/files/downloads/bWAPP_sample_report.pdf[BWAPP OWASP TOP TEN 2013 SCAN REPORT SUMMARY]

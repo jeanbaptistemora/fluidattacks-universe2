@@ -16,9 +16,9 @@
 
 = Another proud son of JSON
 
-Today everything is connected, and thus, everything is communicated. Security has
-become a major issue in the complex world of web applications and their
-communications.
+Today everything is connected, and thus, everything is communicated.
+Security has become a major issue in the complex world
+of web applications and their communications.
 
 .JSON Web Token JWT
 image::image3.png[jwt]
@@ -104,8 +104,11 @@ are looking to guarantee the authenticity of the data being transported.
 
 == References
 
-. [[r1]] link:https://jwt.io/introduction/[Auth0. (2015, January 1). Introduction to JSON Web Tokens. Retrieved May 3, 2017]
+. [[r1]] link:https://jwt.io/introduction/[Auth0. (2015, January 1).
+Introduction to JSON Web Tokens. Retrieved May 3, 2017]
 
-. [[r2]] link:https://tools.ietf.org/html/rfc7519[Internet Engineering Task Force IETF. (2015, May 1). RFC 7519. Retrieved May 3, 2017]
+. [[r2]] link:https://tools.ietf.org/html/rfc7519[Internet Engineering Task Force IETF.
+(2015, May 1). RFC 7519. Retrieved May 3, 2017]
 
-. [[r3]] link:https://medium.com/vandium-software/5-easy-steps-to-understanding-json-web-tokens-jwt-1164c0adfcec[Stecky, M. (2016, May 16). 5 Easy Steps to Understanding JSON Web Tokens. Retrieved May 3, 2017]
+. [[r3]] link:https://medium.com/vandium-software/5-easy-steps-to-understanding-json-web-tokens-jwt-1164c0adfcec[Stecky, M. (2016, May 16). 5 Easy Steps
+.to Understanding JSON Web Tokens. Retrieved May 3, 2017]

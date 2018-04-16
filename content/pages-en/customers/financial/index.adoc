@@ -29,7 +29,8 @@ It is the largest financial group in Colombia
 with control of +4+ successful banks
 and one of the largest groups in Central America
 controlling the BAC Credomatic Group,
-also having the largest administrator of pension and severance funds in Colombia.
+also having the largest administrator of pension
+and severance funds in Colombia.
 
 ^.^a|image:logo-aval.png[alt="Logo Aval",link="https://www.grupoaval.com/wps/portal/grupo-aval/aval/acerca-nosotros"]
 
@@ -64,7 +65,8 @@ factoring, credit lines, commercial, mortgage and personal loans,
 financial leasing, deposit accounts and debit cards.
 
 a|== Banco del Pacífico
-{panama} Part of the International Banking Center integrated in the city of Panama,
+{panama} Part of the International Banking Center
+integrated in the city of Panama,
 with institutions from more than +30+ countries.
 The Center has a broad financial structure
 and a major importance for the economic life of the country,

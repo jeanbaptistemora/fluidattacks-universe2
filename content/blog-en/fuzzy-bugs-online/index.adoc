@@ -56,7 +56,8 @@ Indeed, we can see and confirm that the request is +POST+:
 ....
 POST /sqli_6.php HTTP/1.1
 Host: localhost
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:52.9) Gecko/20100101 Goanna/3.4 Firefox/52.9 PaleMoon/27.7.2
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:52.9) Gecko/20100101
+Goanna/3.4 Firefox/52.9 PaleMoon/27.7.2
 ...
 Content-Length: 24
 title=the&action=search

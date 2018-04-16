@@ -251,7 +251,8 @@ $ optipng crash.png
 ** Processing: crash.png
 Warning: Can't read the input file or unexpected end of file
 24x32 pixels, 1 bit/pixel, 4 colors in palette, interlaced
-optipng: opngreduc.c:697: opng_reduce_palette_bits: Assertion `src_bit_depth == dest_bit_depth' failed.
+optipng: opngreduc.c:697: opng_reduce_palette_bits:
+Assertion `src_bit_depth == dest_bit_depth' failed.
 Aborted
 ....
 

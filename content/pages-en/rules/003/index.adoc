@@ -87,7 +87,8 @@ image::diag1-req003.png[Req003 Diagram]
 == Abuse Cases
 
 An anonymous person or employee executes actions
-that attempt against the security of any of the organization’s information assets.
+that attempt against the security
+of any of the organization’s information assets.
 Given the previous scenario
 it is not possible to determine the value of the controls
 that must be implemented

@@ -30,8 +30,8 @@ that left no valuable knowledge to the organization.
 
 There are two objectives to evaluate in an Ethical Hacking,
 infrastructure and application.
-These two can be evaluated in an already deployed environment or in a development one
-analyzing the source code.
+These two can be evaluated in an already deployed environment
+or in a development one, analyzing the source code.
 
 If what the organization wants is to identify vulnerabilities
 in their applications(web/mobile) and web services

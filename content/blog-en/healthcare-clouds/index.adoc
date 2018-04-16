@@ -68,8 +68,8 @@ reinforce each other in some aspects (Rouse, 2015).
 
 Chris Bowen, founder of ClearDATA, says there are three main focus areas for
 HIPAA and HITECH regulations related to technology:
-1. Administrative controls: Policies must be in place to determine who has access
-to what data.
+1. Administrative controls: Policies must be in place to determine
+who has access to what data.
 2. Technical controls: Rules must be in place to secure data.
 3. Physical controls: Standards for physical access to data and infrastructure
 resources must be abided by (Butler, 2016).
@@ -122,8 +122,8 @@ security have transformed the healthcare IT mindset from “Why move to the
 public cloud?” to “What should we move, how do we do it?”" (ClearDATA, 2016).
 
 Technology advances everyday, your enterprise must keep up with it. Here is a
-great article that gives you link:http://www.networkworld.com/article/3121967/cloud-computing/9-keys-to-having-a-hipaa-compliant-cloud.html[
-9 Tips on securing your hospital's information on the cloud]
+great article that gives you
+link:http://www.networkworld.com/article/3121967/cloud-computing/9-keys-to-having-a-hipaa-compliant-cloud.html[9 Tips on securing your hospital's information on the cloud]
 
 == References
 
