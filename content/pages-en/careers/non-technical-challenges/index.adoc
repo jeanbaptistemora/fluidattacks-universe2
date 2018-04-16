@@ -2,10 +2,148 @@
 :category: careers
 :description: The main goal of the following page is to inform potential talents and people interested in working with us about our selection process. The non technical challenges stage pretends to assess the candidate's ability to analyze, sort, assess and select relevant data from a raw input.
 :keywords: FLUID, Careers, Selection, Process, Non Technical Challenges, Training.
+:toc: yes
 :translate: empleos/retos-no-tecnicos/
 
 = Non-technical Challenges
 
-This page is only available in Spanish language.
-Please click on the Spanish flag in the upper right corner
-to view the corresponding content.
+Below is the detail of the Data Analysis stage of the selection process
+to become a part of +FLUIDAttacks+.
+
+The goal of this stage is to determine your ability to:
+
+* Discard irrelevant data,
+* Identify relevant data,
+* Complete incomplete data,
+* Interpret the meaning of the data,
+* Group data,
+* Obtain metrics from raw data,
+* Create graphs to present data,
+* Draw conclusions based on the data,
+* Identify *concrete* actions based on the conclusions,
+* Ask new questions based on this process,
+* Iterate this process several times until you determine that you are satisfied.
+
+To determine these skills
+you will be given the findings or vulnerabilities
+found by +FLUIDAttacks+ in recent months.
+These will be delivered on a spreadsheet
+with all confidential data redacted from it.
+It is possible that the sheet contains incomplete, irrelevant and
+inconsistent data,
+proceed as you see fit in order to meet the objective.
+
+You must take this spreadsheet and
+build a presentation (not a document)
+with transparencies -slides- (not pages) and
+deliver it in a PDF format (not PPTX).
+The presentation must contain a brief introduction (no more than 2 slides) and
+one graph per transparency,
+analyzing them in the dimensions and
+combinations that you consider relevant
+so that an executive from an information security company such as +FLUIDAttacks+
+can make strategic decisions that
+improve the implementation of the company's mission in our society:
+"Find all existing vulnerabilities and report them as soon as possible".
+
+The spreadsheet can be found in this
+[button]#link:hallazgos-open-data.tar.bz2[file]#
+
+One conclusion must be drawn from each graph and
+a correspoding *concrete* managerial action,
+that you believe +FLUIDAttacks+ should implement, suggested.
+At the end of the presentation, conclusions and
+general recommendations
+derived from those of each graph are expected,
+but different (don’t repeat, do group, do abstract).
+The number of transparencies and graphs is unlimited,
+you can choose to make 10 transparencies with 10 graphs or
+100 transparencies with 100 graphs.
+What matters is that each graph is relevant and
+provides important information for management.
+If possible and
+to minimize the number of graphs and
+maximize the number of variables, use:
+
+* Stacked bars,
+* Data in the X and Y axis,
+* Box plots,
+* Pareto charts,
+* An "others" category to ignore all irrelevant categories.
+
+Many of the graphs can be done for the entire period
+In order to draw global conclusions.
+One possibility is to make metrics or
+graphs that show the evolution of certain variables over time.
+These graphs are of great interest and
+importance since this set of data doesn’t show this company
+as a static company that moves in annual units,
+but one that moves in monthly or quarterly units and
+evolves gradually.
+Consider combining these graphs with stacked bars.
+This type of graph can give a lot of relevant information.
+
+You may ask all questions you consider necessary
+by sending us an email at careers@autonomicmind.co.
+All questions whose answer in already in the material we provided
+will be quietly ignored.
+Questions regarding ideas or
+expected solutions will also be ignored.
+Questions that we consider necessary
+to give clarity to the exercise will be answered to you and
+to all other participants.
+
+This document must be delivered via email (careers@autonomicmind.co)
+in no more than 7 calendar days after completing the previous stage.
+You may ask for deadline extension
+If you send your progress and partial results and
+Request for it with 2 days before the deadline.
+Failure to meet this deadline
+will result in the termination of the process.
+
+The data that is given to you is confidential and,
+therefore, both the report you create and
+the information shared must only be analyzed and
+processed by you.
+In the same manner
+it is expected that the report be made only by you and
+is 100% of your authorship.
+If you feel that you need help from other people to perform this task,
+this is a clue that the current needs of +FLUIDAttacks+
+do not fit your current profile.
+This type of activities are the basis of the project and
+team management philosophy in +FLUIDAttacks+
+(management based on data and metrics),
+therefore, this activity is no more than a simulation of
+what will be your day to day.
+
+If you stated in your application that
+you are a fluent English speaker by checking the "Yes" box,
+the report must be submitted in English.
+
+All data given to candidates in the selection process is the same,
+however, for security purposes and
+to control the leakage of information,
+we have changed some data
+specific to each candidate
+in order to identify the origin of a data leak
+In case there exist one.
+
+We kindly ask that if you consider
+you are no longer interested in continuing with the selection process,
+please explicitly notify us of your decision via email,
+so that we can minimize the time spent managing candidates.
+
+The reports handed in by all the candidates
+will be compared with the master report that
+is carried out internally by the company,
+as well as with other participants.
+
+The participant will receive more points for this stage
+as they require fewer days for its completion and
+conclude the best actions and
+recommendations for the company,
+as well as integrate in visible and
+understandable graphs the greatest number of variables.
+
+We will be expecting an email with your report.
