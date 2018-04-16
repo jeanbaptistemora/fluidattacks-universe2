@@ -129,7 +129,9 @@ over obese obese normal obese obese obese obese ...
 ----
 
 . Si la solución opera sobre un conjunto de datos de entrada,
-éstos no deben estar quemados en código.
+éstos no deben estar quemados en código, es decir,
+deben leer del archivo +DATA.lst+ en el directorio del reto.
+Si no existe, debes incluirlo en tu +commit+.
 
 Las soluciones de retos de +hacking+ deberán cumplir con lo siguiente:
 
@@ -491,6 +493,7 @@ y link:https://www.vagrantup.com/downloads.html[Vagrant]
 de acuerdo a tu versión de +Windows+.
 
 .Crea un directorio para tu +Vagrant box+ y ubícate en él:
+[source,tex,linenums]
 ----
 C:\ejemplo\> mkdir mybox
 C:\ejemplo\> cd mybox
@@ -498,6 +501,7 @@ C:\ejemplo\mybox>
 ----
 
 .Inicia el +box+ y entra a él:
+[source,tex,linenums]
 ----
 C:\ejemplo\mybox> vagrant init debian/stretch64
 C:\ejemplo\mybox> vagrant up
@@ -519,6 +523,7 @@ A partir de ese momento ya no estás en +Windows+ sino en +Debian Stretch+.
 Instala +Docker+ dentro del +box+:
 
 .Instalar prerrequistos para agregar repositorios a +Debian+
+[source,bash,linenums]
 ----
 vagrant@stretch:~$ sudo apt-get update
 vagrant@stretch:~$ sudo apt-get install -y apt-transport-https curl \
@@ -526,6 +531,7 @@ vagrant@stretch:~$ sudo apt-get install -y apt-transport-https curl \
 ----
 
 .Agregar el repositorio de +Docker+
+[source,bash,linenums]
 ----
 vagrant@stretch:~$ curl -fsSL https://download.docker.com/linux/debian/gpg \
                         | sudo apt-key add -
@@ -535,6 +541,7 @@ vagrant@stretch:~$ sudo add-apt-repository \
 ----
 
 .Instalar y habilitar +Docker+ para el usuario +Vagrant+ del +box+
+[source,bash,linenums]
 ----
 vagrant@stretch:~$ sudo apt-get update && sudo apt-get install docker-ce
 vagrant@stretch:~$ sudo usermod -aG docker vagrant
