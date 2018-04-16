@@ -28,7 +28,7 @@ $white: rgba(255, 255, 255, 1);
 
 .footer {
   background-color: $darkergray;
-  padding: 0 20px 20px;
+  padding: 0 0 20px;
   text-align: center;
 }
 
@@ -76,7 +76,7 @@ $white: rgba(255, 255, 255, 1);
   }
 
   .navfoot {
-    margin-left: 30px;
+    margin-left: 10px;
     width: 100%;
   }
 }
@@ -84,5 +84,7 @@ $white: rgba(255, 255, 255, 1);
 .status-div {
   background-color: $footerblack;
   color: $white;
+  position: absolute;
   text-align: center;
+  width: 100%;
 }

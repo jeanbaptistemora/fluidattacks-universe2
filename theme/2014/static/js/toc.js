@@ -25,21 +25,87 @@ function getinfo(sect, header, nxt_sect, label) {
   newitem += "</ol>";
 }
 
+function sideClass() {
+  $(".toc").toggleClass("sidetable");
+  $(".intro-header").toggleClass("side");
+  $(".contbody").toggleClass("side");
+  $(".footer").toggleClass("side");
+}
+
+function insert(ToC) {
+  var toc = $(".toc");
+  if ($(window).width() < 945) {
+    if ($(toc).length) {
+      if ($(toc).hasClass("sidetable")) {
+        $(toc).insertAfter("h1");
+        sideClass();
+      }
+    }
+    else {
+      $(ToC).insertAfter("h1");
+    }
+  }
+  else {
+    if ($(toc).length) {
+      if (!$(toc).hasClass("sidetable")) {
+        $(toc).appendTo(".row");
+        sideClass();
+      }
+    }
+    else {
+      $(ToC).appendTo(".row");
+      sideClass();
+    }
+  }
+}
+
 var newitem = ""
 $(document).ready(function () {
 
   // Set title depending of page language
   if ($(".language")[0].innerHTML == "en ") {
-    var ToC = "<nav class=\"table-of-contents\">" + "<h2>Content</h2>" + "<ol class=\"arabic\">";
+    var ToC = "<div class=\"toc\"><nav class=\"table-of-contents\">" + "<h2>Content</h2>" + "<ol class=\"arabic\">";
   }
   else {
-    var ToC = "<nav class=\"table-of-contents\">" + "<h2>Contenido</h2>" + "<ol class=\"arabic\">";
+    var ToC = "<div class=\"toc\"><nav class=\"table-of-contents\">" + "<h2>Contenido</h2>" + "<ol class=\"arabic\">";
   }
 
   // Build the Table of Content
   getinfo(".sect1", "h2", ".sect2", "loweralpha");
 
   // Insert Table of Content after main header
-  ToC += newitem + "</nav>";
-  $(ToC).insertAfter("h1");
+  ToC += newitem + "</nav></div>";
+  insert(ToC);
 });
+
+$(document).scroll(function () {
+  var ScrollTop = $(document).scrollTop();
+  if (ScrollTop == 0 && $(".side-scrolled").length) {
+    $(".sidetable").toggleClass("side-scrolled");
+  }
+  else if (ScrollTop > 0 && !$(".side-scrolled").length) {
+    $(".sidetable").toggleClass("side-scrolled");
+  }
+
+  $(".anchor").each(function(){
+    var Top = $(this).offset().top;
+    var diff = ScrollTop - Top;
+    var TocLink = $("li > a[href*='#"+ this.id +"']:not(.anchor-sign)");
+    if ((diff > -50) && (diff < 0)) {
+      if ($("li > a[class*='active']").length) {
+        $("li > a[class*='active']").toggleClass("active");
+      }
+      $(TocLink).toggleClass("active");
+    }
+    if ($(TocLink).hasClass("active") && diff < -60) {
+      $(TocLink).toggleClass("active");
+      $($(TocLink).parent()[0].previousSibling).children("a").toggleClass("active");
+    }
+  });
+});
+
+(function($) {
+  $(window).on('resize', function() {
+    insert(0);
+  });
+})(jQuery);
