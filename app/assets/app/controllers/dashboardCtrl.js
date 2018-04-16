@@ -13,12 +13,12 @@ integrates, $, BASE, mixpanel, userMail, $xhr, Organization, userEmail, mixPanel
  * @return {undefined}
  */
 /** @export */
-integrates.controller("dashboardCtrl", function (
+integrates.controller("dashboardCtrl", function dashboardCtrl (
   $scope, $uibModal, $timeout,
   $state, $stateParams, $q,
   $translate
 ) {
-  $scope.initMyProjects = function () {
+  $scope.initMyProjects = function initMyProjects () {
     let vlang = "en-US";
     if (localStorage.lang === "en") {
       vlang = "en-US";
@@ -26,7 +26,7 @@ integrates.controller("dashboardCtrl", function (
     else {
       vlang = "es-CO";
     }
-    $timeout(function () {
+    $timeout(function initTable () {
       $("#myProjectsTbl").bootstrapTable({
         "locale": vlang,
         "onClickRow" (row, elem) {
@@ -44,14 +44,14 @@ integrates.controller("dashboardCtrl", function (
    * @member integrates.dashboardCtrl
    * @return {undefined}
    */
-  $scope.logout = function () {
+  $scope.logout = function logout () {
     const modalInstance = $uibModal.open({
       "animation": true,
       "controller" ($scope, $uibModalInstance) {
-        $scope.closeModalLogout = function () {
+        $scope.closeModalLogout = function closeModalLogout () {
           $uibModalInstance.dismiss("cancel");
         };
-        $scope.okModalLogout = function () {
+        $scope.okModalLogout = function okModalLogout () {
           const location = `${BASE.url}logout`;
         };
       },
@@ -67,7 +67,7 @@ integrates.controller("dashboardCtrl", function (
    * @member integrates.dashboardCtrl
    * @return {undefined}
    */
-  $scope.changeLang = function (langKey) {
+  $scope.changeLang = function changeLang (langKey) {
     if (langKey == "es" || langKey == "en") {
       localStorage.lang = langKey;
     }
@@ -76,7 +76,7 @@ integrates.controller("dashboardCtrl", function (
     mixpanel.people.set({"$Language": localStorage.lang});
     location.reload();
   };
-  $scope.initMyEventualities = function () {
+  $scope.initMyEventualities = function initMyEventualities () {
     let vlang = "en-US";
     if (localStorage.lang === "en") {
       vlang = "en-US";
@@ -85,7 +85,7 @@ integrates.controller("dashboardCtrl", function (
       vlang = "es-CO";
     }
     const aux = $xhr.get($q, `${BASE.url}get_myevents`, {});
-    aux.then(function (response) {
+    aux.then(function resAux (response) {
       for (let cont = 0; cont < response.data.length; cont++) {
         switch (response.data[cont].tipo) {
         case "Autorización para ataque especial":
@@ -137,7 +137,7 @@ integrates.controller("dashboardCtrl", function (
               const org = Organization.toUpperCase();
               const projt = $scope.evnt.proyecto_fluid.toUpperCase();
               mixPanelDashboard.trackReadEventuality(userName, userEmail, org, projt, $scope.evnt.id);
-              $scope.close = function () {
+              $scope.close = function close () {
                 $uibModalInstance.close();
               };
             },
@@ -150,7 +150,7 @@ integrates.controller("dashboardCtrl", function (
       $("#myEventsTbl").bootstrapTable("refresh");
     });
   };
-  $scope.init = function () {
+  $scope.init = function init () {
     $scope.initMyProjects();
     $scope.initMyEventualities();
   };

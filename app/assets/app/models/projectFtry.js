@@ -23,11 +23,11 @@ integrates.factory("projectFtry", function projectFtry ($q, $translate) {
      * @return {Object}
      */
     "DeleteFinding" (data) {
-      const oops_ac = $translate.instant("proj_alerts.error_text");
+      const oopsAc = $translate.instant("proj_alerts.error_text");
       return $xhr.post($q, `${BASE.url}delete_finding`, {
         "_": Math.random(),
         data
-      }, oops_ac);
+      }, oopsAc);
     },
 
     /**
@@ -39,12 +39,12 @@ integrates.factory("projectFtry", function projectFtry ($q, $translate) {
      * @return {Object}
      */
     "EventualityByName" (project, category) {
-      const oops_ac = $translate.instant("proj_alerts.error_text");
+      const oopsAc = $translate.instant("proj_alerts.error_text");
       return $xhr.get($q, `${BASE.url}get_eventualities`, {
         "_": Math.random(),
         category,
         project
-      }, oops_ac);
+      }, oopsAc);
     },
 
     /**
@@ -55,11 +55,11 @@ integrates.factory("projectFtry", function projectFtry ($q, $translate) {
      * @return {Object}
      */
     "FindingById" (id) {
-      const oops_ac = $translate.instant("proj_alerts.error_text");
+      const oopsAc = $translate.instant("proj_alerts.error_text");
       return $xhr.post($q, `${BASE.url}get_finding`, {
         "_": Math.random(),
         id
-      }, oops_ac);
+      }, oopsAc);
     },
 
     /**
@@ -69,11 +69,11 @@ integrates.factory("projectFtry", function projectFtry ($q, $translate) {
      * @return {Object}s
      */
     "FindingSolved" (data) {
-      const oops_ac = $translate.instant("proj_alerts.error_text");
+      const oopsAc = $translate.instant("proj_alerts.error_text");
       return $xhr.post($q, `${BASE.url}finding_solved`, {
         "_": Math.random(),
         data
-      }, oops_ac);
+      }, oopsAc);
     },
 
     /**
@@ -84,11 +84,11 @@ integrates.factory("projectFtry", function projectFtry ($q, $translate) {
      * @return {Object}s
      */
     "FindingVerified" (data) {
-      const oops_ac = $translate.instant("proj_alerts.error_text");
+      const oopsAc = $translate.instant("proj_alerts.error_text");
       return $xhr.post($q, `${BASE.url}finding_verified`, {
         "_": Math.random(),
         data
-      }, oops_ac);
+      }, oopsAc);
     },
 
     /**
@@ -101,13 +101,13 @@ integrates.factory("projectFtry", function projectFtry ($q, $translate) {
      * @return {Object}
      */
     "ProjectDoc" (project, json, format) {
-      const oops_ac = $translate.instant("proj_alerts.error_text");
+      const oopsAc = $translate.instant("proj_alerts.error_text");
       return $xhr.post($q, `${BASE.url}generate_autodoc`, {
         "_": Math.random(),
         "data": json,
         format,
         project
-      }, oops_ac);
+      }, oopsAc);
     },
 
 
@@ -119,11 +119,11 @@ integrates.factory("projectFtry", function projectFtry ($q, $translate) {
      * @return {Object}s
      */
     "RemediatedView" (id) {
-      const oops_ac = $translate.instant("proj_alerts.error_text");
+      const oopsAc = $translate.instant("proj_alerts.error_text");
       return $xhr.get($q, `${BASE.url}get_remediated`, {
         "_": Math.random(),
         id
-      }, oops_ac);
+      }, oopsAc);
     },
 
     /**
@@ -134,11 +134,11 @@ integrates.factory("projectFtry", function projectFtry ($q, $translate) {
      * @return {Object}s
      */
     "TotalSeverity" (project) {
-      const oops_ac = $translate.instant("proj_alerts.error_text");
+      const oopsAc = $translate.instant("proj_alerts.error_text");
       return $xhr.get($q, `${BASE.url}total_severity`, {
         "_": Math.random(),
         project
-      }, oops_ac);
+      }, oopsAc);
     },
 
     /**
@@ -150,11 +150,11 @@ integrates.factory("projectFtry", function projectFtry ($q, $translate) {
      * @return {Object}
      */
     "UpdateCSSv2" (data) {
-      const oops_ac = $translate.instant("proj_alerts.error_text");
+      const oopsAc = $translate.instant("proj_alerts.error_text");
       return $xhr.post($q, `${BASE.url}update_cssv2`, {
         "_": Math.random(),
         data
-      }, oops_ac);
+      }, oopsAc);
     },
 
     /**
@@ -166,11 +166,11 @@ integrates.factory("projectFtry", function projectFtry ($q, $translate) {
      * @return {Object}
      */
     "UpdateDescription" (data) {
-      const oops_ac = $translate.instant("proj_alerts.error_text");
+      const oopsAc = $translate.instant("proj_alerts.error_text");
       return $xhr.post($q, `${BASE.url}update_description`, {
         "_": Math.random(),
         data
-      }, oops_ac);
+      }, oopsAc);
     },
 
     "UpdateEvidenceFiles" (data, callbackFn, errorFn) {
@@ -210,11 +210,11 @@ integrates.factory("projectFtry", function projectFtry ($q, $translate) {
     },
 
     "UpdateEvidenceText" (data) {
-      const oops_ac = $translate.instant("proj_alerts.error_text");
+      const oopsAc = $translate.instant("proj_alerts.error_text");
       return $xhr.post($q, `${BASE.url}update_evidence_text`, {
         "_": Math.random(),
         data
-      }, oops_ac);
+      }, oopsAc);
     },
 
     /**
@@ -225,11 +225,11 @@ integrates.factory("projectFtry", function projectFtry ($q, $translate) {
      * @return {Object}
      */
     "UpdateTreatment" (data) {
-      const oops_ac = $translate.instant("proj_alerts.error_text");
+      const oopsAc = $translate.instant("proj_alerts.error_text");
       return $xhr.post($q, `${BASE.url}update_treatment`, {
         "_": Math.random(),
         data
-      }, oops_ac);
+      }, oopsAc);
     },
 
     /**
@@ -241,12 +241,12 @@ integrates.factory("projectFtry", function projectFtry ($q, $translate) {
      * @return {Object}
      */
     "addComment" (id, data) {
-      const oops_ac = $translate.instant("proj_alerts.error_text");
+      const oopsAc = $translate.instant("proj_alerts.error_text");
       return $xhr.post($q, `${BASE.url}add_comment`, {
         "_": Math.random(),
         data,
         id
-      }, oops_ac);
+      }, oopsAc);
     },
 
     /**
@@ -258,12 +258,12 @@ integrates.factory("projectFtry", function projectFtry ($q, $translate) {
      * @return {Object}
      */
     "deleteComment" (id, data) {
-      const oops_ac = $translate.instant("proj_alerts.error_text");
+      const oopsAc = $translate.instant("proj_alerts.error_text");
       return $xhr.post($q, `${BASE.url}delete_comment`, {
         "_": Math.random(),
         data,
         id
-      }, oops_ac);
+      }, oopsAc);
     },
 
     /**
@@ -275,12 +275,12 @@ integrates.factory("projectFtry", function projectFtry ($q, $translate) {
      * @return {Object}
      */
     "getAlerts" (company, project) {
-      const oops_ac = $translate.instant("proj_alerts.error_text");
+      const oopsAc = $translate.instant("proj_alerts.error_text");
       return $xhr.get($q, `${BASE.url}get_alerts`, {
         "_": Math.random(),
         company,
         project
-      }, oops_ac);
+      }, oopsAc);
     },
 
     /**
@@ -291,11 +291,11 @@ integrates.factory("projectFtry", function projectFtry ($q, $translate) {
      * @return {Object}
      */
     "getComments" (id) {
-      const oops_ac = $translate.instant("proj_alerts.error_text");
+      const oopsAc = $translate.instant("proj_alerts.error_text");
       return $xhr.get($q, `${BASE.url}get_comments`, {
         "_": Math.random(),
         id
-      }, oops_ac);
+      }, oopsAc);
     },
 
     /**
@@ -306,11 +306,11 @@ integrates.factory("projectFtry", function projectFtry ($q, $translate) {
      * @return {Object}
      */
     "getEvidences" (id) {
-      const oops_ac = $translate.instant("proj_alerts.error_text");
+      const oopsAc = $translate.instant("proj_alerts.error_text");
       return $xhr.get($q, `${BASE.url}get_evidences`, {
         "_": Math.random(),
         id
-      }, oops_ac);
+      }, oopsAc);
     },
 
     /**
@@ -321,12 +321,12 @@ integrates.factory("projectFtry", function projectFtry ($q, $translate) {
      * @return {Object}
      */
     "getExploit" (findingid, id) {
-      const oops_ac = $translate.instant("proj_alerts.error_text");
+      const oopsAc = $translate.instant("proj_alerts.error_text");
       return $xhr.get($q, `${BASE.url}get_exploit`, {
         "_": Math.random(),
         findingid,
         id
-      }, oops_ac);
+      }, oopsAc);
     },
 
     /**
@@ -338,12 +338,12 @@ integrates.factory("projectFtry", function projectFtry ($q, $translate) {
      * @return {Object}
      */
     "getRecords" (findingid, id) {
-      const oops_ac = $translate.instant("proj_alerts.error_text");
+      const oopsAc = $translate.instant("proj_alerts.error_text");
       return $xhr.get($q, `${BASE.url}get_records`, {
         "_": Math.random(),
         findingid,
         id
-      }, oops_ac);
+      }, oopsAc);
     },
 
     /**
@@ -355,12 +355,12 @@ integrates.factory("projectFtry", function projectFtry ($q, $translate) {
      * @return {Object}
      */
     "projectByName" (project, filter) {
-      const oops_ac = $translate.instant("proj_alerts.error_text");
+      const oopsAc = $translate.instant("proj_alerts.error_text");
       return $xhr.get($q, `${BASE.url}get_findings`, {
         "_": Math.random(),
         filter,
         project
-      }, oops_ac);
+      }, oopsAc);
     }
   };
 });

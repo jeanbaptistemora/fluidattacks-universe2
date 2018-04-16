@@ -79,7 +79,7 @@ if (location.pathname.indexOf("/integrates") == -1) {
   BASE.url = BASE.development;
 }
 const $msg = {};
-$msg.success = function (text, title) {
+$msg.success = function success (text, title) {
   $.gritter.add({
     "class_name": "color info",
     "sticky": false,
@@ -87,7 +87,7 @@ $msg.success = function (text, title) {
     title
   });
 };
-$msg.error = function (text, title = "Oops!") {
+$msg.error = function error (text, title = "Oops!") {
   $.gritter.add({
     "class_name": "color danger",
     "sticky": false,
@@ -95,7 +95,7 @@ $msg.error = function (text, title = "Oops!") {
     title
   });
 };
-$msg.info = function (text, title) {
+$msg.info = function info (text, title) {
   $.gritter.add({
     "class_name": "color info",
     "sticky": false,
@@ -103,7 +103,7 @@ $msg.info = function (text, title) {
     title
   });
 };
-$msg.warning = function (text, title) {
+$msg.warning = function warning (text, title) {
   $.gritter.add({
     "class_name": "color warning",
     "sticky": false,
@@ -128,7 +128,7 @@ const integrates = angular.module("FluidIntegrates", [
 ]);
 integrates.config([
   "RollbarProvider",
-  function (RollbarProvider) {
+  function initRollbar (RollbarProvider) {
     const isProduction = location.toString().indexOf("localhost:8000") == -1;
     RollbarProvider.init({
       "accessToken": "cad6d1f7ecda480ba003e29f0428d44e",

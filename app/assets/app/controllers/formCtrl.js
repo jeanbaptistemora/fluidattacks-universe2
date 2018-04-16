@@ -16,7 +16,7 @@ integrates, $
 /** @export */
 integrates.controller(
   "formCtrl",
-  function (
+  function formCtrl (
     $scope, $location,
     $uibModal, $timeout,
     $state, $stateParams,
@@ -28,7 +28,7 @@ integrates.controller(
     const url_length = 0;
     if (urlLength > url_length && urlForm.autocomplete == "true") {
       // Formulario de avance
-      $("#ifrmProgress").on("load", function () {
+      $("#ifrmProgress").on("load", function load () {
         const iframe = document.getElementById("ifrmProgress");
         const innerDoc = iframe.contentDocument || iframe.contentWindow.document;
         if (urlForm["Tipo de Avance"] == "Proyecto") {

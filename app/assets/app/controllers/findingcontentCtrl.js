@@ -1,6 +1,6 @@
 /* eslint no-magic-numbers: ["error", { "ignore": [-1,0,0.4,0.6,1,1.176,1.5,2,3,4,5,6,6.9,7,9,10,10.41,20,50,80,100,200,500,1000,10000] }]*/
 /* global
-BASE, document, $, $msg, userName, integrates, userEmail, userName, Rollbar, mixPanelDashboard, userRole, finding_type, actor,
+BASE, document, $, $msg, userName, integrates, userEmail, userName, Rollbar, mixPanelDashboard, userRole, findingType, actor,
 scenario, authentication, confidenciality, Organization, resolutionLevel, explotability, availability, tratamiento, updateEvidencesFiles:true,
 findingData:true, realiabilityLevel, updateEvidenceText:true, categories, probabilities, accessVector, integrity, accessComplexity, projectData:true
 */
@@ -19,12 +19,12 @@ findingData:true, realiabilityLevel, updateEvidenceText:true, categories, probab
  * @return {undefined}
  */
 /** @export */
-integrates.controller("findingcontentCtrl", function (
+integrates.controller("findingcontentCtrl", function findingcontentCtrl (
   $scope, $stateParams, $timeout,
   $uibModal, $translate, $state,
   ngNotify, findingFactory, projectFtry
 ) {
-  $scope.findingHeaderBuilding = function () {
+  $scope.findingHeaderBuilding = function findingHeaderBuilding () {
     $scope.header = {};
     const cierres = $scope.finding.cierres;
     const cierresTmp = [];
@@ -68,15 +68,15 @@ integrates.controller("findingcontentCtrl", function (
     $scope.header.findingCount = $scope.finding.cardinalidad;
     findingData.header = $scope.header;
   };
-  String.prototype.replaceAll = function (search, replace) { /* eslint no-extend-native: ["error", { "exceptions": ["String"] }]*/
+  String.prototype.replaceAll = function replaceAll (search, replace) { /* eslint no-extend-native: ["error", { "exceptions": ["String"] }]*/
     if (typeof replace === "undefined") {
       return this.toString();
     }
     return this.replace(new RegExp(`[${search}]`, "g"), replace);
   };
-  $scope.alertHeader = function (company, project) {
+  $scope.alertHeader = function alertHeader (company, project) {
     const req = projectFtry.getAlerts(company, project);
-    req.then(function (response) {
+    req.then(function resgetAlerts (response) {
       if (!response.error && response.data.length > 0) {
         if (response.data[0].status_act == "1") {
           let html = "<div class=\"alert alert-danger-2\">";
@@ -86,12 +86,12 @@ integrates.controller("findingcontentCtrl", function (
       }
     });
   };
-  $scope.findingExploitTab = function () {
+  $scope.findingExploitTab = function findingExploitTab () {
     $scope.hasExploit = false;
     findingData.hasExploit = $scope.hasExploit;
     let exploit = {};
     const req = projectFtry.getEvidences($scope.finding.id);
-    req.then(function (response) {
+    req.then(function resgetEvidences (response) {
       if (!response.error) {
         if (response.data.length > 0) {
           /* eslint func-style: ["error", "expression"]*/
@@ -113,7 +113,7 @@ integrates.controller("findingcontentCtrl", function (
               exploit = projectFtry.getExploit($scope.finding.id, response.data[cont].exploit);
               $scope.hasExploit = true;
               findingData.hasExploit = $scope.hasExploit;
-              exploit.then(function (response) {
+              exploit.then(function resExploit (response) {
                 resp_function(response);
               });
             }
@@ -121,7 +121,7 @@ integrates.controller("findingcontentCtrl", function (
               exploit = projectFtry.getExploit($scope.finding.id, $scope.finding.exploit);
               $scope.hasExploit = true;
               findingData.hasExploit = $scope.hasExploit;
-              exploit.then(function (response) {
+              exploit.then(function resExploit (response) {
                 resp_function(response);
               });
             }
@@ -135,7 +135,7 @@ integrates.controller("findingcontentCtrl", function (
           exploit = projectFtry.getExploit($scope.finding.id, $scope.finding.exploit);
           $scope.hasExploit = true;
           findingData.hasExploit = $scope.hasExploit;
-          exploit.then(function (response) {
+          exploit.then(function resExploit (response) {
             if (!response.error) {
               let responses = response.replaceAll("<", "&lt;");
               responses = response.replaceAll(">", "&gt;");
@@ -154,7 +154,7 @@ integrates.controller("findingcontentCtrl", function (
       }
     });
   };
-  $scope.cssv2Editable = function () {
+  $scope.cssv2Editable = function cssv2Editable () {
     if ($scope.onlyReadableTab2 == false) {
       $scope.onlyReadableTab2 = true;
     }
@@ -162,7 +162,7 @@ integrates.controller("findingcontentCtrl", function (
       $scope.onlyReadableTab2 = false;
     }
   };
-  $scope.descriptionEditable = function () {
+  $scope.descriptionEditable = function descriptionEditable () {
     if ($scope.onlyReadableTab1 == false) {
       $scope.onlyReadableTab1 = true;
     }
@@ -170,7 +170,7 @@ integrates.controller("findingcontentCtrl", function (
       $scope.onlyReadableTab1 = false;
     }
   };
-  $scope.evidenceEditable = function () {
+  $scope.evidenceEditable = function evidenceEditable () {
     if ($scope.onlyReadableTab3 == false) {
       $scope.onlyReadableTab3 = true;
     }
@@ -178,11 +178,11 @@ integrates.controller("findingcontentCtrl", function (
       $scope.onlyReadableTab3 = false;
     }
     const inputs = document.querySelectorAll(".inputfile");
-    Array.prototype.forEach.call(inputs, function (input) {
+    Array.prototype.forEach.call(inputs, function readInputs (input) {
       const label = input.nextElementSibling;
       const labelVal = label.innerHTML;
 
-      input.addEventListener("change", function (aux) {
+      input.addEventListener("change", function change (aux) {
         let fileName = "";
         if (this.files && this.files.length > 1) {
           fileName = (this.getAttribute("data-multiple-caption") || "").replace("{count}", this.files.length);
@@ -200,10 +200,10 @@ integrates.controller("findingcontentCtrl", function (
       });
 
       // Firefox bug fix
-      input.addEventListener("focus", function () {
+      input.addEventListener("focus", function focus () {
         input.classList.add("has-focus");
       });
-      input.addEventListener("blur", function () {
+      input.addEventListener("blur", function blur () {
         input.classList.remove("has-focus");
       });
     });
@@ -270,11 +270,11 @@ integrates.controller("findingcontentCtrl", function (
         "ref": 6
       });
     }
-    $scope.tabEvidences.sort(function (auxa, auxb) {
+    $scope.tabEvidences.sort(function sorttabEvidences (auxa, auxb) {
       return auxa.ref - auxb.ref;
     });
   };
-  $scope.treatmentEditable = function () {
+  $scope.treatmentEditable = function treatmentEditable () {
     $scope.goDown();
     if ($scope.onlyReadableTab4 == false) {
       $scope.finding.responsable_tratamiento = userEmail;
@@ -291,7 +291,7 @@ integrates.controller("findingcontentCtrl", function (
       $scope.onlyReadableTab4 = false;
     }
   };
-  $scope.exploitEditable = function () {
+  $scope.exploitEditable = function exploitEditable () {
     if ($scope.onlyReadableTab5 == false) {
       $scope.onlyReadableTab5 = true;
     }
@@ -299,11 +299,11 @@ integrates.controller("findingcontentCtrl", function (
       $scope.onlyReadableTab5 = false;
     }
     const inputs = document.querySelectorAll(".inputfile");
-    Array.prototype.forEach.call(inputs, function (input) {
+    Array.prototype.forEach.call(inputs, function forEachlabel (input) {
       const label = input.nextElementSibling;
       const labelVal = label.innerHTML;
 
-      input.addEventListener("change", function (err) {
+      input.addEventListener("change", function change (err) {
         let fileName = "";
         if (this.files && this.files.length > 1) {
           fileName = (this.getAttribute("data-multiple-caption") || "").replace("{count}", this.files.length);
@@ -321,15 +321,15 @@ integrates.controller("findingcontentCtrl", function (
       });
 
       // Firefox bug fix
-      input.addEventListener("focus", function () {
+      input.addEventListener("focus", function focus () {
         input.classList.add("has-focus");
       });
-      input.addEventListener("blur", function () {
+      input.addEventListener("blur", function blur () {
         input.classList.remove("has-focus");
       });
     });
   };
-  $scope.recordsEditable = function () {
+  $scope.recordsEditable = function recordsEditable () {
     if ($scope.onlyReadableTab6 == false) {
       $scope.onlyReadableTab6 = true;
     }
@@ -337,11 +337,11 @@ integrates.controller("findingcontentCtrl", function (
       $scope.onlyReadableTab6 = false;
     }
     const inputs = document.querySelectorAll(".inputfile");
-    Array.prototype.forEach.call(inputs, function (input) {
+    Array.prototype.forEach.call(inputs, function forEachlabelRecord (input) {
       const label = input.nextElementSibling;
       const labelVal = label.innerHTML;
 
-      input.addEventListener("change", function (err) {
+      input.addEventListener("change", function change (err) {
         let fileName = "";
         if (this.files && this.files.length > 1) {
           fileName = (this.getAttribute("data-multiple-caption") || "").replace("{count}", this.files.length);
@@ -359,16 +359,16 @@ integrates.controller("findingcontentCtrl", function (
       });
 
       // Firefox bug fix
-      input.addEventListener("focus", function () {
+      input.addEventListener("focus", function focus () {
         input.classList.add("has-focus");
       });
-      input.addEventListener("blur", function () {
+      input.addEventListener("blur", function blur () {
         input.classList.remove("has-focus");
       });
     });
   };
-  $scope.detectNivel = function () {
-    $timeout(function () {
+  $scope.detectNivel = function detectNivel () {
+    $timeout(function detectNivel () {
       $scope.$apply();
       if ($scope.finding.nivel == "Detallado") {
         $scope.esDetallado = true;
@@ -380,7 +380,7 @@ integrates.controller("findingcontentCtrl", function (
       }
     }, 200);
   };
-  $scope.updateCSSv2 = function () {
+  $scope.updateCSSv2 = function updateCSSv2 () {
     // Obtener datos de las listas
     const cssv2Data = {
 
@@ -404,11 +404,11 @@ integrates.controller("findingcontentCtrl", function (
       "backdrop": "static",
       "controller" ($scope, $uibModalInstance, updateData) {
         $scope.modalTitle = $translate.instant("confirmmodal.title_cssv2");
-        $scope.ok = function () {
+        $scope.ok = function ok () {
           // Consumir el servicio
           const req = projectFtry.UpdateCSSv2(updateData);
           // Capturar la Promisse
-          req.then(function (response) {
+          req.then(function resUpdateCSSv2 (response) {
             if (!response.error) {
               const updated_at = $translate.instant("proj_alerts.updated_title");
               const updated_ac = $translate.instant("proj_alerts.updated_cont");
@@ -423,7 +423,7 @@ integrates.controller("findingcontentCtrl", function (
             }
           });
         };
-        $scope.close = function () {
+        $scope.close = function close () {
           $uibModalInstance.close();
         };
       },
@@ -431,7 +431,7 @@ integrates.controller("findingcontentCtrl", function (
       "templateUrl": `${BASE.url}assets/views/project/confirmMdl.html`
     });
   };
-  updateEvidencesFiles = function (element) {
+  updateEvidencesFiles = function updateEvidencesFiles (element) {
     let error_ac1 = " ";
     const evImage = $(element).attr("target");
     const data_p = {};
@@ -562,7 +562,7 @@ integrates.controller("findingcontentCtrl", function (
       }
       const req = projectFtry.UpdateEvidenceText(data);
       // Capturar la Promisse
-      req.then(function (response) {
+      req.then(function resUpdateEvidenceText (response) {
         if (!response.error) {
           const updated_at = $translate.instant("proj_alerts.updated_title");
           const updated_ac = $translate.instant("proj_alerts.updated_cont_description");
@@ -582,7 +582,7 @@ integrates.controller("findingcontentCtrl", function (
       });
     }
   };
-  $scope.deleteFinding = function () {
+  $scope.deleteFinding = function deleteFinding () {
     // Obtener datos
     const descData = {"id": $scope.finding.id};
     const modalInstance = $uibModal.open({
@@ -591,12 +591,12 @@ integrates.controller("findingcontentCtrl", function (
       "controller" ($scope, $uibModalInstance, updateData, $stateParams, $state) {
         $scope.vuln = {};
         $scope.modalTitle = $translate.instant("confirmmodal.title_finding");
-        $scope.ok = function () {
+        $scope.ok = function ok () {
           $scope.vuln.id = updateData.id;
           // Consumir el servicio
           const req = projectFtry.DeleteFinding($scope.vuln);
           // Capturar la Promisse
-          req.then(function (response) {
+          req.then(function resDeleteFinding (response) {
             if (!response.error) {
               const updated_at = $translate.instant("proj_alerts.updated_title");
               const updated_ac = $translate.instant("proj_alerts.updated_cont");
@@ -613,7 +613,7 @@ integrates.controller("findingcontentCtrl", function (
             }
           });
         };
-        $scope.close = function () {
+        $scope.close = function close () {
           $uibModalInstance.close();
         };
       },
@@ -621,13 +621,13 @@ integrates.controller("findingcontentCtrl", function (
       "templateUrl": `${BASE.url}assets/views/project/deleteMdl.html`
     });
   };
-  $scope.goUp = function () {
+  $scope.goUp = function goUp () {
     $("html, body").animate({"scrollTop": 0}, "fast");
   };
-  $scope.goDown = function () {
+  $scope.goDown = function goDown () {
     window.scrollTo(0, document.body.scrollHeight);
   };
-  $scope.hasUrl = function (element) {
+  $scope.hasUrl = function hasUrl (element) {
     if (typeof element !== "undefined") {
       if (element.indexOf("https://") !== -1 || element.indexOf("http://") !== -1) {
         return true;
@@ -635,7 +635,7 @@ integrates.controller("findingcontentCtrl", function (
     }
     return false;
   };
-  $scope.isEmpty = function (obj) {
+  $scope.isEmpty = function isEmpty (obj) {
     for (const key in obj) {
       if (Object.prototype.hasOwnProperty.call(obj, key)) {
         return false;
@@ -643,7 +643,7 @@ integrates.controller("findingcontentCtrl", function (
     }
     return true;
   };
-  $scope.loadFindingByID = function (id) {
+  $scope.loadFindingByID = function loadFindingByID (id) {
     if (!$scope.isEmpty(findingData) && findingData.data.proyecto_fluid.toLowerCase() === $stateParams.project.toLowerCase() &&
       findingData.data.id === $scope.finding.id) {
       $scope.view.project = false;
@@ -660,7 +660,7 @@ integrates.controller("findingcontentCtrl", function (
     }
     else {
       const req = findingFactory.getVulnById(id);
-      req.then(function (response) {
+      req.then(function resgetVulnById (response) {
         if (!response.error && $stateParams.project == response.data.proyecto_fluid.toLowerCase()) {
           findingData.data = response.data;
           $scope.finding = response.data;
@@ -691,7 +691,7 @@ integrates.controller("findingcontentCtrl", function (
       });
     }
   };
-  $scope.loadFindingContent = function () {
+  $scope.loadFindingContent = function loadFindingContent () {
     $scope.aux = {};
     $scope.aux.tratamiento = $scope.finding.tratamiento;
     $scope.aux.razon = $scope.finding.razon_tratamiento;
@@ -970,10 +970,10 @@ integrates.controller("findingcontentCtrl", function (
     }
     switch ($scope.finding.tipo_hallazgo_cliente) {
     case "Higiene":
-      $scope.finding.tipo_hallazgo_cliente = $translate.instant("finding_formstack.finding_type.hygiene");
+      $scope.finding.tipo_hallazgo_cliente = $translate.instant("finding_formstack.findingType.hygiene");
       break;
     case "Vulnerabilidad":
-      $scope.finding.tipo_hallazgo_cliente = $translate.instant("finding_formstack.finding_type.vuln");
+      $scope.finding.tipo_hallazgo_cliente = $translate.instant("finding_formstack.findingType.vuln");
       break;
     default:
       $scope.finding.tipo_hallazgo_cliente = $scope.finding.tipo_hallazgo_cliente;
@@ -1072,33 +1072,33 @@ integrates.controller("findingcontentCtrl", function (
     });
     // Init auto height in textarea
     if ($("#infoItem").hasClass("active")) {
-      $timeout(function () {
+      $timeout(function adjustInfo () {
         $scope.$broadcast("elastic:adjust");
       });
     }
-    $("#trackingItem").on("click", function () {
-      $timeout(function () {
+    $("#trackingItem").on("click", function clickTracking () {
+      $timeout(function adjustTracking () {
         $scope.$broadcast("elastic:adjust");
       });
     });
-    $("#infoItem").on("click", function () {
-      $timeout(function () {
+    $("#infoItem").on("click", function clickInfo () {
+      $timeout(function adjustInfiItem () {
         $scope.$broadcast("elastic:adjust");
       });
     });
-    $("#edit").on("click", function () {
-      $timeout(function () {
+    $("#edit").on("click", function clickedit () {
+      $timeout(function adjustItem () {
         $scope.$broadcast("elastic:adjust");
       });
     });
     // Init auto height in panels
-    $("#evidenceItem").on("click", function () {
+    $("#evidenceItem").on("click", function clickEvidence () {
       $(".equalHeight").matchHeight();
     });
     $scope.findingInformationTab();
     $timeout($scope.goUp, 200);
   };
-  $scope.configColorPalette = function () {
+  $scope.configColorPalette = function configColorPalette () {
     $scope.colors = {};
     // Red
     $scope.colors.critical = "background-color: #f12;";
@@ -1109,7 +1109,7 @@ integrates.controller("findingcontentCtrl", function (
     // Green
     $scope.colors.ok = "background-color: #008000;";
   };
-  $scope.findingCalculateCSSv2 = function () {
+  $scope.findingCalculateCSSv2 = function findingCalculateCSSv2 () {
     const ImpCon = parseFloat($scope.finding.impacto_confidencialidad.split(" | ")[0]);
     const ImpInt = parseFloat($scope.finding.impacto_integridad.split(" | ")[0]);
     const ImpDis = parseFloat($scope.finding.impacto_disponibilidad.split(" | ")[0]);
@@ -1125,9 +1125,9 @@ integrates.controller("findingcontentCtrl", function (
     $scope.finding.cssv2base = BaseScore.toFixed(1);
     $scope.finding.criticidad = Temporal.toFixed(1);
   };
-  $scope.findingDropDownList = function () {
+  $scope.findingDropDownList = function findingDropDownList () {
     $scope.list = {};
-    $scope.list.finding_type = finding_type;
+    $scope.list.findingType = findingType;
     $scope.list.categories = categories;
     $scope.list.probability = probabilities;
     $scope.list.actor = actor;
@@ -1143,7 +1143,7 @@ integrates.controller("findingcontentCtrl", function (
     $scope.list.realiabilityLevel = realiabilityLevel;
     $scope.list.treatment = tratamiento;
   };
-  $scope.findingInformationTab = function () {
+  $scope.findingInformationTab = function findingInformationTab () {
     $scope.findingDropDownList();
     $scope.finding.cardinalidad = parseInt($scope.finding.cardinalidad, 10);
     $scope.finding.criticidad = parseFloat($scope.finding.criticidad);
@@ -1158,16 +1158,16 @@ integrates.controller("findingcontentCtrl", function (
       $scope.esGeneral = "show-detallado";
     }
   };
-  $scope.capitalizeFirstLetter = function (string) {
+  $scope.capitalizeFirstLetter = function capitalizeFirstLetter (string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
   };
-  $scope.findingEvidenceTab = function () {
+  $scope.findingEvidenceTab = function findingEvidenceTab () {
     $scope.tabEvidences = [];
     let url = "";
     const evidenceList = [];
     const url_pre = `${window.location.href.split("dashboard#!/")[0] + window.location.href.split("dashboard#!/")[1]}/`;
     const req = projectFtry.getEvidences($scope.finding.id);
-    req.then(function (response) {
+    req.then(function resgetEvidences (response) {
       if (!response.error) {
         if (response.data.length > 0) {
           for (let cont = 0; cont < response.data.length; cont++) {
@@ -1395,10 +1395,10 @@ integrates.controller("findingcontentCtrl", function (
       }
     });
   };
-  $scope.findingCommentTab = function () {
+  $scope.findingCommentTab = function findingCommentTab () {
     if (typeof $scope.finding.id !== "undefined") {
       const comments = projectFtry.getComments($scope.finding.id);
-      comments.then(function (response) {
+      comments.then(function resgetComments (response) {
         if (!response.error) {
           const usersArray = [];
           for (let cont = 0; cont < response.data.length; cont++) {
@@ -1410,10 +1410,10 @@ integrates.controller("findingcontentCtrl", function (
             user.email = response.data[cont].email;
             usersArray.push(user);
           }
-          const saveComment = function (data) {
+          const saveComment = function saveComment (data) {
             // Convert pings to human readable format
-            $(data.pings).each(function (index, id) {
-              const user = usersArray.filter(function (user) {
+            $(data.pings).each(function dataUsers (index, id) {
+              const user = usersArray.filter(function filterUsers (user) {
                 return user.id == id;
               })[0];
               data.content = data.content.replace(`@${id}`, `@${user.fullname}`);
@@ -1427,12 +1427,12 @@ integrates.controller("findingcontentCtrl", function (
             "enablePinging": false,
             "enableUpvoting": false,
             "getComments" (success, error) {
-              setTimeout(function () {
+              setTimeout(function timeoutComment () {
                 success(response.data);
               }, 500);
             },
             "getUsers" (success, error) {
-              setTimeout(function () {
+              setTimeout(function timeoutUsers () {
                 success(usersArray);
               }, 500);
             },
@@ -1443,13 +1443,13 @@ integrates.controller("findingcontentCtrl", function (
               data.finding_url = window.location.href;
               data.remediated = false;
               const comment = projectFtry.addComment($scope.finding.id, data);
-              comment.then(function (response) {
+              comment.then(function resaddComment (response) {
                 if (!response.error) {
                   // Tracking mixpanel
                   const org = Organization.toUpperCase();
                   const projt = $stateParams.project.toUpperCase();
                   mixPanelDashboard.trackFindingDetailed("FindingNewComment", userName, userEmail, org, projt, $scope.finding.id);
-                  setTimeout(function () {
+                  setTimeout(function timeoutTrackFinding () {
                     success(data);
                   }, 500);
                 }
@@ -1465,13 +1465,13 @@ integrates.controller("findingcontentCtrl", function (
       });
     }
   };
-  $scope.findingRecordsTab = function () {
+  $scope.findingRecordsTab = function findingRecordsTab () {
     $scope.hasRecords = false;
     findingData.hasRecords = $scope.hasRecords;
     let vlang = "en-US";
     let record = {};
     const req = projectFtry.getEvidences($scope.finding.id);
-    req.then(function (response) {
+    req.then(function resgetEvidences (response) {
       if (!response.error) {
         if (localStorage.lang === "en") {
           vlang = "en-US";
@@ -1480,7 +1480,7 @@ integrates.controller("findingcontentCtrl", function (
           vlang = "es-CO";
         }
         if (response.data.length > 0) {
-          const resp_function = function (response) {
+          const resp_function = function resp_function (response) {
             if (!response.error) {
               const dataCols = [];
               for (const cont in response.data[0]) {
@@ -1513,7 +1513,7 @@ integrates.controller("findingcontentCtrl", function (
               record = projectFtry.getRecords($scope.finding.id, response.data[cont].registros_archivo);
               $scope.hasRecords = true;
               findingData.hasRecords = $scope.hasRecords;
-              record.then(function (response) {
+              record.then(function resRecord (response) {
                 resp_function(response);
               });
             }
@@ -1521,7 +1521,7 @@ integrates.controller("findingcontentCtrl", function (
               record = projectFtry.getRecords($scope.finding.id, $scope.finding.registros_archivo);
               $scope.hasRecords = true;
               findingData.hasRecords = $scope.hasRecords;
-              record.then(function (response) {
+              record.then(function resgetRecords (response) {
                 resp_function(response);
               });
             }
@@ -1535,7 +1535,7 @@ integrates.controller("findingcontentCtrl", function (
         else if (typeof $scope.finding.registros_archivo !== "undefined") {
           record = projectFtry.getRecords($scope.finding.id, $scope.finding.registros_archivo);
           $scope.hasRecords = true;
-          record.then(function (response) {
+          record.then(function createTable (response) {
             if (!response.error) {
               const dataCols = [];
               for (const cont in response.data[0]) {
@@ -1570,7 +1570,7 @@ integrates.controller("findingcontentCtrl", function (
       }
     });
   };
-  $scope.findingCalculateSeveridad = function () {
+  $scope.findingCalculateSeveridad = function findingCalculateSeveridad () {
     let severidad = 0;
     if (!isNaN($scope.finding.severidad)) {
       severidad = parseFloat($scope.finding.severidad);
@@ -1608,7 +1608,7 @@ integrates.controller("findingcontentCtrl", function (
       return false;
     }
   };
-  $scope.updateDescription = function () {
+  $scope.updateDescription = function updateDescription () {
     // Obtener datos
     const descData = {
       "actor": $scope.finding.actor,
@@ -1646,11 +1646,11 @@ integrates.controller("findingcontentCtrl", function (
       "backdrop": "static",
       "controller" ($scope, $uibModalInstance, updateData) {
         $scope.modalTitle = $translate.instant("confirmmodal.title_description");
-        $scope.ok = function () {
+        $scope.ok = function ok () {
           // Consumir el servicio
           const req = projectFtry.UpdateDescription(updateData);
           // Capturar la Promisse
-          req.then(function (response) {
+          req.then(function resUpdateDescription (response) {
             if (!response.error) {
               const updated_at = $translate.instant("proj_alerts.updated_title");
               const updated_ac = $translate.instant("proj_alerts.updated_cont");
@@ -1667,7 +1667,7 @@ integrates.controller("findingcontentCtrl", function (
             }
           });
         };
-        $scope.close = function () {
+        $scope.close = function close () {
           $uibModalInstance.close();
         };
       },
@@ -1675,7 +1675,7 @@ integrates.controller("findingcontentCtrl", function (
       "templateUrl": `${BASE.url}assets/views/project/confirmMdl.html`
     });
   };
-  $scope.validateTreatment = function () {
+  $scope.validateTreatment = function validateTreatment () {
     if ($scope.aux.razon === $scope.finding.razon_tratamiento) {
       $msg.error($translate.instant("proj_alerts.differ_comment"));
       return false;
@@ -1691,7 +1691,7 @@ integrates.controller("findingcontentCtrl", function (
     $scope.finding.responsable_tratamiento = userEmail;
     return true;
   };
-  $scope.updateTreatment = function () {
+  $scope.updateTreatment = function updateTreatment () {
     let flag = false;
     if ($scope.aux.tratamiento === $scope.finding.tratamiento && $scope.aux.razon === $scope.finding.razon_tratamiento &&
       $scope.aux.bts !== $scope.finding.bts_externo) {
@@ -1713,11 +1713,11 @@ integrates.controller("findingcontentCtrl", function (
         "backdrop": "static",
         "controller" ($scope, $uibModalInstance, updateData) {
           $scope.modalTitle = $translate.instant("search_findings.tab_description.update_treatmodal");
-          $scope.ok = function () {
+          $scope.ok = function ok () {
             // Consumir el servicio
             const req = projectFtry.UpdateTreatment(updateData);
             // Capturar la Promisse
-            req.then(function (response) {
+            req.then(function resUpdateTreatment (response) {
               if (!response.error) {
                 const org = Organization.toUpperCase();
                 const projt = $stateParams.project.toUpperCase();
@@ -1733,7 +1733,7 @@ integrates.controller("findingcontentCtrl", function (
               }
             });
           };
-          $scope.close = function () {
+          $scope.close = function close () {
             $uibModalInstance.close();
           };
         },
@@ -1742,7 +1742,7 @@ integrates.controller("findingcontentCtrl", function (
       });
     }
   };
-  $scope.findingSolved = function () {
+  $scope.findingSolved = function findingSolved () {
     // Obtener datos
     const descData = {
       "finding_id": $scope.finding.id,
@@ -1759,7 +1759,7 @@ integrates.controller("findingcontentCtrl", function (
       "controller" ($scope, $uibModalInstance, mailData) {
         $scope.remediatedData = {};
         $scope.modalTitle = $translate.instant("search_findings.tab_description.remediated_finding");
-        $scope.ok = function () {
+        $scope.ok = function ok () {
           $scope.remediatedData.user_mail = mailData.user_mail;
           $scope.remediatedData.finding_name = mailData.finding_name;
           $scope.remediatedData.project = mailData.project;
@@ -1774,7 +1774,7 @@ integrates.controller("findingcontentCtrl", function (
             // Consumir el servicio
             const req = projectFtry.FindingSolved($scope.remediatedData);
             // Capturar la Promisse
-            req.then(function (response) {
+            req.then(function resFindingSolved (response) {
               if (!response.error) {
                 // Tracking mixpanel
                 const org = Organization.toUpperCase();
@@ -1802,7 +1802,7 @@ integrates.controller("findingcontentCtrl", function (
             });
           }
         };
-        $scope.close = function () {
+        $scope.close = function close () {
           $uibModalInstance.close();
         };
       },
@@ -1810,12 +1810,12 @@ integrates.controller("findingcontentCtrl", function (
       "templateUrl": `${BASE.url}assets/views/project/remediatedMdl.html`
     });
   };
-  $scope.remediatedView = function () {
+  $scope.remediatedView = function remediatedView () {
     $scope.isManager = userRole != "customer";
     $scope.isRemediated = true;
     if (typeof $scope.finding.id !== "undefined") {
       const req = projectFtry.RemediatedView($scope.finding.id);
-      req.then(function (response) {
+      req.then(function resRemediatedView (response) {
         if (!response.error) {
           $scope.isRemediated = response.data.remediated;
           findingData.remediated = $scope.isRemediated;
@@ -1832,7 +1832,7 @@ integrates.controller("findingcontentCtrl", function (
       });
     }
   };
-  $scope.findingVerified = function () {
+  $scope.findingVerified = function findingVerified () {
     // Obtener datos
     const currUrl = window.location.href;
     const trackingUrl = currUrl.replace("/description", "/tracking");
@@ -1849,11 +1849,11 @@ integrates.controller("findingcontentCtrl", function (
       "backdrop": "static",
       "controller" ($scope, $uibModalInstance, mailData) {
         $scope.modalTitle = $translate.instant("search_findings.tab_description.verified_finding");
-        $scope.ok = function () {
+        $scope.ok = function ok () {
           // Consumir el servicio
           const req = projectFtry.FindingVerified(mailData);
           // Capturar la Promisse
-          req.then(function (response) {
+          req.then(function resFindingVerified (response) {
             if (!response.error) {
               // Tracking mixpanel
               const org = Organization.toUpperCase();
@@ -1871,7 +1871,7 @@ integrates.controller("findingcontentCtrl", function (
             }
           });
         };
-        $scope.close = function () {
+        $scope.close = function close () {
           $uibModalInstance.close();
         };
       },
@@ -1879,35 +1879,35 @@ integrates.controller("findingcontentCtrl", function (
       "templateUrl": `${BASE.url}assets/views/project/confirmMdl.html`
     });
   };
-  $scope.goBack = function () {
+  $scope.goBack = function goBack () {
     $scope.view.project = true;
     $scope.view.finding = false;
     projectData = [];
     $state.go("ProjectFindings", {"project": $scope.project});
     $("html, body").animate({"scrollTop": $scope.currentScrollPosition}, "fast");
   };
-  $scope.urlDescription = function () {
+  $scope.urlDescription = function urlDescription () {
     location.replace(`${window.location.href.split($stateParams.id)[0] + $stateParams.id}/description`);
   };
-  $scope.urlSeverity = function () {
+  $scope.urlSeverity = function urlSeverity () {
     location.replace(`${window.location.href.split($stateParams.id)[0] + $stateParams.id}/severity`);
   };
-  $scope.urlTracking = function () {
+  $scope.urlTracking = function urlTracking () {
     location.replace(`${window.location.href.split($stateParams.id)[0] + $stateParams.id}/tracking`);
   };
-  $scope.urlEvidence = function () {
+  $scope.urlEvidence = function urlEvidence () {
     location.replace(`${window.location.href.split($stateParams.id)[0] + $stateParams.id}/evidence`);
   };
-  $scope.urlExploit = function () {
+  $scope.urlExploit = function urlExploit () {
     location.replace(`${window.location.href.split($stateParams.id)[0] + $stateParams.id}/exploit`);
   };
-  $scope.urlRecords = function () {
+  $scope.urlRecords = function urlRecords () {
     location.replace(`${window.location.href.split($stateParams.id)[0] + $stateParams.id}/records`);
   };
-  $scope.urlComments = function () {
+  $scope.urlComments = function urlComments () {
     location.replace(`${window.location.href.split($stateParams.id)[0] + $stateParams.id}/comments`);
   };
-  $scope.init = function () {
+  $scope.init = function init () {
     const project = $stateParams.project;
     const findingId = $stateParams.finding;
     $scope.userRole = userRole;

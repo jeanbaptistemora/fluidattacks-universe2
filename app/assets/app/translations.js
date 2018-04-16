@@ -223,7 +223,7 @@ integrates.config([
        "no": "No",
        "yes": "Yes"
      },
-     "finding_type": {
+     "findingType": {
        "default": "-",
        "hygiene": "Hygiene",
        "vuln": "Vulnerability"
@@ -737,7 +737,7 @@ integrates.config([
        "no": "No",
        "yes": "Si"
      },
-     "finding_type": {
+     "findingType": {
        "default": "-",
        "hygiene": "Higiene",
        "vuln": "Vulnerabilidad"

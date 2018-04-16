@@ -210,12 +210,12 @@ integrates.factory("findingFactory", function findingFactory ($q, $translate) {
      * @return {Object}
      */
     "getVulnByName" (project, filter) {
-      const oops_ac = $translate.instant("proj_alerts.error_text");
+      const oopsAc = $translate.instant("proj_alerts.error_text");
       return $xhr.get($q, `${BASE.url}get_findings`, {
         "_": Math.random(),
         filter,
         project
-      }, oops_ac);
+      }, oopsAc);
     },
 
     /**

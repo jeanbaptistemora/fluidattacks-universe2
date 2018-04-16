@@ -1,7 +1,7 @@
 /* eslint no-magic-numbers: ["error", { "ignore": [-1,0,0.4,0.6,1,1.176,1.5,2,4,4.611,10,10.41,13,20,43.221,100,200,300,1000,3000] }]*/
 /* global
-BASE, downLink:true, Morris, estado:true, exploitLabel:true, nonexploitLabel:true, total_higLabel:true,
-explotable:true, total_segLabel:true, openLabel:true, partialLabel:true, integrates, userRole, document, $, $msg, userName,
+BASE, downLink:true, Morris, estado:true, exploitLabel:true, nonexploitLabel:true, totalHigLabel:true,
+explotable:true, totalSegLabel:true, openLabel:true, partialLabel:true, integrates, userRole, document, $, $msg, userName,
 userEmail, Rollbar, aux:true, json:true, closeLabel:true, mixPanelDashboard, win:true, window, Organization, projectData:true, eventsData:true,
 i:true, j:true
 */
@@ -75,12 +75,12 @@ integrates.controller(
       });
     };
     $scope.calculateCardinality = function calculateCardinality (data) {
-      let total_severity = 0;
+      let totalSeverity = 0;
       let cardinalidad = 0;
-      let cardinalidad_total = 0;
-      data.data.forEach(function cardinaliity (cont) {
+      let cardinalidadTotal = 0;
+      data.data.forEach(function calcCardinaliity (cont) {
         cardinalidad += parseInt(cont.cardinalidad, 10);
-        cardinalidad_total += parseInt(cont.cardinalidad_total, 10);
+        cardinalidadTotal += parseInt(cont.cardinalidad_total, 10);
       });
       $scope.metricsList = [];
       $scope.metricsList.push({
@@ -96,7 +96,7 @@ integrates.controller(
         "value": cardinalidad
       });
       let severity = 0;
-      data.data.forEach(function calc_severity (cont) {
+      data.data.forEach(function calcSeverity (cont) {
         try {
           if (cont.tipo_hallazgo === "Seguridad") {
             const ImpCon = parseFloat(cont.impacto_confidencialidad.split(" | ")[0]);
@@ -122,34 +122,34 @@ integrates.controller(
           if (response.data.length > 0) {
             for (let cont = 0; cont < response.data.length; cont++) {
               const target = (parseInt(response.data[cont].lines, 10) / 1000) + (parseInt(response.data[cont].fields, 10) / 4);
-              total_severity = severity / ((4.611 * target) + 43.221) * 100;
+              totalSeverity = severity / ((4.611 * target) + 43.221) * 100;
               $scope.metricsList.push({
                 "color": "background-color: #ef4c43;",
                 "description": $translate.instant("search_findings.filter_labels.criticity"),
                 "icon": "s7-graph1",
-                "value": "n%".replace("n", total_severity.toFixed(0))
+                "value": "n%".replace("n", totalSeverity.toFixed(0))
               });
               $scope.metricsList.push({
                 "color": "background-color: #00cb77;",
                 "description": $translate.instant("search_findings.filter_labels.closure"),
                 "icon": "s7-like2",
-                "value": "n%".replace("n", Math.round((1 - (cardinalidad / cardinalidad_total)) * 100).toString())
+                "value": "n%".replace("n", Math.round((1 - (cardinalidad / cardinalidadTotal)) * 100).toString())
               });
             }
           }
           else {
-            total_severity = severity;
+            totalSeverity = severity;
             $scope.metricsList.push({
               "color": "background-color: #ef4c43;",
               "description": $translate.instant("search_findings.filter_labels.criticity"),
               "icon": "s7-graph1",
-              "value": total_severity.toFixed(0)
+              "value": totalSeverity.toFixed(0)
             });
             $scope.metricsList.push({
               "color": "background-color: #00cb77;",
               "description": $translate.instant("search_findings.filter_labels.closure"),
               "icon": "s7-like2",
-              "value": "n%".replace("n", Math.round((1 - (cardinalidad / cardinalidad_total)) * 100).toString())
+              "value": "n%".replace("n", Math.round((1 - (cardinalidad / cardinalidadTotal)) * 100).toString())
             });
           }
         }
@@ -167,35 +167,35 @@ integrates.controller(
     };
     $scope.mainGraphtypePieChart = function mainGraphtypePieChart () {
       const currData = $scope.data;
-      let total_seg = 0;
-      let total_hig = 0;
+      let totalSeg = 0;
+      let totalHig = 0;
       currData.forEach(function calcChartValue (val, cont) {
         const tipo = val.tipo_hallazgo;
         if (val.estado !== "Cerrado" && val.estado !== "Closed") {
           if (tipo === "Seguridad") {
-            total_seg += 1;
+            totalSeg += 1;
           }
           else {
-            total_hig += 1;
+            totalHig += 1;
           }
         }
       });
-      const seg_transl = $translate.instant("grapType.seg_label");
-      const hig_transl = $translate.instant("grapType.hig_label");
-      const total_segLabel = seg_transl + " :n%".replace(":n", (total_seg * 100 / (total_seg + total_hig)).toFixed(2).toString());
-      const total_higLabel = hig_transl + " :n%".replace(":n", (total_hig * 100 / (total_seg + total_hig)).toFixed(2).toString());
+      const segTransl = $translate.instant("grapType.seg_label");
+      const higTransl = $translate.instant("grapType.hig_label");
+      const totalSegLabel = segTransl + " :n%".replace(":n", (totalSeg * 100 / (totalSeg + totalHig)).toFixed(2).toString());
+      const totalHigLabel = higTransl + " :n%".replace(":n", (totalHig * 100 / (totalSeg + totalHig)).toFixed(2).toString());
       $("#grapType").empty();
       Morris.Donut({
         "data": [
           {
             "color": "#ff1a1a",
-            "label": total_segLabel,
-            "value": total_seg
+            "label": totalSegLabel,
+            "value": totalSeg
           },
           {
             "color": "#31c0be",
-            "label": total_higLabel,
-            "value": total_hig
+            "label": totalHigLabel,
+            "value": totalHig
           }
         ],
         "element": "grapType",
@@ -217,10 +217,10 @@ integrates.controller(
           }
         }
       });
-      const exploit_transl = $translate.instant("grapExploit.exploit_label");
-      const nonexploit_transl = $translate.instant("grapExploit.nonexploit_label");
-      const exploitLabel = exploit_transl + " :n%".replace(":n", (exploit * 100 / (exploit + nonexploit)).toFixed(2).toString());
-      const nonexploitLabel = nonexploit_transl + " :n%".replace(":n", (nonexploit * 100 / (exploit + nonexploit)).toFixed(2).toString());
+      const exploitTransl = $translate.instant("grapExploit.exploit_label");
+      const nonExploitTransl = $translate.instant("grapExploit.nonexploit_label");
+      const exploitLabel = exploitTransl + " :n%".replace(":n", (exploit * 100 / (exploit + nonexploit)).toFixed(2).toString());
+      const nonexploitLabel = nonExploitTransl + " :n%".replace(":n", (nonexploit * 100 / (exploit + nonexploit)).toFixed(2).toString());
       $("#grapExploit").empty();
       Morris.Donut({
         "data": [
@@ -259,12 +259,12 @@ integrates.controller(
         }
       });
       total = parseFloat(total);
-      const open_transl = $translate.instant("grapStatus.open_label");
-      const partial_transl = $translate.instant("grapStatus.partial_label");
-      const close_transl = $translate.instant("grapStatus.close_label");
-      const openLabel = open_transl + " :n%".replace(":n", (open * 100 / total).toFixed(2).toString());
-      const partialLabel = partial_transl + " :n%".replace(":n", (partial * 100 / total).toFixed(2).toString());
-      const closeLabel = close_transl + " :n%".replace(":n", (close * 100 / total).toFixed(2).toString());
+      const openTransl = $translate.instant("grapStatus.open_label");
+      const partialTransl = $translate.instant("grapStatus.partial_label");
+      const closeTransl = $translate.instant("grapStatus.close_label");
+      const openLabel = openTransl + " :n%".replace(":n", (open * 100 / total).toFixed(2).toString());
+      const partialLabel = partialTransl + " :n%".replace(":n", (partial * 100 / total).toFixed(2).toString());
+      const closeLabel = closeTransl + " :n%".replace(":n", (close * 100 / total).toFixed(2).toString());
       $("#grapStatus").empty();
       Morris.Donut({
         "data": [
@@ -302,9 +302,9 @@ integrates.controller(
       const finding = $scope.findingId;
       if (typeof project === "undefined" ||
                 project === "") {
-        const attention_at = $translate.instant("proj_alerts.attent_title");
-        const attention_ac = $translate.instant("proj_alerts.attent_cont");
-        $msg.warning(attention_ac, attention_at);
+        const attentionAt = $translate.instant("proj_alerts.attent_title");
+        const attentionAc = $translate.instant("proj_alerts.attent_cont");
+        $msg.warning(attentionAc, attentionAt);
         return false;
       }
       if ($stateParams.project !== $scope.project) {
@@ -315,9 +315,9 @@ integrates.controller(
         $scope.view.finding = false;
 
         /* Handling presentation button */
-        const search_at = $translate.instant("proj_alerts.search_title");
-        const search_ac = $translate.instant("proj_alerts.search_cont");
-        $msg.info(search_ac, search_at);
+        const searchAt = $translate.instant("proj_alerts.search_title");
+        const searchAc = $translate.instant("proj_alerts.search_cont");
+        $msg.info(searchAc, searchAt);
         if (projectData.length > 0 && projectData[0].proyecto_fluid.toLowerCase() === $scope.project.toLowerCase()) {
           $scope.view.project = true;
           $scope.loadIndicatorsContent(projectData);

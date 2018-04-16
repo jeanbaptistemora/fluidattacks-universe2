@@ -151,6 +151,9 @@ rules:
   consistent-this: error
   eol-last: error
   func-call-spacing: error
+  func-names:
+    - error
+    - as-needed
   func-name-matching: error
   func-style:
     - error

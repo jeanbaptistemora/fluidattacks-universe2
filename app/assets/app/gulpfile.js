@@ -1,13 +1,13 @@
-const external_verbose = require("../externs/externs_verbose.js");
-const externs_verbose = external_verbose.functions;
+const externalVerbose = require("../externs/externs_verbose.js");
+const externsVerbose = externalVerbose.functions;
 const gulp = require("gulp");
 const compiler = require("google-closure-compiler-js").gulp();
 
-const options_verbose = {
+const optionsVerbose = {
   "compilationLevel": "ADVANCED",
   "createSourceMap": true,
   "env": "BROWSER",
-  "externs": [{"src": externs_verbose}],
+  "externs": [{"src": externsVerbose}],
   "languageIn": "ECMASCRIPT6",
   "processCommonJsModules": true,
   "warningLevel": "VERBOSE"
@@ -20,5 +20,5 @@ gulp.task("verbose", function script () {
     "!./xhr.js",
     "!./login.js"
   ]).
-    pipe(compiler(options_verbose));
+    pipe(compiler(optionsVerbose));
 });

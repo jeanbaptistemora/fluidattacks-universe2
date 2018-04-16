@@ -198,7 +198,7 @@ const realiabilityLevel = [
   }
 ];
 
-const finding_type = [
+const findingType = [
   {"name": "Seguridad"},
   {"name": "Higiene"}
 ];

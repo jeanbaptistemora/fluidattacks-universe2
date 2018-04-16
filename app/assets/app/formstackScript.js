@@ -40,19 +40,19 @@ const solution = $("#field38619077");
 const threat = $("#field38193361");
 const risk = $("#field38193362");
 const donde = $("#field38193357");
-const has_solution = $("#field38861717_1");
-const has_no_solution = $("#field38861717_2");
-const solution_kb = $("#field38861739");
+const hasSolution = $("#field38861717_1");
+const hasNoSolution = $("#field38861717_2");
+const solutionKb = $("#field38861739");
 const tipo = $("#field54319180");
 const debilidad = $("#field38899046");
-const solution_pdf = $("#field38307753");
-const evidencia_hallazgo = $("#field32202896");
+const solutionPdf = $("#field38307753");
+const evidenciaHallazgo = $("#field32202896");
 const exploit = $("#field38307199");
-const evidencia_explotacion = $("#field38307222");
+const evidenciaExplotacion = $("#field38307222");
 const animacion = $("#field38307272");
-const si_evidente = $("#field49132420_1");
-const no_evidente = $("#field49132420_2");
-const public_spreadsheet_url = "https://docs.google.com/spreadsheets/d/1L37WnF6enoC8Ws8vs9sr0G29qBLwbe-3ztbuopu1nvc/pubhtml";
+const siEvidente = $("#field49132420_1");
+const noEvidente = $("#field49132420_2");
+const publicSpreadsheetUrl = "https://docs.google.com/spreadsheets/d/1L37WnF6enoC8Ws8vs9sr0G29qBLwbe-3ztbuopu1nvc/pubhtml";
 
 /**
  * Function showInfo return info about findings
@@ -70,23 +70,23 @@ function showInfo (data, tabletop) {
         debilidad.val(obj[cont].CWE.split("/")[5].split(".")[0]);
         tipo.val(obj[cont].Tipo);
         if (obj[cont].Evidente == "Sí") {
-          si_evidente.attr("checked", true);
+          siEvidente.attr("checked", true);
         }
         else {
-          no_evidente.attr("checked", true);
+          noEvidente.attr("checked", true);
         }
         if (obj[cont].Solucion_KB != "-") {
-          has_solution.attr("checked", true);
+          hasSolution.attr("checked", true);
           $("#fsCell38861739").removeClass("fsHidden");
           $("#fsCell38307753").removeClass("fsHidden");
-          solution_pdf.removeAttr("disabled");
-          solution_kb.val(obj[cont].Solucion_KB);
+          solutionPdf.removeAttr("disabled");
+          solutionKb.val(obj[cont].Solucion_KB);
         }
         else if (obj[cont].Solucion_KB == "-") {
-          has_no_solution.attr("checked", true);
+          hasNoSolution.attr("checked", true);
           $("#fsCell38861739").addClass("fsHidden");
           $("#fsCell38307753").addClass("fsHidden");
-          solution_pdf.attr("disabled");
+          solutionPdf.attr("disabled");
         }
 
         if ($("#field38392454").val() == "Detallado") {
@@ -100,18 +100,18 @@ function showInfo (data, tabletop) {
           exploit.addClass("fsRequired");
           exploit.attr("aria-required", true);
           exploit.attr("fsRequired");
-          evidencia_explotacion.prop("required", true);
-          evidencia_explotacion.addClass("fsRequired");
-          evidencia_explotacion.attr("aria-required", true);
-          evidencia_explotacion.attr("fsRequired");
+          evidenciaExplotacion.prop("required", true);
+          evidenciaExplotacion.addClass("fsRequired");
+          evidenciaExplotacion.attr("aria-required", true);
+          evidenciaExplotacion.attr("fsRequired");
         }
         else {
           exploit.prop("required", false);
           exploit.removeClass("fsRequired");
           exploit.attr("aria-required", false);
-          evidencia_explotacion.prop("required", false);
-          evidencia_explotacion.removeClass("fsRequired");
-          evidencia_explotacion.attr("aria-required", false);
+          evidenciaExplotacion.prop("required", false);
+          evidenciaExplotacion.removeClass("fsRequired");
+          evidenciaExplotacion.attr("aria-required", false);
           animacion.prop("required", false);
           animacion.removeClass("fsRequired");
           animacion.attr("aria-required", false);
@@ -137,7 +137,7 @@ function showInfo (data, tabletop) {
 
 Tabletop.init({
   "callback": showInfo,
-  "key": public_spreadsheet_url,
+  "key": publicSpreadsheetUrl,
   "prettyColumnNames": true,
   "simpleSheet": true
 });
@@ -196,57 +196,57 @@ $(threat).focusout(function focusoutThreat () {
   }
 });
 
-$(evidencia_hallazgo).change(function changeEvidence () {
-  const hallazgo_upload = $(evidencia_hallazgo).val().
+$(evidenciaHallazgo).change(function changeEvidence () {
+  const hallazgoUpload = $(evidenciaHallazgo).val().
     split("\\")[2].split(".")[0];
   const substring = "evidencia";
-  if (hallazgo_upload.indexOf(substring) === -1) {
+  if (hallazgoUpload.indexOf(substring) === -1) {
     $msg.error("El archivo se debe contener la palabra evidencia");
-    evidencia_hallazgo.val("");
+    evidenciaHallazgo.val("");
   }
 });
 
 $(exploit).change(function changeExploit () {
-  const exploit_upload = $(exploit).val().
+  const exploitUpload = $(exploit).val().
     split("\\")[2].split(".")[0];
-  if (exploit_upload != "exploit") {
+  if (exploitUpload != "exploit") {
     $msg.error("El archivo se debe llamar: exploit");
     exploit.val("");
   }
-  else if (exploit_upload == "exploit") {
+  else if (exploitUpload == "exploit") {
     exploit.attr("aria-invalid", false);
   }
 });
 
-$(evidencia_explotacion).change(function changeExploitation () {
-  const explotacion_upload = $(evidencia_explotacion).val().
+$(evidenciaExplotacion).change(function changeExploitation () {
+  const explotacionUpload = $(evidenciaExplotacion).val().
     split("\\")[2].split(".")[0];
-  if (explotacion_upload != "evidencia-de-explotacion") {
+  if (explotacionUpload != "evidencia-de-explotacion") {
     $msg.error("El archivo se debe llamar: evidencia-de-explotacion");
-    evidencia_explotacion.val("");
+    evidenciaExplotacion.val("");
   }
-  else if (explotacion_upload == "evidencia-de-explotacion") {
-    evidencia_explotacion.attr("aria-invalid", false);
+  else if (explotacionUpload == "evidencia-de-explotacion") {
+    evidenciaExplotacion.attr("aria-invalid", false);
   }
 });
 
 $(animacion).change(function changeAnimation () {
-  const animacion_upload = $(animacion).val().
+  const animacionUpload = $(animacion).val().
     split("\\")[2].split(".")[0];
-  if (animacion_upload != "animacion-de-explotacion") {
+  if (animacionUpload != "animacion-de-explotacion") {
     $msg.error("El archivo se debe llamar: animacion-de-explotacion");
     animacion.val("");
   }
-  else if (animacion_upload == "animacion-de-explotacion") {
+  else if (animacionUpload == "animacion-de-explotacion") {
     animacion.attr("aria-invalid", false);
   }
 });
 
-$(solution_pdf).change(function changeSolution () {
-  const sol_upload = $(solution_pdf).val().
+$(solutionPdf).change(function changeSolution () {
+  const solUpload = $(solutionPdf).val().
     split("\\")[2].split(".")[0];
-  if (sol_upload != "solucion") {
+  if (solUpload != "solucion") {
     $msg.error("El archivo se debe llamar: solucion");
-    solution_pdf.val("");
+    solutionPdf.val("");
   }
 });

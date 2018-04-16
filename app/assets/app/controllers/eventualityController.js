@@ -31,7 +31,7 @@ function afectacionFormatter (value, row, index) {
  * @param {Object} data
  * @return {undefined}
  */
-integrates.evntTotalize = function (data) {
+integrates.evntTotalize = function evntTotalize (data) {
   const cardinalidad = 0;
   let afectacion = 0;
   for (let cont = 0; cont < data.data.length; cont++) {
@@ -51,7 +51,7 @@ integrates.evntTotalize = function (data) {
  * @param {Object} row
  * @return {undefined}
  */
-integrates.updateEvntRow = function (row) {
+integrates.updateEvntRow = function updateEvntRow (row) {
   const data = $("#eventualities").bootstrapTable("getData");
   const newData = [];
   for (let cont = 0; cont < data.length; cont++) {
@@ -78,7 +78,7 @@ integrates.updateEvntRow = function (row) {
  * @return {undefined}
  */
 /** @export */
-integrates.controller("eventualityController", function ($scope, $uibModal, $translate, eventualityFactory) {
+integrates.controller("eventualityController", function eventualityController ($scope, $uibModal, $translate, eventualityFactory) {
   const attent_title = $translate.instant("proj_alerts.attent_title");
   const updated_title = $translate.instant("proj_alerts.updated_title");
   const event_title = $translate.instant("proj_alerts.event_title");
@@ -97,10 +97,10 @@ integrates.controller("eventualityController", function ($scope, $uibModal, $tra
    * @member integrates.eventualityController
    * @return {undefined}
    */
-  $scope.init = function () {
+  $scope.init = function init () {
     $("#search_section").hide();
     $(".loader").hide();
-    document.onkeypress = function (ev) {
+    document.onkeypress = function onkeypress (ev) {
       // Asignar funcion a la tecla Enter
       if (ev.keyCode === 13) {
         if ($("#project").is(":focus")) {
@@ -118,7 +118,7 @@ integrates.controller("eventualityController", function ($scope, $uibModal, $tra
    * @function openModalVer
    * @member integrates.eventualityController
    */
-  $scope.openModalVer = function () {
+  $scope.openModalVer = function openModalVer () {
     const sel = $("#eventualities").bootstrapTable("getSelections");
     if (sel.length == 0) {
       Rollbar.error("Error: No events are selected");
@@ -140,7 +140,7 @@ integrates.controller("eventualityController", function ($scope, $uibModal, $tra
         }
         $scope.evnt = currentEventuality;
         $scope.evnt.afectacion = parseInt(currentEventuality.afectacion, 10);
-        $scope.closeModalVer = function () {
+        $scope.closeModalVer = function closeModalVer () {
           $uibModalInstance.close();
         };
       },
@@ -160,12 +160,12 @@ integrates.controller("eventualityController", function ($scope, $uibModal, $tra
    * @member integrates.eventualityController
    * @return {undefined}
    */
-  $scope.openModalAvance = function () {
+  $scope.openModalAvance = function openModalAvance () {
     const modalInstance = $uibModal.open({
       "animation": true,
       "controller" ($scope, $uibModalInstance) {
         $scope.rows = $("#eventualities").bootstrapTable("getData");
-        $scope.closeModalAvance = function () {
+        $scope.closeModalAvance = function closeModalAvance () {
           $uibModalInstance.close();
         };
       },
@@ -180,7 +180,7 @@ integrates.controller("eventualityController", function ($scope, $uibModal, $tra
    * @function openModalEditar
    * @member integrates.eventualityController
    */
-  $scope.openModalEditar = function () {
+  $scope.openModalEditar = function openModalEditar () {
     const sel = $("#eventualities").bootstrapTable("getSelections");
     if (sel.length == 0) {
       Rollbar.error("Error: No events are selected");
@@ -204,7 +204,7 @@ integrates.controller("eventualityController", function ($scope, $uibModal, $tra
         $scope.evnt = currentEventuality;
         $scope.evnt.afectacion = parseInt(currentEventuality.afectacion, 206);
 
-        $scope.okModalEditar = function () {
+        $scope.okModalEditar = function okModalEditar () {
           const neg = "negativo";
           let submit = false;
           try {
@@ -223,7 +223,7 @@ integrates.controller("eventualityController", function ($scope, $uibModal, $tra
             });
             return false;
           }
-          eventualityFactory.updateEvnt($scope.evnt).then(function (response) {
+          eventualityFactory.updateEvnt($scope.evnt).then(function resupdateEvnt (response) {
             if (!response.error) {
               $.gritter.add({
                 "class_name": "color success",
@@ -246,7 +246,7 @@ integrates.controller("eventualityController", function ($scope, $uibModal, $tra
           });
         };
 
-        $scope.closeModalEditar = function () {
+        $scope.closeModalEditar = function closeModalEditar () {
           $uibModalInstance.close();
         };
       },
@@ -260,7 +260,7 @@ integrates.controller("eventualityController", function ($scope, $uibModal, $tra
     });
   };
   $scope.category = "Name";
-  $scope.setCategory = function (category) {
+  $scope.setCategory = function setCategory (category) {
     $scope.category = category;
   };
 
@@ -270,7 +270,7 @@ integrates.controller("eventualityController", function ($scope, $uibModal, $tra
    * @member integrates.eventualityController
    * @return {undefined}
    */
-  $scope.searchEvntByName = function () {
+  $scope.searchEvntByName = function searchEvntByName () {
     let vlang = "en-US";
     if (localStorage.lang === "en") {
       vlang = "en-US";
@@ -293,7 +293,7 @@ integrates.controller("eventualityController", function ($scope, $uibModal, $tra
       });
       $(".loader").show();
       $scope.maxRecursiveCall = 5;
-      eventualityFactory.getEvntByName(project, category).then(function (data) {
+      eventualityFactory.getEvntByName(project, category).then(function resgetEvntByName (data) {
         if (!data.error) {
           // CONFIGURACION DE TABLA
           $scope.view.event = true;

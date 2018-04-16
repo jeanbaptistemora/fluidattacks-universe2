@@ -1,7 +1,7 @@
 /* eslint no-magic-numbers: ["error", { "ignore": [-1,0,0.4,0.6,1,1.176,1.5,2,4,4.611,10,10.41,13,20,43.221,100,200,300,1000,3000] }]*/
 /* global
-BASE, downLink:true, Morris, estado:true, exploitLabel:true, nonexploitLabel:true, total_higLabel:true,
-explotable:true, total_segLabel:true, openLabel:true, partialLabel:true, integrates, userRole, document, $, $msg, userName,
+BASE, downLink:true, Morris, estado:true, exploitLabel:true, nonexploitLabel:true, totalHigLabel:true,
+explotable:true, totalSegLabel:true, openLabel:true, partialLabel:true, integrates, userRole, document, $, $msg, userName,
 userEmail, Rollbar, aux:true, json:true, closeLabel:true, mixPanelDashboard, win:true, window, Organization, projectData:true, eventsData:true,
 i:true, j:true
 */
@@ -42,13 +42,13 @@ function labelEventState (value, row, index) {
 /** @export */
 integrates.controller(
   "projectEventsCtrl",
-  function (
+  function projectEventsCtrl (
     $scope, $location,
     $uibModal, $timeout,
     $state, $stateParams,
     $translate, projectFtry
   ) {
-    $scope.init = function () {
+    $scope.init = function init () {
       const project = $stateParams.project;
       const findingId = $stateParams.finding;
       $scope.userRole = userRole;
@@ -75,12 +75,12 @@ integrates.controller(
       $scope.goUp();
       $scope.finding = {};
     };
-    $scope.goUp = function () {
+    $scope.goUp = function goUp () {
       $("html, body").animate({"scrollTop": 0}, "fast");
     };
-    $scope.alertHeader = function (company, project) {
+    $scope.alertHeader = function alertHeader (company, project) {
       const req = projectFtry.getAlerts(company, project);
-      req.then(function (response) {
+      req.then(function setalertHeader (response) {
         if (!response.error && response.data.length > 0) {
           if (response.data.status_act === "1") {
             let html = "<div class=\"alert alert-danger-2\">";
@@ -90,8 +90,8 @@ integrates.controller(
         }
       });
     };
-    $scope.configKeyboardView = function () {
-      document.onkeypress = function (ev) {
+    $scope.configKeyboardView = function configKeyboardView () {
+      document.onkeypress = function onkeypress (ev) {
         // Buscar un proyecto
         if (ev.keyCode === 13) {
           if ($("#project").is(":focus")) {
@@ -100,7 +100,7 @@ integrates.controller(
         }
       };
     };
-    $scope.search = function () {
+    $scope.search = function search () {
       let vlang = "en-US";
       if (localStorage.lang === "en") {
         vlang = "en-US";
@@ -113,9 +113,9 @@ integrates.controller(
       const finding = $scope.findingId;
       if (typeof project === "undefined" ||
                 project === "") {
-        const attention_at = $translate.instant("proj_alerts.attent_title");
-        const attention_ac = $translate.instant("proj_alerts.attent_cont");
-        $msg.warning(attention_ac, attention_at);
+        const attentionAt = $translate.instant("proj_alerts.attent_title");
+        const attentionAc = $translate.instant("proj_alerts.attent_cont");
+        $msg.warning(attentionAc, attentionAt);
         return false;
       }
       if ($stateParams.project !== $scope.project) {
@@ -126,16 +126,16 @@ integrates.controller(
         $scope.view.finding = false;
 
         /* Handling presentation button */
-        const search_at = $translate.instant("proj_alerts.search_title");
-        const search_ac = $translate.instant("proj_alerts.search_cont");
-        $msg.info(search_ac, search_at);
+        const searchAt = $translate.instant("proj_alerts.search_title");
+        const searchAc = $translate.instant("proj_alerts.search_cont");
+        $msg.info(searchAc, searchAt);
         if (eventsData.length > 0 && eventsData[0].proyecto_fluid.toLowerCase() === $scope.project.toLowerCase()) {
           $scope.view.project = true;
           $scope.loadEventContent(eventsData, vlang, project);
         }
         else {
           const reqEventualities = projectFtry.EventualityByName(project, "Name");
-          reqEventualities.then(function (response) {
+          reqEventualities.then(function resEventualityByName (response) {
             if (!response.error) {
               $scope.view.project = true;
               eventsData = response.data;
@@ -153,16 +153,16 @@ integrates.controller(
         }
       }
     };
-    $scope.urlIndicators = function () {
+    $scope.urlIndicators = function urlIndicators () {
       $state.go("ProjectIndicators", {"project": $scope.project});
     };
-    $scope.urlFindings = function () {
+    $scope.urlFindings = function urlFindings () {
       $state.go("ProjectFindings", {"project": $scope.project});
     };
-    $scope.urlEvents = function () {
+    $scope.urlEvents = function urlEvents () {
       $state.go("ProjectEvents", {"project": $scope.project});
     };
-    $scope.loadEventContent = function (data, vlang, project) {
+    $scope.loadEventContent = function loadEventContent (data, vlang, project) {
       const org = Organization.toUpperCase();
       const projt = project.toUpperCase();
       $scope.alertHeader(org, projt);
@@ -231,7 +231,7 @@ integrates.controller(
               const org = Organization.toUpperCase();
               const projt = project.toUpperCase();
               mixPanelDashboard.trackReadEventuality(userName, userEmail, org, projt, evt.id);
-              $scope.close = function () {
+              $scope.close = function close () {
                 $uibModalInstance.close();
               };
             },
