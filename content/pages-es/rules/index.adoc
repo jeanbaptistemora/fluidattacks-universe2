@@ -140,6 +140,7 @@
 
 == Correos
 
+* link:115/[REQ.115 Filtrar correos maliciosos].
 * link:121/[REQ.121 Garantizar unicidad de correos].
 
 == Credenciales
