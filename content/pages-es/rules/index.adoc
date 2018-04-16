@@ -175,6 +175,10 @@
 * link:144/[REQ.144 Depurar cuentas periódicamente].
 * link:997/[REQ.997 Contraseñas sin palabras de diccionario].
 
+== Foráneos
+
+* link:194/[REQ.194 Determinar permiso de dispositivo a recursos].
+
 == Criptografía
 
 * link:145/[REQ.145 Proteger llaves del sistema].
