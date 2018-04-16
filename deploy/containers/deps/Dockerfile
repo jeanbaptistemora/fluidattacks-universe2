@@ -24,7 +24,7 @@ RUN apt-get update \
     && apt-get upgrade -y \
     && apt-get install -y --force-yes\
                git ansible curl \
-               python-dev python-pip apache2 \
+               python-dev apache2 \
                python-setuptools python-tk nodejs \
                build-essential python-numpy python-scipy \
                python-matplotlib ruby npm \
@@ -39,10 +39,10 @@ RUN apt-get update \
 
 # Instala dependencias pip
 ADD requirements.txt /root/
-RUN pip install --upgrade cffi
-RUN pip install --upgrade setuptools
+RUN easy_install pip 
 RUN pip install --upgrade pip
-RUN pip install --upgrade -r /root/requirements.txt
+RUN pip install --upgrade setuptools
+RUN pip install -r /root/requirements.txt --ignore-installed
 
 # SocialAuth Patch
 ADD patch_socialauth.py /root/
