@@ -17,7 +17,7 @@ $(document).ready(function ready () {
   }, timew);
   document.getElementsByTagName("select")[5].onchange = function onchange () {
     const verf = document.getElementsByTagName("select")[5].value;
-    if (verf == "Verificación") {
+    if (verf === "Verificación") {
       alertify.success("<p class=\"text-center\"> Información: </p> <p class=\"text-left\"> Verificacion debe usarse para reportar hallazgos en chequeos cruzados </p>");
     }
   };
@@ -62,40 +62,40 @@ function showInfo (data, tabletop) {
   $("#field32201810").change(function change () {
     const title = $("#field32201810").val();
     for (let cont = 0; cont < obj.length; cont++) {
-      if (obj[cont].Titulo == title) {
+      if (obj[cont].Titulo === title) {
         description.val(obj[cont].Descripcion);
         requirement.val(obj[cont].Requisito);
         solution.val(obj[cont].Recomendacion);
         donde.attr("placeholder", obj[cont].Donde);
         debilidad.val(obj[cont].CWE.split("/")[5].split(".")[0]);
         tipo.val(obj[cont].Tipo);
-        if (obj[cont].Evidente == "Sí") {
+        if (obj[cont].Evidente === "Sí") {
           siEvidente.attr("checked", true);
         }
         else {
           noEvidente.attr("checked", true);
         }
-        if (obj[cont].Solucion_KB != "-") {
+        if (obj[cont].Solucion_KB !== "-") {
           hasSolution.attr("checked", true);
           $("#fsCell38861739").removeClass("fsHidden");
           $("#fsCell38307753").removeClass("fsHidden");
           solutionPdf.removeAttr("disabled");
           solutionKb.val(obj[cont].Solucion_KB);
         }
-        else if (obj[cont].Solucion_KB == "-") {
+        else if (obj[cont].Solucion_KB === "-") {
           hasNoSolution.attr("checked", true);
           $("#fsCell38861739").addClass("fsHidden");
           $("#fsCell38307753").addClass("fsHidden");
           solutionPdf.attr("disabled");
         }
 
-        if ($("#field38392454").val() == "Detallado") {
+        if ($("#field38392454").val() === "Detallado") {
           threat.val(obj[cont].Amenaza);
           risk.val(obj[cont].Riesgo);
         }
 
-        // If(obj[cont].Exploit == "Sí"){
-        if ($("#field38529253").val() == 0.950) {
+        // If(obj[cont].Exploit === "Sí"){
+        if ($("#field38529253").val() === 0.950) {
           exploit.prop("required", true);
           exploit.addClass("fsRequired");
           exploit.attr("aria-required", true);
@@ -118,7 +118,7 @@ function showInfo (data, tabletop) {
         }
         break;
       }
-      if (cont == obj.length - 1) {
+      if (cont === obj.length - 1) {
         description.val("");
         requirement.val("");
         solution.val("");
@@ -147,20 +147,20 @@ $(donde).focusout(function focusoutDonde () {
 
 $(requirement).focusout(function focusoutRequirement () {
   requirement.val($.trim(requirement.val()));
-  if (requirement.val()[requirement.val().length - 1] != ".") {
+  if (requirement.val()[requirement.val().length - 1] !== ".") {
     requirement.val(`${requirement.val()}.`);
   }
-  if (isUpperCase(requirement.val()[0]) == false) {
+  if (isUpperCase(requirement.val()[0]) === false) {
     requirement.val(requirement.val().capitalizeFirstLetter());
   }
 });
 
 $(description).focusout(function focusoutDescription () {
   description.val($.trim(description.val()));
-  if (description.val()[description.val().length - 1] != ".") {
+  if (description.val()[description.val().length - 1] !== ".") {
     description.val(`${description.val()}.`);
   }
-  if (isUpperCase(description.val()[0]) == false) {
+  if (isUpperCase(description.val()[0]) === false) {
     description.val(description.val().capitalizeFirstLetter());
   }
   description.val(description.val());
@@ -168,30 +168,30 @@ $(description).focusout(function focusoutDescription () {
 
 $(solution).focusout(function focusoutSolution () {
   solution.val($.trim(solution.val()));
-  if (solution.val()[solution.val().length - 1] != ".") {
+  if (solution.val()[solution.val().length - 1] !== ".") {
     solution.val(`${solution.val()}.`);
   }
-  if (isUpperCase(solution.val()[0]) == false) {
+  if (isUpperCase(solution.val()[0]) === false) {
     solution.val(solution.val().capitalizeFirstLetter());
   }
 });
 
 $(risk).focusout(function focusoutRisk () {
   risk.val($.trim(risk.val()));
-  if (risk.val()[risk.val().length - 1] != ".") {
+  if (risk.val()[risk.val().length - 1] !== ".") {
     risk.val(`${risk.val()}.`);
   }
-  if (isUpperCase(risk.val()[0]) == false) {
+  if (isUpperCase(risk.val()[0]) === false) {
     risk.val(risk.val().capitalizeFirstLetter());
   }
 });
 
 $(threat).focusout(function focusoutThreat () {
   threat.val($.trim(threat.val()));
-  if (threat.val()[threat.val().length - 1] != ".") {
+  if (threat.val()[threat.val().length - 1] !== ".") {
     threat.val(`${threat.val()}.`);
   }
-  if (isUpperCase(threat.val()[0]) == false) {
+  if (isUpperCase(threat.val()[0]) === false) {
     threat.val(threat.val().capitalizeFirstLetter());
   }
 });
@@ -209,11 +209,11 @@ $(evidenciaHallazgo).change(function changeEvidence () {
 $(exploit).change(function changeExploit () {
   const exploitUpload = $(exploit).val().
     split("\\")[2].split(".")[0];
-  if (exploitUpload != "exploit") {
+  if (exploitUpload !== "exploit") {
     $msg.error("El archivo se debe llamar: exploit");
     exploit.val("");
   }
-  else if (exploitUpload == "exploit") {
+  else if (exploitUpload === "exploit") {
     exploit.attr("aria-invalid", false);
   }
 });
@@ -221,11 +221,11 @@ $(exploit).change(function changeExploit () {
 $(evidenciaExplotacion).change(function changeExploitation () {
   const explotacionUpload = $(evidenciaExplotacion).val().
     split("\\")[2].split(".")[0];
-  if (explotacionUpload != "evidencia-de-explotacion") {
+  if (explotacionUpload !== "evidencia-de-explotacion") {
     $msg.error("El archivo se debe llamar: evidencia-de-explotacion");
     evidenciaExplotacion.val("");
   }
-  else if (explotacionUpload == "evidencia-de-explotacion") {
+  else if (explotacionUpload === "evidencia-de-explotacion") {
     evidenciaExplotacion.attr("aria-invalid", false);
   }
 });
@@ -233,11 +233,11 @@ $(evidenciaExplotacion).change(function changeExploitation () {
 $(animacion).change(function changeAnimation () {
   const animacionUpload = $(animacion).val().
     split("\\")[2].split(".")[0];
-  if (animacionUpload != "animacion-de-explotacion") {
+  if (animacionUpload !== "animacion-de-explotacion") {
     $msg.error("El archivo se debe llamar: animacion-de-explotacion");
     animacion.val("");
   }
-  else if (animacionUpload == "animacion-de-explotacion") {
+  else if (animacionUpload === "animacion-de-explotacion") {
     animacion.attr("aria-invalid", false);
   }
 });
@@ -245,7 +245,7 @@ $(animacion).change(function changeAnimation () {
 $(solutionPdf).change(function changeSolution () {
   const solUpload = $(solutionPdf).val().
     split("\\")[2].split(".")[0];
-  if (solUpload != "solucion") {
+  if (solUpload !== "solucion") {
     $msg.error("El archivo se debe llamar: solucion");
     solutionPdf.val("");
   }

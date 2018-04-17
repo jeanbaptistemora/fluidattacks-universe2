@@ -31,14 +31,14 @@ integrates.factory("eventualityFactory", function eventualityFactory ($q) {
           },
           "error" (xhr, status) {
             $(".loader").hide();
-            if (xhr.status == 500) {
+            if (xhr.status === 500) {
               Rollbar.error("Error: An error ocurred loading data");
               deferred.resolve({
                 "error": null,
                 "message": "Error interno cargando datos"
               });
             }
-            else if (xhr.status == 401) {
+            else if (xhr.status === 401) {
               Rollbar.error("Error: 401 Unauthorized");
               window.location = "error401";
             }
@@ -51,7 +51,7 @@ integrates.factory("eventualityFactory", function eventualityFactory ($q) {
         });
       }
       catch (err) {
-        if (err.status == 401) {
+        if (err.status === 401) {
           Rollbar.error("Error: 401 Unauthorized");
           window.location = "error401";
         }
@@ -75,14 +75,14 @@ integrates.factory("eventualityFactory", function eventualityFactory ($q) {
           "data": {vuln},
           "error" (xhr, status) {
             $(".loader").hide();
-            if (xhr.status == 500) {
+            if (xhr.status === 500) {
               Rollbar.error("Error: An error ocurred loading data");
               deferred.resolve({
                 "error": null,
                 "message": "Error interno cargando datos"
               });
             }
-            else if (xhr.status == 401) {
+            else if (xhr.status === 401) {
               Rollbar.error("Error: 401 Unauthorized");
               window.location = "error401";
             }
@@ -95,11 +95,11 @@ integrates.factory("eventualityFactory", function eventualityFactory ($q) {
         });
       }
       catch (err) {
-        if (err.status == 401) {
+        if (err.status === 401) {
           Rollbar.error("Error: 401 Unauthorized");
           window.location = "error401";
         }
-        else if (err.status == 500) {
+        else if (err.status === 500) {
           Rollbar.error("Error: An error ocurred loading data");
           deferred.resolve({
             "error": "undefined",

@@ -71,7 +71,7 @@ integrates.controller("dashboardCtrl", function dashboardCtrl (
    * @return {undefined}
    */
   $scope.changeLang = function changeLang (langKey) {
-    if (langKey == "es" || langKey == "en") {
+    if (langKey === "es" || langKey === "en") {
       localStorage.lang = langKey;
     }
     $translate.use(localStorage.lang);

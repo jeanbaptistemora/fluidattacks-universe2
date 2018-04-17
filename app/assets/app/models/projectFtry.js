@@ -181,10 +181,10 @@ integrates.factory("projectFtry", function projectFtry ($q, $translate) {
           data,
           "error" (xhr, status, response) {
             $(".loader").hide();
-            if (xhr.status == 500) {
+            if (xhr.status === 500) {
               Rollbar.error("Error: An error ocurred loading data");
             }
-            else if (xhr.status == 401) {
+            else if (xhr.status === 401) {
               Rollbar.error("Error: 401 Unauthorized");
               window.location = "error401";
             }
@@ -201,7 +201,7 @@ integrates.factory("projectFtry", function projectFtry ($q, $translate) {
         });
       }
       catch (err) {
-        if (err.status == 401) {
+        if (err.status === 401) {
           Rollbar.error("Error: 401 Unauthorized");
           window.location = "error401";
         }

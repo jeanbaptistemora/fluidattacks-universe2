@@ -53,6 +53,9 @@ rules:
   default-case: error
   dot-location: error
   dot-notation: error
+  eqeqeq:
+    - error
+    - smart
   guard-for-in: error
   no-alert: error
   no-caller: error

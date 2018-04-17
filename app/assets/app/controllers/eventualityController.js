@@ -18,7 +18,7 @@ function afectacionFormatter (value, row, index) {
     return "0";
   }
   if (!isFinite(value)) {
-    if (value.trim() == "") {
+    if (value.trim() === "") {
       return "0";
     }
   }
@@ -36,7 +36,7 @@ integrates.evntTotalize = function evntTotalize (data) {
   let afectacion = 0;
   for (let cont = 0; cont < data.data.length; cont++) {
     let auxAfectacion = 0;
-    if (data.data[cont].afectacion != "") {
+    if (data.data[cont].afectacion !== "") {
       auxAfectacion += parseInt(data.data[cont].afectacion, 10);
     }
     afectacion += auxAfectacion;
@@ -56,7 +56,7 @@ integrates.updateEvntRow = function updateEvntRow (row) {
   const newData = [];
   for (let cont = 0; cont < data.length; cont++) {
     delete data[cont][cont.toString()];
-    if (data[cont].id == row.id) {
+    if (data[cont].id === row.id) {
       newData.push(row);
     }
     else {
@@ -120,7 +120,7 @@ integrates.controller("eventualityController", function eventualityController ($
    */
   $scope.openModalVer = function openModalVer () {
     const sel = $("#eventualities").bootstrapTable("getSelections");
-    if (sel.length == 0) {
+    if (sel.length === 0) {
       Rollbar.error("Error: No events are selected");
       $.gritter.add({
         "class_name": "color warning",
@@ -135,7 +135,7 @@ integrates.controller("eventualityController", function eventualityController ($
     const modalInstance = $uibModal.open({
       "animation": true,
       "controller" ($scope, $uibModalInstance, currentEventuality) {
-        if (currentEventuality.afectacion == "") {
+        if (currentEventuality.afectacion === "") {
           currentEventuality.afectacion = "0";
         }
         $scope.evnt = currentEventuality;
@@ -182,7 +182,7 @@ integrates.controller("eventualityController", function eventualityController ($
    */
   $scope.openModalEditar = function openModalEditar () {
     const sel = $("#eventualities").bootstrapTable("getSelections");
-    if (sel.length == 0) {
+    if (sel.length === 0) {
       Rollbar.error("Error: No events are selected");
       $.gritter.add({
         "class_name": "color warning",
@@ -198,7 +198,7 @@ integrates.controller("eventualityController", function eventualityController ($
     const modalInstance = $uibModal.open({
       "animation": true,
       "controller" ($scope, $uibModalInstance, currentEventuality) {
-        if (currentEventuality.afectacion == "") {
+        if (currentEventuality.afectacion === "") {
           currentEventuality.afectacion = "0";
         }
         $scope.evnt = currentEventuality;
@@ -208,7 +208,7 @@ integrates.controller("eventualityController", function eventualityController ($
           const neg = "negativo";
           let submit = false;
           try {
-            if (typeof $scope.evnt.afectacion == "undefined") {
+            if (typeof $scope.evnt.afectacion === "undefined") {
               throw neg;
             }
             submit = true;

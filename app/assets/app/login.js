@@ -12,7 +12,7 @@ const BASE = {
   "production": "/integrates/"
 };
 BASE.url = BASE.production;
-if (window.location.pathname.indexOf("/integrates") == -1) {
+if (window.location.pathname.indexOf("/integrates") === -1) {
   BASE.url = BASE.development;
 }
 // Definicion de modulos
@@ -52,7 +52,7 @@ integrates.config([
  * MixPanel localhost Fixer
  */
 integrates.isProduction = function isProduction () {
-  return window.location.toString().indexOf("localhost:8000") == -1;
+  return window.location.toString().indexOf("localhost:8000") === -1;
 };
 
 /**
@@ -64,7 +64,7 @@ integrates.isProduction = function isProduction () {
  */
 integrates.controller("loginController", function loginController ($scope, $translate) {
   $scope.lang = function lang (langKey) {
-    if (langKey == "es" || langKey == "en") {
+    if (langKey === "es" || langKey === "en") {
       localStorage.lang = langKey;
     }
     $translate.use(localStorage.lang);
@@ -87,8 +87,8 @@ integrates.controller("loginController", function loginController ($scope, $tran
         "title": ""
       });
     }
-    else if (username.trim() == "" ||
-            password.trim() == "") {
+    else if (username.trim() === "" ||
+            password.trim() === "") {
       $.gritter.add({
         "class_name": "color warning",
         "sticky": false,
@@ -106,7 +106,7 @@ integrates.controller("loginController", function loginController ($scope, $tran
         "url": `${BASE.url}login/`
       }).done(function done (err) {
         let color = "warning";
-        if (err.error == true) {
+        if (err.error === true) {
           color = "warning";
         }
         else {
@@ -118,7 +118,7 @@ integrates.controller("loginController", function loginController ($scope, $tran
           "text": err.message,
           "title": ""
         });
-        if (color == "success") {
+        if (color === "success") {
           redirector = function () {
             window.location = `${BASE.url}dashboard`;
           };

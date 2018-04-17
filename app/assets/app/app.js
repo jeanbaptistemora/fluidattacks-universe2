@@ -12,11 +12,11 @@
  */
 function getCookie (name) {
   let cookieValue = null;
-  if (document.cookie && document.cookie != "") {
+  if (document.cookie && document.cookie !== "") {
     const cookies = document.cookie.split(";");
     for (let cont = 0; cont < cookies.length; cont++) {
       const cookie = jQuery.trim(cookies[cont]);
-      if (cookie.substring(0, name.length + 1) == `${name}=`) {
+      if (cookie.substring(0, name.length + 1) === `${name}=`) {
         cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
         break;
       }
@@ -46,8 +46,8 @@ function sameOrigin (url) {
   const protocol = document.location.protocol;
   const srOrigin = `//${host}`;
   const origin = protocol + srOrigin;
-  return url == origin || url.slice(0, origin.length + 1) == `${origin}/` ||
-        (url == srOrigin || url.slice(0, srOrigin.length + 1) == `${srOrigin}/`) ||
+  return url === origin || url.slice(0, origin.length + 1) === `${origin}/` ||
+        (url === srOrigin || url.slice(0, srOrigin.length + 1) === `${srOrigin}/`) ||
         !(/^(\/\/|http:|https:).*/).test(url);
 }
 
@@ -75,7 +75,7 @@ const BASE = {
   "production": "/integrates/"
 };
 BASE.url = BASE.production;
-if (location.pathname.indexOf("/integrates") == -1) {
+if (location.pathname.indexOf("/integrates") === -1) {
   BASE.url = BASE.development;
 }
 const $msg = {};
@@ -129,7 +129,7 @@ const integrates = angular.module("FluidIntegrates", [
 integrates.config([
   "RollbarProvider",
   function initRollbar (RollbarProvider) {
-    const isProduction = location.toString().indexOf("localhost:8000") == -1;
+    const isProduction = location.toString().indexOf("localhost:8000") === -1;
     RollbarProvider.init({
       "accessToken": "cad6d1f7ecda480ba003e29f0428d44e",
       "captureUncaught": true,

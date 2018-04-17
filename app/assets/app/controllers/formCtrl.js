@@ -26,12 +26,12 @@ integrates.controller(
     const urlForm = $location.search();
     const urlLength = Object.keys(urlForm).length;
     const lengthUrl = 0;
-    if (urlLength > lengthUrl && urlForm.autocomplete == "true") {
+    if (urlLength > lengthUrl && urlForm.autocomplete === "true") {
       // Formulario de avance
       $("#ifrmProgress").on("load", function load () {
         const iframe = document.getElementById("ifrmProgress");
         const innerDoc = iframe.contentDocument || iframe.contentWindow.document;
-        if (urlForm["Tipo de Avance"] == "Proyecto") {
+        if (urlForm["Tipo de Avance"] === "Proyecto") {
           // InnerDoc.getElementById("field43795015_1").setAttribute("checked", true);
           innerDoc.getElementById("field28635595").value = urlForm.Talento;
           innerDoc.getElementById("field47449040").value = urlForm.Bug;
@@ -70,7 +70,7 @@ integrates.controller(
           innerDoc.getElementById("field57918852").value = urlForm.VulnerabilidadesH;
           innerDoc.getElementById("field28635669").value = urlForm.VulnerabilidadesS;
         }
-        else if (urlForm["Tipo de Avance"] == "Standard") {
+        else if (urlForm["Tipo de Avance"] === "Standard") {
           // InnerDoc.getElementById("field43795015_2").setAttribute("checked", true);
           innerDoc.getElementById("field28635595").value = urlForm.Talento;
           innerDoc.getElementById("field28634672").value = urlForm["Organización"];
