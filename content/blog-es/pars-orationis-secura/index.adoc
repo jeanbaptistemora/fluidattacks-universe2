@@ -13,30 +13,31 @@
 :about1: Mathematician
 :about2: with an itch for CS
 :source-highlighter: pygments
+:translate: pars-orationis-secura/
 
 = Pars orationis non est secura
 
 Nos gusta link:http://itsecgames.com/[+bWAPP+] por aquí,
 porque es muy defectuoso !.
 Aquí hemos mostrado cómo encontrar y explotar vulnerabilidades como
-link:../../../en/blog/fuzzy-bugs-online/#comparison-with-manual-injection/[+SQL+]
-link:../../../en/blog/protect-organization-hacker-lamer/#[injection],
-link:../../../en/blog/gherkin-steroids/#dynamic-detection-and-exploitation/[directory traversal],
-link:../../../en/blog/xml-exploitable-markup-language/#injecting-xpath-into-a-vulnerable-app/[+XPath+ injection],
+link:../../../en/blog/fuzzy-bugs-online/#comparison-with-manual-injection[+SQL+]
+link:../../../en/blog/importance-pentesting/[injection],
+link:../../../en/blog/gherkin-steroids/#dynamic-detection-and-exploitation[directory traversal],
+link:../../../en/blog/xml-exploitable-markup-language/#injecting-xpath-into-a-vulnerable-app[+XPath+ injection],
 y
-link:../../../en/blog/app-pickle-document-gherkin/#documenting-attack-vectors/[+UNIX+ command injection].
+link:../../../en/blog/app-pickle/#documenting-attack-vectors[+UNIX+ command injection].
 Todos ellas tienen una cosa en común, la cual es:
 podrían haberse evitado con un poco de
 link:https://www.owasp.org/index.php/Data_Validation[ validación de entradas].
 En +PHP+ esto podría haberse hecho
 con funciones como +fgetss+,
-link:../app-pickle-document-gherkin/[+str_replace+] o
-link:../gherkin-steroids/[+strpos+].
+link:../../../en/blog/app-pickle/[+str_replace+] o
+link:../../../en/blog/gherkin-steroids/[+strpos+].
 
 Tomando algunas ideas del
-link:../stand-shoulders-giants/[análisis de código estático]
+link:../../../en/blog/stand-shoulders-giants/[análisis de código estático]
 y el enfoque de
-link:../oracle-code/['código-como-datos']
+link:../../../en/blog/oracle-code/['código-como-datos']
 ¿qué pasaría si pudiéramos utilizar algún tipo de código
 o herramienta de análisis de sintaxis para obtener información
 acerca de dónde se encuentran las debilidades de las aplicaciones?
@@ -206,7 +207,7 @@ Ahora tienen dos problemas
 == Aprendiendo el idioma
 
 Ahora que hemos excluido las expresiones regulares,
-tenemos que elegir un analizador.
+tenemos que elegir un intérprete.
 Aparentemente el estándar por un tiempo solía ser la combinación de
 link:http://dinosaur.compilertools.net/[+lex+ and +yacc+],
 lo cual era bastate complicado.
@@ -232,7 +233,7 @@ a las diferentes entradas u objetivos a encontrar.
 * Incluye algunas funciones de ayuda bastante útiles,
 como acciones de conversión (convertir una cadena de dígitos a un entero).
 
-En +pyparsing+ el analizador más externo
+En +pyparsing+ el intérprete más externo
 para la sentencia +INSERT+ se traduce a:
 
 [source,python]

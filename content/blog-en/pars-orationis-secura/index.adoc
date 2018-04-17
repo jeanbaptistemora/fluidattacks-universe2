@@ -13,6 +13,7 @@
 :about1: Mathematician
 :about2: with an itch for CS
 :source-highlighter: pygments
+:translate: pars-orationis-secura/
 
 = Pars orationis non est secura
 
@@ -22,18 +23,18 @@ around here,
 because it's 'very buggy!'.
 We have shown here how to find and exploit
 vulnerabilities like
-link:../fuzzy-bugs-online/#comparison-with-manual-injection/[+SQL+]
-link:../protect-organization-hacker-lamer/#[injection],
-link:../gherkin-steroids/#dynamic-detection-and-exploitation/[directory traversal],
-link:../xml-exploitable-markup-language/#injecting-xpath-into-a-vulnerable-app/[+XPath+ injection],
+link:../fuzzy-bugs-online/#comparison-with-manual-injection[+SQL+]
+link:../importance-pentesting/[injection],
+link:../gherkin-steroids/#dynamic-detection-and-exploitation[directory traversal],
+link:../xml-exploitable-markup-language/#injecting-xpath-into-a-vulnerable-app[+XPath+ injection],
 and
-link:../app-pickle-document-gherkin/#documenting-attack-vectors/[+UNIX+ command injection].
+link:../app-pickle/#documenting-attack-vectors[+UNIX+ command injection].
 All of these have one thing in common, namely:
 they could have been prevented with a little
 link:https://www.owasp.org/index.php/Data_Validation[Input Validation].
 In +PHP+ this could have been done
 with functions such as +fgetss+,
-link:../app-pickle-document-gherkin/[+str_replace+] or
+link:../app-pickle/[+str_replace+] or
 link:../gherkin-steroids/[+strpos+].
 
 Taking some ideas from
