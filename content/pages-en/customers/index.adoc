@@ -2,19 +2,79 @@
 :description: FLUID is a company focused on information security, ethical hacking, penetration testing and vulnerabilities detection in applications with over 18 years of experience in the colombian market. In this page we present our contributions to the sectors we work with.
 :keywords: FLUID, Information, Solutions, Sectors, Security, Ethical Hacking.
 :translate: clientes/
+:caption:
 
 = Customers
 
-== link:financial/[Financial]
+[role="tb-alt"]
+[cols=2, frame="none"]
+|====
+a|== link:financial/[Financial]
 
-== link:communications/[Communications]
++FLUIDAttacks+ customers in the financial sector
+comprise some of the most important banks in Latin America,
+besides companies in charge of the collection of social savings,
+among others.
+Some of our customers are +Bancolombia+, +BBVA+,
++Davivienda+, +Sura+, +Protección+, +Colpatria+.
+a|.Icon made by link:https://creativemarket.com/eucalyp[Eucalyp] from link:www.flaticon.com[Flaticon]
+image::financial.png[Dollar sign]
 
-== link:consumer/[Consumer]
 
-== link:technology/[Technology]
+a|.Icon made by link:https://smashicons.com/[Smashicons] from link:www.flaticon.com[Flaticon]
+image::communications.png[Smartphone]
+a|== link:communications/[Communications]
 
-== link:utilities/[Utilities]
++FLUIDAttacks+ has offered solutions to some of the main providers
+of communication services in Colombia, such as +Claro+,
++Tigo UNE+, +ETB+, +Edatel+, among others.
 
-== link:industrial/[Industrial]
+a|== link:consumer/[Consumer]
 
-== link:transportation/[Transportation]
+We have worked with many companies which aim to please the customer
+from different areas, be them retail activities, +E-Commerce+,
+textile industry, or technology solutions.
+Some of these customers are +Grupo Éxito+, +Grupo Uribe+, +Rappi+, +Semana+,
+and the australian company +The Missing Link+.
+a|.Icon made by mynamepong from link:www.flaticon.com[Flaticon]
+image::consumer.png[Customers with different reactions]
+
+a|.Icon made by link:https://smashicons.com/[Smashicons] from link:www.flaticon.com[Flaticon]
+image::technology.png[Server and database]
+a|== link:technology/[Technology]
+
++FLUIDAttacks+ has contributed to companies that offer software,
+infrastructure and other technology solutions to their customers,
+in a wide range of applications.
+Some of our customers in this area are +PSL+, +S4N+, +Arus+, +Ceiba+,
+the american companies +Cre8tive+, +KometSales+ and +VM2020+,
+and the spanish company +Indra+.
+
+a|== link:utilities/[Utilities]
+
+We have also executed projects in companies that specialize
+in the energy sector, wether it is generation, distribution and selling, like
++Celsia+, or planning, designing and managing the transactional systems,
+like +XM+.
+a|.Icon made by Good Ware from link:www.flaticon.com[Flaticon]
+image::utilities.png[Ligthning symbol]
+
+a|.Icon made by link:https://www.freepik.com/[Freepik] from link:www.flaticon.com[Flaticon]
+image::industrial.png[Factory]
+a|== link:industrial/[Industrial]
+
+We have also assisted several manufacturers and participants
+of the industrial sector in their software security
+and infrastructure security needs.
+Some of these customers are +Grupo Argos+, +Manuelita+, +Corona+, +Cadena+ and
++Odinsa+.
+
+a|== link:transportation/[Transportation]
+
++FLUIDAttacks+ has worked with transportation giants like +Avianca+
+and +F2X+ to ensure that their applications and web platforms
+offer the best security to their users.
+a|.Icon made by link:https://www.freepik.com/[Freepik] from link:www.flaticon.com[Flaticon]
+image::transportation.png[Bus frontal view]
+
+|====

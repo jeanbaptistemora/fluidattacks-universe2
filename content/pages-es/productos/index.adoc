@@ -2,15 +2,56 @@
 :description: FLUID tiene a su disposición una serie de productos que tienen como finalidad ayudar al cliente durante el proceso de pruebas de seguridad, mejorar su experiencia y acercar al cliente con el hacker. Nuestros productos más destacados son Integrates, Asserts y Commands.
 :keywords: FLUID, Productos, Pruebas, Software, Hallazgos, Seguridad.
 :translate: products/
+:caption:
 
 = Productos
 
-== link:integrates/[Integrates]
+[role="tb-alt"]
+[cols=2, frame="none"]
+|====
 
-== link:asserts/[Asserts]
+a|== link:integrates/[Integrates]
 
-== link:rules/[Rules]
+Sistema donde confluyen todos los interesados en el proyecto.
+Busca acercar al +hacker+ y al desarrollador,
+además de ofrecer la habilidad para remediar vulnerabilidades reportadas
+de una manera efectiva.
+a|.Ícono hecho por link:https://www.alfredocreates.com/[Alfredo Hernandez] de link:https://www.flaticon.com[Flaticon]
+image::integrates.png[Ventana de un navegador Web]
 
-== link:defends/[Defends]
+a|.Ícono hecho por link:https://www.freepik.com/[Freepik] de link:https://www.flaticon.com[Flaticon]
+image::asserts.png[Lupa encontrando un error en un documento]
+a|== link:asserts/[Asserts]
 
-== link:commands/[Commands]
+Motor para automatizar el cierre de hallazgos de seguridad
+sobre ambientes en ejecución.
+Puede ser ejecutado en computadores con Sistemas Operativos +Windows+ o +Linux+,
+y también puede incluirse en tu ambiente de +Integración Continua+.
+
+a|== link:rules/[Rules]
+
+Conjunto de requisitos usados para parametrizar un +pen test+.
+Estas reglas determinan qué tan riguroso es realmente un +pen test+,
+definiendo qué es lo que se va a probar,
+y qué es lo que será considerado como una vulnerabilidad.
+a|.Ícono hecho por link:https://smashicons.com/[Smashicons] de link:https://www.flaticon.com[Flaticon]
+image::rules.png[Lista de ítems]
+
+a|.Ícono hecho por link:https://smashicons.com/[Smashicons] de link:https://www.flaticon.com[Flaticon]
+image::defends.png[Escudo]
+a|== link:defends/[Defends]
+
+Conjunto de procedimientos detallados que permiten el desarrollo
+de aplicaciones seguras, la configuración segura de componentes tecnológicos,
+y la remediación de vulnerabilidades encontradas
+y reportadas por nosostros.
+
+a|== link:commands/[Commands]
+
++Ciberarma+ desarrollada completamente por nosotros para una penetración
+más profunda en estaciones de trabajo y servidores críticos durante
+un +pen test+.
+a|.Ícono hecho por link:https://www.freepik.com/[Freepik] de link:https://www.flaticon.com[Flaticon]
+image::commands.png[Interfaz Línea de Comandos]
+
+|====
