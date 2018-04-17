@@ -1,0 +1,13 @@
+:slug: rules/308/
+:category: rules
+:description: En el presente documento se detallan los requerimientos relacionados a la gestión adecuada en cuanto a los acuerdos por servicios se refiere. Por lo tanto, para este requerimiento, se recomienda que todo contrato esté amparado por clausulas de responsabilidad.
+:keywords: Contrato, Fraude, Clausulas, Servicio, Eventos, Seguridad.
+:rules: yes
+
+= REQ.308 Establecer clausulas de responsabilidad
+
+== Nombre
+
+El contrato de un servicio
+debe contar con clausulas de responsabilidad
+ante eventos de seguridad o fraude.

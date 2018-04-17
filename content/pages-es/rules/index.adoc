@@ -389,3 +389,4 @@
 * link:021/[REQ.021 Garantizar cumplimiento requisitos].
 * link:022/[REQ.022 Permitir auditorías de cliente].
 * link:307/[REQ.307 Establecer clausulas de confidencialidad].
+* link:308/[REQ.308 Establecer clausulas de responsabilidad].
