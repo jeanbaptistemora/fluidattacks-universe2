@@ -185,6 +185,10 @@
 * link:199/[REQ.199 Determinar acceso con dispositivos foráneos].
 * link:200/[REQ.200 LLevar un registro de máquinas].
 
+== Físicos
+
+* link:201/[REQ.201 Detectar manipulación de dispositivo].
+
 == Criptografía
 
 * link:145/[REQ.145 Proteger llaves del sistema].
