@@ -165,12 +165,15 @@ A menos que el lenguaje obligue a lo contrario,
 el código fuente siempre debe:
 
 . Estar en inglés (incluso los comentarios).
-. Identar utilizando +2+ espacios en lugar de tabulaciones.
+. Indentar utilizando +2+ espacios en lugar de tabulaciones.
 . Utilizar el estilo de llaves (+brace style+)
 link:https://en.wikipedia.org/wiki/Indentation_style#Variant:_Stroustrup[stroustrup]
 en su variante sin bloques de una línea (+one liners+).
 link:https://eslint.org/docs/rules/brace-style#stroustrup[Ejemplo].
-. Las lineas no deben superar los +80+ caracteres de longitud.
+. Las líneas no deben superar los +80+ caracteres de longitud.
+. No debe contener
+link:https://en.wikipedia.org/wiki/Comment_(computer_programming)#Debugging[comentarios de +debug+]
+abandonados.
 
 Los fragmentos de código fuente embebidos en documentos siempre deben:
 
