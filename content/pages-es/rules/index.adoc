@@ -190,6 +190,7 @@
 * link:201/[REQ.201 Detectar manipulación de dispositivo].
 * link:202/[REQ.202 Eliminar información confidencial].
 * link:203/[REQ.203 Ocultar ingreso de información].
+* link:204/[REQ.204 Permitir visualización perpendicular].
 
 == Criptografía
 
