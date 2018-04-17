@@ -390,3 +390,4 @@
 * link:022/[REQ.022 Permitir auditorías de cliente].
 * link:307/[REQ.307 Establecer clausulas de confidencialidad].
 * link:308/[REQ.308 Establecer clausulas de responsabilidad].
+* link:309/[REQ.309 Establecer requisitos contractuales].
