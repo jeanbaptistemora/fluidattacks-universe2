@@ -1,4 +1,3 @@
-//scss-lint:disable max-file-line-count
 $aqua: rgba(0, 255, 255, 1);
 $black: rgba(0, 0, 0, 1);
 $blue: rgba(0, 0, 255, 1);
@@ -701,18 +700,18 @@ article {
   text-align: center;
 }
 
-.at-expanding-share-button-desktop {
-  bottom: 90px;
-  right: 26px;
+//scss-lint:disable ImportantRule
+.at-expanding-share-button[data-position=bottom-right] {
+  bottom: 90px !important;
+  right: 26px !important;
 }
+//scss-lint:enable ImportantRule
 
-//scss-lint:disable no-universal-selectors
 *,
 *::before,
 *::after {
   box-sizing: border-box;
 }
-//scss-lint:enable no-universal-selectors
 
 @media (min-width: 770px) {
   h1 {
