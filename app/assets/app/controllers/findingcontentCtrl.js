@@ -694,7 +694,7 @@ integrates.controller("findingcontentCtrl", function findingcontentCtrl (
   $scope.loadFindingContent = function loadFindingContent () {
     $scope.aux = {};
     $scope.aux.tratamiento = $scope.finding.tratamiento;
-    $scope.aux.razon = $scope.finding.razon_tratamiento;
+    $scope.aux.razon = $scope.finding.razonTratamiento;
     if ($scope.finding.tratamiento == "Asumido") {
       $scope.isAssumed = true;
     }
@@ -716,7 +716,7 @@ integrates.controller("findingcontentCtrl", function findingcontentCtrl (
     if ($scope.finding.suscripcion != "Concurrente" && $scope.finding.suscripcion != "Puntual" && $scope.finding.suscripcion != "Continua") {
       Rollbar.warning(`Warning: Finding ${$scope.finding.id} without type`);
     }
-    $scope.aux.responsable = $scope.finding.responsable_tratamiento;
+    $scope.aux.responsable = $scope.finding.responsableTratamiento;
     $scope.aux.bts = $scope.finding.btsExterno;
     $scope.finding.hasUrl = $scope.hasUrl($scope.finding.btsExterno);
     $scope.finding.cweIsUrl = $scope.hasUrl($scope.finding.cwe);
@@ -1141,7 +1141,6 @@ integrates.controller("findingcontentCtrl", function findingcontentCtrl (
     $scope.list.explotability = explotability;
     $scope.list.resolutionLevel = resolutionLevel;
     $scope.list.realiabilityLevel = realiabilityLevel;
-    $scope.list.treatment = tratamiento;
   };
   $scope.findingInformationTab = function findingInformationTab () {
     $scope.findingDropDownList();
@@ -1676,15 +1675,15 @@ integrates.controller("findingcontentCtrl", function findingcontentCtrl (
     });
   };
   $scope.validateTreatment = function validateTreatment () {
-    if ($scope.aux.razon === $scope.finding.razon_tratamiento) {
+    if ($scope.aux.razon === $scope.finding.razonTratamiento) {
       $msg.error($translate.instant("proj_alerts.differ_comment"));
       return false;
     }
-    else if ($scope.finding.razon_tratamiento === "") {
+    else if ($scope.finding.razonTratamiento === "") {
       $msg.error($translate.instant("proj_alerts.empty_comment"));
       return false;
     }
-    else if ($scope.finding.razon_tratamiento.length < 50 || $scope.finding.razon_tratamiento.length > 80) {
+    else if ($scope.finding.razonTratamiento.length < 50 || $scope.finding.razonTratamiento.length > 80) {
       $msg.error($translate.instant("proj_alerts.short_comment"));
       return false;
     }
@@ -1693,7 +1692,7 @@ integrates.controller("findingcontentCtrl", function findingcontentCtrl (
   };
   $scope.updateTreatment = function updateTreatment () {
     let flag = false;
-    if ($scope.aux.tratamiento === $scope.finding.tratamiento && $scope.aux.razon === $scope.finding.razon_tratamiento &&
+    if ($scope.aux.tratamiento === $scope.finding.tratamiento && $scope.aux.razon === $scope.finding.razonTratamiento &&
       $scope.aux.bts !== $scope.finding.btsExterno) {
       flag = true;
     }
@@ -1704,8 +1703,8 @@ integrates.controller("findingcontentCtrl", function findingcontentCtrl (
       const newData = {
         "bts_externo": $scope.finding.btsExterno,
         "id": $scope.finding.id,
-        "razon_tratamiento": $scope.finding.razonTratamiento,
-        "responsable_tratamiento": $scope.finding.responsableTratamiento,
+        "razonTratamiento": $scope.finding.razonTratamiento,
+        "responsableTratamiento": $scope.finding.responsableTratamiento,
         "tratamiento": $scope.finding.tratamiento
       };
       const modalInstance = $uibModal.open({

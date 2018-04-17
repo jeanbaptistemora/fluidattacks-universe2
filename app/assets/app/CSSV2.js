@@ -202,10 +202,3 @@ const findingType = [
   {"name": "Seguridad"},
   {"name": "Higiene"}
 ];
-
-const tratamiento = [
-  {"name": "Asumido"},
-  {"name": "Nuevo"},
-  {"name": "Remediar"},
-  {"name": "Resuelto"}
-];

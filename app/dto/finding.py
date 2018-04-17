@@ -182,12 +182,12 @@ class FindingDTO(object):
         if "data[tratamiento]" in parameter:
             self.data[self.TRATAMIENTO] \
                 = parameter["data[tratamiento]"]
-        if "data[razon_tratamiento]" in parameter:
+        if "data[razonTratamiento]" in parameter:
             self.data[self.RAZON_TRATAMIENTO] \
-                = parameter["data[razon_tratamiento]"]
-        if "data[responsable_tratamiento]" in parameter:
+                = parameter["data[razonTratamiento]"]
+        if "data[responsableTratamiento]" in parameter:
             self.data[self.RESPONSABLE_TRATAMIENTO] \
-                = parameter["data[responsable_tratamiento]"]
+                = parameter["data[responsableTratamiento]"]
         if "data[bts_externo]" in parameter:
             self.data[self.BTS_EXTERNO] \
                 = parameter["data[bts_externo]"]
@@ -325,9 +325,9 @@ class FindingDTO(object):
             if finding["field"] == self.TRATAMIENTO:
                 self.data["tratamiento"] = finding["value"]
             if finding["field"] == self.RAZON_TRATAMIENTO:
-                self.data["razon_tratamiento"] = finding["value"]
+                self.data["razonTratamiento"] = finding["value"]
             if finding["field"] == self.RESPONSABLE_TRATAMIENTO:
-                self.data["responsable_tratamiento"] = finding["value"]
+                self.data["responsableTratamiento"] = finding["value"]
             if finding["field"] == self.BTS_EXTERNO:
                 self.data["bts_externo"] = finding["value"]
             if finding["field"] == self.CWE:

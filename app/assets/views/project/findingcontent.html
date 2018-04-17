@@ -314,22 +314,22 @@
                                       <select ng-model="finding.tratamiento"
                                               ng-show="!onlyReadableTab4"
                                               class="form-control">
-                                          <option ng-repeat="item in list.treatment"
-                                                  value="{{item.name}}">
-                                              {{item.name}}
-                                          </option>
+                                          <option value="Asumido">{{'finding_formstack.treatment_header.asummed' | translate}}</option>
+                                          <option value="Nuevo">{{'finding_formstack.treatment_header.working' | translate}}</option>
+                                          <option value="Remediar">{{'finding_formstack.treatment_header.remediated' | translate}}</option>
+                                          <option value="Resuelto">{{'finding_formstack.treatment_header.resolved' | translate}}</option>
                                       </select>
                                   </div>
                                   <div class="col-md-2 col-xs-12 col-sm-12 table-head"><label><b>{{'search_findings.tab_description.treat_justification' | translate}}</b></label></div>
                                   <div class="col-md-4 col-xs-12 col-sm-12 table-desc">
-                                      <p ng-show="onlyReadableTab4">{{finding.razon_tratamiento}}</p>
+                                      <p ng-show="onlyReadableTab4">{{finding.razonTratamiento}}</p>
                                       <textarea class="form-control no-resize"
                                                 ng-show="!onlyReadableTab4"
-                                                ng-model="finding.razonTratamiento">{{finding.razon_tratamiento}}</textarea>
+                                                ng-model="finding.razonTratamiento">{{finding.razonTratamiento}}</textarea>
                                   </div>
                                   <div class="col-md-2 col-xs-12 col-sm-12 table-head"><label><b>{{'search_findings.tab_description.treat_manager' | translate}}</b></label></div>
                                   <div class="col-md-4 col-xs-12 col-sm-12 table-desc">
-                                      <p>{{finding.responsable_tratamiento}}</p>
+                                      <p>{{finding.responsableTratamiento}}</p>
                                   </div>
                               </div>
                               <div class="row table-row" ng-show="!isManager">
