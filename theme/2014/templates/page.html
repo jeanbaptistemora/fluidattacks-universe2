@@ -113,12 +113,12 @@
             <div class="article-nav">
               <div class="prev-article">
                 {% if loop.previtem != undefined %}
-                  <div><a href="../../../{{ loop.previtem.slug }}"><< {{ loop.previtem.title }}</a></div>
+                  <div class="button"><a href="../../../{{ loop.previtem.slug }}"><< {{ loop.previtem.title }}</a></div>
                 {% endif %}
               </div>
               <div class="next-article">
                 {% if loop.nextitem != undefined %}
-                  <div><a href="../../../{{ loop.nextitem.slug }}">{{ loop.nextitem.title }} >></a></div>
+                  <div class="button"><a href="../../../{{ loop.nextitem.slug }}">{{ loop.nextitem.title }} >></a></div>
                 {% endif %}
               </div>
             </div>

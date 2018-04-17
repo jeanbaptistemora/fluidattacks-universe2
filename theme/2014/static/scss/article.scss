@@ -10,17 +10,15 @@ $white: rgba(255, 255, 255, 1);
   vertical-align: top;
   width: 40%;
 
-  div {
-    background: $darkblue;
+  .button {
     padding: 5px;
+    white-space: normal;
     width: fit-content;
   }
 
   a {
-    color: $white;
-
-    &:hover {
-      color: $lightblue;
+    &::after {
+      content: '';
     }
   }
 }
