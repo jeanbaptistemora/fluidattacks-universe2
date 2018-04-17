@@ -25,7 +25,7 @@ of our general partner agreement.
 [cols=2, frame="none"]
 |====
 
-^.^a|image:logo-arroyo.png[alt="Logo Arroyo",link="http://www.arroyo.consulting/"]
+a|image::logo-arroyo.png[alt="Logo Arroyo",link="http://www.arroyo.consulting/"]
 
 a|== Arroyo Consulting
 
@@ -45,9 +45,9 @@ The success of the services provided by the organization
 are based on research and qualified human resources,
 supported by a certified and effective methodology.
 
-^.^a|image:logo-choucair.png[alt="Logo Choucair",link="http://www.choucairtesting.com/"]
+a|image::logo-choucair.png[alt="Logo Choucair",link="http://www.choucairtesting.com/"]
 
-^.^a|image:logo-evolution.png[alt="Logo Evolution",link="http://www.evolution-it.com.co/"]
+a|image::logo-evolution.png[alt="Logo Evolution",link="http://www.evolution-it.com.co/"]
 
 a|== Evolution IT
 
@@ -68,9 +68,9 @@ tests on different mobile devices and tests automation throughout
 the life cycle of product development
 with 15 years of experience lending its services.
 
-^.^a|image:logo-greensqa.png[alt="Logo GreenSQA",link="http://greensqa.com/"]
+a|image::logo-greensqa.png[alt="Logo GreenSQA",link="http://greensqa.com/"]
 
-^.^a|image:logo-newnet.png[alt="Logo NewNet",link="http://www.newnetsa.com/"]
+a|image::logo-newnet.png[alt="Logo NewNet",link="http://www.newnetsa.com/"]
 
 a|== NewNet
 Colombian company dedicated to provide services and solutions in +IT+,
@@ -90,9 +90,9 @@ in the target market(s) both in the short and long-term.
 SBA services include marketing, sales, operational support,
 and capital fundraising.
 
-^.^a|image:logo-sba.png[alt="Logo SBA",link="http://strategicbusinessalliance.com/"]
+a|image::logo-sba.png[alt="Logo SBA",link="http://strategicbusinessalliance.com/"]
 
-^.^a|image:logo-teraport.png[alt="Logo Teraport",link="http://teraport.de"]
+a|image::logo-teraport.png[alt="Logo Teraport",link="http://teraport.de"]
 
 a|== Teraport
 
@@ -111,7 +111,7 @@ communications and cloud services.
 Recognized as a leader industry and accredited with the highest levels
 in design, delivery and support of the latest technologies.
 
-^.^a|image:logo-tml.png[alt="Logo The Missing Link",link="https://www.themissinglink.com.au/"]
+a|image::logo-tml.png[alt="Logo The Missing Link",link="https://www.themissinglink.com.au/"]
 
 |====
 

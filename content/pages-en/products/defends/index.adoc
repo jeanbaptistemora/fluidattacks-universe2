@@ -18,6 +18,7 @@ that we report in the shortest possible time.
 
 You can access the product [button]#link:../../defends/[here]#
 
+[role="tb-alt"]
 [cols=2, frame="none"]
 |===
 

@@ -11,7 +11,7 @@
 [role="energia tb-alt"]
 [cols=2, frame="none"]
 |====
-^.^a|image:logo-celsia.png[alt="Logo Celsia",link="http://www.celsia.com/"]
+a|image::logo-celsia.png[alt="Logo Celsia",link="http://www.celsia.com/"]
 
 a|== Celsia
 
@@ -30,9 +30,9 @@ Cuenta con +48.866+ km de red de fibra óptica en Latinoamérica.
 Sirve a los operadores que prestan servicios de larga distancia,
 valor agregado, internet, comunicaciones móviles y televisión por cable.
 
-^.^a|image:logo-internexa.png[alt="Logo Internexa",link="http://www.internexa.com/SitePages/Inicio.aspx"]
+a|image::logo-internexa.png[alt="Logo Internexa",link="http://www.internexa.com/SitePages/Inicio.aspx"]
 
-^.^a|image:logo-xm.png[alt="Logo XM",link="https://www.xm.com.co/corporativo/Paginas/Nuestra-empresa/quienes-somos.aspx"]
+a|image::logo-xm.png[alt="Logo XM",link="https://www.xm.com.co/corporativo/Paginas/Nuestra-empresa/quienes-somos.aspx"]
 
 a|== XM
 

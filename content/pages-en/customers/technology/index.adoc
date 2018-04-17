@@ -13,7 +13,7 @@
 [role="tb-alt"]
 [cols=2, frame="none"]
 |====
-^.^a|image:logo-arus.png[alt="Logo Arus",link="https://www.arus.com.co/"]
+a|image::logo-arus.png[alt="Logo Arus",link="https://www.arus.com.co/"]
 
 a|== Arus
 
@@ -35,9 +35,9 @@ combining three fundamental elements:
 Solid technical capacity, various software tools
 and Knowledge in industry verticals.
 
-^.^a|image:logo-ceiba.png[alt="Logo Ceiba",link="https://www.ceiba.com.co/es"]
+a|image::logo-ceiba.png[alt="Logo Ceiba",link="https://www.ceiba.com.co/es"]
 
-^.^a|image:logo-conexia.png[alt="Logo Conexia",link="http://conexia.com/es/index.html"]
+a|image::logo-conexia.png[alt="Logo Conexia",link="http://conexia.com/es/index.html"]
 
 a|== Conexia
 Service company focused on the health industry,
@@ -58,9 +58,9 @@ and many other companies avoid the turbulence
 with industry-specific manufacturing +ERP+ software
 that keeps you flexible and lean.
 
-^.^a|image:logo-creative.png[alt="Logo Cre8tive",link="http://www.ctnd.com/"]
+a|image::logo-creative.png[alt="Logo Cre8tive",link="http://www.ctnd.com/"]
 
-^.^a|image:logo-heinson.png[alt="Logo Heinson",link="https://www.heinsohn.com.co"]
+a|image::logo-heinson.png[alt="Logo Heinson",link="https://www.heinsohn.com.co"]
 
 a|== Heinsohn
 
@@ -82,9 +82,9 @@ World leading provider of proprietary solutions in specific segments
 of the Transportation and Defense markets,
 and the leading company in Information Technology in Spain and Latin America.
 
-^.^a|image:logo-indra.png[alt="Logo Indra",link="https://www.indracompany.com/"]
+a|image::logo-indra.png[alt="Logo Indra",link="https://www.indracompany.com/"]
 
-^.^a|image:logo-intergrupo.png[alt="Logo Intergrupo",link="http://www.intergrupo.com/"]
+a|image::logo-intergrupo.png[alt="Logo Intergrupo",link="http://www.intergrupo.com/"]
 
 a|== Intergrupo
 
@@ -104,9 +104,9 @@ We provide the necessary tools to simplify daily operations,
 connecting the main industry partners
 and also providing peace of mind and confidence to our customers.
 
-^.^a|image:logo-komet.png[alt="Logo KometSales",link="https://www.kometsales.com/"]
+a|image::logo-komet.png[alt="Logo KometSales",link="https://www.kometsales.com/"]
 
-^.^a|image:logo-pragma.png[alt="Logo Pragma",link="http://www.pragma.com.co/"]
+a|image::logo-pragma.png[alt="Logo Pragma",link="http://www.pragma.com.co/"]
 
 a|== Pragma
 
@@ -125,9 +125,9 @@ Products and Services, among which it offers consulting, development
 and maintenance of software and outsourcing services
 (web, mobile, mission critical).
 
-^.^a|image:logo-psl.png[alt="Logo PSL",link="http://www.psl.com.co/"]
+a|image::logo-psl.png[alt="Logo PSL",link="http://www.psl.com.co/"]
 
-^.^a|image:logo-s4n.png[alt="Logo S4N",link="http://s4n.co/"]
+a|image::logo-s4n.png[alt="Logo S4N",link="http://s4n.co/"]
 
 a|== S4N
 
@@ -148,6 +148,6 @@ align business continuity and cyber practices,
 comply with compliance requirements
 and obtain reliable and predictable recovery times.
 
-^.^a|image:logo-vm.png[alt="Logo VM2020",link="https://www.vm2020.com/"]
+a|image::logo-vm.png[alt="Logo VM2020",link="https://www.vm2020.com/"]
 
 |====

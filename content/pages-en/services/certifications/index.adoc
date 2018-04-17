@@ -10,7 +10,7 @@
 [cols=2, frame="none"]
 |====
 
-^.^a|image:logo-oscp.png[logo oscp]
+a|image::logo-oscp.png[logo oscp]
 
 a|== Offensive Security Certified Professional (OSCP)
 
@@ -28,9 +28,9 @@ The +OSWP+ challenges seek to prove the practical ability
 to perform +802.11+ wireless audits using open source tools
 through a hands-on, certification exam.
 
-^.^a|image:logo-oswp.png[logo oswp, width=50%]
+a|image::logo-oswp.png[logo oswp, width=50%]
 
-^.^a|image:logo-ceh.png[logo ceh, width=50%]
+a|image::logo-ceh.png[logo ceh, width=50%]
 
 a|== Certified Ethical Hacker (CEH)
 
@@ -47,9 +47,9 @@ which aims to help companies to recognize professionals
 with training in the area of information security.
 It is widely recognized and worldwide accredited.
 
-^.^a|image:logo-cissp.png[logo cissp, width=50%]
+a|image::logo-cissp.png[logo cissp, width=50%]
 
-^.^a|image:logo-cism.png[logo cism, width=50%]
+a|image::logo-cism.png[logo cism, width=50%]
 
 a|== Certified Information Security Manager (CISM)
 
@@ -66,9 +66,9 @@ control and information security of a professional.
 It proves the ability to assess vulnerabilities,
 report on compliance and validate and enhance controls in an enterprise.
 
-^.^a|image:logo-cisa.png[logo cisa, width=50%]
+a|image::logo-cisa.png[logo cisa, width=50%]
 
-^.^a|image:logo-comptia.png[logo comptia]
+a|image::logo-comptia.png[logo comptia]
 
 a|== CompTIA Security+
 
@@ -87,9 +87,9 @@ with respect to security tasks.
 Candidates are required to demonstrate an understanding
 of information security beyond simple terminology and concepts.
 
-^.^a|image:logo-gisp.png[logo gisp]
+a|image::logo-gisp.png[logo gisp]
 
-^.^a|image:logo-itil.png[logo itil]
+a|image::logo-itil.png[logo itil]
 
 a|== Information Technology Infrastructure Library Certification (ITIL)
 

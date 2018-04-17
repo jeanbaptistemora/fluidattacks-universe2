@@ -12,7 +12,7 @@
 [role="comercial tb-alt"]
 [cols=2, frame="none"]
 |====
-^.^a|image:logo-exito.png[alt="Logo Exito",link="https://www.exito.com/"]
+a|image::logo-exito.png[alt="Logo Exito",link="https://www.exito.com/"]
 
 a|== Éxito Group
 Colombian multinational company,
@@ -33,9 +33,9 @@ for Colombia and the Caribbean of international brands such as Chevignon,
 Naf Naf, Americanino, Esprit, Rifle, American Eagle, Mother Care,
 American Brands, LBT, among others.
 
-^.^a|image:logo-uribe.png[Logo Uribe]
+a|image::logo-uribe.png[Logo Uribe]
 
-^.^a|image:logo-rappi.png[alt="Logo Rappi",link="https://www.rappi.com"]
+a|image::logo-rappi.png[alt="Logo Rappi",link="https://www.rappi.com"]
 
 a|== Rappi
 
@@ -54,9 +54,9 @@ In addition, it offers its services
 so that companies and/or entities of the State
 can publish their own magazine.
 
-^.^a|image:logo-semana.png[alt="Logo Semana",link="http://www.semana.com/"]
+a|image::logo-semana.png[alt="Logo Semana",link="http://www.semana.com/"]
 
-^.^a|image:logo-sodimac.png[alt="Logo Sodimac",link="http://www.homecenter.com.co/homecenter-co/mashomecenter/nuestra-empresa"]
+a|image::logo-sodimac.png[alt="Logo Sodimac",link="http://www.homecenter.com.co/homecenter-co/mashomecenter/nuestra-empresa"]
 
 a|== Sodimac
 
@@ -79,6 +79,6 @@ Recognized as a leader industry
 and accredited with the highest levels in design, delivery and support
 of the latest technologies.
 
-^.^a|image:logo-tml.png[alt="Logo The Missing Link",link="https://www.themissinglink.com.au/"]
+a|image::logo-tml.png[alt="Logo The Missing Link",link="https://www.themissinglink.com.au/"]
 
 |=======

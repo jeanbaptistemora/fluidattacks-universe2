@@ -10,7 +10,7 @@
 [cols=2, frame="none"]
 |====
 
-^.^a|image:logo-oscp.png[logo oscp]
+a|image::logo-oscp.png[logo oscp]
 
 a|== Profesional Certificado en Seguridad ofensiva (OSCP)
 
@@ -29,9 +29,9 @@ Los retos establecidos por +OSWP+ buscan probar las habilidades prácticas
 para realizar auditorías inalámbricas +802.11+
 utilizando herramientas de código libre, a través de un examen práctico.
 
-^.^a|image:logo-oswp.png[logo oswp, width=50%]
+a|image::logo-oswp.png[logo oswp, width=50%]
 
-^.^a|image:logo-ceh.png[logo ceh, width=50%]
+a|image::logo-ceh.png[logo ceh, width=50%]
 
 a|== Ethical Hacker Certificado (CEH)
 
@@ -49,9 +49,9 @@ a reconocer a los profesionales con formación
 en el área de seguridad de la información.
 Es ampliamente reconocida y acreditada a nivel mundial.
 
-^.^a|image:logo-cissp.png[logo cissp, width=50%]
+a|image::logo-cissp.png[logo cissp, width=50%]
 
-^.^a|image:logo-cism.png[logo cism, width=50%]
+a|image::logo-cism.png[logo cism, width=50%]
 
 a|== Gerente Certificado en Seguridad de la Información (CISM)
 
@@ -68,9 +68,9 @@ Con esta certificación se verifica la capacidad
 de evaluar vulnerabilidades, informar sobre el cumplimiento
 y validar y mejorar los controles de seguridad en una empresa.
 
-^.^a|image:logo-cisa.png[logo cisa, width=50%]
+a|image::logo-cisa.png[logo cisa, width=50%]
 
-^.^a|image:logo-comptia.png[logo comptia]
+a|image::logo-comptia.png[logo comptia]
 
 a|== CompTIA Security+
 
@@ -91,9 +91,9 @@ con respecto a tareas de seguridad.
 Los candidatos deben demostrar una comprensión
 de la seguridad de la información más allá de terminología y conceptos simples.
 
-^.^a|image:logo-gisp.png[logo gisp]
+a|image::logo-gisp.png[logo gisp]
 
-^.^a|image:logo-itil.png[logo itil]
+a|image::logo-itil.png[logo itil]
 
 a|== Certificación en Bibliotecas de Infraestructura de IT (ITIL)
 

@@ -11,7 +11,7 @@
 [role="tb-alt"]
 [cols=2, frame="none"]
 |====
-^.^a|image:logo-avianca.png[alt="Logo Avianca",link="https://www.avianca.com/co/es/"]
+a|image::logo-avianca.png[alt="Logo Avianca",link="https://www.avianca.com/co/es/"]
 
 a|== Avianca
 
@@ -28,6 +28,6 @@ con +12+ años de experiencia y presencia en +5+ países de Latinoamerica.
 Especializados en integrar soluciones tecnológicas
 para gestión y operación de infraestructura vial.
 
-^.^a|image:logo-f2x.png[alt="Logo F2X",link="https://www.f2x.com.co"]
+a|image::logo-f2x.png[alt="Logo F2X",link="https://www.f2x.com.co"]
 
 |====

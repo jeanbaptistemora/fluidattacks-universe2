@@ -21,9 +21,9 @@ aplicación e infraestructura correspondiente a un sistema específico,
 el cliente puede decidir ejecutar todos los tipos de prueba,
 o solo uno en específico.
 
-^.^a|image:ethical-hacking.png[alt="Ethical Hacking", width="55%"]
+a|image::ethical-hacking.png[alt="Ethical Hacking", width="55%"]
 
-^.^a|image:cobertura.png[alt="Alcance de Ethical Hacking", width="55%"]
+a|image::cobertura.png[alt="Alcance de Ethical Hacking", width="55%"]
 
 a|== Cobertura
 
@@ -47,9 +47,9 @@ a través de nuestro producto [button]#link:../../productos/rules/[Rules]#.
 
 Además sabrá la rigurosidad exacta del hackeo (lo revisado y lo no revisado).
 
-^.^a|image:criterio-seguridad.png[alt="Criterio de Seguridad de Ethical Hacking", width="55%"]
+a|image::criterio-seguridad.png[alt="Criterio de Seguridad de Ethical Hacking", width="55%"]
 
-^.^a|image:duracion.png[alt="Tiempo estimado de Ethical Hacking", width="55%"]
+a|image::duracion.png[alt="Tiempo estimado de Ethical Hacking", width="55%"]
 
 a|== Duración específica
 
@@ -61,9 +61,9 @@ a|== Ciclos de prueba
 Al ser una prueba a una versión específica
 solo se contará con un ciclo de prueba.
 
-^.^a|image:ciclos.png[alt="Ciclos de prueba de Ethical Hacking", width="55%"]
+a|image::ciclos.png[alt="Ciclos de prueba de Ethical Hacking", width="55%"]
 
-^.^a|image:seguimiento-proyecto.png[alt="Seguimiento del proyecto de Ethical Hacking", width="55%"]
+a|image::seguimiento-proyecto.png[alt="Seguimiento del proyecto de Ethical Hacking", width="55%"]
 
 a|== Seguimiento personalizado
 
@@ -76,9 +76,9 @@ a|== Ejecución programada
 Se acuerda una fecha de inicio y una fecha de fin
 previa confirmación de los insumos necesarios para el inicio.
 
-^.^a|image:ejecucion-programada.png[alt="Ejecución programada de Ethical Hacking", width="55%"]
+a|image::ejecucion-programada.png[alt="Ejecución programada de Ethical Hacking", width="55%"]
 
-^.^a|image:ambientes-pruebas.png[alt="Ambientes para Ethical Hacking", width="55%"]
+a|image::ambientes-pruebas.png[alt="Ambientes para Ethical Hacking", width="55%"]
 
 a|== Ambientes de prueba
 
@@ -95,9 +95,9 @@ prácticas inseguras de programación, alineación a estándares
 y regulaciones de seguridad sin falsos positivos,
 posibilitando la detección de vulnerabilidades +Zero Day+.
 
-^.^a|image:equipo.png[alt="Equipo técnico para Ethical Hacking", width="55%"]
+a|image::equipo.png[alt="Equipo técnico para Ethical Hacking", width="55%"]
 
-^.^a|image:explotacion.png[alt="Explotación de vulnerabilidades de Ethical Hacking", width="55%"]
+a|image::explotacion.png[alt="Explotación de vulnerabilidades de Ethical Hacking", width="55%"]
 
 a|== Explotación de hallazgos
 
@@ -112,9 +112,9 @@ En los hallazgos donde es posible se extraen todos los registros comprometidos
 con el fin de maximizar el impacto generado y comprometer información sensible.
 [button]#link:../../productos/integrates/#registros-comprometidos[Ejemplo]#.
 
-^.^a|image:extraccion.png[alt="Información comprometida en Ethical Hacking", width="55%"]
+a|image::extraccion.png[alt="Información comprometida en Ethical Hacking", width="55%"]
 
-^.^a|image:infeccion.png[alt="Infección en Ethical Hacking", width="55%"]
+a|image::infeccion.png[alt="Infección en Ethical Hacking", width="55%"]
 
 a|== Infección
 
@@ -131,9 +131,9 @@ Informes de avance diarios al correo electrónico
 con estadísticas de cobertura, rigurosidad,
 resultados parciales y avance ponderado.
 
-^.^a|image:informes-avance.png[alt="Informes de Avance en Ethical Hacking", width="55%"]
+a|image::informes-avance.png[alt="Informes de Avance en Ethical Hacking", width="55%"]
 
-^.^a|image:integrates.png[alt="Hallazgos de Ethical Hacking", width="55%"]
+a|image::integrates.png[alt="Hallazgos de Ethical Hacking", width="55%"]
 
 a|== Seguimiento de hallazgos a través de Integrates
 
@@ -150,9 +150,9 @@ directamente a los hackers mediante
 Es posible utilizar nuestras guias detalladas de remediación
 mediante [button]#link:../../productos/defends/[Defends]#.
 
-^.^a|image:remediacion.png[alt="Remediar un hallazgo de Ethical Hacking", width="55%"]
+a|image::remediacion.png[alt="Remediar un hallazgo de Ethical Hacking", width="55%"]
 
-^.^a|image:boveda-segura.png[alt="Intercambio de información de Ethical Hacking", width="55%"]
+a|image::boveda-segura.png[alt="Intercambio de información de Ethical Hacking", width="55%"]
 
 a|== Entrega de informes vía bóveda segura
 
@@ -165,9 +165,9 @@ Reunión con el equipo técnico
 para validar los informes y atender observaciones.
 La reunión se realiza de manera virtual.
 
-^.^a|image:validacion-informes.png[alt="Validación de informes de Ethical Hacking", width="55%"]
+a|image::validacion-informes.png[alt="Validación de informes de Ethical Hacking", width="55%"]
 
-^.^a|image:reunion-entrega.png[alt="Reunión de entrega de Ethical Hacking", width="55%"]
+a|image::reunion-entrega.png[alt="Reunión de entrega de Ethical Hacking", width="55%"]
 
 a|== Reunión de entrega
 
@@ -180,9 +180,9 @@ a|== Borrado seguro de información
 +7+ días hábiles luego de la aprobación final de los informes
 se borra toda la información de nuestros sistemas
 
-^.^a|image:borrado-informacion.png[alt="Borrado de evidencias de Ethical Hacking", width="55%"]
+a|image::borrado-informacion.png[alt="Borrado de evidencias de Ethical Hacking", width="55%"]
 
-^.^a|image:retest.png[alt="Retest de Ethical Hacking", width="55%"]
+a|image::retest.png[alt="Retest de Ethical Hacking", width="55%"]
 
 a|== Verificación de cierre (Opcional)
 

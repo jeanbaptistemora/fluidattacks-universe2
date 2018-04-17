@@ -13,7 +13,7 @@
 [cols=2, frame="none"]
 |====
 
-^.^a|image:logo-cadena.png[alt="Logo Cadena",link="http://www.cadena.com.co/es/home.aspx"]
+a|image::logo-cadena.png[alt="Logo Cadena",link="http://www.cadena.com.co/es/home.aspx"]
 
 a|== Cadena
 
@@ -35,9 +35,9 @@ It exports its products to several markets around the world,
 including the United States, Canada, Mexico, Brazil, Chile, Venezuela,
 Central America, the Caribbean, Italy, Spain and the United Kingdom.
 
-^.^a|image:logo-corona.png[alt="Logo Corona",link="https://www.corona.co"]
+a|image::logo-corona.png[alt="Logo Corona",link="https://www.corona.co"]
 
-^.^a|image:logo-creative.png[alt="Logo Creative",link="http://www.cre8software.com/"]
+a|image::logo-creative.png[alt="Logo Creative",link="http://www.cre8software.com/"]
 
 a|== Cre8tive
 
@@ -55,9 +55,9 @@ registered in the Colombian Stock Exchange,
 as well as its subsidiaries Argos (cement),
 Celsia (energy) and Odinsa (road and airport concessions).
 
-^.^a|image:logo-argos.png[alt="Logo Argos",link="https://www.grupoargos.com/es-es/"]
+a|image::logo-argos.png[alt="Logo Argos",link="https://www.grupoargos.com/es-es/"]
 
-^.^a|image:logo-francol.png[alt="Logo Francol",link="http://www.lafrancol.com/nuestra-empresa/"]
+a|image::logo-francol.png[alt="Logo Francol",link="http://www.lafrancol.com/nuestra-empresa/"]
 
 a|== LAFRANCOL
 
@@ -79,9 +79,9 @@ It produces products of an agro-industrial nature,
 made from renewable sources, through the sustainable use of natural resources,
 with a positive impact on the well-being of neighboring communities.
 
-^.^a|image:logo-manuelita.png[alt="Logo Manuelita",link="http://www.manuelita.com/perfil-corporativo"]
+a|image::logo-manuelita.png[alt="Logo Manuelita",link="http://www.manuelita.com/perfil-corporativo"]
 
-^.^a|image:logo-odinsa.png[alt="Logo Odinsa",link="https://www.odinsa.com/quienes-somos/"]
+a|image::logo-odinsa.png[alt="Logo Odinsa",link="https://www.odinsa.com/quienes-somos/"]
 
 a|== Odinsa
 

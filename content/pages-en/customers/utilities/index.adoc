@@ -11,7 +11,7 @@
 [role="energia tb-alt"]
 [cols=2, frame="none"]
 |====
-^.^a|image:logo-celsia.png[alt="Logo Celsia",link="http://www.celsia.com/"]
+a|image::logo-celsia.png[alt="Logo Celsia",link="http://www.celsia.com/"]
 
 a|== Celsia
 
@@ -29,9 +29,9 @@ It has +48,866+ km of fiber optic network in Latin America.
 It serves operators that provide long distance,
 added value, internet, mobile communications and cable television services.
 
-^.^a|image:logo-internexa.png[alt="Logo Internexa",link="http://www.internexa.com/SitePages/Inicio.aspx"]
+a|image::logo-internexa.png[alt="Logo Internexa",link="http://www.internexa.com/SitePages/Inicio.aspx"]
 
-^.^a|image:logo-xm.png[alt="Logo XM",link="https://www.xm.com.co/corporativo/Paginas/Nuestra-empresa/quienes-somos.aspx"]
+a|image::logo-xm.png[alt="Logo XM",link="https://www.xm.com.co/corporativo/Paginas/Nuestra-empresa/quienes-somos.aspx"]
 
 a|== XM
 

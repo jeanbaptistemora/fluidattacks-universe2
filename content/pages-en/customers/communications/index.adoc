@@ -12,7 +12,7 @@
 [cols=2, frame="none"]
 |====
 
-^.^a|image:logo-claro.png[alt="Logo Claro",link="https://www.claro.com.co/personas/institucional/"]
+a|image::logo-claro.png[alt="Logo Claro",link="https://www.claro.com.co/personas/institucional/"]
 
 a|== Claro
 
@@ -31,9 +31,9 @@ whose main corporate purpose is the organization,
 administration and provision of telecommunications services,
 Information Technology and all complementary activities.
 
-^.^a|image:logo-edatel.png[alt="Logo Edatel",link="https://www.edatel.com.co/nuestra-compania/informacion-corporativa/quienes-somos"]
+a|image::logo-edatel.png[alt="Logo Edatel",link="https://www.edatel.com.co/nuestra-compania/informacion-corporativa/quienes-somos"]
 
-^.^a|image:logo-etb.png[alt="Logo ETB",link="https://etb.com/Corporativo/Sobre-ETB#historia", width="70%"]
+a|image::logo-etb.png[alt="Logo ETB",link="https://etb.com/Corporativo/Sobre-ETB#historia", width="70%"]
 
 a|== ETB
 
@@ -51,9 +51,9 @@ It has +48,866+ km of fiber optic network in Latin America.
 It serves operators that provide long distance,
 added value, internet, mobile communications and cable television services.
 
-^.^a|image:logo-internexa.png[alt="Logo Internexa",link="http://www.internexa.com/Paginas/Home.aspx"]
+a|image::logo-internexa.png[alt="Logo Internexa",link="http://www.internexa.com/Paginas/Home.aspx"]
 
-^.^a|image:logo-tigo.png[alt="Logo Tigo",link="https://www.tigo.com.co/"]
+a|image::logo-tigo.png[alt="Logo Tigo",link="https://www.tigo.com.co/"]
 
 a|== Tigo UNE
 

@@ -13,7 +13,7 @@
 [cols=2, frame="none"]
 |====
 
-^.^a|image:logo-cadena.png[alt="Logo Cadena",link="http://www.cadena.com.co/es/home.aspx"]
+a|image::logo-cadena.png[alt="Logo Cadena",link="http://www.cadena.com.co/es/home.aspx"]
 
 a|== Cadena
 
@@ -37,9 +37,9 @@ incluyendo Estados Unidos, Canadá, México,
 Brasil, Chile, Venezuela, Centro América,
 el Caribe, Italia, España y el Reino Unido.
 
-^.^a|image:logo-corona.png[alt="Logo Corona",link="https://www.corona.co"]
+a|image::logo-corona.png[alt="Logo Corona",link="https://www.corona.co"]
 
-^.^a|image:logo-creative.png[alt="Logo Creative",link="http://www.cre8software.com/"]
+a|image::logo-creative.png[alt="Logo Creative",link="http://www.cre8software.com/"]
 
 a|== Cre8tive
 
@@ -59,9 +59,9 @@ inscrita en la Bolsa de Valores de Colombia,
 al igual que sus filiales Argos (cemento),
 Celsia (energía) y Odinsa (concesiones viales y aeroportuarias).
 
-^.^a|image:logo-argos.png[alt="Logo Argos",link="https://www.grupoargos.com/es-es/"]
+a|image::logo-argos.png[alt="Logo Argos",link="https://www.grupoargos.com/es-es/"]
 
-^.^a|image:logo-francol.png[alt="Logo Francol",link="http://www.lafrancol.com/nuestra-empresa/"]
+a|image::logo-francol.png[alt="Logo Francol",link="http://www.lafrancol.com/nuestra-empresa/"]
 
 a|== LAFRANCOL
 
@@ -84,9 +84,9 @@ elaborados a partir de fuentes renovables,
 mediante el uso sostenible  de los recursos naturales,
 con un impacto positivo sobre el bienestar de las comunidades vecinas.
 
-^.^a|image:logo-manuelita.png[alt="Logo Manuelita",link="http://www.manuelita.com/perfil-corporativo"]
+a|image::logo-manuelita.png[alt="Logo Manuelita",link="http://www.manuelita.com/perfil-corporativo"]
 
-^.^a|image:logo-odinsa.png[alt="Logo Odinsa",link="https://www.odinsa.com/quienes-somos/"]
+a|image::logo-odinsa.png[alt="Logo Odinsa",link="https://www.odinsa.com/quienes-somos/"]
 
 a|== Odinsa
 

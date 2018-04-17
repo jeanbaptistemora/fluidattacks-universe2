@@ -25,7 +25,7 @@ por favor comenzar con la lectura de las
 [cols=2, frame="none"]
 |====
 
-^.^a|image:logo-arroyo.png[alt="Logo Arroyo",link="http://www.arroyo.consulting/"]
+a|image::logo-arroyo.png[alt="Logo Arroyo",link="http://www.arroyo.consulting/"]
 
 a|== Arroyo Consulting
 
@@ -47,9 +47,9 @@ El éxito de los servicios prestados por la organización
 se sustenta en la investigación y el recurso humano calificado,
 apoyado en una metodología certificada y efectiva.
 
-^.^a|image:logo-choucair.png[alt="Logo Choucair",link="http://www.choucairtesting.com/"]
+a|image::logo-choucair.png[alt="Logo Choucair",link="http://www.choucairtesting.com/"]
 
-^.^a|image:logo-evolution.png[alt="Logo Evolution",link="http://www.evolution-it.com.co/"]
+a|image::logo-evolution.png[alt="Logo Evolution",link="http://www.evolution-it.com.co/"]
 
 a|== Evolution IT
 
@@ -70,9 +70,9 @@ pruebas en dispositivos móviles y la automatización de pruebas
 a través de todo el ciclo de vida de desarrollo del producto,
 contando con 15 años de experiencia prestando sus servicios.
 
-^.^a|image:logo-greensqa.png[alt="Logo GreenSQA",link="http://greensqa.com/"]
+a|image::logo-greensqa.png[alt="Logo GreenSQA",link="http://greensqa.com/"]
 
-^.^a|image:logo-newnet.png[alt="Logo NewNet",link="http://www.newnetsa.com/"]
+a|image::logo-newnet.png[alt="Logo NewNet",link="http://www.newnetsa.com/"]
 
 a|== NewNet
 
@@ -93,9 +93,9 @@ tanto a corto como a largo plazo.
 Los servicios de SBA incluyen +marketing+, ventas,
 soporte operacional y recaudación de fondos de capital.
 
-^.^a|image:logo-sba.png[alt="Logo SBA",link="http://strategicbusinessalliance.com/"]
+a|image::logo-sba.png[alt="Logo SBA",link="http://strategicbusinessalliance.com/"]
 
-^.^a|image:logo-teraport.png[alt="Logo Teraport",link="http://teraport.de"]
+a|image::logo-teraport.png[alt="Logo Teraport",link="http://teraport.de"]
 
 a|== Teraport
 
@@ -115,7 +115,7 @@ y servicios en la nube. Reconocido como líder de la industria
 y acreditado con los más altos niveles en el diseño,
 entrega y soporte de las últimas tecnologías.
 
-^.^a|image:logo-tml.png[alt="Logo The Missing Link",link="https://www.themissinglink.com.au/"]
+a|image::logo-tml.png[alt="Logo The Missing Link",link="https://www.themissinglink.com.au/"]
 
 |====
 

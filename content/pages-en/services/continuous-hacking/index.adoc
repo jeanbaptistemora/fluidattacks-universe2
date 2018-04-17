@@ -29,9 +29,9 @@ since we are able to analyse source code
 published on project's +GIT+ repository.
 
 
-^.^a|image:img2.png[alt="img2", width="55%"]
+a|image::img2.png[alt="img2", width="55%"]
 
-^.^a|image:img3.png[alt="img3", width="55%"]
+a|image::img3.png[alt="img3", width="55%"]
 
 a|== Testing techniques
 
@@ -54,9 +54,9 @@ is up to +10+ repositories and +10K+ deltas per month.
 In case of only having the environment (application)
 the monthly scope is up to +10+ new entries per month.
 
-^.^a|image:img4.png[alt="img4", width="55%"]
+a|image::img4.png[alt="img4", width="55%"]
 
-^.^a|image:img5.png[alt="img5", width="55%"]
+a|image::img5.png[alt="img5", width="55%"]
 
 a|== Coverage
 
@@ -83,9 +83,9 @@ within first +3+ subscription months,
 and then we’ll continue testing alongside development
 (healthcheck will have additional fees).
 
-^.^a|image:img6.png[alt="img6", width="55%"]
+a|image::img6.png[alt="img6", width="55%"]
 
-^.^a|image:img7.png[alt="img7", width="55%"]
+a|image::img7.png[alt="img7", width="55%"]
 
 a|== Strictness
 
@@ -100,9 +100,9 @@ a|== Duration
 
 Minimum subscription time to continuous ethical hacking is one year.
 
-^.^a|image:img8.png[alt="img8", width="55%"]
+a|image::img8.png[alt="img8", width="55%"]
 
-^.^a|image:ciclos-continuo.png[alt="Ethical Hacking inspection cycles", width="55%"]
+a|image::ciclos-continuo.png[alt="Ethical Hacking inspection cycles", width="55%"]
 
 a|== Inspection Cycles
 
@@ -117,9 +117,9 @@ All project communication is done through
 [button]#link:../../products/integrates/[Integrates]#,
 customers can use chat and comments for any project or finding question.
 
-^.^a|image:img9.png[alt="img9", width="55%"]
+a|image::img9.png[alt="img9", width="55%"]
 
-^.^a|image:img10.png[alt="img10", width="55%"]
+a|image::img10.png[alt="img10", width="55%"]
 
 a|== Testing environments
 
@@ -140,9 +140,9 @@ and those regarding standard alignment and security regulation compliance,
 enabling us to detect +Zero Day+ findings,
 all with no false positives reports.
 
-^.^a|image:img11.png[alt="img11", width="55%"]
+a|image::img11.png[alt="img11", width="55%"]
 
-^.^a|image:img12.png[alt="img12", width="55%"]
+a|image::img12.png[alt="img12", width="55%"]
 
 a|== Exploitation
 
@@ -157,9 +157,9 @@ all compromised records are extracted
 to maximize finding impact and compromise sensible information.
 [button]#link:../../products/integrates/#compromised-records[Example]#.
 
-^.^a|image:img13.png[alt="img13", width="55%"]
+a|image::img13.png[alt="img13", width="55%"]
 
-^.^a|image:img15.png[alt="img15", width="55%"]
+a|image::img15.png[alt="img15", width="55%"]
 
 a|== Follow up using Integrates
 
@@ -180,9 +180,9 @@ customers must define a finding treatment
 and then request for finding validation through our
 [button]#link:../../products/integrates/[Integrates]# platform.
 
-^.^a|image:img16.png[alt="img16", width="55%"]
+a|image::img16.png[alt="img16", width="55%"]
 
-^.^a|image:img17.png[alt="img17", width="55%"]
+a|image::img17.png[alt="img17", width="55%"]
 
 a|== Remediation support
 
@@ -200,9 +200,9 @@ when it comes to remediating the reported security flaws.
 Executive report provides summarized and organized information.
 Thus, it may be useful for all the project’s stakeholders.
 
-^.^a|image:img18.png[alt="img18", width="55%"]
+a|image::img18.png[alt="img18", width="55%"]
 
-^.^a|image:img19.png[alt="img19", width="55%"]
+a|image::img19.png[alt="img19", width="55%"]
 
 a|== Information gets deleted securely
 

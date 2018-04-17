@@ -28,9 +28,9 @@ incluso antes de contar con un ambiente funcional.
 Ya que se revisa el código fuente directamente
 en el repositorio de código del proyecto.
 
-^.^a|image:img2.png[alt="img2", width="55%"]
+a|image::img2.png[alt="img2", width="55%"]
 
-^.^a|image:img3.png[alt="img3", width="55%"]
+a|image::img3.png[alt="img3", width="55%"]
 
 a|== Tipos de prueba
 
@@ -52,9 +52,9 @@ es hasta +10+ repositorios y +10K+ deltas mes.
 En caso de solo contar con el ambiente (aplicación)
 el alcance mensual es hasta +10+ entradas nuevas mes.
 
-^.^a|image:img4.png[alt="img4", width="55%"]
+a|image::img4.png[alt="img4", width="55%"]
 
-^.^a|image:img5.png[alt="img5", width="55%"]
+a|image::img5.png[alt="img5", width="55%"]
 
 a|== Cobertura
 
@@ -82,9 +82,9 @@ y en los meses siguientes se continúa con la pruebas
 de forma paralela al desarrollo
 (El +healthcheck+ tendrá un costo adicional a la suscripción).
 
-^.^a|image:img6.png[alt="img6", width="55%"]
+a|image::img6.png[alt="img6", width="55%"]
 
-^.^a|image:img7.png[alt="img7", width="55%"]
+a|image::img7.png[alt="img7", width="55%"]
 
 a|== Rigurosidad
 
@@ -99,9 +99,9 @@ a|== Duración
 
 La suscripción se contrata por espacio mínimo de un año
 
-^.^a|image:img8.png[alt="img8", width="55%"]
+a|image::img8.png[alt="img8", width="55%"]
 
-^.^a|image:ciclos-continuo.png[alt="Ciclos de prueba de Ethical Hacking", width="55%"]
+a|image::ciclos-continuo.png[alt="Ciclos de prueba de Ethical Hacking", width="55%"]
 
 a|== Ciclos de prueba
 Durante el tiempo de la suscripción se realizan múltiples ciclos de prueba
@@ -117,9 +117,9 @@ Toda la comunicación del proyecto se hace a través de
 [button]#link:../../productos/integrates/[Integrates]#,
 mediante las funcionalidades de Chat y de comentarios.
 
-^.^a|image:img9.png[alt="img9", width="55%"]
+a|image::img9.png[alt="img9", width="55%"]
 
-^.^a|image:img10.png[alt="img10", width="55%"]
+a|image::img10.png[alt="img10", width="55%"]
 
 a|== Ambientes de prueba
 
@@ -139,9 +139,9 @@ prácticas inseguras de programación,
 alineación a estándares y regulaciones de seguridad sin falsos positivos,
 posibilitando la detección de vulnerabilidades +Zero Day+.
 
-^.^a|image:img11.png[alt="img11", width="55%"]
+a|image::img11.png[alt="img11", width="55%"]
 
-^.^a|image:img12.png[alt="img12", width="55%"]
+a|image::img12.png[alt="img12", width="55%"]
 
 a|== Explotación de vulnerabilidades
 
@@ -159,9 +159,9 @@ con el fin de maximizar el impacto generado
 y comprometer información sensible.
 [button]#link:../../productos/integrates/#registros-comprometidos[Ejemplo]#.
 
-^.^a|image:img13.png[alt="img13", width="55%"]
+a|image::img13.png[alt="img13", width="55%"]
 
-^.^a|image:img15.png[alt="img15", width="55%"]
+a|image::img15.png[alt="img15", width="55%"]
 
 a|== Seguimiento de vulnerabilidades a través de Integrates
 
@@ -179,9 +179,9 @@ durante la vigencia de la suscripción.
 Se pueden hacer tantos ciclos de cierre como sean necesarios
 para garantizar que el hallazgo sea solucionado efectivamente.
 
-^.^a|image:img16.png[alt="img16", width="55%"]
+a|image::img16.png[alt="img16", width="55%"]
 
-^.^a|image:img17.png[alt="img17", width="55%"]
+a|image::img17.png[alt="img17", width="55%"]
 
 a|== Soporte de Remediación.
 
@@ -203,9 +203,9 @@ En el informe ejecutivo se encuentra la información resumida y organizada.
 De tal manera que pueda ser de utilidad
 para todas las personas en la cadena de valor del proyecto.
 
-^.^a|image:img18.png[alt="img18", width="55%"]
+a|image::img18.png[alt="img18", width="55%"]
 
-^.^a|image:img19.png[alt="img19", width="55%"]
+a|image::img19.png[alt="img19", width="55%"]
 
 a|== Borrado seguro de información
 

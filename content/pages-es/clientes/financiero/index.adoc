@@ -13,7 +13,7 @@
 [cols=2, frame="none"]
 |====
 
-^.^a|image:logo-ach.png[alt="Logo ACH",link="https://www.achcolombia.com.co/inicio"]
+a|image::logo-ach.png[alt="Logo ACH",link="https://www.achcolombia.com.co/inicio"]
 
 a|== ACH Colombia
 Organización creada por empresas del sector financiero
@@ -31,9 +31,9 @@ siendo controlador del Grupo BAC Credomatic,
 teniendo también la mayor administradora de fondos
 de pensiones y cesantías en Colombia.
 
-^.^a|image:logo-aval.png[alt="Logo Aval",link="https://www.grupoaval.com/wps/portal/grupo-aval/aval/acerca-nosotros"]
+a|image::logo-aval.png[alt="Logo Aval",link="https://www.grupoaval.com/wps/portal/grupo-aval/aval/acerca-nosotros"]
 
-^.^a|image:logo-bancamia.png[alt="Logo Bancamia",link="https://www.bancamia.com.co/sobre-nosotros"]
+a|image::logo-bancamia.png[alt="Logo Bancamia",link="https://www.bancamia.com.co/sobre-nosotros"]
 
 a|== Bancamía
 
@@ -55,9 +55,9 @@ perteneciente al Grupo Sura, a su vez parte del Grupo Empresarial Antioqueño,
 es el banco privado más grande de Colombia
 (por el tamaño de su patrimonio y activos) y uno de los más grandes de América.
 
-^.^a|image:logo-bancolombia.png[alt="Logo Bancolombia",link="https://www.grupobancolombia.com/wps/portal/acerca-de"]
+a|image::logo-bancolombia.png[alt="Logo Bancolombia",link="https://www.grupobancolombia.com/wps/portal/acerca-de"]
 
-^.^a|image:logo-delta.png[alt="Logo Banco Delta",link="https://www.bandelta.com/"]
+a|image::logo-delta.png[alt="Logo Banco Delta",link="https://www.bandelta.com/"]
 
 a|== Banco Delta
 
@@ -76,9 +76,9 @@ El Centro tiene una estructura financiera amplia
 y una importancia capital para la vida económica del país,
 lo cual es garantía de su permanencia y estabilidad.
 
-^.^a|image:logo-pacifico.png[alt="Logo Banco del Pacifico",link="https://www.bancodelpacifico.com/grupo-banco-del-pacifico/banco-del-pacifico-panama.aspx"]
+a|image::logo-pacifico.png[alt="Logo Banco del Pacifico",link="https://www.bancodelpacifico.com/grupo-banco-del-pacifico/banco-del-pacifico-panama.aspx"]
 
-^.^a|image:logo-banistmo.png[alt="Logo Banistmo",link="https://www.banistmo.com/quienes-somos"]
+a|image::logo-banistmo.png[alt="Logo Banistmo",link="https://www.banistmo.com/quienes-somos"]
 
 a|== Banistmo
 
@@ -95,9 +95,9 @@ es la primera entidad financiera de México
 y cuenta además con una sólida posición en España
 y con franquicias líderes en América del Sur y en la región.
 
-^.^a|image:logo-bbva.png[alt="Logo BBVA",link="https://www.bbva.com.co/"]
+a|image::logo-bbva.png[alt="Logo BBVA",link="https://www.bbva.com.co/"]
 
-^.^a|image:logo-cfa.png[alt="Logo CFA",link="http://www.cfa.com.co/"]
+a|image::logo-cfa.png[alt="Logo CFA",link="http://www.cfa.com.co/"]
 
 a|== CFA
 
@@ -117,9 +117,9 @@ integran plataformas tecnológicas
 que permiten prestar servicios transaccionales
 a los asociados de las entidades que la conforman.
 
-^.^a|image:logo-coopcentral.png[alt="Logo Coopcentral",link="https://www.coopcentral.com.co/coopcentral/index.php/corpora"]
+a|image::logo-coopcentral.png[alt="Logo Coopcentral",link="https://www.coopcentral.com.co/coopcentral/index.php/corpora"]
 
-^.^a|image:logo-colpatria.png[alt="Logo Colpatria",link="https://www.colpatria.com/Acerca-de/banco-colpatria/informacion-institucional/nuestra-organizacion"]
+a|image::logo-colpatria.png[alt="Logo Colpatria",link="https://www.colpatria.com/Acerca-de/banco-colpatria/informacion-institucional/nuestra-organizacion"]
 
 a|== Colpatria
 
@@ -140,9 +140,9 @@ el manejo de riesgos, la tecnología, los procesos, la innovación,
 la sinergia empresarial, el conocimiento del negocio,
 y el manejo emocional de las relaciones.
 
-^.^a|image:logo-davivienda.png[alt="Logo Davivienda",link="https://www.davivienda.com/wps/portal/personas/nuevo"]
+a|image::logo-davivienda.png[alt="Logo Davivienda",link="https://www.davivienda.com/wps/portal/personas/nuevo"]
 
-^.^a|image:logo-deceval.png[alt="Logo Deceval",link="https://www.deceval.com.co/portal/page/portal/Home/Empresa/Quienes_Somos"]
+a|image::logo-deceval.png[alt="Logo Deceval",link="https://www.deceval.com.co/portal/page/portal/Home/Empresa/Quienes_Somos"]
 
 a|== Deceval
 
@@ -164,9 +164,9 @@ con cerca de +1,6+ millones de afiliados.
 La empresa administra tres fondos para seguro de cesantía,
 pensiones voluntarias y pensiones obligatorias.
 
-^.^a|image:logo-proteccion.png[alt="Logo Proteccion",link="https://www.proteccion.com/wps/portal/proteccion/web/home/corporativo-accionistas/acerca-proteccion/que-es-proteccion"]
+a|image::logo-proteccion.png[alt="Logo Proteccion",link="https://www.proteccion.com/wps/portal/proteccion/web/home/corporativo-accionistas/acerca-proteccion/que-es-proteccion"]
 
-^.^a|image:logo-sura.png[alt="Logo Sura",link="https://www.gruposura.com/corporativo/Paginas/default.aspx"]
+a|image::logo-sura.png[alt="Logo Sura",link="https://www.gruposura.com/corporativo/Paginas/default.aspx"]
 
 a|== Sura
 
