@@ -1,0 +1,13 @@
+:slug: rules/199/
+:category: rules
+:description: En el presente documento se detallan los requerimientos de seguridad relacionados a la gestión adecuada de dispositivos foráneos de la organización. En este requerimiento, se recomienda que la organización determine quienes y en qué momento podrán acceder con dichos dispositivos.
+:keywords: Sistema, Organización, Servicios, Foráneos, Dispositivos, Acceder.
+:rules: yes
+
+= REQ.199 Determinar acceso con dispositivos foráneos
+
+== Nombre
+
+La organización debe determinar
+qué servicios, en qué momento
+y quién puede acceder con dispositivos foráneos.

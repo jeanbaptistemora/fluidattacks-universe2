@@ -181,7 +181,8 @@
 * link:195/[REQ.195 Determinar permiso de sistema a recursos].
 * link:196/[REQ.196 Determinar permiso de aplicación a recursos].
 * link:197/[REQ.197 Denegar permisos a aplicaciones prohibidas].
-* link:198/[REQ.197 Denegar permisos a aplicaciones prohibidas].
+* link:198/[REQ.198 Determinar personal para usar dispositivos].
+* link:199/[REQ.199 Determinar acceso con dispositivos foráneos].
 
 == Criptografía
 
