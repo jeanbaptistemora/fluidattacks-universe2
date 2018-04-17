@@ -183,6 +183,7 @@
 * link:197/[REQ.197 Denegar permisos a aplicaciones prohibidas].
 * link:198/[REQ.198 Determinar personal para usar dispositivos].
 * link:199/[REQ.199 Determinar acceso con dispositivos foráneos].
+* link:200/[REQ.200 LLevar un registro de máquinas].
 
 == Criptografía
 
