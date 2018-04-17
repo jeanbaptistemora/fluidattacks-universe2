@@ -16,7 +16,7 @@ A link is also created next to the titles to improve accesibility
         if (!($(titles[j]).children(".anchor").length) && !$(titles[j]).parents(".colfoot").length) {
           var replaceChars={ "á":"a" ,"é":"e", "í":"i", "ó":"o", "ú":"u", "ñ":"n" };
           var str = titles[j].innerText.toLowerCase();
-          str = str.replace(/^[0-9].*\.\s+/, '');
+          str = str.replace(/^[0-9.]*\s/, '');
           str = str.replace(/[¡!¿?,':\.]/g, '');
           str = str.replace(/\s+/g, '-');
           str = str.replace(/[áéíóúñ]/g, function(match) {return replaceChars[match];});
