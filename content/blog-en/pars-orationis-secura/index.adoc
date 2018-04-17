@@ -360,6 +360,7 @@ where the substring was found.
 We use it to tell the user the line and column
 where the potential +SQL+ injection was found:
 
+.How to use +pyparsing.scanString+
 [source,python,numbered]
 ----
 for tokens, start, end in sql_injection.scanString(content):
@@ -380,7 +381,8 @@ we use the functions +lineno()+ and +colno()+,
 respectively.
 
 Thus far, this is nothing out of this world:
-nothing we couldn't have done with +grep+ or +Python+\'s +re+.
+nothing we couldn't have done with +grep+
+or +Python+ regular expressions (+re+).
 Where parsers actually beat regular expressions is
 in extracting information and structure from the input,
 as we did above to identify the inserted values
@@ -410,7 +412,7 @@ we can create 'yet another' parser on-the-fly
 to find the lines where that variable is mentioned.
 This one is simple:
 
-[source,python,numbered]
+[source,python]
 ----
 tpar = Literal(injectable_variable)
 for tokens, start, end in tpar.scanString(content):
