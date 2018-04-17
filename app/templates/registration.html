@@ -18,6 +18,8 @@
     <link rel="stylesheet" type="text/css" href="assets/bower_components/bootstrap-table/dist/css/bootstrap-table.min.css"/>
     <link rel="stylesheet" href="assets/bower_components/angular-bootstrap/ui-bootstrap-csp.css" type="text/css">
     <link rel="icon" type="image/x-icon" href="assets/img/favicon.png">
+    <script src="assets/amaretti/lib/jquery/jquery.min.js" type="text/javascript"></script>
+    <script src="assets/amaretti/lib/jquery.nanoscroller/javascripts/jquery.nanoscroller.min.js" type="text/javascript"></script>
     <style>
       .btb-header{
         background-color : #3D3C3C; color: white;
@@ -49,27 +51,29 @@
               <span style="margin-left: 15px;">Integrates by FLUIDAttacks</span>
             </div>
             <a href="#" class="am-toggle-left-sidebar navbar-toggle collapsed"><span class="icon-bar"><span></span><span></span><span></span></span></a><a href="dashboard" class="navbar-brand"></a>
-          </div><a class="am-toggle-right-sidebar"><span class="icon s7-menu2"></span></a><a href="#" data-toggle="collapse" data-target="#am-navbar-collapse" class="am-toggle-top-header-menu collapsed"><span class="icon s7-angle-down"></span></a>
-          <div id="am-navbar-collapse" class="collapse navbar-collapse" ng-controller="dashboardController">
+          </div><a href="#" data-toggle="collapse" data-target="#am-navbar-collapse" class="am-toggle-top-header-menu collapsed"><span class="icon s7-angle-down"></span></a>
+          <div id="am-navbar-collapse" class="collapse navbar-collapse" ng-controller="registerCtrl">
             <ul class="nav navbar-nav am-nav-right no-title-responsive">
-            <li><a ui-sref="home" style="font-family: open sans;font-size: 1.5em;"><b>Integrates by FLUIDAttacks</b></a></li>
+            <li><a ui-sref="home" style="font-family: open sans;font-size: 2em;"><b>Integrates by FLUIDAttacks</b></a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right am-icons-nav">
+              <li><a ng-click="changeLang('es');"><img src="assets/img/spain.png" width="20" height="20"/></a></li>
+              <li><a ng-click="changeLang('en');"><img src="assets/img/usa.png" width="20" height="20"/></a></li>
               <li class="dropdown">
-                <a href="" ng-click="logout();" data-toggle="dropdown" role="button" aria-expanded="false" class="dropdown-toggle">
+                <a href="" ng-click="logout();" data-toggle="dropdown" role="button" aria-expanded="false" class="dropdown-toggle" title="Salir">
                   <span class="icon s7-power"></span>
                 </a>
-                <!-- START: MODAL ELIMINAR -->
+                <!-- START: MODAL LOGOUT -->
                 <script type="text/ng-template" id="logout.html">
                     <div class="modal-header">
-                        <h3 class="modal-title" id="modal-title">Close Session</h3>
+                        <h3 class="modal-title" id="modal-title">{% templatetag openvariable %}'logout.title'| translate{% templatetag closevariable %}</h3>
                     </div>
                     <div class="modal-body" id="modal-body">
-                        <p>Are you sure?</p>
+                        <p>{% templatetag openvariable %}'logout.message'| translate{% templatetag closevariable %}</p>
                     </div>
                     <div class="modal-footer">
-                        <button class="btn btn-warning" type="button" ng-click="closeModalLogout()">No</button>
-                        <button class="btn btn-primary" type="button" ng-click="okModalLogout()">Yes</button>
+                        <button class="btn btn-warning" type="button" ng-click="closeModalLogout()">{% templatetag openvariable %}'logout.cancel'| translate{% templatetag closevariable %}</button>
+                        <button class="btn btn-primary" type="button" ng-click="okModalLogout()">{% templatetag openvariable %}'logout.ok'| translate{% templatetag closevariable %}</button>
                     </div>
                 </script>
               </li>
@@ -122,27 +126,42 @@
           </div>
       </div>
     </div>
-    {% csrf_token %}
-    <script src="assets/amaretti/lib/jquery/jquery.min.js" type="text/javascript"></script>
-    <script src="assets/amaretti/lib/jquery.nanoscroller/javascripts/jquery.nanoscroller.min.js" type="text/javascript"></script>
     <script src="assets/amaretti/js/main.js" type="text/javascript"></script>
     <script src="assets/amaretti/lib/bootstrap/dist/js/bootstrap.min.js" type="text/javascript"></script>
+    <script src="assets/bower_components/angular/angular.min.js"></script>
+    <script src="assets/bower_components/angular-translate/angular-translate.min.js"></script>
+    <script src="assets/bower_components/angular-sanitize/angular-sanitize.min.js"></script>
     <script src="assets/amaretti/lib/jquery.gritter/js/jquery.gritter.js" type="text/javascript"></script>
     <script src="assets/bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
     <script src="assets/bower_components/bootstrap-table/dist/js/bootstrap-table.min.js"></script>
     <script src="assets/bower_components/bootstrap-table/dist/js/bootstrap-table-es-CO.min.js"></script>
+    <script src="assets/bower_components/bootstrap-table/cookie/bootstrap-table-cookie.min.js"></script>
+    <script src="assets/bower_components/bootstrap-table/export/bootstrap-table-export.min.js"></script>
+    <script src="assets/bower_components/bootstrap-table/export/tableExport.js"></script>
     <script src="assets/bower_components/angular-bootstrap/ui-bootstrap.min.js"></script>
     <script src="assets/bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
     <script src="assets/bower_components/datepicker/dist/js/bootstrap-datepicker.min.js"></script>
     <script src="assets/bower_components/datepicker/dist/locales/bootstrap-datepicker.es.min.js"></script>
-    <script src="assets/bower_components/bootstrap-table/dist/js/bootstrap-table-export.js"></script>
-    <script src="assets/bower_components/angular-translate/angular-translate.min.js"></script>
+    <script src="assets/bower_components/ng-notify/dist/ng-notify.min.js"></script>
+    <script src="assets/bower_components/raphael/raphael.js"></script>
+    <script src="assets/prismjs/angular-prismjs.js"></script>
+    <script src="assets/node_modules/angular-elastic/elastic.js"></script>
+    <script src="/assets/node_modules/jquery-match-height/jquery.matchHeight.js"></script>
+    <script src="assets/node_modules/ng-rollbar/ng-rollbar.min.js"></script>
     <script src="assets/bower_components/downloadjs/download.js"></script>
+    <script src="assets/app/mixPanelDashboard.js"></script>
     <script src="assets/app/app.js"></script>
+    <script src="assets/app/translations.js"></script>
+    <script src="assets/app/routes.js"></script>
+    <script src="assets/app/CSSV2.js"></script>
+    <script src="assets/app/xhr.js"></script>
     <script src="assets/app/models/findingFactory.js" type="text/javascript"></script>
     <script src="assets/app/models/eventualityFactory.js" type="text/javascript"></script>
     <script src="assets/app/controllers/eventualityController.js" type="text/javascript"></script>
-    <script src="assets/app/controllers/dashboardController.js" type="text/javascript"></script>
+    <!-- Start Dashboard -->
+    <script src="assets/app/controllers/registerCtrl.js" type="text/javascript"></script>
+    <!-- End Dashboard -->
+    {% csrf_token %}
     <script type="text/javascript">
       $(document).ready(function(){
         //initialize the javascript
