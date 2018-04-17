@@ -1,7 +1,7 @@
 :slug: pars-orationis-secura/
 :date: 2018-03-22
 :subtitle: Utilizando intérpretes para detectar fallas
-:category: técnicas
+:category: ataques
 :tags: detectar, inyección, escáner
 :image: cover.png
 :alt: Serpiente leyendo un documento
@@ -460,7 +460,7 @@ que nuestro +pyparsing+ reporta:
 [quote]
 Cero falsos positivos.
 
-== References
+== Referencias
 
 * McGuire, Paul (2008). 'Getting started with pyparsing'. O'Reilly shortcuts.
 

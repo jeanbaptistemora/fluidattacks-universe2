@@ -1,6 +1,6 @@
 :slug: symbolic-execution-mortals/
 :date: 2017-05-04
-:category: techniques
+:category: attacks
 :subtitle: What is it and how it works
 :tags: security, test, software
 :image: sym-exec.png

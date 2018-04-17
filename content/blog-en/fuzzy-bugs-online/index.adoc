@@ -1,6 +1,6 @@
 :slug: fuzzy-bugs-online/
 :date: 2018-02-09
-:category: techniques
+:category: attacks
 :subtitle: Fuzz techniques for testing web applications
 :tags: sql, fuzzing, injection
 :image: cover.png

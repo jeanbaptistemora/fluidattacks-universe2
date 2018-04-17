@@ -1,6 +1,6 @@
 :slug: infinite-monkey-fuzzer/
 :date: 2018-02-12
-:category: techniques
+:category: attacks
 :subtitle: Fuzz testing using American Fuzzy Lop
 :tags: fuzzing, application, testing
 :image: inf-monkey.png

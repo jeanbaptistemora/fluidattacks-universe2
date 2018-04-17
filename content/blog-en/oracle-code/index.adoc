@@ -1,7 +1,7 @@
 :slug: oracle-code/
 :date: 2018-03-02
 :subtitle: About code as data
-:category: techniques
+:category: attacks
 :tags: testing, application, detect
 :image: oracle.png
 :alt: Pythia and supplicant in the Oracle of Delphi

@@ -1,7 +1,7 @@
 :slug: pars-orationis-secura/
 :date: 2018-03-22
 :subtitle: Using parser combinators to detect flaws
-:category: techniques
+:category: attacks
 :tags: detect, injection, scanner
 :image: cover.png
 :alt: Python proofreading a document

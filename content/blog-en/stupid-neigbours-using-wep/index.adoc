@@ -1,6 +1,6 @@
 :slug: stupid-neigbours-using-wep/
 :date: 2017-04-24
-:category: techniques
+:category: attacks
 :subtitle: Solving Yashira WEP Security challenge
 :tags: wep, wifi, encryption, challenge
 :image: stupid-wep.png

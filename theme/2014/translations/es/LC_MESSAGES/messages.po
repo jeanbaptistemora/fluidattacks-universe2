@@ -343,6 +343,9 @@ msgstr "Contáctanos"
 msgid "Footer-cat-1"
 msgstr "servicios"
 
+msgid "Footer-cat-1.1"
+msgstr "blog/categorias"
+
 #: templates/footer.html:25
 msgid "Footer-header-2"
 msgstr "Servicios"
@@ -386,6 +389,14 @@ msgstr "certificaciones"
 #: templates/footer.html:30
 msgid "Footer-subtitle-2.5"
 msgstr "Certificaciones"
+
+#: templates/footer.html:30
+msgid "Footer-link-2.6"
+msgstr "ataques"
+
+#: templates/footer.html:30
+msgid "Footer-subtitle-2.6"
+msgstr "Ataques"
 
 #: templates/footer.html:34 templates/footer.html:35 templates/footer.html:36
 #: templates/footer.html:37 templates/footer.html:38 templates/footer.html:39
