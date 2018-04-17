@@ -188,6 +188,7 @@
 == Físicos
 
 * link:201/[REQ.201 Detectar manipulación de dispositivo].
+* link:202/[REQ.202 Eliminar información confidencial].
 
 == Criptografía
 
