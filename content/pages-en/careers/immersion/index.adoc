@@ -1,11 +1,173 @@
 :slug: careers/immersion/
 :category: careers
-:description: The main goal of the following page is to inform potential talents and people interested in working with us about our selection process. The immersion stage is a paid training focused on acquiring the necessary knowledge and skills to solve everyday tasks.
+:description: The main goal of the following page is to inform potential talents and people interested in working with us about our selection process. The immersion stage is a paid training period focused on acquiring the necessary knowledge and skills to solve everyday tasks.
 :keywords: FLUID, Careers, Immersion, Selection, Process, Training
+:toc: yes
 :translate: empleos/inmersion/
 
 = Immersion
 
-This page is only available in Spanish language.
-Please click on the Spanish flag in the upper right corner
-to view the corresponding content.
+At this stage of the process,
+we are just a few steps from finishing.
+This next step, for which you have been selected
+among more than 1580 candidates,
+seeks to make you a part of
+an intensive self-training in programming and
++hacking+ challenges funded by +FLUIDAttacks+,
+called *Immersion*.
+
+== 1. Philosophy
+
+The goal of this stage
+is for you to reach the highest levels of technical strength
+prior to the execution of real pentests
+on financial and telecommunications systems.
+This stage also aims to validate your human and
+teamwork skills.
+
+Due to the extent of the process,
++FLUIDAttacks+, regardless of your progress in points and ranking,
+looks to give monetary compensation for the time invested.
+
+== 2. Objectives
+
+. Solve 100 programming challenges.
+. Solve 100 hacking challenges.
+. Complete 2 training projects.
+. Publish 10 articles in our blog.
+
+== 3. Terms
+
+. All [button]#link:../technical-challenges/#terms[terms]#
+from the technical challenge stage apply.
+. You must report all the time spent
+using the assigned tool in automatic mode.
+. Even days will be dedicated to +hacking+ challenges.
+. Odd days will be dedicated to programming challenges.
+. Training must begin at *7:00 AM*
+in +FLUIDAttacks+ office.
+. You must send at least one +MR+ accepted into +master+
+or a standard progress report (when the +MR+ is rejected)
+before *6:00 PM* of the current day.
+. You can continue training and
+reporting time outside of the office in a place of your preference,
+as long as you comply with the 2 previous rules.
+. If for some exceptional reason
+you can not complete the training in person,
+a weekly training schedule to do it remotely,
+must be established.
+. Training must be done using your own personal laptop.
+. Your daily dedication will be evaluated using a reference time
+of *48 hours/week*.
+. It is expected that you can dedicate every business day
+of the week in person at the company's facilities.
+. If for some personal or health issue
+it is not possible for you to go to the office
+to complete the challenges,
+that day no challenges are to be completed
+nor is training time reported with the assigned tool.
+. On the third business day of each week,
+you must train at your maximum capacity and dedication possible.
+
+== 4. Criteria
+
+. For the challenges,
+the same [button]#link:../technical-challenges/#criteria[criteria]#
+from the challenge stage.
+. For the articles,
+the criteria defined in the [button]#link:../../style[style guide]#
+
+== 5. Cycles
+
+. Training is done in weekly cycles or iterations.
+. Initially, you are offered *one cycle* of training.
+. At the end of each cycle any of the following can happen:
+.. Nothing is notified,
+which implies the cycle is renewed *one more week*.
+.. Notify that we do not want to continue with another cycle and,
+therefore, terminate the process.
+.. Formally notify that we don’t want to continue with another cycle
+Because we want to advance to the next stage.
+. Usually *8 to 16 cycles* are required to finish this stage.
+.. This is merely an estimate,
+It depends entirely on your dedication and performance.
+
+== 6. Payment
+
+. The time reported to training will be paid at *$6,468 COP* an hour.
+. We expect a minimum dedication of *80%*
+(based on the reference time).
+. If the total dedication is greater or lower than what is expected,
+that time will be paid accordingly.
+. The first *96 hours* of training time reported will not be compensated and
+If you continue in the training stage,
+we will guarantee the payment of the next *96 hours*.
+. The contract is a contract for services with monthly payments.
+. You must pay your social security corresponding to these services
+as an independent worker.
+. You must present, in the *1st business day* of the following month,
+the documents that allow us to make payments to your account:
+.. A bill for the hours worked in the previous month.
+.. Payment stub of your social security for the previous period.
+
+== 7. Get Started
+
+This stage begins when:
+
+. You finish the link:../technical-challenges[technical challenge stage]
+. You register as a third party in this [button]#link:../../../../forms/third-party[form]#
+following these instructions:
+.. *Business name:* Enter your full name.
+.. *+ITIN/SSN+:* Follow the instructions in
+link:https://www.irs.gov/individuals/international-taxpayers/taxpayer-identification-numbers-tin[+IRS+ website] and
+attach the +PDF+ document.
+.. *Concept:* Enter your first name and initial of your last name.
+.. *Relation:* Supplier.
+.. *Bank letter:* Attach the corresponding +PDF+.
+For Colombia, only Bancolombia accounts are accepted.
+.. *Payment deadline:* 5 business days.
+.. *Payment methods:* Ordinary.
+.. *Reception of invoice and Reception days:* First day of every month.
+.. *Fill out:* Enter your personal email account
+(The same one with which you have been completing the selection process).
+.. Fields that are not specified here are not mandatory and
+do not need to be filled out.
+. Send us an email (careers@autonomicmind.co) with the following:
+.
+[quote]
+____________________________________________________________________
+I have read and understood all the documentation and
+terms of the immersion stage.
+I accept the offer and confirm that I can start on AAAA/MM/DD.
+
+Attached:
+
+* ProfessionalCard.pdf (If it applies in your country and are an undergraduate)
+* PaymentReceiptProfessionalCard.pdf
+(If it applies in your country and are an undergraduate but don’t yet have it)
+* Neither (If you have not graduated yet).
+____________________________________________________________________
+
+[IMPORTANT]
+Other procedural details of how the every day training will be carried out,
+the programming languages,
+the documentation format and
+the required tools, among others,
+will be revealed on the first day of Immersion and
+when you have finished all the items mentioned in this section.
+
+== 8. End
+
+The immersion stage ends under any of the following circumstances:
+
+. You have successfully completed link:#objectives[the objectives]
+
+. You have reached the maximum allowed of 10 failed +MR+.
+This means an +MR+ that was not +merged+
+due to failure to meet the criteria detailed in the documentation.
+
+. You are not meeting all link:#terms[terms] and
+link:#criteria[criteria] defined in this stage.
+
+If you have any doubts,
+don’t hesitate to contact us at careers@autonomicmind.co

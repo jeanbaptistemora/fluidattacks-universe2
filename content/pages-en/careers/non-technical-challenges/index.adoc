@@ -115,7 +115,7 @@ This type of activities are the basis of the project and
 team management philosophy in +FLUIDAttacks+
 (management based on data and metrics),
 therefore, this activity is no more than a simulation of
-what will be your day to day.
+what will be your everyday tasks.
 
 If you stated in your application that
 you are a fluent English speaker by checking the "Yes" box,
