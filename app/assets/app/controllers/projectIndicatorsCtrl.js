@@ -99,15 +99,15 @@ integrates.controller(
       data.data.forEach(function calcSeverity (cont) {
         try {
           if (cont.tipo_hallazgo === "Seguridad") {
-            const ImpCon = parseFloat(cont.impactoConfidencialidad.split(" | ")[0]);
-            const ImpInt = parseFloat(cont.impactoIntegridad.split(" | ")[0]);
-            const ImpDis = parseFloat(cont.impactoDisponibilidad.split(" | ")[0]);
-            const AccCom = parseFloat(cont.complejidadAcceso.split(" | ")[0]);
-            const AccVec = parseFloat(cont.vectorAcceso.split(" | ")[0]);
+            const ImpCon = parseFloat(cont.impacto_confidencialidad.split(" | ")[0]);
+            const ImpInt = parseFloat(cont.impacto_integridad.split(" | ")[0]);
+            const ImpDis = parseFloat(cont.impacto_disponibilidad.split(" | ")[0]);
+            const AccCom = parseFloat(cont.complejidad_acceso.split(" | ")[0]);
+            const AccVec = parseFloat(cont.vector_acceso.split(" | ")[0]);
             const Auth = parseFloat(cont.autenticacion.split(" | ")[0]);
             const Explo = parseFloat(cont.explotabilidad.split(" | ")[0]);
-            const Resol = parseFloat(cont.nivelResolucion.split(" | ")[0]);
-            const Confi = parseFloat(cont.nivelConfianza.split(" | ")[0]);
+            const Resol = parseFloat(cont.nivel_resolucion.split(" | ")[0]);
+            const Confi = parseFloat(cont.nivel_confianza.split(" | ")[0]);
             const BaseScore = ((0.6 * (10.41 * (1 - ((1 - ImpCon) * (1 - ImpInt) * (1 - ImpDis))))) + (0.4 * (20 * AccCom * Auth * AccVec)) - 1.5) * 1.176;
             severity += BaseScore * parseFloat(cont.cardinalidad_total);
           }
