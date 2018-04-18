@@ -124,4 +124,4 @@ Copyright (C) Microsoft Corporation. All rights reserved.
 
 . [[r3]] link:https://msdn.microsoft.com/en-us/library/system.guid.newguid.aspx[Guid.NewGuid Method].
 
-. [[r4]] link:../../../rules/218/[REQ.218 Aleatorios generados uniformemente].
+. [[r4]] link:../../../rules/223/[REQ.223 Generar números con distribución uniforme].

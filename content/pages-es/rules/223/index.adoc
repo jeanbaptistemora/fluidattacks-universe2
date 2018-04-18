@@ -8,4 +8,10 @@
 
 == Nombre
 
-Los números aleatorios generados deben seguir una distribución uniforme.
+Los números aleatorios generados
+deben seguir una distribución uniforme.
+
+== Soluciones
+
+. +ASPNET+ link:../../defends/aspnet/generar-identificador-unico/[Generar identificador único para transacción].
+. +COBOL+ link:../../defends/cobol/generar-numeros-aleatorios/[Generar Números Aleatorios].
