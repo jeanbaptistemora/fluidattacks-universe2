@@ -106,10 +106,6 @@ msgstr ""
 msgid "Author-keywords"
 msgstr "Autor, Artículo, Información, Seguridad, Blog, Publicación, Fecha"
 
-#: templates/author.html:8
-msgid "Articles-title"
-msgstr "Artículos por"
-
 #: templates/author.html:49
 msgid "Author-breadcrumb-1"
 msgstr "Autores"
@@ -179,10 +175,6 @@ msgstr ""
 #: templates/category.html:5
 msgid "Category-keywords"
 msgstr "Artículo, Categoría, Blog, Información, Seguridad, Fecha"
-
-#: templates/category.html:8
-msgid "Category-title"
-msgstr "Artículos en la categoría"
 
 #: templates/category.html:40
 msgid "Category-breadcrumb-1"
@@ -950,10 +942,6 @@ msgstr ""
 #: templates/tag.html:5
 msgid "Tag-keywords"
 msgstr "Artículo, Etiqueta, Blog, Información, Seguridad, Fecha"
-
-#: templates/tag.html:12 templates/tag.html:17
-msgid "Tag-title"
-msgstr "Etiqueta"
 
 #: templates/tag.html:53
 msgid "Tag-breadcrumb-1"

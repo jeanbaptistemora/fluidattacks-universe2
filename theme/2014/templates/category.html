@@ -5,7 +5,7 @@
   <meta name="keywords" content="{{ gettext('Category-keywords') }}">
 {% endblock meta %}
 
-{% block title %}{{ gettext('Category-title') }} {{ category.name|replace("-", " ")|capitalize }} | {{ AUTHOR }}{% endblock %}
+{% block title %}{{ category.name|replace("-", " ")|capitalize }} | {{ AUTHOR }}{% endblock %}
 
 {% block canonical %}<link rel="canonical" href="{{ SITEURL }}/{{ category.url }}">{% endblock canonical %}
 

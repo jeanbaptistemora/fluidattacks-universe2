@@ -9,12 +9,12 @@
   {% set TITLE = 0 %}
   {% if DEFAULT_LANG == "en" %}
     {% if tag.name|length < 20 %}
-{{ gettext('Tag-title') }} {{ tag|capitalize }} | {{ SITENAME }}
+{{ tag|capitalize }} | {{ SITENAME }}
       {% set TITLE = 1 %}
     {% endif %}
   {% endif %}
   {% if TITLE == 0 %}
-{{ gettext('Tag-title') }} {{ tag|capitalize }} | {{ AUTHOR }}
+{{ tag|capitalize }} | {{ AUTHOR }}
   {% endif %}
 {% endblock %}
 
