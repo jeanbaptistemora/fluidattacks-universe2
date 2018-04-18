@@ -69,7 +69,7 @@
                 <li><a href="{{ SITEURL }}/defends/#{{ page.category.name }}">{{ page.category }}</a></li>
               {% elif "misc" not in page.category.name %}
                 {% if page.category2 %}
-                  <li><a href="{{ SITEURL }}/{{ page.category.name }}">{{ page.category }} >>&nbsp;</a></li>
+                  <li><a href="{{ SITEURL }}/{{ page.category.name }}/">{{ page.category }} >>&nbsp;</a></li>
                   <li><a href="{{ SITEURL }}/{{ page.category.name }}/{{ page.category2 }}/">{{ page.category2|replace('-', ' ') }}</a></li>
                 {% else %}
                   <li><a href="{{ SITEURL }}/{{ page.category.name }}">{{ page.category }}</a></li>
@@ -167,6 +167,61 @@
         </div>
         <script id="dsq-count-scr" src="//{{ DISQUS_SITENAME }}.disqus.com/count.js" async></script>
       {% endif %}
+      <script type="application/ld+json">
+        {
+          "@context": "http://schema.org",
+          "@type": "BreadcrumbList",
+          "itemListElement": [{
+            "@type": "ListItem",
+            "position": 1,
+            "item": {
+              "@id": "{{ SITEURL }}/",
+              "name": "{{ gettext('Breadcrumb-0') }}"
+            }
+        {% if page.defends %}
+          },{
+            "@type": "ListItem",
+            "position": 2,
+            "item": {
+              "@id": "{{ SITEURL }}/defends/",
+              "name": "Defends"
+            }
+          },{
+            "@type": "ListItem",
+            "position": 3,
+            "item": {
+              "@id": "{{ SITEURL }}/defends/#{{ page.category.name }}/",
+              "name": "{{ page.category|capitalize }}"
+            }
+        {% elif "misc" not in page.category.name %}
+          {% if page.category2 %}
+          },{
+            "@type": "ListItem",
+            "position": 2,
+            "item": {
+              "@id": "{{ SITEURL }}/{{ page.category.name }}/",
+              "name": "{{ page.category|capitalize }}"
+            }
+          },{
+            "@type": "ListItem",
+            "position": 3,
+            "item": {
+              "@id": "{{ SITEURL }}//{{ page.category.name }}/{{ page.category2 }}/",
+              "name": "{{ page.category2|capitalize }}/"
+            }
+          {% else %}
+          },{
+            "@type": "ListItem",
+            "position": 2,
+            "item": {
+              "@id": "{{ SITEURL }}/{{ page.category.name }}/",
+              "name": "{{ page.category|capitalize }}"
+            }
+          {% endif %}
+        {% endif %}
+          }]
+        }
+      </script>
     </article>
   </div>
 {% endblock content %}

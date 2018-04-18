@@ -199,6 +199,41 @@
          </div>
          <script id="dsq-count-scr" src="//{{ DISQUS_SITENAME }}.disqus.com/count.js" async></script>
        {% endif %}
+       <script type="application/ld+json">
+         {
+           "@context": "http://schema.org",
+           "@type": "BreadcrumbList",
+           "itemListElement": [{
+             "@type": "ListItem",
+             "position": 1,
+             "item": {
+               "@id": "{{ SITEURL }}/",
+               "name": "{{ gettext('Breadcrumb-0') }}"
+             }
+           },{
+             "@type": "ListItem",
+             "position": 2,
+             "item": {
+               "@id": "{{ SITEURL }}/blog/",
+               "name": "Blog"
+             }
+           },{
+             "@type": "ListItem",
+             "position": 3,
+             "item": {
+               "@id": "{{SITEURL}}/{{ category.url }}../",
+               "name": "{{ gettext('Articles-breadcrumb-1') }}"
+             }
+           },{
+             "@type": "ListItem",
+             "position": 4,
+             "item": {
+               "@id": "{{ SITEURL }}/{{ category.url }}",
+               "name": "{{ article.category|capitalize }}"
+             }
+           }]
+         }
+       </script>
      </article>
    </div>
 {% endblock content %}
