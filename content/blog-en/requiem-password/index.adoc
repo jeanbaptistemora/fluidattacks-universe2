@@ -12,6 +12,7 @@
 :name: Rafael Ballestas
 :about1: Mathematician
 :about2: with an itch for CS
+:translate: requiem-password/
 
 = Requiem for a p455w0rD
 
@@ -62,7 +63,7 @@ in different ways, such as:
 * replacing letters by similar numbers
 (v.g. +hello+ -> +h3110+, +tigger+ -> +71gg3r+)
 * reverting their old password back and forth (+qwerty+ -> +ytrewq+)
-* switching beetwen simple passwords (+pass+ -> +word+),
+* switching between simple passwords (+pass+ -> +word+),
 * altering a standard password (+password+ -> +password1+ -> ...),
 * not avoiding it, thus getting a very complicated password,
 but keeping it written down in a piece of paper (danger!).
@@ -154,10 +155,10 @@ and that the chosen phrase is not as random as it might seem.
 
 So how do I create a really random, strong passphrase?
 Look for true real-word randomness.
-The easiest way to go would be rolling a die many times
+The easiest way to go would be rolling a dice many times
 writing down the results,
 and make that into words
-using a dictionary that maps sequences of die rolls
+using a dictionary that maps sequences of dice rolls
 to actual english words like this:
 
 .Some words from a link:http://world.std.com/~reinhold/dicewarewordlist.pdf[+Diceware+ dictionary].
