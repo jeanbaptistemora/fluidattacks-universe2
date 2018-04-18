@@ -185,8 +185,8 @@ integrates.controller("findingcontentCtrl", function findingcontentCtrl (
 
       input.addEventListener("change", function change (aux) {
         let fileName = "";
-        if (this.files && this.files.length > 1) {
-          fileName = (this.getAttribute("data-multiple-caption") || "").replace("{count}", this.files.length);
+        if (input.files && input.files.length > 1) {
+          fileName = (input.getAttribute("data-multiple-caption") || "").replace("{count}", input.files.length);
         }
         else {
           fileName = aux.target.value.split("\\").pop();
@@ -306,8 +306,8 @@ integrates.controller("findingcontentCtrl", function findingcontentCtrl (
 
       input.addEventListener("change", function change (err) {
         let fileName = "";
-        if (this.files && this.files.length > 1) {
-          fileName = (this.getAttribute("data-multiple-caption") || "").replace("{count}", this.files.length);
+        if (input.files && input.files.length > 1) {
+          fileName = (input.getAttribute("data-multiple-caption") || "").replace("{count}", input.files.length);
         }
         else {
           fileName = err.target.value.split("\\").pop();
@@ -344,8 +344,8 @@ integrates.controller("findingcontentCtrl", function findingcontentCtrl (
 
       input.addEventListener("change", function change (err) {
         let fileName = "";
-        if (this.files && this.files.length > 1) {
-          fileName = (this.getAttribute("data-multiple-caption") || "").replace("{count}", this.files.length);
+        if (input.files && input.files.length > 1) {
+          fileName = (input.getAttribute("data-multiple-caption") || "").replace("{count}", input.files.length);
         }
         else {
           fileName = err.target.value.split("\\").pop();
