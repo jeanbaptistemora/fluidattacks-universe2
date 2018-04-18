@@ -26,7 +26,6 @@ stages:
     - test
     - push
     - deploy
-    - rollbar
 
 Build:
     stage: deps
@@ -147,6 +146,7 @@ Deploy:
        - scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -i FLUID_Serves.pem env.list admin@fluidattacks.com:/home/admin
        - ssh -o StrictHostKeyChecking=no -i FLUID_Serves.pem admin@fluidattacks.com 'sudo docker pull registry.gitlab.com/fluidsignal/integrates:master && sudo docker stop integrates && sudo docker rm integrates && sudo docker run -d --env-file env.list -p 8000:443 --name=integrates registry.gitlab.com/fluidsignal/integrates:master'
        - ssh -o StrictHostKeyChecking=no -i FLUID_Serves.pem admin@fluidattacks.com 'sudo docker pull registry.gitlab.com/fluidsignal/integrates/bot:master && sudo docker stop bot && sudo docker rm bot && sudo docker run -d --env-file env.list --restart always --name=bot registry.gitlab.com/fluidsignal/integrates/bot:master && rm env.list'
+       - docker run -d -e FI_ROLLBAR_ACCESS_TOKEN="$FI_ROLLBAR_ACCESS_TOKEN" -e FI_ROLLBAR_ENVIRONMENT="$FI_ROLLBAR_ENVIRONMENT" -e FI_ROLLBAR_REVISION="$CI_COMMIT_SHA" -e FI_ROLLBAR_LOCAL_USERNAME="$CI_COMMIT_REF_NAME" registry.gitlab.com/fluidsignal/integrates:deps curl https://api.rollbar.com/api/1/deploy/ -F access_token=$FI_ROLLBAR_ACCESS_TOKEN -F environment=$FI_ROLLBAR_ENVIRONMENT -F revision=$CI_COMMIT_SHA -F local_username="$CI_COMMIT_REF_NAME"
     only:
     - master
     except:
@@ -163,13 +163,4 @@ serves_trigger:
         - ssh -o StrictHostKeyChecking=no -i FLUID_Serves.pem admin@$NEW_SERVES 'sudo docker pull registry.gitlab.com/fluidsignal/integrates/bot:master && (sudo docker stop bot || echo "") && (sudo docker rm bot || echo "") && sudo docker run -d --env-file env.list --restart always --name=bot registry.gitlab.com/fluidsignal/integrates/bot:master && rm env.list'
         - curl -X POST -F token="$TRIGGER_TOKEN" -F ref=master -F "variables[IS_TRIGGER]=true" https://gitlab.com/api/v4/projects/4593051/trigger/pipeline
     only:
-    - triggers
-
-Rollbar:
-    stage: rollbar
-    script:
-        - docker run -d -e FI_ROLLBAR_ACCESS_TOKEN="$FI_ROLLBAR_ACCESS_TOKEN" -e FI_ROLLBAR_ENVIRONMENT="$FI_ROLLBAR_ENVIRONMENT" -e FI_ROLLBAR_REVISION="$CI_COMMIT_SHA" -e FI_ROLLBAR_LOCAL_USERNAME="$CI_COMMIT_REF_NAME" registry.gitlab.com/fluidsignal/integrates:deps curl https://api.rollbar.com/api/1/deploy/ -F access_token=$FI_ROLLBAR_ACCESS_TOKEN -F environment=$FI_ROLLBAR_ENVIRONMENT -F revision=$CI_COMMIT_SHA -F local_username="$CI_COMMIT_REF_NAME"
-    only:
-    - master
-    except:
     - triggers
