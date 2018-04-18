@@ -3,6 +3,7 @@
 :description: Commands is FLUIDAttacks´ cyberweapon used for in depth penetration testing of work stations and critical servers. It looks to take full control of multiple critical systems in order to create a network of infected nodes that can be controled from a command and control center.
 :keywords: FLUID, Products, Commands, Security, Pentesting, Application.
 :translate: productos/commands/
+:caption:
 
 = Commands
 
@@ -24,7 +25,8 @@ To do this, we look to take full control of multiple critical systems
 in order to create a network of infected nodes
 and be able to control them
 to obtain sensitive information or further infect other nodes.
-a|image::botnet.png[Botnet]
+a|.Image taken from link:https://www.cloudflare.com/learning/ddos/what-is-a-ddos-botnet/[Cloudflare]
+image::botnet.png[Botnet]
 
 a|image::how-its-done.png[How we do it]
 a|== How we do it
@@ -50,7 +52,8 @@ it is remotely uninstalled
 without leaving any traces or collateral damage.
 a|image::no-traces.png[Zero Damage, No traces]
 
-a|image::command-control.png[Command and Control Center]
+a|.Image taken from link:https://www.darpa.mil/program/hallmark[Darpa]
+image::command-control.png[Command and Control Center]
 a|== Command and Control Center
 
 +FLUIDCommands+ counts with a Command and Control Center
