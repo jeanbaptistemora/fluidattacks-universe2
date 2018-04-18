@@ -1,12 +1,10 @@
 /* eslint no-magic-numbers: ["error", { "ignore": [-1,0,0.4,0.6,1,1.176,1.5,2,4,4.611,10,10.41,13,20,43.221,100,200,300,1000,3000] }]*/
+/* eslint no-shadow: ["error", { "allow": ["$scope","$stateParams", "projectFtry"] }]*/
 /* global
-BASE, downLink:true, Morris, estado:true, exploitLabel:true, nonexploitLabel:true, totalHigLabel:true,
+BASE, downLink:true, Morris, estado:true, exploitLabel:true, nonexploitLabel:true, totalHigLabel:true, $scope:true,
 explotable:true, totalSegLabel:true, openLabel:true, partialLabel:true, integrates, userRole, document, $, $msg, userName,
 userEmail, Rollbar, aux:true, json:true, closeLabel:true, mixPanelDashboard, win:true, window, Organization, projectData:true, eventsData:true,
 i:true, j:true
-*/
-/* eslint-env node*/
-/**
  * @file ProjectCtrl.js
  * @author engineering@fluidattacks.com
  */

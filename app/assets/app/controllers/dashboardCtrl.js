@@ -1,3 +1,4 @@
+/* eslint no-shadow: ["error", { "allow": ["$scope"] }]*/
 /* global
 integrates, $, BASE, mixpanel, userMail, $xhr, Organization, userEmail, mixPanelDashboard, userName, projectData:true, eventsData:true, findingData:true
 */

@@ -1,4 +1,5 @@
 /* eslint no-magic-numbers: ["error", { "ignore": [0, 13] }]*/
+/* eslint no-shadow: ["error", { "allow": ["$scope"] }]*/
 /* global
 integrates, $, BASE, mixpanel, userMail, $xhr, Organization, userEmail, Rollbar, mixPanelDashboard, userName
 */

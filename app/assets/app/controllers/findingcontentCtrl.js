@@ -1,4 +1,5 @@
 /* eslint no-magic-numbers: ["error", { "ignore": [-1,0,0.4,0.6,1,1.176,1.5,2,3,4,5,6,6.9,7,9,10,10.41,20,50,80,100,200,500,1000,10000] }]*/
+/* eslint no-shadow: ["error", { "allow": ["$scope","$stateParams","$state","response"] }]*/
 /* global
 BASE, document, $, $msg, userName, integrates, userEmail, userName, Rollbar, mixPanelDashboard, userRole, findingType, actor,
 scenario, authentication, confidenciality, Organization, resolutionLevel, explotability, availability, tratamiento, updateEvidencesFiles:true,
@@ -368,7 +369,7 @@ integrates.controller("findingcontentCtrl", function findingcontentCtrl (
     });
   };
   $scope.detectNivel = function detectNivel () {
-    $timeout(function detectNivel () {
+    $timeout(function useDetectNivel () {
       $scope.$apply();
       if ($scope.finding.nivel === "Detallado") {
         $scope.esDetallado = true;
@@ -1412,10 +1413,10 @@ integrates.controller("findingcontentCtrl", function findingcontentCtrl (
           const saveComment = function saveComment (data) {
             // Convert pings to human readable format
             $(data.pings).each(function dataUsers (index, id) {
-              const user = usersArray.filter(function filterUsers (user) {
-                return user.id === id;
+              const userInfo = usersArray.filter(function filterUsers (user) {
+                return userInfo.id === id;
               })[0];
-              data.content = data.content.replace(`@${id}`, `@${user.fullname}`);
+              data.content = data.content.replace(`@${id}`, `@${userInfo.fullname}`);
             });
             return data;
           };

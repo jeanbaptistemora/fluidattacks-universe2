@@ -1,16 +1,15 @@
-/* eslint no-magic-numbers: ["error", { "ignore": [-1,0,0.4,0.6,1,1.176,1.5,2,4,4.611,10,10.41,13,20,43.221,100,200,300,1000,3000] }]*/
+/* eslint no-magic-numbers: ["error", { "ignore": [0,13] }]*/
+/* eslint no-shadow: ["error", { "allow": ["$scope"] }]*/
 /* global
 BASE, downLink:true, Morris, estado:true, exploitLabel:true, nonexploitLabel:true, totalHigLabel:true,
 explotable:true, totalSegLabel:true, openLabel:true, partialLabel:true, integrates, userRole, document, $, $msg, userName,
 userEmail, Rollbar, aux:true, json:true, closeLabel:true, mixPanelDashboard, win:true, window, Organization, projectData:true, eventsData:true,
 i:true, j:true
 */
-/* eslint-env node*/
 /**
  * @file projectEventsCtrl.js
  * @author engineering@fluidattacks.com
  */
-
 /**
  * Function labelEventState return html code for specific label
  */
@@ -66,9 +65,9 @@ integrates.controller(
                 project !== "") {
         $scope.project = project;
         $scope.search();
-        const org = Organization.toUpperCase();
-        const projt = project.toUpperCase();
-        mixPanelDashboard.trackReports("ProjectEvents", userName, userEmail, org, projt);
+        const orgName = Organization.toUpperCase();
+        const projName = project.toUpperCase();
+        mixPanelDashboard.trackReports("ProjectEvents", userName, userEmail, orgName, projName);
       }
       // Asigna el evento buscar al textbox search y tecla enter
       $scope.configKeyboardView();
@@ -163,9 +162,9 @@ integrates.controller(
       $state.go("ProjectEvents", {"project": $scope.project});
     };
     $scope.loadEventContent = function loadEventContent (data, vlang, project) {
-      const org = Organization.toUpperCase();
-      const projt = project.toUpperCase();
-      $scope.alertHeader(org, projt);
+      const organizationName = Organization.toUpperCase();
+      const projectName = project.toUpperCase();
+      $scope.alertHeader(organizationName, projectName);
       for (let cont = 0; cont < data.length; cont++) {
         switch (data[cont].tipo) {
         case "Autorización para ataque especial":
@@ -228,9 +227,9 @@ integrates.controller(
             "controller" ($scope, $uibModalInstance, evt) {
               $scope.evt = evt;
               // Tracking mixpanel
-              const org = Organization.toUpperCase();
-              const projt = project.toUpperCase();
-              mixPanelDashboard.trackReadEventuality(userName, userEmail, org, projt, evt.id);
+              const nameOrg = Organization.toUpperCase();
+              const nameProj = project.toUpperCase();
+              mixPanelDashboard.trackReadEventuality(userName, userEmail, nameOrg, nameProj, evt.id);
               $scope.close = function close () {
                 $uibModalInstance.close();
               };
