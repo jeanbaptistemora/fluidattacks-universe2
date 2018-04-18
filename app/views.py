@@ -153,6 +153,11 @@ def project_events(request):
             },
             "eventualities": {
                 "description": "Click on an event to see more details"
+            },
+            "event_by_name": {
+                "btn_group": {
+                   "resume": "Resume"
+                }
             }
         }
     }
@@ -167,6 +172,11 @@ def project_events(request):
                 },
                 "eventualities": {
                     "description": "Haz click para ver el detalle"
+                },
+                "event_by_name": {
+                    "btn_group": {
+                       "resume": "Resumen"
+                    }
                 }
             }
         }
@@ -1013,7 +1023,7 @@ def update_eventuality(request):
         if request:
             return util.response([], 'success', False)
         rollbar.report_message('Error: An error ocurred updating event', 'error', request)
-        return util.response([], 'error', False)
+        return util.response([], 'error', True)
     except KeyError:
         rollbar.report_exc_info(sys.exc_info(), request)
         return util.response([], 'Campos vacios', True)

@@ -82,11 +82,6 @@ integrates.config(function config ($stateProvider, $urlRouterProvider) {
       "templateUrl": "assets/views/project/findingcontent.html",
       "url": "/project/:project/:id/comments"
     }).
-    state("EventualitiesByName", {
-      "controller": "eventualityController",
-      "templateUrl": "assets/views/search/event_by_name.html",
-      "url": "/eventualities-by-name"
-    }).
     state("Forms", {
       "controller": "formCtrl",
       "templateUrl": `${BASE.url}forms`,

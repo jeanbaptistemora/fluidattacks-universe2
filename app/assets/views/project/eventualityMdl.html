@@ -1,4 +1,13 @@
 <div class="modal-body" id="modal-body">
+    <div class="row" ng-show="evt.isManager">
+        <div class="col-md-4 col-md-offset-8 col-xs-12 col-sm-12">
+            <button id="edit" class="btn btn-primary btn-block"
+                    ng-click="eventEdit();">
+                    <i class="glyphicon glyphicon-edit"></i>  {{'search_findings.tab_description.editable' | translate}}
+            </button>
+        </div>
+    </div>
+    <br>
     <div class="row">
         <div class="col-md-12">
             <div class="form-group">
@@ -18,6 +27,39 @@
                 <input type="text" class="form-control" ng-model="evt.estado" disabled>
             </div>
         </div>
+        <div ng-show="evt.isManager">
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label>{{'event_by_name.modal_ver.f_proj' | translate}}</label>
+                    <input type="text" class="form-control" ng-model="evt.proyecto_fluid" disabled>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label>{{'event_by_name.modal_ver.c_proj' | translate}}</label>
+                    <input type="text" class="form-control" ng-model="evt.proyecto_cliente" disabled>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label>{{'event_by_name.modal_ver.client' | translate}}</label>
+                    <input type="text" class="form-control" ng-model="evt.cliente" disabled>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label>{{'event_by_name.modal_ver.analyst' | translate}}</label>
+                    <input type="text" class="form-control" ng-model="evt.analista" disabled>
+                </div>
+            </div>
+            <div class="col-md-6" ng-class="esDetallado">
+                <div class="form-group">
+                    <label>{{'event_by_name.modal_ver.affec' | translate}}</label>
+                    <input ng-show="evt.onlyReadableEvt1" type="number" class="form-control" ng-model="evt.afectacion" disabled>
+                    <input ng-show="!evt.onlyReadableEvt1" type="number" class="form-control" ng-model="evt.afectacion" min="0">
+                </div>
+            </div>
+        </div>
         <div class="col-md-12">
             <div class="form-group">
                 <label>{{'search_findings.pop_table.details' | translate}}</label>
@@ -27,5 +69,7 @@
     </div>
 </div>
 <div class="modal-footer">
-    <button class="btn btn-primary" type="button" ng-click="close()">OK</button>
+    <button ng-show="evt.onlyReadableEvt1" class="btn btn-primary" type="button" ng-click="close()">OK</button>
+    <button ng-show="!evt.onlyReadableEvt1" class="btn btn-warning" type="button" ng-click="close()">{{'event_by_name.modal_edit.close' | translate}}</button>
+    <button ng-show="!evt.onlyReadableEvt1" class="btn btn-primary" type="button" ng-click="okModalEditar()">{{'event_by_name.modal_edit.refresh' | translate}}</button>
 </div>

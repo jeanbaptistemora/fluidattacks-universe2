@@ -1,4 +1,4 @@
-/* eslint no-magic-numbers: ["error", { "ignore": [0,13] }]*/
+/* eslint no-magic-numbers: ["error", { "ignore": [0,13, 100] }]*/
 /* eslint no-shadow: ["error", { "allow": ["$scope"] }]*/
 /* global
 BASE, downLink:true, Morris, estado:true, exploitLabel:true, nonexploitLabel:true, totalHigLabel:true,
@@ -45,7 +45,8 @@ integrates.controller(
     $scope, $location,
     $uibModal, $timeout,
     $state, $stateParams,
-    $translate, projectFtry
+    $translate, projectFtry,
+    eventualityFactory
   ) {
     $scope.init = function init () {
       const project = $stateParams.project;
@@ -146,20 +147,11 @@ integrates.controller(
             }
             else {
               Rollbar.warning("Warning: Event not found");
-              $msg.error($translate.instant("proj_alerts.not_found"));
+              $msg.error($translate.instant("proj_alerts.eventExist"));
             }
           });
         }
       }
-    };
-    $scope.urlIndicators = function urlIndicators () {
-      $state.go("ProjectIndicators", {"project": $scope.project});
-    };
-    $scope.urlFindings = function urlFindings () {
-      $state.go("ProjectFindings", {"project": $scope.project});
-    };
-    $scope.urlEvents = function urlEvents () {
-      $state.go("ProjectEvents", {"project": $scope.project});
     };
     $scope.loadEventContent = function loadEventContent (data, vlang, project) {
       const organizationName = Organization.toUpperCase();
@@ -214,6 +206,7 @@ integrates.controller(
           data[cont].estado = data[cont].estado;
         }
       }
+      $scope.isManager = userRole !== "customer";
       mixPanelDashboard.trackSearch("SearchEventuality", userEmail, project);
       // CONFIGURACION DE TABLA
       $("#tblEventualities").bootstrapTable("destroy");
@@ -226,10 +219,58 @@ integrates.controller(
             "backdrop": "static",
             "controller" ($scope, $uibModalInstance, evt) {
               $scope.evt = evt;
+              $scope.evt.isManager = userRole !== "customer";
+              $scope.evt.onlyReadableEvt1 = true;
               // Tracking mixpanel
               const nameOrg = Organization.toUpperCase();
               const nameProj = project.toUpperCase();
               mixPanelDashboard.trackReadEventuality(userName, userEmail, nameOrg, nameProj, evt.id);
+              if ($scope.evt.afectacion === "" || typeof $scope.evt.afectacion === "undefined") {
+                $scope.evt.afectacion = "0";
+              }
+              $scope.evt.afectacion = parseInt($scope.evt.afectacion, 10);
+              $scope.eventEdit = function eventEdit () {
+                if ($scope.evt.onlyReadableEvt1 === false) {
+                  $scope.evt.onlyReadableEvt1 = true;
+                }
+                else {
+                  $scope.evt.onlyReadableEvt1 = false;
+                }
+              };
+              $scope.okModalEditar = function okModalEditar () {
+                const neg = "negativo";
+                let submit = false;
+                try {
+                  if (typeof $scope.evt.afectacion === "undefined") {
+                    throw neg;
+                  }
+                  submit = true;
+                }
+                catch (err) {
+                  Rollbar.error("Error: Affectation can not be a negative number");
+                  $msg.error($translate.instant("proj_alerts.eventPositiveint"));
+                  return false;
+                }
+                eventualityFactory.updateEvnt($scope.evt).then(function resupdateEvnt (response) {
+                  if (!response.error) {
+                    const updatedAt = $translate.instant("proj_alerts.updatedTitle");
+                    const updatedAc = $translate.instant("proj_alerts.eventUpdated");
+                    $msg.success(updatedAc, updatedAt);
+                    $uibModalInstance.close();
+                    location.reload();
+                  }
+                  else if (response.error) {
+                    if (response.message === "Campos vacios") {
+                      Rollbar.error("Error: An error occurred updating events");
+                      $msg.error($translate.instant("proj_alerts.emptyField"));
+                    }
+                    else {
+                      Rollbar.error("Error: An error occurred updating events");
+                      $msg.error($translate.instant("proj_alerts.errorUpdatingEvent"));
+                    }
+                  }
+                });
+              };
               $scope.close = function close () {
                 $uibModalInstance.close();
               };
@@ -243,6 +284,32 @@ integrates.controller(
       // MANEJO DEL UI
       $("#search_section").show();
       $("[data-toggle=\"tooltip\"]").tooltip();
+    };
+    $scope.openModalEventAvance = function openModalEventAvance () {
+      const modalInstance = $uibModal.open({
+        "animation": true,
+        "controller" ($scope, $uibModalInstance) {
+          $scope.rowsEvent = $("#tblEventualities").bootstrapTable("getData");
+          $scope.close = function close () {
+            $uibModalInstance.close();
+            $timeout(function auxCloseModalAvance () {
+              $("#tblEventualities").bootstrapTable("load", $scope.rowsEvent);
+            }, 100);
+          };
+        },
+        "resolve": {"ok": true},
+        "templateUrl": "avance.html",
+        "windowClass": "modal avance-modal"
+      });
+    };
+    $scope.urlIndicators = function urlIndicators () {
+      $state.go("ProjectIndicators", {"project": $scope.project});
+    };
+    $scope.urlFindings = function urlFindings () {
+      $state.go("ProjectFindings", {"project": $scope.project});
+    };
+    $scope.urlEvents = function urlEvents () {
+      $state.go("ProjectEvents", {"project": $scope.project});
     };
     $scope.init();
   }
