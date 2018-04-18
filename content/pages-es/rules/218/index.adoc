@@ -1,17 +1,14 @@
 :slug: rules/218/
 :category: rules
-:description: En el presente documento se detallan los requerimientos de seguridad relacionados a los números aleatorios. En este requerimiento se establece la importancia de generar números aleatorios criptográficamente seguros siguiendo una distribución uniforme.
-:keywords: Requerimiento, Seguridad, Generación, Aleatorios, Seguros, Uniformes.
+:description: En el presente documento se detallan los requerimientos de seguridad relacionados a la gestión adecuada de hipervisores en máquinas virtuales. El objetivo de este requerimiento es permitir el acceso sólo a una única máquina virtual de soporte de seguridad.
+:keywords: CPU, Seguridad, Hipervisor, Máquina, Virtual, Memoria.
 :rules: yes
 
-= REQ.218 Aleatorios generados uniformemente
+= REQ.218 Controlar acceso a máquina virtual
 
 == Nombre
 
-Los números aleatorios generados
-deben seguir una distribución uniforme.
-
-== Soluciones
-
-. +ASPNET+ link:../../defends/aspnet/generar-identificador-unico/[Generar identificador único para transacción].
-. +COBOL+ link:../../defends/cobol/generar-numeros-aleatorios/[Generar Números Aleatorios].
+Si el hipervisor permite la revisión de memoria
+y registros de +CPU+ entre máquinas virtuales,
+se debe controlar el acceso
+sólo a una máquina virtual de soporte de seguridad.

@@ -294,9 +294,9 @@
 * link:998/[REQ.998 Limitar tiempo de vida de variables].
 * link:999/[REQ.999 Limitar tiempo de vida de recursos].
 
-== Aleatorios
+== Hipervisor
 
-* link:218/[REQ.218 Aleatorios generados uniformemente].
+* link:218/[REQ.218 Controlar acceso a máquina virtual].
 
 == Máquinas
 
