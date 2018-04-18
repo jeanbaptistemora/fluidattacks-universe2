@@ -1,6 +1,6 @@
 :slug: rules/019/
 :category: rules
-:description: En el presente documento se detallan los requerimientos de seguridad relacionados a los activos de información de la empresa. El objetivo de este requerimiento de seguridad es definir la importancia de los acuerdos de confiabilidad con terceros con los cuales se comparte información.
+:description: En el presente documento se detallan los requerimientos relacionados a la gestión adecuada en cuanto a los acuerdos por servicios se refiere. El objetivo de este requerimiento es definir la importancia de los acuerdos de confiabilidad con terceros con los cuales se comparte información.
 :keywords: Requerimiento, Seguridad, Acuerdos, Confiabilidad, Terceros, Información.
 :rules: yes
 
@@ -10,9 +10,4 @@
 
 La organización debe tener un acuerdo de nivel de servicio
 de confiabilidad con todos los terceros
-con los cuales comparte información
-
-== Soluciones
-
-Este artículo está en construcción.
-Lamentamos los inconvenientes.
+con los cuales comparte información.
