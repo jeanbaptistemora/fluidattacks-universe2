@@ -298,6 +298,7 @@
 
 * link:218/[REQ.218 Controlar acceso a máquina virtual].
 * link:219/[REQ.219 Gestionar hipervisores mediante software].
+* link:220/[REQ.220 Gestionar perfiles de máquinas a monitorear].
 
 == Máquinas
 
