@@ -94,37 +94,21 @@ fluidasserts:
     except:
     - triggers
 
-js_compiler:
+js_linting:
     stage: test
     script:
         - docker login registry.gitlab.com -u $DOCKER_USER -p $DOCKER_PASS
         - docker run --env-file env.list -t registry.gitlab.com/fluidsignal/integrates:base /bin/bash -c "npm install -g  n; n stable; cd /usr/src/app/app/assets/app/; /usr/src/app/app/assets/node_modules/.bin/gulp verbose"
-        - rm env.list
-    except:
-    - triggers
-
-js_linter:
-    stage: test
-    script:
-        - echo "$DOCKER_PASS" | docker login registry.gitlab.com -u "$DOCKER_USER" --password-stdin
         - docker run --env-file env.list -t registry.gitlab.com/fluidsignal/integrates:base /bin/bash -c "npm install -g  n; n stable; node /usr/src/app/app/assets/node_modules/.bin/eslint /usr/src/app/app/assets/app/."
         - rm env.list
     except:
     - triggers
 
-Prospector_app:
+Prospector:
     stage: test
     script:
         - echo "$DOCKER_PASS" | docker login registry.gitlab.com -u "$DOCKER_USER" --password-stdin
         - docker run --env-file env.list -t registry.gitlab.com/fluidsignal/integrates:base prospector -u django -p /usr/src/app/app -i node_modules
-        - rm env.list
-    except:
-    - triggers
-
-Prospector_fluidintegrates:
-    stage: test
-    script:
-        - echo "$DOCKER_PASS" | docker login registry.gitlab.com -u "$DOCKER_USER" --password-stdin
         - docker run --env-file env.list -t registry.gitlab.com/fluidsignal/integrates:base prospector -u django /usr/src/app/fluidintegrates
         - rm env.list
     except:
