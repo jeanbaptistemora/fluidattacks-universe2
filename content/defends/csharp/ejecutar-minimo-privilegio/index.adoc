@@ -17,6 +17,8 @@ bajo las cuales la siguiente solución tiene sentido:
 
 . Se está desarrollando una aplicación en +C#+.
 . Se desean aplicar los principios de mínimo privilegio.
+. La organización debe generar un modelo de amenazas para el sistema,
+donde se identifiquen las posibles amenazas.^<<r1,[1]>>^
 
 == Solución
 
@@ -26,7 +28,7 @@ Con frecuencia, los ataques a las aplicaciones son lanzados usando código fuent
 que utilizan los privilegios del usuario que ejecuta el la aplicación.
 Para controlar esta situación, se usa el principio de mínimo privilegio,
 en otras palabras, los privilegios se deben otorgar la menor cantidad de tiempo
-para la menor cantidad de código que sea requerido.
+para la menor cantidad de código que sea requerido^<<r2,[2]>>^.
 
 . La mejor práctica para crear aplicaciones seguras es:
 comenzar sin permisos y luego agregar los mínimos privilegios
@@ -37,8 +39,8 @@ puede llevar a aplicaciones inseguras que son difíciles de probar y mantener.
 
 . En el espacio de nombres +System.security+
 existen diferentes llamadas para manipular los privilegios
-con los que cuenta una aplicación a nivel de código.
-Entre ellos, podemos destacar +PermitOnly+ y +Deny+.
+con los que cuenta una aplicación a nivel de código.^<<r3,[3]>>^
+Entre ellos, podemos destacar +PermitOnly+^<<r4,[4]>>,<<r5,[5]>>^ y +Deny+.
 Con +Deny+ podemos restringir el acceso a algún privilegio
 para las llamadas que se realicen de manera posterior al llamado.
 +PermitOnly+ es similar a +Deny+, en cuanto a que permite restringir
@@ -104,7 +106,8 @@ la pila no se detectará nunca.
 
 == Referencias
 
-. [[r1]] link:http://searchsecurity.techtarget.com/definition/principle-of-least-privilege-POLP[What is principle of least privilege (POLP)?]
-. [[r2]] link:http://msdn.microsoft.com/es-es/library/system.security.codeaccesspermission.permitonly.aspx[Microsoft, codeaccesspermission.permitonly]
-. [[r3]] link:https://www.codeproject.com/Articles/5724/Understanding-NET-Code-Access-Security[CodeProject, Understanding .NET Code Access Security]
-. [[r4]] link:../../../rules/176/[REQ.176 Restringir objetos del sistema].
+. [[r1]] link:../../../rules/008/[REQ.008 Generar modelo de amenazas del sistema].
+. [[r2]] link:http://searchsecurity.techtarget.com/definition/principle-of-least-privilege-POLP[What is principle of least privilege (POLP)?].
+. [[r3]] link:../../../rules/176/[REQ.176 Restringir objetos del sistema].
+. [[r4]] link:http://msdn.microsoft.com/es-es/library/system.security.codeaccesspermission.permitonly.aspx[Microsoft, codeaccesspermission.permitonly].
+. [[r5]] link:https://www.codeproject.com/Articles/5724/Understanding-NET-Code-Access-Security[CodeProject, Understanding .NET Code Access Security].
