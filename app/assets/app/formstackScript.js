@@ -1,7 +1,7 @@
 /* eslint no-magic-numbers: ["error", { "ignore": [-1,0,0.950,1,2,5] }]*/
 /* global document, $, alertify, setInterval, timew, Tabletop, v:true, obj:true, $msg */
 let remember = null;
-$(document).ready(function ready () {
+$(document).ready(() => {
   remember = function () {
     try {
       alertify.log("<div class=\"\" style=\"padding: 8px;\"><p class=\"text-center\">Recordatorio</p><p class=\"text-left\"> Recuerda personalizar los campos dependiendo de la situación que vas a reportar!</p> </div>");
@@ -12,7 +12,7 @@ $(document).ready(function ready () {
   };
   remember();
   const timew = 35000;
-  setInterval(function setInterval () {
+  setInterval(() => {
     remember();
   }, timew);
   document.getElementsByTagName("select")[5].onchange = function onchange () {
@@ -59,7 +59,7 @@ const publicSpreadsheetUrl = "https://docs.google.com/spreadsheets/d/1L37WnF6eno
  */
 function showInfo (data, tabletop) {
   const obj = $.parseJSON(JSON.stringify(data));
-  $("#field32201810").change(function change () {
+  $("#field32201810").change(() => {
     const title = $("#field32201810").val();
     for (let cont = 0; cont < obj.length; cont++) {
       if (obj[cont].Titulo === title) {
@@ -141,11 +141,11 @@ Tabletop.init({
   "prettyColumnNames": true,
   "simpleSheet": true
 });
-$(donde).focusout(function focusoutDonde () {
+$(donde).focusout(() => {
   donde.val($.trim(donde.val()));
 });
 
-$(requirement).focusout(function focusoutRequirement () {
+$(requirement).focusout(() => {
   requirement.val($.trim(requirement.val()));
   if (requirement.val()[requirement.val().length - 1] !== ".") {
     requirement.val(`${requirement.val()}.`);
@@ -155,7 +155,7 @@ $(requirement).focusout(function focusoutRequirement () {
   }
 });
 
-$(description).focusout(function focusoutDescription () {
+$(description).focusout(() => {
   description.val($.trim(description.val()));
   if (description.val()[description.val().length - 1] !== ".") {
     description.val(`${description.val()}.`);
@@ -166,7 +166,7 @@ $(description).focusout(function focusoutDescription () {
   description.val(description.val());
 });
 
-$(solution).focusout(function focusoutSolution () {
+$(solution).focusout(() => {
   solution.val($.trim(solution.val()));
   if (solution.val()[solution.val().length - 1] !== ".") {
     solution.val(`${solution.val()}.`);
@@ -176,7 +176,7 @@ $(solution).focusout(function focusoutSolution () {
   }
 });
 
-$(risk).focusout(function focusoutRisk () {
+$(risk).focusout(() => {
   risk.val($.trim(risk.val()));
   if (risk.val()[risk.val().length - 1] !== ".") {
     risk.val(`${risk.val()}.`);
@@ -186,7 +186,7 @@ $(risk).focusout(function focusoutRisk () {
   }
 });
 
-$(threat).focusout(function focusoutThreat () {
+$(threat).focusout(() => {
   threat.val($.trim(threat.val()));
   if (threat.val()[threat.val().length - 1] !== ".") {
     threat.val(`${threat.val()}.`);
@@ -196,7 +196,7 @@ $(threat).focusout(function focusoutThreat () {
   }
 });
 
-$(evidenciaHallazgo).change(function changeEvidence () {
+$(evidenciaHallazgo).change(() => {
   const hallazgoUpload = $(evidenciaHallazgo).val().
     split("\\")[2].split(".")[0];
   const substring = "evidencia";
@@ -206,7 +206,7 @@ $(evidenciaHallazgo).change(function changeEvidence () {
   }
 });
 
-$(exploit).change(function changeExploit () {
+$(exploit).change(() => {
   const exploitUpload = $(exploit).val().
     split("\\")[2].split(".")[0];
   if (exploitUpload !== "exploit") {
@@ -218,7 +218,7 @@ $(exploit).change(function changeExploit () {
   }
 });
 
-$(evidenciaExplotacion).change(function changeExploitation () {
+$(evidenciaExplotacion).change(() => {
   const explotacionUpload = $(evidenciaExplotacion).val().
     split("\\")[2].split(".")[0];
   if (explotacionUpload !== "evidencia-de-explotacion") {
@@ -230,7 +230,7 @@ $(evidenciaExplotacion).change(function changeExploitation () {
   }
 });
 
-$(animacion).change(function changeAnimation () {
+$(animacion).change(() => {
   const animacionUpload = $(animacion).val().
     split("\\")[2].split(".")[0];
   if (animacionUpload !== "animacion-de-explotacion") {
@@ -242,7 +242,7 @@ $(animacion).change(function changeAnimation () {
   }
 });
 
-$(solutionPdf).change(function changeSolution () {
+$(solutionPdf).change(() => {
   const solUpload = $(solutionPdf).val().
     split("\\")[2].split(".")[0];
   if (solUpload !== "solucion") {

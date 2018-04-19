@@ -92,7 +92,7 @@ integrates.controller(
     };
     $scope.alertHeader = function alertHeader (company, project) {
       const req = projectFtry.getAlerts(company, project);
-      req.then(function setAlertHeader (response) {
+      req.then((response) => {
         if (!response.error && response.data.length > 0) {
           if (response.data.status_act === "1") {
             let html = "<div class=\"alert alert-danger-2\">";
@@ -147,7 +147,7 @@ integrates.controller(
         return false;
       }
       const req = projectFtry.ProjectDoc(project, json, "IT");
-      req.then(function genProjectDoc (response) {
+      req.then((response) => {
         if (!response.error) {
           let url = `${BASE.url}export_autodoc?project=${$scope.project}`;
           url += "&format=IT";
@@ -237,7 +237,7 @@ integrates.controller(
           $scope.init = function init () {
             $("#hasPresentation").hide();
             $("#hasPresentationMsg").show();
-            $.get(`${BASE.url}check_pdf/project/${$stateParams.project}`, function showPresentation (cont) {
+            $.get(`${BASE.url}check_pdf/project/${$stateParams.project}`, (cont) => {
               if (!cont.error) {
                 if (cont.data.enable) {
                   $("#hasPresentation").show();
@@ -364,7 +364,7 @@ integrates.controller(
         }
         else {
           const reqProject = projectFtry.projectByName(project, filter);
-          reqProject.then(function loadprojectByName (response) {
+          reqProject.then((response) => {
             $scope.view.project = true;
             if (!response.error) {
               // Tracking Mixpanel
@@ -777,7 +777,7 @@ integrates.controller(
           $scope.rows = data;
           $scope.closeModalAvance = function closeModalAvance () {
             $uibModalInstance.close();
-            $timeout(function auxCloseModalAvance () {
+            $timeout(() => {
               $("#vulnerabilities").bootstrapTable("load", auxiliar);
             }, 100);
           };

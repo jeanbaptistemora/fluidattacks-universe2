@@ -13,12 +13,10 @@ const optionsVerbose = {
   "warningLevel": "VERBOSE"
 };
 
-gulp.task("verbose", function script () {
-  return gulp.src([
-    "./**/*.js",
-    "!./gulpfile.js",
-    "!./xhr.js",
-    "!./login.js"
-  ]).
-    pipe(compiler(optionsVerbose));
-});
+gulp.task("verbose", () => gulp.src([
+  "./**/*.js",
+  "!./gulpfile.js",
+  "!./xhr.js",
+  "!./login.js"
+]).
+  pipe(compiler(optionsVerbose)));

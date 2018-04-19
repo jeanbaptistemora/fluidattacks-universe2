@@ -13,7 +13,7 @@
  * @return {undefined}
  */
 /** @export */
-integrates.config(function config ($stateProvider, $urlRouterProvider) {
+integrates.config(($stateProvider, $urlRouterProvider) => {
   $urlRouterProvider.otherwise("home");
 
   $stateProvider.
@@ -88,7 +88,7 @@ integrates.config(function config ($stateProvider, $urlRouterProvider) {
       "url": "/forms"
     });
 });
-integrates.config(function config ($sceDelegateProvider) {
+integrates.config(($sceDelegateProvider) => {
   $sceDelegateProvider.resourceUrlWhitelist([
     "self",
     "/assets/views/project/eventualityMdl.html",

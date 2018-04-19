@@ -27,7 +27,7 @@ integrates.controller("dashboardCtrl", function dashboardCtrl (
     else {
       vlang = "es-CO";
     }
-    $timeout(function initTable () {
+    $timeout(() => {
       $("#myProjectsTbl").bootstrapTable({
         "locale": vlang,
         "onClickRow" (row, elem) {
@@ -89,7 +89,7 @@ integrates.controller("dashboardCtrl", function dashboardCtrl (
       vlang = "es-CO";
     }
     const aux = $xhr.get($q, `${BASE.url}get_myevents`, {});
-    aux.then(function resAux (response) {
+    aux.then((response) => {
       for (let cont = 0; cont < response.data.length; cont++) {
         switch (response.data[cont].tipo) {
         case "Autorización para ataque especial":

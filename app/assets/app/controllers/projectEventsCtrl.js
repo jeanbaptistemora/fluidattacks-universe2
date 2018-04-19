@@ -80,7 +80,7 @@ integrates.controller(
     };
     $scope.alertHeader = function alertHeader (company, project) {
       const req = projectFtry.getAlerts(company, project);
-      req.then(function setalertHeader (response) {
+      req.then((response) => {
         if (!response.error && response.data.length > 0) {
           if (response.data.status_act === "1") {
             let html = "<div class=\"alert alert-danger-2\">";
@@ -135,7 +135,7 @@ integrates.controller(
         }
         else {
           const reqEventualities = projectFtry.EventualityByName(project, "Name");
-          reqEventualities.then(function resEventualityByName (response) {
+          reqEventualities.then((response) => {
             if (!response.error) {
               $scope.view.project = true;
               eventsData = response.data;
@@ -251,7 +251,7 @@ integrates.controller(
                   $msg.error($translate.instant("proj_alerts.eventPositiveint"));
                   return false;
                 }
-                eventualityFactory.updateEvnt($scope.evt).then(function resupdateEvnt (response) {
+                eventualityFactory.updateEvnt($scope.evt).then((response) => {
                   if (!response.error) {
                     const updatedAt = $translate.instant("proj_alerts.updatedTitle");
                     const updatedAc = $translate.instant("proj_alerts.eventUpdated");
@@ -292,7 +292,7 @@ integrates.controller(
           $scope.rowsEvent = $("#tblEventualities").bootstrapTable("getData");
           $scope.close = function close () {
             $uibModalInstance.close();
-            $timeout(function auxCloseModalAvance () {
+            $timeout(() => {
               $("#tblEventualities").bootstrapTable("load", $scope.rowsEvent);
             }, 100);
           };

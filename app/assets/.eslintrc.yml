@@ -25,10 +25,7 @@ rules:
   no-empty-character-class: error
   no-ex-assign: error
   no-extra-boolean-cast: error
-  no-extra-parens:
-    - error
-    - all
-    - nestedBinaryExpressions: false
+  no-extra-parens: [error, all, {nestedBinaryExpressions: false}]
   no-extra-semi: error
   no-func-assign: error
   no-inner-declarations: error
@@ -53,9 +50,7 @@ rules:
   default-case: error
   dot-location: error
   dot-notation: error
-  eqeqeq:
-    - error
-    - smart
+  eqeqeq: [error, smart]
   guard-for-in: error
   no-alert: error
   no-caller: error
@@ -81,9 +76,7 @@ rules:
   no-lone-blocks: error
   no-loop-func: error
   no-magic-numbers: error
-  no-multi-spaces:
-    - error
-    - ignoreEOLComments: false
+  no-multi-spaces: [error, {ignoreEOLComments: false}]
   no-multi-str: error
   no-new: error
   no-new-func: error
@@ -144,10 +137,7 @@ rules:
   array-bracket-spacing: error
   array-element-newline: error
   block-spacing: error
-  brace-style:
-    - error
-    - stroustrup
-    - allowSingleLine: false
+  brace-style: [error, stroustrup,{allowSingleLine: false}]
   camelcase: error
   capitalized-comments: error
   comma-dangle: error
@@ -157,21 +147,15 @@ rules:
   consistent-this: error
   eol-last: error
   func-call-spacing: error
-  func-names:
-    - error
-    - as-needed
+  func-names: [error,as-needed]
   func-name-matching: error
-  func-style:
-    - error
-    - declaration
+  func-style: [error,declaration]
   function-paren-newline: error
   id-blacklist: error
   id-length: error
   id-match: error
   implicit-arrow-linebreak: error
-  indent:
-    - error
-    - 2
+  indent: [error, 2]
   jsx-quotes: error
   key-spacing: error
   keyword-spacing: error
@@ -184,9 +168,7 @@ rules:
   max-statements-per-line: error
   multiline-comment-style: error
   multiline-ternary: error
-  new-cap:
-    - error
-    - properties: false
+  new-cap: [error, {properties: false}]
   new-parens: error
   newline-per-chained-call: error
   no-array-constructor: error
@@ -201,9 +183,7 @@ rules:
   no-negated-condition: error
   no-nested-ternary: error
   no-new-object: error
-  no-plusplus:
-    - error
-    - allowForLoopAfterthoughts: true
+  no-plusplus: [error, {allowForLoopAfterthoughts: true}]
   no-restricted-syntax: error
   no-tabs: error
   no-ternary: error
@@ -215,15 +195,11 @@ rules:
   object-curly-newline: error
   object-curly-spacing: error
   object-property-newline: error
-  one-var:
-    - error
-    - never
+  one-var: [error, never]
   one-var-declaration-per-line: error
   operator-assignment: error
   operator-linebreak: error
-  padded-blocks:
-    - error
-    - never
+  padded-blocks: [error, never]
   padding-line-between-statements: error
   quote-props: error
   quotes: error
@@ -261,6 +237,7 @@ rules:
   no-useless-rename: error
   no-var: error
   object-shorthand: error
+  prefer-arrow-callback: [error, { allowNamedFunctions: true }]
   prefer-const: error
   prefer-numeric-literals: error
   prefer-rest-params: error

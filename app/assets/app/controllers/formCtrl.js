@@ -28,7 +28,7 @@ integrates.controller(
     const lengthUrl = 0;
     if (urlLength > lengthUrl && urlForm.autocomplete === "true") {
       // Formulario de avance
-      $("#ifrmProgress").on("load", function load () {
+      $("#ifrmProgress").on("load", () => {
         const iframe = document.getElementById("ifrmProgress");
         const innerDoc = iframe.contentDocument || iframe.contentWindow.document;
         if (urlForm["Tipo de Avance"] === "Proyecto") {

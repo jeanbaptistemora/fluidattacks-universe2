@@ -57,7 +57,7 @@ integrates.controller(
     };
     $scope.alertHeader = function alertHeader (company, project) {
       const req = projectFtry.getAlerts(company, project);
-      req.then(function setalertHeader (response) {
+      req.then((response) => {
         if (!response.error && response.data.length > 0) {
           if (response.data.status_act === "1") {
             let html = "<div class=\"alert alert-danger-2\">";
@@ -108,7 +108,7 @@ integrates.controller(
         $msg.info(searchAc, searchAt);
         const reqProject = projectFtry.projectByName(project, filter);
         const reqEventualities = projectFtry.EventualityByName(project, "Name");
-        reqProject.then(function resprojectByName (response) {
+        reqProject.then((response) => {
           $scope.view.project = true;
           if (!response.error) {
             // Tracking Mixpanel
@@ -143,7 +143,7 @@ integrates.controller(
             }
           }
         });
-        reqEventualities.then(function resreqEventualities (response) {
+        reqEventualities.then((response) => {
           if (!response.error) {
             eventsData = response.data;
             mixPanelDashboard.trackSearch("SearchEventuality", userEmail, project);

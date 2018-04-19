@@ -62,7 +62,7 @@ integrates.isProduction = function isProduction () {
  * @param {integrates.loginFactory} loginFactory
  * @return {undefined}
  */
-integrates.controller("loginController", function loginController ($scope, $translate) {
+integrates.controller("loginController", ($scope, $translate) => {
   $scope.lang = function lang (langKey) {
     if (langKey === "es" || langKey === "en") {
       localStorage.lang = langKey;
@@ -104,7 +104,7 @@ integrates.controller("loginController", function loginController ($scope, $tran
         },
         "method": "POST",
         "url": `${BASE.url}login/`
-      }).done(function done (err) {
+      }).done((err) => {
         let color = "warning";
         if (err.error === true) {
           color = "warning";

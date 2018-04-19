@@ -77,7 +77,7 @@ integrates.controller("findingcontentCtrl", function findingcontentCtrl (
   };
   $scope.alertHeader = function alertHeader (company, project) {
     const req = projectFtry.getAlerts(company, project);
-    req.then(function resgetAlerts (response) {
+    req.then((response) => {
       if (!response.error && response.data.length > 0) {
         if (response.data[0].status_act === "1") {
           let html = "<div class=\"alert alert-danger-2\">";
@@ -92,7 +92,7 @@ integrates.controller("findingcontentCtrl", function findingcontentCtrl (
     findingData.hasExploit = $scope.hasExploit;
     let exploit = {};
     const req = projectFtry.getEvidences($scope.finding.id);
-    req.then(function resgetEvidences (response) {
+    req.then((response) => {
       if (!response.error) {
         if (response.data.length > 0) {
           /* eslint func-style: ["error", "expression"]*/
@@ -114,7 +114,7 @@ integrates.controller("findingcontentCtrl", function findingcontentCtrl (
               exploit = projectFtry.getExploit($scope.finding.id, response.data[cont].exploit);
               $scope.hasExploit = true;
               findingData.hasExploit = $scope.hasExploit;
-              exploit.then(function resExploit (response) {
+              exploit.then((response) => {
                 respFunction(response);
               });
             }
@@ -122,7 +122,7 @@ integrates.controller("findingcontentCtrl", function findingcontentCtrl (
               exploit = projectFtry.getExploit($scope.finding.id, $scope.finding.exploit);
               $scope.hasExploit = true;
               findingData.hasExploit = $scope.hasExploit;
-              exploit.then(function resExploit (response) {
+              exploit.then((response) => {
                 respFunction(response);
               });
             }
@@ -136,7 +136,7 @@ integrates.controller("findingcontentCtrl", function findingcontentCtrl (
           exploit = projectFtry.getExploit($scope.finding.id, $scope.finding.exploit);
           $scope.hasExploit = true;
           findingData.hasExploit = $scope.hasExploit;
-          exploit.then(function resExploit (response) {
+          exploit.then((response) => {
             if (!response.error) {
               let responses = response.replaceAll("<", "&lt;");
               responses = response.replaceAll(">", "&gt;");
@@ -179,11 +179,11 @@ integrates.controller("findingcontentCtrl", function findingcontentCtrl (
       $scope.onlyReadableTab3 = false;
     }
     const inputs = document.querySelectorAll(".inputfile");
-    Array.prototype.forEach.call(inputs, function readInputs (input) {
+    Array.prototype.forEach.call(inputs, (input) => {
       const label = input.nextElementSibling;
       const labelVal = label.innerHTML;
 
-      input.addEventListener("change", function change (aux) {
+      input.addEventListener("change", (aux) => {
         let fileName = "";
         if (input.files && input.files.length > 1) {
           fileName = (input.getAttribute("data-multiple-caption") || "").replace("{count}", input.files.length);
@@ -201,10 +201,10 @@ integrates.controller("findingcontentCtrl", function findingcontentCtrl (
       });
 
       // Firefox bug fix
-      input.addEventListener("focus", function focus () {
+      input.addEventListener("focus", () => {
         input.classList.add("has-focus");
       });
-      input.addEventListener("blur", function blur () {
+      input.addEventListener("blur", () => {
         input.classList.remove("has-focus");
       });
     });
@@ -271,9 +271,7 @@ integrates.controller("findingcontentCtrl", function findingcontentCtrl (
         "ref": 6
       });
     }
-    $scope.tabEvidences.sort(function sorttabEvidences (auxa, auxb) {
-      return auxa.ref - auxb.ref;
-    });
+    $scope.tabEvidences.sort((auxa, auxb) => auxa.ref - auxb.ref);
   };
   $scope.treatmentEditable = function treatmentEditable () {
     $scope.goDown();
@@ -300,11 +298,11 @@ integrates.controller("findingcontentCtrl", function findingcontentCtrl (
       $scope.onlyReadableTab5 = false;
     }
     const inputs = document.querySelectorAll(".inputfile");
-    Array.prototype.forEach.call(inputs, function forEachlabel (input) {
+    Array.prototype.forEach.call(inputs, (input) => {
       const label = input.nextElementSibling;
       const labelVal = label.innerHTML;
 
-      input.addEventListener("change", function change (err) {
+      input.addEventListener("change", (err) => {
         let fileName = "";
         if (input.files && input.files.length > 1) {
           fileName = (input.getAttribute("data-multiple-caption") || "").replace("{count}", input.files.length);
@@ -322,10 +320,10 @@ integrates.controller("findingcontentCtrl", function findingcontentCtrl (
       });
 
       // Firefox bug fix
-      input.addEventListener("focus", function focus () {
+      input.addEventListener("focus", () => {
         input.classList.add("has-focus");
       });
-      input.addEventListener("blur", function blur () {
+      input.addEventListener("blur", () => {
         input.classList.remove("has-focus");
       });
     });
@@ -338,11 +336,11 @@ integrates.controller("findingcontentCtrl", function findingcontentCtrl (
       $scope.onlyReadableTab6 = false;
     }
     const inputs = document.querySelectorAll(".inputfile");
-    Array.prototype.forEach.call(inputs, function forEachlabelRecord (input) {
+    Array.prototype.forEach.call(inputs, (input) => {
       const label = input.nextElementSibling;
       const labelVal = label.innerHTML;
 
-      input.addEventListener("change", function change (err) {
+      input.addEventListener("change", (err) => {
         let fileName = "";
         if (input.files && input.files.length > 1) {
           fileName = (input.getAttribute("data-multiple-caption") || "").replace("{count}", input.files.length);
@@ -360,16 +358,16 @@ integrates.controller("findingcontentCtrl", function findingcontentCtrl (
       });
 
       // Firefox bug fix
-      input.addEventListener("focus", function focus () {
+      input.addEventListener("focus", () => {
         input.classList.add("has-focus");
       });
-      input.addEventListener("blur", function blur () {
+      input.addEventListener("blur", () => {
         input.classList.remove("has-focus");
       });
     });
   };
   $scope.detectNivel = function detectNivel () {
-    $timeout(function useDetectNivel () {
+    $timeout(() => {
       $scope.$apply();
       if ($scope.finding.nivel === "Detallado") {
         $scope.esDetallado = true;
@@ -409,7 +407,7 @@ integrates.controller("findingcontentCtrl", function findingcontentCtrl (
           // Consumir el servicio
           const req = projectFtry.UpdateCSSv2(updateData);
           // Capturar la Promisse
-          req.then(function resUpdateCSSv2 (response) {
+          req.then((response) => {
             if (!response.error) {
               const updatedAt = $translate.instant("proj_alerts.updatedTitle");
               const updatedAc = $translate.instant("proj_alerts.updated_cont");
@@ -563,7 +561,7 @@ integrates.controller("findingcontentCtrl", function findingcontentCtrl (
       }
       const req = projectFtry.UpdateEvidenceText(data);
       // Capturar la Promisse
-      req.then(function resUpdateEvidenceText (response) {
+      req.then((response) => {
         if (!response.error) {
           const updatedAt = $translate.instant("proj_alerts.updatedTitle");
           const updatedAc = $translate.instant("proj_alerts.updated_cont_description");
@@ -597,7 +595,7 @@ integrates.controller("findingcontentCtrl", function findingcontentCtrl (
           // Consumir el servicio
           const req = projectFtry.DeleteFinding($scope.vuln);
           // Capturar la Promisse
-          req.then(function resDeleteFinding (response) {
+          req.then((response) => {
             if (!response.error) {
               const updatedAt = $translate.instant("proj_alerts.updatedTitle");
               const updatedAc = $translate.instant("proj_alerts.updated_cont");
@@ -661,7 +659,7 @@ integrates.controller("findingcontentCtrl", function findingcontentCtrl (
     }
     else {
       const req = findingFactory.getVulnById(id);
-      req.then(function resgetVulnById (response) {
+      req.then((response) => {
         if (!response.error && $stateParams.project === response.data.proyecto_fluid.toLowerCase()) {
           findingData.data = response.data;
           $scope.finding = response.data;
@@ -1073,27 +1071,27 @@ integrates.controller("findingcontentCtrl", function findingcontentCtrl (
     });
     // Init auto height in textarea
     if ($("#infoItem").hasClass("active")) {
-      $timeout(function adjustInfo () {
+      $timeout(() => {
         $scope.$broadcast("elastic:adjust");
       });
     }
-    $("#trackingItem").on("click", function clickTracking () {
-      $timeout(function adjustTracking () {
+    $("#trackingItem").on("click", () => {
+      $timeout(() => {
         $scope.$broadcast("elastic:adjust");
       });
     });
-    $("#infoItem").on("click", function clickInfo () {
-      $timeout(function adjustInfiItem () {
+    $("#infoItem").on("click", () => {
+      $timeout(() => {
         $scope.$broadcast("elastic:adjust");
       });
     });
-    $("#edit").on("click", function clickedit () {
-      $timeout(function adjustItem () {
+    $("#edit").on("click", () => {
+      $timeout(() => {
         $scope.$broadcast("elastic:adjust");
       });
     });
     // Init auto height in panels
-    $("#evidenceItem").on("click", function clickEvidence () {
+    $("#evidenceItem").on("click", () => {
       $(".equalHeight").matchHeight();
     });
     $scope.findingInformationTab();
@@ -1167,7 +1165,7 @@ integrates.controller("findingcontentCtrl", function findingcontentCtrl (
     const evidenceList = [];
     const urlPre = `${window.location.href.split("dashboard#!/")[0] + window.location.href.split("dashboard#!/")[1]}/`;
     const req = projectFtry.getEvidences($scope.finding.id);
-    req.then(function resgetEvidences (response) {
+    req.then((response) => {
       if (!response.error) {
         if (response.data.length > 0) {
           for (let cont = 0; cont < response.data.length; cont++) {
@@ -1398,7 +1396,7 @@ integrates.controller("findingcontentCtrl", function findingcontentCtrl (
   $scope.findingCommentTab = function findingCommentTab () {
     if (typeof $scope.finding.id !== "undefined") {
       const comments = projectFtry.getComments($scope.finding.id);
-      comments.then(function resgetComments (response) {
+      comments.then((response) => {
         if (!response.error) {
           const usersArray = [];
           for (let cont = 0; cont < response.data.length; cont++) {
@@ -1412,10 +1410,8 @@ integrates.controller("findingcontentCtrl", function findingcontentCtrl (
           }
           const saveComment = function saveComment (data) {
             // Convert pings to human readable format
-            $(data.pings).each(function dataUsers (index, id) {
-              const userInfo = usersArray.filter(function filterUsers (user) {
-                return userInfo.id === id;
-              })[0];
+            $(data.pings).each((index, id) => {
+              const userInfo = usersArray.filter((user) => userInfo.id === id)[0];
               data.content = data.content.replace(`@${id}`, `@${userInfo.fullname}`);
             });
             return data;
@@ -1427,12 +1423,12 @@ integrates.controller("findingcontentCtrl", function findingcontentCtrl (
             "enablePinging": false,
             "enableUpvoting": false,
             "getComments" (success, error) {
-              setTimeout(function timeoutComment () {
+              setTimeout(() => {
                 success(response.data);
               }, 500);
             },
             "getUsers" (success, error) {
-              setTimeout(function timeoutUsers () {
+              setTimeout(() => {
                 success(usersArray);
               }, 500);
             },
@@ -1443,13 +1439,13 @@ integrates.controller("findingcontentCtrl", function findingcontentCtrl (
               data.findingUrl = window.location.href;
               data.remediated = false;
               const comment = projectFtry.addComment($scope.finding.id, data);
-              comment.then(function resaddComment (response) {
+              comment.then((response) => {
                 if (!response.error) {
                   // Tracking mixpanel
                   const org = Organization.toUpperCase();
                   const projt = $stateParams.project.toUpperCase();
                   mixPanelDashboard.trackFindingDetailed("FindingNewComment", userName, userEmail, org, projt, $scope.finding.id);
-                  setTimeout(function timeoutTrackFinding () {
+                  setTimeout(() => {
                     success(data);
                   }, 500);
                 }
@@ -1471,7 +1467,7 @@ integrates.controller("findingcontentCtrl", function findingcontentCtrl (
     let vlang = "en-US";
     let record = {};
     const req = projectFtry.getEvidences($scope.finding.id);
-    req.then(function resgetEvidences (response) {
+    req.then((response) => {
       if (!response.error) {
         if (localStorage.lang === "en") {
           vlang = "en-US";
@@ -1513,7 +1509,7 @@ integrates.controller("findingcontentCtrl", function findingcontentCtrl (
               record = projectFtry.getRecords($scope.finding.id, response.data[cont].registros_archivo);
               $scope.hasRecords = true;
               findingData.hasRecords = $scope.hasRecords;
-              record.then(function resRecord (response) {
+              record.then((response) => {
                 respFunction(response);
               });
             }
@@ -1521,7 +1517,7 @@ integrates.controller("findingcontentCtrl", function findingcontentCtrl (
               record = projectFtry.getRecords($scope.finding.id, $scope.finding.registros_archivo);
               $scope.hasRecords = true;
               findingData.hasRecords = $scope.hasRecords;
-              record.then(function resgetRecords (response) {
+              record.then((response) => {
                 respFunction(response);
               });
             }
@@ -1535,7 +1531,7 @@ integrates.controller("findingcontentCtrl", function findingcontentCtrl (
         else if (typeof $scope.finding.registros_archivo !== "undefined") {
           record = projectFtry.getRecords($scope.finding.id, $scope.finding.registros_archivo);
           $scope.hasRecords = true;
-          record.then(function createTable (response) {
+          record.then((response) => {
             if (!response.error) {
               const dataCols = [];
               for (const cont in response.data[0]) {
@@ -1650,7 +1646,7 @@ integrates.controller("findingcontentCtrl", function findingcontentCtrl (
           // Consumir el servicio
           const req = projectFtry.UpdateDescription(updateData);
           // Capturar la Promisse
-          req.then(function resUpdateDescription (response) {
+          req.then((response) => {
             if (!response.error) {
               const updatedAt = $translate.instant("proj_alerts.updatedTitle");
               const updatedAc = $translate.instant("proj_alerts.updated_cont");
@@ -1717,7 +1713,7 @@ integrates.controller("findingcontentCtrl", function findingcontentCtrl (
             // Consumir el servicio
             const req = projectFtry.UpdateTreatment(updateData);
             // Capturar la Promisse
-            req.then(function resUpdateTreatment (response) {
+            req.then((response) => {
               if (!response.error) {
                 const org = Organization.toUpperCase();
                 const projt = $stateParams.project.toUpperCase();
@@ -1774,7 +1770,7 @@ integrates.controller("findingcontentCtrl", function findingcontentCtrl (
             // Consumir el servicio
             const req = projectFtry.FindingSolved($scope.remediatedData);
             // Capturar la Promisse
-            req.then(function resFindingSolved (response) {
+            req.then((response) => {
               if (!response.error) {
                 // Tracking mixpanel
                 const org = Organization.toUpperCase();
@@ -1815,7 +1811,7 @@ integrates.controller("findingcontentCtrl", function findingcontentCtrl (
     $scope.isRemediated = true;
     if (typeof $scope.finding.id !== "undefined") {
       const req = projectFtry.RemediatedView($scope.finding.id);
-      req.then(function resRemediatedView (response) {
+      req.then((response) => {
         if (!response.error) {
           $scope.isRemediated = response.data.remediated;
           findingData.remediated = $scope.isRemediated;
@@ -1853,7 +1849,7 @@ integrates.controller("findingcontentCtrl", function findingcontentCtrl (
           // Consumir el servicio
           const req = projectFtry.FindingVerified(mailData);
           // Capturar la Promisse
-          req.then(function resFindingVerified (response) {
+          req.then((response) => {
             if (!response.error) {
               // Tracking mixpanel
               const org = Organization.toUpperCase();

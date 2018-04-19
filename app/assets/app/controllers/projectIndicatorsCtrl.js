@@ -64,7 +64,7 @@ integrates.controller(
     };
     $scope.alertHeader = function alertHeader (company, project) {
       const req = projectFtry.getAlerts(company, project);
-      req.then(function setalertHeader (response) {
+      req.then((response) => {
         if (!response.error && response.data.length > 0) {
           if (response.data.status_act === "1") {
             let html = "<div class=\"alert alert-danger-2\">";
@@ -78,7 +78,7 @@ integrates.controller(
       let totalSeverity = 0;
       let cardinalidad = 0;
       let cardinalidadTotal = 0;
-      data.data.forEach(function calcCardinaliity (cont) {
+      data.data.forEach((cont) => {
         cardinalidad += parseInt(cont.cardinalidad, 10);
         cardinalidadTotal += parseInt(cont.cardinalidad_total, 10);
       });
@@ -96,7 +96,7 @@ integrates.controller(
         "value": cardinalidad
       });
       let severity = 0;
-      data.data.forEach(function calcSeverity (cont) {
+      data.data.forEach((cont) => {
         try {
           if (cont.tipo_hallazgo === "Seguridad") {
             const ImpCon = parseFloat(cont.impacto_confidencialidad.split(" | ")[0]);
@@ -117,7 +117,7 @@ integrates.controller(
         }
       });
       const req = projectFtry.TotalSeverity($scope.project.toLowerCase());
-      req.then(function calcTotalSeverity (response) {
+      req.then((response) => {
         if (!response.error) {
           if (response.data.length > 0) {
             for (let cont = 0; cont < response.data.length; cont++) {
@@ -169,7 +169,7 @@ integrates.controller(
       const currData = $scope.data;
       let totalSeg = 0;
       let totalHig = 0;
-      currData.forEach(function calcChartValue (val, cont) {
+      currData.forEach((val, cont) => {
         const tipo = val.tipo_hallazgo;
         if (val.estado !== "Cerrado" && val.estado !== "Closed") {
           if (tipo === "Seguridad") {
@@ -206,7 +206,7 @@ integrates.controller(
       const currData = $scope.data;
       let exploit = 0;
       let nonexploit = 0;
-      currData.forEach(function calcmainGraphexploit (val, cont) {
+      currData.forEach((val, cont) => {
         const explotable = val.explotabilidad;
         if (val.estado !== "Cerrado" && val.estado !== "Closed") {
           if (explotable === "1.000 | Alta: No se requiere exploit o se puede automatizar" || explotable === "0.950 | Funcional: Existe exploit" || explotable === "1.000 | High: Exploit is not required or it can be automated" || explotable === "0.950 | Functional: There is an exploit") {
@@ -245,7 +245,7 @@ integrates.controller(
       let open = 0;
       let partial = 0;
       let close = 0;
-      currData.forEach(function calcmainGraphstatus (val, cont) {
+      currData.forEach((val, cont) => {
         const estado = val.estado;
         total += 1;
         if (estado === "Abierto" || estado === "Open") {
@@ -324,7 +324,7 @@ integrates.controller(
         }
         else {
           const reqProject = projectFtry.projectByName(project, filter);
-          reqProject.then(function loadIndicator (response) {
+          reqProject.then((response) => {
             $scope.view.project = true;
             if (!response.error) {
               // Tracking Mixpanel
