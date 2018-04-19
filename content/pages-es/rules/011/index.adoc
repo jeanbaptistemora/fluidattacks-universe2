@@ -9,7 +9,7 @@
 == Nombre
 
 Cada riesgo de seguridad de información, debe estar medido
-en función de su probabilidad e impacto
+en función de su probabilidad e impacto.
 
 == Descripción
 
