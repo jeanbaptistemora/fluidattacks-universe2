@@ -8,7 +8,7 @@
 
 == Nombre
 
-Cada activo de información debe estar valorado en términos monetarios
+Cada activo de información debe estar valorado en términos monetarios.
 
 == Descripción
 
