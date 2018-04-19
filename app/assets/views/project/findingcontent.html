@@ -171,10 +171,9 @@
                                       </select>
                                   </div>
                               </div>
-                              <div class="row table-row">
+                              <div class="row table-row" ng-show="!onlyReadableTab1">
                                   <div class="col-md-2 col-xs-12 col-sm-12 table-head"><label><b>{{'search_findings.tab_description.title' | translate}}</b></label></div>
                                   <div class="col-md-10 col-xs-12 col-sm-12 table-desc">
-                                      <p ng-show="onlyReadableTab1">{{finding.hallazgo}}</p>
                                       <input type="text" class="form-control"
                                              ng-show="!onlyReadableTab1"
                                              ng-model="finding.hallazgo"/>
