@@ -46,13 +46,13 @@ what if we could use
 some sort of
 code or syntax analysis tool
 in order to gain intelligence about
-where an apps's weaknesseses lie?
+where an apps's weaknesses lie?
 That's what 'parsers' are for.
 
 == Manual detection
 
 Let us consider, for example,
-this site in our favourite buggy web app:
+this site in our favorite buggy web app:
 
 .Adding an entry to the ``blog.''
 image::add-entry.png["Add entry to blog screenshot"]
@@ -83,8 +83,8 @@ Looking at a few more sources,
 we see we always exploit the same weakness:
 
 An +SQL+ query is made up by 'concatenating'
-literal values, php function calls and
-php variables like +$entry+ above.
+literal values, +PHP+ function calls and
++PHP+ variables like +$entry+ above.
 That variable comes
 from a +POST+ request and
 passed through the sanitizing function +sqli+.
@@ -102,7 +102,7 @@ into the entry field
 to turn the query into
 a dangerous, blog-deleting one.
 
-In order to succesfully identify these +SQL+ injections,
+In order to successfully identify these +SQL+ injections,
 we need to look for strings which contain +SQL+ code,
 and also use the +PHP+ concatenation (+first . last+).
 That's not enough,
@@ -210,7 +210,7 @@ Imagine trying to write a +regex+ to match
 such an +INSERT+ with concatenations.
 It would be humongous, not to mention
 very hard to understand.
-Other disavantages of regular expressions are
+Other disadvantages of regular expressions are
 that they have to deal with white space explicitly and
 are hard to maintain when
 there are any changes to the language syntax.
@@ -301,7 +301,7 @@ every single part of a function call,
 only the +php_identifiers+ inside,
 and we can access that
 by the name with which we
-baptised +PHP+ identifiers above.
+baptized +PHP+ identifiers above.
 Note that,
 although +sql_identifiers+ don't belong here logically,
 they have the same syntax as function names and
@@ -397,7 +397,7 @@ injectable_variables = tokens["values"]
 for injectable_variable in injectable_variables:
     res = (php_identifier ^ php_funcall).parseString(injectable_variable)
     injectable_variable = res["phpvar"]
-    print(" Injectable variable {0}. Other ocurrences:".format(injectable_variable))
+    print(" Injectable variable {0}. Other occurrences:".format(injectable_variable))
 ----
 
 Remember we need to

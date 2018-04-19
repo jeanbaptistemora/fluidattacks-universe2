@@ -51,7 +51,7 @@ link:https://en.wikipedia.org/wiki/Dictionary_attack[ataques de diccionario],
 y link:../../../en/blog/storing-password-safely[+rainbow tables+],
 por mencionar algunas de las formas en las que pueden ser descifradas.
 
-Para evitar éstas situaciones,
+Para evitar estas situaciones,
 algunas organizaciones eligen implementar políticas de contraseña
 que requiere que los usuarios incluyan símbolos especiales,
 o que cambien su contraseña frecuentemente.
@@ -245,7 +245,7 @@ es un billón de veces mejor que la última
 ''''
 
 Nuestra recomendación concreta es:
-Una frase de 44 bits generada aleatoriamente
+Una frase de +44 bits+ generada aleatoriamente
 (La configuración más baja en
 link:https://getapassphrase.com/generate/[getapassphrase.com]
 es decir, +4+ o +5+ palabras de +3+ a +8+ letras de longitud)

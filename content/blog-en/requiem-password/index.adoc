@@ -51,7 +51,7 @@ and link:../storing-password-safely[rainbow tables],
 to name a few of the ways they can be cracked.
 
 In order to avoid these situations,
-some organisations choose to implement
+some organizations choose to implement
 password policies that require users to
 include special symbols or to
 change passwords frequently.
@@ -111,9 +111,9 @@ But that is enough when you combine them.
 There are 7,776^2^ two-word passphrases, and so on.
 Thus with merely five words we'd have
 7,776^5^ which is around 28 quintillions (28 and 18 zeroes).
-Asumming a trillion (1 and 12 zeroes) guesses per second,
+Assuming a trillion (1 and 12 zeroes) guesses per second,
 such a passphrase would take about half a year to crack.
-Append three zeroes for each extra word, being conservative,
+Append three zeros for each extra word, being conservative,
 so a seven word passphrase would take about half a million years to crack.
 
 You could argue that
@@ -185,7 +185,7 @@ Truly randomly generated,
 long enough passphrases
 are virtually crack and guess-proof.
 So you only need to protect them from
-unauthorised sharing or theft.
+unauthorized sharing or theft.
 In that case, we can extend
 a fairly typical monthly renewal period
 to, say, three to six months.

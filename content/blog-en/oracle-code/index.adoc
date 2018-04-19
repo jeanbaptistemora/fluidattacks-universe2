@@ -22,7 +22,7 @@ to understand in complete detail''.
 This was written in the 80's.<<r1, ^[1]^>>
 Imagine the situation today.
 Hence the need for automated tools
-to aid in the process of analysing code.
+to aid in the process of analyzing code.
 The solution,
 according to link:https://lgtm.com/blog/code_as_data[Oege de Moor]
 from link:https://semmle.com/[Semmle],
@@ -243,7 +243,7 @@ whichever development model your team has chosen,
 
 * objectively determine the quality of the code, and
 
-* find security bugs and vulnerabilites.
+* find security bugs and vulnerabilities.
 
 This is what interests us most.
 +Semmle+ maintains a public queries link:https://github.com/lgtmhq/lgtm-queries[repository] and

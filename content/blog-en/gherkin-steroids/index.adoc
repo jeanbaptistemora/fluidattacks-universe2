@@ -13,6 +13,7 @@
 :about1: Mathematician
 :about2: with an itch for CS
 :source-highlighter: pygments
+:translate: gherkin-esteroides/
 
 = Gherkin on steroids
 
@@ -126,7 +127,7 @@ image::default-file.png["Page with mysterious message"]
 
 No matter how dumb it might seem,
 this is the first thing we need to document:
-how the page, app or whaetever we're testing
+how the page, app or whatever we're testing
 works at the moment we tested it.
 We might use a separate "Normal use case" scenario
 as we did before.
@@ -134,7 +135,7 @@ as we did before.
 === Background
 
 However, since in this case the use-case is so simple,
-we can just plug that behaviour right into the +Background+.
+we can just plug that behavior right into the +Background+.
 This must also include, in detail,
 everything needed to run the app.
 Our target +bWAPP+ is a +PHP+ web server;
@@ -173,7 +174,7 @@ so let there be a record of that in our attack feature:
 Notice how all the versions of all programs used
 are explicitly listed,
 and also the +URL+ where the vulnerability was found.
-We summarised the page's behaviour in a single line,
+We summarized the page's behavior in a single line,
 because in this case it was so simple,
 but we also refer to an external file called +default-file.png+
 which is just the screenshot above.
@@ -385,7 +386,7 @@ This would block attackers who do not know
 the file system hierarchy in the server,
 but still allows us to give absolute paths
 as the parameter.
-An even better defence would be that
+An even better defense would be that
 the user should not be allowed to display files
 outside the current folder:
 
@@ -455,7 +456,7 @@ Feature: Vulnerability FIN.S.0075 Local file inclusion
   From the bWAPP application
   From the A7 - Missing functional level access controls category
   In URL bwapp/directory_traversal_1.php
-  As any user from Internet with acces to bWAPP
+  As any user from Internet with access to bWAPP
   I want to be able to see local files I'm not supposed to
   In order to gain access to system objects with sensitive content
   Due to missing functional level access controls
