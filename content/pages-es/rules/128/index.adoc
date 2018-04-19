@@ -1,18 +1,12 @@
 :slug: rules/128/
 :category: rules
-:description: En el presente documento se detallan los requerimientos de seguridad relacionados a las credenciales de acceso a información sensible de la organización. En este requerimiento se establece la importancia de definir contraseñas seguras con al menos un caracter en mayúscula.
-:keywords: Requerimiento, Seguridad, Contraseñas, Mayúsculas, Caracteres, Palabra.
+:description: En el presente documento se detallan los requerimientos de seguridad relacionados a las credenciales de acceso a información sensible de la organización. En este requerimiento, se recomienda que el sistema almacene todas sus contraseñas en una única fuente de datos.
+:keywords: Sistema, Almacenar, Contraseña, Fuente, Autenticación, Datos.
 :rules: yes
 
-= REQ.128 Contraseñas con al menos 1 mayúscula
+= REQ.128 Establecer única fuente de datos
 
 == Nombre
 
-Las contraseñas (tipo palabra)
-deben tener al menos 1 letra mayúscula.
-
-
-== Soluciones
-
-. +ASPNET+ link:../../defends/aspnet/fortaleza-contrasenas/[Comprobar fortaleza de contraseñas].
-. +COBOL+ link:../../defends/cobol/fortaleza-contrasena-palabra/[Comprobar Fortaleza de Contraseñas Tipo Palabra].
+Las contraseñas deben estar almacenadas
+en una fuente de datos única.
