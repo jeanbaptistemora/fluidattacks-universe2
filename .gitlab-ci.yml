@@ -37,7 +37,7 @@ Build:
     except:
     - triggers
 
-Containers:
+build-containers:
     stage: build
     script:
         - echo "$DOCKER_PASS" | docker login registry.gitlab.com -u "$DOCKER_USER" --password-stdin
