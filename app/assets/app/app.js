@@ -42,8 +42,10 @@ function csrfSafeMethod (method) {
  * @return {boolean}
  */
 function sameOrigin (url) {
-  const host = document.location.host;
-  const protocol = document.location.protocol;
+  const hostAux = document.location.host;
+  const host = hostAux;
+  const protocolAux = document.location.protocol;
+  const protocol = protocolAux;
   const srOrigin = `//${host}`;
   const origin = protocol + srOrigin;
   return url === origin || url.slice(0, origin.length + 1) === `${origin}/` ||

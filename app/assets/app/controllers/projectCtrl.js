@@ -30,7 +30,8 @@ integrates.controller(
     $translate, projectFtry
   ) {
     $scope.init = function init () {
-      const project = $stateParams.project;
+      const projectAux = $stateParams.project;
+      const project = projectAux;
       const findingId = $stateParams.finding;
       $scope.userRole = userRole;
       $scope.isManager = userRole !== "customer";
@@ -85,8 +86,10 @@ integrates.controller(
       else {
         vlang = "es-CO";
       }
-      const project = $scope.project;
-      const filter = $scope.filter;
+      const projectAux = $scope.project;
+      const project = projectAux;
+      const filterAux = $scope.filter;
+      const filter = filterAux;
       const finding = $scope.findingId;
       if (typeof project === "undefined" ||
                 project === "") {

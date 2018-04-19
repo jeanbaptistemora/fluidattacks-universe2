@@ -76,8 +76,10 @@ integrates.controller("loginController", ($scope, $translate) => {
    * @return {undefined}
    */
   $scope.login = function login () {
-    const username = $scope.username;
-    const password = $scope.password;
+    const usernameAux = $scope.username;
+    const username = usernameAux;
+    const passwordAux = $scope.password;
+    const password = passwordAux;
     if (typeof username != "string" ||
             typeof password != "string") {
       $.gritter.add({

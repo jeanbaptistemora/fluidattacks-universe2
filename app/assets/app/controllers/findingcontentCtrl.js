@@ -27,7 +27,8 @@ integrates.controller("findingcontentCtrl", function findingcontentCtrl (
 ) {
   $scope.findingHeaderBuilding = function findingHeaderBuilding () {
     $scope.header = {};
-    const cierres = $scope.finding.cierres;
+    const cierresAux = $scope.finding.cierres;
+    const cierres = cierresAux;
     const cierresTmp = [];
     for (let cont = 0; cont < cierres.length; cont++) {
       const cierre = cierres[cont];
@@ -1904,7 +1905,8 @@ integrates.controller("findingcontentCtrl", function findingcontentCtrl (
     location.replace(`${window.location.href.split($stateParams.id)[0] + $stateParams.id}/comments`);
   };
   $scope.init = function init () {
-    const project = $stateParams.project;
+    const projectAux = $stateParams.project;
+    const project = projectAux;
     const findingId = $stateParams.finding;
     $scope.userRole = userRole;
     // Control para alternar los campos editables

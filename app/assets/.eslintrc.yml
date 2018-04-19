@@ -239,6 +239,7 @@ rules:
   object-shorthand: error
   prefer-arrow-callback: [error, { allowNamedFunctions: true }]
   prefer-const: error
+  prefer-destructuring: [error, {"VariableDeclarator": {array: false, object: true}}]
   prefer-numeric-literals: error
   prefer-rest-params: error
   prefer-spread: error

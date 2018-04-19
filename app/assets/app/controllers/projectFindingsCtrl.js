@@ -1,3 +1,4 @@
+
 /* eslint no-magic-numbers: ["error", { "ignore": [-1,0,0.4,0.6,1,1.176,1.5,2,4,4.611,10,10.41,13,20,43.221,100,200,300,1000,3000] }]*/
 /* eslint no-shadow: ["error", { "allow": ["$scope","$stateParams", "projectFtry"] }]*/
 /* global
@@ -61,7 +62,8 @@ integrates.controller(
     $translate, projectFtry
   ) {
     $scope.init = function init () {
-      const project = $stateParams.project;
+      const projectAux = $stateParams.project;
+      const project = projectAux;
       const findingId = $stateParams.finding;
       $scope.userRole = userRole;
 
@@ -113,7 +115,8 @@ integrates.controller(
       };
     };
     $scope.generateFullDoc = function generateFullDoc () {
-      const project = $scope.project;
+      const projectAux = $scope.project;
+      const project = projectAux;
       const data = $("#vulnerabilities").bootstrapTable("getData");
       for (let cont = 0; cont < data.length - 1; cont++) {
         for (let incj = cont + 1; incj < data.length; incj++) {
@@ -173,8 +176,10 @@ integrates.controller(
         "animation": true,
         "controller" ($scope, $uibModalInstance, $stateParams, projectFtry) {
           $scope.findingMatrizTechnicalXLSReport = function findingMatrizTechnicalXLSReport () {
-            const project = $stateParams.project;
-            const lang = localStorage.lang;
+            const projectAux = $stateParams.project;
+            const project = projectAux;
+            const langAux = localStorage.lang;
+            const lang = langAux;
             const prjpatt = new RegExp("^[a-zA-Z0-9_]+$");
             const langpatt = new RegExp("^en|es$");
             if (prjpatt.test(project) &&
@@ -194,8 +199,10 @@ integrates.controller(
             }
           };
           $scope.findingMatrizTechnicalPDFReport = function findingMatrizTechnicalPDFReport () {
-            const project = $stateParams.project;
-            const lang = localStorage.lang;
+            const projectAux = $stateParams.project;
+            const project = projectAux;
+            const langAux = localStorage.lang;
+            const lang = langAux;
             const prjpatt = new RegExp("^[a-zA-Z0-9_]+$");
             const langpatt = new RegExp("^en|es$");
             if (prjpatt.test(project) &&
@@ -232,8 +239,10 @@ integrates.controller(
             });
           };
           $scope.findingMatrizExecutivePDFPresentation = function findingMatrizExecutivePDFPresentation () {
-            const project = $stateParams.project;
-            const lang = localStorage.lang;
+            const projectAux = $stateParams.project;
+            const project = projectAux;
+            const langAux = localStorage.lang;
+            const lang = langAux;
             const prjpatt = new RegExp("^[a-zA-Z0-9_]+$");
             const langpatt = new RegExp("^en|es$");
             if (prjpatt.test(project) &&
@@ -253,8 +262,10 @@ integrates.controller(
             }
           };
           $scope.findingMatrizExecutivePDFReport = function findingMatrizExecutivePDFReport () {
-            const project = $stateParams.project;
-            const lang = localStorage.lang;
+            const projectAux = $stateParams.project;
+            const project = projectAux;
+            const langAux = localStorage.lang;
+            const lang = langAux;
             const prjpatt = new RegExp("^[a-zA-Z0-9_]+$");
             const langpatt = new RegExp("^en|es$");
             if (prjpatt.test(project) &&
@@ -286,8 +297,10 @@ integrates.controller(
       });
     };
     $scope.generatePDF = function generatePDF () {
-      const project = $scope.project;
-      const lang = localStorage.lang;
+      const projectAux = $stateParams.project;
+      const project = projectAux;
+      const langAux = localStorage.lang;
+      const lang = langAux;
       const prjpatt = new RegExp("^[a-zA-Z0-9_]+$");
       const langpatt = new RegExp("^en|es$");
       if (prjpatt.test(project) &&
@@ -320,8 +333,10 @@ integrates.controller(
       else {
         vlang = "es-CO";
       }
-      const project = $scope.project;
-      const filter = $scope.filter;
+      const projectAux = $stateParams.project;
+      const project = projectAux;
+      const filterAux = $scope.filter;
+      const filter = filterAux;
       const finding = $scope.findingId;
       if (typeof project === "undefined" ||
                 project === "") {

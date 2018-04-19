@@ -32,7 +32,8 @@ integrates.controller(
     $translate, projectFtry
   ) {
     $scope.init = function init () {
-      const project = $stateParams.project;
+      const projectAux = $stateParams.project;
+      const project = projectAux;
       const findingId = $stateParams.finding;
       $scope.userRole = userRole;
 
@@ -246,7 +247,8 @@ integrates.controller(
       let partial = 0;
       let close = 0;
       currData.forEach((val, cont) => {
-        const estado = val.estado;
+        const estadoAux = val.estado;
+        const estado = estadoAux;
         total += 1;
         if (estado === "Abierto" || estado === "Open") {
           open += 1;
@@ -297,8 +299,10 @@ integrates.controller(
       else {
         vlang = "es-CO";
       }
-      const project = $scope.project;
-      const filter = $scope.filter;
+      const projectAux = $scope.project;
+      const project = projectAux;
+      const filterAux = $scope.filter;
+      const filter = filterAux;
       const finding = $scope.findingId;
       if (typeof project === "undefined" ||
                 project === "") {
