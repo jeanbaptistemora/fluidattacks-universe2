@@ -163,6 +163,41 @@
         }]
       }
     </script>
+    <script type="application/ld+json">
+      {
+        "@context": "http://schema.org",
+        "@type": "ProfessionalService",
+        "name": "{{ AUTHOR }}",
+        "image": "{{ SITEURL }}/theme/images/fluid-logo.png",
+        "@id": "",
+        "url": "https://fludiattacks.com",
+        "telephone": "+57 (4) 444-26-37",
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "Calle 7 Sur #42-70",
+          "addressLocality": "Medellin",
+          "postalCode": "050022",
+          "addressCountry": "CO"
+        },
+        "geo": {
+          "@type": "GeoCoordinates",
+          "latitude": 6.197490999999999,
+          "longitude": -75.5733826
+        },
+        "openingHoursSpecification": {
+          "@type": "OpeningHoursSpecification",
+          "dayOfWeek": [
+            "Monday",
+            "Tuesday",
+            "Wednesday",
+            "Thursday",
+            "Friday"
+          ],
+        "opens": "8:00",
+        "closes": "18:00"
+        }
+      }
+    </script>
     <!-- Footer -->
     {% include 'footer.html' %}
 
