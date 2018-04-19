@@ -17,6 +17,8 @@ bajo las cuales la siguiente solución tiene sentido:
 
 . Se tiene una aplicación, servicio, o infraestructura
 con la que tienen que interactuar varios usuarios.
+. La organización debe generar un modelo de amenazas para el sistema,
+donde se identifiquen las posibles amenazas.^<<r1,[1]>>^
 
 == Solución
 
@@ -35,7 +37,7 @@ produciendo una sobrecarga en el servidor
 y este no pueda seguir prestando su servicio.
 Por eso se le denomina denegación,
 pues hace que el servidor
-no pueda atender a la cantidad enorme de solicitudes ^<<r1,[1]>>^.
+no pueda atender a la cantidad enorme de solicitudes.^<<r2,[2]>>^
 
 Un ataque +DoS+ puede ser perpetrado de las siguientes formas:
 
@@ -50,7 +52,7 @@ tales como interrupción de sesiones +TCP+ (+TCP reset+).
 entre usuarios de un servicio y la víctima,
 de manera que ya no puedan comunicarse adecuadamente.
 
-. El +CWE-400+ ^<<r2,[2]>>^ determina como una debilidad el hecho
+. El +CWE-400+ ^<<r3,[3]>>^ determina como una debilidad el hecho
 que un sistema permita una excesiva cantidad de peticiones
 que podrían llegar a agotar sus recursos,
 y terminar en una denegación de servicios para los usuarios del sistema.
@@ -71,12 +73,13 @@ deje a la misma en un estado seguro.
 
 . Asegurar un trato adecuado del error cuando un recurso se consume.
 
-. En esta referencia ^<<r3,[3]>>^
+. En esta referencia ^<<r4,[4]>>^
 puede encontrarse mas información respecto
 a un +e-business security checklist+ que puede ser de utilidad.
 
 == Referencias
 
-. [[r1]] link:https://es.wikipedia.org/wiki/Ataque_de_denegaci%C3%B3n_de_servicio[Ataque de denegación de servicio]
-. [[r2]] link:https://cwe.mitre.org/data/definitions/400.html[CWE-400: Uncontrolled Resource Consumption ('Resource Exhaustion')]
-. [[r3]] link:https://www-935.ibm.com/services/us/bcrs/pdf/wp_denial-of-service.pdf[Denial-of-Service attacks: Understanding network vulnerabilities]
+. [[r1]] link:../../../rules/008/[REQ.008 Generar modelo de amenazas del sistema].
+. [[r2]] link:https://es.wikipedia.org/wiki/Ataque_de_denegaci%C3%B3n_de_servicio[Ataque de denegación de servicio].
+. [[r3]] link:https://cwe.mitre.org/data/definitions/400.html[CWE-400: Uncontrolled Resource Consumption ('Resource Exhaustion')].
+. [[r4]] link:https://www-935.ibm.com/services/us/bcrs/pdf/wp_denial-of-service.pdf[Denial-of-Service attacks: Understanding network vulnerabilities].
