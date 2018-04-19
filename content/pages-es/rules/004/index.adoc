@@ -9,7 +9,7 @@
 
 == Nombre
 
-Cada activo de información debe estar asociado con un responsable del activo
+Cada activo de información debe estar asociado con un responsable del activo.
 
 == Descripción
 
