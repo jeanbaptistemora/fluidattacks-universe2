@@ -13,6 +13,7 @@
 :about1: Mathematician
 :about2: with an itch for CS
 :source-highlighter: pygments
+:translate: oraculo-codigo/
 
 = The Oracle of Code
 
@@ -37,11 +38,11 @@ It was only natural
 to propose making a database out of
 the program structure,
 in order to be able to
-ask questions about the program's behaviour.
+ask questions about the program's behavior.
 
 Mere text analysis is not enough
 to understand the way variables are used,
-the idioms and idiosyncracies
+the idioms and idiosyncrasies
 of the programming language,
 the efficiency and complexity
 of your code, etc.
@@ -54,7 +55,7 @@ not just the syntax.
 The most common way
 to represent interrelated,
 structured data is via 'relational databases'.
-These are tipically queried via
+These are typically queried via
 the +SQL+ language, which features
 simple, almost english-like queries,
 but is very limited.
@@ -70,7 +71,7 @@ that it would hurt performance.
 Languages like +lisp+
 have an inherent 'code as data' mantra:
 every line of code is a piece of
-manipulable data and viceversa.
+manipulable data and vice versa.
 Markup languages like +XML+ have
 their own ``database'' of sorts,
 the +DOM+,
@@ -101,7 +102,7 @@ end if;
 Quite simple, but
 the same cannot be said
 about its +AST+.
-We have three assigments (+:=+),
+We have three assignments (+:=+),
 one +if-then-else+ conditional
 and five variables,
 all interrelated,
@@ -151,7 +152,7 @@ The most basic entity is the +statement+,
 which is basically every line of code.
 It can be a +conditional+,
 an +assignment+ or maybe a function call (+fcalls+).
-An +assigment+, in turn,
+An +assignment+, in turn,
 sets the value of the left-hand-side variable
 to that of the right side.
 +Variables+ are related to the entity
