@@ -9,7 +9,7 @@
 == Nombre
 
 Las amenazas asociadas a un activo de información
-deben estar identificadas y documentadas
+deben estar identificadas y documentadas.
 
 == Descripción
 
