@@ -10,8 +10,3 @@
 
 Debe estar definido el proceso
 para poder reclasificar los activos de información.
-
-== Soluciones
-
-Este artículo está en construcción.
-Lamentamos los inconvenientes.
