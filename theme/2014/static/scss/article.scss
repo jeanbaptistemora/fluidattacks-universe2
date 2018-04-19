@@ -165,4 +165,25 @@ $white: rgba(255, 255, 255, 1);
       font-size: 21px;
     }
   }
+
+  .article-header {
+    display: flex;
+
+    .rep-img-container {
+      position: relative;
+      width: 45%;
+
+      .rep-img {
+        bottom: 0;
+        height: fit-content;
+        margin: auto;
+        position: absolute;
+        top: 0;
+      }
+    }
+
+    .article-title {
+      width: 55%;
+    }
+  }
 }

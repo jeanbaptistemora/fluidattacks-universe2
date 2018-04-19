@@ -82,13 +82,21 @@
           {% endif %}
         {% endif %}
       </div>
-      <h1>{{ article.title }}</h1>
-      {% if article.subtitle %}
-        <span class="subtitle"><strong>{{ article.subtitle }}</strong></span>
-      {% endif %}
-      {% if article.headline %}
-        <h3 class="subheading">{{ article.headline }}</h3>
-      {% endif %}
+      <div class="article-header">
+        <div class="rep-img-container">
+          <img src="{{ SITEURL }}/{{ article.url}}{{ article.image }}" alt="{{ article.alt }}" class="rep-img">
+        </div>
+        <div class="article-title">
+          <h1>{{ article.title }}</h1>
+          {% if article.subtitle %}
+            <span class="subtitle"><strong>{{ article.subtitle }}</strong></span>
+          {% endif %}
+          <br>
+          <div class="description">
+            {{ article.description }}
+          </div>
+        </div>
+      </div>
       <table class="meta-table">
         <tr>
           <td class="meta-data">
@@ -107,9 +115,6 @@
           </td>
         </tr>
       </table>
-      <div class="description">
-        {{ article.description }}
-      </div>
       <br>
       {{ article.content }}
       <br/>
