@@ -9,7 +9,7 @@
 == Nombre
 
 Cada amenaza sobre un activo de información
-debe ser medida en términos de su probabilidad de ocurrencia
+debe ser medida en términos de su probabilidad de ocurrencia.
 
 == Descripción
 
@@ -91,4 +91,4 @@ al no determinar el impacto real para la organización.
 == Referencias
 
 . link:https://www.iso.org/isoiec-27001-information-security.html[Serie de normas ISO/IEC 27000].
-. link:https:https://www.pmg-ssi.com/2015/04/iso-27001-amenazas-y-vulnerabilidades/[Amenazas y vulnerabilidades ISO 27001].
+. link:https://www.pmg-ssi.com/2015/04/iso-27001-amenazas-y-vulnerabilidades/[Amenazas y vulnerabilidades ISO 27001].
