@@ -8,7 +8,7 @@
 
 == Nombre
 
-Los posibles atacantes del sistema deben estar identificados
+Los posibles atacantes del sistema deben estar identificados.
 
 == Descripción
 
