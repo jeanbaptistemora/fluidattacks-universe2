@@ -167,6 +167,22 @@
         </div>
         <script id="dsq-count-scr" src="//{{ DISQUS_SITENAME }}.disqus.com/count.js" async></script>
       {% endif %}
+      {% if page.rules or page.defends %}
+        <script type="application/ld+json">
+          {
+            "@context": "http://schema.org",
+            "@type": "Article",
+            "headline": "{{ page.title }}",
+            "author": "{{ AUTHOR }}",
+            "publisher": [{
+              "@type": "Organization",
+              "name": "{{ AUTHOR}}",
+              "logo": "{{ SITEURL }}/theme/images/fluid-logo.png"
+            }],
+            "mainEntityOfPage": "{{ SITEURL }}/{{ page.url }}"
+          }
+        </script>
+      {% endif %}
       <script type="application/ld+json">
         {
           "@context": "http://schema.org",

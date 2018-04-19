@@ -202,6 +202,22 @@
        <script type="application/ld+json">
          {
            "@context": "http://schema.org",
+           "@type": "BlogPosting",
+           "headline": "{{ article.title }}",
+           "author": "{{ article.name }}",
+           "datePublished": "{{ article.locale_date }}",
+           "publisher": [{
+             "@type": "Organization",
+             "name": "{{ AUTHOR}}",
+             "logo": "{{ SITEURL }}/theme/images/fluid-logo.png"
+           }],
+           "mainEntityOfPage": "{{ SITEURL }}/{{ article.url }}",
+           "image": "{{ SITEURL }}/{{ article.url }}{{ article.image }}"
+         }
+       </script>
+       <script type="application/ld+json">
+         {
+           "@context": "http://schema.org",
            "@type": "BreadcrumbList",
            "itemListElement": [{
              "@type": "ListItem",
