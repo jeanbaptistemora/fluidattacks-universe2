@@ -32,31 +32,38 @@
         <button class="btn btn-primary" type="button" ng-click="closeModalAvance()">OK</button>
     </div>
 </script>
-<!-- START: MODAL TECNICO -->
-<script type="text/ng-template" id="technicalReportModal.html">
-    <div class="modal-header">
-        <h3 class="modal-title" id="modal-title">{% templatetag openvariable %} 'technical_report_mod.title' | translate {% templatetag closevariable %}</h3>
-    </div>
-    <div class="modal-body" id="modal-body" style="padding-top:1px!important; color:red;">
-        <p class='text-center'>{% templatetag openvariable %} 'technical_report_mod.body_1' | translate {% templatetag closevariable %}</p>
-        <p class='text-center'>{% templatetag openvariable %} 'technical_report_mod.body_2' | translate {% templatetag closevariable %}</p>
-        <button class="btn btn-success" ng-click="findingMatrizXLSReport();">XLS</button>
-        <button class="btn btn-danger" ng-click="findingMatrizPDFReport();">PDF</button>
-    </div>
-    <div class="modal-footer">
-        <button class="btn btn-primary" type="button" ng-click="closeModalAvance()">OK</button>
-    </div>
-</script>
-<!-- START: MODAL EJECUTIVO -->
-<script type="text/ng-template" id="executiveReportModal.html">
-    <div class="modal-header">
-        <h3 class="modal-title" id="modal-title"><i class="fa fa-file-pdf-o" aria-hidden="true"></i>{% templatetag openvariable %} 'executive_report_mod.title' | translate {% templatetag closevariable %}</h3>
-    </div>
-    <div class="modal-body text-center" id="modal-body">
-        <p class='text-center' id="hasPresentationMsg">{% templatetag openvariable %} 'executive_report_mod.message' | translate {% templatetag closevariable %}</p>
-        <!--<button class="btn btn-danger" ng-click="findingMatrizPDFReport();"><i class="fa fa-file-pdf-o"></i>PDF</button>-->
-        <button class="btn btn-danger" id="hasPresentation" style='display:none;' ng-click="findingMatrizPDFPresentation();"><i class="fa fa-file-powerpoint-o
-"></i> PDF</button>
+<!-- START: MODAL INFORMES -->
+<script type="text/ng-template" id="reportModal.html">
+    <div class="modal-body" id="modal-body">
+        <div class="row">
+            <div class="col-md-12">
+                <h2 class="modal-title" id="modal-title">{% templatetag openvariable %} 'reports.title' | translate {% templatetag closevariable %}</h2>
+            </div>
+        </div>
+        <hr>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="col-md-6" style="border-right: 1px solid #eee;">
+                    <h3 class="text-center">{% templatetag openvariable %} 'reports.technical_report_mod.title' | translate {% templatetag closevariable %}</h3>
+                    <div class="text-technical">
+                        <p>{% templatetag openvariable %} 'reports.technical_report_mod.body_1' | translate {% templatetag closevariable %}</p>
+                    <p>{% templatetag openvariable %} 'reports.technical_report_mod.body_2' | translate {% templatetag closevariable %}</p>
+                    </div>
+                    <div class="col-md-6 col-md-offset-4">
+                        <button class="btn btn-success" ng-click="findingMatrizTechnicalXLSReport();"><i class="fa fa-file-excel-o"></i>  XLS</button>
+                        <button class="btn btn-danger" ng-click="findingMatrizTechnicalPDFReport();"><i class="fa fa-file-pdf-o"></i>  PDF</button>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <h3 class="text-center">{% templatetag openvariable %} 'reports.executive_report_mod.title' | translate {% templatetag closevariable %}</h3>
+                    <p class='text-center' id="hasPresentationMsg">{% templatetag openvariable %} 'reports.executive_report_mod.message' | translate {% templatetag closevariable %}</p>
+                    <div class="col-md-6 col-md-offset-4">
+                        <!--<button class="btn btn-danger" ng-click="findingMatrizExecutivePDFReport;"><i class="fa fa-file-pdf-o"></i>PDF</button>-->
+                        <button class="btn btn-danger" id="hasPresentation" style='display:none;' ng-click="findingMatrizExecutivePDFPresentation();"><i class="fa fa-file-pdf-o"></i>  PDF</button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
     <div class="modal-footer">
         <button class="btn btn-primary" type="button" ng-click="closeModalAvance()">OK</button>
@@ -98,11 +105,8 @@
                                 <button type="button" id="progress_button" class="btn btn-default" data-toggle="tooltip" data-placement="top" title="{{ search_findings.filter_buttons.advance}}!" ng-click="openModalAvance();">
                                     {{ search_findings.filter_buttons.advance }} <i class="glyphicon glyphicon-bookmark"></i>
                                 </button>
-                                <button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="top" title="{{ search_findings.filter_buttons.documentation }}" ng-click="technicalReportModal();">
-                                    {% templatetag openvariable %} 'technical_report_mod.title' | translate {% templatetag closevariable %} <i class="glyphicon glyphicon-th-list"></i>
-                                </button>
-                                <button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="top" title="{{ search_findings.filter_buttons.documentation }}" ng-click="executiveReportModal();">
-                                    {% templatetag openvariable %} 'executive_report_mod.title' | translate {% templatetag closevariable %} &nbsp;<i class="glyphicon glyphicon-briefcase"></i>
+                                <button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="top" title="{{ search_findings.filter_buttons.documentation }}" ng-click="reportModal();">
+                                    {% templatetag openvariable %} 'reports.title' | translate {% templatetag closevariable %} <i class="glyphicon glyphicon-briefcase"></i>
                                 </button>
                             </div>
                             <!-- START: toolbar -->

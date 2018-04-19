@@ -164,15 +164,15 @@ integrates.controller(
       });
       $scope.downloadDoc();
     };
-    $scope.technicalReportModal = function technicalReportModal () {
+    $scope.reportModal = function reportModal () {
       // Tracking mixpanel
       const org = Organization.toUpperCase();
       const projt = $scope.project.toUpperCase();
-      mixPanelDashboard.trackReports("TechnicalReports", userName, userEmail, org, projt);
+      mixPanelDashboard.trackReports("Reports", userName, userEmail, org, projt);
       const modalInstance = $uibModal.open({
         "animation": true,
         "controller" ($scope, $uibModalInstance, $stateParams, projectFtry) {
-          $scope.findingMatrizXLSReport = function findingMatrizXLSReport () {
+          $scope.findingMatrizTechnicalXLSReport = function findingMatrizTechnicalXLSReport () {
             const project = $stateParams.project;
             const lang = localStorage.lang;
             const prjpatt = new RegExp("^[a-zA-Z0-9_]+$");
@@ -193,7 +193,7 @@ integrates.controller(
               }
             }
           };
-          $scope.findingMatrizPDFReport = function findingMatrizPDFReport () {
+          $scope.findingMatrizTechnicalPDFReport = function findingMatrizTechnicalPDFReport () {
             const project = $stateParams.project;
             const lang = localStorage.lang;
             const prjpatt = new RegExp("^[a-zA-Z0-9_]+$");
@@ -214,24 +214,6 @@ integrates.controller(
               }
             }
           };
-          $scope.closeModalAvance = function closeModalAvance () {
-            $uibModalInstance.close();
-          };
-        },
-        "keyboard": false,
-        "resolve": {"ok": true},
-        "templateUrl": "technicalReportModal.html",
-        "windowClass": "modal avance-modal"
-      });
-    };
-    $scope.executiveReportModal = function executiveReportModal () {
-      // Tracking mixpanel
-      const org = Organization.toUpperCase();
-      const projt = $scope.project.toUpperCase();
-      mixPanelDashboard.trackReports("ExecutiveReports", userName, userEmail, org, projt);
-      const modalInstance = $uibModal.open({
-        "animation": true,
-        "controller" ($scope, $uibModalInstance, $stateParams) {
           $("#hasPresentation").hide();
           $("#hasPresentationMsg").show();
           $scope.init = function init () {
@@ -249,7 +231,7 @@ integrates.controller(
               }
             });
           };
-          $scope.findingMatrizPDFPresentation = function findingMatrizPDFPresentation () {
+          $scope.findingMatrizExecutivePDFPresentation = function findingMatrizExecutivePDFPresentation () {
             const project = $stateParams.project;
             const lang = localStorage.lang;
             const prjpatt = new RegExp("^[a-zA-Z0-9_]+$");
@@ -270,7 +252,7 @@ integrates.controller(
               }
             }
           };
-          $scope.findingMatrizPDFReport = function findingMatrizPDFReport () {
+          $scope.findingMatrizExecutivePDFReport = function findingMatrizExecutivePDFReport () {
             const project = $stateParams.project;
             const lang = localStorage.lang;
             const prjpatt = new RegExp("^[a-zA-Z0-9_]+$");
@@ -298,7 +280,8 @@ integrates.controller(
         },
         "keyboard": false,
         "resolve": {"ok": true},
-        "templateUrl": "executiveReportModal.html",
+        "size": "lg",
+        "templateUrl": "reportModal.html",
         "windowClass": "modal avance-modal"
       });
     };

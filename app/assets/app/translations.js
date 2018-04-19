@@ -127,11 +127,6 @@ integrates.config([
         "type": "Type"
       }
    },
-      "executive_report_mod":
-   {
-     "message": "The project's documentation has not been finished",
-     "title": "Executive Reports"
-   },
       "finding_formstack":
    {
      "access_vector":
@@ -404,6 +399,21 @@ integrates.config([
      "no_authorization": "You do not have authorization for login yet. Please contact FLUID's staff to get access.",
      "yes": "Yes"
    },
+      "reports":
+    {
+      "executive_report_mod":
+      {
+        "message": "The project's documentation has not been finished",
+        "title": "Executive Reports"
+      },
+      "technical_report_mod":
+      {
+        "body_1": "Technical report is protected by password. The password is the date of  report's PDF generation and your username.",
+        "body_2": "Example: someone@fluidattacks.com generates the technical report on 03/15/2018 therefore, the password is 15032018someone",
+        "title": "Technical Reports"
+      },
+      "title": "Reports"
+    },
       "search_findings":
    {
      "filter_labels":
@@ -518,12 +528,6 @@ integrates.config([
         "eventualities": "Events",
         "findings": "Findings",
         "indicators": "Indicators"
-      },
-      "technical_report_mod":
-      {
-        "body_1": "Technical report is protected by password. The password is the date of  report's PDF generation and your username.",
-        "body_2": "Example: someone@fluidattacks.com generates the technical report on 03/15/2018 therefore, the password is 15032018someone",
-        "title": "Technical Reports"
       }
     };
     traducciones = {
@@ -639,12 +643,6 @@ integrates.config([
         "type": "Tipo"
       }
 
-   },
-
-      "executive_report_mod":
-   {
-     "message": "La documentación del proyecto no ha sido finalizada",
-     "title": "Informes Ejecutivos"
    },
       "finding_formstack":
    {
@@ -919,6 +917,21 @@ integrates.config([
      "no_authorization": "No tienes autorización aún para ingresar. Comunícate con un representante de FLUID para obtener acceso.",
      "yes": "Si"
    },
+      "reports":
+    {
+      "executive_report_mod":
+      {
+        "message": "La documentación del proyecto no ha sido finalizada",
+        "title": "Informes Ejecutivos"
+      },
+      "technical_report_mod":
+      {
+        "body_1": "El informe técnico está protegido por contraseña. La contraseña es la fecha del día de generación del informe y su nombre de usuario.",
+        "body_2": "Ejemplo: alguien@fluidattacks.com genera el informe técnico en la fecha 15/03/2018 por lo tanto, la contraseña es 15032018alguien",
+        "title": "Informes Técnicos"
+      },
+      "title": "Informes"
+    },
       "search_findings":
    {
      "filter_labels":
@@ -1033,13 +1046,7 @@ integrates.config([
         "eventualities": "Eventualidades",
         "findings": "Hallazgos",
         "indicators": "Indicadores"
-      },
-      "technical_report_mod":
-   {
-     "body_1": "El reporte técnico está protegido por contraseña. La contraseña es la fecha del día de generación del informe y su nombre de usuario.",
-     "body_2": "Ejemplo: alguien@fluidattacks.com genera el reporte técnico en la fecha 15/03/2018 por lo tanto, la contraseña es 15032018alguien",
-     "title": "Informes Técnicos"
-   }
+      }
     };
     if (typeof localStorage.lang === "undefined") {
       localStorage.lang = "en";
