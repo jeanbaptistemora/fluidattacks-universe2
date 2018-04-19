@@ -45,7 +45,7 @@ build-containers:
           cd deploy/containers/integrates && sh build.sh "$CI_COMMIT_REF_NAME" "$FI_GITLAB_LOGIN" "$FI_GITLAB_PASSWORD" "$FI_DRIVE_AUTHORIZATION" "$FI_DOCUMENTROOT" "$FI_SSL_CERT" "$FI_SSL_KEY" "$FI_DRIVE_AUTHORIZATION_CLIENT"
         - docker push registry.gitlab.com/fluidsignal/integrates:base
         - >
-          cd deploy/containers/bot && sh build.sh "$CI_COMMIT_REF_NAME" "$FI_GITLAB_LOGIN" "$FI_GITLAB_PASSWORD" "$FI_DRIVE_AUTHORIZATION" "$FI_DOCUMENTROOT" "$FI_SSL_CERT" "$FI_SSL_KEY" "$FI_DRIVE_AUTHORIZATION_CLIENT"
+          cd ../bot && sh build.sh "$CI_COMMIT_REF_NAME" "$FI_GITLAB_LOGIN" "$FI_GITLAB_PASSWORD" "$FI_DRIVE_AUTHORIZATION" "$FI_DOCUMENTROOT" "$FI_SSL_CERT" "$FI_SSL_KEY" "$FI_DRIVE_AUTHORIZATION_CLIENT"
         - docker push registry.gitlab.com/fluidsignal/integrates/bot:base
     except:
     - triggers
