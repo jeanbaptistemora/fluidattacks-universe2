@@ -5,6 +5,7 @@ $(document).ready(() => {
   remember = function () {
     try {
       alertify.log("<div class=\"\" style=\"padding: 8px;\"><p class=\"text-center\">Recordatorio</p><p class=\"text-left\"> Recuerda personalizar los campos dependiendo de la situación que vas a reportar!</p> </div>");
+      return true;
     }
     catch (err) {
       return false;

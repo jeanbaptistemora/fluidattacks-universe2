@@ -163,6 +163,7 @@ integrates.controller(
           }
         });
       }
+      return true;
     };
     $scope.urlIndicators = function urlIndicators () {
       $state.go("ProjectIndicators", {"project": $scope.project});

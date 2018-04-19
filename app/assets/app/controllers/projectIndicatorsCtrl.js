@@ -362,6 +362,7 @@ integrates.controller(
           });
         }
       }
+      return true;
     };
     $scope.loadIndicatorsContent = function loadIndicatorsContent (datatest) {
       const org = Organization.toUpperCase();

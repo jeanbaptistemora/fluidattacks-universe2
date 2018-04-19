@@ -26,6 +26,7 @@ function labelEventState (value, row, index) {
   else if (value === "Unsolved") {
     return "<label class='label label-danger' style='background-color: #f22;'>Unsolved</label>";
   }
+  return false;
 }
 
 /**
@@ -100,6 +101,7 @@ integrates.controller(
           }
         }
       };
+      return true;
     };
     $scope.search = function search () {
       let vlang = "en-US";
@@ -155,6 +157,7 @@ integrates.controller(
           });
         }
       }
+      return true;
     };
     $scope.loadEventContent = function loadEventContent (data, vlang, project) {
       const organizationName = Organization.toUpperCase();
@@ -273,6 +276,7 @@ integrates.controller(
                     }
                   }
                 });
+                return true;
               };
               $scope.close = function close () {
                 $uibModalInstance.close();

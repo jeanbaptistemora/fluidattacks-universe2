@@ -166,6 +166,7 @@ integrates.controller(
         }
       });
       $scope.downloadDoc();
+      return true;
     };
     $scope.reportModal = function reportModal () {
       // Tracking mixpanel
@@ -396,6 +397,7 @@ integrates.controller(
           });
         }
       }
+      return true;
     };
     $scope.loadFindingContent = function loadFindingContent (datatest, vlang) {
       const org = Organization.toUpperCase();

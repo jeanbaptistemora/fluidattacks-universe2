@@ -522,8 +522,10 @@ integrates.controller("findingcontentCtrl", function findingcontentCtrl (
         $msg.error(errorAc1);
         return false;
       }
+      return true;
     };
     projectFtry.UpdateEvidenceFiles(data, responseFunction, errorFunction);
+    return true;
   };
   updateEvidenceText = function (element) {
     const evImage = $(element).attr("target");
@@ -581,6 +583,7 @@ integrates.controller("findingcontentCtrl", function findingcontentCtrl (
         return false;
       });
     }
+    return true;
   };
   $scope.deleteFinding = function deleteFinding () {
     // Obtener datos
@@ -674,6 +677,7 @@ integrates.controller("findingcontentCtrl", function findingcontentCtrl (
           $scope.findingExploitTab();
           $scope.findingRecordsTab();
           $scope.findingCommentTab();
+          return true;
         }
         else if (response.error) {
           $scope.view.project = false;
@@ -686,8 +690,8 @@ integrates.controller("findingcontentCtrl", function findingcontentCtrl (
             $msg.error($translate.instant("proj_alerts.no_finding"));
             Rollbar.warning("Warning: Finding not found");
           }
-          return false;
         }
+        return true;
       });
     }
   };
@@ -1604,6 +1608,7 @@ integrates.controller("findingcontentCtrl", function findingcontentCtrl (
       $msg.error($translate.instant("proj_alerts.error_severity"), "error");
       return false;
     }
+    return true;
   };
   $scope.updateDescription = function updateDescription () {
     // Obtener datos
@@ -1671,6 +1676,7 @@ integrates.controller("findingcontentCtrl", function findingcontentCtrl (
       "resolve": {"updateData": descData},
       "templateUrl": `${BASE.url}assets/views/project/confirmMdl.html`
     });
+    return true;
   };
   $scope.validateTreatment = function validateTreatment () {
     if ($scope.aux.razon === $scope.finding.razonTratamiento) {

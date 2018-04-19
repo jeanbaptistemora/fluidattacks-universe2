@@ -36,6 +36,7 @@ mixPanelDashboard.trackSearch = function trackSearch (trackName, userEmail, proj
       "Project": project
     }
   );
+  return true;
 };
 
 mixPanelDashboard.trackReadEventuality = function trackReadEventuality (userName, userEmail, Organization, project, id) {
@@ -52,6 +53,7 @@ mixPanelDashboard.trackReadEventuality = function trackReadEventuality (userName
       "Project": project
     }
   );
+  return true;
 };
 
 mixPanelDashboard.trackReports = function trackReports (trackName, userName, userEmail, Organization, project) {
@@ -67,6 +69,7 @@ mixPanelDashboard.trackReports = function trackReports (trackName, userName, use
       "Project": project
     }
   );
+  return true;
 };
 
 mixPanelDashboard.trackFinding = function trackFinding (trackName, userEmail, id) {
@@ -80,6 +83,7 @@ mixPanelDashboard.trackFinding = function trackFinding (trackName, userEmail, id
       "FindingID": id
     }
   );
+  return true;
 };
 
 mixPanelDashboard.trackFindingDetailed = function trackFindingDetailed (trackName, userName, userEmail, Organization, project, id) {
@@ -96,4 +100,5 @@ mixPanelDashboard.trackFindingDetailed = function trackFindingDetailed (trackNam
       "Project": project
     }
   );
+  return true;
 };
