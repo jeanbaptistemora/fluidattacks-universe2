@@ -2,23 +2,32 @@ resource "aws_route53_record" "6002333" {
   zone_id = "${aws_route53_zone.fs_maindomain.zone_id}"
   name    = "6002333.${aws_route53_zone.fs_maindomain.name}"
   type    = "CNAME"
-  ttl     = "3600"
+  ttl     = "300"
   records = ["sendgrid.net"]
 }
 
-resource "aws_route53_record" "email_mailgun" {
+resource "aws_route53_record" "env_cname" {
   zone_id = "${aws_route53_zone.fs_maindomain.zone_id}"
-  name    = "email.mailgun.${aws_route53_zone.fs_maindomain.name}"
+  name    = "*.env.${aws_route53_zone.fs_maindomain.name}"
   type    = "CNAME"
   ttl     = "300"
-  records = ["mailgun.org"]
+  records = ["env.fluidattacks.com"]
 }
+
+resource "aws_route53_record" "emailmkt" {
+  zone_id = "${aws_route53_zone.fs_maindomain.zone_id}"
+  name    = "emailmkt.${aws_route53_zone.fs_maindomain.name}"
+  type    = "CNAME"
+  ttl     = "3600"
+  records = ["u6002333.wl084.sendgrid.net"]
+}
+
 
 resource "aws_route53_record" "go_fluid" {
   zone_id = "${aws_route53_zone.fs_maindomain.zone_id}"
   name    = "go.${aws_route53_zone.fs_maindomain.name}"
   type    = "CNAME"
-  ttl     = "1"
+  ttl     = "300"
   records = ["rebrandlydomain.com"]
 }
 
@@ -38,6 +47,22 @@ resource "aws_route53_record" "kb_fluid" {
   records = ["fluid.knowledgeowl.com"]
 }
 
+resource "aws_route53_record" "landing" {
+  zone_id = "${aws_route53_zone.fs_maindomain.zone_id}"
+  name    = "landing.${aws_route53_zone.fs_maindomain.name}"
+  type    = "CNAME"
+  ttl     = "3600"
+  records = ["pages.rdstation.com.br"]
+}
+
+resource "aws_route53_record" "mailguntracking" {
+  zone_id = "${aws_route53_zone.fs_maindomain.zone_id}"
+  name    = "mailguntracking.mailgun.${aws_route53_zone.fs_maindomain.name}"
+  type    = "CNAME"
+  ttl     = "300"
+  records = ["mailgun.org"]
+}
+
 resource "aws_route53_record" "marketing_fluid" {
   zone_id = "${aws_route53_zone.fs_maindomain.zone_id}"
   name    = "marketing.${aws_route53_zone.fs_maindomain.name}"
@@ -50,7 +75,7 @@ resource "aws_route53_record" "s1_domainkey" {
   zone_id = "${aws_route53_zone.fs_maindomain.zone_id}"
   name    = "s1._domainkey.${aws_route53_zone.fs_maindomain.name}"
   type    = "CNAME"
-  ttl     = "300"
+  ttl     = "3600"
   records = ["s1.domainkey.u6002333.wl084.sendgrid.net"]
 }
 
@@ -70,20 +95,36 @@ resource "aws_route53_record" "servicios_fluid" {
   records = ["pages.rdstation.com.br"]
 }
 
-resource "aws_route53_record" "t_marketing" {
+resource "aws_route53_record" "status_fluid" {
   zone_id = "${aws_route53_zone.fs_maindomain.zone_id}"
-  name    = "t.marketing.${aws_route53_zone.fs_maindomain.name}"
+  name    = "status.${aws_route53_zone.fs_maindomain.name}"
+  type    = "CNAME"
+  ttl     = "300"
+  records = ["stats.pingdom.com"]
+}
+
+resource "aws_route53_record" "t_emailmkt" {
+  zone_id = "${aws_route53_zone.fs_maindomain.zone_id}"
+  name    = "t.emailmkt.${aws_route53_zone.fs_maindomain.name}"
   type    = "CNAME"
   ttl     = "3600"
   records = ["sendgrid.net"]
 }
 
-resource "aws_route53_record" "ww2" {
+resource "aws_route53_record" "t_marketing" {
   zone_id = "${aws_route53_zone.fs_maindomain.zone_id}"
-  name    = "ww2.${aws_route53_zone.fs_maindomain.name}"
+  name    = "t.marketing.${aws_route53_zone.fs_maindomain.name}"
   type    = "CNAME"
   ttl     = "300"
-  records = ["unbouncepages.com"]
+  records = ["sendgrid.net"]
+}
+
+resource "aws_route53_record" "track" {
+  zone_id = "${aws_route53_zone.fs_maindomain.zone_id}"
+  name    = "track.${aws_route53_zone.fs_maindomain.name}"
+  type    = "CNAME"
+  ttl     = "300"
+  records = ["mandrillapp.com"]
 }
 
 resource "aws_route53_record" "www" {
@@ -91,5 +132,14 @@ resource "aws_route53_record" "www" {
   name    = "www.${aws_route53_zone.fs_maindomain.name}"
   type    = "CNAME"
   ttl     = "300"
-  records = ["fluid.la"]
+  records = ["fluidattacks.com"]
+}
+
+
+resource "aws_route53_record" "database" {
+  zone_id = "${aws_route53_zone.fs_maindomain.zone_id}"
+  name    = "database.${aws_route53_zone.fs_maindomain.name}"
+  type    = "CNAME"
+  ttl     = "300"
+  records = ["fluiddatabase.cmjvwttsb0nk.us-east-1.rds.amazonaws.com"]
 }

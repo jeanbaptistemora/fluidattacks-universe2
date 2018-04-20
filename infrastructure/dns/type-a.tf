@@ -14,6 +14,14 @@ resource "aws_route53_record" "mail" {
   records = ["${var.server}"]
 }
 
+resource "aws_route53_record" "env" {
+  zone_id = "${aws_route53_zone.fs_maindomain.zone_id}"
+  name    = "env.${aws_route53_zone.fs_maindomain.name}"
+  type    = "A"
+  ttl     = "300"
+  records = ["35.202.156.32"]
+}
+
 resource "aws_route53_record" "web" {
   zone_id = "${aws_route53_zone.fs_maindomain.zone_id}"
   name    = "web.${aws_route53_zone.fs_maindomain.name}"
