@@ -500,7 +500,7 @@ The next line is a comment.
 
 === Pass-through HTML - Do not use
 
-Delimit HTML code in 3 plus (+)
+Delimit HTML code in +4+ plus (+)
 to execute it once rendered. +
 Do not use this method,
 since the idea of Pelican
@@ -510,12 +510,20 @@ so focus only on content in the .adocs
 * Source
 +
 ....
-+++<u>HTML</u>+++
+++++
+  <p style="color:green">
+  This <I>HTML</I> code will be rendered directly to the page.<br>
+  </p>
+++++
 ....
 
 * Render
 +
-+++<u>HTML</u>+++
+++++
+  <p style="color:green">
+  This <I>HTML</I> code will be rendered directly to the page.<br>
+  </p>
+++++
 
 === Licence Characters
 
