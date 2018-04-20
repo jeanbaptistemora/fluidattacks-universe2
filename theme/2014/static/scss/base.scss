@@ -82,25 +82,25 @@ body {
 
 h1 {
   @include hn;
-  @include anchor-size(24px, 8px, -18px);
+  @include anchor-size(20px, 6px, -15px);
   font-size: 34px;
 }
 
 h2 {
   @include hn;
-  @include anchor-size(21px, 9px, -16px);
+  @include anchor-size(18px, 5px, -12px);
   font-size: 30px;
 }
 
 h3 {
   @include hn;
-  @include anchor-size(18px, 5px, -14px);
+  @include anchor-size(15px, 4px, -10px);
   font-size: 24px;
 }
 
 h4 {
   @include hn;
-  @include anchor-size(18px, 5px, -12px);
+  @include anchor-size(12px, 4px, -8px);
   font-size: 18px;
 }
 
