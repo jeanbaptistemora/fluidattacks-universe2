@@ -76,12 +76,10 @@ integrates.controller("loginController", ($scope, $translate) => {
    * @return {undefined}
    */
   $scope.login = function login () {
-    const usernameAux = $scope.username;
-    const username = usernameAux;
-    const passwordAux = $scope.password;
-    const password = passwordAux;
-    if (typeof username != "string" ||
-            typeof password != "string") {
+    const userName = $scope.username;
+    const pass = $scope.password;
+    if (typeof userName != "string" ||
+            typeof pass != "string") {
       $.gritter.add({
         "class_name": "color warning",
         "sticky": false,
@@ -89,8 +87,8 @@ integrates.controller("loginController", ($scope, $translate) => {
         "title": ""
       });
     }
-    else if (username.trim() === "" ||
-            password.trim() === "") {
+    else if (userName.trim() === "" ||
+            pass.trim() === "") {
       $.gritter.add({
         "class_name": "color warning",
         "sticky": false,
@@ -101,8 +99,8 @@ integrates.controller("loginController", ($scope, $translate) => {
     else {
       $.ajax({
         "data": {
-          "pass": password,
-          "user": username
+          pass,
+          "user": userName
         },
         "method": "POST",
         "url": `${BASE.url}login/`

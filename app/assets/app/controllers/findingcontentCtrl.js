@@ -27,11 +27,10 @@ integrates.controller("findingcontentCtrl", function findingcontentCtrl (
 ) {
   $scope.findingHeaderBuilding = function findingHeaderBuilding () {
     $scope.header = {};
-    const cierresAux = $scope.finding.cierres;
-    const cierres = cierresAux;
+    const cierresHallazgo = $scope.finding.cierres;
     const cierresTmp = [];
-    for (let cont = 0; cont < cierres.length; cont++) {
-      const cierre = cierres[cont];
+    for (let cont = 0; cont < cierresHallazgo.length; cont++) {
+      const cierre = cierresHallazgo[cont];
       cierre.position = cont + 1;
       cierresTmp.push(cierre);
     }
@@ -1679,6 +1678,7 @@ integrates.controller("findingcontentCtrl", function findingcontentCtrl (
     return true;
   };
   $scope.validateTreatment = function validateTreatment () {
+    const minCharacter = 30;
     if ($scope.aux.razon === $scope.finding.razonTratamiento) {
       $msg.error($translate.instant("proj_alerts.differ_comment"));
       return false;
@@ -1687,7 +1687,7 @@ integrates.controller("findingcontentCtrl", function findingcontentCtrl (
       $msg.error($translate.instant("proj_alerts.empty_comment"));
       return false;
     }
-    else if ($scope.finding.razonTratamiento.length < 30) {
+    else if ($scope.finding.razonTratamiento.length < minCharacter) {
       $msg.error($translate.instant("proj_alerts.short_comment"));
       return false;
     }
@@ -1911,8 +1911,7 @@ integrates.controller("findingcontentCtrl", function findingcontentCtrl (
     location.replace(`${window.location.href.split($stateParams.id)[0] + $stateParams.id}/comments`);
   };
   $scope.init = function init () {
-    const projectAux = $stateParams.project;
-    const project = projectAux;
+    const projectName = $stateParams.project;
     const findingId = $stateParams.finding;
     $scope.userRole = userRole;
     // Control para alternar los campos editables
@@ -1931,9 +1930,9 @@ integrates.controller("findingcontentCtrl", function findingcontentCtrl (
     if (typeof findingId !== "undefined") {
       $scope.findingId = findingId;
     }
-    if (typeof project !== "undefined" &&
-            project !== "") {
-      $scope.project = project;
+    if (typeof projectName !== "undefined" &&
+            projectName !== "") {
+      $scope.project = projectName;
     }
     // Inicializacion para consulta de hallazgos
     $scope.configColorPalette();
@@ -1942,7 +1941,7 @@ integrates.controller("findingcontentCtrl", function findingcontentCtrl (
     $scope.loadFindingByID($stateParams.id);
     $scope.goUp();
     const org = Organization.toUpperCase();
-    const projt = project.toUpperCase();
+    const projt = projectName.toUpperCase();
     $scope.alertHeader(org, projt);
     if (window.location.hash.indexOf("description") !== -1) {
       $("#infoItem").addClass("active");

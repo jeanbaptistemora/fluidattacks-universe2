@@ -50,8 +50,7 @@ integrates.controller(
     eventualityFactory
   ) {
     $scope.init = function init () {
-      const projectAux = $stateParams.project;
-      const project = projectAux;
+      const projectName = $stateParams.project;
       const findingId = $stateParams.finding;
       $scope.userRole = userRole;
 
@@ -64,12 +63,12 @@ integrates.controller(
       if (typeof findingId !== "undefined") {
         $scope.findingId = findingId;
       }
-      if (typeof project !== "undefined" &&
-                project !== "") {
-        $scope.project = project;
+      if (typeof projectName !== "undefined" &&
+                projectName !== "") {
+        $scope.project = projectName;
         $scope.search();
         const orgName = Organization.toUpperCase();
-        const projName = project.toUpperCase();
+        const projName = projectName.toUpperCase();
         mixPanelDashboard.trackReports("ProjectEvents", userName, userEmail, orgName, projName);
       }
       // Asigna el evento buscar al textbox search y tecla enter
@@ -111,13 +110,12 @@ integrates.controller(
       else {
         vlang = "es-CO";
       }
-      const projectAux = $scope.project;
-      const project = projectAux;
+      const projectName = $scope.project;
       const filterAux = $scope.filter;
       const filter = filterAux;
       const finding = $scope.findingId;
-      if (typeof project === "undefined" ||
-                project === "") {
+      if (typeof projectName === "undefined" ||
+                projectName === "") {
         const attentionAt = $translate.instant("proj_alerts.attentTitle");
         const attentionAc = $translate.instant("proj_alerts.attent_cont");
         $msg.warning(attentionAc, attentionAt);
@@ -136,15 +134,15 @@ integrates.controller(
         $msg.info(searchAc, searchAt);
         if (eventsData.length > 0 && eventsData[0].proyecto_fluid.toLowerCase() === $scope.project.toLowerCase()) {
           $scope.view.project = true;
-          $scope.loadEventContent(eventsData, vlang, project);
+          $scope.loadEventContent(eventsData, vlang, projectName);
         }
         else {
-          const reqEventualities = projectFtry.EventualityByName(project, "Name");
+          const reqEventualities = projectFtry.EventualityByName(projectName, "Name");
           reqEventualities.then((response) => {
             if (!response.error) {
               $scope.view.project = true;
               eventsData = response.data;
-              $scope.loadEventContent(eventsData, vlang, project);
+              $scope.loadEventContent(eventsData, vlang, projectName);
             }
             else if (response.message === "Access to project denied") {
               Rollbar.warning("Warning: Access to event denied");

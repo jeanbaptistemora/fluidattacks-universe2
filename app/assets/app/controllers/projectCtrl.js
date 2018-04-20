@@ -30,8 +30,7 @@ integrates.controller(
     $translate, projectFtry
   ) {
     $scope.init = function init () {
-      const projectAux = $stateParams.project;
-      const project = projectAux;
+      const projectName = $stateParams.project;
       const findingId = $stateParams.finding;
       $scope.userRole = userRole;
       $scope.isManager = userRole !== "customer";
@@ -43,9 +42,9 @@ integrates.controller(
       if (typeof findingId !== "undefined") {
         $scope.findingId = findingId;
       }
-      if (typeof project !== "undefined" &&
-                project !== "") {
-        $scope.project = project;
+      if (typeof projectName !== "undefined" &&
+                projectName !== "") {
+        $scope.project = projectName;
         $scope.search();
       }
       // Asigna el evento buscar al textbox search y tecla enter
@@ -86,13 +85,12 @@ integrates.controller(
       else {
         vlang = "es-CO";
       }
-      const projectAux = $scope.project;
-      const project = projectAux;
+      const projectName = $scope.project;
       const filterAux = $scope.filter;
       const filter = filterAux;
       const finding = $scope.findingId;
-      if (typeof project === "undefined" ||
-                project === "") {
+      if (typeof projectName === "undefined" ||
+                projectName === "") {
         const attentionAt = $translate.instant("proj_alerts.attentTitle");
         const attentionAc = $translate.instant("proj_alerts.attent_cont");
         $msg.warning(attentionAc, attentionAt);
@@ -109,13 +107,13 @@ integrates.controller(
         const searchAt = $translate.instant("proj_alerts.search_title");
         const searchAc = $translate.instant("proj_alerts.search_cont");
         $msg.info(searchAc, searchAt);
-        const reqProject = projectFtry.projectByName(project, filter);
-        const reqEventualities = projectFtry.EventualityByName(project, "Name");
+        const reqProject = projectFtry.projectByName(projectName, filter);
+        const reqEventualities = projectFtry.EventualityByName(projectName, "Name");
         reqProject.then((response) => {
           $scope.view.project = true;
           if (!response.error) {
             // Tracking Mixpanel
-            mixPanelDashboard.trackSearch("SearchFinding", userEmail, project);
+            mixPanelDashboard.trackSearch("SearchFinding", userEmail, projectName);
             if (response.data.length === 0) {
               $scope.view.project = false;
               $scope.view.finding = false;
@@ -149,7 +147,7 @@ integrates.controller(
         reqEventualities.then((response) => {
           if (!response.error) {
             eventsData = response.data;
-            mixPanelDashboard.trackSearch("SearchEventuality", userEmail, project);
+            mixPanelDashboard.trackSearch("SearchEventuality", userEmail, projectName);
             $("#search_section").show();
             $("[data-toggle=\"tooltip\"]").tooltip();
           }

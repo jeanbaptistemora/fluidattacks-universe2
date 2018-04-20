@@ -62,8 +62,7 @@ integrates.controller(
     $translate, projectFtry
   ) {
     $scope.init = function init () {
-      const projectAux = $stateParams.project;
-      const project = projectAux;
+      const projectName = $stateParams.project;
       const findingId = $stateParams.finding;
       $scope.userRole = userRole;
 
@@ -76,12 +75,12 @@ integrates.controller(
       if (typeof findingId !== "undefined") {
         $scope.findingId = findingId;
       }
-      if (typeof project !== "undefined" &&
-                project !== "") {
-        $scope.project = project;
+      if (typeof projectName !== "undefined" &&
+                projectName !== "") {
+        $scope.project = projectName;
         $scope.search();
         const org = Organization.toUpperCase();
-        const projt = project.toUpperCase();
+        const projt = projectName.toUpperCase();
         mixPanelDashboard.trackReports("ProjectFindings", userName, userEmail, org, projt);
       }
       // Asigna el evento buscar al textbox search y tecla enter
@@ -115,8 +114,7 @@ integrates.controller(
       };
     };
     $scope.generateFullDoc = function generateFullDoc () {
-      const projectAux = $scope.project;
-      const project = projectAux;
+      const projectName = $scope.project;
       const data = $("#vulnerabilities").bootstrapTable("getData");
       for (let cont = 0; cont < data.length - 1; cont++) {
         for (let incj = cont + 1; incj < data.length; incj++) {
@@ -138,7 +136,7 @@ integrates.controller(
         if (typeof json === "undefined" || json === "") {
           throw err;
         }
-        if (project.trim() === "") {
+        if (projectName.trim() === "") {
           throw err;
         }
       }
@@ -149,7 +147,7 @@ integrates.controller(
       if (generateDoc === false) {
         return false;
       }
-      const req = projectFtry.ProjectDoc(project, json, "IT");
+      const req = projectFtry.ProjectDoc(projectName, json, "IT");
       req.then((response) => {
         if (!response.error) {
           let url = `${BASE.url}export_autodoc?project=${$scope.project}`;
@@ -170,24 +168,22 @@ integrates.controller(
     };
     $scope.reportModal = function reportModal () {
       // Tracking mixpanel
-      const org = Organization.toUpperCase();
-      const projt = $scope.project.toUpperCase();
-      mixPanelDashboard.trackReports("Reports", userName, userEmail, org, projt);
+      const orgName = Organization.toUpperCase();
+      const projectName = $scope.project.toUpperCase();
+      mixPanelDashboard.trackReports("Reports", userName, userEmail, orgName, projectName);
       const modalInstance = $uibModal.open({
         "animation": true,
         "controller" ($scope, $uibModalInstance, $stateParams, projectFtry) {
+          const projName = $stateParams.project;
+          const currentLang = localStorage.lang;
           $scope.findingMatrizTechnicalXLSReport = function findingMatrizTechnicalXLSReport () {
-            const projectAux = $stateParams.project;
-            const project = projectAux;
-            const langAux = localStorage.lang;
-            const lang = langAux;
             const prjpatt = new RegExp("^[a-zA-Z0-9_]+$");
             const langpatt = new RegExp("^en|es$");
-            if (prjpatt.test(project) &&
-                            langpatt.test(lang)) {
+            if (prjpatt.test(projName) &&
+                            langpatt.test(currentLang)) {
               // Tracking mixpanel
-              mixPanelDashboard.trackReports("TechnicalReportXLS", userName, userEmail, org, projt);
-              const url = `${BASE.url}xls/${lang}/project/${project}`;
+              mixPanelDashboard.trackReports("TechnicalReportXLS", userName, userEmail, orgName, projName);
+              const url = `${BASE.url}xls/${currentLang}/project/${projName}`;
               if (navigator.userAgent.indexOf("Firefox") === -1) {
                 const downLink = document.createElement("a");
                 downLink.target = "_blank";
@@ -200,17 +196,13 @@ integrates.controller(
             }
           };
           $scope.findingMatrizTechnicalPDFReport = function findingMatrizTechnicalPDFReport () {
-            const projectAux = $stateParams.project;
-            const project = projectAux;
-            const langAux = localStorage.lang;
-            const lang = langAux;
             const prjpatt = new RegExp("^[a-zA-Z0-9_]+$");
             const langpatt = new RegExp("^en|es$");
-            if (prjpatt.test(project) &&
-                            langpatt.test(lang)) {
+            if (prjpatt.test(projName) &&
+                            langpatt.test(currentLang)) {
               // Tracking mixpanel
-              mixPanelDashboard.trackReports("TechnicalReportPDF", userName, userEmail, org, projt);
-              const url = `${BASE.url}pdf/${lang}/project/${project}/tech/`;
+              mixPanelDashboard.trackReports("TechnicalReportPDF", userName, userEmail, orgName, projName);
+              const url = `${BASE.url}pdf/${currentLang}/project/${projName}/tech/`;
               if (navigator.userAgent.indexOf("Firefox") === -1) {
                 const downLink = document.createElement("a");
                 downLink.target = "_blank";
@@ -240,17 +232,13 @@ integrates.controller(
             });
           };
           $scope.findingMatrizExecutivePDFPresentation = function findingMatrizExecutivePDFPresentation () {
-            const projectAux = $stateParams.project;
-            const project = projectAux;
-            const langAux = localStorage.lang;
-            const lang = langAux;
             const prjpatt = new RegExp("^[a-zA-Z0-9_]+$");
             const langpatt = new RegExp("^en|es$");
-            if (prjpatt.test(project) &&
-                            langpatt.test(lang)) {
+            if (prjpatt.test(projName) &&
+                            langpatt.test(currentLang)) {
               // Tracking mixpanel
-              mixPanelDashboard.trackReports("ExecutivePDFPresentation", userName, userEmail, org, projt);
-              const url = `${BASE.url}pdf/${lang}/project/${project}/presentation/`;
+              mixPanelDashboard.trackReports("ExecutivePDFPresentation", userName, userEmail, orgName, projName);
+              const url = `${BASE.url}pdf/${currentLang}/project/${projName}/presentation/`;
               if (navigator.userAgent.indexOf("Firefox") === -1) {
                 const downLink = document.createElement("a");
                 downLink.target = "_blank";
@@ -263,17 +251,13 @@ integrates.controller(
             }
           };
           $scope.findingMatrizExecutivePDFReport = function findingMatrizExecutivePDFReport () {
-            const projectAux = $stateParams.project;
-            const project = projectAux;
-            const langAux = localStorage.lang;
-            const lang = langAux;
             const prjpatt = new RegExp("^[a-zA-Z0-9_]+$");
             const langpatt = new RegExp("^en|es$");
-            if (prjpatt.test(project) &&
-                            langpatt.test(lang)) {
+            if (prjpatt.test(projName) &&
+                            langpatt.test(currentLang)) {
               // Tracking mixpanel
-              mixPanelDashboard.trackReports("ExecutivePDFReport", userName, userEmail, org, projt);
-              const url = `${BASE.url}pdf/${lang}/project/${project}/executive/`;
+              mixPanelDashboard.trackReports("ExecutivePDFReport", userName, userEmail, orgName, projName);
+              const url = `${BASE.url}pdf/${currentLang}/project/${projName}/executive/`;
               if (navigator.userAgent.indexOf("Firefox") === -1) {
                 const downLink = document.createElement("a");
                 downLink.target = "_blank";
@@ -290,6 +274,8 @@ integrates.controller(
           };
           $scope.init();
         },
+
+
         "keyboard": false,
         "resolve": {"ok": true},
         "size": "lg",
@@ -298,15 +284,13 @@ integrates.controller(
       });
     };
     $scope.generatePDF = function generatePDF () {
-      const projectAux = $stateParams.project;
-      const project = projectAux;
-      const langAux = localStorage.lang;
-      const lang = langAux;
+      const projectName = $stateParams.project;
+      const currentLang = localStorage.lang;
       const prjpatt = new RegExp("^[a-zA-Z0-9_]+$");
       const langpatt = new RegExp("^en|es$");
-      if (prjpatt.test(project) &&
-                langpatt.test(lang)) {
-        const url = `${BASE.url}doc/${lang}/project/${project}`;
+      if (prjpatt.test(projectName) &&
+                langpatt.test(currentLang)) {
+        const url = `${BASE.url}doc/${currentLang}/project/${projectName}`;
         if (navigator.userAgent.indexOf("Firefox") === -1) {
           $scope.downloadURL = url;
         }
@@ -334,13 +318,11 @@ integrates.controller(
       else {
         vlang = "es-CO";
       }
-      const projectAux = $stateParams.project;
-      const project = projectAux;
-      const filterAux = $scope.filter;
-      const filter = filterAux;
+      const projectName = $stateParams.project;
+      const tableFilter = $scope.filter;
       const finding = $scope.findingId;
-      if (typeof project === "undefined" ||
-                project === "") {
+      if (typeof projectName === "undefined" ||
+                projectName === "") {
         const attentionAt = $translate.instant("proj_alerts.attentTitle");
         const attentionAc = $translate.instant("proj_alerts.attent_cont");
         $msg.warning(attentionAc, attentionAt);
@@ -362,12 +344,12 @@ integrates.controller(
           $scope.loadFindingContent(projectData, vlang);
         }
         else {
-          const reqProject = projectFtry.projectByName(project, filter);
+          const reqProject = projectFtry.projectByName(projectName, tableFilter);
           reqProject.then((response) => {
             $scope.view.project = true;
             if (!response.error) {
               // Tracking Mixpanel
-              mixPanelDashboard.trackSearch("SearchFinding", userEmail, project);
+              mixPanelDashboard.trackSearch("SearchFinding", userEmail, projectName);
               if (response.data.length === 0) {
                 $scope.view.project = false;
                 $scope.view.finding = false;

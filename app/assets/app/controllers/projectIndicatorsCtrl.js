@@ -32,8 +32,7 @@ integrates.controller(
     $translate, projectFtry
   ) {
     $scope.init = function init () {
-      const projectAux = $stateParams.project;
-      const project = projectAux;
+      const projectName = $stateParams.project;
       const findingId = $stateParams.finding;
       $scope.userRole = userRole;
 
@@ -46,12 +45,12 @@ integrates.controller(
       if (typeof findingId !== "undefined") {
         $scope.findingId = findingId;
       }
-      if (typeof project !== "undefined" &&
-                project !== "") {
-        $scope.project = project;
+      if (typeof projectName !== "undefined" &&
+                projectName !== "") {
+        $scope.project = projectName;
         $scope.search();
         const org = Organization.toUpperCase();
-        const projt = project.toUpperCase();
+        const projt = projectName.toUpperCase();
         $(".equalWidgetHeight").matchHeight();
         mixPanelDashboard.trackReports("ProjectIndicators", userName, userEmail, org, projt);
       }
@@ -247,13 +246,12 @@ integrates.controller(
       let partial = 0;
       let close = 0;
       currData.forEach((val, cont) => {
-        const estadoAux = val.estado;
-        const estado = estadoAux;
+        const findingStatus = val.estado;
         total += 1;
-        if (estado === "Abierto" || estado === "Open") {
+        if (findingStatus === "Abierto" || findingStatus === "Open") {
           open += 1;
         }
-        else if (estado === "Cerrado" || estado === "Closed") {
+        else if (findingStatus === "Cerrado" || findingStatus === "Closed") {
           close += 1;
         }
         else {
@@ -290,7 +288,6 @@ integrates.controller(
         "resize": true
       });
     };
-
     $scope.search = function search () {
       let vlang = "en-US";
       if (localStorage.lang === "en") {
@@ -299,13 +296,11 @@ integrates.controller(
       else {
         vlang = "es-CO";
       }
-      const projectAux = $scope.project;
-      const project = projectAux;
-      const filterAux = $scope.filter;
-      const filter = filterAux;
+      const projectName = $scope.project;
+      const tableFilter = $scope.filter;
       const finding = $scope.findingId;
-      if (typeof project === "undefined" ||
-                project === "") {
+      if (typeof projectName === "undefined" ||
+                projectName === "") {
         const attentionAt = $translate.instant("proj_alerts.attentTitle");
         const attentionAc = $translate.instant("proj_alerts.attent_cont");
         $msg.warning(attentionAc, attentionAt);
@@ -327,12 +322,12 @@ integrates.controller(
           $scope.loadIndicatorsContent(projectData);
         }
         else {
-          const reqProject = projectFtry.projectByName(project, filter);
+          const reqProject = projectFtry.projectByName(projectName, tableFilter);
           reqProject.then((response) => {
             $scope.view.project = true;
             if (!response.error) {
               // Tracking Mixpanel
-              mixPanelDashboard.trackSearch("SearchFinding", userEmail, project);
+              mixPanelDashboard.trackSearch("SearchFinding", userEmail, projectName);
               if (response.data.length === 0) {
                 $scope.view.project = false;
                 $scope.view.finding = false;
