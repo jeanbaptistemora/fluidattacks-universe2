@@ -311,16 +311,18 @@
                                           <option value="Resuelto">{{'finding_formstack.treatment_header.resolved' | translate}}</option>
                                       </select>
                                   </div>
-                                  <div class="col-md-2 col-xs-12 col-sm-12 table-head"><label><b>{{'search_findings.tab_description.treat_justification' | translate}}</b></label></div>
+                                  <div class="col-md-2 col-xs-12 col-sm-12 table-head"><label><b>{{'search_findings.tab_description.treat_manager' | translate}}</b></label></div>
                                   <div class="col-md-4 col-xs-12 col-sm-12 table-desc">
+                                      <p>{{finding.responsableTratamiento}}</p>
+                                  </div>
+                              </div>
+                              <div class="row table-row">
+                                  <div class="col-md-2 col-xs-12 col-sm-12 table-head"><label><b>{{'search_findings.tab_description.treat_justification' | translate}}</b></label></div>
+                                  <div class="col-md-10 col-xs-12 col-sm-12 table-desc">
                                       <p ng-show="onlyReadableTab4">{{finding.razonTratamiento}}</p>
                                       <textarea class="form-control no-resize"
                                                 ng-show="!onlyReadableTab4"
                                                 ng-model="finding.razonTratamiento">{{finding.razonTratamiento}}</textarea>
-                                  </div>
-                                  <div class="col-md-2 col-xs-12 col-sm-12 table-head"><label><b>{{'search_findings.tab_description.treat_manager' | translate}}</b></label></div>
-                                  <div class="col-md-4 col-xs-12 col-sm-12 table-desc">
-                                      <p>{{finding.responsableTratamiento}}</p>
                                   </div>
                               </div>
                               <div class="row table-row" ng-show="!isManager">

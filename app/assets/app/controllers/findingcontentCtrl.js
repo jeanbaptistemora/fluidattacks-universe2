@@ -1687,7 +1687,7 @@ integrates.controller("findingcontentCtrl", function findingcontentCtrl (
       $msg.error($translate.instant("proj_alerts.empty_comment"));
       return false;
     }
-    else if ($scope.finding.razonTratamiento.length < 50 || $scope.finding.razonTratamiento.length > 80) {
+    else if ($scope.finding.razonTratamiento.length < 30) {
       $msg.error($translate.instant("proj_alerts.short_comment"));
       return false;
     }
