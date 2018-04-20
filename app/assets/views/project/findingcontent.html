@@ -265,14 +265,15 @@
                                   </div>
                               </div>
                               <div class="row table-row">
-                                  <div class="col-md-2 col-xs-12 col-sm-12 table-head"><label><b>{{'search_findings.tab_description.records' | translate}}</b></label></div>
+                                  <div class="col-md-2 col-xs-12 col-sm-12 table-head"><label><b>{{'search_findings.tab_description.compromisedAtributes' | translate}}</b></label></div>
                                   <div class="col-md-4 col-xs-12 col-sm-12 table-desc">
-                                      <p ng-show="onlyReadableTab1">{{finding.registros}}</p>
+                                      <p ng-show="onlyReadableTab1 && !hasCompromisedAttributes">0</p>
+                                      <p ng-show="onlyReadableTab1 && hasCompromisedAttributes">{{finding.registros}}</p>
                                       <textarea class="form-control no-resize"
                                                 ng-show="!onlyReadableTab1"
                                                 ng-model="finding.registros">{{finding.registros}}</textarea>
                                   </div>
-                                  <div class="col-md-2 col-xs-12 col-sm-12 table-head"><label><b>{{'search_findings.tab_description.totalrecords' | translate}}</b></label></div>
+                                  <div class="col-md-2 col-xs-12 col-sm-12 table-head"><label><b>{{'search_findings.tab_description.compromisedRecords' | translate}}</b></label></div>
                                   <div class="col-md-4 col-xs-12 col-sm-12 table-desc">
                                       <p ng-show="onlyReadableTab1">{{finding.registros_num}}</p>
                                       <textarea class="form-control no-resize"

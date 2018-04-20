@@ -698,6 +698,10 @@ integrates.controller("findingcontentCtrl", function findingcontentCtrl (
     $scope.aux = {};
     $scope.aux.tratamiento = $scope.finding.tratamiento;
     $scope.aux.razon = $scope.finding.razonTratamiento;
+    $scope.hasCompromisedAttributes = true;
+    if (typeof $scope.finding.registros === "undefined") {
+      $scope.hasCompromisedAttributes = false;
+    }
     if ($scope.finding.tratamiento === "Asumido") {
       $scope.isAssumed = true;
     }
