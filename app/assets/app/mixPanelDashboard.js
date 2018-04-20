@@ -25,7 +25,11 @@ mixPanelDashboard.isProduction = function isProduction () {
   }
 };
 
-mixPanelDashboard.trackSearch = function trackSearch (trackName, userEmail, project) {
+mixPanelDashboard.trackSearch = function trackSearch (
+  trackName,
+  userEmail,
+  project
+) {
   if (mixPanelDashboard.isProduction()) {
     return false;
   }
@@ -39,7 +43,12 @@ mixPanelDashboard.trackSearch = function trackSearch (trackName, userEmail, proj
   return true;
 };
 
-mixPanelDashboard.trackReadEventuality = function trackReadEventuality (userName, userEmail, Organization, project, id) {
+mixPanelDashboard.trackReadEventuality = function trackReadEventuality (
+  userName,
+  userEmail,
+  Organization,
+  project, id
+) {
   if (mixPanelDashboard.isProduction()) {
     return false;
   }
@@ -56,7 +65,13 @@ mixPanelDashboard.trackReadEventuality = function trackReadEventuality (userName
   return true;
 };
 
-mixPanelDashboard.trackReports = function trackReports (trackName, userName, userEmail, Organization, project) {
+mixPanelDashboard.trackReports = function trackReports (
+  trackName,
+  userName,
+  userEmail,
+  Organization,
+  project
+) {
   if (mixPanelDashboard.isProduction()) {
     return false;
   }
@@ -72,7 +87,11 @@ mixPanelDashboard.trackReports = function trackReports (trackName, userName, use
   return true;
 };
 
-mixPanelDashboard.trackFinding = function trackFinding (trackName, userEmail, id) {
+mixPanelDashboard.trackFinding = function trackFinding (
+  trackName,
+  userEmail,
+  id
+) {
   if (mixPanelDashboard.isProduction()) {
     return false;
   }
@@ -86,7 +105,14 @@ mixPanelDashboard.trackFinding = function trackFinding (trackName, userEmail, id
   return true;
 };
 
-mixPanelDashboard.trackFindingDetailed = function trackFindingDetailed (trackName, userName, userEmail, Organization, project, id) {
+mixPanelDashboard.trackFindingDetailed = function trackFindingDetailed (
+  trackName,
+  userName,
+  userEmail,
+  Organization,
+  project,
+  id
+) {
   if (mixPanelDashboard.isProduction()) {
     return false;
   }

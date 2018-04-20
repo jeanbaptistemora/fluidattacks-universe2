@@ -10,15 +10,30 @@ const scenario = [
 ];
 
 const categories = [
-  {"name": "Actualizar y configurar las líneas base de seguridad de los componentes"},
-  {"name": "Definir el modelo de autorización considerando el principio de mínimo privilegio"},
+  {
+    "name": "Actualizar y configurar las líneas base de seguridad de " +
+           "los componentes"
+  },
+  {
+    "name": "Definir el modelo de autorización considerando el principio " +
+           "de mínimo privilegio"
+  },
   {"name": "Desempeño"},
   {"name": "Eventualidad"},
-  {"name": "Evitar exponer la información técnica de la aplicación, servidores y plataformas"},
-  {"name": "Excluir datos sensibles del código fuente y del registro de eventos"},
+  {
+    "name": "Evitar exponer la información técnica de la aplicación, " +
+           "servidores y plataformas"
+  },
+  {
+    "name": "Excluir datos sensibles del código fuente y del " +
+           "registro de eventos"
+  },
   {"name": "Fortalecer controles en autenticación y manejo de sesión"},
   {"name": "Fortalecer controles en el procesamiento de archivos"},
-  {"name": "Fortalecer la protección de datos almacenados relacionados con contraseñas o llaves criptográficas"},
+  {
+    "name": "Fortalecer la protección de datos almacenados relacionados con " +
+           "contraseñas o llaves criptográficas"
+  },
   {"name": "Implementar controles para validar datos de entrada"},
   {"name": "Mantenibilidad"},
   {"name": "Registrar eventos para trazabilidad y auditoría"},
@@ -72,7 +87,8 @@ const accessVector = [
 
 const accessComplexity = [
   {
-    "name": "Alto: Se requieren condiciones especiales como acceso administrativo",
+    "name": "Alto: Se requieren condiciones especiales como " +
+            "acceso administrativo",
     "value": "0.350"
   },
   {
@@ -106,11 +122,13 @@ const confidenciality = [
     "value": "0"
   },
   {
-    "name": "Parcial: Se obtiene acceso a la información pero no control sobre ella",
+    "name": "Parcial: Se obtiene acceso a la información pero no " +
+            "control sobre ella",
     "value": "0.275"
   },
   {
-    "name": "Completo: Se controla toda la información relacionada con el objetivo",
+    "name": "Completo: Se controla toda la información relacionada " +
+            "con el objetivo",
     "value": "0.660"
   }
 ];
@@ -166,7 +184,8 @@ const explotability = [
 
 const resolutionLevel = [
   {
-    "name": "Paliativa: Existe un parche que no fue publicado por el fabricante",
+    "name": "Paliativa: Existe un parche que no fue publicado " +
+            "por el fabricante",
     "value": "0.950"
   },
   {
@@ -185,11 +204,13 @@ const resolutionLevel = [
 
 const realiabilityLevel = [
   {
-    "name": "No confirmado: Existen pocas fuentes que reconocen la vulnerabilidad",
+    "name": "No confirmado: Existen pocas fuentes que reconocen " +
+            "la vulnerabilidad",
     "value": "0.900"
   },
   {
-    "name": "No corroborado: La vulnerabilidad es reconocida por fuentes no oficiales",
+    "name": "No corroborado: La vulnerabilidad es reconocida por " +
+            "fuentes no oficiales",
     "value": "0.950"
   },
   {

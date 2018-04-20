@@ -1,10 +1,13 @@
 /* eslint no-magic-numbers: ["error", { "ignore": [-1,0,0.950,1,2,5] }]*/
-/* global document, $, alertify, setInterval, timew, Tabletop, v:true, obj:true, $msg */
+/* global document, $, alertify, timew, Tabletop, v:true, obj:true, $msg */
 let remember = null;
 $(document).ready(() => {
   remember = function () {
     try {
-      alertify.log("<div class=\"\" style=\"padding: 8px;\"><p class=\"text-center\">Recordatorio</p><p class=\"text-left\"> Recuerda personalizar los campos dependiendo de la situación que vas a reportar!</p> </div>");
+      alertify.log("<div class=\"\" style=\"padding: 8px;\"> <p class=" +
+                   "\"text-center\">Recordatorio</p><p class=\"text-left\"> " +
+                   "Recuerda personalizar los campos dependiendo de la" +
+                   " situación que vas a reportar!</p> </div>");
       return true;
     }
     catch (err) {
@@ -19,7 +22,10 @@ $(document).ready(() => {
   document.getElementsByTagName("select")[5].onchange = function onchange () {
     const verf = document.getElementsByTagName("select")[5].value;
     if (verf === "Verificación") {
-      alertify.success("<p class=\"text-center\"> Información: </p> <p class=\"text-left\"> Verificacion debe usarse para reportar hallazgos en chequeos cruzados </p>");
+      alertify.success("<p class=\"text-center\"> " +
+                                  "Información: </p> <p class=\"text-left\">" +
+                                  "Verificacion debe usarse para reportar " +
+                                  "hallazgos en chequeos cruzados </p>");
     }
   };
 });
@@ -31,7 +37,8 @@ function isUpperCase (str) {
   return str === str.toUpperCase();
 }
 
-String.prototype.capitalizeFirstLetter = function capitalizeFirstLetter () { /* eslint no-extend-native: ["error", { "exceptions": ["String"] }]*/
+String.prototype.capitalizeFirstLetter = function capitalizeFirstLetter () {
+  /* eslint no-extend-native: ["error", { "exceptions": ["String"] }]*/
   return this.charAt(0).toUpperCase() + this.slice(1);
 };
 
@@ -53,7 +60,8 @@ const evidenciaExplotacion = $("#field38307222");
 const animacion = $("#field38307272");
 const siEvidente = $("#field49132420_1");
 const noEvidente = $("#field49132420_2");
-const publicSpreadsheetUrl = "https://docs.google.com/spreadsheets/d/1L37WnF6enoC8Ws8vs9sr0G29qBLwbe-3ztbuopu1nvc/pubhtml";
+const publicSpreadsheetUrl = "https://docs.google.com/spreadsheets/d/1L37WnF" +
+                             "6enoC8Ws8vs9sr0G29qBLwbe-3ztbuopu1nvc/pubhtml";
 
 /**
  * Function showInfo return info about findings
@@ -127,7 +135,8 @@ function showInfo (data, tabletop) {
         risk.val("");
         tipo.val("");
         debilidad.val(0);
-        donde.attr("placeholder", "Formato DONDE dependiendo de la vulnerabilidad.");
+        donde.attr("placeholder", "Formato DONDE dependiendo " +
+                   "de la vulnerabilidad.");
         $("#fsCell38861739").addClass("fsHidden");
         $("#fsCell38307753").addClass("fsHidden");
         $("#field38307753").attr("disabled");

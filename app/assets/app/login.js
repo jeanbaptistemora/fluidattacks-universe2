@@ -1,5 +1,5 @@
 /* eslint no-magic-numbers: ["error", { "ignore": [-1,2000] }]*/
-/* global angular,$, setTimeout,redirector:true, window.location:true, localStorage */
+/* global angular,$, setTimeout,redirector:true */
 /**
  * @file login.js
  */
@@ -30,7 +30,8 @@ integrates.config([
         "google": "Log in with Google"
       },
       "login_message": "Please log in to proceed.",
-      "login_welcome": "If you are a new user, you must call a FLUID representative to register."
+      "login_welcome": "If you are a new user, you must call a " +
+                       "FLUID representative to register."
     };
     const traducciones = {
       "button": {
@@ -38,7 +39,8 @@ integrates.config([
         "google": "Ingresar con Google"
       },
       "login_message": "Porfavor ingrese.",
-      "login_welcome": "Si eres un usuario nuevo, debes llamar a tu representante de FLUID para registrarte"
+      "login_welcome": "Si eres un usuario nuevo, debes llamar a tu " +
+                       "representante de FLUID para registrarte"
     };
     $translateProvider.useSanitizeValueStrategy("sanitize");
     $translateProvider.

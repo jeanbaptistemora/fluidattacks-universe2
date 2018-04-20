@@ -181,6 +181,7 @@ rules:
   lines-around-comment: error
   lines-between-class-members: error
   max-depth: error
+  #max-len: error
   max-nested-callbacks: error
   max-statements-per-line: error
   multiline-comment-style: error
@@ -269,7 +270,7 @@ rules:
   prefer-destructuring:
     - error
     - VariableDeclarator:
-        array: false
+        array: false # Desactivada por elementos Jquery presentes en el código
         object: true
   prefer-numeric-literals: error
   prefer-rest-params: error

@@ -1,5 +1,6 @@
 /* global
-integrates, $, BASE, mixpanel, userMail, $xhr, Organization, userEmail, mixPanelDashboard, userName, projectData:true, eventsData:true, findingData:true
+integrates, BASE, userEmail, mixpanel, projectData:true,
+eventsData:true, findingData:true
 */
 /* eslint no-shadow: ["error", { "allow": ["$scope"] }]*/
 /**

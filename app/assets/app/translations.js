@@ -131,7 +131,8 @@ integrates.config([
    {
      "access_vector":
       {
-        "adjacent": "0.646 | Adjacent network: Exploitable from same network segment",
+        "adjacent": "0.646 | Adjacent network: Exploitable from " +
+                    "same network segment",
         "default": "-",
         "local": "0.395 | Local: Exploitable with local access to the target",
         "network": "1.000 | Network: Exploitable from Internet"
@@ -159,46 +160,60 @@ integrates.config([
          "complete": "0.660 | Complete: There is a total target fallen",
          "default": "-",
          "none": "0 | None: There is no impact",
-         "partial": "0.275 | Partial: There is intermittency in the access to the target"
+         "partial": "0.275 | Partial: There is intermittency in the " +
+                    "access to the target"
        },
      "category":
         {
-          "avoid_technical": "Avoid exposing the technical information of the application, servers and platforms.",
+          "avoid_technical": "Avoid exposing the technical information of " +
+                             "the application, servers and platforms.",
           "default": "-",
-          "define_model": "Define the authorization model considering the principle of minimum privilege",
+          "define_model": "Define the authorization model considering the " +
+                          "principle of minimum privilege",
           "event": "Event",
-          "exclude_data": "Exclude sensitive data from source code and event log",
+          "exclude_data": "Exclude sensitive data from source " +
+                          "code and event log",
           "maintain": "Maintainability",
           "performance": "Performance",
           "record_event": "Record events for traceability and audit",
           "secure_protoc": "Use secure communication protocols",
-          "strengt_authen": "Strengthen controls in authentication and session management",
+          "strengt_authen": "Strengthen controls in authentication and " +
+                            "session management",
           "strengt_process": "Strengthen controls in file processing",
-          "strengt_protect": "Strengthen the protection of stored data related to passwords or cryptographic keys",
+          "strengt_protect": "Strengthen the protection of stored data " +
+                             "related to passwords or cryptographic keys",
           "update_base": "Update and configure components security baselines",
-          "validate_http": "Validate the integrity of transactions in HTTP requests",
+          "validate_http": "Validate the integrity of transactions " +
+                           "in HTTP requests",
           "validate_input": "Implement controls to validate input data"
         },
      "complexity":
            {
              "default": "-",
-             "high_complex": "0.350 | High: Special conditions are required like administrative access",
+             "high_complex": "0.350 | High: Special conditions are required " +
+                             "like administrative access",
              "low_complex": "0.710 | Low: No special conditions are required",
-             "medium_complex": "0.610 | Medium: Some conditions are required like system access"
+             "medium_complex": "0.610 | Medium: Some conditions are required " +
+                               "like system access"
            },
      "confidence":
        {
-         "confirmed": "1.000 | Confirmed: The vulnerability is recognized by the manufacturer",
+         "confirmed": "1.000 | Confirmed: The vulnerability is recognized by " +
+                      "the manufacturer",
          "default": "-",
-         "not_confirm": "0.900 | Not confirmed: There are few sources that recognize vulnerability",
-         "not_corrob": "0.950 | Not corroborared: Vulnerability is recognized by unofficial sources"
+         "not_confirm": "0.900 | Not confirmed: There are few sources that " +
+                        "recognize vulnerability",
+         "not_corrob": "0.950 | Not corroborared: Vulnerability is " +
+                       "recognized by unofficial sources"
        },
      "confidenciality":
         {
-          "complete": "0.660 | Complete: Total control over information related with the target",
+          "complete": "0.660 | Complete: Total control over information " +
+                      "related with the target",
           "default": "-",
           "none": "0 | None: There is no impact",
-          "partial": "0.275 | Partial: Access to information but no control over it"
+          "partial": "0.275 | Partial: Access to information but no " +
+                     "control over it"
         },
      "criticity_header": {
        "high": " High",
@@ -225,10 +240,12 @@ integrates.config([
      },
      "integrity":
       {
-        "complete": "0.660 | Complete: Posibility of modify all target information",
+        "complete": "0.660 | Complete: Posibility of modify all target " +
+                    "information",
         "default": "-",
         "none": "0 | None: There is no impact",
-        "partial": "0.275 | Partial: Posibility of modify some target information"
+        "partial": "0.275 | Partial: Posibility of modify some " +
+                   "target information"
       },
      "probability":
        {
@@ -242,8 +259,10 @@ integrates.config([
        {
          "default": "-",
          "non_existent": "1.000 | Non-existent: There is no solution",
-         "official": "0.870 | Official: There is an manufacturer available patch",
-         "palliative": "0.950 | Palliative: There is a patch that was not published by the manufacturer",
+         "official": "0.870 | Official: There is an manufacturer " +
+                     "available patch",
+         "palliative": "0.950 | Palliative: There is a patch that was not " +
+                       "published by the manufacturer",
          "temporal": "0.900 | Temporal: There are temporary solutions"
        },
      "scenario":
@@ -377,11 +396,14 @@ integrates.config([
      "no_text_update": "Failed to update the description",
      "not_found": "We could not find it!",
      "project_deleted": "Project Deleted",
-     "remediated_success": "This finding was marked as remediated. A request to verify the solution was sent",
+     "remediated_success": "This finding was marked as remediated. A request " +
+                           "to verify the solution was sent",
      "search_cont": "Searching Project...",
      "search_title": "News!",
-     "short_comment": "You must enter a justification of at least 30 characters",
-     "short_remediated_comment": "You must enter a justification of at least 100 characters",
+     "short_comment": "You must enter a justification of at least 30 " +
+                       "characters",
+     "short_remediated_comment": "You must enter a justification of at least " +
+                                 "100 characters",
      "updatedTitle": "Correct!",
      "updated_cont": "Updated ;)",
      "updated_cont_description": "Description Updated ;)",
@@ -396,7 +418,8 @@ integrates.config([
      "close_session": "Close Session",
      "hello": "Hello",
      "no": "No",
-     "no_authorization": "You do not have authorization for login yet. Please contact FLUID's staff to get access.",
+     "no_authorization": "You do not have authorization for login yet. " +
+                         "Please contact FLUID's staff to get access.",
      "yes": "Yes"
    },
       "reports":
@@ -408,8 +431,11 @@ integrates.config([
       },
       "technical_report_mod":
       {
-        "body_1": "Technical report is protected by password. The password is the date of  report's PDF generation and your username.",
-        "body_2": "Example: someone@fluidattacks.com generates the technical report on 03/15/2018 therefore, the password is 15032018someone",
+        "body_1": "Technical report is protected by password. The password " +
+                  "is the date of  report's PDF generation and your username.",
+        "body_2": "Example: someone@fluidattacks.com generates the technical " +
+                  "report on 03/15/2018 therefore, the password " +
+                  "is 15032018someone",
         "title": "Technical Reports"
       },
       "title": "Reports"
@@ -648,7 +674,8 @@ integrates.config([
    {
      "access_vector":
       {
-        "adjacent": "0.646 | Red adyacente: Explotable desde el mismo segmento de red",
+        "adjacent": "0.646 | Red adyacente: Explotable desde el " +
+                    "mismo segmento de red",
         "default": "-",
         "local": "0.395 | Local: Explotable con acceso local al objetivo",
         "network": "1.000 | Red: Explotable desde Internet"
@@ -668,7 +695,8 @@ integrates.config([
       {
         "any_authen": "0.704 | Ninguna: No se requiere autenticación",
         "default": "-",
-        "multiple_authen": "0.450 | Multiple: Multiples puntos de autenticación",
+        "multiple_authen": "0.450 | Multiple: Multiples " +
+                           "puntos de autenticación",
         "single_authen": "0.560 | Única: Único punto de autenticación"
       },
      "availability":
@@ -676,46 +704,65 @@ integrates.config([
          "complete": "0.660 | Completo: Hay una caída total del objetivo",
          "default": "-",
          "none": "0 | Ninguno: No se presenta ningún impacto",
-         "partial": "0.275 | Parcial: Se presenta intermitencia en el acceso al objetivo"
+         "partial": "0.275 | Parcial: Se presenta intermitencia en el " +
+                    "acceso al objetivo"
        },
      "category":
         {
-          "avoid_technical": "Evitar exponer la información técnica de la aplicación, servidores y plataformas",
+          "avoid_technical": "Evitar exponer la información técnica de la " +
+                             "aplicación, servidores y plataformas",
           "default": "-",
-          "define_model": "Definir el modelo de autorización considerando el principio de mínimo privilegio",
+          "define_model": "Definir el modelo de autorización considerando el " +
+                          "principio de mínimo privilegio",
           "event": "Eventualidad",
-          "exclude_data": "Excluir datos sensibles del código fuente y del registro de eventos",
+          "exclude_data": "Excluir datos sensibles del código fuente y " +
+                          "del registro de eventos",
           "maintain": "Mantenibilidad",
           "performance": "Desempeño",
           "record_event": "Registrar eventos para trazabilidad y auditoría",
           "secure_protoc": "Utilizar protocolos de comunicación seguros",
-          "strengt_authen": "Fortalecer controles en autenticación y manejo de sesión",
-          "strengt_process": "Fortalecer controles en el procesamiento de archivos",
-          "strengt_protect": "Fortalecer la protección de datos almacenados relacionados con contraseñas o llaves criptográficas",
-          "update_base": "Actualizar y configurar las líneas base de seguridad de los componentes",
-          "validate_http": "Validar la integridad de las transacciones en peticiones HTTP",
-          "validate_input": "Implementar controles para validar datos de entrada"
+          "strengt_authen": "Fortalecer controles en autenticación y " +
+                            "manejo de sesión",
+          "strengt_process": "Fortalecer controles en el " +
+                             "procesamiento de archivos",
+          "strengt_protect": "Fortalecer la protección de datos " +
+                             "almacenados relacionados con contraseñas " +
+                             "o llaves criptográficas",
+          "update_base": "Actualizar y configurar las líneas base de " +
+                         "seguridad de los componentes",
+          "validate_http": "Validar la integridad de las transacciones en " +
+                           "peticiones HTTP",
+          "validate_input": "Implementar controles para validar " +
+                            "datos de entrada"
         },
      "complexity":
         {
           "default": "-",
-          "high_complex": "0.350 | Alto: Se requieren condiciones especiales como acceso administrativo",
-          "low_complex": "0.710 | Bajo: No se requiere ninguna condición especial",
-          "medium_complex": "0.610 | Medio: Se requieren algunas condiciones como acceso al sistema"
+          "high_complex": "0.350 | Alto: Se requieren condiciones " +
+                          "especiales como acceso administrativo",
+          "low_complex": "0.710 | Bajo: No se requiere ninguna " +
+                         "condición especial",
+          "medium_complex": "0.610 | Medio: Se requieren algunas " +
+                            "condiciones como acceso al sistema"
         },
      "confidence":
          {
-           "confirmed": "1.000 | Confirmado: La vulnerabilidad es reconocida por el fabricante",
+           "confirmed": "1.000 | Confirmado: La vulnerabilidad es " +
+                        "reconocida por el fabricante",
            "default": "-",
-           "not_confirm": "0.900 | No confirmado: Existen pocas fuentes que reconocen la vulnerabilidad",
-           "not_corrob": "0.950 | No corroborado: La vulnerabilidad es reconocida por fuentes no oficiales"
+           "not_confirm": "0.900 | No confirmado: Existen pocas " +
+                          "fuentes que reconocen la vulnerabilidad",
+           "not_corrob": "0.950 | No corroborado: La vulnerabilidad es " +
+                         "reconocida por fuentes no oficiales"
          },
      "confidenciality":
       {
-        "complete": "0.660 | Completo: Se controla toda la información relacionada con el objetivo",
+        "complete": "0.660 | Completo: Se controla toda la información " +
+                    "relacionada con el objetivo",
         "default": "-",
         "none": "0 | Ninguno: No se presenta ningún impacto",
-        "partial": "0.275 | Parcial: Se obtiene acceso a la información pero no control sobre ella"
+        "partial": "0.275 | Parcial: Se obtiene acceso a la información " +
+                   "pero no control sobre ella"
       },
      "criticity_header": {
        "high": " Alto",
@@ -742,10 +789,12 @@ integrates.config([
      },
      "integrity":
       {
-        "complete": "0.660 | Completo: Es posible modificar toda la información del objetivo",
+        "complete": "0.660 | Completo: Es posible modificar toda la " +
+                    "información del objetivo",
         "default": "-",
         "none": "0 | Ninguno: No se presenta ningún impacto",
-        "partial": "0.275 | Parcial: Es posible modificar cierta información del objetivo"
+        "partial": "0.275 | Parcial: Es posible modificar cierta " +
+                   "información del objetivo"
       },
      "probability":
        {
@@ -759,8 +808,10 @@ integrates.config([
       {
         "default": "-",
         "non_existent": "1.000 | Inexistente: No existe solución",
-        "official": "0.870 | Oficial: Existe un parche disponible por el fabricante",
-        "palliative": "0.950 | Paliativa: Existe un parche que no fue publicado por el fabricante",
+        "official": "0.870 | Oficial: Existe un parche disponible " +
+                    "por el fabricante",
+        "palliative": "0.950 | Paliativa: Existe un parche que no fue " +
+                      "publicado por el fabricante",
         "temporal": "0.900 | Temporal: Existen soluciones temporales"
       },
      "scenario":
@@ -895,11 +946,14 @@ integrates.config([
      "no_text_update": "Falló al actualizar la descripción",
      "not_found": "No pudimos encontrarlo!",
      "project_deleted": "Projecto Eliminado",
-     "remediated_success": "El hallazgo fue marcado como remediado, la solicitud de revisión de la solución fue enviada",
+     "remediated_success": "El hallazgo fue marcado como remediado, la " +
+                           "solicitud de revisión de la solución fue enviada",
      "search_cont": "Buscando Proyecto...",
      "search_title": "Noticia!",
-     "short_comment": "Debes ingresar una justificación de mínimo 30 caracteres",
-     "short_remediated_comment": "Debes ingresar una justificación de mínimo 100 caracteres",
+     "short_comment": "Debes ingresar una justificación de mínimo 30 " +
+                      "caracteres",
+     "short_remediated_comment": "Debes ingresar una justificación de " +
+                                 "mínimo 100 caracteres",
      "updatedTitle": "Correcto!",
      "updated_cont": "Actualizado ;)",
      "updated_cont_description": "Descripción Actualizada ;)",
@@ -914,7 +968,9 @@ integrates.config([
      "close_session": "Cerrar Sesión",
      "hello": "Hola",
      "no": "No",
-     "no_authorization": "No tienes autorización aún para ingresar. Comunícate con un representante de FLUID para obtener acceso.",
+     "no_authorization": "No tienes autorización aún para ingresar. " +
+                         "Comunícate con un representante de FLUID " +
+                         "para obtener acceso.",
      "yes": "Si"
    },
       "reports":
@@ -926,8 +982,12 @@ integrates.config([
       },
       "technical_report_mod":
       {
-        "body_1": "El informe técnico está protegido por contraseña. La contraseña es la fecha del día de generación del informe y su nombre de usuario.",
-        "body_2": "Ejemplo: alguien@fluidattacks.com genera el informe técnico en la fecha 15/03/2018 por lo tanto, la contraseña es 15032018alguien",
+        "body_1": "El informe técnico está protegido por contraseña. " +
+                  "La contraseña es la fecha del día de generación del " +
+                  "informe y su nombre de usuario.",
+        "body_2": "Ejemplo: alguien@fluidattacks.com genera el informe " +
+                  "técnico en la fecha 15/03/2018 por lo tanto, la " +
+                  "contraseña es 15032018alguien",
         "title": "Informes Técnicos"
       },
       "title": "Informes"
