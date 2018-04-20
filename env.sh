@@ -35,4 +35,6 @@
 	env | grep FI_DRIVE_AUTHORIZATION_CLIENT
 	env | grep FI_AWS_S3_ACCESS_KEY
 	env | grep FI_AWS_S3_SECRET_KEY
+	env | grep RA_SSL_KEY
+	env | grep RA_SSL_CERT
 } > "env".list

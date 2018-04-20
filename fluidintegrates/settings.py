@@ -33,7 +33,9 @@ SECRET_KEY = FI_DJANGO_SECRET_KEY # noqa
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = FI_DEBUG!='False'
 
-ALLOWED_HOSTS = ["192.168.0.26", "localhost", "127.0.0.1", "fluid.la", "fluidattacks.com", "192.168.200.100.xip.io", "192.168.200.100" ]
+ALLOWED_HOSTS = ["192.168.0.26", "localhost", "127.0.0.1", "fluid.la",
+     "fluidattacks.com", "192.168.200.100.xip.io", "192.168.200.100",
+     ".integrates.env.fluidattacks.com"]
 
 
 # Application definition

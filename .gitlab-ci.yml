@@ -8,7 +8,7 @@ services:
 
 before_script:
     - sh env.sh
-    - apk update && apk add curl
+    - apk update && apk add curl bash
 
 after_script:
     - rm env.sh
@@ -24,6 +24,7 @@ stages:
     - deps
     - build
     - test
+    - review
     - push
     - deploy
 
@@ -81,6 +82,40 @@ Linting:
         - rm env.list
     except:
     - triggers
+
+review-integrates:
+  stage: review
+  image: lwolf/kubectl_deployer
+  script:
+    - ./review-apps/cluster-config.sh
+  environment:
+    name: "review/$CI_COMMIT_REF_SLUG"
+    url: "https://$CI_COMMIT_REF_SLUG.$CI_PROJECT_NAME.$ENV_DNS"
+    on_stop: stop-review
+  except:
+    - master
+    - trigger
+
+stop-review:
+  stage: review
+  image: lwolf/kubectl_deployer
+  variables:
+    GIT_STRATEGY: none
+  before_script:
+    - echo "Stopping Review Apps environment..."
+  script:
+    - kubectl config set-context "$(kubectl config current-context)" --namespace=gitlab-managed-apps
+    - kubectl delete deployment "review-$CI_PROJECT_NAME-$CI_COMMIT_REF_SLUG"
+    - kubectl delete service "service-$CI_PROJECT_NAME-$CI_COMMIT_REF_SLUG"
+    - kubectl get ingress "ingress-$CI_PROJECT_NAME" -o yaml | sed '/'"$CI_COMMIT_REF_SLUG.$CI_PROJECT_NAME"'/,+5d' > current-ingress.yaml
+    - kubectl delete ingress "ingress-$CI_PROJECT_NAME"
+    - if kubectl get deployments | grep 'review-*'; then kubectl create -f current-ingress.yaml; fi
+  after_script:
+    - echo "Job finished"
+  when: manual
+  environment:
+    name: review/$CI_COMMIT_REF_SLUG
+    action: stop
 
 Prospector:
     stage: test

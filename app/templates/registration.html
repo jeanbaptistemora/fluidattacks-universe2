@@ -99,9 +99,17 @@
                               location = "dashboard";
                           } else {
                               if (location.toString().indexOf("localhost:8000") === -1){
-                                var link= "https://fluidattacks.com/integrates/dashboard#" + localStorage.getItem("url_inicio") ;
-                                window.location= link;
-                                localStorage.clear();
+                                if (location.toString().indexOf(".integrates.env") === -1) {
+                                  var link= "https://fluidattacks.com/integrates/dashboard#" + localStorage.getItem("url_inicio") ;
+                                  window.location= link;
+                                  localStorage.clear();
+                                }
+                                else {
+                                  var dev= location.toString().match("https://(.*).integrates")[1];
+                                  var link= "https://" + dev + ".integrates.env.fluidattacks.com/dashboard#" + localStorage.getItem("url_inicio") ;
+                                  window.location= link;
+                                  localStorage.clear();
+                                }
                             } else {
                                 var link= "https://localhost:8000/dashboard#" + localStorage.getItem("url_inicio") ;
                                 window.location= link;

@@ -6,6 +6,7 @@ DEBUG = True
 ALLOWED_HOSTS = [
     'www.fluidattacks.com',
     'fluidattacks.com',
+    '.integrates.env.fluidattacks.com',
     'www.fluid.la',
     'fluid.la',
     'localhost',
