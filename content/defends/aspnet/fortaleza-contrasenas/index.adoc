@@ -18,8 +18,9 @@ A continuación se describen las circunstancias bajo
 las cuales la siguiente solución tiene sentido:
 
 . Se está desarrollando una aplicación en +ASP.NET+.
-. Se requiere comprobar la fortaleza de una contraseña
-por medio de diccionarios <<r1, ^[1]^>>.
+. Se requiere comprobar la fortaleza
+de una contraseña por medio
+de diccionarios.^<<r1,[1]>>,<<r2,[2]>>,<<r3,[3]>>,<<r4,[4]>>,<<r5,[5]>>^
 . El sistema operativo o el administrador del sistema
 poseen diccionarios con palabras comunes.
 
@@ -27,7 +28,8 @@ poseen diccionarios con palabras comunes.
 
 . El código dará solución a la necesidad
 de comprobar la fortaleza de una contraseña
-al buscarla en diccionarios que contienen palabras comunes.
+al buscarla en diccionarios
+que contienen palabras comunes.^<<r6,[6]>>,<<r7,[7]>>,<<r8,[8]>>,<<r9,[9]>>>>^
 Iniciamos el desarrollo de la aplicación
 importando las clases necesarias
 y definiendo el nombre de nuestra clase:
@@ -156,13 +158,12 @@ El resultado para la anterior aplicación es el siguiente:
 
 == Referencias
 
-. [[r1]] link:../../../rules/126/[REQ.126 Contraseñas con al menos 8 caracteres].
-. [[r2]] link:../../../rules/127/[REQ.127 Contraseñas con al menos 1 minúscula].
-. [[r3]] link:../../../rules/128/[REQ.128 Contraseñas con al menos 1 mayúscula].
-. [[r4]] link:../../../rules/129/[REQ.129 Contraseñas con al menos 1 dígito].
-. [[r5]] link:../../../rules/130/[REQ.130 Contraseñas con al menos 1 carácter especial].
-. [[r6]] link:http://dazzlepod.com/uniqpass/[Uniqpass Password list].
-. [[r7]] link:http://www.openwall.com/wordlists/[Openwall worldlist collection].
-. [[r8]] link:http://wordlist.aspell.net/[Spell Checker Oriented Word Lists (SCOWL)].
-. [[r9]] link:https://packetstormsecurity.com/Crackers/wordlists/[Packetstorm Security Dictionary].
-. [[r10]] link:http://www.deer-run.com/~hal/sysadmin/pam_cracklib.html[Deer Dictionary toolbox].
+. [[r1]] link:../../../rules/996/[REQ.996 Contraseñas con al menos 8 caracteres].
+. [[r2]] link:../../../rules/995/[REQ.995 Contraseñas con al menos 1 minúscula].
+. [[r3]] link:../../../rules/994/[REQ.994 Contraseñas con al menos 1 mayúscula].
+. [[r4]] link:../../../rules/993/[REQ.993 Contraseñas con al menos 1 dígito].
+. [[r5]] link:../../../rules/992/[REQ.992 Contraseñas con al menos 1 carácter especial].
+. [[r6]] link:http://www.openwall.com/wordlists/[Openwall worldlist collection].
+. [[r7]] link:http://wordlist.aspell.net/[Spell Checker Oriented Word Lists (SCOWL)].
+. [[r8]] link:https://packetstormsecurity.com/Crackers/wordlists/[Packetstorm Security Dictionary].
+. [[r9]] link:http://www.deer-run.com/~hal/sysadmin/pam_cracklib.html[Deer Dictionary toolbox].
