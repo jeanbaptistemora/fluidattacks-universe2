@@ -17,17 +17,17 @@ bajo las cuales la siguiente solución tiene sentido:
 
 . Se está desarrollando una aplicación en +COBOL+.
 . Las contraseñas (tipo palabra)
-deben tener al menos 8 caracteres de longitud<<r1,^[1]^>>,<<r7,^[7]^>>.
+deben tener al menos 8 caracteres de longitud.^<<r1,[1]>>,<<r7,[7]>>^
 . Las contraseñas (tipo palabra)
-deben tener al menos 1 letra minúscula<<r2,^[2]^>>,<<r7,^[7]^>>.
+deben tener al menos 1 letra minúscula.^<<r2,[2]>>,<<r7,[7]>>^
 . Las contraseñas (tipo palabra)
-deben tener al menos 1 letra mayúscula<<r3,^[3]^>>,<<r7,^[7]^>>.
+deben tener al menos 1 letra mayúscula.^<<r3,[3]>>,<<r7,[7]>>^
 . Las contraseñas (tipo palabra)
-deben tener al menos 1 dígito numérico<<r4,^[4]^>>,<<r7,^[7]^>>.
+deben tener al menos 1 dígito numérico.^<<r4,[4]>>,<<r7,[7]>>^
 . Las contraseñas (tipo palabra)
-deben tener al menos 1 carácter especial<<r5,^[5]^>>,<<r7,^[7]^>>.
+deben tener al menos 1 carácter especial.^<<r5,[5]>>,<<r7,[7]>>^
 . Las contraseñas de acceso de un sistema a otro
-deben tener una longitud superior a 20 caracteres<<r6,^[6]^>>.
+deben tener una longitud superior a 20 caracteres.<<r6,^[6]^>>
 
 == Solución
 
@@ -274,10 +274,10 @@ todas las instrucciones +COBOL+ del programa.
 
 == Referencias
 
-. [[r1]] link:../../../rules/126/[REQ.126 Contraseñas con al menos 8 caracteres].
-. [[r2]] link:../../../rules/127/[REQ.127 Contraseñas con al menos 1 minúscula].
-. [[r3]] link:../../../rules/128/[REQ.128 Contraseñas con al menos 1 mayúscula].
-. [[r4]] link:../../../rules/129/[REQ.129 Contraseñas con al menos 1 dígito].
-. [[r5]] link:../../../rules/130/[REQ.130 Contraseñas con al menos 1 carácter especial].
+. [[r1]] link:../../../rules/996/[REQ.996 Contraseñas con al menos 8 caracteres].
+. [[r2]] link:../../../rules/995/[REQ.995 Contraseñas con al menos 1 minúscula].
+. [[r3]] link:../../../rules/994/[REQ.994 Contraseñas con al menos 1 mayúscula].
+. [[r4]] link:../../../rules/993/[REQ.993 Contraseñas con al menos 1 dígito].
+. [[r5]] link:../../../rules/992/[REQ.992 Contraseñas con al menos 1 carácter especial].
 . [[r6]] link:../../../rules/133/[REQ.133 Contraseñas de más de 20 caracteres].
 . [[r7]] link:https://www.paypal.com/us/selfhelp/article/Tips-for-creating-a-secure-password-FAQ3152[Tips for creating a secure password].
