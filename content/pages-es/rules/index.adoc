@@ -154,11 +154,11 @@
 
 * link:124/[REQ.124 Notificar vencimiento de contraseña].
 * link:125/[REQ.125 Permitir actualización de contraseña].
-* link:126/[REQ.126 Contraseñas con al menos 8 caracteres].
+* link:126/[REQ.126 Establecer mecanismo de restauración].
 * link:127/[REQ.127 Contraseñas con al menos 1 minúscula].
 * link:128/[REQ.128 Contraseñas con al menos 1 mayúscula].
 * link:129/[REQ.129 Contraseñas con al menos 1 dígito].
-* link:130/[REQ.130 Contraseñas con al menos 1 carácter especial].
+* link:130/[REQ.130 Limitar tiempo de vida en contraseñas].
 * link:131/[REQ.131 Impedir cambiar contraseña mas de una vez].
 * link:132/[REQ.132 Contraseñas con al menos 4 palabras].
 * link:133/[REQ.133 Contraseñas de más de 20 caracteres].
@@ -173,6 +173,8 @@
 * link:142/[REQ.142 Modificar credenciales de acceso por defecto].
 * link:143/[REQ.143 Credenciales de acceso únicas].
 * link:144/[REQ.144 Depurar cuentas periódicamente].
+* link:992/[REQ.992 Contraseñas con al menos 1 carácter especial].
+* link:996/[REQ.996 Contraseñas con al menos 8 caracteres].
 * link:997/[REQ.997 Contraseñas sin palabras de diccionario].
 
 == Foráneos
