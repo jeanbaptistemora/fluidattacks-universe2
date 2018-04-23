@@ -18,6 +18,8 @@ bajo las cuales la siguiente solución tiene sentido:
 
 . La aplicación esta construida en +ASP.NET+ versión +1.1+, +2.0+ o superior.
 . Se utiliza la versión del +.NET Framework+ 1.0,1.1 o superior.
+. Si el sistema debe transferir información entre páginas,
+debe realizarse a través de objetos de sesión.<<r1 , ^[1]^>>
 
 == Solución
 
@@ -48,11 +50,11 @@ es de 20 minutos de inactividad.
 Una vez ha terminado la sesión,
 las variables de sesión definidas ya no serán accesibles.
 Gracias a este mecanismo es posible implementar
-los sistemas seguros de identificación <<r1 , ^[1]^>>.
+los sistemas seguros de identificación <<r2 , ^[2]^>>.
 
 Para utilizar las variables de sesión
 como mecanismo de transferencia de información entre páginas
-se debe considerar los siguientes pasos <<r2, ^[2]^>>:
+se debe considerar los siguientes pasos <<r3, ^[3]^>>:
 
 . Almacenar valores en una sesión particular.
 Se debe usar la clase +HttpSessionState+,
@@ -93,6 +95,8 @@ HttpSessionState.Remove("nombreObjeto");
 
 == Referencias
 
-. [[r1]] link:http://www.uterra.com/codigo_php/codigo_php.php?ref=las_variables_de_sesion_en_php[¿Qué son las sesiones?]
+. [[r1]] link:../../../rules/024/[REQ.024 Transferir información con objetos de sesión].
 
-. [[r2]] link:https://medium.com/@neharastogi_2838/how-to-pass-values-between-two-web-pages-in-asp-net-f4225ed19b7[Microsoft, Pass Values Between ASP.NET Web Forms Pages]
+. [[r2]] link:http://www.uterra.com/codigo_php/codigo_php.php?ref=las_variables_de_sesion_en_php[¿Qué son las sesiones?].
+
+. [[r3]] link:https://medium.com/@neharastogi_2838/how-to-pass-values-between-two-web-pages-in-asp-net-f4225ed19b7[Microsoft, Pass Values Between ASP.NET Web Forms Pages].
