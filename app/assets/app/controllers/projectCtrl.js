@@ -1,9 +1,12 @@
-/* eslint no-magic-numbers: ["error", { "ignore": [-1,0,0.4,0.6,1,1.176,1.5,2,4,4.611,10,10.41,13,20,43.221,100,200,300,1000,3000] }]*/
+/* eslint no-magic-numbers:
+   ["error",{ "ignore": [-1,0,0.4,0.6,1,1.176,1.5,2,4,4.611,10,
+                         10.41,13,20,43.221,100,200,300,1000,3000] }]*/
 /* global
-BASE, downLink:true, Morris, estado:true, exploitLabel:true, nonexploitLabel:true, totalHigLabel:true,
-explotable:true, totalSegLabel:true, openLabel:true, partialLabel:true, integrates, userRole, document, $, $msg, userName,
-userEmail, Rollbar, aux:true, json:true, closeLabel:true, mixPanelDashboard, win:true, window, Organization, projectData:true, eventsData:true,
-i:true, j:true
+BASE, downLink:true, Morris, estado:true, exploitLabel:true, win:true, window,
+nonexploitLabel:true, totalHigLabel:true, explotable:true, totalSegLabel:true,
+openLabel:true, partialLabel:true, integrates, userRole, document, $, $msg,
+userName, userEmail, Rollbar, aux:true, json:true, closeLabel:true, j:true,
+mixPanelDashboard, Organization, projectData:true, eventsData:true, i:true
 */
 /* eslint-env node*/
 /**
@@ -61,7 +64,8 @@ integrates.controller(
         if (!response.error && response.data.length > 0) {
           if (response.data.status_act === "1") {
             let html = "<div class=\"alert alert-danger-2\">";
-            html += `<strong>Atención! </strong>${response.data[0].message}</div>`;
+            html += "<strong>Atención! </strong>" +
+                    `${response.data[0].message}</div>`;
             document.getElementById("header_alert").innerHTML = html;
           }
         }
@@ -108,12 +112,19 @@ integrates.controller(
         const searchAc = $translate.instant("proj_alerts.search_cont");
         $msg.info(searchAc, searchAt);
         const reqProject = projectFtry.projectByName(projectName, filter);
-        const reqEventualities = projectFtry.EventualityByName(projectName, "Name");
+        const reqEventualities = projectFtry.EventualityByName(
+          projectName,
+          "Name"
+        );
         reqProject.then((response) => {
           $scope.view.project = true;
           if (!response.error) {
             // Tracking Mixpanel
-            mixPanelDashboard.trackSearch("SearchFinding", userEmail, projectName);
+            mixPanelDashboard.trackSearch(
+              "SearchFinding",
+              userEmail,
+              projectName
+            );
             if (response.data.length === 0) {
               $scope.view.project = false;
               $scope.view.finding = false;
@@ -147,7 +158,11 @@ integrates.controller(
         reqEventualities.then((response) => {
           if (!response.error) {
             eventsData = response.data;
-            mixPanelDashboard.trackSearch("SearchEventuality", userEmail, projectName);
+            mixPanelDashboard.trackSearch(
+              "SearchEventuality",
+              userEmail,
+              projectName
+            );
             $("#search_section").show();
             $("[data-toggle=\"tooltip\"]").tooltip();
           }

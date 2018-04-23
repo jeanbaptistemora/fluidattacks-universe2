@@ -47,8 +47,8 @@ function sameOrigin (url) {
   const srOrigin = `//${hostOrigin}`;
   const origin = protocolOrigin + srOrigin;
   return url === origin || url.slice(0, origin.length + 1) === `${origin}/` ||
-        (url === srOrigin || url.slice(0, srOrigin.length + 1) === `${srOrigin}/`) ||
-        !(/^(\/\/|http:|https:).*/).test(url);
+        (url === srOrigin || url.slice(0, srOrigin.length + 1) ===
+        `${srOrigin}/`) || !(/^(\/\/|http:|https:).*/).test(url);
 }
 
 /**

@@ -1,10 +1,11 @@
 /* eslint no-magic-numbers: ["error", { "ignore": [0,13, 100] }]*/
 /* eslint no-shadow: ["error", { "allow": ["$scope"] }]*/
 /* global
-BASE, downLink:true, Morris, estado:true, exploitLabel:true, nonexploitLabel:true, totalHigLabel:true,
-explotable:true, totalSegLabel:true, openLabel:true, partialLabel:true, integrates, userRole, document, $, $msg, userName,
-userEmail, Rollbar, aux:true, json:true, closeLabel:true, mixPanelDashboard, win:true, window, Organization, projectData:true, eventsData:true,
-i:true, j:true
+BASE, downLink:true, Morris, estado:true, exploitLabel:true, eventsData:true,
+nonexploitLabel:true, totalHigLabel:true, explotable:true, totalSegLabel:true,
+openLabel:true, partialLabel:true, integrates, userRole, document, $, $msg,
+userName, userEmail, Rollbar, aux:true, json:true, closeLabel:true, j:true,
+mixPanelDashboard, win:true, window, Organization, projectData:true, i:true
 */
 /**
  * @file projectEventsCtrl.js
@@ -15,16 +16,20 @@ i:true, j:true
  */
 function labelEventState (value, row, index) {
   if (value === "Tratada") {
-    return "<label class='label label-success' style='background-color: #31c0be'>Tratada</label>";
+    return "<label class='label label-success' style='background-color: " +
+           "#31c0be'>Tratada</label>";
   }
   else if (value === "Solved") {
-    return "<label class='label label-success' style='background-color: #31c0be'>Solved</label>";
+    return "<label class='label label-success' style='background-color: " +
+           "#31c0be'>Solved</label>";
   }
   else if (value === "Pendiente") {
-    return "<label class='label label-danger' style='background-color: #f22;'>Pendiente</label>";
+    return "<label class='label label-danger' style='background-color: " +
+           "#f22;'>Pendiente</label>";
   }
   else if (value === "Unsolved") {
-    return "<label class='label label-danger' style='background-color: #f22;'>Unsolved</label>";
+    return "<label class='label label-danger' style='background-color: " +
+           "#f22;'>Unsolved</label>";
   }
   return false;
 }
@@ -69,7 +74,13 @@ integrates.controller(
         $scope.search();
         const orgName = Organization.toUpperCase();
         const projName = projectName.toUpperCase();
-        mixPanelDashboard.trackReports("ProjectEvents", userName, userEmail, orgName, projName);
+        mixPanelDashboard.trackReports(
+          "ProjectEvents",
+          userName,
+          userEmail,
+          orgName,
+          projName
+        );
       }
       // Asigna el evento buscar al textbox search y tecla enter
       $scope.configKeyboardView();
@@ -85,7 +96,8 @@ integrates.controller(
         if (!response.error && response.data.length > 0) {
           if (response.data.status_act === "1") {
             let html = "<div class=\"alert alert-danger-2\">";
-            html += `<strong>Atención! </strong>${response.data[0].message}</div>`;
+            html += "<strong>Atención! </strong>" +
+                    `${response.data[0].message}</div>`;
             document.getElementById("header_alert").innerHTML = html;
           }
         }
@@ -132,12 +144,17 @@ integrates.controller(
         const searchAt = $translate.instant("proj_alerts.search_title");
         const searchAc = $translate.instant("proj_alerts.search_cont");
         $msg.info(searchAc, searchAt);
-        if (eventsData.length > 0 && eventsData[0].proyecto_fluid.toLowerCase() === $scope.project.toLowerCase()) {
+        if (eventsData.length > 0 &&
+           eventsData[0].proyecto_fluid.toLowerCase() ===
+           $scope.project.toLowerCase()) {
           $scope.view.project = true;
           $scope.loadEventContent(eventsData, vlang, projectName);
         }
         else {
-          const reqEventualities = projectFtry.EventualityByName(projectName, "Name");
+          const reqEventualities = projectFtry.EventualityByName(
+            projectName,
+            "Name"
+          );
           reqEventualities.then((response) => {
             if (!response.error) {
               $scope.view.project = true;
@@ -164,44 +181,55 @@ integrates.controller(
       for (let cont = 0; cont < data.length; cont++) {
         switch (data[cont].tipo) {
         case "Autorización para ataque especial":
-          data[cont].tipo = $translate.instant("eventFormstack.type.auth_attack");
+          data[cont].tipo = $translate.instant("eventFormstack." +
+                                               "type.auth_attack");
           break;
         case "Alcance difiere a lo aprobado":
-          data[cont].tipo = $translate.instant("eventFormstack.type.toe_differs");
+          data[cont].tipo = $translate.instant("eventFormstack." +
+                                               "type.toe_differs");
           break;
         case "Aprobación de alta disponibilidad":
-          data[cont].tipo = $translate.instant("eventFormstack.type.high_approval");
+          data[cont].tipo = $translate.instant("eventFormstack." +
+                                               "type.high_approval");
           break;
         case "Insumos incorrectos o faltantes":
-          data[cont].tipo = $translate.instant("eventFormstack.type.incor_supplies");
+          data[cont].tipo = $translate.instant("eventFormstack." +
+                                               "type.incor_supplies");
           break;
         case "Cliente suspende explicitamente":
-          data[cont].tipo = $translate.instant("eventFormstack.type.explic_suspend");
+          data[cont].tipo = $translate.instant("eventFormstack." +
+                                               "type.explic_suspend");
           break;
         case "Cliente aprueba cambio de alcance":
-          data[cont].tipo = $translate.instant("eventFormstack.type.approv_change");
+          data[cont].tipo = $translate.instant("eventFormstack." +
+                                               "type.approv_change");
           break;
         case "Cliente cancela el proyecto/hito":
-          data[cont].tipo = $translate.instant("eventFormstack.type.cancel_proj");
+          data[cont].tipo = $translate.instant("eventFormstack." +
+                                               "type.cancel_proj");
           break;
         case "Cliente detecta ataque":
-          data[cont].tipo = $translate.instant("eventFormstack.type.det_attack");
+          data[cont].tipo = $translate.instant("eventFormstack." +
+                                               "type.det_attack");
           break;
         case "Otro":
           data[cont].tipo = $translate.instant("eventFormstack.type.other");
           break;
         case "Ambiente no accesible":
-          data[cont].tipo = $translate.instant("eventFormstack.type.inacc_ambient");
+          data[cont].tipo = $translate.instant("eventFormstack." +
+                                               "type.inacc_ambient");
           break;
         case "Ambiente inestable":
-          data[cont].tipo = $translate.instant("eventFormstack.type.uns_ambient");
+          data[cont].tipo = $translate.instant("eventFormstack." +
+                                               "type.uns_ambient");
           break;
         default:
           data[cont].tipo = data[cont].tipo;
         }
         switch (data[cont].estado) {
         case "Pendiente":
-          data[cont].estado = $translate.instant("eventFormstack.status.unsolve");
+          data[cont].estado = $translate.instant("eventFormstack." +
+                                                 "status.unsolve");
           break;
         case "Tratada":
           data[cont].estado = $translate.instant("eventFormstack.status.solve");
@@ -228,8 +256,15 @@ integrates.controller(
               // Tracking mixpanel
               const nameOrg = Organization.toUpperCase();
               const nameProj = project.toUpperCase();
-              mixPanelDashboard.trackReadEventuality(userName, userEmail, nameOrg, nameProj, evt.id);
-              if ($scope.evt.afectacion === "" || typeof $scope.evt.afectacion === "undefined") {
+              mixPanelDashboard.trackReadEventuality(
+                userName,
+                userEmail,
+                nameOrg,
+                nameProj,
+                evt.id
+              );
+              if ($scope.evt.afectacion === "" ||
+                  typeof $scope.evt.afectacion === "undefined") {
                 $scope.evt.afectacion = "0";
               }
               $scope.evt.afectacion = parseInt($scope.evt.afectacion, 10);
@@ -251,14 +286,18 @@ integrates.controller(
                   submit = true;
                 }
                 catch (err) {
-                  Rollbar.error("Error: Affectation can not be a negative number");
-                  $msg.error($translate.instant("proj_alerts.eventPositiveint"));
+                  Rollbar.error("Error: Affectation can not " +
+                                "be a negative number");
+                  $msg.error($translate.instant("proj_alerts." +
+                                                "eventPositiveint"));
                   return false;
                 }
                 eventualityFactory.updateEvnt($scope.evt).then((response) => {
                   if (!response.error) {
-                    const updatedAt = $translate.instant("proj_alerts.updatedTitle");
-                    const updatedAc = $translate.instant("proj_alerts.eventUpdated");
+                    const updatedAt = $translate.instant("proj_alerts." +
+                                                         "updatedTitle");
+                    const updatedAc = $translate.instant("proj_alerts." +
+                                                         "eventUpdated");
                     $msg.success(updatedAc, updatedAt);
                     $uibModalInstance.close();
                     location.reload();
@@ -270,7 +309,8 @@ integrates.controller(
                     }
                     else {
                       Rollbar.error("Error: An error occurred updating events");
-                      $msg.error($translate.instant("proj_alerts.errorUpdatingEvent"));
+                      $msg.error($translate.instant("proj_alerts." +
+                                                    "errorUpdatingEvent"));
                     }
                   }
                 });

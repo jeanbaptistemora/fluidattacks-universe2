@@ -1,9 +1,16 @@
-/* eslint no-magic-numbers: ["error", { "ignore": [-1,0,0.4,0.6,1,1.176,1.5,2,3,4,5,6,6.9,7,9,10,10.41,20,50,80,100,200,500,1000,10000] }]*/
-/* eslint no-shadow: ["error", { "allow": ["$scope","$stateParams","$state","response"] }]*/
+/* eslint no-magic-numbers:
+["error", { "ignore": [-1,0,0.4,0.6,1,1.176,1.5,2,3,
+                       4,5,6,6.9,7,9,10,10.41,20,50,
+                       80,100,200,500,1000,10000] }]*/
+/* eslint no-shadow: ["error", { "allow": ["$scope","$stateParams",
+                                          "$state","response"] }]*/
 /* global
-BASE, document, $, $msg, userName, integrates, userEmail, userName, Rollbar, mixPanelDashboard, userRole, findingType, actor,
-scenario, authentication, confidenciality, Organization, resolutionLevel, explotability, availability, tratamiento, updateEvidencesFiles:true,
-findingData:true, realiabilityLevel, updateEvidenceText:true, categories, probabilities, accessVector, integrity, accessComplexity, projectData:true
+BASE, document, $, $msg, userName, integrates, userEmail, userName, Rollbar,
+mixPanelDashboard, userRole, findingType, actor, scenario, authentication,
+confidenciality, Organization, resolutionLevel, explotability, availability,
+tratamiento, updateEvidencesFiles:true, findingData:true, realiabilityLevel,
+updateEvidenceText:true, categories, probabilities, accessVector, integrity,
+accessComplexity, projectData:true
 */
 /**
  * @file findingcontentCtrl.js
@@ -44,22 +51,27 @@ integrates.controller("findingcontentCtrl", function findingcontentCtrl (
     $scope.header.findingTreatment = $scope.finding.tratamiento;
     const findingValue = parseFloat($scope.finding.criticidad);
     if (findingValue >= 7) {
-      $scope.header.findingValueDescription = $translate.instant("finding_formstack.criticity_header.high");
+      $scope.header.findingValueDescription =
+             $translate.instant("finding_formstack.criticity_header.high");
       $scope.header.findingValueColor = $scope.colors.critical;
     }
     else if (findingValue >= 4 && findingValue <= 6.9) {
-      $scope.header.findingValueDescription = $translate.instant("finding_formstack.criticity_header.moderate");
+      $scope.header.findingValueDescription =
+             $translate.instant("finding_formstack.criticity_header.moderate");
       $scope.header.findingValueColor = $scope.colors.moderate;
     }
     else {
-      $scope.header.findingValueDescription = $translate.instant("finding_formstack.criticity_header.tolerable");
+      $scope.header.findingValueDescription =
+             $translate.instant("finding_formstack.criticity_header.tolerable");
       $scope.header.findingValueColor = $scope.colors.tolerable;
     }
 
-    if ($scope.header.findingState === "Abierto" || $scope.header.findingState === "Open") {
+    if ($scope.header.findingState === "Abierto" ||
+        $scope.header.findingState === "Open") {
       $scope.header.findingStateColor = $scope.colors.critical;
     }
-    else if ($scope.header.findingState === "Parcialmente cerrado" || $scope.header.findingState === "Partially closed") {
+    else if ($scope.header.findingState === "Parcialmente cerrado" ||
+             $scope.header.findingState === "Partially closed") {
       $scope.header.findingStateColor = $scope.colors.moderate;
     }
     else {
@@ -69,7 +81,10 @@ integrates.controller("findingcontentCtrl", function findingcontentCtrl (
     $scope.header.findingCount = $scope.finding.cardinalidad;
     findingData.header = $scope.header;
   };
-  String.prototype.replaceAll = function replaceAll (search, replace) { /* eslint no-extend-native: ["error", { "exceptions": ["String"] }]*/
+  String.prototype.replaceAll = function replaceAll (
+    search,
+    replace
+  ) { /* eslint no-extend-native: ["error", { "exceptions": ["String"] }]*/
     if (typeof replace === "undefined") {
       return this.toString();
     }
@@ -81,7 +96,8 @@ integrates.controller("findingcontentCtrl", function findingcontentCtrl (
       if (!response.error && response.data.length > 0) {
         if (response.data[0].status_act === "1") {
           let html = "<div class=\"alert alert-danger-2\">";
-          html += `<strong>Atención! </strong>${response.data[0].message}</div>`;
+          html += "<strong>Atención! </strong>" +
+                  `${response.data[0].message}</div>`;
           document.getElementById("header_alert").innerHTML = html;
         }
       }
@@ -111,15 +127,22 @@ integrates.controller("findingcontentCtrl", function findingcontentCtrl (
             if (typeof response.data[cont].exploit !== "undefined" &&
                             response.data[cont].es_exploit === true &&
                               $scope.finding.cierres.length === 0) {
-              exploit = projectFtry.getExploit($scope.finding.id, response.data[cont].exploit);
+              exploit = projectFtry.getExploit(
+                $scope.finding.id,
+                response.data[cont].exploit
+              );
               $scope.hasExploit = true;
               findingData.hasExploit = $scope.hasExploit;
               exploit.then((response) => {
                 respFunction(response);
               });
             }
-            else if (typeof $scope.finding.exploit !== "undefined" && $scope.finding.cierres.length === 0) {
-              exploit = projectFtry.getExploit($scope.finding.id, $scope.finding.exploit);
+            else if (typeof $scope.finding.exploit !== "undefined" &&
+                     $scope.finding.cierres.length === 0) {
+              exploit = projectFtry.getExploit(
+                $scope.finding.id,
+                $scope.finding.exploit
+              );
               $scope.hasExploit = true;
               findingData.hasExploit = $scope.hasExploit;
               exploit.then((response) => {
@@ -132,8 +155,12 @@ integrates.controller("findingcontentCtrl", function findingcontentCtrl (
             }
           }
         }
-        else if (typeof $scope.finding.exploit !== "undefined" && $scope.finding.cierres.length === 0) {
-          exploit = projectFtry.getExploit($scope.finding.id, $scope.finding.exploit);
+        else if (typeof $scope.finding.exploit !== "undefined" &&
+                 $scope.finding.cierres.length === 0) {
+          exploit = projectFtry.getExploit(
+            $scope.finding.id,
+            $scope.finding.exploit
+          );
           $scope.hasExploit = true;
           findingData.hasExploit = $scope.hasExploit;
           exploit.then((response) => {
@@ -186,7 +213,8 @@ integrates.controller("findingcontentCtrl", function findingcontentCtrl (
       input.addEventListener("change", (aux) => {
         let fileName = "";
         if (input.files && input.files.length > 1) {
-          fileName = (input.getAttribute("data-multiple-caption") || "").replace("{count}", input.files.length);
+          fileName = (input.getAttribute("data-multiple-caption") ||
+                      "").replace("{count}", input.files.length);
         }
         else {
           fileName = aux.target.value.split("\\").pop();
@@ -225,49 +253,56 @@ integrates.controller("findingcontentCtrl", function findingcontentCtrl (
     if (refList.indexOf(0) === -1) {
       $scope.tabEvidences.push({
         "desc": "",
-        "name": $translate.instant("search_findings.tab_evidence.animation_exploit"),
+        "name": $translate.instant("search_findings." +
+                                   "tab_evidence.animation_exploit"),
         "ref": 0
       });
     }
     if (refList.indexOf(1) === -1) {
       $scope.tabEvidences.push({
         "desc": "",
-        "name": $translate.instant("search_findings.tab_evidence.evidence_exploit"),
+        "name": $translate.instant("search_findings." +
+                                   "tab_evidence.evidence_exploit"),
         "ref": 1
       });
     }
     if (refList.indexOf(2) === -1) {
       $scope.tabEvidences.push({
         "desc": "",
-        "name": `${$translate.instant("search_findings.tab_evidence.evidence_name")} 1`,
+        "name": `${$translate.instant("search_findings." +
+                                      "tab_evidence.evidence_name")} 1`,
         "ref": 2
       });
     }
     if (refList.indexOf(3) === -1) {
       $scope.tabEvidences.push({
         "desc": "",
-        "name": `${$translate.instant("search_findings.tab_evidence.evidence_name")} 2`,
+        "name": `${$translate.instant("search_findings." +
+                                      "tab_evidence.evidence_name")} 2`,
         "ref": 3
       });
     }
     if (refList.indexOf(4) === -1) {
       $scope.tabEvidences.push({
         "desc": "",
-        "name": `${$translate.instant("search_findings.tab_evidence.evidence_name")} 3`,
+        "name": `${$translate.instant("search_findings." +
+                                      "tab_evidence.evidence_name")} 3`,
         "ref": 4
       });
     }
     if (refList.indexOf(5) === -1) {
       $scope.tabEvidences.push({
         "desc": "",
-        "name": `${$translate.instant("search_findings.tab_evidence.evidence_name")} 4`,
+        "name": `${$translate.instant("search_findings." +
+                                      "tab_evidence.evidence_name")} 4`,
         "ref": 5
       });
     }
     if (refList.indexOf(6) === -1) {
       $scope.tabEvidences.push({
         "desc": "",
-        "name": `${$translate.instant("search_findings.tab_evidence.evidence_name")} 5`,
+        "name": `${$translate.instant("search_findings." +
+                                      "tab_evidence.evidence_name")} 5`,
         "ref": 6
       });
     }
@@ -305,7 +340,8 @@ integrates.controller("findingcontentCtrl", function findingcontentCtrl (
       input.addEventListener("change", (err) => {
         let fileName = "";
         if (input.files && input.files.length > 1) {
-          fileName = (input.getAttribute("data-multiple-caption") || "").replace("{count}", input.files.length);
+          fileName = (input.getAttribute("data-multiple-caption") ||
+                      "").replace("{count}", input.files.length);
         }
         else {
           fileName = err.target.value.split("\\").pop();
@@ -343,7 +379,8 @@ integrates.controller("findingcontentCtrl", function findingcontentCtrl (
       input.addEventListener("change", (err) => {
         let fileName = "";
         if (input.files && input.files.length > 1) {
-          fileName = (input.getAttribute("data-multiple-caption") || "").replace("{count}", input.files.length);
+          fileName = (input.getAttribute("data-multiple-caption") ||
+                      "").replace("{count}", input.files.length);
         }
         else {
           fileName = err.target.value.split("\\").pop();
@@ -443,7 +480,8 @@ integrates.controller("findingcontentCtrl", function findingcontentCtrl (
     const data = new FormData();
     const fileInput = $(`#evidence${evImage}`)[0];
     data.append("id", evImage);
-    data.append("url", `${$stateParams.project.toLowerCase()}-${$scope.finding.id}`);
+    data.append("url", `${$stateParams.project.toLowerCase()}-` +
+                       `${$scope.finding.id}`);
     data.append("findingId", $scope.finding.id);
     data.append("document", fileInput.files[0]);
     const fileName = fileInput.files[0].name;
@@ -453,22 +491,26 @@ integrates.controller("findingcontentCtrl", function findingcontentCtrl (
     const gifMaxSize = 10485760;
     const pyMaxSize = 1048576;
     const csvMaxSize = 1048576;
-    if ((fileType === ".png" || fileType === ".PNG") && fileInput.files[0].size > pngMaxSize) {
+    if ((fileType === ".png" || fileType === ".PNG") &&
+         fileInput.files[0].size > pngMaxSize) {
       errorAc1 = $translate.instant("proj_alerts.file_size_png");
       $msg.error(errorAc1);
       return false;
     }
-    if ((fileType === ".gif" || fileType === ".GIF") && fileInput.files[0].size > gifMaxSize) {
+    if ((fileType === ".gif" || fileType === ".GIF") &&
+         fileInput.files[0].size > gifMaxSize) {
       errorAc1 = $translate.instant("proj_alerts.file_size");
       $msg.error(errorAc1);
       return false;
     }
-    if ((fileType === ".py" || fileType === ".PY") && fileInput.files[0].size > pyMaxSize) {
+    if ((fileType === ".py" || fileType === ".PY") &&
+         fileInput.files[0].size > pyMaxSize) {
       errorAc1 = $translate.instant("proj_alerts.file_size_py");
       $msg.error(errorAc1);
       return false;
     }
-    if ((fileType === ".csv" || fileType === ".CSV") && fileInput.files[0].size > csvMaxSize) {
+    if ((fileType === ".csv" || fileType === ".CSV") &&
+         fileInput.files[0].size > csvMaxSize) {
       errorAc1 = $translate.instant("proj_alerts.file_size_py");
       $msg.error(errorAc1);
       return false;
@@ -496,7 +538,8 @@ integrates.controller("findingcontentCtrl", function findingcontentCtrl (
       $msg.error(errorAc1);
       return false;
     }
-    else if (evImages.indexOf(evImage) !== -1 && (fileType !== ".png" && fileType !== ".PNG")) {
+    else if (evImages.indexOf(evImage) !== -1 && (fileType !== ".png" &&
+             fileType !== ".PNG")) {
       errorAc1 = $translate.instant("proj_alerts.file_type_png");
       $msg.error(errorAc1);
       return false;
@@ -532,7 +575,8 @@ integrates.controller("findingcontentCtrl", function findingcontentCtrl (
     data.id = $scope.finding.id;
     const description = $(`#evidenceText${evImage}`).val();
     const file = $(`#evidence${evImage}`).val();
-    if (description === "" || $scope.evidenceDescription[evImage] === description) {
+    if (description === "" || $scope.evidenceDescription[evImage] ===
+        description) {
       if (file !== "") {
         updateEvidencesFiles(element);
       }
@@ -566,7 +610,8 @@ integrates.controller("findingcontentCtrl", function findingcontentCtrl (
       req.then((response) => {
         if (!response.error) {
           const updatedAt = $translate.instant("proj_alerts.updatedTitle");
-          const updatedAc = $translate.instant("proj_alerts.updated_cont_description");
+          const updatedAc = $translate.instant("proj_alerts." +
+                                               "updated_cont_description");
           $msg.success(updatedAc, updatedAt);
           if (file !== "") {
             updateEvidencesFiles(element);
@@ -577,7 +622,8 @@ integrates.controller("findingcontentCtrl", function findingcontentCtrl (
           return true;
         }
         const errorAc1 = $translate.instant("proj_alerts.no_text_update");
-        Rollbar.error("Error: An error occurred updating evidences description");
+        Rollbar.error("Error: An error occurred updating " +
+                      "evidences description");
         $msg.error(errorAc1);
         return false;
       });
@@ -590,7 +636,13 @@ integrates.controller("findingcontentCtrl", function findingcontentCtrl (
     const modalInstance = $uibModal.open({
       "animation": true,
       "backdrop": "static",
-      "controller" ($scope, $uibModalInstance, updateData, $stateParams, $state) {
+      "controller" (
+        $scope,
+        $uibModalInstance,
+        updateData,
+        $stateParams,
+        $state
+      ) {
         $scope.vuln = {};
         $scope.modalTitle = $translate.instant("confirmmodal.title_finding");
         $scope.ok = function ok () {
@@ -606,7 +658,11 @@ integrates.controller("findingcontentCtrl", function findingcontentCtrl (
               $uibModalInstance.close();
               $state.go("ProjectFindings", {"project": $stateParams.project});
               // Tracking mixpanel
-              mixPanelDashboard.trackFinding("DeleteFinding", userEmail, descData.id);
+              mixPanelDashboard.trackFinding(
+                "DeleteFinding",
+                userEmail,
+                descData.id
+              );
             }
             else if (response.error) {
               const errorAc1 = $translate.instant("proj_alerts.error_textsad");
@@ -631,7 +687,8 @@ integrates.controller("findingcontentCtrl", function findingcontentCtrl (
   };
   $scope.hasUrl = function hasUrl (element) {
     if (typeof element !== "undefined") {
-      if (element.indexOf("https://") !== -1 || element.indexOf("http://") !== -1) {
+      if (element.indexOf("https://") !== -1 ||
+          element.indexOf("http://") !== -1) {
         return true;
       }
     }
@@ -646,8 +703,10 @@ integrates.controller("findingcontentCtrl", function findingcontentCtrl (
     return true;
   };
   $scope.loadFindingByID = function loadFindingByID (id) {
-    if (!$scope.isEmpty(findingData) && findingData.data.proyecto_fluid.toLowerCase() === $stateParams.project.toLowerCase() &&
-      findingData.data.id === $scope.finding.id) {
+    if (!$scope.isEmpty(findingData) &&
+        findingData.data.proyecto_fluid.toLowerCase() ===
+        $stateParams.project.toLowerCase() &&
+        findingData.data.id === $scope.finding.id) {
       $scope.view.project = false;
       $scope.view.finding = true;
       $scope.finding = findingData.data;
@@ -663,7 +722,8 @@ integrates.controller("findingcontentCtrl", function findingcontentCtrl (
     else {
       const req = findingFactory.getVulnById(id);
       req.then((response) => {
-        if (!response.error && $stateParams.project === response.data.proyecto_fluid.toLowerCase()) {
+        if (!response.error && $stateParams.project ===
+            response.data.proyecto_fluid.toLowerCase()) {
           findingData.data = response.data;
           $scope.finding = response.data;
           $scope.loadFindingContent();
@@ -714,13 +774,17 @@ integrates.controller("findingcontentCtrl", function findingcontentCtrl (
     else {
       $scope.isClosed = false;
     }
-    if ($scope.finding.suscripcion === "Continua" || $scope.finding.suscripcion === "Concurrente" || $scope.finding.suscripcion === "Si") {
+    if ($scope.finding.suscripcion === "Continua" ||
+        $scope.finding.suscripcion === "Concurrente" ||
+        $scope.finding.suscripcion === "Si") {
       $scope.isContinuous = true;
     }
     else {
       $scope.isContinuous = false;
     }
-    if ($scope.finding.suscripcion !== "Concurrente" && $scope.finding.suscripcion !== "Puntual" && $scope.finding.suscripcion !== "Continua") {
+    if ($scope.finding.suscripcion !== "Concurrente" &&
+        $scope.finding.suscripcion !== "Puntual" &&
+        $scope.finding.suscripcion !== "Continua") {
       Rollbar.warning(`Warning: Finding ${$scope.finding.id} without type`);
     }
     $scope.aux.responsable = $scope.finding.responsableTratamiento;
@@ -729,306 +793,414 @@ integrates.controller("findingcontentCtrl", function findingcontentCtrl (
     $scope.finding.cweIsUrl = $scope.hasUrl($scope.finding.cwe);
     switch ($scope.finding.actor) {
     case "​Cualquier persona en Internet":
-      $scope.finding.actor = $translate.instant("finding_formstack.actor.any_internet");
+      $scope.finding.actor = $translate.instant("finding_formstack." +
+                                                "actor.any_internet");
       break;
     case "Cualquier cliente de la organización":
-      $scope.finding.actor = $translate.instant("finding_formstack.actor.any_costumer");
+      $scope.finding.actor = $translate.instant("finding_formstack." +
+                                                "actor.any_costumer");
       break;
     case "Solo algunos clientes de la organización":
-      $scope.finding.actor = $translate.instant("finding_formstack.actor.some_costumer");
+      $scope.finding.actor = $translate.instant("finding_formstack." +
+                                                "actor.some_costumer");
       break;
     case "Cualquier persona con acceso a la estación":
-      $scope.finding.actor = $translate.instant("finding_formstack.actor.any_access");
+      $scope.finding.actor = $translate.instant("finding_formstack." +
+                                                "actor.any_access");
       break;
     case "Cualquier empleado de la organización":
-      $scope.finding.actor = $translate.instant("finding_formstack.actor.any_employee");
+      $scope.finding.actor = $translate.instant("finding_formstack." +
+                                                "actor.any_employee");
       break;
     case "Solo algunos empleados":
-      $scope.finding.actor = $translate.instant("finding_formstack.actor.some_employee");
+      $scope.finding.actor = $translate.instant("finding_formstack." +
+                                                "actor.some_employee");
       break;
     case "Solo un empleado":
-      $scope.finding.actor = $translate.instant("finding_formstack.actor.one_employee");
+      $scope.finding.actor = $translate.instant("finding_formstack." +
+                                                "actor.one_employee");
       break;
     default:
       $scope.finding.actor = $scope.finding.actor;
     }
     switch ($scope.finding.autenticacion) {
     case "0.704 | Ninguna: No se requiere autenticación":
-      $scope.finding.autenticacion = $translate.instant("finding_formstack.authentication.any_authen");
+      $scope.finding.autenticacion = $translate.instant("finding_formstack." +
+                                              "authentication.any_authen");
       break;
     case "0.560 | Única: Único punto de autenticación":
-      $scope.finding.autenticacion = $translate.instant("finding_formstack.authentication.single_authen");
+      $scope.finding.autenticacion = $translate.instant("finding_formstack." +
+                                              "authentication.single_authen");
       break;
     case "0.450 | Multiple: Multiples puntos de autenticación":
-      $scope.finding.autenticacion = $translate.instant("finding_formstack.authentication.multiple_authen");
+      $scope.finding.autenticacion = $translate.instant("finding_formstack." +
+                                              "authentication.multiple_authen");
       break;
     default:
       $scope.finding.autenticacion = $scope.finding.autenticacion;
     }
     switch ($scope.finding.categoria) {
-    case "Actualizar y configurar las líneas base de seguridad de los componentes":
-      $scope.finding.categoria = $translate.instant("finding_formstack.category.update_base");
+    case "Actualizar y configurar las líneas base de " +
+         "seguridad de los componentes":
+      $scope.finding.categoria = $translate.instant("finding_formstack." +
+                                                    "category.update_base");
       break;
-    case "Definir el modelo de autorización considerando el principio de mínimo privilegio":
-      $scope.finding.categoria = $translate.instant("finding_formstack.category.define_model");
+    case "Definir el modelo de autorización considerando " +
+         "el principio de mínimo privilegio":
+      $scope.finding.categoria = $translate.instant("finding_formstack." +
+                                                    "category.define_model");
       break;
     case "Desempeño":
-      $scope.finding.categoria = $translate.instant("finding_formstack.category.performance");
+      $scope.finding.categoria = $translate.instant("finding_formstack." +
+                                                    "category.performance");
       break;
     case "Eventualidad":
-      $scope.finding.categoria = $translate.instant("finding_formstack.category.event");
+      $scope.finding.categoria = $translate.instant("finding_formstack." +
+                                                    "category.event");
       break;
-    case "Evitar exponer la información técnica de la aplicación, servidores y plataformas":
-      $scope.finding.categoria = $translate.instant("finding_formstack.category.avoid_technical");
+    case "Evitar exponer la información técnica de la " +
+         "aplicación, servidores y plataformas":
+      $scope.finding.categoria = $translate.instant("finding_formstack." +
+                                               "category.avoid_technical");
       break;
     case "Excluir datos sensibles del código fuente y del registro de eventos":
-      $scope.finding.categoria = $translate.instant("finding_formstack.category.exclude_finding");
+      $scope.finding.categoria = $translate.instant("finding_formstack." +
+                                               "category.exclude_finding");
       break;
     case "Fortalecer controles en autenticación y manejo de sesión":
-      $scope.finding.categoria = $translate.instant("finding_formstack.category.strengt_authen");
+      $scope.finding.categoria = $translate.instant("finding_formstack." +
+                                               "category.strengt_authen");
       break;
     case "Fortalecer controles en el procesamiento de archivos":
-      $scope.finding.categoria = $translate.instant("finding_formstack.category.strengt_process");
+      $scope.finding.categoria = $translate.instant("finding_formstack." +
+                                               "category.strengt_process");
       break;
-    case "Fortalecer la protección de datos almacenados relacionados con contraseñas o llaves criptográficas":
-      $scope.finding.categoria = $translate.instant("finding_formstack.category.strengt_protect");
+    case "Fortalecer la protección de datos almacenados relacionados " +
+         "con contraseñas o llaves criptográficas":
+      $scope.finding.categoria = $translate.instant("finding_formstack." +
+                                                    "category.strengt_protect");
       break;
     case "Implementar controles para validar datos de entrada":
-      $scope.finding.categoria = $translate.instant("finding_formstack.category.validate_input");
+      $scope.finding.categoria = $translate.instant("finding_formstack." +
+                                                    "category.validate_input");
       break;
     case "Mantenibilidad":
-      $scope.finding.categoria = $translate.instant("finding_formstack.category.maintain");
+      $scope.finding.categoria = $translate.instant("finding_formstack." +
+                                                    "category.maintain");
       break;
     case "Registrar eventos para trazabilidad y auditoría":
-      $scope.finding.categoria = $translate.instant("finding_formstack.category.record_event");
+      $scope.finding.categoria = $translate.instant("finding_formstack." +
+                                                    "category.record_event");
       break;
     case "Utilizar protocolos de comunicación seguros":
-      $scope.finding.categoria = $translate.instant("finding_formstack.category.secure_protoc");
+      $scope.finding.categoria = $translate.instant("finding_formstack." +
+                                                    "category.secure_protoc");
       break;
     case "Validar la integridad de las transacciones en peticiones HTTP":
-      $scope.finding.categoria = $translate.instant("finding_formstack.category.validate_http");
+      $scope.finding.categoria = $translate.instant("finding_formstack." +
+                                                    "category.validate_http");
       break;
     default:
       $scope.finding.categoria = $scope.finding.categoria;
     }
     switch ($scope.finding.complejidadAcceso) {
-    case "0.350 | Alto: Se requieren condiciones especiales como acceso administrativo":
-      $scope.finding.complejidadAcceso = $translate.instant("finding_formstack.complexity.high_complex");
+    case "0.350 | Alto: Se requieren condiciones " +
+         "especiales como acceso administrativo":
+      $scope.finding.complejidadAcceso =
+                                    $translate.instant("finding_formstack." +
+                                                  "complexity.high_complex");
       break;
-    case "0.610 | Medio: Se requieren algunas condiciones como acceso al sistema":
-      $scope.finding.complejidadAcceso = $translate.instant("finding_formstack.complexity.medium_complex");
+    case "0.610 | Medio: Se requieren algunas " +
+         "condiciones como acceso al sistema":
+      $scope.finding.complejidadAcceso =
+                                    $translate.instant("finding_formstack." +
+                                                  "complexity.medium_complex");
       break;
     case "0.710 | Bajo: No se requiere ninguna condición especial":
-      $scope.finding.complejidadAcceso = $translate.instant("finding_formstack.complexity.low_complex");
+      $scope.finding.complejidadAcceso =
+                                    $translate.instant("finding_formstack." +
+                                                  "complexity.low_complex");
       break;
     default:
       $scope.finding.complejidadAcceso = $scope.finding.complejidadAcceso;
     }
     switch ($scope.finding.escenario) {
     case "Anónimo desde Internet":
-      $scope.finding.escenario = $translate.instant("finding_formstack.scenario.anon_inter");
+      $scope.finding.escenario = $translate.instant("finding_formstack." +
+                                                    "scenario.anon_inter");
       break;
     case "Anónimo desde Intranet":
-      $scope.finding.escenario = $translate.instant("finding_formstack.scenario.anon_intra");
+      $scope.finding.escenario = $translate.instant("finding_formstack." +
+                                                    "scenario.anon_intra");
       break;
     case "Escaneo de Infraestructura":
-      $scope.finding.escenario = $translate.instant("finding_formstack.scenario.infra_scan");
+      $scope.finding.escenario = $translate.instant("finding_formstack." +
+                                                    "scenario.infra_scan");
       break;
     case "Extranet usuario no autorizado":
-      $scope.finding.escenario = $translate.instant("finding_formstack.scenario.unauth_extra");
+      $scope.finding.escenario = $translate.instant("finding_formstack." +
+                                                    "scenario.unauth_extra");
       break;
     case "Internet usuario autorizado":
-      $scope.finding.escenario = $translate.instant("finding_formstack.scenario.auth_inter");
+      $scope.finding.escenario = $translate.instant("finding_formstack." +
+                                                    "scenario.auth_inter");
       break;
     case "Internet usuario no autorizado":
-      $scope.finding.escenario = $translate.instant("finding_formstack.scenario.unauth_inter");
+      $scope.finding.escenario = $translate.instant("finding_formstack." +
+                                                    "scenario.unauth_inter");
       break;
     case "Intranet usuario autorizado":
-      $scope.finding.escenario = $translate.instant("finding_formstack.scenario.auth_intra");
+      $scope.finding.escenario = $translate.instant("finding_formstack." +
+                                                    "scenario.auth_intra");
       break;
     case "Intranet usuario no autorizado":
-      $scope.finding.escenario = $translate.instant("finding_formstack.scenario.unauth_inter");
+      $scope.finding.escenario = $translate.instant("finding_formstack." +
+                                                    "scenario.unauth_inter");
       break;
     default:
       $scope.finding.escenario = $scope.finding.escenario;
     }
     switch ($scope.finding.estado) {
     case "Abierto":
-      $scope.finding.estado = $translate.instant("finding_formstack.status.open");
+      $scope.finding.estado = $translate.instant("finding_formstack." +
+                                                 "status.open");
       break;
     case "Cerrado":
-      $scope.finding.estado = $translate.instant("finding_formstack.status.close");
+      $scope.finding.estado = $translate.instant("finding_formstack." +
+                                                 "status.close");
       break;
     case "Parcialmente cerrado":
-      $scope.finding.estado = $translate.instant("finding_formstack.status.part_close");
+      $scope.finding.estado = $translate.instant("finding_formstack." +
+                                                 "status.part_close");
       break;
     default:
       $scope.finding.estado = $scope.finding.estado;
     }
     switch ($scope.finding.explotabilidad) {
     case "0.850 | Improbable: No existe un exploit":
-      $scope.finding.explotabilidad = $translate.instant("finding_formstack.exploitability.improbable");
+      $scope.finding.explotabilidad = $translate.instant("finding_formstack." +
+                                                   "exploitability.improbable");
       break;
     case "0.900 | Conceptual: Existen pruebas de laboratorio":
-      $scope.finding.explotabilidad = $translate.instant("finding_formstack.exploitability.conceptual");
+      $scope.finding.explotabilidad = $translate.instant("finding_formstack." +
+                                                   "exploitability.conceptual");
       break;
     case "0.950 | Funcional: Existe exploit":
-      $scope.finding.explotabilidad = $translate.instant("finding_formstack.exploitability.functional");
+      $scope.finding.explotabilidad = $translate.instant("finding_formstack." +
+                                                   "exploitability.functional");
       break;
     case "1.000 | Alta: No se requiere exploit o se puede automatizar":
-      $scope.finding.explotabilidad = $translate.instant("finding_formstack.exploitability.high");
+      $scope.finding.explotabilidad = $translate.instant("finding_formstack." +
+                                                   "exploitability.high");
       break;
     default:
       $scope.finding.explotabilidad = $scope.finding.explotabilidad;
     }
     switch ($scope.finding.explotable) {
     case "Si":
-      $scope.finding.explotable = $translate.instant("finding_formstack.exploitable.yes");
+      $scope.finding.explotable = $translate.instant("finding_formstack." +
+                                                     "exploitable.yes");
       break;
     case "No":
-      $scope.finding.explotable = $translate.instant("finding_formstack.exploitable.no");
+      $scope.finding.explotable = $translate.instant("finding_formstack." +
+                                                     "exploitable.no");
       break;
     default:
       $scope.finding.explotable = $scope.finding.explotable;
     }
     switch ($scope.finding.impactoConfidencialidad) {
     case "0 | Ninguno: No se presenta ningún impacto":
-      $scope.finding.impactoConfidencialidad = $translate.instant("finding_formstack.confidenciality.none");
+      $scope.finding.impactoConfidencialidad =
+                                    $translate.instant("finding_formstack." +
+                                                  "confidenciality.none");
       break;
-    case "0.275 | Parcial: Se obtiene acceso a la información pero no control sobre ella":
-      $scope.finding.impactoConfidencialidad = $translate.instant("finding_formstack.confidenciality.partial");
+    case "0.275 | Parcial: Se obtiene acceso a la " +
+         "información pero no control sobre ella":
+      $scope.finding.impactoConfidencialidad =
+                                    $translate.instant("finding_formstack." +
+                                                  "confidenciality.partial");
       break;
-    case "0.660 | Completo: Se controla toda la información relacionada con el objetivo":
-      $scope.finding.impactoConfidencialidad = $translate.instant("finding_formstack.confidenciality.complete");
+    case "0.660 | Completo: Se controla toda la información " +
+         "relacionada con el objetivo":
+      $scope.finding.impactoConfidencialidad =
+                                    $translate.instant("finding_formstack." +
+                                                  "confidenciality.complete");
       break;
     default:
-      $scope.finding.impactoConfidencialidad = $scope.finding.impactoConfidencialidad;
+      $scope.finding.impactoConfidencialidad =
+      $scope.finding.impactoConfidencialidad;
     }
     switch ($scope.finding.impactoDisponibilidad) {
     case "0 | Ninguno: No se presenta ningún impacto":
-      $scope.finding.impactoDisponibilidad = $translate.instant("finding_formstack.availability.none");
+      $scope.finding.impactoDisponibilidad =
+                                    $translate.instant("finding_formstack." +
+                                                       "availability.none");
       break;
     case "0.275 | Parcial: Se presenta intermitencia en el acceso al objetivo":
-      $scope.finding.impactoDisponibilidad = $translate.instant("finding_formstack.availability.partial");
+      $scope.finding.impactoDisponibilidad =
+                                    $translate.instant("finding_formstack." +
+                                                       "availability.partial");
       break;
     case "0.660 | Completo: Hay una caída total del objetivo":
-      $scope.finding.impactoDisponibilidad = $translate.instant("finding_formstack.availability.complete");
+      $scope.finding.impactoDisponibilidad =
+                                    $translate.instant("finding_formstack." +
+                                                       "availability.complete");
       break;
     default:
-      $scope.finding.impactoDisponibilidad = $scope.finding.impactoDisponibilidad;
+      $scope.finding.impactoDisponibilidad =
+      $scope.finding.impactoDisponibilidad;
     }
     switch ($scope.finding.impactoIntegridad) {
     case "0 | Ninguno: No se presenta ningún impacto":
-      $scope.finding.impactoIntegridad = $translate.instant("finding_formstack.integrity.none");
+      $scope.finding.impactoIntegridad =
+                                    $translate.instant("finding_formstack." +
+                                                       "integrity.none");
       break;
-    case "0.275 | Parcial: Es posible modificar cierta información del objetivo":
-      $scope.finding.impactoIntegridad = $translate.instant("finding_formstack.integrity.partial");
+    case "0.275 | Parcial: Es posible modificar " +
+         "cierta información del objetivo":
+      $scope.finding.impactoIntegridad =
+                                    $translate.instant("finding_formstack." +
+                                                       "integrity.partial");
       break;
-    case "0.660 | Completo: Es posible modificar toda la información del objetivo":
-      $scope.finding.impactoIntegridad = $translate.instant("finding_formstack.integrity.complete");
+    case "0.660 | Completo: Es posible modificar " +
+         "toda la información del objetivo":
+      $scope.finding.impactoIntegridad =
+                                    $translate.instant("finding_formstack." +
+                                                       "integrity.complete");
       break;
     default:
       $scope.finding.impactoIntegridad = $scope.finding.impactoIntegridad;
     }
     switch ($scope.finding.nivelConfianza) {
-    case "0.900 | No confirmado: Existen pocas fuentes que reconocen la vulnerabilidad":
-      $scope.finding.nivelConfianza = $translate.instant("finding_formstack.confidence.not_confirm");
+    case "0.900 | No confirmado: Existen pocas fuentes " +
+         "que reconocen la vulnerabilidad":
+      $scope.finding.nivelConfianza = $translate.instant("finding_formstack." +
+                                                    "confidence.not_confirm");
       break;
-    case "0.950 | No corroborado: La vulnerabilidad es reconocida por fuentes no oficiales":
-      $scope.finding.nivelConfianza = $translate.instant("finding_formstack.confidence.not_corrob");
+    case "0.950 | No corroborado: La vulnerabilidad es " +
+         "reconocida por fuentes no oficiales":
+      $scope.finding.nivelConfianza = $translate.instant("finding_formstack." +
+                                                    "confidence.not_corrob");
       break;
-    case "1.000 | Confirmado: La vulnerabilidad es reconocida por el fabricante":
-      $scope.finding.nivelConfianza = $translate.instant("finding_formstack.confidence.confirmed");
+    case "1.000 | Confirmado: La vulnerabilidad es " +
+         "reconocida por el fabricante":
+      $scope.finding.nivelConfianza = $translate.instant("finding_formstack." +
+                                                    "confidence.confirmed");
       break;
     default:
       $scope.finding.nivelConfianza = $scope.finding.nivelConfianza;
     }
     switch ($scope.finding.nivelResolucion) {
-    case "0.950 | Paliativa: Existe un parche que no fue publicado por el fabricante":
-      $scope.finding.nivelResolucion = $translate.instant("finding_formstack.resolution.palliative");
+    case "0.950 | Paliativa: Existe un parche que " +
+         "no fue publicado por el fabricante":
+      $scope.finding.nivelResolucion = $translate.instant("finding_formstack." +
+                                                     "resolution.palliative");
       break;
     case "0.870 | Oficial: Existe un parche disponible por el fabricante":
-      $scope.finding.nivelResolucion = $translate.instant("finding_formstack.resolution.official");
+      $scope.finding.nivelResolucion = $translate.instant("finding_formstack." +
+                                                     "resolution.official");
       break;
     case "0.900 | Temporal: Existen soluciones temporales":
-      $scope.finding.nivelResolucion = $translate.instant("finding_formstack.resolution.temporal");
+      $scope.finding.nivelResolucion = $translate.instant("finding_formstack." +
+                                                     "resolution.temporal");
       break;
     case "1.000 | Inexistente: No existe solución":
-      $scope.finding.nivelResolucion = $translate.instant("finding_formstack.resolution.non_existent");
+      $scope.finding.nivelResolucion = $translate.instant("finding_formstack." +
+                                                     "resolution.non_existent");
       break;
     default:
       $scope.finding.nivelResolucion = $scope.finding.nivelResolucion;
     }
     switch ($scope.finding.probabilidad) {
     case "100% Vulnerado Anteriormente":
-      $scope.finding.probabilidad = $translate.instant("finding_formstack.probability.prev_vuln");
+      $scope.finding.probabilidad = $translate.instant("finding_formstack." +
+                                                  "probability.prev_vuln");
       break;
     case "75% Fácil de vulnerar":
-      $scope.finding.probabilidad = $translate.instant("finding_formstack.probability.easy_vuln");
+      $scope.finding.probabilidad = $translate.instant("finding_formstack." +
+                                                  "probability.easy_vuln");
       break;
     case "50% Posible de vulnerar":
-      $scope.finding.probabilidad = $translate.instant("finding_formstack.probability.possible_vuln");
+      $scope.finding.probabilidad = $translate.instant("finding_formstack." +
+                                                  "probability.possible_vuln");
       break;
     case "25% Difícil de vulnerar":
-      $scope.finding.probabilidad = $translate.instant("finding_formstack.probability.diffic_vuln");
+      $scope.finding.probabilidad = $translate.instant("finding_formstack." +
+                                                  "probability.diffic_vuln");
       break;
     default:
       $scope.finding.probabilidad = $scope.finding.probabilidad;
     }
     switch ($scope.finding.tipoHallazgoCliente) {
     case "Higiene":
-      $scope.finding.tipoHallazgoCliente = $translate.instant("finding_formstack.findingType.hygiene");
+      $scope.finding.tipoHallazgoCliente =
+                                    $translate.instant("finding_formstack." +
+                                                       "findingType.hygiene");
       break;
     case "Vulnerabilidad":
-      $scope.finding.tipoHallazgoCliente = $translate.instant("finding_formstack.findingType.vuln");
+      $scope.finding.tipoHallazgoCliente =
+                                    $translate.instant("finding_formstack." +
+                                                       "findingType.vuln");
       break;
     default:
       $scope.finding.tipoHallazgoCliente = $scope.finding.tipoHallazgoCliente;
     }
     switch ($scope.finding.tipo_prueba) {
     case "Análisis":
-      $scope.finding.tipoPrueba = $translate.instant("finding_formstack.test_method.analysis");
+      $scope.finding.tipoPrueba = $translate.instant("finding_formstack." +
+                                                "test_method.analysis");
       break;
     case "Aplicación":
-      $scope.finding.tipoPrueba = $translate.instant("finding_formstack.test_method.app");
+      $scope.finding.tipoPrueba = $translate.instant("finding_formstack." +
+                                                "test_method.app");
       break;
     case "Binario":
-      $scope.finding.tipoPrueba = $translate.instant("finding_formstack.test_method.binary");
+      $scope.finding.tipoPrueba = $translate.instant("finding_formstack." +
+                                                "test_method.binary");
       break;
     case "Código":
-      $scope.finding.tipoPrueba = $translate.instant("finding_formstack.test_method.code");
+      $scope.finding.tipoPrueba = $translate.instant("finding_formstack." +
+                                                "test_method.code");
       break;
     case "Infraestructura":
-      $scope.finding.tipoPrueba = $translate.instant("finding_formstack.test_method.infras");
+      $scope.finding.tipoPrueba = $translate.instant("finding_formstack." +
+                                                "test_method.infras");
       break;
     default:
       $scope.finding.tipoPrueba = $scope.finding.tipoPrueba;
     }
     switch ($scope.finding.vectorAcceso) {
     case "0.646 | Red adyacente: Explotable desde el mismo segmento de red":
-      $scope.finding.vectorAcceso = $translate.instant("finding_formstack.access_vector.adjacent");
+      $scope.finding.vectorAcceso = $translate.instant("finding_formstack." +
+                                                  "access_vector.adjacent");
       break;
     case "1.000 | Red: Explotable desde Internet":
-      $scope.finding.vectorAcceso = $translate.instant("finding_formstack.access_vector.network");
+      $scope.finding.vectorAcceso = $translate.instant("finding_formstack." +
+                                                  "access_vector.network");
       break;
     case "0.395 | Local: Explotable con acceso local al objetivo":
-      $scope.finding.vectorAcceso = $translate.instant("finding_formstack.access_vector.local");
+      $scope.finding.vectorAcceso = $translate.instant("finding_formstack." +
+                                                  "access_vector.local");
       break;
     default:
       $scope.finding.vectorAcceso = $scope.finding.vectorAcceso;
     }
     switch ($scope.finding.tratamiento) {
     case "Asumido":
-      $scope.finding.tratamiento = $translate.instant("finding_formstack.treatment_header.asummed");
+      $scope.finding.tratamiento = $translate.instant("finding_formstack." +
+                                                 "treatment_header.asummed");
       break;
     case "Nuevo":
-      $scope.finding.tratamiento = $translate.instant("finding_formstack.treatment_header.working");
+      $scope.finding.tratamiento = $translate.instant("finding_formstack." +
+                                                 "treatment_header.working");
       break;
     case "Remediar":
-      $scope.finding.tratamiento = $translate.instant("finding_formstack.treatment_header.remediated");
+      $scope.finding.tratamiento = $translate.instant("finding_formstack." +
+                                                 "treatment_header.remediated");
       break;
     case "Resuelto":
-      $scope.finding.tratamiento = $translate.instant("finding_formstack.treatment_header.resolved");
+      $scope.finding.tratamiento = $translate.instant("finding_formstack." +
+                                                 "treatment_header.resolved");
       break;
     default:
       $scope.finding.tratamiento = $scope.finding.tratamiento;
@@ -1044,7 +1216,8 @@ integrates.controller("findingcontentCtrl", function findingcontentCtrl (
     $scope.onlyReadableTab1 = true;
     $scope.onlyReadableTab2 = true;
     $scope.isManager = userRole !== "customer";
-    if (!$scope.isManager && !$scope.isAssumed && !$scope.isClosed && $scope.isContinuous) {
+    if (!$scope.isManager && !$scope.isAssumed &&
+        !$scope.isClosed && $scope.isContinuous) {
       $(".finding-treatment").show();
     }
     else {
@@ -1068,7 +1241,8 @@ integrates.controller("findingcontentCtrl", function findingcontentCtrl (
         ]
       },
       "image": {
-        "tError": "<a href=\"%url%\">The image #%curr%</a> could not be loaded.",
+        "tError": "<a href=\"%url%\">The image #%curr%</a> " +
+                  "could not be loaded.",
         "titleSrc" (item) {
           return item.el.attr("title");
         }
@@ -1117,16 +1291,21 @@ integrates.controller("findingcontentCtrl", function findingcontentCtrl (
     $scope.colors.ok = "background-color: #008000;";
   };
   $scope.findingCalculateCSSv2 = function findingCalculateCSSv2 () {
-    const ImpCon = parseFloat($scope.finding.impacto_confidencialidad.split(" | ")[0]);
-    const ImpInt = parseFloat($scope.finding.impacto_integridad.split(" | ")[0]);
-    const ImpDis = parseFloat($scope.finding.impacto_disponibilidad.split(" | ")[0]);
-    const AccCom = parseFloat($scope.finding.complejidad_acceso.split(" | ")[0]);
+    const ImpCon =
+            parseFloat($scope.finding.impacto_confidencialidad.split(" | ")[0]);
+    const ImpInt =
+            parseFloat($scope.finding.impacto_integridad.split(" | ")[0]);
+    const ImpDis =
+            parseFloat($scope.finding.impacto_disponibilidad.split(" | ")[0]);
+    const AccCom =
+            parseFloat($scope.finding.complejidad_acceso.split(" | ")[0]);
     const AccVec = parseFloat($scope.finding.vector_acceso.split(" | ")[0]);
     const Auth = parseFloat($scope.finding.autenticacion.split(" | ")[0]);
     const Explo = parseFloat($scope.finding.explotabilidad.split(" | ")[0]);
     const Resol = parseFloat($scope.finding.nivel_resolucion.split(" | ")[0]);
     const Confi = parseFloat($scope.finding.nivel_confianza.split(" | ")[0]);
-    const BaseScore = ((0.6 * 10.41 * (1 - ((1 - ImpCon) * (1 - ImpInt) * (1 - ImpDis)))) + (0.4 * 20 * AccCom * Auth * AccVec) - 1.5) * 1.176;
+    const BaseScore = ((0.6 * 10.41 * (1 - ((1 - ImpCon) * (1 - ImpInt) *
+           (1 - ImpDis)))) + (0.4 * 20 * AccCom * Auth * AccVec) - 1.5) * 1.176;
     const Temporal = BaseScore * Explo * Resol * Confi;
     const CVSSGeneral = Temporal;
     $scope.finding.cssv2base = BaseScore.toFixed(1);
@@ -1171,17 +1350,21 @@ integrates.controller("findingcontentCtrl", function findingcontentCtrl (
     $scope.tabEvidences = [];
     let url = "";
     const evidenceList = [];
-    const urlPre = `${window.location.href.split("dashboard#!/")[0] + window.location.href.split("dashboard#!/")[1]}/`;
+    const urlPre = `${window.location.href.split("dashboard#!/")[0] +
+                    window.location.href.split("dashboard#!/")[1]}/`;
     const req = projectFtry.getEvidences($scope.finding.id);
     req.then((response) => {
       if (!response.error) {
         if (response.data.length > 0) {
           for (let cont = 0; cont < response.data.length; cont++) {
-            if (typeof response.data[cont].animacion !== "undefined" && response.data[cont].es_animacion === true) {
+            if (typeof response.data[cont].animacion !== "undefined" &&
+                response.data[cont].es_animacion === true) {
               url = urlPre + response.data[cont].animacion;
               evidenceList.push({
-                "desc": $translate.instant("search_findings.tab_evidence.animation_exploit"),
-                "name": $translate.instant("search_findings.tab_evidence.animation_exploit"),
+                "desc": $translate.instant("search_findings." +
+                                           "tab_evidence.animation_exploit"),
+                "name": $translate.instant("search_findings." +
+                                           "tab_evidence.animation_exploit"),
                 "ref": 0,
                 url
               });
@@ -1189,17 +1372,22 @@ integrates.controller("findingcontentCtrl", function findingcontentCtrl (
             else if (typeof $scope.finding.animacion !== "undefined") {
               url = urlPre + $scope.finding.animacion;
               evidenceList.push({
-                "desc": $translate.instant("search_findings.tab_evidence.animation_exploit"),
-                "name": $translate.instant("search_findings.tab_evidence.animation_exploit"),
+                "desc": $translate.instant("search_findings." +
+                                           "tab_evidence.animation_exploit"),
+                "name": $translate.instant("search_findings." +
+                                           "tab_evidence.animation_exploit"),
                 "ref": 0,
                 url
               });
             }
-            if (typeof response.data[cont].explotacion !== "undefined" && response.data[cont].es_explotacion === true) {
+            if (typeof response.data[cont].explotacion !== "undefined" &&
+                       response.data[cont].es_explotacion === true) {
               url = urlPre + response.data[cont].explotacion;
               evidenceList.push({
-                "desc": $translate.instant("search_findings.tab_evidence.evidence_exploit"),
-                "name": $translate.instant("search_findings.tab_evidence.evidence_exploit"),
+                "desc": $translate.instant("search_findings." +
+                                           "tab_evidence.evidence_exploit"),
+                "name": $translate.instant("search_findings." +
+                                           "tab_evidence.evidence_exploit"),
                 "ref": 1,
                 url
               });
@@ -1207,113 +1395,135 @@ integrates.controller("findingcontentCtrl", function findingcontentCtrl (
             else if (typeof $scope.finding.explotacion !== "undefined") {
               url = urlPre + $scope.finding.explotacion;
               evidenceList.push({
-                "desc": $translate.instant("search_findings.tab_evidence.evidence_exploit"),
-                "name": $translate.instant("search_findings.tab_evidence.evidence_exploit"),
+                "desc": $translate.instant("search_findings." +
+                                           "tab_evidence.evidence_exploit"),
+                "name": $translate.instant("search_findings." +
+                                           "tab_evidence.evidence_exploit"),
                 "ref": 1,
                 url
               });
             }
             if (typeof $scope.finding.desc_evidencia_1 !== "undefined" &&
-                          typeof response.data[cont].ruta_evidencia_1 !== "undefined" &&
-                            response.data[cont].es_ruta_evidencia_1 === true) {
+                typeof response.data[cont].ruta_evidencia_1 !== "undefined" &&
+                response.data[cont].es_ruta_evidencia_1 === true) {
               url = urlPre + response.data[cont].ruta_evidencia_1;
               evidenceList.push({
-                "desc": $scope.capitalizeFirstLetter($scope.finding.desc_evidencia_1),
-                "name": `${$translate.instant("search_findings.tab_evidence.evidence_name")} 1`,
+                "desc":
+                  $scope.capitalizeFirstLetter($scope.finding.desc_evidencia_1),
+                "name": `${$translate.instant("search_findings." +
+                                              "tab_evidence.evidence_name")} 1`,
                 "ref": 2,
                 url
               });
             }
             else if (typeof $scope.finding.desc_evidencia_1 !== "undefined" &&
-                          typeof $scope.finding.ruta_evidencia_1 !== "undefined") {
+                     typeof $scope.finding.ruta_evidencia_1 !== "undefined") {
               url = urlPre + $scope.finding.ruta_evidencia_1;
               evidenceList.push({
-                "desc": $scope.capitalizeFirstLetter($scope.finding.desc_evidencia_1),
-                "name": `${$translate.instant("search_findings.tab_evidence.evidence_name")} 1`,
+                "desc":
+                  $scope.capitalizeFirstLetter($scope.finding.desc_evidencia_1),
+                "name": `${$translate.instant("search_findings." +
+                                              "tab_evidence.evidence_name")} 1`,
                 "ref": 2,
                 url
               });
             }
             if (typeof $scope.finding.desc_evidencia_2 !== "undefined" &&
-                          typeof response.data[cont].ruta_evidencia_2 !== "undefined" &&
-                            response.data[cont].es_ruta_evidencia_2 === true) {
+                typeof response.data[cont].ruta_evidencia_2 !== "undefined" &&
+                response.data[cont].es_ruta_evidencia_2 === true) {
               url = urlPre + response.data[cont].ruta_evidencia_2;
               evidenceList.push({
-                "desc": $scope.capitalizeFirstLetter($scope.finding.desc_evidencia_2),
-                "name": `${$translate.instant("search_findings.tab_evidence.evidence_name")} 2`,
+                "desc":
+                  $scope.capitalizeFirstLetter($scope.finding.desc_evidencia_2),
+                "name": `${$translate.instant("search_findings." +
+                                              "tab_evidence.evidence_name")} 2`,
                 "ref": 3,
                 url
               });
             }
             else if (typeof $scope.finding.desc_evidencia_2 !== "undefined" &&
-                          typeof $scope.finding.ruta_evidencia_2 !== "undefined") {
+                     typeof $scope.finding.ruta_evidencia_2 !== "undefined") {
               url = urlPre + $scope.finding.ruta_evidencia_2;
               evidenceList.push({
-                "desc": $scope.capitalizeFirstLetter($scope.finding.desc_evidencia_2),
-                "name": `${$translate.instant("search_findings.tab_evidence.evidence_name")} 2`,
+                "desc":
+                  $scope.capitalizeFirstLetter($scope.finding.desc_evidencia_2),
+                "name": `${$translate.instant("search_findings." +
+                                              "tab_evidence.evidence_name")} 2`,
                 "ref": 3,
                 url
               });
             }
             if (typeof $scope.finding.desc_evidencia_3 !== "undefined" &&
-                          typeof response.data[cont].ruta_evidencia_3 !== "undefined" &&
-                            response.data[cont].es_ruta_evidencia_3 === true) {
+                typeof response.data[cont].ruta_evidencia_3 !== "undefined" &&
+                response.data[cont].es_ruta_evidencia_3 === true) {
               url = urlPre + response.data[cont].ruta_evidencia_3;
               evidenceList.push({
-                "desc": $scope.capitalizeFirstLetter($scope.finding.desc_evidencia_3),
-                "name": `${$translate.instant("search_findings.tab_evidence.evidence_name")} 3`,
+                "desc":
+                  $scope.capitalizeFirstLetter($scope.finding.desc_evidencia_3),
+                "name": `${$translate.instant("search_findings." +
+                                              "tab_evidence.evidence_name")} 3`,
                 "ref": 4,
                 url
               });
             }
             else if (typeof $scope.finding.desc_evidencia_3 !== "undefined" &&
-                          typeof $scope.finding.ruta_evidencia_3 !== "undefined") {
+                     typeof $scope.finding.ruta_evidencia_3 !== "undefined") {
               url = urlPre + $scope.finding.ruta_evidencia_3;
               evidenceList.push({
-                "desc": $scope.capitalizeFirstLetter($scope.finding.desc_evidencia_3),
-                "name": `${$translate.instant("search_findings.tab_evidence.evidence_name")} 3`,
+                "desc":
+                  $scope.capitalizeFirstLetter($scope.finding.desc_evidencia_3),
+                "name": `${$translate.instant("search_findings." +
+                                              "tab_evidence.evidence_name")} 3`,
                 "ref": 4,
                 url
               });
             }
             if (typeof $scope.finding.desc_evidencia_4 !== "undefined" &&
-                          typeof response.data[cont].ruta_evidencia_4 !== "undefined" &&
-                            response.data[cont].es_ruta_evidencia_4 === true) {
+                typeof response.data[cont].ruta_evidencia_4 !== "undefined" &&
+                response.data[cont].es_ruta_evidencia_4 === true) {
               url = urlPre + response.data[cont].ruta_evidencia_4;
               evidenceList.push({
-                "desc": $scope.capitalizeFirstLetter($scope.finding.desc_evidencia_4),
-                "name": `${$translate.instant("search_findings.tab_evidence.evidence_name")} 4`,
+                "desc":
+                  $scope.capitalizeFirstLetter($scope.finding.desc_evidencia_4),
+                "name": `${$translate.instant("search_findings." +
+                                              "tab_evidence.evidence_name")} 4`,
                 "ref": 5,
                 url
               });
             }
             else if (typeof $scope.finding.desc_evidencia_4 !== "undefined" &&
-                          typeof $scope.finding.ruta_evidencia_4 !== "undefined") {
+                     typeof $scope.finding.ruta_evidencia_4 !== "undefined") {
               url = urlPre + $scope.finding.ruta_evidencia_4;
               evidenceList.push({
-                "desc": $scope.capitalizeFirstLetter($scope.finding.desc_evidencia_4),
-                "name": `${$translate.instant("search_findings.tab_evidence.evidence_name")} 4`,
+                "desc":
+                  $scope.capitalizeFirstLetter($scope.finding.desc_evidencia_4),
+                "name": `${$translate.instant("search_findings." +
+                                              "tab_evidence.evidence_name")} 4`,
                 "ref": 5,
                 url
               });
             }
             if (typeof $scope.finding.desc_evidencia_5 !== "undefined" &&
-                          typeof response.data[cont].ruta_evidencia_5 !== "undefined" &&
-                            response.data[cont].es_ruta_evidencia_5 === true) {
+                typeof response.data[cont].ruta_evidencia_5 !== "undefined" &&
+                response.data[cont].es_ruta_evidencia_5 === true) {
               url = urlPre + response.data[cont].ruta_evidencia_5;
               evidenceList.push({
-                "desc": $scope.capitalizeFirstLetter($scope.finding.desc_evidencia_5),
-                "name": `${$translate.instant("search_findings.tab_evidence.evidence_name")} 5`,
+                "desc":
+                  $scope.capitalizeFirstLetter($scope.finding.desc_evidencia_5),
+                "name": `${$translate.instant("search_findings." +
+                                              "tab_evidence.evidence_name")} 5`,
                 "ref": 6,
                 url
               });
             }
             else if (typeof $scope.finding.desc_evidencia_5 !== "undefined" &&
-                          typeof $scope.finding.ruta_evidencia_5 !== "undefined") {
+                     typeof $scope.finding.ruta_evidencia_5 !== "undefined") {
               url = urlPre + $scope.finding.ruta_evidencia_5;
               evidenceList.push({
-                "desc": $scope.capitalizeFirstLetter($scope.finding.desc_evidencia_5),
-                "name": `${$translate.instant("search_findings.tab_evidence.evidence_name")} 5`,
+                "desc":
+                  $scope.capitalizeFirstLetter($scope.finding.desc_evidencia_5),
+                "name": `${$translate.instant("search_findings." +
+                                              "tab_evidence.evidence_name")} 5`,
                 "ref": 6,
                 url
               });
@@ -1326,8 +1536,10 @@ integrates.controller("findingcontentCtrl", function findingcontentCtrl (
           if (typeof $scope.finding.animacion !== "undefined") {
             url = urlPre + $scope.finding.animacion;
             evidenceList.push({
-              "desc": $translate.instant("search_findings.tab_evidence.animation_exploit"),
-              "name": $translate.instant("search_findings.tab_evidence.animation_exploit"),
+              "desc": $translate.instant("search_findings." +
+                                         "tab_evidence.animation_exploit"),
+              "name": $translate.instant("search_findings." +
+                                         "tab_evidence.animation_exploit"),
               "ref": 0,
               url
             });
@@ -1335,58 +1547,70 @@ integrates.controller("findingcontentCtrl", function findingcontentCtrl (
           if (typeof $scope.finding.explotacion !== "undefined") {
             url = urlPre + $scope.finding.explotacion;
             evidenceList.push({
-              "desc": $translate.instant("search_findings.tab_evidence.evidence_exploit"),
-              "name": $translate.instant("search_findings.tab_evidence.evidence_exploit"),
+              "desc": $translate.instant("search_findings." +
+                                         "tab_evidence.evidence_exploit"),
+              "name": $translate.instant("search_findings." +
+                                         "tab_evidence.evidence_exploit"),
               "ref": 1,
               url
             });
           }
           if (typeof $scope.finding.desc_evidencia_1 !== "undefined" &&
-                        typeof $scope.finding.ruta_evidencia_1 !== "undefined") {
+              typeof $scope.finding.ruta_evidencia_1 !== "undefined") {
             url = urlPre + $scope.finding.ruta_evidencia_1;
             evidenceList.push({
-              "desc": $scope.capitalizeFirstLetter($scope.finding.desc_evidencia_1),
-              "name": `${$translate.instant("search_findings.tab_evidence.evidence_name")} 1`,
+              "desc":
+                 $scope.capitalizeFirstLetter($scope.finding.desc_evidencia_1),
+              "name": `${$translate.instant("search_findings." +
+                                            "tab_evidence.evidence_name")} 1`,
               "ref": 2,
               url
             });
           }
           if (typeof $scope.finding.desc_evidencia_2 !== "undefined" &&
-                        typeof $scope.finding.ruta_evidencia_2 !== "undefined") {
+              typeof $scope.finding.ruta_evidencia_2 !== "undefined") {
             url = urlPre + $scope.finding.ruta_evidencia_2;
             evidenceList.push({
-              "desc": $scope.capitalizeFirstLetter($scope.finding.desc_evidencia_2),
-              "name": `${$translate.instant("search_findings.tab_evidence.evidence_name")} 2`,
+              "desc":
+                 $scope.capitalizeFirstLetter($scope.finding.desc_evidencia_2),
+              "name": `${$translate.instant("search_findings." +
+                                            "tab_evidence.evidence_name")} 2`,
               "ref": 3,
               url
             });
           }
           if (typeof $scope.finding.desc_evidencia_3 !== "undefined" &&
-                        typeof $scope.finding.ruta_evidencia_3 !== "undefined") {
+              typeof $scope.finding.ruta_evidencia_3 !== "undefined") {
             url = urlPre + $scope.finding.ruta_evidencia_3;
             evidenceList.push({
-              "desc": $scope.capitalizeFirstLetter($scope.finding.desc_evidencia_3),
-              "name": `${$translate.instant("search_findings.tab_evidence.evidence_name")} 3`,
+              "desc":
+                 $scope.capitalizeFirstLetter($scope.finding.desc_evidencia_3),
+              "name": `${$translate.instant("search_findings." +
+                                            "tab_evidence.evidence_name")} 3`,
               "ref": 4,
               url
             });
           }
           if (typeof $scope.finding.desc_evidencia_4 !== "undefined" &&
-                        typeof $scope.finding.ruta_evidencia_4 !== "undefined") {
+              typeof $scope.finding.ruta_evidencia_4 !== "undefined") {
             url = urlPre + $scope.finding.ruta_evidencia_4;
             evidenceList.push({
-              "desc": $scope.capitalizeFirstLetter($scope.finding.desc_evidencia_4),
-              "name": `${$translate.instant("search_findings.tab_evidence.evidence_name")} 4`,
+              "desc":
+                  $scope.capitalizeFirstLetter($scope.finding.desc_evidencia_4),
+              "name": `${$translate.instant("search_findings." +
+                                            "tab_evidence.evidence_name")} 4`,
               "ref": 5,
               url
             });
           }
           if (typeof $scope.finding.desc_evidencia_5 !== "undefined" &&
-                        typeof $scope.finding.ruta_evidencia_5 !== "undefined") {
+              typeof $scope.finding.ruta_evidencia_5 !== "undefined") {
             url = urlPre + $scope.finding.ruta_evidencia_5;
             evidenceList.push({
-              "desc": $scope.capitalizeFirstLetter($scope.finding.desc_evidencia_5),
-              "name": `${$translate.instant("search_findings.tab_evidence.evidence_name")} 5`,
+              "desc":
+                  $scope.capitalizeFirstLetter($scope.finding.desc_evidencia_5),
+              "name": `${$translate.instant("search_findings." +
+                                            "tab_evidence.evidence_name")} 5`,
               "ref": 6,
               url
             });
@@ -1419,8 +1643,10 @@ integrates.controller("findingcontentCtrl", function findingcontentCtrl (
           const saveComment = function saveComment (data) {
             // Convert pings to human readable format
             $(data.pings).each((index, id) => {
-              const userInfo = usersArray.filter((user) => userInfo.id === id)[0];
-              data.content = data.content.replace(`@${id}`, `@${userInfo.fullname}`);
+              const userInfo =
+                        usersArray.filter((user) => userInfo.id === id)[0];
+              data.content =
+                        data.content.replace(`@${id}`, `@${userInfo.fullname}`);
             });
             return data;
           };
@@ -1441,7 +1667,8 @@ integrates.controller("findingcontentCtrl", function findingcontentCtrl (
               }, 500);
             },
             "postComment" (data, success, error) {
-              data.id = parseInt(Math.round(new Date() / 1000).toString() + (Math.random() * 10000).toString(9), 10);
+              data.id = parseInt(Math.round(new Date() / 1000).toString() +
+                        (Math.random() * 10000).toString(9), 10);
               data.findingName = $scope.finding.hallazgo;
               data.project = $scope.finding.proyecto_fluid;
               data.findingUrl = window.location.href;
@@ -1452,7 +1679,14 @@ integrates.controller("findingcontentCtrl", function findingcontentCtrl (
                   // Tracking mixpanel
                   const org = Organization.toUpperCase();
                   const projt = $stateParams.project.toUpperCase();
-                  mixPanelDashboard.trackFindingDetailed("FindingNewComment", userName, userEmail, org, projt, $scope.finding.id);
+                  mixPanelDashboard.trackFindingDetailed(
+                    "FindingNewComment",
+                    userName,
+                    userEmail,
+                    org,
+                    projt,
+                    $scope.finding.id
+                  );
                   setTimeout(() => {
                     success(data);
                   }, 500);
@@ -1514,7 +1748,10 @@ integrates.controller("findingcontentCtrl", function findingcontentCtrl (
           for (let cont = 0; cont < response.data.length; cont++) {
             if (typeof response.data[cont].registros_archivo !== "undefined" &&
                             response.data[cont].es_registros_archivo === true) {
-              record = projectFtry.getRecords($scope.finding.id, response.data[cont].registros_archivo);
+              record = projectFtry.getRecords(
+                $scope.finding.id,
+                response.data[cont].registros_archivo
+              );
               $scope.hasRecords = true;
               findingData.hasRecords = $scope.hasRecords;
               record.then((response) => {
@@ -1522,22 +1759,30 @@ integrates.controller("findingcontentCtrl", function findingcontentCtrl (
               });
             }
             else if (typeof $scope.finding.registros_archivo !== "undefined") {
-              record = projectFtry.getRecords($scope.finding.id, $scope.finding.registros_archivo);
+              record = projectFtry.getRecords(
+                $scope.finding.id,
+                $scope.finding.registros_archivo
+              );
               $scope.hasRecords = true;
               findingData.hasRecords = $scope.hasRecords;
               record.then((response) => {
                 respFunction(response);
               });
             }
-            else if ((typeof $scope.finding.registros_archivo === "undefined" || typeof response.data[cont].registros_archivo === "undefined") &&
-                            response.data[cont].es_registros_archivo === false) {
+            else if ((
+              typeof $scope.finding.registros_archivo === "undefined" ||
+              typeof response.data[cont].registros_archivo === "undefined") &&
+              response.data[cont].es_registros_archivo === false) {
               $scope.hasRecords = false;
               findingData.hasRecords = $scope.hasRecords;
             }
           }
         }
         else if (typeof $scope.finding.registros_archivo !== "undefined") {
-          record = projectFtry.getRecords($scope.finding.id, $scope.finding.registros_archivo);
+          record = projectFtry.getRecords(
+            $scope.finding.id,
+            $scope.finding.registros_archivo
+          );
           $scope.hasRecords = true;
           record.then((response) => {
             if (!response.error) {
@@ -1567,7 +1812,8 @@ integrates.controller("findingcontentCtrl", function findingcontentCtrl (
             }
           });
         }
-        else if (response.data.length <= 0 || typeof $scope.finding.registros_archivo === "undefined") {
+        else if (response.data.length <= 0 ||
+                 typeof $scope.finding.registros_archivo === "undefined") {
           $scope.hasRecords = false;
           findingData.hasRecords = $scope.hasRecords;
         }
@@ -1591,13 +1837,22 @@ integrates.controller("findingcontentCtrl", function findingcontentCtrl (
         severidad = parseFloat(severidad);
         const vRiesgo = prob * severidad;
         if (vRiesgo >= 3) {
-          $scope.finding.valorRiesgo = "(:r) Critico".replace(":r", vRiesgo.toFixed(1));
+          $scope.finding.valorRiesgo = "(:r) Critico".replace(
+            ":r",
+            vRiesgo.toFixed(1)
+          );
         }
         else if (vRiesgo >= 2 && vRiesgo < 3) {
-          $scope.finding.valorRiesgo = "(:r) Moderado".replace(":r", vRiesgo.toFixed(1));
+          $scope.finding.valorRiesgo = "(:r) Moderado".replace(
+            ":r",
+            vRiesgo.toFixed(1)
+          );
         }
         else {
-          $scope.finding.valorRiesgo = "(:r) Tolerable".replace(":r", vRiesgo.toFixed(1));
+          $scope.finding.valorRiesgo = "(:r) Tolerable".replace(
+            ":r",
+            vRiesgo.toFixed(1)
+          );
         }
         return true;
       }
@@ -1650,7 +1905,8 @@ integrates.controller("findingcontentCtrl", function findingcontentCtrl (
       "animation": true,
       "backdrop": "static",
       "controller" ($scope, $uibModalInstance, updateData) {
-        $scope.modalTitle = $translate.instant("confirmmodal.title_description");
+        $scope.modalTitle = $translate.instant("confirmmodal." +
+                                               "title_description");
         $scope.ok = function ok () {
           // Consumir el servicio
           const req = projectFtry.UpdateDescription(updateData);
@@ -1663,7 +1919,11 @@ integrates.controller("findingcontentCtrl", function findingcontentCtrl (
               $uibModalInstance.close();
               location.reload();
               // Tracking mixpanel
-              mixPanelDashboard.trackFinding("UpdateFinding", userEmail, descData.id);
+              mixPanelDashboard.trackFinding(
+                "UpdateFinding",
+                userEmail,
+                descData.id
+              );
             }
             else if (response.error) {
               Rollbar.error("Error: An error occurred updating description");
@@ -1700,8 +1960,9 @@ integrates.controller("findingcontentCtrl", function findingcontentCtrl (
   };
   $scope.updateTreatment = function updateTreatment () {
     let flag = false;
-    if ($scope.aux.tratamiento === $scope.finding.tratamiento && $scope.aux.razon === $scope.finding.razonTratamiento &&
-      $scope.aux.bts !== $scope.finding.btsExterno) {
+    if ($scope.aux.tratamiento === $scope.finding.tratamiento &&
+        $scope.aux.razon === $scope.finding.razonTratamiento &&
+        $scope.aux.bts !== $scope.finding.btsExterno) {
       flag = true;
     }
     else if ($scope.validateTreatment()) {
@@ -1719,7 +1980,9 @@ integrates.controller("findingcontentCtrl", function findingcontentCtrl (
         "animation": true,
         "backdrop": "static",
         "controller" ($scope, $uibModalInstance, updateData) {
-          $scope.modalTitle = $translate.instant("search_findings.tab_description.update_treatmodal");
+          $scope.modalTitle = $translate.instant("search_findings." +
+                                                 "tab_description." +
+                                                 "update_treatmodal");
           $scope.ok = function ok () {
             // Consumir el servicio
             const req = projectFtry.UpdateTreatment(updateData);
@@ -1728,14 +1991,27 @@ integrates.controller("findingcontentCtrl", function findingcontentCtrl (
               if (!response.error) {
                 const org = Organization.toUpperCase();
                 const projt = $stateParams.project.toUpperCase();
-                mixPanelDashboard.trackFindingDetailed("FindingUpdateTreatment", userName, userEmail, org, projt, newData.id);
-                $msg.success($translate.instant("proj_alerts.updated_treat"), $translate.instant("proj_alerts.congratulation"));
+                mixPanelDashboard.trackFindingDetailed(
+                  "FindingUpdateTreatment",
+                  userName,
+                  userEmail,
+                  org,
+                  projt,
+                  newData.id
+                );
+                $msg.success(
+                  $translate.instant("proj_alerts." +
+                                           "updated_treat"),
+                  $translate.instant("proj_alerts." +
+                                                         "congratulation")
+                );
                 $uibModalInstance.close();
                 location.reload();
               }
               else if (response.error) {
                 Rollbar.error("Error: An error occurred updating treatment");
-                const errorAc1 = $translate.instant("proj_alerts.error_textsad");
+                const errorAc1 = $translate.instant("proj_alerts." +
+                                                    "error_textsad");
                 $msg.error(errorAc1);
               }
             });
@@ -1765,7 +2041,8 @@ integrates.controller("findingcontentCtrl", function findingcontentCtrl (
       "backdrop": "static",
       "controller" ($scope, $uibModalInstance, mailData) {
         $scope.remediatedData = {};
-        $scope.modalTitle = $translate.instant("search_findings.tab_description.remediated_finding");
+        $scope.modalTitle = $translate.instant("search_findings." +
+                                          "tab_description.remediated_finding");
         $scope.ok = function ok () {
           $scope.remediatedData.userMail = mailData.userMail;
           $scope.remediatedData.findingName = mailData.findingName;
@@ -1773,9 +2050,11 @@ integrates.controller("findingcontentCtrl", function findingcontentCtrl (
           $scope.remediatedData.findingUrl = mailData.findingUrl;
           $scope.remediatedData.findingId = mailData.findingId;
           $scope.remediatedData.findingVulns = mailData.findingVulns;
-          $scope.remediatedData.justification = $scope.remediatedData.justification.trim();
+          $scope.remediatedData.justification =
+                                $scope.remediatedData.justification.trim();
           if ($scope.remediatedData.justification.length < 100) {
-            $msg.error($translate.instant("proj_alerts.short_remediated_comment"));
+            $msg.error($translate.instant("proj_alerts." +
+                                          "short_remediated_comment"));
           }
           else {
             // Consumir el servicio
@@ -1786,13 +2065,26 @@ integrates.controller("findingcontentCtrl", function findingcontentCtrl (
                 // Tracking mixpanel
                 const org = Organization.toUpperCase();
                 const projt = descData.project.toUpperCase();
-                mixPanelDashboard.trackFindingDetailed("FindingRemediated", userName, userEmail, org, projt, descData.findingId);
+                mixPanelDashboard.trackFindingDetailed(
+                  "FindingRemediated",
+                  userName,
+                  userEmail,
+                  org,
+                  projt,
+                  descData.findingId
+                );
                 $scope.remediated = response.data.remediated;
-                $msg.success($translate.instant("proj_alerts.remediated_success"), $translate.instant("proj_alerts.updatedTitle"));
+                $msg.success(
+                  $translate.instant("proj_alerts." +
+                                           "remediated_success"),
+                  $translate.instant("proj_alerts." +
+                                            "updatedTitle")
+                );
                 $uibModalInstance.close();
                 location.reload();
                 const data = {};
-                data.id = parseInt(Math.round(new Date() / 1000).toString() + (Math.random() * 10000).toString(9), 10);
+                data.id = parseInt(Math.round(new Date() / 1000).toString() +
+                          (Math.random() * 10000).toString(9), 10);
                 data.content = $scope.remediatedData.justification;
                 data.parent = 0;
                 data.email = $scope.remediatedData.userMail;
@@ -1800,10 +2092,15 @@ integrates.controller("findingcontentCtrl", function findingcontentCtrl (
                 data.project = $scope.remediatedData.project;
                 data.findingUrl = $scope.remediatedData.findingUrl;
                 data.remediated = true;
-                const comment = projectFtry.addComment($scope.remediatedData.findingId, data);
+                const comment =
+                         projectFtry.addComment(
+                           $scope.remediatedData.findingId,
+                           data
+                         );
               }
               else if (response.error) {
-                Rollbar.error("Error: An error occurred when remediating the finding");
+                Rollbar.error("Error: An error occurred when " +
+                              "remediating the finding");
                 $msg.error($translate.instant("proj_alerts.error_textsad"));
               }
             });
@@ -1834,7 +2131,8 @@ integrates.controller("findingcontentCtrl", function findingcontentCtrl (
           }
         }
         else if (response.error) {
-          Rollbar.error("Error: An error occurred when remediating/verifying the finding");
+          Rollbar.error("Error: An error occurred when " +
+                        "remediating/verifying the finding");
         }
       });
     }
@@ -1855,7 +2153,8 @@ integrates.controller("findingcontentCtrl", function findingcontentCtrl (
       "animation": true,
       "backdrop": "static",
       "controller" ($scope, $uibModalInstance, mailData) {
-        $scope.modalTitle = $translate.instant("search_findings.tab_description.verified_finding");
+        $scope.modalTitle = $translate.instant("search_findings." +
+                                          "tab_description.verified_finding");
         $scope.ok = function ok () {
           // Consumir el servicio
           const req = projectFtry.FindingVerified(mailData);
@@ -1865,15 +2164,24 @@ integrates.controller("findingcontentCtrl", function findingcontentCtrl (
               // Tracking mixpanel
               const org = Organization.toUpperCase();
               const projt = descData.project.toUpperCase();
-              mixPanelDashboard.trackFindingDetailed("FindingVerified", userName, userEmail, org, projt, descData.findingId);
+              mixPanelDashboard.trackFindingDetailed(
+                "FindingVerified",
+                userName,
+                userEmail,
+                org,
+                projt,
+                descData.findingId
+              );
               const updatedAt = $translate.instant("proj_alerts.updatedTitle");
-              const updatedAc = $translate.instant("proj_alerts.verified_success");
+              const updatedAc = $translate.instant("proj_alerts." +
+                                                   "verified_success");
               $msg.success(updatedAc, updatedAt);
               $uibModalInstance.close();
               location.reload();
             }
             else if (response.error) {
-              Rollbar.error("Error: An error occurred when verifying the finding");
+              Rollbar.error("Error: An error occurred " +
+                            "when verifying the finding");
               $msg.error($translate.instant("proj_alerts.error_textsad"));
             }
           });
@@ -1891,28 +2199,38 @@ integrates.controller("findingcontentCtrl", function findingcontentCtrl (
     $scope.view.finding = false;
     projectData = [];
     $state.go("ProjectFindings", {"project": $scope.project});
-    $("html, body").animate({"scrollTop": $scope.currentScrollPosition}, "fast");
+    $("html, body").animate(
+      {"scrollTop": $scope.currentScrollPosition},
+      "fast"
+    );
   };
   $scope.urlDescription = function urlDescription () {
-    location.replace(`${window.location.href.split($stateParams.id)[0] + $stateParams.id}/description`);
+    location.replace(`${window.location.href.split($stateParams.id)[0] +
+                      $stateParams.id}/description`);
   };
   $scope.urlSeverity = function urlSeverity () {
-    location.replace(`${window.location.href.split($stateParams.id)[0] + $stateParams.id}/severity`);
+    location.replace(`${window.location.href.split($stateParams.id)[0] +
+                      $stateParams.id}/severity`);
   };
   $scope.urlTracking = function urlTracking () {
-    location.replace(`${window.location.href.split($stateParams.id)[0] + $stateParams.id}/tracking`);
+    location.replace(`${window.location.href.split($stateParams.id)[0] +
+                      $stateParams.id}/tracking`);
   };
   $scope.urlEvidence = function urlEvidence () {
-    location.replace(`${window.location.href.split($stateParams.id)[0] + $stateParams.id}/evidence`);
+    location.replace(`${window.location.href.split($stateParams.id)[0] +
+                      $stateParams.id}/evidence`);
   };
   $scope.urlExploit = function urlExploit () {
-    location.replace(`${window.location.href.split($stateParams.id)[0] + $stateParams.id}/exploit`);
+    location.replace(`${window.location.href.split($stateParams.id)[0] +
+                      $stateParams.id}/exploit`);
   };
   $scope.urlRecords = function urlRecords () {
-    location.replace(`${window.location.href.split($stateParams.id)[0] + $stateParams.id}/records`);
+    location.replace(`${window.location.href.split($stateParams.id)[0] +
+                      $stateParams.id}/records`);
   };
   $scope.urlComments = function urlComments () {
-    location.replace(`${window.location.href.split($stateParams.id)[0] + $stateParams.id}/comments`);
+    location.replace(`${window.location.href.split($stateParams.id)[0] +
+                      $stateParams.id}/comments`);
   };
   $scope.init = function init () {
     const projectName = $stateParams.project;
@@ -1961,7 +2279,14 @@ integrates.controller("findingcontentCtrl", function findingcontentCtrl (
       $("#commentItem").removeClass("active");
       $("#comment").removeClass("active");
       // Tracking mixpanel
-      mixPanelDashboard.trackFindingDetailed("FindingDescription", userName, userEmail, org, projt, $scope.finding.id);
+      mixPanelDashboard.trackFindingDetailed(
+        "FindingDescription",
+        userName,
+        userEmail,
+        org,
+        projt,
+        $scope.finding.id
+      );
     }
     if (window.location.hash.indexOf("severity") !== -1) {
       $("#infoItem").removeClass("active");
@@ -1977,7 +2302,15 @@ integrates.controller("findingcontentCtrl", function findingcontentCtrl (
       $("#commentItem").removeClass("active");
       $("#comment").removeClass("active");
       // Tracking mixpanel
-      mixPanelDashboard.trackFindingDetailed("FindingSeverity", userName, userEmail, org, projt, $scope.finding.id);
+      mixPanelDashboard.trackFindingDetailed(
+        "FindingSeverity",
+        userName,
+        userEmail,
+        org,
+        projt,
+
+        $scope.finding.id
+      );
     }
     if (window.location.hash.indexOf("tracking") !== -1) {
       $("#infoItem").removeClass("active");
@@ -1993,7 +2326,14 @@ integrates.controller("findingcontentCtrl", function findingcontentCtrl (
       $("#commentItem").removeClass("active");
       $("#comment").removeClass("active");
       // Tracking mixpanel
-      mixPanelDashboard.trackFindingDetailed("FindingTracking", userName, userEmail, org, projt, $scope.finding.id);
+      mixPanelDashboard.trackFindingDetailed(
+        "FindingTracking",
+        userName,
+        userEmail,
+        org,
+        projt,
+        $scope.finding.id
+      );
     }
     if (window.location.hash.indexOf("evidence") !== -1) {
       $("#infoItem").removeClass("active");
@@ -2009,7 +2349,14 @@ integrates.controller("findingcontentCtrl", function findingcontentCtrl (
       $("#commentItem").removeClass("active");
       $("#comment").removeClass("active");
       // Tracking mixpanel
-      mixPanelDashboard.trackFindingDetailed("FindingEvidence", userName, userEmail, org, projt, $scope.finding.id);
+      mixPanelDashboard.trackFindingDetailed(
+        "FindingEvidence",
+        userName,
+        userEmail,
+        org,
+        projt,
+        $scope.finding.id
+      );
     }
     if (window.location.hash.indexOf("exploit") !== -1) {
       $("#infoItem").removeClass("active");
@@ -2025,7 +2372,14 @@ integrates.controller("findingcontentCtrl", function findingcontentCtrl (
       $("#exploitItem").addClass("active");
       $("#exploit").addClass("active");
       // Tracking mixpanel
-      mixPanelDashboard.trackFindingDetailed("FindingExploit", userName, userEmail, org, projt, $scope.finding.id);
+      mixPanelDashboard.trackFindingDetailed(
+        "FindingExploit",
+        userName,
+        userEmail,
+        org,
+        projt,
+        $scope.finding.id
+      );
     }
     if (window.location.hash.indexOf("records") !== -1) {
       $("#infoItem").removeClass("active");
@@ -2044,7 +2398,14 @@ integrates.controller("findingcontentCtrl", function findingcontentCtrl (
       $("#records").addClass("active");
       $scope.findingRecordsTab();
       // Tracking mixpanel
-      mixPanelDashboard.trackFindingDetailed("FindingRecords", userName, userEmail, org, projt, $scope.finding.id);
+      mixPanelDashboard.trackFindingDetailed(
+        "FindingRecords",
+        userName,
+        userEmail,
+        org,
+        projt,
+        $scope.finding.id
+      );
     }
     if (window.location.hash.indexOf("comments") !== -1) {
       $("#infoItem").removeClass("active");
@@ -2061,7 +2422,14 @@ integrates.controller("findingcontentCtrl", function findingcontentCtrl (
       $("#comment").addClass("active");
       $scope.findingCommentTab();
       // Tracking mixpanel
-      mixPanelDashboard.trackFindingDetailed("FindingComments", userName, userEmail, org, projt, $scope.finding.id);
+      mixPanelDashboard.trackFindingDetailed(
+        "FindingComments",
+        userName,
+        userEmail,
+        org,
+        projt,
+        $scope.finding.id
+      );
     }
   };
   $scope.init();

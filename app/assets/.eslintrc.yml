@@ -181,7 +181,7 @@ rules:
   lines-around-comment: error
   lines-between-class-members: error
   max-depth: error
-  #max-len: error
+  max-len: error
   max-nested-callbacks: error
   max-statements-per-line: error
   multiline-comment-style: error
