@@ -1105,7 +1105,6 @@ def finding_verified(request):
         to = [x[0] for x in recipients if x[1] == 1]
         to.append('continuous@fluidattacks.com')
         to.append('projects@fluidattacks.com')
-        to.append('ralvarez@fluidattacks.com')
         context = {
            'project': parameters['data[project]'],
            'finding_name': parameters['data[findingName]'],
