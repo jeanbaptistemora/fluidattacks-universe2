@@ -23,7 +23,7 @@ Hemos mostrado cómo encontrar y explotar vulnerabilidades como
 link:../importancia-pentesting/[inyecciones]
 link:../../../en/blog/fuzzy-bugs-online/#comparison-with-manual-injection[+SQL+],
 link:../gherkin-esteroides/#deteccion-y-explotacion-dinamica[recorrido de directorios],
-link:../../../en/blog/xml-exploitable-markup-language/#injecting-xpath-into-a-vulnerable-app/[inyección +XPath+],
+link:../xml-exploitable-markup-language/#inyectando-xpath-en-una-aplicacion-vulnerable[inyección +XPath+],
 e
 link:../../../en/blog/app-pickle/#documenting-attack-vectors/[inyección de comandos +UNIX+].
 Todas ellas tienen una cosa en común, a saber:
@@ -35,7 +35,7 @@ link:../../../en/blog/app-pickle/[+str_replace+] o
 link:../gherkin-esteroides/[+strpos+].
 
 Tomando algunas ideas del
-link:../../../en/blog/stand-shoulders-giants/[análisis de código estático]
+link:../pararse-hombros-gigantes/[análisis de código estático]
 y el enfoque de
 link:../oraculo-codigo/['código como datos'],
 ¿qué tal si pudiéramos utilizar algún tipo de código

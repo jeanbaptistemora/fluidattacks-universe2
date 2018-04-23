@@ -12,6 +12,7 @@
 :name: Rafael Ballestas
 :about1: Mathematician
 :about2: with an itch for CS
+:translate: pararse-hombros-gigantes/
 
 = Stand on the shoulders of giants
 
@@ -64,7 +65,7 @@ by large companies,
 all of a sudden dependency vulnerability
 appears to be one link:https://en.wikipedia.org/wiki/Dependency_hell[hell] of a problem.
 Or rather, as yuppies would like to point out,
-a ``bussiness opportunity''?
+a ``business opportunity''?
 
 Many providers of so-called
 ``software composition analysis'' (+SCA+)
@@ -73,7 +74,7 @@ have since appeared in the security scene.
 Some of them are backed by
 long-standing companies;
 most are not.
-In fact this bussiness has gained such momentum,
+In fact this business has gained such momentum,
 that it is expected to grow more than 20% each year
 from now
 link:https://www.prnewswire.com/news-releases/the-software-composition-analysis-market-is-expected-to-grow-from-usd-1540-million-in-2017-to-usd-3984-million-by-2022-at-a-compound-annual-growth-rate-cagr-of-209-300595028.html[to 2022].
@@ -144,7 +145,7 @@ suffer from +A9+:
 
 In essence,
 it all boils down to a lack of communication
-between the user and the source of the componentes.
+between the user and the source of the components.
 
 == The good
 
@@ -163,7 +164,7 @@ they compare the version of the dependency you are using against both
 remote repositories (to check for updates) and
 vulnerability databases (like
 to find out if any of your dependencies has
-reported vulnerabilitites that have not been fixed yet.
+reported vulnerabilities that have not been fixed yet.
 
 * For +JavaScript+ you can use link:https://github.com/retirejs/retire.js/[+retire.js+].
 * +Java+ users have the link:http://www.mojohaus.org/versions-maven-plugin/[+Versions+] plugin for +Maven+.
@@ -269,7 +270,7 @@ According to <<r3 ,[3]>>,
 The only way to deal with
 the risk of unknown vulnerabilities in libraries is
 to have someone who understands security
-analyze the source code.
+analyse the source code.
 Static analysis of libraries is best thought of as
 providing hints where security vulnerabilities might be
 located in the code,
