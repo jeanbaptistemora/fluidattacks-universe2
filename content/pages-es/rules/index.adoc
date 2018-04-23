@@ -157,7 +157,7 @@
 * link:126/[REQ.126 Establecer mecanismo de restauración].
 * link:127/[REQ.127 Almacenar contraseña mediante criptografía].
 * link:128/[REQ.128 Establecer única fuente de datos].
-* link:129/[REQ.129 Contraseñas con al menos 1 dígito].
+* link:129/[REQ.129 Validar contraseñas precedentes].
 * link:130/[REQ.130 Limitar tiempo de vida en contraseñas].
 * link:131/[REQ.131 Impedir cambiar contraseña mas de una vez].
 * link:132/[REQ.132 Contraseñas con al menos 4 palabras].
@@ -174,6 +174,7 @@
 * link:143/[REQ.143 Credenciales de acceso únicas].
 * link:144/[REQ.144 Depurar cuentas periódicamente].
 * link:992/[REQ.992 Contraseñas con al menos 1 carácter especial].
+* link:993/[REQ.993 Contraseñas con al menos 1 dígito].
 * link:994/[REQ.994 Contraseñas con al menos 1 mayúscula].
 * link:995/[REQ.995 Contraseñas con al menos 1 minúscula].
 * link:996/[REQ.996 Contraseñas con al menos 8 caracteres].
