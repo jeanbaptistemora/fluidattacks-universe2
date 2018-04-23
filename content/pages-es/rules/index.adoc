@@ -173,7 +173,7 @@
 * link:142/[REQ.142 Modificar credenciales de acceso por defecto].
 * link:143/[REQ.143 Credenciales de acceso únicas].
 * link:144/[REQ.144 Depurar cuentas periódicamente].
-* link:992/[REQ.992 Contraseñas con al menos 1 carácter especial].
+* link:992/[REQ.992 Contraseñas con 1 carácter especial].
 * link:993/[REQ.993 Contraseñas con al menos 1 dígito].
 * link:994/[REQ.994 Contraseñas con al menos 1 mayúscula].
 * link:995/[REQ.995 Contraseñas con al menos 1 minúscula].
