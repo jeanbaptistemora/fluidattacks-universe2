@@ -9,4 +9,4 @@
 == Nombre
 
 El sistema no debe exponer identificadores de sesión
-en URLs y mensajes presentados al usuario.
+en +URLs+ y mensajes presentados al usuario.
