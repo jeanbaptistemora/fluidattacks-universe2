@@ -64,6 +64,7 @@ class FindingDTO(object):
     RAZON_TRATAMIENTO = "59351642"
     RESPONSABLE_TRATAMIENTO = "59381058"
     BTS_EXTERNO = "56614832"
+    ULTIMA_VULNERABILIDAD = "63672923"
 
     #Atributos CssV2
     VECTOR_ACCESO = "38529247"
@@ -85,6 +86,14 @@ class FindingDTO(object):
     def create(self, parameter):
         self.create_description(parameter)
         self.create_cssv2(parameter)
+
+    def create_last_vulnerability(self, parameter):
+        if "id" in parameter:
+            self.request_id \
+                = parameter["id"]
+        if "ultimaVulnerabilidad" in parameter:
+            self.data[self.ULTIMA_VULNERABILIDAD] \
+                = parameter["ultimaVulnerabilidad"]
 
     def create_evidence_description(self, parameter): # noqa: C901
         """ Convierte los indices de un JSON a indices
@@ -156,6 +165,9 @@ class FindingDTO(object):
         if "data[registros_num]" in parameter:
             self.data[self.REG_NUM] \
                 = parameter["data[registros_num]"]
+        if "data[ultimaVulnerabilidad]" in parameter:
+            self.data[self.ULTIMA_VULNERABILIDAD] \
+                = parameter["data[ultimaVulnerabilidad]"]
         if "data[nivel]" in parameter:
             self.data[self.CLASE] \
                 = parameter["data[nivel]"]
@@ -330,6 +342,8 @@ class FindingDTO(object):
                 self.data["responsableTratamiento"] = finding["value"]
             if finding["field"] == self.BTS_EXTERNO:
                 self.data["bts_externo"] = finding["value"]
+            if finding["field"] == self.ULTIMA_VULNERABILIDAD:
+                self.data["ultimaVulnerabilidad"] = finding["value"]
             if finding["field"] == self.CWE:
                 try:
                     value = int(finding["value"])

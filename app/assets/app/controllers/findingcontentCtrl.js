@@ -758,6 +758,7 @@ integrates.controller("findingcontentCtrl", function findingcontentCtrl (
     $scope.aux = {};
     $scope.aux.tratamiento = $scope.finding.tratamiento;
     $scope.aux.razon = $scope.finding.razonTratamiento;
+    $scope.aux.cardinalidad = $scope.finding.cardinalidad;
     $scope.hasCompromisedAttributes = true;
     if (typeof $scope.finding.registros === "undefined") {
       $scope.hasCompromisedAttributes = false;
@@ -1892,6 +1893,10 @@ integrates.controller("findingcontentCtrl", function findingcontentCtrl (
       "vector_ataque": $scope.finding.vector_ataque,
       "vulnerabilidad": $scope.finding.vulnerabilidad
     };
+    if ($scope.aux.cardinalidad !== $scope.finding.cardinalidad) {
+      const todayDate = new Date();
+      descData.ultimaVulnerabilidad = todayDate.toISOString().slice(0, 10);
+    }
     if (descData.nivel === "Detallado") {
       // Recalcular Severidad
       const choose = $scope.findingCalculateSeveridad();

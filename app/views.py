@@ -87,11 +87,12 @@ def project_findings(request):
         "search_findings": {
             "headings": {
                 "action": "Action",
-                "age": "Age (Days)",
+                "age": "Age (D)",
                 "cardinality": "Open Vuln.",
                 "criticity": "Severity",
                 "exploit": "Exploitable",
                 "finding": "Title",
+                "lastVulnerability": "Last Vuln. (D)",
                 "state": "Status",
                 "timestamp": "Date",
                 "treatment": "Treatment",
@@ -114,11 +115,12 @@ def project_findings(request):
             "search_findings": {
                 "headings": {
                     "action": "Accion",
-                    "age": "Edad (Días)",
+                    "age": "Edad (D)",
                     "cardinality": "Vuln. Abiertas",
                     "criticity": "Severidad",
                     "exploit": "Explotable",
                     "finding": "Titulo",
+                    "lastVulnerability": "Última Vuln. (D)",
                     "state": "Estado",
                     "timestamp": "Fecha",
                     "treatment": "Tratamiento",
@@ -504,7 +506,16 @@ def catch_finding(request, submission_id):
             if state['estado'] == 'Cerrado':
                 finding['donde'] = '-'
                 finding['edad'] = '-'
+                finding['ultimaVulnerabilidad'] = '-'
             else:
+                if 'timestamp' in state:
+                    if 'ultimaVulnerabilidad' in finding and \
+                        finding['ultimaVulnerabilidad'] != state['timestamp']:
+                        finding['ultimaVulnerabilidad'] = state['timestamp']
+                        generic_dto = FindingDTO()
+                        generic_dto.create_last_vulnerability(finding)
+                        generic_dto.to_formstack()
+                        api.update(generic_dto.request_id, generic_dto.data)
                 tzn = pytz.timezone('America/Bogota')
                 finding_date = datetime.strptime(
                     finding["timestamp"].split(" ")[0],
@@ -513,6 +524,13 @@ def catch_finding(request, submission_id):
                 finding_date = finding_date.replace(tzinfo=tzn).date()
                 final_date = (datetime.now(tz=tzn).date() - finding_date)
                 finding['edad'] = ":n".replace(":n", str(final_date.days))
+                finding_last_vuln = datetime.strptime(
+                    finding["ultimaVulnerabilidad"].split(" ")[0],
+                    '%Y-%m-%d'
+                )
+                finding_last_vuln = finding_last_vuln.replace(tzinfo=tzn).date()
+                final_vuln_date = (datetime.now(tz=tzn).date() - finding_last_vuln)
+                finding['ultimaVulnerabilidad'] = ":n".replace(":n", str(final_vuln_date.days))
             return finding
     else:
         rollbar.report_message('Error: An error occurred catching finding', 'error', request)
