@@ -174,6 +174,7 @@
 * link:143/[REQ.143 Credenciales de acceso únicas].
 * link:144/[REQ.144 Depurar cuentas periódicamente].
 * link:992/[REQ.992 Contraseñas con al menos 1 carácter especial].
+* link:995/[REQ.995 Contraseñas con al menos 1 minúscula].
 * link:996/[REQ.996 Contraseñas con al menos 8 caracteres].
 * link:997/[REQ.997 Contraseñas sin palabras de diccionario].
 
