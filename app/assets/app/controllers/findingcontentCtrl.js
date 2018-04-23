@@ -30,7 +30,7 @@ accessComplexity, projectData:true
 integrates.controller("findingcontentCtrl", function findingcontentCtrl (
   $scope, $stateParams, $timeout,
   $uibModal, $translate, $state,
-  ngNotify, findingFactory, projectFtry
+  ngNotify, projectFtry
 ) {
   $scope.findingHeaderBuilding = function findingHeaderBuilding () {
     $scope.header = {};
@@ -720,7 +720,7 @@ integrates.controller("findingcontentCtrl", function findingcontentCtrl (
       $scope.loadFindingContent();
     }
     else {
-      const req = findingFactory.getVulnById(id);
+      const req = projectFtry.FindingById(id);
       req.then((response) => {
         if (!response.error && $stateParams.project ===
             response.data.proyecto_fluid.toLowerCase()) {

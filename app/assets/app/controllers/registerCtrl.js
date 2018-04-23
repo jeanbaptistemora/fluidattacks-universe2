@@ -43,7 +43,8 @@ integrates.controller("registerCtrl", function dashboardCtrl (
   /**
    * Cambia el lenguaje del dashboard
    * @function changeLang
-   * @member integrates.dashboardCtrl
+   * @param {string} langKey Language key set by the user
+   * @member integrates.registerCtrl
    * @return {undefined}
    */
   $scope.changeLang = function changeLang (langKey) {

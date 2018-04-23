@@ -16,9 +16,10 @@ integrates.factory("eventualityFactory", ($q) => ({
   /**
    * Obtiene los submission de una eventualidad
    * @function getEvntByName
-   * @param {String} project
+   * @param {String} project Project Name
+   * @param {String} category Search filter: By Name or ID
    * @member integrates.eventualityFactory
-   * @return {Object}
+   * @return {Object} Formstack response with the eventualities of a project
    */
   "getEvntByName" (project, category) {
     const deferred = $q.defer();
@@ -63,9 +64,9 @@ integrates.factory("eventualityFactory", ($q) => ({
   /**
    * Actualiza una eventualidad
    * @function updateEvnt
-   * @param {Object} vuln
+   * @param {Object} vuln New data about an eventuality
    * @member integrates.eventualityFactory
-   * @return {Object}
+   * @return {Object} Formstack response about update request
    */
   "updateEvnt" (vuln) {
     const deferred = $q.defer();

@@ -31,7 +31,9 @@ $(document).ready(() => {
 });
 
 /**
- * Function isUpperCase return input string in uppercase
+ * @function isUpperCase
+ * @param {string} str Input string
+ * @return {boolean} Boolean if input string is in upper case
  */
 function isUpperCase (str) {
   return str === str.toUpperCase();
@@ -64,7 +66,10 @@ const publicSpreadsheetUrl = "https://docs.google.com/spreadsheets/d/1L37WnF" +
                              "6enoC8Ws8vs9sr0G29qBLwbe-3ztbuopu1nvc/pubhtml";
 
 /**
- * Function showInfo return info about findings
+ * @function showInfo
+ * @param {Object} data Data entered by an analist
+ * @param {Object} tabletop Tabletop instance
+ * @return {undefined} Info about findings
  */
 function showInfo (data, tabletop) {
   const obj = $.parseJSON(JSON.stringify(data));

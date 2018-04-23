@@ -1,4 +1,3 @@
-
 /* eslint no-magic-numbers: ["error", { "ignore":
                                   [-1,0,0.4,0.6,1,1.176,1.5,2,4,4.611,10,
                                   10.41,13,20,43.221,100,200,300,1000,3000] }]*/
@@ -10,15 +9,18 @@ nonexploitLabel:true, totalHigLabel:true, $scope:true,explotable:true, i:true,
 totalSegLabel:true, openLabel:true, partialLabel:true, $msg, integrates, j:true,
 document, userName, userEmail, Rollbar, aux:true, json:true, eventsData:true, $,
 closeLabel:true, mixPanelDashboard, win:true, window, Organization, userRole,
-
- * @file ProjectCtrl.js
+ */
+/**
+ * @file projectFindingsCtrl.js
  * @author engineering@fluidattacks.com
  */
-/* Table Formatter */
 /**
- * Function removeHour return date without hour
+ * @function removeHour
+ * @param {string} value Date of the finging with hour
+ * @member integrates.registerCtrl
+ * @return {string} Date without hour
  */
-function removeHour (value, row, index) {
+function removeHour (value) {
   if (value.indexOf(":") !== -1) {
     return value.split(" ")[0];
   }
@@ -26,9 +28,12 @@ function removeHour (value, row, index) {
 }
 
 /**
- * Function labelState return html code for specific label
+ * @function labelState
+ * @param {string} value Status of the finding
+ * @member integrates.registerCtrl
+ * @return {string} Html code for specific label
  */
-function labelState (value, row, index) {
+function labelState (value) {
   if (value === "Cerrado") {
     return "<label class='label label-success' style='background-color: " +
            "#31c0be'>Cerrado</label>";

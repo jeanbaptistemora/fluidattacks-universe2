@@ -69,6 +69,7 @@ integrates.controller("dashboardCtrl", function dashboardCtrl (
   /**
    * Cambia el lenguaje del dashboard
    * @function changeLang
+   * @param {string} langKey Language key set by the user
    * @member integrates.dashboardCtrl
    * @return {undefined}
    */

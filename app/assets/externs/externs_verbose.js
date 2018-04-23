@@ -150,5 +150,6 @@ var complejidad_acceso = {};   \
 var vector_acceso = {};   \
 var nivel_resolucion = {};  \
 var nivel_confianza = {};  \
-var tipo_prueba = {};  ";
+var tipo_prueba = {};  \
+var FindingById = {}; ";
 module.exports = { functions: variables }

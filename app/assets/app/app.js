@@ -5,10 +5,10 @@
  * @author engineering@fluidattacks.com
  */
 /**
- * Obtiene una cookie atraves de su nombre
+ * Obtiene una cookie a traves de su nombre
  * @function getCookie
- * @param {string} name
- * @return {null|string}
+ * @param {string} name Cookie name
+ * @return {null|string} Return the cookies of a previous session
  */
 function getCookie (name) {
   let cookieValue = null;
@@ -28,8 +28,8 @@ function getCookie (name) {
 /**
  * Verifica el metodo por el cual se va a enviar una peticion de cookie
  * @function csrfSafeMethod
- * @param {String} method
- * @return {boolean}
+ * @param {String} method Request method for get cookies
+ * @return {boolean} Return boolean if request method is valid
  */
 function csrfSafeMethod (method) {
   return (/^(GET|HEAD|OPTIONS)$/).test(method);
@@ -38,8 +38,8 @@ function csrfSafeMethod (method) {
 /**
  * Verifica si la url dada esta dentro del mismo dominio
  * @function sameOrigin
- * @param {String} url
- * @return {boolean}
+ * @param {string} url User actual url
+ * @return {boolean} Boolean response if user actual url is valid
  */
 function sameOrigin (url) {
   const hostOrigin = document.location.host;

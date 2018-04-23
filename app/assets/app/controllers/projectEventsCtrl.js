@@ -12,9 +12,12 @@ mixPanelDashboard, win:true, window, Organization, projectData:true, i:true
  * @author engineering@fluidattacks.com
  */
 /**
- * Function labelEventState return html code for specific label
+ * @function labelEventState
+ * @param {string} value Status of an eventuality
+ * @member integrates.registerCtrl
+ * @return {string|boolean} Html code for specific label
  */
-function labelEventState (value, row, index) {
+function labelEventState (value) {
   if (value === "Tratada") {
     return "<label class='label label-success' style='background-color: " +
            "#31c0be'>Tratada</label>";

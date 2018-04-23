@@ -7,7 +7,7 @@
 /**
  * Crea el factory de la funcionalidad de hallazgos
  * @name projectFtry
- * @param {Object} $q
+ * @param {Object} $q Angular constructor
  * @return {undefined}
  */
 /** @export */
@@ -17,9 +17,9 @@ integrates.factory("projectFtry", ($q, $translate) => ({
    * Invoca el servicio para actualizar la seccion
    * descriptiva de un hallazgo
    * @function DeleteFinding
-   * @param {JSON} data
+   * @param {JSON} data Data about the finding, including id
    * @member integrates.projectFtry
-   * @return {Object}
+   * @return {Object} Response with the status of the delete request
    */
   "DeleteFinding" (data) {
     const oopsAc = $translate.instant("proj_alerts.error_text");
@@ -32,10 +32,10 @@ integrates.factory("projectFtry", ($q, $translate) => ({
   /**
    * Invoca el servicio para tener las eventualidades de un proyecto
    * @function EventualityByName
-   * @param {String} project
-   * @param {String} category
+   * @param {String} project Project name
+   * @param {String} category Search filter: By Name or ID
    * @member integrates.projectFtry
-   * @return {Object}
+   * @return {Object} Formstack response with the eventualities of a project
    */
   "EventualityByName" (project, category) {
     const oopsAc = $translate.instant("proj_alerts.error_text");
@@ -49,9 +49,9 @@ integrates.factory("projectFtry", ($q, $translate) => ({
   /**
    * Invoca el servicio para tener el detalle de un hallazgo
    * @function FindingById
-   * @param {Integer} id
+   * @param {Integer} id Numeric ID of a finding
    * @member integrates.projectFtry
-   * @return {Object}
+   * @return {Object} Formstack response with the data of a finding
    */
   "FindingById" (id) {
     const oopsAc = $translate.instant("proj_alerts.error_text");
@@ -63,9 +63,9 @@ integrates.factory("projectFtry", ($q, $translate) => ({
 
   /**
    * @function FindingSolved
-   * @param {JSON} data
+   * @param {JSON} data Data about the finding, including id
    * @member integrates.projectFtry
-   * @return {Object}s
+   * @return {Object} Response about the verification request
    */
   "FindingSolved" (data) {
     const oopsAc = $translate.instant("proj_alerts.error_text");
@@ -78,9 +78,9 @@ integrates.factory("projectFtry", ($q, $translate) => ({
   /**
    * Invoca el servicio para mostrar si fue verificado un hallazgo
    * @function FindingVerified
-   * @param {JSON} data
+   * @param {JSON} data Data about the finding, including id
    * @member integrates.projectFtry
-   * @return {Object}s
+   * @return {Object} Response about the verfication status of a finding
    */
   "FindingVerified" (data) {
     const oopsAc = $translate.instant("proj_alerts.error_text");
@@ -93,11 +93,11 @@ integrates.factory("projectFtry", ($q, $translate) => ({
   /**
    * Invoca el servicio para tener el detalle de un hallazgo
    * @function ProjectDoc
-   * @param {String} project
-   * @param {JSON} json
-   * @param {String} format
+   * @param {String} project Project name
+   * @param {JSON} json Data in project
+   * @param {String} format Report type: Technical or Executive
    * @member integrates.projectFtry
-   * @return {Object}
+   * @return {Object} Response about the report generation
    */
   "ProjectDoc" (project, json, format) {
     const oopsAc = $translate.instant("proj_alerts.error_text");
@@ -113,9 +113,9 @@ integrates.factory("projectFtry", ($q, $translate) => ({
   /**
    * Invoca el servicio para mostrar si fue remediado un hallazgo
    * @function RemediatedView
-   * @param {JSON} data
+   * @param {String} id Numeric ID of a finding
    * @member integrates.projectFtry
-   * @return {Object}s
+   * @return {Object}  DynamoDB response about the remediate status of a finding
    */
   "RemediatedView" (id) {
     const oopsAc = $translate.instant("proj_alerts.error_text");
@@ -127,10 +127,10 @@ integrates.factory("projectFtry", ($q, $translate) => ({
 
   /**
    * Invoca el servicio para mostrar la severidad total del proyecto
-   * @function RemediatedView
-   * @param {String} project
+   * @function TotalSeverity
+   * @param {String} project Project name
    * @member integrates.projectFtry
-   * @return {Object}s
+   * @return {Object} DynamoDB response with the total severity of a project
    */
   "TotalSeverity" (project) {
     const oopsAc = $translate.instant("proj_alerts.error_text");
@@ -144,9 +144,9 @@ integrates.factory("projectFtry", ($q, $translate) => ({
    * Invoca el servicio para actualizar la seccion
    * cssv2 de un hallazgo
    * @function UpdateCSSv2
-   * @param {JSON} data
+   * @param {JSON} data New data in the severity tab
    * @member integrates.projectFtry
-   * @return {Object}
+   * @return {Object} Formstack response about severity update request
    */
   "UpdateCSSv2" (data) {
     const oopsAc = $translate.instant("proj_alerts.error_text");
@@ -160,9 +160,9 @@ integrates.factory("projectFtry", ($q, $translate) => ({
    * Invoca el servicio para actualizar la seccion
    * descriptiva de un hallazgo
    * @function UpdateDescription
-   * @param {JSON} data
+   * @param {JSON} data New data in the description tab
    * @member integrates.projectFtry
-   * @return {Object}
+   * @return {Object} Formstack response about description update request
    */
   "UpdateDescription" (data) {
     const oopsAc = $translate.instant("proj_alerts.error_text");
@@ -219,9 +219,9 @@ integrates.factory("projectFtry", ($q, $translate) => ({
   /**
    * Invoca el servicio para actualizar el tratamiento de un hallazgo
    * @function UpdateTreatment
-   * @param {JSON} data
+   * @param {JSON} data New data in the treatment section
    * @member integrates.projectFtry
-   * @return {Object}
+   * @return {Object} Formstack response about the post request
    */
   "UpdateTreatment" (data) {
     const oopsAc = $translate.instant("proj_alerts.error_text");
@@ -234,10 +234,10 @@ integrates.factory("projectFtry", ($q, $translate) => ({
   /**
    * Invoca el servicio para agregar nuevos comentarios en un hallazgo
    * @function addComment
-   * @param {String} id
-   * @param {Object} data
+   * @param {String} id Numeric id of the finding
+   * @param {Object} data Data of the finding, including id of the comment
    * @member integrates.projectFtry
-   * @return {Object}
+   * @return {Object} DynamoDB reponse about the post request
    */
   "addComment" (id, data) {
     const oopsAc = $translate.instant("proj_alerts.error_text");
@@ -251,10 +251,10 @@ integrates.factory("projectFtry", ($q, $translate) => ({
   /**
    * Invoca el servicio para eliminar los comentarios en un hallazgo
    * @function deleteComment
-   * @param {String} id
-   * @param {Object} data
+   * @param {String} id Numeric id of the finding
+   * @param {Object} data Data of the finding, including id of the comment
    * @member integrates.projectFtry
-   * @return {Object}
+   * @return {Object} Response by DynamoDB about the delete request
    */
   "deleteComment" (id, data) {
     const oopsAc = $translate.instant("proj_alerts.error_text");
@@ -268,10 +268,10 @@ integrates.factory("projectFtry", ($q, $translate) => ({
   /**
    * Invoca el servicio para tener las alertas de una compañia
    * @function getAlerts
-   * @param {String} company
-   * @param {String} project
+   * @param {String} company Company name
+   * @param {String} project Project name
    * @member integrates.projectFtry
-   * @return {Object}
+   * @return {Object} Response by DynamoDB with project or company alerts
    */
   "getAlerts" (company, project) {
     const oopsAc = $translate.instant("proj_alerts.error_text");
@@ -285,9 +285,9 @@ integrates.factory("projectFtry", ($q, $translate) => ({
   /**
    * Invoca el servicio para tener los comentarios de un hallazgo
    * @function getComments
-   * @param {String} id
+   * @param {String} id Numeric id of the finding
    * @member integrates.projectFtry
-   * @return {Object}
+   * @return {Object} Response by DynamoDB finding comments
    */
   "getComments" (id) {
     const oopsAc = $translate.instant("proj_alerts.error_text");
@@ -300,9 +300,9 @@ integrates.factory("projectFtry", ($q, $translate) => ({
   /**
    * Invoca el servicio para tener las evidencias de un hallazgo
    * @function getEvidences
-   * @param {String} id
+   * @param {String} id Numeric id of finding
    * @member integrates.projectFtry
-   * @return {Object}
+   * @return {Object} Response by DynamoDB and S3 with finding evidences
    */
   "getEvidences" (id) {
     const oopsAc = $translate.instant("proj_alerts.error_text");
@@ -315,9 +315,10 @@ integrates.factory("projectFtry", ($q, $translate) => ({
   /**
    * Invoca el servicio para tener el exploit de un hallazgo
    * @function getExploit
-   * @param {String} link
+   * @param {String} findingid Numeric id of finding
+   * @param {String} id Unique id of the exploit
    * @member integrates.projectFtry
-   * @return {Object}
+   * @return {Object} Response with exploit data
    */
   "getExploit" (findingid, id) {
     const oopsAc = $translate.instant("proj_alerts.error_text");
@@ -329,12 +330,12 @@ integrates.factory("projectFtry", ($q, $translate) => ({
   },
 
   /**
-   * Invoca el servicio para tener el exploit de un hallazgo
+   * Invoca el servicio para tener los records de un hallazgo
    * @function getRecords
-   * @param {String} findingid
-   * @param {String} id
+   * @param {String} findingid Numeric id of finding
+   * @param {String} id Unique id of the record
    * @member integrates.projectFtry
-   * @return {Object}
+   * @return {Object} Response with records data
    */
   "getRecords" (findingid, id) {
     const oopsAc = $translate.instant("proj_alerts.error_text");
@@ -348,16 +349,14 @@ integrates.factory("projectFtry", ($q, $translate) => ({
   /**
    * Invoca el servicio para tener los hallazgos de un proyecto
    * @function projectByName
-   * @param {String} project
-   * @param {String} filter
+   * @param {String} project Project name
    * @member integrates.projectFtry
-   * @return {Object}
+   * @return {Object} Response by Formstack with findings data
    */
-  "projectByName" (project, filter) {
+  "projectByName" (project) {
     const oopsAc = $translate.instant("proj_alerts.error_text");
     return $xhr.get($q, `${BASE.url}get_findings`, {
       "_": Math.random(),
-      filter,
       project
     }, oopsAc);
   }

@@ -7,11 +7,11 @@
  */
 /**
  * Establece la configuracion de las traducciones de integrates
+ * @name config
  * @config {AngularJS}
- * @param {Object} $translateProvider
+ * @param {Object} $translateProvider Angular translator dependecy
  * @return {undefined}
  */
-/** @export */
 integrates.config([
   "$translateProvider",
   function config ($translateProvider) {
