@@ -65,7 +65,7 @@ Para este nivel básico,
 podemos hacer uso de herramientas precargadas en los navegadores +web+
 como es el visualizador de código fuente.
 El código fuente de un sitio +web+,
-es un conjunto de etiquetas conocidas como etiquetas link:https://www.w3schools.com/html/[+html+],
+es un conjunto de etiquetas conocidas como etiquetas link:https://www.w3schools.com/html/[+HTML+],
 hojas de estilos en cascada (link:https://www.w3schools.com/css/[+CSS+]-+Cascading Stylesheets+)
 y algunas veces, segmentos de código denominados +scripts+ de link:https://www.w3schools.com/js/[+JS+].
 Podemos acceder a dicha herramienta
@@ -81,10 +81,10 @@ image::viewsourcecode.png[vps]
 
 Una vez realizada dicha acción,
 se despliega una nueva pestaña en el navegador
-donde podrás ver todo el +html+, +CSS+ y +JS+ que componen la página +web+.
+donde podrás ver todo el +HTML+, +CSS+ y +JS+ que componen la página +web+.
 La línea que nos interesa es la 29.
-En esta, podemos observar un comentario +html+
-(los comentarios en +html+ van entre las etiquetas <!-- y -\->
+En esta, podemos observar un comentario +HTML+
+(los comentarios en +HTML+ van entre las etiquetas <!-- y -\->
 y no son desplegados o mostrados por el navegador)
 el cual contiene las credenciales de acceso válidas para el reto:
 
@@ -109,7 +109,7 @@ Podemos acceder a esta funcionalidad
 presionando +click+ derecho y buscar la opción con dicho nombre,
 o también puedes presionar la tecla +f12+.
 Una vez desplegada la herramienta,
-busca la siguiente línea dentro de las etiquetas +html:+
+busca la siguiente línea dentro de las etiquetas +HTML:+
 
 .+hackthis:+ solución al reto +MAIN 2+
 image::level2answer.png[solucion-2]
@@ -147,7 +147,7 @@ image::level6.png[reto-3]
 
 En esta ocasión, se solicita ingresar con el usuario *Ronald*,
 el cual, no se encuentra disponible entre las opciones por defecto.
-Sin embargo, podemos jugar nuevamente con las etiquetas +html+
+Sin embargo, podemos jugar nuevamente con las etiquetas +HTML+
 que conforman la página +web+ (presionando la tecla +f12+)
 y agregar la opción _Ronald_ dentro de la etiqueta +<select>+:
 
@@ -204,7 +204,7 @@ y podremos resolver el reto.
 Para concluir, *BAJO NINGUNA CIRCUNSTANCIA* se debe almacenar información
 confidencial dentro del código fuente
 (lo cual es considerado una mala práctica),
-sin importar si es +html+, +CSS+ o +JS+.
+sin importar si es +HTML+, +CSS+ o +JS+.
 Además, si bien es cierto que dominar un lenguaje de programación
 es muy importante, en lo personal,
 considero que aprender sobre buenas prácticas de desarrollo

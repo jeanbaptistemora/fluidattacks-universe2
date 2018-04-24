@@ -54,7 +54,7 @@ En él se especifica el tipo de archivo de imagen
 que se va a enviar al usuario.
 
 . Incluir en la forma de ingreso de información
-el campo tipo imagen (elemento +html+ +img+),
+el campo tipo imagen (elemento +HTML+ +img+),
 el cual desplegará la imagen que se va mostrar al usuario.
 Y el campo +valorCaptcha+,
 que contendrá el texto ingresado por el usuario.
