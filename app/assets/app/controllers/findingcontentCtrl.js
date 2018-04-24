@@ -904,7 +904,7 @@ integrates.controller("findingcontentCtrl", function findingcontentCtrl (
     default:
       $scope.finding.categoria = $scope.finding.categoria;
     }
-    switch ($scope.finding.complejidadAcceso) {
+    switch ($scope.finding.complejidad_acceso) {
     case "0.350 | Alto: Se requieren condiciones " +
          "especiales como acceso administrativo":
       $scope.finding.complejidadAcceso =
@@ -1009,7 +1009,7 @@ integrates.controller("findingcontentCtrl", function findingcontentCtrl (
     default:
       $scope.finding.explotable = $scope.finding.explotable;
     }
-    switch ($scope.finding.impactoConfidencialidad) {
+    switch ($scope.finding.impacto_confidencialidad) {
     case "0 | Ninguno: No se presenta ningún impacto":
       $scope.finding.impactoConfidencialidad =
                                     $translate.instant("finding_formstack." +
@@ -1031,7 +1031,7 @@ integrates.controller("findingcontentCtrl", function findingcontentCtrl (
       $scope.finding.impactoConfidencialidad =
       $scope.finding.impactoConfidencialidad;
     }
-    switch ($scope.finding.impactoDisponibilidad) {
+    switch ($scope.finding.impacto_disponibilidad) {
     case "0 | Ninguno: No se presenta ningún impacto":
       $scope.finding.impactoDisponibilidad =
                                     $translate.instant("finding_formstack." +
@@ -1051,7 +1051,7 @@ integrates.controller("findingcontentCtrl", function findingcontentCtrl (
       $scope.finding.impactoDisponibilidad =
       $scope.finding.impactoDisponibilidad;
     }
-    switch ($scope.finding.impactoIntegridad) {
+    switch ($scope.finding.impacto_integridad) {
     case "0 | Ninguno: No se presenta ningún impacto":
       $scope.finding.impactoIntegridad =
                                     $translate.instant("finding_formstack." +
@@ -1072,7 +1072,7 @@ integrates.controller("findingcontentCtrl", function findingcontentCtrl (
     default:
       $scope.finding.impactoIntegridad = $scope.finding.impactoIntegridad;
     }
-    switch ($scope.finding.nivelConfianza) {
+    switch ($scope.finding.nivel_confianza) {
     case "0.900 | No confirmado: Existen pocas fuentes " +
          "que reconocen la vulnerabilidad":
       $scope.finding.nivelConfianza = $translate.instant("finding_formstack." +
@@ -1091,7 +1091,7 @@ integrates.controller("findingcontentCtrl", function findingcontentCtrl (
     default:
       $scope.finding.nivelConfianza = $scope.finding.nivelConfianza;
     }
-    switch ($scope.finding.nivelResolucion) {
+    switch ($scope.finding.nivel_resolucion) {
     case "0.950 | Paliativa: Existe un parche que " +
          "no fue publicado por el fabricante":
       $scope.finding.nivelResolucion = $translate.instant("finding_formstack." +
@@ -1170,7 +1170,7 @@ integrates.controller("findingcontentCtrl", function findingcontentCtrl (
     default:
       $scope.finding.tipoPrueba = $scope.finding.tipoPrueba;
     }
-    switch ($scope.finding.vectorAcceso) {
+    switch ($scope.finding.vector_acceso) {
     case "0.646 | Red adyacente: Explotable desde el mismo segmento de red":
       $scope.finding.vectorAcceso = $translate.instant("finding_formstack." +
                                                   "access_vector.adjacent");
