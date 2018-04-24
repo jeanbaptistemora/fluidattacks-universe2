@@ -17,10 +17,12 @@ bajo las cuales la siguiente solución tiene sentido:
 
 . Disponer de un sistema operativo conforme a la especificación +Unix+.
 . Se tiene acceso a la interfaz de comandos (+CLI+) del sistema en cuestión.
+. El sistema debe cerrar una sesión
+si se presenta un tiempo de inactividad por parte del usuario.<<r1, ^[1]^>>
 
 == Solución
 
-El tiempo límite de sesión o +timeout+<<r1,^[1]^>>,
+El tiempo límite de sesión o +timeout+<<r2,^[2]^>>,
 se refiere al periodo de tiempo determinado
 por el cual una sesión permanecerá activa.
 Lo anterior desde el momento en que
@@ -45,7 +47,7 @@ cuyo nombre varia dependiendo del +shell+ con el cual se este trabajando.
 . Los +shells bourne+ y +korn+ utilizan la variable +TMOUT+.
 
 . Para establecer dicha variable a nivel de sistema
-se debe parametrizar el archivo de inicio de sesión así<<r2,^[2]^>>:
+se debe parametrizar el archivo de inicio de sesión así<<r3,^[3]^>>:
 +
 .test.sh
 [source, bash, linenums]
@@ -105,5 +107,6 @@ hace caso omiso de su comportamiento.
 
 == Referencias
 
-. [[r1]] link:https://en.wikipedia.org/wiki/Timeout_(computing)[Timeout (computing)].
-. [[r2]] link:http://rm-rf.es/bash-y-ssh-establecer-timeout-por-inactividad/[Establecer timeout por inactividad].
+. [[r1]] link:../../../rules/023/[REQ.023 Cerrar sesión de un usuario inactivo].
+. [[r2]] link:https://en.wikipedia.org/wiki/Timeout_(computing)[Timeout (computing)].
+. [[r3]] link:http://rm-rf.es/bash-y-ssh-establecer-timeout-por-inactividad/[Establecer timeout por inactividad].
