@@ -102,19 +102,19 @@ class FindingDTO(object):
             self.request_id \
                 = parameter["data[id]"]
         if "data[" + parameter["data[field]"] + "]" in parameter:
-            if parameter["data[field]"] == "desc_evidencia_1":
+            if parameter["data[field]"] == "desEvidencia1":
                 self.data[self.DOC_CMNT1] \
                 = parameter["data[" + parameter["data[field]"] + "]"]
-            if parameter["data[field]"] == "desc_evidencia_2":
+            if parameter["data[field]"] == "descEvidencia2":
                 self.data[self.DOC_CMNT2] \
                 = parameter["data[" + parameter["data[field]"] + "]"]
-            if parameter["data[field]"] == "desc_evidencia_3":
+            if parameter["data[field]"] == "descEvidencia3":
                 self.data[self.DOC_CMNT3] \
                 = parameter["data[" + parameter["data[field]"] + "]"]
-            if parameter["data[field]"] == "desc_evidencia_4":
+            if parameter["data[field]"] == "descEvidencia4":
                 self.data[self.DOC_CMNT4] \
                 = parameter["data[" + parameter["data[field]"] + "]"]
-            if parameter["data[field]"] == "desc_evidencia_5":
+            if parameter["data[field]"] == "descEvidencia5":
                 self.data[self.DOC_CMNT5] \
                 = parameter["data[" + parameter["data[field]"] + "]"]
     def create_description(self, parameter): # noqa: C901
