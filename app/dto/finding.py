@@ -213,9 +213,9 @@ class FindingDTO(object):
         if "data[vector_acceso]" in parameter:
             self.data[self.VECTOR_ACCESO] \
                 = parameter["data[vector_acceso]"]
-        if "data[complejidad_acceso]" in parameter:
+        if "data[complejidadAcceso]" in parameter:
             self.data[self.COMPLEJIDAD_ACCESO] \
-                = parameter["data[complejidad_acceso]"]
+                = parameter["data[complejidadAcceso]"]
         if "data[autenticacion]" in parameter:
             self.data[self.AUTENTICACION] \
                 = parameter["data[autenticacion]"]
@@ -225,15 +225,15 @@ class FindingDTO(object):
         if "data[criticidad]" in parameter:
             self.data[self.CRITICIDAD] \
                 = parameter["data[criticidad]"]
-        if "data[impacto_confidencialidad]" in parameter:
+        if "data[impactoConfidencialidad]" in parameter:
             self.data[self.IMPACTO_CONFIDENCIALIDAD] \
-                = parameter["data[impacto_confidencialidad]"]
-        if "data[impacto_integridad]" in parameter:
+                = parameter["data[impactoConfidencialidad]"]
+        if "data[impactoIntegridad]" in parameter:
             self.data[self.IMPACTO_INTEGRIDAD] \
-                = parameter["data[impacto_integridad]"]
-        if "data[impacto_disponibilidad]" in parameter:
+                = parameter["data[impactoIntegridad]"]
+        if "data[impactoDisponibilidad]" in parameter:
             self.data[self.IMPACTO_DISPONIBILIDAD] \
-                = parameter["data[impacto_disponibilidad]"]
+                = parameter["data[impactoDisponibilidad]"]
         if "data[nivel_resolucion]" in parameter:
             self.data[self.NIVEL_RESOLUCION] \
                 = parameter["data[nivel_resolucion]"]
@@ -374,15 +374,15 @@ class FindingDTO(object):
             if finding["field"] == self.VECTOR_ACCESO:
                 self.data["vector_acceso"] = finding["value"]
             if finding["field"] == self.COMPLEJIDAD_ACCESO:
-                self.data["complejidad_acceso"] = finding["value"]
+                self.data["complejidadAcceso"] = finding["value"]
             if finding["field"] == self.AUTENTICACION:
                 self.data["autenticacion"] = finding["value"]
             if finding["field"] == self.IMPACTO_CONFIDENCIALIDAD:
-                self.data["impacto_confidencialidad"] = finding["value"]
+                self.data["impactoConfidencialidad"] = finding["value"]
             if finding["field"] == self.IMPACTO_INTEGRIDAD:
-                self.data["impacto_integridad"] = finding["value"]
+                self.data["impactoIntegridad"] = finding["value"]
             if finding["field"] == self.IMPACTO_DISPONIBILIDAD:
-                self.data["impacto_disponibilidad"] = finding["value"]
+                self.data["impactoDisponibilidad"] = finding["value"]
             if finding["field"] == self.EXPLOTABILIDAD:
                 self.data["explotabilidad"] = finding["value"]
             if finding["field"] == self.NIVEL_RESOLUCION:

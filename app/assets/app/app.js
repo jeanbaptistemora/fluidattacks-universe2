@@ -1,5 +1,8 @@
 /* eslint no-magic-numbers: ["error", { "ignore": [1, -1, 0] }]*/
-/* global document, jQuery, $, location, angular, isProduction:true */
+/* global
+document, jQuery, $, location, angular,
+isProduction:true, translations, traducciones
+*/
 /**
  * @file app.js
  * @author engineering@fluidattacks.com
@@ -136,5 +139,26 @@ integrates.config([
       "enabled": isProduction,
       "payload": {"environment": "production"}
     });
+  }
+]);
+
+/**
+ * Establece la configuracion de las traducciones de integrates
+ * @name config
+ * @config {AngularJS}
+ * @param {Object} $translateProvider Angular translator dependecy
+ * @return {undefined}
+ */
+integrates.config([
+  "$translateProvider",
+  function config ($translateProvider) {
+    $translateProvider.useSanitizeValueStrategy("sanitizeParameters");
+    if (typeof localStorage.lang === "undefined") {
+      localStorage.lang = "en";
+    }
+    $translateProvider.
+      translations("en", translations).
+      translations("es", traducciones).
+      preferredLanguage(localStorage.lang);
   }
 ]);

@@ -175,19 +175,19 @@ class ITReport(object):
 			self.__get_measure(row["vector_acceso"]))
 		self.set_cell(self.finding['measurements'],
 			self.__get_complexity(self.__get_measure(
-				row["complejidad_acceso"])),
+				row["complejidadAcceso"])),
 			1)
 		self.set_cell(self.finding['measurements'],
 			self.__get_measure(row["autenticacion"]),
 			2)
 		self.set_cell(self.finding['measurements'],
-			self.__get_measure(row["impacto_confidencialidad"]),
+			self.__get_measure(row["impactoConfidencialidad"]),
 			3)
 		self.set_cell(self.finding['measurements'],
-			self.__get_measure(row["impacto_integridad"]),
+			self.__get_measure(row["impactoIntegridad"]),
 			4)
 		self.set_cell(self.finding['measurements'],
-			self.__get_measure(row["impacto_disponibilidad"]),
+			self.__get_measure(row["impactoDisponibilidad"]),
 			5)
 		self.set_cell(self.finding['measurements'],
 			self.__get_measure(row["explotabilidad"]),

@@ -10,8 +10,7 @@ mixPanelDashboard, userRole, findingType, actor, scenario, authentication,
 confidenciality, Organization, resolutionLevel, explotability, availability,
 tratamiento, updateEvidencesFiles:true, findingData:true, realiabilityLevel,
 updateEvidenceText:true, categories, probabilities, accessVector, integrity,
-accessComplexity, projectData:true
-*/
+accessComplexity, projectData:true, fieldsToTranslate, keysToTranslate
 /**
  * @file findingcontentCtrl.js
  * @author engineering@fluidattacks.com
@@ -792,285 +791,14 @@ integrates.controller("findingcontentCtrl", function findingcontentCtrl (
     $scope.aux.bts = $scope.finding.btsExterno;
     $scope.finding.hasUrl = $scope.hasUrl($scope.finding.btsExterno);
     $scope.finding.cweIsUrl = $scope.hasUrl($scope.finding.cwe);
-    switch ($scope.finding.actor) {
-    case "​Cualquier persona en Internet":
-      $scope.finding.actor = $translate.instant("finding_formstack." +
-                                                "actor.any_internet");
-      break;
-    case "Cualquier cliente de la organización":
-      $scope.finding.actor = $translate.instant("finding_formstack." +
-                                                "actor.any_costumer");
-      break;
-    case "Solo algunos clientes de la organización":
-      $scope.finding.actor = $translate.instant("finding_formstack." +
-                                                "actor.some_costumer");
-      break;
-    case "Cualquier persona con acceso a la estación":
-      $scope.finding.actor = $translate.instant("finding_formstack." +
-                                                "actor.any_access");
-      break;
-    case "Cualquier empleado de la organización":
-      $scope.finding.actor = $translate.instant("finding_formstack." +
-                                                "actor.any_employee");
-      break;
-    case "Solo algunos empleados":
-      $scope.finding.actor = $translate.instant("finding_formstack." +
-                                                "actor.some_employee");
-      break;
-    case "Solo un empleado":
-      $scope.finding.actor = $translate.instant("finding_formstack." +
-                                                "actor.one_employee");
-      break;
-    default:
-      $scope.finding.actor = $scope.finding.actor;
-    }
-    switch ($scope.finding.autenticacion) {
-    case "0.704 | Ninguna: No se requiere autenticación":
-      $scope.finding.autenticacion = $translate.instant("finding_formstack." +
-                                              "authentication.any_authen");
-      break;
-    case "0.560 | Única: Único punto de autenticación":
-      $scope.finding.autenticacion = $translate.instant("finding_formstack." +
-                                              "authentication.single_authen");
-      break;
-    case "0.450 | Multiple: Multiples puntos de autenticación":
-      $scope.finding.autenticacion = $translate.instant("finding_formstack." +
-                                              "authentication.multiple_authen");
-      break;
-    default:
-      $scope.finding.autenticacion = $scope.finding.autenticacion;
-    }
-    switch ($scope.finding.categoria) {
-    case "Actualizar y configurar las líneas base de " +
-         "seguridad de los componentes":
-      $scope.finding.categoria = $translate.instant("finding_formstack." +
-                                                    "category.update_base");
-      break;
-    case "Definir el modelo de autorización considerando " +
-         "el principio de mínimo privilegio":
-      $scope.finding.categoria = $translate.instant("finding_formstack." +
-                                                    "category.define_model");
-      break;
-    case "Desempeño":
-      $scope.finding.categoria = $translate.instant("finding_formstack." +
-                                                    "category.performance");
-      break;
-    case "Eventualidad":
-      $scope.finding.categoria = $translate.instant("finding_formstack." +
-                                                    "category.event");
-      break;
-    case "Evitar exponer la información técnica de la " +
-         "aplicación, servidores y plataformas":
-      $scope.finding.categoria = $translate.instant("finding_formstack." +
-                                               "category.avoid_technical");
-      break;
-    case "Excluir datos sensibles del código fuente y del registro de eventos":
-      $scope.finding.categoria = $translate.instant("finding_formstack." +
-                                               "category.exclude_finding");
-      break;
-    case "Fortalecer controles en autenticación y manejo de sesión":
-      $scope.finding.categoria = $translate.instant("finding_formstack." +
-                                               "category.strengt_authen");
-      break;
-    case "Fortalecer controles en el procesamiento de archivos":
-      $scope.finding.categoria = $translate.instant("finding_formstack." +
-                                               "category.strengt_process");
-      break;
-    case "Fortalecer la protección de datos almacenados relacionados " +
-         "con contraseñas o llaves criptográficas":
-      $scope.finding.categoria = $translate.instant("finding_formstack." +
-                                                    "category.strengt_protect");
-      break;
-    case "Implementar controles para validar datos de entrada":
-      $scope.finding.categoria = $translate.instant("finding_formstack." +
-                                                    "category.validate_input");
-      break;
-    case "Mantenibilidad":
-      $scope.finding.categoria = $translate.instant("finding_formstack." +
-                                                    "category.maintain");
-      break;
-    case "Registrar eventos para trazabilidad y auditoría":
-      $scope.finding.categoria = $translate.instant("finding_formstack." +
-                                                    "category.record_event");
-      break;
-    case "Utilizar protocolos de comunicación seguros":
-      $scope.finding.categoria = $translate.instant("finding_formstack." +
-                                                    "category.secure_protoc");
-      break;
-    case "Validar la integridad de las transacciones en peticiones HTTP":
-      $scope.finding.categoria = $translate.instant("finding_formstack." +
-                                                    "category.validate_http");
-      break;
-    default:
-      $scope.finding.categoria = $scope.finding.categoria;
-    }
-    switch ($scope.finding.complejidad_acceso) {
-    case "0.350 | Alto: Se requieren condiciones " +
-         "especiales como acceso administrativo":
-      $scope.finding.complejidadAcceso =
-                                    $translate.instant("finding_formstack." +
-                                                  "complexity.high_complex");
-      break;
-    case "0.610 | Medio: Se requieren algunas " +
-         "condiciones como acceso al sistema":
-      $scope.finding.complejidadAcceso =
-                                    $translate.instant("finding_formstack." +
-                                                  "complexity.medium_complex");
-      break;
-    case "0.710 | Bajo: No se requiere ninguna condición especial":
-      $scope.finding.complejidadAcceso =
-                                    $translate.instant("finding_formstack." +
-                                                  "complexity.low_complex");
-      break;
-    default:
-      $scope.finding.complejidadAcceso = $scope.finding.complejidadAcceso;
-    }
-    switch ($scope.finding.escenario) {
-    case "Anónimo desde Internet":
-      $scope.finding.escenario = $translate.instant("finding_formstack." +
-                                                    "scenario.anon_inter");
-      break;
-    case "Anónimo desde Intranet":
-      $scope.finding.escenario = $translate.instant("finding_formstack." +
-                                                    "scenario.anon_intra");
-      break;
-    case "Escaneo de Infraestructura":
-      $scope.finding.escenario = $translate.instant("finding_formstack." +
-                                                    "scenario.infra_scan");
-      break;
-    case "Extranet usuario no autorizado":
-      $scope.finding.escenario = $translate.instant("finding_formstack." +
-                                                    "scenario.unauth_extra");
-      break;
-    case "Internet usuario autorizado":
-      $scope.finding.escenario = $translate.instant("finding_formstack." +
-                                                    "scenario.auth_inter");
-      break;
-    case "Internet usuario no autorizado":
-      $scope.finding.escenario = $translate.instant("finding_formstack." +
-                                                    "scenario.unauth_inter");
-      break;
-    case "Intranet usuario autorizado":
-      $scope.finding.escenario = $translate.instant("finding_formstack." +
-                                                    "scenario.auth_intra");
-      break;
-    case "Intranet usuario no autorizado":
-      $scope.finding.escenario = $translate.instant("finding_formstack." +
-                                                    "scenario.unauth_inter");
-      break;
-    default:
-      $scope.finding.escenario = $scope.finding.escenario;
-    }
-    switch ($scope.finding.estado) {
-    case "Abierto":
-      $scope.finding.estado = $translate.instant("finding_formstack." +
-                                                 "status.open");
-      break;
-    case "Cerrado":
-      $scope.finding.estado = $translate.instant("finding_formstack." +
-                                                 "status.close");
-      break;
-    case "Parcialmente cerrado":
-      $scope.finding.estado = $translate.instant("finding_formstack." +
-                                                 "status.part_close");
-      break;
-    default:
-      $scope.finding.estado = $scope.finding.estado;
-    }
-    switch ($scope.finding.explotabilidad) {
-    case "0.850 | Improbable: No existe un exploit":
-      $scope.finding.explotabilidad = $translate.instant("finding_formstack." +
-                                                   "exploitability.improbable");
-      break;
-    case "0.900 | Conceptual: Existen pruebas de laboratorio":
-      $scope.finding.explotabilidad = $translate.instant("finding_formstack." +
-                                                   "exploitability.conceptual");
-      break;
-    case "0.950 | Funcional: Existe exploit":
-      $scope.finding.explotabilidad = $translate.instant("finding_formstack." +
-                                                   "exploitability.functional");
-      break;
-    case "1.000 | Alta: No se requiere exploit o se puede automatizar":
-      $scope.finding.explotabilidad = $translate.instant("finding_formstack." +
-                                                   "exploitability.high");
-      break;
-    default:
-      $scope.finding.explotabilidad = $scope.finding.explotabilidad;
-    }
-    switch ($scope.finding.explotable) {
-    case "Si":
-      $scope.finding.explotable = $translate.instant("finding_formstack." +
-                                                     "exploitable.yes");
-      break;
-    case "No":
-      $scope.finding.explotable = $translate.instant("finding_formstack." +
-                                                     "exploitable.no");
-      break;
-    default:
-      $scope.finding.explotable = $scope.finding.explotable;
-    }
-    switch ($scope.finding.impacto_confidencialidad) {
-    case "0 | Ninguno: No se presenta ningún impacto":
-      $scope.finding.impactoConfidencialidad =
-                                    $translate.instant("finding_formstack." +
-                                                  "confidenciality.none");
-      break;
-    case "0.275 | Parcial: Se obtiene acceso a la " +
-         "información pero no control sobre ella":
-      $scope.finding.impactoConfidencialidad =
-                                    $translate.instant("finding_formstack." +
-                                                  "confidenciality.partial");
-      break;
-    case "0.660 | Completo: Se controla toda la información " +
-         "relacionada con el objetivo":
-      $scope.finding.impactoConfidencialidad =
-                                    $translate.instant("finding_formstack." +
-                                                  "confidenciality.complete");
-      break;
-    default:
-      $scope.finding.impactoConfidencialidad =
-      $scope.finding.impactoConfidencialidad;
-    }
-    switch ($scope.finding.impacto_disponibilidad) {
-    case "0 | Ninguno: No se presenta ningún impacto":
-      $scope.finding.impactoDisponibilidad =
-                                    $translate.instant("finding_formstack." +
-                                                       "availability.none");
-      break;
-    case "0.275 | Parcial: Se presenta intermitencia en el acceso al objetivo":
-      $scope.finding.impactoDisponibilidad =
-                                    $translate.instant("finding_formstack." +
-                                                       "availability.partial");
-      break;
-    case "0.660 | Completo: Hay una caída total del objetivo":
-      $scope.finding.impactoDisponibilidad =
-                                    $translate.instant("finding_formstack." +
-                                                       "availability.complete");
-      break;
-    default:
-      $scope.finding.impactoDisponibilidad =
-      $scope.finding.impactoDisponibilidad;
-    }
-    switch ($scope.finding.impacto_integridad) {
-    case "0 | Ninguno: No se presenta ningún impacto":
-      $scope.finding.impactoIntegridad =
-                                    $translate.instant("finding_formstack." +
-                                                       "integrity.none");
-      break;
-    case "0.275 | Parcial: Es posible modificar " +
-         "cierta información del objetivo":
-      $scope.finding.impactoIntegridad =
-                                    $translate.instant("finding_formstack." +
-                                                       "integrity.partial");
-      break;
-    case "0.660 | Completo: Es posible modificar " +
-         "toda la información del objetivo":
-      $scope.finding.impactoIntegridad =
-                                    $translate.instant("finding_formstack." +
-                                                       "integrity.complete");
-      break;
-    default:
-      $scope.finding.impactoIntegridad = $scope.finding.impactoIntegridad;
+
+    for (let inc = 0; inc < fieldsToTranslate.length; inc++) {
+      if ($scope.finding[fieldsToTranslate[inc]] in keysToTranslate) {
+        $scope.finding[fieldsToTranslate[inc]] =
+              $translate.instant(keysToTranslate[
+                $scope.finding[fieldsToTranslate[inc]]
+              ]);
+      }
     }
     switch ($scope.finding.nivel_confianza) {
     case "0.900 | No confirmado: Existen pocas fuentes " +
@@ -1293,13 +1021,13 @@ integrates.controller("findingcontentCtrl", function findingcontentCtrl (
   };
   $scope.findingCalculateCSSv2 = function findingCalculateCSSv2 () {
     const ImpCon =
-            parseFloat($scope.finding.impacto_confidencialidad.split(" | ")[0]);
+            parseFloat($scope.finding.impactoConfidencialidad.split(" | ")[0]);
     const ImpInt =
-            parseFloat($scope.finding.impacto_integridad.split(" | ")[0]);
+            parseFloat($scope.finding.impactoIntegridad.split(" | ")[0]);
     const ImpDis =
-            parseFloat($scope.finding.impacto_disponibilidad.split(" | ")[0]);
+            parseFloat($scope.finding.impactoDisponibilidad.split(" | ")[0]);
     const AccCom =
-            parseFloat($scope.finding.complejidad_acceso.split(" | ")[0]);
+            parseFloat($scope.finding.complejidadAcceso.split(" | ")[0]);
     const AccVec = parseFloat($scope.finding.vector_acceso.split(" | ")[0]);
     const Auth = parseFloat($scope.finding.autenticacion.split(" | ")[0]);
     const Explo = parseFloat($scope.finding.explotabilidad.split(" | ")[0]);

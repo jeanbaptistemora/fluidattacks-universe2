@@ -17,6 +17,7 @@ gulp.task("verbose", () => gulp.src([
   "./**/*.js",
   "!./gulpfile.js",
   "!./xhr.js",
-  "!./login.js"
+  "!./login.js",
+  "./translationParameters.js"
 ]).
   pipe(compiler(optionsVerbose)));
