@@ -38,13 +38,21 @@ se debe contar con 20 asistentes
 La conferencia tiene una duración de dos horas
 (es posible variar su duración entre 1½ horas y 2½ horas).
 
-== 6. Público
+== 6. ¿Cuándo?
+
+[button]#link:../#cuando[Cuando]#
+
+== 7. Público
 
 La conferencia es apta para público con básico o poco conocimiento técnico.
 Deben ser usuarios de smartphone.
 El límite de asistentes es 30 personas
 
-== 7. Expositor
+== 8. Requisitos
+
+[button]#link:../#requisitos[Requisitos]#
+
+== 9. Expositor
 
 Licenciado en Educación, con experiencia de 15 años.
 Socio fundador de +FLUIDAttacks+.
