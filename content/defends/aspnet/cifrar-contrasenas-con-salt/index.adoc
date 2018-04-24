@@ -16,9 +16,10 @@ A continuación se describen las circunstancias
 bajo las cuales la siguiente solución tiene sentido:
 
 . Se desarrolla una aplicación en +ASP.NET+.
+. Se requiere implementar +salt+
+al momento de cifrar las contraseñas^<<r1,[1]>>,<<r2,[2]>><<r3,[3]>>^.
 . Se requiere el uso de funciones de resumen (+hash+)
-para cifrado de contraseñas.
-. Se requiere implementar +salt+ al momento de cifrar las contraseñas.
+para cifrado de contraseñas.^<<r3,[3]>>,<<r4,[4]>>^
 
 == Solución
 
@@ -46,7 +47,7 @@ cuando se almacenan en la base de datos.
 Cuando se valida una contraseña,
 se fragmenta con el valor +salt+
 en la base de datos para su comprobación.
-Las contraseñas fragmentadas no se pueden recuperar <<r1, ^[1]^>>.
+Las contraseñas fragmentadas no se pueden recuperar <<r5, ^[5]^>>.
 
 . El valor de +PasswordFormat+ se especifica
 en la sección +providers+ del archivo +Web.config+
@@ -55,7 +56,7 @@ de la aplicación +ASP.NET+.
 . De manera predeterminada, las contraseñas +Encrypted+ se cifran
 y a las contraseñas +Hashed+ se les aplica un algoritmo +hash+
 según la información proporcionada
-en el elemento +machineKey+ de la configuración <<r2, ^[2]^>>.
+en el elemento +machineKey+ de la configuración <<r6, ^[6]^>>.
 Tenga en cuenta que si se especifica un valor de 3DES
 para el atributo +validation+
 o si no se especifica ningún valor,
@@ -63,7 +64,7 @@ se aplicará el algoritmo hash +SHA1+
 a las contraseñas correspondientes.
 
 . Se puede definir un algoritmo +hash+ personalizado
-mediante el atributo +hashAlgorithmType+ <<r3, ^[3]^>>
+mediante el atributo +hashAlgorithmType+ <<r7, ^[7]^>>
 del elemento de configuración +membership+ ,
 presente en el esquema de configuración de +ASP.NET+.
 Si elige el cifrado, el cifrado de contraseña predeterminado utiliza +AES+.
@@ -75,7 +76,7 @@ para el atributo +decryptionKey+
 en el elemento +machineKey+.
 No se admite el valor predeterminado de +AutoGenerate+
 para el atributo +decryptionKey+
-al utilizar las contraseñas cifradas con Pertenencia de +ASP.NET+ <<r4, ^[4]^>>.
+al utilizar las contraseñas cifradas con Pertenencia de +ASP.NET+ <<r8, ^[8]^>>.
 
 . En el siguiente ejemplo,
 se muestra el elemento +membership+
@@ -101,11 +102,11 @@ de la aplicación y se establece el formato de contraseña en +Hashed+.
 
 == Referencias
 
-. [[r1]] link:https://stackoverflow.com/questions/949271/storing-hashed-passwords-base64-or-hex-string-or-something-else[Storing Hashed Passwords]
-. [[r2]] link:https://msdn.microsoft.com/es-es/library/system.web.security.sqlmembershipprovider.passwordformat(v=vs.110).aspx[Password Format]
-. [[r3]] link:https://msdn.microsoft.com/en-us/library/system.security.cryptography.hashalgorithm.aspx[HashAlgorithm Class]
-. [[r4]] link:https://msdn.microsoft.com/es-es/library/system.security.cryptography.randomnumbergenerator.aspx[RandomNumberGenerator Class]
-. [[r5]] link:../../../rules/134[REQ.134 Almacenar contraseñas con Salt].
-. [[r6]] link:../../../rules/135[REQ.135 Derivaciones de clave aleatorias].
-. [[r7]] link:../../../rules/147[REQ.147 Utilizar mecanismos pre-existentes].
-. [[r8]] link:../../../rules/150[REQ.150 Funciones resumen de tamaño mínimo].
+. [[r1]] link:../../../rules/134[REQ.134 Almacenar contraseñas con Salt].
+. [[r2]] link:../../../rules/135[REQ.135 Derivaciones de clave aleatorias].
+. [[r3]] link:../../../rules/147[REQ.147 Utilizar mecanismos pre-existentes].
+. [[r4]] link:../../../rules/150[REQ.150 Funciones resumen de tamaño mínimo].
+. [[r5]] link:https://stackoverflow.com/questions/949271/storing-hashed-passwords-base64-or-hex-string-or-something-else[Storing Hashed Passwords].
+. [[r6]] link:https://msdn.microsoft.com/es-es/library/system.web.security.sqlmembershipprovider.passwordformat(v=vs.110).aspx[Password Format].
+. [[r7]] link:https://msdn.microsoft.com/en-us/library/system.security.cryptography.hashalgorithm.aspx[HashAlgorithm Class].
+. [[r8]] link:https://msdn.microsoft.com/es-es/library/system.security.cryptography.randomnumbergenerator.aspx[RandomNumberGenerator Class].
