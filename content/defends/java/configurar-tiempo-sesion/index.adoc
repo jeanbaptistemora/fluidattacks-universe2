@@ -16,6 +16,8 @@ A continuación se describen las circunstancias
 bajo las cuales la siguiente solución tiene sentido:
 
 . La aplicación está desarrollada en +Java EE+ versión +1.4+ o superior.
+. El sistema debe cerrar una sesión
+si se presenta un tiempo de inactividad por parte del usuario.<<r1, ^[1]^>>
 
 == Solución
 
@@ -45,7 +47,7 @@ el cual está presente en el paquete +javax.servlet.http+.
 . Para poder acceder a una sesión,
 se debe invocar el método +getSession+ del +objetoHttpServletRequest+.
 Este método devuelve una referencia de la sesión actual
-asociada con la solicitud ^<<r1,[1]>>^.
+asociada con la solicitud ^<<r2,[2]>>^.
 +
 .doPost.java
 [source, java, linenums]
@@ -59,7 +61,7 @@ public void doPost (HttpServletRequest request, HttpServletResponse response)
 . Para establecer el tiempo máximo de vida de la sesión
 se debe utilizar el método +setMaxInactiveInterval+
 (su valor está dado en segundos)
-del objeto +HttpSession+ ^<<r2,[2]>>^.
+del objeto +HttpSession+ ^<<r3,[3]>>^.
 Se recomienda, por seguridad,
 que el tiempo establecido no deba ser superior a cinco minutos.
 +
@@ -72,7 +74,7 @@ session.setMaxInactiveInterval(300);
 . Una forma recomendada de realizar esta configuración
 es utilizando el archivo de configuración de la aplicación
 +/WEBINF/web.xml+ empleando el elemento +session-config+
-de la siguiente manera ^<<r3,[3]>>^:
+de la siguiente manera ^<<r4,[4]>>^:
 +
 [source, xml, linenums]
 ----
@@ -85,9 +87,7 @@ de la siguiente manera ^<<r3,[3]>>^:
 
 == Referencias
 
-. [[r1]] link:https://docs.oracle.com/javaee/1.4/tutorial/doc/[The J2EETrademarked 1.4 Tutorial]
-. [[r2]] link:https://docs.oracle.com/javaee/1.4/api/javax/servlet/http/HttpSession.html[Interface HttpSession]
-. [[r3]] link:http://lineadecodigo.com/java/modificar-time-out-de-sesion/[Modificar time-out de sesión]
-. [[r4]] REQ.0020: El sistema debe cerrar una sesión
-si se presenta un tiempo de inactividad por parte del usuario,
-superior o igual a 5 minutos.
+. [[r1]] link:../../../rules/023/[REQ.023 Cerrar sesión de un usuario inactivo].
+. [[r2]] link:https://docs.oracle.com/javaee/1.4/tutorial/doc/[The J2EETrademarked 1.4 Tutorial].
+. [[r3]] link:https://docs.oracle.com/javaee/1.4/api/javax/servlet/http/HttpSession.html[Interface HttpSession].
+. [[r4]] link:http://lineadecodigo.com/java/modificar-time-out-de-sesion/[Modificar time-out de sesión].
