@@ -19,8 +19,8 @@ las cuales la siguiente solución tiene sentido:
 
 . Se está desarrollando una aplicación en +ASP.NET+.
 . Se requiere comprobar la fortaleza
-de una contraseña por medio
-de diccionarios.^<<r1,[1]>>,<<r2,[2]>>,<<r3,[3]>>,<<r4,[4]>>,<<r5,[5]>>^
+de una contraseña por medio de
+diccionarios.^<<r1,[1]>>,<<r2,[2]>>,<<r3,[3]>>,<<r4,[4]>>,<<r5,[5]>>,<<r6,[6]>>^
 . El sistema operativo o el administrador del sistema
 poseen diccionarios con palabras comunes.
 
@@ -29,7 +29,7 @@ poseen diccionarios con palabras comunes.
 . El código dará solución a la necesidad
 de comprobar la fortaleza de una contraseña
 al buscarla en diccionarios
-que contienen palabras comunes.^<<r6,[6]>>,<<r7,[7]>>,<<r8,[8]>>,<<r9,[9]>>>>^
+que contienen palabras comunes.^<<r7,[7]>>,<<r8,[8]>>,<<r9,[9]>>,<<r10,[10]>>^
 Iniciamos el desarrollo de la aplicación
 importando las clases necesarias
 y definiendo el nombre de nuestra clase:
@@ -163,7 +163,8 @@ El resultado para la anterior aplicación es el siguiente:
 . [[r3]] link:../../../rules/994/[REQ.994 Contraseñas con al menos 1 mayúscula].
 . [[r4]] link:../../../rules/993/[REQ.993 Contraseñas con al menos 1 dígito].
 . [[r5]] link:../../../rules/992/[REQ.992 Contraseñas con 1 carácter especial].
-. [[r6]] link:http://www.openwall.com/wordlists/[Openwall worldlist collection].
-. [[r7]] link:http://wordlist.aspell.net/[Spell Checker Oriented Word Lists (SCOWL)].
-. [[r8]] link:https://packetstormsecurity.com/Crackers/wordlists/[Packetstorm Security Dictionary].
-. [[r9]] link:http://www.deer-run.com/~hal/sysadmin/pam_cracklib.html[Deer Dictionary toolbox].
+. [[r6]] link:../../../rules/132/[REQ.132 Contraseñas con al menos 4 palabras].
+. [[r7]] link:http://www.openwall.com/wordlists/[Openwall worldlist collection].
+. [[r8]] link:http://wordlist.aspell.net/[Spell Checker Oriented Word Lists (SCOWL)].
+. [[r9]] link:https://packetstormsecurity.com/Crackers/wordlists/[Packetstorm Security Dictionary].
+. [[r10]] link:http://www.deer-run.com/~hal/sysadmin/pam_cracklib.html[Deer Dictionary toolbox].
