@@ -13,7 +13,7 @@ Uso de +cookies HttpOnly+ en +ASP.NET+ con +C#+.
 == Contexto.
 
 . Se está desarrollando una aplicación web en +C#+ con +ASP.NET+.
-. Se desea proteger las +cookies+ con +HttpOnly+.
+. Se desea proteger las +cookies+ con +HttpOnly+.<<r1, ^[1]^>>
 
 == Solución
 
@@ -26,7 +26,7 @@ sobre el comportamiento y preferencias del usuario
 y reenvía éstos datos al servidor.
 Con ésto es posible personalizar el contenido
 que se muestra al usuario en el navegador de acuerdo a sus gustos
-y su comportamiento en la red <<r1, ^[1]^>>.
+y su comportamiento en la red <<r2, ^[2]^>>.
 
 Las +cookies+ son comúnmente utilizadas en numerosas aplicaciones web,
 debido a que resultan bastante útiles
@@ -48,7 +48,7 @@ Para incrementar la seguridad de la aplicación
 y de las +cookies+ se recurre al método +HttpOnly+
 de +ASP.NET+ el cual tiene por objetivo
 definir si la +cookie+ es accesible o no
-por un +script+ del usuario <<r2, ^[2]^>>.
+por un +script+ del usuario <<r3, ^[3]^>>.
 Para ésto se deben seguir los siguientes pasos:
 
 . El mecanismo de protección +HttpOnly+
@@ -127,8 +127,8 @@ aparecerá +null+ en lugar del valor de la +cookie+.
 
 == Referencias
 
-. [[r1]] link:https://www.40defiebre.com/que-es/cookies/[¿Qué son las cookies?].
+. [[r1]] link:../../../rules/029/[REQ.029 Cookies con atributos de seguridad].
 
-. [[r2]] link:https://msdn.microsoft.com/en-us/library/system.web.httpcookie.httponly(v=vs.110).aspx[HttpCookie.HttpOnly Property].
+. [[r2]] link:https://www.40defiebre.com/que-es/cookies/[¿Qué son las cookies?].
 
-. [[r3]] link:../../../rules/026/[REQ.026 Cookies con atributos de seguridad].
+. [[r3]] link:https://msdn.microsoft.com/en-us/library/system.web.httpcookie.httponly(v=vs.110).aspx[HttpCookie.HttpOnly Property].
