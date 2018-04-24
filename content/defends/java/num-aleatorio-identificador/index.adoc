@@ -21,7 +21,7 @@ como identificadores que no se almacenan.
 
 == Solución
 
-En +java+, la clase +java.security.SecureRandom+
+En +Java+, la clase +java.security.SecureRandom+
 proporciona un generador de números pseudoaleatorios
 que cumplen, por lo menos, con la especificación +FIPS 140-2+
 sobre pruebas estadísticas para generadores de números aleatorios

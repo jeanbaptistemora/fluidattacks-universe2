@@ -135,7 +135,7 @@ file.txt Test.class Test.java
 ----
 . Luego de compilar el programa correctamente,
 se obtiene el +bytecode+ (archivo +.class+) del programa
-y se procede a ejecutar el mismo mediante el comando +java+:
+y se procede a ejecutar el mismo mediante el comando +Java+:
 +
 [source, bash, linenums]
 ----

@@ -57,7 +57,7 @@ que comprometa la seguridad y la integridad de la información,
 saber quien, posiblemente, fue el responsable.
 
 Entonces, para definir un control de acceso a +urls+
-mediante un servidor de aplicaciones en +java+,
+mediante un servidor de aplicaciones en +Java+,
 se siguen los siguientes pasos:
 
 . Dentro del archivo +WEB-INF\web.xml+ de la aplicación web

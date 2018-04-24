@@ -49,14 +49,14 @@ se puede usar la clave pública
 o políticas y/o restricciones de uso de dicho certificado.^<<r1,[1]>>^
 
 A continuación, se describe el procedimiento para importar
-un certificado digital en el +keystore+ de la máquina virtual de +JAVA+
+un certificado digital en el +keystore+ de la máquina virtual de +Java+
 con el objetivo que se pueda realizar una conexión +SSL/TLS+
 desde una aplicación que corre bajo esta.
 
 . Para realizar el procedimiento se utiliza la herramienta +keytool+
-que se incluye dentro del +JDK+ de +JAVA+.
+que se incluye dentro del +JDK+ de +Java+.
 
-. El +Keystore+ de +JAVA+ se encuentra ubicado
+. El +Keystore+ de +Java+ se encuentra ubicado
 en +$JAVA_HOME/jre/lib/security/cacerts+.
 La contraseña predeterminada es +changeit+.
 

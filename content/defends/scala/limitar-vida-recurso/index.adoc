@@ -170,5 +170,5 @@ las instrucciones +Scala+ para la manipulación segura de ficheros.
 
 . [[r1]] link:../../../rules/999/[REQ.999 Limitar tiempo de vida de recursos].
 . *+CSHARP+* link:../../csharp/limitar-vida-recurso/[Limitar tiempo de vida de recursos].
-. *+JAVA+* link:../../java/limitar-vida-recurso/[Limitar tiempo de vida de recursos].
+. *+Java+* link:../../java/limitar-vida-recurso/[Limitar tiempo de vida de recursos].
 . *+PHP+* link:../../php/limitar-vida-recurso/[Limitar tiempo de vida de recursos].

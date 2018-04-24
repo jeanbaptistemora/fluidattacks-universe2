@@ -161,7 +161,7 @@ System.setSecurityManager(securityManager);
 ----
 
 . Para instalar el gestor de seguridad
-invocándolo desde la maquina virtual de +java+
+invocándolo desde la maquina virtual de +Java+
 se debe ingresar la siguiente instrucción
 desde la consola de comandos del sistema operativo.
 +

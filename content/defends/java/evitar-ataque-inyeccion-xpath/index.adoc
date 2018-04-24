@@ -50,7 +50,7 @@ Debido a que no existe un control de acceso de nivel,
 es posible obtener el documento completo. ^<<r1,[1]>>^
 
 En esa solución se pretende mostrar un ataque +XPATH+
-y como evitarlo en una aplicación desarrollada en +java+.
+y como evitarlo en una aplicación desarrollada en +Java+.
 
 . Primero considere el siguiente archivo +XML+.
 +

@@ -29,7 +29,7 @@ firmas o certificados digitales y, en general,
 para crear algoritmos de encriptación
 que usan llaves numéricas de un sólo uso.
 
-En +java+, la clase +java.security.SecureRandom+
+En +Java+, la clase +java.security.SecureRandom+
 proporciona un generador de números pseudoaleatorios
 que cumplen, por lo menos, con la especificación +FIPS 140-2+
 sobre pruebas estadísticas para generadores de números aleatorios

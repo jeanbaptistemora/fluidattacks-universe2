@@ -58,7 +58,7 @@ KeyStore keystore = KeyStore.getInstance("JKS");
 keystore.load(new FileInputStream(KEYSTORE), null);
 ----
 
-. Primero se obtiene una instancia de contenedor de tipo +java keystore+,
+. Primero se obtiene una instancia de contenedor de tipo +Java keystore+,
 y se carga el archivo para administrar la información.
 
 . La fábrica abstracta de administradores de claves

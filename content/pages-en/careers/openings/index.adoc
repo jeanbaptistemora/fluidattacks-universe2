@@ -126,7 +126,7 @@ business solutions and
 tests and debugging processes.
 * 3 to 5 year experience
 with technologies such as
-JavaScript, HTML, CSS3, JSON and AngularJS.
++JavaScript+, +HTML+, +CSS3+, +JSON+ and +AngularJS+.
 * Solid knowledge of
 what constitutes a good interaction design.
 * Experience building responsive and
@@ -152,16 +152,16 @@ according to the norms and
 standards of the organization.
 
 * Skills in more than 1 programming language
-such as Java, .NET, C #, Ruby or Python.
+such as +Java+, +.NET+, +C#+, +Ruby+ or +Python+.
 * Knowledge of the POO programming paradigm.
-* Knowledge in JavaScript, HTML 4 and 5, CSS, Ajax.
+* Knowledge in +JavaScript+, +HTML 4+ and +5+, +CSS+, +Ajax+.
 * Knowledge of database engines
-on a large scale (ORACLE, SQL SERVER, DB2, MYSQL).
-* Stored procedures (PL / SQL, Transact SQL).
-* Knowledge in Application Servers (IIS, OAS, IBM WEBSPHERE, WEBLOGIC).
+on a large scale (+ORACLE+, +SQL SERVER+, +DB2+, +MYSQL+).
+* Stored procedures (+PL / SQL+, +Transact SQL+).
+* Knowledge in Application Servers (+IIS+, +OAS+, +IBM WEBSPHERE+, +WEBLOGIC+).
 * Platforms and operating systems
-such as GNU / Linux, Unix (AIX, SOLARIS).
-* Knowledge of Git repositories.
+such as +GNU / Linux+, +Unix+ (+AIX+, +SOLARIS+).
+* Knowledge of +Git+ repositories.
 * UML Diagrams.
 * Documentation.
 * Eliciting requirements.
@@ -188,7 +188,7 @@ It is also desirable that
 the talent has knowledge in Inspire Designer,
 Inspire Automation and
 programming languages
-​​such as java, VB, .Net, among others.
+​​such as +Java+, +VB+, +.Net+, among others.
 This in addition
 to knowledge of Databases and
 basic use of web tools.

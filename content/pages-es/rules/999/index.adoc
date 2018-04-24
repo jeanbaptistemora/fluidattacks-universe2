@@ -53,7 +53,7 @@ de cualquier información sensible en memoria.
 == Soluciones
 
 . *+COBOL+* link:../../defends/cobol/liberar-recursos/[Liberar Recursos].
-. *+JAVA+* link:../../defends/java/limitar-vida-recurso/[Limitar tiempo de vida de recursos].
+. *+Java+* link:../../defends/java/limitar-vida-recurso/[Limitar tiempo de vida de recursos].
 . *+SCALA+* link:../../defends/scala/limitar-vida-recurso/[Limitar tiempo de vida de recursos].
 . *+CSHARP+* link:../../defends/csharp/limitar-vida-recurso/[Limitar tiempo de vida de recursos].
 

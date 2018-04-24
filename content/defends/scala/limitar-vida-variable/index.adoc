@@ -176,4 +176,4 @@ las instrucciones +scala+ para el manejo de credenciales de manera segura.
 . [[r1]] link:../../../rules/998/[REQ.998 Limitar tiempo de vida de variables].
 . [[r2]] link:http://www.scala-lang.org/api/2.9.3/scala/collection/JavaConversions$.html[JavaConversions].
 . *+CSHARP+* link:../../csharp/limitar-vida-variable/[Limitar tiempo de vida de variables].
-. *+JAVA+* link:../../java/limitar-vida-variable/[Limitar tiempo de vida de variables].
+. *+Java+* link:../../java/limitar-vida-variable/[Limitar tiempo de vida de variables].

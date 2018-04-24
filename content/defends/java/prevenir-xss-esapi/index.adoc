@@ -39,7 +39,7 @@ para codificar la salida a un formato especifico
 como es +HTML+, +XPATH+, +CSS+, +VBSCRIPT+, +URL+, +SQL+,
 +LDAP+, +JavaScript+, entre otros.
 Actualmente se encuentra disponible la versión +2.0+ de +ESAPI+
-la cual soporta +java 1.5+ y superior ^<<r1,[1]>>^.
+la cual soporta +Java 1.5+ y superior ^<<r1,[1]>>^.
 
 Para prevenir +Cross Site Scripting+ utilizando +ESAPI 2.0+
 se debe seguir los siguientes pasos:
