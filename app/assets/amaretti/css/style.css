@@ -20260,3 +20260,6 @@ div.dataTables_wrapper div.dataTables_length label select {
     text-align: center;
     color: #ea3434;
 }
+.fixed-table-container thead th .th-inner {
+    white-space: normal !important;
+}

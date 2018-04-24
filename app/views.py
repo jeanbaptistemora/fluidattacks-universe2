@@ -87,12 +87,12 @@ def project_findings(request):
         "search_findings": {
             "headings": {
                 "action": "Action",
-                "age": "Age (D)",
+                "age": "Age (Days)",
                 "cardinality": "Open Vuln.",
                 "criticity": "Severity",
                 "exploit": "Exploitable",
                 "finding": "Title",
-                "lastVulnerability": "Last Vuln. (D)",
+                "lastVulnerability": "Last Report (Days)",
                 "state": "Status",
                 "timestamp": "Date",
                 "treatment": "Treatment",
@@ -115,12 +115,12 @@ def project_findings(request):
             "search_findings": {
                 "headings": {
                     "action": "Accion",
-                    "age": "Edad (D)",
+                    "age": "Edad (Días)",
                     "cardinality": "Vuln. Abiertas",
                     "criticity": "Severidad",
                     "exploit": "Explotable",
                     "finding": "Titulo",
-                    "lastVulnerability": "Última Vuln. (D)",
+                    "lastVulnerability": "Último Reporte (Días)",
                     "state": "Estado",
                     "timestamp": "Fecha",
                     "treatment": "Tratamiento",
