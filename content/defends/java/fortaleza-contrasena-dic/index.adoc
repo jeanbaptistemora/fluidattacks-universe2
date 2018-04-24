@@ -17,7 +17,7 @@ bajo las cuales la siguiente solución tiene sentido:
 
 . Se está desarrollando una aplicación en +Java+.
 . Se requiere comprobar la fortaleza
-de una contraseña por medio de diccionarios.
+de una contraseña por medio de diccionarios.<<r1,^[1]^>>
 . El sistema operativo o el administrador del sistema
 poseen diccionarios con palabras comunes.
 
@@ -155,5 +155,6 @@ Código de Ejemplo.
 
 == Referencias
 
-. [[r1]] link:http://web.mit.edu/rhel-doc/4/RH-DOCS/rhel-sg-es-4/s1-wstation-pass.html[Seguridad de contraseñas]
-. [[r2]] link:https://github.com/duyetdev/bruteforce-database[Bruteforce Database - Password dictionaries]
+. [[r1]] link:../../../rules/132/[REQ.132 Contraseñas con al menos 4 palabras].
+. [[r2]] link:http://web.mit.edu/rhel-doc/4/RH-DOCS/rhel-sg-es-4/s1-wstation-pass.html[Seguridad de contraseñas].
+. [[r3]] link:https://github.com/duyetdev/bruteforce-database[Bruteforce Database - Password dictionaries].
