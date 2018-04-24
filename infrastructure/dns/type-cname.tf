@@ -141,5 +141,5 @@ resource "aws_route53_record" "database" {
   name    = "database.${aws_route53_zone.fs_maindomain.name}"
   type    = "CNAME"
   ttl     = "300"
-  records = ["fluiddatabase.cmjvwttsb0nk.us-east-1.rds.amazonaws.com"]
+  records = ["${var.db_instance}"]
 }

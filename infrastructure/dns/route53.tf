@@ -4,6 +4,7 @@ variable "domain" {}
 variable "acc_key" {}
 variable "sec_key" {}
 variable "reg" {}
+variable "db_instance" {}
 
 provider "aws" {
   access_key = "${var.acc_key}"
