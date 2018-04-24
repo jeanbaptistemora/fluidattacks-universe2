@@ -42,7 +42,7 @@ deba modificarla o, en caso contrario,
 no podrá continuar ni enviar el formulario correctamente.
 
 Tradicionalmente, la validación de un formulario
-se ha hecho siempre en +Javascript+.
+se ha hecho siempre en +JavaScript+.
 Incluso, +HTML+ en su versión +HTML5+
 ha introducido nuevos atributos para formularios
 que permiten realizar la validación del formulario directamente

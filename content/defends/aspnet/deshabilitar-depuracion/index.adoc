@@ -53,7 +53,7 @@ tiene el valor de +true+ en el elemento +<compilation>+.
 a todo el código generado, lo cual produce
 una notable degradación del desempeño de la aplicación.
 
-. Todas las librerías +Javascript+ e imágenes estáticas
+. Todas las librerías +JavaScript+ e imágenes estáticas
 que sean desplegadas al cliente a través de +WebResources.axd+
 serán descargadas continuamente por clientes
 en cada petición de visualización de la página

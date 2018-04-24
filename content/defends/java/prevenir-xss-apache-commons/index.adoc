@@ -39,7 +39,7 @@ import org.apache.commons.lang3.StringEscapeUtils;
 . La clase +StringEscapeUtils+ que se encuentra en el paquete
 +org.apache.commons.lang3+ de la biblioteca +Apache Commons+
 permite codificar la información de salida
-en un formato especifico (+HTML+, +Javascript+, +CSS+, +SQL+, +XML+).
+en un formato especifico (+HTML+, +JavaScript+, +CSS+, +SQL+, +XML+).
 
 . La clase +StringEscapeUtils+ ofrece los siguientes métodos estáticos
 que pueden ser usados para codificar la información de salida
@@ -135,7 +135,7 @@ recibe un objeto tipo +String+ como parámetro
 y retorna otro +String+ ya codificado.
 
 . Al visualizar la página se nota
-como el código +HTML+ y +Javascript+ nunca se ejecutó
+como el código +HTML+ y +JavaScript+ nunca se ejecutó
 gracias a que las comillas simples fueron escapadas.
 
 == Referencias

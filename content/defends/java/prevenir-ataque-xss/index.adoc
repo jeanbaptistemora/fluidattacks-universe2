@@ -42,8 +42,8 @@ lineamientos:
 
 . Codifique y valide los atributos que vaya a incluir en un atributo +HTML+.
 
-. Codifique y valide el código +Javascript+
-que vaya a incluir en un bloque de código +Javascript+ y +HTML+.
+. Codifique y valide el código +JavaScript+
+que vaya a incluir en un bloque de código +JavaScript+ y +HTML+.
 
 . Codifique y valide el código +CSS+ que vaya a incluir en los estilos +HTML+.
 

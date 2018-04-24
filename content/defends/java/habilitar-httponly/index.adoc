@@ -71,7 +71,7 @@ Entonces, para evitar el robo de +cookies+ mediante este ataque,
 se recomienda establecer el atributo +HttpOnly+
 a las +cookies+ de sesión.
 Este atributo lo que hace es indicarle al navegador
-que una +cookie+ no puede ser consultada nunca por medio de +Javascript+
+que una +cookie+ no puede ser consultada nunca por medio de +JavaScript+
 y que sólo debe usarse cuando se vaya a utilizar en una petición +HTTP+.
 
 . Para servidores de aplicación

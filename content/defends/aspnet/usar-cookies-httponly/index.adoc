@@ -89,7 +89,7 @@ a la cual modificamos el atributo +HttpOnly+ <<r3, ^[3]^>>.
 ----
 
 . Del lado del +HTML+, creamos la siguiente función,
-la cual obtiene las +cookies+ desde +Javascript+
+la cual obtiene las +cookies+ desde +JavaScript+
 mediante el objeto +document.cookie+.
 +
 [source, java, linenums]
