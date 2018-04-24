@@ -14,4 +14,5 @@
     -e 's/\[\[.*\]]//g' \
     -e 's/image:*.*\[.*\]//g' \
     -e 's/tooltip:.*\[//g' \
+    -e 's/\[button\]\#//g' \
   | pcregrep -v '^[+:]') < "$1"
