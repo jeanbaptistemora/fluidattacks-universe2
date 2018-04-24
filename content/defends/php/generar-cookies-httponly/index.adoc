@@ -16,12 +16,13 @@ A continuación se describen las circunstancias
 bajo las cuales la siguiente solución tiene sentido:
 
 . Se tiene acceso al servidor.
+. Se desea proteger las +cookies+ con +HttpOnly+.<<r1, ^[1]^>>
 
 == Solución
 
 Una +cookie+ o galleta es una pequeña porción de información
 enviada por un sitio o servidor web
-y almacenada en el navegador del usuario.
+y almacenada en el navegador del usuario.<<r2, ^[2]^>>
 Las principales funciones o utilidades de las +cookies+ son:
 
 * *Gestión de Sesiones:* de esta manera es posible diferenciar
@@ -82,7 +83,8 @@ en el archivo +php.ini+ a través del parámetro:
 session.cookie_httponly = True
 ----
 
-. También se puede habilitar en un +script+ a través de la función:
+. También se puede habilitar en un +script+
+a través de la función:<<r3, ^[3]^>>
 +
 [source, php, linenums]
 ----
@@ -101,7 +103,6 @@ bool setcookie ( string $name [, string $value [, int $expire= 0 [, string $path
 
 == Referencias
 
-. link:https://www.owasp.org/index.php/HttpOnly#Using_PHP_to_set_HttpOnly[Using PHP to set HttpOnly].
-. link:https://developer.mozilla.org/es/docs/Web/HTTP/Cookies[HTTP cookies].
-. REQ.0026 Las cookies de sesión de aplicaciones Web
-deben tener atributos de seguridad (HttpOnly, Secure).
+. [[r1]] link:../../../rules/029/[REQ.029 Cookies con atributos de seguridad].
+. [[r2]] link:https://developer.mozilla.org/es/docs/Web/HTTP/Cookies[HTTP cookies].
+. [[r3]] link:https://www.owasp.org/index.php/HttpOnly#Using_PHP_to_set_HttpOnly[Using PHP to set HttpOnly].
