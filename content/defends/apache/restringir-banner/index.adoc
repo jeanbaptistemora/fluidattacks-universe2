@@ -16,14 +16,15 @@ A continuación se describen las circunstancias
 bajo las cuales la siguiente solución tiene sentido:
 
 . Se utiliza +Apache2+ como servidor web.
-. Se desea ocultar la información de versión de la plataforma +Apache+.
+. Se desea ocultar la información de versión
+de la plataforma +Apache+.<<r1,^[1]^>>
 
 == Solución
 
 El +banner grabbing+ es una de las formas de conocer
 qué infraestructura o sistema se encuentra
 detrás de una aplicación web o servicio.
-El método de +banner grabbing+
+El método de +banner grabbing+<<r2,^[2]^>>
 puede aplicarse sobre cualquier tipo de servicio, cómo por ejemplo,
 +FTP+, +VNC+, +HTTP+, entre otros.
 En el caso de +HTTP+ es posible conocer el servidor
@@ -42,7 +43,7 @@ un ataque que comprometa confidencialidad, integridad
 y disponibilidad del servidor.
 
 . Entonces, para evitar exponer la información en un servidor +apache+
-se recomienda seguir los siguientes pasos.
+se recomienda seguir los siguientes pasos.<<r3,^[3]^>>
 
 . En el archivo de configuración +httpd.conf+
 asegúrese de contener las siguientes directivas:
@@ -96,6 +97,6 @@ e iniciar el servicio +Apache+.
 
 == Referencias
 
-. [[r1]] link:https://httpd.apache.org/docs/2.4/es/[Documentación Apache].
+. [[r1]] link:../../../rules/277/[REQ.277 Información de servicios inaccesible].
 . [[r2]] link:https://www.welivesecurity.com/la-es/2012/11/21/obtener-informacion-de-servidores-web-con-banner-grabbing/[Obtener información de servidores web con banner grabbing].
-. [[r3]] link:../../../rules/277/[REQ.277 Información de servicios inaccesible].
+. [[r3]] link:https://httpd.apache.org/docs/2.4/es/[Documentación Apache].
