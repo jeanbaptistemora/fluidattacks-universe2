@@ -17,20 +17,20 @@ bajo las cuales la siguiente solución tiene sentido:
 
 . Se está desarrollando una aplicación en +ASP.Net+.
 
-. Se desea evitar código fuente duplicado en la aplicación.
+. Se desea evitar código fuente duplicado en la aplicación.<<r1,^[1]^>>
 
 == Solución
 
 . El código duplicado es una secuencia de código
 que ocurre más de una vez,
 ya sea en el mismo programa,
-o en diferentes programas realizados por la misma entidad <<r1, ^[1]^>>.
+o en diferentes programas realizados por la misma entidad.<<r2,^[2]^>>
 Es común encontrar código duplicado
 en diferentes tipos de aplicaciones,
 esta duplicación representa trabajo,
 riesgo y complejidad adicional,
 por lo que evitar duplicar código fuente
-es importante para mantener la seguridad de la aplicación <<r2, ^[2]^>>.
+es importante para mantener la seguridad de la aplicación <<r3, ^[3]^>>.
 A continuación se presenta un ejemplo
 en el cual se declara una nueva clase
 y una constante para depurar los mensajes:
@@ -170,6 +170,6 @@ y una constante para depurar los mensajes:
 
 == Referencias
 
-. [[r1]] link:https://en.wikipedia.org/wiki/Duplicate_code[Duplicate Code - Wikipedia].
-. [[r2]] link:../../../rules/162/[REQ.0162 Eliminar código redundante].
+. [[r1]] link:../../../rules/162/[REQ.0162 Eliminar código redundante].
+. [[r2]] link:https://en.wikipedia.org/wiki/Duplicate_code[Duplicate Code - Wikipedia].
 . [[r3]] link:http://ptgmedia.pearsoncmg.com/images/9780137081073/samplepages/0137081073.pdf[The Clean Coder: A Code of Conduct for Professional Programmers].
