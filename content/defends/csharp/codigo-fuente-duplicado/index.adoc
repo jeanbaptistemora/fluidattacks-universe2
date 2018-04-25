@@ -16,14 +16,14 @@ A continuación se describen las circunstancias
 bajo las cuales la siguiente solución tiene sentido:
 
 . Se está desarrollando una aplicación en +C#+.
-. Se desea evitar código fuente duplicado en la aplicación.
+. Se desea evitar código fuente duplicado en la aplicación.<<r1,^[1]^>>
 
 == Solución
 
 . Es común encontrar código duplicado en diferentes tipos de aplicaciones,
 esta duplicación representa trabajo, riesgo y complejidad adicional,
 por lo que evitar duplicar código fuente
-es importante para mantener la seguridad de la aplicación <<r3,^[3]^>>.
+es importante para mantener la seguridad de la aplicación.<<r2,^[2]^>>
 
 . Declaramos la nueva clase y una constante para depurar los mensajes:
 +
@@ -90,7 +90,7 @@ En el cual termina el programa:
 y se continua la metodología de duplicar el código,
 cambios futuros en la aplicación como eliminar el mensaje causa,
 filtrar ciertas palabras de las excepciones, entre otros,
-pueden llegar a causar una fuga de información.
+pueden llegar a causar una fuga de información.<<r3,^[3]^>>
 Si los mensajes de error son manejados de forma centralizada,
 el cambio se hace únicamente en un lugar,
 por lo que a un crecimiento futuro
@@ -164,6 +164,6 @@ todas las instrucciones +C#+ del programa.
 
 == Referencias
 
-. [[r1]] link:https://www.amazon.com/Clean-Coder-Conduct-Professional-Programmers/dp/0137081073/ref=ntt_at_ep_dpt_2[The Clean Coder: A Code of Conduct for Professional Programmers]
-. [[r2]] link:http://www.informit.com/articles/article.aspx?p=457502&seqNum=5[The Bad Code Spotter's Guide, Repetition]
-. [[r3]] link:../../../rules/162/[REQ.162 Eliminar código redundante].
+. [[r1]] link:../../../rules/162/[REQ.162 Eliminar código redundante].
+. [[r2]] link:http://www.informit.com/articles/article.aspx?p=457502&seqNum=5[The Bad Code Spotter's Guide, Repetition].
+. [[r3]] link:https://www.amazon.com/Clean-Coder-Conduct-Professional-Programmers/dp/0137081073/ref=ntt_at_ep_dpt_2[The Clean Coder: A Code of Conduct for Professional Programmers].
