@@ -301,6 +301,7 @@
 * link:191/[REQ.191 Proteger datos con el máximo nivel].
 * link:192/[REQ.192 Cifrar datos de respaldo].
 * link:193/[REQ.193 Separar datos de respaldo de su origen].
+* link:300/[REQ.300 Enmascarar datos sensibles].
 * link:305/[REQ.305 Priorizar uso de tokens].
 * link:306/[REQ.306 No utilizar mensajes de texto].
 * link:998/[REQ.998 Limitar tiempo de vida de variables].
