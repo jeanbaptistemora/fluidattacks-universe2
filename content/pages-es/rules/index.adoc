@@ -265,6 +265,13 @@
 * link:241/[REQ.241 Definir requisitos de criterio de seguridad].
 * link:242/[REQ.242 Realizar soporte fuera de producción].
 
+== Proceso negocio
+
+* link:243/[REQ.243 Gestionar incidentes de seguridad].
+* link:244/[REQ.244 Gestionar respaldo de información].
+* link:245/[REQ.245 Gestionar control de cambios].
+* link:246/[REQ.246 Gestionar cuentas de usuario].
+
 == Servicios
 
 * link:262/[REQ.262 Verificar componentes de terceros].
