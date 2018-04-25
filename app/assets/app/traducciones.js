@@ -383,7 +383,11 @@ const traducciones = {
     "cardinalities": "Vulnerabilidades Abiertas",
     "closure": "Vulnerabilidades remediadas",
     "criticity": "Criticidad Total Encontrada",
-    "findings": "Hallazgos"
+    "findings": "Hallazgos",
+    "maximumSeverity": "Máxima Severidad Encontrada",
+    "oldestFinding": "Hallazgo con Mayor Edad",
+    "openEvents": "Eventualidades Abiertas",
+    "vulnerabilities": "Vulnerabilidades Totales"
   },
   "filter_menu": {
     "search": {

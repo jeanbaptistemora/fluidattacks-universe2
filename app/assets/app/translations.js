@@ -375,7 +375,11 @@ const translations = {
         "cardinalities": "Open Vulnerabilities",
         "closure": "Fixed vulnerabilities",
         "criticity": "Total Severity Found",
-        "findings": "Findings"
+        "findings": "Findings",
+        "maximumSeverity": "Maximum Severity Found",
+        "oldestFinding": "Oldest Finding",
+        "openEvents": "Open Eventualities",
+        "vulnerabilities": "Total Vulnerabilities"
       },
      "filter_menu": {
        "search": {

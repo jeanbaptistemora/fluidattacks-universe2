@@ -88,10 +88,25 @@ integrates.controller(
       let totalSeverity = 0;
       let cardinalidad = 0;
       let cardinalidadTotal = 0;
+      let maximumSeverity = 0;
+      let oldestFinding = 0;
+      let openEvents = 0;
       data.data.forEach((cont) => {
         cardinalidad += parseInt(cont.cardinalidad, 10);
         cardinalidadTotal += parseInt(cont.cardinalidad_total, 10);
+        if (maximumSeverity < cont.criticidad) {
+          maximumSeverity = cont.criticidad;
+        }
+        if (oldestFinding < cont.edad) {
+          oldestFinding = cont.edad;
+        }
       });
+      for (let event = 0; event < eventsData.length; event++) {
+        if (eventsData[event].estado === "Unsolved" ||
+              eventsData[event].estado === "Pendiente") {
+          openEvents += 1;
+        }
+      }
       $scope.metricsList = [];
       $scope.metricsList.push({
         "color": "background-color: #2197d6;",
@@ -101,11 +116,39 @@ integrates.controller(
         "value": data.data.length
       });
       $scope.metricsList.push({
+        "color": "background-color: #ff9930;",
+        "description": $translate.instant("search_findings." +
+                                          "filter_labels.vulnerabilities"),
+        "icon": "s7-info",
+        "value": cardinalidadTotal
+      });
+      $scope.metricsList.push({
         "color": "background-color: #aa2d30;",
         "description": $translate.instant("search_findings." +
                                           "filter_labels.cardinalities"),
-        "icon": "s7-unlock",
+        "icon": "s7-attention",
         "value": cardinalidad
+      });
+      $scope.metricsList.push({
+        "color": "background-color: #2e4050;",
+        "description": $translate.instant("search_findings." +
+                                          "filter_labels.maximumSeverity"),
+        "icon": "s7-gleam",
+        "value": maximumSeverity
+      });
+      $scope.metricsList.push({
+        "color": "background-color: #9f5ab1;",
+        "description": $translate.instant("search_findings." +
+                                          "filter_labels.oldestFinding"),
+        "icon": "s7-date",
+        "value": oldestFinding
+      });
+      $scope.metricsList.push({
+        "color": "background-color: #0a40ae;",
+        "description": $translate.instant("search_findings." +
+                                          "filter_labels.openEvents"),
+        "icon": "s7-way",
+        "value": openEvents
       });
       let severity = 0;
       data.data.forEach((cont) => {
@@ -360,6 +403,27 @@ integrates.controller(
         const searchAt = $translate.instant("proj_alerts.search_title");
         const searchAc = $translate.instant("proj_alerts.search_cont");
         $msg.info(searchAc, searchAt);
+        if (eventsData.length === 0 || (eventsData.length > 0 &&
+                   eventsData[0].proyecto_fluid.toLowerCase() !==
+                   $scope.project.toLowerCase())) {
+          const reqEventualities = projectFtry.EventualityByName(
+            projectName,
+            "Name"
+          );
+          reqEventualities.then((response) => {
+            if (!response.error) {
+              eventsData = response.data;
+            }
+            else if (response.message === "Access to project denied") {
+              Rollbar.warning("Warning: Access to event denied");
+              $msg.error($translate.instant("proj_alerts.access_denied"));
+            }
+            else {
+              Rollbar.warning("Warning: Event not found");
+              $msg.error($translate.instant("proj_alerts.eventExist"));
+            }
+          });
+        }
         if (projectData.length > 0 &&
             projectData[0].proyecto_fluid.toLowerCase() ===
             $scope.project.toLowerCase()) {
