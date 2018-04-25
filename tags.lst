@@ -1,4 +1,5 @@
 application
+bug
 challenge
 cloud
 code
@@ -10,11 +11,13 @@ documentation
 encryption
 engineering
 ethical hacking
+flaw
 fuzzing
 health
 information
 injection
 jwt
+openssl
 password
 pentesting
 protect
@@ -30,6 +33,7 @@ sql
 standard
 test
 testing
+tls
 vector
 vulnerability
 web
