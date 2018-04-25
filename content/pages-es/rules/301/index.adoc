@@ -1,0 +1,14 @@
+:slug: rules/301/
+:category: rules
+:description: En el presente documento se detallan los requerimientos de seguridad relacionados a los datos sensibles de la organización. En este requerimiento, se recomiendo que el mismo sistema notifique a sus usuarios cuando se realicen cambios en su configuración.
+:keywords: Sistema, Notificar, Configuración, Cambios, Autenticación, Seguridad.
+:rules: yes
+
+= REQ.301 Notificar cambios en configuración
+
+== Nombre
+
+El sistema debe notificar al usuario
+cuando se realizan modificaciones
+sobre sus mecanismos de autenticación
+u otras configuraciones de seguridad.
