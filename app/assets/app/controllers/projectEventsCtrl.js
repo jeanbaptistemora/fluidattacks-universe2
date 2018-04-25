@@ -5,7 +5,8 @@ BASE, downLink:true, Morris, estado:true, exploitLabel:true, eventsData:true,
 nonexploitLabel:true, totalHigLabel:true, explotable:true, totalSegLabel:true,
 openLabel:true, partialLabel:true, integrates, userRole, document, $, $msg,
 userName, userEmail, Rollbar, aux:true, json:true, closeLabel:true, j:true,
-mixPanelDashboard, win:true, window, Organization, projectData:true, i:true
+mixPanelDashboard, win:true, window, Organization, projectData:true, i:true,
+eventsTranslations, keysToTranslate
 */
 /**
  * @file projectEventsCtrl.js
@@ -182,63 +183,13 @@ integrates.controller(
       const projectName = project.toUpperCase();
       $scope.alertHeader(organizationName, projectName);
       for (let cont = 0; cont < data.length; cont++) {
-        switch (data[cont].tipo) {
-        case "Autorización para ataque especial":
-          data[cont].tipo = $translate.instant("eventFormstack." +
-                                               "type.auth_attack");
-          break;
-        case "Alcance difiere a lo aprobado":
-          data[cont].tipo = $translate.instant("eventFormstack." +
-                                               "type.toe_differs");
-          break;
-        case "Aprobación de alta disponibilidad":
-          data[cont].tipo = $translate.instant("eventFormstack." +
-                                               "type.high_approval");
-          break;
-        case "Insumos incorrectos o faltantes":
-          data[cont].tipo = $translate.instant("eventFormstack." +
-                                               "type.incor_supplies");
-          break;
-        case "Cliente suspende explicitamente":
-          data[cont].tipo = $translate.instant("eventFormstack." +
-                                               "type.explic_suspend");
-          break;
-        case "Cliente aprueba cambio de alcance":
-          data[cont].tipo = $translate.instant("eventFormstack." +
-                                               "type.approv_change");
-          break;
-        case "Cliente cancela el proyecto/hito":
-          data[cont].tipo = $translate.instant("eventFormstack." +
-                                               "type.cancel_proj");
-          break;
-        case "Cliente detecta ataque":
-          data[cont].tipo = $translate.instant("eventFormstack." +
-                                               "type.det_attack");
-          break;
-        case "Otro":
-          data[cont].tipo = $translate.instant("eventFormstack.type.other");
-          break;
-        case "Ambiente no accesible":
-          data[cont].tipo = $translate.instant("eventFormstack." +
-                                               "type.inacc_ambient");
-          break;
-        case "Ambiente inestable":
-          data[cont].tipo = $translate.instant("eventFormstack." +
-                                               "type.uns_ambient");
-          break;
-        default:
-          data[cont].tipo = data[cont].tipo;
-        }
-        switch (data[cont].estado) {
-        case "Pendiente":
-          data[cont].estado = $translate.instant("eventFormstack." +
-                                                 "status.unsolve");
-          break;
-        case "Tratada":
-          data[cont].estado = $translate.instant("eventFormstack.status.solve");
-          break;
-        default:
-          data[cont].estado = data[cont].estado;
+        for (let inc = 0; inc < eventsTranslations.length; inc++) {
+          if (data[cont][eventsTranslations[inc]] in keysToTranslate) {
+            data[cont][eventsTranslations[inc]] =
+                  $translate.instant(keysToTranslate[
+                    data[cont][eventsTranslations[inc]]
+                  ]);
+          }
         }
       }
       $scope.isManager = userRole !== "customer";

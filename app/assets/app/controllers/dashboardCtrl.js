@@ -1,7 +1,8 @@
 /* eslint no-shadow: ["error", { "allow": ["$scope"] }]*/
 /* global
 integrates, $, BASE, mixpanel, userMail, $xhr, Organization, userEmail,
-mixPanelDashboard, userName, projectData:true, eventsData:true, findingData:true
+mixPanelDashboard, userName, projectData:true, eventsData:true,
+findingData:true, fieldsToTranslate, keysToTranslate
 */
 /**
  * @file dashboardController.js
@@ -93,54 +94,11 @@ integrates.controller("dashboardCtrl", function dashboardCtrl (
     const aux = $xhr.get($q, `${BASE.url}get_myevents`, {});
     aux.then((response) => {
       for (let cont = 0; cont < response.data.length; cont++) {
-        switch (response.data[cont].tipo) {
-        case "Autorización para ataque especial":
-          response.data[cont].tipo = $translate.instant("eventFormstack." +
-                                                        "type.auth_attack");
-          break;
-        case "Alcance difiere a lo aprobado":
-          response.data[cont].tipo = $translate.instant("eventFormstack." +
-                                                        "type.toe_differs");
-          break;
-        case "Aprobación de alta disponibilidad":
-          response.data[cont].tipo = $translate.instant("eventFormstack." +
-                                                        "type.high_approval");
-          break;
-        case "Insumos incorrectos o faltantes":
-          response.data[cont].tipo = $translate.instant("eventFormstack." +
-                                                        "type.incor_supplies");
-          break;
-        case "Cliente suspende explicitamente":
-          response.data[cont].tipo = $translate.instant("eventFormstack." +
-                                                        "type.explic_suspend");
-          break;
-        case "Cliente aprueba cambio de alcance":
-          response.data[cont].tipo = $translate.instant("eventFormstack." +
-                                                        "type.approv_change");
-          break;
-        case "Cliente cancela el proyecto/hito":
-          response.data[cont].tipo = $translate.instant("eventFormstack." +
-                                                        "type.cancel_proj");
-          break;
-        case "Cliente detecta ataque":
-          response.data[cont].tipo = $translate.instant("eventFormstack." +
-                                                        "type.det_attack");
-          break;
-        case "Otro":
-          response.data[cont].tipo = $translate.instant("eventFormstack." +
-                                                        "type.other");
-          break;
-        case "Ambiente no accesible":
-          response.data[cont].tipo = $translate.instant("eventFormstack." +
-                                                        "type.inacc_ambient");
-          break;
-        case "Ambiente inestable":
-          response.data[cont].tipo = $translate.instant("eventFormstack." +
-                                                        "type.uns_ambient");
-          break;
-        default:
-          response.data[cont].tipo = $translate.instant("eventFormstack." +
-                                                        "type.unknown");
+        for (let inc = 0; inc < fieldsToTranslate.length; inc++) {
+          if (response.data[cont].tipo in keysToTranslate) {
+            response.data[cont].tipo =
+                  $translate.instant(keysToTranslate[response.data[cont].tipo]);
+          }
         }
       }
       $("#myEventsTbl").bootstrapTable({

@@ -172,7 +172,7 @@ class ITReport(object):
 		self.set_cell(self.finding['requirements_id'],
 			self.__get_req(row["requisitos"]))
 		self.set_cell(self.finding['measurements'],
-			self.__get_measure(row["vector_acceso"]))
+			self.__get_measure(row["vectorAcceso"]))
 		self.set_cell(self.finding['measurements'],
 			self.__get_complexity(self.__get_measure(
 				row["complejidadAcceso"])),
@@ -193,16 +193,16 @@ class ITReport(object):
 			self.__get_measure(row["explotabilidad"]),
 			6)
 		self.set_cell(self.finding['measurements'],
-			self.__get_measure(row["nivel_resolucion"]),
+			self.__get_measure(row["nivelResolucion"]),
 			7)
 		self.set_cell(self.finding['measurements'],
-			self.__get_measure(row["nivel_confianza"]),
+			self.__get_measure(row["nivelConfianza"]),
 			8)
 
 	def __write_qc(self, row):
 		""" Escribe un hallazgo de formstack en una fila en la hoja de MatrizQC """
 		self.__select_qc_sheet()
-		self.set_cell_qc(self.matriz['type'], row["tipo_prueba"])
+		self.set_cell_qc(self.matriz['type'], row["tipoPrueba"])
 		self.set_cell_qc(self.matriz['component'], row["componente_aplicativo"])
 		self.set_cell_qc(self.matriz['requirements_id'],
 			self.__get_req(row["requisitos"]))

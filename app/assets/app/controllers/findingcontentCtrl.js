@@ -791,7 +791,6 @@ integrates.controller("findingcontentCtrl", function findingcontentCtrl (
     $scope.aux.bts = $scope.finding.btsExterno;
     $scope.finding.hasUrl = $scope.hasUrl($scope.finding.btsExterno);
     $scope.finding.cweIsUrl = $scope.hasUrl($scope.finding.cwe);
-
     for (let inc = 0; inc < fieldsToTranslate.length; inc++) {
       if ($scope.finding[fieldsToTranslate[inc]] in keysToTranslate) {
         $scope.finding[fieldsToTranslate[inc]] =
@@ -799,140 +798,6 @@ integrates.controller("findingcontentCtrl", function findingcontentCtrl (
                 $scope.finding[fieldsToTranslate[inc]]
               ]);
       }
-    }
-    switch ($scope.finding.nivel_confianza) {
-    case "0.900 | No confirmado: Existen pocas fuentes " +
-         "que reconocen la vulnerabilidad":
-      $scope.finding.nivelConfianza = $translate.instant("finding_formstack." +
-                                                    "confidence.not_confirm");
-      break;
-    case "0.950 | No corroborado: La vulnerabilidad es " +
-         "reconocida por fuentes no oficiales":
-      $scope.finding.nivelConfianza = $translate.instant("finding_formstack." +
-                                                    "confidence.not_corrob");
-      break;
-    case "1.000 | Confirmado: La vulnerabilidad es " +
-         "reconocida por el fabricante":
-      $scope.finding.nivelConfianza = $translate.instant("finding_formstack." +
-                                                    "confidence.confirmed");
-      break;
-    default:
-      $scope.finding.nivelConfianza = $scope.finding.nivelConfianza;
-    }
-    switch ($scope.finding.nivel_resolucion) {
-    case "0.950 | Paliativa: Existe un parche que " +
-         "no fue publicado por el fabricante":
-      $scope.finding.nivelResolucion = $translate.instant("finding_formstack." +
-                                                     "resolution.palliative");
-      break;
-    case "0.870 | Oficial: Existe un parche disponible por el fabricante":
-      $scope.finding.nivelResolucion = $translate.instant("finding_formstack." +
-                                                     "resolution.official");
-      break;
-    case "0.900 | Temporal: Existen soluciones temporales":
-      $scope.finding.nivelResolucion = $translate.instant("finding_formstack." +
-                                                     "resolution.temporal");
-      break;
-    case "1.000 | Inexistente: No existe solución":
-      $scope.finding.nivelResolucion = $translate.instant("finding_formstack." +
-                                                     "resolution.non_existent");
-      break;
-    default:
-      $scope.finding.nivelResolucion = $scope.finding.nivelResolucion;
-    }
-    switch ($scope.finding.probabilidad) {
-    case "100% Vulnerado Anteriormente":
-      $scope.finding.probabilidad = $translate.instant("finding_formstack." +
-                                                  "probability.prev_vuln");
-      break;
-    case "75% Fácil de vulnerar":
-      $scope.finding.probabilidad = $translate.instant("finding_formstack." +
-                                                  "probability.easy_vuln");
-      break;
-    case "50% Posible de vulnerar":
-      $scope.finding.probabilidad = $translate.instant("finding_formstack." +
-                                                  "probability.possible_vuln");
-      break;
-    case "25% Difícil de vulnerar":
-      $scope.finding.probabilidad = $translate.instant("finding_formstack." +
-                                                  "probability.diffic_vuln");
-      break;
-    default:
-      $scope.finding.probabilidad = $scope.finding.probabilidad;
-    }
-    switch ($scope.finding.tipoHallazgoCliente) {
-    case "Higiene":
-      $scope.finding.tipoHallazgoCliente =
-                                    $translate.instant("finding_formstack." +
-                                                       "findingType.hygiene");
-      break;
-    case "Vulnerabilidad":
-      $scope.finding.tipoHallazgoCliente =
-                                    $translate.instant("finding_formstack." +
-                                                       "findingType.vuln");
-      break;
-    default:
-      $scope.finding.tipoHallazgoCliente = $scope.finding.tipoHallazgoCliente;
-    }
-    switch ($scope.finding.tipo_prueba) {
-    case "Análisis":
-      $scope.finding.tipoPrueba = $translate.instant("finding_formstack." +
-                                                "test_method.analysis");
-      break;
-    case "Aplicación":
-      $scope.finding.tipoPrueba = $translate.instant("finding_formstack." +
-                                                "test_method.app");
-      break;
-    case "Binario":
-      $scope.finding.tipoPrueba = $translate.instant("finding_formstack." +
-                                                "test_method.binary");
-      break;
-    case "Código":
-      $scope.finding.tipoPrueba = $translate.instant("finding_formstack." +
-                                                "test_method.code");
-      break;
-    case "Infraestructura":
-      $scope.finding.tipoPrueba = $translate.instant("finding_formstack." +
-                                                "test_method.infras");
-      break;
-    default:
-      $scope.finding.tipoPrueba = $scope.finding.tipoPrueba;
-    }
-    switch ($scope.finding.vector_acceso) {
-    case "0.646 | Red adyacente: Explotable desde el mismo segmento de red":
-      $scope.finding.vectorAcceso = $translate.instant("finding_formstack." +
-                                                  "access_vector.adjacent");
-      break;
-    case "1.000 | Red: Explotable desde Internet":
-      $scope.finding.vectorAcceso = $translate.instant("finding_formstack." +
-                                                  "access_vector.network");
-      break;
-    case "0.395 | Local: Explotable con acceso local al objetivo":
-      $scope.finding.vectorAcceso = $translate.instant("finding_formstack." +
-                                                  "access_vector.local");
-      break;
-    default:
-      $scope.finding.vectorAcceso = $scope.finding.vectorAcceso;
-    }
-    switch ($scope.finding.tratamiento) {
-    case "Asumido":
-      $scope.finding.tratamiento = $translate.instant("finding_formstack." +
-                                                 "treatment_header.asummed");
-      break;
-    case "Nuevo":
-      $scope.finding.tratamiento = $translate.instant("finding_formstack." +
-                                                 "treatment_header.working");
-      break;
-    case "Remediar":
-      $scope.finding.tratamiento = $translate.instant("finding_formstack." +
-                                                 "treatment_header.remediated");
-      break;
-    case "Resuelto":
-      $scope.finding.tratamiento = $translate.instant("finding_formstack." +
-                                                 "treatment_header.resolved");
-      break;
-    default:
-      $scope.finding.tratamiento = $scope.finding.tratamiento;
     }
     // Control de campos para tipos de hallazgo
     $scope.esDetallado = false;
@@ -1028,11 +893,11 @@ integrates.controller("findingcontentCtrl", function findingcontentCtrl (
             parseFloat($scope.finding.impactoDisponibilidad.split(" | ")[0]);
     const AccCom =
             parseFloat($scope.finding.complejidadAcceso.split(" | ")[0]);
-    const AccVec = parseFloat($scope.finding.vector_acceso.split(" | ")[0]);
+    const AccVec = parseFloat($scope.finding.vectorAcceso.split(" | ")[0]);
     const Auth = parseFloat($scope.finding.autenticacion.split(" | ")[0]);
     const Explo = parseFloat($scope.finding.explotabilidad.split(" | ")[0]);
-    const Resol = parseFloat($scope.finding.nivel_resolucion.split(" | ")[0]);
-    const Confi = parseFloat($scope.finding.nivel_confianza.split(" | ")[0]);
+    const Resol = parseFloat($scope.finding.nivelResolucion.split(" | ")[0]);
+    const Confi = parseFloat($scope.finding.nivelConfianza.split(" | ")[0]);
     const BaseScore = ((0.6 * 10.41 * (1 - ((1 - ImpCon) * (1 - ImpInt) *
            (1 - ImpDis)))) + (0.4 * 20 * AccCom * Auth * AccVec) - 1.5) * 1.176;
     const Temporal = BaseScore * Explo * Resol * Confi;

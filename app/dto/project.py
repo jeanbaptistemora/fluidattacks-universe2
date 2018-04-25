@@ -70,7 +70,7 @@ class ProjectDTO(object):
             if finding["field"] == self.FECHA_FIN:
                 self.data["fecha_fin"] = finding["value"]
             if finding["field"] == self.TIPO_PRUEBA:
-                self.data["tipo_prueba"] = finding["value"]
+                self.data["tipoPrueba"] = finding["value"]
             if finding["field"] == self.AMBIENTE:
                 self.data["ambiente"] = finding["value"]
             if finding["field"] == self.CAMBIOS_AMBIENTE:

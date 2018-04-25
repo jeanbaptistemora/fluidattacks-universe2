@@ -227,7 +227,7 @@ class CreatorPDF(object):
         self.context["arquitecto"] = project_info["arquitecto"]
         self.context["fecha_inicio"] = project_info["fecha_inicio"]
         self.context["fecha_fin"] = project_info["fecha_fin"]
-        self.context["tipo_prueba"] = project_info["tipo_prueba"]
+        self.context["tipoPrueba"] = project_info["tipoPrueba"]
         self.context["ambiente"] = project_info["ambiente"]
         self.context["tipo_cobertura"] = project_info["tipo_cobertura"]
         self.context["mapa_hallazgos"] = project_info["mapa_hallazgos"]

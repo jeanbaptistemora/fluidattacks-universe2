@@ -210,9 +210,9 @@ class FindingDTO(object):
         if "data[id]" in parameter:
             self.request_id \
                 = parameter["data[id]"]
-        if "data[vector_acceso]" in parameter:
+        if "data[vectorAcceso]" in parameter:
             self.data[self.VECTOR_ACCESO] \
-                = parameter["data[vector_acceso]"]
+                = parameter["data[vectorAcceso]"]
         if "data[complejidadAcceso]" in parameter:
             self.data[self.COMPLEJIDAD_ACCESO] \
                 = parameter["data[complejidadAcceso]"]
@@ -234,12 +234,12 @@ class FindingDTO(object):
         if "data[impactoDisponibilidad]" in parameter:
             self.data[self.IMPACTO_DISPONIBILIDAD] \
                 = parameter["data[impactoDisponibilidad]"]
-        if "data[nivel_resolucion]" in parameter:
+        if "data[nivelResolucion]" in parameter:
             self.data[self.NIVEL_RESOLUCION] \
-                = parameter["data[nivel_resolucion]"]
-        if "data[nivel_confianza]" in parameter:
+                = parameter["data[nivelResolucion]"]
+        if "data[nivelConfianza]" in parameter:
             self.data[self.NIVEL_CONFIANZA] \
-                = parameter["data[nivel_confianza]"]
+                = parameter["data[nivelConfianza]"]
 
     def create_delete(self, parameter, analyst, project, finding):
         """ Crea un set de datos para enviar en el correo
@@ -307,7 +307,7 @@ class FindingDTO(object):
             if finding["field"] == self.COMPONENTE_APLICATIVO:
                 self.data["componente_aplicativo"] = finding["value"]
             if finding["field"] == self.TIPO_PRUEBA:
-                self.data["tipo_prueba"] = finding["value"]
+                self.data["tipoPrueba"] = finding["value"]
             if finding["field"] == self.RIESGO:
                 self.data["riesgo"] = finding["value"]
             if finding["field"] == self.REQUISITOS:
@@ -372,7 +372,7 @@ class FindingDTO(object):
         "Convierte la califiacion de un hallazgo en formstack"
         for finding in request_arr["data"]:
             if finding["field"] == self.VECTOR_ACCESO:
-                self.data["vector_acceso"] = finding["value"]
+                self.data["vectorAcceso"] = finding["value"]
             if finding["field"] == self.COMPLEJIDAD_ACCESO:
                 self.data["complejidadAcceso"] = finding["value"]
             if finding["field"] == self.AUTENTICACION:
@@ -386,18 +386,18 @@ class FindingDTO(object):
             if finding["field"] == self.EXPLOTABILIDAD:
                 self.data["explotabilidad"] = finding["value"]
             if finding["field"] == self.NIVEL_RESOLUCION:
-                self.data["nivel_resolucion"] = finding["value"]
+                self.data["nivelResolucion"] = finding["value"]
             if finding["field"] == self.NIVEL_CONFIANZA:
-                self.data["nivel_confianza"] = finding["value"]
+                self.data["nivelConfianza"] = finding["value"]
         if self.data['explotabilidad'] == '1.000 | Alta: No se requiere exploit o se puede automatizar' \
             or self.data['explotabilidad'] == '0.950 | Funcional: Existe exploit':
             self.data['explotable'] = 'Si'
         else:
             self.data['explotable'] = 'No'
         if 'tipo_hallazgo' not in self.data or self.data['tipo_hallazgo'] == 'Seguridad':
-            self.data['tipo_hallazgo_cliente'] = 'Vulnerabilidad'
+            self.data['tipoHallazgoCliente'] = 'Vulnerabilidad'
         else:
-            self.data['tipo_hallazgo_cliente'] = self.data['tipo_hallazgo']
+            self.data['tipoHallazgoCliente'] = self.data['tipo_hallazgo']
 
     def parse_project(self, request_arr):
         "Convierte la info de proyecto de un hallazgo en formstack"

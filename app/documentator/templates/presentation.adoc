@@ -36,7 +36,7 @@ image::../resources/presentation_theme/t_alcance_es.png[width=400]
 ^|*Valor*
 
 |*Tipo de prueba*
-|{{tipo_prueba}}
+|{{tipoPrueba}}
 
 |*Fecha de inicio*
 |{{fecha_inicio}}
@@ -215,7 +215,7 @@ Por lo tanto se puede concluir que *{{proyecto_cliente}}* presenta un nivel de s
 {{nivel_seguridad}}
 
 [.text-center]
-Criticidad más alta *{{findings[0]["impacto"]}}* y vector de acceso mas riesgoso *{{findings[0]["vector_acceso"].split(" | ")[1].split(":")[0]}}*
+Criticidad más alta *{{findings[0]["impacto"]}}* y vector de acceso mas riesgoso *{{findings[0]["vectorAcceso"].split(" | ")[1].split(":")[0]}}*
 
 <<<
 image::../resources/presentation_theme/t_contacto_es.png[width=400]

@@ -118,11 +118,11 @@ integrates.controller(
             const ImpDis =
                       parseFloat(cont.impactoDisponibilidad.split(" | ")[0]);
             const AccCom = parseFloat(cont.complejidadAcceso.split(" | ")[0]);
-            const AccVec = parseFloat(cont.vector_acceso.split(" | ")[0]);
+            const AccVec = parseFloat(cont.vectorAcceso.split(" | ")[0]);
             const Auth = parseFloat(cont.autenticacion.split(" | ")[0]);
             const Explo = parseFloat(cont.explotabilidad.split(" | ")[0]);
-            const Resol = parseFloat(cont.nivel_resolucion.split(" | ")[0]);
-            const Confi = parseFloat(cont.nivel_confianza.split(" | ")[0]);
+            const Resol = parseFloat(cont.nivelResolucion.split(" | ")[0]);
+            const Confi = parseFloat(cont.nivelConfianza.split(" | ")[0]);
             const BaseScore = ((0.6 * (10.41 * (1 - ((1 - ImpCon) *
                               (1 - ImpInt) * (1 - ImpDis))))) +
                               (0.4 * (20 * AccCom * Auth * AccVec)) - 1.5) *
