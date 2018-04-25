@@ -44,21 +44,6 @@
                     <div class="tab-content">
                         <div id="indicators" class="tab-pane cont active">
                             <div class="row">
-                                <div class="col-md-4 text-center">
-                                    <h3>{% templatetag openvariable %} 'grapExploit.title' | translate {% templatetag closevariable %}</h3>
-                                    <div id="grapExploit" style="width:250px; height:250px; margin: auto;"></div>
-                                </div>
-                                <div class="col-md-4 text-center">
-                                    <h3>{% templatetag openvariable %} 'grapType.title' | translate {% templatetag closevariable %}</h3>
-                                    <div id="grapType" style="width:250px; height:250px; margin: auto;"></div>
-                                </div>
-                                <div class="col-md-4 text-center">
-                                    <h3>{% templatetag openvariable %} 'grapStatus.title' | translate {% templatetag closevariable %}</h3>
-                                    <div id="grapStatus" style="width:250px; height:250px; margin: auto;"></div>
-                                </div>
-                            </div>
-                            <hr>
-                            <div class="row">
                                 <div class="col-md-12">
                                     <div ng-repeat="metric in metricsList">
                                         <div class="col-md-3 col-xs-12">
@@ -75,6 +60,21 @@
                                             </div>
                                         </div>
                                     </div>
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="row">
+                                <div class="col-md-4 text-center">
+                                    <h3>{% templatetag openvariable %} 'grapExploit.title' | translate {% templatetag closevariable %}</h3>
+                                    <div id="grapExploit" style="width:250px; height:250px; margin: auto;"></div>
+                                </div>
+                                <div class="col-md-4 text-center">
+                                    <h3>{% templatetag openvariable %} 'grapType.title' | translate {% templatetag closevariable %}</h3>
+                                    <div id="grapType" style="width:250px; height:250px; margin: auto;"></div>
+                                </div>
+                                <div class="col-md-4 text-center">
+                                    <h3>{% templatetag openvariable %} 'grapStatus.title' | translate {% templatetag closevariable %}</h3>
+                                    <div id="grapStatus" style="width:250px; height:250px; margin: auto;"></div>
                                 </div>
                             </div>
                         </div>
