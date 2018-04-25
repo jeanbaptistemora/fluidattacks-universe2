@@ -3,7 +3,7 @@
  document, $, alertify, timew, Tabletop, v:true, obj:true, $msg, remember:true
 */
 $(document).ready(() => {
-  remember = function remember () {
+  const remember = function remember () {
     try {
       alertify.log("<div class=\"\" style=\"padding: 8px;\"> <p class=" +
                    "\"text-center\">Recordatorio</p><p class=\"text-left\"> " +
