@@ -29,6 +29,7 @@ checks:
     - ./check-changed.sh
     - ./check-all.sh
     - ./check-articles.sh
+    - ./check-spelling.sh
     - pybabel compile --directory theme/2014/translations/ --domain messages
     - for FILE in $(find . -iname '*.adoc'); do sed -i 's/^include::/include::\/builds\/fluidsignal/g' $FILE; done
     - sed -i 's/https:\/\/fluidattacks\.com/http:\/\/'"$CI_COMMIT_REF_SLUG.$CI_PROJECT_NAME.$ENV_DNS"'/g' pelicanconf.py
