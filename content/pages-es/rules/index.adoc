@@ -101,6 +101,7 @@
 * link:213/[REQ.213 Permitir ubicación geográfica].
 * link:214/[REQ.214 Permitir destruir datos].
 * link:303/[REQ.303 Desplegar aplicaciones en tiendas confiables].
+* link:304/[REQ.304 Publicar aplicación con nombre oficial].
 
 == Firewall
 
