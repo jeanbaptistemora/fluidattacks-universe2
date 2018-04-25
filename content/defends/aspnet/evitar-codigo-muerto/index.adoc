@@ -16,6 +16,8 @@ A continuación se describe las circunstancias
 bajo las cuales la siguiente solución tiene sentido:
 
 . Se está desarrollando en +ASP.Net+.
+. Las funciones, métodos o clases
+deben ser invocadas en algún escenario funcional del sistema.<<r1,^[1]^>>
 
 == Solución
 
@@ -27,7 +29,7 @@ que son cargadas en memoria o interpretadas
 pero que nunca son usadas,
 se refiere también a secciones de código olvidadas
 que si no son eliminadas
-pueden ocasionar problemas de seguridad <<r1, ^[1]^>>.
+pueden ocasionar problemas de seguridad <<r2,^[2]^>>.
 Una sección de código muerto
 puede ser utilizada por un usuario malicioso
 para vulnerar la aplicación,
@@ -38,7 +40,7 @@ Una buena práctica de programación consiste en evitar
 que código en desuso termine en la aplicación final.
 Lo anterior trae consigo otras ventajas
 como reducir el tiempo de compilación,
-mejorar la mantenibilidad de la aplicación <<r2, ^[2]^>>
+mejorar la mantenibilidad de la aplicación <<r3,^[3]^>>
 y disminuir la complejidad y extensión del código fuente.
 A continuación presentamos un ejemplo de código muerto
 y el riesgo al que podría estar expuesto su aplicación
@@ -130,6 +132,6 @@ podría permitir a un atacante escalar privilegios en el servidor.
 
 == Referencias
 
-. [[r1]] link:https://en.wikipedia.org/wiki/Dead_code[Dead Code - Wikipedia].
-. [[r2]] link:http://blog.utopicainformatica.com/2010/12/codigo-muerto.html[Código muerto].
-. [[r3]] link:../../../rules/163/[REQ.163 Invocar en escenario funcional].
+. [[r1]] link:../../../rules/163/[REQ.163 Invocar en escenario funcional].
+. [[r2]] link:https://en.wikipedia.org/wiki/Dead_code[Dead Code - Wikipedia].
+. [[r3]] link:http://blog.utopicainformatica.com/2010/12/codigo-muerto.html[Código muerto].
