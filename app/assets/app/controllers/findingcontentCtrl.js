@@ -111,7 +111,7 @@ integrates.controller("findingcontentCtrl", function findingcontentCtrl (
       if (!response.error) {
         if (response.data.length > 0) {
           /* eslint func-style: ["error", "expression"]*/
-          const respFunction = function (response) {
+          const respFunction = function respFunction (response) {
             if (!response.error) {
               let responses = response.replaceAll("<", "&lt;");
               responses = response.replaceAll(">", "&gt;");
@@ -441,7 +441,7 @@ integrates.controller("findingcontentCtrl", function findingcontentCtrl (
         $scope.modalTitle = $translate.instant("confirmmodal.title_cssv2");
         $scope.ok = function ok () {
           // Consumir el servicio
-          const req = projectFtry.UpdateCSSv2(updateData);
+          const req = projectFtry.updateCSSv2(updateData);
           // Capturar la Promisse
           req.then((response) => {
             if (!response.error) {
@@ -543,7 +543,7 @@ integrates.controller("findingcontentCtrl", function findingcontentCtrl (
       $msg.error(errorAc1);
       return false;
     }
-    const responseFunction = function (response) {
+    const responseFunction = function responseFunction (response) {
       if (!response.error) {
         const updatedAt = $translate.instant("proj_alerts.updatedTitle");
         const updatedAc = $translate.instant("proj_alerts.updated_cont_file");
@@ -556,7 +556,7 @@ integrates.controller("findingcontentCtrl", function findingcontentCtrl (
       $msg.error(errorAc1);
       return false;
     };
-    const errorFunction = function (response) {
+    const errorFunction = function errorFunction (response) {
       if (!response.error) {
         errorAc1 = $translate.instant("proj_alerts.no_file_update");
         Rollbar.error("Error: An error occurred updating evidences");
@@ -565,10 +565,10 @@ integrates.controller("findingcontentCtrl", function findingcontentCtrl (
       }
       return true;
     };
-    projectFtry.UpdateEvidenceFiles(data, responseFunction, errorFunction);
+    projectFtry.updateEvidenceFiles(data, responseFunction, errorFunction);
     return true;
   };
-  updateEvidenceText = function (element) {
+  updateEvidenceText = function updateEvidenceText (element) {
     const evImage = $(element).attr("target");
     const data = {};
     data.id = $scope.finding.id;
@@ -604,7 +604,7 @@ integrates.controller("findingcontentCtrl", function findingcontentCtrl (
         data.descEvidencia5 = description;
         data.field = "descEvidencia5";
       }
-      const req = projectFtry.UpdateEvidenceText(data);
+      const req = projectFtry.updateEvidenceText(data);
       // Capturar la Promisse
       req.then((response) => {
         if (!response.error) {
@@ -647,7 +647,7 @@ integrates.controller("findingcontentCtrl", function findingcontentCtrl (
         $scope.ok = function ok () {
           $scope.vuln.id = updateData.id;
           // Consumir el servicio
-          const req = projectFtry.DeleteFinding($scope.vuln);
+          const req = projectFtry.deleteFinding($scope.vuln);
           // Capturar la Promisse
           req.then((response) => {
             if (!response.error) {
@@ -658,7 +658,7 @@ integrates.controller("findingcontentCtrl", function findingcontentCtrl (
               $state.go("ProjectFindings", {"project": $stateParams.project});
               // Tracking mixpanel
               mixPanelDashboard.trackFinding(
-                "DeleteFinding",
+                "deleteFinding",
                 userEmail,
                 descData.id
               );
@@ -719,7 +719,7 @@ integrates.controller("findingcontentCtrl", function findingcontentCtrl (
       $scope.loadFindingContent();
     }
     else {
-      const req = projectFtry.FindingById(id);
+      const req = projectFtry.findingById(id);
       req.then((response) => {
         if (!response.error && $stateParams.project ===
             response.data.proyecto_fluid.toLowerCase()) {
@@ -1507,7 +1507,7 @@ integrates.controller("findingcontentCtrl", function findingcontentCtrl (
                                                "title_description");
         $scope.ok = function ok () {
           // Consumir el servicio
-          const req = projectFtry.UpdateDescription(updateData);
+          const req = projectFtry.updateDescription(updateData);
           // Capturar la Promisse
           req.then((response) => {
             if (!response.error) {
@@ -1583,7 +1583,7 @@ integrates.controller("findingcontentCtrl", function findingcontentCtrl (
                                                  "update_treatmodal");
           $scope.ok = function ok () {
             // Consumir el servicio
-            const req = projectFtry.UpdateTreatment(updateData);
+            const req = projectFtry.updateTreatment(updateData);
             // Capturar la Promisse
             req.then((response) => {
               if (!response.error) {
@@ -1656,7 +1656,7 @@ integrates.controller("findingcontentCtrl", function findingcontentCtrl (
           }
           else {
             // Consumir el servicio
-            const req = projectFtry.FindingSolved($scope.remediatedData);
+            const req = projectFtry.findingSolved($scope.remediatedData);
             // Capturar la Promisse
             req.then((response) => {
               if (!response.error) {
@@ -1716,7 +1716,7 @@ integrates.controller("findingcontentCtrl", function findingcontentCtrl (
     $scope.isManager = userRole !== "customer";
     $scope.isRemediated = true;
     if (typeof $scope.finding.id !== "undefined") {
-      const req = projectFtry.RemediatedView($scope.finding.id);
+      const req = projectFtry.remediatedView($scope.finding.id);
       req.then((response) => {
         if (!response.error) {
           $scope.isRemediated = response.data.remediated;
@@ -1755,7 +1755,7 @@ integrates.controller("findingcontentCtrl", function findingcontentCtrl (
                                           "tab_description.verified_finding");
         $scope.ok = function ok () {
           // Consumir el servicio
-          const req = projectFtry.FindingVerified(mailData);
+          const req = projectFtry.findingVerified(mailData);
           // Capturar la Promisse
           req.then((response) => {
             if (!response.error) {
@@ -1763,7 +1763,7 @@ integrates.controller("findingcontentCtrl", function findingcontentCtrl (
               const org = Organization.toUpperCase();
               const projt = descData.project.toUpperCase();
               mixPanelDashboard.trackFindingDetailed(
-                "FindingVerified",
+                "findingVerified",
                 userName,
                 userEmail,
                 org,

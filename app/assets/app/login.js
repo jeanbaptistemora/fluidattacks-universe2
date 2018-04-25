@@ -121,7 +121,7 @@ integrates.controller("loginController", ($scope, $translate) => {
           "title": ""
         });
         if (color === "success") {
-          redirector = function () {
+          redirector = function redirector () {
             window.location = `${BASE.url}dashboard`;
           };
           setTimeout(redirector, 2000);

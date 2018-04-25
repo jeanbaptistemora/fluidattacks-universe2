@@ -21,12 +21,12 @@ fieldsToTranslate, keysToTranslate
  * @member integrates.registerCtrl
  * @return {string} Date without hour
  */
-function removeHour (value) {
+const removeHour = function removeHour (value) {
   if (value.indexOf(":") !== -1) {
     return value.split(" ")[0];
   }
   return value;
-}
+};
 
 /**
  * @function labelState
@@ -34,7 +34,7 @@ function removeHour (value) {
  * @member integrates.registerCtrl
  * @return {string} Html code for specific label
  */
-function labelState (value) {
+const labelState = function labelState (value) {
   if (value === "Cerrado") {
     return "<label class='label label-success' style='background-color: " +
            "#31c0be'>Cerrado</label>";
@@ -57,7 +57,7 @@ function labelState (value) {
   }
   return "<label class='label label-info' style='background-color: " +
          "#ffbf00'>Partially closed</label>";
-}
+};
 
 /**
  * Controlador de vista de proyectos
@@ -172,7 +172,7 @@ integrates.controller(
       if (generateDoc === false) {
         return false;
       }
-      const req = projectFtry.ProjectDoc(projectName, json, "IT");
+      const req = projectFtry.projectDoc(projectName, json, "IT");
       req.then((response) => {
         if (!response.error) {
           let url = `${BASE.url}export_autodoc?project=${$scope.project}`;

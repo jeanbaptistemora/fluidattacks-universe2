@@ -13,7 +13,7 @@ isProduction:true, translations, traducciones
  * @param {string} name Cookie name
  * @return {null|string} Return the cookies of a previous session
  */
-function getCookie (name) {
+const getCookie = function getCookie (name) {
   let cookieValue = null;
   if (document.cookie && document.cookie !== "") {
     const cookies = document.cookie.split(";");
@@ -26,7 +26,7 @@ function getCookie (name) {
     }
   }
   return cookieValue;
-}
+};
 
 /**
  * Verifica el metodo por el cual se va a enviar una peticion de cookie
@@ -34,9 +34,9 @@ function getCookie (name) {
  * @param {String} method Request method for get cookies
  * @return {boolean} Return boolean if request method is valid
  */
-function csrfSafeMethod (method) {
+const csrfSafeMethod = function csrfSafeMethod (method) {
   return (/^(GET|HEAD|OPTIONS)$/).test(method);
-}
+};
 
 /**
  * Verifica si la url dada esta dentro del mismo dominio
@@ -44,7 +44,7 @@ function csrfSafeMethod (method) {
  * @param {string} url User actual url
  * @return {boolean} Boolean response if user actual url is valid
  */
-function sameOrigin (url) {
+const sameOrigin = function sameOrigin (url) {
   const hostOrigin = document.location.host;
   const protocolOrigin = document.location.protocol;
   const srOrigin = `//${hostOrigin}`;
@@ -52,14 +52,14 @@ function sameOrigin (url) {
   return url === origin || url.slice(0, origin.length + 1) === `${origin}/` ||
         (url === srOrigin || url.slice(0, srOrigin.length + 1) ===
         `${srOrigin}/`) || !(/^(\/\/|http:|https:).*/).test(url);
-}
+};
 
 /**
  * Agrega la cookie de CSRF a todas las peticiones ajax de la aplicacion
  * @function ajaxConfig
  * @return {undefined}
  */
-function ajaxConfig () {
+const ajaxConfig = function ajaxConfig () {
   $.ajaxSetup({
     "beforeSend" (xhr, settings) {
       if (!csrfSafeMethod(settings.type) && sameOrigin(settings.url)) {
@@ -68,7 +68,7 @@ function ajaxConfig () {
       }
     }
   });
-}
+};
 
 /*
  * Establece la ruta principal para las peticiones ajax

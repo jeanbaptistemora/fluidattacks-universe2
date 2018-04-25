@@ -177,7 +177,7 @@ integrates.controller(
           Rollbar.error("Error: An error ocurred calculating cardinality", err);
         }
       });
-      const req = projectFtry.TotalSeverity($scope.project.toLowerCase());
+      const req = projectFtry.totalSeverity($scope.project.toLowerCase());
       req.then((response) => {
         if (!response.error) {
           if (response.data.length > 0) {
@@ -257,7 +257,7 @@ integrates.controller(
       const totalHigLabel = higTransl + " :n%".replace(":n", (totalHig * 100 /
                             (totalSeg + totalHig)).toFixed(2).toString());
       $("#grapType").empty();
-      Morris.Donut({
+      Morris.Donut({ /* eslint-disable-line new-cap */
         "data": [
           {
             "color": "#ff1a1a",
@@ -305,7 +305,7 @@ integrates.controller(
                               nonexploit)).toFixed(2).toString()
       );
       $("#grapExploit").empty();
-      Morris.Donut({
+      Morris.Donut({ /* eslint-disable-line new-cap */
         "data": [
           {
             "color": "#ff1a1a",
@@ -352,7 +352,7 @@ integrates.controller(
       const closeLabel = closeTransl + " :n%".replace(":n", (close * 100 /
                          total).toFixed(2).toString());
       $("#grapStatus").empty();
-      Morris.Donut({
+      Morris.Donut({ /* eslint-disable-line new-cap */
         "data": [
           {
             "color": "#ff1a1a",
@@ -406,7 +406,7 @@ integrates.controller(
         if (eventsData.length === 0 || (eventsData.length > 0 &&
                    eventsData[0].proyecto_fluid.toLowerCase() !==
                    $scope.project.toLowerCase())) {
-          const reqEventualities = projectFtry.EventualityByName(
+          const reqEventualities = projectFtry.eventualityByName(
             projectName,
             "Name"
           );

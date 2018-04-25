@@ -18,7 +18,7 @@ eventsTranslations, keysToTranslate
  * @member integrates.registerCtrl
  * @return {string|boolean} Html code for specific label
  */
-function labelEventState (value) {
+const labelEventState = function labelEventState (value) {
   if (value === "Tratada") {
     return "<label class='label label-success' style='background-color: " +
            "#31c0be'>Tratada</label>";
@@ -36,7 +36,7 @@ function labelEventState (value) {
            "#f22;'>Unsolved</label>";
   }
   return false;
-}
+};
 
 /**
  * Controlador de vista de proyectos
@@ -155,7 +155,7 @@ integrates.controller(
           $scope.loadEventContent(eventsData, vlang, projectName);
         }
         else {
-          const reqEventualities = projectFtry.EventualityByName(
+          const reqEventualities = projectFtry.eventualityByName(
             projectName,
             "Name"
           );

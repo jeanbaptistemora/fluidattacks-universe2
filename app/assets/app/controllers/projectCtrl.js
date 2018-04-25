@@ -112,7 +112,7 @@ integrates.controller(
         const searchAc = $translate.instant("proj_alerts.search_cont");
         $msg.info(searchAc, searchAt);
         const reqProject = projectFtry.projectByName(projectName, filter);
-        const reqEventualities = projectFtry.EventualityByName(
+        const reqEventualities = projectFtry.eventualityByName(
           projectName,
           "Name"
         );

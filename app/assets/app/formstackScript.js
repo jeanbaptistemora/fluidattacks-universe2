@@ -1,8 +1,9 @@
 /* eslint no-magic-numbers: ["error", { "ignore": [-1,0,0.950,1,2,5] }]*/
-/* global document, $, alertify, timew, Tabletop, v:true, obj:true, $msg */
-let remember = null;
+/* global
+ document, $, alertify, timew, Tabletop, v:true, obj:true, $msg, remember:true
+*/
 $(document).ready(() => {
-  remember = function () {
+  remember = function remember () {
     try {
       alertify.log("<div class=\"\" style=\"padding: 8px;\"> <p class=" +
                    "\"text-center\">Recordatorio</p><p class=\"text-left\"> " +
@@ -35,9 +36,9 @@ $(document).ready(() => {
  * @param {string} str Input string
  * @return {boolean} Boolean if input string is in upper case
  */
-function isUpperCase (str) {
+const isUpperCase = function isUpperCase (str) {
   return str === str.toUpperCase();
-}
+};
 
 String.prototype.capitalizeFirstLetter = function capitalizeFirstLetter () {
   /* eslint no-extend-native: ["error", { "exceptions": ["String"] }]*/
@@ -71,7 +72,7 @@ const publicSpreadsheetUrl = "https://docs.google.com/spreadsheets/d/1L37WnF" +
  * @param {Object} tabletop Tabletop instance
  * @return {undefined} Info about findings
  */
-function showInfo (data, tabletop) {
+const showInfo = function showInfo (data, tabletop) {
   const obj = $.parseJSON(JSON.stringify(data));
   $("#field32201810").change(() => {
     const title = $("#field32201810").val();
@@ -148,7 +149,7 @@ function showInfo (data, tabletop) {
       }
     }
   });
-}
+};
 
 Tabletop.init({
   "callback": showInfo,

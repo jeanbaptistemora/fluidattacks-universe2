@@ -159,13 +159,9 @@ rules:
   consistent-this: error
   eol-last: error
   func-call-spacing: error
-  func-names:
-    - error
-    - as-needed
+  func-names: error
   func-name-matching: error
-  func-style:
-    - error
-    - declaration
+  func-style:  error
   function-paren-newline: error
   id-blacklist: error
   id-length: error
@@ -190,9 +186,7 @@ rules:
   max-statements-per-line: error
   multiline-comment-style: error
   multiline-ternary: error
-  new-cap:
-    - error
-    - properties: false
+  new-cap: error
   new-parens: error
   newline-per-chained-call: error
   no-array-constructor: error
