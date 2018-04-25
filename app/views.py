@@ -149,6 +149,7 @@ def project_events(request):
         "search_findings": {
             "event_table": {
                "date": "Date",
+               "details": "Description",
                "id": "ID",
                "status": "Status",
                "type": "Type"
@@ -168,6 +169,7 @@ def project_events(request):
             "search_findings": {
                 "event_table": {
                    "date": "Fecha",
+                   "details": "Descripción",
                    "id": "ID",
                    "status": "Estado",
                    "type": "Tipo"
