@@ -54,7 +54,7 @@ que puedan representar un riesgo para la organización.
 . +WINDOWS+ link:../../defends/windows/actualizacion-automatica/[Configurar Actualizaciones Automáticas].
 . +WINDOWS+ link:../../defends/windows/deshabilitar-serv-inseguro/[Deshabilitar Servicios Inseguros].
 . +WINDOWS+ link:../../defends/windows/puerto-innecesario/[Deshabilitar Puertos Innecesarios].
-. +REDHAT+ link:../../defends/redhat/actualizar-software/[Actualizar Software en RedHat].
+. +Red Hat+ link:../../defends/redhat/actualizar-software/[Actualizar Software en Red Hat].
 
 == Ataques
 

@@ -4,11 +4,11 @@
 :keywords: Linux, Red Hat, Actualizar, Software, Paquetes,
 :defends: yes
 
-= Actualizar Software en RedHat
+= Actualizar Software en Red Hat
 
 == Necesidad
 
-Actualización de +software+ en +RedHat+.
+Actualización de +software+ en +Red Hat+.
 
 == Contexto
 
@@ -57,7 +57,7 @@ así como también cuáles de sus sistemas son afectados.
 puede utilizar el agente de actualización de +Red Hat+
 o planificar para que el paquete sea actualizado
 a través del sitio web
-link:http://rhn.redhat.com[redhat].
+link:http://rhn.redhat.com[Red Hat].
 
 . Cuando se lanzan los informes de errata,
 estos son publicados en el sitio web de erratas ^<<r1,[1]>>^ de +Red Hat+.
@@ -92,7 +92,7 @@ image::verificar.png[verificacion]
 
 == Referencias
 
-. [[r1]] link:http://www.redhat.com/security/[Redhat].
+. [[r1]] link:http://www.redhat.com/security/[Red Hat].
 . [[r2]] link:https://www.cyberciti.biz/faq/rhel-centos-fedora-linux-yum-command-howto/[How to use yum command on CentOS RHEL].
 . [[r3]] REQ.0262: Los componentes provistos por terceros
 deben corresponder a versiones estables, probadas y actualizadas.

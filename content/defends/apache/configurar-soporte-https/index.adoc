@@ -57,7 +57,7 @@ y el modulo de soporte para servidores +Apache+.
 apt-get install mod_ssl openssl
 ----
 
-. RedHat y derivados
+. Red Hat y derivados
 +
 [source, bash, linenums]
 ----
