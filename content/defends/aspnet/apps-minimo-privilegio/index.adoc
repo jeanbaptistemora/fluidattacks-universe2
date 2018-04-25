@@ -17,10 +17,10 @@ bajo las cuales la siguiente solución tiene sentido:
 
 . Se está desarrollando una aplicación en +ASP.NET+.
 
-. Se desean aplicar los principios de mínimo privilegio.
+. Se desean aplicar los principios de mínimo privilegio.<<r1,^[1]^>>
 
 . La organización debe generar un modelo de amenazas para el sistema,
-donde se identifiquen las posibles amenazas.^<<r1,[1]>>^
+donde se identifiquen las posibles amenazas.<<r2,^[2]^>>
 
 == Solución
 
@@ -34,7 +34,7 @@ se puede aplicar el principio de mínimo privilegio,
 esto es, otorgar privilegios
 la menor cantidad de tiempo
 a la menor cantidad de código
-que sea requerido para realizar las tareas <<r2, ^[2]^>>.
+que sea requerido para realizar las tareas <<r3,^[3]^>>.
 
 . La mejor práctica para crear aplicaciones seguras
 es comenzar sin permisos
@@ -56,7 +56,7 @@ a algún privilegio para las llamadas
 que se realicen posteriormente.
 +PermitOnly+ es similar a +Deny+,
 en cuanto a que permite restringir a nivel de código
-los llamados que pueden realizarse.^<<r3,[3]>>,<<r4,[4]>>^
+los llamados que pueden realizarse.^<<r4,[4]>>,<<r5,[5]>>^
 La diferencia radica en que +Deny+
 especifica los permisos que originan un error
 en el recorrido por la pila,
@@ -133,10 +133,8 @@ colocó en la pila no se detectará nunca.
 
 == Referencias
 
-. [[r1]] link:../../../rules/008/[REQ.008 Generar modelo de amenazas del sistema].
-
-. [[r2]] link:https://es.wikipedia.org/wiki/Principio_de_m%C3%ADnimo_privilegio[Principio de Mínimo Privilegio].
-
-. [[r3]] link:https://msdn.microsoft.com/es-es/library/system.security.codeaccesspermission.permitonly.aspx[Microsoft, CodeAccessPermission PermitOnly].
-
-. [[r4]] link:../../../rules/176/[REQ.176 Restringir objetos del sistema].
+. [[r1]] link:../../../rules/269/[REQ.269 Usar principio mínimo privilegio].
+. [[r2]] link:../../../rules/008/[REQ.008 Generar modelo de amenazas del sistema].
+. [[r3]] link:https://es.wikipedia.org/wiki/Principio_de_m%C3%ADnimo_privilegio[Principio de Mínimo Privilegio].
+. [[r4]] link:https://msdn.microsoft.com/es-es/library/system.security.codeaccesspermission.permitonly.aspx[Microsoft, CodeAccessPermission PermitOnly].
+. [[r5]] link:../../../rules/176/[REQ.176 Restringir objetos del sistema].
