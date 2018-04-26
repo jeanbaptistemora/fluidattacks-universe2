@@ -1,0 +1,8 @@
+apiVersion: v1
+data:
+  tls.crt: $RA_SSL_CERT
+  tls.key: $RA_SSL_KEY
+kind: Secret
+metadata:
+  name: $K8_SSL_SECRET
+type: Opaque
