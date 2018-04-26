@@ -35,7 +35,7 @@ pueden ser reversados, por lo cual
 no intente ocultar información confidencial dentro del código fuente.
 
 . En esta solución se verá la manera de +ofuscar+ el código
-de una aplicación realizada en +python+.
+de una aplicación realizada en +Python+.
 
 . Primero, hay que descargar  la herramienta
 https://github.com/astrand/pyobfuscate[pyobfuscate]
@@ -83,7 +83,7 @@ def function_posargs(*args)
 python pyobfuscate.py archivo.py > archivo.ofuscado.py
 ----
 +
-image::comando.png[ejecucion comando python]
+image::comando.png[ejecucion comando Python]
 
 . Se procede a verificar que el nuevo archivo generado esta +ofuscado+.
 +

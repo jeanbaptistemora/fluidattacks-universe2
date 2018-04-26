@@ -47,7 +47,7 @@ simple los *números primos*.
 
 A continuación se explica la solución a un reto informático de
 https://www.codeeval.com/browse/62/[CodeEval] para encontrar el residuo de una
-división entre enteros en lenguaje python.
+división entre enteros en lenguaje +Python+.
 
 == Codeeval Reto 62
 

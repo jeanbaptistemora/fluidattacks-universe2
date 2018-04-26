@@ -7,7 +7,7 @@
 : "${1?"Extract text from asciidoc file. Usage: $0 file"}"
 
 (pcregrep -M -v -e '^\[(source|"graphviz"|"plantuml").*\n^----((.|\n)*?)^----' \
-  -e '^(----|\+\+\+\+)((.|\n)*?)^(----|\+\+\+\+)' \
+  -e '^(----|\+\+\+\+|\.\.\.\.)((.|\n)*?)^(----|\+\+\+\+|\.\.\.\.)' \
   | pcregrep -v -e '^\.[a-zA-Z0-9].*' \
   | sed -e 's/link:.*\[//g' \
     -e 's/<<.*>>//g' \

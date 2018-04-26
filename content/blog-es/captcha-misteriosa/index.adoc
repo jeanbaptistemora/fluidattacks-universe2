@@ -49,7 +49,7 @@ programas son el principal enemigo de los *Captchas*.
 
 Este reto consiste en diseñar un programa capaz de resolver un test Captcha.
 
-Se va a utilizar el lenguaje python para diseñar este programa y se va
+Se va a utilizar el lenguaje +Python+ para diseñar este programa y se va
 implementar la librería *OCR Pytesser* para transformar una imagen a texto.
 
 EL captcha del reto, es una imagen con un texto de alrededor de 10 caracteres,

@@ -18,9 +18,9 @@ while IFS= read -r CORRECT; do
       SRCH=$CORRECT
     fi
 
-    if  ./exttxt.sh "$FILE" | pcregrep -ioqM "(\\s|^)[\\*|\\+|\\(]?$SRCH[\\*\\+\\)]?[\\.\\:\\;\\,]?(\\s|\\n|\\])"; then
+    if  ./exttxt.sh "$FILE" | pcregrep -ioqM "$SRCH"; then
 
-      CURRENT=$(./exttxt.sh "$FILE" | pcregrep -ioM "(\\s|^)[\\*|\\+|\\(]?$SRCH[\\*\\+\\)]?[\\.\\:\\;\\,]?(\\s|\\n|\\])" | pcregrep -ioM "$SRCH" )
+      CURRENT=$(./exttxt.sh "$FILE" | pcregrep -ioM '(\s|^)[\*|\+|\(]?'"$SRCH"'[\*\+\)]?[\.\:\;\,]?(\s|\n|\])' | pcregrep -ioM "$SRCH" )
 
       while IFS=$'\n' read -r WORD; do
         if  [[ "$WORD" != "$CORRECT" ]]; then

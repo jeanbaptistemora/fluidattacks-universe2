@@ -670,7 +670,9 @@ print "Hello World"
 +
 .Code Title
 [source, python]
+----
 print "Hello World"
+----
 
 === Images
 
@@ -837,8 +839,9 @@ print "Hello World"
 +
 .Code.py
 [source, python]
+----
 print "Hello World"
-
+----
 
 ==== Source Code With Numbered Lines
 
