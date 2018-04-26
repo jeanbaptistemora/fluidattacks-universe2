@@ -885,22 +885,9 @@ integrates.controller("findingcontentCtrl", function findingcontentCtrl (
     $scope.colors.ok = "background-color: #008000;";
   };
   $scope.findingCalculateCSSv2 = function findingCalculateCSSv2 () {
-    const ImpCon =
-            parseFloat($scope.finding.impactoConfidencialidad.split(" | ")[0]);
-    const ImpInt =
-            parseFloat($scope.finding.impactoIntegridad.split(" | ")[0]);
-    const ImpDis =
-            parseFloat($scope.finding.impactoDisponibilidad.split(" | ")[0]);
-    const AccCom =
-            parseFloat($scope.finding.complejidadAcceso.split(" | ")[0]);
-    const AccVec = parseFloat($scope.finding.vectorAcceso.split(" | ")[0]);
-    const Auth = parseFloat($scope.finding.autenticacion.split(" | ")[0]);
-    const Explo = parseFloat($scope.finding.explotabilidad.split(" | ")[0]);
-    const Resol = parseFloat($scope.finding.nivelResolucion.split(" | ")[0]);
-    const Confi = parseFloat($scope.finding.nivelConfianza.split(" | ")[0]);
-    const BaseScore = ((0.6 * 10.41 * (1 - ((1 - ImpCon) * (1 - ImpInt) *
-           (1 - ImpDis)))) + (0.4 * 20 * AccCom * Auth * AccVec) - 1.5) * 1.176;
-    const Temporal = BaseScore * Explo * Resol * Confi;
+    const calCSSv2 = projectFtry.calCCssv2($scope.finding);
+    const BaseScore = calCSSv2[0];
+    const Temporal = calCSSv2[1];
     const CVSSGeneral = Temporal;
     $scope.finding.cssv2base = BaseScore.toFixed(1);
     $scope.finding.criticidad = Temporal.toFixed(1);

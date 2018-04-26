@@ -1,5 +1,5 @@
 /* eslint no-magic-numbers: ["error", { "ignore": [-1,0,0.4,0.6,1,1.176,
-                            1.5,2,4,4.611,10,10.41,13,20,43.221,100,200,
+                            1.5,2,3,4,4.611,10,10.41,13,20,43.221,100,200,
                             300,1000,3000] }]*/
 /* global
 BASE, downLink:true, Morris, estado:true, exploitLabel:true, i:true, j:true,
@@ -85,28 +85,7 @@ integrates.controller(
       });
     };
     $scope.calculateCardinality = function calculateCardinality (data) {
-      let totalSeverity = 0;
-      let cardinalidad = 0;
-      let cardinalidadTotal = 0;
-      let maximumSeverity = 0;
-      let oldestFinding = 0;
-      let openEvents = 0;
-      data.data.forEach((cont) => {
-        cardinalidad += parseInt(cont.cardinalidad, 10);
-        cardinalidadTotal += parseInt(cont.cardinalidad_total, 10);
-        if (maximumSeverity < cont.criticidad) {
-          maximumSeverity = cont.criticidad;
-        }
-        if (oldestFinding < cont.edad) {
-          oldestFinding = cont.edad;
-        }
-      });
-      for (let event = 0; event < eventsData.length; event++) {
-        if (eventsData[event].estado === "Unsolved" ||
-              eventsData[event].estado === "Pendiente") {
-          openEvents += 1;
-        }
-      }
+      const cardinalityValues = projectFtry.calCardinality(data);
       $scope.metricsList = [];
       $scope.metricsList.push({
         "color": "background-color: #2197d6;",
@@ -116,60 +95,45 @@ integrates.controller(
         "value": data.data.length
       });
       $scope.metricsList.push({
-        "color": "background-color: #ff9930;",
-        "description": $translate.instant("search_findings." +
-                                          "filter_labels.vulnerabilities"),
-        "icon": "s7-info",
-        "value": cardinalidadTotal
-      });
-      $scope.metricsList.push({
         "color": "background-color: #aa2d30;",
         "description": $translate.instant("search_findings." +
                                           "filter_labels.cardinalities"),
         "icon": "s7-attention",
-        "value": cardinalidad
+        "value": cardinalityValues[0]
+      });
+      $scope.metricsList.push({
+        "color": "background-color: #ff9930;",
+        "description": $translate.instant("search_findings." +
+                                          "filter_labels.vulnerabilities"),
+        "icon": "s7-info",
+        "value": cardinalityValues[1]
       });
       $scope.metricsList.push({
         "color": "background-color: #2e4050;",
         "description": $translate.instant("search_findings." +
                                           "filter_labels.maximumSeverity"),
         "icon": "s7-gleam",
-        "value": maximumSeverity
+        "value": cardinalityValues[2]
       });
       $scope.metricsList.push({
         "color": "background-color: #9f5ab1;",
         "description": $translate.instant("search_findings." +
                                           "filter_labels.oldestFinding"),
         "icon": "s7-date",
-        "value": oldestFinding
+        "value": cardinalityValues[3]
       });
       $scope.metricsList.push({
         "color": "background-color: #0a40ae;",
         "description": $translate.instant("search_findings." +
                                           "filter_labels.openEvents"),
         "icon": "s7-way",
-        "value": openEvents
+        "value": cardinalityValues[4]
       });
       let severity = 0;
       data.data.forEach((cont) => {
         try {
           if (cont.tipo_hallazgo === "Seguridad") {
-            const ImpCon =
-                      parseFloat(cont.impactoConfidencialidad.split(" | ")[0]);
-            const ImpInt =
-                      parseFloat(cont.impactoIntegridad.split(" | ")[0]);
-            const ImpDis =
-                      parseFloat(cont.impactoDisponibilidad.split(" | ")[0]);
-            const AccCom = parseFloat(cont.complejidadAcceso.split(" | ")[0]);
-            const AccVec = parseFloat(cont.vectorAcceso.split(" | ")[0]);
-            const Auth = parseFloat(cont.autenticacion.split(" | ")[0]);
-            const Explo = parseFloat(cont.explotabilidad.split(" | ")[0]);
-            const Resol = parseFloat(cont.nivelResolucion.split(" | ")[0]);
-            const Confi = parseFloat(cont.nivelConfianza.split(" | ")[0]);
-            const BaseScore = ((0.6 * (10.41 * (1 - ((1 - ImpCon) *
-                              (1 - ImpInt) * (1 - ImpDis))))) +
-                              (0.4 * (20 * AccCom * Auth * AccVec)) - 1.5) *
-                              1.176;
+            const BaseScore = projectFtry.calCCssv2(cont)[0];
             severity += BaseScore * parseFloat(cont.cardinalidad_total);
           }
         }
@@ -184,7 +148,8 @@ integrates.controller(
             for (let cont = 0; cont < response.data.length; cont++) {
               const target = (parseInt(response.data[cont].lines, 10) / 1000) +
                              (parseInt(response.data[cont].fields, 10) / 4);
-              totalSeverity = severity / ((4.611 * target) + 43.221) * 100;
+              const totalSeverity = severity / ((4.611 * target) +
+                                    43.221) * 100;
               $scope.metricsList.push({
                 "color": "background-color: #ef4c43;",
                 "description": $translate.instant("search_findings." +
@@ -197,14 +162,14 @@ integrates.controller(
                 "description": $translate.instant("search_findings." +
                                                   "filter_labels.closure"),
                 "icon": "s7-like2",
-                "value": "n%".replace("n", Math.round((1 - (cardinalidad /
-                                                       cardinalidadTotal)) *
-                                                       100).toString())
+                "value": "n%".replace("n", Math.round((1 -
+                                      (cardinalityValues[0] /
+                                      cardinalityValues[1])) * 100).toString())
               });
             }
           }
           else {
-            totalSeverity = severity;
+            const totalSeverity = severity;
             $scope.metricsList.push({
               "color": "background-color: #ef4c43;",
               "description": $translate.instant("search_findings." +
@@ -217,9 +182,9 @@ integrates.controller(
               "description": $translate.instant("search_findings." +
                                                 "filter_labels.closure"),
               "icon": "s7-like2",
-              "value": "n%".replace("n", Math.round((1 - (cardinalidad /
-                                                     cardinalidadTotal)) *
-                                                     100).toString())
+              "value": "n%".replace("n", Math.round((1 -
+                                    (cardinalityValues[0] /
+                                    cardinalityValues[1])) * 100).toString())
             });
           }
         }

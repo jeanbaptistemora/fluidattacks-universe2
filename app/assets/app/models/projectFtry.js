@@ -1,5 +1,7 @@
-/* eslint no-magic-numbers: ["error", { "ignore": [500, 401] }]*/
-/* global integrates, BASE, $xhr, window.location:true, $, Rollbar */
+/* eslint no-magic-numbers: ["error", { "ignore": [0,0.4,0.6,1,1.176,1.5,
+                                                  10.41,20,500, 401] }]*/
+/* global integrates, BASE, $xhr, window.location:true,
+$, Rollbar, eventsData */
 /**
  * @file projectFtry.js
  * @author engineering@fluidattacks.com
@@ -30,6 +32,61 @@ integrates.factory("projectFtry", ($q, $translate) => ({
     }, oopsAc);
   },
 
+  "calCCssv2" (data) {
+    const ImpCon =
+              parseFloat(data.impactoConfidencialidad.split(" | ")[0]);
+    const ImpInt =
+              parseFloat(data.impactoIntegridad.split(" | ")[0]);
+    const ImpDis =
+              parseFloat(data.impactoDisponibilidad.split(" | ")[0]);
+    const AccCom = parseFloat(data.complejidadAcceso.split(" | ")[0]);
+    const AccVec = parseFloat(data.vectorAcceso.split(" | ")[0]);
+    const Auth = parseFloat(data.autenticacion.split(" | ")[0]);
+    const Explo = parseFloat(data.explotabilidad.split(" | ")[0]);
+    const Resol = parseFloat(data.nivelResolucion.split(" | ")[0]);
+    const Confi = parseFloat(data.nivelConfianza.split(" | ")[0]);
+    const BaseScore = ((0.6 * (10.41 * (1 - ((1 - ImpCon) *
+                      (1 - ImpInt) * (1 - ImpDis))))) +
+                      (0.4 * (20 * AccCom * Auth * AccVec)) - 1.5) *
+                      1.176;
+    const Temporal = BaseScore * Explo * Resol * Confi;
+    return [
+      BaseScore,
+      Temporal
+    ];
+  },
+
+  "calCardinality" (data) {
+    let cardinalidad = 0;
+    let cardinalidadTotal = 0;
+    let maximumSeverity = 0;
+    let oldestFinding = 0;
+    let openEvents = 0;
+    data.data.forEach((cont) => {
+      cardinalidad += parseInt(cont.cardinalidad, 10);
+      cardinalidadTotal += parseInt(cont.cardinalidad_total, 10);
+      if (maximumSeverity < cont.criticidad) {
+        maximumSeverity = cont.criticidad;
+      }
+      if (oldestFinding < cont.edad) {
+        oldestFinding = cont.edad;
+      }
+    });
+    for (let event = 0; event < eventsData.length; event++) {
+      if (eventsData[event].estado === "Unsolved" ||
+            eventsData[event].estado === "Pendiente") {
+        openEvents += 1;
+      }
+    }
+    return [
+      cardinalidad,
+      cardinalidadTotal,
+      maximumSeverity,
+      oldestFinding,
+      openEvents
+    ];
+  },
+
   /**
    * Invoca el servicio para eliminar los comentarios en un hallazgo
    * @function deleteComment
@@ -46,7 +103,6 @@ integrates.factory("projectFtry", ($q, $translate) => ({
       id
     }, oopsAc);
   },
-
 
   /**
    * Invoca el servicio para actualizar la seccion
