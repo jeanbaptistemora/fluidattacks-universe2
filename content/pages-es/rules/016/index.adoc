@@ -12,3 +12,52 @@ La organización debe asegurar
 que cada una de las vulnerabilidades
 identificadas en los activos de información
 sea corregida y comprobada su corrección.
+
+== Descripción
+
+La organización debe eliminar las vulnerabilidades existentes
+o de no ser posible,
+ejecutar acciones que eviten que estas sean usadas por los atacantes
+para causar daños a los activos de información.
+Las soluciones aplicadas deben ser comprobadas
+de forma que se garantice que se evita la explotación de la vulnerabilidad.
+
+== Implementación
+
+. Se debe determinar el proceso
+para solucionar las vulnerabilidades identificadas,
+estableciendo responsabilidades y tiempos de respuesta.
+
+. Para dar solución a las vulnerabilidades
+se debe tener en cuenta su priorización
+de forma que se corrijan en orden de criticidad.
+Una vez los responsables
+de remediar las vulnerabilidades notifiquen el fin de las actividades,
+se debe programar una prueba
+que verifique que efectivamente se solucionaron los inconvenientes,
+esta prueba debe garantizar su objetividad e imparcialidad.
+
+. En caso de no poder solucionar alguna de las vulnerabilidades
+es necesario que se defina el proceso a seguir
+para aceptar la existencia de esta, aceptar el posible riesgo
+y establecer controles complementarios en caso de ser necesario.
+
+== Ataques
+
+. Un usuario, empleado o anónimo
+ejecuta acciones en contravía de la seguridad
+de cualquier activo de la organización,
+la vulnerabilidad aprovechada no fue solucionada
+correctamente cuando se identificó.
+
+== Atributos
+
+* Capa: Capa de Recursos.
+* Activo: Activos de Información.
+* Alcance: Adherencia.
+* Fase: Pruebas.
+* Tipo de Control: Recomendación.
+
+== Referencias
+
+. link:https://www.iso.org/isoiec-27001-information-security.html[Serie de normas ISO/IEC 27000].
