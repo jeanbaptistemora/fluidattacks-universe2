@@ -1092,7 +1092,6 @@ def finding_solved(request):
         to = [x[0] for x in recipients if x[1] == 1]
         to.append('continuous@fluidattacks.com')
         to.append('projects@fluidattacks.com')
-        to.append('ralvarez@fluidattacks.com')
         context = {
            'project': parameters['data[project]'],
            'finding_name': parameters['data[findingName]'],
@@ -1194,7 +1193,6 @@ def add_comment(request):
         recipients = integrates_dao.get_project_users(data['data[project]'].lower())
         to = [x[0] for x in recipients if x[1] == 1]
         to.append('continuous@fluidattacks.com')
-        to.append('ralvarez@fluidattacks.com')
         comment_content = data['data[content]'].replace('\n', ' ')
         context = {
            'project': data['data[project]'],

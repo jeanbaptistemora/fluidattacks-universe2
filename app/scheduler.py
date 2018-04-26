@@ -47,7 +47,7 @@ def get_new_vulnerabilities():
             context['url_proyecto'] = 'https://fluidattacks.com/integrates/dashboard#!/project/' + project[0].lower() + '/indicators'
             recipients = integrates_dao.get_project_users(project)
             to = [x[0] for x in recipients if x[1] == 1]
-            to.append('engineering@fluidattacks.com')
+            to.append('continuous@fluidattacks.com')
             to.append('projects@fluidattacks.com')
             send_mail_new_vulnerabilities(to, context)
 
