@@ -6,7 +6,7 @@ nonexploitLabel:true, totalHigLabel:true, explotable:true, totalSegLabel:true,
 openLabel:true, partialLabel:true, integrates, userRole, document, $, $msg,
 userName, userEmail, Rollbar, aux:true, json:true, closeLabel:true, j:true,
 mixPanelDashboard, win:true, window, Organization, projectData:true, i:true,
-eventsTranslations, keysToTranslate
+eventsTranslations, keysToTranslate, labelEventState:true
 */
 /**
  * @file projectEventsCtrl.js
@@ -18,7 +18,7 @@ eventsTranslations, keysToTranslate
  * @member integrates.registerCtrl
  * @return {string|boolean} Html code for specific label
  */
-const labelEventState = function labelEventState (value) {
+labelEventState = function labelEventState (value) {
   if (value === "Tratada") {
     return "<label class='label label-success' style='background-color: " +
            "#31c0be'>Tratada</label>";

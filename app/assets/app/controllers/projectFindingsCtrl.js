@@ -9,7 +9,7 @@ nonexploitLabel:true, totalHigLabel:true, $scope:true,explotable:true, i:true,
 totalSegLabel:true, openLabel:true, partialLabel:true, $msg, integrates, j:true,
 document, userName, userEmail, Rollbar, aux:true, json:true, eventsData:true, $,
 closeLabel:true, mixPanelDashboard, win:true, window, Organization, userRole,
-fieldsToTranslate, keysToTranslate
+fieldsToTranslate, keysToTranslate, removeHour:true, labelState:true
  */
 /**
  * @file projectFindingsCtrl.js
@@ -21,7 +21,7 @@ fieldsToTranslate, keysToTranslate
  * @member integrates.registerCtrl
  * @return {string} Date without hour
  */
-const removeHour = function removeHour (value) {
+removeHour = function removeHour (value) {
   if (value.indexOf(":") !== -1) {
     return value.split(" ")[0];
   }
@@ -34,7 +34,7 @@ const removeHour = function removeHour (value) {
  * @member integrates.registerCtrl
  * @return {string} Html code for specific label
  */
-const labelState = function labelState (value) {
+labelState = function labelState (value) {
   if (value === "Cerrado") {
     return "<label class='label label-success' style='background-color: " +
            "#31c0be'>Cerrado</label>";
