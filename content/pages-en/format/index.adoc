@@ -1,7 +1,7 @@
 :slug: format/
-:description: FLUID uses Asciidoc as main extension for several documents and articles in our website. The purpose of this page is to present a compilation of useful Asciidoc commands and allowed formats in order to help our candidates and personnel build their documents in a proper way.
-:keywords: FLUID, Format, Asciidoc, Templates, Tutorial, Document.
-:variable: Asciidoc
+:description: FLUID uses AsciiDoc as main extension for several documents and articles in our website. The purpose of this page is to present a compilation of useful AsciiDoc commands and allowed formats in order to help our candidates and personnel build their documents in a proper way.
+:keywords: FLUID, Format, AsciiDoc, Templates, Tutorial, Document.
+:variable: AsciiDoc
 :plus: &#43
 :toc: yes
 
@@ -12,7 +12,7 @@
 * Source
 +
 ....
-= Asciidoc Format -> Level 0 Header
+= AsciiDoc Format -> Level 0 Header
 
 == Headers -> Level 1 Header
 
@@ -1525,7 +1525,7 @@ They can be declared at the beginning of the document.
 * Source
 +
 ....
-:variable: Asciidoc
+:variable: AsciiDoc
 
 This text is written in {variable}
 ....
@@ -1725,5 +1725,5 @@ line breaks in the source code"]
 
 == References
 
-. link:http://powerman.name/doc/asciidoc[Asciidoc Cheat Sheet]
-. link:http://asciidoc.org/userguide.html[Asciidoc User Guide]
+. link:http://powerman.name/doc/asciidoc[+AsciiDoc+ Cheat Sheet]
+. link:http://asciidoc.org/userguide.html[+AsciiDoc+ User Guide]

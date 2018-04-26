@@ -1,6 +1,6 @@
 :slug: style/
 :description: The purpose of this page is to establish the main guidelines for the articles and documents published in our website. Also, we present the acceptance criteria, the format and structure requirements and all the information you may need if you wish to share your opinion in our blog.
-:keywords: FLUID, Style, Asciidoc, Articles, Requirement, Website.
+:keywords: FLUID, Style, AsciiDoc, Articles, Requirement, Website.
 :translate: estilo/
 
 = Style
@@ -94,10 +94,10 @@ This guarantees that the document is easy to read.
 
 === 3. Format
 
-Documents will only be accepted in an +asciidoc+ format.
+Documents will only be accepted in an +AsciiDoc+ format.
 For more information check out our
 link:../../en/format/[format page], the
-link:http://asciidoctor.org/docs/asciidoc-writers-guide/[asciidoc guide],
+link:http://asciidoctor.org/docs/asciidoc-writers-guide/[+AsciiDoc+ guide],
 or a link:http://asciidoctor.org/docs/asciidoc-syntax-quick-reference/[quick reference].
 
 === 4. Word limit
@@ -142,7 +142,7 @@ image::slb-example.png[slb]
 For more information regarding LSB and their use,
 You can checkout the link:http://rhodesmill.org/brandon/2012/one-sentence-per-line/[semantic linefeeds guide],
 link:https://scott.mn/2014/02/21/semantic_linewrapping/[semantic line wrapping guide],
-or the link:http://asciidoctor.org/docs/asciidoc-recommended-practices/#one-sentence[asciidoc documentation]
+or the link:http://asciidoctor.org/docs/asciidoc-recommended-practices/#one-sentence[+AsciiDoc+ documentation]
 
 === 6. Images
 
@@ -225,7 +225,7 @@ without mentioning how to securely program in said language.
 Metadata are variables that are included at the beginning of a document
 which influence the final rendering of it and
 how the search engine indexes them.
-You can find more information regarding asciidoc variables by clicking
+You can find more information regarding +AsciiDoc+ variables by clicking
 [button]#link:../../en/format/#variables[here.]#.
 Below is a table
 with the mandatory metadata for a document:
@@ -339,7 +339,7 @@ and now I need to cite a reference <<r# ,^[#]^>>
 . [[r#]] link:https://my-url[Fancy name for url].
 ----
 
-. For more information regarding +asciidoc+,
+. For more information regarding +AsciiDoc+,
 check out our [button]#link:../../en/format[allowed formats and examples.]#
 
 == Authors
@@ -367,7 +367,7 @@ years of experience, certifications, likes and interests.
 
 . If you are part of the +FLUIDAttacks+ team,
 you can send us your document through a +Merge Request+
-in the +asciidoc+ format and
+in the +AsciiDoc+ format and
 complying with all the above rules.
 
 . If you are not part of the +FLUIDAttacks+ team,
