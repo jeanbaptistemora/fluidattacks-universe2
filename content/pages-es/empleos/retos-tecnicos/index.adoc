@@ -342,7 +342,7 @@ a| * link:https://gitlab.com/autonomicmind/training/tree/master/challenges/codea
 ** link:https://gitlab.com/autonomicmind/training/tree/master/challenges/codeabbey/135/[135]
 *** link:https://gitlab.com/autonomicmind/training/blob/master/challenges/codeabbey/135/skhorn.rs[skhorn.rs]
 
-a| * link:https://gitlab.com/autonomicmind/training/tree/master/systems/bwapp[bwapp]
+a| * link:https://gitlab.com/autonomicmind/training/tree/master/systems/bwapp[bWAPP]
 *** link:https://gitlab.com/autonomicmind/training/tree/master/systems/bwapp/a1-command-injection[a1-command-injection]
 **** link:https://gitlab.com/autonomicmind/training/blob/master/systems/bwapp/a1-command-injection/raballestasr.feature[raballestasr.feature]
 |====

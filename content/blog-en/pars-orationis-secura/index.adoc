@@ -87,7 +87,7 @@ literal values, +PHP+ function calls and
 +PHP+ variables like +$entry+ above.
 That variable comes
 from a +POST+ request and
-passed through the sanitizing function +sqli+.
+passed through the sanitizing function +SQLi+.
 After concatenating and building the query,
 it is sent to the database for processing.
 

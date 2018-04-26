@@ -22,7 +22,7 @@ bajo las cuales la siguiente solución tiene sentido:
 
 == Solución
 
-. Para evitar un ataque +sqli+
+. Para evitar un ataque +SQLi+
 se debe tener en cuenta la siguiente estrategia:
 
 * Todas las consultas deben ser parametrizadas.

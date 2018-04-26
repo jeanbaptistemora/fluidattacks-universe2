@@ -155,7 +155,7 @@ as are cookie values.
 And the worst of this vulnerability, is,
 that there is +no+ way to +trace+ it,
 records for this kind of activity
-aren't +logged+ by the openssl daemon.
+aren't +logged+ by the OpenSSL daemon.
 Plus it is not a client-server vulnerability,
 as malicious +servers+ were able to +exploit+
 it on +clients+ using the vulnerable

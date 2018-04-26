@@ -156,7 +156,7 @@ such as +Java+, +.NET+, +C#+, +Ruby+ or +Python+.
 * Knowledge of the POO programming paradigm.
 * Knowledge in +JavaScript+, +HTML 4+ and +5+, +CSS+, +Ajax+.
 * Knowledge of database engines
-on a large scale (+ORACLE+, +SQL SERVER+, +DB2+, +MYSQL+).
+on a large scale (+ORACLE+, +SQL SERVER+, +DB2+, +MySQL+).
 * Stored procedures (+PL / SQL+, +Transact SQL+).
 * Knowledge in Application Servers (+IIS+, +OAS+, +IBM WEBSPHERE+, +WEBLOGIC+).
 * Platforms and operating systems
@@ -221,9 +221,9 @@ in the following subjects:
 * Understanding of Architecture Design Patterns.
 * Understanding of architecture in layers and
 architecture in tiers.
-* Knowledge of SOA.
+* Knowledge of +SOA+.
 * Database engines
-on a large scale (ORACLE, SQL SERVER, DB2, MYSQL).
+on a large scale (+ORACLE+, +SQL SERVER+, +DB2+, +MySQL+).
 * Knowledge in some load testing tool:
 ** JMeter.
 ** Neoload.

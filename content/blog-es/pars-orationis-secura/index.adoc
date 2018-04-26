@@ -78,7 +78,7 @@ Una petición +SQL+ es realizada al concatenar valores literales,
 llamados a funciones +PHP+
 y variables +PHP+ como +$entry+, mostrada anteriormente.
 Esa variable viene de una petición +POST+
-y es enviada a la función de desinfección +sqli+.
+y es enviada a la función de desinfección +SQLi+.
 Luego de concatenar y construir la petición,
 es enviada a la base de datos para ser procesada.
 

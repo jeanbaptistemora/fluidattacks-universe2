@@ -39,7 +39,7 @@ ello son dispositivos o S.O con las siguientes combinaciones:
 * Root Root
 * Cisco Cisco
 * Root Toor
-* Mysql Mysql
+* MySQL MySQL
 * Etc
 
 Lo que haría un atacante en este caso es crear un diccionario con todas las

@@ -140,7 +140,7 @@ $query = $sql->prepare
 
 == En PHP
 
-La manera más utilizada para evitar este ataque, si se está usando +MYSQL+,
+La manera más utilizada para evitar este ataque, si se está usando +MySQL+,
 es con la función +_mysql_real_escape_string_+,
 la cual coloca barras invertidas ante los siguientes caracteres:
 +\x00+, +\n+, +\r+, +\'+, +\"+ y +\x1a+.
