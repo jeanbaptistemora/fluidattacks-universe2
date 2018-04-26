@@ -24,7 +24,7 @@ integrates.factory("projectFtry", ($q, $translate) => ({
    * @return {Object} DynamoDB reponse about the post request
    */
   "addComment" (id, data) {
-    const oopsAc = $translate.instant("proj_alerts.error_text");
+    const oopsAc = "An error occurred adding comment";
     return $xhr.post($q, `${BASE.url}add_comment`, {
       "_": Math.random(),
       data,
@@ -96,7 +96,7 @@ integrates.factory("projectFtry", ($q, $translate) => ({
    * @return {Object} Response by DynamoDB about the delete request
    */
   "deleteComment" (id, data) {
-    const oopsAc = $translate.instant("proj_alerts.error_text");
+    const oopsAc = "An error ocurred deleting comment";
     return $xhr.post($q, `${BASE.url}delete_comment`, {
       "_": Math.random(),
       data,
@@ -113,7 +113,7 @@ integrates.factory("projectFtry", ($q, $translate) => ({
    * @return {Object} Response with the status of the delete request
    */
   "deleteFinding" (data) {
-    const oopsAc = $translate.instant("proj_alerts.error_text");
+    const oopsAc = "An error ocurred deleting finding";
     return $xhr.post($q, `${BASE.url}delete_finding`, {
       "_": Math.random(),
       data
@@ -130,7 +130,7 @@ integrates.factory("projectFtry", ($q, $translate) => ({
    * @return {Object} Formstack response with the eventualities of a project
    */
   "eventualityByName" (project, category) {
-    const oopsAc = $translate.instant("proj_alerts.error_text");
+    const oopsAc = "An error occurred getting events";
     return $xhr.get($q, `${BASE.url}get_eventualities`, {
       "_": Math.random(),
       category,
@@ -146,7 +146,7 @@ integrates.factory("projectFtry", ($q, $translate) => ({
    * @return {Object} Formstack response with the data of a finding
    */
   "findingById" (id) {
-    const oopsAc = $translate.instant("proj_alerts.error_text");
+    const oopsAc = "An error occurred getting finding";
     return $xhr.post($q, `${BASE.url}get_finding`, {
       "_": Math.random(),
       id
@@ -160,7 +160,7 @@ integrates.factory("projectFtry", ($q, $translate) => ({
    * @return {Object} Response about the verification request
    */
   "findingSolved" (data) {
-    const oopsAc = $translate.instant("proj_alerts.error_text");
+    const oopsAc = "An error occurred when remediating the finding";
     return $xhr.post($q, `${BASE.url}finding_solved`, {
       "_": Math.random(),
       data
@@ -175,7 +175,7 @@ integrates.factory("projectFtry", ($q, $translate) => ({
    * @return {Object} Response about the verfication status of a finding
    */
   "findingVerified" (data) {
-    const oopsAc = $translate.instant("proj_alerts.error_text");
+    const oopsAc = "An error occurred when verifying the finding";
     return $xhr.post($q, `${BASE.url}finding_verified`, {
       "_": Math.random(),
       data
@@ -191,7 +191,7 @@ integrates.factory("projectFtry", ($q, $translate) => ({
    * @return {Object} Response by DynamoDB with project or company alerts
    */
   "getAlerts" (company, project) {
-    const oopsAc = $translate.instant("proj_alerts.error_text");
+    const oopsAc = "An error occurred getting alerts";
     return $xhr.get($q, `${BASE.url}get_alerts`, {
       "_": Math.random(),
       company,
@@ -207,7 +207,7 @@ integrates.factory("projectFtry", ($q, $translate) => ({
    * @return {Object} Response by DynamoDB finding comments
    */
   "getComments" (id) {
-    const oopsAc = $translate.instant("proj_alerts.error_text");
+    const oopsAc = "An error ocurred getting comments";
     return $xhr.get($q, `${BASE.url}get_comments`, {
       "_": Math.random(),
       id
@@ -222,7 +222,7 @@ integrates.factory("projectFtry", ($q, $translate) => ({
    * @return {Object} Response by DynamoDB and S3 with finding evidences
    */
   "getEvidences" (id) {
-    const oopsAc = $translate.instant("proj_alerts.error_text");
+    const oopsAc = "An error occurred getting evidences";
     return $xhr.get($q, `${BASE.url}get_evidences`, {
       "_": Math.random(),
       id
@@ -238,7 +238,7 @@ integrates.factory("projectFtry", ($q, $translate) => ({
    * @return {Object} Response with exploit data
    */
   "getExploit" (findingid, id) {
-    const oopsAc = $translate.instant("proj_alerts.error_text");
+    const oopsAc = "An error occurred getting exploit ID";
     return $xhr.get($q, `${BASE.url}get_exploit`, {
       "_": Math.random(),
       findingid,
@@ -255,7 +255,7 @@ integrates.factory("projectFtry", ($q, $translate) => ({
    * @return {Object} Response with records data
    */
   "getRecords" (findingid, id) {
-    const oopsAc = $translate.instant("proj_alerts.error_text");
+    const oopsAc = "An error occurred getting records";
     return $xhr.get($q, `${BASE.url}get_records`, {
       "_": Math.random(),
       findingid,
@@ -271,7 +271,7 @@ integrates.factory("projectFtry", ($q, $translate) => ({
    * @return {Object} Response by Formstack with findings data
    */
   "projectByName" (project) {
-    const oopsAc = $translate.instant("proj_alerts.error_text");
+    const oopsAc = "An error occurred getting findings";
     return $xhr.get($q, `${BASE.url}get_findings`, {
       "_": Math.random(),
       project
@@ -288,7 +288,7 @@ integrates.factory("projectFtry", ($q, $translate) => ({
    * @return {Object} Response about the report generation
    */
   "projectDoc" (project, json, format) {
-    const oopsAc = $translate.instant("proj_alerts.error_text");
+    const oopsAc = "An error occurred generating documentation";
     return $xhr.post($q, `${BASE.url}generate_autodoc`, {
       "_": Math.random(),
       "data": json,
@@ -305,7 +305,7 @@ integrates.factory("projectFtry", ($q, $translate) => ({
    * @return {Object}  DynamoDB response about the remediate status of a finding
    */
   "remediatedView" (id) {
-    const oopsAc = $translate.instant("proj_alerts.error_text");
+    const oopsAc = "An error occurred getting remediate state";
     return $xhr.get($q, `${BASE.url}get_remediated`, {
       "_": Math.random(),
       id
@@ -320,7 +320,7 @@ integrates.factory("projectFtry", ($q, $translate) => ({
    * @return {Object} DynamoDB response with the total severity of a project
    */
   "totalSeverity" (project) {
-    const oopsAc = $translate.instant("proj_alerts.error_text");
+    const oopsAc = "An error occurred getting total severity";
     return $xhr.get($q, `${BASE.url}total_severity`, {
       "_": Math.random(),
       project
@@ -336,7 +336,7 @@ integrates.factory("projectFtry", ($q, $translate) => ({
    * @return {Object} Formstack response about severity update request
    */
   "updateCSSv2" (data) {
-    const oopsAc = $translate.instant("proj_alerts.error_text");
+    const oopsAc = "An error occurred updating CSSV2";
     return $xhr.post($q, `${BASE.url}update_cssv2`, {
       "_": Math.random(),
       data
@@ -352,7 +352,7 @@ integrates.factory("projectFtry", ($q, $translate) => ({
    * @return {Object} Formstack response about description update request
    */
   "updateDescription" (data) {
-    const oopsAc = $translate.instant("proj_alerts.error_text");
+    const oopsAc = "An error occurred updating description";
     return $xhr.post($q, `${BASE.url}update_description`, {
       "_": Math.random(),
       data
@@ -396,7 +396,7 @@ integrates.factory("projectFtry", ($q, $translate) => ({
   },
 
   "updateEvidenceText" (data) {
-    const oopsAc = $translate.instant("proj_alerts.error_text");
+    const oopsAc = "An error occurred updating evidence description";
     return $xhr.post($q, `${BASE.url}update_evidence_text`, {
       "_": Math.random(),
       data
@@ -411,7 +411,7 @@ integrates.factory("projectFtry", ($q, $translate) => ({
    * @return {Object} Formstack response about the post request
    */
   "updateTreatment" (data) {
-    const oopsAc = $translate.instant("proj_alerts.error_text");
+    const oopsAc = "An error occurred updating treatment";
     return $xhr.post($q, `${BASE.url}update_treatment`, {
       "_": Math.random(),
       data

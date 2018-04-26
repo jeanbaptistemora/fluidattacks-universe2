@@ -803,7 +803,7 @@ def update_evidence_text(request):
         request = api.update(generic_dto.request_id, generic_dto.data)
         if request:
             return util.response([], 'success', False)
-        rollbar.report_message('Error: An error occurred updating description', 'error', request)
+        rollbar.report_message('Error: An error occurred updating evidence description', 'error', request)
         return util.response([], 'error', False)
     except KeyError:
         rollbar.report_exc_info(sys.exc_info(), request)

@@ -16,7 +16,11 @@ var $xhr = new class xhr {
                        location = BASE.url + "index";
                    }else{
                        Rollbar.error(text);
-                       $.gritter.add({ title: 'Oops!', text: text ,
+                       textError = "There is an error";
+                       if (localStorage.lang === 'es') {
+                         textError = "Hay un error";
+                       }
+                       $.gritter.add({ title: 'Oops!', text: textError,
                             class_name: 'color warning', sticky: false,
                        });
                    }
