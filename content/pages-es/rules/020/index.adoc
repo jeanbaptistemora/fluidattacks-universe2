@@ -11,3 +11,38 @@
 La organización debe definir penalizaciones
 para ser aplicadas por el incumplimiento
 en los acuerdos de niveles de servicio.
+
+== Descripción
+
+El incumplimiento de los acuerdos establecidos
+debe estar asociado a una penalidad que retribuya total
+o parcialmente los efectos negativos causados.
+
+== Implementación
+
+. Los acuerdos de nivel de servicio
+deben contar con un soporte para obligar su cumplimiento,
+las penalidades deberían ser representativas al costo del servicio contratado.
+
+. Las penalizaciones deben ser acordadas
+y aceptadas a nivel contractual
+y para hacerse efectivas,
+deben tener una revisión periódica del cumplimiento del servicio.
+
+== Ataques
+
+. Un servicio incumple los acuerdos establecidos,
+no es posible aplicar ninguna penalidad
+al no estar definido a nivel contractual.
+
+== Atributos
+
+* Capa: Capa de Negocio.
+* Activo: Acuerdo de nivel de servicio.
+* Alcance: Adherencia.
+* Fase: Operación.
+* Tipo de Control: Recomendación.
+
+== Referencias
+
+. link:http://es.presidencia.gov.co/dapre/DocumentosSIGEPRE/L-TI-05-Administracion-Niveles-Servicio.pdf[LINEAMIENTOS DE ADMINISTRACIÓN DE NIVELES DE SERVICIO].
