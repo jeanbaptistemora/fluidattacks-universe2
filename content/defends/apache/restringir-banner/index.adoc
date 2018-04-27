@@ -42,7 +42,7 @@ asociadas a dicha información, y realizar así,
 un ataque que comprometa confidencialidad, integridad
 y disponibilidad del servidor.
 
-. Entonces, para evitar exponer la información en un servidor +apache+
+. Entonces, para evitar exponer la información en un servidor +Apache+
 se recomienda seguir los siguientes pasos.<<r3,^[3]^>>
 
 . En el archivo de configuración +httpd.conf+

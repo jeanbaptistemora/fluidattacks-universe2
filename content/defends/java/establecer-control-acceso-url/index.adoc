@@ -21,7 +21,7 @@ conforme con las especificaciones empresariales de +Java+.
 . Se han configurado los roles de seguridad necesarios
 por la aplicación en el servidor de aplicaciones.
 * link:../definir-rol-seguridad-tomcat/[Definir Roles De Seguridad En Tomcat]
-* link:../../glassfish/definir-rol-seguridad/[Definir Roles De Seguridad En Glassfish]
+* link:../../glassfish/definir-rol-seguridad/[Definir Roles De Seguridad En GlassFish]
 
 . Se ha configurado la interfaz de autenticación para la aplicación web.
 

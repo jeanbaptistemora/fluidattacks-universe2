@@ -36,7 +36,7 @@ o lo transforma en algo que cumpla con las especificaciones.
 . +Java+ link:../../defends/java/filtrar-entrada-datos-regex/[Filtrar Entrada de Datos Usando Expresión Regular].
 . +ASPNET+ link:../../defends/aspnet/filtrar-campos-entrada/[Filtrar campos de entrada].
 . +ASPNET+ link:../../defends/aspnet/redireccion-paginas-web/[Validar redirecciones a páginas web].
-. +CSHARP+ link:../../defends/csharp/filtrar-entradas-regex/[Filtrar entradas usando Expresiones Regulares].
+. +C Sharp+ link:../../defends/csharp/filtrar-entradas-regex/[Filtrar entradas usando Expresiones Regulares].
 . +PHP+ link:../../defends/php/filtrar-entradas-regex/[Filtrar Entradas con Expresiones Regulares].
 
 == Ataques

@@ -63,7 +63,7 @@ Entonces, la combinación de este método +HTTP+
 con un fallo +Cross Site Scripting+ (+XSS+) en la aplicación web
 puede acabar en un robo de sesión de usuario.
 Por tal motivo, en esta solución se explicará como desactivar
-dicho método en un servidor apache.
+dicho método en un servidor +Apache+.
 
 . Se abre el archivo de configuración de +Apache+,
 ubicado generalmente en +/etc/apache2/conf.d/security+

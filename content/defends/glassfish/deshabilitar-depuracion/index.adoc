@@ -1,6 +1,6 @@
 :slug: defends/glassfish/deshabilitar-depuracion/
 :category: glassfish
-:description: Nuestros ethical hackers explican cómo evitar vulnerabilidades de seguridad mediante la configuración segura en Glassfish al deshabilitar el modo depuración. Los mensajes de depuración pueden contener información que ayude a un atacante a conocer el sistema e identificar vulnerabilidades.
+:description: Nuestros ethical hackers explican cómo evitar vulnerabilidades de seguridad mediante la configuración segura en GlassFish al deshabilitar el modo depuración. Los mensajes de depuración pueden contener información que ayude a un atacante a conocer el sistema e identificar vulnerabilidades.
 :keywords: Glassfish, Seguridad, Deshabilitar, Modo, Depuración, GPL.
 :defends: yes
 
@@ -60,7 +60,7 @@ que pueda ser usada en contra de la organización.
 
 En está solución se explicará
 como mantener desactivada la opción de depuración
-en un servidor de aplicaciones +glassfish+.<<r4,^[4]^>>
+en un servidor de aplicaciones +GlassFish+.<<r4,^[4]^>>
 
 . Para desactivarla, hay que ingresar a la consola de administración web.
 
@@ -72,7 +72,7 @@ se hace clic en +Configuration -> JVM Settings+.
 
 . Hay que desactivar la casilla +Debug+, como se muestra en la imagen.
 
-image::glassfish.png[glassfish]
+image::glassfish.png[GlassFish]
 
 == Referencias
 

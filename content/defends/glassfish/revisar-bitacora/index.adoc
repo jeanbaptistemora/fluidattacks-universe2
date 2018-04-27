@@ -1,6 +1,6 @@
 :slug: defends/glassfish/revisar-bitacora/
 :category: glassfish
-:description: Nuestros ethical hackers explican cómo evitar vulnerabilidades de seguridad mediante la configuración segura en Glassfish al permitir la revisión de bitácoras. Las bitácoras contienen acontecimientos relevantes que han afectado a un proceso en particular, mostrando el comportamiento del sistema.
+:description: Nuestros ethical hackers explican cómo evitar vulnerabilidades de seguridad mediante la configuración segura en GlassFish al permitir la revisión de bitácoras. Las bitácoras contienen acontecimientos relevantes que han afectado a un proceso en particular, mostrando el comportamiento del sistema.
 :keywords: Glassfish, Seguridad, Bitácora, Log, Base de datos, Eventos.
 :defends: yes
 
@@ -58,7 +58,7 @@ haciendo uso de métodos de cifrado y demás.
 Teniendo en cuenta lo anterior, es conveniente revisar constantemente
 las bitácoras del servidor.
 En está solución se explorará la manera de hacerlo
-en un servidor +Glassfish+.<<r4,[4]>>
+en un servidor +GlassFish+.<<r4,[4]>>
 
 . Primero, abrimos la consola de administración web de +GlassFish+.
 

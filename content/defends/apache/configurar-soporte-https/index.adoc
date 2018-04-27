@@ -43,7 +43,7 @@ Como contextualización, se hace necesario explicar
 que +TLS+ y su antecesor +SSL+ son protocolos criptográficos
 que proporcionan comunicaciones seguras por una red, comúnmente Internet.
 
-Para configurar el uso de +HTTPS+ en +apache+
+Para configurar el uso de +HTTPS+ en +Apache+
 se deben seguir los siguientes pasos:
 
 . Se debe instalar el protocolo +SSL+ en el sistema operativo
