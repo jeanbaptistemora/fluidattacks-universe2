@@ -11,6 +11,83 @@
 El sistema no debe incluir en parámetros
 nombres de directorios o rutas de archivos.
 
+== Descripción
+
+Un sistema no debe permitir la inclusión de nombres de directorios
+o rutas de archivos en los parámetros del mismo,
+esto debido a que mediante la manipulación de campos
+asociados a estos parámetros,
+un atacante puede acceder a dichas rutas
+y obtener información confidencial.
+
+== Implementación
+
+Se debe asumir en principio
+que todas las entradas de datos pueden ser maliciosas,
+de esta manera se recurre al método de listas blancas
+para descartar cualquier tipo de ingreso de datos
+que no sea aceptable (cumple estrictamente con las especificaciones)
+y rechaza cualquier otra cosa
+o lo transforma en algo que cumpla con las especificaciones.
+
 == Soluciones
 
 . +COBOL+ link:../../defends/cobol/generar-cadenas-aleatorias/[Generar Cadenas Aleatorias].
+. +Java+ link:../../defends/java/filtrar-entrada-datos-regex/[Filtrar Entrada de Datos Usando Expresión Regular].
+. +ASPNET+ link:../../defends/aspnet/filtrar-campos-entrada/[Filtrar campos de entrada].
+. +ASPNET+ link:../../defends/aspnet/redireccion-paginas-web/[Validar redirecciones a páginas web].
+. +CSHARP+ link:../../defends/csharp/filtrar-entradas-regex/[Filtrar entradas usando Expresiones Regulares].
+. +PHP+ link:../../defends/php/filtrar-entradas-regex/[Filtrar Entradas con Expresiones Regulares].
+
+== Ataques
+
+. Un atacante puede crear
+o sobrescribir archivos críticos
+que son usados para ejecutar código,
+tales como programas o librerías.
+
+. Un atacante puede sobrescribir
+o crear archivos críticos,
+tales como programas, librerías o información importante.
+Si el archivo objetivo
+es usado para un mecanismo de seguridad,
+entonces el atacante puede ser capaz de sobrepasar ese mecanismo.
+Por ejemplo añadir una nueva cuenta
+al final de un archivo de contraseñas
+que le permita al atacante sobrepasar la autenticación.
+
+
+. Un atacante puede ser capaz
+de leer el contenido de archivos inesperados
+y exponer información sensible.
+Si el archivo objetivo
+es usado para un mecanismo de seguridad,
+entonces el atacante puede ser capaz de sobrepasar ese mecanismo.
+Por ejemplo leyendo un archivo de contraseñas,
+el atacante puede llevar a cabo
+un ataque de descubrimiento de contraseñas por fuerza bruta
+para poder conseguir las credenciales de un usuarios del sistema.
+
+. El atacante puede puede ser capaz de sobrescribir, borrar
+o corromper archivos críticos inesperadamente,
+tales cómo programas, librerías o información importante.
+Esto puede evitar que el sistema deje de funcionar del todo
+y en caso de contar con mecanismos de autenticación,
+tiene el potencial de bloquear el acceso al sistema a todos
+y cada uno de los usuarios.
+
+== Atributos
+
+* Capa: Capa de Aplicación.
+* Activo: Archivos.
+* Alcance: Confidencialidad.
+* Fase: Construcción.
+* Tipo de Control: Recomendación.
+
+== Referencias
+
+. link:https://www.owasp.org/index.php/Path_Traversal[Path Traversal].
+. link:https://www.owasp.org/index.php/Testing_Directory_traversal/file_include_(OTG-AUTHZ-001)[Testing Directory traversal/file include (OTG-AUTHZ-001)].
+. link:https://cwe.mitre.org/data/definitions/22.html[CWE-22: Improper Limitation of a Pathname to a Restricted Directory].
+. link:https://cwe.mitre.org/data/definitions/36.html[CWE-36: Absolute Path Traversal].
+. link:https://cwe.mitre.org/data/definitions/23.html[CWE-23: Relative Path Traversal].
