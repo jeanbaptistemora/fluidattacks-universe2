@@ -13,6 +13,7 @@
 :about1: Mathematician
 :about2: with an itch for CS
 :source-highlighter: pygments
+:translate: fuzzy-bugs-online/
 
 = Fuzzy bugs online
 
@@ -188,7 +189,7 @@ image::scr-reflected-fuzzed-injections.png["bWAPP fuzz testing - reflected SQL i
 
 Here we see a fuzz test is only as good
 as its payloads or fuzz vectors.
-Only the most trivial injections succeded, i.e.
+Only the most trivial injections succeeded, i.e.
 the ones of the form
 
 [source,sql]
