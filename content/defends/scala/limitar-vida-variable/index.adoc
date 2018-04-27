@@ -148,7 +148,7 @@ Password.class Password.scala Password$.class Password$$anonfun$main$1.class
 ----
 . Luego de compilar el programa correctamente,
 se obtiene el +bytecode+ (archivo +.class+) del programa
-y se procede a ejecutar el mismo mediante el comando +scala+:
+y se procede a ejecutar el mismo mediante el comando +Scala+:
 +
 [source, bash, linenums]
 ----
@@ -169,7 +169,7 @@ Puedes descargar el código fuente
 pulsando en el siguiente enlace:
 
 . [button]#link:src/password.scala[password.scala]# contiene
-las instrucciones +scala+ para el manejo de credenciales de manera segura.
+las instrucciones +Scala+ para el manejo de credenciales de manera segura.
 
 == Referencias
 

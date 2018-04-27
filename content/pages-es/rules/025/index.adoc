@@ -35,7 +35,7 @@ ya sea desde un sistema de autenticación externo o desde el mismo sistema.
 
 == Soluciones
 
-. +LINUX+ link:../../defends/linux/limitar-sesiones-concurrente/[Limitar Número de Sesiones Concurrentes por Usuario].
+. +Linux+ link:../../defends/linux/limitar-sesiones-concurrente/[Limitar Número de Sesiones Concurrentes por Usuario].
 
 == Ataques
 

@@ -140,7 +140,7 @@ exampletwo.txt ReadFileTwo.class ReadFileTwo.scala ReadFileTwo$.class ReadFileTw
 ----
 . Luego de compilar el programa correctamente,
 se obtiene el +bytecode+ (archivo +.class+) del programa
-y se procede a ejecutar el mismo mediante el comando +scala+:
+y se procede a ejecutar el mismo mediante el comando +Scala+:
 +
 [source, bash, linenums]
 ----

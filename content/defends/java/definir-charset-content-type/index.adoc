@@ -158,7 +158,7 @@ se deberá utilizar el +META-INF/context.xml+ de esta.
 
 . Para detectar errores durante el desarrollo,
 se recomienda revisar los archivos de +logs+ del contenedor de +servlets+.
-En +linux+, una forma de ver como cambia dinámicamente el final de un archivo
+En +Linux+, una forma de ver como cambia dinámicamente el final de un archivo
 es empleando el comando +tail+ con el parámetro +f+:
 +
 [source, xml, linenums]
