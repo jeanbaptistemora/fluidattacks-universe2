@@ -16,7 +16,7 @@ var $xhr = new class xhr {
                        location = BASE.url + "index";
                    }else{
                        Rollbar.error(text);
-                       textError = "There is an error";
+                       let textError = "There is an error";
                        if (localStorage.lang === 'es') {
                          textError = "Hay un error";
                        }
