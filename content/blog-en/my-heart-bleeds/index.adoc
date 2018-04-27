@@ -59,7 +59,7 @@ the url, it means you are visiting
 a secure website, indicating that
 your communication with the
 website is *encrypted*, specially
-designed to prevent [red]#eavesdropping#+
+designed to prevent [red]#eavesdropping#
 and [red]#tampering#.
 
 .Secure URL, Green lock sample
@@ -220,6 +220,7 @@ diving into fancy technical details.
 
 .Fragment of the t1_lib.c from +OpenSSL+.
 [source,c]
+----
 include::/web/content/blog-en/my-heart-bleeds/openssl-fragment.c[]
 ----
 
@@ -266,6 +267,7 @@ lines of code:
 [source,c,numbered]
 ----
 include::/web/content/blog-en/my-heart-bleeds/payload-length.c[]
+----
 
 To put it simple, the previous
 three lines of code, just writes
@@ -331,11 +333,21 @@ link:https://git.openssl.org/gitweb/?p=openssl.git;a=commitdiff;h=731f431497f463
 
 There is something else you should
 know, this kind of vulnerability
-is named +buffer over-read+, <<r3, ^[3]^>>. For
-example, in the +Heartbleed+ case,
-the program tries to read
+is named +buffer over-read+, <<r3, ^[3]^>>.
+For example, in the +Heartbleed+
+case, the program tries to read
 data from memory, but
 due to no bounds check,
+it tries to read adjacent memory,
+creating a special case of
+memory safety violation.
+
+=== That was all?
+
+Yes! that was all!
+That single line you saw there
+was the demonic 'call of Cthulhu'.
+
 Nah, not really like that,
 but it tempted to wreak havoc,
 several companies like
