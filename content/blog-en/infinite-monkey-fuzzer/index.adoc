@@ -13,16 +13,17 @@
 :about1: Mathematician
 :about2: with an itch for CS
 :source-highlighter: pygments
+:translate: fuzzer-mono-infinito/
 
 = The infinite monkey fuzzer
 
 In our link:../fuzzy-bugs-online/[last entry],
 we argued that fuzzing is both ``dumb'' and surprising.
 In this article,
-we'll continue exploring the posibilities of fuzzing.
+we'll continue exploring the possibilities of fuzzing.
 This time though, we'll focus on
 desktop application fuzzing,
-especifically +UNIX+ applications written in +C+.
+specifically +UNIX+ applications written in +C+.
 
 When developing in +C+,
 you usually have to handle memory issues yourself.
@@ -39,9 +40,9 @@ we ran a very simple-minded kind of fuzzing:
 give the fuzzer a list of inputs
 and it will invoke the program with each of those inputs one at a time.
 Since the list was very generic,
-only the most trivial inputs were succesful;
+only the most trivial inputs were successful;
 because it was not random at all,
-there could be no surprsises.
+there could be no surprises.
 
 Another type of fuzzing could be
 by injecting random inputs:
@@ -91,14 +92,14 @@ on a program with an image of a rabbit as input.
 Then the fuzzer modifies the image
 a little piece at a time,
 feeding it back to the tested program
-until a hang or crash or other unexpected behaviour happens.
+until a hang or crash or other unexpected behavior happens.
 Here you can see the sequence of images
 fed into the tested program:
 
 .Fuzzed +AFL+ logo. Via link:https://en.wikipedia.org/wiki/File:AFL_Fuzz_Logo.gif[Wikimedia]
 image::afl-fuzz-logo.gif["Fuzzed image inputs"]
 
-== Running +AFL+
+== Running AFL
 
 The American Fuzzy Lop is primarily a white-box testing tool,
 so you must have the code for the app you want to test.
@@ -117,7 +118,7 @@ Make another empty one for the results called +out+.
 I'm assuming everything lives in the folder you are in right now.
 Now you're ready to run +AFL+:
 
-.Invoking the +AFL+ fuzzer
+.Invoking the AFL fuzzer
 [source,bash]
 ----
 $ afl-fuzz -i in -o out program input @@
@@ -140,7 +141,7 @@ you have made your program crash.
 +AFL+ will save the inputs that provoked
 the crash in the output folder we specified.
 
-== Fuzzing +libpng+ - details
+== Fuzzing libpng - details
 
 +libpng+ is the official PNG reference library.
 If you've ever seen an image in a web browser,
