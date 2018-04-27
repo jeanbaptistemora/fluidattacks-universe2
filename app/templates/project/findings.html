@@ -4,6 +4,10 @@
         <li><a class="text-uppercase">{% templatetag openvariable %} project {% templatetag closevariable %}</a></li>
     </ol>
     <div id="header_alert"></div>
+    <br>
+    <div id="events_alert" class="alert alert-danger-2" ng-click="urlEvents();" style="display: none; cursor:pointer;">
+        <strong>{% templatetag openvariable %} atAlert {% templatetag closevariable %}</strong> {% templatetag openvariable %} descAlert1 {% templatetag closevariable %} {% templatetag openvariable %} openEvents {% templatetag closevariable %} {% templatetag openvariable %} descAlert2 {% templatetag closevariable %}
+    </div>
     <div class="text-center">
         <!-- Start SearchBox -->
         <div class="row">

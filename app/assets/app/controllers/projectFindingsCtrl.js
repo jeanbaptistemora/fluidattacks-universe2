@@ -403,6 +403,27 @@ integrates.controller(
         const searchAt = $translate.instant("proj_alerts.search_title");
         const searchAc = $translate.instant("proj_alerts.search_cont");
         $msg.info(searchAc, searchAt);
+        if (eventsData.length === 0 || (eventsData.length > 0 &&
+                   eventsData[0].proyecto_fluid.toLowerCase() !==
+                   $scope.project.toLowerCase())) {
+          const reqEventualities = projectFtry.eventualityByName(
+            projectName,
+            "Name"
+          );
+          reqEventualities.then((response) => {
+            if (!response.error) {
+              eventsData = response.data;
+            }
+            else if (response.message === "Access to project denied") {
+              Rollbar.warning("Warning: Access to event denied");
+              $msg.error($translate.instant("proj_alerts.access_denied"));
+            }
+            else {
+              Rollbar.warning("Warning: Event not found");
+              $msg.error($translate.instant("proj_alerts.eventExist"));
+            }
+          });
+        }
         if (projectData.length > 0 &&
             projectData[0].proyecto_fluid.toLowerCase() ===
             $scope.project.toLowerCase()) {
@@ -508,6 +529,25 @@ integrates.controller(
         $scope.view.finding = false;
       }
       $scope.data = datatest;
+      if (!$scope.isManager) {
+        $scope.openEvents = projectFtry.alertEvents(eventsData);
+        $scope.atAlert = $translate.instant("main_content.eventualities." +
+                                            "descSingularAlert1");
+        if ($scope.openEvents === 1) {
+          $scope.descAlert1 = $translate.instant("main_content.eventualities." +
+                                                  "descSingularAlert2");
+          $scope.descAlert2 = $translate.instant("main_content.eventualities." +
+                                                  "descSingularAlert3");
+          $("#events_alert").show();
+        }
+        else if ($scope.openEvents > 1) {
+          $scope.descAlert1 = $translate.instant("main_content.eventualities." +
+                                                  "descPluralAlert1");
+          $scope.descAlert2 = $translate.instant("main_content.eventualities." +
+                                                  "descPluralAlert2");
+          $("#events_alert").show();
+        }
+      }
     };
     $scope.openModalAvance = function openModalAvance () {
       const modalInstance = $uibModal.open({

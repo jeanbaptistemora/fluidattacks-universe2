@@ -445,6 +445,25 @@ integrates.controller(
       const projt = $stateParams.project.toUpperCase();
       $scope.alertHeader(org, projt);
       $scope.calculateCardinality({"data": datatest});
+      if (!$scope.isManager) {
+        $scope.openEvents = projectFtry.alertEvents(eventsData);
+        $scope.atAlert = $translate.instant("main_content.eventualities." +
+                                            "descSingularAlert1");
+        if ($scope.openEvents === 1) {
+          $scope.descAlert1 = $translate.instant("main_content.eventualities." +
+                                                  "descSingularAlert2");
+          $scope.descAlert2 = $translate.instant("main_content.eventualities." +
+                                                  "descSingularAlert3");
+          $("#events_alert").show();
+        }
+        else if ($scope.openEvents > 1) {
+          $scope.descAlert1 = $translate.instant("main_content.eventualities." +
+                                                  "descPluralAlert1");
+          $scope.descAlert2 = $translate.instant("main_content.eventualities." +
+                                                  "descPluralAlert2");
+          $("#events_alert").show();
+        }
+      }
       $timeout($scope.mainGraphexploitPieChart, 200);
       $timeout($scope.mainGraphtypePieChart, 200);
       $timeout($scope.mainGraphstatusPieChart, 200);

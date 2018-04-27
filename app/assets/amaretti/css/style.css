@@ -20263,3 +20263,6 @@ div.dataTables_wrapper div.dataTables_length label select {
 .fixed-table-container thead th .th-inner {
     white-space: normal !important;
 }
+#events_alert {
+  font-size: 1.2em;
+}

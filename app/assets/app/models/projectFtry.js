@@ -32,6 +32,17 @@ integrates.factory("projectFtry", ($q, $translate) => ({
     }, oopsAc);
   },
 
+  "alertEvents" (events) {
+    let openEvents = 0;
+    for (let event = 0; event < events.length; event++) {
+      if (eventsData[event].estado === "Unsolved" ||
+            eventsData[event].estado === "Pendiente") {
+        openEvents += 1;
+      }
+    }
+    return openEvents;
+  },
+
   "calCCssv2" (data) {
     const ImpCon =
               parseFloat(data.impactoConfidencialidad.split(" | ")[0]);

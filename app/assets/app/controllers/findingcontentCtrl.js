@@ -10,8 +10,8 @@ mixPanelDashboard, userRole, findingType, actor, scenario, authentication,
 confidenciality, Organization, resolutionLevel, explotability, availability,
 tratamiento, updateEvidencesFiles:true, findingData:true, realiabilityLevel,
 updateEvidenceText:true, categories, probabilities, accessVector, integrity,
-accessComplexity, projectData:true, fieldsToTranslate, keysToTranslate,
-desc:true
+accessComplexity, projectData:true, eventsData:true, fieldsToTranslate,
+keysToTranslate, desc:true
 /**
  * @file findingcontentCtrl.js
  * @author engineering@fluidattacks.com
@@ -703,6 +703,27 @@ integrates.controller("findingcontentCtrl", function findingcontentCtrl (
     return true;
   };
   $scope.loadFindingByID = function loadFindingByID (id) {
+    if (eventsData.length === 0 || (eventsData.length > 0 &&
+                   eventsData[0].proyecto_fluid.toLowerCase() !==
+                   $stateParams.project.toLowerCase())) {
+      const reqEventualities = projectFtry.eventualityByName(
+        $stateParams.project,
+        "Name"
+      );
+      reqEventualities.then((response) => {
+        if (!response.error) {
+          eventsData = response.data;
+        }
+        else if (response.message === "Access to project denied") {
+          Rollbar.warning("Warning: Access to event denied");
+          $msg.error($translate.instant("proj_alerts.access_denied"));
+        }
+        else {
+          Rollbar.warning("Warning: Event not found");
+          $msg.error($translate.instant("proj_alerts.eventExist"));
+        }
+      });
+    }
     if (!$scope.isEmpty(findingData) &&
         findingData.data.proyecto_fluid.toLowerCase() ===
         $stateParams.project.toLowerCase() &&
@@ -873,6 +894,25 @@ integrates.controller("findingcontentCtrl", function findingcontentCtrl (
     });
     $scope.findingInformationTab();
     $timeout($scope.goUp, 200);
+    if (!$scope.isManager) {
+      $scope.openEvents = projectFtry.alertEvents(eventsData);
+      $scope.atAlert = $translate.instant("main_content.eventualities." +
+                                          "descSingularAlert1");
+      if ($scope.openEvents === 1) {
+        $scope.descAlert1 = $translate.instant("main_content.eventualities." +
+                                                "descSingularAlert2");
+        $scope.descAlert2 = $translate.instant("main_content.eventualities." +
+                                                "descSingularAlert3");
+        $("#events_alert").show();
+      }
+      else if ($scope.openEvents > 1) {
+        $scope.descAlert1 = $translate.instant("main_content.eventualities." +
+                                                "descPluralAlert1");
+        $scope.descAlert2 = $translate.instant("main_content.eventualities." +
+                                                "descPluralAlert2");
+        $("#events_alert").show();
+      }
+    }
   };
   $scope.configColorPalette = function configColorPalette () {
     $scope.colors = {};
@@ -1680,6 +1720,9 @@ integrates.controller("findingcontentCtrl", function findingcontentCtrl (
       projt,
       $scope.finding.id
     );
+  };
+  $scope.urlEvents = function urlEvents () {
+    $state.go("ProjectEvents", {"project": $stateParams.project});
   };
   $scope.init = function init () {
     const projectName = $stateParams.project;

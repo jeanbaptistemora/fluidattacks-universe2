@@ -283,6 +283,16 @@ const translations = {
       {
         "close": "CLOSE",
         "date": "Date",
+        "descPluralAlert1": "There are ",
+        "descPluralAlert2": "open events that compromise the " +
+                            "appropriate performance of the project, " +
+                            "please give it the appropriate treatment.",
+        "descSingularAlert1": "Attention! ",
+        "descSingularAlert2": "There is ",
+        "descSingularAlert3": "open event that compromises the " +
+                              "appropriate performance of the " +
+                              "project, please give it the " +
+                              "appropriate treatment.",
         "description": "Description",
         "description_1": "You can check the details of an event by ",
         "description_2": "clicking",

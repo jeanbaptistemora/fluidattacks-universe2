@@ -1,4 +1,4 @@
-/* eslint no-magic-numbers: ["error", { "ignore": [0,13, 100] }]*/
+/* eslint no-magic-numbers: ["error", { "ignore": [0,1,13, 100] }]*/
 /* eslint no-shadow: ["error", { "allow": ["$scope"] }]*/
 /* global
 BASE, downLink:true, Morris, estado:true, exploitLabel:true, eventsData:true,
@@ -283,6 +283,25 @@ integrates.controller(
       // MANEJO DEL UI
       $("#search_section").show();
       $("[data-toggle=\"tooltip\"]").tooltip();
+      if (!$scope.isManager) {
+        $scope.openEvents = projectFtry.alertEvents(eventsData);
+        $scope.atAlert = $translate.instant("main_content.eventualities." +
+                                            "descSingularAlert1");
+        if ($scope.openEvents === 1) {
+          $scope.descAlert1 = $translate.instant("main_content.eventualities." +
+                                                  "descSingularAlert2");
+          $scope.descAlert2 = $translate.instant("main_content.eventualities." +
+                                                  "descSingularAlert3");
+          $("#events_alert").show();
+        }
+        else if ($scope.openEvents > 1) {
+          $scope.descAlert1 = $translate.instant("main_content.eventualities." +
+                                                  "descPluralAlert1");
+          $scope.descAlert2 = $translate.instant("main_content.eventualities." +
+                                                  "descPluralAlert2");
+          $("#events_alert").show();
+        }
+      }
     };
     $scope.openModalEventAvance = function openModalEventAvance () {
       const modalInstance = $uibModal.open({

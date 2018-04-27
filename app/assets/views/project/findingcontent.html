@@ -4,6 +4,10 @@
         <li><a class="text-uppercase">{{project}}</a></li>
     </ol>
     <div id="header_alert"></div>
+    <br>
+    <div id="events_alert" class="alert alert-danger-2" ng-click="urlEvents();" style="display: none; cursor:pointer;">
+        <strong>{{ atAlert }}</strong> {{ descAlert1 }} {{ openEvents }} {{ descAlert2 }}
+    </div>
 </div>
 
 <!-- Start FindingContent -->
