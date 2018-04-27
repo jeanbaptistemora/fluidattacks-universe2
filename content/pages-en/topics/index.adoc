@@ -20,7 +20,6 @@ Among the topics of interest are:
 * Beast attack.
 * Poodle +SSL v3+.
 * Poodle +TLS+.
-* link:http://heartbleed.com/[Heartbleed] attack.
 * Simple cracking of non-reversible keys.
 * Cracking with rainbow tables.
 * Web shells without collateral effects.
