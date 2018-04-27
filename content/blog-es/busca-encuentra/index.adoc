@@ -94,7 +94,7 @@ image::level1answer.png[solucion-1]
 Con esto, sólo basta ingresar las credenciales +in+ y +out+
 en los campos +Username+ y +Password+ respectivamente para resolver el reto.
 
-== Reto: +Main Level 2+
+== Reto: Main Level 2
 
 .+hackthis:+ nivel 2 de la categoría +MAIN+
 image::level2.png[reto-2]
@@ -140,7 +140,7 @@ se reflejan de manera instantánea en el navegador:
 .+hackthis:+ solución al reto +MAIN 2+ (cuarta solución)
 image::level2answer4.png[solucion-4]
 
-== Reto: +Main Level 6+
+== Reto: Main Level 6
 
 .+hackthis:+ nivel 6 de la categoría +MAIN+
 image::level6.png[reto-3]

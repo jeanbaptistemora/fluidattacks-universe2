@@ -40,7 +40,7 @@ document attack vectors, or
 the way a vulnerability in a system
 can be found and exploited.
 
-== +Gherkin+ basics
+== Gherkin basics
 
 Most of +Gherkin+ is natural language
 describing a procedure.

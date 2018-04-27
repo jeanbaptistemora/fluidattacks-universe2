@@ -24,7 +24,7 @@ blocking the most common types of malicious requests,
 think again.
 Read on.
 
-== Injecting +SQL+ into a vulnerable site
+== Injecting SQL into a vulnerable site
 
 A fairly common situation is a website
 providing the ability to search, add, and remove

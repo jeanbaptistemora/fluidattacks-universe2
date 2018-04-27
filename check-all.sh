@@ -164,6 +164,12 @@ if pcregrep --color -nr --include='\.adoc' '^:[A-Z]' content; then
   ERRORS=1;
 fi
 
+# Check that titles and subtitles don't contain monospaces
+if pcregrep --color -nr --include='\.adoc' '^=.*\+.+\+.*' content; then
+  echo -e "${GC}Titles and subtitles must not contain monospaces${NC}"
+  ERRORS=1;
+fi
+
 # Check the character '>' is not used in type button links
 if pcregrep --color -nr --include='\.adoc' '\[button\].*>' content; then
   echo -e "${GC}The '>>' characters are written by the style and are not needed in the source code.${NC}"
