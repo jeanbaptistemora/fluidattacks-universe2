@@ -50,6 +50,7 @@ if kubectl get deployments | grep -q "$CI_COMMIT_REF_SLUG"; then
   kubectl delete deployment "review-$CI_COMMIT_REF_SLUG"
   kubectl delete service "service-$CI_COMMIT_REF_SLUG";
   kubectl get ingress "ingress-$CI_PROJECT_NAME" -o yaml | sed '/host: '"$CI_COMMIT_REF_SLUG"'/,+5d' | sed '/-\ '"$CI_COMMIT_REF_SLUG"'/d' > current-ingress.yaml
+  sleep 30
 fi
 
 # Update current ingress resource if it exists, otherwise create it from zero.
@@ -73,7 +74,11 @@ fi
 # Deploy pod and service
 echo "Deploying latest image..."
 kubectl create -f review-apps/deploy-integrates.yaml
-sleep 120
+
+while ! kubectl describe pod $(kubectl get pods | grep -o ".*$CI_COMMIT_REF_SLUG[^ ]*") | grep -m 1 'Running'; do
+  sleep 15;
+done
+sleep 30
 kubectl exec $(kubectl get pods | grep -o ".*$CI_COMMIT_REF_SLUG[^ ]*") -- sed -i 's#/usr/share>#/usr/src/app>#' /etc/apache2/apache2.conf
 kubectl exec $(kubectl get pods | grep -o ".*$CI_COMMIT_REF_SLUG[^ ]*") -- apache2ctl restart
 
