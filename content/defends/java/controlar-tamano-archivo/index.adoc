@@ -17,6 +17,7 @@ bajo las cuales la siguiente solución tiene sentido:
 
 . Se desarrolla una aplicación web en +Java+.
 . Se utiliza la especificación de +Java EE 6+.
+. Los archivos deben tener un tamaño máximo definido.<<r1,^[1]^>>
 
 == Solución
 
@@ -44,7 +45,7 @@ que no se sature la capacidad de almacenamiento del servidor.
 Para habilitar la validación del tamaño de archivos en +Java EE+
 se debe tener en cuenta lo siguiente:
 
-. La versión +3.0+ de la especificación +Java Servlet+
+. La versión +3.0+ de la especificación +Java Servlet+ <<r2,^[2]^>>
 incluye una nueva clase para facilitar
 el manejo de archivos subidos por formularios web.
 
@@ -67,7 +68,7 @@ El tamaño predeterminado es +0 bytes+.
 Si el tamaño del archivo subido es superior a este,
 se arrojará una excepción +IllegalStateException+.
 
-. Creamos un archivo +HTML+ o +JSP+
+. Creamos un archivo +HTML+ o +JSP+ <<r3,^[3]^>>
 el cual contiene el formulario
 que nos permitirá enviar el archivo al +servlet+.
 +
@@ -198,5 +199,6 @@ permitted size of 5242880 characters.
 
 == Referencias
 
-. [[r1]] link:https://docs.oracle.com/javaee/6/tutorial/doc/glrbb.html[The Java EE 6 Tutorial]
-. [[r2]] link:http://www.codejava.net/java-ee/servlet/apache-commons-fileupload-example-with-servlet-and-jsp[Apache Commons FileUpload Example with Servlet and JSP]
+. [[r1]] link:../../../rules/039/[REQ.039 Establecer tamaño máximo de archivos].
+. [[r2]] link:https://docs.oracle.com/javaee/6/tutorial/doc/glrbb.html[The Java EE 6 Tutorial].
+. [[r3]] link:http://www.codejava.net/java-ee/servlet/apache-commons-fileupload-example-with-servlet-and-jsp[Apache Commons FileUpload Example with Servlet and JSP].
