@@ -10,3 +10,32 @@
 
 Los componentes que pueden ser probados
 (en pruebas de caja blanca) deben estar definidos.
+
+== Descripción
+
+Se debe tener una lista de los componentes de un sistema
+de forma que se establezca cuáles deben ser probados
+en las diferentes etapas del ciclo de vida.
+
+== Implementación
+
+. Identificados los componentes del sistema
+se debe establecer el plan de pruebas
+para los mismos de forma
+que se controlen las posibles vulnerabilidades existentes.
+En las diferentes etapas de pruebas
+se debe entregar el listado de componentes que pueden ser probados.
+
+== Ataques
+
+. Un componente se queda sin probar
+debido a que no fue identificado en etapa de pruebas,
+y es vulnerado estando en producción.
+
+== Atributos
+
+* Capa: Negocio.
+* Activo: Arquitectura de seguridad.
+* Alcance: Adherencia.
+* Fase: Pruebas.
+* Tipo de Control: Recomendación.
