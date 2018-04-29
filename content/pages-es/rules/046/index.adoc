@@ -18,7 +18,7 @@ sobre los archivos identificados como críticos para su funcionamiento,
 cuando se detecte alguna modificación
 se debe registrar la actividad realizada
 con los detalles necesarios para un análisis
-como, quien ocasionó evento y el momento de cambio.<<r1,^[1]^>> (REQ0073).
+como, quien ocasionó evento y el momento de cambio.<<r1,^[1]^>>
 
 == Implementación
 
