@@ -44,7 +44,7 @@ RUN apt-get update -qq && \
         asciidoc \
         graphviz && \
     pip install --upgrade \
-        pip \
+        pip==9.0.3 \
         setuptools \
         wheel && \
     pip install -r requirements.txt && \
