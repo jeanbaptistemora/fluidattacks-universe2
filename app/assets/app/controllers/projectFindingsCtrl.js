@@ -1,4 +1,3 @@
-/* eslint-disable max-lines */
 /* eslint no-magic-numbers: ["error", { "ignore":
                                   [-1,0,0.4,0.6,1,1.176,1.5,2,4,4.611,10,
                                   10.41,13,20,43.221,100,200,300,1000,3000] }]*/

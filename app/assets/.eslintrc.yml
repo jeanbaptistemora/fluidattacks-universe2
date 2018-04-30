@@ -179,9 +179,9 @@ rules:
   lines-between-class-members: error
   max-depth: error
   max-len: error
-  max-lines:
-   - error
-   - max: 500
+  #max-lines:
+  # - error
+  # - max: 500
   max-nested-callbacks: error
   max-statements-per-line: error
   multiline-comment-style: error
