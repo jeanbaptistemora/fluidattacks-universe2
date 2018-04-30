@@ -822,6 +822,12 @@ integrates.controller("findingcontentCtrl", function findingcontentCtrl (
               ]);
       }
     }
+    let closingEffect = 0;
+    for (let close = 0; close < $scope.finding.cierres.length; close++) {
+      closingEffect = ($scope.finding.cierres[close].cerradas /
+                      $scope.finding.cierres[close].solicitadas) * 100;
+      $scope.finding.cierres[close].efectividad = closingEffect.toFixed(0);
+    }
     // Control de campos para tipos de hallazgo
     $scope.esDetallado = false;
     findingData.esDetallado = $scope.esDetallado;

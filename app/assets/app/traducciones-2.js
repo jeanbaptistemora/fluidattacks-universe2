@@ -109,6 +109,7 @@ const traducciones2 = {
   {
     "cicle": "Ciclo de cierre",
     "close": "Vulnerabilidades Cerradas",
+    "closingEffectiveness": "Efectividad de Cierre",
     "finding": "Hallazgo reportado",
     "open": "Vulnerabilidades Abiertas"
   }

@@ -109,6 +109,7 @@ const translations2 = {
      {
        "cicle": "Closing cycle",
        "close": "Closed Vulnerabilities",
+       "closingEffectiveness": "Closing Effectiveness",
        "finding": "Discovery",
        "open": "Open Vulnerabilities"
      }

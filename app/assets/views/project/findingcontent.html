@@ -668,15 +668,17 @@
                                       <div class="timeline-content">
                                           <table class="table table-bordered table-responsive" style="max-width: 350px;">
                                               <tr class="text-center">
-                                                  <td colspan="2"><b>{{'search_findings.tab_tracking.cicle' | translate}} {{x.position}}</b></td>
+                                                  <td colspan="4"><b>{{'search_findings.tab_tracking.cicle' | translate}} {{x.position}}</b></td>
                                               </tr>
                                               <tr>
                                                   <td>{{'search_findings.tab_tracking.open' | translate}}</td>
                                                   <td>{{x.abiertas}}</td>
-                                              </tr>
-                                              <tr>
                                                   <td>{{'search_findings.tab_tracking.close' | translate}}</td>
                                                   <td>{{x.cerradas}}</td>
+                                              </tr>
+                                              <tr class="text-center">
+                                                  <td colspan="2">{{'search_findings.tab_tracking.closingEffectiveness' | translate}}</td>
+                                                  <td colspan="2">{{x.efectividad}}%</td>
                                               </tr>
                                           </table>
                                       </div>
