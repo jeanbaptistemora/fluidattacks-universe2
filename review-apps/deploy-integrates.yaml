@@ -22,7 +22,7 @@ spec:
     spec:
       containers:
       - name: $CI_PROJECT_NAME
-        image: $CI_REGISTRY/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME:base
+        image: $CI_REGISTRY/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME:$CI_COMMIT_REF_NAME
         imagePullPolicy: Always
         envFrom:
           - secretRef:

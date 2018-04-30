@@ -23,63 +23,41 @@ codequality:
 stages:
     - deps
     - build
-    - test
     - review
+    - test
     - push
     - deploy
 
 Build:
     stage: deps
     script:
-        - echo "$DOCKER_PASS" | docker login registry.gitlab.com -u "$DOCKER_USER" --password-stdin
+        - echo "$DOCKER_PASS" | docker login "$CI_REGISTRY" -u "$DOCKER_USER" --password-stdin
         - docker build --cache-from registry.gitlab.com/fluidsignal/integrates:deps -t registry.gitlab.com/fluidsignal/integrates:deps deploy/containers/deps
         - docker push registry.gitlab.com/fluidsignal/integrates:deps
         - grep ^DEBUG fluidintegrates/settings.py | grep -q False
+        - docker logout "$CI_REGISTRY"
     except:
     - triggers
 
-build-containers:
+build-integrates:
     stage: build
     script:
-        - echo "$DOCKER_PASS" | docker login registry.gitlab.com -u "$DOCKER_USER" --password-stdin
+        - echo "$DOCKER_PASS" | docker login "$CI_REGISTRY" -u "$DOCKER_USER" --password-stdin
         - >
           cd deploy/containers/integrates && sh build.sh "$CI_COMMIT_REF_NAME" "$FI_GITLAB_LOGIN" "$FI_GITLAB_PASSWORD" "$FI_DRIVE_AUTHORIZATION" "$FI_DOCUMENTROOT" "$FI_SSL_CERT" "$FI_SSL_KEY" "$FI_DRIVE_AUTHORIZATION_CLIENT"
-        - docker push registry.gitlab.com/fluidsignal/integrates:base
-        - >
-          cd ../bot && sh build.sh "$CI_COMMIT_REF_NAME" "$FI_GITLAB_LOGIN" "$FI_GITLAB_PASSWORD" "$FI_DRIVE_AUTHORIZATION" "$FI_DOCUMENTROOT" "$FI_SSL_CERT" "$FI_SSL_KEY" "$FI_DRIVE_AUTHORIZATION_CLIENT"
-        - docker push registry.gitlab.com/fluidsignal/integrates/bot:base
+        - docker push "registry.gitlab.com/fluidsignal/integrates:$CI_COMMIT_REF_NAME"
+        - docker logout "$CI_REGISTRY"
     except:
     - triggers
 
-server_on:
+build-bot:
     stage: build
     script:
-        - echo "$DOCKER_PASS" | docker login registry.gitlab.com -u "$DOCKER_USER" --password-stdin
-        - docker stop integrates_test && docker rm integrates_test || true
-        - docker stop chrome && docker rm chrome || true
-        - docker stop selenium-hub && docker rm selenium-hub || true
-        - docker network rm integrates_test || true
-        - docker network create --subnet=192.168.200.0/24 integrates_test
-        - docker run -d --name "integrates_test" --env-file env.list --network integrates_test --ip 192.168.200.100 -p 8000:8000 -t registry.gitlab.com/fluidsignal/integrates:base python /usr/src/app/manage.py runsslserver 192.168.200.100.xip.io:8000
-    except:
-    - triggers
-
-Asserts:
-    stage: test
-    script:
-        - echo "$CONTINUOUS_PASS" | docker login fluid-docker.jfrog.io -u "$CONTINUOUS_USER" --password-stdin
-        - docker pull fluid-docker.jfrog.io/fluid:integrates
-        - docker run --network integrates_test -e ORG=fluid -e APP=integrates -e USER="$CONTINUOUS_USER" -e PASS="$CONTINUOUS_PASS" -e FA_STRICT="false" fluid-docker.jfrog.io/fluid:integrates
-    except:
-    - triggers
-
-Linting:
-    stage: test
-    script:
-        - docker login registry.gitlab.com -u $DOCKER_USER -p $DOCKER_PASS
-        - docker run --env-file env.list -t registry.gitlab.com/fluidsignal/integrates:base /bin/bash -c "npm install -g  n; n stable; cd /usr/src/app/app/assets/app/; /usr/src/app/app/assets/node_modules/.bin/gulp verbose"
-        - docker run --env-file env.list -t registry.gitlab.com/fluidsignal/integrates:base /bin/bash -c "npm install -g  n; n stable; node /usr/src/app/app/assets/node_modules/.bin/eslint /usr/src/app/app/assets/app/."
-        - rm env.list
+        - echo "$DOCKER_PASS" | docker login "$CI_REGISTRY" -u "$DOCKER_USER" --password-stdin
+        - >
+          cd deploy/containers/bot && sh build.sh "$CI_COMMIT_REF_NAME" "$FI_GITLAB_LOGIN" "$FI_GITLAB_PASSWORD" "$FI_DRIVE_AUTHORIZATION" "$FI_DOCUMENTROOT" "$FI_SSL_CERT" "$FI_SSL_KEY" "$FI_DRIVE_AUTHORIZATION_CLIENT"
+        - docker push "registry.gitlab.com/fluidsignal/integrates/bot:$CI_COMMIT_REF_NAME"
+        - docker logout "$CI_REGISTRY"
     except:
     - triggers
 
@@ -117,60 +95,60 @@ stop-review:
     name: review/$CI_COMMIT_REF_SLUG
     action: stop
 
+Asserts:
+    stage: test
+    script:
+        - echo "$CONTINUOUS_PASS" | docker login fluid-docker.jfrog.io -u "$CONTINUOUS_USER" --password-stdin
+        - docker pull fluid-docker.jfrog.io/fluid:integrates
+        - docker run -e BRANCH="$CI_COMMIT_REF_SLUG" -e ORG=fluid -e APP=integrates -e USER="$CONTINUOUS_USER" -e PASS="$CONTINUOUS_PASS" -e FA_STRICT="false" fluid-docker.jfrog.io/fluid:integrates
+        - docker logout fluid-docker.jfrog.io
+    except:
+    - master
+    - triggers
+
+Linting:
+    stage: test
+    script:
+        - docker login "$CI_REGISTRY" -u $DOCKER_USER -p $DOCKER_PASS
+        - docker run --env-file env.list -t "registry.gitlab.com/fluidsignal/integrates:$CI_COMMIT_REF_NAME" /bin/bash -c "npm install -g  n; n stable; cd /usr/src/app/app/assets/app/; /usr/src/app/app/assets/node_modules/.bin/gulp verbose"
+        - docker run --env-file env.list -t "registry.gitlab.com/fluidsignal/integrates:$CI_COMMIT_REF_NAME" /bin/bash -c "npm install -g  n; n stable; node /usr/src/app/app/assets/node_modules/.bin/eslint /usr/src/app/app/assets/app/."
+        - rm env.list
+        - docker logout "$CI_REGISTRY"
+    except:
+    - master
+    - triggers
+
 Prospector:
     stage: test
     script:
-        - echo "$DOCKER_PASS" | docker login registry.gitlab.com -u "$DOCKER_USER" --password-stdin
-        - docker run --env-file env.list -t registry.gitlab.com/fluidsignal/integrates:base prospector -u django -p /usr/src/app/app -i node_modules
-        - docker run --env-file env.list -t registry.gitlab.com/fluidsignal/integrates:base prospector -u django /usr/src/app/fluidintegrates
-        - docker run --env-file env.list -t registry.gitlab.com/fluidsignal/integrates:base python /usr/src/app/manage.py test app.tests
+        - echo "$DOCKER_PASS" | docker login "$CI_REGISTRY" -u "$DOCKER_USER" --password-stdin
+        - docker run --env-file env.list -t "registry.gitlab.com/fluidsignal/integrates:$CI_COMMIT_REF_NAME" prospector -u django -p /usr/src/app/app -i node_modules
+        - docker run --env-file env.list -t "registry.gitlab.com/fluidsignal/integrates:$CI_COMMIT_REF_NAME" prospector -u django /usr/src/app/fluidintegrates
+        - docker run --env-file env.list -t "registry.gitlab.com/fluidsignal/integrates:$CI_COMMIT_REF_NAME" python /usr/src/app/manage.py test app.tests
         - rm env.list
+        - docker logout "$CI_REGISTRY"
     except:
-    - triggers
-
-Functional:
-    stage: test
-    script:
-        - docker stop chrome && docker rm chrome || true
-        - docker stop selenium-hub && docker rm selenium-hub || true
-        - echo "$DOCKER_PASS" | docker login registry.gitlab.com -u "$DOCKER_USER" --password-stdin
-        - docker run -d -p 4444:4444 --network integrates_test --ip 192.168.200.101 --name selenium-hub selenium/hub
-        - docker run --name "chrome" --network integrates_test -d -e HUB_PORT_4444_TCP_ADDR=selenium-hub --ip 192.168.200.102 -e HUB_PORT_4444_TCP_PORT=4444  selenium/node-chrome
-        - docker cp selenium_test.py chrome:/selenium_test.py
-        - docker exec --privileged chrome cat selenium_test.py
-        - docker exec --privileged chrome sudo -H apt-get update
-        - docker exec --privileged chrome sudo -H apt-get install -y python2.7 python-pip curl
-        - docker exec --privileged chrome curl -k https://192.168.200.100:8000
-        - docker exec --privileged chrome sudo -H pip install -U pip setuptools
-        - docker exec --privileged chrome sudo -H pip install -U selenium
-        #- docker exec --privileged chrome sudo -H python /selenium_test.py
-    except:
-    - triggers
-
-Containers:
-    stage: push
-    script:
-       - echo "$DOCKER_PASS" | docker login registry.gitlab.com -u "$DOCKER_USER" --password-stdin
-       - docker pull registry.gitlab.com/fluidsignal/integrates:base
-       - docker tag registry.gitlab.com/fluidsignal/integrates:base registry.gitlab.com/fluidsignal/integrates:master
-       - docker push registry.gitlab.com/fluidsignal/integrates:master
-       - docker pull registry.gitlab.com/fluidsignal/integrates/bot:base
-       - docker tag registry.gitlab.com/fluidsignal/integrates/bot:base registry.gitlab.com/fluidsignal/integrates/bot:master
-       - docker push registry.gitlab.com/fluidsignal/integrates/bot:master
-    only:
     - master
-    except:
     - triggers
 
-server_off:
-    stage: deploy
-    script:
-        - docker stop integrates_test && docker rm integrates_test
-        - docker stop chrome && docker rm chrome || true
-        - docker stop selenium-hub && docker rm selenium-hub || true
-        - docker network rm integrates_test
-    except:
-    - triggers
+# Functional:
+#     stage: test
+#     script:
+#         - docker stop chrome && docker rm chrome || true
+#         - docker stop selenium-hub && docker rm selenium-hub || true
+#         - echo "$DOCKER_PASS" | docker login registry.gitlab.com -u "$DOCKER_USER" --password-stdin
+#         - docker run -d -p 4444:4444 --network integrates_test --ip 192.168.200.101 --name selenium-hub selenium/hub
+#         - docker run --name "chrome" --network integrates_test -d -e HUB_PORT_4444_TCP_ADDR=selenium-hub --ip 192.168.200.102 -e HUB_PORT_4444_TCP_PORT=4444  selenium/node-chrome
+#         - docker cp selenium_test.py chrome:/selenium_test.py
+#         - docker exec --privileged chrome cat selenium_test.py
+#         - docker exec --privileged chrome sudo -H apt-get update
+#         - docker exec --privileged chrome sudo -H apt-get install -y python2.7 python-pip curl
+#         - docker exec --privileged chrome curl -k https://192.168.200.100:8000
+#         - docker exec --privileged chrome sudo -H pip install -U pip setuptools
+#         - docker exec --privileged chrome sudo -H pip install -U selenium
+#         #- docker exec --privileged chrome sudo -H python /selenium_test.py
+#     except:
+#     - triggers
 
 Deploy:
     stage: deploy
