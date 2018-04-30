@@ -13,6 +13,7 @@
 :about1: Mathematician
 :about2: with an itch for CS
 :source-highlighter: pygments
+:translate: app-aprieto/
 
 = Is your app in a pickle?
 
@@ -21,11 +22,11 @@ is a simple language that
 can be used for software documentation and testing.
 It can be thought of as a tool for
 communication between stakeholders and developers which
-helps minimise misunderstandings and regressions
+helps minimize misunderstandings and regressions
 through precision in the definition of use-case scenarios.
 
 .Behaviour-driven development by link:http://thepaulrayner.com/about/[Paul Rayner] via link:https://cucumber.io/[cucumber]
-image::bdd-cycle.png["Behaviour-driven development illustration",width=400]
+image::bdd-cycle.png["Behavior-driven development illustration",width=400]
 
 But +Gherkin+ can be used for more than just
 software specification and documentation.
@@ -90,7 +91,7 @@ to several scenarios.
 
 Also, as seen above,
 you can write in plain language
-after a section beggining.
+after a section beginning.
 This is useful to explain
 what is not expressed by steps and scenarios.
 We can also use comments (with +#+),
@@ -131,7 +132,7 @@ Scenario: Normal use case
 
 Very simple, yet concrete.
 It specifies the expected
-behaviour of the site
+behavior of the site
 in detail and,
 more importantly,
 without ambiguities.
@@ -204,7 +205,7 @@ like this:
 
 [source,gherkin]
 ----
-Scenario: Dynamic detection and explotation
+Scenario: Dynamic detection and exploitation
   When I type ";ls -aR /" in the field
   Then all files in / are listed recursively
 ----
