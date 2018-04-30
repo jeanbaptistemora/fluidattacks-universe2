@@ -10,3 +10,32 @@
 
 Los componentes efectivamente probados
 (pruebas de caja blanca) deben haber sido identificados.
+
+== Descripción
+
+Durante la prueba pueden existir condiciones
+que no permitan probar alguno de los componentes del sistema,
+en la documentación se la prueba debe quedar clarificado
+cuales componentes fueron efectivamente probados.
+
+== Implementación
+
+. En el proceso de pruebas se debe verificar los componentes
+que se hayan establecido en el alcance para la prueba,
+en caso de existir inconvenientes
+y que el alcance no pueda cubrirse por completo,
+en la documentación realizada deben quedar establecidos
+los componentes que fueron efectivamente probados.
+
+== Ataques
+. Se identificaron vulnerabilidades en producción,
+en la documentación de las pruebas realizadas no se evidencia
+si efectivamente este componente fue probado.
+
+== Atributos
+
+* Capa: Negocio
+* Activo: Arquitectura de seguridad
+* Alcance: Adherencia
+* Fase: Pruebas
+* Tipo de Control: Recomendación
