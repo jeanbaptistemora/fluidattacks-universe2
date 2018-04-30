@@ -1,3 +1,4 @@
+/* eslint-disable max-lines */
 /* eslint no-magic-numbers:
 ["error", { "ignore": [-1,0,0.4,0.6,1,1.176,1.5,2,3,
                        4,5,6,6.9,7,9,10,10.41,20,50,
@@ -11,7 +12,7 @@ confidenciality, Organization, resolutionLevel, explotability, availability,
 tratamiento, updateEvidencesFiles:true, findingData:true, realiabilityLevel,
 updateEvidenceText:true, categories, probabilities, accessVector, integrity,
 accessComplexity, projectData:true, eventsData:true, fieldsToTranslate,
-keysToTranslate, desc:true
+keysToTranslate, desc:true */
 /**
  * @file findingcontentCtrl.js
  * @author engineering@fluidattacks.com

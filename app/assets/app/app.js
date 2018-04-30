@@ -1,7 +1,7 @@
 /* eslint no-magic-numbers: ["error", { "ignore": [1, -1, 0] }]*/
 /* global
-document, jQuery, $, location, angular,
-isProduction:true, translations, traducciones
+document, jQuery, $, location, angular, isProduction:true,
+translations1, traducciones1, translations2, traducciones2
 */
 /**
  * @file app.js
@@ -157,8 +157,10 @@ integrates.config([
       localStorage.lang = "en";
     }
     $translateProvider.
-      translations("en", translations).
-      translations("es", traducciones).
+      translations("en", translations1).
+      translations("en", translations2).
+      translations("es", traducciones1).
+      translations("es", traducciones2).
       preferredLanguage(localStorage.lang);
   }
 ]);
