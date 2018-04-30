@@ -21,17 +21,17 @@
 porque es muy defectuoso!.
 Hemos mostrado cómo encontrar y explotar vulnerabilidades como
 link:../importancia-pentesting/[inyecciones]
-link:../../../en/blog/fuzzy-bugs-online/#comparison-with-manual-injection[+SQL+],
+link:../fuzzy-bugs-online/#comparacion-con-la-inyeccion-manual[+SQL+],
 link:../gherkin-esteroides/#deteccion-y-explotacion-dinamica[recorrido de directorios],
 link:../xml-exploitable-markup-language/#inyectando-xpath-en-una-aplicacion-vulnerable[inyección +XPath+],
 e
-link:../../../en/blog/app-pickle/#documenting-attack-vectors/[inyección de comandos +UNIX+].
+link:../app-aprieto/#documentando-vectores-de-ataque[inyección de comandos +UNIX+].
 Todas ellas tienen una cosa en común, a saber:
 podrían haberse evitado con un poco de
 link:https://www.owasp.org/index.php/Data_Validation[validación de entradas].
 En +PHP+ esto podría haberse hecho
 con funciones como +fgetss+,
-link:../../../en/blog/app-pickle/[+str_replace+] o
+link:../app-aprieto/[+str_replace+] o
 link:../gherkin-esteroides/[+strpos+].
 
 Tomando algunas ideas del

@@ -22,7 +22,7 @@ encontrar *todas las vulnerabilidades* es tan importante
 como *reportarlas lo más rápido posible*.
 Para ello, necesitamos un medio efectivo para comunicarnos
 con todos los interesados en el proyecto.
-link:../../../en/blog/app-pickle/[Anteriormente] habíamos propuesto utilizar
+link:../app-aprieto/[Anteriormente] habíamos propuesto utilizar
 el link:https://martinfowler.com/bliki/BusinessReadableDSL.html[lenguaje de dominio específico] +Gherkin+.
 En esa ocasión, mostramos cómo utilizar la sintaxis de +Gherkin+
 para documentar vectores de ataque, es decir,

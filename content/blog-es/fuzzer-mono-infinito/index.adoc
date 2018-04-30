@@ -17,7 +17,7 @@
 
 = El fuzzer del mono infinito
 
-En nuestro link:../../../en/blog/fuzzy-bugs-online/[último artículo]
+En nuestro link:../fuzzy-bugs-online/[último artículo]
 discutimos acerca de que el +fuzzing+ es tanto "tonto" como sorprendente.
 En este artículo, continuaremos explorando las posibilidades del +fuzzing+.
 En esta ocasión, nos enfocaremos en el +fuzzing+ de aplicaciones de escritorio,
@@ -291,7 +291,7 @@ y el +kernel+ de +Linux+.
 
 Así que ahí lo tienes:
 Como prometí, un seguimiento más profundo a nuestra
-link:../../../en/blog/fuzzy-bugs-online/[invitación inicial al +fuzzing+].
+link:../fuzzy-bugs-online/[invitación inicial al +fuzzing+].
 De acuerdo al padre de +AFL+,
 esta técnica es muy poderosa
 y al mismo tiempo menospreciada:

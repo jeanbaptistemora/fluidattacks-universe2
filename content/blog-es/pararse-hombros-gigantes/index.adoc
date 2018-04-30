@@ -16,7 +16,7 @@
 
 = Pararse en los hombros de gigantes
 
-En nuestro link:../../../en/blog/infinite-monkey-fuzzer[último post],
+En nuestro link:../fuzzer-mono-infinito/[último post],
 fuimos capaces de reproducir el hallazgo
 de una vulnerabilidad en +libpng+.
 Pero esa es solo una pequeña librería,
@@ -253,7 +253,7 @@ y produce muchos falsos positivos.
 Podrías intentar contratar ese servicio,
 y quizás incluso tratar de complementarlo
 con herramientas de análisis dinámico,
-como link:../../../en/blog/infinite-monkey-fuzzer[+fuzzing+] y +debuggers+,
+como link:../fuzzer-mono-infinito/[+fuzzing+] y +debuggers+,
 pero éstos tienen sus propios problemas.
 
 Todo esto no reemplaza la revisión de código manual tradicional.
