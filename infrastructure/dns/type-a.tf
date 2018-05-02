@@ -19,7 +19,7 @@ resource "aws_route53_record" "env" {
   name    = "env.${aws_route53_zone.fs_maindomain.name}"
   type    = "A"
   ttl     = "300"
-  records = ["35.202.156.32"]
+  records = ["35.192.68.246"]
 }
 
 resource "aws_route53_record" "web" {
