@@ -35,18 +35,7 @@ module "iam" {
 #
 # }
 
-# For Sura
-module "ec2-peer" {
-  source = "./ec2"
-  amiID = "${var.amiID}"
-  iType = "${var.iType}"
-  sreg = "${var.sreg}"
-  sgId = "${var.sgroupId}"
-  snetId = "${var.snetId}"
-  kName = "${var.kName}"
-}
-
-# new with cron
+# new with cron and peer
 module "ec2-cron" {
   source = "./ec2"
   amiID = "${var.amiID}"
