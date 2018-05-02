@@ -1,23 +1,23 @@
-/* eslint no-magic-numbers: ["error", { "ignore": [0,9,500,1000,10000] }]*/
+/* eslint no-magic-numbers: ["error", { "ignore": [0,1,6,9,500,1000,10000] }]*/
 /* global integrates, BASE, $xhr, window.location:true, response:true,
 Organization, mixPanelDashboard, mixPanelDashboard, mixPanelDashboard,$msg,
 $, Rollbar, eventsData, userEmail, userName */
 /* eslint no-shadow: ["error", { "allow": ["$scope","$stateParams",
                                           "response"] }]*/
 /**
- * @file finding-factory.js
+ * @file tabs-factory.js
  * @author engineering@fluidattacks.com
  */
 /**
  * Crea el factory de la funcionalidad de hallazgos
- * @name findingFtry
+ * @name tabsFtry
  * @param {Object} $q Angular constructor
  * @param {Object} $translate Angular translator
  * @param {Object} projectFtry Factory with main functions
  * @return {undefined}
  */
 /** @export */
-integrates.factory("findingFtry", ($q, $translate, projectFtry) => ({
+integrates.factory("tabsFtry", ($q, $translate, projectFtry) => ({
   "findingCommentTab" (commentInfo, $stateParams) {
     if (typeof commentInfo.finding.id !== "undefined") {
       const comments = projectFtry.getComments(commentInfo.finding.id);
@@ -96,6 +96,111 @@ integrates.factory("findingFtry", ($q, $translate, projectFtry) => ({
         }
       });
     }
+  },
+  "findingEvidenceTab" (data) {
+    const evidenceList = [];
+    const updEvidenceList =
+    function updEvidenceList (source, keyU, keyD, ref, type, array, scope) {
+      const urlPre = `${window.location.href.split("dashboard#!/")[0] +
+                      window.location.href.split("dashboard#!/")[1]}/`;
+      const url = urlPre + source;
+      let descText = "";
+      if (type === "basic") {
+        descText = $translate.instant(`search_findings.tab_evidence.${keyU}`);
+      }
+      else {
+        descText = scope.finding[keyU];
+      }
+      array.push({
+        "desc": descText,
+        "name": $translate.instant(`search_findings.tab_evidence.${keyD}`),
+        ref,
+        url
+      });
+    };
+    const req = projectFtry.getEvidences(data.finding.id);
+    req.then((response) => {
+      if (!response.error) {
+        const valFormstack = data.finding;
+        if (response.data.length > 0) {
+          for (let cont = 0; cont < response.data.length; cont++) {
+            const valS3 = response.data[cont];
+            if (typeof valS3.animacion !== "undefined" &&
+                        valS3.es_animacion === true) {
+              updEvidenceList(
+                valS3.animacion, "animation_exploit",
+                "animation_exploit", 0, "basic", evidenceList, data
+              );
+            }
+            else if (typeof valFormstack.animacion !== "undefined") {
+              updEvidenceList(
+                valFormstack.animacion, "animation_exploit",
+                "animation_exploit", 0, "basic", evidenceList, data
+              );
+            }
+            if (typeof valS3.explotacion !== "undefined" &&
+                       valS3.es_explotacion === true) {
+              updEvidenceList(
+                valS3.explotacion, "evidence_exploit",
+                "evidence_exploit", 1, "basic", evidenceList, data
+              );
+            }
+            else if (typeof valFormstack.explotacion !== "undefined") {
+              updEvidenceList(
+                valFormstack.explotacion, "evidence_exploit",
+                "evidence_exploit", 1, "basic", evidenceList, data
+              );
+            }
+            for (let inc = 1; inc < 6; inc++) {
+              if (typeof valFormstack[`desc_evidencia_${inc}`] !==
+                "undefined" && typeof valS3[`ruta_evidencia_${inc}`] !==
+                "undefined" && valS3[`es_ruta_evidencia_${inc}`] === true) {
+                updEvidenceList(
+                  valS3[`ruta_evidencia_${inc}`], `desc_evidencia_${inc}`,
+                  "evidence_name", inc + 1, "special", evidenceList, data
+                );
+              }
+              else if (typeof valFormstack[`desc_evidencia_${inc}`] !==
+                "undefined" && typeof valFormstack[`ruta_evidencia_${inc}`] !==
+                "undefined") {
+                updEvidenceList(
+                  valFormstack[`ruta_evidencia_${inc}`],
+                  `desc_evidencia_${inc}`,
+                  "evidence_name", inc + 1, "special", evidenceList, data
+                );
+              }
+            }
+          }
+        }
+        else {
+          if (typeof data.finding.animacion !== "undefined") {
+            updEvidenceList(
+              valFormstack.animacion, "animation_exploit",
+              "animation_exploit", 0, "basic", evidenceList, data
+            );
+          }
+          if (typeof data.finding.explotacion !== "undefined") {
+            updEvidenceList(
+              valFormstack.explotacion, "evidence_exploit",
+              "evidence_exploit", 1, "basic", evidenceList, data
+            );
+          }
+          for (let inc = 1; inc < 6; inc++) {
+            if (typeof valFormstack[`desc_evidencia_${inc}`] !== "undefined" &&
+                typeof valFormstack[`ruta_evidencia_${inc}`] !== "undefined") {
+              updEvidenceList(
+                valFormstack[`ruta_evidencia_${inc}`], `desc_evidencia_${inc}`,
+                "evidence_name", inc + 1, "special", evidenceList, data
+              );
+            }
+          }
+        }
+      }
+      else if (response.error) {
+        Rollbar.error("Error: An error occurred loading evidences");
+      }
+    });
+    return evidenceList;
   },
   "findingExploitTab" (data, findingData) {
     data.hasExploit = false;
@@ -303,5 +408,4 @@ integrates.factory("findingFtry", ($q, $translate, projectFtry) => ({
       findingData.hasRecords
     ];
   }
-
 }));

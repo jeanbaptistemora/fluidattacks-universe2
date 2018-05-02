@@ -31,7 +31,8 @@ keysToTranslate, desc:true */
 integrates.controller("findingcontentCtrl", function findingcontentCtrl (
   $scope, $stateParams, $timeout,
   $uibModal, $translate, $state,
-  ngNotify, projectFtry, findingFtry
+  ngNotify, projectFtry, tabsFtry,
+  functionsFtry
 ) {
   $scope.findingHeaderBuilding = function findingHeaderBuilding () {
     $scope.header = {};
@@ -671,21 +672,25 @@ integrates.controller("findingcontentCtrl", function findingcontentCtrl (
           $scope.finding = response.data;
           $scope.loadFindingContent();
           $scope.findingHeaderBuilding();
-          $scope.remediatedView();
+          const remediatedInfo = functionsFtry.remediatedView($scope, userRole);
+          $scope.isRemediated = remediatedInfo[0];
+          $scope.isManager = remediatedInfo[1];
           findingData.remediated = $scope.isRemediated;
           $scope.view.project = false;
           $scope.view.finding = true;
-          $scope.findingEvidenceTab();
+          const evidenceInfo = tabsFtry.findingEvidenceTab($scope);
+          $scope.tabEvidences = evidenceInfo;
+          findingData.tabEvidences = evidenceInfo;
           const exploitinfo =
-                             findingFtry.findingExploitTab($scope, findingData);
+                             tabsFtry.findingExploitTab($scope, findingData);
           $scope.hasExploit = exploitinfo[0];
           $scope.exploitURL = exploitinfo[1];
           findingData.hasExploit = exploitinfo[2];
           findingData.exploitURL = exploitinfo[3];
-          const recordinfo = findingFtry.findingRecordsTab($scope, findingData);
+          const recordinfo = tabsFtry.findingRecordsTab($scope, findingData);
           $scope.hasRecords = recordinfo[0];
           findingData.hasRecords = recordinfo[1];
-          findingFtry.findingCommentTab($scope, $stateParams);
+          tabsFtry.findingCommentTab($scope, $stateParams);
           return true;
         }
         else if (response.error) {
@@ -896,7 +901,8 @@ integrates.controller("findingcontentCtrl", function findingcontentCtrl (
     if ($scope.finding.nivel === "Detallado") {
       $scope.esDetallado = "show-detallado";
       $scope.esGeneral = "hide-detallado";
-      $scope.findingCalculateSeveridad();
+      const severityInfo = functionsFtry.findingCalculateSeveridad();
+      $scope.finding.valorRiesgo = severityInfo[1];
     }
     else {
       $scope.esDetallado = "hide-detallado";
@@ -905,166 +911,6 @@ integrates.controller("findingcontentCtrl", function findingcontentCtrl (
   };
   $scope.capitalizeFirstLetter = function capitalizeFirstLetter (string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
-  };
-  $scope.updEvidenceList = function
-  updEvidenceList (data, keyU, keyD, ref, type) {
-    const urlPre = `${window.location.href.split("dashboard#!/")[0] +
-                    window.location.href.split("dashboard#!/")[1]}/`;
-    const url = urlPre + data;
-    if (type === "basic") {
-      $scope.descText =
-                  $translate.instant(`search_findings.tab_evidence.${keyU}`);
-    }
-    else {
-      $scope.descText = $scope.finding[keyU];
-    }
-    $scope.evidenceList.push({
-      "desc": $scope.descText,
-      "name": $translate.instant(`search_findings.tab_evidence.${keyD}`),
-      ref,
-      url
-    });
-  };
-  $scope.findingEvidenceTab = function findingEvidenceTab () {
-    $scope.tabEvidences = [];
-    $scope.evidenceList = [];
-    const url = "";
-    const urlPre = "";
-    const req = projectFtry.getEvidences($scope.finding.id);
-    req.then((response) => {
-      if (!response.error) {
-        const valFormstack = $scope.finding;
-        if (response.data.length > 0) {
-          for (let cont = 0; cont < response.data.length; cont++) {
-            const valS3 = response.data[cont];
-            if (typeof valS3.animacion !== "undefined" &&
-                        valS3.es_animacion === true) {
-              $scope.updEvidenceList(
-                valS3.animacion, "animation_exploit",
-                "animation_exploit", 0, "basic"
-              );
-            }
-            else if (typeof valFormstack.animacion !== "undefined") {
-              $scope.updEvidenceList(
-                valFormstack.animacion, "animation_exploit",
-                "animation_exploit", 0, "basic"
-              );
-            }
-            if (typeof valS3.explotacion !== "undefined" &&
-                       valS3.es_explotacion === true) {
-              $scope.updEvidenceList(
-                valS3.explotacion, "evidence_exploit",
-                "evidence_exploit", 1, "basic"
-              );
-            }
-            else if (typeof valFormstack.explotacion !== "undefined") {
-              $scope.updEvidenceList(
-                valFormstack.explotacion, "evidence_exploit",
-                "evidence_exploit", 1, "basic"
-              );
-            }
-            for (let inc = 1; inc < 6; inc++) {
-              if (typeof valFormstack[`desc_evidencia_${inc}`] !==
-                "undefined" && typeof valS3[`ruta_evidencia_${inc}`] !==
-                "undefined" && valS3[`es_ruta_evidencia_${inc}`] === true) {
-                $scope.updEvidenceList(
-                  valS3[`ruta_evidencia_${inc}`], `desc_evidencia_${inc}`,
-                  "evidence_name", inc + 1, "special"
-                );
-              }
-              else if (typeof valFormstack[`desc_evidencia_${inc}`] !==
-                "undefined" && typeof valFormstack[`ruta_evidencia_${inc}`] !==
-                "undefined") {
-                $scope.updEvidenceList(
-                  valFormstack[`ruta_evidencia_${inc}`],
-                  `desc_evidencia_${inc}`,
-                  "evidence_name", inc + 1, "special"
-                );
-              }
-            }
-            $scope.tabEvidences = $scope.evidenceList;
-            findingData.tabEvidences = $scope.evidenceList;
-          }
-        }
-        else {
-          if (typeof $scope.finding.animacion !== "undefined") {
-            $scope.updEvidenceList(
-              valFormstack.animacion, "animation_exploit",
-              "animation_exploit", 0, "basic"
-            );
-          }
-          if (typeof $scope.finding.explotacion !== "undefined") {
-            $scope.updEvidenceList(
-              valFormstack.explotacion, "evidence_exploit",
-              "evidence_exploit", 1, "basic"
-            );
-          }
-          for (let inc = 1; inc < 6; inc++) {
-            if (typeof valFormstack[`desc_evidencia_${inc}`] !== "undefined" &&
-                typeof valFormstack[`ruta_evidencia_${inc}`] !== "undefined") {
-              $scope.updEvidenceList(
-                valFormstack[`ruta_evidencia_${inc}`], `desc_evidencia_${inc}`,
-                "evidence_name", inc + 1, "special"
-              );
-            }
-          }
-          $scope.tabEvidences = $scope.evidenceList;
-          findingData.tabEvidences = $scope.evidenceList;
-        }
-      }
-      else if (response.error) {
-        Rollbar.error("Error: An error occurred loading evidences");
-        findingData.tabEvidences = $scope.evidenceList;
-      }
-    });
-  };
-  $scope.findingCalculateSeveridad = function findingCalculateSeveridad () {
-    let severidad = 0;
-    if (!isNaN($scope.finding.severidad)) {
-      severidad = parseFloat($scope.finding.severidad);
-      if (severidad < 0 || severidad > 5) {
-        Rollbar.error("Error: Severity must be an integer bewteen 0 and 5");
-        $msg.error($translate.instant("proj_alerts.error_severity"), "error");
-        return false;
-      }
-      try {
-        let prob = $scope.finding.probabilidad;
-        severidad = $scope.finding.severidad;
-        prob = prob.split("%")[0];
-        prob = parseFloat(prob) / 100.0;
-        severidad = parseFloat(severidad);
-        const vRiesgo = prob * severidad;
-        if (vRiesgo >= 3) {
-          $scope.finding.valorRiesgo = "(:r) Critico".replace(
-            ":r",
-            vRiesgo.toFixed(1)
-          );
-        }
-        else if (vRiesgo >= 2 && vRiesgo < 3) {
-          $scope.finding.valorRiesgo = "(:r) Moderado".replace(
-            ":r",
-            vRiesgo.toFixed(1)
-          );
-        }
-        else {
-          $scope.finding.valorRiesgo = "(:r) Tolerable".replace(
-            ":r",
-            vRiesgo.toFixed(1)
-          );
-        }
-        return true;
-      }
-      catch (err) {
-        $scope.finding.valorRiesgo = "";
-        return false;
-      }
-    }
-    else if (isNaN($scope.finding.severidad)) {
-      Rollbar.error("Error: Severity must be an integer bewteen 0 and 5");
-      $msg.error($translate.instant("proj_alerts.error_severity"), "error");
-      return false;
-    }
-    return true;
   };
   $scope.updateDescription = function updateDescription () {
     // Obtener datos
@@ -1096,7 +942,8 @@ integrates.controller("findingcontentCtrl", function findingcontentCtrl (
     }
     if (descData.nivel === "Detallado") {
       // Recalcular Severidad
-      const choose = $scope.findingCalculateSeveridad();
+      const severityInfo = functionsFtry.findingCalculateSeveridad();
+      const choose = severityInfo[0];
       if (!choose) {
         Rollbar.error("Error: An error occurred calculating severity");
         $msg.error($translate.instant("proj_alerts.wrong_severity"));
@@ -1316,29 +1163,6 @@ integrates.controller("findingcontentCtrl", function findingcontentCtrl (
       "templateUrl": `${BASE.url}assets/views/project/remediatedMdl.html`
     });
   };
-  $scope.remediatedView = function remediatedView () {
-    $scope.isManager = userRole !== "customer";
-    $scope.isRemediated = true;
-    if (typeof $scope.finding.id !== "undefined") {
-      const req = projectFtry.remediatedView($scope.finding.id);
-      req.then((response) => {
-        if (!response.error) {
-          $scope.isRemediated = response.data.remediated;
-          findingData.remediated = $scope.isRemediated;
-          if ($scope.isManager && $scope.isRemediated) {
-            $(".finding-verified").show();
-          }
-          else {
-            $(".finding-verified").hide();
-          }
-        }
-        else if (response.error) {
-          Rollbar.error("Error: An error occurred when " +
-                        "remediating/verifying the finding");
-        }
-      });
-    }
-  };
   $scope.findingVerified = function findingVerified () {
     // Obtener datos
     const currUrl = window.location.href;
@@ -1517,13 +1341,13 @@ integrates.controller("findingcontentCtrl", function findingcontentCtrl (
     }
     if (window.location.hash.indexOf("records") !== -1) {
       $scope.activeTab("#records", "FindingRecords", org, projt);
-      const recordinfo = findingFtry.findingRecordsTab($scope, findingData);
+      const recordinfo = tabsFtry.findingRecordsTab($scope, findingData);
       $scope.hasRecords = recordinfo[0];
       findingData.hasRecords = recordinfo[1];
     }
     if (window.location.hash.indexOf("comments") !== -1) {
       $scope.activeTab("#comment", "FindingComments", org, projt);
-      findingFtry.findingCommentTab($scope, $stateParams);
+      tabsFtry.findingCommentTab($scope, $stateParams);
     }
   };
   $scope.init();
