@@ -32,7 +32,7 @@ checks:
     - ./check-spelling.sh
     - pybabel compile --directory theme/2014/translations/ --domain messages
     - for FILE in $(find . -iname '*.adoc'); do sed -i 's/^include::/include::\/builds\/fluidsignal/g' $FILE; done
-    - sed -i 's/https:\/\/fluidattacks\.com/https:\/\/'"$CI_COMMIT_REF_SLUG.$CI_PROJECT_NAME.$ENV_DNS"'/g' pelicanconf.py
+    - sed -i 's/https:\/\/fluidattacks\.com/https:\/\/'"$CI_PROJECT_NAME.$ENV_DNS\/$CI_COMMIT_REF_SLUG"'/g' pelicanconf.py
     - pelican --fatal errors --fatal warnings content/
     - mv output/web/en/blog-en/* output/web/en/blog && mv output/web/es/blog-es/* output/web/es/blog
     - ./xmlcombine.sh
@@ -66,7 +66,7 @@ review-web:
     - ./review/cluster-config.sh
   environment:
     name: review/$CI_COMMIT_REF_SLUG
-    url: https://$CI_COMMIT_REF_SLUG.$CI_PROJECT_NAME.$ENV_DNS/web/en/
+    url: https://$CI_PROJECT_NAME.$ENV_DNS/$CI_COMMIT_REF_SLUG/web/en/
     on_stop: stop-review
   except:
     - master
@@ -80,7 +80,7 @@ stop-review:
     - kubectl config set-context "$(kubectl config current-context)" --namespace="$CI_PROJECT_NAME"
     - kubectl delete deployment "review-$CI_COMMIT_REF_SLUG"
     - kubectl delete service "service-$CI_COMMIT_REF_SLUG"
-    - kubectl get ingress "ingress-$CI_PROJECT_NAME" -o yaml | sed '/host:\ '"$CI_COMMIT_REF_SLUG"'/,+5d' | sed '/-\ '"$CI_COMMIT_REF_SLUG"'/d' > current-ingress.yaml
+    - kubectl get ingress "ingress-$CI_PROJECT_NAME" -o yaml | tac | sed '/path:\ \/'"$CI_COMMIT_REF_SLUG"'/,+3d' | tac > current-ingress.yaml
     - kubectl delete ingress "ingress-$CI_PROJECT_NAME"
     - if kubectl get deployments | grep 'review-*'; then kubectl create -f current-ingress.yaml; fi
   when: manual
