@@ -73,7 +73,7 @@ puede entrar a verificar y descartar si es un falso positivo.
 
 == Referencias
 
-. [[r1]] link:https://cwe.mitre.org/data/definitions/474.html[CWE-474: Use of Function with Inconsistent Implementations].
-. [[r2]] link:https://cwe.mitre.org/data/definitions/398.html[CWE-398: Indicator of Poor Code Quality].
-. [[r3]] link:https://cwe.mitre.org/data/definitions/388.html[CWE-388: Error Handling].
-. [[r4]] link:https://standards.ieee.org/findstds/standard/1028-2008.html[IEEE: Standard for Software Reviews and Audits].
+. [[r1]] link:https://cwe.mitre.org/data/definitions/474.html[+CWE-474+: Use of Function with Inconsistent Implementations].
+. [[r2]] link:https://cwe.mitre.org/data/definitions/398.html[+CWE-398+: Indicator of Poor Code Quality].
+. [[r3]] link:https://cwe.mitre.org/data/definitions/388.html[+CWE-388+: Error Handling].
+. [[r4]] link:https://standards.ieee.org/findstds/standard/1028-2008.html[+IEEE+: Standard for Software Reviews and Audits].
