@@ -1,5 +1,5 @@
 /* eslint no-magic-numbers: ["error", { "ignore": [-1,0,0.4,0.6,1,1.176,
-                            1.5,2,3,4,4.611,10,10.41,13,20,43.221,100,200,
+                            1.5,2,3,4,4.611,5,6,10,10.41,13,20,43.221,100,200,
                             300,1000,3000] }]*/
 /* global
 BASE, downLink:true, Morris, estado:true, exploitLabel:true, i:true, j:true,
@@ -87,48 +87,17 @@ integrates.controller(
     $scope.calculateCardinality = function calculateCardinality (data) {
       const cardinalityValues = projectFtry.calCardinality(data);
       $scope.metricsList = [];
-      $scope.metricsList.push({
-        "color": "background-color: #2197d6;",
-        "description": $translate.instant("search_findings." +
-                                          "filter_labels.findings"),
-        "icon": "s7-id",
-        "value": data.data.length
-      });
-      $scope.metricsList.push({
-        "color": "background-color: #aa2d30;",
-        "description": $translate.instant("search_findings." +
-                                          "filter_labels.cardinalities"),
-        "icon": "s7-attention",
-        "value": cardinalityValues[0]
-      });
-      $scope.metricsList.push({
-        "color": "background-color: #ff9930;",
-        "description": $translate.instant("search_findings." +
-                                          "filter_labels.vulnerabilities"),
-        "icon": "s7-info",
-        "value": cardinalityValues[1]
-      });
-      $scope.metricsList.push({
-        "color": "background-color: #2e4050;",
-        "description": $translate.instant("search_findings." +
-                                          "filter_labels.maximumSeverity"),
-        "icon": "s7-gleam",
-        "value": cardinalityValues[2]
-      });
-      $scope.metricsList.push({
-        "color": "background-color: #9f5ab1;",
-        "description": $translate.instant("search_findings." +
-                                          "filter_labels.oldestFinding"),
-        "icon": "s7-date",
-        "value": cardinalityValues[3]
-      });
-      $scope.metricsList.push({
-        "color": "background-color: #0a40ae;",
-        "description": $translate.instant("search_findings." +
-                                          "filter_labels.openEvents"),
-        "icon": "s7-way",
-        "value": cardinalityValues[4]
-      });
+      for (let val = 0; val < cardinalityValues[2].length; val++) {
+        $scope.metricsList.push({
+          "color": `background-color:${cardinalityValues[2][val]}`,
+          "description": $translate.instant(`${"search_findings.filter_labels" +
+                                          "."}${cardinalityValues[3][val]}`),
+          "icon": cardinalityValues[4][val],
+          "tooltip": $translate.instant(`${"search_findings.filter_labels" +
+                                          "."}${cardinalityValues[5][val]}`),
+          "value": cardinalityValues[6][val]
+        });
+      }
       let severity = 0;
       data.data.forEach((cont) => {
         try {
@@ -155,6 +124,8 @@ integrates.controller(
                 "description": $translate.instant("search_findings." +
                                                   "filter_labels.criticity"),
                 "icon": "s7-graph1",
+                "tooltip": $translate.instant("search_findings.filter_labels." +
+                                                  "criticityTooltip"),
                 "value": "n%".replace("n", totalSeverity.toFixed(0))
               });
               $scope.metricsList.push({
@@ -162,6 +133,8 @@ integrates.controller(
                 "description": $translate.instant("search_findings." +
                                                   "filter_labels.closure"),
                 "icon": "s7-like2",
+                "tooltip": $translate.instant("search_findings.filter_labels." +
+                                                  "closureTooltip"),
                 "value": "n%".replace("n", Math.round((1 -
                                       (cardinalityValues[0] /
                                       cardinalityValues[1])) * 100).toString())
@@ -175,6 +148,8 @@ integrates.controller(
               "description": $translate.instant("search_findings." +
                                                 "filter_labels.criticity"),
               "icon": "s7-graph1",
+              "tooltip": $translate.instant("search_findings.filter_labels." +
+                                                  "criticityTooltip"),
               "value": totalSeverity.toFixed(0)
             });
             $scope.metricsList.push({
@@ -182,6 +157,8 @@ integrates.controller(
               "description": $translate.instant("search_findings." +
                                                 "filter_labels.closure"),
               "icon": "s7-like2",
+              "tooltip": $translate.instant("search_findings.filter_labels." +
+                                                  "closureTooltip"),
               "value": "n%".replace("n", Math.round((1 -
                                     (cardinalityValues[0] /
                                     cardinalityValues[1])) * 100).toString())

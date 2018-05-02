@@ -51,7 +51,7 @@
                                 <div class="col-md-12">
                                     <div ng-repeat="metric in metricsList">
                                         <div class="col-md-3 col-xs-12">
-                                            <div class="widget-box equalWidgetHeight" style="{% templatetag openvariable %} metric.color {% templatetag closevariable %} color: #fff;">
+                                            <div class="widget-box equalWidgetHeight" data-toggle="tooltip" data-placement="top" title="{% templatetag openvariable %} metric.tooltip {% templatetag closevariable %}" style="{% templatetag openvariable %} metric.color {% templatetag closevariable %} color: #fff;">
                                                 <div class="col-md-4 col-xs-4">
                                                     <div class="widget-icon">
                                                         <span class="{% templatetag openvariable %} metric.icon {% templatetag closevariable %}"></span>

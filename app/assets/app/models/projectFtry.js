@@ -89,12 +89,54 @@ integrates.factory("projectFtry", ($q, $translate) => ({
         openEvents += 1;
       }
     }
-    return [
+    const metricColor = [
+      "#2197d6;",
+      "#aa2d30;",
+      "#ff9930;",
+      "#2e4050;",
+      "#9f5ab1;",
+      "#0a40ae;"
+    ];
+    const metricDes = [
+      "findings",
+      "cardinalities",
+      "vulnerabilities",
+      "maximumSeverity",
+      "oldestFinding",
+      "openEvents"
+    ];
+    const metricTool = [
+      "findingsTooltip",
+      "cardinalitiesTooltip",
+      "vulnerabilitiesTooltip",
+      "maximumSeverityTooltip",
+      "oldestFindingTooltip",
+      "openEventsTooltip"
+    ];
+    const metricIcon = [
+      "s7-id",
+      "s7-attention",
+      "s7-info",
+      "s7-gleam",
+      "s7-date",
+      "s7-way"
+    ];
+    const metricValue = [
+      data.data.length,
       cardinalidad,
       cardinalidadTotal,
       maximumSeverity,
       oldestFinding,
       openEvents
+    ];
+    return [
+      cardinalidad,
+      cardinalidadTotal,
+      metricColor,
+      metricDes,
+      metricIcon,
+      metricTool,
+      metricValue
     ];
   },
 

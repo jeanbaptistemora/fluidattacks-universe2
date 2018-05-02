@@ -4,13 +4,26 @@ const traducciones2 = {
   "filter_labels":
   {
     "cardinalities": "Vulnerabilidades Abiertas",
+    "cardinalitiesTooltip": "Vulnerabilidades pendientes por solución",
     "closure": "Vulnerabilidades remediadas",
+    "closureTooltip": "Porcentaje de vulnerabilidades reportadas " +
+                      "que han sido solucionadas",
     "criticity": "Criticidad Total Encontrada",
+    "criticityTooltip": "Criticidad del proyecto comparado con la media " +
+                        "(<100% más seguro, >100% más inseguro)",
     "findings": "Hallazgos",
+    "findingsTooltip": "Vulnerabilidades de seguridad reportadas por categoría",
     "maximumSeverity": "Máxima Severidad Encontrada",
+    "maximumSeverityTooltip": "Máxima severidad encontrada de acuerdo " +
+                              "al estándar CVSS",
     "oldestFinding": "Hallazgo con Mayor Edad",
+    "oldestFindingTooltip": "Edad de la vulnerabilidad abierta con más " +
+                            "días desde su reporte",
     "openEvents": "Eventualidades Abiertas",
-    "vulnerabilities": "Vulnerabilidades Totales"
+    "openEventsTooltip": "Eventos que impiden el normal desarrollo " +
+                          "del proyecto",
+    "vulnerabilities": "Vulnerabilidades Totales",
+    "vulnerabilitiesTooltip": "Total de vulnerabilidades reportadas"
   },
   "filter_menu": {
     "search": {
