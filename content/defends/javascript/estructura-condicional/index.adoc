@@ -119,5 +119,4 @@ switch(val) {
 . [[r1]] link:https://developer.mozilla.org/es/docs/Web/JavaScript/Referencia/Sentencias/switch[switch - JavaScript MDN]
 . [[r2]] link:https://developer.mozilla.org/es/docs/Web/JavaScript/Referencia/Sentencias/if%2E%2E%2Eelse[if...else - JavaScript MDN]
 . [[r3]] link:https://es.wikipedia.org/wiki/Sentencia_condicional[Sentencia condicional]
-. [[r4]] link:REQ.0156 El código debe definir
-opciones por defecto seguras (ej: default en switchs).
+. [[r4]] link:../../../rules/161/[REQ.161 Opciones por defecto seguras]
