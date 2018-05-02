@@ -31,7 +31,7 @@ keysToTranslate, desc:true */
 integrates.controller("findingcontentCtrl", function findingcontentCtrl (
   $scope, $stateParams, $timeout,
   $uibModal, $translate, $state,
-  ngNotify, projectFtry
+  ngNotify, projectFtry, findingFtry
 ) {
   $scope.findingHeaderBuilding = function findingHeaderBuilding () {
     $scope.header = {};
@@ -100,85 +100,6 @@ integrates.controller("findingcontentCtrl", function findingcontentCtrl (
           html += "<strong>Atención! </strong>" +
                   `${response.data[0].message}</div>`;
           document.getElementById("header_alert").innerHTML = html;
-        }
-      }
-    });
-  };
-  $scope.findingExploitTab = function findingExploitTab () {
-    $scope.hasExploit = false;
-    findingData.hasExploit = $scope.hasExploit;
-    let exploit = {};
-    const req = projectFtry.getEvidences($scope.finding.id);
-    req.then((response) => {
-      if (!response.error) {
-        if (response.data.length > 0) {
-          /* eslint func-style: ["error", "expression"]*/
-          const respFunction = function respFunction (response) {
-            if (!response.error) {
-              let responses = response.replaceAll("<", "&lt;");
-              responses = response.replaceAll(">", "&gt;");
-              $scope.exploitURL = responses;
-              findingData.exploitURL = $scope.exploitURL;
-            }
-            else if (response.error) {
-              Rollbar.error("Error: An error occurred loading exploit from S3");
-            }
-          };
-          for (let cont = 0; cont < response.data.length; cont++) {
-            if (typeof response.data[cont].exploit !== "undefined" &&
-                            response.data[cont].es_exploit === true &&
-                              $scope.finding.cierres.length === 0) {
-              exploit = projectFtry.getExploit(
-                $scope.finding.id,
-                response.data[cont].exploit
-              );
-              $scope.hasExploit = true;
-              findingData.hasExploit = $scope.hasExploit;
-              exploit.then((response) => {
-                respFunction(response);
-              });
-            }
-            else if (typeof $scope.finding.exploit !== "undefined" &&
-                     $scope.finding.cierres.length === 0) {
-              exploit = projectFtry.getExploit(
-                $scope.finding.id,
-                $scope.finding.exploit
-              );
-              $scope.hasExploit = true;
-              findingData.hasExploit = $scope.hasExploit;
-              exploit.then((response) => {
-                respFunction(response);
-              });
-            }
-            else {
-              $scope.hasExploit = false;
-              findingData.hasExploit = $scope.hasExploit;
-            }
-          }
-        }
-        else if (typeof $scope.finding.exploit !== "undefined" &&
-                 $scope.finding.cierres.length === 0) {
-          exploit = projectFtry.getExploit(
-            $scope.finding.id,
-            $scope.finding.exploit
-          );
-          $scope.hasExploit = true;
-          findingData.hasExploit = $scope.hasExploit;
-          exploit.then((response) => {
-            if (!response.error) {
-              let responses = response.replaceAll("<", "&lt;");
-              responses = response.replaceAll(">", "&gt;");
-              $scope.exploitURL = responses;
-              findingData.exploitURL = $scope.exploitURL;
-            }
-            else if (response.error) {
-              Rollbar.error("Error: An error occurred loading exploit");
-            }
-          });
-        }
-        else {
-          $scope.hasExploit = false;
-          findingData.hasExploit = $scope.hasExploit;
         }
       }
     });
@@ -755,9 +676,16 @@ integrates.controller("findingcontentCtrl", function findingcontentCtrl (
           $scope.view.project = false;
           $scope.view.finding = true;
           $scope.findingEvidenceTab();
-          $scope.findingExploitTab();
-          $scope.findingRecordsTab();
-          $scope.findingCommentTab();
+          const exploitinfo =
+                             findingFtry.findingExploitTab($scope, findingData);
+          $scope.hasExploit = exploitinfo[0];
+          $scope.exploitURL = exploitinfo[1];
+          findingData.hasExploit = exploitinfo[2];
+          findingData.exploitURL = exploitinfo[3];
+          const recordinfo = findingFtry.findingRecordsTab($scope, findingData);
+          $scope.hasRecords = recordinfo[0];
+          findingData.hasRecords = recordinfo[1];
+          findingFtry.findingCommentTab($scope, $stateParams);
           return true;
         }
         else if (response.error) {
@@ -1084,201 +1012,6 @@ integrates.controller("findingcontentCtrl", function findingcontentCtrl (
       else if (response.error) {
         Rollbar.error("Error: An error occurred loading evidences");
         findingData.tabEvidences = $scope.evidenceList;
-      }
-    });
-  };
-  $scope.findingCommentTab = function findingCommentTab () {
-    if (typeof $scope.finding.id !== "undefined") {
-      const comments = projectFtry.getComments($scope.finding.id);
-      comments.then((response) => {
-        if (!response.error) {
-          const usersArray = [];
-          for (let cont = 0; cont < response.data.length; cont++) {
-            const user = {
-              "email": "",
-              "fullname": ""
-            };
-            user.fullname = response.data[cont].fullname;
-            user.email = response.data[cont].email;
-            usersArray.push(user);
-          }
-          const saveComment = function saveComment (data) {
-            // Convert pings to human readable format
-            $(data.pings).each((index, id) => {
-              const userInfo =
-                        usersArray.filter((user) => userInfo.id === id)[0];
-              data.content =
-                        data.content.replace(`@${id}`, `@${userInfo.fullname}`);
-            });
-            return data;
-          };
-          $("#comments-container").comments({
-            "enableAttachments": false,
-            "enableEditing": false,
-            "enableHashtags": true,
-            "enablePinging": false,
-            "enableUpvoting": false,
-            "getComments" (success, error) {
-              setTimeout(() => {
-                success(response.data);
-              }, 500);
-            },
-            "getUsers" (success, error) {
-              setTimeout(() => {
-                success(usersArray);
-              }, 500);
-            },
-            "postComment" (data, success, error) {
-              data.id = parseInt(Math.round(new Date() / 1000).toString() +
-                        (Math.random() * 10000).toString(9), 10);
-              data.findingName = $scope.finding.hallazgo;
-              data.project = $scope.finding.proyecto_fluid;
-              data.findingUrl = window.location.href;
-              data.remediated = false;
-              const comment = projectFtry.addComment($scope.finding.id, data);
-              comment.then((response) => {
-                if (!response.error) {
-                  // Tracking mixpanel
-                  const org = Organization.toUpperCase();
-                  const projt = $stateParams.project.toUpperCase();
-                  mixPanelDashboard.trackFindingDetailed(
-                    "FindingNewComment",
-                    userName,
-                    userEmail,
-                    org,
-                    projt,
-                    $scope.finding.id
-                  );
-                  setTimeout(() => {
-                    success(data);
-                  }, 500);
-                }
-                else if (response.error) {
-                  Rollbar.error("Error: An error occurred adding comment");
-                }
-              });
-            },
-            "roundProfilePictures": true,
-            "textareaRows": 2
-          });
-        }
-      });
-    }
-  };
-  $scope.findingRecordsTab = function findingRecordsTab () {
-    $scope.hasRecords = false;
-    findingData.hasRecords = $scope.hasRecords;
-    let vlang = "en-US";
-    let record = {};
-    const req = projectFtry.getEvidences($scope.finding.id);
-    req.then((response) => {
-      if (!response.error) {
-        if (localStorage.lang === "en") {
-          vlang = "en-US";
-        }
-        else {
-          vlang = "es-CO";
-        }
-        if (response.data.length > 0) {
-          const respFunction = function respFunction (response) {
-            if (!response.error) {
-              const dataCols = [];
-              for (const cont in response.data[0]) {
-                if ({}.hasOwnProperty.call(response.data[0], cont)) {
-                  dataCols.push({
-                    "field": cont,
-                    "title": cont
-                  });
-                }
-              }
-              $("#recordsTable").bootstrapTable("destroy");
-              $("#recordsTable").bootstrapTable({
-                "columns": dataCols,
-                "cookie": true,
-                "cookieIdTable": "recordsTableCookie",
-                "data": response.data,
-                "locale": vlang
-              });
-              $("#recordsTable").bootstrapTable("refresh");
-            }
-            else if (response.error) {
-              Rollbar.error("Error: An error occurred loading record from S3");
-              const errorAc1 = $translate.instant("proj_alerts.error_textsad");
-              $msg.error(errorAc1);
-            }
-          };
-          for (let cont = 0; cont < response.data.length; cont++) {
-            if (typeof response.data[cont].registros_archivo !== "undefined" &&
-                            response.data[cont].es_registros_archivo === true) {
-              record = projectFtry.getRecords(
-                $scope.finding.id,
-                response.data[cont].registros_archivo
-              );
-              $scope.hasRecords = true;
-              findingData.hasRecords = $scope.hasRecords;
-              record.then((response) => {
-                respFunction(response);
-              });
-            }
-            else if (typeof $scope.finding.registros_archivo !== "undefined") {
-              record = projectFtry.getRecords(
-                $scope.finding.id,
-                $scope.finding.registros_archivo
-              );
-              $scope.hasRecords = true;
-              findingData.hasRecords = $scope.hasRecords;
-              record.then((response) => {
-                respFunction(response);
-              });
-            }
-            else if ((
-              typeof $scope.finding.registros_archivo === "undefined" ||
-              typeof response.data[cont].registros_archivo === "undefined") &&
-              response.data[cont].es_registros_archivo === false) {
-              $scope.hasRecords = false;
-              findingData.hasRecords = $scope.hasRecords;
-            }
-          }
-        }
-        else if (typeof $scope.finding.registros_archivo !== "undefined") {
-          record = projectFtry.getRecords(
-            $scope.finding.id,
-            $scope.finding.registros_archivo
-          );
-          $scope.hasRecords = true;
-          record.then((response) => {
-            if (!response.error) {
-              const dataCols = [];
-              for (const cont in response.data[0]) {
-                if ({}.hasOwnProperty.call(response.data[0], cont)) {
-                  dataCols.push({
-                    "field": cont,
-                    "title": cont
-                  });
-                }
-              }
-              $("#recordsTable").bootstrapTable("destroy");
-              $("#recordsTable").bootstrapTable({
-                "columns": dataCols,
-                "cookie": true,
-                "cookieIdTable": "recordsTableCookie",
-                "data": response.data,
-                "locale": vlang
-              });
-              $("#recordsTable").bootstrapTable("refresh");
-            }
-            else if (response.error) {
-              Rollbar.error("Error: An error occurred loading record");
-              const errorAc1 = $translate.instant("proj_alerts.error_textsad");
-              $msg.error(errorAc1);
-            }
-          });
-        }
-        else if (response.data.length <= 0 ||
-                 typeof $scope.finding.registros_archivo === "undefined") {
-          $scope.hasRecords = false;
-          findingData.hasRecords = $scope.hasRecords;
-        }
       }
     });
   };
@@ -1781,11 +1514,13 @@ integrates.controller("findingcontentCtrl", function findingcontentCtrl (
     }
     if (window.location.hash.indexOf("records") !== -1) {
       $scope.activeTab("#records", "FindingRecords", org, projt);
-      $scope.findingRecordsTab();
+      const recordinfo = findingFtry.findingRecordsTab($scope, findingData);
+      $scope.hasRecords = recordinfo[0];
+      findingData.hasRecords = recordinfo[1];
     }
     if (window.location.hash.indexOf("comments") !== -1) {
       $scope.activeTab("#comment", "FindingComments", org, projt);
-      $scope.findingCommentTab();
+      findingFtry.findingCommentTab($scope, $stateParams);
     }
   };
   $scope.init();
