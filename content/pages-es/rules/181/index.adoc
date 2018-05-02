@@ -11,3 +11,53 @@
 La transmisión de información sensible
 o la ejecución de funciones sensibles
 debe hacerse a través de protocolos seguros.
+
+== Descripción
+
+Un sistema puede enviar información por un canal no cifrado
+utilizando protocolos no seguros,
+el uso de este tipo de protocolos genera un riesgo que puede ser explotado
+mediante la interceptación de información y modificación de la misma
+al efectuar un ataque de hombre en el medio,
+ejemplos típicos de este riesgo se ven en el uso de protocolos no seguros
+como +HTTP+, +FTP+, +POP3+, +Telnet+, etc.
+
+== Implementación
+
+. Desplegar las aplicaciones utilizando +HTTPS+ en el servidor de aplicaciones:
+Al utilizar este protocolo se cifra el canal utilizado
+para el despliegue de aplicaciones web,
+para esto será necesario contar con certificados
+emitidos por una entidad certificadora válida.
+
+. Utilizar servicios seguros en vez de estándar:
+Cuando se requiera transmitir información sensible por un canal inseguro
+utilizando servicios como +FTP+, +POP3+ y otros
+se pueden habilitar las versiones seguras de cada protocolo
+o implementar protocolos con las mismas funciones
+pero que cuentan con cifrado de la comunicación
+tales como +SSH+, +FTPS+, +POP3S+, +TLS+, etc.
+
+== Soluciones
+
+. +Apache+ link:../../defends/apache/configurar-soporte-https/[Configurar Soporte HTTPS].
+
+== Ataques
+
+. Atacante con acceso al canal no cifrado realiza ataques de hombre
+en el medio (+MitM+) sobre los activos vulnerables
+para interceptar y ver la información que se transmite.
+
+== Atributos
+
+* Capa: Capa de Recursos
+* Activo: Datos
+* Alcance: Confidencialidad
+* Fase: Operación
+* Tipo de Control: Recomendación
+
+== Referencias
+
+. [[r1]] link:https://pcinetwork.org/forum/index.php?threads/pci-dss-3-0-6-5-4-insecure-communications.660/[PCI 6.5.4 Insecure communications/transport layer protection]
+. [[r2]] link:https://www.owasp.org/index.php/Top_10_2014-I4_Lack_of_Transport_Encryption[OWASP Top 10 2014: I4 Top 10 2014-I4 Lack of Transport Encryption]
+. [[r3]] link:https://www.owasp.org/index.php/Mobile_Top_10_2014-M3[OWASP Top 10 2014: M3 Insufficient Transport Layer Protection]
