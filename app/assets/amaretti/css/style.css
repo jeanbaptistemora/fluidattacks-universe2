@@ -16880,7 +16880,7 @@ fieldset[disabled] .btn-social.btn-tumblr.active {
   margin: 0;
 }
 .panel-group.accordion .panel .panel-heading a {
-  padding: 17px 10px;
+  padding: 10px 10px;
   display: block;
   color: #0A62AC;
   font-weight: 300;
@@ -19784,7 +19784,7 @@ div.dataTables_wrapper div.dataTables_length label select {
 }
 .timeline-item {
   position: relative;
-  padding-left: 210px;
+  padding-left: 190px;
   list-style: none;
 }
 @media (max-width: 767px) {
@@ -19888,7 +19888,7 @@ div.dataTables_wrapper div.dataTables_length label select {
   .timeline-date {
     width: 100%;
     left: 0;
-    top: -40px;
+    top: -50px;
     text-align: center;
   }
   .timeline-date span {
@@ -19897,13 +19897,16 @@ div.dataTables_wrapper div.dataTables_length label select {
     border-radius: 4px;
     line-height: 25px;
   }
+  .timeline-content p{
+    text-align: center;
+  }
 }
 .timeline-content {
   position: relative;
   background-color: #ffffff;
-  padding: 25px 30px 25px 28px;
+  padding: 28px 25px 0px 5px;
   border-radius: 3px;
-  min-height: 85px;
+  min-height: 70px;
 }
 .timeline-item-gallery .timeline-content {
   padding-bottom: 15px;
@@ -20264,4 +20267,7 @@ div.dataTables_wrapper div.dataTables_length label select {
 }
 #events_alert {
   font-size: 1.2em;
+}
+.less-padding {
+  padding: 5px 15px;
 }

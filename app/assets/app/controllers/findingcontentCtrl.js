@@ -1,6 +1,6 @@
 /* eslint-disable max-lines */
 /* eslint no-magic-numbers:
-["error", { "ignore": [-1,0,0.4,0.6,1,1.176,1.5,2,3,
+["error", { "ignore": [-3,-1,0,0.4,0.6,1,1.176,1.5,2,3,
                        4,5,6,6.9,7,9,10,10.41,20,50,
                        80,100,200,500,1000,10000] }]*/
 /* eslint no-shadow: ["error", { "allow": ["$scope","$stateParams",
@@ -750,11 +750,14 @@ integrates.controller("findingcontentCtrl", function findingcontentCtrl (
               ]);
       }
     }
+    $scope.findingFormatted = $scope.finding.timestamp.slice(0, -3);
     let closingEffect = 0;
     for (let close = 0; close < $scope.finding.cierres.length; close++) {
       closingEffect = ($scope.finding.cierres[close].cerradas /
                       $scope.finding.cierres[close].solicitadas) * 100;
       $scope.finding.cierres[close].efectividad = closingEffect.toFixed(0);
+      const timeFormat = $scope.finding.cierres[close].timestamp.slice(0, -3);
+      $scope.finding.cierres[close].timestamp = timeFormat;
     }
     // Control de campos para tipos de hallazgo
     $scope.esDetallado = false;

@@ -651,36 +651,18 @@
                           </div>
                       </div>
                       <div class="row">
-                          <div class="col-md-12">
+                          <div class="col-md-offset-3 col-md-9 col-sm-12">
                               <ul class="timeline">
                                   <li class="timeline-item text-left">
-                                      <div class="timeline-date"><span>{{finding.timestamp}}</span></div>
+                                      <div class="timeline-date"><span>{{findingFormatted}}</span></div>
                                       <div class="timeline-content">
-                                          <table class="table table-bordered table-responsive" style="max-width: 350px;">
-                                              <tr class="text-center">
-                                                  <td colspan="2"><b>{{'search_findings.tab_tracking.finding' | translate}}</b></td>
-                                              </tr>
-                                          </table>
+                                          <p>{{'search_findings.tab_tracking.finding' | translate}}</p>
                                       </div>
                                   </li>
                                   <li class="timeline-item" ng-repeat="x in finding.cierres">
-                                      <div class="timeline-date"><span>{{x.timestamp}} </span></div>
+                                      <div class="timeline-date"><span>{{x.timestamp}}</span></div>
                                       <div class="timeline-content">
-                                          <table class="table table-bordered table-responsive" style="max-width: 350px;">
-                                              <tr class="text-center">
-                                                  <td colspan="4"><b>{{'search_findings.tab_tracking.cicle' | translate}} {{x.position}}</b></td>
-                                              </tr>
-                                              <tr>
-                                                  <td>{{'search_findings.tab_tracking.open' | translate}}</td>
-                                                  <td>{{x.abiertas}}</td>
-                                                  <td>{{'search_findings.tab_tracking.close' | translate}}</td>
-                                                  <td>{{x.cerradas}}</td>
-                                              </tr>
-                                              <tr class="text-center">
-                                                  <td colspan="2">{{'search_findings.tab_tracking.closingEffectiveness' | translate}}</td>
-                                                  <td colspan="2">{{x.efectividad}}%</td>
-                                              </tr>
-                                          </table>
+                                          <p>{{'search_findings.tab_tracking.cicle' | translate}}: {{x.position}}, {{'search_findings.tab_tracking.open' | translate}}: {{x.abiertas}}, {{'search_findings.tab_tracking.close' | translate}}: {{x.cerradas}}, {{'search_findings.tab_tracking.closingEffectiveness' | translate}}: {{x.efectividad}}%</p>
                                       </div>
                                   </li>
                               </ul>

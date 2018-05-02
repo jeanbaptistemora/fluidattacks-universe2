@@ -107,11 +107,11 @@ const traducciones2 = {
   "tab_records": {"records_name": "Registros"},
   "tab_tracking":
   {
-    "cicle": "Ciclo de cierre",
-    "close": "Vulnerabilidades Cerradas",
-    "closingEffectiveness": "Efectividad de Cierre",
+    "cicle": "Ciclo",
+    "close": "Cerradas",
+    "closingEffectiveness": "Efectividad",
     "finding": "Hallazgo reportado",
-    "open": "Vulnerabilidades Abiertas"
+    "open": "Abiertas"
   }
 },
   "tab_container": {
