@@ -15,28 +15,39 @@ module "iam" {
   source = "./iam"
 }
 
-#Create from scratch
-module "createNetwork" {
-  source = "./network"
-  sreg = "${var.sreg}"
-  cdir = "${var.cdir}"
-  ciIP = "${var.ciIP}"
-}
+# #Create from scratch
+# module "createNetwork" {
+#   source = "./network"
+#   sreg = "${var.sreg}"
+#   cdir = "${var.cdir}"
+#   ciIP = "${var.ciIP}"
+# }
+#
+# # Create from scratch
+# module "ec2instance" {
+#   source = "./ec2"
+#   amiID = "${var.amiID}"
+#   iType = "${var.iType}"
+#   sreg = "${var.sreg}"
+#   sgId = "${module.createNetwork.sgId}"
+#   snetId = "${module.createNetwork.snetId}"
+#   kName = "${var.kName}"
+#
+# }
 
-# Create from scratch
-module "ec2instance" {
+# For Sura
+module "ec2-peer" {
   source = "./ec2"
   amiID = "${var.amiID}"
   iType = "${var.iType}"
   sreg = "${var.sreg}"
-  sgId = "${module.createNetwork.sgId}"
-  snetId = "${module.createNetwork.snetId}"
+  sgId = "${var.sgroupId}"
+  snetId = "${var.snetId}"
   kName = "${var.kName}"
-
 }
 
-# For Sura
-module "ec2-peer" {
+# new with cron
+module "ec2-cron" {
   source = "./ec2"
   amiID = "${var.amiID}"
   iType = "${var.iType}"
@@ -66,9 +77,9 @@ output "variable_db" {
 }
 
 output "variable_ip" {
-  value = "server=\"${module.ec2-peer.ip}\""
+  value = "server=\"${module.ec2-cron.ip}\""
 }
 
 output "instance_ip" {
-  value = "${module.ec2-peer.ip}"
+  value = "${module.ec2-cron.ip}"
 }

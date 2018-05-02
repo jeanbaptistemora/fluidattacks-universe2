@@ -4,12 +4,6 @@ resource "aws_iam_policy_attachment" "web-attach" {
   policy_arn = "${aws_iam_policy.Blog_IAM_Policy.arn}"
 }
 
-resource "aws_iam_policy_attachment" "cflambda-attach" {
-  name       = "cflambda-attachment"
-  groups     = ["${var.lambdacallers}"]
-  policy_arn = "${aws_iam_policy.CloudFormation_Lambda.arn}"
-}
-
 resource "aws_iam_policy_attachment" "FI_S3INTEGRATION-attach" {
   name       = "FI_S3INTEGRATION-attachment"
   groups     = ["${var.fis3integration}"]
