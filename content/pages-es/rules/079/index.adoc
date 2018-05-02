@@ -12,6 +12,38 @@ El sistema debe registrar el momento exacto de ocurrencia
 (Fecha, hora, segundos, milisegundos, y zona horaria)
 para cada evento excepcional y de seguridad.
 
+== Descripción
+
+Los +logs+ de eventos deben contener el detalle exacto de la ocurrencia
+a fin de tener los detalles necesarios en una posible investigación.
+
+== Implementación
+
+. Definidos los eventos que van a ser registrados,
+se debe configurar que estos registros
+contengan el detalle de Fecha, hora, segundos, milisegundos y zona horaria.
+
 == Soluciones
 
 . +COBOL+ link:../../defends/cobol/registrar-excepciones-ile/[Registrar Excepciones ILE].
+
+== Ataques
+
+Ocurre un incidente, no se identifica con claridad
+desde que momento se presentan los eventos
+al no tener el detalle claro en los registros.
+
+== Atributos
+
+* Capa: Capa de Aplicación
+* Activo: Bitácoras
+* Alcance: Responsabilidad
+* Fase: Operación
+* Tipo de Control: Procedimiento
+
+== Referencias
+
+. link:https://www.owasp.org/index.php/Codereview-Error-Handling[OWASP - CodeReview-Error-Handling].
+. link:https://www.owasp.org/index.php/OWASP_Proactive_Controls[OWASP - Proactive Controls].
+. link:https://www.owasp.org/index.php/Exception_Handling#Logging_Exception_Details[OWASP - Exception Handling].
+. link:https://cwe.mitre.org/data/definitions/778.html[CWE - Insufficient logging].
