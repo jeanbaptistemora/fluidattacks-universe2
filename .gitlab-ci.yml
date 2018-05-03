@@ -18,6 +18,7 @@ builder:
     - docker build --cache-from $CI_REGISTRY/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME:base
       -t $CI_REGISTRY/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME:base builder/
     - docker push $CI_REGISTRY/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME:base
+  retry: 2
 
 checks:
   stage: lint
@@ -48,6 +49,7 @@ checks:
     - docker build --no-cache -t $CI_REGISTRY/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME:$CI_COMMIT_REF_SLUG review/
     - docker push $CI_REGISTRY/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME:$CI_COMMIT_REF_SLUG
     - rm -rf output/ && rm -rf review/output
+  retry: 2
   artifacts:
     untracked: true
     when: on_success
@@ -121,6 +123,7 @@ deploy:
     - ./amz-redirect.sh
     # Erase output folder to reduce artifact size since it is untracked
     - rm -rf output/
+  retry: 2
   artifacts:
     untracked: true
     when: on_success
