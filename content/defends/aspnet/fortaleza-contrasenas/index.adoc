@@ -158,11 +158,6 @@ El resultado para la anterior aplicación es el siguiente:
 
 == Referencias
 
-. [[r1]] link:../../../rules/996/[REQ.996 Contraseñas con al menos 8 caracteres].
-. [[r2]] link:../../../rules/995/[REQ.995 Contraseñas con al menos 1 minúscula].
-. [[r3]] link:../../../rules/994/[REQ.994 Contraseñas con al menos 1 mayúscula].
-. [[r4]] link:../../../rules/993/[REQ.993 Contraseñas con al menos 1 dígito].
-. [[r5]] link:../../../rules/992/[REQ.992 Contraseñas con 1 carácter especial].
 . [[r6]] link:../../../rules/132/[REQ.132 Contraseñas con al menos 4 palabras].
 . [[r7]] link:http://www.openwall.com/wordlists/[Openwall worldlist collection].
 . [[r8]] link:http://wordlist.aspell.net/[Spell Checker Oriented Word Lists (SCOWL)].

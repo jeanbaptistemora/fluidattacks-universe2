@@ -274,10 +274,5 @@ todas las instrucciones +COBOL+ del programa.
 
 == Referencias
 
-. [[r1]] link:../../../rules/996/[REQ.996 Contraseñas con al menos 8 caracteres].
-. [[r2]] link:../../../rules/995/[REQ.995 Contraseñas con al menos 1 minúscula].
-. [[r3]] link:../../../rules/994/[REQ.994 Contraseñas con al menos 1 mayúscula].
-. [[r4]] link:../../../rules/993/[REQ.993 Contraseñas con al menos 1 dígito].
-. [[r5]] link:../../../rules/992/[REQ.992 Contraseñas con 1 carácter especial].
-. [[r6]] link:../../../rules/133/[REQ.133 Contraseñas de más de 20 caracteres].
+. [[r6]] link:../../../rules/132/[REQ.132 Contraseñas con al menos 4 palabras].
 . [[r7]] link:https://www.paypal.com/us/selfhelp/article/Tips-for-creating-a-secure-password-FAQ3152[Tips for creating a secure password].
