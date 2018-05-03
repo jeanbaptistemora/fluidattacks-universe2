@@ -66,7 +66,7 @@ También hemos asistido a diversos fabricantes y participantes
 del sector industrial en sus necesidades de seguridad de +software+
 y seguridad de infraestructura.
 Algunos de estos clientes son +Grupo Argos+, +Manuelita+, +Corona+,
-+Cadena+ and +Odinsa+.
++Cadena+ y +Odinsa+.
 
 a|== link:transporte/[Transporte]
 
