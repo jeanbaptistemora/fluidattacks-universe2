@@ -64,10 +64,10 @@ test_terraform:
       - echo acc_key = \"$AWS_ACCESS_KEY_ID\" >> infrastructure/vars/aws.tfvars
       - echo sec_key = \"$AWS_SECRET_ACCESS_KEY\" >> infrastructure/vars/aws.tfvars
       - echo bucket = \"$BUCKET_NAME\" >> infrastructure/terraform.tfvars
-      - echo "$FI_SSH_KEY" | base64 -d > infrastructure/vars/FLUID_Serves.pem
       - echo $SSO_XML > infrastructure/vars/SSO.xml
       - echo $SSO_FINANCE_XML > infrastructure/vars/SSOFinance.xml
       - echo db_id = \"$DB_ID\" >> infrastructure/terraform.tfvars
+      - aws s3 cp s3://$BUCKET_NAME/terraform/FLUID_Serves.pem infrastructure/vars/FLUID_Serves.pem || (sudo pip install boto && python infrastructure/create-key.py)
       - cd infrastructure
    script:
       - terraform init
@@ -117,12 +117,12 @@ deploy_terraform:
         - echo acc_key = \"$AWS_ACCESS_KEY_ID\" >> infrastructure/vars/aws.tfvars
         - echo sec_key = \"$AWS_SECRET_ACCESS_KEY\" >> infrastructure/vars/aws.tfvars
         - echo bucket = \"$BUCKET_NAME\" >> infrastructure/terraform.tfvars
-        - echo "$FI_SSH_KEY" | base64 -d > infrastructure/vars/FLUID_Serves.pem
+        - echo db_id = \"$SNAP_ID\" >> infrastructure/terraform.tfvars
         - echo $SSO_XML > infrastructure/vars/SSO.xml
         - echo $SSO_FINANCE_XML > infrastructure/vars/SSOFinance.xml
         - echo sudo docker login registry.gitlab.com -u $DOCKER_USER -p $DOCKER_PASS >> infrastructure/ec2/host/script.sh
+        - aws s3 cp s3://$BUCKET_NAME/terraform/FLUID_Serves.pem infrastructure/vars/FLUID_Serves.pem
         - aws s3 cp s3://$BUCKET_NAME/terraform/terraform.tfstate infrastructure/terraform.tfstate || echo ""
-        - echo db_id = \"$DB_ID\" >> infrastructure/terraform.tfvars
         - cd infrastructure
     script:
         - terraform init
@@ -131,6 +131,7 @@ deploy_terraform:
         - curl -X POST -F token=$TRIGGER_TOKEN -F ref=master -F "variables[IS_TRIGGER]=true" -F "variables[NEW_SERVES]=$(cat ip.txt)" https://gitlab.com/api/v4/projects/4620828/trigger/pipeline
     after_script:
         - aws s3 cp infrastructure/terraform.tfstate s3://$BUCKET_NAME/terraform/terraform.tfstate
+        - aws s3 cp infrastructure/vars/FLUID_Serves.pem s3://$BUCKET_NAME/terraform/FLUID_Serves.pem
     only:
     - master
     except:
@@ -143,18 +144,20 @@ install_alg:
         - echo acc_key = \"$AWS_ACCESS_KEY_ID\" >> infrastructure/vars/aws.tfvars
         - echo sec_key = \"$AWS_SECRET_ACCESS_KEY\" >> infrastructure/vars/aws.tfvars
         - echo bucket = \"$BUCKET_NAME\" >> infrastructure/terraform.tfvars
-        - aws s3 cp s3://$BUCKET_NAME/terraform/terraform.tfstate infrastructure/terraform.tfstate
-        - echo "$FI_SSH_KEY" | base64 -d > infrastructure/vars/FLUID_Serves.pem
+        - echo db_id = \"$SNAP_ID\" >> infrastructure/terraform.tfvars
         - echo $SSO_XML > infrastructure/vars/SSO.xml
         - echo $SSO_FINANCE_XML > infrastructure/vars/SSOFinance.xml
-        - echo db_id = \"$DB_ID\" >> infrastructure/terraform.tfvars
+        - echo sudo docker login registry.gitlab.com -u $DOCKER_USER -p $DOCKER_PASS >> infrastructure/ec2/host/script.sh
+        - aws s3 cp s3://$BUCKET_NAME/terraform/FLUID_Serves.pem infrastructure/vars/FLUID_Serves.pem
+        - aws s3 cp s3://$BUCKET_NAME/terraform/terraform.tfstate infrastructure/terraform.tfstate
+        - cp infrastructure/vars/FLUID_Serves.pem infrastructure/
         - cd infrastructure
         - terraform init
         - terraform refresh -var-file="vars/aws.tfvars"
         - terraform output instance_ip > ip.txt
     script:
         - apk --update add openssh-client
-        - echo "$FI_SSH_KEY" | base64 -d > "FLUID_Serves.pem" && chmod 600 FLUID_Serves.pem
+        - chmod 600 FLUID_Serves.pem
         - ssh -o StrictHostKeyChecking=no -i FLUID_Serves.pem admin@$(cat ip.txt) '(sudo docker stop tmp_alg_1 || echo "") && (sudo docker rm tmp_alg_1 || echo "")'
         - ssh -o StrictHostKeyChecking=no -i FLUID_Serves.pem admin@$(cat ip.txt) 'sudo docker pull registry.gitlab.com/fluidsignal/serves/alg:master && sudo docker run -d -p 443:443 -p 80:80 --name=tmp_alg_1 registry.gitlab.com/fluidsignal/serves/alg:master'
     only:
@@ -167,18 +170,20 @@ install_exams:
         - echo acc_key = \"$AWS_ACCESS_KEY_ID\" >> infrastructure/vars/aws.tfvars
         - echo sec_key = \"$AWS_SECRET_ACCESS_KEY\" >> infrastructure/vars/aws.tfvars
         - echo bucket = \"$BUCKET_NAME\" >> infrastructure/terraform.tfvars
-        - aws s3 cp s3://$BUCKET_NAME/terraform/terraform.tfstate infrastructure/terraform.tfstate
-        - echo "$FI_SSH_KEY" | base64 -d > infrastructure/vars/FLUID_Serves.pem
+        - echo db_id = \"$SNAP_ID\" >> infrastructure/terraform.tfvars
         - echo $SSO_XML > infrastructure/vars/SSO.xml
         - echo $SSO_FINANCE_XML > infrastructure/vars/SSOFinance.xml
-        - echo db_id = \"$DB_ID\" >> infrastructure/terraform.tfvars
+        - echo sudo docker login registry.gitlab.com -u $DOCKER_USER -p $DOCKER_PASS >> infrastructure/ec2/host/script.sh
+        - aws s3 cp s3://$BUCKET_NAME/terraform/FLUID_Serves.pem infrastructure/vars/FLUID_Serves.pem
+        - aws s3 cp s3://$BUCKET_NAME/terraform/terraform.tfstate infrastructure/terraform.tfstate
+        - cp infrastructure/vars/FLUID_Serves.pem infrastructure/
         - cd infrastructure
         - terraform init
         - terraform refresh -var-file="vars/aws.tfvars"
         - terraform output instance_ip > ip.txt
     script:
         - apk --update add openssh-client
-        - echo "$FI_SSH_KEY" | base64 -d > "FLUID_Serves.pem" && chmod 600 FLUID_Serves.pem
+        - chmod 600 FLUID_Serves.pem
         - ssh -o StrictHostKeyChecking=no -i FLUID_Serves.pem admin@$(cat ip.txt) '(sudo docker stop tmp_exams_1 || echo "") && (sudo docker rm tmp_exams_1 || echo "")'
         - ssh -o StrictHostKeyChecking=no -i FLUID_Serves.pem admin@$(cat ip.txt) 'sudo docker pull registry.gitlab.com/fluidsignal/serves/exams:master && sudo docker run -d -p 8080:80 --name=tmp_exams_1 registry.gitlab.com/fluidsignal/serves/exams:master'
     only:
@@ -191,18 +196,20 @@ install_vpn:
         - echo acc_key = \"$AWS_ACCESS_KEY_ID\" >> infrastructure/vars/aws.tfvars
         - echo sec_key = \"$AWS_SECRET_ACCESS_KEY\" >> infrastructure/vars/aws.tfvars
         - echo bucket = \"$BUCKET_NAME\" >> infrastructure/terraform.tfvars
-        - aws s3 cp s3://$BUCKET_NAME/terraform/terraform.tfstate infrastructure/terraform.tfstate
-        - echo "$FI_SSH_KEY" | base64 -d > infrastructure/vars/FLUID_Serves.pem
+        - echo db_id = \"$SNAP_ID\" >> infrastructure/terraform.tfvars
         - echo $SSO_XML > infrastructure/vars/SSO.xml
         - echo $SSO_FINANCE_XML > infrastructure/vars/SSOFinance.xml
-        - echo db_id = \"$DB_ID\" >> infrastructure/terraform.tfvars
+        - echo sudo docker login registry.gitlab.com -u $DOCKER_USER -p $DOCKER_PASS >> infrastructure/ec2/host/script.sh
+        - aws s3 cp s3://$BUCKET_NAME/terraform/FLUID_Serves.pem infrastructure/vars/FLUID_Serves.pem
+        - aws s3 cp s3://$BUCKET_NAME/terraform/terraform.tfstate infrastructure/terraform.tfstate
+        - cp infrastructure/vars/FLUID_Serves.pem infrastructure/
         - cd infrastructure
         - terraform init
         - terraform refresh -var-file="vars/aws.tfvars"
         - terraform output instance_ip > ip.txt
     script:
         - apk --update add openssh-client
-        - echo "$FI_SSH_KEY" | base64 -d > "FLUID_Serves.pem" && chmod 600 FLUID_Serves.pem
+        - chmod 600 FLUID_Serves.pem
         - ssh -o StrictHostKeyChecking=no -i FLUID_Serves.pem admin@$(cat ip.txt) '(sudo docker stop tmp_vpn_1 || echo "") && (sudo docker rm tmp_vpn_1 || echo "")'
         - ssh -o StrictHostKeyChecking=no -i FLUID_Serves.pem admin@$(cat ip.txt) 'sudo docker pull registry.gitlab.com/fluidsignal/serves/vpn:master && sudo docker run -d --privileged=true -p 8081:443 --name=tmp_vpn_1 registry.gitlab.com/fluidsignal/serves/vpn:master'
     only:
@@ -215,13 +222,13 @@ change_dns:
         - echo acc_key = \"$AWS_ACCESS_KEY_ID\" >> infrastructure/vars/aws.tfvars
         - echo sec_key = \"$AWS_SECRET_ACCESS_KEY\" >> infrastructure/vars/aws.tfvars
         - echo bucket = \"$BUCKET_NAME\" >> infrastructure/terraform.tfvars
-        - cp infrastructure/vars/aws.tfvars infrastructure/dns
-        - aws s3 cp s3://$BUCKET_NAME/terraform/terraform.tfstate infrastructure/terraform.tfstate
-        - aws s3 cp s3://$BUCKET_NAME/terraform/dns/terraform.tfstate infrastructure/dns/terraform.tfstate || echo ""
-        - echo "$FI_SSH_KEY" | base64 -d > infrastructure/vars/FLUID_Serves.pem
         - echo $SSO_XML > infrastructure/vars/SSO.xml
         - echo $SSO_FINANCE_XML > infrastructure/vars/SSOFinance.xml
         - echo db_id = \"$DB_ID\" >> infrastructure/terraform.tfvars
+        - aws s3 cp s3://$BUCKET_NAME/terraform/FLUID_Serves.pem infrastructure/vars/FLUID_Serves.pem
+        - aws s3 cp s3://$BUCKET_NAME/terraform/terraform.tfstate infrastructure/terraform.tfstate
+        - aws s3 cp s3://$BUCKET_NAME/terraform/dns/terraform.tfstate infrastructure/dns/terraform.tfstate || echo ""
+        - cp infrastructure/vars/aws.tfvars infrastructure/dns
         - cd infrastructure
         - terraform init
         - terraform refresh -var-file="vars/aws.tfvars"
