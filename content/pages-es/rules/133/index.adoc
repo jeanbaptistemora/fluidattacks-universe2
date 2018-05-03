@@ -6,7 +6,7 @@
 
 = REQ.133 Contraseñas de más de 20 caracteres
 
-== Nombre
+== Requisito
 
 Las contraseñas de acceso de un sistema a otro
 deben tener una longitud superior a 20 caracteres.

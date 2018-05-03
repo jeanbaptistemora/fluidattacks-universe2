@@ -6,7 +6,7 @@
 
 = REQ.203 Ocultar ingreso de información
 
-== Nombre
+== Requisito
 
 El dispositivo debe impedir
 que el ingreso de información

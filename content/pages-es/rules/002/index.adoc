@@ -7,7 +7,7 @@
 
 = REQ.002 Identificar dependencias o componentes
 
-== Nombre
+== Requisito
 
 Las dependencias o componentes
 con los que interopera un sistema de información deben estar identificados.

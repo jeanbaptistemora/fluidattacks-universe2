@@ -6,7 +6,7 @@
 
 = REQ.227 Desplegar notificación de acceso
 
-== Nombre
+== Requisito
 
 El sistema debe notificar a cualquier actor que intenta autenticarse,
 que el acceso en el mismo sistema

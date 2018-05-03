@@ -6,7 +6,7 @@
 
 = REQ.277 Información de servicios inaccesible
 
-== Nombre
+== Requisito
 
 La información (nombre de producto,
 versión o configuración) de servicios expuestos no debe ser accesible.

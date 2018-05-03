@@ -6,7 +6,7 @@
 
 = REQ.273 Establecer suite de seguridad segura
 
-== Nombre
+== Requisito
 
 Todas las máquinas en producción
 deben tener una +suite+ de seguridad no alterable por los usuarios

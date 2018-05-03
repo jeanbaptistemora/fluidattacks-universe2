@@ -6,7 +6,7 @@
 
 = REQ.268 Utilizar software autenticado
 
-== Nombre
+== Requisito
 
 El +software+ complementario (+drivers+, módulos de +kernel+, etc)
 debe utilizar firmas digitales emitidas por el fabricante

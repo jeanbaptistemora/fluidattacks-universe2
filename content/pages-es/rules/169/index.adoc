@@ -6,7 +6,7 @@
 
 = REQ.169 Usar construcciones parametrizadas
 
-== Nombre
+== Requisito
 
 Debe usarse construcciones parametrizadas
 o procedimientos almacenados parametrizados

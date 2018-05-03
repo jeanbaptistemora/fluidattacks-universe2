@@ -6,7 +6,7 @@
 
 = REQ.245 Gestionar control de cambios
 
-== Nombre
+== Requisito
 
 La organización debe definir
 y documentar un procedimiento

@@ -6,7 +6,7 @@
 
 = REQ.191 Proteger datos con el máximo nivel
 
-== Nombre
+== Requisito
 
 Los datos personales deben protegerse
 con el máximo nivel de protección definido (+ISACA.G31.5+).

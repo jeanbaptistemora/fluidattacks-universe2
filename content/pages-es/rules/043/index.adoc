@@ -6,7 +6,7 @@
 
 = REQ.043 Definir content type explícito
 
-== Nombre
+== Requisito
 
 Los archivos generados de forma dinámica por el sistema
 deben tener definido un +Content-Type+ explícito.

@@ -6,7 +6,7 @@
 
 = REQ.034 Gestionar cuentas de usuarios
 
-== Nombre
+== Requisito
 
 El sistema debe permitir a un +superusuario+
 o usuario administrador del sistema,

@@ -6,7 +6,7 @@
 
 = REQ.163 Invocar en escenario funcional
 
-== Nombre
+== Requisito
 
 Las funciones, métodos o clases
 deben ser invocadas en algún escenario funcional del sistema.

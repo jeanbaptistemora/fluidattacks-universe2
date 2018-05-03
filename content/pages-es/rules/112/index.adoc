@@ -6,7 +6,7 @@
 
 = REQ.112 Ubicar bolardos en sitios estratégicos
 
-== Nombre
+== Requisito
 
 La organización debe ubicar bolardos
 alrededor de las edificaciones de la compañía

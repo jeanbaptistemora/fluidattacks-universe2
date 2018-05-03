@@ -6,7 +6,7 @@
 
 = REQ.166 Determinar complejidad del código
 
-== Nombre
+== Requisito
 
 El código fuente debe contener funciones, métodos o fragmentos de código
 con una complejidad ciclomática (+McCabe+) inferior a 20.

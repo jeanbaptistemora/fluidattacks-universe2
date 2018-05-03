@@ -6,7 +6,7 @@
 
 = REQ.250 Administrar puntos de acceso
 
-== Nombre
+== Requisito
 
 La administración del punto de acceso inalámbrico
 debe estar habilitada sólo en un puerto físico del equipo.

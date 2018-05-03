@@ -6,7 +6,7 @@
 
 = REQ.024 Transferir información con objetos de sesión
 
-== Nombre
+== Requisito
 
 Si el sistema debe transferir información entre páginas,
 debe realizarse a través de objetos de sesión.

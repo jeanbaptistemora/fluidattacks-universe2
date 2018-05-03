@@ -6,7 +6,7 @@
 
 = REQ.290 Instalar S.O. desde imagen preconfigurada
 
-== Nombre
+== Requisito
 
 La instalación de nuevos sistemas operativos
 debe partir de una imagen preconfigurada.

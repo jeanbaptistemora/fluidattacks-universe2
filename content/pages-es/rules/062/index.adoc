@@ -6,7 +6,7 @@
 
 = REQ.062 Definir configuraciones estándar
 
-== Nombre
+== Requisito
 
 Debe definirse configuraciones estándares
 que corrijan todas las vulnerabilidades conocidas

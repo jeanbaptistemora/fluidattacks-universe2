@@ -6,7 +6,7 @@
 
 = REQ.232 Requerir identidad de equipo
 
-== Nombre
+== Requisito
 
 Un sistema con información crítica para el negocio
 debe requerir la identificación del equipo

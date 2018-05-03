@@ -6,7 +6,7 @@
 
 = REQ.220 Gestionar perfiles de máquinas a monitorear
 
-== Nombre
+== Requisito
 
 En una granja de virtualización,
 la aplicación de gestión de los hipervisores

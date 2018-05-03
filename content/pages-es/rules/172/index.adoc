@@ -6,7 +6,7 @@
 
 = REQ.172 Cifrar cadenas de conexión
 
-== Nombre
+== Requisito
 
 Las cadenas de conexión a la base de datos
 deben de estar cifradas en un archivo de configuración

@@ -6,7 +6,7 @@
 
 = REQ.298 Realizar pruebas periódicas de sensores
 
-== Nombre
+== Requisito
 
 La organización debe probar el sistema de extinción de incendios
 mínimo 2 veces al año.

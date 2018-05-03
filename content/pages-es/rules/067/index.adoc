@@ -6,7 +6,7 @@
 
 = REQ.067 Definir componentes a ser probados
 
-== Nombre
+== Requisito
 
 Los componentes del sistema que serán probados
 (pruebas de caja blanca) deben estar definidos.

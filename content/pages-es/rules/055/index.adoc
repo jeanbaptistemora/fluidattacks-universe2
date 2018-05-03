@@ -6,6 +6,6 @@
 
 = REQ.055 Documentar casos de seguridad del sistema
 
-== Nombre
+== Requisito
 
 Los casos de seguridad del sistema deben estar documentados.

@@ -6,6 +6,6 @@
 
 = REQ.036 No desplegar archivos temporales
 
-== Nombre
+== Requisito
 
 El sistema no debe desplegar archivos temporales en ambiente de producción.

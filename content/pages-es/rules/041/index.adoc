@@ -6,7 +6,7 @@
 
 = REQ.041 Depurar archivos de código malicioso
 
-== Nombre
+== Requisito
 
 El sistema debe validar
 que el contenido de los archivos transferidos hacia el mismo sistema

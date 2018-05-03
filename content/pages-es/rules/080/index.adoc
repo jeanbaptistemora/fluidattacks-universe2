@@ -6,6 +6,6 @@
 
 = REQ.080 Impedir modificación de bitácoras
 
-== Nombre
+== Requisito
 
 Las bitácoras de un sistema no deben ser modificables o alterables.

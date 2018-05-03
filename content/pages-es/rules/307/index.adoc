@@ -6,7 +6,7 @@
 
 = REQ.307 Establecer clausulas de confidencialidad
 
-== Nombre
+== Requisito
 
 El contrato de adquisición de una solución o servicio
 debe contar con clausulas de confidencialidad.

@@ -6,7 +6,7 @@
 
 = REQ.154 Eliminar puertas traseras
 
-== Nombre
+== Requisito
 
 El código fuente de un sistema no debe realizar funciones
 diferentes a las que han sido especificadas

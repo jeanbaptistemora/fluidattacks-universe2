@@ -6,6 +6,6 @@
 
 = REQ.233 No imprimir credenciales de acceso
 
-== Nombre
+== Requisito
 
 El sistema no debe imprimir contraseñas en pantalla o recursos visibles.

@@ -6,7 +6,7 @@
 
 = REQ.105 Evitar fuga de activos
 
-== Nombre
+== Requisito
 
 La organización no debe permitir
 el ingreso a las instalaciones de elementos

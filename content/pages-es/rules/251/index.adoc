@@ -6,6 +6,6 @@
 
 = REQ.251 Cambiar IP del punto de acceso
 
-== Nombre
+== Requisito
 
 Los puntos de acceso no deben usar la dirección +IP+ configurada de fábrica.

@@ -6,7 +6,7 @@
 
 = REQ.121 Garantizar unicidad de correos
 
-== Nombre
+== Requisito
 
 Sistemas que empleen cuentas de correo para el registro de usuarios
 deben garantizar la unicidad de los correos,

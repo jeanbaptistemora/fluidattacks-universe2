@@ -6,7 +6,7 @@
 
 = REQ.099 Controlar acceso vehícular y de personas
 
-== Nombre
+== Requisito
 
 La organización debe llevar control de acceso de vehículos
 y personas en las zonas de parqueaderos.

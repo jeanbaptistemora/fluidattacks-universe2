@@ -6,7 +6,7 @@
 
 = REQ.046 Gestionar integridad de archivos críticos
 
-== Nombre
+== Requisito
 
 El sistema debe verificar y reportar en bitácora
 cambios en integridad de los archivos críticos del sistema.

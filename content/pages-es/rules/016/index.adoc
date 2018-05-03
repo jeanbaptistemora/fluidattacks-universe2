@@ -6,7 +6,7 @@
 
 = REQ.016 Garantizar corrección de vulnerabilidades
 
-== Nombre
+== Requisito
 
 La organización debe asegurar
 que cada una de las vulnerabilidades

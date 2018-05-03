@@ -6,6 +6,6 @@
 
 = REQ.215 Eliminar reglas redundantes
 
-== Nombre
+== Requisito
 
 No deben existir reglas de +firewall+ redundantes u opuestas.

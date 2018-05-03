@@ -6,7 +6,7 @@
 
 = REQ.017 Medio seguro para información física
 
-== Nombre
+== Requisito
 
 La organización debe garantizar un medio seguro de transporte
 para la información física.

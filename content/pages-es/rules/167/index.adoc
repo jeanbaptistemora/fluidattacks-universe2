@@ -6,7 +6,7 @@
 
 = REQ.167 Cerrar recursos no utilizados
 
-== Nombre
+== Requisito
 
 El código fuente debe estar implementado
 de tal forma que cierre cualquier recurso

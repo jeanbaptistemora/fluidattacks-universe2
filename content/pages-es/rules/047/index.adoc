@@ -6,7 +6,7 @@
 
 = REQ.047 Clasificar archivos críticos para monitoreo
 
-== Nombre
+== Requisito
 
 Se debe establecer los archivos críticos para cada sistema
 sobre los que se debe ejercer monitoreo a su integridad.

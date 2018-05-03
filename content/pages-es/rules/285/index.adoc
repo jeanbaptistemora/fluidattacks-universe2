@@ -6,7 +6,7 @@
 
 = REQ.285 Evitar costos de procesamiento
 
-== Nombre
+== Requisito
 
 Las conexiones incompletas, encontradas en los protocolos de transporte
 orientados a conexión (+TCP+),

@@ -6,7 +6,7 @@
 
 = REQ.198 Determinar personal para usar dispositivos
 
-== Nombre
+== Requisito
 
 La organización debe determinar
 qué personas (empleados de ciertos roles, visitantes, etc)

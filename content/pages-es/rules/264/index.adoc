@@ -6,7 +6,7 @@
 
 = REQ.264 Establecer autenticación en recursos
 
-== Nombre
+== Requisito
 
 El sistema debe requerir autenticación para todos los recursos,
 excepto para la consulta

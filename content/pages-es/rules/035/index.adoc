@@ -6,7 +6,7 @@
 
 = REQ.035 Administrar modificaciones de privilegios
 
-== Nombre
+== Requisito
 
 El sistema no debe permitir a un actor del sistema,
 aumentar los privilegios para él mismo.

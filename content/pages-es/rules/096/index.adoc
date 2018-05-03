@@ -6,7 +6,7 @@
 
 = REQ.096 Definir privilegios requeridos de usuario
 
-== Nombre
+== Requisito
 
 Los privilegios requeridos por los usuarios
 que accederán al sistema deben estar definidos.

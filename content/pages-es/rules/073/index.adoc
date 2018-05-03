@@ -6,7 +6,7 @@
 
 = REQ.073 Minimizar porcentaje de error
 
-== Nombre
+== Requisito
 
 El porcentaje de errores
 con la concurrencia máxima esperada

@@ -6,7 +6,7 @@
 
 = REQ.297 Fijar sensores en activos de información
 
-== Nombre
+== Requisito
 
 La organización debe contar con sensores de temperatura y humedad
 en áreas donde se almacene activos de información físicos o digitales.

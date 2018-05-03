@@ -6,7 +6,7 @@
 
 = REQ.091 Utilizar certificados firmados internos
 
-== Nombre
+== Requisito
 
 Debe utilizarse certificados firmados
 por entidades certificadoras internas válidas

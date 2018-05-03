@@ -6,7 +6,7 @@
 
 = REQ.018 Acuerdos a nivel de servicio con terceros
 
-== Nombre
+== Requisito
 
 La organización debe tener un acuerdo
 de nivel de servicio de disponibilidad

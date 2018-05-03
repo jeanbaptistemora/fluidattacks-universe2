@@ -6,7 +6,7 @@
 
 = REQ.087 Registrar llamadas en bitácoras
 
-== Nombre
+== Requisito
 
 La organización debe garantizar
 que las llamadas realizadas por personal en operación desde líneas telefónicas

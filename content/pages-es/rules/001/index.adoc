@@ -7,7 +7,7 @@
 
 = REQ.001 Activos de información identificados
 
-== Nombre
+== Requisito
 
 Los activos de información del sistema deben estar identificados
 y se conoce su uso.

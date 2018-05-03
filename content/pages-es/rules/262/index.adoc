@@ -6,7 +6,7 @@
 
 = REQ.262 Verificar componentes de terceros
 
-== Nombre
+== Requisito
 
 Los componentes provistos por terceros
 deben corresponder a versiones estables, probadas y actualizadas.

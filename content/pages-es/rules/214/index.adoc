@@ -6,7 +6,7 @@
 
 = REQ.214 Permitir destruir datos
 
-== Nombre
+== Requisito
 
 El dispositivo móvil debe permitir la destrucción de sus datos
 de forma remota en caso de pérdida.

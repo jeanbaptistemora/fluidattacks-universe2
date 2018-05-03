@@ -6,7 +6,7 @@
 
 = REQ.088 Requerir certificados de cliente
 
-== Nombre
+== Requisito
 
 Un sistema con información crítica para el negocio
 debe requerir certificados digitales de cliente en el proceso de autenticación.

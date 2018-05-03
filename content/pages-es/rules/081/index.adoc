@@ -6,7 +6,7 @@
 
 = REQ.081 Almacenar bitácoras según legislación
 
-== Nombre
+== Requisito
 
 La organización debe almacenar las bitácoras al menos durante 5 años
 desde la ocurrencia del evento en el sistema

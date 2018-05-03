@@ -6,6 +6,6 @@
 
 = REQ.180 Enmascarar datos
 
-== Nombre
+== Requisito
 
 Los datos de ambientes diferentes a producción deben estar enmascarados.

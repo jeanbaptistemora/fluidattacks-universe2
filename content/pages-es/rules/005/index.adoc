@@ -6,7 +6,7 @@
 
 = REQ.005 Activo de información valorado en moneda
 
-== Nombre
+== Requisito
 
 Cada activo de información debe estar valorado en términos monetarios.
 

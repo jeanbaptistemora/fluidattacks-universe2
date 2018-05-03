@@ -6,7 +6,7 @@
 
 = REQ.263 Establecer mecanismos de protección
 
-== Nombre
+== Requisito
 
 El sistema debe tener mecanismos de protección contra +robots+
 que indexen información, +landings+ o recursos.

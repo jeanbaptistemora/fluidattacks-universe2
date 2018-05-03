@@ -6,7 +6,7 @@
 
 = REQ.029 Cookies con atributos de seguridad
 
-== Nombre
+== Requisito
 
 Las +cookies+ de sesión de aplicaciones Web
 deben tener atributos de seguridad (+HttpOnly+, +Secure+).

@@ -6,7 +6,7 @@
 
 = REQ.252 Configurar cifrado de clave
 
-== Nombre
+== Requisito
 
 Se debe preferir el uso de los métodos de cifrado de clave +WPA2+ Personal
 o +WPA2 Enterprise+ (+802.1x+).

@@ -6,7 +6,7 @@
 
 = REQ.243 Gestionar incidentes de seguridad
 
-== Nombre
+== Requisito
 
 La organización debe definir
 y documentar un procedimiento

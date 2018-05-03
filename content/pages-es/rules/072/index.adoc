@@ -6,7 +6,7 @@
 
 = REQ.072 Establecer tiempo máximo de respuesta
 
-== Nombre
+== Requisito
 
 El tiempo de respuesta con la concurrencia máxima esperada
 debe ser de no más de 5 segundos.

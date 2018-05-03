@@ -6,7 +6,7 @@
 
 = REQ.162 Eliminar código redundante
 
-== Nombre
+== Requisito
 
 El código fuente no debe tener funciones, métodos o clases repetidas.
 

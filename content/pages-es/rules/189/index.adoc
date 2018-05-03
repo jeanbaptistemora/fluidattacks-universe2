@@ -6,7 +6,7 @@
 
 = REQ.189 Especificar recolección de datos personales
 
-== Nombre
+== Requisito
 
 El sistema debe especificar
 el propósito de la recolección de datos personales (+OECD.9+, +ISACA.G31.3.+).

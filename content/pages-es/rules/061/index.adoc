@@ -6,7 +6,7 @@
 
 = REQ.061 Documentar capítulo de seguridad
 
-== Nombre
+== Requisito
 
 La documentación que soporta un sistema de información
 debe contener un capítulo de seguridad.

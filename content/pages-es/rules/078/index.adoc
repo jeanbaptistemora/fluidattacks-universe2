@@ -6,7 +6,7 @@
 
 = REQ.078 Eventos con severidad deshabilitados
 
-== Nombre
+== Requisito
 
 Los eventos con severidad de depuración
 no deben estar habilitados en producción.

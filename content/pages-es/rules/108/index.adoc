@@ -6,7 +6,7 @@
 
 = REQ.108 Ubicar casilleros en puntos estratégicos
 
-== Nombre
+== Requisito
 
 Los lugares donde se manipulan activos de información
 deberán disponer de lockers con llave

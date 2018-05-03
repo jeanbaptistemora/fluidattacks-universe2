@@ -6,7 +6,7 @@
 
 = REQ.247 Ocultar SSID en redes privadas
 
-== Nombre
+== Requisito
 
 Las redes privadas deben tener deshabilitada
 la publicación del +SSID+ (+Service Set Identifier+).

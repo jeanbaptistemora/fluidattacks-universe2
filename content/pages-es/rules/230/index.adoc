@@ -6,7 +6,7 @@
 
 = REQ.230 Establecer claves de un sólo uso
 
-== Nombre
+== Requisito
 
 Un sistema con información crítica para el negocio
 debe requerir claves de un sólo uso en el proceso de autenticación.

@@ -6,7 +6,7 @@
 
 = REQ.092 Utilizar certificados firmados externos
 
-== Nombre
+== Requisito
 
 Debe utilizarse certificados firmados
 por entidades certificadoras externas válidas

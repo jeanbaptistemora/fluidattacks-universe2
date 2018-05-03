@@ -6,7 +6,7 @@
 
 = REQ.194 Determinar permiso de dispositivo a recursos
 
-== Nombre
+== Requisito
 
 La organización debe determinar
 qué tipo de dispositivos foráneos

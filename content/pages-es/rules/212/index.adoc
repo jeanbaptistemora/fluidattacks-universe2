@@ -6,7 +6,7 @@
 
 = REQ.212 Apagar interfaces de comunicación
 
-== Nombre
+== Requisito
 
 Las interfaces de comunicación de los dispositivos móviles
 que permiten acceso a +Internet+ mediante un plan de datos,

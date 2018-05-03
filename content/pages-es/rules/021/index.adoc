@@ -6,7 +6,7 @@
 
 = REQ.021 Garantizar cumplimiento requisitos
 
-== Nombre
+== Requisito
 
 Los proveedores de la organización
 deben asegurar que sus terceras partes

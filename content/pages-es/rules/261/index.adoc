@@ -6,7 +6,7 @@
 
 = REQ.261 No exponer información corporativa
 
-== Nombre
+== Requisito
 
 En las cuentas personales de redes sociales
 no se debe exponer información corporativa.

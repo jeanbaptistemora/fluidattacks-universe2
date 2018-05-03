@@ -6,7 +6,7 @@
 
 = REQ.178 Utilizar firmas digitales
 
-== Nombre
+== Requisito
 
 Debe utilizarse firmas digitales
 para garantizar la autenticidad de información sensible

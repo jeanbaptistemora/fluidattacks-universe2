@@ -6,7 +6,7 @@
 
 = REQ.266 Deshabilitar funciones inseguras
 
-== Nombre
+== Requisito
 
 La organización debe deshabilitar
 las funciones inseguras de un sistema

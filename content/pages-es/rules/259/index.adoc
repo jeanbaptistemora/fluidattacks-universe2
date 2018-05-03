@@ -6,6 +6,6 @@
 
 = REQ.259 Segmentar la red de la organización
 
-== Nombre
+== Requisito
 
 La red de la organización debe estar segmentada.

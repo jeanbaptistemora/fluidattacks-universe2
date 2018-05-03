@@ -6,7 +6,7 @@
 
 = REQ.063 Comprobar requisitos de seguridad
 
-== Nombre
+== Requisito
 
 Los requisitos de seguridad definidos para un sistema
 deben ser comprobables (pruebas de caja blanca).

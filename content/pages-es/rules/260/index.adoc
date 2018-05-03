@@ -6,7 +6,7 @@
 
 = REQ.260 Utilizar correos alternos
 
-== Nombre
+== Requisito
 
 Debe utilizarse correos diferentes al corporativo
 para registrar cuentas en redes sociales (aún en +LinkedIn+).

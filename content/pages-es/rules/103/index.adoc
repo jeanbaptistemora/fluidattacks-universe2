@@ -6,7 +6,7 @@
 
 = REQ.103 Gestionar tarjetas de acceso
 
-== Nombre
+== Requisito
 
 La organización debe contar
 con un proceso definido para la asignación, inventario, cambio, reasignación

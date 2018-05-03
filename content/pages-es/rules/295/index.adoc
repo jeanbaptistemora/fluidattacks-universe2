@@ -6,7 +6,7 @@
 
 = REQ.295 Evitar uso de archivos ilegales
 
-== Nombre
+== Requisito
 
 La organización debe garantizar que los sistemas
 no tengan archivos ilegales con propiedad intelectual protegida.

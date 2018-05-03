@@ -6,6 +6,6 @@
 
 = REQ.284 Establecer máximo de conexiones en puerto
 
-== Nombre
+== Requisito
 
 Un puerto debe tener un límite máximo de conexiones por +IP+ origen.

@@ -6,7 +6,7 @@
 
 = REQ.237 Establecer acciones de usuario seguras
 
-== Nombre
+== Requisito
 
 El sistema debe garantizar
 que quien realiza las acciones de registro, autenticación

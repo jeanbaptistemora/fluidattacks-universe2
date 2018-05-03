@@ -6,7 +6,7 @@
 
 = REQ.210 Eliminar información de dispositivos móviles
 
-== Nombre
+== Requisito
 
 La información de los dispositivos móviles
 deberá ser eliminada después de 10 intentos fallidos de la autenticación.

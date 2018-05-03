@@ -6,7 +6,7 @@
 
 = REQ.271 Restringir el uso de compiladores
 
-== Nombre
+== Requisito
 
 La organización debe restringir el uso de compiladores
 en sistemas de producción únicamente para las aplicaciones que lo requieran.

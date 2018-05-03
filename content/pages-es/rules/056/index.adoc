@@ -6,6 +6,6 @@
 
 = REQ.056 Establecer caso de abuso de control
 
-== Nombre
+== Requisito
 
 Los casos de seguridad deben tener un caso de abuso de control.

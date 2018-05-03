@@ -6,7 +6,7 @@
 
 = REQ.114 Denegar acceso con credenciales inactivas
 
-== Nombre
+== Requisito
 
 El sistema no debe permitir la autenticación exitosa de un usuario
 con credenciales expiradas, revocadas o bloqueadas.

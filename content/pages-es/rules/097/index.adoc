@@ -6,6 +6,6 @@
 
 = REQ.097 Definir modelo de control de acceso
 
-== Nombre
+== Requisito
 
 La organización debe definir un modelo de control de acceso a los sistemas.

@@ -6,7 +6,7 @@
 
 = REQ.064 Definir requisitos a comprobar
 
-== Nombre
+== Requisito
 
 Los requisitos de seguridad que serán probados
 (en pruebas de caja blanca) deben estar definidos.

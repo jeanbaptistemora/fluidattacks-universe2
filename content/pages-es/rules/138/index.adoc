@@ -6,7 +6,7 @@
 
 = REQ.138 Definir tiempo de vida contraseña temporal
 
-== Nombre
+== Requisito
 
 Las contraseñas temporales que son generadas para ingreso inicial en un sistema
 deben tener una validez máxima de 120 minutos.

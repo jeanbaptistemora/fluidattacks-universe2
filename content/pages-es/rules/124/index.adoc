@@ -6,7 +6,7 @@
 
 = REQ.124 Notificar vencimiento de contraseña
 
-== Nombre
+== Requisito
 
 El sistema debe notificar a un usuario
 el vencimiento de su contraseña

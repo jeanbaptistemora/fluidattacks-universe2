@@ -6,7 +6,7 @@
 
 = REQ.049 Los Componentes deben usar interfaces
 
-== Nombre
+== Requisito
 
 En el código fuente,
 los componentes deben utilizar interfaces en vez de implementaciones.

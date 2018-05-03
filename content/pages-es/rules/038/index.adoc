@@ -6,7 +6,7 @@
 
 = REQ.038 Referenciar archivo mediante ruta absoluta
 
-== Nombre
+== Requisito
 
 Los archivos del sistema
 deben ser referenciados mediante rutas absolutas.

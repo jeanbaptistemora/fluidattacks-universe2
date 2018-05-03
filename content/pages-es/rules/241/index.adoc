@@ -6,7 +6,7 @@
 
 = REQ.241 Definir requisitos de criterio de seguridad
 
-== Nombre
+== Requisito
 
 La organización debe definir
 los requisitos del criterio de seguridad de la información

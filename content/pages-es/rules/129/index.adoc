@@ -6,7 +6,7 @@
 
 = REQ.129 Validar contraseñas precedentes
 
-== Nombre
+== Requisito
 
 El sistema no debe permitir cambio de contraseña para un usuario,
 si la nueva contraseña

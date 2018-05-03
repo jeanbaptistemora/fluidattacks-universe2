@@ -6,7 +6,7 @@
 
 = REQ.308 Establecer clausulas de responsabilidad
 
-== Nombre
+== Requisito
 
 El contrato de un servicio
 debe contar con clausulas de responsabilidad

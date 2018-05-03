@@ -6,7 +6,7 @@
 
 = REQ.248 SSID sin palabras de diccionario
 
-== Nombre
+== Requisito
 
 El nombre del +SSID+ de la red inalámbrica
 no debe contener palabras de diccionario.

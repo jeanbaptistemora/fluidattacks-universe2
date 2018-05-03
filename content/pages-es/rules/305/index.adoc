@@ -6,7 +6,7 @@
 
 = REQ.305 Priorizar uso de tokens
 
-== Nombre
+== Requisito
 
 Los sistemas relacionados con tarjeta de crédito
 deben hacer uso de +tokenización+

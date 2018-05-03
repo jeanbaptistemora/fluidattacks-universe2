@@ -6,7 +6,7 @@
 
 = REQ.158 Codificación Actualizada
 
-== Nombre
+== Requisito
 
 La codificación del sistema
 debe estar implementada en una versión

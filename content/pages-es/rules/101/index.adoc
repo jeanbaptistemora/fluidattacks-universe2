@@ -6,7 +6,7 @@
 
 = REQ.101 Asignar carnés y tarjetas a personal
 
-== Nombre
+== Requisito
 
 La organización debe garantizar que todo el personal
 que realiza actividades al interior de las instalaciones debe estar carnetizado

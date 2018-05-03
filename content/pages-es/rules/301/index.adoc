@@ -6,7 +6,7 @@
 
 = REQ.301 Notificar cambios en configuración
 
-== Nombre
+== Requisito
 
 El sistema debe notificar al usuario
 cuando se realizan modificaciones

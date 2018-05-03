@@ -6,7 +6,7 @@
 
 = REQ.173 Descartar información insegura
 
-== Nombre
+== Requisito
 
 El sistema debe descartar toda la información
 potencialmente insegura que sea recibida por entradas de datos.

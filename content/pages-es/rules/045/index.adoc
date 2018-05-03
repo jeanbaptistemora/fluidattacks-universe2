@@ -6,7 +6,7 @@
 
 = REQ.045 Eliminar metadatos al compartir archivos
 
-== Nombre
+== Requisito
 
 Los metadatos de archivos deben ser eliminados
 antes de ser compartidos con un tercero o hacerlos públicos.

@@ -6,7 +6,7 @@
 
 = REQ.279 Configurar acceso al inicio del sistema
 
-== Nombre
+== Requisito
 
 La organización debe controlar
 que la configuración de inicialización del sistema operativo

@@ -6,7 +6,7 @@
 
 = REQ.109 Monitorear áreas restringidas
 
-== Nombre
+== Requisito
 
 Las áreas restringidas deben contar
 con mecanismos de control de acceso físico detectivos

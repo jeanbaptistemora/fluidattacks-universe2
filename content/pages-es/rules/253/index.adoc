@@ -6,7 +6,7 @@
 
 = REQ.253 Filtrar acceso a la red
 
-== Nombre
+== Requisito
 
 Las redes inalámbricas privadas
 deben filtrar el acceso por medio de credenciales

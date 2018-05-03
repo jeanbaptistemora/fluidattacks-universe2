@@ -6,7 +6,7 @@
 
 = REQ.287 Generar alerta en recursos
 
-== Nombre
+== Requisito
 
 El sistema operativo debe generar una alerta
 sobre el estado de un recurso

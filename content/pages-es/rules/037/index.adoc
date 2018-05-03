@@ -6,7 +6,7 @@
 
 = REQ.037 Parámetros sin datos sensibles.
 
-== Nombre
+== Requisito
 
 El sistema no debe incluir en parámetros
 nombres de directorios o rutas de archivos.

@@ -6,7 +6,7 @@
 
 = REQ.079 Registrar momento de ocurrencia de eventos
 
-== Nombre
+== Requisito
 
 El sistema debe registrar el momento exacto de ocurrencia
 (Fecha, hora, segundos, milisegundos, y zona horaria)

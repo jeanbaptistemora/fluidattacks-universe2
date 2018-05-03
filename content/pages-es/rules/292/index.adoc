@@ -6,7 +6,7 @@
 
 = REQ.292 Gestionar periféricos de entrada
 
-== Nombre
+== Requisito
 
 El sistema debe autorizar explícitamente
 los periféricos de entrada (teclado, +mouse+, etc).

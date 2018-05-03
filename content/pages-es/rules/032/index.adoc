@@ -6,7 +6,7 @@
 
 = REQ.032 Evitar exponer identificadores de sesión
 
-== Nombre
+== Requisito
 
 El sistema no debe exponer identificadores de sesión
 en +URLs+ y mensajes presentados al usuario.

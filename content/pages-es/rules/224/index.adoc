@@ -6,7 +6,7 @@
 
 = REQ.224 Usar mecanismos criptográficos seguros
 
-== Nombre
+== Requisito
 
 Debe usarse el mecanismo criptográfico más seguro
 ofrecido por la plataforma (ej: +java.security.SecureRandom+)

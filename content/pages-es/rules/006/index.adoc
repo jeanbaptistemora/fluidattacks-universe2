@@ -6,7 +6,7 @@
 
 = REQ.006 Identificar amenazas asociadas a activo
 
-== Nombre
+== Requisito
 
 Las amenazas asociadas a un activo de información
 deben estar identificadas y documentadas.

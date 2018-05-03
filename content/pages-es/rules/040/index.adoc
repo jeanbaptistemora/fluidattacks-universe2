@@ -6,7 +6,7 @@
 
 = REQ.040 Contrastar formato y extensión de archivos
 
-== Nombre
+== Requisito
 
 El sistema debe validar
 que el formato (estructura) de los archivos

@@ -6,7 +6,7 @@
 
 = REQ.132 Contraseñas con al menos 4 palabras
 
-== Nombre
+== Requisito
 
 Las contraseñas (tipo frase) deben tener al menos 4 palabras de longitud.
 

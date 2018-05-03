@@ -6,7 +6,7 @@
 
 = REQ.033 Restringir acceso administrativo
 
-== Nombre
+== Requisito
 
 Si el sistema posee un mecanismo de administración,
 este debe ser accesible

@@ -6,7 +6,7 @@
 
 = REQ.218 Controlar acceso a máquina virtual
 
-== Nombre
+== Requisito
 
 Si el hipervisor permite la revisión de memoria
 y registros de +CPU+ entre máquinas virtuales,

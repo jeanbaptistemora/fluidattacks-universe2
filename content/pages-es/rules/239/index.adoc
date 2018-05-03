@@ -6,7 +6,7 @@
 
 = REQ.239 Criterio de seguridad con requisitos legales
 
-== Nombre
+== Requisito
 
 El criterio de seguridad de la organización
 debe incluir los requisitos legales específicos

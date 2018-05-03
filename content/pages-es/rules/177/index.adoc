@@ -6,7 +6,7 @@
 
 = REQ.177 Almacenar datos de forma segura
 
-== Nombre
+== Requisito
 
 El sistema no debe almacenar información sensible
 en archivos temporales o en memoria caché.

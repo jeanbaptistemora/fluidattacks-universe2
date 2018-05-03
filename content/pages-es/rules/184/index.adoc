@@ -6,7 +6,7 @@
 
 = REQ.184 Distorsionar datos de aplicación
 
-== Nombre
+== Requisito
 
 Los datos deben estar distorsionados
 si la aplicación no está en foco.

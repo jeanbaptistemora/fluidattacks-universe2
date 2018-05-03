@@ -6,7 +6,7 @@
 
 = REQ.085 Permitir consultar historial de sesiones
 
-== Nombre
+== Requisito
 
 El sistema debe permitir a los usuarios autorizados
 consultar el historial de sesiones establecidas por él mismo.

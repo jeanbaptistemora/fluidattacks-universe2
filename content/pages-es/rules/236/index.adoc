@@ -6,7 +6,7 @@
 
 = REQ.236 Establecer tiempo de autenticación
 
-== Nombre
+== Requisito
 
 El proceso de autenticación
 debe tener un tiempo límite establecido de 30 segundos.

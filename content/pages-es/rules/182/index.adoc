@@ -6,7 +6,7 @@
 
 = REQ.182 Datos en ubicaciones diferentes
 
-== Nombre
+== Requisito
 
 Los datos del sistema operativo
 y los datos de negocio

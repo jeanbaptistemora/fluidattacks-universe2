@@ -6,7 +6,7 @@
 
 = REQ.039 Establecer tamaño máximo de archivos
 
-== Nombre
+== Requisito
 
 Los archivos operados en un sistema
 y los manipulados por los usuarios

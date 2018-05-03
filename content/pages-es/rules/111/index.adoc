@@ -6,7 +6,7 @@
 
 = REQ.111 Definir control físico detectivo y disuasivo
 
-== Nombre
+== Requisito
 
 La organización debe contar con controles físicos detectivos
 y disuasivos en la periferia de las instalaciones

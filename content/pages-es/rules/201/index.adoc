@@ -6,7 +6,7 @@
 
 = REQ.201 Detectar manipulación de dispositivo
 
-== Nombre
+== Requisito
 
 El dispositivo debe tener la capacidad de demostrar
 si fue manipulado o abierto de forma no autorizada.

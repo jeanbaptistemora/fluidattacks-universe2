@@ -6,7 +6,7 @@
 
 = REQ.276 Establecer rutas de sistema seguras
 
-== Nombre
+== Requisito
 
 Las rutas de carga implícita (variables de sistema como +PATH+)
 deben utilizar las rutas de mayor confianza (directorios de sistema operativo)

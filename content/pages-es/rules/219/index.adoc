@@ -6,7 +6,7 @@
 
 = REQ.219 Gestionar hipervisores mediante software
 
-== Nombre
+== Requisito
 
 El manejo de hipervisores
 en una granja de virtualización,

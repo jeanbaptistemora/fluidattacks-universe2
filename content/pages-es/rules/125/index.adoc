@@ -6,7 +6,7 @@
 
 = REQ.125 Permitir actualización de contraseña
 
-== Nombre
+== Requisito
 
 El sistema debe permitir a un usuario
 realizar un cambio de contraseña de forma autónoma

@@ -6,7 +6,7 @@
 
 = REQ.059 Identificar eventos de seguridad
 
-== Nombre
+== Requisito
 
 Los eventos de seguridad del sistema
 que deben ser monitoreados deben estar identificados.

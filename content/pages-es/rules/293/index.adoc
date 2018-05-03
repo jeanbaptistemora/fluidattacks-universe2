@@ -6,7 +6,7 @@
 
 = REQ.293 Gestionar ejecución de código en stack
 
-== Nombre
+== Requisito
 
 El sistema operativo debe usar técnicas
 para evitar ejecución de código en +stack+

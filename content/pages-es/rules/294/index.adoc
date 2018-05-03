@@ -6,7 +6,7 @@
 
 = REQ.294 Usar sólo software con licencia
 
-== Nombre
+== Requisito
 
 La organización debe garantizar que los sistemas
 no tengan instalado +software+ no licenciado o pirata.

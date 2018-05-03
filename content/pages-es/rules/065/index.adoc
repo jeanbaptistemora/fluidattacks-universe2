@@ -6,7 +6,7 @@
 
 = REQ.065 Identificar requisitos probados
 
-== Nombre
+== Requisito
 
 Los requisitos de seguridad efectivamente probados
 (en pruebas de caja blanca) deben estar identificados.

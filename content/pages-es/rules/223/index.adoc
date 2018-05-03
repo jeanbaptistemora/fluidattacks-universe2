@@ -6,7 +6,7 @@
 
 = REQ.223 Generar números con distribución uniforme
 
-== Nombre
+== Requisito
 
 Los números aleatorios generados
 deben seguir una distribución uniforme.

@@ -6,7 +6,7 @@
 
 = REQ.202 Eliminar información confidencial
 
-== Nombre
+== Requisito
 
 El dispositivo debe eliminar
 la información confidencial que contenga,

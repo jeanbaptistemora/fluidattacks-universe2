@@ -6,6 +6,6 @@
 
 = REQ.185 Información sensible cifrada
 
-== Nombre
+== Requisito
 
 La información sensible almacenada debe estar cifrada.

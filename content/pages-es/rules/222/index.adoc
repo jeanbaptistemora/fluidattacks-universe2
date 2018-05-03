@@ -6,6 +6,6 @@
 
 = REQ.222 Denegar acceso a máquina anfitriona
 
-== Nombre
+== Requisito
 
 Una máquina virtual no debe acceder a información de la máquina +host+.

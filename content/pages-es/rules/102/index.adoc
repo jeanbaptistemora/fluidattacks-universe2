@@ -6,7 +6,7 @@
 
 = REQ.102 Carné visible dentro de las instalaciones
 
-== Nombre
+== Requisito
 
 La organización debe exigir que los carné de identificación
 deben estar visibles todo el tiempo.

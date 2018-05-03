@@ -6,7 +6,7 @@
 
 = REQ.090 Utilizar certificados vigentes
 
-== Nombre
+== Requisito
 
 El sistema debe utilizar certificados digitales
 que no se encuentren vencidos.

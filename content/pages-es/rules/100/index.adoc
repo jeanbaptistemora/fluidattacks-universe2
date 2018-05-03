@@ -6,7 +6,7 @@
 
 = REQ.100 Sellar ventanas que contengan activos
 
-== Nombre
+== Requisito
 
 Las ventanas de lugares
 que contengan activos de información físicos

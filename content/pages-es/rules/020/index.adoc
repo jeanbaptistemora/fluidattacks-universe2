@@ -6,7 +6,7 @@
 
 = REQ.020 Definir penalizaciones por incumplimiento
 
-== Nombre
+== Requisito
 
 La organización debe definir penalizaciones
 para ser aplicadas por el incumplimiento

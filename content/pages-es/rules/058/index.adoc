@@ -6,7 +6,7 @@
 
 = REQ.058 Documentar eventos de seguridad
 
-== Nombre
+== Requisito
 
 Los casos de uso
 deben tener documentados los eventos de seguridad del sistema.

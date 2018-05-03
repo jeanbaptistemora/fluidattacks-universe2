@@ -6,7 +6,7 @@
 
 = REQ.213 Permitir ubicación geográfica
 
-== Nombre
+== Requisito
 
 El dispositivo móvil debe permitir su ubicación geográfica
 de forma remota en caso de pérdida.

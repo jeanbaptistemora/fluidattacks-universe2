@@ -6,7 +6,7 @@
 
 = REQ.086 Generar alarma en evento de seguridad
 
-== Nombre
+== Requisito
 
 El registro de un evento de seguridad sensible en bitácora
 debe generar una alarma.

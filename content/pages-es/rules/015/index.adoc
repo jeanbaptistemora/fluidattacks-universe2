@@ -6,7 +6,7 @@
 
 = REQ.015 Priorizar vulnerabilidades de activos
 
-== Nombre
+== Requisito
 
 Las vulnerabilidades halladas en los activos de información
 deben estar priorizadas según la criticidad de cada vulnerabilidad.

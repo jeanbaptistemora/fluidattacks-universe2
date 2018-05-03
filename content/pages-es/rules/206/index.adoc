@@ -6,7 +6,7 @@
 
 = REQ.206 Configurar protocolos de comunicación
 
-== Nombre
+== Requisito
 
 Protocolos de comunicación de los dispositivos móviles
 que permiten intercambio de datos

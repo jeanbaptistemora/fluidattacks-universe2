@@ -6,7 +6,7 @@
 
 = REQ.193 Separar datos de respaldo de su origen
 
-== Nombre
+== Requisito
 
 Los datos de respaldos deben almacenarse
 fuera del sitio origen (sedes geográficamente distantes).

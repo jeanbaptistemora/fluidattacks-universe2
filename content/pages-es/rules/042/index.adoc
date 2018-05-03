@@ -6,7 +6,7 @@
 
 = REQ.042 Validar formato de archivos
 
-== Nombre
+== Requisito
 
 El sistema sólo debe aceptar únicamente archivos
 cuyo formato (estructura) sea requerido por la operativa del negocio.

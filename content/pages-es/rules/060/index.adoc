@@ -6,7 +6,7 @@
 
 = REQ.060 Identificar componentes de ataque
 
-== Nombre
+== Requisito
 
 Los componentes de la superficie de ataque
 (puntos de entrada a los que se accede sin autenticación) deben identificarse.

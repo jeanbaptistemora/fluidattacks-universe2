@@ -6,7 +6,7 @@
 
 = REQ.075 Registrar eventos en bitácoras
 
-== Nombre
+== Requisito
 
 El sistema debe registrar todos los eventos excepcionales
 y de seguridad en bitácoras.

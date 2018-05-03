@@ -6,7 +6,7 @@
 
 = REQ.196 Determinar permiso de aplicación a recursos
 
-== Nombre
+== Requisito
 
 La organización debe determinar
 qué aplicaciones deben estar instaladas en los dispositivos foráneos

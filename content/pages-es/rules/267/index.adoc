@@ -6,7 +6,7 @@
 
 = REQ.267 Deshabilitar funciones innecesarias
 
-== Nombre
+== Requisito
 
 La organización debe deshabilitar
 las funciones innecesarias de un sistema (+hardening+ de sistemas).

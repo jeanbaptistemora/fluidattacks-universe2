@@ -6,7 +6,7 @@
 
 = REQ.104 Uniformar a operarios de la organización
 
-== Nombre
+== Requisito
 
 La organización debe exigir que todos los operarios,
 para la manipulación de activos de información físicos,

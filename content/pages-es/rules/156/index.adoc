@@ -6,6 +6,6 @@
 
 = REQ.156 Código sin información sensible
 
-== Nombre
+== Requisito
 
 El código fuente no debe contener información sensible.

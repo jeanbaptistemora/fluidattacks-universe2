@@ -6,7 +6,7 @@
 
 = REQ.208 Registrar dispositivo en la red celular
 
-== Nombre
+== Requisito
 
 Los dispositivos que se conectan a la red celular
 deben tener el +IMEI+ registrado

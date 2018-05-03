@@ -6,7 +6,7 @@
 
 = REQ.136 Forzar cambio de contraseñas temporales
 
-== Nombre
+== Requisito
 
 El sistema debe forzar el cambio de contraseñas temporales
 generadas automáticamente después de su primer uso.

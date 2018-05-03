@@ -6,6 +6,6 @@
 
 = REQ.052 Identificar componentes críticos
 
-== Nombre
+== Requisito
 
 Los componentes críticos para la seguridad deben identificarse (+TCB+).

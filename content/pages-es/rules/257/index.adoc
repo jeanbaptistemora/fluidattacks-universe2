@@ -6,7 +6,7 @@
 
 = REQ.257 Acceso basado en credenciales de usuario
 
-== Nombre
+== Requisito
 
 El acceso físico a la red para los usuarios
 debe asignarse con base en las credenciales del usuario

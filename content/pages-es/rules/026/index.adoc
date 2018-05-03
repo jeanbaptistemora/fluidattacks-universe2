@@ -6,7 +6,7 @@
 
 = REQ.026 Cifrar las sesiones en el cliente
 
-== Nombre
+== Requisito
 
 El sistema debe verificar la integridad
 y cifrar los estados de sesión que están al lado del cliente.

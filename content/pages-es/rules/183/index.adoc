@@ -6,7 +6,7 @@
 
 = REQ.183 Eliminación segura de datos
 
-== Nombre
+== Requisito
 
 El sistema debe soportar la eliminación segura de datos sensibles
 cuando estos ya no son requeridos,

@@ -6,7 +6,7 @@
 
 = REQ.286 Definir umbrales en recursos
 
-== Nombre
+== Requisito
 
 La organización debe definir umbrales del estado normal
 y anormal de cada recurso del sistema.

@@ -6,7 +6,7 @@
 
 = REQ.089 Limitar vigencia de certificados
 
-== Nombre
+== Requisito
 
 La organización no debe utilizar certificados digitales
 con una vigencia superior a un año.

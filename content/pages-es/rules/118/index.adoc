@@ -6,7 +6,7 @@
 
 = REQ.118 Inspeccionar archivos adjuntos
 
-== Nombre
+== Requisito
 
 Los archivos que se encuentran adjuntos en un correo electrónico
 deben ser analizados por una herramienta +anti-malware+.

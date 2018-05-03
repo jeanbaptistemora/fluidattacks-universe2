@@ -6,7 +6,7 @@
 
 = REQ.254 Cambiar nombre de SSID
 
-== Nombre
+== Requisito
 
 La organización debe cambiar
 el nombre por defecto de fábrica

@@ -6,7 +6,7 @@
 
 = REQ.019 Acuerdos de confiabilidad con terceros
 
-== Nombre
+== Requisito
 
 La organización debe tener un acuerdo de nivel de servicio
 de confiabilidad con todos los terceros

@@ -6,7 +6,7 @@
 
 = REQ.246 Gestionar cuentas de usuario
 
-== Nombre
+== Requisito
 
 La organización debe definir
 y documentar un procedimiento

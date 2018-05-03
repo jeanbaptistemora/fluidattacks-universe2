@@ -6,7 +6,7 @@
 
 = REQ.066 Definir componentes que puedan ser probados
 
-== Nombre
+== Requisito
 
 Los componentes que pueden ser probados
 (en pruebas de caja blanca) deben estar definidos.

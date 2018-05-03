@@ -6,7 +6,7 @@
 
 = REQ.272 Diferenciar modos de gestión
 
-== Nombre
+== Requisito
 
 El sistema debe diferenciar la gestión en modo privilegiado
 del modo no privilegiado (fondo rojo, +prompt+ rojo).

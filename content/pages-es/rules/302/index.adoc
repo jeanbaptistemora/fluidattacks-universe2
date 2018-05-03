@@ -6,7 +6,7 @@
 
 = REQ.302 Declarar explícitamente dependencias
 
-== Nombre
+== Requisito
 
 Las dependencias (software de terceros/librerías)
 deben ser declaradas explícitamente (nombre y versión)

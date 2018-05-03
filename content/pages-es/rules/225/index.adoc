@@ -6,7 +6,7 @@
 
 = REQ.225 Respuestas de autenticación adecuadas
 
-== Nombre
+== Requisito
 
 Las respuestas del sistema a los fallos de autenticación
 no deben indicar cuál parte de la autenticación fue incorrecta.

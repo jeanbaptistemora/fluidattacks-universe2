@@ -6,7 +6,7 @@
 
 = REQ.288 Denegar escritura en medios extraíbles
 
-== Nombre
+== Requisito
 
 El sistema operativo no debe permitir
 escribir información en medios extraíbles.

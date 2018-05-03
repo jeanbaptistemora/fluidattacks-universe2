@@ -6,7 +6,7 @@
 
 = REQ.027 Permitir bloqueo de sesión de usuario
 
-== Nombre
+== Requisito
 
 El sistema debe proporcionar al usuario
 la capacidad de bloquear la sesión de forma manual,

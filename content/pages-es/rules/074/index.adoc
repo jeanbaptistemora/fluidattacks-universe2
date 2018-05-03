@@ -6,6 +6,6 @@
 
 = REQ.074 Establecer redundancia en sistemas críticos
 
-== Nombre
+== Requisito
 
 Los sistemas críticos de la organización deben ser redundantes.

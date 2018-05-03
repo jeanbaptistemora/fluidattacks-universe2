@@ -6,7 +6,7 @@
 
 = REQ.083 No registrar datos sensibles en bitácoras
 
-== Nombre
+== Requisito
 
 El sistema no debe registrar información sensible
 en un evento excepcional de una bitácora.

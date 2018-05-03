@@ -6,7 +6,7 @@
 
 = REQ.068 Identificar componentes probados
 
-== Nombre
+== Requisito
 
 Los componentes efectivamente probados
 (pruebas de caja blanca) deben haber sido identificados.

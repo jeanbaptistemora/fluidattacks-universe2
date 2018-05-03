@@ -6,7 +6,7 @@
 
 = REQ.025 Controlar sesiones concurrentes
 
-== Nombre
+== Requisito
 
 Las sesiones concurrentes de un sistema se deben controlar o informar.
 

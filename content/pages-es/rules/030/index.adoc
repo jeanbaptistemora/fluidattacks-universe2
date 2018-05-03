@@ -6,7 +6,7 @@
 
 = REQ.030 Evitar reciclaje de objetos de autenticación
 
-== Nombre
+== Requisito
 
 Se debe controlar que un objeto
 (+id+ de sesión, +cookie+, etc)

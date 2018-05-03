@@ -7,7 +7,7 @@
 
 = REQ.004 Activo de información asociado a responsable
 
-== Nombre
+== Requisito
 
 Cada activo de información debe estar asociado con un responsable del activo.
 

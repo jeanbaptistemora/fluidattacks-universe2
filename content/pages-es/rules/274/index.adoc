@@ -6,7 +6,7 @@
 
 = REQ.274 Establecer alcance de un sistema
 
-== Nombre
+== Requisito
 
 Un sistema debe pertenecer únicamente a uno de los ambientes definidos
 (Desarrollo, Pruebas - +QA+, Producción).

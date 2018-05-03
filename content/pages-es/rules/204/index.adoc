@@ -6,7 +6,7 @@
 
 = REQ.204 Permitir visualización perpendicular
 
-== Nombre
+== Requisito
 
 Las pantallas expuestas al usuario
 sólo deben permitir visualización perpendicular.

@@ -6,7 +6,7 @@
 
 = REQ.303 Desplegar aplicaciones en tiendas confiables
 
-== Nombre
+== Requisito
 
 El despliegue de las aplicaciones
 debe hacerse en tiendas virtuales (+marketplace+) oficiales y confiables.

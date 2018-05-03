@@ -6,7 +6,7 @@
 
 = REQ.070 Definir pruebas de seguridad automatizadas
 
-== Nombre
+== Requisito
 
 Debe haber una batería de pruebas de seguridad automatizadas
 que se ejecute como parte del proceso de despliegue

@@ -6,7 +6,7 @@
 
 = REQ.113 Gestionar puntos de acceso
 
-== Nombre
+== Requisito
 
 Las áreas restringidas deben tener un número pequeño
 y controlable de puntos de acceso.

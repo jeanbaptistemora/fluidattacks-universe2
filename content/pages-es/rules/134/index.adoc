@@ -6,7 +6,7 @@
 
 = REQ.134 Almacenar contraseñas con Salt
 
-== Nombre
+== Requisito
 
 El sistema debe almacenar las contraseñas
 con diferentes derivaciones de clave (+Salt+).

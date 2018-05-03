@@ -6,7 +6,7 @@
 
 = REQ.300 Enmascarar datos sensibles
 
-== Nombre
+== Requisito
 
 Los datos sensibles de negocio
 (número de tarjeta de crédito, +CVV+, etc) deben estar enmascarados.

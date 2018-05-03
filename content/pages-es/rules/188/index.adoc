@@ -6,7 +6,7 @@
 
 = REQ.188 Actualizar datos personales
 
-== Nombre
+== Requisito
 
 Los datos personales deben poder ser actualizados
 por el usuario (+OECD.8+, +ISACA.G31.2.+).

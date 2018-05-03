@@ -6,7 +6,7 @@
 
 = REQ.231 Definir componente verificación biométrica
 
-== Nombre
+== Requisito
 
 Un sistema con información crítica para el negocio
 debe tener un componente para verificación biométrica

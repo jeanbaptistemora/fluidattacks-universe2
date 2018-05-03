@@ -6,7 +6,7 @@
 
 = REQ.069 Gestionar vulnerabilidades no corregidas
 
-== Nombre
+== Requisito
 
 La organización debe identificar
 y tratar los riesgos derivados de vulnerabilidades no corregidas.

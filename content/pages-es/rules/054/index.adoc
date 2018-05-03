@@ -6,7 +6,7 @@
 
 = REQ.054 Documentar dependencia entre casos de abuso
 
-== Nombre
+== Requisito
 
 Debe documentarse la relación de dependencia entre casos de abuso
 cuando ésta sea identificada.

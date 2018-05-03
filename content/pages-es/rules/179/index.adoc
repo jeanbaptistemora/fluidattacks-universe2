@@ -6,7 +6,7 @@
 
 = REQ.179 Definir frecuencia de respaldo
 
-== Nombre
+== Requisito
 
 La organización debe definir el periodo de frecuencia
 para ejecutar el respaldo a cada sistema de información.

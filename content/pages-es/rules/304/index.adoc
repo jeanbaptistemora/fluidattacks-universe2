@@ -6,7 +6,7 @@
 
 = REQ.304 Publicar aplicación con nombre oficial
 
-== Nombre
+== Requisito
 
 La publicación de las aplicaciones en las tiendas virtuales,
 debe hacerse con el nombre oficial

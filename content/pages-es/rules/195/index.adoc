@@ -6,7 +6,7 @@
 
 = REQ.195 Determinar permiso de sistema a recursos
 
-== Nombre
+== Requisito
 
 La organización debe determinar
 qué sistemas operativos de dispositivos foráneos

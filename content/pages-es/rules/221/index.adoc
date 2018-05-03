@@ -6,7 +6,7 @@
 
 = REQ.221 Desconectar periféricos innecesarios
 
-== Nombre
+== Requisito
 
 Una máquina virtual no debe tener conectados dispositivos
 que no sean necesarios para su funcionamiento

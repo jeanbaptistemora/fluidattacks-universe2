@@ -6,7 +6,7 @@
 
 = REQ.107 Realizar requisas continuas
 
-== Nombre
+== Requisito
 
 La organización debe exigir una requisa manual
 a cada uno de los empleados

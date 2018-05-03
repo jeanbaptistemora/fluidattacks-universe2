@@ -6,7 +6,7 @@
 
 = REQ.122 Validar propietario de correo
 
-== Nombre
+== Requisito
 
 El sistema debe garantizar que el correo electrónico declarado
 realmente pertenece a la persona en cuestión.

@@ -6,6 +6,6 @@
 
 = REQ.140 Establecer tiempo de vida de clave
 
-== Nombre
+== Requisito
 
 Las claves de un sólo uso deben tener un validez máxima de 60 segundos.

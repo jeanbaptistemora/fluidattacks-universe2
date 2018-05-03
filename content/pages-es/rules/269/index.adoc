@@ -6,7 +6,7 @@
 
 = REQ.269 Usar principio mínimo privilegio
 
-== Nombre
+== Requisito
 
 Los privilegios para objetos nuevos
 deben establecerse según el principio de mínimo privilegio (+umask+).

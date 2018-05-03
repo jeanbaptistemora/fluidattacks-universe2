@@ -6,7 +6,7 @@
 
 = REQ.228 Autentificar mediante protocolos estándar
 
-== Nombre
+== Requisito
 
 El Proceso de Autenticación unificado
 (+SSO: Single Sign On+) debe implementarse

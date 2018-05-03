@@ -6,7 +6,7 @@
 
 = REQ.057 Relacionar casos de abuso
 
-== Nombre
+== Requisito
 
 Cada caso de abuso debe estar relacionado
 al menos con un caso de uso.

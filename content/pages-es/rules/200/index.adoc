@@ -6,7 +6,7 @@
 
 = REQ.200 LLevar un registro de máquinas
 
-== Nombre
+== Requisito
 
 La organización debe llevar registro
 de las máquinas foráneas ingresadas y retiradas.

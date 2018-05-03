@@ -6,7 +6,7 @@
 
 = REQ.265 Restringir acceso a procesos críticos
 
-== Nombre
+== Requisito
 
 El sistema debe restringir el acceso a funciones del sistema
 que ejecutan procesos críticos de negocio.

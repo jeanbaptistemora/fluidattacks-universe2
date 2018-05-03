@@ -6,7 +6,7 @@
 
 = REQ.242 Realizar soporte fuera de producción
 
-== Nombre
+== Requisito
 
 El soporte a las aplicaciones o sistemas debe realizarse
 sólo en ambientes diferentes a producción

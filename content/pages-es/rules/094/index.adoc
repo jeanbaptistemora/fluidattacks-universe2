@@ -6,7 +6,7 @@
 
 = REQ.094 Especificar reglas de modo declarativo
 
-== Nombre
+== Requisito
 
 Debe preferirse especificar las reglas
 para control de acceso de modo declarativo

@@ -6,6 +6,6 @@
 
 = REQ.155 Aplicación libre de código malicioso
 
-== Nombre
+== Requisito
 
 El código de la aplicación debe estar libre de código malicioso.

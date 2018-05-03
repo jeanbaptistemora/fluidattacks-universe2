@@ -6,7 +6,7 @@
 
 = REQ.289 Asegurar medios e imágenes del sistema
 
-== Nombre
+== Requisito
 
 Los medios de instalación e imágenes pre-configuradas de sistemas operativos
 deben estar en un lugar físicamente seguro.

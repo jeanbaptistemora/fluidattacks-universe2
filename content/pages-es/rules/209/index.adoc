@@ -6,7 +6,7 @@
 
 = REQ.209 Gestionar contraseña en caché
 
-== Nombre
+== Requisito
 
 Aplicaciones que se autentiquen fuera de línea,
 sólo deben almacenar una contraseña en el caché de autenticación.

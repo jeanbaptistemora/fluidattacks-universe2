@@ -6,7 +6,7 @@
 
 = REQ.258 Filtrar el contenido de sitios web
 
-== Nombre
+== Requisito
 
 La organización debe filtrar el contenido de sitios +web+
 accedidos desde una ubicación perteneciente

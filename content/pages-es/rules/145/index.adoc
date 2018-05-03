@@ -6,7 +6,7 @@
 
 = REQ.145 Proteger llaves del sistema
 
-== Nombre
+== Requisito
 
 Las llaves asimétricas privadas o simétricas del sistema deben estar protegidas
 y no deben ser expuestas.

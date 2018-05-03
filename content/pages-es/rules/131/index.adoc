@@ -6,6 +6,6 @@
 
 = REQ.131 Impedir cambiar contraseña mas de una vez
 
-== Nombre
+== Requisito
 
 La contraseña no debe poder cambiarse mas de una vez en un mismo día.

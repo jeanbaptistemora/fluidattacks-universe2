@@ -6,7 +6,7 @@
 
 = REQ.168 Variables inicializadas explícitamente
 
-== Nombre
+== Requisito
 
 Las variables del código fuente
 deben estar inicializadas de forma explícita.

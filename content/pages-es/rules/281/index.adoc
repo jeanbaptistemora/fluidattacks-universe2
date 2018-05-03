@@ -6,7 +6,7 @@
 
 = REQ.281 Configurar acceso a variables de entorno
 
-== Nombre
+== Requisito
 
 Las variables de entorno del sistema operativo
 sólo pueden ser modificables por el administrador del sistema.

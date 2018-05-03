@@ -6,7 +6,7 @@
 
 = REQ.082 Gestión de bitácoras
 
-== Nombre
+== Requisito
 
 La gestión de bitácoras debe realizarse por el sistema operativo
 o un sistema externo a la aplicación.

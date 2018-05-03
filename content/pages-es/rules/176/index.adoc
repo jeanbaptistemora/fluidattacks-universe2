@@ -6,7 +6,7 @@
 
 = REQ.176 Restringir objetos del sistema
 
-== Nombre
+== Requisito
 
 El sistema debe restringir el acceso a objetos del sistema
 que tengan contenido sensible.

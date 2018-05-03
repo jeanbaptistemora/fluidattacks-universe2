@@ -6,7 +6,7 @@
 
 = REQ.123 Restringir lectura de correos
 
-== Nombre
+== Requisito
 
 El sistema debe garantizar
 que la visualización de correos electrónicos expuestos

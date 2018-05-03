@@ -6,7 +6,7 @@
 
 = REQ.110 Prevenir robos a la organización
 
-== Nombre
+== Requisito
 
 Las áreas restringidas deben contar
 con mecanismos de control de acceso físico preventivos

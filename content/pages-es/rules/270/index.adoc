@@ -6,7 +6,7 @@
 
 = REQ.270 Emplear usuarios con privilegios
 
-== Nombre
+== Requisito
 
 La gestión administrativa del sistema
 debe realizarse a través de usuarios con privilegios de administración

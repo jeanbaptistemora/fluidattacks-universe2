@@ -6,6 +6,6 @@
 
 = REQ.296 Establecer alarmas de intrusión física
 
-== Nombre
+== Requisito
 
 La organización debe contar con sistema de alarmas de intrusión física.

@@ -6,7 +6,7 @@
 
 = REQ.280 Configurar directorio de proceso de servicio
 
-== Nombre
+== Requisito
 
 El proceso del servicio
 debe tener como raíz

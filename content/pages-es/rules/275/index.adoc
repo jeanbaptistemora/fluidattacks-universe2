@@ -6,7 +6,7 @@
 
 = REQ.275 Establecer inicio por defecto
 
-== Nombre
+== Requisito
 
 Las máquinas deben iniciar por defecto directamente por el disco duro.
 Si se requiere inicio por otro medio (+CD+, +USB+, +Red+)

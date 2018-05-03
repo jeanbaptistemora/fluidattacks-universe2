@@ -6,7 +6,7 @@
 
 = REQ.023 Cerrar sesión de un usuario inactivo
 
-== Nombre
+== Requisito
 
 El sistema debe cerrar una sesión
 si se presenta un tiempo de inactividad por parte del usuario,

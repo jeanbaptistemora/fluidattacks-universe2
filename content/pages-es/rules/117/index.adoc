@@ -6,7 +6,7 @@
 
 = REQ.117 No interpretar código HTML
 
-== Nombre
+== Requisito
 
 El cliente de correo electrónico corporativo
 no debe interpretar código +HTML+ por defecto.

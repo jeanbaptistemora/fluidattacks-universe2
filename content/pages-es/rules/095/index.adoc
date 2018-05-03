@@ -6,7 +6,7 @@
 
 = REQ.095 Definir usuarios con privilegios
 
-== Nombre
+== Requisito
 
 Los usuarios que accederán al sistema con cuentas de administrador
 o super administrador deben estar definidos.

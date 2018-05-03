@@ -6,7 +6,7 @@
 
 = REQ.309 Establecer requisitos contractuales
 
-== Nombre
+== Requisito
 
 Los desarrollos que se realicen a través de terceros
 deben estar amparados por requisitos contractuales

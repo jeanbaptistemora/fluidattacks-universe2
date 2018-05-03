@@ -6,7 +6,7 @@
 
 = REQ.238 Establecer restablecimiento seguro
 
-== Nombre
+== Requisito
 
 El sistema debe garantizar
 que la persona que realiza el proceso de restablecimiento de contraseña

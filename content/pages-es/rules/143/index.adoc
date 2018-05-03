@@ -6,6 +6,6 @@
 
 = REQ.143 Credenciales de acceso únicas
 
-== Nombre
+== Requisito
 
 Las credenciales de acceso al sistema deben ser únicas para cada actor.

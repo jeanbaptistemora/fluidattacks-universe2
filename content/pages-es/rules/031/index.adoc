@@ -6,7 +6,7 @@
 
 = REQ.031 Descartar datos de sesión del usuario
 
-== Nombre
+== Requisito
 
 Al cerrarse la sesión de un usuario (automática o manual)
 se debe descartar los datos relacionados con la sesión del usuario.

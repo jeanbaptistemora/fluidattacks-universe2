@@ -6,7 +6,7 @@
 
 = REQ.216 Eliminar objetos de red en desuso
 
-== Nombre
+== Requisito
 
 Los objetos de red que no sean usados
 deben ser eliminados de la configuración de los equipos de +firewall+.

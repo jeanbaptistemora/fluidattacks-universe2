@@ -6,7 +6,7 @@
 
 = REQ.240 Automatizar revisión de código fuente
 
-== Nombre
+== Requisito
 
 La organización debe realizar revisiones de seguridad del código fuente
 a través de herramientas automatizadas.

@@ -6,6 +6,6 @@
 
 = REQ.146 Establecer tiempo a las llaves
 
-== Nombre
+== Requisito
 
 Las llaves criptográficas deben permanecer en +RAM+ máximo 5 segundos.

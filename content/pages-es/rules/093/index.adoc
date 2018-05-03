@@ -6,7 +6,7 @@
 
 = REQ.093 Utilizar certificados coherentes
 
-== Nombre
+== Requisito
 
 Debe utilizarse certificados con una identificación
 coherente con la organización (servicio, servidor, entre otros)

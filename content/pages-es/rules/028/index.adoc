@@ -6,7 +6,7 @@
 
 = REQ.028 Permitir finalizar sesión de usuario
 
-== Nombre
+== Requisito
 
 El sistema debe permitir al usuario
 terminar la sesión de forma manual,

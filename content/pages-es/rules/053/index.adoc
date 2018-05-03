@@ -6,7 +6,7 @@
 
 = REQ.053 Gestionar casos de abuso del sistema
 
-== Nombre
+== Requisito
 
 La organización debe identificar
 y documentar los casos de abuso que se relacionan con el sistema.

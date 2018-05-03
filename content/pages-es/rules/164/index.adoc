@@ -6,7 +6,7 @@
 
 = REQ.164 Utilizar estructuras optimizadas
 
-== Nombre
+== Requisito
 
 El código debe utilizar contenedores o estructuras de datos optimizadas.
 

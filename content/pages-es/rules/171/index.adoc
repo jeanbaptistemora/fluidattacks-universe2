@@ -6,6 +6,6 @@
 
 = REQ.171 Remover comentarios en producción
 
-== Nombre
+== Requisito
 
 Los comentarios del código fuente en ambiente de producción deben ser removidos.

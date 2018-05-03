@@ -6,7 +6,7 @@
 
 = REQ.226 Evitar bloquear cuenta de usuario
 
-== Nombre
+== Requisito
 
 El sistema nunca debe bloquear una cuenta de un usuario
 ante uno o varios intentos fallidos de autenticación.

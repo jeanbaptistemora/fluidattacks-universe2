@@ -6,7 +6,7 @@
 
 = REQ.249 Ubicar puntos de acceso
 
-== Nombre
+== Requisito
 
 Los puntos de acceso a la red
 deben estar ubicados en lugares que permitan que la señal se propague

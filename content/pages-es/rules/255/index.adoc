@@ -6,7 +6,7 @@
 
 = REQ.255 Permitir acceso sólo en puertos necesarios
 
-== Nombre
+== Requisito
 
 Los segmentos de usuarios
 y servidores con aplicaciones o contenido

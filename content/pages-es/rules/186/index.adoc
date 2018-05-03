@@ -6,7 +6,7 @@
 
 = REQ.186 Utilizar el mínimo nivel de privilegios
 
-== Nombre
+== Requisito
 
 El sistema debe utilizar el mínimo nivel de privilegios
 cuando accede a otro sistema o a bases de datos.

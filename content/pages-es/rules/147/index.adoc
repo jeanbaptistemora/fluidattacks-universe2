@@ -6,7 +6,7 @@
 
 = REQ.147 Utilizar mecanismos pre-existentes
 
-== Nombre
+== Requisito
 
 Las funciones de criptografía del sistema
 deben ser implementadas con mecanismos criptográficos

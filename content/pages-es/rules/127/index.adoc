@@ -6,7 +6,7 @@
 
 = REQ.127 Almacenar contraseña mediante criptografía
 
-== Nombre
+== Requisito
 
 Las contraseñas deben almacenarse
 a través de resúmenes criptográficos.

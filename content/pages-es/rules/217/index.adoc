@@ -6,7 +6,7 @@
 
 = REQ.217 Eliminar reglas desactivadas del firewall
 
-== Nombre
+== Requisito
 
 Las reglas desactivadas no deben permanecer
 en la configuración del equipo de +firewall+.

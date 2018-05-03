@@ -6,7 +6,7 @@
 
 = REQ.278 Establecer acceso seguro a la BIOS
 
-== Nombre
+== Requisito
 
 La organización debe controlar que la configuración del +BIOS+ en las máquinas
 sólo pueda pueda ser accesible por personal autorizado.

@@ -6,7 +6,7 @@
 
 = REQ.128 Establecer única fuente de datos
 
-== Nombre
+== Requisito
 
 Las contraseñas deben estar almacenadas
 en una fuente de datos única.

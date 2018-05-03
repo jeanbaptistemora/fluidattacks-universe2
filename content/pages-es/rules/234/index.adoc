@@ -6,7 +6,7 @@
 
 = REQ.234 Custodiar credenciales de autenticación
 
-== Nombre
+== Requisito
 
 Las credenciales para la autenticación
 a un sistema con información crítica para el negocio

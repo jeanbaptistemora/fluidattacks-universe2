@@ -6,7 +6,7 @@
 
 = REQ.175 Proteger página de clickjacking
 
-== Nombre
+== Requisito
 
 Una página +Web+ debe protegerse
 de ser embebida en sitios maliciosos (+clickjacking+).

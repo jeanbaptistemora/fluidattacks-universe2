@@ -6,7 +6,7 @@
 
 = REQ.141 Forzar proceso de autenticación
 
-== Nombre
+== Requisito
 
 El sistema debe forzar a un usuario
 a realizar nuevamente el proceso de autenticación

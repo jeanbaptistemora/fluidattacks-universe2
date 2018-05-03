@@ -6,7 +6,7 @@
 
 = REQ.282 Deshabilitar ejecución automática
 
-== Nombre
+== Requisito
 
 Las funcionalidades de ejecución automática de aplicaciones
 en medios removibles debe estar deshabilitada (Deshabilitar +autorun+).

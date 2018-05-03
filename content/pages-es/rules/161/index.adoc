@@ -6,7 +6,7 @@
 
 = REQ.161 Opciones por defecto seguras
 
-== Nombre
+== Requisito
 
 El código debe definir opciones por defecto seguras
 que garanticen fallos seguros en la aplicación.

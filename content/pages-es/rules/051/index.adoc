@@ -6,6 +6,6 @@
 
 = REQ.051 Almacenar código fuente en repositorio
 
-== Nombre
+== Requisito
 
 El código fuente debe estar almacenado en un repositorio central.

@@ -6,6 +6,6 @@
 
 = REQ.144 Depurar cuentas periódicamente
 
-== Nombre
+== Requisito
 
 La organización debe depurar las cuentas de usuario de forma periódica.

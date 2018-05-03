@@ -6,7 +6,7 @@
 
 = REQ.126 Establecer mecanismo de restauración
 
-== Nombre
+== Requisito
 
 El sistema debe poseer un mecanismo
 para que un usuario pueda recordar

@@ -6,7 +6,7 @@
 
 = REQ.291 Establecer hora oficial en equipos
 
-== Nombre
+== Requisito
 
 El tiempo de los sistemas
 y equipos de la organización

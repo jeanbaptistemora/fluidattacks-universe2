@@ -6,7 +6,7 @@
 
 = REQ.008 Generar modelo de amenazas del sistema
 
-== Nombre
+== Requisito
 
 La organización debe generar un modelo de amenazas para el sistema,
 donde se identifiquen las posibles amenazas

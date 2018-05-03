@@ -6,7 +6,7 @@
 
 = REQ.235 Definir interfaz de credenciales
 
-== Nombre
+== Requisito
 
 El proceso de autenticación
 debe disponer de una interfaz separada

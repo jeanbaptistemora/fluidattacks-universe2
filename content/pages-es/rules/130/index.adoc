@@ -6,6 +6,6 @@
 
 = REQ.130 Limitar tiempo de vida en contraseñas
 
-== Nombre
+== Requisito
 
 Las contraseñas deben tener una validez máxima de 30 días.

@@ -6,7 +6,7 @@
 
 = REQ.299 Garantizar sistema de extinción seguro
 
-== Nombre
+== Requisito
 
 La organización debe garantizar que el sistema de extinción de incendios
 debe ser basado en gases inertes

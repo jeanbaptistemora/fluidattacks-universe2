@@ -6,7 +6,7 @@
 
 = REQ.137 Cambiar contraseñas temporales de terceros
 
-== Nombre
+== Requisito
 
 El sistema debe forzar el cambio de contraseñas temporales
 generadas por un tercero después de su primer uso.

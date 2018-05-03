@@ -6,7 +6,7 @@
 
 = REQ.071 Incluir vulnerabilidades en pruebas
 
-== Nombre
+== Requisito
 
 Cada vulnerabilidad detectada debe entrar
 en la batería de pruebas automatizadas

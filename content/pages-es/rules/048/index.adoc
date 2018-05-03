@@ -6,7 +6,7 @@
 
 = REQ.048 Componentes con mínimo de dependencias
 
-== Nombre
+== Requisito
 
 En el código fuente,
 un componente debe poseer el menor número de dependencias posible.

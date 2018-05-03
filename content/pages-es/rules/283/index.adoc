@@ -6,7 +6,7 @@
 
 = REQ.283 Deshabilitar accesos en usuarios genéricos
 
-== Nombre
+== Requisito
 
 Se debe deshabilitar el acceso directo
 con usuarios genéricos administrativos

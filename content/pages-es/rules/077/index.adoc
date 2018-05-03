@@ -6,7 +6,7 @@
 
 = REQ.077 No revelar detalles del sistema interno
 
-== Nombre
+== Requisito
 
 La aplicación no debe revelar detalles del sistema interno
 como +stack traces+, fragmentos de sentencias +SQL+

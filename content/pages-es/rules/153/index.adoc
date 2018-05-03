@@ -6,6 +6,6 @@
 
 = REQ.153 Transacciones fuera de banda
 
-== Nombre
+== Requisito
 
 La transacción debe confirmarse fuera de banda (+SMS+, correo, entre otros).

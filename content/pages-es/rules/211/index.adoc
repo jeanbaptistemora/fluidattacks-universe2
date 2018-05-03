@@ -6,7 +6,7 @@
 
 = REQ.211 Establecer políticas de seguridad
 
-== Nombre
+== Requisito
 
 Los dispositivos móviles deben estar restringidos
 y limitados de forma centralizada

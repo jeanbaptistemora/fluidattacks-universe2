@@ -6,7 +6,7 @@
 
 = REQ.207 Cifrar particiones de discos
 
-== Nombre
+== Requisito
 
 En dispositivos portátiles y móviles,
 el sistema debe permitir el cifrado de discos

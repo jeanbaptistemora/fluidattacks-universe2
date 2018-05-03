@@ -6,6 +6,6 @@
 
 = REQ.152 Reutilizar conexiones a bases de datos
 
-== Nombre
+== Requisito
 
 El sistema debe reutilizar las conexiones a la base de datos.

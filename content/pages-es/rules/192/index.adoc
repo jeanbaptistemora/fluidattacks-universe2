@@ -6,6 +6,6 @@
 
 = REQ.192 Cifrar datos de respaldo
 
-== Nombre
+== Requisito
 
 Los datos de respaldos deben almacenarse cifrados.

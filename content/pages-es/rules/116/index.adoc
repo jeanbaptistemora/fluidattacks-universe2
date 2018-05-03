@@ -6,7 +6,7 @@
 
 = REQ.116 Desactivar imágenes de origen desconocido
 
-== Nombre
+== Requisito
 
 El cliente de correo electrónico corporativo
 no debe mostrar de forma predeterminada

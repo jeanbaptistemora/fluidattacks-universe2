@@ -6,7 +6,7 @@
 
 = REQ.181 Transmitir por medio de protocolos seguros
 
-== Nombre
+== Requisito
 
 La transmisión de información sensible
 o la ejecución de funciones sensibles

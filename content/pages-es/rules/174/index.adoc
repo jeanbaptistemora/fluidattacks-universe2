@@ -6,7 +6,7 @@
 
 = REQ.174 Transacciones sin patrón discernible
 
-== Nombre
+== Requisito
 
 La aplicación debe garantizar que las peticiones que ejecuten transacciones
 no sigan un patrón discernible.

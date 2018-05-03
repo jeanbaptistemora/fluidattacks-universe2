@@ -6,7 +6,7 @@
 
 = REQ.115 Filtrar correos maliciosos
 
-== Nombre
+== Requisito
 
 Los correos electrónicos de entradas
 y salida deben pasar por un filtro +anti-spam+.

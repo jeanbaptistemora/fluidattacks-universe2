@@ -6,7 +6,7 @@
 
 = REQ.120 Centralizar correos electrónicos
 
-== Nombre
+== Requisito
 
 Todos los correos electrónicos
 deben archivarse en un lugar central.
