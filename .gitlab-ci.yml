@@ -61,6 +61,8 @@ test_terraform:
    stage: test
    before_script:
       - mkdir infrastructure/vars && echo $AWS_VARS > infrastructure/vars/aws.tfvars
+      - echo acc_key = \"$AWS_ACCESS_KEY_ID\" >> infrastructure/vars/aws.tfvars
+      - echo sec_key = \"$AWS_SECRET_ACCESS_KEY\" >> infrastructure/vars/aws.tfvars
       - echo "$FI_SSH_KEY" | base64 -d > infrastructure/vars/FLUID_Serves.pem
       - echo $SSO_XML > infrastructure/vars/SSO.xml
       - echo $SSO_FINANCE_XML > infrastructure/vars/SSOFinance.xml
@@ -111,6 +113,8 @@ deploy_terraform:
     stage: deploy
     before_script:
         - mkdir infrastructure/vars && echo $AWS_VARS > infrastructure/vars/aws.tfvars
+        - echo acc_key = \"$AWS_ACCESS_KEY_ID\" >> infrastructure/vars/aws.tfvars
+        - echo sec_key = \"$AWS_SECRET_ACCESS_KEY\" >> infrastructure/vars/aws.tfvars
         - echo "$FI_SSH_KEY" | base64 -d > infrastructure/vars/FLUID_Serves.pem
         - echo $SSO_XML > infrastructure/vars/SSO.xml
         - echo $SSO_FINANCE_XML > infrastructure/vars/SSOFinance.xml
@@ -134,6 +138,8 @@ install_alg:
     stage: install
     before_script:
         - mkdir infrastructure/vars && echo $AWS_VARS > infrastructure/vars/aws.tfvars
+        - echo acc_key = \"$AWS_ACCESS_KEY_ID\" >> infrastructure/vars/aws.tfvars
+        - echo sec_key = \"$AWS_SECRET_ACCESS_KEY\" >> infrastructure/vars/aws.tfvars
         - aws s3 cp $S3_BUCKET/terraform/terraform.tfstate infrastructure/terraform.tfstate
         - echo "$FI_SSH_KEY" | base64 -d > infrastructure/vars/FLUID_Serves.pem
         - echo $SSO_XML > infrastructure/vars/SSO.xml
@@ -155,6 +161,8 @@ install_exams:
     stage: install
     before_script:
         - mkdir infrastructure/vars && echo $AWS_VARS > infrastructure/vars/aws.tfvars
+        - echo acc_key = \"$AWS_ACCESS_KEY_ID\" >> infrastructure/vars/aws.tfvars
+        - echo sec_key = \"$AWS_SECRET_ACCESS_KEY\" >> infrastructure/vars/aws.tfvars
         - aws s3 cp $S3_BUCKET/terraform/terraform.tfstate infrastructure/terraform.tfstate
         - echo "$FI_SSH_KEY" | base64 -d > infrastructure/vars/FLUID_Serves.pem
         - echo $SSO_XML > infrastructure/vars/SSO.xml
@@ -176,6 +184,8 @@ install_vpn:
     stage: install
     before_script:
         - mkdir infrastructure/vars && echo $AWS_VARS > infrastructure/vars/aws.tfvars
+        - echo acc_key = \"$AWS_ACCESS_KEY_ID\" >> infrastructure/vars/aws.tfvars
+        - echo sec_key = \"$AWS_SECRET_ACCESS_KEY\" >> infrastructure/vars/aws.tfvars
         - aws s3 cp $S3_BUCKET/terraform/terraform.tfstate infrastructure/terraform.tfstate
         - echo "$FI_SSH_KEY" | base64 -d > infrastructure/vars/FLUID_Serves.pem
         - echo $SSO_XML > infrastructure/vars/SSO.xml
@@ -197,6 +207,8 @@ change_dns:
     stage: dns
     before_script:
         - mkdir infrastructure/vars && echo $AWS_VARS > infrastructure/vars/aws.tfvars
+        - echo acc_key = \"$AWS_ACCESS_KEY_ID\" >> infrastructure/vars/aws.tfvars
+        - echo sec_key = \"$AWS_SECRET_ACCESS_KEY\" >> infrastructure/vars/aws.tfvars
         - cp infrastructure/vars/aws.tfvars infrastructure/dns
         - aws s3 cp $S3_BUCKET/terraform/terraform.tfstate infrastructure/terraform.tfstate
         - aws s3 cp $S3_BUCKET/terraform/dns/terraform.tfstate infrastructure/dns/terraform.tfstate || echo ""
