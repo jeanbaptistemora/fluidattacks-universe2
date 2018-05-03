@@ -341,6 +341,20 @@ integrates.controller(
             }
           }
           $scope.rows = data;
+          let severity = 0;
+          data.forEach((cont) => {
+            try {
+              if (cont.tipo_hallazgo === "Seguridad") {
+                const BaseScore = projectFtry.calCCssv2(cont)[0];
+                severity += BaseScore * parseFloat(cont.cardinalidad_total);
+              }
+            }
+            catch (err) {
+              Rollbar.error("Error: An error ocurred calculating " +
+                            "cardinality", err);
+            }
+          });
+          $scope.totalSeverity = severity.toFixed(0);
           $scope.closeModalAvance = function closeModalAvance () {
             $uibModalInstance.close();
             $timeout(() => {
