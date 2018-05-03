@@ -17,7 +17,7 @@ codequality:
   script:
     - docker pull codeclimate/codeclimate
     - docker run --env CODECLIMATE_CODE="$PWD" --volume "$PWD":/code --volume /var/run/docker.sock:/var/run/docker.sock --volume /tmp/cc:/tmp/cc codeclimate/codeclimate analyze -e sonar-python -e pep8 -e randon -f json > codeclimate.json || true
-  retry: 3
+  retry: 2
   artifacts:
     paths: [codeclimate.json]
 
@@ -37,7 +37,7 @@ Build:
         - docker push registry.gitlab.com/fluidsignal/integrates:deps
         - grep ^DEBUG fluidintegrates/settings.py | grep -q False
         - docker logout "$CI_REGISTRY"
-    retry: 3
+    retry: 2
     except:
     - triggers
 
@@ -49,7 +49,7 @@ build-integrates:
           cd deploy/containers/integrates && sh build.sh "$CI_COMMIT_REF_NAME" "$FI_GITLAB_LOGIN" "$FI_GITLAB_PASSWORD" "$FI_DRIVE_AUTHORIZATION" "$FI_DOCUMENTROOT" "$FI_SSL_CERT" "$FI_SSL_KEY" "$FI_DRIVE_AUTHORIZATION_CLIENT"
         - docker push "registry.gitlab.com/fluidsignal/integrates:$CI_COMMIT_REF_NAME"
         - docker logout "$CI_REGISTRY"
-    retry: 3
+    retry: 2
     except:
     - triggers
 
@@ -61,7 +61,7 @@ build-bot:
           cd deploy/containers/bot && sh build.sh "$CI_COMMIT_REF_NAME" "$FI_GITLAB_LOGIN" "$FI_GITLAB_PASSWORD" "$FI_DRIVE_AUTHORIZATION" "$FI_DOCUMENTROOT" "$FI_SSL_CERT" "$FI_SSL_KEY" "$FI_DRIVE_AUTHORIZATION_CLIENT"
         - docker push "registry.gitlab.com/fluidsignal/integrates/bot:$CI_COMMIT_REF_NAME"
         - docker logout "$CI_REGISTRY"
-    retry: 3
+    retry: 2
     except:
     - triggers
 
@@ -70,7 +70,7 @@ review-integrates:
   image: lwolf/kubectl_deployer
   script:
     - ./review-apps/cluster-config.sh
-  retry: 3
+  retry: 2
   environment:
     name: "review/$CI_COMMIT_REF_SLUG"
     url: "https://$CI_COMMIT_REF_SLUG.$CI_PROJECT_NAME.$ENV_DNS"
@@ -93,7 +93,7 @@ stop-review:
     - kubectl get ingress "ingress-$CI_PROJECT_NAME" -o yaml | sed '/host:\ '"$CI_COMMIT_REF_SLUG"'/,+5d' | sed '/-\ '"$CI_COMMIT_REF_SLUG"'/d' > current-ingress.yaml
     - kubectl delete ingress "ingress-$CI_PROJECT_NAME"
     - if kubectl get deployments | grep 'review-*'; then kubectl create -f current-ingress.yaml; fi
-  retry: 3
+  retry: 2
   after_script:
     - echo "Job finished"
   when: manual
@@ -108,7 +108,7 @@ Asserts:
         - docker pull fluid-docker.jfrog.io/fluid:integrates
         - docker run -e BRANCH="$CI_COMMIT_REF_SLUG" -e ORG=fluid -e APP=integrates -e USER="$CONTINUOUS_USER" -e PASS="$CONTINUOUS_PASS" -e FA_STRICT="false" fluid-docker.jfrog.io/fluid:integrates
         - docker logout fluid-docker.jfrog.io
-    retry: 3
+    retry: 2
     except:
     - master
     - triggers
@@ -121,7 +121,7 @@ Linting:
         - docker run --env-file env.list -t "registry.gitlab.com/fluidsignal/integrates:$CI_COMMIT_REF_NAME" /bin/bash -c "npm install -g  n; n stable; node /usr/src/app/app/assets/node_modules/.bin/eslint /usr/src/app/app/assets/app/."
         - rm env.list
         - docker logout "$CI_REGISTRY"
-    retry: 3
+    retry: 2
     except:
     - master
     - triggers
@@ -135,7 +135,7 @@ Prospector:
         - docker run --env-file env.list -t "registry.gitlab.com/fluidsignal/integrates:$CI_COMMIT_REF_NAME" python /usr/src/app/manage.py test app.tests
         - rm env.list
         - docker logout "$CI_REGISTRY"
-    retry: 3
+    retry: 2
     except:
     - master
     - triggers
@@ -169,7 +169,7 @@ Deploy:
        - ssh -o StrictHostKeyChecking=no -i FLUID_Serves.pem admin@fluidattacks.com 'sudo docker pull registry.gitlab.com/fluidsignal/integrates:master && sudo docker stop integrates && sudo docker rm integrates && sudo docker run -d --env-file env.list -p 8000:443 --name=integrates registry.gitlab.com/fluidsignal/integrates:master'
        - ssh -o StrictHostKeyChecking=no -i FLUID_Serves.pem admin@fluidattacks.com 'sudo docker pull registry.gitlab.com/fluidsignal/integrates/bot:master && sudo docker stop bot && sudo docker rm bot && sudo docker run -d --env-file env.list --restart always --name=bot registry.gitlab.com/fluidsignal/integrates/bot:master && rm env.list'
        - curl https://api.rollbar.com/api/1/deploy/ -F access_token=$FI_ROLLBAR_ACCESS_TOKEN -F environment=$FI_ROLLBAR_ENVIRONMENT -F revision=$CI_COMMIT_SHA -F local_username="$CI_COMMIT_REF_NAME"
-    retry: 3
+    retry: 2
     only:
     - master
     except:
@@ -185,6 +185,6 @@ serves_trigger:
         - ssh -o StrictHostKeyChecking=no -i FLUID_Serves.pem admin@$NEW_SERVES 'sudo docker pull registry.gitlab.com/fluidsignal/integrates:master && (sudo docker stop integrates || echo "") && (sudo docker rm integrates || echo "") && sudo docker run -d --env-file env.list -p 8000:443 --name=integrates registry.gitlab.com/fluidsignal/integrates:master'
         - ssh -o StrictHostKeyChecking=no -i FLUID_Serves.pem admin@$NEW_SERVES 'sudo docker pull registry.gitlab.com/fluidsignal/integrates/bot:master && (sudo docker stop bot || echo "") && (sudo docker rm bot || echo "") && sudo docker run -d --env-file env.list --restart always --name=bot registry.gitlab.com/fluidsignal/integrates/bot:master && rm env.list'
         - curl -X POST -F token="$TRIGGER_TOKEN" -F ref=master -F "variables[IS_TRIGGER]=true" https://gitlab.com/api/v4/projects/4593051/trigger/pipeline
-    retry: 3
+    retry: 2
     only:
     - triggers
