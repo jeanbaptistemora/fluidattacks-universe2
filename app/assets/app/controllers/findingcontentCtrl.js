@@ -32,7 +32,7 @@ integrates.controller("findingcontentCtrl", function findingcontentCtrl (
   $scope, $stateParams, $timeout,
   $uibModal, $translate, $state,
   ngNotify, projectFtry, tabsFtry,
-  functionsFtry
+  functionsFtry1, functionsFtry2
 ) {
   $scope.findingHeaderBuilding = function findingHeaderBuilding () {
     $scope.header = {};
@@ -340,267 +340,16 @@ integrates.controller("findingcontentCtrl", function findingcontentCtrl (
     }, 200);
   };
   $scope.updateCSSv2 = function updateCSSv2 () {
-    // Obtener datos de las listas
-    const cssv2Data = {
-
-      "autenticacion": $scope.finding.autenticacion,
-      "complejidadAcceso": $scope.finding.complejidadAcceso,
-      "explotabilidad": $scope.finding.explotabilidad,
-      "id": $scope.finding.id,
-      "impactoConfidencialidad": $scope.finding.impactoConfidencialidad,
-      "impactoDisponibilidad": $scope.finding.impactoDisponibilidad,
-      "impactoIntegridad": $scope.finding.impactoIntegridad,
-      "nivelConfianza": $scope.finding.nivelConfianza,
-      "nivelResolucion": $scope.finding.nivelResolucion,
-      "vectorAcceso": $scope.finding.vectorAcceso
-    };
-    // Recalcular CSSV2
-    $scope.findingCalculateCSSv2();
-    cssv2Data.criticidad = $scope.finding.criticidad;
-    // Instanciar modal de confirmacion
-    const modalInstance = $uibModal.open({
-      "animation": true,
-      "backdrop": "static",
-      "controller" ($scope, $uibModalInstance, updateData) {
-        $scope.modalTitle = $translate.instant("confirmmodal.title_cssv2");
-        $scope.ok = function ok () {
-          // Consumir el servicio
-          const req = projectFtry.updateCSSv2(updateData);
-          // Capturar la Promisse
-          req.then((response) => {
-            if (!response.error) {
-              const updatedAt = $translate.instant("proj_alerts.updatedTitle");
-              const updatedAc = $translate.instant("proj_alerts.updated_cont");
-              $msg.success(updatedAc, updatedAt);
-              $uibModalInstance.close();
-              location.reload();
-            }
-            else if (response.error) {
-              const errorAc1 = $translate.instant("proj_alerts.error_textsad");
-              Rollbar.error("Error: An error occurred updating CSSv2");
-              $msg.error(errorAc1);
-            }
-          });
-        };
-        $scope.close = function close () {
-          $uibModalInstance.close();
-        };
-      },
-      "resolve": {"updateData": cssv2Data},
-      "templateUrl": `${BASE.url}assets/views/project/confirmMdl.html`
-    });
+    functionsFtry2.updateCSSv2($scope);
   };
   updateEvidencesFiles = function updateEvidencesFiles (element) {
-    let errorAc1 = " ";
-    const evImage = $(element).attr("target");
-    const dataP = {};
-    dataP.document = $(`#evidence${evImage}`).val();
-    if (dataP.document === "") {
-      errorAc1 = $translate.instant("proj_alerts.error_textsad");
-      $msg.error(errorAc1);
-      return false;
-    }
-    const data = new FormData();
-    const fileInput = $(`#evidence${evImage}`)[0];
-    data.append("id", evImage);
-    data.append("url", `${$stateParams.project.toLowerCase()}-` +
-                       `${$scope.finding.id}`);
-    data.append("findingId", $scope.finding.id);
-    data.append("document", fileInput.files[0]);
-    const fileName = fileInput.files[0].name;
-    const dots = fileName.split(".");
-    const fileType = `.${dots[dots.length - 1]}`;
-    const pngMaxSize = 2097152;
-    const gifMaxSize = 10485760;
-    const pyMaxSize = 1048576;
-    const csvMaxSize = 1048576;
-    if ((fileType === ".png" || fileType === ".PNG") &&
-         fileInput.files[0].size > pngMaxSize) {
-      errorAc1 = $translate.instant("proj_alerts.file_size_png");
-      $msg.error(errorAc1);
-      return false;
-    }
-    if ((fileType === ".gif" || fileType === ".GIF") &&
-         fileInput.files[0].size > gifMaxSize) {
-      errorAc1 = $translate.instant("proj_alerts.file_size");
-      $msg.error(errorAc1);
-      return false;
-    }
-    if ((fileType === ".py" || fileType === ".PY") &&
-         fileInput.files[0].size > pyMaxSize) {
-      errorAc1 = $translate.instant("proj_alerts.file_size_py");
-      $msg.error(errorAc1);
-      return false;
-    }
-    if ((fileType === ".csv" || fileType === ".CSV") &&
-         fileInput.files[0].size > csvMaxSize) {
-      errorAc1 = $translate.instant("proj_alerts.file_size_py");
-      $msg.error(errorAc1);
-      return false;
-    }
-    const evImages = [
-      "1",
-      "2",
-      "3",
-      "4",
-      "5",
-      "6"
-    ];
-    if (evImage === "0" && (fileType !== ".gif" && fileType !== ".GIF")) {
-      errorAc1 = $translate.instant("proj_alerts.file_type_gif");
-      $msg.error(errorAc1);
-      return false;
-    }
-    else if (evImage === "7" && (fileType !== ".py" && fileType !== ".PY")) {
-      errorAc1 = $translate.instant("proj_alerts.file_type_py");
-      $msg.error(errorAc1);
-      return false;
-    }
-    else if (evImage === "8" && (fileType !== ".csv" && fileType !== ".CSV")) {
-      errorAc1 = $translate.instant("proj_alerts.file_type_csv");
-      $msg.error(errorAc1);
-      return false;
-    }
-    else if (evImages.indexOf(evImage) !== -1 && (fileType !== ".png" &&
-             fileType !== ".PNG")) {
-      errorAc1 = $translate.instant("proj_alerts.file_type_png");
-      $msg.error(errorAc1);
-      return false;
-    }
-    const responseFunction = function responseFunction (response) {
-      if (!response.error) {
-        const updatedAt = $translate.instant("proj_alerts.updatedTitle");
-        const updatedAc = $translate.instant("proj_alerts.updated_cont_file");
-        $msg.success(updatedAc, updatedAt);
-        location.reload();
-        return true;
-      }
-      errorAc1 = $translate.instant("proj_alerts.no_file_update");
-      Rollbar.error("Error: An error occurred updating evidences");
-      $msg.error(errorAc1);
-      return false;
-    };
-    const errorFunction = function errorFunction (response) {
-      if (!response.error) {
-        errorAc1 = $translate.instant("proj_alerts.no_file_update");
-        Rollbar.error("Error: An error occurred updating evidences");
-        $msg.error(errorAc1);
-        return false;
-      }
-      return true;
-    };
-    projectFtry.updateEvidenceFiles(data, responseFunction, errorFunction);
-    return true;
+    functionsFtry2.updateEvidencesFiles(element, $scope);
   };
   updateEvidenceText = function updateEvidenceText (element) {
-    const evImage = $(element).attr("target");
-    const data = {};
-    data.id = $scope.finding.id;
-    const description = $(`#evidenceText${evImage}`).val();
-    const file = $(`#evidence${evImage}`).val();
-    if (description === "" || $scope.evidenceDescription[evImage] ===
-        description) {
-      if (file !== "") {
-        updateEvidencesFiles(element);
-      }
-      else if (file === "") {
-        return false;
-      }
-    }
-    else {
-      if (evImage === "2") {
-        data.descEvidencia1 = description;
-        data.field = "descEvidencia1";
-      }
-      if (evImage === "3") {
-        data.descEvidencia2 = description;
-        data.field = "descEvidencia2";
-      }
-      if (evImage === "4") {
-        data.descEvidencia3 = description;
-        data.field = "descEvidencia3";
-      }
-      if (evImage === "5") {
-        data.descEvidencia4 = description;
-        data.field = "descEvidencia4";
-      }
-      if (evImage === "6") {
-        data.descEvidencia5 = description;
-        data.field = "descEvidencia5";
-      }
-      const req = projectFtry.updateEvidenceText(data);
-      // Capturar la Promisse
-      req.then((response) => {
-        if (!response.error) {
-          const updatedAt = $translate.instant("proj_alerts.updatedTitle");
-          const updatedAc = $translate.instant("proj_alerts." +
-                                               "updated_cont_description");
-          $msg.success(updatedAc, updatedAt);
-          if (file !== "") {
-            updateEvidencesFiles(element);
-          }
-          else if (file === "") {
-            location.reload();
-          }
-          return true;
-        }
-        const errorAc1 = $translate.instant("proj_alerts.no_text_update");
-        Rollbar.error("Error: An error occurred updating " +
-                      "evidences description");
-        $msg.error(errorAc1);
-        return false;
-      });
-    }
-    return true;
+    functionsFtry1.updateEvidenceText(element, $scope);
   };
   $scope.deleteFinding = function deleteFinding () {
-    // Obtener datos
-    const descData = {"id": $scope.finding.id};
-    const modalInstance = $uibModal.open({
-      "animation": true,
-      "backdrop": "static",
-      "controller" (
-        $scope,
-        $uibModalInstance,
-        updateData,
-        $stateParams,
-        $state
-      ) {
-        $scope.vuln = {};
-        $scope.modalTitle = $translate.instant("confirmmodal.title_finding");
-        $scope.ok = function ok () {
-          $scope.vuln.id = updateData.id;
-          // Consumir el servicio
-          const req = projectFtry.deleteFinding($scope.vuln);
-          // Capturar la Promisse
-          req.then((response) => {
-            if (!response.error) {
-              const updatedAt = $translate.instant("proj_alerts.updatedTitle");
-              const updatedAc = $translate.instant("proj_alerts.updated_cont");
-              $msg.success(updatedAc, updatedAt);
-              $uibModalInstance.close();
-              $state.go("ProjectFindings", {"project": $stateParams.project});
-              // Tracking mixpanel
-              mixPanelDashboard.trackFinding(
-                "deleteFinding",
-                userEmail,
-                descData.id
-              );
-            }
-            else if (response.error) {
-              const errorAc1 = $translate.instant("proj_alerts.error_textsad");
-              Rollbar.error("Error: An error occurred deleting finding");
-              $msg.error(errorAc1);
-            }
-          });
-        };
-        $scope.close = function close () {
-          $uibModalInstance.close();
-        };
-      },
-      "resolve": {"updateData": descData},
-      "templateUrl": `${BASE.url}assets/views/project/deleteMdl.html`
-    });
+    functionsFtry1.deleteFinding($scope);
   };
   $scope.goUp = function goUp () {
     $("html, body").animate({"scrollTop": 0}, "fast");
@@ -672,9 +421,7 @@ integrates.controller("findingcontentCtrl", function findingcontentCtrl (
           $scope.finding = response.data;
           $scope.loadFindingContent();
           $scope.findingHeaderBuilding();
-          const remediatedInfo = functionsFtry.remediatedView($scope, userRole);
-          $scope.isRemediated = remediatedInfo[0];
-          $scope.isManager = remediatedInfo[1];
+          $scope.remediatedView();
           findingData.remediated = $scope.isRemediated;
           $scope.view.project = false;
           $scope.view.finding = true;
@@ -706,6 +453,29 @@ integrates.controller("findingcontentCtrl", function findingcontentCtrl (
           }
         }
         return true;
+      });
+    }
+  };
+  $scope.remediatedView = function remediatedView () {
+    $scope.isManager = userRole !== "customer";
+    $scope.isRemediated = true;
+    if (typeof $scope.finding.id !== "undefined") {
+      const req = projectFtry.remediatedView($scope.finding.id);
+      req.then((response) => {
+        if (!response.error) {
+          $scope.isRemediated = response.data.remediated;
+          findingData.remediated = $scope.isRemediated;
+          if ($scope.isManager && $scope.isRemediated) {
+            $(".finding-verified").show();
+          }
+          else {
+            $(".finding-verified").hide();
+          }
+        }
+        else if (response.error) {
+          Rollbar.error("Error: An error occurred when " +
+                        "remediating/verifying the finding");
+        }
       });
     }
   };
@@ -869,12 +639,9 @@ integrates.controller("findingcontentCtrl", function findingcontentCtrl (
     $scope.colors.ok = "background-color: #008000;";
   };
   $scope.findingCalculateCSSv2 = function findingCalculateCSSv2 () {
-    const calCSSv2 = projectFtry.calCCssv2($scope.finding);
-    const BaseScore = calCSSv2[0];
-    const Temporal = calCSSv2[1];
-    const CVSSGeneral = Temporal;
-    $scope.finding.cssv2base = BaseScore.toFixed(1);
-    $scope.finding.criticidad = Temporal.toFixed(1);
+    const cssv2Info = functionsFtry1.findingCalculateCSSv2($scope);
+    $scope.finding.cssv2base = cssv2Info[0];
+    $scope.finding.criticidad = cssv2Info[1];
   };
   $scope.findingDropDownList = function findingDropDownList () {
     $scope.list = {};
@@ -897,11 +664,11 @@ integrates.controller("findingcontentCtrl", function findingcontentCtrl (
     $scope.findingDropDownList();
     $scope.finding.cardinalidad = parseInt($scope.finding.cardinalidad, 10);
     $scope.finding.criticidad = parseFloat($scope.finding.criticidad);
-    $scope.findingCalculateCSSv2();
+    $scope.findingCalculateCSSv2($scope);
     if ($scope.finding.nivel === "Detallado") {
       $scope.esDetallado = "show-detallado";
       $scope.esGeneral = "hide-detallado";
-      const severityInfo = functionsFtry.findingCalculateSeveridad();
+      const severityInfo = functionsFtry1.findingCalculateSeveridad();
       $scope.finding.valorRiesgo = severityInfo[1];
     }
     else {
@@ -942,7 +709,7 @@ integrates.controller("findingcontentCtrl", function findingcontentCtrl (
     }
     if (descData.nivel === "Detallado") {
       // Recalcular Severidad
-      const severityInfo = functionsFtry.findingCalculateSeveridad();
+      const severityInfo = functionsFtry1.findingCalculateSeveridad();
       const choose = severityInfo[0];
       if (!choose) {
         Rollbar.error("Error: An error occurred calculating severity");
@@ -990,92 +757,8 @@ integrates.controller("findingcontentCtrl", function findingcontentCtrl (
     });
     return true;
   };
-  $scope.validateTreatment = function validateTreatment () {
-    const minCharacter = 30;
-    if ($scope.aux.razon === $scope.finding.razonTratamiento) {
-      $msg.error($translate.instant("proj_alerts.differ_comment"));
-      return false;
-    }
-    else if ($scope.finding.razonTratamiento === "") {
-      $msg.error($translate.instant("proj_alerts.empty_comment"));
-      return false;
-    }
-    else if ($scope.finding.razonTratamiento.length < minCharacter) {
-      $msg.error($translate.instant("proj_alerts.short_comment"));
-      return false;
-    }
-    $scope.finding.responsableTratamiento = userEmail;
-    return true;
-  };
-  $scope.updateTreatment = function updateTreatment () {
-    let flag = false;
-    if ($scope.aux.tratamiento === $scope.finding.tratamiento &&
-        $scope.aux.razon === $scope.finding.razonTratamiento &&
-        $scope.aux.bts !== $scope.finding.btsExterno) {
-      flag = true;
-    }
-    else if ($scope.validateTreatment()) {
-      flag = true;
-    }
-    if (flag === true) {
-      const newData = {
-        "bts_externo": $scope.finding.btsExterno,
-        "id": $scope.finding.id,
-        "razonTratamiento": $scope.finding.razonTratamiento,
-        "responsableTratamiento": $scope.finding.responsableTratamiento,
-        "tratamiento": $scope.finding.tratamiento
-      };
-      const modalInstance = $uibModal.open({
-        "animation": true,
-        "backdrop": "static",
-        "controller" ($scope, $uibModalInstance, updateData) {
-          $scope.modalTitle = $translate.instant("search_findings." +
-                                                 "tab_description." +
-                                                 "update_treatmodal");
-          $scope.ok = function ok () {
-            // Consumir el servicio
-            const req = projectFtry.updateTreatment(updateData);
-            // Capturar la Promisse
-            req.then((response) => {
-              if (!response.error) {
-                const org = Organization.toUpperCase();
-                const projt = $stateParams.project.toUpperCase();
-                mixPanelDashboard.trackFindingDetailed(
-                  "FindingUpdateTreatment",
-                  userName,
-                  userEmail,
-                  org,
-                  projt,
-                  newData.id
-                );
-                $msg.success(
-                  $translate.instant("proj_alerts." +
-                                           "updated_treat"),
-                  $translate.instant("proj_alerts." +
-                                                         "congratulation")
-                );
-                $uibModalInstance.close();
-                location.reload();
-              }
-              else if (response.error) {
-                Rollbar.error("Error: An error occurred updating treatment");
-                const errorAc1 = $translate.instant("proj_alerts." +
-                                                    "error_textsad");
-                $msg.error(errorAc1);
-              }
-            });
-          };
-          $scope.close = function close () {
-            $uibModalInstance.close();
-          };
-        },
-        "resolve": {"updateData": newData},
-        "templateUrl": `${BASE.url}assets/views/project/confirmMdl.html`
-      });
-    }
-  };
   $scope.findingSolved = function findingSolved () {
-    // Obtener datos
+  // Obtener datos
     const descData = {
       "findingId": $scope.finding.id,
       "findingName": $scope.finding.hallazgo,
@@ -1091,7 +774,7 @@ integrates.controller("findingcontentCtrl", function findingcontentCtrl (
       "controller" ($scope, $uibModalInstance, mailData) {
         $scope.remediatedData = {};
         $scope.modalTitle = $translate.instant("search_findings." +
-                                          "tab_description.remediated_finding");
+                                        "tab_description.remediated_finding");
         $scope.ok = function ok () {
           $scope.remediatedData.userMail = mailData.userMail;
           $scope.remediatedData.findingName = mailData.findingName;
@@ -1100,18 +783,18 @@ integrates.controller("findingcontentCtrl", function findingcontentCtrl (
           $scope.remediatedData.findingId = mailData.findingId;
           $scope.remediatedData.findingVulns = mailData.findingVulns;
           $scope.remediatedData.justification =
-                                $scope.remediatedData.justification.trim();
+                              $scope.remediatedData.justification.trim();
           if ($scope.remediatedData.justification.length < 100) {
             $msg.error($translate.instant("proj_alerts." +
-                                          "short_remediated_comment"));
+                                        "short_remediated_comment"));
           }
           else {
-            // Consumir el servicio
+          // Consumir el servicio
             const req = projectFtry.findingSolved($scope.remediatedData);
             // Capturar la Promisse
             req.then((response) => {
               if (!response.error) {
-                // Tracking mixpanel
+              // Tracking mixpanel
                 const org = Organization.toUpperCase();
                 const projt = descData.project.toUpperCase();
                 mixPanelDashboard.trackFindingDetailed(
@@ -1125,15 +808,15 @@ integrates.controller("findingcontentCtrl", function findingcontentCtrl (
                 $scope.remediated = response.data.remediated;
                 $msg.success(
                   $translate.instant("proj_alerts." +
-                                           "remediated_success"),
+                                         "remediated_success"),
                   $translate.instant("proj_alerts." +
-                                            "updatedTitle")
+                                          "updatedTitle")
                 );
                 $uibModalInstance.close();
                 location.reload();
                 const data = {};
                 data.id = parseInt(Math.round(new Date() / 1000).toString() +
-                          (Math.random() * 10000).toString(9), 10);
+                        (Math.random() * 10000).toString(9), 10);
                 data.content = $scope.remediatedData.justification;
                 data.parent = 0;
                 data.email = $scope.remediatedData.userMail;
@@ -1142,14 +825,14 @@ integrates.controller("findingcontentCtrl", function findingcontentCtrl (
                 data.findingUrl = $scope.remediatedData.findingUrl;
                 data.remediated = true;
                 const comment =
-                         projectFtry.addComment(
-                           $scope.remediatedData.findingId,
-                           data
-                         );
+                       projectFtry.addComment(
+                         $scope.remediatedData.findingId,
+                         data
+                       );
               }
               else if (response.error) {
                 Rollbar.error("Error: An error occurred when " +
-                              "remediating the finding");
+                            "remediating the finding");
                 $msg.error($translate.instant("proj_alerts.error_textsad"));
               }
             });
@@ -1164,61 +847,7 @@ integrates.controller("findingcontentCtrl", function findingcontentCtrl (
     });
   };
   $scope.findingVerified = function findingVerified () {
-    // Obtener datos
-    const currUrl = window.location.href;
-    const trackingUrl = currUrl.replace("/description", "/tracking");
-    const descData = {
-      "findingId": $scope.finding.id,
-      "findingName": $scope.finding.hallazgo,
-      "findingUrl": trackingUrl,
-      "findingVulns": $scope.finding.cardinalidad,
-      "project": $scope.finding.proyecto_fluid,
-      "userMail": userEmail
-    };
-    const modalInstance = $uibModal.open({
-      "animation": true,
-      "backdrop": "static",
-      "controller" ($scope, $uibModalInstance, mailData) {
-        $scope.modalTitle = $translate.instant("search_findings." +
-                                          "tab_description.verified_finding");
-        $scope.ok = function ok () {
-          // Consumir el servicio
-          const req = projectFtry.findingVerified(mailData);
-          // Capturar la Promisse
-          req.then((response) => {
-            if (!response.error) {
-              // Tracking mixpanel
-              const org = Organization.toUpperCase();
-              const projt = descData.project.toUpperCase();
-              mixPanelDashboard.trackFindingDetailed(
-                "findingVerified",
-                userName,
-                userEmail,
-                org,
-                projt,
-                descData.findingId
-              );
-              const updatedAt = $translate.instant("proj_alerts.updatedTitle");
-              const updatedAc = $translate.instant("proj_alerts." +
-                                                   "verified_success");
-              $msg.success(updatedAc, updatedAt);
-              $uibModalInstance.close();
-              location.reload();
-            }
-            else if (response.error) {
-              Rollbar.error("Error: An error occurred " +
-                            "when verifying the finding");
-              $msg.error($translate.instant("proj_alerts.error_textsad"));
-            }
-          });
-        };
-        $scope.close = function close () {
-          $uibModalInstance.close();
-        };
-      },
-      "resolve": {"mailData": descData},
-      "templateUrl": `${BASE.url}assets/views/project/confirmMdl.html`
-    });
+    functionsFtry1.findingVerified($scope);
   };
   $scope.goBack = function goBack () {
     $scope.view.project = true;
@@ -1291,6 +920,10 @@ integrates.controller("findingcontentCtrl", function findingcontentCtrl (
   $scope.urlEvents = function urlEvents () {
     $state.go("ProjectEvents", {"project": $stateParams.project});
   };
+  $scope.updateTreatment = function updateTreatment () {
+    functionsFtry1.updateTreatment($scope);
+  };
+
   $scope.init = function init () {
     const projectName = $stateParams.project;
     const findingId = $stateParams.finding;
