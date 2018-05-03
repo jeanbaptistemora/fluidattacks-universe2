@@ -121,7 +121,7 @@ deploy_terraform:
         - echo $SSO_XML > infrastructure/vars/SSO.xml
         - echo $SSO_FINANCE_XML > infrastructure/vars/SSOFinance.xml
         - echo sudo docker login registry.gitlab.com -u $DOCKER_USER -p $DOCKER_PASS >> infrastructure/ec2/host/script.sh
-        - aws s3 cp s3://$BUCKET_NAME//terraform/terraform.tfstate infrastructure/terraform.tfstate || echo ""
+        - aws s3 cp s3://$BUCKET_NAME/terraform/terraform.tfstate infrastructure/terraform.tfstate || echo ""
         - echo db_id = \"$DB_ID\" >> infrastructure/terraform.tfvars
         - cd infrastructure
     script:
@@ -130,7 +130,7 @@ deploy_terraform:
         - terraform output instance_ip > ip.txt
         - curl -X POST -F token=$TRIGGER_TOKEN -F ref=master -F "variables[IS_TRIGGER]=true" -F "variables[NEW_SERVES]=$(cat ip.txt)" https://gitlab.com/api/v4/projects/4620828/trigger/pipeline
     after_script:
-        - aws s3 cp infrastructure/terraform.tfstate s3://$BUCKET_NAME//terraform/terraform.tfstate
+        - aws s3 cp infrastructure/terraform.tfstate s3://$BUCKET_NAME/terraform/terraform.tfstate
     only:
     - master
     except:
@@ -143,7 +143,7 @@ install_alg:
         - echo acc_key = \"$AWS_ACCESS_KEY_ID\" >> infrastructure/vars/aws.tfvars
         - echo sec_key = \"$AWS_SECRET_ACCESS_KEY\" >> infrastructure/vars/aws.tfvars
         - echo bucket = \"$BUCKET_NAME\" >> infrastructure/terraform.tfvars
-        - aws s3 cp s3://$BUCKET_NAME//terraform/terraform.tfstate infrastructure/terraform.tfstate
+        - aws s3 cp s3://$BUCKET_NAME/terraform/terraform.tfstate infrastructure/terraform.tfstate
         - echo "$FI_SSH_KEY" | base64 -d > infrastructure/vars/FLUID_Serves.pem
         - echo $SSO_XML > infrastructure/vars/SSO.xml
         - echo $SSO_FINANCE_XML > infrastructure/vars/SSOFinance.xml
@@ -167,7 +167,7 @@ install_exams:
         - echo acc_key = \"$AWS_ACCESS_KEY_ID\" >> infrastructure/vars/aws.tfvars
         - echo sec_key = \"$AWS_SECRET_ACCESS_KEY\" >> infrastructure/vars/aws.tfvars
         - echo bucket = \"$BUCKET_NAME\" >> infrastructure/terraform.tfvars
-        - aws s3 cp s3://$BUCKET_NAME//terraform/terraform.tfstate infrastructure/terraform.tfstate
+        - aws s3 cp s3://$BUCKET_NAME/terraform/terraform.tfstate infrastructure/terraform.tfstate
         - echo "$FI_SSH_KEY" | base64 -d > infrastructure/vars/FLUID_Serves.pem
         - echo $SSO_XML > infrastructure/vars/SSO.xml
         - echo $SSO_FINANCE_XML > infrastructure/vars/SSOFinance.xml
@@ -191,7 +191,7 @@ install_vpn:
         - echo acc_key = \"$AWS_ACCESS_KEY_ID\" >> infrastructure/vars/aws.tfvars
         - echo sec_key = \"$AWS_SECRET_ACCESS_KEY\" >> infrastructure/vars/aws.tfvars
         - echo bucket = \"$BUCKET_NAME\" >> infrastructure/terraform.tfvars
-        - aws s3 cp s3://$BUCKET_NAME//terraform/terraform.tfstate infrastructure/terraform.tfstate
+        - aws s3 cp s3://$BUCKET_NAME/terraform/terraform.tfstate infrastructure/terraform.tfstate
         - echo "$FI_SSH_KEY" | base64 -d > infrastructure/vars/FLUID_Serves.pem
         - echo $SSO_XML > infrastructure/vars/SSO.xml
         - echo $SSO_FINANCE_XML > infrastructure/vars/SSOFinance.xml
@@ -216,8 +216,8 @@ change_dns:
         - echo sec_key = \"$AWS_SECRET_ACCESS_KEY\" >> infrastructure/vars/aws.tfvars
         - echo bucket = \"$BUCKET_NAME\" >> infrastructure/terraform.tfvars
         - cp infrastructure/vars/aws.tfvars infrastructure/dns
-        - aws s3 cp s3://$BUCKET_NAME//terraform/terraform.tfstate infrastructure/terraform.tfstate
-        - aws s3 cp s3://$BUCKET_NAME//terraform/dns/terraform.tfstate infrastructure/dns/terraform.tfstate || echo ""
+        - aws s3 cp s3://$BUCKET_NAME/terraform/terraform.tfstate infrastructure/terraform.tfstate
+        - aws s3 cp s3://$BUCKET_NAME/terraform/dns/terraform.tfstate infrastructure/dns/terraform.tfstate || echo ""
         - echo "$FI_SSH_KEY" | base64 -d > infrastructure/vars/FLUID_Serves.pem
         - echo $SSO_XML > infrastructure/vars/SSO.xml
         - echo $SSO_FINANCE_XML > infrastructure/vars/SSOFinance.xml
@@ -232,6 +232,6 @@ change_dns:
         - terraform init
         - terraform apply -auto-approve -var-file="aws.tfvars";
     after_script:
-        - aws s3 cp infrastructure/dns/terraform.tfstate s3://$BUCKET_NAME//terraform/dns/terraform.tfstate
+        - aws s3 cp infrastructure/dns/terraform.tfstate s3://$BUCKET_NAME/terraform/dns/terraform.tfstate
     only:
     - triggers
