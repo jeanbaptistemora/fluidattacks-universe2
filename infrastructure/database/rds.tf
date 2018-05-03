@@ -24,11 +24,6 @@ resource "aws_db_parameter_group" "default" {
   }
 }
 
-data "aws_db_snapshot" "latest_prod_snapshot" {
-  db_instance_identifier = "${var.db_id}"
-  most_recent = true
-}
-
 resource "aws_db_instance" "fluiddb" {
   apply_immediately = true
   allocated_storage    = 10
@@ -41,7 +36,7 @@ resource "aws_db_instance" "fluiddb" {
   password             = "${var.db_pass}"
   db_subnet_group_name = "${aws_db_subnet_group.default.id}"
   parameter_group_name = "${aws_db_parameter_group.default.id}"
-  snapshot_identifier = "${data.aws_db_snapshot.latest_prod_snapshot.id}"
+  snapshot_identifier = "${var.db_id}"
   skip_final_snapshot  = true
   publicly_accessible = true
   maintenance_window = "sun:05:00-sun:05:30"

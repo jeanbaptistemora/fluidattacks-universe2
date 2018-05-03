@@ -66,7 +66,7 @@ test_terraform:
       - echo bucket = \"$BUCKET_NAME\" >> infrastructure/terraform.tfvars
       - echo $SSO_XML > infrastructure/vars/SSO.xml
       - echo $SSO_FINANCE_XML > infrastructure/vars/SSOFinance.xml
-      - echo db_id = \"$DB_ID\" >> infrastructure/terraform.tfvars
+      - echo db_id = \"$SNAP_ID\" >> infrastructure/terraform.tfvars
       - aws s3 cp s3://$BUCKET_NAME/terraform/FLUID_Serves.pem infrastructure/vars/FLUID_Serves.pem || (sudo pip install boto && python infrastructure/create-key.py)
       - cd infrastructure
    script:
