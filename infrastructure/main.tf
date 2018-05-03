@@ -8,6 +8,7 @@ provider "aws" {
 # Create from scratch
 module "bucket" {
   source = "./bucket"
+  bucketName = "${var.bucket}"
 }
 
 # Create from scratch

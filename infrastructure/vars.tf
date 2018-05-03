@@ -5,6 +5,9 @@ variable "reg" {}
 variable "sreg" {}
 variable "dbreg" {}
 
+# S3 vars
+variable "bucket" {}
+
 # gitlabCI
 variable "ciIP" {}
 
