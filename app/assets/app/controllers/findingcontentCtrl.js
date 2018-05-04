@@ -1,4 +1,3 @@
-/* eslint-disable max-lines */
 /* eslint no-magic-numbers:
 ["error", { "ignore": [-3,-1,0,0.4,0.6,1,1.176,1.5,2,3,
                        4,5,6,6.9,7,9,10,10.41,20,50,
@@ -32,7 +31,8 @@ integrates.controller("findingcontentCtrl", function findingcontentCtrl (
   $scope, $stateParams, $timeout,
   $uibModal, $translate, $state,
   ngNotify, projectFtry, tabsFtry,
-  functionsFtry1, functionsFtry2
+  functionsFtry1, functionsFtry2,
+  functionsFtry3
 ) {
   String.prototype.replaceAll = function replaceAll (
     search,
@@ -152,7 +152,7 @@ integrates.controller("findingcontentCtrl", function findingcontentCtrl (
       $scope.exploitURL = findingData.exploitURL;
       $scope.hasRecords = findingData.hasRecords;
       $scope.esDetallado = findingData.esDetallado;
-      $scope.loadFindingContent();
+      functionsFtry3.loadFindingContent($scope);
     }
     else {
       const req = projectFtry.findingById(id);
@@ -161,7 +161,7 @@ integrates.controller("findingcontentCtrl", function findingcontentCtrl (
             response.data.proyecto_fluid.toLowerCase()) {
           findingData.data = response.data;
           $scope.finding = response.data;
-          $scope.loadFindingContent();
+          functionsFtry3.loadFindingContent($scope);
           functionsFtry1.findingHeaderBuilding($scope, findingData);
           $scope.remediatedView();
           findingData.remediated = $scope.isRemediated;
@@ -221,154 +221,6 @@ integrates.controller("findingcontentCtrl", function findingcontentCtrl (
       });
     }
   };
-  $scope.loadFindingContent = function loadFindingContent () {
-    $scope.aux = {};
-    $scope.aux.tratamiento = $scope.finding.tratamiento;
-    $scope.aux.razon = $scope.finding.razonTratamiento;
-    $scope.aux.cardinalidad = $scope.finding.cardinalidad;
-    $scope.hasCompromisedAttributes = true;
-    if (typeof $scope.finding.registros === "undefined") {
-      $scope.hasCompromisedAttributes = false;
-    }
-    if ($scope.finding.tratamiento === "Asumido") {
-      $scope.isAssumed = true;
-    }
-    else {
-      $scope.isAssumed = false;
-    }
-    if ($scope.finding.estado === "Cerrado") {
-      $scope.isClosed = true;
-    }
-    else {
-      $scope.isClosed = false;
-    }
-    if ($scope.finding.suscripcion === "Continua" ||
-        $scope.finding.suscripcion === "Concurrente" ||
-        $scope.finding.suscripcion === "Si") {
-      $scope.isContinuous = true;
-    }
-    else {
-      $scope.isContinuous = false;
-    }
-    if ($scope.finding.suscripcion !== "Concurrente" &&
-        $scope.finding.suscripcion !== "Puntual" &&
-        $scope.finding.suscripcion !== "Continua") {
-      Rollbar.warning(`Warning: Finding ${$scope.finding.id} without type`);
-    }
-    $scope.aux.responsable = $scope.finding.responsableTratamiento;
-    $scope.aux.bts = $scope.finding.btsExterno;
-    $scope.finding.hasUrl = $scope.hasUrl($scope.finding.btsExterno);
-    $scope.finding.cweIsUrl = $scope.hasUrl($scope.finding.cwe);
-    for (let inc = 0; inc < fieldsToTranslate.length; inc++) {
-      if ($scope.finding[fieldsToTranslate[inc]] in keysToTranslate) {
-        $scope.finding[fieldsToTranslate[inc]] =
-              $translate.instant(keysToTranslate[
-                $scope.finding[fieldsToTranslate[inc]]
-              ]);
-      }
-    }
-    $scope.findingFormatted = $scope.finding.timestamp.slice(0, -3);
-    let closingEffect = 0;
-    for (let close = 0; close < $scope.finding.cierres.length; close++) {
-      closingEffect = ($scope.finding.cierres[close].cerradas /
-                      $scope.finding.cierres[close].solicitadas) * 100;
-      $scope.finding.cierres[close].efectividad = closingEffect.toFixed(0);
-      const timeFormat = $scope.finding.cierres[close].timestamp.slice(0, -3);
-      $scope.finding.cierres[close].timestamp = timeFormat;
-    }
-    // Control de campos para tipos de hallazgo
-    $scope.esDetallado = false;
-    findingData.esDetallado = $scope.esDetallado;
-    if ($scope.finding.nivel === "Detallado") {
-      $scope.esDetallado = true;
-      findingData.esDetallado = $scope.esDetallado;
-    }
-    // Control de campos editables
-    $scope.onlyReadableTab1 = true;
-    $scope.onlyReadableTab2 = true;
-    $scope.isManager = userRole !== "customer";
-    if (!$scope.isManager && !$scope.isAssumed &&
-        !$scope.isClosed && $scope.isContinuous) {
-      $(".finding-treatment").show();
-    }
-    else {
-      $(".finding-treatment").hide();
-    }
-    if ($scope.isManager && $scope.isRemediated) {
-      $(".finding-verified").show();
-    }
-    else {
-      $(".finding-verified").hide();
-    }
-    // Inicializar galeria de evidencias
-    $(".popup-gallery").magnificPopup({
-      "delegate": "a",
-      "gallery": {
-        "enabled": true,
-        "navigateByImgClick": true,
-        "preload": [
-          0,
-          1
-        ]
-      },
-      "image": {
-        "tError": "<a href=\"%url%\">The image #%curr%</a> " +
-                  "could not be loaded.",
-        "titleSrc" (item) {
-          return item.el.attr("title");
-        }
-      },
-      "mainClass": "mfp-img-mobile",
-      "tLoading": "Loading image #%curr%...",
-      "type": "image"
-    });
-    // Init auto height in textarea
-    if ($("#infoItem").hasClass("active")) {
-      $timeout(() => {
-        $scope.$broadcast("elastic:adjust");
-      });
-    }
-    $("#trackingItem").on("click", () => {
-      $timeout(() => {
-        $scope.$broadcast("elastic:adjust");
-      });
-    });
-    $("#infoItem").on("click", () => {
-      $timeout(() => {
-        $scope.$broadcast("elastic:adjust");
-      });
-    });
-    $("#edit").on("click", () => {
-      $timeout(() => {
-        $scope.$broadcast("elastic:adjust");
-      });
-    });
-    // Init auto height in panels
-    $("#evidenceItem").on("click", () => {
-      $(".equalHeight").matchHeight();
-    });
-    $scope.findingInformationTab();
-    $timeout($scope.goUp, 200);
-    if (!$scope.isManager) {
-      $scope.openEvents = projectFtry.alertEvents(eventsData);
-      $scope.atAlert = $translate.instant("main_content.eventualities." +
-                                          "descSingularAlert1");
-      if ($scope.openEvents === 1) {
-        $scope.descAlert1 = $translate.instant("main_content.eventualities." +
-                                                "descSingularAlert2");
-        $scope.descAlert2 = $translate.instant("main_content.eventualities." +
-                                                "descSingularAlert3");
-        $("#events_alert").show();
-      }
-      else if ($scope.openEvents > 1) {
-        $scope.descAlert1 = $translate.instant("main_content.eventualities." +
-                                                "descPluralAlert1");
-        $scope.descAlert2 = $translate.instant("main_content.eventualities." +
-                                                "descPluralAlert2");
-        $("#events_alert").show();
-      }
-    }
-  };
   $scope.configColorPalette = function configColorPalette () {
     $scope.colors = {};
     // Red
@@ -385,208 +237,14 @@ integrates.controller("findingcontentCtrl", function findingcontentCtrl (
     $scope.finding.cssv2base = cssv2Info[0];
     $scope.finding.criticidad = cssv2Info[1];
   };
-  $scope.findingDropDownList = function findingDropDownList () {
-    $scope.list = {};
-    $scope.list.findingType = findingType;
-    $scope.list.categories = categories;
-    $scope.list.probability = probabilities;
-    $scope.list.actor = actor;
-    $scope.list.scenario = scenario;
-    $scope.list.accessVector = accessVector;
-    $scope.list.accessComplexity = accessComplexity;
-    $scope.list.authentication = authentication;
-    $scope.list.confidenciality = confidenciality;
-    $scope.list.integrity = integrity;
-    $scope.list.availability = availability;
-    $scope.list.explotability = explotability;
-    $scope.list.resolutionLevel = resolutionLevel;
-    $scope.list.realiabilityLevel = realiabilityLevel;
-  };
-  $scope.findingInformationTab = function findingInformationTab () {
-    $scope.findingDropDownList();
-    $scope.finding.cardinalidad = parseInt($scope.finding.cardinalidad, 10);
-    $scope.finding.criticidad = parseFloat($scope.finding.criticidad);
-    $scope.findingCalculateCSSv2($scope);
-    if ($scope.finding.nivel === "Detallado") {
-      $scope.esDetallado = "show-detallado";
-      $scope.esGeneral = "hide-detallado";
-      const severityInfo = functionsFtry1.findingCalculateSeveridad();
-      $scope.finding.valorRiesgo = severityInfo[1];
-    }
-    else {
-      $scope.esDetallado = "hide-detallado";
-      $scope.esGeneral = "show-detallado";
-    }
-  };
   $scope.capitalizeFirstLetter = function capitalizeFirstLetter (string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
   };
   $scope.updateDescription = function updateDescription () {
-    // Obtener datos
-    const descData = {
-      "actor": $scope.finding.actor,
-      "amenaza": $scope.finding.amenaza,
-      "cardinalidad": $scope.finding.cardinalidad,
-      "categoria": $scope.finding.categoria,
-      "cwe": $scope.finding.cwe,
-      "donde": $scope.finding.donde,
-      "escenario": $scope.finding.escenario,
-      "hallazgo": $scope.finding.hallazgo,
-      "id": $scope.finding.id,
-      "nivel": $scope.finding.nivel,
-      "probabilidad": $scope.finding.probabilidad,
-      "registros": $scope.finding.registros,
-      "registros_num": $scope.finding.registros_num,
-      "requisitos": $scope.finding.requisitos,
-      "severidad": $scope.finding.severidad,
-      "sistema_comprometido": $scope.finding.sistema_comprometido,
-      "solucion_efecto": $scope.finding.solucion_efecto,
-      "valorRiesgo": $scope.finding.valorRiesgo,
-      "vector_ataque": $scope.finding.vector_ataque,
-      "vulnerabilidad": $scope.finding.vulnerabilidad
-    };
-    if ($scope.aux.cardinalidad !== $scope.finding.cardinalidad) {
-      const todayDate = new Date();
-      descData.ultimaVulnerabilidad = todayDate.toISOString().slice(0, 10);
-    }
-    if (descData.nivel === "Detallado") {
-      // Recalcular Severidad
-      const severityInfo = functionsFtry1.findingCalculateSeveridad();
-      const choose = severityInfo[0];
-      if (!choose) {
-        Rollbar.error("Error: An error occurred calculating severity");
-        $msg.error($translate.instant("proj_alerts.wrong_severity"));
-        return false;
-      }
-    }
-    const modalInstance = $uibModal.open({
-      "animation": true,
-      "backdrop": "static",
-      "controller" ($scope, $uibModalInstance, updateData) {
-        $scope.modalTitle = $translate.instant("confirmmodal." +
-                                               "title_description");
-        $scope.ok = function ok () {
-          // Consumir el servicio
-          const req = projectFtry.updateDescription(updateData);
-          // Capturar la Promisse
-          req.then((response) => {
-            if (!response.error) {
-              const updatedAt = $translate.instant("proj_alerts.updatedTitle");
-              const updatedAc = $translate.instant("proj_alerts.updated_cont");
-              $msg.success(updatedAc, updatedAt);
-              $uibModalInstance.close();
-              location.reload();
-              // Tracking mixpanel
-              mixPanelDashboard.trackFinding(
-                "UpdateFinding",
-                userEmail,
-                descData.id
-              );
-            }
-            else if (response.error) {
-              Rollbar.error("Error: An error occurred updating description");
-              const errorAc1 = $translate.instant("proj_alerts.error_textsad");
-              $msg.error(errorAc1);
-            }
-          });
-        };
-        $scope.close = function close () {
-          $uibModalInstance.close();
-        };
-      },
-      "resolve": {"updateData": descData},
-      "templateUrl": `${BASE.url}assets/views/project/confirmMdl.html`
-    });
-    return true;
+    functionsFtry3.updateDescription($scope);
   };
   $scope.findingSolved = function findingSolved () {
-  // Obtener datos
-    const descData = {
-      "findingId": $scope.finding.id,
-      "findingName": $scope.finding.hallazgo,
-      "findingUrl": window.location.href,
-      "findingVulns": $scope.finding.cardinalidad,
-      "project": $scope.finding.proyecto_fluid,
-      "userMail": userEmail
-    };
-    const modalInstance = $uibModal.open({
-
-      "animation": true,
-      "backdrop": "static",
-      "controller" ($scope, $uibModalInstance, mailData) {
-        $scope.remediatedData = {};
-        $scope.modalTitle = $translate.instant("search_findings." +
-                                        "tab_description.remediated_finding");
-        $scope.ok = function ok () {
-          $scope.remediatedData.userMail = mailData.userMail;
-          $scope.remediatedData.findingName = mailData.findingName;
-          $scope.remediatedData.project = mailData.project;
-          $scope.remediatedData.findingUrl = mailData.findingUrl;
-          $scope.remediatedData.findingId = mailData.findingId;
-          $scope.remediatedData.findingVulns = mailData.findingVulns;
-          $scope.remediatedData.justification =
-                              $scope.remediatedData.justification.trim();
-          if ($scope.remediatedData.justification.length < 100) {
-            $msg.error($translate.instant("proj_alerts." +
-                                        "short_remediated_comment"));
-          }
-          else {
-          // Consumir el servicio
-            const req = projectFtry.findingSolved($scope.remediatedData);
-            // Capturar la Promisse
-            req.then((response) => {
-              if (!response.error) {
-              // Tracking mixpanel
-                const org = Organization.toUpperCase();
-                const projt = descData.project.toUpperCase();
-                mixPanelDashboard.trackFindingDetailed(
-                  "FindingRemediated",
-                  userName,
-                  userEmail,
-                  org,
-                  projt,
-                  descData.findingId
-                );
-                $scope.remediated = response.data.remediated;
-                $msg.success(
-                  $translate.instant("proj_alerts." +
-                                         "remediated_success"),
-                  $translate.instant("proj_alerts." +
-                                          "updatedTitle")
-                );
-                $uibModalInstance.close();
-                location.reload();
-                const data = {};
-                data.id = parseInt(Math.round(new Date() / 1000).toString() +
-                        (Math.random() * 10000).toString(9), 10);
-                data.content = $scope.remediatedData.justification;
-                data.parent = 0;
-                data.email = $scope.remediatedData.userMail;
-                data.findingName = $scope.remediatedData.findingName;
-                data.project = $scope.remediatedData.project;
-                data.findingUrl = $scope.remediatedData.findingUrl;
-                data.remediated = true;
-                const comment =
-                       projectFtry.addComment(
-                         $scope.remediatedData.findingId,
-                         data
-                       );
-              }
-              else if (response.error) {
-                Rollbar.error("Error: An error occurred when " +
-                            "remediating the finding");
-                $msg.error($translate.instant("proj_alerts.error_textsad"));
-              }
-            });
-          }
-        };
-        $scope.close = function close () {
-          $uibModalInstance.close();
-        };
-      },
-      "resolve": {"mailData": descData},
-      "templateUrl": `${BASE.url}assets/views/project/remediatedMdl.html`
-    });
+    functionsFtry3.findingSolved($scope);
   };
   $scope.findingVerified = function findingVerified () {
     functionsFtry1.findingVerified($scope);

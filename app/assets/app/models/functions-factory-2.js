@@ -2,7 +2,10 @@
                                                    500,1000,10000] }]*/
 /* global integrates, BASE, $xhr, window.location:true, response:true,
 Organization, mixPanelDashboard, mixPanelDashboard, mixPanelDashboard,$msg,
-$, Rollbar, eventsData, userEmail, userName */
+$, Rollbar, eventsData, userEmail, userName, findingType, categories,
+probabilities, actor, scenario, accessVector, accessComplexity, authentication,
+confidenciality, integrity, availability, explotability, resolutionLevel,
+realiabilityLevel, functionsFtry1 */
 /* eslint no-shadow: ["error", { "allow": ["$scope","$stateParams",
                                           "response"] }]*/
 /**
@@ -20,7 +23,7 @@ $, Rollbar, eventsData, userEmail, userName */
 /** @export */
 integrates.factory(
   "functionsFtry2",
-  ($q, $translate, projectFtry, $uibModal, $stateParams) => ({
+  ($q, $translate, projectFtry, $uibModal, $stateParams, $injector) => ({
 
     "activeTab" (tabName, errorName, org, projt, id) {
       const tabNames = {
@@ -213,6 +216,43 @@ integrates.factory(
         BaseScore.toFixed(1),
         Temporal.toFixed(1)
       ];
+    },
+
+    "findingInformationTab" ($scope) {
+      $scope.list = {};
+      $scope.list.findingType = findingType;
+      $scope.list.categories = categories;
+      $scope.list.probability = probabilities;
+      $scope.list.actor = actor;
+      $scope.list.scenario = scenario;
+      $scope.list.accessVector = accessVector;
+      $scope.list.accessComplexity = accessComplexity;
+      $scope.list.authentication = authentication;
+      $scope.list.confidenciality = confidenciality;
+      $scope.list.integrity = integrity;
+      $scope.list.availability = availability;
+      $scope.list.explotability = explotability;
+      $scope.list.resolutionLevel = resolutionLevel;
+      $scope.list.realiabilityLevel = realiabilityLevel;
+      $scope.finding.cardinalidad = parseInt($scope.finding.cardinalidad, 10);
+      $scope.finding.criticidad = parseFloat($scope.finding.criticidad);
+      const calCSSv2 = projectFtry.calCCssv2($scope.finding);
+      const BaseScore = calCSSv2[0];
+      const Temporal = calCSSv2[1];
+      const CVSSGeneral = Temporal;
+      $scope.finding.cssv2base = BaseScore.toFixed(1);
+      $scope.finding.criticidad = Temporal.toFixed(1);
+      if ($scope.finding.nivel === "Detallado") {
+        $scope.esDetallado = "show-detallado";
+        $scope.esGeneral = "hide-detallado";
+        const functionsFtry1 = $injector.get("functionsFtry1");
+        const severityInfo = functionsFtry1.findingCalculateSeveridad();
+        $scope.finding.valorRiesgo = severityInfo[1];
+      }
+      else {
+        $scope.esDetallado = "hide-detallado";
+        $scope.esGeneral = "show-detallado";
+      }
     },
 
     "goDown" () {
