@@ -33,6 +33,10 @@ o con cerradura de seguridad.
 . La recogida debería realizarse por empleados debidamente entrenados
 y uniformados con identificación.^<<r1,[1]>>,<<r2,[2]>>^
 
+== Soluciones
+
+. +Forense+ link:../../defends/forense/recolectar-info-fisica/[Recolectar información física].
+
 == Ataques
 
 . Extraer información fisica:
