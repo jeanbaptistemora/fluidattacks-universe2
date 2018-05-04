@@ -1,6 +1,6 @@
-:slug: poodle-ssl-v3/
+:slug: treacherous-poodle/
 :date: 2018-05-02
-:subtitle: How does the TLS/SSL fallback's
+:subtitle: How does the SSL fallback's works
 :category: attacks
 :tags: ssl, flaw, cbc
 :image: cover.png
@@ -60,13 +60,9 @@ image::mephisto-black.png[blackistopheles]
 == Techninal introduction
 
 The +Padding Oracle On Downgraded
-Legacy Encryption SSL 3.0 (POODLE v3)+
-discovered on September, 2014,
-by +Bodo Möller+ , +Thai Duong+ and
-+Krzysztof Kotowicz+ from +Google+.
-
-It is a protocol vulnerability on
-+*Secure Socket Layer*+ +(SSL 3.0)+,
+Legacy Encryption SSL 3.0 (POODLE v3)+,
+it is a protocol vulnerability on
++*Secure Socket Layer* (SSL 3.0)+,
 which can make any +*Transport Layer Secure
 (TLS)*+ version to fallback to +(SSL 3.0)+
 plus it takes advantage on weak
@@ -76,6 +72,11 @@ Block Chaining Message Authentication Code
 (CBC-MAC)+*, allowing an
 attacker to steal cookies from an user
 on the same network.
+
+Discovered on September, 2014,
+by +Bodo Möller+ , +Thai Duong+ and
++Krzysztof Kotowicz+ from the +Google+
+security team.
 
 If you are not aware what this terms are
 check the

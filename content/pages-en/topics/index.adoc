@@ -17,8 +17,6 @@ Among the topics of interest are:
 
 == Attacks
 
-* Beast attack.
-* Poodle +SSL v3+.
 * Poodle +TLS+.
 * Simple cracking of non-reversible keys.
 * Cracking with rainbow tables.
