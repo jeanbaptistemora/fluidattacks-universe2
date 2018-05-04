@@ -1,4 +1,4 @@
-/* eslint no-magic-numbers: ["error", { "ignore": [0,1,2,3,5,6,9,100.0,
+/* eslint no-magic-numbers: ["error", { "ignore": [0,1,2,3,4,5,6,6.9,7,9,100.0,
                                                    500,1000,10000] }]*/
 /* global integrates, BASE, $xhr, window.location:true, response:true,
 Organization, mixPanelDashboard, mixPanelDashboard, mixPanelDashboard,$msg,
@@ -21,6 +21,20 @@ $, Rollbar, eventsData, userEmail, userName */
 integrates.factory(
   "functionsFtry1",
   ($q, $translate, projectFtry, $uibModal, $stateParams, functionsFtry2) => ({
+
+    "alertHeader" (company, project) {
+      const req = projectFtry.getAlerts(company, project);
+      req.then((response) => {
+        if (!response.error && response.data.length > 0) {
+          if (response.data[0].status_act === "1") {
+            let html = "<div class=\"alert alert-danger-2\">";
+            html += "<strong>Atención! </strong>" +
+                    `${response.data[0].message}</div>`;
+            document.getElementById("header_alert").innerHTML = html;
+          }
+        }
+      });
+    },
 
     "deleteFinding" ($scope) {
       // Obtener datos
@@ -73,17 +87,6 @@ integrates.factory(
         "resolve": {"updateData": descData},
         "templateUrl": `${BASE.url}assets/views/project/deleteMdl.html`
       });
-    },
-
-    "findingCalculateCSSv2" ($scope) {
-      const calCSSv2 = projectFtry.calCCssv2($scope.finding);
-      const BaseScore = calCSSv2[0];
-      const Temporal = calCSSv2[1];
-      const CVSSGeneral = Temporal;
-      return [
-        BaseScore.toFixed(1),
-        Temporal.toFixed(1)
-      ];
     },
 
     "findingCalculateSeveridad" (data) {
@@ -149,6 +152,56 @@ integrates.factory(
       return true;
     },
 
+    "findingHeaderBuilding" ($scope, findingData) {
+      $scope.header = {};
+      const cierresHallazgo = $scope.finding.cierres;
+      const cierresTmp = [];
+      for (let cont = 0; cont < cierresHallazgo.length; cont++) {
+        const cierre = cierresHallazgo[cont];
+        cierre.position = cont + 1;
+        cierresTmp.push(cierre);
+      }
+      $scope.finding.cierres = cierresTmp;
+      $scope.header.findingTitle = $scope.finding.hallazgo;
+      $scope.header.findingType = $scope.finding.tipoPrueba;
+      $scope.header.findingRisk = "";
+      $scope.header.findingState = $scope.finding.estado;
+      $scope.header.findingID = $scope.finding.id;
+      $scope.header.findingValue = $scope.finding.criticidad;
+      $scope.header.findingTreatment = $scope.finding.tratamiento;
+      const findingValue = parseFloat($scope.finding.criticidad);
+      if (findingValue >= 7) {
+        $scope.header.findingValueDescription =
+               $translate.instant("finding_formstack.criticity_header.high");
+        $scope.header.findingValueColor = $scope.colors.critical;
+      }
+      else if (findingValue >= 4 && findingValue <= 6.9) {
+        $scope.header.findingValueDescription =
+            $translate.instant("finding_formstack.criticity_header.moderate");
+        $scope.header.findingValueColor = $scope.colors.moderate;
+      }
+      else {
+        $scope.header.findingValueDescription =
+            $translate.instant("finding_formstack.criticity_header.tolerable");
+        $scope.header.findingValueColor = $scope.colors.tolerable;
+      }
+
+      if ($scope.header.findingState === "Abierto" ||
+          $scope.header.findingState === "Open") {
+        $scope.header.findingStateColor = $scope.colors.critical;
+      }
+      else if ($scope.header.findingState === "Parcialmente cerrado" ||
+               $scope.header.findingState === "Partially closed") {
+        $scope.header.findingStateColor = $scope.colors.moderate;
+      }
+      else {
+        $scope.header.findingStateColor = $scope.colors.ok;
+      }
+
+      $scope.header.findingCount = $scope.finding.cardinalidad;
+      findingData.header = $scope.header;
+    },
+
     "findingVerified" ($scope) {
     // Obtener datos
       const currUrl = window.location.href;
@@ -204,6 +257,79 @@ integrates.factory(
           };
         },
         "resolve": {"mailData": descData},
+        "templateUrl": `${BASE.url}assets/views/project/confirmMdl.html`
+      });
+    },
+
+    "treatmentEditable" ($scope) {
+      functionsFtry2.goDown();
+      if ($scope.onlyReadableTab4 === false) {
+        $scope.finding.responsableTratamiento = userEmail;
+        $scope.onlyReadableTab4 = true;
+        $scope.finding.tratamiento = $scope.aux.tratamiento;
+        $scope.finding.razonTratamiento = $scope.aux.razon;
+        $scope.finding.btsExterno = $scope.aux.bts;
+      }
+      else if ($scope.onlyReadableTab4 === true) {
+        $scope.finding.tratamiento = $scope.aux.tratamiento;
+        $scope.finding.razonTratamiento = $scope.aux.razon;
+        $scope.finding.responsableTratamiento = $scope.aux.responsable;
+        $scope.finding.btsExterno = $scope.aux.bts;
+        $scope.onlyReadableTab4 = false;
+      }
+    },
+
+    "updateCSSv2" ($scope) {
+      // Obtener datos de las listas
+      const cssv2Data = {
+
+        "autenticacion": $scope.finding.autenticacion,
+        "complejidadAcceso": $scope.finding.complejidadAcceso,
+        "explotabilidad": $scope.finding.explotabilidad,
+        "id": $scope.finding.id,
+        "impactoConfidencialidad": $scope.finding.impactoConfidencialidad,
+        "impactoDisponibilidad": $scope.finding.impactoDisponibilidad,
+        "impactoIntegridad": $scope.finding.impactoIntegridad,
+        "nivelConfianza": $scope.finding.nivelConfianza,
+        "nivelResolucion": $scope.finding.nivelResolucion,
+        "vectorAcceso": $scope.finding.vectorAcceso
+      };
+      // Recalcular CSSV2
+      functionsFtry2.findingCalculateCSSv2($scope);
+      cssv2Data.criticidad = $scope.finding.criticidad;
+      // Instanciar modal de confirmacion
+      const modalInstance = $uibModal.open({
+        "animation": true,
+        "backdrop": "static",
+        "controller" ($scope, $uibModalInstance, updateData) {
+          $scope.modalTitle = $translate.instant("confirmmodal.title_cssv2");
+          $scope.ok = function ok () {
+            // Consumir el servicio
+            const req = projectFtry.updateCSSv2(updateData);
+            // Capturar la Promisse
+            req.then((response) => {
+              if (!response.error) {
+                const updatedAt = $translate.instant("proj_alerts." +
+                                                     "updatedTitle");
+                const updatedAc = $translate.instant("proj_alerts." +
+                                                     "updated_cont");
+                $msg.success(updatedAc, updatedAt);
+                $uibModalInstance.close();
+                location.reload();
+              }
+              else if (response.error) {
+                const errorAc1 = $translate.instant("proj_alerts." +
+                                                   "error_textsad");
+                Rollbar.error("Error: An error occurred updating CSSv2");
+                $msg.error(errorAc1);
+              }
+            });
+          };
+          $scope.close = function close () {
+            $uibModalInstance.close();
+          };
+        },
+        "resolve": {"updateData": cssv2Data},
         "templateUrl": `${BASE.url}assets/views/project/confirmMdl.html`
       });
     },
@@ -356,6 +482,7 @@ integrates.factory(
         });
       }
     }
+
 
   })
 );

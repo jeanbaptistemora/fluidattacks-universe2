@@ -30,7 +30,7 @@ integrates.controller(
     $scope, $location,
     $uibModal, $timeout,
     $state, $stateParams,
-    $translate, projectFtry
+    $translate, projectFtry, functionsFtry1
   ) {
     $scope.init = function init () {
       const projectName = $stateParams.project;
@@ -57,19 +57,6 @@ integrates.controller(
     };
     $scope.goUp = function goUp () {
       $("html, body").animate({"scrollTop": 0}, "fast");
-    };
-    $scope.alertHeader = function alertHeader (company, project) {
-      const req = projectFtry.getAlerts(company, project);
-      req.then((response) => {
-        if (!response.error && response.data.length > 0) {
-          if (response.data.status_act === "1") {
-            let html = "<div class=\"alert alert-danger-2\">";
-            html += "<strong>Atención! </strong>" +
-                    `${response.data[0].message}</div>`;
-            document.getElementById("header_alert").innerHTML = html;
-          }
-        }
-      });
     };
     $scope.configKeyboardView = function configKeyboardView () {
       document.onkeypress = function onkeypress (ev) {
@@ -135,7 +122,7 @@ integrates.controller(
               projectData = response.data;
               const org = Organization.toUpperCase();
               const projt = $stateParams.project.toUpperCase();
-              $scope.alertHeader(org, projt);
+              functionsFtry1.alertHeader(org, projt);
             }
           }
           else if (response.error) {

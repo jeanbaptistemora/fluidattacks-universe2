@@ -34,55 +34,6 @@ integrates.controller("findingcontentCtrl", function findingcontentCtrl (
   ngNotify, projectFtry, tabsFtry,
   functionsFtry1, functionsFtry2
 ) {
-  $scope.findingHeaderBuilding = function findingHeaderBuilding () {
-    $scope.header = {};
-    const cierresHallazgo = $scope.finding.cierres;
-    const cierresTmp = [];
-    for (let cont = 0; cont < cierresHallazgo.length; cont++) {
-      const cierre = cierresHallazgo[cont];
-      cierre.position = cont + 1;
-      cierresTmp.push(cierre);
-    }
-    $scope.finding.cierres = cierresTmp;
-    $scope.header.findingTitle = $scope.finding.hallazgo;
-    $scope.header.findingType = $scope.finding.tipoPrueba;
-    $scope.header.findingRisk = "";
-    $scope.header.findingState = $scope.finding.estado;
-    $scope.header.findingID = $scope.finding.id;
-    $scope.header.findingValue = $scope.finding.criticidad;
-    $scope.header.findingTreatment = $scope.finding.tratamiento;
-    const findingValue = parseFloat($scope.finding.criticidad);
-    if (findingValue >= 7) {
-      $scope.header.findingValueDescription =
-             $translate.instant("finding_formstack.criticity_header.high");
-      $scope.header.findingValueColor = $scope.colors.critical;
-    }
-    else if (findingValue >= 4 && findingValue <= 6.9) {
-      $scope.header.findingValueDescription =
-             $translate.instant("finding_formstack.criticity_header.moderate");
-      $scope.header.findingValueColor = $scope.colors.moderate;
-    }
-    else {
-      $scope.header.findingValueDescription =
-             $translate.instant("finding_formstack.criticity_header.tolerable");
-      $scope.header.findingValueColor = $scope.colors.tolerable;
-    }
-
-    if ($scope.header.findingState === "Abierto" ||
-        $scope.header.findingState === "Open") {
-      $scope.header.findingStateColor = $scope.colors.critical;
-    }
-    else if ($scope.header.findingState === "Parcialmente cerrado" ||
-             $scope.header.findingState === "Partially closed") {
-      $scope.header.findingStateColor = $scope.colors.moderate;
-    }
-    else {
-      $scope.header.findingStateColor = $scope.colors.ok;
-    }
-
-    $scope.header.findingCount = $scope.finding.cardinalidad;
-    findingData.header = $scope.header;
-  };
   String.prototype.replaceAll = function replaceAll (
     search,
     replace
@@ -91,19 +42,6 @@ integrates.controller("findingcontentCtrl", function findingcontentCtrl (
       return this.toString();
     }
     return this.replace(new RegExp(`[${search}]`, "g"), replace);
-  };
-  $scope.alertHeader = function alertHeader (company, project) {
-    const req = projectFtry.getAlerts(company, project);
-    req.then((response) => {
-      if (!response.error && response.data.length > 0) {
-        if (response.data[0].status_act === "1") {
-          let html = "<div class=\"alert alert-danger-2\">";
-          html += "<strong>Atención! </strong>" +
-                  `${response.data[0].message}</div>`;
-          document.getElementById("header_alert").innerHTML = html;
-        }
-      }
-    });
   };
   $scope.cssv2Editable = function cssv2Editable () {
     if ($scope.onlyReadableTab2 === false) {
@@ -121,210 +59,17 @@ integrates.controller("findingcontentCtrl", function findingcontentCtrl (
       $scope.onlyReadableTab1 = false;
     }
   };
-  $scope.evidenceEditable = function evidenceEditable () {
-    if ($scope.onlyReadableTab3 === false) {
-      $scope.onlyReadableTab3 = true;
-    }
-    else {
-      $scope.onlyReadableTab3 = false;
-    }
-    const inputs = document.querySelectorAll(".inputfile");
-    Array.prototype.forEach.call(inputs, (input) => {
-      const label = input.nextElementSibling;
-      const labelVal = label.innerHTML;
-
-      input.addEventListener("change", (aux) => {
-        let fileName = "";
-        if (input.files && input.files.length > 1) {
-          fileName = (input.getAttribute("data-multiple-caption") ||
-                      "").replace("{count}", input.files.length);
-        }
-        else {
-          fileName = aux.target.value.split("\\").pop();
-        }
-
-        if (fileName) {
-          label.querySelector("span").innerHTML = fileName;
-        }
-        else {
-          label.innerHTML = labelVal;
-        }
-      });
-
-      // Firefox bug fix
-      input.addEventListener("focus", () => {
-        input.classList.add("has-focus");
-      });
-      input.addEventListener("blur", () => {
-        input.classList.remove("has-focus");
-      });
-    });
-    $scope.evidenceDescription = [
-      $("#evidenceText0").val(),
-      $("#evidenceText1").val(),
-      $("#evidenceText2").val(),
-      $("#evidenceText3").val(),
-      $("#evidenceText4").val(),
-      $("#evidenceText5").val(),
-      $("#evidenceText6").val()
-    ];
-    const refList = [];
-    for (let cont = 0; cont < $scope.tabEvidences.length; cont++) {
-      refList.push($scope.tabEvidences[cont].ref);
-    }
-    const evidencesList = [];
-    if (refList.indexOf(0) === -1) {
-      $scope.tabEvidences.push({
-        "desc": "",
-        "name": $translate.instant("search_findings." +
-                                   "tab_evidence.animation_exploit"),
-        "ref": 0
-      });
-    }
-    if (refList.indexOf(1) === -1) {
-      $scope.tabEvidences.push({
-        "desc": "",
-        "name": $translate.instant("search_findings." +
-                                   "tab_evidence.evidence_exploit"),
-        "ref": 1
-      });
-    }
-    if (refList.indexOf(2) === -1) {
-      $scope.tabEvidences.push({
-        "desc": "",
-        "name": `${$translate.instant("search_findings." +
-                                      "tab_evidence.evidence_name")} 1`,
-        "ref": 2
-      });
-    }
-    if (refList.indexOf(3) === -1) {
-      $scope.tabEvidences.push({
-        "desc": "",
-        "name": `${$translate.instant("search_findings." +
-                                      "tab_evidence.evidence_name")} 2`,
-        "ref": 3
-      });
-    }
-    if (refList.indexOf(4) === -1) {
-      $scope.tabEvidences.push({
-        "desc": "",
-        "name": `${$translate.instant("search_findings." +
-                                      "tab_evidence.evidence_name")} 3`,
-        "ref": 4
-      });
-    }
-    if (refList.indexOf(5) === -1) {
-      $scope.tabEvidences.push({
-        "desc": "",
-        "name": `${$translate.instant("search_findings." +
-                                      "tab_evidence.evidence_name")} 4`,
-        "ref": 5
-      });
-    }
-    if (refList.indexOf(6) === -1) {
-      $scope.tabEvidences.push({
-        "desc": "",
-        "name": `${$translate.instant("search_findings." +
-                                      "tab_evidence.evidence_name")} 5`,
-        "ref": 6
-      });
-    }
-    $scope.tabEvidences.sort((auxa, auxb) => auxa.ref - auxb.ref);
-  };
   $scope.treatmentEditable = function treatmentEditable () {
-    $scope.goDown();
-    if ($scope.onlyReadableTab4 === false) {
-      $scope.finding.responsableTratamiento = userEmail;
-      $scope.onlyReadableTab4 = true;
-      $scope.finding.tratamiento = $scope.aux.tratamiento;
-      $scope.finding.razonTratamiento = $scope.aux.razon;
-      $scope.finding.btsExterno = $scope.aux.bts;
-    }
-    else if ($scope.onlyReadableTab4 === true) {
-      $scope.finding.tratamiento = $scope.aux.tratamiento;
-      $scope.finding.razonTratamiento = $scope.aux.razon;
-      $scope.finding.responsableTratamiento = $scope.aux.responsable;
-      $scope.finding.btsExterno = $scope.aux.bts;
-      $scope.onlyReadableTab4 = false;
-    }
+    functionsFtry1.treatmentEditable($scope);
+  };
+  $scope.evidenceEditable = function evidenceEditable () {
+    functionsFtry2.evidenceEditable($scope);
   };
   $scope.exploitEditable = function exploitEditable () {
-    if ($scope.onlyReadableTab5 === false) {
-      $scope.onlyReadableTab5 = true;
-    }
-    else {
-      $scope.onlyReadableTab5 = false;
-    }
-    const inputs = document.querySelectorAll(".inputfile");
-    Array.prototype.forEach.call(inputs, (input) => {
-      const label = input.nextElementSibling;
-      const labelVal = label.innerHTML;
-
-      input.addEventListener("change", (err) => {
-        let fileName = "";
-        if (input.files && input.files.length > 1) {
-          fileName = (input.getAttribute("data-multiple-caption") ||
-                      "").replace("{count}", input.files.length);
-        }
-        else {
-          fileName = err.target.value.split("\\").pop();
-        }
-
-        if (fileName) {
-          label.querySelector("span").innerHTML = fileName;
-        }
-        else {
-          label.innerHTML = labelVal;
-        }
-      });
-
-      // Firefox bug fix
-      input.addEventListener("focus", () => {
-        input.classList.add("has-focus");
-      });
-      input.addEventListener("blur", () => {
-        input.classList.remove("has-focus");
-      });
-    });
+    functionsFtry2.exploitEditable($scope);
   };
   $scope.recordsEditable = function recordsEditable () {
-    if ($scope.onlyReadableTab6 === false) {
-      $scope.onlyReadableTab6 = true;
-    }
-    else {
-      $scope.onlyReadableTab6 = false;
-    }
-    const inputs = document.querySelectorAll(".inputfile");
-    Array.prototype.forEach.call(inputs, (input) => {
-      const label = input.nextElementSibling;
-      const labelVal = label.innerHTML;
-
-      input.addEventListener("change", (err) => {
-        let fileName = "";
-        if (input.files && input.files.length > 1) {
-          fileName = (input.getAttribute("data-multiple-caption") ||
-                      "").replace("{count}", input.files.length);
-        }
-        else {
-          fileName = err.target.value.split("\\").pop();
-        }
-
-        if (fileName) {
-          label.querySelector("span").innerHTML = fileName;
-        }
-        else {
-          label.innerHTML = labelVal;
-        }
-      });
-
-      // Firefox bug fix
-      input.addEventListener("focus", () => {
-        input.classList.add("has-focus");
-      });
-      input.addEventListener("blur", () => {
-        input.classList.remove("has-focus");
-      });
-    });
+    functionsFtry2.recordsEditable($scope);
   };
   $scope.detectNivel = function detectNivel () {
     $timeout(() => {
@@ -340,7 +85,7 @@ integrates.controller("findingcontentCtrl", function findingcontentCtrl (
     }, 200);
   };
   $scope.updateCSSv2 = function updateCSSv2 () {
-    functionsFtry2.updateCSSv2($scope);
+    functionsFtry1.updateCSSv2($scope);
   };
   updateEvidencesFiles = function updateEvidencesFiles (element) {
     functionsFtry2.updateEvidencesFiles(element, $scope);
@@ -353,9 +98,6 @@ integrates.controller("findingcontentCtrl", function findingcontentCtrl (
   };
   $scope.goUp = function goUp () {
     $("html, body").animate({"scrollTop": 0}, "fast");
-  };
-  $scope.goDown = function goDown () {
-    window.scrollTo(0, document.body.scrollHeight);
   };
   $scope.hasUrl = function hasUrl (element) {
     if (typeof element !== "undefined") {
@@ -420,7 +162,7 @@ integrates.controller("findingcontentCtrl", function findingcontentCtrl (
           findingData.data = response.data;
           $scope.finding = response.data;
           $scope.loadFindingContent();
-          $scope.findingHeaderBuilding();
+          functionsFtry1.findingHeaderBuilding($scope, findingData);
           $scope.remediatedView();
           findingData.remediated = $scope.isRemediated;
           $scope.view.project = false;
@@ -639,7 +381,7 @@ integrates.controller("findingcontentCtrl", function findingcontentCtrl (
     $scope.colors.ok = "background-color: #008000;";
   };
   $scope.findingCalculateCSSv2 = function findingCalculateCSSv2 () {
-    const cssv2Info = functionsFtry1.findingCalculateCSSv2($scope);
+    const cssv2Info = functionsFtry2.findingCalculateCSSv2($scope);
     $scope.finding.cssv2base = cssv2Info[0];
     $scope.finding.criticidad = cssv2Info[1];
   };
@@ -887,36 +629,6 @@ integrates.controller("findingcontentCtrl", function findingcontentCtrl (
     location.replace(`${window.location.href.split($stateParams.id)[0] +
                       $stateParams.id}/comments`);
   };
-  $scope.activeTab = function activeTab (tabName, errorName, org, projt) {
-    const tabNames = {
-      "#comment": "#commentItem",
-      "#cssv2": "#cssv2Item",
-      "#evidence": "#evidenceItem",
-      "#exploit": "#exploitItem",
-      "#info": "#infoItem",
-      "#records": "#recordsItem",
-      "#tracking": "#trackingItem"
-    };
-    for (let inc = 0; inc < Object.keys(tabNames).length; inc++) {
-      if (Object.keys(tabNames)[inc] === tabName) {
-        $(tabName).addClass("active");
-        $(tabNames[tabName]).addClass("active");
-      }
-      else {
-        $(Object.keys(tabNames)[inc]).removeClass("active");
-        $(tabNames[Object.keys(tabNames)[inc]]).removeClass("active");
-      }
-    }
-    // Tracking mixpanel
-    mixPanelDashboard.trackFindingDetailed(
-      errorName,
-      userName,
-      userEmail,
-      org,
-      projt,
-      $scope.finding.id
-    );
-  };
   $scope.urlEvents = function urlEvents () {
     $state.go("ProjectEvents", {"project": $stateParams.project});
   };
@@ -956,30 +668,34 @@ integrates.controller("findingcontentCtrl", function findingcontentCtrl (
     $scope.goUp();
     const org = Organization.toUpperCase();
     const projt = projectName.toUpperCase();
-    $scope.alertHeader(org, projt);
+    functionsFtry1.alertHeader(org, projt);
+    const idF = $scope.finding.id;
     if (window.location.hash.indexOf("description") !== -1) {
-      $scope.activeTab("#info", "FindingDescription", org, projt);
+      functionsFtry2.activeTab("#info", "FindingDescription", org, projt, idF);
     }
     if (window.location.hash.indexOf("severity") !== -1) {
-      $scope.activeTab("#cssv2", "FindingSeverity", org, projt);
+      functionsFtry2.activeTab("#cssv2", "FindingSeverity", org, projt, idF);
     }
     if (window.location.hash.indexOf("tracking") !== -1) {
-      $scope.activeTab("#tracking", "FindingTracking", org, projt);
+      functionsFtry2.activeTab("#tracking", "FindingTracking", org, projt, idF);
     }
     if (window.location.hash.indexOf("evidence") !== -1) {
-      $scope.activeTab("#evidence", "FindingEvidence", org, projt);
+      functionsFtry2.activeTab("#evidence", "FindingEvidence", org, projt, idF);
     }
     if (window.location.hash.indexOf("exploit") !== -1) {
-      $scope.activeTab("#exploit", "FindingExploit", org, projt);
+      functionsFtry2.activeTab(
+        "#exploit", "FindingExploit",
+        org, projt, idF
+      );
     }
     if (window.location.hash.indexOf("records") !== -1) {
-      $scope.activeTab("#records", "FindingRecords", org, projt);
+      functionsFtry2.activeTab("#records", "FindingRecords", org, projt, idF);
       const recordinfo = tabsFtry.findingRecordsTab($scope, findingData);
       $scope.hasRecords = recordinfo[0];
       findingData.hasRecords = recordinfo[1];
     }
     if (window.location.hash.indexOf("comments") !== -1) {
-      $scope.activeTab("#comment", "FindingComments", org, projt);
+      functionsFtry2.activeTab("#comment", "FindingComments", org, projt, idF);
       tabsFtry.findingCommentTab($scope, $stateParams);
     }
   };

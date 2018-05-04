@@ -56,7 +56,7 @@ integrates.controller(
     $uibModal, $timeout,
     $state, $stateParams,
     $translate, projectFtry,
-    eventualityFactory
+    eventualityFactory, functionsFtry1
   ) {
     $scope.init = function init () {
       const projectName = $stateParams.project;
@@ -93,19 +93,6 @@ integrates.controller(
     };
     $scope.goUp = function goUp () {
       $("html, body").animate({"scrollTop": 0}, "fast");
-    };
-    $scope.alertHeader = function alertHeader (company, project) {
-      const req = projectFtry.getAlerts(company, project);
-      req.then((response) => {
-        if (!response.error && response.data.length > 0) {
-          if (response.data.status_act === "1") {
-            let html = "<div class=\"alert alert-danger-2\">";
-            html += "<strong>Atención! </strong>" +
-                    `${response.data[0].message}</div>`;
-            document.getElementById("header_alert").innerHTML = html;
-          }
-        }
-      });
     };
     $scope.configKeyboardView = function configKeyboardView () {
       document.onkeypress = function onkeypress (ev) {
@@ -181,7 +168,7 @@ integrates.controller(
     $scope.loadEventContent = function loadEventContent (data, vlang, project) {
       const organizationName = Organization.toUpperCase();
       const projectName = project.toUpperCase();
-      $scope.alertHeader(organizationName, projectName);
+      functionsFtry1.alertHeader(organizationName, projectName);
       for (let cont = 0; cont < data.length; cont++) {
         for (let inc = 0; inc < eventsTranslations.length; inc++) {
           if (data[cont][eventsTranslations[inc]] in keysToTranslate) {

@@ -1,4 +1,4 @@
-/* eslint no-magic-numbers: ["error", { "ignore": [-1,0,1,2,3,5,6,9,100.0,
+/* eslint no-magic-numbers: ["error", { "ignore": [-1,0,1,2,3,4,5,6,9,100.0,
                                                    500,1000,10000] }]*/
 /* global integrates, BASE, $xhr, window.location:true, response:true,
 Organization, mixPanelDashboard, mixPanelDashboard, mixPanelDashboard,$msg,
@@ -22,58 +22,239 @@ integrates.factory(
   "functionsFtry2",
   ($q, $translate, projectFtry, $uibModal, $stateParams) => ({
 
-    "updateCSSv2" ($scope) {
-      // Obtener datos de las listas
-      const cssv2Data = {
-
-        "autenticacion": $scope.finding.autenticacion,
-        "complejidadAcceso": $scope.finding.complejidadAcceso,
-        "explotabilidad": $scope.finding.explotabilidad,
-        "id": $scope.finding.id,
-        "impactoConfidencialidad": $scope.finding.impactoConfidencialidad,
-        "impactoDisponibilidad": $scope.finding.impactoDisponibilidad,
-        "impactoIntegridad": $scope.finding.impactoIntegridad,
-        "nivelConfianza": $scope.finding.nivelConfianza,
-        "nivelResolucion": $scope.finding.nivelResolucion,
-        "vectorAcceso": $scope.finding.vectorAcceso
+    "activeTab" (tabName, errorName, org, projt, id) {
+      const tabNames = {
+        "#comment": "#commentItem",
+        "#cssv2": "#cssv2Item",
+        "#evidence": "#evidenceItem",
+        "#exploit": "#exploitItem",
+        "#info": "#infoItem",
+        "#records": "#recordsItem",
+        "#tracking": "#trackingItem"
       };
-      // Recalcular CSSV2
-      $scope.findingCalculateCSSv2();
-      cssv2Data.criticidad = $scope.finding.criticidad;
-      // Instanciar modal de confirmacion
-      const modalInstance = $uibModal.open({
-        "animation": true,
-        "backdrop": "static",
-        "controller" ($scope, $uibModalInstance, updateData) {
-          $scope.modalTitle = $translate.instant("confirmmodal.title_cssv2");
-          $scope.ok = function ok () {
-            // Consumir el servicio
-            const req = projectFtry.updateCSSv2(updateData);
-            // Capturar la Promisse
-            req.then((response) => {
-              if (!response.error) {
-                const updatedAt = $translate.instant("proj_alerts." +
-                                                     "updatedTitle");
-                const updatedAc = $translate.instant("proj_alerts." +
-                                                     "updated_cont");
-                $msg.success(updatedAc, updatedAt);
-                $uibModalInstance.close();
-                location.reload();
-              }
-              else if (response.error) {
-                const errorAc1 = $translate.instant("proj_alerts." +
-                                                   "error_textsad");
-                Rollbar.error("Error: An error occurred updating CSSv2");
-                $msg.error(errorAc1);
-              }
-            });
-          };
-          $scope.close = function close () {
-            $uibModalInstance.close();
-          };
-        },
-        "resolve": {"updateData": cssv2Data},
-        "templateUrl": `${BASE.url}assets/views/project/confirmMdl.html`
+      for (let inc = 0; inc < Object.keys(tabNames).length; inc++) {
+        if (Object.keys(tabNames)[inc] === tabName) {
+          $(tabName).addClass("active");
+          $(tabNames[tabName]).addClass("active");
+        }
+        else {
+          $(Object.keys(tabNames)[inc]).removeClass("active");
+          $(tabNames[Object.keys(tabNames)[inc]]).removeClass("active");
+        }
+      }
+      // Tracking mixpanel
+      mixPanelDashboard.trackFindingDetailed(
+        errorName,
+        userName,
+        userEmail,
+        org,
+        projt,
+        id
+      );
+    },
+
+    "evidenceEditable" ($scope) {
+      if ($scope.onlyReadableTab3 === false) {
+        $scope.onlyReadableTab3 = true;
+      }
+      else {
+        $scope.onlyReadableTab3 = false;
+      }
+      const inputs = document.querySelectorAll(".inputfile");
+      Array.prototype.forEach.call(inputs, (input) => {
+        const label = input.nextElementSibling;
+        const labelVal = label.innerHTML;
+
+        input.addEventListener("change", (aux) => {
+          let fileName = "";
+          if (input.files && input.files.length > 1) {
+            fileName = (input.getAttribute("data-multiple-caption") ||
+                        "").replace("{count}", input.files.length);
+          }
+          else {
+            fileName = aux.target.value.split("\\").pop();
+          }
+
+          if (fileName) {
+            label.querySelector("span").innerHTML = fileName;
+          }
+          else {
+            label.innerHTML = labelVal;
+          }
+        });
+
+        // Firefox bug fix
+        input.addEventListener("focus", () => {
+          input.classList.add("has-focus");
+        });
+        input.addEventListener("blur", () => {
+          input.classList.remove("has-focus");
+        });
+      });
+      $scope.evidenceDescription = [
+        $("#evidenceText0").val(),
+        $("#evidenceText1").val(),
+        $("#evidenceText2").val(),
+        $("#evidenceText3").val(),
+        $("#evidenceText4").val(),
+        $("#evidenceText5").val(),
+        $("#evidenceText6").val()
+      ];
+      const refList = [];
+      for (let cont = 0; cont < $scope.tabEvidences.length; cont++) {
+        refList.push($scope.tabEvidences[cont].ref);
+      }
+      const evidencesList = [];
+      if (refList.indexOf(0) === -1) {
+        $scope.tabEvidences.push({
+          "desc": "",
+          "name": $translate.instant("search_findings." +
+                                     "tab_evidence.animation_exploit"),
+          "ref": 0
+        });
+      }
+      if (refList.indexOf(1) === -1) {
+        $scope.tabEvidences.push({
+          "desc": "",
+          "name": $translate.instant("search_findings." +
+                                     "tab_evidence.evidence_exploit"),
+          "ref": 1
+        });
+      }
+      if (refList.indexOf(2) === -1) {
+        $scope.tabEvidences.push({
+          "desc": "",
+          "name": `${$translate.instant("search_findings." +
+                                        "tab_evidence.evidence_name")} 1`,
+          "ref": 2
+        });
+      }
+      if (refList.indexOf(3) === -1) {
+        $scope.tabEvidences.push({
+          "desc": "",
+          "name": `${$translate.instant("search_findings." +
+                                        "tab_evidence.evidence_name")} 2`,
+          "ref": 3
+        });
+      }
+      if (refList.indexOf(4) === -1) {
+        $scope.tabEvidences.push({
+          "desc": "",
+          "name": `${$translate.instant("search_findings." +
+                                        "tab_evidence.evidence_name")} 3`,
+          "ref": 4
+        });
+      }
+      if (refList.indexOf(5) === -1) {
+        $scope.tabEvidences.push({
+          "desc": "",
+          "name": `${$translate.instant("search_findings." +
+                                        "tab_evidence.evidence_name")} 4`,
+          "ref": 5
+        });
+      }
+      if (refList.indexOf(6) === -1) {
+        $scope.tabEvidences.push({
+          "desc": "",
+          "name": `${$translate.instant("search_findings." +
+                                        "tab_evidence.evidence_name")} 5`,
+          "ref": 6
+        });
+      }
+      $scope.tabEvidences.sort((auxa, auxb) => auxa.ref - auxb.ref);
+    },
+
+    "exploitEditable" ($scope) {
+      if ($scope.onlyReadableTab5 === false) {
+        $scope.onlyReadableTab5 = true;
+      }
+      else {
+        $scope.onlyReadableTab5 = false;
+      }
+      const inputs = document.querySelectorAll(".inputfile");
+      Array.prototype.forEach.call(inputs, (input) => {
+        const label = input.nextElementSibling;
+        const labelVal = label.innerHTML;
+
+        input.addEventListener("change", (err) => {
+          let fileName = "";
+          if (input.files && input.files.length > 1) {
+            fileName = (input.getAttribute("data-multiple-caption") ||
+                        "").replace("{count}", input.files.length);
+          }
+          else {
+            fileName = err.target.value.split("\\").pop();
+          }
+
+          if (fileName) {
+            label.querySelector("span").innerHTML = fileName;
+          }
+          else {
+            label.innerHTML = labelVal;
+          }
+        });
+
+        // Firefox bug fix
+        input.addEventListener("focus", () => {
+          input.classList.add("has-focus");
+        });
+        input.addEventListener("blur", () => {
+          input.classList.remove("has-focus");
+        });
+      });
+    },
+
+    "findingCalculateCSSv2" ($scope) {
+      const calCSSv2 = projectFtry.calCCssv2($scope.finding);
+      const BaseScore = calCSSv2[0];
+      const Temporal = calCSSv2[1];
+      const CVSSGeneral = Temporal;
+      return [
+        BaseScore.toFixed(1),
+        Temporal.toFixed(1)
+      ];
+    },
+
+    "goDown" () {
+      window.scrollTo(0, document.body.scrollHeight);
+    },
+
+    "recordsEditable" ($scope) {
+      if ($scope.onlyReadableTab6 === false) {
+        $scope.onlyReadableTab6 = true;
+      }
+      else {
+        $scope.onlyReadableTab6 = false;
+      }
+      const inputs = document.querySelectorAll(".inputfile");
+      Array.prototype.forEach.call(inputs, (input) => {
+        const label = input.nextElementSibling;
+        const labelVal = label.innerHTML;
+
+        input.addEventListener("change", (err) => {
+          let fileName = "";
+          if (input.files && input.files.length > 1) {
+            fileName = (input.getAttribute("data-multiple-caption") ||
+                        "").replace("{count}", input.files.length);
+          }
+          else {
+            fileName = err.target.value.split("\\").pop();
+          }
+
+          if (fileName) {
+            label.querySelector("span").innerHTML = fileName;
+          }
+          else {
+            label.innerHTML = labelVal;
+          }
+        });
+        // Firefox bug fix
+        input.addEventListener("focus", () => {
+          input.classList.add("has-focus");
+        });
+        input.addEventListener("blur", () => {
+          input.classList.remove("has-focus");
+        });
       });
     },
 
