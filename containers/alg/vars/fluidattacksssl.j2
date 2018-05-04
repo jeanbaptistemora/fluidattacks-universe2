@@ -49,8 +49,8 @@
         ProxyPassReverse /help http://kb.fluidattacks.com/help
 
     # Blog
-        RewriteRule ^/web(.*)$           http://main.fluidattacks.com/web$1        [P,L]
-        ProxyPassReverse /web http://main.fluidattacks.com/web
+        RewriteRule ^/web(.*)$           http://web.fluidattacks.com/web$1        [P,L]
+        ProxyPassReverse /web http://web.fluidattacks.com/web
 
         Substitute "s|http://blog.fluidattacks.com/|https://fluidattacks.com/web/|i"
 

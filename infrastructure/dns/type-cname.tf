@@ -143,11 +143,3 @@ resource "aws_route53_record" "database" {
   ttl     = "300"
   records = ["${var.db_instance}"]
 }
-
-resource "aws_route53_record" "main_to_bucket" {
-  zone_id = "${aws_route53_zone.fs_maindomain.zone_id}"
-  name    = "main.${aws_route53_zone.fs_maindomain.name}"
-  type    = "CNAME"
-  ttl     = "300"
-  records = ["web.fluidattacks.com"]
-}
