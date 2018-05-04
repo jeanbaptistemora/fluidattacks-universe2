@@ -50,7 +50,7 @@
         RewriteRule ^/web(.*)$           https://fluidattacks.com/web$1        [R]
         ProxyPassReverse /web https://fluidattacks.com/web
 
-        Substitute "s|http://web.fluidattacks.com|https://fluidattacks.com/web/|i"
+        Substitute "s|http://main.fluidattacks.com|https://fluidattacks.com/web/|i"
 
     AddOutputFilterByType INFLATE;SUBSTITUTE;DEFLATE text/html text/plain text/xml
         Substitute "s|http://(\w+)\.fluid.la/(.*)|https://$1.fluid.la/$2|i"
