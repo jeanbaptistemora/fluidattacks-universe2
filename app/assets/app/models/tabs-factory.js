@@ -44,6 +44,7 @@ integrates.factory("tabsFtry", ($q, $translate, projectFtry) => ({
             return data;
           };
           $("#comments-container").comments({
+            "defaultNavigationSortKey": "oldest",
             "enableAttachments": false,
             "enableEditing": false,
             "enableHashtags": true,
