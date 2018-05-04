@@ -148,6 +148,9 @@ integrates.controller(
           );
           reqEventualities.then((response) => {
             if (!response.error) {
+              if (typeof response.data === "undefined") {
+                location.reload();
+              }
               $scope.view.project = true;
               eventsData = response.data;
               $scope.loadEventContent(eventsData, vlang, projectName);

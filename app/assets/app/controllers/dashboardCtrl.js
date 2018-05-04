@@ -1,7 +1,7 @@
 /* eslint no-shadow: ["error", { "allow": ["$scope"] }]*/
 /* global
-integrates, $, BASE, mixpanel, userMail, $xhr, Organization, userEmail,
-mixPanelDashboard, userName, projectData:true, eventsData:true,
+integrates, $, $msg, BASE, mixpanel, userMail, $xhr, Organization, userEmail,
+mixPanelDashboard, userName, projectData:true, eventsData:true, Rollbar,
 findingData:true, fieldsToTranslate, keysToTranslate
 */
 /**
@@ -93,6 +93,9 @@ integrates.controller("dashboardCtrl", function dashboardCtrl (
     }
     const aux = $xhr.get($q, `${BASE.url}get_myevents`, {});
     aux.then((response) => {
+      if (typeof response.data === "undefined") {
+        location.reload();
+      }
       for (let cont = 0; cont < response.data.length; cont++) {
         for (let inc = 0; inc < fieldsToTranslate.length; inc++) {
           if (response.data[cont].tipo in keysToTranslate) {

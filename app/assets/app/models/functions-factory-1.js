@@ -25,6 +25,9 @@ integrates.factory(
     "alertHeader" (company, project) {
       const req = projectFtry.getAlerts(company, project);
       req.then((response) => {
+        if (typeof response.data === "undefined") {
+          location.reload();
+        }
         if (!response.error && response.data.length > 0) {
           if (response.data[0].status_act === "1") {
             let html = "<div class=\"alert alert-danger-2\">";

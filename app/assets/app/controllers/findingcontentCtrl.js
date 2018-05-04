@@ -126,6 +126,9 @@ integrates.controller("findingcontentCtrl", function findingcontentCtrl (
       );
       reqEventualities.then((response) => {
         if (!response.error) {
+          if (typeof response.data === "undefined") {
+            location.reload();
+          }
           eventsData = response.data;
         }
         else if (response.message === "Access to project denied") {
@@ -157,6 +160,9 @@ integrates.controller("findingcontentCtrl", function findingcontentCtrl (
     else {
       const req = projectFtry.findingById(id);
       req.then((response) => {
+        if (typeof response.data === "undefined") {
+          location.reload();
+        }
         if (!response.error && $stateParams.project ===
             response.data.proyecto_fluid.toLowerCase()) {
           findingData.data = response.data;

@@ -163,6 +163,9 @@ integrates.controller(
           );
           reqEventualities.then((response) => {
             if (!response.error) {
+              if (typeof response.data === "undefined") {
+                location.reload();
+              }
               eventsData = response.data;
             }
             else if (response.message === "Access to project denied") {
@@ -189,6 +192,9 @@ integrates.controller(
           reqProject.then((response) => {
             $scope.view.project = true;
             if (!response.error) {
+              if (typeof response.data === "undefined") {
+                location.reload();
+              }
               // Tracking Mixpanel
               mixPanelDashboard.trackSearch(
                 "SearchFinding",

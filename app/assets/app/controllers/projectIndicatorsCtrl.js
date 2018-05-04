@@ -100,6 +100,9 @@ integrates.controller(
       const req = projectFtry.totalSeverity($scope.project.toLowerCase());
       req.then((response) => {
         if (!response.error) {
+          if (typeof response.data === "undefined") {
+            location.reload();
+          }
           if (response.data.length > 0) {
             for (let cont = 0; cont < response.data.length; cont++) {
               const target = (parseInt(response.data[cont].lines, 10) / 1000) +
@@ -341,6 +344,9 @@ integrates.controller(
           );
           reqEventualities.then((response) => {
             if (!response.error) {
+              if (typeof response.data === "undefined") {
+                location.reload();
+              }
               eventsData = response.data;
             }
             else if (response.message === "Access to project denied") {
@@ -367,6 +373,9 @@ integrates.controller(
           reqProject.then((response) => {
             $scope.view.project = true;
             if (!response.error) {
+              if (typeof response.data === "undefined") {
+                location.reload();
+              }
               // Tracking Mixpanel
               mixPanelDashboard.trackSearch(
                 "SearchFinding",
