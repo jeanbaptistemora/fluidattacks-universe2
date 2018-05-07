@@ -72,6 +72,7 @@ para evitar que sean capturadas (+Man in The Middle+).
 
 . +Web+ link:../../defends/web/manejar-sesion-usuario/[Manejar una Sesión segura de Usuario].
 . +Web+ link:../../defends/web/establecer-cabecera-seguridad/[Establecer Cabeceras HTTP de Seguridad].
+. +WebSphere 8+ link:../../defends/websphere/evitar-atq-repeticion/[Evitar Ataques de Repetición].
 
 == Ataques
 
