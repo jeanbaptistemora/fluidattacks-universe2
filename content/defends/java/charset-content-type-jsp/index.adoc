@@ -45,6 +45,10 @@ se debería incluir en cualquier página web
 para indicar de forma expresa
 la codificación de carácteres utilizada.
 
+También se recomienda su uso para mitigar
+ataques de intrucción que buscan aprovechar
+la carencia del +charset+ en algunas páginas web.
+
 En esta solución se abordará la manera de definir
 el +charset+ +content-type+
 en una página desplegada en +JSP+.
@@ -97,7 +101,5 @@ como en letra minúscula.
 . [[r1]] link:https://en.wikipedia.org/wiki/Character_encoding#Character_sets,_character_maps_and_code_pages[Character encoding]
 . [[r2]] link:https://docs.oracle.com/cd/E28280_01/bi.1111/b32121/pbr_nls003.htm#RSPUB23729[Specifying a Character Set in a JSP]
 . [[r3]] link:https://docs.oracle.com/cd/B10002_01/generic.903/a97681/jspprim.htm[JSP Primer]
-. [[r4]] REQ.0039: Los archivos generados de forma dinámica por el sistema
-deben tener definido un Content-Type explícito.
-. [[r5]] REQ.0040: Los archivos generados de forma dinámica por el sistema
-deben tener definido un Character-Set explícito.
+. [[r4]] link:../../../rules/043/[REQ.043 Definir content type explícito]
+. [[r5]] link:../../../rules/044/[REQ.044 Definir charset explícito]

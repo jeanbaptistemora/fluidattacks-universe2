@@ -25,11 +25,13 @@ Sin embargo, algunas opciones de compilación
 pueden ser bastante útiles a la hora
 de ayudar en la producción de un código más seguro.
 
-. En general, no es buena idea compilar un programa en +Java+
+. En general, y como primera regla,
+no es buena idea compilar un programa en +Java+
 usando miembros o clases obsoletas.
 La opción +-deprecation+ (o +- Xlint:deprecation+)
 da mayor información sobre los elementos obsoletos utilizados en el programa.
-Esto puede ayudar a evitar el uso de funciones inseguras.
+Esto puede ayudar a evitar que los programadores
+hagan uso de funciones inseguras.
 
 . De manera general, las advertencias sobre este tipo de situaciones
 no deberían ignorarse.
@@ -141,4 +143,4 @@ javac -deprecation -g:none -implicit:none
 . [[r2]] link:https://groups.google.com/forum/#!topic/google-web-toolkit/tIf5Tdl9-u8[The "-implicit" argument of javac for JDK 6]
 . [[r3]] link:https://docs.oracle.com/javase/6/docs/technotes/tools/windows/javac.html#searching[Oracle Java 6 - Java Compiler]
 . [[r4]] link:http://www.idevelopment.info/data/Programming/java/miscellaneous_java/Using_CLASSPATH_and_SOURCEPATH.html[Using CLASSPATH and SOURCEPATH]
-. [[r5]] REQ.0152: El código debe compilarse o interpretarse de forma estricta.
+. [[r5]] link:../../../rules/157/[REQ.157 Compilación estricta]
