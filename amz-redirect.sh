@@ -8,12 +8,15 @@
 PATTERN="output/"
 PATTERN2="/index.html"
 
+export AWS_ACCESS_KEY_ID="$FW_AWS_ACCESS_KEY_ID"
+export AWS_SECRET_ACCESS_KEY="$FW_AWS_SECRET_ACCESS_KEY"
+
 find output -iname '*.html' | while IFS= read -r FILE; do
   STRING=${FILE/$PATTERN/}
   NAME=${STRING/$PATTERN2/}
   if [[ ! $NAME = *".html" ]]; then
     aws s3api put-object --acl public-read \
-    --bucket "$S3_BUCKET_NAME" --key "$NAME" --content-type text/html \
+    --bucket "$FW_S3_BUCKET_NAME" --key "$NAME" --content-type text/html \
     --website-redirect-location "/$NAME/";
   fi;
 done

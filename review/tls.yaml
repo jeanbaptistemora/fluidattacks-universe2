@@ -5,7 +5,7 @@ metadata:
 spec:
   acme:
     server: https://acme-v02.api.letsencrypt.org/directory
-    email: $DOCKER_EMAIL
+    email: $GL_EMAIL
     privateKeySecretRef:
       name: $K8_TLS_KEY
     http01: {}

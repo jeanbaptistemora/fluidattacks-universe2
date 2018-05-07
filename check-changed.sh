@@ -5,7 +5,7 @@
 
 ERRORS=0
 
-PREV_COMMIT=$(curl --header "Private-Token:$DOCKER_PASSWD" \
+PREV_COMMIT=$(curl --header "Private-Token:$GL_ACCESS_TOKEN" \
 "https://gitlab.com/api/v4/projects/$CI_PROJECT_ID/repository/commits/master" \
 | pcregrep -o '(?<="id":")[^,"]*')
 export PREV_COMMIT

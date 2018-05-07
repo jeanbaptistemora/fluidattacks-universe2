@@ -24,7 +24,7 @@ kubectl config set-context "$(kubectl config current-context)" --namespace="$CI_
 if ! kubectl get secret | grep -q "$K8_REG_SECRET"; then
   echo "Creating secret to access Gitlab Registry..."
   kubectl create secret docker-registry "$K8_REG_SECRET" --docker-server="$CI_REGISTRY" \
-  --docker-username="$DOCKER_USER" --docker-password="$DOCKER_PASSWD" --docker-email="$DOCKER_EMAIL"
+  --docker-username="$GL_USER" --docker-password="$GL_ACCESS_TOKEN" --docker-email="$GL_EMAIL"
 fi
 
 # Delete previous deployments and services of the same branch, if present
