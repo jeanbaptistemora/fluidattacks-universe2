@@ -117,5 +117,4 @@ obligando a trabajar directamente sobre el comprimido.
 
 . [[r1]] link:https://github.com/astrand/pyobfuscate[pyobfuscate]
 . [[r2]] link:https://es.wikipedia.org/wiki/Ofuscaci%C3%B3n[Ofuscación]
-. [[r3]] REQ.0062: El código fuente debe estar ofuscado
-en ambiente de producción.
+. [[r3]] link:../../../rules/159/[REQ.159 Código ofuscado]
