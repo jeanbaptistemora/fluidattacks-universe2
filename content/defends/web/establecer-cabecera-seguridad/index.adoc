@@ -1,0 +1,178 @@
+:slug: defends/web/establecer-cabecera-seguridad/
+:category: web
+:description: Nuestros ethical hackers explican cómo evitar vulnerabilidades de seguridad mediante la programación segura de aplicaciones web al configurar adecuadamente las cabeceras HTTP. Los ataques de tipo XSS e inyección de código son comunes y fácilmente evitables, aquí te mostramos algunas soluciones.
+:keywords: Web, Cabeceras, HTTP, Seguridad, Protección, Aplicación
+:defends: yes
+
+= Establecer Cabeceras HTTP de Seguridad
+
+== Necesidad
+
+Establecer las cabeceras +HTTP+ de seguridad para la aplicación.
+
+== Contexto
+
+A continuación se describe las circunstancias
+bajo las cuales la siguiente solución tiene sentido:
+
+. Se tiene una aplicación web la cual se quiere proteger de ataques cómo:
++Cross-site scripting+, +Clickjacking+, etc.
+
+. Se tiene una aplicación web
+la cual no tiene establecidas las cabeceras de seguridad
+a nivel de servidor o de aplicación.
+
+== Solución
+
+=== 1. Access Control Allow Origin
+
+La cabecera +Access-Control-Allow-Origin+
+permite definir la forma en la que el navegador y el servidor interactúan
+para determinar si se permite o no solicitudes de otros dominios externos
+vía +XMLhttpRequest+ (+Cross-origin request+).
+Se implementa de la siguiente manera:
+
+Se debe establecer la cabecera de la siguiente manera,
+donde +http://www.dominio.com+ es un dominio autorizado:
+
+----
+Access-Control-Allow-Origin: http://www.dominio.com
+----
+
+Si se desea implementar en +IIS 6.0+:
+
+* Abrir +Internet Information Services+.
+* Dar click derecho en el sitio donde se requiera implementar
+esta cabecera e ir a propiedades.
+* Ir a la pestaña de Cabeceras +HTTP+.
+* En la sección de personalización de cabeceras +HTTP+
+dar click en agregar.
+* En el atributo nombre de la cabecera
+completar +Access-Control-Allow-Origin+.
+* Adicionar en el atributo valor de la cabecera (*).
+* Finalmente guardar esta configuración.
+
+=== 2. Content-Security-Policy
+
++Content Security Policy+ (+CSP+) previene +Cross-site Scripting+
+al declarar de forma explícita al navegador qué +scripts+,
+multimedia, estilos +css+, entre otros,
+debe cargar desde el sitio web a través de listas blancas.
+Si un atacante logra incrustar código malicioso en el sitio web,
+el navegador lo ignorará, porque éste no está en el +CSP+.
+
+Las directivas soportadas son:
+
+* +default-src+: Define la política de carga de todo tipo de recursos
+en el caso que una directiva dedicada de tipo de recurso
+no está definida (+fallback+).
+
+* +script-src+: Define los +scripts+ que el recurso protegido puede ejecutar.
+
+* +object-src+: Define desde donde el recurso protegido puede cargar +plugins+.
+
+* +style-src+: Define cuales estilos (+CSS+) aplican al recurso protegido.
+
+* +img-src+: Define desde donde el recurso protegido puede cargar imágenes.
+
+* +media-src+: Define desde donde el recurso protegido
+puede cargar vídeo y audio.
+
+* +frame-src+: Define desde donde el recurso protegido puede insertar +frames+.
+
+* +font-src+: Define desde donde el recurso protegido puede cargar fuentes.
+
+* +connect-src+: Limita los orígenes a los cuales se puede conectar
+(vía +XHR+, +WebSockets+ y +EventSource+).
+
+* +form-action+: Define cuáles URIs pueden ser usadas como valor
+para el atributo action en elementos de formularios +HTML+.
+
+* +sandbox+: Especifica una política +sandbox HTML+
+para el agente de usuario que se aplica al recurso protegido.
+
+* +script-nonce+: Define la ejecución de +scripts+
+al requerir la presencia del atributo +nonce+
+en la etiqueta de los elementos +script+.
+
+* +plugin-types+: Define el conjunto de +plugins+
+que pueden ser invocados por el recurso protegido
+mediante la limitación de los tipos de recursos que se pueden incrustar.
+
+* +reflected-xss+: Indica al +User Agent+ activar o desactivar
+cualquier heurística utilizada para filtrar
+o bloquear ataques de +Cross-site Scripting+,
+equivalente a los efectos de la cabecera no estándar +X-XSS-Protection+.
+
+* +report-uri+: Especifica una +URI+ a la cuál el +User Agent+
+envía informes sobre violación de políticas.
+
+Para implementar una +CSP+ se sigue la siguiente sintaxis:
+
+----
+Content-Security-Policy: DIRECTIVA ORIGEN [ORIGEN ... ORIGEN]
+----
+
+Por ejemplo, para permitir la ejecución de +scripts+ desde dos origines:
+la propia página y el dominio +apis.google.com+,
+la +CSP+ debería ser establecida de la siguiente manera:
+
+----
+Content-Security-Policy: script-src 'self' https://apis.google.com
+----
+
+=== 3. Cross Domain Meta Policy
+
+Esta cabecera +X-Permitted-Cross-Domain-Policies+
+indica a +Flash+ y archivos +PDF+ cuál archivo +crossdomain.xml+ de su sitio,
+que contiene las directivas +Cross Domain Policy+ debe ser obedecido,
+en el caso de que haya más de uno.
+
+Para establecer el archivo +crossdomain.xml+
+que se encuentra en la raíz como el que se debe obedecer,
+se configura la cabecera de la siguiente manera:
+
+----
+X-Permitted-Cross-Domain-Policies: master-only
+----
+
+=== 4. No Sniff
+
+Si se establece la directiva +nosniff+ en una respuesta +HTTP+
+recibida para un recurso, el navegador +Internet Explorer+
+cargará el recurso basado en la cabecera de respuesta +Content-Type+
+y no en el contenido del recurso.
+Es decir que si el recurso contiene código +Script+ o +styleSheet+ (+CSS+),
++Internet Explorer+ no cargará el recurso como +script+ o hojas de estilo
+a menos que la cabecera de respuesta +Content-Type+ sea:
++text/javascript+, +text/script+, +text/css+, etc.
+
+Para establecer +nosniff+ en la cabecera +HTTP+
+se debe declarar de la siguiente manera:
+
+----
+X-Content-Type-Options: nosniff
+----
+
+=== 5. Otras soluciones
+
+* +Strict Transport Security+.
+* +UTF-8 Character Encoding+.
+* +X-Frame-Options+.
+* +X-XSS-Protection+.
+* +Cache-Control+.
+
+== Referencias
+
+. [[r1]] link:https://www.w3.org/TR/cors/#access-control-allow-origin-response-header[Cross-Origin Resource Sharing].
+. [[r2]] link:https://www.html5rocks.com/en/tutorials/security/content-security-policy/[An Introduction to Content Security Policy].
+. [[r3]] link:https://www.adobe.com/devnet/articles/crossdomain_policy_file_spec.html[Cross-domain policy file specification].
+. [[r4]] link:https://blogs.msdn.microsoft.com/ie/2008/07/02/ie8-security-part-v-comprehensive-protection/[IE8 Security Part V: Comprehensive Protection].
+. [[r5]] link:https://www.owasp.org/index.php/HTTP_Strict_Transport_Security_Cheat_Sheet[HTTP Strict Transport Security].
+. [[r6]] link:https://tools.ietf.org/html/rfc6797#section-6.1[HTTP Strict Transport Security (HSTS)].
+. [[r7]] link:https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Frame-Options[The X-Frame-Options response header].
+. [[r8]] link:https://blogs.msdn.microsoft.com/ieinternals/2011/01/31/controlling-the-xss-filter/[Controlling the XSS Filter].
+. [[r9]] link:http://zaynar.co.uk/docs/charset-encoding-xss.html[XSS vulnerabilities with unusual character encodings].
+. [[r10]] link:https://www.troyhunt.com/owasp-top-10-for-net-developers-part-9/[OWASP Top 10 for .NET developers: Insufficient Transport Layer Protection]
+. [[r11]] link:https://isc.sans.edu/diary/The+Security+Impact+of+HTTP+Caching+Headers/17033[The Security Impact of HTTP Caching Headers].
+. [[r12]] link:../../../rules/030/[REQ.030 Evitar reciclaje de objetos de autenticación].
