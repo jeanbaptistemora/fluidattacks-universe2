@@ -21,21 +21,23 @@ bajo las cuales la siguiente solución tiene sentido:
 
 == Solución
 
-* Las expresiones regulares (+regex+) son de mucha utilidad
-para un programador, pues permiten a través de patrones establecidos,
+* Las expresiones regulares, también conocidas como +regex+,
+son de mucha utilidad para un programador,
+pues permiten, a través de patrones establecidos,
 detectar si una cadena de texto contiene o no determinados elementos.
-En este caso vamos a usarlas para filtrar el
-contenido que se ingrese en las entradas de datos (+input+) de la aplicación.
+En este caso vamos a usarlas para filtrar
+el contenido que se ingrese
+en las entradas de datos (+input+) de la aplicación.
 +
 Esto muy importante en todo programa,
 pues se debe prevenir posibles intentos
-de ejecución de scripts al usar caracteres
+de ejecución de scripts maliciosos al usar caracteres
 que le indiquen al sistema no interpretar
 lo ingresado como una +string+,
-sino como código a ejecutar.
+sino como un código a ejecutar.
 
-* Se usa la función +sanitize+ para filtrar la entrada de
-un usuario.
+* En +PHP+ se usa la función +sanitize+
+para filtrar la entrada de un usuario.
 Esto permite que, a nivel de aplicación,
 se pueda determinar el tipo de dato y los caracteres permitidos en los
 campos de la petición.
@@ -151,7 +153,5 @@ puede visitar la link:http://php.net/manual/es/function.preg-match.php[Web ofici
 
 == Referencias
 
-. REQ.0168: El sistema debe descartar toda la información potencialmente
-insegura que sea recibida por entradas de datos.
-
-. link:http://css-tricks.com/snippets/php/sanitize-database-inputs/[Sanitize database inputs]
+. [[r1]] link:../../../rules/173/[REQ.173 Descartar información insegura]
+. [[r2]] link:http://css-tricks.com/snippets/php/sanitize-database-inputs/[Sanitize database inputs]
