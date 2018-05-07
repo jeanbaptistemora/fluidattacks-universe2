@@ -305,7 +305,7 @@ def get_findings_amount(project):
 
 def get_vulns_by_project_dynamo(project_name):
     """Obtiene la informacion de un hallazgo"""
-    table = dynamodb_resource.Table('findings_email')
+    table = dynamodb_resource.Table('FI_findings_email')
     filter_key = 'project_name'
     if filter_key and project_name:
         filtering_exp = Key(filter_key).eq(project_name)
@@ -323,7 +323,7 @@ def get_vulns_by_project_dynamo(project_name):
 
 def get_vulns_by_id_dynamo(project_name, unique_id):
     """Obtiene la informacion de un hallazgo"""
-    table = dynamodb_resource.Table('findings_email')
+    table = dynamodb_resource.Table('FI_findings_email')
     filter_key = 'project_name'
     filter_sort = 'unique_id'
     if filter_key and project_name and filter_sort and unique_id :
@@ -341,7 +341,7 @@ def get_vulns_by_id_dynamo(project_name, unique_id):
 
 def add_or_update_vulns_dynamo(project_name, unique_id, vuln_hoy):
     """Crea o actualiza una vulnerabilidad"""
-    table = dynamodb_resource.Table('findings_email')
+    table = dynamodb_resource.Table('FI_findings_email')
     item = get_vulns_by_id_dynamo(project_name, unique_id)
     if item == []:
         try:
@@ -379,7 +379,7 @@ def get_company_alert_dynamo(company_name, project_name):
     """Obtiene la informacion de un hallazgo"""
     company_name=company_name.lower()
     project_name=project_name.lower()
-    table = dynamodb_resource.Table('alerts_by_company')
+    table = dynamodb_resource.Table('FI_alerts_by_company')
     filter_key = 'company_name'
     filter_sort = 'project_name'
     if project_name == 'all':
@@ -414,7 +414,7 @@ def set_company_alert_dynamo(message, company_name, project_name):
                 return False
     company_name=company_name.lower()
     project_name=project_name.lower()
-    table = dynamodb_resource.Table('alerts_by_company')
+    table = dynamodb_resource.Table('FI_alerts_by_company')
     item = get_company_alert_dynamo(company_name, project_name)
     if item == []:
         try:
@@ -456,7 +456,7 @@ def change_status_company_alert_dynamo(message,company_name, project_name):
     message = message.lower()
     company_name=company_name.lower()
     project_name=project_name.lower()
-    table = dynamodb_resource.Table('alerts_by_company')
+    table = dynamodb_resource.Table('FI_alerts_by_company')
     if (project_name=='all' and message=='deactivate') or (project_name!='all' and message=='deactivate'):
         status = '0'
     else:
@@ -563,7 +563,7 @@ dynamodb_resource = resource('dynamodb',
 
 def get_comments_dynamo(finding_id):
     """Obtiene los comentarios de un hallazgo"""
-    table = dynamodb_resource.Table('comments')
+    table = dynamodb_resource.Table('FI_comments')
     filter_key = 'finding_id'
     if filter_key and finding_id:
         filtering_exp = Key(filter_key).eq(finding_id)
@@ -581,7 +581,7 @@ def get_comments_dynamo(finding_id):
 
 def create_comment_dynamo(finding_id, email, data):
     """Crea un comentario en un hallazgo"""
-    table = dynamodb_resource.Table('comments')
+    table = dynamodb_resource.Table('FI_comments')
     try:
         response = table.put_item(
             Item={
@@ -604,7 +604,7 @@ def create_comment_dynamo(finding_id, email, data):
 
 def delete_comment_dynamo(finding_id, data):
     """Elimina un comentario en un hallazgo"""
-    table = dynamodb_resource.Table('comments')
+    table = dynamodb_resource.Table('FI_comments')
     try:
         response = table.delete_item(
             Key={
@@ -620,7 +620,7 @@ def delete_comment_dynamo(finding_id, data):
 
 def get_replayer_dynamo(user_id):
     """Obtiene los comentarios de un hallazgo por el id de un comentario"""
-    table = dynamodb_resource.Table('comments')
+    table = dynamodb_resource.Table('FI_comments')
     filter_key = 'user_id'
     if filter_key and user_id:
         filtering_exp = Key(filter_key).eq(user_id)
@@ -638,7 +638,7 @@ def get_replayer_dynamo(user_id):
 
 def get_remediated_dynamo(finding_id):
     """Obtiene el tratamiento de un hallazgo"""
-    table = dynamodb_resource.Table('remediated')
+    table = dynamodb_resource.Table('FI_remediated')
     filter_key = 'finding_id'
     if filter_key and finding_id:
         filtering_exp = Key(filter_key).eq(finding_id)
@@ -656,7 +656,7 @@ def get_remediated_dynamo(finding_id):
 
 def add_remediated_dynamo(finding_id, remediated, project, finding_name):
     """Crea o actualiza un registro de remediado"""
-    table = dynamodb_resource.Table('remediated')
+    table = dynamodb_resource.Table('FI_remediated')
     item = get_remediated_dynamo(finding_id)
     if item == []:
         try:
@@ -692,7 +692,7 @@ def add_remediated_dynamo(finding_id, remediated, project, finding_name):
 
 def get_remediated_allfindings_dynamo(filter_value):
     """ Obtiene el tratamiento de todos los hallazgos """
-    table = dynamodb_resource.Table('remediated')
+    table = dynamodb_resource.Table('FI_remediated')
     filter_key = 'remediated'
     if filter_key and filter_value:
         filtering_exp = Key(filter_key).eq(filter_value)
@@ -711,7 +711,7 @@ def get_remediated_allfindings_dynamo(filter_value):
 
 def get_finding_dynamo(finding_id):
     """Obtiene la informacion de un hallazgo"""
-    table = dynamodb_resource.Table('findings')
+    table = dynamodb_resource.Table('FI_findings')
     filter_key = 'finding_id'
     if filter_key and finding_id:
         filtering_exp = Key(filter_key).eq(finding_id)
@@ -729,7 +729,7 @@ def get_finding_dynamo(finding_id):
 
 def add_finding_dynamo(finding_id, key, value, exist, val):
     """Crea un hallazgo"""
-    table = dynamodb_resource.Table('findings')
+    table = dynamodb_resource.Table('FI_findings')
     item = get_finding_dynamo(finding_id)
     if item == []:
         try:
@@ -765,7 +765,7 @@ def add_finding_dynamo(finding_id, key, value, exist, val):
 
 def delete_finding_dynamo(finding_id):
     """Elimina un hallazgo"""
-    table = dynamodb_resource.Table('findings')
+    table = dynamodb_resource.Table('FI_findings')
     try:
         response = table.delete_item(
             Key={
@@ -780,7 +780,7 @@ def delete_finding_dynamo(finding_id):
 
 def get_toe_dynamo(project):
     """Obtiene el toe de un proyecto"""
-    table = dynamodb_resource.Table('toe')
+    table = dynamodb_resource.Table('FI_toe')
     filter_key = 'project'
     if filter_key and project:
         filtering_exp = Key(filter_key).eq(project)
@@ -798,7 +798,7 @@ def get_toe_dynamo(project):
 
 def weekly_report_dynamo(init_date, finish_date, registered_users, logged_users):
     """Guarda el numero de usuarios registrados y logueados en integrates semanalmente"""
-    table = dynamodb_resource.Table('weekly_report')
+    table = dynamodb_resource.Table('FI_weekly_report')
     try:
         response = table.put_item(
             Item={
