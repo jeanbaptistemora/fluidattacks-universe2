@@ -68,6 +68,10 @@ se deben invalidar sus sesiones tanto en cliente como en servidor.
 . Canal seguro: Usar canales de transporte seguros al transferir las +cookies+,
 para evitar que sean capturadas (+Man in The Middle+).
 
+== Soluciones
+
+. +Web+ link:../../defends/web/manejar-sesion-usuario/[Manejar una Sesión segura de Usuario].
+
 == Ataques
 
 . Robo de sesión.
