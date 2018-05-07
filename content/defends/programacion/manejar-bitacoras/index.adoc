@@ -22,18 +22,21 @@ se desea controlar el uso de bitácoras de una manera correcta.
 == Solución
 
 Una bitácora o +log+ es una grabación secuencial en un archivo
-o en una base de datos de todos los acontecimientos (eventos o acciones)
-que afectan a un proceso particular
-(cambio de datos en una aplicación, actividad de una red,
-acceso a un sistema de información, entre otros).
+o en una base de datos de todos los acontecimientos
+es decir, los eventos o las acciones
+que afectan a un proceso particular.
+Tales eventos pueden ser;
+cambio de los datos en una aplicación, actividad de una red,
+acceso a un sistema de información autorizado o no, entre otros.
 De esta forma constituye una evidencia
 del comportamiento del sistema ^<<r1,[1]>>^.
 
 Generalmente los acontecimientos vienen anotados
 con el momento exacto o +data+ (fecha, hora, minuto, segundo)
 en el que ocurrió, lo que permite analizar paso a paso
-la actividad presentada permitiendo realizar
-un seguimiento casí exacto de dicho acontecimiento.
+la actividad presentada permitiendo,
+de esta forma, realizar
+un seguimiento casi exacto de dicho acontecimiento.
 Además, una o más categorizaciones del acontecimiento registrado.
 Es frecuente usar categorías distintas
 para distinguir la importancia del acontecimiento
@@ -49,7 +52,7 @@ El uso de bitácoras puede servir para:
 * Cumplir con las leyes establecidas.
 * Auditoría.
 
-Por otro lado, los logs pueden contener información confidencial
+Por otro lado, los +logs+ pueden contener información confidencial
 que no debe ser revelada por privacidad e incluso seguridad del sistema.
 En estos casos es necesaria proteger la confidencialidad de la información
 haciendo uso de métodos de cifrado y demás.
@@ -77,5 +80,4 @@ centralizada de eventos de bitácora.
 
 . [[r1]] link:https://es.wikipedia.org/wiki/Log_(inform%C3%A1tica)[Log (informática)]
 . [[r2]] link:http://www.manageengine.com.mx/Blog/8-habitos-efectivos-para-la-gestion-de-bitacoras-de-ti.html[8 Hábitos Efectivos para la Gestión de Bitácoras de TI]
-. [[r3]] REQ.0070: El sistema debe registrar todos los eventos excepcionales
-y de seguridad en una o varias bitácoras.
+. [[r3]] link:../../../rules/075/[REQ.075 Registrar eventos en bitácoras]
