@@ -119,59 +119,62 @@ integrates.factory("tabsFtry", ($q, $translate, projectFtry) => ({
         url
       });
     };
+    const setEvidenceList = function setEvidenceList (response, valFormstack) {
+      for (let cont = 0; cont < response.data.length; cont++) {
+        const valS3 = response.data[cont];
+        if (typeof valS3.animacion !== "undefined" &&
+                    valS3.es_animacion === true) {
+          updEvidenceList(
+            valS3.animacion, "animation_exploit",
+            "animation_exploit", 0, "basic", evidenceList, data
+          );
+        }
+        else if (typeof valFormstack.animacion !== "undefined") {
+          updEvidenceList(
+            valFormstack.animacion, "animation_exploit",
+            "animation_exploit", 0, "basic", evidenceList, data
+          );
+        }
+        if (typeof valS3.explotacion !== "undefined" &&
+                   valS3.es_explotacion === true) {
+          updEvidenceList(
+            valS3.explotacion, "evidence_exploit",
+            "evidence_exploit", 1, "basic", evidenceList, data
+          );
+        }
+        else if (typeof valFormstack.explotacion !== "undefined") {
+          updEvidenceList(
+            valFormstack.explotacion, "evidence_exploit",
+            "evidence_exploit", 1, "basic", evidenceList, data
+          );
+        }
+        for (let inc = 1; inc < 6; inc++) {
+          if (typeof valFormstack[`desc_evidencia_${inc}`] !==
+            "undefined" && typeof valS3[`ruta_evidencia_${inc}`] !==
+            "undefined" && valS3[`es_ruta_evidencia_${inc}`] === true) {
+            updEvidenceList(
+              valS3[`ruta_evidencia_${inc}`], `desc_evidencia_${inc}`,
+              "evidence_name", inc + 1, "special", evidenceList, data
+            );
+          }
+          else if (typeof valFormstack[`desc_evidencia_${inc}`] !==
+            "undefined" && typeof valFormstack[`ruta_evidencia_${inc}`] !==
+            "undefined") {
+            updEvidenceList(
+              valFormstack[`ruta_evidencia_${inc}`],
+              `desc_evidencia_${inc}`,
+              "evidence_name", inc + 1, "special", evidenceList, data
+            );
+          }
+        }
+      }
+    };
     const req = projectFtry.getEvidences(data.finding.id);
     req.then((response) => {
       if (!response.error) {
         const valFormstack = data.finding;
         if (response.data.length > 0) {
-          for (let cont = 0; cont < response.data.length; cont++) {
-            const valS3 = response.data[cont];
-            if (typeof valS3.animacion !== "undefined" &&
-                        valS3.es_animacion === true) {
-              updEvidenceList(
-                valS3.animacion, "animation_exploit",
-                "animation_exploit", 0, "basic", evidenceList, data
-              );
-            }
-            else if (typeof valFormstack.animacion !== "undefined") {
-              updEvidenceList(
-                valFormstack.animacion, "animation_exploit",
-                "animation_exploit", 0, "basic", evidenceList, data
-              );
-            }
-            if (typeof valS3.explotacion !== "undefined" &&
-                       valS3.es_explotacion === true) {
-              updEvidenceList(
-                valS3.explotacion, "evidence_exploit",
-                "evidence_exploit", 1, "basic", evidenceList, data
-              );
-            }
-            else if (typeof valFormstack.explotacion !== "undefined") {
-              updEvidenceList(
-                valFormstack.explotacion, "evidence_exploit",
-                "evidence_exploit", 1, "basic", evidenceList, data
-              );
-            }
-            for (let inc = 1; inc < 6; inc++) {
-              if (typeof valFormstack[`desc_evidencia_${inc}`] !==
-                "undefined" && typeof valS3[`ruta_evidencia_${inc}`] !==
-                "undefined" && valS3[`es_ruta_evidencia_${inc}`] === true) {
-                updEvidenceList(
-                  valS3[`ruta_evidencia_${inc}`], `desc_evidencia_${inc}`,
-                  "evidence_name", inc + 1, "special", evidenceList, data
-                );
-              }
-              else if (typeof valFormstack[`desc_evidencia_${inc}`] !==
-                "undefined" && typeof valFormstack[`ruta_evidencia_${inc}`] !==
-                "undefined") {
-                updEvidenceList(
-                  valFormstack[`ruta_evidencia_${inc}`],
-                  `desc_evidencia_${inc}`,
-                  "evidence_name", inc + 1, "special", evidenceList, data
-                );
-              }
-            }
-          }
+          setEvidenceList(response, valFormstack);
         }
         else {
           if (typeof data.finding.animacion !== "undefined") {

@@ -123,34 +123,37 @@ integrates.factory(
       $scope.aux.razon = $scope.finding.razonTratamiento;
       $scope.aux.cardinalidad = $scope.finding.cardinalidad;
       $scope.hasCompromisedAttributes = true;
-      if (typeof $scope.finding.registros === "undefined") {
-        $scope.hasCompromisedAttributes = false;
-      }
-      if ($scope.finding.tratamiento === "Asumido") {
-        $scope.isAssumed = true;
-      }
-      else {
-        $scope.isAssumed = false;
-      }
-      if ($scope.finding.estado === "Cerrado") {
-        $scope.isClosed = true;
-      }
-      else {
-        $scope.isClosed = false;
-      }
-      if ($scope.finding.suscripcion === "Continua" ||
-          $scope.finding.suscripcion === "Concurrente" ||
-          $scope.finding.suscripcion === "Si") {
-        $scope.isContinuous = true;
-      }
-      else {
-        $scope.isContinuous = false;
-      }
-      if ($scope.finding.suscripcion !== "Concurrente" &&
-          $scope.finding.suscripcion !== "Puntual" &&
-          $scope.finding.suscripcion !== "Continua") {
-        Rollbar.warning(`Warning: Finding ${$scope.finding.id} without type`);
-      }
+      const defineStates = function defineStates () {
+        if (typeof $scope.finding.registros === "undefined") {
+          $scope.hasCompromisedAttributes = false;
+        }
+        if ($scope.finding.tratamiento === "Asumido") {
+          $scope.isAssumed = true;
+        }
+        else {
+          $scope.isAssumed = false;
+        }
+        if ($scope.finding.estado === "Cerrado") {
+          $scope.isClosed = true;
+        }
+        else {
+          $scope.isClosed = false;
+        }
+        if ($scope.finding.suscripcion === "Continua" ||
+            $scope.finding.suscripcion === "Concurrente" ||
+            $scope.finding.suscripcion === "Si") {
+          $scope.isContinuous = true;
+        }
+        else {
+          $scope.isContinuous = false;
+        }
+        if ($scope.finding.suscripcion !== "Concurrente" &&
+            $scope.finding.suscripcion !== "Puntual" &&
+            $scope.finding.suscripcion !== "Continua") {
+          Rollbar.warning(`Warning: Finding ${$scope.finding.id} without type`);
+        }
+      };
+      defineStates();
       $scope.aux.responsable = $scope.finding.responsableTratamiento;
       $scope.aux.bts = $scope.finding.btsExterno;
       $scope.finding.hasUrl = $scope.hasUrl($scope.finding.btsExterno);

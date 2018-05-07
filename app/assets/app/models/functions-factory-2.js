@@ -322,28 +322,34 @@ integrates.factory(
       const gifMaxSize = 10485760;
       const pyMaxSize = 1048576;
       const csvMaxSize = 1048576;
-      if ((fileType === ".png" || fileType === ".PNG") &&
-           fileInput.files[0].size > pngMaxSize) {
-        errorAc1 = $translate.instant("proj_alerts.file_size_png");
-        $msg.error(errorAc1);
-        return false;
-      }
-      if ((fileType === ".gif" || fileType === ".GIF") &&
-           fileInput.files[0].size > gifMaxSize) {
-        errorAc1 = $translate.instant("proj_alerts.file_size");
-        $msg.error(errorAc1);
-        return false;
-      }
-      if ((fileType === ".py" || fileType === ".PY") &&
-           fileInput.files[0].size > pyMaxSize) {
-        errorAc1 = $translate.instant("proj_alerts.file_size_py");
-        $msg.error(errorAc1);
-        return false;
-      }
-      if ((fileType === ".csv" || fileType === ".CSV") &&
-           fileInput.files[0].size > csvMaxSize) {
-        errorAc1 = $translate.instant("proj_alerts.file_size_py");
-        $msg.error(errorAc1);
+      const validateFileSize = function validateFileSize () {
+        if ((fileType === ".png" || fileType === ".PNG") &&
+             fileInput.files[0].size > pngMaxSize) {
+          errorAc1 = $translate.instant("proj_alerts.file_size_png");
+          $msg.error(errorAc1);
+          return false;
+        }
+        if ((fileType === ".gif" || fileType === ".GIF") &&
+             fileInput.files[0].size > gifMaxSize) {
+          errorAc1 = $translate.instant("proj_alerts.file_size");
+          $msg.error(errorAc1);
+          return false;
+        }
+        if ((fileType === ".py" || fileType === ".PY") &&
+             fileInput.files[0].size > pyMaxSize) {
+          errorAc1 = $translate.instant("proj_alerts.file_size_py");
+          $msg.error(errorAc1);
+          return false;
+        }
+        if ((fileType === ".csv" || fileType === ".CSV") &&
+             fileInput.files[0].size > csvMaxSize) {
+          errorAc1 = $translate.instant("proj_alerts.file_size_py");
+          $msg.error(errorAc1);
+          return false;
+        }
+        return true;
+      };
+      if (!validateFileSize()) {
         return false;
       }
       const evImages = [

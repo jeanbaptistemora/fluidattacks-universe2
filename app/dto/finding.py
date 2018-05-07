@@ -102,7 +102,7 @@ class FindingDTO(object):
             self.request_id \
                 = parameter["data[id]"]
         if "data[" + parameter["data[field]"] + "]" in parameter:
-            if parameter["data[field]"] == "desEvidencia1":
+            if parameter["data[field]"] == "descEvidencia1":
                 self.data[self.DOC_CMNT1] \
                 = parameter["data[" + parameter["data[field]"] + "]"]
             if parameter["data[field]"] == "descEvidencia2":
