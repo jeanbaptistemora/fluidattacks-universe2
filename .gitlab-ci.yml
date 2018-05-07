@@ -54,6 +54,7 @@ terraform-test:
       - terraform plan
     except:
     - triggers
+    - master
 
 terraform-deploy:
     stage: terraform-deploy
@@ -66,9 +67,9 @@ terraform-deploy:
     script:
       - terraform init
       - terraform apply -auto-approve
-      # - if [ -n "${NEW_DEPLOY}" ]; then python migratedynamo.py $FI_AWS_DYNAMODB_ACCESS_KEY $FI_AWS_DYNAMODB_SECRET_KEY $FI_AWS_DYNAMODB_ACCESS_KEY $FI_AWS_DYNAMODB_SECRET_KEY; fi
+      - if [ -n "${NEW_DEPLOY}" ]; then python migratedynamo.py $FI_AWS_DYNAMODB_ACCESS_KEY $FI_AWS_DYNAMODB_SECRET_KEY $FI_AWS_DYNAMODB_ACCESS_KEY $FI_AWS_DYNAMODB_SECRET_KEY; fi
     after_script:
-      - aws s3 cp infrastructure/integrates/terraform.tfstate s3://$BUCKET_NAME/terraform/integrates/terraform.tfstate
+      - aws s3 cp deploy/terraform.tfstate s3://$BUCKET_NAME/terraform/integrates/terraform.tfstate
     only:
     - master
     except:
