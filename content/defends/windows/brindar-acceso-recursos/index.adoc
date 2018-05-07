@@ -25,8 +25,8 @@ se deben seguir los siguientes pasos:
 
 . Se ingresa al +Server Manager+
 y se hace clic en +File Services+ y +Share and Storage Manager+.
-Luego se da doble clic sobre el recurso compartido
-como se ve en la imagen.
+Luego se da doble clic sobre el recurso compartido.
+Tal como se ve en la imagen.
 +
 image::manager.png[server-manager]
 
@@ -55,9 +55,10 @@ será el que se aplique al recurso compartido.
 puede especificar permisos compartidos
 para los recursos compartidos basados en +SMB+
 de la siguiente forma:
+
 * *Nuevos recursos compartidos*.
-En el Asistente aprovisionar carpetas compartidas
-si selecciona +SMB+ como protocolo de uso compartido,
+En el Asistente aprovisionar carpetas compartidas.
+Si selecciona +SMB+ como protocolo de uso compartido,
 puede especificar los siguientes permisos de acceso basados en +SMB+
 en la página permisos +SMB+.
 
@@ -101,6 +102,7 @@ image::permisos-2.png[permisos-recurso]
 para una carpeta o volumen compartido
 mediante la administración de almacenamiento y recursos compartidos
 de las formas que se indican a continuación:
+
 * *Nuevos recursos compartidos*.
 En el Asistente para aprovisionar carpetas compartidas,
 antes de seleccionar un protocolo de uso compartido de red,
@@ -128,5 +130,4 @@ image::permisos-3.png[permisos.ntfs]
 
 . [[r1]] link:https://technet.microsoft.com/es-es/library/cc770962.aspx[Administrar permisos sobre los recursos]
 . [[r2]] link:https://technet.microsoft.com/es-es/library/cc772501(v=ws.11).aspx[Establecer los permisos de un recurso compartido]
-. [[r3]] REQ.0031: El sistema no debe permitir a un actor del sistema,
-aumentar los privilegios para él mismo.
+. [[r3]] link:../../../rules/035/[REQ.035 Administrar modificaciones de privilegios]

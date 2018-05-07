@@ -8,7 +8,7 @@
 
 == Necesidad
 
-No mostrar nombres de usuarios existentes
+No mostrar los nombres de usuarios existentes
 requiriendo usuario y contraseña
 durante el proceso de autenticación en +Windows 7+.
 
@@ -17,11 +17,22 @@ durante el proceso de autenticación en +Windows 7+.
 A continuación se describen las circunstancias
 bajo las cuales la siguiente solución tiene sentido:
 
-. Se tiene una máquina bajo el sistema operativo +Windows 7+.
+. Se tiene una máquina funcionando con
+el sistema operativo +Windows 7+.
 . Opcionalmente se desea propagar la configuración
-a equipos pertenecientes a un dominio +Windows+.
+a equipos pertenecientes a un dominio de +Windows+.
 
 == Solución
+
+La enumeración de usuarios es un ataque que consiste
+en comprobar la existencia de cuentas de usuarios existentes
+en un sistema de información.
+Dicha identificación se hace para,
+una vez conocidos los usuarios validos,
+poderlos usar para realizar
+un ataque que le permita al atacante acceder al sistema.
+Por lo general, dichos ataques son realizados
+por fuerza bruta y/o uso de diccionarios.
 
 Esta solución pretende evitar que un atacante conozca
 el listado de usuarios existentes
@@ -64,9 +75,9 @@ image::gpedit.png[gpedit]
 image::sesion.png[sesion]
 
 . Para verificar que la longitud de clave sea superior a cero
-(lo cual significa que sólo se necesitaría el nombre de usuario
-para un usuario que no haya establecido una contraseña)
-la ruta a seguir será:
+la ruta a seguir será la mostrada en la imagen.
+Lo anterior significa que sólo se necesitaría el nombre de usuario
+para un usuario que no haya establecido una contraseña.
 +
 [source, shell, linenums]
 ----
@@ -99,7 +110,5 @@ image::login-2.png[login]
 
 . [[r1]] link:https://blog.rapid7.com/2017/06/15/about-user-enumeration/[About User Enumeration]
 . [[r2]] link:http://velozityweb.com/blog/all/enumeracion-de-usuarios-y-sistemas/#sthash.Rjwut7vV.dpbs[Enumeración de usuarios y sistemas]
-. [[r3]] REQ.0225: El sistema debe solicitar a cualquier actor
-que intenta autenticarse, como mínimo un nombre de usuario y una contraseña.
-. [[r4]] REQ.0172: El sistema no debe almacenar información sensible
-en archivos temporales o en memoria caché.
+. [[r3]] link:../../../rules/229/[REQ.229 Solicitar credenciales de acceso]
+. [[r4]] link:../../../rules/177/[REQ.177 Almacenar datos de forma segura]
