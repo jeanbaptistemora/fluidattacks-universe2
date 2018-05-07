@@ -7,6 +7,8 @@ variable "dbreg" {}
 
 # S3 vars
 variable "bucket" {}
+variable "webBucket" {}
+variable "fiBucket" {}
 
 # gitlabCI
 variable "ciIP" {}

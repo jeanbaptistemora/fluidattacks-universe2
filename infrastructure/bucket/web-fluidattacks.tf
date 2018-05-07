@@ -1,5 +1,7 @@
+variable "webBucket" {}
+
 resource "aws_s3_bucket" "web_fluidattacks" {
-  bucket = "web.fluidattacks.com"
+  bucket = "${var.webBucket}"
   acl    = "private"
 
   website {
@@ -9,4 +11,9 @@ resource "aws_s3_bucket" "web_fluidattacks" {
    tags {
     Pry = "General"
   }
+}
+
+output "webName" {
+  value = "${aws_s3_bucket.web_fluidattacks.id}"
+
 }

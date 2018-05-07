@@ -9,11 +9,14 @@ provider "aws" {
 module "bucket" {
   source = "./bucket"
   bucketName = "${var.bucket}"
+  webBucket = "${var.webBucket}"
+  fiBucket = "${var.fiBucket}"
 }
 
 # Create from scratch
 module "iam" {
   source = "./iam"
+  webBucket = "${var.webBucket}"
 }
 
 # #Create from scratch
@@ -68,6 +71,14 @@ output "variable_db" {
 
 output "variable_ip" {
   value = "server=\"${module.ec2-cron.ip}\""
+}
+
+output "variable_web" {
+  value = "bucket=\"${module.bucket.webName}\""
+}
+
+output "variable_integrates" {
+  value = "bucket-integrates=\"${module.bucket.fiName}\""
 }
 
 output "instance_ip" {

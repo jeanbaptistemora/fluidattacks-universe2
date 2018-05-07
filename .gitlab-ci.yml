@@ -64,6 +64,8 @@ test_terraform:
       - echo acc_key = \"$AWS_ACCESS_KEY_ID\" >> infrastructure/vars/aws.tfvars
       - echo sec_key = \"$AWS_SECRET_ACCESS_KEY\" >> infrastructure/vars/aws.tfvars
       - echo bucket = \"$BUCKET_NAME\" >> infrastructure/terraform.tfvars
+      - echo webBucket = \"$WEB_BUCKET\" >> infrastructure/terraform.tfvars
+      - echo fiBucket = \"$FI_BUCKET\" >> infrastructure/terraform.tfvars
       - echo $SSO_XML > infrastructure/vars/SSO.xml
       - echo $SSO_FINANCE_XML > infrastructure/vars/SSOFinance.xml
       - echo db_id = \"$SNAP_ID\" >> infrastructure/terraform.tfvars
@@ -117,6 +119,8 @@ deploy_terraform:
         - echo acc_key = \"$AWS_ACCESS_KEY_ID\" >> infrastructure/vars/aws.tfvars
         - echo sec_key = \"$AWS_SECRET_ACCESS_KEY\" >> infrastructure/vars/aws.tfvars
         - echo bucket = \"$BUCKET_NAME\" >> infrastructure/terraform.tfvars
+        - echo webBucket = \"$WEB_BUCKET\" >> infrastructure/terraform.tfvars
+        - echo fiBucket = \"$FI_BUCKET\" >> infrastructure/terraform.tfvars
         - echo db_id = \"$SNAP_ID\" >> infrastructure/terraform.tfvars
         - echo $SSO_XML > infrastructure/vars/SSO.xml
         - echo $SSO_FINANCE_XML > infrastructure/vars/SSOFinance.xml
@@ -144,6 +148,8 @@ install_alg:
         - echo acc_key = \"$AWS_ACCESS_KEY_ID\" >> infrastructure/vars/aws.tfvars
         - echo sec_key = \"$AWS_SECRET_ACCESS_KEY\" >> infrastructure/vars/aws.tfvars
         - echo bucket = \"$BUCKET_NAME\" >> infrastructure/terraform.tfvars
+        - echo webBucket = \"$WEB_BUCKET\" >> infrastructure/terraform.tfvars
+        - echo fiBucket = \"$FI_BUCKET\" >> infrastructure/terraform.tfvars
         - echo db_id = \"$SNAP_ID\" >> infrastructure/terraform.tfvars
         - echo $SSO_XML > infrastructure/vars/SSO.xml
         - echo $SSO_FINANCE_XML > infrastructure/vars/SSOFinance.xml
@@ -170,6 +176,8 @@ install_exams:
         - echo acc_key = \"$AWS_ACCESS_KEY_ID\" >> infrastructure/vars/aws.tfvars
         - echo sec_key = \"$AWS_SECRET_ACCESS_KEY\" >> infrastructure/vars/aws.tfvars
         - echo bucket = \"$BUCKET_NAME\" >> infrastructure/terraform.tfvars
+        - echo webBucket = \"$WEB_BUCKET\" >> infrastructure/terraform.tfvars
+        - echo fiBucket = \"$FI_BUCKET\" >> infrastructure/terraform.tfvars
         - echo db_id = \"$SNAP_ID\" >> infrastructure/terraform.tfvars
         - echo $SSO_XML > infrastructure/vars/SSO.xml
         - echo $SSO_FINANCE_XML > infrastructure/vars/SSOFinance.xml
@@ -196,6 +204,8 @@ install_vpn:
         - echo acc_key = \"$AWS_ACCESS_KEY_ID\" >> infrastructure/vars/aws.tfvars
         - echo sec_key = \"$AWS_SECRET_ACCESS_KEY\" >> infrastructure/vars/aws.tfvars
         - echo bucket = \"$BUCKET_NAME\" >> infrastructure/terraform.tfvars
+        - echo webBucket = \"$WEB_BUCKET\" >> infrastructure/terraform.tfvars
+        - echo fiBucket = \"$FI_BUCKET\" >> infrastructure/terraform.tfvars
         - echo db_id = \"$SNAP_ID\" >> infrastructure/terraform.tfvars
         - echo $SSO_XML > infrastructure/vars/SSO.xml
         - echo $SSO_FINANCE_XML > infrastructure/vars/SSOFinance.xml
@@ -222,6 +232,8 @@ change_dns:
         - echo acc_key = \"$AWS_ACCESS_KEY_ID\" >> infrastructure/vars/aws.tfvars
         - echo sec_key = \"$AWS_SECRET_ACCESS_KEY\" >> infrastructure/vars/aws.tfvars
         - echo bucket = \"$BUCKET_NAME\" >> infrastructure/terraform.tfvars
+        - echo webBucket = \"$WEB_BUCKET\" >> infrastructure/terraform.tfvars
+        - echo fiBucket = \"$FI_BUCKET\" >> infrastructure/terraform.tfvars
         - echo $SSO_XML > infrastructure/vars/SSO.xml
         - echo $SSO_FINANCE_XML > infrastructure/vars/SSOFinance.xml
         - echo db_id = \"$DB_ID\" >> infrastructure/terraform.tfvars
@@ -234,6 +246,8 @@ change_dns:
         - terraform refresh -var-file="vars/aws.tfvars"
         - terraform output variable_ip >> dns/terraform.tfvars
         - terraform output variable_db >> dns/terraform.tfvars
+        - terraform output variable_web >> dns/terraform.tfvars
+        - terraform output variable_integrates >> dns/terraform.tfvars
     script:
         - cd dns
         - terraform init

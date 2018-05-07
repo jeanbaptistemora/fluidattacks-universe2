@@ -1,3 +1,5 @@
+variable "webBucket" {}
+
 data "aws_iam_policy_document" "blog-policy" {
   statement {
     sid = "VisualEditor0"
@@ -7,9 +9,9 @@ data "aws_iam_policy_document" "blog-policy" {
     ]
     resources = [
       "arn:aws:s3:::web.fluid.la/*",
-      "arn:aws:s3:::web.fluidattacks.com/*",
+      "arn:aws:s3:::${var.webBucket}/*",
       "arn:aws:s3:::web.fluid.la",
-      "arn:aws:s3:::web.fluidattacks.com"
+      "arn:aws:s3:::${var.webBucket}"
     ]
   }
 }

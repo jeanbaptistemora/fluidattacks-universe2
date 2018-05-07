@@ -5,5 +5,3 @@ sreg = "us-east-1b"
 domain = "fluidattacks.com."
 
 # S3 vars
-bucket = "web.fluidattacks.com"
-bucket-integrates = "fluidintegrates.fluidattacks.com"
