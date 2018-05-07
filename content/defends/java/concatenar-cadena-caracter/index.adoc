@@ -18,7 +18,7 @@ bajo las cuales la siguiente solución tiene sentido:
 . Se sabe cuando usar la clase +StringBuilder+ frente a +StringBuffer+.
 . Se está desarrollando en +Java 1.5+ o superior.
 Si se está desarrollando en +Java 1.0 - 1.4+,
-se debe utilizar +StringBuffer+ en vez de StringBuilder.
+se debe utilizar +StringBuffer+ en vez de +StringBuilder+.
 . Se busca una comparación aproximada.
 . La concatenación se hace de forma iterativa o recursiva.
 
@@ -34,10 +34,12 @@ su valor no puede cambiar.
 Teniendo en consideración lo anterior,
 es ideal utilizar cadenas inmutables
 cuando se sabe que no se realizarán modificaciones
-como concatenaciones, reducciónes, entre otras, sobre las cadenas.
-Por su parte, el udo de las cadenas mutables
+como concatenaciones, reducciónes, entre otras operaciones, sobre las cadenas.
+Por su parte, el uso de las cadenas mutables
 son para todo lo contrario
-es decir, serán concatenadas, reducidas, entre otras modificaciones.
+es decir, las cadenas serán concatenadas,
+reducidas, entre otras modificaciones
+que se pueden hacer sobre las mismas.
 
 El uso de estos lineamientos
 evita la creación de objetos innecesarios
@@ -127,5 +129,4 @@ con +4GB+ de memoria +RAM+.
 . [[r2]] link:http://www-01.ibm.com/software/webservers/appserv/ws_bestpractices.pdf[Best Practices for Performance]
 . [[r3]] link:https://docs.oracle.com/javase/7/docs/api/java/lang/StringBuilder.html[Class StringBuilder]
 . [[r4]] link:http://www.precisejava.com/javaperf/j2se/StringAndStringBuffer.htm#Strings104[Optimization techniques when Concatenating Strings]
-. [[r5]] REQ.0159: El código debe utilizar contenedores
-o estructuras de datos optimizadas.
+. [[r5]] link:../../../rules/164/[REQ.164 Utilizar estructuras optimizadas]

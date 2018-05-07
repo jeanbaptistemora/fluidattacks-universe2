@@ -168,6 +168,4 @@ mediante el uso de +servlets+.
 
 . [[r1]] link:https://www.ibm.com/support/knowledgecenter/es/SS7K4U_9.0.0/com.ibm.websphere.zseries.doc/ae/cwbs_secauthmodel.html[Modelos de autorización de la seguridad de servicios web]
 . [[r2]] link:https://docs.oracle.com/javaee/6/tutorial/doc/gjiie.html[The Java EE 6 Tutorial]
-. [[r3]] REQ.00171: El sistema debe restringir el acceso
-a objetos del sistema que tengan contenido sensible.
-Solo permitirá acceso a usuarios autorizados.
+. [[r3]] link:../../../rules/176/[REQ.176 Restringir objetos del sistema]
