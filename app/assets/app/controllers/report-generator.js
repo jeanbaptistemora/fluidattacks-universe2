@@ -1,4 +1,4 @@
-/* eslint no-magic-numbers: ["error", { "ignore":[-1,3000] }]*/
+/* eslint no-magic-numbers: ["error", { "ignore":[-1,0,1] }]*/
 /* eslint no-shadow: ["error", { "allow":
                                    ["$scope","$stateParams", "projectFtry"] }]*/
 /* global
@@ -187,8 +187,9 @@ integrates.controller(
     };
 
     $scope.downloadDoc = function downloadDoc () {
+      const timeoutValue = 3000;
       if (typeof $scope.downloadURL === "undefined") {
-        $timeout($scope.downloadDoc, 3000);
+        $timeout($scope.downloadDoc, timeoutValue);
       }
       else {
         const downLink = document.createElement("a");

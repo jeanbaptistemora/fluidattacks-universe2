@@ -1,4 +1,4 @@
-/* eslint no-magic-numbers: ["error", { "ignore": [-1,2000] }]*/
+/* eslint no-magic-numbers: ["error", { "ignore": [-1,0,1] }]*/
 /* global angular,$, setTimeout,redirector:true */
 /**
  * @file login.js
@@ -124,7 +124,8 @@ integrates.controller("loginController", ($scope, $translate) => {
           redirector = function redirector () {
             window.location = `${BASE.url}dashboard`;
           };
-          setTimeout(redirector, 2000);
+          const timeoutValue = 2000;
+          setTimeout(redirector, timeoutValue);
         }
       });
     }

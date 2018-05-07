@@ -1,7 +1,5 @@
 /* eslint-disable max-lines */
-/* eslint no-magic-numbers: ["error", { "ignore":
-                                  [-1,0,0.4,0.6,1,1.176,1.5,2,4,4.611,10,
-                                  10.41,13,20,43.221,100,200,300,1000,3000] }]*/
+/* eslint no-magic-numbers: ["error", { "ignore":[-1,0,1] }]*/
 /* eslint no-shadow: ["error", { "allow":
                                    ["$scope","$stateParams", "projectFtry"] }]*/
 /* global
@@ -76,8 +74,8 @@ integrates.controller(
   function projectFindingsCtrl (
     $scope, $location,
     $uibModal, $timeout,
-    $state, $stateParams,
-    $translate, projectFtry, functionsFtry1
+    $state, $stateParams, $translate,
+    projectFtry, functionsFtry1, functionsFtry3
   ) {
     $scope.init = function init () {
       const projectName = $stateParams.project;
@@ -108,22 +106,12 @@ integrates.controller(
         );
       }
       // Asigna el evento buscar al textbox search y tecla enter
-      $scope.configKeyboardView();
+      functionsFtry3.configKeyboardView($scope);
       $scope.goUp();
       $scope.finding = {};
     };
     $scope.goUp = function goUp () {
       $("html, body").animate({"scrollTop": 0}, "fast");
-    };
-    $scope.configKeyboardView = function configKeyboardView () {
-      document.onkeypress = function onkeypress (ev) {
-        // Buscar un proyecto
-        if (ev.keyCode === 13) {
-          if ($("#project").is(":focus")) {
-            $scope.search();
-          }
-        }
-      };
     };
     $scope.search = function search () {
       let vlang = "en-US";
@@ -349,10 +337,11 @@ integrates.controller(
           });
           $scope.totalSeverity = severity.toFixed(0);
           $scope.closeModalAvance = function closeModalAvance () {
+            const timeoutValue = 100;
             $uibModalInstance.close();
             $timeout(() => {
               $("#vulnerabilities").bootstrapTable("load", auxiliar);
-            }, 100);
+            }, timeoutValue);
           };
         },
         "keyboard": false,

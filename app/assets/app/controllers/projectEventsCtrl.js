@@ -1,4 +1,4 @@
-/* eslint no-magic-numbers: ["error", { "ignore": [0,1,13, 100] }]*/
+/* eslint no-magic-numbers: ["error", { "ignore": [-1,0,1] }]*/
 /* eslint no-shadow: ["error", { "allow": ["$scope"] }]*/
 /* global
 BASE, downLink:true, Morris, estado:true, exploitLabel:true, eventsData:true,
@@ -56,7 +56,7 @@ integrates.controller(
     $uibModal, $timeout,
     $state, $stateParams,
     $translate, projectFtry,
-    eventualityFactory, functionsFtry1
+    eventualityFactory, functionsFtry1, functionsFtry3
   ) {
     $scope.init = function init () {
       const projectName = $stateParams.project;
@@ -87,23 +87,12 @@ integrates.controller(
         );
       }
       // Asigna el evento buscar al textbox search y tecla enter
-      $scope.configKeyboardView();
+      functionsFtry3.configKeyboardView($scope);
       $scope.goUp();
       $scope.finding = {};
     };
     $scope.goUp = function goUp () {
       $("html, body").animate({"scrollTop": 0}, "fast");
-    };
-    $scope.configKeyboardView = function configKeyboardView () {
-      document.onkeypress = function onkeypress (ev) {
-        // Buscar un proyecto
-        if (ev.keyCode === 13) {
-          if ($("#project").is(":focus")) {
-            $scope.search();
-          }
-        }
-      };
-      return true;
     };
     $scope.search = function search () {
       let vlang = "en-US";
@@ -300,9 +289,10 @@ integrates.controller(
           $scope.rowsEvent = $("#tblEventualities").bootstrapTable("getData");
           $scope.close = function close () {
             $uibModalInstance.close();
+            const timeoutValue = 100;
             $timeout(() => {
               $("#tblEventualities").bootstrapTable("load", $scope.rowsEvent);
-            }, 100);
+            }, timeoutValue);
           };
         },
         "resolve": {"ok": true},

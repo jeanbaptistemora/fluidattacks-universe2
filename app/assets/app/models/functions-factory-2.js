@@ -1,5 +1,4 @@
-/* eslint no-magic-numbers: ["error", { "ignore": [-1,0,1,2,3,4,5,6,9,100.0,
-                                                   500,1000,10000] }]*/
+/* eslint no-magic-numbers: ["error", { "ignore": [-1,0,1] }]*/
 /* global integrates, BASE, $xhr, window.location:true, response:true,
 Organization, mixPanelDashboard, mixPanelDashboard, mixPanelDashboard,$msg,
 $, Rollbar, eventsData, userEmail, userName, findingType, categories,
@@ -107,6 +106,11 @@ integrates.factory(
       for (let cont = 0; cont < $scope.tabEvidences.length; cont++) {
         refList.push($scope.tabEvidences[cont].ref);
       }
+      const evidence3 = 2;
+      const evidence4 = 3;
+      const evidence5 = 4;
+      const evidence6 = 5;
+      const evidence7 = 6;
       const evidencesList = [];
       if (refList.indexOf(0) === -1) {
         $scope.tabEvidences.push({
@@ -124,44 +128,44 @@ integrates.factory(
           "ref": 1
         });
       }
-      if (refList.indexOf(2) === -1) {
+      if (refList.indexOf(evidence3) === -1) {
         $scope.tabEvidences.push({
           "desc": "",
           "name": `${$translate.instant("search_findings." +
                                         "tab_evidence.evidence_name")} 1`,
-          "ref": 2
+          "ref": evidence3
         });
       }
-      if (refList.indexOf(3) === -1) {
+      if (refList.indexOf(evidence4) === -1) {
         $scope.tabEvidences.push({
           "desc": "",
           "name": `${$translate.instant("search_findings." +
                                         "tab_evidence.evidence_name")} 2`,
-          "ref": 3
+          "ref": evidence4
         });
       }
-      if (refList.indexOf(4) === -1) {
+      if (refList.indexOf(evidence5) === -1) {
         $scope.tabEvidences.push({
           "desc": "",
           "name": `${$translate.instant("search_findings." +
                                         "tab_evidence.evidence_name")} 3`,
-          "ref": 4
+          "ref": evidence5
         });
       }
-      if (refList.indexOf(5) === -1) {
+      if (refList.indexOf(evidence6) === -1) {
         $scope.tabEvidences.push({
           "desc": "",
           "name": `${$translate.instant("search_findings." +
                                         "tab_evidence.evidence_name")} 4`,
-          "ref": 5
+          "ref": evidence6
         });
       }
-      if (refList.indexOf(6) === -1) {
+      if (refList.indexOf(evidence7) === -1) {
         $scope.tabEvidences.push({
           "desc": "",
           "name": `${$translate.instant("search_findings." +
                                         "tab_evidence.evidence_name")} 5`,
-          "ref": 6
+          "ref": evidence7
         });
       }
       $scope.tabEvidences.sort((auxa, auxb) => auxa.ref - auxb.ref);

@@ -1,7 +1,5 @@
 /* eslint no-magic-numbers:
-["error", { "ignore": [-3,-1,0,0.4,0.6,1,1.176,1.5,2,3,
-                       4,5,6,6.9,7,9,10,10.41,20,50,
-                       80,100,200,500,1000,10000] }]*/
+["error", { "ignore": [-1,0,1] }]*/
 /* eslint no-shadow: ["error", { "allow": ["$scope","$stateParams",
                                           "$state","response"] }]*/
 /* global
@@ -72,6 +70,7 @@ integrates.controller("findingcontentCtrl", function findingcontentCtrl (
     functionsFtry2.recordsEditable($scope);
   };
   $scope.detectNivel = function detectNivel () {
+    const timeoutValue = 200;
     $timeout(() => {
       $scope.$apply();
       if ($scope.finding.nivel === "Detallado") {
@@ -82,7 +81,7 @@ integrates.controller("findingcontentCtrl", function findingcontentCtrl (
         $scope.esDetallado = false;
         findingData.esDetallado = $scope.esDetallado;
       }
-    }, 200);
+    }, timeoutValue);
   };
   $scope.updateCSSv2 = function updateCSSv2 () {
     functionsFtry1.updateCSSv2($scope);
@@ -176,12 +175,14 @@ integrates.controller("findingcontentCtrl", function findingcontentCtrl (
           const evidenceInfo = tabsFtry.findingEvidenceTab($scope);
           $scope.tabEvidences = evidenceInfo;
           findingData.tabEvidences = evidenceInfo;
+          const infoIndex2 = 2;
+          const infoIndex3 = 3;
           const exploitinfo =
                              tabsFtry.findingExploitTab($scope, findingData);
           $scope.hasExploit = exploitinfo[0];
           $scope.exploitURL = exploitinfo[1];
-          findingData.hasExploit = exploitinfo[2];
-          findingData.exploitURL = exploitinfo[3];
+          findingData.hasExploit = exploitinfo[infoIndex2];
+          findingData.exploitURL = exploitinfo[infoIndex3];
           const recordinfo = tabsFtry.findingRecordsTab($scope, findingData);
           $scope.hasRecords = recordinfo[0];
           findingData.hasRecords = recordinfo[1];

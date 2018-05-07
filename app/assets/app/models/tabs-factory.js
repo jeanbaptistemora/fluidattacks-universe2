@@ -1,4 +1,4 @@
-/* eslint no-magic-numbers: ["error", { "ignore": [0,1,6,9,500,1000,10000] }]*/
+/* eslint no-magic-numbers: ["error", { "ignore": [-1,0,1] }]*/
 /* global integrates, BASE, $xhr, window.location:true, response:true,
 Organization, mixPanelDashboard, mixPanelDashboard, mixPanelDashboard,$msg,
 $, Rollbar, eventsData, userEmail, userName */
@@ -43,6 +43,10 @@ integrates.factory("tabsFtry", ($q, $translate, projectFtry) => ({
             });
             return data;
           };
+          const timeoutValue = 500;
+          const divConst = 1000;
+          const multiConst = 10000;
+          const radix = 9;
           $("#comments-container").comments({
             "defaultNavigationSortKey": "oldest",
             "enableAttachments": false,
@@ -53,16 +57,16 @@ integrates.factory("tabsFtry", ($q, $translate, projectFtry) => ({
             "getComments" (success, error) {
               setTimeout(() => {
                 success(response.data);
-              }, 500);
+              }, timeoutValue);
             },
             "getUsers" (success, error) {
               setTimeout(() => {
                 success(usersArray);
-              }, 500);
+              }, timeoutValue);
             },
             "postComment" (data, success, error) {
-              data.id = parseInt(Math.round(new Date() / 1000).toString() +
-                        (Math.random() * 10000).toString(9), 10);
+              data.id = parseInt(Math.round(new Date() / divConst).toString() +
+                        (Math.random() * multiConst).toString(radix), 10);
               data.findingName = commentInfo.finding.hallazgo;
               data.project = commentInfo.finding.proyecto_fluid;
               data.findingUrl = window.location.href;
@@ -84,7 +88,7 @@ integrates.factory("tabsFtry", ($q, $translate, projectFtry) => ({
                   );
                   setTimeout(() => {
                     success(data);
-                  }, 500);
+                  }, timeoutValue);
                 }
                 else if (response.error) {
                   Rollbar.error("Error: An error occurred adding comment");
@@ -148,7 +152,8 @@ integrates.factory("tabsFtry", ($q, $translate, projectFtry) => ({
             "evidence_exploit", 1, "basic", evidenceList, data
           );
         }
-        for (let inc = 1; inc < 6; inc++) {
+        const evidenceAmong = 6;
+        for (let inc = 1; inc < evidenceAmong; inc++) {
           if (typeof valFormstack[`desc_evidencia_${inc}`] !==
             "undefined" && typeof valS3[`ruta_evidencia_${inc}`] !==
             "undefined" && valS3[`es_ruta_evidencia_${inc}`] === true) {
@@ -189,7 +194,8 @@ integrates.factory("tabsFtry", ($q, $translate, projectFtry) => ({
               "evidence_exploit", 1, "basic", evidenceList, data
             );
           }
-          for (let inc = 1; inc < 6; inc++) {
+          const evidenceAmong = 6;
+          for (let inc = 1; inc < evidenceAmong; inc++) {
             if (typeof valFormstack[`desc_evidencia_${inc}`] !== "undefined" &&
                 typeof valFormstack[`ruta_evidencia_${inc}`] !== "undefined") {
               updEvidenceList(

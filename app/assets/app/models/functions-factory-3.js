@@ -1,5 +1,4 @@
-/* eslint no-magic-numbers: ["error", { "ignore": [-3,0,1,2,3,4,5,6,6.9,7,9,10,
-                                                 100.0,200,500,1000,10000] }]*/
+/* eslint no-magic-numbers: ["error", { "ignore": [-1,0,1]}]*/
 /* global integrates, BASE, $xhr, window.location:true, response:true,
 Organization, mixPanelDashboard, mixPanelDashboard, mixPanelDashboard,$msg,
 $, Rollbar, eventsData, userEmail, userName, fieldsToTranslate, keysToTranslate,
@@ -27,6 +26,17 @@ integrates.factory(
     functionsFtry1, functionsFtry2
   ) => ({
 
+    "configKeyboardView" ($scope) {
+      document.onkeypress = function onkeypress (ev) {
+        const enterKey = 13;
+        if (ev.keyCode === enterKey) {
+          if ($("#project").is(":focus")) {
+            $scope.search();
+          }
+        }
+      };
+    },
+
     "findingSolved" ($scope) {
     // Obtener datos
       const descData = {
@@ -46,6 +56,7 @@ integrates.factory(
           $scope.modalTitle = $translate.instant("search_findings." +
                                           "tab_description.remediated_finding");
           $scope.ok = function ok () {
+            const maxLength = 100;
             $scope.remediatedData.userMail = mailData.userMail;
             $scope.remediatedData.findingName = mailData.findingName;
             $scope.remediatedData.project = mailData.project;
@@ -54,7 +65,7 @@ integrates.factory(
             $scope.remediatedData.findingVulns = mailData.findingVulns;
             $scope.remediatedData.justification =
                                 $scope.remediatedData.justification.trim();
-            if ($scope.remediatedData.justification.length < 100) {
+            if ($scope.remediatedData.justification.length < maxLength) {
               $msg.error($translate.instant("proj_alerts." +
                                           "short_remediated_comment"));
             }
@@ -85,8 +96,12 @@ integrates.factory(
                   $uibModalInstance.close();
                   location.reload();
                   const data = {};
-                  data.id = parseInt(Math.round(new Date() / 1000).toString() +
-                          (Math.random() * 10000).toString(9), 10);
+                  const divConst = 1000;
+                  const multiConst = 10000;
+                  const radix = 9;
+                  data.id = parseInt(Math.round(new Date() /
+                            divConst).toString() + (Math.random() *
+                            multiConst).toString(radix), 10);
                   data.content = $scope.remediatedData.justification;
                   data.parent = 0;
                   data.email = $scope.remediatedData.userMail;
@@ -166,13 +181,16 @@ integrates.factory(
                 ]);
         }
       }
-      $scope.findingFormatted = $scope.finding.timestamp.slice(0, -3);
+      const listIndex = -3;
+      const percent = 100;
+      $scope.findingFormatted = $scope.finding.timestamp.slice(0, listIndex);
       let closingEffect = 0;
       for (let close = 0; close < $scope.finding.cierres.length; close++) {
         closingEffect = ($scope.finding.cierres[close].cerradas /
-                        $scope.finding.cierres[close].solicitadas) * 100;
+                        $scope.finding.cierres[close].solicitadas) * percent;
         $scope.finding.cierres[close].efectividad = closingEffect.toFixed(0);
-        const timeFormat = $scope.finding.cierres[close].timestamp.slice(0, -3);
+        const timeFormat =
+                   $scope.finding.cierres[close].timestamp.slice(0, listIndex);
         $scope.finding.cierres[close].timestamp = timeFormat;
       }
       // Control de campos para tipos de hallazgo
@@ -247,7 +265,8 @@ integrates.factory(
         $(".equalHeight").matchHeight();
       });
       functionsFtry2.findingInformationTab($scope);
-      $timeout($scope.goUp, 200);
+      const timeoutValue = 200;
+      $timeout($scope.goUp, timeoutValue);
       if (!$scope.isManager) {
         $scope.openEvents = projectFtry.alertEvents(eventsData);
         $scope.atAlert = $translate.instant("main_content.eventualities." +
@@ -295,7 +314,9 @@ integrates.factory(
       };
       if ($scope.aux.cardinalidad !== $scope.finding.cardinalidad) {
         const todayDate = new Date();
-        descData.ultimaVulnerabilidad = todayDate.toISOString().slice(0, 10);
+        const listIndex = 10;
+        descData.ultimaVulnerabilidad =
+                                   todayDate.toISOString().slice(0, listIndex);
       }
       if (descData.nivel === "Detallado") {
         // Recalcular Severidad
@@ -350,6 +371,5 @@ integrates.factory(
       });
       return true;
     }
-
   })
 );

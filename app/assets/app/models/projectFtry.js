@@ -1,5 +1,4 @@
-/* eslint no-magic-numbers: ["error", { "ignore": [0,0.4,0.6,1,1.176,1.5,
-                                                  10.41,20,500, 401] }]*/
+/* eslint no-magic-numbers: ["error", { "ignore": [-1,0,1]}]*/
 /* global integrates, BASE, $xhr, window.location:true,
 $, Rollbar, eventsData */
 /**
@@ -44,6 +43,12 @@ integrates.factory("projectFtry", ($q, $translate) => ({
   },
 
   "calCCssv2" (data) {
+    const BSConst1 = 0.6;
+    const BSConst2 = 0.4;
+    const BSConst3 = 1.5;
+    const impactConst = 10.41;
+    const exploitConst = 20;
+    const fimpactConst = 1.176;
     const ImpCon =
               parseFloat(data.impactoConfidencialidad.split(" | ")[0]);
     const ImpInt =
@@ -56,10 +61,11 @@ integrates.factory("projectFtry", ($q, $translate) => ({
     const Explo = parseFloat(data.explotabilidad.split(" | ")[0]);
     const Resol = parseFloat(data.nivelResolucion.split(" | ")[0]);
     const Confi = parseFloat(data.nivelConfianza.split(" | ")[0]);
-    const BaseScore = ((0.6 * (10.41 * (1 - ((1 - ImpCon) *
-                      (1 - ImpInt) * (1 - ImpDis))))) +
-                      (0.4 * (20 * AccCom * Auth * AccVec)) - 1.5) *
-                      1.176;
+    const impact = impactConst * (1 - ((1 - ImpCon) * (1 - ImpInt) *
+                  (1 - ImpDis)));
+    const exploitabilty = exploitConst * AccCom * Auth * AccVec;
+    const BaseScore = ((BSConst1 * impact) + (BSConst2 * exploitabilty) -
+                      BSConst3) * fimpactConst;
     const Temporal = BaseScore * Explo * Resol * Confi;
     return [
       BaseScore,
@@ -413,6 +419,8 @@ integrates.factory("projectFtry", ($q, $translate) => ({
   },
 
   "updateEvidenceFiles" (data, callbackFn, errorFn) {
+    const error401 = 401;
+    const error500 = 500;
     try {
       $.ajax({
         "cache": false,
@@ -420,10 +428,10 @@ integrates.factory("projectFtry", ($q, $translate) => ({
         data,
         "error" (xhr, status, response) {
           $(".loader").hide();
-          if (xhr.status === 500) {
+          if (xhr.status === error500) {
             Rollbar.error("Error: An error ocurred loading data");
           }
-          else if (xhr.status === 401) {
+          else if (xhr.status === error401) {
             Rollbar.error("Error: 401 Unauthorized");
             window.location = "error401";
           }
@@ -440,7 +448,7 @@ integrates.factory("projectFtry", ($q, $translate) => ({
       });
     }
     catch (err) {
-      if (err.status === 401) {
+      if (err.status === error401) {
         Rollbar.error("Error: 401 Unauthorized");
         window.location = "error401";
       }

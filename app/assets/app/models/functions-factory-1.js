@@ -1,5 +1,4 @@
-/* eslint no-magic-numbers: ["error", { "ignore": [0,1,2,3,4,5,6,6.9,7,9,100.0,
-                                                   500,1000,10000] }]*/
+/* eslint no-magic-numbers: ["error", { "ignore": [-1,0,1] }]*/
 /* global integrates, BASE, $xhr, window.location:true, response:true,
 Organization, mixPanelDashboard, mixPanelDashboard, mixPanelDashboard,$msg,
 $, Rollbar, eventsData, userEmail, userName */
@@ -94,9 +93,11 @@ integrates.factory(
 
     "findingCalculateSeveridad" (data) {
       let severidad = 0;
+      const maxSeverity = 5;
+      const percent = 100.0;
       if (!isNaN(data.finding.severidad)) {
         severidad = parseFloat(data.finding.severidad);
-        if (severidad < 0 || severidad > 5) {
+        if (severidad < 0 || severidad > maxSeverity) {
           Rollbar.error("Error: Severity must be an integer bewteen 0 and 5");
           $msg.error($translate.instant("proj_alerts.error_severity"), "error");
           data.finding.valorRiesgo = "";
@@ -109,16 +110,18 @@ integrates.factory(
           let prob = data.finding.probabilidad;
           severidad = data.finding.severidad;
           prob = prob.split("%")[0];
-          prob = parseFloat(prob) / 100.0;
+          prob = parseFloat(prob) / percent;
           severidad = parseFloat(severidad);
           const vRiesgo = prob * severidad;
-          if (vRiesgo >= 3) {
+          const criticLimit = 3;
+          const moderateLimit = 2;
+          if (vRiesgo >= criticLimit) {
             data.finding.valorRiesgo = "(:r) Critico".replace(
               ":r",
               vRiesgo.toFixed(1)
             );
           }
-          else if (vRiesgo >= 2 && vRiesgo < 3) {
+          else if (vRiesgo >= moderateLimit && vRiesgo < criticLimit) {
             data.finding.valorRiesgo = "(:r) Moderado".replace(
               ":r",
               vRiesgo.toFixed(1)
@@ -172,13 +175,16 @@ integrates.factory(
       $scope.header.findingID = $scope.finding.id;
       $scope.header.findingValue = $scope.finding.criticidad;
       $scope.header.findingTreatment = $scope.finding.tratamiento;
+      const highCriticity = 7;
+      const moderateCriticity = 4;
       const findingValue = parseFloat($scope.finding.criticidad);
-      if (findingValue >= 7) {
+      if (findingValue >= highCriticity) {
         $scope.header.findingValueDescription =
                $translate.instant("finding_formstack.criticity_header.high");
         $scope.header.findingValueColor = $scope.colors.critical;
       }
-      else if (findingValue >= 4 && findingValue <= 6.9) {
+      else if (findingValue >= moderateCriticity &&
+               findingValue < highCriticity) {
         $scope.header.findingValueDescription =
             $translate.instant("finding_formstack.criticity_header.moderate");
         $scope.header.findingValueColor = $scope.colors.moderate;

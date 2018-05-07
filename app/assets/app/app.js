@@ -1,4 +1,4 @@
-/* eslint no-magic-numbers: ["error", { "ignore": [1, -1, 0] }]*/
+/* eslint no-magic-numbers: ["error", { "ignore": [-1,0,1] }]*/
 /* global
 document, jQuery, $, location, angular, isProduction:true,
 translations1, traducciones1, translations2, traducciones2
