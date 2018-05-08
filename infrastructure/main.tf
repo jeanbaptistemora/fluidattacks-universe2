@@ -17,6 +17,7 @@ module "bucket" {
 module "iam" {
   source = "./iam"
   webBucket = "${var.webBucket}"
+  mainZoneID = "${var.mainZoneID}"
 }
 
 # #Create from scratch

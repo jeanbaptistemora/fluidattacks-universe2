@@ -1,4 +1,5 @@
 variable "webBucket" {}
+variable "mainZoneID" {}
 
 module "users" {
   source = "./users"
@@ -27,5 +28,7 @@ module "policies" {
   web = "${module.groups.web}"
   fluidserves = "${module.groups.fluidserves}"
   fis3integration = "${module.groups.fis3integration}"
+  fir53review = "${module.users.fir53review}"
+  mainZoneID = "${var.mainZoneID}"
   ssofinance = "${module.roles.ssofinance}"
 }

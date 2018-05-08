@@ -66,6 +66,7 @@ test_terraform:
       - echo bucket = \"$BUCKET_NAME\" >> infrastructure/terraform.tfvars
       - echo webBucket = \"$WEB_BUCKET\" >> infrastructure/terraform.tfvars
       - echo fiBucket = \"$FI_BUCKET\" >> infrastructure/terraform.tfvars
+      - echo mainZoneID = \"$MAIN_ZONE_ID\" >> infrastructure/terraform.tfvars
       - echo $SSO_XML > infrastructure/vars/SSO.xml
       - echo $SSO_FINANCE_XML > infrastructure/vars/SSOFinance.xml
       - echo db_id = \"$SNAP_ID\" >> infrastructure/terraform.tfvars
@@ -122,6 +123,7 @@ deploy_terraform:
         - echo webBucket = \"$WEB_BUCKET\" >> infrastructure/terraform.tfvars
         - echo fiBucket = \"$FI_BUCKET\" >> infrastructure/terraform.tfvars
         - echo db_id = \"$SNAP_ID\" >> infrastructure/terraform.tfvars
+        - echo mainZoneID = \"$MAIN_ZONE_ID\" >> infrastructure/terraform.tfvars
         - echo $SSO_XML > infrastructure/vars/SSO.xml
         - echo $SSO_FINANCE_XML > infrastructure/vars/SSOFinance.xml
         - echo sudo docker login registry.gitlab.com -u $DOCKER_USER -p $DOCKER_PASS >> infrastructure/ec2/host/script.sh
@@ -151,6 +153,7 @@ install_alg:
         - echo webBucket = \"$WEB_BUCKET\" >> infrastructure/terraform.tfvars
         - echo fiBucket = \"$FI_BUCKET\" >> infrastructure/terraform.tfvars
         - echo db_id = \"$SNAP_ID\" >> infrastructure/terraform.tfvars
+        - echo mainZoneID = \"$MAIN_ZONE_ID\" >> infrastructure/terraform.tfvars
         - echo $SSO_XML > infrastructure/vars/SSO.xml
         - echo $SSO_FINANCE_XML > infrastructure/vars/SSOFinance.xml
         - echo sudo docker login registry.gitlab.com -u $DOCKER_USER -p $DOCKER_PASS >> infrastructure/ec2/host/script.sh
@@ -179,6 +182,7 @@ install_exams:
         - echo webBucket = \"$WEB_BUCKET\" >> infrastructure/terraform.tfvars
         - echo fiBucket = \"$FI_BUCKET\" >> infrastructure/terraform.tfvars
         - echo db_id = \"$SNAP_ID\" >> infrastructure/terraform.tfvars
+        - echo mainZoneID = \"$MAIN_ZONE_ID\" >> infrastructure/terraform.tfvars
         - echo $SSO_XML > infrastructure/vars/SSO.xml
         - echo $SSO_FINANCE_XML > infrastructure/vars/SSOFinance.xml
         - echo sudo docker login registry.gitlab.com -u $DOCKER_USER -p $DOCKER_PASS >> infrastructure/ec2/host/script.sh
@@ -207,6 +211,7 @@ install_vpn:
         - echo webBucket = \"$WEB_BUCKET\" >> infrastructure/terraform.tfvars
         - echo fiBucket = \"$FI_BUCKET\" >> infrastructure/terraform.tfvars
         - echo db_id = \"$SNAP_ID\" >> infrastructure/terraform.tfvars
+        - echo mainZoneID = \"$MAIN_ZONE_ID\" >> infrastructure/terraform.tfvars
         - echo $SSO_XML > infrastructure/vars/SSO.xml
         - echo $SSO_FINANCE_XML > infrastructure/vars/SSOFinance.xml
         - echo sudo docker login registry.gitlab.com -u $DOCKER_USER -p $DOCKER_PASS >> infrastructure/ec2/host/script.sh
@@ -237,6 +242,7 @@ change_dns:
         - echo $SSO_XML > infrastructure/vars/SSO.xml
         - echo $SSO_FINANCE_XML > infrastructure/vars/SSOFinance.xml
         - echo db_id = \"$DB_ID\" >> infrastructure/terraform.tfvars
+        - echo mainZoneID = \"$MAIN_ZONE_ID\" >> infrastructure/terraform.tfvars
         - aws s3 cp s3://$BUCKET_NAME/terraform/FLUID_Serves.pem infrastructure/vars/FLUID_Serves.pem
         - aws s3 cp s3://$BUCKET_NAME/terraform/terraform.tfstate infrastructure/terraform.tfstate
         - aws s3 cp s3://$BUCKET_NAME/terraform/dns/terraform.tfstate infrastructure/dns/terraform.tfstate || echo ""

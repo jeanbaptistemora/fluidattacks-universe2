@@ -22,3 +22,8 @@ resource "aws_iam_user" "examss3" {
   name = "FS_EXAMS_S3"
   path = "/"
 }
+
+resource "aws_iam_user" "fir53review" {
+  name = "FI_ROUTE53_REVIEW"
+  path = "/"
+}
