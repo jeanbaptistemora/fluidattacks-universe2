@@ -93,6 +93,9 @@ stop-review:
 deploy:
   stage: deployment
   environment: production
+  before_script:
+    - export AWS_ACCESS_KEY_ID="$FW_AWS_ACCESS_KEY_ID"
+    - export AWS_SECRET_ACCESS_KEY="$FW_AWS_SECRET_ACCESS_KEY"
   script:
     # Download cache from previous builds
     - if curl --fail -Lo artifacts.zip --header Private-Token:$GL_ACCESS_TOKEN https://gitlab.com/api/v4/projects/$CI_PROJECT_ID/jobs/artifacts/$CI_COMMIT_REF_NAME/download?job=$CI_JOB_NAME; then unzip artifacts.zip && rm artifacts.zip; else echo "There are no artifacts"; fi

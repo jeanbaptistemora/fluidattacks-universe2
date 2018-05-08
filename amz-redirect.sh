@@ -8,9 +8,6 @@
 PATTERN="output/"
 PATTERN2="/index.html"
 
-export AWS_ACCESS_KEY_ID="$FW_AWS_ACCESS_KEY_ID"
-export AWS_SECRET_ACCESS_KEY="$FW_AWS_SECRET_ACCESS_KEY"
-
 find output -iname '*.html' | while IFS= read -r FILE; do
   STRING=${FILE/$PATTERN/}
   NAME=${STRING/$PATTERN2/}
