@@ -1,4 +1,5 @@
 /* eslint no-shadow: ["error", { "allow": ["$scope"] }]*/
+/* eslint no-magic-numbers: ["error", { "ignore":[-1,0,1] }]*/
 /* global
 integrates, $, $msg, BASE, mixpanel, userMail, $xhr, Organization, userEmail,
 mixPanelDashboard, userName, projectData:true, eventsData:true, Rollbar,
@@ -97,11 +98,9 @@ integrates.controller("dashboardCtrl", function dashboardCtrl (
         location.reload();
       }
       for (let cont = 0; cont < response.data.length; cont++) {
-        for (let inc = 0; inc < fieldsToTranslate.length; inc++) {
-          if (response.data[cont].tipo in keysToTranslate) {
-            response.data[cont].tipo =
+        if (response.data[cont].tipo in keysToTranslate) {
+          response.data[cont].tipo =
                   $translate.instant(keysToTranslate[response.data[cont].tipo]);
-          }
         }
       }
       $("#myEventsTbl").bootstrapTable({

@@ -83,7 +83,9 @@ rules:
   no-labels: error
   no-lone-blocks: error
   no-loop-func: error
-  no-magic-numbers: error
+  no-magic-numbers:
+    - error
+    - enforceConst: true
   no-multi-spaces:
     - error
     - ignoreEOLComments: false

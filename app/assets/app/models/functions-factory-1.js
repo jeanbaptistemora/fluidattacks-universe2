@@ -93,11 +93,11 @@ integrates.factory(
 
     "findingCalculateSeveridad" (data) {
       let severidad = 0;
-      const maxSeverity = 5;
-      const percent = 100.0;
+      const MAX_SEVERITY = 5;
+      const PERCENTAGE_FACTOR = 100.0;
       if (!isNaN(data.finding.severidad)) {
         severidad = parseFloat(data.finding.severidad);
-        if (severidad < 0 || severidad > maxSeverity) {
+        if (severidad < 0 || severidad > MAX_SEVERITY) {
           Rollbar.error("Error: Severity must be an integer bewteen 0 and 5");
           $msg.error($translate.instant("proj_alerts.error_severity"), "error");
           data.finding.valorRiesgo = "";
@@ -110,18 +110,19 @@ integrates.factory(
           let prob = data.finding.probabilidad;
           severidad = data.finding.severidad;
           prob = prob.split("%")[0];
-          prob = parseFloat(prob) / percent;
+          prob = parseFloat(prob) / PERCENTAGE_FACTOR;
           severidad = parseFloat(severidad);
           const vRiesgo = prob * severidad;
-          const criticLimit = 3;
-          const moderateLimit = 2;
-          if (vRiesgo >= criticLimit) {
+          const CRITIC_RISK = 3;
+          const MODERATE_RISK = 2;
+          if (vRiesgo >= CRITIC_RISK) {
             data.finding.valorRiesgo = "(:r) Critico".replace(
               ":r",
               vRiesgo.toFixed(1)
             );
           }
-          else if (vRiesgo >= moderateLimit && vRiesgo < criticLimit) {
+          else if (vRiesgo >= MODERATE_RISK &&
+                   vRiesgo < CRITIC_RISK) {
             data.finding.valorRiesgo = "(:r) Moderado".replace(
               ":r",
               vRiesgo.toFixed(1)
@@ -175,16 +176,16 @@ integrates.factory(
       $scope.header.findingID = $scope.finding.id;
       $scope.header.findingValue = $scope.finding.criticidad;
       $scope.header.findingTreatment = $scope.finding.tratamiento;
-      const highCriticity = 7;
-      const moderateCriticity = 4;
+      const HIGH_CRITICITY = 7;
+      const MODERATE_CRITICITY = 4;
       const findingValue = parseFloat($scope.finding.criticidad);
-      if (findingValue >= highCriticity) {
+      if (findingValue >= HIGH_CRITICITY) {
         $scope.header.findingValueDescription =
                $translate.instant("finding_formstack.criticity_header.high");
         $scope.header.findingValueColor = $scope.colors.critical;
       }
-      else if (findingValue >= moderateCriticity &&
-               findingValue < highCriticity) {
+      else if (findingValue >= MODERATE_CRITICITY &&
+               findingValue < HIGH_CRITICITY) {
         $scope.header.findingValueDescription =
             $translate.instant("finding_formstack.criticity_header.moderate");
         $scope.header.findingValueColor = $scope.colors.moderate;

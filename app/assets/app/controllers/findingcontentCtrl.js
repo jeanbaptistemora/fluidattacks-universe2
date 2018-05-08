@@ -70,7 +70,7 @@ integrates.controller("findingcontentCtrl", function findingcontentCtrl (
     functionsFtry2.recordsEditable($scope);
   };
   $scope.detectNivel = function detectNivel () {
-    const timeoutValue = 200;
+    const TIMEOUT = 200;
     $timeout(() => {
       $scope.$apply();
       if ($scope.finding.nivel === "Detallado") {
@@ -81,7 +81,7 @@ integrates.controller("findingcontentCtrl", function findingcontentCtrl (
         $scope.esDetallado = false;
         findingData.esDetallado = $scope.esDetallado;
       }
-    }, timeoutValue);
+    }, TIMEOUT);
   };
   $scope.updateCSSv2 = function updateCSSv2 () {
     functionsFtry1.updateCSSv2($scope);

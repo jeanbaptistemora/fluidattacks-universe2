@@ -32,8 +32,8 @@ integrates.controller(
     $state, $stateParams, $translate,
     projectFtry, functionsFtry1, functionsFtry3
   ) {
-    const percent = 100;
-    const decimals = 2;
+    const PERCENTAGE_FACTOR = 100;
+    const MAX_DECIMALS = 2;
     $scope.init = function init () {
       const projectName = $stateParams.project;
       const findingId = $stateParams.finding;
@@ -109,17 +109,17 @@ integrates.controller(
             location.reload();
           }
           if (response.data.length > 0) {
-            const linesDivisor = 1000;
+            const LINES_DIVISOR = 1000;
             const sevConst1 = 4.611;
             const sevConst2 = 43.221;
             const sevConst3 = 4;
             for (let cont = 0; cont < response.data.length; cont++) {
               const target = (parseInt(response.data[cont].lines, 10) /
-                             linesDivisor) +
+                             LINES_DIVISOR) +
                              (parseInt(response.data[cont].fields, 10) /
                              sevConst3);
               const totalSeverity = severity / ((sevConst1 * target) +
-                                    sevConst2) * percent;
+                                    sevConst2) * PERCENTAGE_FACTOR;
               $scope.metricsList.push({
                 "color": "background-color: #ef4c43;",
                 "description": $translate.instant("search_findings." +
@@ -138,7 +138,8 @@ integrates.controller(
                                                   "closureTooltip"),
                 "value": "n%".replace("n", Math.round((1 -
                                      (cardinalityValues[0] /
-                                   cardinalityValues[1])) * percent).toString())
+                                     cardinalityValues[1])) *
+                                     PERCENTAGE_FACTOR).toString())
               });
             }
           }
@@ -162,7 +163,8 @@ integrates.controller(
                                                   "closureTooltip"),
               "value": "n%".replace("n", Math.round((1 -
                                     (cardinalityValues[0] /
-                                  cardinalityValues[1])) * percent).toString())
+                                    cardinalityValues[1])) *
+                                    PERCENTAGE_FACTOR).toString())
             });
           }
         }
@@ -186,11 +188,11 @@ integrates.controller(
       const segTransl = $translate.instant("grapType.seg_label");
       const higTransl = $translate.instant("grapType.hig_label");
       const totalSegLabel = segTransl + " :n%".replace(":n", (totalSeg *
-                            percent / (totalSeg +
-                            totalHig)).toFixed(decimals).toString());
+                            PERCENTAGE_FACTOR / (totalSeg +
+                            totalHig)).toFixed(MAX_DECIMALS).toString());
       const totalHigLabel = higTransl + " :n%".replace(":n", (totalHig *
-                            percent / (totalSeg +
-                            totalHig)).toFixed(decimals).toString());
+                            PERCENTAGE_FACTOR / (totalSeg +
+                            totalHig)).toFixed(MAX_DECIMALS).toString());
       $("#grapType").empty();
       Morris.Donut({ /* eslint-disable-line new-cap */
         "data": [
@@ -234,13 +236,13 @@ integrates.controller(
                                                   "nonexploit_label");
       const exploitLabel = exploitTransl + " :n%".replace(
         ":n",
-        (exploit * percent / (exploit +
-                           nonexploit)).toFixed(decimals).toString()
+        (exploit * PERCENTAGE_FACTOR / (exploit +
+                           nonexploit)).toFixed(MAX_DECIMALS).toString()
       );
       const nonexploitLabel = nonExploitTransl + " :n%".replace(
         ":n",
-        (nonexploit * percent / (exploit +
-                              nonexploit)).toFixed(decimals).toString()
+        (nonexploit * PERCENTAGE_FACTOR / (exploit +
+                              nonexploit)).toFixed(MAX_DECIMALS).toString()
       );
       $("#grapExploit").empty();
       Morris.Donut({ /* eslint-disable-line new-cap */
@@ -283,12 +285,12 @@ integrates.controller(
       const openTransl = $translate.instant("grapStatus.open_label");
       const partialTransl = $translate.instant("grapStatus.partial_label");
       const closeTransl = $translate.instant("grapStatus.close_label");
-      const openLabel = openTransl + " :n%".replace(":n", (open * percent /
-                        total).toFixed(decimals).toString());
+      const openLabel = openTransl + " :n%".replace(":n", (open *
+                   PERCENTAGE_FACTOR / total).toFixed(MAX_DECIMALS).toString());
       const partialLabel = partialTransl + " :n%".replace(":n", (partial *
-                           percent / total).toFixed(decimals).toString());
-      const closeLabel = closeTransl + " :n%".replace(":n", (close * percent /
-                         total).toFixed(decimals).toString());
+                   PERCENTAGE_FACTOR / total).toFixed(MAX_DECIMALS).toString());
+      const closeLabel = closeTransl + " :n%".replace(":n", (close *
+                   PERCENTAGE_FACTOR / total).toFixed(MAX_DECIMALS).toString());
       $("#grapStatus").empty();
       Morris.Donut({ /* eslint-disable-line new-cap */
         "data": [
@@ -443,10 +445,10 @@ integrates.controller(
           $("#events_alert").show();
         }
       }
-      const timeoutValue = 200;
-      $timeout($scope.mainGraphexploitPieChart, timeoutValue);
-      $timeout($scope.mainGraphtypePieChart, timeoutValue);
-      $timeout($scope.mainGraphstatusPieChart, timeoutValue);
+      const TIMEOUT = 200;
+      $timeout($scope.mainGraphexploitPieChart, TIMEOUT);
+      $timeout($scope.mainGraphtypePieChart, TIMEOUT);
+      $timeout($scope.mainGraphstatusPieChart, TIMEOUT);
       // MANEJO DEL UI
       $("#search_section").show();
       $("[data-toggle=\"tooltip\"]").tooltip();

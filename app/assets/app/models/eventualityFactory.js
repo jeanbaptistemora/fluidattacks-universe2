@@ -22,8 +22,8 @@ integrates.factory("eventualityFactory", ($q) => ({
    * @return {Object} Formstack response with the eventualities of a project
    */
   "getEvntByName" (project, category) {
-    const error500 = 500;
-    const error401 = 401;
+    const INTERNAL_SERVER_ERROR = 500;
+    const UNAUTHORIZED_ERROR = 401;
     const deferred = $q.defer();
     try {
       $.ajax({
@@ -33,14 +33,14 @@ integrates.factory("eventualityFactory", ($q) => ({
         },
         "error" (xhr, status) {
           $(".loader").hide();
-          if (xhr.status === error500) {
+          if (xhr.status === INTERNAL_SERVER_ERROR) {
             Rollbar.error("Error: An error ocurred loading data");
             deferred.resolve({
               "error": null,
               "message": "Error interno cargando datos"
             });
           }
-          else if (xhr.status === error401) {
+          else if (xhr.status === UNAUTHORIZED_ERROR) {
             Rollbar.error("Error: 401 Unauthorized");
             window.location = "error401";
           }
@@ -53,7 +53,7 @@ integrates.factory("eventualityFactory", ($q) => ({
       });
     }
     catch (err) {
-      if (err.status === error401) {
+      if (err.status === UNAUTHORIZED_ERROR) {
         Rollbar.error("Error: 401 Unauthorized");
         window.location = "error401";
       }
@@ -71,22 +71,22 @@ integrates.factory("eventualityFactory", ($q) => ({
    * @return {Object} Formstack response about update request
    */
   "updateEvnt" (vuln) {
-    const error500 = 500;
-    const error401 = 401;
+    const INTERNAL_SERVER_ERROR = 500;
+    const UNAUTHORIZED_ERROR = 401;
     const deferred = $q.defer();
     try {
       $.ajax({
         "data": {vuln},
         "error" (xhr, status) {
           $(".loader").hide();
-          if (xhr.status === error500) {
+          if (xhr.status === INTERNAL_SERVER_ERROR) {
             Rollbar.error("Error: An error ocurred loading data");
             deferred.resolve({
               "error": null,
               "message": "Error interno cargando datos"
             });
           }
-          else if (xhr.status === error401) {
+          else if (xhr.status === UNAUTHORIZED_ERROR) {
             Rollbar.error("Error: 401 Unauthorized");
             window.location = "error401";
           }
@@ -99,11 +99,11 @@ integrates.factory("eventualityFactory", ($q) => ({
       });
     }
     catch (err) {
-      if (err.status === error401) {
+      if (err.status === UNAUTHORIZED_ERROR) {
         Rollbar.error("Error: 401 Unauthorized");
         window.location = "error401";
       }
-      else if (err.status === error500) {
+      else if (err.status === INTERNAL_SERVER_ERROR) {
         Rollbar.error("Error: An error ocurred loading data");
         deferred.resolve({
           "error": "undefined",

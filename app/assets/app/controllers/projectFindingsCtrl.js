@@ -337,11 +337,11 @@ integrates.controller(
           });
           $scope.totalSeverity = severity.toFixed(0);
           $scope.closeModalAvance = function closeModalAvance () {
-            const timeoutValue = 100;
+            const TIMEOUT = 100;
             $uibModalInstance.close();
             $timeout(() => {
               $("#vulnerabilities").bootstrapTable("load", auxiliar);
-            }, timeoutValue);
+            }, TIMEOUT);
           };
         },
         "keyboard": false,

@@ -56,7 +56,7 @@ integrates.factory(
           $scope.modalTitle = $translate.instant("search_findings." +
                                           "tab_description.remediated_finding");
           $scope.ok = function ok () {
-            const maxLength = 100;
+            const MIN_JUSTIFICATION_LENGTH = 100;
             $scope.remediatedData.userMail = mailData.userMail;
             $scope.remediatedData.findingName = mailData.findingName;
             $scope.remediatedData.project = mailData.project;
@@ -65,7 +65,8 @@ integrates.factory(
             $scope.remediatedData.findingVulns = mailData.findingVulns;
             $scope.remediatedData.justification =
                                 $scope.remediatedData.justification.trim();
-            if ($scope.remediatedData.justification.length < maxLength) {
+            if ($scope.remediatedData.justification.length <
+                MIN_JUSTIFICATION_LENGTH) {
               $msg.error($translate.instant("proj_alerts." +
                                           "short_remediated_comment"));
             }
@@ -96,12 +97,12 @@ integrates.factory(
                   $uibModalInstance.close();
                   location.reload();
                   const data = {};
-                  const divConst = 1000;
-                  const multiConst = 10000;
-                  const radix = 9;
+                  const ID_GENERATOR_FACTOR_1 = 1000;
+                  const ID_GENERATOR_FACTOR_2 = 10000;
+                  const INTEGER_BASE = 9;
                   data.id = parseInt(Math.round(new Date() /
-                            divConst).toString() + (Math.random() *
-                            multiConst).toString(radix), 10);
+                            ID_GENERATOR_FACTOR_1).toString() + (Math.random() *
+                            ID_GENERATOR_FACTOR_2).toString(INTEGER_BASE), 10);
                   data.content = $scope.remediatedData.justification;
                   data.parent = 0;
                   data.email = $scope.remediatedData.userMail;
@@ -181,16 +182,18 @@ integrates.factory(
                 ]);
         }
       }
-      const listIndex = -3;
-      const percent = 100;
-      $scope.findingFormatted = $scope.finding.timestamp.slice(0, listIndex);
+      const NEW_LIST_LIMIT = -3;
+      const PERCENTAGE_FACTOR = 100;
+      $scope.findingFormatted =
+                              $scope.finding.timestamp.slice(0, NEW_LIST_LIMIT);
       let closingEffect = 0;
       for (let close = 0; close < $scope.finding.cierres.length; close++) {
         closingEffect = ($scope.finding.cierres[close].cerradas /
-                        $scope.finding.cierres[close].solicitadas) * percent;
+                        $scope.finding.cierres[close].solicitadas) *
+                        PERCENTAGE_FACTOR;
         $scope.finding.cierres[close].efectividad = closingEffect.toFixed(0);
         const timeFormat =
-                   $scope.finding.cierres[close].timestamp.slice(0, listIndex);
+               $scope.finding.cierres[close].timestamp.slice(0, NEW_LIST_LIMIT);
         $scope.finding.cierres[close].timestamp = timeFormat;
       }
       // Control de campos para tipos de hallazgo
@@ -265,8 +268,8 @@ integrates.factory(
         $(".equalHeight").matchHeight();
       });
       functionsFtry2.findingInformationTab($scope);
-      const timeoutValue = 200;
-      $timeout($scope.goUp, timeoutValue);
+      const TIMEOUT = 200;
+      $timeout($scope.goUp, TIMEOUT);
       if (!$scope.isManager) {
         $scope.openEvents = projectFtry.alertEvents(eventsData);
         $scope.atAlert = $translate.instant("main_content.eventualities." +
@@ -314,9 +317,9 @@ integrates.factory(
       };
       if ($scope.aux.cardinalidad !== $scope.finding.cardinalidad) {
         const todayDate = new Date();
-        const listIndex = 10;
+        const NEW_LIST_LIMIT = 10;
         descData.ultimaVulnerabilidad =
-                                   todayDate.toISOString().slice(0, listIndex);
+                               todayDate.toISOString().slice(0, NEW_LIST_LIMIT);
       }
       if (descData.nivel === "Detallado") {
         // Recalcular Severidad

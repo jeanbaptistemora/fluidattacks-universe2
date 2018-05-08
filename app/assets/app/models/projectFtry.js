@@ -43,12 +43,12 @@ integrates.factory("projectFtry", ($q, $translate) => ({
   },
 
   "calCCssv2" (data) {
-    const BSConst1 = 0.6;
-    const BSConst2 = 0.4;
-    const BSConst3 = 1.5;
-    const impactConst = 10.41;
-    const exploitConst = 20;
-    const fimpactConst = 1.176;
+    const BASESCORE_FACTOR_1 = 0.6;
+    const BASESCORE_FACTOR_2 = 0.4;
+    const BASESCORE_FACTOR_3 = 1.5;
+    const IMPACT_FACTOR = 10.41;
+    const EXPLOITABILITY_FACTOR = 20;
+    const F_IMPACT_FACTOR = 1.176;
     const ImpCon =
               parseFloat(data.impactoConfidencialidad.split(" | ")[0]);
     const ImpInt =
@@ -61,11 +61,17 @@ integrates.factory("projectFtry", ($q, $translate) => ({
     const Explo = parseFloat(data.explotabilidad.split(" | ")[0]);
     const Resol = parseFloat(data.nivelResolucion.split(" | ")[0]);
     const Confi = parseFloat(data.nivelConfianza.split(" | ")[0]);
-    const impact = impactConst * (1 - ((1 - ImpCon) * (1 - ImpInt) *
+
+    /*
+     * The constants above are part of the BaseScore, Impact and
+     * Exploibility equations
+     * More information in https://www.first.org/cvss/v2/guide
+     */
+    const impact = IMPACT_FACTOR * (1 - ((1 - ImpCon) * (1 - ImpInt) *
                   (1 - ImpDis)));
-    const exploitabilty = exploitConst * AccCom * Auth * AccVec;
-    const BaseScore = ((BSConst1 * impact) + (BSConst2 * exploitabilty) -
-                      BSConst3) * fimpactConst;
+    const exploitabilty = EXPLOITABILITY_FACTOR * AccCom * Auth * AccVec;
+    const BaseScore = ((BASESCORE_FACTOR_1 * impact) + (BASESCORE_FACTOR_2 *
+                        exploitabilty) - BASESCORE_FACTOR_3) * F_IMPACT_FACTOR;
     const Temporal = BaseScore * Explo * Resol * Confi;
     return [
       BaseScore,
@@ -419,8 +425,8 @@ integrates.factory("projectFtry", ($q, $translate) => ({
   },
 
   "updateEvidenceFiles" (data, callbackFn, errorFn) {
-    const error401 = 401;
-    const error500 = 500;
+    const UNAUTHORIZED_ERROR = 401;
+    const INTERNAL_SERVER_ERROR = 500;
     try {
       $.ajax({
         "cache": false,
@@ -428,10 +434,10 @@ integrates.factory("projectFtry", ($q, $translate) => ({
         data,
         "error" (xhr, status, response) {
           $(".loader").hide();
-          if (xhr.status === error500) {
+          if (xhr.status === INTERNAL_SERVER_ERROR) {
             Rollbar.error("Error: An error ocurred loading data");
           }
-          else if (xhr.status === error401) {
+          else if (xhr.status === UNAUTHORIZED_ERROR) {
             Rollbar.error("Error: 401 Unauthorized");
             window.location = "error401";
           }
@@ -448,7 +454,7 @@ integrates.factory("projectFtry", ($q, $translate) => ({
       });
     }
     catch (err) {
-      if (err.status === error401) {
+      if (err.status === UNAUTHORIZED_ERROR) {
         Rollbar.error("Error: 401 Unauthorized");
         window.location = "error401";
       }

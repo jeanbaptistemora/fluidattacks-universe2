@@ -124,8 +124,8 @@ integrates.controller("loginController", ($scope, $translate) => {
           redirector = function redirector () {
             window.location = `${BASE.url}dashboard`;
           };
-          const timeoutValue = 2000;
-          setTimeout(redirector, timeoutValue);
+          const TIMEOUT = 2000;
+          setTimeout(redirector, TIMEOUT);
         }
       });
     }

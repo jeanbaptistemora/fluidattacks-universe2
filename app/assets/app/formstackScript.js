@@ -17,13 +17,13 @@ $(document).ready(() => {
   };
   remember();
   const timew = 35000;
-  const index5 = 5;
+  const REPORT_CONTEXT = 5;
   setInterval(() => {
     remember();
   }, timew);
-  document.getElementsByTagName("select")[index5].onchange = function
+  document.getElementsByTagName("select")[REPORT_CONTEXT].onchange = function
   onchange () {
-    const verf = document.getElementsByTagName("select")[index5].value;
+    const verf = document.getElementsByTagName("select")[REPORT_CONTEXT].value;
     if (verf === "Verificación") {
       alertify.success("<p class=\"text-center\"> " +
                                   "Información: </p> <p class=\"text-left\">" +
@@ -78,14 +78,14 @@ const showInfo = function showInfo (data, tabletop) {
   const obj = $.parseJSON(JSON.stringify(data));
   $("#field32201810").change(() => {
     const title = $("#field32201810").val();
-    const index5 = 5;
+    const REPORT_CONTEXT = 5;
     for (let cont = 0; cont < obj.length; cont++) {
       if (obj[cont].Titulo === title) {
         description.val(obj[cont].Descripcion);
         requirement.val(obj[cont].Requisito);
         solution.val(obj[cont].Recomendacion);
         donde.attr("placeholder", obj[cont].Donde);
-        debilidad.val(obj[cont].CWE.split("/")[index5].split(".")[0]);
+        debilidad.val(obj[cont].CWE.split("/")[REPORT_CONTEXT].split(".")[0]);
         tipo.val(obj[cont].Tipo);
         if (obj[cont].Evidente === "Sí") {
           siEvidente.attr("checked", true);
@@ -111,9 +111,9 @@ const showInfo = function showInfo (data, tabletop) {
           threat.val(obj[cont].Amenaza);
           risk.val(obj[cont].Riesgo);
         }
-        const maxValue = 0.950;
+        const HAS_FUNCTIONAL_EXPLOIT = 0.950;
         // If(obj[cont].Exploit === "Sí"){
-        if ($("#field38529253").val() === maxValue) {
+        if ($("#field38529253").val() === HAS_FUNCTIONAL_EXPLOIT) {
           exploit.prop("required", true);
           exploit.addClass("fsRequired");
           exploit.attr("aria-required", true);
@@ -160,7 +160,7 @@ Tabletop.init({
   "prettyColumnNames": true,
   "simpleSheet": true
 });
-const index2 = 2;
+const FILE_NAME_INDEX = 2;
 $(donde).focusout(() => {
   donde.val($.trim(donde.val()));
 });
@@ -218,7 +218,7 @@ $(threat).focusout(() => {
 
 $(evidenciaHallazgo).change(() => {
   const hallazgoUpload = $(evidenciaHallazgo).val().
-    split("\\")[index2].split(".")[0];
+    split("\\")[FILE_NAME_INDEX].split(".")[0];
   const substring = "evidencia";
   if (hallazgoUpload.indexOf(substring) === -1) {
     $msg.error("El archivo se debe contener la palabra evidencia");
@@ -228,7 +228,7 @@ $(evidenciaHallazgo).change(() => {
 
 $(exploit).change(() => {
   const exploitUpload = $(exploit).val().
-    split("\\")[index2].split(".")[0];
+    split("\\")[FILE_NAME_INDEX].split(".")[0];
   if (exploitUpload !== "exploit") {
     $msg.error("El archivo se debe llamar: exploit");
     exploit.val("");
@@ -240,7 +240,7 @@ $(exploit).change(() => {
 
 $(evidenciaExplotacion).change(() => {
   const explotacionUpload = $(evidenciaExplotacion).val().
-    split("\\")[index2].split(".")[0];
+    split("\\")[FILE_NAME_INDEX].split(".")[0];
   if (explotacionUpload !== "evidencia-de-explotacion") {
     $msg.error("El archivo se debe llamar: evidencia-de-explotacion");
     evidenciaExplotacion.val("");
@@ -252,7 +252,7 @@ $(evidenciaExplotacion).change(() => {
 
 $(animacion).change(() => {
   const animacionUpload = $(animacion).val().
-    split("\\")[index2].split(".")[0];
+    split("\\")[FILE_NAME_INDEX].split(".")[0];
   if (animacionUpload !== "animacion-de-explotacion") {
     $msg.error("El archivo se debe llamar: animacion-de-explotacion");
     animacion.val("");
@@ -264,7 +264,7 @@ $(animacion).change(() => {
 
 $(solutionPdf).change(() => {
   const solUpload = $(solutionPdf).val().
-    split("\\")[index2].split(".")[0];
+    split("\\")[FILE_NAME_INDEX].split(".")[0];
   if (solUpload !== "solucion") {
     $msg.error("El archivo se debe llamar: solucion");
     solutionPdf.val("");

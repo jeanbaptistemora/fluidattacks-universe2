@@ -43,7 +43,7 @@ integrates.factory("tabsFtry", ($q, $translate, projectFtry) => ({
             });
             return data;
           };
-          const timeoutValue = 500;
+          const TIMEOUT = 500;
           const divConst = 1000;
           const multiConst = 10000;
           const radix = 9;
@@ -57,12 +57,12 @@ integrates.factory("tabsFtry", ($q, $translate, projectFtry) => ({
             "getComments" (success, error) {
               setTimeout(() => {
                 success(response.data);
-              }, timeoutValue);
+              }, TIMEOUT);
             },
             "getUsers" (success, error) {
               setTimeout(() => {
                 success(usersArray);
-              }, timeoutValue);
+              }, TIMEOUT);
             },
             "postComment" (data, success, error) {
               data.id = parseInt(Math.round(new Date() / divConst).toString() +
@@ -88,7 +88,7 @@ integrates.factory("tabsFtry", ($q, $translate, projectFtry) => ({
                   );
                   setTimeout(() => {
                     success(data);
-                  }, timeoutValue);
+                  }, TIMEOUT);
                 }
                 else if (response.error) {
                   Rollbar.error("Error: An error occurred adding comment");

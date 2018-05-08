@@ -187,9 +187,9 @@ integrates.controller(
     };
 
     $scope.downloadDoc = function downloadDoc () {
-      const timeoutValue = 3000;
+      const TIMEOUT = 3000;
       if (typeof $scope.downloadURL === "undefined") {
-        $timeout($scope.downloadDoc, timeoutValue);
+        $timeout($scope.downloadDoc, TIMEOUT);
       }
       else {
         const downLink = document.createElement("a");

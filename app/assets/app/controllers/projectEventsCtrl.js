@@ -289,10 +289,10 @@ integrates.controller(
           $scope.rowsEvent = $("#tblEventualities").bootstrapTable("getData");
           $scope.close = function close () {
             $uibModalInstance.close();
-            const timeoutValue = 100;
+            const TIMEOUT = 100;
             $timeout(() => {
               $("#tblEventualities").bootstrapTable("load", $scope.rowsEvent);
-            }, timeoutValue);
+            }, TIMEOUT);
           };
         },
         "resolve": {"ok": true},
