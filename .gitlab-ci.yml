@@ -77,6 +77,7 @@ test_terraform:
       - tflint --var-file="vars/aws.tfvars"
       - terraform plan -var-file="vars/aws.tfvars"
    except:
+    - master
     - triggers
 
 
@@ -127,7 +128,7 @@ deploy_terraform:
         - echo $SSO_XML > infrastructure/vars/SSO.xml
         - echo $SSO_FINANCE_XML > infrastructure/vars/SSOFinance.xml
         - echo sudo docker login registry.gitlab.com -u $DOCKER_USER -p $DOCKER_PASS >> infrastructure/ec2/host/script.sh
-        - aws s3 cp s3://$BUCKET_NAME/terraform/FLUID_Serves.pem infrastructure/vars/FLUID_Serves.pem
+        - aws s3 cp s3://$BUCKET_NAME/terraform/FLUID_Serves.pem infrastructure/vars/FLUID_Serves.pem || pip install boto && python infrastructure/create-key.py
         - aws s3 cp s3://$BUCKET_NAME/terraform/terraform.tfstate infrastructure/terraform.tfstate || echo ""
         - cd infrastructure
     script:
