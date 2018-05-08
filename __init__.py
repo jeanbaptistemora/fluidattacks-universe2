@@ -24,6 +24,7 @@ try:
     FI_ROLLBAR_ACCESS_TOKEN = os.environ['FI_ROLLBAR_ACCESS_TOKEN']
     FI_AWS_S3_ACCESS_KEY = os.environ['FI_AWS_S3_ACCESS_KEY']
     FI_AWS_S3_SECRET_KEY = os.environ['FI_AWS_S3_SECRET_KEY']
+    FI_AWS_S3_BUCKET = os.environ['FI_AWS_S3_BUCKET']
 except KeyError as e:
     print "Environment variable " + e.args[0] +  " doesn't exist"
     raise

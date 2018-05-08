@@ -39,13 +39,13 @@ from .api.formstack import FormstackAPI
 from magic import Magic
 from datetime import datetime
 from backports import csv
-from __init__ import FI_AWS_S3_ACCESS_KEY, FI_AWS_S3_SECRET_KEY
+from __init__ import FI_AWS_S3_ACCESS_KEY, FI_AWS_S3_SECRET_KEY, FI_AWS_S3_BUCKET
 
 client_s3 = boto3.client('s3',
                             aws_access_key_id=FI_AWS_S3_ACCESS_KEY,
                             aws_secret_access_key=FI_AWS_S3_SECRET_KEY)
 
-bucket_s3 = "fluidintegrates.fluidattacks.com"
+bucket_s3 = FI_AWS_S3_BUCKET
 
 @never_cache
 def index(request):
