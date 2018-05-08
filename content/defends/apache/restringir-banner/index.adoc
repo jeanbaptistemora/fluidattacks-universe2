@@ -32,7 +32,7 @@ que se aloja detrás del sitio web,
 y en algunos casos es posible conocer la versión del mismo.
 
 Para más información de esta técnica puede leer el siguiente artículo
-link:../../../blog/banner-grabbing/[Exponiendo La Información De Tus Servicios]
+link:../../../blog/informacion-servicios-revelada/[Exponiendo La Información De Tus Servicios]
 
 Dar a conocer la información del servidor web
 representa un riesgo para la seguridad

@@ -229,7 +229,7 @@ Clase Subject.
 [button]#link:src/resource.java[Resource.java]#
 Clase Resource.
 
-[button]#link:src/AccessController.java[AccessController.java]#
+[button]#link:src/accesscontroller.java[AccessController.java]#
 Clase AccessController.
 
 [button]#link:src/cli.java[CLI.java]#

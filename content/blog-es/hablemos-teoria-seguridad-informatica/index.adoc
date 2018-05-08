@@ -95,7 +95,7 @@ y, para poder eliminarlo, exige determinada cantidad de dinero.
 Se define como el empleo de técnicas psicológicas y tecnológicas
 con el fin de lograr que las víctimas revelen información
 que no debería ser revelada.
-(Como se comentaba en link:../introduccion-ingenieria-social/[artículos anteriores]).
+(Como se comentaba en link:../cadenas-eslabones/[artículos anteriores]).
 
 == Bloqueo o denegación de servicio
 

@@ -25,7 +25,7 @@ is as important as
 For that, we need an effective means to communicate
 with all stakeholders.
 We have proposed
-link:../app-pickle-document-gherkin/[before]
+link:../app-pickle/[before]
 using the
 link:https://martinfowler.com/bliki/BusinessReadableDSL.html[bussiness-readable, domain-specific language]
 +Gherkin+.

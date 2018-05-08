@@ -243,7 +243,7 @@ activated, admin FROM users;#
 
 Entonces obtendríamos la mayoría de la información de los usuarios
 (las contraseñas estarán encriptadas, pero pueden ser
-link:../../../en/blog/storing-passwords-safely/[recuperadas])
+link:../../../en/blog/storing-password-safely/[recuperadas])
 
 .Inyección SQL manual exitosa
 image::scr-succesful-sqli.png["Captura de pantalla de inyección SQL mostrando las contraseñas"]
