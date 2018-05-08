@@ -6,7 +6,7 @@ findingData, userRole */
 /* eslint no-shadow: ["error", { "allow": ["$scope","$stateParams",
                                           "response"] }]*/
 /**
- * @file functions-factory-3.js
+ * @file functionsFtry3.js
  * @author engineering@fluidattacks.com
  */
 /**

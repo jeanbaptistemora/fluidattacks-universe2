@@ -6,7 +6,7 @@ BASE, integrates, Organization, mixPanelDashboard, userName, userEmail, $,
 Rollbar,
  */
 /**
- * @file report-generator.js
+ * @file reportGenerator.js
  * @author engineering@fluidattacks.com
  */
 

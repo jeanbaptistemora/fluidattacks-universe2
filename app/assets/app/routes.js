@@ -48,37 +48,37 @@ integrates.config(($stateProvider, $urlRouterProvider) => {
       "url": "/project/:project/events"
     }).
     state("FindingDescription", {
-      "controller": "findingcontentCtrl",
+      "controller": "findingContentCtrl",
       "templateUrl": "assets/views/project/findingcontent.html",
       "url": "/project/:project/:id/description"
     }).
     state("FindingSeverity", {
-      "controller": "findingcontentCtrl",
+      "controller": "findingContentCtrl",
       "templateUrl": "assets/views/project/findingcontent.html",
       "url": "/project/:project/:id/severity"
     }).
     state("FindingTracking", {
-      "controller": "findingcontentCtrl",
+      "controller": "findingContentCtrl",
       "templateUrl": "assets/views/project/findingcontent.html",
       "url": "/project/:project/:id/tracking"
     }).
     state("FindingEvidence", {
-      "controller": "findingcontentCtrl",
+      "controller": "findingContentCtrl",
       "templateUrl": "assets/views/project/findingcontent.html",
       "url": "/project/:project/:id/evidence"
     }).
     state("FindingExploit", {
-      "controller": "findingcontentCtrl",
+      "controller": "findingContentCtrl",
       "templateUrl": "assets/views/project/findingcontent.html",
       "url": "/project/:project/:id/exploit"
     }).
     state("FindingRecords", {
-      "controller": "findingcontentCtrl",
+      "controller": "findingContentCtrl",
       "templateUrl": "assets/views/project/findingcontent.html",
       "url": "/project/:project/:id/records"
     }).
     state("FindingComments", {
-      "controller": "findingcontentCtrl",
+      "controller": "findingContentCtrl",
       "templateUrl": "assets/views/project/findingcontent.html",
       "url": "/project/:project/:id/comments"
     }).

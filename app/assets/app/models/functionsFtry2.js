@@ -8,7 +8,7 @@ realiabilityLevel, functionsFtry1 */
 /* eslint no-shadow: ["error", { "allow": ["$scope","$stateParams",
                                           "response"] }]*/
 /**
- * @file functions-factory-2.js
+ * @file functionsFtry2.js
  * @author engineering@fluidattacks.com
  */
 /**

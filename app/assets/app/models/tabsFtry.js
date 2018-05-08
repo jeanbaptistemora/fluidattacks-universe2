@@ -5,7 +5,7 @@ $, Rollbar, eventsData, userEmail, userName */
 /* eslint no-shadow: ["error", { "allow": ["$scope","$stateParams",
                                           "response"] }]*/
 /**
- * @file tabs-factory.js
+ * @file tabsFtry.js
  * @author engineering@fluidattacks.com
  */
 /**

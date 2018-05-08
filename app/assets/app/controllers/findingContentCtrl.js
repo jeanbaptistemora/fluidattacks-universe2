@@ -11,12 +11,12 @@ updateEvidenceText:true, categories, probabilities, accessVector, integrity,
 accessComplexity, projectData:true, eventsData:true, fieldsToTranslate,
 keysToTranslate, desc:true */
 /**
- * @file findingcontentCtrl.js
+ * @file findingContentCtrl.js
  * @author engineering@fluidattacks.com
  */
 /**
  * Funciones para administrar el UI del resumen de un hallazgo
- * @name findingContentCtrl.js
+ * @name findingContentCtrl
  * @param {Object} $scope
  * @param {Object} $uibModal
  * @param {Object} $stateParams
@@ -25,7 +25,7 @@ keysToTranslate, desc:true */
  * @return {undefined}
  */
 /** @export */
-integrates.controller("findingcontentCtrl", function findingcontentCtrl (
+integrates.controller("findingContentCtrl", function findingContentCtrl (
   $scope, $stateParams, $timeout,
   $uibModal, $translate, $state,
   ngNotify, projectFtry, tabsFtry,
