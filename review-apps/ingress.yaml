@@ -9,7 +9,7 @@ spec:
   tls:
   - hosts:
     - $CI_COMMIT_REF_SLUG.$CI_PROJECT_NAME.$ENV_DNS
-    secretName: $K8_SSL_SECRET
+    secretName: $K8_TLS_SECRET
   rules:
   - host: $CI_COMMIT_REF_SLUG.$CI_PROJECT_NAME.$ENV_DNS
     http:
