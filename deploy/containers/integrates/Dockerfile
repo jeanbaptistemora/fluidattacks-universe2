@@ -70,5 +70,5 @@ CMD env > /etc/environment  \
 && /usr/src/app/manage.py makemigrations \
 && /usr/src/app/manage.py migrate \
 && /usr/src/app/manage.py crontab add \
-&& service cron start \
+&& if [ "$CI_COMMIT_REF_NAME" = "master" ]; then service cron start; fi \
 && /usr/sbin/apache2ctl -D FOREGROUND
