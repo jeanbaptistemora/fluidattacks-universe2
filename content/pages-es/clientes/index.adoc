@@ -16,11 +16,11 @@ comprenden algunos de los bancos más importantes de América Latina,
 además de empresas encargadas del recaudo de aportes sociales, entre otras.
 Algunos de nuestos clientes son +Bancolombia+, +BBVA+,
 +Davivienda+, +Sura+, +Protección+, +Colpatria+.
-a|.Ícono hecho por link:https://creativemarket.com/eucalyp[Eucalyp] de link:www.flaticon.com[Flaticon]
+a|.Ícono hecho por link:https://creativemarket.com/eucalyp[Eucalyp] de link:https://www.flaticon.com/[Flaticon]
 image::financiero.png[Signo de dólar]
 
 
-a|.Ícono hecho por link:https://smashicons.com/[Smashicons] de link:www.flaticon.com[Flaticon]
+a|.Ícono hecho por link:https://smashicons.com/[Smashicons] de link:https://www.flaticon.com/[Flaticon]
 image::comunicaciones.png[Teléfono inteligente]
 a|== link:comunicaciones/[Comunicaciones]
 
@@ -35,10 +35,10 @@ desde diferentes áreas, sea ventas al detal, +E-Commerce+, la industria textil,
 o soluciones de tecnología. Algunos de estos clientes son
 +Grupo Éxito+, +Grupo Uribe+, +Rappi+, +Semana+,
 y la compañía australiana +The Missing Link+.
-a|.Ícono hecho por mynamepong de link:www.flaticon.com[Flaticon]
+a|.Ícono hecho por mynamepong de link:https://www.flaticon.com/[Flaticon]
 image::comercial.png[Consumidores con diferentes reacciones]
 
-a|.Ícono hecho por link:https://smashicons.com/[Smashicons] de link:www.flaticon.com[Flaticon]
+a|.Ícono hecho por link:https://smashicons.com/[Smashicons] de link:https://www.flaticon.com/[Flaticon]
 image::tecnologia.png[Servidor y base de datos]
 a|== link:tecnologia/[Tecnología]
 
@@ -55,10 +55,10 @@ También hemos ejecutado proyectos en compañías que se especializan
 en el sector de la energía, ya sea en la generación, distribución
 y comercialización, como +Celsia+, o en la planeación, diseño y manejo
 de los sistemas transaccionales, como +XM+.
-a|.Ícono hecho por Good Ware de link:www.flaticon.com[Flaticon]
+a|.Ícono hecho por Good Ware de link:https://www.flaticon.com/[Flaticon]
 image::energia.png[Símbolo de un trueno]
 
-a|.Ícono hecho por link:https://www.freepik.com/[Freepik] de link:www.flaticon.com[Flaticon]
+a|.Ícono hecho por link:https://www.freepik.com/[Freepik] de link:https://www.flaticon.com/[Flaticon]
 image::industrial.png[Fábrica]
 a|== link:industrial/[Industrial]
 
@@ -73,7 +73,7 @@ a|== link:transporte/[Transporte]
 +FLUIDAttacks+ ha trabajado con gigantes del sector de transporte
 como +Avianca+ y +F2X+, para asegurar que sus aplicaciones
 y plataformas +Web+ ofrezcan la mejor seguridad a sus usuarios.
-a|.Ícono hecho por link:https://www.freepik.com/[Freepik] de link:www.flaticon.com[Flaticon]
+a|.Ícono hecho por link:https://www.freepik.com/[Freepik] de link:https://www.flaticon.com/[Flaticon]
 image::transporte.png[Vista frontal de un bus]
 
 |====

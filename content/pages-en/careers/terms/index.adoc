@@ -60,7 +60,7 @@ the duration of the process is 90% in your hands.
 . Since our selection process is very detailed and
 different from what you see in other companies,
 we want you to read it very carefully.
-The process is detailed link:../../empleos/[here].
+The process is detailed link:../[here].
 
 . If you continue and accept these terms
 you are indicating that you understand all the effort and dedication
@@ -94,7 +94,7 @@ The previous clauses will be valid during the work relation.
 . In the hiring process
 once you accept our job offer
 you must provide the following
-link:../vinculacion/[information].
+link:../hiring/[information].
 
 . By accepting these terms and conditions
 you understand there exists the possibility that

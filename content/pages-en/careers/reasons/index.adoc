@@ -70,7 +70,7 @@ link:../../customers/communications/#edatel[+EDATEL+],
 link:../../customers/communications/#claro[Claro],
 the biggest ISP in the country; and many more.
 To see a complete list of our clients
-go to our link:../../clients[Clients Section].
+go to our link:../../customers/[Clients Section].
 
 == Great talents working together
 
