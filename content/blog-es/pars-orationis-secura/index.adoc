@@ -5,7 +5,7 @@
 :tags: detectar, inyección, escáner
 :image: cover.png
 :alt: Serpiente leyendo un documento
-:description: Cómo usar Python y pyparsing para analizar el código de la aplicación para encontrar inyecciones de SQL en bWAPP. Una inyección SQL se define como una consulta SQL con concatenaciones. El intérprete detecta la mayoría de las inyecciones de SQL a pesar de sus limitaciones y no tiene falsos positivos.
+:description: Cómo usar Python y pyparsing para analizar el código de la aplicación para encontrar inyecciones de SQL en bWAPP. Una inyección SQL se define como una consulta SQL con concatenaciones. El intérprete detecta la mayoría de las inyecciones de SQL pese a de sus limitaciones y no tiene falsos positivos.
 :keywords: Prueba, Detección, Intérprete, Python, Inyección, BWAPP
 :author: Rafael Ballestas
 :writer: raballestasr

@@ -178,7 +178,7 @@ fi
 
 # Check that the meta description has a minimum lenght of 250 characters and a maximum length of 300 characters
 while IFS= read -r FILE; do
-  if pcregrep --color -no '(?<=:description: ).{307,}$|(?<=:description: ).{0,249}$' "$FILE"; then
+  if pcregrep --color -no '(?<=:description: ).{306,}$|(?<=:description: ).{0,249}$' "$FILE"; then
     echo -e "${GC}Descriptions must be in the [250-300] characters range. The previous description belongs to the file \"$FILE\".${NC}";
     ERRORS=1;
   fi
