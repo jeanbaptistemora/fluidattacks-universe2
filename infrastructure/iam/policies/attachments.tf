@@ -21,8 +21,3 @@ resource "aws_iam_policy_attachment" "SSO_Finance-attach" {
   roles     = ["${var.ssofinance}"]
   policy_arn = "${aws_iam_policy.SSO_Finance.arn}"
 }
-
-resource "aws_iam_user_policy_attachment" "fir53review-attach" {
-  user       = "${var.fir53review}"
-  policy_arn = "${aws_iam_policy.fir53review-policy.arn}"
-}

@@ -5,10 +5,7 @@ data "aws_iam_policy_document" "serves-policy" {
       "s3:*"
     ]
     resources = [
-      "arn:aws:s3:::fluidserves/exams/*",
-      "arn:aws:s3:::fluidserves",
-      "arn:aws:s3:::fluidpersistent",
-      "arn:aws:s3:::fluidpersistent/*"
+      "*"
     ]
   }
 }

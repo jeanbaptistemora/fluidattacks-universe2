@@ -7,6 +7,3 @@ output "examss3" {
 output "fws3user" {
   value = "${aws_iam_user.fws3user.name}"
 }
-output "fir53review" {
-  value = "${aws_iam_user.fir53review.name}"
-}

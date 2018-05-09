@@ -8,9 +8,7 @@ data "aws_iam_policy_document" "blog-policy" {
       "s3:*"
     ]
     resources = [
-      "arn:aws:s3:::web.fluid.la/*",
       "arn:aws:s3:::${var.webBucket}/*",
-      "arn:aws:s3:::web.fluid.la",
       "arn:aws:s3:::${var.webBucket}"
     ]
   }

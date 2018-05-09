@@ -4,14 +4,6 @@ resource "aws_iam_policy_attachment" "SSO_Finance-attach2" {
   policy_arn = "arn:aws:iam::aws:policy/AmazonEC2ReadOnlyAccess"
 }
 
-resource "aws_iam_role_policy" "awspython-inline-policy" {
-  name = "dev-aws-python-fluidcounts-lambda"
-  role = "${aws_iam_role.awspython.id}"
-
-  policy = "${data.aws_iam_policy_document.awspython-inline-policy.json}"
-}
-
-
 # SSO Attachments
 
 resource "aws_iam_policy_attachment" "SSO-ec2full" {

@@ -67,7 +67,7 @@ test_terraform:
       - echo sec_key = \"$AWS_SECRET_ACCESS_KEY\" >> infrastructure/vars/aws.tfvars
       - echo bucket = \"$BUCKET_NAME\" >> infrastructure/terraform.tfvars
       - echo webBucket = \"$WEB_BUCKET\" >> infrastructure/terraform.tfvars
-      - echo fiBucket = \"$FI_BUCKET\" >> infrastructure/terraform.tfvars
+      - echo fiBucket = \"$FI_AWS_S3_BUCKET\" >> infrastructure/terraform.tfvars
       - echo mainZoneID = \"$MAIN_ZONE_ID\" >> infrastructure/terraform.tfvars
       - echo $SSO_XML > infrastructure/vars/SSO.xml
       - echo $SSO_FINANCE_XML > infrastructure/vars/SSOFinance.xml
@@ -123,7 +123,7 @@ deploy_terraform:
         - echo sec_key = \"$AWS_SECRET_ACCESS_KEY\" >> infrastructure/vars/aws.tfvars
         - echo bucket = \"$BUCKET_NAME\" >> infrastructure/terraform.tfvars
         - echo webBucket = \"$WEB_BUCKET\" >> infrastructure/terraform.tfvars
-        - echo fiBucket = \"$FI_BUCKET\" >> infrastructure/terraform.tfvars
+        - echo fiBucket = \"$FI_AWS_S3_BUCKET\" >> infrastructure/terraform.tfvars
         - echo db_id = \"$SNAP_ID\" >> infrastructure/terraform.tfvars
         - echo mainZoneID = \"$MAIN_ZONE_ID\" >> infrastructure/terraform.tfvars
         - echo $SSO_XML > infrastructure/vars/SSO.xml
@@ -152,7 +152,7 @@ install_alg:
         - echo sec_key = \"$AWS_SECRET_ACCESS_KEY\" >> infrastructure/vars/aws.tfvars
         - echo bucket = \"$BUCKET_NAME\" >> infrastructure/terraform.tfvars
         - echo webBucket = \"$WEB_BUCKET\" >> infrastructure/terraform.tfvars
-        - echo fiBucket = \"$FI_BUCKET\" >> infrastructure/terraform.tfvars
+        - echo fiBucket = \"$FI_AWS_S3_BUCKET\" >> infrastructure/terraform.tfvars
         - echo db_id = \"$SNAP_ID\" >> infrastructure/terraform.tfvars
         - echo mainZoneID = \"$MAIN_ZONE_ID\" >> infrastructure/terraform.tfvars
         - echo $SSO_XML > infrastructure/vars/SSO.xml
@@ -181,7 +181,7 @@ install_exams:
         - echo sec_key = \"$AWS_SECRET_ACCESS_KEY\" >> infrastructure/vars/aws.tfvars
         - echo bucket = \"$BUCKET_NAME\" >> infrastructure/terraform.tfvars
         - echo webBucket = \"$WEB_BUCKET\" >> infrastructure/terraform.tfvars
-        - echo fiBucket = \"$FI_BUCKET\" >> infrastructure/terraform.tfvars
+        - echo fiBucket = \"$FI_AWS_S3_BUCKET\" >> infrastructure/terraform.tfvars
         - echo db_id = \"$SNAP_ID\" >> infrastructure/terraform.tfvars
         - echo mainZoneID = \"$MAIN_ZONE_ID\" >> infrastructure/terraform.tfvars
         - echo $SSO_XML > infrastructure/vars/SSO.xml
@@ -210,7 +210,7 @@ install_integrates:
         - echo sec_key = \"$AWS_SECRET_ACCESS_KEY\" >> infrastructure/vars/aws.tfvars
         - echo bucket = \"$BUCKET_NAME\" >> infrastructure/terraform.tfvars
         - echo webBucket = \"$WEB_BUCKET\" >> infrastructure/terraform.tfvars
-        - echo fiBucket = \"$FI_BUCKET\" >> infrastructure/terraform.tfvars
+        - echo fiBucket = \"$FI_AWS_S3_BUCKET\" >> infrastructure/terraform.tfvars
         - echo db_id = \"$SNAP_ID\" >> infrastructure/terraform.tfvars
         - echo mainZoneID = \"$MAIN_ZONE_ID\" >> infrastructure/terraform.tfvars
         - echo $SSO_XML > infrastructure/vars/SSO.xml
@@ -241,7 +241,7 @@ install_vpn:
         - echo sec_key = \"$AWS_SECRET_ACCESS_KEY\" >> infrastructure/vars/aws.tfvars
         - echo bucket = \"$BUCKET_NAME\" >> infrastructure/terraform.tfvars
         - echo webBucket = \"$WEB_BUCKET\" >> infrastructure/terraform.tfvars
-        - echo fiBucket = \"$FI_BUCKET\" >> infrastructure/terraform.tfvars
+        - echo fiBucket = \"$FI_AWS_S3_BUCKET\" >> infrastructure/terraform.tfvars
         - echo db_id = \"$SNAP_ID\" >> infrastructure/terraform.tfvars
         - echo mainZoneID = \"$MAIN_ZONE_ID\" >> infrastructure/terraform.tfvars
         - echo $SSO_XML > infrastructure/vars/SSO.xml
@@ -270,7 +270,7 @@ change_dns:
         - echo sec_key = \"$AWS_SECRET_ACCESS_KEY\" >> infrastructure/vars/aws.tfvars
         - echo bucket = \"$BUCKET_NAME\" >> infrastructure/terraform.tfvars
         - echo webBucket = \"$WEB_BUCKET\" >> infrastructure/terraform.tfvars
-        - echo fiBucket = \"$FI_BUCKET\" >> infrastructure/terraform.tfvars
+        - echo fiBucket = \"$FI_AWS_S3_BUCKET\" >> infrastructure/terraform.tfvars
         - echo $SSO_XML > infrastructure/vars/SSO.xml
         - echo $SSO_FINANCE_XML > infrastructure/vars/SSOFinance.xml
         - echo db_id = \"$DB_ID\" >> infrastructure/terraform.tfvars
