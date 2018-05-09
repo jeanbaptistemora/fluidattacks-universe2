@@ -58,6 +58,7 @@ build_vpn:
     except:
     - triggers
 
+
 test_terraform:
    stage: test
    before_script:
@@ -80,7 +81,6 @@ test_terraform:
    except:
     - master
     - triggers
-
 
 deploy_alg:
     stage: deploy
@@ -136,7 +136,6 @@ deploy_terraform:
         - terraform init
         - terraform apply -auto-approve -var-file="vars/aws.tfvars"
         - terraform output instance_ip > ip.txt
-        - curl -X POST -F token=$TRIGGER_TOKEN -F ref=master -F "variables[IS_TRIGGER]=true" -F "variables[NEW_SERVES]=$(cat ip.txt)" https://gitlab.com/api/v4/projects/4620828/trigger/pipeline
     after_script:
         - aws s3 cp infrastructure/terraform.tfstate s3://$BUCKET_NAME/terraform/terraform.tfstate
         - aws s3 cp infrastructure/vars/FLUID_Serves.pem s3://$BUCKET_NAME/terraform/FLUID_Serves.pem
@@ -172,7 +171,7 @@ install_alg:
         - ssh -o StrictHostKeyChecking=no -i FLUID_Serves.pem admin@$(cat ip.txt) '(sudo docker stop tmp_alg_1 || echo "") && (sudo docker rm tmp_alg_1 || echo "")'
         - ssh -o StrictHostKeyChecking=no -i FLUID_Serves.pem admin@$(cat ip.txt) 'sudo docker pull registry.gitlab.com/fluidsignal/serves/alg:master && sudo docker run -d -p 443:443 -p 80:80 --name=tmp_alg_1 registry.gitlab.com/fluidsignal/serves/alg:master'
     only:
-    - triggers
+    - master
 
 install_exams:
     stage: install
@@ -201,7 +200,38 @@ install_exams:
         - ssh -o StrictHostKeyChecking=no -i FLUID_Serves.pem admin@$(cat ip.txt) '(sudo docker stop tmp_exams_1 || echo "") && (sudo docker rm tmp_exams_1 || echo "")'
         - ssh -o StrictHostKeyChecking=no -i FLUID_Serves.pem admin@$(cat ip.txt) 'sudo docker pull registry.gitlab.com/fluidsignal/serves/exams:master && sudo docker run -d -p 8080:80 --name=tmp_exams_1 registry.gitlab.com/fluidsignal/serves/exams:master'
     only:
-    - triggers
+    - master
+
+install_integrates:
+    stage: install
+    before_script:
+        - mkdir infrastructure/vars && echo $AWS_VARS > infrastructure/vars/aws.tfvars
+        - echo acc_key = \"$AWS_ACCESS_KEY_ID\" >> infrastructure/vars/aws.tfvars
+        - echo sec_key = \"$AWS_SECRET_ACCESS_KEY\" >> infrastructure/vars/aws.tfvars
+        - echo bucket = \"$BUCKET_NAME\" >> infrastructure/terraform.tfvars
+        - echo webBucket = \"$WEB_BUCKET\" >> infrastructure/terraform.tfvars
+        - echo fiBucket = \"$FI_BUCKET\" >> infrastructure/terraform.tfvars
+        - echo db_id = \"$SNAP_ID\" >> infrastructure/terraform.tfvars
+        - echo mainZoneID = \"$MAIN_ZONE_ID\" >> infrastructure/terraform.tfvars
+        - echo $SSO_XML > infrastructure/vars/SSO.xml
+        - echo $SSO_FINANCE_XML > infrastructure/vars/SSOFinance.xml
+        - echo sudo docker login registry.gitlab.com -u $DOCKER_USER -p $DOCKER_PASS >> infrastructure/ec2/host/script.sh
+        - aws s3 cp s3://$BUCKET_NAME/terraform/FLUID_Serves.pem infrastructure/vars/FLUID_Serves.pem
+        - aws s3 cp s3://$BUCKET_NAME/terraform/terraform.tfstate infrastructure/terraform.tfstate
+        - cp infrastructure/vars/FLUID_Serves.pem infrastructure/
+        - cd infrastructure
+        - terraform init
+        - terraform refresh -var-file="vars/aws.tfvars"
+        - terraform output instance_ip > ip.txt
+        - sh env.sh
+    script:
+        - apk --update add openssh-client
+        - chmod 600 FLUID_Serves.pem
+        - scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -i FLUID_Serves.pem env.list admin@$(cat ip.txt):/home/admin
+        - ssh -o StrictHostKeyChecking=no -i FLUID_Serves.pem admin@$(cat ip.txt) 'sudo docker pull registry.gitlab.com/fluidsignal/integrates:master && (sudo docker stop integrates || echo "") && (sudo docker rm integrates || echo "") && sudo docker run -d --env-file env.list -p 8000:443 --name=integrates registry.gitlab.com/fluidsignal/integrates:master'
+        - ssh -o StrictHostKeyChecking=no -i FLUID_Serves.pem admin@$(cat ip.txt) 'sudo docker pull registry.gitlab.com/fluidsignal/integrates/bot:master && (sudo docker stop bot || echo "") && (sudo docker rm bot || echo "") && sudo docker run -d --env-file env.list --restart always --name=bot registry.gitlab.com/fluidsignal/integrates/bot:master && rm env.list'
+    only:
+    - master
 
 install_vpn:
     stage: install
@@ -230,7 +260,7 @@ install_vpn:
         - ssh -o StrictHostKeyChecking=no -i FLUID_Serves.pem admin@$(cat ip.txt) '(sudo docker stop tmp_vpn_1 || echo "") && (sudo docker rm tmp_vpn_1 || echo "")'
         - ssh -o StrictHostKeyChecking=no -i FLUID_Serves.pem admin@$(cat ip.txt) 'sudo docker pull registry.gitlab.com/fluidsignal/serves/vpn:master && sudo docker run -d --privileged=true -p 8081:443 --name=tmp_vpn_1 registry.gitlab.com/fluidsignal/serves/vpn:master'
     only:
-    - triggers
+    - master
 
 change_dns:
     stage: dns
@@ -263,4 +293,4 @@ change_dns:
     after_script:
         - aws s3 cp infrastructure/dns/terraform.tfstate s3://$BUCKET_NAME/terraform/dns/terraform.tfstate
     only:
-    - triggers
+    - master
