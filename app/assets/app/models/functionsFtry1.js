@@ -292,17 +292,16 @@ integrates.factory(
     "updateCSSv2" ($scope) {
       // Obtener datos de las listas
       const cssv2Data = {
-
-        "autenticacion": $scope.finding.autenticacion,
-        "complejidadAcceso": $scope.finding.complejidadAcceso,
-        "explotabilidad": $scope.finding.explotabilidad,
-        "id": $scope.finding.id,
-        "impactoConfidencialidad": $scope.finding.impactoConfidencialidad,
-        "impactoDisponibilidad": $scope.finding.impactoDisponibilidad,
-        "impactoIntegridad": $scope.finding.impactoIntegridad,
-        "nivelConfianza": $scope.finding.nivelConfianza,
-        "nivelResolucion": $scope.finding.nivelResolucion,
-        "vectorAcceso": $scope.finding.vectorAcceso
+        "autenticacion": $scope.severityInfo.autenticacion,
+        "complejidadAcceso": $scope.severityInfo.complejidadAcceso,
+        "explotabilidad": $scope.severityInfo.explotabilidad,
+        "id": $scope.severityInfo.id,
+        "impactoConfidencialidad": $scope.severityInfo.impactoConfidencialidad,
+        "impactoDisponibilidad": $scope.severityInfo.impactoDisponibilidad,
+        "impactoIntegridad": $scope.severityInfo.impactoIntegridad,
+        "nivelConfianza": $scope.severityInfo.nivelConfianza,
+        "nivelResolucion": $scope.severityInfo.nivelResolucion,
+        "vectorAcceso": $scope.severityInfo.vectorAcceso
       };
       // Recalcular CSSV2
       functionsFtry2.findingCalculateCSSv2($scope);

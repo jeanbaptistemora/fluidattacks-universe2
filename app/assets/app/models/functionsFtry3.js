@@ -172,6 +172,22 @@ integrates.factory(
       defineStates();
       $scope.aux.responsable = $scope.finding.responsableTratamiento;
       $scope.aux.bts = $scope.finding.btsExterno;
+      $scope.severityInfo = {
+        "autenticacion": $scope.finding.autenticacion,
+        "complejidadAcceso": $scope.finding.complejidadAcceso,
+        "explotabilidad": $scope.finding.explotabilidad,
+        "id": $scope.finding.id,
+        "impactoConfidencialidad": $scope.finding.impactoConfidencialidad,
+        "impactoDisponibilidad": $scope.finding.impactoDisponibilidad,
+        "impactoIntegridad": $scope.finding.impactoIntegridad,
+        "nivelConfianza": $scope.finding.nivelConfianza,
+        "nivelResolucion": $scope.finding.nivelResolucion,
+        "vectorAcceso": $scope.finding.vectorAcceso
+      };
+      $scope.descripcionInfo = {
+        "actor": $scope.finding.actor,
+        "escenario": $scope.finding.escenario
+      };
       $scope.finding.hasUrl = $scope.hasUrl($scope.finding.btsExterno);
       $scope.finding.cweIsUrl = $scope.hasUrl($scope.finding.cwe);
       for (let inc = 0; inc < fieldsToTranslate.length; inc++) {
@@ -294,13 +310,13 @@ integrates.factory(
     "updateDescription" ($scope) {
       // Obtener datos
       const descData = {
-        "actor": $scope.finding.actor,
+        "actor": $scope.descripcionInfo.actor,
         "amenaza": $scope.finding.amenaza,
         "cardinalidad": $scope.finding.cardinalidad,
         "categoria": $scope.finding.categoria,
         "cwe": $scope.finding.cwe,
         "donde": $scope.finding.donde,
-        "escenario": $scope.finding.escenario,
+        "escenario": $scope.descripcionInfo.escenario,
         "hallazgo": $scope.finding.hallazgo,
         "id": $scope.finding.id,
         "nivel": $scope.finding.nivel,

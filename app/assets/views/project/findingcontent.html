@@ -179,7 +179,7 @@
                                   <div class="col-md-2 col-xs-12 col-sm-12 table-head" data-toggle="tooltip" data-placement="top" title="{{'search_findings.tab_description.stageTooltip' | translate}}"><label><b>{{'search_findings.tab_description.stage' | translate}}</b></label></div>
                                   <div class="col-md-4 col-xs-12 col-sm-12 table-desc" data-toggle="tooltip" data-placement="top" title="{{'search_findings.tab_description.stageTooltip' | translate}}">
                                       <p ng-show="onlyReadableTab1">{{finding.escenario}}</p>
-                                      <select ng-model="finding.escenario"
+                                      <select ng-model="descripcionInfo.escenario"
                                               ng-show="!onlyReadableTab1"
                                               class="form-control">
                                           <option ng-repeat="item in list.scenario"
@@ -189,7 +189,7 @@
                                   <div class="col-md-2 col-xs-12 col-sm-12 table-head" data-toggle="tooltip" data-placement="top" title="{{'search_findings.tab_description.actorTooltip' | translate}}"><label><b>Actor</b></label></div>
                                   <div class="col-md-4 col-xs-12 col-sm-12 table-desc" data-toggle="tooltip" data-placement="top" title="{{'search_findings.tab_description.actorTooltip' | translate}}">
                                       <p ng-show="onlyReadableTab1">{{finding.actor}}</p>
-                                      <select ng-model="finding.actor"
+                                      <select ng-model="descripcionInfo.actor"
                                               ng-show="!onlyReadableTab1"
                                               class="form-control">
                                           <option ng-repeat="item in list.actor"
@@ -374,7 +374,7 @@
                                   <div class="col-md-3 col-xs-12 col-sm-12 table-head"><label><b>{{'search_findings.tab_cssv2.vector' | translate}}</b></label></div>
                                   <div class="col-md-9 col-xs-12 col-sm-12 table-desc">
                                       <p ng-show="onlyReadableTab2">{{finding.vectorAcceso}}</p>
-                                      <select ng-model="finding.vectorAcceso"
+                                      <select ng-model="severityInfo.vectorAcceso"
                                               ng-show="!onlyReadableTab2"
                                               ng-change="findingCalculateCSSv2();"
                                               class="form-control">
@@ -389,7 +389,7 @@
                                   <div class="col-md-3 col-xs-12 col-sm-12 table-head"><label><b>{{'search_findings.tab_cssv2.confidenciality' | translate}}</b></label></div>
                                   <div class="col-md-9 col-xs-12 col-sm-12 table-desc">
                                       <p ng-show="onlyReadableTab2">{{finding.impactoConfidencialidad}}</p>
-                                      <select ng-model="finding.impactoConfidencialidad"
+                                      <select ng-model="severityInfo.impactoConfidencialidad"
                                               ng-show="!onlyReadableTab2"
                                               ng-change="findingCalculateCSSv2();"
                                               class="form-control">
@@ -403,7 +403,7 @@
                                   <div class="col-md-3 col-xs-12 col-sm-12 table-head"><label><b>{{'search_findings.tab_cssv2.integrity' | translate}}</b></label></div>
                                   <div class="col-md-9 col-xs-12 col-sm-12 table-desc">
                                       <p ng-show="onlyReadableTab2">{{finding.impactoIntegridad}}</p>
-                                      <select ng-model="finding.impactoIntegridad"
+                                      <select ng-model="severityInfo.impactoIntegridad"
                                               ng-show="!onlyReadableTab2"
                                               ng-change="findingCalculateCSSv2();"
                                               class="form-control">
@@ -418,7 +418,7 @@
                                   <div class="col-md-3 col-xs-12 col-sm-12 table-head"><label><b>{{'search_findings.tab_cssv2.availability' | translate}}</b></label></div>
                                   <div class="col-md-9 col-xs-12 col-sm-12 table-desc">
                                       <p ng-show="onlyReadableTab2">{{finding.impactoDisponibilidad}}</p>
-                                      <select ng-model="finding.impactoDisponibilidad"
+                                      <select ng-model="severityInfo.impactoDisponibilidad"
                                               ng-show="!onlyReadableTab2"
                                               ng-change="findingCalculateCSSv2();"
                                               class="form-control">
@@ -433,7 +433,7 @@
                                   <div class="col-md-3 col-xs-12 col-sm-12 table-head"><label><b>{{'search_findings.tab_cssv2.authentication' | translate}}</b></label></div>
                                   <div class="col-md-9 col-xs-12 col-sm-12 table-desc">
                                       <p ng-show="onlyReadableTab2">{{finding.autenticacion}}</p>
-                                      <select ng-model="finding.autenticacion"
+                                      <select ng-model="severityInfo.autenticacion"
                                               ng-show="!onlyReadableTab2"
                                               ng-change="findingCalculateCSSv2();"
                                               class="form-control">
@@ -448,7 +448,7 @@
                                   <div class="col-md-3 col-xs-12 col-sm-12 table-head"><label><b>{{'search_findings.tab_cssv2.exploitability' | translate}}</b></label></div>
                                   <div class="col-md-9 col-xs-12 col-sm-12 table-desc">
                                       <p ng-show="onlyReadableTab2">{{finding.explotabilidad}}</p>
-                                      <select ng-model="finding.explotabilidad"
+                                      <select ng-model="severityInfo.explotabilidad"
                                               ng-show="!onlyReadableTab2"
                                               ng-change="findingCalculateCSSv2();"
                                               class="form-control">
@@ -463,7 +463,7 @@
                                   <div class="col-md-3 col-xs-12 col-sm-12 table-head"><label><b>{{'search_findings.tab_cssv2.confidence' | translate}}</b></label></div>
                                   <div class="col-md-9 col-xs-12 col-sm-12 table-desc">
                                       <p ng-show="onlyReadableTab2">{{finding.nivelConfianza}}</p>
-                                      <select ng-model="finding.nivelConfianza"
+                                      <select ng-model="severityInfo.nivelConfianza"
                                               ng-show="!onlyReadableTab2"
                                               ng-change="findingCalculateCSSv2();"
                                               class="form-control">
@@ -478,7 +478,7 @@
                                   <div class="col-md-3 col-xs-12 col-sm-12 table-head"><label><b>{{'search_findings.tab_cssv2.resolution' | translate}}</b></label></div>
                                   <div class="col-md-9 col-xs-12 col-sm-12 table-desc">
                                       <p ng-show="onlyReadableTab2">{{finding.nivelResolucion}}</p>
-                                      <select ng-model="finding.nivelResolucion"
+                                      <select ng-model="severityInfo.nivelResolucion"
                                               ng-show="!onlyReadableTab2"
                                               ng-change="findingCalculateCSSv2();"
                                               class="form-control">
@@ -493,7 +493,7 @@
                                   <div class="col-md-3 col-xs-12 col-sm-12 table-head"><label><b>{{'search_findings.tab_cssv2.complexity' | translate}}</b></label></div>
                                   <div class="col-md-9 col-xs-12 col-sm-12 table-desc">
                                       <p ng-show="onlyReadableTab2">{{finding.complejidadAcceso}}</p>
-                                      <select ng-model="finding.complejidadAcceso"
+                                      <select ng-model="severityInfo.complejidadAcceso"
                                               ng-show="!onlyReadableTab2"
                                               ng-change="findingCalculateCSSv2();"
                                               class="form-control">

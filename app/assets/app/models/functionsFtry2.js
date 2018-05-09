@@ -212,7 +212,7 @@ integrates.factory(
     },
 
     "findingCalculateCSSv2" ($scope) {
-      const calCSSv2 = projectFtry.calCCssv2($scope.finding);
+      const calCSSv2 = projectFtry.calCCssv2($scope.severityInfo);
       const BaseScore = calCSSv2[0];
       const Temporal = calCSSv2[1];
       const CVSSGeneral = Temporal;
