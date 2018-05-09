@@ -5,7 +5,7 @@ if [[ -z ${REVIEW} ]]; then
 else
 	export FI_ENVIRONMENT="$BRANCH.integrates.env.fluidattacks.com"
 fi
-sed -i 's/$FI_ENVIRONMENT/'"$FI_ENVIRONMENT"'/g' /exploit.py
+sed -i 's#$FI_ENVIRONMENT#'"$FI_ENVIRONMENT"'#g' /exploit.py
 
 python /exploit.py
 retval=$?
