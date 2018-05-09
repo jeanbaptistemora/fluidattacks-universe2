@@ -36,6 +36,7 @@ build_base:
 build_alg:
     stage: build
     script:
+        - "echo web_bucket: \"$WEB_BUCKET\" >> containers/alg/vars/vars.yml"
         - sh containers/alg/build.sh
         - docker push registry.gitlab.com/fluidsignal/serves/alg:base
     except:
