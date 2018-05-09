@@ -42,6 +42,7 @@ y recursos que son necesarios para su legitimo propósito.<<r1,^[1]^>>
 . +WebLogic 11g+ link:../../defends/weblogic/evitar-atq-repeticion/[Desactivar Consola de Administración].
 . +WebLogic 11g+ link:../../defends/weblogic/cambiar-dir-admin/[Cambiar Dirección de Administración].
 . +IIS 7.5+ link:../../defends/iis/negar-acceso-consola-admin/[Negar Acceso a Consola Administrativa].
+. +Oracle 11g+ link:../../defends/oracle/cambiar-puerto-default/[Cambiar Puerto Predeterminado].
 
 == Ataques
 
