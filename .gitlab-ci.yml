@@ -16,7 +16,7 @@ builder:
     - docker pull $CI_REGISTRY/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME:base
     # Only builds from scratch if the Dockerfile has changed
     - docker build --cache-from $CI_REGISTRY/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME:base
-      -t $CI_REGISTRY/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME:base builder/
+      -t $CI_REGISTRY/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME:base builder/base/
     - docker push $CI_REGISTRY/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME:base
   retry: 2
 
@@ -93,9 +93,6 @@ stop-review:
 deploy:
   stage: deployment
   environment: production
-  before_script:
-    - export AWS_ACCESS_KEY_ID="$FW_AWS_ACCESS_KEY_ID"
-    - export AWS_SECRET_ACCESS_KEY="$FW_AWS_SECRET_ACCESS_KEY"
   script:
     # Download cache from previous builds
     - if curl --fail -Lo artifacts.zip --header Private-Token:$GL_ACCESS_TOKEN https://gitlab.com/api/v4/projects/$CI_PROJECT_ID/jobs/artifacts/$CI_COMMIT_REF_NAME/download?job=$CI_JOB_NAME; then unzip artifacts.zip && rm artifacts.zip; else echo "There are no artifacts"; fi
@@ -120,12 +117,12 @@ deploy:
     - mv robots.txt output/web/
     # Organize images of articles with draft status
     - ./draft.sh
-    # Deploy website files
-    - ./deploy.sh
-    # Set 301 redirects for URLs without trailing slash
-    - ./amz-redirect.sh
+    # Create container that deploys website
+    - mv output builder/master
+    - docker build -t "$CI_REGISTRY/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME:$CI_COMMIT_REF_SLUG" builder/master/
+    - docker run -e AWS_ACCESS_KEY_ID="$FW_ACCESS_KEY_ID" -e AWS_SECRET_ACCESS_KEY="$FW_AWS_SECRET_ACCESS_KEY" -e S3_BUCKET_NAME="$FW_S3_BUCKET_NAME" "$CI_REGISTRY/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME:$CI_COMMIT_REF_SLUG" bash -c "./deploy.sh && ./amz-redirect.sh"
     # Erase output folder to reduce artifact size since it is untracked
-    - rm -rf output/
+    - rm -rf builder/master/output
   retry: 2
   artifacts:
     untracked: true

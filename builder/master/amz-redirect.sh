@@ -13,7 +13,7 @@ find output -iname '*.html' | while IFS= read -r FILE; do
   NAME=${STRING/$PATTERN2/}
   if [[ ! $NAME = *".html" ]]; then
     aws s3api put-object --acl public-read \
-    --bucket "$FW_S3_BUCKET_NAME" --key "$NAME" --content-type text/html \
+    --bucket "$S3_BUCKET_NAME" --key "$NAME" --content-type text/html \
     --website-redirect-location "/$NAME/";
   fi;
 done

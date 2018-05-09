@@ -24,9 +24,9 @@ for EXT in "${EXTENSIONS[@]}"; do
   fi
   aws s3 sync --acl public-read --delete --size-only --exclude '*' \
     --include "*$EXT" --metadata-directive REPLACE --content-encoding gzip \
-    --content-type "$CONTENT" output/web "s3://$FW_S3_BUCKET_NAME/web";
+    --content-type "$CONTENT" output/web "s3://$S3_BUCKET_NAME/web";
 done
 
 # Upload remaining files
 aws s3 sync --acl public-read --delete --size-only \
-  output/web "s3://$FW_S3_BUCKET_NAME/web"
+  output/web "s3://$S3_BUCKET_NAME/web"
