@@ -100,6 +100,14 @@ build-bot:
     except:
     - triggers
 
+build-asserts:
+  stage: build
+  script:
+    - echo "$CONTINUOUS_PASS" | docker login fluid-docker.jfrog.io -u "$CONTINUOUS_USER" --password-stdin
+    - docker build -t fluid-docker.jfrog.io/fluid:integrates deploy/containers/asserts
+    - docker push fluid-docker.jfrog.io/fluid:integrates
+    - docker logout fluid-docker.jfrog.io
+
 review-integrates:
   stage: review
   image: lwolf/kubectl_deployer
