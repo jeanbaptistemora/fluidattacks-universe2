@@ -40,6 +40,18 @@
         RewriteRule ^/errors$           https://fluidattacks.com/integrates/error401        [P,L]
         ProxyPassReverse /errors https://fluidattacks.com/integrates/error401
 
+        <Location "/integrates">
+            Header always set WWW-Authenticate "OAuth realm=\"Access to FLUIDIntegrates\" charset=\"UTF-8\""
+            Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains"
+            Header always set X-XSS-Protection "1; mode=block"
+            Header always set X-Permitted-Cross-Domain-Policies "master-only"
+            Header always set X-Content-Type-Options "nosniff"
+            Header always set Pragma "no-cache"
+            Header always set Expires "0"
+            Header always set Content-Security-Policy "script-src 'self' 'unsafe-inline' *.mxpnl.com *.cloudflare.com *.intercomcdn.com *.intercom.io *.pingdom.net;"
+            Header always unset Server
+        </Location>
+
     # KB - Knowledgeowl
 	    Header edit Location ^http://kb.fluidattacks.com(.*)$ https://fluidattacks.com$1
         Header edit Set-Cookie kb.fluidattacks.com fluidattacks.com
