@@ -76,20 +76,10 @@
       mode: "0777"
       recurse: "yes"
 
-   - name: Obtener moodledata s3
-     aws_s3:
-      aws_access_key: "{{aws_access_key}}"
-      aws_secret_key: "{{aws_secret_key}}"
-      bucket: "{{ s3bucket }}"
-      object: "serves/exams/moodledata.tar"
-      dest: "/tmp/moodledata.tar"
-      mode: get
-
    - name: Copiar moodledata al directorio
      unarchive:
-      src: "/tmp/moodledata.tar"
+      src: "vars/moodledata.tar.xz"
       dest: "/"
-      copy: "no"
      register: moodledata
 
    - name: Instalar Moodle
