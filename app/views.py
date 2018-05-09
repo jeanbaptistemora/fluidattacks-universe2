@@ -228,7 +228,7 @@ def logout(request):
     try:
         request.session.flush()
     except KeyError:
-        pass
+        rollbar.report_exc_info(sys.exc_info(), request)
     return redirect("/index")
 
 #pylint: disable=too-many-branches

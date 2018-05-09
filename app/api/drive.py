@@ -5,6 +5,7 @@ from __future__ import print_function
 import httplib2
 import io
 import logging
+import rollbar
 from magic import Magic
 from apiclient import discovery
 from oauth2client import client
@@ -51,7 +52,7 @@ class DriveAPI(object):
             try:
                 status, done = downloader.next_chunk()# pylint: disable=unused-variable                
             except HttpError:
-                pass
+                rollbar.report_message('Error: Unable to download the file', 'error')
         if done:
             mime = Magic(mime=True)
             mime_type = mime.from_file(filename)
@@ -75,7 +76,7 @@ class DriveAPI(object):
             try:
                 status, done = downloader.next_chunk()# pylint: disable=unused-variable                
             except HttpError:
-                pass
+                rollbar.report_message('Error: Unable to download the image', 'error')
         if done:
             mime = Magic(mime=True)
             mime_type = mime.from_file(filename)
