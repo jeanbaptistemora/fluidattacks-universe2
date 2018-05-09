@@ -36,7 +36,7 @@ build_base:
 build_alg:
     stage: build
     script:
-        - "echo web_bucket: \"$WEB_BUCKET\" >> containers/alg/vars/vars.yml"
+        - "echo web_bucket: \"$FW_S3_BUCKET_NAME\" >> containers/alg/vars/vars.yml"
         - sh containers/alg/build.sh
         - docker push registry.gitlab.com/fluidsignal/serves/alg:base
     except:
@@ -66,7 +66,7 @@ test_terraform:
       - echo acc_key = \"$AWS_ACCESS_KEY_ID\" >> infrastructure/vars/aws.tfvars
       - echo sec_key = \"$AWS_SECRET_ACCESS_KEY\" >> infrastructure/vars/aws.tfvars
       - echo bucket = \"$BUCKET_NAME\" >> infrastructure/terraform.tfvars
-      - echo webBucket = \"$WEB_BUCKET\" >> infrastructure/terraform.tfvars
+      - echo webBucket = \"$FW_S3_BUCKET_NAME\" >> infrastructure/terraform.tfvars
       - echo fiBucket = \"$FI_AWS_S3_BUCKET\" >> infrastructure/terraform.tfvars
       - echo mainZoneID = \"$MAIN_ZONE_ID\" >> infrastructure/terraform.tfvars
       - echo $SSO_XML > infrastructure/vars/SSO.xml
@@ -122,7 +122,7 @@ deploy_terraform:
         - echo acc_key = \"$AWS_ACCESS_KEY_ID\" >> infrastructure/vars/aws.tfvars
         - echo sec_key = \"$AWS_SECRET_ACCESS_KEY\" >> infrastructure/vars/aws.tfvars
         - echo bucket = \"$BUCKET_NAME\" >> infrastructure/terraform.tfvars
-        - echo webBucket = \"$WEB_BUCKET\" >> infrastructure/terraform.tfvars
+        - echo webBucket = \"$FW_S3_BUCKET_NAME\" >> infrastructure/terraform.tfvars
         - echo fiBucket = \"$FI_AWS_S3_BUCKET\" >> infrastructure/terraform.tfvars
         - echo db_id = \"$SNAP_ID\" >> infrastructure/terraform.tfvars
         - echo mainZoneID = \"$MAIN_ZONE_ID\" >> infrastructure/terraform.tfvars
@@ -136,6 +136,7 @@ deploy_terraform:
         - terraform init
         - terraform apply -auto-approve -var-file="vars/aws.tfvars"
         - terraform output instance_ip > ip.txt
+        - sh set-keys.sh
     after_script:
         - aws s3 cp infrastructure/terraform.tfstate s3://$BUCKET_NAME/terraform/terraform.tfstate
         - aws s3 cp infrastructure/vars/FLUID_Serves.pem s3://$BUCKET_NAME/terraform/FLUID_Serves.pem
@@ -151,7 +152,7 @@ install_alg:
         - echo acc_key = \"$AWS_ACCESS_KEY_ID\" >> infrastructure/vars/aws.tfvars
         - echo sec_key = \"$AWS_SECRET_ACCESS_KEY\" >> infrastructure/vars/aws.tfvars
         - echo bucket = \"$BUCKET_NAME\" >> infrastructure/terraform.tfvars
-        - echo webBucket = \"$WEB_BUCKET\" >> infrastructure/terraform.tfvars
+        - echo webBucket = \"$FW_S3_BUCKET_NAME\" >> infrastructure/terraform.tfvars
         - echo fiBucket = \"$FI_AWS_S3_BUCKET\" >> infrastructure/terraform.tfvars
         - echo db_id = \"$SNAP_ID\" >> infrastructure/terraform.tfvars
         - echo mainZoneID = \"$MAIN_ZONE_ID\" >> infrastructure/terraform.tfvars
@@ -180,7 +181,7 @@ install_exams:
         - echo acc_key = \"$AWS_ACCESS_KEY_ID\" >> infrastructure/vars/aws.tfvars
         - echo sec_key = \"$AWS_SECRET_ACCESS_KEY\" >> infrastructure/vars/aws.tfvars
         - echo bucket = \"$BUCKET_NAME\" >> infrastructure/terraform.tfvars
-        - echo webBucket = \"$WEB_BUCKET\" >> infrastructure/terraform.tfvars
+        - echo webBucket = \"$FW_S3_BUCKET_NAME\" >> infrastructure/terraform.tfvars
         - echo fiBucket = \"$FI_AWS_S3_BUCKET\" >> infrastructure/terraform.tfvars
         - echo db_id = \"$SNAP_ID\" >> infrastructure/terraform.tfvars
         - echo mainZoneID = \"$MAIN_ZONE_ID\" >> infrastructure/terraform.tfvars
@@ -209,7 +210,7 @@ install_integrates:
         - echo acc_key = \"$AWS_ACCESS_KEY_ID\" >> infrastructure/vars/aws.tfvars
         - echo sec_key = \"$AWS_SECRET_ACCESS_KEY\" >> infrastructure/vars/aws.tfvars
         - echo bucket = \"$BUCKET_NAME\" >> infrastructure/terraform.tfvars
-        - echo webBucket = \"$WEB_BUCKET\" >> infrastructure/terraform.tfvars
+        - echo webBucket = \"$FW_S3_BUCKET_NAME\" >> infrastructure/terraform.tfvars
         - echo fiBucket = \"$FI_AWS_S3_BUCKET\" >> infrastructure/terraform.tfvars
         - echo db_id = \"$SNAP_ID\" >> infrastructure/terraform.tfvars
         - echo mainZoneID = \"$MAIN_ZONE_ID\" >> infrastructure/terraform.tfvars
@@ -240,7 +241,7 @@ install_vpn:
         - echo acc_key = \"$AWS_ACCESS_KEY_ID\" >> infrastructure/vars/aws.tfvars
         - echo sec_key = \"$AWS_SECRET_ACCESS_KEY\" >> infrastructure/vars/aws.tfvars
         - echo bucket = \"$BUCKET_NAME\" >> infrastructure/terraform.tfvars
-        - echo webBucket = \"$WEB_BUCKET\" >> infrastructure/terraform.tfvars
+        - echo webBucket = \"$FW_S3_BUCKET_NAME\" >> infrastructure/terraform.tfvars
         - echo fiBucket = \"$FI_AWS_S3_BUCKET\" >> infrastructure/terraform.tfvars
         - echo db_id = \"$SNAP_ID\" >> infrastructure/terraform.tfvars
         - echo mainZoneID = \"$MAIN_ZONE_ID\" >> infrastructure/terraform.tfvars
@@ -262,6 +263,13 @@ install_vpn:
     only:
     - master
 
+install_web:
+    stage: install
+    script:
+        - "curl -X POST -F token=$WEB_TOKEN -F ref=REF_NAME https://gitlab.com/api/v4/projects/4649627/trigger/pipeline"
+    only:
+    - master
+
 change_dns:
     stage: dns
     before_script:
@@ -269,7 +277,7 @@ change_dns:
         - echo acc_key = \"$AWS_ACCESS_KEY_ID\" >> infrastructure/vars/aws.tfvars
         - echo sec_key = \"$AWS_SECRET_ACCESS_KEY\" >> infrastructure/vars/aws.tfvars
         - echo bucket = \"$BUCKET_NAME\" >> infrastructure/terraform.tfvars
-        - echo webBucket = \"$WEB_BUCKET\" >> infrastructure/terraform.tfvars
+        - echo webBucket = \"$FW_S3_BUCKET_NAME\" >> infrastructure/terraform.tfvars
         - echo fiBucket = \"$FI_AWS_S3_BUCKET\" >> infrastructure/terraform.tfvars
         - echo $SSO_XML > infrastructure/vars/SSO.xml
         - echo $SSO_FINANCE_XML > infrastructure/vars/SSOFinance.xml

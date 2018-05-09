@@ -19,40 +19,40 @@ module "iam" {
   webBucket = "${var.webBucket}"
 }
 
-# #Create from scratch
-# module "createNetwork" {
-#   source = "./network"
-#   sreg = "${var.sreg}"
-#   cdir = "${var.cdir}"
-#   ciIP = "${var.ciIP}"
-# }
-#
-# # Create from scratch
-# module "ec2instance" {
-#   source = "./ec2"
-#   amiID = "${var.amiID}"
-#   iType = "${var.iType}"
-#   sreg = "${var.sreg}"
-#   sgId = "${module.createNetwork.sgId}"
-#   snetId = "${module.createNetwork.snetId}"
-#   kName = "${var.kName}"
-#
-# }
+#Create from scratch
+module "createNetwork" {
+  source = "./network"
+  sreg = "${var.sreg}"
+  cdir = "${var.cdir}"
+  ciIP = "${var.ciIP}"
+}
 
-# new with cron and peer
-module "ec2-cron" {
+# Create from scratch
+module "ec2instance" {
   source = "./ec2"
   amiID = "${var.amiID}"
   iType = "${var.iType}"
   sreg = "${var.sreg}"
-  sgId = "${var.sgroupId}"
-  snetId = "${var.snetId}"
+  sgId = "${module.createNetwork.sgId}"
+  snetId = "${module.createNetwork.snetId}"
   kName = "${var.kName}"
+
 }
+
+# new with cron and peer
+# module "ec2-cron" {
+#   source = "./ec2"
+#   amiID = "${var.amiID}"
+#   iType = "${var.iType}"
+#   sreg = "${var.sreg}"
+#   sgId = "${var.sgroupId}"
+#   snetId = "${var.snetId}"
+#   kName = "${var.kName}"
+# }
 
 # # Create with existing DB
 module database {
-  source = "./database"
+  source = "./database-outside"
   dbreg="${var.dbreg}"
   vpcId="${var.db_vpcId}"
   storage_type="${var.storage_type}"
@@ -70,7 +70,7 @@ output "variable_db" {
 }
 
 output "variable_ip" {
-  value = "server=\"${module.ec2-cron.ip}\""
+  value = "server=\"${module.ec2instance.ip}\""
 }
 
 output "variable_web" {
@@ -82,5 +82,40 @@ output "variable_integrates" {
 }
 
 output "instance_ip" {
-  value = "${module.ec2-cron.ip}"
+  value = "${module.ec2instance.ip}"
+}
+
+
+#KEYS
+output "fis3integrationID" {
+  value = "${module.iam.fis3integrationID}"
+}
+
+output "cloudwatchID" {
+  value = "${module.iam.cloudwatchID}"
+}
+
+output "fluidintegratesdynamoID" {
+  value = "${module.iam.fluidintegratesdynamoID}"
+}
+
+output "fws3userID" {
+  value = "${module.iam.fws3userID}"
+}
+
+#
+output "fis3integrationSECRET" {
+  value = "${module.iam.fis3integrationSECRET}"
+}
+
+output "cloudwatchSECRET" {
+  value = "${module.iam.cloudwatchSECRET}"
+}
+
+output "fluidintegratesdynamoSECRET" {
+  value = "${module.iam.fluidintegratesdynamoSECRET}"
+}
+
+output "fws3userSECRET" {
+  value = "${module.iam.fws3userSECRET}"
 }

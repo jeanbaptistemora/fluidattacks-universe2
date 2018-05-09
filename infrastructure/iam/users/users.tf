@@ -3,9 +3,17 @@ resource "aws_iam_user" "fis3integration" {
   path = "/"
 }
 
+resource "aws_iam_access_key" "fis3integration" {
+  user    = "${aws_iam_user.fis3integration.name}"
+}
+
 resource "aws_iam_user" "cloudwatch" {
   name = "Cloudwatch"
   path = "/"
+}
+
+resource "aws_iam_access_key" "cloudwatch" {
+  user    = "${aws_iam_user.cloudwatch.name}"
 }
 
 resource "aws_iam_user" "fluidintegratesdynamo" {
@@ -13,9 +21,17 @@ resource "aws_iam_user" "fluidintegratesdynamo" {
   path = "/"
 }
 
+resource "aws_iam_access_key" "fluidintegratesdynamo" {
+  user    = "${aws_iam_user.fluidintegratesdynamo.name}"
+}
+
 resource "aws_iam_user" "fws3user" {
   name = "FW_S3_USER"
   path = "/"
+}
+
+resource "aws_iam_access_key" "fws3user" {
+  user    = "${aws_iam_user.fws3user.name}"
 }
 
 resource "aws_iam_user" "examss3" {
