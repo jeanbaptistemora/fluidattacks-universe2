@@ -44,8 +44,10 @@ const traducciones2 = {
     "type": "Tipo"
   },
   "project_buttons": {
+    "accept": "Aceptar",
     "back": "Volver",
-    "delete": "Eliminar"
+    "delete": "Eliminar",
+    "reject": "Rechazar"
   },
   "project_labels":
   {
@@ -98,6 +100,7 @@ const traducciones2 = {
     "recommendation": "Recomendacion",
     "recommendationTooltip": "Recomendación general que se da para evitar " +
                               "esta falla de seguridad",
+    "reject": "Justificación de rechazo",
     "remediated": "Solicitar Verificación",
     "remediated_finding": "Hallazgo remediado",
     "requirements": "Requisitos",

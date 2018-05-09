@@ -60,6 +60,11 @@
                                 <i class="icon s7-light"></i>&nbsp;{% templatetag openvariable %} 'tab_container.findings' | translate {% templatetag closevariable %}
                             </a>
                         </li>
+                        <li id="releasesTab" class="" style="font-size:15px;" ng-click="urlReleases();" ng-show="isManager">
+                            <a href="#releases" data-toggle="tab" aria-expanded="true">
+                                <i class="icon s7-stopwatch"></i>&nbsp; Releases
+                            </a>
+                        </li>
                         <li id="eventsTab" class="active" style="font-size:15px;" ng-click="urlEvents();">
                             <a href="#eventualities" data-toggle="tab" aria-expanded="true">
                                 <i class="icon s7-star"></i>&nbsp;{% templatetag openvariable %} 'tab_container.eventualities' | translate {% templatetag closevariable %}

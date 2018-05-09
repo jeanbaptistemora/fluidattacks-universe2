@@ -47,6 +47,8 @@ angular.module("FluidIntegrates").controller(
 
       $scope.isManager = userRole !== "customer" &&
                          userRole !== "customeradmin";
+      $scope.isAdmin = userRole !== "customer" &&
+        userRole !== "customeradmin" && userRole !== "analyst";
       // Default flags value for view visualization.
       $scope.view = {};
       $scope.view.project = false;
@@ -469,6 +471,9 @@ angular.module("FluidIntegrates").controller(
     };
     $scope.urlUsers = function urlUsers () {
       $state.go("ProjectUsers", {"project": $scope.project});
+    };
+    $scope.urlReleases = function urlReleases () {
+      $state.go("ProjectReleases", {"project": $scope.project});
     };
     $scope.init();
   }

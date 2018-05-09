@@ -29,6 +29,7 @@ urlpatterns = [
     # Project view.
     url(r'^project_indicators/?\.*$', views.project_indicators),
     url(r'^project_findings/?\.*$', views.project_findings),
+    url(r'^project_releases/?\.*$', views.project_releases),
     url(r'^project_events/?\.*$', views.project_events),
     url(r'^project_users/?\.*$', views.project_users),
     # Comments tab.
@@ -38,6 +39,7 @@ urlpatterns = [
     # Dashboard view.
     url(r'^get_myprojects/?\.*$', views.get_myprojects, name='get_myprojects'),
     url(r'^get_myevents/?\.*$', views.get_myevents, name='get_myevents'),
+    url(r'^get_releases/?\.*$', views.get_releases, name='get_releases'),
     # Use of Formstack services.
     url(r'^get_finding/?\.*$', views.get_finding, name='get_finding'),
     url(r'^get_findings/?\.*$', views.get_findings, name='get_findings'),
@@ -51,11 +53,14 @@ urlpatterns = [
     url(r'^set_project_admin/?\.*$', views.set_project_admin, name='set_project_admin'),
     url(r'^get_alerts/?\.*$', views.get_alerts, name='get_alerts'),
     url(r'^project/([A-Za-z0-9]+)/(?P<findingid>[0-9]+)/([A-Za-z.=]+)/(?P<fileid>[A-Za-z0-9._-]+)?$', views.get_evidence),
+    url(r'^project/([A-Za-z0-9]+)/([A-Za-z.=]+)/(?P<findingid>[0-9]+)/([A-Za-z.=]+)/(?P<fileid>[A-Za-z0-9._-]+)?$', views.get_evidence),
     url(r'^get_exploit/?\.*$', views.get_exploit, name='get_exploit'),
     url(r'^get_records/?\.*$', views.get_records, name='get_records'),
     url(r'^update_eventuality/?\.*$',
         views.update_eventuality, name='update_eventuality'),
     url(r'^delete_finding/?\.*$', views.delete_finding, name='delete_finding'),
+    url(r'^accept_release/?\.*$', views.accept_release, name='accept_release'),
+    url(r'^reject_release/?\.*$', views.reject_release, name='reject_release'),
     url(r'^finding_solved/?\.*$', views.finding_solved, name='finding_solved'),
     url(r'^update_cssv2/?$', views.update_cssv2, name='update_cssv2'),
     url(r'^update_description/?$', views.update_description, name='update_description'),

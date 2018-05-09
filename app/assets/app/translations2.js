@@ -42,8 +42,10 @@ const translations2 = {
       "type": "Type"
     },
    "project_buttons": {
+     "accept": "Accept",
      "back": "Back",
-     "delete": "Delete"
+     "delete": "Delete",
+     "reject": "Reject"
    },
    "project_labels":
     {
@@ -96,6 +98,7 @@ const translations2 = {
        "recommendation": "Recommendation",
        "recommendationTooltip": "General recommendation given to avoid this " +
                                 "security failure",
+       "reject": "Reject Justification",
        "remediated": "Request Verification",
        "remediated_finding": "Finding remediated",
        "requirements": "Requirements",

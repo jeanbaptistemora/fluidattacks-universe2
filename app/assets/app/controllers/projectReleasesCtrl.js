@@ -3,7 +3,7 @@
 /* eslint no-shadow: ["error", { "allow":
                                    ["$scope","$stateParams", "projectFtry"] }]*/
 /* global
-BASE, downLink:true, Morris, estado:true, exploitLabel:true, projectData:true,
+BASE, downLink:true, Morris, estado:true, exploitLabel:true, releaseData:true,
 nonexploitLabel:true, totalHigLabel:true, $scope:true,exploitable:true, i:true,
 totalSegLabel:true, openLabel:true, partialLabel:true, $msg, integrates, j:true,
 document, userName, userEmail, Rollbar, aux:true, json:true, eventsData:true, $,
@@ -70,8 +70,8 @@ labelState = function labelState (value) {
  */
 /** @export */
 angular.module("FluidIntegrates").controller(
-  "projectFindingsCtrl",
-  function projectFindingsCtrl (
+  "projectReleasesCtrl",
+  function projectReleasesCtrl (
     $location,
     $scope,
     $state,
@@ -82,7 +82,8 @@ angular.module("FluidIntegrates").controller(
     $window,
     functionsFtry1,
     functionsFtry3,
-    projectFtry
+    projectFtry,
+    projectFtry2
   ) {
     $scope.init = function init () {
       const projectName = $stateParams.project;
@@ -91,6 +92,8 @@ angular.module("FluidIntegrates").controller(
 
       $scope.isManager = userRole !== "customer" &&
                          userRole !== "customeradmin";
+      $scope.isAdmin = userRole !== "customer" &&
+        userRole !== "customeradmin" && userRole !== "analyst";
       // Default flags value for view visualization.
       $scope.view = {};
       $scope.view.project = false;
@@ -106,7 +109,7 @@ angular.module("FluidIntegrates").controller(
         const org = Organization.toUpperCase();
         const projt = projectName.toUpperCase();
         mixPanelDashboard.trackReports(
-          "ProjectFindings",
+          "ProjectReleases",
           userName,
           userEmail,
           org,
@@ -173,14 +176,14 @@ angular.module("FluidIntegrates").controller(
             }
           });
         }
-        if (projectData.length > 0 &&
-            projectData[0].fluidProject.toLowerCase() ===
+        if (releaseData.length > 0 &&
+            releaseData[0].fluidProject.toLowerCase() ===
             $scope.project.toLowerCase()) {
           $scope.view.project = true;
-          $scope.loadFindingContent(projectData, vlang);
+          $scope.loadReleaseContent(releaseData, vlang);
         }
         else {
-          const reqProject = projectFtry.projectByName(
+          const reqProject = projectFtry2.releasesByName(
             projectName,
             tableFilter
           );
@@ -190,20 +193,14 @@ angular.module("FluidIntegrates").controller(
               if (angular.isUndefined(response.data)) {
                 location.reload();
               }
-              // Mixpanel tracking
-              mixPanelDashboard.trackSearch(
-                "SearchFinding",
-                userEmail,
-                projectName
-              );
               if (response.data.length === 0 && eventsData.length === 0) {
                 $scope.view.project = false;
                 $scope.view.finding = false;
                 $msg.error($translate.instant("proj_alerts.not_found"));
               }
               else {
-                projectData = response.data;
-                $scope.loadFindingContent(projectData, vlang);
+                releaseData = response.data;
+                $scope.loadReleaseContent(releaseData, vlang);
               }
             }
             else if (response.error) {
@@ -227,7 +224,7 @@ angular.module("FluidIntegrates").controller(
       }
       return true;
     };
-    $scope.loadFindingContent = function loadFindingContent (datatest, vlang) {
+    $scope.loadReleaseContent = function loadReleaseContent (datatest, vlang) {
       const org = Organization.toUpperCase();
       const projt = $stateParams.project.toUpperCase();
       functionsFtry1.alertHeader(org, projt);
@@ -242,15 +239,15 @@ angular.module("FluidIntegrates").controller(
         }
       }
       // Findings table configuration
-      angular.element("#vulnerabilities").bootstrapTable("destroy");
-      angular.element("#vulnerabilities").bootstrapTable({
+      angular.element("#releases").bootstrapTable("destroy");
+      angular.element("#releases").bootstrapTable({
         "cookie": true,
         "cookieIdTable": "saveId",
         "data": datatest,
         "exportDataType": "all",
         "locale": vlang,
         "onClickRow" (row) {
-          $state.go("FindingDescription", {
+          $state.go("ReleaseDescription", {
             "id": row.id,
             "project": row.fluidProject.toLowerCase()
           });
@@ -265,12 +262,12 @@ angular.module("FluidIntegrates").controller(
           angular.element("#exploitItem").removeClass("active");
           angular.element("#exploit").removeClass("active");
           // Mixpanel tracking
-          mixPanelDashboard.trackFinding("ReadFinding", userEmail, row.id);
+          mixPanelDashboard.trackFinding("ReadRelease", userEmail, row.id);
           $scope.currentScrollPosition = angular.element(document).scrollTop();
         },
         "pageSize": 50
       });
-      angular.element("#vulnerabilities").bootstrapTable("refresh");
+      angular.element("#releases").bootstrapTable("refresh");
       angular.element("#search_section").show();
       angular.element("[data-toggle=\"tooltip\"]").tooltip();
 
@@ -305,7 +302,7 @@ angular.module("FluidIntegrates").controller(
         "animation": true,
         "controller" ($scope, $uibModalInstance) {
           const auxiliar =
-                  angular.element("#vulnerabilities").bootstrapTable("getData");
+                  angular.element("#releases").bootstrapTable("getData");
           const data = auxiliar;
           for (let cont = 0; cont < data.length; cont++) {
             data[cont].atributos = 0;
@@ -347,7 +344,7 @@ angular.module("FluidIntegrates").controller(
             const TIMEOUT = 100;
             $uibModalInstance.close();
             $timeout(() => {
-              angular.element("#vulnerabilities").bootstrapTable(
+              angular.element("#releases").bootstrapTable(
                 "load",
                 auxiliar
               );

@@ -288,7 +288,7 @@ def register(email):
 
 def assign_role(email, role):
     """ Assigns a role to a user in the DB. """
-    if role != 'analyst' and role != 'customer':
+    if role != 'analyst' and role != 'customer' and role != 'admin':
         return
     with connections['integrates'].cursor() as cursor:
         query = 'UPDATE users SET role=%s WHERE email = %s'

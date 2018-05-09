@@ -56,6 +56,7 @@ var updateEvidencesFiles = {};   \
 var updateEvidenceText = {};   \
 var userRole = {};   \
 var projectData = {};   \
+var releaseData = {};   \
 var eventsData = {};   \
 var Morris = {};    \
 var focusout = {};   \

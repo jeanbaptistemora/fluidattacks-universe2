@@ -65,6 +65,7 @@ class FindingDTO(object):
     TREATMENT_MANAGER = "59381058"
     EXTERNAL_BTS = "56614832"
     LAST_VULNERABILITY = "63672923"
+    RELEASE_DATE = "64313858"
 
     #Atributos CssV2
     ACCESS_VECTOR = "38529247"
@@ -94,6 +95,17 @@ class FindingDTO(object):
         if "lastVulnerability" in parameter:
             self.data[self.LAST_VULNERABILITY] \
                 = parameter["lastVulnerability"]
+
+    def create_release(self, parameter):
+        if "id" in parameter:
+            self.request_id \
+                = parameter["id"]
+        # if "releaseDate" in parameter:
+        #     self.data[self.RELEASE_DATE] \
+        #         = parameter["releaseDate"]
+        if "timestamp" in parameter:
+            self.data[self.RELEASE_DATE] \
+                = parameter["timestamp"]
 
     def create_evidence_description(self, parameter): # noqa: C901
         """ Converts the index of a JSON to Formstack index """
@@ -166,6 +178,9 @@ class FindingDTO(object):
         if "data[lastVulnerability]" in parameter:
             self.data[self.LAST_VULNERABILITY] \
                 = parameter["data[lastVulnerability]"]
+        if "data[releaseDate]" in parameter:
+            self.data[self.RELEASE_DATE] \
+                = parameter["data[releaseDate]"]
         if "data[level]" in parameter:
             self.data[self.CLASS] \
                 = parameter["data[level]"]
@@ -339,6 +354,8 @@ class FindingDTO(object):
                 self.data["externalBts"] = finding["value"]
             if finding["field"] == self.LAST_VULNERABILITY:
                 self.data["lastVulnerability"] = finding["value"]
+            if finding["field"] == self.RELEASE_DATE:
+                self.data["releaseDate"] = finding["value"]
             if finding["field"] == self.CWE:
                 try:
                     value = int(finding["value"])

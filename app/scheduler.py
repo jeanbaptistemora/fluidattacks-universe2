@@ -27,7 +27,9 @@ def get_new_vulnerabilities():
             for finding in finding_requests:
                 row = integrates_dao.get_vulns_by_id_dynamo(project[0].lower(), int(finding['id']))
                 act_finding = views.finding_vulnerabilities(str(finding['id']))
-                if act_finding["edad"] != "-" and act_finding["estado"] != "Cerrado" and "treatment" in act_finding:
+                if (("releaseDate" in act_finding) and (act_finding["estado"] != "Cerrado") and
+                    (act_finding["edad"] != "-") and ("treatment" in act_finding) and
+                            (act_finding['fluidProject'].lower() == project.lower())):
                     if  act_finding["treatment"] == "Nuevo":
                         context['findings_working_on'].append({'hallazgo_pendiente': (act_finding['finding'] + ' -' + act_finding["edad"] +' day(s)-'), \
                         'url_hallazgo': 'https://fluidattacks.com/integrates/dashboard#!/project/' + project[0].lower() + '/' + str(finding['id'] + \
@@ -86,7 +88,8 @@ def get_age_notifications():
             finding_parsed = views.finding_vulnerabilities(finding["id"])
             if "suscripcion" not in finding_parsed:
                 pass
-            elif finding_parsed["suscripcion"] == "Continua" and finding_parsed["edad"] != "-":
+            elif ("releaseDate" in finding_parsed and finding_parsed['fluidProject'].lower() == project.lower() and
+                    finding_parsed["suscripcion"] == "Continua" and finding_parsed["edad"] != "-"):
                 age = int(finding_parsed["edad"])
                 context = {
                     'project': project[0].upper(),
@@ -121,7 +124,8 @@ def get_age_weekends_notifications():
             finding_parsed = views.finding_vulnerabilities(finding["id"])
             if "suscripcion" not in finding_parsed:
                 pass
-            elif finding_parsed["suscripcion"] == "Continua" and finding_parsed["edad"] != "-":
+            elif ("releaseDate" in finding_parsed and finding_parsed['fluidProject'].lower() == project.lower() and
+                    finding_parsed["suscripcion"] == "Continua" and finding_parsed["edad"] != "-"):
                 age = int(finding_parsed["edad"])
                 context = {
                     'project': project[0].upper(),

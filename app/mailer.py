@@ -57,3 +57,6 @@ def send_mail_age_finding(email_to, context):
 
 def send_mail_age_kb_finding(email_to, context):
     __send_mail('agekbfindingintegrates', email_to, context=context)
+
+def send_mail_reject_release(email_to, context):
+    __send_mail('rejectreleaseintegrates', email_to, context=context)

@@ -46,6 +46,11 @@ angular.module("FluidIntegrates").config((
       "templateUrl": `${BASE.url}project_findings?l=${localStorage.lang}`,
       "url": "/project/:project/findings"
     }).
+    state("ProjectReleases", {
+      "controller": "projectReleasesCtrl",
+      "templateUrl": `${BASE.url}project_releases?l=${localStorage.lang}`,
+      "url": "/project/:project/releases"
+    }).
     state("ProjectEvents", {
       "controller": "projectEventsCtrl",
       "templateUrl": `${BASE.url}project_events?l=${localStorage.lang}`,
@@ -90,6 +95,31 @@ angular.module("FluidIntegrates").config((
       "controller": "findingContentCtrl",
       "templateUrl": "assets/views/project/findingcontent.html",
       "url": "/project/:project/:id/comments"
+    }).
+    state("ReleaseDescription", {
+      "controller": "releaseContentCtrl",
+      "templateUrl": "assets/views/project/releasecontent.html",
+      "url": "/project/:project/release/:id/description"
+    }).
+    state("ReleaseSeverity", {
+      "controller": "releaseContentCtrl",
+      "templateUrl": "assets/views/project/releasecontent.html",
+      "url": "/project/:project/release/:id/severity"
+    }).
+    state("ReleaseEvidence", {
+      "controller": "releaseContentCtrl",
+      "templateUrl": "assets/views/project/releasecontent.html",
+      "url": "/project/:project/release/:id/evidence"
+    }).
+    state("ReleaseExploit", {
+      "controller": "releaseContentCtrl",
+      "templateUrl": "assets/views/project/releasecontent.html",
+      "url": "/project/:project/release/:id/exploit"
+    }).
+    state("ReleaseRecords", {
+      "controller": "releaseContentCtrl",
+      "templateUrl": "assets/views/project/releasecontent.html",
+      "url": "/project/:project/release/:id/records"
     }).
     state("Forms", {
       "controller": "formCtrl",

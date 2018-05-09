@@ -258,8 +258,20 @@ angular.module("FluidIntegrates").factory(
         }
         const NEW_LIST_LIMIT = -3;
         const PERCENTAGE_FACTOR = 100;
-        $scope.findingFormatted =
+        const MIN_DATA_LENGTH = 10;
+        if ("releaseDate" in $scope.finding) {
+          if ($scope.finding.releaseDate.length > MIN_DATA_LENGTH) {
+            $scope.findingFormatted = $scope.finding.
+              releaseDate.slice(0, NEW_LIST_LIMIT);
+          }
+          else {
+            $scope.findingFormatted = $scope.finding.releaseDate;
+          }
+        }
+        else {
+          $scope.findingFormatted =
                               $scope.finding.timestamp.slice(0, NEW_LIST_LIMIT);
+        }
         let closingEffect = 0;
         for (let close = 0; close < $scope.finding.cierres.length; close++) {
           closingEffect = ($scope.finding.cierres[close].closed /

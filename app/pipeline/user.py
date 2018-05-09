@@ -34,10 +34,14 @@ def create_user(strategy, details, backend, user=None, *args, **kwargs):
         integrates_dao.create_user_dao(email, username=username,
                                        first_name=first_name,
                                        last_name=last_name)
-
+    admin = ["jrestrepo@fluidattacks.com", "ralvarez@fluidattacks.com",
+              "aroldan@fluidattacks.com"]
     if email.endswith(FLUID_DOMAIN):
         integrates_dao.register(email)
-        integrates_dao.assign_role(email, 'analyst')
+        if email in admin:
+            integrates_dao.assign_role(email, 'admin')
+        else:
+            integrates_dao.assign_role(email, 'analyst')
         integrates_dao.assign_company(email, 'FLUID')
 
 def check_registered(strategy, details, backend, *args, **kwargs):

@@ -32,6 +32,7 @@ from .mailer import send_mail_remediate_finding
 from .mailer import send_mail_new_comment
 from .mailer import send_mail_reply_comment
 from .mailer import send_mail_verified_finding
+from .mailer import send_mail_reject_release
 from .services import has_access_to_project
 from .dao import integrates_dao
 from .api.drive import DriveAPI
@@ -67,7 +68,7 @@ def error401(request):
 
 @never_cache
 @authenticate
-@authorize(['analyst'])
+@authorize(['analyst', 'admin'])
 def forms(request):
     "Forms view"
     return render(request, "forms.html")
@@ -139,6 +140,67 @@ def project_findings(request):
             }
         }
     return render(request, "project/findings.html", dicLang)
+
+@never_cache
+@authenticate
+@authorize(['analyst', 'admin'])
+def project_releases(request):
+    "Releases date of findings"
+    language = request.GET.get('l', 'en')
+    dicLang = {
+        "search_findings": {
+            "headings": {
+                "action": "Action",
+                "age": "Age (Days)",
+                "cardinality": "Open Vuln.",
+                "criticity": "Severity",
+                "exploit": "Exploitable",
+                "finding": "Title",
+                "lastVulnerability": "Last Report (Days)",
+                "state": "Status",
+                "timestamp": "Date",
+                "treatment": "Treatment",
+                "type": "Type",
+                "vulnerability": "Description"
+            },
+            "descriptions": {
+                "description1": "",
+                "description2": "Click",
+                "description3": "on a finding to see more details"
+            },
+            "filter_buttons": {
+               "advance": "Progress"
+            },
+        }
+    }
+    if language == "es":
+        dicLang = {
+            "search_findings": {
+                "headings": {
+                    "action": "Accion",
+                    "age": "Edad (Días)",
+                    "cardinality": "Vuln. Abiertas",
+                    "criticity": "Severidad",
+                    "exploit": "Explotable",
+                    "finding": "Titulo",
+                    "lastVulnerability": "Último Reporte (Días)",
+                    "state": "Estado",
+                    "timestamp": "Fecha",
+                    "treatment": "Tratamiento",
+                    "type": "Tipo",
+                    "vulnerability": "Descripcion"
+                },
+                "descriptions": {
+                    "description1": "Haz",
+                    "description2": "click",
+                    "description3": "para ver mas detalles del hallazgo"
+                },
+                "filter_buttons": {
+                   "advance": "Avance"
+                }
+            }
+        }
+    return render(request, "project/releases.html", dicLang)
 
 @never_cache
 @authenticate
@@ -227,7 +289,7 @@ def registration(request):
 
 @never_cache
 @csrf_exempt
-@authorize(['analyst', 'customer', 'customeradmin'])
+@authorize(['analyst', 'customer', 'customeradmin', 'admin'])
 def dashboard(request):
     "View of control panel for authenticated users"
     try:
@@ -259,7 +321,7 @@ def logout(request):
 #pylint: disable=too-many-locals
 @never_cache
 @csrf_exempt
-@authorize(['analyst', 'customer', 'customeradmin'])
+@authorize(['analyst', 'customer', 'customeradmin', 'admin'])
 def project_to_xls(request, lang, project):
     "Create the technical report"
     findings = []
@@ -280,7 +342,10 @@ def project_to_xls(request, lang, project):
         rollbar.report_message('Error: Unsupported language', 'error', request)
         return util.response([], 'Unsupported language', True)
     for reqset in FormstackAPI().get_findings(project)["submissions"]:
-        findings.append(catch_finding(request, reqset["id"]))
+        fin = catch_finding(request, reqset["id"])
+        if fin['fluidProject'].lower() == project.lower() and \
+                'releaseDate' in fin:
+            findings.append(fin)
     data = util.ord_asc_by_criticidad(findings)
     it_report = ITReport(project, data, username)
     with open(it_report.result_filename, 'r') as document:
@@ -309,7 +374,7 @@ def validation_project_to_pdf(request, lang, project, doctype):
 #pylint: disable=too-many-locals
 @never_cache
 @csrf_exempt
-@authorize(['analyst', 'customer', 'customeradmin'])
+@authorize(['analyst', 'customer', 'customeradmin', 'admin'])
 def project_to_pdf(request, lang, project, doctype):
     "Export a project to a PDF"
     findings = []
@@ -318,7 +383,10 @@ def project_to_pdf(request, lang, project, doctype):
     if validator is not None:
         return validator
     for reqset in FormstackAPI().get_findings(project)["submissions"]:
-        findings.append(catch_finding(request, reqset["id"]))
+        fin = catch_finding(request, reqset["id"])
+        if fin['fluidProject'].lower() == project.lower() and \
+                'releaseDate' in fin:
+            findings.append(fin)
     pdf_maker = CreatorPDF(lang, doctype)
     secure_pdf = SecurePDF()
     findings = util.ord_asc_by_criticidad(findings)
@@ -379,7 +447,7 @@ def project_to_pdf(request, lang, project, doctype):
 #pylint: disable-msg=R0913
 @never_cache
 @csrf_exempt
-@authorize(['analyst', 'customer', 'customeradmin'])
+@authorize(['analyst', 'customer', 'customeradmin', 'admin'])
 def check_pdf(request, project):
     username = request.session['username']
     if not util.is_name(project):
@@ -404,7 +472,7 @@ def get_project_info(project):
 @never_cache
 @csrf_exempt
 @require_http_methods(["GET"])
-@authorize(['analyst', 'customer', 'customeradmin'])
+@authorize(['analyst', 'customer', 'customeradmin', 'admin'])
 def get_eventualities(request):
     "Get the eventualities of a project."
     project = request.GET.get('project', None)
@@ -449,7 +517,7 @@ def get_eventualities(request):
 @never_cache
 @csrf_exempt
 @require_http_methods(["GET"])
-@authorize(['analyst', 'customer', 'customeradmin'])
+@authorize(['analyst', 'customer', 'customeradmin', 'admin'])
 def get_users_login(request):
     "Get the email and last login date of all users in a project."
     project = request.GET.get('project', None)
@@ -469,7 +537,7 @@ def get_users_login(request):
 @never_cache
 @csrf_exempt
 @require_http_methods(["POST"])
-@authorize(['analyst', 'customer', 'customeradmin'])
+@authorize(['analyst', 'customer', 'customeradmin', 'admin'])
 def get_finding(request):
     submission_id = request.POST.get('id', "")
     finding = catch_finding(request, submission_id)
@@ -484,7 +552,36 @@ def get_finding(request):
 @never_cache
 @csrf_exempt
 @require_http_methods(["GET"])
-@authorize(['analyst', 'customer', 'customeradmin'])
+@authorize(['analyst', 'admin'])
+# pylint: disable=R0912
+# pylint: disable=R0914
+def get_releases(request):
+    """Capture and process the name of a project to return the releases."""
+    project = request.GET.get('project', "")
+    username = request.session['username']
+    api = FormstackAPI()
+    findings = []
+    if project.strip() == "":
+        rollbar.report_message('Error: Empty fields in project', 'error', request)
+        return util.response([], 'Empty fields', True)
+    if not has_access_to_project(username, project):
+        rollbar.report_message('Error: Access to project denied', 'error', request)
+        return util.response([], 'Access denied', True)
+    finreqset = api.get_findings(project)["submissions"]
+    for submission_id in finreqset:
+        finding = catch_finding(request, submission_id["id"])
+        if finding['vulnerability'].lower() == 'masked':
+            rollbar.report_message('Warning: Project masked', 'warning', request)
+            return util.response([], 'Project masked', True)
+        if finding['fluidProject'].lower() == project.lower() and \
+                'releaseDate' not in finding:
+            findings.append(finding)
+    return util.response(findings, 'Success', False)
+
+@never_cache
+@csrf_exempt
+@require_http_methods(["GET"])
+@authorize(['analyst', 'customer', 'customeradmin', 'admin'])
 # pylint: disable=R0912
 # pylint: disable=R0914
 def get_findings(request):
@@ -505,7 +602,8 @@ def get_findings(request):
         if finding['vulnerability'].lower() == 'masked':
             rollbar.report_message('Warning: Project masked', 'warning', request)
             return util.response([], 'Project masked', True)
-        if finding['fluidProject'].lower() == project.lower():
+        if finding['fluidProject'].lower() == project.lower() and \
+                'releaseDate' in finding:
             findings.append(finding)
     import json
     with open("/tmp/"+project+".txt", "w") as f:
@@ -555,27 +653,30 @@ def catch_finding(request, submission_id):
             else:
                 if 'timestamp' in state:
                     if 'lastVulnerability' in finding and \
-                        finding['lastVulnerability'] != state['timestamp']:
+                            finding['lastVulnerability'] != state['timestamp']:
                         finding['lastVulnerability'] = state['timestamp']
                         generic_dto = FindingDTO()
                         generic_dto.create_last_vulnerability(finding)
                         generic_dto.to_formstack()
                         api.update(generic_dto.request_id, generic_dto.data)
-                tzn = pytz.timezone('America/Bogota')
-                finding_date = datetime.strptime(
-                    finding["timestamp"].split(" ")[0],
-                    '%Y-%m-%d'
-                )
-                finding_date = finding_date.replace(tzinfo=tzn).date()
-                final_date = (datetime.now(tz=tzn).date() - finding_date)
-                finding['edad'] = ":n".replace(":n", str(final_date.days))
-                finding_last_vuln = datetime.strptime(
-                    finding["lastVulnerability"].split(" ")[0],
-                    '%Y-%m-%d'
-                )
-                finding_last_vuln = finding_last_vuln.replace(tzinfo=tzn).date()
-                final_vuln_date = (datetime.now(tz=tzn).date() - finding_last_vuln)
-                finding['lastVulnerability'] = ":n".replace(":n", str(final_vuln_date.days))
+                if 'releaseDate' in finding:
+                    tzn = pytz.timezone('America/Bogota')
+                    finding_date = datetime.strptime(
+                        finding["releaseDate"].split(" ")[0],
+                        '%Y-%m-%d'
+                    )
+                    finding_date = finding_date.replace(tzinfo=tzn).date()
+                    final_date = (datetime.now(tz=tzn).date() - finding_date)
+                    finding['edad'] = ":n".replace(":n", str(final_date.days))
+                    finding_last_vuln = datetime.strptime(
+                        finding["lastVulnerability"].split(" ")[0],
+                        '%Y-%m-%d'
+                    )
+                    finding_last_vuln = finding_last_vuln.replace(tzinfo=tzn).date()
+                    final_vuln_date = (datetime.now(tz=tzn).date() - finding_last_vuln)
+                    finding['lastVulnerability'] = ":n".replace(":n", str(final_vuln_date.days))
+                else:
+                    finding['lastVulnerability'] = '-'
             return finding
     else:
         rollbar.report_message('Error: An error occurred catching finding', 'error', request)
@@ -609,10 +710,10 @@ def finding_vulnerabilities(submission_id):
         if state['estado'] == 'Cerrado':
             finding['where'] = '-'
             finding['edad'] = '-'
-        else:
+        elif 'releaseDate' in finding:
             tzn = pytz.timezone('America/Bogota')
             finding_date = datetime.strptime(
-                finding["timestamp"].split(" ")[0],
+                finding["releaseDate"].split(" ")[0],
                 '%Y-%m-%d'
             )
             finding_date = finding_date.replace(tzinfo=tzn).date()
@@ -626,7 +727,7 @@ def finding_vulnerabilities(submission_id):
 @never_cache
 @csrf_exempt
 @require_http_methods(["GET"])
-@authorize(['analyst', 'customer', 'customeradmin'])
+@authorize(['analyst', 'customer', 'customeradmin', 'admin'])
 def get_evidences(request):
     finding_id = request.GET.get('id', None)
     resp = integrates_dao.get_finding_dynamo(int(finding_id))
@@ -634,7 +735,7 @@ def get_evidences(request):
 
 @never_cache
 @csrf_exempt
-@authorize(['analyst', 'customer', 'customeradmin'])
+@authorize(['analyst', 'customer', 'customeradmin', 'admin'])
 def get_evidence(request, findingid, fileid):
     if fileid is None:
         rollbar.report_message('Error: Missing evidence image ID', 'error', request)
@@ -688,7 +789,7 @@ def replace_all(text, dic):
 @never_cache
 @csrf_exempt
 @require_http_methods(["POST"])
-@authorize(['analyst'])
+@authorize(['analyst', 'admin'])
 def update_evidences_files(request):
     parameters = request.POST.dict()
     upload = request.FILES.get("document", "")
@@ -835,7 +936,7 @@ def migrate_all_files(parameters, request):
 
 @never_cache
 @require_http_methods(["POST"])
-@authorize(['analyst'])
+@authorize(['analyst', 'admin'])
 def update_evidence_text(request):
     parameters = request.POST.dict()
     try:
@@ -855,7 +956,7 @@ def update_evidence_text(request):
 @never_cache
 @csrf_exempt
 @require_http_methods(["GET"])
-@authorize(['analyst', 'customer', 'customeradmin'])
+@authorize(['analyst', 'customer', 'customeradmin', 'admin'])
 def get_exploit(request):
     parameters = request.GET.dict()
     fileid = parameters['id']
@@ -901,7 +1002,7 @@ def get_exploit(request):
 @never_cache
 @csrf_exempt
 @require_http_methods(["GET"])
-@authorize(['analyst', 'customer', 'customeradmin'])
+@authorize(['analyst', 'customer', 'customeradmin', 'admin'])
 def get_records(request):
     parameters = request.GET.dict()
     fileid = parameters['id']
@@ -977,7 +1078,7 @@ def list_to_dict(header, li):
 @never_cache
 @csrf_exempt
 @require_http_methods(["GET"])
-@authorize(['analyst', 'customer', 'customeradmin'])
+@authorize(['analyst', 'customer', 'customeradmin', 'admin'])
 def get_myevents(request):
     user = request.session["username"]
     projects = integrates_dao.get_projects_by_user(user)
@@ -1000,7 +1101,7 @@ def get_myevents(request):
 @never_cache
 @csrf_exempt
 @require_http_methods(["GET"])
-@authorize(['analyst', 'customer', 'customeradmin'])
+@authorize(['analyst', 'customer', 'customeradmin', 'admin'])
 def get_myprojects(request):
     user = request.session["username"]
     data_set = integrates_dao.get_projects_by_user(user)
@@ -1014,7 +1115,7 @@ def get_myprojects(request):
 
 @never_cache
 @require_http_methods(["POST"])
-@authorize(['analyst'])
+@authorize(['analyst', 'admin'])
 def update_cssv2(request):
     parameters = request.POST.dict()
     try:
@@ -1033,7 +1134,7 @@ def update_cssv2(request):
 
 @never_cache
 @require_http_methods(["POST"])
-@authorize(['analyst'])
+@authorize(['analyst', 'admin'])
 def update_description(request):
     parameters = request.POST.dict()
     try:
@@ -1052,7 +1153,7 @@ def update_description(request):
 
 @never_cache
 @require_http_methods(["POST"])
-@authorize(['customer', 'customeradmin'])
+@authorize(['customer', 'customeradmin', 'admin'])
 def update_treatment(request):
     parameters = request.POST.dict()
     try:
@@ -1071,7 +1172,7 @@ def update_treatment(request):
 
 @never_cache
 @require_http_methods(["POST"])
-@authorize(['analyst'])
+@authorize(['analyst', 'admin'])
 def update_eventuality(request):
     "Update an eventuality associated to a project"
     parameters = request.POST.dict()
@@ -1093,7 +1194,7 @@ def update_eventuality(request):
 
 @never_cache
 @require_http_methods(["POST"])
-@authorize(['analyst'])
+@authorize(['analyst', 'admin'])
 def delete_finding(request):
     """Capture and process the ID of an eventuality to eliminate it"""
     parameters = request.POST.dict()
@@ -1120,7 +1221,7 @@ def delete_finding(request):
 
 @never_cache
 @require_http_methods(["POST"])
-@authorize(['customer', 'customeradmin'])
+@authorize(['customer', 'customeradmin', 'admin'])
 def finding_solved(request):
     """ Send an email requesting the verification of a finding """
     parameters = request.POST.dict()
@@ -1153,7 +1254,7 @@ def finding_solved(request):
 
 @never_cache
 @require_http_methods(["POST"])
-@authorize(['analyst'])
+@authorize(['analyst', 'admin'])
 def finding_verified(request):
     """ Send an email notifying that the finding was verified """
     parameters = request.POST.dict()
@@ -1185,7 +1286,7 @@ def finding_verified(request):
 @never_cache
 @csrf_exempt
 @require_http_methods(["GET"])
-@authorize(['analyst', 'customer', 'customeradmin'])
+@authorize(['analyst', 'customer', 'customeradmin', 'admin'])
 def get_remediated(request):
     finding_id = request.GET.get('id', "")
     remediated = integrates_dao.get_remediated_dynamo(int(finding_id))
@@ -1199,7 +1300,7 @@ def get_remediated(request):
 @never_cache
 @csrf_exempt
 @require_http_methods(["GET"])
-@authorize(['analyst', 'customer', 'customeradmin'])
+@authorize(['analyst', 'customer', 'customeradmin', 'admin'])
 def get_comments(request):
     submission_id = request.GET.get('id', "")
     comments = integrates_dao.get_comments_dynamo(int(submission_id))
@@ -1220,7 +1321,7 @@ def get_comments(request):
 
 @never_cache
 @require_http_methods(["POST"])
-@authorize(['analyst', 'customer', 'customeradmin'])
+@authorize(['analyst', 'customer', 'customeradmin', 'admin'])
 def add_comment(request):
     submission_id = request.POST.get('id', "")
     data = request.POST.dict()
@@ -1260,7 +1361,7 @@ def add_comment(request):
 
 @never_cache
 @require_http_methods(["POST"])
-@authorize(['analyst', 'customer', 'customeradmin'])
+@authorize(['analyst', 'customer', 'customeradmin', 'admin'])
 def delete_comment(request):
     submission_id = request.POST.get('id', "")
     data = request.POST.dict()
@@ -1273,7 +1374,7 @@ def delete_comment(request):
 @never_cache
 @csrf_exempt
 @require_http_methods(["GET"])
-@authorize(['analyst', 'customer', 'customeradmin'])
+@authorize(['analyst', 'customer', 'customeradmin', 'admin'])
 def total_severity(request):
     project = request.GET.get('project', "")
     toe = integrates_dao.get_toe_dynamo(project)
@@ -1282,17 +1383,72 @@ def total_severity(request):
 @never_cache
 @csrf_exempt
 @require_http_methods(["GET"])
-@authorize(['analyst', 'customer', 'customeradmin'])
+@authorize(['analyst', 'customer', 'customeradmin', 'admin'])
 def get_alerts(request):
     company = request.GET.get('company', None)
     project = request.GET.get('project', None)
     resp = integrates_dao.get_company_alert_dynamo(company, project)
     return util.response(resp, 'Success', False)
 
+@never_cache
+@require_http_methods(["POST"])
+@authorize(['admin'])
+def accept_release(request):
+    parameters = request.POST.get('id', "")
+    generic_dto = FindingDTO()
+    try:
+        tzn = pytz.timezone('America/Bogota')
+        releaseDate = datetime.now(tz=tzn).date()
+        release = {}
+        release['id'] = parameters
+        release['releaseDate'] = releaseDate
+        generic_dto.create_release(release)
+        generic_dto.to_formstack()
+        api = FormstackAPI()
+        request = api.update(generic_dto.request_id, generic_dto.data)
+        if request:
+            return util.response([], 'success', False)
+        rollbar.report_message('Error: An error occurred accepting the release', 'error', request)
+        return util.response([], 'error', True)
+    except KeyError:
+        rollbar.report_exc_info(sys.exc_info(), request)
+        return util.response([], 'Campos vacios', True)
 
 @never_cache
 @require_http_methods(["POST"])
-@authorize(['analyst', 'customer', 'customeradmin'])
+@authorize(['admin'])
+def reject_release(request):
+    parameters = request.POST.dict()
+    username = request.session['username']
+    fin_dto = FindingDTO()
+    try:
+        submission_id = parameters["data[id]"]
+        api = FormstackAPI()
+        frmreq = api.get_submission(submission_id)
+        finding = fin_dto.parse(submission_id, frmreq, request)
+        context = {
+           'project': finding['fluidProject'],
+           'analyst_mail': finding['analyst'],
+           'finding_name': finding['finding'],
+           'admin_mail': username,
+           'finding_id': submission_id,
+           'rejectionCause': parameters['data[justification]'],
+        }
+        result = api.delete_submission(submission_id)
+        if result is None:
+            rollbar.report_message('Error: An error ocurred deleting the release', 'error', request)
+            return util.response([], 'Error', True)
+        to = ["jrestrepo@fluidattacks.com", "ralvarez@fluidattacks.com",
+              "aroldan@fluidattacks.com", finding['analyst']]
+        send_mail_reject_release(to, context)
+        return util.response([], 'success', False)
+    except KeyError:
+        rollbar.report_exc_info(sys.exc_info(), request)
+        return util.response([], 'Campos vacios', True)
+
+@never_cache
+@require_http_methods(["POST"])
+@authorize(['analyst', 'customer', 'customeradmin', 'admin'])
 def add_access_integrates(request):
     parameters = request.POST.dict()
     newUser = parameters['data[userEmail]']
@@ -1310,7 +1466,7 @@ def add_access_integrates(request):
 
 @never_cache
 @require_http_methods(["POST"])
-@authorize(['analyst', 'customer', 'customeradmin'])
+@authorize(['analyst', 'customer', 'customeradmin', 'admin'])
 def remove_access_integrates(request):
     parameters = request.POST.dict()
     user = parameters['email']
@@ -1322,7 +1478,7 @@ def remove_access_integrates(request):
 
 @never_cache
 @require_http_methods(["POST"])
-@authorize(['analyst', 'customer', 'customeradmin'])
+@authorize(['analyst', 'customer', 'customeradmin', 'admin'])
 def set_project_admin(request):
     email = request.POST.get('email', "")
     if integrates_dao.assign_admin_role(email):

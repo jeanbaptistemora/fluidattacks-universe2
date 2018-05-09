@@ -60,6 +60,11 @@
                                 <i class="icon s7-light"></i>&nbsp;{% templatetag openvariable %} 'tab_container.findings' | translate {% templatetag closevariable %}
                             </a>
                         </li>
+                        <li id="releasesTab" class="" style="font-size:15px;" ng-click="urlReleases();" ng-show="isManager">
+                            <a href="#releases" data-toggle="tab" aria-expanded="true">
+                                <i class="icon s7-stopwatch"></i>&nbsp; Releases
+                            </a>
+                        </li>
                         <li id="eventsTab" class="" style="font-size:15px;" ng-click="urlEvents();">
                             <a href="#eventualities" data-toggle="tab" aria-expanded="true">
                                 <i class="icon s7-star"></i>&nbsp;{% templatetag openvariable %} 'tab_container.eventualities' | translate {% templatetag closevariable %}
@@ -86,11 +91,11 @@
                                         ng-click="assignAdmin();" style="width:15%;margin:10px;">
                                         <i class="glyphicon glyphicon-user"></i>&nbsp;{% templatetag openvariable %} 'search_findings.tab_users.set_admin' | translate {% templatetag closevariable %}
                                   </button>
-                                  <button  id="add" ng-show=isAdmin class="btn btn-primary btn-block"
+                                  <button  id="add" ng-show=isProjectAdmin class="btn btn-primary btn-block"
                                         ng-click="addUser();" style="width:15%;margin:10px;">
                                         <i class="glyphicon glyphicon-plus"></i>&nbsp;{% templatetag openvariable %}'search_findings.tab_users.add_button' | translate {% templatetag closevariable %}
                                   </button>
-                                  <button  id="remove" ng-show=isAdmin class="btn btn-primary btn-block"
+                                  <button  id="remove" ng-show=isProjectAdmin class="btn btn-primary btn-block"
                                         ng-click="removeUserAccess();" style="width:15%;margin:10px;">
                                         <i class="glyphicon glyphicon-minus"></i>&nbsp;{% templatetag openvariable %} 'search_findings.tab_users.remove_user' | translate {% templatetag closevariable %}
                                   </button>

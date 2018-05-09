@@ -8,15 +8,15 @@ mixPanelDashboard, userRole, findingType, actor, scenario, authentication,
 confidenciality, Organization, resolutionLevel, explotability, availability,
 updateEvidencesFiles:true, findingData:true, realiabilityLevel,
 updateEvidenceText:true, categories, probabilities, accessVector, integrity,
-accessComplexity, projectData:true, eventsData:true, releaseData:true,
-fieldsToTranslate, keysToTranslate, desc:true, angular, $window*/
+accessComplexity, projectData:true, eventsData:true, fieldsToTranslate,
+keysToTranslate, desc:true, angular, $window, releaseData:true */
 /**
- * @file findingContentCtrl.js
+ * @file releaseContentCtrl.js
  * @author engineering@fluidattacks.com
  */
 /**
  * Controller definition for finding content view.
- * @name findingContentCtrl
+ * @name releaseContentCtrl
  * @param {Object} $scope
  * @param {Object} $uibModal
  * @param {Object} $stateParams
@@ -25,8 +25,8 @@ fieldsToTranslate, keysToTranslate, desc:true, angular, $window*/
  * @return {undefined}
  */
 /** @export */
-angular.module("FluidIntegrates").controller("findingContentCtrl", function
-findingContentCtrl (
+angular.module("FluidIntegrates").controller("releaseContentCtrl", function
+releaseContentCtrl (
   $scope,
   $state,
   $stateParams,
@@ -42,34 +42,6 @@ findingContentCtrl (
   projectFtry,
   tabsFtry
 ) {
-  $scope.cssv2Editable = function cssv2Editable () {
-    if ($scope.onlyReadableTab2 === false) {
-      $scope.onlyReadableTab2 = true;
-    }
-    else {
-      $scope.onlyReadableTab2 = false;
-    }
-  };
-  $scope.descriptionEditable = function descriptionEditable () {
-    if ($scope.onlyReadableTab1 === false) {
-      $scope.onlyReadableTab1 = true;
-    }
-    else {
-      $scope.onlyReadableTab1 = false;
-    }
-  };
-  $scope.treatmentEditable = function treatmentEditable () {
-    functionsFtry1.treatmentEditable($scope);
-  };
-  $scope.evidenceEditable = function evidenceEditable () {
-    functionsFtry2.evidenceEditable($scope);
-  };
-  $scope.exploitEditable = function exploitEditable () {
-    functionsFtry2.exploitEditable($scope);
-  };
-  $scope.recordsEditable = function recordsEditable () {
-    functionsFtry2.recordsEditable($scope);
-  };
   $scope.detectNivel = function detectNivel () {
     const TIMEOUT = 200;
     $timeout(() => {
@@ -84,17 +56,11 @@ findingContentCtrl (
       }
     }, TIMEOUT);
   };
-  $scope.updateCSSv2 = function updateCSSv2 () {
-    functionsFtry1.updateCSSv2($scope);
+  $scope.acceptRelease = function acceptRelease () {
+    functionsFtry4.acceptRelease($scope);
   };
-  updateEvidencesFiles = function updateEvidencesFiles (element) {
-    functionsFtry2.updateEvidencesFiles(element, $scope);
-  };
-  updateEvidenceText = function updateEvidenceText (element) {
-    functionsFtry1.updateEvidenceText(element, $scope);
-  };
-  $scope.deleteFinding = function deleteFinding () {
-    functionsFtry1.deleteFinding($scope);
+  $scope.rejectRelease = function rejectRelease () {
+    functionsFtry4.rejectRelease($scope);
   };
   $scope.goUp = function goUp () {
     angular.element("html, body").animate({"scrollTop": 0}, "fast");
@@ -149,7 +115,6 @@ findingContentCtrl (
       $scope.view.finding = true;
       $scope.finding = findingData.data;
       $scope.header = findingData.header;
-      $scope.isRemediated = findingData.remediated;
       $scope.tabEvidences = findingData.tabEvidences;
       $scope.hasExploit = findingData.hasExploit;
       $scope.exploitURL = findingData.exploitURL;
@@ -169,7 +134,6 @@ findingContentCtrl (
           $scope.finding = response.data;
           functionsFtry3.loadFindingContent($scope);
           functionsFtry3.findingHeaderBuilding($scope, findingData);
-          $scope.remediatedView();
           findingData.remediated = $scope.isRemediated;
           $scope.view.project = false;
           $scope.view.finding = true;
@@ -187,7 +151,6 @@ findingContentCtrl (
           const recordinfo = tabsFtry.findingRecordsTab($scope, findingData);
           $scope.hasRecords = recordinfo[0];
           findingData.hasRecords = recordinfo[1];
-          tabsFtry.findingCommentTab($scope, $stateParams);
           return true;
         }
         else if (response.error) {
@@ -203,29 +166,6 @@ findingContentCtrl (
           }
         }
         return true;
-      });
-    }
-  };
-  $scope.remediatedView = function remediatedView () {
-    $scope.isManager = userRole !== "customer" && userRole !== "customeradmin";
-    $scope.isRemediated = true;
-    if (angular.isDefined($scope.finding.id)) {
-      const req = projectFtry.remediatedView($scope.finding.id);
-      req.then((response) => {
-        if (!response.error) {
-          $scope.isRemediated = response.data.remediated;
-          findingData.remediated = $scope.isRemediated;
-          if ($scope.isManager && $scope.isRemediated) {
-            angular.element(".finding-verified").show();
-          }
-          else {
-            angular.element(".finding-verified").hide();
-          }
-        }
-        else if (response.error) {
-          Rollbar.error("Error: An error occurred when " +
-                        "remediating/verifying the finding");
-        }
       });
     }
   };
@@ -248,62 +188,42 @@ findingContentCtrl (
   $scope.capitalizeFirstLetter = function capitalizeFirstLetter (string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
   };
-  $scope.updateDescription = function updateDescription () {
-    functionsFtry3.updateDescription($scope);
-  };
-  $scope.findingSolved = function findingSolved () {
-    functionsFtry3.findingSolved($scope);
-  };
-  $scope.findingVerified = function findingVerified () {
-    functionsFtry1.findingVerified($scope);
-  };
   $scope.goBack = function goBack () {
     $scope.view.project = true;
     $scope.view.finding = false;
     projectData = [];
     releaseData = [];
-    $state.go("ProjectFindings", {"project": $scope.project});
+    $state.go("ProjectReleases", {"project": $scope.project});
     angular.element("html, body").animate(
       {"scrollTop": $scope.currentScrollPosition},
       "fast"
     );
   };
-  $scope.urlDescription = function urlDescription () {
+  $scope.urlReleaseDescription = function urlReleaseDescription () {
     location.replace(`${$window.location.href.split($stateParams.id)[0] +
                       $stateParams.id}/description`);
   };
-  $scope.urlSeverity = function urlSeverity () {
+  $scope.urlReleaseSeverity = function urlReleaseSeverity () {
     location.replace(`${$window.location.href.split($stateParams.id)[0] +
                       $stateParams.id}/severity`);
   };
-  $scope.urlTracking = function urlTracking () {
-    location.replace(`${$window.location.href.split($stateParams.id)[0] +
-                      $stateParams.id}/tracking`);
-  };
-  $scope.urlEvidence = function urlEvidence () {
+  $scope.urlReleaseEvidence = function urlReleaseEvidence () {
     location.replace(`${$window.location.href.split($stateParams.id)[0] +
                       $stateParams.id}/evidence`);
   };
-  $scope.urlExploit = function urlExploit () {
+  $scope.urlReleaseExploit = function urlReleaseExploit () {
     location.replace(`${$window.location.href.split($stateParams.id)[0] +
                       $stateParams.id}/exploit`);
   };
-  $scope.urlRecords = function urlRecords () {
+  $scope.urlReleaseRecords = function urlReleaseRecords () {
     location.replace(`${$window.location.href.split($stateParams.id)[0] +
                       $stateParams.id}/records`);
-  };
-  $scope.urlComments = function urlComments () {
-    location.replace(`${$window.location.href.split($stateParams.id)[0] +
-                      $stateParams.id}/comments`);
   };
   $scope.urlEvents = function urlEvents () {
     $state.go("ProjectEvents", {"project": $stateParams.project});
   };
   $scope.urlUsers = function urlUsers () {
     $state.go("ProjectUsers", {"project": $scope.project});
-  };
-  $scope.updateTreatment = function updateTreatment () {
-    functionsFtry1.updateTreatment($scope);
   };
 
   $scope.init = function init () {
@@ -319,6 +239,8 @@ findingContentCtrl (
     $scope.onlyReadableTab6 = true;
     $scope.isManager = userRole !== "customer" && userRole !== "customeradmin";
     // Default flags value for view visualization
+    $scope.isAdmin = userRole !== "customer" &&
+            userRole !== "customeradmin" && userRole !== "analyst";
     $scope.view = {};
     $scope.view.project = false;
     $scope.view.finding = false;
@@ -341,32 +263,25 @@ findingContentCtrl (
     functionsFtry1.alertHeader(org, projt);
     const idF = $scope.finding.id;
     if ($window.location.hash.indexOf("description") !== -1) {
-      functionsFtry2.activeTab("#info", "FindingDescription", org, projt, idF);
+      functionsFtry2.activeTab("#info", "ReleaseDescription", org, projt, idF);
     }
     if ($window.location.hash.indexOf("severity") !== -1) {
-      functionsFtry2.activeTab("#cssv2", "FindingSeverity", org, projt, idF);
-    }
-    if ($window.location.hash.indexOf("tracking") !== -1) {
-      functionsFtry2.activeTab("#tracking", "FindingTracking", org, projt, idF);
+      functionsFtry2.activeTab("#cssv2", "ReleaseSeverity", org, projt, idF);
     }
     if ($window.location.hash.indexOf("evidence") !== -1) {
-      functionsFtry2.activeTab("#evidence", "FindingEvidence", org, projt, idF);
+      functionsFtry2.activeTab("#evidence", "ReleaseEvidence", org, projt, idF);
     }
     if ($window.location.hash.indexOf("exploit") !== -1) {
       functionsFtry2.activeTab(
-        "#exploit", "FindingExploit",
+        "#exploit", "ReleaseExploit",
         org, projt, idF
       );
     }
     if ($window.location.hash.indexOf("records") !== -1) {
-      functionsFtry2.activeTab("#records", "FindingRecords", org, projt, idF);
+      functionsFtry2.activeTab("#records", "ReleaseRecords", org, projt, idF);
       const recordinfo = tabsFtry.findingRecordsTab($scope, findingData);
       $scope.hasRecords = recordinfo[0];
       findingData.hasRecords = recordinfo[1];
-    }
-    if ($window.location.hash.indexOf("comments") !== -1) {
-      functionsFtry2.activeTab("#comment", "FindingComments", org, projt, idF);
-      tabsFtry.findingCommentTab($scope, $stateParams);
     }
   };
   $scope.init();

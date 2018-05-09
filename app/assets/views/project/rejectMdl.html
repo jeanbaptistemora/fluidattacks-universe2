@@ -3,8 +3,11 @@
     	<div class="col-md-12">
     		<h3>{{modalTitle}}</h3>
 	        <hr>
+	        <label> {{'search_findings.tab_description.reject' | translate}} </label><label style="color: #f22;"> *</label>
+	        <textarea rows="6" class="form-control" ng-model="rejectData.justification" required></textarea>
+	        <br>
 	        <p>{{'confirmmodal.confirm' | translate}}</p>
-    	</div>        
+    	</div>
     </div>
 </div>
 <div class="modal-footer">

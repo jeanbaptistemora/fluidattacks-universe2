@@ -18,6 +18,51 @@ angular.module("FluidIntegrates").factory(
     return {
 
       /**
+       * Admin accept a release.
+       * @function acceptRelease
+       * @param {String} id Finding id.
+       * @member integrates.projectFtry2
+       * @return {Object} Formstack response with updated data
+       */
+      "acceptRelease" (id) {
+        const oopsAc = "An error occurred accepting release";
+        return $xhr.post($q, `${BASE.url}accept_release`, {
+          "_": parseInt(secureRandom(5).join(""), 10),
+          id
+        }, oopsAc);
+      },
+
+      /**
+       * Admin reject a release.
+       * @function rejectRelease
+       * @param {String} data Reject data.
+       * @member integrates.projectFtry2
+       * @return {Object} Formstack response with updated data
+       */
+      "rejectRelease" (data) {
+        const oopsAc = "An error occurred rejecting release";
+        return $xhr.post($q, `${BASE.url}reject_release`, {
+          "_": parseInt(secureRandom(5).join(""), 10),
+          data
+        }, oopsAc);
+      },
+
+      /**
+       * Get releases by project name.
+       * @function releasesByName
+       * @param {String} project Project name.
+       * @member integrates.projectFtry2
+       * @return {Object} Formstack response with the releases of a project
+       */
+      "releasesByName" (project) {
+        const oopsAc = "An error occurred getting releases";
+        return $xhr.get($q, `${BASE.url}get_releases`, {
+          "_": parseInt(secureRandom(5).join(""), 10),
+          project
+        }, oopsAc);
+      },
+
+      /**
        * Give access to an user in a project
        * @function removeAccessIntegrates
        * @param {String} email Email of user to which access will be removed.
