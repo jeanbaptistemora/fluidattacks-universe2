@@ -4,7 +4,7 @@
 :keywords: Casos de abuso, Organización, Documentar, Identificar, Dependencia, Seguridad.
 :rules: yes
 
-= REQ.054 Documentar dependencia entre casos de abuso
+= REQ.054 Documentar dependencias
 
 == Requisito
 

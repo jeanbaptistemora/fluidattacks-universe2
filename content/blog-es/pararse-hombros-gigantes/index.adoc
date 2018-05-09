@@ -29,8 +29,8 @@ en el repositorio Arch Linux dependen de +libpng+,
 podemos utilizar +pacgraph+
 de link:http://kmkeen.com/pacgraph/[Kylee Keen]:
 
-.Dependencias inversas de +libpng+ en +Arch Linux+ (link:libpng-pacgraph.png[click] para mirar más grande)
-image::libpng-pacgraph.png["dependencias inversas de libpng",width=800,link="libpng-pacgraph.png"]
+.Dependencias inversas de +libpng+ en +Arch Linux+
+image::libpng-pacgraph.png["dependencias inversas de libpng",width=800]
 
 Más de +14 GiB+ de software dependen de +libpng+ !
 Y eso es sólo en los repositorios +Arch Linux+,

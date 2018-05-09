@@ -1,4 +1,4 @@
-:slug: fuzzy-bugs-online/
+:slug: fuzzy-bugs-enlinea/
 :date: 2018-02-09
 :category: ataques
 :subtitle: Técnicas Fuzz para probar aplicaciones Web
@@ -15,7 +15,7 @@
 :source-highlighter: pygments
 :translate: fuzzy-bugs-online/
 
-= Fuzzy bugs online
+= Fuzzy bugs en línea
 
 El +fuzzing+ web es una técnica automática computarizada
 para encontrar +bugs+ y vulnerabilidades

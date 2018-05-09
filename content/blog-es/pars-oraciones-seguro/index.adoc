@@ -1,4 +1,4 @@
-:slug: pars-orationis-secura/
+:slug: pars-oraciones-seguro/
 :date: 2018-03-22
 :subtitle: Utilizando intérpretes para detectar fallas
 :category: ataques
@@ -15,7 +15,7 @@
 :source-highlighter: pygments
 :translate: pars-orationis-secura/
 
-= Pars orationis non est secura
+= Pars oraciones no es seguro
 
 ¡Nos gusta link:http://itsecgames.com/[+bWAPP+] por aquí,
 porque es muy defectuoso!.

@@ -1,4 +1,4 @@
-:slug: xml-exploitable-markup-language/
+:slug: xml-lenguaje-marcado-explotable/
 :date: 2018-02-16
 :category: ataques
 :subtitle: Inyección XPath en archivos XML
@@ -15,7 +15,7 @@
 :source-highlighter: pygments
 :translate: xml-exploitable-markup-language/
 
-= XML: eXploitable Markup Language
+= XML: Lenguaje de Marcado eXplotable
 
 Los lenguajes de marcado son
 "sistemas para estructurar un documento
