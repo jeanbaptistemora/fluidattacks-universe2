@@ -24,6 +24,12 @@ for line in "${lines[@]}"; do
   sed -i 's#$'"$line"'#'"$(echo -n ${!line} | base64 | tr -d '\n')"'#' review-apps/variables.yaml;
 done
 
+# Check NGINX server configuration
+if ! kubectl -n gitlab-managed-apps get configmaps | grep -q 'nginx-configuration'; then
+  echo "Configuring NGINX server..."
+  kubectl -f review-apps/nginx-conf.yaml
+fi
+
 # Check if namespace for project exists
 if ! kubectl get namespaces | grep -q "$CI_PROJECT_NAME"; then
   echo "Creating namespace for project..."

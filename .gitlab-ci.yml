@@ -140,7 +140,7 @@ Asserts:
     script:
         - echo "$CONTINUOUS_PASS" | docker login fluid-docker.jfrog.io -u "$CONTINUOUS_USER" --password-stdin
         - docker pull fluid-docker.jfrog.io/fluid:integrates
-        - docker run -e BRANCH="$CI_COMMIT_REF_SLUG" -e ORG=fluid -e APP=integrates -e USER="$CONTINUOUS_USER" -e PASS="$CONTINUOUS_PASS" -e FA_STRICT="false" fluid-docker.jfrog.io/fluid:integrates
+        - docker run -e BRANCH="$CI_COMMIT_REF_SLUG" -e ORG=fluid -e APP=integrates -e USER="$CONTINUOUS_USER" -e PASS="$CONTINUOUS_PASS" -e FA_STRICT="true" fluid-docker.jfrog.io/fluid:integrates
         - docker logout fluid-docker.jfrog.io
     retry: 2
     except:
