@@ -34,6 +34,7 @@ o lo transforma en algo que cumpla con las especificaciones.
 
 . +ASPNET+ link:../../defends/aspnet/filtrar-campos-entrada/[Filtrar campos de entrada].
 . +ASPNET+ link:../../defends/aspnet/redireccion-paginas-web/[Validar redirecciones a páginas web].
+. +ASPNET+ link:../../defends/aspnet/usar-regex/[Usar Expresiones Regulares].
 . +COBOL+ link:../../defends/cobol/generar-cadenas-aleatorias/[Generar Cadenas Aleatorias].
 . +C Sharp+ link:../../defends/csharp/filtrar-entradas-regex/[Filtrar entradas usando Expresiones Regulares].
 . +Java+ link:../../defends/java/filtrar-entrada-datos-regex/[Filtrar Entrada de Datos Usando Expresión Regular].

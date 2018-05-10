@@ -64,6 +64,7 @@ y por ende esta información debe ser validada.
 . +ASPNET+ link:../../defends/aspnet/prevenir-sqli/[Prevenir inyección SQL].
 . +ASPNET+ link:../../defends/aspnet/evitar-sqli-parametrizacion/[Prevenir Inyección SQL Mediante Parametrización].
 . +ASPNET+ link:../../defends/aspnet/filtrar-campos-entrada/[Filtrar campos de entrada].
+. +ASPNET+ link:../../defends/aspnet/usar-regex/[Usar Expresiones Regulares].
 . +COBOL+ link:../../defends/cobol/sqli-sentencia-parametrizada/[Prevenir SQLi Mediante Sentencias Parametrizadas].
 . +COBOL+ link:../../defends/cobol/validar-datos-variables/[Validar Datos en Variables].
 . +Java+ link:../../defends/java/prevenir-sqli/[Prevenir Inyección SQL].
