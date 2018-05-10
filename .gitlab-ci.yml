@@ -14,7 +14,10 @@ before_script:
 codequality:
   script:
     - docker pull codeclimate/codeclimate
-    - docker run --env CODECLIMATE_CODE="$PWD" --volume "$PWD":/code --volume /var/run/docker.sock:/var/run/docker.sock --volume /tmp/cc:/tmp/cc codeclimate/codeclimate analyze -e sonar-python -e pep8 -e randon -f json > codeclimate.json
+    - mkdir -p /tmp${CI_PROJECT_DIR}/${CI_COMMIT_REF_NAME}
+    - cp -r $PWD/* /tmp${CI_PROJECT_DIR}/${CI_COMMIT_REF_NAME}
+    - docker run --env CODECLIMATE_CODE="/tmp${CI_PROJECT_DIR}/${CI_COMMIT_REF_NAME}" --volume "/tmp${CI_PROJECT_DIR}/${CI_COMMIT_REF_NAME}":/code --volume /var/run/docker.sock:/var/run/docker.sock --volume /tmp/cc:/tmp/cc codeclimate/codeclimate analyze -e sonar-python -e pep8 -e randon -f json > codeclimate.json
+    - rm -rf /tmp${CI_PROJECT_DIR}
   artifacts:
     paths: [codeclimate.json]
 
