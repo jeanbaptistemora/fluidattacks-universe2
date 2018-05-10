@@ -15,9 +15,13 @@ builder:
     - docker login $CI_REGISTRY -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD
     - docker pull $CI_REGISTRY/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME:base
     # Only builds from scratch if the Dockerfile has changed
-    - docker build --cache-from $CI_REGISTRY/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME:base
-      -t $CI_REGISTRY/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME:base builder/base/
+    - >
+      docker build
+      --cache-from $CI_REGISTRY/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME:base
+      -t $CI_REGISTRY/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME:base
+      builder/base/
     - docker push $CI_REGISTRY/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME:base
+    - docker logout "$CI_REGISTRY"
   retry: 2
 
 checks:
@@ -25,29 +29,54 @@ checks:
   services:
     - docker:dind
   script:
-    - if curl --fail -Lo artifacts.zip --header Private-Token:$GL_ACCESS_TOKEN https://gitlab.com/api/v4/projects/$CI_PROJECT_ID/jobs/artifacts/$CI_COMMIT_REF_NAME/download?job=$CI_JOB_NAME; then unzip artifacts.zip && rm artifacts.zip; else echo "There are no artifacts"; fi
+    - >
+      if
+      curl --fail -Lo artifacts.zip
+      --header Private-Token:$GL_ACCESS_TOKEN
+      https://gitlab.com/api/v4/projects/$CI_PROJECT_ID/jobs/artifacts/$CI_COMMIT_REF_NAME/download?job=$CI_JOB_NAME;
+      then unzip artifacts.zip && rm artifacts.zip;
+      else echo "There are no artifacts";
+      fi
     - pre-commit run --all-files
     - ./check-changed.sh
     - ./check-all.sh
     - ./check-articles.sh
     - ./check-spelling.sh
     - pybabel compile --directory theme/2014/translations/ --domain messages
-    - for FILE in $(find . -iname '*.adoc'); do sed -i 's/^include::/include::\/builds\/fluidsignal/g' $FILE; done
-    - sed -i 's/https:\/\/fluidattacks\.com/https:\/\/'"$CI_PROJECT_NAME.$ENV_DNS\/$CI_COMMIT_REF_SLUG"'/g' pelicanconf.py
+    - >
+      for FILE in $(find . -iname '*.adoc');
+      do sed -i 's/^include::/include::\/builds\/fluidsignal/g' $FILE;
+      done
+    - >
+      sed -i
+      's/https:\/\/fluidattacks\.com/https:\/\/'"$CI_PROJECT_NAME.$ENV_DNS\/$CI_COMMIT_REF_SLUG"'/g' pelicanconf.py
     - pelican --fatal errors --fatal warnings content/
-    - mv output/web/en/blog-en/* output/web/en/blog && mv output/web/es/blog-es/* output/web/es/blog
+    - >
+      mv output/web/en/blog-en/* output/web/en/blog
+      && mv output/web/es/blog-es/* output/web/es/blog
     - ./xmlcombine.sh
-    - cp -r output/web/es/pages-es/* output/web/es/ && rm -rf output/web/es/pages-es
-    - cp -r output/web/en/pages-en/* output/web/en/ && rm -rf output/web/en/pages-en
-    - mv output/web/en/redirect/index.html output/web/ && rmdir output/web/en/redirect/
+    - >
+      cp -r output/web/es/pages-es/* output/web/es/
+      && rm -rf output/web/es/pages-es
+    - >
+      cp -r output/web/en/pages-en/* output/web/en/
+      && rm -rf output/web/en/pages-en
+    - >
+      mv output/web/en/redirect/index.html output/web/
+      && rmdir output/web/en/redirect/
     - mv robots.txt output/web/
     - rm -rf output/web/de
     - ./html-lint.sh
     - mkdir -p review/output/
     - mv output/web review/output/
     - docker login $CI_REGISTRY -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD
-    - docker build --no-cache -t $CI_REGISTRY/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME:$CI_COMMIT_REF_SLUG review/
-    - docker push $CI_REGISTRY/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME:$CI_COMMIT_REF_SLUG
+    - >
+      docker build --no-cache
+      -t $CI_REGISTRY/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME:$CI_COMMIT_REF_SLUG
+      review/
+    - >
+      docker push
+      $CI_REGISTRY/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME:$CI_COMMIT_REF_SLUG
     - rm -rf output/ && rm -rf review/output
   retry: 2
   artifacts:
@@ -79,12 +108,21 @@ stop-review:
   variables:
     GIT_STRATEGY: none
   script:
-    - kubectl config set-context "$(kubectl config current-context)" --namespace="$CI_PROJECT_NAME"
+    - >
+      kubectl config set-context "$(kubectl config current-context)"
+      --namespace="$CI_PROJECT_NAME"
     - kubectl delete deployment "review-$CI_COMMIT_REF_SLUG"
     - kubectl delete service "service-$CI_COMMIT_REF_SLUG"
-    - kubectl get ingress "ingress-$CI_PROJECT_NAME" -o yaml | tac | sed '/path:\ \/'"$CI_COMMIT_REF_SLUG"'/,+3d' | tac > current-ingress.yaml
+    - >
+      kubectl get ingress "ingress-$CI_PROJECT_NAME" -o yaml
+      | tac | sed '/path:\ \/'"$CI_COMMIT_REF_SLUG"'/,+3d'
+      | tac > current-ingress.yaml
     - kubectl delete ingress "ingress-$CI_PROJECT_NAME"
-    - if kubectl get deployments | grep 'review-*'; then kubectl create -f current-ingress.yaml; fi
+    - >
+      if
+      kubectl get deployments | grep 'review-*';
+      then kubectl create -f current-ingress.yaml;
+      fi
   when: manual
   environment:
     name: review/$CI_COMMIT_REF_SLUG
@@ -95,33 +133,61 @@ deploy:
   environment: production
   script:
     # Download cache from previous builds
-    - if curl --fail -Lo artifacts.zip --header Private-Token:$GL_ACCESS_TOKEN https://gitlab.com/api/v4/projects/$CI_PROJECT_ID/jobs/artifacts/$CI_COMMIT_REF_NAME/download?job=$CI_JOB_NAME; then unzip artifacts.zip && rm artifacts.zip; else echo "There are no artifacts"; fi
+    - >
+      if curl --fail -Lo artifacts.zip
+      --header Private-Token:$GL_ACCESS_TOKEN
+      https://gitlab.com/api/v4/projects/$CI_PROJECT_ID/jobs/artifacts/$CI_COMMIT_REF_NAME/download?job=$CI_JOB_NAME;
+      then unzip artifacts.zip && rm artifacts.zip;
+      else echo "There are no artifacts";
+      fi
     # Generate file for localization of the site
     - pybabel compile --directory theme/2014/translations/ --domain messages
     # Fix links to successfully include files
-    - for FILE in $(find . -iname '*.adoc'); do sed -i 's/^include::/include::\/builds\/fluidsignal/g' $FILE; done
+    - >
+      for FILE in $(find . -iname '*.adoc');
+      do sed -i 's/^include::/include::\/builds\/fluidsignal/g' $FILE;
+      done
     # Generate the website, exiting on any error encountered
     - pelican --fatal errors --fatal warnings content/
     # Remove dummy folder used to translate messages to english as well
     - rm -rf output/web/de
     # Give the folders, named after the language of its content, a general name in each subsite
-    - mv output/web/en/blog-en/* output/web/en/blog && mv output/web/es/blog-es/* output/web/es/blog
+    - >
+      mv output/web/en/blog-en/* output/web/en/blog
+      && mv output/web/es/blog-es/* output/web/es/blog
     # Script to generate a complete sitemap of the site
     - ./xmlcombine.sh
     # Remove the language identification used to group documents and images in the same directory
-    - cp -r output/web/es/pages-es/* output/web/es/ && rm -rf output/web/es/pages-es
-    - cp -r output/web/en/pages-en/* output/web/en/ && rm -rf output/web/en/pages-en
+    - >
+      cp -r output/web/es/pages-es/* output/web/es/
+      && rm -rf output/web/es/pages-es
+    - >
+      cp -r output/web/en/pages-en/* output/web/en/
+      && rm -rf output/web/en/pages-en
     # Set the redirect from web/ to web/en/
-    - mv output/web/en/redirect/index.html output/web/ && rmdir output/web/en/redirect/
+    - >
+      mv output/web/en/redirect/index.html output/web/
+      && rmdir output/web/en/redirect/
     # Set robots.txt
     - mv robots.txt output/web/
     # Organize images of articles with draft status
     - ./draft.sh
     # Create container that deploys website
     - mv output builder/master
-    - docker build -t "$CI_REGISTRY/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME:$CI_COMMIT_REF_SLUG" builder/master/
-    - docker push "$CI_REGISTRY/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME:$CI_COMMIT_REF_SLUG"
-    - docker run -e AWS_ACCESS_KEY_ID="$FW_AWS_ACCESS_KEY_ID" -e AWS_SECRET_ACCESS_KEY="$FW_AWS_SECRET_ACCESS_KEY" -e S3_BUCKET_NAME="$FW_S3_BUCKET_NAME" "$CI_REGISTRY/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME:$CI_COMMIT_REF_SLUG" bash -c "./deploy.sh && ./amz-redirect.sh"
+    - >
+      docker build --no-cache
+      -t "$CI_REGISTRY/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME:$CI_COMMIT_REF_SLUG"
+      builder/master/
+    - >
+      docker push
+      "$CI_REGISTRY/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME:$CI_COMMIT_REF_SLUG"
+    - >
+      docker run
+      -e AWS_ACCESS_KEY_ID="$FW_AWS_ACCESS_KEY_ID"
+      -e AWS_SECRET_ACCESS_KEY="$FW_AWS_SECRET_ACCESS_KEY"
+      -e S3_BUCKET_NAME="$FW_S3_BUCKET_NAME"
+      "$CI_REGISTRY/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME:$CI_COMMIT_REF_SLUG"
+      bash -c "./deploy.sh && ./amz-redirect.sh"
     # Erase output folder to reduce artifact size since it is untracked
     - rm -rf builder/master/output
   retry: 2
