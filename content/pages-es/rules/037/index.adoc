@@ -32,11 +32,12 @@ o lo transforma en algo que cumpla con las especificaciones.
 
 == Soluciones
 
-. +COBOL+ link:../../defends/cobol/generar-cadenas-aleatorias/[Generar Cadenas Aleatorias].
-. +Java+ link:../../defends/java/filtrar-entrada-datos-regex/[Filtrar Entrada de Datos Usando Expresión Regular].
 . +ASPNET+ link:../../defends/aspnet/filtrar-campos-entrada/[Filtrar campos de entrada].
 . +ASPNET+ link:../../defends/aspnet/redireccion-paginas-web/[Validar redirecciones a páginas web].
+. +COBOL+ link:../../defends/cobol/generar-cadenas-aleatorias/[Generar Cadenas Aleatorias].
 . +C Sharp+ link:../../defends/csharp/filtrar-entradas-regex/[Filtrar entradas usando Expresiones Regulares].
+. +Java+ link:../../defends/java/filtrar-entrada-datos-regex/[Filtrar Entrada de Datos Usando Expresión Regular].
+. +Java+ link:../../defends/java/validar-redirecciones/[Validar Redirecciones a Páginas Web].
 . +PHP+ link:../../defends/php/filtrar-entradas-regex/[Filtrar Entradas con Expresiones Regulares].
 
 == Ataques

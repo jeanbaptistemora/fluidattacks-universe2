@@ -68,6 +68,7 @@ y por ende esta información debe ser validada.
 . +COBOL+ link:../../defends/cobol/validar-datos-variables/[Validar Datos en Variables].
 . +Java+ link:../../defends/java/prevenir-sqli/[Prevenir Inyección SQL].
 . +Java+ link:../../defends/java/filtrar-entrada-datos-regex/[Filtrar Entrada de Datos Usando Expresión Regular].
+. +Java+ link:../../defends/java/validar-redirecciones/[Validar Redirecciones a Páginas Web].
 . +PHP+ link:../../defends/php/filtrar-entradas-regex/[Filtrar Entradas con Expresiones Regulares].
 
 == Ataques
