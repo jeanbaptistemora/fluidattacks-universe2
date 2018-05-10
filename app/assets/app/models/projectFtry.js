@@ -1,6 +1,6 @@
-/* eslint no-magic-numbers: ["error", { "ignore": [-1,0,1]}]*/
+/* eslint no-magic-numbers: ["error", { "ignore": [-1,0,1,5]}]*/
 /* global integrates, BASE, $xhr, window.location:true,
-$, Rollbar, eventsData */
+$, Rollbar, eventsData, secureRandom */
 /**
  * @file projectFtry.js
  * @author engineering@fluidattacks.com
@@ -25,12 +25,11 @@ integrates.factory("projectFtry", ($q, $translate) => ({
   "addComment" (id, data) {
     const oopsAc = "An error occurred adding comment";
     return $xhr.post($q, `${BASE.url}add_comment`, {
-      "_": Math.random(),
+      "_": parseInt(secureRandom(5).join(""), 10),
       data,
       id
     }, oopsAc);
   },
-
   "alertEvents" (events) {
     let openEvents = 0;
     for (let event = 0; event < events.length; event++) {
@@ -41,7 +40,6 @@ integrates.factory("projectFtry", ($q, $translate) => ({
     }
     return openEvents;
   },
-
   "calCCssv2" (data) {
     const BASESCORE_FACTOR_1 = 0.6;
     const BASESCORE_FACTOR_2 = 0.4;
@@ -78,7 +76,6 @@ integrates.factory("projectFtry", ($q, $translate) => ({
       Temporal
     ];
   },
-
   "calCardinality" (data) {
     let cardinalidad = 0;
     let cardinalidadTotal = 0;
@@ -163,7 +160,7 @@ integrates.factory("projectFtry", ($q, $translate) => ({
   "deleteComment" (id, data) {
     const oopsAc = "An error ocurred deleting comment";
     return $xhr.post($q, `${BASE.url}delete_comment`, {
-      "_": Math.random(),
+      "_": parseInt(secureRandom(5).join(""), 10),
       data,
       id
     }, oopsAc);
@@ -180,11 +177,10 @@ integrates.factory("projectFtry", ($q, $translate) => ({
   "deleteFinding" (data) {
     const oopsAc = "An error ocurred deleting finding";
     return $xhr.post($q, `${BASE.url}delete_finding`, {
-      "_": Math.random(),
+      "_": parseInt(secureRandom(5).join(""), 10),
       data
     }, oopsAc);
   },
-
 
   /**
    * Invoca el servicio para tener las eventualidades de un proyecto
@@ -197,7 +193,7 @@ integrates.factory("projectFtry", ($q, $translate) => ({
   "eventualityByName" (project, category) {
     const oopsAc = "An error occurred getting events";
     return $xhr.get($q, `${BASE.url}get_eventualities`, {
-      "_": Math.random(),
+      "_": parseInt(secureRandom(5).join(""), 10),
       category,
       project
     }, oopsAc);
@@ -213,7 +209,7 @@ integrates.factory("projectFtry", ($q, $translate) => ({
   "findingById" (id) {
     const oopsAc = "An error occurred getting finding";
     return $xhr.post($q, `${BASE.url}get_finding`, {
-      "_": Math.random(),
+      "_": parseInt(secureRandom(5).join(""), 10),
       id
     }, oopsAc);
   },
@@ -227,7 +223,7 @@ integrates.factory("projectFtry", ($q, $translate) => ({
   "findingSolved" (data) {
     const oopsAc = "An error occurred when remediating the finding";
     return $xhr.post($q, `${BASE.url}finding_solved`, {
-      "_": Math.random(),
+      "_": parseInt(secureRandom(5).join(""), 10),
       data
     }, oopsAc);
   },
@@ -242,7 +238,7 @@ integrates.factory("projectFtry", ($q, $translate) => ({
   "findingVerified" (data) {
     const oopsAc = "An error occurred when verifying the finding";
     return $xhr.post($q, `${BASE.url}finding_verified`, {
-      "_": Math.random(),
+      "_": parseInt(secureRandom(5).join(""), 10),
       data
     }, oopsAc);
   },
@@ -258,7 +254,7 @@ integrates.factory("projectFtry", ($q, $translate) => ({
   "getAlerts" (company, project) {
     const oopsAc = "An error occurred getting alerts";
     return $xhr.get($q, `${BASE.url}get_alerts`, {
-      "_": Math.random(),
+      "_": parseInt(secureRandom(5).join(""), 10),
       company,
       project
     }, oopsAc);
@@ -274,7 +270,7 @@ integrates.factory("projectFtry", ($q, $translate) => ({
   "getComments" (id) {
     const oopsAc = "An error ocurred getting comments";
     return $xhr.get($q, `${BASE.url}get_comments`, {
-      "_": Math.random(),
+      "_": parseInt(secureRandom(5).join(""), 10),
       id
     }, oopsAc);
   },
@@ -289,7 +285,7 @@ integrates.factory("projectFtry", ($q, $translate) => ({
   "getEvidences" (id) {
     const oopsAc = "An error occurred getting evidences";
     return $xhr.get($q, `${BASE.url}get_evidences`, {
-      "_": Math.random(),
+      "_": parseInt(secureRandom(5).join(""), 10),
       id
     }, oopsAc);
   },
@@ -305,7 +301,7 @@ integrates.factory("projectFtry", ($q, $translate) => ({
   "getExploit" (findingid, id) {
     const oopsAc = "An error occurred getting exploit ID";
     return $xhr.get($q, `${BASE.url}get_exploit`, {
-      "_": Math.random(),
+      "_": parseInt(secureRandom(5).join(""), 10),
       findingid,
       id
     }, oopsAc);
@@ -322,7 +318,7 @@ integrates.factory("projectFtry", ($q, $translate) => ({
   "getRecords" (findingid, id) {
     const oopsAc = "An error occurred getting records";
     return $xhr.get($q, `${BASE.url}get_records`, {
-      "_": Math.random(),
+      "_": parseInt(secureRandom(5).join(""), 10),
       findingid,
       id
     }, oopsAc);
@@ -338,7 +334,7 @@ integrates.factory("projectFtry", ($q, $translate) => ({
   "projectByName" (project) {
     const oopsAc = "An error occurred getting findings";
     return $xhr.get($q, `${BASE.url}get_findings`, {
-      "_": Math.random(),
+      "_": parseInt(secureRandom(5).join(""), 10),
       project
     }, oopsAc);
   },
@@ -355,7 +351,7 @@ integrates.factory("projectFtry", ($q, $translate) => ({
   "projectDoc" (project, json, format) {
     const oopsAc = "An error occurred generating documentation";
     return $xhr.post($q, `${BASE.url}generate_autodoc`, {
-      "_": Math.random(),
+      "_": parseInt(secureRandom(5).join(""), 10),
       "data": json,
       format,
       project
@@ -372,7 +368,7 @@ integrates.factory("projectFtry", ($q, $translate) => ({
   "remediatedView" (id) {
     const oopsAc = "An error occurred getting remediate state";
     return $xhr.get($q, `${BASE.url}get_remediated`, {
-      "_": Math.random(),
+      "_": parseInt(secureRandom(5).join(""), 10),
       id
     }, oopsAc);
   },
@@ -387,7 +383,7 @@ integrates.factory("projectFtry", ($q, $translate) => ({
   "totalSeverity" (project) {
     const oopsAc = "An error occurred getting total severity";
     return $xhr.get($q, `${BASE.url}total_severity`, {
-      "_": Math.random(),
+      "_": parseInt(secureRandom(5).join(""), 10),
       project
     }, oopsAc);
   },
@@ -403,7 +399,7 @@ integrates.factory("projectFtry", ($q, $translate) => ({
   "updateCSSv2" (data) {
     const oopsAc = "An error occurred updating CSSV2";
     return $xhr.post($q, `${BASE.url}update_cssv2`, {
-      "_": Math.random(),
+      "_": parseInt(secureRandom(5).join(""), 10),
       data
     }, oopsAc);
   },
@@ -419,11 +415,10 @@ integrates.factory("projectFtry", ($q, $translate) => ({
   "updateDescription" (data) {
     const oopsAc = "An error occurred updating description";
     return $xhr.post($q, `${BASE.url}update_description`, {
-      "_": Math.random(),
+      "_": parseInt(secureRandom(5).join(""), 10),
       data
     }, oopsAc);
   },
-
   "updateEvidenceFiles" (data, callbackFn, errorFn) {
     const UNAUTHORIZED_ERROR = 401;
     const INTERNAL_SERVER_ERROR = 500;
@@ -450,7 +445,8 @@ integrates.factory("projectFtry", ($q, $translate) => ({
           $(".loader").hide();
           callbackFn(JSON.parse(response));
         },
-        "url": `${BASE.url}update_evidences_files?_${Math.random()}`
+        "url": `${BASE.url}update_evidences_files?_` +
+                `${parseInt(secureRandom(5).join(""), 10)}`
       });
     }
     catch (err) {
@@ -461,11 +457,10 @@ integrates.factory("projectFtry", ($q, $translate) => ({
       Rollbar.error("Error: An error ocurred getting finding by ID", err);
     }
   },
-
   "updateEvidenceText" (data) {
     const oopsAc = "An error occurred updating evidence description";
     return $xhr.post($q, `${BASE.url}update_evidence_text`, {
-      "_": Math.random(),
+      "_": parseInt(secureRandom(5).join(""), 10),
       data
     }, oopsAc);
   },
@@ -480,7 +475,7 @@ integrates.factory("projectFtry", ($q, $translate) => ({
   "updateTreatment" (data) {
     const oopsAc = "An error occurred updating treatment";
     return $xhr.post($q, `${BASE.url}update_treatment`, {
-      "_": Math.random(),
+      "_": parseInt(secureRandom(5).join(""), 10),
       data
     }, oopsAc);
   }

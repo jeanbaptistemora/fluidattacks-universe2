@@ -15,6 +15,7 @@
     "jquery-match-height": "0.7.2",
     "magnific-popup": "1.1.0",
     "ng-rollbar": "2.3.8",
+    "secure-random": "1.1.1",
     "tabletop": "1.5.2"
   }
 }

@@ -159,5 +159,6 @@ var removeHour = {}; \
 var labelState = {}; \
 var alertEvents = {}; \
 var calCardinality = {}; \
+var secureRandom = {}; \
 var calCCssv2 = {}; ";
 module.exports = { functions: variables }

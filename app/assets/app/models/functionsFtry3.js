@@ -1,8 +1,8 @@
-/* eslint no-magic-numbers: ["error", { "ignore": [-1,0,1]}]*/
+/* eslint no-magic-numbers: ["error", { "ignore": [-1,0,1,3]}]*/
 /* global integrates, BASE, $xhr, window.location:true, response:true,
 Organization, mixPanelDashboard, mixPanelDashboard, mixPanelDashboard,$msg,
 $, Rollbar, eventsData, userEmail, userName, fieldsToTranslate, keysToTranslate,
-findingData, userRole */
+findingData, userRole, secureRandom */
 /* eslint no-shadow: ["error", { "allow": ["$scope","$stateParams",
                                           "response"] }]*/
 /**
@@ -98,10 +98,11 @@ integrates.factory(
                   location.reload();
                   const data = {};
                   const ID_GENERATOR_FACTOR_1 = 1000;
-                  const ID_GENERATOR_FACTOR_2 = 10000;
+                  const ID_GENERATOR_FACTOR_2 = 100;
                   const INTEGER_BASE = 9;
                   data.id = parseInt(Math.round(new Date() /
-                            ID_GENERATOR_FACTOR_1).toString() + (Math.random() *
+                            ID_GENERATOR_FACTOR_1).toString() +
+                            (parseInt(secureRandom(3).join(""), 10) *
                             ID_GENERATOR_FACTOR_2).toString(INTEGER_BASE), 10);
                   data.content = $scope.remediatedData.justification;
                   data.parent = 0;

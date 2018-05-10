@@ -1,7 +1,7 @@
-/* eslint no-magic-numbers: ["error", { "ignore": [-1,0,1] }]*/
+/* eslint no-magic-numbers: ["error", { "ignore": [-1,0,1, 3] }]*/
 /* global integrates, BASE, $xhr, window.location:true, response:true,
 Organization, mixPanelDashboard, mixPanelDashboard, mixPanelDashboard,$msg,
-$, Rollbar, eventsData, userEmail, userName */
+$, Rollbar, eventsData, userEmail, userName, secureRandom */
 /* eslint no-shadow: ["error", { "allow": ["$scope","$stateParams",
                                           "response"] }]*/
 /**
@@ -45,7 +45,7 @@ integrates.factory("tabsFtry", ($q, $translate, projectFtry) => ({
           };
           const TIMEOUT = 500;
           const divConst = 1000;
-          const multiConst = 10000;
+          const multiConst = 100;
           const radix = 9;
           $("#comments-container").comments({
             "defaultNavigationSortKey": "oldest",
@@ -66,7 +66,8 @@ integrates.factory("tabsFtry", ($q, $translate, projectFtry) => ({
             },
             "postComment" (data, success, error) {
               data.id = parseInt(Math.round(new Date() / divConst).toString() +
-                        (Math.random() * multiConst).toString(radix), 10);
+                        (parseInt(secureRandom(3).join(""), 10) * multiConst).
+                          toString(radix), 10);
               data.findingName = commentInfo.finding.hallazgo;
               data.project = commentInfo.finding.proyecto_fluid;
               data.findingUrl = window.location.href;
