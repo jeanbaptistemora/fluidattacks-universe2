@@ -47,7 +47,7 @@ integrates.factory(
         "project": $scope.finding.proyecto_fluid,
         "userMail": userEmail
       };
-      const modalInstance = $uibModal.open({
+      $uibModal.open({
 
         "animation": true,
         "backdrop": "static",
@@ -111,11 +111,7 @@ integrates.factory(
                   data.project = $scope.remediatedData.project;
                   data.findingUrl = $scope.remediatedData.findingUrl;
                   data.remediated = true;
-                  const comment =
-                         projectFtry.addComment(
-                           $scope.remediatedData.findingId,
-                           data
-                         );
+                  projectFtry.addComment($scope.remediatedData.findingId, data);
                 }
                 else if (response.error) {
                   Rollbar.error("Error: An error occurred when " +
@@ -348,7 +344,7 @@ integrates.factory(
           return false;
         }
       }
-      const modalInstance = $uibModal.open({
+      $uibModal.open({
         "animation": true,
         "backdrop": "static",
         "controller" ($scope, $uibModalInstance, updateData) {

@@ -139,6 +139,9 @@ rules:
   no-undef: error
   no-undef-init: error
   no-undefined: error
+  no-unused-vars:
+    - error
+    - vars: local
   no-use-before-define: error
   callback-return: error
   global-require: error

@@ -1,4 +1,9 @@
 /* eslint-disable max-len */
+/*
+ * Este archivo no permite export o globals
+ * por lo que se desactiva la regla no-unused-vars
+ */
+/* eslint-disable no-unused-vars */
 const fieldsToTranslate = [
   "actor",
   "autenticacion",

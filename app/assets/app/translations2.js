@@ -1,3 +1,8 @@
+/*
+ * Este archivo no permite export o globals
+ * por lo que se desactiva la regla no-unused-vars
+ */
+/* eslint-disable no-unused-vars */
 const translations2 = {
   "search_findings":
  {

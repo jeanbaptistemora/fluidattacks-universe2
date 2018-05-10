@@ -31,7 +31,7 @@ integrates.factory("eventualityFactory", ($q) => ({
           category,
           project
         },
-        "error" (xhr, status) {
+        "error" (xhr) {
           $(".loader").hide();
           if (xhr.status === INTERNAL_SERVER_ERROR) {
             Rollbar.error("Error: An error ocurred loading data");
@@ -77,7 +77,7 @@ integrates.factory("eventualityFactory", ($q) => ({
     try {
       $.ajax({
         "data": {vuln},
-        "error" (xhr, status) {
+        "error" (xhr) {
           $(".loader").hide();
           if (xhr.status === INTERNAL_SERVER_ERROR) {
             Rollbar.error("Error: An error ocurred loading data");

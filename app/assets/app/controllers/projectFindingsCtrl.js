@@ -123,7 +123,6 @@ integrates.controller(
       }
       const projectName = $stateParams.project;
       const tableFilter = $scope.filter;
-      const finding = $scope.findingId;
       if (typeof projectName === "undefined" ||
                 projectName === "") {
         const attentionAt = $translate.instant("proj_alerts.attentTitle");
@@ -242,7 +241,7 @@ integrates.controller(
         "data": datatest,
         "exportDataType": "all",
         "locale": vlang,
-        "onClickRow" (row, elem) {
+        "onClickRow" (row) {
           $state.go("FindingDescription", {
             "id": row.id,
             "project": row.proyecto_fluid.toLowerCase()
@@ -295,7 +294,7 @@ integrates.controller(
       }
     };
     $scope.openModalAvance = function openModalAvance () {
-      const modalInstance = $uibModal.open({
+      $uibModal.open({
         "animation": true,
         "controller" ($scope, $uibModalInstance) {
           const auxiliar = $("#vulnerabilities").bootstrapTable("getData");

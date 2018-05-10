@@ -58,17 +58,9 @@ integrates.controller(
       $("html, body").animate({"scrollTop": 0}, "fast");
     };
     $scope.search = function search () {
-      let vlang = "en-US";
-      if (localStorage.lang === "en") {
-        vlang = "en-US";
-      }
-      else {
-        vlang = "es-CO";
-      }
       const projectName = $scope.project;
       const filterAux = $scope.filter;
       const filter = filterAux;
-      const finding = $scope.findingId;
       if (typeof projectName === "undefined" ||
                 projectName === "") {
         const attentionAt = $translate.instant("proj_alerts.attentTitle");

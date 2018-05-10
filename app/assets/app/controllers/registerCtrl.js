@@ -21,7 +21,7 @@ integrates.controller("registerCtrl", function dashboardCtrl (
   $translate
 ) {
   $scope.logout = function logout () {
-    const modalInstance = $uibModal.open({
+    $uibModal.open({
       "animation": true,
       "controller" ($scope, $uibModalInstance) {
         $scope.closeModalLogout = function closeModalLogout () {

@@ -12,7 +12,7 @@ $, Rollbar, eventsData, secureRandom */
  * @return {undefined}
  */
 /** @export */
-integrates.factory("projectFtry", ($q, $translate) => ({
+integrates.factory("projectFtry", ($q) => ({
 
   /**
    * Invoca el servicio para agregar nuevos comentarios en un hallazgo

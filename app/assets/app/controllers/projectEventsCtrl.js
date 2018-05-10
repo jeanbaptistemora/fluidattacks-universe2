@@ -103,9 +103,6 @@ integrates.controller(
         vlang = "es-CO";
       }
       const projectName = $scope.project;
-      const filterAux = $scope.filter;
-      const filter = filterAux;
-      const finding = $scope.findingId;
       if (typeof projectName === "undefined" ||
                 projectName === "") {
         const attentionAt = $translate.instant("proj_alerts.attentTitle");
@@ -179,7 +176,7 @@ integrates.controller(
         data,
         "locale": vlang,
         "onClickRow" (row) {
-          const modalInstance = $uibModal.open({
+          $uibModal.open({
             "animation": true,
             "backdrop": "static",
             "controller" ($scope, $uibModalInstance, evt) {
@@ -211,12 +208,10 @@ integrates.controller(
               };
               $scope.okModalEditar = function okModalEditar () {
                 const neg = "negativo";
-                let submit = false;
                 try {
                   if (typeof $scope.evt.afectacion === "undefined") {
                     throw neg;
                   }
-                  submit = true;
                 }
                 catch (err) {
                   Rollbar.error("Error: Affectation can not " +
@@ -283,7 +278,7 @@ integrates.controller(
       }
     };
     $scope.openModalEventAvance = function openModalEventAvance () {
-      const modalInstance = $uibModal.open({
+      $uibModal.open({
         "animation": true,
         "controller" ($scope, $uibModalInstance) {
           $scope.rowsEvent = $("#tblEventualities").bootstrapTable("getData");

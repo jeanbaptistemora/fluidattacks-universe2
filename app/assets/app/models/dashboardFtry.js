@@ -1,2 +1,2 @@
 /* global integrates */
-integrates.factory("dashboardFtry", ($q) => ({}));
+integrates.factory("dashboardFtry", () => ({}));

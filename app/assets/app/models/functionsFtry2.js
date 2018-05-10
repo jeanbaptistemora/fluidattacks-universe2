@@ -111,7 +111,6 @@ integrates.factory(
       const evidence5 = 4;
       const evidence6 = 5;
       const evidence7 = 6;
-      const evidencesList = [];
       if (refList.indexOf(0) === -1) {
         $scope.tabEvidences.push({
           "desc": "",
@@ -215,7 +214,6 @@ integrates.factory(
       const calCSSv2 = projectFtry.calCCssv2($scope.severityInfo);
       const BaseScore = calCSSv2[0];
       const Temporal = calCSSv2[1];
-      const CVSSGeneral = Temporal;
       return [
         BaseScore.toFixed(1),
         Temporal.toFixed(1)
@@ -243,7 +241,6 @@ integrates.factory(
       const calCSSv2 = projectFtry.calCCssv2($scope.finding);
       const BaseScore = calCSSv2[0];
       const Temporal = calCSSv2[1];
-      const CVSSGeneral = Temporal;
       $scope.finding.cssv2base = BaseScore.toFixed(1);
       $scope.finding.criticidad = Temporal.toFixed(1);
       if ($scope.finding.nivel === "Detallado") {

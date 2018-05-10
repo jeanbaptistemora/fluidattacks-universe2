@@ -71,10 +71,9 @@ const publicSpreadsheetUrl = "https://docs.google.com/spreadsheets/d/1L37WnF" +
 /**
  * @function showInfo
  * @param {Object} data Data entered by an analist
- * @param {Object} tabletop Tabletop instance
  * @return {undefined} Info about findings
  */
-const showInfo = function showInfo (data, tabletop) {
+const showInfo = function showInfo (data) {
   const obj = $.parseJSON(JSON.stringify(data));
   $("#field32201810").change(() => {
     const title = $("#field32201810").val();

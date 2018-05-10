@@ -3,7 +3,7 @@
 /* global
 integrates, $, $msg, BASE, mixpanel, userMail, $xhr, Organization, userEmail,
 mixPanelDashboard, userName, projectData:true, eventsData:true, Rollbar,
-findingData:true, fieldsToTranslate, keysToTranslate
+findingData:true, fieldsToTranslate, keysToTranslate, modalInstance:true
 */
 /**
  * @file dashboardController.js
@@ -33,7 +33,7 @@ integrates.controller("dashboardCtrl", function dashboardCtrl (
     $timeout(() => {
       $("#myProjectsTbl").bootstrapTable({
         "locale": vlang,
-        "onClickRow" (row, elem) {
+        "onClickRow" (row) {
           $state.go("ProjectIndicators", {"project": row.project});
         },
         "url": `${BASE.url}get_myprojects`
@@ -49,7 +49,7 @@ integrates.controller("dashboardCtrl", function dashboardCtrl (
    * @return {undefined}
    */
   $scope.logout = function logout () {
-    const modalInstance = $uibModal.open({
+    $uibModal.open({
       "animation": true,
       "controller" ($scope, $uibModalInstance) {
         $scope.closeModalLogout = function closeModalLogout () {
@@ -106,8 +106,8 @@ integrates.controller("dashboardCtrl", function dashboardCtrl (
       $("#myEventsTbl").bootstrapTable({
         "data": response.data,
         "locale": vlang,
-        "onClickRow" (row, elem) {
-          const modalInstance = $uibModal.open({
+        "onClickRow" (row) {
+          $uibModal.open({
             "animation": true,
             "controller" ($scope, data, $uibModalInstance) {
               $scope.evnt = data;

@@ -41,7 +41,7 @@ integrates.factory(
     "deleteFinding" ($scope) {
       // Obtener datos
       const descData = {"id": $scope.finding.id};
-      const modalInstance = $uibModal.open({
+      $uibModal.open({
         "animation": true,
         "backdrop": "static",
         "controller" (
@@ -224,7 +224,7 @@ integrates.factory(
         "project": $scope.finding.proyecto_fluid,
         "userMail": userEmail
       };
-      const modalInstance = $uibModal.open({
+      $uibModal.open({
         "animation": true,
         "backdrop": "static",
         "controller" ($scope, $uibModalInstance, mailData) {
@@ -307,7 +307,7 @@ integrates.factory(
       functionsFtry2.findingCalculateCSSv2($scope);
       cssv2Data.criticidad = $scope.finding.criticidad;
       // Instanciar modal de confirmacion
-      const modalInstance = $uibModal.open({
+      $uibModal.open({
         "animation": true,
         "backdrop": "static",
         "controller" ($scope, $uibModalInstance, updateData) {
@@ -441,7 +441,7 @@ integrates.factory(
           "responsableTratamiento": $scope.finding.responsableTratamiento,
           "tratamiento": $scope.finding.tratamiento
         };
-        const modalInstance = $uibModal.open({
+        $uibModal.open({
           "animation": true,
           "backdrop": "static",
           "controller" ($scope, $uibModalInstance, updateData) {

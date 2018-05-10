@@ -174,7 +174,7 @@ integrates.controller(
       const currData = $scope.data;
       let totalSeg = 0;
       let totalHig = 0;
-      currData.forEach((val, cont) => {
+      currData.forEach((val) => {
         const tipo = val.tipo_hallazgo;
         if (val.estado !== "Cerrado" && val.estado !== "Closed") {
           if (tipo === "Seguridad") {
@@ -215,7 +215,7 @@ integrates.controller(
       const currData = $scope.data;
       let exploit = 0;
       let nonexploit = 0;
-      currData.forEach((val, cont) => {
+      currData.forEach((val) => {
         const explotable = val.explotabilidad;
         if (val.estado !== "Cerrado" && val.estado !== "Closed") {
           if (explotable === "1.000 | Alta: No se requiere exploit o se puede" +
@@ -268,7 +268,7 @@ integrates.controller(
       let open = 0;
       let partial = 0;
       let close = 0;
-      currData.forEach((val, cont) => {
+      currData.forEach((val) => {
         const findingStatus = val.estado;
         total += 1;
         if (findingStatus === "Abierto" || findingStatus === "Open") {
@@ -315,16 +315,8 @@ integrates.controller(
       });
     };
     $scope.search = function search () {
-      let vlang = "en-US";
-      if (localStorage.lang === "en") {
-        vlang = "en-US";
-      }
-      else {
-        vlang = "es-CO";
-      }
       const projectName = $scope.project;
       const tableFilter = $scope.filter;
-      const finding = $scope.findingId;
       if (typeof projectName === "undefined" ||
                 projectName === "") {
         const attentionAt = $translate.instant("proj_alerts.attentTitle");

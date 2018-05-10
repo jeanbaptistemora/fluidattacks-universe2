@@ -9,19 +9,12 @@ integrates, $
  * @param {Object} $stateParams
  * @param {Object} $state
  * @param {Object} $timeout
- * @param {Object} $translate
- * @param {Object} $projectFtry
  * @return {undefined}
  */
 /** @export */
 integrates.controller(
   "formCtrl",
-  function formCtrl (
-    $scope, $location,
-    $uibModal, $timeout,
-    $state, $stateParams,
-    $translate, projectFtry
-  ) {
+  function formCtrl ($scope, $location) {
     // Autocompletar formularios de formstack
     const urlForm = $location.search();
     const urlLength = Object.keys(urlForm).length;

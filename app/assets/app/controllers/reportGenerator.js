@@ -25,9 +25,7 @@ integrates.controller(
   "reportGenerator",
   function reportGenerator (
     $scope, $location,
-    $uibModal, $timeout,
-    $state, $stateParams,
-    $translate, projectFtry
+    $uibModal, $timeout
   ) {
     $scope.reportModal = function reportModal () {
       // Tracking mixpanel
@@ -40,9 +38,9 @@ integrates.controller(
         orgName,
         projectName
       );
-      const modalInstance = $uibModal.open({
+      $uibModal.open({
         "animation": true,
-        "controller" ($scope, $uibModalInstance, $stateParams, projectFtry) {
+        "controller" ($scope, $uibModalInstance, $stateParams) {
           const projName = $stateParams.project;
           const currentLang = localStorage.lang;
           $scope.findingMatrizTechnicalXLSReport = function
@@ -67,7 +65,7 @@ integrates.controller(
                 downLink.click();
               }
               else {
-                const win = window.open(url, "__blank");
+                window.open(url, "__blank");
               }
             }
           };
@@ -94,7 +92,7 @@ integrates.controller(
                 downLink.click();
               }
               else {
-                const win = window.open(url, "__blank");
+                window.open(url, "__blank");
               }
             }
           };
@@ -140,7 +138,7 @@ integrates.controller(
                 downLink.click();
               }
               else {
-                const win = window.open(url, "__blank");
+                window.open(url, "__blank");
               }
             }
           };
@@ -167,7 +165,7 @@ integrates.controller(
                 downLink.click();
               }
               else {
-                const win = window.open(url, "__blank");
+                window.open(url, "__blank");
               }
             }
           };

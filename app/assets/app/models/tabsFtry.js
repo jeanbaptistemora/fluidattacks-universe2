@@ -33,16 +33,6 @@ integrates.factory("tabsFtry", ($q, $translate, projectFtry) => ({
             user.email = response.data[cont].email;
             usersArray.push(user);
           }
-          const saveComment = function saveComment (data) {
-            // Convert pings to human readable format
-            $(data.pings).each((index, id) => {
-              const userInfo =
-                        usersArray.filter((user) => userInfo.id === id)[0];
-              data.content =
-                        data.content.replace(`@${id}`, `@${userInfo.fullname}`);
-            });
-            return data;
-          };
           const TIMEOUT = 500;
           const divConst = 1000;
           const multiConst = 100;
@@ -54,17 +44,17 @@ integrates.factory("tabsFtry", ($q, $translate, projectFtry) => ({
             "enableHashtags": true,
             "enablePinging": false,
             "enableUpvoting": false,
-            "getComments" (success, error) {
+            "getComments" (success) {
               setTimeout(() => {
                 success(response.data);
               }, TIMEOUT);
             },
-            "getUsers" (success, error) {
+            "getUsers" (success) {
               setTimeout(() => {
                 success(usersArray);
               }, TIMEOUT);
             },
-            "postComment" (data, success, error) {
+            "postComment" (data, success) {
               data.id = parseInt(Math.round(new Date() / divConst).toString() +
                         (parseInt(secureRandom(3).join(""), 10) * multiConst).
                           toString(radix), 10);
