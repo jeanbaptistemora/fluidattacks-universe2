@@ -132,6 +132,7 @@ deploy:
   stage: deployment
   environment: production
   script:
+    - docker login $CI_REGISTRY -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD
     # Download cache from previous builds
     - >
       if curl --fail -Lo artifacts.zip
@@ -190,6 +191,7 @@ deploy:
       bash -c "./deploy.sh && ./amz-redirect.sh"
     # Erase output folder to reduce artifact size since it is untracked
     - rm -rf builder/master/output
+    - docker logout "$CI_REGISTRY"
   retry: 2
   artifacts:
     untracked: true
