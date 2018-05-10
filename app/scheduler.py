@@ -1,6 +1,7 @@
 """ Scheduler de ejecucion de tareas asincronicas de FLUIDIntegrates """
 
 # pylint: disable=E0402
+import rollbar
 from .dao import integrates_dao
 from .api.formstack import FormstackAPI
 from .mailer import send_mail_new_vulnerabilities, send_mail_new_remediated, \
@@ -13,47 +14,50 @@ def get_new_vulnerabilities():
     projects = integrates_dao.get_registered_projects()
     api = FormstackAPI()
     for project in projects:
-        old_findings = integrates_dao.get_vulns_by_project_dynamo(project[0].lower())
-        finding_requests = api.get_findings(project)["submissions"]
-        if len(old_findings) != len(finding_requests):
-            delta = abs(len(old_findings) - len(finding_requests))
-            for finding in finding_requests[-delta:]:
-                integrates_dao.add_or_update_vulns_dynamo(project[0].lower(),int(finding['id']), 0)
+        try:
             old_findings = integrates_dao.get_vulns_by_project_dynamo(project[0].lower())
-        context = {'findings': list(), 'findings_working_on': list()}
-        delta_total = 0
-        for finding in finding_requests:
-            row = integrates_dao.get_vulns_by_id_dynamo(project[0].lower(), int(finding['id']))
-            act_finding = views.finding_vulnerabilities(str(finding['id']))
-            if act_finding["edad"] != "-" and act_finding["estado"] != "Cerrado" and "tratamiento" in act_finding:
-                if  act_finding["tratamiento"] == "Nuevo":
-                    context['findings_working_on'].append({'hallazgo_pendiente': (act_finding['hallazgo'] + ' -' + act_finding["edad"] +' day(s)-'), \
-                    'url_hallazgo': 'https://fluidattacks.com/integrates/dashboard#!/project/' + project[0].lower() + '/' + str(finding['id'] + \
-                        '/description')})
-            if row != []:
-                delta = int(act_finding['cardinalidad'])-int(row[0]['vuln_hoy'])
-                if int(act_finding['cardinalidad']) > int(row[0]['vuln_hoy']):
-                    finding_text = act_finding['hallazgo'] + ' (+' + str(delta) +')'
-                    context['findings'].append({'nombre_hallazgo': finding_text , \
-                    'url_vuln': 'https://fluidattacks.com/integrates/dashboard#!/project/' + project[0].lower() + '/' + str(finding['id'] + \
-                        '/description')})
-                    delta_total = delta_total + abs(delta)
-                    integrates_dao.add_or_update_vulns_dynamo(str(project[0].lower()),int(finding['id']), int(act_finding['cardinalidad']))
-                elif int(act_finding['cardinalidad']) < int(row[0]['vuln_hoy']):
-                    finding_text = act_finding['hallazgo'] + ' (' + str(delta) +')'
-                    context['findings'].append({'nombre_hallazgo': finding_text , \
-                    'url_vuln': 'https://fluidattacks.com/integrates/dashboard#!/project/' + project[0].lower() + '/' + str(finding['id'] + \
-                        '/description')})
-                    delta_total = delta_total + abs(delta)
-                    integrates_dao.add_or_update_vulns_dynamo(str(project[0].lower()),int(finding['id']), int(act_finding['cardinalidad']))
-        if delta_total != 0:
-            context['proyecto'] = project[0].upper()
-            context['url_proyecto'] = 'https://fluidattacks.com/integrates/dashboard#!/project/' + project[0].lower() + '/indicators'
-            recipients = integrates_dao.get_project_users(project)
-            to = [x[0] for x in recipients if x[1] == 1]
-            to.append('continuous@fluidattacks.com')
-            to.append('projects@fluidattacks.com')
-            send_mail_new_vulnerabilities(to, context)
+            finding_requests = api.get_findings(project)["submissions"]
+            if len(old_findings) != len(finding_requests):
+                delta = abs(len(old_findings) - len(finding_requests))
+                for finding in finding_requests[-delta:]:
+                    integrates_dao.add_or_update_vulns_dynamo(project[0].lower(),int(finding['id']), 0)
+                old_findings = integrates_dao.get_vulns_by_project_dynamo(project[0].lower())
+            context = {'findings': list(), 'findings_working_on': list()}
+            delta_total = 0
+            for finding in finding_requests:
+                row = integrates_dao.get_vulns_by_id_dynamo(project[0].lower(), int(finding['id']))
+                act_finding = views.finding_vulnerabilities(str(finding['id']))
+                if act_finding["edad"] != "-" and act_finding["estado"] != "Cerrado" and "tratamiento" in act_finding:
+                    if  act_finding["tratamiento"] == "Nuevo":
+                        context['findings_working_on'].append({'hallazgo_pendiente': (act_finding['hallazgo'] + ' -' + act_finding["edad"] +' day(s)-'), \
+                        'url_hallazgo': 'https://fluidattacks.com/integrates/dashboard#!/project/' + project[0].lower() + '/' + str(finding['id'] + \
+                            '/description')})
+                if row != []:
+                    delta = int(act_finding['cardinalidad'])-int(row[0]['vuln_hoy'])
+                    if int(act_finding['cardinalidad']) > int(row[0]['vuln_hoy']):
+                        finding_text = act_finding['hallazgo'] + ' (+' + str(delta) +')'
+                        context['findings'].append({'nombre_hallazgo': finding_text , \
+                        'url_vuln': 'https://fluidattacks.com/integrates/dashboard#!/project/' + project[0].lower() + '/' + str(finding['id'] + \
+                            '/description')})
+                        delta_total = delta_total + abs(delta)
+                        integrates_dao.add_or_update_vulns_dynamo(str(project[0].lower()),int(finding['id']), int(act_finding['cardinalidad']))
+                    elif int(act_finding['cardinalidad']) < int(row[0]['vuln_hoy']):
+                        finding_text = act_finding['hallazgo'] + ' (' + str(delta) +')'
+                        context['findings'].append({'nombre_hallazgo': finding_text , \
+                        'url_vuln': 'https://fluidattacks.com/integrates/dashboard#!/project/' + project[0].lower() + '/' + str(finding['id'] + \
+                            '/description')})
+                        delta_total = delta_total + abs(delta)
+                        integrates_dao.add_or_update_vulns_dynamo(str(project[0].lower()),int(finding['id']), int(act_finding['cardinalidad']))
+            if delta_total != 0:
+                context['proyecto'] = project[0].upper()
+                context['url_proyecto'] = 'https://fluidattacks.com/integrates/dashboard#!/project/' + project[0].lower() + '/indicators'
+                recipients = integrates_dao.get_project_users(project)
+                to = [x[0] for x in recipients if x[1] == 1]
+                to.append('continuous@fluidattacks.com')
+                to.append('projects@fluidattacks.com')
+                send_mail_new_vulnerabilities(to, context)
+        except (TypeError, KeyError):
+            rollbar.report_message('Error: An error ocurred sending age notification email', 'error')
 
 def get_remediated_findings():
     """ Envio de correo resumen con los hallazgos pendientes de verificar """
