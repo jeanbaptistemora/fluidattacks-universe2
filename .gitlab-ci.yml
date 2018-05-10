@@ -144,6 +144,7 @@ Asserts-Review:
         - echo "$JFROG_PASS" | docker login fluid-docker.jfrog.io -u "$JFROG_USER" --password-stdin
         - docker pull fluid-docker.jfrog.io/fluid:integrates
         - docker run --rm -e BRANCH="$CI_COMMIT_REF_SLUG" -e REVIEW=true -e ORG=fluid -e APP=integrates -e USER="$JFROG_USER" -e PASS="$JFROG_PASS" -e FA_STRICT="true" --volume /tmp${CI_PROJECT_DIR}/${CI_COMMIT_REF_NAME}:/code fluid-docker.jfrog.io/fluid:integrates
+        - rm -rf /tmp${CI_PROJECT_DIR}
         - docker logout fluid-docker.jfrog.io
     retry: 2
     except:
@@ -219,6 +220,7 @@ asserts-prod:
         - echo "$JFROG_PASS" | docker login fluid-docker.jfrog.io -u "$JFROG_USER" --password-stdin
         - docker pull fluid-docker.jfrog.io/fluid:integrates
         - docker run --rm -e ORG=fluid -e APP=integrates -e USER="$JFROG_USER" -e PASS="$JFROG_PASS" -e FA_STRICT="true" --volume /tmp${CI_PROJECT_DIR}/${CI_COMMIT_REF_NAME}:/code fluid-docker.jfrog.io/fluid:integrates
+        - rm -rf /tmp${CI_PROJECT_DIR}
         - docker logout fluid-docker.jfrog.io
     retry: 2
     only:
