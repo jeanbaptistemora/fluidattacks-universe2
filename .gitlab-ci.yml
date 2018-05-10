@@ -120,7 +120,8 @@ deploy:
     # Create container that deploys website
     - mv output builder/master
     - docker build -t "$CI_REGISTRY/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME:$CI_COMMIT_REF_SLUG" builder/master/
-    - docker run -e AWS_ACCESS_KEY_ID="$FW_ACCESS_KEY_ID" -e AWS_SECRET_ACCESS_KEY="$FW_AWS_SECRET_ACCESS_KEY" -e S3_BUCKET_NAME="$FW_S3_BUCKET_NAME" "$CI_REGISTRY/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME:$CI_COMMIT_REF_SLUG" bash -c "./deploy.sh && ./amz-redirect.sh"
+    - docker push "$CI_REGISTRY/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME:$CI_COMMIT_REF_SLUG"
+    - docker run -e AWS_ACCESS_KEY_ID="$FW_AWS_ACCESS_KEY_ID" -e AWS_SECRET_ACCESS_KEY="$FW_AWS_SECRET_ACCESS_KEY" -e S3_BUCKET_NAME="$FW_S3_BUCKET_NAME" "$CI_REGISTRY/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME:$CI_COMMIT_REF_SLUG" bash -c "./deploy.sh && ./amz-redirect.sh"
     # Erase output folder to reduce artifact size since it is untracked
     - rm -rf builder/master/output
   retry: 2
