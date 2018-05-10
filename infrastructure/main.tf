@@ -91,3 +91,48 @@ output "variable_web" {
 output "variable_integrates" {
   value = "bucket-integrates=\"${module.bucket.fiName}\""
 }
+
+
+
+
+# CREDS
+output "fis3integrationID" {
+  sensitive = true
+value = "${module.iam.fis3integrationID}"
+}
+
+output "cloudwatchID" {
+  sensitive = true
+value = "${module.iam.cloudwatchID}"
+}
+
+output "fluidintegratesdynamoID" {
+  sensitive = true
+value = "${module.iam.fluidintegratesdynamoID}"
+}
+
+output "fws3userID" {
+  sensitive = true
+value = "${module.iam.fws3userID}"
+}
+
+#
+output "fis3integrationSECRET" {
+  sensitive = true
+value = "${module.iam.fis3integrationSECRET}"
+}
+
+output "cloudwatchSECRET" {
+  sensitive = true
+value = "${module.iam.cloudwatchSECRET}"
+}
+
+output "fluidintegratesdynamoSECRET" {
+  sensitive = true
+value = "${module.iam.fluidintegratesdynamoSECRET}"
+}
+
+output "fws3userSECRET" {
+  sensitive = true
+value = "${module.iam.fws3userSECRET}"
+}
