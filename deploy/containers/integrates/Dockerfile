@@ -57,7 +57,9 @@ RUN rm -r /var/www/html \
     && a2enmod ssl \
     && cd /usr/src/app/app/assets && npm install && cd \
     && echo "$FI_SSL_CERT" | base64 -di > "/etc/ssl/certs/fluidla.crt" \
-    && echo "$FI_SSL_KEY" | base64 -di > "/etc/ssl/private/fluidla.key"
+    && echo "$FI_SSL_KEY" | base64 -di > "/etc/ssl/private/fluidla.key" \
+    && echo "ServerTokens Prod" >> /etc/apache2/apache2.conf \
+    && echo "ServerSignature Off" >> /etc/apache2/apache2.conf
 
 # Make port 80 and 443 available to the world outside this container
 EXPOSE 443 24224
