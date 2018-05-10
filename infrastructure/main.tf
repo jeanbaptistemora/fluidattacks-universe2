@@ -19,40 +19,55 @@ module "iam" {
   webBucket = "${var.webBucket}"
 }
 
-#Create from scratch
-module "createNetwork" {
-  source = "./network"
-  sreg = "${var.sreg}"
-  cdir = "${var.cdir}"
-  ciIP = "${var.ciIP}"
-}
-
-# Create from scratch
-module "ec2instance" {
-  source = "./ec2"
-  amiID = "${var.amiID}"
-  iType = "${var.iType}"
-  sreg = "${var.sreg}"
-  sgId = "${module.createNetwork.sgId}"
-  snetId = "${module.createNetwork.snetId}"
-  kName = "${var.kName}"
-
-}
-
-# new with cron and peer
-# module "ec2-cron" {
+# #Create from scratch
+# module "createNetwork" {
+#   source = "./network"
+#   sreg = "${var.sreg}"
+#   cdir = "${var.cdir}"
+#   ciIP = "${var.ciIP}"
+# }
+#
+# # Create from scratch
+# module "ec2instance" {
 #   source = "./ec2"
 #   amiID = "${var.amiID}"
 #   iType = "${var.iType}"
 #   sreg = "${var.sreg}"
-#   sgId = "${var.sgroupId}"
-#   snetId = "${var.snetId}"
+#   sgId = "${module.createNetwork.sgId}"
+#   snetId = "${module.createNetwork.snetId}"
 #   kName = "${var.kName}"
+#
 # }
+# output "variable_ip" {
+#   value = "server=\"${module.ec2instance.ip}\""
+# }
+# output "instance_ip" {
+#   value = "${module.ec2instance.ip}"
+# }
+
+
+# new with cron and peer
+module "ec2-cron" {
+  source = "./ec2"
+  amiID = "${var.amiID}"
+  iType = "${var.iType}"
+  sreg = "${var.sreg}"
+  sgId = "${var.sgroupId}"
+  snetId = "${var.snetId}"
+  kName = "${var.kName}"
+}
+output "variable_ip" {
+  value = "server=\"${module.ec2-cron.ip}\""
+}
+output "instance_ip" {
+  value = "${module.ec2-cron.ip}"
+}
+
 
 # # Create with existing DB
 module database {
-  source = "./database-outside"
+  # source = "./database-outside"
+  source = "./database"
   dbreg="${var.dbreg}"
   vpcId="${var.db_vpcId}"
   storage_type="${var.storage_type}"
@@ -69,18 +84,10 @@ output "variable_db" {
   value = "db_instance=\"${module.database.endpoint}\""
 }
 
-output "variable_ip" {
-  value = "server=\"${module.ec2instance.ip}\""
-}
-
 output "variable_web" {
   value = "bucket=\"${module.bucket.webName}\""
 }
 
 output "variable_integrates" {
   value = "bucket-integrates=\"${module.bucket.fiName}\""
-}
-
-output "instance_ip" {
-  value = "${module.ec2instance.ip}"
 }
