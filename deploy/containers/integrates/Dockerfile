@@ -54,6 +54,7 @@ RUN rm -r /var/www/html \
     && python /usr/src/app/deploy/containers/common/vars/render.py \
     && chown -R www-data:www-data $FI_DOCUMENTROOT \
     && a2dismod python \
+    && a2dismod -f deflate \
     && a2enmod ssl \
     && cd /usr/src/app/app/assets && npm install && cd \
     && echo "$FI_SSL_CERT" | base64 -di > "/etc/ssl/certs/fluidla.crt" \

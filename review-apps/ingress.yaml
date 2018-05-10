@@ -13,6 +13,7 @@ metadata:
       more_set_headers "Pragma: no-cache";
       more_set_headers "Expires: 0";
       more_set_headers "Content-Security-Policy: script-src 'self' 'unsafe-inline' *.mxpnl.com *.cloudflare.com *.intercomcdn.com *.intercom.io *.pingdom.net;";
+      gzip "off";
 spec:
   tls:
   - hosts:
