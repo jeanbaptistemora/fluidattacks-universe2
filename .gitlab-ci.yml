@@ -164,7 +164,7 @@ install_alg:
         - cp infrastructure/vars/FLUID_Serves.pem infrastructure/
         - cd infrastructure
         - terraform init
-        - terraform refresh -var-file="vars/aws.tfvars"
+        - terraform refresh -var-file="vars/aws.tfvars" > /dev/null
         - terraform output instance_ip > ip.txt
     script:
         - apk --update add openssh-client
@@ -193,7 +193,7 @@ install_exams:
         - cp infrastructure/vars/FLUID_Serves.pem infrastructure/
         - cd infrastructure
         - terraform init
-        - terraform refresh -var-file="vars/aws.tfvars"
+        - terraform refresh -var-file="vars/aws.tfvars" > /dev/null
         - terraform output instance_ip > ip.txt
     script:
         - apk --update add openssh-client
@@ -222,7 +222,7 @@ install_integrates:
         - cp infrastructure/vars/FLUID_Serves.pem infrastructure/
         - cd infrastructure
         - terraform init
-        - terraform refresh -var-file="vars/aws.tfvars"
+        - terraform refresh -var-file="vars/aws.tfvars" > /dev/null
         - terraform output instance_ip > ip.txt
         - sh env.sh
     script:
@@ -253,7 +253,7 @@ install_vpn:
         - cp infrastructure/vars/FLUID_Serves.pem infrastructure/
         - cd infrastructure
         - terraform init
-        - terraform refresh -var-file="vars/aws.tfvars"
+        - terraform refresh -var-file="vars/aws.tfvars" > /dev/null
         - terraform output instance_ip > ip.txt
     script:
         - apk --update add openssh-client
@@ -289,7 +289,7 @@ change_dns:
         - cp infrastructure/vars/aws.tfvars infrastructure/dns
         - cd infrastructure
         - terraform init
-        - terraform refresh -var-file="vars/aws.tfvars"
+        - terraform refresh -var-file="vars/aws.tfvars" > /dev/null
         - terraform output variable_ip >> dns/terraform.tfvars
         - terraform output variable_db >> dns/terraform.tfvars
         - terraform output variable_web >> dns/terraform.tfvars
