@@ -5,3 +5,11 @@ resource "aws_vpc" "fsexams_vpc" {
     Name = "FLUIDExamsVPC"
   }
 }
+
+resource "aws_internet_gateway" "fsexams_vpc_gw" {
+  vpc_id = "${aws_vpc.fsexams_vpc.id}"
+
+  tags {
+    Name = "FLUIDExamsVPC GW"
+  }
+}
