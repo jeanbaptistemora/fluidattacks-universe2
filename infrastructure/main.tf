@@ -84,38 +84,3 @@ output "variable_integrates" {
 output "instance_ip" {
   value = "${module.ec2instance.ip}"
 }
-
-
-#KEYS
-output "fis3integrationID" {
-  value = "${module.iam.fis3integrationID}"
-}
-
-output "cloudwatchID" {
-  value = "${module.iam.cloudwatchID}"
-}
-
-output "fluidintegratesdynamoID" {
-  value = "${module.iam.fluidintegratesdynamoID}"
-}
-
-output "fws3userID" {
-  value = "${module.iam.fws3userID}"
-}
-
-#
-output "fis3integrationSECRET" {
-  value = "${module.iam.fis3integrationSECRET}"
-}
-
-output "cloudwatchSECRET" {
-  value = "${module.iam.cloudwatchSECRET}"
-}
-
-output "fluidintegratesdynamoSECRET" {
-  value = "${module.iam.fluidintegratesdynamoSECRET}"
-}
-
-output "fws3userSECRET" {
-  value = "${module.iam.fws3userSECRET}"
-}

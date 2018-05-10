@@ -266,7 +266,7 @@ install_vpn:
 install_web:
     stage: install
     script:
-        - "curl -X POST -F token=$WEB_TOKEN -F ref=REF_NAME https://gitlab.com/api/v4/projects/4649627/trigger/pipeline"
+        - "curl -X POST -F token=$WEB_TOKEN -F ref=master https://gitlab.com/api/v4/projects/4649627/trigger/pipeline"
     only:
     - master
 
