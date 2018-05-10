@@ -1,0 +1,138 @@
+:slug: defends/csharp/evitar-direct-transversal/
+:category: csharp
+:description: Nuestros ethical hackers explican cómo evitar vulnerabilidades de seguridad mediante la programación segura en CSharp al Evitar ataques de directorio transversal. La validación de entradas es un proceso fundamental para crear aplicaciones seguras, aquí te enseñamos cómo hacerlo.
+:keywords: CSharp, Ataque, Directorio, Transversal, Seguridad, Validación
+:defends: yes
+
+= Evitar Ataques de Directorio Transversal
+
+== Necesidad
+
+Obtener rutas absolutas canónicas
+para evitar ataques de directorio transversal (+C#+)
+
+== Contexto
+
+A continuación se describen las circunstancias
+bajo las cuales la siguiente solución tiene sentido:
+
+. La aplicación está construida en +C#+.
+. La aplicación emplea rutas que hacen referencia a archivos
+o directorios del sistema operativo que deben ser validados.
+
+== Solución
+
+Los ataques de tipo directorio transversal (o +path traversal+),
+se generan cuando una aplicación no cuenta con los niveles de seguridad
+adecuados al realizar una validación de sus entradas.
+Un atacante que explota esta vulnerabilidad
+es capaz de acceder a directorios superiores con total libertad,
+los cuales normalmente no deberían ser accesibles
+y visualizar los archivos allí contenidos <<r1, ^[1]^>> .
+Esto representa un riesgo tanto para la información sensible
+que esta contenida en dichos archivos
+como para la aplicación misma.
+En este artículo nos enfocaremos en evitar los ataques
+de tipo directorio transversal en +C Sharp+,
+realizando una validación de rutas en las entradas de la aplicación.
+Para ello debemos seguir los siguientes pasos:
+
+. +C#+ proporciona la función +GetFullPath+ de la clase +Path+,
+que devuelve el nombre de una ruta en su forma normal.
+En el siguiente ejemplo se muestra cómo validar
+que una ruta ingresada por un usuario
+se encuentre dentro de un directorio específico.
+Primero se hace uso de los espacios de nombres correspondientes
+para el uso de clases como +Path+ y +Regex+.
++
+.inputvalidation.cs
+[source, csharp, linenums]
+----
+using System;
+using System.IO;
+using System.Text.RegularExpressions;
+
+namespace FSG
+{
+    class Program
+    {
+----
+
+. Se define la expresión regular
+para definir que las únicas rutas válidas son aquellas que se encuentran
+dentro del directorio de archivos temporales.
+La bandera +IgnoreCase+ se usa para que no sea relevante
+la diferencia entre mayúsculas y minúsculas.
++
+[source, csharp, linenums]
+----
+static Regex re = new Regex(@"^c:\\Windows\\Temp.*", RegexOptions.IgnoreCase);
+----
+
+. El paso más importante es utilizar el método +GetFullPath+,
+el cual se encarga de interpretar elementos especiales como +.+, +..+
+para entregar la versión canónica de la ruta especificada <<r2, ^[2]^>>.
+De no utilizarse, la validación podría ser fácilmente sobrepasada.
++
+[source, csharp, linenums]
+----
+static void Main(string[] args)
+        {
+            var path = Path.GetFullPath(args[0]);
+            Console.WriteLine(path);
+----
+
+. Se muestra un mensaje en función de si la ruta era válida o no.
++
+[source, csharp, linenums]
+----
+ if (re.IsMatch(path, 0))
+            {
+                Console.WriteLine("Valid path");
+            }
+            else
+            {
+                Console.WriteLine("NOT valid path");
+            }
+            Console.ReadLine();
+        }
+
+    }
+}
+----
+
+. Por ejemplo si se intenta un ataque de ruta transversal,
+no se consideraría válida.
++
+[source, bash, linenums]
+----
+\>csc Canonical.cs
+
+\>Canonical.exe %TEMP%\..\..\boot.ini
+C:\boot.ini
+NOT valid path
+----
+
+. Para ser válida la ruta debe estar
+dentro del directorio de archivos temporales.
++
+[source, bash, linenums]
+----
+\>Canonical.exe %TEMP%\boot.ini
+C:\Windows\Temp\boot.ini
+Valid path
+----
+
+== Descargas
+
+Puedes descargar el código fuente
+pulsando en el siguiente enlace:
+
+. [button]#link:src/canonical.cs[canonical.cs]# contiene las instrucciones en +C Sharp+
+para realizar una validación de directorios.
+
+== Referencias
+
+. [[r1]] link:https://es.wikipedia.org/wiki/Directory_traversal[Wikipedia - Directory traversal].
+. [[r2]] link:https://msdn.microsoft.com/en-us/library/system.io.path.getfullpath.aspx[Path.GetFullPath Method (MSDN)].
+. [[r3]] link:../../../rules/037/[REQ.037 Parámetros sin datos sensibles].
