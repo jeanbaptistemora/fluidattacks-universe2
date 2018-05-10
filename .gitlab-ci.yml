@@ -139,9 +139,11 @@ stop-review:
 Asserts-Review:
     stage: test
     script:
-        - echo "$CONTINUOUS_PASS" | docker login fluid-docker.jfrog.io -u "$CONTINUOUS_USER" --password-stdin
+        - mkdir -p /tmp${CI_PROJECT_DIR}/${CI_COMMIT_REF_NAME}
+        - cp -r $PWD/* /tmp${CI_PROJECT_DIR}/${CI_COMMIT_REF_NAME}
+        - echo "$JFROG_PASS" | docker login fluid-docker.jfrog.io -u "$JFROG_USER" --password-stdin
         - docker pull fluid-docker.jfrog.io/fluid:integrates
-        - docker run -e BRANCH="$CI_COMMIT_REF_SLUG" -e REVIEW=true -e ORG=fluid -e APP=integrates -e USER="$CONTINUOUS_USER" -e PASS="$CONTINUOUS_PASS" -e FA_STRICT="true" -v $PWD:/code fluid-docker.jfrog.io/fluid:integrates
+        - docker run --rm -e BRANCH="$CI_COMMIT_REF_SLUG" -e REVIEW=true -e ORG=fluid -e APP=integrates -e USER="$JFROG_USER" -e PASS="$JFROG_PASS" -e FA_STRICT="true" --volume /tmp${CI_PROJECT_DIR}/${CI_COMMIT_REF_NAME}:/code fluid-docker.jfrog.io/fluid:integrates
         - docker logout fluid-docker.jfrog.io
     retry: 2
     except:
@@ -212,9 +214,11 @@ Deploy:
 asserts-prod:
     stage: test-deploy
     script:
-        - echo "$CONTINUOUS_PASS" | docker login fluid-docker.jfrog.io -u "$CONTINUOUS_USER" --password-stdin
+        - mkdir -p /tmp${CI_PROJECT_DIR}/${CI_COMMIT_REF_NAME}
+        - cp -r $PWD/* /tmp${CI_PROJECT_DIR}/${CI_COMMIT_REF_NAME}
+        - echo "$JFROG_PASS" | docker login fluid-docker.jfrog.io -u "$JFROG_USER" --password-stdin
         - docker pull fluid-docker.jfrog.io/fluid:integrates
-        - docker run -e ORG=fluid -e APP=integrates -e USER="$CONTINUOUS_USER" -e PASS="$CONTINUOUS_PASS" -e FA_STRICT="true" -v $PWD:/code fluid-docker.jfrog.io/fluid:integrates
+        - docker run --rm -e ORG=fluid -e APP=integrates -e USER="$JFROG_USER" -e PASS="$JFROG_PASS" -e FA_STRICT="true" --volume /tmp${CI_PROJECT_DIR}/${CI_COMMIT_REF_NAME}:/code fluid-docker.jfrog.io/fluid:integrates
         - docker logout fluid-docker.jfrog.io
     retry: 2
     only:
