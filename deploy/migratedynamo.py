@@ -26,7 +26,7 @@ tables = ["alerts_by_company",
 
 for table in tables:
     dynamopaginator = dynamoclient.get_paginator('scan')
-    tabname=table
+    tabname="FI_"+table
     targettabname="FI_"+table
     dynamoresponse = dynamopaginator.paginate(
         TableName=tabname,
