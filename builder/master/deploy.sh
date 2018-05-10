@@ -11,20 +11,29 @@ while IFS= read -r FILE; do
 done < <(find output -type f -name '*.html' -o -name '*.css' -o -name '*.js')
 
 # Set correct metadata according to the compressed file and upload them
-EXTENSIONS=(".html" ".css" ".js")
+EXTENSIONS=(".html" ".css" ".js" ".png")
 for EXT in "${EXTENSIONS[@]}"; do
-  if [ "$EXT" = ".html" ]; then
-    CONTENT="text/html";
-  fi
-  if [ "$EXT" = ".css" ]; then
-    CONTENT="text/css";
-  fi
-  if [ "$EXT" = ".js" ]  ; then
-    CONTENT="application/javascript";
-  fi
+  case $EXT in
+    ".html")
+            CONTENT="--content-type text/html"
+            ENCODING="--content-encoding gzip"
+            ;;
+    ".css")
+            CONTENT="--content-type text/css"
+            ENCODING="--content-encoding gzip"
+            ;;
+    ".js")
+            CONTENT="--content-type application/javascript"
+            ENCODING="--content-encoding gzip"
+            ;;
+    ".png")
+            CONTENT="--content-type image/png"
+            ENCODING=""
+            ;;
+  esac
   aws s3 sync --acl public-read --delete --size-only --exclude '*' \
-    --include "*$EXT" --metadata-directive REPLACE --content-encoding gzip \
-    --content-type "$CONTENT" output/web "s3://$S3_BUCKET_NAME/web";
+    --include "*$EXT" --metadata-directive REPLACE "$ENCODING" \
+    "$CONTENT" output/web "s3://$S3_BUCKET_NAME/web";
 done
 
 # Upload remaining files
