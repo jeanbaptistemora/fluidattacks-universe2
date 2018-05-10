@@ -8,7 +8,7 @@ nonexploitLabel:true, totalHigLabel:true, $scope:true,explotable:true, i:true,
 totalSegLabel:true, openLabel:true, partialLabel:true, $msg, integrates, j:true,
 document, userName, userEmail, Rollbar, aux:true, json:true, eventsData:true, $,
 closeLabel:true, mixPanelDashboard, win:true, window, Organization, userRole,
-fieldsToTranslate, keysToTranslate, removeHour:true, labelState:true
+fieldsToTranslate, keysToTranslate, removeHour:true, labelState:true, angular
  */
 /**
  * @file projectFindingsCtrl.js
@@ -69,7 +69,7 @@ labelState = function labelState (value) {
  * @return {undefined}
  */
 /** @export */
-integrates.controller(
+angular.module("FluidIntegrates").controller(
   "projectFindingsCtrl",
   function projectFindingsCtrl (
     $scope, $location,

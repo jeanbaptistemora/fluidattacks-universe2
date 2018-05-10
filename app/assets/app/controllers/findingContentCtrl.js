@@ -9,7 +9,7 @@ confidenciality, Organization, resolutionLevel, explotability, availability,
 tratamiento, updateEvidencesFiles:true, findingData:true, realiabilityLevel,
 updateEvidenceText:true, categories, probabilities, accessVector, integrity,
 accessComplexity, projectData:true, eventsData:true, fieldsToTranslate,
-keysToTranslate, desc:true */
+keysToTranslate, desc:true, angular */
 /**
  * @file findingContentCtrl.js
  * @author engineering@fluidattacks.com
@@ -25,7 +25,8 @@ keysToTranslate, desc:true */
  * @return {undefined}
  */
 /** @export */
-integrates.controller("findingContentCtrl", function findingContentCtrl (
+angular.module("FluidIntegrates").controller("findingContentCtrl", function
+findingContentCtrl (
   $scope, $stateParams, $timeout,
   $uibModal, $translate, $state,
   ngNotify, projectFtry, tabsFtry,
@@ -36,10 +37,11 @@ integrates.controller("findingContentCtrl", function findingContentCtrl (
     search,
     replace
   ) { /* eslint no-extend-native: ["error", { "exceptions": ["String"] }]*/
+    const vm = this;
     if (typeof replace === "undefined") {
-      return this.toString();
+      return vm.toString();
     }
-    return this.replace(new RegExp(`[${search}]`, "g"), replace);
+    return vm.replace(new RegExp(`[${search}]`, "g"), replace);
   };
   $scope.cssv2Editable = function cssv2Editable () {
     if ($scope.onlyReadableTab2 === false) {

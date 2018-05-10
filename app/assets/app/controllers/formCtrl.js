@@ -1,5 +1,5 @@
 /* global
-integrates, $
+integrates, $, angular
 */
 /**
  * Controlador de vista de formularios
@@ -12,7 +12,7 @@ integrates, $
  * @return {undefined}
  */
 /** @export */
-integrates.controller(
+angular.module("FluidIntegrates").controller(
   "formCtrl",
   function formCtrl ($scope, $location) {
     // Autocompletar formularios de formstack

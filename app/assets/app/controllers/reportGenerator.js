@@ -3,7 +3,7 @@
                                    ["$scope","$stateParams", "projectFtry"] }]*/
 /* global
 BASE, integrates, Organization, mixPanelDashboard, userName, userEmail, $,
-Rollbar,
+Rollbar, angular
  */
 /**
  * @file reportGenerator.js
@@ -21,7 +21,7 @@ Rollbar,
  * @return {undefined}
  */
 /** @export */
-integrates.controller(
+angular.module("FluidIntegrates").controller(
   "reportGenerator",
   function reportGenerator (
     $scope, $location,

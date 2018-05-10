@@ -7,6 +7,7 @@
   "dependencies": {
     "angular-elastic": "2.5.1",
     "eslint": "4.19.0",
+    "eslint-plugin-angular": "^3.3.0",
     "eslint-plugin-unicorn": "^4.0.3",
     "google-closure-compiler-js": "20180402.0.0",
     "gulp": "3.9.1",

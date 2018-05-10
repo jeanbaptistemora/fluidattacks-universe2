@@ -5,7 +5,8 @@ BASE, downLink:true, Morris, estado:true, exploitLabel:true, win:true, window,
 nonexploitLabel:true, totalHigLabel:true, explotable:true, totalSegLabel:true,
 openLabel:true, partialLabel:true, integrates, userRole, document, $, $msg,
 userName, userEmail, Rollbar, aux:true, json:true, closeLabel:true, j:true,
-mixPanelDashboard, Organization, projectData:true, eventsData:true, i:true
+mixPanelDashboard, Organization, projectData:true, eventsData:true, i:true,
+angular
 */
 /* eslint-env node*/
 /**
@@ -23,7 +24,7 @@ mixPanelDashboard, Organization, projectData:true, eventsData:true, i:true
  * @return {undefined}
  */
 /** @export */
-integrates.controller(
+angular.module("FluidIntegrates").controller(
   "projectCtrl",
   function projectCtrl (
     $scope, $location,

@@ -1,5 +1,5 @@
 /* eslint no-magic-numbers: ["error", { "ignore": [-1,0,1] }]*/
-/* global integrates, BASE, $xhr, $, Rollbar, window.location:true */
+/* global integrates, BASE, $xhr, $, Rollbar, window.location:true, angular */
 /**
  * @file eventualityFactory.js
  * @author engineering@fluidattacks.com
@@ -11,7 +11,7 @@
  * @return {undefined}
  */
 /** @export */
-integrates.factory("eventualityFactory", ($q) => ({
+angular.module("FluidIntegrates").factory("eventualityFactory", ($q) => ({
 
   /**
    * Obtiene los submission de una eventualidad

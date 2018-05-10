@@ -1,7 +1,7 @@
 /* eslint no-magic-numbers: ["error", { "ignore": [-1,0,1, 3] }]*/
 /* global integrates, BASE, $xhr, window.location:true, response:true,
 Organization, mixPanelDashboard, mixPanelDashboard, mixPanelDashboard,$msg,
-$, Rollbar, eventsData, userEmail, userName, secureRandom */
+$, Rollbar, eventsData, userEmail, userName, secureRandom, angular*/
 /* eslint no-shadow: ["error", { "allow": ["$scope","$stateParams",
                                           "response"] }]*/
 /**
@@ -17,7 +17,11 @@ $, Rollbar, eventsData, userEmail, userName, secureRandom */
  * @return {undefined}
  */
 /** @export */
-integrates.factory("tabsFtry", ($q, $translate, projectFtry) => ({
+angular.module("FluidIntegrates").factory("tabsFtry", (
+  $q,
+  $translate,
+  projectFtry
+) => ({
   "findingCommentTab" (commentInfo, $stateParams) {
     if (typeof commentInfo.finding.id !== "undefined") {
       const comments = projectFtry.getComments(commentInfo.finding.id);

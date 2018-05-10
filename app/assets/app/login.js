@@ -16,12 +16,12 @@ if (window.location.pathname.indexOf("/integrates") === -1) {
   BASE.url = BASE.development;
 }
 // Definicion de modulos
-const integrates = angular.module("FluidIntegrates", [
+angular.module("FluidIntegrates", [
   "ngSanitize",
   "pascalprecht.translate"
 ]);
 
-integrates.config([
+angular.module("FluidIntegrates").config([
   "$translateProvider",
   function config ($translateProvider) {
     const translations = {
@@ -53,7 +53,7 @@ integrates.config([
 /*
  * MixPanel localhost Fixer
  */
-integrates.isProduction = function isProduction () {
+angular.module("FluidIntegrates").isProduction = function isProduction () {
   return window.location.toString().indexOf("localhost:8000") === -1;
 };
 
@@ -64,70 +64,73 @@ integrates.isProduction = function isProduction () {
  * @param {integrates.loginFactory} loginFactory
  * @return {undefined}
  */
-integrates.controller("loginController", ($scope, $translate) => {
-  $scope.lang = function lang (langKey) {
-    if (langKey === "es" || langKey === "en") {
-      localStorage.lang = langKey;
-    }
-    $translate.use(localStorage.lang);
-  };
+angular.module("FluidIntegrates").controller(
+  "loginController",
+  ($scope, $translate) => {
+    $scope.lang = function lang (langKey) {
+      if (langKey === "es" || langKey === "en") {
+        localStorage.lang = langKey;
+      }
+      $translate.use(localStorage.lang);
+    };
 
-  /**
-   * Autentica a un usuario
-   * @function login
-   * @return {undefined}
-   */
-  $scope.login = function login () {
-    const userName = $scope.username;
-    const pass = $scope.password;
-    if (typeof userName != "string" ||
+    /**
+     * Autentica a un usuario
+     * @function login
+     * @return {undefined}
+     */
+    $scope.login = function login () {
+      const userName = $scope.username;
+      const pass = $scope.password;
+      if (typeof userName != "string" ||
             typeof pass != "string") {
-      $.gritter.add({
-        "class_name": "color warning",
-        "sticky": false,
-        "text": "Usuario/Clave son obligatorios",
-        "title": ""
-      });
-    }
-    else if (userName.trim() === "" ||
-            pass.trim() === "") {
-      $.gritter.add({
-        "class_name": "color warning",
-        "sticky": false,
-        "text": "Usuario/Clave son obligatorios",
-        "title": ""
-      });
-    }
-    else {
-      $.ajax({
-        "data": {
-          pass,
-          "user": userName
-        },
-        "method": "POST",
-        "url": `${BASE.url}login/`
-      }).done((err) => {
-        let color = "warning";
-        if (err.error === true) {
-          color = "warning";
-        }
-        else {
-          color = "success";
-        }
         $.gritter.add({
-          "class_name": `color ${color}`,
+          "class_name": "color warning",
           "sticky": false,
-          "text": err.message,
+          "text": "Usuario/Clave son obligatorios",
           "title": ""
         });
-        if (color === "success") {
-          redirector = function redirector () {
-            window.location = `${BASE.url}dashboard`;
-          };
-          const TIMEOUT = 2000;
-          setTimeout(redirector, TIMEOUT);
-        }
-      });
-    }
-  };
-});
+      }
+      else if (userName.trim() === "" ||
+            pass.trim() === "") {
+        $.gritter.add({
+          "class_name": "color warning",
+          "sticky": false,
+          "text": "Usuario/Clave son obligatorios",
+          "title": ""
+        });
+      }
+      else {
+        $.ajax({
+          "data": {
+            pass,
+            "user": userName
+          },
+          "method": "POST",
+          "url": `${BASE.url}login/`
+        }).done((err) => {
+          let color = "warning";
+          if (err.error === true) {
+            color = "warning";
+          }
+          else {
+            color = "success";
+          }
+          $.gritter.add({
+            "class_name": `color ${color}`,
+            "sticky": false,
+            "text": err.message,
+            "title": ""
+          });
+          if (color === "success") {
+            redirector = function redirector () {
+              window.location = `${BASE.url}dashboard`;
+            };
+            const TIMEOUT = 2000;
+            setTimeout(redirector, TIMEOUT);
+          }
+        });
+      }
+    };
+  }
+);

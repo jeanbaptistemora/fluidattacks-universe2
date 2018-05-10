@@ -1,7 +1,7 @@
 /* eslint no-magic-numbers: ["error", { "ignore": [-1,0,1] }]*/
 /* global integrates, BASE, $xhr, window.location:true, response:true,
 Organization, mixPanelDashboard, mixPanelDashboard, mixPanelDashboard,$msg,
-$, Rollbar, eventsData, userEmail, userName */
+$, Rollbar, eventsData, userEmail, userName, angular */
 /* eslint no-shadow: ["error", { "allow": ["$scope","$stateParams",
                                           "response"] }]*/
 /**
@@ -17,7 +17,7 @@ $, Rollbar, eventsData, userEmail, userName */
  * @return {undefined}
  */
 /** @export */
-integrates.factory(
+angular.module("FluidIntegrates").factory(
   "functionsFtry1",
   ($q, $translate, projectFtry, $uibModal, $stateParams, functionsFtry2) => ({
 

@@ -1,4 +1,4 @@
-/* globals integrates, BASE,  $ */
+/* globals integrates, BASE, angular, $ */
 
 
 /**
@@ -13,7 +13,10 @@
  * @return {undefined}
  */
 /** @export */
-integrates.config(($stateProvider, $urlRouterProvider) => {
+angular.module("FluidIntegrates").config((
+  $stateProvider,
+  $urlRouterProvider
+) => {
   $urlRouterProvider.otherwise("home");
 
   $stateProvider.
@@ -88,7 +91,7 @@ integrates.config(($stateProvider, $urlRouterProvider) => {
       "url": "/forms"
     });
 });
-integrates.config(($sceDelegateProvider) => {
+angular.module("FluidIntegrates").config(($sceDelegateProvider) => {
   $sceDelegateProvider.resourceUrlWhitelist([
     "self",
     "/assets/views/project/eventualityMdl.html",

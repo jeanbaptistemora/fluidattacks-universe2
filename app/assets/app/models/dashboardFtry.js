@@ -1,2 +1,2 @@
-/* global integrates */
-integrates.factory("dashboardFtry", () => ({}));
+/* global integrates, angular */
+angular.module("FluidIntegrates").factory("dashboardFtry", () => ({}));

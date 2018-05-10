@@ -6,7 +6,7 @@ nonexploitLabel:true, totalHigLabel:true, explotable:true, totalSegLabel:true,
 openLabel:true, partialLabel:true, integrates, userRole, document, $, $msg,
 userName, userEmail, Rollbar, aux:true, json:true, closeLabel:true, j:true,
 mixPanelDashboard, win:true, window, Organization, projectData:true, i:true,
-eventsTranslations, keysToTranslate, labelEventState:true
+eventsTranslations, keysToTranslate, labelEventState:true, angular
 */
 /**
  * @file projectEventsCtrl.js
@@ -49,7 +49,7 @@ labelEventState = function labelEventState (value) {
  * @return {undefined}
  */
 /** @export */
-integrates.controller(
+angular.module("FluidIntegrates").controller(
   "projectEventsCtrl",
   function projectEventsCtrl (
     $scope, $location,

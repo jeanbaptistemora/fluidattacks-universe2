@@ -56,7 +56,7 @@ $msg.warning = function warning (text, title) {
  * Crea integrates como una aplicacion de angular
  * @module {AngularJS} FluidIntegrates
  */
-const integrates = angular.module("FluidIntegrates", [
+angular.module("FluidIntegrates", [
   "ui.router",
   "ui.bootstrap",
   "pascalprecht.translate",
@@ -66,7 +66,7 @@ const integrates = angular.module("FluidIntegrates", [
   "monospaced.elastic",
   "tandibar/ng-rollbar"
 ]);
-integrates.config([
+angular.module("FluidIntegrates").config([
   "RollbarProvider",
   function initRollbar (RollbarProvider) {
     const isProduction = location.toString().indexOf("localhost:8000") === -1;
@@ -86,7 +86,7 @@ integrates.config([
  * @param {Object} $translateProvider Angular translator dependecy
  * @return {undefined}
  */
-integrates.config([
+angular.module("FluidIntegrates").config([
   "$translateProvider",
   function config ($translateProvider) {
     $translateProvider.useSanitizeValueStrategy("sanitizeParameters");

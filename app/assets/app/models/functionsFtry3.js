@@ -2,7 +2,7 @@
 /* global integrates, BASE, $xhr, window.location:true, response:true,
 Organization, mixPanelDashboard, mixPanelDashboard, mixPanelDashboard,$msg,
 $, Rollbar, eventsData, userEmail, userName, fieldsToTranslate, keysToTranslate,
-findingData, userRole, secureRandom */
+findingData, userRole, secureRandom, angular */
 /* eslint no-shadow: ["error", { "allow": ["$scope","$stateParams",
                                           "response"] }]*/
 /**
@@ -18,7 +18,7 @@ findingData, userRole, secureRandom */
  * @return {undefined}
  */
 /** @export */
-integrates.factory(
+angular.module("FluidIntegrates").factory(
   "functionsFtry3",
   (
     $q, $translate, projectFtry,

@@ -1,6 +1,6 @@
 /* eslint no-magic-numbers: ["error", { "ignore": [-1,0,1,5]}]*/
 /* global integrates, BASE, $xhr, window.location:true,
-$, Rollbar, eventsData, secureRandom */
+$, Rollbar, eventsData, secureRandom, angular */
 /**
  * @file projectFtry.js
  * @author engineering@fluidattacks.com
@@ -12,7 +12,7 @@ $, Rollbar, eventsData, secureRandom */
  * @return {undefined}
  */
 /** @export */
-integrates.factory("projectFtry", ($q) => ({
+angular.module("FluidIntegrates").factory("projectFtry", ($q) => ({
 
   /**
    * Invoca el servicio para agregar nuevos comentarios en un hallazgo

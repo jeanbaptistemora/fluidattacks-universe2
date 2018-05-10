@@ -4,7 +4,7 @@ Organization, mixPanelDashboard, mixPanelDashboard, mixPanelDashboard,$msg,
 $, Rollbar, eventsData, userEmail, userName, findingType, categories,
 probabilities, actor, scenario, accessVector, accessComplexity, authentication,
 confidenciality, integrity, availability, explotability, resolutionLevel,
-realiabilityLevel, functionsFtry1 */
+realiabilityLevel, functionsFtry1, angular */
 /* eslint no-shadow: ["error", { "allow": ["$scope","$stateParams",
                                           "response"] }]*/
 /**
@@ -20,7 +20,7 @@ realiabilityLevel, functionsFtry1 */
  * @return {undefined}
  */
 /** @export */
-integrates.factory(
+angular.module("FluidIntegrates").factory(
   "functionsFtry2",
   ($q, $translate, projectFtry, $uibModal, $stateParams, $injector) => ({
 

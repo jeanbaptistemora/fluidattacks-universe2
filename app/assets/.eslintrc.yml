@@ -10,11 +10,14 @@ parserOptions:
 
 plugins:
   - unicorn
+  - angular
 
 rules:
+# Filename Rules
   unicorn/filename-case:
     - error
     - case: camelCase
+# Javascript Rules
   for-direction: error
   getter-return: error
   no-await-in-loop: error
@@ -168,7 +171,9 @@ rules:
   comma-spacing: error
   comma-style: error
   computed-property-spacing: error
-  consistent-this: error
+  consistent-this:
+    - error
+    - "vm"
   eol-last: error
   func-call-spacing: error
   func-names: error
@@ -292,3 +297,10 @@ rules:
   symbol-description: error
   template-curly-spacing: error
   yield-star-spacing: error
+# Angular Rules
+  angular/avoid-scope-typos: error
+  angular/module-getter: error
+  angular/module-setter: error
+  angular/no-private-call: error
+  angular/controller-as-route: error
+  angular/controller-as-vm: error
