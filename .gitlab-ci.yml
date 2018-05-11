@@ -4,26 +4,31 @@ variables:
   DOCKER_DRIVER: overlay2
 
 services:
-   - docker:dind
+  - docker:dind
 
 before_script:
-    - sh env.sh
-    - apk update && apk add curl bash
+  - sh env.sh
+  - apk update && apk add curl bash
 
 after_script:
-    - rm env.sh
+  - rm env.sh
 
 codequality:
   script:
-    - mkdir -p /tmp${CI_PROJECT_DIR}/${CI_COMMIT_REF_NAME}
-    - cp -r $PWD/* /tmp${CI_PROJECT_DIR}/${CI_COMMIT_REF_NAME}
-    - export SP_VERSION=$(echo "$CI_SERVER_VERSION" | sed 's/^\([0-9]*\)\.\([0-9]*\).*/\1-\2-stable/')
-    - docker run 
-        --env CODECLIMATE_CODE="/tmp${CI_PROJECT_DIR}/${CI_COMMIT_REF_NAME}" 
-        --volume "/tmp${CI_PROJECT_DIR}/${CI_COMMIT_REF_NAME}":/code 
-        --volume /var/run/docker.sock:/var/run/docker.sock 
-        --volume /tmp/cc:/tmp/cc 
-        codeclimate/codeclimate analyze -e sonar-python -e pep8 -e randon -f json > codeclimate.json || true
+  - mkdir -p /tmp${CI_PROJECT_DIR}/${CI_COMMIT_REF_NAME}
+  - cp -r $PWD/* /tmp${CI_PROJECT_DIR}/${CI_COMMIT_REF_NAME}
+  - export SP_VERSION=$(echo "$CI_SERVER_VERSION" |
+      sed 's/^\([0-9]*\)\.\([0-9]*\).*/\1-\2-stable/')
+  - docker run 
+      --env CODECLIMATE_CODE="/tmp${CI_PROJECT_DIR}/${CI_COMMIT_REF_NAME}" 
+      --volume "/tmp${CI_PROJECT_DIR}/${CI_COMMIT_REF_NAME}":/code 
+      --volume /var/run/docker.sock:/var/run/docker.sock 
+      --volume /tmp/cc:/tmp/cc 
+      codeclimate/codeclimate analyze
+      -e sonar-python
+      -e pep8
+      -e randon
+      -f json > codeclimate.json || true
   after_script:
     - rm -rf /tmp${CI_PROJECT_DIR}
   retry: 2
@@ -31,82 +36,107 @@ codequality:
     paths: [codeclimate.json]
 
 stages:
-    - deps
-    - terraform-test
-    - terraform-deploy
-    - build
-    - review
-    - test
-    - push
-    - deploy
-    - test-deploy
+  - deps
+  - terraform-test
+  - terraform-deploy
+  - build
+  - review
+  - test
+  - push
+  - deploy
+  - test-deploy
 
 Build:
-    stage: deps
-    script:
-        - echo "$DOCKER_PASS" | docker login "$CI_REGISTRY" -u "$DOCKER_USER" --password-stdin
-        - docker build --cache-from registry.gitlab.com/fluidsignal/integrates:deps -t registry.gitlab.com/fluidsignal/integrates:deps deploy/containers/deps
-        - docker push registry.gitlab.com/fluidsignal/integrates:deps
-        - grep ^DEBUG fluidintegrates/settings.py | grep -q False
-        - docker logout "$CI_REGISTRY"
-    retry: 2
-    except:
+  stage: deps
+  script:
+    - echo "$DOCKER_PASS" |
+        docker login "$CI_REGISTRY" -u "$DOCKER_USER" --password-stdin
+    - docker build
+        --cache-from "$CI_REGISTRY/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME:deps"
+        -t "$CI_REGISTRY/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME:deps"
+        deploy/containers/deps
+    - docker push
+        "$CI_REGISTRY/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME:deps"
+    - grep ^DEBUG fluidintegrates/settings.py | grep -q False
+    - docker logout "$CI_REGISTRY"
+  retry: 2
+  except:
     - triggers
 
 terraform-test:
-    stage: terraform-test
-    before_script:
-      - echo acc_key = \"$FI_AWS_DYNAMODB_ACCESS_KEY\" >> deploy/terraform.tfvars
-      - echo sec_key = \"$FI_AWS_DYNAMODB_SECRET_KEY\" >> deploy/terraform.tfvars
-      - cd deploy
-    script:
-      - terraform init
-      - terraform plan
-    except:
+  stage: terraform-test
+  before_script:
+    - echo acc_key = \"$FI_AWS_DYNAMODB_ACCESS_KEY\" >> deploy/terraform.tfvars
+    - echo sec_key = \"$FI_AWS_DYNAMODB_SECRET_KEY\" >> deploy/terraform.tfvars
+    - cd deploy
+  script:
+    - terraform init
+    - terraform plan
+  except:
     - triggers
     - master
 
 terraform-deploy:
-    stage: terraform-deploy
-    before_script:
-      - pip install boto3
-      - echo acc_key = \"$FI_AWS_DYNAMODB_ACCESS_KEY\" >> deploy/terraform.tfvars
-      - echo sec_key = \"$FI_AWS_DYNAMODB_SECRET_KEY\" >> deploy/terraform.tfvars
-      - aws s3 cp s3://$BUCKET_NAME/terraform/integrates/terraform.tfstate deploy/terraform.tfstate || export NEW_DEPLOY=true
-      - cd deploy
-    script:
-      - terraform init
-      - terraform apply -auto-approve
-      - if [ -n "${NEW_DEPLOY}" ]; then python migratedynamo.py $FI_AWS_DYNAMODB_ACCESS_KEY $FI_AWS_DYNAMODB_SECRET_KEY $OLD_FI_AWS_DYNAMODB_ACCESS_KEY $OLD_FI_AWS_DYNAMODB_SECRET_KEY; fi
-    after_script:
-      - aws s3 cp deploy/terraform.tfstate s3://$BUCKET_NAME/terraform/integrates/terraform.tfstate
-    only:
+  stage: terraform-deploy
+  before_script:
+    - pip install boto3
+    - echo acc_key = \"$FI_AWS_DYNAMODB_ACCESS_KEY\" >> deploy/terraform.tfvars
+    - echo sec_key = \"$FI_AWS_DYNAMODB_SECRET_KEY\" >> deploy/terraform.tfvars
+    - aws s3 cp
+        s3://$BUCKET_NAME/terraform/integrates/terraform.tfstate
+        deploy/terraform.tfstate || export NEW_DEPLOY=true
+    - cd deploy
+  script:
+    - terraform init
+    - terraform apply -auto-approve
+    - if [ -n "${NEW_DEPLOY}" ];
+        then python migratedynamo.py
+        $FI_AWS_DYNAMODB_ACCESS_KEY
+        $FI_AWS_DYNAMODB_SECRET_KEY
+        $OLD_FI_AWS_DYNAMODB_ACCESS_KEY
+        $OLD_FI_AWS_DYNAMODB_SECRET_KEY;
+        fi
+  after_script:
+    - aws s3 cp
+        deploy/terraform.tfstate
+        s3://$BUCKET_NAME/terraform/integrates/terraform.tfstate
+  only:
     - master
-    except:
+  except:
     - triggers
 
 build-integrates:
-    stage: build
-    script:
-        - echo "$DOCKER_PASS" | docker login "$CI_REGISTRY" -u "$DOCKER_USER" --password-stdin
-        - >
-          cd deploy/containers/integrates && sh build.sh "$CI_COMMIT_REF_NAME" "$FI_GITLAB_LOGIN" "$FI_GITLAB_PASSWORD" "$FI_DRIVE_AUTHORIZATION" "$FI_DOCUMENTROOT" "$FI_SSL_CERT" "$FI_SSL_KEY" "$FI_DRIVE_AUTHORIZATION_CLIENT"
-        - docker push "registry.gitlab.com/fluidsignal/integrates:$CI_COMMIT_REF_NAME"
-        - docker logout "$CI_REGISTRY"
-    retry: 2
-    except:
+  stage: build
+  script:
+    - echo "$DOCKER_PASS" |
+        docker login "$CI_REGISTRY" -u "$DOCKER_USER" --password-stdin
+    - cd deploy/containers/integrates &&
+        sh build.sh
+        "$CI_COMMIT_REF_NAME" "$FI_GITLAB_LOGIN" "$FI_GITLAB_PASSWORD"
+        "$FI_DRIVE_AUTHORIZATION" "$FI_DOCUMENTROOT" "$FI_SSL_CERT"
+        "$FI_SSL_KEY" "$FI_DRIVE_AUTHORIZATION_CLIENT"
+    - docker push
+        "$CI_REGISTRY/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME:$CI_COMMIT_REF_NAME"
+    - docker logout "$CI_REGISTRY"
+  retry: 2
+  except:
     - triggers
 
 build-bot:
-    stage: build
-    script:
-        - echo "$DOCKER_PASS" | docker login "$CI_REGISTRY" -u "$DOCKER_USER" --password-stdin
-        - >
-          cd deploy/containers/bot && sh build.sh "$CI_COMMIT_REF_NAME" "$FI_GITLAB_LOGIN" "$FI_GITLAB_PASSWORD" "$FI_DRIVE_AUTHORIZATION" "$FI_DOCUMENTROOT" "$FI_SSL_CERT" "$FI_SSL_KEY" "$FI_DRIVE_AUTHORIZATION_CLIENT"
-        - docker push "registry.gitlab.com/fluidsignal/integrates/bot:$CI_COMMIT_REF_NAME"
-        - docker logout "$CI_REGISTRY"
-    retry: 2
-    except:
+  stage: build
+  script:
+    - echo "$DOCKER_PASS" |
+        docker login "$CI_REGISTRY" -u "$DOCKER_USER" --password-stdin
+    - cd deploy/containers/bot &&
+      sh build.sh
+      "$CI_COMMIT_REF_NAME" "$FI_GITLAB_LOGIN" "$FI_GITLAB_PASSWORD"
+      "$FI_DRIVE_AUTHORIZATION" "$FI_DOCUMENTROOT" "$FI_SSL_CERT"
+      "$FI_SSL_KEY" "$FI_DRIVE_AUTHORIZATION_CLIENT"
+    - docker push
+      "$CI_REGISTRY/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME/bot:$CI_COMMIT_REF_NAME"
+    - docker logout "$CI_REGISTRY"
+  retry: 2
+  except:
     - triggers
 
 review-integrates:
@@ -131,12 +161,18 @@ stop-review:
   before_script:
     - echo "Stopping Review Apps environment..."
   script:
-    - kubectl config set-context "$(kubectl config current-context)" --namespace="$CI_PROJECT_NAME"
+    - kubectl config set-context
+        "$(kubectl config current-context)"
+        --namespace="$CI_PROJECT_NAME"
     - kubectl delete deployment "review-$CI_COMMIT_REF_SLUG"
     - kubectl delete service "service-$CI_COMMIT_REF_SLUG"
-    - kubectl get ingress "ingress-$CI_PROJECT_NAME" -o yaml | sed '/host:\ '"$CI_COMMIT_REF_SLUG"'/,+5d' | sed '/-\ '"$CI_COMMIT_REF_SLUG"'/d' > current-ingress.yaml
+    - kubectl get ingress "ingress-$CI_PROJECT_NAME" -o yaml |
+        sed '/host:\ '"$CI_COMMIT_REF_SLUG"'/,+5d' |
+        sed '/-\ '"$CI_COMMIT_REF_SLUG"'/d' > current-ingress.yaml
     - kubectl delete ingress "ingress-$CI_PROJECT_NAME"
-    - if kubectl get deployments | grep 'review-*'; then kubectl create -f current-ingress.yaml; fi
+    - if kubectl get deployments | grep 'review-*';
+        then kubectl create -f current-ingress.yaml;
+        fi
   retry: 2
   after_script:
     - echo "Job finished"
@@ -146,103 +182,137 @@ stop-review:
     action: stop
 
 Asserts-Review:
-    stage: test
-    script:
-        - mkdir -p /tmp${CI_PROJECT_DIR}/${CI_COMMIT_REF_NAME}
-        - cp -r $PWD/* /tmp${CI_PROJECT_DIR}/${CI_COMMIT_REF_NAME}
-        - echo "$JFROG_PASS" | docker login fluid-docker.jfrog.io -u "$JFROG_USER" --password-stdin
-        - docker pull fluid-docker.jfrog.io/fluid:integrates
-        - docker run --rm -e BRANCH="$CI_COMMIT_REF_SLUG" -e REVIEW=true -e ORG=fluid -e APP=integrates -e USER="$JFROG_USER" -e PASS="$JFROG_PASS" -e FA_STRICT="true" --volume /tmp${CI_PROJECT_DIR}/${CI_COMMIT_REF_NAME}:/code fluid-docker.jfrog.io/fluid:integrates
-        - rm -rf /tmp${CI_PROJECT_DIR}
-        - docker logout fluid-docker.jfrog.io
-    retry: 2
-    except:
+  stage: test
+  script:
+    - mkdir -p /tmp${CI_PROJECT_DIR}/${CI_COMMIT_REF_NAME}
+    - cp -r $PWD/* /tmp${CI_PROJECT_DIR}/${CI_COMMIT_REF_NAME}
+    - echo "$JFROG_PASS" |
+        docker login fluid-docker.jfrog.io -u "$JFROG_USER" --password-stdin
+    - docker pull fluid-docker.jfrog.io/fluid:integrates
+    - docker run
+        --rm -e BRANCH="$CI_COMMIT_REF_SLUG"
+        -e REVIEW=true -e ORG=fluid
+        -e APP=integrates -e USER="$JFROG_USER"
+        -e PASS="$JFROG_PASS" -e FA_STRICT="true"
+        --volume /tmp${CI_PROJECT_DIR}/${CI_COMMIT_REF_NAME}:/code
+        fluid-docker.jfrog.io/fluid:integrates
+    - rm -rf /tmp${CI_PROJECT_DIR}
+    - docker logout fluid-docker.jfrog.io
+  retry: 2
+  except:
     - master
     - triggers
 
 Linting:
-    stage: test
-    script:
-        - docker login "$CI_REGISTRY" -u $DOCKER_USER -p $DOCKER_PASS
-        - docker run --env-file env.list -t "registry.gitlab.com/fluidsignal/integrates:$CI_COMMIT_REF_NAME" /bin/bash -c "npm install -g  n; n stable; cd /usr/src/app/app/assets/app/; /usr/src/app/app/assets/node_modules/.bin/gulp verbose"
-        - docker run --env-file env.list -t "registry.gitlab.com/fluidsignal/integrates:$CI_COMMIT_REF_NAME" /bin/bash -c "npm install -g  n; n stable; node /usr/src/app/app/assets/node_modules/.bin/eslint /usr/src/app/app/assets/app/."
-        - rm env.list
-        - docker logout "$CI_REGISTRY"
-    retry: 2
-    except:
+  stage: test
+  script:
+    - docker login "$CI_REGISTRY" -u $DOCKER_USER -p $DOCKER_PASS
+    - docker run
+        --env-file env.list
+        -t "$CI_REGISTRY/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME:$CI_COMMIT_REF_NAME"
+        /bin/bash -c "npm install -g  n; n stable;
+        cd /usr/src/app/app/assets/app/;
+        /usr/src/app/app/assets/node_modules/.bin/gulp verbose"
+    - docker run
+        --env-file env.list
+        -t "$CI_REGISTRY/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME:$CI_COMMIT_REF_NAME"
+        /bin/bash -c "npm install -g  n; n stable;
+        node /usr/src/app/app/assets/node_modules/.bin/eslint
+        /usr/src/app/app/assets/app/."
+    - rm env.list
+    - docker logout "$CI_REGISTRY"
+  retry: 2
+  except:
     - master
     - triggers
 
 Prospector:
-    stage: test
-    script:
-        - echo "$DOCKER_PASS" | docker login "$CI_REGISTRY" -u "$DOCKER_USER" --password-stdin
-        - docker run --env-file env.list -t "registry.gitlab.com/fluidsignal/integrates:$CI_COMMIT_REF_NAME" prospector -u django -p /usr/src/app/app -i node_modules
-        - docker run --env-file env.list -t "registry.gitlab.com/fluidsignal/integrates:$CI_COMMIT_REF_NAME" prospector -u django /usr/src/app/fluidintegrates
-        - docker run --env-file env.list -t "registry.gitlab.com/fluidsignal/integrates:$CI_COMMIT_REF_NAME" python /usr/src/app/manage.py test app.tests
-        - rm env.list
-        - docker logout "$CI_REGISTRY"
-    retry: 2
-    except:
+  stage: test
+  script:
+    - echo "$DOCKER_PASS" |
+        docker login "$CI_REGISTRY" -u "$DOCKER_USER" --password-stdin
+    - docker run
+        --env-file env.list
+        -t "$CI_REGISTRY/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME:$CI_COMMIT_REF_NAME"
+        prospector -u django -p /usr/src/app/app -i node_modules
+    - docker run
+        --env-file env.list
+        -t "$CI_REGISTRY/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME:$CI_COMMIT_REF_NAME"
+        prospector -u django /usr/src/app/fluidintegrates
+    - docker run
+        --env-file env.list
+        -t "$CI_REGISTRY/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME:$CI_COMMIT_REF_NAME"
+        python /usr/src/app/manage.py test app.tests
+    - rm env.list
+    - docker logout "$CI_REGISTRY"
+  retry: 2
+  except:
     - master
     - triggers
 
-# Functional:
-#     stage: test
-#     script:
-#         - docker stop chrome && docker rm chrome || true
-#         - docker stop selenium-hub && docker rm selenium-hub || true
-#         - echo "$DOCKER_PASS" | docker login registry.gitlab.com -u "$DOCKER_USER" --password-stdin
-#         - docker run -d -p 4444:4444 --network integrates_test --ip 192.168.200.101 --name selenium-hub selenium/hub
-#         - docker run --name "chrome" --network integrates_test -d -e HUB_PORT_4444_TCP_ADDR=selenium-hub --ip 192.168.200.102 -e HUB_PORT_4444_TCP_PORT=4444  selenium/node-chrome
-#         - docker cp selenium_test.py chrome:/selenium_test.py
-#         - docker exec --privileged chrome cat selenium_test.py
-#         - docker exec --privileged chrome sudo -H apt-get update
-#         - docker exec --privileged chrome sudo -H apt-get install -y python2.7 python-pip curl
-#         - docker exec --privileged chrome curl -k https://192.168.200.100:8000
-#         - docker exec --privileged chrome sudo -H pip install -U pip setuptools
-#         - docker exec --privileged chrome sudo -H pip install -U selenium
-#         #- docker exec --privileged chrome sudo -H python /selenium_test.py
-#     except:
-#     - triggers
-
 Deploy:
-    stage: deploy
-    script:
-       - aws s3 cp s3://$BUCKET_NAME/terraform/FLUID_Serves.pem FLUID_Serves.pem && chmod 600 FLUID_Serves.pem
-       - apk update && apk add openssh-client curl
-       - scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -i FLUID_Serves.pem env.list admin@fluidattacks.com:/home/admin
-       - ssh -o StrictHostKeyChecking=no -i FLUID_Serves.pem admin@fluidattacks.com 'sudo docker pull registry.gitlab.com/fluidsignal/integrates:master && sudo docker stop integrates && sudo docker rm integrates && sudo docker run -d --env-file env.list -p 8000:443 --name=integrates registry.gitlab.com/fluidsignal/integrates:master'
-       - ssh -o StrictHostKeyChecking=no -i FLUID_Serves.pem admin@fluidattacks.com 'sudo docker pull registry.gitlab.com/fluidsignal/integrates/bot:master && sudo docker stop bot && sudo docker rm bot && sudo docker run -d --env-file env.list --restart always --name=bot registry.gitlab.com/fluidsignal/integrates/bot:master && rm env.list'
-       - curl https://api.rollbar.com/api/1/deploy/ -F access_token=$FI_ROLLBAR_ACCESS_TOKEN -F environment=$FI_ROLLBAR_ENVIRONMENT -F revision=$CI_COMMIT_SHA -F local_username="$CI_COMMIT_REF_NAME"
-    retry: 2
-    only:
+  stage: deploy
+  script:
+    - aws s3 cp
+        s3://$BUCKET_NAME/terraform/FLUID_Serves.pem
+        FLUID_Serves.pem &&
+        chmod 600 FLUID_Serves.pem
+    - apk update && apk add openssh-client curl
+    - scp
+        -o StrictHostKeyChecking=no
+        -o UserKnownHostsFile=/dev/null
+        -i FLUID_Serves.pem
+        env.list
+        admin@fluidattacks.com:/home/admin
+    - ssh
+        -o StrictHostKeyChecking=no
+        -i FLUID_Serves.pem
+        admin@fluidattacks.com
+        'sudo docker pull
+        registry.gitlab.com/fluidsignal/integrates:master &&
+        sudo docker stop integrates &&
+        sudo docker rm integrates &&
+        sudo docker run
+        -d --env-file env.list -p 8000:443 --name=integrates
+        registry.gitlab.com/fluidsignal/integrates:master'
+    - ssh
+        -o StrictHostKeyChecking=no
+        -i FLUID_Serves.pem
+        admin@fluidattacks.com
+        'sudo docker pull
+        registry.gitlab.com/fluidsignal/integrates/bot:master &&
+        sudo docker stop bot &&
+        sudo docker rm bot &&
+        sudo docker run
+        -d --env-file env.list --restart always --name=bot
+        registry.gitlab.com/fluidsignal/integrates/bot:master && rm env.list'
+    - curl https://api.rollbar.com/api/1/deploy/
+        -F access_token=$FI_ROLLBAR_ACCESS_TOKEN
+        -F environment=$FI_ROLLBAR_ENVIRONMENT
+        -F revision=$CI_COMMIT_SHA
+        -F local_username="$CI_COMMIT_REF_NAME"
+  retry: 2
+  only:
     - master
-    except:
+  except:
     - triggers
 
 asserts-prod:
-    stage: test-deploy
-    script:
-        - mkdir -p /tmp${CI_PROJECT_DIR}/${CI_COMMIT_REF_NAME}
-        - cp -r $PWD/* /tmp${CI_PROJECT_DIR}/${CI_COMMIT_REF_NAME}
-        - echo "$JFROG_PASS" | docker login fluid-docker.jfrog.io -u "$JFROG_USER" --password-stdin
-        - docker pull fluid-docker.jfrog.io/fluid:integrates
-        - docker run --rm -e ORG=fluid -e APP=integrates -e USER="$JFROG_USER" -e PASS="$JFROG_PASS" -e FA_STRICT="true" --volume /tmp${CI_PROJECT_DIR}/${CI_COMMIT_REF_NAME}:/code fluid-docker.jfrog.io/fluid:integrates
-        - rm -rf /tmp${CI_PROJECT_DIR}
-        - docker logout fluid-docker.jfrog.io
-    retry: 2
-    only:
+  stage: test-deploy
+  script:
+    - mkdir -p /tmp${CI_PROJECT_DIR}/${CI_COMMIT_REF_NAME}
+    - cp -r $PWD/* /tmp${CI_PROJECT_DIR}/${CI_COMMIT_REF_NAME}
+    - echo "$JFROG_PASS" |
+        docker login fluid-docker.jfrog.io -u "$JFROG_USER" --password-stdin
+    - docker pull fluid-docker.jfrog.io/fluid:integrates
+    - docker run
+        --rm -e ORG=fluid
+        -e APP=integrates -e USER="$JFROG_USER"
+        -e PASS="$JFROG_PASS" -e FA_STRICT="true"
+        --volume /tmp${CI_PROJECT_DIR}/${CI_COMMIT_REF_NAME}:/code
+        fluid-docker.jfrog.io/fluid:integrates
+    - rm -rf /tmp${CI_PROJECT_DIR}
+    - docker logout fluid-docker.jfrog.io
+  retry: 2
+  only:
     - master
-
-serves_trigger:
-    stage: deploy
-    script:
-        - apk update && apk add openssh-client curl
-        - aws s3 cp s3://$BUCKET_NAME/terraform/FLUID_Serves.pem FLUID_Serves.pem && chmod 600 FLUID_Serves.pem
-        - scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -i FLUID_Serves.pem env.list admin@$NEW_SERVES:/home/admin
-        - ssh -o StrictHostKeyChecking=no -i FLUID_Serves.pem admin@$NEW_SERVES 'sudo docker pull registry.gitlab.com/fluidsignal/integrates:master && (sudo docker stop integrates || echo "") && (sudo docker rm integrates || echo "") && sudo docker run -d --env-file env.list -p 8000:443 --name=integrates registry.gitlab.com/fluidsignal/integrates:master'
-        - ssh -o StrictHostKeyChecking=no -i FLUID_Serves.pem admin@$NEW_SERVES 'sudo docker pull registry.gitlab.com/fluidsignal/integrates/bot:master && (sudo docker stop bot || echo "") && (sudo docker rm bot || echo "") && sudo docker run -d --env-file env.list --restart always --name=bot registry.gitlab.com/fluidsignal/integrates/bot:master && rm env.list'
-    retry: 2
-    only:
-    - triggers
