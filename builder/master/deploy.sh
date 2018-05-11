@@ -15,27 +15,19 @@ EXTENSIONS=(".html" ".css" ".js" ".png")
 for EXT in "${EXTENSIONS[@]}"; do
   case $EXT in
     ".html")
-            CONTENT="--content-type text/html"
-            ENCODING="--content-encoding gzip"
+            aws s3 sync output/web "s3://$S3_BUCKET_NAME/web" --acl public-read --exclude "*" --include "*.html" --metadata-directive REPLACE --content-type text/html --content-encoding gzip --delete
             ;;
     ".css")
-            CONTENT="--content-type text/css"
-            ENCODING="--content-encoding gzip"
+            aws s3 sync output/web "s3://$S3_BUCKET_NAME/web" --acl public-read --exclude "*" --include "*.css" --metadata-directive REPLACE --content-type text/css --content-encoding gzip --delete
             ;;
     ".js")
-            CONTENT="--content-type application/javascript"
-            ENCODING="--content-encoding gzip"
+            aws s3 sync output/web "s3://$S3_BUCKET_NAME/web" --acl public-read --exclude "*" --include "*.js" --metadata-directive REPLACE --content-type application/javascript --content-encoding gzip --delete
             ;;
     ".png")
-            CONTENT="--content-type image/png"
-            ENCODING=""
+            aws s3 sync output/web "s3://$S3_BUCKET_NAME/web" --acl public-read --exclude "*" --include "*.png" --metadata-directive REPLACE --content-type image/png --delete
             ;;
   esac
-  aws s3 sync --acl public-read --delete --size-only --exclude '*' \
-    --include "*$EXT" --metadata-directive REPLACE "$ENCODING" \
-    "$CONTENT" output/web "s3://$S3_BUCKET_NAME/web";
 done
 
 # Upload remaining files
-aws s3 sync --acl public-read --delete --size-only \
-  output/web "s3://$S3_BUCKET_NAME/web"
+aws s3 sync output/web "s3://$S3_BUCKET_NAME/web" --exclude "*.html" --exclude "*.css" --exclude "*.js" --exclude "*.png" --delete
