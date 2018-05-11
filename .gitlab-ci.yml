@@ -224,7 +224,7 @@ install_alg:
         admin@$(cat ip.txt)
         'sudo docker pull
         registry.gitlab.com/fluidsignal/serves/alg:master &&
-        sudo docker run -d -p 443:443 -p 80:80--name=tmp_alg_1
+        sudo docker run -d -p 443:443 -p 80:80 --name=tmp_alg_1
         registry.gitlab.com/fluidsignal/serves/alg:master'
   only:
     - master
