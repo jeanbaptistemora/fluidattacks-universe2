@@ -10,7 +10,9 @@ from __init__ import FI_AWS_DYNAMODB_SECRET_KEY
 import rollbar
 from datetime import datetime
 
+
 def create_user_dao(email, username='-', first_name='-', last_name='-'):
+    """Agrega un nuevo usuario."""
     role = 'None'
     last_login = datetime.now()
     date_joined = last_login
@@ -32,6 +34,7 @@ VALUES (%s, %s, %s, %s, %s, %s, %s)'
 
 
 def create_project_dao(project=None, description=None):
+    """Agrega un nuevo proyecto."""
     if project and description:
         project = project.lower()
 
@@ -44,7 +47,8 @@ def create_project_dao(project=None, description=None):
                 # Project already exists.
                 return False
 
-            query = 'INSERT INTO projects(project, description) VALUES (%s, %s)'
+            query = 'INSERT INTO projects(project, description) \
+VALUES (%s, %s)'
             try:
                 cursor.execute(query, (project, description,))
                 row = cursor.fetchone()
@@ -56,6 +60,7 @@ def create_project_dao(project=None, description=None):
 
 
 def update_user_login_dao(email):
+    """Actualiza el login de los usuarios."""
     last_login = datetime.now()
 
     with connections['integrates'].cursor() as cursor:
@@ -66,6 +71,7 @@ def update_user_login_dao(email):
 
 
 def get_user_last_login_dao(email):
+    """Obtiene el ultimo acceso de un usuario."""
     with connections['integrates'].cursor() as cursor:
         query = 'SELECT last_login FROM users WHERE email = %s'
         cursor.execute(query, (email,))
@@ -142,7 +148,8 @@ def add_access_to_project_dao(email, project_name):
             project_id = None
 
         if project_id and user_id:
-            query = 'INSERT INTO project_access(user_id, project_id, has_access) VALUES(%s, %s, %s)'
+            query = 'INSERT INTO project_access(user_id, project_id, \
+has_access) VALUES(%s, %s, %s)'
             try:
                 cursor.execute(query, (user_id[0], project_id[0], 1))
                 return True
@@ -172,8 +179,8 @@ def has_access_to_project_dao(email, project_name):
             return False
 
         if project_id and user_id:
-            query = 'SELECT has_access FROM project_access WHERE user_id = %s and \
-    project_id = %s'
+            query = 'SELECT has_access FROM project_access \
+WHERE user_id = %s and project_id = %s'
             cursor.execute(query, (user_id[0], project_id[0],))
             has_access = cursor.fetchone()
         else:
@@ -183,8 +190,9 @@ def has_access_to_project_dao(email, project_name):
             return True
     return False
 
+
 def remove_all_access_to_project_dao(project_name=None):
-    """Quita el permiso de acceso a todos los usuarios de un projecto"""
+    """Quita el permiso de acceso a todos los usuarios de un projecto."""
     if project_name:
         project_name = project_name.lower()
 
@@ -198,7 +206,8 @@ def remove_all_access_to_project_dao(project_name=None):
                 return False
 
             if project_id:
-                query = 'UPDATE project_access SET has_access=0 WHERE project_id = %s'
+                query = 'UPDATE project_access SET has_access=0 \
+WHERE project_id = %s'
                 try:
                     cursor.execute(query, (project_id[0],))
                     cursor.fetchone()
@@ -209,9 +218,10 @@ def remove_all_access_to_project_dao(project_name=None):
             else:
                 return False
     return False
+
 
 def add_all_access_to_project_dao(project_name=None):
-    """Agrega permiso de acceso a todos los usuarios de un projecto"""
+    """Agrega permiso de acceso a todos los usuarios de un projecto."""
     if project_name:
         project_name = project_name.lower()
 
@@ -225,7 +235,8 @@ def add_all_access_to_project_dao(project_name=None):
                 return False
 
             if project_id:
-                query = 'UPDATE project_access SET has_access=1 WHERE project_id = %s'
+                query = 'UPDATE project_access SET has_access=1 \
+WHERE project_id = %s'
                 try:
                     cursor.execute(query, (project_id[0],))
                     cursor.fetchone()
@@ -236,6 +247,7 @@ def add_all_access_to_project_dao(project_name=None):
             else:
                 return False
     return False
+
 
 def register(email):
     """Registra usuario en la DB."""
@@ -269,9 +281,9 @@ def assign_company(email, company):
 def get_project_users(project):
     """Trae los usuarios interesados de un proyecto."""
     with connections['integrates'].cursor() as cursor:
-        query = 'SELECT users.email, project_access.has_access FROM users LEFT JOIN project_access \
-ON users.id = project_access.user_id WHERE project_access.project_id=(SELECT id FROM \
-projects where project=%s)'
+        query = 'SELECT users.email, project_access.has_access \
+FROM users LEFT JOIN project_access ON users.id = project_access.user_id \
+WHERE project_access.project_id=(SELECT id FROM projects where project=%s)'
         try:
             cursor.execute(query, (project,))
             rows = cursor.fetchall()
@@ -284,10 +296,11 @@ projects where project=%s)'
 def get_projects_by_user(user_id):
     """Trae los usuarios interesados de un proyecto."""
     with connections['integrates'].cursor() as cursor:
-        query = "SELECT projects.project, projects.description, project_access.has_access \
-FROM project_access INNER JOIN users ON project_access.user_id=users.id \
-INNER JOIN projects ON project_access.project_id=projects.id \
-WHERE users.email=%s ORDER BY projects.project ASC"
+        query = 'SELECT projects.project, projects.description, \
+project_access.has_access FROM project_access INNER JOIN users \
+ON project_access.user_id=users.id INNER JOIN projects \
+ON project_access.project_id=projects.id WHERE users.email=%s \
+ORDER BY projects.project ASC'
         cursor.execute(query, (user_id,))
         rows = cursor.fetchall()
     return rows
@@ -303,8 +316,9 @@ def get_findings_amount(project):
         return 0
     return row[0]
 
+
 def get_vulns_by_project_dynamo(project_name):
-    """Obtiene la informacion de un hallazgo"""
+    """Obtiene la informacion de un hallazgo."""
     table = dynamodb_resource.Table('FI_findings_email')
     filter_key = 'project_name'
     if filter_key and project_name:
@@ -315,32 +329,38 @@ def get_vulns_by_project_dynamo(project_name):
     items = response['Items']
     while True:
         if response.get('LastEvaluatedKey'):
-            response = table.query(ExclusiveStartKey=response['LastEvaluatedKey'])
+            response = table.query(
+                ExclusiveStartKey=response['LastEvaluatedKey'])
             items += response['Items']
         else:
             break
     return items
 
+
 def get_vulns_by_id_dynamo(project_name, unique_id):
-    """Obtiene la informacion de un hallazgo"""
+    """Obtiene la informacion de un hallazgo."""
     table = dynamodb_resource.Table('FI_findings_email')
     filter_key = 'project_name'
     filter_sort = 'unique_id'
-    if filter_key and project_name and filter_sort and unique_id :
-        response = table.query(KeyConditionExpression=Key(filter_key).eq(project_name) & Key(filter_sort).eq(unique_id))
+    if filter_key and project_name and filter_sort and unique_id:
+        response = table.query(KeyConditionExpression=Key(filter_key).
+                               eq(project_name) & Key(filter_sort).
+                               eq(unique_id))
     else:
         response = table.query()
     items = response['Items']
     while True:
         if response.get('LastEvaluatedKey'):
-            response = table.query(ExclusiveStartKey=response['LastEvaluatedKey'])
+            response = table.query(
+                ExclusiveStartKey=response['LastEvaluatedKey'])
             items += response['Items']
         else:
             break
     return items
 
+
 def add_or_update_vulns_dynamo(project_name, unique_id, vuln_hoy):
-    """Crea o actualiza una vulnerabilidad"""
+    """Crea o actualiza una vulnerabilidad."""
     table = dynamodb_resource.Table('FI_findings_email')
     item = get_vulns_by_id_dynamo(project_name, unique_id)
     if item == []:
@@ -351,7 +371,7 @@ def add_or_update_vulns_dynamo(project_name, unique_id, vuln_hoy):
                     'unique_id': int(unique_id),
                     'vuln_hoy': int(vuln_hoy),
                 }
-                )
+            )
             resp = response['ResponseMetadata']['HTTPStatusCode'] == 200
             return resp
         except ClientError:
@@ -375,34 +395,40 @@ def add_or_update_vulns_dynamo(project_name, unique_id, vuln_hoy):
             rollbar.report_exc_info()
             return False
 
+
 def get_company_alert_dynamo(company_name, project_name):
-    """Obtiene la informacion de un hallazgo"""
-    company_name=company_name.lower()
-    project_name=project_name.lower()
+    """Obtiene la informacion de un hallazgo."""
+    company_name = company_name.lower()
+    project_name = project_name.lower()
     table = dynamodb_resource.Table('FI_alerts_by_company')
     filter_key = 'company_name'
     filter_sort = 'project_name'
     if project_name == 'all':
         if filter_key and company_name:
-            response = table.query(KeyConditionExpression=Key(filter_key).eq(company_name))
+            response = table.query(
+                KeyConditionExpression=Key(filter_key).eq(company_name))
         else:
             response = table.query()
     else:
-        if filter_key and company_name and filter_sort and project_name :
-            response = table.query(KeyConditionExpression=Key(filter_key).eq(company_name) & Key(filter_sort).eq(project_name))
+        if filter_key and company_name and filter_sort and project_name:
+            response = table.query(KeyConditionExpression=Key(filter_key).
+                                   eq(company_name) & Key(filter_sort).
+                                   eq(project_name))
         else:
             response = table.query()
     items = response['Items']
     while True:
         if response.get('LastEvaluatedKey'):
-            response = table.query(ExclusiveStartKey=response['LastEvaluatedKey'])
+            response = table.query(
+                ExclusiveStartKey=response['LastEvaluatedKey'])
             items += response['Items']
         else:
             break
     return items
 
+
 def set_company_alert_dynamo(message, company_name, project_name):
-    """Crea, actualiza o activa una alerta para una empresa"""
+    """Crea, actualiza o activa una alerta para una empresa."""
     project = project_name.lower()
     if project != 'all':
         with connections['integrates'].cursor() as cursor:
@@ -412,8 +438,8 @@ def set_company_alert_dynamo(message, company_name, project_name):
             if row is None:
                 # Project already exists.
                 return False
-    company_name=company_name.lower()
-    project_name=project_name.lower()
+    company_name = company_name.lower()
+    project_name = project_name.lower()
     table = dynamodb_resource.Table('FI_alerts_by_company')
     item = get_company_alert_dynamo(company_name, project_name)
     if item == []:
@@ -425,7 +451,7 @@ def set_company_alert_dynamo(message, company_name, project_name):
                     'message': message,
                     'status_act': '1',
                 }
-                )
+            )
             resp = response['ResponseMetadata']['HTTPStatusCode'] == 200
             return resp
         except ClientError:
@@ -451,30 +477,34 @@ def set_company_alert_dynamo(message, company_name, project_name):
         resp = response['ResponseMetadata']['HTTPStatusCode'] == 200
         return resp
 
-def change_status_company_alert_dynamo(message,company_name, project_name):
-    """Activa o desativa la alerta de una empresa"""
+
+def change_status_company_alert_dynamo(message, company_name, project_name):
+    """Activa o desativa la alerta de una empresa."""
     message = message.lower()
-    company_name=company_name.lower()
-    project_name=project_name.lower()
+    company_name = company_name.lower()
+    project_name = project_name.lower()
     table = dynamodb_resource.Table('FI_alerts_by_company')
-    if (project_name=='all' and message=='deactivate') or (project_name!='all' and message=='deactivate'):
+    if ((project_name == 'all' and message == 'deactivate') or
+            (project_name != 'all' and message == 'deactivate')):
         status = '0'
     else:
         status = '1'
     item = get_company_alert_dynamo(company_name, project_name)
     for a in item:
-        payload = { 'company_name': a['company_name'], 'project_name': a['project_name'], }
+        payload = {'company_name': a['company_name'],
+                   'project_name': a['project_name'], }
         try:
             table.update_item(
                 Key=payload,
                 UpdateExpression='SET status_act = :val1',
                 ExpressionAttributeValues={
                     ':val1': status,
-                    }
-                )
+                }
+            )
         except ClientError:
             rollbar.report_exc_info()
             return False
+
 
 def update_findings_amount(project, amount):
     """Actualiza el numero de hallazgos en el proyecto."""
@@ -492,7 +522,9 @@ def update_findings_amount(project, amount):
             row = cursor.fetchone()
     return row
 
+
 def remove_access_project_dao(email=None, project_name=None):
+    """Remueve el acceso de un usuario a un proyecto."""
     if email and project_name:
         project_name = project_name.lower()
 
@@ -529,7 +561,7 @@ def remove_access_project_dao(email=None, project_name=None):
 
 
 def all_users_report(company_name, finish_date):
-    """Extrae el numero de usuarios registrados en integrates"""
+    """Extrae el numero de usuarios registrados en integrates."""
     with connections['integrates'].cursor() as cursor:
         query = 'SELECT COUNT(id) FROM users WHERE company != %s and \
         registered = 1 and date_joined <= %s'
@@ -543,7 +575,7 @@ def all_users_report(company_name, finish_date):
 
 
 def logging_users_report(company_name, init_date, finish_date):
-    """Extrae el numero de usuarios logueados en integrates"""
+    """Extrae el numero de usuarios logueados en integrates."""
     with connections['integrates'].cursor() as cursor:
         query = 'SELECT COUNT(id) FROM users WHERE company != %s and \
         registered = 1 and last_login >= %s and last_login <= %s'
@@ -557,12 +589,13 @@ def logging_users_report(company_name, init_date, finish_date):
 
 
 dynamodb_resource = resource('dynamodb',
-                            aws_access_key_id=FI_AWS_DYNAMODB_ACCESS_KEY,
-                            aws_secret_access_key=FI_AWS_DYNAMODB_SECRET_KEY,
-                            region_name='us-east-1')
+                             aws_access_key_id=FI_AWS_DYNAMODB_ACCESS_KEY,
+                             aws_secret_access_key=FI_AWS_DYNAMODB_SECRET_KEY,
+                             region_name='us-east-1')
+
 
 def get_comments_dynamo(finding_id):
-    """Obtiene los comentarios de un hallazgo"""
+    """Obtiene los comentarios de un hallazgo."""
     table = dynamodb_resource.Table('FI_comments')
     filter_key = 'finding_id'
     if filter_key and finding_id:
@@ -573,14 +606,16 @@ def get_comments_dynamo(finding_id):
     items = response['Items']
     while True:
         if response.get('LastEvaluatedKey'):
-            response = table.query(ExclusiveStartKey=response['LastEvaluatedKey'])
+            response = table.query(
+                ExclusiveStartKey=response['LastEvaluatedKey'])
             items += response['Items']
         else:
             break
     return items
 
+
 def create_comment_dynamo(finding_id, email, data):
-    """Crea un comentario en un hallazgo"""
+    """Crea un comentario en un hallazgo."""
     table = dynamodb_resource.Table('FI_comments')
     try:
         response = table.put_item(
@@ -594,7 +629,7 @@ def create_comment_dynamo(finding_id, email, data):
                 'modified': data["data[modified]"],
                 'parent': data["data[parent]"],
             }
-            )
+        )
         resp = response['ResponseMetadata']['HTTPStatusCode'] == 200
         return resp
     except ClientError:
@@ -603,7 +638,7 @@ def create_comment_dynamo(finding_id, email, data):
 
 
 def delete_comment_dynamo(finding_id, data):
-    """Elimina un comentario en un hallazgo"""
+    """Elimina un comentario en un hallazgo."""
     table = dynamodb_resource.Table('FI_comments')
     try:
         response = table.delete_item(
@@ -618,8 +653,9 @@ def delete_comment_dynamo(finding_id, data):
         rollbar.report_exc_info()
         return False
 
+
 def get_replayer_dynamo(user_id):
-    """Obtiene los comentarios de un hallazgo por el id de un comentario"""
+    """Obtiene los comentarios de un hallazgo por el id de un comentario."""
     table = dynamodb_resource.Table('FI_comments')
     filter_key = 'user_id'
     if filter_key and user_id:
@@ -630,14 +666,16 @@ def get_replayer_dynamo(user_id):
     items = response['Items']
     while True:
         if response.get('LastEvaluatedKey'):
-            response = table.scan(ExclusiveStartKey=response['LastEvaluatedKey'])
+            response = table.scan(
+                ExclusiveStartKey=response['LastEvaluatedKey'])
             items += response['Items']
         else:
             break
     return items
 
+
 def get_remediated_dynamo(finding_id):
-    """Obtiene el tratamiento de un hallazgo"""
+    """Obtiene el tratamiento de un hallazgo."""
     table = dynamodb_resource.Table('FI_remediated')
     filter_key = 'finding_id'
     if filter_key and finding_id:
@@ -648,14 +686,16 @@ def get_remediated_dynamo(finding_id):
     items = response['Items']
     while True:
         if response.get('LastEvaluatedKey'):
-            response = table.query(ExclusiveStartKey=response['LastEvaluatedKey'])
+            response = table.query(
+                ExclusiveStartKey=response['LastEvaluatedKey'])
             items += response['Items']
         else:
             break
     return items
 
+
 def add_remediated_dynamo(finding_id, remediated, project, finding_name):
-    """Crea o actualiza un registro de remediado"""
+    """Crea o actualiza un registro de remediado."""
     table = dynamodb_resource.Table('FI_remediated')
     item = get_remediated_dynamo(finding_id)
     if item == []:
@@ -667,7 +707,7 @@ def add_remediated_dynamo(finding_id, remediated, project, finding_name):
                     'project': project,
                     'finding_name': finding_name,
                 }
-                )
+            )
             resp = response['ResponseMetadata']['HTTPStatusCode'] == 200
             return resp
         except ClientError:
@@ -690,8 +730,9 @@ def add_remediated_dynamo(finding_id, remediated, project, finding_name):
             rollbar.report_exc_info()
             return False
 
+
 def get_remediated_allfindings_dynamo(filter_value):
-    """ Obtiene el tratamiento de todos los hallazgos """
+    """Obtiene el tratamiento de todos los hallazgos."""
     table = dynamodb_resource.Table('FI_remediated')
     filter_key = 'remediated'
     if filter_key and filter_value:
@@ -703,14 +744,16 @@ def get_remediated_allfindings_dynamo(filter_value):
     items = response['Items']
     while True:
         if response.get('LastEvaluatedKey'):
-            response = table.scan(ExclusiveStartKey=response['LastEvaluatedKey'])
+            response = table.scan(
+                ExclusiveStartKey=response['LastEvaluatedKey'])
             items += response['Items']
         else:
             break
     return items
 
+
 def get_finding_dynamo(finding_id):
-    """Obtiene la informacion de un hallazgo"""
+    """Obtiene la informacion de un hallazgo."""
     table = dynamodb_resource.Table('FI_findings')
     filter_key = 'finding_id'
     if filter_key and finding_id:
@@ -721,14 +764,16 @@ def get_finding_dynamo(finding_id):
     items = response['Items']
     while True:
         if response.get('LastEvaluatedKey'):
-            response = table.query(ExclusiveStartKey=response['LastEvaluatedKey'])
+            response = table.query(
+                ExclusiveStartKey=response['LastEvaluatedKey'])
             items += response['Items']
         else:
             break
     return items
 
+
 def add_finding_dynamo(finding_id, key, value, exist, val):
-    """Crea un hallazgo"""
+    """Crea un hallazgo."""
     table = dynamodb_resource.Table('FI_findings')
     item = get_finding_dynamo(finding_id)
     if item == []:
@@ -739,7 +784,7 @@ def add_finding_dynamo(finding_id, key, value, exist, val):
                     key: value,
                     exist: val
                 }
-                )
+            )
             resp = response['ResponseMetadata']['HTTPStatusCode'] == 200
             return resp
         except ClientError:
@@ -751,7 +796,7 @@ def add_finding_dynamo(finding_id, key, value, exist, val):
                 Key={
                     'finding_id': finding_id,
                 },
-                UpdateExpression='SET ' + key + ' = :val1, ' + exist + '= :val2',
+                UpdateExpression='SET ' + key + '= :val1,' + exist + '= :val2',
                 ExpressionAttributeValues={
                     ':val1': value,
                     ':val2': val
@@ -763,8 +808,9 @@ def add_finding_dynamo(finding_id, key, value, exist, val):
             rollbar.report_exc_info()
             return False
 
+
 def delete_finding_dynamo(finding_id):
-    """Elimina un hallazgo"""
+    """Elimina un hallazgo."""
     table = dynamodb_resource.Table('FI_findings')
     try:
         response = table.delete_item(
@@ -778,8 +824,9 @@ def delete_finding_dynamo(finding_id):
         rollbar.report_exc_info()
         return False
 
+
 def get_toe_dynamo(project):
-    """Obtiene el toe de un proyecto"""
+    """Obtiene el toe de un proyecto."""
     table = dynamodb_resource.Table('FI_toe')
     filter_key = 'project'
     if filter_key and project:
@@ -790,14 +837,17 @@ def get_toe_dynamo(project):
     items = response['Items']
     while True:
         if response.get('LastEvaluatedKey'):
-            response = table.query(ExclusiveStartKey=response['LastEvaluatedKey'])
+            response = table.query(
+                ExclusiveStartKey=response['LastEvaluatedKey'])
             items += response['Items']
         else:
             break
     return items
 
-def weekly_report_dynamo(init_date, finish_date, registered_users, logged_users):
-    """Guarda el numero de usuarios registrados y logueados en integrates semanalmente"""
+
+def weekly_report_dynamo(
+        init_date, finish_date, registered_users, logged_users):
+    """Guarda el numero de usuarios registrados y logueados semanalmente."""
     table = dynamodb_resource.Table('FI_weekly_report')
     try:
         response = table.put_item(
@@ -807,7 +857,7 @@ def weekly_report_dynamo(init_date, finish_date, registered_users, logged_users)
                 'registered_users': registered_users,
                 'logged_users': logged_users,
             }
-            )
+        )
         resp = response['ResponseMetadata']['HTTPStatusCode'] == 200
         return resp
     except ClientError:
