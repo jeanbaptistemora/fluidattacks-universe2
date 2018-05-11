@@ -10,34 +10,34 @@ output "fws3user" {
 
 
 output "fis3integrationID" {
-  value = "${aws_iam_access_key.fis3integration.id}"
+  value = "${aws_iam_access_key.fis3integration2.id}"
 }
 
 output "cloudwatchID" {
-  value = "${aws_iam_access_key.cloudwatch.id}"
+  value = "${aws_iam_access_key.cloudwatch2.id}"
 }
 
 output "fluidintegratesdynamoID" {
-  value = "${aws_iam_access_key.fluidintegratesdynamo.id}"
+  value = "${aws_iam_access_key.fluidintegratesdynamo2.id}"
 }
 
 output "fws3userID" {
-  value = "${aws_iam_access_key.fws3user.id}"
+  value = "${aws_iam_access_key.fws3user2.id}"
 }
 
 #
 output "fis3integrationSECRET" {
-  value = "${aws_iam_access_key.fis3integration.secret}"
+  value = "${aws_iam_access_key.fis3integration2.secret}"
 }
 
 output "cloudwatchSECRET" {
-  value = "${aws_iam_access_key.cloudwatch.secret}"
+  value = "${aws_iam_access_key.cloudwatch2.secret}"
 }
 
 output "fluidintegratesdynamoSECRET" {
-  value = "${aws_iam_access_key.fluidintegratesdynamo.secret}"
+  value = "${aws_iam_access_key.fluidintegratesdynamo2.secret}"
 }
 
 output "fws3userSECRET" {
-  value = "${aws_iam_access_key.fws3user.secret}"
+  value = "${aws_iam_access_key.fws3user2.secret}"
 }

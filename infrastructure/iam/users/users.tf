@@ -3,7 +3,7 @@ resource "aws_iam_user" "fis3integration" {
   path = "/"
 }
 
-resource "aws_iam_access_key" "fis3integration" {
+resource "aws_iam_access_key" "fis3integration2" {
   user    = "${aws_iam_user.fis3integration.name}"
 }
 
@@ -12,7 +12,7 @@ resource "aws_iam_user" "cloudwatch" {
   path = "/"
 }
 
-resource "aws_iam_access_key" "cloudwatch" {
+resource "aws_iam_access_key" "cloudwatch2" {
   user    = "${aws_iam_user.cloudwatch.name}"
 }
 
@@ -21,7 +21,7 @@ resource "aws_iam_user" "fluidintegratesdynamo" {
   path = "/"
 }
 
-resource "aws_iam_access_key" "fluidintegratesdynamo" {
+resource "aws_iam_access_key" "fluidintegratesdynamo2" {
   user    = "${aws_iam_user.fluidintegratesdynamo.name}"
 }
 
@@ -30,7 +30,7 @@ resource "aws_iam_user" "fws3user" {
   path = "/"
 }
 
-resource "aws_iam_access_key" "fws3user" {
+resource "aws_iam_access_key" "fws3user2" {
   user    = "${aws_iam_user.fws3user.name}"
 }
 
@@ -39,6 +39,6 @@ resource "aws_iam_user" "examss3" {
   path = "/"
 }
 
-resource "aws_iam_access_key" "examss3" {
+resource "aws_iam_access_key" "examss32" {
   user    = "${aws_iam_user.examss3.name}"
 }
