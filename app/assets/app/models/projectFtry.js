@@ -428,7 +428,7 @@ angular.module("FluidIntegrates").factory("projectFtry", ($q) => ({
         "contentType": false,
         data,
         "error" (xhr, status, response) {
-          $(".loader").hide();
+          angular.element(".loader").hide();
           if (xhr.status === INTERNAL_SERVER_ERROR) {
             Rollbar.error("Error: An error ocurred loading data");
           }
@@ -442,7 +442,7 @@ angular.module("FluidIntegrates").factory("projectFtry", ($q) => ({
         "mimeType": "multipart/form-data",
         "processData": false,
         "success" (response) {
-          $(".loader").hide();
+          angular.element(".loader").hide();
           callbackFn(JSON.parse(response));
         },
         "url": `${BASE.url}update_evidences_files?_` +

@@ -36,12 +36,13 @@ angular.module("FluidIntegrates").factory(
       };
       for (let inc = 0; inc < Object.keys(tabNames).length; inc++) {
         if (Object.keys(tabNames)[inc] === tabName) {
-          $(tabName).addClass("active");
-          $(tabNames[tabName]).addClass("active");
+          angular.element(tabName).addClass("active");
+          angular.element(tabNames[tabName]).addClass("active");
         }
         else {
-          $(Object.keys(tabNames)[inc]).removeClass("active");
-          $(tabNames[Object.keys(tabNames)[inc]]).removeClass("active");
+          angular.element(Object.keys(tabNames)[inc]).removeClass("active");
+          angular.element(tabNames[
+            Object.keys(tabNames)[inc]]).removeClass("active");
         }
       }
       // Tracking mixpanel
@@ -94,13 +95,13 @@ angular.module("FluidIntegrates").factory(
         });
       });
       $scope.evidenceDescription = [
-        $("#evidenceText0").val(),
-        $("#evidenceText1").val(),
-        $("#evidenceText2").val(),
-        $("#evidenceText3").val(),
-        $("#evidenceText4").val(),
-        $("#evidenceText5").val(),
-        $("#evidenceText6").val()
+        angular.element("#evidenceText0").val(),
+        angular.element("#evidenceText1").val(),
+        angular.element("#evidenceText2").val(),
+        angular.element("#evidenceText3").val(),
+        angular.element("#evidenceText4").val(),
+        angular.element("#evidenceText5").val(),
+        angular.element("#evidenceText6").val()
       ];
       const refList = [];
       for (let cont = 0; cont < $scope.tabEvidences.length; cont++) {
@@ -301,16 +302,16 @@ angular.module("FluidIntegrates").factory(
 
     "updateEvidencesFiles" (element, $scope) {
       let errorAc1 = " ";
-      const evImage = $(element).attr("target");
+      const evImage = angular.element(element).attr("target");
       const dataP = {};
-      dataP.document = $(`#evidence${evImage}`).val();
+      dataP.document = angular.element(`#evidence${evImage}`).val();
       if (dataP.document === "") {
         errorAc1 = $translate.instant("proj_alerts.error_textsad");
         $msg.error(errorAc1);
         return false;
       }
       const data = new FormData();
-      const fileInput = $(`#evidence${evImage}`)[0];
+      const fileInput = angular.element(`#evidence${evImage}`)[0];
       data.append("id", evImage);
       data.append("url", `${$stateParams.project.toLowerCase()}-` +
                          `${$scope.finding.id}`);

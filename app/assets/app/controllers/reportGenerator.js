@@ -24,8 +24,10 @@ Rollbar, angular
 angular.module("FluidIntegrates").controller(
   "reportGenerator",
   function reportGenerator (
-    $location, $scope,
-    $timeout, $uibModal
+    $location,
+    $scope,
+    $timeout,
+    $uibModal
   ) {
     $scope.reportModal = function reportModal () {
       // Tracking mixpanel
@@ -96,17 +98,17 @@ angular.module("FluidIntegrates").controller(
               }
             }
           };
-          $("#hasPresentation").hide();
-          $("#hasPresentationMsg").show();
+          angular.element("#hasPresentation").hide();
+          angular.element("#hasPresentationMsg").show();
           $scope.init = function init () {
-            $("#hasPresentation").hide();
-            $("#hasPresentationMsg").show();
+            angular.element("#hasPresentation").hide();
+            angular.element("#hasPresentationMsg").show();
             $.get(`${BASE.url}check_pdf/project/` +
                   `${$stateParams.project}`, (cont) => {
               if (!cont.error) {
                 if (cont.data.enable) {
-                  $("#hasPresentation").show();
-                  $("#hasPresentationMsg").hide();
+                  angular.element("#hasPresentation").show();
+                  angular.element("#hasPresentationMsg").hide();
                 }
               }
               else if (cont.error) {

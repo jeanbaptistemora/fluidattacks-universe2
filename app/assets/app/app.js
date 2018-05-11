@@ -57,14 +57,14 @@ $msg.warning = function warning (text, title) {
  * @module {AngularJS} FluidIntegrates
  */
 angular.module("FluidIntegrates", [
-  "ui.router",
-  "ui.bootstrap",
-  "pascalprecht.translate",
   "ngSanitize",
-  "ngNotify",
-  "prismjsHighlight",
   "monospaced.elastic",
-  "tandibar/ng-rollbar"
+  "ngNotify",
+  "pascalprecht.translate",
+  "prismjsHighlight",
+  "tandibar/ng-rollbar",
+  "ui.bootstrap",
+  "ui.router"
 ]);
 angular.module("FluidIntegrates").config([
   "RollbarProvider",

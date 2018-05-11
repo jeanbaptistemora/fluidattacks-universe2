@@ -317,3 +317,10 @@ rules:
   angular/component-name: error
   angular/constant-name: error
   angular/di-order: error
+  angular/dumb-inject: error
+  angular/module-dependency-order: error
+  angular/no-service-method: error
+  angular/one-dependency-per-line: error
+  angular/rest-service: error
+  angular/watchers-execution: error
+  angular/angularelement: error

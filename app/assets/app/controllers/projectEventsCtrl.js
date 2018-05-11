@@ -52,10 +52,17 @@ labelEventState = function labelEventState (value) {
 angular.module("FluidIntegrates").controller(
   "projectEventsCtrl",
   function projectEventsCtrl (
-    $location, $scope, $state,
-    $stateParams, $timeout, $translate,
-    $uibModal, eventualityFactory, functionsFtry1,
-    functionsFtry3, projectFtry
+    $location,
+    $scope,
+    $state,
+    $stateParams,
+    $timeout,
+    $translate,
+    $uibModal,
+    eventualityFactory,
+    functionsFtry1,
+    functionsFtry3,
+    projectFtry
   ) {
     $scope.init = function init () {
       const projectName = $stateParams.project;
@@ -91,7 +98,7 @@ angular.module("FluidIntegrates").controller(
       $scope.finding = {};
     };
     $scope.goUp = function goUp () {
-      $("html, body").animate({"scrollTop": 0}, "fast");
+      angular.element("html, body").animate({"scrollTop": 0}, "fast");
     };
     $scope.search = function search () {
       let vlang = "en-US";
@@ -170,8 +177,8 @@ angular.module("FluidIntegrates").controller(
       $scope.isManager = userRole !== "customer";
       mixPanelDashboard.trackSearch("SearchEventuality", userEmail, project);
       // CONFIGURACION DE TABLA
-      $("#tblEventualities").bootstrapTable("destroy");
-      $("#tblEventualities").bootstrapTable({
+      angular.element("#tblEventualities").bootstrapTable("destroy");
+      angular.element("#tblEventualities").bootstrapTable({
         data,
         "locale": vlang,
         "onClickRow" (row) {
@@ -252,10 +259,10 @@ angular.module("FluidIntegrates").controller(
           });
         }
       });
-      $("#tblEventualities").bootstrapTable("refresh");
+      angular.element("#tblEventualities").bootstrapTable("refresh");
       // MANEJO DEL UI
-      $("#search_section").show();
-      $("[data-toggle=\"tooltip\"]").tooltip();
+      angular.element("#search_section").show();
+      angular.element("[data-toggle=\"tooltip\"]").tooltip();
       if (!$scope.isManager) {
         $scope.openEvents = projectFtry.alertEvents(eventsData);
         $scope.atAlert = $translate.instant("main_content.eventualities." +
@@ -265,14 +272,14 @@ angular.module("FluidIntegrates").controller(
                                                   "descSingularAlert2");
           $scope.descAlert2 = $translate.instant("main_content.eventualities." +
                                                   "descSingularAlert3");
-          $("#events_alert").show();
+          angular.element("#events_alert").show();
         }
         else if ($scope.openEvents > 1) {
           $scope.descAlert1 = $translate.instant("main_content.eventualities." +
                                                   "descPluralAlert1");
           $scope.descAlert2 = $translate.instant("main_content.eventualities." +
                                                   "descPluralAlert2");
-          $("#events_alert").show();
+          angular.element("#events_alert").show();
         }
       }
     };
@@ -280,12 +287,16 @@ angular.module("FluidIntegrates").controller(
       $uibModal.open({
         "animation": true,
         "controller" ($scope, $uibModalInstance) {
-          $scope.rowsEvent = $("#tblEventualities").bootstrapTable("getData");
+          $scope.rowsEvent =
+                 angular.element("#tblEventualities").bootstrapTable("getData");
           $scope.close = function close () {
             $uibModalInstance.close();
             const TIMEOUT = 100;
             $timeout(() => {
-              $("#tblEventualities").bootstrapTable("load", $scope.rowsEvent);
+              angular.element("#tblEventualities").bootstrapTable(
+                "load",
+                $scope.rowsEvent
+              );
             }, TIMEOUT);
           };
         },

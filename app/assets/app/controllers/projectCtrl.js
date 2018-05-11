@@ -27,9 +27,16 @@ angular
 angular.module("FluidIntegrates").controller(
   "projectCtrl",
   function projectCtrl (
-    $location, $scope, $state, $stateParams,
-    $timeout, $translate, $uibModal,
-    functionsFtry1, functionsFtry3, projectFtry
+    $location,
+    $scope,
+    $state,
+    $stateParams,
+    $timeout,
+    $translate,
+    $uibModal,
+    functionsFtry1,
+    functionsFtry3,
+    projectFtry
   ) {
     $scope.init = function init () {
       const projectName = $stateParams.project;
@@ -55,7 +62,7 @@ angular.module("FluidIntegrates").controller(
       $scope.finding = {};
     };
     $scope.goUp = function goUp () {
-      $("html, body").animate({"scrollTop": 0}, "fast");
+      angular.element("html, body").animate({"scrollTop": 0}, "fast");
     };
     $scope.search = function search () {
       const projectName = $scope.project;
@@ -137,8 +144,8 @@ angular.module("FluidIntegrates").controller(
               userEmail,
               projectName
             );
-            $("#search_section").show();
-            $("[data-toggle=\"tooltip\"]").tooltip();
+            angular.element("#search_section").show();
+            angular.element("[data-toggle=\"tooltip\"]").tooltip();
           }
           else if (response.message === "Access to project denied") {
             Rollbar.warning("Warning: Access to event denied");

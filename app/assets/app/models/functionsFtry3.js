@@ -30,7 +30,7 @@ angular.module("FluidIntegrates").factory(
       document.onkeypress = function onkeypress (ev) {
         const enterKey = 13;
         if (ev.keyCode === enterKey) {
-          if ($("#project").is(":focus")) {
+          if (angular.element("#project").is(":focus")) {
             $scope.search();
           }
         }
@@ -222,19 +222,19 @@ angular.module("FluidIntegrates").factory(
       $scope.isManager = userRole !== "customer";
       if (!$scope.isManager && !$scope.isAssumed &&
           !$scope.isClosed && $scope.isContinuous) {
-        $(".finding-treatment").show();
+        angular.element(".finding-treatment").show();
       }
       else {
-        $(".finding-treatment").hide();
+        angular.element(".finding-treatment").hide();
       }
       if ($scope.isManager && $scope.isRemediated) {
-        $(".finding-verified").show();
+        angular.element(".finding-verified").show();
       }
       else {
-        $(".finding-verified").hide();
+        angular.element(".finding-verified").hide();
       }
       // Inicializar galeria de evidencias
-      $(".popup-gallery").magnificPopup({
+      angular.element(".popup-gallery").magnificPopup({
         "delegate": "a",
         "gallery": {
           "enabled": true,
@@ -256,29 +256,29 @@ angular.module("FluidIntegrates").factory(
         "type": "image"
       });
       // Init auto height in textarea
-      if ($("#infoItem").hasClass("active")) {
+      if (angular.element("#infoItem").hasClass("active")) {
         $timeout(() => {
           $scope.$broadcast("elastic:adjust");
         });
       }
-      $("#trackingItem").on("click", () => {
+      angular.element("#trackingItem").on("click", () => {
         $timeout(() => {
           $scope.$broadcast("elastic:adjust");
         });
       });
-      $("#infoItem").on("click", () => {
+      angular.element("#infoItem").on("click", () => {
         $timeout(() => {
           $scope.$broadcast("elastic:adjust");
         });
       });
-      $("#edit").on("click", () => {
+      angular.element("#edit").on("click", () => {
         $timeout(() => {
           $scope.$broadcast("elastic:adjust");
         });
       });
       // Init auto height in panels
-      $("#evidenceItem").on("click", () => {
-        $(".equalHeight").matchHeight();
+      angular.element("#evidenceItem").on("click", () => {
+        angular.element(".equalHeight").matchHeight();
       });
       functionsFtry2.findingInformationTab($scope);
       const TIMEOUT = 200;
@@ -292,14 +292,14 @@ angular.module("FluidIntegrates").factory(
                                                   "descSingularAlert2");
           $scope.descAlert2 = $translate.instant("main_content.eventualities." +
                                                   "descSingularAlert3");
-          $("#events_alert").show();
+          angular.element("#events_alert").show();
         }
         else if ($scope.openEvents > 1) {
           $scope.descAlert1 = $translate.instant("main_content.eventualities." +
                                                   "descPluralAlert1");
           $scope.descAlert2 = $translate.instant("main_content.eventualities." +
                                                   "descPluralAlert2");
-          $("#events_alert").show();
+          angular.element("#events_alert").show();
         }
       }
     },

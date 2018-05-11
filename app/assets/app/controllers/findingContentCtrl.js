@@ -27,10 +27,18 @@ keysToTranslate, desc:true, angular */
 /** @export */
 angular.module("FluidIntegrates").controller("findingContentCtrl", function
 findingContentCtrl (
-  $scope, $state, $stateParams,
-  $timeout, $translate, $uibModal,
-  functionsFtry1, functionsFtry2,
-  functionsFtry3, ngNotify, projectFtry, tabsFtry
+  $scope,
+  $state,
+  $stateParams,
+  $timeout,
+  $translate,
+  $uibModal,
+  functionsFtry1,
+  functionsFtry2,
+  functionsFtry3,
+  ngNotify,
+  projectFtry,
+  tabsFtry
 ) {
   String.prototype.replaceAll = function replaceAll (
     search,
@@ -73,7 +81,7 @@ findingContentCtrl (
   $scope.detectNivel = function detectNivel () {
     const TIMEOUT = 200;
     $timeout(() => {
-      $scope.$apply();
+      $scope.$digest();
       if ($scope.finding.nivel === "Detallado") {
         $scope.esDetallado = true;
         findingData.esDetallado = $scope.esDetallado;
@@ -97,7 +105,7 @@ findingContentCtrl (
     functionsFtry1.deleteFinding($scope);
   };
   $scope.goUp = function goUp () {
-    $("html, body").animate({"scrollTop": 0}, "fast");
+    angular.element("html, body").animate({"scrollTop": 0}, "fast");
   };
   $scope.hasUrl = function hasUrl (element) {
     if (typeof element !== "undefined") {
@@ -216,10 +224,10 @@ findingContentCtrl (
           $scope.isRemediated = response.data.remediated;
           findingData.remediated = $scope.isRemediated;
           if ($scope.isManager && $scope.isRemediated) {
-            $(".finding-verified").show();
+            angular.element(".finding-verified").show();
           }
           else {
-            $(".finding-verified").hide();
+            angular.element(".finding-verified").hide();
           }
         }
         else if (response.error) {
@@ -262,7 +270,7 @@ findingContentCtrl (
     $scope.view.finding = false;
     projectData = [];
     $state.go("ProjectFindings", {"project": $scope.project});
-    $("html, body").animate(
+    angular.element("html, body").animate(
       {"scrollTop": $scope.currentScrollPosition},
       "fast"
     );

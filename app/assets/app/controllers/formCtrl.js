@@ -20,7 +20,7 @@ angular.module("FluidIntegrates").controller(
     const lengthUrl = 0;
     if (urlLength > lengthUrl && urlForm.autocomplete === "true") {
       // Formulario de avance
-      $("#ifrmProgress").on("load", () => {
+      angular.element("#ifrmProgress").on("load", () => {
         const iframe = document.getElementById("ifrmProgress");
         const innerDoc = iframe.contentDocument ||
                          iframe.contentWindow.document;

@@ -344,11 +344,11 @@ angular.module("FluidIntegrates").factory(
     },
 
     "updateEvidenceText" (element, $scope) {
-      const evImage = $(element).attr("target");
+      const evImage = angular.element(element).attr("target");
       const data = {};
       data.id = $scope.finding.id;
-      const description = $(`#evidenceText${evImage}`).val();
-      const file = $(`#evidence${evImage}`).val();
+      const description = angular.element(`#evidenceText${evImage}`).val();
+      const file = angular.element(`#evidence${evImage}`).val();
       if (description === "" || $scope.evidenceDescription[evImage] ===
           description) {
         if (file !== "") {

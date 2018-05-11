@@ -20,9 +20,13 @@ findingData:true, fieldsToTranslate, keysToTranslate, modalInstance:true, $msg
 angular.module("FluidIntegrates").controller(
   "dashboardCtrl",
   function dashboardCtrl (
-    $q, $scope, $state,
-    $stateParams, $timeout,
-    $translate, $uibModal
+    $q,
+    $scope,
+    $state,
+    $stateParams,
+    $timeout,
+    $translate,
+    $uibModal
   ) {
     $scope.initMyProjects = function initMyProjects () {
       let vlang = "en-US";
@@ -33,14 +37,14 @@ angular.module("FluidIntegrates").controller(
         vlang = "es-CO";
       }
       $timeout(() => {
-        $("#myProjectsTbl").bootstrapTable({
+        angular.element("#myProjectsTbl").bootstrapTable({
           "locale": vlang,
           "onClickRow" (row) {
             $state.go("ProjectIndicators", {"project": row.project});
           },
           "url": `${BASE.url}get_myprojects`
         });
-        $("#myProjectsTbl").bootstrapTable("refresh");
+        angular.element("#myProjectsTbl").bootstrapTable("refresh");
       });
     };
 
@@ -105,7 +109,7 @@ angular.module("FluidIntegrates").controller(
                   $translate.instant(keysToTranslate[response.data[cont].tipo]);
           }
         }
-        $("#myEventsTbl").bootstrapTable({
+        angular.element("#myEventsTbl").bootstrapTable({
           "data": response.data,
           "locale": vlang,
           "onClickRow" (row) {
@@ -133,7 +137,7 @@ angular.module("FluidIntegrates").controller(
             });
           }
         });
-        $("#myEventsTbl").bootstrapTable("refresh");
+        angular.element("#myEventsTbl").bootstrapTable("refresh");
       });
     };
     $scope.init = function init () {

@@ -32,7 +32,7 @@ angular.module("FluidIntegrates").factory("eventualityFactory", ($q) => ({
           project
         },
         "error" (xhr) {
-          $(".loader").hide();
+          angular.element(".loader").hide();
           if (xhr.status === INTERNAL_SERVER_ERROR) {
             Rollbar.error("Error: An error ocurred loading data");
             deferred.resolve({
@@ -46,7 +46,7 @@ angular.module("FluidIntegrates").factory("eventualityFactory", ($q) => ({
           }
         },
         "success" (response) {
-          $(".loader").hide();
+          angular.element(".loader").hide();
           deferred.resolve(response);
         },
         "url": `${BASE.url}get_eventualities`
@@ -78,7 +78,7 @@ angular.module("FluidIntegrates").factory("eventualityFactory", ($q) => ({
       $.ajax({
         "data": {vuln},
         "error" (xhr) {
-          $(".loader").hide();
+          angular.element(".loader").hide();
           if (xhr.status === INTERNAL_SERVER_ERROR) {
             Rollbar.error("Error: An error ocurred loading data");
             deferred.resolve({

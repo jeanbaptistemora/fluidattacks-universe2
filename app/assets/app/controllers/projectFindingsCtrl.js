@@ -72,9 +72,16 @@ labelState = function labelState (value) {
 angular.module("FluidIntegrates").controller(
   "projectFindingsCtrl",
   function projectFindingsCtrl (
-    $location, $scope, $state, $stateParams,
-    $timeout, $translate, $uibModal,
-    functionsFtry1, functionsFtry3, projectFtry
+    $location,
+    $scope,
+    $state,
+    $stateParams,
+    $timeout,
+    $translate,
+    $uibModal,
+    functionsFtry1,
+    functionsFtry3,
+    projectFtry
   ) {
     $scope.init = function init () {
       const projectName = $stateParams.project;
@@ -110,7 +117,7 @@ angular.module("FluidIntegrates").controller(
       $scope.finding = {};
     };
     $scope.goUp = function goUp () {
-      $("html, body").animate({"scrollTop": 0}, "fast");
+      angular.element("html, body").animate({"scrollTop": 0}, "fast");
     };
     $scope.search = function search () {
       let vlang = "en-US";
@@ -233,8 +240,8 @@ angular.module("FluidIntegrates").controller(
         }
       }
       // CONFIGURACION DE TABLA
-      $("#vulnerabilities").bootstrapTable("destroy");
-      $("#vulnerabilities").bootstrapTable({
+      angular.element("#vulnerabilities").bootstrapTable("destroy");
+      angular.element("#vulnerabilities").bootstrapTable({
         "cookie": true,
         "cookieIdTable": "saveId",
         "data": datatest,
@@ -245,26 +252,26 @@ angular.module("FluidIntegrates").controller(
             "id": row.id,
             "project": row.proyecto_fluid.toLowerCase()
           });
-          $("#infoItem").addClass("active");
-          $("#info").addClass("active");
-          $("#cssv2Item").removeClass("active");
-          $("#cssv2").removeClass("active");
-          $("#trackingItem").removeClass("active");
-          $("#tracking").removeClass("active");
-          $("#evidenceItem").removeClass("active");
-          $("#evidence").removeClass("active");
-          $("#exploitItem").removeClass("active");
-          $("#exploit").removeClass("active");
+          angular.element("#infoItem").addClass("active");
+          angular.element("#info").addClass("active");
+          angular.element("#cssv2Item").removeClass("active");
+          angular.element("#cssv2").removeClass("active");
+          angular.element("#trackingItem").removeClass("active");
+          angular.element("#tracking").removeClass("active");
+          angular.element("#evidenceItem").removeClass("active");
+          angular.element("#evidence").removeClass("active");
+          angular.element("#exploitItem").removeClass("active");
+          angular.element("#exploit").removeClass("active");
           // Tracking mixpanel
           mixPanelDashboard.trackFinding("ReadFinding", userEmail, row.id);
-          $scope.currentScrollPosition = $(document).scrollTop();
+          $scope.currentScrollPosition = angular.element(document).scrollTop();
         },
         "pageSize": 50
       });
-      $("#vulnerabilities").bootstrapTable("refresh");
+      angular.element("#vulnerabilities").bootstrapTable("refresh");
       // MANEJO DEL UI
-      $("#search_section").show();
-      $("[data-toggle=\"tooltip\"]").tooltip();
+      angular.element("#search_section").show();
+      angular.element("[data-toggle=\"tooltip\"]").tooltip();
 
       if (typeof $stateParams.finding !== "undefined") {
         $scope.finding.id = $stateParams.finding;
@@ -281,14 +288,14 @@ angular.module("FluidIntegrates").controller(
                                                   "descSingularAlert2");
           $scope.descAlert2 = $translate.instant("main_content.eventualities." +
                                                   "descSingularAlert3");
-          $("#events_alert").show();
+          angular.element("#events_alert").show();
         }
         else if ($scope.openEvents > 1) {
           $scope.descAlert1 = $translate.instant("main_content.eventualities." +
                                                   "descPluralAlert1");
           $scope.descAlert2 = $translate.instant("main_content.eventualities." +
                                                   "descPluralAlert2");
-          $("#events_alert").show();
+          angular.element("#events_alert").show();
         }
       }
     };
@@ -296,7 +303,8 @@ angular.module("FluidIntegrates").controller(
       $uibModal.open({
         "animation": true,
         "controller" ($scope, $uibModalInstance) {
-          const auxiliar = $("#vulnerabilities").bootstrapTable("getData");
+          const auxiliar =
+                  angular.element("#vulnerabilities").bootstrapTable("getData");
           const data = auxiliar;
           for (let cont = 0; cont < data.length; cont++) {
             data[cont].atributos = 0;
@@ -338,7 +346,10 @@ angular.module("FluidIntegrates").controller(
             const TIMEOUT = 100;
             $uibModalInstance.close();
             $timeout(() => {
-              $("#vulnerabilities").bootstrapTable("load", auxiliar);
+              angular.element("#vulnerabilities").bootstrapTable(
+                "load",
+                auxiliar
+              );
             }, TIMEOUT);
           };
         },

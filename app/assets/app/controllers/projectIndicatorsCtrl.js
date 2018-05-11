@@ -27,9 +27,16 @@ mixPanelDashboard, win:true, Organization, projectData:true, eventsData:true
 angular.module("FluidIntegrates").controller(
   "projectIndicatorsCtrl",
   function projectIndicatorsCtrl (
-    $location, $scope, $state, $stateParams,
-    $timeout, $translate, $uibModal,
-    functionsFtry1, functionsFtry3, projectFtry
+    $location,
+    $scope,
+    $state,
+    $stateParams,
+    $timeout,
+    $translate,
+    $uibModal,
+    functionsFtry1,
+    functionsFtry3,
+    projectFtry
   ) {
     const PERCENTAGE_FACTOR = 100;
     const MAX_DECIMALS = 2;
@@ -53,7 +60,7 @@ angular.module("FluidIntegrates").controller(
         $scope.search();
         const org = Organization.toUpperCase();
         const projt = projectName.toUpperCase();
-        $(".equalWidgetHeight").matchHeight();
+        angular.element(".equalWidgetHeight").matchHeight();
         mixPanelDashboard.trackReports(
           "ProjectIndicators",
           userName,
@@ -68,7 +75,7 @@ angular.module("FluidIntegrates").controller(
       $scope.finding = {};
     };
     $scope.goUp = function goUp () {
-      $("html, body").animate({"scrollTop": 0}, "fast");
+      angular.element("html, body").animate({"scrollTop": 0}, "fast");
     };
     $scope.calculateCardinality = function calculateCardinality (data) {
       const cardinalityValues = projectFtry.calCardinality(data);
@@ -192,7 +199,7 @@ angular.module("FluidIntegrates").controller(
       const totalHigLabel = higTransl + " :n%".replace(":n", (totalHig *
                             PERCENTAGE_FACTOR / (totalSeg +
                             totalHig)).toFixed(MAX_DECIMALS).toString());
-      $("#grapType").empty();
+      angular.element("#grapType").empty();
       Morris.Donut({ /* eslint-disable-line new-cap */
         "data": [
           {
@@ -243,7 +250,7 @@ angular.module("FluidIntegrates").controller(
         (nonexploit * PERCENTAGE_FACTOR / (exploit +
                               nonexploit)).toFixed(MAX_DECIMALS).toString()
       );
-      $("#grapExploit").empty();
+      angular.element("#grapExploit").empty();
       Morris.Donut({ /* eslint-disable-line new-cap */
         "data": [
           {
@@ -290,7 +297,7 @@ angular.module("FluidIntegrates").controller(
                    PERCENTAGE_FACTOR / total).toFixed(MAX_DECIMALS).toString());
       const closeLabel = closeTransl + " :n%".replace(":n", (close *
                    PERCENTAGE_FACTOR / total).toFixed(MAX_DECIMALS).toString());
-      $("#grapStatus").empty();
+      angular.element("#grapStatus").empty();
       Morris.Donut({ /* eslint-disable-line new-cap */
         "data": [
           {
@@ -426,14 +433,14 @@ angular.module("FluidIntegrates").controller(
                                                   "descSingularAlert2");
           $scope.descAlert2 = $translate.instant("main_content.eventualities." +
                                                   "descSingularAlert3");
-          $("#events_alert").show();
+          angular.element("#events_alert").show();
         }
         else if ($scope.openEvents > 1) {
           $scope.descAlert1 = $translate.instant("main_content.eventualities." +
                                                   "descPluralAlert1");
           $scope.descAlert2 = $translate.instant("main_content.eventualities." +
                                                   "descPluralAlert2");
-          $("#events_alert").show();
+          angular.element("#events_alert").show();
         }
       }
       const TIMEOUT = 200;
@@ -441,8 +448,8 @@ angular.module("FluidIntegrates").controller(
       $timeout($scope.mainGraphtypePieChart, TIMEOUT);
       $timeout($scope.mainGraphstatusPieChart, TIMEOUT);
       // MANEJO DEL UI
-      $("#search_section").show();
-      $("[data-toggle=\"tooltip\"]").tooltip();
+      angular.element("#search_section").show();
+      angular.element("[data-toggle=\"tooltip\"]").tooltip();
 
       if (typeof $stateParams.finding !== "undefined") {
         $scope.finding.id = $stateParams.finding;

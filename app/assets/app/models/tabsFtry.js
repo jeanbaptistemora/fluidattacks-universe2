@@ -40,7 +40,7 @@ angular.module("FluidIntegrates").factory("tabsFtry", (
           const divConst = 1000;
           const multiConst = 100;
           const radix = 9;
-          $("#comments-container").comments({
+          angular.element("#comments-container").comments({
             "defaultNavigationSortKey": "oldest",
             "enableAttachments": false,
             "enableEditing": false,
@@ -317,15 +317,15 @@ angular.module("FluidIntegrates").factory("tabsFtry", (
                   });
                 }
               }
-              $("#recordsTable").bootstrapTable("destroy");
-              $("#recordsTable").bootstrapTable({
+              angular.element("#recordsTable").bootstrapTable("destroy");
+              angular.element("#recordsTable").bootstrapTable({
                 "columns": dataCols,
                 "cookie": true,
                 "cookieIdTable": "recordsTableCookie",
                 "data": response.data,
                 "locale": vlang
               });
-              $("#recordsTable").bootstrapTable("refresh");
+              angular.element("#recordsTable").bootstrapTable("refresh");
             }
             else if (response.error) {
               Rollbar.error("Error: An error occurred loading record from S3");
@@ -383,15 +383,15 @@ angular.module("FluidIntegrates").factory("tabsFtry", (
                   });
                 }
               }
-              $("#recordsTable").bootstrapTable("destroy");
-              $("#recordsTable").bootstrapTable({
+              angular.element("#recordsTable").bootstrapTable("destroy");
+              angular.element("#recordsTable").bootstrapTable({
                 "columns": dataCols,
                 "cookie": true,
                 "cookieIdTable": "recordsTableCookie",
                 "data": response.data,
                 "locale": vlang
               });
-              $("#recordsTable").bootstrapTable("refresh");
+              angular.element("#recordsTable").bootstrapTable("refresh");
             }
             else if (response.error) {
               Rollbar.error("Error: An error occurred loading record");
