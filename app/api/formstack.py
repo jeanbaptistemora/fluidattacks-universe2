@@ -11,18 +11,20 @@ from retrying import retry
 import rollbar
 
 requests.adapters.DEFAULT_RETRIES = 10
-class FormstackAPI(object):
 
+
+class FormstackAPI(object):
+    """Clase para consumir la API de Formstack."""
 
     headers_config = {}
     SUBMISSION_URL = "https://www.formstack.com/api/v2/submission/:id.json"
-    #Finding URL
+    # Finding URL
     FN_URL = "https://www.formstack.com/api/v2/form/1998500/submission.json"
-    #Project information URL
+    # Project information URL
     IN_URL = "https://www.formstack.com/api/v2/form/2696665/submission.json"
-    #Eventuality URL
+    # Eventuality URL
     EV_URL = "https://www.formstack.com/api/v2/form/1886931/submission.json"
-    #Close finding URL
+    # Close finding URL
     CL_URL = "https://www.formstack.com/api/v2/form/2264008/submission.json"
 
     def __init__(self):
@@ -72,38 +74,39 @@ AppleWebKit/537.36 (KHTML, like Gecko) FLUIDIntegrates/1.0'
             executed_request = None
         return executed_request
 
-    def valid_token(self ):
+    def valid_token(self):
         """Valida que un token sea valido y lo asigna."""
-        ltokens= FI_FORMSTACK_TOKENS.split(',')
+        ltokens = FI_FORMSTACK_TOKENS.split(',')
         url = "https://www.formstack.com/api/v2/submission/293276999.json"
-        for x in range (0, len(ltokens)):
+        for x in range(0, len(ltokens)):
             test_token = ltokens[x]
             data = {"oauth_token": test_token}
             req = requests.request(
-            'GET', url,
-            data=data, headers=self.headers_config
-            )
+                'GET', url,
+                data=data, headers=self.headers_config)
             if req.status_code != 429:
                 self.TOKEN = test_token
                 return self.TOKEN
             else:
-                if x == (len(ltokens)-3):
-                    message = 'Error: There are only 2 available formstack tokens left for today.'
+                if x == (len(ltokens) - 3):
+                    message = 'Error: There are only 2 available \
+                                formstack tokens left for today.'
                     rollbar.report_message(message, 'error')
                 else:
                     continue
 
     def delete_submission(self, submission_id):
-        """ Elimina un id de submission """
+        """Elimina un id de submission."""
         data = {'id': submission_id}
         url = self.SUBMISSION_URL.replace(":id", submission_id)
         return self.request("DELETE", url, data=data)
 
     def get_eventualities(self, project):
-        """Obtiene las eventualidades partir del
-        nombre de proyecto."""
+        """Obtiene las eventualidades partir del nombre de proyecto."""
         search_field = "29042322"
-        data = {'search_field_1': search_field, 'search_value_1': project, 'per_page': 100}
+        data = {'search_field_1': search_field,
+                'search_value_1': project,
+                'per_page': 100}
         return self.request("GET", self.EV_URL, data=data)
 
     def get_submission(self, submission_id):
@@ -112,27 +115,30 @@ AppleWebKit/537.36 (KHTML, like Gecko) FLUIDIntegrates/1.0'
         return self.request("GET", url)
 
     def get_findings(self, project):
-        """Obtiene los hallazgos a partir del nombre
-        de proyecto."""
+        """Obtiene los hallazgos a partir del nombre de proyecto."""
         search_field = "32201732"
-        data = {'search_field_1': search_field, 'search_value_1': project, 'per_page': 100}
+        data = {'search_field_1': search_field,
+                'search_value_1': project,
+                'per_page': 100}
         return self.request("GET", self.FN_URL, data=data)
 
     def get_project_info(self, project):
-        """Obtiene los hallazgos a partir del nombre
-        de proyecto."""
+        """Obtiene los hallazgos a partir del nombre de proyecto."""
         search_field = "52601266"
-        data = {'search_field_1': search_field, 'search_value_1': project, 'per_page': 100}
+        data = {'search_field_1': search_field,
+                'search_value_1': project,
+                'per_page': 100}
         return self.request("GET", self.IN_URL, data=data)
 
     def get_closings_by_id(self, submission_id):
         """Obtiene los cierres de un ID de proyecto."""
         search_field = "39596063"
-        data = {'search_field_1': search_field, 'search_value_1': submission_id}
+        data = {'search_field_1': search_field,
+                'search_value_1': submission_id}
         return self.request("GET", self.CL_URL, data=data)
 
     def get_closings_by_project(self, project):
-        """Obtiene los cierres de un proyecto"""
+        """Obtiene los cierres de un proyecto."""
         search_field = "39596058"
         data = {'search_field_1': search_field, 'search_value_1': project}
         return self.request("GET", self.CL_URL, data=data)
