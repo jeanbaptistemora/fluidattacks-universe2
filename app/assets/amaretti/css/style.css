@@ -9829,7 +9829,7 @@ button:focus {
 .main-content {
   padding-left: 35px;
   padding-right: 35px;
-  padding-top: 35px;
+  padding-top: 5px;
 }
 @media (min-width: 768px) and (max-width: 991px) {
   .main-content {
@@ -9873,7 +9873,7 @@ button:focus {
   background: none repeat scroll 0 0 rgba(0, 0, 0, 0);
   margin-bottom: 0;
   padding: 4px;
-  font-size: 12px;
+  font-size: 16px;
 }
 .am-white-header .page-head {
   background-color: #f8f8f8;
