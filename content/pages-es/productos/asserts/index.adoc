@@ -14,6 +14,8 @@ sobre ambientes en ejecución +(DAST)+.
 .Caso de uso
 image::fluidassertses.png[Asserts]
 
+Ver la [button]#link:https://fluidsignal.gitlab.io/asserts/[documentación de la API]# (en construcción).
+
 == 2. Ejecución
 
 === En un PC
