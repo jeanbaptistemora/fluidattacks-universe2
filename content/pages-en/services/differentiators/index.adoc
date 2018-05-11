@@ -52,7 +52,7 @@ a|{no} They only verify:
 * Availability.
 
 a|==== Method
-| {yes} Hybrid (Automated tools + manual expert revision).
+| {yes} Automated tools + hands-on expert review (Hybrid).
 | {no} Static (Automated tools only).
 
 a|==== Team
