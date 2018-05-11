@@ -40,6 +40,7 @@ o lo transforma en algo que cumpla con las especificaciones.
 . +C Sharp+ link:../../defends/csharp/evitar-direct-transversal/[Evitar Ataques de Directorio Transversal].
 . +Java+ link:../../defends/java/filtrar-entrada-datos-regex/[Filtrar Entrada de Datos Usando Expresión Regular].
 . +Java+ link:../../defends/java/validar-redirecciones/[Validar Redirecciones a Páginas Web].
+. +Java+ link:../../defends/java/rutas-abolutas-canon/[Obtener Rutas Absolutas Canónicas].
 . +PHP+ link:../../defends/php/filtrar-entradas-regex/[Filtrar Entradas con Expresiones Regulares].
 
 == Ataques
