@@ -1,7 +1,7 @@
 :slug: services/faq/
 :category: services
 :description: Our Continuous Hacking service aims to detect and report all the vulnerabilities in your application as soon as possible. In this page we present a recompilation of questions and answers that help understand the Continuous Hacking service and how it can benefit an organization.
-:keywords: FLUID, Services, Continuos Hacking, Ethical Hacking, FAQ, Questions.
+:keywords: FLUIDAttacks, Services, Continuos Hacking, Ethical Hacking, FAQ, Questions.
 :translate: servicios/faq/
 
 = Frequently asked questions
@@ -17,11 +17,13 @@ that come to mind when discussing Continuous Hacking.
   is to guarantee +100%+ coverage of the application.
 
 *What benefits does Continuous Hacking have, when applied to an application?*::
-  - Minimizing the repairing cost since the tests are done
+  . Minimizing the repairing cost since the tests are done
   when the application is in a development environment and not a production one.
-  - Reducing the certification time to zero since the tests
+
+  . Reducing the certification time to zero since the tests
   are done along with the development.
-  - Giving clear and detailed information about the detected vulnerabilities,
+
+  . Giving clear and detailed information about the detected vulnerabilities,
   allowing synchronization amongst all people involved in the project
   and resolving all doubts and questions
   the developers may have regarding the reported vulnerabilities,
@@ -30,17 +32,17 @@ that come to mind when discussing Continuous Hacking.
 *What are the necessary inputs and requirements needed for the service?*::
   The service can be offered in the following phases:
 
-  - Phase 1: The most important input needed for the service
+  . *Phase 1:* The most important input needed for the service
   is access to the integration branch of the repository
   where the application's source code is stored.
   In this phase, there still does not exist a deployed application
   and, therefore, the security testing focuses on the source code.
 
-  - Phase 2: In addition to the prior,
+  . *Phase 2:* In addition to the prior,
   and when the project has a deployed application (Integration Environment),
   the tests coverage increases to include application security testing.
 
-  - Phase 3: This phase is transversal to the others
+  . *Phase 3:* This phase is transversal to the others
   and applies only if the infrastructure that supports the application
   is defined as code and kept in the repository mentioned in Phase 1.
   This phase includes infrastructure in the security testing.
@@ -177,7 +179,7 @@ that come to mind when discussing Continuous Hacking.
   The Continuous Hacking service has an interactive report platform
   called link:../../../products/integrates/[Integrates].
   This allows all project stakeholders to have access
-  to the details of the vulnerabilities reported by FLUID.
+  to the details of the vulnerabilities reported by FLUIDAttacks.
 
 *What types of reports are generated during the service?*::
   From link:../../../products/integrates/[Integrates]
