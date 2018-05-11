@@ -36,7 +36,7 @@ en el caso de este artículo nos enfocaremos en realizar una validación
 del tipo de archivo haciendo uso de los encabezados.
 Para ello debemos seguir los siguientes pasos:
 
-. Se hará uso de la biblioteca +Mime Type Detection Utility+ << r2, ^[2]^>>,
+. Se hará uso de la biblioteca +Mime Type Detection Utility+ <<r2, ^[2]^>>,
 la cual determina el tipo de archivo
 revisando los encabezados (+magic headers+).
 
