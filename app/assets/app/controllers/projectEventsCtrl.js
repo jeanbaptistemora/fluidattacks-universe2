@@ -52,11 +52,10 @@ labelEventState = function labelEventState (value) {
 angular.module("FluidIntegrates").controller(
   "projectEventsCtrl",
   function projectEventsCtrl (
-    $scope, $location,
-    $uibModal, $timeout,
-    $state, $stateParams,
-    $translate, projectFtry,
-    eventualityFactory, functionsFtry1, functionsFtry3
+    $location, $scope, $state,
+    $stateParams, $timeout, $translate,
+    $uibModal, eventualityFactory, functionsFtry1,
+    functionsFtry3, projectFtry
   ) {
     $scope.init = function init () {
       const projectName = $stateParams.project;

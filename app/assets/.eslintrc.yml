@@ -304,3 +304,16 @@ rules:
   angular/no-private-call: error
   angular/controller-as-route: error
   angular/controller-as-vm: error
+  angular/di-unused: error
+  angular/directive-restrict: error
+  angular/empty-controller: error
+  angular/no-inline-template: error
+  angular/no-run-logic: error
+  angular/on-watch: error
+  angular/prefer-component: error
+  angular/no-cookiestore: error
+  angular/no-directive-replace: error
+  angular/no-http-callback: error
+  angular/component-name: error
+  angular/constant-name: error
+  angular/di-order: error

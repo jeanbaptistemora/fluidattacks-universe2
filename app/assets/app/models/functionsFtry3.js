@@ -21,9 +21,9 @@ findingData, userRole, secureRandom, angular */
 angular.module("FluidIntegrates").factory(
   "functionsFtry3",
   (
-    $q, $translate, projectFtry,
-    $uibModal, $stateParams, $timeout,
-    functionsFtry1, functionsFtry2
+    $timeout, $translate,
+    $uibModal, functionsFtry1,
+    functionsFtry2, projectFtry
   ) => ({
 
     "configKeyboardView" ($scope) {

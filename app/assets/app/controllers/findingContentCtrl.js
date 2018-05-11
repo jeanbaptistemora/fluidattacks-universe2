@@ -27,11 +27,10 @@ keysToTranslate, desc:true, angular */
 /** @export */
 angular.module("FluidIntegrates").controller("findingContentCtrl", function
 findingContentCtrl (
-  $scope, $stateParams, $timeout,
-  $uibModal, $translate, $state,
-  ngNotify, projectFtry, tabsFtry,
+  $scope, $state, $stateParams,
+  $timeout, $translate, $uibModal,
   functionsFtry1, functionsFtry2,
-  functionsFtry3
+  functionsFtry3, ngNotify, projectFtry, tabsFtry
 ) {
   String.prototype.replaceAll = function replaceAll (
     search,

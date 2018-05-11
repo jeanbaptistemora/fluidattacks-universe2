@@ -4,7 +4,6 @@ integrates, $, angular
 /**
  * Controlador de vista de formularios
  * @name formCtr
- * @param {Object} $scope
  * @param {Object} $uibModal
  * @param {Object} $stateParams
  * @param {Object} $state
@@ -14,7 +13,7 @@ integrates, $, angular
 /** @export */
 angular.module("FluidIntegrates").controller(
   "formCtrl",
-  function formCtrl ($scope, $location) {
+  function formCtrl ($location) {
     // Autocompletar formularios de formstack
     const urlForm = $location.search();
     const urlLength = Object.keys(urlForm).length;

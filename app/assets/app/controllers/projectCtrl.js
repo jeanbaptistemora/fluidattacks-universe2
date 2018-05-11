@@ -27,10 +27,9 @@ angular
 angular.module("FluidIntegrates").controller(
   "projectCtrl",
   function projectCtrl (
-    $scope, $location,
-    $uibModal, $timeout,
-    $state, $stateParams, $translate,
-    projectFtry, functionsFtry1, functionsFtry3
+    $location, $scope, $state, $stateParams,
+    $timeout, $translate, $uibModal,
+    functionsFtry1, functionsFtry3, projectFtry
   ) {
     $scope.init = function init () {
       const projectName = $stateParams.project;

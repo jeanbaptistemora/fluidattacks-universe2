@@ -24,8 +24,8 @@ Rollbar, angular
 angular.module("FluidIntegrates").controller(
   "reportGenerator",
   function reportGenerator (
-    $scope, $location,
-    $uibModal, $timeout
+    $location, $scope,
+    $timeout, $uibModal
   ) {
     $scope.reportModal = function reportModal () {
       // Tracking mixpanel

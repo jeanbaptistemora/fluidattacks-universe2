@@ -19,7 +19,7 @@ $, Rollbar, eventsData, userEmail, userName, angular */
 /** @export */
 angular.module("FluidIntegrates").factory(
   "functionsFtry1",
-  ($q, $translate, projectFtry, $uibModal, $stateParams, functionsFtry2) => ({
+  ($stateParams, $translate, $uibModal, functionsFtry2, projectFtry) => ({
 
     "alertHeader" (company, project) {
       const req = projectFtry.getAlerts(company, project);

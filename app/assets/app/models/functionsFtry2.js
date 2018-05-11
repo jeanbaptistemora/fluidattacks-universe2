@@ -22,7 +22,7 @@ realiabilityLevel, functionsFtry1, angular */
 /** @export */
 angular.module("FluidIntegrates").factory(
   "functionsFtry2",
-  ($q, $translate, projectFtry, $uibModal, $stateParams, $injector) => ({
+  ($injector, $stateParams, $translate, projectFtry) => ({
 
     "activeTab" (tabName, errorName, org, projt, id) {
       const tabNames = {

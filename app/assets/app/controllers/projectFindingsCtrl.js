@@ -72,10 +72,9 @@ labelState = function labelState (value) {
 angular.module("FluidIntegrates").controller(
   "projectFindingsCtrl",
   function projectFindingsCtrl (
-    $scope, $location,
-    $uibModal, $timeout,
-    $state, $stateParams, $translate,
-    projectFtry, functionsFtry1, functionsFtry3
+    $location, $scope, $state, $stateParams,
+    $timeout, $translate, $uibModal,
+    functionsFtry1, functionsFtry3, projectFtry
   ) {
     $scope.init = function init () {
       const projectName = $stateParams.project;

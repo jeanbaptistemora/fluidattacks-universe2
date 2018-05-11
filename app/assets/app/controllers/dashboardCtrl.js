@@ -20,9 +20,9 @@ findingData:true, fieldsToTranslate, keysToTranslate, modalInstance:true, $msg
 angular.module("FluidIntegrates").controller(
   "dashboardCtrl",
   function dashboardCtrl (
-    $scope, $uibModal, $timeout,
-    $state, $stateParams, $q,
-    $translate
+    $q, $scope, $state,
+    $stateParams, $timeout,
+    $translate, $uibModal
   ) {
     $scope.initMyProjects = function initMyProjects () {
       let vlang = "en-US";

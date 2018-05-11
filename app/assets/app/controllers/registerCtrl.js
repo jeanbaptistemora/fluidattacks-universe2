@@ -18,9 +18,9 @@ eventsData:true, findingData:true, angular
 angular.module("FluidIntegrates").controller(
   "registerCtrl",
   function dashboardCtrl (
-    $scope, $uibModal, $timeout,
-    $state, $stateParams, $q,
-    $translate
+    $q, $scope, $state,
+    $stateParams, $timeout,
+    $translate, $uibModal
   ) {
     $scope.logout = function logout () {
       $uibModal.open({

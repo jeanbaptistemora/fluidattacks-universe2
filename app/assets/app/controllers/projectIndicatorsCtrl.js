@@ -27,10 +27,9 @@ mixPanelDashboard, win:true, Organization, projectData:true, eventsData:true
 angular.module("FluidIntegrates").controller(
   "projectIndicatorsCtrl",
   function projectIndicatorsCtrl (
-    $scope, $location,
-    $uibModal, $timeout,
-    $state, $stateParams, $translate,
-    projectFtry, functionsFtry1, functionsFtry3
+    $location, $scope, $state, $stateParams,
+    $timeout, $translate, $uibModal,
+    functionsFtry1, functionsFtry3, projectFtry
   ) {
     const PERCENTAGE_FACTOR = 100;
     const MAX_DECIMALS = 2;

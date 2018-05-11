@@ -18,7 +18,6 @@ $, Rollbar, eventsData, userEmail, userName, secureRandom, angular*/
  */
 /** @export */
 angular.module("FluidIntegrates").factory("tabsFtry", (
-  $q,
   $translate,
   projectFtry
 ) => ({
