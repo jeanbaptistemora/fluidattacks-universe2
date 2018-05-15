@@ -15,8 +15,6 @@
 
 = CEH: El comienzo de la travesía
 
-image::ceh-logo.png[Logo certified ethical hacker]
-
 A diferencia de muchas certificaciones del enfoque +Red Team+,
 que miden las habilidades de forma práctica como +OSCP+ y +OSWP+,
 existen también muchas que evalúan el conocimientode forma teórica, como +CEH+.
