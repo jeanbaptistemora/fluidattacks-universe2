@@ -309,6 +309,9 @@ rules:
   angular/empty-controller: error
   angular/no-inline-template: error
   angular/no-run-logic: error
+  angular/no-services:
+    - error
+    - controller: ['$q'] # Allow the use of $q elements in controllers.
   angular/on-watch: error
   angular/prefer-component: error
   angular/no-cookiestore: error
@@ -316,6 +319,14 @@ rules:
   angular/no-http-callback: error
   angular/component-name: error
   angular/constant-name: error
+  angular/directive-name: error
+  angular/factory-name: error
+  angular/file-name: error
+  angular/filter-name: error
+  angular/module-name: error
+  angular/provider-name: error
+  angular/service-name: error
+  angular/value-name: error
   angular/di-order: error
   angular/dumb-inject: error
   angular/module-dependency-order: error

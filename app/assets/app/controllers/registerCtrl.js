@@ -17,7 +17,6 @@ eventsData:true, findingData:true, angular, $window */
 angular.module("FluidIntegrates").controller(
   "registerCtrl",
   function dashboardCtrl (
-    $q,
     $scope,
     $state,
     $stateParams,

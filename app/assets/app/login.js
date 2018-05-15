@@ -1,3 +1,5 @@
+// This file should not be renamed
+/* eslint-disable angular/file-name */
 /* eslint no-magic-numbers: ["error", { "ignore": [-1,0,1] }]*/
 /* global angular,$, $timeout,redirector:true, $window */
 /**
