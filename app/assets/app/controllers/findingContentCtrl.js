@@ -177,7 +177,7 @@ findingContentCtrl (
           findingData.data = response.data;
           $scope.finding = response.data;
           functionsFtry3.loadFindingContent($scope);
-          functionsFtry1.findingHeaderBuilding($scope, findingData);
+          functionsFtry3.findingHeaderBuilding($scope, findingData);
           $scope.remediatedView();
           findingData.remediated = $scope.isRemediated;
           $scope.view.project = false;

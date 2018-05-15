@@ -70,7 +70,10 @@ angular.module("FluidIntegrates").isProduction = function isProduction () {
  */
 angular.module("FluidIntegrates").controller(
   "loginController",
-  ($scope, $translate) => {
+  function loginController (
+    $scope,
+    $translate
+  ) {
     $scope.lang = function lang (langKey) {
       if (langKey === "es" || langKey === "en") {
         localStorage.lang = langKey;
