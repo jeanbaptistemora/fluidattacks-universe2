@@ -19,7 +19,7 @@ solución tiene sentido:
 . Si el lenguaje de programación es +Java+ ver Comprobar fortaleza de
 contraseña por medio de diccionarios (+Java+).
 . Se requiere comprobar la fortaleza de una contraseña
-por medio de diccionarios.<<r1, ^[1]^>>
+por medio de diccionarios.
 . El sistema operativo o el administrador del sistema poseen
 diccionarios con palabras comunes.
 
@@ -153,4 +153,7 @@ todas las instrucciones +C#+ del programa.
 
 == Referencias
 
-. [[r1]] link:../../../rules/997/[REQ.997 Contraseñas sin palabras de diccionario].
+. [[r1]] link:http://dazzlepod.com/uniqpass/[Diccionario dazzlepod de uniqpass]
+. [[r2]] link:http://www.openwall.com/wordlists/[Diccionario openwall de wordlists]
+. [[r3]] link:http://wordlist.sourceforge.net/[Diccionario sourceforge de wordlist]
+. [[r4]] link:http://packetstormsecurity.org/Crackers/wordlists/[Diccionario packetstormsecurity de Crackerswordlists]
