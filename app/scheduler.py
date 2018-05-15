@@ -162,3 +162,11 @@ def weekly_report():
     registered_users = integrates_dao.all_users_report("FLUID", final_date)
     logged_users = integrates_dao.logging_users_report("FLUID", init_date, final_date)
     integrates_dao.weekly_report_dynamo(str(init_date), str(final_date), registered_users[0][0], logged_users[0][0])
+
+
+def inactive_users():
+    final_date = (datetime.today() - timedelta(days=7))
+    inac_users = integrates_dao.all_inactive_users()
+    for user in inac_users:
+        if user[1] <= final_date:
+            integrates_dao.delete_user(user[0])

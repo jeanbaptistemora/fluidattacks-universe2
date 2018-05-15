@@ -588,6 +588,34 @@ def logging_users_report(company_name, init_date, finish_date):
     return rows
 
 
+def all_inactive_users():
+    """Extrae los usuarios inactivos en integrates."""
+    with connections['integrates'].cursor() as cursor:
+        query = 'SELECT id, last_login FROM users WHERE registered = 0'
+        try:
+            cursor.execute(query)
+            rows = cursor.fetchall()
+        except OperationalError:
+            rollbar.report_exc_info()
+            rows = []
+    return rows
+
+
+def delete_user(user_id=None):
+    """Elimina un usuario de integrates."""
+    if user_id:
+        with connections['integrates'].cursor() as cursor:
+            query = 'DELETE FROM users WHERE id = %s'
+            try:
+                cursor.execute(query, (user_id,))
+                cursor.fetchone()
+                return True
+            except OperationalError:
+                rollbar.report_exc_info()
+                return False
+        return False
+
+
 dynamodb_resource = resource('dynamodb',
                              aws_access_key_id=FI_AWS_DYNAMODB_ACCESS_KEY,
                              aws_secret_access_key=FI_AWS_DYNAMODB_SECRET_KEY,

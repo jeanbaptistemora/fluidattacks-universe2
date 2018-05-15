@@ -221,6 +221,7 @@ CRONJOBS = [
     ('0 6 * * 1-4', 'app.scheduler.get_age_notifications'),
     ('0 6 * * 5', 'app.scheduler.get_age_weekends_notifications'),
     ('0 5 * * 1', 'app.scheduler.weekly_report'),
+    ('0 4 * * *', 'app.scheduler.inactive_users'),
 ]
 
 AUTHENTICATION_BACKENDS = (
